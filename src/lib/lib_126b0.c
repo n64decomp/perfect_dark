@@ -7,6 +7,11 @@
 #include "data.h"
 #include "types.h"
 
+struct allocation {
+	u32 addr;
+	u32 size;
+};
+
 u32 var80099470;
 u32 var80099474;
 u32 var80099478[249];
@@ -17,18 +22,15 @@ u32 var80099868;
 u32 var8009986c;
 u32 var80099870;
 
-GLOBAL_ASM(
-glabel func000126b0
-/*    126b0:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*    126b4:	8c820000 */ 	lw	$v0,0x0($a0)
-/*    126b8:	8c830004 */ 	lw	$v1,0x4($a0)
-/*    126bc:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*    126c0:	8caf0004 */ 	lw	$t7,0x4($a1)
-/*    126c4:	ac8f0004 */ 	sw	$t7,0x4($a0)
-/*    126c8:	aca20000 */ 	sw	$v0,0x0($a1)
-/*    126cc:	03e00008 */ 	jr	$ra
-/*    126d0:	aca30004 */ 	sw	$v1,0x4($a1)
-);
+void memaSwap(struct allocation *a, struct allocation *b)
+{
+	u32 tempaddr = a->addr;
+	u32 tempsize = a->size;
+	a->addr = b->addr;
+	a->size = b->size;
+	b->addr = tempaddr;
+	b->size = tempsize;
+}
 
 GLOBAL_ASM(
 glabel func000126d4
@@ -66,7 +68,7 @@ glabel func000126f0
 /*    1273c:	0052082b */ 	sltu	$at,$v0,$s2
 /*    12740:	50200005 */ 	beqzl	$at,.L00012758
 /*    12744:	8e2f0004 */ 	lw	$t7,0x4($s1)
-/*    12748:	0c0049ac */ 	jal	func000126b0
+/*    12748:	0c0049ac */ 	jal	memaSwap
 /*    1274c:	02202825 */ 	or	$a1,$s1,$zero
 /*    12750:	8e020000 */ 	lw	$v0,0x0($s0)
 /*    12754:	8e2f0004 */ 	lw	$t7,0x4($s1)
@@ -134,7 +136,7 @@ glabel func00012800
 /*    12854:	0043082b */ 	sltu	$at,$v0,$v1
 /*    12858:	50200007 */ 	beqzl	$at,.L00012878
 /*    1285c:	00647021 */ 	addu	$t6,$v1,$a0
-/*    12860:	0c0049ac */ 	jal	func000126b0
+/*    12860:	0c0049ac */ 	jal	memaSwap
 /*    12864:	02002025 */ 	or	$a0,$s0,$zero
 /*    12868:	8e040004 */ 	lw	$a0,0x4($s0)
 /*    1286c:	8e020008 */ 	lw	$v0,0x8($s0)
