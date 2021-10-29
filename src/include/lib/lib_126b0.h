@@ -4,7 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-bool memaDefragPass(void *arg0);
 void func000127b8(void);
 u32 func00012800(void);
 u32 func00012914(void);

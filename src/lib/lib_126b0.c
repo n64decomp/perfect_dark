@@ -14,9 +14,7 @@ struct memaspace {
 
 struct memaheap {
 	u32 unk000;
-	u32 unk004;
-	u32 unk008;
-	struct memaspace spaces[126];
+	struct memaspace spaces[127];
 };
 
 u32 var80099470;
@@ -40,64 +38,35 @@ void memaMerge(struct memaspace *a, struct memaspace *b)
 	b->size = 0;
 }
 
-GLOBAL_ASM(
-glabel memaDefragPass
-/*    126f0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    126f4:	afb40028 */ 	sw	$s4,0x28($sp)
-/*    126f8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    126fc:	2490000c */ 	addiu	$s0,$a0,0xc
-/*    12700:	249403e4 */ 	addiu	$s4,$a0,0x3e4
-/*    12704:	afb30024 */ 	sw	$s3,0x24($sp)
-/*    12708:	afb20020 */ 	sw	$s2,0x20($sp)
-/*    1270c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*    12710:	0290082b */ 	sltu	$at,$s4,$s0
-/*    12714:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    12718:	00009825 */ 	or	$s3,$zero,$zero
-/*    1271c:	24910004 */ 	addiu	$s1,$a0,0x4
-/*    12720:	1420001c */ 	bnez	$at,.L00012794
-/*    12724:	00009025 */ 	or	$s2,$zero,$zero
-/*    12728:	8e0e0004 */ 	lw	$t6,0x4($s0)
-.L0001272c:
-/*    1272c:	51c00016 */ 	beqzl	$t6,.L00012788
-/*    12730:	26100008 */ 	addiu	$s0,$s0,0x8
-/*    12734:	8e020000 */ 	lw	$v0,0x0($s0)
-/*    12738:	02002025 */ 	or	$a0,$s0,$zero
-/*    1273c:	0052082b */ 	sltu	$at,$v0,$s2
-/*    12740:	50200005 */ 	beqzl	$at,.L00012758
-/*    12744:	8e2f0004 */ 	lw	$t7,0x4($s1)
-/*    12748:	0c0049ac */ 	jal	memaSwap
-/*    1274c:	02202825 */ 	or	$a1,$s1,$zero
-/*    12750:	8e020000 */ 	lw	$v0,0x0($s0)
-/*    12754:	8e2f0004 */ 	lw	$t7,0x4($s1)
-.L00012758:
-/*    12758:	02202025 */ 	or	$a0,$s1,$zero
-/*    1275c:	02002825 */ 	or	$a1,$s0,$zero
-/*    12760:	01f2c021 */ 	addu	$t8,$t7,$s2
-/*    12764:	54580006 */ 	bnel	$v0,$t8,.L00012780
-/*    12768:	02008825 */ 	or	$s1,$s0,$zero
-/*    1276c:	0c0049b5 */ 	jal	memaMerge
-/*    12770:	24130001 */ 	addiu	$s3,$zero,0x1
-/*    12774:	02208025 */ 	or	$s0,$s1,$zero
-/*    12778:	8e220000 */ 	lw	$v0,0x0($s1)
-/*    1277c:	02008825 */ 	or	$s1,$s0,$zero
-.L00012780:
-/*    12780:	00409025 */ 	or	$s2,$v0,$zero
-/*    12784:	26100008 */ 	addiu	$s0,$s0,0x8
-.L00012788:
-/*    12788:	0290082b */ 	sltu	$at,$s4,$s0
-/*    1278c:	5020ffe7 */ 	beqzl	$at,.L0001272c
-/*    12790:	8e0e0004 */ 	lw	$t6,0x4($s0)
-.L00012794:
-/*    12794:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    12798:	02601025 */ 	or	$v0,$s3,$zero
-/*    1279c:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*    127a0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    127a4:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*    127a8:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*    127ac:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*    127b0:	03e00008 */ 	jr	$ra
-/*    127b4:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+bool memaDefragPass(struct memaheap *heap)
+{
+	bool merged = false;
+	struct memaspace *prev = &heap->spaces[0];
+	struct memaspace *curr = &heap->spaces[1];
+	struct memaspace *last = &heap->spaces[124];
+	u32 addr = 0;
+
+	while (curr <= last) {
+		if (curr->size != 0) {
+			if (curr->addr < addr) {
+				memaSwap(curr, prev);
+			}
+
+			if (prev->size + addr == curr->addr) {
+				memaMerge(prev, curr);
+				curr = prev;
+				merged = true;
+			}
+
+			prev = curr;
+			addr = curr->addr;
+		}
+
+		curr++;
+	}
+
+	return merged;
+}
 
 void func000127b8(void)
 {
@@ -274,21 +243,22 @@ void memaHeapInit(void *heapaddr, u32 heapsize)
 #endif
 
 	g_MemaHeap.unk000 = 0;
-	g_MemaHeap.unk004 = 0;
-	g_MemaHeap.unk008 = 0;
 
-	g_MemaHeap.spaces[124].addr = 0xffffffff;
-	g_MemaHeap.spaces[124].size = 0;
+	g_MemaHeap.spaces[0].addr = 0;
+	g_MemaHeap.spaces[0].size = 0;
+
 	g_MemaHeap.spaces[125].addr = 0xffffffff;
-	g_MemaHeap.spaces[125].size = 0xffffffff;
+	g_MemaHeap.spaces[125].size = 0;
+	g_MemaHeap.spaces[126].addr = 0xffffffff;
+	g_MemaHeap.spaces[126].size = 0xffffffff;
 
-	for (space = &g_MemaHeap.spaces[0]; space <= &g_MemaHeap.spaces[123]; space++) {
+	for (space = &g_MemaHeap.spaces[1]; space <= &g_MemaHeap.spaces[124]; space++) {
 		space->addr = 0;
 		space->size = 0;
 	}
 
-	g_MemaHeap.spaces[0].addr = var80099470 = (u32)heapaddr;
-	g_MemaHeap.spaces[0].size = var80099474 = heapsize;
+	g_MemaHeap.spaces[1].addr = var80099470 = (u32)heapaddr;
+	g_MemaHeap.spaces[1].size = var80099474 = heapsize;
 }
 
 /**
