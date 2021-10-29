@@ -1558,8 +1558,7 @@ char *menuResolveText(u32 thing, struct menuitem *item)
 
 	if (thing > (u32)func0f1a78b0) {
 #if VERSION < VERSION_NTSC_1_0
-		// Force crash
-		*(u8 *)0 = 69;
+		CRASH();
 #endif
 		return NULL;
 	}

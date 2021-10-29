@@ -82,7 +82,7 @@ u32 setupGetCommandLength(u32 *cmd)
 
 #if VERSION < VERSION_NTSC_1_0
 	if (crash1) {
-		*(u8 *)0 = 69;
+		CRASH();
 	}
 #endif
 
