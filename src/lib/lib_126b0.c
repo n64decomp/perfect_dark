@@ -100,29 +100,10 @@ glabel func000126f0
 /*    127b4:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func000127b8
-/*    127b8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    127bc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    127c0:	3c10800a */ 	lui	$s0,%hi(var80099478)
-/*    127c4:	26109478 */ 	addiu	$s0,$s0,%lo(var80099478)
-/*    127c8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    127cc:	0c0049bc */ 	jal	func000126f0
-/*    127d0:	02002025 */ 	or	$a0,$s0,$zero
-/*    127d4:	50400006 */ 	beqzl	$v0,.L000127f0
-/*    127d8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L000127dc:
-/*    127dc:	0c0049bc */ 	jal	func000126f0
-/*    127e0:	02002025 */ 	or	$a0,$s0,$zero
-/*    127e4:	1440fffd */ 	bnez	$v0,.L000127dc
-/*    127e8:	00000000 */ 	nop
-/*    127ec:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L000127f0:
-/*    127f0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    127f4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    127f8:	03e00008 */ 	jr	$ra
-/*    127fc:	00000000 */ 	nop
-);
+void func000127b8(void)
+{
+	while (func000126f0(var80099478));
+}
 
 GLOBAL_ASM(
 glabel func00012800
