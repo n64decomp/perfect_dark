@@ -367,20 +367,10 @@ glabel func00012a44nb
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00012a98nb
-/*    12a98:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    12a9c:	00802825 */ 	or	$a1,$a0,$zero
-/*    12aa0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    12aa4:	30ae000f */ 	andi	$t6,$a1,0xf
-/*    12aa8:	01c02825 */ 	or	$a1,$t6,$zero
-/*    12aac:	0c004a0e */ 	jal	malloc
-/*    12ab0:	00042102 */ 	srl	$a0,$a0,0x4
-/*    12ab4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    12ab8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    12abc:	03e00008 */ 	jr	$ra
-/*    12ac0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void *func00012a98nb(u32 arg0)
+{
+	return malloc(arg0 / 16, arg0 & 0x0f);
+}
 #endif
 
 /**
