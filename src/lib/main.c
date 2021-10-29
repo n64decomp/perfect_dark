@@ -53,7 +53,7 @@
 #include "lib/memory.h"
 #include "lib/lib_126b0.h"
 #include "lib/lib_13750.h"
-#include "lib/lib_13790.h"
+#include "lib/debughud.h"
 #include "lib/anim.h"
 #include "lib/rdp.h"
 #include "lib/lib_2f490.h"

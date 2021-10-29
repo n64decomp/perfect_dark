@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_13790.h"
+#include "lib/debughud.h"
 #include "game/gfxmemory.h"
 #include "data.h"
 #include "types.h"

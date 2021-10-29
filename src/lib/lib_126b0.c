@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_126b0.h"
-#include "lib/lib_13790.h"
+#include "lib/debughud.h"
 #include "lib/memory.h"
 #include "data.h"
 #include "types.h"
