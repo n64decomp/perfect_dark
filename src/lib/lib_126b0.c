@@ -375,7 +375,7 @@ glabel func00012a14
  * and the right refers to expansion pak memory.
  *
  * F means free.
- * S means size?
+ * S means size.
  *
  * "Over" shows how much it's over 4MB, if they were to try to fit the game into
  * onboard memory only. This shows "Free" if under 4MB.
@@ -416,14 +416,14 @@ void memPrintInfoIfEnabled(void)
 		dhudPrintString(buffer);
 		line++;
 
-		onboard = func00012a44nb(MEMPOOL_STAGE, MEMBANK_ONBOARD);
-		expansion = func00012a44nb(MEMPOOL_STAGE, MEMBANK_EXPANSION);
+		onboard = memGetSize(MEMPOOL_STAGE, MEMBANK_ONBOARD);
+		expansion = memGetSize(MEMPOOL_STAGE, MEMBANK_EXPANSION);
 		sprintf(buffer, "S: %d %d", onboard, expansion);
 		dhudSetPos(31, line);
 		dhudPrintString(buffer);
 		line++;
 
-		over = func00012a44nb(MEMPOOL_STAGE, MEMBANK_EXPANSION)
+		over = memGetSize(MEMPOOL_STAGE, MEMBANK_EXPANSION)
 			- memGetFree(MEMPOOL_STAGE, MEMBANK_EXPANSION)
 			- memGetFree(MEMPOOL_STAGE, MEMBANK_ONBOARD);
 
@@ -448,8 +448,8 @@ void memPrintInfoIfEnabled(void)
 		dhudPrintString(buffer);
 		line++;
 
-		onboard = func00012a44nb(MEMPOOL_PERMANENT, MEMBANK_ONBOARD);
-		expansion = func00012a44nb(MEMPOOL_PERMANENT, MEMBANK_EXPANSION);
+		onboard = memGetSize(MEMPOOL_PERMANENT, MEMBANK_ONBOARD);
+		expansion = memGetSize(MEMPOOL_PERMANENT, MEMBANK_EXPANSION);
 		sprintf(buffer, "S: %d %d", onboard, expansion);
 		dhudSetPos(31, line);
 		dhudPrintString(buffer);

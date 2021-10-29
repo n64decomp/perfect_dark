@@ -243,7 +243,7 @@ glabel malloc
 /*    128bc:	00002825 */ 	or	$a1,$zero,$zero
 /*    128c0:	afa20028 */ 	sw	$v0,0x28($sp)
 /*    128c4:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    128c8:	0c004a91 */ 	jal	func00012a44nb
+/*    128c8:	0c004a91 */ 	jal	memGetSize
 /*    128cc:	00002825 */ 	or	$a1,$zero,$zero
 /*    128d0:	3c057005 */ 	lui	$a1,0x7005
 /*    128d4:	24a556f0 */ 	addiu	$a1,$a1,0x56f0
@@ -259,7 +259,7 @@ glabel malloc
 /*    128f8:	00002825 */ 	or	$a1,$zero,$zero
 /*    128fc:	afa20028 */ 	sw	$v0,0x28($sp)
 /*    12900:	24040006 */ 	addiu	$a0,$zero,0x6
-/*    12904:	0c004a91 */ 	jal	func00012a44nb
+/*    12904:	0c004a91 */ 	jal	memGetSize
 /*    12908:	00002825 */ 	or	$a1,$zero,$zero
 /*    1290c:	3c057005 */ 	lui	$a1,0x7005
 /*    12910:	24a55710 */ 	addiu	$a1,$a1,0x5710
@@ -338,38 +338,24 @@ u32 memGetFree(u8 poolnum, u32 bank)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00012a44nb
-/*    12a44:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    12a48:	308e00ff */ 	andi	$t6,$a0,0xff
-/*    12a4c:	14a00008 */ 	bnez	$a1,.NB00012a70
-/*    12a50:	01c02025 */ 	or	$a0,$t6,$zero
-/*    12a54:	000e7880 */ 	sll	$t7,$t6,0x2
-/*    12a58:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*    12a5c:	3c18800a */ 	lui	$t8,0x800a
-/*    12a60:	2718c280 */ 	addiu	$t8,$t8,-15744
-/*    12a64:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    12a68:	10000007 */ 	beqz	$zero,.NB00012a88
-/*    12a6c:	01f81821 */ 	addu	$v1,$t7,$t8
-.NB00012a70:
-/*    12a70:	0004c880 */ 	sll	$t9,$a0,0x2
-/*    12a74:	0324c821 */ 	addu	$t9,$t9,$a0
-/*    12a78:	3c08800a */ 	lui	$t0,0x800a
-/*    12a7c:	2508c338 */ 	addiu	$t0,$t0,-15560
-/*    12a80:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    12a84:	03281821 */ 	addu	$v1,$t9,$t0
-.NB00012a88:
-/*    12a88:	8c690008 */ 	lw	$t1,0x8($v1)
-/*    12a8c:	8c6a0000 */ 	lw	$t2,0x0($v1)
-/*    12a90:	03e00008 */ 	jr	$ra
-/*    12a94:	012a1023 */ 	subu	$v0,$t1,$t2
-);
+u32 memGetSize(u8 poolnum, u32 bank)
+{
+	struct memorypool *pool;
+
+	if (bank == MEMBANK_ONBOARD) {
+		pool = &g_OnboardMemoryPools[poolnum];
+	} else {
+		pool = &g_ExpansionMemoryPools[poolnum];
+	}
+
+	return pool->rightpos - pool->start;
+}
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-void *func00012a98nb(u32 arg0)
+void *memAllocFromPackedWord(u32 word)
 {
-	return malloc(arg0 / 16, arg0 & 0x0f);
+	return malloc(word >> 4, word & 0x0f);
 }
 #endif
 
