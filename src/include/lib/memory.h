@@ -15,7 +15,7 @@ u32 memGetFree(u8 poolnum, u32 bank);
 u32 memGetSize(u8 poolnum, u32 bank);
 void memResetPool(u8 pool);
 void memDisablePool(u8 pool);
-u32 memAllocFromBankRight(void);
-u32 mallocFromRight(void);
+void *memAllocFromBankRight(struct memorypool *pool, u32 size, u8 poolnum);
+void *mallocFromRight(u32 len, u8 pool);
 
 #endif

@@ -330,35 +330,19 @@ glabel memAllocFromBankRight
 /*    12640:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel mallocFromRight
-/*    12644:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    12648:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    1264c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    12650:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    12654:	3c04800a */ 	lui	$a0,%hi(g_OnboardMemoryPools)
-/*    12658:	24849300 */ 	addiu	$a0,$a0,%lo(g_OnboardMemoryPools)
-/*    1265c:	93a6001f */ 	lbu	$a2,0x1f($sp)
-/*    12660:	0c004977 */ 	jal	memAllocFromBankRight
-/*    12664:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*    12668:	10400003 */ 	beqz	$v0,.L00012678
-/*    1266c:	3c04800a */ 	lui	$a0,%hi(g_ExpansionMemoryPools)
-/*    12670:	1000000b */ 	b	.L000126a0
-/*    12674:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L00012678:
-/*    12678:	248493b8 */ 	addiu	$a0,$a0,%lo(g_ExpansionMemoryPools)
-/*    1267c:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*    12680:	0c004977 */ 	jal	memAllocFromBankRight
-/*    12684:	93a6001f */ 	lbu	$a2,0x1f($sp)
-/*    12688:	10400003 */ 	beqz	$v0,.L00012698
-/*    1268c:	00401825 */ 	or	$v1,$v0,$zero
-/*    12690:	10000003 */ 	b	.L000126a0
-/*    12694:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L00012698:
-/*    12698:	00601025 */ 	or	$v0,$v1,$zero
-/*    1269c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L000126a0:
-/*    126a0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    126a4:	03e00008 */ 	jr	$ra
-/*    126a8:	00000000 */ 	nop
-);
+void *mallocFromRight(u32 len, u8 pool)
+{
+	void *allocation = memAllocFromBankRight(g_OnboardMemoryPools, len, pool);
+
+	if (allocation) {
+		return allocation;
+	}
+
+	allocation = memAllocFromBankRight(g_ExpansionMemoryPools, len, pool);
+
+	if (allocation) {
+		return allocation;
+	}
+
+	return allocation;
+}
