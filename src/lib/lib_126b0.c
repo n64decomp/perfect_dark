@@ -730,9 +730,12 @@ glabel func00012cb4
 /*    12cc8:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    12ccc:	03e00008 */ 	jr	$ra
 /*    12cd0:	00000000 */ 	nop
-/*    12cd4:	03e00008 */ 	jr	$ra
-/*    12cd8:	00000000 */ 	nop
 );
+
+void mema00012cd4(void)
+{
+	// empty
+}
 
 /**
  * Find and return the largest amount of contiguous free space in the pool.
