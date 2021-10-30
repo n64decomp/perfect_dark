@@ -5,8 +5,6 @@
 #include "types.h"
 
 void memaDefrag(void);
-u32 func00012800(void);
-void _memaFree(u32 addr, u32 size);
 void memaInit(void);
 void memaHeapInit(void *ptr, u32 size);
 void memaPrint(void);

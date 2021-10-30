@@ -17,8 +17,8 @@ struct memaheap {
 	struct memaspace spaces[127];
 };
 
-u32 var80099470;
-u32 var80099474;
+s32 g_MemaHeapStart;
+s32 g_MemaHeapSize;
 struct memaheap g_MemaHeap;
 
 void memaSwap(struct memaspace *a, struct memaspace *b)
@@ -72,6 +72,8 @@ void memaDefrag(void)
 {
 	while (memaDefragPass(&g_MemaHeap));
 }
+
+struct memaspace *func00012800(struct memaheap *heap);
 
 GLOBAL_ASM(
 glabel func00012800
@@ -156,78 +158,38 @@ glabel func00012800
 /*    12910:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel _memaFree
-/*    12914:	3c0f800a */ 	lui	$t7,%hi(var80099470)
-/*    12918:	8def9470 */ 	lw	$t7,%lo(var80099470)($t7)
-/*    1291c:	3c09800a */ 	lui	$t1,%hi(var80099474)
-/*    12920:	8d299474 */ 	lw	$t1,%lo(var80099474)($t1)
-/*    12924:	008fc023 */ 	subu	$t8,$a0,$t7
-/*    12928:	0018c940 */ 	sll	$t9,$t8,0x5
-/*    1292c:	0338c823 */ 	subu	$t9,$t9,$t8
-/*    12930:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    12934:	0329001a */ 	div	$zero,$t9,$t1
-/*    12938:	00003012 */ 	mflo	$a2
-/*    1293c:	3c0b800a */ 	lui	$t3,%hi(g_MemaHeap)
-/*    12940:	256b9478 */ 	addiu	$t3,$t3,%lo(g_MemaHeap)
-/*    12944:	000650c0 */ 	sll	$t2,$a2,0x3
-/*    12948:	014b1021 */ 	addu	$v0,$t2,$t3
-/*    1294c:	8c480010 */ 	lw	$t0,0x10($v0)
-/*    12950:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    12954:	2447000c */ 	addiu	$a3,$v0,0xc
-/*    12958:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1295c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    12960:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    12964:	00807025 */ 	or	$t6,$a0,$zero
-/*    12968:	15200002 */ 	bnez	$t1,.L00012974
-/*    1296c:	00000000 */ 	nop
-/*    12970:	0007000d */ 	break	0x7
-.L00012974:
-/*    12974:	2401ffff */ 	addiu	$at,$zero,-1
-/*    12978:	15210004 */ 	bne	$t1,$at,.L0001298c
-/*    1297c:	3c018000 */ 	lui	$at,0x8000
-/*    12980:	17210002 */ 	bne	$t9,$at,.L0001298c
-/*    12984:	00000000 */ 	nop
-/*    12988:	0006000d */ 	break	0x6
-.L0001298c:
-/*    1298c:	00e01825 */ 	or	$v1,$a3,$zero
-/*    12990:	51000006 */ 	beqzl	$t0,.L000129ac
-/*    12994:	8c6d0000 */ 	lw	$t5,0x0($v1)
-/*    12998:	8c6c000c */ 	lw	$t4,0xc($v1)
-.L0001299c:
-/*    1299c:	24630008 */ 	addiu	$v1,$v1,0x8
-/*    129a0:	5580fffe */ 	bnezl	$t4,.L0001299c
-/*    129a4:	8c6c000c */ 	lw	$t4,0xc($v1)
-/*    129a8:	8c6d0000 */ 	lw	$t5,0x0($v1)
-.L000129ac:
-/*    129ac:	2401ffff */ 	addiu	$at,$zero,-1
-/*    129b0:	55a1000f */ 	bnel	$t5,$at,.L000129f0
-/*    129b4:	8fb80018 */ 	lw	$t8,0x18($sp)
-/*    129b8:	11000005 */ 	beqz	$t0,.L000129d0
-/*    129bc:	00e01825 */ 	or	$v1,$a3,$zero
-/*    129c0:	8c6efffc */ 	lw	$t6,-0x4($v1)
-.L000129c4:
-/*    129c4:	2463fff8 */ 	addiu	$v1,$v1,-8
-/*    129c8:	55c0fffe */ 	bnezl	$t6,.L000129c4
-/*    129cc:	8c6efffc */ 	lw	$t6,-0x4($v1)
-.L000129d0:
-/*    129d0:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*    129d4:	3c04800a */ 	lui	$a0,%hi(g_MemaHeap)
-/*    129d8:	55e00005 */ 	bnezl	$t7,.L000129f0
-/*    129dc:	8fb80018 */ 	lw	$t8,0x18($sp)
-/*    129e0:	0c004a00 */ 	jal	func00012800
-/*    129e4:	24849478 */ 	addiu	$a0,$a0,%lo(g_MemaHeap)
-/*    129e8:	00401825 */ 	or	$v1,$v0,$zero
-/*    129ec:	8fb80018 */ 	lw	$t8,0x18($sp)
-.L000129f0:
-/*    129f0:	ac780000 */ 	sw	$t8,0x0($v1)
-/*    129f4:	8fb9001c */ 	lw	$t9,0x1c($sp)
-/*    129f8:	ac790004 */ 	sw	$t9,0x4($v1)
-/*    129fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    12a00:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    12a04:	03e00008 */ 	jr	$ra
-/*    12a08:	00000000 */ 	nop
-);
+void _memaFree(s32 addr, s32 size)
+{
+	// Choose an index in the spaces array which we'll mark a space as free,
+	// based on how far into the heap the allocation is. This is a rough
+	// estimate and doesn't need to be any particular index, but the defrag
+	// function tries to order the spaces by address so the closer we get to it
+	// the less work the defrag function will have to do should it be called.
+	s32 index = (addr - g_MemaHeapStart) * 124 / g_MemaHeapSize;
+	struct memaspace *curr = &g_MemaHeap.spaces[index + 1];
+
+	// If the entry is taken, keep moving forward until a zero is found.
+	while (curr->size != 0) {
+		curr++;
+	}
+
+	// If we reached the end of the spaces list, go backwards instead
+	if (curr->addr == -1) {
+		curr = &g_MemaHeap.spaces[index + 1];
+
+		while (curr->size != 0) {
+			curr--;
+		}
+
+		if (curr->addr == 0) {
+			curr = func00012800(&g_MemaHeap);
+		}
+	}
+
+	// Mark this space as free
+	curr->addr = addr;
+	curr->size = size;
+}
 
 void memaInit(void)
 {
@@ -257,8 +219,8 @@ void memaHeapInit(void *heapaddr, u32 heapsize)
 		space->size = 0;
 	}
 
-	g_MemaHeap.spaces[1].addr = var80099470 = (u32)heapaddr;
-	g_MemaHeap.spaces[1].size = var80099474 = heapsize;
+	g_MemaHeap.spaces[1].addr = g_MemaHeapStart = (u32)heapaddr;
+	g_MemaHeap.spaces[1].size = g_MemaHeapSize = heapsize;
 }
 
 /**
@@ -787,7 +749,7 @@ glabel func00012d48
 /*    12d9c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    12da0:	03e00008 */ 	jr	$ra
 /*    12da4:	00000000 */ 	nop
-/*    12da8:	3c02800a */ 	lui	$v0,%hi(var80099474)
+/*    12da8:	3c02800a */ 	lui	$v0,%hi(g_MemaHeapSize)
 /*    12dac:	03e00008 */ 	jr	$ra
-/*    12db0:	8c429474 */ 	lw	$v0,%lo(var80099474)($v0)
+/*    12db0:	8c429474 */ 	lw	$v0,%lo(g_MemaHeapSize)($v0)
 );
