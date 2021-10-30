@@ -2248,8 +2248,8 @@
 	label,
 
 /**
- * Starts the X music theme. The music will play for the given number of seconds
- * before reverting to the primary track.
+ * Starts the X music theme. The music will play for a duration between minsecs
+ * and maxsecs before reverting to the primary track.
  *
  * The xreason argument is expected to be an XREASON constant. The command can
  * be called multiple times with different XREASONs and durations, essentially
@@ -2257,14 +2257,15 @@
  * is still in its duration. In practice this feature is not used - xreason is
  * always 1 (XREASON_DEFAULT).
  *
- * The u2 argument appears to be a timer value as well, but its purpose is
- * unknown.
+ * The minsecs argument is expected to be smaller than maxsecs. Between minsecs
+ * and maxsecs, the engine only plays the track if the reason is still set.
+ * Once maxsecs is reached the track is stopped regardless.
  */
-#define play_x_track(xreason, u2, seconds) \
+#define play_x_track(xreason, minsecs, maxsecs) \
 	mkshort(0x00f9), \
 	xreason, \
-	u2, \
-	seconds,
+	minsecs, \
+	maxsecs,
 
 /**
  * Stops the X music which has the given reason. If there is no other reason to

@@ -457,13 +457,13 @@ extern s32 var80082050;
 extern u32 g_GfxNumSwaps;
 extern s32 g_NumReasonsToEndMpMatch;
 extern u32 var800840c4;
-extern u32 var800840d8;
+extern u32 g_MusicNrgIsPlaying;
 extern u32 var800840e0;
 extern u32 var800840e4;
-extern u32 var800840f0;
-extern u32 var800840f4;
-extern u32 var800840f8;
-extern u32 var800840fc;
+extern s32 g_MusicDeathTimer240;
+extern s32 var800840f4;
+extern s32 var800840f8;
+extern s32 var800840fc;
 extern bool g_Jpn;
 #if VERSION >= VERSION_PAL_FINAL
 extern s32 g_LanguageId;

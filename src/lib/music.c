@@ -37,7 +37,7 @@ const char var70053f38[] = "MUSIC : Tick -> Channel %d (State=%d) has faded to s
 const char var70053f7c[] = "MUSIC : WARNING -> Force fade termination\n";
 const char var70053fa8[] = "MUSIC TICK : Job Guid = %u\n";
 
-u32 var8005edf0 = 0xffffffff;
+s32 var8005edf0 = -1;
 u32 var8005edf4 = 0x00000000;
 u32 var8005edf8 = 0x00000000;
 u32 var8005edfc = 0x00000000;
@@ -982,778 +982,115 @@ glabel music0001190c
 );
 #endif
 
-#if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel music00011d84
-/*    11d84:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
-/*    11d88:	8dcedda0 */ 	lw	$t6,%lo(g_SndDisabled)($t6)
-/*    11d8c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    11d90:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    11d94:	15c000e0 */ 	bnez	$t6,.L00012118
-/*    11d98:	afa00020 */ 	sw	$zero,0x20($sp)
-/*    11d9c:	3c038008 */ 	lui	$v1,%hi(var800840f0)
-/*    11da0:	246340f0 */ 	addiu	$v1,$v1,%lo(var800840f0)
-/*    11da4:	8c620000 */ 	lw	$v0,0x0($v1)
-/*    11da8:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
-/*    11dac:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
-/*    11db0:	18400044 */ 	blez	$v0,.L00011ec4
-/*    11db4:	00000000 */ 	nop
-/*    11db8:	8d4f0318 */ 	lw	$t7,0x318($t2)
-/*    11dbc:	3c048008 */ 	lui	$a0,%hi(var800840fc)
-/*    11dc0:	55e00014 */ 	bnezl	$t7,.L00011e14
-/*    11dc4:	8d590034 */ 	lw	$t9,0x34($t2)
-/*    11dc8:	8d58029c */ 	lw	$t8,0x29c($t2)
-/*    11dcc:	07020006 */ 	bltzl	$t8,.L00011de8
-/*    11dd0:	8d4c0298 */ 	lw	$t4,0x298($t2)
-/*    11dd4:	8d5902a0 */ 	lw	$t9,0x2a0($t2)
-/*    11dd8:	8f2b00d8 */ 	lw	$t3,0xd8($t9)
-/*    11ddc:	5160000d */ 	beqzl	$t3,.L00011e14
-/*    11de0:	8d590034 */ 	lw	$t9,0x34($t2)
-/*    11de4:	8d4c0298 */ 	lw	$t4,0x298($t2)
-.L00011de8:
-/*    11de8:	05800036 */ 	bltz	$t4,.L00011ec4
-/*    11dec:	00000000 */ 	nop
-/*    11df0:	8d4d02a0 */ 	lw	$t5,0x2a0($t2)
-/*    11df4:	8dae00d8 */ 	lw	$t6,0xd8($t5)
-/*    11df8:	51c00006 */ 	beqzl	$t6,.L00011e14
-/*    11dfc:	8d590034 */ 	lw	$t9,0x34($t2)
-/*    11e00:	8d4f02a4 */ 	lw	$t7,0x2a4($t2)
-/*    11e04:	8df800d8 */ 	lw	$t8,0xd8($t7)
-/*    11e08:	1700002e */ 	bnez	$t8,.L00011ec4
-/*    11e0c:	00000000 */ 	nop
-/*    11e10:	8d590034 */ 	lw	$t9,0x34($t2)
-.L00011e14:
-/*    11e14:	248440fc */ 	addiu	$a0,$a0,%lo(var800840fc)
-/*    11e18:	ac800000 */ 	sw	$zero,0x0($a0)
-/*    11e1c:	00595823 */ 	subu	$t3,$v0,$t9
-/*    11e20:	1d600023 */ 	bgtz	$t3,.L00011eb0
-/*    11e24:	ac6b0000 */ 	sw	$t3,0x0($v1)
-/*    11e28:	0fc5b76c */ 	jal	func0f16ddb0
-/*    11e2c:	00000000 */ 	nop
-/*    11e30:	3c0d8008 */ 	lui	$t5,%hi(var80087264)
-/*    11e34:	8dad7264 */ 	lw	$t5,%lo(var80087264)($t5)
-/*    11e38:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x318)
-/*    11e3c:	11a0001c */ 	beqz	$t5,.L00011eb0
-/*    11e40:	00000000 */ 	nop
-/*    11e44:	8dcea2d8 */ 	lw	$t6,%lo(g_Vars+0x318)($t6)
-/*    11e48:	3c058008 */ 	lui	$a1,%hi(var800840f4)
-/*    11e4c:	24a540f4 */ 	addiu	$a1,$a1,%lo(var800840f4)
-/*    11e50:	11c00017 */ 	beqz	$t6,.L00011eb0
-/*    11e54:	3c0f8008 */ 	lui	$t7,%hi(var800840f8)
-/*    11e58:	8def40f8 */ 	lw	$t7,%lo(var800840f8)($t7)
-/*    11e5c:	8cb80000 */ 	lw	$t8,0x0($a1)
-/*    11e60:	24040003 */ 	addiu	$a0,$zero,0x3
-/*    11e64:	01f8082a */ 	slt	$at,$t7,$t8
-/*    11e68:	10200011 */ 	beqz	$at,.L00011eb0
-/*    11e6c:	00000000 */ 	nop
-/*    11e70:	0fc5b490 */ 	jal	musicEnd
-/*    11e74:	aca00000 */ 	sw	$zero,0x0($a1)
-/*    11e78:	0fc5b490 */ 	jal	musicEnd
-/*    11e7c:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    11e80:	0fc5b490 */ 	jal	musicEnd
-/*    11e84:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    11e88:	3c04800b */ 	lui	$a0,%hi(g_MusicStageNum)
-/*    11e8c:	0fc5db10 */ 	jal	stageGetPrimaryTrack
-/*    11e90:	8c84a5d0 */ 	lw	$a0,%lo(g_MusicStageNum)($a0)
-/*    11e94:	0fc5b3e8 */ 	jal	musicGetVolume
-/*    11e98:	afa20018 */ 	sw	$v0,0x18($sp)
-/*    11e9c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    11ea0:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*    11ea4:	24060000 */ 	addiu	$a2,$zero,0x0
-/*    11ea8:	0fc5b46f */ 	jal	musicStart
-/*    11eac:	3047ffff */ 	andi	$a3,$v0,0xffff
-.L00011eb0:
-/*    11eb0:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
-/*    11eb4:	3c028008 */ 	lui	$v0,%hi(var80087264)
-/*    11eb8:	8c427264 */ 	lw	$v0,%lo(var80087264)($v0)
-/*    11ebc:	1000001d */ 	b	.L00011f34
-/*    11ec0:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
-.L00011ec4:
-/*    11ec4:	3c028008 */ 	lui	$v0,%hi(var80087264)
-/*    11ec8:	8c427264 */ 	lw	$v0,%lo(var80087264)($v0)
-/*    11ecc:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
-/*    11ed0:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
-/*    11ed4:	10400017 */ 	beqz	$v0,.L00011f34
-/*    11ed8:	00000000 */ 	nop
-/*    11edc:	8d590318 */ 	lw	$t9,0x318($t2)
-/*    11ee0:	3c0b8008 */ 	lui	$t3,%hi(var800840f8)
-/*    11ee4:	3c0c8008 */ 	lui	$t4,%hi(var800840f4)
-/*    11ee8:	13200012 */ 	beqz	$t9,.L00011f34
-/*    11eec:	00000000 */ 	nop
-/*    11ef0:	8d6b40f8 */ 	lw	$t3,%lo(var800840f8)($t3)
-/*    11ef4:	8d8c40f4 */ 	lw	$t4,%lo(var800840f4)($t4)
-/*    11ef8:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    11efc:	3c054000 */ 	lui	$a1,0x4000
-/*    11f00:	016c082a */ 	slt	$at,$t3,$t4
-/*    11f04:	1020000b */ 	beqz	$at,.L00011f34
-/*    11f08:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    11f0c:	3c018008 */ 	lui	$at,%hi(var800840f4)
-/*    11f10:	0fc5b4ab */ 	jal	func0f16d2ac
-/*    11f14:	ac2040f4 */ 	sw	$zero,%lo(var800840f4)($at)
-/*    11f18:	240d0078 */ 	addiu	$t5,$zero,0x64
-/*    11f1c:	3c018008 */ 	lui	$at,%hi(var800840fc)
-/*    11f20:	3c028008 */ 	lui	$v0,%hi(var80087264)
-/*    11f24:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
-/*    11f28:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
-/*    11f2c:	8c427264 */ 	lw	$v0,%lo(var80087264)($v0)
-/*    11f30:	ac2d40fc */ 	sw	$t5,%lo(var800840fc)($at)
-.L00011f34:
-/*    11f34:	3c048008 */ 	lui	$a0,%hi(var800840fc)
-/*    11f38:	3c058008 */ 	lui	$a1,%hi(var800840f4)
-/*    11f3c:	24a540f4 */ 	addiu	$a1,$a1,%lo(var800840f4)
-/*    11f40:	1040001f */ 	beqz	$v0,.L00011fc0
-/*    11f44:	248440fc */ 	addiu	$a0,$a0,%lo(var800840fc)
-/*    11f48:	8d4e0318 */ 	lw	$t6,0x318($t2)
-/*    11f4c:	11c0001c */ 	beqz	$t6,.L00011fc0
-/*    11f50:	00000000 */ 	nop
-/*    11f54:	8d420000 */ 	lw	$v0,0x0($t2)
-/*    11f58:	8caf0000 */ 	lw	$t7,0x0($a1)
-/*    11f5c:	8c830000 */ 	lw	$v1,0x0($a0)
-/*    11f60:	01e2c021 */ 	addu	$t8,$t7,$v0
-/*    11f64:	18600016 */ 	blez	$v1,.L00011fc0
-/*    11f68:	acb80000 */ 	sw	$t8,0x0($a1)
-/*    11f6c:	0062c823 */ 	subu	$t9,$v1,$v0
-/*    11f70:	1f200013 */ 	bgtz	$t9,.L00011fc0
-/*    11f74:	ac990000 */ 	sw	$t9,0x0($a0)
-/*    11f78:	0fc5b490 */ 	jal	musicEnd
-/*    11f7c:	24040003 */ 	addiu	$a0,$zero,0x3
-/*    11f80:	0fc5b490 */ 	jal	musicEnd
-/*    11f84:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    11f88:	0fc5b490 */ 	jal	musicEnd
-/*    11f8c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    11f90:	3c04800b */ 	lui	$a0,%hi(g_MusicStageNum)
-/*    11f94:	0fc5db10 */ 	jal	stageGetPrimaryTrack
-/*    11f98:	8c84a5d0 */ 	lw	$a0,%lo(g_MusicStageNum)($a0)
-/*    11f9c:	0fc5b3e8 */ 	jal	musicGetVolume
-/*    11fa0:	afa20018 */ 	sw	$v0,0x18($sp)
-/*    11fa4:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    11fa8:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*    11fac:	24060000 */ 	addiu	$a2,$zero,0x0
-/*    11fb0:	0fc5b46f */ 	jal	musicStart
-/*    11fb4:	3047ffff */ 	andi	$a3,$v0,0xffff
-/*    11fb8:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
-/*    11fbc:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
-.L00011fc0:
-/*    11fc0:	3c06800b */ 	lui	$a2,%hi(g_AudioXReasonsActive)
-/*    11fc4:	3c04800b */ 	lui	$a0,%hi(var800aaa78)
-/*    11fc8:	3c09800b */ 	lui	$t1,%hi(g_AudioXReasonDurations)
-/*    11fcc:	2529aa88 */ 	addiu	$t1,$t1,%lo(g_AudioXReasonDurations)
-/*    11fd0:	2484aa78 */ 	addiu	$a0,$a0,%lo(var800aaa78)
-/*    11fd4:	24c6aa68 */ 	addiu	$a2,$a2,%lo(g_AudioXReasonsActive)
-/*    11fd8:	8d480034 */ 	lw	$t0,0x34($t2)
-/*    11fdc:	00003825 */ 	or	$a3,$zero,$zero
-.L00011fe0:
-/*    11fe0:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*    11fe4:	54a00005 */ 	bnezl	$a1,.L00011ffc
-/*    11fe8:	8c820000 */ 	lw	$v0,0x0($a0)
-/*    11fec:	8c8c0000 */ 	lw	$t4,0x0($a0)
-/*    11ff0:	5980001f */ 	blezl	$t4,.L00012070
-/*    11ff4:	24840004 */ 	addiu	$a0,$a0,0x0004
-/*    11ff8:	8c820000 */ 	lw	$v0,0x0($a0)
-.L00011ffc:
-/*    11ffc:	3c0d800b */ 	lui	$t5,%hi(g_AudioXReasonDurations)
-/*    12000:	25adaa88 */ 	addiu	$t5,$t5,%lo(g_AudioXReasonDurations)
-/*    12004:	0048082a */ 	slt	$at,$v0,$t0
-/*    12008:	14200004 */ 	bnez	$at,.L0001201c
-/*    1200c:	00ed1821 */ 	addu	$v1,$a3,$t5
-/*    12010:	00487023 */ 	subu	$t6,$v0,$t0
-/*    12014:	10000002 */ 	b	.L00012020
-/*    12018:	ac8e0000 */ 	sw	$t6,0x0($a0)
-.L0001201c:
-/*    1201c:	ac800000 */ 	sw	$zero,0x0($a0)
-.L00012020:
-/*    12020:	8c620000 */ 	lw	$v0,0x0($v1)
-/*    12024:	10400011 */ 	beqz	$v0,.L0001206c
-/*    12028:	0048082a */ 	slt	$at,$v0,$t0
-/*    1202c:	14200003 */ 	bnez	$at,.L0001203c
-/*    12030:	00487823 */ 	subu	$t7,$v0,$t0
-/*    12034:	10000002 */ 	b	.L00012040
-/*    12038:	ac6f0000 */ 	sw	$t7,0x0($v1)
-.L0001203c:
-/*    1203c:	ac600000 */ 	sw	$zero,0x0($v1)
-.L00012040:
-/*    12040:	8c780000 */ 	lw	$t8,0x0($v1)
-/*    12044:	53000009 */ 	beqzl	$t8,.L0001206c
-/*    12048:	acc00000 */ 	sw	$zero,0x0($a2)
-/*    1204c:	14a00004 */ 	bnez	$a1,.L00012060
-/*    12050:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*    12054:	8c990000 */ 	lw	$t9,0x0($a0)
-/*    12058:	53200005 */ 	beqzl	$t9,.L00012070
-/*    1205c:	24840004 */ 	addiu	$a0,$a0,0x0004
-.L00012060:
-/*    12060:	10000002 */ 	b	.L0001206c
-/*    12064:	afab0020 */ 	sw	$t3,0x20($sp)
-/*    12068:	acc00000 */ 	sw	$zero,0x0($a2)
-.L0001206c:
-/*    1206c:	24840004 */ 	addiu	$a0,$a0,0x4
-.L00012070:
-/*    12070:	24e70004 */ 	addiu	$a3,$a3,0x4
-/*    12074:	1489ffda */ 	bne	$a0,$t1,.L00011fe0
-/*    12078:	24c60004 */ 	addiu	$a2,$a2,0x4
-/*    1207c:	11000016 */ 	beqz	$t0,.L000120d8
-/*    12080:	3c0c8008 */ 	lui	$t4,%hi(var800840d8)
-/*    12084:	8d8c40d8 */ 	lw	$t4,%lo(var800840d8)($t4)
-/*    12088:	8fad0020 */ 	lw	$t5,0x20($sp)
-/*    1208c:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*    12090:	11800008 */ 	beqz	$t4,.L000120b4
-/*    12094:	00000000 */ 	nop
-/*    12098:	15a0000f */ 	bnez	$t5,.L000120d8
-/*    1209c:	00000000 */ 	nop
-/*    120a0:	0fc5b6a9 */ 	jal	func0f16daa4
-/*    120a4:	00000000 */ 	nop
-/*    120a8:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x34)
-/*    120ac:	1000000a */ 	b	.L000120d8
-/*    120b0:	8d089ff4 */ 	lw	$t0,%lo(g_Vars+0x34)($t0)
-.L000120b4:
-/*    120b4:	11c00008 */ 	beqz	$t6,.L000120d8
-/*    120b8:	00000000 */ 	nop
-/*    120bc:	8d4f04c8 */ 	lw	$t7,0x4c8($t2)
-/*    120c0:	15e00005 */ 	bnez	$t7,.L000120d8
-/*    120c4:	00000000 */ 	nop
-/*    120c8:	0fc5b68b */ 	jal	func0f16da2c
-/*    120cc:	00000000 */ 	nop
-/*    120d0:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x34)
-/*    120d4:	8d089ff4 */ 	lw	$t0,%lo(g_Vars+0x34)($t0)
-.L000120d8:
-/*    120d8:	3c038006 */ 	lui	$v1,%hi(var8005edf0)
-/*    120dc:	2463edf0 */ 	addiu	$v1,$v1,%lo(var8005edf0)
-/*    120e0:	8c620000 */ 	lw	$v0,0x0($v1)
-/*    120e4:	0048082a */ 	slt	$at,$v0,$t0
-/*    120e8:	10200008 */ 	beqz	$at,.L0001210c
-/*    120ec:	0048c823 */ 	subu	$t9,$v0,$t0
-/*    120f0:	0fc5b84e */ 	jal	func0f16e138
-/*    120f4:	00000000 */ 	nop
-/*    120f8:	3c038006 */ 	lui	$v1,%hi(var8005edf0)
-/*    120fc:	2463edf0 */ 	addiu	$v1,$v1,%lo(var8005edf0)
-/*    12100:	2418003c */ 	addiu	$t8,$zero,0x32
-/*    12104:	10000002 */ 	b	.L00012110
-/*    12108:	ac780000 */ 	sw	$t8,0x0($v1)
-.L0001210c:
-/*    1210c:	ac790000 */ 	sw	$t9,0x0($v1)
-.L00012110:
-/*    12110:	0c004643 */ 	jal	music0001190c
-/*    12114:	00000000 */ 	nop
-.L00012118:
-/*    12118:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1211c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    12120:	03e00008 */ 	jr	$ra
-/*    12124:	00000000 */ 	nop
-);
-#elif VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel music00011d84
-/*    11d84:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
-/*    11d88:	8dcedda0 */ 	lw	$t6,%lo(g_SndDisabled)($t6)
-/*    11d8c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    11d90:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    11d94:	15c000e0 */ 	bnez	$t6,.L00012118
-/*    11d98:	afa00020 */ 	sw	$zero,0x20($sp)
-/*    11d9c:	3c038008 */ 	lui	$v1,%hi(var800840f0)
-/*    11da0:	246340f0 */ 	addiu	$v1,$v1,%lo(var800840f0)
-/*    11da4:	8c620000 */ 	lw	$v0,0x0($v1)
-/*    11da8:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
-/*    11dac:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
-/*    11db0:	18400044 */ 	blez	$v0,.L00011ec4
-/*    11db4:	00000000 */ 	nop
-/*    11db8:	8d4f0318 */ 	lw	$t7,0x318($t2)
-/*    11dbc:	3c048008 */ 	lui	$a0,%hi(var800840fc)
-/*    11dc0:	55e00014 */ 	bnezl	$t7,.L00011e14
-/*    11dc4:	8d590034 */ 	lw	$t9,0x34($t2)
-/*    11dc8:	8d58029c */ 	lw	$t8,0x29c($t2)
-/*    11dcc:	07020006 */ 	bltzl	$t8,.L00011de8
-/*    11dd0:	8d4c0298 */ 	lw	$t4,0x298($t2)
-/*    11dd4:	8d5902a0 */ 	lw	$t9,0x2a0($t2)
-/*    11dd8:	8f2b00d8 */ 	lw	$t3,0xd8($t9)
-/*    11ddc:	5160000d */ 	beqzl	$t3,.L00011e14
-/*    11de0:	8d590034 */ 	lw	$t9,0x34($t2)
-/*    11de4:	8d4c0298 */ 	lw	$t4,0x298($t2)
-.L00011de8:
-/*    11de8:	05800036 */ 	bltz	$t4,.L00011ec4
-/*    11dec:	00000000 */ 	nop
-/*    11df0:	8d4d02a0 */ 	lw	$t5,0x2a0($t2)
-/*    11df4:	8dae00d8 */ 	lw	$t6,0xd8($t5)
-/*    11df8:	51c00006 */ 	beqzl	$t6,.L00011e14
-/*    11dfc:	8d590034 */ 	lw	$t9,0x34($t2)
-/*    11e00:	8d4f02a4 */ 	lw	$t7,0x2a4($t2)
-/*    11e04:	8df800d8 */ 	lw	$t8,0xd8($t7)
-/*    11e08:	1700002e */ 	bnez	$t8,.L00011ec4
-/*    11e0c:	00000000 */ 	nop
-/*    11e10:	8d590034 */ 	lw	$t9,0x34($t2)
-.L00011e14:
-/*    11e14:	248440fc */ 	addiu	$a0,$a0,%lo(var800840fc)
-/*    11e18:	ac800000 */ 	sw	$zero,0x0($a0)
-/*    11e1c:	00595823 */ 	subu	$t3,$v0,$t9
-/*    11e20:	1d600023 */ 	bgtz	$t3,.L00011eb0
-/*    11e24:	ac6b0000 */ 	sw	$t3,0x0($v1)
-/*    11e28:	0fc5b76c */ 	jal	func0f16ddb0
-/*    11e2c:	00000000 */ 	nop
-/*    11e30:	3c0d8008 */ 	lui	$t5,%hi(var80087264)
-/*    11e34:	8dad7264 */ 	lw	$t5,%lo(var80087264)($t5)
-/*    11e38:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x318)
-/*    11e3c:	11a0001c */ 	beqz	$t5,.L00011eb0
-/*    11e40:	00000000 */ 	nop
-/*    11e44:	8dcea2d8 */ 	lw	$t6,%lo(g_Vars+0x318)($t6)
-/*    11e48:	3c058008 */ 	lui	$a1,%hi(var800840f4)
-/*    11e4c:	24a540f4 */ 	addiu	$a1,$a1,%lo(var800840f4)
-/*    11e50:	11c00017 */ 	beqz	$t6,.L00011eb0
-/*    11e54:	3c0f8008 */ 	lui	$t7,%hi(var800840f8)
-/*    11e58:	8def40f8 */ 	lw	$t7,%lo(var800840f8)($t7)
-/*    11e5c:	8cb80000 */ 	lw	$t8,0x0($a1)
-/*    11e60:	24040003 */ 	addiu	$a0,$zero,0x3
-/*    11e64:	01f8082a */ 	slt	$at,$t7,$t8
-/*    11e68:	10200011 */ 	beqz	$at,.L00011eb0
-/*    11e6c:	00000000 */ 	nop
-/*    11e70:	0fc5b490 */ 	jal	musicEnd
-/*    11e74:	aca00000 */ 	sw	$zero,0x0($a1)
-/*    11e78:	0fc5b490 */ 	jal	musicEnd
-/*    11e7c:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    11e80:	0fc5b490 */ 	jal	musicEnd
-/*    11e84:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    11e88:	3c04800b */ 	lui	$a0,%hi(g_MusicStageNum)
-/*    11e8c:	0fc5db10 */ 	jal	stageGetPrimaryTrack
-/*    11e90:	8c84a5d0 */ 	lw	$a0,%lo(g_MusicStageNum)($a0)
-/*    11e94:	0fc5b3e8 */ 	jal	musicGetVolume
-/*    11e98:	afa20018 */ 	sw	$v0,0x18($sp)
-/*    11e9c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    11ea0:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*    11ea4:	24060000 */ 	addiu	$a2,$zero,0x0
-/*    11ea8:	0fc5b46f */ 	jal	musicStart
-/*    11eac:	3047ffff */ 	andi	$a3,$v0,0xffff
-.L00011eb0:
-/*    11eb0:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
-/*    11eb4:	3c028008 */ 	lui	$v0,%hi(var80087264)
-/*    11eb8:	8c427264 */ 	lw	$v0,%lo(var80087264)($v0)
-/*    11ebc:	1000001d */ 	b	.L00011f34
-/*    11ec0:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
-.L00011ec4:
-/*    11ec4:	3c028008 */ 	lui	$v0,%hi(var80087264)
-/*    11ec8:	8c427264 */ 	lw	$v0,%lo(var80087264)($v0)
-/*    11ecc:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
-/*    11ed0:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
-/*    11ed4:	10400017 */ 	beqz	$v0,.L00011f34
-/*    11ed8:	00000000 */ 	nop
-/*    11edc:	8d590318 */ 	lw	$t9,0x318($t2)
-/*    11ee0:	3c0b8008 */ 	lui	$t3,%hi(var800840f8)
-/*    11ee4:	3c0c8008 */ 	lui	$t4,%hi(var800840f4)
-/*    11ee8:	13200012 */ 	beqz	$t9,.L00011f34
-/*    11eec:	00000000 */ 	nop
-/*    11ef0:	8d6b40f8 */ 	lw	$t3,%lo(var800840f8)($t3)
-/*    11ef4:	8d8c40f4 */ 	lw	$t4,%lo(var800840f4)($t4)
-/*    11ef8:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    11efc:	3c054000 */ 	lui	$a1,0x4000
-/*    11f00:	016c082a */ 	slt	$at,$t3,$t4
-/*    11f04:	1020000b */ 	beqz	$at,.L00011f34
-/*    11f08:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    11f0c:	3c018008 */ 	lui	$at,%hi(var800840f4)
-/*    11f10:	0fc5b4ab */ 	jal	func0f16d2ac
-/*    11f14:	ac2040f4 */ 	sw	$zero,%lo(var800840f4)($at)
-/*    11f18:	240d0078 */ 	addiu	$t5,$zero,0x78
-/*    11f1c:	3c018008 */ 	lui	$at,%hi(var800840fc)
-/*    11f20:	3c028008 */ 	lui	$v0,%hi(var80087264)
-/*    11f24:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
-/*    11f28:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
-/*    11f2c:	8c427264 */ 	lw	$v0,%lo(var80087264)($v0)
-/*    11f30:	ac2d40fc */ 	sw	$t5,%lo(var800840fc)($at)
-.L00011f34:
-/*    11f34:	3c048008 */ 	lui	$a0,%hi(var800840fc)
-/*    11f38:	3c058008 */ 	lui	$a1,%hi(var800840f4)
-/*    11f3c:	24a540f4 */ 	addiu	$a1,$a1,%lo(var800840f4)
-/*    11f40:	1040001f */ 	beqz	$v0,.L00011fc0
-/*    11f44:	248440fc */ 	addiu	$a0,$a0,%lo(var800840fc)
-/*    11f48:	8d4e0318 */ 	lw	$t6,0x318($t2)
-/*    11f4c:	11c0001c */ 	beqz	$t6,.L00011fc0
-/*    11f50:	00000000 */ 	nop
-/*    11f54:	8d420000 */ 	lw	$v0,0x0($t2)
-/*    11f58:	8caf0000 */ 	lw	$t7,0x0($a1)
-/*    11f5c:	8c830000 */ 	lw	$v1,0x0($a0)
-/*    11f60:	01e2c021 */ 	addu	$t8,$t7,$v0
-/*    11f64:	18600016 */ 	blez	$v1,.L00011fc0
-/*    11f68:	acb80000 */ 	sw	$t8,0x0($a1)
-/*    11f6c:	0062c823 */ 	subu	$t9,$v1,$v0
-/*    11f70:	1f200013 */ 	bgtz	$t9,.L00011fc0
-/*    11f74:	ac990000 */ 	sw	$t9,0x0($a0)
-/*    11f78:	0fc5b490 */ 	jal	musicEnd
-/*    11f7c:	24040003 */ 	addiu	$a0,$zero,0x3
-/*    11f80:	0fc5b490 */ 	jal	musicEnd
-/*    11f84:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    11f88:	0fc5b490 */ 	jal	musicEnd
-/*    11f8c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    11f90:	3c04800b */ 	lui	$a0,%hi(g_MusicStageNum)
-/*    11f94:	0fc5db10 */ 	jal	stageGetPrimaryTrack
-/*    11f98:	8c84a5d0 */ 	lw	$a0,%lo(g_MusicStageNum)($a0)
-/*    11f9c:	0fc5b3e8 */ 	jal	musicGetVolume
-/*    11fa0:	afa20018 */ 	sw	$v0,0x18($sp)
-/*    11fa4:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    11fa8:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*    11fac:	24060000 */ 	addiu	$a2,$zero,0x0
-/*    11fb0:	0fc5b46f */ 	jal	musicStart
-/*    11fb4:	3047ffff */ 	andi	$a3,$v0,0xffff
-/*    11fb8:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
-/*    11fbc:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
-.L00011fc0:
-/*    11fc0:	3c06800b */ 	lui	$a2,%hi(g_AudioXReasonsActive)
-/*    11fc4:	3c04800b */ 	lui	$a0,%hi(var800aaa78)
-/*    11fc8:	3c09800b */ 	lui	$t1,%hi(g_AudioXReasonDurations)
-/*    11fcc:	2529aa88 */ 	addiu	$t1,$t1,%lo(g_AudioXReasonDurations)
-/*    11fd0:	2484aa78 */ 	addiu	$a0,$a0,%lo(var800aaa78)
-/*    11fd4:	24c6aa68 */ 	addiu	$a2,$a2,%lo(g_AudioXReasonsActive)
-/*    11fd8:	8d480034 */ 	lw	$t0,0x34($t2)
-/*    11fdc:	00003825 */ 	or	$a3,$zero,$zero
-.L00011fe0:
-/*    11fe0:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*    11fe4:	54a00005 */ 	bnezl	$a1,.L00011ffc
-/*    11fe8:	8c820000 */ 	lw	$v0,0x0($a0)
-/*    11fec:	8c8c0000 */ 	lw	$t4,0x0($a0)
-/*    11ff0:	5980001f */ 	blezl	$t4,.L00012070
-/*    11ff4:	24840004 */ 	addiu	$a0,$a0,0x0004
-/*    11ff8:	8c820000 */ 	lw	$v0,0x0($a0)
-.L00011ffc:
-/*    11ffc:	3c0d800b */ 	lui	$t5,%hi(g_AudioXReasonDurations)
-/*    12000:	25adaa88 */ 	addiu	$t5,$t5,%lo(g_AudioXReasonDurations)
-/*    12004:	0048082a */ 	slt	$at,$v0,$t0
-/*    12008:	14200004 */ 	bnez	$at,.L0001201c
-/*    1200c:	00ed1821 */ 	addu	$v1,$a3,$t5
-/*    12010:	00487023 */ 	subu	$t6,$v0,$t0
-/*    12014:	10000002 */ 	b	.L00012020
-/*    12018:	ac8e0000 */ 	sw	$t6,0x0($a0)
-.L0001201c:
-/*    1201c:	ac800000 */ 	sw	$zero,0x0($a0)
-.L00012020:
-/*    12020:	8c620000 */ 	lw	$v0,0x0($v1)
-/*    12024:	10400011 */ 	beqz	$v0,.L0001206c
-/*    12028:	0048082a */ 	slt	$at,$v0,$t0
-/*    1202c:	14200003 */ 	bnez	$at,.L0001203c
-/*    12030:	00487823 */ 	subu	$t7,$v0,$t0
-/*    12034:	10000002 */ 	b	.L00012040
-/*    12038:	ac6f0000 */ 	sw	$t7,0x0($v1)
-.L0001203c:
-/*    1203c:	ac600000 */ 	sw	$zero,0x0($v1)
-.L00012040:
-/*    12040:	8c780000 */ 	lw	$t8,0x0($v1)
-/*    12044:	53000009 */ 	beqzl	$t8,.L0001206c
-/*    12048:	acc00000 */ 	sw	$zero,0x0($a2)
-/*    1204c:	14a00004 */ 	bnez	$a1,.L00012060
-/*    12050:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*    12054:	8c990000 */ 	lw	$t9,0x0($a0)
-/*    12058:	53200005 */ 	beqzl	$t9,.L00012070
-/*    1205c:	24840004 */ 	addiu	$a0,$a0,0x0004
-.L00012060:
-/*    12060:	10000002 */ 	b	.L0001206c
-/*    12064:	afab0020 */ 	sw	$t3,0x20($sp)
-/*    12068:	acc00000 */ 	sw	$zero,0x0($a2)
-.L0001206c:
-/*    1206c:	24840004 */ 	addiu	$a0,$a0,0x4
-.L00012070:
-/*    12070:	24e70004 */ 	addiu	$a3,$a3,0x4
-/*    12074:	1489ffda */ 	bne	$a0,$t1,.L00011fe0
-/*    12078:	24c60004 */ 	addiu	$a2,$a2,0x4
-/*    1207c:	11000016 */ 	beqz	$t0,.L000120d8
-/*    12080:	3c0c8008 */ 	lui	$t4,%hi(var800840d8)
-/*    12084:	8d8c40d8 */ 	lw	$t4,%lo(var800840d8)($t4)
-/*    12088:	8fad0020 */ 	lw	$t5,0x20($sp)
-/*    1208c:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*    12090:	11800008 */ 	beqz	$t4,.L000120b4
-/*    12094:	00000000 */ 	nop
-/*    12098:	15a0000f */ 	bnez	$t5,.L000120d8
-/*    1209c:	00000000 */ 	nop
-/*    120a0:	0fc5b6a9 */ 	jal	func0f16daa4
-/*    120a4:	00000000 */ 	nop
-/*    120a8:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x34)
-/*    120ac:	1000000a */ 	b	.L000120d8
-/*    120b0:	8d089ff4 */ 	lw	$t0,%lo(g_Vars+0x34)($t0)
-.L000120b4:
-/*    120b4:	11c00008 */ 	beqz	$t6,.L000120d8
-/*    120b8:	00000000 */ 	nop
-/*    120bc:	8d4f04c8 */ 	lw	$t7,0x4c8($t2)
-/*    120c0:	15e00005 */ 	bnez	$t7,.L000120d8
-/*    120c4:	00000000 */ 	nop
-/*    120c8:	0fc5b68b */ 	jal	func0f16da2c
-/*    120cc:	00000000 */ 	nop
-/*    120d0:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x34)
-/*    120d4:	8d089ff4 */ 	lw	$t0,%lo(g_Vars+0x34)($t0)
-.L000120d8:
-/*    120d8:	3c038006 */ 	lui	$v1,%hi(var8005edf0)
-/*    120dc:	2463edf0 */ 	addiu	$v1,$v1,%lo(var8005edf0)
-/*    120e0:	8c620000 */ 	lw	$v0,0x0($v1)
-/*    120e4:	0048082a */ 	slt	$at,$v0,$t0
-/*    120e8:	10200008 */ 	beqz	$at,.L0001210c
-/*    120ec:	0048c823 */ 	subu	$t9,$v0,$t0
-/*    120f0:	0fc5b84e */ 	jal	func0f16e138
-/*    120f4:	00000000 */ 	nop
-/*    120f8:	3c038006 */ 	lui	$v1,%hi(var8005edf0)
-/*    120fc:	2463edf0 */ 	addiu	$v1,$v1,%lo(var8005edf0)
-/*    12100:	2418003c */ 	addiu	$t8,$zero,0x3c
-/*    12104:	10000002 */ 	b	.L00012110
-/*    12108:	ac780000 */ 	sw	$t8,0x0($v1)
-.L0001210c:
-/*    1210c:	ac790000 */ 	sw	$t9,0x0($v1)
-.L00012110:
-/*    12110:	0c004643 */ 	jal	music0001190c
-/*    12114:	00000000 */ 	nop
-.L00012118:
-/*    12118:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1211c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    12120:	03e00008 */ 	jr	$ra
-/*    12124:	00000000 */ 	nop
-);
+void musicTick(void)
+{
+	s32 i;
+	bool playnrg = false;
+
+	if (!g_SndDisabled) {
+		if (g_MusicDeathTimer240 > 0
+				&& (g_Vars.normmplayerisrunning
+				 || (g_Vars.antiplayernum >= 0 && !g_Vars.bond->isdead)
+				 || (g_Vars.coopplayernum >= 0 && (!g_Vars.bond->isdead || !g_Vars.coop->isdead)))) {
+			// Someone is dying in MP, or anti is dying, or *one* person is dying in coop
+			var800840fc = 0;
+			g_MusicDeathTimer240 -= g_Vars.lvupdate240;
+
+			if (g_MusicDeathTimer240 <= 0) {
+				func0f16ddb0();
+
+				if (var80087264 && g_Vars.normmplayerisrunning && var800840f8 < var800840f4) {
+					var800840f4 = 0;
+					musicEnd(TRACKTYPE_MENU);
+					musicEnd(TRACKTYPE_DEATH);
+					musicEnd(TRACKTYPE_PRIMARY);
+					musicStart(TRACKTYPE_PRIMARY, stageGetPrimaryTrack(g_MusicStageNum), 0, musicGetVolume());
+				}
+			}
+		} else if (var80087264 && g_Vars.normmplayerisrunning && var800840f8 < var800840f4) {
+			var800840f4 = 0;
+			func0f16d2ac(TRACKTYPE_PRIMARY, 2, 1);
+			var800840fc = PALDOWN(120);
+		}
+
+		if (var80087264 && g_Vars.normmplayerisrunning) {
+			var800840f4 += g_Vars.diffframe60;
+
+			if (var800840fc > 0) {
+				var800840fc -= g_Vars.diffframe60;
+
+				if (var800840fc <= 0) {
+					musicEnd(TRACKTYPE_MENU);
+					musicEnd(TRACKTYPE_DEATH);
+					musicEnd(TRACKTYPE_PRIMARY);
+					musicStart(TRACKTYPE_PRIMARY, stageGetPrimaryTrack(g_MusicStageNum), 0, musicGetVolume());
+				}
+			}
+		}
+
+		// Handle stopping of NRG tune
+		for (i = 0; i < 4; i++) {
+			if (g_AudioXReasonsActive[i] || g_MusicXReasonMinDurations[i] > 0) {
+				if (g_MusicXReasonMinDurations[i] >= g_Vars.lvupdate240) {
+					g_MusicXReasonMinDurations[i] -= g_Vars.lvupdate240;
+				} else {
+					g_MusicXReasonMinDurations[i] = 0;
+				}
+
+				if (g_MusicXReasonMaxDurations[i] != 0) {
+					if (g_MusicXReasonMaxDurations[i] >= g_Vars.lvupdate240) {
+						g_MusicXReasonMaxDurations[i] -= g_Vars.lvupdate240;
+					} else {
+						g_MusicXReasonMaxDurations[i] = 0;
+					}
+
+					if (g_MusicXReasonMaxDurations[i] != 0) {
+						if (g_AudioXReasonsActive[i] || g_MusicXReasonMinDurations[i]) {
+							playnrg = true;
+						}
+					} else {
+						g_AudioXReasonsActive[i] = 0;
+					}
+				}
+			}
+		}
+
+#if VERSION >= VERSION_NTSC_1_0
+		if (g_Vars.lvupdate240 != 0) {
+			if (g_MusicNrgIsPlaying) {
+				if (!playnrg) {
+					musicStopNrg();
+				}
+			} else {
+				if (playnrg && !g_Vars.dontplaynrg) {
+					musicStartNrg();
+				}
+			}
+		}
 #else
-GLOBAL_ASM(
-glabel music00011d84
-/*    12120:	3c0e8006 */ 	lui	$t6,0x8006
-/*    12124:	8dcef6c0 */ 	lw	$t6,-0x940($t6)
-/*    12128:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    1212c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    12130:	15c000e0 */ 	bnez	$t6,.NB000124b4
-/*    12134:	afa00020 */ 	sw	$zero,0x20($sp)
-/*    12138:	3c038008 */ 	lui	$v1,0x8008
-/*    1213c:	24636968 */ 	addiu	$v1,$v1,0x6968
-/*    12140:	8c620000 */ 	lw	$v0,0x0($v1)
-/*    12144:	3c0a800a */ 	lui	$t2,0x800a
-/*    12148:	254ae6c0 */ 	addiu	$t2,$t2,-6464
-/*    1214c:	18400044 */ 	blez	$v0,.NB00012260
-/*    12150:	00000000 */ 	sll	$zero,$zero,0x0
-/*    12154:	8d4f0318 */ 	lw	$t7,0x318($t2)
-/*    12158:	3c048008 */ 	lui	$a0,0x8008
-/*    1215c:	55e00014 */ 	bnezl	$t7,.NB000121b0
-/*    12160:	8d590034 */ 	lw	$t9,0x34($t2)
-/*    12164:	8d58029c */ 	lw	$t8,0x29c($t2)
-/*    12168:	07020006 */ 	bltzl	$t8,.NB00012184
-/*    1216c:	8d4c0298 */ 	lw	$t4,0x298($t2)
-/*    12170:	8d5902a0 */ 	lw	$t9,0x2a0($t2)
-/*    12174:	8f2b00d8 */ 	lw	$t3,0xd8($t9)
-/*    12178:	5160000d */ 	beqzl	$t3,.NB000121b0
-/*    1217c:	8d590034 */ 	lw	$t9,0x34($t2)
-/*    12180:	8d4c0298 */ 	lw	$t4,0x298($t2)
-.NB00012184:
-/*    12184:	05800036 */ 	bltz	$t4,.NB00012260
-/*    12188:	00000000 */ 	sll	$zero,$zero,0x0
-/*    1218c:	8d4d02a0 */ 	lw	$t5,0x2a0($t2)
-/*    12190:	8dae00d8 */ 	lw	$t6,0xd8($t5)
-/*    12194:	51c00006 */ 	beqzl	$t6,.NB000121b0
-/*    12198:	8d590034 */ 	lw	$t9,0x34($t2)
-/*    1219c:	8d4f02a4 */ 	lw	$t7,0x2a4($t2)
-/*    121a0:	8df800d8 */ 	lw	$t8,0xd8($t7)
-/*    121a4:	1700002e */ 	bnez	$t8,.NB00012260
-/*    121a8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    121ac:	8d590034 */ 	lw	$t9,0x34($t2)
-.NB000121b0:
-/*    121b0:	24846974 */ 	addiu	$a0,$a0,0x6974
-/*    121b4:	ac800000 */ 	sw	$zero,0x0($a0)
-/*    121b8:	00595823 */ 	subu	$t3,$v0,$t9
-/*    121bc:	1d600023 */ 	bgtz	$t3,.NB0001224c
-/*    121c0:	ac6b0000 */ 	sw	$t3,0x0($v1)
-/*    121c4:	0fc5a26c */ 	jal	func0f16ddb0
-/*    121c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    121cc:	3c0d8009 */ 	lui	$t5,0x8009
-/*    121d0:	8dad99e4 */ 	lw	$t5,-0x661c($t5)
-/*    121d4:	3c0e800a */ 	lui	$t6,0x800a
-/*    121d8:	11a0001c */ 	beqz	$t5,.NB0001224c
-/*    121dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*    121e0:	8dcee9d8 */ 	lw	$t6,-0x1628($t6)
-/*    121e4:	3c058008 */ 	lui	$a1,0x8008
-/*    121e8:	24a5696c */ 	addiu	$a1,$a1,0x696c
-/*    121ec:	11c00017 */ 	beqz	$t6,.NB0001224c
-/*    121f0:	3c0f8008 */ 	lui	$t7,0x8008
-/*    121f4:	8def6970 */ 	lw	$t7,0x6970($t7)
-/*    121f8:	8cb80000 */ 	lw	$t8,0x0($a1)
-/*    121fc:	24040003 */ 	addiu	$a0,$zero,0x3
-/*    12200:	01f8082a */ 	slt	$at,$t7,$t8
-/*    12204:	10200011 */ 	beqz	$at,.NB0001224c
-/*    12208:	00000000 */ 	sll	$zero,$zero,0x0
-/*    1220c:	0fc59fed */ 	jal	musicEnd
-/*    12210:	aca00000 */ 	sw	$zero,0x0($a1)
-/*    12214:	0fc59fed */ 	jal	musicEnd
-/*    12218:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    1221c:	0fc59fed */ 	jal	musicEnd
-/*    12220:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    12224:	3c04800b */ 	lui	$a0,0x800b
-/*    12228:	0fc5c638 */ 	jal	stageGetPrimaryTrack
-/*    1222c:	8c84ee80 */ 	lw	$a0,-0x1180($a0)
-/*    12230:	0fc59f54 */ 	jal	musicGetVolume
-/*    12234:	afa20018 */ 	sw	$v0,0x18($sp)
-/*    12238:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    1223c:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*    12240:	24060000 */ 	addiu	$a2,$zero,0x0
-/*    12244:	0fc59fcc */ 	jal	musicStart
-/*    12248:	3047ffff */ 	andi	$a3,$v0,0xffff
-.NB0001224c:
-/*    1224c:	3c0a800a */ 	lui	$t2,0x800a
-/*    12250:	3c028009 */ 	lui	$v0,0x8009
-/*    12254:	8c4299e4 */ 	lw	$v0,-0x661c($v0)
-/*    12258:	1000001d */ 	beqz	$zero,.NB000122d0
-/*    1225c:	254ae6c0 */ 	addiu	$t2,$t2,-6464
-.NB00012260:
-/*    12260:	3c028009 */ 	lui	$v0,0x8009
-/*    12264:	8c4299e4 */ 	lw	$v0,-0x661c($v0)
-/*    12268:	3c0a800a */ 	lui	$t2,0x800a
-/*    1226c:	254ae6c0 */ 	addiu	$t2,$t2,-6464
-/*    12270:	10400017 */ 	beqz	$v0,.NB000122d0
-/*    12274:	00000000 */ 	sll	$zero,$zero,0x0
-/*    12278:	8d590318 */ 	lw	$t9,0x318($t2)
-/*    1227c:	3c0b8008 */ 	lui	$t3,0x8008
-/*    12280:	3c0c8008 */ 	lui	$t4,0x8008
-/*    12284:	13200012 */ 	beqz	$t9,.NB000122d0
-/*    12288:	00000000 */ 	sll	$zero,$zero,0x0
-/*    1228c:	8d6b6970 */ 	lw	$t3,0x6970($t3)
-/*    12290:	8d8c696c */ 	lw	$t4,0x696c($t4)
-/*    12294:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    12298:	3c054000 */ 	lui	$a1,0x4000
-/*    1229c:	016c082a */ 	slt	$at,$t3,$t4
-/*    122a0:	1020000b */ 	beqz	$at,.NB000122d0
-/*    122a4:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    122a8:	3c018008 */ 	lui	$at,0x8008
-/*    122ac:	0fc5a008 */ 	jal	func0f16d2ac
-/*    122b0:	ac20696c */ 	sw	$zero,0x696c($at)
-/*    122b4:	240d0078 */ 	addiu	$t5,$zero,0x78
-/*    122b8:	3c018008 */ 	lui	$at,0x8008
-/*    122bc:	3c028009 */ 	lui	$v0,0x8009
-/*    122c0:	3c0a800a */ 	lui	$t2,0x800a
-/*    122c4:	254ae6c0 */ 	addiu	$t2,$t2,-6464
-/*    122c8:	8c4299e4 */ 	lw	$v0,-0x661c($v0)
-/*    122cc:	ac2d6974 */ 	sw	$t5,0x6974($at)
-.NB000122d0:
-/*    122d0:	3c048008 */ 	lui	$a0,0x8008
-/*    122d4:	3c058008 */ 	lui	$a1,0x8008
-/*    122d8:	24a5696c */ 	addiu	$a1,$a1,0x696c
-/*    122dc:	1040001f */ 	beqz	$v0,.NB0001235c
-/*    122e0:	24846974 */ 	addiu	$a0,$a0,0x6974
-/*    122e4:	8d4e0318 */ 	lw	$t6,0x318($t2)
-/*    122e8:	11c0001c */ 	beqz	$t6,.NB0001235c
-/*    122ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*    122f0:	8d420000 */ 	lw	$v0,0x0($t2)
-/*    122f4:	8caf0000 */ 	lw	$t7,0x0($a1)
-/*    122f8:	8c830000 */ 	lw	$v1,0x0($a0)
-/*    122fc:	01e2c021 */ 	addu	$t8,$t7,$v0
-/*    12300:	18600016 */ 	blez	$v1,.NB0001235c
-/*    12304:	acb80000 */ 	sw	$t8,0x0($a1)
-/*    12308:	0062c823 */ 	subu	$t9,$v1,$v0
-/*    1230c:	1f200013 */ 	bgtz	$t9,.NB0001235c
-/*    12310:	ac990000 */ 	sw	$t9,0x0($a0)
-/*    12314:	0fc59fed */ 	jal	musicEnd
-/*    12318:	24040003 */ 	addiu	$a0,$zero,0x3
-/*    1231c:	0fc59fed */ 	jal	musicEnd
-/*    12320:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    12324:	0fc59fed */ 	jal	musicEnd
-/*    12328:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    1232c:	3c04800b */ 	lui	$a0,0x800b
-/*    12330:	0fc5c638 */ 	jal	stageGetPrimaryTrack
-/*    12334:	8c84ee80 */ 	lw	$a0,-0x1180($a0)
-/*    12338:	0fc59f54 */ 	jal	musicGetVolume
-/*    1233c:	afa20018 */ 	sw	$v0,0x18($sp)
-/*    12340:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    12344:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*    12348:	24060000 */ 	addiu	$a2,$zero,0x0
-/*    1234c:	0fc59fcc */ 	jal	musicStart
-/*    12350:	3047ffff */ 	andi	$a3,$v0,0xffff
-/*    12354:	3c0a800a */ 	lui	$t2,0x800a
-/*    12358:	254ae6c0 */ 	addiu	$t2,$t2,-6464
-.NB0001235c:
-/*    1235c:	3c06800b */ 	lui	$a2,0x800b
-/*    12360:	3c04800b */ 	lui	$a0,0x800b
-/*    12364:	3c09800b */ 	lui	$t1,0x800b
-/*    12368:	2529f338 */ 	addiu	$t1,$t1,-3272
-/*    1236c:	2484f328 */ 	addiu	$a0,$a0,-3288
-/*    12370:	24c6f318 */ 	addiu	$a2,$a2,-3304
-/*    12374:	8d470034 */ 	lw	$a3,0x34($t2)
-/*    12378:	00004025 */ 	or	$t0,$zero,$zero
-.NB0001237c:
-/*    1237c:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*    12380:	54a00005 */ 	bnezl	$a1,.NB00012398
-/*    12384:	8c820000 */ 	lw	$v0,0x0($a0)
-/*    12388:	8c8c0000 */ 	lw	$t4,0x0($a0)
-/*    1238c:	5980001f */ 	blezl	$t4,.NB0001240c
-/*    12390:	24840004 */ 	addiu	$a0,$a0,0x4
-/*    12394:	8c820000 */ 	lw	$v0,0x0($a0)
-.NB00012398:
-/*    12398:	3c0d800b */ 	lui	$t5,0x800b
-/*    1239c:	25adf338 */ 	addiu	$t5,$t5,-3272
-/*    123a0:	0047082a */ 	slt	$at,$v0,$a3
-/*    123a4:	14200004 */ 	bnez	$at,.NB000123b8
-/*    123a8:	010d1821 */ 	addu	$v1,$t0,$t5
-/*    123ac:	00477023 */ 	subu	$t6,$v0,$a3
-/*    123b0:	10000002 */ 	beqz	$zero,.NB000123bc
-/*    123b4:	ac8e0000 */ 	sw	$t6,0x0($a0)
-.NB000123b8:
-/*    123b8:	ac800000 */ 	sw	$zero,0x0($a0)
-.NB000123bc:
-/*    123bc:	8c620000 */ 	lw	$v0,0x0($v1)
-/*    123c0:	10400011 */ 	beqz	$v0,.NB00012408
-/*    123c4:	0047082a */ 	slt	$at,$v0,$a3
-/*    123c8:	14200003 */ 	bnez	$at,.NB000123d8
-/*    123cc:	00477823 */ 	subu	$t7,$v0,$a3
-/*    123d0:	10000002 */ 	beqz	$zero,.NB000123dc
-/*    123d4:	ac6f0000 */ 	sw	$t7,0x0($v1)
-.NB000123d8:
-/*    123d8:	ac600000 */ 	sw	$zero,0x0($v1)
-.NB000123dc:
-/*    123dc:	8c780000 */ 	lw	$t8,0x0($v1)
-/*    123e0:	53000009 */ 	beqzl	$t8,.NB00012408
-/*    123e4:	acc00000 */ 	sw	$zero,0x0($a2)
-/*    123e8:	14a00004 */ 	bnez	$a1,.NB000123fc
-/*    123ec:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*    123f0:	8c990000 */ 	lw	$t9,0x0($a0)
-/*    123f4:	53200005 */ 	beqzl	$t9,.NB0001240c
-/*    123f8:	24840004 */ 	addiu	$a0,$a0,0x4
-.NB000123fc:
-/*    123fc:	10000002 */ 	beqz	$zero,.NB00012408
-/*    12400:	afab0020 */ 	sw	$t3,0x20($sp)
-/*    12404:	acc00000 */ 	sw	$zero,0x0($a2)
-.NB00012408:
-/*    12408:	24840004 */ 	addiu	$a0,$a0,0x4
-.NB0001240c:
-/*    1240c:	25080004 */ 	addiu	$t0,$t0,0x4
-/*    12410:	1489ffda */ 	bne	$a0,$t1,.NB0001237c
-/*    12414:	24c60004 */ 	addiu	$a2,$a2,0x4
-/*    12418:	10e00013 */ 	beqz	$a3,.NB00012468
-/*    1241c:	24040002 */ 	addiu	$a0,$zero,0x2
-/*    12420:	0fc59f87 */ 	jal	func0f16d0a8
-/*    12424:	24050001 */ 	addiu	$a1,$zero,0x1
-/*    12428:	10400008 */ 	beqz	$v0,.NB0001244c
-/*    1242c:	8fad0020 */ 	lw	$t5,0x20($sp)
-/*    12430:	8fac0020 */ 	lw	$t4,0x20($sp)
-/*    12434:	1580000c */ 	bnez	$t4,.NB00012468
-/*    12438:	00000000 */ 	sll	$zero,$zero,0x0
-/*    1243c:	0fc5a1d1 */ 	jal	func0f16daa4
-/*    12440:	00000000 */ 	sll	$zero,$zero,0x0
-/*    12444:	10000008 */ 	beqz	$zero,.NB00012468
-/*    12448:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0001244c:
-/*    1244c:	11a00006 */ 	beqz	$t5,.NB00012468
-/*    12450:	3c0e800a */ 	lui	$t6,0x800a
-/*    12454:	8dceeb88 */ 	lw	$t6,-0x1478($t6)
-/*    12458:	15c00003 */ 	bnez	$t6,.NB00012468
-/*    1245c:	00000000 */ 	sll	$zero,$zero,0x0
-/*    12460:	0fc5a1b6 */ 	jal	func0f16da2c
-/*    12464:	00000000 */ 	sll	$zero,$zero,0x0
-.NB00012468:
-/*    12468:	3c038006 */ 	lui	$v1,0x8006
-/*    1246c:	3c0a800a */ 	lui	$t2,0x800a
-/*    12470:	254ae6c0 */ 	addiu	$t2,$t2,-6464
-/*    12474:	24630670 */ 	addiu	$v1,$v1,0x670
-/*    12478:	8c620000 */ 	lw	$v0,0x0($v1)
-/*    1247c:	8d470034 */ 	lw	$a3,0x34($t2)
-/*    12480:	0047082a */ 	slt	$at,$v0,$a3
-/*    12484:	10200008 */ 	beqz	$at,.NB000124a8
-/*    12488:	0047c023 */ 	subu	$t8,$v0,$a3
-/*    1248c:	0fc5a33b */ 	jal	func0f16e138
-/*    12490:	00000000 */ 	sll	$zero,$zero,0x0
-/*    12494:	3c038006 */ 	lui	$v1,0x8006
-/*    12498:	24630670 */ 	addiu	$v1,$v1,0x670
-/*    1249c:	240f003c */ 	addiu	$t7,$zero,0x3c
-/*    124a0:	10000002 */ 	beqz	$zero,.NB000124ac
-/*    124a4:	ac6f0000 */ 	sw	$t7,0x0($v1)
-.NB000124a8:
-/*    124a8:	ac780000 */ 	sw	$t8,0x0($v1)
-.NB000124ac:
-/*    124ac:	0c00472d */ 	jal	music0001190c
-/*    124b0:	00000000 */ 	sll	$zero,$zero,0x0
-.NB000124b4:
-/*    124b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    124b8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    124bc:	03e00008 */ 	jr	$ra
-/*    124c0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+		if (g_Vars.lvupdate240 != 0) {
+			if (func0f16d0a8(TRACKTYPE_X, 1)) {
+				if (!playnrg) {
+					musicStopNrg();
+				}
+			} else {
+				if (playnrg && !g_Vars.dontplaynrg) {
+					musicStartNrg();
+				}
+			}
+		}
 #endif
+
+		if (g_Vars.lvupdate240 > var8005edf0) {
+			func0f16e138();
+			var8005edf0 = PALDOWN(60);
+		} else {
+			var8005edf0 -= g_Vars.lvupdate240;
+		}
+
+		music0001190c();
+	}
+}
 
 bool musicIsTrackTypePlaying(s32 tracktype)
 {

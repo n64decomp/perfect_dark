@@ -16,8 +16,8 @@ u32 var800aa5d4;
 struct var800aa5d8 var800aa5d8[40];
 struct var800aaa38 var800aaa38[3];
 u32 g_AudioXReasonsActive[4];
-u32 var800aaa78[4];
-u32 g_AudioXReasonDurations[4];
+s32 g_MusicXReasonMinDurations[4];
+s32 g_MusicXReasonMaxDurations[4];
 
 s32 g_MenuTrack = -1;
 u32 var800840c4 = 0x00000000;
@@ -29,7 +29,7 @@ s32 var800840d0 = -1;
 #endif
 
 u32 var800840d4 = 0x00000000;
-u32 var800840d8 = 0x00000000;
+u32 g_MusicNrgIsPlaying = 0x00000000;
 s32 var800840dc = 0;
 u32 var800840e0 = 0x0000000f;
 u32 var800840e4 = 0x00000000;
@@ -39,10 +39,10 @@ s32 var800840e8 = 0;
 u16 var800840ec = 0x5000;
 #endif
 
-u32 var800840f0 = 0x00000000;
-u32 var800840f4 = 0x00000000;
-u32 var800840f8 = PAL ? 100 : 120;
-u32 var800840fc = 0x00000000;
+s32 g_MusicDeathTimer240 = 0x00000000;
+s32 var800840f4 = 0x00000000;
+s32 var800840f8 = PAL ? 100 : 120;
+s32 var800840fc = 0x00000000;
 
 #if VERSION < VERSION_NTSC_1_0
 const char var7f1b2030nb[] = "MUSIC : musicPlayLevel\n";
@@ -218,8 +218,8 @@ void func0f16d324(void)
 	if (!g_SndDisabled) {
 		for (i = 0; i < 4; i++) {
 			g_AudioXReasonsActive[i] = 0;
-			var800aaa78[i] = 0;
-			g_AudioXReasonDurations[i] = 0;
+			g_MusicXReasonMinDurations[i] = 0;
+			g_MusicXReasonMaxDurations[i] = 0;
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -231,11 +231,11 @@ void func0f16d324(void)
 #endif
 
 		var800840e8 = 0;
-		var800840f0 = 0;
+		g_MusicDeathTimer240 = 0;
 		g_MenuTrack = -1;
 		g_TemporaryPrimaryTrack = -1;
 		g_TemporaryAmbientTrack = -1;
-		var800840d8 = 0;
+		g_MusicNrgIsPlaying = 0;
 	}
 }
 
@@ -434,7 +434,7 @@ bool musicIsAnyPlayerInAmbientRoom(void)
 		return false;
 	}
 
-	if (var800840d8 && var800840dc) {
+	if (g_MusicNrgIsPlaying && var800840dc) {
 		return false;
 	}
 
@@ -510,10 +510,10 @@ void musicReset(void)
 #endif
 }
 
-void func0f16da2c(void)
+void musicStartNrg(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	if (var800840d8 == 0)
+	if (g_MusicNrgIsPlaying == 0)
 #endif
 	{
 		if (stageGetXTrack(g_MusicStageNum) >= 0) {
@@ -523,15 +523,15 @@ void func0f16da2c(void)
 			func0f16d2ac(TRACKTYPE_PRIMARY, 0.5, 1);
 			musicStartX(0);
 
-			var800840d8 = 1;
+			g_MusicNrgIsPlaying = 1;
 		}
 	}
 }
 
-void func0f16daa4(void)
+void musicStopNrg(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	if (var800840d8)
+	if (g_MusicNrgIsPlaying)
 #endif
 	{
 		musicEnd(TRACKTYPE_MENU);
@@ -542,7 +542,7 @@ void func0f16daa4(void)
 			musicStartPrimary(0.5);
 		}
 
-		var800840d8 = 0;
+		g_MusicNrgIsPlaying = 0;
 	}
 }
 
@@ -606,7 +606,7 @@ void func0f16dd14(void)
 	musicEnd(TRACKTYPE_DEATH);
 	musicEnd(TRACKTYPE_AMBIENT);
 
-	if (var800840d8) {
+	if (g_MusicNrgIsPlaying) {
 		func0f16d2ac(TRACKTYPE_X, 0.1f, 1);
 	} else {
 		func0f16d2ac(TRACKTYPE_PRIMARY, 0.1f, 1);
@@ -614,7 +614,7 @@ void func0f16dd14(void)
 
 	musicStartMpDeath(0);
 
-	var800840f0 = PALDOWN(1200);
+	g_MusicDeathTimer240 = PALDOWN(1200);
 	var800840dc = 1;
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -626,7 +626,7 @@ void func0f16ddb0(void)
 {
 	func0f16d2ac(TRACKTYPE_DEATH, 2, 0);
 
-	if (var800840d8) {
+	if (g_MusicNrgIsPlaying) {
 		musicStartX(2);
 	} else {
 		musicStartPrimary(2);
@@ -716,12 +716,12 @@ void musicEndAmbient(void)
 	musicEnd(TRACKTYPE_AMBIENT);
 }
 
-void musicSetXReason(s32 reason, u32 arg1, u32 duration)
+void musicSetXReason(s32 reason, u32 minsecs, u32 maxsecs)
 {
 	if (g_AudioXReasonsActive[reason] == false) {
 		g_AudioXReasonsActive[reason] = true;
-		var800aaa78[reason] = arg1 * PALDOWN(240);
-		g_AudioXReasonDurations[reason] = duration * PALDOWN(240);
+		g_MusicXReasonMinDurations[reason] = minsecs * PALDOWN(240);
+		g_MusicXReasonMaxDurations[reason] = maxsecs * PALDOWN(240);
 	}
 }
 
@@ -734,13 +734,13 @@ void musicUnsetXReason(s32 reason)
 	} else {
 		for (i = 0; i < 4; i++) {
 			g_AudioXReasonsActive[i] = false;
-			var800aaa78[i] = 0;
-			g_AudioXReasonDurations[i] = 0;
+			g_MusicXReasonMinDurations[i] = 0;
+			g_MusicXReasonMaxDurations[i] = 0;
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
-		if (var800840d8) {
-			func0f16daa4();
+		if (g_MusicNrgIsPlaying) {
+			musicStopNrg();
 		}
 #endif
 	}
