@@ -1103,7 +1103,7 @@ PakErr1 _pakReadWriteBlock(OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 le
 	if (newaddress >= 256) {
 #if VERSION < VERSION_NTSC_1_0
 		u32 stack;
-		func0000c1d0nb("ILLEGAL EEPROM ADDRESS (>=256)");
+		crashSetMessage("ILLEGAL EEPROM ADDRESS (>=256)");
 		CRASH();
 #endif
 	}

@@ -201,7 +201,7 @@ void *mempAlloc(u32 len, u8 pool)
 			sprintf(buffer, "Out of mem - ETR: %d f %d s %d", len, free, size);
 		}
 
-		func0000c1d0nb(buffer);
+		crashSetMessage(buffer);
 		CRASH();
 	}
 #endif

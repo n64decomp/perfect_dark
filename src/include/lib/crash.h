@@ -87,6 +87,7 @@ extern const char var700529a4[];
 extern const char var700529a8[];
 extern const char var700529ac[];
 
+void crashSetMessage(char *string);
 void crashCreateThread(void);
 u32 crashGetParentStackFrame(u32 *ptr, u32 *start, u32 sp, u32 *regs);
 bool crashIsReturnAddress(u32 *instruction);

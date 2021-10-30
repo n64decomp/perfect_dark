@@ -6243,7 +6243,7 @@ glabel var7f1b1fd4nb
 /*  f165eb4:	50200006 */ 	beqzl	$at,.NB0f165ed0
 /*  f165eb8:	8fbf0054 */ 	lw	$ra,0x54($sp)
 .NB0f165ebc:
-/*  f165ebc:	0c003074 */ 	jal	func0000c1d0nb
+/*  f165ebc:	0c003074 */ 	jal	crashSetMessage
 /*  f165ec0:	24841e78 */ 	addiu	$a0,$a0,0x1e78
 /*  f165ec4:	240e0045 */ 	addiu	$t6,$zero,0x45
 /*  f165ec8:	a00e0000 */ 	sb	$t6,0x0($zero)

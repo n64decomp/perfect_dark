@@ -39,7 +39,7 @@ void dmaStart(void *memaddr, u32 romaddr, u32 len, bool priority)
 
 #if VERSION < VERSION_NTSC_1_0
 	if (romaddr >= 1024 * 1024 * 32) {
-		func0000c1d0nb("DMA : Off the end of the rom");
+		crashSetMessage("DMA : Off the end of the rom");
 		CRASH();
 	}
 #endif

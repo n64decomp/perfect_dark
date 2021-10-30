@@ -11,7 +11,6 @@
 #include "lib/main.h"
 #include "lib/snd.h"
 #include "lib/pimgr.h"
-#include "lib/lib_13750.h"
 #include "lib/rmon.h"
 #include "lib/lib_48150.h"
 #include "data.h"

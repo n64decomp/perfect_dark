@@ -17,7 +17,7 @@
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-u32 padding[18];
+char g_CrashMessage[70];
 #endif
 
 OSThread g_FaultThread;
@@ -25,7 +25,7 @@ u8 g_FaultStack[STACKSIZE_FAULT];
 OSMesgQueue g_FaultMesgQueue;
 OSMesg g_FaultMesg;
 
-u32 var8005d5b0 = 0;
+u8 g_CrashHasMessage = false;
 s16 g_CrashCurX = 0;
 s16 g_CrashCurY = 0;
 
@@ -169,22 +169,11 @@ u32 crashGenerate(OSThread *thread, u32 *callstack, s32 *tracelen);
 void crashPrintDescription(u32 mask, char *label, struct crashdescription *descriptions);
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0000c1d0nb
-/*     c1d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     c1d4:	00802825 */ 	or	$a1,$a0,$zero
-/*     c1d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     c1dc:	3c048009 */ 	lui	$a0,0x8009
-/*     c1e0:	24844e70 */ 	addiu	$a0,$a0,0x4e70
-/*     c1e4:	0c004e86 */ 	jal	strncpy
-/*     c1e8:	24060046 */ 	addiu	$a2,$zero,0x46
-/*     c1ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     c1f0:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*     c1f4:	3c018006 */ 	lui	$at,0x8006
-/*     c1f8:	a02eed50 */ 	sb	$t6,-0x12b0($at)
-/*     c1fc:	03e00008 */ 	jr	$ra
-/*     c200:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void crashSetMessage(char *string)
+{
+	strncpy(g_CrashMessage, string, sizeof(g_CrashMessage));
+	g_CrashHasMessage = true;
+}
 #endif
 
 void crashCreateThread(void)

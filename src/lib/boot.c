@@ -12,7 +12,7 @@
 #include "lib/main.h"
 #include "lib/snd.h"
 #include "lib/pimgr.h"
-#include "lib/lib_13750.h"
+#include "lib/videbug.h"
 #include "lib/rmon.h"
 #include "lib/lib_48150.h"
 #include "data.h"
@@ -693,7 +693,7 @@ glabel func00001bf4nb
 /*     1c70:	02a02825 */ 	move	$a1,$s5
 /*     1c74:	0c004fc1 */ 	jal	sprintf
 /*     1c78:	02603025 */ 	move	$a2,$s3
-/*     1c7c:	0c003074 */ 	jal	func0000c1d0nb
+/*     1c7c:	0c003074 */ 	jal	crashSetMessage
 /*     1c80:	02402025 */ 	move	$a0,$s2
 /*     1c84:	a0160000 */ 	sb	$s6,0x0($zero)
 /*     1c88:	26310001 */ 	addiu	$s1,$s1,0x1

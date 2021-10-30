@@ -52,7 +52,7 @@
 #include "lib/snd.h"
 #include "lib/memp.h"
 #include "lib/mema.h"
-#include "lib/lib_13750.h"
+#include "lib/videbug.h"
 #include "lib/debughud.h"
 #include "lib/anim.h"
 #include "lib/rdp.h"
@@ -2560,7 +2560,7 @@ glabel mainLoop
 /*     e840:	24a5516c */ 	addiu	$a1,$a1,0x516c
 /*     e844:	0c004fc1 */ 	jal	sprintf
 /*     e848:	8fa600b8 */ 	lw	$a2,0xb8($sp)
-/*     e84c:	0c003074 */ 	jal	func0000c1d0nb
+/*     e84c:	0c003074 */ 	jal	crashSetMessage
 /*     e850:	02a02025 */ 	or	$a0,$s5,$zero
 /*     e854:	24190045 */ 	addiu	$t9,$zero,0x45
 /*     e858:	a0190000 */ 	sb	$t9,0x0($zero)
