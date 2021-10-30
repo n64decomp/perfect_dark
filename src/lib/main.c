@@ -2665,7 +2665,7 @@ void mainTick(void)
 
 		rdpCreateTask(gdlstart, gdl, 0, &msg);
 		g_MainNumGfxTasks++;
-		memPrintInfoIfEnabled();
+		memaPrint();
 		func0f16cf94();
 		profileSetMarker(PROFILE_MAINTICK_END);
 	}
@@ -3042,7 +3042,7 @@ glabel mainTick
 /*     ee50:	2442f2ec */ 	addiu	$v0,$v0,-3348
 /*     ee54:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*     ee58:	25c90001 */ 	addiu	$t1,$t6,0x1
-/*     ee5c:	0c004c0a */ 	jal	memPrintInfoIfEnabled
+/*     ee5c:	0c004c0a */ 	jal	memaPrint
 /*     ee60:	ac490000 */ 	sw	$t1,0x0($v0)
 /*     ee64:	0fc59f51 */ 	jal	func0f16cf94
 /*     ee68:	00000000 */ 	sll	$zero,$zero,0x0
@@ -3162,7 +3162,7 @@ u32 var8005f690nb[] = {
 //
 //		rdpCreateTask(gdlstart, gdl, 0, &msg);
 //		g_MainNumGfxTasks++;
-//		memPrintInfoIfEnabled();
+//		memaPrint();
 //		func0f16cf94();
 //		profileSetMarker(PROFILE_MAINTICK_END);
 //	}

@@ -9681,7 +9681,7 @@ glabel func0f15dc58
 /*  f15dcdc:	10000004 */ 	b	.L0f15dcf0
 /*  f15dce0:	afad02f4 */ 	sw	$t5,0x2f4($sp)
 .L0f15dce4:
-/*  f15dce4:	0c004b37 */ 	jal	func00012cdc
+/*  f15dce4:	0c004b37 */ 	jal	memaGetLongestFree
 /*  f15dce8:	afa402f8 */ 	sw	$a0,0x2f8($sp)
 /*  f15dcec:	afa202f4 */ 	sw	$v0,0x2f4($sp)
 .L0f15dcf0:
@@ -10250,7 +10250,7 @@ glabel func0f15dc58
 /*  f158488:	10000004 */ 	beqz	$zero,.NB0f15849c
 /*  f15848c:	afad02f4 */ 	sw	$t5,0x2f4($sp)
 .NB0f158490:
-/*  f158490:	0c004d4e */ 	jal	func00012cdc
+/*  f158490:	0c004d4e */ 	jal	memaGetLongestFree
 /*  f158494:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f158498:	afa202f4 */ 	sw	$v0,0x2f4($sp)
 .NB0f15849c:
@@ -10832,7 +10832,7 @@ void func0f15e538(void)
 
 void func0f15e5b8(s32 size, u32 arg1)
 {
-	s32 limit = func00012cdc();
+	s32 limit = memaGetLongestFree();
 	s32 bestroom;
 	s32 bestvalue;
 	s32 count = 0;
@@ -10851,10 +10851,10 @@ void func0f15e5b8(s32 size, u32 arg1)
 
 		if (bestroom != 0) {
 			func0f15e474(bestroom);
-			func000127b8();
+			memaDefrag();
 		}
 
-		limit = func00012cdc();
+		limit = memaGetLongestFree();
 		count++;
 
 		if (count == 30) {
@@ -10867,9 +10867,9 @@ void func0f15e5b8(s32 size, u32 arg1)
 #endif
 					{
 						func0f15e474(i);
-						func000127b8();
+						memaDefrag();
 
-						if (func00012cdc() >= size) {
+						if (memaGetLongestFree() >= size) {
 							return;
 						}
 					}
@@ -10905,7 +10905,7 @@ void func0f15e728(void)
 			if (count < 2 && var800a4bf2 == g_Rooms[i].unk02) {
 				func0f15e474(i);
 #if VERSION >= VERSION_NTSC_1_0
-				func000127b8();
+				memaDefrag();
 #endif
 				count++;
 			}

@@ -68,7 +68,7 @@ bool memaDefragPass(struct memaheap *heap)
 	return merged;
 }
 
-void func000127b8(void)
+void memaDefrag(void)
 {
 	while (memaDefragPass(&g_MemaHeap));
 }
@@ -288,10 +288,8 @@ void memaHeapInit(void *heapaddr, u32 heapsize)
  * The ETER (permanent) pool has 0 free space because it's shrunk to fit once
  * the permanent allocations are done during startup. This pool fits entirely
  * in onboard memory, so the expansion size is 0.
- *
- * mema means audio memory. Unsure what LF is.
  */
-void memPrintInfoIfEnabled(void)
+void memaPrint(void)
 {
 	s32 onboard;
 	s32 expansion;
@@ -364,7 +362,7 @@ void memPrintInfoIfEnabled(void)
 		dhudPrintString("mema:");
 		line++;
 
-		sprintf(buffer, "LF: %d", func00012cdc());
+		sprintf(buffer, "LF: %d", memaGetLongestFree());
 		dhudSetPos(31, line);
 		dhudPrintString(buffer);
 		line++;
@@ -736,41 +734,33 @@ glabel func00012cb4
 /*    12cd8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00012cdc
-/*    12cdc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    12ce0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    12ce4:	0c0049ee */ 	jal	func000127b8
-/*    12ce8:	afa00018 */ 	sw	$zero,0x18($sp)
-/*    12cec:	3c0e800a */ 	lui	$t6,%hi(g_MemaHeap+0xc)
-/*    12cf0:	8dce9484 */ 	lw	$t6,%lo(g_MemaHeap+0xc)($t6)
-/*    12cf4:	2405ffff */ 	addiu	$a1,$zero,-1
-/*    12cf8:	3c02800a */ 	lui	$v0,%hi(g_MemaHeap+0xc)
-/*    12cfc:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    12d00:	10ae000a */ 	beq	$a1,$t6,.L00012d2c
-/*    12d04:	24429484 */ 	addiu	$v0,$v0,%lo(g_MemaHeap+0xc)
-/*    12d08:	8c430004 */ 	lw	$v1,0x4($v0)
-.L00012d0c:
-/*    12d0c:	0083082b */ 	sltu	$at,$a0,$v1
-/*    12d10:	50200003 */ 	beqzl	$at,.L00012d20
-/*    12d14:	8c4f0008 */ 	lw	$t7,0x8($v0)
-/*    12d18:	00602025 */ 	or	$a0,$v1,$zero
-/*    12d1c:	8c4f0008 */ 	lw	$t7,0x8($v0)
-.L00012d20:
-/*    12d20:	24420008 */ 	addiu	$v0,$v0,0x8
-/*    12d24:	54affff9 */ 	bnel	$a1,$t7,.L00012d0c
-/*    12d28:	8c430004 */ 	lw	$v1,0x4($v0)
-.L00012d2c:
-/*    12d2c:	10800003 */ 	beqz	$a0,.L00012d3c
-/*    12d30:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    12d34:	10000002 */ 	b	.L00012d40
-/*    12d38:	00801025 */ 	or	$v0,$a0,$zero
-.L00012d3c:
-/*    12d3c:	00001025 */ 	or	$v0,$zero,$zero
-.L00012d40:
-/*    12d40:	03e00008 */ 	jr	$ra
-/*    12d44:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+/**
+ * Find and return the largest amount of contiguous free space in the pool.
+ * ie. the biggest allocation that mema can currently make.
+ */
+s32 memaGetLongestFree(void)
+{
+	struct memaspace *curr;
+	s32 biggest = 0;
+
+	memaDefrag();
+
+	curr = &g_MemaHeap.spaces[1];
+
+	while (curr->addr != -1) {
+		if (curr->size > biggest) {
+			biggest = curr->size;
+		}
+
+		curr++;
+	}
+
+	if (biggest) {
+		return biggest;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func00012d48
