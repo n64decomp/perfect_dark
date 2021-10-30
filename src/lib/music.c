@@ -322,15 +322,11 @@ bool musicStopAll(u32 arg0)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel music000118f4
-/*    118f4:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    118f8:	8c8e0004 */ 	lw	$t6,0x4($a0)
-/*    118fc:	3c018008 */ 	lui	$at,%hi(var800840e0)
-/*    11900:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    11904:	03e00008 */ 	jr	$ra
-/*    11908:	ac2e40e0 */ 	sw	$t6,%lo(var800840e0)($at)
-);
+bool music000118f4(s32 *arg0, u32 arg1)
+{
+	var800840e0 = arg0[1];
+	return true;
+}
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0

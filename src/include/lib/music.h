@@ -8,7 +8,7 @@ u32 music00011420(void);
 bool musicStopByTrackType(s32 *arg0, u32 arg1);
 bool music00011780(s32 *arg0, u32 arg1);
 bool musicStopAll(u32 arg0);
-u32 music000118f4(void);
+bool music000118f4(s32 *arg0, u32 arg1);
 void music0001190c(void);
 void music00011d84(void);
 
