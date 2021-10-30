@@ -621,7 +621,7 @@ glabel memaAlloc
 //}
 
 GLOBAL_ASM(
-glabel func00012c3c
+glabel memaGrow
 /*    12c3c:	3c0f800a */ 	lui	$t7,%hi(g_MemaHeap+0xc)
 /*    12c40:	8def9484 */ 	lw	$t7,%lo(g_MemaHeap+0xc)($t7)
 /*    12c44:	3c0e800a */ 	lui	$t6,%hi(g_MemaHeap+0xc)
@@ -697,36 +697,18 @@ s32 memaGetLongestFree(void)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func00012d48
-/*    12d48:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    12d4c:	00a6082b */ 	sltu	$at,$a1,$a2
-/*    12d50:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    12d54:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    12d58:	10200008 */ 	beqz	$at,.L00012d7c
-/*    12d5c:	00a03825 */ 	or	$a3,$a1,$zero
-/*    12d60:	00852021 */ 	addu	$a0,$a0,$a1
-/*    12d64:	0c004b0f */ 	jal	func00012c3c
-/*    12d68:	00c52823 */ 	subu	$a1,$a2,$a1
-/*    12d6c:	5440000a */ 	bnezl	$v0,.L00012d98
-/*    12d70:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    12d74:	10000008 */ 	b	.L00012d98
-/*    12d78:	00001025 */ 	or	$v0,$zero,$zero
-.L00012d7c:
-/*    12d7c:	00c7082b */ 	sltu	$at,$a2,$a3
-/*    12d80:	10200004 */ 	beqz	$at,.L00012d94
-/*    12d84:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*    12d88:	01e62021 */ 	addu	$a0,$t7,$a2
-/*    12d8c:	0c004b2d */ 	jal	memaFree
-/*    12d90:	00e62823 */ 	subu	$a1,$a3,$a2
-.L00012d94:
-/*    12d94:	24020001 */ 	addiu	$v0,$zero,0x1
-.L00012d98:
-/*    12d98:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    12d9c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    12da0:	03e00008 */ 	jr	$ra
-/*    12da4:	00000000 */ 	nop
-);
+bool memaRealloc(s32 addr, u32 oldsize, u32 newsize)
+{
+	if (newsize > oldsize) {
+		if (!memaGrow(addr + oldsize, newsize - oldsize)) {
+			return false;
+		}
+	} else if (oldsize > newsize) {
+		memaFree((void *)(addr + newsize), oldsize - newsize);
+	}
+
+	return true;
+}
 
 u32 memaGetSize(void)
 {
