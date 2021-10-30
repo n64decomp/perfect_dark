@@ -5,7 +5,7 @@
 #include "types.h"
 
 u32 music00011420(void);
-u32 music00011700(void);
+bool musicStopByTrackType(s32 *arg0, u32 arg1);
 u32 music00011780(void);
 bool musicStopAll(u32 arg0);
 u32 music000118f4(void);

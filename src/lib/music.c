@@ -265,44 +265,25 @@ glabel var70053fd8
 /*    116fc:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-GLOBAL_ASM(
-glabel music00011700
-/*    11700:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    11704:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    11708:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    1170c:	8c850000 */ 	lw	$a1,0x0($a0)
-/*    11710:	3c02800b */ 	lui	$v0,%hi(var800aaa38)
-/*    11714:	2442aa38 */ 	addiu	$v0,$v0,%lo(var800aaa38)
-/*    11718:	24040003 */ 	addiu	$a0,$zero,0x3
-/*    1171c:	00001825 */ 	or	$v1,$zero,$zero
-.L00011720:
-/*    11720:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*    11724:	14ae000e */ 	bne	$a1,$t6,.L00011760
-/*    11728:	00037940 */ 	sll	$t7,$v1,0x5
-/*    1172c:	01e37821 */ 	addu	$t7,$t7,$v1
-/*    11730:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*    11734:	3c048009 */ 	lui	$a0,%hi(var80094ed8+0xf8)
-/*    11738:	008f2021 */ 	addu	$a0,$a0,$t7
-/*    1173c:	8c844fd0 */ 	lw	$a0,%lo(var80094ed8+0xf8)($a0)
-/*    11740:	0c00e7dc */ 	jal	n_alSeqpStop
-/*    11744:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*    11748:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*    1174c:	ac400000 */ 	sw	$zero,0x0($v0)
-/*    11750:	ac400004 */ 	sw	$zero,0x4($v0)
-/*    11754:	ac400008 */ 	sw	$zero,0x8($v0)
-/*    11758:	10000004 */ 	b	.L0001176c
-/*    1175c:	ac40000c */ 	sw	$zero,0xc($v0)
-.L00011760:
-/*    11760:	24630001 */ 	addiu	$v1,$v1,0x1
-/*    11764:	1464ffee */ 	bne	$v1,$a0,.L00011720
-/*    11768:	24420010 */ 	addiu	$v0,$v0,0x10
-.L0001176c:
-/*    1176c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    11770:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    11774:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    11778:	03e00008 */ 	jr	$ra
-/*    1177c:	00000000 */ 	nop
-);
+bool musicStopByTrackType(s32 *arg0, u32 arg1)
+{
+	s32 i;
+
+	for (i = 0; i < 3; i++) {
+		if (*arg0 == var800aaa38[i].tracktype) {
+			n_alSeqpStop((N_ALSeqPlayer *)var80094ed8[i].seqp);
+
+			var800aaa38[i].tracktype = TRACKTYPE_NONE;
+			var800aaa38[i].unk04 = 0;
+			var800aaa38[i].unk08 = 0;
+			var800aaa38[i].unk0c = 0;
+
+			break;
+		}
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel music00011780
@@ -649,7 +630,7 @@ glabel var70053fec
 /*    11c3c:	10000013 */ 	b	.L00011c8c
 /*    11c40:	00402025 */ 	or	$a0,$v0,$zero
 /*    11c44:	02402025 */ 	or	$a0,$s2,$zero
-/*    11c48:	0c0045c0 */ 	jal	music00011700
+/*    11c48:	0c0045c0 */ 	jal	musicStopByTrackType
 /*    11c4c:	00002825 */ 	or	$a1,$zero,$zero
 /*    11c50:	1000000e */ 	b	.L00011c8c
 /*    11c54:	00402025 */ 	or	$a0,$v0,$zero
@@ -970,7 +951,7 @@ glabel music0001190c
 /*    11fe8:	1000000c */ 	beqz	$zero,.NB0001201c
 /*    11fec:	00402025 */ 	or	$a0,$v0,$zero
 .NB00011ff0:
-/*    11ff0:	0c0046b0 */ 	jal	music00011700
+/*    11ff0:	0c0046b0 */ 	jal	musicStopByTrackType
 /*    11ff4:	02a02025 */ 	or	$a0,$s5,$zero
 /*    11ff8:	10000008 */ 	beqz	$zero,.NB0001201c
 /*    11ffc:	00402025 */ 	or	$a0,$v0,$zero
