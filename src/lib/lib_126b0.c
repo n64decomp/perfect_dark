@@ -73,90 +73,67 @@ void memaDefrag(void)
 	while (memaDefragPass(&g_MemaHeap));
 }
 
-struct memaspace *func00012800(struct memaheap *heap);
+/**
+ * Defrag the spaces list in an attempt to free up any slot.
+ *
+ * If none can be found, return the smallest run of free space so it can be
+ * overwritten by the caller.
+ */
+struct memaspace *memaMakeSlot(struct memaheap *heap)
+{
+	struct memaspace *curr = &heap->spaces[1];
+	struct memaspace *best;
+	u32 min;
+	s32 i;
 
-GLOBAL_ASM(
-glabel func00012800
-/*    12800:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    12804:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*    12808:	afb30020 */ 	sw	$s3,0x20($sp)
-/*    1280c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    12810:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    12814:	2492000c */ 	addiu	$s2,$a0,0xc
-/*    12818:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    1281c:	02408025 */ 	or	$s0,$s2,$zero
-/*    12820:	249103e4 */ 	addiu	$s1,$a0,0x3e4
-/*    12824:	00009825 */ 	or	$s3,$zero,$zero
-/*    12828:	0232082b */ 	sltu	$at,$s1,$s2
-.L0001282c:
-/*    1282c:	54200020 */ 	bnezl	$at,.L000128b0
-/*    12830:	26730001 */ 	addiu	$s3,$s3,0x1
-.L00012834:
-/*    12834:	8e040004 */ 	lw	$a0,0x4($s0)
-/*    12838:	26050008 */ 	addiu	$a1,$s0,0x8
-/*    1283c:	54800004 */ 	bnezl	$a0,.L00012850
-/*    12840:	8e020008 */ 	lw	$v0,0x8($s0)
-/*    12844:	1000002c */ 	b	.L000128f8
-/*    12848:	02001025 */ 	or	$v0,$s0,$zero
-/*    1284c:	8e020008 */ 	lw	$v0,0x8($s0)
-.L00012850:
-/*    12850:	8e030000 */ 	lw	$v1,0x0($s0)
-/*    12854:	0043082b */ 	sltu	$at,$v0,$v1
-/*    12858:	50200007 */ 	beqzl	$at,.L00012878
-/*    1285c:	00647021 */ 	addu	$t6,$v1,$a0
-/*    12860:	0c0049ac */ 	jal	memaSwap
-/*    12864:	02002025 */ 	or	$a0,$s0,$zero
-/*    12868:	8e040004 */ 	lw	$a0,0x4($s0)
-/*    1286c:	8e020008 */ 	lw	$v0,0x8($s0)
-/*    12870:	8e030000 */ 	lw	$v1,0x0($s0)
-/*    12874:	00647021 */ 	addu	$t6,$v1,$a0
-.L00012878:
-/*    12878:	144e0008 */ 	bne	$v0,$t6,.L0001289c
-/*    1287c:	26050008 */ 	addiu	$a1,$s0,0x8
-/*    12880:	8e0f000c */ 	lw	$t7,0xc($s0)
-/*    12884:	ae000008 */ 	sw	$zero,0x8($s0)
-/*    12888:	ae00000c */ 	sw	$zero,0xc($s0)
-/*    1288c:	008fc021 */ 	addu	$t8,$a0,$t7
-/*    12890:	ae180004 */ 	sw	$t8,0x4($s0)
-/*    12894:	10000018 */ 	b	.L000128f8
-/*    12898:	00a01025 */ 	or	$v0,$a1,$zero
-.L0001289c:
-/*    1289c:	0225082b */ 	sltu	$at,$s1,$a1
-/*    128a0:	1020ffe4 */ 	beqz	$at,.L00012834
-/*    128a4:	00a08025 */ 	or	$s0,$a1,$zero
-/*    128a8:	02408025 */ 	or	$s0,$s2,$zero
-/*    128ac:	26730001 */ 	addiu	$s3,$s3,0x1
-.L000128b0:
-/*    128b0:	2a61007c */ 	slti	$at,$s3,0x7c
-/*    128b4:	5420ffdd */ 	bnezl	$at,.L0001282c
-/*    128b8:	0232082b */ 	sltu	$at,$s1,$s2
-/*    128bc:	0232082b */ 	sltu	$at,$s1,$s2
-/*    128c0:	2402ffff */ 	addiu	$v0,$zero,-1
-/*    128c4:	1420000b */ 	bnez	$at,.L000128f4
-/*    128c8:	02401825 */ 	or	$v1,$s2,$zero
-/*    128cc:	8e040004 */ 	lw	$a0,0x4($s0)
-.L000128d0:
-/*    128d0:	0082082b */ 	sltu	$at,$a0,$v0
-/*    128d4:	50200004 */ 	beqzl	$at,.L000128e8
-/*    128d8:	26100008 */ 	addiu	$s0,$s0,0x8
-/*    128dc:	02001825 */ 	or	$v1,$s0,$zero
-/*    128e0:	00801025 */ 	or	$v0,$a0,$zero
-/*    128e4:	26100008 */ 	addiu	$s0,$s0,0x8
-.L000128e8:
-/*    128e8:	0230082b */ 	sltu	$at,$s1,$s0
-/*    128ec:	5020fff8 */ 	beqzl	$at,.L000128d0
-/*    128f0:	8e040004 */ 	lw	$a0,0x4($s0)
-.L000128f4:
-/*    128f4:	00601025 */ 	or	$v0,$v1,$zero
-.L000128f8:
-/*    128f8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    128fc:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    12900:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    12904:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*    12908:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*    1290c:	03e00008 */ 	jr	$ra
-/*    12910:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+	// Do 124 passes over the list. This ensures the list is in order by the
+	// end. Though in most cases it's roughly in order anyway, and the excessive
+	// looping is just wasting CPU cycles. In reality this situation probably
+	// never occurs.
+	for (i = 0; i < 124; i++) {
+		while (curr <= &heap->spaces[124]) {
+			if (curr->size == 0) {
+				return curr;
+			}
+
+			if ((u32)curr[1].addr < (u32)curr[0].addr) {
+				memaSwap(&curr[0], &curr[1]);
+			}
+
+			if (curr[1].addr == curr[0].size + curr[0].addr) {
+				// Found two that can be merged
+				curr[0].size += curr[1].size;
+				curr[1].addr = 0;
+				curr[1].size = 0;
+
+				return &curr[1];
+			}
+
+			curr++;
+		}
+
+		curr = &heap->spaces[1];
+	}
+
+	// If this code is reached then the spaces list is so badly and unrepairably
+	// fragmented that we can't find any slot to record the free space in.
+	// Find the smallest run of free space and use that instead.
+	// The caller will overwrite it with its own free allocation, causing the
+	// original run of free space to be unusable until the mema heap is reset.
+	min = 0xffffffff;
+	best = curr;
+
+	while (curr <= &heap->spaces[124]) {
+		if (curr->size < min) {
+			best = curr;
+			min = curr->size;
+		}
+
+		curr++;
+	}
+
+	return best;
+}
 
 void _memaFree(s32 addr, s32 size)
 {
@@ -182,7 +159,7 @@ void _memaFree(s32 addr, s32 size)
 		}
 
 		if (curr->addr == 0) {
-			curr = func00012800(&g_MemaHeap);
+			curr = memaMakeSlot(&g_MemaHeap);
 		}
 	}
 
