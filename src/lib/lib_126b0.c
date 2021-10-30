@@ -620,44 +620,33 @@ glabel memaAlloc
 //	return (void *)addr;
 //}
 
-GLOBAL_ASM(
-glabel memaGrow
-/*    12c3c:	3c0f800a */ 	lui	$t7,%hi(g_MemaHeap+0xc)
-/*    12c40:	8def9484 */ 	lw	$t7,%lo(g_MemaHeap+0xc)($t7)
-/*    12c44:	3c0e800a */ 	lui	$t6,%hi(g_MemaHeap+0xc)
-/*    12c48:	2407ffff */ 	addiu	$a3,$zero,-1
-/*    12c4c:	25ce9484 */ 	addiu	$t6,$t6,%lo(g_MemaHeap+0xc)
-/*    12c50:	00a03025 */ 	or	$a2,$a1,$zero
-/*    12c54:	10ef000c */ 	beq	$a3,$t7,.L00012c88
-/*    12c58:	01c01025 */ 	or	$v0,$t6,$zero
-/*    12c5c:	8dc30000 */ 	lw	$v1,0x0($t6)
-.L00012c60:
-/*    12c60:	54830006 */ 	bnel	$a0,$v1,.L00012c7c
-/*    12c64:	8c430008 */ 	lw	$v1,0x8($v0)
-/*    12c68:	8c450004 */ 	lw	$a1,0x4($v0)
-/*    12c6c:	00a6082b */ 	sltu	$at,$a1,$a2
-/*    12c70:	50200008 */ 	beqzl	$at,.L00012c94
-/*    12c74:	0066c021 */ 	addu	$t8,$v1,$a2
-/*    12c78:	8c430008 */ 	lw	$v1,0x8($v0)
-.L00012c7c:
-/*    12c7c:	24420008 */ 	addiu	$v0,$v0,0x8
-/*    12c80:	14e3fff7 */ 	bne	$a3,$v1,.L00012c60
-/*    12c84:	00000000 */ 	nop
-.L00012c88:
-/*    12c88:	03e00008 */ 	jr	$ra
-/*    12c8c:	00001025 */ 	or	$v0,$zero,$zero
-/*    12c90:	0066c021 */ 	addu	$t8,$v1,$a2
-.L00012c94:
-/*    12c94:	00a6c823 */ 	subu	$t9,$a1,$a2
-/*    12c98:	ac580000 */ 	sw	$t8,0x0($v0)
-/*    12c9c:	17200002 */ 	bnez	$t9,.L00012ca8
-/*    12ca0:	ac590004 */ 	sw	$t9,0x4($v0)
-/*    12ca4:	ac400000 */ 	sw	$zero,0x0($v0)
-.L00012ca8:
-/*    12ca8:	00801025 */ 	or	$v0,$a0,$zero
-/*    12cac:	03e00008 */ 	jr	$ra
-/*    12cb0:	00000000 */ 	nop
-);
+/**
+ * Grow the allocation which currently *ends at* the given address.
+ */
+s32 memaGrow(s32 addr, u32 amount)
+{
+	struct memaspace *curr = &g_MemaHeap.spaces[1];
+
+	while (curr->addr != -1) {
+		if (curr->addr == addr && curr->size >= amount) {
+			goto found;
+		}
+
+		curr++;
+	}
+
+	return 0;
+
+found:
+	curr->addr += amount;
+	curr->size -= amount;
+
+	if (curr->size == 0) {
+		curr->addr = 0;
+	}
+
+	return addr;
+}
 
 void memaFree(void *addr, s32 size)
 {
