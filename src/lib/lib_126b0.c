@@ -157,7 +157,7 @@ glabel func00012800
 );
 
 GLOBAL_ASM(
-glabel func00012914
+glabel _memaFree
 /*    12914:	3c0f800a */ 	lui	$t7,%hi(var80099470)
 /*    12918:	8def9470 */ 	lw	$t7,%lo(var80099470)($t7)
 /*    1291c:	3c09800a */ 	lui	$t1,%hi(var80099474)
@@ -720,17 +720,10 @@ glabel func00012c3c
 /*    12cb0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00012cb4
-/*    12cb4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    12cb8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    12cbc:	0c004a45 */ 	jal	func00012914
-/*    12cc0:	00000000 */ 	nop
-/*    12cc4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    12cc8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    12ccc:	03e00008 */ 	jr	$ra
-/*    12cd0:	00000000 */ 	nop
-);
+void memaFree(void *addr, s32 size)
+{
+	_memaFree((u32)addr, size);
+}
 
 void mema00012cd4(void)
 {
@@ -785,7 +778,7 @@ glabel func00012d48
 /*    12d80:	10200004 */ 	beqz	$at,.L00012d94
 /*    12d84:	8faf0018 */ 	lw	$t7,0x18($sp)
 /*    12d88:	01e62021 */ 	addu	$a0,$t7,$a2
-/*    12d8c:	0c004b2d */ 	jal	func00012cb4
+/*    12d8c:	0c004b2d */ 	jal	memaFree
 /*    12d90:	00e62823 */ 	subu	$a1,$a3,$a2
 .L00012d94:
 /*    12d94:	24020001 */ 	addiu	$v0,$zero,0x1

@@ -340,7 +340,7 @@ void func0f149e58(u8 *arg0, u32 size)
 
 	for (i = 0; i < var800a45a0->unk37c; i++) {
 		if (arg0 == NULL || arg0 == var800a45a0->unk380[i]) {
-			func00012cb4(var800a45a0->unk380[i], var800a45a0->unk3f8[i]);
+			memaFree(var800a45a0->unk380[i], var800a45a0->unk3f8[i]);
 			var800a45a0->unk380[i] = 0;
 		}
 	}

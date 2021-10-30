@@ -92,7 +92,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **What It Checks:** Checksums `lvInit` to make sure it hasn't been modified.
 
-**Payload:** Nops `func00012914` entirely. Unsure what effect this has. This means any time that function is called it'll flow into the following function, which just returns.
+**Payload:** Nops `_memaFree` entirely, so any time that function is called it'll flow into the following function, which just returns. The effect this has is that the system is unable to free individual mema allocations which makes it more likely to run out of memory.
 
 ---
 

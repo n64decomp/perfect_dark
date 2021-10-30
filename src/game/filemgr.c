@@ -460,7 +460,7 @@ void func0f10898c(void)
 	case FILEOP_READ_GAME:
 	case FILEOP_READ_MPSETUP:
 	case FILEOP_READ_MPPLAYER:
-		func00012cb4(g_Menus[g_MpPlayerNum].fm.unke44, align16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
+		memaFree(g_Menus[g_MpPlayerNum].fm.unke44, align16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
 		break;
 	case FILEOP_LOAD_GAME:
 	case FILEOP_LOAD_MPPLAYER:
@@ -484,7 +484,7 @@ void filemgrHandleSuccess(void)
 	case FILEOP_WRITE_GAME:
 	case FILEOP_WRITE_MPSETUP:
 	case FILEOP_WRITE_MPPLAYER:
-		func00012cb4(g_Menus[g_MpPlayerNum].fm.unke44,
+		memaFree(g_Menus[g_MpPlayerNum].fm.unke44,
 				align16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
 		break;
 	case FILEOP_LOAD_GAME:

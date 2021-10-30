@@ -111,7 +111,7 @@ void func0f12939c(void)
 						s32 size = ALIGN16(var8007e3d0[1].unk24[j].unk0c * 0x0c);
 						func0f129210(var8007e3d0[1].unk24[j].unk00, var8007e3d0[1].unk24[i].unk00);
 						var8007e3d0[1].unk24[i].unk0e += var8007e3d0[1].unk24[j].unk0e;
-						func00012cb4(var8007e3d0[1].unk24[j].unk00, size);
+						memaFree(var8007e3d0[1].unk24[j].unk00, size);
 						var8007e3d0[1].unk24[j].unk0e = 0;
 						var8007e3d0[1].val2 += var8007e3d0[1].unk24[j].unk0c;
 					}
@@ -419,7 +419,7 @@ void func0f129818(s32 arg0, void *arg1)
 				return;
 			}
 
-			func00012cb4(var8007e3d0[arg0].unk24[i].unk00, ALIGN16(var8007e3d0[arg0].unk24[i].unk0c * 0xc));
+			memaFree(var8007e3d0[arg0].unk24[i].unk00, ALIGN16(var8007e3d0[arg0].unk24[i].unk0c * 0xc));
 
 			var8007e3d0[arg0].val2 += var8007e3d0[arg0].unk24[i].unk0c;
 			return;

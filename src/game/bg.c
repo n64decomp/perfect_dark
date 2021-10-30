@@ -10806,13 +10806,13 @@ void func0f15e474(s32 roomnum)
 
 	if (g_Rooms[roomnum].unk44) {
 		thing = ((g_Rooms[roomnum].unk40 << 5) + 0xf) & ~0xf;
-		func00012cb4(g_Rooms[roomnum].unk44, thing);
+		memaFree(g_Rooms[roomnum].unk44, thing);
 		g_Rooms[roomnum].unk44 = NULL;
 	}
 
 	if (g_Rooms[roomnum].unk80 > 0) {
 		thing = g_Rooms[roomnum].unk80;
-		func00012cb4(g_Rooms[roomnum].unk14, thing);
+		memaFree(g_Rooms[roomnum].unk14, thing);
 		g_Rooms[roomnum].unk14 = 0;
 	}
 

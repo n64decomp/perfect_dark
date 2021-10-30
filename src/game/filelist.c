@@ -39,7 +39,7 @@ void func0f110bf8(void)
 
 	for (i = 0; i < 4; i++) {
 		if (g_FileLists[i] != NULL) {
-			func00012cb4(g_FileLists[i], align16(sizeof(struct filelist)));
+			memaFree(g_FileLists[i], align16(sizeof(struct filelist)));
 			g_FileLists[i] = NULL;
 		}
 	}
@@ -537,7 +537,7 @@ void pheadFreeTextures(s32 playernum)
 {
 	if (g_Menus[playernum].fm.headtextures != NULL) {
 		if (g_Menus[playernum].fm.unke40_01) {
-			func00012cb4(g_Menus[playernum].fm.headtextures, align16(sizeof(struct perfectheadtexturelist)));
+			memaFree(g_Menus[playernum].fm.headtextures, align16(sizeof(struct perfectheadtexturelist)));
 		}
 
 		g_Menus[playernum].fm.headtextures = NULL;
