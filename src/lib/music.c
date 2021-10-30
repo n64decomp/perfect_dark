@@ -1769,67 +1769,28 @@ bool musicIsTrackTypePlaying(s32 tracktype)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00012574nb
-/*    12574:	308e00ff */ 	andi	$t6,$a0,0xff
-/*    12578:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    1257c:	31cf0001 */ 	andi	$t7,$t6,0x1
-/*    12580:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    12584:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    12588:	11e00008 */ 	beqz	$t7,.NB000125ac
-/*    1258c:	01c01825 */ 	or	$v1,$t6,$zero
-/*    12590:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    12594:	0c004931 */ 	jal	musicIsTrackTypePlaying
-/*    12598:	afae001c */ 	sw	$t6,0x1c($sp)
-/*    1259c:	14400003 */ 	bnez	$v0,.NB000125ac
-/*    125a0:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*    125a4:	10000026 */ 	beqz	$zero,.NB00012640
-/*    125a8:	00001025 */ 	or	$v0,$zero,$zero
-.NB000125ac:
-/*    125ac:	30780002 */ 	andi	$t8,$v1,0x2
-/*    125b0:	13000007 */ 	beqz	$t8,.NB000125d0
-/*    125b4:	24040002 */ 	addiu	$a0,$zero,0x2
-/*    125b8:	0c004931 */ 	jal	musicIsTrackTypePlaying
-/*    125bc:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*    125c0:	14400003 */ 	bnez	$v0,.NB000125d0
-/*    125c4:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*    125c8:	1000001d */ 	beqz	$zero,.NB00012640
-/*    125cc:	00001025 */ 	or	$v0,$zero,$zero
-.NB000125d0:
-/*    125d0:	30790004 */ 	andi	$t9,$v1,0x4
-/*    125d4:	13200007 */ 	beqz	$t9,.NB000125f4
-/*    125d8:	24040003 */ 	addiu	$a0,$zero,0x3
-/*    125dc:	0c004931 */ 	jal	musicIsTrackTypePlaying
-/*    125e0:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*    125e4:	14400003 */ 	bnez	$v0,.NB000125f4
-/*    125e8:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*    125ec:	10000014 */ 	beqz	$zero,.NB00012640
-/*    125f0:	00001025 */ 	or	$v0,$zero,$zero
-.NB000125f4:
-/*    125f4:	30680008 */ 	andi	$t0,$v1,0x8
-/*    125f8:	11000007 */ 	beqz	$t0,.NB00012618
-/*    125fc:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    12600:	0c004931 */ 	jal	musicIsTrackTypePlaying
-/*    12604:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*    12608:	14400003 */ 	bnez	$v0,.NB00012618
-/*    1260c:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*    12610:	1000000b */ 	beqz	$zero,.NB00012640
-/*    12614:	00001025 */ 	or	$v0,$zero,$zero
-.NB00012618:
-/*    12618:	30690010 */ 	andi	$t1,$v1,0x10
-/*    1261c:	51200008 */ 	beqzl	$t1,.NB00012640
-/*    12620:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    12624:	0c004931 */ 	jal	musicIsTrackTypePlaying
-/*    12628:	24040005 */ 	addiu	$a0,$zero,0x5
-/*    1262c:	54400004 */ 	bnezl	$v0,.NB00012640
-/*    12630:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    12634:	10000002 */ 	beqz	$zero,.NB00012640
-/*    12638:	00001025 */ 	or	$v0,$zero,$zero
-/*    1263c:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB00012640:
-/*    12640:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    12644:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    12648:	03e00008 */ 	jr	$ra
-/*    1264c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool musicAreTracksPlaying(u8 bits)
+{
+	if ((bits & 0x01) && !musicIsTrackTypePlaying(TRACKTYPE_PRIMARY)) {
+		return false;
+	}
+
+	if ((bits & 0x02) && !musicIsTrackTypePlaying(TRACKTYPE_X)) {
+		return false;
+	}
+
+	if ((bits & 0x04) && !musicIsTrackTypePlaying(TRACKTYPE_MENU)) {
+		return false;
+	}
+
+	if ((bits & 0x08) && !musicIsTrackTypePlaying(TRACKTYPE_DEATH)) {
+		return false;
+	}
+
+	if ((bits & 0x10) && !musicIsTrackTypePlaying(TRACKTYPE_AMBIENT)) {
+		return false;
+	}
+
+	return true;
+}
 #endif
