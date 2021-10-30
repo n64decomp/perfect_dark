@@ -726,7 +726,9 @@ glabel func00012d48
 /*    12d9c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    12da0:	03e00008 */ 	jr	$ra
 /*    12da4:	00000000 */ 	nop
-/*    12da8:	3c02800a */ 	lui	$v0,%hi(g_MemaHeapSize)
-/*    12dac:	03e00008 */ 	jr	$ra
-/*    12db0:	8c429474 */ 	lw	$v0,%lo(g_MemaHeapSize)($v0)
 );
+
+u32 memaGetSize(void)
+{
+	return g_MemaHeapSize;
+}
