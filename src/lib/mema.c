@@ -1,20 +1,57 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_126b0.h"
 #include "lib/debughud.h"
-#include "lib/memory.h"
+#include "lib/mema.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
+
+/**
+ * mema - memory (ad hoc) allocation system.
+ *
+ * Mema's heap is 300KB and is itself allocated out of memp's stage pool.
+ * Memp resets its stage pool each time a new stage is loaded, which means mema
+ * is also reset each time a stage is loaded.
+ *
+ * Unlike memp, mema supports freeing of individual allocations. This makes it
+ * a good system to use when the allocation is somewhat temporary and should be
+ * freed without having to load a new stage. It's used by the (inaccessible)
+ * Perfect Head editor, file listings and room code.
+ *
+ * Mema tracks what has been allocated by storing references to free spaces in
+ * its spaces array. The allocations themselves are not referenced. When
+ * initialising the spaces array, the first element is set to the entire heap
+ * and the remaining elements are set to 0.
+ *
+ * This creates a bit of a terminology problem. Just remember that a memaspace
+ * is not an allocation; it's a free space that is available for allocation.
+ *
+ * Due to the ability to free individual allocations, both the heap and the
+ * spaces array can become fragmented. Mema supports defragmenting the spaces
+ * array: entries are ordered by address, and back to back entries are merged.
+ * The data in the heap itself is never moved, as that would require updating
+ * pointers throughout the game code which mema cannot do.
+ */
+
+#define MAX_SPACES 124
 
 struct memaspace {
 	s32 addr;
 	u32 size;
 };
 
+/**
+ * This structure contains dummy entries before and after the spaces array.
+ * These are used as start and end markers, but could have been avoided by
+ * using loop counters (eg. a typical i < numspaces loop).
+ */
 struct memaheap {
 	u32 unk000;
-	struct memaspace spaces[127];
+	struct memaspace start;
+	struct memaspace spaces[MAX_SPACES];
+	struct memaspace end1;
+	struct memaspace end2;
 };
 
 s32 g_MemaHeapStart;
@@ -41,9 +78,9 @@ void memaMerge(struct memaspace *a, struct memaspace *b)
 bool memaDefragPass(struct memaheap *heap)
 {
 	bool merged = false;
-	struct memaspace *prev = &heap->spaces[0];
-	struct memaspace *curr = &heap->spaces[1];
-	struct memaspace *last = &heap->spaces[124];
+	struct memaspace *prev = &heap->start;
+	struct memaspace *curr = &heap->spaces[0];
+	struct memaspace *last = &heap->spaces[MAX_SPACES - 1];
 	u32 addr = 0;
 
 	while (curr <= last) {
@@ -81,7 +118,7 @@ void memaDefrag(void)
  */
 struct memaspace *memaMakeSlot(struct memaheap *heap)
 {
-	struct memaspace *curr = &heap->spaces[1];
+	struct memaspace *curr = &heap->spaces[0];
 	struct memaspace *best;
 	u32 min;
 	s32 i;
@@ -90,8 +127,8 @@ struct memaspace *memaMakeSlot(struct memaheap *heap)
 	// end. Though in most cases it's roughly in order anyway, and the excessive
 	// looping is just wasting CPU cycles. In reality this situation probably
 	// never occurs.
-	for (i = 0; i < 124; i++) {
-		while (curr <= &heap->spaces[124]) {
+	for (i = 0; i < MAX_SPACES; i++) {
+		while (curr <= &heap->spaces[MAX_SPACES - 1]) {
 			if (curr->size == 0) {
 				return curr;
 			}
@@ -112,7 +149,7 @@ struct memaspace *memaMakeSlot(struct memaheap *heap)
 			curr++;
 		}
 
-		curr = &heap->spaces[1];
+		curr = &heap->spaces[0];
 	}
 
 	// If this code is reached then the spaces list is so badly and unrepairably
@@ -123,7 +160,7 @@ struct memaspace *memaMakeSlot(struct memaheap *heap)
 	min = 0xffffffff;
 	best = curr;
 
-	while (curr <= &heap->spaces[124]) {
+	while (curr <= &heap->spaces[MAX_SPACES - 1]) {
 		if (curr->size < min) {
 			best = curr;
 			min = curr->size;
@@ -142,8 +179,8 @@ void _memaFree(s32 addr, s32 size)
 	// estimate and doesn't need to be any particular index, but the defrag
 	// function tries to order the spaces by address so the closer we get to it
 	// the less work the defrag function will have to do should it be called.
-	s32 index = (addr - g_MemaHeapStart) * 124 / g_MemaHeapSize;
-	struct memaspace *curr = &g_MemaHeap.spaces[index + 1];
+	s32 index = (addr - g_MemaHeapStart) * MAX_SPACES / g_MemaHeapSize;
+	struct memaspace *curr = &g_MemaHeap.spaces[index];
 
 	// If the entry is taken, keep moving forward until a zero is found.
 	while (curr->size != 0) {
@@ -152,7 +189,7 @@ void _memaFree(s32 addr, s32 size)
 
 	// If we reached the end of the spaces list, go backwards instead
 	if (curr->addr == -1) {
-		curr = &g_MemaHeap.spaces[index + 1];
+		curr = &g_MemaHeap.spaces[index];
 
 		while (curr->size != 0) {
 			curr--;
@@ -178,26 +215,31 @@ void memaHeapInit(void *heapaddr, u32 heapsize)
 	struct memaspace *space;
 
 #if VERSION >= VERSION_NTSC_1_0
-	heapsize += 0x8e0; // ?!
+	// Adding an amount to the heap size here means that mema can allocate past
+	// the end of its heap. This would overflow into the gun names language
+	// file. Maybe this code was intended to be temporary while a developer
+	// figured out how much memory was needed, but they forgot to remove it?
+	// @dangerous
+	heapsize += 0x8e0;
 #endif
 
 	g_MemaHeap.unk000 = 0;
 
-	g_MemaHeap.spaces[0].addr = 0;
-	g_MemaHeap.spaces[0].size = 0;
+	g_MemaHeap.start.addr = 0;
+	g_MemaHeap.start.size = 0;
 
-	g_MemaHeap.spaces[125].addr = 0xffffffff;
-	g_MemaHeap.spaces[125].size = 0;
-	g_MemaHeap.spaces[126].addr = 0xffffffff;
-	g_MemaHeap.spaces[126].size = 0xffffffff;
+	g_MemaHeap.end1.addr = 0xffffffff;
+	g_MemaHeap.end1.size = 0;
+	g_MemaHeap.end2.addr = 0xffffffff;
+	g_MemaHeap.end2.size = 0xffffffff;
 
-	for (space = &g_MemaHeap.spaces[1]; space <= &g_MemaHeap.spaces[124]; space++) {
+	for (space = &g_MemaHeap.spaces[0]; space <= &g_MemaHeap.spaces[MAX_SPACES - 1]; space++) {
 		space->addr = 0;
 		space->size = 0;
 	}
 
-	g_MemaHeap.spaces[1].addr = g_MemaHeapStart = (u32)heapaddr;
-	g_MemaHeap.spaces[1].size = g_MemaHeapSize = heapsize;
+	g_MemaHeap.spaces[0].addr = g_MemaHeapStart = (u32)heapaddr;
+	g_MemaHeap.spaces[0].size = g_MemaHeapSize = heapsize;
 }
 
 /**
@@ -251,23 +293,23 @@ void memaPrint(void)
 		dhudPrintString("memp: MP_LF_LEV");
 		line++;
 
-		onboard = memGetFree(MEMPOOL_STAGE, MEMBANK_ONBOARD);
-		expansion = memGetFree(MEMPOOL_STAGE, MEMBANK_EXPANSION);
+		onboard = mempGetPoolFree(MEMPOOL_STAGE, MEMBANK_ONBOARD);
+		expansion = mempGetPoolFree(MEMPOOL_STAGE, MEMBANK_EXPANSION);
 		sprintf(buffer, "F: %d %d", onboard, expansion);
 		dhudSetPos(31, line);
 		dhudPrintString(buffer);
 		line++;
 
-		onboard = memGetSize(MEMPOOL_STAGE, MEMBANK_ONBOARD);
-		expansion = memGetSize(MEMPOOL_STAGE, MEMBANK_EXPANSION);
+		onboard = mempGetPoolSize(MEMPOOL_STAGE, MEMBANK_ONBOARD);
+		expansion = mempGetPoolSize(MEMPOOL_STAGE, MEMBANK_EXPANSION);
 		sprintf(buffer, "S: %d %d", onboard, expansion);
 		dhudSetPos(31, line);
 		dhudPrintString(buffer);
 		line++;
 
-		over = memGetSize(MEMPOOL_STAGE, MEMBANK_EXPANSION)
-			- memGetFree(MEMPOOL_STAGE, MEMBANK_EXPANSION)
-			- memGetFree(MEMPOOL_STAGE, MEMBANK_ONBOARD);
+		over = mempGetPoolSize(MEMPOOL_STAGE, MEMBANK_EXPANSION)
+			- mempGetPoolFree(MEMPOOL_STAGE, MEMBANK_EXPANSION)
+			- mempGetPoolFree(MEMPOOL_STAGE, MEMBANK_ONBOARD);
 
 		if (over >= 0) {
 			sprintf(buffer, "Over: %d", over);
@@ -283,15 +325,15 @@ void memaPrint(void)
 		dhudPrintString("memp: MP_LF_ETER");
 		line++;
 
-		onboard = memGetFree(MEMPOOL_PERMANENT, MEMBANK_ONBOARD);
-		expansion = memGetFree(MEMPOOL_PERMANENT, MEMBANK_EXPANSION);
+		onboard = mempGetPoolFree(MEMPOOL_PERMANENT, MEMBANK_ONBOARD);
+		expansion = mempGetPoolFree(MEMPOOL_PERMANENT, MEMBANK_EXPANSION);
 		sprintf(buffer, "F: %d %d", onboard, expansion);
 		dhudSetPos(31, line);
 		dhudPrintString(buffer);
 		line++;
 
-		onboard = memGetSize(MEMPOOL_PERMANENT, MEMBANK_ONBOARD);
-		expansion = memGetSize(MEMPOOL_PERMANENT, MEMBANK_EXPANSION);
+		onboard = mempGetPoolSize(MEMPOOL_PERMANENT, MEMBANK_ONBOARD);
+		expansion = mempGetPoolSize(MEMPOOL_PERMANENT, MEMBANK_EXPANSION);
 		sprintf(buffer, "S: %d %d", onboard, expansion);
 		dhudSetPos(31, line);
 		dhudPrintString(buffer);
@@ -625,7 +667,7 @@ glabel memaAlloc
  */
 s32 memaGrow(s32 addr, u32 amount)
 {
-	struct memaspace *curr = &g_MemaHeap.spaces[1];
+	struct memaspace *curr = &g_MemaHeap.spaces[0];
 
 	while (curr->addr != -1) {
 		if (curr->addr == addr && curr->size >= amount) {
@@ -669,7 +711,7 @@ s32 memaGetLongestFree(void)
 
 	memaDefrag();
 
-	curr = &g_MemaHeap.spaces[1];
+	curr = &g_MemaHeap.spaces[0];
 
 	while (curr->addr != -1) {
 		if (curr->size > biggest) {

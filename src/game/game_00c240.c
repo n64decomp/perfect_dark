@@ -3,7 +3,7 @@
 #include "game/game_00c240.h"
 #include "game/prop.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
 
@@ -11,8 +11,8 @@ void gvarsInitProps(void)
 {
 	s32 i;
 
-	g_Vars.props = malloc(ALIGN64(g_Vars.maxprops * sizeof(struct prop)), MEMPOOL_STAGE);
-	g_Vars.onscreenprops = malloc(ALIGN64(200 * sizeof(void *)), MEMPOOL_STAGE);
+	g_Vars.props = mempAlloc(ALIGN64(g_Vars.maxprops * sizeof(struct prop)), MEMPOOL_STAGE);
+	g_Vars.onscreenprops = mempAlloc(ALIGN64(200 * sizeof(void *)), MEMPOOL_STAGE);
 
 	var80069880 = 1;
 
@@ -58,8 +58,8 @@ void gvarsInitRoomProps(void)
 	s32 i;
 	s32 j;
 
-	g_RoomPropListChunkIndexes = malloc(ALIGN16(g_Vars.roomcount * sizeof(s16)), MEMPOOL_STAGE);
-	g_RoomPropListChunks = malloc(256 * sizeof(struct roomproplistchunk), MEMPOOL_STAGE);
+	g_RoomPropListChunkIndexes = mempAlloc(ALIGN16(g_Vars.roomcount * sizeof(s16)), MEMPOOL_STAGE);
+	g_RoomPropListChunks = mempAlloc(256 * sizeof(struct roomproplistchunk), MEMPOOL_STAGE);
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
 		g_RoomPropListChunkIndexes[i] = -1;

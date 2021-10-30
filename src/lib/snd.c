@@ -9,7 +9,7 @@
 #include "lib/args.h"
 #include "lib/dma.h"
 #include "lib/snd.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/rng.h"
 #include "lib/lib_2fc60.h"
 #include "lib/lib_317f0.h"
@@ -2303,7 +2303,7 @@ void sndInit(void)
 #if VERSION >= VERSION_PAL_FINAL
 		u32 settings[3];
 #endif
-		u8 *ptr = malloc(heaplen, MEMPOOL_PERMANENT);
+		u8 *ptr = mempAlloc(heaplen, MEMPOOL_PERMANENT);
 		u32 len = &_seqctlSegmentRomEnd - &_seqctlSegmentRomStart;
 		s32 i;
 		u32 seqromaddr = (u32) &_sequencesSegmentRomStart;

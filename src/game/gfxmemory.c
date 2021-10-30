@@ -5,7 +5,7 @@
 #include "bss.h"
 #include "lib/rzip.h"
 #include "lib/dma.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/rng.h"
 #include "data.h"
 #include "types.h"
@@ -100,12 +100,12 @@ void gfxInitMemory(void)
 	}
 
 	// %d Players : Allocating %d bytes for master dl's\n
-	g_GfxBuffers[0] = malloc(g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1] * 2, MEMPOOL_STAGE);
+	g_GfxBuffers[0] = mempAlloc(g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1] * 2, MEMPOOL_STAGE);
 	g_GfxBuffers[1] = g_GfxBuffers[0] + g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1];
 	g_GfxBuffers[2] = g_GfxBuffers[1] + g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1];
 
 	// Allocating %d bytes for mtxvtx space\n
-	g_VtxBuffers[0] = malloc(g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1] * 2, MEMPOOL_STAGE);
+	g_VtxBuffers[0] = mempAlloc(g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1] * 2, MEMPOOL_STAGE);
 	g_VtxBuffers[1] = g_VtxBuffers[0] + g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1];
 	g_VtxBuffers[2] = g_VtxBuffers[1] + g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1];
 

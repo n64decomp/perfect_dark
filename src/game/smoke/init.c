@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
 
@@ -19,7 +19,7 @@ void smokeInit(void)
 	if (g_MaxSmokes == 0) {
 		g_Smokes = NULL;
 	} else {
-		g_Smokes = malloc(g_MaxSmokes * sizeof(struct smoke), MEMPOOL_STAGE);
+		g_Smokes = mempAlloc(g_MaxSmokes * sizeof(struct smoke), MEMPOOL_STAGE);
 
 		for (i = 0; i < g_MaxSmokes; i++) {
 			g_Smokes[i].prop = NULL;

@@ -32,8 +32,8 @@
 #include "lib/vi.h"
 #include "lib/dma.h"
 #include "lib/main.h"
-#include "lib/memory.h"
-#include "lib/lib_126b0.h"
+#include "lib/memp.h"
+#include "lib/mema.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
 #include "lib/lib_2f490.h"
@@ -4663,7 +4663,7 @@ void bgInit(s32 stagenum)
 
 	// Allocate space for the primary bg data
 	// An extra 0x8000 or so is given as temporary scratch space
-	g_BgPrimaryData = malloc(ALIGN16(inflatedsize + 0x8010), MEMPOOL_STAGE);
+	g_BgPrimaryData = mempAlloc(ALIGN16(inflatedsize + 0x8010), MEMPOOL_STAGE);
 
 	// Set up pointer to scratch space
 	scratch = ((u32)g_BgPrimaryData + inflatedsize) - primcompsize;
@@ -4679,7 +4679,7 @@ void bgInit(s32 stagenum)
 	bgInflate((u8 *)scratch, g_BgPrimaryData, primcompsize);
 
 	// Shrink the allocation (ie. free the scratch space)
-	memReallocate(g_BgPrimaryData, inflatedsize, MEMPOOL_STAGE);
+	mempRealloc(g_BgPrimaryData, inflatedsize, MEMPOOL_STAGE);
 
 	// Load the section 2 header
 	section2start = section1compsize + 0xc;
@@ -4693,7 +4693,7 @@ void bgInit(s32 stagenum)
 	// Allocate space for the section 2 data (texture ID list), as well as an
 	// extra 0x8000 for scratch space, and copy the compressed data to scratch.
 #if VERSION >= VERSION_NTSC_FINAL
-	section2 = malloc(inflatedsize + 0x8000, MEMPOOL_STAGE);
+	section2 = mempAlloc(inflatedsize + 0x8000, MEMPOOL_STAGE);
 	scratch = (u32)section2 + 0x8000;
 #else
 	// ntsc-1.0 and earlier gives less space for the compressed buffer.
@@ -4701,7 +4701,7 @@ void bgInit(s32 stagenum)
 	// textures before this has a chance of overflowing and most stages only use
 	// a few dozen. This was likely increased to 0x8000 out of caution while
 	// trying to fix the Challenge 7 bug, but this is not the source of the bug.
-	section2 = malloc(inflatedsize + 0x0800, MEMPOOL_STAGE);
+	section2 = mempAlloc(inflatedsize + 0x0800, MEMPOOL_STAGE);
 	scratch = (u32)section2 + 0x0800;
 #endif
 
@@ -4720,7 +4720,7 @@ void bgInit(s32 stagenum)
 	if (i);
 
 	// Free section 2
-	memReallocate(section2, 0, MEMPOOL_STAGE);
+	mempRealloc(section2, 0, MEMPOOL_STAGE);
 
 	g_BgSection3 = section2start + section2compsize + 4;
 
@@ -4837,7 +4837,7 @@ glabel bgInit
 /*  f155dec:	256dfff4 */ 	addiu	$t5,$t3,-12
 /*  f155df0:	3498000f */ 	ori	$t8,$a0,0xf
 /*  f155df4:	ac4d0000 */ 	sw	$t5,0x0($v0)
-/*  f155df8:	0c004a0e */ 	jal	malloc
+/*  f155df8:	0c004a0e */ 	jal	mempAlloc
 /*  f155dfc:	3b04000f */ 	xori	$a0,$t8,0xf
 /*  f155e00:	00525021 */ 	addu	$t2,$v0,$s2
 /*  f155e04:	01518023 */ 	subu	$s0,$t2,$s1
@@ -4865,7 +4865,7 @@ glabel bgInit
 /*  f155e5c:	3c04800b */ 	lui	$a0,0x800b
 /*  f155e60:	8c84909c */ 	lw	$a0,-0x6f64($a0)
 /*  f155e64:	02402825 */ 	or	$a1,$s2,$zero
-/*  f155e68:	0c004a53 */ 	jal	memReallocate
+/*  f155e68:	0c004a53 */ 	jal	mempRealloc
 /*  f155e6c:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f155e70:	8fa50040 */ 	lw	$a1,0x40($sp)
 /*  f155e74:	8fa40038 */ 	lw	$a0,0x38($sp)
@@ -4881,7 +4881,7 @@ glabel bgInit
 /*  f155e9c:	2712ffff */ 	addiu	$s2,$t8,-1
 /*  f155ea0:	3649000f */ 	ori	$t1,$s2,0xf
 /*  f155ea4:	25240801 */ 	addiu	$a0,$t1,0x801
-/*  f155ea8:	0c004a0e */ 	jal	malloc
+/*  f155ea8:	0c004a0e */ 	jal	mempAlloc
 /*  f155eac:	afb90048 */ 	sw	$t9,0x48($sp)
 /*  f155eb0:	8fa60048 */ 	lw	$a2,0x48($sp)
 /*  f155eb4:	8fa50034 */ 	lw	$a1,0x34($sp)
@@ -4915,7 +4915,7 @@ glabel bgInit
 /*  f155f20:	8fa4005c */ 	lw	$a0,0x5c($sp)
 .NB0f155f24:
 /*  f155f24:	00002825 */ 	or	$a1,$zero,$zero
-/*  f155f28:	0c004a53 */ 	jal	memReallocate
+/*  f155f28:	0c004a53 */ 	jal	mempRealloc
 /*  f155f2c:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f155f30:	8fae0034 */ 	lw	$t6,0x34($sp)
 /*  f155f34:	8faf0048 */ 	lw	$t7,0x48($sp)
@@ -5036,7 +5036,7 @@ glabel var7f1b75d0
 /*  f15b958:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f15b95c:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f15b960:	39e4000f */ 	xori	$a0,$t7,0xf
-/*  f15b964:	0c0048f2 */ 	jal	malloc
+/*  f15b964:	0c0048f2 */ 	jal	mempAlloc
 /*  f15b968:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f15b96c:	8e6402bc */ 	lw	$a0,0x2bc($s3)
 /*  f15b970:	3c15800a */ 	lui	$s5,%hi(g_Rooms)
@@ -5046,7 +5046,7 @@ glabel var7f1b75d0
 /*  f15b980:	348e000f */ 	ori	$t6,$a0,0xf
 /*  f15b984:	aea20000 */ 	sw	$v0,0x0($s5)
 /*  f15b988:	39c4000f */ 	xori	$a0,$t6,0xf
-/*  f15b98c:	0c0048f2 */ 	jal	malloc
+/*  f15b98c:	0c0048f2 */ 	jal	mempAlloc
 /*  f15b990:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f15b994:	8e7102bc */ 	lw	$s1,0x2bc($s3)
 /*  f15b998:	3c03800a */ 	lui	$v1,%hi(var800a4ce8)
@@ -5076,7 +5076,7 @@ glabel var7f1b75d0
 /*  f15b9f0:	2624000f */ 	addiu	$a0,$s1,0xf
 /*  f15b9f4:	3499000f */ 	ori	$t9,$a0,0xf
 /*  f15b9f8:	3b24000f */ 	xori	$a0,$t9,0xf
-/*  f15b9fc:	0c0048f2 */ 	jal	malloc
+/*  f15b9fc:	0c0048f2 */ 	jal	mempAlloc
 /*  f15ba00:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f15ba04:	8e7102bc */ 	lw	$s1,0x2bc($s3)
 /*  f15ba08:	3c03800a */ 	lui	$v1,%hi(g_MpRoomVisibility)
@@ -5191,7 +5191,7 @@ glabel var7f1b75d0
 /*  f15bba0:	2442fc40 */ 	addiu	$v0,$v0,%lo(g_NumPortalThings)
 /*  f15bba4:	348e000f */ 	ori	$t6,$a0,0xf
 /*  f15bba8:	ac5e0000 */ 	sw	$s8,0x0($v0)
-/*  f15bbac:	0c0048f2 */ 	jal	malloc
+/*  f15bbac:	0c0048f2 */ 	jal	mempAlloc
 /*  f15bbb0:	39c4000f */ 	xori	$a0,$t6,0xf
 /*  f15bbb4:	3c01800a */ 	lui	$at,%hi(g_PortalThings)
 /*  f15bbb8:	ac224cec */ 	sw	$v0,%lo(g_PortalThings)($at)
@@ -5239,7 +5239,7 @@ glabel var7f1b75d0
 /*  f15bc44:	2484000f */ 	addiu	$a0,$a0,0xf
 /*  f15bc48:	348e000f */ 	ori	$t6,$a0,0xf
 /*  f15bc4c:	39c4000f */ 	xori	$a0,$t6,0xf
-/*  f15bc50:	0c0048f2 */ 	jal	malloc
+/*  f15bc50:	0c0048f2 */ 	jal	mempAlloc
 /*  f15bc54:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f15bc58:	3c05800a */ 	lui	$a1,%hi(g_Vars)
 /*  f15bc5c:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
@@ -5417,7 +5417,7 @@ glabel var7f1b75d0
 .L0f15bebc:
 /*  f15bebc:	2444000f */ 	addiu	$a0,$v0,0xf
 /*  f15bec0:	3498000f */ 	ori	$t8,$a0,0xf
-/*  f15bec4:	0c0048f2 */ 	jal	malloc
+/*  f15bec4:	0c0048f2 */ 	jal	mempAlloc
 /*  f15bec8:	3b04000f */ 	xori	$a0,$t8,0xf
 /*  f15becc:	3c10800a */ 	lui	$s0,%hi(var800a4cd0)
 /*  f15bed0:	26104cd0 */ 	addiu	$s0,$s0,%lo(var800a4cd0)
@@ -5439,7 +5439,7 @@ glabel var7f1b75d0
 /*  f15bf08:	2484000f */ 	addiu	$a0,$a0,0xf
 /*  f15bf0c:	3498000f */ 	ori	$t8,$a0,0xf
 /*  f15bf10:	3b04000f */ 	xori	$a0,$t8,0xf
-/*  f15bf14:	0c0048f2 */ 	jal	malloc
+/*  f15bf14:	0c0048f2 */ 	jal	mempAlloc
 /*  f15bf18:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f15bf1c:	3c01800a */ 	lui	$at,%hi(var800a4ccc)
 /*  f15bf20:	1bc00095 */ 	blez	$s8,.L0f15c178
@@ -5712,7 +5712,7 @@ glabel var7f1b75d0
 /*  f15c310:	3459000f */ 	ori	$t9,$v0,0xf
 /*  f15c314:	27220001 */ 	addiu	$v0,$t9,0x1
 /*  f15c318:	00412021 */ 	addu	$a0,$v0,$at
-/*  f15c31c:	0c0048f2 */ 	jal	malloc
+/*  f15c31c:	0c0048f2 */ 	jal	mempAlloc
 /*  f15c320:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f15c324:	8e450000 */ 	lw	$a1,0x0($s2)
 /*  f15c328:	34018000 */ 	dli	$at,0x8000
@@ -5916,7 +5916,7 @@ glabel var7f1b75d0
 .L0f15c628:
 /*  f15c628:	8fa4008c */ 	lw	$a0,0x8c($sp)
 /*  f15c62c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f15c630:	0c00490c */ 	jal	memReallocate
+/*  f15c630:	0c00490c */ 	jal	mempRealloc
 /*  f15c634:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f15c638:	8fd102bc */ 	lw	$s1,0x2bc($s8)
 /*  f15c63c:	24140001 */ 	addiu	$s4,$zero,0x1
@@ -5955,7 +5955,7 @@ glabel var7f1b75d0
 /*  f15c6b0:	2484000f */ 	addiu	$a0,$a0,0xf
 /*  f15c6b4:	348f000f */ 	ori	$t7,$a0,0xf
 /*  f15c6b8:	39e4000f */ 	xori	$a0,$t7,0xf
-/*  f15c6bc:	0c0048f2 */ 	jal	malloc
+/*  f15c6bc:	0c0048f2 */ 	jal	mempAlloc
 /*  f15c6c0:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f15c6c4:	3c03800a */ 	lui	$v1,%hi(var800a41a0)
 /*  f15c6c8:	246341a0 */ 	addiu	$v1,$v1,%lo(var800a41a0)
@@ -6100,7 +6100,7 @@ glabel var7f1b75d0
 /*  f15b71c:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f15b720:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f15b724:	39e4000f */ 	xori	$a0,$t7,0xf
-/*  f15b728:	0c0048f2 */ 	jal	malloc
+/*  f15b728:	0c0048f2 */ 	jal	mempAlloc
 /*  f15b72c:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f15b730:	8e6402bc */ 	lw	$a0,0x2bc($s3)
 /*  f15b734:	3c15800a */ 	lui	$s5,%hi(g_Rooms)
@@ -6110,7 +6110,7 @@ glabel var7f1b75d0
 /*  f15b744:	348e000f */ 	ori	$t6,$a0,0xf
 /*  f15b748:	aea20000 */ 	sw	$v0,0x0($s5)
 /*  f15b74c:	39c4000f */ 	xori	$a0,$t6,0xf
-/*  f15b750:	0c0048f2 */ 	jal	malloc
+/*  f15b750:	0c0048f2 */ 	jal	mempAlloc
 /*  f15b754:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f15b758:	8e7102bc */ 	lw	$s1,0x2bc($s3)
 /*  f15b75c:	3c03800a */ 	lui	$v1,%hi(var800a4ce8)
@@ -6140,7 +6140,7 @@ glabel var7f1b75d0
 /*  f15b7b4:	2624000f */ 	addiu	$a0,$s1,0xf
 /*  f15b7b8:	3499000f */ 	ori	$t9,$a0,0xf
 /*  f15b7bc:	3b24000f */ 	xori	$a0,$t9,0xf
-/*  f15b7c0:	0c0048f2 */ 	jal	malloc
+/*  f15b7c0:	0c0048f2 */ 	jal	mempAlloc
 /*  f15b7c4:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f15b7c8:	8e7102bc */ 	lw	$s1,0x2bc($s3)
 /*  f15b7cc:	3c03800a */ 	lui	$v1,%hi(g_MpRoomVisibility)
@@ -6255,7 +6255,7 @@ glabel var7f1b75d0
 /*  f15b964:	2442fc40 */ 	addiu	$v0,$v0,%lo(g_NumPortalThings)
 /*  f15b968:	348e000f */ 	ori	$t6,$a0,0xf
 /*  f15b96c:	ac5e0000 */ 	sw	$s8,0x0($v0)
-/*  f15b970:	0c0048f2 */ 	jal	malloc
+/*  f15b970:	0c0048f2 */ 	jal	mempAlloc
 /*  f15b974:	39c4000f */ 	xori	$a0,$t6,0xf
 /*  f15b978:	3c01800a */ 	lui	$at,%hi(g_PortalThings)
 /*  f15b97c:	ac224cec */ 	sw	$v0,%lo(g_PortalThings)($at)
@@ -6303,7 +6303,7 @@ glabel var7f1b75d0
 /*  f15ba08:	2484000f */ 	addiu	$a0,$a0,0xf
 /*  f15ba0c:	348e000f */ 	ori	$t6,$a0,0xf
 /*  f15ba10:	39c4000f */ 	xori	$a0,$t6,0xf
-/*  f15ba14:	0c0048f2 */ 	jal	malloc
+/*  f15ba14:	0c0048f2 */ 	jal	mempAlloc
 /*  f15ba18:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f15ba1c:	3c05800a */ 	lui	$a1,%hi(g_Vars)
 /*  f15ba20:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
@@ -6481,7 +6481,7 @@ glabel var7f1b75d0
 .L0f15bc80:
 /*  f15bc80:	2444000f */ 	addiu	$a0,$v0,0xf
 /*  f15bc84:	3498000f */ 	ori	$t8,$a0,0xf
-/*  f15bc88:	0c0048f2 */ 	jal	malloc
+/*  f15bc88:	0c0048f2 */ 	jal	mempAlloc
 /*  f15bc8c:	3b04000f */ 	xori	$a0,$t8,0xf
 /*  f15bc90:	3c10800a */ 	lui	$s0,%hi(var800a4cd0)
 /*  f15bc94:	26104cd0 */ 	addiu	$s0,$s0,%lo(var800a4cd0)
@@ -6503,7 +6503,7 @@ glabel var7f1b75d0
 /*  f15bccc:	2484000f */ 	addiu	$a0,$a0,0xf
 /*  f15bcd0:	3498000f */ 	ori	$t8,$a0,0xf
 /*  f15bcd4:	3b04000f */ 	xori	$a0,$t8,0xf
-/*  f15bcd8:	0c0048f2 */ 	jal	malloc
+/*  f15bcd8:	0c0048f2 */ 	jal	mempAlloc
 /*  f15bcdc:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f15bce0:	3c01800a */ 	lui	$at,%hi(var800a4ccc)
 /*  f15bce4:	1bc00095 */ 	blez	$s8,.L0f15bf3c
@@ -6775,7 +6775,7 @@ glabel var7f1b75d0
 /*  f15c0d0:	25e2ffff */ 	addiu	$v0,$t7,-1
 /*  f15c0d4:	3459000f */ 	ori	$t9,$v0,0xf
 /*  f15c0d8:	03201025 */ 	or	$v0,$t9,$zero
-/*  f15c0dc:	0c0048f2 */ 	jal	malloc
+/*  f15c0dc:	0c0048f2 */ 	jal	mempAlloc
 /*  f15c0e0:	24441001 */ 	addiu	$a0,$v0,0x1001
 /*  f15c0e4:	8e450000 */ 	lw	$a1,0x0($s2)
 /*  f15c0e8:	2626ffff */ 	addiu	$a2,$s1,-1
@@ -6978,7 +6978,7 @@ glabel var7f1b75d0
 .L0f15c3e4:
 /*  f15c3e4:	8fa4008c */ 	lw	$a0,0x8c($sp)
 /*  f15c3e8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f15c3ec:	0c00490c */ 	jal	memReallocate
+/*  f15c3ec:	0c00490c */ 	jal	mempRealloc
 /*  f15c3f0:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f15c3f4:	8fd102bc */ 	lw	$s1,0x2bc($s8)
 /*  f15c3f8:	24140001 */ 	addiu	$s4,$zero,0x1
@@ -7017,7 +7017,7 @@ glabel var7f1b75d0
 /*  f15c46c:	2484000f */ 	addiu	$a0,$a0,0xf
 /*  f15c470:	348f000f */ 	ori	$t7,$a0,0xf
 /*  f15c474:	39e4000f */ 	xori	$a0,$t7,0xf
-/*  f15c478:	0c0048f2 */ 	jal	malloc
+/*  f15c478:	0c0048f2 */ 	jal	mempAlloc
 /*  f15c47c:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f15c480:	3c03800a */ 	lui	$v1,%hi(var800a41a0)
 /*  f15c484:	246341a0 */ 	addiu	$v1,$v1,%lo(var800a41a0)
@@ -7162,7 +7162,7 @@ glabel var7f1b75d0
 /*  f1560b0:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f1560b4:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f1560b8:	39e4000f */ 	xori	$a0,$t7,0xf
-/*  f1560bc:	0c004a0e */ 	jal	malloc
+/*  f1560bc:	0c004a0e */ 	jal	mempAlloc
 /*  f1560c0:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f1560c4:	8e6402bc */ 	lw	$a0,0x2bc($s3)
 /*  f1560c8:	3c15800b */ 	lui	$s5,0x800b
@@ -7172,7 +7172,7 @@ glabel var7f1b75d0
 /*  f1560d8:	348e000f */ 	ori	$t6,$a0,0xf
 /*  f1560dc:	aea20000 */ 	sw	$v0,0x0($s5)
 /*  f1560e0:	39c4000f */ 	xori	$a0,$t6,0xf
-/*  f1560e4:	0c004a0e */ 	jal	malloc
+/*  f1560e4:	0c004a0e */ 	jal	mempAlloc
 /*  f1560e8:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f1560ec:	8e7102bc */ 	lw	$s1,0x2bc($s3)
 /*  f1560f0:	3c03800b */ 	lui	$v1,0x800b
@@ -7202,7 +7202,7 @@ glabel var7f1b75d0
 /*  f156148:	2624000f */ 	addiu	$a0,$s1,0xf
 /*  f15614c:	3499000f */ 	ori	$t9,$a0,0xf
 /*  f156150:	3b24000f */ 	xori	$a0,$t9,0xf
-/*  f156154:	0c004a0e */ 	jal	malloc
+/*  f156154:	0c004a0e */ 	jal	mempAlloc
 /*  f156158:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f15615c:	8e7102bc */ 	lw	$s1,0x2bc($s3)
 /*  f156160:	3c03800b */ 	lui	$v1,0x800b
@@ -7317,7 +7317,7 @@ glabel var7f1b75d0
 /*  f1562f8:	244224a4 */ 	addiu	$v0,$v0,0x24a4
 /*  f1562fc:	348e000f */ 	ori	$t6,$a0,0xf
 /*  f156300:	ac5e0000 */ 	sw	$s8,0x0($v0)
-/*  f156304:	0c004a0e */ 	jal	malloc
+/*  f156304:	0c004a0e */ 	jal	mempAlloc
 /*  f156308:	39c4000f */ 	xori	$a0,$t6,0xf
 /*  f15630c:	3c01800b */ 	lui	$at,0x800b
 /*  f156310:	ac22946c */ 	sw	$v0,-0x6b94($at)
@@ -7365,7 +7365,7 @@ glabel var7f1b75d0
 /*  f15639c:	2484000f */ 	addiu	$a0,$a0,0xf
 /*  f1563a0:	348e000f */ 	ori	$t6,$a0,0xf
 /*  f1563a4:	39c4000f */ 	xori	$a0,$t6,0xf
-/*  f1563a8:	0c004a0e */ 	jal	malloc
+/*  f1563a8:	0c004a0e */ 	jal	mempAlloc
 /*  f1563ac:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f1563b0:	3c05800a */ 	lui	$a1,0x800a
 /*  f1563b4:	24a5e6c0 */ 	addiu	$a1,$a1,-6464
@@ -7543,7 +7543,7 @@ glabel var7f1b75d0
 .NB0f156614:
 /*  f156614:	2444000f */ 	addiu	$a0,$v0,0xf
 /*  f156618:	3498000f */ 	ori	$t8,$a0,0xf
-/*  f15661c:	0c004a0e */ 	jal	malloc
+/*  f15661c:	0c004a0e */ 	jal	mempAlloc
 /*  f156620:	3b04000f */ 	xori	$a0,$t8,0xf
 /*  f156624:	3c10800b */ 	lui	$s0,0x800b
 /*  f156628:	26109450 */ 	addiu	$s0,$s0,-27568
@@ -7565,7 +7565,7 @@ glabel var7f1b75d0
 /*  f156660:	2484000f */ 	addiu	$a0,$a0,0xf
 /*  f156664:	3498000f */ 	ori	$t8,$a0,0xf
 /*  f156668:	3b04000f */ 	xori	$a0,$t8,0xf
-/*  f15666c:	0c004a0e */ 	jal	malloc
+/*  f15666c:	0c004a0e */ 	jal	mempAlloc
 /*  f156670:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f156674:	3c01800b */ 	lui	$at,0x800b
 /*  f156678:	1bc00095 */ 	blez	$s8,.NB0f1568d0
@@ -7837,7 +7837,7 @@ glabel var7f1b75d0
 /*  f156a64:	25e2ffff */ 	addiu	$v0,$t7,-1
 /*  f156a68:	3459000f */ 	ori	$t9,$v0,0xf
 /*  f156a6c:	03201025 */ 	or	$v0,$t9,$zero
-/*  f156a70:	0c004a0e */ 	jal	malloc
+/*  f156a70:	0c004a0e */ 	jal	mempAlloc
 /*  f156a74:	24441001 */ 	addiu	$a0,$v0,0x1001
 /*  f156a78:	8e450000 */ 	lw	$a1,0x0($s2)
 /*  f156a7c:	2626ffff */ 	addiu	$a2,$s1,-1
@@ -8040,7 +8040,7 @@ glabel var7f1b75d0
 .NB0f156d78:
 /*  f156d78:	8fa4008c */ 	lw	$a0,0x8c($sp)
 /*  f156d7c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f156d80:	0c004a53 */ 	jal	memReallocate
+/*  f156d80:	0c004a53 */ 	jal	mempRealloc
 /*  f156d84:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f156d88:	8fd102bc */ 	lw	$s1,0x2bc($s8)
 /*  f156d8c:	24140001 */ 	addiu	$s4,$zero,0x1
@@ -8079,7 +8079,7 @@ glabel var7f1b75d0
 /*  f156e00:	2484000f */ 	addiu	$a0,$a0,0xf
 /*  f156e04:	348f000f */ 	ori	$t7,$a0,0xf
 /*  f156e08:	39e4000f */ 	xori	$a0,$t7,0xf
-/*  f156e0c:	0c004a0e */ 	jal	malloc
+/*  f156e0c:	0c004a0e */ 	jal	mempAlloc
 /*  f156e10:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f156e14:	3c03800b */ 	lui	$v1,0x800b
 /*  f156e18:	24638760 */ 	addiu	$v1,$v1,-30880
@@ -8221,8 +8221,8 @@ glabel var7f1b75d0
 //	u32 scratch;
 //	struct portalvertices *pvertices;
 //
-//	g_Rooms = malloc(ALIGN16(g_Vars.roomcount * sizeof(struct room)), MEMPOOL_STAGE);
-//	var800a4ce8 = malloc(ALIGN16(g_Vars.roomcount * sizeof(struct var800a4ce8)), MEMPOOL_STAGE);
+//	g_Rooms = mempAlloc(ALIGN16(g_Vars.roomcount * sizeof(struct room)), MEMPOOL_STAGE);
+//	var800a4ce8 = mempAlloc(ALIGN16(g_Vars.roomcount * sizeof(struct var800a4ce8)), MEMPOOL_STAGE);
 //
 //	// 9b8
 //	for (s4 = 0; s4 < g_Vars.roomcount; s4++) {
@@ -8232,7 +8232,7 @@ glabel var7f1b75d0
 //
 //	// 9ec
 //	if (g_Vars.mplayerisrunning) {
-//		g_MpRoomVisibility = malloc(ALIGN16(g_Vars.roomcount), MEMPOOL_STAGE);
+//		g_MpRoomVisibility = mempAlloc(ALIGN16(g_Vars.roomcount), MEMPOOL_STAGE);
 //
 //		for (s4 = 0; s4 < g_Vars.roomcount; s4++) {
 //			g_MpRoomVisibility[s4] = 0;
@@ -8274,7 +8274,7 @@ glabel var7f1b75d0
 //		}
 //
 //		g_NumPortalThings = numportals;
-//		g_PortalThings = malloc(ALIGN16(g_NumPortalThings * sizeof(struct portalthing)), MEMPOOL_STAGE);
+//		g_PortalThings = mempAlloc(ALIGN16(g_NumPortalThings * sizeof(struct portalthing)), MEMPOOL_STAGE);
 //
 //		// Iterate the portals and update their unk00 value. In storage, the
 //		// g_BgPortals array is followed by vertice data, and each portal's
@@ -8311,7 +8311,7 @@ glabel var7f1b75d0
 //		// number ascending. Each room struct contains an index into this array
 //		// where its portal numbers start.
 //		index = 0;
-//		g_RoomPortals = malloc(ALIGN16((numportals == 0 ? 1 : numportals) * sizeof(s16 *)), MEMPOOL_STAGE);
+//		g_RoomPortals = mempAlloc(ALIGN16((numportals == 0 ? 1 : numportals) * sizeof(s16 *)), MEMPOOL_STAGE);
 //
 //		g_Vars.roomportalrecursionlimit = 0;
 //
@@ -8396,14 +8396,14 @@ glabel var7f1b75d0
 //		}
 //
 //		// ea8
-//		var800a4cd0 = malloc(ALIGN16(numportals == 0 ? 1 : numportals), MEMPOOL_STAGE);
+//		var800a4cd0 = mempAlloc(ALIGN16(numportals == 0 ? 1 : numportals), MEMPOOL_STAGE);
 //
 //		// edc
 //		for (s4 = 0; s4 < numportals; s4++) {
 //			var800a4cd0[s4] = func0f15b4c0(s4);
 //		}
 //
-//		var800a4ccc = malloc(ALIGN16(numportals * sizeof(struct var800a4ccc)), MEMPOOL_STAGE);
+//		var800a4ccc = mempAlloc(ALIGN16(numportals * sizeof(struct var800a4ccc)), MEMPOOL_STAGE);
 //
 //		// f38
 //		for (s4 = 0; s4 < numportals; s4++) {
@@ -8501,7 +8501,7 @@ glabel var7f1b75d0
 //		inflatedsize = (*(u16 *)&header[0] & 0x7fff) - 1;
 //		section3compsize = *(u16 *)&header[2];
 //		inflatedsize = (inflatedsize | 0xf) + 1;
-//		section3 = malloc(inflatedsize + 0x8000, MEMPOOL_STAGE);
+//		section3 = mempAlloc(inflatedsize + 0x8000, MEMPOOL_STAGE);
 //		scratch = (u32)section3 + 0x8000;
 //		bgLoadFile((u8 *)scratch, g_BgSection3 + 4, (section3compsize - 1 | 0xf) + 1);
 //		bgInflate((u8 *)scratch, section3, section3compsize);
@@ -8554,7 +8554,7 @@ glabel var7f1b75d0
 //			section3ptr++;
 //		}
 //
-//		memReallocate(section3, 0, MEMPOOL_STAGE);
+//		mempRealloc(section3, 0, MEMPOOL_STAGE);
 //
 //		// 64c
 //		for (s4 = 1; s4 < g_Vars.roomcount; s4++) {
@@ -8570,7 +8570,7 @@ glabel var7f1b75d0
 //
 //		// 6a0
 //		if (numlights) {
-//			var800a41a0 = malloc(ALIGN16(numlights * 3), MEMPOOL_STAGE);
+//			var800a41a0 = mempAlloc(ALIGN16(numlights * 3), MEMPOOL_STAGE);
 //
 //			for (s4 = 0; s4 < numlights; s4++) {
 //				var800a41a0[s4 * 3 + 0] = 0;

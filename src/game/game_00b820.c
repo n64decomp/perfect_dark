@@ -7,7 +7,7 @@
 #include "game/game_02cde0.h"
 #include "game/game_091e10.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/rng.h"
 #include "data.h"
 #include "types.h"
@@ -410,8 +410,8 @@ void stageAllocateBgChrs(void)
 		struct chrdata blankchr = {0};
 
 		// Allocate BG chrs
-		g_BgChrs = malloc(ALIGN16(g_NumBgChrs * sizeof(struct chrdata)), MEMPOOL_STAGE);
-		g_BgChrnums = malloc(ALIGN16(g_NumBgChrs * sizeof(s16)), MEMPOOL_STAGE);
+		g_BgChrs = mempAlloc(ALIGN16(g_NumBgChrs * sizeof(struct chrdata)), MEMPOOL_STAGE);
+		g_BgChrnums = mempAlloc(ALIGN16(g_NumBgChrs * sizeof(s16)), MEMPOOL_STAGE);
 
 		// Initialise BG chrs
 		i = 0;
@@ -468,8 +468,8 @@ void stageAllocateBgChrs(void)
 		}
 	}
 
-	g_TeamList = malloc(0x210, MEMPOOL_STAGE);
-	g_SquadronList = malloc(0x220, MEMPOOL_STAGE);
+	g_TeamList = mempAlloc(0x210, MEMPOOL_STAGE);
+	g_SquadronList = mempAlloc(0x220, MEMPOOL_STAGE);
 }
 
 GLOBAL_ASM(

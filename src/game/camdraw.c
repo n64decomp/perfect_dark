@@ -11,9 +11,9 @@
 #include "game/utils.h"
 #include "bss.h"
 #include "lib/main.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/model.h"
-#include "lib/lib_126b0.h"
+#include "lib/mema.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
 #include "lib/libc/ll.h"
@@ -502,8 +502,8 @@ void phAllocate(void)
 		u32 size1 = align16(sizeof(struct var8007f8dc) * 4);
 		u32 size2 = align16(sizeof(struct var800a45a0));
 
-		var8007f8dc = malloc(size1, MEMPOOL_PERMANENT);
-		var800a45a0 = malloc(size2, MEMPOOL_PERMANENT);
+		var8007f8dc = mempAlloc(size1, MEMPOOL_PERMANENT);
+		var800a45a0 = mempAlloc(size2, MEMPOOL_PERMANENT);
 
 		func0f14a240();
 
@@ -1093,7 +1093,7 @@ glabel func0f14aee0
 /*  f14af58:	0fc5db69 */ 	jal	align16
 /*  f14af5c:	00942021 */ 	addu	$a0,$a0,$s4
 /*  f14af60:	02022021 */ 	addu	$a0,$s0,$v0
-/*  f14af64:	0c0048f2 */ 	jal	malloc
+/*  f14af64:	0c0048f2 */ 	jal	mempAlloc
 /*  f14af68:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f14af6c:	8eaf0000 */ 	lw	$t7,0x0($s5)
 /*  f14af70:	2451018c */ 	addiu	$s1,$v0,0x18c

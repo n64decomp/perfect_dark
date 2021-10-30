@@ -3,7 +3,7 @@
 #include "types.h"
 #include "data.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 
 u8 g_RdpDramStack[SP_DRAM_STACK_SIZE8];
 
@@ -71,7 +71,7 @@ void rdpInit(void)
 		size = 0x8000;
 	}
 
-	g_RdpOutBufferStart = malloc(size, MEMPOOL_PERMANENT);
+	g_RdpOutBufferStart = mempAlloc(size, MEMPOOL_PERMANENT);
 	g_RdpOutBufferEnd = (u16 *)((u32)g_RdpOutBufferStart + size);
 }
 

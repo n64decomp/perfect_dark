@@ -27,7 +27,7 @@
 #include "bss.h"
 #include "lib/vi.h"
 #include "lib/snd.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
 #include "lib/anim.h"
@@ -10124,7 +10124,7 @@ glabel func0f186508
 /*  f18655c:	24040060 */ 	addiu	$a0,$zero,0x60
 /*  f186560:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f186564:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f186568:	0c0048f2 */ 	jal	malloc
+/*  f186568:	0c0048f2 */ 	jal	mempAlloc
 /*  f18656c:	adc80004 */ 	sw	$t0,0x4($t6)
 /*  f186570:	27a9001c */ 	addiu	$t1,$sp,0x1c
 /*  f186574:	afa20018 */ 	sw	$v0,0x18($sp)

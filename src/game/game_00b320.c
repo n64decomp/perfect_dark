@@ -3,7 +3,7 @@
 #include "game/file.h"
 #include "game/lang.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
 
@@ -53,7 +53,7 @@ glabel stageLoadCommonLang
 .PF0f00b3c0:
 /*  f00b3c0:	348f000f */ 	ori	$t7,$a0,0xf
 /*  f00b3c4:	39e4000f */ 	xori	$a0,$t7,0xf
-/*  f00b3c8:	0c004856 */ 	jal	malloc
+/*  f00b3c8:	0c004856 */ 	jal	mempAlloc
 /*  f00b3cc:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f00b3d0:	3c018008 */ 	lui	$at,0x8008
 /*  f00b3d4:	8fa30018 */ 	lw	$v1,0x18($sp)

@@ -16,7 +16,7 @@
 #include "game/propobj.h"
 #include "bss.h"
 #include "lib/dma.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
 #include "data.h"
@@ -90,7 +90,7 @@ void tagsAllocatePtrs(void)
 
 	if (g_NumTags) {
 		u32 size = index * 4;
-		g_TagPtrs = malloc(ALIGN16(size), MEMPOOL_STAGE);
+		g_TagPtrs = mempAlloc(ALIGN16(size), MEMPOOL_STAGE);
 
 		for (index = 0; index < g_NumTags; index++) {
 			g_TagPtrs[index] = NULL;

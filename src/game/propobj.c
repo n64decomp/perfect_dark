@@ -64,7 +64,7 @@
 #include "lib/dma.h"
 #include "lib/main.h"
 #include "lib/snd.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/model.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
@@ -5189,7 +5189,7 @@ struct prop *objInitialise(struct defaultobj *obj, struct modelfiledata *filedat
 		}
 
 		if (obj->numtiles > 0) {
-			obj->unkgeo = malloc(ALIGN16(geosize), MEMPOOL_STAGE);
+			obj->unkgeo = mempAlloc(ALIGN16(geosize), MEMPOOL_STAGE);
 		} else {
 			obj->unkgeo = NULL;
 		}
@@ -71122,7 +71122,7 @@ glabel var7f1aaf78
 /*  f08d6ac:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f08d6b0:	2724000f */ 	addiu	$a0,$t9,0xf
 /*  f08d6b4:	3488000f */ 	ori	$t0,$a0,0xf
-/*  f08d6b8:	0c0048f2 */ 	jal	malloc
+/*  f08d6b8:	0c0048f2 */ 	jal	mempAlloc
 /*  f08d6bc:	3904000f */ 	xori	$a0,$t0,0xf
 /*  f08d6c0:	8fa60094 */ 	lw	$a2,0x94($sp)
 /*  f08d6c4:	10000006 */ 	b	.L0f08d6e0

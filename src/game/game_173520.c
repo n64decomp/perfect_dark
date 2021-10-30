@@ -6,7 +6,7 @@
 #include "lib/rzip.h"
 #include "lib/dma.h"
 #include "lib/main.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
 
@@ -47,7 +47,7 @@ glabel texturesLoadConfigs
 /*  f1735e0:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f1735e4:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f1735e8:	02202025 */ 	or	$a0,$s1,$zero
-/*  f1735ec:	0c0048f2 */ 	jal	malloc
+/*  f1735ec:	0c0048f2 */ 	jal	mempAlloc
 /*  f1735f0:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f1735f4:	3c03800b */ 	lui	$v1,%hi(g_TextureConfigSegment)
 /*  f1735f8:	2463b554 */ 	addiu	$v1,$v1,%lo(g_TextureConfigSegment)
@@ -179,7 +179,7 @@ glabel texturesLoadConfigs
 /*  f1737f0:	00045080 */ 	sll	$t2,$a0,0x2
 /*  f1737f4:	2544000f */ 	addiu	$a0,$t2,0xf
 /*  f1737f8:	348b000f */ 	ori	$t3,$a0,0xf
-/*  f1737fc:	0c0048f2 */ 	jal	malloc
+/*  f1737fc:	0c0048f2 */ 	jal	mempAlloc
 /*  f173800:	3964000f */ 	xori	$a0,$t3,0xf
 /*  f173804:	8e0d0000 */ 	lw	$t5,0x0($s0)
 /*  f173808:	3c03800b */ 	lui	$v1,%hi(var800ab55c)
@@ -329,7 +329,7 @@ glabel texturesLoadConfigs
 //	u32 len = &_textureconfigSegmentEnd - &_textureconfigSegmentStart;
 //	s32 i;
 //
-//	g_TextureConfigSegment = malloc(len, MEMPOOL_STAGE);
+//	g_TextureConfigSegment = mempAlloc(len, MEMPOOL_STAGE);
 //	dmaExec(g_TextureConfigSegment, &_textureconfigSegmentRomStart, len);
 //
 //	var800ab550 = (u32)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart);
@@ -355,7 +355,7 @@ glabel texturesLoadConfigs
 //	var800ab5ac = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0xb44);
 //
 //	var800ab558 = (len - ((u32)&_textureconfigSegmentStart + 0x1c0)) + (u32)&_textureconfigSegmentStart;
-//	var800ab55c = malloc(align16(var800ab558), MEMPOOL_STAGE);
+//	var800ab55c = mempAlloc(align16(var800ab558), MEMPOOL_STAGE);
 //
 //	for (i = 0; i < var800ab558; i++) {
 //		var800ab55c[i].texturenum = 0;

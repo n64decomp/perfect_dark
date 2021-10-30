@@ -6,7 +6,7 @@
 #include "game/game_1577f0.h"
 #include "bss.h"
 #include "lib/dma.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/mtx.h"
 #include "lib/lib_17ce0.h"
 #include "lib/anim.h"

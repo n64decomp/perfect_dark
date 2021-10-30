@@ -17,7 +17,7 @@
 #include "bss.h"
 #include "lib/vi.h"
 #include "lib/main.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
 #include "data.h"
@@ -6094,7 +6094,7 @@ void creditsInit(void)
 	var800a416c = 0;
 	var8007f130 = 0;
 
-	g_CreditsData = malloc(sizeof(struct creditsdata), MEMPOOL_STAGE);
+	g_CreditsData = mempAlloc(sizeof(struct creditsdata), MEMPOOL_STAGE);
 
 	g_CreditsData->unk2eec = 0;
 	g_CreditsData->unk41b0[0] = 0;

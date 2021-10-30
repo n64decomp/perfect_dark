@@ -9,7 +9,7 @@
 #include "lib/vi.h"
 #include "lib/dma.h"
 #include "lib/main.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
 
@@ -176,7 +176,7 @@ void fontLoad(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar *
 #endif
 
 	len = (u32)romend - (u32)romstart;
-	font = malloc(len, MEMPOOL_STAGE);
+	font = mempAlloc(len, MEMPOOL_STAGE);
 	chars = font->chars;
 
 	dmaExec(font, (u32) romstart, len);

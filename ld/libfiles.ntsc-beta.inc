@@ -40,8 +40,8 @@
 	build/ROMID/lib/main.o (section); \
 	build/ROMID/lib/snd.o (section); \
 	build/ROMID/lib/music.o (section); \
-	build/ROMID/lib/memory.o (section); \
-	build/ROMID/lib/lib_126b0.o (section); \
+	build/ROMID/lib/memp.o (section); \
+	build/ROMID/lib/mema.o (section); \
 	build/ROMID/lib/rng.o (section); \
 	build/ROMID/lib/args.o (section); \
 	build/ROMID/lib/str.o (section); \

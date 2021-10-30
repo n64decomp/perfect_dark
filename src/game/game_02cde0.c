@@ -13,9 +13,9 @@
 #include "game/pad.h"
 #include "game/propobj.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/model.h"
-#include "lib/lib_126b0.h"
+#include "lib/mema.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
 #include "lib/ailist.h"
@@ -776,10 +776,10 @@ void chrUnpack(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 				chr->chrheight = 185;
 				chr->chrwidth = 30;
 			} else if (bodynum == BODY_CHICROB) {
-				chr->unk348[0] = malloc(sizeof(struct fireslotthing), MEMPOOL_STAGE);
-				chr->unk348[1] = malloc(sizeof(struct fireslotthing), MEMPOOL_STAGE);
-				chr->unk348[0]->beam = malloc(ALIGN16(sizeof(struct beam)), MEMPOOL_STAGE);
-				chr->unk348[1]->beam = malloc(ALIGN16(sizeof(struct beam)), MEMPOOL_STAGE);
+				chr->unk348[0] = mempAlloc(sizeof(struct fireslotthing), MEMPOOL_STAGE);
+				chr->unk348[1] = mempAlloc(sizeof(struct fireslotthing), MEMPOOL_STAGE);
+				chr->unk348[0]->beam = mempAlloc(ALIGN16(sizeof(struct beam)), MEMPOOL_STAGE);
+				chr->unk348[1]->beam = mempAlloc(ALIGN16(sizeof(struct beam)), MEMPOOL_STAGE);
 				chr->unk348[0]->beam->age = -1;
 				chr->unk348[1]->beam->age = -1;
 				chr->chrheight = 200;

@@ -35,7 +35,7 @@
 #include "lib/vi.h"
 #include "lib/main.h"
 #include "lib/snd.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
 #include "lib/lib_317f0.h"
@@ -18687,7 +18687,7 @@ glabel func0f0f8bb4
 /*  f0f8bc8:	ac850008 */ 	sw	$a1,0x8($a0)
 /*  f0f8bcc:	8fa4001c */ 	lw	$a0,0x1c($sp)
 /*  f0f8bd0:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f0f8bd4:	0c0048f2 */ 	jal	malloc
+/*  f0f8bd4:	0c0048f2 */ 	jal	mempAlloc
 /*  f0f8bd8:	afa70018 */ 	sw	$a3,0x18($sp)
 /*  f0f8bdc:	8fa70018 */ 	lw	$a3,0x18($sp)
 /*  f0f8be0:	10000002 */ 	b	.L0f0f8bec
@@ -18768,7 +18768,7 @@ glabel var7f1b2a0c
 /*  f0f8cc0:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0f8cc4:	11c10005 */ 	beq	$t6,$at,.L0f0f8cdc
 /*  f0f8cc8:	24044b00 */ 	addiu	$a0,$zero,0x4b00
-/*  f0f8ccc:	0c0048f2 */ 	jal	malloc
+/*  f0f8ccc:	0c0048f2 */ 	jal	mempAlloc
 /*  f0f8cd0:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f0f8cd4:	3c01800a */ 	lui	$at,%hi(g_BlurBuffer)
 /*  f0f8cd8:	ac22dfbc */ 	sw	$v0,%lo(g_BlurBuffer)($at)
@@ -19030,7 +19030,7 @@ glabel var7f1b2a0c
 /*  f0f5514:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0f5518:	11c10005 */ 	beq	$t6,$at,.NB0f0f5530
 /*  f0f551c:	24044b00 */ 	addiu	$a0,$zero,0x4b00
-/*  f0f5520:	0c004a0e */ 	jal	malloc
+/*  f0f5520:	0c004a0e */ 	jal	mempAlloc
 /*  f0f5524:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f0f5528:	3c01800a */ 	lui	$at,0x800a
 /*  f0f552c:	ac22277c */ 	sw	$v0,0x277c($at)

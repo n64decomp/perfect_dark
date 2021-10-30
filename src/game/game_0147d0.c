@@ -7,7 +7,7 @@
 #include "game/game_197600.h"
 #include "game/mplayer/mplayer.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/model.h"
 #include "lib/rng.h"
 #include "lib/ailist.h"
@@ -97,7 +97,7 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 				g_MpSimulantChrs[g_NumMpSimulantChrs] = chr;
 				g_NumMpSimulantChrs++;
 
-				aibot = malloc(sizeof(struct aibot), MEMPOOL_STAGE);
+				aibot = mempAlloc(sizeof(struct aibot), MEMPOOL_STAGE);
 				chr->aibot = aibot;
 
 				if (aibot != NULL) {
@@ -120,7 +120,7 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 					var800ac500[g_MpNumPlayers] = &g_MpSimulants[aibotnum].base;
 					g_MpNumPlayers++;
 
-					aibot->ammoheld = malloc(36 * sizeof(s32), MEMPOOL_STAGE);
+					aibot->ammoheld = mempAlloc(36 * sizeof(s32), MEMPOOL_STAGE);
 
 					for (i = 0; i < 33; i++) {
 						aibot->ammoheld[i] = 0;

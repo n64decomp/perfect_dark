@@ -5,7 +5,7 @@
 #include "bss.h"
 #include "lib/rzip.h"
 #include "lib/dma.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/rng.h"
 #include "data.h"
 #include "types.h"
@@ -4505,7 +4505,7 @@ glabel func0f1670fc
 .L0f167174:
 /*  f167174:	8e040000 */ 	lw	$a0,0x0($s0)
 .L0f167178:
-/*  f167178:	0c0048f2 */ 	jal	malloc
+/*  f167178:	0c0048f2 */ 	jal	mempAlloc
 /*  f16717c:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f167180:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f167184:	8e050000 */ 	lw	$a1,0x0($s0)
@@ -4523,7 +4523,7 @@ glabel func0f1670fc
 /*  f1671b4:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f1671b8:	11010007 */ 	beq	$t0,$at,.L0f1671d8
 /*  f1671bc:	24060004 */ 	addiu	$a2,$zero,0x4
-/*  f1671c0:	0c00490c */ 	jal	memReallocate
+/*  f1671c0:	0c00490c */ 	jal	mempRealloc
 /*  f1671c4:	8e050000 */ 	lw	$a1,0x0($s0)
 /*  f1671c8:	10000004 */ 	b	.L0f1671dc
 /*  f1671cc:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -4565,12 +4565,12 @@ glabel func0f1670fc
 //		}
 //
 //		// 174
-//		ptr = malloc(info->unk00, MEMPOOL_STAGE);
+//		ptr = mempAlloc(info->unk00, MEMPOOL_STAGE);
 //		info->unk04 = info->unk00;
 //		func0f166eb4(ptr, info->unk00, &filetable[filenum], info);
 //
 //		if (arg1 != 0x11) {
-//			memReallocate(ptr, info->unk00, MEMPOOL_STAGE);
+//			mempRealloc(ptr, info->unk00, MEMPOOL_STAGE);
 //		}
 //	} else {
 //		while (true) {
@@ -4650,7 +4650,7 @@ void func0f1672a8(s32 filenum, void *ptr, u32 size, bool resizing)
 	g_FileInfo[filenum].unk04 = size;
 
 	if (resizing) {
-		memReallocate(ptr, g_FileInfo[filenum].size, MEMPOOL_STAGE);
+		mempRealloc(ptr, g_FileInfo[filenum].size, MEMPOOL_STAGE);
 	}
 }
 

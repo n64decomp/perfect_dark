@@ -5,7 +5,7 @@
 #include "game/game_129210.h"
 #include "game/propobj.h"
 #include "bss.h"
-#include "lib/lib_126b0.h"
+#include "lib/mema.h"
 #include "lib/rng.h"
 #include "data.h"
 #include "types.h"

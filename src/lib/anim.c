@@ -5,7 +5,7 @@
 #include "game/bg.h"
 #include "bss.h"
 #include "lib/dma.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/mtx.h"
 #include "lib/anim.h"
 #include "lib/lib_2f490.h"
@@ -59,7 +59,7 @@ glabel anim000233c0
 /*    233e4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    233e8:	3b04003f */ 	xori	$a0,$t8,0x3f
 /*    233ec:	00808025 */ 	or	$s0,$a0,$zero
-/*    233f0:	0c0048f2 */ 	jal	malloc
+/*    233f0:	0c0048f2 */ 	jal	mempAlloc
 /*    233f4:	24050006 */ 	addiu	$a1,$zero,0x6
 /*    233f8:	3c05007d */ 	lui	$a1,%hi(_animationsTableRomStart)
 /*    233fc:	24a5d1a0 */ 	addiu	$a1,$a1,%lo(_animationsTableRomStart)
@@ -130,7 +130,7 @@ glabel anim000233c0
 /*    234f0:	ae0a0000 */ 	sw	$t2,0x0($s0)
 /*    234f4:	acee0000 */ 	sw	$t6,0x0($a3)
 /*    234f8:	39e4003f */ 	xori	$a0,$t7,0x3f
-/*    234fc:	0c0048f2 */ 	jal	malloc
+/*    234fc:	0c0048f2 */ 	jal	mempAlloc
 /*    23500:	24050006 */ 	addiu	$a1,$zero,0x6
 /*    23504:	3c098006 */ 	lui	$t1,%hi(g_NumAnimations)
 /*    23508:	3c018006 */ 	lui	$at,%hi(var8005f010)
@@ -141,7 +141,7 @@ glabel anim000233c0
 /*    2351c:	0004c840 */ 	sll	$t9,$a0,0x1
 /*    23520:	2724003f */ 	addiu	$a0,$t9,0x3f
 /*    23524:	348a003f */ 	ori	$t2,$a0,0x3f
-/*    23528:	0c0048f2 */ 	jal	malloc
+/*    23528:	0c0048f2 */ 	jal	mempAlloc
 /*    2352c:	3944003f */ 	xori	$a0,$t2,0x3f
 /*    23530:	3c078006 */ 	lui	$a3,%hi(var8005f018)
 /*    23534:	3c018006 */ 	lui	$at,%hi(var8005f014)
@@ -152,27 +152,27 @@ glabel anim000233c0
 /*    23548:	00046140 */ 	sll	$t4,$a0,0x5
 /*    2354c:	2584003f */ 	addiu	$a0,$t4,0x3f
 /*    23550:	348d003f */ 	ori	$t5,$a0,0x3f
-/*    23554:	0c0048f2 */ 	jal	malloc
+/*    23554:	0c0048f2 */ 	jal	mempAlloc
 /*    23558:	39a4003f */ 	xori	$a0,$t5,0x3f
 /*    2355c:	3c01800a */ 	lui	$at,%hi(var8009a870)
 /*    23560:	ac22a870 */ 	sw	$v0,%lo(var8009a870)($at)
 /*    23564:	24040080 */ 	addiu	$a0,$zero,0x80
-/*    23568:	0c0048f2 */ 	jal	malloc
+/*    23568:	0c0048f2 */ 	jal	mempAlloc
 /*    2356c:	24050006 */ 	addiu	$a1,$zero,0x6
 /*    23570:	3c01800a */ 	lui	$at,%hi(var8009a874)
 /*    23574:	ac22a874 */ 	sw	$v0,%lo(var8009a874)($at)
 /*    23578:	24040040 */ 	addiu	$a0,$zero,0x40
-/*    2357c:	0c0048f2 */ 	jal	malloc
+/*    2357c:	0c0048f2 */ 	jal	mempAlloc
 /*    23580:	24050006 */ 	addiu	$a1,$zero,0x6
 /*    23584:	3c01800a */ 	lui	$at,%hi(var8009a878)
 /*    23588:	ac22a878 */ 	sw	$v0,%lo(var8009a878)($at)
 /*    2358c:	24040040 */ 	addiu	$a0,$zero,0x40
-/*    23590:	0c0048f2 */ 	jal	malloc
+/*    23590:	0c0048f2 */ 	jal	mempAlloc
 /*    23594:	24050006 */ 	addiu	$a1,$zero,0x6
 /*    23598:	3c01800a */ 	lui	$at,%hi(var8009a87c)
 /*    2359c:	ac22a87c */ 	sw	$v0,%lo(var8009a87c)($at)
 /*    235a0:	24040040 */ 	addiu	$a0,$zero,0x40
-/*    235a4:	0c0048f2 */ 	jal	malloc
+/*    235a4:	0c0048f2 */ 	jal	mempAlloc
 /*    235a8:	24050006 */ 	addiu	$a1,$zero,0x6
 /*    235ac:	3c01800a */ 	lui	$at,%hi(var8009a880)
 /*    235b0:	ac22a880 */ 	sw	$v0,%lo(var8009a880)($at)
@@ -183,22 +183,22 @@ glabel anim000233c0
 /*    235c4:	000f78c0 */ 	sll	$t7,$t7,0x3
 /*    235c8:	25e4003f */ 	addiu	$a0,$t7,0x3f
 /*    235cc:	3498003f */ 	ori	$t8,$a0,0x3f
-/*    235d0:	0c0048f2 */ 	jal	malloc
+/*    235d0:	0c0048f2 */ 	jal	mempAlloc
 /*    235d4:	3b04003f */ 	xori	$a0,$t8,0x3f
 /*    235d8:	3c01800a */ 	lui	$at,%hi(var8009a884)
 /*    235dc:	ac22a884 */ 	sw	$v0,%lo(var8009a884)($at)
 /*    235e0:	240400c0 */ 	addiu	$a0,$zero,0xc0
-/*    235e4:	0c0048f2 */ 	jal	malloc
+/*    235e4:	0c0048f2 */ 	jal	mempAlloc
 /*    235e8:	24050006 */ 	addiu	$a1,$zero,0x6
 /*    235ec:	3c01800a */ 	lui	$at,%hi(var8009a888)
 /*    235f0:	ac22a888 */ 	sw	$v0,%lo(var8009a888)($at)
 /*    235f4:	24040080 */ 	addiu	$a0,$zero,0x80
-/*    235f8:	0c0048f2 */ 	jal	malloc
+/*    235f8:	0c0048f2 */ 	jal	mempAlloc
 /*    235fc:	24050006 */ 	addiu	$a1,$zero,0x6
 /*    23600:	3c01800a */ 	lui	$at,%hi(var8009a88c)
 /*    23604:	ac22a88c */ 	sw	$v0,%lo(var8009a88c)($at)
 /*    23608:	240400c0 */ 	addiu	$a0,$zero,0xc0
-/*    2360c:	0c0048f2 */ 	jal	malloc
+/*    2360c:	0c0048f2 */ 	jal	mempAlloc
 /*    23610:	24050006 */ 	addiu	$a1,$zero,0x6
 /*    23614:	3c01800a */ 	lui	$at,%hi(var8009a890)
 /*    23618:	0c008d90 */ 	jal	anim00023640

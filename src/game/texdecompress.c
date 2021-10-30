@@ -6,7 +6,7 @@
 #include "lib/rzip.h"
 #include "lib/dma.h"
 #include "lib/main.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
 
@@ -6013,11 +6013,11 @@ glabel func0f173010
 /*  f17316c:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f173170:	afa614ac */ 	sw	$a2,0x14ac($sp)
 /*  f173174:	afa714a0 */ 	sw	$a3,0x14a0($sp)
-/*  f173178:	0c004935 */ 	jal	memGetFree
+/*  f173178:	0c004935 */ 	jal	mempGetPoolFree
 /*  f17317c:	afa914a4 */ 	sw	$t1,0x14a4($sp)
 /*  f173180:	afa20030 */ 	sw	$v0,0x30($sp)
 /*  f173184:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f173188:	0c004935 */ 	jal	memGetFree
+/*  f173188:	0c004935 */ 	jal	mempGetPoolFree
 /*  f17318c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f173190:	8fab0030 */ 	lw	$t3,0x30($sp)
 /*  f173194:	8fa714a0 */ 	lw	$a3,0x14a0($sp)
@@ -6133,7 +6133,7 @@ glabel func0f173010
 /*  f173320:	2484002f */ 	addiu	$a0,$a0,0x2f
 /*  f173324:	348c000f */ 	ori	$t4,$a0,0xf
 /*  f173328:	3984000f */ 	xori	$a0,$t4,0xf
-/*  f17332c:	0c004991 */ 	jal	mallocFromRight
+/*  f17332c:	0c004991 */ 	jal	mempAllocFromRight
 /*  f173330:	afa31490 */ 	sw	$v1,0x1490($sp)
 /*  f173334:	ae02000c */ 	sw	$v0,0xc($s0)
 /*  f173338:	afa20034 */ 	sw	$v0,0x34($sp)

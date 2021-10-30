@@ -53,7 +53,7 @@
 #include "lib/vi.h"
 #include "lib/main.h"
 #include "lib/snd.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
 #include "lib/anim.h"
@@ -116,7 +116,7 @@ void func0f0b65a8(s32 arg0)
 {
 	if (arg0 > 0) {
 		var8009ddcc = arg0;
-		var8009ddc8 = malloc(ALIGN16(arg0 * 2), MEMPOOL_STAGE);
+		var8009ddc8 = mempAlloc(ALIGN16(arg0 * 2), MEMPOOL_STAGE);
 	} else {
 		var8009ddc8 = NULL;
 	}
@@ -184,7 +184,7 @@ glabel var7f1ad418
 /*  f0b6788:	f7b60018 */ 	sdc1	$f22,0x18($sp)
 /*  f0b678c:	f7b40010 */ 	sdc1	$f20,0x10($sp)
 /*  f0b6790:	39e4000f */ 	xori	$a0,$t7,0xf
-/*  f0b6794:	0c0048f2 */ 	jal	malloc
+/*  f0b6794:	0c0048f2 */ 	jal	mempAlloc
 /*  f0b6798:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f0b679c:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
 /*  f0b67a0:	256b9fc0 */ 	addiu	$t3,$t3,%lo(g_Vars)
@@ -358,7 +358,7 @@ glabel var7f1ad418
 //
 //	osSyncPrintf("Acoustic Reset -> Allocating %d bytes for %d roomacousticdata structures\n", size, g_Vars.roomcount);
 //
-//	g_RoomAcousticData = malloc(size, MEMPOOL_STAGE);
+//	g_RoomAcousticData = mempAlloc(size, MEMPOOL_STAGE);
 //
 //	for (i = 0; i < g_Vars.roomcount; i++) {
 //		bool allgood = true;

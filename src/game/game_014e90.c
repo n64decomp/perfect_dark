@@ -7,7 +7,7 @@
 #include "game/game_197600.h"
 #include "game/mplayer/mplayer.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/model.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
@@ -22,7 +22,7 @@ void aibotAllocateInventory(struct chrdata *chr, s32 maxitems)
 		}
 
 		chr->aibot->maxitems = maxitems;
-		chr->aibot->items = malloc(ALIGN16(maxitems * sizeof(struct invitem)), MEMPOOL_STAGE);
+		chr->aibot->items = mempAlloc(ALIGN16(maxitems * sizeof(struct invitem)), MEMPOOL_STAGE);
 
 		aibotClearInventory(chr);
 	}

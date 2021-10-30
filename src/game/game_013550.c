@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
 
@@ -108,7 +108,7 @@ void func0f013550(void)
 		numberssize += 0xf;
 		numberssize &= ~0xf;
 
-		ptr = malloc(structssize + numberssize, MEMPOOL_STAGE);
+		ptr = mempAlloc(structssize + numberssize, MEMPOOL_STAGE);
 
 		var8009cc40 = ptr;
 		var800a41b0 = (struct var800a41b0 *)((u32)ptr + numberssize);

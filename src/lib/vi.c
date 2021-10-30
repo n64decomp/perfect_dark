@@ -9,7 +9,7 @@
 #include "game/options.h"
 #include "bss.h"
 #include "lib/vi.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
@@ -221,7 +221,7 @@ void viAllocateFbs(s32 stagenum)
 		}
 	}
 
-	ptr = malloc(fbsize * 2 + 0x40, MEMPOOL_STAGE);
+	ptr = mempAlloc(fbsize * 2 + 0x40, MEMPOOL_STAGE);
 
 	ptr = (u8 *)(((u32)ptr + 0x3f) & 0xffffffc0);
 

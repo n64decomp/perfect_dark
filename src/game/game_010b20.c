@@ -4,7 +4,7 @@
 #include "game/bondgun.h"
 #include "game/game_1655c0.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
 
@@ -147,7 +147,7 @@ void func0f010bb0(void)
 		i = ALIGN16(bgun0f09ddfc());
 	}
 
-	g_Vars.currentplayer->gunctrl.unk158c = malloc(i, MEMPOOL_STAGE);
+	g_Vars.currentplayer->gunctrl.unk158c = mempAlloc(i, MEMPOOL_STAGE);
 	g_Vars.currentplayer->gunctrl.handfilenum = 0;
 	g_Vars.currentplayer->gunctrl.unk15a0 = 0;
 	g_Vars.currentplayer->gunctrl.unk15a4 = 0;

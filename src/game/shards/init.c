@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
 
@@ -22,7 +22,7 @@ void shardsInit(void)
 	if (g_MaxShards == 0) {
 		g_Shards = NULL;
 	} else {
-		g_Shards = malloc(g_MaxShards * sizeof(struct shard) + 0xf & ~0xf, MEMPOOL_STAGE);
+		g_Shards = mempAlloc(g_MaxShards * sizeof(struct shard) + 0xf & ~0xf, MEMPOOL_STAGE);
 
 		for (i = 0; i < g_MaxShards; i++) {
 			g_Shards[i].age60 = 0;

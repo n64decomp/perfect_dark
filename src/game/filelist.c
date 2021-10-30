@@ -17,7 +17,7 @@
 #include "bss.h"
 #include "lib/fault.h"
 #include "lib/snd.h"
-#include "lib/lib_126b0.h"
+#include "lib/mema.h"
 #include "data.h"
 #include "types.h"
 

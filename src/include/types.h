@@ -5109,14 +5109,6 @@ struct gecreditsdata {
 	/*0x0a*/ u16 alignoffset2;
 };
 
-struct memorypool {
-	/*0x00*/ u8 *start;
-	/*0x04*/ u8 *leftpos;
-	/*0x08*/ u8 *rightpos;
-	/*0x0c*/ u8 *end;
-	/*0x10*/ u8 *prevallocation;
-};
-
 struct invitem_weap {
 	s16 weapon1;
 	s16 pickuppad;

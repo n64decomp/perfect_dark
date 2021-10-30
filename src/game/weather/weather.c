@@ -10,7 +10,7 @@
 #include "bss.h"
 #include "lib/main.h"
 #include "lib/snd.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
 #include "lib/lib_317f0.h"
@@ -102,7 +102,7 @@ void weatherSetBoundaries(struct weatherparticledata *data, s32 index, f32 min, 
 
 struct weatherparticledata *weatherAllocateParticles(void)
 {
-	struct weatherparticledata *data = malloc(sizeof(struct weatherparticledata), MEMPOOL_STAGE);
+	struct weatherparticledata *data = mempAlloc(sizeof(struct weatherparticledata), MEMPOOL_STAGE);
 	u32 i;
 
 	data->unk3e80 = 0;

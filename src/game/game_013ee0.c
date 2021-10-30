@@ -4,7 +4,7 @@
 #include "game/bg.h"
 #include "game/pad.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/anim.h"
 #include "data.h"
 #include "types.h"
@@ -15,11 +15,11 @@ void func0f013ee0(void)
 
 	var80082050 = PLAYERCOUNT() >= 2 ? 200 : 120;
 
-	var800a6660 = malloc(ALIGN16(var80082050), MEMPOOL_STAGE);
-	var800a6664 = malloc(ALIGN16(var80082050 * sizeof(s16)), MEMPOOL_STAGE);
-	var800a6668 = malloc(ALIGN16(var80082050 * sizeof(s16)), MEMPOOL_STAGE);
-	var800a666c = malloc(ALIGN16(var80082050 * sizeof(f32)), MEMPOOL_STAGE);
-	var800a6670 = malloc(ALIGN16(var80082050 * sizeof(Mtxf)), MEMPOOL_STAGE);
+	var800a6660 = mempAlloc(ALIGN16(var80082050), MEMPOOL_STAGE);
+	var800a6664 = mempAlloc(ALIGN16(var80082050 * sizeof(s16)), MEMPOOL_STAGE);
+	var800a6668 = mempAlloc(ALIGN16(var80082050 * sizeof(s16)), MEMPOOL_STAGE);
+	var800a666c = mempAlloc(ALIGN16(var80082050 * sizeof(f32)), MEMPOOL_STAGE);
+	var800a6670 = mempAlloc(ALIGN16(var80082050 * sizeof(Mtxf)), MEMPOOL_STAGE);
 
 	for (i = 0; i < PLAYERCOUNT(); i++) {
 		g_Vars.players[i]->lastroomforoffset = -1;
@@ -41,7 +41,7 @@ void coverAllocateSpecial(u16 *specialcovernums)
 {
 	s32 i;
 
-	g_SpecialCoverNums = malloc(ALIGN16(g_NumSpecialCovers * sizeof(u16)), MEMPOOL_STAGE);
+	g_SpecialCoverNums = mempAlloc(ALIGN16(g_NumSpecialCovers * sizeof(u16)), MEMPOOL_STAGE);
 
 	if (g_SpecialCoverNums != NULL) {
 		for (i = 0; i < g_NumSpecialCovers; i++) {
@@ -62,9 +62,9 @@ void coverPrepare(void)
 	s16 rooms1[21];
 	s16 rooms2[21];
 
-	g_CoverFlags = malloc(ALIGN16(numcovers * sizeof(u16)), MEMPOOL_STAGE);
-	g_CoverRooms = malloc(ALIGN16(numcovers * sizeof(s32)), MEMPOOL_STAGE);
-	g_CoverCandidates = malloc(ALIGN16(numcovers * 0x10), MEMPOOL_STAGE);
+	g_CoverFlags = mempAlloc(ALIGN16(numcovers * sizeof(u16)), MEMPOOL_STAGE);
+	g_CoverRooms = mempAlloc(ALIGN16(numcovers * sizeof(s32)), MEMPOOL_STAGE);
+	g_CoverCandidates = mempAlloc(ALIGN16(numcovers * 0x10), MEMPOOL_STAGE);
 
 	g_NumSpecialCovers = 0;
 	g_SpecialCoverNums = NULL;

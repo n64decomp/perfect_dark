@@ -57,7 +57,7 @@
 #include "lib/vi.h"
 #include "lib/main.h"
 #include "lib/snd.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/model.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"

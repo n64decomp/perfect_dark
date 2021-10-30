@@ -17,7 +17,7 @@
 #include "game/wallhit.h"
 #include "bss.h"
 #include "lib/snd.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
 #include "lib/lib_2f490.h"
@@ -1237,7 +1237,7 @@ glabel func0f001c0c
 /*  f001d08:	000470c0 */ 	sll	$t6,$a0,0x3
 /*  f001d0c:	0fc5db69 */ 	jal	align16
 /*  f001d10:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f001d14:	0c0048b8 */ 	jal	memGetPool4Available
+/*  f001d14:	0c0048b8 */ 	jal	mempGetStageFree
 /*  f001d18:	afa20068 */ 	sw	$v0,0x68($sp)
 /*  f001d1c:	0fc5d820 */ 	jal	func0f176080
 /*  f001d20:	00000000 */ 	nop
@@ -1253,7 +1253,7 @@ glabel func0f001c0c
 /*  f001d48:	afa70048 */ 	sw	$a3,0x48($sp)
 /*  f001d4c:	00f2a821 */ 	addu	$s5,$a3,$s2
 /*  f001d50:	8fa40068 */ 	lw	$a0,0x68($sp)
-/*  f001d54:	0c0048f2 */ 	jal	malloc
+/*  f001d54:	0c0048f2 */ 	jal	mempAlloc
 /*  f001d58:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f001d5c:	8e0f0000 */ 	lw	$t7,0x0($s0)
 /*  f001d60:	3c148006 */ 	lui	$s4,%hi(var80061420)
@@ -1338,7 +1338,7 @@ glabel func0f001c0c
 /*  f001e78:	0fc5db69 */ 	jal	align16
 /*  f001e7c:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f001e80:	00402025 */ 	or	$a0,$v0,$zero
-/*  f001e84:	0c0048f2 */ 	jal	malloc
+/*  f001e84:	0c0048f2 */ 	jal	mempAlloc
 /*  f001e88:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f001e8c:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f001e90:	0040b825 */ 	or	$s7,$v0,$zero
@@ -1426,7 +1426,7 @@ glabel func0f001c0c
 /*  f001fc0:	0fc5db69 */ 	jal	align16
 /*  f001fc4:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f001fc8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f001fcc:	0c0048f2 */ 	jal	malloc
+/*  f001fcc:	0c0048f2 */ 	jal	mempAlloc
 /*  f001fd0:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f001fd4:	0040b825 */ 	or	$s7,$v0,$zero
 /*  f001fd8:	0fc5db69 */ 	jal	align16
@@ -5212,7 +5212,7 @@ glabel func0f004c6c
 /*  f004d34:	0fc5db69 */ 	jal	align16
 /*  f004d38:	00402025 */ 	or	$a0,$v0,$zero
 /*  f004d3c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f004d40:	0c0048f2 */ 	jal	malloc
+/*  f004d40:	0c0048f2 */ 	jal	mempAlloc
 /*  f004d44:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f004d48:	8ea50000 */ 	lw	$a1,0x0($s5)
 /*  f004d4c:	8fa30038 */ 	lw	$v1,0x38($sp)
@@ -5257,7 +5257,7 @@ glabel func0f004c6c
 /*  f004dd8:	028c2021 */ 	addu	$a0,$s4,$t4
 /*  f004ddc:	0fc5db69 */ 	jal	align16
 /*  f004de0:	00000000 */ 	nop
-/*  f004de4:	0c0048c9 */ 	jal	memGetNextPool4Allocation
+/*  f004de4:	0c0048c9 */ 	jal	mempGetNextStageAllocation
 /*  f004de8:	00000000 */ 	nop
 /*  f004dec:	8fad0044 */ 	lw	$t5,0x44($sp)
 /*  f004df0:	3c01800a */ 	lui	$at,%hi(var8009cad0)

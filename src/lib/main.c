@@ -50,8 +50,8 @@
 #include "lib/dma.h"
 #include "lib/main.h"
 #include "lib/snd.h"
-#include "lib/memory.h"
-#include "lib/lib_126b0.h"
+#include "lib/memp.h"
+#include "lib/mema.h"
 #include "lib/lib_13750.h"
 #include "lib/debughud.h"
 #include "lib/anim.h"
@@ -63,7 +63,7 @@
 
 s32 var8005d9b0 = 0;
 s32 g_StageNum = STAGE_TITLE;
-u32 var8005d9b8 = 0x0004b000;
+u32 g_MainMemaHeapSize = 1024 * 300;
 s32 var8005d9bc = 0;
 s32 var8005d9c0 = 0;
 s32 var8005d9c4 = 0;
@@ -305,7 +305,7 @@ glabel mainInit
 /*     d27c:	00000000 */ 	nop
 /*     d280:	0c00557c */ 	jal	gvarsInit
 /*     d284:	00000000 */ 	nop
-/*     d288:	0c0047dc */ 	jal	func000121e0
+/*     d288:	0c0047dc */ 	jal	memp000121e0
 /*     d28c:	00000000 */ 	nop
 /*     d290:	0c0049e7 */ 	jal	memaInit
 /*     d294:	00000000 */ 	nop
@@ -604,11 +604,11 @@ glabel mainInit
 /*     d6d0:	8c631050 */ 	lw	$v1,0x1050($v1)
 /*     d6d4:	3c018000 */ 	lui	$at,0x8000
 /*     d6d8:	00412025 */ 	or	$a0,$v0,$at
-/*     d6dc:	0c0047de */ 	jal	memInit
+/*     d6dc:	0c0047de */ 	jal	mempInit
 /*     d6e0:	00642823 */ 	subu	$a1,$v1,$a0
-/*     d6e4:	0c0048ae */ 	jal	memResetPool
+/*     d6e4:	0c0048ae */ 	jal	mempResetPool
 /*     d6e8:	24040008 */ 	li	$a0,0x8
-/*     d6ec:	0c0048ae */ 	jal	memResetPool
+/*     d6ec:	0c0048ae */ 	jal	mempResetPool
 /*     d6f0:	24040006 */ 	li	$a0,0x6
 /*     d6f4:	0c00330e */ 	jal	crashReset
 /*     d6f8:	00000000 */ 	nop
@@ -708,7 +708,7 @@ glabel mainInit
 /*     d53c:	00000000 */ 	nop
 /*     d540:	0c005618 */ 	jal	gvarsInit
 /*     d544:	00000000 */ 	nop
-/*     d548:	0c004878 */ 	jal	func000121e0
+/*     d548:	0c004878 */ 	jal	memp000121e0
 /*     d54c:	00000000 */ 	nop
 /*     d550:	0c004a83 */ 	jal	memaInit
 /*     d554:	00000000 */ 	nop
@@ -1007,11 +1007,11 @@ glabel mainInit
 /*     d994:	8c630b00 */ 	lw	$v1,%lo(var80090b00)($v1)
 /*     d998:	3c018000 */ 	lui	$at,0x8000
 /*     d99c:	00412025 */ 	or	$a0,$v0,$at
-/*     d9a0:	0c00487a */ 	jal	memInit
+/*     d9a0:	0c00487a */ 	jal	mempInit
 /*     d9a4:	00642823 */ 	subu	$a1,$v1,$a0
-/*     d9a8:	0c00494a */ 	jal	memResetPool
+/*     d9a8:	0c00494a */ 	jal	mempResetPool
 /*     d9ac:	24040008 */ 	addiu	$a0,$zero,0x8
-/*     d9b0:	0c00494a */ 	jal	memResetPool
+/*     d9b0:	0c00494a */ 	jal	mempResetPool
 /*     d9b4:	24040006 */ 	addiu	$a0,$zero,0x6
 /*     d9b8:	0c0033be */ 	jal	crashReset
 /*     d9bc:	00000000 */ 	nop
@@ -1105,7 +1105,7 @@ glabel mainInit
 /*     daa4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     daa8:	0c0059d4 */ 	jal	gvarsInit
 /*     daac:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dab0:	0c004994 */ 	jal	func000121e0
+/*     dab0:	0c004994 */ 	jal	memp000121e0
 /*     dab4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dab8:	0c004beb */ 	jal	memaInit
 /*     dabc:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1380,11 +1380,11 @@ glabel mainInit
 /*     dea4:	8c6330f0 */ 	lw	$v1,0x30f0($v1)
 /*     dea8:	3c018000 */ 	lui	$at,0x8000
 /*     deac:	00412025 */ 	or	$a0,$v0,$at
-/*     deb0:	0c004996 */ 	jal	memInit
+/*     deb0:	0c004996 */ 	jal	mempInit
 /*     deb4:	00642823 */ 	subu	$a1,$v1,$a0
-/*     deb8:	0c004ab1 */ 	jal	memResetPool
+/*     deb8:	0c004ab1 */ 	jal	mempResetPool
 /*     debc:	24040008 */ 	addiu	$a0,$zero,0x8
-/*     dec0:	0c004ab1 */ 	jal	memResetPool
+/*     dec0:	0c004ab1 */ 	jal	mempResetPool
 /*     dec4:	24040006 */ 	addiu	$a0,$zero,0x6
 /*     dec8:	0c003535 */ 	jal	crashReset
 /*     decc:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1498,7 +1498,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	dmaInit();
 //	amgrAllocateStack();
 //	gvarsInit();
-//	func000121e0();
+//	memp000121e0();
 //	memaInit();
 //	func00013758();
 //	viConfigureForLogos();
@@ -1636,10 +1636,10 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //
 //	uVar2 = osVirtualToPhysical(&_bssSegmentEnd) | 0x80000000;
 //	tmp = var80090b00;
-//	memInit(uVar2, tmp - uVar2);
+//	mempInit(uVar2, tmp - uVar2);
 //
-//	memResetPool(MEMPOOL_8);
-//	memResetPool(MEMPOOL_PERMANENT);
+//	mempResetPool(MEMPOOL_8);
+//	mempResetPool(MEMPOOL_PERMANENT);
 //	crashReset();
 //	mpInitPresetFeatures();
 //	func0f176ddc();
@@ -1866,15 +1866,15 @@ void mainLoop(void)
 
 		var8005d9c4 = 0;
 
-		memResetPool(MEMPOOL_7);
-		memResetPool(MEMPOOL_STAGE);
+		mempResetPool(MEMPOOL_7);
+		mempResetPool(MEMPOOL_STAGE);
 		func0f1672f0(4);
 
 		if (argFindByPrefix(1, "-ma")) {
-			var8005d9b8 = strtol(argFindByPrefix(1, "-ma"), NULL, 0) * 1024;
+			g_MainMemaHeapSize = strtol(argFindByPrefix(1, "-ma"), NULL, 0) * 1024;
 		}
 
-		memaHeapInit(malloc(var8005d9b8, MEMPOOL_STAGE), var8005d9b8);
+		memaHeapInit(mempAlloc(g_MainMemaHeapSize, MEMPOOL_STAGE), g_MainMemaHeapSize);
 		stageLoadCommonLang(g_StageNum);
 		playersUnrefAll();
 
@@ -1979,8 +1979,8 @@ void mainLoop(void)
 		}
 
 		lvReset();
-		memDisablePool(MEMPOOL_STAGE);
-		memDisablePool(MEMPOOL_7);
+		mempDisablePool(MEMPOOL_STAGE);
+		mempDisablePool(MEMPOOL_7);
 		func0f1672f0(4);
 		viBlack(true);
 		pak0f116994();
@@ -2295,9 +2295,9 @@ glabel mainLoop
 .NB0000e480:
 /*     e480:	3c018006 */ 	lui	$at,0x8006
 /*     e484:	ac20f2e4 */ 	sw	$zero,-0xd1c($at)
-/*     e488:	0c004ab1 */ 	jal	memResetPool
+/*     e488:	0c004ab1 */ 	jal	mempResetPool
 /*     e48c:	24040007 */ 	addiu	$a0,$zero,0x7
-/*     e490:	0c004ab1 */ 	jal	memResetPool
+/*     e490:	0c004ab1 */ 	jal	mempResetPool
 /*     e494:	24040004 */ 	addiu	$a0,$zero,0x4
 /*     e498:	0fc58709 */ 	jal	func0f1672f0
 /*     e49c:	24040004 */ 	addiu	$a0,$zero,0x4
@@ -2320,7 +2320,7 @@ glabel mainLoop
 .NB0000e4e0:
 /*     e4e0:	3c048006 */ 	lui	$a0,0x8006
 /*     e4e4:	8c84f2d8 */ 	lw	$a0,-0xd28($a0)
-/*     e4e8:	0c004a0e */ 	jal	malloc
+/*     e4e8:	0c004a0e */ 	jal	mempAlloc
 /*     e4ec:	24050004 */ 	addiu	$a1,$zero,0x4
 /*     e4f0:	3c058006 */ 	lui	$a1,0x8006
 /*     e4f4:	8ca5f2d8 */ 	lw	$a1,-0xd28($a1)
@@ -2575,9 +2575,9 @@ glabel mainLoop
 .NB0000e874:
 /*     e874:	0fc59e56 */ 	jal	lvReset
 /*     e878:	00000000 */ 	sll	$zero,$zero,0x0
-/*     e87c:	0c004acc */ 	jal	memDisablePool
+/*     e87c:	0c004acc */ 	jal	mempDisablePool
 /*     e880:	24040004 */ 	addiu	$a0,$zero,0x4
-/*     e884:	0c004acc */ 	jal	memDisablePool
+/*     e884:	0c004acc */ 	jal	mempDisablePool
 /*     e888:	24040007 */ 	addiu	$a0,$zero,0x7
 /*     e88c:	0fc58709 */ 	jal	func0f1672f0
 /*     e890:	24040004 */ 	addiu	$a0,$zero,0x4

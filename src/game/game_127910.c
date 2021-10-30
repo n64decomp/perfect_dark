@@ -6,7 +6,7 @@
 #include "game/game_127910.h"
 #include "game/propobj.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/rng.h"
 #include "data.h"
 #include "types.h"
@@ -215,7 +215,7 @@ void playerAllocate(s32 index)
 
 	s32 i;
 
-	g_Vars.players[index] = malloc(sizeof(struct player), MEMPOOL_STAGE);
+	g_Vars.players[index] = mempAlloc(sizeof(struct player), MEMPOOL_STAGE);
 
 	g_Vars.players[index]->cameramode = CAMERAMODE_DEFAULT;
 	g_Vars.players[index]->memcampos.x = 0;

@@ -7,7 +7,7 @@
 #include "game/options.h"
 #include "bss.h"
 #include "lib/vi.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
 
@@ -86,7 +86,7 @@ void func0f1760c4(void)
 		}
 	}
 
-	var800844f0 = malloc(var800ab7c0 * var800ab7c4 * 2 + 0x40, MEMPOOL_STAGE);
+	var800844f0 = mempAlloc(var800ab7c0 * var800ab7c4 * 2 + 0x40, MEMPOOL_STAGE);
 	var800844f0 = (void *)((u32)var800844f0 + 0x3f & ~0x3f);
 	var800844f4 = var800844f0;
 }

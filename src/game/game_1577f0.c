@@ -9,7 +9,6 @@
 #include "lib/vi.h"
 #include "lib/dma.h"
 #include "lib/main.h"
-#include "lib/memory.h"
 #include "data.h"
 #include "types.h"
 

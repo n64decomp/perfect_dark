@@ -17,7 +17,7 @@
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/mtx.h"
 #include "lib/anim.h"
 #include "data.h"
@@ -138,7 +138,7 @@ glabel func0f011130
 /*  f011288:	ace00008 */ 	sw	$zero,0x8($a3)
 /*  f01128c:	3b24000f */ 	xori	$a0,$t9,0xf
 /*  f011290:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*  f011294:	0c0048f2 */ 	jal	malloc
+/*  f011294:	0c0048f2 */ 	jal	mempAlloc
 /*  f011298:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f01129c:	3c0a8009 */ 	lui	$t2,%hi(g_Is4Mb)
 /*  f0112a0:	254a0af0 */ 	addiu	$t2,$t2,%lo(g_Is4Mb)
@@ -404,7 +404,7 @@ void currentPlayerInitEyespy(void)
 		prop = propAllocateEyespy(&pad, pad.room);
 
 		if (prop) {
-			g_Vars.currentplayer->eyespy = malloc(sizeof(struct eyespy), MEMPOOL_STAGE);
+			g_Vars.currentplayer->eyespy = mempAlloc(sizeof(struct eyespy), MEMPOOL_STAGE);
 
 			if (g_Vars.currentplayer->eyespy) {
 				g_Vars.currentplayer->eyespy->prop = prop;

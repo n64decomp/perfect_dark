@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/pad.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
 
@@ -32,7 +32,7 @@ void waypointsLoad(void)
 	waypoints = g_StageSetup.waypoints;
 
 	// Allocate memory for the waypoint numbers array
-	g_Vars.waypointnums = malloc(ALIGN16(numwaypoints * sizeof(s16)), MEMPOOL_STAGE);
+	g_Vars.waypointnums = mempAlloc(ALIGN16(numwaypoints * sizeof(s16)), MEMPOOL_STAGE);
 
 	numinserted = 0;
 

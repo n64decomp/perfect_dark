@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
 
@@ -33,7 +33,7 @@ void func0f013ba0(void)
 		}
 
 		if (num > 0) {
-			var8007e3d0[i].unk24 = malloc(num * sizeof(struct var8007e3d0_data), MEMPOOL_STAGE);
+			var8007e3d0[i].unk24 = mempAlloc(num * sizeof(struct var8007e3d0_data), MEMPOOL_STAGE);
 		}
 
 		for (j = 0; j < num; j++) {

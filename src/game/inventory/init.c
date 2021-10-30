@@ -5,7 +5,7 @@
 #include "game/inventory/init.h"
 #include "game/inventory/inventory.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
 
@@ -27,6 +27,6 @@ void invInitGunsHeld(void)
 void invInit(s32 numdoubles)
 {
 	g_Vars.currentplayer->equipmaxitems = numdoubles + 30;
-	g_Vars.currentplayer->equipment = malloc(ALIGN16(g_Vars.currentplayer->equipmaxitems * sizeof(struct invitem)), MEMPOOL_STAGE);
+	g_Vars.currentplayer->equipment = mempAlloc(ALIGN16(g_Vars.currentplayer->equipmaxitems * sizeof(struct invitem)), MEMPOOL_STAGE);
 	invClear();
 }

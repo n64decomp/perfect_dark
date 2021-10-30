@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "bss.h"
 #include "lib/dma.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
 
@@ -13,7 +13,7 @@ void loadTextureList(void)
 
 	u32 len = ((&_textureslistSegmentRomEnd - &_textureslistSegmentRomStart) + 15) & -16;
 
-	g_Textures = malloc(len, MEMPOOL_PERMANENT);
+	g_Textures = mempAlloc(len, MEMPOOL_PERMANENT);
 
 	dmaExec(g_Textures, (u32) &_textureslistSegmentRomStart, len);
 }

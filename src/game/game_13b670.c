@@ -4,7 +4,7 @@
 #include "game/game_13b670.h"
 #include "bss.h"
 #include "lib/main.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
@@ -1056,7 +1056,7 @@ glabel func0f13c3f4
 /*  f13c460:	3498003f */ 	ori	$t8,$a0,0x3f
 /*  f13c464:	3b04003f */ 	xori	$a0,$t8,0x3f
 /*  f13c468:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*  f13c46c:	0c0048f2 */ 	jal	malloc
+/*  f13c46c:	0c0048f2 */ 	jal	mempAlloc
 /*  f13c470:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f13c474:	3c04800a */ 	lui	$a0,%hi(var800a4180)
 /*  f13c478:	8c844180 */ 	lw	$a0,%lo(var800a4180)($a0)
@@ -1068,7 +1068,7 @@ glabel func0f13c3f4
 /*  f13c490:	2504003f */ 	addiu	$a0,$t0,0x3f
 /*  f13c494:	3489003f */ 	ori	$t1,$a0,0x3f
 /*  f13c498:	3924003f */ 	xori	$a0,$t1,0x3f
-/*  f13c49c:	0c0048f2 */ 	jal	malloc
+/*  f13c49c:	0c0048f2 */ 	jal	mempAlloc
 /*  f13c4a0:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f13c4a4:	3c04800a */ 	lui	$a0,%hi(var800a4188)
 /*  f13c4a8:	8c844188 */ 	lw	$a0,%lo(var800a4188)($a0)
@@ -1080,7 +1080,7 @@ glabel func0f13c3f4
 /*  f13c4c0:	2564003f */ 	addiu	$a0,$t3,0x3f
 /*  f13c4c4:	348c003f */ 	ori	$t4,$a0,0x3f
 /*  f13c4c8:	3984003f */ 	xori	$a0,$t4,0x3f
-/*  f13c4cc:	0c0048f2 */ 	jal	malloc
+/*  f13c4cc:	0c0048f2 */ 	jal	mempAlloc
 /*  f13c4d0:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f13c4d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f13c4d8:	3c01800a */ 	lui	$at,%hi(var800a4194)

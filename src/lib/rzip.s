@@ -4,7 +4,7 @@
  * There are two inflate implementations in this codebase:
  *
  * 1. src/inflate/inflate.c:
- * - Is pretty much regular zlib but with some malloc functions changed to use
+ * - Is pretty much regular zlib but with some mempAlloc functions changed to use
  *   stack or data.
  * - Being C, is more readable than this file.
  * - Is stored uncompressed in the ROM and is used to decompress the lib and

@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/utils.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
 
@@ -89,7 +89,7 @@ glabel func0f176ddc
 /*  f176ddc:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f176de0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f176de4:	24042710 */ 	addiu	$a0,$zero,0x2710
-/*  f176de8:	0c0048f2 */ 	jal	malloc
+/*  f176de8:	0c0048f2 */ 	jal	mempAlloc
 /*  f176dec:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f176df0:	3c01800b */ 	lui	$at,%hi(var800ac0d0)
 /*  f176df4:	ac22c0d0 */ 	sw	$v0,%lo(var800ac0d0)($at)
@@ -97,7 +97,7 @@ glabel func0f176ddc
 /*  f176dfc:	24043900 */ 	addiu	$a0,$zero,0x3900
 /*  f176e00:	afa20018 */ 	sw	$v0,0x18($sp)
 /*  f176e04:	00402025 */ 	or	$a0,$v0,$zero
-/*  f176e08:	0c0048f2 */ 	jal	malloc
+/*  f176e08:	0c0048f2 */ 	jal	mempAlloc
 /*  f176e0c:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f176e10:	3c05800b */ 	lui	$a1,%hi(var800ac0e8)
 /*  f176e14:	24a5c0e8 */ 	addiu	$a1,$a1,%lo(var800ac0e8)
@@ -158,10 +158,10 @@ glabel func0f176ddc
 //	static void *var80084618 = NULL;
 //	static void *var800ac0e8[4];
 //
-//	var800ac0d0 = malloc(10000, MEMPOOL_8);
+//	var800ac0d0 = mempAlloc(10000, MEMPOOL_8);
 //
 //	size = align16(0x3900);
-//	var800ac0e8[0] = malloc(size, MEMPOOL_8);
+//	var800ac0e8[0] = mempAlloc(size, MEMPOOL_8);
 //
 //	if (var800ac0e8[0] != NULL) {
 //		for (i = 0; i < 4; i++) {

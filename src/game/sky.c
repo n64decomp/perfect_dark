@@ -6,7 +6,7 @@
 #include "game/game_1531a0.h"
 #include "bss.h"
 #include "lib/vi.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
 #include "data.h"
@@ -313,7 +313,7 @@ glabel skyInit
 /*  f136280:	030a2021 */ 	addu	$a0,$t8,$t2
 /*  f136284:	24840043 */ 	addiu	$a0,$a0,0x43
 /*  f136288:	348b003f */ 	ori	$t3,$a0,0x3f
-/*  f13628c:	0c0048f2 */ 	jal	malloc
+/*  f13628c:	0c0048f2 */ 	jal	mempAlloc
 /*  f136290:	3964003f */ 	xori	$a0,$t3,0x3f
 /*  f136294:	24060006 */ 	addiu	$a2,$zero,0x6
 /*  f136298:	1040016d */ 	beqz	$v0,.L0f136850

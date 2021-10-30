@@ -29,7 +29,7 @@
 #include "lib/dma.h"
 #include "lib/main.h"
 #include "lib/snd.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
 #include "data.h"
@@ -459,7 +459,7 @@ void frUnloadData(void)
 
 void *frLoadRomData(u32 len)
 {
-	g_FrRomData = malloc(ALIGN16(len), MEMPOOL_STAGE);
+	g_FrRomData = mempAlloc(ALIGN16(len), MEMPOOL_STAGE);
 
 	if (g_FrRomData) {
 		return dmaExecWithAutoAlign(g_FrRomData, (u32)&_firingrangeSegmentRomStart, len);
@@ -2403,7 +2403,7 @@ glabel frLoadData
 /*  f19e84c:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f19e850:	afa60028 */ 	sw	$a2,0x28($sp)
 /*  f19e854:	afa70020 */ 	sw	$a3,0x20($sp)
-/*  f19e858:	0c0048f2 */ 	jal	malloc
+/*  f19e858:	0c0048f2 */ 	jal	mempAlloc
 /*  f19e85c:	afa9002c */ 	sw	$t1,0x2c($sp)
 /*  f19e860:	3c048009 */ 	lui	$a0,%hi(g_FrScriptOffsets)
 /*  f19e864:	24848800 */ 	addiu	$a0,$a0,%lo(g_FrScriptOffsets)
@@ -2476,7 +2476,7 @@ glabel frLoadData
 //		}
 //
 //		// 83c
-//		g_FrScriptOffsets = malloc(ALIGN16(count * 2), MEMPOOL_STAGE);
+//		g_FrScriptOffsets = mempAlloc(ALIGN16(count * 2), MEMPOOL_STAGE);
 //
 //		// 860
 //		if (g_FrScriptOffsets) {

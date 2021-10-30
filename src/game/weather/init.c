@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/weather/weather.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
 
@@ -21,7 +21,7 @@ void weatherInit(void)
 				|| g_StageIndex == STAGEINDEX_G5BUILDING
 				|| g_StageIndex == STAGEINDEX_CRASHSITE)
 			&& PLAYERCOUNT() < 2) {
-		g_WeatherData = malloc(sizeof(struct weatherdata), MEMPOOL_STAGE);
+		g_WeatherData = mempAlloc(sizeof(struct weatherdata), MEMPOOL_STAGE);
 		g_WeatherData->particledata = weatherAllocateParticles();
 		g_WeatherData->type = -1;
 		g_WeatherData->windanglerad = 0;

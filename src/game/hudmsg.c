@@ -16,7 +16,7 @@
 #include "bss.h"
 #include "lib/vi.h"
 #include "lib/snd.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
@@ -1327,7 +1327,7 @@ void hudmsgsInit(void)
 	s32 i;
 
 	g_NumHudMessages = g_Vars.mplayerisrunning ? 20 : 8;
-	g_HudMessages = malloc((sizeof(struct hudmessage) * g_NumHudMessages + 0x3f | 0x3f) ^ 0x3f, MEMPOOL_STAGE);
+	g_HudMessages = mempAlloc((sizeof(struct hudmessage) * g_NumHudMessages + 0x3f | 0x3f) ^ 0x3f, MEMPOOL_STAGE);
 
 	for (i = 0; i < g_NumHudMessages; i++) {
 		g_HudMessages[i].state = HUDMSGSTATE_FREE;
@@ -1363,7 +1363,7 @@ glabel hudmsgsInit
 /*  f0db400:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f0db404:	2724003f */ 	addiu	$a0,$t9,0x3f
 /*  f0db408:	3488003f */ 	ori	$t0,$a0,0x3f
-/*  f0db40c:	0c004a0e */ 	jal	malloc
+/*  f0db40c:	0c004a0e */ 	jal	mempAlloc
 /*  f0db410:	3904003f */ 	xori	$a0,$t0,0x3f
 /*  f0db414:	3c068007 */ 	lui	$a2,0x8007
 /*  f0db418:	24c636a8 */ 	addiu	$a2,$a2,0x36a8

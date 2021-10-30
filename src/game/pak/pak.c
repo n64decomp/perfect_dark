@@ -12,7 +12,7 @@
 #include "lib/joy.h"
 #include "lib/lib_06440.h"
 #include "lib/main.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "lib/rng.h"
 #include "data.h"
 #include "types.h"
@@ -3682,7 +3682,7 @@ void pak0f11a32c(s8 device, u8 arg1, u32 line, char *file)
 
 		if ((g_Paks[device].unk014 & 1) && g_Paks[device].headercache == NULL) {
 			g_Paks[device].headercachecount = 0;
-			g_Paks[device].headercache = malloc(align32(sizeof(struct pakheadercache) * MAX_HEADERCACHE_ENTRIES), MEMPOOL_PERMANENT);
+			g_Paks[device].headercache = mempAlloc(align32(sizeof(struct pakheadercache) * MAX_HEADERCACHE_ENTRIES), MEMPOOL_PERMANENT);
 
 			// This would have been used in an osSyncPrintf call.
 			// Perhaps using the strings at var7f1b4318 through var7f1b43ac?

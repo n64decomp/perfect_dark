@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/game_0b28d0.h"
 #include "bss.h"
-#include "lib/memory.h"
+#include "lib/memp.h"
 #include "data.h"
 #include "types.h"
 
@@ -307,7 +307,7 @@ glabel func0f0b2b64
 /*  f0b2c80:	8fac003c */ 	lw	$t4,0x3c($sp)
 /*  f0b2c84:	15800004 */ 	bnez	$t4,.L0f0b2c98
 /*  f0b2c88:	00000000 */ 	nop
-/*  f0b2c8c:	0c0048f2 */ 	jal	malloc
+/*  f0b2c8c:	0c0048f2 */ 	jal	mempAlloc
 /*  f0b2c90:	24040030 */ 	addiu	$a0,$zero,0x30
 /*  f0b2c94:	afa2003c */ 	sw	$v0,0x3c($sp)
 .L0f0b2c98:
@@ -326,7 +326,7 @@ glabel func0f0b2b64
 /*  f0b2cc8:	00047880 */ 	sll	$t7,$a0,0x2
 /*  f0b2ccc:	25e4000f */ 	addiu	$a0,$t7,0xf
 /*  f0b2cd0:	3498000f */ 	ori	$t8,$a0,0xf
-/*  f0b2cd4:	0c0048f2 */ 	jal	malloc
+/*  f0b2cd4:	0c0048f2 */ 	jal	mempAlloc
 /*  f0b2cd8:	3b04000f */ 	xori	$a0,$t8,0xf
 /*  f0b2cdc:	100000ce */ 	b	.L0f0b3018
 /*  f0b2ce0:	afa20038 */ 	sw	$v0,0x38($sp)
@@ -490,7 +490,7 @@ glabel func0f0b2b64
 /*  f0b2f0c:	57200017 */ 	bnezl	$t9,.L0f0b2f6c
 /*  f0b2f10:	24c60001 */ 	addiu	$a2,$a2,0x1
 /*  f0b2f14:	24040400 */ 	addiu	$a0,$zero,0x400
-/*  f0b2f18:	0c0048f2 */ 	jal	malloc
+/*  f0b2f18:	0c0048f2 */ 	jal	mempAlloc
 /*  f0b2f1c:	afa70018 */ 	sw	$a3,0x18($sp)
 /*  f0b2f20:	3c04800a */ 	lui	$a0,%hi(var8009dd10)
 /*  f0b2f24:	2484dd10 */ 	addiu	$a0,$a0,%lo(var8009dd10)
@@ -560,7 +560,7 @@ glabel func0f0b2b64
 /*  f0b3000:	0004c880 */ 	sll	$t9,$a0,0x2
 /*  f0b3004:	2724000f */ 	addiu	$a0,$t9,0xf
 /*  f0b3008:	348b000f */ 	ori	$t3,$a0,0xf
-/*  f0b300c:	0c0048f2 */ 	jal	malloc
+/*  f0b300c:	0c0048f2 */ 	jal	mempAlloc
 /*  f0b3010:	3964000f */ 	xori	$a0,$t3,0xf
 /*  f0b3014:	afa20038 */ 	sw	$v0,0x38($sp)
 .L0f0b3018:
