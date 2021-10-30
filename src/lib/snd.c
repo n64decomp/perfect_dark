@@ -15,7 +15,6 @@
 #include "lib/lib_317f0.h"
 #include "lib/lib_37650.h"
 #include "lib/mp3.h"
-#include "lib/lib_38d10.h"
 #include "lib/lib_39be0.h"
 #include "lib/lib_39c80.h"
 #include "data.h"
@@ -2460,7 +2459,7 @@ glabel snd0000fc48
 /*     fc50:	00808025 */ 	or	$s0,$a0,$zero
 /*     fc54:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*     fc58:	afa5144c */ 	sw	$a1,0x144c($sp)
-/*     fc5c:	0c00e344 */ 	jal	func00038d10
+/*     fc5c:	0c00e344 */ 	jal	n_alCSPGetState
 /*     fc60:	8c8400f8 */ 	lw	$a0,0xf8($a0)
 /*     fc64:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
 /*     fc68:	8dcedda0 */ 	lw	$t6,%lo(g_SndDisabled)($t6)
@@ -2544,7 +2543,7 @@ glabel snd0000fc48
 /*    100e8:	00808025 */ 	or	$s0,$a0,$zero
 /*    100ec:	afbf005c */ 	sw	$ra,0x5c($sp)
 /*    100f0:	afa5150c */ 	sw	$a1,0x150c($sp)
-/*    100f4:	0c00e838 */ 	jal	func00038d10
+/*    100f4:	0c00e838 */ 	jal	n_alCSPGetState
 /*    100f8:	8c8400f8 */ 	lw	$a0,0xf8($a0)
 /*    100fc:	3c0e8006 */ 	lui	$t6,0x8006
 /*    10100:	8dcef6c0 */ 	lw	$t6,-0x940($t6)

@@ -6,7 +6,6 @@
 #include "bss.h"
 #include "lib/snd.h"
 #include "lib/music.h"
-#include "lib/lib_38d10.h"
 #include "lib/lib_39c80.h"
 #include "data.h"
 #include "types.h"
@@ -95,7 +94,7 @@ glabel var70053fd8
 /*    1149c:	02140019 */ 	multu	$s0,$s4
 /*    114a0:	0000c812 */ 	mflo	$t9
 /*    114a4:	02798821 */ 	addu	$s1,$s3,$t9
-/*    114a8:	0c00e344 */ 	jal	func00038d10
+/*    114a8:	0c00e344 */ 	jal	n_alCSPGetState
 /*    114ac:	8e2400f8 */ 	lw	$a0,0xf8($s1)
 /*    114b0:	24010001 */ 	addiu	$at,$zero,0x1
 /*    114b4:	5441001a */ 	bnel	$v0,$at,.L00011520
@@ -138,7 +137,7 @@ glabel var70053fd8
 /*    11534:	15600067 */ 	bnez	$t3,.L000116d4
 /*    11538:	00008025 */ 	or	$s0,$zero,$zero
 .L0001153c:
-/*    1153c:	0c00e344 */ 	jal	func00038d10
+/*    1153c:	0c00e344 */ 	jal	n_alCSPGetState
 /*    11540:	8e2400f8 */ 	lw	$a0,0xf8($s1)
 /*    11544:	14400014 */ 	bnez	$v0,.L00011598
 /*    11548:	02202025 */ 	or	$a0,$s1,$zero
@@ -184,7 +183,7 @@ glabel var70053fd8
 /*    115d8:	02140019 */ 	multu	$s0,$s4
 /*    115dc:	00004812 */ 	mflo	$t1
 /*    115e0:	02695021 */ 	addu	$t2,$s3,$t1
-/*    115e4:	0c00e344 */ 	jal	func00038d10
+/*    115e4:	0c00e344 */ 	jal	n_alCSPGetState
 /*    115e8:	8d4400f8 */ 	lw	$a0,0xf8($t2)
 /*    115ec:	50400004 */ 	beqzl	$v0,.L00011600
 /*    115f0:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -213,7 +212,7 @@ glabel var70053fd8
 /*    11640:	02140019 */ 	multu	$s0,$s4
 /*    11644:	00006812 */ 	mflo	$t5
 /*    11648:	026d7021 */ 	addu	$t6,$s3,$t5
-/*    1164c:	0c00e344 */ 	jal	func00038d10
+/*    1164c:	0c00e344 */ 	jal	n_alCSPGetState
 /*    11650:	8dc400f8 */ 	lw	$a0,0xf8($t6)
 /*    11654:	50400004 */ 	beqzl	$v0,.L00011668
 /*    11658:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -293,7 +292,7 @@ bool music00011780(s32 *arg0, u32 arg1)
 	for (i = 0; i < 3; i++) {
 		if (*arg0 == var800aaa38[i].tracktype && var800aaa38[i].unk04 != 0) {
 			for (j = 0; j < 16; j++) {
-				func00039e5c((N_ALSeqPlayer *)var80094ed8[i].seqp, j, var70053ca0[*arg0], 32);
+				func00039e5c(var80094ed8[i].seqp, j, var70053ca0[*arg0], 32);
 			}
 
 			var800aaa38[i].unk04 = arg0[2];
@@ -369,7 +368,7 @@ glabel var70053fec
 /*    11960:	27394ed8 */ 	addiu	$t9,$t9,%lo(var80094ed8)
 /*    11964:	03191821 */ 	addu	$v1,$t8,$t9
 /*    11968:	8c6400f8 */ 	lw	$a0,0xf8($v1)
-/*    1196c:	0c00e344 */ 	jal	func00038d10
+/*    1196c:	0c00e344 */ 	jal	n_alCSPGetState
 /*    11970:	afa30028 */ 	sw	$v1,0x28($sp)
 /*    11974:	1452001b */ 	bne	$v0,$s2,.L000119e4
 /*    11978:	8fa30028 */ 	lw	$v1,0x28($sp)
@@ -695,7 +694,7 @@ glabel music0001190c
 /*    11d20:	0000c012 */ 	mflo	$t8
 /*    11d24:	02781821 */ 	addu	$v1,$s3,$t8
 /*    11d28:	8c6400f8 */ 	lw	$a0,0xf8($v1)
-/*    11d2c:	0c00e838 */ 	jal	func00038d10
+/*    11d2c:	0c00e838 */ 	jal	n_alCSPGetState
 /*    11d30:	afa30038 */ 	sw	$v1,0x38($sp)
 /*    11d34:	1452001a */ 	bne	$v0,$s2,.NB00011da0
 /*    11d38:	8fa30038 */ 	lw	$v1,0x38($sp)
@@ -1756,56 +1755,18 @@ glabel music00011d84
 );
 #endif
 
-GLOBAL_ASM(
-glabel func00012128
-/*    12128:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*    1212c:	afb30024 */ 	sw	$s3,0x24($sp)
-/*    12130:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*    12134:	afb60030 */ 	sw	$s6,0x30($sp)
-/*    12138:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*    1213c:	afb40028 */ 	sw	$s4,0x28($sp)
-/*    12140:	afb20020 */ 	sw	$s2,0x20($sp)
-/*    12144:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    12148:	3c11800b */ 	lui	$s1,%hi(var800aaa38)
-/*    1214c:	3c138009 */ 	lui	$s3,%hi(var80094ed8)
-/*    12150:	00809025 */ 	or	$s2,$a0,$zero
-/*    12154:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*    12158:	26734ed8 */ 	addiu	$s3,$s3,%lo(var80094ed8)
-/*    1215c:	2631aa38 */ 	addiu	$s1,$s1,%lo(var800aaa38)
-/*    12160:	00008025 */ 	or	$s0,$zero,$zero
-/*    12164:	24140108 */ 	addiu	$s4,$zero,0x108
-/*    12168:	24150001 */ 	addiu	$s5,$zero,0x1
-/*    1216c:	24160003 */ 	addiu	$s6,$zero,0x3
-.L00012170:
-/*    12170:	8e2e0000 */ 	lw	$t6,0x0($s1)
-/*    12174:	564e000b */ 	bnel	$s2,$t6,.L000121a4
-/*    12178:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    1217c:	02140019 */ 	multu	$s0,$s4
-/*    12180:	00007812 */ 	mflo	$t7
-/*    12184:	026fc021 */ 	addu	$t8,$s3,$t7
-/*    12188:	0c00e344 */ 	jal	func00038d10
-/*    1218c:	8f0400f8 */ 	lw	$a0,0xf8($t8)
-/*    12190:	54550004 */ 	bnel	$v0,$s5,.L000121a4
-/*    12194:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    12198:	10000005 */ 	b	.L000121b0
-/*    1219c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    121a0:	26100001 */ 	addiu	$s0,$s0,0x1
-.L000121a4:
-/*    121a4:	1616fff2 */ 	bne	$s0,$s6,.L00012170
-/*    121a8:	26310010 */ 	addiu	$s1,$s1,0x10
-/*    121ac:	00001025 */ 	or	$v0,$zero,$zero
-.L000121b0:
-/*    121b0:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*    121b4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    121b8:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*    121bc:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*    121c0:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*    121c4:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*    121c8:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*    121cc:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*    121d0:	03e00008 */ 	jr	$ra
-/*    121d4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+bool musicIsTrackTypePlaying(s32 tracktype)
+{
+	s32 i;
+
+	for (i = 0; i < 3; i++) {
+		if (tracktype == var800aaa38[i].tracktype && n_alCSPGetState(var80094ed8[i].seqp) == AL_PLAYING) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 #if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -1818,7 +1779,7 @@ glabel func00012574nb
 /*    12588:	11e00008 */ 	beqz	$t7,.NB000125ac
 /*    1258c:	01c01825 */ 	or	$v1,$t6,$zero
 /*    12590:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    12594:	0c004931 */ 	jal	func00012128
+/*    12594:	0c004931 */ 	jal	musicIsTrackTypePlaying
 /*    12598:	afae001c */ 	sw	$t6,0x1c($sp)
 /*    1259c:	14400003 */ 	bnez	$v0,.NB000125ac
 /*    125a0:	8fa3001c */ 	lw	$v1,0x1c($sp)
@@ -1828,7 +1789,7 @@ glabel func00012574nb
 /*    125ac:	30780002 */ 	andi	$t8,$v1,0x2
 /*    125b0:	13000007 */ 	beqz	$t8,.NB000125d0
 /*    125b4:	24040002 */ 	addiu	$a0,$zero,0x2
-/*    125b8:	0c004931 */ 	jal	func00012128
+/*    125b8:	0c004931 */ 	jal	musicIsTrackTypePlaying
 /*    125bc:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*    125c0:	14400003 */ 	bnez	$v0,.NB000125d0
 /*    125c4:	8fa3001c */ 	lw	$v1,0x1c($sp)
@@ -1838,7 +1799,7 @@ glabel func00012574nb
 /*    125d0:	30790004 */ 	andi	$t9,$v1,0x4
 /*    125d4:	13200007 */ 	beqz	$t9,.NB000125f4
 /*    125d8:	24040003 */ 	addiu	$a0,$zero,0x3
-/*    125dc:	0c004931 */ 	jal	func00012128
+/*    125dc:	0c004931 */ 	jal	musicIsTrackTypePlaying
 /*    125e0:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*    125e4:	14400003 */ 	bnez	$v0,.NB000125f4
 /*    125e8:	8fa3001c */ 	lw	$v1,0x1c($sp)
@@ -1848,7 +1809,7 @@ glabel func00012574nb
 /*    125f4:	30680008 */ 	andi	$t0,$v1,0x8
 /*    125f8:	11000007 */ 	beqz	$t0,.NB00012618
 /*    125fc:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    12600:	0c004931 */ 	jal	func00012128
+/*    12600:	0c004931 */ 	jal	musicIsTrackTypePlaying
 /*    12604:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*    12608:	14400003 */ 	bnez	$v0,.NB00012618
 /*    1260c:	8fa3001c */ 	lw	$v1,0x1c($sp)
@@ -1858,7 +1819,7 @@ glabel func00012574nb
 /*    12618:	30690010 */ 	andi	$t1,$v1,0x10
 /*    1261c:	51200008 */ 	beqzl	$t1,.NB00012640
 /*    12620:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    12624:	0c004931 */ 	jal	func00012128
+/*    12624:	0c004931 */ 	jal	musicIsTrackTypePlaying
 /*    12628:	24040005 */ 	addiu	$a0,$zero,0x5
 /*    1262c:	54400004 */ 	bnezl	$v0,.NB00012640
 /*    12630:	24020001 */ 	addiu	$v0,$zero,0x1
