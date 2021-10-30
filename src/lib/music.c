@@ -377,38 +377,21 @@ glabel music00011780
 /*    11880:	24020001 */ 	addiu	$v0,$zero,0x1
 );
 
-GLOBAL_ASM(
-glabel music00011884
-/*    11884:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    11888:	afb20020 */ 	sw	$s2,0x20($sp)
-/*    1188c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*    11890:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    11894:	3c10800b */ 	lui	$s0,%hi(var800aaa38)
-/*    11898:	3c118009 */ 	lui	$s1,%hi(var80094ed8)
-/*    1189c:	3c12800b */ 	lui	$s2,%hi(g_AudioXReasonsActive)
-/*    118a0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    118a4:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    118a8:	2652aa68 */ 	addiu	$s2,$s2,%lo(g_AudioXReasonsActive)
-/*    118ac:	26314ed8 */ 	addiu	$s1,$s1,%lo(var80094ed8)
-/*    118b0:	2610aa38 */ 	addiu	$s0,$s0,%lo(var800aaa38)
-.L000118b4:
-/*    118b4:	0c00e7dc */ 	jal	n_alSeqpStop
-/*    118b8:	8e2400f8 */ 	lw	$a0,0xf8($s1)
-/*    118bc:	26100010 */ 	addiu	$s0,$s0,0x10
-/*    118c0:	26310108 */ 	addiu	$s1,$s1,0x108
-/*    118c4:	ae00fff0 */ 	sw	$zero,-0x10($s0)
-/*    118c8:	ae00fff4 */ 	sw	$zero,-0xc($s0)
-/*    118cc:	ae00fff8 */ 	sw	$zero,-0x8($s0)
-/*    118d0:	1612fff8 */ 	bne	$s0,$s2,.L000118b4
-/*    118d4:	ae00fffc */ 	sw	$zero,-0x4($s0)
-/*    118d8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    118dc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    118e0:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*    118e4:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*    118e8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    118ec:	03e00008 */ 	jr	$ra
-/*    118f0:	24020001 */ 	addiu	$v0,$zero,0x1
-);
+bool musicStopAll(u32 arg0)
+{
+	s32 i;
+
+	for (i = 0; i < 3; i++) {
+		n_alSeqpStop((N_ALSeqPlayer *)var80094ed8[i].seqp);
+
+		var800aaa38[i].tracktype = 0;
+		var800aaa38[i].unk04 = 0;
+		var800aaa38[i].unk08 = 0;
+		var800aaa38[i].unk0c = 0;
+	}
+
+	return true;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -675,7 +658,7 @@ glabel var70053fec
 /*    11c60:	00002825 */ 	or	$a1,$zero,$zero
 /*    11c64:	10000009 */ 	b	.L00011c8c
 /*    11c68:	00402025 */ 	or	$a0,$v0,$zero
-/*    11c6c:	0c004621 */ 	jal	music00011884
+/*    11c6c:	0c004621 */ 	jal	musicStopAll
 /*    11c70:	00002025 */ 	or	$a0,$zero,$zero
 /*    11c74:	10000005 */ 	b	.L00011c8c
 /*    11c78:	00402025 */ 	or	$a0,$v0,$zero
@@ -997,7 +980,7 @@ glabel music0001190c
 /*    12008:	10000004 */ 	beqz	$zero,.NB0001201c
 /*    1200c:	00402025 */ 	or	$a0,$v0,$zero
 .NB00012010:
-/*    12010:	0c004711 */ 	jal	music00011884
+/*    12010:	0c004711 */ 	jal	musicStopAll
 /*    12014:	00002025 */ 	or	$a0,$zero,$zero
 /*    12018:	00402025 */ 	or	$a0,$v0,$zero
 .NB0001201c:
