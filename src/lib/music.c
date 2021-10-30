@@ -11,7 +11,7 @@
 #include "data.h"
 #include "types.h"
 
-const u32 var70053ca0[] = {0x00000000};
+const u8 var70053ca0[] = {0, 0, 0};
 const u32 var70053ca4[] = {0x00050000};
 
 const char var70053ca8[] = "OFF";
@@ -285,78 +285,25 @@ bool musicStopByTrackType(s32 *arg0, u32 arg1)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel music00011780
-/*    11780:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*    11784:	afb50028 */ 	sw	$s5,0x28($sp)
-/*    11788:	afb30020 */ 	sw	$s3,0x20($sp)
-/*    1178c:	afb70030 */ 	sw	$s7,0x30($sp)
-/*    11790:	afb6002c */ 	sw	$s6,0x2c($sp)
-/*    11794:	afb40024 */ 	sw	$s4,0x24($sp)
-/*    11798:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*    1179c:	3c137005 */ 	lui	$s3,%hi(var70053ca0)
-/*    117a0:	3c15800b */ 	lui	$s5,%hi(var800aaa38)
-/*    117a4:	00809025 */ 	or	$s2,$a0,$zero
-/*    117a8:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*    117ac:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    117b0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    117b4:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*    117b8:	26b5aa38 */ 	addiu	$s5,$s5,%lo(var800aaa38)
-/*    117bc:	26733ca0 */ 	addiu	$s3,$s3,%lo(var70053ca0)
-/*    117c0:	24140010 */ 	addiu	$s4,$zero,0x10
-/*    117c4:	0000b025 */ 	or	$s6,$zero,$zero
-/*    117c8:	24170003 */ 	addiu	$s7,$zero,0x3
-.L000117cc:
-/*    117cc:	8e4e0000 */ 	lw	$t6,0x0($s2)
-/*    117d0:	8eaf0000 */ 	lw	$t7,0x0($s5)
-/*    117d4:	55cf001d */ 	bnel	$t6,$t7,.L0001184c
-/*    117d8:	26d60001 */ 	addiu	$s6,$s6,0x1
-/*    117dc:	8eb80004 */ 	lw	$t8,0x4($s5)
-/*    117e0:	0016c940 */ 	sll	$t9,$s6,0x5
-/*    117e4:	0336c821 */ 	addu	$t9,$t9,$s6
-/*    117e8:	13000017 */ 	beqz	$t8,.L00011848
-/*    117ec:	00008025 */ 	or	$s0,$zero,$zero
-/*    117f0:	3c088009 */ 	lui	$t0,%hi(var80094ed8)
-/*    117f4:	25084ed8 */ 	addiu	$t0,$t0,%lo(var80094ed8)
-/*    117f8:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*    117fc:	03288821 */ 	addu	$s1,$t9,$t0
-/*    11800:	8e490000 */ 	lw	$t1,0x0($s2)
-.L00011804:
-/*    11804:	8e2400f8 */ 	lw	$a0,0xf8($s1)
-/*    11808:	02002825 */ 	or	$a1,$s0,$zero
-/*    1180c:	02695021 */ 	addu	$t2,$s3,$t1
-/*    11810:	91460000 */ 	lbu	$a2,0x0($t2)
-/*    11814:	0c00e797 */ 	jal	func00039e5c
-/*    11818:	24070020 */ 	addiu	$a3,$zero,0x20
-/*    1181c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    11820:	5614fff8 */ 	bnel	$s0,$s4,.L00011804
-/*    11824:	8e490000 */ 	lw	$t1,0x0($s2)
-/*    11828:	8e4b0008 */ 	lw	$t3,0x8($s2)
-/*    1182c:	8e2d00f8 */ 	lw	$t5,0xf8($s1)
-/*    11830:	aeab0004 */ 	sw	$t3,0x4($s5)
-/*    11834:	8e4c0008 */ 	lw	$t4,0x8($s2)
-/*    11838:	aeac0008 */ 	sw	$t4,0x8($s5)
-/*    1183c:	8dae0060 */ 	lw	$t6,0x60($t5)
-/*    11840:	91cf000d */ 	lbu	$t7,0xd($t6)
-/*    11844:	aeaf000c */ 	sw	$t7,0xc($s5)
-.L00011848:
-/*    11848:	26d60001 */ 	addiu	$s6,$s6,0x1
-.L0001184c:
-/*    1184c:	16d7ffdf */ 	bne	$s6,$s7,.L000117cc
-/*    11850:	26b50010 */ 	addiu	$s5,$s5,0x10
-/*    11854:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*    11858:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    1185c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    11860:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*    11864:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*    11868:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*    1186c:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*    11870:	8fb6002c */ 	lw	$s6,0x2c($sp)
-/*    11874:	8fb70030 */ 	lw	$s7,0x30($sp)
-/*    11878:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*    1187c:	03e00008 */ 	jr	$ra
-/*    11880:	24020001 */ 	addiu	$v0,$zero,0x1
-);
+bool music00011780(s32 *arg0, u32 arg1)
+{
+	s32 i;
+	s32 j;
+
+	for (i = 0; i < 3; i++) {
+		if (*arg0 == var800aaa38[i].tracktype && var800aaa38[i].unk04 != 0) {
+			for (j = 0; j < 16; j++) {
+				func00039e5c((N_ALSeqPlayer *)var80094ed8[i].seqp, j, var70053ca0[*arg0], 32);
+			}
+
+			var800aaa38[i].unk04 = arg0[2];
+			var800aaa38[i].unk08 = arg0[2];
+			var800aaa38[i].unk0c = var80094ed8[i].seqp->chanState[0].unk0d;
+		}
+	}
+
+	return true;
+}
 
 bool musicStopAll(u32 arg0)
 {
