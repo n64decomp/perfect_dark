@@ -596,7 +596,7 @@ void bootCreateSchedThread(void)
 void bootPhase2(void *arg)
 {
 	bootCreateIdleThread();
-	func00013750();
+	videbugInit();
 	pimgrCreate();
 	bootCreateRmonThread();
 

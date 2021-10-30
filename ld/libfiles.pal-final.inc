@@ -45,7 +45,7 @@
 	build/ROMID/lib/str.o (section); \
 	build/ROMID/lib/ultra/libc/sprintf.o (section); \
 	build/ROMID/lib/pimgr.o (section); \
-	build/ROMID/lib/lib_13750.o (section); \
+	build/ROMID/lib/videbug.o (section); \
 	build/ROMID/lib/debughud.o (section); \
 	build/ROMID/lib/base.o (section); \
 	build/ROMID/lib/joy.o (section); \

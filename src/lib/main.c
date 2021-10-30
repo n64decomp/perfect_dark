@@ -309,7 +309,7 @@ glabel mainInit
 /*     d28c:	00000000 */ 	nop
 /*     d290:	0c0049e7 */ 	jal	memaInit
 /*     d294:	00000000 */ 	nop
-/*     d298:	0c004d3a */ 	jal	func00013758
+/*     d298:	0c004d3a */ 	jal	videbugCreateMesgQueue
 /*     d29c:	00000000 */ 	nop
 /*     d2a0:	0c002668 */ 	jal	viConfigureForLogos
 /*     d2a4:	00000000 */ 	nop
@@ -712,7 +712,7 @@ glabel mainInit
 /*     d54c:	00000000 */ 	nop
 /*     d550:	0c004a83 */ 	jal	memaInit
 /*     d554:	00000000 */ 	nop
-/*     d558:	0c004dd6 */ 	jal	func00013758
+/*     d558:	0c004dd6 */ 	jal	videbugCreateMesgQueue
 /*     d55c:	00000000 */ 	nop
 /*     d560:	0c0026ac */ 	jal	viConfigureForLogos
 /*     d564:	00000000 */ 	nop
@@ -1109,7 +1109,7 @@ glabel mainInit
 /*     dab4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dab8:	0c004beb */ 	jal	memaInit
 /*     dabc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dac0:	0c004fea */ 	jal	func00013758
+/*     dac0:	0c004fea */ 	jal	videbugCreateMesgQueue
 /*     dac4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dac8:	0c002714 */ 	jal	viConfigureForLogos
 /*     dacc:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1500,7 +1500,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	gvarsInit();
 //	memp000121e0();
 //	memaInit();
-//	func00013758();
+//	videbugCreateMesgQueue();
 //	viConfigureForLogos();
 //	var8005d9b0 = rmonIsDisabled();
 //	joySystemInit();
