@@ -13,7 +13,6 @@
 #include "lib/rng.h"
 #include "lib/lib_2fc60.h"
 #include "lib/lib_317f0.h"
-#include "lib/lib_37650.h"
 #include "lib/mp3.h"
 #include "lib/lib_39c80.h"
 #include "data.h"
@@ -2203,7 +2202,7 @@ void seqInit(struct seqinstance *seq)
 
 	n_alCSPNew(seq->seqp, &config);
 
-	func00037650(seq->seqp, var80095204);
+	n_alCSPSetBank(seq->seqp, var80095204);
 }
 
 void snd0000f76c(void);

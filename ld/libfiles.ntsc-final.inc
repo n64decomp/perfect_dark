@@ -71,7 +71,7 @@
 	build/ROMID/lib/naudio/n_sndplayer.o (section); \
 	build/ROMID/lib/speaker.o (section); \
 	build/ROMID/lib/naudio/n_csplayer.o (section); \
-	build/ROMID/lib/lib_37650.o (section); \
+	build/ROMID/lib/naudio/n_cspsetbank.o (section); \
 	build/ROMID/lib/ultra/audio/bnkf.o (section); \
 	build/ROMID/lib/mp3.o (section); \
 	build/ROMID/lib/naudio/n_cspgetstate.o (section); \
