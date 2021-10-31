@@ -23,34 +23,15 @@ void func00039d68(N_ALCSPlayer *seqp, u32 status)
 	n_alCSPSendMidi(seqp, 0, status | 0xb0, 0xfc, 0);
 }
 
+void func00039dac(N_ALCSPlayer *seqp, u32 arg1)
+{
+	seqp->chanMask |= 1 << arg1;
+
+	n_alCSPSendMidi(seqp, 0, arg1 | 0xb0, 0xfc, 0xff);
+}
+
 GLOBAL_ASM(
-glabel func00039dac
-/*    39dac:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    39db0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    39db4:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    39db8:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    39dbc:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*    39dc0:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    39dc4:	24190001 */ 	addiu	$t9,$zero,0x1
-/*    39dc8:	95cf0030 */ 	lhu	$t7,0x30($t6)
-/*    39dcc:	03194004 */ 	sllv	$t0,$t9,$t8
-/*    39dd0:	01e84825 */ 	or	$t1,$t7,$t0
-/*    39dd4:	a5c90030 */ 	sh	$t1,0x30($t6)
-/*    39dd8:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*    39ddc:	240a00ff */ 	addiu	$t2,$zero,0xff
-/*    39de0:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*    39de4:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    39de8:	00002825 */ 	or	$a1,$zero,$zero
-/*    39dec:	240700fc */ 	addiu	$a3,$zero,0xfc
-/*    39df0:	0c011194 */ 	jal	n_alCSPSendMidi
-/*    39df4:	34c600b0 */ 	ori	$a2,$a2,0xb0
-/*    39df8:	10000001 */ 	b	.L00039e00
-/*    39dfc:	00000000 */ 	nop
-.L00039e00:
-/*    39e00:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    39e04:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    39e08:	03e00008 */ 	jr	$ra
-/*    39e0c:	00000000 */ 	nop
+glabel func00039e10
 /*    39e10:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    39e14:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    39e18:	afa40020 */ 	sw	$a0,0x20($sp)
