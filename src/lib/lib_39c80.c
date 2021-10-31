@@ -28,7 +28,7 @@ glabel func00039d68
 /*    39d80:	00002825 */ 	or	$a1,$zero,$zero
 /*    39d84:	240700fc */ 	addiu	$a3,$zero,0xfc
 /*    39d88:	afa00010 */ 	sw	$zero,0x10($sp)
-/*    39d8c:	0c011194 */ 	jal	func00044650
+/*    39d8c:	0c011194 */ 	jal	n_alCSPSendMidi
 /*    39d90:	34c600b0 */ 	ori	$a2,$a2,0xb0
 /*    39d94:	10000001 */ 	b	.L00039d9c
 /*    39d98:	00000000 */ 	nop
@@ -54,7 +54,7 @@ glabel func00039d68
 /*    39de4:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*    39de8:	00002825 */ 	or	$a1,$zero,$zero
 /*    39dec:	240700fc */ 	addiu	$a3,$zero,0xfc
-/*    39df0:	0c011194 */ 	jal	func00044650
+/*    39df0:	0c011194 */ 	jal	n_alCSPSendMidi
 /*    39df4:	34c600b0 */ 	ori	$a2,$a2,0xb0
 /*    39df8:	10000001 */ 	b	.L00039e00
 /*    39dfc:	00000000 */ 	nop
@@ -74,7 +74,7 @@ glabel func00039d68
 /*    39e30:	00002825 */ 	or	$a1,$zero,$zero
 /*    39e34:	240700ff */ 	addiu	$a3,$zero,0xff
 /*    39e38:	34c600b0 */ 	ori	$a2,$a2,0xb0
-/*    39e3c:	0c011194 */ 	jal	func00044650
+/*    39e3c:	0c011194 */ 	jal	n_alCSPSendMidi
 /*    39e40:	afae0010 */ 	sw	$t6,0x10($sp)
 /*    39e44:	10000001 */ 	b	.L00039e4c
 /*    39e48:	00000000 */ 	nop
@@ -99,7 +99,7 @@ glabel func00039e5c
 /*    39e80:	00002825 */ 	or	$a1,$zero,$zero
 /*    39e84:	240700fd */ 	addiu	$a3,$zero,0xfd
 /*    39e88:	34c600b0 */ 	ori	$a2,$a2,0xb0
-/*    39e8c:	0c011194 */ 	jal	func00044650
+/*    39e8c:	0c011194 */ 	jal	n_alCSPSendMidi
 /*    39e90:	afae0010 */ 	sw	$t6,0x10($sp)
 /*    39e94:	8fa60024 */ 	lw	$a2,0x24($sp)
 /*    39e98:	93af002b */ 	lbu	$t7,0x2b($sp)
@@ -107,7 +107,7 @@ glabel func00039e5c
 /*    39ea0:	00002825 */ 	or	$a1,$zero,$zero
 /*    39ea4:	240700ff */ 	addiu	$a3,$zero,0xff
 /*    39ea8:	34c600b0 */ 	ori	$a2,$a2,0xb0
-/*    39eac:	0c011194 */ 	jal	func00044650
+/*    39eac:	0c011194 */ 	jal	n_alCSPSendMidi
 /*    39eb0:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*    39eb4:	10000001 */ 	b	.L00039ebc
 /*    39eb8:	00000000 */ 	nop
@@ -127,7 +127,7 @@ glabel func00039e5c
 /*    39eec:	00002825 */ 	or	$a1,$zero,$zero
 /*    39ef0:	24070041 */ 	addiu	$a3,$zero,0x41
 /*    39ef4:	34c600b0 */ 	ori	$a2,$a2,0xb0
-/*    39ef8:	0c011194 */ 	jal	func00044650
+/*    39ef8:	0c011194 */ 	jal	n_alCSPSendMidi
 /*    39efc:	afae0010 */ 	sw	$t6,0x10($sp)
 /*    39f00:	10000001 */ 	b	.L00039f08
 /*    39f04:	00000000 */ 	nop
@@ -147,7 +147,7 @@ glabel func00039e5c
 /*    39f38:	00002825 */ 	or	$a1,$zero,$zero
 /*    39f3c:	240700fc */ 	addiu	$a3,$zero,0xfc
 /*    39f40:	34c600b0 */ 	ori	$a2,$a2,0xb0
-/*    39f44:	0c011194 */ 	jal	func00044650
+/*    39f44:	0c011194 */ 	jal	n_alCSPSendMidi
 /*    39f48:	afae0010 */ 	sw	$t6,0x10($sp)
 /*    39f4c:	10000001 */ 	b	.L00039f54
 /*    39f50:	00000000 */ 	nop

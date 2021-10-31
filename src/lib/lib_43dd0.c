@@ -613,38 +613,3 @@ glabel func0004453c
 /*    44648:	03e00008 */ 	jr	$ra
 /*    4464c:	00000000 */ 	nop
 );
-
-GLOBAL_ASM(
-glabel func00044650
-/*    44650:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    44654:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    44658:	afa40030 */ 	sw	$a0,0x30($sp)
-/*    4465c:	afa50034 */ 	sw	$a1,0x34($sp)
-/*    44660:	afa60038 */ 	sw	$a2,0x38($sp)
-/*    44664:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*    44668:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*    4466c:	a7ae0020 */ 	sh	$t6,0x20($sp)
-/*    44670:	afa00024 */ 	sw	$zero,0x24($sp)
-/*    44674:	93af003b */ 	lbu	$t7,0x3b($sp)
-/*    44678:	a3af0028 */ 	sb	$t7,0x28($sp)
-/*    4467c:	93b8003f */ 	lbu	$t8,0x3f($sp)
-/*    44680:	a3b80029 */ 	sb	$t8,0x29($sp)
-/*    44684:	93b90043 */ 	lbu	$t9,0x43($sp)
-/*    44688:	a3b9002a */ 	sb	$t9,0x2a($sp)
-/*    4468c:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*    44690:	8fa80034 */ 	lw	$t0,0x34($sp)
-/*    44694:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*    44698:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    4469c:	27a50020 */ 	addiu	$a1,$sp,0x20
-/*    446a0:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*    446a4:	00003825 */ 	or	$a3,$zero,$zero
-/*    446a8:	0c00f184 */ 	jal	n_alEvtqPostEvent
-/*    446ac:	24840048 */ 	addiu	$a0,$a0,0x48
-/*    446b0:	10000001 */ 	b	.L000446b8
-/*    446b4:	00000000 */ 	nop
-.L000446b8:
-/*    446b8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    446bc:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    446c0:	03e00008 */ 	jr	$ra
-/*    446c4:	00000000 */ 	nop
-);

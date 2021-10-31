@@ -110,6 +110,7 @@
 	build/ROMID/lib/naudio/n_env.o (section); \
 	build/ROMID/lib/lib_3f8a0.o (section); \
 	build/ROMID/lib/lib_43dd0.o (section); \
+	build/ROMID/lib/naudio/n_cspsendmidi.o (section); \
 	build/ROMID/lib/lib_446d0.o (section); \
 	build/ROMID/lib/lib_44bc0.o (section); \
 	build/ROMID/lib/naudio/n_synsetpriority.o (section); \
