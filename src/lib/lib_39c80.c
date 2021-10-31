@@ -5,49 +5,20 @@
 #include "data.h"
 #include "types.h"
 
+void func00039cd0(N_ALCSPlayer *seqp)
+{
+	s32 i;
+
+	seqp->chanMask = 0xffff;
+
+	for (i = 0; i < seqp->maxChannels; i++) {
+		seqp->chanState[i].unk0e = 0xff;
+		seqp->chanState[i].unk0d = 0xff;
+	}
+}
+
 GLOBAL_ASM(
-glabel func00039cd0
-/*    39cd0:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    39cd4:	340effff */ 	dli	$t6,0xffff
-/*    39cd8:	a48e0030 */ 	sh	$t6,0x30($a0)
-/*    39cdc:	afa00004 */ 	sw	$zero,0x4($sp)
-/*    39ce0:	908f0034 */ 	lbu	$t7,0x34($a0)
-/*    39ce4:	19e0001c */ 	blez	$t7,.L00039d58
-/*    39ce8:	00000000 */ 	nop
-.L00039cec:
-/*    39cec:	8fa80004 */ 	lw	$t0,0x4($sp)
-/*    39cf0:	8c990060 */ 	lw	$t9,0x60($a0)
-/*    39cf4:	241800ff */ 	addiu	$t8,$zero,0xff
-/*    39cf8:	00084880 */ 	sll	$t1,$t0,0x2
-/*    39cfc:	01284823 */ 	subu	$t1,$t1,$t0
-/*    39d00:	00094880 */ 	sll	$t1,$t1,0x2
-/*    39d04:	01284821 */ 	addu	$t1,$t1,$t0
-/*    39d08:	00094880 */ 	sll	$t1,$t1,0x2
-/*    39d0c:	03295021 */ 	addu	$t2,$t9,$t1
-/*    39d10:	a158000e */ 	sb	$t8,0xe($t2)
-/*    39d14:	8fad0004 */ 	lw	$t5,0x4($sp)
-/*    39d18:	8c8c0060 */ 	lw	$t4,0x60($a0)
-/*    39d1c:	240b00ff */ 	addiu	$t3,$zero,0xff
-/*    39d20:	000d7080 */ 	sll	$t6,$t5,0x2
-/*    39d24:	01cd7023 */ 	subu	$t6,$t6,$t5
-/*    39d28:	000e7080 */ 	sll	$t6,$t6,0x2
-/*    39d2c:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*    39d30:	000e7080 */ 	sll	$t6,$t6,0x2
-/*    39d34:	018e7821 */ 	addu	$t7,$t4,$t6
-/*    39d38:	a1eb000d */ 	sb	$t3,0xd($t7)
-/*    39d3c:	8fa80004 */ 	lw	$t0,0x4($sp)
-/*    39d40:	25190001 */ 	addiu	$t9,$t0,0x1
-/*    39d44:	afb90004 */ 	sw	$t9,0x4($sp)
-/*    39d48:	90890034 */ 	lbu	$t1,0x34($a0)
-/*    39d4c:	0329082a */ 	slt	$at,$t9,$t1
-/*    39d50:	1420ffe6 */ 	bnez	$at,.L00039cec
-/*    39d54:	00000000 */ 	nop
-.L00039d58:
-/*    39d58:	10000001 */ 	b	.L00039d60
-/*    39d5c:	00000000 */ 	nop
-.L00039d60:
-/*    39d60:	03e00008 */ 	jr	$ra
-/*    39d64:	27bd0008 */ 	addiu	$sp,$sp,0x8
+glabel func00039d68
 /*    39d68:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    39d6c:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    39d70:	afa40020 */ 	sw	$a0,0x20($sp)
