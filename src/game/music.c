@@ -57,12 +57,12 @@ const char var7f1b20b8nb[] = "musicStartWatch start\n";
 const char var7f1b20d0nb[] = "musicEndWatch start\n";
 const char var7f1b20e8nb[] = "musicEndWatch end\n";
 const char var7f1b20fcnb[] = "musicStartDead\n";
-const char var7f1b210cnb[] = "musicStartTemporaryAmbient\n";
+const char var7f1b210cnb[] = "musicStartTemporary\n";
 const char var7f1b2124nb[] = "musicEndTemporary\n";
 const char var7f1b2138nb[] = "musicStartCutscene\n";
 const char var7f1b214cnb[] = "musicEndCutscene\n";
 const char var7f1b2160nb[] = "musicStartAmbient : Tune=%d\n";
-const char var7f1b2180nb[] = "musicEndTemporaryAmbient\n";
+const char var7f1b2180nb[] = "musicEndAmbient\n";
 #endif
 
 char *var80084100[] = {
@@ -114,7 +114,7 @@ void musicSetVolume(u16 volume)
 
 	for (i = 0; i < ARRAYCOUNT(var800aaa38); i++) {
 		if (var800aaa38[i].tracktype != TRACKTYPE_NONE && var800aaa38[i].tracktype != TRACKTYPE_AMBIENT) {
-			sndSetMusicChannelVolume(&var80094ed8[i], volume);
+			seqSetVolume(&g_SeqInstances[i], volume);
 		}
 	}
 

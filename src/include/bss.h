@@ -34,7 +34,7 @@ extern u32 var80090b08;
 extern AMAudioMgr g_AudioManager;
 extern Mtx *var80092870;
 extern s32 g_SndMaxFxBusses;
-extern struct var80094ed8 var80094ed8[3];
+extern struct seqinstance g_SeqInstances[3];
 extern ALHeap g_SndHeap;
 extern u32 var80095200;
 extern struct var80095210 var80095210;

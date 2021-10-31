@@ -41,12 +41,12 @@ struct var80094eb0 var80094eb0;
 u32 var80094ecc;
 u32 var80094ed0;
 u32 var80094ed4;
-struct var80094ed8 var80094ed8[3];
+struct seqinstance g_SeqInstances[3];
 ALHeap g_SndHeap;
 u32 var80095200;
 ALBank *var80095204;
 struct seqtable *g_SeqTable;
-u32 var8009520c;
+u32 g_SeqBufferSize;
 struct var80095210 var80095210;
 u8 var800952a0[0x4060];
 
@@ -2180,7 +2180,7 @@ glabel snd0000f49c
 );
 #endif
 
-void snd0000f67c(struct var80094ed8 *arg0)
+void seqInit(struct seqinstance *seq)
 {
 	u32 stack;
 	ALSeqpConfig config;
@@ -2194,17 +2194,17 @@ void snd0000f67c(struct var80094ed8 *arg0)
 	func00030c98(&config);
 
 	if (IS4MB()) {
-		var8009520c = 0x3800;
+		g_SeqBufferSize = 0x3800;
 	} else {
-		var8009520c = 0x4800;
+		g_SeqBufferSize = 0x4800;
 	}
 
-	arg0->unk0fc = alHeapAlloc(&g_SndHeap, 1, var8009520c);
-	arg0->seqp = alHeapAlloc(&g_SndHeap, 1, sizeof(N_ALCSPlayer));
+	seq->data = alHeapAlloc(&g_SndHeap, 1, g_SeqBufferSize);
+	seq->seqp = alHeapAlloc(&g_SndHeap, 1, sizeof(N_ALCSPlayer));
 
-	n_alCSPNew(arg0->seqp, &config);
+	n_alCSPNew(seq->seqp, &config);
 
-	func00037650(arg0->seqp, var80095204);
+	func00037650(seq->seqp, var80095204);
 }
 
 void snd0000f76c(void);
@@ -2344,9 +2344,9 @@ void sndInit(void)
 		g_SeqTable = alHeapDBAlloc(0, 0, &g_SndHeap, 1, len);
 		dmaExec(g_SeqTable, seqromaddr, len + 0xf & 0xfffffff0);
 
-		// Promote segment-relative offsets to real pointers
+		// Promote segment-relative offsets to ROM addresses
 		for (i = 0; i < g_SeqTable->count; i++) {
-			g_SeqTable->entries[i].data += seqromaddr;
+			g_SeqTable->entries[i].romaddr += seqromaddr;
 		}
 
 		synconfig.maxVVoices = 44;
@@ -2388,7 +2388,7 @@ void sndInit(void)
 		}
 
 		for (i = 0; i < 3; i++) {
-			snd0000f67c(&var80094ed8[i]);
+			seqInit(&g_SeqInstances[i]);
 		}
 
 		osSyncPrintf("gsSndpNew\n");
@@ -2405,22 +2405,6 @@ void sndInit(void)
 		sndSetSoundMode(g_SoundMode);
 	}
 }
-
-#if VERSION < VERSION_NTSC_1_0
-const char var70055250nb[] = "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x";
-const char var700552a8nb[] = "snd.c";
-const char var700552b0nb[] = "Snd Heap Check FAILED";
-#endif
-
-const char var70053be0[] = "Snd_Play_Universal : Overriding -> Link = %d\n";
-
-#if VERSION < VERSION_NTSC_1_0
-const char var700552f0nb[] = "Snd_Play_Mpeg : sndId=%d, vol=%d, pan=%d\n";
-#endif
-
-const char var70053c10[] = "Snd_Play_Mpeg : SYSTEM IS DISABLED\n";
-const char var70053c34[] = "Snd_Play_Mpeg  : Lib called -> Adr=%x\n";
-const char var70053c5c[] = "Snd_Play_Mpeg  : Chunk size -> Adr=%x\n";
 
 bool sndIsMp3(u16 soundnum)
 {
@@ -2452,92 +2436,60 @@ void snd0000fc40(s32 arg0)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel snd0000fc48
-/*     fc48:	27bdebb8 */ 	addiu	$sp,$sp,-5192
-/*     fc4c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*     fc50:	00808025 */ 	or	$s0,$a0,$zero
-/*     fc54:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     fc58:	afa5144c */ 	sw	$a1,0x144c($sp)
-/*     fc5c:	0c00e344 */ 	jal	n_alCSPGetState
-/*     fc60:	8c8400f8 */ 	lw	$a0,0xf8($a0)
-/*     fc64:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
-/*     fc68:	8dcedda0 */ 	lw	$t6,%lo(g_SndDisabled)($t6)
-/*     fc6c:	8fa4144c */ 	lw	$a0,0x144c($sp)
-/*     fc70:	3c038009 */ 	lui	$v1,%hi(g_SeqTable)
-/*     fc74:	51c00004 */ 	beqzl	$t6,.L0000fc88
-/*     fc78:	ae040104 */ 	sw	$a0,0x104($s0)
-/*     fc7c:	10000038 */ 	b	.L0000fd60
-/*     fc80:	00001025 */ 	or	$v0,$zero,$zero
-/*     fc84:	ae040104 */ 	sw	$a0,0x104($s0)
-.L0000fc88:
-/*     fc88:	10400003 */ 	beqz	$v0,.L0000fc98
-/*     fc8c:	8c635208 */ 	lw	$v1,%lo(g_SeqTable)($v1)
-/*     fc90:	10000033 */ 	b	.L0000fd60
-/*     fc94:	00001025 */ 	or	$v0,$zero,$zero
-.L0000fc98:
-/*     fc98:	8e0f0104 */ 	lw	$t7,0x104($s0)
-/*     fc9c:	3c010001 */ 	lui	$at,0x1
-/*     fca0:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*     fca4:	00781021 */ 	addu	$v0,$v1,$t8
-/*     fca8:	8c450004 */ 	lw	$a1,0x4($v0)
-/*     fcac:	00a1082b */ 	sltu	$at,$a1,$at
-/*     fcb0:	50200004 */ 	beqzl	$at,.L0000fcc4
-/*     fcb4:	94430008 */ 	lhu	$v1,0x8($v0)
-/*     fcb8:	10000029 */ 	b	.L0000fd60
-/*     fcbc:	00001025 */ 	or	$v0,$zero,$zero
-/*     fcc0:	94430008 */ 	lhu	$v1,0x8($v0)
-.L0000fcc4:
-/*     fcc4:	3c098009 */ 	lui	$t1,%hi(var8009520c)
-/*     fcc8:	8d29520c */ 	lw	$t1,%lo(var8009520c)($t1)
-/*     fccc:	2463000f */ 	addiu	$v1,$v1,0xf
-/*     fcd0:	3479000f */ 	ori	$t9,$v1,0xf
-/*     fcd4:	3b28000f */ 	xori	$t0,$t9,0xf
-/*     fcd8:	25030040 */ 	addiu	$v1,$t0,0x40
-/*     fcdc:	0069082b */ 	sltu	$at,$v1,$t1
-/*     fce0:	54200004 */ 	bnezl	$at,.L0000fcf4
-/*     fce4:	9446000a */ 	lhu	$a2,0xa($v0)
-/*     fce8:	1000001d */ 	b	.L0000fd60
-/*     fcec:	00001025 */ 	or	$v0,$zero,$zero
-/*     fcf0:	9446000a */ 	lhu	$a2,0xa($v0)
-.L0000fcf4:
-/*     fcf4:	8e0700fc */ 	lw	$a3,0xfc($s0)
-/*     fcf8:	24c6000f */ 	addiu	$a2,$a2,0xf
-/*     fcfc:	34ca000f */ 	ori	$t2,$a2,0xf
-/*     fd00:	3946000f */ 	xori	$a2,$t2,0xf
-/*     fd04:	00e36021 */ 	addu	$t4,$a3,$v1
-/*     fd08:	01862023 */ 	subu	$a0,$t4,$a2
-/*     fd0c:	afa40028 */ 	sw	$a0,0x28($sp)
-/*     fd10:	0c003504 */ 	jal	dmaExec
-/*     fd14:	afa7143c */ 	sw	$a3,0x143c($sp)
-/*     fd18:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*     fd1c:	8fa5143c */ 	lw	$a1,0x143c($sp)
-/*     fd20:	0c001d3c */ 	jal	rzipInflate
-/*     fd24:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*     fd28:	02002025 */ 	or	$a0,$s0,$zero
-/*     fd2c:	0c00e34c */ 	jal	n_alCSeqNew
-/*     fd30:	8e0500fc */ 	lw	$a1,0xfc($s0)
-/*     fd34:	8e0400f8 */ 	lw	$a0,0xf8($s0)
-/*     fd38:	0c00e6f8 */ 	jal	func00039be0
-/*     fd3c:	02002825 */ 	or	$a1,$s0,$zero
-/*     fd40:	0c003f5d */ 	jal	sndGetMusicChannelVolume
-/*     fd44:	02002025 */ 	or	$a0,$s0,$zero
-/*     fd48:	02002025 */ 	or	$a0,$s0,$zero
-/*     fd4c:	0c003f67 */ 	jal	sndSetMusicChannelVolume
-/*     fd50:	3045ffff */ 	andi	$a1,$v0,0xffff
-/*     fd54:	0c00e70c */ 	jal	func00039c30
-/*     fd58:	8e0400f8 */ 	lw	$a0,0xf8($s0)
-/*     fd5c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0000fd60:
-/*     fd60:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*     fd64:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*     fd68:	27bd1448 */ 	addiu	$sp,$sp,0x1448
-/*     fd6c:	03e00008 */ 	jr	$ra
-/*     fd70:	00000000 */ 	nop
-);
+bool seqPlay(struct seqinstance *seq, s32 tracknum)
+{
+	u32 stack;
+	s32 binlen;
+	u8 *binstart;
+	s32 ziplen;
+	u8 *zipstart;
+	u8 scratch[1024 * 5];
+
+	s32 state = n_alCSPGetState(seq->seqp);
+
+	if (g_SndDisabled) {
+		return false;
+	}
+
+	seq->tracknum = tracknum;
+
+	if (g_SeqTable && tracknum);
+
+	if (state != AL_STOPPED) {
+		return false;
+	}
+
+	if (g_SeqTable->entries[seq->tracknum].romaddr < 0x10000) {
+		return false;
+	}
+
+	binlen = ALIGN16(g_SeqTable->entries[seq->tracknum].binlen) + 0x40;
+
+	if (binlen >= g_SeqBufferSize) {
+		return false;
+	}
+
+	ziplen = ALIGN16(g_SeqTable->entries[seq->tracknum].ziplen);
+	binstart = seq->data;
+	zipstart = binstart + binlen - ziplen;
+
+	dmaExec(zipstart, g_SeqTable->entries[seq->tracknum].romaddr, ziplen);
+
+	rzipInflate(zipstart, binstart, scratch);
+
+	n_alCSeqNew(&seq->seq, seq->data);
+	func00039be0(seq->seqp, seq);
+	seqSetVolume(seq, seqGetVolume(seq));
+	func00039c30(seq->seqp);
+
+	return true;
+}
 #else
+const char var70055250nb[] = "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x";
+const char var700552a8nb[] = "snd.c";
+
 GLOBAL_ASM(
-glabel snd0000fc48
+glabel seqPlay
 /*    100e0:	27bdeaf8 */ 	addiu	$sp,$sp,-5384
 /*    100e4:	afb00058 */ 	sw	$s0,0x58($sp)
 /*    100e8:	00808025 */ 	or	$s0,$a0,$zero
@@ -2651,10 +2603,10 @@ glabel snd0000fc48
 /*    10284:	8e0400f8 */ 	lw	$a0,0xf8($s0)
 /*    10288:	0c00ebec */ 	jal	func00039be0
 /*    1028c:	02002825 */ 	or	$a1,$s0,$zero
-/*    10290:	0c0040b1 */ 	jal	sndGetMusicChannelVolume
+/*    10290:	0c0040b1 */ 	jal	seqGetVolume
 /*    10294:	02002025 */ 	or	$a0,$s0,$zero
 /*    10298:	02002025 */ 	or	$a0,$s0,$zero
-/*    1029c:	0c0040bb */ 	jal	sndSetMusicChannelVolume
+/*    1029c:	0c0040bb */ 	jal	seqSetVolume
 /*    102a0:	3045ffff */ 	andi	$a1,$v0,0xffff
 /*    102a4:	0c00ec00 */ 	jal	func00039c30
 /*    102a8:	8e0400f8 */ 	lw	$a0,0xf8($s0)
@@ -2668,24 +2620,39 @@ glabel snd0000fc48
 );
 #endif
 
-u16 sndGetMusicChannelVolume(struct var80094ed8 *arg0)
+#if VERSION < VERSION_NTSC_1_0
+const char var700552b0nb[] = "Snd Heap Check FAILED";
+#endif
+
+const char var70053be0[] = "Snd_Play_Universal : Overriding -> Link = %d\n";
+
+#if VERSION < VERSION_NTSC_1_0
+const char var700552f0nb[] = "Snd_Play_Mpeg : sndId=%d, vol=%d, pan=%d\n";
+#endif
+
+const char var70053c10[] = "Snd_Play_Mpeg : SYSTEM IS DISABLED\n";
+const char var70053c34[] = "Snd_Play_Mpeg  : Lib called -> Adr=%x\n";
+const char var70053c5c[] = "Snd_Play_Mpeg  : Chunk size -> Adr=%x\n";
+
+
+u16 seqGetVolume(struct seqinstance *seq)
 {
-	return g_SndDisabled ? 0x7fff : arg0->volume;
+	return g_SndDisabled ? 0x7fff : seq->volume;
 }
 
-void sndSetMusicChannelVolume(struct var80094ed8 *arg0, u16 volume)
+void seqSetVolume(struct seqinstance *seq, u16 volume)
 {
 	if (!g_SndDisabled) {
-		u32 tmp = (var8005ecf8[arg0->unk104] * volume);
+		u32 tmp = (var8005ecf8[seq->tracknum] * volume);
 		tmp >>=	15;
 
-		arg0->volume = volume;
+		seq->volume = volume;
 
 		if (tmp > 0x7fff) {
 			tmp = 0x7fff;
 		}
 
-		n_alCSPSetVol(arg0->seqp, tmp);
+		n_alCSPSetVol(seq->seqp, tmp);
 	}
 }
 

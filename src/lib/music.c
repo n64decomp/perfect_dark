@@ -51,11 +51,11 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 	// Check if this tracktype is currently in use. If it is then that's
 	// an error - the caller should have stopped the existing track first.
 	for (i = 0; i < 3; i++) {
-		if (event->tracktype == var800aaa38[i].tracktype && n_alCSPGetState(var80094ed8[i].seqp) == AL_PLAYING) {
+		if (event->tracktype == var800aaa38[i].tracktype && n_alCSPGetState(g_SeqInstances[i].seqp) == AL_PLAYING) {
 			value = event->tracktype == TRACKTYPE_AMBIENT ? 24 : 32;
 
 			for (j = 0; j < 16; j++) {
-				func00039e5c(var80094ed8[i].seqp, j, 0xff, value);
+				func00039e5c(g_SeqInstances[i].seqp, j, 0xff, value);
 				osSyncPrintf("MUSIC(Play) : Unpaused midi channel %d for state %d\n", j, event->tracktype);
 			}
 
@@ -71,11 +71,11 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 	if (result == RESULT_FAIL) {
 		// Find an unused channel
 		for (i = 0; i < 3; i++) {
-			if (n_alCSPGetState(var80094ed8[i].seqp) == AL_STOPPED) {
+			if (n_alCSPGetState(g_SeqInstances[i].seqp) == AL_STOPPED) {
 				osSyncPrintf("MUSIC(Play) : Starting, Guid=%u, Midi=%d, Tune=%d\n", event->id, 0, event->tracktype);
 
-				if (snd0000fc48(&var80094ed8[i], event->tracknum)) {
-					sndSetMusicChannelVolume(&var80094ed8[i], event->volume);
+				if (seqPlay(&g_SeqInstances[i], event->tracknum)) {
+					seqSetVolume(&g_SeqInstances[i], event->volume);
 
 					var800aaa38[i].tracktype = event->tracktype;
 					var800aaa38[i].unk04 = 1;
@@ -95,7 +95,7 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 
 			for (i = 0; i < 3; i++) {
 				if ((var800aaa38[i].tracktype == TRACKTYPE_NONE || event->tracktype == var800aaa38[i].tracktype)
-						&& n_alCSPGetState(var80094ed8[i].seqp) != AL_STOPPED) {
+						&& n_alCSPGetState(g_SeqInstances[i].seqp) != AL_STOPPED) {
 					index = i;
 					osSyncPrintf("MUSIC(Play) : About to dump the fading channel %d as a same state play request is waiting\n", index);
 					break;
@@ -106,7 +106,7 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 				if (event->failcount >= 3) {
 					for (i = 0; i < 3; i++) {
 						if (var800aaa38[i].tracktype == TRACKTYPE_AMBIENT
-								&& n_alCSPGetState(var80094ed8[i].seqp) != AL_STOPPED) {
+								&& n_alCSPGetState(g_SeqInstances[i].seqp) != AL_STOPPED) {
 							index = i;
 							osSyncPrintf("MUSIC(Play) : About to dump the ambience channel %d\n", index);
 							osSyncPrintf("MUSIC(Play) : Reason : A play request is waiting - State = %d\n", event->tracktype);
@@ -117,7 +117,7 @@ s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
 			}
 
 			if (index != -1) {
-				n_alSeqpStop((N_ALSeqPlayer *)var80094ed8[index].seqp);
+				n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[index].seqp);
 
 				var800aaa38[index].tracktype = TRACKTYPE_NONE;
 				var800aaa38[index].unk04 = 0;
@@ -151,7 +151,7 @@ s32 musicHandleStopEvent(struct musicevent *event, s32 result)
 
 	for (i = 0; i < 3; i++) {
 		if (event->tracktype == var800aaa38[i].tracktype) {
-			n_alSeqpStop((N_ALSeqPlayer *)var80094ed8[i].seqp);
+			n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
 
 			var800aaa38[i].tracktype = TRACKTYPE_NONE;
 			var800aaa38[i].unk04 = 0;
@@ -173,12 +173,12 @@ s32 musicHandleFadeEvent(struct musicevent *event, s32 result)
 	for (i = 0; i < 3; i++) {
 		if (event->tracktype == var800aaa38[i].tracktype && var800aaa38[i].unk04 != 0) {
 			for (j = 0; j < 16; j++) {
-				func00039e5c(var80094ed8[i].seqp, j, var70053ca0[event->tracktype], 32);
+				func00039e5c(g_SeqInstances[i].seqp, j, var70053ca0[event->tracktype], 32);
 			}
 
 			var800aaa38[i].unk04 = event->fadetopause;
 			var800aaa38[i].unk08 = event->fadetopause;
-			var800aaa38[i].unk0c = var80094ed8[i].seqp->chanState[0].unk0d;
+			var800aaa38[i].unk0c = g_SeqInstances[i].seqp->chanState[0].unk0d;
 		}
 	}
 
@@ -190,7 +190,7 @@ s32 musicHandleStopAllEvent(s32 result)
 	s32 i;
 
 	for (i = 0; i < 3; i++) {
-		n_alSeqpStop((N_ALSeqPlayer *)var80094ed8[i].seqp);
+		n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
 
 		var800aaa38[i].tracktype = 0;
 		var800aaa38[i].unk04 = 0;
@@ -245,8 +245,8 @@ glabel var70053fec
 /*    11950:	0311c021 */ 	addu	$t8,$t8,$s1
 /*    11954:	15e00023 */ 	bnez	$t7,.L000119e4
 /*    11958:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*    1195c:	3c198009 */ 	lui	$t9,%hi(var80094ed8)
-/*    11960:	27394ed8 */ 	addiu	$t9,$t9,%lo(var80094ed8)
+/*    1195c:	3c198009 */ 	lui	$t9,%hi(g_SeqInstances)
+/*    11960:	27394ed8 */ 	addiu	$t9,$t9,%lo(g_SeqInstances)
 /*    11964:	03191821 */ 	addu	$v1,$t8,$t9
 /*    11968:	8c6400f8 */ 	lw	$a0,0xf8($v1)
 /*    1196c:	0c00e344 */ 	jal	n_alCSPGetState
@@ -878,16 +878,16 @@ glabel musicTickEvents
 //		if (g_MusicEventQueueLength);
 //
 //		for (i = 0; i < 3; i++) {
-//			if (var800aaa38[i].unk04 == 0 && n_alCSPGetState(var80094ed8[i].seqp) == AL_PLAYING) {
-//				if (var80094ed8[i].seqp->chanState[0].unk0d <= var70053ca0[var800aaa38[i].tracktype]) {
-//					n_alSeqpStop((N_ALSeqPlayer *)var80094ed8[i].seqp);
+//			if (var800aaa38[i].unk04 == 0 && n_alCSPGetState(g_SeqInstances[i].seqp) == AL_PLAYING) {
+//				if (g_SeqInstances[i].seqp->chanState[0].unk0d <= var70053ca0[var800aaa38[i].tracktype]) {
+//					n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
 //
 //					var800aaa38[i].tracktype = TRACKTYPE_NONE;
 //					var800aaa38[i].unk04 = 0;
 //					var800aaa38[i].unk08 = 0;
 //					var800aaa38[i].unk0c = 0;
-//				} else if (var80094ed8[i].seqp->chanState[0].unk0d == var800aaa38[i].unk0c) {
-//					n_alSeqpStop((N_ALSeqPlayer *)var80094ed8[i].seqp);
+//				} else if (g_SeqInstances[i].seqp->chanState[0].unk0d == var800aaa38[i].unk0c) {
+//					n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
 //
 //					var800aaa38[i].tracktype = TRACKTYPE_NONE;
 //					var800aaa38[i].unk04 = 0;
@@ -1140,7 +1140,7 @@ bool musicIsTrackTypePlaying(s32 tracktype)
 	s32 i;
 
 	for (i = 0; i < 3; i++) {
-		if (tracktype == var800aaa38[i].tracktype && n_alCSPGetState(var80094ed8[i].seqp) == AL_PLAYING) {
+		if (tracktype == var800aaa38[i].tracktype && n_alCSPGetState(g_SeqInstances[i].seqp) == AL_PLAYING) {
 			return true;
 		}
 	}
