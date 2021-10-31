@@ -6,31 +6,6 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00039c80
-/*    39c80:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    39c84:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    39c88:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    39c8c:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    39c90:	240e000a */ 	addiu	$t6,$zero,0xa
-/*    39c94:	a7ae0018 */ 	sh	$t6,0x18($sp)
-/*    39c98:	87af002e */ 	lh	$t7,0x2e($sp)
-/*    39c9c:	a7af001c */ 	sh	$t7,0x1c($sp)
-/*    39ca0:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    39ca4:	27a50018 */ 	addiu	$a1,$sp,0x18
-/*    39ca8:	00003025 */ 	or	$a2,$zero,$zero
-/*    39cac:	00003825 */ 	or	$a3,$zero,$zero
-/*    39cb0:	0c00f184 */ 	jal	n_alEvtqPostEvent
-/*    39cb4:	24840048 */ 	addiu	$a0,$a0,0x48
-/*    39cb8:	10000001 */ 	b	.L00039cc0
-/*    39cbc:	00000000 */ 	nop
-.L00039cc0:
-/*    39cc0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    39cc4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    39cc8:	03e00008 */ 	jr	$ra
-/*    39ccc:	00000000 */ 	nop
-);
-
-GLOBAL_ASM(
 glabel func00039cd0
 /*    39cd0:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*    39cd4:	340effff */ 	dli	$t6,0xffff

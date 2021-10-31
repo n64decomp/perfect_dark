@@ -2695,7 +2695,7 @@ void sndSetMusicChannelVolume(struct var80094ed8 *arg0, u16 volume)
 			tmp = 0x7fff;
 		}
 
-		func00039c80(arg0->seqp, tmp);
+		n_alCSPSetVol(arg0->seqp, tmp);
 	}
 }
 
