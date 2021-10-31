@@ -80,7 +80,7 @@
 	build/ROMID/lib/naudio/n_cspgetstate.o (section); \
 	build/ROMID/lib/naudio/n_csq.o (section); \
 	build/ROMID/lib/naudio/n_cspsetseq.o (section); \
-	build/ROMID/lib/lib_39be0.o (section); \
+	build/ROMID/lib/naudio/n_cspplay.o (section); \
 	build/ROMID/lib/naudio/n_cspsetvol.o (section); \
 	build/ROMID/lib/lib_39c80.o (section); \
 	build/ROMID/lib/naudio/n_seqpstop.o (section); \

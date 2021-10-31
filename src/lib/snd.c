@@ -15,7 +15,6 @@
 #include "lib/lib_317f0.h"
 #include "lib/lib_37650.h"
 #include "lib/mp3.h"
-#include "lib/lib_39be0.h"
 #include "lib/lib_39c80.h"
 #include "data.h"
 #include "types.h"
@@ -2480,7 +2479,7 @@ bool seqPlay(struct seqinstance *seq, s32 tracknum)
 	n_alCSeqNew(&seq->seq, seq->data);
 	n_alCSPSetSeq(seq->seqp, &seq->seq);
 	seqSetVolume(seq, seqGetVolume(seq));
-	func00039c30(seq->seqp);
+	n_alCSPPlay(seq->seqp);
 
 	return true;
 }
@@ -2608,7 +2607,7 @@ glabel seqPlay
 /*    10298:	02002025 */ 	or	$a0,$s0,$zero
 /*    1029c:	0c0040bb */ 	jal	seqSetVolume
 /*    102a0:	3045ffff */ 	andi	$a1,$v0,0xffff
-/*    102a4:	0c00ec00 */ 	jal	func00039c30
+/*    102a4:	0c00ec00 */ 	jal	n_alCSPPlay
 /*    102a8:	8e0400f8 */ 	lw	$a0,0xf8($s0)
 /*    102ac:	24020001 */ 	addiu	$v0,$zero,0x1
 .NB000102b0:
