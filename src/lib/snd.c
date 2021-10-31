@@ -2478,7 +2478,7 @@ bool seqPlay(struct seqinstance *seq, s32 tracknum)
 	rzipInflate(zipstart, binstart, scratch);
 
 	n_alCSeqNew(&seq->seq, seq->data);
-	func00039be0(seq->seqp, seq);
+	n_alCSPSetSeq(seq->seqp, &seq->seq);
 	seqSetVolume(seq, seqGetVolume(seq));
 	func00039c30(seq->seqp);
 
@@ -2601,7 +2601,7 @@ glabel seqPlay
 /*    1027c:	0c00e840 */ 	jal	n_alCSeqNew
 /*    10280:	8e0500fc */ 	lw	$a1,0xfc($s0)
 /*    10284:	8e0400f8 */ 	lw	$a0,0xf8($s0)
-/*    10288:	0c00ebec */ 	jal	func00039be0
+/*    10288:	0c00ebec */ 	jal	n_alCSPSetSeq
 /*    1028c:	02002825 */ 	or	$a1,$s0,$zero
 /*    10290:	0c0040b1 */ 	jal	seqGetVolume
 /*    10294:	02002025 */ 	or	$a0,$s0,$zero

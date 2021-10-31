@@ -4,7 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-void func00039be0(N_ALCSPlayer *seqp, void *arg1);
 void func00039c30(N_ALCSPlayer *seqp);
 
 #endif
