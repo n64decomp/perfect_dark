@@ -6134,7 +6134,7 @@ struct musicevent {
 	s16 volume;
 	u16 eventtype;
 	s16 id;
-	s16 unk16;
+	u16 failcount;
 	u16 numattempts;
 };
 
@@ -6188,7 +6188,7 @@ struct var800a4ce8 {
 };
 
 struct var800aaa38 {
-	u32 tracktype;
+	s32 tracktype;
 	u32 unk04;
 	u32 unk08;
 	u32 unk0c;

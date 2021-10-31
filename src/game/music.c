@@ -179,10 +179,10 @@ void musicQueueStartEvent(u32 tracktype, u32 tracknum, f32 arg2, u16 volume)
 		g_MusicEventQueue[g_MusicEventQueueLength].tracknum = tracknum;
 		g_MusicEventQueue[g_MusicEventQueueLength].unk0c = arg2;
 		g_MusicEventQueue[g_MusicEventQueueLength].volume = volume;
-		g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_START;
+		g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_PLAY;
 		g_MusicEventQueue[g_MusicEventQueueLength].id = g_MusicNextEventId++;
 		g_MusicEventQueue[g_MusicEventQueueLength].numattempts = 0;
-		g_MusicEventQueue[g_MusicEventQueueLength].unk16 = 0;
+		g_MusicEventQueue[g_MusicEventQueueLength].failcount = 0;
 		g_MusicEventQueueLength++;
 	}
 }
@@ -194,7 +194,7 @@ void musicQueueStopEvent(s32 tracktype)
 		g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_STOP;
 		g_MusicEventQueue[g_MusicEventQueueLength].id = g_MusicNextEventId++;
 		g_MusicEventQueue[g_MusicEventQueueLength].numattempts = 0;
-		g_MusicEventQueue[g_MusicEventQueueLength].unk16 = 0;
+		g_MusicEventQueue[g_MusicEventQueueLength].failcount = 0;
 		g_MusicEventQueueLength++;
 	}
 }
@@ -208,7 +208,7 @@ void musicQueueFadeEvent(s32 tracktype, f32 arg1, bool fadetopause)
 		g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_FADE;
 		g_MusicEventQueue[g_MusicEventQueueLength].id = g_MusicNextEventId++;
 		g_MusicEventQueue[g_MusicEventQueueLength].numattempts = 0;
-		g_MusicEventQueue[g_MusicEventQueueLength].unk16 = 0;
+		g_MusicEventQueue[g_MusicEventQueueLength].failcount = 0;
 		g_MusicEventQueueLength++;
 	}
 }
@@ -250,7 +250,7 @@ void musicQueueStopAllEvent(void)
 	g_MusicEventQueue[0].eventtype = MUSICEVENTTYPE_STOPALL;
 	g_MusicEventQueue[0].id = g_MusicNextEventId++;
 	g_MusicEventQueue[0].numattempts = 0;
-	g_MusicEventQueue[0].unk16 = 0;
+	g_MusicEventQueue[0].failcount = 0;
 
 	g_MusicEventQueueLength = 1;
 
@@ -273,7 +273,7 @@ void musicQueueType5Event(void)
 	g_MusicEventQueueLength++;
 
 	g_MusicEventQueue[0].numattempts = 0;
-	g_MusicEventQueue[0].unk16 = 0;
+	g_MusicEventQueue[0].failcount = 0;
 }
 #endif
 

@@ -4,11 +4,11 @@
 #include "data.h"
 #include "types.h"
 
-s32 musicHandleStartEvent(struct musicevent *event, u32 arg1);
-s32 musicHandleStopEvent(struct musicevent *event, u32 arg1);
-s32 musicHandleFadeEvent(struct musicevent *event, u32 arg1);
-s32 musicHandleStopAllEvent(u32 arg0);
-s32 musicHandleEvent5(struct musicevent *event, u32 arg1);
+s32 musicHandlePlayEvent(struct musicevent *event, s32 result);
+s32 musicHandleStopEvent(struct musicevent *event, s32 result);
+s32 musicHandleFadeEvent(struct musicevent *event, s32 result);
+s32 musicHandleStopAllEvent(s32 result);
+s32 musicHandleEvent5(struct musicevent *event, s32 result);
 void musicTickEvents(void);
 void musicTick(void);
 

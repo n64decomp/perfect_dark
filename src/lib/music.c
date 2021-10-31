@@ -16,23 +16,128 @@
 
 const u8 var70053ca0[] = {0, 0, 0, 0, 0, 5};
 
-const char var70053ca8[] = "OFF";
-const char var70053cac[] = "LEVELTUNE";
-const char var70053cb8[] = "NRGTUNE";
-const char var70053cc0[] = "WATCHTUNE";
-const char var70053ccc[] = "MPDEATHTUNE";
-const char var70053cd8[] = "AMBIENCE";
-const char var70053ce4[] = " after %d %s\n";
-const char var70053cf4[] = "Attempts";
-const char var70053d00[] = "Attempt";
-const char var70053d08[] = "MUSIC(Play) : Unpaused midi channel %d for state %d\n";
-const char var70053d40[] = "MUSIC(Play) : Starting, Guid=%u, Midi=%d, Tune=%d\n";
-const char var70053d74[] = "MUSIC(Play) : Done\n";
-const char var70053d88[] = "MUSIC(Play) : About to dump the fading channel %d as a same state play request is waiting\n";
-const char var70053de4[] = "MUSIC(Play) : About to dump the ambience channel %d\n";
-const char var70053e1c[] = "MUSIC(Play) : Reason : A play request is waiting - State = %d\n";
-const char var70053e5c[] = "MUSIC(Play) : SERIOUS -> Out of MIDI channels - Attempt = %d\n";
-const char var70053e9c[] = "MUSIC(Play) : SERIOUS -> Tried %d times to play tune : Giving up\n";
+s32 g_MusicNextAmbientTick240 = -1;
+
+s32 musicHandlePlayEvent(struct musicevent *event, s32 result)
+{
+	s32 i;
+	u8 value;
+	s32 j;
+	s32 index;
+
+	switch (event->tracktype) {
+	case TRACKTYPE_NONE:
+		osSyncPrintf("OFF");
+		break;
+	case TRACKTYPE_PRIMARY:
+		osSyncPrintf("LEVELTUNE");
+		break;
+	case TRACKTYPE_NRG:
+		osSyncPrintf("NRGTUNE");
+		break;
+	case TRACKTYPE_MENU:
+		osSyncPrintf("WATCHTUNE");
+		break;
+	case TRACKTYPE_DEATH:
+		osSyncPrintf("MPDEATHTUNE");
+		break;
+	case TRACKTYPE_AMBIENT:
+		osSyncPrintf("AMBIENCE");
+		break;
+	}
+
+	osSyncPrintf(" after %d %s\n", event->failcount, event->failcount != 1 ? "Attempts" : "Attempt");
+
+	// Check if this tracktype is currently in use. If it is then that's
+	// an error - the caller should have stopped the existing track first.
+	for (i = 0; i < 3; i++) {
+		if (event->tracktype == var800aaa38[i].tracktype && n_alCSPGetState(var80094ed8[i].seqp) == AL_PLAYING) {
+			value = event->tracktype == TRACKTYPE_AMBIENT ? 24 : 32;
+
+			for (j = 0; j < 16; j++) {
+				func00039e5c(var80094ed8[i].seqp, j, 0xff, value);
+				osSyncPrintf("MUSIC(Play) : Unpaused midi channel %d for state %d\n", j, event->tracktype);
+			}
+
+			var800aaa38[i].unk08 = 0;
+			var800aaa38[i].unk0c = 0;
+
+			event->eventtype = 0;
+			result = RESULT_OK_BREAK;
+			break;
+		}
+	}
+
+	if (result == RESULT_FAIL) {
+		// Find an unused channel
+		for (i = 0; i < 3; i++) {
+			if (n_alCSPGetState(var80094ed8[i].seqp) == AL_STOPPED) {
+				osSyncPrintf("MUSIC(Play) : Starting, Guid=%u, Midi=%d, Tune=%d\n", event->id, 0, event->tracktype);
+
+				if (snd0000fc48(&var80094ed8[i], event->tracknum)) {
+					sndSetMusicChannelVolume(&var80094ed8[i], event->volume);
+
+					var800aaa38[i].tracktype = event->tracktype;
+					var800aaa38[i].unk04 = 1;
+					var800aaa38[i].unk08 = 0;
+					var800aaa38[i].unk0c = 0;
+
+					osSyncPrintf("MUSIC(Play) : Done\n");
+
+					result = RESULT_OK_BREAK;
+				}
+				break;
+			}
+		}
+
+		if (result == RESULT_FAIL) {
+			index = -1;
+
+			for (i = 0; i < 3; i++) {
+				if ((var800aaa38[i].tracktype == TRACKTYPE_NONE || event->tracktype == var800aaa38[i].tracktype)
+						&& n_alCSPGetState(var80094ed8[i].seqp) != AL_STOPPED) {
+					index = i;
+					osSyncPrintf("MUSIC(Play) : About to dump the fading channel %d as a same state play request is waiting\n", index);
+					break;
+				}
+			}
+
+			if (index == -1) {
+				if (event->failcount >= 3) {
+					for (i = 0; i < 3; i++) {
+						if (var800aaa38[i].tracktype == TRACKTYPE_AMBIENT
+								&& n_alCSPGetState(var80094ed8[i].seqp) != AL_STOPPED) {
+							index = i;
+							osSyncPrintf("MUSIC(Play) : About to dump the ambience channel %d\n", index);
+							osSyncPrintf("MUSIC(Play) : Reason : A play request is waiting - State = %d\n", event->tracktype);
+							break;
+						}
+					}
+				}
+			}
+
+			if (index != -1) {
+				n_alSeqpStop((N_ALSeqPlayer *)var80094ed8[index].seqp);
+
+				var800aaa38[index].tracktype = TRACKTYPE_NONE;
+				var800aaa38[index].unk04 = 0;
+				var800aaa38[index].unk08 = 0;
+				var800aaa38[index].unk0c = 0;
+			} else {
+				event->failcount++;
+				osSyncPrintf("MUSIC(Play) : SERIOUS -> Out of MIDI channels - Attempt = %d\n", event->failcount);
+
+				if (event->failcount >= 6) {
+					osSyncPrintf("MUSIC(Play) : SERIOUS -> Tried %d times to play tune : Giving up\n", event->failcount);
+					result = RESULT_OK_BREAK;
+				}
+			}
+		}
+	}
+
+	return result;
+}
+
 const char var70053ee0[] = "MUSIC : Fading to pause\n";
 const char var70053efc[] = "Music : Update Rate = %d";
 const char var70053f18[] = "MUSIC TICK : Queue size = %d\n";
@@ -40,231 +145,7 @@ const char var70053f38[] = "MUSIC : Tick -> Channel %d (State=%d) has faded to s
 const char var70053f7c[] = "MUSIC : WARNING -> Force fade termination\n";
 const char var70053fa8[] = "MUSIC TICK : Job Guid = %u\n";
 
-s32 g_MusicNextAmbientTick240 = -1;
-
-GLOBAL_ASM(
-glabel musicHandleStartEvent
-.late_rodata
-glabel var70053fc4
-.word musicHandleStartEvent+0x50
-glabel var70053fc8
-.word musicHandleStartEvent+0x50
-glabel var70053fcc
-.word musicHandleStartEvent+0x50
-glabel var70053fd0
-.word musicHandleStartEvent+0x50
-glabel var70053fd4
-.word musicHandleStartEvent+0x50
-glabel var70053fd8
-.word musicHandleStartEvent+0x50
-.text
-/*    11420:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*    11424:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*    11428:	afb60030 */ 	sw	$s6,0x30($sp)
-/*    1142c:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*    11430:	afb40028 */ 	sw	$s4,0x28($sp)
-/*    11434:	afb30024 */ 	sw	$s3,0x24($sp)
-/*    11438:	afb20020 */ 	sw	$s2,0x20($sp)
-/*    1143c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*    11440:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    11444:	afa50044 */ 	sw	$a1,0x44($sp)
-/*    11448:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*    1144c:	0080a825 */ 	or	$s5,$a0,$zero
-/*    11450:	2dc10006 */ 	sltiu	$at,$t6,0x6
-/*    11454:	10200006 */ 	beqz	$at,.L00011470
-/*    11458:	000e7080 */ 	sll	$t6,$t6,0x2
-/*    1145c:	3c017005 */ 	lui	$at,%hi(var70053fc4)
-/*    11460:	002e0821 */ 	addu	$at,$at,$t6
-/*    11464:	8c2e3fc4 */ 	lw	$t6,%lo(var70053fc4)($at)
-/*    11468:	01c00008 */ 	jr	$t6
-/*    1146c:	00000000 */ 	nop
-.L00011470:
-/*    11470:	3c12800b */ 	lui	$s2,%hi(var800aaa38)
-/*    11474:	3c138009 */ 	lui	$s3,%hi(var80094ed8)
-/*    11478:	26734ed8 */ 	addiu	$s3,$s3,%lo(var80094ed8)
-/*    1147c:	2652aa38 */ 	addiu	$s2,$s2,%lo(var800aaa38)
-/*    11480:	00008025 */ 	or	$s0,$zero,$zero
-/*    11484:	24160003 */ 	addiu	$s6,$zero,0x3
-/*    11488:	24140108 */ 	addiu	$s4,$zero,0x108
-.L0001148c:
-/*    1148c:	8eaf0000 */ 	lw	$t7,0x0($s5)
-/*    11490:	8e580000 */ 	lw	$t8,0x0($s2)
-/*    11494:	55f80022 */ 	bnel	$t7,$t8,.L00011520
-/*    11498:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    1149c:	02140019 */ 	multu	$s0,$s4
-/*    114a0:	0000c812 */ 	mflo	$t9
-/*    114a4:	02798821 */ 	addu	$s1,$s3,$t9
-/*    114a8:	0c00e344 */ 	jal	n_alCSPGetState
-/*    114ac:	8e2400f8 */ 	lw	$a0,0xf8($s1)
-/*    114b0:	24010001 */ 	addiu	$at,$zero,0x1
-/*    114b4:	5441001a */ 	bnel	$v0,$at,.L00011520
-/*    114b8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    114bc:	8ea80000 */ 	lw	$t0,0x0($s5)
-/*    114c0:	24010005 */ 	addiu	$at,$zero,0x5
-/*    114c4:	24090020 */ 	addiu	$t1,$zero,0x20
-/*    114c8:	15010004 */ 	bne	$t0,$at,.L000114dc
-/*    114cc:	00008025 */ 	or	$s0,$zero,$zero
-/*    114d0:	24070018 */ 	addiu	$a3,$zero,0x18
-/*    114d4:	10000002 */ 	b	.L000114e0
-/*    114d8:	a3a7003b */ 	sb	$a3,0x3b($sp)
-.L000114dc:
-/*    114dc:	a3a9003b */ 	sb	$t1,0x3b($sp)
-.L000114e0:
-/*    114e0:	93a7003b */ 	lbu	$a3,0x3b($sp)
-.L000114e4:
-/*    114e4:	8e2400f8 */ 	lw	$a0,0xf8($s1)
-/*    114e8:	02002825 */ 	or	$a1,$s0,$zero
-/*    114ec:	0c00e797 */ 	jal	func00039e5c
-/*    114f0:	240600ff */ 	addiu	$a2,$zero,0xff
-/*    114f4:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    114f8:	24010010 */ 	addiu	$at,$zero,0x10
-/*    114fc:	5601fff9 */ 	bnel	$s0,$at,.L000114e4
-/*    11500:	93a7003b */ 	lbu	$a3,0x3b($sp)
-/*    11504:	ae400008 */ 	sw	$zero,0x8($s2)
-/*    11508:	ae40000c */ 	sw	$zero,0xc($s2)
-/*    1150c:	a6a00012 */ 	sh	$zero,0x12($s5)
-/*    11510:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*    11514:	10000004 */ 	b	.L00011528
-/*    11518:	afaa0044 */ 	sw	$t2,0x44($sp)
-/*    1151c:	26100001 */ 	addiu	$s0,$s0,0x1
-.L00011520:
-/*    11520:	1616ffda */ 	bne	$s0,$s6,.L0001148c
-/*    11524:	26520010 */ 	addiu	$s2,$s2,0x10
-.L00011528:
-/*    11528:	8fab0044 */ 	lw	$t3,0x44($sp)
-/*    1152c:	3c118009 */ 	lui	$s1,%hi(var80094ed8)
-/*    11530:	26314ed8 */ 	addiu	$s1,$s1,%lo(var80094ed8)
-/*    11534:	15600067 */ 	bnez	$t3,.L000116d4
-/*    11538:	00008025 */ 	or	$s0,$zero,$zero
-.L0001153c:
-/*    1153c:	0c00e344 */ 	jal	n_alCSPGetState
-/*    11540:	8e2400f8 */ 	lw	$a0,0xf8($s1)
-/*    11544:	14400014 */ 	bnez	$v0,.L00011598
-/*    11548:	02202025 */ 	or	$a0,$s1,$zero
-/*    1154c:	0c003f12 */ 	jal	snd0000fc48
-/*    11550:	8ea50004 */ 	lw	$a1,0x4($s5)
-/*    11554:	10400014 */ 	beqz	$v0,.L000115a8
-/*    11558:	02202025 */ 	or	$a0,$s1,$zero
-/*    1155c:	96a50010 */ 	lhu	$a1,0x10($s5)
-/*    11560:	240c0002 */ 	addiu	$t4,$zero,0x2
-/*    11564:	0c003f67 */ 	jal	sndSetMusicChannelVolume
-/*    11568:	afac0044 */ 	sw	$t4,0x44($sp)
-/*    1156c:	3c0e800b */ 	lui	$t6,%hi(var800aaa38)
-/*    11570:	25ceaa38 */ 	addiu	$t6,$t6,%lo(var800aaa38)
-/*    11574:	00106900 */ 	sll	$t5,$s0,0x4
-/*    11578:	8eaf0000 */ 	lw	$t7,0x0($s5)
-/*    1157c:	01ae9021 */ 	addu	$s2,$t5,$t6
-/*    11580:	24180001 */ 	addiu	$t8,$zero,0x1
-/*    11584:	ae580004 */ 	sw	$t8,0x4($s2)
-/*    11588:	ae400008 */ 	sw	$zero,0x8($s2)
-/*    1158c:	ae40000c */ 	sw	$zero,0xc($s2)
-/*    11590:	10000005 */ 	b	.L000115a8
-/*    11594:	ae4f0000 */ 	sw	$t7,0x0($s2)
-.L00011598:
-/*    11598:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    1159c:	2a010003 */ 	slti	$at,$s0,0x3
-/*    115a0:	1420ffe6 */ 	bnez	$at,.L0001153c
-/*    115a4:	26310108 */ 	addiu	$s1,$s1,0x108
-.L000115a8:
-/*    115a8:	8fb90044 */ 	lw	$t9,0x44($sp)
-/*    115ac:	2411ffff */ 	addiu	$s1,$zero,-1
-/*    115b0:	00008025 */ 	or	$s0,$zero,$zero
-/*    115b4:	17200047 */ 	bnez	$t9,.L000116d4
-/*    115b8:	3c12800b */ 	lui	$s2,%hi(var800aaa38)
-/*    115bc:	2652aa38 */ 	addiu	$s2,$s2,%lo(var800aaa38)
-.L000115c0:
-/*    115c0:	8e420000 */ 	lw	$v0,0x0($s2)
-/*    115c4:	10400004 */ 	beqz	$v0,.L000115d8
-/*    115c8:	00000000 */ 	nop
-/*    115cc:	8ea80000 */ 	lw	$t0,0x0($s5)
-/*    115d0:	5502000b */ 	bnel	$t0,$v0,.L00011600
-/*    115d4:	26100001 */ 	addiu	$s0,$s0,0x1
-.L000115d8:
-/*    115d8:	02140019 */ 	multu	$s0,$s4
-/*    115dc:	00004812 */ 	mflo	$t1
-/*    115e0:	02695021 */ 	addu	$t2,$s3,$t1
-/*    115e4:	0c00e344 */ 	jal	n_alCSPGetState
-/*    115e8:	8d4400f8 */ 	lw	$a0,0xf8($t2)
-/*    115ec:	50400004 */ 	beqzl	$v0,.L00011600
-/*    115f0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    115f4:	10000005 */ 	b	.L0001160c
-/*    115f8:	02008825 */ 	or	$s1,$s0,$zero
-/*    115fc:	26100001 */ 	addiu	$s0,$s0,0x1
-.L00011600:
-/*    11600:	2a010003 */ 	slti	$at,$s0,0x3
-/*    11604:	1420ffee */ 	bnez	$at,.L000115c0
-/*    11608:	26520010 */ 	addiu	$s2,$s2,0x10
-.L0001160c:
-/*    1160c:	2401ffff */ 	addiu	$at,$zero,-1
-/*    11610:	56210018 */ 	bnel	$s1,$at,.L00011674
-/*    11614:	2401ffff */ 	addiu	$at,$zero,-1
-/*    11618:	96ab0016 */ 	lhu	$t3,0x16($s5)
-/*    1161c:	3c12800b */ 	lui	$s2,%hi(var800aaa38)
-/*    11620:	2652aa38 */ 	addiu	$s2,$s2,%lo(var800aaa38)
-/*    11624:	29610003 */ 	slti	$at,$t3,0x3
-/*    11628:	14200011 */ 	bnez	$at,.L00011670
-/*    1162c:	00008025 */ 	or	$s0,$zero,$zero
-.L00011630:
-/*    11630:	8e4c0000 */ 	lw	$t4,0x0($s2)
-/*    11634:	24010005 */ 	addiu	$at,$zero,0x5
-/*    11638:	5581000b */ 	bnel	$t4,$at,.L00011668
-/*    1163c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    11640:	02140019 */ 	multu	$s0,$s4
-/*    11644:	00006812 */ 	mflo	$t5
-/*    11648:	026d7021 */ 	addu	$t6,$s3,$t5
-/*    1164c:	0c00e344 */ 	jal	n_alCSPGetState
-/*    11650:	8dc400f8 */ 	lw	$a0,0xf8($t6)
-/*    11654:	50400004 */ 	beqzl	$v0,.L00011668
-/*    11658:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    1165c:	10000004 */ 	b	.L00011670
-/*    11660:	02008825 */ 	or	$s1,$s0,$zero
-/*    11664:	26100001 */ 	addiu	$s0,$s0,0x1
-.L00011668:
-/*    11668:	1616fff1 */ 	bne	$s0,$s6,.L00011630
-/*    1166c:	26520010 */ 	addiu	$s2,$s2,0x10
-.L00011670:
-/*    11670:	2401ffff */ 	addiu	$at,$zero,-1
-.L00011674:
-/*    11674:	52210010 */ 	beql	$s1,$at,.L000116b8
-/*    11678:	96a90016 */ 	lhu	$t1,0x16($s5)
-/*    1167c:	02340019 */ 	multu	$s1,$s4
-/*    11680:	00007812 */ 	mflo	$t7
-/*    11684:	026fc021 */ 	addu	$t8,$s3,$t7
-/*    11688:	0c00e7dc */ 	jal	n_alSeqpStop
-/*    1168c:	8f0400f8 */ 	lw	$a0,0xf8($t8)
-/*    11690:	3c08800b */ 	lui	$t0,%hi(var800aaa38)
-/*    11694:	2508aa38 */ 	addiu	$t0,$t0,%lo(var800aaa38)
-/*    11698:	0011c900 */ 	sll	$t9,$s1,0x4
-/*    1169c:	03281021 */ 	addu	$v0,$t9,$t0
-/*    116a0:	ac400000 */ 	sw	$zero,0x0($v0)
-/*    116a4:	ac400004 */ 	sw	$zero,0x4($v0)
-/*    116a8:	ac400008 */ 	sw	$zero,0x8($v0)
-/*    116ac:	10000009 */ 	b	.L000116d4
-/*    116b0:	ac40000c */ 	sw	$zero,0xc($v0)
-/*    116b4:	96a90016 */ 	lhu	$t1,0x16($s5)
-.L000116b8:
-/*    116b8:	252a0001 */ 	addiu	$t2,$t1,0x1
-/*    116bc:	314bffff */ 	andi	$t3,$t2,0xffff
-/*    116c0:	29610006 */ 	slti	$at,$t3,0x6
-/*    116c4:	14200003 */ 	bnez	$at,.L000116d4
-/*    116c8:	a6aa0016 */ 	sh	$t2,0x16($s5)
-/*    116cc:	240c0002 */ 	addiu	$t4,$zero,0x2
-/*    116d0:	afac0044 */ 	sw	$t4,0x44($sp)
-.L000116d4:
-/*    116d4:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*    116d8:	8fa20044 */ 	lw	$v0,0x44($sp)
-/*    116dc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    116e0:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*    116e4:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*    116e8:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*    116ec:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*    116f0:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*    116f4:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*    116f8:	03e00008 */ 	jr	$ra
-/*    116fc:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
-
-s32 musicHandleStopEvent(struct musicevent *event, u32 arg1)
+s32 musicHandleStopEvent(struct musicevent *event, s32 result)
 {
 	s32 i;
 
@@ -284,7 +165,7 @@ s32 musicHandleStopEvent(struct musicevent *event, u32 arg1)
 	return RESULT_OK_NEXT;
 }
 
-s32 musicHandleFadeEvent(struct musicevent *event, u32 arg1)
+s32 musicHandleFadeEvent(struct musicevent *event, s32 result)
 {
 	s32 i;
 	s32 j;
@@ -304,7 +185,7 @@ s32 musicHandleFadeEvent(struct musicevent *event, u32 arg1)
 	return RESULT_OK_NEXT;
 }
 
-s32 musicHandleStopAllEvent(u32 arg0)
+s32 musicHandleStopAllEvent(s32 result)
 {
 	s32 i;
 
@@ -321,7 +202,7 @@ s32 musicHandleStopAllEvent(u32 arg0)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-s32 musicHandleEvent5(struct musicevent *event, u32 arg1)
+s32 musicHandleEvent5(struct musicevent *event, s32 result)
 {
 	var800840e0 = event->tracknum;
 	return RESULT_OK_NEXT;
@@ -567,7 +448,7 @@ glabel var70053fec
 /*    11c28:	03000008 */ 	jr	$t8
 /*    11c2c:	00000000 */ 	nop
 /*    11c30:	02402025 */ 	or	$a0,$s2,$zero
-/*    11c34:	0c004508 */ 	jal	musicHandleStartEvent
+/*    11c34:	0c004508 */ 	jal	musicHandlePlayEvent
 /*    11c38:	00002825 */ 	or	$a1,$zero,$zero
 /*    11c3c:	10000013 */ 	b	.L00011c8c
 /*    11c40:	00402025 */ 	or	$a0,$v0,$zero
@@ -888,7 +769,7 @@ glabel musicTickEvents
 /*    11fd8:	10000010 */ 	beqz	$zero,.NB0001201c
 /*    11fdc:	00000000 */ 	sll	$zero,$zero,0x0
 .NB00011fe0:
-/*    11fe0:	0c0045f8 */ 	jal	musicHandleStartEvent
+/*    11fe0:	0c0045f8 */ 	jal	musicHandlePlayEvent
 /*    11fe4:	02a02025 */ 	or	$a0,$s5,$zero
 /*    11fe8:	1000000c */ 	beqz	$zero,.NB0001201c
 /*    11fec:	00402025 */ 	or	$a0,$v0,$zero
@@ -1051,9 +932,9 @@ glabel musicTickEvents
 //					case MUSICEVENTTYPE_STOP:
 //						earlier->tracktype = TRACKTYPE_NONE;
 //						break;
-//					case MUSICEVENTTYPE_START:
+//					case MUSICEVENTTYPE_PLAY:
 //						switch (earlier->eventtype) {
-//						case MUSICEVENTTYPE_START:
+//						case MUSICEVENTTYPE_PLAY:
 //						case MUSICEVENTTYPE_FADE:
 //							earlier->tracktype = TRACKTYPE_NONE;
 //							break;
@@ -1093,8 +974,8 @@ glabel musicTickEvents
 //				result = RESULT_FAIL;
 //
 //				switch (event->eventtype) {
-//				case MUSICEVENTTYPE_START:
-//					result = musicHandleStartEvent(event, 0);
+//				case MUSICEVENTTYPE_PLAY:
+//					result = musicHandlePlayEvent(event, 0);
 //					break;
 //				case MUSICEVENTTYPE_STOP:
 //					result = musicHandleStopEvent(event, 0);
@@ -1145,8 +1026,8 @@ void musicTick(void)
 	if (!g_SndDisabled) {
 		if (g_MusicDeathTimer240 > 0
 				&& (g_Vars.normmplayerisrunning
-				 || (g_Vars.antiplayernum >= 0 && !g_Vars.bond->isdead)
-				 || (g_Vars.coopplayernum >= 0 && (!g_Vars.bond->isdead || !g_Vars.coop->isdead)))) {
+					|| (g_Vars.antiplayernum >= 0 && !g_Vars.bond->isdead)
+					|| (g_Vars.coopplayernum >= 0 && (!g_Vars.bond->isdead || !g_Vars.coop->isdead)))) {
 			// Someone is dying in MP, or anti is dying, or *one* person is dying in coop
 			g_MusicSilenceTimer60 = 0;
 			g_MusicDeathTimer240 -= g_Vars.lvupdate240;
