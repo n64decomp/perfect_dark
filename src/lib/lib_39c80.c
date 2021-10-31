@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include <n_libaudio.h>
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_43dd0.h"
@@ -17,26 +18,13 @@ void func00039cd0(N_ALCSPlayer *seqp)
 	}
 }
 
+void func00039d68(N_ALCSPlayer *seqp, u32 status)
+{
+	n_alCSPSendMidi(seqp, 0, status | 0xb0, 0xfc, 0);
+}
+
 GLOBAL_ASM(
-glabel func00039d68
-/*    39d68:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    39d6c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    39d70:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    39d74:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    39d78:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*    39d7c:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    39d80:	00002825 */ 	or	$a1,$zero,$zero
-/*    39d84:	240700fc */ 	addiu	$a3,$zero,0xfc
-/*    39d88:	afa00010 */ 	sw	$zero,0x10($sp)
-/*    39d8c:	0c011194 */ 	jal	n_alCSPSendMidi
-/*    39d90:	34c600b0 */ 	ori	$a2,$a2,0xb0
-/*    39d94:	10000001 */ 	b	.L00039d9c
-/*    39d98:	00000000 */ 	nop
-.L00039d9c:
-/*    39d9c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    39da0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    39da4:	03e00008 */ 	jr	$ra
-/*    39da8:	00000000 */ 	nop
+glabel func00039dac
 /*    39dac:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    39db0:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    39db4:	afa40020 */ 	sw	$a0,0x20($sp)
