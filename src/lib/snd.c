@@ -2520,7 +2520,7 @@ glabel snd0000fc48
 /*     fd34:	8e0400f8 */ 	lw	$a0,0xf8($s0)
 /*     fd38:	0c00e6f8 */ 	jal	func00039be0
 /*     fd3c:	02002825 */ 	or	$a1,$s0,$zero
-/*     fd40:	0c003f5d */ 	jal	snd0000fd74
+/*     fd40:	0c003f5d */ 	jal	sndGetMusicChannelVolume
 /*     fd44:	02002025 */ 	or	$a0,$s0,$zero
 /*     fd48:	02002025 */ 	or	$a0,$s0,$zero
 /*     fd4c:	0c003f67 */ 	jal	sndSetMusicChannelVolume
@@ -2651,7 +2651,7 @@ glabel snd0000fc48
 /*    10284:	8e0400f8 */ 	lw	$a0,0xf8($s0)
 /*    10288:	0c00ebec */ 	jal	func00039be0
 /*    1028c:	02002825 */ 	or	$a1,$s0,$zero
-/*    10290:	0c0040b1 */ 	jal	snd0000fd74
+/*    10290:	0c0040b1 */ 	jal	sndGetMusicChannelVolume
 /*    10294:	02002025 */ 	or	$a0,$s0,$zero
 /*    10298:	02002025 */ 	or	$a0,$s0,$zero
 /*    1029c:	0c0040bb */ 	jal	sndSetMusicChannelVolume
@@ -2668,20 +2668,10 @@ glabel snd0000fc48
 );
 #endif
 
-GLOBAL_ASM(
-glabel snd0000fd74
-/*     fd74:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
-/*     fd78:	8dcedda0 */ 	lw	$t6,%lo(g_SndDisabled)($t6)
-/*     fd7c:	24037fff */ 	addiu	$v1,$zero,0x7fff
-/*     fd80:	51c00004 */ 	beqzl	$t6,.L0000fd94
-/*     fd84:	94830100 */ 	lhu	$v1,0x100($a0)
-/*     fd88:	03e00008 */ 	jr	$ra
-/*     fd8c:	3062ffff */ 	andi	$v0,$v1,0xffff
-/*     fd90:	94830100 */ 	lhu	$v1,0x100($a0)
-.L0000fd94:
-/*     fd94:	03e00008 */ 	jr	$ra
-/*     fd98:	3062ffff */ 	andi	$v0,$v1,0xffff
-);
+u16 sndGetMusicChannelVolume(struct var80094ed8 *arg0)
+{
+	return g_SndDisabled ? 0x7fff : arg0->volume;
+}
 
 void sndSetMusicChannelVolume(struct var80094ed8 *arg0, u16 volume)
 {
