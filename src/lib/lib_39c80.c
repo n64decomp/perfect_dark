@@ -30,29 +30,10 @@ void func00039dac(N_ALCSPlayer *seqp, u32 arg1)
 	n_alCSPSendMidi(seqp, 0, arg1 | 0xb0, 0xfc, 0xff);
 }
 
-GLOBAL_ASM(
-glabel func00039e10
-/*    39e10:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    39e14:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    39e18:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    39e1c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    39e20:	afa60028 */ 	sw	$a2,0x28($sp)
-/*    39e24:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*    39e28:	93ae002b */ 	lbu	$t6,0x2b($sp)
-/*    39e2c:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    39e30:	00002825 */ 	or	$a1,$zero,$zero
-/*    39e34:	240700ff */ 	addiu	$a3,$zero,0xff
-/*    39e38:	34c600b0 */ 	ori	$a2,$a2,0xb0
-/*    39e3c:	0c011194 */ 	jal	n_alCSPSendMidi
-/*    39e40:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    39e44:	10000001 */ 	b	.L00039e4c
-/*    39e48:	00000000 */ 	nop
-.L00039e4c:
-/*    39e4c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    39e50:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    39e54:	03e00008 */ 	jr	$ra
-/*    39e58:	00000000 */ 	nop
-);
+void func00039e10(N_ALCSPlayer *seqp, u32 arg1, u8 arg2)
+{
+	n_alCSPSendMidi(seqp, 0, arg1 | 0xb0, 0xff, arg2);
+}
 
 GLOBAL_ASM(
 glabel func00039e5c
