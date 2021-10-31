@@ -491,7 +491,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01da*/ aiPlayTemporaryPrimaryTrack,
 	/*0x01db*/ aiChrKill,
 	/*0x01dc*/ aiRemoveWeaponFromInventory,
-	/*0x01dd*/ ai01dd,
+	/*0x01dd*/ aiIfMusicEventQueueIsEmpty,
 	/*0x01de*/ aiIfCoopMode,
 #if VERSION >= VERSION_NTSC_1_0
 	/*0x01df*/ aiIfChrSameFloorDistanceToPadLessThan,

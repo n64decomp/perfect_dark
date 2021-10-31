@@ -13,14 +13,14 @@
 
 s32 g_MusicStageNum;
 u32 var800aa5d4;
-struct var800aa5d8 var800aa5d8[40];
+struct musicevent g_MusicEventQueue[40];
 struct var800aaa38 var800aaa38[3];
 u32 g_AudioXReasonsActive[4];
 s32 g_MusicXReasonMinDurations[4];
 s32 g_MusicXReasonMaxDurations[4];
 
 s32 g_MenuTrack = -1;
-u32 var800840c4 = 0x00000000;
+s32 g_MusicEventQueueLength = 0;
 s32 g_TemporaryPrimaryTrack = -1;
 s32 g_TemporaryAmbientTrack = -1;
 
@@ -28,11 +28,11 @@ s32 g_TemporaryAmbientTrack = -1;
 s32 var800840d0 = -1;
 #endif
 
-u32 var800840d4 = 0x00000000;
-u32 g_MusicNrgIsPlaying = 0x00000000;
+u32 g_MusicNextEventId = 0;
+u32 g_MusicNrgIsPlaying = false;
 s32 var800840dc = 0;
-u32 var800840e0 = 0x0000000f;
-u32 var800840e4 = 0x00000000;
+s32 var800840e0 = 15;
+s32 var800840e4 = 0;
 s32 var800840e8 = 0;
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -173,41 +173,41 @@ s32 func0f16d180(s32 tracktype)
 void musicStart(u32 tracktype, u32 tracknum, f32 arg2, u16 volume)
 {
 	if (!g_SndDisabled) {
-		var800aa5d8[var800840c4].tracktype = tracktype;
-		var800aa5d8[var800840c4].tracknum = tracknum;
-		var800aa5d8[var800840c4].unk0c = arg2;
-		var800aa5d8[var800840c4].volume = volume;
-		var800aa5d8[var800840c4].unk12 = 1;
-		var800aa5d8[var800840c4].unk14 = var800840d4++;
-		var800aa5d8[var800840c4].unk18 = 0;
-		var800aa5d8[var800840c4].unk16 = 0;
-		var800840c4++;
+		g_MusicEventQueue[g_MusicEventQueueLength].tracktype = tracktype;
+		g_MusicEventQueue[g_MusicEventQueueLength].tracknum = tracknum;
+		g_MusicEventQueue[g_MusicEventQueueLength].unk0c = arg2;
+		g_MusicEventQueue[g_MusicEventQueueLength].volume = volume;
+		g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_START;
+		g_MusicEventQueue[g_MusicEventQueueLength].id = g_MusicNextEventId++;
+		g_MusicEventQueue[g_MusicEventQueueLength].numattempts = 0;
+		g_MusicEventQueue[g_MusicEventQueueLength].unk16 = 0;
+		g_MusicEventQueueLength++;
 	}
 }
 
 void musicEnd(s32 tracktype)
 {
 	if (!g_SndDisabled) {
-		var800aa5d8[var800840c4].tracktype = tracktype;
-		var800aa5d8[var800840c4].unk12 = 2;
-		var800aa5d8[var800840c4].unk14 = var800840d4++;
-		var800aa5d8[var800840c4].unk18 = 0;
-		var800aa5d8[var800840c4].unk16 = 0;
-		var800840c4++;
+		g_MusicEventQueue[g_MusicEventQueueLength].tracktype = tracktype;
+		g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_STOP;
+		g_MusicEventQueue[g_MusicEventQueueLength].id = g_MusicNextEventId++;
+		g_MusicEventQueue[g_MusicEventQueueLength].numattempts = 0;
+		g_MusicEventQueue[g_MusicEventQueueLength].unk16 = 0;
+		g_MusicEventQueueLength++;
 	}
 }
 
 void func0f16d2ac(s32 tracktype, f32 arg1, s32 arg2)
 {
 	if (!g_SndDisabled) {
-		var800aa5d8[var800840c4].tracktype = tracktype;
-		var800aa5d8[var800840c4].unk0c = arg1;
-		var800aa5d8[var800840c4].unk08 = arg2;
-		var800aa5d8[var800840c4].unk12 = 3;
-		var800aa5d8[var800840c4].unk14 = var800840d4++;
-		var800aa5d8[var800840c4].unk18 = 0;
-		var800aa5d8[var800840c4].unk16 = 0;
-		var800840c4++;
+		g_MusicEventQueue[g_MusicEventQueueLength].tracktype = tracktype;
+		g_MusicEventQueue[g_MusicEventQueueLength].unk0c = arg1;
+		g_MusicEventQueue[g_MusicEventQueueLength].unk08 = arg2;
+		g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_FADE;
+		g_MusicEventQueue[g_MusicEventQueueLength].id = g_MusicNextEventId++;
+		g_MusicEventQueue[g_MusicEventQueueLength].numattempts = 0;
+		g_MusicEventQueue[g_MusicEventQueueLength].unk16 = 0;
+		g_MusicEventQueueLength++;
 	}
 }
 
@@ -242,17 +242,17 @@ void func0f16d324(void)
 void func0f16d3d0(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	var800aa5d8[0].tracktype = TRACKTYPE_6;
+	g_MusicEventQueue[0].tracktype = TRACKTYPE_6;
 #endif
 
-	var800aa5d8[0].unk12 = 4;
-	var800aa5d8[0].unk14 = var800840d4++;
-	var800aa5d8[0].unk18 = 0;
-	var800aa5d8[0].unk16 = 0;
+	g_MusicEventQueue[0].eventtype = MUSICEVENTTYPE_STOPALL;
+	g_MusicEventQueue[0].id = g_MusicNextEventId++;
+	g_MusicEventQueue[0].numattempts = 0;
+	g_MusicEventQueue[0].unk16 = 0;
 
-	var800840c4 = 1;
+	g_MusicEventQueueLength = 1;
 
-	music0001190c();
+	musicTickEvents();
 }
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -264,14 +264,14 @@ void func0f16d430(void)
 
 void func0f16d44c(void)
 {
-	var800aa5d8[var800840c4].tracktype = TRACKTYPE_6;
-	var800aa5d8[var800840c4].unk12 = 5;
-	var800aa5d8[var800840c4].unk14 = var800840d4++;
-	var800aa5d8[var800840c4].tracknum = var800840d0;
-	var800840c4++;
+	g_MusicEventQueue[g_MusicEventQueueLength].tracktype = TRACKTYPE_6;
+	g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_5;
+	g_MusicEventQueue[g_MusicEventQueueLength].id = g_MusicNextEventId++;
+	g_MusicEventQueue[g_MusicEventQueueLength].tracknum = var800840d0;
+	g_MusicEventQueueLength++;
 
-	var800aa5d8[0].unk18 = 0;
-	var800aa5d8[0].unk16 = 0;
+	g_MusicEventQueue[0].numattempts = 0;
+	g_MusicEventQueue[0].unk16 = 0;
 }
 #endif
 

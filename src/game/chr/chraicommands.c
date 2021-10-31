@@ -12517,8 +12517,8 @@ bool aiConfigureEnvironment(void)
 	case AIENVCMD_PLAYNOSEDIVE:
 		sndPlayNosedive(value);
 		break;
-	case AIENVCMD_0B:
-		music0001190c();
+	case AIENVCMD_TICKMUSICQUEUE:
+		musicTickEvents();
 		break;
 	case AIENVCMD_ROOM_SETFAULTYLIGHTS:
 		roomSetLightsFaulty(room_id, value);
@@ -12644,11 +12644,11 @@ bool aiRemoveWeaponFromInventory(void)
 /**
  * @cmd 01dd
  */
-bool ai01dd(void)
+bool aiIfMusicEventQueueIsEmpty(void)
 {
 	f32 value = (u64)osGetCount() * 64 / 3000;
 
-	if (var800840c4) {
+	if (g_MusicEventQueueLength) {
 		g_Vars.aioffset += 4;
 	} else {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;

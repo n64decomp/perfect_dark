@@ -6126,16 +6126,16 @@ struct optiongroup {
 	u16 name;
 };
 
-struct var800aa5d8 {
+struct musicevent {
 	s32 tracktype;
 	s32 tracknum;
 	s32 unk08;
 	f32 unk0c;
 	s16 volume;
-	s16 unk12;
-	s16 unk14;
+	u16 eventtype;
+	s16 id;
 	s16 unk16;
-	s16 unk18;
+	u16 numattempts;
 };
 
 struct casing {

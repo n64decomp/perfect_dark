@@ -10,8 +10,11 @@
 #include "data.h"
 #include "types.h"
 
-const u8 var70053ca0[] = {0, 0, 0};
-const u32 var70053ca4[] = {0x00050000};
+#define RESULT_FAIL     0
+#define RESULT_OK_NEXT  1
+#define RESULT_OK_BREAK 2
+
+const u8 var70053ca0[] = {0, 0, 0, 0, 0, 5};
 
 const char var70053ca8[] = "OFF";
 const char var70053cac[] = "LEVELTUNE";
@@ -38,25 +41,22 @@ const char var70053f7c[] = "MUSIC : WARNING -> Force fade termination\n";
 const char var70053fa8[] = "MUSIC TICK : Job Guid = %u\n";
 
 s32 var8005edf0 = -1;
-u32 var8005edf4 = 0x00000000;
-u32 var8005edf8 = 0x00000000;
-u32 var8005edfc = 0x00000000;
 
 GLOBAL_ASM(
-glabel music00011420
+glabel musicHandleStartEvent
 .late_rodata
 glabel var70053fc4
-.word music00011420+0x50
+.word musicHandleStartEvent+0x50
 glabel var70053fc8
-.word music00011420+0x50
+.word musicHandleStartEvent+0x50
 glabel var70053fcc
-.word music00011420+0x50
+.word musicHandleStartEvent+0x50
 glabel var70053fd0
-.word music00011420+0x50
+.word musicHandleStartEvent+0x50
 glabel var70053fd4
-.word music00011420+0x50
+.word musicHandleStartEvent+0x50
 glabel var70053fd8
-.word music00011420+0x50
+.word musicHandleStartEvent+0x50
 .text
 /*    11420:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*    11424:	afbf0034 */ 	sw	$ra,0x34($sp)
@@ -264,12 +264,12 @@ glabel var70053fd8
 /*    116fc:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-bool musicStopByTrackType(s32 *arg0, u32 arg1)
+s32 musicHandleStopEvent(struct musicevent *event, u32 arg1)
 {
 	s32 i;
 
 	for (i = 0; i < 3; i++) {
-		if (*arg0 == var800aaa38[i].tracktype) {
+		if (event->tracktype == var800aaa38[i].tracktype) {
 			n_alSeqpStop((N_ALSeqPlayer *)var80094ed8[i].seqp);
 
 			var800aaa38[i].tracktype = TRACKTYPE_NONE;
@@ -281,30 +281,30 @@ bool musicStopByTrackType(s32 *arg0, u32 arg1)
 		}
 	}
 
-	return true;
+	return RESULT_OK_NEXT;
 }
 
-bool music00011780(s32 *arg0, u32 arg1)
+s32 musicHandleFadeEvent(struct musicevent *event, u32 arg1)
 {
 	s32 i;
 	s32 j;
 
 	for (i = 0; i < 3; i++) {
-		if (*arg0 == var800aaa38[i].tracktype && var800aaa38[i].unk04 != 0) {
+		if (event->tracktype == var800aaa38[i].tracktype && var800aaa38[i].unk04 != 0) {
 			for (j = 0; j < 16; j++) {
-				func00039e5c(var80094ed8[i].seqp, j, var70053ca0[*arg0], 32);
+				func00039e5c(var80094ed8[i].seqp, j, var70053ca0[event->tracktype], 32);
 			}
 
-			var800aaa38[i].unk04 = arg0[2];
-			var800aaa38[i].unk08 = arg0[2];
+			var800aaa38[i].unk04 = event->unk08;
+			var800aaa38[i].unk08 = event->unk08;
 			var800aaa38[i].unk0c = var80094ed8[i].seqp->chanState[0].unk0d;
 		}
 	}
 
-	return true;
+	return RESULT_OK_NEXT;
 }
 
-bool musicStopAll(u32 arg0)
+s32 musicHandleStopAllEvent(u32 arg0)
 {
 	s32 i;
 
@@ -317,31 +317,31 @@ bool musicStopAll(u32 arg0)
 		var800aaa38[i].unk0c = 0;
 	}
 
-	return true;
+	return RESULT_OK_NEXT;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-bool music000118f4(s32 *arg0, u32 arg1)
+s32 musicHandleEvent5(struct musicevent *event, u32 arg1)
 {
-	var800840e0 = arg0[1];
-	return true;
+	var800840e0 = event->tracknum;
+	return RESULT_OK_NEXT;
 }
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel music0001190c
+glabel musicTickEvents
 .late_rodata
 glabel var70053fdc
-.word music0001190c+0x324
+.word musicTickEvents+0x324
 glabel var70053fe0
-.word music0001190c+0x338
+.word musicTickEvents+0x338
 glabel var70053fe4
-.word music0001190c+0x34c
+.word musicTickEvents+0x34c
 glabel var70053fe8
-.word music0001190c+0x360
+.word musicTickEvents+0x360
 glabel var70053fec
-.word music0001190c+0x370
+.word musicTickEvents+0x370
 .text
 /*    1190c:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*    11910:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
@@ -352,9 +352,9 @@ glabel var70053fec
 /*    11924:	afb10018 */ 	sw	$s1,0x18($sp)
 /*    11928:	15c0010f */ 	bnez	$t6,.L00011d68
 /*    1192c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    11930:	3c138008 */ 	lui	$s3,%hi(var800840c4)
+/*    11930:	3c138008 */ 	lui	$s3,%hi(g_MusicEventQueueLength)
 /*    11934:	3c10800b */ 	lui	$s0,%hi(var800aaa38)
-/*    11938:	267340c4 */ 	addiu	$s3,$s3,%lo(var800840c4)
+/*    11938:	267340c4 */ 	addiu	$s3,$s3,%lo(g_MusicEventQueueLength)
 /*    1193c:	2610aa38 */ 	addiu	$s0,$s0,%lo(var800aaa38)
 /*    11940:	00008825 */ 	or	$s1,$zero,$zero
 /*    11944:	24120001 */ 	addiu	$s2,$zero,0x1
@@ -406,15 +406,15 @@ glabel var70053fec
 /*    119ec:	1420ffd6 */ 	bnez	$at,.L00011948
 /*    119f0:	26100010 */ 	addiu	$s0,$s0,0x10
 /*    119f4:	8e650000 */ 	lw	$a1,0x0($s3)
-/*    119f8:	3c19800b */ 	lui	$t9,%hi(var800aa5d8)
-/*    119fc:	2739a5d8 */ 	addiu	$t9,$t9,%lo(var800aa5d8)
+/*    119f8:	3c19800b */ 	lui	$t9,%hi(g_MusicEventQueue)
+/*    119fc:	2739a5d8 */ 	addiu	$t9,$t9,%lo(g_MusicEventQueue)
 /*    11a00:	24b1ffff */ 	addiu	$s1,$a1,-1
 /*    11a04:	06200046 */ 	bltz	$s1,.L00011b20
 /*    11a08:	0011c0c0 */ 	sll	$t8,$s1,0x3
 /*    11a0c:	0311c023 */ 	subu	$t8,$t8,$s1
 /*    11a10:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    11a14:	3c0a800b */ 	lui	$t2,%hi(var800aa5d8)
-/*    11a18:	254aa5d8 */ 	addiu	$t2,$t2,%lo(var800aa5d8)
+/*    11a14:	3c0a800b */ 	lui	$t2,%hi(g_MusicEventQueue)
+/*    11a18:	254aa5d8 */ 	addiu	$t2,$t2,%lo(g_MusicEventQueue)
 /*    11a1c:	03193021 */ 	addu	$a2,$t8,$t9
 /*    11a20:	24100002 */ 	addiu	$s0,$zero,0x2
 /*    11a24:	24090004 */ 	addiu	$t1,$zero,0x4
@@ -438,8 +438,8 @@ glabel var70053fec
 /*    11a60:	01601025 */ 	or	$v0,$t3,$zero
 /*    11a64:	000270c0 */ 	sll	$t6,$v0,0x3
 /*    11a68:	01c27023 */ 	subu	$t6,$t6,$v0
-/*    11a6c:	3c0f800b */ 	lui	$t7,%hi(var800aa5d8)
-/*    11a70:	25efa5d8 */ 	addiu	$t7,$t7,%lo(var800aa5d8)
+/*    11a6c:	3c0f800b */ 	lui	$t7,%hi(g_MusicEventQueue)
+/*    11a70:	25efa5d8 */ 	addiu	$t7,$t7,%lo(g_MusicEventQueue)
 /*    11a74:	000e7080 */ 	sll	$t6,$t6,0x2
 /*    11a78:	01cf2821 */ 	addu	$a1,$t6,$t7
 /*    11a7c:	94c30012 */ 	lhu	$v1,0x12($a2)
@@ -497,10 +497,10 @@ glabel var70053fec
 /*    11b24:	00008825 */ 	or	$s1,$zero,$zero
 /*    11b28:	18a00020 */ 	blez	$a1,.L00011bac
 /*    11b2c:	00001025 */ 	or	$v0,$zero,$zero
-/*    11b30:	3c06800b */ 	lui	$a2,%hi(var800aa5d8)
-/*    11b34:	3c12800b */ 	lui	$s2,%hi(var800aa5d8)
-/*    11b38:	2652a5d8 */ 	addiu	$s2,$s2,%lo(var800aa5d8)
-/*    11b3c:	24c6a5d8 */ 	addiu	$a2,$a2,%lo(var800aa5d8)
+/*    11b30:	3c06800b */ 	lui	$a2,%hi(g_MusicEventQueue)
+/*    11b34:	3c12800b */ 	lui	$s2,%hi(g_MusicEventQueue)
+/*    11b38:	2652a5d8 */ 	addiu	$s2,$s2,%lo(g_MusicEventQueue)
+/*    11b3c:	24c6a5d8 */ 	addiu	$a2,$a2,%lo(g_MusicEventQueue)
 /*    11b40:	2403001c */ 	addiu	$v1,$zero,0x1c
 .L00011b44:
 /*    11b44:	8cd90000 */ 	lw	$t9,0x0($a2)
@@ -534,8 +534,8 @@ glabel var70053fec
 /*    11bac:	ae620000 */ 	sw	$v0,0x0($s3)
 /*    11bb0:	3c038008 */ 	lui	$v1,%hi(var800840e0)
 /*    11bb4:	8c6340e0 */ 	lw	$v1,%lo(var800840e0)($v1)
-/*    11bb8:	3c12800b */ 	lui	$s2,%hi(var800aa5d8)
-/*    11bbc:	2652a5d8 */ 	addiu	$s2,$s2,%lo(var800aa5d8)
+/*    11bb8:	3c12800b */ 	lui	$s2,%hi(g_MusicEventQueue)
+/*    11bbc:	2652a5d8 */ 	addiu	$s2,$s2,%lo(g_MusicEventQueue)
 /*    11bc0:	10600006 */ 	beqz	$v1,.L00011bdc
 /*    11bc4:	3c188008 */ 	lui	$t8,%hi(var800840e4)
 /*    11bc8:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x40)
@@ -549,13 +549,13 @@ glabel var70053fec
 /*    11be4:	8e6c0000 */ 	lw	$t4,0x0($s3)
 /*    11be8:	11800054 */ 	beqz	$t4,.L00011d3c
 .L00011bec:
-/*    11bec:	3c0e800b */ 	lui	$t6,%hi(var800aa5d8+0x18)
-/*    11bf0:	95cea5f0 */ 	lhu	$t6,%lo(var800aa5d8+0x18)($t6)
-/*    11bf4:	3c01800b */ 	lui	$at,%hi(var800aa5d8+0x18)
-/*    11bf8:	3c0f800b */ 	lui	$t7,%hi(var800aa5d8+0x12)
+/*    11bec:	3c0e800b */ 	lui	$t6,%hi(g_MusicEventQueue+0x18)
+/*    11bf0:	95cea5f0 */ 	lhu	$t6,%lo(g_MusicEventQueue+0x18)($t6)
+/*    11bf4:	3c01800b */ 	lui	$at,%hi(g_MusicEventQueue+0x18)
+/*    11bf8:	3c0f800b */ 	lui	$t7,%hi(g_MusicEventQueue+0x12)
 /*    11bfc:	25cd0001 */ 	addiu	$t5,$t6,0x1
-/*    11c00:	a42da5f0 */ 	sh	$t5,%lo(var800aa5d8+0x18)($at)
-/*    11c04:	95efa5ea */ 	lhu	$t7,%lo(var800aa5d8+0x12)($t7)
+/*    11c00:	a42da5f0 */ 	sh	$t5,%lo(g_MusicEventQueue+0x18)($at)
+/*    11c04:	95efa5ea */ 	lhu	$t7,%lo(g_MusicEventQueue+0x12)($t7)
 /*    11c08:	00002025 */ 	or	$a0,$zero,$zero
 /*    11c0c:	25f8ffff */ 	addiu	$t8,$t7,-1
 /*    11c10:	2f010005 */ 	sltiu	$at,$t8,0x5
@@ -567,34 +567,34 @@ glabel var70053fec
 /*    11c28:	03000008 */ 	jr	$t8
 /*    11c2c:	00000000 */ 	nop
 /*    11c30:	02402025 */ 	or	$a0,$s2,$zero
-/*    11c34:	0c004508 */ 	jal	music00011420
+/*    11c34:	0c004508 */ 	jal	musicHandleStartEvent
 /*    11c38:	00002825 */ 	or	$a1,$zero,$zero
 /*    11c3c:	10000013 */ 	b	.L00011c8c
 /*    11c40:	00402025 */ 	or	$a0,$v0,$zero
 /*    11c44:	02402025 */ 	or	$a0,$s2,$zero
-/*    11c48:	0c0045c0 */ 	jal	musicStopByTrackType
+/*    11c48:	0c0045c0 */ 	jal	musicHandleStopEvent
 /*    11c4c:	00002825 */ 	or	$a1,$zero,$zero
 /*    11c50:	1000000e */ 	b	.L00011c8c
 /*    11c54:	00402025 */ 	or	$a0,$v0,$zero
 /*    11c58:	02402025 */ 	or	$a0,$s2,$zero
-/*    11c5c:	0c0045e0 */ 	jal	music00011780
+/*    11c5c:	0c0045e0 */ 	jal	musicHandleFadeEvent
 /*    11c60:	00002825 */ 	or	$a1,$zero,$zero
 /*    11c64:	10000009 */ 	b	.L00011c8c
 /*    11c68:	00402025 */ 	or	$a0,$v0,$zero
-/*    11c6c:	0c004621 */ 	jal	musicStopAll
+/*    11c6c:	0c004621 */ 	jal	musicHandleStopAllEvent
 /*    11c70:	00002025 */ 	or	$a0,$zero,$zero
 /*    11c74:	10000005 */ 	b	.L00011c8c
 /*    11c78:	00402025 */ 	or	$a0,$v0,$zero
 /*    11c7c:	02402025 */ 	or	$a0,$s2,$zero
-/*    11c80:	0c00463d */ 	jal	music000118f4
+/*    11c80:	0c00463d */ 	jal	musicHandleEvent5
 /*    11c84:	00002825 */ 	or	$a1,$zero,$zero
 /*    11c88:	00402025 */ 	or	$a0,$v0,$zero
 .L00011c8c:
 /*    11c8c:	10800024 */ 	beqz	$a0,.L00011d20
-/*    11c90:	3c06800b */ 	lui	$a2,%hi(var800aa5d8)
+/*    11c90:	3c06800b */ 	lui	$a2,%hi(g_MusicEventQueue)
 /*    11c94:	8e790000 */ 	lw	$t9,0x0($s3)
-/*    11c98:	24c6a5d8 */ 	addiu	$a2,$a2,%lo(var800aa5d8)
-/*    11c9c:	3c0e800b */ 	lui	$t6,%hi(var800aa5d8+0x1c)
+/*    11c98:	24c6a5d8 */ 	addiu	$a2,$a2,%lo(g_MusicEventQueue)
+/*    11c9c:	3c0e800b */ 	lui	$t6,%hi(g_MusicEventQueue+0x1c)
 /*    11ca0:	272cffff */ 	addiu	$t4,$t9,-1
 /*    11ca4:	ae6c0000 */ 	sw	$t4,0x0($s3)
 /*    11ca8:	19800019 */ 	blez	$t4,.L00011d10
@@ -602,7 +602,7 @@ glabel var70053fec
 /*    11cb0:	000c68c0 */ 	sll	$t5,$t4,0x3
 /*    11cb4:	01ac6823 */ 	subu	$t5,$t5,$t4
 /*    11cb8:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    11cbc:	25c2a5f4 */ 	addiu	$v0,$t6,%lo(var800aa5d8+0x1c)
+/*    11cbc:	25c2a5f4 */ 	addiu	$v0,$t6,%lo(g_MusicEventQueue+0x1c)
 /*    11cc0:	01a21821 */ 	addu	$v1,$t5,$v0
 /*    11cc4:	8c410000 */ 	lw	$at,0x0($v0)
 .L00011cc8:
@@ -662,7 +662,7 @@ glabel var70053fec
 );
 #else
 GLOBAL_ASM(
-glabel music0001190c
+glabel musicTickEvents
 /*    11cb4:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*    11cb8:	3c0e8006 */ 	lui	$t6,0x8006
 /*    11cbc:	8dcef6c0 */ 	lw	$t6,-0x940($t6)
@@ -888,22 +888,22 @@ glabel music0001190c
 /*    11fd8:	10000010 */ 	beqz	$zero,.NB0001201c
 /*    11fdc:	00000000 */ 	sll	$zero,$zero,0x0
 .NB00011fe0:
-/*    11fe0:	0c0045f8 */ 	jal	music00011420
+/*    11fe0:	0c0045f8 */ 	jal	musicHandleStartEvent
 /*    11fe4:	02a02025 */ 	or	$a0,$s5,$zero
 /*    11fe8:	1000000c */ 	beqz	$zero,.NB0001201c
 /*    11fec:	00402025 */ 	or	$a0,$v0,$zero
 .NB00011ff0:
-/*    11ff0:	0c0046b0 */ 	jal	musicStopByTrackType
+/*    11ff0:	0c0046b0 */ 	jal	musicHandleStopEvent
 /*    11ff4:	02a02025 */ 	or	$a0,$s5,$zero
 /*    11ff8:	10000008 */ 	beqz	$zero,.NB0001201c
 /*    11ffc:	00402025 */ 	or	$a0,$v0,$zero
 .NB00012000:
-/*    12000:	0c0046d0 */ 	jal	music00011780
+/*    12000:	0c0046d0 */ 	jal	musicHandleFadeEvent
 /*    12004:	02a02025 */ 	or	$a0,$s5,$zero
 /*    12008:	10000004 */ 	beqz	$zero,.NB0001201c
 /*    1200c:	00402025 */ 	or	$a0,$v0,$zero
 .NB00012010:
-/*    12010:	0c004711 */ 	jal	musicStopAll
+/*    12010:	0c004711 */ 	jal	musicHandleStopAllEvent
 /*    12014:	00002025 */ 	or	$a0,$zero,$zero
 /*    12018:	00402025 */ 	or	$a0,$v0,$zero
 .NB0001201c:
@@ -981,6 +981,161 @@ glabel music0001190c
 /*    1211c:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
 #endif
+
+// Mismatch: In the "Remove the marked events" loop, goal reloads
+// g_MusicEventQueueLength if the if statement passed. Suspect there's some code
+// being optimised out that overwrites a1 or wrote to g_MusicEventQueueLength.
+// The code below uses += 0 to get the mismatch down to one instruction,
+//void musicTickEvents(void)
+//{
+//	s32 i;
+//	s32 j;
+//	s32 result;
+//	struct musicevent *event;
+//
+//	if (!g_SndDisabled) {
+//		if (g_MusicEventQueueLength);
+//
+//		for (i = 0; i < 3; i++) {
+//			if (var800aaa38[i].unk04 == 0 && n_alCSPGetState(var80094ed8[i].seqp) == AL_PLAYING) {
+//				if (var80094ed8[i].seqp->chanState[0].unk0d <= var70053ca0[var800aaa38[i].tracktype]) {
+//					n_alSeqpStop((N_ALSeqPlayer *)var80094ed8[i].seqp);
+//
+//					var800aaa38[i].tracktype = TRACKTYPE_NONE;
+//					var800aaa38[i].unk04 = 0;
+//					var800aaa38[i].unk08 = 0;
+//					var800aaa38[i].unk0c = 0;
+//				} else if (var80094ed8[i].seqp->chanState[0].unk0d == var800aaa38[i].unk0c) {
+//					n_alSeqpStop((N_ALSeqPlayer *)var80094ed8[i].seqp);
+//
+//					var800aaa38[i].tracktype = TRACKTYPE_NONE;
+//					var800aaa38[i].unk04 = 0;
+//					var800aaa38[i].unk08 = 0;
+//					var800aaa38[i].unk0c = 0;
+//				}
+//			}
+//		}
+//
+//		// Figure out which events can be removed from the queue due to later
+//		// events superseding them. This loop just marks those events as
+//		// removable by setting their tracktype to none.
+//		for (i = g_MusicEventQueueLength - 1; i >= 0; i--) {
+//			event = &g_MusicEventQueue[i];
+//
+//			if (event->eventtype == MUSICEVENTTYPE_5) {
+//				continue;
+//			}
+//
+//			if (event->tracktype == TRACKTYPE_NONE) {
+//				continue;
+//			}
+//
+//			for (j = i - 1; j >= 0; j--) {
+//				struct musicevent *earlier = &g_MusicEventQueue[j];
+//
+//				if (event->eventtype == MUSICEVENTTYPE_STOPALL) {
+//					earlier->tracktype = TRACKTYPE_NONE;
+//					continue;
+//				}
+//
+//				if (earlier->eventtype == MUSICEVENTTYPE_5) {
+//					continue;
+//				}
+//
+//				if (earlier->tracktype == TRACKTYPE_NONE) {
+//					continue;
+//				}
+//
+//				if (earlier->tracktype == event->tracktype) {
+//					switch (event->eventtype) {
+//					case MUSICEVENTTYPE_STOP:
+//						earlier->tracktype = TRACKTYPE_NONE;
+//						break;
+//					case MUSICEVENTTYPE_START:
+//						switch (earlier->eventtype) {
+//						case MUSICEVENTTYPE_START:
+//						case MUSICEVENTTYPE_FADE:
+//							earlier->tracktype = TRACKTYPE_NONE;
+//							break;
+//						}
+//						break;
+//					case MUSICEVENTTYPE_FADE:
+//						if (earlier->eventtype == MUSICEVENTTYPE_FADE) {
+//							earlier->tracktype = TRACKTYPE_NONE;
+//						}
+//						break;
+//					}
+//				}
+//			}
+//		}
+//
+//		// Remove the marked events from the queue, shift the remaining
+//		// events forward and recount the queue length.
+//		for (i = 0, j = 0; i < g_MusicEventQueueLength; i++) {
+//			if (g_MusicEventQueue[i].tracktype) {
+//				g_MusicEventQueue[j] = g_MusicEventQueue[i];
+//				j++;
+//
+//				g_MusicEventQueueLength += 0;
+//			}
+//		}
+//
+//		g_MusicEventQueueLength = j;
+//
+//		event = &g_MusicEventQueue[0];
+//
+//		if (var800840e0 == 0 || var800840e4 < g_Vars.diffframe240) {
+//			var800840e4 = var800840e0;
+//
+//			while (g_MusicEventQueueLength) {
+//				event->numattempts++;
+//
+//				result = RESULT_FAIL;
+//
+//				switch (event->eventtype) {
+//				case MUSICEVENTTYPE_START:
+//					result = musicHandleStartEvent(event, 0);
+//					break;
+//				case MUSICEVENTTYPE_STOP:
+//					result = musicHandleStopEvent(event, 0);
+//					break;
+//				case MUSICEVENTTYPE_FADE:
+//					result = musicHandleFadeEvent(event, 0);
+//					break;
+//				case MUSICEVENTTYPE_STOPALL:
+//					result = musicHandleStopAllEvent(0);
+//					break;
+//				case MUSICEVENTTYPE_5:
+//					result = musicHandleEvent5(event, 0);
+//					break;
+//				}
+//
+//				if (result != RESULT_FAIL) {
+//					// Remove the item from the queue
+//					g_MusicEventQueueLength--;
+//
+//					for (i = 0; i < g_MusicEventQueueLength; i++) {
+//						g_MusicEventQueue[i] = g_MusicEventQueue[i + 1];
+//					}
+//
+//					// Break from processing further events on this frame
+//					// if requested
+//					if (result == RESULT_OK_BREAK) {
+//						break;
+//					}
+//				} else {
+//					break;
+//				}
+//			}
+//		}
+//
+//		if (var800840e0) {
+//			var800840e4 -= g_Vars.diffframe240;
+//		} else {
+//			var800840e4 = 0;
+//		}
+//	}
+//}
 
 void musicTick(void)
 {
@@ -1088,7 +1243,7 @@ void musicTick(void)
 			var8005edf0 -= g_Vars.lvupdate240;
 		}
 
-		music0001190c();
+		musicTickEvents();
 	}
 }
 

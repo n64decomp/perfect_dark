@@ -252,7 +252,7 @@ extern u8 *g_VtxBuffers[3];
 extern u8 *g_GfxMemPos;
 extern u8 g_GfxActiveBufferIndex;
 extern s32 g_MusicStageNum;
-extern struct var800aa5d8 var800aa5d8[40];
+extern struct musicevent g_MusicEventQueue[40];
 extern struct var800aaa38 var800aaa38[3];
 extern u32 g_AudioXReasonsActive[4];
 extern s32 g_MusicXReasonMinDurations[4];

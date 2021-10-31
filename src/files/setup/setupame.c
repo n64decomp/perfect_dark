@@ -2817,8 +2817,8 @@ u8 func0422_intro[] = {
 
 	// No yield in this loop!
 	label(0x07)
-	cmd01dd_if_something(0x10, /*goto*/ 0x2c)
-	configure_environment(0x0000, AIENVCMD_0B, 0)
+	if_music_event_queue_empty(16, /*goto*/ 0x2c)
+	configure_environment(0x0000, AIENVCMD_TICKMUSICQUEUE, 0)
 	goto_first(0x07)
 
 	label(0x2c)
@@ -2830,8 +2830,8 @@ u8 func0422_intro[] = {
 	play_cutscene_track(MUSIC_DEFECTION_INTRO)
 
 	label(0x08)
-	cmd01dd_if_something(0x01, /*goto*/ 0x2c)
-	configure_environment(0x0000, AIENVCMD_0B, 0)
+	if_music_event_queue_empty(1, /*goto*/ 0x2c)
+	configure_environment(0x0000, AIENVCMD_TICKMUSICQUEUE, 0)
 	goto_first(0x08)
 
 	label(0x2c)
@@ -3532,16 +3532,16 @@ u8 func0422_intro_speaking[] = {
 
 	// No yield in this loop!
 	label(0xb8)
-	cmd01dd_if_something(0x10, /*goto*/ 0x2c)
-	configure_environment(0x0000, AIENVCMD_0B, 0)
+	if_music_event_queue_empty(16, /*goto*/ 0x2c)
+	configure_environment(0x0000, AIENVCMD_TICKMUSICQUEUE, 0)
 	goto_first(0xb8)
 
 	label(0x2c)
 	play_cutscene_track(MUSIC_DEFECTION_INTRO)
 
 	label(0xb9)
-	cmd01dd_if_something(0x01, /*goto*/ 0x2c)
-	configure_environment(0x0000, AIENVCMD_0B, 0)
+	if_music_event_queue_empty(1, /*goto*/ 0x2c)
+	configure_environment(0x0000, AIENVCMD_TICKMUSICQUEUE, 0)
 	goto_first(0xb9)
 
 	label(0x2c)

@@ -150,7 +150,7 @@
 #define AIENVCMD_08                   0x08
 #define AIENVCMD_SETAMBIENT           0x09
 #define AIENVCMD_PLAYNOSEDIVE         0x0a
-#define AIENVCMD_0B                   0x0b
+#define AIENVCMD_TICKMUSICQUEUE       0x0b
 #define AIENVCMD_ROOM_SETFAULTYLIGHTS 0x0c
 #define AIENVCMD_STOPNOSEDIVE         0x0d
 #define AIENVCMD_PLAYUFOHUM           0x0e
@@ -2760,6 +2760,12 @@
 #define MPWEAPON_COMBATBOOST      0x24
 #define MPWEAPON_SHIELD           0x25
 #define MPWEAPON_DISABLED         0x26
+
+#define MUSICEVENTTYPE_START   1
+#define MUSICEVENTTYPE_STOP    2
+#define MUSICEVENTTYPE_FADE    3
+#define MUSICEVENTTYPE_STOPALL 4
+#define MUSICEVENTTYPE_5       5
 
 #define NUM_BODIES            151
 #define NUM_CHALLENGES        30

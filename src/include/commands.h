@@ -4144,9 +4144,10 @@
  * - Both unused and unknown, and testing these don't produce any noticeable
  *   results.
  *
- * AIENVCMD_0B:
- * - Used in the Defection intro but unknown, and testing it doesn't produce any
- *   noticeable results.
+ * AIENVCMD_TICKMUSICQUEUE:
+ * - Causes the music engine to process an iteration of its event queue.
+ *   The event queue contains events such as stopping and starting the
+ *   background music.
  *
  * AIENVCMD_ROOM_SETFAULTYLIGHTS:
  * - Sets the lights in the given room number to be faulty. It's used for the
@@ -4227,12 +4228,17 @@
 	mkshort(0x01dc), \
 	weapon,
 
-// Only used to trigger the Defection intro.
-// Calls a bunch of functions outside of the main game binary object and then
-// goes to label if 800840c4 is 0.
-#define cmd01dd_if_something(u1, label) \
+/**
+ * Checks if the music engine's event queue is empty.
+ * If so, the label is followed.
+ *
+ * The event queue contains events such as starting music or fading out.
+ *
+ * The value argument is unused.
+ */
+#define if_music_event_queue_empty(value, label) \
 	mkshort(0x01dd), \
-	u1, \
+	value, \
 	label,
 
 /**
