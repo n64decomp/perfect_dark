@@ -4231,7 +4231,7 @@ void currentPlayerTickPauseMenu(void)
 				}
 			}
 
-			musicStartForMenu();
+			musicStartMenu();
 		}
 		break;
 	case PAUSEMODE_PAUSED:
@@ -4244,7 +4244,7 @@ void currentPlayerTickPauseMenu(void)
 		if (g_Vars.currentplayer->pausetime60 >= 20) {
 			lvSetPaused(false);
 			g_Vars.currentplayer->pausemode = PAUSEMODE_UNPAUSED;
-			musicResumeAfterUnpause();
+			musicEndMenu();
 		}
 		break;
 	}
@@ -4259,11 +4259,11 @@ void currentPlayerPause(s32 root)
 	}
 }
 
-void func0f0baf38(void)
+void currentPlayerUnpause(void)
 {
 	if (g_Vars.currentplayer->pausemode == PAUSEMODE_PAUSED) {
 		lvSetPaused(false);
-		musicResumeAfterUnpause();
+		musicEndMenu();
 		g_Vars.currentplayer->pausemode = PAUSEMODE_UNPAUSED;
 	}
 }
@@ -14520,7 +14520,7 @@ Gfx *currentPlayerRenderHud(Gfx *gdl)
 				if (g_Vars.mplayerisrunning == false) {
 					musicStartSoloDeath();
 				} else {
-					func0f16dd14();
+					musicStartMpDeath();
 				}
 			} else {
 				if (g_Vars.currentplayer->redbloodfinished) {

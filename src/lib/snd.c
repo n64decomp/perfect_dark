@@ -2523,7 +2523,7 @@ glabel snd0000fc48
 /*     fd40:	0c003f5d */ 	jal	snd0000fd74
 /*     fd44:	02002025 */ 	or	$a0,$s0,$zero
 /*     fd48:	02002025 */ 	or	$a0,$s0,$zero
-/*     fd4c:	0c003f67 */ 	jal	snd0000fd9c
+/*     fd4c:	0c003f67 */ 	jal	sndSetMusicChannelVolume
 /*     fd50:	3045ffff */ 	andi	$a1,$v0,0xffff
 /*     fd54:	0c00e70c */ 	jal	func00039c30
 /*     fd58:	8e0400f8 */ 	lw	$a0,0xf8($s0)
@@ -2654,7 +2654,7 @@ glabel snd0000fc48
 /*    10290:	0c0040b1 */ 	jal	snd0000fd74
 /*    10294:	02002025 */ 	or	$a0,$s0,$zero
 /*    10298:	02002025 */ 	or	$a0,$s0,$zero
-/*    1029c:	0c0040bb */ 	jal	snd0000fd9c
+/*    1029c:	0c0040bb */ 	jal	sndSetMusicChannelVolume
 /*    102a0:	3045ffff */ 	andi	$a1,$v0,0xffff
 /*    102a4:	0c00ec00 */ 	jal	func00039c30
 /*    102a8:	8e0400f8 */ 	lw	$a0,0xf8($s0)
@@ -2683,13 +2683,13 @@ glabel snd0000fd74
 /*     fd98:	3062ffff */ 	andi	$v0,$v1,0xffff
 );
 
-void snd0000fd9c(struct var80094ed8 *arg0, u16 volume)
+void sndSetMusicChannelVolume(struct var80094ed8 *arg0, u16 volume)
 {
 	if (!g_SndDisabled) {
 		u32 tmp = (var8005ecf8[arg0->unk104] * volume);
 		tmp >>=	15;
 
-		arg0->unk100 = volume;
+		arg0->volume = volume;
 
 		if (tmp > 0x7fff) {
 			tmp = 0x7fff;

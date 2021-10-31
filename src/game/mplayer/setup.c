@@ -6512,7 +6512,7 @@ s32 mpSelectTuneListHandler(s32 operation, struct menuitem *item, union handlerd
 		break;
 	case MENUOP_LISTITEMFOCUS:
 		if (data->list.value < mpGetNumUnlockedTracks()) {
-			musicStartMenu2(mpGetTrackMusicNum(data->list.value));
+			musicStartTrackAsMenu(mpGetTrackMusicNum(data->list.value));
 		}
 		break;
 	case MENUOP_GETLISTITEMCHECKBOX:

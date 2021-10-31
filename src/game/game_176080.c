@@ -611,7 +611,7 @@ s32 stageGetPrimaryTrack(s32 stagenum)
 	s32 i;
 
 	if (g_Vars.normmplayerisrunning) {
-		return func0f18c4c0();
+		return mpChooseRandomTrack();
 	}
 
 	i = 0;
@@ -619,7 +619,7 @@ s32 stageGetPrimaryTrack(s32 stagenum)
 	while (g_StageTracks[i].stagenum) {
 		if (g_StageTracks[i].stagenum == stagenum) {
 			if (g_StageTracks[i].primarytrack == -1) {
-				return func0f18c4c0();
+				return mpChooseRandomTrack();
 			}
 
 			return g_StageTracks[i].primarytrack;
@@ -628,7 +628,7 @@ s32 stageGetPrimaryTrack(s32 stagenum)
 		i++;
 	}
 
-	return func0f18c4c0();
+	return mpChooseRandomTrack();
 }
 
 s32 stageGetAmbientTrack(s32 stagenum)
@@ -646,7 +646,7 @@ s32 stageGetAmbientTrack(s32 stagenum)
 	return -1;
 }
 
-s32 stageGetXTrack(s32 stagenum)
+s32 stageGetNrgTrack(s32 stagenum)
 {
 	s32 i = 0;
 

@@ -417,7 +417,7 @@ glabel func0f01616c
 
 void titleInitLegal(void)
 {
-	func0f16d3d0();
+	musicQueueStopAllEvent();
 	var800624f4 = 1;
 	g_TitleTimer = 0;
 	var800624a8 = 0;
@@ -2440,7 +2440,7 @@ void func0f017980(void)
 	g_TitleTimer = PALDOWN(549);
 	var80062730 = 0;
 
-	musicStartTemporaryPrimary(1);
+	musicStartTemporaryPrimary(MUSIC_TITLE2);
 }
 
 #if VERSION >= VERSION_PAL_FINAL
@@ -6035,7 +6035,7 @@ void titleInitRareLogo(void)
 
 		var800624f4 = 1;
 
-		func0f16d3d0();
+		musicQueueStopAllEvent();
 		joy00014810(false);
 
 		if (var800624a4 == false && g_Is4Mb != true) {
@@ -6089,7 +6089,7 @@ void titleTickRareLogo(void)
 		g_TitleTimer++;
 	} else {
 		if (g_TitleTimer == 0) {
-			musicStart(TRACKTYPE_PRIMARY, MUSIC_TITLE1, 0, 0x7fff);
+			musicQueueStartEvent(TRACKTYPE_PRIMARY, MUSIC_TITLE1, 0, 0x7fff);
 		}
 
 		g_TitleTimer += g_Vars.lvupdate240_60;

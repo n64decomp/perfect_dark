@@ -3765,7 +3765,7 @@
 
 #define TRACKTYPE_NONE    0
 #define TRACKTYPE_PRIMARY 1
-#define TRACKTYPE_X       2
+#define TRACKTYPE_NRG     2 // NRG = "energy" (the high-energy X track)
 #define TRACKTYPE_MENU    3
 #define TRACKTYPE_DEATH   4
 #define TRACKTYPE_AMBIENT 5

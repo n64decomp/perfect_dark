@@ -3189,7 +3189,7 @@ void mainEndStage(void)
 			}
 
 			setCurrentPlayerNum(prevplayernum);
-			musicStartForMenu();
+			musicStartMenu();
 		} else if (g_Vars.antiplayernum >= 0) {
 			s32 prevplayernum = g_Vars.currentplayernum;
 			s32 i;
@@ -3200,12 +3200,12 @@ void mainEndStage(void)
 			}
 
 			setCurrentPlayerNum(prevplayernum);
-			musicStartForMenu();
+			musicStartMenu();
 		} else if (g_Vars.normmplayerisrunning) {
 			mpEndMatch();
 		} else {
 			endscreenPrepare();
-			musicStartForMenu();
+			musicStartMenu();
 		}
 	}
 

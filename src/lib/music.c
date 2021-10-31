@@ -40,7 +40,7 @@ const char var70053f38[] = "MUSIC : Tick -> Channel %d (State=%d) has faded to s
 const char var70053f7c[] = "MUSIC : WARNING -> Force fade termination\n";
 const char var70053fa8[] = "MUSIC TICK : Job Guid = %u\n";
 
-s32 var8005edf0 = -1;
+s32 g_MusicNextAmbientTick240 = -1;
 
 GLOBAL_ASM(
 glabel musicHandleStartEvent
@@ -147,7 +147,7 @@ glabel var70053fd8
 /*    11558:	02202025 */ 	or	$a0,$s1,$zero
 /*    1155c:	96a50010 */ 	lhu	$a1,0x10($s5)
 /*    11560:	240c0002 */ 	addiu	$t4,$zero,0x2
-/*    11564:	0c003f67 */ 	jal	snd0000fd9c
+/*    11564:	0c003f67 */ 	jal	sndSetMusicChannelVolume
 /*    11568:	afac0044 */ 	sw	$t4,0x44($sp)
 /*    1156c:	3c0e800b */ 	lui	$t6,%hi(var800aaa38)
 /*    11570:	25ceaa38 */ 	addiu	$t6,$t6,%lo(var800aaa38)
@@ -295,8 +295,8 @@ s32 musicHandleFadeEvent(struct musicevent *event, u32 arg1)
 				func00039e5c(var80094ed8[i].seqp, j, var70053ca0[event->tracktype], 32);
 			}
 
-			var800aaa38[i].unk04 = event->unk08;
-			var800aaa38[i].unk08 = event->unk08;
+			var800aaa38[i].unk04 = event->fadetopause;
+			var800aaa38[i].unk08 = event->fadetopause;
 			var800aaa38[i].unk0c = var80094ed8[i].seqp->chanState[0].unk0d;
 		}
 	}
@@ -1148,37 +1148,43 @@ void musicTick(void)
 				 || (g_Vars.antiplayernum >= 0 && !g_Vars.bond->isdead)
 				 || (g_Vars.coopplayernum >= 0 && (!g_Vars.bond->isdead || !g_Vars.coop->isdead)))) {
 			// Someone is dying in MP, or anti is dying, or *one* person is dying in coop
-			var800840fc = 0;
+			g_MusicSilenceTimer60 = 0;
 			g_MusicDeathTimer240 -= g_Vars.lvupdate240;
 
 			if (g_MusicDeathTimer240 <= 0) {
-				func0f16ddb0();
+				musicEndDeath();
 
-				if (var80087264 && g_Vars.normmplayerisrunning && var800840f8 < var800840f4) {
-					var800840f4 = 0;
-					musicEnd(TRACKTYPE_MENU);
-					musicEnd(TRACKTYPE_DEATH);
-					musicEnd(TRACKTYPE_PRIMARY);
-					musicStart(TRACKTYPE_PRIMARY, stageGetPrimaryTrack(g_MusicStageNum), 0, musicGetVolume());
+				// The death is complete. Are we due to start a new track?
+				if (g_MpEnableMusicSwitching && g_Vars.normmplayerisrunning && g_MusicLife60 < g_MusicAge60) {
+					g_MusicAge60 = 0;
+					musicQueueStopEvent(TRACKTYPE_MENU);
+					musicQueueStopEvent(TRACKTYPE_DEATH);
+					musicQueueStopEvent(TRACKTYPE_PRIMARY);
+					musicQueueStartEvent(TRACKTYPE_PRIMARY, stageGetPrimaryTrack(g_MusicStageNum), 0, musicGetVolume());
 				}
 			}
-		} else if (var80087264 && g_Vars.normmplayerisrunning && var800840f8 < var800840f4) {
-			var800840f4 = 0;
-			func0f16d2ac(TRACKTYPE_PRIMARY, 2, 1);
-			var800840fc = PALDOWN(120);
+		} else if (g_MpEnableMusicSwitching && g_Vars.normmplayerisrunning && g_MusicLife60 < g_MusicAge60) {
+			// Due to start a new track. Fade out the old one,
+			// then start a 2 second time before starting the new one.
+			g_MusicAge60 = 0;
+			musicQueueFadeEvent(TRACKTYPE_PRIMARY, 2, 1);
+			g_MusicSilenceTimer60 = PALDOWN(120);
 		}
 
-		if (var80087264 && g_Vars.normmplayerisrunning) {
-			var800840f4 += g_Vars.diffframe60;
+		if (g_MpEnableMusicSwitching && g_Vars.normmplayerisrunning) {
+			g_MusicAge60 += g_Vars.diffframe60;
 
-			if (var800840fc > 0) {
-				var800840fc -= g_Vars.diffframe60;
+			// If the silence timer is set, it means we're transitioning between
+			// songs in multiplayer. Tick the timer down, and when it reaches
+			// zero start a new track.
+			if (g_MusicSilenceTimer60 > 0) {
+				g_MusicSilenceTimer60 -= g_Vars.diffframe60;
 
-				if (var800840fc <= 0) {
-					musicEnd(TRACKTYPE_MENU);
-					musicEnd(TRACKTYPE_DEATH);
-					musicEnd(TRACKTYPE_PRIMARY);
-					musicStart(TRACKTYPE_PRIMARY, stageGetPrimaryTrack(g_MusicStageNum), 0, musicGetVolume());
+				if (g_MusicSilenceTimer60 <= 0) {
+					musicQueueStopEvent(TRACKTYPE_MENU);
+					musicQueueStopEvent(TRACKTYPE_DEATH);
+					musicQueueStopEvent(TRACKTYPE_PRIMARY);
+					musicQueueStartEvent(TRACKTYPE_PRIMARY, stageGetPrimaryTrack(g_MusicStageNum), 0, musicGetVolume());
 				}
 			}
 		}
@@ -1212,35 +1218,36 @@ void musicTick(void)
 
 #if VERSION >= VERSION_NTSC_1_0
 		if (g_Vars.lvupdate240 != 0) {
-			if (g_MusicNrgIsPlaying) {
+			if (g_MusicNrgIsActive) {
 				if (!playnrg) {
-					musicStopNrg();
+					musicDeactivateNrg();
 				}
 			} else {
 				if (playnrg && !g_Vars.dontplaynrg) {
-					musicStartNrg();
+					musicActivateNrg();
 				}
 			}
 		}
 #else
 		if (g_Vars.lvupdate240 != 0) {
-			if (func0f16d0a8(TRACKTYPE_X, 1)) {
+			if (func0f16d0a8(TRACKTYPE_NRG, 1)) {
 				if (!playnrg) {
-					musicStopNrg();
+					musicDeactivateNrg();
 				}
 			} else {
 				if (playnrg && !g_Vars.dontplaynrg) {
-					musicStartNrg();
+					musicActivateNrg();
 				}
 			}
 		}
 #endif
 
-		if (g_Vars.lvupdate240 > var8005edf0) {
-			func0f16e138();
-			var8005edf0 = PALDOWN(60);
+		// Check if the player is in an ambient room every 0.25 seconds
+		if (g_Vars.lvupdate240 > g_MusicNextAmbientTick240) {
+			musicTickAmbient();
+			g_MusicNextAmbientTick240 = PALDOWN(60);
 		} else {
-			var8005edf0 -= g_Vars.lvupdate240;
+			g_MusicNextAmbientTick240 -= g_Vars.lvupdate240;
 		}
 
 		musicTickEvents();
@@ -1267,7 +1274,7 @@ bool musicAreTracksPlaying(u8 bits)
 		return false;
 	}
 
-	if ((bits & 0x02) && !musicIsTrackTypePlaying(TRACKTYPE_X)) {
+	if ((bits & 0x02) && !musicIsTrackTypePlaying(TRACKTYPE_NRG)) {
 		return false;
 	}
 

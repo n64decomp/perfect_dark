@@ -6177,7 +6177,7 @@ bool aiStopCutsceneTrack(void)
 bool aiPlayTemporaryTrack(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	musicStartTemporary(cmd[2]);
+	musicStartTemporaryAmbient(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -6189,7 +6189,7 @@ bool aiPlayTemporaryTrack(void)
 bool aiStopAmbientTrack(void)
 {
 	g_Vars.aioffset += 2;
-	musicEndAmbient();
+	musicEndTemporaryAmbient();
 
 	return false;
 }

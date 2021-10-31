@@ -17713,7 +17713,7 @@ glabel var7f1b29f8
 /*  f0f8538:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f0f853c:	1000001e */ 	b	.L0f0f85b8
 /*  f0f8540:	00000000 */ 	nop
-/*  f0f8544:	0fc5b6c5 */ 	jal	musicStartForMenu
+/*  f0f8544:	0fc5b6c5 */ 	jal	musicStartMenu
 /*  f0f8548:	00000000 */ 	nop
 /*  f0f854c:	3c03800a */ 	lui	$v1,%hi(g_MenuData)
 /*  f0f8550:	246319c0 */ 	addiu	$v1,$v1,%lo(g_MenuData)
@@ -17737,7 +17737,7 @@ glabel var7f1b29f8
 /*  f0f8594:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0f8598:	10000007 */ 	b	.L0f0f85b8
 /*  f0f859c:	00000000 */ 	nop
-/*  f0f85a0:	0fc5b6c5 */ 	jal	musicStartForMenu
+/*  f0f85a0:	0fc5b6c5 */ 	jal	musicStartMenu
 /*  f0f85a4:	00000000 */ 	nop
 /*  f0f85a8:	3c03800a */ 	lui	$v1,%hi(g_MenuData)
 /*  f0f85ac:	246319c0 */ 	addiu	$v1,$v1,%lo(g_MenuData)
@@ -17952,7 +17952,7 @@ glabel var7f1b29f8
 /*  f0f4ea0:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f0f4ea4:	1000001e */ 	beqz	$zero,.NB0f0f4f20
 /*  f0f4ea8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0f4eac:	0fc5a1e8 */ 	jal	musicStartForMenu
+/*  f0f4eac:	0fc5a1e8 */ 	jal	musicStartMenu
 /*  f0f4eb0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0f4eb4:	3c03800a */ 	lui	$v1,0x800a
 /*  f0f4eb8:	24635eb0 */ 	addiu	$v1,$v1,0x5eb0
@@ -17976,7 +17976,7 @@ glabel var7f1b29f8
 /*  f0f4efc:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0f4f00:	10000007 */ 	beqz	$zero,.NB0f0f4f20
 /*  f0f4f04:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0f4f08:	0fc5a1e8 */ 	jal	musicStartForMenu
+/*  f0f4f08:	0fc5a1e8 */ 	jal	musicStartMenu
 /*  f0f4f0c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0f4f10:	3c03800a */ 	lui	$v1,0x800a
 /*  f0f4f14:	24635eb0 */ 	addiu	$v1,$v1,0x5eb0
@@ -18000,7 +18000,7 @@ glabel var7f1b29f8
 void func0f0f85e0(struct menudialog *dialog, s32 root)
 {
 	if (dialog == &g_CiMenuViaPcMenuDialog) {
-		musicStartForMenu();
+		musicStartMenu();
 	}
 
 	menuPushRootDialog(dialog, root);
@@ -23743,7 +23743,7 @@ void func0f0fa6ac(void)
 	case MENUROOT_FILEMGR:
 	case MENUROOT_4MBMAINMENU:
 	case MENUROOT_TRAINING:
-		func0f0baf38();
+		currentPlayerUnpause();
 		g_PlayersWithControl[0] = true;
 	}
 }

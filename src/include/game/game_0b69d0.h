@@ -29,7 +29,7 @@ void currentPlayerUpdateZoom(void);
 void func0f0bace0(void);
 void currentPlayerTickPauseMenu(void);
 void currentPlayerPause(s32 root);
-void func0f0baf38(void);
+void currentPlayerUnpause(void);
 Gfx *func0f0baf84(Gfx *gdl);
 Gfx *fadeDraw(Gfx *gdl, u32 r, u32 g, u32 b, f32 frac);
 Gfx *currentPlayerDrawFade(Gfx *gdl);

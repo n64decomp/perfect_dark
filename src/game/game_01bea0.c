@@ -1223,7 +1223,7 @@ glabel var7f1a863c
 .PF0f01cfd4:
 /*  f01cfd4:	0c0039af */ 	jal	mainChangeToStage
 /*  f01cfd8:	00000000 */ 	nop
-/*  f01cfdc:	0fc5b88c */ 	jal	func0f16d3d0
+/*  f01cfdc:	0fc5b88c */ 	jal	musicQueueStopAllEvent
 /*  f01cfe0:	00000000 */ 	nop
 /*  f01cfe4:	10000042 */ 	b	.PF0f01d0f0
 /*  f01cfe8:	240fffff */ 	li	$t7,-1
@@ -1297,7 +1297,7 @@ glabel var7f1a863c
 .PF0f01d0dc:
 /*  f01d0dc:	52000004 */ 	beqzl	$s0,.PF0f01d0f0
 /*  f01d0e0:	240fffff */ 	li	$t7,-1
-/*  f01d0e4:	0fc5ba5d */ 	jal	musicStartForMenu
+/*  f01d0e4:	0fc5ba5d */ 	jal	musicStartMenu
 /*  f01d0e8:	00000000 */ 	nop
 .PF0f01d0ec:
 /*  f01d0ec:	240fffff */ 	li	$t7,-1
@@ -3000,7 +3000,7 @@ glabel var7f1a863c
 .L0f01cf04:
 /*  f01cf04:	0c003a57 */ 	jal	mainChangeToStage
 /*  f01cf08:	00000000 */ 	nop
-/*  f01cf0c:	0fc5b4f4 */ 	jal	func0f16d3d0
+/*  f01cf0c:	0fc5b4f4 */ 	jal	musicQueueStopAllEvent
 /*  f01cf10:	00000000 */ 	nop
 /*  f01cf14:	10000042 */ 	b	.L0f01d020
 /*  f01cf18:	2419ffff */ 	addiu	$t9,$zero,-1
@@ -3074,7 +3074,7 @@ glabel var7f1a863c
 .L0f01d00c:
 /*  f01d00c:	52000004 */ 	beqzl	$s0,.L0f01d020
 /*  f01d010:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f01d014:	0fc5b6c5 */ 	jal	musicStartForMenu
+/*  f01d014:	0fc5b6c5 */ 	jal	musicStartMenu
 /*  f01d018:	00000000 */ 	nop
 .L0f01d01c:
 /*  f01d01c:	2419ffff */ 	addiu	$t9,$zero,-1
@@ -4768,7 +4768,7 @@ glabel var7f1a863c
 .NB0f01cbe4:
 /*  f01cbe4:	0c003c56 */ 	jal	mainChangeToStage
 /*  f01cbe8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01cbec:	0fc5a04d */ 	jal	func0f16d3d0
+/*  f01cbec:	0fc5a04d */ 	jal	musicQueueStopAllEvent
 /*  f01cbf0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f01cbf4:	10000042 */ 	beqz	$zero,.NB0f01cd00
 /*  f01cbf8:	2419ffff */ 	addiu	$t9,$zero,-1
@@ -4842,7 +4842,7 @@ glabel var7f1a863c
 .NB0f01ccec:
 /*  f01ccec:	52000004 */ 	beqzl	$s0,.NB0f01cd00
 /*  f01ccf0:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f01ccf4:	0fc5a1e8 */ 	jal	musicStartForMenu
+/*  f01ccf4:	0fc5a1e8 */ 	jal	musicStartMenu
 /*  f01ccf8:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f01ccfc:
 /*  f01ccfc:	2419ffff */ 	addiu	$t9,$zero,-1
@@ -5916,7 +5916,7 @@ glabel var7f1a863c
 //				gamefileLoadDefaults(&g_GameFile);
 //				gamefileApplyOptions(&g_GameFile);
 //				mainChangeToStage(IS4MB() ? STAGE_4MBMENU : STAGE_CITRAINING);
-//				func0f16d3d0();
+//				musicQueueStopAllEvent();
 //			} else {
 //				// cf1c
 //				s32 pass = false;
@@ -5944,7 +5944,7 @@ glabel var7f1a863c
 //				}
 //
 //				if (pass) {
-//					musicStartForMenu();
+//					musicStartMenu();
 //				}
 //			}
 //

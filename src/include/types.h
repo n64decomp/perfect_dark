@@ -6129,7 +6129,7 @@ struct optiongroup {
 struct musicevent {
 	s32 tracktype;
 	s32 tracknum;
-	s32 unk08;
+	bool fadetopause;
 	f32 unk0c;
 	s16 volume;
 	u16 eventtype;
@@ -6259,7 +6259,7 @@ struct var80094ed8 {
 	/*0x0f4*/ u32 unk0f4;
 	/*0x0f8*/ N_ALCSPlayer *seqp;
 	/*0x0fc*/ void *unk0fc;
-	/*0x100*/ u16 unk100;
+	/*0x100*/ u16 volume;
 	/*0x104*/ u32 unk104;
 };
 

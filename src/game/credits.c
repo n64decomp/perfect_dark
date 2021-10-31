@@ -3189,7 +3189,7 @@ void creditsTickSlide(void)
 				g_CreditsData->unk4204 = 0;
 				g_CreditsData->unk4208 = 0;
 
-				musicResumeAfterUnpause();
+				musicEndMenu();
 				musicStartPrimary(0);
 			}
 		} while (credit && credit->more && g_CreditsData->numthisslide < 4);
@@ -4847,7 +4847,7 @@ void creditsTick(void)
 			musicStartPrimary(0);
 		} else {
 			musicSetStage(STAGE_CREDITS);
-			musicStartMenu2(MUSIC_CREDITS);
+			musicStartTrackAsMenu(MUSIC_CREDITS);
 		}
 	}
 
@@ -4938,7 +4938,7 @@ glabel var7f1afe70nb
 .NB0f1359ec:
 /*  f1359ec:	0fc5a1ab */ 	jal	musicSetStage
 /*  f1359f0:	2404005c */ 	addiu	$a0,$zero,0x5c
-/*  f1359f4:	0fc5a176 */ 	jal	musicStartMenu2
+/*  f1359f4:	0fc5a176 */ 	jal	musicStartTrackAsMenu
 /*  f1359f8:	24040058 */ 	addiu	$a0,$zero,0x58
 /*  f1359fc:	00002025 */ 	or	$a0,$zero,$zero
 .NB0f135a00:

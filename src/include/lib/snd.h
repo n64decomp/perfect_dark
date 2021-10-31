@@ -25,7 +25,7 @@ bool sndIsMp3(u16 soundnum);
 bool snd0000fbc4(s16 arg0);
 u32 snd0000fc48(void);
 u32 snd0000fd74(void);
-void snd0000fd9c(struct var80094ed8 *arg0, u16 volume);
+void sndSetMusicChannelVolume(struct var80094ed8 *arg0, u16 volume);
 void snd0000fe18(void);
 void snd0000fe20(void);
 void snd0000fe50(void);

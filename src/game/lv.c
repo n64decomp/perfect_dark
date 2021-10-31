@@ -356,7 +356,7 @@ void lvInit(s32 stagenum)
 
 	g_MiscAudioHandle = NULL;
 
-	func0f16d324();
+	musicInit();
 	func0f011124(true);
 	func0f013b80();
 	texturesLoadConfigs();
@@ -681,7 +681,7 @@ glabel var7f1b1f44nc
 /*  f1628ac:	a22004d6 */ 	sb	$zero,0x4d6($s1)
 /*  f1628b0:	a22004d7 */ 	sb	$zero,0x4d7($s1)
 /*  f1628b4:	3c018008 */ 	lui	$at,0x8008
-/*  f1628b8:	0fc5a026 */ 	jal	func0f16d324
+/*  f1628b8:	0fc5a026 */ 	jal	musicInit
 /*  f1628bc:	ac206894 */ 	sw	$zero,0x6894($at)
 /*  f1628c0:	0fc04399 */ 	jal	func0f011124
 /*  f1628c4:	24040001 */ 	addiu	$a0,$zero,0x1

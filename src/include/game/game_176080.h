@@ -14,6 +14,6 @@ void *func0f176668(s32 arg0);
 Gfx *func0f1766b4(Gfx *gdl);
 s32 stageGetPrimaryTrack(s32 stagenum);
 s32 stageGetAmbientTrack(s32 stagenum);
-s32 stageGetXTrack(s32 stagenum);
+s32 stageGetNrgTrack(s32 stagenum);
 
 #endif
