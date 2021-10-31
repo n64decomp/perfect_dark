@@ -86,24 +86,9 @@ glabel func00039e5c
 /*    39f0c:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*    39f10:	03e00008 */ 	jr	$ra
 /*    39f14:	00000000 */ 	nop
-/*    39f18:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    39f1c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    39f20:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    39f24:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    39f28:	afa60028 */ 	sw	$a2,0x28($sp)
-/*    39f2c:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*    39f30:	93ae002b */ 	lbu	$t6,0x2b($sp)
-/*    39f34:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    39f38:	00002825 */ 	or	$a1,$zero,$zero
-/*    39f3c:	240700fc */ 	addiu	$a3,$zero,0xfc
-/*    39f40:	34c600b0 */ 	ori	$a2,$a2,0xb0
-/*    39f44:	0c011194 */ 	jal	n_alCSPSendMidi
-/*    39f48:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    39f4c:	10000001 */ 	b	.L00039f54
-/*    39f50:	00000000 */ 	nop
-.L00039f54:
-/*    39f54:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    39f58:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    39f5c:	03e00008 */ 	jr	$ra
-/*    39f60:	00000000 */ 	nop
 );
+
+void func00039f18(N_ALCSPlayer *seqp, u32 arg1, u8 arg2)
+{
+	n_alCSPSendMidi(seqp, 0, arg1 | 0xb0, 0xfc, arg2);
+}
