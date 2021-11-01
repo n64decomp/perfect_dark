@@ -6975,6 +6975,10 @@ struct seqtable {
 	struct seqtableentry entries[1];
 };
 
+struct mp3thing {
+	u16 unk00[580];
+};
+
 struct mp3vars {
 	/*0x00*/ s32 var8009c390;
 	/*0x04*/ u32 var8009c394;
@@ -6983,23 +6987,28 @@ struct mp3vars {
 	/*0x0e*/ s16 var8009c39e;
 	/*0x10*/ s16 ivol1;
 	/*0x12*/ s16 ivol2;
-	/*0x14*/ u16 var8009c3a4;
-	/*0x16*/ u16 var8009c3a6;
+	/*0x14*/ s16 var8009c3a4;
+	/*0x16*/ s16 var8009c3a6;
 	/*0x18*/ u16 ratel1;
 	/*0x1a*/ s16 ratem1;
 	/*0x1c*/ s16 var8009c3ac;
 	/*0x1e*/ u16 ratel2;
 	/*0x20*/ s16 ratem2;
 	/*0x22*/ s16 var8009c3b2;
-	/*0x24*/ u16 var8009c3b4;
+	/*0x24*/ s16 var8009c3b4;
 	/*0x28*/ s32 samples;
 	/*0x2c*/ s32 var8009c3bc;
 	/*0x30*/ s32 var8009c3c0;
 	/*0x34*/ s32 var8009c3c4;
-	/*0x38*/ u32 var8009c3c8;
-	/*0x3c*/ u32 var8009c3cc;
-	/*0x40*/ u32 var8009c3d0;
-	/*0x44*/ u8 *var8009c3d4;
+	/*0x38*/ struct mp3thing *var8009c3c8;
+	/*0x3c*/ s32 var8009c3cc;
+	/*0x40*/ s32 var8009c3d0;
+
+	union {
+		/*0x44*/ u32 *var8009c3d4;
+		/*0x44*/ u32 *var8009c3d4_arr[1];
+	};
+
 	/*0x48*/ u32 var8009c3d8;
 	/*0x4c*/ void *var8009c3dc;
 	/*0x50*/ u32 var8009c3e0;
@@ -7008,6 +7017,7 @@ struct mp3vars {
 	/*0x5c*/ s16 var8009c3ec;
 	/*0x5e*/ s16 var8009c3ee;
 	/*0x60*/ u8 var8009c3f0;
+	/*0x61*/ u8 var8009c3f1;
 };
 
 struct var80095210 {
