@@ -175,6 +175,7 @@ O3_C_FILES := \
 IDO71_C_FILES := \
 	$(shell find src/lib/ultra/audio -name '*.c') \
 	$(shell find src/lib/naudio -name '*.c') \
+	src/lib/lib_2fc60.c \
 	src/lib/lib_39c80.c \
 	src/lib/lib_3a100.c
 

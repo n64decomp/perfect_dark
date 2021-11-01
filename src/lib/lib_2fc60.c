@@ -71,48 +71,22 @@ void stopOsc(void *oscState);
 ALMicroTime updateOsc(void *oscState, f32 *updateVal);
 void func00030bd8(void *oscState);
 
-GLOBAL_ASM(
-glabel func0002fc60
-.late_rodata
-glabel var700546b0
-.word 0x3f83f794
-.text
-/*    2fc60:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    2fc64:	308400ff */ 	andi	$a0,$a0,0xff
-/*    2fc68:	3c017005 */ 	lui	$at,%hi(var700546b0)
-/*    2fc6c:	c42446b0 */ 	lwc1	$f4,%lo(var700546b0)($at)
-/*    2fc70:	e7a40004 */ 	swc1	$f4,0x4($sp)
-/*    2fc74:	3c013f80 */ 	lui	$at,0x3f80
-/*    2fc78:	44813000 */ 	mtc1	$at,$f6
-/*    2fc7c:	00000000 */ 	nop
-/*    2fc80:	e7a60000 */ 	swc1	$f6,0x0($sp)
-/*    2fc84:	1080000f */ 	beqz	$a0,.L0002fcc4
-/*    2fc88:	00000000 */ 	nop
-.L0002fc8c:
-/*    2fc8c:	308e0001 */ 	andi	$t6,$a0,0x1
-/*    2fc90:	11c00005 */ 	beqz	$t6,.L0002fca8
-/*    2fc94:	00000000 */ 	nop
-/*    2fc98:	c7a80000 */ 	lwc1	$f8,0x0($sp)
-/*    2fc9c:	c7aa0004 */ 	lwc1	$f10,0x4($sp)
-/*    2fca0:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*    2fca4:	e7b00000 */ 	swc1	$f16,0x0($sp)
-.L0002fca8:
-/*    2fca8:	c7b20004 */ 	lwc1	$f18,0x4($sp)
-/*    2fcac:	46129102 */ 	mul.s	$f4,$f18,$f18
-/*    2fcb0:	e7a40004 */ 	swc1	$f4,0x4($sp)
-/*    2fcb4:	00042042 */ 	srl	$a0,$a0,0x1
-/*    2fcb8:	308400ff */ 	andi	$a0,$a0,0xff
-/*    2fcbc:	1480fff3 */ 	bnez	$a0,.L0002fc8c
-/*    2fcc0:	00000000 */ 	nop
-.L0002fcc4:
-/*    2fcc4:	10000003 */ 	b	.L0002fcd4
-/*    2fcc8:	c7a00000 */ 	lwc1	$f0,0x0($sp)
-/*    2fccc:	10000001 */ 	b	.L0002fcd4
-/*    2fcd0:	00000000 */ 	nop
-.L0002fcd4:
-/*    2fcd4:	03e00008 */ 	jr	$ra
-/*    2fcd8:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+f32 func0002fc60(u8 arg0)
+{
+	f32 fVar1 = 1.0309929847717f;
+	f32 fStack8 = 1.0f;
+
+	while (arg0) {
+		if (arg0 & 1) {
+			fStack8 *= fVar1;
+		}
+
+		fVar1 *= fVar1;
+		arg0 >>= 1;
+	}
+
+	return fStack8;
+}
 
 GLOBAL_ASM(
 glabel initOsc
