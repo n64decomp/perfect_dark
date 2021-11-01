@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-ALFxRef func0003e540(u8 arg0);
+ALFxRef func0003e540(s16 index);
 ALFxRef func0003e5b8(s16 index);
 void func0003e674(struct fx *fx, s16 arg1, void *param);
 
