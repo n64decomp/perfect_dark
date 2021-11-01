@@ -5,8 +5,6 @@
 #include "types.h"
 
 f32 func0002fc60(u8 arg0);
-u32 func000301e4(void);
-u32 func00030690(void);
 void func00030bfc(s32 arg0, s32 arg1);
 void func00030c98(ALSeqpConfig *config);
 

@@ -43,6 +43,32 @@ typedef struct {
 	s32     centsrange;
 } vibASawData;
 
+typedef struct {
+	u32 unk0c;
+	u32 unk10;
+	u32 unk14;
+	u32 unk18;
+	u32 unk1c;
+	u16 unk20;
+	u16 unk22;
+	u16 unk24;
+	u16 unk26;
+	u8 unk28;
+	u8 unk29;
+} type01Data;
+
+typedef struct {
+	u32 unk0c;
+	u32 unk10;
+	u32 unk14;
+	u32 unk18;
+	u32 unk1c;
+	u16 unk20;
+	u16 unk22;
+	u16 unk24;
+	f32 unk28;
+} type80Data;
+
 typedef struct oscData_s {
 	struct oscData_s  *next;
 	u8      type;
@@ -58,13 +84,9 @@ typedef struct oscData_s {
 		vibSqrData      vsqr;
 		vibDSawData     vdsaw;
 		vibASawData     vasaw;
+		type01Data      type01;
+		type80Data      type80;
 	} data;
-	u32 unk14;
-	u32 unk18;
-	u32 unk1c;
-	u32 unk20;
-	u32 unk24;
-	u32 unk28;
 } oscData;
 
 oscData *freeOscStateList;
@@ -74,10 +96,9 @@ u32 var8009c2c8;
 u32 var8009c2cc;
 N_ALSndPlayer var8009c2d0;
 
-ALMicroTime initOsc(void **oscState, f32 *initVal,u8 oscType, u8 oscRate,u8 oscDepth,u8 oscDelay);
-void stopOsc(void *oscState);
 ALMicroTime updateOsc(void *oscState, f32 *updateVal);
 void func00030bd8(void *oscState);
+ALMicroTime func000301e4(void **oscState, f32 *initVal, u8 oscType, u8 oscRate, u8 oscDepth, u8 oscDelay, u8 arg6);
 
 f32 func0002fc60(u8 arg0)
 {
@@ -96,137 +117,47 @@ f32 func0002fc60(u8 arg0)
 	return fStack8;
 }
 
-GLOBAL_ASM(
-glabel initOsc
-/*    2fcdc:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*    2fce0:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    2fce4:	afa40040 */ 	sw	$a0,0x40($sp)
-/*    2fce8:	afa50044 */ 	sw	$a1,0x44($sp)
-/*    2fcec:	afa60048 */ 	sw	$a2,0x48($sp)
-/*    2fcf0:	afa7004c */ 	sw	$a3,0x4c($sp)
-/*    2fcf4:	afb00028 */ 	sw	$s0,0x28($sp)
-/*    2fcf8:	afa00038 */ 	sw	$zero,0x38($sp)
-/*    2fcfc:	93ae0057 */ 	lbu	$t6,0x57($sp)
-/*    2fd00:	15c00003 */ 	bnez	$t6,.L0002fd10
-/*    2fd04:	00000000 */ 	nop
-/*    2fd08:	10000067 */ 	b	.L0002fea8
-/*    2fd0c:	00001025 */ 	or	$v0,$zero,$zero
-.L0002fd10:
-/*    2fd10:	93af004b */ 	lbu	$t7,0x4b($sp)
-/*    2fd14:	24010001 */ 	addiu	$at,$zero,0x1
-/*    2fd18:	11e10011 */ 	beq	$t7,$at,.L0002fd60
-/*    2fd1c:	00000000 */ 	nop
-/*    2fd20:	24010080 */ 	addiu	$at,$zero,0x80
-/*    2fd24:	11e1000e */ 	beq	$t7,$at,.L0002fd60
-/*    2fd28:	00000000 */ 	nop
-/*    2fd2c:	93b80053 */ 	lbu	$t8,0x53($sp)
-/*    2fd30:	93b90057 */ 	lbu	$t9,0x57($sp)
-/*    2fd34:	93a8005b */ 	lbu	$t0,0x5b($sp)
-/*    2fd38:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*    2fd3c:	8fa50044 */ 	lw	$a1,0x44($sp)
-/*    2fd40:	93a6004b */ 	lbu	$a2,0x4b($sp)
-/*    2fd44:	93a7004f */ 	lbu	$a3,0x4f($sp)
-/*    2fd48:	afb80010 */ 	sw	$t8,0x10($sp)
-/*    2fd4c:	afb90014 */ 	sw	$t9,0x14($sp)
-/*    2fd50:	0c00c079 */ 	jal	func000301e4
-/*    2fd54:	afa80018 */ 	sw	$t0,0x18($sp)
-/*    2fd58:	10000053 */ 	b	.L0002fea8
-/*    2fd5c:	00000000 */ 	nop
-.L0002fd60:
-/*    2fd60:	3c09800a */ 	lui	$t1,%hi(freeOscStateList)
-/*    2fd64:	8d29b870 */ 	lw	$t1,%lo(freeOscStateList)($t1)
-/*    2fd68:	1120004b */ 	beqz	$t1,.L0002fe98
-/*    2fd6c:	00000000 */ 	nop
-/*    2fd70:	3c0a800a */ 	lui	$t2,%hi(freeOscStateList)
-/*    2fd74:	8d4ab870 */ 	lw	$t2,%lo(freeOscStateList)($t2)
-/*    2fd78:	afaa003c */ 	sw	$t2,0x3c($sp)
-/*    2fd7c:	3c0b800a */ 	lui	$t3,%hi(freeOscStateList)
-/*    2fd80:	8d6bb870 */ 	lw	$t3,%lo(freeOscStateList)($t3)
-/*    2fd84:	3c01800a */ 	lui	$at,%hi(freeOscStateList)
-/*    2fd88:	8d6c0000 */ 	lw	$t4,0x0($t3)
-/*    2fd8c:	ac2cb870 */ 	sw	$t4,%lo(freeOscStateList)($at)
-/*    2fd90:	93ad004b */ 	lbu	$t5,0x4b($sp)
-/*    2fd94:	8fae003c */ 	lw	$t6,0x3c($sp)
-/*    2fd98:	a1cd0004 */ 	sb	$t5,0x4($t6)
-/*    2fd9c:	8faf003c */ 	lw	$t7,0x3c($sp)
-/*    2fda0:	8fb80040 */ 	lw	$t8,0x40($sp)
-/*    2fda4:	af0f0000 */ 	sw	$t7,0x0($t8)
-/*    2fda8:	93b90057 */ 	lbu	$t9,0x57($sp)
-/*    2fdac:	00194380 */ 	sll	$t0,$t9,0xe
-/*    2fdb0:	afa80038 */ 	sw	$t0,0x38($sp)
-/*    2fdb4:	93b0004b */ 	lbu	$s0,0x4b($sp)
-/*    2fdb8:	24010001 */ 	addiu	$at,$zero,0x1
-/*    2fdbc:	12010006 */ 	beq	$s0,$at,.L0002fdd8
-/*    2fdc0:	00000000 */ 	nop
-/*    2fdc4:	24010080 */ 	addiu	$at,$zero,0x80
-/*    2fdc8:	12010020 */ 	beq	$s0,$at,.L0002fe4c
-/*    2fdcc:	00000000 */ 	nop
-/*    2fdd0:	1000002f */ 	b	.L0002fe90
-/*    2fdd4:	00000000 */ 	nop
-.L0002fdd8:
-/*    2fdd8:	8fa9003c */ 	lw	$t1,0x3c($sp)
-/*    2fddc:	a5200024 */ 	sh	$zero,0x24($t1)
-/*    2fde0:	93aa004f */ 	lbu	$t2,0x4f($sp)
-/*    2fde4:	8fad003c */ 	lw	$t5,0x3c($sp)
-/*    2fde8:	240b0103 */ 	addiu	$t3,$zero,0x103
-/*    2fdec:	016a6023 */ 	subu	$t4,$t3,$t2
-/*    2fdf0:	a5ac0022 */ 	sh	$t4,0x22($t5)
-/*    2fdf4:	93ae0053 */ 	lbu	$t6,0x53($sp)
-/*    2fdf8:	8fb8003c */ 	lw	$t8,0x3c($sp)
-/*    2fdfc:	000e7843 */ 	sra	$t7,$t6,0x1
-/*    2fe00:	a30f0028 */ 	sb	$t7,0x28($t8)
-/*    2fe04:	8fb9003c */ 	lw	$t9,0x3c($sp)
-/*    2fe08:	2409007f */ 	addiu	$t1,$zero,0x7f
-/*    2fe0c:	93280028 */ 	lbu	$t0,0x28($t9)
-/*    2fe10:	01285823 */ 	subu	$t3,$t1,$t0
-/*    2fe14:	a32b0029 */ 	sb	$t3,0x29($t9)
-/*    2fe18:	8faa003c */ 	lw	$t2,0x3c($sp)
-/*    2fe1c:	914c0029 */ 	lbu	$t4,0x29($t2)
-/*    2fe20:	448c2000 */ 	mtc1	$t4,$f4
-/*    2fe24:	05810005 */ 	bgez	$t4,.L0002fe3c
-/*    2fe28:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    2fe2c:	3c014f80 */ 	lui	$at,0x4f80
-/*    2fe30:	44814000 */ 	mtc1	$at,$f8
-/*    2fe34:	00000000 */ 	nop
-/*    2fe38:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0002fe3c:
-/*    2fe3c:	8fad0044 */ 	lw	$t5,0x44($sp)
-/*    2fe40:	e5a60000 */ 	swc1	$f6,0x0($t5)
-/*    2fe44:	10000014 */ 	b	.L0002fe98
-/*    2fe48:	00000000 */ 	nop
-.L0002fe4c:
-/*    2fe4c:	0c00bf18 */ 	jal	func0002fc60
-/*    2fe50:	93a40053 */ 	lbu	$a0,0x53($sp)
-/*    2fe54:	8fae003c */ 	lw	$t6,0x3c($sp)
-/*    2fe58:	e5c00028 */ 	swc1	$f0,0x28($t6)
-/*    2fe5c:	8faf003c */ 	lw	$t7,0x3c($sp)
-/*    2fe60:	a5e00024 */ 	sh	$zero,0x24($t7)
-/*    2fe64:	93b8004f */ 	lbu	$t8,0x4f($sp)
-/*    2fe68:	8fab003c */ 	lw	$t3,0x3c($sp)
-/*    2fe6c:	24090103 */ 	addiu	$t1,$zero,0x103
-/*    2fe70:	01384023 */ 	subu	$t0,$t1,$t8
-/*    2fe74:	a5680022 */ 	sh	$t0,0x22($t3)
-/*    2fe78:	3c013f80 */ 	lui	$at,0x3f80
-/*    2fe7c:	44815000 */ 	mtc1	$at,$f10
-/*    2fe80:	8fb90044 */ 	lw	$t9,0x44($sp)
-/*    2fe84:	e72a0000 */ 	swc1	$f10,0x0($t9)
-/*    2fe88:	10000003 */ 	b	.L0002fe98
-/*    2fe8c:	00000000 */ 	nop
-.L0002fe90:
-/*    2fe90:	10000001 */ 	b	.L0002fe98
-/*    2fe94:	00000000 */ 	nop
-.L0002fe98:
-/*    2fe98:	10000003 */ 	b	.L0002fea8
-/*    2fe9c:	8fa20038 */ 	lw	$v0,0x38($sp)
-/*    2fea0:	10000001 */ 	b	.L0002fea8
-/*    2fea4:	00000000 */ 	nop
-.L0002fea8:
-/*    2fea8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    2feac:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*    2feb0:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*    2feb4:	03e00008 */ 	jr	$ra
-/*    2feb8:	00000000 */ 	nop
-);
+ALMicroTime initOsc(void **oscState, f32 *initVal, u8 oscType, u8 oscRate, u8 oscDepth, u8 oscDelay, u8 arg6)
+{
+	oscData *state;
+	ALMicroTime result = 0;
+
+	if (oscDelay == 0) {
+		return 0;
+	}
+
+	if (oscType != 1 && oscType != 0x80) {
+		return func000301e4(oscState, initVal, oscType, oscRate, oscDepth, oscDelay, arg6);
+	}
+
+	if (freeOscStateList != NULL) {
+		state = freeOscStateList;
+		freeOscStateList = freeOscStateList->next;
+		state->type = oscType;
+		*oscState = state;
+		result = oscDelay << 14;
+
+		switch (oscType) {
+		case 1:
+			state->data.type01.unk24 = 0;
+			state->data.type01.unk22 = 259 - oscRate;
+			state->data.type01.unk28 = oscDepth >> 1;
+			state->data.type01.unk29 = 127 - state->data.type01.unk28;
+			*initVal = state->data.type01.unk29;
+			break;
+		case 0x80:
+			state->data.type80.unk28 = func0002fc60(oscDepth);
+			state->data.type80.unk24 = 0;
+			state->data.type80.unk22 = 259 - oscRate;
+			*initVal = 1.0f;
+			break;
+		default:
+			break;
+		}
+	}
+
+	return result;
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
