@@ -59,11 +59,19 @@ typedef struct oscData_s {
 		vibDSawData     vdsaw;
 		vibASawData     vasaw;
 	} data;
+	u32 unk14;
+	u32 unk18;
+	u32 unk1c;
+	u32 unk20;
+	u32 unk24;
+	u32 unk28;
 } oscData;
 
 oscData *freeOscStateList;
 u32 var8009b874;
-u32 var8009b878[662];
+oscData oscStates[60];
+u32 var8009c2c8;
+u32 var8009c2cc;
 N_ALSndPlayer var8009c2d0;
 
 ALMicroTime initOsc(void **oscState, f32 *initVal,u8 oscType, u8 oscRate,u8 oscDepth,u8 oscDelay);
@@ -1714,51 +1722,21 @@ void func00030bd8(void *oscState)
 	freeOscStateList = (oscData*)oscState;
 }
 
-GLOBAL_ASM(
-glabel func00030bfc
-/*    30bfc:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    30c00:	afa40008 */ 	sw	$a0,0x8($sp)
-/*    30c04:	3c0e800a */ 	lui	$t6,%hi(var8009b878)
-/*    30c08:	25ceb878 */ 	addiu	$t6,$t6,%lo(var8009b878)
-/*    30c0c:	3c01800a */ 	lui	$at,%hi(freeOscStateList)
-/*    30c10:	ac2eb870 */ 	sw	$t6,%lo(freeOscStateList)($at)
-/*    30c14:	3c0f800a */ 	lui	$t7,%hi(var8009b878)
-/*    30c18:	25efb878 */ 	addiu	$t7,$t7,%lo(var8009b878)
-/*    30c1c:	afaf0004 */ 	sw	$t7,0x4($sp)
-/*    30c20:	24b8ffff */ 	addiu	$t8,$a1,-1
-/*    30c24:	1b000016 */ 	blez	$t8,.L00030c80
-/*    30c28:	afa00000 */ 	sw	$zero,0x0($sp)
-.L00030c2c:
-/*    30c2c:	8fb90000 */ 	lw	$t9,0x0($sp)
-/*    30c30:	8fac0004 */ 	lw	$t4,0x4($sp)
-/*    30c34:	3c0a800a */ 	lui	$t2,%hi(var8009b878)
-/*    30c38:	00194080 */ 	sll	$t0,$t9,0x2
-/*    30c3c:	01194023 */ 	subu	$t0,$t0,$t9
-/*    30c40:	00084080 */ 	sll	$t0,$t0,0x2
-/*    30c44:	01194023 */ 	subu	$t0,$t0,$t9
-/*    30c48:	00084080 */ 	sll	$t0,$t0,0x2
-/*    30c4c:	2509002c */ 	addiu	$t1,$t0,0x2c
-/*    30c50:	254ab878 */ 	addiu	$t2,$t2,%lo(var8009b878)
-/*    30c54:	012a5821 */ 	addu	$t3,$t1,$t2
-/*    30c58:	ad8b0000 */ 	sw	$t3,0x0($t4)
-/*    30c5c:	8fad0004 */ 	lw	$t5,0x4($sp)
-/*    30c60:	8dae0000 */ 	lw	$t6,0x0($t5)
-/*    30c64:	afae0004 */ 	sw	$t6,0x4($sp)
-/*    30c68:	8faf0000 */ 	lw	$t7,0x0($sp)
-/*    30c6c:	24b9ffff */ 	addiu	$t9,$a1,-1
-/*    30c70:	25f80001 */ 	addiu	$t8,$t7,0x1
-/*    30c74:	0319082a */ 	slt	$at,$t8,$t9
-/*    30c78:	1420ffec */ 	bnez	$at,.L00030c2c
-/*    30c7c:	afb80000 */ 	sw	$t8,0x0($sp)
-.L00030c80:
-/*    30c80:	8fa80004 */ 	lw	$t0,0x4($sp)
-/*    30c84:	ad000000 */ 	sw	$zero,0x0($t0)
-/*    30c88:	10000001 */ 	b	.L00030c90
-/*    30c8c:	00000000 */ 	nop
-.L00030c90:
-/*    30c90:	03e00008 */ 	jr	$ra
-/*    30c94:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+void func00030bfc(s32 arg0, s32 count)
+{
+	oscData *item;
+	s32 i;
+
+	freeOscStateList = &oscStates[0];
+	item = &oscStates[0];
+
+	for (i = 0; i < count - 1; i++) {
+		item->next = &oscStates[i + 1];
+		item = item->next;
+	}
+
+	item->next = NULL;
+}
 
 void func00030c98(ALSeqpConfig *config)
 {
