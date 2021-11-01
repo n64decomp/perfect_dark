@@ -69,7 +69,7 @@ N_ALSndPlayer var8009c2d0;
 ALMicroTime initOsc(void **oscState, f32 *initVal,u8 oscType, u8 oscRate,u8 oscDepth,u8 oscDelay);
 void stopOsc(void *oscState);
 ALMicroTime updateOsc(void *oscState, f32 *updateVal);
-void func00030bd8(oscData *state);
+void func00030bd8(void *oscState);
 
 GLOBAL_ASM(
 glabel func0002fc60
@@ -1753,18 +1753,11 @@ glabel var70054724
 /*    30bd4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00030bd8
-/*    30bd8:	3c0e800a */ 	lui	$t6,%hi(freeOscStateList)
-/*    30bdc:	8dceb870 */ 	lw	$t6,%lo(freeOscStateList)($t6)
-/*    30be0:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*    30be4:	3c01800a */ 	lui	$at,%hi(freeOscStateList)
-/*    30be8:	ac24b870 */ 	sw	$a0,%lo(freeOscStateList)($at)
-/*    30bec:	03e00008 */ 	jr	$ra
-/*    30bf0:	00000000 */ 	nop
-/*    30bf4:	03e00008 */ 	jr	$ra
-/*    30bf8:	00000000 */ 	nop
-);
+void func00030bd8(void *oscState)
+{
+	((oscData*)oscState)->next = freeOscStateList;
+	freeOscStateList = (oscData*)oscState;
+}
 
 GLOBAL_ASM(
 glabel func00030bfc
