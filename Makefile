@@ -117,6 +117,7 @@ G_C_FILES := \
 	src/lib/speaker.c
 
 O1_C_FILES := \
+	src/lib/lib_04f60nb.c \
 	src/lib/ultra/io/ai.c \
 	src/lib/ultra/io/aisetnextbuf.c \
 	src/lib/ultra/io/conteeplongread.c \
