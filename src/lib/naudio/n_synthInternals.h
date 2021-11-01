@@ -107,7 +107,7 @@ typedef struct N_PVoice_s {
 } N_PVoice;
 
 
-typedef Acmd *(*N_ALCmdHandler)(s32, Acmd *);
+typedef Acmd *(*N_ALCmdHandler)(s32, Acmd *, s32 bus);
 
 typedef struct N_ALFilter_s {
 	struct N_ALFilter_s   *source;
@@ -122,9 +122,11 @@ typedef struct N_ALMainBus_s {
 	N_ALFilter           filter;
 } N_ALMainBus;
 
+// Suspected to be the same as struct fx, but auxbus44 is too big to fit inside N_PVoice.
+// Maybe auxbus44 contains struct fx at unk00, then adds unk30 and unk34?
 struct auxbus44 {
 	u16 unk00;
-	u16 unk02;
+	s16 unk02;
 	u32 unk04;
 	u32 unk08;
 	u32 unk0c;
@@ -139,7 +141,6 @@ struct auxbus44 {
 	void *unk30; // size 8
 	u32 unk34;
 };
-
 typedef struct N_ALAuxBus_s {
 	ALFilter            filter;
 	s32                 sourceCount;

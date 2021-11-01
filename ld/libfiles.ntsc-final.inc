@@ -109,7 +109,7 @@
 	build/ROMID/lib/lib_43dd0.o (section); \
 	build/ROMID/lib/naudio/n_cspsendmidi.o (section); \
 	build/ROMID/lib/lib_446d0.o (section); \
-	build/ROMID/lib/lib_44bc0.o (section); \
+	build/ROMID/lib/naudio/n_mainbus.o (section); \
 	build/ROMID/lib/naudio/n_synsetpriority.o (section); \
 	build/ROMID/lib/naudio/n_load.o (section); \
 	build/ROMID/lib/naudio/n_resample2.o (section); \
