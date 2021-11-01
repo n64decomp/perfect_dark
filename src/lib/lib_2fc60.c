@@ -1,12 +1,67 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "bss.h"
-#include "lib/mtx.h"
-#include "lib/lib_2fc60.h"
-#include "data.h"
 #include "types.h"
 
-u32 var8009b870;
+typedef struct {
+	u8      rate;
+	u8      depth;
+	u8      oscCount;
+} defData;
+
+typedef struct {
+	u8      halfdepth;
+	u8      baseVol;
+} tremSinData;
+
+typedef struct {
+	u8      curVal;
+	u8      hiVal;
+	u8      loVal;
+} tremSqrData;
+
+typedef struct {
+	u8      baseVol;
+	u8      depth;
+} tremSawData;
+
+typedef struct {
+	f32     depthcents;
+} vibSinData;
+
+typedef struct {
+	f32     loRatio;
+	f32     hiRatio;
+} vibSqrData;
+
+typedef struct {
+	s32     hicents;
+	s32     centsrange;
+} vibDSawData;
+
+typedef struct {
+	s32     locents;
+	s32     centsrange;
+} vibASawData;
+
+typedef struct oscData_s {
+	struct oscData_s  *next;
+	u8      type;
+	u8      stateFlags;
+	u16     maxCount;
+	u16     curCount;
+	union {
+		defData         def;
+		tremSinData     tsin;
+		tremSqrData     tsqr;
+		tremSawData     tsaw;
+		vibSinData      vsin;
+		vibSqrData      vsqr;
+		vibDSawData     vdsaw;
+		vibASawData     vasaw;
+	} data;
+} oscData;
+
+oscData *freeOscStateList;
 u32 var8009b874;
 u32 var8009b878[662];
 N_ALSndPlayer var8009c2d0;
@@ -14,6 +69,7 @@ N_ALSndPlayer var8009c2d0;
 ALMicroTime initOsc(void **oscState, f32 *initVal,u8 oscType, u8 oscRate,u8 oscDepth,u8 oscDelay);
 void stopOsc(void *oscState);
 ALMicroTime updateOsc(void *oscState, f32 *updateVal);
+void func00030bd8(oscData *state);
 
 GLOBAL_ASM(
 glabel func0002fc60
@@ -95,18 +151,18 @@ glabel initOsc
 /*    2fd58:	10000053 */ 	b	.L0002fea8
 /*    2fd5c:	00000000 */ 	nop
 .L0002fd60:
-/*    2fd60:	3c09800a */ 	lui	$t1,%hi(var8009b870)
-/*    2fd64:	8d29b870 */ 	lw	$t1,%lo(var8009b870)($t1)
+/*    2fd60:	3c09800a */ 	lui	$t1,%hi(freeOscStateList)
+/*    2fd64:	8d29b870 */ 	lw	$t1,%lo(freeOscStateList)($t1)
 /*    2fd68:	1120004b */ 	beqz	$t1,.L0002fe98
 /*    2fd6c:	00000000 */ 	nop
-/*    2fd70:	3c0a800a */ 	lui	$t2,%hi(var8009b870)
-/*    2fd74:	8d4ab870 */ 	lw	$t2,%lo(var8009b870)($t2)
+/*    2fd70:	3c0a800a */ 	lui	$t2,%hi(freeOscStateList)
+/*    2fd74:	8d4ab870 */ 	lw	$t2,%lo(freeOscStateList)($t2)
 /*    2fd78:	afaa003c */ 	sw	$t2,0x3c($sp)
-/*    2fd7c:	3c0b800a */ 	lui	$t3,%hi(var8009b870)
-/*    2fd80:	8d6bb870 */ 	lw	$t3,%lo(var8009b870)($t3)
-/*    2fd84:	3c01800a */ 	lui	$at,%hi(var8009b870)
+/*    2fd7c:	3c0b800a */ 	lui	$t3,%hi(freeOscStateList)
+/*    2fd80:	8d6bb870 */ 	lw	$t3,%lo(freeOscStateList)($t3)
+/*    2fd84:	3c01800a */ 	lui	$at,%hi(freeOscStateList)
 /*    2fd88:	8d6c0000 */ 	lw	$t4,0x0($t3)
-/*    2fd8c:	ac2cb870 */ 	sw	$t4,%lo(var8009b870)($at)
+/*    2fd8c:	ac2cb870 */ 	sw	$t4,%lo(freeOscStateList)($at)
 /*    2fd90:	93ad004b */ 	lbu	$t5,0x4b($sp)
 /*    2fd94:	8fae003c */ 	lw	$t6,0x3c($sp)
 /*    2fd98:	a1cd0004 */ 	sb	$t5,0x4($t6)
@@ -556,39 +612,17 @@ glabel var700546b8
 );
 #endif
 
-GLOBAL_ASM(
-glabel stopOsc
-/*    30134:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    30138:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    3013c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    30140:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*    30144:	afae001c */ 	sw	$t6,0x1c($sp)
-/*    30148:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*    3014c:	24010001 */ 	addiu	$at,$zero,0x1
-/*    30150:	91f80004 */ 	lbu	$t8,0x4($t7)
-/*    30154:	13010006 */ 	beq	$t8,$at,.L00030170
-/*    30158:	00000000 */ 	nop
-/*    3015c:	24010080 */ 	addiu	$at,$zero,0x80
-/*    30160:	13010003 */ 	beq	$t8,$at,.L00030170
-/*    30164:	00000000 */ 	nop
-/*    30168:	0c00c2f6 */ 	jal	func00030bd8
-/*    3016c:	8fa40020 */ 	lw	$a0,0x20($sp)
-.L00030170:
-/*    30170:	3c19800a */ 	lui	$t9,%hi(var8009b870)
-/*    30174:	8f39b870 */ 	lw	$t9,%lo(var8009b870)($t9)
-/*    30178:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*    3017c:	ad190000 */ 	sw	$t9,0x0($t0)
-/*    30180:	8fa90020 */ 	lw	$t1,0x20($sp)
-/*    30184:	3c01800a */ 	lui	$at,%hi(var8009b870)
-/*    30188:	ac29b870 */ 	sw	$t1,%lo(var8009b870)($at)
-/*    3018c:	10000001 */ 	b	.L00030194
-/*    30190:	00000000 */ 	nop
-.L00030194:
-/*    30194:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    30198:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    3019c:	03e00008 */ 	jr	$ra
-/*    301a0:	00000000 */ 	nop
-);
+void stopOsc(void *oscState)
+{
+	oscData *state = (oscData *)oscState;
+
+	if (state->type != 1 && state->type != 0x80) {
+		func00030bd8(oscState);
+	}
+
+	((oscData*)oscState)->next = freeOscStateList;
+	freeOscStateList = (oscData*)oscState;
+}
 
 GLOBAL_ASM(
 glabel func000301a4
@@ -1034,15 +1068,15 @@ glabel var700546f4
 /*    3023c:	2409007f */ 	addiu	$t1,$zero,0x7f
 /*    30240:	a3a9003b */ 	sb	$t1,0x3b($sp)
 .L00030244:
-/*    30244:	3c0a800a */ 	lui	$t2,%hi(var8009b870)
-/*    30248:	8d4ab870 */ 	lw	$t2,%lo(var8009b870)($t2)
+/*    30244:	3c0a800a */ 	lui	$t2,%hi(freeOscStateList)
+/*    30248:	8d4ab870 */ 	lw	$t2,%lo(freeOscStateList)($t2)
 /*    3024c:	15400003 */ 	bnez	$t2,.L0003025c
 /*    30250:	00000000 */ 	nop
 /*    30254:	1000010a */ 	b	.L00030680
 /*    30258:	00001025 */ 	or	$v0,$zero,$zero
 .L0003025c:
-/*    3025c:	3c0b800a */ 	lui	$t3,%hi(var8009b870)
-/*    30260:	8d6bb870 */ 	lw	$t3,%lo(var8009b870)($t3)
+/*    3025c:	3c0b800a */ 	lui	$t3,%hi(freeOscStateList)
+/*    30260:	8d6bb870 */ 	lw	$t3,%lo(freeOscStateList)($t3)
 /*    30264:	afab001c */ 	sw	$t3,0x1c($sp)
 /*    30268:	93ac003b */ 	lbu	$t4,0x3b($sp)
 /*    3026c:	15800009 */ 	bnez	$t4,.L00030294
@@ -1304,11 +1338,11 @@ glabel var700546f4
 /*    3062c:	8fac001c */ 	lw	$t4,0x1c($sp)
 /*    30630:	8fad0020 */ 	lw	$t5,0x20($sp)
 /*    30634:	adac0000 */ 	sw	$t4,0x0($t5)
-/*    30638:	3c0e800a */ 	lui	$t6,%hi(var8009b870)
-/*    3063c:	8dceb870 */ 	lw	$t6,%lo(var8009b870)($t6)
-/*    30640:	3c01800a */ 	lui	$at,%hi(var8009b870)
+/*    30638:	3c0e800a */ 	lui	$t6,%hi(freeOscStateList)
+/*    3063c:	8dceb870 */ 	lw	$t6,%lo(freeOscStateList)($t6)
+/*    30640:	3c01800a */ 	lui	$at,%hi(freeOscStateList)
 /*    30644:	8dcf0000 */ 	lw	$t7,0x0($t6)
-/*    30648:	ac2fb870 */ 	sw	$t7,%lo(var8009b870)($at)
+/*    30648:	ac2fb870 */ 	sw	$t7,%lo(freeOscStateList)($at)
 /*    3064c:	93b80037 */ 	lbu	$t8,0x37($sp)
 /*    30650:	13000007 */ 	beqz	$t8,.L00030670
 /*    30654:	00000000 */ 	nop
@@ -1721,11 +1755,11 @@ glabel var70054724
 
 GLOBAL_ASM(
 glabel func00030bd8
-/*    30bd8:	3c0e800a */ 	lui	$t6,%hi(var8009b870)
-/*    30bdc:	8dceb870 */ 	lw	$t6,%lo(var8009b870)($t6)
+/*    30bd8:	3c0e800a */ 	lui	$t6,%hi(freeOscStateList)
+/*    30bdc:	8dceb870 */ 	lw	$t6,%lo(freeOscStateList)($t6)
 /*    30be0:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*    30be4:	3c01800a */ 	lui	$at,%hi(var8009b870)
-/*    30be8:	ac24b870 */ 	sw	$a0,%lo(var8009b870)($at)
+/*    30be4:	3c01800a */ 	lui	$at,%hi(freeOscStateList)
+/*    30be8:	ac24b870 */ 	sw	$a0,%lo(freeOscStateList)($at)
 /*    30bec:	03e00008 */ 	jr	$ra
 /*    30bf0:	00000000 */ 	nop
 /*    30bf4:	03e00008 */ 	jr	$ra
@@ -1738,8 +1772,8 @@ glabel func00030bfc
 /*    30c00:	afa40008 */ 	sw	$a0,0x8($sp)
 /*    30c04:	3c0e800a */ 	lui	$t6,%hi(var8009b878)
 /*    30c08:	25ceb878 */ 	addiu	$t6,$t6,%lo(var8009b878)
-/*    30c0c:	3c01800a */ 	lui	$at,%hi(var8009b870)
-/*    30c10:	ac2eb870 */ 	sw	$t6,%lo(var8009b870)($at)
+/*    30c0c:	3c01800a */ 	lui	$at,%hi(freeOscStateList)
+/*    30c10:	ac2eb870 */ 	sw	$t6,%lo(freeOscStateList)($at)
 /*    30c14:	3c0f800a */ 	lui	$t7,%hi(var8009b878)
 /*    30c18:	25efb878 */ 	addiu	$t7,$t7,%lo(var8009b878)
 /*    30c1c:	afaf0004 */ 	sw	$t7,0x4($sp)
