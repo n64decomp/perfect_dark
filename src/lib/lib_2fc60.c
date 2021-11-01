@@ -624,30 +624,11 @@ void stopOsc(void *oscState)
 	freeOscStateList = (oscData*)oscState;
 }
 
-GLOBAL_ASM(
-glabel func000301a4
-.late_rodata
-glabel var700546bc
-.word 0x4622f985
-.text
-/*    301a4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    301a8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    301ac:	e7ac0018 */ 	swc1	$f12,0x18($sp)
-/*    301b0:	3c017005 */ 	lui	$at,%hi(var700546bc)
-/*    301b4:	c42646bc */ 	lwc1	$f6,%lo(var700546bc)($at)
-/*    301b8:	c7a40018 */ 	lwc1	$f4,0x18($sp)
-/*    301bc:	0c0068f7 */ 	jal	sinf
-/*    301c0:	46062303 */ 	div.s	$f12,$f4,$f6
-/*    301c4:	10000003 */ 	b	.L000301d4
-/*    301c8:	00000000 */ 	nop
-/*    301cc:	10000001 */ 	b	.L000301d4
-/*    301d0:	00000000 */ 	nop
-.L000301d4:
-/*    301d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    301d8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    301dc:	03e00008 */ 	jr	$ra
-/*    301e0:	00000000 */ 	nop
-);
+f32 func000301a4(f32 value)
+{
+	// Almost value / (32768 / M_PI), but has a precision mismatch
+	return sinf(value / 10430.379882812f);
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
