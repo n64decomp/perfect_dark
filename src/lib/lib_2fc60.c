@@ -11,6 +11,10 @@ u32 var8009b874;
 u32 var8009b878[662];
 N_ALSndPlayer var8009c2d0;
 
+ALMicroTime initOsc(void **oscState, f32 *initVal,u8 oscType, u8 oscRate,u8 oscDepth,u8 oscDelay);
+void stopOsc(void *oscState);
+ALMicroTime updateOsc(void *oscState, f32 *updateVal);
+
 GLOBAL_ASM(
 glabel func0002fc60
 .late_rodata
@@ -55,7 +59,7 @@ glabel var700546b0
 );
 
 GLOBAL_ASM(
-glabel func0002fcdc
+glabel initOsc
 /*    2fcdc:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*    2fce0:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*    2fce4:	afa40040 */ 	sw	$a0,0x40($sp)
@@ -188,7 +192,7 @@ glabel func0002fcdc
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0002febc
+glabel updateOsc
 .late_rodata
 glabel var700546b4
 .word 0x40c90fdb
@@ -370,7 +374,7 @@ glabel var700546b8
 );
 #else
 GLOBAL_ASM(
-glabel func0002febc
+glabel updateOsc
 .late_rodata
 glabel var700546b4
 .word 0x40c90fdb
@@ -553,7 +557,7 @@ glabel var700546b8
 #endif
 
 GLOBAL_ASM(
-glabel func00030134
+glabel stopOsc
 /*    30134:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    30138:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    3013c:	afa40020 */ 	sw	$a0,0x20($sp)
@@ -1774,21 +1778,11 @@ glabel func00030bfc
 /*    30c94:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-GLOBAL_ASM(
-glabel func00030c98
-/*    30c98:	3c0e7003 */ 	lui	$t6,%hi(func0002fcdc)
-/*    30c9c:	25cefcdc */ 	addiu	$t6,$t6,%lo(func0002fcdc)
-/*    30ca0:	ac8e0010 */ 	sw	$t6,0x10($a0)
-/*    30ca4:	3c0f7003 */ 	lui	$t7,%hi(func0002febc)
-/*    30ca8:	25effebc */ 	addiu	$t7,$t7,%lo(func0002febc)
-/*    30cac:	ac8f0014 */ 	sw	$t7,0x14($a0)
-/*    30cb0:	3c187003 */ 	lui	$t8,%hi(func00030134)
-/*    30cb4:	27180134 */ 	addiu	$t8,$t8,%lo(func00030134)
-/*    30cb8:	ac980018 */ 	sw	$t8,0x18($a0)
-/*    30cbc:	03e00008 */ 	jr	$ra
-/*    30cc0:	00000000 */ 	nop
-/*    30cc4:	03e00008 */ 	jr	$ra
-/*    30cc8:	00000000 */ 	nop
-/*    30ccc:	03e00008 */ 	jr	$ra
-/*    30cd0:	00000000 */ 	nop
-);
+void func00030c98(ALSeqpConfig *config)
+{
+	config->initOsc = initOsc;
+	config->updateOsc = updateOsc;
+	config->stopOsc = stopOsc;
+
+	return;
+}
