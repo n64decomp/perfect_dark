@@ -17,8 +17,10 @@ typedef struct {
 extern __osExceptionVector __osExceptionPreamble;
 extern s32 osAppNMIBuffer[];
 
-u32 var80060fe0pf = 0;
-u32 var80060fe4pf = 62500000;
+extern u32 __osFinalRom;
+extern OSTime osClockRate;
+
+OSTime osClockRate2 = 62500000;
 s32 osViClock = VI_NTSC_CLOCK;
 u32 var80060fecpf = 0;
 u32 var80060ff0pf = OS_IM_ALL;
@@ -206,6 +208,59 @@ glabel osInitialize2
 /*    51a60:	03e00008 */ 	jr	$ra
 /*    51a64:	00000000 */ 	nop
 );
+
+void func00051a68pf(void);
+
+// Mismatch: write to osClockRate needs to reuse $at, which happens if
+// osClockRate is defined in this file, but it's writing to the one over in
+// initialize.c, not the osClockRate2 in this file. Suspect these were both
+// defined with the same name and that makerom allows duplicate variable names,
+// merging them into one address.
+//void osInitialize2()
+//{
+//	u32 pifdata;
+//	u32 clock = 0;
+//	__osFinalRom = TRUE;
+//	__osSetSR(__osGetSR() | SR_CU1);
+//	__osSetFpcCsr(FPCSR_FS | FPCSR_EV);
+//
+//	while (__osSiRawReadIo(PIF_RAM_END - 3, &pifdata));
+//	while (__osSiRawWriteIo(PIF_RAM_END - 3, pifdata | 8));
+//
+//	*(__osExceptionVector *)UT_VEC = __osExceptionPreamble;
+//	*(__osExceptionVector *)XUT_VEC = __osExceptionPreamble;
+//	*(__osExceptionVector *)ECC_VEC = __osExceptionPreamble;
+//	*(__osExceptionVector *)E_VEC = __osExceptionPreamble;
+//
+//	osWritebackDCache((void *)UT_VEC, E_VEC - UT_VEC + sizeof(__osExceptionVector));
+//	osInvalICache((void *)UT_VEC, E_VEC - UT_VEC + sizeof(__osExceptionVector));
+//
+//	func00051a68pf();
+//	osUnmapTLBAll();
+//	osMapTLBRdb();
+//
+//	osClockRate = osClockRate * 3 / 4;
+//
+//	if (osResetType == 0 /*cold reset */) {
+//		bzero(osAppNMIBuffer, OS_APP_NMI_BUFSIZE);
+//	}
+//
+//	if (osTvType == OS_TV_PAL) {
+//		osViClock = VI_PAL_CLOCK;
+//	} else if (osTvType == OS_TV_MPAL) {
+//		osViClock = VI_MPAL_CLOCK;
+//	} else {
+//		osViClock = VI_NTSC_CLOCK;
+//	}
+//
+//	if (__osGetCause() & CAUSE_IP5) {
+//		while (1);
+//	}
+//
+//	*(u32 *)PHYS_TO_K1(AI_CONTROL_REG) = 1;
+//	*(u32 *)PHYS_TO_K1(AI_DACRATE_REG) = 0x3fff;
+//	*(u32 *)PHYS_TO_K1(AI_BITRATE_REG) = 0xf;
+//}
 
 GLOBAL_ASM(
 glabel func00051a68pf

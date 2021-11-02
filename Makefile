@@ -146,6 +146,7 @@ O1_C_FILES := \
 	src/lib/ultra/os/createmesgqueue.c \
 	src/lib/ultra/os/destroythread.c \
 	src/lib/ultra/os/gettime.c \
+	src/lib/ultra/os/initialize2.c \
 	src/lib/ultra/os/jammesg.c \
 	src/lib/ultra/os/recvmesg.c \
 	src/lib/ultra/os/resetglobalintmask.c \
