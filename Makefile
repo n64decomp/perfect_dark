@@ -170,7 +170,8 @@ O3_C_FILES := \
 	src/lib/ultra/gu/align.c \
 	src/lib/ultra/gu/frustum.c \
 	src/lib/ultra/gu/ortho.c \
-	src/lib/ultra/gu/scale.c
+	src/lib/ultra/gu/scale.c \
+	src/lib/ultra/libc/xprintf.c
 
 IDO71_C_FILES := \
 	$(shell find src/lib/ultra/audio -name '*.c') \
