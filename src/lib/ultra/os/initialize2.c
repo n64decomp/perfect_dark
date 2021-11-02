@@ -127,7 +127,7 @@ glabel osInitialize2
 /*    51934:	3c048000 */ 	lui	$a0,0x8000
 /*    51938:	0c011e94 */ 	jal	osInvalICache
 /*    5193c:	24050190 */ 	li	$a1,0x190
-/*    51940:	0c01469a */ 	jal	func00051a68pf
+/*    51940:	0c01469a */ 	jal	osCartRomInit2
 /*    51944:	00000000 */ 	nop
 /*    51948:	0c014820 */ 	jal	osUnmapTLBAll
 /*    5194c:	00000000 */ 	nop
@@ -209,7 +209,7 @@ glabel osInitialize2
 /*    51a64:	00000000 */ 	nop
 );
 
-void func00051a68pf(void);
+OSPiHandle *osCartRomInit2(void);
 
 // Mismatch: write to osClockRate needs to reuse $at, which happens if
 // osClockRate is defined in this file, but it's writing to the one over in
@@ -235,7 +235,7 @@ void func00051a68pf(void);
 //	osWritebackDCache((void *)UT_VEC, E_VEC - UT_VEC + sizeof(__osExceptionVector));
 //	osInvalICache((void *)UT_VEC, E_VEC - UT_VEC + sizeof(__osExceptionVector));
 //
-//	func00051a68pf();
+//	osCartRomInit2();
 //	osUnmapTLBAll();
 //	osMapTLBRdb();
 //
@@ -262,45 +262,25 @@ void func00051a68pf(void);
 //	*(u32 *)PHYS_TO_K1(AI_BITRATE_REG) = 0xf;
 //}
 
-GLOBAL_ASM(
-glabel func00051a68pf
-/*    51a68:	240e0007 */ 	li	$t6,0x7
-/*    51a6c:	3c018009 */ 	lui	$at,0x8009
-/*    51a70:	a02e07f4 */ 	sb	$t6,0x7f4($at)
-/*    51a74:	3c0fa460 */ 	lui	$t7,0xa460
-/*    51a78:	8df80014 */ 	lw	$t8,0x14($t7)
-/*    51a7c:	3c018009 */ 	lui	$at,0x8009
-/*    51a80:	3c19a460 */ 	lui	$t9,0xa460
-/*    51a84:	a03807f5 */ 	sb	$t8,0x7f5($at)
-/*    51a88:	8f280018 */ 	lw	$t0,0x18($t9)
-/*    51a8c:	3c018009 */ 	lui	$at,0x8009
-/*    51a90:	3c09a460 */ 	lui	$t1,0xa460
-/*    51a94:	a02807f8 */ 	sb	$t0,0x7f8($at)
-/*    51a98:	8d2a001c */ 	lw	$t2,0x1c($t1)
-/*    51a9c:	3c018009 */ 	lui	$at,0x8009
-/*    51aa0:	3c0ba460 */ 	lui	$t3,0xa460
-/*    51aa4:	a02a07f6 */ 	sb	$t2,0x7f6($at)
-/*    51aa8:	8d6c0020 */ 	lw	$t4,0x20($t3)
-/*    51aac:	3c018009 */ 	lui	$at,0x8009
-/*    51ab0:	240d0007 */ 	li	$t5,0x7
-/*    51ab4:	a02c07f7 */ 	sb	$t4,0x7f7($at)
-/*    51ab8:	3c018009 */ 	lui	$at,0x8009
-/*    51abc:	a02d086c */ 	sb	$t5,0x86c($at)
-/*    51ac0:	3c0ea460 */ 	lui	$t6,0xa460
-/*    51ac4:	8dcf0024 */ 	lw	$t7,0x24($t6)
-/*    51ac8:	3c018009 */ 	lui	$at,0x8009
-/*    51acc:	3c18a460 */ 	lui	$t8,0xa460
-/*    51ad0:	a02f086d */ 	sb	$t7,0x86d($at)
-/*    51ad4:	8f190028 */ 	lw	$t9,0x28($t8)
-/*    51ad8:	3c018009 */ 	lui	$at,0x8009
-/*    51adc:	3c08a460 */ 	lui	$t0,0xa460
-/*    51ae0:	a0390870 */ 	sb	$t9,0x870($at)
-/*    51ae4:	8d09002c */ 	lw	$t1,0x2c($t0)
-/*    51ae8:	3c018009 */ 	lui	$at,0x8009
-/*    51aec:	3c0aa460 */ 	lui	$t2,0xa460
-/*    51af0:	a029086e */ 	sb	$t1,0x86e($at)
-/*    51af4:	8d4b0030 */ 	lw	$t3,0x30($t2)
-/*    51af8:	3c018009 */ 	lui	$at,0x8009
-/*    51afc:	03e00008 */ 	jr	$ra
-/*    51b00:	a02b086f */ 	sb	$t3,0x86f($at)
-);
+extern OSPiHandle CartRomHandle;
+extern OSPiHandle LeoDiskHandle;
+
+/**
+ * According to Nintendo's SDK this function should return a pointer to an
+ * OSPiHandle, but the function only matches if the return statement is omitted.
+ * By chance the value in v0 happens to be &CartRomHandle anyway.
+ */
+OSPiHandle *osCartRomInit2(void)
+{
+	CartRomHandle.type = DEVICE_TYPE_INIT;
+	CartRomHandle.latency = IO_READ(0xa4600014);
+	CartRomHandle.pulse = IO_READ(0xa4600018);
+	CartRomHandle.pageSize = IO_READ(0xa460001c);
+	CartRomHandle.relDuration = IO_READ(0xa4600020);
+
+	LeoDiskHandle.type = DEVICE_TYPE_INIT;
+	LeoDiskHandle.latency = IO_READ(0xa4600024);
+	LeoDiskHandle.pulse = IO_READ(0xa4600028);
+	LeoDiskHandle.pageSize = IO_READ(0xa460002c);
+	LeoDiskHandle.relDuration = IO_READ(0xa4600030);
+}
