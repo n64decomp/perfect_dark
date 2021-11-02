@@ -71,7 +71,6 @@ bool map_get_segment_rompos(char *funcname, uint32_t *start, uint32_t *end);
 void pack_lib(void);
 void pack_data(void);
 void pack_game(void);
-void pack_fill(void);
 
 void piracy_patch(void);
 

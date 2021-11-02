@@ -134,24 +134,3 @@ void pack_lib(void)
 
 	free(buffer);
 }
-
-/**
- * Fill from the end of the last segment to the end of the ROM with 0xff.
- */
-void pack_fill(void)
-{
-	uint32_t offset;
-
-	map_get_segment_rompos("accessingpak", NULL, &offset);
-
-	if (offset == 0) {
-		// We're probably building ntsc-beta, which doesn't have the
-		// accessingpak segment.
-		map_get_segment_rompos("copyright", NULL, &offset);
-	}
-
-	while (offset < 1024 * 1024 * 32) {
-		state.rom[offset] = 0xff;
-		offset++;
-	}
-}

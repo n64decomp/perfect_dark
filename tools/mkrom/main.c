@@ -63,7 +63,6 @@ int main(int argc, char **argv)
 	pack_lib();
 	pack_data();
 	pack_game();
-	pack_fill();
 
 	rom_update_crc();
 

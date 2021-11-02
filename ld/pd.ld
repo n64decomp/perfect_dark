@@ -636,6 +636,13 @@ SECTIONS
 	_accessingpakSegmentRomEnd = 0;
 #endif
 
+	.fill : AT(__rompos)
+	{
+		FILL(0xff);
+		. = 0x02000000 - __rompos - 1;
+		BYTE(0xff);
+	}
+
 	/DISCARD/ : {
 		* (.MIPS.abiflags);
 		* (.options);
