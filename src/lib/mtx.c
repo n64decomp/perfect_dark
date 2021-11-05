@@ -17,21 +17,13 @@ const char var70055998nb[] = " )\n";
 
 const u32 var70054200[] = {0x42652ee0};
 
-GLOBAL_ASM(
-glabel mtx00016110
-/*    16110:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*    16114:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    16118:	afa50044 */ 	sw	$a1,0x44($sp)
-/*    1611c:	0c005850 */ 	jal	mtx00016140
-/*    16120:	27a6001c */ 	addiu	$a2,$sp,0x1c
-/*    16124:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*    16128:	0c005736 */ 	jal	mtx00015cd8
-/*    1612c:	8fa50044 */ 	lw	$a1,0x44($sp)
-/*    16130:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    16134:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*    16138:	03e00008 */ 	jr	$ra
-/*    1613c:	00000000 */ 	nop
-);
+void mtx00016110(f32 *mtx1, f32 *mtx2)
+{
+	f32 mtx3[9];
+
+	mtx00016140(mtx1, mtx2, mtx3);
+	mtx00015cd8(mtx3, mtx2);
+}
 
 GLOBAL_ASM(
 glabel mtx00016140
