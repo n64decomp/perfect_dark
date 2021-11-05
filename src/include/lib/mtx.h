@@ -41,7 +41,7 @@ void mtx0001648c(struct coord *coord, Mtxf *dest);
 u32 mtx000165d8(void);
 void mtx000166a4(struct coord *pos, struct coord *rot, Mtxf *matrix);
 void mtx000166dc(struct coord *pos, Mtxf *matrix);
-u32 mtx00016710(void);
+void mtx00016710(f32 mult, f32 mtx[4][4]);
 void mtx00016748(f32 arg0);
 void mtx00016760(void);
 void mtx00016784(void);

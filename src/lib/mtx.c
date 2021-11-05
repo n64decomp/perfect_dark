@@ -310,23 +310,13 @@ void mtx000166dc(struct coord *pos, Mtxf *matrix)
 	mtx00015dd4(pos, matrix);
 }
 
-GLOBAL_ASM(
-glabel mtx00016710
-/*    16710:	c4a40008 */ 	lwc1	$f4,0x8($a1)
-/*    16714:	c4a80018 */ 	lwc1	$f8,0x18($a1)
-/*    16718:	c4b00028 */ 	lwc1	$f16,0x28($a1)
-/*    1671c:	460c2182 */ 	mul.s	$f6,$f4,$f12
-/*    16720:	c4a40038 */ 	lwc1	$f4,0x38($a1)
-/*    16724:	460c4282 */ 	mul.s	$f10,$f8,$f12
-/*    16728:	00000000 */ 	nop
-/*    1672c:	460c8482 */ 	mul.s	$f18,$f16,$f12
-/*    16730:	e4a60008 */ 	swc1	$f6,0x8($a1)
-/*    16734:	460c2182 */ 	mul.s	$f6,$f4,$f12
-/*    16738:	e4aa0018 */ 	swc1	$f10,0x18($a1)
-/*    1673c:	e4b20028 */ 	swc1	$f18,0x28($a1)
-/*    16740:	03e00008 */ 	jr	$ra
-/*    16744:	e4a60038 */ 	swc1	$f6,0x38($a1)
-);
+void mtx00016710(f32 mult, f32 mtx[4][4])
+{
+	mtx[0][2] *= mult;
+	mtx[1][2] *= mult;
+	mtx[2][2] *= mult;
+	mtx[3][2] *= mult;
+}
 
 void mtx00016748(f32 arg0)
 {
