@@ -27,7 +27,7 @@ extern u32 var8005cf30;
 extern OSTime osClockRate;
 extern s32 osViClock;
 extern u32 __osGlobalIntMask;
-extern u32 var8005cf84;
+extern s32 g_VmNumPages;
 extern u8 g_LoadType;
 extern s32 g_MainIsEndscreen;
 extern s32 var8005dd18;

@@ -573,7 +573,7 @@ glabel rzipInflateBlock
 .L000079e8:
  	bne     $t3, $at, .L00007a00
  	nop
- 	jal     rzipInflateFixed2
+ 	jal     rzipInflateFixed
  	nop
  	j       .L00007a04
  	nop
@@ -1013,7 +1013,7 @@ glabel rzipInflateStored
  	jr      $ra
  	li      $v0, 1
 
-glabel rzipInflateFixed2
+glabel rzipInflateFixed
  	sw     $ra, 0xa44($sp)
  	sw     $s6, 0xa74($sp)
  	lui    $s6, %hi(var80090b10)
@@ -1629,7 +1629,7 @@ glabel rzipInflateCodes
  	jr     $ra
  	li     $v0, 4
 
-glabel rzipInflateFixed
+glabel rzipInit
  	addiu  $sp, $sp, -2696
  	sw     $s0, 0xa48($sp)
  	sw     $s1, 0xa4c($sp)

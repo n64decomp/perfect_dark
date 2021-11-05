@@ -823,8 +823,8 @@ glabel mainInit
 /*     d6f0:	0041082a */ 	slt	$at,$v0,$at
 /*     d6f4:	1020000e */ 	beqz	$at,.L0000d730
 /*     d6f8:	3c028080 */ 	lui	$v0,0x8080
-/*     d6fc:	3c0b8006 */ 	lui	$t3,%hi(var8005cf84)
-/*     d700:	8d6bcf84 */ 	lw	$t3,%lo(var8005cf84)($t3)
+/*     d6fc:	3c0b8006 */ 	lui	$t3,%hi(g_VmNumPages)
+/*     d700:	8d6bcf84 */ 	lw	$t3,%lo(g_VmNumPages)($t3)
 /*     d704:	3c18803f */ 	lui	$t8,0x803f
 /*     d708:	371850b8 */ 	ori	$t8,$t8,0x50b8
 /*     d70c:	3c01ffef */ 	lui	$at,0xffef
@@ -1003,8 +1003,8 @@ glabel mainInit
 /*     d984:	3c04800b */ 	lui	$a0,%hi(_bssSegmentEnd)
 /*     d988:	0c012d20 */ 	jal	osVirtualToPhysical
 /*     d98c:	2484d1c0 */ 	addiu	$a0,$a0,%lo(_bssSegmentEnd)
-/*     d990:	3c038009 */ 	lui	$v1,%hi(var80090b00)
-/*     d994:	8c630b00 */ 	lw	$v1,%lo(var80090b00)($v1)
+/*     d990:	3c038009 */ 	lui	$v1,%hi(g_VmMarker)
+/*     d994:	8c630b00 */ 	lw	$v1,%lo(g_VmMarker)($v1)
 /*     d998:	3c018000 */ 	lui	$at,0x8000
 /*     d99c:	00412025 */ 	or	$a0,$v0,$at
 /*     d9a0:	0c00487a */ 	jal	mempInit
@@ -1538,7 +1538,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //		u32 stack;
 //
 //		if (bootGetMemSize() <= 4 * 1024 * 1024) {
-//			iVar5 = 0x803f50b8 - var8005cf84 * 8;
+//			iVar5 = 0x803f50b8 - g_VmNumPages * 8;
 //			iVar5 -= 548864 * 2;
 //			iVar5 = iVar5 - (iVar5 & 0x1fff) - 0x1c80;
 //		} else {
@@ -1635,7 +1635,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	}
 //
 //	uVar2 = osVirtualToPhysical(&_bssSegmentEnd) | 0x80000000;
-//	tmp = var80090b00;
+//	tmp = g_VmMarker;
 //	mempInit(uVar2, tmp - uVar2);
 //
 //	mempResetPool(MEMPOOL_8);

@@ -1,3 +1,4 @@
+#include "os_tlb.h"
 #include "asm_helper.h"
 #include "macros.inc"
 #include "versions.h"
@@ -9,16 +10,16 @@
 glabel var8008ae20
 .space 4
 
-glabel var8008ae24;
+glabel g_VmStateTable;
 .space 4
 
-glabel var8008ae28;
+glabel g_VmInitialised;
 .space 4
 
-glabel var8008ae2c;
+glabel g_VmZipBuffer;
 .space 4
 
-glabel var8008ae30;
+glabel g_VmZipTable;
 .space 8
 
 glabel var8008ae38
@@ -51,8 +52,7 @@ glabel var8008d268
  * Sets up TLB index 0 (0x70000000), then calls bootPhase1.
  */
 glabel tlbInit
-	lui    $t0, 0x7f
-	ori    $t0, $t0, 0xe000
+	li     $t0, OS_PM_4M
 	mtc0   $t0, C0_PAGEMASK
 	lui    $t0, 0x7000
 	mtc0   $t0, C0_ENTRYHI
@@ -61,7 +61,7 @@ glabel tlbInit
 	lui    $t0, 0x1
 	ori    $t0, $t0, 0x1f
 	mtc0   $t0, C0_ENTRYLO1
-	addiu  $t0, $zero, 0x0
+	addiu  $t0, $zero, 0
 	mtc0   $t0, C0_INX
  	nop
  	tlbwi
@@ -87,8 +87,8 @@ glabel tlb000010a4
 #else
 	addiu  $a0, $zero, 266
 #endif
-	lui    $at, %hi(var8008ae28+0x2)
-	sh     $a0, %lo(var8008ae28+0x2)($at)
+	lui    $at, %hi(g_VmInitialised+0x2)
+	sh     $a0, %lo(g_VmInitialised+0x2)($at)
 	lui    $at, %hi(var8008d258+0x2)
 	sh     $a0, %lo(var8008d258+0x2)($at)
 	sll    $a0, $a0, 0xc
@@ -96,8 +96,8 @@ glabel tlb000010a4
 	lw     $v0, %lo(var8008ae20)($v0)
 	lui    $t1, %hi(_gameSegmentEnd)
 	addiu  $t1, $t1, %lo(_gameSegmentEnd)
-	lui    $t2, %hi(func0f000000)
-	addiu  $t2, $t2, %lo(func0f000000)
+	lui    $t2, %hi(_gameSegmentStart)
+	addiu  $t2, $t2, %lo(_gameSegmentStart)
 	subu   $t1, $t1, $t2
 	lui    $t0, 0xfff
 	ori    $t0, $t0, 0xffff
@@ -149,21 +149,21 @@ glabel tlbHandleMiss
 	sub    $t0, $s5, $t1
 	srl    $t0, $t0, 0xc
 	sll    $t0, $t0, 0x3
-	lui    $t1, %hi(var8008ae24)
-	lw     $t1, %lo(var8008ae24)($t1)
+	lui    $t1, %hi(g_VmStateTable)
+	lw     $t1, %lo(g_VmStateTable)($t1)
 	addu   $s0, $t0, $t1
 	lui    $s8, 0x7f00
 	slt    $at, $s5, $s8
 	bnez   $at, .L0000162c
  	nop
-	lui    $t1, %hi(var80090b04)
-	lw     $t1, %lo(var80090b04)($t1)
+	lui    $t1, %hi(g_VmRamEnd)
+	lw     $t1, %lo(g_VmRamEnd)($t1)
 	slt    $at, $s5, $t1
 	beqz   $at, .L0000162c
  	nop
 #if VERSION < VERSION_NTSC_1_0
-	lui    $t2, 0x8009
-	addiu  $t2, $t2, 0x30e4
+	lui    $t2, %hi(g_VmNumTlbMisses)
+	addiu  $t2, $t2, %lo(g_VmNumTlbMisses)
 	lw     $t6, 0($t2)
 	addiu  $t6, $t6, 1
 	sw     $t6, 0($t2)
@@ -215,8 +215,8 @@ glabel tlbHandleMiss
 	addu   $s1, $s1, $t0
 .L00001268:
 #if VERSION < VERSION_NTSC_1_0
-	lui    $t2, 0x8009
-	addiu  $t2, $t2, 0x30e8
+	lui    $t2, %hi(g_VmNumPageMisses)
+	addiu  $t2, $t2, %lo(g_VmNumPageMisses)
 	lw     $t0, 0($t2)
 	addiu  $t0, $t0, 1
 	sw     $t0, 0($t2)
@@ -226,8 +226,8 @@ glabel tlbHandleMiss
 	ori    $t0, $t0, 0xf000
 	and    $t2, $t2, $t0
 	srl    $t2, $t2, 0xa
-	lui    $t0, %hi(var8008ae30)
-	lw     $t0, %lo(var8008ae30)($t0)
+	lui    $t0, %hi(g_VmZipTable)
+	lw     $t0, %lo(g_VmZipTable)($t0)
 	addu   $t0, $t0, $t2
 	lw     $t2, 0x0($t0)
 	lw     $t0, 0x4($t0)
@@ -246,8 +246,8 @@ glabel tlbHandleMiss
 	lw     $s6, 0x8($s6)
 	andi   $s6, $s6, 0x10
 	lui    $t0, 0xa460
-	lui    $t1, %hi(var8008ae2c)
-	lw     $t1, %lo(var8008ae2c)($t1)
+	lui    $t1, %hi(g_VmZipBuffer)
+	lw     $t1, %lo(g_VmZipBuffer)($t1)
 	lui    $t7, 0xfff
 	ori    $t7, $t7, 0xffff
 	and    $t1, $t1, $t7
@@ -279,8 +279,8 @@ glabel tlbHandleMiss
 	andi   $t1, $t1, 0x3
 	bnez   $t1, .L00001330
  	nop
-	lui    $t0, %hi(var8008ae2c)
-	lw     $t0, %lo(var8008ae2c)($t0)
+	lui    $t0, %hi(g_VmZipBuffer)
+	lw     $t0, %lo(g_VmZipBuffer)($t0)
 	addiu  $t1, $t0, 0x1000
 .L0000134c:
 	cache  0x15, 0x0($t0)
@@ -298,8 +298,8 @@ glabel tlbHandleMiss
 	addiu  $a0, $a0, 0xff8
 	sw     $sp, 0x0($a0)
 	addiu  $sp, $a0, 0x0
-	lui    $a0, %hi(var8008ae2c)
-	lw     $a0, %lo(var8008ae2c)($a0)
+	lui    $a0, %hi(g_VmZipBuffer)
+	lw     $a0, %lo(g_VmZipBuffer)($a0)
 	addiu  $a0, $a0, 0x2
 	lui    $t0, 0x8000
 	or     $a1, $s1, $t0
@@ -380,7 +380,7 @@ glabel tlbHandleMiss
 	bnez   $at, .L000014b4
 	addiu  $t0, $t0, 0x10
 .L000014c4:
-	addiu  $t0, $zero, 0x0
+	addiu  $t0, $zero, OS_PM_4K
 	mtc0   $t0, C0_PAGEMASK
 	mtc0   $s5, C0_ENTRYHI
  	nop
@@ -432,22 +432,22 @@ glabel tlbHandleMiss
  	nop
 .L00001570:
 #if VERSION < VERSION_NTSC_1_0
-	lui    $t0, 0x8009
-	addiu  $t0, $t0, 0x30ec
+	lui    $t0, %hi(g_VmNumPageReplaces)
+	addiu  $t0, $t0, %lo(g_VmNumPageReplaces)
 	lw     $t1, 0($t0)
 	addiu  $t1, $t1, 1
 	sw     $t1, 0($t0)
 #endif
 .L00001570_2:
-	lui    $s4, %hi(var8008ae24)
-	lw     $s4, %lo(var8008ae24)($s4)
-	lui    $gp, %hi(var80090b08)
-	lw     $gp, %lo(var80090b08)($gp)
+	lui    $s4, %hi(g_VmStateTable)
+	lw     $s4, %lo(g_VmStateTable)($s4)
+	lui    $gp, %hi(g_VmStateTableEnd)
+	lw     $gp, %lo(g_VmStateTableEnd)($gp)
 	mfc0   $t0, C0_COUNT
 	lui    $t1, %hi(var8008d264+0x2)
 	lhu    $t1, %lo(var8008d264+0x2)($t1)
-	lui    $t2, %hi(var8005cf84)
-	lw     $t2, %lo(var8005cf84)($t2)
+	lui    $t2, %hi(g_VmNumPages)
+	lw     $t2, %lo(g_VmNumPages)($t2)
 	and    $t0, $t0, $t1
 	slt    $at, $t0, $t2
 	beqzl  $at, .L000015a4

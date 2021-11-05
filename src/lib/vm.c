@@ -8,14 +8,71 @@
 #include "data.h"
 #include "types.h"
 
+/**
+ * vm - virtual memory
+ *
+ * To get around memory limitations, Perfect Dark implements a memory paging
+ * system similar to ones found in modern operating systems. Memory is divided
+ * into pages and can be accessed by virtual addresses. If the page does not
+ * exist in physical memory then the operating system can replace a page in
+ * physical memory with the required one and try again. This allows the system
+ * to address more memory than is actually loaded and have a smaller memory
+ * footprint.
+ *
+ * All code in the game is divided into two segments: Unpagable and pagable.
+ *
+ * Unpagable:
+ * - Is what decomp calls lib.
+ * - Is virtual at 0x70000000 and statically mapped to 0x80000000.
+ * - Contains frequently used code which would be a bad idea to swap in and out,
+ *   as well as all of libultra.
+ *
+ * Pagable:
+ * - Is what decomp calls game.
+ * - Is virtual at 0x7f000000.
+ * - Contains the majority of the game code.
+ *
+ * Paging cannot occur for any sections which are writeable in memory because
+ * the N64 ROM is read only. Sections of this type are .data and .bss.
+ * These sections reside in physical memory at 0x80000000 and are not pagable.
+ *
+ * Paging is implemented for the .text (ie. code) and .rodata segments. When
+ * building the ROM image, these are grouped into one binary then sliced into
+ * chunks of size 4KB (the page size). Each chunk is zipped and then each zip is
+ * placed on the ROM along with a zip offset table.
+ *
+ * The N64 contains a translation lookaside buffer (TLB), a feature of the CPU
+ * which can map virtual memory to physical memory. The TLB contains a table of
+ * 32 entries. Each entry can map two pages, and PD's page size is 4KB. The
+ * unpagable segment described above is mapped using one TLB entry, leaving 31
+ * entries for dynamic paging.
+ *
+ * A page an be in one of three states:
+ * - Mapped in the TLB and loaded in physical memory.
+ * - Not mapped in the TLB but still loaded in physical memory.
+ * - Not mapped in the TLB and not in physical memory
+ *   (must be unzipped from the ROM to access).
+ *
+ * A TLB miss occurs when a request is made for a page that isn't mapped in the
+ * TLB. When this happens, the system's exception handler checks if the page
+ * exists in physical memory or not. If it does, a TLB entry is created for it.
+ *
+ * A page miss occurs when the page didn't exist in physical memory. In this
+ * case the exception handler must load it from the ROM, unzip the page and
+ * replace an existing one.
+ *
+ * Paging is only implemented for 4MB systems (ie. when the expansion pak is not
+ * being used). When using the expansion pak all game code is loaded and the
+ * mappings in the TLB are static.
+ */
+
 u8 g_Is4Mb;
 u32 g_VmNumTlbMisses;
 u32 g_VmNumPageMisses;
 u32 g_VmNumPageReplaces;
-u32 var80090b00;
-u32 var80090b04;
-u32 var80090b08;
-u32 var80090b0c;
+u32 g_VmMarker;
+u32 g_VmRamEnd;
+u32 g_VmStateTableEnd;
 
 #if VERSION < VERSION_NTSC_1_0
 u8 g_VmShowStats = false;
@@ -23,8 +80,29 @@ u32 fillnb[2] = {0};
 #endif
 
 u32 var8005cf80 = 0;
-u32 var8005cf84 = 0;
+s32 g_VmNumPages = 0;
 u32 var8005cf88 = 0;
+
+extern u8 _gameSegmentStart;
+extern u8 _gameSegmentEnd;
+extern u8 _gamezipSegmentRomStart;
+
+extern u32 var8008ae20;
+extern u32 *g_VmStateTable;
+extern u8 g_VmInitialised;
+extern u32 g_VmZipBuffer;
+extern u32 *g_VmZipTable;
+
+#define PAGE_SIZE (1024 * 4)
+
+#define MAX_LOADED_PAGES 268
+
+#define VM_MEMORY_END (0x80400000 \
+		- STACKSIZE_MAIN \
+		- STACKSIZE_IDLE \
+		- STACKSIZE_RMON \
+		- STACKSIZE_SCHED \
+		- STACKSIZE_AUDIO - 8)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -33,7 +111,7 @@ glabel vmInit
 /*     70d4:	afb0001c */ 	sw	$s0,0x1c($sp)
 /*     70d8:	24100001 */ 	addiu	$s0,$zero,0x1
 /*     70dc:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*     70e0:	3c018009 */ 	lui	$at,%hi(var8008ae28)
+/*     70e0:	3c018009 */ 	lui	$at,%hi(g_VmInitialised)
 /*     70e4:	afb70038 */ 	sw	$s7,0x38($sp)
 /*     70e8:	afb60034 */ 	sw	$s6,0x34($sp)
 /*     70ec:	afb50030 */ 	sw	$s5,0x30($sp)
@@ -41,8 +119,8 @@ glabel vmInit
 /*     70f4:	afb30028 */ 	sw	$s3,0x28($sp)
 /*     70f8:	afb20024 */ 	sw	$s2,0x24($sp)
 /*     70fc:	afb10020 */ 	sw	$s1,0x20($sp)
-/*     7100:	0c00222c */ 	jal	rzipInflateFixed
-/*     7104:	a030ae28 */ 	sb	$s0,%lo(var8008ae28)($at)
+/*     7100:	0c00222c */ 	jal	rzipInit
+/*     7104:	a030ae28 */ 	sb	$s0,%lo(g_VmInitialised)($at)
 /*     7108:	0c0005b0 */ 	jal	bootGetMemSize
 /*     710c:	00000000 */ 	nop
 /*     7110:	3c010040 */ 	lui	$at,0x40
@@ -51,25 +129,25 @@ glabel vmInit
 /*     711c:	10200074 */ 	beqz	$at,.L000072f0
 /*     7120:	3c087f1c */ 	lui	$t0,%hi(_gameSegmentEnd)
 /*     7124:	3c087f1c */ 	lui	$t0,%hi(_gameSegmentEnd)
-/*     7128:	3c097f00 */ 	lui	$t1,%hi(func0f000000)
-/*     712c:	25290000 */ 	addiu	$t1,$t1,%lo(func0f000000)
+/*     7128:	3c097f00 */ 	lui	$t1,%hi(_gameSegmentStart)
+/*     712c:	25290000 */ 	addiu	$t1,$t1,%lo(_gameSegmentStart)
 /*     7130:	250899e0 */ 	addiu	$t0,$t0,%lo(_gameSegmentEnd)
 /*     7134:	3c018009 */ 	lui	$at,%hi(g_Is4Mb)
 /*     7138:	01097023 */ 	subu	$t6,$t0,$t1
 /*     713c:	a0300af0 */ 	sb	$s0,%lo(g_Is4Mb)($at)
 /*     7140:	25cf0fff */ 	addiu	$t7,$t6,0xfff
-/*     7144:	3c178006 */ 	lui	$s7,%hi(var8005cf84)
-/*     7148:	26f7cf84 */ 	addiu	$s7,$s7,%lo(var8005cf84)
+/*     7144:	3c178006 */ 	lui	$s7,%hi(g_VmNumPages)
+/*     7148:	26f7cf84 */ 	addiu	$s7,$s7,%lo(g_VmNumPages)
 /*     714c:	3c07803f */ 	lui	$a3,0x803f
 /*     7150:	01091023 */ 	subu	$v0,$t0,$t1
 /*     7154:	34e750b8 */ 	ori	$a3,$a3,0x50b8
 /*     7158:	24420fff */ 	addiu	$v0,$v0,0xfff
 /*     715c:	00027302 */ 	srl	$t6,$v0,0xc
 /*     7160:	25c60002 */ 	addiu	$a2,$t6,0x2
-/*     7164:	3c158009 */ 	lui	$s5,%hi(var8008ae30)
+/*     7164:	3c158009 */ 	lui	$s5,%hi(g_VmZipTable)
 /*     7168:	25d60001 */ 	addiu	$s6,$t6,0x1
 /*     716c:	3c120005 */ 	lui	$s2,%hi(_gamezipSegmentRomStart)
-/*     7170:	26b5ae30 */ 	addiu	$s5,$s5,%lo(var8008ae30)
+/*     7170:	26b5ae30 */ 	addiu	$s5,$s5,%lo(g_VmZipTable)
 /*     7174:	05e10003 */ 	bgez	$t7,.L00007184
 /*     7178:	000fc303 */ 	sra	$t8,$t7,0xc
 /*     717c:	25e10fff */ 	addiu	$at,$t7,0xfff
@@ -79,15 +157,15 @@ glabel vmInit
 /*     7188:	0018cb00 */ 	sll	$t9,$t8,0xc
 /*     718c:	03216021 */ 	addu	$t4,$t9,$at
 /*     7190:	aef80000 */ 	sw	$t8,0x0($s7)
-/*     7194:	3c018009 */ 	lui	$at,%hi(var80090b04)
-/*     7198:	ac2c0b04 */ 	sw	$t4,%lo(var80090b04)($at)
-/*     719c:	3c018009 */ 	lui	$at,%hi(var80090b08)
+/*     7194:	3c018009 */ 	lui	$at,%hi(g_VmRamEnd)
+/*     7198:	ac2c0b04 */ 	sw	$t4,%lo(g_VmRamEnd)($at)
+/*     719c:	3c018009 */ 	lui	$at,%hi(g_VmStateTableEnd)
 /*     71a0:	001868c0 */ 	sll	$t5,$t8,0x3
-/*     71a4:	ac270b08 */ 	sw	$a3,%lo(var80090b08)($at)
+/*     71a4:	ac270b08 */ 	sw	$a3,%lo(g_VmStateTableEnd)($at)
 /*     71a8:	00ed9823 */ 	subu	$s3,$a3,$t5
-/*     71ac:	3c018009 */ 	lui	$at,%hi(var8008ae24)
+/*     71ac:	3c018009 */ 	lui	$at,%hi(g_VmStateTable)
 /*     71b0:	25cf0005 */ 	addiu	$t7,$t6,0x5
-/*     71b4:	ac33ae24 */ 	sw	$s3,%lo(var8008ae24)($at)
+/*     71b4:	ac33ae24 */ 	sw	$s3,%lo(g_VmStateTable)($at)
 /*     71b8:	000fc080 */ 	sll	$t8,$t7,0x2
 /*     71bc:	00066880 */ 	sll	$t5,$a2,0x2
 /*     71c0:	0278c823 */ 	subu	$t9,$s3,$t8
@@ -143,21 +221,21 @@ glabel vmInit
 /*     7274:	0311c823 */ 	subu	$t9,$t8,$s1
 /*     7278:	032b6824 */ 	and	$t5,$t9,$t3
 /*     727c:	34214000 */ 	ori	$at,$at,0x4000
-/*     7280:	3c028009 */ 	lui	$v0,%hi(var8008ae2c)
+/*     7280:	3c028009 */ 	lui	$v0,%hi(g_VmZipBuffer)
 /*     7284:	01a19821 */ 	addu	$s3,$t5,$at
-/*     7288:	2442ae2c */ 	addiu	$v0,$v0,%lo(var8008ae2c)
+/*     7288:	2442ae2c */ 	addiu	$v0,$v0,%lo(g_VmZipBuffer)
 /*     728c:	ac590000 */ 	sw	$t9,0x0($v0)
 /*     7290:	326e1fff */ 	andi	$t6,$s3,0x1fff
 /*     7294:	ac4d0000 */ 	sw	$t5,0x0($v0)
 /*     7298:	026e9823 */ 	subu	$s3,$s3,$t6
 /*     729c:	3c018009 */ 	lui	$at,%hi(var8008ae20)
 /*     72a0:	ac33ae20 */ 	sw	$s3,%lo(var8008ae20)($at)
-/*     72a4:	3c018009 */ 	lui	$at,%hi(var80090b00)
+/*     72a4:	3c018009 */ 	lui	$at,%hi(g_VmMarker)
 /*     72a8:	0c000429 */ 	jal	tlb000010a4
-/*     72ac:	ac330b00 */ 	sw	$s3,%lo(var80090b00)($at)
+/*     72ac:	ac330b00 */ 	sw	$s3,%lo(g_VmMarker)($at)
 /*     72b0:	8ee30000 */ 	lw	$v1,0x0($s7)
-/*     72b4:	3c048009 */ 	lui	$a0,%hi(var8008ae24)
-/*     72b8:	8c84ae24 */ 	lw	$a0,%lo(var8008ae24)($a0)
+/*     72b4:	3c048009 */ 	lui	$a0,%hi(g_VmStateTable)
+/*     72b8:	8c84ae24 */ 	lw	$a0,%lo(g_VmStateTable)($a0)
 /*     72bc:	000378c0 */ 	sll	$t7,$v1,0x3
 /*     72c0:	000f1883 */ 	sra	$v1,$t7,0x2
 /*     72c4:	18600006 */ 	blez	$v1,.L000072e0
@@ -174,8 +252,8 @@ glabel vmInit
 /*     72e8:	1000006a */ 	b	.L00007494
 /*     72ec:	00000000 */ 	nop
 .L000072f0:
-/*     72f0:	3c097f00 */ 	lui	$t1,%hi(func0f000000)
-/*     72f4:	25290000 */ 	addiu	$t1,$t1,%lo(func0f000000)
+/*     72f0:	3c097f00 */ 	lui	$t1,%hi(_gameSegmentStart)
+/*     72f4:	25290000 */ 	addiu	$t1,$t1,%lo(_gameSegmentStart)
 /*     72f8:	250899e0 */ 	addiu	$t0,$t0,%lo(_gameSegmentEnd)
 /*     72fc:	0109c823 */ 	subu	$t9,$t0,$t1
 /*     7300:	272c003f */ 	addiu	$t4,$t9,0x3f
@@ -199,12 +277,12 @@ glabel vmInit
 /*     7348:	026c6823 */ 	subu	$t5,$s3,$t4
 /*     734c:	25c6000f */ 	addiu	$a2,$t6,0xf
 /*     7350:	3c120005 */ 	lui	$s2,%hi(_gamezipSegmentRomStart)
-/*     7354:	3c018009 */ 	lui	$at,%hi(var80090b00)
+/*     7354:	3c018009 */ 	lui	$at,%hi(g_VmMarker)
 /*     7358:	27160001 */ 	addiu	$s6,$t8,0x1
 /*     735c:	2652fc40 */ 	addiu	$s2,$s2,%lo(_gamezipSegmentRomStart)
 /*     7360:	34cf000f */ 	ori	$t7,$a2,0xf
 /*     7364:	01aba824 */ 	and	$s5,$t5,$t3
-/*     7368:	ac330b00 */ 	sw	$s3,%lo(var80090b00)($at)
+/*     7368:	ac330b00 */ 	sw	$s3,%lo(g_VmMarker)($at)
 /*     736c:	02a02025 */ 	or	$a0,$s5,$zero
 /*     7370:	39e6000f */ 	xori	$a2,$t7,0xf
 /*     7374:	02402825 */ 	or	$a1,$s2,$zero
@@ -323,7 +401,7 @@ glabel vmInit
 /*     71d4:	afb30060 */ 	sw	$s3,0x60($sp)
 /*     71d8:	afb2005c */ 	sw	$s2,0x5c($sp)
 /*     71dc:	afb10058 */ 	sw	$s1,0x58($sp)
-/*     71e0:	0c002294 */ 	jal	rzipInflateFixed
+/*     71e0:	0c002294 */ 	jal	rzipInit
 /*     71e4:	a030d458 */ 	sb	$s0,-0x2ba8($at)
 /*     71e8:	0c013d4c */ 	jal	osGetMemSize
 /*     71ec:	00000000 */ 	sll	$zero,$zero,0x0
@@ -639,3 +717,191 @@ glabel vmInit
 /*     7684:	27bd1568 */ 	addiu	$sp,$sp,0x1568
 );
 #endif
+
+/**
+ * Initialise the virtual memory.
+ *
+ * The logic here is different depending on whether the system has the 4MB
+ * of onboard memory or is using the expansion pak for a total of 8MB.
+ *
+ * -- For 4MB systems --
+ *
+ * vmInit allocates space in memory for the TLB to be able to load zips in its
+ * exception handler. It initialises the zip table then leaves it to the TLB to
+ * load the game zips as needed.
+ *
+ * The memory is laid out like this:
+ *
+ *              (zip buffer) (zip table) (state table) (stack)    (end of onboard memory)
+ *   Addresses:              0x???       0x???         0x803f50b8 0x80400000
+ *     Lengths:              0x6ec       0xdd8         0xaf48     0
+ *
+ * zip buffer - is sized according to the biggest single game zip, and is
+ *     reserved space where the TLB's exception handler can DMA the zip to RAM
+ *     before unzipping it.
+ * zip table - is the ROM offset table where each zip can be found, which is
+ *     used by the TLB's exception handler.
+ * state table - is cleared by vmInit then left to the TLB's exception handler
+ *     for it to populate as zips are loaded and paged out.
+ * stack - is reserved stack space for different threads, which vmInit must not
+ *     write into.
+ *
+ * -- For 8MB systems --
+ *
+ * vmInit loads all game zips into memory and sets TLB entries to map it to
+ * virtual address space. The page swapping feature is not used as the TLB
+ * never encounters a page miss.
+ *
+ * The memory is laid out like this:
+ *
+ *              (zip buffer) (zip table) (game seg) (stack)    (end of onboard memory)
+ *   Addresses:              0x???       0x80220000 0x803f50b8 0x80400000
+ *     Lengths:              0x6ec       0x1b99e0   0xaf48     0
+ *
+ * zip buffer: is sized as PAGE_SIZE * 2, which guarantees it's big enough to
+ *     hold any zip.
+ * zip table: is the ROM offset table where each zip can be found.
+ * game seg: is where the entire game segment is unzipped to.
+ * stack: is reserved stack space for different threads, which vmInit must not
+ *     write into.
+ *
+ * -- Both systems --
+ *
+ * Regardless of the amount of memory being used, it is critical that vmInit
+ * sets the g_VmMarker global variable correctly. This marks the point in memory
+ * where memory must be preserved. The main thread uses this variable as the end
+ * address of memp's heap.
+ *
+ * In 4MB, g_VmMarker is set to the start of the zip buffer because the zip
+ * buffer is used by the exception handler.
+ *
+ * In 8MB, the zip buffer and zip table are no longer needed, so g_VmMarker is
+ * set to the start of the unzipped game segment.
+ */
+// Mismatch: Calclulations near the start are hard to match
+//void vmInit(void)
+//{
+//	s32 i;
+//	s32 j;
+//	u8 *s3;
+//	u32 *s5;
+//	u32 t8;
+//	u8 *s2;
+//	u8 *s1;
+//	u8 *chunkbuffer;
+//	s32 maxsize;
+//	u32 sp1474; // aka s6
+//	u8 sp68[1024 * 5]; // 68 to 1467
+//	u8 *gameseg; // 54
+//	u8 *zip; // 48
+//	u8 *s7;
+//	s32 statetablelen;
+//
+//	g_VmInitialised = true;
+//
+//	rzipInit();
+//
+//	if (bootGetMemSize() <= 0x400000) {
+//		g_Is4Mb = true;
+//
+//		g_VmNumPages = (s32)((&_gameSegmentEnd - &_gameSegmentStart) + 0xfff) / PAGE_SIZE;
+//		t8 = (u32)((&_gameSegmentEnd - &_gameSegmentStart) + 0xfff) / PAGE_SIZE;
+//		sp1474 = t8 + 1;
+//
+//		g_VmRamEnd = 0x7f000000 + PAGE_SIZE * g_VmNumPages;
+//		g_VmStateTableEnd = VM_MEMORY_END;
+//		g_VmStateTable = (u32 *)(VM_MEMORY_END - g_VmNumPages * 8);
+//		g_VmZipTable = (u32 *)(((u32)g_VmStateTable - (sp1474 + 5) * 4) & ~0xf);
+//
+//		// Load gamezips pointer list
+//		dmaExec(g_VmZipTable, (u32)&_gamezipSegmentRomStart, ALIGN16((sp1474 + 1) * 4));
+//
+//		// Make pointers absolute instead of relative to their segment
+//		for (i = 0; i < sp1474; i++) {
+//			g_VmZipTable[i] += (u32)&_gamezipSegmentRomStart;
+//		}
+//
+//		// Find the size of the biggest compressed zip
+//		maxsize = 0;
+//
+//		for (i = 0; i < sp1474 - 1; i++) {
+//			u32 size = g_VmZipTable[i + 1] - g_VmZipTable[i];
+//
+//			if (size > maxsize) {
+//				maxsize = size;
+//			}
+//		}
+//
+//		maxsize += 0x40;
+//		maxsize &= ~0xf;
+//		g_VmZipBuffer = (u32)g_VmZipTable - maxsize;
+//		g_VmZipBuffer &= ~0xf;
+//		gameseg = (u8 *)(g_VmZipBuffer - MAX_LOADED_PAGES * PAGE_SIZE);
+//		gameseg -= (u32)gameseg & 0x1fff;
+//		var8008ae20 = (u32)gameseg;
+//		g_VmMarker = (u32)gameseg;
+//
+//		tlb000010a4();
+//
+//		statetablelen = (g_VmNumPages * 8) >> 2;
+//
+//		for (i = 0; i < statetablelen; i++) {
+//			g_VmStateTable[i] = 0;
+//		}
+//
+//		tlb0000113c();
+//	} else {
+//		// Expansion pak is being used
+//		g_Is4Mb = false;
+//
+//		t8 = (u32)((&_gameSegmentEnd - &_gameSegmentStart) + 0xfff) / PAGE_SIZE;
+//		s7 = (u8 *)VM_MEMORY_END;
+//		gameseg = (u8 *)(((u32)s7 - ALIGN64(&_gameSegmentEnd - &_gameSegmentStart)) & 0xfffe0000);
+//		sp1474 = t8 + 1;
+//
+//		s5 = (u32 *)(((u32)gameseg - ((t8 + 5) * 4)) & ~0xf);
+//		g_VmMarker = (u32)gameseg;
+//
+//		// Load gamezips pointer list
+//		dmaExec(s5, (u32)&_gamezipSegmentRomStart, ALIGN16((sp1474 + 1) * 4));
+//
+//		// Make pointers absolute instead of relative to their segment
+//		for (i = 0; i < sp1474; i++) {
+//			s5[i] += (u32)&_gamezipSegmentRomStart;
+//		}
+//
+//		// Load each zip from the ROM and inflate them to the game segment
+//		s2 = gameseg;
+//		chunkbuffer = (u8 *)((u32)s5 - PAGE_SIZE * 2);
+//		zip = chunkbuffer + 2;
+//
+//		for (i = 0; i < sp1474 - 1; i++) {
+//			dmaExec(chunkbuffer, s5[i], ALIGN16(s5[i + 1] - s5[i]));
+//			s2 += rzipInflate(zip, s2, sp68);
+//		}
+//
+//		// This loop sets the following TLB entries:
+//		// entry 2: 0x7f000000 to 0x7f010000 and 0x7f010000 to 0x7f020000
+//		// entry 3: 0x7f020000 to 0x7f030000 and 0x7f030000 to 0x7f040000
+//		// ...
+//		// entry 14: 0x7f1a0000 to 0x7f1b0000 and 0x7f1b0000 to 0x7f1c0000
+//		s1 = (u8 *)0x7f000000;
+//		i = 2;
+//
+//		while (gameseg <= s7) {
+//			osMapTLB(i, OS_PM_64K, s1,
+//					osVirtualToPhysical((void *)gameseg),
+//					osVirtualToPhysical((void *)(gameseg + 0x10000)), -1);
+//
+//			gameseg += 0x20000;
+//			s1 += 0x20000;
+//			i++;
+//		}
+//	}
+//
+//	g_VmNumTlbMisses = 0;
+//	g_VmNumPageMisses = 0;
+//	g_VmNumPageReplaces = 0;
+//
+//	osInvalICache(0, ICACHE_SIZE);
+//}

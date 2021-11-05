@@ -4,11 +4,6 @@
 #include "constants.h"
 #include "types.h"
 
-extern u32 var8008ae20;
-extern u32 var8008ae24;
-extern u32 var8008ae28;
-extern u32 var8008ae2c;
-extern u32 var8008ae30;
 extern OSThread g_MainThread;
 extern OSMesgQueue g_SchedMesgQueue;
 extern OSSched g_Sched;
@@ -28,9 +23,9 @@ extern u8 g_Is4Mb;
 extern u32 g_VmNumTlbMisses;
 extern u32 g_VmNumPageMisses;
 extern u32 g_VmNumPageReplaces;
-extern u32 var80090b00;
-extern u32 var80090b04;
-extern u32 var80090b08;
+extern u32 g_VmMarker;
+extern u32 g_VmRamEnd;
+extern u32 g_VmStateTableEnd;
 extern AMAudioMgr g_AudioManager;
 extern Mtx *var80092870;
 extern s32 g_SndMaxFxBusses;
