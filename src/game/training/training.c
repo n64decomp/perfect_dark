@@ -2075,7 +2075,7 @@ void frInitTargets(void)
 	struct defaultobj *obj;
 	struct pospad pospad;
 	Mtxf sp144;
-	f32 sp108[9];
+	f32 sp108[3][3];
 
 	for (i = 0; i < ARRAYCOUNT(g_FrData.targets); i++) {
 		prop = g_FrData.targets[i].prop;

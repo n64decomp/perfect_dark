@@ -2411,7 +2411,7 @@ void setupHov(struct defaultobj *obj, struct hov *hov)
 	hov->unk04 = 0;
 	hov->unk08 = 0;
 	hov->unk0c = 0;
-	hov->unk10 = atan2f(obj->realrot[6], obj->realrot[8]);
+	hov->unk10 = atan2f(obj->realrot[2][0], obj->realrot[2][2]);
 	hov->unk14 = 0;
 	hov->unk18 = 0;
 	hov->unk1c = 0;
@@ -3150,7 +3150,7 @@ void setupParseObjects(s32 stagenum)
 						// resolved. sp1a8 is really an Mtxf which doesn't fit
 						// in its current location in the stack.
 						f32 sp1a8[12];
-						f32 sp184[9];
+						f32 sp184[3][3];
 
 						setupGenericObject(obj, index);
 

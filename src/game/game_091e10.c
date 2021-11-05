@@ -160,7 +160,7 @@ bool modelLoad(s32 propnum)
 	return false;
 }
 
-bool func0f09220c(struct defaultobj *obj, struct coord *pos, f32 *realrot, struct coord *arg3, struct coord *arg4)
+bool func0f09220c(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3], struct coord *arg3, struct coord *arg4)
 {
 	struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
 
@@ -184,7 +184,7 @@ bool func0f092304(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 	return func0f09220c(obj, &obj->prop->pos, obj->realrot, arg1, arg2);
 }
 
-void func0f09233c(struct defaultobj *obj, struct coord *pos, f32 *realrot, s16 *rooms)
+void func0f09233c(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3], s16 *rooms)
 {
 	struct coord a;
 	struct coord b;

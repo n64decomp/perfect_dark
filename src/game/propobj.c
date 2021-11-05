@@ -646,34 +646,34 @@ f32 func0f0668cc(struct modelrodata_bbox *bbox, Mtxf *matrix)
 	return func0f066abc(bbox, matrix->m[0][2], matrix->m[1][2], matrix->m[2][2]);
 }
 
-f32 func0f0668fc(struct modelrodata_bbox *bbox, f32 *realrot)
+f32 func0f0668fc(struct modelrodata_bbox *bbox, f32 realrot[3][3])
 {
-	return func0f066a1c(bbox, realrot[0], realrot[3], realrot[6]);
+	return func0f066a1c(bbox, realrot[0][0], realrot[1][0], realrot[2][0]);
 }
 
-f32 func0f06692c(struct modelrodata_bbox *bbox, f32 *realrot)
+f32 func0f06692c(struct modelrodata_bbox *bbox, f32 realrot[3][3])
 {
-	return func0f066abc(bbox, realrot[0], realrot[3], realrot[6]);
+	return func0f066abc(bbox, realrot[0][0], realrot[1][0], realrot[2][0]);
 }
 
-f32 func0f06695c(struct modelrodata_bbox *bbox, f32 *realrot)
+f32 func0f06695c(struct modelrodata_bbox *bbox, f32 realrot[3][3])
 {
-	return func0f066a1c(bbox, realrot[1], realrot[4], realrot[7]);
+	return func0f066a1c(bbox, realrot[0][1], realrot[1][1], realrot[2][1]);
 }
 
-f32 func0f06698c(struct modelrodata_bbox *bbox, f32 *realrot)
+f32 func0f06698c(struct modelrodata_bbox *bbox, f32 realrot[3][3])
 {
-	return func0f066abc(bbox, realrot[1], realrot[4], realrot[7]);
+	return func0f066abc(bbox, realrot[0][1], realrot[1][1], realrot[2][1]);
 }
 
-f32 func0f0669bc(struct modelrodata_bbox *bbox, f32 *realrot)
+f32 func0f0669bc(struct modelrodata_bbox *bbox, f32 realrot[3][3])
 {
-	return func0f066a1c(bbox, realrot[2], realrot[5], realrot[8]);
+	return func0f066a1c(bbox, realrot[0][2], realrot[1][2], realrot[2][2]);
 }
 
-f32 func0f0669ec(struct modelrodata_bbox *bbox, f32 *realrot)
+f32 func0f0669ec(struct modelrodata_bbox *bbox, f32 realrot[3][3])
 {
-	return func0f066abc(bbox, realrot[2], realrot[5], realrot[8]);
+	return func0f066abc(bbox, realrot[0][2], realrot[1][2], realrot[2][2]);
 }
 
 f32 func0f066a1c(struct modelrodata_bbox *bbox, f32 arg1, f32 arg2, f32 arg3)
@@ -17485,7 +17485,7 @@ f32 objGetHov04(struct defaultobj *obj)
 	return result;
 }
 
-void hovUpdateGround(struct defaultobj *obj, struct hov *hov, struct coord *pos, s16 *rooms, f32 *matrix)
+void hovUpdateGround(struct defaultobj *obj, struct hov *hov, struct coord *pos, s16 *rooms, f32 matrix[3][3])
 {
 	f32 ground;
 	s16 testrooms[8];
@@ -35264,8 +35264,8 @@ void fanUpdateModel(struct prop *prop)
 {
 	struct fanobj *fan = (struct fanobj *) prop->obj;
 	Mtxf sp6c;
-	f32 sp48[9];
-	f32 sp24[9];
+	f32 sp48[3][3];
+	f32 sp24[3][3];
 	f32 angle = fan->yspeed * g_Vars.lvupdate240freal;
 
 	while (angle >= M_BADTAU) {
@@ -60759,10 +60759,10 @@ void glassDestroy(struct defaultobj *obj)
 	if (obj->modelnum == MODEL_AIVILLABOT1
 			|| obj->modelnum == MODEL_AIVILLABOT2
 			|| obj->modelnum == MODEL_AIVILLABOT3) {
-		shardsCreate(&prop->pos, &obj->realrot[0], &obj->realrot[3], &obj->realrot[6],
+		shardsCreate(&prop->pos, &obj->realrot[0][0], &obj->realrot[1][0], &obj->realrot[2][0],
 				bbox->xmin, bbox->xmax, bbox->ymin, bbox->ymax, SHARDTYPE_BOTTLE, prop);
 	} else {
-		shardsCreate(&prop->pos, &obj->realrot[0], &obj->realrot[3], &obj->realrot[6],
+		shardsCreate(&prop->pos, &obj->realrot[0][0], &obj->realrot[1][0], &obj->realrot[2][0],
 				bbox->xmin, bbox->xmax, bbox->ymin, bbox->ymax, SHARDTYPE_GLASS, prop);
 	}
 

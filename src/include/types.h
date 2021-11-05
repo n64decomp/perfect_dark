@@ -1616,7 +1616,7 @@ struct defaultobj {
 	/*0x10*/ u32 flags3;
 	/*0x14*/ struct prop *prop;
 	/*0x18*/ struct model *model;
-	/*0x1c*/ f32 realrot[9];
+	/*0x1c*/ f32 realrot[3][3];
 	/*0x40*/ u32 hidden;
 	union {
 		/*0x44*/ struct tiletype1 *geo1;

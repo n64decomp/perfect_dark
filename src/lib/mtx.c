@@ -17,62 +17,40 @@ const char var70055998nb[] = " )\n";
 
 const u32 var70054200[] = {0x42652ee0};
 
-void mtx00016110(f32 *mtx1, f32 *mtx2)
+void mtx00016110(f32 mtx1[3][3], f32 mtx2[3][3])
 {
-	f32 mtx3[9];
+	f32 mtx3[3][3];
 
 	mtx00016140(mtx1, mtx2, mtx3);
 	mtx00015cd8(mtx3, mtx2);
 }
 
-GLOBAL_ASM(
-glabel mtx00016140
-/*    16140:	00001825 */ 	or	$v1,$zero,$zero
-/*    16144:	00804025 */ 	or	$t0,$a0,$zero
-/*    16148:	240a000c */ 	addiu	$t2,$zero,0xc
-/*    1614c:	24090003 */ 	addiu	$t1,$zero,0x3
-.L00016150:
-/*    16150:	00001025 */ 	or	$v0,$zero,$zero
-/*    16154:	00c32021 */ 	addu	$a0,$a2,$v1
-/*    16158:	00a03825 */ 	or	$a3,$a1,$zero
-.L0001615c:
-/*    1615c:	c5120000 */ 	lwc1	$f18,0x0($t0)
-/*    16160:	c4f00000 */ 	lwc1	$f16,0x0($a3)
-/*    16164:	c50e000c */ 	lwc1	$f14,0xc($t0)
-/*    16168:	c4ec0004 */ 	lwc1	$f12,0x4($a3)
-/*    1616c:	46109402 */ 	mul.s	$f16,$f18,$f16
-/*    16170:	c4f20008 */ 	lwc1	$f18,0x8($a3)
-/*    16174:	c50a0018 */ 	lwc1	$f10,0x18($t0)
-/*    16178:	460c7302 */ 	mul.s	$f12,$f14,$f12
-/*    1617c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    16180:	2484000c */ 	addiu	$a0,$a0,0xc
-/*    16184:	460a9282 */ 	mul.s	$f10,$f18,$f10
-/*    16188:	24e7000c */ 	addiu	$a3,$a3,0xc
-/*    1618c:	460c8300 */ 	add.s	$f12,$f16,$f12
-/*    16190:	460c5300 */ 	add.s	$f12,$f10,$f12
-/*    16194:	1449fff1 */ 	bne	$v0,$t1,.L0001615c
-/*    16198:	e48cfff4 */ 	swc1	$f12,-0xc($a0)
-/*    1619c:	24630004 */ 	addiu	$v1,$v1,0x4
-/*    161a0:	146affeb */ 	bne	$v1,$t2,.L00016150
-/*    161a4:	25080004 */ 	addiu	$t0,$t0,0x4
-/*    161a8:	03e00008 */ 	jr	$ra
-/*    161ac:	00000000 */ 	nop
-);
+void mtx00016140(f32 mtx1[3][3], f32 mtx2[3][3], f32 dst[3][3])
+{
+	s32 i;
+	s32 j;
 
-void mtx000161b0(f32 *matrix, f32 src[3], f32 dest[3])
+	for (i = 0; i < 3; i++) {
+		for (j = 0; j < 3; j++) {
+			dst[j][i] = mtx1[0][i] * mtx2[j][0] + mtx1[1][i] * mtx2[j][1] + mtx1[2][i] * mtx2[j][2];
+		}
+	}
+}
+
+void mtx000161b0(f32 mtx[3][3], f32 src[3], f32 dest[3])
 {
 	s32 i;
 
 	for (i = 0; i < 3; i++) {
-		dest[i] = matrix[i] * src[0] + matrix[3 + i] * src[1] + matrix[6 + i] * src[2];
+		dest[i] = mtx[0][i] * src[0] + mtx[1][i] * src[1] + mtx[2][i] * src[2];
 	}
 }
 
-void mtx00016208(f32 *matrix, struct coord *coord)
+void mtx00016208(f32 mtx[3][3], struct coord *coord)
 {
 	f32 tmp[3];
 
-	mtx000161b0(matrix, (f32 *)coord, tmp);
+	mtx000161b0(mtx, (f32 *)coord, tmp);
 
 	coord->x = tmp[0];
 	coord->y = tmp[1];
