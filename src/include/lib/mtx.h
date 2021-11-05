@@ -53,7 +53,7 @@ void mtx00016b58(Mtxf *matrix, f32 posx, f32 posy, f32 posz, f32 lookx, f32 look
 void mtx00016d58(Mtxf *matrix, f32 posx, f32 posy, f32 posz, f32 lookx, f32 looky, f32 lookz, f32 upx, f32 upy, f32 upz);
 u32 mtx00016dcc(f32 arg0, f32 arg1);
 u32 mtx00016e98(void);
-u32 mtx00017028(void);
+void mtx00017028(f32 mtx[4][4], f32 radians, f32 x, f32 y, f32 z);
 u32 mtx00017070(void);
 u32 mtx000170e4(void);
 u32 mtx0001719c(void);

@@ -11,7 +11,8 @@
 #define BADDEG2RAD(deg) ((deg) * (M_BADPI / 180.0f))
 #define DEG2RAD(deg)    ((deg) * (M_PI / 180.0f))
 
-#define RAD2DEG(rad) ((rad) * 180.0f / M_PI)
+#define RAD2DEG(rad) ((rad) * (180.0f / M_PI))
+#define RAD2DEG2(rad) ((rad) * 180.0f / M_PI)
 #define BADRAD2DEG(rad) ((rad) * (180.0f / M_BADPI))
 
 #endif

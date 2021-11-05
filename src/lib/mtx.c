@@ -15,8 +15,6 @@ const char var70055994nb[] = "";
 const char var70055998nb[] = " )\n";
 #endif
 
-const u32 var70054200[] = {0x42652ee0};
-
 void mtx00016110(f32 mtx1[3][3], f32 mtx2[3][3])
 {
 	f32 mtx3[3][3];
@@ -825,27 +823,11 @@ glabel mtx00016e98
 /*    17024:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-GLOBAL_ASM(
-glabel mtx00017028
-/*    17028:	3c017005 */ 	lui	$at,%hi(var70054200)
-/*    1702c:	44856000 */ 	mtc1	$a1,$f12
-/*    17030:	c4244200 */ 	lwc1	$f4,%lo(var70054200)($at)
-/*    17034:	44867000 */ 	mtc1	$a2,$f14
-/*    17038:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    1703c:	46046302 */ 	mul.s	$f12,$f12,$f4
-/*    17040:	c7a60030 */ 	lwc1	$f6,0x30($sp)
-/*    17044:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    17048:	44067000 */ 	mfc1	$a2,$f14
-/*    1704c:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*    17050:	e7a60010 */ 	swc1	$f6,0x10($sp)
-/*    17054:	44056000 */ 	mfc1	$a1,$f12
-/*    17058:	0c013e6c */ 	jal	guAlignF
-/*    1705c:	00000000 */ 	nop
-/*    17060:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    17064:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    17068:	03e00008 */ 	jr	$ra
-/*    1706c:	00000000 */ 	nop
-);
+void mtx00017028(f32 mtx[4][4], f32 angle, f32 x, f32 y, f32 z)
+{
+	angle = RAD2DEG(angle);
+	guAlignF(mtx, angle, x, y, z);
+}
 
 #if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(

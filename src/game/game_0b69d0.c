@@ -14825,7 +14825,7 @@ void currentPlayerCheckIfShotInBack(s32 attackerplayernum, f32 x, f32 z)
 	if (g_Vars.normmplayerisrunning) {
 		s32 victimplayernum = g_Vars.currentplayernum;
 		f32 angle = atan2f(x, z);
-		f32 finalangle = g_Vars.players[victimplayernum]->vv_theta - (360.0f - RAD2DEG(angle));
+		f32 finalangle = g_Vars.players[victimplayernum]->vv_theta - (360.0f - RAD2DEG2(angle));
 
 		if (finalangle < 0) {
 			finalangle = -finalangle;
