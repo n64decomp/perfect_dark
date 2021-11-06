@@ -335,6 +335,22 @@ glabel mtx00016820
 /*    16870:	00000000 */ 	nop
 );
 
+// Mismatch: Different instructions
+//void mtx00016820(Mtx *arg0, Mtx *arg1)
+//{
+//	s32 i;
+//	u32 upper;
+//	u32 lower;
+//
+//	for (i = 0; i < 8; i++) {
+//		upper = arg0->m[0][i];
+//		lower = arg0->m[2][i];
+//
+//		arg1->m[0][i * 2 + 0] = upper & 0xffff0000 | lower >> 16;
+//		arg1->m[0][i * 2 + 1] = upper << 16 | lower & 0xffff;
+//	}
+//}
+
 void mtx00016874(Mtxf *mtx, f32 posx, f32 posy, f32 posz, f32 lookx, f32 looky, f32 lookz, f32 upx, f32 upy, f32 upz)
 {
 	f32 a;
