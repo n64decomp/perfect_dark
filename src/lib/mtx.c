@@ -709,111 +709,51 @@ u32 mtx00016dcc(f32 arg0, f32 arg1)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel mtx00016e98
-/*    16e98:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*    16e9c:	afb00020 */ 	sw	$s0,0x20($sp)
-/*    16ea0:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*    16ea4:	4485a000 */ 	mtc1	$a1,$f20
-/*    16ea8:	00808025 */ 	or	$s0,$a0,$zero
-/*    16eac:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    16eb0:	afa60050 */ 	sw	$a2,0x50($sp)
-/*    16eb4:	afa70054 */ 	sw	$a3,0x54($sp)
-/*    16eb8:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*    16ebc:	27a40050 */ 	addiu	$a0,$sp,0x50
-/*    16ec0:	0c0011e4 */ 	jal	guNormalize
-/*    16ec4:	27a50054 */ 	addiu	$a1,$sp,0x54
-/*    16ec8:	0c0068f7 */ 	jal	sinf
-/*    16ecc:	4600a306 */ 	mov.s	$f12,$f20
-/*    16ed0:	e7a00044 */ 	swc1	$f0,0x44($sp)
-/*    16ed4:	0c0068f4 */ 	jal	cosf
-/*    16ed8:	4600a306 */ 	mov.s	$f12,$f20
-/*    16edc:	c7a20050 */ 	lwc1	$f2,0x50($sp)
-/*    16ee0:	c7ae0058 */ 	lwc1	$f14,0x58($sp)
-/*    16ee4:	e7a00040 */ 	swc1	$f0,0x40($sp)
-/*    16ee8:	46021102 */ 	mul.s	$f4,$f2,$f2
-/*    16eec:	00000000 */ 	nop
-/*    16ef0:	460e7182 */ 	mul.s	$f6,$f14,$f14
-/*    16ef4:	0c012974 */ 	jal	sqrtf
-/*    16ef8:	46062300 */ 	add.s	$f12,$f4,$f6
-/*    16efc:	4480a000 */ 	mtc1	$zero,$f20
-/*    16f00:	c7a80050 */ 	lwc1	$f8,0x50($sp)
-/*    16f04:	c7aa0040 */ 	lwc1	$f10,0x40($sp)
-/*    16f08:	46140032 */ 	c.eq.s	$f0,$f20
-/*    16f0c:	c7a40044 */ 	lwc1	$f4,0x44($sp)
-/*    16f10:	4501003e */ 	bc1t	.L0001700c
-/*    16f14:	00000000 */ 	nop
-/*    16f18:	460a4302 */ 	mul.s	$f12,$f8,$f10
-/*    16f1c:	3c013f80 */ 	lui	$at,0x3f80
-/*    16f20:	c7a60058 */ 	lwc1	$f6,0x58($sp)
-/*    16f24:	46044382 */ 	mul.s	$f14,$f8,$f4
-/*    16f28:	44814000 */ 	mtc1	$at,$f8
-/*    16f2c:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*    16f30:	00000000 */ 	nop
-/*    16f34:	46043482 */ 	mul.s	$f18,$f6,$f4
-/*    16f38:	c7a60054 */ 	lwc1	$f6,0x54($sp)
-/*    16f3c:	e7ae0030 */ 	swc1	$f14,0x30($sp)
-/*    16f40:	460e3102 */ 	mul.s	$f4,$f6,$f14
-/*    16f44:	e7b0002c */ 	swc1	$f16,0x2c($sp)
-/*    16f48:	46008287 */ 	neg.s	$f10,$f16
-/*    16f4c:	46004083 */ 	div.s	$f2,$f8,$f0
-/*    16f50:	46045201 */ 	sub.s	$f8,$f10,$f4
-/*    16f54:	46024182 */ 	mul.s	$f6,$f8,$f2
-/*    16f58:	e7a20038 */ 	swc1	$f2,0x38($sp)
-/*    16f5c:	e6060000 */ 	swc1	$f6,0x0($s0)
-/*    16f60:	c7aa0044 */ 	lwc1	$f10,0x44($sp)
-/*    16f64:	46005102 */ 	mul.s	$f4,$f10,$f0
-/*    16f68:	e6040010 */ 	swc1	$f4,0x10($s0)
-/*    16f6c:	c7a80054 */ 	lwc1	$f8,0x54($sp)
-/*    16f70:	e6140030 */ 	swc1	$f20,0x30($s0)
-/*    16f74:	46124182 */ 	mul.s	$f6,$f8,$f18
-/*    16f78:	46066281 */ 	sub.s	$f10,$f12,$f6
-/*    16f7c:	46025102 */ 	mul.s	$f4,$f10,$f2
-/*    16f80:	e6040020 */ 	swc1	$f4,0x20($s0)
-/*    16f84:	c7a80054 */ 	lwc1	$f8,0x54($sp)
-/*    16f88:	460c4182 */ 	mul.s	$f6,$f8,$f12
-/*    16f8c:	46069281 */ 	sub.s	$f10,$f18,$f6
-/*    16f90:	46025102 */ 	mul.s	$f4,$f10,$f2
-/*    16f94:	e6040004 */ 	swc1	$f4,0x4($s0)
-/*    16f98:	c7a80040 */ 	lwc1	$f8,0x40($sp)
-/*    16f9c:	46004182 */ 	mul.s	$f6,$f8,$f0
-/*    16fa0:	e6060014 */ 	swc1	$f6,0x14($s0)
-/*    16fa4:	c7aa0054 */ 	lwc1	$f10,0x54($sp)
-/*    16fa8:	c7a4002c */ 	lwc1	$f4,0x2c($sp)
-/*    16fac:	c7a60030 */ 	lwc1	$f6,0x30($sp)
-/*    16fb0:	46045202 */ 	mul.s	$f8,$f10,$f4
-/*    16fb4:	46003287 */ 	neg.s	$f10,$f6
-/*    16fb8:	c7a60038 */ 	lwc1	$f6,0x38($sp)
-/*    16fbc:	e6140034 */ 	swc1	$f20,0x34($s0)
-/*    16fc0:	46085101 */ 	sub.s	$f4,$f10,$f8
-/*    16fc4:	46062282 */ 	mul.s	$f10,$f4,$f6
-/*    16fc8:	e60a0024 */ 	swc1	$f10,0x24($s0)
-/*    16fcc:	c7a80050 */ 	lwc1	$f8,0x50($sp)
-/*    16fd0:	46004107 */ 	neg.s	$f4,$f8
-/*    16fd4:	e6040008 */ 	swc1	$f4,0x8($s0)
-/*    16fd8:	c7a60054 */ 	lwc1	$f6,0x54($sp)
-/*    16fdc:	46003287 */ 	neg.s	$f10,$f6
-/*    16fe0:	44813000 */ 	mtc1	$at,$f6
-/*    16fe4:	e60a0018 */ 	swc1	$f10,0x18($s0)
-/*    16fe8:	c7a80058 */ 	lwc1	$f8,0x58($sp)
-/*    16fec:	e6140038 */ 	swc1	$f20,0x38($s0)
-/*    16ff0:	e614000c */ 	swc1	$f20,0xc($s0)
-/*    16ff4:	46004107 */ 	neg.s	$f4,$f8
-/*    16ff8:	e614001c */ 	swc1	$f20,0x1c($s0)
-/*    16ffc:	e6040028 */ 	swc1	$f4,0x28($s0)
-/*    17000:	e614002c */ 	swc1	$f20,0x2c($s0)
-/*    17004:	10000003 */ 	b	.L00017014
-/*    17008:	e606003c */ 	swc1	$f6,0x3c($s0)
-.L0001700c:
-/*    1700c:	0c00566c */ 	jal	mtx4LoadIdentity
-/*    17010:	02002025 */ 	or	$a0,$s0,$zero
-.L00017014:
-/*    17014:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    17018:	d7b40018 */ 	ldc1	$f20,0x18($sp)
-/*    1701c:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*    17020:	03e00008 */ 	jr	$ra
-/*    17024:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+void mtx00016e98(f32 mtx[4][4], f32 angle, f32 x, f32 y, f32 z)
+{
+	f32 sine;
+	f32 cosine;
+	f32 norm;
+	f32 invnorm;
+	f32 cos_x;
+	f32 sin_x;
+	f32 cos_z;
+	f32 sin_z;
+
+	guNormalize(&x, &y, &z);
+	sine = sinf(angle);
+	cosine = cosf(angle);
+	norm = sqrtf(x * x + z * z);
+
+	if (norm != 0) {
+		cos_x = x * cosine;
+		sin_x = x * sine;
+		cos_z = z * cosine;
+		sin_z = z * sine;
+		invnorm = 1 / norm;
+
+		mtx[0][0] = (-cos_z - y * sin_x) * invnorm;
+		mtx[1][0] = (sine * norm);
+		mtx[2][0] = (cos_x - y * sin_z) * invnorm;
+		mtx[3][0] = 0;
+		mtx[0][1] = (sin_z - y * cos_x) * invnorm;
+		mtx[1][1] = (cosine * norm);
+		mtx[2][1] = (-sin_x - y * cos_z) * invnorm;
+		mtx[3][1] = 0;
+		mtx[0][2] = -x;
+		mtx[1][2] = -y;
+		mtx[2][2] = -z;
+		mtx[3][2] = 0;
+
+		mtx[0][3] = 0;
+		mtx[1][3] = 0;
+		mtx[2][3] = 0;
+		mtx[3][3] = 1;
+		return;
+	}
+
+	mtx4LoadIdentity((Mtxf *)mtx);
+}
 
 void mtx4Align(f32 mtx[4][4], f32 angle, f32 x, f32 y, f32 z)
 {
