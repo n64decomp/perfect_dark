@@ -10954,7 +10954,7 @@ glabel var7f1a8fc8
 /*  f03f374:	c4520004 */ 	lwc1	$f18,0x4($v0)
 /*  f03f378:	e7b200bc */ 	swc1	$f18,0xbc($sp)
 /*  f03f37c:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*  f03f380:	0c0056d9 */ 	jal	mtx00015b64
+/*  f03f380:	0c0056d9 */ 	jal	mtx4TransformVecInPlace
 /*  f03f384:	e7a800c0 */ 	swc1	$f8,0xc0($sp)
 /*  f03f388:	c7a600b8 */ 	lwc1	$f6,0xb8($sp)
 /*  f03f38c:	c7a400bc */ 	lwc1	$f4,0xbc($sp)
@@ -11541,7 +11541,7 @@ bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2)
 				arg2->z = rodata->pos.z;
 
 				mtx00015be4(currentPlayerGetUnk174c(), spac, &sp6c);
-				mtx00015b64(&sp6c, arg2);
+				mtx4TransformVecInPlace(&sp6c, arg2);
 				result = true;
 			} else if ((part1 = modelGetPart(model->filedata, MODELPART_0001))) {
 				sp64 = model0001a5cc(model, part1, 0);
@@ -11605,8 +11605,8 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 			lVar4 = func0f0b5050(chr->model->matrices);
 
 			if (lVar4) {
-				mtx00015b68(lVar4, pos, &sp124);
-				mtx00015b14(lVar4, vector, &sp118);
+				mtx4TransformVec(lVar4, pos, &sp124);
+				mtx4RotateVec(lVar4, vector, &sp118);
 
 				isdifferentmtx = (currentPlayerGetMatrix1740() != lVar4);
 				node = chr->model->filedata->rootnode;
@@ -12714,13 +12714,13 @@ glabel var7f1a9184
 /*  f041154:	46085481 */ 	sub.s	$f18,$f10,$f8
 /*  f041158:	e7b201e8 */ 	swc1	$f18,0x1e8($sp)
 .PF0f04115c:
-/*  f04115c:	0c0055d0 */ 	jal	mtx000159b0
+/*  f04115c:	0c0055d0 */ 	jal	mtx4LoadIdentity
 /*  f041160:	27a40178 */ 	addiu	$a0,$sp,0x178
 /*  f041164:	c7ac0200 */ 	lwc1	$f12,0x200($sp)
-/*  f041168:	0c00581e */ 	jal	mtx000162e8
+/*  f041168:	0c00581e */ 	jal	mtx4LoadXRotation
 /*  f04116c:	27a5011c */ 	addiu	$a1,$sp,0x11c
 /*  f041170:	c7ac0204 */ 	lwc1	$f12,0x204($sp)
-/*  f041174:	0c005841 */ 	jal	mtx00016374
+/*  f041174:	0c005841 */ 	jal	mtx4LoadYRotation
 /*  f041178:	27a500dc */ 	addiu	$a1,$sp,0xdc
 /*  f04117c:	27a400dc */ 	addiu	$a0,$sp,0xdc
 /*  f041180:	0c00565c */ 	jal	mtx00015be0
@@ -14312,13 +14312,13 @@ glabel var7f1a9184
 /*  f040fd0:	46085481 */ 	sub.s	$f18,$f10,$f8
 /*  f040fd4:	e7b201e8 */ 	swc1	$f18,0x1e8($sp)
 .L0f040fd8:
-/*  f040fd8:	0c00566c */ 	jal	mtx000159b0
+/*  f040fd8:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f040fdc:	27a40178 */ 	addiu	$a0,$sp,0x178
 /*  f040fe0:	c7ac0200 */ 	lwc1	$f12,0x200($sp)
-/*  f040fe4:	0c0058ba */ 	jal	mtx000162e8
+/*  f040fe4:	0c0058ba */ 	jal	mtx4LoadXRotation
 /*  f040fe8:	27a5011c */ 	addiu	$a1,$sp,0x11c
 /*  f040fec:	c7ac0204 */ 	lwc1	$f12,0x204($sp)
-/*  f040ff0:	0c0058dd */ 	jal	mtx00016374
+/*  f040ff0:	0c0058dd */ 	jal	mtx4LoadYRotation
 /*  f040ff4:	27a500dc */ 	addiu	$a1,$sp,0xdc
 /*  f040ff8:	27a400dc */ 	addiu	$a0,$sp,0xdc
 /*  f040ffc:	0c0056f8 */ 	jal	mtx00015be0
@@ -15902,13 +15902,13 @@ glabel var7f1a9184
 /*  f0407b0:	46085481 */ 	sub.s	$f18,$f10,$f8
 /*  f0407b4:	e7b201e8 */ 	swc1	$f18,0x1e8($sp)
 .NB0f0407b8:
-/*  f0407b8:	0c005a28 */ 	jal	mtx000159b0
+/*  f0407b8:	0c005a28 */ 	jal	mtx4LoadIdentity
 /*  f0407bc:	27a40178 */ 	addiu	$a0,$sp,0x178
 /*  f0407c0:	c7ac0200 */ 	lwc1	$f12,0x200($sp)
-/*  f0407c4:	0c005c9e */ 	jal	mtx000162e8
+/*  f0407c4:	0c005c9e */ 	jal	mtx4LoadXRotation
 /*  f0407c8:	27a5011c */ 	addiu	$a1,$sp,0x11c
 /*  f0407cc:	c7ac0204 */ 	lwc1	$f12,0x204($sp)
-/*  f0407d0:	0c005cc1 */ 	jal	mtx00016374
+/*  f0407d0:	0c005cc1 */ 	jal	mtx4LoadYRotation
 /*  f0407d4:	27a500dc */ 	addiu	$a1,$sp,0xdc
 /*  f0407d8:	27a400dc */ 	addiu	$a0,$sp,0xdc
 /*  f0407dc:	0c005ab4 */ 	jal	mtx00015be0
@@ -17442,11 +17442,11 @@ glabel var7f1a91dc
 /*  f042cc4:	e6060004 */ 	swc1	$f6,0x4($s0)
 /*  f042cc8:	c4480008 */ 	lwc1	$f8,0x8($v0)
 /*  f042ccc:	e6080008 */ 	swc1	$f8,0x8($s0)
-/*  f042cd0:	0c0058dd */ 	jal	mtx00016374
+/*  f042cd0:	0c0058dd */ 	jal	mtx4LoadYRotation
 /*  f042cd4:	c7ac00fc */ 	lwc1	$f12,0xfc($sp)
 /*  f042cd8:	27a400a4 */ 	addiu	$a0,$sp,0xa4
 /*  f042cdc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f042ce0:	0c0056c5 */ 	jal	mtx00015b14
+/*  f042ce0:	0c0056c5 */ 	jal	mtx4RotateVec
 /*  f042ce4:	27a600e4 */ 	addiu	$a2,$sp,0xe4
 /*  f042ce8:	8e4c0020 */ 	lw	$t4,0x20($s2)
 /*  f042cec:	c7aa00e4 */ 	lwc1	$f10,0xe4($sp)
@@ -17719,8 +17719,8 @@ glabel var7f1a91dc
 //			act->pos[i].y = rodata->position.pos.y - 300;
 //			act->pos[i].z = rodata->position.pos.z;
 //
-//			mtx00016374(invtheta, &spa4);
-//			mtx00015b14(&spa4, &act->pos[i], &spe4);
+//			mtx4LoadYRotation(invtheta, &spa4);
+//			mtx4RotateVec(&spa4, &act->pos[i], &spe4);
 //
 //			spe4.x *= chr->model->scale;
 //			spe4.y *= chr->model->scale;
@@ -25385,7 +25385,7 @@ bool chrCanSeeTargetWithExtraCheck(struct chrdata *chr)
 
 				bgun0f0a0c08(&sp68, &sp56);
 				modelGetRootPosition(model, &sp44);
-				mtx00015b64(currentPlayerGetMatrix1740(), &sp44);
+				mtx4TransformVecInPlace(currentPlayerGetMatrix1740(), &sp44);
 
 				if (func0f06b39c(&sp68, &sp56, &sp44, somefloat)) {
 					return true;
@@ -28504,7 +28504,7 @@ Gfx *chrsRenderChrStats(Gfx *gdl, s16 *rooms)
 			sp20c.y = chr->ground + chr->chrheight - 30;
 			sp20c.z = chr->prop->pos.z;
 
-			mtx00015b64(g_Vars.currentplayer->matrix1740, &sp20c);
+			mtx4TransformVecInPlace(g_Vars.currentplayer->matrix1740, &sp20c);
 
 			if (sp20c.z < -100 && sp20c.z > -1000) {
 				func0f0b4eb8(&sp20c, sp204, g_Vars.currentplayer->c_perspfovy, g_Vars.currentplayer->c_perspaspect);

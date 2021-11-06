@@ -1801,17 +1801,17 @@ Gfx *vi0000ab78(Gfx *gdl)
 	u16 sp46;
 
 	guPerspectiveF(sp110.m, &sp46, g_ViBackData->fovy, g_ViBackData->aspect, g_ViBackData->znear, g_ViBackData->zfar + g_ViBackData->zfar, 1);
-	mtx00015d18(currentPlayerGetMatrix1740(), &sp90);
+	mtx4Copy(currentPlayerGetMatrix1740(), &sp90);
 
 	sp90.m[3][0] = 0;
 	sp90.m[3][1] = 0;
 	sp90.m[3][2] = 0;
 
-	mtx00015a00(&sp110, &sp90, &spd0);
+	mtx4MultMtx4(&sp110, &sp90, &spd0);
 	sp4c = gfxAllocateMatrix();
 	guMtxF2L(spd0.m, sp4c);
 
-	mtx000159b0(&sp50);
+	mtx4LoadIdentity(&sp50);
 	sp48 = gfxAllocateMatrix();
 	guMtxF2L(sp50.m, sp48);
 

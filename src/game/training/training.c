@@ -2127,15 +2127,15 @@ void frInitTargets(void)
 			}
 
 			if (g_FrData.targets[i].flags & FRTARGETFLAG_SPAWNFACINGAWAY) {
-				mtx00016374(0.0f, &sp144);
+				mtx4LoadYRotation(0.0f, &sp144);
 				g_FrData.targets[i].angle = M_PI;
 			} else {
-				mtx00016374(M_PI, &sp144);
+				mtx4LoadYRotation(M_PI, &sp144);
 			}
 
 			mtx00015f04(obj->model->scale, &sp144);
-			mtx00015da0(&sp144, sp108);
-			mtx00015cd8(sp108, obj->realrot);
+			mtx4ToMtx3(&sp144, sp108);
+			mtx3Copy(sp108, obj->realrot);
 
 			prop->pos.x = pospad.pos.x;
 			prop->pos.y = pospad.pos.y;
@@ -2282,12 +2282,12 @@ glabel var7f1b3a44
 /*  f19863c:	11a00006 */ 	beqz	$t5,.NB0f198658
 /*  f198640:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f198644:	4600a306 */ 	mov.s	$f12,$f20
-/*  f198648:	0c005cc1 */ 	jal	mtx00016374
+/*  f198648:	0c005cc1 */ 	jal	mtx4LoadYRotation
 /*  f19864c:	02802825 */ 	or	$a1,$s4,$zero
 /*  f198650:	10000003 */ 	beqz	$zero,.NB0f198660
 /*  f198654:	e6160038 */ 	swc1	$f22,0x38($s0)
 .NB0f198658:
-/*  f198658:	0c005cc1 */ 	jal	mtx00016374
+/*  f198658:	0c005cc1 */ 	jal	mtx4LoadYRotation
 /*  f19865c:	4600b306 */ 	mov.s	$f12,$f22
 .NB0f198660:
 /*  f198660:	8e2e0018 */ 	lw	$t6,0x18($s1)
@@ -2295,10 +2295,10 @@ glabel var7f1b3a44
 /*  f198668:	0c005b7d */ 	jal	mtx00015f04
 /*  f19866c:	c5cc0014 */ 	lwc1	$f12,0x14($t6)
 /*  f198670:	02802025 */ 	or	$a0,$s4,$zero
-/*  f198674:	0c005b24 */ 	jal	mtx00015da0
+/*  f198674:	0c005b24 */ 	jal	mtx4ToMtx3
 /*  f198678:	27a50064 */ 	addiu	$a1,$sp,0x64
 /*  f19867c:	27a40064 */ 	addiu	$a0,$sp,0x64
-/*  f198680:	0c005af2 */ 	jal	mtx00015cd8
+/*  f198680:	0c005af2 */ 	jal	mtx3Copy
 /*  f198684:	2625001c */ 	addiu	$a1,$s1,0x1c
 /*  f198688:	c7a600c8 */ 	lwc1	$f6,0xc8($sp)
 /*  f19868c:	02202025 */ 	or	$a0,$s1,$zero
@@ -4048,17 +4048,17 @@ glabel var7f1b94e4
 .PF0f1a1904:
 /*  f1a1904:	c426ab44 */ 	lwc1	$f6,-0x54bc($at)
 /*  f1a1908:	02802825 */ 	move	$a1,$s4
-/*  f1a190c:	0c005841 */ 	jal	mtx00016374
+/*  f1a190c:	0c005841 */ 	jal	mtx4LoadYRotation
 /*  f1a1910:	46060300 */ 	add.s	$f12,$f0,$f6
 /*  f1a1914:	8e6c0018 */ 	lw	$t4,0x18($s3)
 /*  f1a1918:	02802825 */ 	move	$a1,$s4
 /*  f1a191c:	0c005725 */ 	jal	mtx00015f04
 /*  f1a1920:	c58c0014 */ 	lwc1	$f12,0x14($t4)
 /*  f1a1924:	02802025 */ 	move	$a0,$s4
-/*  f1a1928:	0c0056cc */ 	jal	mtx00015da0
+/*  f1a1928:	0c0056cc */ 	jal	mtx4ToMtx3
 /*  f1a192c:	02a02825 */ 	move	$a1,$s5
 /*  f1a1930:	02a02025 */ 	move	$a0,$s5
-/*  f1a1934:	0c00569a */ 	jal	mtx00015cd8
+/*  f1a1934:	0c00569a */ 	jal	mtx3Copy
 /*  f1a1938:	2665001c */ 	addiu	$a1,$s3,0x1c
 /*  f1a193c:	8e020010 */ 	lw	$v0,0x10($s0)
 .PF0f1a1940:
@@ -5159,17 +5159,17 @@ glabel var7f1b94e4
 .L0f1a081c:
 /*  f1a081c:	c43294e4 */ 	lwc1	$f18,%lo(var7f1b94e4)($at)
 /*  f1a0820:	02802825 */ 	or	$a1,$s4,$zero
-/*  f1a0824:	0c0058dd */ 	jal	mtx00016374
+/*  f1a0824:	0c0058dd */ 	jal	mtx4LoadYRotation
 /*  f1a0828:	46120300 */ 	add.s	$f12,$f0,$f18
 /*  f1a082c:	8e6e0018 */ 	lw	$t6,0x18($s3)
 /*  f1a0830:	02802825 */ 	or	$a1,$s4,$zero
 /*  f1a0834:	0c0057c1 */ 	jal	mtx00015f04
 /*  f1a0838:	c5cc0014 */ 	lwc1	$f12,0x14($t6)
 /*  f1a083c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1a0840:	0c005768 */ 	jal	mtx00015da0
+/*  f1a0840:	0c005768 */ 	jal	mtx4ToMtx3
 /*  f1a0844:	02a02825 */ 	or	$a1,$s5,$zero
 /*  f1a0848:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f1a084c:	0c005736 */ 	jal	mtx00015cd8
+/*  f1a084c:	0c005736 */ 	jal	mtx3Copy
 /*  f1a0850:	2665001c */ 	addiu	$a1,$s3,0x1c
 /*  f1a0854:	8e020010 */ 	lw	$v0,0x10($s0)
 .L0f1a0858:
@@ -6274,17 +6274,17 @@ glabel var7f1b94e4
 .NB0f19a82c:
 /*  f19a82c:	c4243b04 */ 	lwc1	$f4,0x3b04($at)
 /*  f19a830:	02802825 */ 	or	$a1,$s4,$zero
-/*  f19a834:	0c005cc1 */ 	jal	mtx00016374
+/*  f19a834:	0c005cc1 */ 	jal	mtx4LoadYRotation
 /*  f19a838:	46040300 */ 	add.s	$f12,$f0,$f4
 /*  f19a83c:	8e6f0018 */ 	lw	$t7,0x18($s3)
 /*  f19a840:	02802825 */ 	or	$a1,$s4,$zero
 /*  f19a844:	0c005b7d */ 	jal	mtx00015f04
 /*  f19a848:	c5ec0014 */ 	lwc1	$f12,0x14($t7)
 /*  f19a84c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19a850:	0c005b24 */ 	jal	mtx00015da0
+/*  f19a850:	0c005b24 */ 	jal	mtx4ToMtx3
 /*  f19a854:	02a02825 */ 	or	$a1,$s5,$zero
 /*  f19a858:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f19a85c:	0c005af2 */ 	jal	mtx00015cd8
+/*  f19a85c:	0c005af2 */ 	jal	mtx3Copy
 /*  f19a860:	2665001c */ 	addiu	$a1,$s3,0x1c
 /*  f19a864:	8e020010 */ 	lw	$v0,0x10($s0)
 .NB0f19a868:
@@ -6850,10 +6850,10 @@ glabel var7f1b94e4
 //				}
 //
 //				// 81c
-//				mtx00016374(g_FrData.targets[i].angle + M_PI, &spbc);
+//				mtx4LoadYRotation(g_FrData.targets[i].angle + M_PI, &spbc);
 //				mtx00015f04(obj->model->scale, &spbc);
-//				mtx00015da0(&spbc, sp98);
-//				mtx00015cd8(sp98, obj->realrot);
+//				mtx4ToMtx3(&spbc, sp98);
+//				mtx3Copy(sp98, obj->realrot);
 //			}
 //
 //			// 854

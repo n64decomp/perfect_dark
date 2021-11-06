@@ -19,7 +19,7 @@ void func0f096360(Mtxf *mtx)
 	coord.y = random() * (1.0f / U32_MAX) * PALUPF(M_BADTAU) * 0.0078125f - PALUPF(0.024539785459638f);
 	coord.z = random() * (1.0f / U32_MAX) * PALUPF(M_BADTAU) * 0.0078125f - PALUPF(0.024539785459638f);
 
-	mtx0001648c(&coord, mtx);
+	mtx4LoadRotation(&coord, mtx);
 }
 
 void func0f0964b4(f32 *arg0, Mtxf *mtx)

@@ -20,7 +20,7 @@ void mtx00016110(f32 mtx1[3][3], f32 mtx2[3][3])
 	f32 mtx3[3][3];
 
 	mtx00016140(mtx1, mtx2, mtx3);
-	mtx00015cd8(mtx3, mtx2);
+	mtx3Copy(mtx3, mtx2);
 }
 
 void mtx00016140(f32 mtx1[3][3], f32 mtx2[3][3], f32 dst[3][3])
@@ -55,7 +55,7 @@ void mtx00016208(f32 mtx[3][3], struct coord *coord)
 	coord->z = tmp[2];
 }
 
-void mtx00016248(struct coord *coord, f32 angle, Mtxf *matrix)
+void mtx4LoadYRotationWithTranslation(struct coord *coord, f32 angle, Mtxf *matrix)
 {
 	f32 cos = cosf(angle);
 	f32 sin = sinf(angle);
@@ -127,7 +127,7 @@ glabel func000171d8nb
 );
 #endif
 
-void mtx000162e8(f32 angle, Mtxf *matrix)
+void mtx4LoadXRotation(f32 angle, Mtxf *matrix)
 {
 	f32 cos = cosf(angle);
 	f32 sin = sinf(angle);
@@ -153,7 +153,7 @@ void mtx000162e8(f32 angle, Mtxf *matrix)
 	matrix->m[3][3] = 1;
 }
 
-void mtx00016374(f32 angle, Mtxf *matrix)
+void mtx4LoadYRotation(f32 angle, Mtxf *matrix)
 {
 	f32 cos = cosf(angle);
 	f32 sin = sinf(angle);
@@ -179,7 +179,7 @@ void mtx00016374(f32 angle, Mtxf *matrix)
 	matrix->m[3][3] = 1;
 }
 
-void mtx00016400(f32 angle, Mtxf *matrix)
+void mtx4LoadZRotation(f32 angle, Mtxf *matrix)
 {
 	f32 cos = cosf(angle);
 	f32 sin = (float)sinf(angle);
@@ -205,7 +205,7 @@ void mtx00016400(f32 angle, Mtxf *matrix)
 	matrix->m[3][3] = 1;
 }
 
-void mtx0001648c(struct coord *src, Mtxf *dest)
+void mtx4LoadRotation(struct coord *src, Mtxf *dest)
 {
 	f32 xcos = cosf(src->x);
 	f32 xsin = sinf(src->x);
@@ -298,14 +298,14 @@ glabel mtx000165d8
 
 void mtx000166a4(struct coord *pos, struct coord *rot, Mtxf *matrix)
 {
-	mtx0001648c(rot, matrix);
-	mtx00015dd4(pos, matrix);
+	mtx4LoadRotation(rot, matrix);
+	mtx4SetTranslation(pos, matrix);
 }
 
 void mtx000166dc(struct coord *pos, Mtxf *matrix)
 {
-	mtx000159b0(matrix);
-	mtx00015dd4(pos, matrix);
+	mtx4LoadIdentity(matrix);
+	mtx4SetTranslation(pos, matrix);
 }
 
 void mtx00016710(f32 mult, f32 mtx[4][4])
@@ -813,7 +813,7 @@ glabel mtx00016e98
 /*    17004:	10000003 */ 	b	.L00017014
 /*    17008:	e606003c */ 	swc1	$f6,0x3c($s0)
 .L0001700c:
-/*    1700c:	0c00566c */ 	jal	mtx000159b0
+/*    1700c:	0c00566c */ 	jal	mtx4LoadIdentity
 /*    17010:	02002025 */ 	or	$a0,$s0,$zero
 .L00017014:
 /*    17014:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -823,7 +823,7 @@ glabel mtx00016e98
 /*    17024:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-void mtx00017028(f32 mtx[4][4], f32 angle, f32 x, f32 y, f32 z)
+void mtx4Align(f32 mtx[4][4], f32 angle, f32 x, f32 y, f32 z)
 {
 	angle = RAD2DEG(angle);
 	guAlignF(mtx, angle, x, y, z);
@@ -831,7 +831,7 @@ void mtx00017028(f32 mtx[4][4], f32 angle, f32 x, f32 y, f32 z)
 
 #if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func00018000nb
+glabel mtx4Print
 /*    18000:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*    18004:	afbe0040 */ 	sw	$s8,0x40($sp)
 /*    18008:	afb40030 */ 	sw	$s4,0x30($sp)
@@ -892,7 +892,7 @@ glabel func00018000nb
 );
 #endif
 
-void mtx00017070(f32 src[4][4], f32 dst[4][4])
+void mtx4LoadRotationFrom(f32 src[4][4], f32 dst[4][4])
 {
 	dst[0][0] = src[0][0];
 	dst[0][1] = src[1][0];

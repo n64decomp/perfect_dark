@@ -8953,7 +8953,7 @@ bool func0f15d08c(struct coord *a, struct coord *b)
 	b->y = a->y;
 	b->z = a->z;
 
-	mtx00015b64(matrix, b);
+	mtx4TransformVecInPlace(matrix, b);
 	func0f0b4d68(b, b);
 
 	if (b->z > 0) {
@@ -12700,7 +12700,7 @@ glabel func0f15ffdc
 /*  f160180:	468084a0 */ 	cvt.s.w	$f18,$f16
 /*  f160184:	e6120008 */ 	swc1	$f18,0x8($s0)
 /*  f160188:	a7a800ee */ 	sh	$t0,0xee($sp)
-/*  f16018c:	0c0056d9 */ 	jal	mtx00015b64
+/*  f16018c:	0c0056d9 */ 	jal	mtx4TransformVecInPlace
 /*  f160190:	8fa400a8 */ 	lw	$a0,0xa8($sp)
 /*  f160194:	2631ffff */ 	addiu	$s1,$s1,-1
 /*  f160198:	87a800ee */ 	lh	$t0,0xee($sp)
@@ -16004,7 +16004,7 @@ glabel func0f162d9c
 /*  f162eb0:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
 /*  f162eb4:	e7b2009c */ 	swc1	$f18,0x9c($sp)
 /*  f162eb8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f162ebc:	0c0056d9 */ 	jal	mtx00015b64
+/*  f162ebc:	0c0056d9 */ 	jal	mtx4TransformVecInPlace
 /*  f162ec0:	27a50094 */ 	addiu	$a1,$sp,0x94
 /*  f162ec4:	c7a40094 */ 	lwc1	$f4,0x94($sp)
 /*  f162ec8:	3c047f1b */ 	lui	$a0,%hi(var7f1b75ac)

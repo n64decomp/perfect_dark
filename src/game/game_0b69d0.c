@@ -1750,8 +1750,8 @@ void currentPlayerSpawn(void)
 				s32 prevplayernum = g_Vars.currentplayernum;
 				setCurrentPlayerNum(g_Vars.bondplayernum);
 				bgun0f0a0c08(&sp84, &sp9c);
-				mtx00015b14(currentPlayerGetUnk174c(), &sp9c, &sp90);
-				mtx00015b68(currentPlayerGetUnk174c(), &sp84, &sp78);
+				mtx4RotateVec(currentPlayerGetUnk174c(), &sp9c, &sp90);
+				mtx4TransformVec(currentPlayerGetUnk174c(), &sp84, &sp78);
 				setCurrentPlayerNum(prevplayernum);
 			}
 
@@ -3894,7 +3894,7 @@ void func0f0ba190(u32 arg0)
 	sp7f = anim00023ab0(g_CutsceneAnimNum, lastframe);
 	anim00023d0c();
 	anim00024050(0, 0, &g_ModelType20, g_CutsceneAnimNum, sp7f, &sp94, &sp88, &sp7c);
-	mtx0001648c(&sp94, &sp38);
+	mtx4LoadRotation(&sp94, &sp38);
 
 	theta = atan2f(-sp38.m[2][0], -sp38.m[2][2]);
 	theta = (M_BADTAU - theta) * 57.304901123047f;
@@ -3990,7 +3990,7 @@ void func0f0ba29c(bool arg0)
 	pos.y = sp16c.y * sp118;
 	pos.z = sp16c.z * sp118;
 
-	mtx0001648c(&sp178, &sp11c);
+	mtx4LoadRotation(&sp178, &sp11c);
 
 	up.x = sp11c.m[1][0];
 	up.y = sp11c.m[1][1];
@@ -6615,7 +6615,7 @@ glabel var7f1ad6ac
 /*  f0bee2c:	0fc25b7d */ 	jal	func0f096ed4
 /*  f0bee30:	02a02025 */ 	move	$a0,$s5
 /*  f0bee34:	02002025 */ 	move	$a0,$s0
-/*  f0bee38:	0c005628 */ 	jal	mtx00015b10
+/*  f0bee38:	0c005628 */ 	jal	mtx4RotateVecInPlace
 /*  f0bee3c:	26850004 */ 	addiu	$a1,$s4,0x4
 /*  f0bee40:	8e8b0000 */ 	lw	$t3,0x0($s4)
 /*  f0bee44:	44808000 */ 	mtc1	$zero,$f16
@@ -6703,7 +6703,7 @@ glabel var7f1ad6ac
 /*  f0bef70:	46023482 */ 	mul.s	$f18,$f6,$f2
 /*  f0bef74:	460e9203 */ 	div.s	$f8,$f18,$f14
 /*  f0bef78:	e6840008 */ 	swc1	$f4,0x8($s4)
-/*  f0bef7c:	0c0056b9 */ 	jal	mtx00015d54
+/*  f0bef7c:	0c0056b9 */ 	jal	mtx3ToMtx4
 /*  f0bef80:	e688000c */ 	swc1	$f8,0xc($s4)
 /*  f0bef84:	27b2012c */ 	addiu	$s2,$sp,0x12c
 /*  f0bef88:	02402825 */ 	move	$a1,$s2
@@ -6719,7 +6719,7 @@ glabel var7f1ad6ac
 /*  f0befb0:	0fc25b7d */ 	jal	func0f096ed4
 /*  f0befb4:	02002025 */ 	move	$a0,$s0
 /*  f0befb8:	02402025 */ 	move	$a0,$s2
-/*  f0befbc:	0c0056cc */ 	jal	mtx00015da0
+/*  f0befbc:	0c0056cc */ 	jal	mtx4ToMtx3
 /*  f0befc0:	27a502b8 */ 	addiu	$a1,$sp,0x2b8
 /*  f0befc4:	c7a002a8 */ 	lwc1	$f0,0x2a8($sp)
 /*  f0befc8:	c7aa02b8 */ 	lwc1	$f10,0x2b8($sp)
@@ -9016,7 +9016,7 @@ glabel var7f1ad6ac
 /*  f0be8c0:	0fc25bb5 */ 	jal	func0f096ed4
 /*  f0be8c4:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f0be8c8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0be8cc:	0c0056c4 */ 	jal	mtx00015b10
+/*  f0be8cc:	0c0056c4 */ 	jal	mtx4RotateVecInPlace
 /*  f0be8d0:	26850004 */ 	addiu	$a1,$s4,0x4
 /*  f0be8d4:	8e8c0000 */ 	lw	$t4,0x0($s4)
 /*  f0be8d8:	44808000 */ 	mtc1	$zero,$f16
@@ -9104,7 +9104,7 @@ glabel var7f1ad6ac
 /*  f0bea04:	46023482 */ 	mul.s	$f18,$f6,$f2
 /*  f0bea08:	460e9203 */ 	div.s	$f8,$f18,$f14
 /*  f0bea0c:	e6840008 */ 	swc1	$f4,0x8($s4)
-/*  f0bea10:	0c005755 */ 	jal	mtx00015d54
+/*  f0bea10:	0c005755 */ 	jal	mtx3ToMtx4
 /*  f0bea14:	e688000c */ 	swc1	$f8,0xc($s4)
 /*  f0bea18:	27b2012c */ 	addiu	$s2,$sp,0x12c
 /*  f0bea1c:	02402825 */ 	or	$a1,$s2,$zero
@@ -9120,7 +9120,7 @@ glabel var7f1ad6ac
 /*  f0bea44:	0fc25bb5 */ 	jal	func0f096ed4
 /*  f0bea48:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bea4c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0bea50:	0c005768 */ 	jal	mtx00015da0
+/*  f0bea50:	0c005768 */ 	jal	mtx4ToMtx3
 /*  f0bea54:	27a502b8 */ 	addiu	$a1,$sp,0x2b8
 /*  f0bea58:	c7a002a8 */ 	lwc1	$f0,0x2a8($sp)
 /*  f0bea5c:	c7aa02b8 */ 	lwc1	$f10,0x2b8($sp)
@@ -11375,7 +11375,7 @@ glabel var7f1ad6ac
 /*  f0bc494:	0fc25399 */ 	jal	func0f096ed4
 /*  f0bc498:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f0bc49c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0bc4a0:	0c005a80 */ 	jal	mtx00015b10
+/*  f0bc4a0:	0c005a80 */ 	jal	mtx4RotateVecInPlace
 /*  f0bc4a4:	26850004 */ 	addiu	$a1,$s4,0x4
 /*  f0bc4a8:	8e8f0000 */ 	lw	$t7,0x0($s4)
 /*  f0bc4ac:	44808000 */ 	mtc1	$zero,$f16
@@ -11463,7 +11463,7 @@ glabel var7f1ad6ac
 /*  f0bc5d8:	46023482 */ 	mul.s	$f18,$f6,$f2
 /*  f0bc5dc:	460e9203 */ 	div.s	$f8,$f18,$f14
 /*  f0bc5e0:	e6840008 */ 	swc1	$f4,0x8($s4)
-/*  f0bc5e4:	0c005b11 */ 	jal	mtx00015d54
+/*  f0bc5e4:	0c005b11 */ 	jal	mtx3ToMtx4
 /*  f0bc5e8:	e688000c */ 	swc1	$f8,0xc($s4)
 /*  f0bc5ec:	27b20130 */ 	addiu	$s2,$sp,0x130
 /*  f0bc5f0:	02402825 */ 	or	$a1,$s2,$zero
@@ -11479,7 +11479,7 @@ glabel var7f1ad6ac
 /*  f0bc618:	0fc25399 */ 	jal	func0f096ed4
 /*  f0bc61c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bc620:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0bc624:	0c005b24 */ 	jal	mtx00015da0
+/*  f0bc624:	0c005b24 */ 	jal	mtx4ToMtx3
 /*  f0bc628:	27a502bc */ 	addiu	$a1,$sp,0x2bc
 /*  f0bc62c:	c7a002ac */ 	lwc1	$f0,0x2ac($sp)
 /*  f0bc630:	c7aa02bc */ 	lwc1	$f10,0x2bc($sp)
@@ -13086,7 +13086,7 @@ glabel var7f1ad6ac
 //							// e8b0
 //							func0f097738(sp348, sp332, sp316);
 //							func0f096ed4(sp316, sp508);
-//							mtx00015b10(sp508, &projectile->unk04);
+//							mtx4RotateVecInPlace(sp508, &projectile->unk04);
 //
 //							projectile->unkb2 = 0xffff;
 //							projectile->flags |= PROJECTILEFLAG_00004000;
@@ -13134,11 +13134,11 @@ glabel var7f1ad6ac
 //							projectile->unk04.z = (projectile->unk04.z * newspeed) / prevspeed;
 //
 //							// ea10
-//							mtx00015d54(sp696, sp444);
+//							mtx3ToMtx4(sp696, sp444);
 //							func0f097044(sp444, sp300);
 //							func0f097738(sp316, sp300, sp284);
 //							func0f096ed4(sp284, sp380);
-//							mtx00015da0(sp380, sp696);
+//							mtx4ToMtx3(sp380, sp696);
 //
 //							rocket->base.realrot[0] = sp696[0] * sp680;
 //							rocket->base.realrot[1] = sp696[1] * sp680;
@@ -13944,7 +13944,7 @@ void currentPlayerSetGlobalDrawCameraOffset(void)
 	g_Vars.currentplayer->globaldrawcameraoffset.y = g_Vars.currentplayer->globaldrawworldoffset.y;
 	g_Vars.currentplayer->globaldrawcameraoffset.z = g_Vars.currentplayer->globaldrawworldoffset.z;
 
-	mtx00015b10(currentPlayerGetMatrix1740(), &g_Vars.currentplayer->globaldrawcameraoffset);
+	mtx4RotateVecInPlace(currentPlayerGetMatrix1740(), &g_Vars.currentplayer->globaldrawcameraoffset);
 }
 
 GLOBAL_ASM(
@@ -14089,7 +14089,7 @@ glabel func0f0bfc7c
 /*  f0bfea0:	00408025 */ 	or	$s0,$v0,$zero
 /*  f0bfea4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0bfea8:	27a5008c */ 	addiu	$a1,$sp,0x8c
-/*  f0bfeac:	0c005680 */ 	jal	mtx00015a00
+/*  f0bfeac:	0c005680 */ 	jal	mtx4MultMtx4
 /*  f0bfeb0:	02003025 */ 	or	$a2,$s0,$zero
 /*  f0bfeb4:	3c01c6fa */ 	lui	$at,0xc6fa
 /*  f0bfeb8:	44816000 */ 	mtc1	$at,$f12
@@ -14224,7 +14224,7 @@ glabel func0f0bfc7c
 //
 //	s1 = gfxAllocateMatrix();
 //	s0 = gfxAllocateMatrix();
-//	mtx00015a00(currentPlayerGetUnk1754(), &sp8c, s0);
+//	mtx4MultMtx4(currentPlayerGetUnk1754(), &sp8c, s0);
 //
 //	for (i = 0; i < 4; i++) {
 //		for (j = 0; j < 4; j++) {

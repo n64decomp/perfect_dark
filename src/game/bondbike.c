@@ -42,9 +42,9 @@ void bbikeInit(void)
 	g_Vars.currentplayer->bondenterpos.y = g_Vars.currentplayer->prop->pos.y;
 	g_Vars.currentplayer->bondenterpos.z = g_Vars.currentplayer->prop->pos.z;
 
-	mtx00015d54(hoverbike->base.realrot, &matrix);
-	mtx00015dd4(&hoverbike->base.prop->pos, &matrix);
-	mtx00015b68(&matrix, &g_Vars.currentplayer->bondvehicleoffset, &g_Vars.currentplayer->bondenteraim);
+	mtx3ToMtx4(hoverbike->base.realrot, &matrix);
+	mtx4SetTranslation(&hoverbike->base.prop->pos, &matrix);
+	mtx4TransformVec(&matrix, &g_Vars.currentplayer->bondvehicleoffset, &g_Vars.currentplayer->bondenteraim);
 	mtx00016b58(&g_Vars.currentplayer->bondentermtx,
 			0, 0, 0,
 			-g_Vars.currentplayer->bond2.unk1c.x, -g_Vars.currentplayer->bond2.unk1c.y, -g_Vars.currentplayer->bond2.unk1c.z,
@@ -1129,9 +1129,9 @@ s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
 
 		hoverpropSetTurnAngle(&bike->base, newangle);
 
-		mtx00016374(newangle, &sp44);
+		mtx4LoadYRotation(newangle, &sp44);
 		mtx00015f04(bike->base.model->scale, &sp44);
-		mtx00015da0(&sp44, bike->base.realrot);
+		mtx4ToMtx3(&sp44, bike->base.realrot);
 	}
 
 	if (result == CDRESULT_NOCOLLISION && hasvel) {
@@ -1668,9 +1668,9 @@ void bbikeTick(void)
 
 		func0f0714b8(obj, &bike->hov);
 		func0f069c70(obj, true, true);
-		mtx00015d54(obj->realrot, &sp1a8);
-		mtx00015dd4(&obj->prop->pos, &sp1a8);
-		mtx00015b68(&sp1a8, &g_Vars.currentplayer->bondvehicleoffset, &sp1e8);
+		mtx3ToMtx4(obj->realrot, &sp1a8);
+		mtx4SetTranslation(&obj->prop->pos, &sp1a8);
+		mtx4TransformVec(&sp1a8, &g_Vars.currentplayer->bondvehicleoffset, &sp1e8);
 
 		bbikeUpdateVertical(&sp1e8);
 
@@ -1690,22 +1690,22 @@ void bbikeTick(void)
 
 	bheadAdjustAnimation(0);
 	bheadUpdate(0, 0);
-	mtx000162e8((360.0f - g_Vars.currentplayer->vv_verta360) * 0.017450513318181f, &sp164);
+	mtx4LoadXRotation((360.0f - g_Vars.currentplayer->vv_verta360) * 0.017450513318181f, &sp164);
 
 	mtx00016d58(&sp124, 0.0f, 0.0f, 0.0f,
 			-g_Vars.currentplayer->headlook.x, -g_Vars.currentplayer->headlook.y, -g_Vars.currentplayer->headlook.z,
 			g_Vars.currentplayer->headup.x, g_Vars.currentplayer->headup.y, g_Vars.currentplayer->headup.z);
 
-	mtx000159fc(&sp124, &sp164);
-	mtx00015d54(obj->realrot, &sp124);
+	mtx4MultMtx4InPlace(&sp124, &sp164);
+	mtx3ToMtx4(obj->realrot, &sp124);
 	mtx00015f04(1.0f / obj->model->scale, &sp124);
-	mtx00016374(hoverpropGetTurnAngle(obj), &spe4);
+	mtx4LoadYRotation(hoverpropGetTurnAngle(obj), &spe4);
 	func0f097044(&spe4, &spd4);
 	func0f097044(&sp124, &spc4);
 	func0f0976c0(&spc4, &spd4);
 	func0f0972b8(&spd4, &spc4, 0.8f, spb4);
 	func0f096ed4(spb4, &sp124);
-	mtx000159fc(&sp124, &sp164);
+	mtx4MultMtx4InPlace(&sp124, &sp164);
 
 	if (g_Vars.currentplayer->bondvehiclemode == VEHICLEMODE_OFF) {
 		g_Vars.currentplayer->bondentert += g_Vars.lvupdate240freal / 60.0f;

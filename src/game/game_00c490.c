@@ -1375,7 +1375,7 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 			}
 
 			propReparent(prop, owner->prop);
-			mtx000162e8(0.3664608001709f, &sp64);
+			mtx4LoadXRotation(0.3664608001709f, &sp64);
 			mtx00015f04(monitor->base.model->scale / owner->model->scale, &sp64);
 			modelGetRootPosition(monitor->base.model, &spa4);
 
@@ -1635,17 +1635,17 @@ glabel var7f1a926cpf
 /*  f00e5bc:	e7b2001c */ 	swc1	$f18,0x1c($sp)
 /*  f00e5c0:	3c017f1b */ 	lui	$at,0x7f1b
 /*  f00e5c4:	c42c9260 */ 	lwc1	$f12,-0x6da0($at)
-/*  f00e5c8:	0c00581e */ 	jal	mtx000162e8
+/*  f00e5c8:	0c00581e */ 	jal	mtx4LoadXRotation
 /*  f00e5cc:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00e5d0:	3c017f1b */ 	lui	$at,0x7f1b
 /*  f00e5d4:	c42c9264 */ 	lwc1	$f12,-0x6d9c($at)
-/*  f00e5d8:	0c005864 */ 	jal	mtx00016400
+/*  f00e5d8:	0c005864 */ 	jal	mtx4LoadZRotation
 /*  f00e5dc:	27a50060 */ 	addiu	$a1,$sp,0x60
 /*  f00e5e0:	27a40060 */ 	addiu	$a0,$sp,0x60
-/*  f00e5e4:	0c0055e3 */ 	jal	mtx000159fc
+/*  f00e5e4:	0c0055e3 */ 	jal	mtx4MultMtx4InPlace
 /*  f00e5e8:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00e5ec:	27a40110 */ 	addiu	$a0,$sp,0x110
-/*  f00e5f0:	0c0055e3 */ 	jal	mtx000159fc
+/*  f00e5f0:	0c0055e3 */ 	jal	mtx4MultMtx4InPlace
 /*  f00e5f4:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00e5f8:	86040006 */ 	lh	$a0,0x6($s0)
 /*  f00e5fc:	0fc45a85 */ 	jal	padGetCentre
@@ -2030,17 +2030,17 @@ glabel var7f1a8064
 /*  f00e5d4:	e7b2001c */ 	swc1	$f18,0x1c($sp)
 /*  f00e5d8:	3c017f1b */ 	lui	$at,%hi(var7f1a805c)
 /*  f00e5dc:	c42c805c */ 	lwc1	$f12,%lo(var7f1a805c)($at)
-/*  f00e5e0:	0c0058ba */ 	jal	mtx000162e8
+/*  f00e5e0:	0c0058ba */ 	jal	mtx4LoadXRotation
 /*  f00e5e4:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00e5e8:	3c017f1b */ 	lui	$at,%hi(var7f1a8060)
 /*  f00e5ec:	c42c8060 */ 	lwc1	$f12,%lo(var7f1a8060)($at)
-/*  f00e5f0:	0c005900 */ 	jal	mtx00016400
+/*  f00e5f0:	0c005900 */ 	jal	mtx4LoadZRotation
 /*  f00e5f4:	27a50060 */ 	addiu	$a1,$sp,0x60
 /*  f00e5f8:	27a40060 */ 	addiu	$a0,$sp,0x60
-/*  f00e5fc:	0c00567f */ 	jal	mtx000159fc
+/*  f00e5fc:	0c00567f */ 	jal	mtx4MultMtx4InPlace
 /*  f00e600:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00e604:	27a40110 */ 	addiu	$a0,$sp,0x110
-/*  f00e608:	0c00567f */ 	jal	mtx000159fc
+/*  f00e608:	0c00567f */ 	jal	mtx4MultMtx4InPlace
 /*  f00e60c:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00e610:	86040006 */ 	lh	$a0,0x6($s0)
 /*  f00e614:	0fc457cd */ 	jal	padGetCentre
@@ -2324,10 +2324,10 @@ glabel var7f1a8064
 //		mtx00016d58(sp110, 0, 0, 0,
 //				-pad.look.x, -pad.look.y, -pad.look.z,
 //				pad.up.x, pad.up.y, pad.up.z);
-//		mtx000162e8(1.5705462694168f, spac);
-//		mtx00016400(1.5705462694168f, sp60);
-//		mtx000159fc(sp60, spac);
-//		mtx000159fc(sp110, spac);
+//		mtx4LoadXRotation(1.5705462694168f, spac);
+//		mtx4LoadZRotation(1.5705462694168f, sp60);
+//		mtx4MultMtx4InPlace(sp60, spac);
+//		mtx4MultMtx4InPlace(sp110, spac);
 //
 //		padGetCentre(door->base.pad, &spa0);
 //
@@ -3165,14 +3165,14 @@ void setupParseObjects(s32 stagenum)
 						if (obj->flags & OBJFLAG_DEACTIVATED) {
 							step->frame = escstepy;
 							escstepy += 40;
-							mtx00016374(4.7116389274597f, (Mtxf *)sp1a8);
-							mtx00015da0((Mtxf *)sp1a8, sp184);
+							mtx4LoadYRotation(4.7116389274597f, (Mtxf *)sp1a8);
+							mtx4ToMtx3((Mtxf *)sp1a8, sp184);
 							mtx00016110(sp184, obj->realrot);
 						} else {
 							step->frame = escstepx;
 							escstepx += 40;
-							mtx00016374(M_BADPI, (Mtxf *)sp1a8);
-							mtx00015da0((Mtxf *)sp1a8, sp184);
+							mtx4LoadYRotation(M_BADPI, (Mtxf *)sp1a8);
+							mtx4ToMtx3((Mtxf *)sp1a8, sp184);
 							mtx00016110(sp184, obj->realrot);
 						}
 					}

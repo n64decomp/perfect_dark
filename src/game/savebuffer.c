@@ -38,7 +38,7 @@ void func0f0d4690(Mtxf *mtx)
 {
 	struct coord pos;
 
-	mtx000159b0(mtx);
+	mtx4LoadIdentity(mtx);
 
 	pos.x = -159.75f;
 	pos.y = PAL ? 136.25f : 120.25f;
@@ -48,7 +48,7 @@ void func0f0d4690(Mtxf *mtx)
 	pos.y = (.5f + viGetHeight()) * 0.5f;
 	pos.z = 0;
 
-	mtx00015dd4(&pos, mtx);
+	mtx4SetTranslation(&pos, mtx);
 	mtx00015e4c(-1, mtx);
 
 	if (g_ScaleX == 2) {
@@ -75,7 +75,7 @@ Gfx *func0f0d479c(Gfx *gdl)
 	mtx00016760();
 	func0f0d475c(&mtx);
 	mtx00016054(&mtx, mtx2);
-	mtx000159b0(&mtx);
+	mtx4LoadIdentity(&mtx);
 
 	guFrustumF(mtx.m,
 			-(f32) viGetWidth() * 0.5f, viGetWidth() * 0.5f,

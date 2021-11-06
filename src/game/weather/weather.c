@@ -999,7 +999,7 @@ glabel var7f1b5780
 /*  f133068:	01f8c821 */ 	addu	$t9,$t7,$t8
 /*  f13306c:	8f370024 */ 	lw	$s7,0x24($t9)
 /*  f133070:	afa00194 */ 	sw	$zero,0x194($sp)
-/*  f133074:	0c00566c */ 	jal	mtx000159b0
+/*  f133074:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f133078:	02002025 */ 	or	$a0,$s0,$zero
 /*  f13307c:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f133080:	00000000 */ 	nop
@@ -2643,7 +2643,7 @@ glabel var7f1b5790
 /*  f134870:	27b001cc */ 	addiu	$s0,$sp,0x1cc
 /*  f134874:	8dd20024 */ 	lw	$s2,0x24($t6)
 /*  f134878:	afa00198 */ 	sw	$zero,0x198($sp)
-/*  f13487c:	0c00566c */ 	jal	mtx000159b0
+/*  f13487c:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f134880:	02002025 */ 	or	$a0,$s0,$zero
 /*  f134884:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f134888:	00000000 */ 	nop

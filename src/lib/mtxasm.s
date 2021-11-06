@@ -11,7 +11,7 @@ glabel var8005ef10
 
 .text
 
-glabel mtx000159b0
+glabel mtx4LoadIdentity
 	lui    $at, 0x3f80
 	mtc1   $at, $f0
 	sw     $zero, 0x4($a0)
@@ -32,9 +32,10 @@ glabel mtx000159b0
 	jr     $ra
 	swc1   $f0, 0x3c($a0)
 
-glabel mtx000159fc
+glabel mtx4MultMtx4InPlace
 	add    $a2, $a1, $zero
-	glabel mtx00015a00
+
+glabel mtx4MultMtx4
 	mfc1   $t1, $f20
 	mfc1   $t2, $f21
 	mfc1   $t3, $f22
@@ -105,9 +106,10 @@ glabel mtx000159fc
 	jr     $ra
 	mtc1   $t5, $f24
 
-glabel mtx00015b10
+glabel mtx4RotateVecInPlace
 	add    $a2, $a1, $zero
-	glabel mtx00015b14
+
+glabel mtx4RotateVec
 	lwc1   $f0, 0x0($a1)
 	lwc1   $f1, 0x4($a1)
 	lwc1   $f2, 0x8($a1)
@@ -130,9 +132,10 @@ glabel mtx00015b10
 	jr     $ra
  	nop
 
-glabel mtx00015b64
+glabel mtx4TransformVecInPlace
 	add    $a2, $a1, $zero
-	glabel mtx00015b68
+
+glabel mtx4TransformVec
 	lwc1   $f0, 0x0($a1)
 	lwc1   $f1, 0x4($a1)
 	lwc1   $f2, 0x8($a1)
@@ -167,7 +170,8 @@ glabel mtx00015b64
 
 glabel mtx00015be0
 	add    $a2, $a1, $zero
-	glabel mtx00015be4
+
+glabel mtx00015be4
 	mfc1   $t1, $f20
 	mfc1   $t2, $f21
 	mfc1   $t3, $f22
@@ -231,7 +235,7 @@ glabel mtx00015be0
 	jr     $ra
 	mtc1   $t4, $f23
 
-glabel mtx00015cd8
+glabel mtx3Copy
 	addiu  $t0, $zero, 0x2
 .L00015cdc:
 	lw     $t1, 0x0($a0)
@@ -250,7 +254,7 @@ glabel mtx00015cd8
 	jr     $ra
 	sw     $t0, 0x0($a1)
 
-glabel mtx00015d18
+glabel mtx4Copy
 	addiu  $t0, $zero, 0x4
 .L00015d1c:
 	lw     $t1, 0x0($a0)
@@ -268,7 +272,7 @@ glabel mtx00015d18
 	jr     $ra
  	nop
 
-glabel mtx00015d54
+glabel mtx3ToMtx4
 	addiu  $t0, $zero, 0x3
 	lui    $at, 0x3f80
 	mtc1   $at, $f4
@@ -290,7 +294,7 @@ glabel mtx00015d54
 	jr     $ra
 	swc1   $f4, 0xc($a1)
 
-glabel mtx00015da0
+glabel mtx4ToMtx3
 	addiu  $t0, $zero, 0x3
 .L00015da4:
 	lw     $t1, 0x0($a0)
@@ -306,7 +310,7 @@ glabel mtx00015da0
 	jr     $ra
  	nop
 
-glabel mtx00015dd4
+glabel mtx4SetTranslation
 	lw     $t0, 0x0($a0)
 	lw     $t1, 0x4($a0)
 	lw     $t2, 0x8($a0)

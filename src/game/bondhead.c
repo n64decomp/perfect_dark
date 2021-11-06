@@ -154,7 +154,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 			model0001ee18(&g_Vars.currentplayer->model, g_Vars.lvupdate240, true);
 			model0001e29c(somebool);
 			model0001b3bc(&g_Vars.currentplayer->model);
-			mtx000159b0(&sp40);
+			mtx4LoadIdentity(&sp40);
 
 			sp80.matrix = &sp40;
 			sp80.unk10 = g_Vars.currentplayer->bondheadmatrices;

@@ -985,7 +985,7 @@ glabel func0f0e0cbc
 /*  f0e0d4c:	a6180004 */ 	sh	$t8,0x4($s0)
 /*  f0e0d50:	a2000007 */ 	sb	$zero,0x7($s0)
 /*  f0e0d54:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0e0d58:	0c0056d9 */ 	jal	mtx00015b64
+/*  f0e0d58:	0c0056d9 */ 	jal	mtx4TransformVecInPlace
 /*  f0e0d5c:	27a50024 */ 	addiu	$a1,$sp,0x24
 /*  f0e0d60:	3c014200 */ 	lui	$at,0x4200
 /*  f0e0d64:	44810000 */ 	mtc1	$at,$f0
@@ -5986,7 +5986,7 @@ glabel func0f0e5000
 /*  f0e5698:	3c0c0008 */ 	lui	$t4,0x8
 /*  f0e569c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0e56a0:	ad2c0004 */ 	sw	$t4,0x4($t1)
-/*  f0e56a4:	0c00566c */ 	jal	mtx000159b0
+/*  f0e56a4:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f0e56a8:	ad2b0000 */ 	sw	$t3,0x0($t1)
 /*  f0e56ac:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f0e56b0:	00000000 */ 	nop
@@ -6853,7 +6853,7 @@ glabel func0f0e5000
 /*  f0e5698:	3c0c0008 */ 	lui	$t4,0x8
 /*  f0e569c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0e56a0:	ad2c0004 */ 	sw	$t4,0x4($t1)
-/*  f0e56a4:	0c00566c */ 	jal	mtx000159b0
+/*  f0e56a4:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f0e56a8:	ad2b0000 */ 	sw	$t3,0x0($t1)
 /*  f0e56ac:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f0e56b0:	00000000 */ 	nop

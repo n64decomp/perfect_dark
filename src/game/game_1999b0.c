@@ -389,17 +389,17 @@ void func0f19a37c(struct chrdata *chr)
 	sp228.y = sp152[1] * mult;
 	sp228.z = sp152[2] * mult;
 
-	mtx000159b0(&sp164);
+	mtx4LoadIdentity(&sp164);
 
 	if (chr->aibot->weaponnum == WEAPON_COMBATKNIFE) {
-		mtx00016400(M_BADPI * 1.5f, &sp164);
-		mtx000162e8(M_BADPI, &sp84);
-		mtx000159fc(&sp84, &sp164);
+		mtx4LoadZRotation(M_BADPI * 1.5f, &sp164);
+		mtx4LoadXRotation(M_BADPI, &sp84);
+		mtx4MultMtx4InPlace(&sp84, &sp164);
 	}
 
-	mtx000162e8(0.34901028871536f, &sp84);
+	mtx4LoadXRotation(0.34901028871536f, &sp84);
 	mtx00015be0(&sp84, &sp164);
-	mtx00016374(sp80, &sp84);
+	mtx4LoadYRotation(sp80, &sp84);
 	mtx00015be0(&sp84, &sp164);
 
 	bgun0f09ee18(chr, &gset, &prop->pos, prop->rooms, &sp164, &sp228);
@@ -504,10 +504,10 @@ void aibotCreateSlayerRocket(struct chrdata *chr)
 		sp100[1] = sinf(b);
 		sp100[2] = cosf(b) * cosf(a);
 
-		mtx000162e8(b, &sp196);
-		mtx00016374(a, &sp132);
+		mtx4LoadXRotation(b, &sp196);
+		mtx4LoadYRotation(a, &sp132);
 		mtx00015be0(&sp132, &sp196);
-		mtx000159b0(&sp260);
+		mtx4LoadIdentity(&sp260);
 
 		bgun0f09ebcc(&rocket->base, &chr->prop->pos, chr->prop->rooms, &sp196, sp100, &sp260, chr->prop, &chr->prop->pos);
 

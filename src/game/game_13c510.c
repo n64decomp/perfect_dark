@@ -327,7 +327,7 @@ glabel func0f13c780
 /*  f13c880:	00000000 */ 	nop
 /*  f13c884:	00402025 */ 	or	$a0,$v0,$zero
 /*  f13c888:	02002825 */ 	or	$a1,$s0,$zero
-/*  f13c88c:	0c005680 */ 	jal	mtx00015a00
+/*  f13c88c:	0c005680 */ 	jal	mtx4MultMtx4
 /*  f13c890:	27a600f8 */ 	addiu	$a2,$sp,0xf8
 /*  f13c894:	0c002f22 */ 	jal	viGetViewWidth
 /*  f13c898:	00000000 */ 	nop
@@ -1514,7 +1514,7 @@ glabel func0f13d568
 /*  f13daf0:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f13daf4:	00000000 */ 	nop
 /*  f13daf8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f13dafc:	0c0056c4 */ 	jal	mtx00015b10
+/*  f13dafc:	0c0056c4 */ 	jal	mtx4RotateVecInPlace
 /*  f13db00:	27a500e4 */ 	addiu	$a1,$sp,0xe4
 /*  f13db04:	27a400e4 */ 	addiu	$a0,$sp,0xe4
 /*  f13db08:	0fc2d341 */ 	jal	func0f0b4d04

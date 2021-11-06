@@ -727,8 +727,8 @@ void model0001b400(struct objticksp476 *arg0, struct model *model, struct modeln
 		}
 
 		if ((g_Anims[anim->animnum].flags & ANIMFLAG_02) && (g_Anims[anim->animnum2].flags & ANIMFLAG_02) == 0) {
-			mtx00016374(rwdata->chrinfo.unk14, &sp78);
-			mtx0001648c(&sp124, &sp38);
+			mtx4LoadYRotation(rwdata->chrinfo.unk14, &sp78);
+			mtx4LoadRotation(&sp124, &sp38);
 			mtx00015be0(&sp78, &sp38);
 			func0f097044(&sp38, &spec);
 		} else {
@@ -740,7 +740,7 @@ void model0001b400(struct objticksp476 *arg0, struct model *model, struct modeln
 		func0f0972b8(&spfc, &spec, anim->fracmerge, &spdc);
 		func0f096ed4(&spdc, &sp1d8);
 	} else {
-		mtx0001648c(&sp230, &sp1d8);
+		mtx4LoadRotation(&sp230, &sp1d8);
 	}
 
 	if (g_Anims[anim->animnum].flags & ANIMFLAG_02) {
@@ -750,7 +750,7 @@ void model0001b400(struct objticksp476 *arg0, struct model *model, struct modeln
 			sp250 = model0001afe8(sp250, rwdata->chrinfo.unk1c, rwdata->chrinfo.unk18);
 		}
 
-		mtx00016248(sp254, sp250, &sp198);
+		mtx4LoadYRotationWithTranslation(sp254, sp250, &sp198);
 	}
 
 	mtx00015be4(&sp198, &sp1d8, &sp158);
@@ -762,7 +762,7 @@ void model0001b400(struct objticksp476 *arg0, struct model *model, struct modeln
 	if (sp24c) {
 		mtx00015be4(sp24c, &sp158, mtx);
 	} else {
-		mtx00015d18(&sp158, mtx);
+		mtx4Copy(&sp158, mtx);
 	}
 }
 
@@ -1014,7 +1014,7 @@ glabel var70054308
 /*    1bb60:	46049182 */ 	mul.s	$f6,$f18,$f4
 /*    1bb64:	46064301 */ 	sub.s	$f12,$f8,$f6
 .L0001bb68:
-/*    1bb68:	0c0058dd */ 	jal	mtx00016374
+/*    1bb68:	0c0058dd */ 	jal	mtx4LoadYRotation
 /*    1bb6c:	e7ac0024 */ 	swc1	$f12,0x24($sp)
 /*    1bb70:	3c017005 */ 	lui	$at,%hi(var70054300)
 /*    1bb74:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
@@ -1045,7 +1045,7 @@ glabel var70054308
 /*    1bbcc:	0c0057b7 */ 	jal	mtx00015edc
 /*    1bbd0:	8fa50028 */ 	lw	$a1,0x28($sp)
 /*    1bbd4:	8fa400c8 */ 	lw	$a0,0xc8($sp)
-/*    1bbd8:	0c005775 */ 	jal	mtx00015dd4
+/*    1bbd8:	0c005775 */ 	jal	mtx4SetTranslation
 /*    1bbdc:	8fa50028 */ 	lw	$a1,0x28($sp)
 /*    1bbe0:	8fa900ac */ 	lw	$t1,0xac($sp)
 /*    1bbe4:	8faa005c */ 	lw	$t2,0x5c($sp)
@@ -1281,7 +1281,7 @@ glabel var70054320
 /*    1bef4:	46105482 */ 	mul.s	$f18,$f10,$f16
 /*    1bef8:	46122301 */ 	sub.s	$f12,$f4,$f18
 .L0001befc:
-/*    1befc:	0c0058dd */ 	jal	mtx00016374
+/*    1befc:	0c0058dd */ 	jal	mtx4LoadYRotation
 /*    1bf00:	e7ac0024 */ 	swc1	$f12,0x24($sp)
 /*    1bf04:	3c017005 */ 	lui	$at,%hi(var70054318)
 /*    1bf08:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
@@ -1312,7 +1312,7 @@ glabel var70054320
 /*    1bf60:	0c0057b7 */ 	jal	mtx00015edc
 /*    1bf64:	8fa50028 */ 	lw	$a1,0x28($sp)
 /*    1bf68:	8fa400b8 */ 	lw	$a0,0xb8($sp)
-/*    1bf6c:	0c005775 */ 	jal	mtx00015dd4
+/*    1bf6c:	0c005775 */ 	jal	mtx4SetTranslation
 /*    1bf70:	8fa50028 */ 	lw	$a1,0x28($sp)
 /*    1bf74:	8fae009c */ 	lw	$t6,0x9c($sp)
 /*    1bf78:	8faf004c */ 	lw	$t7,0x4c($sp)
@@ -2345,7 +2345,7 @@ void model0001c950(struct model *model, struct modelnode *node)
 		sp38.x = rodata->reorder.unk0c[0];
 		sp38.y = rodata->reorder.unk0c[1];
 		sp38.z = rodata->reorder.unk0c[2];
-		mtx00015b10(mtx, &sp38);
+		mtx4RotateVecInPlace(mtx, &sp38);
 	} else if (rodata->reorder.unk20 == 2) {
 		sp38.x = mtx->m[1][0] * rodata->reorder.unk0c[1];
 		sp38.y = mtx->m[1][1] * rodata->reorder.unk0c[1];
@@ -2364,7 +2364,7 @@ void model0001c950(struct model *model, struct modelnode *node)
 	sp2c.y = rodata->reorder.unk04;
 	sp2c.z = rodata->reorder.unk08;
 
-	mtx00015b64(mtx, &sp2c);
+	mtx4TransformVecInPlace(mtx, &sp2c);
 
 	tmp = sp38.f[0] * sp2c.f[0] + sp38.f[1] * sp2c.f[1] + sp38.f[2] * sp2c.f[2];
 

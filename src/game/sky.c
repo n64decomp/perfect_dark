@@ -1023,7 +1023,7 @@ glabel var7f1b57bc
 /*  f136c88:	00000000 */ 	nop
 /*  f136c8c:	27b1016c */ 	addiu	$s1,$sp,0x16c
 /*  f136c90:	02202025 */ 	or	$a0,$s1,$zero
-/*  f136c94:	0c00566c */ 	jal	mtx000159b0
+/*  f136c94:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f136c98:	e7a00154 */ 	swc1	$f0,0x154($sp)
 /*  f136c9c:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f136ca0:	00000000 */ 	nop

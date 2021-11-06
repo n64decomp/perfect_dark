@@ -1500,7 +1500,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 
 			g_Vars.currentplayer->gunzoomfovs[1] = eraserfov;
 
-			mtx00015b68(currentPlayerGetMatrix1740(), &g_Vars.currentplayer->autoerasertarget->pos, &spa0);
+			mtx4TransformVec(currentPlayerGetMatrix1740(), &g_Vars.currentplayer->autoerasertarget->pos, &spa0);
 
 			func0f0b4eb8(&spa0, crosspos, eraserfov, g_Vars.currentplayer->c_perspaspect);
 
@@ -2092,18 +2092,18 @@ void bmoveUpdateHead(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)
 	}
 
 	bheadUpdate(sp244, arg2);
-	mtx000162e8(BADDEG2RAD(360 - g_Vars.currentplayer->vv_verta360), &sp180);
+	mtx4LoadXRotation(BADDEG2RAD(360 - g_Vars.currentplayer->vv_verta360), &sp180);
 
 	if (optionsGetHeadRoll(g_Vars.currentplayerstats->mpindex)) {
 		mtx00016d58(&sp116,
 				0, 0, 0,
 				-g_Vars.currentplayer->headlook.x, -g_Vars.currentplayer->headlook.y, -g_Vars.currentplayer->headlook.z,
 				g_Vars.currentplayer->headup.x, g_Vars.currentplayer->headup.y, g_Vars.currentplayer->headup.z);
-		mtx000159fc(&sp116, &sp180);
+		mtx4MultMtx4InPlace(&sp116, &sp180);
 	}
 
-	mtx00016374(BADDEG2RAD(360 - g_Vars.currentplayer->vv_theta), &sp116);
-	mtx000159fc(&sp116, &sp180);
+	mtx4LoadYRotation(BADDEG2RAD(360 - g_Vars.currentplayer->vv_theta), &sp116);
+	mtx4MultMtx4InPlace(&sp116, &sp180);
 
 	if (arg3) {
 		func0f097044(&sp180, &sp100);

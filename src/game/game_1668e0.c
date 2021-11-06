@@ -59,7 +59,7 @@ void func0f166a6c(Mtxf *mtx, s32 roomnum)
 {
 	s32 stagenum = g_Vars.stagenum;
 
-	mtx000159b0(mtx);
+	mtx4LoadIdentity(mtx);
 
 	mtx->m[0][0] = 1;
 	mtx->m[1][1] = 1;

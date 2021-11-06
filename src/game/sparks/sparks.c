@@ -1631,14 +1631,14 @@ glabel sparksRender
 /*  f130a24:	27a400d4 */ 	addiu	$a0,$sp,0xd4
 /*  f130a28:	46040283 */ 	div.s	$f10,$f0,$f4
 /*  f130a2c:	460ab582 */ 	mul.s	$f22,$f22,$f10
-/*  f130a30:	0c00566c */ 	jal	mtx000159b0
+/*  f130a30:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f130a34:	00000000 */ 	nop
 /*  f130a38:	e7bc00d4 */ 	swc1	$f28,0xd4($sp)
 /*  f130a3c:	e7bc00e8 */ 	swc1	$f28,0xe8($sp)
 /*  f130a40:	e7bc00fc */ 	swc1	$f28,0xfc($sp)
 /*  f130a44:	e7bc0110 */ 	swc1	$f28,0x110($sp)
 /*  f130a48:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f130a4c:	0c005775 */ 	jal	mtx00015dd4
+/*  f130a4c:	0c005775 */ 	jal	mtx4SetTranslation
 /*  f130a50:	27a500d4 */ 	addiu	$a1,$sp,0xd4
 /*  f130a54:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f130a58:	00000000 */ 	nop
