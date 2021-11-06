@@ -19,7 +19,7 @@ void *var8009a878;
 void *var8009a87c;
 u8 *var8009a880;
 void *var8009a884;
-void *var8009a888;
+s32 *var8009a888;
 void *var8009a88c;
 void *var8009a890;
 s16 var8009a894;
@@ -29,7 +29,7 @@ u32 var8005f000 = 0;
 u32 var8005f004 = 0;
 s16 g_NumAnimations = 0;
 struct animheader *g_Anims = NULL;
-void *var8005f010 = NULL;
+u8 *var8005f010 = NULL;
 s16 *var8005f014 = NULL;
 s32 var8005f018 = 176;
 s32 var8005f01c = 608;
@@ -209,59 +209,34 @@ glabel anim000237e8
 /*    23848:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel anim0002384c
-/*    2384c:	3c0b8006 */ 	lui	$t3,%hi(var8005f010)
-/*    23850:	8d6bf010 */ 	lw	$t3,%lo(var8005f010)($t3)
-/*    23854:	00047400 */ 	sll	$t6,$a0,0x10
-/*    23858:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*    2385c:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    23860:	3c188006 */ 	lui	$t8,%hi(g_Anims)
-/*    23864:	016f6021 */ 	addu	$t4,$t3,$t7
-/*    23868:	918d0000 */ 	lbu	$t5,0x0($t4)
-/*    2386c:	8f18f00c */ 	lw	$t8,%lo(g_Anims)($t8)
-/*    23870:	000fc880 */ 	sll	$t9,$t7,0x2
-/*    23874:	3c0a800a */ 	lui	$t2,%hi(var8009a888)
-/*    23878:	8d4aa888 */ 	lw	$t2,%lo(var8009a888)($t2)
-/*    2387c:	032fc823 */ 	subu	$t9,$t9,$t7
-/*    23880:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    23884:	000d7080 */ 	sll	$t6,$t5,0x2
-/*    23888:	03194021 */ 	addu	$t0,$t8,$t9
-/*    2388c:	014e7821 */ 	addu	$t7,$t2,$t6
-/*    23890:	8df80000 */ 	lw	$t8,0x0($t7)
-/*    23894:	95090008 */ 	lhu	$t1,0x8($t0)
-/*    23898:	00a01825 */ 	or	$v1,$a1,$zero
-/*    2389c:	01381021 */ 	addu	$v0,$t1,$t8
-/*    238a0:	2442fffe */ 	addiu	$v0,$v0,-2
-.L000238a4:
-/*    238a4:	90480000 */ 	lbu	$t0,0x0($v0)
-/*    238a8:	90590001 */ 	lbu	$t9,0x1($v0)
-/*    238ac:	00085a00 */ 	sll	$t3,$t0,0x8
-/*    238b0:	032b2025 */ 	or	$a0,$t9,$t3
-/*    238b4:	00046400 */ 	sll	$t4,$a0,0x10
-/*    238b8:	000c6c03 */ 	sra	$t5,$t4,0x10
-/*    238bc:	05a00010 */ 	bltz	$t5,.L00023900
-/*    238c0:	00ad082a */ 	slt	$at,$a1,$t5
-/*    238c4:	904efffe */ 	lbu	$t6,-0x2($v0)
-/*    238c8:	904affff */ 	lbu	$t2,-0x1($v0)
-/*    238cc:	2442fffc */ 	addiu	$v0,$v0,-4
-/*    238d0:	000e7a00 */ 	sll	$t7,$t6,0x8
-/*    238d4:	014f3025 */ 	or	$a2,$t2,$t7
-/*    238d8:	00064c00 */ 	sll	$t1,$a2,0x10
-/*    238dc:	1420fff1 */ 	bnez	$at,.L000238a4
-/*    238e0:	0009c403 */ 	sra	$t8,$t1,0x10
-/*    238e4:	0305082a */ 	slt	$at,$t8,$a1
-/*    238e8:	10200004 */ 	beqz	$at,.L000238fc
-/*    238ec:	00784023 */ 	subu	$t0,$v1,$t8
-/*    238f0:	010d1821 */ 	addu	$v1,$t0,$t5
-/*    238f4:	1000ffeb */ 	b	.L000238a4
-/*    238f8:	2463ffff */ 	addiu	$v1,$v1,-1
-.L000238fc:
-/*    238fc:	2403ffff */ 	addiu	$v1,$zero,-1
-.L00023900:
-/*    23900:	03e00008 */ 	jr	$ra
-/*    23904:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 anim0002384c(s16 animnum, s32 frame)
+{
+	u8 *ptr = (u8 *)(var8009a888[var8005f010[animnum]] + g_Anims[animnum].initialposbytes - 2);
+	s32 result = frame;
+
+	while (true) {
+		s16 value1 = ptr[0] << 8 | ptr[1];
+		s16 value2;
+
+		if (value1 < 0) {
+			break;
+		}
+
+		value2 = ptr[-2] << 8 | ptr[-1];
+		ptr -= 4;
+
+		if (value1 <= frame) {
+			if (value2 < frame) {
+				result = result - value2 + value1 - 1;
+			} else {
+				result = -1;
+				break;
+			}
+		}
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel anim00023908

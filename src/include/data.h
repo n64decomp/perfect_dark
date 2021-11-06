@@ -63,7 +63,7 @@ extern u32 var8005f000;
 extern u32 var8005f004;
 extern s16 g_NumAnimations;
 extern struct animheader *g_Anims;
-extern void *var8005f010;
+extern u8 *var8005f010;
 extern s16 *var8005f014;
 extern s32 var8005f018;
 extern s32 var8005f01c;

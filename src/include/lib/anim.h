@@ -11,7 +11,7 @@ s32 animGetNumFrames(s16 anim_id);
 bool animHasFrames(s16 animnum);
 s32 animGetNumAnimations(void);
 u32 anim000237e8(void);
-s32 anim0002384c(s32 animnum, s32 frame);
+s32 anim0002384c(s16 animnum, s32 frame);
 u32 anim00023908(void);
 bool anim000239e0(s16 animnum, s32 frame);
 s32 anim00023ab0(s16 animnum, s32 framenum);
