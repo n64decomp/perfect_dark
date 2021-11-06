@@ -18,7 +18,7 @@ void *var8009a874;
 s16 *var8009a878;
 s16 *var8009a87c;
 u8 *var8009a880;
-void *var8009a884;
+u8 *var8009a884;
 s32 *var8009a888;
 s16 *var8009a88c;
 s32 *var8009a890;
@@ -26,7 +26,7 @@ s16 var8009a894;
 struct animheader *var8009a898;
 
 u32 var8005f000 = 0;
-u32 var8005f004 = 0;
+s32 var8005f004 = 0;
 s16 g_NumAnimations = 0;
 struct animheader *g_Anims = NULL;
 u8 *var8005f010 = NULL;
@@ -74,7 +74,7 @@ void animsInit(void)
 	var8009a878 = mempAlloc(0x40, MEMPOOL_PERMANENT);
 	var8009a87c = mempAlloc(0x40, MEMPOOL_PERMANENT);
 	var8009a880 = mempAlloc(0x40, MEMPOOL_PERMANENT);
-	var8009a884 = mempAlloc(ALIGN64(var8005f01c * 0x28), MEMPOOL_PERMANENT);
+	var8009a884 = mempAlloc(ALIGN64(var8005f01c * 40), MEMPOOL_PERMANENT);
 	var8009a888 = mempAlloc(0xc0, MEMPOOL_PERMANENT);
 	var8009a88c = mempAlloc(0x80, MEMPOOL_PERMANENT);
 	var8009a890 = mempAlloc(0xc0, MEMPOOL_PERMANENT);
@@ -606,6 +606,43 @@ glabel anim00023d38
 /*    23f48:	03e00008 */ 	jr	$ra
 /*    23f4c:	00000000 */ 	nop
 );
+
+// Mismatch: for loop is handled differently
+//void anim00023d38(s16 animnum)
+//{
+//	s32 i;
+//
+//	if (var8005f010[animnum] != 0xff) {
+//		var8009a890[var8005f010[animnum]] = g_Vars.thisframe240;
+//		var8005f004 = (var8005f010[animnum] + 1) % 40;
+//	} else {
+//		s32 index = var8005f004;
+//		s32 bestvalue = var8009a890[index];
+//		s32 stack;
+//		s32 tmp;
+//
+//		for (i = 0; i < 40; i++) {
+//			if (var8009a890[i] < bestvalue) {
+//				bestvalue = var8009a890[i];
+//				index = i;
+//			}
+//		}
+//
+//		tmp = var8009a88c[index];
+//
+//		if (tmp) {
+//			var8005f010[tmp] = 0xff;
+//		}
+//
+//		tmp = g_Anims[animnum].initialposbytes;
+//
+//		var8009a888[index] = anim000237e8(&var8009a884[var8005f01c * index], g_Anims[animnum].data, tmp);
+//		var8005f010[animnum] = index;
+//		var8009a88c[index] = animnum;
+//		var8009a890[index] = g_Vars.thisframe240;
+//		var8005f004 = (index + 1) % 40;
+//	}
+//}
 
 GLOBAL_ASM(
 glabel anim00023f50
