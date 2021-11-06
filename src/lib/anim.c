@@ -299,65 +299,40 @@ glabel anim00023908
 /*    239dc:	ad630000 */ 	sw	$v1,0x0($t3)
 );
 
-GLOBAL_ASM(
-glabel anim000239e0
-/*    239e0:	3c098006 */ 	lui	$t1,%hi(var8005f010)
-/*    239e4:	8d29f010 */ 	lw	$t1,%lo(var8005f010)($t1)
-/*    239e8:	00047400 */ 	sll	$t6,$a0,0x10
-/*    239ec:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*    239f0:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    239f4:	3c188006 */ 	lui	$t8,%hi(g_Anims)
-/*    239f8:	012f5021 */ 	addu	$t2,$t1,$t7
-/*    239fc:	914b0000 */ 	lbu	$t3,0x0($t2)
-/*    23a00:	8f18f00c */ 	lw	$t8,%lo(g_Anims)($t8)
-/*    23a04:	000fc880 */ 	sll	$t9,$t7,0x2
-/*    23a08:	3c08800a */ 	lui	$t0,%hi(var8009a888)
-/*    23a0c:	8d08a888 */ 	lw	$t0,%lo(var8009a888)($t0)
-/*    23a10:	032fc823 */ 	subu	$t9,$t9,$t7
-/*    23a14:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    23a18:	000b6080 */ 	sll	$t4,$t3,0x2
-/*    23a1c:	03191821 */ 	addu	$v1,$t8,$t9
-/*    23a20:	010c6821 */ 	addu	$t5,$t0,$t4
-/*    23a24:	8dae0000 */ 	lw	$t6,0x0($t5)
-/*    23a28:	946f0008 */ 	lhu	$t7,0x8($v1)
-/*    23a2c:	9078000b */ 	lbu	$t8,0xb($v1)
-/*    23a30:	01ee1021 */ 	addu	$v0,$t7,$t6
-/*    23a34:	33190004 */ 	andi	$t9,$t8,0x4
-/*    23a38:	1320000c */ 	beqz	$t9,.L00023a6c
-/*    23a3c:	2442fffe */ 	addiu	$v0,$v0,-2
-.L00023a40:
-/*    23a40:	904a0000 */ 	lbu	$t2,0x0($v0)
-/*    23a44:	90490001 */ 	lbu	$t1,0x1($v0)
-/*    23a48:	000a5a00 */ 	sll	$t3,$t2,0x8
-/*    23a4c:	012b1825 */ 	or	$v1,$t1,$t3
-/*    23a50:	00034400 */ 	sll	$t0,$v1,0x10
-/*    23a54:	00086403 */ 	sra	$t4,$t0,0x10
-/*    23a58:	05820004 */ 	bltzl	$t4,.L00023a6c
-/*    23a5c:	2442fffe */ 	addiu	$v0,$v0,-2
-/*    23a60:	1000fff7 */ 	b	.L00023a40
-/*    23a64:	2442fffc */ 	addiu	$v0,$v0,-4
-/*    23a68:	2442fffe */ 	addiu	$v0,$v0,-2
-.L00023a6c:
-/*    23a6c:	904f0000 */ 	lbu	$t7,0x0($v0)
-/*    23a70:	904d0001 */ 	lbu	$t5,0x1($v0)
-/*    23a74:	000f7200 */ 	sll	$t6,$t7,0x8
-/*    23a78:	01ae1825 */ 	or	$v1,$t5,$t6
-/*    23a7c:	0003c400 */ 	sll	$t8,$v1,0x10
-/*    23a80:	0018cc03 */ 	sra	$t9,$t8,0x10
-/*    23a84:	07220008 */ 	bltzl	$t9,.L00023aa8
-/*    23a88:	00001025 */ 	or	$v0,$zero,$zero
-/*    23a8c:	17250003 */ 	bne	$t9,$a1,.L00023a9c
-/*    23a90:	00000000 */ 	nop
-/*    23a94:	03e00008 */ 	jr	$ra
-/*    23a98:	24020001 */ 	addiu	$v0,$zero,0x1
-.L00023a9c:
-/*    23a9c:	1000fff3 */ 	b	.L00023a6c
-/*    23aa0:	2442fffe */ 	addiu	$v0,$v0,-2
-/*    23aa4:	00001025 */ 	or	$v0,$zero,$zero
-.L00023aa8:
-/*    23aa8:	03e00008 */ 	jr	$ra
-/*    23aac:	00000000 */ 	nop
-);
+bool anim000239e0(s16 animnum, s32 frame)
+{
+	u8 *ptr = (u8 *)(var8009a888[var8005f010[animnum]] + g_Anims[animnum].initialposbytes - 2);
+
+	if (g_Anims[animnum].flags & ANIMFLAG_04) {
+		while (true) {
+			s16 value1 = ptr[0] << 8 | ptr[1];
+
+			if (value1 < 0) {
+				break;
+			}
+
+			ptr -= 4;
+		}
+
+		ptr -= 2;
+	}
+
+	while (true) {
+		s16 value2 = ptr[0] << 8 | ptr[1];
+
+		if (value2 < 0) {
+			break;
+		}
+
+		if (value2 == frame) {
+			return true;
+		}
+
+		ptr -= 2;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel anim00023ab0

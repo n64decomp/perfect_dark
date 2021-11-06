@@ -213,6 +213,7 @@
 
 #define ANIMFLAG_LOOP 0x01
 #define ANIMFLAG_02   0x02
+#define ANIMFLAG_04   0x04
 #define ANIMFLAG_08   0x08
 
 #define ATTACKFLAG_AIMATBOND      0x0001 // aim/shoot at Jo
