@@ -17,7 +17,7 @@ u32 var8009a870;
 u32 var8009a874;
 u32 var8009a878;
 u32 var8009a87c;
-u32 var8009a880;
+u8 *var8009a880;
 u32 var8009a884;
 u32 var8009a888;
 u32 var8009a88c;
@@ -679,21 +679,14 @@ glabel anim00023ab0
 /*    23d08:	30e200ff */ 	andi	$v0,$a3,0xff
 );
 
-GLOBAL_ASM(
-glabel anim00023d0c
-/*    23d0c:	3c03800a */ 	lui	$v1,%hi(var8009a880)
-/*    23d10:	2463a880 */ 	addiu	$v1,$v1,%lo(var8009a880)
-/*    23d14:	00001025 */ 	or	$v0,$zero,$zero
-/*    23d18:	24040020 */ 	addiu	$a0,$zero,0x20
-.L00023d1c:
-/*    23d1c:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*    23d20:	01c27821 */ 	addu	$t7,$t6,$v0
-/*    23d24:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    23d28:	1444fffc */ 	bne	$v0,$a0,.L00023d1c
-/*    23d2c:	a1e00000 */ 	sb	$zero,0x0($t7)
-/*    23d30:	03e00008 */ 	jr	$ra
-/*    23d34:	00000000 */ 	nop
-);
+void anim00023d0c(void)
+{
+	s32 i;
+
+	for (i = 0; i < 32; i++) {
+		var8009a880[i] = 0;
+	}
+}
 
 GLOBAL_ASM(
 glabel anim00023d38
