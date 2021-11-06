@@ -13,196 +13,77 @@
 #include "data.h"
 #include "types.h"
 
-u32 var8009a870;
-u32 var8009a874;
-u32 var8009a878;
-u32 var8009a87c;
+void *var8009a870;
+void *var8009a874;
+void *var8009a878;
+void *var8009a87c;
 u8 *var8009a880;
-u32 var8009a884;
-u32 var8009a888;
-u32 var8009a88c;
-u32 var8009a890;
+void *var8009a884;
+void *var8009a888;
+void *var8009a88c;
+void *var8009a890;
 s16 var8009a894;
 struct animheader *var8009a898;
 
-u32 var8005f000 = 0x00000000;
-u32 var8005f004 = 0x00000000;
+u32 var8005f000 = 0;
+u32 var8005f004 = 0;
 s16 g_NumAnimations = 0;
 struct animheader *g_Anims = NULL;
-u32 var8005f010 = 0x00000000;
+void *var8005f010 = NULL;
 s16 *var8005f014 = NULL;
-u32 var8005f018 = 0x000000b0;
-u32 var8005f01c = 0x00000260;
-u32 var8005f020 = 0x00000000;
-u32 var8005f024 = 0x00000000;
+s32 var8005f018 = 176;
+s32 var8005f01c = 608;
+u32 var8005f020 = 0;
+u32 var8005f024 = 0;
 
-GLOBAL_ASM(
-glabel anim000233c0
-/*    233c0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    233c4:	3c0e007d */ 	lui	$t6,%hi(_animationsTableRomEnd)
-/*    233c8:	3c0f007d */ 	lui	$t7,%hi(_animationsTableRomStart)
-/*    233cc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    233d0:	25efd1a0 */ 	addiu	$t7,$t7,%lo(_animationsTableRomStart)
-/*    233d4:	25ce0a40 */ 	addiu	$t6,$t6,%lo(_animationsTableRomEnd)
-/*    233d8:	01cf8023 */ 	subu	$s0,$t6,$t7
-/*    233dc:	2610003f */ 	addiu	$s0,$s0,0x3f
-/*    233e0:	3618003f */ 	ori	$t8,$s0,0x3f
-/*    233e4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    233e8:	3b04003f */ 	xori	$a0,$t8,0x3f
-/*    233ec:	00808025 */ 	or	$s0,$a0,$zero
-/*    233f0:	0c0048f2 */ 	jal	mempAlloc
-/*    233f4:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    233f8:	3c05007d */ 	lui	$a1,%hi(_animationsTableRomStart)
-/*    233fc:	24a5d1a0 */ 	addiu	$a1,$a1,%lo(_animationsTableRomStart)
-/*    23400:	00402025 */ 	or	$a0,$v0,$zero
-/*    23404:	02003025 */ 	or	$a2,$s0,$zero
-/*    23408:	0c003504 */ 	jal	dmaExec
-/*    2340c:	afa20020 */ 	sw	$v0,0x20($sp)
-/*    23410:	8fa30020 */ 	lw	$v1,0x20($sp)
-/*    23414:	3c04800a */ 	lui	$a0,%hi(var8009a894)
-/*    23418:	2484a894 */ 	addiu	$a0,$a0,%lo(var8009a894)
-/*    2341c:	8c6a0000 */ 	lw	$t2,0x0($v1)
-/*    23420:	3c05800a */ 	lui	$a1,%hi(var8009a898)
-/*    23424:	3c098006 */ 	lui	$t1,%hi(g_NumAnimations)
-/*    23428:	a48a0000 */ 	sh	$t2,0x0($a0)
-/*    2342c:	848b0000 */ 	lh	$t3,0x0($a0)
-/*    23430:	2529f008 */ 	addiu	$t1,$t1,%lo(g_NumAnimations)
-/*    23434:	24a5a898 */ 	addiu	$a1,$a1,%lo(var8009a898)
-/*    23438:	246c0004 */ 	addiu	$t4,$v1,0x4
-/*    2343c:	acac0000 */ 	sw	$t4,0x0($a1)
-/*    23440:	3c018006 */ 	lui	$at,%hi(g_Anims)
-/*    23444:	a52b0000 */ 	sh	$t3,0x0($t1)
-/*    23448:	ac2cf00c */ 	sw	$t4,%lo(g_Anims)($at)
-/*    2344c:	85280000 */ 	lh	$t0,0x0($t1)
-/*    23450:	3c078006 */ 	lui	$a3,%hi(var8005f018)
-/*    23454:	3c108006 */ 	lui	$s0,%hi(var8005f01c)
-/*    23458:	2610f01c */ 	addiu	$s0,$s0,%lo(var8005f01c)
-/*    2345c:	24e7f018 */ 	addiu	$a3,$a3,%lo(var8005f018)
-/*    23460:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    23464:	ae060000 */ 	sw	$a2,0x0($s0)
-/*    23468:	19000017 */ 	blez	$t0,.L000234c8
-/*    2346c:	ace60000 */ 	sw	$a2,0x0($a3)
-/*    23470:	00083080 */ 	sll	$a2,$t0,0x2
-/*    23474:	00c83023 */ 	subu	$a2,$a2,$t0
-/*    23478:	3c038006 */ 	lui	$v1,%hi(g_Anims)
-/*    2347c:	8c63f00c */ 	lw	$v1,%lo(g_Anims)($v1)
-/*    23480:	00063080 */ 	sll	$a2,$a2,0x2
-/*    23484:	00002025 */ 	or	$a0,$zero,$zero
-.L00023488:
-/*    23488:	94620008 */ 	lhu	$v0,0x8($v1)
-/*    2348c:	8e0e0000 */ 	lw	$t6,0x0($s0)
-/*    23490:	2484000c */ 	addiu	$a0,$a0,0xc
-/*    23494:	8ce50000 */ 	lw	$a1,0x0($a3)
-/*    23498:	01c2082a */ 	slt	$at,$t6,$v0
-/*    2349c:	50200003 */ 	beqzl	$at,.L000234ac
-/*    234a0:	94620002 */ 	lhu	$v0,0x2($v1)
-/*    234a4:	ae020000 */ 	sw	$v0,0x0($s0)
-/*    234a8:	94620002 */ 	lhu	$v0,0x2($v1)
-.L000234ac:
-/*    234ac:	00a2082a */ 	slt	$at,$a1,$v0
-/*    234b0:	50200003 */ 	beqzl	$at,.L000234c0
-/*    234b4:	0086082a */ 	slt	$at,$a0,$a2
-/*    234b8:	ace20000 */ 	sw	$v0,0x0($a3)
-/*    234bc:	0086082a */ 	slt	$at,$a0,$a2
-.L000234c0:
-/*    234c0:	1420fff1 */ 	bnez	$at,.L00023488
-/*    234c4:	2463000c */ 	addiu	$v1,$v1,12
-.L000234c8:
-/*    234c8:	8e0f0000 */ 	lw	$t7,0x0($s0)
-/*    234cc:	8ceb0000 */ 	lw	$t3,0x0($a3)
-/*    234d0:	2504003f */ 	addiu	$a0,$t0,0x3f
-/*    234d4:	25f80031 */ 	addiu	$t8,$t7,0x31
-/*    234d8:	256c0031 */ 	addiu	$t4,$t3,0x31
-/*    234dc:	3719000f */ 	ori	$t9,$t8,0xf
-/*    234e0:	358d000f */ 	ori	$t5,$t4,0xf
-/*    234e4:	3b2a000f */ 	xori	$t2,$t9,0xf
-/*    234e8:	39ae000f */ 	xori	$t6,$t5,0xf
-/*    234ec:	348f003f */ 	ori	$t7,$a0,0x3f
-/*    234f0:	ae0a0000 */ 	sw	$t2,0x0($s0)
-/*    234f4:	acee0000 */ 	sw	$t6,0x0($a3)
-/*    234f8:	39e4003f */ 	xori	$a0,$t7,0x3f
-/*    234fc:	0c0048f2 */ 	jal	mempAlloc
-/*    23500:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    23504:	3c098006 */ 	lui	$t1,%hi(g_NumAnimations)
-/*    23508:	3c018006 */ 	lui	$at,%hi(var8005f010)
-/*    2350c:	ac22f010 */ 	sw	$v0,%lo(var8005f010)($at)
-/*    23510:	2529f008 */ 	addiu	$t1,$t1,%lo(g_NumAnimations)
-/*    23514:	85240000 */ 	lh	$a0,0x0($t1)
-/*    23518:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    2351c:	0004c840 */ 	sll	$t9,$a0,0x1
-/*    23520:	2724003f */ 	addiu	$a0,$t9,0x3f
-/*    23524:	348a003f */ 	ori	$t2,$a0,0x3f
-/*    23528:	0c0048f2 */ 	jal	mempAlloc
-/*    2352c:	3944003f */ 	xori	$a0,$t2,0x3f
-/*    23530:	3c078006 */ 	lui	$a3,%hi(var8005f018)
-/*    23534:	3c018006 */ 	lui	$at,%hi(var8005f014)
-/*    23538:	ac22f014 */ 	sw	$v0,%lo(var8005f014)($at)
-/*    2353c:	24e7f018 */ 	addiu	$a3,$a3,%lo(var8005f018)
-/*    23540:	8ce40000 */ 	lw	$a0,0x0($a3)
-/*    23544:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    23548:	00046140 */ 	sll	$t4,$a0,0x5
-/*    2354c:	2584003f */ 	addiu	$a0,$t4,0x3f
-/*    23550:	348d003f */ 	ori	$t5,$a0,0x3f
-/*    23554:	0c0048f2 */ 	jal	mempAlloc
-/*    23558:	39a4003f */ 	xori	$a0,$t5,0x3f
-/*    2355c:	3c01800a */ 	lui	$at,%hi(var8009a870)
-/*    23560:	ac22a870 */ 	sw	$v0,%lo(var8009a870)($at)
-/*    23564:	24040080 */ 	addiu	$a0,$zero,0x80
-/*    23568:	0c0048f2 */ 	jal	mempAlloc
-/*    2356c:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    23570:	3c01800a */ 	lui	$at,%hi(var8009a874)
-/*    23574:	ac22a874 */ 	sw	$v0,%lo(var8009a874)($at)
-/*    23578:	24040040 */ 	addiu	$a0,$zero,0x40
-/*    2357c:	0c0048f2 */ 	jal	mempAlloc
-/*    23580:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    23584:	3c01800a */ 	lui	$at,%hi(var8009a878)
-/*    23588:	ac22a878 */ 	sw	$v0,%lo(var8009a878)($at)
-/*    2358c:	24040040 */ 	addiu	$a0,$zero,0x40
-/*    23590:	0c0048f2 */ 	jal	mempAlloc
-/*    23594:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    23598:	3c01800a */ 	lui	$at,%hi(var8009a87c)
-/*    2359c:	ac22a87c */ 	sw	$v0,%lo(var8009a87c)($at)
-/*    235a0:	24040040 */ 	addiu	$a0,$zero,0x40
-/*    235a4:	0c0048f2 */ 	jal	mempAlloc
-/*    235a8:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    235ac:	3c01800a */ 	lui	$at,%hi(var8009a880)
-/*    235b0:	ac22a880 */ 	sw	$v0,%lo(var8009a880)($at)
-/*    235b4:	8e040000 */ 	lw	$a0,0x0($s0)
-/*    235b8:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    235bc:	00047880 */ 	sll	$t7,$a0,0x2
-/*    235c0:	01e47821 */ 	addu	$t7,$t7,$a0
-/*    235c4:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*    235c8:	25e4003f */ 	addiu	$a0,$t7,0x3f
-/*    235cc:	3498003f */ 	ori	$t8,$a0,0x3f
-/*    235d0:	0c0048f2 */ 	jal	mempAlloc
-/*    235d4:	3b04003f */ 	xori	$a0,$t8,0x3f
-/*    235d8:	3c01800a */ 	lui	$at,%hi(var8009a884)
-/*    235dc:	ac22a884 */ 	sw	$v0,%lo(var8009a884)($at)
-/*    235e0:	240400c0 */ 	addiu	$a0,$zero,0xc0
-/*    235e4:	0c0048f2 */ 	jal	mempAlloc
-/*    235e8:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    235ec:	3c01800a */ 	lui	$at,%hi(var8009a888)
-/*    235f0:	ac22a888 */ 	sw	$v0,%lo(var8009a888)($at)
-/*    235f4:	24040080 */ 	addiu	$a0,$zero,0x80
-/*    235f8:	0c0048f2 */ 	jal	mempAlloc
-/*    235fc:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    23600:	3c01800a */ 	lui	$at,%hi(var8009a88c)
-/*    23604:	ac22a88c */ 	sw	$v0,%lo(var8009a88c)($at)
-/*    23608:	240400c0 */ 	addiu	$a0,$zero,0xc0
-/*    2360c:	0c0048f2 */ 	jal	mempAlloc
-/*    23610:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    23614:	3c01800a */ 	lui	$at,%hi(var8009a890)
-/*    23618:	0c008d90 */ 	jal	anim00023640
-/*    2361c:	ac22a890 */ 	sw	$v0,%lo(var8009a890)($at)
-/*    23620:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    23624:	3c018006 */ 	lui	$at,%hi(var8005f024)
-/*    23628:	ac20f024 */ 	sw	$zero,%lo(var8005f024)($at)
-/*    2362c:	3c018006 */ 	lui	$at,%hi(var8005f020)
-/*    23630:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    23634:	ac20f020 */ 	sw	$zero,%lo(var8005f020)($at)
-/*    23638:	03e00008 */ 	jr	$ra
-/*    2363c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+extern u8 _animationsTableRomStart;
+extern u8 _animationsTableRomEnd;
+
+void animsInit(void)
+{
+	s32 i;
+	u32 *ptr;
+	u32 tablelen = ALIGN64(&_animationsTableRomEnd - &_animationsTableRomStart);
+
+	ptr = mempAlloc(tablelen, MEMPOOL_PERMANENT);
+	dmaExec(ptr, (s32)&_animationsTableRomStart, tablelen);
+
+	g_NumAnimations = var8009a894 = ptr[0];
+	g_Anims = var8009a898 = (struct animheader *)&ptr[1];
+
+	var8005f01c = 1;
+	var8005f018 = 1;
+
+	for (i = 0; i < g_NumAnimations; i++) {
+		if (g_Anims[i].initialposbytes > var8005f01c) {
+			var8005f01c = g_Anims[i].initialposbytes;
+		}
+
+		if (g_Anims[i].framelen > var8005f018) {
+			var8005f018 = g_Anims[i].framelen;
+		}
+	}
+
+	var8005f01c = ALIGN16(var8005f01c + 34);
+	var8005f018 = ALIGN16(var8005f018 + 34);
+
+	var8005f010 = mempAlloc(ALIGN64(g_NumAnimations), MEMPOOL_PERMANENT);
+	var8005f014 = mempAlloc(ALIGN64(g_NumAnimations * 2), MEMPOOL_PERMANENT);
+	var8009a870 = mempAlloc(ALIGN64(var8005f018 * 0x20), MEMPOOL_PERMANENT);
+	var8009a874 = mempAlloc(0x80, MEMPOOL_PERMANENT);
+	var8009a878 = mempAlloc(0x40, MEMPOOL_PERMANENT);
+	var8009a87c = mempAlloc(0x40, MEMPOOL_PERMANENT);
+	var8009a880 = mempAlloc(0x40, MEMPOOL_PERMANENT);
+	var8009a884 = mempAlloc(ALIGN64(var8005f01c * 0x28), MEMPOOL_PERMANENT);
+	var8009a888 = mempAlloc(0xc0, MEMPOOL_PERMANENT);
+	var8009a88c = mempAlloc(0x80, MEMPOOL_PERMANENT);
+	var8009a890 = mempAlloc(0xc0, MEMPOOL_PERMANENT);
+
+	anim00023640();
+
+	var8005f024 = 0;
+	var8005f020 = 0;
+}
 
 GLOBAL_ASM(
 glabel anim00023640

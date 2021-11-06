@@ -4,8 +4,8 @@
 #include "data.h"
 #include "types.h"
 
-void anim000233c0(void);
-u32 anim00023640(void);
+void animsInit(void);
+void anim00023640(void);
 void anim0002373c(void);
 s32 animGetNumFrames(s16 anim_id);
 bool animHasFrames(s16 animnum);
