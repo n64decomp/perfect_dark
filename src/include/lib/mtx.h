@@ -55,7 +55,7 @@ u32 mtx00016dcc(f32 arg0, f32 arg1);
 u32 mtx00016e98(void);
 void mtx4Align(f32 mtx[4][4], f32 radians, f32 x, f32 y, f32 z);
 void mtx4LoadRotationFrom(f32 src[4][4], f32 dst[4][4]);
-u32 mtx000170e4(void);
+void mtx000170e4(f32 src[4][4], f32 dst[4][4]);
 void mtx0001719c(f32 arg0[4][4], f32 arg1[4][4]);
 u32 mtx000172f0(void);
 void mtx00017588(f32 arg0[4][4], f32 arg1[4][4]);
