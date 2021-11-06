@@ -3771,7 +3771,7 @@ Gfx *lvRender(Gfx *gdl)
 
 				func0f0641f4();
 				gdl = bgRender(gdl);
-				func0f028498(var80075d68 == 15 || var8005f020);
+				func0f028498(var80075d68 == 15 || g_AnimHostEnabled);
 				gdl = propsRenderBeams(gdl);
 				gdl = shardsRender(gdl);
 				gdl = sparksRender(gdl);

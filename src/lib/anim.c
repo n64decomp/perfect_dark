@@ -33,8 +33,8 @@ u8 *var8005f010 = NULL;
 s16 *var8005f014 = NULL;
 s32 var8005f018 = 176;
 s32 var8005f01c = 608;
-u32 var8005f020 = 0;
-u32 var8005f024 = 0;
+bool g_AnimHostEnabled = false;
+u8 *g_AnimHostSegment = NULL;
 
 extern u8 _animationsTableRomStart;
 extern u8 _animationsTableRomEnd;
@@ -81,8 +81,8 @@ void animsInit(void)
 
 	animsInitTables();
 
-	var8005f024 = 0;
-	var8005f020 = 0;
+	g_AnimHostSegment = NULL;
+	g_AnimHostEnabled = false;
 }
 
 void animsInitTables(void)
@@ -110,7 +110,7 @@ void anim0002373c(void)
 {
 	g_NumAnimations = var8009a894;
 	g_Anims = var8009a898;
-	var8005f020 = 0;
+	g_AnimHostEnabled = false;
 }
 
 s32 animGetNumFrames(s16 animnum)
@@ -128,36 +128,17 @@ s32 animGetNumAnimations(void)
 	return g_NumAnimations;
 }
 
-GLOBAL_ASM(
-glabel anim000237e8
-/*    237e8:	3c0e8006 */ 	lui	$t6,%hi(var8005f020)
-/*    237ec:	8dcef020 */ 	lw	$t6,%lo(var8005f020)($t6)
-/*    237f0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    237f4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    237f8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    237fc:	11c00009 */ 	beqz	$t6,.L00023824
-/*    23800:	00803825 */ 	or	$a3,$a0,$zero
-/*    23804:	3c0f8006 */ 	lui	$t7,%hi(var8005f024)
-/*    23808:	8deff024 */ 	lw	$t7,%lo(var8005f024)($t7)
-/*    2380c:	afa70018 */ 	sw	$a3,0x18($sp)
-/*    23810:	01e52021 */ 	addu	$a0,$t7,$a1
-/*    23814:	0c012c5c */ 	jal	bcopy
-/*    23818:	00e02825 */ 	or	$a1,$a3,$zero
-/*    2381c:	10000007 */ 	b	.L0002383c
-/*    23820:	8fa20018 */ 	lw	$v0,0x18($sp)
-.L00023824:
-/*    23824:	8fb9001c */ 	lw	$t9,0x1c($sp)
-/*    23828:	3c08001a */ 	lui	$t0,%hi(_animationsSegmentRomStart)
-/*    2382c:	250815c0 */ 	addiu $t0,$t0,%lo(_animationsSegmentRomStart)
-/*    23830:	00e02025 */ 	or	$a0,$a3,$zero
-/*    23834:	0c003522 */ 	jal	dmaExecWithAutoAlign
-/*    23838:	03282821 */ 	addu	$a1,$t9,$t0
-.L0002383c:
-/*    2383c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    23840:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    23844:	03e00008 */ 	jr	$ra
-/*    23848:	00000000 */ 	nop
-);
+extern u8 _animationsSegmentRomStart;
+
+u8 *animDma(u8 *dst, u32 segoffset, s32 len)
+{
+	if (g_AnimHostEnabled) {
+		bcopy(&g_AnimHostSegment[segoffset], dst, len);
+		return dst;
+	}
+
+	return dmaExecWithAutoAlign(dst, (u32)&_animationsSegmentRomStart + segoffset, len);
+}
 
 s32 anim0002384c(s16 animnum, s32 frame)
 {
@@ -396,7 +377,7 @@ glabel anim00023ab0
 /*    23c3c:	00ed0019 */ 	multu	$a3,$t5
 /*    23c40:	00007012 */ 	mflo	$t6
 /*    23c44:	01cf2021 */ 	addu	$a0,$t6,$t7
-/*    23c48:	0c008dfa */ 	jal	anim000237e8
+/*    23c48:	0c008dfa */ 	jal	animDma
 /*    23c4c:	00000000 */ 	nop
 /*    23c50:	8fa7003c */ 	lw	$a3,0x3c($sp)
 /*    23c54:	3c18800a */ 	lui	$t8,%hi(var8009a874)
@@ -557,7 +538,7 @@ glabel anim00023d38
 /*    23e90:	afa70034 */ 	sw	$a3,0x34($sp)
 /*    23e94:	00006012 */ 	mflo	$t4
 /*    23e98:	afa30028 */ 	sw	$v1,0x28($sp)
-/*    23e9c:	0c008dfa */ 	jal	anim000237e8
+/*    23e9c:	0c008dfa */ 	jal	animDma
 /*    23ea0:	01982021 */ 	addu	$a0,$t4,$t8
 /*    23ea4:	3c0d800a */ 	lui	$t5,%hi(var8009a888)
 /*    23ea8:	8dada888 */ 	lw	$t5,%lo(var8009a888)($t5)
@@ -636,7 +617,7 @@ glabel anim00023d38
 //
 //		tmp = g_Anims[animnum].initialposbytes;
 //
-//		var8009a888[index] = anim000237e8(&var8009a884[var8005f01c * index], g_Anims[animnum].data, tmp);
+//		var8009a888[index] = animDma(&var8009a884[var8005f01c * index], g_Anims[animnum].data, tmp);
 //		var8005f010[animnum] = index;
 //		var8009a88c[index] = animnum;
 //		var8009a890[index] = g_Vars.thisframe240;
