@@ -278,7 +278,7 @@ glabel rzipInflate
  	sw     $sp, 0x74($sp)
  	sw     $s8, 0x78($sp)
  	addiu  $sp, $sp, -0x18
- 	jal    rmonPrint
+ 	jal    rmonPrintf
  	addiu  $a0, $a0, %lo(errstr_unrecognised)
  	addiu  $sp, $sp, 0x18
  	lw     $ra, 0x0($sp)
@@ -351,7 +351,7 @@ glabel rzipInflate
  	sw     $sp, 0x74($sp)
  	sw     $s8, 0x78($sp)
  	addiu  $sp, $sp, -0x18
- 	jal    rmonPrint
+ 	jal    rmonPrintf
  	addiu  $a0, $a0, %lo(errstr_unrecognised)
  	addiu  $sp, $sp, 0x18
  	lw     $ra, 0x0($sp)
@@ -465,7 +465,7 @@ glabel rzipInflate
  	sw     $v0, 0x4($sp)
  	lui    $a0, %hi(errstr_inflatefailed)
  	addiu  $a0, $a0, %lo(errstr_inflatefailed)
- 	jal    rmonPrint
+ 	jal    rmonPrintf
  	lw     $a1, 0x4($sp)
  	addiu  $sp, $sp, 0x18
  	lw     $ra, 0x0($sp)
@@ -897,7 +897,7 @@ glabel rzipInflateDynamic
  	sw      $sp, 0x74($sp)
  	sw      $s8, 0x78($sp)
  	addiu   $sp, $sp, -24
- 	jal     rmonPrint
+ 	jal     rmonPrintf
  	addiu   $a0, $a0, %lo(errstr_badlen)
  	addiu   $sp, $sp, 0x18
  	lw      $ra, 0x0($sp)
@@ -1401,7 +1401,7 @@ glabel rzipBuildHufts
  	sw     $s3, 0x4($sp)
  	lui    $a0, %hi(errstr_huftsoverflow)
  	addiu  $a0, $a0, %lo(errstr_huftsoverflow)
- 	jal    rmonPrint
+ 	jal    rmonPrintf
  	lw     $a1, 0x4($sp)
  	addiu  $sp, $sp, 0x18
  	lw     $ra, 0x0($sp)

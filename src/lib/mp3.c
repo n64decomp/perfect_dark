@@ -34,7 +34,7 @@ void mp3Init(ALHeap *heap)
 	bzero(&g_Mp3Vars, sizeof(struct mp3vars));
 
 #if VERSION < VERSION_NTSC_1_0
-	rmonPrint("MPEG : RWI -> Allocating %d bytes for ASISTREAM from audio heap\n", 0x8480);
+	rmonPrintf("MPEG : RWI -> Allocating %d bytes for ASISTREAM from audio heap\n", 0x8480);
 #endif
 
 	var8009c3f4 = alHeapAlloc(heap, 0x8480, 1);

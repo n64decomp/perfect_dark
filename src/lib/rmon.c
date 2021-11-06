@@ -64,7 +64,7 @@ char *rmonProut(char *dst, const char *src, size_t count)
 	return (char *) 1;
 }
 
-void rmonPrint(const char *format, ...)
+void rmonPrintf(const char *format, ...)
 {
 	va_list ap;
 	va_start(ap, format);

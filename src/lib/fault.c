@@ -13,5 +13,5 @@ void faultCreateThread(void)
 
 void faultAssert(char *message, char *file, s32 line)
 {
-	rmonPrint("ASSERTION : %s, %d: (\"%s\")\n", file, line, message);
+	rmonPrintf("ASSERTION : %s, %d: (\"%s\")\n", file, line, message);
 }

@@ -7,14 +7,6 @@
 #include "data.h"
 #include "types.h"
 
-#if VERSION < VERSION_NTSC_1_0
-const char var70055980nb[] = "(";
-const char var70055984nb[] = "%s%s %9f";
-const char var70055990nb[] = "";
-const char var70055994nb[] = "";
-const char var70055998nb[] = " )\n";
-#endif
-
 void mtx00016110(f32 mtx1[3][3], f32 mtx2[3][3])
 {
 	f32 mtx3[3][3];
@@ -830,66 +822,21 @@ void mtx4Align(f32 mtx[4][4], f32 angle, f32 x, f32 y, f32 z)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel mtx4Print
-/*    18000:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*    18004:	afbe0040 */ 	sw	$s8,0x40($sp)
-/*    18008:	afb40030 */ 	sw	$s4,0x30($sp)
-/*    1800c:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*    18010:	afb20028 */ 	sw	$s2,0x28($sp)
-/*    18014:	afb7003c */ 	sw	$s7,0x3c($sp)
-/*    18018:	afb60038 */ 	sw	$s6,0x38($sp)
-/*    1801c:	afb50034 */ 	sw	$s5,0x34($sp)
-/*    18020:	3c127005 */ 	lui	$s2,0x7005
-/*    18024:	3c137005 */ 	lui	$s3,0x7005
-/*    18028:	3c147005 */ 	lui	$s4,0x7005
-/*    1802c:	3c1e7005 */ 	lui	$s8,0x7005
-/*    18030:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*    18034:	afb10024 */ 	sw	$s1,0x24($sp)
-/*    18038:	afb00020 */ 	sw	$s0,0x20($sp)
-/*    1803c:	27de5980 */ 	addiu	$s8,$s8,0x5980
-/*    18040:	26945994 */ 	addiu	$s4,$s4,0x5994
-/*    18044:	26735990 */ 	addiu	$s3,$s3,0x5990
-/*    18048:	26525984 */ 	addiu	$s2,$s2,0x5984
-/*    1804c:	24150010 */ 	addiu	$s5,$zero,0x10
-/*    18050:	0000b025 */ 	or	$s6,$zero,$zero
-/*    18054:	0080b825 */ 	or	$s7,$a0,$zero
-.NB00018058:
-/*    18058:	0c00c47d */ 	jal	rmonPrint
-/*    1805c:	03c02025 */ 	or	$a0,$s8,$zero
-/*    18060:	00008025 */ 	or	$s0,$zero,$zero
-/*    18064:	02e08825 */ 	or	$s1,$s7,$zero
-.NB00018068:
-/*    18068:	c6240000 */ 	lwc1	$f4,0x0($s1)
-/*    1806c:	02402025 */ 	or	$a0,$s2,$zero
-/*    18070:	02602825 */ 	or	$a1,$s3,$zero
-/*    18074:	460021a1 */ 	cvt.d.s	$f6,$f4
-/*    18078:	02803025 */ 	or	$a2,$s4,$zero
-/*    1807c:	0c00c47d */ 	jal	rmonPrint
-/*    18080:	f7a60010 */ 	sdc1	$f6,0x10($sp)
-/*    18084:	26100004 */ 	addiu	$s0,$s0,0x4
-/*    18088:	1615fff7 */ 	bne	$s0,$s5,.NB00018068
-/*    1808c:	26310004 */ 	addiu	$s1,$s1,0x4
-/*    18090:	3c047005 */ 	lui	$a0,0x7005
-/*    18094:	0c00c47d */ 	jal	rmonPrint
-/*    18098:	24845998 */ 	addiu	$a0,$a0,0x5998
-/*    1809c:	26d60001 */ 	addiu	$s6,$s6,0x1
-/*    180a0:	24010004 */ 	addiu	$at,$zero,0x4
-/*    180a4:	16c1ffec */ 	bne	$s6,$at,.NB00018058
-/*    180a8:	26f70010 */ 	addiu	$s7,$s7,0x10
-/*    180ac:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*    180b0:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*    180b4:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*    180b8:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*    180bc:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*    180c0:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*    180c4:	8fb50034 */ 	lw	$s5,0x34($sp)
-/*    180c8:	8fb60038 */ 	lw	$s6,0x38($sp)
-/*    180cc:	8fb7003c */ 	lw	$s7,0x3c($sp)
-/*    180d0:	8fbe0040 */ 	lw	$s8,0x40($sp)
-/*    180d4:	03e00008 */ 	jr	$ra
-/*    180d8:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+void mtx4Print(f32 mtx[4][4])
+{
+	s32 i;
+	s32 j;
+
+	for (i = 0; i < 4; i++) {
+		rmonPrintf("(");
+
+		for (j = 0; j < 4; j++) {
+			rmonPrintf("%s%s %9f", "", "", mtx[i][j]);
+		}
+
+		rmonPrintf(" )\n");
+	}
+}
 #endif
 
 void mtx4LoadRotationFrom(f32 src[4][4], f32 dst[4][4])

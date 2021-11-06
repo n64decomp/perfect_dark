@@ -93,7 +93,7 @@ s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel)
 		return ret;
 	}
 
-	rmonPrint("pfsinitpak.c -> ret = %d\n", ret);
+	rmonPrintf("pfsinitpak.c -> ret = %d\n", ret);
 	ret = osPfsChecker(pfs);
 	pfs->status |= PFS_INITIALIZED;
 #endif
