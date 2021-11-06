@@ -1248,118 +1248,34 @@ void mtx00017614(f32 arg0[4][4], f32 arg1[4][4])
 	arg1[3][3] =  mtx00017c2c(mtx00, mtx10, mtx20, mtx04, mtx14, mtx24, mtx08, mtx18, mtx28);
 }
 
-GLOBAL_ASM(
-glabel mtx00017a78
-/*    17a78:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*    17a7c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    17a80:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*    17a84:	e7a40078 */ 	swc1	$f4,0x78($sp)
-/*    17a88:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*    17a8c:	e7a60068 */ 	swc1	$f6,0x68($sp)
-/*    17a90:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*    17a94:	e7a80058 */ 	swc1	$f8,0x58($sp)
-/*    17a98:	c48a000c */ 	lwc1	$f10,0xc($a0)
-/*    17a9c:	e7aa0048 */ 	swc1	$f10,0x48($sp)
-/*    17aa0:	c4840018 */ 	lwc1	$f4,0x18($a0)
-/*    17aa4:	c4800014 */ 	lwc1	$f0,0x14($a0)
-/*    17aa8:	c48c0010 */ 	lwc1	$f12,0x10($a0)
-/*    17aac:	e7a40054 */ 	swc1	$f4,0x54($sp)
-/*    17ab0:	c4860028 */ 	lwc1	$f6,0x28($a0)
-/*    17ab4:	c482001c */ 	lwc1	$f2,0x1c($a0)
-/*    17ab8:	c4900024 */ 	lwc1	$f16,0x24($a0)
-/*    17abc:	c48e0020 */ 	lwc1	$f14,0x20($a0)
-/*    17ac0:	e7a60050 */ 	swc1	$f6,0x50($sp)
-/*    17ac4:	c4880030 */ 	lwc1	$f8,0x30($a0)
-/*    17ac8:	c492002c */ 	lwc1	$f18,0x2c($a0)
-/*    17acc:	44070000 */ 	mfc1	$a3,$f0
-/*    17ad0:	e7a8006c */ 	swc1	$f8,0x6c($sp)
-/*    17ad4:	c48a0034 */ 	lwc1	$f10,0x34($a0)
-/*    17ad8:	8fa6006c */ 	lw	$a2,0x6c($sp)
-/*    17adc:	e7aa005c */ 	swc1	$f10,0x5c($sp)
-/*    17ae0:	c4840038 */ 	lwc1	$f4,0x38($a0)
-/*    17ae4:	c7a8005c */ 	lwc1	$f8,0x5c($sp)
-/*    17ae8:	e7a4004c */ 	swc1	$f4,0x4c($sp)
-/*    17aec:	c486003c */ 	lwc1	$f6,0x3c($a0)
-/*    17af0:	e7a00064 */ 	swc1	$f0,0x64($sp)
-/*    17af4:	e7ac0074 */ 	swc1	$f12,0x74($sp)
-/*    17af8:	e7a6003c */ 	swc1	$f6,0x3c($sp)
-/*    17afc:	c7aa003c */ 	lwc1	$f10,0x3c($sp)
-/*    17b00:	e7a20044 */ 	swc1	$f2,0x44($sp)
-/*    17b04:	e7a20018 */ 	swc1	$f2,0x18($sp)
-/*    17b08:	e7b00060 */ 	swc1	$f16,0x60($sp)
-/*    17b0c:	e7b00010 */ 	swc1	$f16,0x10($sp)
-/*    17b10:	e7ae0070 */ 	swc1	$f14,0x70($sp)
-/*    17b14:	e7b20040 */ 	swc1	$f18,0x40($sp)
-/*    17b18:	e7b2001c */ 	swc1	$f18,0x1c($sp)
-/*    17b1c:	e7a80014 */ 	swc1	$f8,0x14($sp)
-/*    17b20:	0c005f0b */ 	jal	mtx00017c2c
-/*    17b24:	e7aa0020 */ 	swc1	$f10,0x20($sp)
-/*    17b28:	c7a40050 */ 	lwc1	$f4,0x50($sp)
-/*    17b2c:	c7a6004c */ 	lwc1	$f6,0x4c($sp)
-/*    17b30:	c7a80044 */ 	lwc1	$f8,0x44($sp)
-/*    17b34:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*    17b38:	c7a4003c */ 	lwc1	$f4,0x3c($sp)
-/*    17b3c:	c7aa0040 */ 	lwc1	$f10,0x40($sp)
-/*    17b40:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*    17b44:	c7ac0074 */ 	lwc1	$f12,0x74($sp)
-/*    17b48:	c7ae0070 */ 	lwc1	$f14,0x70($sp)
-/*    17b4c:	8fa6006c */ 	lw	$a2,0x6c($sp)
-/*    17b50:	8fa70054 */ 	lw	$a3,0x54($sp)
-/*    17b54:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*    17b58:	e7a80018 */ 	swc1	$f8,0x18($sp)
-/*    17b5c:	e7a40020 */ 	swc1	$f4,0x20($sp)
-/*    17b60:	0c005f0b */ 	jal	mtx00017c2c
-/*    17b64:	e7aa001c */ 	swc1	$f10,0x1c($sp)
-/*    17b68:	c7a60050 */ 	lwc1	$f6,0x50($sp)
-/*    17b6c:	c7a8004c */ 	lwc1	$f8,0x4c($sp)
-/*    17b70:	c7aa0044 */ 	lwc1	$f10,0x44($sp)
-/*    17b74:	e7a60010 */ 	swc1	$f6,0x10($sp)
-/*    17b78:	c7a6003c */ 	lwc1	$f6,0x3c($sp)
-/*    17b7c:	c7a40040 */ 	lwc1	$f4,0x40($sp)
-/*    17b80:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*    17b84:	c7ac0064 */ 	lwc1	$f12,0x64($sp)
-/*    17b88:	c7ae0060 */ 	lwc1	$f14,0x60($sp)
-/*    17b8c:	8fa6005c */ 	lw	$a2,0x5c($sp)
-/*    17b90:	8fa70054 */ 	lw	$a3,0x54($sp)
-/*    17b94:	e7a80014 */ 	swc1	$f8,0x14($sp)
-/*    17b98:	e7aa0018 */ 	swc1	$f10,0x18($sp)
-/*    17b9c:	e7a60020 */ 	swc1	$f6,0x20($sp)
-/*    17ba0:	0c005f0b */ 	jal	mtx00017c2c
-/*    17ba4:	e7a4001c */ 	swc1	$f4,0x1c($sp)
-/*    17ba8:	c7a80060 */ 	lwc1	$f8,0x60($sp)
-/*    17bac:	c7aa005c */ 	lwc1	$f10,0x5c($sp)
-/*    17bb0:	c7a40054 */ 	lwc1	$f4,0x54($sp)
-/*    17bb4:	e7a80010 */ 	swc1	$f8,0x10($sp)
-/*    17bb8:	c7a8004c */ 	lwc1	$f8,0x4c($sp)
-/*    17bbc:	c7a60050 */ 	lwc1	$f6,0x50($sp)
-/*    17bc0:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*    17bc4:	c7ac0074 */ 	lwc1	$f12,0x74($sp)
-/*    17bc8:	c7ae0070 */ 	lwc1	$f14,0x70($sp)
-/*    17bcc:	8fa6006c */ 	lw	$a2,0x6c($sp)
-/*    17bd0:	8fa70064 */ 	lw	$a3,0x64($sp)
-/*    17bd4:	e7aa0014 */ 	swc1	$f10,0x14($sp)
-/*    17bd8:	e7a40018 */ 	swc1	$f4,0x18($sp)
-/*    17bdc:	e7a80020 */ 	swc1	$f8,0x20($sp)
-/*    17be0:	0c005f0b */ 	jal	mtx00017c2c
-/*    17be4:	e7a6001c */ 	swc1	$f6,0x1c($sp)
-/*    17be8:	c7aa0078 */ 	lwc1	$f10,0x78($sp)
-/*    17bec:	c7a40038 */ 	lwc1	$f4,0x38($sp)
-/*    17bf0:	c7a80068 */ 	lwc1	$f8,0x68($sp)
-/*    17bf4:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    17bf8:	46045182 */ 	mul.s	$f6,$f10,$f4
-/*    17bfc:	c7aa0034 */ 	lwc1	$f10,0x34($sp)
-/*    17c00:	460a4102 */ 	mul.s	$f4,$f8,$f10
-/*    17c04:	c7aa0058 */ 	lwc1	$f10,0x58($sp)
-/*    17c08:	46043201 */ 	sub.s	$f8,$f6,$f4
-/*    17c0c:	c7a60030 */ 	lwc1	$f6,0x30($sp)
-/*    17c10:	46065102 */ 	mul.s	$f4,$f10,$f6
-/*    17c14:	c7a60048 */ 	lwc1	$f6,0x48($sp)
-/*    17c18:	27bd0080 */ 	addiu	$sp,$sp,0x80
-/*    17c1c:	46044280 */ 	add.s	$f10,$f8,$f4
-/*    17c20:	46060202 */ 	mul.s	$f8,$f0,$f6
-/*    17c24:	03e00008 */ 	jr	$ra
-/*    17c28:	46085001 */ 	sub.s	$f0,$f10,$f8
-);
+f32 mtx00017a78(f32 arg0[4][4])
+{
+	f32 tmp;
+	f32 sp78, sp74, sp70, sp6c;
+	f32 sp68, sp64, sp60, sp5c;
+	f32 sp58, sp54, sp50, sp4c;
+	f32 sp48, sp44, sp40, sp3c;
+	f32 sp38;
+	f32 sp34;
+	f32 sp30;
+
+	sp78 = arg0[0][0]; sp68 = arg0[0][1];
+	sp58 = arg0[0][2]; sp48 = arg0[0][3];
+	sp74 = arg0[1][0]; sp64 = arg0[1][1];
+	sp54 = arg0[1][2]; sp44 = arg0[1][3];
+	sp70 = arg0[2][0]; sp60 = arg0[2][1];
+	sp50 = arg0[2][2]; sp40 = arg0[2][3];
+	sp6c = arg0[3][0]; sp5c = arg0[3][1];
+	sp4c = arg0[3][2]; sp3c = arg0[3][3];
+
+	sp30 = mtx00017c2c(sp74, sp70, sp6c, sp64, sp60, sp5c, sp44, sp40, sp3c);
+	sp34 = mtx00017c2c(sp74, sp70, sp6c, sp54, sp50, sp4c, sp44, sp40, sp3c);
+	sp38 = mtx00017c2c(sp64, sp60, sp5c, sp54, sp50, sp4c, sp44, sp40, sp3c);
+
+	tmp = mtx00017c2c(sp74, sp70, sp6c, sp64, sp60, sp5c, sp54, sp50, sp4c);
+
+	return (sp78 * sp38 - sp68 * sp34 + sp58 * sp30) - tmp * sp48;
+}
 
 f32 mtx00017c2c(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8)
 {

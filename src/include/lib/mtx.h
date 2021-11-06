@@ -60,7 +60,7 @@ u32 mtx0001719c(void);
 u32 mtx000172f0(void);
 u32 mtx00017588(void);
 void mtx00017614(f32 arg0[4][4], f32 arg1[4][4]);
-u32 mtx00017a78(void);
+f32 mtx00017a78(f32 arg0[4][4]);
 f32 mtx00017c2c(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8);
 f32 mtx00017cbc(f32 arg0, f32 arg1, f32 arg2, f32 arg3);
 
