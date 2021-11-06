@@ -744,7 +744,7 @@ void model0001b400(struct objticksp476 *arg0, struct model *model, struct modeln
 	}
 
 	if (g_Anims[anim->animnum].flags & ANIMFLAG_02) {
-		mtx000166dc(sp254, &sp198);
+		mtx4LoadTranslation(sp254, &sp198);
 	} else {
 		if (rwdata->chrinfo.unk18 != 0.0f) {
 			sp250 = model0001afe8(sp250, rwdata->chrinfo.unk1c, rwdata->chrinfo.unk18);
@@ -817,7 +817,7 @@ glabel var70054308
 /*    1b884:	8fae0058 */ 	lw	$t6,0x58($sp)
 /*    1b888:	8fa400c8 */ 	lw	$a0,0xc8($sp)
 /*    1b88c:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*    1b890:	0c0059a9 */ 	jal	mtx000166a4
+/*    1b890:	0c0059a9 */ 	jal	mtx4LoadRotationAndTranslation
 /*    1b894:	27a60068 */ 	addiu	$a2,$sp,0x68
 /*    1b898:	8fae00cc */ 	lw	$t6,0xcc($sp)
 /*    1b89c:	8faf00bc */ 	lw	$t7,0xbc($sp)
@@ -888,7 +888,7 @@ glabel var70054308
 /*    1b98c:	000c6980 */ 	sll	$t5,$t4,0x6
 /*    1b990:	01ae3021 */ 	addu	$a2,$t5,$t6
 /*    1b994:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*    1b998:	0c0059a9 */ 	jal	mtx000166a4
+/*    1b998:	0c0059a9 */ 	jal	mtx4LoadRotationAndTranslation
 /*    1b99c:	8fa500c4 */ 	lw	$a1,0xc4($sp)
 /*    1b9a0:	8faf00cc */ 	lw	$t7,0xcc($sp)
 /*    1b9a4:	8fb800bc */ 	lw	$t8,0xbc($sp)
@@ -1729,7 +1729,7 @@ glabel var70053fc0pf
 /*    1c308:	1200000f */ 	beqz	$s0,.PF0001c348
 /*    1c30c:	8fa40158 */ 	lw	$a0,0x158($sp)
 /*    1c310:	8fa40158 */ 	lw	$a0,0x158($sp)
-/*    1c314:	0c00591b */ 	jal	mtx000166dc
+/*    1c314:	0c00591b */ 	jal	mtx4LoadTranslation
 /*    1c318:	27a500e8 */ 	addiu	$a1,$sp,0xe8
 /*    1c31c:	8fa80158 */ 	lw	$t0,0x158($sp)
 /*    1c320:	8faa0164 */ 	lw	$t2,0x164($sp)
@@ -1747,7 +1747,7 @@ glabel var70053fc0pf
 /*    1c34c:	848f000e */ 	lh	$t7,0xe($a0)
 /*    1c350:	8dae000c */ 	lw	$t6,0xc($t5)
 /*    1c354:	000fc980 */ 	sll	$t9,$t7,0x6
-/*    1c358:	0c00591b */ 	jal	mtx000166dc
+/*    1c358:	0c00591b */ 	jal	mtx4LoadTranslation
 /*    1c35c:	01d92821 */ 	addu	$a1,$t6,$t9
 /*    1c360:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .PF0001c364:
@@ -2143,7 +2143,7 @@ glabel model0001bfa8
 /*    1c548:	1200000f */ 	beqz	$s0,.L0001c588
 /*    1c54c:	8fa40158 */ 	lw	$a0,0x158($sp)
 /*    1c550:	8fa40158 */ 	lw	$a0,0x158($sp)
-/*    1c554:	0c0059b7 */ 	jal	mtx000166dc
+/*    1c554:	0c0059b7 */ 	jal	mtx4LoadTranslation
 /*    1c558:	27a500e8 */ 	addiu	$a1,$sp,0xe8
 /*    1c55c:	8fb80158 */ 	lw	$t8,0x158($sp)
 /*    1c560:	8fa90164 */ 	lw	$t1,0x164($sp)
@@ -2161,7 +2161,7 @@ glabel model0001bfa8
 /*    1c58c:	848e000e */ 	lh	$t6,0xe($a0)
 /*    1c590:	8d8d000c */ 	lw	$t5,0xc($t4)
 /*    1c594:	000e7980 */ 	sll	$t7,$t6,0x6
-/*    1c598:	0c0059b7 */ 	jal	mtx000166dc
+/*    1c598:	0c0059b7 */ 	jal	mtx4LoadTranslation
 /*    1c59c:	01af2821 */ 	addu	$a1,$t5,$t7
 /*    1c5a0:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0001c5a4:
@@ -2187,10 +2187,10 @@ void model0001c5b4(struct objticksp476 *arg0, struct model *model, struct modeln
 	}
 
 	if (sp68) {
-		mtx000166dc(&rodata->positionheld.pos, &sp28);
+		mtx4LoadTranslation(&rodata->positionheld.pos, &sp28);
 		mtx00015be4(sp68, &sp28, &matrices[mtxindex]);
 	} else {
-		mtx000166dc(&rodata->positionheld.pos, &matrices[mtxindex]);
+		mtx4LoadTranslation(&rodata->positionheld.pos, &matrices[mtxindex]);
 	}
 }
 

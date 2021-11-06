@@ -1383,7 +1383,7 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 			spa4.y = -spa4.y;
 			spa4.z = -spa4.z;
 
-			mtx000166dc(&spa4, &sp24);
+			mtx4LoadTranslation(&spa4, &sp24);
 			mtx00015be4(&sp64, &sp24, &monitor->base.monitorthing->matrix);
 		}
 	} else {

@@ -609,7 +609,7 @@ glabel var7f1a7ee8
 /*  f007438:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f00743c:	e7a40100 */ 	swc1	$f4,0x100($sp)
 /*  f007440:	8fa40154 */ 	lw	$a0,0x154($sp)
-/*  f007444:	0c0059b7 */ 	jal	mtx000166dc
+/*  f007444:	0c0059b7 */ 	jal	mtx4LoadTranslation
 /*  f007448:	02002825 */ 	or	$a1,$s0,$zero
 /*  f00744c:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f007450:	00000000 */ 	nop
@@ -2869,7 +2869,7 @@ Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl)
 	sp3c.z = -100;
 
 	mtx4LoadIdentity(&sp48);
-	mtx000166dc(&nbomb->pos, &sp48);
+	mtx4LoadTranslation(&nbomb->pos, &sp48);
 
 	sp3c.x = 0;
 	sp3c.y = nbomb->unk14 / divider * M_TAU;

@@ -258,13 +258,13 @@ Gfx *shardsRenderWood(Gfx *gdl)
 					/**
 					 * The following function call is really just this:
 					 *
-					 * mtx000166a4(&g_Shards[i].pos, &g_Shards[i].rot, &shardmtx);
+					 * mtx4LoadRotationAndTranslation(&g_Shards[i].pos, &g_Shards[i].rot, &shardmtx);
 					 *
 					 * ... but that causes a mismatch, so I'm using a hacky but
 					 * matching alternative. This hack is @dangerous because it
 					 * assumes the offsets of pos and rot in the shard struct.
 					 */
-					mtx000166a4(
+					mtx4LoadRotationAndTranslation(
 							(struct coord *)((u8 *)g_Shards + i * sizeof(struct shard) + 0x08),
 							(struct coord *)((u8 *)g_Shards + i * sizeof(struct shard) + 0x14),
 							&shardmtx);
@@ -488,7 +488,7 @@ glabel shardsRenderWood
 /*  f14c198:	27a600e0 */ 	addiu	$a2,$sp,0xe0
 /*  f14c19c:	01f41021 */ 	addu	$v0,$t7,$s4
 /*  f14c1a0:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f14c1a4:	0c005d8d */ 	jal	mtx000166a4
+/*  f14c1a4:	0c005d8d */ 	jal	mtx4LoadRotationAndTranslation
 /*  f14c1a8:	24450014 */ 	addiu	$a1,$v0,0x14
 /*  f14c1ac:	8ee30284 */ 	lw	$v1,0x284($s7)
 /*  f14c1b0:	c7a40110 */ 	lwc1	$f4,0x110($sp)
@@ -858,7 +858,7 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 					/**
 					 * @dangerous: See comment for similar code in shardsRenderWood.
 					 */
-					mtx000166a4(
+					mtx4LoadRotationAndTranslation(
 							(struct coord *)((u8 *)g_Shards + i * sizeof(struct shard) + 0x08),
 							(struct coord *)((u8 *)g_Shards + i * sizeof(struct shard) + 0x14),
 							&shardmtx);
@@ -1126,7 +1126,7 @@ glabel shardsRenderGlass
 /*  f14c918:	03c03025 */ 	or	$a2,$s8,$zero
 /*  f14c91c:	03331021 */ 	addu	$v0,$t9,$s3
 /*  f14c920:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f14c924:	0c005d8d */ 	jal	mtx000166a4
+/*  f14c924:	0c005d8d */ 	jal	mtx4LoadRotationAndTranslation
 /*  f14c928:	24450014 */ 	addiu	$a1,$v0,0x14
 /*  f14c92c:	8ec30284 */ 	lw	$v1,0x284($s6)
 /*  f14c930:	c7a40120 */ 	lwc1	$f4,0x120($sp)
