@@ -5,7 +5,7 @@
 #include "types.h"
 
 void animsInit(void);
-void anim00023640(void);
+void animsInitTables(void);
 void anim0002373c(void);
 s32 animGetNumFrames(s16 anim_id);
 bool animHasFrames(s16 animnum);

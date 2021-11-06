@@ -15,13 +15,13 @@
 
 void *var8009a870;
 void *var8009a874;
-void *var8009a878;
-void *var8009a87c;
+s16 *var8009a878;
+s16 *var8009a87c;
 u8 *var8009a880;
 void *var8009a884;
 s32 *var8009a888;
-void *var8009a88c;
-void *var8009a890;
+s16 *var8009a88c;
+s32 *var8009a890;
 s16 var8009a894;
 struct animheader *var8009a898;
 
@@ -79,82 +79,32 @@ void animsInit(void)
 	var8009a88c = mempAlloc(0x80, MEMPOOL_PERMANENT);
 	var8009a890 = mempAlloc(0xc0, MEMPOOL_PERMANENT);
 
-	anim00023640();
+	animsInitTables();
 
 	var8005f024 = 0;
 	var8005f020 = 0;
 }
 
-GLOBAL_ASM(
-glabel anim00023640
-/*    23640:	3c048006 */ 	lui	$a0,%hi(g_NumAnimations)
-/*    23644:	2484f008 */ 	addiu	$a0,$a0,%lo(g_NumAnimations)
-/*    23648:	848e0000 */ 	lh	$t6,0x0($a0)
-/*    2364c:	00001025 */ 	or	$v0,$zero,$zero
-/*    23650:	00001825 */ 	or	$v1,$zero,$zero
-/*    23654:	19c00012 */ 	blez	$t6,.L000236a0
-/*    23658:	3c078006 */ 	lui	$a3,%hi(var8005f014)
-/*    2365c:	3c058006 */ 	lui	$a1,%hi(var8005f010)
-/*    23660:	24a5f010 */ 	addiu	$a1,$a1,%lo(var8005f010)
-/*    23664:	24e7f014 */ 	addiu	$a3,$a3,%lo(var8005f014)
-/*    23668:	240600ff */ 	addiu	$a2,$zero,0xff
-/*    2366c:	8caf0000 */ 	lw	$t7,0x0($a1)
-.L00023670:
-/*    23670:	01e2c021 */ 	addu	$t8,$t7,$v0
-/*    23674:	a3060000 */ 	sb	$a2,0x0($t8)
-/*    23678:	8cf90000 */ 	lw	$t9,0x0($a3)
-/*    2367c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    23680:	03234021 */ 	addu	$t0,$t9,$v1
-/*    23684:	a5000000 */ 	sh	$zero,0x0($t0)
-/*    23688:	84890000 */ 	lh	$t1,0x0($a0)
-/*    2368c:	24630002 */ 	addiu	$v1,$v1,0x2
-/*    23690:	0049082a */ 	slt	$at,$v0,$t1
-/*    23694:	5420fff6 */ 	bnezl	$at,.L00023670
-/*    23698:	8caf0000 */ 	lw	$t7,0x0($a1)
-/*    2369c:	00001025 */ 	or	$v0,$zero,$zero
-.L000236a0:
-/*    236a0:	3c06800a */ 	lui	$a2,%hi(var8009a880)
-/*    236a4:	3c05800a */ 	lui	$a1,%hi(var8009a87c)
-/*    236a8:	3c04800a */ 	lui	$a0,%hi(var8009a878)
-/*    236ac:	2484a878 */ 	addiu	$a0,$a0,%lo(var8009a878)
-/*    236b0:	24a5a87c */ 	addiu	$a1,$a1,%lo(var8009a87c)
-/*    236b4:	24c6a880 */ 	addiu	$a2,$a2,%lo(var8009a880)
-/*    236b8:	00001825 */ 	or	$v1,$zero,$zero
-.L000236bc:
-/*    236bc:	8c8a0000 */ 	lw	$t2,0x0($a0)
-/*    236c0:	01435821 */ 	addu	$t3,$t2,$v1
-/*    236c4:	a5600000 */ 	sh	$zero,0x0($t3)
-/*    236c8:	8cac0000 */ 	lw	$t4,0x0($a1)
-/*    236cc:	01836821 */ 	addu	$t5,$t4,$v1
-/*    236d0:	a5a00000 */ 	sh	$zero,0x0($t5)
-/*    236d4:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*    236d8:	24630002 */ 	addiu	$v1,$v1,0x2
-/*    236dc:	01c27821 */ 	addu	$t7,$t6,$v0
-/*    236e0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    236e4:	28410020 */ 	slti	$at,$v0,0x20
-/*    236e8:	1420fff4 */ 	bnez	$at,.L000236bc
-/*    236ec:	a1e00000 */ 	sb	$zero,0x0($t7)
-/*    236f0:	3c05800a */ 	lui	$a1,%hi(var8009a890)
-/*    236f4:	3c02800a */ 	lui	$v0,%hi(var8009a88c)
-/*    236f8:	2442a88c */ 	addiu	$v0,$v0,%lo(var8009a88c)
-/*    236fc:	24a5a890 */ 	addiu	$a1,$a1,%lo(var8009a890)
-/*    23700:	00001825 */ 	or	$v1,$zero,$zero
-/*    23704:	00002025 */ 	or	$a0,$zero,$zero
-/*    23708:	240700a0 */ 	addiu	$a3,$zero,0xa0
-/*    2370c:	2406fffe */ 	addiu	$a2,$zero,-2
-.L00023710:
-/*    23710:	8c580000 */ 	lw	$t8,0x0($v0)
-/*    23714:	0303c821 */ 	addu	$t9,$t8,$v1
-/*    23718:	a7200000 */ 	sh	$zero,0x0($t9)
-/*    2371c:	8ca80000 */ 	lw	$t0,0x0($a1)
-/*    23720:	24630002 */ 	addiu	$v1,$v1,0x2
-/*    23724:	01044821 */ 	addu	$t1,$t0,$a0
-/*    23728:	24840004 */ 	addiu	$a0,$a0,0x4
-/*    2372c:	1487fff8 */ 	bne	$a0,$a3,.L00023710
-/*    23730:	ad260000 */ 	sw	$a2,0x0($t1)
-/*    23734:	03e00008 */ 	jr	$ra
-/*    23738:	00000000 */ 	nop
-);
+void animsInitTables(void)
+{
+	s32 i;
+
+	for (i = 0; i < g_NumAnimations; i++) {
+		var8005f010[i] = 0xff;
+		var8005f014[i] = 0;
+	}
+
+	for (i = 0; i < 32; i++) {
+		var8009a878[i] = 0;
+		var8009a87c[i] = 0;
+		var8009a880[i] = 0;
+	}
+
+	for (i = 0; i < 40; i++) {
+		var8009a88c[i] = 0;
+		var8009a890[i] = -2;
+	}
+}
 
 void anim0002373c(void)
 {
