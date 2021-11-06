@@ -36,15 +36,6 @@ u32 var8005f01c = 0x00000260;
 u32 var8005f020 = 0x00000000;
 u32 var8005f024 = 0x00000000;
 
-const u32 var70054690[] = {0x3a83126f};
-const u32 var70054694[] = {0x3a83126f};
-const u32 var70054698[] = {0x3a83126f};
-const u32 var7005469c[] = {0x40c907a9};
-const u32 var700546a0[] = {0x40c907a9};
-const u32 var700546a4[] = {0x40c907a9};
-const u32 var700546a8[] = {0x40c907a9};
-const u32 var700546ac[] = {0x3a83126f};
-
 GLOBAL_ASM(
 glabel anim000233c0
 /*    233c0:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -913,6 +904,20 @@ glabel anim00023fe0
 
 GLOBAL_ASM(
 glabel anim00024050
+.late_rodata
+glabel var70054690
+.word 0x3a83126f
+glabel var70054694
+.word 0x3a83126f
+glabel var70054698
+.word 0x3a83126f
+glabel var7005469c
+.word 0x40c907a9
+glabel var700546a0
+.word 0x40c907a9
+glabel var700546a4
+.word 0x40c907a9
+.text
 /*    24050:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*    24054:	93b9007b */ 	lbu	$t9,0x7b($sp)
 /*    24058:	3c18800a */ 	lui	$t8,%hi(var8009a874)
@@ -1672,57 +1677,25 @@ glabel anim0002485c
 /*    24b60:	01001025 */ 	or	$v0,$t0,$zero
 );
 
-GLOBAL_ASM(
-glabel anim00024b64
-/*    24b64:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*    24b68:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*    24b6c:	8fa80050 */ 	lw	$t0,0x50($sp)
-/*    24b70:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    24b74:	afa70044 */ 	sw	$a3,0x44($sp)
-/*    24b78:	00077400 */ 	sll	$t6,$a3,0x10
-/*    24b7c:	27b90030 */ 	addiu	$t9,$sp,0x30
-/*    24b80:	000e3c03 */ 	sra	$a3,$t6,0x10
-/*    24b84:	afb90014 */ 	sw	$t9,0x14($sp)
-/*    24b88:	afb80010 */ 	sw	$t8,0x10($sp)
-/*    24b8c:	0c009217 */ 	jal	anim0002485c
-/*    24b90:	afa80018 */ 	sw	$t0,0x18($sp)
-/*    24b94:	87a90030 */ 	lh	$t1,0x30($sp)
-/*    24b98:	8fa3004c */ 	lw	$v1,0x4c($sp)
-/*    24b9c:	3c014f80 */ 	lui	$at,0x4f80
-/*    24ba0:	44892000 */ 	mtc1	$t1,$f4
-/*    24ba4:	00000000 */ 	nop
-/*    24ba8:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    24bac:	44822000 */ 	mtc1	$v0,$f4
-/*    24bb0:	e4660000 */ 	swc1	$f6,0x0($v1)
-/*    24bb4:	87aa0032 */ 	lh	$t2,0x32($sp)
-/*    24bb8:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    24bbc:	448a4000 */ 	mtc1	$t2,$f8
-/*    24bc0:	00000000 */ 	nop
-/*    24bc4:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*    24bc8:	e46a0004 */ 	swc1	$f10,0x4($v1)
-/*    24bcc:	87ab0034 */ 	lh	$t3,0x34($sp)
-/*    24bd0:	448b8000 */ 	mtc1	$t3,$f16
-/*    24bd4:	00000000 */ 	nop
-/*    24bd8:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*    24bdc:	04410004 */ 	bgez	$v0,.L00024bf0
-/*    24be0:	e4720008 */ 	swc1	$f18,0x8($v1)
-/*    24be4:	44814000 */ 	mtc1	$at,$f8
-/*    24be8:	00000000 */ 	nop
-/*    24bec:	46083180 */ 	add.s	$f6,$f6,$f8
-.L00024bf0:
-/*    24bf0:	3c017005 */ 	lui	$at,%hi(var700546a8)
-/*    24bf4:	c42a46a8 */ 	lwc1	$f10,%lo(var700546a8)($at)
-/*    24bf8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    24bfc:	3c014780 */ 	lui	$at,0x4780
-/*    24c00:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*    24c04:	44819000 */ 	mtc1	$at,$f18
-/*    24c08:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*    24c0c:	03e00008 */ 	jr	$ra
-/*    24c10:	46128003 */ 	div.s	$f0,$f16,$f18
-);
+f32 anim00024b64(u32 arg0, u32 arg1, struct modeltype *arg2, s16 animnum, u32 arg4, struct coord *coord, u32 arg6)
+{
+	s16 sp30[3];
+
+	f32 value = anim0002485c(arg0, arg1, arg2, animnum, arg4, sp30, arg6);
+
+	coord->x = sp30[0];
+	coord->y = sp30[1];
+	coord->z = sp30[2];
+
+	return (value * M_BADTAU) / 65536.0f;
+}
 
 GLOBAL_ASM(
 glabel anim00024c14
+.late_rodata
+glabel var700546ac
+.word 0x3a83126f
+.text
 /*    24c14:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*    24c18:	3c19800a */ 	lui	$t9,%hi(var8009a874)
 /*    24c1c:	8f39a874 */ 	lw	$t9,%lo(var8009a874)($t9)
