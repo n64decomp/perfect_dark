@@ -47,154 +47,136 @@ void mtx00016208(f32 mtx[3][3], struct coord *coord)
 	coord->z = tmp[2];
 }
 
-void mtx4LoadYRotationWithTranslation(struct coord *coord, f32 angle, Mtxf *matrix)
+void mtx4LoadYRotationWithTranslation(struct coord *coord, f32 angle, Mtxf *mtx)
 {
 	f32 cos = cosf(angle);
 	f32 sin = sinf(angle);
 
-	matrix->m[0][0] = cos;
-	matrix->m[0][1] = 0;
-	matrix->m[0][2] = -sin;
-	matrix->m[0][3] = 0;
+	mtx->m[0][0] = cos;
+	mtx->m[0][1] = 0;
+	mtx->m[0][2] = -sin;
+	mtx->m[0][3] = 0;
 
-	matrix->m[1][0] = 0;
-	matrix->m[1][1] = 1;
-	matrix->m[1][2] = 0;
-	matrix->m[1][3] = 0;
+	mtx->m[1][0] = 0;
+	mtx->m[1][1] = 1;
+	mtx->m[1][2] = 0;
+	mtx->m[1][3] = 0;
 
-	matrix->m[2][0] = sin;
-	matrix->m[2][1] = 0;
-	matrix->m[2][2] = cos;
-	matrix->m[2][3] = 0;
+	mtx->m[2][0] = sin;
+	mtx->m[2][1] = 0;
+	mtx->m[2][2] = cos;
+	mtx->m[2][3] = 0;
 
-	matrix->m[3][0] = coord->x;
-	matrix->m[3][1] = coord->y;
-	matrix->m[3][2] = coord->z;
-	matrix->m[3][3] = 1;
+	mtx->m[3][0] = coord->x;
+	mtx->m[3][1] = coord->y;
+	mtx->m[3][2] = coord->z;
+	mtx->m[3][3] = 1;
 }
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func000171d8nb
-/*    171d8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    171dc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    171e0:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    171e4:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    171e8:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*    171ec:	0c006d52 */ 	jal	cosf
-/*    171f0:	afa60028 */ 	sw	$a2,0x28($sp)
-/*    171f4:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*    171f8:	0c006d55 */ 	jal	sinf
-/*    171fc:	e7a0001c */ 	swc1	$f0,0x1c($sp)
-/*    17200:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*    17204:	8fa20020 */ 	lw	$v0,0x20($sp)
-/*    17208:	c7ae001c */ 	lwc1	$f14,0x1c($sp)
-/*    1720c:	44801000 */ 	mtc1	$zero,$f2
-/*    17210:	3c013f80 */ 	lui	$at,0x3f80
-/*    17214:	44816000 */ 	mtc1	$at,$f12
-/*    17218:	46000107 */ 	neg.s	$f4,$f0
-/*    1721c:	e4c00018 */ 	swc1	$f0,0x18($a2)
-/*    17220:	e4c40024 */ 	swc1	$f4,0x24($a2)
-/*    17224:	e4ce0014 */ 	swc1	$f14,0x14($a2)
-/*    17228:	e4ce0028 */ 	swc1	$f14,0x28($a2)
-/*    1722c:	e4c20004 */ 	swc1	$f2,0x4($a2)
-/*    17230:	e4c20008 */ 	swc1	$f2,0x8($a2)
-/*    17234:	e4c2000c */ 	swc1	$f2,0xc($a2)
-/*    17238:	e4c20010 */ 	swc1	$f2,0x10($a2)
-/*    1723c:	e4c2001c */ 	swc1	$f2,0x1c($a2)
-/*    17240:	e4c20020 */ 	swc1	$f2,0x20($a2)
-/*    17244:	e4c2002c */ 	swc1	$f2,0x2c($a2)
-/*    17248:	e4cc0000 */ 	swc1	$f12,0x0($a2)
-/*    1724c:	c4460000 */ 	lwc1	$f6,0x0($v0)
-/*    17250:	e4c60030 */ 	swc1	$f6,0x30($a2)
-/*    17254:	c4480004 */ 	lwc1	$f8,0x4($v0)
-/*    17258:	e4c80034 */ 	swc1	$f8,0x34($a2)
-/*    1725c:	c44a0008 */ 	lwc1	$f10,0x8($v0)
-/*    17260:	e4cc003c */ 	swc1	$f12,0x3c($a2)
-/*    17264:	e4ca0038 */ 	swc1	$f10,0x38($a2)
-/*    17268:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1726c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    17270:	03e00008 */ 	jr	$ra
-/*    17274:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void mtx4LoadXRotationWithTranslation(struct coord *coord, f32 angle, Mtxf *mtx)
+{
+	f32 cos = cosf(angle);
+	f32 sin = sinf(angle);
+
+	mtx->m[0][0] = 1;
+	mtx->m[0][1] = 0;
+	mtx->m[0][2] = 0;
+	mtx->m[0][3] = 0;
+
+	mtx->m[1][0] = 0;
+	mtx->m[1][1] = cos;
+	mtx->m[1][2] = sin;
+	mtx->m[1][3] = 0;
+
+	mtx->m[2][0] = 0;
+	mtx->m[2][1] = -sin;
+	mtx->m[2][2] = cos;
+	mtx->m[2][3] = 0;
+
+	mtx->m[3][0] = coord->x;
+	mtx->m[3][1] = coord->y;
+	mtx->m[3][2] = coord->z;
+	mtx->m[3][3] = 1;
+}
 #endif
 
-void mtx4LoadXRotation(f32 angle, Mtxf *matrix)
+void mtx4LoadXRotation(f32 angle, Mtxf *mtx)
 {
 	f32 cos = cosf(angle);
 	f32 sin = sinf(angle);
 
-	matrix->m[0][0] = 1;
-	matrix->m[0][1] = 0;
-	matrix->m[0][2] = 0;
-	matrix->m[0][3] = 0;
+	mtx->m[0][0] = 1;
+	mtx->m[0][1] = 0;
+	mtx->m[0][2] = 0;
+	mtx->m[0][3] = 0;
 
-	matrix->m[1][0] = 0;
-	matrix->m[1][1] = cos;
-	matrix->m[1][2] = sin;
-	matrix->m[1][3] = 0;
+	mtx->m[1][0] = 0;
+	mtx->m[1][1] = cos;
+	mtx->m[1][2] = sin;
+	mtx->m[1][3] = 0;
 
-	matrix->m[2][0] = 0;
-	matrix->m[2][1] = -sin;
-	matrix->m[2][2] = cos;
-	matrix->m[2][3] = 0;
+	mtx->m[2][0] = 0;
+	mtx->m[2][1] = -sin;
+	mtx->m[2][2] = cos;
+	mtx->m[2][3] = 0;
 
-	matrix->m[3][0] = 0;
-	matrix->m[3][1] = 0;
-	matrix->m[3][2] = 0;
-	matrix->m[3][3] = 1;
+	mtx->m[3][0] = 0;
+	mtx->m[3][1] = 0;
+	mtx->m[3][2] = 0;
+	mtx->m[3][3] = 1;
 }
 
-void mtx4LoadYRotation(f32 angle, Mtxf *matrix)
+void mtx4LoadYRotation(f32 angle, Mtxf *mtx)
 {
 	f32 cos = cosf(angle);
 	f32 sin = sinf(angle);
 
-	matrix->m[0][0] = cos;
-	matrix->m[0][1] = 0;
-	matrix->m[0][2] = -sin;
-	matrix->m[0][3] = 0;
+	mtx->m[0][0] = cos;
+	mtx->m[0][1] = 0;
+	mtx->m[0][2] = -sin;
+	mtx->m[0][3] = 0;
 
-	matrix->m[1][0] = 0;
-	matrix->m[1][1] = 1;
-	matrix->m[1][2] = 0;
-	matrix->m[1][3] = 0;
+	mtx->m[1][0] = 0;
+	mtx->m[1][1] = 1;
+	mtx->m[1][2] = 0;
+	mtx->m[1][3] = 0;
 
-	matrix->m[2][0] = sin;
-	matrix->m[2][1] = 0;
-	matrix->m[2][2] = cos;
-	matrix->m[2][3] = 0;
+	mtx->m[2][0] = sin;
+	mtx->m[2][1] = 0;
+	mtx->m[2][2] = cos;
+	mtx->m[2][3] = 0;
 
-	matrix->m[3][0] = 0;
-	matrix->m[3][1] = 0;
-	matrix->m[3][2] = 0;
-	matrix->m[3][3] = 1;
+	mtx->m[3][0] = 0;
+	mtx->m[3][1] = 0;
+	mtx->m[3][2] = 0;
+	mtx->m[3][3] = 1;
 }
 
-void mtx4LoadZRotation(f32 angle, Mtxf *matrix)
+void mtx4LoadZRotation(f32 angle, Mtxf *mtx)
 {
 	f32 cos = cosf(angle);
 	f32 sin = sinf(angle);
 
-	matrix->m[0][0] = cos;
-	matrix->m[0][1] = sin;
-	matrix->m[0][2] = 0;
-	matrix->m[0][3] = 0;
+	mtx->m[0][0] = cos;
+	mtx->m[0][1] = sin;
+	mtx->m[0][2] = 0;
+	mtx->m[0][3] = 0;
 
-	matrix->m[1][0] = -sin;
-	matrix->m[1][1] = cos;
-	matrix->m[1][2] = 0;
-	matrix->m[1][3] = 0;
+	mtx->m[1][0] = -sin;
+	mtx->m[1][1] = cos;
+	mtx->m[1][2] = 0;
+	mtx->m[1][3] = 0;
 
-	matrix->m[2][0] = 0;
-	matrix->m[2][1] = 0;
-	matrix->m[2][2] = 1;
-	matrix->m[2][3] = 0;
+	mtx->m[2][0] = 0;
+	mtx->m[2][1] = 0;
+	mtx->m[2][2] = 1;
+	mtx->m[2][3] = 0;
 
-	matrix->m[3][0] = 0;
-	matrix->m[3][1] = 0;
-	matrix->m[3][2] = 0;
-	matrix->m[3][3] = 1;
+	mtx->m[3][0] = 0;
+	mtx->m[3][1] = 0;
+	mtx->m[3][2] = 0;
+	mtx->m[3][3] = 1;
 }
 
 void mtx4LoadRotation(struct coord *src, Mtxf *dest)
@@ -513,9 +495,9 @@ glabel mtx00016874
 /*    16ae0:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-void mtx00016ae4(Mtxf *matrix, f32 posx, f32 posy, f32 posz, f32 lookx, f32 looky, f32 lookz, f32 upx, f32 upy, f32 upz)
+void mtx00016ae4(Mtxf *mtx, f32 posx, f32 posy, f32 posz, f32 lookx, f32 looky, f32 lookz, f32 upx, f32 upy, f32 upz)
 {
-	mtx00016874(matrix, posx, posy, posz, lookx - posx, looky - posy, lookz - posz, upx, upy, upz);
+	mtx00016874(mtx, posx, posy, posz, lookx - posx, looky - posy, lookz - posz, upx, upy, upz);
 }
 
 GLOBAL_ASM(
@@ -650,9 +632,9 @@ glabel mtx00016b58
 /*    16d54:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-void mtx00016d58(Mtxf *matrix, f32 posx, f32 posy, f32 posz, f32 lookx, f32 looky, f32 lookz, f32 upx, f32 upy, f32 upz)
+void mtx00016d58(Mtxf *mtx, f32 posx, f32 posy, f32 posz, f32 lookx, f32 looky, f32 lookz, f32 upx, f32 upy, f32 upz)
 {
-	mtx00016b58(matrix, posx, posy, posz, lookx - posx, looky - posy, lookz - posz, upx, upy, upz);
+	mtx00016b58(mtx, posx, posy, posz, lookx - posx, looky - posy, lookz - posz, upx, upy, upz);
 }
 
 u32 mtx00016dcc(f32 arg0, f32 arg1)
