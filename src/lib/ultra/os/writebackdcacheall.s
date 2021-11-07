@@ -4,6 +4,8 @@
 
 .section .text
 
+.space 0x60
+
 glabel osWritebackDCacheAll
 	lui   $t0, 0x8000
 	addiu $t2, $zero, 0x2000
