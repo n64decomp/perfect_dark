@@ -216,6 +216,14 @@
 #define ANIMFLAG_04   0x04
 #define ANIMFLAG_08   0x08
 
+#define ANIMHEADERFLAG_01 0x01 // len 9
+#define ANIMHEADERFLAG_02 0x02 // len 9
+#define ANIMHEADERFLAG_08 0x08 // len 12
+#define ANIMHEADERFLAG_10 0x10 // len 0
+#define ANIMHEADERFLAG_20 0x20 // len 15
+#define ANIMHEADERFLAG_40 0x40 // len 5
+#define ANIMHEADERFLAG_80 0x80 // len 0
+
 #define ATTACKFLAG_AIMATBOND      0x0001 // aim/shoot at Jo
 #define ATTACKFLAG_AIMFORWARD     0x0002 // aim/shoot in front of self
 #define ATTACKFLAG_AIMATCHR       0x0004 // aim/shoot at chr (ID should be given in entityid)

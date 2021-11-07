@@ -6013,11 +6013,11 @@ struct modelthing {
 	/*0x16*/ u16 unk16;
 };
 
-struct animheader {
+struct animsummary {
 	/*0x00*/ u16 numframes;
-	/*0x02*/ u16 framelen; // in bytes
+	/*0x02*/ u16 bytesperframe; // in bytes
 	/*0x04*/ u32 data;
-	/*0x08*/ u16 initialposbytes;
+	/*0x08*/ u16 headerlen;
 	/*0x0a*/ u8 initialposbitsperentry;
 	/*0x0b*/ u8 flags;
 };
