@@ -1,0 +1,199 @@
+#!/usr/bin/env python3
+
+import assetmgr
+import json
+import os
+import re
+import struct
+import sys
+
+class App():
+
+    floortypes = {
+        'default': 0,
+        'wood':    1,
+        'stone':   2,
+        'carpet':  3,
+        'metal':   4,
+        'mud':     5,
+        'water':   6,
+        'dirt':    7,
+        'snow':    8,
+    }
+
+    def run(self):
+        self.load_data()
+
+        self.room_names = self.json['rooms'].keys()
+
+        self.make_header()
+        self.make_object()
+
+    def load_data(self):
+        fd = open(sys.argv[1], 'r')
+        data = fd.read()
+        fd.close()
+
+        self.json = json.loads(data)
+
+        self.shortname = os.path.basename(sys.argv[1]).replace('.json', '')
+
+    def make_header(self):
+        typename = 'room_%s' % self.shortname
+        enums = self.json['rooms'].keys()
+        filename = 'tiles/%s.h' % self.shortname
+        terminator = 'ROOM_%s_END' % self.shortname.upper()
+        assetmgr.write_enums(typename, enums, filename, terminator)
+
+    def make_object(self):
+        binary = self.make_binary()
+        zipped = assetmgr.zip(binary)
+
+        # Write the zipped file, purely so `make test` can verify it
+        assetmgr.writefile('build/%s/assets/files/bgdata/bg_%s_tilesZ' % (os.environ['ROMID'], self.shortname), zipped)
+
+        filename = 'files/bgdata/bg_%s_tilesZ.o' % self.shortname
+        assetmgr.write_object(zipped, filename)
+
+    # Order of stuff:
+    # - 0x00: number of rooms
+    # - 0x04: room offset table, with end marker
+    # - Room data
+    def make_binary(self):
+        rooms = self.make_rooms()
+
+        output = bytes()
+
+        # Write number of rooms
+        output += len(rooms).to_bytes(4, 'big')
+
+        # Write room offset table
+        pos = 4 + len(rooms) * 4 + 4
+
+        for room in rooms:
+            output += pos.to_bytes(4, 'big')
+            pos += len(room)
+
+        # Write end marker
+        output += pos.to_bytes(4, 'big')
+
+        # Write room data
+        output += b''.join(rooms)
+
+        output = assetmgr.pad16(output)
+
+        return output
+
+    def make_rooms(self):
+        rooms = []
+
+        for data in self.json['rooms'].values():
+            rooms.append(self.make_room(data))
+
+        return rooms
+
+    def make_room(self, tiles):
+        output = bytes()
+
+        for tile in tiles:
+            output += self.make_tile(tile)
+
+        return output
+
+    def make_tile(self, tile):
+        output = bytes()
+
+        bbox = self.find_bbox(tile['vertices'])
+
+        output += b'\x00'
+        output += len(tile['vertices']).to_bytes(1, 'big')
+        output += self.make_flags(tile).to_bytes(2, 'big')
+        output += self.floortypes[tile['floortype']].to_bytes(2, 'big')
+        output += bbox['xmin'].to_bytes(1, 'big')
+        output += bbox['ymin'].to_bytes(1, 'big')
+        output += bbox['zmin'].to_bytes(1, 'big')
+        output += bbox['xmax'].to_bytes(1, 'big')
+        output += bbox['ymax'].to_bytes(1, 'big')
+        output += bbox['zmax'].to_bytes(1, 'big')
+        output += tile['floorcolour'].to_bytes(2, 'big')
+
+        for vert in tile['vertices']:
+            output += self.make_unsigned(vert['x']).to_bytes(2, 'big')
+            output += self.make_unsigned(vert['y']).to_bytes(2, 'big')
+            output += self.make_unsigned(vert['z']).to_bytes(2, 'big')
+
+        return output
+
+    def find_bbox(self, verts):
+        values = {}
+        indices = {}
+        values['xmin'] = 99999
+        values['ymin'] = 99999
+        values['zmin'] = 99999
+        values['xmax'] = -99999
+        values['ymax'] = -99999
+        values['zmax'] = -99999
+        indices['xmin'] = 0
+        indices['ymin'] = 0
+        indices['zmin'] = 0
+        indices['xmax'] = 0
+        indices['ymax'] = 0
+        indices['zmax'] = 0
+
+        for index, vert in enumerate(verts):
+            if vert['x'] < values['xmin']:
+                values['xmin'] = vert['x']
+                indices['xmin'] = index
+            if vert['y'] < values['ymin']:
+                values['ymin'] = vert['y']
+                indices['ymin'] = index
+            if vert['z'] < values['zmin']:
+                values['zmin'] = vert['z']
+                indices['zmin'] = index
+            if vert['x'] > values['xmax']:
+                values['xmax'] = vert['x']
+                indices['xmax'] = index
+            if vert['y'] > values['ymax']:
+                values['ymax'] = vert['y']
+                indices['ymax'] = index
+            if vert['z'] > values['zmax']:
+                values['zmax'] = vert['z']
+                indices['zmax'] = index
+
+        return indices
+
+    def make_flags(self, room):
+        names = [
+            'flag0001',
+            'flag0002',
+            'flag0004',
+            'flag0008',
+            'flag0010',
+            'flag0020',
+            'ladder',
+            'flag0080',
+            'flag0100',
+            'underwater',
+            'flag0400',
+            'aibotcrouch',
+            'aibotduck',
+            'flag2000',
+            'die',
+            'climbableledge',
+        ]
+
+        flags = 0
+
+        for index, name in enumerate(names):
+            if room[name]:
+                flags |= 1 << index
+
+        return flags
+
+    def make_unsigned(self, value):
+        if value < 0:
+            value = 0x10000 - abs(value)
+        return value
+
+app = App()
+app.run()

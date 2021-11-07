@@ -7,6 +7,7 @@
 #include "gbiex.h"
 #include "lang.h"
 #include "pads.h"
+#include "tiles.h"
 
 #define bool s32
 #define ubool u32

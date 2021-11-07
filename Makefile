@@ -234,30 +234,29 @@ GLOBALASM_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(GLOBALASM_C_FILES))
 
 $(GLOBALASM_O_FILES): CC := /usr/bin/env python3 tools/asm_processor/build.py $(CC) -- $(TOOLCHAIN)-as $(ASFLAGS) --
 
+# Asset files are files which are included in the "files" segment of the ROM.
+# This excludes animations, fonts, SFX, MIDI and textures.
+# And because setup files are part of the files segment they are included here,
+# despite them being written in C.
+#
 # Create names such as $(B_DIR)/assets/files/PfooZ.
 # These names (with .o added) will be dependenices for ld.
-#
-# There are two types of assets: Those which are generated for all versions from
-# a single location in src, and those which are copied into each ROM version
-# folder at src/assets/$(ROMID) folder. Currently the former is just setup and
-# tile files.
 ASSET_FILES := \
-	$(patsubst $(A_DIR)/files/audio/%.mp3,        $(B_DIR)/assets/files/A%M,               $(shell find $(A_DIR)/files/audio -name '*.mp3')) \
-	$(patsubst $(A_DIR)/files/chrs/%.bin,         $(B_DIR)/assets/files/C%Z,               $(shell find $(A_DIR)/files/chrs -name '*.bin')) \
-	$(patsubst $(A_DIR)/files/guns/%.bin,         $(B_DIR)/assets/files/G%Z,               $(shell find $(A_DIR)/files/guns -name '*.bin')) \
-	$(patsubst $(A_DIR)/files/props/%.bin,        $(B_DIR)/assets/files/P%Z,               $(shell find $(A_DIR)/files/props -name '*.bin')) \
-	$(patsubst src/files/setup/%.c,               $(B_DIR)/assets/files/U%Z,               $(shell find src/files/setup -name '*.c')) \
-	$(patsubst $(A_DIR)/files/setup/%.bin,        $(B_DIR)/assets/files/U%Z,               $(shell find $(A_DIR)/files -path '*/setup/*.bin')) \
-	$(patsubst $(A_DIR)/files/bgdata/%.seg,       $(B_DIR)/assets/files/bgdata/%.seg,      $(shell find $(A_DIR)/files/bgdata -name '*.seg')) \
-	$(patsubst src/files/bgdata/%_tiles.s,        $(B_DIR)/assets/files/bgdata/%_tilesZ,   $(shell find src/files/bgdata -name 'bg_*_tiles.s')) \
-	$(patsubst $(A_DIR)/files/bgdata/%_tiles.bin, $(B_DIR)/assets/files/bgdata/%_tilesZ,   $(shell find $(A_DIR)/files/bgdata -name 'bg_*_tiles.bin')) \
+	$(patsubst $(A_DIR)/files/audio/%.mp3,  $(B_DIR)/assets/files/A%M,          $(shell find $(A_DIR)/files/audio -name '*.mp3')) \
+	$(patsubst $(A_DIR)/files/chrs/%.bin,   $(B_DIR)/assets/files/C%Z,          $(shell find $(A_DIR)/files/chrs -name '*.bin')) \
+	$(patsubst $(A_DIR)/files/guns/%.bin,   $(B_DIR)/assets/files/G%Z,          $(shell find $(A_DIR)/files/guns -name '*.bin')) \
+	$(patsubst $(A_DIR)/files/props/%.bin,  $(B_DIR)/assets/files/P%Z,          $(shell find $(A_DIR)/files/props -name '*.bin')) \
+	$(patsubst src/files/setup/%.c,         $(B_DIR)/assets/files/U%Z,          $(shell find src/files/setup -name '*.c')) \
+	$(patsubst $(A_DIR)/files/bgdata/%.seg, $(B_DIR)/assets/files/bgdata/%.seg, $(shell find $(A_DIR)/files/bgdata -name '*.seg')) \
 	$(B_DIR)/assets/files/ob/ob_mid.seg.o
 
-LANG_JSON_FILES := $(shell find $(A_DIR)/lang -name '*.json')
-PADS_JSON_FILES := $(shell find $(A_DIR)/pads -name '*.json')
+LANG_JSON_FILES := $(shell find $(A_DIR) -path '*/lang/*.json')
+PADS_JSON_FILES := $(shell find $(A_DIR) -path '*/pads/*.json')
+TILES_JSON_FILES := $(shell find $(A_DIR) -path '*/tiles/*.json')
 
 LANG_O_FILES := $(patsubst $(A_DIR)/lang/%.json, $(B_DIR)/assets/files/L%.o, $(LANG_JSON_FILES))
 PADS_O_FILES := $(patsubst $(A_DIR)/pads/%.json, $(B_DIR)/assets/files/bgdata/bg_%_padsZ.o, $(PADS_JSON_FILES))
+TILES_O_FILES := $(patsubst $(A_DIR)/tiles/%.json, $(B_DIR)/assets/files/bgdata/bg_%_tilesZ.o, $(TILES_JSON_FILES))
 
 O_FILES := \
 	$(patsubst src/%.c, $(B_DIR)/%.o, $(C_FILES)) \
@@ -265,6 +264,7 @@ O_FILES := \
 	$(patsubst %, %.o, $(ASSET_FILES)) \
 	$(LANG_O_FILES) \
 	$(PADS_O_FILES) \
+	$(TILES_O_FILES) \
 	$(B_DIR)/bootloader.o \
 	$(B_DIR)/assets/animations.o \
 	$(B_DIR)/assets/copyrightZ.o \
@@ -378,6 +378,7 @@ ASSETMGR_O_FILES := \
 	$(B_DIR)/assets/animations.o \
 	$(LANG_O_FILES) \
 	$(PADS_O_FILES) \
+	$(TILES_O_FILES) \
 	$(B_DIR)/assets/sequences.o \
 	$(B_DIR)/assets/textureslist.o \
 
@@ -409,6 +410,14 @@ $(B_DIR)/assets/sequences.o: $(A_DIR)/sequences.json
 $(B_DIR)/assets/textureslist.o: $(A_DIR)/textures.json
 	tools/assetmgr/mktextures
 
+# Tiles
+$(B_DIR)/assets/files/bgdata/bg_%_tilesZ.o: $(A_DIR)/tiles/%.json
+	tools/assetmgr/mktiles $<
+
+# Tiles - but this is the zipped non-obj, for make test
+$(B_DIR)/assets/files/bgdata/bg_%_tilesZ: $(A_DIR)/tiles/%.json
+	tools/assetmgr/mktiles $<
+
 ################################################################################
 # Files
 
@@ -421,25 +430,6 @@ $(B_DIR)/assets/files/A%M: $(A_DIR)/files/audio/%.mp3
 $(B_DIR)/assets/files/bgdata/bg_%.seg: $(A_DIR)/files/bgdata/bg_%.seg
 	@mkdir -p $(B_DIR)/assets/files/bgdata
 	cp $< $@
-
-# BG tiles
-# src/assets/files/bgdata/bg_foo_tiles.s
-# -> B_DIR/assets/files/bgdata/bg_foo_tiles.o (done here)
-# -> B_DIR/assets/files/bgdata/bg_foo_tiles.elf (done here)
-# -> A_DIR/assets/files/bgdata/bg_foo_tiles.bin (done here)
-# -> B_DIR/assets/files/bgdata/bg_foo_tilesZ (done here)
-# Or create $(A_DIR)/files/bgdata/bg_foo_tiles.bin to skip the earlier steps
-$(B_DIR)/assets/files/bgdata/bg_%_tiles.o: src/files/bgdata/bg_%_tiles.s
-	$(TOOLCHAIN)-as --defsym VERSION=$(VERSION) -march=vr4300 -mabi=32 -I src/include -EB -o $@ $<
-
-$(B_DIR)/assets/files/bgdata/bg_%_tiles.elf: $(B_DIR)/assets/files/bgdata/bg_%_tiles.o
-	TOOLCHAIN=$(TOOLCHAIN) tools/mksimpleelf $< $@
-
-$(A_DIR)/files/bgdata/bg_%_tiles.bin: $(B_DIR)/assets/files/bgdata/bg_%_tiles.elf
-	$(TOOLCHAIN)-objcopy $< $@ -O binary
-
-$(B_DIR)/assets/files/bgdata/bg_%_tilesZ: $(A_DIR)/files/bgdata/bg_%_tiles.bin
-	tools/rarezip $< > $@
 
 # Chrs
 $(B_DIR)/assets/files/C%Z: $(A_DIR)/files/chrs/%.bin
@@ -467,10 +457,9 @@ $(B_DIR)/assets/files/P%Z: $(A_DIR)/files/props/%.bin
 # $(A_DIR)/files/setup/foo.c
 # -> B_DIR/assets/files/setup/foo.o (done here)
 # -> B_DIR/assets/files/setup/foo.elf (done here)
-# -> A_DIR/assets/files/setup/foo.bin (done here)
+# -> B_DIR/assets/files/setup/foo.bin (done here)
 # -> B_DIR/assets/files/UsetupfooZ (done here)
 # -> B_DIR/assets/files/UsetupfooZ.o (done elsewhere)
-# Or create $(A_DIR)/files/setup/foo.bin to skip the earlier steps
 $(B_DIR)/assets/files/setup/%.o: src/files/setup/%.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
 	$(CC) -c $(CFLAGS) -o $@ $<
@@ -478,11 +467,11 @@ $(B_DIR)/assets/files/setup/%.o: src/files/setup/%.c $(ASSETMGR_O_FILES)
 $(B_DIR)/assets/files/setup/%.elf: $(B_DIR)/assets/files/setup/%.o
 	TOOLCHAIN=$(TOOLCHAIN) tools/mksimpleelf $< $@
 
-$(A_DIR)/files/setup/%.bin: $(B_DIR)/assets/files/setup/%.elf
+$(B_DIR)/files/setup/%.bin: $(B_DIR)/assets/files/setup/%.elf
 	@mkdir -p $(dir $@)
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
 
-$(B_DIR)/assets/files/U%Z: $(A_DIR)/files/setup/%.bin
+$(B_DIR)/assets/files/U%Z: $(B_DIR)/files/setup/%.bin
 	tools/rarezip $< > $@
 
 # General target to convert any finalised file into a raw object for ld
