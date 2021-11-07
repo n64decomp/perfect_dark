@@ -17,7 +17,7 @@ bool anim000239e0(s16 animnum, s32 frame);
 u8 anim00023ab0(s16 animnum, s32 framenum);
 void anim00023d0c(void);
 void anim00023d38(s16 animnum);
-s32 anim00023f50(u8 *arg0, u8 arg1, s32 arg2);
+u32 anim00023f50(u8 *arg0, u8 arg1, u32 arg2);
 u32 anim00023fe0(void);
 void anim00024050(s32 arg0, s32 arg1, struct modeltype *arg2, s32 animnum, u32 arg4, struct coord *arg5, struct coord *arg6, struct coord *arg7);
 u32 anim0002485c(s32 arg0, s32 arg1, struct modeltype *arg2, s16 animnum, s32 loopframe, s16 *arg5, s32 arg6);

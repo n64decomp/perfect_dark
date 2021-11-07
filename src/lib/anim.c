@@ -686,6 +686,32 @@ glabel anim00023f50
 /*    23fdc:	00601025 */ 	or	$v0,$v1,$zero
 );
 
+// Mismatch: regalloc
+//u32 anim00023f50(u8 *arg0, u8 arg1, u32 arg2)
+//{
+//	u32 result = 0;
+//	u8 numbits;
+//	u32 tmp;
+//
+//	arg0 += arg2 / 8;
+//	numbits = 8 - (arg2 % 8);
+//
+//	while (arg1 >= numbits) {
+//		arg1 -= numbits;
+//		result |= (*arg0 & ((1 << numbits) - 1)) << arg1;
+//		arg0++;
+//		numbits = 8;
+//	}
+//
+//	if (arg1 > 0) {
+//		result |= (*arg0 >> (numbits - arg1)) & ((1 << arg1) - 1);
+//	}
+//
+//	if (arg2 / 8);
+//
+//	return result;
+//}
+
 GLOBAL_ASM(
 glabel anim00023fe0
 /*    23fe0:	27bdffe8 */ 	addiu	$sp,$sp,-24
