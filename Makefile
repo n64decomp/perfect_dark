@@ -115,6 +115,7 @@ G_C_FILES := \
 	src/lib/lib_3a100.c \
 	src/lib/lib_3e3e0.c \
 	src/lib/lib_45ed0.c \
+	src/lib/lib_47d20.c \
 	src/lib/mp3.c \
 	src/lib/speaker.c
 
