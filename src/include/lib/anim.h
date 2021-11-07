@@ -12,7 +12,7 @@ bool animHasFrames(s16 animnum);
 s32 animGetNumAnimations(void);
 u8 *animDma(u8 *dst, u32 segoffset, u32 len);
 s32 anim0002384c(s16 animnum, s32 frame);
-s32 anim00023908(s16 animnum, s32 frame, s32 *frameptr);
+bool anim00023908(s16 animnum, s32 frame, s32 *frameptr);
 bool anim000239e0(s16 animnum, s32 frame);
 u8 anim00023ab0(s16 animnum, s32 framenum);
 void anim00023d0c(void);

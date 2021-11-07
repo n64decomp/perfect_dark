@@ -169,66 +169,38 @@ s32 anim0002384c(s16 animnum, s32 frame)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel anim00023908
-/*    23908:	3c0b8006 */ 	lui	$t3,%hi(var8005f010)
-/*    2390c:	8d6bf010 */ 	lw	$t3,%lo(var8005f010)($t3)
-/*    23910:	00047400 */ 	sll	$t6,$a0,0x10
-/*    23914:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*    23918:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    2391c:	afa60008 */ 	sw	$a2,0x8($sp)
-/*    23920:	3c188006 */ 	lui	$t8,%hi(g_Anims)
-/*    23924:	016f6021 */ 	addu	$t4,$t3,$t7
-/*    23928:	918d0000 */ 	lbu	$t5,0x0($t4)
-/*    2392c:	8f18f00c */ 	lw	$t8,%lo(g_Anims)($t8)
-/*    23930:	000fc880 */ 	sll	$t9,$t7,0x2
-/*    23934:	3c0a800a */ 	lui	$t2,%hi(var8009a888)
-/*    23938:	8d4aa888 */ 	lw	$t2,%lo(var8009a888)($t2)
-/*    2393c:	032fc823 */ 	subu	$t9,$t9,$t7
-/*    23940:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    23944:	000d7080 */ 	sll	$t6,$t5,0x2
-/*    23948:	03194021 */ 	addu	$t0,$t8,$t9
-/*    2394c:	014e7821 */ 	addu	$t7,$t2,$t6
-/*    23950:	8df80000 */ 	lw	$t8,0x0($t7)
-/*    23954:	95090008 */ 	lhu	$t1,0x8($t0)
-/*    23958:	00a01825 */ 	or	$v1,$a1,$zero
-/*    2395c:	24070001 */ 	addiu	$a3,$zero,0x1
-/*    23960:	01381021 */ 	addu	$v0,$t1,$t8
-/*    23964:	2442fffe */ 	addiu	$v0,$v0,-2
-.L00023968:
-/*    23968:	90480000 */ 	lbu	$t0,0x0($v0)
-/*    2396c:	90590001 */ 	lbu	$t9,0x1($v0)
-/*    23970:	00085a00 */ 	sll	$t3,$t0,0x8
-/*    23974:	032b2025 */ 	or	$a0,$t9,$t3
-/*    23978:	00046400 */ 	sll	$t4,$a0,0x10
-/*    2397c:	000c6c03 */ 	sra	$t5,$t4,0x10
-/*    23980:	05a00013 */ 	bltz	$t5,.L000239d0
-/*    23984:	01a02025 */ 	or	$a0,$t5,$zero
-/*    23988:	904efffe */ 	lbu	$t6,-0x2($v0)
-/*    2398c:	904affff */ 	lbu	$t2,-0x1($v0)
-/*    23990:	00ad082a */ 	slt	$at,$a1,$t5
-/*    23994:	000e7a00 */ 	sll	$t7,$t6,0x8
-/*    23998:	014f3025 */ 	or	$a2,$t2,$t7
-/*    2399c:	00064c00 */ 	sll	$t1,$a2,0x10
-/*    239a0:	0009c403 */ 	sra	$t8,$t1,0x10
-/*    239a4:	1420fff0 */ 	bnez	$at,.L00023968
-/*    239a8:	2442fffc */ 	addiu	$v0,$v0,-4
-/*    239ac:	0305082a */ 	slt	$at,$t8,$a1
-/*    239b0:	10200004 */ 	beqz	$at,.L000239c4
-/*    239b4:	00784023 */ 	subu	$t0,$v1,$t8
-/*    239b8:	010d1821 */ 	addu	$v1,$t0,$t5
-/*    239bc:	1000ffea */ 	b	.L00023968
-/*    239c0:	2463ffff */ 	addiu	$v1,$v1,-1
-.L000239c4:
-/*    239c4:	0065c823 */ 	subu	$t9,$v1,$a1
-/*    239c8:	03241821 */ 	addu	$v1,$t9,$a0
-/*    239cc:	00003825 */ 	or	$a3,$zero,$zero
-.L000239d0:
-/*    239d0:	8fab0008 */ 	lw	$t3,0x8($sp)
-/*    239d4:	00e01025 */ 	or	$v0,$a3,$zero
-/*    239d8:	03e00008 */ 	jr	$ra
-/*    239dc:	ad630000 */ 	sw	$v1,0x0($t3)
-);
+bool anim00023908(s16 animnum, s32 frame, s32 *frameptr)
+{
+	u8 *ptr = (u8 *)(var8009a888[var8005f010[animnum]] + g_Anims[animnum].initialposbytes - 2);
+	s32 result = frame;
+	bool ret = true;
+
+	while (true) {
+		s16 value1 = ptr[0] << 8 | ptr[1];
+
+		if (value1 >= 0) {
+			s16 value2 = ptr[-2] << 8 | ptr[-1];
+			ptr -= 4;
+
+			if (value1 <= frame) {
+				if (value2 < frame) {
+					result = result - value2 + value1 - 1;
+					continue;
+				}
+
+				result = result - frame + value1;
+				ret = false;
+				break;
+			}
+		} else {
+			break;
+		}
+	}
+
+	*frameptr = result;
+
+	return ret;
+}
 
 bool anim000239e0(s16 animnum, s32 frame)
 {
