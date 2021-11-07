@@ -6016,7 +6016,7 @@ struct modelthing {
 struct animheader {
 	/*0x00*/ u16 numframes;
 	/*0x02*/ u16 framelen; // in bytes
-	/*0x04*/ u8 *data;
+	/*0x04*/ u32 data;
 	/*0x08*/ u16 initialposbytes;
 	/*0x0a*/ u8 initialposbitsperentry;
 	/*0x0b*/ u8 flags;

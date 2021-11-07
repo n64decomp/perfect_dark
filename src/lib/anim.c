@@ -13,8 +13,8 @@
 #include "data.h"
 #include "types.h"
 
-void *var8009a870;
-void *var8009a874;
+u8 *var8009a870;
+u8 **var8009a874;
 s16 *var8009a878;
 s16 *var8009a87c;
 u8 *var8009a880;
@@ -130,7 +130,7 @@ s32 animGetNumAnimations(void)
 
 extern u8 _animationsSegmentRomStart;
 
-u8 *animDma(u8 *dst, u32 segoffset, s32 len)
+u8 *animDma(u8 *dst, u32 segoffset, u32 len)
 {
 	if (g_AnimHostEnabled) {
 		bcopy(&g_AnimHostSegment[segoffset], dst, len);
@@ -431,6 +431,52 @@ glabel anim00023ab0
 /*    23d04:	03e00008 */ 	jr	$ra
 /*    23d08:	30e200ff */ 	andi	$v0,$a3,0xff
 );
+
+// Mismatch: regalloc near tmp1 and tmp2
+//u8 anim00023ab0(s16 animnum, s32 framenum)
+//{
+//	s32 index = -1;
+//	s32 i;
+//	s32 tmp1;
+//	s32 tmp2;
+//	s32 sp2c = framenum;
+//
+//	for (i = 0; i < 32; i++) {
+//		if (var8009a878[i] == animnum && var8009a87c[i] == sp2c) {
+//			index = i;
+//			break;
+//		}
+//	}
+//
+//	if (index >= 0) {
+//		var8009a880[index] = 1;
+//	} else {
+//		index = var8005f000;
+//
+//		while (var8009a880[index]) {
+//			index = (index + 1) % 32;
+//		}
+//
+//		if (g_Anims[animnum].flags & ANIMFLAG_04) {
+//			anim00023908(animnum, framenum, &sp2c);
+//		}
+//
+//		if (g_Anims[animnum].framelen) {
+//			tmp1 = g_Anims[animnum].framelen * sp2c;
+//			tmp2 = tmp1 + (g_Anims[animnum].data + g_Anims[animnum].initialposbytes);
+//			var8009a874[index] = animDma(&var8009a870[index * var8005f018], tmp2, g_Anims[animnum].framelen);
+//		} else {
+//			var8009a874[index] = &var8009a870[index * var8005f018];
+//		}
+//
+//		var8009a878[index] = animnum;
+//		var8009a87c[index] = framenum;
+//		var8009a880[index] = 1;
+//		var8005f000 = (index + 1) % 32;
+//	}
+//
+//	return index;
+//}
 
 void anim00023d0c(void)
 {
