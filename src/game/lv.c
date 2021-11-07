@@ -8314,8 +8314,8 @@ void lvTick(void)
 		if (mainGetStageNum() == STAGE_CITRAINING) {
 			struct trainingdata *trainingdata = dtGetData();
 
-			if ((g_Vars.currentplayer->prop->rooms[0] < CIROOM_HOLOSTART || g_Vars.currentplayer->prop->rooms[0] > CIROOM_HOLOEND)
-					&& g_Vars.currentplayer->prop->rooms[0] != CIROOM_FIRINGRANGE
+			if ((g_Vars.currentplayer->prop->rooms[0] < ROOM_DISH_HOLO1 || g_Vars.currentplayer->prop->rooms[0] > ROOM_DISH_HOLO4)
+					&& g_Vars.currentplayer->prop->rooms[0] != ROOM_DISH_FIRINGRANGE
 					&& (trainingdata == NULL || trainingdata->intraining == false)) {
 				chrUnsetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
 			}

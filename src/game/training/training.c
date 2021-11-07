@@ -400,7 +400,7 @@ void frInitLighting(void)
 			roomSetLighting(roomnum, LIGHTOP_3, 50, 100, PALDOWN(32));
 		}
 
-		roomSetLighting(CIROOM_FIRINGRANGE, LIGHTOP_3, 25, 100, PALDOWN(32));
+		roomSetLighting(ROOM_DISH_FIRINGRANGE, LIGHTOP_3, 25, 100, PALDOWN(32));
 
 		g_FrData.donelighting = true;
 
@@ -419,7 +419,7 @@ void frRestoreLighting(void)
 			roomSetLighting(roomnum, LIGHTOP_3, 100, 50, PALDOWN(8));
 		}
 
-		roomSetLighting(CIROOM_FIRINGRANGE, LIGHTOP_3, 100, 25, PALDOWN(8));
+		roomSetLighting(ROOM_DISH_FIRINGRANGE, LIGHTOP_3, 100, 25, PALDOWN(8));
 
 		g_FrData.donelighting = false;
 
@@ -6434,7 +6434,7 @@ glabel var7f1b94e4
 //
 //	// be8
 //	// End the session if the player slipped through the door before it closed
-//	if (g_Vars.currentplayer->prop->rooms[0] != CIROOM_FIRINGRANGE) {
+//	if (g_Vars.currentplayer->prop->rooms[0] != ROOM_DISH_FIRINGRANGE) {
 //		if (g_FrIsValidWeapon) {
 //			for (i = 0; i < ARRAYCOUNT(g_FrData.targets); i++) {
 //				if (g_FrData.targets[i].inuse
@@ -6965,7 +6965,7 @@ s32 frIsInTraining(void)
 		return true;
 	}
 
-	return g_Vars.currentplayer->prop->rooms[0] == CIROOM_FIRINGRANGE
+	return g_Vars.currentplayer->prop->rooms[0] == ROOM_DISH_FIRINGRANGE
 		&& g_FrIsValidWeapon
 		&& mainGetStageNum() == STAGE_CITRAINING;
 }

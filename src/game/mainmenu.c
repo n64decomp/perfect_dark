@@ -6215,7 +6215,7 @@ bool soloChoosePauseDialog(void)
 				struct trainingdata *dtdata = dtGetData();
 				s32 room = g_Vars.currentplayer->prop->rooms[0];
 
-				if (room >= CIROOM_HOLOSTART && room <= CIROOM_HOLOEND) {
+				if (room >= ROOM_DISH_HOLO1 && room <= ROOM_DISH_HOLO4) {
 					struct trainingdata *htdata = getHoloTrainingData();
 
 					if (htdata->intraining) {
@@ -6227,7 +6227,7 @@ bool soloChoosePauseDialog(void)
 					}
 
 					handled = true;
-				} else if (room == CIROOM_DEVICEROOM) {
+				} else if (room == ROOM_DISH_DEVICELAB) {
 					if (dtdata->intraining) {
 						menuPushRootDialog(&g_DtDetailsMenuDialog, MENUROOT_TRAINING);
 					} else if (dtdata->finished) {
@@ -6243,7 +6243,7 @@ bool soloChoosePauseDialog(void)
 				} else if (dtdata->finished) {
 					dtPushEndscreen();
 					handled = true;
-				} else if (room == CIROOM_FIRINGRANGE) {
+				} else if (room == ROOM_DISH_FIRINGRANGE) {
 					if (frIsInTraining()) {
 						menuPushRootDialog(&g_FrTrainingInfoInGameMenuDialog, MENUROOT_TRAINING);
 					} else {

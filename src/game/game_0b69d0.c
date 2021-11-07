@@ -4223,9 +4223,9 @@ void currentPlayerTickPauseMenu(void)
 					&& g_Vars.stagenum == STAGE_CITRAINING) {
 				s32 room = g_Vars.currentplayer->prop->rooms[0];
 
-				if ((room >= CIROOM_HOLOSTART && room <= CIROOM_HOLOEND)
-						|| room == CIROOM_FIRINGRANGE
-						|| room == CIROOM_DEVICEROOM
+				if ((room >= ROOM_DISH_HOLO1 && room <= ROOM_DISH_HOLO4)
+						|| room == ROOM_DISH_FIRINGRANGE
+						|| room == ROOM_DISH_DEVICELAB
 						|| (data && data->intraining)) {
 					return;
 				}

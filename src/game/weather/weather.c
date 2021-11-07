@@ -654,59 +654,59 @@ bool weatherIsRoomWeatherProof(s32 room)
 {
 	if (g_StageIndex == STAGEINDEX_CHICAGO) {
 		// Rooms listed do not have weather
-		if (room == 0x62
-				|| room == 0x61
-				|| room == 0x0f
-				|| room == 0x52
-				|| room == 0x45
-				|| room == 0x44
-				|| room == 0x43
-				|| room == 0x3d
-				|| room == 0x0e
-				|| room == 0x0d
-				|| room == 0x0c
-				|| room == 0x0b
-				|| room == 0x0a
-				|| room == 0x09
-				|| room == 0x08
-				|| room == 0x07
-				|| room == 0x06
-				|| room == 0x05
-				|| room == 0x04
-				|| room == 0x37
-				|| room == 0x5b
-				|| room == 0x5f
-				|| room == 0x60
-				|| room == 0x5d
-				|| room == 0x1d
-				|| room == 0x1f
-				|| room == 0x27
-				|| room == 0x50
-				|| room == 0x2c
-				|| room == 0x2f
-				|| room == 0x30
-				|| room == 0x11
-				|| room == 0x24
-				|| room == 0x33
-				|| room == 0x34
-				|| room == 0x35
-				|| room == 0x36
-				|| room == 0x3c
-				|| room == 0x46
-				|| room == 0x47
-				|| room == 0x49
-				|| room == 0x55
-				|| room == 0x56
-				|| room == 0x5e
-				|| room == 0x63
-				|| room == 0x69
-				|| room == 0x03
-				|| room == 0x16
-				|| room == 0x4f
-				|| room == 0x4b
-				|| room == 0x3f
-				|| room == 0x13
-				|| room == 0x19) {
+		if (room == ROOM_PETE_0062
+				|| room == ROOM_PETE_0061
+				|| room == ROOM_PETE_000F
+				|| room == ROOM_PETE_0052
+				|| room == ROOM_PETE_0045
+				|| room == ROOM_PETE_0044
+				|| room == ROOM_PETE_0043
+				|| room == ROOM_PETE_003D
+				|| room == ROOM_PETE_000E
+				|| room == ROOM_PETE_000D
+				|| room == ROOM_PETE_000C
+				|| room == ROOM_PETE_000B
+				|| room == ROOM_PETE_000A
+				|| room == ROOM_PETE_0009
+				|| room == ROOM_PETE_0008
+				|| room == ROOM_PETE_0007
+				|| room == ROOM_PETE_0006
+				|| room == ROOM_PETE_0005
+				|| room == ROOM_PETE_0004
+				|| room == ROOM_PETE_0037
+				|| room == ROOM_PETE_005B
+				|| room == ROOM_PETE_005F
+				|| room == ROOM_PETE_0060
+				|| room == ROOM_PETE_005D
+				|| room == ROOM_PETE_001D
+				|| room == ROOM_PETE_001F
+				|| room == ROOM_PETE_0027
+				|| room == ROOM_PETE_0050
+				|| room == ROOM_PETE_002C
+				|| room == ROOM_PETE_002F
+				|| room == ROOM_PETE_0030
+				|| room == ROOM_PETE_0011
+				|| room == ROOM_PETE_0024
+				|| room == ROOM_PETE_0033
+				|| room == ROOM_PETE_0034
+				|| room == ROOM_PETE_0035
+				|| room == ROOM_PETE_0036
+				|| room == ROOM_PETE_003C
+				|| room == ROOM_PETE_0046
+				|| room == ROOM_PETE_0047
+				|| room == ROOM_PETE_0049
+				|| room == ROOM_PETE_0055
+				|| room == ROOM_PETE_0056
+				|| room == ROOM_PETE_005E
+				|| room == ROOM_PETE_0063
+				|| room == ROOM_PETE_0069
+				|| room == ROOM_PETE_0003
+				|| room == ROOM_PETE_0016
+				|| room == ROOM_PETE_004F
+				|| room == ROOM_PETE_004B
+				|| room == ROOM_PETE_003F
+				|| room == ROOM_PETE_0013
+				|| room == ROOM_PETE_0019) {
 			return true;
 		}
 
@@ -715,25 +715,25 @@ bool weatherIsRoomWeatherProof(s32 room)
 
 	if (g_StageIndex == STAGEINDEX_AIRBASE) {
 		// Rooms listed have weather
-		if (room == 0x88
-				|| room == 0x91
-				|| room == 0x87
-				|| room == 0x90
-				|| room == 0x86
-				|| room == 0x80
-				|| room == 0x83
-				|| room == 0x84
-				|| room == 0x85
-				|| room == 0x7f
-				|| room == 0x7e
-				|| room == 0x82
-				|| room == 0x8f
-				|| room == 0x8e
-				|| room == 0x7b
-				|| room == 0x7c
-				|| room == 0x7d
-				|| room == 0x81
-				|| room == 0x6f) {
+		if (room == ROOM_CAVE_0088
+				|| room == ROOM_CAVE_0091
+				|| room == ROOM_CAVE_0087
+				|| room == ROOM_CAVE_0090
+				|| room == ROOM_CAVE_0086
+				|| room == ROOM_CAVE_0080
+				|| room == ROOM_CAVE_0083
+				|| room == ROOM_CAVE_0084
+				|| room == ROOM_CAVE_0085
+				|| room == ROOM_CAVE_007F
+				|| room == ROOM_CAVE_007E
+				|| room == ROOM_CAVE_0082
+				|| room == ROOM_CAVE_008F
+				|| room == ROOM_CAVE_008E
+				|| room == ROOM_CAVE_007B
+				|| room == ROOM_CAVE_007C
+				|| room == ROOM_CAVE_007D
+				|| room == ROOM_CAVE_0081
+				|| room == ROOM_CAVE_006F) {
 			return false;
 		}
 
@@ -742,62 +742,50 @@ bool weatherIsRoomWeatherProof(s32 room)
 
 	if (g_StageIndex == STAGEINDEX_CRASHSITE) {
 		// Rooms listed do not have weather
-		// Note that ntsc-beta is likely the same actual rooms as the newer
-		// versions; they just have shifted numbers.
-		if (room == 0x1f
-				|| room == 0x20
-				|| room == 0x21
-				|| room == 0x22
-				|| room == 0x23
-				|| room == 0x24
-#if VERSION >= VERSION_NTSC_1_0
-				|| room == 0x51
-#endif
-				|| room == 0x52
-				|| room == 0x53
-				|| room == 0x54
-				|| room == 0x55
-				|| room == 0x56
-				|| room == 0x57
-				|| room == 0x58
-				|| room == 0x59
-				|| room == 0x5a
-				|| room == 0x5b
-				|| room == 0x5c
-				|| room == 0x5d
-				|| room == 0x5e
-				|| room == 0x5f
-				|| room == 0x60
-				|| room == 0x61
-				|| room == 0x62
-				|| room == 0x63
-				|| room == 0x64
-#if VERSION < VERSION_NTSC_1_0
-				|| room == 0x65
-#endif
-				|| room == 0x2d
-#if VERSION >= VERSION_NTSC_1_0
-				|| room == 0x40
-#endif
-				|| room == 0x41
-				|| room == 0x42
-				|| room == 0x43
-				|| room == 0x44
-				|| room == 0x45
-				|| room == 0x46
-				|| room == 0x47
-				|| room == 0x48
-				|| room == 0x49
-				|| room == 0x4a
-				|| room == 0x4b
-				|| room == 0x4c
-				|| room == 0x4d
-				|| room == 0x4e
-				|| room == 0x4f
-				|| room == 0x50
-#if VERSION < VERSION_NTSC_1_0
-				|| room == 0x51
-#endif
+		if (room == ROOM_AZT_001F
+				|| room == ROOM_AZT_0020
+				|| room == ROOM_AZT_0021
+				|| room == ROOM_AZT_0022
+				|| room == ROOM_AZT_0023
+				|| room == ROOM_AZT_0024
+				|| room == ROOM_AZT_0051
+				|| room == ROOM_AZT_0052
+				|| room == ROOM_AZT_0053
+				|| room == ROOM_AZT_0054
+				|| room == ROOM_AZT_0055
+				|| room == ROOM_AZT_0056
+				|| room == ROOM_AZT_0057
+				|| room == ROOM_AZT_0058
+				|| room == ROOM_AZT_0059
+				|| room == ROOM_AZT_005A
+				|| room == ROOM_AZT_005B
+				|| room == ROOM_AZT_005C
+				|| room == ROOM_AZT_005D
+				|| room == ROOM_AZT_005E
+				|| room == ROOM_AZT_005F
+				|| room == ROOM_AZT_0060
+				|| room == ROOM_AZT_0061
+				|| room == ROOM_AZT_0062
+				|| room == ROOM_AZT_0063
+				|| room == ROOM_AZT_0064
+				|| room == ROOM_AZT_002D
+				|| room == ROOM_AZT_0040
+				|| room == ROOM_AZT_0041
+				|| room == ROOM_AZT_0042
+				|| room == ROOM_AZT_0043
+				|| room == ROOM_AZT_0044
+				|| room == ROOM_AZT_0045
+				|| room == ROOM_AZT_0046
+				|| room == ROOM_AZT_0047
+				|| room == ROOM_AZT_0048
+				|| room == ROOM_AZT_0049
+				|| room == ROOM_AZT_004A
+				|| room == ROOM_AZT_004B
+				|| room == ROOM_AZT_004C
+				|| room == ROOM_AZT_004D
+				|| room == ROOM_AZT_004E
+				|| room == ROOM_AZT_004F
+				|| room == ROOM_AZT_0050
 				) {
 			return true;
 		}
