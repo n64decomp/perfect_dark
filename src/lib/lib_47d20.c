@@ -1,12 +1,15 @@
+// The pragma statement below must not fall on a 2^16 byte boundary after
+// pre-processing because it can cause cfe to crash. So it's placed above the
+// includes to ensure it isn't.
+float fabsf(float value);
+
+#pragma intrinsic (fabsf)
+
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
 #include "data.h"
 #include "types.h"
-
-f32 fabsf(f32 value);
-
-#pragma intrinsic (fabsf)
 
 f32 func00047d20(f32 arg0)
 {
@@ -20,7 +23,7 @@ f32 func00047d20(f32 arg0)
 
 	sp0c = fabsf(arg0);
 
-	if (sp0c < 1.1920929e-7f) {
+	if (sp0c < 0.00000011920929f) {
 		return 1;
 	}
 
