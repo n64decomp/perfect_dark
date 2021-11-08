@@ -212,7 +212,6 @@ CFLAGS = $(C_DEFINES) \
 	-G 0 \
 	-Xcpluscomm \
 	-woff 581,649,819,820,821,838,852 \
-	-w2 \
 	-I include \
 	-I include/PR \
 	-I src/include \
@@ -225,13 +224,6 @@ ASFLAGS = -march=vr4300 -mabi=32 -Iinclude -Iinclude/PR -Isrc/include -Isrc/lib/
 
 C_FILES := $(shell find src/lib src/game src/inflate -name '*.c')
 S_FILES := $(shell find src/lib src/game src/preamble -name '*.s')
-
-# Files containing MAXFLOAT must be built with qemu, not recomp
-# And luckily this only occurs in 5.3 code, so we can force CCQEMU53 here
-MAXFLOAT_C_FILES != grep -rl 'MAXFLOAT' $(C_FILES)
-MAXFLOAT_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(MAXFLOAT_C_FILES))
-
-$(MAXFLOAT_O_FILES): CC := $(CCQEMU53)
 
 # Files containing GLOBAL_ASM must be built with the asm_processor
 GLOBALASM_C_FILES != grep -rl 'GLOBAL_ASM(' $(C_FILES)
