@@ -3,14 +3,9 @@
 #include "bss.h"
 #include "lib/lib_43dd0.h"
 #include "lib/lib_461c0.h"
-#include "lib/libc/ll.h"
 #include "data.h"
 #include "types.h"
 
-u8 *var8009c640;
-u8 *var8009c644;
-u32 var8009c648;
-u32 var8009c64c;
 u8 var8009c650[0x88];
 u8 *var8009c6d8;
 u8 *var8009c6dc;
@@ -475,66 +470,34 @@ glabel func00044404
 /*    4445c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00044460
-/*    44460:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    44464:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    44468:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    4446c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    44470:	afa60028 */ 	sw	$a2,0x28($sp)
-/*    44474:	3c0e800a */ 	lui	$t6,%hi(g_Mp3Vars+0x64)
-/*    44478:	8dcec3f4 */ 	lw	$t6,%lo(g_Mp3Vars+0x64)($t6)
-/*    4447c:	afae001c */ 	sw	$t6,0x1c($sp)
-/*    44480:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*    44484:	15e00003 */ 	bnez	$t7,.L00044494
-/*    44488:	00000000 */ 	nop
-/*    4448c:	10000027 */ 	b	.L0004452c
-/*    44490:	00001025 */ 	or	$v0,$zero,$zero
-.L00044494:
-/*    44494:	8fb9001c */ 	lw	$t9,0x1c($sp)
-/*    44498:	2418ffff */ 	addiu	$t8,$zero,-1
-/*    4449c:	af38000c */ 	sw	$t8,0xc($t9)
-/*    444a0:	8fa9001c */ 	lw	$t1,0x1c($sp)
-/*    444a4:	2408ffff */ 	addiu	$t0,$zero,-1
-/*    444a8:	ad280010 */ 	sw	$t0,0x10($t1)
-/*    444ac:	8fab001c */ 	lw	$t3,0x1c($sp)
-/*    444b0:	240affff */ 	addiu	$t2,$zero,-1
-/*    444b4:	ad6a0014 */ 	sw	$t2,0x14($t3)
-/*    444b8:	8fac0020 */ 	lw	$t4,0x20($sp)
-/*    444bc:	8fad001c */ 	lw	$t5,0x1c($sp)
-/*    444c0:	adac0000 */ 	sw	$t4,0x0($t5)
-/*    444c4:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*    444c8:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*    444cc:	adee0004 */ 	sw	$t6,0x4($t7)
-/*    444d0:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*    444d4:	8fb9001c */ 	lw	$t9,0x1c($sp)
-/*    444d8:	af380008 */ 	sw	$t8,0x8($t9)
-/*    444dc:	8fa8001c */ 	lw	$t0,0x1c($sp)
-/*    444e0:	ad00201c */ 	sw	$zero,0x201c($t0)
-/*    444e4:	8fa9001c */ 	lw	$t1,0x1c($sp)
-/*    444e8:	ad202020 */ 	sw	$zero,0x2020($t1)
-/*    444ec:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*    444f0:	ad403ba0 */ 	sw	$zero,0x3ba0($t2)
-/*    444f4:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*    444f8:	0c010fbe */ 	jal	func00043ef8
-/*    444fc:	00002825 */ 	or	$a1,$zero,$zero
-/*    44500:	8fab001c */ 	lw	$t3,0x1c($sp)
-/*    44504:	25617fff */ 	addiu	$at,$t3,0x7fff
-/*    44508:	ac200475 */ 	sw	$zero,0x475($at)
-/*    4450c:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*    44510:	24050900 */ 	addiu	$a1,$zero,0x900
-/*    44514:	0c012c30 */ 	jal	bzero
-/*    44518:	24846a64 */ 	addiu	$a0,$a0,0x6a64
-/*    4451c:	10000003 */ 	b	.L0004452c
-/*    44520:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*    44524:	10000001 */ 	b	.L0004452c
-/*    44528:	00000000 */ 	nop
-.L0004452c:
-/*    4452c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    44530:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    44534:	03e00008 */ 	jr	$ra
-/*    44538:	00000000 */ 	nop
-);
+struct asistream *func00044460(s32 arg0, void *arg1, s32 arg2)
+{
+	struct asistream *stream = g_AsiStream;
+
+	if (stream == NULL) {
+		return NULL;
+	}
+
+	stream->unk0c = -1;
+	stream->unk10 = -1;
+	stream->unk14 = -1;
+
+	stream->unk00 = arg0;
+	stream->unk04 = arg1;
+	stream->unk08 = arg2;
+
+	stream->unk201c = 0;
+	stream->unk2020 = 0;
+	stream->unk3ba0 = 0;
+
+	func00043ef8(stream, 0);
+
+	stream->unk8474 = 0;
+
+	bzero(&stream->unk6a64, sizeof(stream->unk6a64));
+
+	return stream;
+}
 
 GLOBAL_ASM(
 glabel func0004453c

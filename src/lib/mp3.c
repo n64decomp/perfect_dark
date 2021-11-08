@@ -24,7 +24,7 @@
 }
 
 struct mp3vars g_Mp3Vars;
-u8 *var8009c3f4;
+struct asistream *g_AsiStream;
 
 s16 _getRate(f32 vol, f32 tgt, s32 count, u16 *ratel);
 s32 func00038ba8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
@@ -34,10 +34,10 @@ void mp3Init(ALHeap *heap)
 	bzero(&g_Mp3Vars, sizeof(struct mp3vars));
 
 #if VERSION < VERSION_NTSC_1_0
-	rmonPrintf("MPEG : RWI -> Allocating %d bytes for ASISTREAM from audio heap\n", 0x8480);
+	rmonPrintf("MPEG : RWI -> Allocating %d bytes for ASISTREAM from audio heap\n", sizeof(struct asistream));
 #endif
 
-	var8009c3f4 = alHeapAlloc(heap, 0x8480, 1);
+	g_AsiStream = alHeapAlloc(heap, sizeof(struct asistream), 1);
 	var8005f6f8 = alHeapAlloc(heap, 1, 0x2200);
 	var8005f6fc = alHeapAlloc(heap, 1, 0x2200);
 

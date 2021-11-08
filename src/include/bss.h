@@ -46,7 +46,7 @@ extern N_ALSndPlayer var8009c2d0;
 extern struct var8009c340 var8009c340;
 extern u8 var8009c344[2];
 extern u32 var8009c3e0;
-extern u8 *var8009c3f4;
+extern struct asistream *g_AsiStream;
 extern u8 *var8009c640;
 extern u8 *var8009c644;
 extern u8 var8009c650[];

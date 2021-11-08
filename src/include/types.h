@@ -7361,4 +7361,25 @@ struct sndstate {
 #endif
 };
 
+struct asistream {
+	s32 unk00;
+	void *unk04;
+	s32 unk08;
+	s32 unk0c;
+	s32 unk10;
+	s32 unk14;
+	s32 unk18;
+	u8 unk1c[0x2000];
+	s32 unk201c;
+	s32 unk2020;
+	u8 unk2024[0x1b7c];
+	s32 unk3ba0;
+	u8 unk3ba4[0x2ec0];
+	u8 unk6a64[0x900];
+	u8 unk7364[0x1110];
+	u32 unk8474;
+	u32 unk8478;
+	u32 unk847c;
+};
+
 #endif

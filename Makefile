@@ -114,6 +114,7 @@ G_C_FILES := \
 	src/lib/lib_39c80.c \
 	src/lib/lib_3a100.c \
 	src/lib/lib_3e3e0.c \
+	src/lib/lib_43dd0.c \
 	src/lib/lib_446d0.c \
 	src/lib/lib_45ed0.c \
 	src/lib/lib_47d20.c \
