@@ -443,34 +443,15 @@ glabel func00043ef8
 /*    44400:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00044404
-/*    44404:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    44408:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    4440c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    44410:	3c0e8006 */ 	lui	$t6,%hi(var8005f704)
-/*    44414:	8dcef704 */ 	lw	$t6,%lo(var8005f704)($t6)
-/*    44418:	3c018006 */ 	lui	$at,%hi(var8005f704)
-/*    4441c:	01c08025 */ 	or	$s0,$t6,$zero
-/*    44420:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*    44424:	12000003 */ 	beqz	$s0,.L00044434
-/*    44428:	ac2ff704 */ 	sw	$t7,%lo(var8005f704)($at)
-/*    4442c:	10000007 */ 	b	.L0004444c
-/*    44430:	24020002 */ 	addiu	$v0,$zero,0x2
-.L00044434:
-/*    44434:	0c00fe28 */ 	jal	func0003f8a0
-/*    44438:	00000000 */ 	nop
-/*    4443c:	10000003 */ 	b	.L0004444c
-/*    44440:	00001025 */ 	or	$v0,$zero,$zero
-/*    44444:	10000001 */ 	b	.L0004444c
-/*    44448:	00000000 */ 	nop
-.L0004444c:
-/*    4444c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    44450:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    44454:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    44458:	03e00008 */ 	jr	$ra
-/*    4445c:	00000000 */ 	nop
-);
+u32 func00044404(void)
+{
+	if (var8005f704++) {
+		return 2;
+	}
+
+	func0003f8a0();
+	return 0;
+}
 
 struct asistream *func00044460(s32 arg0, void *arg1, s32 arg2)
 {
