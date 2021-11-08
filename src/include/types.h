@@ -6982,7 +6982,7 @@ struct mp3thing {
 
 struct mp3vars {
 	/*0x00*/ s32 var8009c390;
-	/*0x04*/ u32 var8009c394;
+	/*0x04*/ struct asistream *var8009c394;
 	/*0x08*/ u8 *var8009c398;
 	/*0x0c*/ s16 var8009c39c;
 	/*0x0e*/ s16 var8009c39e;
@@ -7372,13 +7372,16 @@ struct asistream {
 	u8 unk1c[0x2000];
 	s32 unk201c;
 	s32 unk2020;
-	u8 unk2024[0x1b7c];
+	u8 unk2024[0x4c];
+	struct mp3thing unk2070[6];
 	s32 unk3ba0;
-	u8 unk3ba4[0x2ec0];
+	u8 unk3ba4[0x3e8];
+	u32 unk3f8c;
+	u8 unk3f90[0x2ad4];
 	u8 unk6a64[0x900];
 	u8 unk7364[0x1110];
-	u32 unk8474;
-	u32 unk8478;
+	s32 unk8474;
+	bool (*unk8478)(struct asistream *stream);
 	u32 unk847c;
 };
 

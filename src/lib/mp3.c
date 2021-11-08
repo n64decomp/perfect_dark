@@ -2,6 +2,7 @@
 #include <n_libaudio.h>
 #include "naudio/n_abi.h"
 #include "bss.h"
+#include "lib/lib_43dd0.h"
 #include "lib/mp3.h"
 #include "types.h"
 
@@ -186,7 +187,7 @@ s32 func00037fc0(s32 arg0, Acmd **cmd)
 		if (g_Mp3Vars.var8009c3f0 == 0) {
 			g_Mp3Vars.var8009c394 = func00044460(0, g_Mp3Vars.var8009c3dc, g_Mp3Vars.var8009c3c0);
 
-			if (g_Mp3Vars.var8009c394 == 0) {
+			if (g_Mp3Vars.var8009c394 == NULL) {
 				g_Mp3Vars.var8009c3e0 = 0;
 				return 0;
 			} else {

@@ -6,6 +6,8 @@
 #include "data.h"
 #include "types.h"
 
+extern struct mp3vars g_Mp3Vars;
+
 u8 var8009c650[0x88];
 u8 *var8009c6d8;
 u8 *var8009c6dc;
@@ -499,80 +501,32 @@ struct asistream *func00044460(s32 arg0, void *arg1, s32 arg2)
 	return stream;
 }
 
-GLOBAL_ASM(
-glabel func0004453c
-/*    4453c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    44540:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    44544:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    44548:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    4454c:	afa60028 */ 	sw	$a2,0x28($sp)
-/*    44550:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*    44554:	afae001c */ 	sw	$t6,0x1c($sp)
-/*    44558:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*    4455c:	8df83ba0 */ 	lw	$t8,0x3ba0($t7)
-/*    44560:	27190001 */ 	addiu	$t9,$t8,0x1
-/*    44564:	adf93ba0 */ 	sw	$t9,0x3ba0($t7)
-/*    44568:	8fa8001c */ 	lw	$t0,0x1c($sp)
-/*    4456c:	8d093ba0 */ 	lw	$t1,0x3ba0($t0)
-/*    44570:	29210006 */ 	slti	$at,$t1,0x6
-/*    44574:	14200003 */ 	bnez	$at,.L00044584
-/*    44578:	00000000 */ 	nop
-/*    4457c:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*    44580:	ad403ba0 */ 	sw	$zero,0x3ba0($t2)
-.L00044584:
-/*    44584:	8fab001c */ 	lw	$t3,0x1c($sp)
-/*    44588:	25657fff */ 	addiu	$a1,$t3,0x7fff
-/*    4458c:	8ca50475 */ 	lw	$a1,0x475($a1)
-/*    44590:	0c010fbe */ 	jal	func00043ef8
-/*    44594:	01602025 */ 	or	$a0,$t3,$zero
-/*    44598:	14400006 */ 	bnez	$v0,.L000445b4
-/*    4459c:	00000000 */ 	nop
-/*    445a0:	240c0003 */ 	addiu	$t4,$zero,0x3
-/*    445a4:	3c01800a */ 	lui	$at,%hi(g_Mp3Vars+0x50)
-/*    445a8:	ac2cc3e0 */ 	sw	$t4,%lo(g_Mp3Vars+0x50)($at)
-/*    445ac:	10000024 */ 	b	.L00044640
-/*    445b0:	00001025 */ 	or	$v0,$zero,$zero
-.L000445b4:
-/*    445b4:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*    445b8:	240dffff */ 	addiu	$t5,$zero,-1
-/*    445bc:	25c17fff */ 	addiu	$at,$t6,0x7fff
-/*    445c0:	ac2d0475 */ 	sw	$t5,0x475($at)
-/*    445c4:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*    445c8:	27197fff */ 	addiu	$t9,$t8,0x7fff
-/*    445cc:	8f390479 */ 	lw	$t9,0x479($t9)
-/*    445d0:	03002025 */ 	or	$a0,$t8,$zero
-/*    445d4:	0320f809 */ 	jalr	$t9
-/*    445d8:	00000000 */ 	nop
-/*    445dc:	afa20018 */ 	sw	$v0,0x18($sp)
-/*    445e0:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*    445e4:	15e00003 */ 	bnez	$t7,.L000445f4
-/*    445e8:	00000000 */ 	nop
-/*    445ec:	10000010 */ 	b	.L00044630
-/*    445f0:	00000000 */ 	nop
-.L000445f4:
-/*    445f4:	8fa8001c */ 	lw	$t0,0x1c($sp)
-/*    445f8:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    445fc:	8d093ba0 */ 	lw	$t1,0x3ba0($t0)
-/*    44600:	000950c0 */ 	sll	$t2,$t1,0x3
-/*    44604:	01495021 */ 	addu	$t2,$t2,$t1
-/*    44608:	000a5100 */ 	sll	$t2,$t2,0x4
-/*    4460c:	01495021 */ 	addu	$t2,$t2,$t1
-/*    44610:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*    44614:	010a5821 */ 	addu	$t3,$t0,$t2
-/*    44618:	256c2070 */ 	addiu	$t4,$t3,0x2070
-/*    4461c:	adac0000 */ 	sw	$t4,0x0($t5)
-/*    44620:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*    44624:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*    44628:	8dd83f8c */ 	lw	$t8,0x3f8c($t6)
-/*    4462c:	af380000 */ 	sw	$t8,0x0($t9)
-.L00044630:
-/*    44630:	10000003 */ 	b	.L00044640
-/*    44634:	8fa20018 */ 	lw	$v0,0x18($sp)
-/*    44638:	10000001 */ 	b	.L00044640
-/*    4463c:	00000000 */ 	nop
-.L00044640:
-/*    44640:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    44644:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    44648:	03e00008 */ 	jr	$ra
-/*    4464c:	00000000 */ 	nop
-);
+s32 func0004453c(struct asistream *streamptr, struct mp3thing **arg1, s32 *arg2)
+{
+	struct asistream *stream = streamptr;
+	s32 result;
+
+	stream->unk3ba0++;
+
+	if (stream->unk3ba0 > 5) {
+		stream->unk3ba0 = 0;
+	}
+
+	if (!func00043ef8(stream, stream->unk8474)) {
+		g_Mp3Vars.var8009c3e0 = 3;
+		return 0;
+	}
+
+	stream->unk8474 = -1;
+
+	result = stream->unk8478(stream);
+
+	if (!result) {
+		// empty
+	} else {
+		*arg1 = &stream->unk2070[stream->unk3ba0];
+		*arg2 = stream->unk3f8c;
+	}
+
+	return result;
+}
