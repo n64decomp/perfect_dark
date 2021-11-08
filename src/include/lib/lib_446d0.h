@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-u32 func000446d0(void);
+Acmd *func000446d0(s32 sampleOffset, Acmd *cmdptr, s32 fxBus, s32 *numpulls);
 
 #endif
