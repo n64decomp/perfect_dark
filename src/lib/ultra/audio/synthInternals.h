@@ -178,8 +178,7 @@ s32     alLoadParam(void *filter, s32 paramID, void *param);
 
 typedef struct ALResampler_s {
 	ALFilter            filter;
-	RESAMPLE_STATE      *state;
-	void *unk18; // size 0x20
+	RESAMPLE_STATE      *state[2];
 	f32                 ratio;
 	s32			upitch;
 	f32		        delta;
@@ -222,8 +221,7 @@ typedef struct {
 	u8			section_count; // 8
 	struct ALFilter_s   filter;
 	s16			*base[2]; // 20
-	s16			*input; // 28
-	s16			*unk2c;
+	s16			*input[2]; // 28
 } ALFx;
 
 void    alFxNew(ALFx *r, ALSynConfig *c, ALHeap *hp);

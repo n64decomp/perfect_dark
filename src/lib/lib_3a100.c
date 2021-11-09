@@ -12,9 +12,11 @@
 
 #define RANGE 2.0f
 
+Acmd *_n_loadOutputBuffer(ALFx *r, ALDelay *d, s32 arg2, s32 buff, Acmd *p);
 Acmd *_n_loadBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff,s32 count, Acmd *p);
 Acmd *_n_saveBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff, Acmd *p);
 Acmd *_n_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p);
+f32 _doModFunc(ALDelay *d, s32 count);
 
 GLOBAL_ASM(
 glabel n_alAuxBusPull
@@ -221,7 +223,7 @@ glabel var70054a90
 /*    3a3f4:	8fa5005c */ 	lw	$a1,0x5c($sp)
 /*    3a3f8:	8fa60054 */ 	lw	$a2,0x54($sp)
 /*    3a3fc:	87a70072 */ 	lh	$a3,0x72($sp)
-/*    3a400:	0c00eb98 */ 	jal	func0003ae60
+/*    3a400:	0c00eb98 */ 	jal	_n_loadOutputBuffer
 /*    3a404:	afab0010 */ 	sw	$t3,0x10($sp)
 /*    3a408:	afa2007c */ 	sw	$v0,0x7c($sp)
 /*    3a40c:	8fae005c */ 	lw	$t6,0x5c($sp)
@@ -673,210 +675,44 @@ s32 n_alFxParamHdl(void *filter, s32 paramID, void *param)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0003ae60
-/*    3ae60:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*    3ae64:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    3ae68:	afa40058 */ 	sw	$a0,0x58($sp)
-/*    3ae6c:	afa5005c */ 	sw	$a1,0x5c($sp)
-/*    3ae70:	afa60060 */ 	sw	$a2,0x60($sp)
-/*    3ae74:	afa70064 */ 	sw	$a3,0x64($sp)
-/*    3ae78:	8fae0068 */ 	lw	$t6,0x68($sp)
-/*    3ae7c:	afae0054 */ 	sw	$t6,0x54($sp)
-/*    3ae80:	240f02e0 */ 	addiu	$t7,$zero,0x2e0
-/*    3ae84:	afaf0048 */ 	sw	$t7,0x48($sp)
-/*    3ae88:	afa00034 */ 	sw	$zero,0x34($sp)
-/*    3ae8c:	241800b8 */ 	addiu	$t8,$zero,0xb8
-/*    3ae90:	afb8002c */ 	sw	$t8,0x2c($sp)
-/*    3ae94:	8fb9005c */ 	lw	$t9,0x5c($sp)
-/*    3ae98:	8f280024 */ 	lw	$t0,0x24($t9)
-/*    3ae9c:	11000099 */ 	beqz	$t0,.L0003b104
-/*    3aea0:	00000000 */ 	nop
-/*    3aea4:	8fa9005c */ 	lw	$t1,0x5c($sp)
-/*    3aea8:	8d2a0004 */ 	lw	$t2,0x4($t1)
-/*    3aeac:	8d2b0000 */ 	lw	$t3,0x0($t1)
-/*    3aeb0:	014b6023 */ 	subu	$t4,$t2,$t3
-/*    3aeb4:	afac0030 */ 	sw	$t4,0x30($sp)
-/*    3aeb8:	8fa4005c */ 	lw	$a0,0x5c($sp)
-/*    3aebc:	0c00ed93 */ 	jal	_doModFunc
-/*    3aec0:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*    3aec4:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*    3aec8:	8fad0030 */ 	lw	$t5,0x30($sp)
-/*    3aecc:	c7a40038 */ 	lwc1	$f4,0x38($sp)
-/*    3aed0:	448d3000 */ 	mtc1	$t5,$f6
-/*    3aed4:	00000000 */ 	nop
-/*    3aed8:	46803220 */ 	cvt.s.w	$f8,$f6
-/*    3aedc:	46082283 */ 	div.s	$f10,$f4,$f8
-/*    3aee0:	e7aa0038 */ 	swc1	$f10,0x38($sp)
-/*    3aee4:	3c014700 */ 	lui	$at,0x4700
-/*    3aee8:	44819000 */ 	mtc1	$at,$f18
-/*    3aeec:	c7b00038 */ 	lwc1	$f16,0x38($sp)
-/*    3aef0:	46128182 */ 	mul.s	$f6,$f16,$f18
-/*    3aef4:	4600310d */ 	trunc.w.s	$f4,$f6
-/*    3aef8:	440f2000 */ 	mfc1	$t7,$f4
-/*    3aefc:	00000000 */ 	nop
-/*    3af00:	448f4000 */ 	mtc1	$t7,$f8
-/*    3af04:	00000000 */ 	nop
-/*    3af08:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*    3af0c:	e7aa0038 */ 	swc1	$f10,0x38($sp)
-/*    3af10:	3c014700 */ 	lui	$at,0x4700
-/*    3af14:	44819000 */ 	mtc1	$at,$f18
-/*    3af18:	c7b00038 */ 	lwc1	$f16,0x38($sp)
-/*    3af1c:	46128183 */ 	div.s	$f6,$f16,$f18
-/*    3af20:	e7a60038 */ 	swc1	$f6,0x38($sp)
-/*    3af24:	3c013f80 */ 	lui	$at,0x3f80
-/*    3af28:	44812000 */ 	mtc1	$at,$f4
-/*    3af2c:	c7a80038 */ 	lwc1	$f8,0x38($sp)
-/*    3af30:	46082281 */ 	sub.s	$f10,$f4,$f8
-/*    3af34:	e7aa003c */ 	swc1	$f10,0x3c($sp)
-/*    3af38:	8fb8002c */ 	lw	$t8,0x2c($sp)
-/*    3af3c:	c7b0003c */ 	lwc1	$f16,0x3c($sp)
-/*    3af40:	8fb9005c */ 	lw	$t9,0x5c($sp)
-/*    3af44:	44989000 */ 	mtc1	$t8,$f18
-/*    3af48:	8f280024 */ 	lw	$t0,0x24($t9)
-/*    3af4c:	468091a0 */ 	cvt.s.w	$f6,$f18
-/*    3af50:	c5080024 */ 	lwc1	$f8,0x24($t0)
-/*    3af54:	46068102 */ 	mul.s	$f4,$f16,$f6
-/*    3af58:	46044280 */ 	add.s	$f10,$f8,$f4
-/*    3af5c:	e7aa0040 */ 	swc1	$f10,0x40($sp)
-/*    3af60:	c7b20040 */ 	lwc1	$f18,0x40($sp)
-/*    3af64:	4600940d */ 	trunc.w.s	$f16,$f18
-/*    3af68:	440a8000 */ 	mfc1	$t2,$f16
-/*    3af6c:	00000000 */ 	nop
-/*    3af70:	afaa004c */ 	sw	$t2,0x4c($sp)
-/*    3af74:	8fab004c */ 	lw	$t3,0x4c($sp)
-/*    3af78:	c7a60040 */ 	lwc1	$f6,0x40($sp)
-/*    3af7c:	8fac005c */ 	lw	$t4,0x5c($sp)
-/*    3af80:	448b4000 */ 	mtc1	$t3,$f8
-/*    3af84:	8d8d0024 */ 	lw	$t5,0x24($t4)
-/*    3af88:	46804120 */ 	cvt.s.w	$f4,$f8
-/*    3af8c:	46043281 */ 	sub.s	$f10,$f6,$f4
-/*    3af90:	e5aa0024 */ 	swc1	$f10,0x24($t5)
-/*    3af94:	8fa9005c */ 	lw	$t1,0x5c($sp)
-/*    3af98:	8faf0060 */ 	lw	$t7,0x60($sp)
-/*    3af9c:	8fae0058 */ 	lw	$t6,0x58($sp)
-/*    3afa0:	8d2a0004 */ 	lw	$t2,0x4($t1)
-/*    3afa4:	8d2b0018 */ 	lw	$t3,0x18($t1)
-/*    3afa8:	000fc080 */ 	sll	$t8,$t7,0x2
-/*    3afac:	01d8c821 */ 	addu	$t9,$t6,$t8
-/*    3afb0:	8f280028 */ 	lw	$t0,0x28($t9)
-/*    3afb4:	014b6023 */ 	subu	$t4,$t2,$t3
-/*    3afb8:	000c6823 */ 	negu	$t5,$t4
-/*    3afbc:	000d7840 */ 	sll	$t7,$t5,0x1
-/*    3afc0:	010f7021 */ 	addu	$t6,$t0,$t7
-/*    3afc4:	afae0044 */ 	sw	$t6,0x44($sp)
-/*    3afc8:	8fb80044 */ 	lw	$t8,0x44($sp)
-/*    3afcc:	33190007 */ 	andi	$t9,$t8,0x7
-/*    3afd0:	00194843 */ 	sra	$t1,$t9,0x1
-/*    3afd4:	afa90034 */ 	sw	$t1,0x34($sp)
-/*    3afd8:	8fab0034 */ 	lw	$t3,0x34($sp)
-/*    3afdc:	8fad004c */ 	lw	$t5,0x4c($sp)
-/*    3afe0:	8faa0044 */ 	lw	$t2,0x44($sp)
-/*    3afe4:	8faf0054 */ 	lw	$t7,0x54($sp)
-/*    3afe8:	000b6040 */ 	sll	$t4,$t3,0x1
-/*    3afec:	01ab4021 */ 	addu	$t0,$t5,$t3
-/*    3aff0:	afa80010 */ 	sw	$t0,0x10($sp)
-/*    3aff4:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*    3aff8:	8fa50060 */ 	lw	$a1,0x60($sp)
-/*    3affc:	8fa70048 */ 	lw	$a3,0x48($sp)
-/*    3b000:	014c3023 */ 	subu	$a2,$t2,$t4
-/*    3b004:	0c00ec5e */ 	jal	_n_loadBuffer
-/*    3b008:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    3b00c:	afa20054 */ 	sw	$v0,0x54($sp)
-/*    3b010:	3c014700 */ 	lui	$at,0x4700
-/*    3b014:	44818000 */ 	mtc1	$at,$f16
-/*    3b018:	c7b2003c */ 	lwc1	$f18,0x3c($sp)
-/*    3b01c:	46109202 */ 	mul.s	$f8,$f18,$f16
-/*    3b020:	4600418d */ 	trunc.w.s	$f6,$f8
-/*    3b024:	44183000 */ 	mfc1	$t8,$f6
-/*    3b028:	00000000 */ 	nop
-/*    3b02c:	afb80050 */ 	sw	$t8,0x50($sp)
-/*    3b030:	8fb90064 */ 	lw	$t9,0x64($sp)
-/*    3b034:	00194a03 */ 	sra	$t1,$t9,0x8
-/*    3b038:	a7a9002a */ 	sh	$t1,0x2a($sp)
-/*    3b03c:	8faa0054 */ 	lw	$t2,0x54($sp)
-/*    3b040:	254c0008 */ 	addiu	$t4,$t2,0x8
-/*    3b044:	afac0054 */ 	sw	$t4,0x54($sp)
-/*    3b048:	afaa0024 */ 	sw	$t2,0x24($sp)
-/*    3b04c:	8fad005c */ 	lw	$t5,0x5c($sp)
-/*    3b050:	8fa80060 */ 	lw	$t0,0x60($sp)
-/*    3b054:	8dab0024 */ 	lw	$t3,0x24($t5)
-/*    3b058:	00087880 */ 	sll	$t7,$t0,0x2
-/*    3b05c:	016f7021 */ 	addu	$t6,$t3,$t7
-/*    3b060:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    3b064:	8dc40014 */ 	lw	$a0,0x14($t6)
-/*    3b068:	3c0100ff */ 	lui	$at,0xff
-/*    3b06c:	3421ffff */ 	ori	$at,$at,0xffff
-/*    3b070:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    3b074:	0041c024 */ 	and	$t8,$v0,$at
-/*    3b078:	3c010500 */ 	lui	$at,0x500
-/*    3b07c:	0301c825 */ 	or	$t9,$t8,$at
-/*    3b080:	ad390000 */ 	sw	$t9,0x0($t1)
-/*    3b084:	8faa005c */ 	lw	$t2,0x5c($sp)
-/*    3b088:	8faf0050 */ 	lw	$t7,0x50($sp)
-/*    3b08c:	8fa90048 */ 	lw	$t1,0x48($sp)
-/*    3b090:	8d4c0024 */ 	lw	$t4,0x24($t2)
-/*    3b094:	8faa0034 */ 	lw	$t2,0x34($sp)
-/*    3b098:	31eeffff */ 	andi	$t6,$t7,0xffff
-/*    3b09c:	8d8d0028 */ 	lw	$t5,0x28($t4)
-/*    3b0a0:	000ec380 */ 	sll	$t8,$t6,0xe
-/*    3b0a4:	000a6040 */ 	sll	$t4,$t2,0x1
-/*    3b0a8:	31a80003 */ 	andi	$t0,$t5,0x3
-/*    3b0ac:	00085f80 */ 	sll	$t3,$t0,0x1e
-/*    3b0b0:	0178c825 */ 	or	$t9,$t3,$t8
-/*    3b0b4:	87ab002a */ 	lh	$t3,0x2a($sp)
-/*    3b0b8:	012c6821 */ 	addu	$t5,$t1,$t4
-/*    3b0bc:	31a80fff */ 	andi	$t0,$t5,0xfff
-/*    3b0c0:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    3b0c4:	00087880 */ 	sll	$t7,$t0,0x2
-/*    3b0c8:	032f7025 */ 	or	$t6,$t9,$t7
-/*    3b0cc:	31780003 */ 	andi	$t8,$t3,0x3
-/*    3b0d0:	01d85025 */ 	or	$t2,$t6,$t8
-/*    3b0d4:	ad2a0004 */ 	sw	$t2,0x4($t1)
-/*    3b0d8:	8fac005c */ 	lw	$t4,0x5c($sp)
-/*    3b0dc:	8d8d0024 */ 	lw	$t5,0x24($t4)
-/*    3b0e0:	ada00028 */ 	sw	$zero,0x28($t5)
-/*    3b0e4:	8fab005c */ 	lw	$t3,0x5c($sp)
-/*    3b0e8:	8fa8004c */ 	lw	$t0,0x4c($sp)
-/*    3b0ec:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*    3b0f0:	8d6e0018 */ 	lw	$t6,0x18($t3)
-/*    3b0f4:	01197823 */ 	subu	$t7,$t0,$t9
-/*    3b0f8:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*    3b0fc:	10000016 */ 	b	.L0003b158
-/*    3b100:	ad780018 */ 	sw	$t8,0x18($t3)
-.L0003b104:
-/*    3b104:	8fa90060 */ 	lw	$t1,0x60($sp)
-/*    3b108:	8fb9005c */ 	lw	$t9,0x5c($sp)
-/*    3b10c:	8faa0058 */ 	lw	$t2,0x58($sp)
-/*    3b110:	00096080 */ 	sll	$t4,$t1,0x2
-/*    3b114:	8f2e0004 */ 	lw	$t6,0x4($t9)
-/*    3b118:	014c6821 */ 	addu	$t5,$t2,$t4
-/*    3b11c:	8da80028 */ 	lw	$t0,0x28($t5)
-/*    3b120:	000e7823 */ 	negu	$t7,$t6
-/*    3b124:	000fc040 */ 	sll	$t8,$t7,0x1
-/*    3b128:	01185821 */ 	addu	$t3,$t0,$t8
-/*    3b12c:	afab0044 */ 	sw	$t3,0x44($sp)
-/*    3b130:	8faa0054 */ 	lw	$t2,0x54($sp)
-/*    3b134:	240900b8 */ 	addiu	$t1,$zero,0xb8
-/*    3b138:	afa90010 */ 	sw	$t1,0x10($sp)
-/*    3b13c:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*    3b140:	8fa50060 */ 	lw	$a1,0x60($sp)
-/*    3b144:	8fa60044 */ 	lw	$a2,0x44($sp)
-/*    3b148:	8fa70064 */ 	lw	$a3,0x64($sp)
-/*    3b14c:	0c00ec5e */ 	jal	_n_loadBuffer
-/*    3b150:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*    3b154:	afa20054 */ 	sw	$v0,0x54($sp)
-.L0003b158:
-/*    3b158:	10000003 */ 	b	.L0003b168
-/*    3b15c:	8fa20054 */ 	lw	$v0,0x54($sp)
-/*    3b160:	10000001 */ 	b	.L0003b168
-/*    3b164:	00000000 */ 	nop
-.L0003b168:
-/*    3b168:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    3b16c:	27bd0058 */ 	addiu	$sp,$sp,0x58
-/*    3b170:	03e00008 */ 	jr	$ra
-/*    3b174:	00000000 */ 	nop
-);
+Acmd *_n_loadOutputBuffer(ALFx *r, ALDelay *d, s32 arg2, s32 buff, Acmd *p)
+{
+	Acmd *ptr = p;
+	s32 ratio, count, rbuff = N_AL_TEMP_2;
+	s16 *out_ptr;
+	f32 fincount, fratio, delta;
+	s32 ramalign = 0, length;
+	s32 incount = FIXED_SAMPLE;
+	s16 tmp;
+
+	if (d->rs) {
+		length = d->output - d->input;
+		delta = _doModFunc(d, incount);
+		delta /= length;
+		delta = (s32)(delta * UNITY_PITCH);
+		delta = delta / UNITY_PITCH;
+		fratio = 1.0f - delta;
+		fincount = d->rs->delta + (fratio * (f32)incount);
+		count = (s32) fincount;
+		d->rs->delta = fincount - (f32)count;
+		out_ptr = &r->input[arg2][-(d->output - d->rsdelta)];
+		ramalign = ((s32)out_ptr & 0x7) >> 1;
+		ptr = _n_loadBuffer(r, arg2, out_ptr - ramalign, rbuff, count + ramalign, ptr);
+
+		ratio = (s32)(fratio * UNITY_PITCH);
+
+		tmp = buff >> 8;
+		n_aResample(ptr++, osVirtualToPhysical(d->rs->state[arg2]), d->rs->first, ratio, rbuff + (ramalign << 1), tmp);
+
+		d->rs->first = 0;
+		d->rsdelta += count - incount;
+	} else {
+		out_ptr = &r->input[arg2][-d->output];
+		ptr = _n_loadBuffer(r, arg2, out_ptr, buff, FIXED_SAMPLE, ptr);
+	}
+
+	return ptr;
+}
 
 Acmd *_n_loadBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff,s32 count, Acmd *p)
 {

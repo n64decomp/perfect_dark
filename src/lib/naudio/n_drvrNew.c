@@ -163,9 +163,9 @@ void n_alFxNew(ALFx **fx_ar, ALSynConfig *c, s16 bus, ALHeap *hp)
 
 	r->delay = alHeapAlloc(hp, r->section_count, sizeof(ALDelay));
 	r->base[0] = alHeapAlloc(hp, r->length, sizeof(s16));
-	r->input = r->base[0];
+	r->input[0] = r->base[0];
 	r->base[1] = alHeapAlloc(hp, r->length, sizeof(s16));
-	r->unk2c = r->base[1];
+	r->input[1] = r->base[1];
 
 	for (k=0; k < r->length; k++) {
 		r->base[0][k] = r->base[1][k] = 0;
@@ -202,8 +202,8 @@ void n_alFxNew(ALFx **fx_ar, ALSynConfig *c, s16 bus, ALHeap *hp)
 			d->rsval	 = 1.0f;
 			d->rsdelta	 = 0.0f;
 			d->rs 	 = alHeapAlloc(hp, 1, sizeof(ALResampler));
-			d->rs->state = alHeapAlloc(hp, 1, sizeof(RESAMPLE_STATE));
-			d->rs->unk18 = alHeapAlloc(hp, 1, 0x20);
+			d->rs->state[0] = alHeapAlloc(hp, 1, sizeof(RESAMPLE_STATE));
+			d->rs->state[1] = alHeapAlloc(hp, 1, sizeof(RESAMPLE_STATE));
 			d->rs->delta = 0.0f;
 			d->rs->first = 1;
 		} else {
