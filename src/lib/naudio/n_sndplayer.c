@@ -3957,61 +3957,26 @@ void func00033bc0(struct audiohandle *handle)
 }
 #endif
 
-GLOBAL_ASM(
-glabel func00033c30
-/*    33c30:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    33c34:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    33c38:	afa40030 */ 	sw	$a0,0x30($sp)
-/*    33c3c:	0c012194 */ 	jal	osSetIntMask
-/*    33c40:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    33c44:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*    33c48:	3c0e8006 */ 	lui	$t6,%hi(var8005f120)
-/*    33c4c:	8dcef120 */ 	lw	$t6,%lo(var8005f120)($t6)
-/*    33c50:	afae0018 */ 	sw	$t6,0x18($sp)
-/*    33c54:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*    33c58:	11e0001d */ 	beqz	$t7,.L00033cd0
-/*    33c5c:	00000000 */ 	nop
-.L00033c60:
-/*    33c60:	24180400 */ 	addiu	$t8,$zero,0x400
-/*    33c64:	a7b8001c */ 	sh	$t8,0x1c($sp)
-/*    33c68:	8fb90018 */ 	lw	$t9,0x18($sp)
-/*    33c6c:	afb90020 */ 	sw	$t9,0x20($sp)
-/*    33c70:	8fa80018 */ 	lw	$t0,0x18($sp)
-/*    33c74:	93aa0033 */ 	lbu	$t2,0x33($sp)
-/*    33c78:	91090044 */ 	lbu	$t1,0x44($t0)
-/*    33c7c:	012a5824 */ 	and	$t3,$t1,$t2
-/*    33c80:	156a000d */ 	bne	$t3,$t2,.L00033cb8
-/*    33c84:	00000000 */ 	nop
-/*    33c88:	8fac0020 */ 	lw	$t4,0x20($sp)
-/*    33c8c:	2401ffef */ 	addiu	$at,$zero,-17
-/*    33c90:	918d0044 */ 	lbu	$t5,0x44($t4)
-/*    33c94:	01a17024 */ 	and	$t6,$t5,$at
-/*    33c98:	a18e0044 */ 	sb	$t6,0x44($t4)
-/*    33c9c:	3c048006 */ 	lui	$a0,%hi(g_SndPlayer)
-/*    33ca0:	8c84f12c */ 	lw	$a0,%lo(g_SndPlayer)($a0)
-/*    33ca4:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*    33ca8:	00003025 */ 	or	$a2,$zero,$zero
-/*    33cac:	00003825 */ 	or	$a3,$zero,$zero
-/*    33cb0:	0c00f184 */ 	jal	n_alEvtqPostEvent
-/*    33cb4:	24840014 */ 	addiu	$a0,$a0,20
-.L00033cb8:
-/*    33cb8:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*    33cbc:	8df80000 */ 	lw	$t8,0x0($t7)
-/*    33cc0:	afb80018 */ 	sw	$t8,0x18($sp)
-/*    33cc4:	8fb90018 */ 	lw	$t9,0x18($sp)
-/*    33cc8:	1720ffe5 */ 	bnez	$t9,.L00033c60
-/*    33ccc:	00000000 */ 	nop
-.L00033cd0:
-/*    33cd0:	0c012194 */ 	jal	osSetIntMask
-/*    33cd4:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*    33cd8:	10000001 */ 	b	.L00033ce0
-/*    33cdc:	00000000 */ 	nop
-.L00033ce0:
-/*    33ce0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    33ce4:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    33ce8:	03e00008 */ 	jr	$ra
-/*    33cec:	00000000 */ 	nop
-);
+void func00033c30(u8 arg0)
+{
+	OSIntMask mask = osSetIntMask(1);
+	N_ALEvent evt;
+	struct var8005f120 *thing = var8005f120;
+
+	while (thing) {
+		evt.type = AL_400_EVT;
+		evt.msg.generic.handle = (struct audiohandle *)thing;
+
+		if ((thing->unk44 & arg0) == arg0) {
+			evt.msg.generic.handle->unk44 &= ~0x10;
+			n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
+		}
+
+		thing = thing->next;
+	}
+
+	osSetIntMask(mask);
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 void func00033cf0(u8 arg0)
