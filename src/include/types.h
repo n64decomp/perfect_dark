@@ -7409,4 +7409,20 @@ struct asistream {
 	bool (*unk847c)(struct asistream *stream);
 };
 
+struct var8005f120_08_04 {
+	u16 unk00;
+	u8 unk02;
+};
+
+struct var8005f120_08 {
+	u32 unk00;
+	struct var8005f120_08_04 *unk04;
+};
+
+struct var8005f120 {
+	struct var8005f120 *next;
+	u32 unk04;
+	struct var8005f120_08 *unk08;
+};
+
 #endif

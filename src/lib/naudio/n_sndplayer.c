@@ -9,7 +9,7 @@
 u32 var8009c330;
 s16 *var8009c334;
 
-u32 var8005f120 = 0;
+struct var8005f120 *var8005f120 = NULL;
 u32 var8005f124 = 0;
 void *var8005f128 = NULL;
 N_ALSndPlayer *g_SndPlayer = &var8009c2d0;
@@ -4114,7 +4114,7 @@ u16 func00033ec4(u8 index)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-u32 func00033f08(void)
+struct var8005f120 *func00033f08(void)
 {
 	return var8005f120;
 }
@@ -4127,140 +4127,24 @@ ALMicroTime sndpGetCurTime(void)
 }
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00033f44
-/*    33f44:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*    33f48:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    33f4c:	afa40038 */ 	sw	$a0,0x38($sp)
-/*    33f50:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*    33f54:	3c0e800a */ 	lui	$t6,%hi(var8009c334)
-/*    33f58:	8dcec334 */ 	lw	$t6,%lo(var8009c334)($t6)
-/*    33f5c:	11c0002e */ 	beqz	$t6,.L00034018
-/*    33f60:	00000000 */ 	nop
-/*    33f64:	0c012194 */ 	jal	osSetIntMask
-/*    33f68:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    33f6c:	afa20034 */ 	sw	$v0,0x34($sp)
-/*    33f70:	3c0f8006 */ 	lui	$t7,%hi(var8005f120)
-/*    33f74:	8deff120 */ 	lw	$t7,%lo(var8005f120)($t7)
-/*    33f78:	afaf0030 */ 	sw	$t7,0x30($sp)
-/*    33f7c:	93a8003b */ 	lbu	$t0,0x3b($sp)
-/*    33f80:	3c19800a */ 	lui	$t9,%hi(var8009c334)
-/*    33f84:	8f39c334 */ 	lw	$t9,%lo(var8009c334)($t9)
-/*    33f88:	97b8003e */ 	lhu	$t8,0x3e($sp)
-/*    33f8c:	00084840 */ 	sll	$t1,$t0,0x1
-/*    33f90:	03295021 */ 	addu	$t2,$t9,$t1
-/*    33f94:	a5580000 */ 	sh	$t8,0x0($t2)
-/*    33f98:	8fab0030 */ 	lw	$t3,0x30($sp)
-/*    33f9c:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*    33fa0:	1160001b */ 	beqz	$t3,.L00034010
-/*    33fa4:	00000000 */ 	nop
-.L00033fa8:
-/*    33fa8:	8fac0030 */ 	lw	$t4,0x30($sp)
-/*    33fac:	93b9003b */ 	lbu	$t9,0x3b($sp)
-/*    33fb0:	8d8d0008 */ 	lw	$t5,0x8($t4)
-/*    33fb4:	8dae0004 */ 	lw	$t6,0x4($t5)
-/*    33fb8:	91cf0002 */ 	lbu	$t7,0x2($t6)
-/*    33fbc:	31e8001f */ 	andi	$t0,$t7,0x1f
-/*    33fc0:	1519000c */ 	bne	$t0,$t9,.L00033ff4
-/*    33fc4:	00000000 */ 	nop
-/*    33fc8:	24090800 */ 	addiu	$t1,$zero,0x800
-/*    33fcc:	a7a9001c */ 	sh	$t1,0x1c($sp)
-/*    33fd0:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*    33fd4:	afb80020 */ 	sw	$t8,0x20($sp)
-/*    33fd8:	3c048006 */ 	lui	$a0,%hi(g_SndPlayer)
-/*    33fdc:	8c84f12c */ 	lw	$a0,%lo(g_SndPlayer)($a0)
-/*    33fe0:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*    33fe4:	00003025 */ 	or	$a2,$zero,$zero
-/*    33fe8:	00003825 */ 	or	$a3,$zero,$zero
-/*    33fec:	0c00f184 */ 	jal	n_alEvtqPostEvent
-/*    33ff0:	24840014 */ 	addiu	$a0,$a0,20
-.L00033ff4:
-/*    33ff4:	8faa002c */ 	lw	$t2,0x2c($sp)
-/*    33ff8:	8fac0030 */ 	lw	$t4,0x30($sp)
-/*    33ffc:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*    34000:	afab002c */ 	sw	$t3,0x2c($sp)
-/*    34004:	8d8d0000 */ 	lw	$t5,0x0($t4)
-/*    34008:	15a0ffe7 */ 	bnez	$t5,.L00033fa8
-/*    3400c:	afad0030 */ 	sw	$t5,0x30($sp)
-.L00034010:
-/*    34010:	0c012194 */ 	jal	osSetIntMask
-/*    34014:	8fa40034 */ 	lw	$a0,0x34($sp)
-.L00034018:
-/*    34018:	10000001 */ 	b	.L00034020
-/*    3401c:	00000000 */ 	nop
-.L00034020:
-/*    34020:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    34024:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*    34028:	03e00008 */ 	jr	$ra
-/*    3402c:	00000000 */ 	nop
-);
-#else
-GLOBAL_ASM(
-glabel func00033f44
-/*    35300:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*    35304:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    35308:	afa40038 */ 	sw	$a0,0x38($sp)
-/*    3530c:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*    35310:	3c0e800a */ 	lui	$t6,0x800a
-/*    35314:	8dce0a34 */ 	lw	$t6,0xa34($t6)
-/*    35318:	11c0002e */ 	beqz	$t6,.NB000353d4
-/*    3531c:	00000000 */ 	sll	$zero,$zero,0x0
-/*    35320:	0c012688 */ 	jal	osSetIntMask
-/*    35324:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    35328:	afa20034 */ 	sw	$v0,0x34($sp)
-/*    3532c:	3c0f8006 */ 	lui	$t7,0x8006
-/*    35330:	8def1630 */ 	lw	$t7,0x1630($t7)
-/*    35334:	afaf0030 */ 	sw	$t7,0x30($sp)
-/*    35338:	93a8003b */ 	lbu	$t0,0x3b($sp)
-/*    3533c:	3c19800a */ 	lui	$t9,0x800a
-/*    35340:	8f390a34 */ 	lw	$t9,0xa34($t9)
-/*    35344:	97b8003e */ 	lhu	$t8,0x3e($sp)
-/*    35348:	00084840 */ 	sll	$t1,$t0,0x1
-/*    3534c:	03295021 */ 	addu	$t2,$t9,$t1
-/*    35350:	a5580000 */ 	sh	$t8,0x0($t2)
-/*    35354:	8fab0030 */ 	lw	$t3,0x30($sp)
-/*    35358:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*    3535c:	1160001b */ 	beqz	$t3,.NB000353cc
-/*    35360:	00000000 */ 	sll	$zero,$zero,0x0
-.NB00035364:
-/*    35364:	8fac0030 */ 	lw	$t4,0x30($sp)
-/*    35368:	93b9003b */ 	lbu	$t9,0x3b($sp)
-/*    3536c:	8d8d0008 */ 	lw	$t5,0x8($t4)
-/*    35370:	8dae0004 */ 	lw	$t6,0x4($t5)
-/*    35374:	91cf0002 */ 	lbu	$t7,0x2($t6)
-/*    35378:	31e8001f */ 	andi	$t0,$t7,0x1f
-/*    3537c:	1519000c */ 	bne	$t0,$t9,.NB000353b0
-/*    35380:	00000000 */ 	sll	$zero,$zero,0x0
-/*    35384:	24090800 */ 	addiu	$t1,$zero,0x800
-/*    35388:	a7a9001c */ 	sh	$t1,0x1c($sp)
-/*    3538c:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*    35390:	afb80020 */ 	sw	$t8,0x20($sp)
-/*    35394:	3c048006 */ 	lui	$a0,0x8006
-/*    35398:	8c84163c */ 	lw	$a0,0x163c($a0)
-/*    3539c:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*    353a0:	00003025 */ 	or	$a2,$zero,$zero
-/*    353a4:	00003825 */ 	or	$a3,$zero,$zero
-/*    353a8:	0c00f678 */ 	jal	n_alEvtqPostEvent
-/*    353ac:	24840014 */ 	addiu	$a0,$a0,0x14
-.NB000353b0:
-/*    353b0:	8faa002c */ 	lw	$t2,0x2c($sp)
-/*    353b4:	8fac0030 */ 	lw	$t4,0x30($sp)
-/*    353b8:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*    353bc:	afab002c */ 	sw	$t3,0x2c($sp)
-/*    353c0:	8d8d0000 */ 	lw	$t5,0x0($t4)
-/*    353c4:	15a0ffe7 */ 	bnez	$t5,.NB00035364
-/*    353c8:	afad0030 */ 	sw	$t5,0x30($sp)
-.NB000353cc:
-/*    353cc:	0c012688 */ 	jal	osSetIntMask
-/*    353d0:	8fa40034 */ 	lw	$a0,0x34($sp)
-.NB000353d4:
-/*    353d4:	10000001 */ 	beqz	$zero,.NB000353dc
-/*    353d8:	00000000 */ 	sll	$zero,$zero,0x0
-.NB000353dc:
-/*    353dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    353e0:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*    353e4:	03e00008 */ 	jr	$ra
-/*    353e8:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
+void func00033f44(u8 index, u16 volume)
+{
+	if (var8009c334) {
+		OSIntMask mask = osSetIntMask(1);
+		struct var8005f120 *thing = var8005f120;
+		s32 i;
+		N_ALEvent evt;
+
+		var8009c334[index] = volume;
+
+		for (i = 0; thing != NULL; i++, thing = thing->next) {
+			if ((thing->unk08->unk04->unk02 & 0x1f) == index) {
+				evt.type = AL_800_EVT;
+				evt.msg.generic.handle = (struct audiohandle *)thing;
+				n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
+			}
+		}
+
+		osSetIntMask(mask);
+	}
+}
