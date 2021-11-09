@@ -73,8 +73,6 @@ extern u32 var8005f038;
 extern u16 *g_RdpOutBufferEnd;
 extern u16 *g_RdpOutBufferStart;
 extern struct rdptask *g_RdpCurTask;
-extern u32 var8005f124;
-extern void *var8005f128;
 extern N_ALSndPlayer *g_SndPlayer;
 extern u32 var8005f130;
 extern u32 var8005f134;

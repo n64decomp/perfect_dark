@@ -6,7 +6,7 @@
 
 void func00033090(struct audiohandle *handle);
 u32 func00033100(void);
-u32 func00033274(void);
+s16 sndpCountStates(s16 *arg0, s16 *arg1);
 void func00033378(void *fn);
 u32 func00033390(void);
 void func00033634(void *fn);

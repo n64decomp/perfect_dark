@@ -10,8 +10,8 @@ u32 var8009c330;
 s16 *var8009c334;
 
 struct var8005f120 *var8005f120 = NULL;
-u32 var8005f124 = 0;
-void *var8005f128 = NULL;
+struct var8005f120 *var8005f124 = NULL;
+struct var8005f120 *var8005f128 = NULL;
 N_ALSndPlayer *g_SndPlayer = &var8009c2d0;
 u32 var8005f130 = 0;
 u32 var8005f134 = 0;
@@ -175,7 +175,7 @@ glabel var7005477c
 /*    31bc0:	15000006 */ 	bnez	$t0,.L00031bdc
 /*    31bc4:	00000000 */ 	nop
 /*    31bc8:	27a4005a */ 	addiu	$a0,$sp,0x5a
-/*    31bcc:	0c00cc9d */ 	jal	func00033274
+/*    31bcc:	0c00cc9d */ 	jal	sndpCountStates
 /*    31bd0:	27a50058 */ 	addiu	$a1,$sp,0x58
 /*    31bd4:	10000529 */ 	b	.L0003307c
 /*    31bd8:	00000000 */ 	nop
@@ -1686,7 +1686,7 @@ glabel var7005477c
 /*    33300:	15000006 */ 	bnez	$t0,.NB0003331c
 /*    33304:	00000000 */ 	sll	$zero,$zero,0x0
 /*    33308:	27a4005a */ 	addiu	$a0,$sp,0x5a
-/*    3330c:	0c00d201 */ 	jal	func00033274
+/*    3330c:	0c00d201 */ 	jal	sndpCountStates
 /*    33310:	27a50058 */ 	addiu	$a1,$sp,0x58
 /*    33314:	100004bd */ 	beqz	$zero,.NB0003460c
 /*    33318:	00000000 */ 	sll	$zero,$zero,0x0
@@ -3088,81 +3088,27 @@ void _removeEvents(ALEventQueue *evtq, N_ALSoundState *state, u16 typemask)
 	osSetIntMask(mask);
 }
 
-GLOBAL_ASM(
-glabel func00033274
-/*    33274:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    33278:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    3327c:	afa40030 */ 	sw	$a0,0x30($sp)
-/*    33280:	afa50034 */ 	sw	$a1,0x34($sp)
-/*    33284:	0c012194 */ 	jal	osSetIntMask
-/*    33288:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    3328c:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*    33290:	3c0e8006 */ 	lui	$t6,%hi(var8005f120)
-/*    33294:	8dcef120 */ 	lw	$t6,%lo(var8005f120)($t6)
-/*    33298:	afae0020 */ 	sw	$t6,0x20($sp)
-/*    3329c:	3c0f8006 */ 	lui	$t7,%hi(var8005f128)
-/*    332a0:	8deff128 */ 	lw	$t7,%lo(var8005f128)($t7)
-/*    332a4:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*    332a8:	3c188006 */ 	lui	$t8,%hi(var8005f124)
-/*    332ac:	8f18f124 */ 	lw	$t8,%lo(var8005f124)($t8)
-/*    332b0:	afb80018 */ 	sw	$t8,0x18($sp)
-/*    332b4:	8fb90020 */ 	lw	$t9,0x20($sp)
-/*    332b8:	a7a0002a */ 	sh	$zero,0x2a($sp)
-/*    332bc:	13200008 */ 	beqz	$t9,.L000332e0
-/*    332c0:	00000000 */ 	nop
-.L000332c4:
-/*    332c4:	97a8002a */ 	lhu	$t0,0x2a($sp)
-/*    332c8:	8faa0020 */ 	lw	$t2,0x20($sp)
-/*    332cc:	25090001 */ 	addiu	$t1,$t0,0x1
-/*    332d0:	a7a9002a */ 	sh	$t1,0x2a($sp)
-/*    332d4:	8d4b0000 */ 	lw	$t3,0x0($t2)
-/*    332d8:	1560fffa */ 	bnez	$t3,.L000332c4
-/*    332dc:	afab0020 */ 	sw	$t3,0x20($sp)
-.L000332e0:
-/*    332e0:	8fac001c */ 	lw	$t4,0x1c($sp)
-/*    332e4:	a7a00028 */ 	sh	$zero,0x28($sp)
-/*    332e8:	11800008 */ 	beqz	$t4,.L0003330c
-/*    332ec:	00000000 */ 	nop
-.L000332f0:
-/*    332f0:	97ad0028 */ 	lhu	$t5,0x28($sp)
-/*    332f4:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*    332f8:	25ae0001 */ 	addiu	$t6,$t5,0x1
-/*    332fc:	a7ae0028 */ 	sh	$t6,0x28($sp)
-/*    33300:	8df80000 */ 	lw	$t8,0x0($t7)
-/*    33304:	1700fffa */ 	bnez	$t8,.L000332f0
-/*    33308:	afb8001c */ 	sw	$t8,0x1c($sp)
-.L0003330c:
-/*    3330c:	8fb90018 */ 	lw	$t9,0x18($sp)
-/*    33310:	a7a00026 */ 	sh	$zero,0x26($sp)
-/*    33314:	13200008 */ 	beqz	$t9,.L00033338
-/*    33318:	00000000 */ 	nop
-.L0003331c:
-/*    3331c:	97a80026 */ 	lhu	$t0,0x26($sp)
-/*    33320:	8faa0018 */ 	lw	$t2,0x18($sp)
-/*    33324:	25090001 */ 	addiu	$t1,$t0,0x1
-/*    33328:	a7a90026 */ 	sh	$t1,0x26($sp)
-/*    3332c:	8d4b0004 */ 	lw	$t3,0x4($t2)
-/*    33330:	1560fffa */ 	bnez	$t3,.L0003331c
-/*    33334:	afab0018 */ 	sw	$t3,0x18($sp)
-.L00033338:
-/*    33338:	97ac0028 */ 	lhu	$t4,0x28($sp)
-/*    3333c:	8fad0030 */ 	lw	$t5,0x30($sp)
-/*    33340:	a5ac0000 */ 	sh	$t4,0x0($t5)
-/*    33344:	97ae002a */ 	lhu	$t6,0x2a($sp)
-/*    33348:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*    3334c:	a5ee0000 */ 	sh	$t6,0x0($t7)
-/*    33350:	0c012194 */ 	jal	osSetIntMask
-/*    33354:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*    33358:	10000003 */ 	b	.L00033368
-/*    3335c:	97a20026 */ 	lhu	$v0,0x26($sp)
-/*    33360:	10000001 */ 	b	.L00033368
-/*    33364:	00000000 */ 	nop
-.L00033368:
-/*    33368:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    3336c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    33370:	03e00008 */ 	jr	$ra
-/*    33374:	00000000 */ 	nop
-);
+u16 sndpCountStates(s16 *arg0, s16 *arg1)
+{
+	OSIntMask mask = osSetIntMask(1);
+	u16 a;
+	u16 b;
+	u16 c;
+	struct var8005f120 *athing = var8005f120;
+	struct var8005f120 *bthing = var8005f128;
+	struct var8005f120 *cthing = var8005f124;
+
+	for (a = 0; athing; a++, athing = athing->next);
+	for (b = 0; bthing; b++, bthing = bthing->next);
+	for (c = 0; cthing; c++, cthing = cthing->prev);
+
+	*arg0 = b;
+	*arg1 = a;
+
+	osSetIntMask(mask);
+
+	return c;
+}
 
 void func00033378(void *fn)
 {

@@ -7421,7 +7421,7 @@ struct var8005f120_08 {
 
 struct var8005f120 {
 	struct var8005f120 *next;
-	u32 unk04;
+	struct var8005f120 *prev;
 	struct var8005f120_08 *unk08;
 	u32 unk0c;
 	u32 unk10;
