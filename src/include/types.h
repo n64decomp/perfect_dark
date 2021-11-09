@@ -7372,10 +7372,33 @@ struct asistream {
 	u8 unk1c[0x2000];
 	s32 unk201c;
 	s32 unk2020;
-	u8 unk2024[0x4c];
+	u8 unk2024[0x40];
+	u32 unk2064;
+	u32 unk2068;
+	u32 unk206c;
 	struct mp3thing unk2070[6];
 	s32 unk3ba0;
-	u8 unk3ba4[0x3e4];
+	u32 unk3ba4;
+	u32 unk3ba8;
+	u32 unk3bac;
+	u32 unk3bb0;
+	u32 unk3bb4;
+	u32 unk3bb8;
+	u32 unk3bbc;
+	u32 unk3bc0;
+	u32 unk3bc4;
+	u32 unk3bc8;
+	u32 unk3bcc;
+	u32 unk3bd0;
+	u32 unk3bd4;
+	u32 unk3bd8;
+	u32 unk3bdc;
+	u32 unk3be0;
+	u32 unk3be4;
+	u32 unk3be8;
+	u32 unk3bec;
+	u32 unk3bf0;
+	u8 unk3bf4[0x394];
 	s32 unk3f88;
 	u32 unk3f8c;
 	u8 unk3f90[0x2ad4];
@@ -7383,7 +7406,7 @@ struct asistream {
 	u8 unk7364[0x1110];
 	s32 unk8474;
 	bool (*unk8478)(struct asistream *stream);
-	u32 unk847c;
+	bool (*unk847c)(struct asistream *stream);
 };
 
 #endif

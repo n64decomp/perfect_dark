@@ -38,7 +38,6 @@ extern const u32 var70056ec0[];
 extern const u32 var700576c8[];
 extern const u32 var70057750[];
 
-u32 n_alEnvmixerPull(void);
 u32 func0003f8a0(void);
 u32 func00040164(void);
 u32 func00040dac(void);
@@ -46,5 +45,7 @@ u32 func00041600(void);
 u32 func00042238(void);
 u32 func000427d8(void);
 u32 func00042990(void);
+bool func00042e38(struct asistream *stream);
+bool func0004371c(struct asistream *stream);
 
 #endif
