@@ -221,8 +221,7 @@ typedef struct {
 	ALDelay		*delay; // 4
 	u8			section_count; // 8
 	struct ALFilter_s   filter;
-	s16			*base; // 20
-	s16			*unk24;
+	s16			*base[2]; // 20
 	s16			*input; // 28
 	s16			*unk2c;
 } ALFx;

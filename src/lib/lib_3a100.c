@@ -12,6 +12,7 @@
 
 #define RANGE 2.0f
 
+Acmd *_n_saveBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff, Acmd *p);
 Acmd *_n_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p);
 
 GLOBAL_ASM(
@@ -94,7 +95,7 @@ glabel var70054a90
 /*    3a218:	8da60028 */ 	lw	$a2,0x28($t5)
 /*    3a21c:	87a70070 */ 	lh	$a3,0x70($sp)
 /*    3a220:	01a02025 */ 	or	$a0,$t5,$zero
-/*    3a224:	0c00ecdc */ 	jal	func0003b370
+/*    3a224:	0c00ecdc */ 	jal	_n_saveBuffer
 /*    3a228:	afae0010 */ 	sw	$t6,0x10($sp)
 /*    3a22c:	afa2007c */ 	sw	$v0,0x7c($sp)
 /*    3a230:	8faf0088 */ 	lw	$t7,0x88($sp)
@@ -109,7 +110,7 @@ glabel var70054a90
 /*    3a254:	8f06002c */ 	lw	$a2,0x2c($t8)
 /*    3a258:	24070930 */ 	addiu	$a3,$zero,0x930
 /*    3a25c:	03002025 */ 	or	$a0,$t8,$zero
-/*    3a260:	0c00ecdc */ 	jal	func0003b370
+/*    3a260:	0c00ecdc */ 	jal	_n_saveBuffer
 /*    3a264:	afa80010 */ 	sw	$t0,0x10($sp)
 /*    3a268:	afa2007c */ 	sw	$v0,0x7c($sp)
 .L0003a26c:
@@ -257,7 +258,7 @@ glabel var70054a90
 /*    3a48c:	8fa50054 */ 	lw	$a1,0x54($sp)
 /*    3a490:	8fa60064 */ 	lw	$a2,0x64($sp)
 /*    3a494:	87a70072 */ 	lh	$a3,0x72($sp)
-/*    3a498:	0c00ecdc */ 	jal	func0003b370
+/*    3a498:	0c00ecdc */ 	jal	_n_saveBuffer
 /*    3a49c:	afab0010 */ 	sw	$t3,0x10($sp)
 /*    3a4a0:	afa2007c */ 	sw	$v0,0x7c($sp)
 .L0003a4a4:
@@ -289,7 +290,7 @@ glabel var70054a90
 /*    3a508:	8fa50054 */ 	lw	$a1,0x54($sp)
 /*    3a50c:	8fa60068 */ 	lw	$a2,0x68($sp)
 /*    3a510:	87a70074 */ 	lh	$a3,0x74($sp)
-/*    3a514:	0c00ecdc */ 	jal	func0003b370
+/*    3a514:	0c00ecdc */ 	jal	_n_saveBuffer
 /*    3a518:	afac0010 */ 	sw	$t4,0x10($sp)
 /*    3a51c:	afa2007c */ 	sw	$v0,0x7c($sp)
 .L0003a520:
@@ -314,7 +315,7 @@ glabel var70054a90
 /*    3a564:	8fa50054 */ 	lw	$a1,0x54($sp)
 /*    3a568:	8fa60064 */ 	lw	$a2,0x64($sp)
 /*    3a56c:	87a70072 */ 	lh	$a3,0x72($sp)
-/*    3a570:	0c00ecdc */ 	jal	func0003b370
+/*    3a570:	0c00ecdc */ 	jal	_n_saveBuffer
 /*    3a574:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*    3a578:	afa2007c */ 	sw	$v0,0x7c($sp)
 .L0003a57c:
@@ -1010,132 +1011,32 @@ glabel func0003b178
 /*    3b36c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0003b370
-/*    3b370:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*    3b374:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    3b378:	afa40038 */ 	sw	$a0,0x38($sp)
-/*    3b37c:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*    3b380:	afa60040 */ 	sw	$a2,0x40($sp)
-/*    3b384:	afa70044 */ 	sw	$a3,0x44($sp)
-/*    3b388:	8fae0048 */ 	lw	$t6,0x48($sp)
-/*    3b38c:	afae0034 */ 	sw	$t6,0x34($sp)
-/*    3b390:	8faf0038 */ 	lw	$t7,0x38($sp)
-/*    3b394:	8fb8003c */ 	lw	$t8,0x3c($sp)
-/*    3b398:	8dea0000 */ 	lw	$t2,0x0($t7)
-/*    3b39c:	0018c880 */ 	sll	$t9,$t8,0x2
-/*    3b3a0:	01f94021 */ 	addu	$t0,$t7,$t9
-/*    3b3a4:	8d090020 */ 	lw	$t1,0x20($t0)
-/*    3b3a8:	000a5840 */ 	sll	$t3,$t2,0x1
-/*    3b3ac:	012b6021 */ 	addu	$t4,$t1,$t3
-/*    3b3b0:	afac0024 */ 	sw	$t4,0x24($sp)
-/*    3b3b4:	8fb8003c */ 	lw	$t8,0x3c($sp)
-/*    3b3b8:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*    3b3bc:	8fad0040 */ 	lw	$t5,0x40($sp)
-/*    3b3c0:	0018c880 */ 	sll	$t9,$t8,0x2
-/*    3b3c4:	01d94021 */ 	addu	$t0,$t6,$t9
-/*    3b3c8:	8d0f0020 */ 	lw	$t7,0x20($t0)
-/*    3b3cc:	01af082b */ 	sltu	$at,$t5,$t7
-/*    3b3d0:	10200007 */ 	beqz	$at,.L0003b3f0
-/*    3b3d4:	00000000 */ 	nop
-/*    3b3d8:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*    3b3dc:	8faa0040 */ 	lw	$t2,0x40($sp)
-/*    3b3e0:	8d2b0000 */ 	lw	$t3,0x0($t1)
-/*    3b3e4:	000b6040 */ 	sll	$t4,$t3,0x1
-/*    3b3e8:	014cc021 */ 	addu	$t8,$t2,$t4
-/*    3b3ec:	afb80040 */ 	sw	$t8,0x40($sp)
-.L0003b3f0:
-/*    3b3f0:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*    3b3f4:	25d90170 */ 	addiu	$t9,$t6,0x170
-/*    3b3f8:	afb90028 */ 	sw	$t9,0x28($sp)
-/*    3b3fc:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*    3b400:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    3b404:	01a8082b */ 	sltu	$at,$t5,$t0
-/*    3b408:	1020003a */ 	beqz	$at,.L0003b4f4
-/*    3b40c:	00000000 */ 	nop
-/*    3b410:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*    3b414:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    3b418:	01e95823 */ 	subu	$t3,$t7,$t1
-/*    3b41c:	000b5043 */ 	sra	$t2,$t3,0x1
-/*    3b420:	afaa0030 */ 	sw	$t2,0x30($sp)
-/*    3b424:	8fac0024 */ 	lw	$t4,0x24($sp)
-/*    3b428:	8fb80040 */ 	lw	$t8,0x40($sp)
-/*    3b42c:	01987023 */ 	subu	$t6,$t4,$t8
-/*    3b430:	000ec843 */ 	sra	$t9,$t6,0x1
-/*    3b434:	afb9002c */ 	sw	$t9,0x2c($sp)
-/*    3b438:	8fa80034 */ 	lw	$t0,0x34($sp)
-/*    3b43c:	250d0008 */ 	addiu	$t5,$t0,0x8
-/*    3b440:	afad0034 */ 	sw	$t5,0x34($sp)
-/*    3b444:	afa80020 */ 	sw	$t0,0x20($sp)
-/*    3b448:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*    3b44c:	8fb80044 */ 	lw	$t8,0x44($sp)
-/*    3b450:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*    3b454:	000f4840 */ 	sll	$t1,$t7,0x1
-/*    3b458:	312b0fff */ 	andi	$t3,$t1,0xfff
-/*    3b45c:	000b5300 */ 	sll	$t2,$t3,0xc
-/*    3b460:	3c010600 */ 	lui	$at,0x600
-/*    3b464:	01416025 */ 	or	$t4,$t2,$at
-/*    3b468:	330e0fff */ 	andi	$t6,$t8,0xfff
-/*    3b46c:	018ec825 */ 	or	$t9,$t4,$t6
-/*    3b470:	ad190000 */ 	sw	$t9,0x0($t0)
-/*    3b474:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    3b478:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*    3b47c:	8fad0020 */ 	lw	$t5,0x20($sp)
-/*    3b480:	ada20004 */ 	sw	$v0,0x4($t5)
-/*    3b484:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*    3b488:	25e90008 */ 	addiu	$t1,$t7,0x8
-/*    3b48c:	afa90034 */ 	sw	$t1,0x34($sp)
-/*    3b490:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*    3b494:	8faa002c */ 	lw	$t2,0x2c($sp)
-/*    3b498:	8fb90030 */ 	lw	$t9,0x30($sp)
-/*    3b49c:	8fab0044 */ 	lw	$t3,0x44($sp)
-/*    3b4a0:	000ac040 */ 	sll	$t8,$t2,0x1
-/*    3b4a4:	00194040 */ 	sll	$t0,$t9,0x1
-/*    3b4a8:	310d0fff */ 	andi	$t5,$t0,0xfff
-/*    3b4ac:	01786021 */ 	addu	$t4,$t3,$t8
-/*    3b4b0:	8fab001c */ 	lw	$t3,0x1c($sp)
-/*    3b4b4:	000d7b00 */ 	sll	$t7,$t5,0xc
-/*    3b4b8:	3c010600 */ 	lui	$at,0x600
-/*    3b4bc:	01e14825 */ 	or	$t1,$t7,$at
-/*    3b4c0:	318e0fff */ 	andi	$t6,$t4,0xfff
-/*    3b4c4:	012e5025 */ 	or	$t2,$t1,$t6
-/*    3b4c8:	ad6a0000 */ 	sw	$t2,0x0($t3)
-/*    3b4cc:	8fac003c */ 	lw	$t4,0x3c($sp)
-/*    3b4d0:	8fb80038 */ 	lw	$t8,0x38($sp)
-/*    3b4d4:	000cc880 */ 	sll	$t9,$t4,0x2
-/*    3b4d8:	03194021 */ 	addu	$t0,$t8,$t9
-/*    3b4dc:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    3b4e0:	8d040020 */ 	lw	$a0,0x20($t0)
-/*    3b4e4:	8fad001c */ 	lw	$t5,0x1c($sp)
-/*    3b4e8:	ada20004 */ 	sw	$v0,0x4($t5)
-/*    3b4ec:	1000000f */ 	b	.L0003b52c
-/*    3b4f0:	00000000 */ 	nop
-.L0003b4f4:
-/*    3b4f4:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*    3b4f8:	25e90008 */ 	addiu	$t1,$t7,0x8
-/*    3b4fc:	afa90034 */ 	sw	$t1,0x34($sp)
-/*    3b500:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*    3b504:	8fae0044 */ 	lw	$t6,0x44($sp)
-/*    3b508:	8fac0018 */ 	lw	$t4,0x18($sp)
-/*    3b50c:	3c010617 */ 	lui	$at,0x617
-/*    3b510:	31ca0fff */ 	andi	$t2,$t6,0xfff
-/*    3b514:	01415825 */ 	or	$t3,$t2,$at
-/*    3b518:	ad8b0000 */ 	sw	$t3,0x0($t4)
-/*    3b51c:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    3b520:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*    3b524:	8fb80018 */ 	lw	$t8,0x18($sp)
-/*    3b528:	af020004 */ 	sw	$v0,0x4($t8)
-.L0003b52c:
-/*    3b52c:	10000003 */ 	b	.L0003b53c
-/*    3b530:	8fa20034 */ 	lw	$v0,0x34($sp)
-/*    3b534:	10000001 */ 	b	.L0003b53c
-/*    3b538:	00000000 */ 	nop
-.L0003b53c:
-/*    3b53c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    3b540:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*    3b544:	03e00008 */ 	jr	$ra
-/*    3b548:	00000000 */ 	nop
-);
+Acmd *_n_saveBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff, Acmd *p)
+{
+	Acmd *ptr = p;
+	s32 after_end, before_end;
+	s16 *updated_ptr, *delay_end;
+
+	delay_end = &r->base[arg1][r->length];
+
+	if (curr_ptr < r->base[arg1]) {    /* probably just security */
+		curr_ptr += r->length;         /* shouldn't occur */
+	}
+
+	updated_ptr = curr_ptr + FIXED_SAMPLE;
+
+	if (updated_ptr > delay_end) { /* if the data wraps past end of r->base */
+		after_end = updated_ptr - delay_end;
+		before_end = delay_end - curr_ptr;
+
+		n_aSaveBuffer(ptr++, before_end << 1, buff, osVirtualToPhysical(curr_ptr));
+		n_aSaveBuffer(ptr++, after_end << 1, buff + (before_end << 1), osVirtualToPhysical(r->base[arg1]));
+	} else {
+		n_aSaveBuffer(ptr++, FIXED_SAMPLE << 1, buff, osVirtualToPhysical(curr_ptr));
+	}
+
+	return ptr;
+}
 
 Acmd *_n_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p)
 {
