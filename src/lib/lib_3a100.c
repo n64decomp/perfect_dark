@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include <n_libaudio.h>
 #include "synthInternals.h"
+#include "naudio/n_synthInternals.h"
 #include "constants.h"
 #include "game/atan2f.h"
 #include "bss.h"
@@ -10,6 +11,8 @@
 #include "types.h"
 
 #define RANGE 2.0f
+
+Acmd *_n_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p);
 
 GLOBAL_ASM(
 glabel n_alAuxBusPull
@@ -298,7 +301,7 @@ glabel var70054a90
 /*    3a534:	8fa50054 */ 	lw	$a1,0x54($sp)
 /*    3a538:	87a60072 */ 	lh	$a2,0x72($sp)
 /*    3a53c:	8fa7007c */ 	lw	$a3,0x7c($sp)
-/*    3a540:	0c00ed53 */ 	jal	func0003b54c
+/*    3a540:	0c00ed53 */ 	jal	_n_filterBuffer
 /*    3a544:	8d640020 */ 	lw	$a0,0x20($t3)
 /*    3a548:	afa2007c */ 	sw	$v0,0x7c($sp)
 .L0003a54c:
@@ -1134,74 +1137,17 @@ glabel func0003b370
 /*    3b548:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0003b54c
-/*    3b54c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    3b550:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    3b554:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    3b558:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    3b55c:	afa60030 */ 	sw	$a2,0x30($sp)
-/*    3b560:	afa70034 */ 	sw	$a3,0x34($sp)
-/*    3b564:	8fae0034 */ 	lw	$t6,0x34($sp)
-/*    3b568:	afae0024 */ 	sw	$t6,0x24($sp)
-/*    3b56c:	8faf0030 */ 	lw	$t7,0x30($sp)
-/*    3b570:	000fc203 */ 	sra	$t8,$t7,0x8
-/*    3b574:	a7b80022 */ 	sh	$t8,0x22($sp)
-/*    3b578:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*    3b57c:	27280008 */ 	addiu	$t0,$t9,0x8
-/*    3b580:	afa80024 */ 	sw	$t0,0x24($sp)
-/*    3b584:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*    3b588:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*    3b58c:	3c090b00 */ 	lui	$t1,0xb00
-/*    3b590:	35290020 */ 	ori	$t1,$t1,0x20
-/*    3b594:	ad490000 */ 	sw	$t1,0x0($t2)
-/*    3b598:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    3b59c:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    3b5a0:	24840008 */ 	addiu	$a0,$a0,0x8
-/*    3b5a4:	8fab001c */ 	lw	$t3,0x1c($sp)
-/*    3b5a8:	ad620004 */ 	sw	$v0,0x4($t3)
-/*    3b5ac:	8fac0024 */ 	lw	$t4,0x24($sp)
-/*    3b5b0:	258d0008 */ 	addiu	$t5,$t4,0x8
-/*    3b5b4:	afad0024 */ 	sw	$t5,0x24($sp)
-/*    3b5b8:	afac0018 */ 	sw	$t4,0x18($sp)
-/*    3b5bc:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*    3b5c0:	8fac0018 */ 	lw	$t4,0x18($sp)
-/*    3b5c4:	3c010e00 */ 	lui	$at,0xe00
-/*    3b5c8:	8dcf0028 */ 	lw	$t7,0x28($t6)
-/*    3b5cc:	85c90002 */ 	lh	$t1,0x2($t6)
-/*    3b5d0:	31f800ff */ 	andi	$t8,$t7,0xff
-/*    3b5d4:	0018cc00 */ 	sll	$t9,$t8,0x10
-/*    3b5d8:	03214025 */ 	or	$t0,$t9,$at
-/*    3b5dc:	312affff */ 	andi	$t2,$t1,0xffff
-/*    3b5e0:	010a5825 */ 	or	$t3,$t0,$t2
-/*    3b5e4:	ad8b0000 */ 	sw	$t3,0x0($t4)
-/*    3b5e8:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*    3b5ec:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*    3b5f0:	000fc080 */ 	sll	$t8,$t7,0x2
-/*    3b5f4:	01b8c821 */ 	addu	$t9,$t5,$t8
-/*    3b5f8:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    3b5fc:	8f24002c */ 	lw	$a0,0x2c($t9)
-/*    3b600:	87a90022 */ 	lh	$t1,0x22($sp)
-/*    3b604:	3c0100ff */ 	lui	$at,0xff
-/*    3b608:	8fac0018 */ 	lw	$t4,0x18($sp)
-/*    3b60c:	3421ffff */ 	ori	$at,$at,0xffff
-/*    3b610:	312800ff */ 	andi	$t0,$t1,0xff
-/*    3b614:	00085600 */ 	sll	$t2,$t0,0x18
-/*    3b618:	00417024 */ 	and	$t6,$v0,$at
-/*    3b61c:	01ca5825 */ 	or	$t3,$t6,$t2
-/*    3b620:	ad8b0004 */ 	sw	$t3,0x4($t4)
-/*    3b624:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*    3b628:	ade00028 */ 	sw	$zero,0x28($t7)
-/*    3b62c:	10000003 */ 	b	.L0003b63c
-/*    3b630:	8fa20024 */ 	lw	$v0,0x24($sp)
-/*    3b634:	10000001 */ 	b	.L0003b63c
-/*    3b638:	00000000 */ 	nop
-.L0003b63c:
-/*    3b63c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    3b640:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    3b644:	03e00008 */ 	jr	$ra
-/*    3b648:	00000000 */ 	nop
-);
+Acmd *_n_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p)
+{
+	Acmd *ptr = p;
+	s16 tmp = count >> 8;
+
+	n_aLoadADPCM(ptr++, 32, osVirtualToPhysical(lp->fcvec.fccoef));
+	n_aPoleFilter(ptr++, lp->first, lp->fgain, tmp, osVirtualToPhysical(lp->fstate[buff]));
+	lp->first = 0;
+
+	return ptr;
+}
 
 /**
  * Generate a triangle wave from -1 to 1, and find the current position

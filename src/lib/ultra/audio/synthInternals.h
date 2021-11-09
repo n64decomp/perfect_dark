@@ -197,8 +197,7 @@ typedef struct {
 		s64             force_aligned;
 	} fcvec;
 	s32			first;
-	POLEF_STATE *fstate; // might need to be swapped with unk30
-	void *unk30; // size 8
+	POLEF_STATE *fstate[2];
 	s32 unk34;
 } ALLowPass;
 
