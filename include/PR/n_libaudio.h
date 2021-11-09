@@ -34,12 +34,12 @@ struct var8009c340 {
 	u8 mono;
 	u8 headphone;
 	u8 unk03;
-	u8 unk04[2];
-	u8 unk06[2];
-	u8 unk08[4];
 };
 
 extern struct var8009c340 var8009c340;
+extern u8 var8009c344[2];
+extern u8 var8009c346[2];
+extern u8 var8009c348[4];
 
 /*
  * Synthesis driver stuff

@@ -173,9 +173,9 @@ Acmd    *n_alEnvmixerPull(N_PVoice *f, s32 sampleOffset, Acmd *p);
 s32     n_alEnvmixerParam(N_PVoice *p, s32 paramID, void *param);
 
 s32 n_alAuxBusParam( s32 paramID, void *param);
-Acmd *n_alAuxBusPull( s32 sampleOffset, Acmd *p);
+Acmd *n_alAuxBusPull(s32 sampleOffset, Acmd *cmdptr, s32 fxBus, s32 *numpulls);
 
-Acmd *n_alFxPull( s32 sampleOffset, Acmd *p);
+Acmd *n_alFxPull( s32 sampleOffset, Acmd *p, s32 arg2);
 s32 n_alFxParamHdl(void *filter, s32 paramID, void *param);
 void n_alFxNew(ALFx **r, ALSynConfig *c, s16 bus, ALHeap *hp);
 

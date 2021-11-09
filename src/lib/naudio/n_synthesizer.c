@@ -54,7 +54,7 @@ void n_alSynNew(ALSynConfig *c)
 	n_syn->mainBus = (N_ALMainBus *)alHeapAlloc(hp, 1, sizeof(N_ALMainBus));
 
 	/******* fx new *******************************/
-	n_syn->mainBus->filter.handler = (N_ALCmdHandler)n_alAuxBusPull;
+	n_syn->mainBus->filter.handler = (N_ALCmdHandler)n_alFxPull;
 
 	n_syn->pFreeList.next = 0;
 	n_syn->pFreeList.prev = 0;

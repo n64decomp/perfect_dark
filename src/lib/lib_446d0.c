@@ -5,7 +5,7 @@
 #include "data.h"
 #include "types.h"
 
-Acmd *func000446d0(s32 sampleOffset, Acmd *cmdptr, s32 fxBus, s32 *numpulls)
+Acmd *n_alAuxBusPull(s32 sampleOffset, Acmd *cmdptr, s32 fxBus, s32 *numpulls)
 {
 	Acmd *cmd = cmdptr;
 	struct N_ALAuxBus_s *bus = &n_syn->auxBus[fxBus];

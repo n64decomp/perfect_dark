@@ -14,6 +14,9 @@
 #include "types.h"
 
 struct var8009c340 var8009c340;
+u8 var8009c344[2];
+u8 var8009c346[2];
+u8 var8009c348[4];
 
 void speakersSetMode(u8 mode)
 {
@@ -43,35 +46,35 @@ void speakersSetMode(u8 mode)
 void speaker00034104(s32 index, s32 arg1)
 {
 	if (arg1 == 0) {
-		arg1 = var8009c340.unk08[index];
+		arg1 = var8009c348[index];
 	}
 
-	var8009c340.unk04[index] = 0;
-	var8009c340.unk06[index] = 0;
+	var8009c344[index] = 0;
+	var8009c346[index] = 0;
 
 	switch (arg1) {
 	case 2:
 		if (var8009c340.surround) {
-			var8009c340.unk06[index] = 1;
+			var8009c346[index] = 1;
 		}
 		break;
 	case 3:
 		if (var8009c340.surround) {
-			var8009c340.unk04[index] = 1;
+			var8009c344[index] = 1;
 		}
 		break;
 	case 4:
 		if (!var8009c340.mono) {
-			var8009c340.unk04[index] = 1;
+			var8009c344[index] = 1;
 		}
 		break;
 	case 5:
 		if (!var8009c340.mono) {
-			var8009c340.unk04[index] = 1;
-			var8009c340.unk06[index] = 1;
+			var8009c344[index] = 1;
+			var8009c346[index] = 1;
 		}
 		break;
 	}
 
-	var8009c340.unk08[index] = arg1;
+	var8009c348[index] = arg1;
 }
