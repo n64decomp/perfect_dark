@@ -12,6 +12,7 @@
 
 #define RANGE 2.0f
 
+Acmd *_n_loadBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff,s32 count, Acmd *p);
 Acmd *_n_saveBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff, Acmd *p);
 Acmd *_n_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p);
 
@@ -211,7 +212,7 @@ glabel var70054a90
 /*    3a3d4:	8fa50054 */ 	lw	$a1,0x54($sp)
 /*    3a3d8:	8fa60068 */ 	lw	$a2,0x68($sp)
 /*    3a3dc:	87a70074 */ 	lh	$a3,0x74($sp)
-/*    3a3e0:	0c00ec5e */ 	jal	func0003b178
+/*    3a3e0:	0c00ec5e */ 	jal	_n_loadBuffer
 /*    3a3e4:	afa90014 */ 	sw	$t1,0x14($sp)
 /*    3a3e8:	afa2007c */ 	sw	$v0,0x7c($sp)
 .L0003a3ec:
@@ -464,7 +465,7 @@ glabel var70054a90
 /*    3a798:	24050001 */ 	addiu	$a1,$zero,0x1
 /*    3a79c:	87a70070 */ 	lh	$a3,0x70($sp)
 /*    3a7a0:	01202025 */ 	or	$a0,$t1,$zero
-/*    3a7a4:	0c00ec5e */ 	jal	func0003b178
+/*    3a7a4:	0c00ec5e */ 	jal	_n_loadBuffer
 /*    3a7a8:	afaa0014 */ 	sw	$t2,0x14($sp)
 /*    3a7ac:	afa2007c */ 	sw	$v0,0x7c($sp)
 /*    3a7b0:	8fae0088 */ 	lw	$t6,0x88($sp)
@@ -779,7 +780,7 @@ glabel func0003ae60
 /*    3aff8:	8fa50060 */ 	lw	$a1,0x60($sp)
 /*    3affc:	8fa70048 */ 	lw	$a3,0x48($sp)
 /*    3b000:	014c3023 */ 	subu	$a2,$t2,$t4
-/*    3b004:	0c00ec5e */ 	jal	func0003b178
+/*    3b004:	0c00ec5e */ 	jal	_n_loadBuffer
 /*    3b008:	afaf0014 */ 	sw	$t7,0x14($sp)
 /*    3b00c:	afa20054 */ 	sw	$v0,0x54($sp)
 /*    3b010:	3c014700 */ 	lui	$at,0x4700
@@ -862,7 +863,7 @@ glabel func0003ae60
 /*    3b140:	8fa50060 */ 	lw	$a1,0x60($sp)
 /*    3b144:	8fa60044 */ 	lw	$a2,0x44($sp)
 /*    3b148:	8fa70064 */ 	lw	$a3,0x64($sp)
-/*    3b14c:	0c00ec5e */ 	jal	func0003b178
+/*    3b14c:	0c00ec5e */ 	jal	_n_loadBuffer
 /*    3b150:	afaa0014 */ 	sw	$t2,0x14($sp)
 /*    3b154:	afa20054 */ 	sw	$v0,0x54($sp)
 .L0003b158:
@@ -877,139 +878,32 @@ glabel func0003ae60
 /*    3b174:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0003b178
-/*    3b178:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*    3b17c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    3b180:	afa40038 */ 	sw	$a0,0x38($sp)
-/*    3b184:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*    3b188:	afa60040 */ 	sw	$a2,0x40($sp)
-/*    3b18c:	afa70044 */ 	sw	$a3,0x44($sp)
-/*    3b190:	8fae004c */ 	lw	$t6,0x4c($sp)
-/*    3b194:	afae0034 */ 	sw	$t6,0x34($sp)
-/*    3b198:	8faf0038 */ 	lw	$t7,0x38($sp)
-/*    3b19c:	8fb8003c */ 	lw	$t8,0x3c($sp)
-/*    3b1a0:	8dea0000 */ 	lw	$t2,0x0($t7)
-/*    3b1a4:	0018c880 */ 	sll	$t9,$t8,0x2
-/*    3b1a8:	01f94021 */ 	addu	$t0,$t7,$t9
-/*    3b1ac:	8d090020 */ 	lw	$t1,0x20($t0)
-/*    3b1b0:	000a5840 */ 	sll	$t3,$t2,0x1
-/*    3b1b4:	012b6021 */ 	addu	$t4,$t1,$t3
-/*    3b1b8:	afac0024 */ 	sw	$t4,0x24($sp)
-/*    3b1bc:	8fb8003c */ 	lw	$t8,0x3c($sp)
-/*    3b1c0:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*    3b1c4:	8fad0040 */ 	lw	$t5,0x40($sp)
-/*    3b1c8:	0018c880 */ 	sll	$t9,$t8,0x2
-/*    3b1cc:	01d94021 */ 	addu	$t0,$t6,$t9
-/*    3b1d0:	8d0f0020 */ 	lw	$t7,0x20($t0)
-/*    3b1d4:	01af082b */ 	sltu	$at,$t5,$t7
-/*    3b1d8:	10200007 */ 	beqz	$at,.L0003b1f8
-/*    3b1dc:	00000000 */ 	nop
-/*    3b1e0:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*    3b1e4:	8faa0040 */ 	lw	$t2,0x40($sp)
-/*    3b1e8:	8d2b0000 */ 	lw	$t3,0x0($t1)
-/*    3b1ec:	000b6040 */ 	sll	$t4,$t3,0x1
-/*    3b1f0:	014cc021 */ 	addu	$t8,$t2,$t4
-/*    3b1f4:	afb80040 */ 	sw	$t8,0x40($sp)
-.L0003b1f8:
-/*    3b1f8:	8fae0048 */ 	lw	$t6,0x48($sp)
-/*    3b1fc:	8fa80040 */ 	lw	$t0,0x40($sp)
-/*    3b200:	000ec840 */ 	sll	$t9,$t6,0x1
-/*    3b204:	03286821 */ 	addu	$t5,$t9,$t0
-/*    3b208:	afad0028 */ 	sw	$t5,0x28($sp)
-/*    3b20c:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*    3b210:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    3b214:	012f082b */ 	sltu	$at,$t1,$t7
-/*    3b218:	1020003a */ 	beqz	$at,.L0003b304
-/*    3b21c:	00000000 */ 	nop
-/*    3b220:	8fab0028 */ 	lw	$t3,0x28($sp)
-/*    3b224:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*    3b228:	016a6023 */ 	subu	$t4,$t3,$t2
-/*    3b22c:	000cc043 */ 	sra	$t8,$t4,0x1
-/*    3b230:	afb80030 */ 	sw	$t8,0x30($sp)
-/*    3b234:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*    3b238:	8fb90040 */ 	lw	$t9,0x40($sp)
-/*    3b23c:	01d94023 */ 	subu	$t0,$t6,$t9
-/*    3b240:	00086843 */ 	sra	$t5,$t0,0x1
-/*    3b244:	afad002c */ 	sw	$t5,0x2c($sp)
-/*    3b248:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*    3b24c:	25e90008 */ 	addiu	$t1,$t7,0x8
-/*    3b250:	afa90034 */ 	sw	$t1,0x34($sp)
-/*    3b254:	afaf0020 */ 	sw	$t7,0x20($sp)
-/*    3b258:	8fab002c */ 	lw	$t3,0x2c($sp)
-/*    3b25c:	8fb90044 */ 	lw	$t9,0x44($sp)
-/*    3b260:	8faf0020 */ 	lw	$t7,0x20($sp)
-/*    3b264:	000b5040 */ 	sll	$t2,$t3,0x1
-/*    3b268:	314c0fff */ 	andi	$t4,$t2,0xfff
-/*    3b26c:	000cc300 */ 	sll	$t8,$t4,0xc
-/*    3b270:	3c010400 */ 	lui	$at,0x400
-/*    3b274:	03017025 */ 	or	$t6,$t8,$at
-/*    3b278:	33280fff */ 	andi	$t0,$t9,0xfff
-/*    3b27c:	01c86825 */ 	or	$t5,$t6,$t0
-/*    3b280:	aded0000 */ 	sw	$t5,0x0($t7)
-/*    3b284:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    3b288:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*    3b28c:	8fa90020 */ 	lw	$t1,0x20($sp)
-/*    3b290:	ad220004 */ 	sw	$v0,0x4($t1)
-/*    3b294:	8fab0034 */ 	lw	$t3,0x34($sp)
-/*    3b298:	256a0008 */ 	addiu	$t2,$t3,0x8
-/*    3b29c:	afaa0034 */ 	sw	$t2,0x34($sp)
-/*    3b2a0:	afab001c */ 	sw	$t3,0x1c($sp)
-/*    3b2a4:	8fb8002c */ 	lw	$t8,0x2c($sp)
-/*    3b2a8:	8fad0030 */ 	lw	$t5,0x30($sp)
-/*    3b2ac:	8fac0044 */ 	lw	$t4,0x44($sp)
-/*    3b2b0:	0018c840 */ 	sll	$t9,$t8,0x1
-/*    3b2b4:	000d7840 */ 	sll	$t7,$t5,0x1
-/*    3b2b8:	31e90fff */ 	andi	$t1,$t7,0xfff
-/*    3b2bc:	01997021 */ 	addu	$t6,$t4,$t9
-/*    3b2c0:	8fac001c */ 	lw	$t4,0x1c($sp)
-/*    3b2c4:	00095b00 */ 	sll	$t3,$t1,0xc
-/*    3b2c8:	3c010400 */ 	lui	$at,0x400
-/*    3b2cc:	01615025 */ 	or	$t2,$t3,$at
-/*    3b2d0:	31c80fff */ 	andi	$t0,$t6,0xfff
-/*    3b2d4:	0148c025 */ 	or	$t8,$t2,$t0
-/*    3b2d8:	ad980000 */ 	sw	$t8,0x0($t4)
-/*    3b2dc:	8fae003c */ 	lw	$t6,0x3c($sp)
-/*    3b2e0:	8fb90038 */ 	lw	$t9,0x38($sp)
-/*    3b2e4:	000e6880 */ 	sll	$t5,$t6,0x2
-/*    3b2e8:	032d7821 */ 	addu	$t7,$t9,$t5
-/*    3b2ec:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    3b2f0:	8de40020 */ 	lw	$a0,0x20($t7)
-/*    3b2f4:	8fa9001c */ 	lw	$t1,0x1c($sp)
-/*    3b2f8:	ad220004 */ 	sw	$v0,0x4($t1)
-/*    3b2fc:	10000014 */ 	b	.L0003b350
-/*    3b300:	00000000 */ 	nop
-.L0003b304:
-/*    3b304:	8fab0034 */ 	lw	$t3,0x34($sp)
-/*    3b308:	256a0008 */ 	addiu	$t2,$t3,0x8
-/*    3b30c:	afaa0034 */ 	sw	$t2,0x34($sp)
-/*    3b310:	afab0018 */ 	sw	$t3,0x18($sp)
-/*    3b314:	8fa80048 */ 	lw	$t0,0x48($sp)
-/*    3b318:	8fad0044 */ 	lw	$t5,0x44($sp)
-/*    3b31c:	8fab0018 */ 	lw	$t3,0x18($sp)
-/*    3b320:	0008c040 */ 	sll	$t8,$t0,0x1
-/*    3b324:	330c0fff */ 	andi	$t4,$t8,0xfff
-/*    3b328:	000c7300 */ 	sll	$t6,$t4,0xc
-/*    3b32c:	3c010400 */ 	lui	$at,0x400
-/*    3b330:	01c1c825 */ 	or	$t9,$t6,$at
-/*    3b334:	31af0fff */ 	andi	$t7,$t5,0xfff
-/*    3b338:	032f4825 */ 	or	$t1,$t9,$t7
-/*    3b33c:	ad690000 */ 	sw	$t1,0x0($t3)
-/*    3b340:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    3b344:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*    3b348:	8faa0018 */ 	lw	$t2,0x18($sp)
-/*    3b34c:	ad420004 */ 	sw	$v0,0x4($t2)
-.L0003b350:
-/*    3b350:	10000003 */ 	b	.L0003b360
-/*    3b354:	8fa20034 */ 	lw	$v0,0x34($sp)
-/*    3b358:	10000001 */ 	b	.L0003b360
-/*    3b35c:	00000000 */ 	nop
-.L0003b360:
-/*    3b360:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    3b364:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*    3b368:	03e00008 */ 	jr	$ra
-/*    3b36c:	00000000 */ 	nop
-);
+Acmd *_n_loadBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff,s32 count, Acmd *p)
+{
+	Acmd *ptr = p;
+	s32 after_end, before_end;
+	s16 *updated_ptr, *delay_end;
+
+	delay_end = &r->base[arg1][r->length];
+
+	if (curr_ptr < r->base[arg1]) {
+		curr_ptr += r->length;
+	}
+
+	updated_ptr = curr_ptr + count;
+
+	if (updated_ptr > delay_end) {
+		after_end = updated_ptr - delay_end;
+		before_end = delay_end - curr_ptr;
+
+		n_aLoadBuffer(ptr++, before_end << 1, buff, osVirtualToPhysical(curr_ptr));
+		n_aLoadBuffer(ptr++, after_end << 1, buff + (before_end << 1), osVirtualToPhysical(r->base[arg1]));
+	} else {
+		n_aLoadBuffer(ptr++, count << 1, buff, osVirtualToPhysical(curr_ptr));
+	}
+
+	return ptr;
+}
 
 Acmd *_n_saveBuffer(ALFx *r, s32 arg1, s16 *curr_ptr, s32 buff, Acmd *p)
 {
