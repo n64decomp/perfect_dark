@@ -14,14 +14,14 @@ Acmd *n_alMainBusPull(s32 sampleOffset, Acmd *p)
 	for (i = 0; i < n_syn->maxAuxBusses; i++) {
 		ptr = (n_syn->mainBus->filter.handler)(sampleOffset, ptr, i);
 
-		if (var8009c340.unk04[i]) {
-			if (var8009c340.unk06[i]) {
+		if (var8009c344[i]) {
+			if (var8009c346[i]) {
 				aMix(ptr++, 0, 0x8000, N_AL_AUX_L_OUT, N_AL_MAIN_L_OUT);
 			} else {
 				aMix(ptr++, 0, 0x7fff, N_AL_AUX_L_OUT, N_AL_MAIN_R_OUT);
 			}
 		} else {
-			if (var8009c340.unk06[i]) {
+			if (var8009c346[i]) {
 				aMix(ptr++, 0, 0x8000, N_AL_AUX_L_OUT, N_AL_MAIN_R_OUT);
 			} else {
 				aMix(ptr++, 0, 0x7fff, N_AL_AUX_L_OUT, N_AL_MAIN_R_OUT);

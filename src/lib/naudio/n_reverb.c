@@ -1,13 +1,6 @@
-#include <ultra64.h>
-#include <n_libaudio.h>
-#include "synthInternals.h"
-#include "naudio/n_synthInternals.h"
-#include "constants.h"
-#include "game/atan2f.h"
-#include "bss.h"
-#include "lib/lib_3a100.h"
-#include "data.h"
-#include "types.h"
+#include <os.h>
+#include <os_internal.h>
+#include "n_synthInternals.h"
 
 #define RANGE 2.0f
 

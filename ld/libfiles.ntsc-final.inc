@@ -64,7 +64,7 @@
 	build/ROMID/lib/rdp.o (section); \
 	build/ROMID/lib/rmon.o (section); \
 	build/ROMID/lib/ultra/audio/heap.o (section); \
-	build/ROMID/lib/lib_2fba0.o (section); \
+	build/ROMID/lib/naudio/n_sl.o (section); \
 	build/ROMID/lib/lib_2fc60.o (section); \
 	build/ROMID/lib/naudio/n_synthesizer.o (section); \
 	build/ROMID/lib/ultra/audio/sl.o (section); \
@@ -84,7 +84,7 @@
 	build/ROMID/lib/naudio/n_syndelete.o (section); \
 	build/ROMID/lib/ultra/audio/cents2ratio.o (section); \
 	build/ROMID/lib/naudio/n_synallocfx.o (section); \
-	build/ROMID/lib/lib_3a100.o (section); \
+	build/ROMID/lib/naudio/n_reverb.o (section); \
 	build/ROMID/lib/naudio/n_drvrNew.o (section); \
 	build/ROMID/lib/naudio/n_save.o (section); \
 	build/ROMID/lib/naudio/n_event.o (section); \
@@ -108,7 +108,7 @@
 	build/ROMID/lib/lib_3f8a0.o (section); \
 	build/ROMID/lib/lib_43dd0.o (section); \
 	build/ROMID/lib/naudio/n_cspsendmidi.o (section); \
-	build/ROMID/lib/lib_446d0.o (section); \
+	build/ROMID/lib/naudio/n_auxbus.o (section); \
 	build/ROMID/lib/naudio/n_mainbus.o (section); \
 	build/ROMID/lib/naudio/n_synsetpriority.o (section); \
 	build/ROMID/lib/naudio/n_load.o (section); \

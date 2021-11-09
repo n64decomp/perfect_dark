@@ -105,8 +105,6 @@ f32 func0003b9d4(s32 arg0)
 	return value;
 }
 
-void func0003b710(f32 outputrate, f32 arg1, f32 arg4, f32 *arg5, f32 *arg6);
-
 void func0003ba64(struct fx *fx, f32 outputrate)
 {
 	s32 i;

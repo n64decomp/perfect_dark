@@ -1,9 +1,5 @@
 #include <ultra64.h>
-#include "constants.h"
-#include "bss.h"
-#include "lib/lib_39fc0.h"
-#include "data.h"
-#include "types.h"
+#include "n_synthInternals.h"
 
 N_ALGlobals *n_alGlobals = NULL;
 N_ALSynth *n_syn = NULL;

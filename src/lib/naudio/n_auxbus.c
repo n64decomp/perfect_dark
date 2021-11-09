@@ -1,9 +1,5 @@
 #include <ultra64.h>
-#include "naudio/n_synthInternals.h"
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include "n_synthInternals.h"
 
 Acmd *n_alAuxBusPull(s32 sampleOffset, Acmd *cmdptr, s32 fxBus, s32 *numpulls)
 {
