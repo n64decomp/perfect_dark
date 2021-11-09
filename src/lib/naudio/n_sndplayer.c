@@ -4014,61 +4014,26 @@ glabel func00033c30
 );
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00033cf0
-/*    33cf0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    33cf4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    33cf8:	afa40030 */ 	sw	$a0,0x30($sp)
-/*    33cfc:	0c012194 */ 	jal	osSetIntMask
-/*    33d00:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    33d04:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*    33d08:	3c0e8006 */ 	lui	$t6,%hi(var8005f120)
-/*    33d0c:	8dcef120 */ 	lw	$t6,%lo(var8005f120)($t6)
-/*    33d10:	afae0018 */ 	sw	$t6,0x18($sp)
-/*    33d14:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*    33d18:	11e0001d */ 	beqz	$t7,.L00033d90
-/*    33d1c:	00000000 */ 	nop
-.L00033d20:
-/*    33d20:	24180080 */ 	addiu	$t8,$zero,0x80
-/*    33d24:	a7b8001c */ 	sh	$t8,0x1c($sp)
-/*    33d28:	8fb90018 */ 	lw	$t9,0x18($sp)
-/*    33d2c:	afb90020 */ 	sw	$t9,0x20($sp)
-/*    33d30:	8fa80018 */ 	lw	$t0,0x18($sp)
-/*    33d34:	93aa0033 */ 	lbu	$t2,0x33($sp)
-/*    33d38:	91090044 */ 	lbu	$t1,0x44($t0)
-/*    33d3c:	012a5824 */ 	and	$t3,$t1,$t2
-/*    33d40:	156a000d */ 	bne	$t3,$t2,.L00033d78
-/*    33d44:	00000000 */ 	nop
-/*    33d48:	8fac0020 */ 	lw	$t4,0x20($sp)
-/*    33d4c:	2401ffef */ 	addiu	$at,$zero,-17
-/*    33d50:	918d0044 */ 	lbu	$t5,0x44($t4)
-/*    33d54:	01a17024 */ 	and	$t6,$t5,$at
-/*    33d58:	a18e0044 */ 	sb	$t6,0x44($t4)
-/*    33d5c:	3c048006 */ 	lui	$a0,%hi(g_SndPlayer)
-/*    33d60:	8c84f12c */ 	lw	$a0,%lo(g_SndPlayer)($a0)
-/*    33d64:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*    33d68:	00003025 */ 	or	$a2,$zero,$zero
-/*    33d6c:	00003825 */ 	or	$a3,$zero,$zero
-/*    33d70:	0c00f184 */ 	jal	n_alEvtqPostEvent
-/*    33d74:	24840014 */ 	addiu	$a0,$a0,20
-.L00033d78:
-/*    33d78:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*    33d7c:	8df80000 */ 	lw	$t8,0x0($t7)
-/*    33d80:	afb80018 */ 	sw	$t8,0x18($sp)
-/*    33d84:	8fb90018 */ 	lw	$t9,0x18($sp)
-/*    33d88:	1720ffe5 */ 	bnez	$t9,.L00033d20
-/*    33d8c:	00000000 */ 	nop
-.L00033d90:
-/*    33d90:	0c012194 */ 	jal	osSetIntMask
-/*    33d94:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*    33d98:	10000001 */ 	b	.L00033da0
-/*    33d9c:	00000000 */ 	nop
-.L00033da0:
-/*    33da0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    33da4:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    33da8:	03e00008 */ 	jr	$ra
-/*    33dac:	00000000 */ 	nop
-);
+void func00033cf0(u8 arg0)
+{
+	OSIntMask mask = osSetIntMask(1);
+	N_ALEvent evt;
+	struct var8005f120 *thing = var8005f120;
+
+	while (thing) {
+		evt.type = AL_80_EVT;
+		evt.msg.generic.handle = (struct audiohandle *)thing;
+
+		if ((thing->unk44 & arg0) == arg0) {
+			evt.msg.generic.handle->unk44 &= ~0x10;
+			n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
+		}
+
+		thing = thing->next;
+	}
+
+	osSetIntMask(mask);
+}
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0

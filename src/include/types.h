@@ -7423,6 +7423,21 @@ struct var8005f120 {
 	struct var8005f120 *next;
 	u32 unk04;
 	struct var8005f120_08 *unk08;
+	u32 unk0c;
+	u32 unk10;
+	u32 unk14;
+	u32 unk18;
+	u32 unk1c;
+	u32 unk20;
+	u32 unk24;
+	u32 unk28;
+	u32 unk2c;
+	u32 unk30;
+	u32 unk34;
+	u32 unk38;
+	u32 unk3c;
+	u32 unk40;
+	u8 unk44;
 };
 
 #endif
