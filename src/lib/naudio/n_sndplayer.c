@@ -3347,20 +3347,12 @@ void sndpFreeState(struct sndstate *state)
 	}
 }
 
-GLOBAL_ASM(
-glabel func000337c8
-/*    337c8:	30a500ff */ 	andi	$a1,$a1,0xff
-/*    337cc:	10800004 */ 	beqz	$a0,.L000337e0
-/*    337d0:	00000000 */ 	nop
-/*    337d4:	00057400 */ 	sll	$t6,$a1,0x10
-/*    337d8:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*    337dc:	a08f0040 */ 	sb	$t7,0x40($a0)
-.L000337e0:
-/*    337e0:	03e00008 */ 	jr	$ra
-/*    337e4:	00000000 */ 	nop
-/*    337e8:	03e00008 */ 	jr	$ra
-/*    337ec:	00000000 */ 	nop
-);
+void func000337c8(struct sndstate *state, u8 arg1)
+{
+	if (state) {
+		state->unk40 = (s16)arg1;
+	}
+}
 
 bool audioIsPlaying(struct sndstate *state)
 {

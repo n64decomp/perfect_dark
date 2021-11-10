@@ -2143,7 +2143,10 @@ struct sndstate {
 	/*0x34*/ u32 unk34;
 	/*0x38*/ u32 unk38;
 	/*0x3c*/ u32 unk3c;
-	/*0x40*/ u32 unk40;
+	/*0x40*/ u8 unk40;
+	/*0x41*/ u8 unk41;
+	/*0x42*/ u8 unk42;
+	/*0x43*/ u8 unk43;
 	/*0x44*/ u8 flags;
 	/*0x45*/ u8 playing;
 #if VERSION >= VERSION_NTSC_1_0
