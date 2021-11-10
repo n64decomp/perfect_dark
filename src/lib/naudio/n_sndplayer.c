@@ -9,18 +9,19 @@
 u32 var8009c330;
 s16 *var8009c334;
 
-struct var8005f120 *var8005f120 = NULL;
-struct var8005f120 *var8005f124 = NULL;
-struct var8005f120 *var8005f128 = NULL;
+struct audiohandle *g_SndpAllocHandlesHead = NULL;
+struct audiohandle *g_SndpAllocHandlesTail = NULL;
+struct audiohandle *g_SndpFreeHandlesHead = NULL;
 N_ALSndPlayer *g_SndPlayer = &var8009c2d0;
-u32 var8005f130 = 0;
+s16 var8005f130 = 0;
 u32 var8005f134 = 0;
 u32 var8005f138 = 0;
 void *var8005f13c = NULL; // function callback
-void *var8005f140 = NULL; // function callback
+void (*var8005f140)(struct audiohandle_08 *) = NULL;
 
 void func00033378(void *fn);
 void func00033634(void *fn);
+void sndpFreeHandle(struct audiohandle *handle);
 void func00033bc0(struct audiohandle *handle);
 
 void n_alSndpNew(ALSndpConfig *config)
@@ -41,7 +42,7 @@ void n_alSndpNew(ALSndpConfig *config)
 	ptr = alHeapAlloc(config->heap, 1, config->maxEvents * 0x1c);
 	n_alEvtqNew(&g_SndPlayer->evtq, ptr, config->maxEvents);
 
-	var8005f128 = g_SndPlayer->sndState;
+	g_SndpFreeHandlesHead = g_SndPlayer->sndState;
 
 	for (i = 1; i < config->maxStates; i++) {
 		struct sndstate *sndstate = g_SndPlayer->sndState;
@@ -322,8 +323,8 @@ glabel var7005477c
 /*    31de4:	8fa90070 */ 	lw	$t1,0x70($sp)
 /*    31de8:	11200040 */ 	beqz	$t1,.L00031eec
 /*    31dec:	00000000 */ 	nop
-/*    31df0:	3c0c8006 */ 	lui	$t4,%hi(var8005f124)
-/*    31df4:	8d8cf124 */ 	lw	$t4,%lo(var8005f124)($t4)
+/*    31df0:	3c0c8006 */ 	lui	$t4,%hi(g_SndpAllocHandlesTail)
+/*    31df4:	8d8cf124 */ 	lw	$t4,%lo(g_SndpAllocHandlesTail)($t4)
 /*    31df8:	afac0054 */ 	sw	$t4,0x54($sp)
 .L00031dfc:
 /*    31dfc:	8fab0054 */ 	lw	$t3,0x54($sp)
@@ -3011,7 +3012,7 @@ void func00033090(struct audiohandle *handle)
 		n_alSynFreeVoice(&handle->voice);
 	}
 
-	func0003364c(handle);
+	sndpFreeHandle(handle);
 
 	// @todo: Remove cast
 	_removeEvents(&g_SndPlayer->evtq, (N_ALSoundState *)handle, 0xffff);
@@ -3088,26 +3089,26 @@ void _removeEvents(ALEventQueue *evtq, N_ALSoundState *state, u16 typemask)
 	osSetIntMask(mask);
 }
 
-u16 sndpCountStates(s16 *arg0, s16 *arg1)
+u16 sndpCountStates(s16 *numfreeptr, s16 *numallocedptr)
 {
 	OSIntMask mask = osSetIntMask(1);
-	u16 a;
-	u16 b;
-	u16 c;
-	struct var8005f120 *athing = var8005f120;
-	struct var8005f120 *bthing = var8005f128;
-	struct var8005f120 *cthing = var8005f124;
+	u16 numalloced;
+	u16 numfree;
+	u16 numalloced2;
+	struct audiohandle *ahandle = g_SndpAllocHandlesHead;
+	struct audiohandle *bhandle = g_SndpFreeHandlesHead;
+	struct audiohandle *chandle = g_SndpAllocHandlesTail;
 
-	for (a = 0; athing; a++, athing = athing->next);
-	for (b = 0; bthing; b++, bthing = bthing->next);
-	for (c = 0; cthing; c++, cthing = cthing->prev);
+	for (numalloced = 0; ahandle; numalloced++, ahandle = (struct audiohandle *)ahandle->node.next);
+	for (numfree = 0; bhandle; numfree++, bhandle = (struct audiohandle *)bhandle->node.next);
+	for (numalloced2 = 0; chandle; numalloced2++, chandle = (struct audiohandle *)chandle->node.prev);
 
-	*arg0 = b;
-	*arg1 = a;
+	*numfreeptr = numfree;
+	*numallocedptr = numalloced;
 
 	osSetIntMask(mask);
 
-	return c;
+	return numalloced2;
 }
 
 void func00033378(void *fn)
@@ -3147,36 +3148,36 @@ glabel func00033390
 /*    333f8:	0c012194 */ 	jal	osSetIntMask
 /*    333fc:	24040001 */ 	addiu	$a0,$zero,0x1
 /*    33400:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*    33404:	3c0b8006 */ 	lui	$t3,%hi(var8005f128)
-/*    33408:	8d6bf128 */ 	lw	$t3,%lo(var8005f128)($t3)
+/*    33404:	3c0b8006 */ 	lui	$t3,%hi(g_SndpFreeHandlesHead)
+/*    33408:	8d6bf128 */ 	lw	$t3,%lo(g_SndpFreeHandlesHead)($t3)
 /*    3340c:	afab0024 */ 	sw	$t3,0x24($sp)
 /*    33410:	8fac0024 */ 	lw	$t4,0x24($sp)
 /*    33414:	1180007d */ 	beqz	$t4,.L0003360c
 /*    33418:	00000000 */ 	nop
 /*    3341c:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    33420:	3c018006 */ 	lui	$at,%hi(var8005f128)
+/*    33420:	3c018006 */ 	lui	$at,%hi(g_SndpFreeHandlesHead)
 /*    33424:	8dae0000 */ 	lw	$t6,0x0($t5)
-/*    33428:	ac2ef128 */ 	sw	$t6,%lo(var8005f128)($at)
+/*    33428:	ac2ef128 */ 	sw	$t6,%lo(g_SndpFreeHandlesHead)($at)
 /*    3342c:	0c00c5e9 */ 	jal	alUnlink
 /*    33430:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    33434:	3c0f8006 */ 	lui	$t7,%hi(var8005f120)
-/*    33438:	8deff120 */ 	lw	$t7,%lo(var8005f120)($t7)
+/*    33434:	3c0f8006 */ 	lui	$t7,%hi(g_SndpAllocHandlesHead)
+/*    33438:	8deff120 */ 	lw	$t7,%lo(g_SndpAllocHandlesHead)($t7)
 /*    3343c:	11e0000f */ 	beqz	$t7,.L0003347c
 /*    33440:	00000000 */ 	nop
-/*    33444:	3c188006 */ 	lui	$t8,%hi(var8005f120)
-/*    33448:	8f18f120 */ 	lw	$t8,%lo(var8005f120)($t8)
+/*    33444:	3c188006 */ 	lui	$t8,%hi(g_SndpAllocHandlesHead)
+/*    33448:	8f18f120 */ 	lw	$t8,%lo(g_SndpAllocHandlesHead)($t8)
 /*    3344c:	8fb90024 */ 	lw	$t9,0x24($sp)
 /*    33450:	af380000 */ 	sw	$t8,0x0($t9)
 /*    33454:	8fa80024 */ 	lw	$t0,0x24($sp)
 /*    33458:	ad000004 */ 	sw	$zero,0x4($t0)
-/*    3345c:	3c0a8006 */ 	lui	$t2,%hi(var8005f120)
-/*    33460:	8d4af120 */ 	lw	$t2,%lo(var8005f120)($t2)
+/*    3345c:	3c0a8006 */ 	lui	$t2,%hi(g_SndpAllocHandlesHead)
+/*    33460:	8d4af120 */ 	lw	$t2,%lo(g_SndpAllocHandlesHead)($t2)
 /*    33464:	8fa90024 */ 	lw	$t1,0x24($sp)
 /*    33468:	ad490004 */ 	sw	$t1,0x4($t2)
 /*    3346c:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*    33470:	3c018006 */ 	lui	$at,%hi(var8005f120)
+/*    33470:	3c018006 */ 	lui	$at,%hi(g_SndpAllocHandlesHead)
 /*    33474:	1000000c */ 	b	.L000334a8
-/*    33478:	ac2bf120 */ 	sw	$t3,%lo(var8005f120)($at)
+/*    33478:	ac2bf120 */ 	sw	$t3,%lo(g_SndpAllocHandlesHead)($at)
 .L0003347c:
 /*    3347c:	8fac0024 */ 	lw	$t4,0x24($sp)
 /*    33480:	ad800004 */ 	sw	$zero,0x4($t4)
@@ -3184,11 +3185,11 @@ glabel func00033390
 /*    33488:	8dae0004 */ 	lw	$t6,0x4($t5)
 /*    3348c:	adae0000 */ 	sw	$t6,0x0($t5)
 /*    33490:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    33494:	3c018006 */ 	lui	$at,%hi(var8005f120)
-/*    33498:	ac2ff120 */ 	sw	$t7,%lo(var8005f120)($at)
+/*    33494:	3c018006 */ 	lui	$at,%hi(g_SndpAllocHandlesHead)
+/*    33498:	ac2ff120 */ 	sw	$t7,%lo(g_SndpAllocHandlesHead)($at)
 /*    3349c:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    334a0:	3c018006 */ 	lui	$at,%hi(var8005f124)
-/*    334a4:	ac38f124 */ 	sw	$t8,%lo(var8005f124)($at)
+/*    334a0:	3c018006 */ 	lui	$at,%hi(g_SndpAllocHandlesTail)
+/*    334a4:	ac38f124 */ 	sw	$t8,%lo(g_SndpAllocHandlesTail)($at)
 .L000334a8:
 /*    334a8:	0c012194 */ 	jal	osSetIntMask
 /*    334ac:	8fa4001c */ 	lw	$a0,0x1c($sp)
@@ -3303,112 +3304,51 @@ void func00033634(void *fn)
 	var8005f140 = fn;
 }
 
+void sndpFreeHandle(struct audiohandle *handle)
+{
+	var8005f134--;
+
+	if (g_SndpAllocHandlesHead == handle) {
+		g_SndpAllocHandlesHead = (struct audiohandle *)handle->node.next;
+	}
+
+	if (g_SndpAllocHandlesTail == handle) {
+		g_SndpAllocHandlesTail = (struct audiohandle *)handle->node.prev;
+	}
+
+	alUnlink(&handle->node);
+
+	if (g_SndpFreeHandlesHead) {
+		handle->node.next = &g_SndpFreeHandlesHead->node;
+		handle->node.prev = NULL;
+		g_SndpFreeHandlesHead->node.prev = &handle->node;
+		g_SndpFreeHandlesHead = handle;
+	} else {
+		handle->node.next = handle->node.prev = NULL;
+		g_SndpFreeHandlesHead = handle;
+	}
+
+	if (handle->unk44 & 4) {
+		var8005f130--;
+	}
+
+	handle->playing = 0;
+
+	if (handle->unk30) {
+		if (*handle->unk30 == handle) {
+			*handle->unk30 = 0;
+		}
+
+		handle->unk30 = NULL;
+	}
+
+	if (var8005f140) {
+		var8005f140(handle->unk08);
+	}
+}
+
 GLOBAL_ASM(
-glabel func0003364c
-/*    3364c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    33650:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    33654:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    33658:	3c0e8006 */ 	lui	$t6,%hi(var8005f134)
-/*    3365c:	8dcef134 */ 	lw	$t6,%lo(var8005f134)($t6)
-/*    33660:	3c018006 */ 	lui	$at,%hi(var8005f134)
-/*    33664:	25cfffff */ 	addiu	$t7,$t6,-1
-/*    33668:	ac2ff134 */ 	sw	$t7,%lo(var8005f134)($at)
-/*    3366c:	3c188006 */ 	lui	$t8,%hi(var8005f120)
-/*    33670:	8f18f120 */ 	lw	$t8,%lo(var8005f120)($t8)
-/*    33674:	8fb90018 */ 	lw	$t9,0x18($sp)
-/*    33678:	17190005 */ 	bne	$t8,$t9,.L00033690
-/*    3367c:	00000000 */ 	nop
-/*    33680:	8fa80018 */ 	lw	$t0,0x18($sp)
-/*    33684:	3c018006 */ 	lui	$at,%hi(var8005f120)
-/*    33688:	8d090000 */ 	lw	$t1,0x0($t0)
-/*    3368c:	ac29f120 */ 	sw	$t1,%lo(var8005f120)($at)
-.L00033690:
-/*    33690:	3c0a8006 */ 	lui	$t2,%hi(var8005f124)
-/*    33694:	8d4af124 */ 	lw	$t2,%lo(var8005f124)($t2)
-/*    33698:	8fab0018 */ 	lw	$t3,0x18($sp)
-/*    3369c:	154b0005 */ 	bne	$t2,$t3,.L000336b4
-/*    336a0:	00000000 */ 	nop
-/*    336a4:	8fac0018 */ 	lw	$t4,0x18($sp)
-/*    336a8:	3c018006 */ 	lui	$at,%hi(var8005f124)
-/*    336ac:	8d8d0004 */ 	lw	$t5,0x4($t4)
-/*    336b0:	ac2df124 */ 	sw	$t5,%lo(var8005f124)($at)
-.L000336b4:
-/*    336b4:	0c00c5e9 */ 	jal	alUnlink
-/*    336b8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    336bc:	3c0e8006 */ 	lui	$t6,%hi(var8005f128)
-/*    336c0:	8dcef128 */ 	lw	$t6,%lo(var8005f128)($t6)
-/*    336c4:	11c0000f */ 	beqz	$t6,.L00033704
-/*    336c8:	00000000 */ 	nop
-/*    336cc:	3c0f8006 */ 	lui	$t7,%hi(var8005f128)
-/*    336d0:	8deff128 */ 	lw	$t7,%lo(var8005f128)($t7)
-/*    336d4:	8fb80018 */ 	lw	$t8,0x18($sp)
-/*    336d8:	af0f0000 */ 	sw	$t7,0x0($t8)
-/*    336dc:	8fb90018 */ 	lw	$t9,0x18($sp)
-/*    336e0:	af200004 */ 	sw	$zero,0x4($t9)
-/*    336e4:	3c098006 */ 	lui	$t1,%hi(var8005f128)
-/*    336e8:	8d29f128 */ 	lw	$t1,%lo(var8005f128)($t1)
-/*    336ec:	8fa80018 */ 	lw	$t0,0x18($sp)
-/*    336f0:	ad280004 */ 	sw	$t0,0x4($t1)
-/*    336f4:	8faa0018 */ 	lw	$t2,0x18($sp)
-/*    336f8:	3c018006 */ 	lui	$at,%hi(var8005f128)
-/*    336fc:	10000009 */ 	b	.L00033724
-/*    33700:	ac2af128 */ 	sw	$t2,%lo(var8005f128)($at)
-.L00033704:
-/*    33704:	8fab0018 */ 	lw	$t3,0x18($sp)
-/*    33708:	ad600004 */ 	sw	$zero,0x4($t3)
-/*    3370c:	8fac0018 */ 	lw	$t4,0x18($sp)
-/*    33710:	8d8d0004 */ 	lw	$t5,0x4($t4)
-/*    33714:	ad8d0000 */ 	sw	$t5,0x0($t4)
-/*    33718:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*    3371c:	3c018006 */ 	lui	$at,%hi(var8005f128)
-/*    33720:	ac2ef128 */ 	sw	$t6,%lo(var8005f128)($at)
-.L00033724:
-/*    33724:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*    33728:	91f80044 */ 	lbu	$t8,0x44($t7)
-/*    3372c:	33190004 */ 	andi	$t9,$t8,0x4
-/*    33730:	13200006 */ 	beqz	$t9,.L0003374c
-/*    33734:	00000000 */ 	nop
-/*    33738:	3c088006 */ 	lui	$t0,%hi(var8005f130)
-/*    3373c:	8508f130 */ 	lh	$t0,%lo(var8005f130)($t0)
-/*    33740:	3c018006 */ 	lui	$at,%hi(var8005f130)
-/*    33744:	2509ffff */ 	addiu	$t1,$t0,-1
-/*    33748:	a429f130 */ 	sh	$t1,%lo(var8005f130)($at)
-.L0003374c:
-/*    3374c:	8faa0018 */ 	lw	$t2,0x18($sp)
-/*    33750:	a1400045 */ 	sb	$zero,0x45($t2)
-/*    33754:	8fab0018 */ 	lw	$t3,0x18($sp)
-/*    33758:	8d6d0030 */ 	lw	$t5,0x30($t3)
-/*    3375c:	11a0000b */ 	beqz	$t5,.L0003378c
-/*    33760:	00000000 */ 	nop
-/*    33764:	8fac0018 */ 	lw	$t4,0x18($sp)
-/*    33768:	8d8e0030 */ 	lw	$t6,0x30($t4)
-/*    3376c:	8dcf0000 */ 	lw	$t7,0x0($t6)
-/*    33770:	15ec0004 */ 	bne	$t7,$t4,.L00033784
-/*    33774:	00000000 */ 	nop
-/*    33778:	8fb80018 */ 	lw	$t8,0x18($sp)
-/*    3377c:	8f190030 */ 	lw	$t9,0x30($t8)
-/*    33780:	af200000 */ 	sw	$zero,0x0($t9)
-.L00033784:
-/*    33784:	8fa80018 */ 	lw	$t0,0x18($sp)
-/*    33788:	ad000030 */ 	sw	$zero,0x30($t0)
-.L0003378c:
-/*    3378c:	3c098006 */ 	lui	$t1,%hi(var8005f140)
-/*    33790:	8d29f140 */ 	lw	$t1,%lo(var8005f140)($t1)
-/*    33794:	11200006 */ 	beqz	$t1,.L000337b0
-/*    33798:	00000000 */ 	nop
-/*    3379c:	3c198006 */ 	lui	$t9,%hi(var8005f140)
-/*    337a0:	8f39f140 */ 	lw	$t9,%lo(var8005f140)($t9)
-/*    337a4:	8faa0018 */ 	lw	$t2,0x18($sp)
-/*    337a8:	0320f809 */ 	jalr	$t9
-/*    337ac:	8d440008 */ 	lw	$a0,0x8($t2)
-.L000337b0:
-/*    337b0:	10000001 */ 	b	.L000337b8
-/*    337b4:	00000000 */ 	nop
-.L000337b8:
-/*    337b8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    337bc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    337c0:	03e00008 */ 	jr	$ra
-/*    337c4:	00000000 */ 	nop
+glabel func000337c8
 /*    337c8:	30a500ff */ 	andi	$a1,$a1,0xff
 /*    337cc:	10800004 */ 	beqz	$a0,.L000337e0
 /*    337d0:	00000000 */ 	nop
@@ -3892,7 +3832,7 @@ void func00033bc0(struct audiohandle *handle)
 {
 	N_ALEvent evt;
 
-	evt.type = 0x80;
+	evt.type = AL_80_EVT;
 	evt.msg.generic.handle = handle;
 
 	if (handle) {
@@ -3907,18 +3847,18 @@ void func00033c30(u8 arg0)
 {
 	OSIntMask mask = osSetIntMask(1);
 	N_ALEvent evt;
-	struct var8005f120 *thing = var8005f120;
+	struct audiohandle *handle = g_SndpAllocHandlesHead;
 
-	while (thing) {
+	while (handle) {
 		evt.type = AL_400_EVT;
-		evt.msg.generic.handle = (struct audiohandle *)thing;
+		evt.msg.generic.handle = handle;
 
-		if ((thing->unk44 & arg0) == arg0) {
+		if ((handle->unk44 & arg0) == arg0) {
 			evt.msg.generic.handle->unk44 &= ~0x10;
 			n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 		}
 
-		thing = thing->next;
+		handle = (struct audiohandle *)handle->node.next;
 	}
 
 	osSetIntMask(mask);
@@ -3929,18 +3869,18 @@ void func00033cf0(u8 arg0)
 {
 	OSIntMask mask = osSetIntMask(1);
 	N_ALEvent evt;
-	struct var8005f120 *thing = var8005f120;
+	struct audiohandle *handle = g_SndpAllocHandlesHead;
 
-	while (thing) {
+	while (handle) {
 		evt.type = AL_80_EVT;
-		evt.msg.generic.handle = (struct audiohandle *)thing;
+		evt.msg.generic.handle = handle;
 
-		if ((thing->unk44 & arg0) == arg0) {
+		if ((handle->unk44 & arg0) == arg0) {
 			evt.msg.generic.handle->unk44 &= ~0x10;
 			n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 		}
 
-		thing = thing->next;
+		handle = (struct audiohandle *)handle->node.next;
 	}
 
 	osSetIntMask(mask);
@@ -3990,9 +3930,9 @@ u16 func00033ec4(u8 index)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-struct var8005f120 *func00033f08(void)
+struct audiohandle *func00033f08(void)
 {
-	return var8005f120;
+	return g_SndpAllocHandlesHead;
 }
 #endif
 
@@ -4007,16 +3947,16 @@ void func00033f44(u8 index, u16 volume)
 {
 	if (var8009c334) {
 		OSIntMask mask = osSetIntMask(1);
-		struct var8005f120 *thing = var8005f120;
+		struct audiohandle *handle = g_SndpAllocHandlesHead;
 		s32 i;
 		N_ALEvent evt;
 
 		var8009c334[index] = volume;
 
-		for (i = 0; thing != NULL; i++, thing = thing->next) {
-			if ((thing->unk08->unk04->unk02 & 0x1f) == index) {
+		for (i = 0; handle != NULL; i++, handle = (struct audiohandle *)handle->node.next) {
+			if ((handle->unk08->unk04->unk02 & 0x1f) == index) {
 				evt.type = AL_800_EVT;
-				evt.msg.generic.handle = (struct audiohandle *)thing;
+				evt.msg.generic.handle = handle;
 				n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 			}
 		}

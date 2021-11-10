@@ -2123,15 +2123,23 @@ struct eyespy {
 	/*0x7c*/ f32 pitch;
 };
 
-// Might be N_ALSoundState
+struct var8005f120_08_04 {
+	u16 unk00;
+	u8 unk02;
+};
+
+struct audiohandle_08 {
+	u32 unk00;
+	struct var8005f120_08_04 *unk04;
+};
+
 struct audiohandle {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
+	/*0x00*/ ALLink node;
+	/*0x08*/ struct audiohandle_08 *unk08;
 	/*0x0c*/ N_ALVoice voice;
 	/*0x28*/ u32 unk28;
 	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
+	/*0x30*/ struct audiohandle **unk30;
 	/*0x34*/ u32 unk34;
 	/*0x38*/ u32 unk38;
 	/*0x3c*/ u32 unk3c;
@@ -7407,37 +7415,6 @@ struct asistream {
 	s32 unk8474;
 	bool (*unk8478)(struct asistream *stream);
 	bool (*unk847c)(struct asistream *stream);
-};
-
-struct var8005f120_08_04 {
-	u16 unk00;
-	u8 unk02;
-};
-
-struct var8005f120_08 {
-	u32 unk00;
-	struct var8005f120_08_04 *unk04;
-};
-
-struct var8005f120 {
-	struct var8005f120 *next;
-	struct var8005f120 *prev;
-	struct var8005f120_08 *unk08;
-	u32 unk0c;
-	u32 unk10;
-	u32 unk14;
-	u32 unk18;
-	u32 unk1c;
-	u32 unk20;
-	u32 unk24;
-	u32 unk28;
-	u32 unk2c;
-	u32 unk30;
-	u32 unk34;
-	u32 unk38;
-	u32 unk3c;
-	u32 unk40;
-	u8 unk44;
 };
 
 #endif
