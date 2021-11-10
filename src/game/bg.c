@@ -15069,22 +15069,11 @@ bool portalPushValue(bool value)
 	return value;
 }
 
-GLOBAL_ASM(
-glabel portalPopValue
-/*  f162588:	3c048008 */ 	lui	$a0,%hi(g_PortalStackIndex)
-/*  f16258c:	2484fca8 */ 	addiu	$a0,$a0,%lo(g_PortalStackIndex)
-/*  f162590:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*  f162594:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f162598:	3c038008 */ 	lui	$v1,%hi(g_PortalStack)
-/*  f16259c:	25cf0013 */ 	addiu	$t7,$t6,0x13
-/*  f1625a0:	01e1001a */ 	div	$zero,$t7,$at
-/*  f1625a4:	0000c010 */ 	mfhi	$t8
-/*  f1625a8:	00184080 */ 	sll	$t0,$t8,0x2
-/*  f1625ac:	00681821 */ 	addu	$v1,$v1,$t0
-/*  f1625b0:	ac980000 */ 	sw	$t8,0x0($a0)
-/*  f1625b4:	03e00008 */ 	jr	$ra
-/*  f1625b8:	8c62fc58 */ 	lw	$v0,%lo(g_PortalStack)($v1)
-);
+bool portalPopValue(void)
+{
+	bool val = g_PortalStack[g_PortalStackIndex = (g_PortalStackIndex + 19) % 20];
+	return val;
+}
 
 bool portalGetNthValueFromEnd(s32 n)
 {
