@@ -106,7 +106,7 @@
 #include "data.h"
 #include "types.h"
 
-struct audiohandle *g_MiscSfxAudioHandles[3];
+struct sndstate *g_MiscSfxAudioHandles[3];
 u32 var800aa5bc;
 s32 g_MiscSfxActiveTypes[3];
 
@@ -121,7 +121,7 @@ s32 g_StageTimeElapsed60 = 0;
 s32 g_MpTimeLimit60 = SECSTOTIME60(60 * 10); // 10 minutes
 s32 g_MpScoreLimit = 10;
 s32 g_MpTeamScoreLimit = 20;
-struct audiohandle *g_MiscAudioHandle = NULL;
+struct sndstate *g_MiscAudioHandle = NULL;
 s32 g_NumReasonsToEndMpMatch = 0;
 f32 g_StageTimeElapsed1f = 0;
 bool var80084040 = true;
@@ -3792,7 +3792,7 @@ Gfx *lvRender(Gfx *gdl)
 				}
 
 				if (var80075d78 <= 0) {
-					static struct audiohandle *g_CutsceneStaticAudioHandle = NULL;
+					static struct sndstate *g_CutsceneStaticAudioHandle = NULL;
 					static s32 g_CutsceneStaticTimer = 100;
 					static u8 g_CutsceneStaticActive = false;
 					bool cutscenehasstatic = false;

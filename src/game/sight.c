@@ -246,7 +246,7 @@ void sightTick(bool sighton)
 		if (sighton) {
 			if (g_Vars.currentplayer->lookingatprop.prop) {
 				if (g_Vars.currentplayer->lookingatprop.prop != g_Vars.currentplayer->cmpfollowprops[0].prop) {
-					struct audiohandle *handle;
+					struct sndstate *handle;
 
 					handle = snd00010718(&handle, 0, 0x7fff, 0x40, 7, 1, 1, -1, 1);
 
@@ -272,7 +272,7 @@ void sightTick(bool sighton)
 			index = sightFindFreeTargetIndex(1);
 
 			if (index >= 0) {
-				struct audiohandle *handle;
+				struct sndstate *handle;
 
 				handle = snd00010718(&handle, 0, 0x7fff, 0x40, 7, 1, 1, -1, 1);
 
@@ -295,7 +295,7 @@ void sightTick(bool sighton)
 			index = sightFindFreeTargetIndex(4);
 
 			if (index >= 0) {
-				struct audiohandle *handle;
+				struct sndstate *handle;
 
 				handle = snd00010718(&handle, 0, 0x7fff, 0x40, 7, 1, 1, -1, 1);
 

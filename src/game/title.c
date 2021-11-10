@@ -1902,7 +1902,7 @@ u32 var80062854 = 0x00000000;
 u32 var80062858 = 0x00000000;
 u32 var8006285c = 0x00000000;
 u32 var80062860 = 0x447a0000;
-struct audiohandle *g_TitleAudioHandle = NULL;
+struct sndstate *g_TitleAudioHandle = NULL;
 u32 var80062868 = 0x00000000;
 u32 var8006286c = 0x00000000;
 

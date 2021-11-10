@@ -446,7 +446,7 @@ void weaponPlayWhooshSound(s32 weaponnum, struct prop *prop)
 
 	if (soundnum != -1) {
 		if (prop == g_Vars.currentplayer->prop) {
-			struct audiohandle *handle;
+			struct sndstate *handle;
 #if VERSION >= VERSION_NTSC_1_0
 			u32 stack;
 			OSPri prevpri = osGetThreadPri(0);
@@ -481,7 +481,7 @@ void func0f060bac(s32 weaponnum, struct prop *prop)
 {
 	s32 soundnum = -1;
 	f32 speed = 1;
-	struct audiohandle *handle;
+	struct sndstate *handle;
 
 	if (weaponnum == WEAPON_UNARMED) {
 		soundnum = SFX_THUD_808F;

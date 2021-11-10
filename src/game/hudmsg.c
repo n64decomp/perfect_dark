@@ -3463,7 +3463,7 @@ void hudmsgsTick(void)
 					sndStart(var80095200, SFX_HUDMSG, NULL, -1, -1, -1, -1, -1);
 #else
 					// Probable mismatch here for ntsc-beta
-					static struct audiohandle *var800736b0nb = NULL;
+					static struct sndstate *var800736b0nb = NULL;
 					sndStart(var80095200, SFX_HUDMSG, &var800736b0nb, -1, -1, -1, -1, -1);
 #endif
 				}

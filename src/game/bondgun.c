@@ -55,7 +55,7 @@
 u32 var8009d0d0[2];
 s32 var8009d0d8;
 u32 var8009d0dc;
-struct audiohandle *g_BgunAudioHandles[4];
+struct sndstate *g_BgunAudioHandles[4];
 u32 var8009d0f0;
 u32 var8009d0f4;
 u32 var8009d0f8;
@@ -117,7 +117,7 @@ u32 var8009d14c;
 
 u32 var8009d0d0[2];
 s32 var8009d0d8;
-struct audiohandle *g_BgunAudioHandles[4];
+struct sndstate *g_BgunAudioHandles[4];
 struct fireslot g_Fireslots[NUM_FIRESLOTS];
 u32 fill2[1];
 #endif
@@ -6908,7 +6908,7 @@ const char var7f1ab898[] = "rofftime";
 //		}
 //
 //		if (playsound) {
-//			struct audiohandle *handle;
+//			struct sndstate *handle;
 //
 //#if VERSION >= VERSION_NTSC_1_0
 //			OSPri prevpri = osGetThreadPri(0);
@@ -7748,10 +7748,10 @@ s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 
 #if VERSION >= VERSION_NTSC_1_0
 				OSPri prevpri = osGetThreadPri(0);
-				struct audiohandle *handle;
+				struct sndstate *handle;
 				osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 #else
-				struct audiohandle *handle;
+				struct sndstate *handle;
 #endif
 
 				handle = sndStart(var80095200, SFX_HIT_WATER, NULL, -1, -1, -1, -1, -1);
@@ -7774,10 +7774,10 @@ s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 
 #if VERSION >= VERSION_NTSC_1_0
 				OSPri prevpri = osGetThreadPri(0);
-				struct audiohandle *handle;
+				struct sndstate *handle;
 				osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 #else
-				struct audiohandle *handle;
+				struct sndstate *handle;
 #endif
 
 				handle = sndStart(var80095200, SFX_FIREEMPTY, NULL, -1, -1, -1, -1, -1);
@@ -8135,21 +8135,21 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 					&& !g_PlayerInvincible
 					&& !g_Vars.currentplayer->isdead) {
 #if VERSION >= VERSION_NTSC_1_0
-				struct audiohandle *handle1;
+				struct sndstate *handle1;
 				f32 speed1;
-				struct audiohandle *handle2;
+				struct sndstate *handle2;
 				OSPri prevpri1;
 				f32 speed2;
 				OSPri prevpri2;
-				struct audiohandle *handle3;
+				struct sndstate *handle3;
 				f32 speed3;
 				OSPri prevpri3;
 #else
-				struct audiohandle *handle1;
+				struct sndstate *handle1;
 				f32 speed1;
-				struct audiohandle *handle2;
+				struct sndstate *handle2;
 				f32 speed2;
-				struct audiohandle *handle3;
+				struct sndstate *handle3;
 				f32 speed3;
 #endif
 
@@ -27168,7 +27168,7 @@ glabel var7f1aca90
 /**
  * Find and return an available audio handle out of a pool of four.
  */
-struct audiohandle **bgunAllocateAudioHandle(void)
+struct sndstate **bgunAllocateAudioHandle(void)
 {
 	s32 i;
 
@@ -27186,7 +27186,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 #if VERSION >= VERSION_NTSC_1_0
 	u32 rand1 = random();
 	u32 rand2 = random();
-	struct audiohandle **handle;
+	struct sndstate **handle;
 
 	if (g_Vars.lvupdate240 <= 0) {
 		return;
@@ -27331,7 +27331,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 #else
 	u32 rand1 = random();
 	u32 rand2 = random();
-	struct audiohandle **handle;
+	struct sndstate **handle;
 
 	if (g_Vars.lvupdate240 <= 0) {
 		return;
@@ -27465,7 +27465,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 void bgun0f0a8404(struct coord *pos, s16 *rooms, s32 arg2)
 {
 	if (g_Vars.lvupdate240 > 0) {
-		struct audiohandle **handle = bgunAllocateAudioHandle();
+		struct sndstate **handle = bgunAllocateAudioHandle();
 
 		if (handle) {
 			sndStart(var80095200, SFX_HIT_GLASS, handle, -1, -1, -1, -1, -1);
@@ -27480,7 +27480,7 @@ void bgun0f0a8404(struct coord *pos, s16 *rooms, s32 arg2)
 void bgunPlayBgHitSound(struct gset *gset, struct coord *arg1, s32 texturenum, s16 *arg3)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	struct audiohandle **handle;
+	struct sndstate **handle;
 	u32 rand1 = random();
 	u32 rand2 = random();
 	bool playdefault;
@@ -27579,7 +27579,7 @@ void bgunPlayBgHitSound(struct gset *gset, struct coord *arg1, s32 texturenum, s
 		}
 	}
 #else
-	struct audiohandle **handle;
+	struct sndstate **handle;
 	u32 rand1 = random();
 	u32 rand2 = random();
 	s16 soundnum;

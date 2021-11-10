@@ -12018,7 +12018,7 @@ bool aiChrBeginOrEndTeleport(void)
 #if VERSION >= VERSION_NTSC_1_0
 	s32 audiopri;
 #endif
-	struct audiohandle *handle;
+	struct sndstate *handle;
 	fvalue = 0.4;
 	chr = chrFindById(g_Vars.chrdata, cmd[4]);
 	prevplayernum = g_Vars.currentplayernum;
@@ -12076,7 +12076,7 @@ bool aiIfChrTeleportFullWhite(void)
 #if VERSION >= VERSION_NTSC_1_0
 	s32 audiopri;
 #endif
-	struct audiohandle *handle;
+	struct sndstate *handle;
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 playernum = propGetPlayerNum(chr->prop);

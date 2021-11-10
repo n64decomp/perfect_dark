@@ -2123,29 +2123,32 @@ struct eyespy {
 	/*0x7c*/ f32 pitch;
 };
 
-struct var8005f120_08_04 {
+struct sndstate_08_04 {
 	u16 unk00;
 	u8 unk02;
 };
 
-struct audiohandle_08 {
+struct sndstate_08 {
 	u32 unk00;
-	struct var8005f120_08_04 *unk04;
+	struct sndstate_08_04 *unk04;
 };
 
-struct audiohandle {
+struct sndstate {
 	/*0x00*/ ALLink node;
-	/*0x08*/ struct audiohandle_08 *unk08;
+	/*0x08*/ struct sndstate_08 *unk08;
 	/*0x0c*/ N_ALVoice voice;
 	/*0x28*/ u32 unk28;
 	/*0x2c*/ u32 unk2c;
-	/*0x30*/ struct audiohandle **unk30;
+	/*0x30*/ struct sndstate **unk30;
 	/*0x34*/ u32 unk34;
 	/*0x38*/ u32 unk38;
 	/*0x3c*/ u32 unk3c;
 	/*0x40*/ u32 unk40;
-	/*0x44*/ u8 unk44;
+	/*0x44*/ u8 flags;
 	/*0x45*/ u8 playing;
+#if VERSION >= VERSION_NTSC_1_0
+	/*0x48*/ u32 unk48;
+#endif
 };
 
 /**
@@ -2276,8 +2279,8 @@ struct hand {
 	/*0x07e8*/ struct coord adjustpos;
 	/*0x07f4*/ f32 xshift;
 	/*0x07f8*/ struct coord aimpos;
-	/*0x0804*/ struct audiohandle *audiohandle2;
-	/*0x0808*/ struct audiohandle *audiohandle3;
+	/*0x0804*/ struct sndstate *audiohandle2;
+	/*0x0808*/ struct sndstate *audiohandle3;
 	/*0x080c*/ s32 allowshootframe;
 	/*0x0810*/ s32 lastshootframe60;
 	/*0x0814*/ struct beam beam;
@@ -2434,7 +2437,7 @@ struct hand {
 	/*0x0d74*/ u16 gunroundsspent[4]; // actually a countdown timer
 	/*0x0d7c*/ u32 ispare1;
 	/*0x0d80*/ struct guncmd *unk0d80;
-	/*0x0d84*/ struct audiohandle *audiohandle;
+	/*0x0d84*/ struct sndstate *audiohandle;
 	/*0x0d88*/ u32 ispare4;
 	/*0x0d8c*/ u32 ispare5;
 	/*0x0d90*/ u32 ispare6;
@@ -2556,7 +2559,7 @@ struct player {
 	/*0x00d4*/ struct model *model00d4;
 	/*0x00d8*/ bool isdead;
 	/*0x00dc*/ f32 bondhealth; // frac (range 0-1)
-	/*0x00e0*/ struct audiohandle *chokehandle;
+	/*0x00e0*/ struct sndstate *chokehandle;
 	/*0x00e4*/ f32 oldhealth;
 	/*0x00e8*/ f32 oldarmour;
 	/*0x00ec*/ f32 apparenthealth;
@@ -3765,8 +3768,8 @@ struct fireslotthing {
 struct fireslot {
 	/*0x00*/ s32 endlvframe;
 #if VERSION < VERSION_NTSC_1_0
-	struct audiohandle *unk04nb;
-	struct audiohandle *unk08nb;
+	struct sndstate *unk04nb;
+	struct sndstate *unk08nb;
 #endif
 	/*0x04*/ struct beam beam;
 };
@@ -5783,7 +5786,7 @@ struct weatherdata {
 	/*0x28*/ u32 unk28;
 	/*0x2c*/ u32 unk2c;
 	/*0x30*/ u32 unk30;
-	/*0x34*/ struct audiohandle *audiohandles[4];
+	/*0x34*/ struct sndstate *audiohandles[4];
 	/*0x44*/ s32 unk44;
 	/*0x48*/ s32 unk48;
 	/*0x4c*/ s32 unk4c;
@@ -6693,7 +6696,7 @@ struct shard {
 };
 
 struct audiochannel {
-	/*0x00*/ struct audiohandle *audiohandle;
+	/*0x00*/ struct sndstate *audiohandle;
 	/*0x04*/ s16 soundnum04;
 	/*0x06*/ s16 unk06;
 	/*0x08*/ s16 unk08;
@@ -6827,8 +6830,8 @@ struct nbomb {
 	s16 unk14;
 	f32 unk18;
 	struct prop *prop;
-	struct audiohandle *audiohandle20;
-	struct audiohandle *audiohandle24;
+	struct sndstate *audiohandle20;
+	struct sndstate *audiohandle24;
 };
 
 struct roomacousticdata {
@@ -7344,29 +7347,6 @@ struct var8007f8dc {
 	/*0x0f8*/ u32 unk0f8;
 	/*0x0fc*/ u32 unk0fc;
 	/*0x100*/ u32 unk100;
-};
-
-struct sndstate {
-	ALLink node;
-	u32 unk08;
-	u32 unk0c;
-	u32 unk10;
-	u32 unk14;
-	u32 unk18;
-	u32 unk1c;
-	u32 unk20;
-	u32 unk24;
-	u32 unk28;
-	u32 unk2c;
-	u32 unk30;
-	u32 unk34;
-	u32 unk38;
-	u32 unk3c;
-	u32 unk40;
-	u32 unk44;
-#if VERSION >= VERSION_NTSC_1_0
-	u32 unk48;
-#endif
 };
 
 struct asistream {

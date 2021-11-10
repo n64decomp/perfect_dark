@@ -9,20 +9,20 @@
 u32 var8009c330;
 s16 *var8009c334;
 
-struct audiohandle *g_SndpAllocHandlesHead = NULL;
-struct audiohandle *g_SndpAllocHandlesTail = NULL;
-struct audiohandle *g_SndpFreeHandlesHead = NULL;
+struct sndstate *g_SndpAllocStatesHead = NULL;
+struct sndstate *g_SndpAllocStatesTail = NULL;
+struct sndstate *g_SndpFreeStatesHead = NULL;
 N_ALSndPlayer *g_SndPlayer = &var8009c2d0;
 s16 var8005f130 = 0;
 u32 var8005f134 = 0;
 u32 var8005f138 = 0;
 void *var8005f13c = NULL; // function callback
-void (*var8005f140)(struct audiohandle_08 *) = NULL;
+void (*var8005f140)(struct sndstate_08 *) = NULL;
 
 void func00033378(void *fn);
 void func00033634(void *fn);
-void sndpFreeHandle(struct audiohandle *handle);
-void func00033bc0(struct audiohandle *handle);
+void sndpFreeState(struct sndstate *state);
+void func00033bc0(struct sndstate *state);
 
 void n_alSndpNew(ALSndpConfig *config)
 {
@@ -42,7 +42,7 @@ void n_alSndpNew(ALSndpConfig *config)
 	ptr = alHeapAlloc(config->heap, 1, config->maxEvents * 0x1c);
 	n_alEvtqNew(&g_SndPlayer->evtq, ptr, config->maxEvents);
 
-	g_SndpFreeHandlesHead = g_SndPlayer->sndState;
+	g_SndpFreeStatesHead = g_SndPlayer->sndState;
 
 	for (i = 1; i < config->maxStates; i++) {
 		struct sndstate *sndstate = g_SndPlayer->sndState;
@@ -323,8 +323,8 @@ glabel var7005477c
 /*    31de4:	8fa90070 */ 	lw	$t1,0x70($sp)
 /*    31de8:	11200040 */ 	beqz	$t1,.L00031eec
 /*    31dec:	00000000 */ 	nop
-/*    31df0:	3c0c8006 */ 	lui	$t4,%hi(g_SndpAllocHandlesTail)
-/*    31df4:	8d8cf124 */ 	lw	$t4,%lo(g_SndpAllocHandlesTail)($t4)
+/*    31df0:	3c0c8006 */ 	lui	$t4,%hi(g_SndpAllocStatesTail)
+/*    31df4:	8d8cf124 */ 	lw	$t4,%lo(g_SndpAllocStatesTail)($t4)
 /*    31df8:	afac0054 */ 	sw	$t4,0x54($sp)
 .L00031dfc:
 /*    31dfc:	8fab0054 */ 	lw	$t3,0x54($sp)
@@ -3005,17 +3005,17 @@ glabel var7005477c
 );
 #endif
 
-void func00033090(struct audiohandle *handle)
+void func00033090(struct sndstate *state)
 {
-	if (handle->unk44 & 4) {
-		n_alSynStopVoice(&handle->voice);
-		n_alSynFreeVoice(&handle->voice);
+	if (state->flags & SNDSTATEFLAG_04) {
+		n_alSynStopVoice(&state->voice);
+		n_alSynFreeVoice(&state->voice);
 	}
 
-	sndpFreeHandle(handle);
+	sndpFreeState(state);
 
 	// @todo: Remove cast
-	_removeEvents(&g_SndPlayer->evtq, (N_ALSoundState *)handle, 0xffff);
+	_removeEvents(&g_SndPlayer->evtq, (N_ALSoundState *)state, 0xffff);
 }
 
 GLOBAL_ASM(
@@ -3095,13 +3095,13 @@ u16 sndpCountStates(s16 *numfreeptr, s16 *numallocedptr)
 	u16 numalloced;
 	u16 numfree;
 	u16 numalloced2;
-	struct audiohandle *ahandle = g_SndpAllocHandlesHead;
-	struct audiohandle *bhandle = g_SndpFreeHandlesHead;
-	struct audiohandle *chandle = g_SndpAllocHandlesTail;
+	struct sndstate *state1 = g_SndpAllocStatesHead;
+	struct sndstate *state2 = g_SndpFreeStatesHead;
+	struct sndstate *state3 = g_SndpAllocStatesTail;
 
-	for (numalloced = 0; ahandle; numalloced++, ahandle = (struct audiohandle *)ahandle->node.next);
-	for (numfree = 0; bhandle; numfree++, bhandle = (struct audiohandle *)bhandle->node.next);
-	for (numalloced2 = 0; chandle; numalloced2++, chandle = (struct audiohandle *)chandle->node.prev);
+	for (numalloced = 0; state1; numalloced++, state1 = (struct sndstate *)state1->node.next);
+	for (numfree = 0; state2; numfree++, state2 = (struct sndstate *)state2->node.next);
+	for (numalloced2 = 0; state3; numalloced2++, state3 = (struct sndstate *)state3->node.prev);
 
 	*numfreeptr = numfree;
 	*numallocedptr = numalloced;
@@ -3148,36 +3148,36 @@ glabel func00033390
 /*    333f8:	0c012194 */ 	jal	osSetIntMask
 /*    333fc:	24040001 */ 	addiu	$a0,$zero,0x1
 /*    33400:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*    33404:	3c0b8006 */ 	lui	$t3,%hi(g_SndpFreeHandlesHead)
-/*    33408:	8d6bf128 */ 	lw	$t3,%lo(g_SndpFreeHandlesHead)($t3)
+/*    33404:	3c0b8006 */ 	lui	$t3,%hi(g_SndpFreeStatesHead)
+/*    33408:	8d6bf128 */ 	lw	$t3,%lo(g_SndpFreeStatesHead)($t3)
 /*    3340c:	afab0024 */ 	sw	$t3,0x24($sp)
 /*    33410:	8fac0024 */ 	lw	$t4,0x24($sp)
 /*    33414:	1180007d */ 	beqz	$t4,.L0003360c
 /*    33418:	00000000 */ 	nop
 /*    3341c:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    33420:	3c018006 */ 	lui	$at,%hi(g_SndpFreeHandlesHead)
+/*    33420:	3c018006 */ 	lui	$at,%hi(g_SndpFreeStatesHead)
 /*    33424:	8dae0000 */ 	lw	$t6,0x0($t5)
-/*    33428:	ac2ef128 */ 	sw	$t6,%lo(g_SndpFreeHandlesHead)($at)
+/*    33428:	ac2ef128 */ 	sw	$t6,%lo(g_SndpFreeStatesHead)($at)
 /*    3342c:	0c00c5e9 */ 	jal	alUnlink
 /*    33430:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    33434:	3c0f8006 */ 	lui	$t7,%hi(g_SndpAllocHandlesHead)
-/*    33438:	8deff120 */ 	lw	$t7,%lo(g_SndpAllocHandlesHead)($t7)
+/*    33434:	3c0f8006 */ 	lui	$t7,%hi(g_SndpAllocStatesHead)
+/*    33438:	8deff120 */ 	lw	$t7,%lo(g_SndpAllocStatesHead)($t7)
 /*    3343c:	11e0000f */ 	beqz	$t7,.L0003347c
 /*    33440:	00000000 */ 	nop
-/*    33444:	3c188006 */ 	lui	$t8,%hi(g_SndpAllocHandlesHead)
-/*    33448:	8f18f120 */ 	lw	$t8,%lo(g_SndpAllocHandlesHead)($t8)
+/*    33444:	3c188006 */ 	lui	$t8,%hi(g_SndpAllocStatesHead)
+/*    33448:	8f18f120 */ 	lw	$t8,%lo(g_SndpAllocStatesHead)($t8)
 /*    3344c:	8fb90024 */ 	lw	$t9,0x24($sp)
 /*    33450:	af380000 */ 	sw	$t8,0x0($t9)
 /*    33454:	8fa80024 */ 	lw	$t0,0x24($sp)
 /*    33458:	ad000004 */ 	sw	$zero,0x4($t0)
-/*    3345c:	3c0a8006 */ 	lui	$t2,%hi(g_SndpAllocHandlesHead)
-/*    33460:	8d4af120 */ 	lw	$t2,%lo(g_SndpAllocHandlesHead)($t2)
+/*    3345c:	3c0a8006 */ 	lui	$t2,%hi(g_SndpAllocStatesHead)
+/*    33460:	8d4af120 */ 	lw	$t2,%lo(g_SndpAllocStatesHead)($t2)
 /*    33464:	8fa90024 */ 	lw	$t1,0x24($sp)
 /*    33468:	ad490004 */ 	sw	$t1,0x4($t2)
 /*    3346c:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*    33470:	3c018006 */ 	lui	$at,%hi(g_SndpAllocHandlesHead)
+/*    33470:	3c018006 */ 	lui	$at,%hi(g_SndpAllocStatesHead)
 /*    33474:	1000000c */ 	b	.L000334a8
-/*    33478:	ac2bf120 */ 	sw	$t3,%lo(g_SndpAllocHandlesHead)($at)
+/*    33478:	ac2bf120 */ 	sw	$t3,%lo(g_SndpAllocStatesHead)($at)
 .L0003347c:
 /*    3347c:	8fac0024 */ 	lw	$t4,0x24($sp)
 /*    33480:	ad800004 */ 	sw	$zero,0x4($t4)
@@ -3185,11 +3185,11 @@ glabel func00033390
 /*    33488:	8dae0004 */ 	lw	$t6,0x4($t5)
 /*    3348c:	adae0000 */ 	sw	$t6,0x0($t5)
 /*    33490:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    33494:	3c018006 */ 	lui	$at,%hi(g_SndpAllocHandlesHead)
-/*    33498:	ac2ff120 */ 	sw	$t7,%lo(g_SndpAllocHandlesHead)($at)
+/*    33494:	3c018006 */ 	lui	$at,%hi(g_SndpAllocStatesHead)
+/*    33498:	ac2ff120 */ 	sw	$t7,%lo(g_SndpAllocStatesHead)($at)
 /*    3349c:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    334a0:	3c018006 */ 	lui	$at,%hi(g_SndpAllocHandlesTail)
-/*    334a4:	ac38f124 */ 	sw	$t8,%lo(g_SndpAllocHandlesTail)($at)
+/*    334a0:	3c018006 */ 	lui	$at,%hi(g_SndpAllocStatesTail)
+/*    334a4:	ac38f124 */ 	sw	$t8,%lo(g_SndpAllocStatesTail)($at)
 .L000334a8:
 /*    334a8:	0c012194 */ 	jal	osSetIntMask
 /*    334ac:	8fa4001c */ 	lw	$a0,0x1c($sp)
@@ -3304,46 +3304,46 @@ void func00033634(void *fn)
 	var8005f140 = fn;
 }
 
-void sndpFreeHandle(struct audiohandle *handle)
+void sndpFreeState(struct sndstate *state)
 {
 	var8005f134--;
 
-	if (g_SndpAllocHandlesHead == handle) {
-		g_SndpAllocHandlesHead = (struct audiohandle *)handle->node.next;
+	if (g_SndpAllocStatesHead == state) {
+		g_SndpAllocStatesHead = (struct sndstate *)state->node.next;
 	}
 
-	if (g_SndpAllocHandlesTail == handle) {
-		g_SndpAllocHandlesTail = (struct audiohandle *)handle->node.prev;
+	if (g_SndpAllocStatesTail == state) {
+		g_SndpAllocStatesTail = (struct sndstate *)state->node.prev;
 	}
 
-	alUnlink(&handle->node);
+	alUnlink(&state->node);
 
-	if (g_SndpFreeHandlesHead) {
-		handle->node.next = &g_SndpFreeHandlesHead->node;
-		handle->node.prev = NULL;
-		g_SndpFreeHandlesHead->node.prev = &handle->node;
-		g_SndpFreeHandlesHead = handle;
+	if (g_SndpFreeStatesHead) {
+		state->node.next = &g_SndpFreeStatesHead->node;
+		state->node.prev = NULL;
+		g_SndpFreeStatesHead->node.prev = &state->node;
+		g_SndpFreeStatesHead = state;
 	} else {
-		handle->node.next = handle->node.prev = NULL;
-		g_SndpFreeHandlesHead = handle;
+		state->node.next = state->node.prev = NULL;
+		g_SndpFreeStatesHead = state;
 	}
 
-	if (handle->unk44 & 4) {
+	if (state->flags & SNDSTATEFLAG_04) {
 		var8005f130--;
 	}
 
-	handle->playing = 0;
+	state->playing = 0;
 
-	if (handle->unk30) {
-		if (*handle->unk30 == handle) {
-			*handle->unk30 = 0;
+	if (state->unk30) {
+		if (*state->unk30 == state) {
+			*state->unk30 = 0;
 		}
 
-		handle->unk30 = NULL;
+		state->unk30 = NULL;
 	}
 
 	if (var8005f140) {
-		var8005f140(handle->unk08);
+		var8005f140(state->unk08);
 	}
 }
 
@@ -3362,10 +3362,10 @@ glabel func000337c8
 /*    337ec:	00000000 */ 	nop
 );
 
-bool audioIsPlaying(struct audiohandle *handle)
+bool audioIsPlaying(struct sndstate *state)
 {
-	if (handle) {
-		return handle->playing;
+	if (state) {
+		return state->playing;
 	} else {
 		return false;
 	}
@@ -3784,43 +3784,43 @@ glabel func00033820
 );
 #endif
 
-void audioStop(struct audiohandle *handle)
+void audioStop(struct sndstate *state)
 {
 	N_ALEvent evt;
 
 #if VERSION >= VERSION_NTSC_FINAL
-	if (handle && (handle->unk44 & 2)) {
-		func00033bc0(handle);
+	if (state && (state->flags & SNDSTATEFLAG_02)) {
+		func00033bc0(state);
 	} else {
 		evt.type = AL_400_EVT;
-		evt.msg.evt400.handle = handle;
+		evt.msg.generic.sndstate = state;
 
-		if (handle != NULL) {
-			evt.msg.evt400.handle->unk44 &= ~0x10;
+		if (state != NULL) {
+			evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_10;
 
 			n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 		}
 	}
 #elif VERSION >= VERSION_NTSC_1_0
-	// NTSC 1.0 lacks the null handle check
-	if (handle->unk44 & 2) {
-		func00033bc0(handle);
+	// NTSC 1.0 lacks the null state check
+	if (state->flags & SNDSTATEFLAG_02) {
+		func00033bc0(state);
 	} else {
 		evt.type = AL_400_EVT;
-		evt.msg.evt400.handle = handle;
+		evt.msg.generic.sndstate = state;
 
-		if (handle != NULL) {
-			evt.msg.evt400.handle->unk44 &= ~0x10;
+		if (state != NULL) {
+			evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_10;
 
 			n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 		}
 	}
 #else
 	evt.type = AL_400_EVT;
-	evt.msg.evt400.handle = handle;
+	evt.msg.generic.sndstate = state;
 
-	if (handle != NULL) {
-		evt.msg.evt400.handle->unk44 &= ~0x10;
+	if (state != NULL) {
+		evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_10;
 
 		n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 	}
@@ -3828,59 +3828,59 @@ void audioStop(struct audiohandle *handle)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void func00033bc0(struct audiohandle *handle)
+void func00033bc0(struct sndstate *state)
 {
 	N_ALEvent evt;
 
 	evt.type = AL_80_EVT;
-	evt.msg.generic.handle = handle;
+	evt.msg.generic.sndstate = state;
 
-	if (handle) {
-		evt.msg.generic.handle->unk44 &= ~0x10;
+	if (state) {
+		evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_10;
 
 		n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 	}
 }
 #endif
 
-void func00033c30(u8 arg0)
+void func00033c30(u8 flags)
 {
 	OSIntMask mask = osSetIntMask(1);
 	N_ALEvent evt;
-	struct audiohandle *handle = g_SndpAllocHandlesHead;
+	struct sndstate *state = g_SndpAllocStatesHead;
 
-	while (handle) {
+	while (state) {
 		evt.type = AL_400_EVT;
-		evt.msg.generic.handle = handle;
+		evt.msg.generic.sndstate = state;
 
-		if ((handle->unk44 & arg0) == arg0) {
-			evt.msg.generic.handle->unk44 &= ~0x10;
+		if ((state->flags & flags) == flags) {
+			evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_10;
 			n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 		}
 
-		handle = (struct audiohandle *)handle->node.next;
+		state = (struct sndstate *)state->node.next;
 	}
 
 	osSetIntMask(mask);
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void func00033cf0(u8 arg0)
+void func00033cf0(u8 flags)
 {
 	OSIntMask mask = osSetIntMask(1);
 	N_ALEvent evt;
-	struct audiohandle *handle = g_SndpAllocHandlesHead;
+	struct sndstate *state = g_SndpAllocStatesHead;
 
-	while (handle) {
+	while (state) {
 		evt.type = AL_80_EVT;
-		evt.msg.generic.handle = handle;
+		evt.msg.generic.sndstate = state;
 
-		if ((handle->unk44 & arg0) == arg0) {
-			evt.msg.generic.handle->unk44 &= ~0x10;
+		if ((state->flags & flags) == flags) {
+			evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_10;
 			n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 		}
 
-		handle = (struct audiohandle *)handle->node.next;
+		state = (struct sndstate *)state->node.next;
 	}
 
 	osSetIntMask(mask);
@@ -3890,34 +3890,34 @@ void func00033cf0(u8 arg0)
 #if VERSION >= VERSION_NTSC_1_0
 void func00033db0(void)
 {
-	func00033cf0(1);
+	func00033cf0(SNDSTATEFLAG_01);
 }
 #endif
 
 void func00033dd8(void)
 {
-	func00033c30(1);
+	func00033c30(SNDSTATEFLAG_01);
 }
 
 void func00033e00(void)
 {
-	func00033c30(0x11);
+	func00033c30(SNDSTATEFLAG_01 | SNDSTATEFLAG_10);
 }
 
 void func00033e28(void)
 {
-	func00033c30(3);
+	func00033c30(SNDSTATEFLAG_01 | SNDSTATEFLAG_02);
 }
 
-void audioPostEvent(struct audiohandle *handle, s16 type, s32 data)
+void audioPostEvent(struct sndstate *state, s16 type, s32 data)
 {
 	N_ALEvent evt;
 
 	evt.type = type;
-	evt.msg.generic.handle = handle;
+	evt.msg.generic.sndstate = state;
 	evt.msg.generic.data = data;
 
-	if (handle) {
+	if (state) {
 		n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 	} else {
 		// empty
@@ -3930,9 +3930,9 @@ u16 func00033ec4(u8 index)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-struct audiohandle *func00033f08(void)
+struct sndstate *func00033f08(void)
 {
-	return g_SndpAllocHandlesHead;
+	return g_SndpAllocStatesHead;
 }
 #endif
 
@@ -3947,16 +3947,16 @@ void func00033f44(u8 index, u16 volume)
 {
 	if (var8009c334) {
 		OSIntMask mask = osSetIntMask(1);
-		struct audiohandle *handle = g_SndpAllocHandlesHead;
+		struct sndstate *state = g_SndpAllocStatesHead;
 		s32 i;
 		N_ALEvent evt;
 
 		var8009c334[index] = volume;
 
-		for (i = 0; handle != NULL; i++, handle = (struct audiohandle *)handle->node.next) {
-			if ((handle->unk08->unk04->unk02 & 0x1f) == index) {
+		for (i = 0; state != NULL; i++, state = (struct sndstate *)state->node.next) {
+			if ((state->unk08->unk04->unk02 & 0x1f) == index) {
 				evt.type = AL_800_EVT;
-				evt.msg.generic.handle = handle;
+				evt.msg.generic.sndstate = state;
 				n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 			}
 		}

@@ -62,8 +62,8 @@ s32 g_SndUfoVolume = 0;
 s32 g_SndUfoAge240 = -1;
 s32 g_SndUfoDuration240 = 0;
 
-struct audiohandle *g_SndNosediveHandle = NULL;
-struct audiohandle *g_SndUfoHandle = NULL;
+struct sndstate *g_SndNosediveHandle = NULL;
+struct sndstate *g_SndUfoHandle = NULL;
 
 u16 g_SfxVolume = 32767;
 s32 g_SoundMode = (VERSION >= VERSION_NTSC_1_0 ? SOUNDMODE_STEREO : SOUNDMODE_SURROUND);
@@ -4576,7 +4576,7 @@ glabel sndStart
 );
 
 // Mismatch: Likely related to soundnumhack
-//struct audiohandle *sndStart(s32 arg0, s16 sound, struct audiohandle **handle, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7)
+//struct sndstate *sndStart(s32 arg0, s16 sound, struct sndstate **handle, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7)
 //{
 //	union soundnumhack sp44;
 //	union soundnumhack sp40;

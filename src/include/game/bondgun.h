@@ -136,7 +136,7 @@ void bgunTickMaulerCharge(void);
 void bgun0f0a6c30(void);
 s32 bgunAllocateFireslot(void);
 void bgun0f0a7138(Gfx **gdl);
-struct audiohandle **bgunAllocateAudioHandle(void);
+struct sndstate **bgunAllocateAudioHandle(void);
 void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum);
 void bgun0f0a8404(struct coord *pos, s16 *rooms, s32 arg2);
 void bgunPlayBgHitSound(struct gset *gset, struct coord *arg1, s32 texturenum, s16 *arg3);

@@ -159,15 +159,9 @@ typedef struct {
 } N_AL19Event;
 
 typedef struct {
-    struct audiohandle *handle;
+    struct sndstate *sndstate;
     u32 data;
 } N_ALGenericEvent;
-
-struct audiohandle;
-
-typedef struct {
-    struct audiohandle *handle;
-} N_AL400Event;
 
 typedef struct {
     s16                 	type;
@@ -185,7 +179,6 @@ typedef struct {
 		N_ALOscEvent      	osc;
 		N_AL18Event      	evt18;
 		N_AL19Event      	evt19;
-		N_AL400Event      	evt400;
 		N_ALGenericEvent    generic;
     } msg;
 } N_ALEvent;

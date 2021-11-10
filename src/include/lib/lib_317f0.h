@@ -4,21 +4,21 @@
 #include "data.h"
 #include "types.h"
 
-void func00033090(struct audiohandle *handle);
+void func00033090(struct sndstate *handle);
 u32 func00033100(void);
 u16 sndpCountStates(s16 *numfreeptr, s16 *numallocedptr);
 void func00033378(void *fn);
 u32 func00033390(void);
 void func00033634(void *fn);
-bool audioIsPlaying(struct audiohandle *handle);
-struct audiohandle *func00033820(s32 arg0, s16 soundnum, s32 arg2, s32 arg3, f32 arg4, s32 arg5, s32 arg6, struct audiohandle **handle);
-void audioStop(struct audiohandle *handle);
-void func00033bc0(struct audiohandle *handle);
+bool audioIsPlaying(struct sndstate *handle);
+struct sndstate *func00033820(s32 arg0, s16 soundnum, s32 arg2, s32 arg3, f32 arg4, s32 arg5, s32 arg6, struct sndstate **handle);
+void audioStop(struct sndstate *handle);
+void func00033bc0(struct sndstate *handle);
 void func00033db0(void);
 void func00033dd8(void);
-void audioPostEvent(struct audiohandle *handle, s16 type, s32 data);
+void audioPostEvent(struct sndstate *handle, s16 type, s32 data);
 u16 func00033ec4(u8 index);
-struct audiohandle *func00033f08(void);
+struct sndstate *func00033f08(void);
 ALMicroTime sndpGetCurTime(void);
 void func00033f44(u8 index, u16 volume);
 

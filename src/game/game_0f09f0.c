@@ -197,7 +197,7 @@ void menuPlaySound(s32 menusound)
 	}
 
 	if (sound != -1) {
-		struct audiohandle *handle;
+		struct sndstate *handle;
 
 #if VERSION >= VERSION_NTSC_1_0
 		OSPri prevpri = osGetThreadPri(NULL);

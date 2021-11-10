@@ -121,7 +121,7 @@ struct monitorthing *g_MonitorThings;
 
 u32 g_TintedGlassEnabled = 0;
 s32 g_AlarmTimer = 0;
-struct audiohandle *g_AlarmAudioHandle = NULL;
+struct sndstate *g_AlarmAudioHandle = NULL;
 f32 g_AlarmSpeakerWeight = 64;
 f32 g_AlarmSpeakerDirection = 1;
 f32 g_GasReleaseTimer240 = 0;
@@ -129,7 +129,7 @@ bool g_GasReleasing = false;
 struct coord g_GasPos = {0};
 s32 g_GasLastCough60 = 0;
 f32 g_GasSoundTimer240 = 0;
-struct audiohandle *g_GasAudioHandle = NULL;
+struct sndstate *g_GasAudioHandle = NULL;
 u32 g_CountdownTimerOff = COUNTDOWNTIMERREASON_AI;
 bool g_CountdownTimerRunning = false;
 f32 g_CountdownTimerValue60 = 0;

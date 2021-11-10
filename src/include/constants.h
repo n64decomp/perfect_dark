@@ -3412,6 +3412,11 @@
 #define SMOKETYPE_DEBRIS           21 // Crash site cockpit, Skedar Ruins outro
 #define SMOKETYPE_UFO              22 // AF1 outro
 
+#define SNDSTATEFLAG_01 0x01
+#define SNDSTATEFLAG_02 0x02
+#define SNDSTATEFLAG_04 0x04
+#define SNDSTATEFLAG_10 0x10
+
 #define SOLOSTAGEINDEX_DEFECTION     0x00
 #define SOLOSTAGEINDEX_INVESTIGATION 0x01
 #define SOLOSTAGEINDEX_EXTRACTION    0x02

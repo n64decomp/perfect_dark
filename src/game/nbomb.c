@@ -2841,7 +2841,7 @@ Gfx *nbombCreateGdl(void)
 	return gdlstart;
 }
 
-struct audiohandle *g_NbombAudioHandle = NULL;
+struct sndstate *g_NbombAudioHandle = NULL;
 
 Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl)
 {
