@@ -442,6 +442,7 @@ enum ALMsg {
     /*0x19*/ AL_19_EVT,
     /*0x20*/ AL_20_EVT = 0x20, // AL_SNDP_API_EVENT? But is already used and is internal
     /*0x80*/ AL_80_EVT = 0x80,
+    /*0x200*/ AL_200_EVT = 0x200,
     /*0x400*/ AL_400_EVT = 0x400,
     /*0x800*/ AL_800_EVT = 0x800
 };

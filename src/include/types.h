@@ -2138,10 +2138,10 @@ struct sndstate {
 	/*0x08*/ struct sndstate_08 *unk08;
 	/*0x0c*/ N_ALVoice voice;
 	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
+	/*0x2c*/ f32 unk2c;
 	/*0x30*/ struct sndstate **unk30;
 	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
+	/*0x38*/ s16 unk38;
 	/*0x3c*/ u32 unk3c;
 	/*0x40*/ u8 unk40;
 	/*0x41*/ u8 unk41;
@@ -2150,6 +2150,7 @@ struct sndstate {
 	/*0x44*/ u8 flags;
 	/*0x45*/ u8 playing;
 #if VERSION >= VERSION_NTSC_1_0
+	/*0x46*/ u16 soundnum;
 	/*0x48*/ u32 unk48;
 #endif
 };
@@ -7398,6 +7399,17 @@ struct asistream {
 	s32 unk8474;
 	bool (*unk8478)(struct asistream *stream);
 	bool (*unk847c)(struct asistream *stream);
+};
+
+struct var80099024_04 {
+	u8 unk00;
+	u8 unk01;
+	u8 unk02;
+};
+
+struct var80099024 {
+	u32 unk00;
+	struct var80099024_04 *unk04;
 };
 
 #endif

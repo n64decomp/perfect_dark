@@ -160,7 +160,8 @@ typedef struct {
 
 typedef struct {
     struct sndstate *sndstate;
-    u32 data;
+    s32 data;
+    s32 data2;
 } N_ALGenericEvent;
 
 typedef struct {
@@ -368,7 +369,7 @@ typedef struct {
     ALEventQueue        evtq;
     N_ALEvent           nextEvent;
     N_ALSynth           *drvr;          /* reference to the client driver   */
-    s32                 target;
+    struct sndstate     *target;
     void                *sndState;
     s32                 maxSounds;
     ALMicroTime         frameTime;
