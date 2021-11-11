@@ -2123,13 +2123,22 @@ struct eyespy {
 	/*0x7c*/ f32 pitch;
 };
 
+struct sndstate_08_00 {
+	u32 unk00;
+	u32 unk04;
+};
+
 struct sndstate_08_04 {
-	u16 unk00;
+	u8 unk00;
+	u8 unk01;
 	u8 unk02;
+	u8 unk03;
+	u8 unk04;
+	s8 unk05;
 };
 
 struct sndstate_08 {
-	u32 unk00;
+	struct sndstate_08_00 *unk00;
 	struct sndstate_08_04 *unk04;
 };
 
@@ -2137,7 +2146,7 @@ struct sndstate {
 	/*0x00*/ ALLink node;
 	/*0x08*/ struct sndstate_08 *unk08;
 	/*0x0c*/ N_ALVoice voice;
-	/*0x28*/ u32 unk28;
+	/*0x28*/ f32 unk28;
 	/*0x2c*/ f32 unk2c;
 	/*0x30*/ struct sndstate **unk30;
 	/*0x34*/ u32 unk34;
@@ -7399,17 +7408,6 @@ struct asistream {
 	s32 unk8474;
 	bool (*unk8478)(struct asistream *stream);
 	bool (*unk847c)(struct asistream *stream);
-};
-
-struct var80099024_04 {
-	u8 unk00;
-	u8 unk01;
-	u8 unk02;
-};
-
-struct var80099024 {
-	u32 unk00;
-	struct var80099024_04 *unk04;
 };
 
 #endif

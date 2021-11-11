@@ -1,6 +1,7 @@
 #include <os_internal.h>
 #include <ultraerror.h>
 #include <assert.h>
+#include <libaudio.h>
 #include "n_sndp.h"
 #include "lib/snd.h"
 #include "lib/lib_317f0.h"
@@ -16,9 +17,9 @@ struct sndstate *g_SndpAllocStatesTail = NULL;
 struct sndstate *g_SndpFreeStatesHead = NULL;
 N_ALSndPlayer *g_SndPlayer = &var8009c2d0;
 s16 var8005f130 = 0;
-u32 var8005f134 = 0;
-u32 var8005f138 = 0;
-void *var8005f13c = NULL; // function callback
+s32 var8005f134 = 0;
+s32 var8005f138 = 0;
+void (*var8005f13c)(struct sndstate_08 *) = NULL;
 void (*var8005f140)(struct sndstate_08 *) = NULL;
 
 void func00033378(void *fn);
@@ -3118,188 +3119,77 @@ void func00033378(void *fn)
 	var8005f13c = fn;
 }
 
-GLOBAL_ASM(
-glabel func00033390
-/*    33390:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    33394:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    33398:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    3339c:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    333a0:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*    333a4:	8dcf0004 */ 	lw	$t7,0x4($t6)
-/*    333a8:	afaf0020 */ 	sw	$t7,0x20($sp)
-/*    333ac:	3c188006 */ 	lui	$t8,%hi(var8005f134)
-/*    333b0:	8f18f134 */ 	lw	$t8,%lo(var8005f134)($t8)
-/*    333b4:	3c088006 */ 	lui	$t0,%hi(var8005f138)
-/*    333b8:	8d08f138 */ 	lw	$t0,%lo(var8005f138)($t0)
-/*    333bc:	3c018006 */ 	lui	$at,%hi(var8005f134)
-/*    333c0:	27190001 */ 	addiu	$t9,$t8,0x1
-/*    333c4:	ac39f134 */ 	sw	$t9,%lo(var8005f134)($at)
-/*    333c8:	0119082a */ 	slt	$at,$t0,$t9
-/*    333cc:	1020000a */ 	beqz	$at,.L000333f8
-/*    333d0:	00000000 */ 	nop
-/*    333d4:	3c098006 */ 	lui	$t1,%hi(var8005f134)
-/*    333d8:	8d29f134 */ 	lw	$t1,%lo(var8005f134)($t1)
-/*    333dc:	3c018006 */ 	lui	$at,%hi(var8005f138)
-/*    333e0:	ac29f138 */ 	sw	$t1,%lo(var8005f138)($at)
-/*    333e4:	3c0a8006 */ 	lui	$t2,%hi(var8005f134)
-/*    333e8:	8d4af134 */ 	lw	$t2,%lo(var8005f134)($t2)
-/*    333ec:	29410011 */ 	slti	$at,$t2,0x11
-/*    333f0:	14200001 */ 	bnez	$at,.L000333f8
-/*    333f4:	00000000 */ 	nop
-.L000333f8:
-/*    333f8:	0c012194 */ 	jal	osSetIntMask
-/*    333fc:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    33400:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*    33404:	3c0b8006 */ 	lui	$t3,%hi(g_SndpFreeStatesHead)
-/*    33408:	8d6bf128 */ 	lw	$t3,%lo(g_SndpFreeStatesHead)($t3)
-/*    3340c:	afab0024 */ 	sw	$t3,0x24($sp)
-/*    33410:	8fac0024 */ 	lw	$t4,0x24($sp)
-/*    33414:	1180007d */ 	beqz	$t4,.L0003360c
-/*    33418:	00000000 */ 	nop
-/*    3341c:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    33420:	3c018006 */ 	lui	$at,%hi(g_SndpFreeStatesHead)
-/*    33424:	8dae0000 */ 	lw	$t6,0x0($t5)
-/*    33428:	ac2ef128 */ 	sw	$t6,%lo(g_SndpFreeStatesHead)($at)
-/*    3342c:	0c00c5e9 */ 	jal	alUnlink
-/*    33430:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    33434:	3c0f8006 */ 	lui	$t7,%hi(g_SndpAllocStatesHead)
-/*    33438:	8deff120 */ 	lw	$t7,%lo(g_SndpAllocStatesHead)($t7)
-/*    3343c:	11e0000f */ 	beqz	$t7,.L0003347c
-/*    33440:	00000000 */ 	nop
-/*    33444:	3c188006 */ 	lui	$t8,%hi(g_SndpAllocStatesHead)
-/*    33448:	8f18f120 */ 	lw	$t8,%lo(g_SndpAllocStatesHead)($t8)
-/*    3344c:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*    33450:	af380000 */ 	sw	$t8,0x0($t9)
-/*    33454:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*    33458:	ad000004 */ 	sw	$zero,0x4($t0)
-/*    3345c:	3c0a8006 */ 	lui	$t2,%hi(g_SndpAllocStatesHead)
-/*    33460:	8d4af120 */ 	lw	$t2,%lo(g_SndpAllocStatesHead)($t2)
-/*    33464:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    33468:	ad490004 */ 	sw	$t1,0x4($t2)
-/*    3346c:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*    33470:	3c018006 */ 	lui	$at,%hi(g_SndpAllocStatesHead)
-/*    33474:	1000000c */ 	b	.L000334a8
-/*    33478:	ac2bf120 */ 	sw	$t3,%lo(g_SndpAllocStatesHead)($at)
-.L0003347c:
-/*    3347c:	8fac0024 */ 	lw	$t4,0x24($sp)
-/*    33480:	ad800004 */ 	sw	$zero,0x4($t4)
-/*    33484:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    33488:	8dae0004 */ 	lw	$t6,0x4($t5)
-/*    3348c:	adae0000 */ 	sw	$t6,0x0($t5)
-/*    33490:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    33494:	3c018006 */ 	lui	$at,%hi(g_SndpAllocStatesHead)
-/*    33498:	ac2ff120 */ 	sw	$t7,%lo(g_SndpAllocStatesHead)($at)
-/*    3349c:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    334a0:	3c018006 */ 	lui	$at,%hi(g_SndpAllocStatesTail)
-/*    334a4:	ac38f124 */ 	sw	$t8,%lo(g_SndpAllocStatesTail)($at)
-.L000334a8:
-/*    334a8:	0c012194 */ 	jal	osSetIntMask
-/*    334ac:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*    334b0:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*    334b4:	8f280000 */ 	lw	$t0,0x0($t9)
-/*    334b8:	8d090004 */ 	lw	$t1,0x4($t0)
-/*    334bc:	252a0001 */ 	addiu	$t2,$t1,0x1
-/*    334c0:	2d4a0001 */ 	sltiu	$t2,$t2,0x1
-/*    334c4:	afaa0018 */ 	sw	$t2,0x18($sp)
-/*    334c8:	8fab002c */ 	lw	$t3,0x2c($sp)
-/*    334cc:	8fac0024 */ 	lw	$t4,0x24($sp)
-/*    334d0:	ad8b0008 */ 	sw	$t3,0x8($t4)
-/*    334d4:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*    334d8:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    334dc:	25cd0040 */ 	addiu	$t5,$t6,0x40
-/*    334e0:	a1ed0040 */ 	sb	$t5,0x40($t7)
-/*    334e4:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*    334e8:	24180005 */ 	addiu	$t8,$zero,0x5
-/*    334ec:	a3380045 */ 	sb	$t8,0x45($t9)
-/*    334f0:	3c013f80 */ 	lui	$at,0x3f80
-/*    334f4:	44812000 */ 	mtc1	$at,$f4
-/*    334f8:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*    334fc:	e504002c */ 	swc1	$f4,0x2c($t0)
-/*    33500:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*    33504:	24090002 */ 	addiu	$t1,$zero,0x2
-/*    33508:	ad490034 */ 	sw	$t1,0x34($t2)
-/*    3350c:	8fab0020 */ 	lw	$t3,0x20($sp)
-/*    33510:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    33514:	916c0003 */ 	lbu	$t4,0x3($t3)
-/*    33518:	318e00f0 */ 	andi	$t6,$t4,0xf0
-/*    3351c:	a1ae0044 */ 	sb	$t6,0x44($t5)
-/*    33520:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    33524:	ade00030 */ 	sw	$zero,0x30($t7)
-/*    33528:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    3352c:	93190044 */ 	lbu	$t9,0x44($t8)
-/*    33530:	33280020 */ 	andi	$t0,$t9,0x20
-/*    33534:	1100000e */ 	beqz	$t0,.L00033570
-/*    33538:	00000000 */ 	nop
-/*    3353c:	8fa90020 */ 	lw	$t1,0x20($sp)
-/*    33540:	91240004 */ 	lbu	$a0,0x4($t1)
-/*    33544:	00800821 */ 	addu	$at,$a0,$zero
-/*    33548:	00012080 */ 	sll	$a0,$at,0x2
-/*    3354c:	00812023 */ 	subu	$a0,$a0,$at
-/*    33550:	000420c0 */ 	sll	$a0,$a0,0x3
-/*    33554:	00812021 */ 	addu	$a0,$a0,$at
-/*    33558:	00042080 */ 	sll	$a0,$a0,0x2
-/*    3355c:	0c00e7f8 */ 	jal	alCents2Ratio
-/*    33560:	2484e890 */ 	addiu	$a0,$a0,-6000
-/*    33564:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*    33568:	1000000e */ 	b	.L000335a4
-/*    3356c:	e5400028 */ 	swc1	$f0,0x28($t2)
-.L00033570:
-/*    33570:	8fab0020 */ 	lw	$t3,0x20($sp)
-/*    33574:	916c0004 */ 	lbu	$t4,0x4($t3)
-/*    33578:	816d0005 */ 	lb	$t5,0x5($t3)
-/*    3357c:	000c7080 */ 	sll	$t6,$t4,0x2
-/*    33580:	01cc7023 */ 	subu	$t6,$t6,$t4
-/*    33584:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*    33588:	01cc7021 */ 	addu	$t6,$t6,$t4
-/*    3358c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*    33590:	01cd2021 */ 	addu	$a0,$t6,$t5
-/*    33594:	0c00e7f8 */ 	jal	alCents2Ratio
-/*    33598:	2484e890 */ 	addiu	$a0,$a0,-6000
-/*    3359c:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    335a0:	e5e00028 */ 	swc1	$f0,0x28($t7)
-.L000335a4:
-/*    335a4:	8fb80018 */ 	lw	$t8,0x18($sp)
-/*    335a8:	13000005 */ 	beqz	$t8,.L000335c0
-/*    335ac:	00000000 */ 	nop
-/*    335b0:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*    335b4:	93280044 */ 	lbu	$t0,0x44($t9)
-/*    335b8:	35090002 */ 	ori	$t1,$t0,0x2
-/*    335bc:	a3290044 */ 	sb	$t1,0x44($t9)
-.L000335c0:
-/*    335c0:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*    335c4:	a1400042 */ 	sb	$zero,0x42($t2)
-/*    335c8:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*    335cc:	240c0040 */ 	addiu	$t4,$zero,0x40
-/*    335d0:	a16c0041 */ 	sb	$t4,0x41($t3)
-/*    335d4:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    335d8:	240e7fff */ 	addiu	$t6,$zero,0x7fff
-/*    335dc:	a5ae0038 */ 	sh	$t6,0x38($t5)
-/*    335e0:	3c0f8006 */ 	lui	$t7,%hi(var8005f13c)
-/*    335e4:	8deff13c */ 	lw	$t7,%lo(var8005f13c)($t7)
-/*    335e8:	11e00006 */ 	beqz	$t7,.L00033604
-/*    335ec:	00000000 */ 	nop
-/*    335f0:	3c198006 */ 	lui	$t9,%hi(var8005f13c)
-/*    335f4:	8f39f13c */ 	lw	$t9,%lo(var8005f13c)($t9)
-/*    335f8:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    335fc:	0320f809 */ 	jalr	$t9
-/*    33600:	8f040008 */ 	lw	$a0,0x8($t8)
-.L00033604:
-/*    33604:	10000003 */ 	b	.L00033614
-/*    33608:	00000000 */ 	nop
-.L0003360c:
-/*    3360c:	0c012194 */ 	jal	osSetIntMask
-/*    33610:	8fa4001c */ 	lw	$a0,0x1c($sp)
-.L00033614:
-/*    33614:	10000003 */ 	b	.L00033624
-/*    33618:	8fa20024 */ 	lw	$v0,0x24($sp)
-/*    3361c:	10000001 */ 	b	.L00033624
-/*    33620:	00000000 */ 	nop
-.L00033624:
-/*    33624:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    33628:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    3362c:	03e00008 */ 	jr	$ra
-/*    33630:	00000000 */ 	nop
-);
+struct sndstate *func00033390(s32 arg0, struct sndstate_08 *arg1)
+{
+	struct sndstate *state;
+	struct sndstate_08_04 *sp20;
+	OSIntMask mask;
+	s32 sp18;
+
+	sp20 = arg1->unk04;
+
+	if (++var8005f134 > var8005f138) {
+		var8005f138 = var8005f134;
+
+		if (var8005f134 > 16) {
+			// empty
+		}
+	}
+
+	mask = osSetIntMask(1);
+	state = g_SndpFreeStatesHead;
+
+	if (state != NULL) {
+		g_SndpFreeStatesHead = (struct sndstate *)state->node.next;
+
+		alUnlink(&state->node);
+
+		if (g_SndpAllocStatesHead) {
+			state->node.next = &g_SndpAllocStatesHead->node;
+			state->node.prev = NULL;
+			g_SndpAllocStatesHead->node.prev = &state->node;
+			g_SndpAllocStatesHead = state;
+		} else {
+			state->node.next = state->node.prev = NULL;
+			g_SndpAllocStatesHead = state;
+			g_SndpAllocStatesTail = state;
+		}
+
+		osSetIntMask(mask);
+
+		sp18 = arg1->unk00->unk04 + 1 == 0;
+
+		state->unk08 = arg1;
+		state->unk40 = sp18 + 0x40;
+		state->playing = 5;
+		state->unk2c = 1;
+		state->unk34 = 2;
+		state->flags = sp20->unk03 & 0xf0;
+		state->unk30 = 0;
+
+		if (state->flags & SNDSTATEFLAG_20) {
+			state->unk28 = alCents2Ratio(sp20->unk04 * 100 - 6000);
+		} else {
+			state->unk28 = alCents2Ratio(sp20->unk04 * 100 + sp20->unk05 - 6000);
+		}
+
+		if (sp18) {
+			state->flags |= SNDSTATEFLAG_02;
+		}
+
+		state->unk42 = 0;
+		state->unk41 = 0x40;
+		state->unk38 = 0x7fff;
+
+		if (var8005f13c != NULL) {
+			var8005f13c(state->unk08);
+		}
+	} else {
+		osSetIntMask(mask);
+	}
+
+	return state;
+}
 
 void func00033634(void *fn)
 {
@@ -3369,8 +3259,8 @@ struct sndstate *func00033820(s32 arg0, s16 soundnum, u16 arg2, u8 arg3, f32 arg
 {
 	struct sndstate *state;
 	struct sndstate *state2 = NULL;
-	struct var80099024_04 *sp54;
-	struct var80099024 *sp50;
+	struct sndstate_08_04 *sp54;
+	struct sndstate_08 *sp50;
 	s16 sp4e = 0;
 	s32 sp48;
 	s32 sp44;
