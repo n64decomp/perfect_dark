@@ -3162,1734 +3162,235 @@ const u32 var70057b90[] = {0x00010203};
 const u32 var70057b94[] = {0x01020301};
 const u32 var70057b98[] = {0x02030203};
 
-const u32 var70057b9c[] = {0x00000001};
-const u32 var70057ba0[] = {0x00020003};
-const u32 var70057ba4[] = {0x00060007};
-const u32 var70057ba8[] = {0x00080009};
-const u32 var70057bac[] = {0x000c000d};
-const u32 var70057bb0[] = {0x000e000f};
-const u32 var70057bb4[] = {0x00040005};
-const u32 var70057bb8[] = {0x00120013};
-const u32 var70057bbc[] = {0x000a000b};
-const u32 var70057bc0[] = {0x00180019};
-const u32 var70057bc4[] = {0x00100011};
-const u32 var70057bc8[] = {0x001e001f};
-const u32 var70057bcc[] = {0x00140015};
-const u32 var70057bd0[] = {0x00160017};
-const u32 var70057bd4[] = {0x001a001b};
-const u32 var70057bd8[] = {0x001c001d};
-const u32 var70057bdc[] = {0x00200021};
-const u32 var70057be0[] = {0x00220023};
-const u32 var70057be4[] = {0x00240025};
-const u32 var70057be8[] = {0x00260027};
-const u32 var70057bec[] = {0x00280029};
-const u32 var70057bf0[] = {0x002a002b};
-const u32 var70057bf4[] = {0x002c002d};
-const u32 var70057bf8[] = {0x002e002f};
-const u32 var70057bfc[] = {0x00300031};
-const u32 var70057c00[] = {0x00320033};
-const u32 var70057c04[] = {0x00340035};
-const u32 var70057c08[] = {0x00360037};
-const u32 var70057c0c[] = {0x00380039};
-const u32 var70057c10[] = {0x003a003b};
-const u32 var70057c14[] = {0x003c003d};
-const u32 var70057c18[] = {0x003e003f};
-const u32 var70057c1c[] = {0x00400041};
-const u32 var70057c20[] = {0x00420043};
-const u32 var70057c24[] = {0x00440045};
-const u32 var70057c28[] = {0x00460047};
-const u32 var70057c2c[] = {0x00480049};
-const u32 var70057c30[] = {0x004a004b};
-const u32 var70057c34[] = {0x004c004d};
-const u32 var70057c38[] = {0x005a005b};
-const u32 var70057c3c[] = {0x004e004f};
-const u32 var70057c40[] = {0x00500051};
-const u32 var70057c44[] = {0x00520053};
-const u32 var70057c48[] = {0x00600061};
-const u32 var70057c4c[] = {0x00540055};
-const u32 var70057c50[] = {0x00560057};
-const u32 var70057c54[] = {0x00580059};
-const u32 var70057c58[] = {0x00660067};
-const u32 var70057c5c[] = {0x005c005d};
-const u32 var70057c60[] = {0x005e005f};
-const u32 var70057c64[] = {0x006c006d};
-const u32 var70057c68[] = {0x006e006f};
-const u32 var70057c6c[] = {0x00700071};
-const u32 var70057c70[] = {0x00620063};
-const u32 var70057c74[] = {0x00640065};
-const u32 var70057c78[] = {0x00720073};
-const u32 var70057c7c[] = {0x00740075};
-const u32 var70057c80[] = {0x00760077};
-const u32 var70057c84[] = {0x00680069};
-const u32 var70057c88[] = {0x006a006b};
-const u32 var70057c8c[] = {0x00780079};
-const u32 var70057c90[] = {0x007a007b};
-const u32 var70057c94[] = {0x007c007d};
-const u32 var70057c98[] = {0x007e007f};
-const u32 var70057c9c[] = {0x00800081};
-const u32 var70057ca0[] = {0x00820083};
-const u32 var70057ca4[] = {0x00900091};
-const u32 var70057ca8[] = {0x00920093};
-const u32 var70057cac[] = {0x00940095};
-const u32 var70057cb0[] = {0x00a200a3};
-const u32 var70057cb4[] = {0x00840085};
-const u32 var70057cb8[] = {0x00860087};
-const u32 var70057cbc[] = {0x00880089};
-const u32 var70057cc0[] = {0x00960097};
-const u32 var70057cc4[] = {0x00980099};
-const u32 var70057cc8[] = {0x009a009b};
-const u32 var70057ccc[] = {0x00a800a9};
-const u32 var70057cd0[] = {0x008a008b};
-const u32 var70057cd4[] = {0x008c008d};
-const u32 var70057cd8[] = {0x008e008f};
-const u32 var70057cdc[] = {0x009c009d};
-const u32 var70057ce0[] = {0x009e009f};
-const u32 var70057ce4[] = {0x00a000a1};
-const u32 var70057ce8[] = {0x00ae00af};
-const u32 var70057cec[] = {0x00a400a5};
-const u32 var70057cf0[] = {0x00a600a7};
-const u32 var70057cf4[] = {0x00b400b5};
-const u32 var70057cf8[] = {0x00b600b7};
-const u32 var70057cfc[] = {0x00b800b9};
-const u32 var70057d00[] = {0x00c600c7};
-const u32 var70057d04[] = {0x00c800c9};
-const u32 var70057d08[] = {0x00ca00cb};
-const u32 var70057d0c[] = {0x00d800d9};
-const u32 var70057d10[] = {0x00aa00ab};
-const u32 var70057d14[] = {0x00ac00ad};
-const u32 var70057d18[] = {0x00ba00bb};
-const u32 var70057d1c[] = {0x00bc00bd};
-const u32 var70057d20[] = {0x00be00bf};
-const u32 var70057d24[] = {0x00cc00cd};
-const u32 var70057d28[] = {0x00ce00cf};
-const u32 var70057d2c[] = {0x00d000d1};
-const u32 var70057d30[] = {0x00de00df};
-const u32 var70057d34[] = {0x00b000b1};
-const u32 var70057d38[] = {0x00b200b3};
-const u32 var70057d3c[] = {0x00c000c1};
-const u32 var70057d40[] = {0x00c200c3};
-const u32 var70057d44[] = {0x00c400c5};
-const u32 var70057d48[] = {0x00d200d3};
-const u32 var70057d4c[] = {0x00d400d5};
-const u32 var70057d50[] = {0x00d600d7};
-const u32 var70057d54[] = {0x00e400e5};
-const u32 var70057d58[] = {0x00da00db};
-const u32 var70057d5c[] = {0x00dc00dd};
-const u32 var70057d60[] = {0x00ea00eb};
-const u32 var70057d64[] = {0x00ec00ed};
-const u32 var70057d68[] = {0x00ee00ef};
-const u32 var70057d6c[] = {0x00fc00fd};
-const u32 var70057d70[] = {0x00fe00ff};
-const u32 var70057d74[] = {0x01000101};
-const u32 var70057d78[] = {0x010e010f};
-const u32 var70057d7c[] = {0x01100111};
-const u32 var70057d80[] = {0x01120113};
-const u32 var70057d84[] = {0x01200121};
-const u32 var70057d88[] = {0x01220123};
-const u32 var70057d8c[] = {0x00e000e1};
-const u32 var70057d90[] = {0x00e200e3};
-const u32 var70057d94[] = {0x00f000f1};
-const u32 var70057d98[] = {0x00f200f3};
-const u32 var70057d9c[] = {0x00f400f5};
-const u32 var70057da0[] = {0x01020103};
-const u32 var70057da4[] = {0x01040105};
-const u32 var70057da8[] = {0x01060107};
-const u32 var70057dac[] = {0x01140115};
-const u32 var70057db0[] = {0x01160117};
-const u32 var70057db4[] = {0x01180119};
-const u32 var70057db8[] = {0x01260127};
-const u32 var70057dbc[] = {0x01280129};
-const u32 var70057dc0[] = {0x00e600e7};
-const u32 var70057dc4[] = {0x00e800e9};
-const u32 var70057dc8[] = {0x00f600f7};
-const u32 var70057dcc[] = {0x00f800f9};
-const u32 var70057dd0[] = {0x00fa00fb};
-const u32 var70057dd4[] = {0x01080109};
-const u32 var70057dd8[] = {0x010a010b};
-const u32 var70057ddc[] = {0x010c010d};
-const u32 var70057de0[] = {0x011a011b};
-const u32 var70057de4[] = {0x011c011d};
-const u32 var70057de8[] = {0x011e011f};
-const u32 var70057dec[] = {0x012c012d};
-const u32 var70057df0[] = {0x012e012f};
-const u32 var70057df4[] = {0x01240125};
-const u32 var70057df8[] = {0x01320133};
-const u32 var70057dfc[] = {0x01340135};
-const u32 var70057e00[] = {0x01360137};
-const u32 var70057e04[] = {0x01440145};
-const u32 var70057e08[] = {0x01460147};
-const u32 var70057e0c[] = {0x01480149};
-const u32 var70057e10[] = {0x01560157};
-const u32 var70057e14[] = {0x01580159};
-const u32 var70057e18[] = {0x015a015b};
-const u32 var70057e1c[] = {0x01680169};
-const u32 var70057e20[] = {0x016a016b};
-const u32 var70057e24[] = {0x016c016d};
-const u32 var70057e28[] = {0x017a017b};
-const u32 var70057e2c[] = {0x017c017d};
-const u32 var70057e30[] = {0x017e017f};
-const u32 var70057e34[] = {0x012a012b};
-const u32 var70057e38[] = {0x01380139};
-const u32 var70057e3c[] = {0x013a013b};
-const u32 var70057e40[] = {0x013c013d};
-const u32 var70057e44[] = {0x014a014b};
-const u32 var70057e48[] = {0x014c014d};
-const u32 var70057e4c[] = {0x014e014f};
-const u32 var70057e50[] = {0x015c015d};
-const u32 var70057e54[] = {0x015e015f};
-const u32 var70057e58[] = {0x01600161};
-const u32 var70057e5c[] = {0x016e016f};
-const u32 var70057e60[] = {0x01700171};
-const u32 var70057e64[] = {0x01720173};
-const u32 var70057e68[] = {0x01800181};
-const u32 var70057e6c[] = {0x01820183};
-const u32 var70057e70[] = {0x01840185};
-const u32 var70057e74[] = {0x01300131};
-const u32 var70057e78[] = {0x013e013f};
-const u32 var70057e7c[] = {0x01400141};
-const u32 var70057e80[] = {0x01420143};
-const u32 var70057e84[] = {0x01500151};
-const u32 var70057e88[] = {0x01520153};
-const u32 var70057e8c[] = {0x01540155};
-const u32 var70057e90[] = {0x01620163};
-const u32 var70057e94[] = {0x01640165};
-const u32 var70057e98[] = {0x01660167};
-const u32 var70057e9c[] = {0x01740175};
-const u32 var70057ea0[] = {0x01760177};
-const u32 var70057ea4[] = {0x01780179};
-const u32 var70057ea8[] = {0x01860187};
-const u32 var70057eac[] = {0x01880189};
-const u32 var70057eb0[] = {0x018a018b};
-const u32 var70057eb4[] = {0x018c018d};
-const u32 var70057eb8[] = {0x018e018f};
-const u32 var70057ebc[] = {0x01900191};
-const u32 var70057ec0[] = {0x019e019f};
-const u32 var70057ec4[] = {0x01a001a1};
-const u32 var70057ec8[] = {0x01a201a3};
-const u32 var70057ecc[] = {0x01b001b1};
-const u32 var70057ed0[] = {0x01b201b3};
-const u32 var70057ed4[] = {0x01b401b5};
-const u32 var70057ed8[] = {0x01c201c3};
-const u32 var70057edc[] = {0x01c401c5};
-const u32 var70057ee0[] = {0x01c601c7};
-const u32 var70057ee4[] = {0x01d401d5};
-const u32 var70057ee8[] = {0x01d601d7};
-const u32 var70057eec[] = {0x01d801d9};
-const u32 var70057ef0[] = {0x01e601e7};
-const u32 var70057ef4[] = {0x01e801e9};
-const u32 var70057ef8[] = {0x01ea01eb};
-const u32 var70057efc[] = {0x01f801f9};
-const u32 var70057f00[] = {0x01fa01fb};
-const u32 var70057f04[] = {0x01fc01fd};
-const u32 var70057f08[] = {0x01920193};
-const u32 var70057f0c[] = {0x01940195};
-const u32 var70057f10[] = {0x01960197};
-const u32 var70057f14[] = {0x01a401a5};
-const u32 var70057f18[] = {0x01a601a7};
-const u32 var70057f1c[] = {0x01a801a9};
-const u32 var70057f20[] = {0x01b601b7};
-const u32 var70057f24[] = {0x01b801b9};
-const u32 var70057f28[] = {0x01ba01bb};
-const u32 var70057f2c[] = {0x01c801c9};
-const u32 var70057f30[] = {0x01ca01cb};
-const u32 var70057f34[] = {0x01cc01cd};
-const u32 var70057f38[] = {0x01da01db};
-const u32 var70057f3c[] = {0x01dc01dd};
-const u32 var70057f40[] = {0x01de01df};
-const u32 var70057f44[] = {0x01ec01ed};
-const u32 var70057f48[] = {0x01ee01ef};
-const u32 var70057f4c[] = {0x01f001f1};
-const u32 var70057f50[] = {0x01fe01ff};
-const u32 var70057f54[] = {0x02000201};
-const u32 var70057f58[] = {0x02020203};
-const u32 var70057f5c[] = {0x01980199};
-const u32 var70057f60[] = {0x019a019b};
-const u32 var70057f64[] = {0x019c019d};
-const u32 var70057f68[] = {0x01aa01ab};
-const u32 var70057f6c[] = {0x01ac01ad};
-const u32 var70057f70[] = {0x01ae01af};
-const u32 var70057f74[] = {0x01bc01bd};
-const u32 var70057f78[] = {0x01be01bf};
-const u32 var70057f7c[] = {0x01c001c1};
-const u32 var70057f80[] = {0x01ce01cf};
-const u32 var70057f84[] = {0x01d001d1};
-const u32 var70057f88[] = {0x01d201d3};
-const u32 var70057f8c[] = {0x01e001e1};
-const u32 var70057f90[] = {0x01e201e3};
-const u32 var70057f94[] = {0x01e401e5};
-const u32 var70057f98[] = {0x01f201f3};
-const u32 var70057f9c[] = {0x01f401f5};
-const u32 var70057fa0[] = {0x01f601f7};
-const u32 var70057fa4[] = {0x02040205};
-const u32 var70057fa8[] = {0x02060207};
-const u32 var70057fac[] = {0x02080209};
-const u32 var70057fb0[] = {0x020a020b};
-const u32 var70057fb4[] = {0x020c020d};
-const u32 var70057fb8[] = {0x020e020f};
-const u32 var70057fbc[] = {0x021c021d};
-const u32 var70057fc0[] = {0x021e021f};
-const u32 var70057fc4[] = {0x02200221};
-const u32 var70057fc8[] = {0x022e022f};
-const u32 var70057fcc[] = {0x02300231};
-const u32 var70057fd0[] = {0x02320233};
-const u32 var70057fd4[] = {0x02100211};
-const u32 var70057fd8[] = {0x02120213};
-const u32 var70057fdc[] = {0x02140215};
-const u32 var70057fe0[] = {0x02220223};
-const u32 var70057fe4[] = {0x02240225};
-const u32 var70057fe8[] = {0x02260227};
-const u32 var70057fec[] = {0x02340235};
-const u32 var70057ff0[] = {0x02360237};
-const u32 var70057ff4[] = {0x02380239};
-const u32 var70057ff8[] = {0x02160217};
-const u32 var70057ffc[] = {0x02180219};
-const u32 var70058000[] = {0x021a021b};
-const u32 var70058004[] = {0x02280229};
-const u32 var70058008[] = {0x022a022b};
-const u32 var7005800c[] = {0x022c022d};
-const u32 var70058010[] = {0x023a023b};
-const u32 var70058014[] = {0x023c023d};
-const u32 var70058018[] = {0x023e023f};
-const u32 var7005801c[] = {0x00000001};
-const u32 var70058020[] = {0x00020003};
-const u32 var70058024[] = {0x00060007};
-const u32 var70058028[] = {0x00080009};
-const u32 var7005802c[] = {0x000c000d};
-const u32 var70058030[] = {0x000e000f};
-const u32 var70058034[] = {0x00040005};
-const u32 var70058038[] = {0x00120013};
-const u32 var7005803c[] = {0x000a000b};
-const u32 var70058040[] = {0x00180019};
-const u32 var70058044[] = {0x00100011};
-const u32 var70058048[] = {0x001e001f};
-const u32 var7005804c[] = {0x00140015};
-const u32 var70058050[] = {0x00160017};
-const u32 var70058054[] = {0x001a001b};
-const u32 var70058058[] = {0x001c001d};
-const u32 var7005805c[] = {0x00200021};
-const u32 var70058060[] = {0x00220023};
-const u32 var70058064[] = {0x00240025};
-const u32 var70058068[] = {0x00260027};
-const u32 var7005806c[] = {0x00280029};
-const u32 var70058070[] = {0x002a002b};
-const u32 var70058074[] = {0x002c002d};
-const u32 var70058078[] = {0x002e002f};
-const u32 var7005807c[] = {0x00300031};
-const u32 var70058080[] = {0x00320033};
-const u32 var70058084[] = {0x00340035};
-const u32 var70058088[] = {0x00360037};
-const u32 var7005808c[] = {0x00380039};
-const u32 var70058090[] = {0x003a003b};
-const u32 var70058094[] = {0x00480049};
-const u32 var70058098[] = {0x003c003d};
-const u32 var7005809c[] = {0x003e003f};
-const u32 var700580a0[] = {0x00400041};
-const u32 var700580a4[] = {0x004e004f};
-const u32 var700580a8[] = {0x00420043};
-const u32 var700580ac[] = {0x00440045};
-const u32 var700580b0[] = {0x00460047};
-const u32 var700580b4[] = {0x00540055};
-const u32 var700580b8[] = {0x004a004b};
-const u32 var700580bc[] = {0x004c004d};
-const u32 var700580c0[] = {0x005a005b};
-const u32 var700580c4[] = {0x005c005d};
-const u32 var700580c8[] = {0x005e005f};
-const u32 var700580cc[] = {0x00500051};
-const u32 var700580d0[] = {0x00520053};
-const u32 var700580d4[] = {0x00600061};
-const u32 var700580d8[] = {0x00620063};
-const u32 var700580dc[] = {0x00640065};
-const u32 var700580e0[] = {0x00560057};
-const u32 var700580e4[] = {0x00580059};
-const u32 var700580e8[] = {0x00660067};
-const u32 var700580ec[] = {0x00680069};
-const u32 var700580f0[] = {0x006a006b};
-const u32 var700580f4[] = {0x006c006d};
-const u32 var700580f8[] = {0x006e006f};
-const u32 var700580fc[] = {0x00700071};
-const u32 var70058100[] = {0x007e007f};
-const u32 var70058104[] = {0x00800081};
-const u32 var70058108[] = {0x00820083};
-const u32 var7005810c[] = {0x00720073};
-const u32 var70058110[] = {0x00740075};
-const u32 var70058114[] = {0x00760077};
-const u32 var70058118[] = {0x00840085};
-const u32 var7005811c[] = {0x00860087};
-const u32 var70058120[] = {0x00880089};
-const u32 var70058124[] = {0x00780079};
-const u32 var70058128[] = {0x007a007b};
-const u32 var7005812c[] = {0x007c007d};
-const u32 var70058130[] = {0x008a008b};
-const u32 var70058134[] = {0x008c008d};
-const u32 var70058138[] = {0x008e008f};
-const u32 var7005813c[] = {0x00900091};
-const u32 var70058140[] = {0x00920093};
-const u32 var70058144[] = {0x00940095};
-const u32 var70058148[] = {0x00a200a3};
-const u32 var7005814c[] = {0x00a400a5};
-const u32 var70058150[] = {0x00a600a7};
-const u32 var70058154[] = {0x00b400b5};
-const u32 var70058158[] = {0x00960097};
-const u32 var7005815c[] = {0x00980099};
-const u32 var70058160[] = {0x009a009b};
-const u32 var70058164[] = {0x00a800a9};
-const u32 var70058168[] = {0x00aa00ab};
-const u32 var7005816c[] = {0x00ac00ad};
-const u32 var70058170[] = {0x00ba00bb};
-const u32 var70058174[] = {0x009c009d};
-const u32 var70058178[] = {0x009e009f};
-const u32 var7005817c[] = {0x00a000a1};
-const u32 var70058180[] = {0x00ae00af};
-const u32 var70058184[] = {0x00b000b1};
-const u32 var70058188[] = {0x00b200b3};
-const u32 var7005818c[] = {0x00c000c1};
-const u32 var70058190[] = {0x00b600b7};
-const u32 var70058194[] = {0x00b800b9};
-const u32 var70058198[] = {0x00c600c7};
-const u32 var7005819c[] = {0x00c800c9};
-const u32 var700581a0[] = {0x00ca00cb};
-const u32 var700581a4[] = {0x00d800d9};
-const u32 var700581a8[] = {0x00da00db};
-const u32 var700581ac[] = {0x00dc00dd};
-const u32 var700581b0[] = {0x00ea00eb};
-const u32 var700581b4[] = {0x00bc00bd};
-const u32 var700581b8[] = {0x00be00bf};
-const u32 var700581bc[] = {0x00cc00cd};
-const u32 var700581c0[] = {0x00ce00cf};
-const u32 var700581c4[] = {0x00d000d1};
-const u32 var700581c8[] = {0x00de00df};
-const u32 var700581cc[] = {0x00e000e1};
-const u32 var700581d0[] = {0x00e200e3};
-const u32 var700581d4[] = {0x00f000f1};
-const u32 var700581d8[] = {0x00c200c3};
-const u32 var700581dc[] = {0x00c400c5};
-const u32 var700581e0[] = {0x00d200d3};
-const u32 var700581e4[] = {0x00d400d5};
-const u32 var700581e8[] = {0x00d600d7};
-const u32 var700581ec[] = {0x00e400e5};
-const u32 var700581f0[] = {0x00e600e7};
-const u32 var700581f4[] = {0x00e800e9};
-const u32 var700581f8[] = {0x00f600f7};
-const u32 var700581fc[] = {0x00ec00ed};
-const u32 var70058200[] = {0x00ee00ef};
-const u32 var70058204[] = {0x00fc00fd};
-const u32 var70058208[] = {0x00fe00ff};
-const u32 var7005820c[] = {0x01000101};
-const u32 var70058210[] = {0x010e010f};
-const u32 var70058214[] = {0x01100111};
-const u32 var70058218[] = {0x01120113};
-const u32 var7005821c[] = {0x01200121};
-const u32 var70058220[] = {0x01220123};
-const u32 var70058224[] = {0x01240125};
-const u32 var70058228[] = {0x01320133};
-const u32 var7005822c[] = {0x00f200f3};
-const u32 var70058230[] = {0x00f400f5};
-const u32 var70058234[] = {0x01020103};
-const u32 var70058238[] = {0x01040105};
-const u32 var7005823c[] = {0x01060107};
-const u32 var70058240[] = {0x01140115};
-const u32 var70058244[] = {0x01160117};
-const u32 var70058248[] = {0x01180119};
-const u32 var7005824c[] = {0x01260127};
-const u32 var70058250[] = {0x01280129};
-const u32 var70058254[] = {0x012a012b};
-const u32 var70058258[] = {0x01380139};
-const u32 var7005825c[] = {0x00f800f9};
-const u32 var70058260[] = {0x00fa00fb};
-const u32 var70058264[] = {0x01080109};
-const u32 var70058268[] = {0x010a010b};
-const u32 var7005826c[] = {0x010c010d};
-const u32 var70058270[] = {0x011a011b};
-const u32 var70058274[] = {0x011c011d};
-const u32 var70058278[] = {0x011e011f};
-const u32 var7005827c[] = {0x012c012d};
-const u32 var70058280[] = {0x012e012f};
-const u32 var70058284[] = {0x01300131};
-const u32 var70058288[] = {0x013e013f};
-const u32 var7005828c[] = {0x01340135};
-const u32 var70058290[] = {0x01360137};
-const u32 var70058294[] = {0x01440145};
-const u32 var70058298[] = {0x01460147};
-const u32 var7005829c[] = {0x01480149};
-const u32 var700582a0[] = {0x01560157};
-const u32 var700582a4[] = {0x01580159};
-const u32 var700582a8[] = {0x015a015b};
-const u32 var700582ac[] = {0x01680169};
-const u32 var700582b0[] = {0x016a016b};
-const u32 var700582b4[] = {0x016c016d};
-const u32 var700582b8[] = {0x017a017b};
-const u32 var700582bc[] = {0x017c017d};
-const u32 var700582c0[] = {0x017e017f};
-const u32 var700582c4[] = {0x018c018d};
-const u32 var700582c8[] = {0x018e018f};
-const u32 var700582cc[] = {0x013a013b};
-const u32 var700582d0[] = {0x013c013d};
-const u32 var700582d4[] = {0x014a014b};
-const u32 var700582d8[] = {0x014c014d};
-const u32 var700582dc[] = {0x014e014f};
-const u32 var700582e0[] = {0x015c015d};
-const u32 var700582e4[] = {0x015e015f};
-const u32 var700582e8[] = {0x01600161};
-const u32 var700582ec[] = {0x016e016f};
-const u32 var700582f0[] = {0x01700171};
-const u32 var700582f4[] = {0x01720173};
-const u32 var700582f8[] = {0x01800181};
-const u32 var700582fc[] = {0x01820183};
-const u32 var70058300[] = {0x01840185};
-const u32 var70058304[] = {0x01920193};
-const u32 var70058308[] = {0x01940195};
-const u32 var7005830c[] = {0x01400141};
-const u32 var70058310[] = {0x01420143};
-const u32 var70058314[] = {0x01500151};
-const u32 var70058318[] = {0x01520153};
-const u32 var7005831c[] = {0x01540155};
-const u32 var70058320[] = {0x01620163};
-const u32 var70058324[] = {0x01640165};
-const u32 var70058328[] = {0x01660167};
-const u32 var7005832c[] = {0x01740175};
-const u32 var70058330[] = {0x01760177};
-const u32 var70058334[] = {0x01780179};
-const u32 var70058338[] = {0x01860187};
-const u32 var7005833c[] = {0x01880189};
-const u32 var70058340[] = {0x018a018b};
-const u32 var70058344[] = {0x01980199};
-const u32 var70058348[] = {0x019a019b};
-const u32 var7005834c[] = {0x01900191};
-const u32 var70058350[] = {0x019e019f};
-const u32 var70058354[] = {0x01a001a1};
-const u32 var70058358[] = {0x01a201a3};
-const u32 var7005835c[] = {0x01b001b1};
-const u32 var70058360[] = {0x01b201b3};
-const u32 var70058364[] = {0x01b401b5};
-const u32 var70058368[] = {0x01c201c3};
-const u32 var7005836c[] = {0x01c401c5};
-const u32 var70058370[] = {0x01c601c7};
-const u32 var70058374[] = {0x01d401d5};
-const u32 var70058378[] = {0x01d601d7};
-const u32 var7005837c[] = {0x01d801d9};
-const u32 var70058380[] = {0x01e601e7};
-const u32 var70058384[] = {0x01e801e9};
-const u32 var70058388[] = {0x01ea01eb};
-const u32 var7005838c[] = {0x01f801f9};
-const u32 var70058390[] = {0x01fa01fb};
-const u32 var70058394[] = {0x01fc01fd};
-const u32 var70058398[] = {0x020a020b};
-const u32 var7005839c[] = {0x020c020d};
-const u32 var700583a0[] = {0x020e020f};
-const u32 var700583a4[] = {0x01960197};
-const u32 var700583a8[] = {0x01a401a5};
-const u32 var700583ac[] = {0x01a601a7};
-const u32 var700583b0[] = {0x01a801a9};
-const u32 var700583b4[] = {0x01b601b7};
-const u32 var700583b8[] = {0x01b801b9};
-const u32 var700583bc[] = {0x01ba01bb};
-const u32 var700583c0[] = {0x01c801c9};
-const u32 var700583c4[] = {0x01ca01cb};
-const u32 var700583c8[] = {0x01cc01cd};
-const u32 var700583cc[] = {0x01da01db};
-const u32 var700583d0[] = {0x01dc01dd};
-const u32 var700583d4[] = {0x01de01df};
-const u32 var700583d8[] = {0x01ec01ed};
-const u32 var700583dc[] = {0x01ee01ef};
-const u32 var700583e0[] = {0x01f001f1};
-const u32 var700583e4[] = {0x01fe01ff};
-const u32 var700583e8[] = {0x02000201};
-const u32 var700583ec[] = {0x02020203};
-const u32 var700583f0[] = {0x02100211};
-const u32 var700583f4[] = {0x02120213};
-const u32 var700583f8[] = {0x02140215};
-const u32 var700583fc[] = {0x019c019d};
-const u32 var70058400[] = {0x01aa01ab};
-const u32 var70058404[] = {0x01ac01ad};
-const u32 var70058408[] = {0x01ae01af};
-const u32 var7005840c[] = {0x01bc01bd};
-const u32 var70058410[] = {0x01be01bf};
-const u32 var70058414[] = {0x01c001c1};
-const u32 var70058418[] = {0x01ce01cf};
-const u32 var7005841c[] = {0x01d001d1};
-const u32 var70058420[] = {0x01d201d3};
-const u32 var70058424[] = {0x01e001e1};
-const u32 var70058428[] = {0x01e201e3};
-const u32 var7005842c[] = {0x01e401e5};
-const u32 var70058430[] = {0x01f201f3};
-const u32 var70058434[] = {0x01f401f5};
-const u32 var70058438[] = {0x01f601f7};
-const u32 var7005843c[] = {0x02040205};
-const u32 var70058440[] = {0x02060207};
-const u32 var70058444[] = {0x02080209};
-const u32 var70058448[] = {0x02160217};
-const u32 var7005844c[] = {0x02180219};
-const u32 var70058450[] = {0x021a021b};
-const u32 var70058454[] = {0x021c021d};
-const u32 var70058458[] = {0x021e021f};
-const u32 var7005845c[] = {0x02200221};
-const u32 var70058460[] = {0x022e022f};
-const u32 var70058464[] = {0x02300231};
-const u32 var70058468[] = {0x02320233};
-const u32 var7005846c[] = {0x02220223};
-const u32 var70058470[] = {0x02240225};
-const u32 var70058474[] = {0x02260227};
-const u32 var70058478[] = {0x02340235};
-const u32 var7005847c[] = {0x02360237};
-const u32 var70058480[] = {0x02380239};
-const u32 var70058484[] = {0x02280229};
-const u32 var70058488[] = {0x022a022b};
-const u32 var7005848c[] = {0x022c022d};
-const u32 var70058490[] = {0x023a023b};
-const u32 var70058494[] = {0x023c023d};
-const u32 var70058498[] = {0x023e023f};
-const u32 var7005849c[] = {0x00000001};
-const u32 var700584a0[] = {0x00020003};
-const u32 var700584a4[] = {0x00060007};
-const u32 var700584a8[] = {0x00080009};
-const u32 var700584ac[] = {0x000c000d};
-const u32 var700584b0[] = {0x000e000f};
-const u32 var700584b4[] = {0x00040005};
-const u32 var700584b8[] = {0x00120013};
-const u32 var700584bc[] = {0x000a000b};
-const u32 var700584c0[] = {0x00180019};
-const u32 var700584c4[] = {0x00100011};
-const u32 var700584c8[] = {0x001e001f};
-const u32 var700584cc[] = {0x00140015};
-const u32 var700584d0[] = {0x00160017};
-const u32 var700584d4[] = {0x001a001b};
-const u32 var700584d8[] = {0x001c001d};
-const u32 var700584dc[] = {0x00200021};
-const u32 var700584e0[] = {0x00220023};
-const u32 var700584e4[] = {0x00240025};
-const u32 var700584e8[] = {0x00260027};
-const u32 var700584ec[] = {0x00280029};
-const u32 var700584f0[] = {0x002a002b};
-const u32 var700584f4[] = {0x002c002d};
-const u32 var700584f8[] = {0x002e002f};
-const u32 var700584fc[] = {0x00300031};
-const u32 var70058500[] = {0x00320033};
-const u32 var70058504[] = {0x00340035};
-const u32 var70058508[] = {0x00360037};
-const u32 var7005850c[] = {0x00380039};
-const u32 var70058510[] = {0x003a003b};
-const u32 var70058514[] = {0x00480049};
-const u32 var70058518[] = {0x003c003d};
-const u32 var7005851c[] = {0x003e003f};
-const u32 var70058520[] = {0x00400041};
-const u32 var70058524[] = {0x004e004f};
-const u32 var70058528[] = {0x00420043};
-const u32 var7005852c[] = {0x00440045};
-const u32 var70058530[] = {0x00460047};
-const u32 var70058534[] = {0x00540055};
-const u32 var70058538[] = {0x004a004b};
-const u32 var7005853c[] = {0x004c004d};
-const u32 var70058540[] = {0x005a005b};
-const u32 var70058544[] = {0x005c005d};
-const u32 var70058548[] = {0x005e005f};
-const u32 var7005854c[] = {0x00500051};
-const u32 var70058550[] = {0x00520053};
-const u32 var70058554[] = {0x00600061};
-const u32 var70058558[] = {0x00620063};
-const u32 var7005855c[] = {0x00640065};
-const u32 var70058560[] = {0x00560057};
-const u32 var70058564[] = {0x00580059};
-const u32 var70058568[] = {0x00660067};
-const u32 var7005856c[] = {0x00680069};
-const u32 var70058570[] = {0x006a006b};
-const u32 var70058574[] = {0x006c006d};
-const u32 var70058578[] = {0x006e006f};
-const u32 var7005857c[] = {0x00700071};
-const u32 var70058580[] = {0x007e007f};
-const u32 var70058584[] = {0x00800081};
-const u32 var70058588[] = {0x00820083};
-const u32 var7005858c[] = {0x00720073};
-const u32 var70058590[] = {0x00740075};
-const u32 var70058594[] = {0x00760077};
-const u32 var70058598[] = {0x00840085};
-const u32 var7005859c[] = {0x00860087};
-const u32 var700585a0[] = {0x00880089};
-const u32 var700585a4[] = {0x00780079};
-const u32 var700585a8[] = {0x007a007b};
-const u32 var700585ac[] = {0x007c007d};
-const u32 var700585b0[] = {0x008a008b};
-const u32 var700585b4[] = {0x008c008d};
-const u32 var700585b8[] = {0x008e008f};
-const u32 var700585bc[] = {0x00900091};
-const u32 var700585c0[] = {0x00920093};
-const u32 var700585c4[] = {0x00940095};
-const u32 var700585c8[] = {0x00a200a3};
-const u32 var700585cc[] = {0x00a400a5};
-const u32 var700585d0[] = {0x00a600a7};
-const u32 var700585d4[] = {0x00b400b5};
-const u32 var700585d8[] = {0x00960097};
-const u32 var700585dc[] = {0x00980099};
-const u32 var700585e0[] = {0x009a009b};
-const u32 var700585e4[] = {0x00a800a9};
-const u32 var700585e8[] = {0x00aa00ab};
-const u32 var700585ec[] = {0x00ac00ad};
-const u32 var700585f0[] = {0x00ba00bb};
-const u32 var700585f4[] = {0x009c009d};
-const u32 var700585f8[] = {0x009e009f};
-const u32 var700585fc[] = {0x00a000a1};
-const u32 var70058600[] = {0x00ae00af};
-const u32 var70058604[] = {0x00b000b1};
-const u32 var70058608[] = {0x00b200b3};
-const u32 var7005860c[] = {0x00c000c1};
-const u32 var70058610[] = {0x00b600b7};
-const u32 var70058614[] = {0x00b800b9};
-const u32 var70058618[] = {0x00c600c7};
-const u32 var7005861c[] = {0x00c800c9};
-const u32 var70058620[] = {0x00ca00cb};
-const u32 var70058624[] = {0x00d800d9};
-const u32 var70058628[] = {0x00da00db};
-const u32 var7005862c[] = {0x00dc00dd};
-const u32 var70058630[] = {0x00ea00eb};
-const u32 var70058634[] = {0x00bc00bd};
-const u32 var70058638[] = {0x00be00bf};
-const u32 var7005863c[] = {0x00cc00cd};
-const u32 var70058640[] = {0x00ce00cf};
-const u32 var70058644[] = {0x00d000d1};
-const u32 var70058648[] = {0x00de00df};
-const u32 var7005864c[] = {0x00e000e1};
-const u32 var70058650[] = {0x00e200e3};
-const u32 var70058654[] = {0x00f000f1};
-const u32 var70058658[] = {0x00c200c3};
-const u32 var7005865c[] = {0x00c400c5};
-const u32 var70058660[] = {0x00d200d3};
-const u32 var70058664[] = {0x00d400d5};
-const u32 var70058668[] = {0x00d600d7};
-const u32 var7005866c[] = {0x00e400e5};
-const u32 var70058670[] = {0x00e600e7};
-const u32 var70058674[] = {0x00e800e9};
-const u32 var70058678[] = {0x00f600f7};
-const u32 var7005867c[] = {0x00ec00ed};
-const u32 var70058680[] = {0x00ee00ef};
-const u32 var70058684[] = {0x00fc00fd};
-const u32 var70058688[] = {0x00fe00ff};
-const u32 var7005868c[] = {0x01000101};
-const u32 var70058690[] = {0x010e010f};
-const u32 var70058694[] = {0x01100111};
-const u32 var70058698[] = {0x01120113};
-const u32 var7005869c[] = {0x01200121};
-const u32 var700586a0[] = {0x01220123};
-const u32 var700586a4[] = {0x01240125};
-const u32 var700586a8[] = {0x01320133};
-const u32 var700586ac[] = {0x00f200f3};
-const u32 var700586b0[] = {0x00f400f5};
-const u32 var700586b4[] = {0x01020103};
-const u32 var700586b8[] = {0x01040105};
-const u32 var700586bc[] = {0x01060107};
-const u32 var700586c0[] = {0x01140115};
-const u32 var700586c4[] = {0x01160117};
-const u32 var700586c8[] = {0x01180119};
-const u32 var700586cc[] = {0x01260127};
-const u32 var700586d0[] = {0x01280129};
-const u32 var700586d4[] = {0x012a012b};
-const u32 var700586d8[] = {0x01380139};
-const u32 var700586dc[] = {0x00f800f9};
-const u32 var700586e0[] = {0x00fa00fb};
-const u32 var700586e4[] = {0x01080109};
-const u32 var700586e8[] = {0x010a010b};
-const u32 var700586ec[] = {0x010c010d};
-const u32 var700586f0[] = {0x011a011b};
-const u32 var700586f4[] = {0x011c011d};
-const u32 var700586f8[] = {0x011e011f};
-const u32 var700586fc[] = {0x012c012d};
-const u32 var70058700[] = {0x012e012f};
-const u32 var70058704[] = {0x01300131};
-const u32 var70058708[] = {0x013e013f};
-const u32 var7005870c[] = {0x01340135};
-const u32 var70058710[] = {0x01360137};
-const u32 var70058714[] = {0x01440145};
-const u32 var70058718[] = {0x01460147};
-const u32 var7005871c[] = {0x01480149};
-const u32 var70058720[] = {0x01560157};
-const u32 var70058724[] = {0x01580159};
-const u32 var70058728[] = {0x015a015b};
-const u32 var7005872c[] = {0x01680169};
-const u32 var70058730[] = {0x016a016b};
-const u32 var70058734[] = {0x016c016d};
-const u32 var70058738[] = {0x017a017b};
-const u32 var7005873c[] = {0x017c017d};
-const u32 var70058740[] = {0x017e017f};
-const u32 var70058744[] = {0x018c018d};
-const u32 var70058748[] = {0x013a013b};
-const u32 var7005874c[] = {0x013c013d};
-const u32 var70058750[] = {0x014a014b};
-const u32 var70058754[] = {0x014c014d};
-const u32 var70058758[] = {0x014e014f};
-const u32 var7005875c[] = {0x015c015d};
-const u32 var70058760[] = {0x015e015f};
-const u32 var70058764[] = {0x01600161};
-const u32 var70058768[] = {0x016e016f};
-const u32 var7005876c[] = {0x01700171};
-const u32 var70058770[] = {0x01720173};
-const u32 var70058774[] = {0x01800181};
-const u32 var70058778[] = {0x01820183};
-const u32 var7005877c[] = {0x01840185};
-const u32 var70058780[] = {0x01920193};
-const u32 var70058784[] = {0x01400141};
-const u32 var70058788[] = {0x01420143};
-const u32 var7005878c[] = {0x01500151};
-const u32 var70058790[] = {0x01520153};
-const u32 var70058794[] = {0x01540155};
-const u32 var70058798[] = {0x01620163};
-const u32 var7005879c[] = {0x01640165};
-const u32 var700587a0[] = {0x01660167};
-const u32 var700587a4[] = {0x01740175};
-const u32 var700587a8[] = {0x01760177};
-const u32 var700587ac[] = {0x01780179};
-const u32 var700587b0[] = {0x01860187};
-const u32 var700587b4[] = {0x01880189};
-const u32 var700587b8[] = {0x018a018b};
-const u32 var700587bc[] = {0x01980199};
-const u32 var700587c0[] = {0x018e018f};
-const u32 var700587c4[] = {0x01900191};
-const u32 var700587c8[] = {0x019e019f};
-const u32 var700587cc[] = {0x01a001a1};
-const u32 var700587d0[] = {0x01a201a3};
-const u32 var700587d4[] = {0x01b001b1};
-const u32 var700587d8[] = {0x01b201b3};
-const u32 var700587dc[] = {0x01b401b5};
-const u32 var700587e0[] = {0x01c201c3};
-const u32 var700587e4[] = {0x01c401c5};
-const u32 var700587e8[] = {0x01c601c7};
-const u32 var700587ec[] = {0x01d401d5};
-const u32 var700587f0[] = {0x01d601d7};
-const u32 var700587f4[] = {0x01d801d9};
-const u32 var700587f8[] = {0x01e601e7};
-const u32 var700587fc[] = {0x01e801e9};
-const u32 var70058800[] = {0x01ea01eb};
-const u32 var70058804[] = {0x01f801f9};
-const u32 var70058808[] = {0x01fa01fb};
-const u32 var7005880c[] = {0x01fc01fd};
-const u32 var70058810[] = {0x01940195};
-const u32 var70058814[] = {0x01960197};
-const u32 var70058818[] = {0x01a401a5};
-const u32 var7005881c[] = {0x01a601a7};
-const u32 var70058820[] = {0x01a801a9};
-const u32 var70058824[] = {0x01b601b7};
-const u32 var70058828[] = {0x01b801b9};
-const u32 var7005882c[] = {0x01ba01bb};
-const u32 var70058830[] = {0x01c801c9};
-const u32 var70058834[] = {0x01ca01cb};
-const u32 var70058838[] = {0x01cc01cd};
-const u32 var7005883c[] = {0x01da01db};
-const u32 var70058840[] = {0x01dc01dd};
-const u32 var70058844[] = {0x01de01df};
-const u32 var70058848[] = {0x01ec01ed};
-const u32 var7005884c[] = {0x01ee01ef};
-const u32 var70058850[] = {0x01f001f1};
-const u32 var70058854[] = {0x01fe01ff};
-const u32 var70058858[] = {0x02000201};
-const u32 var7005885c[] = {0x02020203};
-const u32 var70058860[] = {0x019a019b};
-const u32 var70058864[] = {0x019c019d};
-const u32 var70058868[] = {0x01aa01ab};
-const u32 var7005886c[] = {0x01ac01ad};
-const u32 var70058870[] = {0x01ae01af};
-const u32 var70058874[] = {0x01bc01bd};
-const u32 var70058878[] = {0x01be01bf};
-const u32 var7005887c[] = {0x01c001c1};
-const u32 var70058880[] = {0x01ce01cf};
-const u32 var70058884[] = {0x01d001d1};
-const u32 var70058888[] = {0x01d201d3};
-const u32 var7005888c[] = {0x01e001e1};
-const u32 var70058890[] = {0x01e201e3};
-const u32 var70058894[] = {0x01e401e5};
-const u32 var70058898[] = {0x01f201f3};
-const u32 var7005889c[] = {0x01f401f5};
-const u32 var700588a0[] = {0x01f601f7};
-const u32 var700588a4[] = {0x02040205};
-const u32 var700588a8[] = {0x02060207};
-const u32 var700588ac[] = {0x02080209};
-const u32 var700588b0[] = {0x020a020b};
-const u32 var700588b4[] = {0x020c020d};
-const u32 var700588b8[] = {0x020e020f};
-const u32 var700588bc[] = {0x021c021d};
-const u32 var700588c0[] = {0x021e021f};
-const u32 var700588c4[] = {0x02200221};
-const u32 var700588c8[] = {0x022e022f};
-const u32 var700588cc[] = {0x02300231};
-const u32 var700588d0[] = {0x02320233};
-const u32 var700588d4[] = {0x02100211};
-const u32 var700588d8[] = {0x02120213};
-const u32 var700588dc[] = {0x02140215};
-const u32 var700588e0[] = {0x02220223};
-const u32 var700588e4[] = {0x02240225};
-const u32 var700588e8[] = {0x02260227};
-const u32 var700588ec[] = {0x02340235};
-const u32 var700588f0[] = {0x02360237};
-const u32 var700588f4[] = {0x02380239};
-const u32 var700588f8[] = {0x02160217};
-const u32 var700588fc[] = {0x02180219};
-const u32 var70058900[] = {0x021a021b};
-const u32 var70058904[] = {0x02280229};
-const u32 var70058908[] = {0x022a022b};
-const u32 var7005890c[] = {0x022c022d};
-const u32 var70058910[] = {0x023a023b};
-const u32 var70058914[] = {0x023c023d};
-const u32 var70058918[] = {0x023e023f};
-const u32 var7005891c[] = {0x00000001};
-const u32 var70058920[] = {0x00020003};
-const u32 var70058924[] = {0x00060007};
-const u32 var70058928[] = {0x00080009};
-const u32 var7005892c[] = {0x000c000d};
-const u32 var70058930[] = {0x000e000f};
-const u32 var70058934[] = {0x00040005};
-const u32 var70058938[] = {0x00120013};
-const u32 var7005893c[] = {0x000a000b};
-const u32 var70058940[] = {0x00180019};
-const u32 var70058944[] = {0x00100011};
-const u32 var70058948[] = {0x001e001f};
-const u32 var7005894c[] = {0x00140015};
-const u32 var70058950[] = {0x00160017};
-const u32 var70058954[] = {0x001a001b};
-const u32 var70058958[] = {0x001c001d};
-const u32 var7005895c[] = {0x00200021};
-const u32 var70058960[] = {0x00220023};
-const u32 var70058964[] = {0x00240025};
-const u32 var70058968[] = {0x00260027};
-const u32 var7005896c[] = {0x002a002b};
-const u32 var70058970[] = {0x002c002d};
-const u32 var70058974[] = {0x00300031};
-const u32 var70058978[] = {0x00320033};
-const u32 var7005897c[] = {0x00280029};
-const u32 var70058980[] = {0x00360037};
-const u32 var70058984[] = {0x00380039};
-const u32 var70058988[] = {0x002e002f};
-const u32 var7005898c[] = {0x003c003d};
-const u32 var70058990[] = {0x003e003f};
-const u32 var70058994[] = {0x00340035};
-const u32 var70058998[] = {0x00420043};
-const u32 var7005899c[] = {0x00440045};
-const u32 var700589a0[] = {0x003a003b};
-const u32 var700589a4[] = {0x00480049};
-const u32 var700589a8[] = {0x004a004b};
-const u32 var700589ac[] = {0x004c004d};
-const u32 var700589b0[] = {0x00400041};
-const u32 var700589b4[] = {0x004e004f};
-const u32 var700589b8[] = {0x00500051};
-const u32 var700589bc[] = {0x00520053};
-const u32 var700589c0[] = {0x00460047};
-const u32 var700589c4[] = {0x00540055};
-const u32 var700589c8[] = {0x00560057};
-const u32 var700589cc[] = {0x00580059};
-const u32 var700589d0[] = {0x005a005b};
-const u32 var700589d4[] = {0x005c005d};
-const u32 var700589d8[] = {0x005e005f};
-const u32 var700589dc[] = {0x006c006d};
-const u32 var700589e0[] = {0x006e006f};
-const u32 var700589e4[] = {0x00600061};
-const u32 var700589e8[] = {0x00620063};
-const u32 var700589ec[] = {0x00640065};
-const u32 var700589f0[] = {0x00720073};
-const u32 var700589f4[] = {0x00740075};
-const u32 var700589f8[] = {0x00660067};
-const u32 var700589fc[] = {0x00680069};
-const u32 var70058a00[] = {0x006a006b};
-const u32 var70058a04[] = {0x00780079};
-const u32 var70058a08[] = {0x007a007b};
-const u32 var70058a0c[] = {0x00700071};
-const u32 var70058a10[] = {0x007e007f};
-const u32 var70058a14[] = {0x00800081};
-const u32 var70058a18[] = {0x00820083};
-const u32 var70058a1c[] = {0x00900091};
-const u32 var70058a20[] = {0x00920093};
-const u32 var70058a24[] = {0x00760077};
-const u32 var70058a28[] = {0x00840085};
-const u32 var70058a2c[] = {0x00860087};
-const u32 var70058a30[] = {0x00880089};
-const u32 var70058a34[] = {0x00960097};
-const u32 var70058a38[] = {0x00980099};
-const u32 var70058a3c[] = {0x007c007d};
-const u32 var70058a40[] = {0x008a008b};
-const u32 var70058a44[] = {0x008c008d};
-const u32 var70058a48[] = {0x008e008f};
-const u32 var70058a4c[] = {0x009c009d};
-const u32 var70058a50[] = {0x009e009f};
-const u32 var70058a54[] = {0x00940095};
-const u32 var70058a58[] = {0x00a200a3};
-const u32 var70058a5c[] = {0x00a400a5};
-const u32 var70058a60[] = {0x00a600a7};
-const u32 var70058a64[] = {0x00b400b5};
-const u32 var70058a68[] = {0x00b600b7};
-const u32 var70058a6c[] = {0x00b800b9};
-const u32 var70058a70[] = {0x009a009b};
-const u32 var70058a74[] = {0x00a800a9};
-const u32 var70058a78[] = {0x00aa00ab};
-const u32 var70058a7c[] = {0x00ac00ad};
-const u32 var70058a80[] = {0x00ba00bb};
-const u32 var70058a84[] = {0x00bc00bd};
-const u32 var70058a88[] = {0x00be00bf};
-const u32 var70058a8c[] = {0x00a000a1};
-const u32 var70058a90[] = {0x00ae00af};
-const u32 var70058a94[] = {0x00b000b1};
-const u32 var70058a98[] = {0x00b200b3};
-const u32 var70058a9c[] = {0x00c000c1};
-const u32 var70058aa0[] = {0x00c200c3};
-const u32 var70058aa4[] = {0x00c400c5};
-const u32 var70058aa8[] = {0x00c600c7};
-const u32 var70058aac[] = {0x00c800c9};
-const u32 var70058ab0[] = {0x00ca00cb};
-const u32 var70058ab4[] = {0x00d800d9};
-const u32 var70058ab8[] = {0x00da00db};
-const u32 var70058abc[] = {0x00dc00dd};
-const u32 var70058ac0[] = {0x00ea00eb};
-const u32 var70058ac4[] = {0x00ec00ed};
-const u32 var70058ac8[] = {0x00ee00ef};
-const u32 var70058acc[] = {0x00cc00cd};
-const u32 var70058ad0[] = {0x00ce00cf};
-const u32 var70058ad4[] = {0x00d000d1};
-const u32 var70058ad8[] = {0x00de00df};
-const u32 var70058adc[] = {0x00e000e1};
-const u32 var70058ae0[] = {0x00e200e3};
-const u32 var70058ae4[] = {0x00f000f1};
-const u32 var70058ae8[] = {0x00f200f3};
-const u32 var70058aec[] = {0x00f400f5};
-const u32 var70058af0[] = {0x00d200d3};
-const u32 var70058af4[] = {0x00d400d5};
-const u32 var70058af8[] = {0x00d600d7};
-const u32 var70058afc[] = {0x00e400e5};
-const u32 var70058b00[] = {0x00e600e7};
-const u32 var70058b04[] = {0x00e800e9};
-const u32 var70058b08[] = {0x00f600f7};
-const u32 var70058b0c[] = {0x00f800f9};
-const u32 var70058b10[] = {0x00fa00fb};
-const u32 var70058b14[] = {0x00fc00fd};
-const u32 var70058b18[] = {0x00fe00ff};
-const u32 var70058b1c[] = {0x01000101};
-const u32 var70058b20[] = {0x010e010f};
-const u32 var70058b24[] = {0x01100111};
-const u32 var70058b28[] = {0x01120113};
-const u32 var70058b2c[] = {0x01200121};
-const u32 var70058b30[] = {0x01220123};
-const u32 var70058b34[] = {0x01240125};
-const u32 var70058b38[] = {0x01320133};
-const u32 var70058b3c[] = {0x01340135};
-const u32 var70058b40[] = {0x01020103};
-const u32 var70058b44[] = {0x01040105};
-const u32 var70058b48[] = {0x01060107};
-const u32 var70058b4c[] = {0x01140115};
-const u32 var70058b50[] = {0x01160117};
-const u32 var70058b54[] = {0x01180119};
-const u32 var70058b58[] = {0x01260127};
-const u32 var70058b5c[] = {0x01280129};
-const u32 var70058b60[] = {0x012a012b};
-const u32 var70058b64[] = {0x01380139};
-const u32 var70058b68[] = {0x013a013b};
-const u32 var70058b6c[] = {0x01080109};
-const u32 var70058b70[] = {0x010a010b};
-const u32 var70058b74[] = {0x010c010d};
-const u32 var70058b78[] = {0x011a011b};
-const u32 var70058b7c[] = {0x011c011d};
-const u32 var70058b80[] = {0x011e011f};
-const u32 var70058b84[] = {0x012c012d};
-const u32 var70058b88[] = {0x012e012f};
-const u32 var70058b8c[] = {0x01300131};
-const u32 var70058b90[] = {0x013e013f};
-const u32 var70058b94[] = {0x01400141};
-const u32 var70058b98[] = {0x01360137};
-const u32 var70058b9c[] = {0x01440145};
-const u32 var70058ba0[] = {0x01460147};
-const u32 var70058ba4[] = {0x01480149};
-const u32 var70058ba8[] = {0x01560157};
-const u32 var70058bac[] = {0x01580159};
-const u32 var70058bb0[] = {0x015a015b};
-const u32 var70058bb4[] = {0x01680169};
-const u32 var70058bb8[] = {0x016a016b};
-const u32 var70058bbc[] = {0x016c016d};
-const u32 var70058bc0[] = {0x017a017b};
-const u32 var70058bc4[] = {0x017c017d};
-const u32 var70058bc8[] = {0x017e017f};
-const u32 var70058bcc[] = {0x018c018d};
-const u32 var70058bd0[] = {0x018e018f};
-const u32 var70058bd4[] = {0x013c013d};
-const u32 var70058bd8[] = {0x014a014b};
-const u32 var70058bdc[] = {0x014c014d};
-const u32 var70058be0[] = {0x014e014f};
-const u32 var70058be4[] = {0x015c015d};
-const u32 var70058be8[] = {0x015e015f};
-const u32 var70058bec[] = {0x01600161};
-const u32 var70058bf0[] = {0x016e016f};
-const u32 var70058bf4[] = {0x01700171};
-const u32 var70058bf8[] = {0x01720173};
-const u32 var70058bfc[] = {0x01800181};
-const u32 var70058c00[] = {0x01820183};
-const u32 var70058c04[] = {0x01840185};
-const u32 var70058c08[] = {0x01920193};
-const u32 var70058c0c[] = {0x01940195};
-const u32 var70058c10[] = {0x01420143};
-const u32 var70058c14[] = {0x01500151};
-const u32 var70058c18[] = {0x01520153};
-const u32 var70058c1c[] = {0x01540155};
-const u32 var70058c20[] = {0x01620163};
-const u32 var70058c24[] = {0x01640165};
-const u32 var70058c28[] = {0x01660167};
-const u32 var70058c2c[] = {0x01740175};
-const u32 var70058c30[] = {0x01760177};
-const u32 var70058c34[] = {0x01780179};
-const u32 var70058c38[] = {0x01860187};
-const u32 var70058c3c[] = {0x01880189};
-const u32 var70058c40[] = {0x018a018b};
-const u32 var70058c44[] = {0x01980199};
-const u32 var70058c48[] = {0x019a019b};
-const u32 var70058c4c[] = {0x01900191};
-const u32 var70058c50[] = {0x019e019f};
-const u32 var70058c54[] = {0x01a001a1};
-const u32 var70058c58[] = {0x01a201a3};
-const u32 var70058c5c[] = {0x01b001b1};
-const u32 var70058c60[] = {0x01b201b3};
-const u32 var70058c64[] = {0x01b401b5};
-const u32 var70058c68[] = {0x01c201c3};
-const u32 var70058c6c[] = {0x01c401c5};
-const u32 var70058c70[] = {0x01c601c7};
-const u32 var70058c74[] = {0x01d401d5};
-const u32 var70058c78[] = {0x01d601d7};
-const u32 var70058c7c[] = {0x01d801d9};
-const u32 var70058c80[] = {0x01e601e7};
-const u32 var70058c84[] = {0x01e801e9};
-const u32 var70058c88[] = {0x01ea01eb};
-const u32 var70058c8c[] = {0x01f801f9};
-const u32 var70058c90[] = {0x01fa01fb};
-const u32 var70058c94[] = {0x01fc01fd};
-const u32 var70058c98[] = {0x020a020b};
-const u32 var70058c9c[] = {0x020c020d};
-const u32 var70058ca0[] = {0x020e020f};
-const u32 var70058ca4[] = {0x021c021d};
-const u32 var70058ca8[] = {0x021e021f};
-const u32 var70058cac[] = {0x02200221};
-const u32 var70058cb0[] = {0x022e022f};
-const u32 var70058cb4[] = {0x02300231};
-const u32 var70058cb8[] = {0x02320233};
-const u32 var70058cbc[] = {0x01960197};
-const u32 var70058cc0[] = {0x01a401a5};
-const u32 var70058cc4[] = {0x01a601a7};
-const u32 var70058cc8[] = {0x01a801a9};
-const u32 var70058ccc[] = {0x01b601b7};
-const u32 var70058cd0[] = {0x01b801b9};
-const u32 var70058cd4[] = {0x01ba01bb};
-const u32 var70058cd8[] = {0x01c801c9};
-const u32 var70058cdc[] = {0x01ca01cb};
-const u32 var70058ce0[] = {0x01cc01cd};
-const u32 var70058ce4[] = {0x01da01db};
-const u32 var70058ce8[] = {0x01dc01dd};
-const u32 var70058cec[] = {0x01de01df};
-const u32 var70058cf0[] = {0x01ec01ed};
-const u32 var70058cf4[] = {0x01ee01ef};
-const u32 var70058cf8[] = {0x01f001f1};
-const u32 var70058cfc[] = {0x01fe01ff};
-const u32 var70058d00[] = {0x02000201};
-const u32 var70058d04[] = {0x02020203};
-const u32 var70058d08[] = {0x02100211};
-const u32 var70058d0c[] = {0x02120213};
-const u32 var70058d10[] = {0x02140215};
-const u32 var70058d14[] = {0x02220223};
-const u32 var70058d18[] = {0x02240225};
-const u32 var70058d1c[] = {0x02260227};
-const u32 var70058d20[] = {0x02340235};
-const u32 var70058d24[] = {0x02360237};
-const u32 var70058d28[] = {0x02380239};
-const u32 var70058d2c[] = {0x019c019d};
-const u32 var70058d30[] = {0x01aa01ab};
-const u32 var70058d34[] = {0x01ac01ad};
-const u32 var70058d38[] = {0x01ae01af};
-const u32 var70058d3c[] = {0x01bc01bd};
-const u32 var70058d40[] = {0x01be01bf};
-const u32 var70058d44[] = {0x01c001c1};
-const u32 var70058d48[] = {0x01ce01cf};
-const u32 var70058d4c[] = {0x01d001d1};
-const u32 var70058d50[] = {0x01d201d3};
-const u32 var70058d54[] = {0x01e001e1};
-const u32 var70058d58[] = {0x01e201e3};
-const u32 var70058d5c[] = {0x01e401e5};
-const u32 var70058d60[] = {0x01f201f3};
-const u32 var70058d64[] = {0x01f401f5};
-const u32 var70058d68[] = {0x01f601f7};
-const u32 var70058d6c[] = {0x02040205};
-const u32 var70058d70[] = {0x02060207};
-const u32 var70058d74[] = {0x02080209};
-const u32 var70058d78[] = {0x02160217};
-const u32 var70058d7c[] = {0x02180219};
-const u32 var70058d80[] = {0x021a021b};
-const u32 var70058d84[] = {0x02280229};
-const u32 var70058d88[] = {0x022a022b};
-const u32 var70058d8c[] = {0x022c022d};
-const u32 var70058d90[] = {0x023a023b};
-const u32 var70058d94[] = {0x023c023d};
-const u32 var70058d98[] = {0x023e023f};
-const u32 var70058d9c[] = {0x00000001};
-const u32 var70058da0[] = {0x00020003};
-const u32 var70058da4[] = {0x00060007};
-const u32 var70058da8[] = {0x00080009};
-const u32 var70058dac[] = {0x000c000d};
-const u32 var70058db0[] = {0x000e000f};
-const u32 var70058db4[] = {0x00040005};
-const u32 var70058db8[] = {0x00120013};
-const u32 var70058dbc[] = {0x000a000b};
-const u32 var70058dc0[] = {0x00180019};
-const u32 var70058dc4[] = {0x00100011};
-const u32 var70058dc8[] = {0x001e001f};
-const u32 var70058dcc[] = {0x00140015};
-const u32 var70058dd0[] = {0x00160017};
-const u32 var70058dd4[] = {0x001a001b};
-const u32 var70058dd8[] = {0x001c001d};
-const u32 var70058ddc[] = {0x00200021};
-const u32 var70058de0[] = {0x00220023};
-const u32 var70058de4[] = {0x00240025};
-const u32 var70058de8[] = {0x00260027};
-const u32 var70058dec[] = {0x002a002b};
-const u32 var70058df0[] = {0x002c002d};
-const u32 var70058df4[] = {0x00300031};
-const u32 var70058df8[] = {0x00320033};
-const u32 var70058dfc[] = {0x00280029};
-const u32 var70058e00[] = {0x00360037};
-const u32 var70058e04[] = {0x00380039};
-const u32 var70058e08[] = {0x002e002f};
-const u32 var70058e0c[] = {0x003c003d};
-const u32 var70058e10[] = {0x003e003f};
-const u32 var70058e14[] = {0x00340035};
-const u32 var70058e18[] = {0x00420043};
-const u32 var70058e1c[] = {0x00440045};
-const u32 var70058e20[] = {0x003a003b};
-const u32 var70058e24[] = {0x00480049};
-const u32 var70058e28[] = {0x004a004b};
-const u32 var70058e2c[] = {0x00400041};
-const u32 var70058e30[] = {0x004e004f};
-const u32 var70058e34[] = {0x00500051};
-const u32 var70058e38[] = {0x00460047};
-const u32 var70058e3c[] = {0x00540055};
-const u32 var70058e40[] = {0x00560057};
-const u32 var70058e44[] = {0x004c004d};
-const u32 var70058e48[] = {0x005a005b};
-const u32 var70058e4c[] = {0x005c005d};
-const u32 var70058e50[] = {0x005e005f};
-const u32 var70058e54[] = {0x006c006d};
-const u32 var70058e58[] = {0x00520053};
-const u32 var70058e5c[] = {0x00600061};
-const u32 var70058e60[] = {0x00620063};
-const u32 var70058e64[] = {0x00640065};
-const u32 var70058e68[] = {0x00720073};
-const u32 var70058e6c[] = {0x00580059};
-const u32 var70058e70[] = {0x00660067};
-const u32 var70058e74[] = {0x00680069};
-const u32 var70058e78[] = {0x006a006b};
-const u32 var70058e7c[] = {0x00780079};
-const u32 var70058e80[] = {0x006e006f};
-const u32 var70058e84[] = {0x00700071};
-const u32 var70058e88[] = {0x007e007f};
-const u32 var70058e8c[] = {0x00800081};
-const u32 var70058e90[] = {0x00820083};
-const u32 var70058e94[] = {0x00900091};
-const u32 var70058e98[] = {0x00740075};
-const u32 var70058e9c[] = {0x00760077};
-const u32 var70058ea0[] = {0x00840085};
-const u32 var70058ea4[] = {0x00860087};
-const u32 var70058ea8[] = {0x00880089};
-const u32 var70058eac[] = {0x00960097};
-const u32 var70058eb0[] = {0x007a007b};
-const u32 var70058eb4[] = {0x007c007d};
-const u32 var70058eb8[] = {0x008a008b};
-const u32 var70058ebc[] = {0x008c008d};
-const u32 var70058ec0[] = {0x008e008f};
-const u32 var70058ec4[] = {0x009c009d};
-const u32 var70058ec8[] = {0x00920093};
-const u32 var70058ecc[] = {0x00940095};
-const u32 var70058ed0[] = {0x00a200a3};
-const u32 var70058ed4[] = {0x00a400a5};
-const u32 var70058ed8[] = {0x00a600a7};
-const u32 var70058edc[] = {0x00b400b5};
-const u32 var70058ee0[] = {0x00b600b7};
-const u32 var70058ee4[] = {0x00980099};
-const u32 var70058ee8[] = {0x009a009b};
-const u32 var70058eec[] = {0x00a800a9};
-const u32 var70058ef0[] = {0x00aa00ab};
-const u32 var70058ef4[] = {0x00ac00ad};
-const u32 var70058ef8[] = {0x00ba00bb};
-const u32 var70058efc[] = {0x00bc00bd};
-const u32 var70058f00[] = {0x009e009f};
-const u32 var70058f04[] = {0x00a000a1};
-const u32 var70058f08[] = {0x00ae00af};
-const u32 var70058f0c[] = {0x00b000b1};
-const u32 var70058f10[] = {0x00b200b3};
-const u32 var70058f14[] = {0x00c000c1};
-const u32 var70058f18[] = {0x00c200c3};
-const u32 var70058f1c[] = {0x00b800b9};
-const u32 var70058f20[] = {0x00c600c7};
-const u32 var70058f24[] = {0x00c800c9};
-const u32 var70058f28[] = {0x00ca00cb};
-const u32 var70058f2c[] = {0x00d800d9};
-const u32 var70058f30[] = {0x00da00db};
-const u32 var70058f34[] = {0x00dc00dd};
-const u32 var70058f38[] = {0x00ea00eb};
-const u32 var70058f3c[] = {0x00be00bf};
-const u32 var70058f40[] = {0x00cc00cd};
-const u32 var70058f44[] = {0x00ce00cf};
-const u32 var70058f48[] = {0x00d000d1};
-const u32 var70058f4c[] = {0x00de00df};
-const u32 var70058f50[] = {0x00e000e1};
-const u32 var70058f54[] = {0x00e200e3};
-const u32 var70058f58[] = {0x00f000f1};
-const u32 var70058f5c[] = {0x00c400c5};
-const u32 var70058f60[] = {0x00d200d3};
-const u32 var70058f64[] = {0x00d400d5};
-const u32 var70058f68[] = {0x00d600d7};
-const u32 var70058f6c[] = {0x00e400e5};
-const u32 var70058f70[] = {0x00e600e7};
-const u32 var70058f74[] = {0x00e800e9};
-const u32 var70058f78[] = {0x00f600f7};
-const u32 var70058f7c[] = {0x00ec00ed};
-const u32 var70058f80[] = {0x00ee00ef};
-const u32 var70058f84[] = {0x00fc00fd};
-const u32 var70058f88[] = {0x00fe00ff};
-const u32 var70058f8c[] = {0x01000101};
-const u32 var70058f90[] = {0x010e010f};
-const u32 var70058f94[] = {0x01100111};
-const u32 var70058f98[] = {0x01120113};
-const u32 var70058f9c[] = {0x01200121};
-const u32 var70058fa0[] = {0x01220123};
-const u32 var70058fa4[] = {0x00f200f3};
-const u32 var70058fa8[] = {0x00f400f5};
-const u32 var70058fac[] = {0x01020103};
-const u32 var70058fb0[] = {0x01040105};
-const u32 var70058fb4[] = {0x01060107};
-const u32 var70058fb8[] = {0x01140115};
-const u32 var70058fbc[] = {0x01160117};
-const u32 var70058fc0[] = {0x01180119};
-const u32 var70058fc4[] = {0x01260127};
-const u32 var70058fc8[] = {0x01280129};
-const u32 var70058fcc[] = {0x00f800f9};
-const u32 var70058fd0[] = {0x00fa00fb};
-const u32 var70058fd4[] = {0x01080109};
-const u32 var70058fd8[] = {0x010a010b};
-const u32 var70058fdc[] = {0x010c010d};
-const u32 var70058fe0[] = {0x011a011b};
-const u32 var70058fe4[] = {0x011c011d};
-const u32 var70058fe8[] = {0x011e011f};
-const u32 var70058fec[] = {0x012c012d};
-const u32 var70058ff0[] = {0x012e012f};
-const u32 var70058ff4[] = {0x01240125};
-const u32 var70058ff8[] = {0x01320133};
-const u32 var70058ffc[] = {0x01340135};
-const u32 var70059000[] = {0x01360137};
-const u32 var70059004[] = {0x01440145};
-const u32 var70059008[] = {0x01460147};
-const u32 var7005900c[] = {0x01480149};
-const u32 var70059010[] = {0x01560157};
-const u32 var70059014[] = {0x01580159};
-const u32 var70059018[] = {0x015a015b};
-const u32 var7005901c[] = {0x01680169};
-const u32 var70059020[] = {0x016a016b};
-const u32 var70059024[] = {0x016c016d};
-const u32 var70059028[] = {0x012a012b};
-const u32 var7005902c[] = {0x01380139};
-const u32 var70059030[] = {0x013a013b};
-const u32 var70059034[] = {0x013c013d};
-const u32 var70059038[] = {0x014a014b};
-const u32 var7005903c[] = {0x014c014d};
-const u32 var70059040[] = {0x014e014f};
-const u32 var70059044[] = {0x015c015d};
-const u32 var70059048[] = {0x015e015f};
-const u32 var7005904c[] = {0x01600161};
-const u32 var70059050[] = {0x016e016f};
-const u32 var70059054[] = {0x01700171};
-const u32 var70059058[] = {0x01720173};
-const u32 var7005905c[] = {0x01300131};
-const u32 var70059060[] = {0x013e013f};
-const u32 var70059064[] = {0x01400141};
-const u32 var70059068[] = {0x01420143};
-const u32 var7005906c[] = {0x01500151};
-const u32 var70059070[] = {0x01520153};
-const u32 var70059074[] = {0x01540155};
-const u32 var70059078[] = {0x01620163};
-const u32 var7005907c[] = {0x01640165};
-const u32 var70059080[] = {0x01660167};
-const u32 var70059084[] = {0x01740175};
-const u32 var70059088[] = {0x01760177};
-const u32 var7005908c[] = {0x01780179};
-const u32 var70059090[] = {0x017a017b};
-const u32 var70059094[] = {0x017c017d};
-const u32 var70059098[] = {0x017e017f};
-const u32 var7005909c[] = {0x018c018d};
-const u32 var700590a0[] = {0x018e018f};
-const u32 var700590a4[] = {0x01900191};
-const u32 var700590a8[] = {0x019e019f};
-const u32 var700590ac[] = {0x01a001a1};
-const u32 var700590b0[] = {0x01a201a3};
-const u32 var700590b4[] = {0x01b001b1};
-const u32 var700590b8[] = {0x01b201b3};
-const u32 var700590bc[] = {0x01b401b5};
-const u32 var700590c0[] = {0x01c201c3};
-const u32 var700590c4[] = {0x01c401c5};
-const u32 var700590c8[] = {0x01c601c7};
-const u32 var700590cc[] = {0x01d401d5};
-const u32 var700590d0[] = {0x01d601d7};
-const u32 var700590d4[] = {0x01d801d9};
-const u32 var700590d8[] = {0x01e601e7};
-const u32 var700590dc[] = {0x01e801e9};
-const u32 var700590e0[] = {0x01ea01eb};
-const u32 var700590e4[] = {0x01f801f9};
-const u32 var700590e8[] = {0x01fa01fb};
-const u32 var700590ec[] = {0x01fc01fd};
-const u32 var700590f0[] = {0x020a020b};
-const u32 var700590f4[] = {0x020c020d};
-const u32 var700590f8[] = {0x020e020f};
-const u32 var700590fc[] = {0x021c021d};
-const u32 var70059100[] = {0x021e021f};
-const u32 var70059104[] = {0x02200221};
-const u32 var70059108[] = {0x022e022f};
-const u32 var7005910c[] = {0x02300231};
-const u32 var70059110[] = {0x02320233};
-const u32 var70059114[] = {0x01800181};
-const u32 var70059118[] = {0x01820183};
-const u32 var7005911c[] = {0x01840185};
-const u32 var70059120[] = {0x01920193};
-const u32 var70059124[] = {0x01940195};
-const u32 var70059128[] = {0x01960197};
-const u32 var7005912c[] = {0x01a401a5};
-const u32 var70059130[] = {0x01a601a7};
-const u32 var70059134[] = {0x01a801a9};
-const u32 var70059138[] = {0x01b601b7};
-const u32 var7005913c[] = {0x01b801b9};
-const u32 var70059140[] = {0x01ba01bb};
-const u32 var70059144[] = {0x01c801c9};
-const u32 var70059148[] = {0x01ca01cb};
-const u32 var7005914c[] = {0x01cc01cd};
-const u32 var70059150[] = {0x01da01db};
-const u32 var70059154[] = {0x01dc01dd};
-const u32 var70059158[] = {0x01de01df};
-const u32 var7005915c[] = {0x01ec01ed};
-const u32 var70059160[] = {0x01ee01ef};
-const u32 var70059164[] = {0x01f001f1};
-const u32 var70059168[] = {0x01fe01ff};
-const u32 var7005916c[] = {0x02000201};
-const u32 var70059170[] = {0x02020203};
-const u32 var70059174[] = {0x02100211};
-const u32 var70059178[] = {0x02120213};
-const u32 var7005917c[] = {0x02140215};
-const u32 var70059180[] = {0x02220223};
-const u32 var70059184[] = {0x02240225};
-const u32 var70059188[] = {0x02260227};
-const u32 var7005918c[] = {0x02340235};
-const u32 var70059190[] = {0x02360237};
-const u32 var70059194[] = {0x02380239};
-const u32 var70059198[] = {0x01860187};
-const u32 var7005919c[] = {0x01880189};
-const u32 var700591a0[] = {0x018a018b};
-const u32 var700591a4[] = {0x01980199};
-const u32 var700591a8[] = {0x019a019b};
-const u32 var700591ac[] = {0x019c019d};
-const u32 var700591b0[] = {0x01aa01ab};
-const u32 var700591b4[] = {0x01ac01ad};
-const u32 var700591b8[] = {0x01ae01af};
-const u32 var700591bc[] = {0x01bc01bd};
-const u32 var700591c0[] = {0x01be01bf};
-const u32 var700591c4[] = {0x01c001c1};
-const u32 var700591c8[] = {0x01ce01cf};
-const u32 var700591cc[] = {0x01d001d1};
-const u32 var700591d0[] = {0x01d201d3};
-const u32 var700591d4[] = {0x01e001e1};
-const u32 var700591d8[] = {0x01e201e3};
-const u32 var700591dc[] = {0x01e401e5};
-const u32 var700591e0[] = {0x01f201f3};
-const u32 var700591e4[] = {0x01f401f5};
-const u32 var700591e8[] = {0x01f601f7};
-const u32 var700591ec[] = {0x02040205};
-const u32 var700591f0[] = {0x02060207};
-const u32 var700591f4[] = {0x02080209};
-const u32 var700591f8[] = {0x02160217};
-const u32 var700591fc[] = {0x02180219};
-const u32 var70059200[] = {0x021a021b};
-const u32 var70059204[] = {0x02280229};
-const u32 var70059208[] = {0x022a022b};
-const u32 var7005920c[] = {0x022c022d};
-const u32 var70059210[] = {0x023a023b};
-const u32 var70059214[] = {0x023c023d};
-const u32 var70059218[] = {0x023e023f};
-const u32 var7005921c[] = {0x00000001};
-const u32 var70059220[] = {0x00020003};
-const u32 var70059224[] = {0x00060007};
-const u32 var70059228[] = {0x00080009};
-const u32 var7005922c[] = {0x000c000d};
-const u32 var70059230[] = {0x000e000f};
-const u32 var70059234[] = {0x00040005};
-const u32 var70059238[] = {0x00120013};
-const u32 var7005923c[] = {0x000a000b};
-const u32 var70059240[] = {0x00180019};
-const u32 var70059244[] = {0x00100011};
-const u32 var70059248[] = {0x001e001f};
-const u32 var7005924c[] = {0x00140015};
-const u32 var70059250[] = {0x00160017};
-const u32 var70059254[] = {0x001a001b};
-const u32 var70059258[] = {0x001c001d};
-const u32 var7005925c[] = {0x00200021};
-const u32 var70059260[] = {0x00220023};
-const u32 var70059264[] = {0x00240025};
-const u32 var70059268[] = {0x00260027};
-const u32 var7005926c[] = {0x002a002b};
-const u32 var70059270[] = {0x002c002d};
-const u32 var70059274[] = {0x00300031};
-const u32 var70059278[] = {0x00320033};
-const u32 var7005927c[] = {0x00280029};
-const u32 var70059280[] = {0x00360037};
-const u32 var70059284[] = {0x00380039};
-const u32 var70059288[] = {0x002e002f};
-const u32 var7005928c[] = {0x003c003d};
-const u32 var70059290[] = {0x003e003f};
-const u32 var70059294[] = {0x00340035};
-const u32 var70059298[] = {0x00420043};
-const u32 var7005929c[] = {0x00440045};
-const u32 var700592a0[] = {0x003a003b};
-const u32 var700592a4[] = {0x00480049};
-const u32 var700592a8[] = {0x004a004b};
-const u32 var700592ac[] = {0x004c004d};
-const u32 var700592b0[] = {0x00400041};
-const u32 var700592b4[] = {0x004e004f};
-const u32 var700592b8[] = {0x00500051};
-const u32 var700592bc[] = {0x00520053};
-const u32 var700592c0[] = {0x00460047};
-const u32 var700592c4[] = {0x00540055};
-const u32 var700592c8[] = {0x00560057};
-const u32 var700592cc[] = {0x00580059};
-const u32 var700592d0[] = {0x005a005b};
-const u32 var700592d4[] = {0x005c005d};
-const u32 var700592d8[] = {0x005e005f};
-const u32 var700592dc[] = {0x006c006d};
-const u32 var700592e0[] = {0x006e006f};
-const u32 var700592e4[] = {0x00700071};
-const u32 var700592e8[] = {0x00600061};
-const u32 var700592ec[] = {0x00620063};
-const u32 var700592f0[] = {0x00640065};
-const u32 var700592f4[] = {0x00720073};
-const u32 var700592f8[] = {0x00740075};
-const u32 var700592fc[] = {0x00760077};
-const u32 var70059300[] = {0x00660067};
-const u32 var70059304[] = {0x00680069};
-const u32 var70059308[] = {0x006a006b};
-const u32 var7005930c[] = {0x00780079};
-const u32 var70059310[] = {0x007a007b};
-const u32 var70059314[] = {0x007c007d};
-const u32 var70059318[] = {0x007e007f};
-const u32 var7005931c[] = {0x00800081};
-const u32 var70059320[] = {0x00820083};
-const u32 var70059324[] = {0x00900091};
-const u32 var70059328[] = {0x00920093};
-const u32 var7005932c[] = {0x00940095};
-const u32 var70059330[] = {0x00a200a3};
-const u32 var70059334[] = {0x00a400a5};
-const u32 var70059338[] = {0x00840085};
-const u32 var7005933c[] = {0x00860087};
-const u32 var70059340[] = {0x00880089};
-const u32 var70059344[] = {0x00960097};
-const u32 var70059348[] = {0x00980099};
-const u32 var7005934c[] = {0x009a009b};
-const u32 var70059350[] = {0x00a800a9};
-const u32 var70059354[] = {0x00aa00ab};
-const u32 var70059358[] = {0x008a008b};
-const u32 var7005935c[] = {0x008c008d};
-const u32 var70059360[] = {0x008e008f};
-const u32 var70059364[] = {0x009c009d};
-const u32 var70059368[] = {0x009e009f};
-const u32 var7005936c[] = {0x00a000a1};
-const u32 var70059370[] = {0x00ae00af};
-const u32 var70059374[] = {0x00b000b1};
-const u32 var70059378[] = {0x00a600a7};
-const u32 var7005937c[] = {0x00b400b5};
-const u32 var70059380[] = {0x00b600b7};
-const u32 var70059384[] = {0x00b800b9};
-const u32 var70059388[] = {0x00c600c7};
-const u32 var7005938c[] = {0x00c800c9};
-const u32 var70059390[] = {0x00ca00cb};
-const u32 var70059394[] = {0x00d800d9};
-const u32 var70059398[] = {0x00da00db};
-const u32 var7005939c[] = {0x00dc00dd};
-const u32 var700593a0[] = {0x00ac00ad};
-const u32 var700593a4[] = {0x00ba00bb};
-const u32 var700593a8[] = {0x00bc00bd};
-const u32 var700593ac[] = {0x00be00bf};
-const u32 var700593b0[] = {0x00cc00cd};
-const u32 var700593b4[] = {0x00ce00cf};
-const u32 var700593b8[] = {0x00d000d1};
-const u32 var700593bc[] = {0x00de00df};
-const u32 var700593c0[] = {0x00e000e1};
-const u32 var700593c4[] = {0x00e200e3};
-const u32 var700593c8[] = {0x00b200b3};
-const u32 var700593cc[] = {0x00c000c1};
-const u32 var700593d0[] = {0x00c200c3};
-const u32 var700593d4[] = {0x00c400c5};
-const u32 var700593d8[] = {0x00d200d3};
-const u32 var700593dc[] = {0x00d400d5};
-const u32 var700593e0[] = {0x00d600d7};
-const u32 var700593e4[] = {0x00e400e5};
-const u32 var700593e8[] = {0x00e600e7};
-const u32 var700593ec[] = {0x00e800e9};
-const u32 var700593f0[] = {0x00ea00eb};
-const u32 var700593f4[] = {0x00ec00ed};
-const u32 var700593f8[] = {0x00ee00ef};
-const u32 var700593fc[] = {0x00fc00fd};
-const u32 var70059400[] = {0x00fe00ff};
-const u32 var70059404[] = {0x01000101};
-const u32 var70059408[] = {0x010e010f};
-const u32 var7005940c[] = {0x01100111};
-const u32 var70059410[] = {0x01120113};
-const u32 var70059414[] = {0x01200121};
-const u32 var70059418[] = {0x01220123};
-const u32 var7005941c[] = {0x01240125};
-const u32 var70059420[] = {0x01320133};
-const u32 var70059424[] = {0x00f000f1};
-const u32 var70059428[] = {0x00f200f3};
-const u32 var7005942c[] = {0x00f400f5};
-const u32 var70059430[] = {0x01020103};
-const u32 var70059434[] = {0x01040105};
-const u32 var70059438[] = {0x01060107};
-const u32 var7005943c[] = {0x01140115};
-const u32 var70059440[] = {0x01160117};
-const u32 var70059444[] = {0x01180119};
-const u32 var70059448[] = {0x01260127};
-const u32 var7005944c[] = {0x01280129};
-const u32 var70059450[] = {0x012a012b};
-const u32 var70059454[] = {0x01380139};
-const u32 var70059458[] = {0x00f600f7};
-const u32 var7005945c[] = {0x00f800f9};
-const u32 var70059460[] = {0x00fa00fb};
-const u32 var70059464[] = {0x01080109};
-const u32 var70059468[] = {0x010a010b};
-const u32 var7005946c[] = {0x010c010d};
-const u32 var70059470[] = {0x011a011b};
-const u32 var70059474[] = {0x011c011d};
-const u32 var70059478[] = {0x011e011f};
-const u32 var7005947c[] = {0x012c012d};
-const u32 var70059480[] = {0x012e012f};
-const u32 var70059484[] = {0x01300131};
-const u32 var70059488[] = {0x013e013f};
-const u32 var7005948c[] = {0x01340135};
-const u32 var70059490[] = {0x01360137};
-const u32 var70059494[] = {0x01440145};
-const u32 var70059498[] = {0x01460147};
-const u32 var7005949c[] = {0x01480149};
-const u32 var700594a0[] = {0x01560157};
-const u32 var700594a4[] = {0x01580159};
-const u32 var700594a8[] = {0x015a015b};
-const u32 var700594ac[] = {0x01680169};
-const u32 var700594b0[] = {0x016a016b};
-const u32 var700594b4[] = {0x016c016d};
-const u32 var700594b8[] = {0x017a017b};
-const u32 var700594bc[] = {0x017c017d};
-const u32 var700594c0[] = {0x017e017f};
-const u32 var700594c4[] = {0x018c018d};
-const u32 var700594c8[] = {0x018e018f};
-const u32 var700594cc[] = {0x01900191};
-const u32 var700594d0[] = {0x013a013b};
-const u32 var700594d4[] = {0x013c013d};
-const u32 var700594d8[] = {0x014a014b};
-const u32 var700594dc[] = {0x014c014d};
-const u32 var700594e0[] = {0x014e014f};
-const u32 var700594e4[] = {0x015c015d};
-const u32 var700594e8[] = {0x015e015f};
-const u32 var700594ec[] = {0x01600161};
-const u32 var700594f0[] = {0x016e016f};
-const u32 var700594f4[] = {0x01700171};
-const u32 var700594f8[] = {0x01720173};
-const u32 var700594fc[] = {0x01800181};
-const u32 var70059500[] = {0x01820183};
-const u32 var70059504[] = {0x01840185};
-const u32 var70059508[] = {0x01920193};
-const u32 var7005950c[] = {0x01940195};
-const u32 var70059510[] = {0x01960197};
-const u32 var70059514[] = {0x01400141};
-const u32 var70059518[] = {0x01420143};
-const u32 var7005951c[] = {0x01500151};
-const u32 var70059520[] = {0x01520153};
-const u32 var70059524[] = {0x01540155};
-const u32 var70059528[] = {0x01620163};
-const u32 var7005952c[] = {0x01640165};
-const u32 var70059530[] = {0x01660167};
-const u32 var70059534[] = {0x01740175};
-const u32 var70059538[] = {0x01760177};
-const u32 var7005953c[] = {0x01780179};
-const u32 var70059540[] = {0x01860187};
-const u32 var70059544[] = {0x01880189};
-const u32 var70059548[] = {0x018a018b};
-const u32 var7005954c[] = {0x01980199};
-const u32 var70059550[] = {0x019a019b};
-const u32 var70059554[] = {0x019c019d};
-const u32 var70059558[] = {0x019e019f};
-const u32 var7005955c[] = {0x01a001a1};
-const u32 var70059560[] = {0x01a201a3};
-const u32 var70059564[] = {0x01b001b1};
-const u32 var70059568[] = {0x01b201b3};
-const u32 var7005956c[] = {0x01b401b5};
-const u32 var70059570[] = {0x01c201c3};
-const u32 var70059574[] = {0x01c401c5};
-const u32 var70059578[] = {0x01c601c7};
-const u32 var7005957c[] = {0x01d401d5};
-const u32 var70059580[] = {0x01d601d7};
-const u32 var70059584[] = {0x01d801d9};
-const u32 var70059588[] = {0x01e601e7};
-const u32 var7005958c[] = {0x01e801e9};
-const u32 var70059590[] = {0x01ea01eb};
-const u32 var70059594[] = {0x01f801f9};
-const u32 var70059598[] = {0x01fa01fb};
-const u32 var7005959c[] = {0x01fc01fd};
-const u32 var700595a0[] = {0x020a020b};
-const u32 var700595a4[] = {0x020c020d};
-const u32 var700595a8[] = {0x020e020f};
-const u32 var700595ac[] = {0x01a401a5};
-const u32 var700595b0[] = {0x01a601a7};
-const u32 var700595b4[] = {0x01a801a9};
-const u32 var700595b8[] = {0x01b601b7};
-const u32 var700595bc[] = {0x01b801b9};
-const u32 var700595c0[] = {0x01ba01bb};
-const u32 var700595c4[] = {0x01c801c9};
-const u32 var700595c8[] = {0x01ca01cb};
-const u32 var700595cc[] = {0x01cc01cd};
-const u32 var700595d0[] = {0x01da01db};
-const u32 var700595d4[] = {0x01dc01dd};
-const u32 var700595d8[] = {0x01de01df};
-const u32 var700595dc[] = {0x01ec01ed};
-const u32 var700595e0[] = {0x01ee01ef};
-const u32 var700595e4[] = {0x01f001f1};
-const u32 var700595e8[] = {0x01fe01ff};
-const u32 var700595ec[] = {0x02000201};
-const u32 var700595f0[] = {0x02020203};
-const u32 var700595f4[] = {0x02100211};
-const u32 var700595f8[] = {0x02120213};
-const u32 var700595fc[] = {0x02140215};
-const u32 var70059600[] = {0x01aa01ab};
-const u32 var70059604[] = {0x01ac01ad};
-const u32 var70059608[] = {0x01ae01af};
-const u32 var7005960c[] = {0x01bc01bd};
-const u32 var70059610[] = {0x01be01bf};
-const u32 var70059614[] = {0x01c001c1};
-const u32 var70059618[] = {0x01ce01cf};
-const u32 var7005961c[] = {0x01d001d1};
-const u32 var70059620[] = {0x01d201d3};
-const u32 var70059624[] = {0x01e001e1};
-const u32 var70059628[] = {0x01e201e3};
-const u32 var7005962c[] = {0x01e401e5};
-const u32 var70059630[] = {0x01f201f3};
-const u32 var70059634[] = {0x01f401f5};
-const u32 var70059638[] = {0x01f601f7};
-const u32 var7005963c[] = {0x02040205};
-const u32 var70059640[] = {0x02060207};
-const u32 var70059644[] = {0x02080209};
-const u32 var70059648[] = {0x02160217};
-const u32 var7005964c[] = {0x02180219};
-const u32 var70059650[] = {0x021a021b};
-const u32 var70059654[] = {0x021c021d};
-const u32 var70059658[] = {0x021e021f};
-const u32 var7005965c[] = {0x02200221};
-const u32 var70059660[] = {0x022e022f};
-const u32 var70059664[] = {0x02300231};
-const u32 var70059668[] = {0x02320233};
-const u32 var7005966c[] = {0x02220223};
-const u32 var70059670[] = {0x02240225};
-const u32 var70059674[] = {0x02260227};
-const u32 var70059678[] = {0x02340235};
-const u32 var7005967c[] = {0x02360237};
-const u32 var70059680[] = {0x02380239};
-const u32 var70059684[] = {0x02280229};
-const u32 var70059688[] = {0x022a022b};
-const u32 var7005968c[] = {0x022c022d};
-const u32 var70059690[] = {0x023a023b};
-const u32 var70059694[] = {0x023c023d};
-const u32 var70059698[] = {0x023e023f};
+const s16 var70057b9c[2][3][576] = {
+	{
+		{
+			0,   1,   2,   3,   6,   7,   8,   9,   12,  13,  14,  15,  4,   5,   18,  19,
+			10,  11,  24,  25,  16,  17,  30,  31,  20,  21,  22,  23,  26,  27,  28,  29,
+			32,  33,  34,  35,  36,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47,
+			48,  49,  50,  51,  52,  53,  54,  55,  56,  57,  58,  59,  60,  61,  62,  63,
+			64,  65,  66,  67,  68,  69,  70,  71,  72,  73,  74,  75,  76,  77,  90,  91,
+			78,  79,  80,  81,  82,  83,  96,  97,  84,  85,  86,  87,  88,  89,  102, 103,
+			92,  93,  94,  95,  108, 109, 110, 111, 112, 113, 98,  99,  100, 101, 114, 115,
+			116, 117, 118, 119, 104, 105, 106, 107, 120, 121, 122, 123, 124, 125, 126, 127,
+			128, 129, 130, 131, 144, 145, 146, 147, 148, 149, 162, 163, 132, 133, 134, 135,
+			136, 137, 150, 151, 152, 153, 154, 155, 168, 169, 138, 139, 140, 141, 142, 143,
+			156, 157, 158, 159, 160, 161, 174, 175, 164, 165, 166, 167, 180, 181, 182, 183,
+			184, 185, 198, 199, 200, 201, 202, 203, 216, 217, 170, 171, 172, 173, 186, 187,
+			188, 189, 190, 191, 204, 205, 206, 207, 208, 209, 222, 223, 176, 177, 178, 179,
+			192, 193, 194, 195, 196, 197, 210, 211, 212, 213, 214, 215, 228, 229, 218, 219,
+			220, 221, 234, 235, 236, 237, 238, 239, 252, 253, 254, 255, 256, 257, 270, 271,
+			272, 273, 274, 275, 288, 289, 290, 291, 224, 225, 226, 227, 240, 241, 242, 243,
+			244, 245, 258, 259, 260, 261, 262, 263, 276, 277, 278, 279, 280, 281, 294, 295,
+			296, 297, 230, 231, 232, 233, 246, 247, 248, 249, 250, 251, 264, 265, 266, 267,
+			268, 269, 282, 283, 284, 285, 286, 287, 300, 301, 302, 303, 292, 293, 306, 307,
+			308, 309, 310, 311, 324, 325, 326, 327, 328, 329, 342, 343, 344, 345, 346, 347,
+			360, 361, 362, 363, 364, 365, 378, 379, 380, 381, 382, 383, 298, 299, 312, 313,
+			314, 315, 316, 317, 330, 331, 332, 333, 334, 335, 348, 349, 350, 351, 352, 353,
+			366, 367, 368, 369, 370, 371, 384, 385, 386, 387, 388, 389, 304, 305, 318, 319,
+			320, 321, 322, 323, 336, 337, 338, 339, 340, 341, 354, 355, 356, 357, 358, 359,
+			372, 373, 374, 375, 376, 377, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399,
+			400, 401, 414, 415, 416, 417, 418, 419, 432, 433, 434, 435, 436, 437, 450, 451,
+			452, 453, 454, 455, 468, 469, 470, 471, 472, 473, 486, 487, 488, 489, 490, 491,
+			504, 505, 506, 507, 508, 509, 402, 403, 404, 405, 406, 407, 420, 421, 422, 423,
+			424, 425, 438, 439, 440, 441, 442, 443, 456, 457, 458, 459, 460, 461, 474, 475,
+			476, 477, 478, 479, 492, 493, 494, 495, 496, 497, 510, 511, 512, 513, 514, 515,
+			408, 409, 410, 411, 412, 413, 426, 427, 428, 429, 430, 431, 444, 445, 446, 447,
+			448, 449, 462, 463, 464, 465, 466, 467, 480, 481, 482, 483, 484, 485, 498, 499,
+			500, 501, 502, 503, 516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527,
+			540, 541, 542, 543, 544, 545, 558, 559, 560, 561, 562, 563, 528, 529, 530, 531,
+			532, 533, 546, 547, 548, 549, 550, 551, 564, 565, 566, 567, 568, 569, 534, 535,
+			536, 537, 538, 539, 552, 553, 554, 555, 556, 557, 570, 571, 572, 573, 574, 575,
+		}, {
+			0,   1,   2,   3,   6,   7,   8,   9,   12,  13,  14,  15,  4,   5,   18,  19,
+			10,  11,  24,  25,  16,  17,  30,  31,  20,  21,  22,  23,  26,  27,  28,  29,
+			32,  33,  34,  35,  36,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47,
+			48,  49,  50,  51,  52,  53,  54,  55,  56,  57,  58,  59,  72,  73,  60,  61,
+			62,  63,  64,  65,  78,  79,  66,  67,  68,  69,  70,  71,  84,  85,  74,  75,
+			76,  77,  90,  91,  92,  93,  94,  95,  80,  81,  82,  83,  96,  97,  98,  99,
+			100, 101, 86,  87,  88,  89,  102, 103, 104, 105, 106, 107, 108, 109, 110, 111,
+			112, 113, 126, 127, 128, 129, 130, 131, 114, 115, 116, 117, 118, 119, 132, 133,
+			134, 135, 136, 137, 120, 121, 122, 123, 124, 125, 138, 139, 140, 141, 142, 143,
+			144, 145, 146, 147, 148, 149, 162, 163, 164, 165, 166, 167, 180, 181, 150, 151,
+			152, 153, 154, 155, 168, 169, 170, 171, 172, 173, 186, 187, 156, 157, 158, 159,
+			160, 161, 174, 175, 176, 177, 178, 179, 192, 193, 182, 183, 184, 185, 198, 199,
+			200, 201, 202, 203, 216, 217, 218, 219, 220, 221, 234, 235, 188, 189, 190, 191,
+			204, 205, 206, 207, 208, 209, 222, 223, 224, 225, 226, 227, 240, 241, 194, 195,
+			196, 197, 210, 211, 212, 213, 214, 215, 228, 229, 230, 231, 232, 233, 246, 247,
+			236, 237, 238, 239, 252, 253, 254, 255, 256, 257, 270, 271, 272, 273, 274, 275,
+			288, 289, 290, 291, 292, 293, 306, 307, 242, 243, 244, 245, 258, 259, 260, 261,
+			262, 263, 276, 277, 278, 279, 280, 281, 294, 295, 296, 297, 298, 299, 312, 313,
+			248, 249, 250, 251, 264, 265, 266, 267, 268, 269, 282, 283, 284, 285, 286, 287,
+			300, 301, 302, 303, 304, 305, 318, 319, 308, 309, 310, 311, 324, 325, 326, 327,
+			328, 329, 342, 343, 344, 345, 346, 347, 360, 361, 362, 363, 364, 365, 378, 379,
+			380, 381, 382, 383, 396, 397, 398, 399, 314, 315, 316, 317, 330, 331, 332, 333,
+			334, 335, 348, 349, 350, 351, 352, 353, 366, 367, 368, 369, 370, 371, 384, 385,
+			386, 387, 388, 389, 402, 403, 404, 405, 320, 321, 322, 323, 336, 337, 338, 339,
+			340, 341, 354, 355, 356, 357, 358, 359, 372, 373, 374, 375, 376, 377, 390, 391,
+			392, 393, 394, 395, 408, 409, 410, 411, 400, 401, 414, 415, 416, 417, 418, 419,
+			432, 433, 434, 435, 436, 437, 450, 451, 452, 453, 454, 455, 468, 469, 470, 471,
+			472, 473, 486, 487, 488, 489, 490, 491, 504, 505, 506, 507, 508, 509, 522, 523,
+			524, 525, 526, 527, 406, 407, 420, 421, 422, 423, 424, 425, 438, 439, 440, 441,
+			442, 443, 456, 457, 458, 459, 460, 461, 474, 475, 476, 477, 478, 479, 492, 493,
+			494, 495, 496, 497, 510, 511, 512, 513, 514, 515, 528, 529, 530, 531, 532, 533,
+			412, 413, 426, 427, 428, 429, 430, 431, 444, 445, 446, 447, 448, 449, 462, 463,
+			464, 465, 466, 467, 480, 481, 482, 483, 484, 485, 498, 499, 500, 501, 502, 503,
+			516, 517, 518, 519, 520, 521, 534, 535, 536, 537, 538, 539, 540, 541, 542, 543,
+			544, 545, 558, 559, 560, 561, 562, 563, 546, 547, 548, 549, 550, 551, 564, 565,
+			566, 567, 568, 569, 552, 553, 554, 555, 556, 557, 570, 571, 572, 573, 574, 575,
+		}, {
+			0,   1,   2,   3,   6,   7,   8,   9,   12,  13,  14,  15,  4,   5,   18,  19,
+			10,  11,  24,  25,  16,  17,  30,  31,  20,  21,  22,  23,  26,  27,  28,  29,
+			32,  33,  34,  35,  36,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47,
+			48,  49,  50,  51,  52,  53,  54,  55,  56,  57,  58,  59,  72,  73,  60,  61,
+			62,  63,  64,  65,  78,  79,  66,  67,  68,  69,  70,  71,  84,  85,  74,  75,
+			76,  77,  90,  91,  92,  93,  94,  95,  80,  81,  82,  83,  96,  97,  98,  99,
+			100, 101, 86,  87,  88,  89,  102, 103, 104, 105, 106, 107, 108, 109, 110, 111,
+			112, 113, 126, 127, 128, 129, 130, 131, 114, 115, 116, 117, 118, 119, 132, 133,
+			134, 135, 136, 137, 120, 121, 122, 123, 124, 125, 138, 139, 140, 141, 142, 143,
+			144, 145, 146, 147, 148, 149, 162, 163, 164, 165, 166, 167, 180, 181, 150, 151,
+			152, 153, 154, 155, 168, 169, 170, 171, 172, 173, 186, 187, 156, 157, 158, 159,
+			160, 161, 174, 175, 176, 177, 178, 179, 192, 193, 182, 183, 184, 185, 198, 199,
+			200, 201, 202, 203, 216, 217, 218, 219, 220, 221, 234, 235, 188, 189, 190, 191,
+			204, 205, 206, 207, 208, 209, 222, 223, 224, 225, 226, 227, 240, 241, 194, 195,
+			196, 197, 210, 211, 212, 213, 214, 215, 228, 229, 230, 231, 232, 233, 246, 247,
+			236, 237, 238, 239, 252, 253, 254, 255, 256, 257, 270, 271, 272, 273, 274, 275,
+			288, 289, 290, 291, 292, 293, 306, 307, 242, 243, 244, 245, 258, 259, 260, 261,
+			262, 263, 276, 277, 278, 279, 280, 281, 294, 295, 296, 297, 298, 299, 312, 313,
+			248, 249, 250, 251, 264, 265, 266, 267, 268, 269, 282, 283, 284, 285, 286, 287,
+			300, 301, 302, 303, 304, 305, 318, 319, 308, 309, 310, 311, 324, 325, 326, 327,
+			328, 329, 342, 343, 344, 345, 346, 347, 360, 361, 362, 363, 364, 365, 378, 379,
+			380, 381, 382, 383, 396, 397, 314, 315, 316, 317, 330, 331, 332, 333, 334, 335,
+			348, 349, 350, 351, 352, 353, 366, 367, 368, 369, 370, 371, 384, 385, 386, 387,
+			388, 389, 402, 403, 320, 321, 322, 323, 336, 337, 338, 339, 340, 341, 354, 355,
+			356, 357, 358, 359, 372, 373, 374, 375, 376, 377, 390, 391, 392, 393, 394, 395,
+			408, 409, 398, 399, 400, 401, 414, 415, 416, 417, 418, 419, 432, 433, 434, 435,
+			436, 437, 450, 451, 452, 453, 454, 455, 468, 469, 470, 471, 472, 473, 486, 487,
+			488, 489, 490, 491, 504, 505, 506, 507, 508, 509, 404, 405, 406, 407, 420, 421,
+			422, 423, 424, 425, 438, 439, 440, 441, 442, 443, 456, 457, 458, 459, 460, 461,
+			474, 475, 476, 477, 478, 479, 492, 493, 494, 495, 496, 497, 510, 511, 512, 513,
+			514, 515, 410, 411, 412, 413, 426, 427, 428, 429, 430, 431, 444, 445, 446, 447,
+			448, 449, 462, 463, 464, 465, 466, 467, 480, 481, 482, 483, 484, 485, 498, 499,
+			500, 501, 502, 503, 516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527,
+			540, 541, 542, 543, 544, 545, 558, 559, 560, 561, 562, 563, 528, 529, 530, 531,
+			532, 533, 546, 547, 548, 549, 550, 551, 564, 565, 566, 567, 568, 569, 534, 535,
+			536, 537, 538, 539, 552, 553, 554, 555, 556, 557, 570, 571, 572, 573, 574, 575,
+		},
+	}, {
+		{
+			0,   1,   2,   3,   6,   7,   8,   9,   12,  13,  14,  15,  4,   5,   18,  19,
+			10,  11,  24,  25,  16,  17,  30,  31,  20,  21,  22,  23,  26,  27,  28,  29,
+			32,  33,  34,  35,  36,  37,  38,  39,  42,  43,  44,  45,  48,  49,  50,  51,
+			40,  41,  54,  55,  56,  57,  46,  47,  60,  61,  62,  63,  52,  53,  66,  67,
+			68,  69,  58,  59,  72,  73,  74,  75,  76,  77,  64,  65,  78,  79,  80,  81,
+			82,  83,  70,  71,  84,  85,  86,  87,  88,  89,  90,  91,  92,  93,  94,  95,
+			108, 109, 110, 111, 96,  97,  98,  99,  100, 101, 114, 115, 116, 117, 102, 103,
+			104, 105, 106, 107, 120, 121, 122, 123, 112, 113, 126, 127, 128, 129, 130, 131,
+			144, 145, 146, 147, 118, 119, 132, 133, 134, 135, 136, 137, 150, 151, 152, 153,
+			124, 125, 138, 139, 140, 141, 142, 143, 156, 157, 158, 159, 148, 149, 162, 163,
+			164, 165, 166, 167, 180, 181, 182, 183, 184, 185, 154, 155, 168, 169, 170, 171,
+			172, 173, 186, 187, 188, 189, 190, 191, 160, 161, 174, 175, 176, 177, 178, 179,
+			192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 216, 217, 218, 219,
+			220, 221, 234, 235, 236, 237, 238, 239, 204, 205, 206, 207, 208, 209, 222, 223,
+			224, 225, 226, 227, 240, 241, 242, 243, 244, 245, 210, 211, 212, 213, 214, 215,
+			228, 229, 230, 231, 232, 233, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255,
+			256, 257, 270, 271, 272, 273, 274, 275, 288, 289, 290, 291, 292, 293, 306, 307,
+			308, 309, 258, 259, 260, 261, 262, 263, 276, 277, 278, 279, 280, 281, 294, 295,
+			296, 297, 298, 299, 312, 313, 314, 315, 264, 265, 266, 267, 268, 269, 282, 283,
+			284, 285, 286, 287, 300, 301, 302, 303, 304, 305, 318, 319, 320, 321, 310, 311,
+			324, 325, 326, 327, 328, 329, 342, 343, 344, 345, 346, 347, 360, 361, 362, 363,
+			364, 365, 378, 379, 380, 381, 382, 383, 396, 397, 398, 399, 316, 317, 330, 331,
+			332, 333, 334, 335, 348, 349, 350, 351, 352, 353, 366, 367, 368, 369, 370, 371,
+			384, 385, 386, 387, 388, 389, 402, 403, 404, 405, 322, 323, 336, 337, 338, 339,
+			340, 341, 354, 355, 356, 357, 358, 359, 372, 373, 374, 375, 376, 377, 390, 391,
+			392, 393, 394, 395, 408, 409, 410, 411, 400, 401, 414, 415, 416, 417, 418, 419,
+			432, 433, 434, 435, 436, 437, 450, 451, 452, 453, 454, 455, 468, 469, 470, 471,
+			472, 473, 486, 487, 488, 489, 490, 491, 504, 505, 506, 507, 508, 509, 522, 523,
+			524, 525, 526, 527, 540, 541, 542, 543, 544, 545, 558, 559, 560, 561, 562, 563,
+			406, 407, 420, 421, 422, 423, 424, 425, 438, 439, 440, 441, 442, 443, 456, 457,
+			458, 459, 460, 461, 474, 475, 476, 477, 478, 479, 492, 493, 494, 495, 496, 497,
+			510, 511, 512, 513, 514, 515, 528, 529, 530, 531, 532, 533, 546, 547, 548, 549,
+			550, 551, 564, 565, 566, 567, 568, 569, 412, 413, 426, 427, 428, 429, 430, 431,
+			444, 445, 446, 447, 448, 449, 462, 463, 464, 465, 466, 467, 480, 481, 482, 483,
+			484, 485, 498, 499, 500, 501, 502, 503, 516, 517, 518, 519, 520, 521, 534, 535,
+			536, 537, 538, 539, 552, 553, 554, 555, 556, 557, 570, 571, 572, 573, 574, 575,
+		}, {
+			0,   1,   2,   3,   6,   7,   8,   9,   12,  13,  14,  15,  4,   5,   18,  19,
+			10,  11,  24,  25,  16,  17,  30,  31,  20,  21,  22,  23,  26,  27,  28,  29,
+			32,  33,  34,  35,  36,  37,  38,  39,  42,  43,  44,  45,  48,  49,  50,  51,
+			40,  41,  54,  55,  56,  57,  46,  47,  60,  61,  62,  63,  52,  53,  66,  67,
+			68,  69,  58,  59,  72,  73,  74,  75,  64,  65,  78,  79,  80,  81,  70,  71,
+			84,  85,  86,  87,  76,  77,  90,  91,  92,  93,  94,  95,  108, 109, 82,  83,
+			96,  97,  98,  99,  100, 101, 114, 115, 88,  89,  102, 103, 104, 105, 106, 107,
+			120, 121, 110, 111, 112, 113, 126, 127, 128, 129, 130, 131, 144, 145, 116, 117,
+			118, 119, 132, 133, 134, 135, 136, 137, 150, 151, 122, 123, 124, 125, 138, 139,
+			140, 141, 142, 143, 156, 157, 146, 147, 148, 149, 162, 163, 164, 165, 166, 167,
+			180, 181, 182, 183, 152, 153, 154, 155, 168, 169, 170, 171, 172, 173, 186, 187,
+			188, 189, 158, 159, 160, 161, 174, 175, 176, 177, 178, 179, 192, 193, 194, 195,
+			184, 185, 198, 199, 200, 201, 202, 203, 216, 217, 218, 219, 220, 221, 234, 235,
+			190, 191, 204, 205, 206, 207, 208, 209, 222, 223, 224, 225, 226, 227, 240, 241,
+			196, 197, 210, 211, 212, 213, 214, 215, 228, 229, 230, 231, 232, 233, 246, 247,
+			236, 237, 238, 239, 252, 253, 254, 255, 256, 257, 270, 271, 272, 273, 274, 275,
+			288, 289, 290, 291, 242, 243, 244, 245, 258, 259, 260, 261, 262, 263, 276, 277,
+			278, 279, 280, 281, 294, 295, 296, 297, 248, 249, 250, 251, 264, 265, 266, 267,
+			268, 269, 282, 283, 284, 285, 286, 287, 300, 301, 302, 303, 292, 293, 306, 307,
+			308, 309, 310, 311, 324, 325, 326, 327, 328, 329, 342, 343, 344, 345, 346, 347,
+			360, 361, 362, 363, 364, 365, 298, 299, 312, 313, 314, 315, 316, 317, 330, 331,
+			332, 333, 334, 335, 348, 349, 350, 351, 352, 353, 366, 367, 368, 369, 370, 371,
+			304, 305, 318, 319, 320, 321, 322, 323, 336, 337, 338, 339, 340, 341, 354, 355,
+			356, 357, 358, 359, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383,
+			396, 397, 398, 399, 400, 401, 414, 415, 416, 417, 418, 419, 432, 433, 434, 435,
+			436, 437, 450, 451, 452, 453, 454, 455, 468, 469, 470, 471, 472, 473, 486, 487,
+			488, 489, 490, 491, 504, 505, 506, 507, 508, 509, 522, 523, 524, 525, 526, 527,
+			540, 541, 542, 543, 544, 545, 558, 559, 560, 561, 562, 563, 384, 385, 386, 387,
+			388, 389, 402, 403, 404, 405, 406, 407, 420, 421, 422, 423, 424, 425, 438, 439,
+			440, 441, 442, 443, 456, 457, 458, 459, 460, 461, 474, 475, 476, 477, 478, 479,
+			492, 493, 494, 495, 496, 497, 510, 511, 512, 513, 514, 515, 528, 529, 530, 531,
+			532, 533, 546, 547, 548, 549, 550, 551, 564, 565, 566, 567, 568, 569, 390, 391,
+			392, 393, 394, 395, 408, 409, 410, 411, 412, 413, 426, 427, 428, 429, 430, 431,
+			444, 445, 446, 447, 448, 449, 462, 463, 464, 465, 466, 467, 480, 481, 482, 483,
+			484, 485, 498, 499, 500, 501, 502, 503, 516, 517, 518, 519, 520, 521, 534, 535,
+			536, 537, 538, 539, 552, 553, 554, 555, 556, 557, 570, 571, 572, 573, 574, 575,
+		}, {
+			0,   1,   2,   3,   6,   7,   8,   9,   12,  13,  14,  15,  4,   5,   18,  19,
+			10,  11,  24,  25,  16,  17,  30,  31,  20,  21,  22,  23,  26,  27,  28,  29,
+			32,  33,  34,  35,  36,  37,  38,  39,  42,  43,  44,  45,  48,  49,  50,  51,
+			40,  41,  54,  55,  56,  57,  46,  47,  60,  61,  62,  63,  52,  53,  66,  67,
+			68,  69,  58,  59,  72,  73,  74,  75,  76,  77,  64,  65,  78,  79,  80,  81,
+			82,  83,  70,  71,  84,  85,  86,  87,  88,  89,  90,  91,  92,  93,  94,  95,
+			108, 109, 110, 111, 112, 113, 96,  97,  98,  99,  100, 101, 114, 115, 116, 117,
+			118, 119, 102, 103, 104, 105, 106, 107, 120, 121, 122, 123, 124, 125, 126, 127,
+			128, 129, 130, 131, 144, 145, 146, 147, 148, 149, 162, 163, 164, 165, 132, 133,
+			134, 135, 136, 137, 150, 151, 152, 153, 154, 155, 168, 169, 170, 171, 138, 139,
+			140, 141, 142, 143, 156, 157, 158, 159, 160, 161, 174, 175, 176, 177, 166, 167,
+			180, 181, 182, 183, 184, 185, 198, 199, 200, 201, 202, 203, 216, 217, 218, 219,
+			220, 221, 172, 173, 186, 187, 188, 189, 190, 191, 204, 205, 206, 207, 208, 209,
+			222, 223, 224, 225, 226, 227, 178, 179, 192, 193, 194, 195, 196, 197, 210, 211,
+			212, 213, 214, 215, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239,
+			252, 253, 254, 255, 256, 257, 270, 271, 272, 273, 274, 275, 288, 289, 290, 291,
+			292, 293, 306, 307, 240, 241, 242, 243, 244, 245, 258, 259, 260, 261, 262, 263,
+			276, 277, 278, 279, 280, 281, 294, 295, 296, 297, 298, 299, 312, 313, 246, 247,
+			248, 249, 250, 251, 264, 265, 266, 267, 268, 269, 282, 283, 284, 285, 286, 287,
+			300, 301, 302, 303, 304, 305, 318, 319, 308, 309, 310, 311, 324, 325, 326, 327,
+			328, 329, 342, 343, 344, 345, 346, 347, 360, 361, 362, 363, 364, 365, 378, 379,
+			380, 381, 382, 383, 396, 397, 398, 399, 400, 401, 314, 315, 316, 317, 330, 331,
+			332, 333, 334, 335, 348, 349, 350, 351, 352, 353, 366, 367, 368, 369, 370, 371,
+			384, 385, 386, 387, 388, 389, 402, 403, 404, 405, 406, 407, 320, 321, 322, 323,
+			336, 337, 338, 339, 340, 341, 354, 355, 356, 357, 358, 359, 372, 373, 374, 375,
+			376, 377, 390, 391, 392, 393, 394, 395, 408, 409, 410, 411, 412, 413, 414, 415,
+			416, 417, 418, 419, 432, 433, 434, 435, 436, 437, 450, 451, 452, 453, 454, 455,
+			468, 469, 470, 471, 472, 473, 486, 487, 488, 489, 490, 491, 504, 505, 506, 507,
+			508, 509, 522, 523, 524, 525, 526, 527, 420, 421, 422, 423, 424, 425, 438, 439,
+			440, 441, 442, 443, 456, 457, 458, 459, 460, 461, 474, 475, 476, 477, 478, 479,
+			492, 493, 494, 495, 496, 497, 510, 511, 512, 513, 514, 515, 528, 529, 530, 531,
+			532, 533, 426, 427, 428, 429, 430, 431, 444, 445, 446, 447, 448, 449, 462, 463,
+			464, 465, 466, 467, 480, 481, 482, 483, 484, 485, 498, 499, 500, 501, 502, 503,
+			516, 517, 518, 519, 520, 521, 534, 535, 536, 537, 538, 539, 540, 541, 542, 543,
+			544, 545, 558, 559, 560, 561, 562, 563, 546, 547, 548, 549, 550, 551, 564, 565,
+			566, 567, 568, 569, 552, 553, 554, 555, 556, 557, 570, 571, 572, 573, 574, 575,
+		},
+	},
+};
 
 const u32 var7005969c[] = {0xbf03b5fe};
 const u32 var700596a0[] = {0xbef186da};
@@ -8500,127 +7001,31 @@ glabel func00042238
 /*    427d4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func000427d8
-/*    427d8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    427dc:	8c8e3ba4 */ 	lw	$t6,0x3ba4($a0)
-/*    427e0:	8c983bb4 */ 	lw	$t8,0x3bb4($a0)
-/*    427e4:	3c097005 */ 	lui	$t1,%hi(var70057b9c)
-/*    427e8:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*    427ec:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*    427f0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    427f4:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*    427f8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*    427fc:	0338c821 */ 	addu	$t9,$t9,$t8
-/*    42800:	0019c9c0 */ 	sll	$t9,$t9,0x7
-/*    42804:	000f79c0 */ 	sll	$t7,$t7,0x7
-/*    42808:	01f94021 */ 	addu	$t0,$t7,$t9
-/*    4280c:	25297b9c */ 	addiu	$t1,$t1,%lo(var70057b9c)
-/*    42810:	01095021 */ 	addu	$t2,$t0,$t1
-/*    42814:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*    42818:	248b4f64 */ 	addiu	$t3,$a0,0x4f64
-/*    4281c:	afab0010 */ 	sw	$t3,0x10($sp)
-/*    42820:	248c4664 */ 	addiu	$t4,$a0,0x4664
-/*    42824:	afac000c */ 	sw	$t4,0xc($sp)
-/*    42828:	afa00008 */ 	sw	$zero,0x8($sp)
-/*    4282c:	00056880 */ 	sll	$t5,$a1,0x2
-/*    42830:	008d7021 */ 	addu	$t6,$a0,$t5
-/*    42834:	8dd83c98 */ 	lw	$t8,0x3c98($t6)
-/*    42838:	1300003b */ 	beqz	$t8,.L00042928
-/*    4283c:	00000000 */ 	nop
-/*    42840:	00057880 */ 	sll	$t7,$a1,0x2
-/*    42844:	008fc821 */ 	addu	$t9,$a0,$t7
-/*    42848:	8f283ca0 */ 	lw	$t0,0x3ca0($t9)
-/*    4284c:	24010002 */ 	addiu	$at,$zero,0x2
-/*    42850:	15010035 */ 	bne	$t0,$at,.L00042928
-/*    42854:	00000000 */ 	nop
-/*    42858:	00054880 */ 	sll	$t1,$a1,0x2
-/*    4285c:	00895021 */ 	addu	$t2,$a0,$t1
-/*    42860:	8d4b3ca8 */ 	lw	$t3,0x3ca8($t2)
-/*    42864:	11600015 */ 	beqz	$t3,.L000428bc
-/*    42868:	00000000 */ 	nop
-/*    4286c:	8fac0008 */ 	lw	$t4,0x8($sp)
-/*    42870:	29860024 */ 	slti	$a2,$t4,0x24
-/*    42874:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*    42878:	10c00010 */ 	beqz	$a2,.L000428bc
-/*    4287c:	afad0008 */ 	sw	$t5,0x8($sp)
-.L00042880:
-/*    42880:	8fae000c */ 	lw	$t6,0xc($sp)
-/*    42884:	8fb80010 */ 	lw	$t8,0x10($sp)
-/*    42888:	c5c40000 */ 	lwc1	$f4,0x0($t6)
-/*    4288c:	e7040000 */ 	swc1	$f4,0x0($t8)
-/*    42890:	8fa8000c */ 	lw	$t0,0xc($sp)
-/*    42894:	8faf0010 */ 	lw	$t7,0x10($sp)
-/*    42898:	25090004 */ 	addiu	$t1,$t0,0x4
-/*    4289c:	25f90004 */ 	addiu	$t9,$t7,0x4
-/*    428a0:	afb90010 */ 	sw	$t9,0x10($sp)
-/*    428a4:	afa9000c */ 	sw	$t1,0xc($sp)
-/*    428a8:	8faa0008 */ 	lw	$t2,0x8($sp)
-/*    428ac:	29460024 */ 	slti	$a2,$t2,0x24
-/*    428b0:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*    428b4:	14c0fff2 */ 	bnez	$a2,.L00042880
-/*    428b8:	afab0008 */ 	sw	$t3,0x8($sp)
-.L000428bc:
-/*    428bc:	8fac0008 */ 	lw	$t4,0x8($sp)
-/*    428c0:	29810240 */ 	slti	$at,$t4,0x240
-/*    428c4:	10200016 */ 	beqz	$at,.L00042920
-/*    428c8:	00000000 */ 	nop
-.L000428cc:
-/*    428cc:	8fb80008 */ 	lw	$t8,0x8($sp)
-/*    428d0:	8fae0014 */ 	lw	$t6,0x14($sp)
-/*    428d4:	8fad000c */ 	lw	$t5,0xc($sp)
-/*    428d8:	00187840 */ 	sll	$t7,$t8,0x1
-/*    428dc:	01cfc821 */ 	addu	$t9,$t6,$t7
-/*    428e0:	87280000 */ 	lh	$t0,0x0($t9)
-/*    428e4:	8faa0010 */ 	lw	$t2,0x10($sp)
-/*    428e8:	c5a60000 */ 	lwc1	$f6,0x0($t5)
-/*    428ec:	00084880 */ 	sll	$t1,$t0,0x2
-/*    428f0:	01495821 */ 	addu	$t3,$t2,$t1
-/*    428f4:	e5660000 */ 	swc1	$f6,0x0($t3)
-/*    428f8:	8fb8000c */ 	lw	$t8,0xc($sp)
-/*    428fc:	8fac0008 */ 	lw	$t4,0x8($sp)
-/*    42900:	270e0004 */ 	addiu	$t6,$t8,0x4
-/*    42904:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*    42908:	afad0008 */ 	sw	$t5,0x8($sp)
-/*    4290c:	afae000c */ 	sw	$t6,0xc($sp)
-/*    42910:	8faf0008 */ 	lw	$t7,0x8($sp)
-/*    42914:	29e10240 */ 	slti	$at,$t7,0x240
-/*    42918:	1420ffec */ 	bnez	$at,.L000428cc
-/*    4291c:	00000000 */ 	nop
-.L00042920:
-/*    42920:	10000015 */ 	b	.L00042978
-/*    42924:	00000000 */ 	nop
-.L00042928:
-/*    42928:	8fb90008 */ 	lw	$t9,0x8($sp)
-/*    4292c:	2b260240 */ 	slti	$a2,$t9,0x240
-/*    42930:	27280001 */ 	addiu	$t0,$t9,0x1
-/*    42934:	10c00010 */ 	beqz	$a2,.L00042978
-/*    42938:	afa80008 */ 	sw	$t0,0x8($sp)
-.L0004293c:
-/*    4293c:	8faa000c */ 	lw	$t2,0xc($sp)
-/*    42940:	8fa90010 */ 	lw	$t1,0x10($sp)
-/*    42944:	c5480000 */ 	lwc1	$f8,0x0($t2)
-/*    42948:	e5280000 */ 	swc1	$f8,0x0($t1)
-/*    4294c:	8fad000c */ 	lw	$t5,0xc($sp)
-/*    42950:	8fab0010 */ 	lw	$t3,0x10($sp)
-/*    42954:	25b80004 */ 	addiu	$t8,$t5,0x4
-/*    42958:	256c0004 */ 	addiu	$t4,$t3,0x4
-/*    4295c:	afac0010 */ 	sw	$t4,0x10($sp)
-/*    42960:	afb8000c */ 	sw	$t8,0xc($sp)
-/*    42964:	8fae0008 */ 	lw	$t6,0x8($sp)
-/*    42968:	29c60240 */ 	slti	$a2,$t6,0x240
-/*    4296c:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*    42970:	14c0fff2 */ 	bnez	$a2,.L0004293c
-/*    42974:	afaf0008 */ 	sw	$t7,0x8($sp)
-.L00042978:
-/*    42978:	10000003 */ 	b	.L00042988
-/*    4297c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    42980:	10000001 */ 	b	.L00042988
-/*    42984:	00000000 */ 	nop
-.L00042988:
-/*    42988:	03e00008 */ 	jr	$ra
-/*    4298c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+bool func000427d8(struct asistream *stream, u32 arg1)
+{
+	s16 *sp14 = var70057b9c[stream->unk3ba4][stream->unk3bb4];
+	f32 *sp10 = stream->unk4f64[0][0].unk00;
+	f32 *sp0c = stream->unk4664[0].unk00;
+	s32 i = 0;
+
+	if (stream->unk3c98[arg1][0] && stream->unk3c98[arg1][2] == 2) {
+		if (stream->unk3c98[arg1][4]) {
+			while (i++ < 36) {
+				*(sp10++) = *(sp0c++);
+			}
+		}
+
+		while (i < 576) {
+			sp10[sp14[i++]] = *(sp0c++);
+		}
+	} else {
+		while (i++ < 576) {
+			*(sp10++) = *(sp0c++);
+		}
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func00042990

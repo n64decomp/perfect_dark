@@ -7393,7 +7393,8 @@ struct asistream {
 	s32 unk3f8c;
 	u8 unk3f90[0x6cc];
 	s32 unk465c;
-	u8 unk4660[0x904];
+	u32 unk4660;
+	struct asistream_4f64 unk4664[32];
 	struct asistream_4f64 unk4f64[2][32];
 	u8 unk6164[0x900];
 	struct asistream_4f64 unk6a64[2][32];
