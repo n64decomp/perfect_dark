@@ -479,42 +479,17 @@ void func00033090(struct sndstate *state)
 	_removeEvents(&g_SndPlayer->evtq, (N_ALSoundState *)state, 0xffff);
 }
 
-GLOBAL_ASM(
-glabel func00033100
-/*    33100:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    33104:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    33108:	afa40030 */ 	sw	$a0,0x30($sp)
-/*    3310c:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*    33110:	8dcf0008 */ 	lw	$t7,0x8($t6)
-/*    33114:	8df80004 */ 	lw	$t8,0x4($t7)
-/*    33118:	0c00e7f8 */ 	jal	alCents2Ratio
-/*    3311c:	83040005 */ 	lb	$a0,0x5($t8)
-/*    33120:	8fb90030 */ 	lw	$t9,0x30($sp)
-/*    33124:	c724002c */ 	lwc1	$f4,0x2c($t9)
-/*    33128:	46040182 */ 	mul.s	$f6,$f0,$f4
-/*    3312c:	e7a6001c */ 	swc1	$f6,0x1c($sp)
-/*    33130:	24080010 */ 	addiu	$t0,$zero,0x10
-/*    33134:	a7a80020 */ 	sh	$t0,0x20($sp)
-/*    33138:	8fa90030 */ 	lw	$t1,0x30($sp)
-/*    3313c:	afa90024 */ 	sw	$t1,0x24($sp)
-/*    33140:	27aa001c */ 	addiu	$t2,$sp,0x1c
-/*    33144:	8d4b0000 */ 	lw	$t3,0x0($t2)
-/*    33148:	afab0028 */ 	sw	$t3,0x28($sp)
-/*    3314c:	3c048006 */ 	lui	$a0,%hi(g_SndPlayer)
-/*    33150:	8c84f12c */ 	lw	$a0,%lo(g_SndPlayer)($a0)
-/*    33154:	27a50020 */ 	addiu	$a1,$sp,0x20
-/*    33158:	34068235 */ 	dli	$a2,0x8235
-/*    3315c:	00003825 */ 	or	$a3,$zero,$zero
-/*    33160:	0c00f184 */ 	jal	n_alEvtqPostEvent
-/*    33164:	24840014 */ 	addiu	$a0,$a0,20
-/*    33168:	10000001 */ 	b	.L00033170
-/*    3316c:	00000000 */ 	nop
-.L00033170:
-/*    33170:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    33174:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    33178:	03e00008 */ 	jr	$ra
-/*    3317c:	00000000 */ 	nop
-);
+void func00033100(struct sndstate *state)
+{
+	N_ALSndpEvent evt;
+	f32 pitch = alCents2Ratio(state->sound->keyMap->detune) * state->pitch;
+
+	evt.common.type = AL_SNDP_PITCH_EVT;
+	evt.common.state = (N_ALSoundState *)state;
+	evt.common.unk08 = *(u32 *)&pitch;
+
+	n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt.msg, 33333, 0);
+}
 
 void _removeEvents(ALEventQueue *evtq, N_ALSoundState *state, u16 typemask)
 {
