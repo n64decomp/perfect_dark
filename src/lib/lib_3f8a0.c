@@ -3392,23 +3392,27 @@ const s16 var70057b9c[2][3][576] = {
 	},
 };
 
-const u32 var7005969c[] = {0xbf03b5fe};
-const u32 var700596a0[] = {0xbef186da};
-const u32 var700596a4[] = {0xbea07302};
-const u32 var700596a8[] = {0xbe3a4774};
-const u32 var700596ac[] = {0xbdc1b01d};
-const u32 var700596b0[] = {0xbd27cb87};
-const u32 var700596b4[] = {0xbc68a11d};
-const u32 var700596b8[] = {0xbb727b46};
+const f32 var7005969c[] = {
+	-0.51449573040009,
+	-0.47173196077347,
+	-0.31337743997574,
+	-0.18191319704056,
+	-0.094574190676212,
+	-0.040965583175421,
+	-0.01419856864959,
+	-0.0036999746225774,
+};
 
-const u32 var700596bc[] = {0x3f5b84a8};
-const u32 var700596c0[] = {0x3f61b9d8};
-const u32 var700596c4[] = {0x3f731add};
-const u32 var700596c8[] = {0x3f7bba81};
-const u32 var700596cc[] = {0x3f7eda41};
-const u32 var700596d0[] = {0x3f7fc8fd};
-const u32 var700596d4[] = {0x3f7ff965};
-const u32 var700596d8[] = {0x3f7fff8d};
+const f32 var700596bc[] = {
+	0.85749292373657,
+	0.88174200057983,
+	0.94962865114212,
+	0.9833145737648,
+	0.99551779031754,
+	0.99916058778763,
+	0.99989920854568,
+	0.99999314546585,
+};
 
 const u32 var700596dc[] = {0x00000000};
 const u32 var700596e0[] = {0x00001f40};
@@ -3668,102 +3672,6 @@ const u32 var70059ad0[] = {0x3fff069a};
 
 const u32 var70059ad4[] = {0x80402010};
 const u32 var70059ad8[] = {0x08040201};
-
-const u32 var70059adc[] = {0x00000000};
-const u32 var70059ae0[] = {0x00000000};
-const u32 var70059ae4[] = {0x00000000};
-const u32 var70059ae8[] = {0x00000000};
-const u32 var70059aec[] = {0x00000000};
-const u32 var70059af0[] = {0x00000000};
-const u32 var70059af4[] = {0x00000000};
-const u32 var70059af8[] = {0x00000000};
-const u32 var70059afc[] = {0x00000000};
-const u32 var70059b00[] = {0x00000000};
-const u32 var70059b04[] = {0x00000000};
-const u32 var70059b08[] = {0x00000001};
-const u32 var70059b0c[] = {0x00000001};
-const u32 var70059b10[] = {0x00000001};
-const u32 var70059b14[] = {0x00000001};
-const u32 var70059b18[] = {0x00000002};
-const u32 var70059b1c[] = {0x00000002};
-const u32 var70059b20[] = {0x00000003};
-const u32 var70059b24[] = {0x00000003};
-const u32 var70059b28[] = {0x00000003};
-const u32 var70059b2c[] = {0x00000002};
-const u32 var70059b30[] = {0x00000000};
-
-const u32 var70059b34[] = {0x00000006};
-const u32 var70059b38[] = {0x00000005};
-const u32 var70059b3c[] = {0x00000005};
-const u32 var70059b40[] = {0x00000005};
-const u32 var70059b44[] = {0x00000009};
-const u32 var70059b48[] = {0x00000009};
-const u32 var70059b4c[] = {0x00000009};
-const u32 var70059b50[] = {0x00000009};
-const u32 var70059b54[] = {0x00000006};
-const u32 var70059b58[] = {0x00000009};
-const u32 var70059b5c[] = {0x00000009};
-const u32 var70059b60[] = {0x00000009};
-const u32 var70059b64[] = {0x00000006};
-const u32 var70059b68[] = {0x00000005};
-const u32 var70059b6c[] = {0x00000007};
-const u32 var70059b70[] = {0x00000003};
-const u32 var70059b74[] = {0x00000009};
-const u32 var70059b78[] = {0x00000009};
-const u32 var70059b7c[] = {0x0000000c};
-const u32 var70059b80[] = {0x00000006};
-const u32 var70059b84[] = {0x00000006};
-const u32 var70059b88[] = {0x00000009};
-const u32 var70059b8c[] = {0x0000000c};
-const u32 var70059b90[] = {0x00000006};
-const u32 var70059b94[] = {0x0000000b};
-const u32 var70059b98[] = {0x0000000a};
-const u32 var70059b9c[] = {0x00000000};
-const u32 var70059ba0[] = {0x00000000};
-const u32 var70059ba4[] = {0x00000012};
-const u32 var70059ba8[] = {0x00000012};
-const u32 var70059bac[] = {0x00000000};
-const u32 var70059bb0[] = {0x00000000};
-const u32 var70059bb4[] = {0x0000000f};
-const u32 var70059bb8[] = {0x00000012};
-const u32 var70059bbc[] = {0x00000000};
-const u32 var70059bc0[] = {0x00000000};
-const u32 var70059bc4[] = {0x00000007};
-const u32 var70059bc8[] = {0x00000007};
-const u32 var70059bcc[] = {0x00000007};
-const u32 var70059bd0[] = {0x00000000};
-const u32 var70059bd4[] = {0x0000000c};
-const u32 var70059bd8[] = {0x0000000c};
-const u32 var70059bdc[] = {0x0000000c};
-const u32 var70059be0[] = {0x00000000};
-const u32 var70059be4[] = {0x00000006};
-const u32 var70059be8[] = {0x0000000f};
-const u32 var70059bec[] = {0x0000000c};
-const u32 var70059bf0[] = {0x00000000};
-const u32 var70059bf4[] = {0x00000006};
-const u32 var70059bf8[] = {0x00000006};
-const u32 var70059bfc[] = {0x00000006};
-const u32 var70059c00[] = {0x00000003};
-const u32 var70059c04[] = {0x0000000c};
-const u32 var70059c08[] = {0x00000009};
-const u32 var70059c0c[] = {0x00000009};
-const u32 var70059c10[] = {0x00000006};
-const u32 var70059c14[] = {0x00000006};
-const u32 var70059c18[] = {0x0000000c};
-const u32 var70059c1c[] = {0x00000009};
-const u32 var70059c20[] = {0x00000006};
-const u32 var70059c24[] = {0x00000008};
-const u32 var70059c28[] = {0x00000008};
-const u32 var70059c2c[] = {0x00000005};
-const u32 var70059c30[] = {0x00000000};
-const u32 var70059c34[] = {0x0000000f};
-const u32 var70059c38[] = {0x0000000c};
-const u32 var70059c3c[] = {0x00000009};
-const u32 var70059c40[] = {0x00000000};
-const u32 var70059c44[] = {0x00000006};
-const u32 var70059c48[] = {0x00000012};
-const u32 var70059c4c[] = {0x00000009};
-const u32 var70059c50[] = {0x00000000};
 
 GLOBAL_ASM(
 glabel func0003f8a0
@@ -4381,6 +4289,29 @@ glabel var70059c68
 /*    4015c:	03e00008 */ 	jr	$ra
 /*    40160:	00000000 */ 	nop
 );
+
+const u32 var70059adc[] = {0x00000000};
+const u32 var70059ae0[] = {0x00000000};
+const u32 var70059ae4[] = {0x00000000};
+const u32 var70059ae8[] = {0x00000000};
+const u32 var70059aec[] = {0x00000000};
+const u32 var70059af0[] = {0x00000000};
+const u32 var70059af4[] = {0x00000000};
+const u32 var70059af8[] = {0x00000000};
+const u32 var70059afc[] = {0x00000000};
+const u32 var70059b00[] = {0x00000000};
+const u32 var70059b04[] = {0x00000000};
+const u32 var70059b08[] = {0x00000001};
+const u32 var70059b0c[] = {0x00000001};
+const u32 var70059b10[] = {0x00000001};
+const u32 var70059b14[] = {0x00000001};
+const u32 var70059b18[] = {0x00000002};
+const u32 var70059b1c[] = {0x00000002};
+const u32 var70059b20[] = {0x00000003};
+const u32 var70059b24[] = {0x00000003};
+const u32 var70059b28[] = {0x00000003};
+const u32 var70059b2c[] = {0x00000002};
+const u32 var70059b30[] = {0x00000000};
 
 GLOBAL_ASM(
 glabel func00040164
@@ -5780,6 +5711,79 @@ glabel func00040dac
 /*    415fc:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
+const u32 var70059b34[] = {0x00000006};
+const u32 var70059b38[] = {0x00000005};
+const u32 var70059b3c[] = {0x00000005};
+const u32 var70059b40[] = {0x00000005};
+const u32 var70059b44[] = {0x00000009};
+const u32 var70059b48[] = {0x00000009};
+const u32 var70059b4c[] = {0x00000009};
+const u32 var70059b50[] = {0x00000009};
+const u32 var70059b54[] = {0x00000006};
+const u32 var70059b58[] = {0x00000009};
+const u32 var70059b5c[] = {0x00000009};
+const u32 var70059b60[] = {0x00000009};
+const u32 var70059b64[] = {0x00000006};
+const u32 var70059b68[] = {0x00000005};
+const u32 var70059b6c[] = {0x00000007};
+const u32 var70059b70[] = {0x00000003};
+const u32 var70059b74[] = {0x00000009};
+const u32 var70059b78[] = {0x00000009};
+const u32 var70059b7c[] = {0x0000000c};
+const u32 var70059b80[] = {0x00000006};
+const u32 var70059b84[] = {0x00000006};
+const u32 var70059b88[] = {0x00000009};
+const u32 var70059b8c[] = {0x0000000c};
+const u32 var70059b90[] = {0x00000006};
+const u32 var70059b94[] = {0x0000000b};
+const u32 var70059b98[] = {0x0000000a};
+const u32 var70059b9c[] = {0x00000000};
+const u32 var70059ba0[] = {0x00000000};
+const u32 var70059ba4[] = {0x00000012};
+const u32 var70059ba8[] = {0x00000012};
+const u32 var70059bac[] = {0x00000000};
+const u32 var70059bb0[] = {0x00000000};
+const u32 var70059bb4[] = {0x0000000f};
+const u32 var70059bb8[] = {0x00000012};
+const u32 var70059bbc[] = {0x00000000};
+const u32 var70059bc0[] = {0x00000000};
+const u32 var70059bc4[] = {0x00000007};
+const u32 var70059bc8[] = {0x00000007};
+const u32 var70059bcc[] = {0x00000007};
+const u32 var70059bd0[] = {0x00000000};
+const u32 var70059bd4[] = {0x0000000c};
+const u32 var70059bd8[] = {0x0000000c};
+const u32 var70059bdc[] = {0x0000000c};
+const u32 var70059be0[] = {0x00000000};
+const u32 var70059be4[] = {0x00000006};
+const u32 var70059be8[] = {0x0000000f};
+const u32 var70059bec[] = {0x0000000c};
+const u32 var70059bf0[] = {0x00000000};
+const u32 var70059bf4[] = {0x00000006};
+const u32 var70059bf8[] = {0x00000006};
+const u32 var70059bfc[] = {0x00000006};
+const u32 var70059c00[] = {0x00000003};
+const u32 var70059c04[] = {0x0000000c};
+const u32 var70059c08[] = {0x00000009};
+const u32 var70059c0c[] = {0x00000009};
+const u32 var70059c10[] = {0x00000006};
+const u32 var70059c14[] = {0x00000006};
+const u32 var70059c18[] = {0x0000000c};
+const u32 var70059c1c[] = {0x00000009};
+const u32 var70059c20[] = {0x00000006};
+const u32 var70059c24[] = {0x00000008};
+const u32 var70059c28[] = {0x00000008};
+const u32 var70059c2c[] = {0x00000005};
+const u32 var70059c30[] = {0x00000000};
+const u32 var70059c34[] = {0x0000000f};
+const u32 var70059c38[] = {0x0000000c};
+const u32 var70059c3c[] = {0x00000009};
+const u32 var70059c40[] = {0x00000000};
+const u32 var70059c44[] = {0x00000006};
+const u32 var70059c48[] = {0x00000012};
+const u32 var70059c4c[] = {0x00000009};
+const u32 var70059c50[] = {0x00000000};
+
 GLOBAL_ASM(
 glabel func00041600
 /*    41600:	27bdfe70 */ 	addiu	$sp,$sp,-400
@@ -7003,7 +7007,7 @@ glabel func00042238
 
 bool func000427d8(struct asistream *stream, u32 arg1)
 {
-	s16 *sp14 = var70057b9c[stream->unk3ba4][stream->unk3bb4];
+	const s16 *sp14 = var70057b9c[stream->unk3ba4][stream->unk3bb4];
 	f32 *sp10 = stream->unk4f64[0][0].unk00;
 	f32 *sp0c = stream->unk4664[0].unk00;
 	s32 i = 0;
@@ -7027,310 +7031,62 @@ bool func000427d8(struct asistream *stream, u32 arg1)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func00042990
-/*    42990:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*    42994:	00057080 */ 	sll	$t6,$a1,0x2
-/*    42998:	008e7821 */ 	addu	$t7,$a0,$t6
-/*    4299c:	0006c080 */ 	sll	$t8,$a2,0x2
-/*    429a0:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*    429a4:	8f283c98 */ 	lw	$t0,0x3c98($t9)
-/*    429a8:	1100000b */ 	beqz	$t0,.L000429d8
-/*    429ac:	00000000 */ 	nop
-/*    429b0:	00054880 */ 	sll	$t1,$a1,0x2
-/*    429b4:	00895021 */ 	addu	$t2,$a0,$t1
-/*    429b8:	00065880 */ 	sll	$t3,$a2,0x2
-/*    429bc:	014b6021 */ 	addu	$t4,$t2,$t3
-/*    429c0:	8d8d3ca0 */ 	lw	$t5,0x3ca0($t4)
-/*    429c4:	24010002 */ 	addiu	$at,$zero,0x2
-/*    429c8:	15a10003 */ 	bne	$t5,$at,.L000429d8
-/*    429cc:	00000000 */ 	nop
-/*    429d0:	10000117 */ 	b	.L00042e30
-/*    429d4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L000429d8:
-/*    429d8:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*    429dc:	afae000c */ 	sw	$t6,0xc($sp)
-.L000429e0:
-/*    429e0:	8fb9000c */ 	lw	$t9,0xc($sp)
-/*    429e4:	000678c0 */ 	sll	$t7,$a2,0x3
-/*    429e8:	01e67821 */ 	addu	$t7,$t7,$a2
-/*    429ec:	001940c0 */ 	sll	$t0,$t9,0x3
-/*    429f0:	000f7a00 */ 	sll	$t7,$t7,0x8
-/*    429f4:	01194021 */ 	addu	$t0,$t0,$t9
-/*    429f8:	000840c0 */ 	sll	$t0,$t0,0x3
-/*    429fc:	008fc021 */ 	addu	$t8,$a0,$t7
-/*    42a00:	03084821 */ 	addu	$t1,$t8,$t0
-/*    42a04:	252a4f64 */ 	addiu	$t2,$t1,0x4f64
-/*    42a08:	afaa0008 */ 	sw	$t2,0x8($sp)
-/*    42a0c:	8fab0008 */ 	lw	$t3,0x8($sp)
-/*    42a10:	c5640000 */ 	lwc1	$f4,0x0($t3)
-/*    42a14:	e7a40004 */ 	swc1	$f4,0x4($sp)
-/*    42a18:	8fac0008 */ 	lw	$t4,0x8($sp)
-/*    42a1c:	c586fffc */ 	lwc1	$f6,-0x4($t4)
-/*    42a20:	e7a60000 */ 	swc1	$f6,0x0($sp)
-/*    42a24:	3c0d7006 */ 	lui	$t5,%hi(var700596bc)
-/*    42a28:	25ad96bc */ 	addiu	$t5,$t5,%lo(var700596bc)
-/*    42a2c:	c5aa0000 */ 	lwc1	$f10,0x0($t5)
-/*    42a30:	c7a80000 */ 	lwc1	$f8,0x0($sp)
-/*    42a34:	3c0e7006 */ 	lui	$t6,%hi(var7005969c)
-/*    42a38:	25ce969c */ 	addiu	$t6,$t6,%lo(var7005969c)
-/*    42a3c:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*    42a40:	c5d20000 */ 	lwc1	$f18,0x0($t6)
-/*    42a44:	c7a40004 */ 	lwc1	$f4,0x4($sp)
-/*    42a48:	8faf0008 */ 	lw	$t7,0x8($sp)
-/*    42a4c:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*    42a50:	46068201 */ 	sub.s	$f8,$f16,$f6
-/*    42a54:	e5e8fffc */ 	swc1	$f8,-0x4($t7)
-/*    42a58:	3c197006 */ 	lui	$t9,%hi(var7005969c)
-/*    42a5c:	2739969c */ 	addiu	$t9,$t9,%lo(var7005969c)
-/*    42a60:	c72a0000 */ 	lwc1	$f10,0x0($t9)
-/*    42a64:	c7b20000 */ 	lwc1	$f18,0x0($sp)
-/*    42a68:	3c187006 */ 	lui	$t8,%hi(var700596bc)
-/*    42a6c:	271896bc */ 	addiu	$t8,$t8,%lo(var700596bc)
-/*    42a70:	46125102 */ 	mul.s	$f4,$f10,$f18
-/*    42a74:	c7060000 */ 	lwc1	$f6,0x0($t8)
-/*    42a78:	c7b00004 */ 	lwc1	$f16,0x4($sp)
-/*    42a7c:	8fa80008 */ 	lw	$t0,0x8($sp)
-/*    42a80:	46068202 */ 	mul.s	$f8,$f16,$f6
-/*    42a84:	46082280 */ 	add.s	$f10,$f4,$f8
-/*    42a88:	e50a0000 */ 	swc1	$f10,0x0($t0)
-/*    42a8c:	8fa90008 */ 	lw	$t1,0x8($sp)
-/*    42a90:	c5320004 */ 	lwc1	$f18,0x4($t1)
-/*    42a94:	e7b20004 */ 	swc1	$f18,0x4($sp)
-/*    42a98:	8faa0008 */ 	lw	$t2,0x8($sp)
-/*    42a9c:	c550fff8 */ 	lwc1	$f16,-0x8($t2)
-/*    42aa0:	e7b00000 */ 	swc1	$f16,0x0($sp)
-/*    42aa4:	3c0b7006 */ 	lui	$t3,%hi(var700596bc)
-/*    42aa8:	256b96bc */ 	addiu	$t3,$t3,%lo(var700596bc)
-/*    42aac:	c5640004 */ 	lwc1	$f4,0x4($t3)
-/*    42ab0:	c7a60000 */ 	lwc1	$f6,0x0($sp)
-/*    42ab4:	3c0c7006 */ 	lui	$t4,%hi(var7005969c)
-/*    42ab8:	258c969c */ 	addiu	$t4,$t4,%lo(var7005969c)
-/*    42abc:	46043202 */ 	mul.s	$f8,$f6,$f4
-/*    42ac0:	c58a0004 */ 	lwc1	$f10,0x4($t4)
-/*    42ac4:	c7b20004 */ 	lwc1	$f18,0x4($sp)
-/*    42ac8:	8fad0008 */ 	lw	$t5,0x8($sp)
-/*    42acc:	46125402 */ 	mul.s	$f16,$f10,$f18
-/*    42ad0:	46104181 */ 	sub.s	$f6,$f8,$f16
-/*    42ad4:	e5a6fff8 */ 	swc1	$f6,-0x8($t5)
-/*    42ad8:	3c0e7006 */ 	lui	$t6,%hi(var7005969c)
-/*    42adc:	25ce969c */ 	addiu	$t6,$t6,%lo(var7005969c)
-/*    42ae0:	c5c40004 */ 	lwc1	$f4,0x4($t6)
-/*    42ae4:	c7aa0000 */ 	lwc1	$f10,0x0($sp)
-/*    42ae8:	3c0f7006 */ 	lui	$t7,%hi(var700596bc)
-/*    42aec:	25ef96bc */ 	addiu	$t7,$t7,%lo(var700596bc)
-/*    42af0:	460a2482 */ 	mul.s	$f18,$f4,$f10
-/*    42af4:	c5f00004 */ 	lwc1	$f16,0x4($t7)
-/*    42af8:	c7a80004 */ 	lwc1	$f8,0x4($sp)
-/*    42afc:	8fb90008 */ 	lw	$t9,0x8($sp)
-/*    42b00:	46104182 */ 	mul.s	$f6,$f8,$f16
-/*    42b04:	46069100 */ 	add.s	$f4,$f18,$f6
-/*    42b08:	e7240004 */ 	swc1	$f4,0x4($t9)
-/*    42b0c:	8fb80008 */ 	lw	$t8,0x8($sp)
-/*    42b10:	c70a0008 */ 	lwc1	$f10,0x8($t8)
-/*    42b14:	e7aa0004 */ 	swc1	$f10,0x4($sp)
-/*    42b18:	8fa80008 */ 	lw	$t0,0x8($sp)
-/*    42b1c:	c508fff4 */ 	lwc1	$f8,-0xc($t0)
-/*    42b20:	e7a80000 */ 	swc1	$f8,0x0($sp)
-/*    42b24:	3c097006 */ 	lui	$t1,%hi(var700596bc)
-/*    42b28:	252996bc */ 	addiu	$t1,$t1,%lo(var700596bc)
-/*    42b2c:	c5320008 */ 	lwc1	$f18,0x8($t1)
-/*    42b30:	c7b00000 */ 	lwc1	$f16,0x0($sp)
-/*    42b34:	3c0a7006 */ 	lui	$t2,%hi(var7005969c)
-/*    42b38:	254a969c */ 	addiu	$t2,$t2,%lo(var7005969c)
-/*    42b3c:	46128182 */ 	mul.s	$f6,$f16,$f18
-/*    42b40:	c5440008 */ 	lwc1	$f4,0x8($t2)
-/*    42b44:	c7aa0004 */ 	lwc1	$f10,0x4($sp)
-/*    42b48:	8fab0008 */ 	lw	$t3,0x8($sp)
-/*    42b4c:	460a2202 */ 	mul.s	$f8,$f4,$f10
-/*    42b50:	46083401 */ 	sub.s	$f16,$f6,$f8
-/*    42b54:	e570fff4 */ 	swc1	$f16,-0xc($t3)
-/*    42b58:	3c0c7006 */ 	lui	$t4,%hi(var7005969c)
-/*    42b5c:	258c969c */ 	addiu	$t4,$t4,%lo(var7005969c)
-/*    42b60:	c5920008 */ 	lwc1	$f18,0x8($t4)
-/*    42b64:	c7a40000 */ 	lwc1	$f4,0x0($sp)
-/*    42b68:	3c0d7006 */ 	lui	$t5,%hi(var700596bc)
-/*    42b6c:	25ad96bc */ 	addiu	$t5,$t5,%lo(var700596bc)
-/*    42b70:	46049282 */ 	mul.s	$f10,$f18,$f4
-/*    42b74:	c5a80008 */ 	lwc1	$f8,0x8($t5)
-/*    42b78:	c7a60004 */ 	lwc1	$f6,0x4($sp)
-/*    42b7c:	8fae0008 */ 	lw	$t6,0x8($sp)
-/*    42b80:	46083402 */ 	mul.s	$f16,$f6,$f8
-/*    42b84:	46105480 */ 	add.s	$f18,$f10,$f16
-/*    42b88:	e5d20008 */ 	swc1	$f18,0x8($t6)
-/*    42b8c:	8faf0008 */ 	lw	$t7,0x8($sp)
-/*    42b90:	c5e4000c */ 	lwc1	$f4,0xc($t7)
-/*    42b94:	e7a40004 */ 	swc1	$f4,0x4($sp)
-/*    42b98:	8fb90008 */ 	lw	$t9,0x8($sp)
-/*    42b9c:	c726fff0 */ 	lwc1	$f6,-0x10($t9)
-/*    42ba0:	e7a60000 */ 	swc1	$f6,0x0($sp)
-/*    42ba4:	3c187006 */ 	lui	$t8,%hi(var700596bc)
-/*    42ba8:	271896bc */ 	addiu	$t8,$t8,%lo(var700596bc)
-/*    42bac:	c70a000c */ 	lwc1	$f10,0xc($t8)
-/*    42bb0:	c7a80000 */ 	lwc1	$f8,0x0($sp)
-/*    42bb4:	3c087006 */ 	lui	$t0,%hi(var7005969c)
-/*    42bb8:	2508969c */ 	addiu	$t0,$t0,%lo(var7005969c)
-/*    42bbc:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*    42bc0:	c512000c */ 	lwc1	$f18,0xc($t0)
-/*    42bc4:	c7a40004 */ 	lwc1	$f4,0x4($sp)
-/*    42bc8:	8fa90008 */ 	lw	$t1,0x8($sp)
-/*    42bcc:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*    42bd0:	46068201 */ 	sub.s	$f8,$f16,$f6
-/*    42bd4:	e528fff0 */ 	swc1	$f8,-0x10($t1)
-/*    42bd8:	3c0a7006 */ 	lui	$t2,%hi(var7005969c)
-/*    42bdc:	254a969c */ 	addiu	$t2,$t2,%lo(var7005969c)
-/*    42be0:	c54a000c */ 	lwc1	$f10,0xc($t2)
-/*    42be4:	c7b20000 */ 	lwc1	$f18,0x0($sp)
-/*    42be8:	3c0b7006 */ 	lui	$t3,%hi(var700596bc)
-/*    42bec:	256b96bc */ 	addiu	$t3,$t3,%lo(var700596bc)
-/*    42bf0:	46125102 */ 	mul.s	$f4,$f10,$f18
-/*    42bf4:	c566000c */ 	lwc1	$f6,0xc($t3)
-/*    42bf8:	c7b00004 */ 	lwc1	$f16,0x4($sp)
-/*    42bfc:	8fac0008 */ 	lw	$t4,0x8($sp)
-/*    42c00:	46068202 */ 	mul.s	$f8,$f16,$f6
-/*    42c04:	46082280 */ 	add.s	$f10,$f4,$f8
-/*    42c08:	e58a000c */ 	swc1	$f10,0xc($t4)
-/*    42c0c:	8fad0008 */ 	lw	$t5,0x8($sp)
-/*    42c10:	c5b20010 */ 	lwc1	$f18,0x10($t5)
-/*    42c14:	e7b20004 */ 	swc1	$f18,0x4($sp)
-/*    42c18:	8fae0008 */ 	lw	$t6,0x8($sp)
-/*    42c1c:	c5d0ffec */ 	lwc1	$f16,-0x14($t6)
-/*    42c20:	e7b00000 */ 	swc1	$f16,0x0($sp)
-/*    42c24:	3c0f7006 */ 	lui	$t7,%hi(var700596bc)
-/*    42c28:	25ef96bc */ 	addiu	$t7,$t7,%lo(var700596bc)
-/*    42c2c:	c5e40010 */ 	lwc1	$f4,0x10($t7)
-/*    42c30:	c7a60000 */ 	lwc1	$f6,0x0($sp)
-/*    42c34:	3c197006 */ 	lui	$t9,%hi(var7005969c)
-/*    42c38:	2739969c */ 	addiu	$t9,$t9,%lo(var7005969c)
-/*    42c3c:	46043202 */ 	mul.s	$f8,$f6,$f4
-/*    42c40:	c72a0010 */ 	lwc1	$f10,0x10($t9)
-/*    42c44:	c7b20004 */ 	lwc1	$f18,0x4($sp)
-/*    42c48:	8fb80008 */ 	lw	$t8,0x8($sp)
-/*    42c4c:	46125402 */ 	mul.s	$f16,$f10,$f18
-/*    42c50:	46104181 */ 	sub.s	$f6,$f8,$f16
-/*    42c54:	e706ffec */ 	swc1	$f6,-0x14($t8)
-/*    42c58:	3c087006 */ 	lui	$t0,%hi(var7005969c)
-/*    42c5c:	2508969c */ 	addiu	$t0,$t0,%lo(var7005969c)
-/*    42c60:	c5040010 */ 	lwc1	$f4,0x10($t0)
-/*    42c64:	c7aa0000 */ 	lwc1	$f10,0x0($sp)
-/*    42c68:	3c097006 */ 	lui	$t1,%hi(var700596bc)
-/*    42c6c:	252996bc */ 	addiu	$t1,$t1,%lo(var700596bc)
-/*    42c70:	460a2482 */ 	mul.s	$f18,$f4,$f10
-/*    42c74:	c5300010 */ 	lwc1	$f16,0x10($t1)
-/*    42c78:	c7a80004 */ 	lwc1	$f8,0x4($sp)
-/*    42c7c:	8faa0008 */ 	lw	$t2,0x8($sp)
-/*    42c80:	46104182 */ 	mul.s	$f6,$f8,$f16
-/*    42c84:	46069100 */ 	add.s	$f4,$f18,$f6
-/*    42c88:	e5440010 */ 	swc1	$f4,0x10($t2)
-/*    42c8c:	8fab0008 */ 	lw	$t3,0x8($sp)
-/*    42c90:	c56a0014 */ 	lwc1	$f10,0x14($t3)
-/*    42c94:	e7aa0004 */ 	swc1	$f10,0x4($sp)
-/*    42c98:	8fac0008 */ 	lw	$t4,0x8($sp)
-/*    42c9c:	c588ffe8 */ 	lwc1	$f8,-0x18($t4)
-/*    42ca0:	e7a80000 */ 	swc1	$f8,0x0($sp)
-/*    42ca4:	3c0d7006 */ 	lui	$t5,%hi(var700596bc)
-/*    42ca8:	25ad96bc */ 	addiu	$t5,$t5,%lo(var700596bc)
-/*    42cac:	c5b20014 */ 	lwc1	$f18,0x14($t5)
-/*    42cb0:	c7b00000 */ 	lwc1	$f16,0x0($sp)
-/*    42cb4:	3c0e7006 */ 	lui	$t6,%hi(var7005969c)
-/*    42cb8:	25ce969c */ 	addiu	$t6,$t6,%lo(var7005969c)
-/*    42cbc:	46128182 */ 	mul.s	$f6,$f16,$f18
-/*    42cc0:	c5c40014 */ 	lwc1	$f4,0x14($t6)
-/*    42cc4:	c7aa0004 */ 	lwc1	$f10,0x4($sp)
-/*    42cc8:	8faf0008 */ 	lw	$t7,0x8($sp)
-/*    42ccc:	460a2202 */ 	mul.s	$f8,$f4,$f10
-/*    42cd0:	46083401 */ 	sub.s	$f16,$f6,$f8
-/*    42cd4:	e5f0ffe8 */ 	swc1	$f16,-0x18($t7)
-/*    42cd8:	3c197006 */ 	lui	$t9,%hi(var7005969c)
-/*    42cdc:	2739969c */ 	addiu	$t9,$t9,%lo(var7005969c)
-/*    42ce0:	c7320014 */ 	lwc1	$f18,0x14($t9)
-/*    42ce4:	c7a40000 */ 	lwc1	$f4,0x0($sp)
-/*    42ce8:	3c187006 */ 	lui	$t8,%hi(var700596bc)
-/*    42cec:	271896bc */ 	addiu	$t8,$t8,%lo(var700596bc)
-/*    42cf0:	46049282 */ 	mul.s	$f10,$f18,$f4
-/*    42cf4:	c7080014 */ 	lwc1	$f8,0x14($t8)
-/*    42cf8:	c7a60004 */ 	lwc1	$f6,0x4($sp)
-/*    42cfc:	8fa80008 */ 	lw	$t0,0x8($sp)
-/*    42d00:	46083402 */ 	mul.s	$f16,$f6,$f8
-/*    42d04:	46105480 */ 	add.s	$f18,$f10,$f16
-/*    42d08:	e5120014 */ 	swc1	$f18,0x14($t0)
-/*    42d0c:	8fa90008 */ 	lw	$t1,0x8($sp)
-/*    42d10:	c5240018 */ 	lwc1	$f4,0x18($t1)
-/*    42d14:	e7a40004 */ 	swc1	$f4,0x4($sp)
-/*    42d18:	8faa0008 */ 	lw	$t2,0x8($sp)
-/*    42d1c:	c546ffe4 */ 	lwc1	$f6,-0x1c($t2)
-/*    42d20:	e7a60000 */ 	swc1	$f6,0x0($sp)
-/*    42d24:	3c0b7006 */ 	lui	$t3,%hi(var700596bc)
-/*    42d28:	256b96bc */ 	addiu	$t3,$t3,%lo(var700596bc)
-/*    42d2c:	c56a0018 */ 	lwc1	$f10,0x18($t3)
-/*    42d30:	c7a80000 */ 	lwc1	$f8,0x0($sp)
-/*    42d34:	3c0c7006 */ 	lui	$t4,%hi(var7005969c)
-/*    42d38:	258c969c */ 	addiu	$t4,$t4,%lo(var7005969c)
-/*    42d3c:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*    42d40:	c5920018 */ 	lwc1	$f18,0x18($t4)
-/*    42d44:	c7a40004 */ 	lwc1	$f4,0x4($sp)
-/*    42d48:	8fad0008 */ 	lw	$t5,0x8($sp)
-/*    42d4c:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*    42d50:	46068201 */ 	sub.s	$f8,$f16,$f6
-/*    42d54:	e5a8ffe4 */ 	swc1	$f8,-0x1c($t5)
-/*    42d58:	3c0e7006 */ 	lui	$t6,%hi(var7005969c)
-/*    42d5c:	25ce969c */ 	addiu	$t6,$t6,%lo(var7005969c)
-/*    42d60:	c5ca0018 */ 	lwc1	$f10,0x18($t6)
-/*    42d64:	c7b20000 */ 	lwc1	$f18,0x0($sp)
-/*    42d68:	3c0f7006 */ 	lui	$t7,%hi(var700596bc)
-/*    42d6c:	25ef96bc */ 	addiu	$t7,$t7,%lo(var700596bc)
-/*    42d70:	46125102 */ 	mul.s	$f4,$f10,$f18
-/*    42d74:	c5e60018 */ 	lwc1	$f6,0x18($t7)
-/*    42d78:	c7b00004 */ 	lwc1	$f16,0x4($sp)
-/*    42d7c:	8fb90008 */ 	lw	$t9,0x8($sp)
-/*    42d80:	46068202 */ 	mul.s	$f8,$f16,$f6
-/*    42d84:	46082280 */ 	add.s	$f10,$f4,$f8
-/*    42d88:	e72a0018 */ 	swc1	$f10,0x18($t9)
-/*    42d8c:	8fb80008 */ 	lw	$t8,0x8($sp)
-/*    42d90:	c712001c */ 	lwc1	$f18,0x1c($t8)
-/*    42d94:	e7b20004 */ 	swc1	$f18,0x4($sp)
-/*    42d98:	8fa80008 */ 	lw	$t0,0x8($sp)
-/*    42d9c:	c510ffe0 */ 	lwc1	$f16,-0x20($t0)
-/*    42da0:	e7b00000 */ 	swc1	$f16,0x0($sp)
-/*    42da4:	3c097006 */ 	lui	$t1,%hi(var700596bc)
-/*    42da8:	252996bc */ 	addiu	$t1,$t1,%lo(var700596bc)
-/*    42dac:	c524001c */ 	lwc1	$f4,0x1c($t1)
-/*    42db0:	c7a60000 */ 	lwc1	$f6,0x0($sp)
-/*    42db4:	3c0a7006 */ 	lui	$t2,%hi(var7005969c)
-/*    42db8:	254a969c */ 	addiu	$t2,$t2,%lo(var7005969c)
-/*    42dbc:	46043202 */ 	mul.s	$f8,$f6,$f4
-/*    42dc0:	c54a001c */ 	lwc1	$f10,0x1c($t2)
-/*    42dc4:	c7b20004 */ 	lwc1	$f18,0x4($sp)
-/*    42dc8:	8fab0008 */ 	lw	$t3,0x8($sp)
-/*    42dcc:	46125402 */ 	mul.s	$f16,$f10,$f18
-/*    42dd0:	46104181 */ 	sub.s	$f6,$f8,$f16
-/*    42dd4:	e566ffe0 */ 	swc1	$f6,-0x20($t3)
-/*    42dd8:	3c0c7006 */ 	lui	$t4,%hi(var7005969c)
-/*    42ddc:	258c969c */ 	addiu	$t4,$t4,%lo(var7005969c)
-/*    42de0:	c584001c */ 	lwc1	$f4,0x1c($t4)
-/*    42de4:	c7aa0000 */ 	lwc1	$f10,0x0($sp)
-/*    42de8:	3c0d7006 */ 	lui	$t5,%hi(var700596bc)
-/*    42dec:	25ad96bc */ 	addiu	$t5,$t5,%lo(var700596bc)
-/*    42df0:	460a2482 */ 	mul.s	$f18,$f4,$f10
-/*    42df4:	c5b0001c */ 	lwc1	$f16,0x1c($t5)
-/*    42df8:	c7a80004 */ 	lwc1	$f8,0x4($sp)
-/*    42dfc:	8fae0008 */ 	lw	$t6,0x8($sp)
-/*    42e00:	46104182 */ 	mul.s	$f6,$f8,$f16
-/*    42e04:	46069100 */ 	add.s	$f4,$f18,$f6
-/*    42e08:	e5c4001c */ 	swc1	$f4,0x1c($t6)
-/*    42e0c:	8faf000c */ 	lw	$t7,0xc($sp)
-/*    42e10:	25f90001 */ 	addiu	$t9,$t7,0x1
-/*    42e14:	2b210020 */ 	slti	$at,$t9,0x20
-/*    42e18:	1420fef1 */ 	bnez	$at,.L000429e0
-/*    42e1c:	afb9000c */ 	sw	$t9,0xc($sp)
-/*    42e20:	10000003 */ 	b	.L00042e30
-/*    42e24:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    42e28:	10000001 */ 	b	.L00042e30
-/*    42e2c:	00000000 */ 	nop
-.L00042e30:
-/*    42e30:	03e00008 */ 	jr	$ra
-/*    42e34:	27bd0010 */ 	addiu	$sp,$sp,0x10
-);
+bool func00042990(struct asistream *stream, u32 arg1, u32 arg2)
+{
+	s32 i;
+
+	if (stream->unk3c98[arg1][arg2] && stream->unk3c98[arg1][arg2 + 2] == 2) {
+		return true;
+	}
+
+	for (i = 1; i < 32; i++) {
+		struct asistream_4f64 *sp08 = &stream->unk4f64[arg2][i];
+		f32 sp04;
+		f32 sp00;
+
+		sp04 = sp08->unk00[0];
+		sp00 = sp08->unk00[-1];
+		sp08->unk00[-1] = sp00 * var700596bc[0] - var7005969c[0] * sp04;
+		sp08->unk00[0] = sp04 * var700596bc[0] + var7005969c[0] * sp00;
+
+		sp04 = sp08->unk00[1];
+		sp00 = sp08->unk00[-2];
+		sp08->unk00[-2] = sp00 * var700596bc[1] - var7005969c[1] * sp04;
+		sp08->unk00[1] = sp04 * var700596bc[1] + var7005969c[1] * sp00;
+
+		sp04 = sp08->unk00[2];
+		sp00 = sp08->unk00[-3];
+		sp08->unk00[-3] = sp00 * var700596bc[2] - var7005969c[2] * sp04;
+		sp08->unk00[2] = sp04 * var700596bc[2] + var7005969c[2] * sp00;
+
+		sp04 = sp08->unk00[3];
+		sp00 = sp08->unk00[-4];
+		sp08->unk00[-4] = sp00 * var700596bc[3] - var7005969c[3] * sp04;
+		sp08->unk00[3] = sp04 * var700596bc[3] + var7005969c[3] * sp00;
+
+		sp04 = sp08->unk00[4];
+		sp00 = sp08->unk00[-5];
+		sp08->unk00[-5] = sp00 * var700596bc[4] - var7005969c[4] * sp04;
+		sp08->unk00[4] = sp04 * var700596bc[4] + var7005969c[4] * sp00;
+
+		sp04 = sp08->unk00[5];
+		sp00 = sp08->unk00[-6];
+		sp08->unk00[-6] = sp00 * var700596bc[5] - var7005969c[5] * sp04;
+		sp08->unk00[5] = sp04 * var700596bc[5] + var7005969c[5] * sp00;
+
+		sp04 = sp08->unk00[6];
+		sp00 = sp08->unk00[-7];
+		sp08->unk00[-7] = sp00 * var700596bc[6] - var7005969c[6] * sp04;
+		sp08->unk00[6] = sp04 * var700596bc[6] + var7005969c[6] * sp00;
+
+		sp04 = sp08->unk00[7];
+		sp00 = sp08->unk00[-8];
+		sp08->unk00[-8] = sp00 * var700596bc[7] - var7005969c[7] * sp04;
+		sp08->unk00[7] = sp04 * var700596bc[7] + var7005969c[7] * sp00;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func00042e38
