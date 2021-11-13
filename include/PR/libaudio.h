@@ -402,9 +402,12 @@ Acmd    *alAudioFrame(Acmd *cmdList, s32 *cmdLen, s16 *outBuf, s32 outLen);
 /*
  * Play states
  */
-#define AL_STOPPED      0
-#define AL_PLAYING      1
-#define AL_STOPPING     2
+#define AL_STOPPED  0
+#define AL_PLAYING  1
+#define AL_STOPPING 2
+#define AL_STATE3   3
+#define AL_STATE4   4
+#define AL_STATE5   5
 
 #define AL_DEFAULT_PRIORITY     5
 #define AL_DEFAULT_VOICE        0
@@ -439,12 +442,7 @@ enum ALMsg {
     /*0x16*/ AL_TREM_OSC_EVT,
     /*0x17*/ AL_VIB_OSC_EVT,
     /*0x18*/ AL_18_EVT,
-    /*0x19*/ AL_19_EVT,
-    /*0x20*/ AL_20_EVT = 0x20, // AL_SNDP_API_EVENT? But is already used and is internal
-    /*0x80*/ AL_80_EVT = 0x80,
-    /*0x200*/ AL_200_EVT = 0x200,
-    /*0x400*/ AL_400_EVT = 0x400,
-    /*0x800*/ AL_800_EVT = 0x800
+    /*0x19*/ AL_19_EVT
 };
 
 /*

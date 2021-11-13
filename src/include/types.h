@@ -2123,44 +2123,26 @@ struct eyespy {
 	/*0x7c*/ f32 pitch;
 };
 
-struct sndstate_08_00 {
-	u32 unk00;
-	u32 unk04;
-};
-
-struct sndstate_08_04 {
-	u8 unk00;
-	u8 unk01;
-	u8 unk02;
-	u8 unk03;
-	u8 unk04;
-	s8 unk05;
-};
-
-struct sndstate_08 {
-	struct sndstate_08_00 *unk00;
-	struct sndstate_08_04 *unk04;
-};
-
 struct sndstate {
 	/*0x00*/ ALLink node;
-	/*0x08*/ struct sndstate_08 *unk08;
+	/*0x08*/ ALSound *sound;
 	/*0x0c*/ N_ALVoice voice;
-	/*0x28*/ f32 unk28;
-	/*0x2c*/ f32 unk2c;
+	/*0x28*/ f32 basepitch;
+	/*0x2c*/ f32 pitch;
 	/*0x30*/ struct sndstate **unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ s16 unk38;
-	/*0x3c*/ u32 unk3c;
-	/*0x40*/ u8 unk40;
-	/*0x41*/ u8 unk41;
-	/*0x42*/ u8 unk42;
-	/*0x43*/ u8 unk43;
+	/*0x34*/ s32 unk34;
+	/*0x38*/ s16 vol;
+	/*0x3a*/ s16 envvol;
+	/*0x3c*/ ALMicroTime endtime;
+	/*0x40*/ u8 priority;
+	/*0x41*/ ALPan pan;
+	/*0x42*/ u8 fxmix;
+	/*0x43*/ u8 fxbus;
 	/*0x44*/ u8 flags;
-	/*0x45*/ u8 playing;
+	/*0x45*/ u8 state;
 #if VERSION >= VERSION_NTSC_1_0
 	/*0x46*/ u16 soundnum;
-	/*0x48*/ u32 unk48;
+	/*0x48*/ ALMicroTime unk48;
 #endif
 };
 

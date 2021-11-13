@@ -4185,7 +4185,7 @@ void func0f0bace0(void)
 	for (i = 0; i < 2; i++) {
 		hand = &g_Vars.currentplayer->hands[i];
 
-		if (hand->audiohandle2 && audioIsPlaying(hand->audiohandle2)) {
+		if (hand->audiohandle2 && sndGetState(hand->audiohandle2) != AL_STOPPED) {
 			audioStop(hand->audiohandle2);
 		}
 	}

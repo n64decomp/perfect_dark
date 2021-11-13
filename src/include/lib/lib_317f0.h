@@ -5,13 +5,13 @@
 #include "types.h"
 
 void func00033090(struct sndstate *handle);
-u32 func00033100(void);
+void func00033100(struct sndstate *state);
 u16 sndpCountStates(s16 *numfreeptr, s16 *numallocedptr);
 void func00033378(void *fn);
-struct sndstate *func00033390(s32 arg0, struct sndstate_08 *arg1);
+struct sndstate *func00033390(s32 arg0, ALSound *sound);
 void func00033634(void *fn);
-bool audioIsPlaying(struct sndstate *handle);
-struct sndstate *func00033820(s32 arg0, s16 soundnum, u16 arg2, u8 arg3, f32 arg4, u8 arg5, u8 arg6, struct sndstate **handleptr);
+s32 sndGetState(struct sndstate *handle);
+struct sndstate *func00033820(s32 arg0, s16 soundnum, u16 vol, ALPan pan, f32 pitch, u8 fxmix, u8 fxbus, struct sndstate **handleptr);
 void audioStop(struct sndstate *handle);
 void func00033bc0(struct sndstate *handle);
 void func00033db0(void);

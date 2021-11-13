@@ -73057,7 +73057,7 @@ void alarmActivate(void)
 
 void alarmStopAudio(void)
 {
-	if (g_AlarmAudioHandle && audioIsPlaying(g_AlarmAudioHandle)) {
+	if (g_AlarmAudioHandle && sndGetState(g_AlarmAudioHandle) != AL_STOPPED) {
 		audioStop(g_AlarmAudioHandle);
 	}
 }
@@ -73096,7 +73096,7 @@ void gasReleaseFromPos(struct coord *pos)
 
 void gasStopAudio(void)
 {
-	if (g_GasAudioHandle && audioIsPlaying(g_GasAudioHandle)) {
+	if (g_GasAudioHandle && sndGetState(g_GasAudioHandle)) {
 		audioStop(g_GasAudioHandle);
 	}
 }
@@ -73150,7 +73150,7 @@ void gasTick(void)
 				if (g_GasAudioHandle) {
 					func0f09505c(g_GasAudioHandle, &g_GasPos, 400, 2500, 3000, g_Vars.currentplayer->prop->rooms, soundnum, 0x7fff, 0);
 				}
-			} else if (g_GasAudioHandle && audioIsPlaying(g_GasAudioHandle)) {
+			} else if (g_GasAudioHandle && sndGetState(g_GasAudioHandle)) {
 				audioStop(g_GasAudioHandle);
 			}
 		}

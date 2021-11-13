@@ -18,7 +18,7 @@ u32 snd0000efa8(void);
 u32 snd0000f0d4(void);
 u32 snd0000f228(void);
 void sndSetSoundMode(s32 mode);
-struct sndstate_08 *snd0000f49c(u16 soundnum);
+ALSound *snd0000f49c(u16 soundnum);
 void seqInit(struct seqinstance *seq);
 void sndInit(void);
 bool sndIsMp3(u16 soundnum);

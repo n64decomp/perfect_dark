@@ -15,7 +15,7 @@ void func0f0150a0(void)
 			snd0000fbc4(g_AudioChannels[i].soundnum26);
 			g_AudioChannels[i].flags &= ~AUDIOCHANNELFLAG_0010;
 			g_AudioChannels[i].flags &= ~AUDIOCHANNELFLAG_0002;
-		} else if (g_AudioChannels[i].audiohandle && audioIsPlaying(g_AudioChannels[i].audiohandle)) {
+		} else if (g_AudioChannels[i].audiohandle && sndGetState(g_AudioChannels[i].audiohandle) != AL_STOPPED) {
 			audioStop(g_AudioChannels[i].audiohandle);
 			g_AudioChannels[i].flags &= ~AUDIOCHANNELFLAG_0002;
 		}

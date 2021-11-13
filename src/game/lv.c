@@ -302,7 +302,7 @@ void lvUpdateMiscSfx(void)
 		lvSetMiscSfxState(MISCSFX_SLAYERROCKETBEEP, usingrocket);
 	}
 
-	if (g_Vars.lvupdate240 == 0 && g_MiscAudioHandle && audioIsPlaying(g_MiscAudioHandle)) {
+	if (g_Vars.lvupdate240 == 0 && g_MiscAudioHandle && sndGetState(g_MiscAudioHandle) != AL_STOPPED) {
 		audioStop(g_MiscAudioHandle);
 	}
 }
@@ -9615,7 +9615,7 @@ void lvReset(void)
 {
 	pakStopRumbleForAllPaks(true);
 
-	if (g_MiscAudioHandle && audioIsPlaying(g_MiscAudioHandle)) {
+	if (g_MiscAudioHandle && sndGetState(g_MiscAudioHandle)) {
 		audioStop(g_MiscAudioHandle);
 	}
 

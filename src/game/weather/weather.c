@@ -330,7 +330,7 @@ void weatherTickRain(struct weatherdata *weather)
 			}
 
 			if (weather->audiohandles[i] != 0) {
-				if (audioIsPlaying(weather->audiohandles[i])) {
+				if (sndGetState(weather->audiohandles[i]) != AL_STOPPED) {
 					sndAdjust(&weather->audiohandles[i], 0, iVar10 * 3 / 4, -1,
 							weather->unkf8, 1, 1, -1, 1);
 				}

@@ -6041,7 +6041,7 @@ glabel var7f1ac320
 /*  f09a9e8:	8e0401cc */ 	lw	$a0,0x1cc($s0)
 /*  f09a9ec:	50800008 */ 	beqzl	$a0,.L0f09aa10
 /*  f09a9f0:	8e0401d0 */ 	lw	$a0,0x1d0($s0)
-/*  f09a9f4:	0c00cdfc */ 	jal	audioIsPlaying
+/*  f09a9f4:	0c00cdfc */ 	jal	sndGetState
 /*  f09a9f8:	00000000 */ 	nop
 /*  f09a9fc:	50400004 */ 	beqzl	$v0,.L0f09aa10
 /*  f09aa00:	8e0401d0 */ 	lw	$a0,0x1d0($s0)
@@ -6051,7 +6051,7 @@ glabel var7f1ac320
 .L0f09aa10:
 /*  f09aa10:	10800007 */ 	beqz	$a0,.L0f09aa30
 /*  f09aa14:	00000000 */ 	nop
-/*  f09aa18:	0c00cdfc */ 	jal	audioIsPlaying
+/*  f09aa18:	0c00cdfc */ 	jal	sndGetState
 /*  f09aa1c:	00000000 */ 	nop
 /*  f09aa20:	10400003 */ 	beqz	$v0,.L0f09aa30
 /*  f09aa24:	00000000 */ 	nop
@@ -6371,7 +6371,7 @@ glabel var7f1ac320
 /*  f09a9e8:	8e0401cc */ 	lw	$a0,0x1cc($s0)
 /*  f09a9ec:	50800008 */ 	beqzl	$a0,.L0f09aa10
 /*  f09a9f0:	8e0401d0 */ 	lw	$a0,0x1d0($s0)
-/*  f09a9f4:	0c00cdfc */ 	jal	audioIsPlaying
+/*  f09a9f4:	0c00cdfc */ 	jal	sndGetState
 /*  f09a9f8:	00000000 */ 	nop
 /*  f09a9fc:	50400004 */ 	beqzl	$v0,.L0f09aa10
 /*  f09aa00:	8e0401d0 */ 	lw	$a0,0x1d0($s0)
@@ -6381,7 +6381,7 @@ glabel var7f1ac320
 .L0f09aa10:
 /*  f09aa10:	10800007 */ 	beqz	$a0,.L0f09aa30
 /*  f09aa14:	00000000 */ 	nop
-/*  f09aa18:	0c00cdfc */ 	jal	audioIsPlaying
+/*  f09aa18:	0c00cdfc */ 	jal	sndGetState
 /*  f09aa1c:	00000000 */ 	nop
 /*  f09aa20:	10400003 */ 	beqz	$v0,.L0f09aa30
 /*  f09aa24:	00000000 */ 	nop
@@ -6692,7 +6692,7 @@ glabel var7f1ac320
 /*  f098a00:	8e0401cc */ 	lw	$a0,0x1cc($s0)
 /*  f098a04:	50800008 */ 	beqzl	$a0,.NB0f098a28
 /*  f098a08:	8e0401d0 */ 	lw	$a0,0x1d0($s0)
-/*  f098a0c:	0c00d360 */ 	jal	audioIsPlaying
+/*  f098a0c:	0c00d360 */ 	jal	sndGetState
 /*  f098a10:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f098a14:	50400004 */ 	beqzl	$v0,.NB0f098a28
 /*  f098a18:	8e0401d0 */ 	lw	$a0,0x1d0($s0)
@@ -6702,7 +6702,7 @@ glabel var7f1ac320
 .NB0f098a28:
 /*  f098a28:	10800007 */ 	beqz	$a0,.NB0f098a48
 /*  f098a2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f098a30:	0c00d360 */ 	jal	audioIsPlaying
+/*  f098a30:	0c00d360 */ 	jal	sndGetState
 /*  f098a34:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f098a38:	10400003 */ 	beqz	$v0,.NB0f098a48
 /*  f098a3c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -6915,11 +6915,11 @@ const char var7f1ab898[] = "rofftime";
 //			osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 //#endif
 //
-//			if (hand->audiohandle2 && audioIsPlaying(hand->audiohandle2)) {
+//			if (hand->audiohandle2 && sndGetState(hand->audiohandle2) != AL_STOPPED) {
 //				audioStop(hand->audiohandle2);
 //			}
 //
-//			if (hand->audiohandle3 && audioIsPlaying(hand->audiohandle3)) {
+//			if (hand->audiohandle3 && sndGetState(hand->audiohandle3) != AL_STOPPED) {
 //				audioStop(hand->audiohandle3);
 //			}
 //
@@ -15385,7 +15385,7 @@ void bgun0f0a1528(void)
 
 				animInit(&player->hands[i].anim);
 
-				if (player->hands[i].audiohandle && audioIsPlaying(player->hands[i].audiohandle)) {
+				if (player->hands[i].audiohandle && sndGetState(player->hands[i].audiohandle) != AL_STOPPED) {
 					audioStop(player->hands[i].audiohandle);
 				}
 			}
@@ -19423,7 +19423,7 @@ void bgun0f0a4334(struct hand *hand)
 #else
 		hand->matmot1 -= g_Vars.lvupdate240f / 10.0f;
 #endif
-	} else if (hand->audiohandle != NULL && audioIsPlaying(hand->audiohandle)) {
+	} else if (hand->audiohandle != NULL && sndGetState(hand->audiohandle) != AL_STOPPED) {
 		audioStop(hand->audiohandle);
 	}
 }
@@ -24598,11 +24598,11 @@ s8 bgunFreeFireslotWrapper(s32 slotnum)
 {
 #if VERSION < VERSION_NTSC_1_0
 	if (slotnum >= 0) {
-		if (g_Fireslots[slotnum].unk04nb && audioIsPlaying(g_Fireslots[slotnum].unk04nb)) {
+		if (g_Fireslots[slotnum].unk04nb && sndGetState(g_Fireslots[slotnum].unk04nb) != AL_STOPPED) {
 			audioStop(g_Fireslots[slotnum].unk04nb);
 		}
 
-		if (g_Fireslots[slotnum].unk08nb && audioIsPlaying(g_Fireslots[slotnum].unk08nb)) {
+		if (g_Fireslots[slotnum].unk08nb && sndGetState(g_Fireslots[slotnum].unk08nb) != AL_STOPPED) {
 			audioStop(g_Fireslots[slotnum].unk08nb);
 		}
 	}

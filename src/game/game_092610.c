@@ -379,7 +379,7 @@ void func0f092a98(s32 channelnum)
 
 	if ((channel->flags & AUDIOCHANNELFLAG_0010)) {
 		snd0000fbc4(channel->soundnum26);
-	} else if (channel->audiohandle && audioIsPlaying(channel->audiohandle)) {
+	} else if (channel->audiohandle && sndGetState(channel->audiohandle) != AL_STOPPED) {
 		audioStop(channel->audiohandle);
 	}
 
@@ -452,7 +452,7 @@ glabel var7f1ab740
 /*  f092b50:	8e040000 */ 	lw	$a0,0x0($s0)
 /*  f092b54:	50800006 */ 	beqzl	$a0,.PF0f092b70
 /*  f092b58:	96030030 */ 	lhu	$v1,0x30($s0)
-/*  f092b5c:	0c00cc3c */ 	jal	audioIsPlaying
+/*  f092b5c:	0c00cc3c */ 	jal	sndGetState
 /*  f092b60:	00000000 */ 	nop
 /*  f092b64:	54400010 */ 	bnezl	$v0,.PF0f092ba8
 /*  f092b68:	8e020050 */ 	lw	$v0,0x50($s0)
@@ -909,7 +909,7 @@ glabel var7f1ab740
 /*  f0931ac:	5080000e */ 	beqzl	$a0,.PF0f0931e8
 /*  f0931b0:	960a0030 */ 	lhu	$t2,0x30($s0)
 /*  f0931b4:	afa80040 */ 	sw	$t0,0x40($sp)
-/*  f0931b8:	0c00cc3c */ 	jal	audioIsPlaying
+/*  f0931b8:	0c00cc3c */ 	jal	sndGetState
 /*  f0931bc:	e7b2003c */ 	swc1	$f18,0x3c($sp)
 /*  f0931c0:	8fa80040 */ 	lw	$t0,0x40($sp)
 /*  f0931c4:	10400007 */ 	beqz	$v0,.PF0f0931e4
@@ -1103,7 +1103,7 @@ glabel var7f1ab740
 /*  f092c50:	8e040000 */ 	lw	$a0,0x0($s0)
 /*  f092c54:	50800006 */ 	beqzl	$a0,.L0f092c70
 /*  f092c58:	96030030 */ 	lhu	$v1,0x30($s0)
-/*  f092c5c:	0c00cdfc */ 	jal	audioIsPlaying
+/*  f092c5c:	0c00cdfc */ 	jal	sndGetState
 /*  f092c60:	00000000 */ 	nop
 /*  f092c64:	54400010 */ 	bnezl	$v0,.L0f092ca8
 /*  f092c68:	8e020050 */ 	lw	$v0,0x50($s0)
@@ -1563,7 +1563,7 @@ glabel var7f1ab740
 /*  f0932bc:	5080000e */ 	beqzl	$a0,.L0f0932f8
 /*  f0932c0:	960b0030 */ 	lhu	$t3,0x30($s0)
 /*  f0932c4:	afa80040 */ 	sw	$t0,0x40($sp)
-/*  f0932c8:	0c00cdfc */ 	jal	audioIsPlaying
+/*  f0932c8:	0c00cdfc */ 	jal	sndGetState
 /*  f0932cc:	e7b2003c */ 	swc1	$f18,0x3c($sp)
 /*  f0932d0:	8fa80040 */ 	lw	$t0,0x40($sp)
 /*  f0932d4:	10400007 */ 	beqz	$v0,.L0f0932f4
@@ -1750,7 +1750,7 @@ glabel var7f1ab740
 /*  f091284:	8e050000 */ 	lw	$a1,0x0($s0)
 /*  f091288:	50a00006 */ 	beqzl	$a1,.NB0f0912a4
 /*  f09128c:	96030030 */ 	lhu	$v1,0x30($s0)
-/*  f091290:	0c00d360 */ 	jal	audioIsPlaying
+/*  f091290:	0c00d360 */ 	jal	sndGetState
 /*  f091294:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f091298:	5440000e */ 	bnezl	$v0,.NB0f0912d4
 /*  f09129c:	8e020050 */ 	lw	$v0,0x50($s0)
@@ -2172,7 +2172,7 @@ glabel var7f1ab740
 /*  f091864:	10a0000e */ 	beqz	$a1,.NB0f0918a0
 /*  f091868:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f09186c:	afa80040 */ 	sw	$t0,0x40($sp)
-/*  f091870:	0c00d360 */ 	jal	audioIsPlaying
+/*  f091870:	0c00d360 */ 	jal	sndGetState
 /*  f091874:	e7b2003c */ 	swc1	$f18,0x3c($sp)
 /*  f091878:	8fa80040 */ 	lw	$t0,0x40($sp)
 /*  f09187c:	10400008 */ 	beqz	$v0,.NB0f0918a0

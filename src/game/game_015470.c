@@ -50,7 +50,7 @@ void func0f015470(void)
 		for (j = 0; j < 2; j++) {
 			struct hand *hand = &g_Vars.players[i]->hands[j];
 
-			if (hand->audiohandle2 && audioIsPlaying(hand->audiohandle2)) {
+			if (hand->audiohandle2 && sndGetState(hand->audiohandle2) != AL_STOPPED) {
 				audioStop(hand->audiohandle2);
 			}
 		}

@@ -3768,12 +3768,12 @@ void nbombsTick(void)
 				audioPostEvent(g_NbombAudioHandle, 16, *(s32 *)&speed);
 			}
 		} else {
-			if (g_NbombAudioHandle && audioIsPlaying(g_NbombAudioHandle)) {
+			if (g_NbombAudioHandle && sndGetState(g_NbombAudioHandle) != AL_STOPPED) {
 				audioStop(g_NbombAudioHandle);
 			}
 		}
 	} else {
-		if (g_NbombAudioHandle && audioIsPlaying(g_NbombAudioHandle)) {
+		if (g_NbombAudioHandle && sndGetState(g_NbombAudioHandle) != AL_STOPPED) {
 			audioStop(g_NbombAudioHandle);
 		}
 	}
@@ -3781,14 +3781,14 @@ void nbombsTick(void)
 	if (g_Vars.lvupdate240 == 0) {
 		for (i = 0; i < 6; i++) {
 			if (g_Nbombs[i].age240 >= 0) {
-				if (g_Nbombs[i].audiohandle20 && audioIsPlaying(g_Nbombs[i].audiohandle20)) {
+				if (g_Nbombs[i].audiohandle20 && sndGetState(g_Nbombs[i].audiohandle20) != AL_STOPPED) {
 					audioStop(g_Nbombs[i].audiohandle20);
 #if VERSION < VERSION_NTSC_1_0
 					g_Nbombs[i].audiohandle20 = NULL;
 #endif
 				}
 
-				if (g_Nbombs[i].audiohandle24 && audioIsPlaying(g_Nbombs[i].audiohandle24)) {
+				if (g_Nbombs[i].audiohandle24 && sndGetState(g_Nbombs[i].audiohandle24) != AL_STOPPED) {
 					audioStop(g_Nbombs[i].audiohandle24);
 #if VERSION < VERSION_NTSC_1_0
 					g_Nbombs[i].audiohandle24 = NULL;
