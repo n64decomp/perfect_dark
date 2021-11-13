@@ -187,7 +187,7 @@ struct asistream *func00044460(s32 arg0, void *arg1, s32 arg2)
 
 	stream->unk8474 = 0;
 
-	bzero(&stream->unk6a64, sizeof(stream->unk6a64));
+	bzero(&stream->unk6a64, sizeof(stream->unk6a64[0]));
 
 	return stream;
 }

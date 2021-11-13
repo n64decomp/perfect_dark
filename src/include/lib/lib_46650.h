@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-u32 func00046650(void);
+void func00046650(struct asistream_4f64 *arg0, s32 arg1, struct asistream_4f64 *arg2, struct asistream_4f64 *arg3, void *arg4);
 
 #endif

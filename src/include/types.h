@@ -7344,6 +7344,10 @@ struct var8007f8dc {
 	/*0x100*/ u32 unk100;
 };
 
+struct asistream_4f64 {
+	f32 unk00[18];
+};
+
 struct asistream {
 	s32 unk00;
 	s32 (*unk04)(s32 arg0, void *arg1, s32 arg2, s32 arg3);
@@ -7381,12 +7385,19 @@ struct asistream {
 	u32 unk3be8;
 	u32 unk3bec;
 	u32 unk3bf0;
-	u8 unk3bf4[0x394];
+	u32 unk3bf4;
+	u8 unk3bf8[0xa0];
+	u32 unk3c98[1][1];
+	u8 unk3c9c[0x2ec];
 	s32 unk3f88;
-	u32 unk3f8c;
-	u8 unk3f90[0x2ad4];
-	u8 unk6a64[0x900];
-	u8 unk7364[0x1110];
+	s32 unk3f8c;
+	u8 unk3f90[0x6cc];
+	s32 unk465c;
+	u8 unk4660[0x904];
+	struct asistream_4f64 unk4f64[2][32];
+	u8 unk6164[0x900];
+	struct asistream_4f64 unk6a64[2][32];
+	u8 unk7c64[0x810];
 	s32 unk8474;
 	bool (*unk8478)(struct asistream *stream);
 	bool (*unk847c)(struct asistream *stream);
