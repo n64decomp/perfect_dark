@@ -49,7 +49,7 @@ extern u32 var8009c3e0;
 extern struct asistream *g_AsiStream;
 extern u8 *var8009c640;
 extern u8 *var8009c644;
-extern u8 var8009c650[];
+extern u32 var8009c650[34];
 extern u8 *var8009c6d8;
 extern u8 *var8009c6dc;
 extern OSTimer var8009c760;

@@ -9,7 +9,7 @@
 
 extern struct mp3vars g_Mp3Vars;
 
-u8 var8009c650[0x88];
+u32 var8009c650[34];
 u8 *var8009c6d8;
 u8 *var8009c6dc;
 

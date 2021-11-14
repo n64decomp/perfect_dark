@@ -40,9 +40,9 @@ extern const u32 var70057750[];
 
 u32 func0003f8a0(void);
 void func00040164(struct asistream *stream, u32 arg1, u32 arg2);
-u32 func00040dac(void);
-u32 func00041600(void);
-void func00042238(struct asistream *stream, u32 arg1, u32 arg2);
+void func00040dac(struct asistream *stream, u32 arg1, u32 arg2);
+void func00041600(struct asistream *stream, u32 arg1, u32 arg2);
+bool func00042238(struct asistream *stream, u32 arg1, u32 arg2);
 bool func000427d8(struct asistream *stream, u32 arg1);
 bool func00042990(struct asistream *stream, u32 arg1, u32 arg2);
 bool func00042e38(struct asistream *stream);
