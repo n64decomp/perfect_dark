@@ -7348,6 +7348,9 @@ struct asistream_4f64 {
 	f32 unk00[18];
 };
 
+#define MAX_GR 1
+#define MAX_CH 2
+
 struct asistream {
 	s32 unk00;
 	s32 (*unk04)(s32 arg0, void *arg1, s32 arg2, s32 arg3);
@@ -7390,14 +7393,21 @@ struct asistream {
 	u32 unk3c78[2][1];
 	u32 unk3c80[6][1];
 	u32 unk3c98[1][1];
-	u8 unk3c9c[0x14];
+	u32 unk3c9c;
+	u32 blocktypes[1][1];
+	u32 unk3ca4;
+	u32 unk3ca8[1][1];
+	u32 unk3cac;
 	u32 unk3cb0[4][1][3];
 	u32 unk3ce0[1][1];
-	u8 unk3ce4[0x1c];
+	u32 unk3ce4;
+	u32 unk3ce8[1][1];
+	u32 unk3cec;
+	u8 unk3cf0[0x10];
 	u32 unk3d00[1][1];
 	u8 unk3d04[0x284];
 	s32 unk3f88;
-	s32 unk3f8c;
+	s32 numchannels;
 	u32 unk3f90;
 	u8 unk3f94[1][0x484];
 	u8 unk4418[1][0x242];

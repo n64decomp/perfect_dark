@@ -6534,7 +6534,7 @@ glabel func00041600
 
 extern u32 var8009c650[34];
 
-bool func00042238(struct asistream *stream, u32 arg1, u32 arg2)
+bool func00042238(struct asistream *stream, u32 gr, u32 ch)
 {
 	s32 sp64 = stream->unk2020;
 	s32 sp60;
@@ -6552,29 +6552,29 @@ bool func00042238(struct asistream *stream, u32 arg1, u32 arg2)
 	s32 sp28;
 
 	if (stream->unk3ba4) {
-		func00040dac(stream, arg1, arg2);
+		func00040dac(stream, gr, ch);
 	} else {
-		func00041600(stream, arg1, arg2);
+		func00041600(stream, gr, ch);
 	}
 
-	sp60 = stream->unk3c80[arg1][arg2] * 2;
+	sp60 = stream->unk3c80[gr][ch] * 2;
 	sp50 = var70057860[stream->unk3ba4][stream->unk3bb4];
 	sp4c = var70057968[stream->unk3ba4][stream->unk3bb4];
 
-	if (stream->unk3c98[arg1][arg2] == 0 && stream->unk3c98[arg1][arg2 + 2] == 0) {
-		sp54[0] = sp50[stream->unk3ce0[arg1][arg2]] + 1;
+	if (stream->unk3c98[gr][ch] == 0 && stream->blocktypes[gr][ch] == 0) {
+		sp54[0] = sp50[stream->unk3ce0[gr][ch]] + 1;
 
 		if (sp54[0] > sp60) {
 			sp54[0] = sp54[1] = sp60;
 		} else {
-			sp54[1] = sp50[stream->unk3ce0[arg1][arg2] + stream->unk3ce0[arg1][arg2 + 2] + 1] + 1;
+			sp54[1] = sp50[stream->unk3ce0[gr][ch] + stream->unk3ce8[gr][ch] + 1] + 1;
 
 			if (sp54[1] > sp60) {
 				sp54[1] = sp60;
 			}
 		}
 	} else {
-		if (stream->unk3c98[arg1][arg2 + 2] == 2 && stream->unk3c98[arg1][arg2 + 4] == 0) {
+		if (stream->blocktypes[gr][ch] == 2 && stream->unk3ca8[gr][ch] == 0) {
 			sp54[0] = sp4c[2] * 3 + 3;
 		} else {
 			sp54[0] = sp50[7] + 1;
@@ -6589,11 +6589,11 @@ bool func00042238(struct asistream *stream, u32 arg1, u32 arg2)
 
 	sp54[2] = sp60;
 	sp48 = 0;
-	sp44 = stream->unk3f94[arg2];
-	sp40 = stream->unk4418[arg2];
+	sp44 = stream->unk3f94[ch];
+	sp40 = stream->unk4418[ch];
 
 	for (i = 0; i < 3; i++) {
-		sp38 = stream->unk3cb0[arg1][arg2][i];
+		sp38 = stream->unk3cb0[gr][ch][i];
 		sp34 = var700577d8[sp38];
 		sp30 = sp54[i];
 
@@ -6610,36 +6610,36 @@ bool func00042238(struct asistream *stream, u32 arg1, u32 arg2)
 		}
 	}
 
-	sp38 = stream->unk3d00[arg1][arg2] + 32;
-	sp28 = stream->unk3c78[arg1][arg2] + sp64;
+	sp38 = stream->unk3d00[gr][ch] + 32;
+	sp28 = stream->unk3c78[gr][ch] + sp64;
 	sp48 = func000464a8(stream->unk1c, &stream->unk2020, sp38, sp48, sp28, &sp44, &sp40);
 	stream->unk2020 = sp28;
 
 	if (sp48 > 576) {
-		stream->unk465c[arg2] = 576;
+		stream->unk465c[ch] = 576;
 	} else {
-		stream->unk465c[arg2] = sp48;
+		stream->unk465c[ch] = sp48;
 	}
 
 	if (sp48 < 576) {
-		stream->unk4660[arg2] = 576 - sp48;
-		bzero(sp44, stream->unk4660[arg2] * 2);
+		stream->unk4660[ch] = 576 - sp48;
+		bzero(sp44, stream->unk4660[ch] * 2);
 	} else {
-		stream->unk4660[arg2] = 0;
+		stream->unk4660[ch] = 0;
 	}
 
 	return true;
 }
 
-bool func000427d8(struct asistream *stream, u32 arg1)
+bool func000427d8(struct asistream *stream, u32 gr)
 {
 	const s16 *sp14 = var70057b9c[stream->unk3ba4][stream->unk3bb4];
 	f32 *sp10 = stream->unk4f64[0][0].unk00;
 	f32 *sp0c = stream->unk4664[0].unk00;
 	s32 i = 0;
 
-	if (stream->unk3c98[arg1][0] && stream->unk3c98[arg1][2] == 2) {
-		if (stream->unk3c98[arg1][4]) {
+	if (stream->unk3c98[gr][0] && stream->unk3c98[gr][2] == 2) {
+		if (stream->unk3c98[gr][4]) {
 			while (i++ < 36) {
 				*(sp10++) = *(sp0c++);
 			}
@@ -6657,16 +6657,16 @@ bool func000427d8(struct asistream *stream, u32 arg1)
 	return true;
 }
 
-bool func00042990(struct asistream *stream, u32 arg1, u32 arg2)
+bool func00042990(struct asistream *stream, u32 gr, u32 ch)
 {
 	s32 i;
 
-	if (stream->unk3c98[arg1][arg2] && stream->unk3c98[arg1][arg2 + 2] == 2) {
+	if (stream->unk3c98[gr][ch] && stream->blocktypes[gr][ch] == 2) {
 		return true;
 	}
 
 	for (i = 1; i < 32; i++) {
-		struct asistream_4f64 *sp08 = &stream->unk4f64[arg2][i];
+		struct asistream_4f64 *sp08 = &stream->unk4f64[ch][i];
 		f32 sp04;
 		f32 sp00;
 
@@ -7328,13 +7328,13 @@ glabel func00042e38
 bool func0004371c(struct asistream *stream)
 {
 	s32 sp954;
-	s32 sp950 = 0;
-	s32 i;
+	s32 gr = 0;
+	s32 ch;
 	s32 sp948;
 	s32 sp944;
 	s32 sp940;
+	s32 i;
 	s32 j;
-	s32 k;
 	u16 *sp934;
 	struct asistream_4f64 sp34[32];
 	f32 sp30;
@@ -7356,63 +7356,63 @@ bool func0004371c(struct asistream *stream)
 		return true;
 	}
 
-	for (i = 0; i < stream->unk3f8c; i++) {
-		func00042238(stream, sp950, i);
-		func00040164(stream, sp950, i);
+	for (ch = 0; ch < stream->numchannels; ch++) {
+		func00042238(stream, gr, ch);
+		func00040164(stream, gr, ch);
 	}
 
-	func000427d8(stream, sp950);
+	func000427d8(stream, gr);
 
-	if (stream->unk3c98[sp950][0] != 0 && stream->unk3c98[sp950][2] == 2) {
+	if (stream->unk3c98[gr][0] != 0 && stream->blocktypes[gr][0] == 2) {
 		sp948 = 32;
 	} else {
 		sp944 = (stream->unk465c[0] - 1) / 18 + 1;
 		sp948 = sp944;
 	}
 
-	for (i = 0; i < stream->unk3f8c; i++) {
-		func00042990(stream, sp950, i);
+	for (ch = 0; ch < stream->numchannels; ch++) {
+		func00042990(stream, gr, ch);
 
-		if (stream->unk3c98[sp950][i] != 0
-				&& stream->unk3c98[sp950][i + 2] == 2
-				&& stream->unk3c98[sp950][i + 4] != 0) {
+		if (stream->unk3c98[gr][ch] != 0
+				&& stream->blocktypes[gr][ch] == 2
+				&& stream->unk3ca8[gr][ch] != 0) {
 			sp940 = 0;
-		} else if (stream->unk3c98[sp950][i] == 0) {
+		} else if (stream->unk3c98[gr][ch] == 0) {
 			sp940 = 0;
 		} else {
-			sp940 = stream->unk3c98[sp950][i + 2];
+			sp940 = stream->blocktypes[gr][ch];
 		}
 
 		if (sp940 == 2) {
-			for (j = 0; j < 2; j++) {
-				func00047550(&stream->unk4f64[i][j], j, &sp34[j], &stream->unk6a64[i][j]);
+			for (i = 0; i < 2; i++) {
+				func00047550(&stream->unk4f64[ch][i], i, &sp34[i], &stream->unk6a64[ch][i]);
 			}
 		} else {
-			for (j = 0; j < 2; j++) {
-				func00046650(&stream->unk4f64[i][j], j, &sp34[j], &stream->unk6a64[i][j], &var8009c400[sp940 * 0x90]);
+			for (i = 0; i < 2; i++) {
+				func00046650(&stream->unk4f64[ch][i], i, &sp34[i], &stream->unk6a64[ch][i], &var8009c400[sp940 * 0x90]);
 			}
 		}
 
-		if (stream->unk3c98[sp950][i]
-					&& stream->unk3c98[sp950][i + 2] == 2
-					&& stream->unk3c98[sp950][i + 4]) {
+		if (stream->unk3c98[gr][ch]
+					&& stream->blocktypes[gr][ch] == 2
+					&& stream->unk3ca8[gr][ch]) {
 			sp940 = 2;
 		}
 
 		if (sp940 == 2) {
-			for (j = 2; j < sp948; j++) {
-				func00047550(&stream->unk4f64[i][j], j, &sp34[j], &stream->unk6a64[i][j]);
+			for (i = 2; i < sp948; i++) {
+				func00047550(&stream->unk4f64[ch][i], i, &sp34[i], &stream->unk6a64[ch][i]);
 			}
 		} else {
-			for (j = 2; j < sp948; j++) {
-				func00046650(&stream->unk4f64[i][j], j, &sp34[j], &stream->unk6a64[i][j], &var8009c400[sp940 * 0x90]);
+			for (i = 2; i < sp948; i++) {
+				func00046650(&stream->unk4f64[ch][i], i, &sp34[i], &stream->unk6a64[ch][i], &var8009c400[sp940 * 0x90]);
 			}
 		}
 
-		while (j < 32) {
-			bcopy(&stream->unk6a64[i][j], &sp34[j], sizeof(struct asistream_4f64));
-			bzero(&stream->unk6a64[i][j], sizeof(struct asistream_4f64));
-			j++;
+		while (i < 32) {
+			bcopy(&stream->unk6a64[ch][i], &sp34[i], sizeof(struct asistream_4f64));
+			bzero(&stream->unk6a64[ch][i], sizeof(struct asistream_4f64));
+			i++;
 		}
 
 		sp30 = 65536;
@@ -7433,9 +7433,9 @@ bool func0004371c(struct asistream *stream)
 
 		sp2c = 2048 / sp28;
 
-		for (k = 0; k < 18; k++) {
-			for (j = 0; j < 32; j++) {
-				sp24 = sp34[j].unk00[k] * sp2c;
+		for (j = 0; j < 18; j++) {
+			for (i = 0; i < 32; i++) {
+				sp24 = sp34[i].unk00[j] * sp2c;
 				*sp934 = sp24;
 				sp934++;
 			}

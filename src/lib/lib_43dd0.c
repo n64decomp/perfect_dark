@@ -216,7 +216,7 @@ s32 func0004453c(struct asistream *streamptr, struct mp3thing **arg1, s32 *arg2)
 		// empty
 	} else {
 		*arg1 = &stream->unk2070[stream->unk3ba0];
-		*arg2 = stream->unk3f8c;
+		*arg2 = stream->numchannels;
 	}
 
 	return result;
