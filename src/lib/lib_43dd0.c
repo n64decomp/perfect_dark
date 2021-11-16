@@ -88,18 +88,18 @@ bool func00043ef8(struct asistream *stream, s32 arg1)
 	stream->unk18 += 2;
 	stream->unk2064 = 12;
 
-	stream->unk3ba4 = func000462c4(&stream->unk2024, &stream->unk2064, 1);
-	stream->unk3ba8 = func000462c4(&stream->unk2024, &stream->unk2064, 2);
-	stream->unk3bac = func000462c4(&stream->unk2024, &stream->unk2064, 1);
-	stream->unk3bb0 = func000462c4(&stream->unk2024, &stream->unk2064, 4);
-	stream->unk3bb4 = func000462c4(&stream->unk2024, &stream->unk2064, 2);
-	stream->unk3bb8 = func000462c4(&stream->unk2024, &stream->unk2064, 1);
-	stream->unk3bbc = func000462c4(&stream->unk2024, &stream->unk2064, 1);
-	stream->unk3bc0 = func000462c4(&stream->unk2024, &stream->unk2064, 2);
-	stream->unk3bc4 = func000462c4(&stream->unk2024, &stream->unk2064, 2);
-	stream->unk3bc8 = func000462c4(&stream->unk2024, &stream->unk2064, 1);
-	stream->unk3bcc = func000462c4(&stream->unk2024, &stream->unk2064, 1);
-	stream->unk3bd0 = func000462c4(&stream->unk2024, &stream->unk2064, 2);
+	stream->unk3ba4 = func000462c4(stream->unk2024, &stream->unk2064, 1);
+	stream->unk3ba8 = func000462c4(stream->unk2024, &stream->unk2064, 2);
+	stream->unk3bac = func000462c4(stream->unk2024, &stream->unk2064, 1);
+	stream->unk3bb0 = func000462c4(stream->unk2024, &stream->unk2064, 4);
+	stream->unk3bb4 = func000462c4(stream->unk2024, &stream->unk2064, 2);
+	stream->unk3bb8 = func000462c4(stream->unk2024, &stream->unk2064, 1);
+	stream->unk3bbc = func000462c4(stream->unk2024, &stream->unk2064, 1);
+	stream->unk3bc0 = func000462c4(stream->unk2024, &stream->unk2064, 2);
+	stream->unk3bc4 = func000462c4(stream->unk2024, &stream->unk2064, 2);
+	stream->unk3bc8 = func000462c4(stream->unk2024, &stream->unk2064, 1);
+	stream->unk3bcc = func000462c4(stream->unk2024, &stream->unk2064, 1);
+	stream->unk3bd0 = func000462c4(stream->unk2024, &stream->unk2064, 2);
 
 	if (stream->unk3bb0 == 15 || stream->unk3bb4 == 3) {
 		return func00043ef8(stream, -1);
@@ -138,7 +138,7 @@ bool func00043ef8(struct asistream *stream, s32 arg1)
 	}
 
 	if (stream->unk3ba8 == 1) {
-		stream->unk8478 = func0004371c;
+		stream->unk8478 = mp3decDecodeFrame;
 		stream->unk847c = func00042e38;
 	} else if (stream->unk3ba8 == 2) {
 		return 0;
