@@ -45,7 +45,7 @@ void func00041600(struct asistream *stream, u32 gr, u32 ch);
 bool func00042238(struct asistream *stream, u32 gr, u32 ch);
 bool func000427d8(struct asistream *stream, u32 gr);
 bool mp3decReduceAliases(struct asistream *stream, u32 gr, u32 ch);
-bool func00042e38(struct asistream *stream);
+bool mp3decSetSideInfo(struct asistream *stream);
 bool mp3decDecodeFrame(struct asistream *stream);
 
 #endif

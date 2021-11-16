@@ -7,6 +7,13 @@
 #include "data.h"
 #include "types.h"
 
+#define LAYER_3 1
+#define LAYER_2 2
+#define LAYER_1 3
+
+#define CRC_PROTECTED   0
+#define CRC_UNPROTECTED 1
+
 extern struct mp3vars g_Mp3Vars;
 
 u32 var8009c650[34];
@@ -55,16 +62,16 @@ bool func00043ef8(struct asistream *stream, s32 arg1)
 	mask = 0xff;
 
 	while (true) {
-		sp1c = stream->unk04(stream->unk00, &stream->unk2024[sp20], 1, sp24);
+		sp1c = stream->unk04(stream->unk00, &stream->buffer[sp20], 1, sp24);
 
-		if (sp1c < 1) {
-			return 0;
+		if (sp1c <= 0) {
+			return false;
 		}
 
 		sp24 = -1;
 		stream->unk18++;
 
-		if ((stream->unk2024[sp20] & mask) != mask) {
+		if ((stream->buffer[sp20] & mask) != mask) {
 			mask = 0xff;
 			sp20 = 0;
 			continue;
@@ -79,78 +86,80 @@ bool func00043ef8(struct asistream *stream, s32 arg1)
 		mask = 0xf0;
 	}
 
-	sp1c = stream->unk04(stream->unk00, &stream->unk2024[2], 2, -1);
+	sp1c = stream->unk04(stream->unk00, &stream->buffer[2], 2, -1);
 
 	if (sp1c <= 0) {
-		return 0;
+		return false;
 	}
 
 	stream->unk18 += 2;
-	stream->unk2064 = 12;
+	stream->count = 12;
 
-	stream->unk3ba4 = func000462c4(stream->unk2024, &stream->unk2064, 1);
-	stream->unk3ba8 = func000462c4(stream->unk2024, &stream->unk2064, 2);
-	stream->unk3bac = func000462c4(stream->unk2024, &stream->unk2064, 1);
-	stream->unk3bb0 = func000462c4(stream->unk2024, &stream->unk2064, 4);
-	stream->unk3bb4 = func000462c4(stream->unk2024, &stream->unk2064, 2);
-	stream->unk3bb8 = func000462c4(stream->unk2024, &stream->unk2064, 1);
-	stream->unk3bbc = func000462c4(stream->unk2024, &stream->unk2064, 1);
-	stream->unk3bc0 = func000462c4(stream->unk2024, &stream->unk2064, 2);
-	stream->unk3bc4 = func000462c4(stream->unk2024, &stream->unk2064, 2);
-	stream->unk3bc8 = func000462c4(stream->unk2024, &stream->unk2064, 1);
-	stream->unk3bcc = func000462c4(stream->unk2024, &stream->unk2064, 1);
-	stream->unk3bd0 = func000462c4(stream->unk2024, &stream->unk2064, 2);
+	stream->version = mp3decGetBits(stream->buffer, &stream->count, 1);
+	stream->layer = mp3decGetBits(stream->buffer, &stream->count, 2);
+	stream->crctype = mp3decGetBits(stream->buffer, &stream->count, 1);
+	stream->bitrateindex = mp3decGetBits(stream->buffer, &stream->count, 4);
+	stream->samplerateindex = mp3decGetBits(stream->buffer, &stream->count, 2);
+	stream->haspadding = mp3decGetBits(stream->buffer, &stream->count, 1);
+	stream->privatebit = mp3decGetBits(stream->buffer, &stream->count, 1);
+	stream->channelmode = mp3decGetBits(stream->buffer, &stream->count, 2);
 
-	if (stream->unk3bb0 == 15 || stream->unk3bb4 == 3) {
+	stream->unk3bc4 = mp3decGetBits(stream->buffer, &stream->count, 2);
+	stream->unk3bc8 = mp3decGetBits(stream->buffer, &stream->count, 1);
+	stream->unk3bcc = mp3decGetBits(stream->buffer, &stream->count, 1);
+	stream->unk3bd0 = mp3decGetBits(stream->buffer, &stream->count, 2);
+
+	if (stream->bitrateindex == 15 || stream->samplerateindex == 3) {
 		return func00043ef8(stream, -1);
 	}
 
-	if (stream->unk3bd4 == 0) {
-		stream->unk3bd4 = 1;
-		stream->unk3bd8 = stream->unk3ba4;
-		stream->unk3bdc = stream->unk3ba8;
-		stream->unk3be0 = stream->unk3bac;
-		stream->unk3be4 = stream->unk3bb4;
-		stream->unk3be8 = stream->unk3bc0;
+	if (!stream->doneinitial) {
+		stream->doneinitial = true;
+
+		stream->initialversion = stream->version;
+		stream->initiallayer = stream->layer;
+		stream->initialcrctype = stream->crctype;
+		stream->initialsamplerateindex = stream->samplerateindex;
+		stream->initialchannelmode = stream->channelmode;
 		stream->unk3bec = stream->unk3bc8;
 		stream->unk3bf0 = stream->unk3bcc;
-	} else if (stream->unk3ba4 != stream->unk3bd8
-			|| stream->unk3ba8 != stream->unk3bdc
-			|| stream->unk3bac != stream->unk3be0
-			|| stream->unk3bb4 != stream->unk3be4
-			|| stream->unk3bc0 != stream->unk3be8
+	} else if (stream->version != stream->initialversion
+			|| stream->layer != stream->initiallayer
+			|| stream->crctype != stream->initialcrctype
+			|| stream->samplerateindex != stream->initialsamplerateindex
+			|| stream->channelmode != stream->initialchannelmode
 			|| stream->unk3bcc != stream->unk3bf0) {
 		return func00043ef8(stream, -1);
 	}
 
 	stream->unk2068 = 4;
 
-	if (stream->unk3bac == 0) {
-		sp1c = stream->unk04(stream->unk00, &stream->unk2024[4], 2, -1);
+	if (stream->crctype == CRC_PROTECTED) {
+		sp1c = stream->unk04(stream->unk00, &stream->buffer[4], 2, -1);
 
-		if (sp1c < 1) {
-			return 0;
+		if (sp1c <= 0) {
+			return false;
 		}
 
 		stream->unk18 += 2;
-		stream->unk2064 += 16;
+		stream->count += 16;
 		stream->unk2068 = 6;
 	}
 
-	if (stream->unk3ba8 == 1) {
+	if (stream->layer == LAYER_3) {
 		stream->unk8478 = mp3decDecodeFrame;
-		stream->unk847c = func00042e38;
-	} else if (stream->unk3ba8 == 2) {
-		return 0;
-	} else if (stream->unk3ba8 == 3) {
-		return 0;
+		stream->unk847c = mp3decSetSideInfo;
+	} else if (stream->layer == LAYER_2) {
+		return false;
+	} else if (stream->layer == LAYER_1) {
+		return false;
 	}
 
 	if (stream->unk847c(stream) == 0) {
-		return 0;
+		return false;
 	}
 
-	return 1;
+	return true;
 }
 
 u32 func00044404(void)

@@ -77,7 +77,7 @@ glabel func00046290
 	jr     $ra
 	add    $t0, $t0, $s1
 
-glabel func000462c4
+glabel mp3decGetBits
 	lw     $t0, 0x0($a1)
 	srl    $t1, $t0, 0x3
 	add    $a0, $a0, $t1
