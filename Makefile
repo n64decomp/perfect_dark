@@ -209,6 +209,8 @@ CFLAGS = $(C_DEFINES) \
 	-Olimit 1000 \
 	-G 0 \
 	-Xcpluscomm \
+	-w2 \
+	-Wab,-w \
 	-woff 581,649,819,820,821,838,852 \
 	-I include \
 	-I include/PR \
