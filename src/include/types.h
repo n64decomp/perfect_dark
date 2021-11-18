@@ -7392,7 +7392,7 @@ struct asistream {
 	/*0x3bf8*/ u32 scfsi[1][32];
 	/*0x3c78*/ u32 part2_3_length[2][1];
 	/*0x3c80*/ u32 big_value[2][1];
-	/*0x3c88*/ u32 global_gain[2][1];
+	/*0x3c88*/ s32 global_gain[2][1];
 	/*0x3c90*/ u32 scalefac_compress[2][1];
 	/*0x3c98*/ u32 window_switching[2][1];
 	/*0x3ca0*/ u32 block_type[2][1];
@@ -7416,11 +7416,11 @@ struct asistream {
 	/*0x3f88*/ s32 unk3f88;
 	/*0x3f8c*/ s32 numchannels;
 	/*0x3f90*/ s32 numgranules;
-	/*0x3f94*/ u8 unk3f94[1][0x484];
+	/*0x3f94*/ s16 unk3f94[1][0x242];
 	/*0x4418*/ u8 unk4418[1][0x242];
 	/*0x465c*/ s32 unk465c[1];
 	/*0x4660*/ s32 unk4660[1];
-	/*0x4664*/ struct asistream_4f64 unk4664[32];
+	/*0x4664*/ struct asistream_4f64 unk4664[1][32];
 	/*0x4f64*/ struct asistream_4f64 unk4f64[2][32];
 	/*0x6164*/ u8 unk6164[0x900];
 	/*0x6a64*/ struct asistream_4f64 unk6a64[2][32];
