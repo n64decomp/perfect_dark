@@ -38,7 +38,7 @@ extern const u32 var70056ec0[];
 extern const u32 var700576c8[];
 extern const u32 var70057750[];
 
-u32 func0003f8a0(void);
+bool func0003f8a0(void);
 void func00040164(struct asistream *stream, u32 gr, u32 ch);
 bool mp3decUnpackScaleFac(struct asistream *stream, u32 gr, u32 ch);
 void func00041600(struct asistream *stream, u32 gr, u32 ch);

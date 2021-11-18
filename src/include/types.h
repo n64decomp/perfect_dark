@@ -7430,4 +7430,18 @@ struct asistream {
 	/*0x847c*/ bool (*unk847c)(struct asistream *stream);
 };
 
+struct mp3decfourbytes {
+	u8 bytes[2];
+	s8 unk02;
+	s8 unk03;
+};
+
+struct mp3decthing {
+	u8 unk00;
+	u8 unk01;
+	u8 unk02;
+	u8 unk03;
+	u32 unk04;
+};
+
 #endif

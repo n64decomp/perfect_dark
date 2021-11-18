@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "bss.h"
 #include "lib/lib_3e8c0.h"
 #include "lib/lib_43dd0.h"
 #include "lib/lib_461c0.h"
@@ -15,10 +14,11 @@
 #define CRC_UNPROTECTED 1
 
 extern struct mp3vars g_Mp3Vars;
+extern struct asistream *g_AsiStream;
 
-u32 var8009c650[34];
-u8 *var8009c6d8;
-u8 *var8009c6dc;
+struct mp3decfourbytes var8009c650[34];
+f32 *var8009c6d8;
+f32 *var8009c6dc;
 
 u32 var8005f700 = 0;
 u32 var8005f704 = 0;

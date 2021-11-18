@@ -42,10 +42,10 @@ void mp3Init(ALHeap *heap)
 	var8005f6f8 = alHeapAlloc(heap, 1, 0x2200);
 	var8005f6fc = alHeapAlloc(heap, 1, 0x2200);
 
-	var8009c6d8 = alHeapAlloc(heap, 0x400, 1);
-	var8009c6dc = alHeapAlloc(heap, 0x400, 1);
-	var8009c640 = alHeapAlloc(heap, 0xa410, 1);
-	var8009c644 = alHeapAlloc(heap, 0x8000, 1);
+	var8009c6d8 = alHeapAlloc(heap, 256 * sizeof(f32), 1);
+	var8009c6dc = alHeapAlloc(heap, 256 * sizeof(f32), 1);
+	var8009c640 = alHeapAlloc(heap, 10500 * sizeof(struct mp3decfourbytes), 1);
+	var8009c644 = alHeapAlloc(heap, 8192 * sizeof(f32), 1);
 
 	func00044404();
 
