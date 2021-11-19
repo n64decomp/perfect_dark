@@ -1,8 +1,5 @@
 #include <ultra64.h>
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include "internal.h"
 
 f32 func00047ef0(f32 arg0)
 {

@@ -4,12 +4,12 @@
 #include "data.h"
 #include "types.h"
 
-bool func0003f8a0(void);
-bool func00040164(struct asistream *stream, u32 gr, u32 ch);
+bool mp3decInit(void);
+bool mp3dec00040164(struct asistream *stream, u32 gr, u32 ch);
 bool mp3decUnpackScaleFac(struct asistream *stream, u32 gr, u32 ch);
-bool func00041600(struct asistream *stream, u32 gr, u32 ch);
-bool func00042238(struct asistream *stream, u32 gr, u32 ch);
-bool func000427d8(struct asistream *stream, u32 gr);
+bool mp3dec00041600(struct asistream *stream, u32 gr, u32 ch);
+bool mp3dec00042238(struct asistream *stream, u32 gr, u32 ch);
+bool mp3dec000427d8(struct asistream *stream, u32 gr);
 bool mp3decReduceAliases(struct asistream *stream, u32 gr, u32 ch);
 bool mp3decSetSideInfo(struct asistream *stream);
 bool mp3decDecodeFrame(struct asistream *stream);

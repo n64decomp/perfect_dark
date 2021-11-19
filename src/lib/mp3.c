@@ -2,8 +2,8 @@
 #include <n_libaudio.h>
 #include "naudio/n_abi.h"
 #include "bss.h"
-#include "lib/lib_43dd0.h"
 #include "lib/mp3.h"
+#include "mp3/mp3.h"
 #include "types.h"
 
 /**
@@ -47,7 +47,7 @@ void mp3Init(ALHeap *heap)
 	var8009c640 = alHeapAlloc(heap, 10500 * sizeof(struct mp3decfourbytes), 1);
 	var8009c644 = alHeapAlloc(heap, 8192 * sizeof(f32), 1);
 
-	func00044404();
+	mp3mainInit();
 
 	g_Mp3Vars.var8009c398 = alHeapAlloc(heap, 1, 0x50);
 	*(u8 **)((u32)&g_Mp3Vars+0x44) = alHeapAlloc(heap, 1, 0x440);
@@ -185,7 +185,7 @@ s32 func00037fc0(s32 arg0, Acmd **cmd)
 		func00038cac();
 
 		if (g_Mp3Vars.var8009c3f0 == 0) {
-			g_Mp3Vars.var8009c394 = func00044460(0, g_Mp3Vars.var8009c3dc, g_Mp3Vars.var8009c3c0);
+			g_Mp3Vars.var8009c394 = mp3main00044460(0, g_Mp3Vars.var8009c3dc, g_Mp3Vars.var8009c3c0);
 
 			if (g_Mp3Vars.var8009c394 == NULL) {
 				g_Mp3Vars.var8009c3e0 = 0;
@@ -227,7 +227,7 @@ s32 func00037fc0(s32 arg0, Acmd **cmd)
 			g_Mp3Vars.var8009c3d0 = 0;
 			g_Mp3Vars.var8009c3cc = 0;
 
-			if (func0004453c(g_Mp3Vars.var8009c394, &sp58, &sp5c)) {
+			if (mp3main0004453c(g_Mp3Vars.var8009c394, &sp58, &sp5c)) {
 				g_Mp3Vars.var8009c3c8 = sp58;
 
 				for (i = 0; i < sp5c; i++) {

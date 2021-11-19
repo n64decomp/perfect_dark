@@ -1,10 +1,6 @@
 #include <ultra64.h>
-#include "constants.h"
-#include "lib/lib_3e8c0.h"
-#include "lib/lib_43dd0.h"
-#include "lib/lib_461c0.h"
-#include "data.h"
-#include "types.h"
+#include "internal.h"
+#include "mp3.h"
 
 #define LAYER_3 1
 #define LAYER_2 2
@@ -23,7 +19,7 @@ f32 *var8009c6dc;
 u32 var8005f700 = 0;
 u32 var8005f704 = 0;
 
-s32 func00043dd0(struct asistream *stream)
+s32 mp3main00043dd0(struct asistream *stream)
 {
 	s32 sp1c = 0x1000;
 	s32 sp18;
@@ -46,7 +42,7 @@ s32 func00043dd0(struct asistream *stream)
 	return stream->unk201c - stream->unk3f88;
 }
 
-bool func00043ef8(struct asistream *stream, s32 arg1)
+bool mp3main00043ef8(struct asistream *stream, s32 arg1)
 {
 	s32 sp24;
 	s32 sp20;
@@ -95,22 +91,22 @@ bool func00043ef8(struct asistream *stream, s32 arg1)
 	stream->unk18 += 2;
 	stream->count = 12;
 
-	stream->version = mp3decGetBits(stream->buffer, &stream->count, 1);
-	stream->layer = mp3decGetBits(stream->buffer, &stream->count, 2);
-	stream->crctype = mp3decGetBits(stream->buffer, &stream->count, 1);
-	stream->bitrateindex = mp3decGetBits(stream->buffer, &stream->count, 4);
-	stream->samplerateindex = mp3decGetBits(stream->buffer, &stream->count, 2);
-	stream->haspadding = mp3decGetBits(stream->buffer, &stream->count, 1);
-	stream->privatebit = mp3decGetBits(stream->buffer, &stream->count, 1);
-	stream->channelmode = mp3decGetBits(stream->buffer, &stream->count, 2);
+	stream->version = mp3utilGetBits(stream->buffer, &stream->count, 1);
+	stream->layer = mp3utilGetBits(stream->buffer, &stream->count, 2);
+	stream->crctype = mp3utilGetBits(stream->buffer, &stream->count, 1);
+	stream->bitrateindex = mp3utilGetBits(stream->buffer, &stream->count, 4);
+	stream->samplerateindex = mp3utilGetBits(stream->buffer, &stream->count, 2);
+	stream->haspadding = mp3utilGetBits(stream->buffer, &stream->count, 1);
+	stream->privatebit = mp3utilGetBits(stream->buffer, &stream->count, 1);
+	stream->channelmode = mp3utilGetBits(stream->buffer, &stream->count, 2);
 
-	stream->unk3bc4 = mp3decGetBits(stream->buffer, &stream->count, 2);
-	stream->unk3bc8 = mp3decGetBits(stream->buffer, &stream->count, 1);
-	stream->unk3bcc = mp3decGetBits(stream->buffer, &stream->count, 1);
-	stream->unk3bd0 = mp3decGetBits(stream->buffer, &stream->count, 2);
+	stream->unk3bc4 = mp3utilGetBits(stream->buffer, &stream->count, 2);
+	stream->unk3bc8 = mp3utilGetBits(stream->buffer, &stream->count, 1);
+	stream->unk3bcc = mp3utilGetBits(stream->buffer, &stream->count, 1);
+	stream->unk3bd0 = mp3utilGetBits(stream->buffer, &stream->count, 2);
 
 	if (stream->bitrateindex == 15 || stream->samplerateindex == 3) {
-		return func00043ef8(stream, -1);
+		return mp3main00043ef8(stream, -1);
 	}
 
 	if (!stream->doneinitial) {
@@ -129,7 +125,7 @@ bool func00043ef8(struct asistream *stream, s32 arg1)
 			|| stream->samplerateindex != stream->initialsamplerateindex
 			|| stream->channelmode != stream->initialchannelmode
 			|| stream->unk3bcc != stream->unk3bf0) {
-		return func00043ef8(stream, -1);
+		return mp3main00043ef8(stream, -1);
 	}
 
 	stream->unk2068 = 4;
@@ -162,17 +158,17 @@ bool func00043ef8(struct asistream *stream, s32 arg1)
 	return true;
 }
 
-u32 func00044404(void)
+u32 mp3mainInit(void)
 {
 	if (var8005f704++) {
 		return 2;
 	}
 
-	func0003f8a0();
+	mp3decInit();
 	return 0;
 }
 
-struct asistream *func00044460(s32 arg0, void *arg1, s32 arg2)
+struct asistream *mp3main00044460(s32 arg0, void *arg1, s32 arg2)
 {
 	struct asistream *stream = g_AsiStream;
 
@@ -192,7 +188,7 @@ struct asistream *func00044460(s32 arg0, void *arg1, s32 arg2)
 	stream->unk2020 = 0;
 	stream->unk3ba0 = 0;
 
-	func00043ef8(stream, 0);
+	mp3main00043ef8(stream, 0);
 
 	stream->unk8474 = 0;
 
@@ -201,7 +197,7 @@ struct asistream *func00044460(s32 arg0, void *arg1, s32 arg2)
 	return stream;
 }
 
-s32 func0004453c(struct asistream *streamptr, struct mp3thing **arg1, s32 *arg2)
+s32 mp3main0004453c(struct asistream *streamptr, struct mp3thing **arg1, s32 *arg2)
 {
 	struct asistream *stream = streamptr;
 	s32 result;
@@ -212,7 +208,7 @@ s32 func0004453c(struct asistream *streamptr, struct mp3thing **arg1, s32 *arg2)
 		stream->unk3ba0 = 0;
 	}
 
-	if (!func00043ef8(stream, stream->unk8474)) {
+	if (!mp3main00043ef8(stream, stream->unk8474)) {
 		g_Mp3Vars.var8009c3e0 = 3;
 		return 0;
 	}

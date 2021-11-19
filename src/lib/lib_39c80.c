@@ -2,7 +2,6 @@
 #include <n_libaudio.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_43dd0.h"
 #include "data.h"
 #include "types.h"
 

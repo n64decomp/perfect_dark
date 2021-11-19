@@ -4,7 +4,7 @@
 
 .text
 
-glabel func000461c0
+glabel mp3util000461c0
 	andi   $t4, $t0, 0x7
 	addiu  $t3, $zero, 0x8
 	lbu    $t5, 0x0($a0)
@@ -62,7 +62,7 @@ glabel func000461c0
 	jr     $ra
 	lb     $t1, 0x3($t7)
 
-glabel func00046290
+glabel mp3util00046290
 	lwl    $t1, 0x0($a0)
 	lwr    $t1, 0x3($a0)
 	andi   $t2, $t0, 0x7
@@ -77,7 +77,7 @@ glabel func00046290
 	jr     $ra
 	add    $t0, $t0, $s1
 
-glabel mp3decGetBits
+glabel mp3utilGetBits
 	lw     $t0, 0x0($a1)
 	srl    $t1, $t0, 0x3
 	add    $a0, $a0, $t1
@@ -92,7 +92,7 @@ glabel mp3decGetBits
 	jr     $ra
 	sw     $t0, 0x0($a1)
 
-glabel func000462f8
+glabel mp3util000462f8
 	addiu  $sp, $sp, -48
 	sw     $ra, 0x0($sp)
 	sw     $s0, 0x4($sp)
@@ -124,14 +124,14 @@ glabel func000462f8
 	blez   $t1, .L00046458
  	nop
 .L00046370:
-	jal    func000461c0
+	jal    mp3util000461c0
  	nop
 	beqz   $s1, .L00046398
 	add    $s6, $zero, $t1
 	addiu  $t2, $zero, 0xf
 	bne    $v0, $t2, .L00046398
  	nop
-	jal    func00046290
+	jal    mp3util00046290
  	nop
 	addi   $v0, $v0, 0xf
 .L00046398:
@@ -157,7 +157,7 @@ glabel func000462f8
 	addiu  $t2, $zero, 0xf
 	bne    $s6, $t2, .L000463fc
  	nop
-	jal    func00046290
+	jal    mp3util00046290
  	nop
 	addi   $s6, $v0, 0xf
 	add    $v0, $zero, $s7
@@ -208,7 +208,7 @@ glabel func000462f8
 	jr     $ra
 	add    $v0, $zero, $a3
 
-glabel func000464a8
+glabel mp3util000464a8
 	addiu  $sp, $sp, -48
 	sw     $ra, 0x0($sp)
 	sw     $s0, 0x4($sp)
@@ -242,7 +242,7 @@ glabel func000464a8
 	bgez   $t1, .L000465f4
  	nop
 .L00046528:
-	jal    func000461c0
+	jal    mp3util000461c0
  	nop
 	srl    $t3, $v0, 0x3
 	andi   $t3, $t3, 0x1
@@ -255,7 +255,7 @@ glabel func000464a8
 	sh     $t4, 0x2($s3)
 	sh     $t5, 0x4($s3)
 	sh     $t6, 0x6($s3)
-	jal    func00046290
+	jal    mp3util00046290
 	addiu  $s1, $zero, 0x4
 	addiu  $s1, $zero, 0x3
 	sb     $v0, 0x0($s4)

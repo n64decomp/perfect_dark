@@ -108,21 +108,21 @@
 	build/ROMID/lib/naudio/n_synfilter11.o (section); \
 	build/ROMID/lib/ultra/audio/cseq.o (section); \
 	build/ROMID/lib/naudio/n_env.o (section); \
-	build/ROMID/lib/lib_3f8a0.o (section); \
-	build/ROMID/lib/lib_43dd0.o (section); \
+	build/ROMID/lib/mp3/decoder.o (section); \
+	build/ROMID/lib/mp3/main.o (section); \
 	build/ROMID/lib/naudio/n_cspsendmidi.o (section); \
 	build/ROMID/lib/naudio/n_auxbus.o (section); \
 	build/ROMID/lib/naudio/n_mainbus.o (section); \
 	build/ROMID/lib/naudio/n_synsetpriority.o (section); \
 	build/ROMID/lib/naudio/n_load.o (section); \
 	build/ROMID/lib/naudio/n_resample2.o (section); \
-	build/ROMID/lib/lib_45ed0.o (section); \
-	build/ROMID/lib/lib_461c0.o (section); \
-	build/ROMID/lib/lib_46650.o (section); \
-	build/ROMID/lib/lib_47550.o (section); \
+	build/ROMID/lib/mp3/lib_45ed0.o (section); \
+	build/ROMID/lib/mp3/util.o (section); \
+	build/ROMID/lib/mp3/lib_46650.o (section); \
+	build/ROMID/lib/mp3/lib_47550.o (section); \
 	build/ROMID/lib/naudio/n_resample.o (section); \
-	build/ROMID/lib/lib_47d20.o (section); \
-	build/ROMID/lib/lib_47ef0.o (section); \
+	build/ROMID/lib/mp3/lib_47d20.o (section); \
+	build/ROMID/lib/mp3/lib_47ef0.o (section); \
 	build/ROMID/lib/ultra/io/vitbl.o (section); \
 	build/ROMID/lib/ultra/os/writebackdcacheall.o (section); \
 	build/ROMID/lib/ultra/os/invalicache.o (section); \

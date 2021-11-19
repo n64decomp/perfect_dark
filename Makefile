@@ -108,15 +108,11 @@ MIPS3_C_FILES := \
 G_C_FILES := \
 	$(shell find src/lib/ultra/audio -name '*.c') \
 	$(shell find src/lib/naudio -name '*.c') \
+	$(shell find src/lib/mp3 -name '*.c') \
 	src/lib/lib_2fc60.c \
 	src/lib/lib_317f0.c \
 	src/lib/lib_39c80.c \
 	src/lib/lib_3e3e0.c \
-	src/lib/lib_3f8a0.c \
-	src/lib/lib_43dd0.c \
-	src/lib/lib_45ed0.c \
-	src/lib/lib_47d20.c \
-	src/lib/lib_47ef0.c \
 	src/lib/mp3.c \
 	src/lib/speaker.c
 
@@ -180,9 +176,9 @@ O3_C_FILES := \
 IDO71_C_FILES := \
 	$(shell find src/lib/ultra/audio -name '*.c') \
 	$(shell find src/lib/naudio -name '*.c') \
+	$(shell find src/lib/mp3 -name '*.c') \
 	src/lib/lib_2fc60.c \
-	src/lib/lib_39c80.c \
-	src/lib/lib_3f8a0.c
+	src/lib/lib_39c80.c
 
 LOOPUNROLL_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(LOOPUNROLL_C_FILES))
 MIPS3_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(MIPS3_C_FILES))

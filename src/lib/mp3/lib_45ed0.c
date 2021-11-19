@@ -1,9 +1,5 @@
 #include <ultra64.h>
-#include "constants.h"
-#include "bss.h"
-#include "lib/lib_47d20.h"
-#include "data.h"
-#include "types.h"
+#include "internal.h"
 
 f32 func00045ed0(f32 arg0, f32 arg1)
 {
