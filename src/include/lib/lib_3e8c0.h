@@ -41,7 +41,7 @@ extern const u32 var70057750[];
 bool func0003f8a0(void);
 bool func00040164(struct asistream *stream, u32 gr, u32 ch);
 bool mp3decUnpackScaleFac(struct asistream *stream, u32 gr, u32 ch);
-void func00041600(struct asistream *stream, u32 gr, u32 ch);
+bool func00041600(struct asistream *stream, u32 gr, u32 ch);
 bool func00042238(struct asistream *stream, u32 gr, u32 ch);
 bool func000427d8(struct asistream *stream, u32 gr);
 bool mp3decReduceAliases(struct asistream *stream, u32 gr, u32 ch);

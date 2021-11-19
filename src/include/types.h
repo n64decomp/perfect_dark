@@ -7408,8 +7408,14 @@ struct asistream {
 	/*0x3d60*/ u8 unk3d60[4];
 	/*0x3d64*/ u8 scalefac_s[4];
 	/*0x3d68*/ u8 unk3d68[0x2c];
-	/*0x3d94*/ u8 unk3d94[0x6c];
-	/*0x3e00*/ u8 unk3e00[0x17c];
+	/*0x3d94*/ u8 unk3d94[4];
+	/*0x3d98*/ u8 unk3d98[0x34];
+	/*0x3dcc*/ u8 unk3dcc[0x34];
+	/*0x3e00*/ u8 unk3e00[0xf8];
+	/*0x3ef8*/ u32 unk3ef8;
+	/*0x3efc*/ u32 unk3efc[6];
+	/*0x3f14*/ u32 unk3f14[1];
+	/*0x3f18*/ u8 unk3f18[0x64];
 	/*0x3f7c*/ s32 unk3f7c;
 	/*0x3f80*/ s32 unk3f80;
 	/*0x3f84*/ s32 unk3f84;
