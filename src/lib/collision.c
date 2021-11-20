@@ -9517,12 +9517,10 @@ glabel func0002f2e8
 /*    2f2f8:	00801025 */ 	or	$v0,$a0,$zero
 );
 
-GLOBAL_ASM(
-glabel func0002f2fc
-/*    2f2fc:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    2f300:	03e00008 */ 	jr	$ra
-/*    2f304:	afa50004 */ 	sw	$a1,0x4($sp)
-);
+void func0002f2fc(u32 arg0, u32 arg1)
+{
+	// empty
+}
 
 bool cd0002f308(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f32 distance, s32 arg4, u16 arg5)
 {
