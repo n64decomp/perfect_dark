@@ -18,7 +18,7 @@ void func00033db0(void);
 void func00033dd8(void);
 void audioPostEvent(struct sndstate *handle, s16 type, s32 data);
 u16 func00033ec4(u8 index);
-struct sndstate *func00033f08(void);
+struct sndstate *sndpGetHeadState(void);
 ALMicroTime sndpGetCurTime(void);
 void func00033f44(u8 index, u16 volume);
 

@@ -922,7 +922,7 @@ u16 func00033ec4(u8 index)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-struct sndstate *func00033f08(void)
+struct sndstate *sndpGetHeadState(void)
 {
 	return g_SndpAllocStatesHead;
 }
