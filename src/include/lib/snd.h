@@ -13,7 +13,7 @@ void snd0000eadc(void);
 void sndLoadSfxCtl(void);
 void snd0000ed14(void);
 u32 snd0000ed68(void);
-u32 snd0000ee88(void);
+struct var80095210_35c *snd0000ee88(u32 segoffset, u16 arg1);
 u32 snd0000efa8(void);
 u32 snd0000f0d4(void);
 u32 snd0000f228(void);

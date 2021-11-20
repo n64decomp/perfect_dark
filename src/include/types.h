@@ -7027,10 +7027,17 @@ struct mp3vars {
 	/*0x61*/ u8 var8009c3f1;
 };
 
+struct var80095210_35c {
+	u8 unk00[6];
+};
+
 struct var80095210 {
 	u16 *soundnums;
 	u8 unk04[45];
 	u16 unk32[45];
+	u8 unk90[0x2cc];
+	struct var80095210_35c unk35c[1];
+	u8 unk364[0x3d88];
 };
 
 struct rdptask {

@@ -46,7 +46,6 @@ ALBank *var80095204;
 struct seqtable *g_SeqTable;
 u32 g_SeqBufferSize;
 struct var80095210 var80095210;
-u8 var800952a0[0x4060];
 
 const char g_SndGuardString[] = "RUSSES SOUND GUARD STRING";
 const char var70053b3c[] = "Snd: SoundHeaderCacheInit\n";
@@ -1375,6 +1374,46 @@ glabel snd0000ee88
 /*     f5d8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 #endif
+
+//struct var80095210_35c *snd0000ee88(u32 segoffset, u16 arg1)
+//{
+//#if VERSION >= VERSION_NTSC_1_0
+//	s32 i;
+//	s32 sum1;
+//	s32 sum2;
+//	u32 stack;
+//	u8 spaf[0x40];
+//	u8 sp5f[0x50];
+//	u32 *s2 = (u32 *)ALIGN16((u32)spaf);
+//	u32 *s1 = (u32 *)ALIGN16((u32)sp5f);
+//	u32 stack2;
+//
+//	do {
+//		dmaExecHighPriority(s2, (u32)&_sfxctlSegmentRomStart + segoffset, 0x40);
+//		sum1 = 0;
+//
+//		for (i = 0; i < 16U; i++) {
+//			sum1 += s2[i];
+//		}
+//
+//		dmaExecHighPriority(s1, (u32)&_sfxctlSegmentRomStart + segoffset, 0x40);
+//		sum2 = 0;
+//
+//		for (i = 0; i < 16U; i++) {
+//			sum2 += s1[i];
+//		}
+//	} while (sum1 != sum2);
+//#else
+//	u8 sp5f[0x50];
+//	u32 *s1 = (u32 *)ALIGN16((u32)sp5f);
+//
+//	dmaExecHighPriority(s1, (u32)&_sfxctlSegmentRomStart + segoffset, 0x40);
+//#endif
+//
+//	var80095210.unk35c[arg1] = *(struct var80095210_35c *)s1;
+//
+//	return &var80095210.unk35c[arg1];
+//}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
