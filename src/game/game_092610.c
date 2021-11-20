@@ -467,7 +467,7 @@ glabel var7f1ab740
 /*  f092b88:	306e0010 */ 	andi	$t6,$v1,0x10
 /*  f092b8c:	51c001e2 */ 	beqzl	$t6,.PF0f093318
 /*  f092b90:	860e0028 */ 	lh	$t6,0x28($s0)
-/*  f092b94:	0c0039cc */ 	jal	snd0000e9d0
+/*  f092b94:	0c0039cc */ 	jal	sndIsPlayingMp3
 /*  f092b98:	00000000 */ 	nop
 /*  f092b9c:	504001de */ 	beqzl	$v0,.PF0f093318
 /*  f092ba0:	860e0028 */ 	lh	$t6,0x28($s0)
@@ -949,7 +949,7 @@ glabel var7f1ab740
 /*  f093238:	10000001 */ 	b	.PF0f093240
 /*  f09323c:	24070001 */ 	li	$a3,0x1
 .PF0f093240:
-/*  f093240:	0c004218 */ 	jal	snd00010ae4
+/*  f093240:	0c004218 */ 	jal	sndStartMp3
 /*  f093244:	86040026 */ 	lh	$a0,0x26($s0)
 /*  f093248:	10000021 */ 	b	.PF0f0932d0
 /*  f09324c:	96030030 */ 	lhu	$v1,0x30($s0)
@@ -1015,7 +1015,7 @@ glabel var7f1ab740
 /*  f093328:	306f0010 */ 	andi	$t7,$v1,0x10
 /*  f09332c:	51e00015 */ 	beqzl	$t7,.PF0f093384
 /*  f093330:	8e0b0000 */ 	lw	$t3,0x0($s0)
-/*  f093334:	0c0039cc */ 	jal	snd0000e9d0
+/*  f093334:	0c0039cc */ 	jal	sndIsPlayingMp3
 /*  f093338:	00000000 */ 	nop
 /*  f09333c:	5440000e */ 	bnezl	$v0,.PF0f093378
 /*  f093340:	240a0001 */ 	li	$t2,0x1
@@ -1118,7 +1118,7 @@ glabel var7f1ab740
 /*  f092c88:	306e0010 */ 	andi	$t6,$v1,0x10
 /*  f092c8c:	51c001e6 */ 	beqzl	$t6,.L0f093428
 /*  f092c90:	860f0028 */ 	lh	$t7,0x28($s0)
-/*  f092c94:	0c003a74 */ 	jal	snd0000e9d0
+/*  f092c94:	0c003a74 */ 	jal	sndIsPlayingMp3
 /*  f092c98:	00000000 */ 	nop
 /*  f092c9c:	504001e2 */ 	beqzl	$v0,.L0f093428
 /*  f092ca0:	860f0028 */ 	lh	$t7,0x28($s0)
@@ -1603,7 +1603,7 @@ glabel var7f1ab740
 /*  f093348:	10000001 */ 	b	.L0f093350
 /*  f09334c:	24070001 */ 	addiu	$a3,$zero,0x1
 .L0f093350:
-/*  f093350:	0c0042b9 */ 	jal	snd00010ae4
+/*  f093350:	0c0042b9 */ 	jal	sndStartMp3
 /*  f093354:	86040026 */ 	lh	$a0,0x26($s0)
 /*  f093358:	10000021 */ 	b	.L0f0933e0
 /*  f09335c:	96030030 */ 	lhu	$v1,0x30($s0)
@@ -1669,7 +1669,7 @@ glabel var7f1ab740
 /*  f093438:	30780010 */ 	andi	$t8,$v1,0x10
 /*  f09343c:	53000015 */ 	beqzl	$t8,.L0f093494
 /*  f093440:	8e0c0000 */ 	lw	$t4,0x0($s0)
-/*  f093444:	0c003a74 */ 	jal	snd0000e9d0
+/*  f093444:	0c003a74 */ 	jal	sndIsPlayingMp3
 /*  f093448:	00000000 */ 	nop
 /*  f09344c:	5440000e */ 	bnezl	$v0,.L0f093488
 /*  f093450:	240b0001 */ 	addiu	$t3,$zero,0x1
@@ -1763,7 +1763,7 @@ glabel var7f1ab740
 /*  f0912b4:	306b0010 */ 	andi	$t3,$v1,0x10
 /*  f0912b8:	516001af */ 	beqzl	$t3,.NB0f091978
 /*  f0912bc:	96030030 */ 	lhu	$v1,0x30($s0)
-/*  f0912c0:	0c003c6c */ 	jal	snd0000e9d0
+/*  f0912c0:	0c003c6c */ 	jal	sndIsPlayingMp3
 /*  f0912c4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0912c8:	504001ab */ 	beqzl	$v0,.NB0f091978
 /*  f0912cc:	96030030 */ 	lhu	$v1,0x30($s0)
@@ -2208,7 +2208,7 @@ glabel var7f1ab740
 /*  f0918e8:	10000001 */ 	beqz	$zero,.NB0f0918f0
 /*  f0918ec:	24070001 */ 	addiu	$a3,$zero,0x1
 .NB0f0918f0:
-/*  f0918f0:	0c0043a9 */ 	jal	snd00010ae4
+/*  f0918f0:	0c0043a9 */ 	jal	sndStartMp3
 /*  f0918f4:	86040026 */ 	lh	$a0,0x26($s0)
 /*  f0918f8:	1000000d */ 	beqz	$zero,.NB0f091930
 /*  f0918fc:	960f0030 */ 	lhu	$t7,0x30($s0)
@@ -2249,7 +2249,7 @@ glabel var7f1ab740
 /*  f091978:	306c0010 */ 	andi	$t4,$v1,0x10
 /*  f09197c:	51800014 */ 	beqzl	$t4,.NB0f0919d0
 /*  f091980:	8e0f0000 */ 	lw	$t7,0x0($s0)
-/*  f091984:	0c003c6c */ 	jal	snd0000e9d0
+/*  f091984:	0c003c6c */ 	jal	sndIsPlayingMp3
 /*  f091988:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f09198c:	54400018 */ 	bnezl	$v0,.NB0f0919f0
 /*  f091990:	24190001 */ 	addiu	$t9,$zero,0x1
@@ -3549,8 +3549,8 @@ glabel var7f1a5a9cnb
 //	channel->unk18 = 0;
 //	channel->uuid = g_AudioPrevUuid;
 //
-//	if (spac.bits2.isruss) {
-//		s32 id = spac.bits.id;
+//	if (spac.bits2.hasconfig) {
+//		s32 id = spac.confignum;
 //		s32 confignum = g_AudioRussMappings[id].audioconfig_index;
 //		s32 newid = g_AudioRussMappings[id].soundnum;
 //
@@ -3603,7 +3603,7 @@ glabel var7f1a5a9cnb
 //		channel->flags |= AUDIOCHANNELFLAG_0040;
 //
 //		spac.packed = newid;
-//		spac.bits2.isruss = false;
+//		spac.bits2.hasconfig = false;
 //		soundnum = spac.packed;
 //	}
 //
@@ -3612,7 +3612,7 @@ glabel var7f1a5a9cnb
 //	}
 //
 //	channel->soundnum26 = spac.packed;
-//	channel->unk2c = spac.bits3.id;
+//	channel->unk2c = spac.id;
 //
 //	if (sndIsFiltered(channel->unk2c)) {
 //		channel->flags2 |= AUDIOCHANNELFLAG2_OFFENSIVE;

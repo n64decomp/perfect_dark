@@ -506,7 +506,7 @@ void lvInit(s32 stagenum)
 	}
 
 	pak0f11a2e4();
-	snd0000eadc();
+	sndResetCurMp3();
 
 	if (stagenum == STAGE_BOOTPAKMENU) {
 		pakPushPakMenuDialog();
@@ -1029,7 +1029,7 @@ glabel var7f1b1f44nc
 .NB0f162da0:
 /*  f162da0:	0fc4506d */ 	jal	pak0f11a2e4
 /*  f162da4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f162da8:	0c003ca1 */ 	jal	snd0000eadc
+/*  f162da8:	0c003ca1 */ 	jal	sndResetCurMp3
 /*  f162dac:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f162db0:	8fab0020 */ 	lw	$t3,0x20($sp)
 /*  f162db4:	2401005b */ 	addiu	$at,$zero,0x5b

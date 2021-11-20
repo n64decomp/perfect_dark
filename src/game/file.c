@@ -4060,9 +4060,9 @@ void *filetable[] = {
 	/*0x07de*/ &_filenamesSegmentRomStart,
 };
 
-void *fileGetRomAddress(s32 filenum)
+u32 fileGetRomAddress(s32 filenum)
 {
-	return filetable[filenum];
+	return (u32)filetable[filenum];
 }
 
 u32 fileGetRomSizeByTableAddress(u32 *filetableaddr)

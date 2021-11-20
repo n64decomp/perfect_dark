@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void *fileGetRomAddress(s32 filenum);
+u32 fileGetRomAddress(s32 filenum);
 u32 fileGetRomSizeByTableAddress(u32 *filetableaddr);
 s32 fileGetRomSizeByFileNum(s32 filenum);
 u32 func0f166ea8(u32 *filetableaddr);

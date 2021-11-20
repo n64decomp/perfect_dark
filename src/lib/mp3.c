@@ -73,20 +73,20 @@ void mp3Init(ALHeap *heap)
 	func00038b90(func00038ba8);
 }
 
-void func00037d88(s32 arg0, s32 arg1)
+void mp3PlayFile(s32 romaddr, s32 filesize)
 {
 	if (g_Mp3Vars.var8009c3dc == NULL) {
 		return;
 	}
 
-	g_Mp3Vars.var8009c390 = arg0;
-	g_Mp3Vars.var8009c3c0 = arg1;
+	g_Mp3Vars.romaddr = romaddr;
+	g_Mp3Vars.filesize = filesize;
 	g_Mp3Vars.var8009c3c4 = 0;
 	g_Mp3Vars.var8009c3e8 = 0;
 	g_Mp3Vars.var8009c3e4 = 0x7fff;
 	g_Mp3Vars.var8009c3f0 = 5;
 
-	func00038cac();
+	mp3Dma();
 
 	g_Mp3Vars.var8009c3e0 = 4;
 }
@@ -123,7 +123,7 @@ s32 func00037ea4(void)
 	}
 }
 
-void func00037f08(s32 arg0, s32 arg1)
+void func00037f08(s32 arg0, bool arg1)
 {
 	if (arg0 < 0) {
 		g_Mp3Vars.var8009c3e4 = 0;
@@ -182,10 +182,10 @@ s32 func00037fc0(s32 arg0, Acmd **cmd)
 	}
 
 	if (g_Mp3Vars.var8009c3e0 == 4) {
-		func00038cac();
+		mp3Dma();
 
 		if (g_Mp3Vars.var8009c3f0 == 0) {
-			g_Mp3Vars.var8009c394 = mp3main00044460(0, g_Mp3Vars.var8009c3dc, g_Mp3Vars.var8009c3c0);
+			g_Mp3Vars.var8009c394 = mp3main00044460(0, g_Mp3Vars.var8009c3dc, g_Mp3Vars.filesize);
 
 			if (g_Mp3Vars.var8009c394 == NULL) {
 				g_Mp3Vars.var8009c3e0 = 0;
@@ -206,7 +206,7 @@ s32 func00037fc0(s32 arg0, Acmd **cmd)
 	}
 
 	if (g_Mp3Vars.var8009c3e0 == 5) {
-		func00038cac();
+		mp3Dma();
 
 		if (g_Mp3Vars.var8009c3f0 == 0) {
 			g_Mp3Vars.var8009c3e0 = 1;
@@ -245,7 +245,7 @@ s32 func00037fc0(s32 arg0, Acmd **cmd)
 			}
 		}
 
-		func00038cac();
+		mp3Dma();
 
 		if (g_Mp3Vars.var8009c3f1 == 0) {
 			sp4c = 0;
@@ -372,12 +372,12 @@ s32 func00038ba8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
 		g_Mp3Vars.var8009c3c4 = arg3;
 	}
 
-	if (g_Mp3Vars.var8009c3c4 + arg2 > g_Mp3Vars.var8009c3c0) {
-		arg2 = g_Mp3Vars.var8009c3c0 - g_Mp3Vars.var8009c3c4;
+	if (g_Mp3Vars.var8009c3c4 + arg2 > g_Mp3Vars.filesize) {
+		arg2 = g_Mp3Vars.filesize - g_Mp3Vars.var8009c3c4;
 	}
 
 	proc = n_syn->dma(&sp1c);
-	sp1c = OS_K0_TO_PHYSICAL(proc(g_Mp3Vars.var8009c390 + g_Mp3Vars.var8009c3c4, arg2, 0));
+	sp1c = OS_K0_TO_PHYSICAL(proc(g_Mp3Vars.romaddr + g_Mp3Vars.var8009c3c4, arg2, 0));
 
 	bcopy((u8 *)sp1c, arg1, arg2);
 
@@ -386,12 +386,12 @@ s32 func00038ba8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
 	return arg2;
 }
 
-void func00038cac(void)
+void mp3Dma(void)
 {
 	u32 state;
 	ALDMAproc proc;
 
 	proc = n_syn->dma(&state);
 
-	proc(g_Mp3Vars.var8009c390 + g_Mp3Vars.var8009c3c4, 0x400, 0);
+	proc(g_Mp3Vars.romaddr + g_Mp3Vars.var8009c3c4, 0x400, 0);
 }

@@ -3585,22 +3585,16 @@ union soundnumhack {
 	s16 packed;
 
 	struct {
-		u16 isruss : 1;
-		u16 id : 15;
-	} bits;
+		u16 hasconfig : 1;
+		u16 confignum : 15;
+	};
 
 	struct {
-		u16 isruss : 1;
+		u16 hasconfig : 1;
 		u16 unk02 : 2;
-		u16 id : 13;
-	} bits2;
-
-	struct {
-		u16 isruss : 1;
-		u16 unk02 : 2;
-		u16 unk04 : 2;
+		u16 mp3priority : 2;
 		u16 id : 11;
-	} bits3;
+	};
 };
 
 struct audiorussmapping {
@@ -6987,7 +6981,7 @@ struct mp3thing {
 };
 
 struct mp3vars {
-	/*0x00*/ s32 var8009c390;
+	/*0x00*/ s32 romaddr;
 	/*0x04*/ struct asistream *var8009c394;
 	/*0x08*/ u8 *var8009c398;
 	/*0x0c*/ s16 var8009c39c;
@@ -7005,7 +6999,7 @@ struct mp3vars {
 	/*0x24*/ s16 var8009c3b4;
 	/*0x28*/ s32 samples;
 	/*0x2c*/ s32 var8009c3bc;
-	/*0x30*/ s32 var8009c3c0;
+	/*0x30*/ s32 filesize;
 	/*0x34*/ s32 var8009c3c4;
 	/*0x38*/ struct mp3thing *var8009c3c8;
 	/*0x3c*/ s32 var8009c3cc;
