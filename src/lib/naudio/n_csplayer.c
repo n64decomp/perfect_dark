@@ -487,7 +487,7 @@ void func00034fb8(N_ALCSPlayer *seqp, u8 channel)
 	}
 }
 
-void snd0001036c(u8 arg0);
+void sndStartMp3(u8 arg0);
 f32 _depth2Cents(u8 arg0);
 
 void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
@@ -969,7 +969,7 @@ void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
 			}
 			break;
 		case (AL_MIDI_FX_CTRL_6):
-			snd0001036c(byte2);
+			sndStartMp3(byte2);
 			break;
 		case (0x20):
 			seqp->chanState[chan].unk32 = byte2;

@@ -3653,50 +3653,19 @@ bool sndIsDisabled(void)
 	return g_SndDisabled;
 }
 
-GLOBAL_ASM(
-glabel snd0001036c
-/*    1036c:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
-/*    10370:	8dcedda0 */ 	lw	$t6,%lo(g_SndDisabled)($t6)
-/*    10374:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    10378:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    1037c:	15c0001f */ 	bnez	$t6,.L000103fc
-/*    10380:	afa40030 */ 	sw	$a0,0x30($sp)
-/*    10384:	3c0f8006 */ 	lui	$t7,%hi(g_SndMp3Enabled)
-/*    10388:	8defddd0 */ 	lw	$t7,%lo(g_SndMp3Enabled)($t7)
-/*    1038c:	00806025 */ 	or	$t4,$a0,$zero
-/*    10390:	318d07ff */ 	andi	$t5,$t4,0x7ff
-/*    10394:	11e00019 */ 	beqz	$t7,.L000103fc
-/*    10398:	00002025 */ 	or	$a0,$zero,$zero
-/*    1039c:	a7a0002c */ 	sh	$zero,0x2c($sp)
-/*    103a0:	93b8002c */ 	lbu	$t8,0x2c($sp)
-/*    103a4:	3c01bf80 */ 	lui	$at,0xbf80
-/*    103a8:	44812000 */ 	mtc1	$at,$f4
-/*    103ac:	3308ff9f */ 	andi	$t0,$t8,0xff9f
-/*    103b0:	310900e7 */ 	andi	$t1,$t0,0xe7
-/*    103b4:	a3a8002c */ 	sb	$t0,0x2c($sp)
-/*    103b8:	352a0008 */ 	ori	$t2,$t1,0x8
-/*    103bc:	a3aa002c */ 	sb	$t2,0x2c($sp)
-/*    103c0:	97ae002c */ 	lhu	$t6,0x2c($sp)
-/*    103c4:	2409ffff */ 	addiu	$t1,$zero,-1
-/*    103c8:	2408ffff */ 	addiu	$t0,$zero,-1
-/*    103cc:	31cff800 */ 	andi	$t7,$t6,0xf800
-/*    103d0:	01afc025 */ 	or	$t8,$t5,$t7
-/*    103d4:	a7b8002c */ 	sh	$t8,0x2c($sp)
-/*    103d8:	2419ffff */ 	addiu	$t9,$zero,-1
-/*    103dc:	afb90010 */ 	sw	$t9,0x10($sp)
-/*    103e0:	87a5002c */ 	lh	$a1,0x2c($sp)
-/*    103e4:	afa80018 */ 	sw	$t0,0x18($sp)
-/*    103e8:	afa9001c */ 	sw	$t1,0x1c($sp)
-/*    103ec:	00003025 */ 	or	$a2,$zero,$zero
-/*    103f0:	2407ffff */ 	addiu	$a3,$zero,-1
-/*    103f4:	0c004241 */ 	jal	sndStart
-/*    103f8:	e7a40014 */ 	swc1	$f4,0x14($sp)
-.L000103fc:
-/*    103fc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    10400:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    10404:	03e00008 */ 	jr	$ra
-/*    10408:	00000000 */ 	nop
-);
+void sndStartMp3(u32 filenum)
+{
+	union soundnumhack sfxref;
+
+	if (!g_SndDisabled && g_SndMp3Enabled) {
+		sfxref.packed = 0;
+		sfxref.bits3.unk02 = 0;
+		sfxref.bits3.unk04 = 1;
+		sfxref.bits3.id = filenum;
+
+		sndStart(0, sfxref.packed, NULL, -1, -1, -1, -1, -1);
+	}
+}
 
 /**
  * Return true if the player has the language filter enabled
