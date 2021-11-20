@@ -3582,7 +3582,7 @@ struct surfacetype {
 };
 
 union soundnumhack {
-	u16 packed;
+	s16 packed;
 
 	struct {
 		u16 isruss : 1;
@@ -3616,7 +3616,7 @@ struct audioconfig {
 	s32 unk10;
 	s32 unk14;
 	u32 unk18;
-	u32 flags; // 0x10 = contains swearing
+	u32 flags;
 };
 
 struct bootbufferthingdeep {

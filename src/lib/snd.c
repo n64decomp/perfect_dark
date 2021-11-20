@@ -4040,275 +4040,68 @@ glabel sndAdjust
 );
 #endif
 
+struct sndstate *snd00010718(struct sndstate **handle, s32 arg1, s32 arg2, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8)
+{
+	OSPri prevpri = osGetThreadPri(NULL);
+	s32 t0 = -1;
+	struct sndstate *state;
+	union soundnumhack sp30;
+	union soundnumhack sp2c;
+	struct audioconfig *config;
+
+	osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
+
+	if (arg8 || arg7 != -1) {
+		if (arg7 != -1) {
+			t0 = arg7;
+		} else {
+			t0 = 0;
+		}
+
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel snd00010718
-/*    10718:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*    1071c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    10720:	afa40040 */ 	sw	$a0,0x40($sp)
-/*    10724:	afa50044 */ 	sw	$a1,0x44($sp)
-/*    10728:	afa60048 */ 	sw	$a2,0x48($sp)
-/*    1072c:	afa7004c */ 	sw	$a3,0x4c($sp)
-/*    10730:	0c012230 */ 	jal	osGetThreadPri
-/*    10734:	00002025 */ 	or	$a0,$zero,$zero
-/*    10738:	2408ffff */ 	addiu	$t0,$zero,-1
-/*    1073c:	3c048009 */ 	lui	$a0,%hi(g_AudioManager+0x18)
-/*    10740:	afa2003c */ 	sw	$v0,0x3c($sp)
-/*    10744:	248415e0 */ 	addiu	$a0,$a0,%lo(g_AudioManager+0x18)
-/*    10748:	0c012230 */ 	jal	osGetThreadPri
-/*    1074c:	afa80038 */ 	sw	$t0,0x38($sp)
-/*    10750:	00002025 */ 	or	$a0,$zero,$zero
-/*    10754:	0c01210c */ 	jal	osSetThreadPri
-/*    10758:	24450001 */ 	addiu	$a1,$v0,0x1
-/*    1075c:	8fae0060 */ 	lw	$t6,0x60($sp)
-/*    10760:	8fa80038 */ 	lw	$t0,0x38($sp)
-/*    10764:	8fa2005c */ 	lw	$v0,0x5c($sp)
-/*    10768:	15c00004 */ 	bnez	$t6,.L0001077c
-/*    1076c:	8fa90050 */ 	lw	$t1,0x50($sp)
-/*    10770:	2407ffff */ 	addiu	$a3,$zero,-1
-/*    10774:	10470012 */ 	beq	$v0,$a3,.L000107c0
-/*    10778:	00000000 */ 	nop
-.L0001077c:
-/*    1077c:	8fa2005c */ 	lw	$v0,0x5c($sp)
-/*    10780:	2407ffff */ 	addiu	$a3,$zero,-1
-/*    10784:	00004025 */ 	or	$t0,$zero,$zero
-/*    10788:	10470003 */ 	beq	$v0,$a3,.L00010798
-/*    1078c:	8faf004c */ 	lw	$t7,0x4c($sp)
-/*    10790:	10000001 */ 	b	.L00010798
-/*    10794:	00404025 */ 	or	$t0,$v0,$zero
-.L00010798:
-/*    10798:	11e70009 */ 	beq	$t7,$a3,.L000107c0
-/*    1079c:	3c188006 */ 	lui	$t8,%hi(g_SoundMode)
-/*    107a0:	8f18ddcc */ 	lw	$t8,%lo(g_SoundMode)($t8)
-/*    107a4:	24010003 */ 	addiu	$at,$zero,0x3
-/*    107a8:	31f90080 */ 	andi	$t9,$t7,0x80
-/*    107ac:	17010004 */ 	bne	$t8,$at,.L000107c0
-/*    107b0:	00000000 */ 	nop
-/*    107b4:	13200002 */ 	beqz	$t9,.L000107c0
-/*    107b8:	00000000 */ 	nop
-/*    107bc:	25080080 */ 	addiu	$t0,$t0,0x80
-.L000107c0:
-/*    107c0:	51200039 */ 	beqzl	$t1,.L000108a8
-/*    107c4:	8fad004c */ 	lw	$t5,0x4c($sp)
-/*    107c8:	a7a90030 */ 	sh	$t1,0x30($sp)
-/*    107cc:	8faa0030 */ 	lw	$t2,0x30($sp)
-/*    107d0:	3c058006 */ 	lui	$a1,%hi(g_AudioRussMappings)
-/*    107d4:	24a5dde4 */ 	addiu	$a1,$a1,%lo(g_AudioRussMappings)
-/*    107d8:	000a5fc2 */ 	srl	$t3,$t2,0x1f
-/*    107dc:	11600031 */ 	beqz	$t3,.L000108a4
-/*    107e0:	24060064 */ 	addiu	$a2,$zero,0x64
-/*    107e4:	01206025 */ 	or	$t4,$t1,$zero
-/*    107e8:	318d7fff */ 	andi	$t5,$t4,0x7fff
-/*    107ec:	000d7080 */ 	sll	$t6,$t5,0x2
-/*    107f0:	00ae7821 */ 	addu	$t7,$a1,$t6
-/*    107f4:	85f90000 */ 	lh	$t9,0x0($t7)
-/*    107f8:	00aec021 */ 	addu	$t8,$a1,$t6
-/*    107fc:	97020002 */ 	lhu	$v0,0x2($t8)
-/*    10800:	3c0d8006 */ 	lui	$t5,%hi(g_AudioConfigs)
-/*    10804:	a7b9002c */ 	sh	$t9,0x2c($sp)
-/*    10808:	93aa002c */ 	lbu	$t2,0x2c($sp)
-/*    1080c:	25ade4d8 */ 	addiu	$t5,$t5,%lo(g_AudioConfigs)
-/*    10810:	00026140 */ 	sll	$t4,$v0,0x5
-/*    10814:	018d2021 */ 	addu	$a0,$t4,$t5
-/*    10818:	8c830010 */ 	lw	$v1,0x10($a0)
-/*    1081c:	314bff7f */ 	andi	$t3,$t2,0xff7f
-/*    10820:	a3ab002c */ 	sb	$t3,0x2c($sp)
-/*    10824:	10c30012 */ 	beq	$a2,$v1,.L00010870
-/*    10828:	87a9002c */ 	lh	$t1,0x2c($sp)
-/*    1082c:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*    10830:	00780019 */ 	multu	$v1,$t8
-/*    10834:	00007012 */ 	mflo	$t6
-/*    10838:	00000000 */ 	nop
-/*    1083c:	00000000 */ 	nop
-/*    10840:	01c6001a */ 	div	$zero,$t6,$a2
-/*    10844:	00007812 */ 	mflo	$t7
-/*    10848:	afaf0048 */ 	sw	$t7,0x48($sp)
-/*    1084c:	14c00002 */ 	bnez	$a2,.L00010858
-/*    10850:	00000000 */ 	nop
-/*    10854:	0007000d */ 	break	0x7
-.L00010858:
-/*    10858:	2401ffff */ 	addiu	$at,$zero,-1
-/*    1085c:	14c10004 */ 	bne	$a2,$at,.L00010870
-/*    10860:	3c018000 */ 	lui	$at,0x8000
-/*    10864:	15c10002 */ 	bne	$t6,$at,.L00010870
-/*    10868:	00000000 */ 	nop
-/*    1086c:	0006000d */ 	break	0x6
-.L00010870:
-/*    10870:	8c820014 */ 	lw	$v0,0x14($a0)
-/*    10874:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x4e3)
-/*    10878:	10e20002 */ 	beq	$a3,$v0,.L00010884
-/*    1087c:	00000000 */ 	nop
-/*    10880:	afa2004c */ 	sw	$v0,0x4c($sp)
-.L00010884:
-/*    10884:	9339a4a3 */ 	lbu	$t9,%lo(g_Vars+0x4e3)($t9)
-/*    10888:	53200007 */ 	beqzl	$t9,.L000108a8
-/*    1088c:	8fad004c */ 	lw	$t5,0x4c($sp)
-/*    10890:	8c8a001c */ 	lw	$t2,0x1c($a0)
-/*    10894:	314b0010 */ 	andi	$t3,$t2,0x10
-/*    10898:	51600003 */ 	beqzl	$t3,.L000108a8
-/*    1089c:	8fad004c */ 	lw	$t5,0x4c($sp)
-/*    108a0:	afa00048 */ 	sw	$zero,0x48($sp)
-.L000108a4:
-/*    108a4:	8fad004c */ 	lw	$t5,0x4c($sp)
-.L000108a8:
-/*    108a8:	c7a40054 */ 	lwc1	$f4,0x54($sp)
-/*    108ac:	8fb80058 */ 	lw	$t8,0x58($sp)
-/*    108b0:	00092c00 */ 	sll	$a1,$t1,0x10
-/*    108b4:	00056403 */ 	sra	$t4,$a1,0x10
-/*    108b8:	3c048009 */ 	lui	$a0,%hi(var80095200)
-/*    108bc:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
-/*    108c0:	01802825 */ 	or	$a1,$t4,$zero
-/*    108c4:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*    108c8:	8fa70048 */ 	lw	$a3,0x48($sp)
-/*    108cc:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*    108d0:	afad0010 */ 	sw	$t5,0x10($sp)
-/*    108d4:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*    108d8:	0c004241 */ 	jal	sndStart
-/*    108dc:	afb80018 */ 	sw	$t8,0x18($sp)
-/*    108e0:	afa20034 */ 	sw	$v0,0x34($sp)
-/*    108e4:	00002025 */ 	or	$a0,$zero,$zero
-/*    108e8:	0c01210c */ 	jal	osSetThreadPri
-/*    108ec:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*    108f0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    108f4:	8fa20034 */ 	lw	$v0,0x34($sp)
-/*    108f8:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*    108fc:	03e00008 */ 	jr	$ra
-/*    10900:	00000000 */ 	nop
-);
+		if (arg3 != -1 && g_SoundMode == SOUNDMODE_SURROUND && (arg3 & 0x80)) {
+			t0 += 128;
+		}
 #else
-GLOBAL_ASM(
-glabel snd00010718
-/*    10afc:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*    10b00:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    10b04:	afa40040 */ 	sw	$a0,0x40($sp)
-/*    10b08:	afa50044 */ 	sw	$a1,0x44($sp)
-/*    10b0c:	afa60048 */ 	sw	$a2,0x48($sp)
-/*    10b10:	afa7004c */ 	sw	$a3,0x4c($sp)
-/*    10b14:	0c012724 */ 	jal	osGetThreadPri
-/*    10b18:	00002025 */ 	or	$a0,$zero,$zero
-/*    10b1c:	2408ffff */ 	addiu	$t0,$zero,-1
-/*    10b20:	3c048009 */ 	lui	$a0,0x8009
-/*    10b24:	afa2003c */ 	sw	$v0,0x3c($sp)
-/*    10b28:	24843bd0 */ 	addiu	$a0,$a0,0x3bd0
-/*    10b2c:	0c012724 */ 	jal	osGetThreadPri
-/*    10b30:	afa80038 */ 	sw	$t0,0x38($sp)
-/*    10b34:	00002025 */ 	or	$a0,$zero,$zero
-/*    10b38:	0c012600 */ 	jal	osSetThreadPri
-/*    10b3c:	24450001 */ 	addiu	$a1,$v0,0x1
-/*    10b40:	8fae0060 */ 	lw	$t6,0x60($sp)
-/*    10b44:	8fa80038 */ 	lw	$t0,0x38($sp)
-/*    10b48:	8fa2005c */ 	lw	$v0,0x5c($sp)
-/*    10b4c:	15c00004 */ 	bnez	$t6,.NB00010b60
-/*    10b50:	8fa90050 */ 	lw	$t1,0x50($sp)
-/*    10b54:	2407ffff */ 	addiu	$a3,$zero,-1
-/*    10b58:	10470010 */ 	beq	$v0,$a3,.NB00010b9c
-/*    10b5c:	00000000 */ 	sll	$zero,$zero,0x0
-.NB00010b60:
-/*    10b60:	8fa2005c */ 	lw	$v0,0x5c($sp)
-/*    10b64:	2407ffff */ 	addiu	$a3,$zero,-1
-/*    10b68:	00004025 */ 	or	$t0,$zero,$zero
-/*    10b6c:	10470003 */ 	beq	$v0,$a3,.NB00010b7c
-/*    10b70:	3c0f8006 */ 	lui	$t7,0x8006
-/*    10b74:	10000001 */ 	beqz	$zero,.NB00010b7c
-/*    10b78:	00404025 */ 	or	$t0,$v0,$zero
-.NB00010b7c:
-/*    10b7c:	8deff6ec */ 	lw	$t7,-0x914($t7)
-/*    10b80:	8fb8004c */ 	lw	$t8,0x4c($sp)
-/*    10b84:	24010003 */ 	addiu	$at,$zero,0x3
-/*    10b88:	15e10004 */ 	bne	$t7,$at,.NB00010b9c
-/*    10b8c:	33190080 */ 	andi	$t9,$t8,0x80
-/*    10b90:	13200002 */ 	beqz	$t9,.NB00010b9c
-/*    10b94:	00000000 */ 	sll	$zero,$zero,0x0
-/*    10b98:	25080080 */ 	addiu	$t0,$t0,0x80
-.NB00010b9c:
-/*    10b9c:	51200039 */ 	beqzl	$t1,.NB00010c84
-/*    10ba0:	8fad004c */ 	lw	$t5,0x4c($sp)
-/*    10ba4:	a7a90030 */ 	sh	$t1,0x30($sp)
-/*    10ba8:	8faa0030 */ 	lw	$t2,0x30($sp)
-/*    10bac:	3c058006 */ 	lui	$a1,0x8006
-/*    10bb0:	24a5f6f8 */ 	addiu	$a1,$a1,-2312
-/*    10bb4:	000a5fc2 */ 	srl	$t3,$t2,0x1f
-/*    10bb8:	11600031 */ 	beqz	$t3,.NB00010c80
-/*    10bbc:	24060064 */ 	addiu	$a2,$zero,0x64
-/*    10bc0:	01206025 */ 	or	$t4,$t1,$zero
-/*    10bc4:	318d7fff */ 	andi	$t5,$t4,0x7fff
-/*    10bc8:	000d7080 */ 	sll	$t6,$t5,0x2
-/*    10bcc:	00aec021 */ 	addu	$t8,$a1,$t6
-/*    10bd0:	87190000 */ 	lh	$t9,0x0($t8)
-/*    10bd4:	00ae7821 */ 	addu	$t7,$a1,$t6
-/*    10bd8:	95e20002 */ 	lhu	$v0,0x2($t7)
-/*    10bdc:	3c0d8006 */ 	lui	$t5,0x8006
-/*    10be0:	a7b9002c */ 	sh	$t9,0x2c($sp)
-/*    10be4:	93aa002c */ 	lbu	$t2,0x2c($sp)
-/*    10be8:	25adfdd0 */ 	addiu	$t5,$t5,-560
-/*    10bec:	00026140 */ 	sll	$t4,$v0,0x5
-/*    10bf0:	018d2021 */ 	addu	$a0,$t4,$t5
-/*    10bf4:	8c830010 */ 	lw	$v1,0x10($a0)
-/*    10bf8:	314bff7f */ 	andi	$t3,$t2,0xff7f
-/*    10bfc:	a3ab002c */ 	sb	$t3,0x2c($sp)
-/*    10c00:	10c30012 */ 	beq	$a2,$v1,.NB00010c4c
-/*    10c04:	87a9002c */ 	lh	$t1,0x2c($sp)
-/*    10c08:	8faf0048 */ 	lw	$t7,0x48($sp)
-/*    10c0c:	006f0019 */ 	multu	$v1,$t7
-/*    10c10:	00007012 */ 	mflo	$t6
-/*    10c14:	00000000 */ 	sll	$zero,$zero,0x0
-/*    10c18:	00000000 */ 	sll	$zero,$zero,0x0
-/*    10c1c:	01c6001a */ 	div	$zero,$t6,$a2
-/*    10c20:	0000c012 */ 	mflo	$t8
-/*    10c24:	afb80048 */ 	sw	$t8,0x48($sp)
-/*    10c28:	14c00002 */ 	bnez	$a2,.NB00010c34
-/*    10c2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*    10c30:	0007000d */ 	break	0x7
-.NB00010c34:
-/*    10c34:	2401ffff */ 	addiu	$at,$zero,-1
-/*    10c38:	14c10004 */ 	bne	$a2,$at,.NB00010c4c
-/*    10c3c:	3c018000 */ 	lui	$at,0x8000
-/*    10c40:	15c10002 */ 	bne	$t6,$at,.NB00010c4c
-/*    10c44:	00000000 */ 	sll	$zero,$zero,0x0
-/*    10c48:	0006000d */ 	break	0x6
-.NB00010c4c:
-/*    10c4c:	8c820014 */ 	lw	$v0,0x14($a0)
-/*    10c50:	3c19800a */ 	lui	$t9,0x800a
-/*    10c54:	10e20002 */ 	beq	$a3,$v0,.NB00010c60
-/*    10c58:	00000000 */ 	sll	$zero,$zero,0x0
-/*    10c5c:	afa2004c */ 	sw	$v0,0x4c($sp)
-.NB00010c60:
-/*    10c60:	9339eba3 */ 	lbu	$t9,-0x145d($t9)
-/*    10c64:	53200007 */ 	beqzl	$t9,.NB00010c84
-/*    10c68:	8fad004c */ 	lw	$t5,0x4c($sp)
-/*    10c6c:	8c8a001c */ 	lw	$t2,0x1c($a0)
-/*    10c70:	314b0010 */ 	andi	$t3,$t2,0x10
-/*    10c74:	51600003 */ 	beqzl	$t3,.NB00010c84
-/*    10c78:	8fad004c */ 	lw	$t5,0x4c($sp)
-/*    10c7c:	afa00048 */ 	sw	$zero,0x48($sp)
-.NB00010c80:
-/*    10c80:	8fad004c */ 	lw	$t5,0x4c($sp)
-.NB00010c84:
-/*    10c84:	c7a40054 */ 	lwc1	$f4,0x54($sp)
-/*    10c88:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*    10c8c:	00092c00 */ 	sll	$a1,$t1,0x10
-/*    10c90:	00056403 */ 	sra	$t4,$a1,0x10
-/*    10c94:	3c04800a */ 	lui	$a0,0x800a
-/*    10c98:	8c848180 */ 	lw	$a0,-0x7e80($a0)
-/*    10c9c:	01802825 */ 	or	$a1,$t4,$zero
-/*    10ca0:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*    10ca4:	8fa70048 */ 	lw	$a3,0x48($sp)
-/*    10ca8:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*    10cac:	afad0010 */ 	sw	$t5,0x10($sp)
-/*    10cb0:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*    10cb4:	0c004338 */ 	jal	sndStart
-/*    10cb8:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*    10cbc:	afa20034 */ 	sw	$v0,0x34($sp)
-/*    10cc0:	00002025 */ 	or	$a0,$zero,$zero
-/*    10cc4:	0c012600 */ 	jal	osSetThreadPri
-/*    10cc8:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*    10ccc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    10cd0:	8fa20034 */ 	lw	$v0,0x34($sp)
-/*    10cd4:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*    10cd8:	03e00008 */ 	jr	$ra
-/*    10cdc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+		if (g_SoundMode == SOUNDMODE_SURROUND && (arg3 & 0x80)) {
+			t0 += 128;
+		}
 #endif
+	}
+
+	if (arg4) {
+		sp30.packed = arg4;
+
+		if (sp30.bits.isruss) {
+			s32 index = g_AudioRussMappings[sp30.bits.id].audioconfig_index;
+
+			sp2c.packed = g_AudioRussMappings[sp30.bits.id].soundnum;
+			sp2c.bits.isruss = 0;
+
+			arg4 = sp2c.packed;
+
+			config = &g_AudioConfigs[index];
+
+			if (config->unk10 != 100) {
+				arg2 = arg2 * config->unk10 / 100;
+			}
+
+			if (config->unk14 != -1) {
+				arg3 = config->unk14;
+			}
+
+			if (g_Vars.langfilteron && (config->flags & AUDIOCONFIGFLAG_OFFENSIVE)) {
+				arg2 = 0;
+			}
+		}
+	}
+
+	state = sndStart(var80095200, arg4, handle, arg2, arg3, arg5, arg6, t0);
+
+	osSetThreadPri(0, prevpri);
+
+	return state;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
