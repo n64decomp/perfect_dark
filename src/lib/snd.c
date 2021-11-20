@@ -894,61 +894,20 @@ void sndSetSfxVolume(u16 volume)
 	g_SfxVolume = volume;
 }
 
+void snd0000ea80(u16 volume)
+{
+	u8 i;
+
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel snd0000ea80
-/*     ea80:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*     ea84:	afb10018 */ 	sw	$s1,0x18($sp)
-/*     ea88:	3091ffff */ 	andi	$s1,$a0,0xffff
-/*     ea8c:	2a215001 */ 	slti	$at,$s1,0x5001
-/*     ea90:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     ea94:	afb00014 */ 	sw	$s0,0x14($sp)
-/*     ea98:	14200002 */ 	bnez	$at,.L0000eaa4
-/*     ea9c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*     eaa0:	24115000 */ 	addiu	$s1,$zero,0x5000
-.L0000eaa4:
-/*     eaa4:	00008025 */ 	or	$s0,$zero,$zero
-.L0000eaa8:
-/*     eaa8:	320400ff */ 	andi	$a0,$s0,0xff
-/*     eaac:	0c00cfd1 */ 	jal	func00033f44
-/*     eab0:	3225ffff */ 	andi	$a1,$s1,0xffff
-/*     eab4:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     eab8:	320e00ff */ 	andi	$t6,$s0,0xff
-/*     eabc:	29c10009 */ 	slti	$at,$t6,0x9
-/*     eac0:	1420fff9 */ 	bnez	$at,.L0000eaa8
-/*     eac4:	01c08025 */ 	or	$s0,$t6,$zero
-/*     eac8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*     eacc:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*     ead0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*     ead4:	03e00008 */ 	jr	$ra
-/*     ead8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
-#else
-GLOBAL_ASM(
-glabel snd0000ea80
-/*     f234:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*     f238:	afb10018 */ 	sw	$s1,0x18($sp)
-/*     f23c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*     f240:	3091ffff */ 	andi	$s1,$a0,0xffff
-/*     f244:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     f248:	afa40020 */ 	sw	$a0,0x20($sp)
-/*     f24c:	00008025 */ 	or	$s0,$zero,$zero
-.NB0000f250:
-/*     f250:	320400ff */ 	andi	$a0,$s0,0xff
-/*     f254:	0c00d4c0 */ 	jal	func00033f44
-/*     f258:	3225ffff */ 	andi	$a1,$s1,0xffff
-/*     f25c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     f260:	320e00ff */ 	andi	$t6,$s0,0xff
-/*     f264:	29c10009 */ 	slti	$at,$t6,0x9
-/*     f268:	1420fff9 */ 	bnez	$at,.NB0000f250
-/*     f26c:	01c08025 */ 	or	$s0,$t6,$zero
-/*     f270:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*     f274:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*     f278:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*     f27c:	03e00008 */ 	jr	$ra
-/*     f280:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+	if (volume > 0x5000) {
+		volume = 0x5000;
+	}
 #endif
+
+	for (i = 0; i < 9; i++) {
+		func00033f44(i, volume);
+	}
+}
 
 void snd0000eadc(void)
 {
