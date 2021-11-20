@@ -32,7 +32,7 @@ void snd0000fe50(void);
 void sndTick(void);
 bool sndIsDisabled(void);
 void sndStartMp3(u32 filenum);
-void sndAdjust(struct sndstate **handle, s32 arg1, s32 arg2, s32 speakerweight, s16 soundnum, f32 arg5, s32 arg6, s32 arg7, s32 arg8);
+void sndAdjust(struct sndstate **handle, s32 arg1, s32 arg2, s32 pan, s32 soundnum, f32 arg5, s32 arg6, s32 arg7, s32 arg8);
 struct sndstate *snd00010718(struct sndstate **handle, s32 arg1, s32 arg2, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8);
 struct sndstate *sndStart(s32 arg0, s16 sound, struct sndstate **handle, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7);
 void snd00010ae4(s32 soundnum, s32 arg1, s32 arg2, s32 arg3);
