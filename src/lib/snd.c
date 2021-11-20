@@ -1164,33 +1164,16 @@ glabel sndLoadSfxCtl
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel snd0000ed14
-/*     ed14:	3c038009 */ 	lui	$v1,%hi(var80095210)
-/*     ed18:	3c068009 */ 	lui	$a2,%hi(var80095210)
-/*     ed1c:	24c65210 */ 	addiu	$a2,$a2,%lo(var80095210)
-/*     ed20:	24635210 */ 	addiu	$v1,$v1,%lo(var80095210)
-/*     ed24:	00001025 */ 	or	$v0,$zero,$zero
-/*     ed28:	2407002d */ 	addiu	$a3,$zero,0x2d
-.L0000ed2c:
-/*     ed2c:	906e0004 */ 	lbu	$t6,0x4($v1)
-/*     ed30:	00027840 */ 	sll	$t7,$v0,0x1
-/*     ed34:	00cf2021 */ 	addu	$a0,$a2,$t7
-/*     ed38:	55c00007 */ 	bnezl	$t6,.L0000ed58
-/*     ed3c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*     ed40:	94850032 */ 	lhu	$a1,0x32($a0)
-/*     ed44:	28a17d00 */ 	slti	$at,$a1,0x7d00
-/*     ed48:	10200002 */ 	beqz	$at,.L0000ed54
-/*     ed4c:	24b80001 */ 	addiu	$t8,$a1,0x1
-/*     ed50:	a4980032 */ 	sh	$t8,0x32($a0)
-.L0000ed54:
-/*     ed54:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0000ed58:
-/*     ed58:	1447fff4 */ 	bne	$v0,$a3,.L0000ed2c
-/*     ed5c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*     ed60:	03e00008 */ 	jr	$ra
-/*     ed64:	00000000 */ 	nop
-);
+void snd0000ed14(void)
+{
+	s32 i;
+
+	for (i = 0; i < 45; i++) {
+		if (var80095210.unk04[i] == 0 && var80095210.unk32[i] < 32000) {
+			var80095210.unk32[i]++;
+		}
+	}
+}
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
