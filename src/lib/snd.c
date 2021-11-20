@@ -629,8 +629,8 @@ struct audiorussmapping g_AudioRussMappings[] = {
 struct audioconfig g_AudioConfigs[] = {
 	{ /* 0*/  200, 1000, 1200, -1, 100, -1,   0, 0 },
 	{ /* 1*/  400, 2500, 3000, -1, 100, 48,   0, AUDIOCONFIGFLAG_20 },
-	{ /* 2*/  400, 2500, 3000, -1, 100, -1,   0, AUDIOCONFIGFLAG_10 },
-	{ /* 3*/  400, 2500, 3000, -1, 100, 48,   0, AUDIOCONFIGFLAG_10 | AUDIOCONFIGFLAG_20 },
+	{ /* 2*/  400, 2500, 3000, -1, 100, -1,   0, AUDIOCONFIGFLAG_OFFENSIVE },
+	{ /* 3*/  400, 2500, 3000, -1, 100, 48,   0, AUDIOCONFIGFLAG_OFFENSIVE | AUDIOCONFIGFLAG_20 },
 	{ /* 4*/  200, 1000, 1200, -1, 100, -1,   0, 0 },
 	{ /* 5*/  200, 1000, 1200, -1, 100, -1,   0, 0 },
 	{ /* 6*/  200, 1000, 1200, -1, 100, -1,   0, 0 },
@@ -3698,112 +3698,39 @@ glabel snd0001036c
 /*    10408:	00000000 */ 	nop
 );
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel sndIsFiltered
-/*    1040c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x4e3)
-/*    10410:	91cea4a3 */ 	lbu	$t6,%lo(g_Vars+0x4e3)($t6)
-/*    10414:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    10418:	51c0001f */ 	beqzl	$t6,.L00010498
-/*    1041c:	00001025 */ 	or	$v0,$zero,$zero
-/*    10420:	a7a40004 */ 	sh	$a0,0x4($sp)
-/*    10424:	8faf0004 */ 	lw	$t7,0x4($sp)
-/*    10428:	97a20004 */ 	lhu	$v0,0x4($sp)
-/*    1042c:	2401051d */ 	addiu	$at,$zero,0x51d
-/*    10430:	000fc7c2 */ 	srl	$t8,$t7,0x1f
-/*    10434:	1300000f */ 	beqz	$t8,.L00010474
-/*    10438:	304e07ff */ 	andi	$t6,$v0,0x7ff
-/*    1043c:	30887fff */ 	andi	$t0,$a0,0x7fff
-/*    10440:	00084880 */ 	sll	$t1,$t0,0x2
-/*    10444:	3c0a8006 */ 	lui	$t2,%hi(g_AudioRussMappings+0x2)
-/*    10448:	01495021 */ 	addu	$t2,$t2,$t1
-/*    1044c:	954adde6 */ 	lhu	$t2,%lo(g_AudioRussMappings+0x2)($t2)
-/*    10450:	3c0c8006 */ 	lui	$t4,%hi(g_AudioConfigs+0x1c)
-/*    10454:	000a5940 */ 	sll	$t3,$t2,0x5
-/*    10458:	018b6021 */ 	addu	$t4,$t4,$t3
-/*    1045c:	8d8ce4f4 */ 	lw	$t4,%lo(g_AudioConfigs+0x1c)($t4)
-/*    10460:	318d0010 */ 	andi	$t5,$t4,0x10
-/*    10464:	51a0000c */ 	beqzl	$t5,.L00010498
-/*    10468:	00001025 */ 	or	$v0,$zero,$zero
-/*    1046c:	1000000a */ 	b	.L00010498
-/*    10470:	24020001 */ 	addiu	$v0,$zero,0x1
-.L00010474:
-/*    10474:	11c10005 */ 	beq	$t6,$at,.L0001048c
-/*    10478:	2401051e */ 	addiu	$at,$zero,0x51e
-/*    1047c:	11c10003 */ 	beq	$t6,$at,.L0001048c
-/*    10480:	240117ad */ 	addiu	$at,$zero,0x17ad
-/*    10484:	55c10004 */ 	bnel	$t6,$at,.L00010498
-/*    10488:	00001025 */ 	or	$v0,$zero,$zero
-.L0001048c:
-/*    1048c:	10000002 */ 	b	.L00010498
-/*    10490:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    10494:	00001025 */ 	or	$v0,$zero,$zero
-.L00010498:
-/*    10498:	03e00008 */ 	jr	$ra
-/*    1049c:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
-#else
-GLOBAL_ASM(
-glabel sndIsFiltered
-/*    10828:	3c0e800a */ 	lui	$t6,0x800a
-/*    1082c:	91ceeba3 */ 	lbu	$t6,-0x145d($t6)
-/*    10830:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    10834:	00001025 */ 	or	$v0,$zero,$zero
-/*    10838:	11c00013 */ 	beqz	$t6,.NB00010888
-/*    1083c:	00000000 */ 	sll	$zero,$zero,0x0
-/*    10840:	a7a40004 */ 	sh	$a0,0x4($sp)
-/*    10844:	8faf0004 */ 	lw	$t7,0x4($sp)
-/*    10848:	30887fff */ 	andi	$t0,$a0,0x7fff
-/*    1084c:	00084880 */ 	sll	$t1,$t0,0x2
-/*    10850:	000fc7c2 */ 	srl	$t8,$t7,0x1f
-/*    10854:	1300000c */ 	beqz	$t8,.NB00010888
-/*    10858:	3c0a8006 */ 	lui	$t2,0x8006
-/*    1085c:	01495021 */ 	addu	$t2,$t2,$t1
-/*    10860:	954af6fa */ 	lhu	$t2,-0x906($t2)
-/*    10864:	3c0c8006 */ 	lui	$t4,0x8006
-/*    10868:	000a5940 */ 	sll	$t3,$t2,0x5
-/*    1086c:	018b6021 */ 	addu	$t4,$t4,$t3
-/*    10870:	8d8cfdec */ 	lw	$t4,-0x214($t4)
-/*    10874:	318d0010 */ 	andi	$t5,$t4,0x10
-/*    10878:	11a00003 */ 	beqz	$t5,.NB00010888
-/*    1087c:	00000000 */ 	sll	$zero,$zero,0x0
-/*    10880:	10000001 */ 	beqz	$zero,.NB00010888
-/*    10884:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB00010888:
-/*    10888:	03e00008 */ 	jr	$ra
-/*    1088c:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
-#endif
+/**
+ * Return true if the player has the language filter enabled
+ * and the given audio ID is one that should be filtered out.
+ */
+bool sndIsFiltered(s32 audio_id)
+{
+	if (g_Vars.langfilteron) {
+		union soundnumhack sfxref;
+		sfxref.packed = audio_id;
 
-// Mismatch because goal is doing something funky with the audio_id.
-// It stores a halfword on the stack, then reads it back as a full word.
-//bool sndIsFiltered(s32 audio_id)
-//{
-//	// 418
-//	if (g_Vars.langfilteron) {
-//		// 434
-//		if ((audio_id << 16) >> 31) {
-//			u32 index = audio_id & 0x7fff;
-//			u32 configindex = g_AudioRussMappings[index].audioconfig_index;
-//
-//			if (g_AudioConfigs[configindex].flags & 0x10) {
-//				return true;
-//			}
-//		} else {
-//			// 474
-//			// @bug: The masking here makes it impossible to match hangar guy's
-//			// audio ID, so his phrase can be said even with the lang filter on.
-//			switch (audio_id & 0x07ff) {
-//			case 0x051d: // Elvis: "Kiss my alien butt"
-//			case 0x051e: // Elvis: "I'll kick your ass"
-//			case 0x17ad: // Hangar guy: "Just don't screw up, okay?"
-//				return true;
-//			}
-//		}
-//	}
-//
-//	return false;
-//}
+		if (sfxref.bits.isruss) {
+			if (g_AudioConfigs[g_AudioRussMappings[sfxref.bits.id].audioconfig_index].flags & AUDIOCONFIGFLAG_OFFENSIVE) {
+				return true;
+			}
+		}
+#if VERSION >= VERSION_NTSC_1_0
+		else {
+			// @bug: The masking here makes it impossible to match hangar guy's
+			// audio ID, so his phrase can be said even with the lang filter on.
+			// The switch value resolves to sfxref & 0x7ff, while hangar guy's
+			// reference is 0x17ad.
+			switch (sfxref.bits3.id) {
+			case SFX_ELVIS_KISS_MY_ALIEN_BUTT:
+			case SFX_ELVIS_ILL_KICK_YOUR_ASS:
+			case MP3_HANGERGUY_DONT_SCREW_UP:
+				return true;
+			}
+		}
+#endif
+	}
+
+	return false;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(

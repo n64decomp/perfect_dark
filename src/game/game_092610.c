@@ -3588,8 +3588,8 @@ glabel var7f1a5a9cnb
 //			channel->flags |= AUDIOCHANNELFLAG_8000;
 //		}
 //
-//		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_10) {
-//			channel->flags2 |= AUDIOCHANNELFLAG2_0020;
+//		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_OFFENSIVE) {
+//			channel->flags2 |= AUDIOCHANNELFLAG2_OFFENSIVE;
 //		}
 //
 //		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_20) {
@@ -3615,7 +3615,7 @@ glabel var7f1a5a9cnb
 //	channel->unk2c = spac.bits3.id;
 //
 //	if (sndIsFiltered(channel->unk2c)) {
-//		channel->flags2 |= AUDIOCHANNELFLAG2_0020;
+//		channel->flags2 |= AUDIOCHANNELFLAG2_OFFENSIVE;
 //	}
 //
 //	if (spac.bits2.unk02) {
