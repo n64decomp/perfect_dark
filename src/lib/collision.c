@@ -9508,14 +9508,10 @@ glabel func000308e8nb
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0002f2e8
-/*    2f2e8:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    2f2ec:	afa60008 */ 	sw	$a2,0x8($sp)
-/*    2f2f0:	afa7000c */ 	sw	$a3,0xc($sp)
-/*    2f2f4:	03e00008 */ 	jr	$ra
-/*    2f2f8:	00801025 */ 	or	$v0,$a0,$zero
-);
+u32 cd0002f2e8(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
+{
+	return arg0;
+}
 
 void func0002f2fc(u32 arg0, u32 arg1)
 {
