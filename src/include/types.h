@@ -7025,13 +7025,17 @@ struct var80095210_35c {
 	u8 unk00[6];
 };
 
-struct var80095210 {
-	u16 *soundnums;
-	u8 unk04[45];
-	u16 unk32[45];
+struct sndcache {
+	u16 *indexes; // indexed by sfxnum, value is cache index (0-44) or 0xffff
+	u8 permanent[45];
+	u16 ages[45];
 	u8 unk8c[0x2d0];
-	struct var80095210_35c unk35c[1];
-	u8 unk364[0x3d88];
+	struct var80095210_35c unk35c[45];
+	u8 unk46a[0x39aa];
+	/*0x3e14*/ ALSound sounds[45];
+	u32 unk40e4;
+	u32 unk40e8;
+	u32 unk40ec;
 };
 
 struct rdptask {

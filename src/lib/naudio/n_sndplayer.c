@@ -708,7 +708,7 @@ struct sndstate *func00033820(s32 arg0, s16 soundnum, u16 vol, ALPan pan, f32 pi
 
 	if (soundnum != 0) {
 		do {
-			sound = snd0000f49c(soundnum);
+			sound = sndLoadSound(soundnum);
 			state = func00033390(arg0, sound);
 
 			if (state != NULL) {
