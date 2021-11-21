@@ -7021,16 +7021,12 @@ struct mp3vars {
 	/*0x61*/ u8 var8009c3f1;
 };
 
-struct var80095210_35c {
-	u8 unk00[6];
-};
-
 struct sndcache {
 	u16 *indexes; // indexed by sfxnum, value is cache index (0-44) or 0xffff
 	u8 permanent[45];
 	u16 ages[45];
 	u8 unk8c[0x2d0];
-	struct var80095210_35c unk35c[45];
+	ALKeyMap keymaps[45];
 	u8 unk46a[0x39aa];
 	/*0x3e14*/ ALSound sounds[45];
 	u32 unk40e4;

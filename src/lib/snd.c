@@ -1246,172 +1246,52 @@ glabel sndLoadEnvelope
 );
 #endif
 
+ALKeyMap *sndLoadKeymap(u32 offset, u16 cacheindex)
+{
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel sndLoadKeymap
-/*     ee88:	27bdff10 */ 	addiu	$sp,$sp,-240
-/*     ee8c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*     ee90:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*     ee94:	03a08825 */ 	or	$s1,$sp,$zero
-/*     ee98:	03a09025 */ 	or	$s2,$sp,$zero
-/*     ee9c:	3c0e0081 */ 	lui	$t6,%hi(_sfxctlSegmentRomStart)
-/*     eea0:	265200af */ 	addiu	$s2,$s2,0xaf
-/*     eea4:	2631005f */ 	addiu	$s1,$s1,0x5f
-/*     eea8:	afb40028 */ 	sw	$s4,0x28($sp)
-/*     eeac:	afb30024 */ 	sw	$s3,0x24($sp)
-/*     eeb0:	25cea250 */ 	addiu	$t6,$t6,%lo(_sfxctlSegmentRomStart)
-/*     eeb4:	3639000f */ 	ori	$t9,$s1,0xf
-/*     eeb8:	364f000f */ 	ori	$t7,$s2,0xf
-/*     eebc:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*     eec0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*     eec4:	afa500f4 */ 	sw	$a1,0xf4($sp)
-/*     eec8:	008ea021 */ 	addu	$s4,$a0,$t6
-/*     eecc:	39f2000f */ 	xori	$s2,$t7,0xf
-/*     eed0:	3b31000f */ 	xori	$s1,$t9,0xf
-/*     eed4:	24130040 */ 	addiu	$s3,$zero,0x40
-/*     eed8:	02402025 */ 	or	$a0,$s2,$zero
-.L0000eedc:
-/*     eedc:	02802825 */ 	or	$a1,$s4,$zero
-/*     eee0:	0c003513 */ 	jal	dmaExecHighPriority
-/*     eee4:	24060040 */ 	addiu	$a2,$zero,0x40
-/*     eee8:	00008025 */ 	or	$s0,$zero,$zero
-/*     eeec:	00001825 */ 	or	$v1,$zero,$zero
-/*     eef0:	00001025 */ 	or	$v0,$zero,$zero
-.L0000eef4:
-/*     eef4:	02424821 */ 	addu	$t1,$s2,$v0
-/*     eef8:	8d2a0000 */ 	lw	$t2,0x0($t1)
-/*     eefc:	24630001 */ 	addiu	$v1,$v1,0x1
-/*     ef00:	2c610010 */ 	sltiu	$at,$v1,0x10
-/*     ef04:	24420004 */ 	addiu	$v0,$v0,0x4
-/*     ef08:	1420fffa */ 	bnez	$at,.L0000eef4
-/*     ef0c:	020a8021 */ 	addu	$s0,$s0,$t2
-/*     ef10:	02202025 */ 	or	$a0,$s1,$zero
-/*     ef14:	02802825 */ 	or	$a1,$s4,$zero
-/*     ef18:	0c003513 */ 	jal	dmaExecHighPriority
-/*     ef1c:	24060040 */ 	addiu	$a2,$zero,0x40
-/*     ef20:	00002025 */ 	or	$a0,$zero,$zero
-/*     ef24:	00001025 */ 	or	$v0,$zero,$zero
-.L0000ef28:
-/*     ef28:	02225821 */ 	addu	$t3,$s1,$v0
-/*     ef2c:	8d6c0000 */ 	lw	$t4,0x0($t3)
-/*     ef30:	24420004 */ 	addiu	$v0,$v0,0x4
-/*     ef34:	1453fffc */ 	bne	$v0,$s3,.L0000ef28
-/*     ef38:	008c2021 */ 	addu	$a0,$a0,$t4
-/*     ef3c:	5604ffe7 */ 	bnel	$s0,$a0,.L0000eedc
-/*     ef40:	02402025 */ 	or	$a0,$s2,$zero
-/*     ef44:	97a300f6 */ 	lhu	$v1,0xf6($sp)
-/*     ef48:	8a210000 */ 	lwl	$at,0x0($s1)
-/*     ef4c:	9a210003 */ 	lwr	$at,0x3($s1)
-/*     ef50:	00036880 */ 	sll	$t5,$v1,0x2
-/*     ef54:	3c048009 */ 	lui	$a0,%hi(g_SndCache)
-/*     ef58:	01a36823 */ 	subu	$t5,$t5,$v1
-/*     ef5c:	24845210 */ 	addiu	$a0,$a0,%lo(g_SndCache)
-/*     ef60:	000d6840 */ 	sll	$t5,$t5,0x1
-/*     ef64:	008d7021 */ 	addu	$t6,$a0,$t5
-/*     ef68:	a9c1035c */ 	swl	$at,0x35c($t6)
-/*     ef6c:	b9c1035f */ 	swr	$at,0x35f($t6)
-/*     ef70:	92210004 */ 	lbu	$at,0x4($s1)
-/*     ef74:	008d1021 */ 	addu	$v0,$a0,$t5
-/*     ef78:	2442035c */ 	addiu	$v0,$v0,0x35c
-/*     ef7c:	a1c10360 */ 	sb	$at,0x360($t6)
-/*     ef80:	92380005 */ 	lbu	$t8,0x5($s1)
-/*     ef84:	a1d80361 */ 	sb	$t8,0x361($t6)
-/*     ef88:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*     ef8c:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*     ef90:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*     ef94:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*     ef98:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*     ef9c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*     efa0:	03e00008 */ 	jr	$ra
-/*     efa4:	27bd00f0 */ 	addiu	$sp,$sp,0xf0
-);
+	u8 spaf[0x50];
+	u8 sp5f[0x50];
+	ALKeyMap *s2 = (ALKeyMap *)ALIGN16((u32)spaf);
+	ALKeyMap *s1 = (ALKeyMap *)ALIGN16((u32)sp5f);
+	s32 i;
+	s32 sum1;
+	s32 sum2;
+
+	offset += (u32)&_sfxctlSegmentRomStart;
+
+	do {
+		dmaExecHighPriority(s2, offset, 0x40);
+		sum1 = 0;
+
+		for (i = 0; i < 16U; i++) {
+			sum1 += ((u32 *)s2)[i];
+		}
+
+		dmaExecHighPriority(s1, offset, 0x40);
+		sum2 = 0;
+
+		for (i = 0; i < 16U; i++) {
+			sum2 += ((u32 *)s1)[i];
+		}
+
+		if (1);
+	} while (sum1 != sum2);
 #else
-GLOBAL_ASM(
-glabel sndLoadKeymap
-/*     f54c:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*     f550:	3c0e007c */ 	lui	$t6,0x7c
-/*     f554:	afa50074 */ 	sw	$a1,0x74($sp)
-/*     f558:	25cee940 */ 	addiu	$t6,$t6,-5824
-/*     f55c:	afa40070 */ 	sw	$a0,0x70($sp)
-/*     f560:	008e2821 */ 	addu	$a1,$a0,$t6
-/*     f564:	03a02025 */ 	or	$a0,$sp,$zero
-/*     f568:	2484002f */ 	addiu	$a0,$a0,0x2f
-/*     f56c:	348f000f */ 	ori	$t7,$a0,0xf
-/*     f570:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     f574:	39e4000f */ 	xori	$a0,$t7,0xf
-/*     f578:	afa40018 */ 	sw	$a0,0x18($sp)
-/*     f57c:	0c00366e */ 	jal	dmaExecHighPriority
-/*     f580:	24060040 */ 	addiu	$a2,$zero,0x40
-/*     f584:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*     f588:	97a30076 */ 	lhu	$v1,0x76($sp)
-/*     f58c:	3c05800a */ 	lui	$a1,0x800a
-/*     f590:	88810000 */ 	lwl	$at,0x0($a0)
-/*     f594:	0003c880 */ 	sll	$t9,$v1,0x2
-/*     f598:	98810003 */ 	lwr	$at,0x3($a0)
-/*     f59c:	0323c823 */ 	subu	$t9,$t9,$v1
-/*     f5a0:	24a58190 */ 	addiu	$a1,$a1,-32368
-/*     f5a4:	0019c840 */ 	sll	$t9,$t9,0x1
-/*     f5a8:	00b94021 */ 	addu	$t0,$a1,$t9
-/*     f5ac:	a901035c */ 	swl	$at,0x35c($t0)
-/*     f5b0:	b901035f */ 	swr	$at,0x35f($t0)
-/*     f5b4:	90810004 */ 	lbu	$at,0x4($a0)
-/*     f5b8:	00b91021 */ 	addu	$v0,$a1,$t9
-/*     f5bc:	2442035c */ 	addiu	$v0,$v0,0x35c
-/*     f5c0:	a1010360 */ 	sb	$at,0x360($t0)
-/*     f5c4:	908b0005 */ 	lbu	$t3,0x5($a0)
-/*     f5c8:	a10b0361 */ 	sb	$t3,0x361($t0)
-/*     f5cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     f5d0:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*     f5d4:	03e00008 */ 	jr	$ra
-/*     f5d8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	u8 sp5f[0x50];
+	ALKeyMap *s1 = (ALKeyMap *)ALIGN16((u32)sp5f);
+
+	offset += (u32)&_sfxctlSegmentRomStart;
+
+	dmaExecHighPriority(s1, offset, 0x40);
 #endif
 
-// Mismatch:
-// Goal calculates the address of g_SndCache.unk35c twice.
-// The below demonstrates similar codegen by not adding arg1 to the return value.
-//struct var80095210_35c *sndLoadKeymap(u32 segoffset, u16 arg1)
-//{
-//#if VERSION >= VERSION_NTSC_1_0
-//	u8 spaf[0x50];
-//	u8 sp5f[0x50];
-//	u32 *s2 = (u32 *)ALIGN16((u32)spaf);
-//	u32 *s1 = (u32 *)ALIGN16((u32)sp5f);
-//	s32 i;
-//	s32 sum1;
-//	s32 sum2;
-//
-//	segoffset += (u32)&_sfxctlSegmentRomStart;
-//
-//	do {
-//		dmaExecHighPriority(s2, segoffset, 0x40);
-//		sum1 = 0;
-//
-//		for (i = 0; i < 16U; i++) {
-//			sum1 += s2[i];
-//		}
-//
-//		dmaExecHighPriority(s1, segoffset, 0x40);
-//		sum2 = 0;
-//
-//		for (i = 0; i < 16U; i++) {
-//			sum2 += s1[i];
-//		}
-//	} while (sum1 != sum2);
-//#else
-//	u8 sp5f[0x50];
-//	u32 *s1 = (u32 *)ALIGN16((u32)sp5f);
-//
-//	segoffset += (u32)&_sfxctlSegmentRomStart;
-//
-//	dmaExecHighPriority(s1, segoffset, 0x40);
-//#endif
-//
-//	g_SndCache.unk35c[arg1] = *(struct var80095210_35c *)s1;
-//
-//	//return &g_SndCache.unk35c[arg1];
-//	return (struct var80095210_35c *)((u32)&g_SndCache + 0x35c);
-//}
+	g_SndCache.keymaps[cacheindex] = *s1;
+
+	s1 = g_SndCache.keymaps;
+	s1 += cacheindex;
+
+	return s1;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
