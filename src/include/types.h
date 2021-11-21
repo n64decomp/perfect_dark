@@ -7028,7 +7028,8 @@ struct sndcache {
 	/*0x008c*/ ALEnvelope envelopes[45];
 	/*0x035c*/ ALKeyMap keymaps[45];
 	/*0x046c*/ ALWaveTable wavetables[45];
-	/*0x07f0*/ u8 unk7f0[0x3624];
+	/*0x07f0*/ ALADPCMBook books[45];
+	/*0x3658*/ u8 unk3658[0x7bc];
 	/*0x3e14*/ ALSound sounds[45];
 	u32 unk40e4;
 	u32 unk40e8;

@@ -1220,132 +1220,52 @@ ALKeyMap *sndLoadKeymap(u32 offset, u16 cacheindex)
 	return s1;
 }
 
+ALADPCMBook *sndLoadAdpcmBook(u32 offset, u16 cacheindex)
+{
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel sndLoadAdpcmBook
-/*     efa8:	27bdfd10 */ 	addiu	$sp,$sp,-752
-/*     efac:	afb20020 */ 	sw	$s2,0x20($sp)
-/*     efb0:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*     efb4:	03a08825 */ 	or	$s1,$sp,$zero
-/*     efb8:	03a09025 */ 	or	$s2,$sp,$zero
-/*     efbc:	3c0e0081 */ 	lui	$t6,%hi(_sfxctlSegmentRomStart)
-/*     efc0:	265201af */ 	addiu	$s2,$s2,0x1af
-/*     efc4:	2631005f */ 	addiu	$s1,$s1,0x5f
-/*     efc8:	afb40028 */ 	sw	$s4,0x28($sp)
-/*     efcc:	afb30024 */ 	sw	$s3,0x24($sp)
-/*     efd0:	25cea250 */ 	addiu	$t6,$t6,%lo(_sfxctlSegmentRomStart)
-/*     efd4:	3639000f */ 	ori	$t9,$s1,0xf
-/*     efd8:	364f000f */ 	ori	$t7,$s2,0xf
-/*     efdc:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*     efe0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*     efe4:	afa502f4 */ 	sw	$a1,0x2f4($sp)
-/*     efe8:	008ea021 */ 	addu	$s4,$a0,$t6
-/*     efec:	39f2000f */ 	xori	$s2,$t7,0xf
-/*     eff0:	3b31000f */ 	xori	$s1,$t9,0xf
-/*     eff4:	24130140 */ 	addiu	$s3,$zero,0x140
-/*     eff8:	02402025 */ 	or	$a0,$s2,$zero
-.L0000effc:
-/*     effc:	02802825 */ 	or	$a1,$s4,$zero
-/*     f000:	0c003513 */ 	jal	dmaExecHighPriority
-/*     f004:	24060140 */ 	addiu	$a2,$zero,0x140
-/*     f008:	00008025 */ 	or	$s0,$zero,$zero
-/*     f00c:	00001825 */ 	or	$v1,$zero,$zero
-/*     f010:	00001025 */ 	or	$v0,$zero,$zero
-.L0000f014:
-/*     f014:	02424821 */ 	addu	$t1,$s2,$v0
-/*     f018:	8d2a0000 */ 	lw	$t2,0x0($t1)
-/*     f01c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*     f020:	2c610050 */ 	sltiu	$at,$v1,0x50
-/*     f024:	24420004 */ 	addiu	$v0,$v0,0x4
-/*     f028:	1420fffa */ 	bnez	$at,.L0000f014
-/*     f02c:	020a8021 */ 	addu	$s0,$s0,$t2
-/*     f030:	02202025 */ 	or	$a0,$s1,$zero
-/*     f034:	02802825 */ 	or	$a1,$s4,$zero
-/*     f038:	0c003513 */ 	jal	dmaExecHighPriority
-/*     f03c:	24060140 */ 	addiu	$a2,$zero,0x140
-/*     f040:	00002025 */ 	or	$a0,$zero,$zero
-/*     f044:	00001025 */ 	or	$v0,$zero,$zero
-.L0000f048:
-/*     f048:	02225821 */ 	addu	$t3,$s1,$v0
-/*     f04c:	8d6c0000 */ 	lw	$t4,0x0($t3)
-/*     f050:	24420004 */ 	addiu	$v0,$v0,0x4
-/*     f054:	1453fffc */ 	bne	$v0,$s3,.L0000f048
-/*     f058:	008c2021 */ 	addu	$a0,$a0,$t4
-/*     f05c:	5604ffe7 */ 	bnel	$s0,$a0,.L0000effc
-/*     f060:	02402025 */ 	or	$a0,$s2,$zero
-/*     f064:	97a302f6 */ 	lhu	$v1,0x2f6($sp)
-/*     f068:	3c048009 */ 	lui	$a0,%hi(g_SndCache)
-/*     f06c:	24845210 */ 	addiu	$a0,$a0,%lo(g_SndCache)
-/*     f070:	00036940 */ 	sll	$t5,$v1,0x5
-/*     f074:	01a36821 */ 	addu	$t5,$t5,$v1
-/*     f078:	000d18c0 */ 	sll	$v1,$t5,0x3
-/*     f07c:	00837021 */ 	addu	$t6,$a0,$v1
-/*     f080:	0220c825 */ 	or	$t9,$s1,$zero
-/*     f084:	26380108 */ 	addiu	$t8,$s1,0x108
-.L0000f088:
-/*     f088:	8f210000 */ 	lw	$at,0x0($t9)
-/*     f08c:	2739000c */ 	addiu	$t9,$t9,0xc
-/*     f090:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*     f094:	adc107e4 */ 	sw	$at,0x7e4($t6)
-/*     f098:	8f21fff8 */ 	lw	$at,-0x8($t9)
-/*     f09c:	adc107e8 */ 	sw	$at,0x7e8($t6)
-/*     f0a0:	8f21fffc */ 	lw	$at,-0x4($t9)
-/*     f0a4:	1738fff8 */ 	bne	$t9,$t8,.L0000f088
-/*     f0a8:	adc107ec */ 	sw	$at,0x7ec($t6)
-/*     f0ac:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*     f0b0:	00831021 */ 	addu	$v0,$a0,$v1
-/*     f0b4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*     f0b8:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*     f0bc:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*     f0c0:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*     f0c4:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*     f0c8:	27bd02f0 */ 	addiu	$sp,$sp,0x2f0
-/*     f0cc:	03e00008 */ 	jr	$ra
-/*     f0d0:	244207f0 */ 	addiu	$v0,$v0,0x7f0
-);
+	u8 spaf[0x150];
+	u8 sp5f[0x150];
+	ALADPCMBook *s2 = (ALADPCMBook *)ALIGN16((u32)spaf);
+	ALADPCMBook *s1 = (ALADPCMBook *)ALIGN16((u32)sp5f);
+	s32 i;
+	s32 sum1;
+	s32 sum2;
+
+	offset += (u32)&_sfxctlSegmentRomStart;
+
+	do {
+		dmaExecHighPriority(s2, offset, 0x140);
+		sum1 = 0;
+
+		for (i = 0; i < 80U; i++) {
+			sum1 += ((u32 *)s2)[i];
+		}
+
+		dmaExecHighPriority(s1, offset, 0x140);
+		sum2 = 0;
+
+		for (i = 0; i < 80U; i++) {
+			sum2 += ((u32 *)s1)[i];
+		}
+
+		if (1);
+	} while (sum1 != sum2);
 #else
-GLOBAL_ASM(
-glabel sndLoadAdpcmBook
-/*     f5dc:	27bdfe90 */ 	addiu	$sp,$sp,-368
-/*     f5e0:	3c0e007c */ 	lui	$t6,0x7c
-/*     f5e4:	afa50174 */ 	sw	$a1,0x174($sp)
-/*     f5e8:	25cee940 */ 	addiu	$t6,$t6,-5824
-/*     f5ec:	afa40170 */ 	sw	$a0,0x170($sp)
-/*     f5f0:	008e2821 */ 	addu	$a1,$a0,$t6
-/*     f5f4:	03a02025 */ 	or	$a0,$sp,$zero
-/*     f5f8:	2484002f */ 	addiu	$a0,$a0,0x2f
-/*     f5fc:	348f000f */ 	ori	$t7,$a0,0xf
-/*     f600:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     f604:	39e4000f */ 	xori	$a0,$t7,0xf
-/*     f608:	afa40018 */ 	sw	$a0,0x18($sp)
-/*     f60c:	0c00366e */ 	jal	dmaExecHighPriority
-/*     f610:	24060140 */ 	addiu	$a2,$zero,0x140
-/*     f614:	97a30176 */ 	lhu	$v1,0x176($sp)
-/*     f618:	8fac0018 */ 	lw	$t4,0x18($sp)
-/*     f61c:	3c05800a */ 	lui	$a1,0x800a
-/*     f620:	0003c940 */ 	sll	$t9,$v1,0x5
-/*     f624:	0323c821 */ 	addu	$t9,$t9,$v1
-/*     f628:	24a58190 */ 	addiu	$a1,$a1,-32368
-/*     f62c:	001918c0 */ 	sll	$v1,$t9,0x3
-/*     f630:	00a34021 */ 	addu	$t0,$a1,$v1
-/*     f634:	258b0108 */ 	addiu	$t3,$t4,0x108
-.NB0000f638:
-/*     f638:	8d810000 */ 	lw	$at,0x0($t4)
-/*     f63c:	258c000c */ 	addiu	$t4,$t4,0xc
-/*     f640:	2508000c */ 	addiu	$t0,$t0,0xc
-/*     f644:	ad0107e4 */ 	sw	$at,0x7e4($t0)
-/*     f648:	8d81fff8 */ 	lw	$at,-0x8($t4)
-/*     f64c:	ad0107e8 */ 	sw	$at,0x7e8($t0)
-/*     f650:	8d81fffc */ 	lw	$at,-0x4($t4)
-/*     f654:	158bfff8 */ 	bne	$t4,$t3,.NB0000f638
-/*     f658:	ad0107ec */ 	sw	$at,0x7ec($t0)
-/*     f65c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     f660:	00a31021 */ 	addu	$v0,$a1,$v1
-/*     f664:	244207f0 */ 	addiu	$v0,$v0,0x7f0
-/*     f668:	03e00008 */ 	jr	$ra
-/*     f66c:	27bd0170 */ 	addiu	$sp,$sp,0x170
-);
+	u8 sp5f[0x150];
+	ALADPCMBook *s1 = (ALADPCMBook *)ALIGN16((u32)sp5f);
+
+	offset += (u32)&_sfxctlSegmentRomStart;
+
+	dmaExecHighPriority(s1, offset, 0x140);
 #endif
+
+	g_SndCache.books[cacheindex] = *s1;
+
+	s1 = g_SndCache.books;
+	s1 += cacheindex;
+
+	return s1;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(

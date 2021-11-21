@@ -171,7 +171,7 @@ enum    {AL_ADPCM_WAVE = 0,
 typedef struct {
     s32 order;
     s32 npredictors;
-    s16 book[1];        /* Actually variable size. Must be 8-byte aligned */
+    s16 book[128];        /* Actually variable size. Must be 8-byte aligned */
 } ALADPCMBook;
 
 typedef struct {
