@@ -7022,12 +7022,13 @@ struct mp3vars {
 };
 
 struct sndcache {
-	u16 *indexes; // indexed by sfxnum, value is cache index (0-44) or 0xffff
-	u8 permanent[45];
-	u16 ages[45];
-	/*0x8c*/ ALEnvelope envelopes[45];
-	/*0x35c*/ ALKeyMap keymaps[45];
-	u8 unk46a[0x39aa];
+	/*0x0000*/ u16 *indexes; // indexed by sfxnum, value is cache index (0-44) or 0xffff
+	/*0x0004*/ u8 permanent[45];
+	/*0x0032*/ u16 ages[45];
+	/*0x008c*/ ALEnvelope envelopes[45];
+	/*0x035c*/ ALKeyMap keymaps[45];
+	/*0x046c*/ ALWaveTable wavetables[45];
+	/*0x07f0*/ u8 unk7f0[0x3624];
 	/*0x3e14*/ ALSound sounds[45];
 	u32 unk40e4;
 	u32 unk40e8;

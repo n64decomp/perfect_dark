@@ -1222,7 +1222,7 @@ ALKeyMap *sndLoadKeymap(u32 offset, u16 cacheindex)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel snd0000efa8
+glabel sndLoadAdpcmBook
 /*     efa8:	27bdfd10 */ 	addiu	$sp,$sp,-752
 /*     efac:	afb20020 */ 	sw	$s2,0x20($sp)
 /*     efb0:	afb1001c */ 	sw	$s1,0x1c($sp)
@@ -1305,7 +1305,7 @@ glabel snd0000efa8
 );
 #else
 GLOBAL_ASM(
-glabel snd0000efa8
+glabel sndLoadAdpcmBook
 /*     f5dc:	27bdfe90 */ 	addiu	$sp,$sp,-368
 /*     f5e0:	3c0e007c */ 	lui	$t6,0x7c
 /*     f5e4:	afa50174 */ 	sw	$a1,0x174($sp)
@@ -1349,7 +1349,7 @@ glabel snd0000efa8
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel snd0000f0d4
+glabel sndLoadAdpcmLoop
 /*     f0d4:	27bdff10 */ 	addiu	$sp,$sp,-240
 /*     f0d8:	afb40028 */ 	sw	$s4,0x28($sp)
 /*     f0dc:	0080a025 */ 	or	$s4,$a0,$zero
@@ -1444,7 +1444,7 @@ glabel snd0000f0d4
 );
 #else
 GLOBAL_ASM(
-glabel snd0000f0d4
+glabel sndLoadAdpcmLoop
 /*     f670:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*     f674:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     f678:	afa50074 */ 	sw	$a1,0x74($sp)
@@ -1498,164 +1498,60 @@ glabel snd0000f0d4
 );
 #endif
 
+ALWaveTable *sndLoadWavetable(u32 offset, u16 cacheindex)
+{
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel sndLoadWavetable
-/*     f228:	27bdff08 */ 	addiu	$sp,$sp,-248
-/*     f22c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*     f230:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*     f234:	03a08825 */ 	or	$s1,$sp,$zero
-/*     f238:	03a09025 */ 	or	$s2,$sp,$zero
-/*     f23c:	3c0e0081 */ 	lui	$t6,%hi(_sfxctlSegmentRomStart)
-/*     f240:	265200b7 */ 	addiu	$s2,$s2,0xb7
-/*     f244:	26310067 */ 	addiu	$s1,$s1,0x67
-/*     f248:	afb40028 */ 	sw	$s4,0x28($sp)
-/*     f24c:	afb30024 */ 	sw	$s3,0x24($sp)
-/*     f250:	25cea250 */ 	addiu	$t6,$t6,%lo(_sfxctlSegmentRomStart)
-/*     f254:	3639000f */ 	ori	$t9,$s1,0xf
-/*     f258:	364f000f */ 	ori	$t7,$s2,0xf
-/*     f25c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*     f260:	afb00018 */ 	sw	$s0,0x18($sp)
-/*     f264:	afa500fc */ 	sw	$a1,0xfc($sp)
-/*     f268:	008ea021 */ 	addu	$s4,$a0,$t6
-/*     f26c:	39f2000f */ 	xori	$s2,$t7,0xf
-/*     f270:	3b31000f */ 	xori	$s1,$t9,0xf
-/*     f274:	24130040 */ 	addiu	$s3,$zero,0x40
-/*     f278:	02402025 */ 	or	$a0,$s2,$zero
-.L0000f27c:
-/*     f27c:	02802825 */ 	or	$a1,$s4,$zero
-/*     f280:	0c003513 */ 	jal	dmaExecHighPriority
-/*     f284:	24060040 */ 	addiu	$a2,$zero,0x40
-/*     f288:	00008025 */ 	or	$s0,$zero,$zero
-/*     f28c:	00001825 */ 	or	$v1,$zero,$zero
-/*     f290:	00001025 */ 	or	$v0,$zero,$zero
-.L0000f294:
-/*     f294:	02424821 */ 	addu	$t1,$s2,$v0
-/*     f298:	8d2a0000 */ 	lw	$t2,0x0($t1)
-/*     f29c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*     f2a0:	2c610010 */ 	sltiu	$at,$v1,0x10
-/*     f2a4:	24420004 */ 	addiu	$v0,$v0,0x4
-/*     f2a8:	1420fffa */ 	bnez	$at,.L0000f294
-/*     f2ac:	020a8021 */ 	addu	$s0,$s0,$t2
-/*     f2b0:	02202025 */ 	or	$a0,$s1,$zero
-/*     f2b4:	02802825 */ 	or	$a1,$s4,$zero
-/*     f2b8:	0c003513 */ 	jal	dmaExecHighPriority
-/*     f2bc:	24060040 */ 	addiu	$a2,$zero,0x40
-/*     f2c0:	00002025 */ 	or	$a0,$zero,$zero
-/*     f2c4:	00001025 */ 	or	$v0,$zero,$zero
-.L0000f2c8:
-/*     f2c8:	02225821 */ 	addu	$t3,$s1,$v0
-/*     f2cc:	8d6c0000 */ 	lw	$t4,0x0($t3)
-/*     f2d0:	24420004 */ 	addiu	$v0,$v0,0x4
-/*     f2d4:	1453fffc */ 	bne	$v0,$s3,.L0000f2c8
-/*     f2d8:	008c2021 */ 	addu	$a0,$a0,$t4
-/*     f2dc:	5604ffe7 */ 	bnel	$s0,$a0,.L0000f27c
-/*     f2e0:	02402025 */ 	or	$a0,$s2,$zero
-/*     f2e4:	97ad00fe */ 	lhu	$t5,0xfe($sp)
-/*     f2e8:	3c0f8009 */ 	lui	$t7,%hi(g_SndCache)
-/*     f2ec:	8e210000 */ 	lw	$at,0x0($s1)
-/*     f2f0:	000d7080 */ 	sll	$t6,$t5,0x2
-/*     f2f4:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*     f2f8:	000e7080 */ 	sll	$t6,$t6,0x2
-/*     f2fc:	25ef5210 */ 	addiu	$t7,$t7,%lo(g_SndCache)
-/*     f300:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*     f304:	2450046c */ 	addiu	$s0,$v0,0x46c
-/*     f308:	ae010000 */ 	sw	$at,0x0($s0)
-/*     f30c:	8e390004 */ 	lw	$t9,0x4($s1)
-/*     f310:	3c090084 */ 	lui	$t1,%hi(_sfxtblSegmentRomStart)
-/*     f314:	25299dd0 */ 	addiu	$t1,$t1,%lo(_sfxtblSegmentRomStart)
-/*     f318:	ae190004 */ 	sw	$t9,0x4($s0)
-/*     f31c:	8e210008 */ 	lw	$at,0x8($s1)
-/*     f320:	ae010008 */ 	sw	$at,0x8($s0)
-/*     f324:	8e39000c */ 	lw	$t9,0xc($s1)
-/*     f328:	ae19000c */ 	sw	$t9,0xc($s0)
-/*     f32c:	8e210010 */ 	lw	$at,0x10($s1)
-/*     f330:	ae010010 */ 	sw	$at,0x10($s0)
-/*     f334:	8c48046c */ 	lw	$t0,0x46c($v0)
-/*     f338:	904b0474 */ 	lbu	$t3,0x474($v0)
-/*     f33c:	01095021 */ 	addu	$t2,$t0,$t1
-/*     f340:	15600009 */ 	bnez	$t3,.L0000f368
-/*     f344:	ac4a046c */ 	sw	$t2,0x46c($v0)
-/*     f348:	8e040010 */ 	lw	$a0,0x10($s0)
-/*     f34c:	0c003bea */ 	jal	snd0000efa8
-/*     f350:	97a500fe */ 	lhu	$a1,0xfe($sp)
-/*     f354:	ae020010 */ 	sw	$v0,0x10($s0)
-/*     f358:	8e04000c */ 	lw	$a0,0xc($s0)
-/*     f35c:	0c003c35 */ 	jal	snd0000f0d4
-/*     f360:	97a500fe */ 	lhu	$a1,0xfe($sp)
-/*     f364:	ae02000c */ 	sw	$v0,0xc($s0)
-.L0000f368:
-/*     f368:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*     f36c:	02001025 */ 	or	$v0,$s0,$zero
-/*     f370:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*     f374:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*     f378:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*     f37c:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*     f380:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*     f384:	03e00008 */ 	jr	$ra
-/*     f388:	27bd00f8 */ 	addiu	$sp,$sp,0xf8
-);
+	u8 spaf[0x50];
+	u8 sp5f[0x50];
+	ALWaveTable *s2 = (ALWaveTable *)ALIGN16((u32)spaf);
+	ALWaveTable *s1 = (ALWaveTable *)ALIGN16((u32)sp5f);
+	s32 i;
+	s32 sum1;
+	s32 sum2;
+	ALWaveTable *tmp;
+
+	offset += (u32)&_sfxctlSegmentRomStart;
+
+	do {
+		dmaExecHighPriority(s2, offset, 0x40);
+		sum1 = 0;
+
+		for (i = 0; i < 16U; i++) {
+			sum1 += ((u32 *)s2)[i];
+		}
+
+		dmaExecHighPriority(s1, offset, 0x40);
+		sum2 = 0;
+
+		for (i = 0; i < 16U; i++) {
+			sum2 += ((u32 *)s1)[i];
+		}
+
+		if (1);
+	} while (sum1 != sum2);
 #else
-GLOBAL_ASM(
-glabel sndLoadWavetable
-/*     f72c:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*     f730:	3c0e007c */ 	lui	$t6,0x7c
-/*     f734:	afa5007c */ 	sw	$a1,0x7c($sp)
-/*     f738:	25cee940 */ 	addiu	$t6,$t6,-5824
-/*     f73c:	afa40078 */ 	sw	$a0,0x78($sp)
-/*     f740:	008e2821 */ 	addu	$a1,$a0,$t6
-/*     f744:	03a02025 */ 	or	$a0,$sp,$zero
-/*     f748:	24840037 */ 	addiu	$a0,$a0,0x37
-/*     f74c:	348f000f */ 	ori	$t7,$a0,0xf
-/*     f750:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     f754:	39e4000f */ 	xori	$a0,$t7,0xf
-/*     f758:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*     f75c:	0c00366e */ 	jal	dmaExecHighPriority
-/*     f760:	24060040 */ 	addiu	$a2,$zero,0x40
-/*     f764:	97a5007e */ 	lhu	$a1,0x7e($sp)
-/*     f768:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*     f76c:	3c08800a */ 	lui	$t0,0x800a
-/*     f770:	0005c880 */ 	sll	$t9,$a1,0x2
-/*     f774:	0325c821 */ 	addu	$t9,$t9,$a1
-/*     f778:	8c810000 */ 	lw	$at,0x0($a0)
-/*     f77c:	0019c880 */ 	sll	$t9,$t9,0x2
-/*     f780:	25088190 */ 	addiu	$t0,$t0,-32368
-/*     f784:	03281021 */ 	addu	$v0,$t9,$t0
-/*     f788:	2443046c */ 	addiu	$v1,$v0,0x46c
-/*     f78c:	ac610000 */ 	sw	$at,0x0($v1)
-/*     f790:	8c8b0004 */ 	lw	$t3,0x4($a0)
-/*     f794:	3c0d007f */ 	lui	$t5,0x7f
-/*     f798:	25ade4c0 */ 	addiu	$t5,$t5,-6976
-/*     f79c:	ac6b0004 */ 	sw	$t3,0x4($v1)
-/*     f7a0:	8c810008 */ 	lw	$at,0x8($a0)
-/*     f7a4:	ac610008 */ 	sw	$at,0x8($v1)
-/*     f7a8:	8c8b000c */ 	lw	$t3,0xc($a0)
-/*     f7ac:	ac6b000c */ 	sw	$t3,0xc($v1)
-/*     f7b0:	8c810010 */ 	lw	$at,0x10($a0)
-/*     f7b4:	ac610010 */ 	sw	$at,0x10($v1)
-/*     f7b8:	8c4c046c */ 	lw	$t4,0x46c($v0)
-/*     f7bc:	904f0474 */ 	lbu	$t7,0x474($v0)
-/*     f7c0:	018d7021 */ 	addu	$t6,$t4,$t5
-/*     f7c4:	15e0000b */ 	bnez	$t7,.NB0000f7f4
-/*     f7c8:	ac4e046c */ 	sw	$t6,0x46c($v0)
-/*     f7cc:	8c640010 */ 	lw	$a0,0x10($v1)
-/*     f7d0:	0c003d77 */ 	jal	snd0000efa8
-/*     f7d4:	afa30018 */ 	sw	$v1,0x18($sp)
-/*     f7d8:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*     f7dc:	97a5007e */ 	lhu	$a1,0x7e($sp)
-/*     f7e0:	ac620010 */ 	sw	$v0,0x10($v1)
-/*     f7e4:	0c003d9c */ 	jal	snd0000f0d4
-/*     f7e8:	8c64000c */ 	lw	$a0,0xc($v1)
-/*     f7ec:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*     f7f0:	ac62000c */ 	sw	$v0,0xc($v1)
-.NB0000f7f4:
-/*     f7f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     f7f8:	27bd0078 */ 	addiu	$sp,$sp,0x78
-/*     f7fc:	00601025 */ 	or	$v0,$v1,$zero
-/*     f800:	03e00008 */ 	jr	$ra
-/*     f804:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	u8 sp5f[0x50];
+	ALWaveTable *s1 = (ALWaveTable *)ALIGN16((u32)sp5f);
+	ALWaveTable *tmp;
+
+	offset += (u32)&_sfxctlSegmentRomStart;
+
+	dmaExecHighPriority(s1, offset, 0x40);
 #endif
+
+	tmp = &g_SndCache.wavetables[cacheindex];
+
+	*tmp = *s1;
+
+	tmp->base += (u32)&_sfxtblSegmentRomStart;
+
+	if (tmp->type == AL_ADPCM_WAVE) {
+		tmp->waveInfo.adpcmWave.book = sndLoadAdpcmBook((u32)tmp->waveInfo.adpcmWave.book, cacheindex);
+		tmp->waveInfo.adpcmWave.loop = sndLoadAdpcmLoop((u32)tmp->waveInfo.adpcmWave.loop, cacheindex);
+	}
+
+	return tmp;
+}
 
 void sndSetSoundMode(s32 mode)
 {
