@@ -1656,31 +1656,13 @@ void sndAddRef(ALSound *sound)
 	}
 }
 
-void sndRemoveRef(void);
-
-GLOBAL_ASM(
-glabel sndRemoveRef
-/*     f7b8:	3c0e800a */ 	lui	$t6,%hi(g_SndCache+0x3e14)
-/*     f7bc:	25ce9024 */ 	addiu	$t6,$t6,%lo(g_SndCache+0x3e14)
-/*     f7c0:	008e082b */ 	sltu	$at,$a0,$t6
-/*     f7c4:	1420000d */ 	bnez	$at,.L0000f7fc
-/*     f7c8:	3c0f800a */ 	lui	$t7,%hi(g_SndCache+0x40d4)
-/*     f7cc:	25ef92e4 */ 	addiu	$t7,$t7,%lo(g_SndCache+0x40d4)
-/*     f7d0:	01e4082b */ 	sltu	$at,$t7,$a0
-/*     f7d4:	14200009 */ 	bnez	$at,.L0000f7fc
-/*     f7d8:	3c038009 */ 	lui	$v1,%hi(g_SndCache)
-/*     f7dc:	24635210 */ 	addiu	$v1,$v1,%lo(g_SndCache)
-/*     f7e0:	0083c023 */ 	subu	$t8,$a0,$v1
-/*     f7e4:	2719c1ec */ 	addiu	$t9,$t8,-15892
-/*     f7e8:	00194103 */ 	sra	$t0,$t9,0x4
-/*     f7ec:	00681021 */ 	addu	$v0,$v1,$t0
-/*     f7f0:	90490004 */ 	lbu	$t1,0x4($v0)
-/*     f7f4:	252affff */ 	addiu	$t2,$t1,-1
-/*     f7f8:	a04a0004 */ 	sb	$t2,0x4($v0)
-.L0000f7fc:
-/*     f7fc:	03e00008 */ 	jr	$ra
-/*     f800:	00000000 */ 	nop
-);
+void sndRemoveRef(ALSound *sound)
+{
+	if (sound >= &g_SndCache.sounds[0] && sound <= &g_SndCache.sounds[44]) {
+		s32 cacheindex = sound - g_SndCache.sounds;
+		g_SndCache.refcounts[cacheindex]--;
+	}
+}
 
 void sndInit(void)
 {
