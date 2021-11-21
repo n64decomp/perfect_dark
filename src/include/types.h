@@ -7031,9 +7031,6 @@ struct sndcache {
 	/*0x07f0*/ ALADPCMBook books[45];
 	/*0x3658*/ ALADPCMloop loops[45];
 	/*0x3e14*/ ALSound sounds[45];
-	u32 unk40e4;
-	u32 unk40e8;
-	u32 unk40ec;
 };
 
 struct rdptask {
