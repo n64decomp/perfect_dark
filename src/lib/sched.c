@@ -337,6 +337,8 @@ void __scHandleRetrace(OSSched *sc)
 	schedRenderCrashPeriodically(sc->frameCount);
 }
 
+extern struct var80095210 var80095210;
+
 /**
  * __scHandleTasks is called both on retrace and when the RDP completes a task.
  */

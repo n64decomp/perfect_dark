@@ -32,7 +32,6 @@ extern s32 g_SndMaxFxBusses;
 extern struct seqinstance g_SeqInstances[3];
 extern ALHeap g_SndHeap;
 extern u32 var80095200;
-extern struct var80095210 var80095210;
 extern OSMesgQueue g_PiMesgQueue;
 extern struct g_vars g_Vars;
 extern u8 **var8009a874;

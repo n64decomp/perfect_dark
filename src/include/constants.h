@@ -496,7 +496,7 @@
 #define CHRCFLAG_UNEXPLODABLE                0x00001000
 #define CHRCFLAG_NOSHADOW                    0x00002000
 #define CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION 0x00004000
-#define CHRCFLAG_00008000                    0x00008000 // Not used in scripts
+#define CHRCFLAG_DIEWITHFORCE                0x00008000 // When killed with a weak weapon, fling the chr as if it was a strong weapon
 #define CHRCFLAG_00010000                    0x00010000 // Related to dead people in intro cutscenes
 #define CHRCFLAG_FORCEAUTOAIM                0x00020000 // Allow auto aim even if chr is unarmed
 #define CHRCFLAG_00040000                    0x00040000 // Used a lot

@@ -7029,7 +7029,7 @@ struct var80095210 {
 	u16 *soundnums;
 	u8 unk04[45];
 	u16 unk32[45];
-	u8 unk90[0x2cc];
+	u8 unk8c[0x2d0];
 	struct var80095210_35c unk35c[1];
 	u8 unk364[0x3d88];
 };

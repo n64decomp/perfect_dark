@@ -3350,7 +3350,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 
 					mult2 = gsetGetStrength(gset);
 
-					if (mult2 <= 0 && (chr->chrflags & CHRCFLAG_00008000)) {
+					if (mult2 <= 0 && (chr->chrflags & CHRCFLAG_DIEWITHFORCE)) {
 						mult2 = 6;
 					}
 
@@ -3403,7 +3403,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 
 			mult3 = gsetGetStrength(gset);
 
-			if (mult3 <= 0 && (chr->chrflags & CHRCFLAG_00008000)) {
+			if (mult3 <= 0 && (chr->chrflags & CHRCFLAG_DIEWITHFORCE)) {
 				mult3 = 6;
 			}
 

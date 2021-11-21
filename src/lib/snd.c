@@ -1368,28 +1368,31 @@ glabel snd0000ee88
 );
 #endif
 
+// Mismatch:
+// Goal calculates the address of var80095210.unk35c twice.
+// The below demonstrates similar codegen by not adding arg1 to the return value.
 //struct var80095210_35c *snd0000ee88(u32 segoffset, u16 arg1)
 //{
 //#if VERSION >= VERSION_NTSC_1_0
-//	s32 i;
-//	s32 sum1;
-//	s32 sum2;
-//	u32 stack;
-//	u8 spaf[0x40];
+//	u8 spaf[0x50];
 //	u8 sp5f[0x50];
 //	u32 *s2 = (u32 *)ALIGN16((u32)spaf);
 //	u32 *s1 = (u32 *)ALIGN16((u32)sp5f);
-//	u32 stack2;
+//	s32 i;
+//	s32 sum1;
+//	s32 sum2;
+//
+//	segoffset += (u32)&_sfxctlSegmentRomStart;
 //
 //	do {
-//		dmaExecHighPriority(s2, (u32)&_sfxctlSegmentRomStart + segoffset, 0x40);
+//		dmaExecHighPriority(s2, segoffset, 0x40);
 //		sum1 = 0;
 //
 //		for (i = 0; i < 16U; i++) {
 //			sum1 += s2[i];
 //		}
 //
-//		dmaExecHighPriority(s1, (u32)&_sfxctlSegmentRomStart + segoffset, 0x40);
+//		dmaExecHighPriority(s1, segoffset, 0x40);
 //		sum2 = 0;
 //
 //		for (i = 0; i < 16U; i++) {
@@ -1400,12 +1403,15 @@ glabel snd0000ee88
 //	u8 sp5f[0x50];
 //	u32 *s1 = (u32 *)ALIGN16((u32)sp5f);
 //
-//	dmaExecHighPriority(s1, (u32)&_sfxctlSegmentRomStart + segoffset, 0x40);
+//	segoffset += (u32)&_sfxctlSegmentRomStart;
+//
+//	dmaExecHighPriority(s1, segoffset, 0x40);
 //#endif
 //
 //	var80095210.unk35c[arg1] = *(struct var80095210_35c *)s1;
 //
-//	return &var80095210.unk35c[arg1];
+//	//return &var80095210.unk35c[arg1];
+//	return (struct var80095210_35c *)((u32)&var80095210 + 0x35c);
 //}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -2718,7 +2724,7 @@ void sndTick(void)
 
 		if (g_SndGuardStringPtr != NULL) {
 			if (strcmp(g_SndGuardStringPtr, &g_SndGuardString) != 0) {
-#if VERSION <= VERSION_NTSC_1_0
+#if VERSION < VERSION_NTSC_1_0
 				crashSetMessage("Snd Heap Check FAILED");
 				CRASH();
 #endif
