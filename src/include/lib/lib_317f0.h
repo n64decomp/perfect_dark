@@ -7,9 +7,9 @@
 void func00033090(struct sndstate *handle);
 void func00033100(struct sndstate *state);
 u16 sndpCountStates(s16 *numfreeptr, s16 *numallocedptr);
-void func00033378(void *fn);
+void sndpSetAddRefCallback(void *fn);
 struct sndstate *func00033390(s32 arg0, ALSound *sound);
-void func00033634(void *fn);
+void sndpSetRemoveRefCallback(void *fn);
 s32 sndGetState(struct sndstate *handle);
 struct sndstate *func00033820(s32 arg0, s16 soundnum, u16 vol, ALPan pan, f32 pitch, u8 fxmix, u8 fxbus, struct sndstate **handleptr);
 void audioStop(struct sndstate *handle);

@@ -19,11 +19,11 @@ N_ALSndPlayer *g_SndPlayer = &var8009c2d0;
 s16 var8005f130 = 0;
 s32 var8005f134 = 0;
 s32 var8005f138 = 0;
-void (*var8005f13c)(ALSound *) = NULL;
-void (*var8005f140)(ALSound *) = NULL;
+void (*g_SndpAddRefCallback)(ALSound *) = NULL;
+void (*g_SndpRemoveRefCallback)(ALSound *) = NULL;
 
-void func00033378(void *fn);
-void func00033634(void *fn);
+void sndpSetAddRefCallback(void *fn);
+void sndpSetRemoveRefCallback(void *fn);
 void sndpFreeState(struct sndstate *state);
 void func00033bc0(struct sndstate *state);
 
@@ -52,8 +52,8 @@ void n_alSndpNew(ALSndpConfig *config)
 		alLink(&sndstate[i].node, &sndstate[i - 1].node);
 	}
 
-	func00033378(NULL);
-	func00033634(NULL);
+	sndpSetAddRefCallback(NULL);
+	sndpSetRemoveRefCallback(NULL);
 
 	var8009c334 = alHeapAlloc(config->heap, sizeof(s16), config->unk10);
 
@@ -547,9 +547,9 @@ u16 sndpCountStates(s16 *numfreeptr, s16 *numallocedptr)
 	return numalloced2;
 }
 
-void func00033378(void *fn)
+void sndpSetAddRefCallback(void *fn)
 {
-	var8005f13c = fn;
+	g_SndpAddRefCallback = fn;
 }
 
 struct sndstate *func00033390(s32 arg0, ALSound *sound)
@@ -614,8 +614,8 @@ struct sndstate *func00033390(s32 arg0, ALSound *sound)
 		state->pan = AL_PAN_CENTER;
 		state->vol = 0x7fff;
 
-		if (var8005f13c != NULL) {
-			var8005f13c(state->sound);
+		if (g_SndpAddRefCallback != NULL) {
+			g_SndpAddRefCallback(state->sound);
 		}
 	} else {
 		osSetIntMask(mask);
@@ -624,9 +624,9 @@ struct sndstate *func00033390(s32 arg0, ALSound *sound)
 	return state;
 }
 
-void func00033634(void *fn)
+void sndpSetRemoveRefCallback(void *fn)
 {
-	var8005f140 = fn;
+	g_SndpRemoveRefCallback = fn;
 }
 
 void sndpFreeState(struct sndstate *state)
@@ -667,8 +667,8 @@ void sndpFreeState(struct sndstate *state)
 		state->unk30 = NULL;
 	}
 
-	if (var8005f140) {
-		var8005f140(state->sound);
+	if (g_SndpRemoveRefCallback != NULL) {
+		g_SndpRemoveRefCallback(state->sound);
 	}
 }
 

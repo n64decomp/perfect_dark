@@ -7023,7 +7023,7 @@ struct mp3vars {
 
 struct sndcache {
 	/*0x0000*/ u16 *indexes; // indexed by sfxnum, value is cache index (0-44) or 0xffff
-	/*0x0004*/ u8 permanent[45];
+	/*0x0004*/ u8 refcounts[45];
 	/*0x0032*/ u16 ages[45];
 	/*0x008c*/ ALEnvelope envelopes[45];
 	/*0x035c*/ ALKeyMap keymaps[45];

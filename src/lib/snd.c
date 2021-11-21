@@ -976,7 +976,7 @@ void sndLoadSfxCtl(void)
 
 	for (i = 0; i < 45; i++) {
 		g_SndCache.ages[i] = 1;
-		g_SndCache.permanent[i] = 0;
+		g_SndCache.refcounts[i] = 0;
 	}
 }
 #else
@@ -1119,7 +1119,7 @@ void sndIncrementAges(void)
 	s32 i;
 
 	for (i = 0; i < 45; i++) {
-		if (!g_SndCache.permanent[i] && g_SndCache.ages[i] < 32000) {
+		if (g_SndCache.refcounts[i] == 0 && g_SndCache.ages[i] < 32000) {
 			g_SndCache.ages[i]++;
 		}
 	}
@@ -1442,7 +1442,7 @@ ALSound *sndLoadSound(s16 soundnum)
 		oldestage = 0;
 
 		for (i = 0; i < 45; i++) {
-			if (!g_SndCache.permanent[i] && oldestage < g_SndCache.ages[i]) {
+			if (g_SndCache.refcounts[i] == 0 && oldestage < g_SndCache.ages[i]) {
 				oldestage = g_SndCache.ages[i];
 				oldestindex = i;
 			}
@@ -1648,36 +1648,18 @@ void seqInit(struct seqinstance *seq)
 	n_alCSPSetBank(seq->seqp, var80095204);
 }
 
-void snd0000f76c(void);
+void sndAddRef(ALSound *sound)
+{
+	if (sound >= &g_SndCache.sounds[0] && sound <= &g_SndCache.sounds[44]) {
+		s32 cacheindex = sound - g_SndCache.sounds;
+		g_SndCache.refcounts[cacheindex]++;
+	}
+}
+
+void sndRemoveRef(void);
 
 GLOBAL_ASM(
-glabel snd0000f76c
-/*     f76c:	3c0e800a */ 	lui	$t6,%hi(g_SndCache+0x3e14)
-/*     f770:	25ce9024 */ 	addiu	$t6,$t6,%lo(g_SndCache+0x3e14)
-/*     f774:	008e082b */ 	sltu	$at,$a0,$t6
-/*     f778:	1420000d */ 	bnez	$at,.L0000f7b0
-/*     f77c:	3c0f800a */ 	lui	$t7,%hi(g_SndCache+0x40d4)
-/*     f780:	25ef92e4 */ 	addiu	$t7,$t7,%lo(g_SndCache+0x40d4)
-/*     f784:	01e4082b */ 	sltu	$at,$t7,$a0
-/*     f788:	14200009 */ 	bnez	$at,.L0000f7b0
-/*     f78c:	3c038009 */ 	lui	$v1,%hi(g_SndCache)
-/*     f790:	24635210 */ 	addiu	$v1,$v1,%lo(g_SndCache)
-/*     f794:	0083c023 */ 	subu	$t8,$a0,$v1
-/*     f798:	2719c1ec */ 	addiu	$t9,$t8,-15892
-/*     f79c:	00194103 */ 	sra	$t0,$t9,0x4
-/*     f7a0:	00681021 */ 	addu	$v0,$v1,$t0
-/*     f7a4:	90490004 */ 	lbu	$t1,0x4($v0)
-/*     f7a8:	252a0001 */ 	addiu	$t2,$t1,0x1
-/*     f7ac:	a04a0004 */ 	sb	$t2,0x4($v0)
-.L0000f7b0:
-/*     f7b0:	03e00008 */ 	jr	$ra
-/*     f7b4:	00000000 */ 	nop
-);
-
-void snd0000f7b8(void);
-
-GLOBAL_ASM(
-glabel snd0000f7b8
+glabel sndRemoveRef
 /*     f7b8:	3c0e800a */ 	lui	$t6,%hi(g_SndCache+0x3e14)
 /*     f7bc:	25ce9024 */ 	addiu	$t6,$t6,%lo(g_SndCache+0x3e14)
 /*     f7c0:	008e082b */ 	sltu	$at,$a0,$t6
@@ -1838,8 +1820,8 @@ void sndInit(void)
 
 		osSyncPrintf("Set the sample callbacks\n");
 
-		func00033378(snd0000f76c);
-		func00033634(snd0000f7b8);
+		sndpSetAddRefCallback(sndAddRef);
+		sndpSetRemoveRefCallback(sndRemoveRef);
 
 		amgrStartThread();
 
