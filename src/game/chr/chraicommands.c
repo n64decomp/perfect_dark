@@ -12339,54 +12339,18 @@ bool aiSetDrCarollImages(void)
 /**
  * @cmd 01d4
  */
-GLOBAL_ASM(
-glabel ai01d4
-/*  f05f7b8:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f05f7bc:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f05f7c0:	8cee0434 */ 	lw	$t6,0x434($a3)
-/*  f05f7c4:	8cef0438 */ 	lw	$t7,0x438($a3)
-/*  f05f7c8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05f7cc:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f05f7d0:	90780002 */ 	lbu	$t8,0x2($v1)
-/*  f05f7d4:	90680003 */ 	lbu	$t0,0x3($v1)
-/*  f05f7d8:	906b0004 */ 	lbu	$t3,0x4($v1)
-/*  f05f7dc:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f05f7e0:	03282025 */ 	or	$a0,$t9,$t0
-/*  f05f7e4:	00044c00 */ 	sll	$t1,$a0,0x10
-/*  f05f7e8:	00095403 */ 	sra	$t2,$t1,0x10
-/*  f05f7ec:	000ac8c0 */ 	sll	$t9,$t2,0x3
-/*  f05f7f0:	032ac821 */ 	addu	$t9,$t9,$t2
-/*  f05f7f4:	3c18800a */ 	lui	$t8,%hi(g_Rooms)
-/*  f05f7f8:	8f184928 */ 	lw	$t8,%lo(g_Rooms)($t8)
-/*  f05f7fc:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f05f800:	032ac823 */ 	subu	$t9,$t9,$t2
-/*  f05f804:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f05f808:	906d0005 */ 	lbu	$t5,0x5($v1)
-/*  f05f80c:	03193021 */ 	addu	$a2,$t8,$t9
-/*  f05f810:	94c80000 */ 	lhu	$t0,0x0($a2)
-/*  f05f814:	000b6200 */ 	sll	$t4,$t3,0x8
-/*  f05f818:	018d7825 */ 	or	$t7,$t4,$t5
-/*  f05f81c:	010f4825 */ 	or	$t1,$t0,$t7
-/*  f05f820:	a4c90000 */ 	sh	$t1,0x0($a2)
-/*  f05f824:	8cea0438 */ 	lw	$t2,0x438($a3)
-/*  f05f828:	254b0006 */ 	addiu	$t3,$t2,0x6
-/*  f05f82c:	03e00008 */ 	jr	$ra
-/*  f05f830:	aceb0438 */ 	sw	$t3,0x438($a3)
-);
+bool aiSetRoomFlag(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	s16 roomnum = cmd[3] | cmd[2] << 8;
+	s16 flag = cmd[5] | cmd[4] << 8;
 
-//bool ai01d4(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	s16 room_id = cmd[3] | (cmd[2] << 8);
-//	u32 value = cmd[5] | (cmd[4] << 8);
-//
-//	struct room *room = &g_Rooms[room_id];
-//	room->unk00 |= value;
-//
-//	g_Vars.aioffset += 6;
-//
-//	return false;
-//}
+	g_Rooms[roomnum].flags |= flag;
+
+	g_Vars.aioffset += 6;
+
+	return false;
+}
 
 /**
  * @cmd 01d5

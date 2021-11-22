@@ -4111,11 +4111,10 @@
 	left, \
 	right,
 
-#define configure_room_portals(room) \
+#define set_room_flag(room, flag) \
 	mkshort(0x01d4), \
 	mkshort(room), \
-	0x08, \
-	0x00,
+	mkshort(flag),
 
 /**
  * Shows or hides non-essential chrs.

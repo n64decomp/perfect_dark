@@ -4360,7 +4360,7 @@ u8 func1032_unhide_guards_near_plane[] = {
 
 u8 func1420_setup_portals[] = {
 	yield
-	configure_room_portals(0x0080)
+	set_room_flag(0x0080, ROOMFLAG_0800)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

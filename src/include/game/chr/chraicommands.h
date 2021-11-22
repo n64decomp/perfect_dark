@@ -432,7 +432,7 @@
 /*0x01d1*/ bool aiObjSetModelPartVisible(void);
 /*0x01d2*/ bool aiChrEmitSparks(void);
 /*0x01d3*/ bool aiSetDrCarollImages(void);
-/*0x01d4*/ bool ai01d4(void);
+/*0x01d4*/ bool aiSetRoomFlag(void);
 /*0x01d5*/ bool aiShowCutsceneChrs(void);
 /*0x01d6*/ bool aiConfigureEnvironment(void);
 /*0x01d7*/ bool aiIfDistanceToTarget2LessThan(void);

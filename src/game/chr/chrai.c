@@ -482,7 +482,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01d1*/ aiObjSetModelPartVisible,
 	/*0x01d2*/ aiChrEmitSparks,
 	/*0x01d3*/ aiSetDrCarollImages,
-	/*0x01d4*/ ai01d4,
+	/*0x01d4*/ aiSetRoomFlag,
 	/*0x01d5*/ aiShowCutsceneChrs,
 	/*0x01d6*/ aiConfigureEnvironment,
 	/*0x01d7*/ aiIfDistanceToTarget2LessThan,
