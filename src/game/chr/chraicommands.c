@@ -10861,75 +10861,25 @@ bool aiIfDistanceToGunLessThan(void)
 /**
  * @cmd 0172
  */
-GLOBAL_ASM(
-glabel ai0172
-/*  f05ca78:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f05ca7c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f05ca80:	3c11800a */ 	lui	$s1,%hi(g_Vars)
-/*  f05ca84:	26319fc0 */ 	addiu	$s1,$s1,%lo(g_Vars)
-/*  f05ca88:	8e2e0434 */ 	lw	$t6,0x434($s1)
-/*  f05ca8c:	8e2f0438 */ 	lw	$t7,0x438($s1)
-/*  f05ca90:	8e220424 */ 	lw	$v0,0x424($s1)
-/*  f05ca94:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f05ca98:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f05ca9c:	afb80024 */ 	sw	$t8,0x24($sp)
-/*  f05caa0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f05caa4:	8c500300 */ 	lw	$s0,0x300($v0)
-/*  f05caa8:	ac400300 */ 	sw	$zero,0x300($v0)
-/*  f05caac:	52000015 */ 	beqzl	$s0,.L0f05cb04
-/*  f05cab0:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*  f05cab4:	8e190004 */ 	lw	$t9,0x4($s0)
-/*  f05cab8:	53200012 */ 	beqzl	$t9,.L0f05cb04
-/*  f05cabc:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*  f05cac0:	8e080018 */ 	lw	$t0,0x18($s0)
-/*  f05cac4:	5500000f */ 	bnezl	$t0,.L0f05cb04
-/*  f05cac8:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*  f05cacc:	92090000 */ 	lbu	$t1,0x0($s0)
-/*  f05cad0:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f05cad4:	5521000b */ 	bnel	$t1,$at,.L0f05cb04
-/*  f05cad8:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*  f05cadc:	0fc19711 */ 	jal	propDeregisterRooms
-/*  f05cae0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f05cae4:	0fc18171 */ 	jal	propDelist
-/*  f05cae8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f05caec:	0fc180c0 */ 	jal	propDisable
-/*  f05caf0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f05caf4:	8e040004 */ 	lw	$a0,0x4($s0)
-/*  f05caf8:	0fc22b95 */ 	jal	chrEquipWeapon
-/*  f05cafc:	8e250424 */ 	lw	$a1,0x424($s1)
-/*  f05cb00:	8faa0024 */ 	lw	$t2,0x24($sp)
-.L0f05cb04:
-/*  f05cb04:	8e240434 */ 	lw	$a0,0x434($s1)
-/*  f05cb08:	8e250438 */ 	lw	$a1,0x438($s1)
-/*  f05cb0c:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05cb10:	91460003 */ 	lbu	$a2,0x3($t2)
-/*  f05cb14:	ae220438 */ 	sw	$v0,0x438($s1)
-/*  f05cb18:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f05cb1c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f05cb20:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f05cb24:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f05cb28:	03e00008 */ 	jr	$ra
-/*  f05cb2c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiRecoverGun(void)
+{ \
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct prop *prop = g_Vars.chrdata->gunprop;
+	g_Vars.chrdata->gunprop = NULL;
 
-// Mismatch because some stores/loads to SP is in the opposite order
-//bool ai0172(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	struct prop *prop = g_Vars.chrdata->gunprop;
-//	g_Vars.chrdata->gunprop = NULL;
-//
-//	if (prop && prop->obj && prop->parent == NULL && prop->type == PROPTYPE_WEAPON) {
-//		propDeregisterRooms(prop);
-//		propDelist(prop);
-//		propDisable(prop);
-//		chrEquipWeapon(prop->obj, g_Vars.chrdata);
-//	}
-//
-//	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
-//
-//	return false;
-//}
+	if (prop && prop->obj && prop->parent == NULL && prop->type == PROPTYPE_WEAPON) {
+		propDeregisterRooms(prop);
+		propDelist(prop);
+		propDisable(prop);
+		chrEquipWeapon(prop->weapon, g_Vars.chrdata);
+	}
+
+	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+
+	if (1);
+
+	return false;
+}
 
 /**
  * @cmd 0173

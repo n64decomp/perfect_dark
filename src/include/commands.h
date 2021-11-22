@@ -3300,6 +3300,8 @@
 /**
  * Makes the chr's gun disappear from the ground and gives it to the chr
  * (when a guard drops their gun and picks it up).
+ *
+ * The chr argument is ignored. The command applies to the current chr.
  */
 #define chr_recover_gun(chr, label) \
 	mkshort(0x0172), \

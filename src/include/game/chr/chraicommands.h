@@ -348,7 +348,7 @@
 /*0x016f*/ bool aiIfChrHasGun(void);
 /*0x0170*/ bool aiDoGunCommand(void);
 /*0x0171*/ bool aiIfDistanceToGunLessThan(void);
-/*0x0172*/ bool ai0172(void);
+/*0x0172*/ bool aiRecoverGun(void);
 /*0x0173*/ bool aiChrCopyProperties(void);
 /*0x0174*/ bool aiIfCutsceneButtonPressed(void);
 /*0x0175*/ bool ai0175(void);
