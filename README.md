@@ -11,11 +11,12 @@ See the [Perfect Dark Decompilation Status Page](https://ryandwyer.gitlab.io/pds
 For Arch Linux:
 
 * Install these packages: `binutils fakeroot gcc make python vim`
-* Install from AUR: `mips64-elf-binutils`
+* Install from AUR: `armips mips64-elf-binutils`
 
 For Debian and Ubuntu:
 
 * Install these packages: `binutils-mips-linux-gnu make`
+* Compile and install `armips`
 
 ## ROM Versions
 
