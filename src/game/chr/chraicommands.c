@@ -6823,14 +6823,19 @@ glabel var7f1a9d4c
 /*  f059518:	00001025 */ 	or	$v0,$zero,$zero
 );
 
-// Mismatch because score is masked with 0xff near 47c. Seems like it needs to
-// use use int promotion but I haven't found a way to trigger it.
+// Mismatch: The below has an extra store to score and it's due to the
+// `if (score);` trick. But removing it creates vastly different codegen.
+// Could be related to the switch statement because cmd 0129 is similar and
+// matches but has no switch.
 //bool ai0120(void)
 //{
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	u8 score = 6;
-//	u8 numnearby = 0;
+//	u8 score;
+//	u8 numnearby;
 //	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
+//
+//	score = 6;
+//	numnearby = 0;
 //
 //	// 350
 //	if (chrGetNumArghs(g_Vars.chrdata) > 0) {
@@ -6897,9 +6902,12 @@ glabel var7f1a9d4c
 //		score--;
 //	}
 //
+//	// 4a8
 //	if (score < 3 && numnearby != 0) {
 //		score = 3;
 //	}
+//
+//	if (score);
 //
 //	if (score < cmd[2]) {
 //		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);

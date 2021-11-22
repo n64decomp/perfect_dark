@@ -2623,13 +2623,22 @@
 	label,
 
 /**
- * Tries to find a chr in the smae team who meets certain criteria.
+ * Calculates a safety score based on several factors and compares it to the
+ * given value.
  *
- * For each chr, a risk is calculated based on several factors, such as whether
- * they've been shot. If any chr in the team has a risk lower than the given
- * value then the condition passes.
+ * The safety score starts at 6.
+ * Subtract 2 points if current chr has been shot.
+ * Subtract 2, 1, or add 1 point depending on player's equipped weapon.
+ * Subtract 2 points if there are no other chrs nearby.
+ * Subtract 1 point if there is 1 chr nearby.
+ * Enforce a minimum of 3 if there are any chrs nearby.
+ *
+ * So maximum safety is 7 and minimum safety is 0.
+ *
+ * See also if_calculated_safety_lt, which is similar but doesn't have the
+ * weapon check.
  */
-#define if_retreat_risk_lt(value, label) \
+#define if_calculated_safety2_lt(value, label) \
 	mkshort(0x0120), \
 	value, \
 	label,
@@ -2707,6 +2716,9 @@
  * Subtract 1 point if there are 1 or 2 chrs nearby.
  *
  * So maximum safety is 6 and minimum safety is 3.
+ *
+ * See also if_calculated_safety2_lt, which is similar but includes a player
+ * weapon check.
  */
 #define if_calculated_safety_lt(score, label) \
 	mkshort(0x0129), \
