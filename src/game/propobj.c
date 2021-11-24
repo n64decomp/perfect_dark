@@ -12936,140 +12936,60 @@ glabel func0f06f0a0
 );
 #endif
 
-GLOBAL_ASM(
-glabel propExplode
-/*  f06f314:	27bdff68 */ 	addiu	$sp,$sp,-152
-/*  f06f318:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f06f31c:	afb00030 */ 	sw	$s0,0x30($sp)
-/*  f06f320:	afa5009c */ 	sw	$a1,0x9c($sp)
-/*  f06f324:	8c880004 */ 	lw	$t0,0x4($a0)
-/*  f06f328:	3c01f000 */ 	lui	$at,0xf000
-/*  f06f32c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f06f330:	8d020040 */ 	lw	$v0,0x40($t0)
-/*  f06f334:	00417024 */ 	and	$t6,$v0,$at
-/*  f06f338:	000e7f02 */ 	srl	$t7,$t6,0x1c
-/*  f06f33c:	afaf0090 */ 	sw	$t7,0x90($sp)
-/*  f06f340:	8c860018 */ 	lw	$a2,0x18($a0)
-/*  f06f344:	3c010002 */ 	lui	$at,0x2
-/*  f06f348:	342100c0 */ 	ori	$at,$at,0xc0
-/*  f06f34c:	10c00032 */ 	beqz	$a2,.L0f06f418
-/*  f06f350:	00415024 */ 	and	$t2,$v0,$at
-/*  f06f354:	8cc20018 */ 	lw	$v0,0x18($a2)
-/*  f06f358:	00c01825 */ 	or	$v1,$a2,$zero
-/*  f06f35c:	50400006 */ 	beqzl	$v0,.L0f06f378
-/*  f06f360:	92180001 */ 	lbu	$t8,0x1($s0)
-/*  f06f364:	00401825 */ 	or	$v1,$v0,$zero
-.L0f06f368:
-/*  f06f368:	8c420018 */ 	lw	$v0,0x18($v0)
-/*  f06f36c:	5440fffe */ 	bnezl	$v0,.L0f06f368
-/*  f06f370:	00401825 */ 	or	$v1,$v0,$zero
-/*  f06f374:	92180001 */ 	lbu	$t8,0x1($s0)
-.L0f06f378:
-/*  f06f378:	33190002 */ 	andi	$t9,$t8,0x2
-/*  f06f37c:	53200012 */ 	beqzl	$t9,.L0f06f3c8
-/*  f06f380:	c46a0008 */ 	lwc1	$f10,0x8($v1)
-/*  f06f384:	8d040018 */ 	lw	$a0,0x18($t0)
-/*  f06f388:	0c006983 */ 	jal	model0001a60c
-/*  f06f38c:	afa30088 */ 	sw	$v1,0x88($sp)
-/*  f06f390:	c4440030 */ 	lwc1	$f4,0x30($v0)
-/*  f06f394:	e7a4007c */ 	swc1	$f4,0x7c($sp)
-/*  f06f398:	c4460034 */ 	lwc1	$f6,0x34($v0)
-/*  f06f39c:	e7a60080 */ 	swc1	$f6,0x80($sp)
-/*  f06f3a0:	c4480038 */ 	lwc1	$f8,0x38($v0)
-/*  f06f3a4:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
-/*  f06f3a8:	e7a80084 */ 	swc1	$f8,0x84($sp)
-/*  f06f3ac:	27b0007c */ 	addiu	$s0,$sp,0x7c
-/*  f06f3b0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f06f3b4:	0c0056d9 */ 	jal	mtx4TransformVecInPlace
-/*  f06f3b8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f06f3bc:	10000008 */ 	b	.L0f06f3e0
-/*  f06f3c0:	8fa30088 */ 	lw	$v1,0x88($sp)
-/*  f06f3c4:	c46a0008 */ 	lwc1	$f10,0x8($v1)
-.L0f06f3c8:
-/*  f06f3c8:	27b0007c */ 	addiu	$s0,$sp,0x7c
-/*  f06f3cc:	e7aa007c */ 	swc1	$f10,0x7c($sp)
-/*  f06f3d0:	c470000c */ 	lwc1	$f16,0xc($v1)
-/*  f06f3d4:	e7b00080 */ 	swc1	$f16,0x80($sp)
-/*  f06f3d8:	c4720010 */ 	lwc1	$f18,0x10($v1)
-/*  f06f3dc:	e7b20084 */ 	swc1	$f18,0x84($sp)
-.L0f06f3e0:
-/*  f06f3e0:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f06f3e4:	24650028 */ 	addiu	$a1,$v1,0x28
-/*  f06f3e8:	02003025 */ 	or	$a2,$s0,$zero
-/*  f06f3ec:	0fc1979d */ 	jal	func0f065e74
-/*  f06f3f0:	27a7006c */ 	addiu	$a3,$sp,0x6c
-/*  f06f3f4:	8fa90090 */ 	lw	$t1,0x90($sp)
-/*  f06f3f8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f06f3fc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f06f400:	27a6006c */ 	addiu	$a2,$sp,0x6c
-/*  f06f404:	87a7009e */ 	lh	$a3,0x9e($sp)
-/*  f06f408:	0fc4a650 */ 	jal	explosionCreateComplex
-/*  f06f40c:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f06f410:	10000037 */ 	b	.L0f06f4f0
-/*  f06f414:	00401825 */ 	or	$v1,$v0,$zero
-.L0f06f418:
-/*  f06f418:	3c010002 */ 	lui	$at,0x2
-/*  f06f41c:	1541002d */ 	bne	$t2,$at,.L0f06f4d4
-/*  f06f420:	00002025 */ 	or	$a0,$zero,$zero
-/*  f06f424:	8d040018 */ 	lw	$a0,0x18($t0)
-/*  f06f428:	0fc1a2aa */ 	jal	modelFindBboxRodata
-/*  f06f42c:	afa80094 */ 	sw	$t0,0x94($sp)
-/*  f06f430:	0fc199ef */ 	jal	modelBboxGetYMin
-/*  f06f434:	00402025 */ 	or	$a0,$v0,$zero
-/*  f06f438:	8fa80094 */ 	lw	$t0,0x94($sp)
-/*  f06f43c:	86020028 */ 	lh	$v0,0x28($s0)
-/*  f06f440:	8fab0090 */ 	lw	$t3,0x90($sp)
-/*  f06f444:	c5040028 */ 	lwc1	$f4,0x28($t0)
-/*  f06f448:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f06f44c:	27ad005c */ 	addiu	$t5,$sp,0x5c
-/*  f06f450:	e7a40050 */ 	swc1	$f4,0x50($sp)
-/*  f06f454:	c506002c */ 	lwc1	$f6,0x2c($t0)
-/*  f06f458:	27ae0050 */ 	addiu	$t6,$sp,0x50
-/*  f06f45c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f06f460:	e7a60054 */ 	swc1	$f6,0x54($sp)
-/*  f06f464:	c5080030 */ 	lwc1	$f8,0x30($t0)
-/*  f06f468:	26050008 */ 	addiu	$a1,$s0,0x8
-/*  f06f46c:	26060028 */ 	addiu	$a2,$s0,0x28
-/*  f06f470:	e7a80058 */ 	swc1	$f8,0x58($sp)
-/*  f06f474:	c50a0028 */ 	lwc1	$f10,0x28($t0)
-/*  f06f478:	c6120008 */ 	lwc1	$f18,0x8($s0)
-/*  f06f47c:	87a7009e */ 	lh	$a3,0x9e($sp)
-/*  f06f480:	46005402 */ 	mul.s	$f16,$f10,$f0
-/*  f06f484:	46128100 */ 	add.s	$f4,$f16,$f18
-/*  f06f488:	e7a4005c */ 	swc1	$f4,0x5c($sp)
-/*  f06f48c:	c506002c */ 	lwc1	$f6,0x2c($t0)
-/*  f06f490:	c60a000c */ 	lwc1	$f10,0xc($s0)
-/*  f06f494:	46003202 */ 	mul.s	$f8,$f6,$f0
-/*  f06f498:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f06f49c:	e7b00060 */ 	swc1	$f16,0x60($sp)
-/*  f06f4a0:	c5120030 */ 	lwc1	$f18,0x30($t0)
-/*  f06f4a4:	c6060010 */ 	lwc1	$f6,0x10($s0)
-/*  f06f4a8:	afae0020 */ 	sw	$t6,0x20($sp)
-/*  f06f4ac:	46009102 */ 	mul.s	$f4,$f18,$f0
-/*  f06f4b0:	afad0018 */ 	sw	$t5,0x18($sp)
-/*  f06f4b4:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f06f4b8:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f06f4bc:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f06f4c0:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f06f4c4:	0fc4a7d5 */ 	jal	explosionCreate
-/*  f06f4c8:	e7a80064 */ 	swc1	$f8,0x64($sp)
-/*  f06f4cc:	10000008 */ 	b	.L0f06f4f0
-/*  f06f4d0:	00401825 */ 	or	$v1,$v0,$zero
-.L0f06f4d4:
-/*  f06f4d4:	8faf0090 */ 	lw	$t7,0x90($sp)
-/*  f06f4d8:	26050008 */ 	addiu	$a1,$s0,0x8
-/*  f06f4dc:	26060028 */ 	addiu	$a2,$s0,0x28
-/*  f06f4e0:	87a7009e */ 	lh	$a3,0x9e($sp)
-/*  f06f4e4:	0fc4a650 */ 	jal	explosionCreateComplex
-/*  f06f4e8:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f06f4ec:	00401825 */ 	or	$v1,$v0,$zero
-.L0f06f4f0:
-/*  f06f4f0:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f06f4f4:	8fb00030 */ 	lw	$s0,0x30($sp)
-/*  f06f4f8:	27bd0098 */ 	addiu	$sp,$sp,0x98
-/*  f06f4fc:	03e00008 */ 	jr	$ra
-/*  f06f500:	00601025 */ 	or	$v0,$v1,$zero
-);
+bool propExplode(struct prop *prop, s32 exptype)
+{
+	struct defaultobj *obj = prop->obj;
+	s32 playernum = (obj->hidden & 0xf0000000) >> 28;
+	bool result;
+
+	if (prop->parent) {
+		struct prop *parent = prop->parent;
+		struct coord pos;
+		s16 rooms[8];
+
+		while (parent->parent) {
+			parent = parent->parent;
+		}
+
+		if (prop->flags & PROPFLAG_ONSCREEN) {
+			Mtxf *mtx = model0001a60c(obj->model);
+
+			pos.x = mtx->m[3][0];
+			pos.y = mtx->m[3][1];
+			pos.z = mtx->m[3][2];
+
+			mtx4TransformVecInPlace(currentPlayerGetUnk174c(), &pos);
+		} else {
+			pos.x = parent->pos.x;
+			pos.y = parent->pos.y;
+			pos.z = parent->pos.z;
+		}
+
+		func0f065e74(&parent->pos, parent->rooms, &pos, rooms);
+
+		result = explosionCreateComplex(NULL, &pos, rooms, exptype, playernum);
+	} else if ((obj->hidden & (OBJHFLAG_00000040 | OBJHFLAG_AIRBORNE | OBJHFLAG_00020000)) == OBJHFLAG_00020000) {
+		struct coord sp5c;
+		struct coord sp50;
+		f32 ymin = modelBboxGetYMin(modelFindBboxRodata(obj->model));
+		s32 room = prop->rooms[0];
+
+		sp50.x = obj->realrot[1][0];
+		sp50.y = obj->realrot[1][1];
+		sp50.z = obj->realrot[1][2];
+
+		sp5c.x = prop->pos.f[0] + obj->realrot[1][0] * ymin;
+		sp5c.y = prop->pos.f[1] + obj->realrot[1][1] * ymin;
+		sp5c.z = prop->pos.f[2] + obj->realrot[1][2] * ymin;
+
+		result = explosionCreate(NULL, &prop->pos, prop->rooms, exptype,
+				playernum, true, &sp5c, room, &sp50);
+	} else {
+		result = explosionCreateComplex(NULL, &prop->pos, prop->rooms, exptype, playernum);
+	}
+
+	return result;
+}
 
 void ammocrateTick(struct prop *prop)
 {
