@@ -71986,66 +71986,24 @@ s32 func0f08e5a8(s16 *rooms2, struct screenbox *box)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f08e6bc
-/*  f08e6bc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f08e6c0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f08e6c4:	44818000 */ 	mtc1	$at,$f16
-/*  f08e6c8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08e6cc:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f08e6d0:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f08e6d4:	0fc599fa */ 	jal	func0f1667e8
-/*  f08e6d8:	e7b0001c */ 	swc1	$f16,0x1c($sp)
-/*  f08e6dc:	10400028 */ 	beqz	$v0,.L0f08e780
-/*  f08e6e0:	c7b0001c */ 	lwc1	$f16,0x1c($sp)
-/*  f08e6e4:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*  f08e6e8:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f08e6ec:	c5c60014 */ 	lwc1	$f6,0x14($t6)
-/*  f08e6f0:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f08e6f4:	00000000 */ 	nop
-/*  f08e6f8:	45020022 */ 	bc1fl	.L0f08e784
-/*  f08e6fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08e700:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f08e704:	0fc2d5ee */ 	jal	currentPlayerGetLodScaleZ
-/*  f08e708:	e7b0001c */ 	swc1	$f16,0x1c($sp)
-/*  f08e70c:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f08e710:	8faf0020 */ 	lw	$t7,0x20($sp)
-/*  f08e714:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f08e718:	c4620008 */ 	lwc1	$f2,0x8($v1)
-/*  f08e71c:	c5e80014 */ 	lwc1	$f8,0x14($t7)
-/*  f08e720:	44819000 */ 	mtc1	$at,$f18
-/*  f08e724:	c7a60024 */ 	lwc1	$f6,0x24($sp)
-/*  f08e728:	46024281 */ 	sub.s	$f10,$f8,$f2
-/*  f08e72c:	c46e0004 */ 	lwc1	$f14,0x4($v1)
-/*  f08e730:	c7b0001c */ 	lwc1	$f16,0x1c($sp)
-/*  f08e734:	46125102 */ 	mul.s	$f4,$f10,$f18
-/*  f08e738:	46062203 */ 	div.s	$f8,$f4,$f6
-/*  f08e73c:	46024280 */ 	add.s	$f10,$f8,$f2
-/*  f08e740:	46005302 */ 	mul.s	$f12,$f10,$f0
-/*  f08e744:	460c703e */ 	c.le.s	$f14,$f12
-/*  f08e748:	00000000 */ 	nop
-/*  f08e74c:	45020005 */ 	bc1fl	.L0f08e764
-/*  f08e750:	c4600000 */ 	lwc1	$f0,0x0($v1)
-/*  f08e754:	44808000 */ 	mtc1	$zero,$f16
-/*  f08e758:	1000000a */ 	b	.L0f08e784
-/*  f08e75c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08e760:	c4600000 */ 	lwc1	$f0,0x0($v1)
-.L0f08e764:
-/*  f08e764:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f08e768:	00000000 */ 	nop
-/*  f08e76c:	45020005 */ 	bc1fl	.L0f08e784
-/*  f08e770:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08e774:	460c7481 */ 	sub.s	$f18,$f14,$f12
-/*  f08e778:	46007101 */ 	sub.s	$f4,$f14,$f0
-/*  f08e77c:	46049403 */ 	div.s	$f16,$f18,$f4
-.L0f08e780:
-/*  f08e780:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f08e784:
-/*  f08e784:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f08e788:	46008006 */ 	mov.s	$f0,$f16
-/*  f08e78c:	03e00008 */ 	jr	$ra
-/*  f08e790:	00000000 */ 	nop
-);
+f32 func0f08e6bc(struct prop *prop, f32 arg1)
+{
+	f32 result = 1;
+	struct coord *coord = func0f1667e8();
+
+	if (coord != NULL && coord->z < prop->z) {
+		f32 scalez = currentPlayerGetLodScaleZ();
+		f32 value = ((prop->z - coord->z) * 100.0f / arg1 + coord->z) * scalez;
+
+		if (value >= coord->y) {
+			result = 0;
+		} else if (value > coord->x) {
+			result = (coord->y - value) / (coord->y - coord->x);
+		}
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f08e794
