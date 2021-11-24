@@ -3817,7 +3817,7 @@ Gfx *nbombsRender(Gfx *gdl)
 	return gdl;
 }
 
-void nbombCreate(struct coord *pos, struct prop *prop)
+void nbombCreateStorm(struct coord *pos, struct prop *ownerprop)
 {
 	u32 stack;
 	s32 oldest240 = -1;
@@ -3849,7 +3849,7 @@ void nbombCreate(struct coord *pos, struct prop *prop)
 	g_Nbombs[index].pos.y = pos->y;
 	g_Nbombs[index].pos.z = pos->z;
 	g_Nbombs[index].age240 = 0;
-	g_Nbombs[index].prop = prop;
+	g_Nbombs[index].ownerprop = ownerprop;
 
 #if VERSION >= VERSION_NTSC_1_0
 	// Newer versions only play audio if the handles are null,

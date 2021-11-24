@@ -133,7 +133,7 @@ struct sndstate *g_GasAudioHandle = NULL;
 u32 g_CountdownTimerOff = COUNTDOWNTIMERREASON_AI;
 bool g_CountdownTimerRunning = false;
 f32 g_CountdownTimerValue60 = 0;
-u32 var80069910 = 0x00000000;
+u32 g_PlayersDetonatingMines = 0x00000000;
 u32 var80069914 = 0x00000000;
 u32 var80069918 = 0x00000000;
 struct linkliftdoorobj *g_LiftDoors = NULL;
@@ -6119,7 +6119,7 @@ void func0f06ac90(struct prop *prop)
  * Child objects such as attached knives and mines will always have their props
  * freed.
  */
-void objRemove2(struct defaultobj *obj, bool freeprop, bool regen)
+void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 {
 	struct prop *child;
 
@@ -6255,12 +6255,12 @@ void objRemove2(struct defaultobj *obj, bool freeprop, bool regen)
 		while (child) {
 			struct prop *next = child->next;
 
-			objRemove(child->obj, true);
+			objFreePermanently(child->obj, true);
 
 			child = next;
 		}
 
-		if (!regen) {
+		if (!canregen) {
 			if (obj->prop->parent) {
 				objDetach(obj->prop);
 			}
@@ -6285,9 +6285,9 @@ void objRemove2(struct defaultobj *obj, bool freeprop, bool regen)
 	}
 }
 
-void objRemove(struct defaultobj *obj, bool freeprop)
+void objFreePermanently(struct defaultobj *obj, bool freeprop)
 {
-	objRemove2(obj, freeprop, false);
+	objFree(obj, freeprop, false);
 }
 
 GLOBAL_ASM(
@@ -12937,7 +12937,7 @@ glabel func0f06f0a0
 #endif
 
 GLOBAL_ASM(
-glabel func0f06f314
+glabel propExplode
 /*  f06f314:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f06f318:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f06f31c:	afb00030 */ 	sw	$s0,0x30($sp)
@@ -13071,19 +13071,19 @@ glabel func0f06f314
 /*  f06f500:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-void func0f06f504(struct prop *prop)
+void ammocrateTick(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
 
-	if (obj->flags & OBJFLAG_DEACTIVATED) {
-		func0f06f314(prop, EXPLOSIONTYPE_12);
+	if (obj->flags & OBJFLAG_AMMOCRATE_EXPLODENOW) {
+		propExplode(prop, EXPLOSIONTYPE_12);
 		obj->hidden |= OBJHFLAG_REAPABLE;
 	}
 }
 
 #if PAL
 GLOBAL_ASM(
-glabel func0f06f54c
+glabel weaponTick
 .late_rodata
 glabel var7f1aa2c0
 .word 0x47742400
@@ -13237,7 +13237,7 @@ glabel var7f1aa2c4
 /*  f06f75c:	9319005f */ 	lbu	$t9,0x5f($t8)
 /*  f06f760:	57210007 */ 	bnel	$t9,$at,.L0f06f780
 /*  f06f764:	8e0f000c */ 	lw	$t7,0xc($s0)
-/*  f06f768:	0fc1bcc5 */ 	jal	func0f06f314
+/*  f06f768:	0fc1bcc5 */ 	jal	propExplode
 /*  f06f76c:	24050015 */ 	addiu	$a1,$zero,0x15
 /*  f06f770:	3c0d800a */ 	lui	$t5,%hi(g_Vars)
 /*  f06f774:	1000000c */ 	b	.L0f06f7a8
@@ -13251,7 +13251,7 @@ glabel var7f1aa2c4
 /*  f06f790:	10000001 */ 	b	.L0f06f798
 /*  f06f794:	24050011 */ 	addiu	$a1,$zero,0x11
 .L0f06f798:
-/*  f06f798:	0fc1bcc5 */ 	jal	func0f06f314
+/*  f06f798:	0fc1bcc5 */ 	jal	propExplode
 /*  f06f79c:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
 /*  f06f7a0:	3c0d800a */ 	lui	$t5,%hi(g_Vars)
 /*  f06f7a4:	25ad9fc0 */ 	addiu	$t5,$t5,%lo(g_Vars)
@@ -13370,7 +13370,7 @@ glabel var7f1aa2c4
 /*  f06f938:	8c45001c */ 	lw	$a1,0x1c($v0)
 .L0f06f93c:
 /*  f06f93c:	8fa601b0 */ 	lw	$a2,0x1b0($sp)
-/*  f06f940:	0fc0287e */ 	jal	nbombCreate
+/*  f06f940:	0fc0287e */ 	jal	nbombCreateStorm
 /*  f06f944:	24c40008 */ 	addiu	$a0,$a2,0x8
 /*  f06f948:	0fc10e62 */ 	jal	propUnsetDangerous
 /*  f06f94c:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
@@ -13481,7 +13481,7 @@ glabel var7f1aa2c4
 /*  f06fabc:	10000001 */ 	b	.L0f06fac4
 /*  f06fac0:	24050011 */ 	addiu	$a1,$zero,0x11
 .L0f06fac4:
-/*  f06fac4:	0fc1bcc5 */ 	jal	func0f06f314
+/*  f06fac4:	0fc1bcc5 */ 	jal	propExplode
 /*  f06fac8:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
 /*  f06facc:	8e0f0040 */ 	lw	$t7,0x40($s0)
 /*  f06fad0:	3c0d800a */ 	lui	$t5,%hi(g_Vars)
@@ -13594,7 +13594,7 @@ glabel var7f1aa2c4
 /*  f06fc4c:	10000001 */ 	b	.L0f06fc54
 /*  f06fc50:	24050011 */ 	addiu	$a1,$zero,0x11
 .L0f06fc54:
-/*  f06fc54:	0fc1bcc5 */ 	jal	func0f06f314
+/*  f06fc54:	0fc1bcc5 */ 	jal	propExplode
 /*  f06fc58:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
 /*  f06fc5c:	1040024c */ 	beqz	$v0,.L0f070590
 /*  f06fc60:	8fb901a8 */ 	lw	$t9,0x1a8($sp)
@@ -13611,8 +13611,8 @@ glabel var7f1aa2c4
 .L0f06fc88:
 /*  f06fc88:	5441007a */ 	bnel	$v0,$at,.L0f06fe74
 /*  f06fc8c:	24010021 */ 	addiu	$at,$zero,0x21
-/*  f06fc90:	3c058007 */ 	lui	$a1,%hi(var80069910)
-/*  f06fc94:	24a59910 */ 	addiu	$a1,$a1,%lo(var80069910)
+/*  f06fc90:	3c058007 */ 	lui	$a1,%hi(g_PlayersDetonatingMines)
+/*  f06fc94:	24a59910 */ 	addiu	$a1,$a1,%lo(g_PlayersDetonatingMines)
 /*  f06fc98:	8cae0000 */ 	lw	$t6,0x0($a1)
 /*  f06fc9c:	8fb801b0 */ 	lw	$t8,0x1b0($sp)
 /*  f06fca0:	51c00053 */ 	beqzl	$t6,.L0f06fdf0
@@ -13635,8 +13635,8 @@ glabel var7f1aa2c4
 /*  f06fcdc:	0fc633fe */ 	jal	mpPlayerGetIndex
 /*  f06fce0:	afa30178 */ 	sw	$v1,0x178($sp)
 /*  f06fce4:	8fa30178 */ 	lw	$v1,0x178($sp)
-/*  f06fce8:	3c058007 */ 	lui	$a1,%hi(var80069910)
-/*  f06fcec:	24a59910 */ 	addiu	$a1,$a1,%lo(var80069910)
+/*  f06fce8:	3c058007 */ 	lui	$a1,%hi(g_PlayersDetonatingMines)
+/*  f06fcec:	24a59910 */ 	addiu	$a1,$a1,%lo(g_PlayersDetonatingMines)
 /*  f06fcf0:	1043003e */ 	beq	$v0,$v1,.L0f06fdec
 .L0f06fcf4:
 /*  f06fcf4:	3c0d800a */ 	lui	$t5,%hi(g_Vars)
@@ -13660,12 +13660,12 @@ glabel var7f1aa2c4
 /*  f06fd38:	8da202a0 */ 	lw	$v0,0x2a0($t5)
 /*  f06fd3c:	0fc4a25f */ 	jal	propGetPlayerNum
 /*  f06fd40:	00000000 */ 	nop
-/*  f06fd44:	3c058007 */ 	lui	$a1,%hi(var80069910)
+/*  f06fd44:	3c058007 */ 	lui	$a1,%hi(g_PlayersDetonatingMines)
 /*  f06fd48:	3c0d800a */ 	lui	$t5,%hi(g_Vars)
 /*  f06fd4c:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f06fd50:	004f1804 */ 	sllv	$v1,$t7,$v0
 /*  f06fd54:	25ad9fc0 */ 	addiu	$t5,$t5,%lo(g_Vars)
-/*  f06fd58:	24a59910 */ 	addiu	$a1,$a1,%lo(var80069910)
+/*  f06fd58:	24a59910 */ 	addiu	$a1,$a1,%lo(g_PlayersDetonatingMines)
 /*  f06fd5c:	8da202a0 */ 	lw	$v0,0x2a0($t5)
 .L0f06fd60:
 /*  f06fd60:	5040000d */ 	beqzl	$v0,.L0f06fd98
@@ -13678,8 +13678,8 @@ glabel var7f1aa2c4
 /*  f06fd7c:	8fa30170 */ 	lw	$v1,0x170($sp)
 /*  f06fd80:	24180001 */ 	addiu	$t8,$zero,0x1
 /*  f06fd84:	00587004 */ 	sllv	$t6,$t8,$v0
-/*  f06fd88:	3c058007 */ 	lui	$a1,%hi(var80069910)
-/*  f06fd8c:	24a59910 */ 	addiu	$a1,$a1,%lo(var80069910)
+/*  f06fd88:	3c058007 */ 	lui	$a1,%hi(g_PlayersDetonatingMines)
+/*  f06fd8c:	24a59910 */ 	addiu	$a1,$a1,%lo(g_PlayersDetonatingMines)
 /*  f06fd90:	006e1825 */ 	or	$v1,$v1,$t6
 /*  f06fd94:	8cb90000 */ 	lw	$t9,0x0($a1)
 .L0f06fd98:
@@ -13733,7 +13733,7 @@ glabel var7f1aa2c4
 /*  f06fe40:	00000000 */ 	nop
 /*  f06fe44:	24050011 */ 	addiu	$a1,$zero,0x11
 .L0f06fe48:
-/*  f06fe48:	0fc1bcc5 */ 	jal	func0f06f314
+/*  f06fe48:	0fc1bcc5 */ 	jal	propExplode
 /*  f06fe4c:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
 /*  f06fe50:	104001cf */ 	beqz	$v0,.L0f070590
 /*  f06fe54:	8fb801a8 */ 	lw	$t8,0x1a8($sp)
@@ -13843,7 +13843,7 @@ glabel var7f1aa2c4
 /*  f06ffd8:	8c45001c */ 	lw	$a1,0x1c($v0)
 .L0f06ffdc:
 /*  f06ffdc:	8fa601b0 */ 	lw	$a2,0x1b0($sp)
-/*  f06ffe0:	0fc0287e */ 	jal	nbombCreate
+/*  f06ffe0:	0fc0287e */ 	jal	nbombCreateStorm
 /*  f06ffe4:	24c40008 */ 	addiu	$a0,$a2,0x8
 /*  f06ffe8:	0fc10e62 */ 	jal	propUnsetDangerous
 /*  f06ffec:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
@@ -13945,7 +13945,7 @@ glabel var7f1aa2c4
 /*  f07013c:	00000000 */ 	nop
 /*  f070140:	24050017 */ 	addiu	$a1,$zero,0x17
 .L0f070144:
-/*  f070144:	0fc1bcc5 */ 	jal	func0f06f314
+/*  f070144:	0fc1bcc5 */ 	jal	propExplode
 /*  f070148:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
 /*  f07014c:	10400110 */ 	beqz	$v0,.L0f070590
 /*  f070150:	8faf01a8 */ 	lw	$t7,0x1a8($sp)
@@ -14292,7 +14292,7 @@ glabel var7f1aa2c4
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f06f54c
+glabel weaponTick
 .late_rodata
 glabel var7f1aa2c0
 .word 0x47742400
@@ -14446,7 +14446,7 @@ glabel var7f1aa2c4
 /*  f06f75c:	9319005f */ 	lbu	$t9,0x5f($t8)
 /*  f06f760:	57210007 */ 	bnel	$t9,$at,.L0f06f780
 /*  f06f764:	8e0f000c */ 	lw	$t7,0xc($s0)
-/*  f06f768:	0fc1bcc5 */ 	jal	func0f06f314
+/*  f06f768:	0fc1bcc5 */ 	jal	propExplode
 /*  f06f76c:	24050015 */ 	addiu	$a1,$zero,0x15
 /*  f06f770:	3c0d800a */ 	lui	$t5,%hi(g_Vars)
 /*  f06f774:	1000000c */ 	b	.L0f06f7a8
@@ -14460,7 +14460,7 @@ glabel var7f1aa2c4
 /*  f06f790:	10000001 */ 	b	.L0f06f798
 /*  f06f794:	24050011 */ 	addiu	$a1,$zero,0x11
 .L0f06f798:
-/*  f06f798:	0fc1bcc5 */ 	jal	func0f06f314
+/*  f06f798:	0fc1bcc5 */ 	jal	propExplode
 /*  f06f79c:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
 /*  f06f7a0:	3c0d800a */ 	lui	$t5,%hi(g_Vars)
 /*  f06f7a4:	25ad9fc0 */ 	addiu	$t5,$t5,%lo(g_Vars)
@@ -14579,7 +14579,7 @@ glabel var7f1aa2c4
 /*  f06f938:	8c45001c */ 	lw	$a1,0x1c($v0)
 .L0f06f93c:
 /*  f06f93c:	8fa601b0 */ 	lw	$a2,0x1b0($sp)
-/*  f06f940:	0fc0287e */ 	jal	nbombCreate
+/*  f06f940:	0fc0287e */ 	jal	nbombCreateStorm
 /*  f06f944:	24c40008 */ 	addiu	$a0,$a2,0x8
 /*  f06f948:	0fc10e62 */ 	jal	propUnsetDangerous
 /*  f06f94c:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
@@ -14690,7 +14690,7 @@ glabel var7f1aa2c4
 /*  f06fabc:	10000001 */ 	b	.L0f06fac4
 /*  f06fac0:	24050011 */ 	addiu	$a1,$zero,0x11
 .L0f06fac4:
-/*  f06fac4:	0fc1bcc5 */ 	jal	func0f06f314
+/*  f06fac4:	0fc1bcc5 */ 	jal	propExplode
 /*  f06fac8:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
 /*  f06facc:	8e0f0040 */ 	lw	$t7,0x40($s0)
 /*  f06fad0:	3c0d800a */ 	lui	$t5,%hi(g_Vars)
@@ -14803,7 +14803,7 @@ glabel var7f1aa2c4
 /*  f06fc4c:	10000001 */ 	b	.L0f06fc54
 /*  f06fc50:	24050011 */ 	addiu	$a1,$zero,0x11
 .L0f06fc54:
-/*  f06fc54:	0fc1bcc5 */ 	jal	func0f06f314
+/*  f06fc54:	0fc1bcc5 */ 	jal	propExplode
 /*  f06fc58:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
 /*  f06fc5c:	1040024c */ 	beqz	$v0,.L0f070590
 /*  f06fc60:	8fb901a8 */ 	lw	$t9,0x1a8($sp)
@@ -14820,8 +14820,8 @@ glabel var7f1aa2c4
 .L0f06fc88:
 /*  f06fc88:	5441007a */ 	bnel	$v0,$at,.L0f06fe74
 /*  f06fc8c:	24010021 */ 	addiu	$at,$zero,0x21
-/*  f06fc90:	3c058007 */ 	lui	$a1,%hi(var80069910)
-/*  f06fc94:	24a59910 */ 	addiu	$a1,$a1,%lo(var80069910)
+/*  f06fc90:	3c058007 */ 	lui	$a1,%hi(g_PlayersDetonatingMines)
+/*  f06fc94:	24a59910 */ 	addiu	$a1,$a1,%lo(g_PlayersDetonatingMines)
 /*  f06fc98:	8cae0000 */ 	lw	$t6,0x0($a1)
 /*  f06fc9c:	8fb801b0 */ 	lw	$t8,0x1b0($sp)
 /*  f06fca0:	51c00053 */ 	beqzl	$t6,.L0f06fdf0
@@ -14844,8 +14844,8 @@ glabel var7f1aa2c4
 /*  f06fcdc:	0fc633fe */ 	jal	mpPlayerGetIndex
 /*  f06fce0:	afa30178 */ 	sw	$v1,0x178($sp)
 /*  f06fce4:	8fa30178 */ 	lw	$v1,0x178($sp)
-/*  f06fce8:	3c058007 */ 	lui	$a1,%hi(var80069910)
-/*  f06fcec:	24a59910 */ 	addiu	$a1,$a1,%lo(var80069910)
+/*  f06fce8:	3c058007 */ 	lui	$a1,%hi(g_PlayersDetonatingMines)
+/*  f06fcec:	24a59910 */ 	addiu	$a1,$a1,%lo(g_PlayersDetonatingMines)
 /*  f06fcf0:	1043003e */ 	beq	$v0,$v1,.L0f06fdec
 .L0f06fcf4:
 /*  f06fcf4:	3c0d800a */ 	lui	$t5,%hi(g_Vars)
@@ -14869,12 +14869,12 @@ glabel var7f1aa2c4
 /*  f06fd38:	8da202a0 */ 	lw	$v0,0x2a0($t5)
 /*  f06fd3c:	0fc4a25f */ 	jal	propGetPlayerNum
 /*  f06fd40:	00000000 */ 	nop
-/*  f06fd44:	3c058007 */ 	lui	$a1,%hi(var80069910)
+/*  f06fd44:	3c058007 */ 	lui	$a1,%hi(g_PlayersDetonatingMines)
 /*  f06fd48:	3c0d800a */ 	lui	$t5,%hi(g_Vars)
 /*  f06fd4c:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f06fd50:	004f1804 */ 	sllv	$v1,$t7,$v0
 /*  f06fd54:	25ad9fc0 */ 	addiu	$t5,$t5,%lo(g_Vars)
-/*  f06fd58:	24a59910 */ 	addiu	$a1,$a1,%lo(var80069910)
+/*  f06fd58:	24a59910 */ 	addiu	$a1,$a1,%lo(g_PlayersDetonatingMines)
 /*  f06fd5c:	8da202a0 */ 	lw	$v0,0x2a0($t5)
 .L0f06fd60:
 /*  f06fd60:	5040000d */ 	beqzl	$v0,.L0f06fd98
@@ -14887,8 +14887,8 @@ glabel var7f1aa2c4
 /*  f06fd7c:	8fa30170 */ 	lw	$v1,0x170($sp)
 /*  f06fd80:	24180001 */ 	addiu	$t8,$zero,0x1
 /*  f06fd84:	00587004 */ 	sllv	$t6,$t8,$v0
-/*  f06fd88:	3c058007 */ 	lui	$a1,%hi(var80069910)
-/*  f06fd8c:	24a59910 */ 	addiu	$a1,$a1,%lo(var80069910)
+/*  f06fd88:	3c058007 */ 	lui	$a1,%hi(g_PlayersDetonatingMines)
+/*  f06fd8c:	24a59910 */ 	addiu	$a1,$a1,%lo(g_PlayersDetonatingMines)
 /*  f06fd90:	006e1825 */ 	or	$v1,$v1,$t6
 /*  f06fd94:	8cb90000 */ 	lw	$t9,0x0($a1)
 .L0f06fd98:
@@ -14942,7 +14942,7 @@ glabel var7f1aa2c4
 /*  f06fe40:	00000000 */ 	nop
 /*  f06fe44:	24050011 */ 	addiu	$a1,$zero,0x11
 .L0f06fe48:
-/*  f06fe48:	0fc1bcc5 */ 	jal	func0f06f314
+/*  f06fe48:	0fc1bcc5 */ 	jal	propExplode
 /*  f06fe4c:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
 /*  f06fe50:	104001cf */ 	beqz	$v0,.L0f070590
 /*  f06fe54:	8fb801a8 */ 	lw	$t8,0x1a8($sp)
@@ -15052,7 +15052,7 @@ glabel var7f1aa2c4
 /*  f06ffd8:	8c45001c */ 	lw	$a1,0x1c($v0)
 .L0f06ffdc:
 /*  f06ffdc:	8fa601b0 */ 	lw	$a2,0x1b0($sp)
-/*  f06ffe0:	0fc0287e */ 	jal	nbombCreate
+/*  f06ffe0:	0fc0287e */ 	jal	nbombCreateStorm
 /*  f06ffe4:	24c40008 */ 	addiu	$a0,$a2,0x8
 /*  f06ffe8:	0fc10e62 */ 	jal	propUnsetDangerous
 /*  f06ffec:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
@@ -15154,7 +15154,7 @@ glabel var7f1aa2c4
 /*  f07013c:	00000000 */ 	nop
 /*  f070140:	24050017 */ 	addiu	$a1,$zero,0x17
 .L0f070144:
-/*  f070144:	0fc1bcc5 */ 	jal	func0f06f314
+/*  f070144:	0fc1bcc5 */ 	jal	propExplode
 /*  f070148:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
 /*  f07014c:	10400110 */ 	beqz	$v0,.L0f070590
 /*  f070150:	8faf01a8 */ 	lw	$t7,0x1a8($sp)
@@ -15501,7 +15501,7 @@ glabel var7f1aa2c4
 );
 #else
 GLOBAL_ASM(
-glabel func0f06f54c
+glabel weaponTick
 .late_rodata
 glabel var7f1aa2c0
 .word 0x47742400
@@ -15655,7 +15655,7 @@ glabel var7f1aa2c4
 /*  f06e9c4:	55c10007 */ 	bnel	$t6,$at,.NB0f06e9e4
 /*  f06e9c8:	8d8d000c */ 	lw	$t5,0xc($t4)
 /*  f06e9cc:	8fa40178 */ 	lw	$a0,0x178($sp)
-/*  f06e9d0:	0fc1b95e */ 	jal	func0f06f314
+/*  f06e9d0:	0fc1b95e */ 	jal	propExplode
 /*  f06e9d4:	afa70170 */ 	sw	$a3,0x170($sp)
 /*  f06e9d8:	1000000b */ 	beqz	$zero,.NB0f06ea08
 /*  f06e9dc:	8fa70170 */ 	lw	$a3,0x170($sp)
@@ -15668,7 +15668,7 @@ glabel var7f1aa2c4
 /*  f06e9f4:	10000001 */ 	beqz	$zero,.NB0f06e9fc
 /*  f06e9f8:	24050011 */ 	addiu	$a1,$zero,0x11
 .NB0f06e9fc:
-/*  f06e9fc:	0fc1b95e */ 	jal	func0f06f314
+/*  f06e9fc:	0fc1b95e */ 	jal	propExplode
 /*  f06ea00:	afa70170 */ 	sw	$a3,0x170($sp)
 /*  f06ea04:	8fa70170 */ 	lw	$a3,0x170($sp)
 .NB0f06ea08:
@@ -15719,7 +15719,7 @@ glabel var7f1aa2c4
 .NB0f06eab4:
 /*  f06eab4:	8fa60178 */ 	lw	$a2,0x178($sp)
 /*  f06eab8:	afa70170 */ 	sw	$a3,0x170($sp)
-/*  f06eabc:	0fc027b2 */ 	jal	nbombCreate
+/*  f06eabc:	0fc027b2 */ 	jal	nbombCreateStorm
 /*  f06eac0:	24c40008 */ 	addiu	$a0,$a2,0x8
 /*  f06eac4:	0fc10c55 */ 	jal	propUnsetDangerous
 /*  f06eac8:	8fa40178 */ 	lw	$a0,0x178($sp)
@@ -15756,7 +15756,7 @@ glabel var7f1aa2c4
 /*  f06eb3c:	10000001 */ 	beqz	$zero,.NB0f06eb44
 /*  f06eb40:	24050011 */ 	addiu	$a1,$zero,0x11
 .NB0f06eb44:
-/*  f06eb44:	0fc1b95e */ 	jal	func0f06f314
+/*  f06eb44:	0fc1b95e */ 	jal	propExplode
 /*  f06eb48:	afa70170 */ 	sw	$a3,0x170($sp)
 /*  f06eb4c:	8fa40174 */ 	lw	$a0,0x174($sp)
 /*  f06eb50:	8fa70170 */ 	lw	$a3,0x170($sp)
@@ -15797,7 +15797,7 @@ glabel var7f1aa2c4
 /*  f06ebd8:	10000001 */ 	beqz	$zero,.NB0f06ebe0
 /*  f06ebdc:	24050011 */ 	addiu	$a1,$zero,0x11
 .NB0f06ebe0:
-/*  f06ebe0:	0fc1b95e */ 	jal	func0f06f314
+/*  f06ebe0:	0fc1b95e */ 	jal	propExplode
 /*  f06ebe4:	afa70170 */ 	sw	$a3,0x170($sp)
 /*  f06ebe8:	104001e2 */ 	beqz	$v0,.NB0f06f374
 /*  f06ebec:	8fa70170 */ 	lw	$a3,0x170($sp)
@@ -15939,7 +15939,7 @@ glabel var7f1aa2c4
 /*  f06eddc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f06ede0:	24050011 */ 	addiu	$a1,$zero,0x11
 .NB0f06ede4:
-/*  f06ede4:	0fc1b95e */ 	jal	func0f06f314
+/*  f06ede4:	0fc1b95e */ 	jal	propExplode
 /*  f06ede8:	afa70170 */ 	sw	$a3,0x170($sp)
 /*  f06edec:	10400161 */ 	beqz	$v0,.NB0f06f374
 /*  f06edf0:	8fa70170 */ 	lw	$a3,0x170($sp)
@@ -16051,7 +16051,7 @@ glabel var7f1aa2c4
 .NB0f06ef7c:
 /*  f06ef7c:	8fa60178 */ 	lw	$a2,0x178($sp)
 /*  f06ef80:	afa70170 */ 	sw	$a3,0x170($sp)
-/*  f06ef84:	0fc027b2 */ 	jal	nbombCreate
+/*  f06ef84:	0fc027b2 */ 	jal	nbombCreateStorm
 /*  f06ef88:	24c40008 */ 	addiu	$a0,$a2,0x8
 /*  f06ef8c:	0fc10c55 */ 	jal	propUnsetDangerous
 /*  f06ef90:	8fa40178 */ 	lw	$a0,0x178($sp)
@@ -16080,7 +16080,7 @@ glabel var7f1aa2c4
 /*  f06efe4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f06efe8:	24050017 */ 	addiu	$a1,$zero,0x17
 .NB0f06efec:
-/*  f06efec:	0fc1b95e */ 	jal	func0f06f314
+/*  f06efec:	0fc1b95e */ 	jal	propExplode
 /*  f06eff0:	afa70170 */ 	sw	$a3,0x170($sp)
 /*  f06eff4:	104000df */ 	beqz	$v0,.NB0f06f374
 /*  f06eff8:	8fa70170 */ 	lw	$a3,0x170($sp)
@@ -16371,15 +16371,430 @@ glabel var7f1aa2c4
 );
 #endif
 
+// Mismatch: Crossbow bolt matrix code needs some work
+//void weaponTick(struct prop *prop)
+//{
+//	struct defaultobj *obj = prop->obj;
+//	struct weaponobj *weapon = prop->weapon;
+//	s32 exptype;
+//	s32 i;
+//
+//	// Handle grenade timers
+//	if (((weapon->weaponnum == WEAPON_GRENADE && weapon->gunfunc == FUNC_PRIMARY)
+//				|| weapon->weaponnum == WEAPON_GRENADEROUND)
+//			&& weapon->timer240 >= 0) {
+//		// 5b0
+//		// Handle Devastator wall hugger timer
+//		if (weapon->weaponnum == WEAPON_GRENADEROUND
+//				&& weapon->gunfunc == FUNC_SECONDARY
+//				&& weapon->timer240 > 0) {
+//			if (weapon->timer240 >= 2) {
+//				// Still on the wall
+//				weapon->timer240 -= g_Vars.lvupdate240;
+//
+//				if (weapon->timer240 < 8) {
+//					// Time to fall
+//					struct coord direction = {0, -10, 0}; // var800699fc
+//					struct prop *parent;
+//					struct projectile *projectile = NULL;
+//
+//					func0f0685e4(prop);
+//
+//					if (obj->hidden & OBJHFLAG_00000040) {
+//						projectile = obj->projectile->unk044;
+//					} else if (obj->hidden & OBJHFLAG_AIRBORNE) {
+//						projectile = obj->projectile;
+//					}
+//
+//					if (projectile) {
+//						parent = prop;
+//
+//						while (parent->parent) {
+//							parent = parent->parent;
+//						}
+//
+//						if (parent && (parent->type == PROPTYPE_CHR || parent->type == PROPTYPE_PLAYER)) {
+//							parent->chr->hidden |= CHRHFLAG_00000001;
+//						} else {
+//							projectile->ownerprop = NULL;
+//							projectile->flags |= PROJECTILEFLAG_00000001;
+//						}
+//
+//						weapon->timer240 = 1;
+//
+//						objSetProjectileFlag4(prop);
+//
+//						projectile->unk004.x = direction.x;
+//						projectile->unk004.y = direction.y;
+//						projectile->unk004.z = direction.z;
+//
+//						mtx4LoadIdentity((Mtxf *)&projectile->unk020);
+//
+//						projectile->obj = (struct defaultobj *)weapon;
+//						projectile->unk0d8 = g_Vars.lvframenum;
+//					} else {
+//						// Couldn't create projectile - try again next frame
+//						weapon->timer240 = 2;
+//					}
+//				}
+//			} else {
+//				// empty
+//			}
+//		} else {
+//			// 730
+//			// Normal grenade
+//			weapon->timer240 -= g_Vars.lvupdate240;
+//
+//			if (weapon->timer240 < 0) {
+//				propUnsetDangerous(prop);
+//
+//				if (weapon->gunfunc == FUNC_2) {
+//					propExplode(prop, EXPLOSIONTYPE_21);
+//				} else {
+//					propExplode(prop, (obj->flags2 & OBJFLAG2_80000000) ? EXPLOSIONTYPE_17 : EXPLOSIONTYPE_13);
+//				}
+//
+//				obj->hidden |= OBJHFLAG_REAPABLE;
+//
+//				for (i = 0; i < PLAYERCOUNT(); i++) {
+//					if (g_Vars.players[i]->slayerrocket == (struct weaponobj *)obj) {
+//						g_Vars.players[i]->slayerrocket = NULL;
+//						g_Vars.players[i]->visionmode = VISIONMODE_3;
+//					}
+//				}
+//			}
+//		}
+//	} else if (weapon->weaponnum == WEAPON_NBOMB && weapon->gunfunc == FUNC_PRIMARY) {
+//		// 8e8
+//		// Handle nbombs being thrown normally
+//		if (weapon->timer240 >= 0) {
+//			struct prop *ownerprop = NULL;
+//
+//			weapon->timer240 -= g_Vars.lvupdate240;
+//
+//			if (weapon->timer240 < 0) {
+//				// Nbombs detonate when they hit the ground, so this code only
+//				// runs if it's airborne for the entire duration of its timer.
+//				s32 ownerplayernum = (obj->hidden & 0xf0000000) >> 28;
+//
+//				if (g_Vars.normmplayerisrunning) {
+//					struct chrdata *chr = mpGetChrFromPlayerIndex(ownerplayernum);
+//
+//					if (chr) {
+//						ownerprop = chr->prop;
+//					}
+//				}
+//
+//				nbombCreateStorm(&prop->pos, ownerprop);
+//				propUnsetDangerous(prop);
+//
+//				obj->hidden |= OBJHFLAG_REAPABLE;
+//
+//				for (i = 0; i < PLAYERCOUNT(); i++) {
+//					if (g_Vars.players[i]->slayerrocket == (struct weaponobj *)obj) {
+//						g_Vars.players[i]->slayerrocket = NULL;
+//						g_Vars.players[i]->visionmode = VISIONMODE_3;
+//					}
+//				}
+//			}
+//		}
+//	} else if (weapon->weaponnum == WEAPON_ROCKET
+//			|| weapon->weaponnum == WEAPON_HOMINGROCKET
+//			|| weapon->weaponnum == WEAPON_SKROCKET) {
+//		// a98
+//		// Handle rockets
+//		if (weapon->timer240 == 0) {
+//			propExplode(prop, (obj->flags2 & OBJFLAG2_80000000) ? EXPLOSIONTYPE_17 : EXPLOSIONTYPE_13);
+//
+//			obj->hidden |= OBJHFLAG_REAPABLE;
+//
+//			for (i = 0; i < PLAYERCOUNT(); i++) {
+//				if (g_Vars.players[i]->slayerrocket == (struct weaponobj *)obj) {
+//					g_Vars.players[i]->slayerrocket = NULL;
+//					g_Vars.players[i]->visionmode = VISIONMODE_3;
+//				}
+//			}
+//		}
+//	} else if (weapon->weaponnum == WEAPON_TIMEDMINE && weapon->timer240 >= 0) {
+//		// c14
+//		// Handle timed mines
+//		if (weapon->gunfunc == FUNC_PRIMARY) {
+//			weapon->timer240 -= g_Vars.lvupdate240;
+//
+//			if (weapon->timer240 < 0) {
+//				if (propExplode(prop, (obj->flags2 & OBJFLAG2_80000000) ? EXPLOSIONTYPE_17 : EXPLOSIONTYPE_13)) {
+//					weapon->timer240 = -1;
+//					obj->hidden |= OBJHFLAG_REAPABLE;
+//				}
+//			}
+//		} else {
+//			// empty
+//		}
+//	} else if (weapon->weaponnum == WEAPON_REMOTEMINE) {
+//		// c90
+//		// Handle remote mines
+//		if (g_PlayersDetonatingMines != 0) {
+//			s32 ownerplayernum = (obj->hidden & 0xf0000000) >> 28;
+//			struct chrdata *parentchr = prop->parent ? prop->parent->chr : NULL;
+//
+//			// If a player manages to throw a mine on themselves, it will not detonate.
+//			// You can't throw a mine on yourself anyway, so this check always passes
+//			if (prop->parent == NULL || parentchr == NULL || mpPlayerGetIndex(parentchr) != ownerplayernum) {
+//				if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
+//					if (ownerplayernum == 2) {
+//						u32 mask = 0;
+//
+//						if (g_Vars.coop && g_Vars.coop->prop) {
+//							mask |= 1 << propGetPlayerNum(g_Vars.coop->prop);
+//						}
+//
+//						if (g_Vars.bond && g_Vars.bond->prop) {
+//							mask |= 1 << propGetPlayerNum(g_Vars.bond->prop);
+//						}
+//
+//						g_PlayersDetonatingMines &= mask;
+//
+//						if (g_PlayersDetonatingMines != 0) {
+//							weapon->timer240 = 0;
+//						}
+//					} else if (g_PlayersDetonatingMines & 1 << ownerplayernum) {
+//						weapon->timer240 = 0;
+//					}
+//				} else if (g_PlayersDetonatingMines & 1 << ownerplayernum) {
+//					weapon->timer240 = 0;
+//				}
+//			}
+//		}
+//
+//		if (weapon->timer240 >= 2) {
+//			// I don't think this is reachable? Remote mines don't use a timer.
+//			weapon->timer240 -= g_Vars.lvupdate240;
+//
+//			if (weapon->timer240 < 2) {
+//				weapon->timer240 = 1;
+//			}
+//		} else if (weapon->timer240 == 0) {
+//			// Mine was damaged or timer was set to 0 above
+//			exptype = EXPLOSIONTYPE_13;
+//
+//			if (obj->flags2 & OBJFLAG2_80000000) {
+//				exptype = EXPLOSIONTYPE_17;
+//			}
+//
+//			if (propExplode(prop, exptype)) {
+//				weapon->timer240 = -1;
+//				obj->hidden |= OBJHFLAG_REAPABLE;
+//			}
+//		}
+//	} else if (weapon->weaponnum == WEAPON_PROXIMITYMINE
+//			|| (weapon->weaponnum == WEAPON_DRAGON && weapon->gunfunc == FUNC_SECONDARY)
+//			|| (weapon->weaponnum == WEAPON_GRENADE && weapon->gunfunc == FUNC_SECONDARY)
+//			|| (weapon->weaponnum == WEAPON_NBOMB && weapon->gunfunc == FUNC_SECONDARY)) {
+//		// ec0
+//		// Handle proximity items
+//		if (weapon->timer240 >= 2) {
+//			// The timer is still active, so the proxy isn't active yet
+//			weapon->timer240 -= g_Vars.lvupdate240;
+//
+//			if (weapon->timer240 < 2) {
+//				weapon->timer240 = 1;
+//				weaponRegisterProxy(weapon);
+//			}
+//		} else if (weapon->timer240 == 1) {
+//			// Proxy is active
+//			struct coord *playerpos = &g_Vars.currentplayer->prop->pos;
+//			f32 xdist = playerpos->x - prop->pos.x;
+//			f32 ydist = playerpos->y - prop->pos.y;
+//			f32 zdist = playerpos->z - prop->pos.z;
+//
+//			if (xdist * xdist + ydist * ydist + zdist * zdist < 250 * 250) {
+//				weapon->timer240 = 0;
+//			}
+//		}
+//
+//		if (weapon->timer240 == 0) {
+//			// Proxy was triggered or shot
+//			if (weapon->weaponnum == WEAPON_NBOMB) {
+//				struct prop *ownerprop = NULL;
+//				s32 ownerplayernum = (obj->hidden & 0xf0000000) >> 28;
+//
+//				if (g_Vars.normmplayerisrunning) {
+//					struct chrdata *chr = mpGetChrFromPlayerIndex(ownerplayernum);
+//
+//					if (chr) {
+//						ownerprop = chr->prop;
+//					}
+//				}
+//
+//				nbombCreateStorm(&prop->pos, ownerprop);
+//				propUnsetDangerous(prop);
+//
+//				obj->hidden |= OBJHFLAG_REAPABLE;
+//
+//				for (i = 0; i < PLAYERCOUNT(); i++) {
+//					if (g_Vars.players[i]->slayerrocket == (struct weaponobj *)obj) {
+//						g_Vars.players[i]->slayerrocket = NULL;
+//						g_Vars.players[i]->visionmode = VISIONMODE_3;
+//					}
+//				}
+//			} else {
+//				// Regular explosive
+//				exptype = EXPLOSIONTYPE_13;
+//
+//				if (obj->flags2 & OBJFLAG2_80000000) {
+//					exptype = EXPLOSIONTYPE_17;
+//				} else if (weapon->weaponnum == WEAPON_DRAGON) {
+//					exptype = EXPLOSIONTYPE_23;
+//				}
+//
+//				if (propExplode(prop, exptype)) {
+//					weapon->timer240 = -1;
+//					obj->hidden |= OBJHFLAG_REAPABLE;
+//				}
+//			}
+//		}
+//	} else if (weapon->weaponnum == WEAPON_BOLT) {
+//		// 178
+//		// Handle crossbow bolts
+//		// Note that the timer240 value doesn't act like a timer at all
+//		if (weapon->timer240 >= 2) {
+//			// Bolt is travelling
+//			struct modelrodata_bbox *sp140 = modelFindBboxRodata(obj->model);
+//			s32 ival = weapon->timer240 - 1;
+//			f32 radians = ival / 12.0f * 0.026179939508438f;
+//			Mtxf spf8;
+//			Mtxf spb8;
+//			Mtxf sp78;
+//			struct coord sp6c;
+//			struct coord sp60;
+//			f32 sp38[3][3];
+//
+//			if (ival < 12) {
+//				radians += (ival + 1) / 12.0f * 0.026179939508438f;
+//			}
+//
+//			if ((ival & 1) == 1) {
+//				radians = -radians;
+//			}
+//
+//			mtx4LoadYRotation(radians, &spb8);
+//
+//			if (obj->projectile) {
+//				if (prop->parent && prop->parent->type != PROPTYPE_CHR) {
+//					mtx4Copy((Mtxf *)&obj->projectile->unk004, &spf8);
+//
+//					spf8.m[3][0] = spf8.m[3][1] = 0;
+//					spf8.m[0][3] = spf8.m[1][3] = 0;
+//
+//					sp6c.y = 0;
+//					sp60.x = 0;
+//					sp6c.x = 0;
+//
+//					spf8.m[3][2] = 0;
+//					spf8.m[2][3] = 0;
+//
+//					sp60.y = 0;
+//					sp6c.z = sp60.z = func0f0667d4(sp140);
+//
+//					mtx4MultMtx4(&spf8, &spb8, &sp78);
+//					mtx4RotateVecInPlace(&spf8, &sp6c);
+//					mtx4RotateVecInPlace(&sp78, &sp60);
+//
+//					sp78.m[3][0] = obj->projectile->unk034 - (sp60.x - sp6c.x);
+//					sp78.m[3][1] = obj->projectile->unk038 - (sp60.y - sp6c.y);
+//					sp78.m[3][2] = obj->projectile->unk03c - (sp60.z - sp6c.z);
+//
+//					mtx4Copy(&sp78, (Mtxf *)&obj->projectile->unk004);
+//				}
+//			} else {
+//				sp6c.y = 0;
+//				sp60.x = 0;
+//				sp6c.x = 0;
+//				sp60.y = 0;
+//
+//				sp38[0][0] = sp6c.z = sp60.z = func0f0667d4(sp140);
+//
+//				mtx3ToMtx4(obj->realrot, &spf8);
+//				mtx4MultMtx4(&spf8, &spb8, &sp78);
+//				mtx4ToMtx3(&sp78, sp38);
+//
+//				mtx4RotateVecInPlace(&spf8, &sp6c);
+//				mtx4RotateVecInPlace(&sp78, &sp60);
+//
+//				prop->pos.x -= sp60.x - sp6c.x;
+//				prop->pos.y -= sp60.y - sp6c.y;
+//				prop->pos.z -= sp60.z - sp6c.z;
+//
+//				func0f069c70(obj, false, true);
+//			}
+//
+//			weapon->timer240--;
+//		}
+//
+//		if (weapon->timer240 < 0) {
+//			struct projectile *projectile = obj->projectile;
+//			s32 value = func0f0aec54(prop);
+//
+//			if (value != -1) {
+//				func0f0aed70(value, &prop->pos);
+//
+//				func0f0aeda4(value, 3000, 0);
+//
+//				if (projectile && projectile->unk090 > 0) {
+//					projectile = NULL;
+//				}
+//
+//				if (projectile == NULL) {
+//					weapon->timer240 = 0;
+//					func0f0aeea8(value, 1400);
+//				}
+//			}
+//		} else {
+//			for (i = 0; i < PLAYERCOUNT(); i++) {
+//				if (g_Vars.players[i]->slayerrocket == (struct weaponobj *)obj) {
+//					g_Vars.players[i]->slayerrocket = NULL;
+//					g_Vars.players[i]->visionmode = VISIONMODE_3;
+//				}
+//			}
+//		}
+//	}
+//
+//	// Hard freeing is the practice of freeing a prop while it's on screen.
+//	// Hard frees are triggered when there are over 20 props on screen with the
+//	// flag CANHARDFREE. This flag is given to dropped weapons in multiplayer.
+//	// When this occurs, the props past the first 20 are given the flag
+//	// HARDFREEING. They then fade out over 1 second, at which point they are
+//	// given the REAPABLE flag and soon freed.
+//	// 594
+//	if (obj->flags3 & OBJFLAG3_HARDFREEING) {
+//		weapon->fadeouttimer60 -= g_Vars.lvupdate240_60;
+//
+//		if (weapon->fadeouttimer60 <= 0) {
+//			weapon->fadeouttimer60 = 0;
+//			obj->hidden |= OBJHFLAG_REAPABLE;
+//		}
+//	}
+//
+//	if ((obj->flags3 & OBJFLAG3_CANHARDFREE) && (prop->flags & PROPFLAG_ONSCREEN)) {
+//		g_Vars.hardfreeabletally++;
+//
+//		if (g_Vars.hardfreeabletally > 20) {
+//			weapon->fadeouttimer60 = 60;
+//			obj->flags3 &= ~OBJFLAG3_CANHARDFREE;
+//			obj->flags3 |= OBJFLAG3_HARDFREEING;
+//		}
+//	}
+//}
+
 void func0f07063c(struct prop *prop, bool arg1)
 {
 	struct defaultobj *obj = prop->obj;
 
 	if (arg1) {
 		if (obj->type == OBJTYPE_AMMOCRATE || obj->type == OBJTYPE_MULTIAMMOCRATE) {
-			func0f06f504(prop);
+			ammocrateTick(prop);
 		} else if (obj->type == OBJTYPE_WEAPON) {
-			func0f06f54c(prop);
+			weaponTick(prop);
 		}
 	}
 }
@@ -16402,7 +16817,7 @@ void func0f0706f8(struct prop *prop, bool arg1)
 	struct prop *child;
 
 	if (obj->hidden & OBJHFLAG_REAPABLE) {
-		objRemove2(obj, true, obj->hidden2 & OBJH2FLAG_CANREGEN);
+		objFree(obj, true, obj->hidden2 & OBJH2FLAG_CANREGEN);
 	} else {
 		prop->flags &= ~PROPFLAG_ONSCREEN;
 		func0f07063c(prop, arg1);
@@ -16437,7 +16852,7 @@ glabel func0f07079c
 /*  f0707d4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0707d8:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0707dc:	30cf0004 */ 	andi	$t7,$a2,0x4
-/*  f0707e0:	0fc1ab4b */ 	jal	objRemove2
+/*  f0707e0:	0fc1ab4b */ 	jal	objFree
 /*  f0707e4:	01e03025 */ 	or	$a2,$t7,$zero
 /*  f0707e8:	1000004b */ 	b	.L0f070918
 /*  f0707ec:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -49938,7 +50353,7 @@ s32 objTick(struct prop *prop)
 
 		if (!pass) {
 			func0f070698(prop, true);
-			objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
+			objFree(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 			return TICKOP_FREE;
 		}
 	}
@@ -53951,9 +54366,9 @@ glabel var7f1aa82c
 //	}
 //
 //	if (g_Vars.lvmpbotlevel && obj->type == OBJTYPE_WEAPON) {
-//		if (obj->flags3 & OBJFLAG3_00000100) {
+//		if (obj->flags3 & OBJFLAG3_HARDFREEING) {
 //			weapon = (struct weaponobj *)obj;
-//			alpha = ((f32)alpha * (f32)weapon->unk60) * 0.016666667535901f;
+//			alpha = ((f32)alpha * (f32)weapon->fadeouttimer60) * 0.016666667535901f;
 //
 //			if (alpha < 0) {
 //				alpha = 0;
@@ -55999,7 +56414,7 @@ void propobjSetDropped(struct prop *prop, u32 reason)
 				&& obj->type == OBJTYPE_WEAPON
 				&& obj->modelnum != MODEL_CHRBRIEFCASE
 				&& obj->modelnum != MODEL_CHRDATATHIEF) {
-			obj->flags3 |= OBJFLAG3_00000080;
+			obj->flags3 |= OBJFLAG3_CANHARDFREE;
 		}
 	}
 }
@@ -61002,7 +61417,7 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 			struct weaponobj *weapon;
 
 			if (obj->flags2 & OBJFLAG2_AICANNOTUSE) {
-				func0f06f314(obj->prop, EXPLOSIONTYPE_12);
+				propExplode(obj->prop, EXPLOSIONTYPE_12);
 				obj->hidden |= OBJHFLAG_REAPABLE;
 			}
 
@@ -61041,7 +61456,7 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 					|| crate->ammotype == AMMOTYPE_PROXY_MINE
 					|| crate->ammotype == AMMOTYPE_TIMED_MINE
 					|| crate->ammotype == AMMOTYPE_DEVASTATOR) {
-				obj->flags |= OBJFLAG_DEACTIVATED;
+				obj->flags |= OBJFLAG_AMMOCRATE_EXPLODENOW;
 			}
 
 			return;
@@ -65233,7 +65648,7 @@ glabel var7f1aae70
 /*  f088fc4:	01a02025 */ 	or	$a0,$t5,$zero
 /*  f088fc8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f088fcc:	30cf0004 */ 	andi	$t7,$a2,0x4
-/*  f088fd0:	0fc1ab4b */ 	jal	objRemove2
+/*  f088fd0:	0fc1ab4b */ 	jal	objFree
 /*  f088fd4:	01e03025 */ 	or	$a2,$t7,$zero
 /*  f088fd8:	1000000a */ 	b	.L0f089004
 /*  f088fdc:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -65880,7 +66295,7 @@ glabel var7f1aae70
 /*  f088fc4:	01a02025 */ 	or	$a0,$t5,$zero
 /*  f088fc8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f088fcc:	30cf0004 */ 	andi	$t7,$a2,0x4
-/*  f088fd0:	0fc1ab4b */ 	jal	objRemove2
+/*  f088fd0:	0fc1ab4b */ 	jal	objFree
 /*  f088fd4:	01e03025 */ 	or	$a2,$t7,$zero
 /*  f088fd8:	1000000a */ 	b	.L0f089004
 /*  f088fdc:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -66527,7 +66942,7 @@ glabel var7f1aae70
 /*  f088fc4:	01a02025 */ 	or	$a0,$t5,$zero
 /*  f088fc8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f088fcc:	30cf0004 */ 	andi	$t7,$a2,0x4
-/*  f088fd0:	0fc1ab4b */ 	jal	objRemove2
+/*  f088fd0:	0fc1ab4b */ 	jal	objFree
 /*  f088fd4:	01e03025 */ 	or	$a2,$t7,$zero
 /*  f088fd8:	1000000a */ 	b	.L0f089004
 /*  f088fdc:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -66845,7 +67260,7 @@ glabel var7f1aae70
 //
 //	// fa4
 //	if (result == TICKOP_FREE && (obj->hidden & OBJHFLAG_TAGGED) == 0) {
-//		objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
+//		objFree(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 //		return TICKOP_FREE;
 //	}
 //
@@ -67549,7 +67964,7 @@ glabel func0f089f8c
 /*  f08a204:	00000000 */ 	nop
 /*  f08a208:	02092021 */ 	addu	$a0,$s0,$t1
 /*  f08a20c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08a210:	0fc1acd3 */ 	jal	objRemove
+/*  f08a210:	0fc1acd3 */ 	jal	objFreePermanently
 /*  f08a214:	afaa0040 */ 	sw	$t2,0x40($sp)
 /*  f08a218:	3c09800a */ 	lui	$t1,%hi(var8009ce58)
 /*  f08a21c:	8d29ce58 */ 	lw	$t1,%lo(var8009ce58)($t1)
@@ -67583,7 +67998,7 @@ glabel func0f089f8c
 /*  f08a27c:	01a02025 */ 	or	$a0,$t5,$zero
 /*  f08a280:	11e00003 */ 	beqz	$t7,.L0f08a290
 /*  f08a284:	00000000 */ 	nop
-/*  f08a288:	0fc1acd3 */ 	jal	objRemove
+/*  f08a288:	0fc1acd3 */ 	jal	objFreePermanently
 /*  f08a28c:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f08a290:
 /*  f08a290:	1000002f */ 	b	.L0f08a350
@@ -67601,7 +68016,7 @@ glabel func0f089f8c
 /*  f08a2bc:	00000000 */ 	nop
 /*  f08a2c0:	02092021 */ 	addu	$a0,$s0,$t1
 /*  f08a2c4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08a2c8:	0fc1acd3 */ 	jal	objRemove
+/*  f08a2c8:	0fc1acd3 */ 	jal	objFreePermanently
 /*  f08a2cc:	afab003c */ 	sw	$t3,0x3c($sp)
 /*  f08a2d0:	3c09800a */ 	lui	$t1,%hi(var8009ce58)
 /*  f08a2d4:	8d29ce58 */ 	lw	$t1,%lo(var8009ce58)($t1)
@@ -67635,7 +68050,7 @@ glabel func0f089f8c
 /*  f08a334:	01c02025 */ 	or	$a0,$t6,$zero
 /*  f08a338:	13000003 */ 	beqz	$t8,.L0f08a348
 /*  f08a33c:	00000000 */ 	nop
-/*  f08a340:	0fc1acd3 */ 	jal	objRemove
+/*  f08a340:	0fc1acd3 */ 	jal	objFreePermanently
 /*  f08a344:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f08a348:
 /*  f08a348:	10000001 */ 	b	.L0f08a350
@@ -67832,7 +68247,7 @@ glabel func0f089f8c
 /*  f088a4c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f088a50:	02092021 */ 	addu	$a0,$s0,$t1
 /*  f088a54:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f088a58:	0fc1a96c */ 	jal	objRemove
+/*  f088a58:	0fc1a96c */ 	jal	objFreePermanently
 /*  f088a5c:	afaa0040 */ 	sw	$t2,0x40($sp)
 /*  f088a60:	3c09800a */ 	lui	$t1,0x800a
 /*  f088a64:	8d291588 */ 	lw	$t1,0x1588($t1)
@@ -67866,7 +68281,7 @@ glabel func0f089f8c
 /*  f088ac4:	03002025 */ 	or	$a0,$t8,$zero
 /*  f088ac8:	11a00003 */ 	beqz	$t5,.NB0f088ad8
 /*  f088acc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f088ad0:	0fc1a96c */ 	jal	objRemove
+/*  f088ad0:	0fc1a96c */ 	jal	objFreePermanently
 /*  f088ad4:	24050001 */ 	addiu	$a1,$zero,0x1
 .NB0f088ad8:
 /*  f088ad8:	1000002f */ 	beqz	$zero,.NB0f088b98
@@ -67884,7 +68299,7 @@ glabel func0f089f8c
 /*  f088b04:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f088b08:	02092021 */ 	addu	$a0,$s0,$t1
 /*  f088b0c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f088b10:	0fc1a96c */ 	jal	objRemove
+/*  f088b10:	0fc1a96c */ 	jal	objFreePermanently
 /*  f088b14:	afab003c */ 	sw	$t3,0x3c($sp)
 /*  f088b18:	3c09800a */ 	lui	$t1,0x800a
 /*  f088b1c:	8d291588 */ 	lw	$t1,0x1588($t1)
@@ -67918,7 +68333,7 @@ glabel func0f089f8c
 /*  f088b7c:	03202025 */ 	or	$a0,$t9,$zero
 /*  f088b80:	11c00003 */ 	beqz	$t6,.NB0f088b90
 /*  f088b84:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f088b88:	0fc1a96c */ 	jal	objRemove
+/*  f088b88:	0fc1a96c */ 	jal	objFreePermanently
 /*  f088b8c:	24050001 */ 	addiu	$a1,$zero,0x1
 .NB0f088b90:
 /*  f088b90:	10000001 */ 	beqz	$zero,.NB0f088b98
@@ -68095,7 +68510,7 @@ glabel func0f08a38c
 /*  f08a5a0:	51600007 */ 	beqzl	$t3,.L0f08a5c0
 /*  f08a5a4:	8e8d0000 */ 	lw	$t5,0x0($s4)
 /*  f08a5a8:	02282021 */ 	addu	$a0,$s1,$t0
-/*  f08a5ac:	0fc1acd3 */ 	jal	objRemove
+/*  f08a5ac:	0fc1acd3 */ 	jal	objFreePermanently
 /*  f08a5b0:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f08a5b4:	3c08800a */ 	lui	$t0,%hi(var8009ce5c)
 /*  f08a5b8:	8d08ce5c */ 	lw	$t0,%lo(var8009ce5c)($t0)
@@ -68127,7 +68542,7 @@ glabel func0f08a38c
 /*  f08a610:	01e02025 */ 	or	$a0,$t7,$zero
 /*  f08a614:	13000003 */ 	beqz	$t8,.L0f08a624
 /*  f08a618:	00000000 */ 	nop
-/*  f08a61c:	0fc1acd3 */ 	jal	objRemove
+/*  f08a61c:	0fc1acd3 */ 	jal	objFreePermanently
 /*  f08a620:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f08a624:
 /*  f08a624:	1000002d */ 	b	.L0f08a6dc
@@ -68144,7 +68559,7 @@ glabel func0f08a38c
 /*  f08a64c:	51400007 */ 	beqzl	$t2,.L0f08a66c
 /*  f08a650:	8e8c0000 */ 	lw	$t4,0x0($s4)
 /*  f08a654:	02082021 */ 	addu	$a0,$s0,$t0
-/*  f08a658:	0fc1acd3 */ 	jal	objRemove
+/*  f08a658:	0fc1acd3 */ 	jal	objFreePermanently
 /*  f08a65c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f08a660:	3c08800a */ 	lui	$t0,%hi(var8009ce5c)
 /*  f08a664:	8d08ce5c */ 	lw	$t0,%lo(var8009ce5c)($t0)
@@ -68176,7 +68591,7 @@ glabel func0f08a38c
 /*  f08a6bc:	01c02025 */ 	or	$a0,$t6,$zero
 /*  f08a6c0:	13000003 */ 	beqz	$t8,.L0f08a6d0
 /*  f08a6c4:	00000000 */ 	nop
-/*  f08a6c8:	0fc1acd3 */ 	jal	objRemove
+/*  f08a6c8:	0fc1acd3 */ 	jal	objFreePermanently
 /*  f08a6cc:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f08a6d0:
 /*  f08a6d0:	10000002 */ 	b	.L0f08a6dc
@@ -68254,7 +68669,7 @@ glabel func0f08a724
 /*  f08a7c8:	15600009 */ 	bnez	$t3,.L0f08a7f0
 /*  f08a7cc:	00c72021 */ 	addu	$a0,$a2,$a3
 /*  f08a7d0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08a7d4:	0fc1acd3 */ 	jal	objRemove
+/*  f08a7d4:	0fc1acd3 */ 	jal	objFreePermanently
 /*  f08a7d8:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f08a7dc:	3c0c800a */ 	lui	$t4,%hi(var8009ce60)
 /*  f08a7e0:	8fa60018 */ 	lw	$a2,0x18($sp)
@@ -68289,7 +68704,7 @@ glabel func0f08a724
 /*  f08a844:	15000009 */ 	bnez	$t0,.L0f08a86c
 /*  f08a848:	00c72021 */ 	addu	$a0,$a2,$a3
 /*  f08a84c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08a850:	0fc1acd3 */ 	jal	objRemove
+/*  f08a850:	0fc1acd3 */ 	jal	objFreePermanently
 /*  f08a854:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f08a858:	3c09800a */ 	lui	$t1,%hi(var8009ce60)
 /*  f08a85c:	8fa60018 */ 	lw	$a2,0x18($sp)
@@ -68360,7 +68775,7 @@ glabel func0f08a88c
 /*  f08a930:	15600009 */ 	bnez	$t3,.L0f08a958
 /*  f08a934:	00c72021 */ 	addu	$a0,$a2,$a3
 /*  f08a938:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08a93c:	0fc1acd3 */ 	jal	objRemove
+/*  f08a93c:	0fc1acd3 */ 	jal	objFreePermanently
 /*  f08a940:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f08a944:	3c0c800a */ 	lui	$t4,%hi(var8009ce64)
 /*  f08a948:	8fa60018 */ 	lw	$a2,0x18($sp)
@@ -68395,7 +68810,7 @@ glabel func0f08a88c
 /*  f08a9ac:	15000009 */ 	bnez	$t0,.L0f08a9d4
 /*  f08a9b0:	00c72021 */ 	addu	$a0,$a2,$a3
 /*  f08a9b4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08a9b8:	0fc1acd3 */ 	jal	objRemove
+/*  f08a9b8:	0fc1acd3 */ 	jal	objFreePermanently
 /*  f08a9bc:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f08a9c0:	3c09800a */ 	lui	$t1,%hi(var8009ce64)
 /*  f08a9c4:	8fa60018 */ 	lw	$a2,0x18($sp)
@@ -68418,11 +68833,11 @@ glabel func0f08a88c
 
 void playerActivateRemoteMineDetonator(s32 playernum)
 {
-	var80069910 |= 1 << playernum;
+	g_PlayersDetonatingMines |= 1 << playernum;
 
 	sndStart(var80095200, SFX_DETONATE, 0, -1, -1, -1, -1, -1);
 
-	bgunDetonateRemoteMines(playernum);
+	bgunStartDetonateAnimation(playernum);
 }
 
 struct weaponobj *func0f08aa70(s32 weaponnum, struct prop *prop)
@@ -68718,7 +69133,7 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 #else
 			explosionCreateSimple(NULL, &laptop->base.prop->pos, laptop->base.prop->rooms, EXPLOSIONTYPE_3, 0);
 #endif
-			objRemove(&laptop->base, true);
+			objFreePermanently(&laptop->base, true);
 		}
 
 		prop = propAllocate();
@@ -69380,7 +69795,7 @@ struct prop *weaponCreateForChr(struct chrdata *chr, s32 modelnum, s32 weaponnum
 			0,                      // unk5d
 			0,                      // unk5e
 			0,                      // gunfunc
-			0,                      // unk60
+			0,                      // fadeouttimer60
 			-1,                     // dualweaponnum
 			-1,                     // timer240
 			NULL,                   // dualweapon
@@ -73350,7 +73765,7 @@ void alarmTick(void)
 	countdownTimerTick();
 	chrsTriggerProxies();
 
-	var80069910 = 0;
+	g_PlayersDetonatingMines = 0;
 }
 
 void func0f091030(void)
@@ -73362,7 +73777,7 @@ void func0f091030(void)
 				&& (prop->flags & (PROPFLAG_ONSCREEN | PROPFLAG_40 | PROPFLAG_80)) == 0
 				&& (prop->obj->hidden2 & OBJH2FLAG_DESTROYED)
 				&& (prop->obj->hidden2 & OBJH2FLAG_80)) {
-			objRemove(prop->obj, true);
+			objFreePermanently(prop->obj, true);
 			return;
 		}
 

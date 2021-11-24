@@ -219,7 +219,7 @@ void setupInit(void)
 	g_CountdownTimerRunning = false;
 	g_CountdownTimerValue60 = 0;
 
-	var80069910 = 0;
+	g_PlayersDetonatingMines = 0;
 	g_TintedGlassEnabled = false;
 
 	if (var8009ce40 == 0) {
@@ -936,7 +936,7 @@ void weaponAssignToHome(struct weaponobj *weapon, s32 cmdindex)
 
 		if (chr && chr->prop && chr->model) {
 			if (cheatIsActive(CHEAT_MARQUIS)) {
-				// NTSC 1.0 and newer simplifies the Marqis logic
+				// NTSC 1.0 and newer simplifies the Marquis logic
 #if VERSION >= VERSION_NTSC_1_0
 				weapon->base.flags &= ~OBJFLAG_DEACTIVATED;
 				weapon->base.flags |= OBJFLAG_WEAPON_AICANNOTUSE;
@@ -3021,7 +3021,7 @@ void setupParseObjects(s32 stagenum)
 					break;
 				case OBJTYPE_TINTEDGLASS:
 					if (withobjs && (obj->flags2 & diffflag) == 0) {
-						if (obj->flags & OBJFLAG_DEACTIVATED) {
+						if (obj->flags & OBJFLAG_GLASS_HASPORTAL) {
 							struct tintedglassobj *glass = (struct tintedglassobj *)obj;
 							glass->portalnum = func0f00e1f8(obj->pad);
 							glass->unk64 = *(s32 *)&glass->unk64 / 65536.0f;
@@ -3133,7 +3133,7 @@ void setupParseObjects(s32 stagenum)
 					break;
 				case OBJTYPE_GLASS:
 					if (withobjs && (obj->flags2 & diffflag) == 0) {
-						if (obj->flags & OBJFLAG_DEACTIVATED) {
+						if (obj->flags & OBJFLAG_GLASS_HASPORTAL) {
 							struct glassobj *glass = (struct glassobj *)obj;
 							glass->portalnum = func0f00e1f8(obj->pad);
 						}
@@ -3162,7 +3162,7 @@ void setupParseObjects(s32 stagenum)
 							step->prevpos.z = prop->pos.z;
 						}
 
-						if (obj->flags & OBJFLAG_DEACTIVATED) {
+						if (obj->flags & OBJFLAG_ESCSTEP_ZALIGNED) {
 							step->frame = escstepy;
 							escstepy += 40;
 							mtx4LoadYRotation(4.7116389274597f, (Mtxf *)sp1a8);

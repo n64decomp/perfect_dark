@@ -4625,7 +4625,7 @@ glabel propsTick
 //	bool done; // 4c
 //	s32 i;
 //
-//	g_Vars.unk00043c = 0;
+//	g_Vars.hardfreeabletally = 0;
 //
 //#if VERSION >= VERSION_NTSC_1_0
 //	var8009cdac = 0;

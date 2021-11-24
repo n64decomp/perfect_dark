@@ -2080,7 +2080,7 @@ bool bgun0f098884(struct guncmd *cmd, struct gset *gset)
 	return result;
 }
 
-void bgun0f0988e0(struct guncmd *cmd, s32 handnum, struct hand *hand)
+void bgunStartAnimation(struct guncmd *cmd, s32 handnum, struct hand *hand)
 {
 	if (cmd->type != GUNCMD_PLAYANIMATION) {
 		struct guncmd *loopcmd = cmd;
@@ -2091,11 +2091,11 @@ void bgun0f0988e0(struct guncmd *cmd, s32 handnum, struct hand *hand)
 			if (bgun0f098884(loopcmd, &hand->gset) && !done) {
 				if (loopcmd->type == GUNCMD_INCLUDE) {
 					done = true;
-					bgun0f0988e0((struct guncmd *)loopcmd->unk04, handnum, hand);
+					bgunStartAnimation((struct guncmd *)loopcmd->unk04, handnum, hand);
 				} else if (loopcmd->type == GUNCMD_RANDOM) {
 					if ((struct guncmd *)loopcmd->unk04 != hand->unk0d80 && loopcmd->unk02 > rand) {
 						done = true;
-						bgun0f0988e0((struct guncmd *)loopcmd->unk04, handnum, hand);
+						bgunStartAnimation((struct guncmd *)loopcmd->unk04, handnum, hand);
 					}
 				}
 			}
@@ -3792,7 +3792,7 @@ glabel var7f1ac31c
 /*  f099dfc:	8fa5003c */ 	lw	$a1,0x3c($sp)
 /*  f099e00:	1141001e */ 	beq	$t2,$at,.L0f099e7c
 /*  f099e04:	00000000 */ 	nop
-/*  f099e08:	0fc26238 */ 	jal	bgun0f0988e0
+/*  f099e08:	0fc26238 */ 	jal	bgunStartAnimation
 /*  f099e0c:	02003025 */ 	or	$a2,$s0,$zero
 /*  f099e10:	920b06d6 */ 	lbu	$t3,0x6d6($s0)
 /*  f099e14:	8fa30038 */ 	lw	$v1,0x38($sp)
@@ -3985,7 +3985,7 @@ glabel var7f1ac31c
 /*  f09a0b8:	8de4000c */ 	lw	$a0,0xc($t7)
 /*  f09a0bc:	50800007 */ 	beqzl	$a0,.L0f09a0dc
 /*  f09a0c0:	8e0a060c */ 	lw	$t2,0x60c($s0)
-/*  f09a0c4:	0fc26238 */ 	jal	bgun0f0988e0
+/*  f09a0c4:	0fc26238 */ 	jal	bgunStartAnimation
 /*  f09a0c8:	02003025 */ 	or	$a2,$s0,$zero
 /*  f09a0cc:	920d0690 */ 	lbu	$t5,0x690($s0)
 /*  f09a0d0:	35a90040 */ 	ori	$t1,$t5,0x40
@@ -4452,7 +4452,7 @@ glabel var7f1ac31c
 /*  f099dfc:	8fa5003c */ 	lw	$a1,0x3c($sp)
 /*  f099e00:	1141001e */ 	beq	$t2,$at,.L0f099e7c
 /*  f099e04:	00000000 */ 	nop
-/*  f099e08:	0fc26238 */ 	jal	bgun0f0988e0
+/*  f099e08:	0fc26238 */ 	jal	bgunStartAnimation
 /*  f099e0c:	02003025 */ 	or	$a2,$s0,$zero
 /*  f099e10:	920b06d6 */ 	lbu	$t3,0x6d6($s0)
 /*  f099e14:	8fa30038 */ 	lw	$v1,0x38($sp)
@@ -4645,7 +4645,7 @@ glabel var7f1ac31c
 /*  f09a0b8:	8de4000c */ 	lw	$a0,0xc($t7)
 /*  f09a0bc:	50800007 */ 	beqzl	$a0,.L0f09a0dc
 /*  f09a0c0:	8e0a060c */ 	lw	$t2,0x60c($s0)
-/*  f09a0c4:	0fc26238 */ 	jal	bgun0f0988e0
+/*  f09a0c4:	0fc26238 */ 	jal	bgunStartAnimation
 /*  f09a0c8:	02003025 */ 	or	$a2,$s0,$zero
 /*  f09a0cc:	920d0690 */ 	lbu	$t5,0x690($s0)
 /*  f09a0d0:	35a90040 */ 	ori	$t1,$t5,0x40
@@ -5110,7 +5110,7 @@ glabel var7f1ac31c
 /*  f099dfc:	8fa5003c */ 	lw	$a1,0x3c($sp)
 /*  f099e00:	1141001e */ 	beq	$t2,$at,.L0f099e7c
 /*  f099e04:	00000000 */ 	nop
-/*  f099e08:	0fc26238 */ 	jal	bgun0f0988e0
+/*  f099e08:	0fc26238 */ 	jal	bgunStartAnimation
 /*  f099e0c:	02003025 */ 	or	$a2,$s0,$zero
 /*  f099e10:	920b06d6 */ 	lbu	$t3,0x6d6($s0)
 /*  f099e14:	8fa30038 */ 	lw	$v1,0x38($sp)
@@ -5303,7 +5303,7 @@ glabel var7f1ac31c
 /*  f09a0b8:	8de4000c */ 	lw	$a0,0xc($t7)
 /*  f09a0bc:	50800007 */ 	beqzl	$a0,.L0f09a0dc
 /*  f09a0c0:	8e0a060c */ 	lw	$t2,0x60c($s0)
-/*  f09a0c4:	0fc26238 */ 	jal	bgun0f0988e0
+/*  f09a0c4:	0fc26238 */ 	jal	bgunStartAnimation
 /*  f09a0c8:	02003025 */ 	or	$a2,$s0,$zero
 /*  f09a0cc:	920d0690 */ 	lbu	$t5,0x690($s0)
 /*  f09a0d0:	35a90040 */ 	ori	$t1,$t5,0x40
@@ -5512,7 +5512,7 @@ glabel var7f1ac31c
 //			if (func && (func->ammoindex == 0 || func->ammoindex == 1)) {
 //				if (info->definition->ammos[func->ammoindex]->reload_animation
 //						&& info->weaponnum != WEAPON_COMBATKNIFE) {
-//					bgun0f0988e0(info->definition->ammos[func->ammoindex]->reload_animation, handnum, hand);
+//					bgunStartAnimation(info->definition->ammos[func->ammoindex]->reload_animation, handnum, hand);
 //
 //					hand->unk0d0e_07 = true;
 //
@@ -5595,7 +5595,7 @@ glabel var7f1ac31c
 //			if (info->weaponnum == WEAPON_COMBATKNIFE
 //					&& func->ammoindex >= 0
 //					&& info->definition->ammos[func->ammoindex]->reload_animation) {
-//				bgun0f0988e0(info->definition->ammos[func->ammoindex]->reload_animation, handnum, hand);
+//				bgunStartAnimation(info->definition->ammos[func->ammoindex]->reload_animation, handnum, hand);
 //				hand->unk0cc8_02 = true;
 //			}
 //
@@ -5685,7 +5685,7 @@ s32 bgunTickIncChangeFunc(struct handweaponinfo *info, s32 handnum, struct hand 
 		more = false;
 
 		if (cmd != NULL) {
-			bgun0f0988e0(cmd, handnum, hand);
+			bgunStartAnimation(cmd, handnum, hand);
 			more = true;
 			g_Vars.currentplayer->hands[HAND_RIGHT].unk0dd4 = -1;
 		}
@@ -7131,7 +7131,7 @@ bool bgunTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 			hand->gs_float1 = 0;
 
 			if (func->fire_animation) {
-				bgun0f0988e0(func->fire_animation, handnum, hand);
+				bgunStartAnimation(func->fire_animation, handnum, hand);
 				hand->unk0cc8_01 = true;
 			}
 
@@ -7233,7 +7233,7 @@ bool bgunTickIncAttackingThrow(s32 handnum, struct hand *hand)
 			}
 
 			if (func->base.fire_animation) {
-				bgun0f0988e0(func->base.fire_animation, handnum, hand);
+				bgunStartAnimation(func->base.fire_animation, handnum, hand);
 				hand->unk0cc8_01 = true;
 			}
 		}
@@ -7559,7 +7559,7 @@ bool bgunTickIncAttackingClose(s32 handnum, struct hand *hand)
 			hand->attacktype = HANDATTACKTYPE_CLOSERANGENOUNCLOAK;
 
 			if (func->fire_animation) {
-				bgun0f0988e0(func->fire_animation, handnum, hand);
+				bgunStartAnimation(func->fire_animation, handnum, hand);
 				hand->unk0cc8_01 = true;
 			}
 		}
@@ -7706,7 +7706,7 @@ s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 				}
 
 				if (func && func->fire_animation) {
-					bgun0f0988e0(func->fire_animation, handnum, hand);
+					bgunStartAnimation(func->fire_animation, handnum, hand);
 					restartedanim = true;
 				}
 			}
@@ -7991,7 +7991,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 					&& hand->inuse == true
 					&& (!hand->unk0d0e_00 || hand->unk0d0e_04)) {
 				if (hand->statecycles == 0) {
-					bgun0f0988e0(weapon->unequip_animation, handnum, hand);
+					bgunStartAnimation(weapon->unequip_animation, handnum, hand);
 				} else if (hand->animmode == HANDANIMMODE_IDLE) {
 					hand->stateminor++;
 				}
@@ -8081,7 +8081,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 			} else {
 				if (bgun0f09dd7c()) {
 					if (info->definition->equip_animation) {
-						bgun0f0988e0(info->definition->equip_animation, handnum, hand);
+						bgunStartAnimation(info->definition->equip_animation, handnum, hand);
 						hand->unk0cc8_02 = true;
 					}
 
@@ -11978,7 +11978,7 @@ void bgun0f09fa20(s32 handnum)
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 
 	if (hand->rocket) {
-		objRemove(&hand->rocket->base, true);
+		objFreePermanently(&hand->rocket->base, true);
 		hand->rocket = NULL;
 	}
 }
@@ -16970,13 +16970,13 @@ glabel var7f1ac7c4
 /*  f0a3100:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-void bgunDetonateRemoteMines(s32 playernum)
+void bgunStartDetonateAnimation(s32 playernum)
 {
 	s32 prevplayernum = g_Vars.currentplayernum;
 	setCurrentPlayerNum(playernum);
 
 	if (g_Vars.currentplayer->hands[HAND_LEFT].gset.weaponnum == WEAPON_REMOTEMINE) {
-		bgun0f0988e0(var80070200, 1, &g_Vars.currentplayer->hands[HAND_LEFT]);
+		bgunStartAnimation(var80070200, 1, &g_Vars.currentplayer->hands[HAND_LEFT]);
 	}
 
 	setCurrentPlayerNum(prevplayernum);

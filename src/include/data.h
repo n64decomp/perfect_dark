@@ -207,7 +207,7 @@ extern struct sndstate *g_GasAudioHandle;
 extern u32 g_CountdownTimerOff;
 extern bool g_CountdownTimerRunning;
 extern f32 g_CountdownTimerValue60;
-extern u32 var80069910;
+extern u32 g_PlayersDetonatingMines;
 extern u32 var80069914;
 extern u32 var80069918;
 extern struct linkliftdoorobj *g_LiftDoors;

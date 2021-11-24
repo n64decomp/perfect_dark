@@ -43,7 +43,7 @@ void objsReset(void)
 			case OBJTYPE_HOVERCAR:
 			case OBJTYPE_CHOPPER:
 			case OBJTYPE_ESCASTEP:
-				objRemove((struct defaultobj *) ptr, true);
+				objFreePermanently((struct defaultobj *) ptr, true);
 				break;
 			case OBJTYPE_DOORSCALE:
 			case OBJTYPE_CHR:

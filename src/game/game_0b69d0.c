@@ -15396,11 +15396,11 @@ s32 playerTick(struct prop *prop)
 
 	if (g_Vars.mplayerisrunning) {
 		if (chr->weapons_held[0] && (chr->weapons_held[0]->obj->hidden & OBJHFLAG_REAPABLE)) {
-			objRemove2(chr->weapons_held[0]->obj, true, false);
+			objFree(chr->weapons_held[0]->obj, true, false);
 		}
 
 		if (chr->weapons_held[1] && (chr->weapons_held[1]->obj->hidden & OBJHFLAG_REAPABLE)) {
-			objRemove2(chr->weapons_held[1]->obj, true, false);
+			objFree(chr->weapons_held[1]->obj, true, false);
 		}
 	}
 

@@ -986,7 +986,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 			func0f0939f8(NULL, prop, SFX_PICKUP_AMMO, -1,
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
-			objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
+			objFree(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 
 			if (qty) {
 				dprint();
@@ -1037,7 +1037,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 			func0f0939f8(NULL, prop, SFX_PICKUP_AMMO, -1,
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
-			objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
+			objFree(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 		}
 		return 2;
 	case OBJTYPE_WEAPON:
@@ -1078,7 +1078,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 					result = 1;
 				}
 
-				objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
+				objFree(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 			}
 
 			return result;
@@ -1091,7 +1091,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 			chrSetShield(chr, shield->amount * 8);
-			objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
+			objFree(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 		}
 		return 3;
 	case OBJTYPE_BASIC:
@@ -1294,7 +1294,7 @@ glabel var7f1b3480nb
 /*  f18aa1c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f18aa20:	90860002 */ 	lbu	$a2,0x2($a0)
 /*  f18aa24:	30cf0004 */ 	andi	$t7,$a2,0x4
-/*  f18aa28:	0fc1a7e4 */ 	jal	objRemove2
+/*  f18aa28:	0fc1a7e4 */ 	jal	objFree
 /*  f18aa2c:	01e03025 */ 	or	$a2,$t7,$zero
 /*  f18aa30:	12000003 */ 	beqz	$s0,.NB0f18aa40
 /*  f18aa34:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1351,7 +1351,7 @@ glabel var7f1b3480nb
 /*  f18aaf0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f18aaf4:	90860002 */ 	lbu	$a2,0x2($a0)
 /*  f18aaf8:	30cc0004 */ 	andi	$t4,$a2,0x4
-/*  f18aafc:	0fc1a7e4 */ 	jal	objRemove2
+/*  f18aafc:	0fc1a7e4 */ 	jal	objFree
 /*  f18ab00:	01803025 */ 	or	$a2,$t4,$zero
 /*  f18ab04:	10000070 */ 	beqz	$zero,.NB0f18acc8
 /*  f18ab08:	24020002 */ 	addiu	$v0,$zero,0x2
@@ -1429,7 +1429,7 @@ glabel var7f1b3480nb
 /*  f18ac10:	00002825 */ 	or	$a1,$zero,$zero
 /*  f18ac14:	90860002 */ 	lbu	$a2,0x2($a0)
 /*  f18ac18:	30ca0004 */ 	andi	$t2,$a2,0x4
-/*  f18ac1c:	0fc1a7e4 */ 	jal	objRemove2
+/*  f18ac1c:	0fc1a7e4 */ 	jal	objFree
 /*  f18ac20:	01403025 */ 	or	$a2,$t2,$zero
 /*  f18ac24:	10000028 */ 	beqz	$zero,.NB0f18acc8
 /*  f18ac28:	02001025 */ 	or	$v0,$s0,$zero
@@ -1467,7 +1467,7 @@ glabel var7f1b3480nb
 /*  f18aca8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f18acac:	90860002 */ 	lbu	$a2,0x2($a0)
 /*  f18acb0:	30ce0004 */ 	andi	$t6,$a2,0x4
-/*  f18acb4:	0fc1a7e4 */ 	jal	objRemove2
+/*  f18acb4:	0fc1a7e4 */ 	jal	objFree
 /*  f18acb8:	01c03025 */ 	or	$a2,$t6,$zero
 /*  f18acbc:	10000002 */ 	beqz	$zero,.NB0f18acc8
 /*  f18acc0:	24020003 */ 	addiu	$v0,$zero,0x3

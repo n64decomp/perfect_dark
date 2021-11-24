@@ -192,7 +192,7 @@ struct g_vars {
 	/*000430*/ struct chopperobj *hovercar;
 	/*000434*/ u8 *ailist;
 	/*000438*/ u32 aioffset;
-	/*00043c*/ u32 unk00043c;
+	/*00043c*/ s32 hardfreeabletally;
 	/*000440*/ s32 antiheadnum;
 	/*000444*/ s32 antibodynum;
 	/*000448*/ s32 coopradaron;
@@ -1485,9 +1485,9 @@ struct projectile {
 	/*0x028*/ u32 unk028;
 	/*0x02c*/ u32 unk02c;
 	/*0x030*/ u32 unk030;
-	/*0x034*/ u32 unk034;
-	/*0x038*/ u32 unk038;
-	/*0x03c*/ u32 unk03c;
+	/*0x034*/ f32 unk034;
+	/*0x038*/ f32 unk038;
+	/*0x03c*/ f32 unk03c;
 	/*0x040*/ u32 unk040;
 	/*0x044*/ struct projectile *unk044;
 	/*0x048*/ u32 unk048;
@@ -1508,7 +1508,7 @@ struct projectile {
 	/*0x084*/ u32 unk084;
 	/*0x088*/ struct prop *ownerprop;
 	/*0x08c*/ f32 unk08c;
-	/*0x090*/ u32 unk090;
+	/*0x090*/ s32 unk090;
 	/*0x094*/ s32 unk094;
 	/*0x098*/ f32 unk098;
 	/*0x09c*/ s32 unk09c;
@@ -1716,7 +1716,7 @@ struct weaponobj { // objtype 0x08
 	/*0x5d*/ s8 unk5d;
 	/*0x5e*/ s8 unk5e;
 	/*0x5f*/ u8 gunfunc;
-	/*0x60*/ s8 unk60;
+	/*0x60*/ s8 fadeouttimer60;
 	/*0x61*/ s8 dualweaponnum;
 
 	/**
@@ -6818,7 +6818,7 @@ struct nbomb {
 	f32 radius;
 	s16 unk14;
 	f32 unk18;
-	struct prop *prop;
+	struct prop *ownerprop;
 	struct sndstate *audiohandle20;
 	struct sndstate *audiohandle24;
 };
