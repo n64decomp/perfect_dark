@@ -555,11 +555,10 @@ glabel func0f0667cc
 /*  f0667d0:	c4800014 */ 	lwc1	$f0,0x14($a0)
 );
 
-GLOBAL_ASM(
-glabel func0f0667d4
-/*  f0667d4:	03e00008 */ 	jr	$ra
-/*  f0667d8:	c4800018 */ 	lwc1	$f0,0x18($a0)
-);
+f32 modelBboxGetZMax(struct modelrodata_bbox *bbox)
+{
+	return bbox->zmax;
+}
 
 GLOBAL_ASM(
 glabel func0f0667dc
@@ -5587,7 +5586,7 @@ glabel var7f1aa200
 /*  f06a950:	0fc199f3 */ 	jal	func0f0667cc
 /*  f06a954:	afa80050 */ 	sw	$t0,0x50($sp)
 /*  f06a958:	46000506 */ 	mov.s	$f20,$f0
-/*  f06a95c:	0fc199f5 */ 	jal	func0f0667d4
+/*  f06a95c:	0fc199f5 */ 	jal	modelBboxGetZMax
 /*  f06a960:	8fa400c4 */ 	lw	$a0,0xc4($sp)
 /*  f06a964:	8fa80050 */ 	lw	$t0,0x50($sp)
 /*  f06a968:	46000386 */ 	mov.s	$f14,$f0
@@ -5878,7 +5877,7 @@ glabel var7f1aa200
 /*  f069bb8:	0fc19693 */ 	jal	func0f0667cc
 /*  f069bbc:	afa80048 */ 	sw	$t0,0x48($sp)
 /*  f069bc0:	46000506 */ 	mov.s	$f20,$f0
-/*  f069bc4:	0fc19695 */ 	jal	func0f0667d4
+/*  f069bc4:	0fc19695 */ 	jal	modelBboxGetZMax
 /*  f069bc8:	8fa400bc */ 	lw	$a0,0xbc($sp)
 /*  f069bcc:	8fa80048 */ 	lw	$t0,0x48($sp)
 /*  f069bd0:	46000386 */ 	mov.s	$f14,$f0
@@ -12276,7 +12275,7 @@ glabel func0f06ec20
 /*  f06ec40:	240f000d */ 	addiu	$t7,$zero,0xd
 /*  f06ec44:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06ec48:	afae003c */ 	sw	$t6,0x3c($sp)
-/*  f06ec4c:	0fc199f5 */ 	jal	func0f0667d4
+/*  f06ec4c:	0fc199f5 */ 	jal	modelBboxGetZMax
 /*  f06ec50:	a60f0062 */ 	sh	$t7,0x62($s0)
 /*  f06ec54:	0c004b70 */ 	jal	random
 /*  f06ec58:	e7a00040 */ 	swc1	$f0,0x40($sp)
@@ -13945,7 +13944,7 @@ glabel var7f1aa2c4
 /*  f070268:	e7a0006c */ 	swc1	$f0,0x6c($sp)
 /*  f07026c:	e7a00130 */ 	swc1	$f0,0x130($sp)
 /*  f070270:	e7a00124 */ 	swc1	$f0,0x124($sp)
-/*  f070274:	0fc199f5 */ 	jal	func0f0667d4
+/*  f070274:	0fc199f5 */ 	jal	modelBboxGetZMax
 /*  f070278:	e7a00064 */ 	swc1	$f0,0x64($sp)
 /*  f07027c:	e7a00068 */ 	swc1	$f0,0x68($sp)
 /*  f070280:	e7a00074 */ 	swc1	$f0,0x74($sp)
@@ -13992,7 +13991,7 @@ glabel var7f1aa2c4
 /*  f070320:	e7b00070 */ 	swc1	$f16,0x70($sp)
 /*  f070324:	e7b00060 */ 	swc1	$f16,0x60($sp)
 /*  f070328:	e7b0006c */ 	swc1	$f16,0x6c($sp)
-/*  f07032c:	0fc199f5 */ 	jal	func0f0667d4
+/*  f07032c:	0fc199f5 */ 	jal	modelBboxGetZMax
 /*  f070330:	e7b00064 */ 	swc1	$f16,0x64($sp)
 /*  f070334:	2604001c */ 	addiu	$a0,$s0,0x1c
 /*  f070338:	e7a00068 */ 	swc1	$f0,0x68($sp)
@@ -15154,7 +15153,7 @@ glabel var7f1aa2c4
 /*  f070268:	e7a0006c */ 	swc1	$f0,0x6c($sp)
 /*  f07026c:	e7a00130 */ 	swc1	$f0,0x130($sp)
 /*  f070270:	e7a00124 */ 	swc1	$f0,0x124($sp)
-/*  f070274:	0fc199f5 */ 	jal	func0f0667d4
+/*  f070274:	0fc199f5 */ 	jal	modelBboxGetZMax
 /*  f070278:	e7a00064 */ 	swc1	$f0,0x64($sp)
 /*  f07027c:	e7a00068 */ 	swc1	$f0,0x68($sp)
 /*  f070280:	e7a00074 */ 	swc1	$f0,0x74($sp)
@@ -15201,7 +15200,7 @@ glabel var7f1aa2c4
 /*  f070320:	e7b00070 */ 	swc1	$f16,0x70($sp)
 /*  f070324:	e7b00060 */ 	swc1	$f16,0x60($sp)
 /*  f070328:	e7b0006c */ 	swc1	$f16,0x6c($sp)
-/*  f07032c:	0fc199f5 */ 	jal	func0f0667d4
+/*  f07032c:	0fc199f5 */ 	jal	modelBboxGetZMax
 /*  f070330:	e7b00064 */ 	swc1	$f16,0x64($sp)
 /*  f070334:	2604001c */ 	addiu	$a0,$s0,0x1c
 /*  f070338:	e7a00068 */ 	swc1	$f0,0x68($sp)
@@ -16084,7 +16083,7 @@ glabel var7f1aa2c4
 /*  f06f124:	e7a00044 */ 	swc1	$f0,0x44($sp)
 /*  f06f128:	e7a00108 */ 	swc1	$f0,0x108($sp)
 /*  f06f12c:	e7a000fc */ 	swc1	$f0,0xfc($sp)
-/*  f06f130:	0fc19695 */ 	jal	func0f0667d4
+/*  f06f130:	0fc19695 */ 	jal	modelBboxGetZMax
 /*  f06f134:	e7a0003c */ 	swc1	$f0,0x3c($sp)
 /*  f06f138:	e7a00040 */ 	swc1	$f0,0x40($sp)
 /*  f06f13c:	e7a0004c */ 	swc1	$f0,0x4c($sp)
@@ -16133,7 +16132,7 @@ glabel var7f1aa2c4
 /*  f06f1e4:	e7b00048 */ 	swc1	$f16,0x48($sp)
 /*  f06f1e8:	e7b00038 */ 	swc1	$f16,0x38($sp)
 /*  f06f1ec:	e7b00044 */ 	swc1	$f16,0x44($sp)
-/*  f06f1f0:	0fc19695 */ 	jal	func0f0667d4
+/*  f06f1f0:	0fc19695 */ 	jal	modelBboxGetZMax
 /*  f06f1f4:	e7b0003c */ 	swc1	$f16,0x3c($sp)
 /*  f06f1f8:	8fa40174 */ 	lw	$a0,0x174($sp)
 /*  f06f1fc:	e7a00040 */ 	swc1	$f0,0x40($sp)
@@ -16614,7 +16613,7 @@ glabel var7f1aa2c4
 //					spf8.m[2][3] = 0;
 //
 //					sp60.y = 0;
-//					sp6c.z = sp60.z = func0f0667d4(sp140);
+//					sp6c.z = sp60.z = modelBboxGetZMax(sp140);
 //
 //					mtx4MultMtx4(&spf8, &spb8, &sp78);
 //					mtx4RotateVecInPlace(&spf8, &sp6c);
@@ -16632,7 +16631,7 @@ glabel var7f1aa2c4
 //				sp6c.x = 0;
 //				sp60.y = 0;
 //
-//				sp38[0][0] = sp6c.z = sp60.z = func0f0667d4(sp140);
+//				sp38[0][0] = sp6c.z = sp60.z = modelBboxGetZMax(sp140);
 //
 //				mtx3ToMtx4(obj->realrot, &spf8);
 //				mtx4MultMtx4(&spf8, &spb8, &sp78);
@@ -54627,7 +54626,7 @@ glabel var7f1aa838
 /*  f081ebc:	0fc199f3 */ 	jal	func0f0667cc
 /*  f081ec0:	8fa400a4 */ 	lw	$a0,0xa4($sp)
 /*  f081ec4:	8fa400a4 */ 	lw	$a0,0xa4($sp)
-/*  f081ec8:	0fc199f5 */ 	jal	func0f0667d4
+/*  f081ec8:	0fc199f5 */ 	jal	modelBboxGetZMax
 /*  f081ecc:	e7a000cc */ 	swc1	$f0,0xcc($sp)
 /*  f081ed0:	c7ae00cc */ 	lwc1	$f14,0xcc($sp)
 /*  f081ed4:	46000086 */ 	mov.s	$f2,$f0
@@ -55332,7 +55331,7 @@ glabel var7f1aa838
 /*  f080918:	0fc19693 */ 	jal	func0f0667cc
 /*  f08091c:	8fa400ac */ 	lw	$a0,0xac($sp)
 /*  f080920:	8fa400ac */ 	lw	$a0,0xac($sp)
-/*  f080924:	0fc19695 */ 	jal	func0f0667d4
+/*  f080924:	0fc19695 */ 	jal	modelBboxGetZMax
 /*  f080928:	e7a000d4 */ 	swc1	$f0,0xd4($sp)
 /*  f08092c:	c7ae00d4 */ 	lwc1	$f14,0xd4($sp)
 /*  f080930:	46000086 */ 	mov.s	$f2,$f0
