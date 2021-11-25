@@ -496,11 +496,9 @@ $(B_DIR)/assets/accessingpakZ.o: $(B_DIR)/assets/accessingpakZ
 $(B_DIR)/assets/copyrightZ.o: $(B_DIR)/assets/copyrightZ
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
-$(B_DIR)/rsp/%.text.bin: src/rsp/%.s
+$(B_DIR)/rsp/%.text.bin $(B_DIR)/rsp/%.data.bin &: src/rsp/%.s
 	@mkdir -p $(dir $@)
 	armips -strequ CODE_FILE $(B_DIR)/rsp/$*.text.bin -strequ DATA_FILE $(B_DIR)/rsp/$*.data.bin $<
-
-$(B_DIR)/rsp/%.data.bin: src/rsp/%.text.bin
 
 # For RSP ucodes which haven't been diassembled yet, copy from extracted
 $(B_DIR)/rsp/%.bin: $(E_DIR)/rsp/%.bin
