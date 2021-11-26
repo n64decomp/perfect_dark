@@ -108,13 +108,13 @@ f32 g_GasReleaseTimerMax240;
 bool g_GasEnableDamage;
 s32 var8009ce40;
 s32 var8009ce44;
-s32 var8009ce48;
+s32 g_MaxAmmoCrates;
 s32 var8009ce4c;
-s32 g_NumProjectiles;
-s32 g_NumMonitorThings;
+s32 g_MaxProjectiles;
+s32 g_MaxMonitorThings;
 struct weaponobj *var8009ce58;
 struct defaultobj *var8009ce5c;
-struct var8009ce60 *var8009ce60;
+struct ammocrateobj *g_AmmoCrates;
 struct defaultobj *var8009ce64;
 struct projectile *g_Projectiles;
 struct monitorthing *g_MonitorThings;
@@ -2356,7 +2356,7 @@ void projectilesUnrefOwner(struct prop *owner)
 {
 	s32 i;
 
-	for (i = 0; i < g_NumProjectiles; i++) {
+	for (i = 0; i < g_MaxProjectiles; i++) {
 		if ((g_Projectiles[i].flags & PROJECTILEFLAG_FREE) == 0
 				&& g_Projectiles[i].ownerprop == owner) {
 			g_Projectiles[i].ownerprop = NULL;
@@ -2411,7 +2411,7 @@ struct projectile *projectileGetNew(void)
 	s32 i;
 
 	// Happy path - find one that is already free
-	for (i = 0; i < g_NumProjectiles; i++) {
+	for (i = 0; i < g_MaxProjectiles; i++) {
 		if (g_Projectiles[i].flags & PROJECTILEFLAG_FREE) {
 			projectileReset(&g_Projectiles[i]);
 			return &g_Projectiles[i];
@@ -2420,7 +2420,7 @@ struct projectile *projectileGetNew(void)
 
 	// Find one with the lowest unk0d8 (some kind of age/timer?)
 	// and some other conditions
-	for (i = 0; i < g_NumProjectiles; i++) {
+	for (i = 0; i < g_MaxProjectiles; i++) {
 		if (g_Projectiles[i].obj
 				&& g_Projectiles[i].unk0d8 > 0
 				&& (bestindex < 0 || g_Projectiles[i].unk0d8 < g_Projectiles[bestindex].unk0d8)) {
@@ -2429,8 +2429,8 @@ struct projectile *projectileGetNew(void)
 	}
 
 	// If there were none, pick one at random
-	if (bestindex == -1 && g_NumProjectiles) {
-		bestindex = random() % g_NumProjectiles;
+	if (bestindex == -1 && g_MaxProjectiles) {
+		bestindex = random() % g_MaxProjectiles;
 	}
 
 	if (bestindex >= 0) {
@@ -2498,7 +2498,7 @@ struct monitorthing *monitorthingGetNew(void)
 {
 	s32 i;
 
-	for (i = 0; i < g_NumMonitorThings; i++) {
+	for (i = 0; i < g_MaxMonitorThings; i++) {
 		if (g_MonitorThings[i].flags & 0x00000001) {
 			g_MonitorThings[i].flags = 0;
 			g_MonitorThings[i].unk044 = NULL;
@@ -4572,7 +4572,7 @@ glabel var7f1aa1fc
 /*  f069df8:	860f0004 */ 	lh	$t7,0x4($s0)
 /*  f069dfc:	000fc0c0 */ 	sll	$t8,$t7,0x3
 /*  f069e00:	00b82821 */ 	addu	$a1,$a1,$t8
-/*  f069e04:	0fc1a94b */ 	jal	func0f06a52c
+/*  f069e04:	0fc1a94b */ 	jal	objInitWithModelDef
 /*  f069e08:	8ca5b06c */ 	lw	$a1,%lo(g_ModelStates)($a1)
 /*  f069e0c:	104000d3 */ 	beqz	$v0,.L0f06a15c
 /*  f069e10:	8fae00a8 */ 	lw	$t6,0xa8($sp)
@@ -4879,7 +4879,7 @@ glabel var7f1aa1fc
 /*  f069df8:	860f0004 */ 	lh	$t7,0x4($s0)
 /*  f069dfc:	000fc0c0 */ 	sll	$t8,$t7,0x3
 /*  f069e00:	00b82821 */ 	addu	$a1,$a1,$t8
-/*  f069e04:	0fc1a94b */ 	jal	func0f06a52c
+/*  f069e04:	0fc1a94b */ 	jal	objInitWithModelDef
 /*  f069e08:	8ca5b06c */ 	lw	$a1,%lo(g_ModelStates)($a1)
 /*  f069e0c:	104000d3 */ 	beqz	$v0,.L0f06a15c
 /*  f069e10:	8fae00a8 */ 	lw	$t6,0xa8($sp)
@@ -5149,7 +5149,7 @@ glabel func0f06a170
 /*  f06a1e8:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-struct prop *objInitialise(struct defaultobj *obj, struct modelfiledata *filedata, struct prop *prop, struct model *model)
+struct prop *objInit(struct defaultobj *obj, struct modelfiledata *filedata, struct prop *prop, struct model *model)
 {
 	if (prop == NULL) {
 		prop = propAllocate();
@@ -5266,14 +5266,14 @@ struct prop *objInitialise(struct defaultobj *obj, struct modelfiledata *filedat
 	return prop;
 }
 
-struct prop *func0f06a52c(struct defaultobj *obj, struct modelfiledata *filedata)
+struct prop *objInitWithModelDef(struct defaultobj *obj, struct modelfiledata *filedata)
 {
-	return objInitialise(obj, filedata, NULL, NULL);
+	return objInit(obj, filedata, NULL, NULL);
 }
 
-struct prop *func0f06a550(struct defaultobj *obj)
+struct prop *objInitWithAutoModel(struct defaultobj *obj)
 {
-	return func0f06a52c(obj, g_ModelStates[obj->modelnum].filedata);
+	return objInitWithModelDef(obj, g_ModelStates[obj->modelnum].filedata);
 }
 
 void func0f06a580(struct defaultobj *obj, struct coord *pos, Mtxf *matrix, s16 *rooms)
@@ -61398,7 +61398,7 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 
 				do {
 					if (crate->slots[i].quantity > 0 && crate->slots[i].modelnum != 0xffff) {
-						struct ammocrateobj *newcrate = func0f08a724();
+						struct ammocrateobj *newcrate = ammocrateAllocate();
 
 						if (newcrate) {
 							s32 modelnum = crate->slots[i].modelnum;
@@ -61432,7 +61432,7 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 							newcrate->base.modelnum = modelnum;
 							newcrate->ammotype = i + 1;
 
-							if (func0f06a52c(&newcrate->base, g_ModelStates[modelnum].filedata)) {
+							if (objInitWithModelDef(&newcrate->base, g_ModelStates[modelnum].filedata)) {
 								propReparent(newcrate->base.prop, obj->prop);
 							}
 
@@ -67554,7 +67554,7 @@ glabel func0f089a94
 struct prop *hatApplyToChr(struct hatobj *hat, struct chrdata *chr, struct modelfiledata *filedata, struct prop *prop, struct model *model)
 {
 	if (chr->model->filedata->type == &g_ModelTypeChr) {
-		prop = objInitialise(&hat->base, filedata, prop, model);
+		prop = objInit(&hat->base, filedata, prop, model);
 
 		if (prop && hat->base.model) {
 			f32 scale = hat->base.extrascale * (1.0f / 256.0f);
@@ -68497,111 +68497,40 @@ glabel func0f08a38c
 /*  f08a720:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f08a724
-/*  f08a724:	3c05800a */ 	lui	$a1,%hi(var8009ce48)
-/*  f08a728:	8ca5ce48 */ 	lw	$a1,%lo(var8009ce48)($a1)
-/*  f08a72c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f08a730:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08a734:	18a0000f */ 	blez	$a1,.L0f08a774
-/*  f08a738:	00001825 */ 	or	$v1,$zero,$zero
-/*  f08a73c:	3c07800a */ 	lui	$a3,%hi(var8009ce60)
-/*  f08a740:	8ce7ce60 */ 	lw	$a3,%lo(var8009ce60)($a3)
-/*  f08a744:	00003025 */ 	or	$a2,$zero,$zero
-/*  f08a748:	00e01025 */ 	or	$v0,$a3,$zero
-.L0f08a74c:
-/*  f08a74c:	8c4e0014 */ 	lw	$t6,0x14($v0)
-/*  f08a750:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f08a754:	0065082a */ 	slt	$at,$v1,$a1
-/*  f08a758:	15c00003 */ 	bnez	$t6,.L0f08a768
-/*  f08a75c:	24420060 */ 	addiu	$v0,$v0,0x60
-/*  f08a760:	10000046 */ 	b	.L0f08a87c
-/*  f08a764:	00c71021 */ 	addu	$v0,$a2,$a3
-.L0f08a768:
-/*  f08a768:	1420fff8 */ 	bnez	$at,.L0f08a74c
-/*  f08a76c:	24c60060 */ 	addiu	$a2,$a2,0x60
-/*  f08a770:	00001825 */ 	or	$v1,$zero,$zero
-.L0f08a774:
-/*  f08a774:	18a00022 */ 	blez	$a1,.L0f08a800
-/*  f08a778:	3c07800a */ 	lui	$a3,%hi(var8009ce60)
-/*  f08a77c:	8ce7ce60 */ 	lw	$a3,%lo(var8009ce60)($a3)
-/*  f08a780:	00003025 */ 	or	$a2,$zero,$zero
-/*  f08a784:	00e01025 */ 	or	$v0,$a3,$zero
-.L0f08a788:
-/*  f08a788:	8c4f0040 */ 	lw	$t7,0x40($v0)
-/*  f08a78c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f08a790:	0065082a */ 	slt	$at,$v1,$a1
-/*  f08a794:	31f80080 */ 	andi	$t8,$t7,0x80
-/*  f08a798:	57000016 */ 	bnezl	$t8,.L0f08a7f4
-/*  f08a79c:	24c60060 */ 	addiu	$a2,$a2,0x60
-/*  f08a7a0:	90590002 */ 	lbu	$t9,0x2($v0)
-/*  f08a7a4:	33280004 */ 	andi	$t0,$t9,0x4
-/*  f08a7a8:	55000012 */ 	bnezl	$t0,.L0f08a7f4
-/*  f08a7ac:	24c60060 */ 	addiu	$a2,$a2,0x60
-/*  f08a7b0:	8c440014 */ 	lw	$a0,0x14($v0)
-/*  f08a7b4:	8c890018 */ 	lw	$t1,0x18($a0)
-/*  f08a7b8:	5520000e */ 	bnezl	$t1,.L0f08a7f4
-/*  f08a7bc:	24c60060 */ 	addiu	$a2,$a2,0x60
-/*  f08a7c0:	908a0001 */ 	lbu	$t2,0x1($a0)
-/*  f08a7c4:	314b00c2 */ 	andi	$t3,$t2,0xc2
-/*  f08a7c8:	15600009 */ 	bnez	$t3,.L0f08a7f0
-/*  f08a7cc:	00c72021 */ 	addu	$a0,$a2,$a3
-/*  f08a7d0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08a7d4:	0fc1acd3 */ 	jal	objFreePermanently
-/*  f08a7d8:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f08a7dc:	3c0c800a */ 	lui	$t4,%hi(var8009ce60)
-/*  f08a7e0:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f08a7e4:	8d8cce60 */ 	lw	$t4,%lo(var8009ce60)($t4)
-/*  f08a7e8:	10000024 */ 	b	.L0f08a87c
-/*  f08a7ec:	00cc1021 */ 	addu	$v0,$a2,$t4
-.L0f08a7f0:
-/*  f08a7f0:	24c60060 */ 	addiu	$a2,$a2,0x60
-.L0f08a7f4:
-/*  f08a7f4:	1420ffe4 */ 	bnez	$at,.L0f08a788
-/*  f08a7f8:	24420060 */ 	addiu	$v0,$v0,0x60
-/*  f08a7fc:	00001825 */ 	or	$v1,$zero,$zero
-.L0f08a800:
-/*  f08a800:	18a0001d */ 	blez	$a1,.L0f08a878
-/*  f08a804:	3c07800a */ 	lui	$a3,%hi(var8009ce60)
-/*  f08a808:	8ce7ce60 */ 	lw	$a3,%lo(var8009ce60)($a3)
-/*  f08a80c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f08a810:	00e01025 */ 	or	$v0,$a3,$zero
-.L0f08a814:
-/*  f08a814:	8c4d0040 */ 	lw	$t5,0x40($v0)
-/*  f08a818:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f08a81c:	0065082a */ 	slt	$at,$v1,$a1
-/*  f08a820:	31ae0080 */ 	andi	$t6,$t5,0x80
-/*  f08a824:	55c00012 */ 	bnezl	$t6,.L0f08a870
-/*  f08a828:	24c60060 */ 	addiu	$a2,$a2,0x60
-/*  f08a82c:	904f0002 */ 	lbu	$t7,0x2($v0)
-/*  f08a830:	31f80004 */ 	andi	$t8,$t7,0x4
-/*  f08a834:	5700000e */ 	bnezl	$t8,.L0f08a870
-/*  f08a838:	24c60060 */ 	addiu	$a2,$a2,0x60
-/*  f08a83c:	8c590014 */ 	lw	$t9,0x14($v0)
-/*  f08a840:	8f280018 */ 	lw	$t0,0x18($t9)
-/*  f08a844:	15000009 */ 	bnez	$t0,.L0f08a86c
-/*  f08a848:	00c72021 */ 	addu	$a0,$a2,$a3
-/*  f08a84c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08a850:	0fc1acd3 */ 	jal	objFreePermanently
-/*  f08a854:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f08a858:	3c09800a */ 	lui	$t1,%hi(var8009ce60)
-/*  f08a85c:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f08a860:	8d29ce60 */ 	lw	$t1,%lo(var8009ce60)($t1)
-/*  f08a864:	10000005 */ 	b	.L0f08a87c
-/*  f08a868:	00c91021 */ 	addu	$v0,$a2,$t1
-.L0f08a86c:
-/*  f08a86c:	24c60060 */ 	addiu	$a2,$a2,0x60
-.L0f08a870:
-/*  f08a870:	1420ffe8 */ 	bnez	$at,.L0f08a814
-/*  f08a874:	24420060 */ 	addiu	$v0,$v0,0x60
-.L0f08a878:
-/*  f08a878:	00001025 */ 	or	$v0,$zero,$zero
-.L0f08a87c:
-/*  f08a87c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08a880:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f08a884:	03e00008 */ 	jr	$ra
-/*  f08a888:	00000000 */ 	nop
-);
+struct ammocrateobj *ammocrateAllocate(void)
+{
+	s32 i;
+
+	// Try to find a free one
+	for (i = 0; i < g_MaxAmmoCrates; i++) {
+		if (g_AmmoCrates[i].base.prop == NULL) {
+			return &g_AmmoCrates[i];
+		}
+	}
+
+	// Find one that can be freed off-screen
+	for (i = 0; i < g_MaxAmmoCrates; i++) {
+		if ((g_AmmoCrates[i].base.hidden & OBJHFLAG_AIRBORNE) == 0
+				&& (g_AmmoCrates[i].base.hidden2 & OBJH2FLAG_CANREGEN) == 0
+				&& g_AmmoCrates[i].base.prop->parent == NULL
+				&& (g_AmmoCrates[i].base.prop->flags & (PROPFLAG_ONSCREEN | PROPFLAG_40 | PROPFLAG_80)) == 0) {
+			objFreePermanently(&g_AmmoCrates[i].base, true);
+			return &g_AmmoCrates[i];
+		}
+	}
+
+	// Find one that can be freed on-screen
+	for (i = 0; i < g_MaxAmmoCrates; i++) {
+		if ((g_AmmoCrates[i].base.hidden & OBJHFLAG_AIRBORNE) == 0
+				&& (g_AmmoCrates[i].base.hidden2 & OBJH2FLAG_CANREGEN) == 0
+				&& g_AmmoCrates[i].base.prop->parent == NULL) {
+			objFreePermanently(&g_AmmoCrates[i].base, true);
+			return &g_AmmoCrates[i];
+		}
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f08a88c
@@ -68850,7 +68779,7 @@ void propweaponSetDual(struct weaponobj *weapon1, struct weaponobj *weapon2)
 
 struct prop *func0f08adc8(struct weaponobj *weapon, struct modelfiledata *filedata, struct prop *prop, struct model *model)
 {
-	prop = objInitialise(&weapon->base, filedata, prop, model);
+	prop = objInit(&weapon->base, filedata, prop, model);
 
 	if (prop) {
 		prop->type = PROPTYPE_WEAPON;
@@ -68862,7 +68791,7 @@ struct prop *func0f08adc8(struct weaponobj *weapon, struct modelfiledata *fileda
 
 struct prop *func0f08ae0c(struct weaponobj *weapon, struct modelfiledata *filedata)
 {
-	struct prop *prop = func0f06a52c(&weapon->base, filedata);
+	struct prop *prop = objInitWithModelDef(&weapon->base, filedata);
 
 	if (prop) {
 		prop->type = PROPTYPE_WEAPON;
@@ -69054,7 +68983,7 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 			laptop->base = tmp;
 			laptop->base.modelnum = modelnum;
 
-			prop = objInitialise(&laptop->base, filedata, prop, model);
+			prop = objInit(&laptop->base, filedata, prop, model);
 
 			laptop->targetpad = -1;
 			laptop->aimdist = 5000;
@@ -71326,7 +71255,7 @@ glabel var7f1aaf78
 /*  f08d558:	8c8e0008 */ 	lw	$t6,0x8($a0)
 /*  f08d55c:	00808025 */ 	or	$s0,$a0,$zero
 /*  f08d560:	35cf0100 */ 	ori	$t7,$t6,0x100
-/*  f08d564:	0fc1a954 */ 	jal	func0f06a550
+/*  f08d564:	0fc1a954 */ 	jal	objInitWithAutoModel
 /*  f08d568:	ac8f0008 */ 	sw	$t7,0x8($a0)
 /*  f08d56c:	10400080 */ 	beqz	$v0,.L0f08d770
 /*  f08d570:	afa2007c */ 	sw	$v0,0x7c($sp)
@@ -73470,7 +73399,7 @@ void projectilesDebug(void)
 {
 	s32 i;
 
-	for (i = 0; i < g_NumProjectiles; i++) {
+	for (i = 0; i < g_MaxProjectiles; i++) {
 		if (g_Projectiles[i].flags) {
 			// empty
 		}

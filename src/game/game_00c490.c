@@ -185,18 +185,18 @@ void setupInit(void)
 
 	var8009ce40 = 50;
 	var8009ce44 = 10;
-	var8009ce48 = 20;
+	g_MaxAmmoCrates = 20;
 	var8009ce4c = 15;
-	g_NumProjectiles = IS4MB() ? 20 : 100;
-	g_NumMonitorThings = IS4MB() ? 40 : 80;
+	g_MaxProjectiles = IS4MB() ? 20 : 100;
+	g_MaxMonitorThings = IS4MB() ? 40 : 80;
 
 	if (g_Vars.stagenum >= STAGE_TITLE) {
 		var8009ce40 = 0;
 		var8009ce44 = 0;
-		var8009ce48 = 0;
+		g_MaxAmmoCrates = 0;
 		var8009ce4c = 0;
-		g_NumProjectiles = 0;
-		g_NumMonitorThings = 0;
+		g_MaxProjectiles = 0;
+		g_MaxMonitorThings = 0;
 	}
 
 	func0f00cc8c();
@@ -246,13 +246,13 @@ void setupInit(void)
 		var80069918 = 0;
 	}
 
-	if (var8009ce48 == 0) {
-		var8009ce60 = 0;
+	if (g_MaxAmmoCrates == 0) {
+		g_AmmoCrates = NULL;
 	} else {
-		var8009ce60 = mempAlloc(ALIGN16(var8009ce48 * sizeof(struct var8009ce60)), MEMPOOL_STAGE);
+		g_AmmoCrates = mempAlloc(ALIGN16(g_MaxAmmoCrates * sizeof(struct ammocrateobj)), MEMPOOL_STAGE);
 
-		for (i = 0; i < var8009ce48; i++) {
-			var8009ce60[i].base.prop = NULL;
+		for (i = 0; i < g_MaxAmmoCrates; i++) {
+			g_AmmoCrates[i].base.prop = NULL;
 		}
 	}
 
@@ -266,22 +266,22 @@ void setupInit(void)
 		}
 	}
 
-	if (g_NumProjectiles == 0) {
+	if (g_MaxProjectiles == 0) {
 		g_Projectiles = 0;
 	} else {
-		g_Projectiles = mempAlloc(ALIGN16(g_NumProjectiles * sizeof(struct projectile)), MEMPOOL_STAGE);
+		g_Projectiles = mempAlloc(ALIGN16(g_MaxProjectiles * sizeof(struct projectile)), MEMPOOL_STAGE);
 
-		for (i = 0; i < g_NumProjectiles; i++) {
+		for (i = 0; i < g_MaxProjectiles; i++) {
 			g_Projectiles[i].flags = PROJECTILEFLAG_FREE;
 		}
 	}
 
-	if (g_NumMonitorThings == 0) {
+	if (g_MaxMonitorThings == 0) {
 		g_MonitorThings = 0;
 	} else {
-		g_MonitorThings = mempAlloc(ALIGN16(g_NumMonitorThings * sizeof(struct monitorthing)), MEMPOOL_STAGE);
+		g_MonitorThings = mempAlloc(ALIGN16(g_MaxMonitorThings * sizeof(struct monitorthing)), MEMPOOL_STAGE);
 
-		for (i = 0; i < g_NumMonitorThings; i++) {
+		for (i = 0; i < g_MaxMonitorThings; i++) {
 			g_MonitorThings[i].flags = 0x00000001;
 		}
 	}
@@ -444,7 +444,7 @@ glabel var7f1a7f80
 .L0f00cfa4:
 /*  f00cfa4:	3c058008 */ 	lui	$a1,%hi(g_ModelStates)
 /*  f00cfa8:	00ad2821 */ 	addu	$a1,$a1,$t5
-/*  f00cfac:	0fc1a94b */ 	jal	func0f06a52c
+/*  f00cfac:	0fc1a94b */ 	jal	objInitWithModelDef
 /*  f00cfb0:	8ca5b06c */ 	lw	$a1,%lo(g_ModelStates)($a1)
 /*  f00cfb4:	8e040018 */ 	lw	$a0,0x18($s0)
 .L0f00cfb8:
@@ -486,7 +486,7 @@ glabel var7f1a7f80
 .L0f00d040:
 /*  f00d040:	3c058008 */ 	lui	$a1,%hi(g_ModelStates)
 /*  f00d044:	00aa2821 */ 	addu	$a1,$a1,$t2
-/*  f00d048:	0fc1a94b */ 	jal	func0f06a52c
+/*  f00d048:	0fc1a94b */ 	jal	objInitWithModelDef
 /*  f00d04c:	8ca5b06c */ 	lw	$a1,%lo(g_ModelStates)($a1)
 /*  f00d050:	00403025 */ 	or	$a2,$v0,$zero
 .L0f00d054:
@@ -525,7 +525,7 @@ glabel var7f1a7f80
 .L0f00d0d0:
 /*  f00d0d0:	3c058008 */ 	lui	$a1,%hi(g_ModelStates)
 /*  f00d0d4:	00ae2821 */ 	addu	$a1,$a1,$t6
-/*  f00d0d8:	0fc1a94b */ 	jal	func0f06a52c
+/*  f00d0d8:	0fc1a94b */ 	jal	objInitWithModelDef
 /*  f00d0dc:	8ca5b06c */ 	lw	$a1,%lo(g_ModelStates)($a1)
 /*  f00d0e0:	8e040018 */ 	lw	$a0,0x18($s0)
 .L0f00d0e4:
@@ -637,7 +637,7 @@ glabel var7f1a7f80
 /*  f00d278:	10000004 */ 	b	.L0f00d28c
 /*  f00d27c:	afa2007c */ 	sw	$v0,0x7c($sp)
 .L0f00d280:
-/*  f00d280:	0fc1a954 */ 	jal	func0f06a550
+/*  f00d280:	0fc1a954 */ 	jal	objInitWithAutoModel
 /*  f00d284:	02002025 */ 	or	$a0,$s0,$zero
 /*  f00d288:	afa2007c */ 	sw	$v0,0x7c($sp)
 .L0f00d28c:
@@ -1356,7 +1356,7 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 			monitor->base.hidden2 |= OBJH2FLAG_CANREGEN;
 		}
 
-		prop = func0f06a550(&monitor->base);
+		prop = objInitWithAutoModel(&monitor->base);
 		monitor->base.monitorthing = monitorthingGetNew();
 
 		if (prop && monitor->base.monitorthing) {

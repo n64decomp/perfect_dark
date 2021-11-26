@@ -6807,11 +6807,6 @@ struct roomproplistchunk {
 	s16 propnums[8];
 };
 
-struct var8009ce60 {
-	struct defaultobj base;
-	/*0x5c*/ u32 unk5c;
-};
-
 struct nbomb {
 	struct coord pos;
 	s32 age240;
