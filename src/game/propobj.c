@@ -33721,22 +33721,6 @@ struct escastepkeyframe g_EscaStepKeyframesZ[] = {
 u32 var80069cb8 = 0x2b000000;
 u32 var80069cbc = 0x0e000001;
 u32 var80069cc0 = 0x00000000;
-u32 var80069cc4 = 0x00000000;
-u32 var80069cc8 = 0x00000001;
-u32 var80069ccc = 0x00000003;
-u32 var80069cd0 = 0x00000000;
-u32 var80069cd4 = 0x00000000;
-u32 var80069cd8 = 0x00000000;
-u32 var80069cdc = 0x00000000;
-u32 var80069ce0 = 0x00000000;
-u32 var80069ce4 = 0x00000000;
-u32 var80069ce8 = 0x00000000;
-u32 var80069cec = 0x00000000;
-u32 var80069cf0 = 0x00000000;
-u32 var80069cf4 = 0x00000000;
-u32 var80069cf8 = 0x00000000;
-u32 var80069cfc = 0x00000000;
-u32 var80069d00 = 0x00000000;
 
 const char var7f1a9fe8[] = "************** RWI : Door Stuck Mate -> Sort it out\n";
 
@@ -49962,120 +49946,44 @@ glabel func0f07e1fc
 /*  f07e2c8:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-GLOBAL_ASM(
-glabel func0f07e2cc
-/*  f07e2cc:	27bdff10 */ 	addiu	$sp,$sp,-240
-/*  f07e2d0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f07e2d4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f07e2d8:	8c900004 */ 	lw	$s0,0x4($a0)
-/*  f07e2dc:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f07e2e0:	00803825 */ 	or	$a3,$a0,$zero
-/*  f07e2e4:	920e0003 */ 	lbu	$t6,0x3($s0)
-/*  f07e2e8:	27a500ac */ 	addiu	$a1,$sp,0xac
-/*  f07e2ec:	55c10006 */ 	bnel	$t6,$at,.L0f07e308
-/*  f07e2f0:	2604001c */ 	addiu	$a0,$s0,0x1c
-/*  f07e2f4:	0fc1dd12 */ 	jal	func0f077448
-/*  f07e2f8:	00000000 */ 	nop
-/*  f07e2fc:	10000056 */ 	b	.L0f07e458
-/*  f07e300:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f07e304:	2604001c */ 	addiu	$a0,$s0,0x1c
-.L0f07e308:
-/*  f07e308:	0c005755 */ 	jal	mtx3ToMtx4
-/*  f07e30c:	afa700f0 */ 	sw	$a3,0xf0($sp)
-/*  f07e310:	8fa700f0 */ 	lw	$a3,0xf0($sp)
-/*  f07e314:	27a500ac */ 	addiu	$a1,$sp,0xac
-/*  f07e318:	0c005775 */ 	jal	mtx4SetTranslation
-/*  f07e31c:	24e40008 */ 	addiu	$a0,$a3,0x8
-/*  f07e320:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
-/*  f07e324:	00000000 */ 	nop
-/*  f07e328:	8e0f0018 */ 	lw	$t7,0x18($s0)
-/*  f07e32c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f07e330:	27a500ac */ 	addiu	$a1,$sp,0xac
-/*  f07e334:	0c0056f9 */ 	jal	mtx00015be4
-/*  f07e338:	8de6000c */ 	lw	$a2,0xc($t7)
-/*  f07e33c:	92020003 */ 	lbu	$v0,0x3($s0)
-/*  f07e340:	8fa700f0 */ 	lw	$a3,0xf0($sp)
-/*  f07e344:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f07e348:	14410005 */ 	bne	$v0,$at,.L0f07e360
-/*  f07e34c:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f07e350:	0fc1e24c */ 	jal	func0f078930
-/*  f07e354:	27a500ac */ 	addiu	$a1,$sp,0xac
-/*  f07e358:	1000003f */ 	b	.L0f07e458
-/*  f07e35c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f07e360:
-/*  f07e360:	2401000d */ 	addiu	$at,$zero,0xd
-/*  f07e364:	14410005 */ 	bne	$v0,$at,.L0f07e37c
-/*  f07e368:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f07e36c:	0fc1e729 */ 	jal	func0f079ca4
-/*  f07e370:	27a500ac */ 	addiu	$a1,$sp,0xac
-/*  f07e374:	10000038 */ 	b	.L0f07e458
-/*  f07e378:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f07e37c:
-/*  f07e37c:	24010039 */ 	addiu	$at,$zero,0x39
-/*  f07e380:	54410006 */ 	bnel	$v0,$at,.L0f07e39c
-/*  f07e384:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f07e388:	0fc1eb33 */ 	jal	func0f07accc
-/*  f07e38c:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f07e390:	10000031 */ 	b	.L0f07e458
-/*  f07e394:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f07e398:	24010008 */ 	addiu	$at,$zero,0x8
-.L0f07e39c:
-/*  f07e39c:	54410006 */ 	bnel	$v0,$at,.L0f07e3b8
-/*  f07e3a0:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f07e3a4:	0fc1f861 */ 	jal	func0f07e184
-/*  f07e3a8:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f07e3ac:	1000002a */ 	b	.L0f07e458
-/*  f07e3b0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f07e3b4:	2401000c */ 	addiu	$at,$zero,0xc
-.L0f07e3b8:
-/*  f07e3b8:	54410006 */ 	bnel	$v0,$at,.L0f07e3d4
-/*  f07e3bc:	8e180018 */ 	lw	$t8,0x18($s0)
-/*  f07e3c0:	0fc1f87f */ 	jal	func0f07e1fc
-/*  f07e3c4:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f07e3c8:	10000023 */ 	b	.L0f07e458
-/*  f07e3cc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f07e3d0:	8e180018 */ 	lw	$t8,0x18($s0)
-.L0f07e3d4:
-/*  f07e3d4:	3c0a8007 */ 	lui	$t2,%hi(var80069cc4)
-/*  f07e3d8:	254a9cc4 */ 	addiu	$t2,$t2,%lo(var80069cc4)
-/*  f07e3dc:	8f190008 */ 	lw	$t9,0x8($t8)
-/*  f07e3e0:	254c003c */ 	addiu	$t4,$t2,0x3c
-/*  f07e3e4:	27a9006c */ 	addiu	$t1,$sp,0x6c
-/*  f07e3e8:	8728000e */ 	lh	$t0,0xe($t9)
-/*  f07e3ec:	29010002 */ 	slti	$at,$t0,0x2
-/*  f07e3f0:	54200019 */ 	bnezl	$at,.L0f07e458
-/*  f07e3f4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f07e3f8:
-/*  f07e3f8:	8d410000 */ 	lw	$at,0x0($t2)
-/*  f07e3fc:	254a000c */ 	addiu	$t2,$t2,0xc
-/*  f07e400:	2529000c */ 	addiu	$t1,$t1,0xc
-/*  f07e404:	ad21fff4 */ 	sw	$at,-0xc($t1)
-/*  f07e408:	8d41fff8 */ 	lw	$at,-0x8($t2)
-/*  f07e40c:	ad21fff8 */ 	sw	$at,-0x8($t1)
-/*  f07e410:	8d41fffc */ 	lw	$at,-0x4($t2)
-/*  f07e414:	154cfff8 */ 	bne	$t2,$t4,.L0f07e3f8
-/*  f07e418:	ad21fffc */ 	sw	$at,-0x4($t1)
-/*  f07e41c:	8d410000 */ 	lw	$at,0x0($t2)
-/*  f07e420:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*  f07e424:	ad210000 */ 	sw	$at,0x0($t1)
-/*  f07e428:	8e0d0018 */ 	lw	$t5,0x18($s0)
-/*  f07e42c:	0c005746 */ 	jal	mtx4Copy
-/*  f07e430:	8da4000c */ 	lw	$a0,0xc($t5)
-/*  f07e434:	8e0e0018 */ 	lw	$t6,0x18($s0)
-/*  f07e438:	27b80028 */ 	addiu	$t8,$sp,0x28
-/*  f07e43c:	27a4006c */ 	addiu	$a0,$sp,0x6c
-/*  f07e440:	8dcf000c */ 	lw	$t7,0xc($t6)
-/*  f07e444:	afb8006c */ 	sw	$t8,0x6c($sp)
-/*  f07e448:	afaf007c */ 	sw	$t7,0x7c($sp)
-/*  f07e44c:	0c007399 */ 	jal	model0001ce64
-/*  f07e450:	8e050018 */ 	lw	$a1,0x18($s0)
-/*  f07e454:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f07e458:
-/*  f07e458:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f07e45c:	27bd00f0 */ 	addiu	$sp,$sp,0xf0
-/*  f07e460:	03e00008 */ 	jr	$ra
-/*  f07e464:	00000000 */ 	nop
-);
+void func0f07e2cc(struct prop *prop)
+{
+	struct defaultobj *obj = prop->obj;
+	Mtxf mtx;
+
+	if (obj->type == OBJTYPE_DOOR) {
+		func0f077448(prop);
+	} else {
+		mtx3ToMtx4(obj->realrot, &mtx);
+		mtx4SetTranslation(&prop->pos, &mtx);
+		mtx00015be4(currentPlayerGetMatrix1740(), &mtx, obj->model->matrices);
+
+		if (obj->type == OBJTYPE_CCTV) {
+			func0f078930(prop, &mtx);
+		} else if (obj->type == OBJTYPE_AUTOGUN) {
+			func0f079ca4(prop, &mtx);
+		} else if (obj->type == OBJTYPE_CHOPPER) {
+			func0f07accc(prop);
+		} else if (obj->type == OBJTYPE_WEAPON) {
+			func0f07e184(prop);
+		} else if (obj->type == OBJTYPE_HANGINGMONITORS) {
+			func0f07e1fc(prop);
+		} else {
+			if (obj->model->filedata->nummatrices >= 2) {
+				struct objticksp476 thing = {NULL, 1, 3};
+				u32 stack;
+				Mtxf sp28;
+
+				mtx4Copy(obj->model->matrices, &sp28);
+
+				thing.unk10 = obj->model->matrices;
+				thing.matrix = &sp28;
+
+				model0001ce64(&thing, obj->model);
+			}
+		}
+	}
+}
 
 bool propCanRegen(struct prop *prop)
 {
