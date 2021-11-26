@@ -41062,74 +41062,29 @@ glabel var7f1aa5a8
 );
 #endif
 
-GLOBAL_ASM(
-glabel chopperInitMatrices
-.late_rodata
-glabel var7f1aa5ac
-.word 0x40c907a9
-glabel var7f1aa5b0
-.word 0x3fc90fdb
-.text
-/*  f07accc:	27bdff08 */ 	addiu	$sp,$sp,-248
-/*  f07acd0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f07acd4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f07acd8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f07acdc:	8c900004 */ 	lw	$s0,0x4($a0)
-/*  f07ace0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f07ace4:	8e020018 */ 	lw	$v0,0x18($s0)
-/*  f07ace8:	8c4e000c */ 	lw	$t6,0xc($v0)
-/*  f07acec:	afae00ec */ 	sw	$t6,0xec($sp)
-/*  f07acf0:	8c440008 */ 	lw	$a0,0x8($v0)
-/*  f07acf4:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f07acf8:	afa200f0 */ 	sw	$v0,0xf0($sp)
-/*  f07acfc:	afa200e8 */ 	sw	$v0,0xe8($sp)
-/*  f07ad00:	3c017f1b */ 	lui	$at,%hi(var7f1aa5ac)
-/*  f07ad04:	c424a5ac */ 	lwc1	$f4,%lo(var7f1aa5ac)($at)
-/*  f07ad08:	c60600d4 */ 	lwc1	$f6,0xd4($s0)
-/*  f07ad0c:	27a50068 */ 	addiu	$a1,$sp,0x68
-/*  f07ad10:	0c005900 */ 	jal	mtx4LoadZRotation
-/*  f07ad14:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f07ad18:	3c017f1b */ 	lui	$at,%hi(var7f1aa5b0)
-/*  f07ad1c:	c42aa5b0 */ 	lwc1	$f10,%lo(var7f1aa5b0)($at)
-/*  f07ad20:	c60800d0 */ 	lwc1	$f8,0xd0($s0)
-/*  f07ad24:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*  f07ad28:	0c0058dd */ 	jal	mtx4LoadYRotation
-/*  f07ad2c:	460a4300 */ 	add.s	$f12,$f8,$f10
-/*  f07ad30:	27b100a8 */ 	addiu	$s1,$sp,0xa8
-/*  f07ad34:	02203025 */ 	or	$a2,$s1,$zero
-/*  f07ad38:	27a40028 */ 	addiu	$a0,$sp,0x28
-/*  f07ad3c:	0c0056f9 */ 	jal	mtx00015be4
-/*  f07ad40:	27a50068 */ 	addiu	$a1,$sp,0x68
-/*  f07ad44:	8fa400e8 */ 	lw	$a0,0xe8($sp)
-/*  f07ad48:	0c005775 */ 	jal	mtx4SetTranslation
-/*  f07ad4c:	02202825 */ 	or	$a1,$s1,$zero
-/*  f07ad50:	8fa400ec */ 	lw	$a0,0xec($sp)
-/*  f07ad54:	02202825 */ 	or	$a1,$s1,$zero
-/*  f07ad58:	24860040 */ 	addiu	$a2,$a0,0x40
-/*  f07ad5c:	0c0056f9 */ 	jal	mtx00015be4
-/*  f07ad60:	afa60024 */ 	sw	$a2,0x24($sp)
-/*  f07ad64:	8faf00f0 */ 	lw	$t7,0xf0($sp)
-/*  f07ad68:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f07ad6c:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f07ad70:	8de40008 */ 	lw	$a0,0x8($t7)
-/*  f07ad74:	afa200e8 */ 	sw	$v0,0xe8($sp)
-/*  f07ad78:	c60c00dc */ 	lwc1	$f12,0xdc($s0)
-/*  f07ad7c:	0c0058ba */ 	jal	mtx4LoadXRotation
-/*  f07ad80:	02202825 */ 	or	$a1,$s1,$zero
-/*  f07ad84:	8fa400e8 */ 	lw	$a0,0xe8($sp)
-/*  f07ad88:	0c005775 */ 	jal	mtx4SetTranslation
-/*  f07ad8c:	02202825 */ 	or	$a1,$s1,$zero
-/*  f07ad90:	8fa600ec */ 	lw	$a2,0xec($sp)
-/*  f07ad94:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f07ad98:	02202825 */ 	or	$a1,$s1,$zero
-/*  f07ad9c:	0c0056f9 */ 	jal	mtx00015be4
-/*  f07ada0:	24c60080 */ 	addiu	$a2,$a2,0x80
-/*  f07ada4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f07ada8:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f07adac:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f07adb0:	03e00008 */ 	jr	$ra
-/*  f07adb4:	27bd00f8 */ 	addiu	$sp,$sp,0xf8
-);
+void chopperInitMatrices(struct prop *prop)
+{
+	struct chopperobj *chopper = (struct chopperobj *)prop->obj;
+	struct model *model = chopper->base.model;
+	Mtxf *matrices = model->matrices;
+	union modelrodata *rodata;
+	Mtxf spa8;
+	Mtxf sp68;
+	Mtxf sp28;
+
+	rodata = modelGetPartRodata(model->filedata, MODELPART_CHOPPER_0001);
+	mtx4LoadZRotation(M_BADTAU - chopper->gunrotx, &sp68);
+	mtx4LoadYRotation(chopper->gunroty + 1.5707963705063f, &sp28);
+	mtx00015be4(&sp28, &sp68, &spa8);
+
+	mtx4SetTranslation(&rodata->position.pos, &spa8);
+	mtx00015be4(matrices, &spa8, &matrices[1]);
+
+	rodata = modelGetPartRodata(model->filedata, MODELPART_CHOPPER_0002);
+	mtx4LoadXRotation(chopper->barrelrot, &spa8);
+	mtx4SetTranslation(&rodata->position.pos, &spa8);
+	mtx00015be4(&matrices[1], &spa8, &matrices[2]);
+}
 
 struct prop *chopperGetTargetProp(struct chopperobj *chopper)
 {
