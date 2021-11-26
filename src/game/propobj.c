@@ -49854,41 +49854,19 @@ void glassUpdatePortal(struct prop *prop, s32 playercount, bool *arg2)
 	*arg2 = false;
 }
 
-GLOBAL_ASM(
-glabel func0f07e184
-/*  f07e184:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f07e188:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f07e18c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f07e190:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f07e194:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f07e198:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f07e19c:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f07e1a0:	8c520018 */ 	lw	$s2,0x18($v0)
-/*  f07e1a4:	8e4e0008 */ 	lw	$t6,0x8($s2)
-/*  f07e1a8:	8e43000c */ 	lw	$v1,0xc($s2)
-/*  f07e1ac:	85cf000e */ 	lh	$t7,0xe($t6)
-/*  f07e1b0:	24710040 */ 	addiu	$s1,$v1,0x40
-/*  f07e1b4:	29e10002 */ 	slti	$at,$t7,0x2
-/*  f07e1b8:	5420000b */ 	bnezl	$at,.L0f07e1e8
-/*  f07e1bc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f07e1c0:
-/*  f07e1c0:	0c00566c */ 	jal	mtx4LoadIdentity
-/*  f07e1c4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f07e1c8:	8e580008 */ 	lw	$t8,0x8($s2)
-/*  f07e1cc:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f07e1d0:	26310040 */ 	addiu	$s1,$s1,0x40
-/*  f07e1d4:	8719000e */ 	lh	$t9,0xe($t8)
-/*  f07e1d8:	0219082a */ 	slt	$at,$s0,$t9
-/*  f07e1dc:	1420fff8 */ 	bnez	$at,.L0f07e1c0
-/*  f07e1e0:	00000000 */ 	nop
-/*  f07e1e4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f07e1e8:
-/*  f07e1e8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f07e1ec:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f07e1f0:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f07e1f4:	03e00008 */ 	jr	$ra
-/*  f07e1f8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f07e184(struct prop *prop)
+{
+	struct weaponobj *weapon = prop->weapon;
+	struct model *model = weapon->base.model;
+	s32 i = 1;
+	Mtxf *mtxes = model->matrices;
+	Mtxf *ptr = &mtxes[i];
+
+	for (; i < model->filedata->nummatrices; i++) {
+		mtx4LoadIdentity(ptr);
+		ptr++;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f07e1fc
