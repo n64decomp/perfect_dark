@@ -35412,81 +35412,33 @@ void cctvTick(struct prop *camprop)
 	}
 }
 
-GLOBAL_ASM(
-glabel cctvInitMatrices
-.late_rodata
-glabel var7f1aa4a8
-.word 0x40c907a9
-glabel var7f1aa4ac
-.word 0x40c907a9
-.text
-/*  f078930:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f078934:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f078938:	afa50084 */ 	sw	$a1,0x84($sp)
-/*  f07893c:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f078940:	00002825 */ 	or	$a1,$zero,$zero
-/*  f078944:	8c620018 */ 	lw	$v0,0x18($v1)
-/*  f078948:	8c4e000c */ 	lw	$t6,0xc($v0)
-/*  f07894c:	afae0074 */ 	sw	$t6,0x74($sp)
-/*  f078950:	8c440008 */ 	lw	$a0,0x8($v0)
-/*  f078954:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f078958:	afa3007c */ 	sw	$v1,0x7c($sp)
-/*  f07895c:	8fa3007c */ 	lw	$v1,0x7c($sp)
-/*  f078960:	44802000 */ 	mtc1	$zero,$f4
-/*  f078964:	00403825 */ 	or	$a3,$v0,$zero
-/*  f078968:	c46c00a4 */ 	lwc1	$f12,0xa4($v1)
-/*  f07896c:	3c017f1b */ 	lui	$at,%hi(var7f1aa4a8)
-/*  f078970:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f078974:	4604603c */ 	c.lt.s	$f12,$f4
-/*  f078978:	00000000 */ 	nop
-/*  f07897c:	45000005 */ 	bc1f	.L0f078994
-/*  f078980:	00000000 */ 	nop
-/*  f078984:	3c017f1b */ 	lui	$at,%hi(var7f1aa4ac)
-/*  f078988:	c420a4a8 */ 	lwc1	$f0,%lo(var7f1aa4a8)($at)
-/*  f07898c:	10000007 */ 	b	.L0f0789ac
-/*  f078990:	46006300 */ 	add.s	$f12,$f12,$f0
-.L0f078994:
-/*  f078994:	c420a4ac */ 	lwc1	$f0,%lo(var7f1aa4ac)($at)
-/*  f078998:	460c003e */ 	c.le.s	$f0,$f12
-/*  f07899c:	00000000 */ 	nop
-/*  f0789a0:	45020003 */ 	bc1fl	.L0f0789b0
-/*  f0789a4:	afa3007c */ 	sw	$v1,0x7c($sp)
-/*  f0789a8:	46006301 */ 	sub.s	$f12,$f12,$f0
-.L0f0789ac:
-/*  f0789ac:	afa3007c */ 	sw	$v1,0x7c($sp)
-.L0f0789b0:
-/*  f0789b0:	0c0058dd */ 	jal	mtx4LoadYRotation
-/*  f0789b4:	afa70070 */ 	sw	$a3,0x70($sp)
-/*  f0789b8:	8fa60074 */ 	lw	$a2,0x74($sp)
-/*  f0789bc:	8fa3007c */ 	lw	$v1,0x7c($sp)
-/*  f0789c0:	27a40024 */ 	addiu	$a0,$sp,0x24
-/*  f0789c4:	24c60040 */ 	addiu	$a2,$a2,0x40
-/*  f0789c8:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f0789cc:	0c005680 */ 	jal	mtx4MultMtx4
-/*  f0789d0:	24650060 */ 	addiu	$a1,$v1,0x60
-/*  f0789d4:	8fa70070 */ 	lw	$a3,0x70($sp)
-/*  f0789d8:	8fa40084 */ 	lw	$a0,0x84($sp)
-/*  f0789dc:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f0789e0:	c4e60000 */ 	lwc1	$f6,0x0($a3)
-/*  f0789e4:	e7a60064 */ 	swc1	$f6,0x64($sp)
-/*  f0789e8:	c4e80004 */ 	lwc1	$f8,0x4($a3)
-/*  f0789ec:	e7a80068 */ 	swc1	$f8,0x68($sp)
-/*  f0789f0:	c4ea0008 */ 	lwc1	$f10,0x8($a3)
-/*  f0789f4:	0c0056d9 */ 	jal	mtx4TransformVecInPlace
-/*  f0789f8:	e7aa006c */ 	swc1	$f10,0x6c($sp)
-/*  f0789fc:	27a40064 */ 	addiu	$a0,$sp,0x64
-/*  f078a00:	0c005775 */ 	jal	mtx4SetTranslation
-/*  f078a04:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f078a08:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
-/*  f078a0c:	00000000 */ 	nop
-/*  f078a10:	00402025 */ 	or	$a0,$v0,$zero
-/*  f078a14:	0c0056f8 */ 	jal	mtx00015be0
-/*  f078a18:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f078a1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f078a20:	27bd0080 */ 	addiu	$sp,$sp,0x80
-/*  f078a24:	03e00008 */ 	jr	$ra
-/*  f078a28:	00000000 */ 	nop
-);
+void cctvInitMatrices(struct prop *prop, Mtxf *mtx)
+{
+	struct cctvobj *cctv = (struct cctvobj *)prop->obj;
+	struct model *model = cctv->base.model;
+	Mtxf *matrices = model->matrices;
+	union modelrodata *rodata = modelGetPartRodata(model->filedata, MODELPART_CCTV_LENS);
+	struct coord sp64;
+	Mtxf sp24;
+	f32 yrot = cctv->yrot;
+
+	if (yrot < 0) {
+		yrot += M_BADTAU;
+	} else if (yrot >= M_BADTAU) {
+		yrot -= M_BADTAU;
+	}
+
+	mtx4LoadYRotation(yrot, &sp24);
+	mtx4MultMtx4(&sp24, &cctv->camrotm, &matrices[1]);
+
+	sp64.x = rodata->position.pos.x;
+	sp64.y = rodata->position.pos.y;
+	sp64.z = rodata->position.pos.z;
+
+	mtx4TransformVecInPlace(mtx, &sp64);
+	mtx4SetTranslation(&sp64, &matrices[1]);
+	mtx00015be0(currentPlayerGetMatrix1740(), &matrices[1]);
+}
 
 void fanTick(struct prop *prop)
 {
