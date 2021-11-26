@@ -71964,81 +71964,35 @@ f32 func0f08e6bc(struct prop *prop, f32 arg1)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f08e794
-/*  f08e794:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f08e798:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08e79c:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f08e7a0:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f08e7a4:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f08e7a8:	0fc599fa */ 	jal	func0f1667e8
-/*  f08e7ac:	afae0034 */ 	sw	$t6,0x34($sp)
-/*  f08e7b0:	10400039 */ 	beqz	$v0,.L0f08e898
-/*  f08e7b4:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x284)
-/*  f08e7b8:	8c84a244 */ 	lw	$a0,%lo(g_Vars+0x284)($a0)
-/*  f08e7bc:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f08e7c0:	24841bb0 */ 	addiu	$a0,$a0,7088
-/*  f08e7c4:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
-/*  f08e7c8:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*  f08e7cc:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f08e7d0:	8fa50038 */ 	lw	$a1,0x38($sp)
-/*  f08e7d4:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f08e7d8:	c4860000 */ 	lwc1	$f6,0x0($a0)
-/*  f08e7dc:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f08e7e0:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f08e7e4:	e7a80024 */ 	swc1	$f8,0x24($sp)
-/*  f08e7e8:	c4900004 */ 	lwc1	$f16,0x4($a0)
-/*  f08e7ec:	c4aa0004 */ 	lwc1	$f10,0x4($a1)
-/*  f08e7f0:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f08e7f4:	c7aa0024 */ 	lwc1	$f10,0x24($sp)
-/*  f08e7f8:	e7b20028 */ 	swc1	$f18,0x28($sp)
-/*  f08e7fc:	c4860008 */ 	lwc1	$f6,0x8($a0)
-/*  f08e800:	c4a40008 */ 	lwc1	$f4,0x8($a1)
-/*  f08e804:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f08e808:	c7a40028 */ 	lwc1	$f4,0x28($sp)
-/*  f08e80c:	e7a8002c */ 	swc1	$f8,0x2c($sp)
-/*  f08e810:	c4500000 */ 	lwc1	$f16,0x0($v0)
-/*  f08e814:	c4460004 */ 	lwc1	$f6,0x4($v0)
-/*  f08e818:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f08e81c:	c4500008 */ 	lwc1	$f16,0x8($v0)
-/*  f08e820:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f08e824:	c7a4002c */ 	lwc1	$f4,0x2c($sp)
-/*  f08e828:	46048182 */ 	mul.s	$f6,$f16,$f4
-/*  f08e82c:	46089280 */ 	add.s	$f10,$f18,$f8
-/*  f08e830:	c4720008 */ 	lwc1	$f18,0x8($v1)
-/*  f08e834:	460a3300 */ 	add.s	$f12,$f6,$f10
-/*  f08e838:	460c903c */ 	c.lt.s	$f18,$f12
-/*  f08e83c:	00000000 */ 	nop
-/*  f08e840:	45020016 */ 	bc1fl	.L0f08e89c
-/*  f08e844:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08e848:	afa30030 */ 	sw	$v1,0x30($sp)
-/*  f08e84c:	0fc2d5ee */ 	jal	currentPlayerGetLodScaleZ
-/*  f08e850:	e7ac0020 */ 	swc1	$f12,0x20($sp)
-/*  f08e854:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f08e858:	c7ac0020 */ 	lwc1	$f12,0x20($sp)
-/*  f08e85c:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f08e860:	c4620008 */ 	lwc1	$f2,0x8($v1)
-/*  f08e864:	44818000 */ 	mtc1	$at,$f16
-/*  f08e868:	c7a6003c */ 	lwc1	$f6,0x3c($sp)
-/*  f08e86c:	46026201 */ 	sub.s	$f8,$f12,$f2
-/*  f08e870:	46104102 */ 	mul.s	$f4,$f8,$f16
-/*  f08e874:	c4680004 */ 	lwc1	$f8,0x4($v1)
-/*  f08e878:	46062283 */ 	div.s	$f10,$f4,$f6
-/*  f08e87c:	46025480 */ 	add.s	$f18,$f10,$f2
-/*  f08e880:	46009302 */ 	mul.s	$f12,$f18,$f0
-/*  f08e884:	460c403e */ 	c.le.s	$f8,$f12
-/*  f08e888:	00000000 */ 	nop
-/*  f08e88c:	45020003 */ 	bc1fl	.L0f08e89c
-/*  f08e890:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08e894:	afa00034 */ 	sw	$zero,0x34($sp)
-.L0f08e898:
-/*  f08e898:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f08e89c:
-/*  f08e89c:	8fa20034 */ 	lw	$v0,0x34($sp)
-/*  f08e8a0:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f08e8a4:	03e00008 */ 	jr	$ra
-/*  f08e8a8:	00000000 */ 	nop
-);
+bool func0f08e794(struct coord *coord, f32 arg1)
+{
+	bool result = true;
+	struct coord *ptr = func0f1667e8();
+	struct coord tmp;
+	f32 sp20;
+
+	if (ptr != NULL) {
+		struct coord *campos = &g_Vars.currentplayer->cam_pos;
+		Mtxf *mtx = currentPlayerGetMatrix1740();
+
+		tmp.x = coord->x - campos->x;
+		tmp.y = coord->y - campos->y;
+		tmp.z = coord->z - campos->z;
+
+		sp20 = tmp.f[0] * mtx->m[0][0] + tmp.f[1] * mtx->m[0][1] + tmp.f[2] * mtx->m[0][2];
+
+		if (sp20 > ptr->z) {
+			f32 scalez = currentPlayerGetLodScaleZ();
+			sp20 = ((sp20 - ptr->z) * 100 / arg1 + ptr->z) * scalez;
+
+			if (sp20 >= ptr->y) {
+				result = false;
+			}
+		}
+	}
+
+	return result;
+}
 
 bool func0f08e8ac(struct prop *prop, struct coord *coord, f32 arg2, bool arg3)
 {
