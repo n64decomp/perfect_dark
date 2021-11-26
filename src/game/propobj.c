@@ -33775,7 +33775,7 @@ void doorUpdatePortalIfWindowed(struct prop *doorprop, s32 playercount)
 }
 
 GLOBAL_ASM(
-glabel func0f077448
+glabel doorInitMatrices
 .late_rodata
 glabel var7f1aa440
 .word 0x3c8ef461
@@ -35413,7 +35413,7 @@ void cctvTick(struct prop *camprop)
 }
 
 GLOBAL_ASM(
-glabel func0f078930
+glabel cctvInitMatrices
 .late_rodata
 glabel var7f1aa4a8
 .word 0x40c907a9
@@ -38002,7 +38002,7 @@ glabel var7f1aa580
 #endif
 
 GLOBAL_ASM(
-glabel func0f079ca4
+glabel autogunInitMatrices
 .late_rodata
 glabel var7f1aa584
 .word 0x40c907a9
@@ -41063,7 +41063,7 @@ glabel var7f1aa5a8
 #endif
 
 GLOBAL_ASM(
-glabel func0f07accc
+glabel chopperInitMatrices
 .late_rodata
 glabel var7f1aa5ac
 .word 0x40c907a9
@@ -49854,7 +49854,7 @@ void glassUpdatePortal(struct prop *prop, s32 playercount, bool *arg2)
 	*arg2 = false;
 }
 
-void func0f07e184(struct prop *prop)
+void weaponInitMatrices(struct prop *prop)
 {
 	struct weaponobj *weapon = prop->weapon;
 	struct model *model = weapon->base.model;
@@ -49868,84 +49868,61 @@ void func0f07e184(struct prop *prop)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f07e1fc
-/*  f07e1fc:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f07e200:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f07e204:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f07e208:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f07e20c:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f07e210:	00002825 */ 	or	$a1,$zero,$zero
-/*  f07e214:	8c510018 */ 	lw	$s1,0x18($v0)
-/*  f07e218:	8e30000c */ 	lw	$s0,0xc($s1)
-/*  f07e21c:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f07e220:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f07e224:	26050040 */ 	addiu	$a1,$s0,0x40
-/*  f07e228:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f07e22c:	0c0059b7 */ 	jal	mtx4LoadTranslation
-/*  f07e230:	00402025 */ 	or	$a0,$v0,$zero
-/*  f07e234:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f07e238:	0c0056f8 */ 	jal	mtx00015be0
-/*  f07e23c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07e240:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f07e244:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f07e248:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f07e24c:	26050080 */ 	addiu	$a1,$s0,0x80
-/*  f07e250:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f07e254:	0c0059b7 */ 	jal	mtx4LoadTranslation
-/*  f07e258:	00402025 */ 	or	$a0,$v0,$zero
-/*  f07e25c:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f07e260:	0c0056f8 */ 	jal	mtx00015be0
-/*  f07e264:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07e268:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f07e26c:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f07e270:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f07e274:	260500c0 */ 	addiu	$a1,$s0,0xc0
-/*  f07e278:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f07e27c:	0c0059b7 */ 	jal	mtx4LoadTranslation
-/*  f07e280:	00402025 */ 	or	$a0,$v0,$zero
-/*  f07e284:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f07e288:	0c0056f8 */ 	jal	mtx00015be0
-/*  f07e28c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07e290:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f07e294:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f07e298:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f07e29c:	26110100 */ 	addiu	$s1,$s0,0x100
-/*  f07e2a0:	02202825 */ 	or	$a1,$s1,$zero
-/*  f07e2a4:	0c0059b7 */ 	jal	mtx4LoadTranslation
-/*  f07e2a8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f07e2ac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07e2b0:	0c0056f8 */ 	jal	mtx00015be0
-/*  f07e2b4:	02202825 */ 	or	$a1,$s1,$zero
-/*  f07e2b8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f07e2bc:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f07e2c0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f07e2c4:	03e00008 */ 	jr	$ra
-/*  f07e2c8:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+/**
+ * This function relates to hanging monitor objects, but PD has none of these.
+ * There is no hanging monitor model in the ROM either, so it's impossible to
+ * know which model node types the below part numbers refer to. The only clue is
+ * that the rodata starts with a coordinate. There's at least 3 node types that
+ * fit this criteria.
+ *
+ * An assumption has been made these are position node types.
+ */
+void hangingmonitorInitMatrices(struct prop *prop)
+{
+	struct defaultobj *obj = prop->obj;
+	struct model *model = obj->model;
+	Mtxf *matrices = model->matrices;
+	union modelrodata *rodata;
 
-void func0f07e2cc(struct prop *prop)
+	rodata = modelGetPartRodata(model->filedata, MODELPART_0000);
+	mtx4LoadTranslation(&rodata->position.pos, &matrices[1]);
+	mtx00015be0(matrices, &matrices[1]);
+
+	rodata = modelGetPartRodata(model->filedata, MODELPART_0001);
+	mtx4LoadTranslation(&rodata->position.pos, &matrices[2]);
+	mtx00015be0(matrices, &matrices[2]);
+
+	rodata = modelGetPartRodata(model->filedata, MODELPART_0002);
+	mtx4LoadTranslation(&rodata->position.pos, &matrices[3]);
+	mtx00015be0(matrices, &matrices[3]);
+
+	rodata = modelGetPartRodata(model->filedata, MODELPART_0003);
+	mtx4LoadTranslation(&rodata->position.pos, &matrices[4]);
+	mtx00015be0(matrices, &matrices[4]);
+}
+
+void objInitMatrices(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
 	Mtxf mtx;
 
 	if (obj->type == OBJTYPE_DOOR) {
-		func0f077448(prop);
+		doorInitMatrices(prop);
 	} else {
 		mtx3ToMtx4(obj->realrot, &mtx);
 		mtx4SetTranslation(&prop->pos, &mtx);
 		mtx00015be4(currentPlayerGetMatrix1740(), &mtx, obj->model->matrices);
 
 		if (obj->type == OBJTYPE_CCTV) {
-			func0f078930(prop, &mtx);
+			cctvInitMatrices(prop, &mtx);
 		} else if (obj->type == OBJTYPE_AUTOGUN) {
-			func0f079ca4(prop, &mtx);
+			autogunInitMatrices(prop, &mtx);
 		} else if (obj->type == OBJTYPE_CHOPPER) {
-			func0f07accc(prop);
+			chopperInitMatrices(prop);
 		} else if (obj->type == OBJTYPE_WEAPON) {
-			func0f07e184(prop);
+			weaponInitMatrices(prop);
 		} else if (obj->type == OBJTYPE_HANGINGMONITORS) {
-			func0f07e1fc(prop);
+			hangingmonitorInitMatrices(prop);
 		} else {
 			if (obj->model->filedata->nummatrices >= 2) {
 				struct objticksp476 thing = {NULL, 1, 3};
@@ -50420,7 +50397,7 @@ s32 objTick(struct prop *prop)
 
 		if (sp556 == false) {
 			model->matrices = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
-			func0f07e2cc(prop);
+			objInitMatrices(prop);
 			model0001cb0c(model, model->filedata->rootnode);
 		}
 

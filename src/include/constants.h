@@ -2283,7 +2283,6 @@
 #define MODELTYPE_CLASSICGUN     0x07
 #define MODELTYPE_CASING         0x08
 #define MODELTYPE_CHR            0x09
-#define MODELTYPE_0A             0x0a
 #define MODELTYPE_0B             0x0b
 #define MODELTYPE_0C             0x0c
 #define MODELTYPE_HEAD           0x0d
