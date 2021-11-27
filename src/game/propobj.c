@@ -33930,6 +33930,55 @@ glabel var7f1aa44c
 /*  f077668:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
+// Mismatch: regalloc
+//void doorInitMatrices(struct prop *prop)
+//{
+//	struct doorobj *door = prop->door;
+//	struct model *model = door->base.model;
+//	Mtxf *matrices = model->matrices;
+//	union modelrodata *rodata;
+//
+//	func0f08c424(door, matrices);
+//	mtx00015be0(currentPlayerGetMatrix1740(), matrices);
+//
+//	if (model->filedata->type == &g_ModelType11) {
+//		f32 xrot = M_BADTAU - door->frac * 0.017450513318181f;
+//
+//		rodata = modelGetPartRodata(model->filedata, 1);
+//		mtx4LoadXRotation(xrot, &matrices[1]);
+//		mtx4SetTranslation(&rodata->position.pos, &matrices[1]);
+//		mtx4MultMtx4InPlace(matrices, &matrices[1]);
+//
+//		rodata = modelGetPartRodata(model->filedata, 2);
+//		mtx4LoadXRotation(M_BADTAU - xrot, &matrices[2]);
+//		mtx4SetTranslation(&rodata->position.pos, &matrices[2]);
+//		mtx4MultMtx4InPlace(matrices, &matrices[2]);
+//	} else if (model->filedata->type == &g_ModelType13) {
+//		f32 zrot1 = 0;
+//		f32 zrot2 = door->frac * 0.017450513318181f;
+//		f32 limit = door->maxfrac * 0.3f;
+//		s32 i;
+//
+//		if (door->frac > limit) {
+//			zrot1 = ((door->maxfrac * (door->frac - limit)) / (door->maxfrac - limit)) * 0.017450513318181f;
+//		}
+//
+//		for (i = 0; i < 6; i++) {
+//			s32 index = i << 1;
+//
+//			rodata = modelGetPartRodata(model->filedata, index + 1);
+//			mtx4LoadZRotation(zrot1, &matrices[index + 1]);
+//			mtx4SetTranslation(&rodata->position.pos, &matrices[index + 1]);
+//			mtx4MultMtx4InPlace(matrices, &matrices[index + 1]);
+//
+//			rodata = modelGetPartRodata(model->filedata, index + 2);
+//			mtx4LoadZRotation(zrot2, &matrices[index + 2]);
+//			mtx4SetTranslation(&rodata->position.pos, &matrices[index + 2]);
+//			mtx4MultMtx4InPlace(&matrices[index + 1], &matrices[index + 2]);
+//		}
+//	}
+//}
+
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel platformDisplaceProps
