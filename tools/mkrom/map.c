@@ -63,6 +63,11 @@ bool map_get_function_rompos(char *funcname, uint32_t *start, uint32_t *end)
 
 			// Jump to RAM address
 			ptr = strstr(line, "0x");
+
+			if (ptr == NULL) {
+				continue;
+			}
+
 			segramaddr = strtoul(ptr, NULL, 16);
 
 			// Jump to length
@@ -83,8 +88,6 @@ bool map_get_function_rompos(char *funcname, uint32_t *start, uint32_t *end)
 			lookingforend = true;
 		}
 	}
-
-	fprintf(stderr, "Unable to find function \"%s\" in linker map\n", funcname);
 
 	return false;
 }

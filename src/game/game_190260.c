@@ -1001,7 +1001,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 			s32 i;
 #if PIRACYCHECKS
 			{
-				u32 *ptr = (u32 *)&func0f08e2ac;
+				u32 *ptr = (u32 *)&doorFinishClose;
 				u32 *end = (u32 *)&doorSetMode;
 				u32 checksum = 0;
 

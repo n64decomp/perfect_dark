@@ -35109,7 +35109,7 @@ void liftTick(struct prop *prop)
 			cdGetPropsOnPlatform(prop, propnums, ARRAYCOUNT(propnums));
 
 			if (lift->dist == 0 && lift->speed == 0) {
-				func0f08d784(lift->soundtype, lift->base.prop);
+				doorPlayOpeningSound(lift->soundtype, lift->base.prop);
 
 				if (obj->flags & OBJFLAG_LIFT_TRIGGERDISABLE) {
 					obj->flags &= ~OBJFLAG_LIFT_TRIGGERDISABLE;
@@ -35161,7 +35161,7 @@ void liftTick(struct prop *prop)
 				lift->speed = 0;
 				lift->levelcur = lift->levelaim;
 
-				func0f08dd44(lift->soundtype, lift->base.prop);
+				doorPlayOpenedSound(lift->soundtype, lift->base.prop);
 
 				if (obj->flags & OBJFLAG_LIFT_TRIGGERDISABLE) {
 					obj->flags &= ~OBJFLAG_LIFT_TRIGGERDISABLE;
@@ -68368,7 +68368,7 @@ void playerActivateRemoteMineDetonator(s32 playernum)
 	bgunStartDetonateAnimation(playernum);
 }
 
-struct weaponobj *func0f08aa70(s32 weaponnum, struct prop *prop)
+struct weaponobj *weaponFindChildByWeaponNum(s32 weaponnum, struct prop *prop)
 {
 	struct weaponobj *weapon;
 	struct prop *child;
@@ -68380,7 +68380,7 @@ struct weaponobj *func0f08aa70(s32 weaponnum, struct prop *prop)
 	child = prop->child;
 
 	while (child) {
-		weapon = func0f08aa70(weaponnum, child);
+		weapon = weaponFindChildByWeaponNum(weaponnum, child);
 
 		if (weapon) {
 			return weapon;
@@ -68392,12 +68392,12 @@ struct weaponobj *func0f08aa70(s32 weaponnum, struct prop *prop)
 	return NULL;
 }
 
-struct weaponobj *weaponFindThrown(s32 weaponnum)
+struct weaponobj *weaponFindLanded(s32 weaponnum)
 {
 	struct prop *prop = g_Vars.activeprops;
 
 	while (prop) {
-		struct weaponobj *weapon = func0f08aa70(weaponnum, prop);
+		struct weaponobj *weapon = weaponFindChildByWeaponNum(weaponnum, prop);
 
 		if (weapon && (weapon->base.hidden & OBJHFLAG_AIRBORNE) == 0) {
 			return weapon;
@@ -71122,7 +71122,7 @@ glabel var7f1aaf78
 /*  f08d780:	27bd0080 */ 	addiu	$sp,$sp,0x80
 );
 
-void func0f08d784(s32 soundtype, struct prop *prop)
+void doorPlayOpeningSound(s32 soundtype, struct prop *prop)
 {
 	s32 sound1 = 0;
 	s32 sound2 = 0;
@@ -71199,7 +71199,7 @@ void func0f08d784(s32 soundtype, struct prop *prop)
 /**
  * This is identical to the function above but with less cases.
  */
-void func0f08daa8(s32 soundtype, struct prop *prop)
+void doorPlayClosingSound(s32 soundtype, struct prop *prop)
 {
 	s32 sound1 = 0;
 	s32 sound2 = 0;
@@ -71260,7 +71260,7 @@ void func0f08daa8(s32 soundtype, struct prop *prop)
 	}
 }
 
-void func0f08dd44(s32 soundtype, struct prop *prop)
+void doorPlayOpenedSound(s32 soundtype, struct prop *prop)
 {
 	s32 sound = 0;
 
@@ -71313,7 +71313,7 @@ void func0f08dd44(s32 soundtype, struct prop *prop)
 	}
 }
 
-void func0f08df10(s32 soundtype, struct prop *prop)
+void doorPlayClosedSound(s32 soundtype, struct prop *prop)
 {
 	s32 sound = 0;
 
@@ -71367,12 +71367,12 @@ void func0f08df10(s32 soundtype, struct prop *prop)
  * Play the door open sound, activate the door's portal,
  * and configure the laser fade properties if it's a laser.
  */
-void doorPrepareForOpen(struct doorobj *door)
+void doorStartOpen(struct doorobj *door)
 {
 	door->base.flags &= ~OBJFLAG_DOOR_KEEPOPEN;
 	door->base.hidden |= OBJHFLAG_00000200;
 
-	func0f08d784(door->soundtype, door->base.prop);
+	doorPlayOpeningSound(door->soundtype, door->base.prop);
 	doorActivatePortal(door);
 
 	if (door->doortype == DOORTYPE_8) {
@@ -71397,11 +71397,11 @@ void doorPrepareForOpen(struct doorobj *door)
  * Play the door close sound and configure the
  * laser fade properties if it's a laser.
  */
-void doorPrepareForClose(struct doorobj *door)
+void doorStartClose(struct doorobj *door)
 {
 	door->base.flags &= ~OBJFLAG_DOOR_KEEPOPEN;
 
-	func0f08daa8(door->soundtype, door->base.prop);
+	doorPlayClosingSound(door->soundtype, door->base.prop);
 
 	door->fadetime60 = door->doortype == DOORTYPE_LASER ? PALDOWN(60) : 0;
 
@@ -71417,9 +71417,9 @@ u32 decodeXorAaaaaaaa(u32 value)
 }
 #endif
 
-void func0f08e224(struct doorobj *door)
+void doorFinishOpen(struct doorobj *door)
 {
-	func0f08dd44(door->soundtype, door->base.prop);
+	doorPlayOpenedSound(door->soundtype, door->base.prop);
 
 	if (door->doortype == DOORTYPE_8) {
 		func0f0685e4(door->base.prop);
@@ -71437,12 +71437,12 @@ void func0f08e224(struct doorobj *door)
 
 extern s32 osCicId;
 
-void func0f08e2ac(struct doorobj *door)
+void doorFinishClose(struct doorobj *door)
 {
 	bool pass = true;
 	struct doorobj *loopdoor;
 
-	func0f08df10(door->soundtype, door->base.prop);
+	doorPlayClosedSound(door->soundtype, door->base.prop);
 
 	loopdoor = door;
 
@@ -71491,13 +71491,13 @@ void doorSetMode(struct doorobj *door, s32 newmode)
 {
 	if (newmode == DOORMODE_OPENING) {
 		if (door->mode == DOORMODE_IDLE || door->mode == DOORMODE_WAITING) {
-			doorPrepareForOpen(door);
+			doorStartOpen(door);
 		}
 
 		door->mode = newmode;
 	} else if (newmode == DOORMODE_CLOSING) {
 		if (door->mode == DOORMODE_IDLE && door->frac > 0) {
-			doorPrepareForClose(door);
+			doorStartClose(door);
 		}
 
 		if ((door->mode != DOORMODE_IDLE && door->mode != DOORMODE_WAITING) || door->frac > 0) {
@@ -71977,7 +71977,7 @@ bool doorCalcIntendedFrac(struct doorobj *door)
 					}
 				}
 
-				func0f08df10(door->soundtype, door->base.prop);
+				doorPlayClosedSound(door->soundtype, door->base.prop);
 			}
 		}
 
@@ -72129,7 +72129,7 @@ void doorsCalcFrac(struct doorobj *door)
 						loopdoor->fracspeed = 0;
 						loopdoor->lastopen60 = g_Vars.lvframe60;
 
-						func0f08e224(loopdoor);
+						doorFinishOpen(loopdoor);
 					}
 				} else {
 					if (loopdoor->mode == DOORMODE_CLOSING && loopdoor->frac <= 0) {
@@ -72137,7 +72137,7 @@ void doorsCalcFrac(struct doorobj *door)
 						loopdoor->fracspeed = 0;
 						loopdoor->lastopen60 = 0;
 
-						func0f08e2ac(loopdoor);
+						doorFinishClose(loopdoor);
 					}
 				}
 
