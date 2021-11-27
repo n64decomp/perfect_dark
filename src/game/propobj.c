@@ -38002,178 +38002,80 @@ glabel var7f1aa580
 );
 #endif
 
-GLOBAL_ASM(
-glabel autogunInitMatrices
-.late_rodata
-glabel var7f1aa584
-.word 0x40c907a9
-glabel var7f1aa588
-.word 0x3fc907a9
-.text
-/*  f079ca4:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f079ca8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f079cac:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f079cb0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f079cb4:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f079cb8:	3c017f1b */ 	lui	$at,%hi(var7f1aa584)
-/*  f079cbc:	c420a584 */ 	lwc1	$f0,%lo(var7f1aa584)($at)
-/*  f079cc0:	8c510018 */ 	lw	$s1,0x18($v0)
-/*  f079cc4:	3c017f1b */ 	lui	$at,%hi(var7f1aa588)
-/*  f079cc8:	c426a588 */ 	lwc1	$f6,%lo(var7f1aa588)($at)
-/*  f079ccc:	8e2e000c */ 	lw	$t6,0xc($s1)
-/*  f079cd0:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f079cd4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f079cd8:	afae005c */ 	sw	$t6,0x5c($sp)
-/*  f079cdc:	c444006c */ 	lwc1	$f4,0x6c($v0)
-/*  f079ce0:	c4480078 */ 	lwc1	$f8,0x78($v0)
-/*  f079ce4:	46062300 */ 	add.s	$f12,$f4,$f6
-/*  f079ce8:	46004287 */ 	neg.s	$f10,$f8
-/*  f079cec:	460c003e */ 	c.le.s	$f0,$f12
-/*  f079cf0:	e7aa0044 */ 	swc1	$f10,0x44($sp)
-/*  f079cf4:	45020003 */ 	bc1fl	.L0f079d04
-/*  f079cf8:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f079cfc:	46006301 */ 	sub.s	$f12,$f12,$f0
-/*  f079d00:	8e240008 */ 	lw	$a0,0x8($s1)
-.L0f079d04:
-/*  f079d04:	e7ac0048 */ 	swc1	$f12,0x48($sp)
-/*  f079d08:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f079d0c:	afa20064 */ 	sw	$v0,0x64($sp)
-/*  f079d10:	c4500000 */ 	lwc1	$f16,0x0($v0)
-/*  f079d14:	02002025 */ 	or	$a0,$s0,$zero
-/*  f079d18:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f079d1c:	e7b0004c */ 	swc1	$f16,0x4c($sp)
-/*  f079d20:	c4520004 */ 	lwc1	$f18,0x4($v0)
-/*  f079d24:	e7b20050 */ 	swc1	$f18,0x50($sp)
-/*  f079d28:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f079d2c:	0c0056d9 */ 	jal	mtx4TransformVecInPlace
-/*  f079d30:	e7a40054 */ 	swc1	$f4,0x54($sp)
-/*  f079d34:	8fa5005c */ 	lw	$a1,0x5c($sp)
-/*  f079d38:	c7ac0048 */ 	lwc1	$f12,0x48($sp)
-/*  f079d3c:	24a50040 */ 	addiu	$a1,$a1,0x40
-/*  f079d40:	0c0058dd */ 	jal	mtx4LoadYRotation
-/*  f079d44:	afa50028 */ 	sw	$a1,0x28($sp)
-/*  f079d48:	27a4004c */ 	addiu	$a0,$sp,0x4c
-/*  f079d4c:	0c005775 */ 	jal	mtx4SetTranslation
-/*  f079d50:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f079d54:	8faf0064 */ 	lw	$t7,0x64($sp)
-/*  f079d58:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f079d5c:	8df80018 */ 	lw	$t8,0x18($t7)
-/*  f079d60:	0c0057c1 */ 	jal	mtx00015f04
-/*  f079d64:	c70c0014 */ 	lwc1	$f12,0x14($t8)
-/*  f079d68:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
-/*  f079d6c:	00000000 */ 	nop
-/*  f079d70:	00402025 */ 	or	$a0,$v0,$zero
-/*  f079d74:	0c0056f8 */ 	jal	mtx00015be0
-/*  f079d78:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f079d7c:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f079d80:	0c006a47 */ 	jal	modelGetPart
-/*  f079d84:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f079d88:	8fa5005c */ 	lw	$a1,0x5c($sp)
-/*  f079d8c:	8c590004 */ 	lw	$t9,0x4($v0)
-/*  f079d90:	00408025 */ 	or	$s0,$v0,$zero
-/*  f079d94:	24a50080 */ 	addiu	$a1,$a1,0x80
-/*  f079d98:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f079d9c:	c7ac0044 */ 	lwc1	$f12,0x44($sp)
-/*  f079da0:	0c005900 */ 	jal	mtx4LoadZRotation
-/*  f079da4:	afb90058 */ 	sw	$t9,0x58($sp)
-/*  f079da8:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f079dac:	0c005775 */ 	jal	mtx4SetTranslation
-/*  f079db0:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f079db4:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f079db8:	0c0056f8 */ 	jal	mtx00015be0
-/*  f079dbc:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f079dc0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f079dc4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f079dc8:	0c006973 */ 	jal	model0001a5cc
-/*  f079dcc:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f079dd0:	1040000e */ 	beqz	$v0,.L0f079e0c
-/*  f079dd4:	00408025 */ 	or	$s0,$v0,$zero
-/*  f079dd8:	3c013f00 */ 	lui	$at,0x3f00
-/*  f079ddc:	44814000 */ 	mtc1	$at,$f8
-/*  f079de0:	c7a60044 */ 	lwc1	$f6,0x44($sp)
-/*  f079de4:	00402825 */ 	or	$a1,$v0,$zero
-/*  f079de8:	46083302 */ 	mul.s	$f12,$f6,$f8
-/*  f079dec:	0c005900 */ 	jal	mtx4LoadZRotation
-/*  f079df0:	00000000 */ 	nop
-/*  f079df4:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f079df8:	0c005775 */ 	jal	mtx4SetTranslation
-/*  f079dfc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f079e00:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f079e04:	0c0056f8 */ 	jal	mtx00015be0
-/*  f079e08:	02002825 */ 	or	$a1,$s0,$zero
-.L0f079e0c:
-/*  f079e0c:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f079e10:	0c006a47 */ 	jal	modelGetPart
-/*  f079e14:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f079e18:	10400013 */ 	beqz	$v0,.L0f079e68
-/*  f079e1c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f079e20:	00402825 */ 	or	$a1,$v0,$zero
-/*  f079e24:	00003025 */ 	or	$a2,$zero,$zero
-/*  f079e28:	0c006973 */ 	jal	model0001a5cc
-/*  f079e2c:	afa20038 */ 	sw	$v0,0x38($sp)
-/*  f079e30:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f079e34:	8fa90064 */ 	lw	$t1,0x64($sp)
-/*  f079e38:	00408025 */ 	or	$s0,$v0,$zero
-/*  f079e3c:	8ce80004 */ 	lw	$t0,0x4($a3)
-/*  f079e40:	00402825 */ 	or	$a1,$v0,$zero
-/*  f079e44:	afa80058 */ 	sw	$t0,0x58($sp)
-/*  f079e48:	0c0058ba */ 	jal	mtx4LoadXRotation
-/*  f079e4c:	c52c008c */ 	lwc1	$f12,0x8c($t1)
-/*  f079e50:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f079e54:	0c005775 */ 	jal	mtx4SetTranslation
-/*  f079e58:	02002825 */ 	or	$a1,$s0,$zero
-/*  f079e5c:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f079e60:	0c0056f8 */ 	jal	mtx00015be0
-/*  f079e64:	02002825 */ 	or	$a1,$s0,$zero
-.L0f079e68:
-/*  f079e68:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f079e6c:	0c006a47 */ 	jal	modelGetPart
-/*  f079e70:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f079e74:	1040000d */ 	beqz	$v0,.L0f079eac
-/*  f079e78:	02202025 */ 	or	$a0,$s1,$zero
-/*  f079e7c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f079e80:	00003025 */ 	or	$a2,$zero,$zero
-/*  f079e84:	0c006973 */ 	jal	model0001a5cc
-/*  f079e88:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f079e8c:	8fa70034 */ 	lw	$a3,0x34($sp)
-/*  f079e90:	00408025 */ 	or	$s0,$v0,$zero
-/*  f079e94:	00402825 */ 	or	$a1,$v0,$zero
-/*  f079e98:	0c0059b7 */ 	jal	mtx4LoadTranslation
-/*  f079e9c:	8ce40004 */ 	lw	$a0,0x4($a3)
-/*  f079ea0:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f079ea4:	0c0056f8 */ 	jal	mtx00015be0
-/*  f079ea8:	02002825 */ 	or	$a1,$s0,$zero
-.L0f079eac:
-/*  f079eac:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f079eb0:	0c006a47 */ 	jal	modelGetPart
-/*  f079eb4:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f079eb8:	10400013 */ 	beqz	$v0,.L0f079f08
-/*  f079ebc:	02202025 */ 	or	$a0,$s1,$zero
-/*  f079ec0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f079ec4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f079ec8:	0c006973 */ 	jal	model0001a5cc
-/*  f079ecc:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f079ed0:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*  f079ed4:	8fab0064 */ 	lw	$t3,0x64($sp)
-/*  f079ed8:	00408025 */ 	or	$s0,$v0,$zero
-/*  f079edc:	8cea0004 */ 	lw	$t2,0x4($a3)
-/*  f079ee0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f079ee4:	afaa0058 */ 	sw	$t2,0x58($sp)
-/*  f079ee8:	0c0058ba */ 	jal	mtx4LoadXRotation
-/*  f079eec:	c56c008c */ 	lwc1	$f12,0x8c($t3)
-/*  f079ef0:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f079ef4:	0c005775 */ 	jal	mtx4SetTranslation
-/*  f079ef8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f079efc:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f079f00:	0c0056f8 */ 	jal	mtx00015be0
-/*  f079f04:	02002825 */ 	or	$a1,$s0,$zero
-.L0f079f08:
-/*  f079f08:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f079f0c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f079f10:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f079f14:	03e00008 */ 	jr	$ra
-/*  f079f18:	27bd0068 */ 	addiu	$sp,$sp,0x68
-);
+void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
+{
+	struct autogunobj *autogun = (struct autogunobj *)prop->obj;
+	struct model *model = autogun->base.model;
+	Mtxf *matrices = model->matrices;
+	union modelrodata *rodata;
+	struct coord sp4c;
+	f32 yrot = autogun->yrot + 1.5705462694168f;
+	f32 xrot = -autogun->xrot;
+	Mtxf *tmp;
+	struct modelnode *node2;
+	struct modelnode *node3;
+	struct modelnode *node4;
+	struct modelnode *node6;
+
+	if (yrot >= M_BADTAU) {
+		yrot -= M_BADTAU;
+	}
+
+	rodata = modelGetPartRodata(model->filedata, MODELPART_AUTOGUN_0001);
+
+	sp4c.x = rodata->position.pos.x;
+	sp4c.y = rodata->position.pos.y;
+	sp4c.z = rodata->position.pos.z;
+
+	mtx4TransformVecInPlace(mtx, &sp4c);
+	mtx4LoadYRotation(yrot, &matrices[1]);
+	mtx4SetTranslation(&sp4c, &matrices[1]);
+	mtx00015f04(autogun->base.model->scale, &matrices[1]);
+	mtx00015be0(currentPlayerGetMatrix1740(), &matrices[1]);
+
+	node2 = modelGetPart(model->filedata, MODELPART_AUTOGUN_0002);
+	rodata = node2->rodata;
+	mtx4LoadZRotation(xrot, &matrices[2]);
+	mtx4SetTranslation(&rodata->position.pos, &matrices[2]);
+	mtx00015be0(&matrices[1], &matrices[2]);
+
+	tmp = model0001a5cc(model, node2, 0x100);
+
+	if (tmp != NULL) {
+		mtx4LoadZRotation(xrot * 0.5f, tmp);
+		mtx4SetTranslation(&rodata->position.pos, tmp);
+		mtx00015be0(&matrices[1], tmp);
+	}
+
+	node3 = modelGetPart(model->filedata, MODELPART_AUTOGUN_0003);
+
+	if (node3 != NULL) {
+		tmp = model0001a5cc(model, node3, 0);
+		rodata = node3->rodata;
+		mtx4LoadXRotation(autogun->barrelrot, tmp);
+		mtx4SetTranslation(&rodata->position.pos, tmp);
+		mtx00015be0(&matrices[2], tmp);
+	}
+
+	node4 = modelGetPart(model->filedata, MODELPART_AUTOGUN_0004);
+
+	if (node4 != NULL) {
+		tmp = model0001a5cc(model, node4, 0);
+		rodata = node4->rodata;
+		mtx4LoadTranslation(&rodata->position.pos, tmp);
+		mtx00015be0(&matrices[2], tmp);
+	}
+
+	node6 = modelGetPart(model->filedata, MODELPART_AUTOGUN_0006);
+
+	if (node6 != NULL) {
+		tmp = model0001a5cc(model, node6, 0);
+		rodata = node6->rodata;
+		mtx4LoadXRotation(autogun->barrelrot, tmp);
+		mtx4SetTranslation(&rodata->position.pos, tmp);
+		mtx00015be0(&matrices[2], tmp);
+	}
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
