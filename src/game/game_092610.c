@@ -83,11 +83,6 @@ u32 var8006ae4c = 0x00000000;
 u32 var8006ae50 = 0xffff0000;
 u32 var8006ae54 = 0x000003e7;
 s32 g_PropsndMaxActiveChannels = 0;
-u32 var8006ae5c = 0x80b080b1;
-u32 var8006ae60 = 0x80b280b3;
-u32 var8006ae64 = 0x80b480b5;
-u32 var8006ae68 = 0x00000000;
-u32 var8006ae6c = 0x00000000;
 
 bool func0f092610(struct prop *prop, s32 arg1)
 {
@@ -5081,36 +5076,38 @@ glabel var7f1ab788
 /*  f0951fc:	00000000 */ 	nop
 );
 
+s32 propsndGetRandomSparkSound(void)
+{
+	s32 index = random() % 6;
+
+	s16 sounds[] = {
+		SFX_80B0,
+		SFX_80B1,
+		SFX_80B2,
+		SFX_80B3,
+		SFX_80B4,
+		SFX_80B5,
+	};
+
+	return sounds[index];
+}
+
 GLOBAL_ASM(
-glabel func0f095200
-/*  f095200:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f095204:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f095208:	0c004b70 */ 	jal	random
-/*  f09520c:	00000000 */ 	nop
-/*  f095210:	3c0e8007 */ 	lui	$t6,%hi(var8006ae5c)
-/*  f095214:	25ceae5c */ 	addiu	$t6,$t6,%lo(var8006ae5c)
-/*  f095218:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f09521c:	27a30018 */ 	addiu	$v1,$sp,0x18
-/*  f095220:	ac610000 */ 	sw	$at,0x0($v1)
-/*  f095224:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f095228:	ac790004 */ 	sw	$t9,0x4($v1)
-/*  f09522c:	8dc10008 */ 	lw	$at,0x8($t6)
-/*  f095230:	ac610008 */ 	sw	$at,0x8($v1)
-/*  f095234:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f095238:	0041001b */ 	divu	$zero,$v0,$at
-/*  f09523c:	00004010 */ 	mfhi	$t0
-/*  f095240:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f095244:	00084840 */ 	sll	$t1,$t0,0x1
-/*  f095248:	00695021 */ 	addu	$t2,$v1,$t1
-/*  f09524c:	85420000 */ 	lh	$v0,0x0($t2)
-/*  f095250:	03e00008 */ 	jr	$ra
-/*  f095254:	27bd0028 */ 	addiu	$sp,$sp,0x28
+glabel func0f095258
 /*  f095258:	afa50004 */ 	sw	$a1,0x4($sp)
 /*  f09525c:	03e00008 */ 	jr	$ra
 /*  f095260:	00801025 */ 	or	$v0,$a0,$zero
+);
+
+GLOBAL_ASM(
+glabel func0f095264
 /*  f095264:	afa50004 */ 	sw	$a1,0x4($sp)
 /*  f095268:	03e00008 */ 	jr	$ra
 /*  f09526c:	00801025 */ 	or	$v0,$a0,$zero
+);
+
+GLOBAL_ASM(
+glabel func0f095270
 /*  f095270:	03e00008 */ 	jr	$ra
 /*  f095274:	00000000 */ 	nop
 );

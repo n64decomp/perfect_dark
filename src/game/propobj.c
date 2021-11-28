@@ -71407,7 +71407,7 @@ glabel doorCreateSparks
 /*  f08ec40:	0fc4be7c */ 	jal	sparksCreate
 /*  f08ec44:	afb10010 */ 	sw	$s1,0x10($sp)
 .L0f08ec48:
-/*  f08ec48:	0fc25480 */ 	jal	func0f095200
+/*  f08ec48:	0fc25480 */ 	jal	propsndGetRandomSparkSound
 /*  f08ec4c:	00000000 */ 	nop
 /*  f08ec50:	8e650014 */ 	lw	$a1,0x14($s3)
 /*  f08ec54:	3c01bf80 */ 	lui	$at,0xbf80
@@ -71432,7 +71432,7 @@ glabel doorCreateSparks
 /*  f08eca0:	e7a00034 */ 	swc1	$f0,0x34($sp)
 /*  f08eca4:	0fc24e7e */ 	jal	func0f0939f8
 /*  f08eca8:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f08ecac:	0fc25480 */ 	jal	func0f095200
+/*  f08ecac:	0fc25480 */ 	jal	propsndGetRandomSparkSound
 /*  f08ecb0:	00000000 */ 	nop
 /*  f08ecb4:	8e650014 */ 	lw	$a1,0x14($s3)
 /*  f08ecb8:	3c01bf80 */ 	lui	$at,0xbf80
@@ -71525,10 +71525,10 @@ glabel doorCreateSparks
 //		sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_0D);
 //	}
 //
-//	func0f0939f8(NULL, door->base.prop, func0f095200(), -1,
+//	func0f0939f8(NULL, door->base.prop, propsndGetRandomSparkSound(), -1,
 //			-1, 0, 0, 0, &sp88, -1, door->base.prop->rooms, -1, -1, -1, -1);
 //
-//	func0f0939f8(NULL, door->base.prop, func0f095200(), -1,
+//	func0f0939f8(NULL, door->base.prop, propsndGetRandomSparkSound(), -1,
 //			-1, 0, 0, 0, &sp7c, -1, door->base.prop->rooms, -1, -1, -1, -1);
 //
 //	for (i = 0; door->base.prop->rooms[i] != -1; i++) {

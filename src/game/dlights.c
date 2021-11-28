@@ -2515,7 +2515,7 @@ glabel func0f002ef8
 /*  f0032f0:	24050040 */ 	addiu	$a1,$zero,0x40
 /*  f0032f4:	0fc010e3 */ 	jal	roomAdjustLighting
 /*  f0032f8:	24060050 */ 	addiu	$a2,$zero,0x50
-/*  f0032fc:	0fc25480 */ 	jal	func0f095200
+/*  f0032fc:	0fc25480 */ 	jal	propsndGetRandomSparkSound
 /*  f003300:	00000000 */ 	nop
 /*  f003304:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f003308:	44810000 */ 	mtc1	$at,$f0
@@ -2834,7 +2834,7 @@ glabel func0f002ef8
 /*  f0032f0:	24050040 */ 	addiu	$a1,$zero,0x40
 /*  f0032f4:	0fc010e3 */ 	jal	roomAdjustLighting
 /*  f0032f8:	24060050 */ 	addiu	$a2,$zero,0x50
-/*  f0032fc:	0fc25480 */ 	jal	func0f095200
+/*  f0032fc:	0fc25480 */ 	jal	propsndGetRandomSparkSound
 /*  f003300:	00000000 */ 	nop
 /*  f003304:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f003308:	44810000 */ 	mtc1	$at,$f0

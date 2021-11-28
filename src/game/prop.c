@@ -5147,19 +5147,19 @@ void propsTickPadEffects(void)
 
 					if ((random() % 2048) <= 50) {
 						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_09);
-						func0f0939f8(NULL, NULL, func0f095200(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
+						func0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
 					}
 
 					if ((random() % 2048) <= 15) {
 						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_09);
 						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_0A);
-						func0f0939f8(NULL, NULL, func0f095200(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
+						func0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
 					}
 
 					if ((random() % 2048) <= 5) {
 						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_09);
 						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, SPARKTYPE_0B);
-						func0f0939f8(NULL, NULL, func0f095200(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
+						func0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
 					}
 					break;
 				case PADEFFECT_OUTROSMOKE:
