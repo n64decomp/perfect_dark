@@ -71278,7 +71278,7 @@ bool posIsInDrawDistance(struct coord *pos)
 }
 
 GLOBAL_ASM(
-glabel func0f08ea50
+glabel doorCreateSparks
 /*  f08ea50:	27bdff18 */ 	addiu	$sp,$sp,-232
 /*  f08ea54:	afb30050 */ 	sw	$s3,0x50($sp)
 /*  f08ea58:	00809825 */ 	or	$s3,$a0,$zero
@@ -71486,6 +71486,56 @@ glabel func0f08ea50
 /*  f08ed70:	27bd00e8 */ 	addiu	$sp,$sp,0xe8
 );
 
+// Mismatch: float instructions are ordered differently
+//void doorCreateSparks(struct doorobj *door)
+//{
+//	struct pad pad;
+//	struct coord sp88;
+//	struct coord sp7c;
+//	struct coord sp70;
+//	f32 height;
+//	s32 i;
+//
+//	padUnpack(door->base.pad, PADFIELD_POS | PADFIELD_UP | PADFIELD_NORMAL | PADFIELD_BBOX, &pad);
+//	height = pad.bbox.ymax - pad.bbox.ymin;
+//
+//	sp88.x = sp7c.x = pad.pos.x + pad.up.x * (pad.bbox.ymin + height * (1 - door->frac));
+//	sp88.y = sp7c.y = pad.pos.y + pad.up.y * (pad.bbox.ymin + height * (1 - door->frac));
+//	sp88.z = sp7c.z = pad.pos.z + pad.up.z * (pad.bbox.ymin + height * (1 - door->frac));
+//
+//	sp88.x += pad.look.x * pad.bbox.zmax;
+//	sp88.y += pad.look.y * pad.bbox.zmax;
+//	sp88.z += pad.look.z * pad.bbox.zmax;
+//
+//	sp7c.x += pad.look.x * pad.bbox.zmin;
+//	sp7c.y += pad.look.y * pad.bbox.zmin;
+//	sp7c.z += pad.look.z * pad.bbox.zmin;
+//
+//	sp70.x = -pad.up.x;
+//	sp70.y = -pad.up.y;
+//	sp70.z = -pad.up.z;
+//
+//	sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_09);
+//
+//	sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp7c, &sp70, &pad.up, SPARKTYPE_09);
+//
+//	if (random() % 2) {
+//		sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_0C);
+//	} else {
+//		sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_0D);
+//	}
+//
+//	func0f0939f8(NULL, door->base.prop, func0f095200(), -1,
+//			-1, 0, 0, 0, &sp88, -1, door->base.prop->rooms, -1, -1, -1, -1);
+//
+//	func0f0939f8(NULL, door->base.prop, func0f095200(), -1,
+//			-1, 0, 0, 0, &sp7c, -1, door->base.prop->rooms, -1, -1, -1, -1);
+//
+//	for (i = 0; door->base.prop->rooms[i] != -1; i++) {
+//		roomAdjustLighting(door->base.prop->rooms[i], 128, 200);
+//	}
+//}
+
 /**
  * Calculate/tick a door's frac (the amount it's open) without any consideration
  * for props which might be blocking the door. The new frac is written to the
@@ -71526,7 +71576,7 @@ bool doorCalcIntendedFrac(struct doorobj *door)
 				struct doorobj *loopdoor;
 
 				door->fracspeed = 0.0f;
-				func0f08ea50(door);
+				doorCreateSparks(door);
 
 				if (random() % 2) {
 					dothething = true;
@@ -71540,7 +71590,7 @@ bool doorCalcIntendedFrac(struct doorobj *door)
 				while (loopdoor) {
 					if (random() % 2 && loopdoor->mode != DOORMODE_IDLE) {
 						loopdoor->fracspeed = 0.0f;
-						func0f08ea50(loopdoor);
+						doorCreateSparks(loopdoor);
 
 						if (dothething) {
 							func0f0926bc(loopdoor->base.prop, 12, 0xffff);

@@ -3465,7 +3465,9 @@
 #define SPARKTYPE_04 0x04
 #define SPARKTYPE_09 0x09
 #define SPARKTYPE_0A 0x0a
+#define SPARKTYPE_0C 0x0c
 #define SPARKTYPE_0B 0x0b
+#define SPARKTYPE_0D 0x0d
 #define SPARKTYPE_0F 0x0f
 #define SPARKTYPE_16 0x16
 #define SPARKTYPE_17 0x17
