@@ -1656,15 +1656,13 @@ struct doorobj { // objtype 0x01
 	/*0x88*/ s16 xludist;
 	/*0x8a*/ s16 opadist;
 	/*0x8c*/ struct coord startpos;
-	/*0x98*/ u32 unk98;
-	/*0x9c*/ u32 unk9c;
-	/*0xa0*/ u32 unka0;
-	/*0xa4*/ struct gfxvtx *unka4;
-	/*0xa8*/ u32 unka8;
-	/*0xac*/ u32 unkac;
-	/*0xb0*/ u32 unkb0;
-	/*0xb4*/ u32 unkb4;
-	/*0xb8*/ u32 unkb8;
+	union {
+		struct {
+			/*0x98*/ struct coord unk98;
+			/*0xa4*/ struct gfxvtx *unka4;
+		};
+		f32 mtx98[3][3];
+	};
 	/*0xbc*/ struct doorobj *sibling;
 	/*0xc0*/ s32 lastopen60;
 	/*0xc4*/ s16 portalnum;

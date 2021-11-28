@@ -696,6 +696,9 @@
 #define DOORSTATE_OPENING 8
 
 #define DOORTYPE_SLIDING  0
+#define DOORTYPE_1        1
+#define DOORTYPE_2        2
+#define DOORTYPE_3        3
 #define DOORTYPE_VERTICAL 4
 #define DOORTYPE_SWINGING 5
 #define DOORTYPE_8        8

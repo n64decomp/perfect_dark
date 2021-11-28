@@ -70623,188 +70623,83 @@ void doorDeactivatePortal(struct doorobj *door)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f08d540
-.late_rodata
-glabel var7f1aaf4c
-.word func0f08d540+0x58 # f08d598
-glabel var7f1aaf50
-.word func0f08d540+0x58 # f08d598
-glabel var7f1aaf54
-.word func0f08d540+0x58 # f08d598
-glabel var7f1aaf58
-.word func0f08d540+0x58 # f08d598
-glabel var7f1aaf5c
-.word func0f08d540+0x58 # f08d598
-glabel var7f1aaf60
-.word func0f08d540+0x64 # f08d5a4
-glabel var7f1aaf64
-.word func0f08d540+0x64 # f08d5a4
-glabel var7f1aaf68
-.word func0f08d540+0x64 # f08d5a4
-glabel var7f1aaf6c
-.word func0f08d540+0x58 # f08d598
-glabel var7f1aaf70
-.word func0f08d540+0x64 # f08d5a4
-glabel var7f1aaf74
-.word func0f08d540+0x64 # f08d5a4
-glabel var7f1aaf78
-.word func0f08d540+0x58 # f08d598
-.text
-/*  f08d540:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f08d544:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f08d548:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f08d54c:	afa50084 */ 	sw	$a1,0x84($sp)
-/*  f08d550:	afa60088 */ 	sw	$a2,0x88($sp)
-/*  f08d554:	afa7008c */ 	sw	$a3,0x8c($sp)
-/*  f08d558:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*  f08d55c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f08d560:	35cf0100 */ 	ori	$t7,$t6,0x100
-/*  f08d564:	0fc1a954 */ 	jal	objInitWithAutoModel
-/*  f08d568:	ac8f0008 */ 	sw	$t7,0x8($a0)
-/*  f08d56c:	10400080 */ 	beqz	$v0,.L0f08d770
-/*  f08d570:	afa2007c */ 	sw	$v0,0x7c($sp)
-/*  f08d574:	96180072 */ 	lhu	$t8,0x72($s0)
-/*  f08d578:	2f01000c */ 	sltiu	$at,$t8,0xc
-/*  f08d57c:	10200009 */ 	beqz	$at,.L0f08d5a4
-/*  f08d580:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f08d584:	3c017f1b */ 	lui	$at,%hi(var7f1aaf4c)
-/*  f08d588:	00380821 */ 	addu	$at,$at,$t8
-/*  f08d58c:	8c38af4c */ 	lw	$t8,%lo(var7f1aaf4c)($at)
-/*  f08d590:	03000008 */ 	jr	$t8
-/*  f08d594:	00000000 */ 	nop
-/*  f08d598:	96190070 */ 	lhu	$t9,0x70($s0)
-/*  f08d59c:	37280080 */ 	ori	$t0,$t9,0x80
-/*  f08d5a0:	a6080070 */ 	sh	$t0,0x70($s0)
-.L0f08d5a4:
-/*  f08d5a4:	8fa40088 */ 	lw	$a0,0x88($sp)
-/*  f08d5a8:	0c005746 */ 	jal	mtx4Copy
-/*  f08d5ac:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f08d5b0:	86090004 */ 	lh	$t1,0x4($s0)
-/*  f08d5b4:	3c0b8008 */ 	lui	$t3,%hi(g_ModelStates+0x6)
-/*  f08d5b8:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f08d5bc:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f08d5c0:	956bb072 */ 	lhu	$t3,%lo(g_ModelStates+0x6)($t3)
-/*  f08d5c4:	448b2000 */ 	mtc1	$t3,$f4
-/*  f08d5c8:	05610005 */ 	bgez	$t3,.L0f08d5e0
-/*  f08d5cc:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f08d5d0:	3c014f80 */ 	lui	$at,0x4f80
-/*  f08d5d4:	44814000 */ 	mtc1	$at,$f8
-/*  f08d5d8:	00000000 */ 	nop
-/*  f08d5dc:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f08d5e0:
-/*  f08d5e0:	3c013980 */ 	lui	$at,0x3980
-/*  f08d5e4:	44815000 */ 	mtc1	$at,$f10
-/*  f08d5e8:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f08d5ec:	460a3302 */ 	mul.s	$f12,$f6,$f10
-/*  f08d5f0:	0c0057c1 */ 	jal	mtx00015f04
-/*  f08d5f4:	00000000 */ 	nop
-/*  f08d5f8:	27a40038 */ 	addiu	$a0,$sp,0x38
-/*  f08d5fc:	0c005768 */ 	jal	mtx4ToMtx3
-/*  f08d600:	2605001c */ 	addiu	$a1,$s0,0x1c
-/*  f08d604:	8e0c0008 */ 	lw	$t4,0x8($s0)
-/*  f08d608:	44802000 */ 	mtc1	$zero,$f4
-/*  f08d60c:	240effff */ 	addiu	$t6,$zero,-1
-/*  f08d610:	000c6840 */ 	sll	$t5,$t4,0x1
-/*  f08d614:	05a10004 */ 	bgez	$t5,.L0f08d628
-/*  f08d618:	27a40038 */ 	addiu	$a0,$sp,0x38
-/*  f08d61c:	c610005c */ 	lwc1	$f16,0x5c($s0)
-/*  f08d620:	10000004 */ 	b	.L0f08d634
-/*  f08d624:	e610007c */ 	swc1	$f16,0x7c($s0)
-.L0f08d628:
-/*  f08d628:	44809000 */ 	mtc1	$zero,$f18
-/*  f08d62c:	00000000 */ 	nop
-/*  f08d630:	e612007c */ 	swc1	$f18,0x7c($s0)
-.L0f08d634:
-/*  f08d634:	8fa60094 */ 	lw	$a2,0x94($sp)
-/*  f08d638:	e6040080 */ 	swc1	$f4,0x80($s0)
-/*  f08d63c:	a2000084 */ 	sb	$zero,0x84($s0)
-/*  f08d640:	a2000085 */ 	sb	$zero,0x85($s0)
-/*  f08d644:	a60e00c4 */ 	sh	$t6,0xc4($s0)
-/*  f08d648:	c4c80000 */ 	lwc1	$f8,0x0($a2)
-/*  f08d64c:	96030070 */ 	lhu	$v1,0x70($s0)
-/*  f08d650:	e608008c */ 	swc1	$f8,0x8c($s0)
-/*  f08d654:	c4c60004 */ 	lwc1	$f6,0x4($a2)
-/*  f08d658:	306f0080 */ 	andi	$t7,$v1,0x80
-/*  f08d65c:	e6060090 */ 	swc1	$f6,0x90($s0)
-/*  f08d660:	c4ca0008 */ 	lwc1	$f10,0x8($a2)
-/*  f08d664:	11e0001b */ 	beqz	$t7,.L0f08d6d4
-/*  f08d668:	e60a0094 */ 	swc1	$f10,0x94($s0)
-/*  f08d66c:	8fa20090 */ 	lw	$v0,0x90($sp)
-/*  f08d670:	30780004 */ 	andi	$t8,$v1,0x4
-/*  f08d674:	c4500000 */ 	lwc1	$f16,0x0($v0)
-/*  f08d678:	e6100098 */ 	swc1	$f16,0x98($s0)
-/*  f08d67c:	c4520004 */ 	lwc1	$f18,0x4($v0)
-/*  f08d680:	e612009c */ 	swc1	$f18,0x9c($s0)
-/*  f08d684:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f08d688:	13000010 */ 	beqz	$t8,.L0f08d6cc
-/*  f08d68c:	e60400a0 */ 	swc1	$f4,0xa0($s0)
-/*  f08d690:	0fc1a1f9 */ 	jal	func0f0687e4
-/*  f08d694:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f08d698:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f08d69c:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f08d6a0:	84640010 */ 	lh	$a0,0x10($v1)
-/*  f08d6a4:	0004c880 */ 	sll	$t9,$a0,0x2
-/*  f08d6a8:	0324c823 */ 	subu	$t9,$t9,$a0
-/*  f08d6ac:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f08d6b0:	2724000f */ 	addiu	$a0,$t9,0xf
-/*  f08d6b4:	3488000f */ 	ori	$t0,$a0,0xf
-/*  f08d6b8:	0c0048f2 */ 	jal	mempAlloc
-/*  f08d6bc:	3904000f */ 	xori	$a0,$t0,0xf
-/*  f08d6c0:	8fa60094 */ 	lw	$a2,0x94($sp)
-/*  f08d6c4:	10000006 */ 	b	.L0f08d6e0
-/*  f08d6c8:	ae0200a4 */ 	sw	$v0,0xa4($s0)
-.L0f08d6cc:
-/*  f08d6cc:	10000004 */ 	b	.L0f08d6e0
-/*  f08d6d0:	ae0000a4 */ 	sw	$zero,0xa4($s0)
-.L0f08d6d4:
-/*  f08d6d4:	0c005768 */ 	jal	mtx4ToMtx3
-/*  f08d6d8:	26050098 */ 	addiu	$a1,$s0,0x98
-/*  f08d6dc:	8fa60094 */ 	lw	$a2,0x94($sp)
-.L0f08d6e0:
-/*  f08d6e0:	8fa40084 */ 	lw	$a0,0x84($sp)
-/*  f08d6e4:	8fa5008c */ 	lw	$a1,0x8c($sp)
-/*  f08d6e8:	0fc1979d */ 	jal	func0f065e74
-/*  f08d6ec:	27a70028 */ 	addiu	$a3,$sp,0x28
-/*  f08d6f0:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f08d6f4:	8fa60094 */ 	lw	$a2,0x94($sp)
-/*  f08d6f8:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*  f08d6fc:	a08a0000 */ 	sb	$t2,0x0($a0)
-/*  f08d700:	ac900004 */ 	sw	$s0,0x4($a0)
-/*  f08d704:	c4c80000 */ 	lwc1	$f8,0x0($a2)
-/*  f08d708:	e4880008 */ 	swc1	$f8,0x8($a0)
-/*  f08d70c:	c4c60004 */ 	lwc1	$f6,0x4($a2)
-/*  f08d710:	e486000c */ 	swc1	$f6,0xc($a0)
-/*  f08d714:	c4ca0008 */ 	lwc1	$f10,0x8($a2)
-/*  f08d718:	0fc19711 */ 	jal	propDeregisterRooms
-/*  f08d71c:	e48a0010 */ 	swc1	$f10,0x10($a0)
-/*  f08d720:	8fa5007c */ 	lw	$a1,0x7c($sp)
-/*  f08d724:	27a40028 */ 	addiu	$a0,$sp,0x28
-/*  f08d728:	0fc195e9 */ 	jal	roomsCopy
-/*  f08d72c:	24a50028 */ 	addiu	$a1,$a1,0x28
-/*  f08d730:	0fc23153 */ 	jal	func0f08c54c
-/*  f08d734:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08d738:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08d73c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f08d740:	0fc1a71c */ 	jal	func0f069c70
-/*  f08d744:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f08d748:	0fc234f7 */ 	jal	func0f08d3dc
-/*  f08d74c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08d750:	920b0054 */ 	lbu	$t3,0x54($s0)
-/*  f08d754:	920c0055 */ 	lbu	$t4,0x55($s0)
-/*  f08d758:	920d0056 */ 	lbu	$t5,0x56($s0)
-/*  f08d75c:	920e0057 */ 	lbu	$t6,0x57($s0)
-/*  f08d760:	a20b0050 */ 	sb	$t3,0x50($s0)
-/*  f08d764:	a20c0051 */ 	sb	$t4,0x51($s0)
-/*  f08d768:	a20d0052 */ 	sb	$t5,0x52($s0)
-/*  f08d76c:	a20e0053 */ 	sb	$t6,0x53($s0)
-.L0f08d770:
-/*  f08d770:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08d774:	8fa2007c */ 	lw	$v0,0x7c($sp)
-/*  f08d778:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f08d77c:	03e00008 */ 	jr	$ra
-/*  f08d780:	27bd0080 */ 	addiu	$sp,$sp,0x80
-);
+struct prop *doorInit(struct doorobj *door, struct coord *pos, Mtxf *mtx, s16 *rooms, struct coord *coord, struct coord *centre)
+{
+	struct prop *prop;
+	union modelrodata *rodata;
+	Mtxf sp38;
+	s16 sp28[8];
+
+	door->base.flags |= OBJFLAG_00000100;
+	prop = objInitWithAutoModel(&door->base);
+
+	if (prop != NULL) {
+		switch (door->doortype) {
+		case DOORTYPE_SLIDING:
+		case DOORTYPE_1:
+		case DOORTYPE_2:
+		case DOORTYPE_3:
+		case DOORTYPE_VERTICAL:
+		case DOORTYPE_8:
+		case DOORTYPE_LASER:
+			door->doorflags |= DOORFLAG_0080;
+			break;
+		}
+
+		mtx4Copy(mtx, &sp38);
+		mtx00015f04(g_ModelStates[door->base.modelnum].scale * (1.0f / 4096.0f), &sp38);
+		mtx4ToMtx3(&sp38, door->base.realrot);
+
+		door->frac = (door->base.flags & OBJFLAG_DOOR_KEEPOPEN) ? door->maxfrac : 0;
+		door->fracspeed = 0;
+		door->mode = DOORMODE_IDLE;
+		door->glasshits = 0;
+		door->portalnum = -1;
+		door->startpos.x = centre->x;
+		door->startpos.y = centre->y;
+		door->startpos.z = centre->z;
+
+		if (door->doorflags & DOORFLAG_0080) {
+			door->unk98.x = coord->x;
+			door->unk98.y = coord->y;
+			door->unk98.z = coord->z;
+
+			if (door->doorflags & DOORFLAG_0004) {
+				struct modelnode *node = func0f0687e4(door->base.model);
+				rodata = node->rodata;
+				door->unka4 = mempAlloc(ALIGN16(rodata->dl.numvertices * sizeof(struct gfxvtx)), MEMPOOL_STAGE);
+			} else {
+				door->unka4 = NULL;
+			}
+		} else {
+			mtx4ToMtx3(&sp38, door->mtx98);
+		}
+
+		func0f065e74(pos, rooms, centre, sp28);
+
+		prop->type = PROPTYPE_DOOR;
+		prop->door = door;
+		prop->pos.x = centre->x;
+		prop->pos.y = centre->y;
+		prop->pos.z = centre->z;
+
+		propDeregisterRooms(prop);
+		roomsCopy(sp28, prop->rooms);
+		func0f08c54c(door);
+		func0f069c70(&door->base, false, true);
+		func0f08d3dc(door);
+
+		door->base.shadecol[0] = door->base.nextcol[0];
+		door->base.shadecol[1] = door->base.nextcol[1];
+		door->base.shadecol[2] = door->base.nextcol[2];
+		door->base.shadecol[3] = door->base.nextcol[3];
+	}
+
+	if (door);
+	if (door);
+
+	return prop;
+}
 
 void doorPlayOpeningSound(s32 soundtype, struct prop *prop)
 {

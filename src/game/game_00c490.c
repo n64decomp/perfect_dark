@@ -1798,7 +1798,7 @@ glabel var7f1a926cpf
 /*  f00e82c:	02002025 */ 	move	$a0,$s0
 /*  f00e830:	27a500fc */ 	addiu	$a1,$sp,0xfc
 /*  f00e834:	27a600ac */ 	addiu	$a2,$sp,0xac
-/*  f00e838:	0fc2351b */ 	jal	func0f08d540
+/*  f00e838:	0fc2351b */ 	jal	doorInit
 /*  f00e83c:	27a700ec */ 	addiu	$a3,$sp,0xec
 /*  f00e840:	afa2010c */ 	sw	$v0,0x10c($sp)
 /*  f00e844:	8e180008 */ 	lw	$t8,0x8($s0)
@@ -2188,7 +2188,7 @@ glabel var7f1a8064
 /*  f00e830:	02002025 */ 	or	$a0,$s0,$zero
 /*  f00e834:	27a500fc */ 	addiu	$a1,$sp,0xfc
 /*  f00e838:	27a600ac */ 	addiu	$a2,$sp,0xac
-/*  f00e83c:	0fc23550 */ 	jal	func0f08d540
+/*  f00e83c:	0fc23550 */ 	jal	doorInit
 /*  f00e840:	27a700ec */ 	addiu	$a3,$sp,0xec
 /*  f00e844:	afa2010c */ 	sw	$v0,0x10c($sp)
 /*  f00e848:	8e180008 */ 	lw	$t8,0x8($s0)
@@ -2374,7 +2374,7 @@ glabel var7f1a8064
 //			door->sibling = (struct doorobj *)setupGetPtrToCommandByIndex((s32)door->sibling + cmdindex);
 //		}
 //
-//		prop = func0f08d540(door, &pos, spac, rooms, &sp54, &spa0);
+//		prop = doorInit(door, &pos, spac, rooms, &sp54, &spa0);
 //
 //		if (door->base.flags & OBJFLAG_DOOR_HASPORTAL) {
 //			door->portalnum = portalnum;
