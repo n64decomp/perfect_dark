@@ -5102,11 +5102,10 @@ u32 propsnd0f095264(u32 arg0, u32 arg1)
 	return arg0;
 }
 
-GLOBAL_ASM(
-glabel func0f095270
-/*  f095270:	03e00008 */ 	jr	$ra
-/*  f095274:	00000000 */ 	nop
-);
+void propsnd0f095270(void)
+{
+	// empty
+}
 
 s32 func0f095278(s32 channelnum)
 {
