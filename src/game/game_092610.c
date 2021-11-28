@@ -5097,12 +5097,10 @@ u32 propsnd0f095258(u32 arg0, u32 arg1)
 	return arg0;
 }
 
-GLOBAL_ASM(
-glabel func0f095264
-/*  f095264:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f095268:	03e00008 */ 	jr	$ra
-/*  f09526c:	00801025 */ 	or	$v0,$a0,$zero
-);
+u32 propsnd0f095264(u32 arg0, u32 arg1)
+{
+	return arg0;
+}
 
 GLOBAL_ASM(
 glabel func0f095270
