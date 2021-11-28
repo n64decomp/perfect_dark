@@ -5811,7 +5811,7 @@ bool aiSetDoorOpen(void)
 		door->fracspeed = 0;
 		door->lastopen60 = g_Vars.lvframe60;
 		door->mode = 0;
-		func0f08c54c(door);
+		doorUpdateTiles(door);
 		doorActivatePortal(door);
 		func0f0926bc(door->base.prop, 1, 0xffff);
 	}

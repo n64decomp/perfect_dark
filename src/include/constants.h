@@ -672,10 +672,12 @@
 #define DIFFBIT_PA 0x04
 #define DIFFBIT_PD 0x08
 
+#define DOORFLAG_0001            0x0001
 #define DOORFLAG_WINDOWED        0x0002
 #define DOORFLAG_0004            0x0004
 #define DOORFLAG_FLIP            0x0008
 #define DOORFLAG_AUTOMATIC       0x0010
+#define DOORFLAG_0020            0x0020
 #define DOORFLAG_ROTATEDPAD      0x0040
 #define DOORFLAG_0080            0x0080
 #define DOORFLAG_0100            0x0100
