@@ -2353,7 +2353,7 @@ glabel var7f1a8064
 //		rooms[1] = -1;
 //
 //		// 714
-//		if (door->doortype == DOORTYPE_VERTICAL || door->doortype == DOORTYPE_8) {
+//		if (door->doortype == DOORTYPE_VERTICAL || door->doortype == DOORTYPE_FALLAWAY) {
 //			sp54.x = (pad.bbox.zmax - pad.bbox.zmin) * pad.look.x;
 //			sp54.y = (pad.bbox.zmax - pad.bbox.zmin) * pad.look.y;
 //			sp54.z = (pad.bbox.zmax - pad.bbox.zmin) * pad.look.z;

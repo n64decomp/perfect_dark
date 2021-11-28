@@ -33352,8 +33352,8 @@ void doorTick(struct prop *doorprop)
 		}
 	}
 
-	// DOORTYPE_8 is unused
-	if (door->doortype == DOORTYPE_8 && doorIsClosed(door) && doorIsPadlockFree(door)) {
+	// Open fall-away doors if padlock free (GE only)
+	if (door->doortype == DOORTYPE_FALLAWAY && doorIsClosed(door) && doorIsPadlockFree(door)) {
 		doorsActivate(doorprop, false);
 	}
 
@@ -70636,11 +70636,11 @@ struct prop *doorInit(struct doorobj *door, struct coord *pos, Mtxf *mtx, s16 *r
 	if (prop != NULL) {
 		switch (door->doortype) {
 		case DOORTYPE_SLIDING:
-		case DOORTYPE_1:
-		case DOORTYPE_2:
-		case DOORTYPE_3:
+		case DOORTYPE_FLEXI1:
+		case DOORTYPE_FLEXI2:
+		case DOORTYPE_FLEXI3:
 		case DOORTYPE_VERTICAL:
-		case DOORTYPE_8:
+		case DOORTYPE_FALLAWAY:
 		case DOORTYPE_LASER:
 			door->doorflags |= DOORFLAG_0080;
 			break;
@@ -70954,7 +70954,7 @@ void doorStartOpen(struct doorobj *door)
 	doorPlayOpeningSound(door->soundtype, door->base.prop);
 	doorActivatePortal(door);
 
-	if (door->doortype == DOORTYPE_8) {
+	if (door->doortype == DOORTYPE_FALLAWAY) {
 		struct tiletype3 *geo = door->base.geo3;
 		door->base.flags |= OBJFLAG_CANNOT_ACTIVATE;
 		door->perimfrac = 0;
@@ -71000,7 +71000,7 @@ void doorFinishOpen(struct doorobj *door)
 {
 	doorPlayOpenedSound(door->soundtype, door->base.prop);
 
-	if (door->doortype == DOORTYPE_8) {
+	if (door->doortype == DOORTYPE_FALLAWAY) {
 		func0f0685e4(door->base.prop);
 
 		if (door->base.hidden & OBJHFLAG_AIRBORNE) {
@@ -72087,6 +72087,111 @@ glabel var7f1ab184
 /*  f08f960:	03e00008 */ 	jr	$ra
 /*  f08f964:	00000000 */ 	nop
 );
+
+/**
+ * Get some coordinates/distances related to activating doors.
+ */
+// Mismatch: Float instructions are in a different order
+//void func0f08f604(struct doorobj *door, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4, bool arg5)
+//{
+//	f32 spe4;
+//	f32 spe0;
+//	f32 spdc;
+//	f32 tmp;
+//	f32 spd4;
+//	f32 spd0;
+//	f32 spcc;
+//	f32 spc8;
+//	u32 stack[4];
+//	struct prop *playerprop; // b4
+//	f32 spb0;
+//	f32 spac;
+//	f32 spa8;
+//	f32 spa4;
+//	volatile struct coord playerpos; // 98
+//	struct pad pad; // 44
+//	f32 sp40;
+//	f32 sp3c;
+//	f32 sp38;
+//	f32 sp34;
+//	f32 sp30;
+//	f32 sp2c;
+//	f32 sp28;
+//
+//	if (g_Vars.currentplayer->eyespy && g_Vars.currentplayer->eyespy->active) {
+//		playerprop = g_Vars.currentplayer->eyespy->prop;
+//	} else {
+//		playerprop = g_Vars.currentplayer->prop;
+//	}
+//
+//	padUnpack(door->base.pad, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_BBOX, &pad);
+//
+//	playerpos.x = playerprop->pos.x;
+//	playerpos.y = playerprop->pos.y;
+//	playerpos.z = playerprop->pos.z;
+//
+//	if (arg5) {
+//		spa8 = pad.bbox.xmin;
+//		spa4 = pad.bbox.xmax;
+//		spb0 = pad.up.y * pad.look.z - pad.look.y * pad.up.z;
+//		spac = pad.up.x * pad.look.y - pad.look.x * pad.up.y;
+//	} else {
+//		spa8 = pad.bbox.ymin;
+//		spa4 = pad.bbox.ymax;
+//		spb0 = pad.up.x;
+//		spac = pad.up.z;
+//	}
+//
+//	spd4 = pad.pos.x + spb0 * spa8 - playerpos.x;
+//	spd0 = pad.pos.z + spac * spa8 - playerpos.z;
+//	spe4 = func0f08f538(spd4, spd0);
+//	spcc = pad.pos.x + spb0 * spa4 - playerpos.x;
+//	spc8 = pad.pos.z + spac * spa4 - playerpos.z;
+//	spe0 = func0f08f538(spcc, spc8);
+//
+//	if (spe4 < spe0) {
+//		*arg1 = spe4;
+//		*arg2 = spe0;
+//	} else {
+//		*arg1 = spe0;
+//		*arg2 = spe4;
+//	}
+//
+//	if (arg3 != NULL && arg4 != NULL) {
+//		if (door->doortype == DOORTYPE_SWINGING) {
+//			sp38 = door->frac * 0.017450513318181f;
+//
+//			if (door->base.flags & OBJFLAG_DOOR_OPENTOFRONT) {
+//				sp38 = M_BADTAU - sp38;
+//			}
+//
+//			spdc = spe4;
+//			sp34 = cosf(sp38);
+//			sp30 = sinf(sp38);
+//			tmp = func0f08f538(
+//					(pad.pos.x + spb0 * spa8 - playerpos.x) + (spa4 - spa8) * (spb0 * sp34 + spac * sp30),
+//					(pad.pos.z + spac * spa8 - playerpos.z) + (spa4 - spa8) * (-spb0 * sp30 + spac * sp34));
+//		} else if (door->doortype == DOORTYPE_SLIDING
+//				|| door->doortype == DOORTYPE_FLEXI1
+//				|| door->doortype == DOORTYPE_FLEXI2
+//				|| door->doortype == DOORTYPE_FLEXI3) {
+//			sp40 = door->unk98.x * door->frac;
+//			sp3c = door->unk98.z * door->frac;
+//			spdc = func0f08f538(spd4 + sp40, spd0 + sp3c);
+//			tmp = func0f08f538(spcc + sp40, spc8 + sp3c);
+//		} else {
+//			spdc = spe4;
+//		}
+//
+//		if (spdc < tmp) {
+//			*arg3 = spdc;
+//			*arg4 = tmp;
+//		} else {
+//			*arg3 = tmp;
+//			*arg4 = spdc;
+//		}
+//	}
+//}
 
 bool func0f08f968(struct doorobj *door, bool arg1)
 {

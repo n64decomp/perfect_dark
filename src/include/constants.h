@@ -695,15 +695,18 @@
 #define DOORSTATE_CLOSING 4
 #define DOORSTATE_OPENING 8
 
-#define DOORTYPE_SLIDING  0
-#define DOORTYPE_1        1
-#define DOORTYPE_2        2
-#define DOORTYPE_3        3
-#define DOORTYPE_VERTICAL 4
-#define DOORTYPE_SWINGING 5
-#define DOORTYPE_8        8
-#define DOORTYPE_HULL     10
-#define DOORTYPE_LASER    11
+#define DOORTYPE_SLIDING    0
+#define DOORTYPE_FLEXI1     1  // GE only - Bunker flexi door
+#define DOORTYPE_FLEXI2     2
+#define DOORTYPE_FLEXI3     3
+#define DOORTYPE_VERTICAL   4
+#define DOORTYPE_SWINGING   5
+#define DOORTYPE_EYE        6  // GE only - Caverns
+#define DOORTYPE_IRIS       7  // GE only - Caverns
+#define DOORTYPE_FALLAWAY   8  // GE only - Surface grate and Train floor panel
+#define DOORTYPE_AZTECCHAIR 9  // GE only
+#define DOORTYPE_HULL       10 // Attack Ship windows
+#define DOORTYPE_LASER      11
 
 #define DRCAROLLIMAGE_EYESDEFAULT  0
 #define DRCAROLLIMAGE_HEARTRATE    1
