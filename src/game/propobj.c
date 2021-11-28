@@ -4430,7 +4430,7 @@ void func0f069b4c(struct defaultobj *obj)
 				uVar3 = 0x23;
 			}
 
-			func0f070ca0(obj, ptr, uVar3, 0, rodata);
+			func0f070ca0(obj, ptr, uVar3, NULL, rodata);
 
 			ptr += 0x40;
 		}
@@ -4438,7 +4438,7 @@ void func0f069b4c(struct defaultobj *obj)
 		rodata = modelGetPartRodata(obj->model->filedata, MODELPART_0066);
 
 		if (rodata != NULL) {
-			func0f070ca0(obj, ptr, 0x1c, 0, rodata);
+			func0f070ca0(obj, ptr, 0x1c, NULL, rodata);
 		}
 	}
 }
@@ -17274,279 +17274,102 @@ f32 liftGetY(struct liftobj *lift)
 	return y;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f070f08
-/*  f070f08:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f070f0c:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f070f10:	afbe0040 */ 	sw	$s8,0x40($sp)
-/*  f070f14:	afb7003c */ 	sw	$s7,0x3c($sp)
-/*  f070f18:	afb60038 */ 	sw	$s6,0x38($sp)
-/*  f070f1c:	afb50034 */ 	sw	$s5,0x34($sp)
-/*  f070f20:	afb40030 */ 	sw	$s4,0x30($sp)
-/*  f070f24:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*  f070f28:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f070f2c:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f070f30:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f070f34:	afa50064 */ 	sw	$a1,0x64($sp)
-/*  f070f38:	a080005a */ 	sb	$zero,0x5a($a0)
-/*  f070f3c:	00808825 */ 	or	$s1,$a0,$zero
-/*  f070f40:	00009025 */ 	or	$s2,$zero,$zero
-/*  f070f44:	8fb3004c */ 	lw	$s3,0x4c($sp)
-/*  f070f48:	24150001 */ 	addiu	$s5,$zero,0x1
-/*  f070f4c:	24160002 */ 	addiu	$s6,$zero,0x2
-/*  f070f50:	24170003 */ 	addiu	$s7,$zero,0x3
-/*  f070f54:	241e0004 */ 	addiu	$s8,$zero,0x4
-/*  f070f58:	822f005a */ 	lb	$t7,0x5a($s1)
-.L0f070f5c:
-/*  f070f5c:	8e2e0044 */ 	lw	$t6,0x44($s1)
-/*  f070f60:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f070f64:	000fc180 */ 	sll	$t8,$t7,0x6
-/*  f070f68:	01d8c821 */ 	addu	$t9,$t6,$t8
-/*  f070f6c:	afb9005c */ 	sw	$t9,0x5c($sp)
-/*  f070f70:	00008025 */ 	or	$s0,$zero,$zero
-.L0f070f74:
-/*  f070f74:	16400011 */ 	bnez	$s2,.L0f070fbc
-/*  f070f78:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f070f7c:	8e280018 */ 	lw	$t0,0x18($s1)
-/*  f070f80:	2413003b */ 	addiu	$s3,$zero,0x3b
-/*  f070f84:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f070f88:	8d040008 */ 	lw	$a0,0x8($t0)
-/*  f070f8c:	14400036 */ 	bnez	$v0,.L0f071068
-/*  f070f90:	00408025 */ 	or	$s0,$v0,$zero
-/*  f070f94:	8e290018 */ 	lw	$t1,0x18($s1)
-/*  f070f98:	00002825 */ 	or	$a1,$zero,$zero
-/*  f070f9c:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f070fa0:	8d240008 */ 	lw	$a0,0x8($t1)
-/*  f070fa4:	14400030 */ 	bnez	$v0,.L0f071068
-/*  f070fa8:	0040a025 */ 	or	$s4,$v0,$zero
-/*  f070fac:	0fc1a2bd */ 	jal	objFindBboxRodata
-/*  f070fb0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f070fb4:	1000002c */ 	b	.L0f071068
-/*  f070fb8:	0040a025 */ 	or	$s4,$v0,$zero
-.L0f070fbc:
-/*  f070fbc:	16550007 */ 	bne	$s2,$s5,.L0f070fdc
-/*  f070fc0:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f070fc4:	8e2a0018 */ 	lw	$t2,0x18($s1)
-/*  f070fc8:	24130004 */ 	addiu	$s3,$zero,0x4
-/*  f070fcc:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f070fd0:	8d440008 */ 	lw	$a0,0x8($t2)
-/*  f070fd4:	10000024 */ 	b	.L0f071068
-/*  f070fd8:	00408025 */ 	or	$s0,$v0,$zero
-.L0f070fdc:
-/*  f070fdc:	16560007 */ 	bne	$s2,$s6,.L0f070ffc
-/*  f070fe0:	02c02825 */ 	or	$a1,$s6,$zero
-/*  f070fe4:	8e2b0018 */ 	lw	$t3,0x18($s1)
-/*  f070fe8:	24130004 */ 	addiu	$s3,$zero,0x4
-/*  f070fec:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f070ff0:	8d640008 */ 	lw	$a0,0x8($t3)
-/*  f070ff4:	1000001c */ 	b	.L0f071068
-/*  f070ff8:	00408025 */ 	or	$s0,$v0,$zero
-.L0f070ffc:
-/*  f070ffc:	16570007 */ 	bne	$s2,$s7,.L0f07101c
-/*  f071000:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f071004:	8e2c0018 */ 	lw	$t4,0x18($s1)
-/*  f071008:	24130004 */ 	addiu	$s3,$zero,0x4
-/*  f07100c:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f071010:	8d840008 */ 	lw	$a0,0x8($t4)
-/*  f071014:	10000014 */ 	b	.L0f071068
-/*  f071018:	00408025 */ 	or	$s0,$v0,$zero
-.L0f07101c:
-/*  f07101c:	165e000b */ 	bne	$s2,$s8,.L0f07104c
-/*  f071020:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f071024:	8fad0064 */ 	lw	$t5,0x64($sp)
-/*  f071028:	03c02825 */ 	or	$a1,$s8,$zero
-/*  f07102c:	15a0000e */ 	bnez	$t5,.L0f071068
-/*  f071030:	00000000 */ 	nop
-/*  f071034:	8e2f0018 */ 	lw	$t7,0x18($s1)
-/*  f071038:	24130004 */ 	addiu	$s3,$zero,0x4
-/*  f07103c:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f071040:	8de40008 */ 	lw	$a0,0x8($t7)
-/*  f071044:	10000008 */ 	b	.L0f071068
-/*  f071048:	00408025 */ 	or	$s0,$v0,$zero
-.L0f07104c:
-/*  f07104c:	1641000a */ 	bne	$s2,$at,.L0f071078
-/*  f071050:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f071054:	8e2e0018 */ 	lw	$t6,0x18($s1)
-/*  f071058:	2413003b */ 	addiu	$s3,$zero,0x3b
-/*  f07105c:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f071060:	8dc40008 */ 	lw	$a0,0x8($t6)
-/*  f071064:	00408025 */ 	or	$s0,$v0,$zero
-.L0f071068:
-/*  f071068:	16800003 */ 	bnez	$s4,.L0f071078
-/*  f07106c:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f071070:	1200ffc0 */ 	beqz	$s0,.L0f070f74
-/*  f071074:	00000000 */ 	nop
-.L0f071078:
-/*  f071078:	16800003 */ 	bnez	$s4,.L0f071088
-/*  f07107c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f071080:	12000009 */ 	beqz	$s0,.L0f0710a8
-/*  f071084:	00000000 */ 	nop
-.L0f071088:
-/*  f071088:	8fa5005c */ 	lw	$a1,0x5c($sp)
-/*  f07108c:	02603025 */ 	or	$a2,$s3,$zero
-/*  f071090:	02803825 */ 	or	$a3,$s4,$zero
-/*  f071094:	0fc1c328 */ 	jal	func0f070ca0
-/*  f071098:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f07109c:	8238005a */ 	lb	$t8,0x5a($s1)
-/*  f0710a0:	27190001 */ 	addiu	$t9,$t8,0x1
-/*  f0710a4:	a239005a */ 	sb	$t9,0x5a($s1)
-.L0f0710a8:
-/*  f0710a8:	5680ffac */ 	bnezl	$s4,.L0f070f5c
-/*  f0710ac:	822f005a */ 	lb	$t7,0x5a($s1)
-/*  f0710b0:	5600ffaa */ 	bnezl	$s0,.L0f070f5c
-/*  f0710b4:	822f005a */ 	lb	$t7,0x5a($s1)
-/*  f0710b8:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f0710bc:	afb3004c */ 	sw	$s3,0x4c($sp)
-/*  f0710c0:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*  f0710c4:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0710c8:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f0710cc:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f0710d0:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*  f0710d4:	8fb50034 */ 	lw	$s5,0x34($sp)
-/*  f0710d8:	8fb60038 */ 	lw	$s6,0x38($sp)
-/*  f0710dc:	8fb7003c */ 	lw	$s7,0x3c($sp)
-/*  f0710e0:	8fbe0040 */ 	lw	$s8,0x40($sp)
-/*  f0710e4:	03e00008 */ 	jr	$ra
-/*  f0710e8:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
-#else
-GLOBAL_ASM(
-glabel func0f070f08
-/*  f070f08:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f070f0c:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f070f10:	afbe0040 */ 	sw	$s8,0x40($sp)
-/*  f070f14:	afb7003c */ 	sw	$s7,0x3c($sp)
-/*  f070f18:	afb60038 */ 	sw	$s6,0x38($sp)
-/*  f070f1c:	afb50034 */ 	sw	$s5,0x34($sp)
-/*  f070f20:	afb40030 */ 	sw	$s4,0x30($sp)
-/*  f070f24:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*  f070f28:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f070f2c:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f070f30:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f070f34:	afa50064 */ 	sw	$a1,0x64($sp)
-/*  f070f38:	a080005a */ 	sb	$zero,0x5a($a0)
-/*  f070f3c:	00808825 */ 	or	$s1,$a0,$zero
-/*  f070f40:	00009025 */ 	or	$s2,$zero,$zero
-/*  f070f44:	8fb3004c */ 	lw	$s3,0x4c($sp)
-/*  f070f48:	24150001 */ 	addiu	$s5,$zero,0x1
-/*  f070f4c:	24160002 */ 	addiu	$s6,$zero,0x2
-/*  f070f50:	24170003 */ 	addiu	$s7,$zero,0x3
-/*  f070f54:	241e0004 */ 	addiu	$s8,$zero,0x4
-/*  f070f58:	822f005a */ 	lb	$t7,0x5a($s1)
-.L0f070f5c:
-/*  f070f5c:	8e2e0044 */ 	lw	$t6,0x44($s1)
-/*  f070f60:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f070f64:	000fc180 */ 	sll	$t8,$t7,0x6
-/*  f070f68:	01d8c821 */ 	addu	$t9,$t6,$t8
-/*  f070f6c:	afb9005c */ 	sw	$t9,0x5c($sp)
-/*  f070f70:	00008025 */ 	or	$s0,$zero,$zero
-.L0f070f74:
-/*  f070f74:	16400011 */ 	bnez	$s2,.L0f070fbc
-/*  f070f78:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f070f7c:	8e280018 */ 	lw	$t0,0x18($s1)
-/*  f070f80:	2413003b */ 	addiu	$s3,$zero,0x23
-/*  f070f84:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f070f88:	8d040008 */ 	lw	$a0,0x8($t0)
-/*  f070f8c:	14400036 */ 	bnez	$v0,.L0f071068
-/*  f070f90:	00408025 */ 	or	$s0,$v0,$zero
-/*  f070f94:	8e290018 */ 	lw	$t1,0x18($s1)
-/*  f070f98:	00002825 */ 	or	$a1,$zero,$zero
-/*  f070f9c:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f070fa0:	8d240008 */ 	lw	$a0,0x8($t1)
-/*  f070fa4:	14400030 */ 	bnez	$v0,.L0f071068
-/*  f070fa8:	0040a025 */ 	or	$s4,$v0,$zero
-/*  f070fac:	0fc1a2bd */ 	jal	objFindBboxRodata
-/*  f070fb0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f070fb4:	1000002c */ 	b	.L0f071068
-/*  f070fb8:	0040a025 */ 	or	$s4,$v0,$zero
-.L0f070fbc:
-/*  f070fbc:	16550007 */ 	bne	$s2,$s5,.L0f070fdc
-/*  f070fc0:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f070fc4:	8e2a0018 */ 	lw	$t2,0x18($s1)
-/*  f070fc8:	24130004 */ 	addiu	$s3,$zero,0x4
-/*  f070fcc:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f070fd0:	8d440008 */ 	lw	$a0,0x8($t2)
-/*  f070fd4:	10000024 */ 	b	.L0f071068
-/*  f070fd8:	00408025 */ 	or	$s0,$v0,$zero
-.L0f070fdc:
-/*  f070fdc:	16560007 */ 	bne	$s2,$s6,.L0f070ffc
-/*  f070fe0:	02c02825 */ 	or	$a1,$s6,$zero
-/*  f070fe4:	8e2b0018 */ 	lw	$t3,0x18($s1)
-/*  f070fe8:	24130004 */ 	addiu	$s3,$zero,0x4
-/*  f070fec:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f070ff0:	8d640008 */ 	lw	$a0,0x8($t3)
-/*  f070ff4:	1000001c */ 	b	.L0f071068
-/*  f070ff8:	00408025 */ 	or	$s0,$v0,$zero
-.L0f070ffc:
-/*  f070ffc:	16570007 */ 	bne	$s2,$s7,.L0f07101c
-/*  f071000:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f071004:	8e2c0018 */ 	lw	$t4,0x18($s1)
-/*  f071008:	24130004 */ 	addiu	$s3,$zero,0x4
-/*  f07100c:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f071010:	8d840008 */ 	lw	$a0,0x8($t4)
-/*  f071014:	10000014 */ 	b	.L0f071068
-/*  f071018:	00408025 */ 	or	$s0,$v0,$zero
-.L0f07101c:
-/*  f07101c:	165e000b */ 	bne	$s2,$s8,.L0f07104c
-/*  f071020:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f071024:	8fad0064 */ 	lw	$t5,0x64($sp)
-/*  f071028:	03c02825 */ 	or	$a1,$s8,$zero
-/*  f07102c:	15a0000e */ 	bnez	$t5,.L0f071068
-/*  f071030:	00000000 */ 	nop
-/*  f071034:	8e2f0018 */ 	lw	$t7,0x18($s1)
-/*  f071038:	24130004 */ 	addiu	$s3,$zero,0x4
-/*  f07103c:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f071040:	8de40008 */ 	lw	$a0,0x8($t7)
-/*  f071044:	10000008 */ 	b	.L0f071068
-/*  f071048:	00408025 */ 	or	$s0,$v0,$zero
-.L0f07104c:
-/*  f07104c:	1641000a */ 	bne	$s2,$at,.L0f071078
-/*  f071050:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f071054:	8e2e0018 */ 	lw	$t6,0x18($s1)
-/*  f071058:	2413003b */ 	addiu	$s3,$zero,0x23
-/*  f07105c:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f071060:	8dc40008 */ 	lw	$a0,0x8($t6)
-/*  f071064:	00408025 */ 	or	$s0,$v0,$zero
-.L0f071068:
-/*  f071068:	16800003 */ 	bnez	$s4,.L0f071078
-/*  f07106c:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f071070:	1200ffc0 */ 	beqz	$s0,.L0f070f74
-/*  f071074:	00000000 */ 	nop
-.L0f071078:
-/*  f071078:	16800003 */ 	bnez	$s4,.L0f071088
-/*  f07107c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f071080:	12000009 */ 	beqz	$s0,.L0f0710a8
-/*  f071084:	00000000 */ 	nop
-.L0f071088:
-/*  f071088:	8fa5005c */ 	lw	$a1,0x5c($sp)
-/*  f07108c:	02603025 */ 	or	$a2,$s3,$zero
-/*  f071090:	02803825 */ 	or	$a3,$s4,$zero
-/*  f071094:	0fc1c328 */ 	jal	func0f070ca0
-/*  f071098:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f07109c:	8238005a */ 	lb	$t8,0x5a($s1)
-/*  f0710a0:	27190001 */ 	addiu	$t9,$t8,0x1
-/*  f0710a4:	a239005a */ 	sb	$t9,0x5a($s1)
-.L0f0710a8:
-/*  f0710a8:	5680ffac */ 	bnezl	$s4,.L0f070f5c
-/*  f0710ac:	822f005a */ 	lb	$t7,0x5a($s1)
-/*  f0710b0:	5600ffaa */ 	bnezl	$s0,.L0f070f5c
-/*  f0710b4:	822f005a */ 	lb	$t7,0x5a($s1)
-/*  f0710b8:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f0710bc:	afb3004c */ 	sw	$s3,0x4c($sp)
-/*  f0710c0:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*  f0710c4:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0710c8:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f0710cc:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f0710d0:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*  f0710d4:	8fb50034 */ 	lw	$s5,0x34($sp)
-/*  f0710d8:	8fb60038 */ 	lw	$s6,0x38($sp)
-/*  f0710dc:	8fb7003c */ 	lw	$s7,0x3c($sp)
-/*  f0710e0:	8fbe0040 */ 	lw	$s8,0x40($sp)
-/*  f0710e4:	03e00008 */ 	jr	$ra
-/*  f0710e8:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
-#endif
+/**
+ * Recalculate a lift's tile/geometry information.
+ *
+ * The lift models and the part numbers in each model are:
+ *
+ * a51_lift_control       0
+ * a51_lift_hangar        0
+ * a51_lift_store         0
+ * a51_lift_thinwall      0
+ * a51dish                0
+ * airbase_lift_angle     0 1 2
+ * airbase_lift_enclosed  0 1 2
+ * al_docklift                      5 6
+ * baggagecarrier         0
+ * chamber                0
+ * ci_lift                0
+ * dd_liftr               0 1 2 3 4
+ * lift_platform          0 1
+ * matrix_lift            0 1 2
+ * ravinelift             0
+ * sk_lift                0
+ * skedarbridge           0
+ *
+ * Part 0 is the floor if rectangular
+ * Parts 1-3 are walls (some lifts rely on BG geometry instead)
+ * Part 4 is a door blocker (used by dataDyne tower lifts)
+ * Part 5 is the first half of the floor if non-rectangular (Deep Sea lift)
+ * Part 6 is the second half of the floor if non-rectangular (Deep Sea lift)
+ */
+void liftUpdateTiles(struct liftobj *lift, bool stationary)
+{
+	u8 *geo;
+	union modelrodata *rodata;
+	struct modelrodata_bbox *bbox;
+	s32 numtiles;
+	u32 sp4c;
+	s32 i;
+
+	lift->base.numtiles = 0;
+	i = 0;
+
+	do {
+		geo = (u8 *)lift->base.unkgeo + lift->base.numtiles * 0x40;
+		bbox = NULL;
+		rodata = NULL;
+
+		do {
+			if (i == 0) {
+				sp4c = VERSION >= VERSION_NTSC_1_0 ? 0x3b : 0x23;
+
+				// Look for a non-rectangular floor with fallback to rectangular
+				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_FLOORNONRECT1);
+
+				if (rodata == NULL) {
+					union modelrodata *tmp;
+					tmp = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_FLOORRECT);
+					bbox = &tmp->bbox;
+
+					if (bbox == NULL) {
+						bbox = objFindBboxRodata(&lift->base);
+					}
+				}
+			} else if (i == 1) {
+				sp4c = 4;
+				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_WALL1);
+			} else if (i == 2) {
+				sp4c = 4;
+				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_WALL2);
+			} else if (i == 3) {
+				sp4c = 4;
+				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_WALL3);
+			} else if (i == 4) {
+				// The doorblock model part exists in the dataDyne tower lifts.
+				// It's a tile across the door that only applies while the lift
+				// is moving. Without it, the player could exit the lift through
+				// the doorway while it's moving.
+				if (!stationary) {
+					sp4c = 4;
+					rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_DOORBLOCK);
+				}
+			} else if (i == 5) {
+				sp4c = VERSION >= VERSION_NTSC_1_0 ? 0x3b : 0x23;
+				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_FLOORNONRECT2);
+			} else {
+				break;
+			}
+
+			i++;
+		} while (!bbox && !rodata);
+
+		if (bbox || rodata) {
+			func0f070ca0(&lift->base, geo, sp4c, bbox, rodata);
+			lift->base.numtiles++;
+		}
+	} while (bbox || rodata);
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 void liftGoToStop(struct liftobj *lift, s32 stopnum)
@@ -35184,7 +35007,7 @@ void liftTick(struct prop *prop)
 			propDeregisterRooms(prop);
 			roomsCopy(newrooms, prop->rooms);
 			func0f069c70(obj, true, true);
-			func0f070f08(lift, lift->levelcur == lift->levelaim);
+			liftUpdateTiles(lift, lift->levelcur == lift->levelaim);
 			platformDisplaceProps(prop, propnums, &prevpos, &prop->pos);
 		}
 	} else {
@@ -50056,7 +49879,7 @@ s32 objTick(struct prop *prop)
 						func0f069c70(obj, true, true);
 
 						if (obj->type == OBJTYPE_LIFT) {
-							func0f070f08((struct liftobj *)obj, 0);
+							liftUpdateTiles((struct liftobj *)obj, false);
 						}
 
 						sp592 = true;

@@ -3084,7 +3084,7 @@ void setupParseObjects(s32 stagenum)
 							lift->prevpos.y = prop->pos.y;
 							lift->prevpos.z = prop->pos.z;
 
-							func0f070f08(lift, true);
+							liftUpdateTiles(lift, true);
 						}
 					}
 					break;
