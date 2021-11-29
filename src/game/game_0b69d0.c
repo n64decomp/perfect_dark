@@ -1590,7 +1590,7 @@ bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
 
 	hostprop = hostchr->prop;
 
-	hostchr->chrflags |= CHRCFLAG_00010000;
+	hostchr->chrflags |= CHRCFLAG_PERIMDISABLEDTMP;
 	playerchr->hidden |= CHRHFLAG_00100000;
 	playerchr->chrwidth = hostchr->chrwidth;
 
@@ -1693,7 +1693,7 @@ bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
 		return true;
 	}
 
-	hostchr->chrflags &= ~CHRCFLAG_00010000;
+	hostchr->chrflags &= ~CHRCFLAG_PERIMDISABLEDTMP;
 
 	return false;
 }

@@ -2923,7 +2923,7 @@ u8 func0420_trent_attacking[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		try_unset_chr_flag_bank3_02000000(CHR_SELF, /*goto*/ 0x2d)
+		if_chr_shield_damaged(CHR_SELF, /*goto*/ 0x2d)
 		set_target_chr(CHR_PRESIDENT)
 		if_target_in_sight(/*goto*/ 0x06)
 		if_stage_flag_eq(STAGEFLAG_ONE_BLONDE_DEAD, TRUE, /*goto*/ 0x2d)

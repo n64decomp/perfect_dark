@@ -438,8 +438,8 @@
 // chr->hidden
 #define CHRHFLAG_00000001            0x00000001 // Set when chr drops weapon
 #define CHRHFLAG_IS_HEARING_TARGET   0x00000002 // Not used in scripts
-#define CHRHFLAG_00000004            0x00000004 // Related to firing - hand 1
-#define CHRHFLAG_00000008            0x00000008 // Related to firing - hand 0
+#define CHRHFLAG_FIRINGLEFT          0x00000004
+#define CHRHFLAG_FIRINGRIGHT         0x00000008
 #define CHRHFLAG_BLOCKINGDOOR        0x00000010
 #define CHRHFLAG_REAPED              0x00000020
 #define CHRHFLAG_TIMER_RUNNING       0x00000040
@@ -488,7 +488,7 @@
 #define CHRCFLAG_INVINCIBLE                  0x00000010
 #define CHRCFLAG_LOSEXTRAHEIGHT              0x00000020 // Chicago, Infiltration, AF1, Ruins, WAR
 #define CHRCFLAG_00000040                    0x00000040 // Used quite a lot
-#define CHRCFLAG_00000080                    0x00000080 // Defection programmer, Rescue lab techs, globals when doing idle animation
+#define CHRCFLAG_CANFACEWALL                 0x00000080 // Defection programmer, Rescue lab techs, globals when doing idle animation
 #define CHRCFLAG_JUST_INJURED                0x00000100
 #define CHRCFLAG_00000200                    0x00000200 // Set on clones
 #define CHRCFLAG_HIDDEN                      0x00000400
@@ -497,7 +497,7 @@
 #define CHRCFLAG_NOSHADOW                    0x00002000
 #define CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION 0x00004000
 #define CHRCFLAG_DIEWITHFORCE                0x00008000 // When killed with a weak weapon, fling the chr as if it was a strong weapon
-#define CHRCFLAG_00010000                    0x00010000 // Related to dead people in intro cutscenes
+#define CHRCFLAG_PERIMDISABLEDTMP            0x00010000 // Collisions disabled temporarily
 #define CHRCFLAG_FORCEAUTOAIM                0x00020000 // Allow auto aim even if chr is unarmed
 #define CHRCFLAG_00040000                    0x00040000 // Used a lot
 #define CHRCFLAG_RUNFASTER                   0x00080000
@@ -506,7 +506,7 @@
 #define CHRCFLAG_00400000                    0x00400000 // Not used in scripts
 #define CHRCFLAG_UNPLAYABLE                  0x00800000
 #define CHRCFLAG_PUSHABLE                    0x01000000 // Typically set on allies during init
-#define CHRCFLAG_02000000                    0x02000000 // can be unset by cmd0168
+#define CHRCFLAG_SHIELDDAMAGED               0x02000000
 #define CHRCFLAG_KEEPCORPSEKO                0x04000000
 #define CHRCFLAG_CONSIDER_DODGE              0x08000000
 #define CHRCFLAG_10000000                    0x10000000 // Not used in scripts

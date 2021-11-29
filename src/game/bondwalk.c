@@ -102,9 +102,9 @@ void bwalkInit(void)
 		delta.y = 0;
 		delta.z = g_Vars.currentplayer->walkinitpos.z - g_Vars.currentplayer->prop->pos.z;
 
-		propSetCollisionsEnabled(g_Vars.currentplayer->hoverbike, false);
+		propSetPerimEnabled(g_Vars.currentplayer->hoverbike, false);
 		bwalkCalculateNewPositionWithPush(&delta, 0, true, 0, CDTYPE_ALL);
-		propSetCollisionsEnabled(g_Vars.currentplayer->hoverbike, true);
+		propSetPerimEnabled(g_Vars.currentplayer->hoverbike, true);
 	} else if (prevmode != MOVEMODE_GRAB && prevmode != MOVEMODE_WALK) {
 		g_Vars.currentplayer->moveinitspeed.x = 0;
 		g_Vars.currentplayer->moveinitspeed.y = 0;
@@ -281,7 +281,7 @@ glabel var7f1a7ad0
 /*  f0c160c:	c5240010 */ 	lwc1	$f4,0x10($t1)
 /*  f0c1610:	46049181 */ 	sub.s	$f6,$f18,$f4
 /*  f0c1614:	e7a6004c */ 	swc1	$f6,0x4c($sp)
-/*  f0c1618:	0fc18cfb */ 	jal	propSetCollisionsEnabled
+/*  f0c1618:	0fc18cfb */ 	jal	propSetPerimEnabled
 /*  f0c161c:	8c441a6c */ 	lw	$a0,0x1a6c($v0)
 /*  f0c1620:	4405a000 */ 	mfc1	$a1,$f20
 /*  f0c1624:	4407a000 */ 	mfc1	$a3,$f20
@@ -292,7 +292,7 @@ glabel var7f1a7ad0
 /*  f0c1638:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f0c163c:	8e0b0284 */ 	lw	$t3,0x284($s0)
 /*  f0c1640:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0c1644:	0fc18cfb */ 	jal	propSetCollisionsEnabled
+/*  f0c1644:	0fc18cfb */ 	jal	propSetPerimEnabled
 /*  f0c1648:	8d641a6c */ 	lw	$a0,0x1a6c($t3)
 /*  f0c164c:	1000000b */ 	beqz	$zero,.NB0f0c167c
 /*  f0c1650:	8fbf003c */ 	lw	$ra,0x3c($sp)
@@ -404,7 +404,7 @@ s32 bwalkTryMoveUpwards(f32 amount)
 	propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &newpos, rooms);
 	bmove0f0cb79c(g_Vars.currentplayer, &newpos, rooms);
-	propSetCollisionsEnabled(g_Vars.currentplayer->prop, false);
+	propSetPerimEnabled(g_Vars.currentplayer->prop, false);
 
 	ymin -= 0.1f;
 
@@ -412,7 +412,7 @@ s32 bwalkTryMoveUpwards(f32 amount)
 			ymax - g_Vars.currentplayer->prop->pos.y,
 			ymin - g_Vars.currentplayer->prop->pos.y);
 
-	propSetCollisionsEnabled(g_Vars.currentplayer->prop, true);
+	propSetPerimEnabled(g_Vars.currentplayer->prop, true);
 
 	if (result == CDRESULT_NOCOLLISION) {
 		g_Vars.currentplayer->prop->pos.y = newpos.y;
@@ -454,10 +454,10 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 
 	if (vel->x || vel->y || vel->z) {
 		if (g_Vars.currentplayer->tank) {
-			propSetCollisionsEnabled(g_Vars.currentplayer->tank, false);
+			propSetPerimEnabled(g_Vars.currentplayer->tank, false);
 		}
 
-		propSetCollisionsEnabled(g_Vars.currentplayer->prop, false);
+		propSetPerimEnabled(g_Vars.currentplayer->prop, false);
 
 		dstpos.x += vel->x;
 		dstpos.y += vel->y;
@@ -501,10 +501,10 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 					ymin - g_Vars.currentplayer->prop->pos.y);
 		}
 
-		propSetCollisionsEnabled(g_Vars.currentplayer->prop, true);
+		propSetPerimEnabled(g_Vars.currentplayer->prop, true);
 
 		if (g_Vars.currentplayer->tank) {
-			propSetCollisionsEnabled(g_Vars.currentplayer->tank, true);
+			propSetPerimEnabled(g_Vars.currentplayer->tank, true);
 		}
 	}
 
@@ -594,14 +594,14 @@ glabel var7f1a7ad8nb
 /*  f0c1a88:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0c1a8c:	50800006 */ 	beqzl	$a0,.NB0f0c1aa8
 /*  f0c1a90:	8c4400bc */ 	lw	$a0,0xbc($v0)
-/*  f0c1a94:	0fc18cfb */ 	jal	propSetCollisionsEnabled
+/*  f0c1a94:	0fc18cfb */ 	jal	propSetPerimEnabled
 /*  f0c1a98:	afa700b8 */ 	sw	$a3,0xb8($sp)
 /*  f0c1a9c:	8fa700b8 */ 	lw	$a3,0xb8($sp)
 /*  f0c1aa0:	8e020284 */ 	lw	$v0,0x284($s0)
 /*  f0c1aa4:	8c4400bc */ 	lw	$a0,0xbc($v0)
 .NB0f0c1aa8:
 /*  f0c1aa8:	afa700b8 */ 	sw	$a3,0xb8($sp)
-/*  f0c1aac:	0fc18cfb */ 	jal	propSetCollisionsEnabled
+/*  f0c1aac:	0fc18cfb */ 	jal	propSetPerimEnabled
 /*  f0c1ab0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0c1ab4:	8fa700b8 */ 	lw	$a3,0xb8($sp)
 /*  f0c1ab8:	c7a600a4 */ 	lwc1	$f6,0xa4($sp)
@@ -764,7 +764,7 @@ glabel var7f1a7ad8nb
 /*  f0c1d0c:	8e0a0284 */ 	lw	$t2,0x284($s0)
 /*  f0c1d10:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0c1d14:	8d4400bc */ 	lw	$a0,0xbc($t2)
-/*  f0c1d18:	0fc18cfb */ 	jal	propSetCollisionsEnabled
+/*  f0c1d18:	0fc18cfb */ 	jal	propSetPerimEnabled
 /*  f0c1d1c:	afa300b4 */ 	sw	$v1,0xb4($sp)
 /*  f0c1d20:	8e0b0284 */ 	lw	$t3,0x284($s0)
 /*  f0c1d24:	44808000 */ 	mtc1	$zero,$f16
@@ -773,7 +773,7 @@ glabel var7f1a7ad8nb
 /*  f0c1d30:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0c1d34:	50800006 */ 	beqzl	$a0,.NB0f0c1d50
 /*  f0c1d38:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0c1d3c:	0fc18cfb */ 	jal	propSetCollisionsEnabled
+/*  f0c1d3c:	0fc18cfb */ 	jal	propSetPerimEnabled
 /*  f0c1d40:	afa300b4 */ 	sw	$v1,0xb4($sp)
 /*  f0c1d44:	44808000 */ 	mtc1	$zero,$f16
 /*  f0c1d48:	8fa300b4 */ 	lw	$v1,0xb4($sp)

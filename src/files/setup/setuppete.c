@@ -2017,7 +2017,7 @@ u8 func041a_robot[] = {
 		play_sound(MP3_ROBOT_STOP_WHERE_YOU_ARE, -1)
 		set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 		label(0x05)
-		try_unset_chr_flag_bank3_02000000(CHR_SELF, /*goto*/ 0x03)
+		if_chr_shield_damaged(CHR_SELF, /*goto*/ 0x03)
 		goto_next(0x05)
 
 		label(0x03)

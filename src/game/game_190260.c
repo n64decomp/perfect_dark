@@ -10648,7 +10648,7 @@ glabel var7f1b8fc8
 /*  f1985e4:	02802025 */ 	move	$a0,$s4
 .PF0f1985e8:
 /*  f1985e8:	02602825 */ 	move	$a1,$s3
-/*  f1985ec:	0fc0fec3 */ 	jal	func0f03f988
+/*  f1985ec:	0fc0fec3 */ 	jal	chrSetHandFiring
 /*  f1985f0:	02a03025 */ 	move	$a2,$s5
 /*  f1985f4:	8fae004c */ 	lw	$t6,0x4c($sp)
 /*  f1985f8:	26730001 */ 	addiu	$s3,$s3,0x1
@@ -13643,7 +13643,7 @@ glabel var7f1b8fc8
 /*  f1974e8:	02802025 */ 	or	$a0,$s4,$zero
 .L0f1974ec:
 /*  f1974ec:	02602825 */ 	or	$a1,$s3,$zero
-/*  f1974f0:	0fc0fe62 */ 	jal	func0f03f988
+/*  f1974f0:	0fc0fe62 */ 	jal	chrSetHandFiring
 /*  f1974f4:	02a03025 */ 	or	$a2,$s5,$zero
 /*  f1974f8:	8fa9004c */ 	lw	$t1,0x4c($sp)
 /*  f1974fc:	26730001 */ 	addiu	$s3,$s3,0x1

@@ -338,7 +338,7 @@
 /*0x0165*/ bool aiIfChrInjured(void);
 /*0x0166*/ bool aiIfAction(void);
 /*0x0167*/ bool aiHovercopterFireRocket(void);
-/*0x0168*/ bool ai0168(void);
+/*0x0168*/ bool aiIfShieldDamaged(void);
 /*0x0169*/ bool aiIfNaturalAnim(void);
 /*0x016a*/ bool aiIfY(void);
 /*0x016b*/ bool ai016b(void);

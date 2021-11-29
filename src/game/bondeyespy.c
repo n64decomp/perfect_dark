@@ -96,12 +96,12 @@ s32 eyespyTryMoveUpwards(f32 yvel)
 
 	func0f065e74(&prop->pos, prop->rooms, &dstpos, dstrooms);
 	func0f021fa8(prop->chr, &dstpos, dstrooms);
-	propSetCollisionsEnabled(prop, false);
+	propSetPerimEnabled(prop, false);
 
 	f0 -= 0.1f;
 
 	result = cdTestVolume(&dstpos, 26, dstrooms, types, 1, 15, f0);
-	propSetCollisionsEnabled(prop, true);
+	propSetPerimEnabled(prop, true);
 
 	if (result == CDRESULT_NOCOLLISION) {
 		prop->pos.y = dstpos.y;
@@ -136,7 +136,7 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 	eyespyFindGround(&floorroom);
 
 	if (vel->x || vel->y || vel->z) {
-		propSetCollisionsEnabled(eyespyprop, false);
+		propSetPerimEnabled(eyespyprop, false);
 
 		dstpos.x = vel->x + eyespyprop->pos.x;
 		dstpos.y = vel->y + eyespyprop->pos.y;
@@ -197,7 +197,7 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 			}
 		}
 
-		propSetCollisionsEnabled(eyespyprop, true);
+		propSetPerimEnabled(eyespyprop, true);
 
 		if (result == CDRESULT_NOCOLLISION) {
 			// Apply the destination
@@ -644,7 +644,7 @@ bool eyespyTryLaunch(void)
 		chr->prevpos.y = g_Vars.currentplayer->eyespy->prop->pos.y = g_Vars.currentplayer->eyespy->oldground + g_Vars.currentplayer->eyespy->height;
 		chr->prevpos.z = g_Vars.currentplayer->eyespy->prop->pos.z = playerpos.f[2];
 
-		propSetCollisionsEnabled(g_Vars.currentplayer->eyespy->prop, false);
+		propSetPerimEnabled(g_Vars.currentplayer->eyespy->prop, false);
 
 		// "Not enough room to launch "
 		sprintf(text, "%s%s", langGet(L_MISC_218), bgunGetName(WEAPON_EYESPY));

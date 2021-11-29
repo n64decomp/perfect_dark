@@ -1826,7 +1826,7 @@ u8 func041f_trent_shooting[] = {
 	beginloop(0x06)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		try_unset_chr_flag_bank3_02000000(CHR_SELF, /*goto*/ 0x31)
+		if_chr_shield_damaged(CHR_SELF, /*goto*/ 0x31)
 		if_target_in_sight(/*goto*/ 0x08)
 	endloop(0x06)
 

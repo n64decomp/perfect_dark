@@ -2830,13 +2830,13 @@ bool aiIfInjured(void)
 /**
  * @cmd 0168
  */
-bool ai0168(void)
+bool aiIfShieldDamaged(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && (chr->chrflags & CHRCFLAG_02000000)) {
-		chr->chrflags &= ~CHRCFLAG_02000000;
+	if (chr && (chr->chrflags & CHRCFLAG_SHIELDDAMAGED)) {
+		chr->chrflags &= ~CHRCFLAG_SHIELDDAMAGED;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset = g_Vars.aioffset + 4;
@@ -12543,7 +12543,7 @@ bool aiChrKill(void)
 		chr->act_dead.invistimer60 = 0;
 		chr->act_dead.notifychrindex = 0;
 		chr->sleep = 0;
-		chr->chrflags |= CHRCFLAG_KEEPCORPSEKO | CHRCFLAG_00010000;
+		chr->chrflags |= CHRCFLAG_KEEPCORPSEKO | CHRCFLAG_PERIMDISABLEDTMP;
 	}
 
 	g_Vars.aioffset += 3;

@@ -1563,7 +1563,7 @@ u8 func0414_programmer[] = {
 	label(0x2c)
 	set_reaction_speed(100)
 	set_shotlist(AILIST_PROGRAMMER)
-	set_chr_chrflag(CHR_PROGRAMMER, CHRCFLAG_00000080)
+	set_chr_chrflag(CHR_PROGRAMMER, CHRCFLAG_CANFACEWALL)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
 	if_chr_knockedout(CHR_SELF, /*goto*/ 0x06)

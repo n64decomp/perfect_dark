@@ -277,7 +277,7 @@ void func0f03e5b0(struct chrdata *chr, f32 arg1);
 void chrResetAimEndProperties(struct chrdata *chr);
 void chrSetFiring(struct chrdata *chr, s32 hand, bool firing);
 void chrStopFiring(struct chrdata *chr);
-void func0f03f988(struct chrdata *chr, s32 hand, bool arg2);
+void chrSetHandFiring(struct chrdata *chr, s32 hand, bool arg2);
 void func0f0429d8(struct chrdata *chr, f32 arg1, f32 arg2);
 void propUnsetDangerous(struct prop *prop);
 void propSetDangerous(struct prop *prop);

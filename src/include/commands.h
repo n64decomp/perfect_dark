@@ -3201,8 +3201,11 @@
 	mkshort(0x0167), \
 	side,
 
-// If flag is set, unsets it and goes to label
-#define try_unset_chr_flag_bank3_02000000(chr, label) \
+/**
+ * Checks if the chr's shield has been damaged since the last time it was
+ * checked.
+ */
+#define if_chr_shield_damaged(chr, label) \
 	mkshort(0x0168), \
 	chr, \
 	label,

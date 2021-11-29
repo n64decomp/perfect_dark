@@ -5197,7 +5197,7 @@ void propsTickPadEffects(void)
 	}
 }
 
-void propSetCollisionsEnabled(struct prop *prop, s32 enable)
+void propSetPerimEnabled(struct prop *prop, s32 enable)
 {
 	if (prop->type == PROPTYPE_CHR) {
 		chrSetPerimEnabled(prop->chr, enable);
@@ -5709,7 +5709,7 @@ bool propIsOfCdType(struct prop *prop, u32 types)
 			struct chrdata *chr = prop->chr;
 
 			if (chr->actiontype == ACT_DEAD
-					|| (chr->chrflags & (CHRCFLAG_HIDDEN | CHRCFLAG_00010000))
+					|| (chr->chrflags & (CHRCFLAG_HIDDEN | CHRCFLAG_PERIMDISABLEDTMP))
 					|| (chr->hidden & CHRHFLAG_PERIMDISABLED)) {
 				result = false;
 			}

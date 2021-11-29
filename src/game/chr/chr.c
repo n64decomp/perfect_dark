@@ -15286,7 +15286,7 @@ bool chrUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 
 	if (chr->actiontype != ACT_DEAD &&
 			chr->actiontype != ACT_DRUGGEDKO &&
-			(chr->chrflags & (CHRCFLAG_00010000 | CHRCFLAG_HIDDEN)) == 0 &&
+			(chr->chrflags & (CHRCFLAG_PERIMDISABLEDTMP | CHRCFLAG_HIDDEN)) == 0 &&
 			(chr->hidden & CHRHFLAG_PERIMDISABLED) == 0) {
 		chr->geo.header.type = TILETYPE_03;
 

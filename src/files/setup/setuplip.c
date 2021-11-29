@@ -2978,7 +2978,7 @@ u8 func041f_labtech_lights[] = {
 	endloop(0x0d)
 
 	label(0x06)
-	set_self_chrflag(CHRCFLAG_00000080)
+	set_self_chrflag(CHRCFLAG_CANFACEWALL)
 	restart_timer
 	try_face_entity(ATTACKFLAG_AIMATPAD, PAD_LIP_0428, /*goto*/ LABEL_6E)
 
@@ -3042,7 +3042,7 @@ u8 func0421_init_labtech_doors[] = {
 };
 
 u8 func0420_labtech_doors[] = {
-	set_self_chrflag(CHRCFLAG_00000080)
+	set_self_chrflag(CHRCFLAG_CANFACEWALL)
 	set_shotlist(AILIST_LABTECH_DOORS)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
@@ -4188,7 +4188,7 @@ u8 func1002_intro[] = {
 	stop_ambient_track
 	enter_firstperson
 	yield
-	set_chr_chrflag(CHR_INTRO_DEAD_GUARD, CHRCFLAG_00010000)
+	set_chr_chrflag(CHR_INTRO_DEAD_GUARD, CHRCFLAG_PERIMDISABLEDTMP)
 	chr_do_animation(ANIM_01C9, 2, 3, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_INTRO_DEAD_GUARD, 2)
 	set_ailist(CHR_INTRO_DEAD_GUARD, GAILIST_IDLE)
 	yield

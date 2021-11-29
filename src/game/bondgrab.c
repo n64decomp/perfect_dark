@@ -807,7 +807,7 @@ bool bgrabTryMoveUpwards(f32 y)
 	propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &newpos, rooms);
 	bmove0f0cb79c(g_Vars.currentplayer, &newpos, rooms);
-	propSetCollisionsEnabled(g_Vars.currentplayer->prop, false);
+	propSetPerimEnabled(g_Vars.currentplayer->prop, false);
 
 	ymin -= 0.1f;
 
@@ -815,7 +815,7 @@ bool bgrabTryMoveUpwards(f32 y)
 			ymax - g_Vars.currentplayer->prop->pos.y,
 			ymin - g_Vars.currentplayer->prop->pos.y);
 
-	propSetCollisionsEnabled(g_Vars.currentplayer->prop, true);
+	propSetPerimEnabled(g_Vars.currentplayer->prop, true);
 
 	if (result == CDRESULT_NOCOLLISION) {
 		g_Vars.currentplayer->prop->pos.y = newpos.y;
@@ -878,11 +878,11 @@ glabel var7f1ad9c4
 /*  f0cd1f4:	8de400bc */ 	lw	$a0,0xbc($t7)
 /*  f0cd1f8:	8e180284 */ 	lw	$t8,0x284($s0)
 /*  f0cd1fc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0cd200:	0fc1905e */ 	jal	propSetCollisionsEnabled
+/*  f0cd200:	0fc1905e */ 	jal	propSetPerimEnabled
 /*  f0cd204:	8f0400bc */ 	lw	$a0,0xbc($t8)
 /*  f0cd208:	8e190284 */ 	lw	$t9,0x284($s0)
 /*  f0cd20c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0cd210:	0fc1905e */ 	jal	propSetCollisionsEnabled
+/*  f0cd210:	0fc1905e */ 	jal	propSetPerimEnabled
 /*  f0cd214:	8f241b5c */ 	lw	$a0,0x1b5c($t9)
 /*  f0cd218:	8e080284 */ 	lw	$t0,0x284($s0)
 /*  f0cd21c:	8fa300f0 */ 	lw	$v1,0xf0($sp)
@@ -986,7 +986,7 @@ glabel var7f1ad9c4
 /*  f0cd39c:	8e0c0284 */ 	lw	$t4,0x284($s0)
 .L0f0cd3a0:
 /*  f0cd3a0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0cd3a4:	0fc1905e */ 	jal	propSetCollisionsEnabled
+/*  f0cd3a4:	0fc1905e */ 	jal	propSetPerimEnabled
 /*  f0cd3a8:	8d841b5c */ 	lw	$a0,0x1b5c($t4)
 /*  f0cd3ac:	8fad00ec */ 	lw	$t5,0xec($sp)
 /*  f0cd3b0:	24010001 */ 	addiu	$at,$zero,0x1
@@ -1281,7 +1281,7 @@ glabel var7f1ad9c4
 .L0f0cd7ec:
 /*  f0cd7ec:	c7b600b8 */ 	lwc1	$f22,0xb8($sp)
 /*  f0cd7f0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0cd7f4:	0fc1905e */ 	jal	propSetCollisionsEnabled
+/*  f0cd7f4:	0fc1905e */ 	jal	propSetPerimEnabled
 /*  f0cd7f8:	8d6400bc */ 	lw	$a0,0xbc($t3)
 /*  f0cd7fc:	3c017f1b */ 	lui	$at,%hi(var7f1ad9c4)
 /*  f0cd800:	c422d9c4 */ 	lwc1	$f2,%lo(var7f1ad9c4)($at)
@@ -1436,11 +1436,11 @@ glabel var7f1ad9c4
 /*  f0cd1f4:	8de400bc */ 	lw	$a0,0xbc($t7)
 /*  f0cd1f8:	8e180284 */ 	lw	$t8,0x284($s0)
 /*  f0cd1fc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0cd200:	0fc1905e */ 	jal	propSetCollisionsEnabled
+/*  f0cd200:	0fc1905e */ 	jal	propSetPerimEnabled
 /*  f0cd204:	8f0400bc */ 	lw	$a0,0xbc($t8)
 /*  f0cd208:	8e190284 */ 	lw	$t9,0x284($s0)
 /*  f0cd20c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0cd210:	0fc1905e */ 	jal	propSetCollisionsEnabled
+/*  f0cd210:	0fc1905e */ 	jal	propSetPerimEnabled
 /*  f0cd214:	8f241b5c */ 	lw	$a0,0x1b5c($t9)
 /*  f0cd218:	8e080284 */ 	lw	$t0,0x284($s0)
 /*  f0cd21c:	8fa300f0 */ 	lw	$v1,0xf0($sp)
@@ -1544,7 +1544,7 @@ glabel var7f1ad9c4
 /*  f0cd39c:	8e0c0284 */ 	lw	$t4,0x284($s0)
 .L0f0cd3a0:
 /*  f0cd3a0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0cd3a4:	0fc1905e */ 	jal	propSetCollisionsEnabled
+/*  f0cd3a4:	0fc1905e */ 	jal	propSetPerimEnabled
 /*  f0cd3a8:	8d841b5c */ 	lw	$a0,0x1b5c($t4)
 /*  f0cd3ac:	8fad00ec */ 	lw	$t5,0xec($sp)
 /*  f0cd3b0:	24010001 */ 	addiu	$at,$zero,0x1
@@ -1839,7 +1839,7 @@ glabel var7f1ad9c4
 .L0f0cd7ec:
 /*  f0cd7ec:	c7b600b8 */ 	lwc1	$f22,0xb8($sp)
 /*  f0cd7f0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0cd7f4:	0fc1905e */ 	jal	propSetCollisionsEnabled
+/*  f0cd7f4:	0fc1905e */ 	jal	propSetPerimEnabled
 /*  f0cd7f8:	8d6400bc */ 	lw	$a0,0xbc($t3)
 /*  f0cd7fc:	3c017f1b */ 	lui	$at,%hi(var7f1ad9c4)
 /*  f0cd800:	c422d9c4 */ 	lwc1	$f2,%lo(var7f1ad9c4)($at)
@@ -1993,11 +1993,11 @@ glabel var7f1ad9c4
 /*  f0caa20:	8de400bc */ 	lw	$a0,0xbc($t7)
 /*  f0caa24:	8e180284 */ 	lw	$t8,0x284($s0)
 /*  f0caa28:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0caa2c:	0fc18cfb */ 	jal	propSetCollisionsEnabled
+/*  f0caa2c:	0fc18cfb */ 	jal	propSetPerimEnabled
 /*  f0caa30:	8f0400bc */ 	lw	$a0,0xbc($t8)
 /*  f0caa34:	8e190284 */ 	lw	$t9,0x284($s0)
 /*  f0caa38:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0caa3c:	0fc18cfb */ 	jal	propSetCollisionsEnabled
+/*  f0caa3c:	0fc18cfb */ 	jal	propSetPerimEnabled
 /*  f0caa40:	8f241b5c */ 	lw	$a0,0x1b5c($t9)
 /*  f0caa44:	8e080284 */ 	lw	$t0,0x284($s0)
 /*  f0caa48:	8fa300e8 */ 	lw	$v1,0xe8($sp)
@@ -2121,7 +2121,7 @@ glabel var7f1ad9c4
 /*  f0cac0c:	8e180284 */ 	lw	$t8,0x284($s0)
 .NB0f0cac10:
 /*  f0cac10:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0cac14:	0fc18cfb */ 	jal	propSetCollisionsEnabled
+/*  f0cac14:	0fc18cfb */ 	jal	propSetPerimEnabled
 /*  f0cac18:	8f041b5c */ 	lw	$a0,0x1b5c($t8)
 /*  f0cac1c:	8fb900e4 */ 	lw	$t9,0xe4($sp)
 /*  f0cac20:	24010001 */ 	addiu	$at,$zero,0x1
@@ -2417,7 +2417,7 @@ glabel var7f1ad9c4
 /*  f0cb060:	8e0f0284 */ 	lw	$t7,0x284($s0)
 .NB0f0cb064:
 /*  f0cb064:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0cb068:	0fc18cfb */ 	jal	propSetCollisionsEnabled
+/*  f0cb068:	0fc18cfb */ 	jal	propSetPerimEnabled
 /*  f0cb06c:	8de400bc */ 	lw	$a0,0xbc($t7)
 /*  f0cb070:	3c017f1a */ 	lui	$at,0x7f1a
 /*  f0cb074:	c4227d04 */ 	lwc1	$f2,0x7d04($at)
@@ -4228,8 +4228,8 @@ void bgrabTick(void)
 
 			struct prop *grabbedprop = g_Vars.currentplayer->grabbedprop;
 
-			propSetCollisionsEnabled(g_Vars.currentplayer->prop, false);
-			propSetCollisionsEnabled(grabbedprop, false);
+			propSetPerimEnabled(g_Vars.currentplayer->prop, false);
+			propSetPerimEnabled(grabbedprop, false);
 
 			if (g_Vars.currentplayer->vv_ground <= -30000
 					|| ydiff < -100 || ydiff > 100
@@ -4239,8 +4239,8 @@ void bgrabTick(void)
 				bmoveSetMode(MOVEMODE_WALK);
 			}
 
-			propSetCollisionsEnabled(g_Vars.currentplayer->prop, true);
-			propSetCollisionsEnabled(grabbedprop, true);
+			propSetPerimEnabled(g_Vars.currentplayer->prop, true);
+			propSetPerimEnabled(grabbedprop, true);
 		}
 	}
 }

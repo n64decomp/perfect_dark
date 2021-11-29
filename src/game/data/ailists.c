@@ -2666,7 +2666,7 @@ u8 func0007_alerted[] = {
 };
 
 u8 func000a_do_idle_animation[] = {
-	set_chr_chrflag(CHR_SELF, CHRCFLAG_00000080)
+	set_chr_chrflag(CHR_SELF, CHRCFLAG_CANFACEWALL)
 	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
 	if_chr_idle_action_eq(IDLEACTION_SITTING_TYPING, /*goto*/ 0x16)
 	if_chr_idle_action_eq(IDLEACTION_SITTING_DORMANT, /*goto*/ 0x16)
@@ -5132,7 +5132,7 @@ u8 func0015_aibuddy_stealth[] = {
 	label(0x16)
 	remove_references_to_chr
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
-	set_self_chrflag((CHRCFLAG_HIDDEN | CHRCFLAG_00010000 | CHRCFLAG_00040000))
+	set_self_chrflag((CHRCFLAG_HIDDEN | CHRCFLAG_PERIMDISABLEDTMP | CHRCFLAG_00040000))
 
 	// Wait 3 seconds
 	restart_timer
@@ -5180,14 +5180,14 @@ u8 func0015_aibuddy_stealth[] = {
 	// This will execute every second after the initial 7ish seconds and while
 	// cutscene is not running. The chr is being moved back to the player
 	// repeatedly.
-	set_chr_hiddenflag(CHR_SELF, 0x00100200)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00000200 | CHRHFLAG_00100000)
 	chr_move_to_pad(CHR_SELF, CHR_BOND, 88, /*goto*/ 0x17)
 	goto_first(0x19)
 
 	label(0x17)
-	unset_self_chrflag(0x00050400)
+	unset_self_chrflag(CHRCFLAG_HIDDEN | CHRCFLAG_PERIMDISABLEDTMP | CHRCFLAG_00040000)
 	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
-	unset_chr_hiddenflag(CHR_SELF, 0x00100200)
+	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_00000200 | CHRHFLAG_00100000)
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
 	set_returnlist(CHR_SELF, GAILIST_COOP_BUDDY)
 	set_shotlist(GAILIST_COOP_BUDDY)

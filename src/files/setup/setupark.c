@@ -612,7 +612,7 @@ u8 func0401_drcaroll_following[] = {
 	set_chr_maxdamage(CHR_SELF, 100)
 	label(0x20)
 	dprint 'b','4',' ','s','h','i','e','l','d',' ','c','h','e','c','k','\n',0,
-	try_unset_chr_flag_bank3_02000000(CHR_SELF, /*goto*/ 0x00)
+	if_chr_shield_damaged(CHR_SELF, /*goto*/ 0x00)
 	goto_next(0x02)
 
 	label(0x00)
@@ -2448,7 +2448,7 @@ u8 func100d_intro[] = {
 	unset_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_UNPLAYABLE)
 	set_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_INVINCIBLE)
 	set_chr_hiddenflag(CHR_INTRO_GUARD, CHRHFLAG_00020000)
-	set_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_00010000)
+	set_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_PERIMDISABLEDTMP)
 	chr_do_animation(ANIM_013A, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_INTRO_GUARD, 2)
 
 	stop_cutscene_track

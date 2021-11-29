@@ -1748,7 +1748,7 @@ void chrStand(struct chrdata *chr)
 			chr->act_stand.entityid = 0;
 			chr->act_stand.reaim = 0;
 			chr->act_stand.turning = TURNSTATE_OFF;
-			chr->act_stand.checkfacingwall = 0;
+			chr->act_stand.checkfacingwall = false;
 			chr->act_stand.wallcount = random() % 120 + 180;
 			chr->sleep = 0;
 			chr->act_stand.playwalkanim = false;
@@ -4586,7 +4586,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 #endif
 			}
 
-			chr->chrflags |= CHRCFLAG_02000000;
+			chr->chrflags |= CHRCFLAG_SHIELDDAMAGED;
 
 			if (prop2 && node && chr->model) {
 				func0f034080(chr, node, prop2, model, side, arg11);
@@ -6904,7 +6904,7 @@ bool chrCanSeeEntity(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, b
 			targetprop = chrGetTargetProp(chr);
 
 			if (targetprop->type != PROPTYPE_PLAYER || g_Vars.bondvisible) {
-				propSetCollisionsEnabled(targetprop, false);
+				propSetPerimEnabled(targetprop, false);
 
 				if (allowextraheight && (chr->chrflags & CHRCFLAG_LOSEXTRAHEIGHT)) {
 					struct coord frompos;
@@ -6927,7 +6927,7 @@ bool chrCanSeeEntity(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, b
 					}
 				}
 
-				propSetCollisionsEnabled(targetprop, true);
+				propSetPerimEnabled(targetprop, true);
 			}
 		} else if (attackflags & ATTACKFLAG_AIMATCHR) {
 			targetchr = chrFindById(chr, entityid);
@@ -7063,9 +7063,9 @@ bool chrCanSeeProp(struct chrdata *chr, struct prop *prop)
 {
 	bool result;
 
-	propSetCollisionsEnabled(prop, false);
+	propSetPerimEnabled(prop, false);
 	result = chrCanSeePos(chr, &prop->pos, prop->rooms);
-	propSetCollisionsEnabled(prop, true);
+	propSetPerimEnabled(prop, true);
 
 	return result;
 }
@@ -7989,10 +7989,10 @@ bool chrGoToCoverProp(struct chrdata *chr)
 					chrheight = chrymax - chrymin;
 
 					if (propheight > chrheight * 0.4f && propheight < chrheight * 0.9f) {
-						propSetCollisionsEnabled(prop, false);
+						propSetPerimEnabled(prop, false);
 
 						if (cd0002dc18(&chrprop->pos, chrprop->rooms, &prop->pos, CDTYPE_DOORS | CDTYPE_BG)) {
-							propSetCollisionsEnabled(prop, true);
+							propSetPerimEnabled(prop, true);
 
 							dstpos.x = prop->pos.x - (targetprop->pos.x - prop->pos.x) / targetdist * (propwidth * 1.25f + chrwidth);
 							dstpos.z = prop->pos.z - (targetprop->pos.z - prop->pos.z) / targetdist * (propwidth * 1.25f + chrwidth);
@@ -8020,7 +8020,7 @@ bool chrGoToCoverProp(struct chrdata *chr)
 						}
 					}
 
-					propSetCollisionsEnabled(prop, true);
+					propSetPerimEnabled(prop, true);
 				}
 			}
 		}
@@ -9047,7 +9047,7 @@ glabel var7f1a8f08
 //		return;
 //	}
 //
-//	if (chr->chrflags & CHRCFLAG_00000080) {
+//	if (chr->chrflags & CHRCFLAG_CANFACEWALL) {
 //		chr->act_stand.checkfacingwall = false;
 //		return;
 //	}
@@ -11308,23 +11308,23 @@ void chrStopFiring(struct chrdata *chr)
 	}
 }
 
-void func0f03f988(struct chrdata *chr, s32 hand, bool arg2)
+void chrSetHandFiring(struct chrdata *chr, s32 hand, bool firing)
 {
-	if (arg2) {
+	if (firing) {
 		if (hand == HAND_LEFT) {
-			chr->hidden |= CHRHFLAG_00000004;
+			chr->hidden |= CHRHFLAG_FIRINGLEFT;
 		} else {
-			chr->hidden |= CHRHFLAG_00000008;
+			chr->hidden |= CHRHFLAG_FIRINGRIGHT;
 		}
 	} else {
 		if (hand == HAND_LEFT) {
-			chr->hidden &= ~CHRHFLAG_00000004;
+			chr->hidden &= ~CHRHFLAG_FIRINGLEFT;
 		} else {
-			chr->hidden &= ~CHRHFLAG_00000008;
+			chr->hidden &= ~CHRHFLAG_FIRINGRIGHT;
 		}
 	}
 
-	if (!arg2) {
+	if (!firing) {
 		chrSetFiring(chr, hand, false);
 	}
 }
@@ -12265,7 +12265,7 @@ glabel var7f1a9184
 /*  f040ad4:	0c0011d8 */ 	jal	guNormalize
 /*  f040ad8:	e7b201e8 */ 	swc1	$f18,0x1e8($sp)
 /*  f040adc:	8fa4025c */ 	lw	$a0,0x25c($sp)
-/*  f040ae0:	0fc19102 */ 	jal	propSetCollisionsEnabled
+/*  f040ae0:	0fc19102 */ 	jal	propSetPerimEnabled
 /*  f040ae4:	24050001 */ 	li	$a1,0x1
 /*  f040ae8:	1000002f */ 	b	.PF0f040ba8
 /*  f040aec:	8fab0278 */ 	lw	$t3,0x278($sp)
@@ -13377,7 +13377,7 @@ glabel var7f1a9184
 /*  f041b04:	8fa4025c */ 	lw	$a0,0x25c($sp)
 /*  f041b08:	51600004 */ 	beqzl	$t3,.PF0f041b1c
 /*  f041b0c:	8fa80268 */ 	lw	$t0,0x268($sp)
-/*  f041b10:	0fc19102 */ 	jal	propSetCollisionsEnabled
+/*  f041b10:	0fc19102 */ 	jal	propSetPerimEnabled
 /*  f041b14:	00002825 */ 	move	$a1,$zero
 /*  f041b18:	8fa80268 */ 	lw	$t0,0x268($sp)
 .PF0f041b1c:
@@ -13863,7 +13863,7 @@ glabel var7f1a9184
 /*  f040950:	0c0011e4 */ 	jal	guNormalize
 /*  f040954:	e7b201e8 */ 	swc1	$f18,0x1e8($sp)
 /*  f040958:	8fa4025c */ 	lw	$a0,0x25c($sp)
-/*  f04095c:	0fc1905e */ 	jal	propSetCollisionsEnabled
+/*  f04095c:	0fc1905e */ 	jal	propSetPerimEnabled
 /*  f040960:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f040964:	1000002f */ 	b	.L0f040a24
 /*  f040968:	8fab0278 */ 	lw	$t3,0x278($sp)
@@ -14967,7 +14967,7 @@ glabel var7f1a9184
 /*  f041960:	8fa4025c */ 	lw	$a0,0x25c($sp)
 /*  f041964:	51c00004 */ 	beqzl	$t6,.L0f041978
 /*  f041968:	8fa80268 */ 	lw	$t0,0x268($sp)
-/*  f04196c:	0fc1905e */ 	jal	propSetCollisionsEnabled
+/*  f04196c:	0fc1905e */ 	jal	propSetPerimEnabled
 /*  f041970:	00002825 */ 	or	$a1,$zero,$zero
 /*  f041974:	8fa80268 */ 	lw	$t0,0x268($sp)
 .L0f041978:
@@ -15453,7 +15453,7 @@ glabel var7f1a9184
 /*  f040130:	0c0012a8 */ 	jal	guNormalize
 /*  f040134:	e7b201e8 */ 	swc1	$f18,0x1e8($sp)
 /*  f040138:	8fa4025c */ 	lw	$a0,0x25c($sp)
-/*  f04013c:	0fc18cfb */ 	jal	propSetCollisionsEnabled
+/*  f04013c:	0fc18cfb */ 	jal	propSetPerimEnabled
 /*  f040140:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f040144:	1000002f */ 	beqz	$zero,.NB0f040204
 /*  f040148:	8fab0278 */ 	lw	$t3,0x278($sp)
@@ -16551,7 +16551,7 @@ glabel var7f1a9184
 /*  f041128:	8fa4025c */ 	lw	$a0,0x25c($sp)
 /*  f04112c:	51800004 */ 	beqzl	$t4,.NB0f041140
 /*  f041130:	8fa80268 */ 	lw	$t0,0x268($sp)
-/*  f041134:	0fc18cfb */ 	jal	propSetCollisionsEnabled
+/*  f041134:	0fc18cfb */ 	jal	propSetPerimEnabled
 /*  f041138:	00002825 */ 	or	$a1,$zero,$zero
 /*  f04113c:	8fa80268 */ 	lw	$t0,0x268($sp)
 .NB0f041140:
@@ -17062,7 +17062,7 @@ void chrTickFire(struct chrdata *chr)
 			if (chr->act_attack.everytick[i] == 0) {
 				if (modelGetAnimNum(model) == ANIM_SNIPING_ONGROUND
 						|| (curframe >= chr->act_attack.animcfg->unk18 && curframe < chr->act_attack.animcfg->unk1c)) {
-					func0f03f988(chr, i, true);
+					chrSetHandFiring(chr, i, true);
 
 					chr->act_attack.lastfire60 = g_Vars.lvframe60;
 
@@ -17083,7 +17083,7 @@ void chrTickFire(struct chrdata *chr)
 						modelSetAnimSpeed(model, 0.5f, 0);
 					}
 				} else {
-					func0f03f988(chr, i, false);
+					chrSetHandFiring(chr, i, false);
 
 					if (chr->actiontype == ACT_ATTACKROLL) {
 						modelSetAnimSpeed(model, chrGetRangedSpeed(chr, 0.5f, 0.8f), 0);
@@ -17100,12 +17100,12 @@ void chrTickFire(struct chrdata *chr)
 				chr->act_attack.numshots++;
 				chr->act_attack.lastfire60 = g_Vars.lvframe60;
 
-				func0f03f988(chr, i, true);
+				chrSetHandFiring(chr, i, true);
 			} else {
-				func0f03f988(chr, i, false);
+				chrSetHandFiring(chr, i, false);
 			}
 		} else {
-			func0f03f988(chr, i, false);
+			chrSetHandFiring(chr, i, false);
 		}
 	}
 }
@@ -17132,13 +17132,13 @@ void chrTickAttackAmount(struct chrdata *chr)
 
 	if (chr->act_attack.dooneburst) {
 		if (chr->act_attack.numshots++ < chr->act_attack.maxshots) {
-			func0f03f988(chr, HAND_RIGHT, true);
+			chrSetHandFiring(chr, HAND_RIGHT, true);
 		} else {
 			chrAttackAmountUpdateAnimation(chr);
-			func0f03f988(chr, HAND_RIGHT, false);
+			chrSetHandFiring(chr, HAND_RIGHT, false);
 		}
 	} else {
-		func0f03f988(chr, HAND_RIGHT, false);
+		chrSetHandFiring(chr, HAND_RIGHT, false);
 	}
 }
 
@@ -18345,7 +18345,7 @@ void chrTickAttackWalk(struct chrdata *chr)
 		for (i = 0; i < 2; i++) {
 			if (chr->act_attackwalk.firegun[i]) {
 				if (!chr->act_attackwalk.everytick[i]) {
-					func0f03f988(chr, i, true);
+					chrSetHandFiring(chr, i, true);
 				} else if (chr->act_attackwalk.frame60count > chr->act_attackwalk.nextshot60
 						&& (i == chr->act_attackwalk.nextgun || chr->act_attackwalk.everytick[chr->act_attackwalk.nextgun] == 0)) {
 					chr->act_attackwalk.nextshot60 = chr->act_attackwalk.frame60count;
@@ -18366,17 +18366,17 @@ void chrTickAttackWalk(struct chrdata *chr)
 
 					chr->act_attackwalk.nextgun = 1 - chr->act_attackwalk.nextgun;
 
-					func0f03f988(chr, i, true);
+					chrSetHandFiring(chr, i, true);
 				} else {
-					func0f03f988(chr, i, false);
+					chrSetHandFiring(chr, i, false);
 				}
 			} else {
-				func0f03f988(chr, i, false);
+				chrSetHandFiring(chr, i, false);
 			}
 		}
 	} else {
-		func0f03f988(chr, HAND_LEFT, false);
-		func0f03f988(chr, HAND_RIGHT, false);
+		chrSetHandFiring(chr, HAND_LEFT, false);
+		chrSetHandFiring(chr, HAND_RIGHT, false);
 	}
 }
 
@@ -22764,11 +22764,11 @@ bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 
 	propChrGetBbox(prop, &width, &ymax, &ymin);
 	chrSetPerimEnabled(chr, false);
-	propSetCollisionsEnabled(target, false);
+	propSetPerimEnabled(target, false);
 	iVar2 = cd0002d6ac(&prop->pos, prop->rooms, &target->pos, 51, 1,
 			ymax - prop->pos.y, ymin - prop->pos.y);
 	chrSetPerimEnabled(chr, true);
-	propSetCollisionsEnabled(target, true);
+	propSetPerimEnabled(target, true);
 
 	if (iVar2) {
 		diffs[0] = target->pos.x - chr->prop->pos.x;
@@ -26324,7 +26324,7 @@ bool func0f04b658(struct chrdata *chr)
 
 	if (chr->proppreset1 >= 0) {
 		chrSetPerimEnabled(chr, false);
-		propSetCollisionsEnabled(target, false);
+		propSetPerimEnabled(target, false);
 
 		if (!cd0002dc18(&prop->pos, prop->rooms, &target->pos, 0x33)) {
 			struct prop *thing = cdGetObstacle();
@@ -26336,7 +26336,7 @@ bool func0f04b658(struct chrdata *chr)
 		}
 
 		chrSetPerimEnabled(chr, true);
-		propSetCollisionsEnabled(target, true);
+		propSetPerimEnabled(target, true);
 	}
 
 	return result;
@@ -26362,7 +26362,7 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 	pos2.z = pos->z;
 
 	roomsCopy(rooms, rooms2);
-	propSetCollisionsEnabled(chr->prop, false);
+	propSetPerimEnabled(chr->prop, false);
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (chrAdjustPosForSpawn(chr->chrwidth, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen, (chr->hidden & CHRHFLAG_00000200) != 0))
@@ -26407,7 +26407,7 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 		result = true;
 	}
 
-	propSetCollisionsEnabled(chr->prop, true);
+	propSetPerimEnabled(chr->prop, true);
 
 	return result;
 }
@@ -28571,8 +28571,8 @@ void chrToggleModelPart(struct chrdata *chr, s32 partnum)
  */
 void chrAvoid(struct chrdata *chr)
 {
-	// The first 4 items here are animation numbers,
-	// an the second 4 are their corresponding end frames.
+	// The first 4 items here are animation numbers
+	// and the second 4 are their corresponding end frames.
 	s32 anims[] = {
 		ANIM_0064, ANIM_0065, ANIM_0066, ANIM_0067,
 		48, 58, 35, 35
@@ -28593,8 +28593,8 @@ void chrAvoid(struct chrdata *chr)
 	s16 dstrooms[8];
 	struct coord dstpos;
 
-	// @bug: This shouldn't be here, and there is no corresponding setting of
-	// the flag again if the chr is not ready for orders.
+	// @bug: This shouldn't be here, and the perim is not enabled again
+	// if the chr is not ready for orders.
 	chrSetPerimEnabled(chr, false);
 
 	if (chrIsReadyForOrders(chr)) {

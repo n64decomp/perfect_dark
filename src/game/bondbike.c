@@ -129,8 +129,8 @@ void bbikeTryDismountAngle(f32 relativeangle, f32 distance)
 		pos.y = g_Vars.currentplayer->hoverbike->pos.y;
 		pos.z = g_Vars.currentplayer->hoverbike->pos.z + cosf(angle) * distance;
 
-		propSetCollisionsEnabled(g_Vars.currentplayer->hoverbike, false);
-		propSetCollisionsEnabled(g_Vars.currentplayer->prop, false);
+		propSetPerimEnabled(g_Vars.currentplayer->hoverbike, false);
+		propSetPerimEnabled(g_Vars.currentplayer->prop, false);
 
 		func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &pos, rooms);
 		bmove0f0cb79c(g_Vars.currentplayer, &pos, rooms);
@@ -140,7 +140,7 @@ void bbikeTryDismountAngle(f32 relativeangle, f32 distance)
 				ymax - g_Vars.currentplayer->prop->pos.y,
 				ymin - g_Vars.currentplayer->prop->pos.y);
 
-		propSetCollisionsEnabled(g_Vars.currentplayer->hoverbike, true);
+		propSetPerimEnabled(g_Vars.currentplayer->hoverbike, true);
 
 		if (result == CDRESULT_NOCOLLISION) {
 			result = cdTestVolume(&pos, width, rooms, CDTYPE_ALL, true,
@@ -160,7 +160,7 @@ void bbikeTryDismountAngle(f32 relativeangle, f32 distance)
 			g_Vars.currentplayer->moveinitspeed.z = bike->speed[1];
 		}
 
-		propSetCollisionsEnabled(g_Vars.currentplayer->prop, true);
+		propSetPerimEnabled(g_Vars.currentplayer->prop, true);
 	}
 }
 
@@ -1067,8 +1067,8 @@ s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
 	dstpos.z = g_Vars.currentplayer->hoverbike->pos.z;
 
 	if (vel->x || vel->y || vel->z) {
-		propSetCollisionsEnabled(g_Vars.currentplayer->prop, false);
-		propSetCollisionsEnabled(g_Vars.currentplayer->hoverbike, false);
+		propSetPerimEnabled(g_Vars.currentplayer->prop, false);
+		propSetPerimEnabled(g_Vars.currentplayer->hoverbike, false);
 
 		dstpos.x += vel->x;
 		dstpos.z += vel->z;
@@ -1112,8 +1112,8 @@ s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
 					ymin - g_Vars.currentplayer->hoverbike->pos.y);
 		}
 
-		propSetCollisionsEnabled(g_Vars.currentplayer->prop, true);
-		propSetCollisionsEnabled(g_Vars.currentplayer->hoverbike, true);
+		propSetPerimEnabled(g_Vars.currentplayer->prop, true);
+		propSetPerimEnabled(g_Vars.currentplayer->hoverbike, true);
 	}
 
 	if (angledelta) {
