@@ -87,7 +87,7 @@ void bbikeExit(void)
 	func0f0939f8(NULL, g_Vars.currentplayer->hoverbike, SFX_BIKE_PULSE, -1,
 			-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
-	obj->flags |= OBJFLAG_40000000;
+	obj->flags |= OBJFLAG_HOVERBIKE_MOVINGWHILEEMPTY;
 }
 
 void bbikeUpdateVehicleOffset(void)
@@ -1594,7 +1594,7 @@ void bbikeTick(void)
 		}
 
 		if (g_Vars.currentplayer->bondvehiclemode == VEHICLEMODE_OFF) {
-			func0f072adc(bike,
+			hoverbikeUpdateMovement(bike,
 					g_Vars.currentplayer->speedforwards,
 					g_Vars.currentplayer->speedsideways,
 					g_Vars.currentplayer->speedtheta);
@@ -1603,7 +1603,7 @@ void bbikeTick(void)
 				g_Vars.currentplayer->bondvehiclemode = VEHICLEMODE_RUNNING;
 			}
 
-			func0f072adc(bike,
+			hoverbikeUpdateMovement(bike,
 					g_Vars.currentplayer->speedforwards,
 					g_Vars.currentplayer->speedsideways,
 					g_Vars.currentplayer->speedtheta);

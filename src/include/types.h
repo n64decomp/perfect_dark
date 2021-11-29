@@ -1981,7 +1981,7 @@ struct hoverbikeobj { // objtype 0x33
 	/*0x0c0*/ f32 ezreal2;
 	/*0x0c4*/ f32 leanspeed;
 	/*0x0c8*/ f32 leandiff;
-	/*0x0cc*/ u32 maxspeedtime240;
+	/*0x0cc*/ s32 maxspeedtime240;
 	/*0x0d0*/ f32 speedabs[2];
 	/*0x0d8*/ f32 speedrel[2];
 };

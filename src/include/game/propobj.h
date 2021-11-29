@@ -155,7 +155,7 @@ void hovercarFindNextPath(struct hovercarobj *hovercar);
 void hovercarStartNextPath(struct hovercarobj *hovercar);
 void hovercarIncrementStep(struct hovercarobj *hovercar);
 u32 func0f0727d4(void);
-void func0f072adc(struct hoverbikeobj *hoverbike, f32 arg1, f32 arg2, f32 arg3);
+void hoverbikeUpdateMovement(struct hoverbikeobj *hoverbike, f32 arg1, f32 arg2, f32 arg3);
 u32 func0f0732d4(void);
 u32 func0f073478(void);
 u32 func0f073ae8(void);

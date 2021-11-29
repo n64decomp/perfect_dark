@@ -20288,7 +20288,7 @@ glabel var7f1aa320
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f072adc
+glabel hoverbikeUpdateMovement
 .late_rodata
 glabel var7f1ab5d0pf
 .word 0x3d32b179
@@ -20898,7 +20898,7 @@ glabel var7f1ab654pf
 );
 #else
 GLOBAL_ASM(
-glabel func0f072adc
+glabel hoverbikeUpdateMovement
 .late_rodata
 glabel var7f1aa324
 .word 0x3d32b179
@@ -21517,6 +21517,203 @@ glabel var7f1aa3b8
 /*  f0732d0:	00000000 */ 	nop
 );
 #endif
+
+// Mismatches:
+// Goal loads 1.0f earlier for use with leanmult
+// Mine loads 1.0f twice for leanmult
+// Mine loads speedfowards twice while goal keeps in f2 (near maxspeedtime240)
+//void hoverbikeUpdateMovement(struct hoverbikeobj *bike, f32 speedforwards, f32 speedsideways, f32 speedtheta)
+//{
+//	f32 fVar6;
+//	f32 angle; // 80
+//	f32 sinangle; // 7c
+//	f32 cosangle;
+//	f32 f2;
+//	f32 sp70 = 0;
+//	f32 sp6c = 0;
+//	f32 sp68 = 0;
+//	s32 i; // 64
+//	f32 leanmult;
+//	f32 fVar7;
+//	f32 fVar10;
+//	f32 prevleanspeed;
+//	u32 stack;
+//	f32 tmp;
+//	f32 sp44;
+//
+//	tmp = speedtheta * 0.04362628236413f;
+//
+//	if (speedforwards < 0) {
+//		tmp *= 1.0f - speedforwards * 0.5f;
+//	}
+//
+//	for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+//		bike->w += (tmp - bike->w) * 0.075f;
+//	}
+//
+//	// b84
+//	sp6c += bike->w * 12;
+//	angle = hoverpropGetTurnAngle(&bike->base);
+//	sinangle = sinf(angle);
+//	cosangle = cosf(angle);
+//
+//	if (speedforwards >= 0) {
+//		f2 = (0.1f + speedforwards) * 0.3f * g_Vars.lvupdate240freal;
+//	} else {
+//		f2 = (0.1f - speedforwards) * 0.3f * g_Vars.lvupdate240freal;
+//	}
+//
+//	// c3c
+//	if (bike->rels[1] < speedforwards * 0.5f) {
+//		bike->rels[1] += f2;
+//
+//		if (bike->rels[1] > speedforwards * 0.5f) {
+//			bike->rels[1] = speedforwards * 0.5f;
+//		}
+//	} else {
+//		bike->rels[1] -= f2;
+//
+//		if (bike->rels[1] < speedforwards * 0.5f) {
+//			bike->rels[1] = speedforwards * 0.5f;
+//		}
+//	}
+//
+//	prevleanspeed = bike->leanspeed;
+//	bike->leanspeed = speedforwards;
+//	bike->leandiff *= 0.93f;
+//	bike->leandiff += speedforwards - prevleanspeed;
+//
+//	leanmult = bike->leandiff * 5;
+//
+//	if (leanmult > 1.0f) {
+//		leanmult = 1.0f;
+//	} else if (leanmult < -1.0f) {
+//		leanmult = -1.0f;
+//	}
+//
+//	// d14
+//	if (speedforwards >= 0) {
+//		if (leanmult > 0) {
+//			fVar7 = speedforwards * 0.3f + speedforwards * 0.7f * leanmult;
+//		} else {
+//			fVar7 = speedforwards * 0.3f;
+//		}
+//	} else {
+//		if (leanmult < 0) {
+//			fVar7 = speedforwards * 0.5f - speedforwards * 0.5f * leanmult;
+//		} else {
+//			fVar7 = speedforwards * 0.5f;
+//		}
+//	}
+//
+//	// d84
+//	sp70 += fVar7 * 0.04f * M_BADTAU;
+//
+//	if (speedsideways >= 0) {
+//		f2 = (0.1f + speedsideways) * 0.3f * g_Vars.lvupdate240freal;
+//	} else {
+//		f2 = (0.1f - speedsideways) * 0.3f * g_Vars.lvupdate240freal;
+//	}
+//
+//	if (bike->rels[0] < speedsideways * 0.4f) {
+//		bike->rels[0] += f2;
+//
+//		if (bike->rels[0] > speedsideways * 0.4f) {
+//			bike->rels[0] = speedsideways * 0.4f;
+//		}
+//	} else {
+//		bike->rels[0] -= f2;
+//
+//		if (bike->rels[0] < speedsideways * 0.4f) {
+//			bike->rels[0] = speedsideways * 0.4f;
+//		}
+//	}
+//
+//	sp68 += speedsideways * 0.2512874007225f;
+//
+//	for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+//		bike->speedabs[1] *= 0.97f;
+//		bike->speedabs[0] *= 0.97f;
+//		bike->speedabs[1] += bike->rels[1] * cosangle * 1.08f;
+//		bike->speedabs[0] += bike->rels[1] * sinangle * 1.08f;
+//		bike->speedabs[1] += bike->rels[0] * sinangle * 0.72f;
+//		bike->speedabs[0] += -bike->rels[0] * cosangle * 0.72f;
+//	}
+//
+//	for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+//		bike->exreal += (sp70 - bike->exreal) * 0.04f;
+//		bike->ezreal += (sp6c - bike->ezreal) * 0.15f;
+//		bike->ezreal2 += (sp68 - bike->ezreal2) * 0.04f;
+//	}
+//
+//	if (speedforwards >= 0.99f) {
+//		bike->maxspeedtime240 += g_Vars.lvupdate240;
+//
+//		if (bike->maxspeedtime240 > 2400) {
+//			bike->maxspeedtime240 = 2400;
+//		}
+//	} else if (bike->maxspeedtime240 > 0) {
+//		if (speedforwards >= 0.8f) {
+//			// empty
+//		} else if (speedforwards >= -0.1f) {
+//			bike->maxspeedtime240 -= g_Vars.lvupdate240;
+//
+//			if (bike->maxspeedtime240 < 0) {
+//				bike->maxspeedtime240 = 0;
+//			}
+//		} else {
+//			bike->maxspeedtime240 = 0;
+//		}
+//	}
+//
+//	bike->speedrel[1] = bike->maxspeedtime240 * 50000.0f / 2400000;
+//
+//	bike->speed[1] = bike->speedabs[1] + bike->speedrel[0] * sinangle + bike->speedrel[1] * cosangle;
+//	bike->speed[0] = bike->speedabs[0] + bike->speedrel[1] * sinangle - bike->speedrel[0] * cosangle;
+//
+//	if (bike->base.flags & OBJFLAG_HOVERBIKE_MOVINGWHILEEMPTY) {
+//		if (bike->speed[0] > 0.1f
+//				|| bike->speed[1] > 0.1f
+//				|| bike->w > 0.001f
+//				|| bike->rels[0] > 0.001f
+//				|| bike->rels[1] > 0.001f
+//				|| bike->exreal > 0.001f
+//				|| bike->ezreal > 0.001f
+//				|| bike->ezreal2 > 0.001f
+//				|| bike->leandiff > 0.1f
+//				|| (bike->speed[0] < -0.1f)
+//				|| (bike->speed[1] < -0.1f)
+//				|| (bike->w < -0.001f)
+//				|| (bike->rels[0] < -0.001f)
+//				|| (bike->rels[1] < -0.001f)
+//				|| (bike->exreal < -0.001f)
+//				|| (bike->ezreal < -0.001f)
+//				|| (bike->ezreal2 < -0.001f)
+//				|| (bike->leandiff < -0.1f)) {
+//			// still moving
+//		} else {
+//			bike->speed[0] = 0;
+//			bike->speed[1] = 0;
+//			bike->w = 0;
+//			bike->rels[0] = 0;
+//			bike->rels[1] = 0;
+//			bike->exreal = 0;
+//			bike->ezreal = 0;
+//			bike->ezreal2 = 0;
+//			bike->leanspeed = 0;
+//			bike->leandiff = 0;
+//			bike->maxspeedtime240 = 0;
+//			bike->speedabs[0] = 0;
+//			bike->speedabs[1] = 0;
+//			bike->speedrel[0] = 0;
+//			bike->speedrel[1] = 0;
+//
+//			if (1);
+//
+//			bike->base.flags &= ~OBJFLAG_HOVERBIKE_MOVINGWHILEEMPTY;
+//		}
+//	}
+//}
 
 GLOBAL_ASM(
 glabel func0f0732d4
@@ -49350,8 +49547,8 @@ void hoverbikeTick(struct prop *prop, bool arg1)
 			func0f0714b8(&obj->base, &obj->hov);
 		}
 
-		if (obj->base.flags & OBJFLAG_DOOR_KEEPOPEN) {
-			func0f072adc(obj, 0, 0, 0);
+		if (obj->base.flags & OBJFLAG_HOVERBIKE_MOVINGWHILEEMPTY) {
+			hoverbikeUpdateMovement(obj, 0, 0, 0);
 		}
 	}
 }
@@ -64056,7 +64253,7 @@ s32 weaponGetPickupAmmoQty(struct weaponobj *weapon)
 		return 1;
 	}
 
-	if (weapon->base.flags & OBJFLAG_DOOR_KEEPOPEN) {
+	if (weapon->base.flags & OBJFLAG_WEAPON_40000000) {
 		return 0;
 	}
 

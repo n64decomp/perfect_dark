@@ -2852,14 +2852,17 @@
 #define OBJFLAG_DOOR_OPENTOFRONT     0x20000000
 #define OBJFLAG_HOVERCAR_20000000    0x20000000
 #define OBJFLAG_WEAPON_AICANNOTUSE   0x20000000
-#define OBJFLAG_40000000             0x40000000
 #define OBJFLAG_AUTOGUN_ALERTED      0x40000000
 #define OBJFLAG_CAMERA_BONDINVIEW    0x40000000
 #define OBJFLAG_DOOR_KEEPOPEN        0x40000000 // Editor: "Door open by default/Empty weapon"
+#define OBJFLAG_HOVERBIKE_MOVINGWHILEEMPTY   0x40000000
+#define OBJFLAG_HOVERCAR_40000000    0x40000000
 #define OBJFLAG_LIFT_TRIGGERDISABLE  0x40000000
+#define OBJFLAG_MONITOR_40000000     0x40000000
+#define OBJFLAG_WEAPON_40000000      0x40000000
 #define OBJFLAG_80000000             0x80000000
-#define OBJFLAG_DOOR_TWOWAY          0x80000000 // Door swings in both directions
 #define OBJFLAG_CHOPPER_INACTIVE     0x80000000 // Or lift disabled, or hovercar something
+#define OBJFLAG_DOOR_TWOWAY          0x80000000 // Door swings in both directions
 
 // obj->flags2
 #define OBJFLAG2_00000001          0x00000001 // Used only in CI Training
