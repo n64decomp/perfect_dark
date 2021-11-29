@@ -967,7 +967,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 
 	dprint();
 
-	obj->flags3 &= ~OBJFLAG3_00004000;
+	obj->flags3 &= ~OBJFLAG3_ISFETCHTARGET;
 
 	switch (obj->type) {
 	case OBJTYPE_KEY:
@@ -1585,7 +1585,7 @@ glabel var7f1b8ea8
 .L0f190d2c:
 /*  f190d2c:	0fc47bba */ 	jal	dprint
 /*  f190d30:	00000000 */ 	nop
-/*  f190d34:	0fc19990 */ 	jal	objPassesSafePickupChecks
+/*  f190d34:	0fc19990 */ 	jal	objCanPickupFromSafe
 /*  f190d38:	8fa40084 */ 	lw	$a0,0x84($sp)
 /*  f190d3c:	14400003 */ 	bnez	$v0,.L0f190d4c
 /*  f190d40:	00000000 */ 	nop
@@ -1986,7 +1986,7 @@ glabel var7f1b8ea8
 .NB0f18ae18:
 /*  f18ae18:	0fc466bd */ 	jal	dprint
 /*  f18ae1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18ae20:	0fc19630 */ 	jal	objPassesSafePickupChecks
+/*  f18ae20:	0fc19630 */ 	jal	objCanPickupFromSafe
 /*  f18ae24:	8fa40084 */ 	lw	$a0,0x84($sp)
 /*  f18ae28:	14400003 */ 	bnez	$v0,.NB0f18ae38
 /*  f18ae2c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2362,7 +2362,7 @@ glabel var7f1b8ea8
 //
 //	dprint();
 //
-//	if (!objPassesSafePickupChecks(obj)) {
+//	if (!objCanPickupFromSafe(obj)) {
 //		return false;
 //	}
 //
@@ -4225,13 +4225,13 @@ void aibotLoseGun(struct chrdata *chr, struct prop *attackerprop)
 			s32 modelnum = weaponGetModel(chr->aibot->weaponnum);
 
 			if (modelnum >= 0) {
-				prop = weaponCreateForChr(chr, modelnum, chr->aibot->weaponnum, 0x20000000, 0, 0);
+				prop = weaponCreateForChr(chr, modelnum, chr->aibot->weaponnum, OBJFLAG_WEAPON_AICANNOTUSE, NULL, NULL);
 			}
 		}
 
 		if (prop && prop->obj) {
 			obj = prop->obj;
-			propobjSetDropped(prop, DROPREASON_1);
+			objSetDropped(prop, DROPREASON_1);
 			chr->hidden |= CHRHFLAG_00000001;
 
 			if (obj->hidden & OBJHFLAG_AIRBORNE) {
@@ -13681,13 +13681,13 @@ void func0f197544(struct chrdata *chr)
 			// pal-final adds a check for prop->obj
 			if (prop && prop->obj && !prop->parent && prop->timetoregen == 0) {
 				if (prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_OBJ) {
-					prop->obj->flags3 |= OBJFLAG3_00004000;
+					prop->obj->flags3 |= OBJFLAG3_ISFETCHTARGET;
 				}
 			}
 #else
 			if (prop && !prop->parent && prop->timetoregen == 0) {
 				if (prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_OBJ) {
-					prop->obj->flags3 |= OBJFLAG3_00004000;
+					prop->obj->flags3 |= OBJFLAG3_ISFETCHTARGET;
 				}
 			}
 #endif

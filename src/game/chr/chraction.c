@@ -1618,7 +1618,7 @@ f32 func0f02e550(struct prop *prop, f32 arg1, f32 arg2, u32 arg3, f32 ymax, f32 
 	sp50.y = prop->pos.y;
 	sp50.z = prop->pos.z + sp5c.f[2] * arg2;
 
-	chrSetOrUnsetHiddenFlag00000100(chr, false);
+	chrSetPerimEnabled(chr, false);
 
 	if (cd0002d7c0(&prop->pos, prop->rooms, &sp50, arg3, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
 		result = arg2;
@@ -1637,7 +1637,7 @@ f32 func0f02e550(struct prop *prop, f32 arg1, f32 arg2, u32 arg3, f32 ymax, f32 
 		result = sqrtf(xdiff * xdiff + zdiff * zdiff);
 	}
 
-	chrSetOrUnsetHiddenFlag00000100(chr, true);
+	chrSetPerimEnabled(chr, true);
 
 	return result;
 }
@@ -2017,11 +2017,11 @@ void chrSurrenderChooseAnimation(struct chrdata *chr)
 		modelSetAnimLooping(chr->model, 40, 16);
 
 		if (gun1) {
-			propobjSetDropped(gun1, DROPREASON_2);
+			objSetDropped(gun1, DROPREASON_2);
 		}
 
 		if (gun0) {
-			propobjSetDropped(gun0, DROPREASON_2);
+			objSetDropped(gun0, DROPREASON_2);
 		}
 
 		chr->hidden |= CHRHFLAG_00000001;
@@ -2030,7 +2030,7 @@ void chrSurrenderChooseAnimation(struct chrdata *chr)
 		modelSetAnimLooping(chr->model, 30, 16);
 	}
 
-	chrDropItems(chr);
+	chrDropConcealedItems(chr);
 }
 
 void chrSurrender(struct chrdata *chr)
@@ -3435,17 +3435,17 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 
 	// Drop items
 	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
-		if (chr->weapons_held[0] && (chr->weapons_held[0]->obj->flags & OBJFLAG_00002000) == 0) {
-			propobjSetDropped(chr->weapons_held[0], DROPREASON_1);
+		if (chr->weapons_held[0] && (chr->weapons_held[0]->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
+			objSetDropped(chr->weapons_held[0], DROPREASON_1);
 			chr->hidden |= CHRHFLAG_00000001;
 		}
 
-		if (chr->weapons_held[1] && (chr->weapons_held[1]->obj->flags & OBJFLAG_00002000) == 0) {
-			propobjSetDropped(chr->weapons_held[1], DROPREASON_1);
+		if (chr->weapons_held[1] && (chr->weapons_held[1]->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
+			objSetDropped(chr->weapons_held[1], DROPREASON_1);
 			chr->hidden |= CHRHFLAG_00000001;
 		}
 
-		chrDropItems(chr);
+		chrDropConcealedItems(chr);
 	}
 }
 
@@ -4623,7 +4623,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		} else if (type != HATTYPE_METAL) {
 			// Normal hat
 			damage = 0;
-			propobjSetDropped(chr->weapons_held[2], DROPREASON_4);
+			objSetDropped(chr->weapons_held[2], DROPREASON_4);
 			chr->hidden |= CHRHFLAG_00000001;
 		} else {
 			// Metal helmets don't fall off and make a metallic chink noise when shot
@@ -4906,7 +4906,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 
 				if (weapon) {
 					chr->gunprop = weapon;
-					propobjSetDropped(weapon, DROPREASON_1);
+					objSetDropped(weapon, DROPREASON_1);
 					chr->hidden |= CHRHFLAG_00000001;
 				}
 
@@ -4914,7 +4914,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 
 				if (weapon) {
 					chr->gunprop = weapon;
-					propobjSetDropped(weapon, DROPREASON_1);
+					objSetDropped(weapon, DROPREASON_1);
 					chr->hidden |= CHRHFLAG_00000001;
 				}
 			}
@@ -5045,21 +5045,21 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 						}
 
 						if (chr->aibot == NULL) {
-							chrDropItems(chr);
+							chrDropConcealedItems(chr);
 						}
 
 						if (chr->aibot == NULL) {
 							weapon = chr->weapons_held[HAND_RIGHT];
 
-							if (weapon && (weapon->obj->flags & OBJFLAG_00002000) == 0) {
-								propobjSetDropped(weapon, DROPREASON_1);
+							if (weapon && (weapon->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
+								objSetDropped(weapon, DROPREASON_1);
 								chr->hidden |= CHRHFLAG_00000001;
 							}
 
 							weapon = chr->weapons_held[HAND_LEFT];
 
-							if (weapon && (weapon->obj->flags & OBJFLAG_00002000) == 0) {
-								propobjSetDropped(weapon, DROPREASON_1);
+							if (weapon && (weapon->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
+								objSetDropped(weapon, DROPREASON_1);
 								chr->hidden |= CHRHFLAG_00000001;
 							}
 						}
@@ -5176,7 +5176,7 @@ glabel func0f03645c
 /*  f036488:	0fc0a277 */ 	jal	propChrGetBbox
 /*  f03648c:	afa4002c */ 	sw	$a0,0x2c($sp)
 /*  f036490:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f036494:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f036494:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f036498:	00002825 */ 	or	$a1,$zero,$zero
 /*  f03649c:	8faf0064 */ 	lw	$t7,0x64($sp)
 /*  f0364a0:	8fb9002c */ 	lw	$t9,0x2c($sp)
@@ -5216,7 +5216,7 @@ glabel func0f03645c
 /*  f036528:	afaa004c */ 	sw	$t2,0x4c($sp)
 .L0f03652c:
 /*  f03652c:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f036530:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f036530:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f036534:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f036538:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*  f03653c:	8fa2004c */ 	lw	$v0,0x4c($sp)
@@ -5242,7 +5242,7 @@ bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coo
 
 	prop = chr->prop;
 
-	chrSetOrUnsetHiddenFlag00000100(chr, false);
+	chrSetPerimEnabled(chr, false);
 	propChrGetBbox(prop, &width, &ymax, &ymin);
 
 	if ((rooms2 && cdTestAToB2(pos, rooms, pos2, rooms2, types, 1, ymax - prop->pos.y, ymin - prop->pos.y))
@@ -5255,7 +5255,7 @@ bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coo
 			tmp.z = pos2->z - pos->z;
 
 			if (tmp.f[0] == 0 && tmp.f[2] == 0) {
-				// @bug: Needs to call chrSetOrUnsetHiddenFlag00000100(chr, true)
+				// @bug: Needs to call chrSetPerimEnabled(chr, true)
 				// before returning
 				return true;
 			}
@@ -5293,7 +5293,7 @@ bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coo
 		}
 	}
 
-	chrSetOrUnsetHiddenFlag00000100(chr, true);
+	chrSetPerimEnabled(chr, true);
 
 	return result;
 }
@@ -5933,7 +5933,7 @@ void chrGoPosTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, 
 
 	if (waydata->magicdone >= waydata->magictotal) {
 		// Reached end of segment
-		chrSetOrUnsetHiddenFlag00000100(chr, false);
+		chrSetPerimEnabled(chr, false);
 		roomsCopy(rooms, sp118);
 		func0f021fa8(chr, arg3, sp118);
 
@@ -6012,7 +6012,7 @@ void chrGoPosTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, 
 			}
 		}
 
-		chrSetOrUnsetHiddenFlag00000100(chr, true);
+		chrSetPerimEnabled(chr, true);
 	}
 }
 
@@ -6554,7 +6554,7 @@ glabel var7f1a8dd0
 /*  f038c40:	0fc0a277 */ 	jal	propChrGetBbox
 /*  f038c44:	a7b9007c */ 	sh	$t9,0x7c($sp)
 /*  f038c48:	02602025 */ 	or	$a0,$s3,$zero
-/*  f038c4c:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f038c4c:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f038c50:	00002825 */ 	or	$a1,$zero,$zero
 /*  f038c54:	24090020 */ 	addiu	$t1,$zero,0x20
 /*  f038c58:	240a0001 */ 	addiu	$t2,$zero,0x1
@@ -6576,7 +6576,7 @@ glabel var7f1a8dd0
 /*  f038c98:	02602025 */ 	or	$a0,$s3,$zero
 /*  f038c9c:	82720333 */ 	lb	$s2,0x333($s3)
 .L0f038ca0:
-/*  f038ca0:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f038ca0:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f038ca4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f038ca8:	262b0008 */ 	addiu	$t3,$s1,0x8
 .L0f038cac:
@@ -6781,14 +6781,14 @@ glabel var7f1a8dd0
 //
 //			propChrGetBbox(prop, &width, &ymax, &ymin);
 //
-//			chrSetOrUnsetHiddenFlag00000100(chr, false);
+//			chrSetPerimEnabled(chr, false);
 //
 //			if (cd0002d840(&prop->pos, prop->rooms, &pad.pos, rooms, CDTYPE_BG, 1,
 //						ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
 //				nextstep = chr->patrolnextstep;
 //			}
 //
-//			chrSetOrUnsetHiddenFlag00000100(chr, true);
+//			chrSetPerimEnabled(chr, true);
 //		}
 //
 //		// If the pad to resume from is not in sight, find the closest pad
@@ -6816,7 +6816,7 @@ glabel var7f1a8dd0
 //
 //		// If chr has line of sight to the pad then begin the patrol,
 //		// otherwise use gopos to get to the starting pad
-//		if (func0f03654c(chr, &prop->pos, prop->rooms, &pad.pos, rooms, NULL, chr->chrwidth * 1.2f, CDTYPE_10 | CDTYPE_BG) != CDRESULT_COLLISION) {
+//		if (func0f03654c(chr, &prop->pos, prop->rooms, &pad.pos, rooms, NULL, chr->chrwidth * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG) != CDRESULT_COLLISION) {
 //			chrStopFiring(chr);
 //
 //			chr->actiontype = ACT_PATROL;
@@ -6898,7 +6898,7 @@ bool chrCanSeeEntity(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, b
 		}
 
 		chrGetAttackEntityPos(chr, attackflags, entityid, &targetpos, targetrooms);
-		chrSetOrUnsetHiddenFlag00000100(chr, false);
+		chrSetPerimEnabled(chr, false);
 
 		if ((attackflags & ATTACKFLAG_AIMATTARGET)) {
 			targetprop = chrGetTargetProp(chr);
@@ -6936,20 +6936,20 @@ bool chrCanSeeEntity(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, b
 				targetchr = chr;
 			}
 
-			chrSetOrUnsetHiddenFlag00000100(targetchr, false);
+			chrSetPerimEnabled(targetchr, false);
 
 			if (cdHasLineOfSight(chrpos, chrrooms, &targetpos, targetrooms, types, 0x10)) {
 				result = true;
 			}
 
-			chrSetOrUnsetHiddenFlag00000100(targetchr, true);
+			chrSetPerimEnabled(targetchr, true);
 		} else if (attackflags & ATTACKFLAG_AIMATPAD) {
 			if (cdHasLineOfSight(chrpos, chrrooms, &targetpos, targetrooms, types, 0x10)) {
 				result = true;
 			}
 		}
 
-		chrSetOrUnsetHiddenFlag00000100(chr, true);
+		chrSetPerimEnabled(chr, true);
 	}
 
 	return result;
@@ -6983,8 +6983,8 @@ bool chrCanSeeChr(struct chrdata *chr, struct chrdata *target, s16 *room)
 		pos.y = chr->ground + chr->chrheight - 20;
 		pos.z = prop->pos.z;
 
-		chrSetOrUnsetHiddenFlag00000100(chr, false);
-		chrSetOrUnsetHiddenFlag00000100(target, false);
+		chrSetPerimEnabled(chr, false);
+		chrSetPerimEnabled(target, false);
 
 		func0f065e74(&prop->pos, prop->rooms, &pos, rooms);
 
@@ -6992,8 +6992,8 @@ bool chrCanSeeChr(struct chrdata *chr, struct chrdata *target, s16 *room)
 			cansee = true;
 		}
 
-		chrSetOrUnsetHiddenFlag00000100(chr, true);
-		chrSetOrUnsetHiddenFlag00000100(target, true);
+		chrSetPerimEnabled(chr, true);
+		chrSetPerimEnabled(target, true);
 	}
 
 	if (room) {
@@ -7027,14 +7027,14 @@ bool chrHasLineOfSightToPos(struct chrdata *viewerchr, struct coord *pos, s16 *r
 	viewerpos.y = viewerchr->ground + viewerchr->chrheight - 20;
 	viewerpos.z = viewerprop->pos.z;
 
-	chrSetOrUnsetHiddenFlag00000100(viewerchr, false);
+	chrSetPerimEnabled(viewerchr, false);
 	func0f065e74(&viewerprop->pos, viewerprop->rooms, &viewerpos, viewerrooms);
 
 	if (cdHasLineOfSight(&viewerpos, viewerrooms, pos, rooms, 307, 8)) {
 		result = true;
 	}
 
-	chrSetOrUnsetHiddenFlag00000100(viewerchr, true);
+	chrSetPerimEnabled(viewerchr, true);
 
 	return result;
 }
@@ -8124,13 +8124,13 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 attackflags, u32 entityid)
 				u32 stackpadding2[2];
 
 				if (rightprop) {
-					flags = 0x10000000;
+					flags = OBJFLAG_WEAPON_LEFTHANDED;
 				}
 
 				if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR) {
-					prop = chrGiveWeapon(chr, 0x112, WEAPON_NBOMB, flags);
+					prop = chrGiveWeapon(chr, MODEL_CHRGRENADE, WEAPON_NBOMB, flags);
 				} else {
-					prop = chrGiveWeapon(chr, 0x112, WEAPON_GRENADE, flags);
+					prop = chrGiveWeapon(chr, MODEL_CHRGRENADE, WEAPON_GRENADE, flags);
 				}
 
 				if (prop) {
@@ -8163,7 +8163,7 @@ bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum)
 		modelSetScale(weapon->base.model, weapon->base.model->scale);
 		propReparent(weapon->base.prop, chr->prop);
 		weapon->timer240 = PALDOWN(720);
-		propobjSetDropped(weapon->base.prop, DROPREASON_1);
+		objSetDropped(weapon->base.prop, DROPREASON_1);
 		chr->hidden |= CHRHFLAG_00000001;
 
 		return true;
@@ -9640,7 +9640,7 @@ glabel chrTickDruggedComingUp
 /*  f03d9f8:	33382000 */ 	andi	$t8,$t9,0x2000
 /*  f03d9fc:	57000007 */ 	bnezl	$t8,.L0f03da1c
 /*  f03da00:	8fc40174 */ 	lw	$a0,0x174($s8)
-/*  f03da04:	0fc20a59 */ 	jal	propobjSetDropped
+/*  f03da04:	0fc20a59 */ 	jal	objSetDropped
 /*  f03da08:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f03da0c:	8fce0014 */ 	lw	$t6,0x14($s8)
 /*  f03da10:	35cf0001 */ 	ori	$t7,$t6,0x1
@@ -9654,13 +9654,13 @@ glabel chrTickDruggedComingUp
 /*  f03da2c:	314b2000 */ 	andi	$t3,$t2,0x2000
 /*  f03da30:	15600006 */ 	bnez	$t3,.L0f03da4c
 /*  f03da34:	00000000 */ 	nop
-/*  f03da38:	0fc20a59 */ 	jal	propobjSetDropped
+/*  f03da38:	0fc20a59 */ 	jal	objSetDropped
 /*  f03da3c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f03da40:	8fcc0014 */ 	lw	$t4,0x14($s8)
 /*  f03da44:	358d0001 */ 	ori	$t5,$t4,0x1
 /*  f03da48:	afcd0014 */ 	sw	$t5,0x14($s8)
 .L0f03da4c:
-/*  f03da4c:	0fc09149 */ 	jal	chrDropItems
+/*  f03da4c:	0fc09149 */ 	jal	chrDropConcealedItems
 /*  f03da50:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f03da54:	8fbf005c */ 	lw	$ra,0x5c($sp)
 .L0f03da58:
@@ -9740,19 +9740,19 @@ glabel chrTickDruggedComingUp
 //
 //		weapon = chr->weapons_held[HAND_RIGHT];
 //
-//		if (weapon && (weapon->obj->flags & OBJFLAG_00002000) == 0) {
-//			propobjSetDropped(weapon, DROPREASON_1);
+//		if (weapon && (weapon->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
+//			objSetDropped(weapon, DROPREASON_1);
 //			chr->hidden |= CHRHFLAG_00000001;
 //		}
 //
 //		weapon = chr->weapons_held[HAND_LEFT];
 //
-//		if (weapon && (weapon->obj->flags & OBJFLAG_00002000) == 0) {
-//			propobjSetDropped(weapon, DROPREASON_1);
+//		if (weapon && (weapon->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
+//			objSetDropped(weapon, DROPREASON_1);
 //			chr->hidden |= CHRHFLAG_00000001;
 //		}
 //
-//		chrDropItems(chr);
+//		chrDropConcealedItems(chr);
 //	}
 //}
 
@@ -12181,7 +12181,7 @@ glabel var7f1a9184
 .PF0f0409a4:
 /*  f0409a4:	8fa40278 */ 	lw	$a0,0x278($sp)
 .PF0f0409a8:
-/*  f0409a8:	0fc07a37 */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f0409a8:	0fc07a37 */ 	jal	chrSetPerimEnabled
 /*  f0409ac:	00002825 */ 	move	$a1,$zero
 /*  f0409b0:	8fb801fc */ 	lw	$t8,0x1fc($sp)
 /*  f0409b4:	8faf0274 */ 	lw	$t7,0x274($sp)
@@ -12198,7 +12198,7 @@ glabel var7f1a9184
 /*  f0409e0:	24050001 */ 	li	$a1,0x1
 /*  f0409e4:	afa00268 */ 	sw	$zero,0x268($sp)
 .PF0f0409e8:
-/*  f0409e8:	0fc07a37 */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f0409e8:	0fc07a37 */ 	jal	chrSetPerimEnabled
 /*  f0409ec:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f0409f0:	8fab0268 */ 	lw	$t3,0x268($sp)
 /*  f0409f4:	240d0001 */ 	li	$t5,0x1
@@ -12366,7 +12366,7 @@ glabel var7f1a9184
 /*  f040c50:	46002202 */ 	mul.s	$f8,$f4,$f0
 /*  f040c54:	e7b2022c */ 	swc1	$f18,0x22c($sp)
 /*  f040c58:	46064280 */ 	add.s	$f10,$f8,$f6
-/*  f040c5c:	0fc07a37 */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f040c5c:	0fc07a37 */ 	jal	chrSetPerimEnabled
 /*  f040c60:	e7aa0230 */ 	swc1	$f10,0x230($sp)
 /*  f040c64:	93b8026f */ 	lbu	$t8,0x26f($sp)
 /*  f040c68:	27a40244 */ 	addiu	$a0,$sp,0x244
@@ -12394,7 +12394,7 @@ glabel var7f1a9184
 /*  f040cbc:	afa201cc */ 	sw	$v0,0x1cc($sp)
 .PF0f040cc0:
 /*  f040cc0:	8fa40278 */ 	lw	$a0,0x278($sp)
-/*  f040cc4:	0fc07a37 */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f040cc4:	0fc07a37 */ 	jal	chrSetPerimEnabled
 /*  f040cc8:	24050001 */ 	li	$a1,0x1
 /*  f040ccc:	93ae026f */ 	lbu	$t6,0x26f($sp)
 /*  f040cd0:	3c01800a */ 	lui	$at,0x800a
@@ -13779,7 +13779,7 @@ glabel var7f1a9184
 .L0f040820:
 /*  f040820:	8fa40278 */ 	lw	$a0,0x278($sp)
 .L0f040824:
-/*  f040824:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f040824:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f040828:	00002825 */ 	or	$a1,$zero,$zero
 /*  f04082c:	8fb801fc */ 	lw	$t8,0x1fc($sp)
 /*  f040830:	8faf0274 */ 	lw	$t7,0x274($sp)
@@ -13796,7 +13796,7 @@ glabel var7f1a9184
 /*  f04085c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f040860:	afa00268 */ 	sw	$zero,0x268($sp)
 .L0f040864:
-/*  f040864:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f040864:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f040868:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f04086c:	8fab0268 */ 	lw	$t3,0x268($sp)
 /*  f040870:	240d0001 */ 	addiu	$t5,$zero,0x1
@@ -13964,7 +13964,7 @@ glabel var7f1a9184
 /*  f040acc:	46002202 */ 	mul.s	$f8,$f4,$f0
 /*  f040ad0:	e7b2022c */ 	swc1	$f18,0x22c($sp)
 /*  f040ad4:	46064280 */ 	add.s	$f10,$f8,$f6
-/*  f040ad8:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f040ad8:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f040adc:	e7aa0230 */ 	swc1	$f10,0x230($sp)
 /*  f040ae0:	93b8026f */ 	lbu	$t8,0x26f($sp)
 /*  f040ae4:	27a40244 */ 	addiu	$a0,$sp,0x244
@@ -13992,7 +13992,7 @@ glabel var7f1a9184
 /*  f040b38:	afa201cc */ 	sw	$v0,0x1cc($sp)
 .L0f040b3c:
 /*  f040b3c:	8fa40278 */ 	lw	$a0,0x278($sp)
-/*  f040b40:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f040b40:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f040b44:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f040b48:	93ae026f */ 	lbu	$t6,0x26f($sp)
 /*  f040b4c:	3c01800a */ 	lui	$at,%hi(g_Vars+0x48c)
@@ -15369,7 +15369,7 @@ glabel var7f1a9184
 .NB0f040000:
 /*  f040000:	8fa40278 */ 	lw	$a0,0x278($sp)
 .NB0f040004:
-/*  f040004:	0fc07927 */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f040004:	0fc07927 */ 	jal	chrSetPerimEnabled
 /*  f040008:	00002825 */ 	or	$a1,$zero,$zero
 /*  f04000c:	8fb801fc */ 	lw	$t8,0x1fc($sp)
 /*  f040010:	8faf0274 */ 	lw	$t7,0x274($sp)
@@ -15386,7 +15386,7 @@ glabel var7f1a9184
 /*  f04003c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f040040:	afa00268 */ 	sw	$zero,0x268($sp)
 .NB0f040044:
-/*  f040044:	0fc07927 */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f040044:	0fc07927 */ 	jal	chrSetPerimEnabled
 /*  f040048:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f04004c:	8fab0268 */ 	lw	$t3,0x268($sp)
 /*  f040050:	240d0001 */ 	addiu	$t5,$zero,0x1
@@ -15554,7 +15554,7 @@ glabel var7f1a9184
 /*  f0402ac:	46002202 */ 	mul.s	$f8,$f4,$f0
 /*  f0402b0:	e7b2022c */ 	swc1	$f18,0x22c($sp)
 /*  f0402b4:	46064280 */ 	add.s	$f10,$f8,$f6
-/*  f0402b8:	0fc07927 */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f0402b8:	0fc07927 */ 	jal	chrSetPerimEnabled
 /*  f0402bc:	e7aa0230 */ 	swc1	$f10,0x230($sp)
 /*  f0402c0:	93b8026f */ 	lbu	$t8,0x26f($sp)
 /*  f0402c4:	27a40244 */ 	addiu	$a0,$sp,0x244
@@ -15582,7 +15582,7 @@ glabel var7f1a9184
 /*  f040318:	afa201cc */ 	sw	$v0,0x1cc($sp)
 .NB0f04031c:
 /*  f04031c:	8fa40278 */ 	lw	$a0,0x278($sp)
-/*  f040320:	0fc07927 */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f040320:	0fc07927 */ 	jal	chrSetPerimEnabled
 /*  f040324:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f040328:	93ae026f */ 	lbu	$t6,0x26f($sp)
 /*  f04032c:	3c01800a */ 	lui	$at,0x800a
@@ -18104,7 +18104,7 @@ void chrTickThrowGrenade(struct chrdata *chr)
 			(frame >= 57 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_NOPIN) ||
 			(frame >= 58 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_CROUCHING)) {
 		weapon = weaponprop->weapon;
-		propobjSetDropped(weaponprop, DROPREASON_3);
+		objSetDropped(weaponprop, DROPREASON_3);
 		chr->hidden |= CHRHFLAG_00000001;
 		weapon->timer240 = PALDOWN(240);
 	}
@@ -18691,7 +18691,7 @@ glabel var7f1a9244
 /*  f044d5c:	e7aa00cc */ 	swc1	$f10,0xcc($sp)
 /*  f044d60:	46067282 */ 	mul.s	$f10,$f14,$f6
 /*  f044d64:	e7a800c8 */ 	swc1	$f8,0xc8($sp)
-/*  f044d68:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f044d68:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f044d6c:	e7aa00c4 */ 	swc1	$f10,0xc4($sp)
 /*  f044d70:	c6040000 */ 	lwc1	$f4,0x0($s0)
 /*  f044d74:	c7a800cc */ 	lwc1	$f8,0xcc($sp)
@@ -18965,7 +18965,7 @@ glabel var7f1a9244
 /*  f045180:	27a600d4 */ 	addiu	$a2,$sp,0xd4
 .L0f045184:
 /*  f045184:	8fa400e0 */ 	lw	$a0,0xe0($sp)
-/*  f045188:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f045188:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f04518c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f045190:	8fa20084 */ 	lw	$v0,0x84($sp)
 .L0f045194:
@@ -19066,7 +19066,7 @@ glabel var7f1a9244
 /*  f044d5c:	e7aa00cc */ 	swc1	$f10,0xcc($sp)
 /*  f044d60:	46067282 */ 	mul.s	$f10,$f14,$f6
 /*  f044d64:	e7a800c8 */ 	swc1	$f8,0xc8($sp)
-/*  f044d68:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f044d68:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f044d6c:	e7aa00c4 */ 	swc1	$f10,0xc4($sp)
 /*  f044d70:	c6040000 */ 	lwc1	$f4,0x0($s0)
 /*  f044d74:	c7a800cc */ 	lwc1	$f8,0xcc($sp)
@@ -19340,7 +19340,7 @@ glabel var7f1a9244
 /*  f045180:	27a600d4 */ 	addiu	$a2,$sp,0xd4
 .L0f045184:
 /*  f045184:	8fa400e0 */ 	lw	$a0,0xe0($sp)
-/*  f045188:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f045188:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f04518c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f045190:	8fa20084 */ 	lw	$v0,0x84($sp)
 .L0f045194:
@@ -19441,7 +19441,7 @@ glabel var7f1a9244
 /*  f044d5c:	e7aa00cc */ 	swc1	$f10,0xcc($sp)
 /*  f044d60:	46067282 */ 	mul.s	$f10,$f14,$f6
 /*  f044d64:	e7a800c8 */ 	swc1	$f8,0xc8($sp)
-/*  f044d68:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f044d68:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f044d6c:	e7aa00c4 */ 	swc1	$f10,0xc4($sp)
 /*  f044d70:	c6040000 */ 	lwc1	$f4,0x0($s0)
 /*  f044d74:	c7a800cc */ 	lwc1	$f8,0xcc($sp)
@@ -19715,7 +19715,7 @@ glabel var7f1a9244
 /*  f045180:	27a600d4 */ 	addiu	$a2,$sp,0xd4
 .L0f045184:
 /*  f045184:	8fa400e0 */ 	lw	$a0,0xe0($sp)
-/*  f045188:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f045188:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f04518c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f045190:	8fa20084 */ 	lw	$v0,0x84($sp)
 .L0f045194:
@@ -19818,7 +19818,7 @@ glabel var7f1a9254
 /*  f0452cc:	e7aa00d4 */ 	swc1	$f10,0xd4($sp)
 /*  f0452d0:	46067282 */ 	mul.s	$f10,$f14,$f6
 /*  f0452d4:	e7a800d0 */ 	swc1	$f8,0xd0($sp)
-/*  f0452d8:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f0452d8:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f0452dc:	e7aa00cc */ 	swc1	$f10,0xcc($sp)
 /*  f0452e0:	c6040000 */ 	lwc1	$f4,0x0($s0)
 /*  f0452e4:	c7a800d4 */ 	lwc1	$f8,0xd4($sp)
@@ -20111,7 +20111,7 @@ glabel var7f1a9254
 /*  f045738:	27a600dc */ 	addiu	$a2,$sp,0xdc
 .L0f04573c:
 /*  f04573c:	8fa400e8 */ 	lw	$a0,0xe8($sp)
-/*  f045740:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f045740:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f045744:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f045748:	8fa2008c */ 	lw	$v0,0x8c($sp)
 .L0f04574c:
@@ -20212,7 +20212,7 @@ glabel var7f1a9254
 /*  f0452cc:	e7aa00d4 */ 	swc1	$f10,0xd4($sp)
 /*  f0452d0:	46067282 */ 	mul.s	$f10,$f14,$f6
 /*  f0452d4:	e7a800d0 */ 	swc1	$f8,0xd0($sp)
-/*  f0452d8:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f0452d8:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f0452dc:	e7aa00cc */ 	swc1	$f10,0xcc($sp)
 /*  f0452e0:	c6040000 */ 	lwc1	$f4,0x0($s0)
 /*  f0452e4:	c7a800d4 */ 	lwc1	$f8,0xd4($sp)
@@ -20505,7 +20505,7 @@ glabel var7f1a9254
 /*  f045738:	27a600dc */ 	addiu	$a2,$sp,0xdc
 .L0f04573c:
 /*  f04573c:	8fa400e8 */ 	lw	$a0,0xe8($sp)
-/*  f045740:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f045740:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f045744:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f045748:	8fa2008c */ 	lw	$v0,0x8c($sp)
 .L0f04574c:
@@ -20606,7 +20606,7 @@ glabel var7f1a9254
 /*  f0452cc:	e7aa00d4 */ 	swc1	$f10,0xd4($sp)
 /*  f0452d0:	46067282 */ 	mul.s	$f10,$f14,$f6
 /*  f0452d4:	e7a800d0 */ 	swc1	$f8,0xd0($sp)
-/*  f0452d8:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f0452d8:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f0452dc:	e7aa00cc */ 	swc1	$f10,0xcc($sp)
 /*  f0452e0:	c6040000 */ 	lwc1	$f4,0x0($s0)
 /*  f0452e4:	c7a800d4 */ 	lwc1	$f8,0xd4($sp)
@@ -20899,7 +20899,7 @@ glabel var7f1a9254
 /*  f045738:	27a600dc */ 	addiu	$a2,$sp,0xdc
 .L0f04573c:
 /*  f04573c:	8fa400e8 */ 	lw	$a0,0xe8($sp)
-/*  f045740:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
+/*  f045740:	0fc079ef */ 	jal	chrSetPerimEnabled
 /*  f045744:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f045748:	8fa2008c */ 	lw	$v0,0x8c($sp)
 .L0f04574c:
@@ -22563,7 +22563,7 @@ void chrTickGoPos(struct chrdata *chr)
 							}
 
 							// Some bbox related check
-							if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, NULL, chr->chrwidth * 1.2f, CDTYPE_10 | CDTYPE_BG)) {
+							if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, NULL, chr->chrwidth * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG)) {
 								chrGoPosAdvanceWaypoint(chr);
 								chrGoPosAdvanceWaypoint(chr);
 							}
@@ -22623,13 +22623,13 @@ void chrTickGoPos(struct chrdata *chr)
 
 							// sp160 < DEG2RAD(45) || sp160 > DEG2RAD(315)
 							if (sp160 < 0.7852731347084f || sp160 > 5.4969120025635f) {
-								if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, NULL, chr->chrwidth * 1.2f, CDTYPE_10 | CDTYPE_BG)) {
+								if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, NULL, chr->chrwidth * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG)) {
 									chrGoPosAdvanceWaypoint(chr);
 								}
 							}
 						}
 					} else {
-						if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, NULL, chr->chrwidth * 1.2f, CDTYPE_10 | CDTYPE_BG)) {
+						if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, NULL, chr->chrwidth * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG)) {
 							chrGoPosAdvanceWaypoint(chr);
 						}
 					}
@@ -22763,11 +22763,11 @@ bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 	}
 
 	propChrGetBbox(prop, &width, &ymax, &ymin);
-	chrSetOrUnsetHiddenFlag00000100(chr, false);
+	chrSetPerimEnabled(chr, false);
 	propSetCollisionsEnabled(target, false);
 	iVar2 = cd0002d6ac(&prop->pos, prop->rooms, &target->pos, 51, 1,
 			ymax - prop->pos.y, ymin - prop->pos.y);
-	chrSetOrUnsetHiddenFlag00000100(chr, true);
+	chrSetPerimEnabled(chr, true);
 	propSetCollisionsEnabled(target, true);
 
 	if (iVar2) {
@@ -26323,7 +26323,7 @@ bool func0f04b658(struct chrdata *chr)
 	struct prop *target = chrGetTargetProp(chr);
 
 	if (chr->proppreset1 >= 0) {
-		chrSetOrUnsetHiddenFlag00000100(chr, false);
+		chrSetPerimEnabled(chr, false);
 		propSetCollisionsEnabled(target, false);
 
 		if (!cd0002dc18(&prop->pos, prop->rooms, &target->pos, 0x33)) {
@@ -26335,7 +26335,7 @@ bool func0f04b658(struct chrdata *chr)
 			}
 		}
 
-		chrSetOrUnsetHiddenFlag00000100(chr, true);
+		chrSetPerimEnabled(chr, true);
 		propSetCollisionsEnabled(target, true);
 	}
 
@@ -27316,7 +27316,7 @@ bool chrRunFromPos(struct chrdata *chr, u32 speed, f32 rundist, struct coord *fr
 		delta.x *= rundist / curdistfrompos;
 		delta.z *= rundist / curdistfrompos;
 
-		chrSetOrUnsetHiddenFlag00000100(chr, false);
+		chrSetPerimEnabled(chr, false);
 
 		if (cdTestAToB4(&chr->prop->pos, chr->prop->rooms, &delta, CDTYPE_ALL, 4) == CDRESULT_COLLISION) {
 #if VERSION >= VERSION_PAL_FINAL
@@ -27328,7 +27328,7 @@ bool chrRunFromPos(struct chrdata *chr, u32 speed, f32 rundist, struct coord *fr
 #endif
 		}
 
-		chrSetOrUnsetHiddenFlag00000100(chr, true);
+		chrSetPerimEnabled(chr, true);
 
 		func0f065e74(&chr->prop->pos, chr->prop->rooms, &delta, rooms);
 
@@ -28595,10 +28595,10 @@ void chrAvoid(struct chrdata *chr)
 
 	// @bug: This shouldn't be here, and there is no corresponding setting of
 	// the flag again if the chr is not ready for orders.
-	chrSetOrUnsetHiddenFlag00000100(chr, false);
+	chrSetPerimEnabled(chr, false);
 
 	if (chrIsReadyForOrders(chr)) {
-		chrSetOrUnsetHiddenFlag00000100(chr, false);
+		chrSetPerimEnabled(chr, false);
 
 		if (relangle > 45 && relangle <= 135) {
 			animindex = 3;
@@ -28652,7 +28652,7 @@ void chrAvoid(struct chrdata *chr)
 			}
 		}
 
-		chrSetOrUnsetHiddenFlag00000100(chr, true);
+		chrSetPerimEnabled(chr, true);
 	}
 }
 

@@ -1272,7 +1272,7 @@ void func0f128d20(s32 hand)
 				flags = 0x10000000;
 			}
 
-			weaponCreateForChr(chr, modelnum, weaponnum, flags, 0, 0);
+			weaponCreateForChr(chr, modelnum, weaponnum, flags, NULL, NULL);
 		}
 	}
 }

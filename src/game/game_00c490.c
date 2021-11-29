@@ -1339,7 +1339,7 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 
 	// The setup files never place any monitors on a -1 pad, so this code is
 	// unreachable. It appears to allow attaching monitors to other objects.
-	if (monitor->base.pad < 0 && (monitor->base.flags & OBJFLAG_00008000) == 0) {
+	if (monitor->base.pad < 0 && (monitor->base.flags & OBJFLAG_INSIDEANOTHEROBJ) == 0) {
 		s32 modelnum = monitor->base.modelnum;
 		struct defaultobj *owner = (struct defaultobj *)setupGetPtrToCommandByIndex(cmdindex + monitor->owneroffset);
 		struct prop *prop;
@@ -3500,7 +3500,7 @@ void setupParseObjects(s32 stagenum)
 				case OBJTYPE_GLASS:
 				case OBJTYPE_SAFE:
 				case OBJTYPE_TINTEDGLASS:
-					if (obj->prop && (obj->flags & OBJFLAG_00008000)) {
+					if (obj->prop && (obj->flags & OBJFLAG_INSIDEANOTHEROBJ)) {
 						s32 offset = obj->pad;
 						struct defaultobj *owner = setupCommandGetObject(index + offset);
 
@@ -3613,14 +3613,14 @@ void setupParseObjects(s32 stagenum)
 
 							addConditionalScenery(link);
 
-							trigger->hidden |= OBJHFLAG_01000000;
+							trigger->hidden |= OBJHFLAG_CONDITIONALSCENERY;
 
 							if (unexpoffset) {
-								unexp->hidden |= OBJHFLAG_01000000;
+								unexp->hidden |= OBJHFLAG_CONDITIONALSCENERY;
 							}
 
 							// This gets optimised out but makes v0 unavailable
-							// for storing OBJHFLAG_01000000, which is required
+							// for storing OBJHFLAG_CONDITIONALSCENERY, which is required
 							// for a match. Any function call would work; I just
 							// copied the one above.
 							if (alwayszero) {
@@ -3628,7 +3628,7 @@ void setupParseObjects(s32 stagenum)
 							}
 
 							if (expoffset) {
-								exp->hidden |= OBJHFLAG_01000000;
+								exp->hidden |= OBJHFLAG_CONDITIONALSCENERY;
 								exp->flags2 |= OBJFLAG2_INVISIBLE;
 							}
 
@@ -3651,7 +3651,7 @@ void setupParseObjects(s32 stagenum)
 
 							blocker->hidden |= OBJHFLAG_02000000;
 
-							if (blocker->hidden & OBJHFLAG_01000000) {
+							if (blocker->hidden & OBJHFLAG_CONDITIONALSCENERY) {
 								objSetBlockedPathUnblocked(blocker, false);
 							}
 						}

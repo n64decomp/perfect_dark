@@ -10995,7 +10995,7 @@ glabel var7f1ac72c
 /*  f09f25c:	0c00567f */ 	jal	mtx4MultMtx4InPlace
 /*  f09f260:	e7a001c8 */ 	swc1	$f0,0x1c8($sp)
 /*  f09f264:	8fa401d8 */ 	lw	$a0,0x1d8($sp)
-/*  f09f268:	0fc30795 */ 	jal	currentPlayerSetPerimEnabled
+/*  f09f268:	0fc30795 */ 	jal	playerSetPerimEnabled
 /*  f09f26c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f09f270:	8fa201d8 */ 	lw	$v0,0x1d8($sp)
 /*  f09f274:	240a003f */ 	addiu	$t2,$zero,0x3f
@@ -11027,7 +11027,7 @@ glabel var7f1ac72c
 /*  f09f2d8:	e7a80178 */ 	swc1	$f8,0x178($sp)
 .L0f09f2dc:
 /*  f09f2dc:	8fa401d8 */ 	lw	$a0,0x1d8($sp)
-/*  f09f2e0:	0fc30795 */ 	jal	currentPlayerSetPerimEnabled
+/*  f09f2e0:	0fc30795 */ 	jal	playerSetPerimEnabled
 /*  f09f2e4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f09f2e8:	27a401e8 */ 	addiu	$a0,$sp,0x1e8
 /*  f09f2ec:	27a501dc */ 	addiu	$a1,$sp,0x1dc
@@ -11511,7 +11511,7 @@ glabel var7f1ac72c
 /*  f09f25c:	0c00567f */ 	jal	mtx4MultMtx4InPlace
 /*  f09f260:	e7a001c8 */ 	swc1	$f0,0x1c8($sp)
 /*  f09f264:	8fa401d8 */ 	lw	$a0,0x1d8($sp)
-/*  f09f268:	0fc30795 */ 	jal	currentPlayerSetPerimEnabled
+/*  f09f268:	0fc30795 */ 	jal	playerSetPerimEnabled
 /*  f09f26c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f09f270:	8fa201d8 */ 	lw	$v0,0x1d8($sp)
 /*  f09f274:	240a003f */ 	addiu	$t2,$zero,0x3f
@@ -11543,7 +11543,7 @@ glabel var7f1ac72c
 /*  f09f2d8:	e7a80178 */ 	swc1	$f8,0x178($sp)
 .L0f09f2dc:
 /*  f09f2dc:	8fa401d8 */ 	lw	$a0,0x1d8($sp)
-/*  f09f2e0:	0fc30795 */ 	jal	currentPlayerSetPerimEnabled
+/*  f09f2e0:	0fc30795 */ 	jal	playerSetPerimEnabled
 /*  f09f2e4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f09f2e8:	27a401e8 */ 	addiu	$a0,$sp,0x1e8
 /*  f09f2ec:	27a501dc */ 	addiu	$a1,$sp,0x1dc
@@ -16646,18 +16646,18 @@ void bgunLoseGun(struct prop *attackerprop)
 		modelnum = weaponGetModel(weaponnum);
 
 		if (modelnum >= 0 && drop) {
-			struct prop *prop2 = weaponCreateForChr(chr, modelnum, weaponnum, 0x20000000, 0, 0);
+			struct prop *prop2 = weaponCreateForChr(chr, modelnum, weaponnum, OBJFLAG_WEAPON_AICANNOTUSE, NULL, NULL);
 
 			if (prop2 && prop2->obj) {
 				struct defaultobj *obj = prop2->obj;
-				propobjSetDropped(prop2, DROPREASON_1);
+				objSetDropped(prop2, DROPREASON_1);
 
 				if (obj->hidden & OBJHFLAG_AIRBORNE) {
 					obj->projectile->unk0b4 = PALDOWN(240);
 					obj->projectile->unk108 = attackerprop;
 				}
 
-				func0f08307c(prop2, true);
+				propDrop(prop2, true);
 			}
 		}
 

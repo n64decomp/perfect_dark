@@ -1593,11 +1593,11 @@ bool aiIfSeesSuspiciousItem(void)
 		obj = prop->obj;
 
 		if (prop->type == PROPTYPE_WEAPON) {
-			if ((obj->hidden & OBJHFLAG_00100000) && chrCanSeeProp(g_Vars.chrdata, prop)) {
+			if ((obj->hidden & OBJHFLAG_SUSPICIOUS) && chrCanSeeProp(g_Vars.chrdata, prop)) {
 				pass = true;
 			}
 		} else if (prop->type == PROPTYPE_OBJ) {
-			if (((obj->hidden & OBJHFLAG_00100000) || !objIsHealthy(obj))
+			if (((obj->hidden & OBJHFLAG_SUSPICIOUS) || !objIsHealthy(obj))
 					&& chrCanSeeProp(g_Vars.chrdata, prop)) {
 				pass = true;
 			}
@@ -2285,7 +2285,7 @@ bool ai0067(void)
 
 	if (obj && obj->prop && obj->prop->parent && obj->prop->parent->type == PROPTYPE_CHR) {
 		struct chrdata *chr = obj->prop->parent->chr;
-		propobjSetDropped(obj->prop, DROPREASON_2);
+		objSetDropped(obj->prop, DROPREASON_2);
 		chr->hidden |= CHRHFLAG_00000001;
 	}
 
@@ -2303,7 +2303,7 @@ bool aiChrDropItems(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop) {
-		chrDropItems(chr);
+		chrDropConcealedItems(chr);
 	}
 
 	g_Vars.aioffset += 3;
@@ -2330,12 +2330,12 @@ bool aiChrDropWeapon(void)
 		setCurrentPlayerNum(prevplayernum);
 	} else if (chr && chr->prop) {
 		if (chr->weapons_held[0]) {
-			propobjSetDropped(chr->weapons_held[0], DROPREASON_1);
+			objSetDropped(chr->weapons_held[0], DROPREASON_1);
 			chr->hidden |= CHRHFLAG_00000001;
 		}
 
 		if (chr->weapons_held[1]) {
-			propobjSetDropped(chr->weapons_held[1], DROPREASON_1);
+			objSetDropped(chr->weapons_held[1], DROPREASON_1);
 			chr->hidden |= CHRHFLAG_00000001;
 		}
 	}
@@ -12148,7 +12148,7 @@ bool aiChrSetCutsceneWeapon(void)
 				}
 			} else {
 				if (chr->weapons_held[0] == NULL && chr->weapons_held[1] == NULL && fallback_model_id >= 0) {
-					weaponCreateForChr(chr, fallback_model_id, cmd[4], 0, 0, 0);
+					weaponCreateForChr(chr, fallback_model_id, cmd[4], 0, NULL, NULL);
 				}
 			}
 		} else {
@@ -12156,11 +12156,11 @@ bool aiChrSetCutsceneWeapon(void)
 			chrSetWeaponReapable(chr, HAND_RIGHT);
 
 			if (model_id >= 0) {
-				weaponCreateForChr(chr, model_id, cmd[3], 0, 0, 0);
+				weaponCreateForChr(chr, model_id, cmd[3], 0, NULL, NULL);
 			}
 
 			if (fallback_model_id >= 0) {
-				weaponCreateForChr(chr, fallback_model_id, cmd[4], 0x10000000, 0, 0);
+				weaponCreateForChr(chr, fallback_model_id, cmd[4], OBJFLAG_WEAPON_LEFTHANDED, NULL, NULL);
 			}
 		}
 	}

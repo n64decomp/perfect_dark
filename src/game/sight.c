@@ -94,7 +94,7 @@ bool sightCanTargetProp(struct prop *prop, s32 max)
 	}
 
 	if ((prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR)
-			&& prop->obj && (prop->obj->flags3 & OBJFLAG3_00008000)) {
+			&& prop->obj && (prop->obj->flags3 & OBJFLAG3_REACTTOSIGHT)) {
 		return true;
 	}
 

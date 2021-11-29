@@ -14790,7 +14790,7 @@ void currentPlayerDieByShooter(u32 shooter, bool force)
 				(g_Vars.antiplayernum < 0
 				 || g_Vars.currentplayernum != g_Vars.antiplayernum
 				 || shooter != g_Vars.antiplayernum)) {
-			func0f0910ac();
+			currentPlayerDropAllItems();
 		}
 
 		g_Vars.currentplayer->isdead = true;
@@ -15059,20 +15059,20 @@ void allPlayersClearMemCamRoom(void)
 	setCurrentPlayerNum(prevplayernum);
 }
 
-void currentPlayerSetPerimEnabled(struct prop *prop, bool enable)
+void playerSetPerimEnabled(struct prop *prop, bool enable)
 {
 	u32 playernum = propGetPlayerNum(prop);
 
 	if (g_Vars.players[playernum]->haschrbody) {
-		chrSetOrUnsetHiddenFlag00000100(prop->chr, enable);
+		chrSetPerimEnabled(prop->chr, enable);
 	}
 
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
 		if (g_Vars.currentplayer->unk1af0) {
-			propObjSetOrUnsetHiddenFlag00400000(g_Vars.currentplayer->unk1af0, enable);
+			objSetPerimEnabled(g_Vars.currentplayer->unk1af0, enable);
 		}
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-		propObjSetOrUnsetHiddenFlag00400000(g_Vars.currentplayer->hoverbike, enable);
+		objSetPerimEnabled(g_Vars.currentplayer->hoverbike, enable);
 	}
 
 	g_Vars.players[playernum]->bondperimenabled = enable;

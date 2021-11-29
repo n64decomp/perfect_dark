@@ -1191,7 +1191,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 								skipthething = true;
 								bgun0f0a8404(&playerprop->pos, playerprop->rooms, -1);
 								objTakeGunfire(obj, damage, &prop->pos, gset->weaponnum, g_Vars.currentplayernum);
-								func0f070698(prop, false);
+								propDropRecursive(prop, false);
 							}
 						} else if (arg2) {
 							chr->chrflags |= CHRCFLAG_10000000;
@@ -5200,11 +5200,11 @@ void propsTickPadEffects(void)
 void propSetCollisionsEnabled(struct prop *prop, s32 enable)
 {
 	if (prop->type == PROPTYPE_CHR) {
-		chrSetOrUnsetHiddenFlag00000100(prop->chr, enable);
+		chrSetPerimEnabled(prop->chr, enable);
 	} else if (prop->type == PROPTYPE_PLAYER) {
-		currentPlayerSetPerimEnabled(prop, enable);
+		playerSetPerimEnabled(prop, enable);
 	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR || prop->type == PROPTYPE_WEAPON) {
-		propObjSetOrUnsetHiddenFlag00400000(prop, enable);
+		objSetPerimEnabled(prop, enable);
 	}
 }
 
@@ -5349,7 +5349,7 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 		if (sp4c) {
 			playerprop = g_Vars.currentplayer->prop;
 
-			currentPlayerSetPerimEnabled(playerprop, false);
+			playerSetPerimEnabled(playerprop, false);
 
 			if (arg5) {
 				lVar3 = cd0002db98(&playerprop->pos, playerprop->rooms, &prop->pos, 0x32, 16);
@@ -5390,7 +5390,7 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 				}
 			}
 
-			currentPlayerSetPerimEnabled(playerprop, true);
+			playerSetPerimEnabled(playerprop, true);
 		}
 	}
 
@@ -5671,10 +5671,10 @@ bool propIsOfCdType(struct prop *prop, u32 types)
 	bool result = true;
 
 	if (prop->type == PROPTYPE_DOOR) {
-		if (types & CDTYPE_OBJSWITHOUTFLAG) {
+		if (types & CDTYPE_AIOPAQUE) {
 			struct defaultobj *obj = prop->obj;
 
-			if (obj->flags & OBJFLAG_04000000) {
+			if (obj->flags & OBJFLAG_AISEETHROUGH) {
 				result = false;
 			}
 		}
@@ -5710,7 +5710,7 @@ bool propIsOfCdType(struct prop *prop, u32 types)
 
 			if (chr->actiontype == ACT_DEAD
 					|| (chr->chrflags & (CHRCFLAG_HIDDEN | CHRCFLAG_00010000))
-					|| (chr->hidden & CHRHFLAG_00000100)) {
+					|| (chr->hidden & CHRHFLAG_PERIMDISABLED)) {
 				result = false;
 			}
 		}
@@ -5720,7 +5720,7 @@ bool propIsOfCdType(struct prop *prop, u32 types)
 		if (obj->unkgeo == NULL) {
 			result = false;
 		} else {
-			if ((types & CDTYPE_OBJSWITHOUTFLAG) && (obj->flags & OBJFLAG_04000000)) {
+			if ((types & CDTYPE_AIOPAQUE) && (obj->flags & OBJFLAG_AISEETHROUGH)) {
 				result = false;
 			}
 
@@ -5741,8 +5741,8 @@ bool propIsOfCdType(struct prop *prop, u32 types)
 				result = false;
 			}
 
-			if ((obj->flags & OBJFLAG_00000800)) {
-				if ((types & CDTYPE_10) == 0) {
+			if ((obj->flags & OBJFLAG_PATHBLOCKER)) {
+				if ((types & CDTYPE_PATHBLOCKER) == 0) {
 					result = false;
 				}
 			} else {

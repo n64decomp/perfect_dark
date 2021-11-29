@@ -274,13 +274,13 @@ u32 getVar80062980(void)
 	return var80062980;
 }
 
-void chrSetOrUnsetHiddenFlag00000100(struct chrdata *chr, bool unset)
+void chrSetPerimEnabled(struct chrdata *chr, bool enable)
 {
 	if (chr) {
-		if (unset) {
-			chr->hidden &= ~CHRHFLAG_00000100;
+		if (enable) {
+			chr->hidden &= ~CHRHFLAG_PERIMDISABLED;
 		} else {
-			chr->hidden |= CHRHFLAG_00000100;
+			chr->hidden |= CHRHFLAG_PERIMDISABLED;
 		}
 	}
 }
@@ -322,22 +322,20 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 	// The eyespy can't be pushed
 	if (CHRRACE(chr) == RACE_EYESPY) {
 		roomsCopy(prop->rooms, dstrooms);
-		chrSetOrUnsetHiddenFlag00000100(chr, true);
+		chrSetPerimEnabled(chr, true);
 		return;
 	}
 
 	propChrGetBbox(prop, &width, &ymax, &ymin);
 	halfwidth = width * 0.5f;
-	chrSetOrUnsetHiddenFlag00000100(chr, false);
+	chrSetPerimEnabled(chr, false);
 
-	// myspecial is the chr's chair. This might be disabling collision checks on
-	// the chair so they don't interfere with the rest of the checks in this
-	// function.
+	// myspecial is the chr's chair
 	if (chr->myspecial != -1) {
 		chair = objFindByTagId(chr->myspecial);
 
 		if (chair && chair->prop) {
-			propObjSetOrUnsetHiddenFlag00400000(chair->prop, false);
+			objSetPerimEnabled(chair->prop, false);
 		}
 	}
 
@@ -561,10 +559,10 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 		chr->invalidmove = 1;
 	}
 
-	chrSetOrUnsetHiddenFlag00000100(chr, true);
+	chrSetPerimEnabled(chr, true);
 
 	if (chair && chair->prop) {
-		propObjSetOrUnsetHiddenFlag00400000(chair->prop, true);
+		objSetPerimEnabled(chair->prop, true);
 	}
 }
 
@@ -584,11 +582,11 @@ bool func0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, 
 	propChrGetBbox(chr->prop, &width, &ymax, &ymin);
 	func0f065e74(pos, rooms, &newpos, newrooms);
 	func0f021fa8(chr, &newpos, newrooms);
-	chrSetOrUnsetHiddenFlag00000100(chr, false);
+	chrSetPerimEnabled(chr, false);
 	result = cdTestVolume(&newpos, width, newrooms, CDTYPE_ALL, 1,
 			ymax - chr->prop->pos.y,
 			ymin - chr->prop->pos.y);
-	chrSetOrUnsetHiddenFlag00000100(chr, true);
+	chrSetPerimEnabled(chr, true);
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (result == true && arg4) {
@@ -4610,7 +4608,7 @@ void func0f020d44(struct prop *prop, bool removechr)
 
 		if ((obj->hidden & OBJHFLAG_HASTEXTOVERRIDE) == 0
 				&& obj != eyespyobj
-				&& (prop->type != PROPTYPE_PLAYER || (obj->flags3 & OBJFLAG3_00400000) == 0)) {
+				&& (prop->type != PROPTYPE_PLAYER || (obj->flags3 & OBJFLAG3_PLAYERUNDROPPABLE) == 0)) {
 			objDetach(child);
 			objFreePermanently(obj, true);
 		}
@@ -7218,7 +7216,7 @@ glabel var7f1a99ecpf
 /*  f023538:	304a0001 */ 	andi	$t2,$v0,0x1
 /*  f02353c:	11400003 */ 	beqz	$t2,.PF0f02354c
 /*  f023540:	8fa40250 */ 	lw	$a0,0x250($sp)
-/*  f023544:	0fc1c248 */ 	jal	func0f070698
+/*  f023544:	0fc1c248 */ 	jal	propDropRecursive
 /*  f023548:	24050001 */ 	li	$a1,0x1
 .PF0f02354c:
 /*  f02354c:	8fa40250 */ 	lw	$a0,0x250($sp)
@@ -8377,7 +8375,7 @@ glabel var7f1a99ecpf
 /*  f024604:	31f80001 */ 	andi	$t8,$t7,0x1
 /*  f024608:	13000007 */ 	beqz	$t8,.PF0f024628
 /*  f02460c:	00000000 */ 	nop
-/*  f024610:	0fc1c248 */ 	jal	func0f070698
+/*  f024610:	0fc1c248 */ 	jal	propDropRecursive
 /*  f024614:	00002825 */ 	move	$a1,$zero
 /*  f024618:	8e080014 */ 	lw	$t0,0x14($s0)
 /*  f02461c:	2401fffe */ 	li	$at,-2
@@ -8656,7 +8654,7 @@ glabel var7f1a87d8
 /*  f023414:	304c0001 */ 	andi	$t4,$v0,0x1
 /*  f023418:	11800003 */ 	beqz	$t4,.L0f023428
 /*  f02341c:	8fa40250 */ 	lw	$a0,0x250($sp)
-/*  f023420:	0fc1c1a6 */ 	jal	func0f070698
+/*  f023420:	0fc1c1a6 */ 	jal	propDropRecursive
 /*  f023424:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f023428:
 /*  f023428:	8fa40250 */ 	lw	$a0,0x250($sp)
@@ -9815,7 +9813,7 @@ glabel var7f1a87d8
 /*  f0244e0:	33280001 */ 	andi	$t0,$t9,0x1
 /*  f0244e4:	11000007 */ 	beqz	$t0,.L0f024504
 /*  f0244e8:	00000000 */ 	nop
-/*  f0244ec:	0fc1c1a6 */ 	jal	func0f070698
+/*  f0244ec:	0fc1c1a6 */ 	jal	propDropRecursive
 /*  f0244f0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0244f4:	8e0e0014 */ 	lw	$t6,0x14($s0)
 /*  f0244f8:	2401fffe */ 	addiu	$at,$zero,-2
@@ -10084,7 +10082,7 @@ glabel var7f1a87d8
 /*  f022edc:	30490001 */ 	andi	$t1,$v0,0x1
 /*  f022ee0:	11200003 */ 	beqz	$t1,.NB0f022ef0
 /*  f022ee4:	8fa40250 */ 	lw	$a0,0x250($sp)
-/*  f022ee8:	0fc1bd25 */ 	jal	func0f070698
+/*  f022ee8:	0fc1bd25 */ 	jal	propDropRecursive
 /*  f022eec:	24050001 */ 	addiu	$a1,$zero,0x1
 .NB0f022ef0:
 /*  f022ef0:	8fa40250 */ 	lw	$a0,0x250($sp)
@@ -11195,7 +11193,7 @@ glabel var7f1a87d8
 /*  f023efc:	31880001 */ 	andi	$t0,$t4,0x1
 /*  f023f00:	11000007 */ 	beqz	$t0,.NB0f023f20
 /*  f023f04:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f023f08:	0fc1bd25 */ 	jal	func0f070698
+/*  f023f08:	0fc1bd25 */ 	jal	propDropRecursive
 /*  f023f0c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f023f10:	8e0f0014 */ 	lw	$t7,0x14($s0)
 /*  f023f14:	2401fffe */ 	addiu	$at,$zero,-2
@@ -11214,7 +11212,7 @@ glabel var7f1a87d8
 );
 #endif
 
-void chrDropItems(struct chrdata *chr)
+void chrDropConcealedItems(struct chrdata *chr)
 {
 	struct prop *prop = chr->prop->child;
 
@@ -11223,8 +11221,8 @@ void chrDropItems(struct chrdata *chr)
 				&& prop != chr->weapons_held[1]
 				&& prop != chr->weapons_held[0]
 				&& (prop->obj->hidden & OBJHFLAG_00000040) == 0
-				&& (prop->obj->flags & OBJFLAG_00002000) == 0) {
-			propobjSetDropped(prop, DROPREASON_1);
+				&& (prop->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
+			objSetDropped(prop, DROPREASON_1);
 		}
 
 		prop = prop->next;
@@ -11264,8 +11262,8 @@ void chrDropWeapons(struct chrdata *chr)
 		if (prop != chr->weapons_held[2]) {
 			struct defaultobj *obj = prop->obj;
 
-			if ((obj->flags & OBJFLAG_00002000) == 0) {
-				propobjSetDropped(prop, DROPREASON_6);
+			if ((obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
+				objSetDropped(prop, DROPREASON_6);
 			}
 		}
 
@@ -14457,7 +14455,7 @@ glabel func0f027e1c
 /*  f028104:	54410015 */ 	bnel	$v0,$at,.L0f02815c
 /*  f028108:	8622003a */ 	lh	$v0,0x3a($s1)
 .L0f02810c:
-/*  f02810c:	0fc20a59 */ 	jal	propobjSetDropped
+/*  f02810c:	0fc20a59 */ 	jal	objSetDropped
 /*  f028110:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f028114:	8faa00f0 */ 	lw	$t2,0xf0($sp)
 /*  f028118:	8d4b0014 */ 	lw	$t3,0x14($t2)
@@ -14550,7 +14548,7 @@ glabel func0f027e1c
 /*  f028258:	8e2b0004 */ 	lw	$t3,0x4($s1)
 /*  f02825c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f028260:	ad2b0300 */ 	sw	$t3,0x300($t1)
-/*  f028264:	0fc20a59 */ 	jal	propobjSetDropped
+/*  f028264:	0fc20a59 */ 	jal	objSetDropped
 /*  f028268:	8e240004 */ 	lw	$a0,0x4($s1)
 /*  f02826c:	8fac00f0 */ 	lw	$t4,0xf0($sp)
 /*  f028270:	8d8a0014 */ 	lw	$t2,0x14($t4)
@@ -14900,7 +14898,7 @@ glabel func0f027e1c
 /*  f027b20:	54410015 */ 	bnel	$v0,$at,.NB0f027b78
 /*  f027b24:	8622003a */ 	lh	$v0,0x3a($s1)
 .NB0f027b28:
-/*  f027b28:	0fc204f7 */ 	jal	propobjSetDropped
+/*  f027b28:	0fc204f7 */ 	jal	objSetDropped
 /*  f027b2c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f027b30:	8fae00f0 */ 	lw	$t6,0xf0($sp)
 /*  f027b34:	8dcf0014 */ 	lw	$t7,0x14($t6)
@@ -14992,7 +14990,7 @@ glabel func0f027e1c
 /*  f027c70:	8e2b0004 */ 	lw	$t3,0x4($s1)
 /*  f027c74:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f027c78:	ad0b0300 */ 	sw	$t3,0x300($t0)
-/*  f027c7c:	0fc204f7 */ 	jal	propobjSetDropped
+/*  f027c7c:	0fc204f7 */ 	jal	objSetDropped
 /*  f027c80:	8e240004 */ 	lw	$a0,0x4($s1)
 /*  f027c84:	8fac00f0 */ 	lw	$t4,0xf0($sp)
 /*  f027c88:	8d8d0014 */ 	lw	$t5,0x14($t4)
@@ -15289,7 +15287,7 @@ bool chrUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 	if (chr->actiontype != ACT_DEAD &&
 			chr->actiontype != ACT_DRUGGEDKO &&
 			(chr->chrflags & (CHRCFLAG_00010000 | CHRCFLAG_HIDDEN)) == 0 &&
-			(chr->hidden & CHRHFLAG_00000100) == 0) {
+			(chr->hidden & CHRHFLAG_PERIMDISABLED) == 0) {
 		chr->geo.header.type = TILETYPE_03;
 
 		if (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DRUGGEDDROP) {

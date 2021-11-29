@@ -476,7 +476,7 @@ bool doorIsPadlockFree(struct doorobj *door)
 	return true;
 }
 
-bool objPassesSafePickupChecks(struct defaultobj *obj)
+bool objCanPickupFromSafe(struct defaultobj *obj)
 {
 	if (obj->flags2 & OBJFLAG2_LINKEDTOSAFE) {
 		struct safeitemobj *link = g_SafeItems;
@@ -499,7 +499,7 @@ bool objPassesSafePickupChecks(struct defaultobj *obj)
 
 void objUpdateLinkedScenery(struct defaultobj *obj)
 {
-	if ((obj->hidden & OBJHFLAG_01000000) && (obj->flags & OBJFLAG_INVINCIBLE) == 0) {
+	if ((obj->hidden & OBJHFLAG_CONDITIONALSCENERY) && (obj->flags & OBJFLAG_INVINCIBLE) == 0) {
 		struct linksceneryobj *link = g_LinkedScenery;
 
 		while (link) {
@@ -4580,7 +4580,7 @@ glabel var7f1aa1fc
 /*  f069e18:	0fc181a6 */ 	jal	propReparent
 /*  f069e1c:	8dc50014 */ 	lw	$a1,0x14($t6)
 /*  f069e20:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f069e24:	0fc20a59 */ 	jal	propobjSetDropped
+/*  f069e24:	0fc20a59 */ 	jal	objSetDropped
 /*  f069e28:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f069e2c:	8e190040 */ 	lw	$t9,0x40($s0)
 /*  f069e30:	8fa200b0 */ 	lw	$v0,0xb0($sp)
@@ -4887,7 +4887,7 @@ glabel var7f1aa1fc
 /*  f069e18:	0fc181a6 */ 	jal	propReparent
 /*  f069e1c:	8dc50014 */ 	lw	$a1,0x14($t6)
 /*  f069e20:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f069e24:	0fc20a59 */ 	jal	propobjSetDropped
+/*  f069e24:	0fc20a59 */ 	jal	objSetDropped
 /*  f069e28:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f069e2c:	8e190040 */ 	lw	$t9,0x40($s0)
 /*  f069e30:	8fa200b0 */ 	lw	$v0,0xb0($sp)
@@ -16677,14 +16677,14 @@ void func0f07063c(struct prop *prop, bool arg1)
 	}
 }
 
-void func0f070698(struct prop *prop, bool arg1)
+void propDropRecursive(struct prop *prop, bool arg1)
 {
 	struct prop *child = prop->child;
 
 	while (child) {
 		struct prop *next = child->next;
-		func0f070698(child, arg1);
-		func0f08307c(child, arg1);
+		propDropRecursive(child, arg1);
+		propDrop(child, arg1);
 		child = next;
 	}
 }
@@ -24818,7 +24818,7 @@ glabel var7f1ab6dcpf
 /*  f075954:	0fc21530 */ 	jal	objTakeGunfire
 /*  f075958:	afab0010 */ 	sw	$t3,0x10($sp)
 /*  f07595c:	8fa401f4 */ 	lw	$a0,0x1f4($sp)
-/*  f075960:	0fc1c248 */ 	jal	func0f070698
+/*  f075960:	0fc1c248 */ 	jal	propDropRecursive
 /*  f075964:	00002825 */ 	move	$a1,$zero
 /*  f075968:	240c0001 */ 	li	$t4,0x1
 /*  f07596c:	1000000e */ 	b	.PF0f0759a8
@@ -28356,7 +28356,7 @@ glabel var7f1aa438
 /*  f0756d0:	0fc2149c */ 	jal	objTakeGunfire
 /*  f0756d4:	afab0010 */ 	sw	$t3,0x10($sp)
 /*  f0756d8:	8fa401f4 */ 	lw	$a0,0x1f4($sp)
-/*  f0756dc:	0fc1c1a6 */ 	jal	func0f070698
+/*  f0756dc:	0fc1c1a6 */ 	jal	propDropRecursive
 /*  f0756e0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0756e4:	240c0001 */ 	addiu	$t4,$zero,0x1
 /*  f0756e8:	1000000e */ 	b	.L0f075724
@@ -31858,7 +31858,7 @@ glabel var7f1aa438
 /*  f0743fc:	0fc20ebd */ 	jal	objTakeGunfire
 /*  f074400:	afa90010 */ 	sw	$t1,0x10($sp)
 /*  f074404:	8fa401f4 */ 	lw	$a0,0x1f4($sp)
-/*  f074408:	0fc1bd25 */ 	jal	func0f070698
+/*  f074408:	0fc1bd25 */ 	jal	propDropRecursive
 /*  f07440c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f074410:	240a0001 */ 	addiu	$t2,$zero,0x1
 /*  f074414:	1000000e */ 	beqz	$zero,.NB0f074450
@@ -35257,13 +35257,13 @@ void cctvTick(struct prop *camprop)
 
 	// Check line of sight
 	if (canseeplayer) {
-		currentPlayerSetPerimEnabled(playerprop, false);
+		playerSetPerimEnabled(playerprop, false);
 
 		if (!cdHasLineOfSight(&camprop->pos, camprop->rooms, &playerprop->pos, playerprop->rooms, 315, 8)) {
 			canseeplayer = false;
 		}
 
-		currentPlayerSetPerimEnabled(playerprop, true);
+		playerSetPerimEnabled(playerprop, true);
 	}
 
 	if (canseeplayer) {
@@ -49722,14 +49722,13 @@ u32 func0f07e474(struct prop *prop)
 		} else if (prop->timetoregen < PALDOWN(60) && !regenning) {
 			// 1 second left - time to start fading in
 			if (obj->damage == 0 && (obj->hidden2 & OBJH2FLAG_DESTROYED) == 0) {
-				if (obj->flags & OBJFLAG_00008000) {
+				if (obj->flags & OBJFLAG_INSIDEANOTHEROBJ) {
 					propDeregisterRooms(prop);
 					propDelist(prop);
 					obj->hidden &= ~OBJHFLAG_00000800;
 					cmdindex = setupGetCommandIndexByProp(prop);
 
-					// Uh... why add obj->pad to the command offset?
-					// I suspect obj->pad has been repurposed.
+					// Find the parent obj (pad is repurposed here)
 					padnum = obj->pad;
 					newparent = setupCommandGetObject(cmdindex + padnum);
 
@@ -49804,11 +49803,11 @@ s32 objTick(struct prop *prop)
 	bool sp556 = false;
 	bool sp552 = false;
 
-	if (obj->hidden & OBJHFLAG_00000008) {
-		obj->hidden &= ~OBJHFLAG_00000008;
+	if (obj->hidden & OBJHFLAG_ISRETICK) {
+		obj->hidden &= ~OBJHFLAG_ISRETICK;
 	} else if ((obj->hidden & OBJHFLAG_AIRBORNE) && (obj->projectile->flags & PROJECTILEFLAG_00000800) == 0) {
 		prop->flags &= ~PROPFLAG_ONSCREEN;
-		obj->hidden |= OBJHFLAG_00000008;
+		obj->hidden |= OBJHFLAG_ISRETICK;
 		return TICKOP_RETICK;
 	}
 
@@ -49832,7 +49831,7 @@ s32 objTick(struct prop *prop)
 		}
 
 		if (!pass) {
-			func0f070698(prop, true);
+			propDropRecursive(prop, true);
 			objFree(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 			return TICKOP_FREE;
 		}
@@ -50171,7 +50170,7 @@ s32 objTick(struct prop *prop)
 			func0f079f1c(prop);
 		}
 
-		func0f070698(prop, false);
+		propDropRecursive(prop, false);
 	}
 
 	return result;
@@ -53984,7 +53983,7 @@ glabel var7f1aa82c
 //			&& !g_InCutscene
 //			&& EYESPYINACTIVE()
 //			&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_NIGHTVISION)) {
-//		if ((obj->flags & OBJFLAG_00000800) == 0) {
+//		if ((obj->flags & OBJFLAG_PATHBLOCKER) == 0) {
 //			colour[0] = var8009caec[1];
 //			colour[1] = var8009caec[1];
 //			colour[2] = var8009caec[1];
@@ -53994,7 +53993,7 @@ glabel var7f1aa82c
 //			&& !g_InCutscene
 //			&& EYESPYINACTIVE()
 //			&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_IRSCANNER)) {
-//		if ((obj->hidden & OBJHFLAG_01000000) || (obj->flags3 & OBJFLAG3_40000000)) {
+//		if ((obj->hidden & OBJHFLAG_CONDITIONALSCENERY) || (obj->flags3 & OBJFLAG3_INFRARED)) {
 //			colour[0] = 0xff;
 //			colour[1] = 0xff;
 //			colour[2] = 0xff;
@@ -55875,7 +55874,7 @@ glabel var7f1aa85c
 );
 #endif
 
-void propobjSetDropped(struct prop *prop, u32 reason)
+void objSetDropped(struct prop *prop, u32 reason)
 {
 	struct prop *parent = prop->parent;
 
@@ -56753,7 +56752,7 @@ void objDetach(struct prop *prop)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f08307c
+glabel propDrop
 .late_rodata
 glabel var7f1aa8e0
 .word 0x41555555
@@ -57726,7 +57725,7 @@ glabel var7f1aa978
 );
 #else
 GLOBAL_ASM(
-glabel func0f08307c
+glabel propDrop
 .late_rodata
 glabel var7f1aa8e0
 .word 0x41555555
@@ -60818,7 +60817,7 @@ bool func0f085194(struct defaultobj *obj)
 	return false;
 }
 
-bool func0f0851ec(struct defaultobj *obj)
+bool objIsMortal(struct defaultobj *obj)
 {
 	if (obj->type == OBJTYPE_DOOR) {
 		return false;
@@ -60942,7 +60941,7 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 			return;
 		}
 
-		if (!func0f0851ec(obj)) {
+		if (!objIsMortal(obj)) {
 			return;
 		}
 	}
@@ -60985,7 +60984,7 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 				glassDestroy(obj);
 			}
 		} else {
-			propobjSetDropped(obj->prop, DROPREASON_1);
+			objSetDropped(obj->prop, DROPREASON_1);
 			func0f0841dc(obj, pos, playernum);
 		}
 
@@ -61095,7 +61094,7 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 
 			while (child) {
 				struct prop *next = child->next;
-				propobjSetDropped(child, DROPREASON_1);
+				objSetDropped(child, DROPREASON_1);
 				child = next;
 			}
 		}
@@ -61159,7 +61158,7 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 		} while (lVar3 > 0);
 	}
 
-	if (obj->flags3 & OBJFLAG3_00100000) {
+	if (obj->flags3 & OBJFLAG3_HOVERBEDSHIELD) {
 		node3 = modelGetPart(model->filedata, MODELPART_0067);
 
 		if (node3 && func0f084594(model, node3, &shotdata->unk00, &shotdata->unk0c, &hitthing2, &sp90, &node4)) {
@@ -61198,7 +61197,11 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 
 			func0f061fa8(shotdata, prop, spd4, lVar3,
 					node1, &hitthing1, spe4, node2,
-					model, isnotglass && shotdata->gset.weaponnum != WEAPON_FARSIGHT, (obj->flags2 & OBJFLAG2_00100000) && shotdata->gset.weaponnum != WEAPON_DY357MAGNUM && shotdata->gset.weaponnum != WEAPON_FARSIGHT, &sp7c, &sp70);
+					model, isnotglass && shotdata->gset.weaponnum != WEAPON_FARSIGHT,
+					(obj->flags2 & OBJFLAG2_BULLETPROOF)
+						&& shotdata->gset.weaponnum != WEAPON_DY357MAGNUM
+						&& shotdata->gset.weaponnum != WEAPON_FARSIGHT,
+					&sp7c, &sp70);
 		}
 	}
 }
@@ -61467,7 +61470,7 @@ glabel func0f085eac
 /*  f086218:	8fa4011c */ 	lw	$a0,0x11c($sp)
 /*  f08621c:	5040000c */ 	beqzl	$v0,.L0f086250
 /*  f086220:	8faf00fc */ 	lw	$t7,0xfc($sp)
-/*  f086224:	0fc2147b */ 	jal	func0f0851ec
+/*  f086224:	0fc2147b */ 	jal	objIsMortal
 /*  f086228:	8fa4011c */ 	lw	$a0,0x11c($sp)
 /*  f08622c:	10400007 */ 	beqz	$v0,.L0f08624c
 /*  f086230:	8fa80124 */ 	lw	$t0,0x124($sp)
@@ -61839,7 +61842,7 @@ glabel func0f085eac
 /*  f086774:	8fa80124 */ 	lw	$t0,0x124($sp)
 .L0f086778:
 /*  f086778:	00002825 */ 	or	$a1,$zero,$zero
-/*  f08677c:	0fc1c1a6 */ 	jal	func0f070698
+/*  f08677c:	0fc1c1a6 */ 	jal	propDropRecursive
 /*  f086780:	8d040004 */ 	lw	$a0,0x4($t0)
 /*  f086784:	8fa4011c */ 	lw	$a0,0x11c($sp)
 /*  f086788:	8c820040 */ 	lw	$v0,0x40($a0)
@@ -62196,7 +62199,7 @@ glabel func0f085eac
 /*  f084a74:	8fa4011c */ 	lw	$a0,0x11c($sp)
 /*  f084a78:	5040000c */ 	beqzl	$v0,.NB0f084aac
 /*  f084a7c:	8fab00fc */ 	lw	$t3,0xfc($sp)
-/*  f084a80:	0fc20e9c */ 	jal	func0f0851ec
+/*  f084a80:	0fc20e9c */ 	jal	objIsMortal
 /*  f084a84:	8fa4011c */ 	lw	$a0,0x11c($sp)
 /*  f084a88:	10400007 */ 	beqz	$v0,.NB0f084aa8
 /*  f084a8c:	8fa80124 */ 	lw	$t0,0x124($sp)
@@ -62568,7 +62571,7 @@ glabel func0f085eac
 /*  f084fd0:	8fa80124 */ 	lw	$t0,0x124($sp)
 .NB0f084fd4:
 /*  f084fd4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f084fd8:	0fc1bd25 */ 	jal	func0f070698
+/*  f084fd8:	0fc1bd25 */ 	jal	propDropRecursive
 /*  f084fdc:	8d040004 */ 	lw	$a0,0x4($t0)
 /*  f084fe0:	8fa4011c */ 	lw	$a0,0x11c($sp)
 /*  f084fe4:	8c820040 */ 	lw	$v0,0x40($a0)
@@ -62956,14 +62959,14 @@ bool propobjInteract(struct prop *prop)
 	return result;
 }
 
-void propObjSetOrUnsetHiddenFlag00400000(struct prop *prop, bool enable)
+void objSetPerimEnabled(struct prop *prop, bool enable)
 {
 	struct defaultobj *obj = prop->obj;
 
 	if (enable) {
-		obj->hidden &= ~OBJHFLAG_00400000;
+		obj->hidden &= ~OBJHFLAG_PERIMDISABLED;
 	} else {
-		obj->hidden |= OBJHFLAG_00400000;
+		obj->hidden |= OBJHFLAG_PERIMDISABLED;
 	}
 }
 
@@ -62976,7 +62979,7 @@ bool objUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 			s32 len = (obj->flags3 & OBJFLAG3_GEOTYPE3) ? sizeof(struct tiletype3) : sizeof(struct tiletype2);
 
 			if (obj->flags & OBJFLAG_00000100) {
-				if ((obj->hidden & (OBJHFLAG_00400000 | OBJHFLAG_00800000)) == 0) {
+				if ((obj->hidden & (OBJHFLAG_PERIMDISABLED | OBJHFLAG_DOORPERIMDISABLED)) == 0) {
 					*start = (void *) obj->unkgeo;
 					*end = (void *)((u32)obj->unkgeo + len);
 
@@ -66790,7 +66793,7 @@ s32 objTestForPickup(struct prop *prop)
 		}
 	}
 
-	if (!objPassesSafePickupChecks(obj)) {
+	if (!objCanPickupFromSafe(obj)) {
 		return TICKOP_NONE;
 	}
 
@@ -66959,7 +66962,7 @@ s32 objTestForPickup(struct prop *prop)
 		bool pickup;
 		u32 stack;
 
-		usebigrange = (obj->flags3 & OBJFLAG3_20000000)
+		usebigrange = (obj->flags3 & OBJFLAG3_ONSHELF)
 			&& (cheatIsActive(CHEAT_SMALLJO) || cheatIsActive(CHEAT_PLAYASELVIS));
 
 		if (g_Vars.currentplayer->magnetattracttime >= 60) {
@@ -69245,7 +69248,7 @@ struct prop *chrGiveWeapon(struct chrdata *chr, s32 model, s32 weaponnum, u32 fl
 	return weaponCreateForChr(chr, model, weaponnum, flags, NULL, NULL);
 }
 
-struct prop *func0f08baf4(struct chrdata *chr, s32 weaponnum, u32 flags)
+struct prop *chrGiveWeaponWithAutoModel(struct chrdata *chr, s32 weaponnum, u32 flags)
 {
 	return weaponCreateForChr(chr, weaponGetModel(weaponnum), weaponnum, flags, NULL, NULL);
 }
@@ -69829,12 +69832,12 @@ void doorUpdateTiles(struct doorobj *door)
 	doorGetBbox(door, &bbox);
 
 	if (door->frac >= door->perimfrac) {
-		door->base.hidden |= OBJHFLAG_00800000;
+		door->base.hidden |= OBJHFLAG_DOORPERIMDISABLED;
 		return;
 	}
 
 	geo = door->base.geo3;
-	door->base.hidden &= ~OBJHFLAG_00800000;
+	door->base.hidden &= ~OBJHFLAG_DOORPERIMDISABLED;
 
 	if ((door->doorflags & DOORFLAG_0020) == 0) {
 		func0f08c424(door, &spdc);
@@ -71576,7 +71579,7 @@ void doorsCalcFrac(struct doorobj *door)
 				propSetCollisionsEnabled(loopprop, false);
 
 				cdresult = cd0002e4c4(loopdoor->base.geo2, loopprop->rooms,
-						CDTYPE_OBJS | CDTYPE_PLAYERS | CDTYPE_CHRS | CDTYPE_10 | CDTYPE_OBJSNOTSAFEORHELI);
+						CDTYPE_OBJS | CDTYPE_PLAYERS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER | CDTYPE_OBJSNOTSAFEORHELI);
 
 				propSetCollisionsEnabled(loopprop, true);
 
@@ -72678,7 +72681,7 @@ void func0f091030(void)
 	}
 }
 
-void func0f0910ac(void)
+void currentPlayerDropAllItems(void)
 {
 	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 	s32 i;
@@ -72703,7 +72706,7 @@ void func0f0910ac(void)
 						if (obj->type == OBJTYPE_WEAPON) {
 							struct weaponobj *weapon = child->weapon;
 
-							if (i == weapon->weaponnum && (obj->flags3 & OBJFLAG3_00400000)) {
+							if (i == weapon->weaponnum && (obj->flags3 & OBJFLAG3_PLAYERUNDROPPABLE)) {
 								canremove = false;
 								break;
 							}
@@ -72717,10 +72720,10 @@ void func0f0910ac(void)
 					}
 
 					if (!bgunIsMissionCritical(i)) {
-						func0f091250(i);
+						weaponCreateForPlayerDrop(i);
 					}
 				} else {
-					func0f091250(i);
+					weaponCreateForPlayerDrop(i);
 				}
 #else
 				if (g_Vars.coopplayernum >= 0) {
@@ -72733,7 +72736,7 @@ void func0f0910ac(void)
 						if (obj->type == OBJTYPE_WEAPON) {
 							struct weaponobj *weapon = child->weapon;
 
-							if (i == weapon->weaponnum && (obj->flags3 & OBJFLAG3_00400000)) {
+							if (i == weapon->weaponnum && (obj->flags3 & OBJFLAG3_PLAYERUNDROPPABLE)) {
 								canremove = false;
 								break;
 							}
@@ -72747,14 +72750,14 @@ void func0f0910ac(void)
 					}
 				}
 
-				func0f091250(i);
+				weaponCreateForPlayerDrop(i);
 #endif
 			}
 		}
 	}
 }
 
-void func0f091250(s32 weaponnum)
+void weaponCreateForPlayerDrop(s32 weaponnum)
 {
 	u32 stack;
 	struct prop *prop;
@@ -72762,11 +72765,11 @@ void func0f091250(s32 weaponnum)
 	u32 stack2;
 
 	chr = g_Vars.currentplayer->prop->chr;
-	prop = weaponCreateForChr(chr, weaponGetModel(weaponnum), weaponnum, OBJFLAG_20000000, NULL, NULL);
+	prop = weaponCreateForChr(chr, weaponGetModel(weaponnum), weaponnum, OBJFLAG_WEAPON_AICANNOTUSE, NULL, NULL);
 
 	if (prop) {
-		propobjSetDropped(prop, DROPREASON_1);
-		func0f08307c(prop, true);
+		objSetDropped(prop, DROPREASON_1);
+		propDrop(prop, true);
 
 		if (weaponnum == WEAPON_BRIEFCASE2) {
 			func0f187288(chr, prop);

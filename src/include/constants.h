@@ -444,7 +444,7 @@
 #define CHRHFLAG_REAPED              0x00000020
 #define CHRHFLAG_TIMER_RUNNING       0x00000040
 #define CHRHFLAG_00000080            0x00000080 // Not used in scripts
-#define CHRHFLAG_00000100            0x00000100 // Not used in scripts
+#define CHRHFLAG_PERIMDISABLED       0x00000100
 #define CHRHFLAG_00000200            0x00000200 // Not used in scripts
 #define CHRHFLAG_PASSIVE             0x00000400
 #define CHRHFLAG_00000800            0x00000800
@@ -486,7 +486,7 @@
 #define CHRCFLAG_NEAR_MISS                   0x00000004
 #define CHRCFLAG_NEVER_BEEN_ON_SCREEN        0x00000008
 #define CHRCFLAG_INVINCIBLE                  0x00000010
-#define CHRCFLAG_LOSEXTRAHEIGHT                    0x00000020 // Chicago, Infiltration, AF1, Ruins, WAR
+#define CHRCFLAG_LOSEXTRAHEIGHT              0x00000020 // Chicago, Infiltration, AF1, Ruins, WAR
 #define CHRCFLAG_00000040                    0x00000040 // Used quite a lot
 #define CHRCFLAG_00000080                    0x00000080 // Defection programmer, Rescue lab techs, globals when doing idle animation
 #define CHRCFLAG_JUST_INJURED                0x00000100
@@ -532,10 +532,10 @@
 #define CDTYPE_DOORS             0x0002
 #define CDTYPE_PLAYERS           0x0004
 #define CDTYPE_CHRS              0x0008
-#define CDTYPE_10                0x0010
+#define CDTYPE_PATHBLOCKER       0x0010 // glass and scenery with OBJFLAG_PATHBLOCKER
 #define CDTYPE_BG                0x0020
 #define CDTYPE_OBJSWITHFLAG      0x0080
-#define CDTYPE_OBJSWITHOUTFLAG   0x0100
+#define CDTYPE_AIOPAQUE          0x0100 // exclude objects with OBJFLAG_AISEETHROUGH
 #define CDTYPE_OBJSWITHFLAG2     0x0200
 #define CDTYPE_OBJSNOTSAFEORHELI 0x0400
 #define CDTYPE_DOORSWITHOUTFLAG  0x0800
@@ -2813,56 +2813,56 @@
 #define OBJECTIVEFLAG_AUTOCOMPLETE 0x01
 
 // obj->flags
-#define OBJFLAG_00000001             0x00000001 // Editor: "Fall to Ground"
-#define OBJFLAG_00000002             0x00000002 // Editor: "In Air Rotated 90 Deg Upside-Down"
-#define OBJFLAG_00000004             0x00000004 // Editor: "In Air Upside-Down"
-#define OBJFLAG_00000008             0x00000008 // Editor: "In Air"
-#define OBJFLAG_00000010             0x00000010 // Editor: "Scale to Pad Bounds"
-#define OBJFLAG_00000020             0x00000020 // Editor: "X to Pad Bounds"
-#define OBJFLAG_00000040             0x00000040 // Editor: "Y to Pad Bounds"
-#define OBJFLAG_00000080             0x00000080 // Editor: "Z to Pad Bounds"
-#define OBJFLAG_00000100             0x00000100 // G5 mines, Air Base brown door, AF1 grate and escape door, Defense shuttle, Ruins mines, MBR lift door. Editor suggests "Force Collisions" but this seems wrong
-#define OBJFLAG_00000200             0x00000200 // Editor: "Special Environment Mapping"
-#define OBJFLAG_ILLUMINATED          0x00000400
-#define OBJFLAG_00000800             0x00000800 // Editor: "Free Standing Glass"
-#define OBJFLAG_00001000             0x00001000 // Editor: "Absolute Position"
-#define OBJFLAG_00002000             0x00002000 // AF1 commhubs. Editor suggests "Weapon Not Dropped"
-#define OBJFLAG_ASSIGNEDTOCHR        0x00004000
-#define OBJFLAG_00008000             0x00008000 // Editor: "Embedded Object"
-#define OBJFLAG_00010000             0x00010000 // Not used in scripts
-#define OBJFLAG_INVINCIBLE           0x00020000
-#define OBJFLAG_COLLECTABLE          0x00040000
-#define OBJFLAG_THROWNLAPTOP         0x00080000
-#define OBJFLAG_UNCOLLECTABLE        0x00100000
-#define OBJFLAG_00200000             0x00200000 // Editor: "Bounce and Destroy If Shot"
-#define OBJFLAG_00400000             0x00400000 // Not used in scripts
-#define OBJFLAG_00800000             0x00800000 // Not used in scripts
-#define OBJFLAG_01000000             0x01000000 // Editor: "Embedded Object"
-#define OBJFLAG_CANNOT_ACTIVATE      0x02000000 // Makes it do nothing if player presses B on object. Used mostly for doors.
-#define OBJFLAG_04000000             0x04000000 // Editor: "AI Sees Through Door/Object"
-#define OBJFLAG_08000000             0x08000000 // Not used in scripts
-#define OBJFLAG_DEACTIVATED          0x10000000
-#define OBJFLAG_AMMOCRATE_EXPLODENOW 0x10000000
-#define OBJFLAG_DOOR_HASPORTAL       0x10000000
-#define OBJFLAG_GLASS_HASPORTAL      0x10000000
-#define OBJFLAG_WEAPON_LEFTHANDED    0x10000000
-#define OBJFLAG_ESCSTEP_ZALIGNED     0x10000000
-#define OBJFLAG_20000000             0x20000000 // Editor: "Door Opens Backwards/Special Function/Conceal Weapon"
-#define OBJFLAG_CAMERA_DISABLED      0x20000000
-#define OBJFLAG_DOOR_OPENTOFRONT     0x20000000
-#define OBJFLAG_HOVERCAR_20000000    0x20000000
-#define OBJFLAG_WEAPON_AICANNOTUSE   0x20000000
-#define OBJFLAG_AUTOGUN_ALERTED      0x40000000
-#define OBJFLAG_CAMERA_BONDINVIEW    0x40000000
-#define OBJFLAG_DOOR_KEEPOPEN        0x40000000 // Editor: "Door open by default/Empty weapon"
-#define OBJFLAG_HOVERBIKE_MOVINGWHILEEMPTY   0x40000000
-#define OBJFLAG_HOVERCAR_40000000    0x40000000
-#define OBJFLAG_LIFT_TRIGGERDISABLE  0x40000000
-#define OBJFLAG_MONITOR_40000000     0x40000000
-#define OBJFLAG_WEAPON_40000000      0x40000000
-#define OBJFLAG_80000000             0x80000000
-#define OBJFLAG_CHOPPER_INACTIVE     0x80000000 // Or lift disabled, or hovercar something
-#define OBJFLAG_DOOR_TWOWAY          0x80000000 // Door swings in both directions
+#define OBJFLAG_00000001                   0x00000001 // Editor: "Fall to Ground"
+#define OBJFLAG_00000002                   0x00000002 // Editor: "In Air Rotated 90 Deg Upside-Down"
+#define OBJFLAG_00000004                   0x00000004 // Editor: "In Air Upside-Down"
+#define OBJFLAG_00000008                   0x00000008 // Editor: "In Air"
+#define OBJFLAG_00000010                   0x00000010 // Editor: "Scale to Pad Bounds"
+#define OBJFLAG_00000020                   0x00000020 // Editor: "X to Pad Bounds"
+#define OBJFLAG_00000040                   0x00000040 // Editor: "Y to Pad Bounds"
+#define OBJFLAG_00000080                   0x00000080 // Editor: "Z to Pad Bounds"
+#define OBJFLAG_00000100                   0x00000100 // G5 mines, Air Base brown door, AF1 grate and escape door, Defense shuttle, Ruins mines, MBR lift door. Editor suggests "Force Collisions" but this seems wrong
+#define OBJFLAG_00000200                   0x00000200 // Editor: "Special Environment Mapping"
+#define OBJFLAG_ILLUMINATED                0x00000400
+#define OBJFLAG_PATHBLOCKER                0x00000800 // Glass and explodable scenery which may be blocking a path segment
+#define OBJFLAG_00001000                   0x00001000 // Editor: "Absolute Position"
+#define OBJFLAG_AIUNDROPPABLE              0x00002000 // AI cannot drop item
+#define OBJFLAG_ASSIGNEDTOCHR              0x00004000
+#define OBJFLAG_INSIDEANOTHEROBJ           0x00008000 // Eg. gun inside a crate or suitcase inside a dumpster
+#define OBJFLAG_00010000                   0x00010000 // Not used in scripts
+#define OBJFLAG_INVINCIBLE                 0x00020000
+#define OBJFLAG_COLLECTABLE                0x00040000
+#define OBJFLAG_THROWNLAPTOP               0x00080000
+#define OBJFLAG_UNCOLLECTABLE              0x00100000
+#define OBJFLAG_REACTIFSHOT                0x00200000 // Bounce or explode
+#define OBJFLAG_00400000                   0x00400000 // Not used in scripts
+#define OBJFLAG_00800000                   0x00800000 // Not used in scripts
+#define OBJFLAG_01000000                   0x01000000 // Editor: "Embedded Object"
+#define OBJFLAG_CANNOT_ACTIVATE            0x02000000 // Makes it do nothing if player presses B on object. Used mostly for doors.
+#define OBJFLAG_AISEETHROUGH               0x04000000 // Glass, glass doors, small objects such as plant pots
+#define OBJFLAG_08000000                   0x08000000 // Not used in scripts
+#define OBJFLAG_DEACTIVATED                0x10000000
+#define OBJFLAG_AMMOCRATE_EXPLODENOW       0x10000000
+#define OBJFLAG_DOOR_HASPORTAL             0x10000000
+#define OBJFLAG_GLASS_HASPORTAL            0x10000000
+#define OBJFLAG_WEAPON_LEFTHANDED          0x10000000
+#define OBJFLAG_ESCSTEP_ZALIGNED           0x10000000
+#define OBJFLAG_20000000                   0x20000000 // Editor: "Door Opens Backwards/Special Function/Conceal Weapon"
+#define OBJFLAG_CAMERA_DISABLED            0x20000000
+#define OBJFLAG_DOOR_OPENTOFRONT           0x20000000
+#define OBJFLAG_HOVERCAR_20000000          0x20000000
+#define OBJFLAG_WEAPON_AICANNOTUSE         0x20000000
+#define OBJFLAG_AUTOGUN_ALERTED            0x40000000
+#define OBJFLAG_CAMERA_BONDINVIEW          0x40000000
+#define OBJFLAG_DOOR_KEEPOPEN              0x40000000 // Editor: "Door open by default/Empty weapon"
+#define OBJFLAG_HOVERBIKE_MOVINGWHILEEMPTY 0x40000000
+#define OBJFLAG_HOVERCAR_40000000          0x40000000
+#define OBJFLAG_LIFT_TRIGGERDISABLE        0x40000000
+#define OBJFLAG_MONITOR_40000000           0x40000000
+#define OBJFLAG_WEAPON_40000000            0x40000000
+#define OBJFLAG_80000000                   0x80000000
+#define OBJFLAG_CHOPPER_INACTIVE           0x80000000 // Or lift disabled, or hovercar something
+#define OBJFLAG_DOOR_TWOWAY                0x80000000 // Door swings in both directions
 
 // obj->flags2
 #define OBJFLAG2_00000001          0x00000001 // Used only in CI Training
@@ -2885,7 +2885,7 @@
 #define OBJFLAG2_00020000          0x00020000 // G5 mine, Air Base mine
 #define OBJFLAG2_00040000          0x00040000 // Only used in CI training
 #define OBJFLAG2_INVISIBLE         0x00080000
-#define OBJFLAG2_00100000          0x00100000 // Editor: "Bulletproof Glass"
+#define OBJFLAG2_BULLETPROOF       0x00100000 // Only magnum and FarSight can shoot through it
 #define OBJFLAG2_00200000          0x00200000 // Editor: "Immune to Explosions" (Ruins spikes)
 #define OBJFLAG2_EXCLUDE_2P        0x00400000
 #define OBJFLAG2_EXCLUDE_3P        0x00800000
@@ -2906,60 +2906,60 @@
 #define OBJFLAG3_00000010           0x00000010 // Used heaps
 #define OBJFLAG3_AUTOCUTSCENESOUNDS 0x00000020 // For doors and objs - play default open/close noises
 #define OBJFLAG3_RTRACKED_YELLOW    0x00000040
-#define OBJFLAG3_CANHARDFREE        0x00000080
+#define OBJFLAG3_CANHARDFREE        0x00000080 // Can free prop while on screen (MP weapons only)
 #define OBJFLAG3_HARDFREEING        0x00000100
 #define OBJFLAG3_00000200           0x00000200 // Not used in scripts
 #define OBJFLAG3_WALKTHROUGH        0x00000400
 #define OBJFLAG3_RTRACKED_BLUE      0x00000800
 #define OBJFLAG3_SHOWSHIELD         0x00001000 // Show shield effect around object (always)
 #define OBJFLAG3_HTMTERMINAL        0x00002000 // Terminal for Hacker Central scenario (HTM = Hack That Mac)
-#define OBJFLAG3_00004000           0x00004000 // Not used in scripts
-#define OBJFLAG3_00008000           0x00008000 // Not used in scripts
+#define OBJFLAG3_ISFETCHTARGET      0x00004000 // AI bot is fetching this obj
+#define OBJFLAG3_REACTTOSIGHT       0x00008000 // Turn sight blue or red when targeted with R
 #define OBJFLAG3_INTERACTABLE       0x00010000
 #define OBJFLAG3_00020000           0x00020000 // Equivalent to CHRH2FLAG_0002
 #define OBJFLAG3_00040000           0x00040000 // Not used in scripts
 #define OBJFLAG3_00080000           0x00080000 // Not used in scripts
-#define OBJFLAG3_00100000           0x00100000 // Ruins spikes
+#define OBJFLAG3_HOVERBEDSHIELD     0x00100000
 #define OBJFLAG3_INTERACTSHORTRANGE 0x00200000
-#define OBJFLAG3_00400000           0x00400000 // Investigation tech items
+#define OBJFLAG3_PLAYERUNDROPPABLE  0x00400000 // Player does not drop item when dead
 #define OBJFLAG3_00800000           0x00800000 // Not used in scripts
 #define OBJFLAG3_01000000           0x01000000 // Not used in scripts
 #define OBJFLAG3_GEOTYPE3           0x02000000 // If set then obj uses tiletype3 else tiletype2
 #define OBJFLAG3_04000000           0x04000000 // Not used in scripts
 #define OBJFLAG3_08000000           0x08000000 // Not used in scripts
 #define OBJFLAG3_10000000           0x10000000 // Editor: "Keep Collisions After Fully Destroyed"
-#define OBJFLAG3_20000000           0x20000000 // Not used in scripts
-#define OBJFLAG3_40000000           0x40000000 // Editor: "Door Highlighted IR Scanner"
+#define OBJFLAG3_ONSHELF            0x20000000 // Obj is on a shelf - use bigger pickup range for Small Jo and Play as Elvis cheats and skip line of sight checks
+#define OBJFLAG3_INFRARED           0x40000000 // Obj is highlighted on IR scanner
 #define OBJFLAG3_80000000           0x80000000 // Not used in scripts
 
 // obj->hidden
-#define OBJHFLAG_LIFTDOOR          0x00000001
-#define OBJHFLAG_00000002          0x00000002
-#define OBJHFLAG_REAPABLE          0x00000004
-#define OBJHFLAG_00000008          0x00000008
-#define OBJHFLAG_TAGGED            0x00000010
-#define OBJHFLAG_00000040          0x00000040
-#define OBJHFLAG_AIRBORNE          0x00000080
-#define OBJHFLAG_00000100          0x00000100
-#define OBJHFLAG_00000200          0x00000200
-#define OBJHFLAG_HASTEXTOVERRIDE   0x00000400
-#define OBJHFLAG_00000800          0x00000800
-#define OBJHFLAG_00001000          0x00001000
-#define OBJHFLAG_PADLOCKEDDOOR     0x00002000
-#define OBJHFLAG_ACTIVATED_BY_BOND 0x00004000
-#define OBJHFLAG_00008000          0x00008000
-#define OBJHFLAG_00020000          0x00020000
-#define OBJHFLAG_ACTIVATED_BY_COOP 0x00040000
-#define OBJHFLAG_HASOWNER          0x00080000
-#define OBJHFLAG_00100000          0x00100000
-#define OBJHFLAG_OCCUPIEDCHAIR     0x00200000
-#define OBJHFLAG_00400000          0x00400000
-#define OBJHFLAG_00800000          0x00800000
-#define OBJHFLAG_01000000          0x01000000
-#define OBJHFLAG_02000000          0x02000000
-#define OBJHFLAG_MOUNTED           0x04000000 // for hoverbike
-#define OBJHFLAG_GRABBED           0x08000000
-#define OBJHFLAG_20000000          0x20000000 // upper nibble might be a single 4-bit value
+#define OBJHFLAG_LIFTDOOR           0x00000001
+#define OBJHFLAG_00000002           0x00000002
+#define OBJHFLAG_REAPABLE           0x00000004
+#define OBJHFLAG_ISRETICK           0x00000008
+#define OBJHFLAG_TAGGED             0x00000010
+#define OBJHFLAG_00000040           0x00000040
+#define OBJHFLAG_AIRBORNE           0x00000080
+#define OBJHFLAG_00000100           0x00000100
+#define OBJHFLAG_00000200           0x00000200
+#define OBJHFLAG_HASTEXTOVERRIDE    0x00000400
+#define OBJHFLAG_00000800           0x00000800
+#define OBJHFLAG_00001000           0x00001000
+#define OBJHFLAG_PADLOCKEDDOOR      0x00002000
+#define OBJHFLAG_ACTIVATED_BY_BOND  0x00004000
+#define OBJHFLAG_00008000           0x00008000
+#define OBJHFLAG_00020000           0x00020000
+#define OBJHFLAG_ACTIVATED_BY_COOP  0x00040000
+#define OBJHFLAG_HASOWNER           0x00080000
+#define OBJHFLAG_SUSPICIOUS         0x00100000
+#define OBJHFLAG_OCCUPIEDCHAIR      0x00200000
+#define OBJHFLAG_PERIMDISABLED      0x00400000
+#define OBJHFLAG_DOORPERIMDISABLED  0x00800000
+#define OBJHFLAG_CONDITIONALSCENERY 0x01000000 // Set on triggers, exp and unexp
+#define OBJHFLAG_02000000           0x02000000
+#define OBJHFLAG_MOUNTED            0x04000000 // for hoverbike
+#define OBJHFLAG_GRABBED            0x08000000
+#define OBJHFLAG_20000000           0x20000000 // upper nibble might be a single 4-bit value
 
 // obj->hidden2
 #define OBJH2FLAG_RENDEROPAQUE 0x01

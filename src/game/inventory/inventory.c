@@ -119,7 +119,7 @@ void invInsertItem(struct invitem *item)
 
 			if (setflag && prop->type == PROPTYPE_OBJ) {
 				struct defaultobj *obj = prop->obj;
-				obj->flags2 = obj->flags2 | OBJFLAG2_00040000;
+				obj->flags2 |= OBJFLAG2_00040000;
 			}
 		}
 	}

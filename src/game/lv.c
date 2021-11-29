@@ -3685,7 +3685,7 @@ Gfx *lvRender(Gfx *gdl)
 								|| g_Vars.currentplayer->lookingatprop.prop->type == PROPTYPE_DOOR) {
 							struct defaultobj *obj = g_Vars.currentplayer->lookingatprop.prop->obj;
 
-							if ((obj->flags3 & OBJFLAG3_00008000) == 0) {
+							if ((obj->flags3 & OBJFLAG3_REACTTOSIGHT) == 0) {
 								if (g_Vars.stagenum != STAGE_CITRAINING
 										|| (obj->modelnum != MODEL_TARGET
 											&& obj->modelnum != MODEL_CIHUB
