@@ -67330,7 +67330,7 @@ struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, struct mod
 		return &g_WeaponSlots[sp44];
 	}
 
-	tmp = (struct weaponobj *)func0f092484(8, &sp4c, &sp48, musthaveprop, musthavemodel, filedata);
+	tmp = (struct weaponobj *)func0f092484(OBJTYPE_WEAPON, &sp4c, &sp48, musthaveprop, musthavemodel, filedata);
 
 	if (tmp) {
 		return tmp;
@@ -67461,19 +67461,10 @@ struct hatobj *hatCreate(bool musthaveprop, bool musthavemodel, struct modelfile
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f08a6fc
-/*  f08a6fc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f08a700:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08a704:	00002025 */ 	or	$a0,$zero,$zero
-/*  f08a708:	00002825 */ 	or	$a1,$zero,$zero
-/*  f08a70c:	0fc228e3 */ 	jal	hatCreate
-/*  f08a710:	00003025 */ 	or	$a2,$zero,$zero
-/*  f08a714:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08a718:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f08a71c:	03e00008 */ 	jr	$ra
-/*  f08a720:	00000000 */ 	nop
-);
+struct hatobj *func0f08a6fc(void)
+{
+	return hatCreate(false, false, NULL);
+}
 
 struct ammocrateobj *ammocrateAllocate(void)
 {
