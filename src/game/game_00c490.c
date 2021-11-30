@@ -184,7 +184,7 @@ void setupInit(void)
 	}
 
 	g_MaxWeaponSlots = 50;
-	var8009ce44 = 10;
+	g_MaxHatSlots = 10;
 	g_MaxAmmoCrates = 20;
 	var8009ce4c = 15;
 	g_MaxProjectiles = IS4MB() ? 20 : 100;
@@ -192,7 +192,7 @@ void setupInit(void)
 
 	if (g_Vars.stagenum >= STAGE_TITLE) {
 		g_MaxWeaponSlots = 0;
-		var8009ce44 = 0;
+		g_MaxHatSlots = 0;
 		g_MaxAmmoCrates = 0;
 		var8009ce4c = 0;
 		g_MaxProjectiles = 0;
@@ -234,16 +234,16 @@ void setupInit(void)
 		g_NextWeaponSlot = 0;
 	}
 
-	if (var8009ce44 == 0) {
-		var8009ce5c = NULL;
+	if (g_MaxHatSlots == 0) {
+		g_HatSlots = NULL;
 	} else {
-		var8009ce5c = mempAlloc(ALIGN16(var8009ce44 * sizeof(struct defaultobj)), MEMPOOL_STAGE);
+		g_HatSlots = mempAlloc(ALIGN16(g_MaxHatSlots * sizeof(struct hatobj)), MEMPOOL_STAGE);
 
-		for (i = 0; i < var8009ce44; i++) {
-			var8009ce5c[i].prop = NULL;
+		for (i = 0; i < g_MaxHatSlots; i++) {
+			g_HatSlots[i].prop = NULL;
 		}
 
-		var80069918 = 0;
+		g_NextHatSlot = 0;
 	}
 
 	if (g_MaxAmmoCrates == 0) {

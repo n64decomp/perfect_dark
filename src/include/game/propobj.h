@@ -6,7 +6,6 @@
 
 extern u32 var800698f0;
 extern u32 var800698f4;
-extern u32 g_NextWeaponSlot;
 extern u32 var80069930;
 extern s32 var80069934;
 extern f32 g_CameraWaitMultiplier;
@@ -268,7 +267,7 @@ void hatLoadAndApplyToChr(struct hatobj *hat, struct chrdata *chr);
 void hatAssignToChr(struct hatobj *hat, struct chrdata *chr);
 struct prop *hatCreateForChr(struct chrdata *chr, s32 modelnum, u32 flags);
 struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, struct modelfiledata *filedata);
-struct hatobj *func0f08a38c(bool arg0, bool arg1, struct modelfiledata *filedata);
+struct hatobj *hatCreate(bool musthaveprop, bool musthavemodel, struct modelfiledata *filedata);
 struct ammocrateobj *ammocrateAllocate(void);
 u32 func0f08a88c(void);
 void playerActivateRemoteMineDetonator(s32 playernum);
