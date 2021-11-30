@@ -183,7 +183,7 @@ void setupInit(void)
 		g_Lifts[i] = NULL;
 	}
 
-	var8009ce40 = 50;
+	g_MaxWeaponSlots = 50;
 	var8009ce44 = 10;
 	g_MaxAmmoCrates = 20;
 	var8009ce4c = 15;
@@ -191,7 +191,7 @@ void setupInit(void)
 	g_MaxMonitorThings = IS4MB() ? 40 : 80;
 
 	if (g_Vars.stagenum >= STAGE_TITLE) {
-		var8009ce40 = 0;
+		g_MaxWeaponSlots = 0;
 		var8009ce44 = 0;
 		g_MaxAmmoCrates = 0;
 		var8009ce4c = 0;
@@ -222,16 +222,16 @@ void setupInit(void)
 	g_PlayersDetonatingMines = 0;
 	g_TintedGlassEnabled = false;
 
-	if (var8009ce40 == 0) {
-		var8009ce58 = NULL;
+	if (g_MaxWeaponSlots == 0) {
+		g_WeaponSlots = NULL;
 	} else {
-		var8009ce58 = mempAlloc(ALIGN16(var8009ce40 * sizeof(struct weaponobj)), MEMPOOL_STAGE);
+		g_WeaponSlots = mempAlloc(ALIGN16(g_MaxWeaponSlots * sizeof(struct weaponobj)), MEMPOOL_STAGE);
 
-		for (i = 0; i < var8009ce40; i++) {
-			var8009ce58[i].base.prop = NULL;
+		for (i = 0; i < g_MaxWeaponSlots; i++) {
+			g_WeaponSlots[i].base.prop = NULL;
 		}
 
-		var80069914 = 0;
+		g_NextWeaponSlot = 0;
 	}
 
 	if (var8009ce44 == 0) {

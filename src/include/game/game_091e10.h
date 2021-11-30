@@ -14,6 +14,6 @@ bool func0f092304(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 void func0f09233c(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3], s16 *rooms);
 void func0f0923d4(struct defaultobj *obj);
 struct defaultobj *setupCommandGetObject(u32 cmdindex);
-u32 func0f092484(void);
+struct weaponobj *func0f092484(s32 arg0, struct weaponobj **arg1, struct weaponobj **arg2, bool musthaveprop, bool musthavemodel, struct modelfiledata *filedata);
 
 #endif

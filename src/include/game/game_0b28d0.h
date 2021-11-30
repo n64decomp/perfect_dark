@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0f0b28d0(void);
+bool func0f0b28d0(struct model *model, struct modelfiledata *filedata);
 void func0f0b2904(void);
 struct model *func0f0b2b64(struct modelfiledata *modelfiledata, bool arg1);
 struct model *modelInstantiate(struct modelfiledata *modelfiledata);
