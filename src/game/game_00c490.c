@@ -240,7 +240,7 @@ void setupInit(void)
 		g_HatSlots = mempAlloc(ALIGN16(g_MaxHatSlots * sizeof(struct hatobj)), MEMPOOL_STAGE);
 
 		for (i = 0; i < g_MaxHatSlots; i++) {
-			g_HatSlots[i].prop = NULL;
+			g_HatSlots[i].base.prop = NULL;
 		}
 
 		g_NextHatSlot = 0;

@@ -67330,7 +67330,7 @@ struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, struct mod
 		return &g_WeaponSlots[sp44];
 	}
 
-	tmp = (struct weaponobj *)func0f092484(OBJTYPE_WEAPON, &sp4c, &sp48, musthaveprop, musthavemodel, filedata);
+	tmp = (struct weaponobj *)setupFindObjForReuse(OBJTYPE_WEAPON, (struct defaultobj **)&sp4c, (struct defaultobj **)&sp48, musthaveprop, musthavemodel, filedata);
 
 	if (tmp) {
 		return tmp;
@@ -67418,7 +67418,7 @@ struct hatobj *hatCreate(bool musthaveprop, bool musthavemodel, struct modelfile
 		return &g_HatSlots[sp44];
 	}
 
-	tmp = (struct hatobj *)func0f092484(OBJTYPE_HAT, &sp4c, &sp48, musthaveprop, musthavemodel, filedata);
+	tmp = (struct hatobj *)setupFindObjForReuse(OBJTYPE_HAT, (struct defaultobj **)&sp4c, (struct defaultobj **)&sp48, musthaveprop, musthavemodel, filedata);
 
 	if (tmp) {
 		return tmp;
