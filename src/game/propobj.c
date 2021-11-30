@@ -67373,19 +67373,10 @@ struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, struct mod
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f08a364
-/*  f08a364:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f08a368:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08a36c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f08a370:	00002825 */ 	or	$a1,$zero,$zero
-/*  f08a374:	0fc227e3 */ 	jal	weaponCreate
-/*  f08a378:	00003025 */ 	or	$a2,$zero,$zero
-/*  f08a37c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08a380:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f08a384:	03e00008 */ 	jr	$ra
-/*  f08a388:	00000000 */ 	nop
-);
+struct weaponobj *func0f08a364(void)
+{
+	return weaponCreate(false, false, NULL);
+}
 
 GLOBAL_ASM(
 glabel func0f08a38c
