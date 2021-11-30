@@ -497,14 +497,14 @@ bool objCanPickupFromSafe(struct defaultobj *obj)
 	return true;
 }
 
-void objUpdateLinkedScenery(struct defaultobj *obj)
+void objUpdateLinkedScenery(struct defaultobj *obj, s32 arg1)
 {
 	if ((obj->hidden & OBJHFLAG_CONDITIONALSCENERY) && (obj->flags & OBJFLAG_INVINCIBLE) == 0) {
 		struct linksceneryobj *link = g_LinkedScenery;
 
 		while (link) {
 			if (link->trigger == obj) {
-				func0f06a170();
+				func0f06a170(obj, arg1);
 
 				link->trigger->flags2 |= OBJFLAG2_INVISIBLE;
 				link->trigger->hidden |= OBJHFLAG_REAPABLE;
@@ -5112,42 +5112,21 @@ glabel var7f1aa1fc
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f06a170
-/*  f06a170:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f06a174:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f06a178:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f06a17c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f06a180:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f06a184:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f06a188:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f06a18c:	00809825 */ 	or	$s3,$a0,$zero
-/*  f06a190:	00a0a025 */ 	or	$s4,$a1,$zero
-/*  f06a194:	8c920018 */ 	lw	$s2,0x18($a0)
-/*  f06a198:	00008025 */ 	or	$s0,$zero,$zero
-/*  f06a19c:	24110014 */ 	addiu	$s1,$zero,0x14
-/*  f06a1a0:	8e440008 */ 	lw	$a0,0x8($s2)
-.L0f06a1a4:
-/*  f06a1a4:	0c006a47 */ 	jal	modelGetPart
-/*  f06a1a8:	260500c9 */ 	addiu	$a1,$s0,0xc9
-/*  f06a1ac:	10400007 */ 	beqz	$v0,.L0f06a1cc
-/*  f06a1b0:	02602025 */ 	or	$a0,$s3,$zero
-/*  f06a1b4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f06a1b8:	0fc1a74e */ 	jal	func0f069d38
-/*  f06a1bc:	02803025 */ 	or	$a2,$s4,$zero
-/*  f06a1c0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f06a1c4:	5611fff7 */ 	bnel	$s0,$s1,.L0f06a1a4
-/*  f06a1c8:	8e440008 */ 	lw	$a0,0x8($s2)
-.L0f06a1cc:
-/*  f06a1cc:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f06a1d0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f06a1d4:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f06a1d8:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f06a1dc:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f06a1e0:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f06a1e4:	03e00008 */ 	jr	$ra
-/*  f06a1e8:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void func0f06a170(struct defaultobj *obj, s32 arg1)
+{
+	struct model *model = obj->model;
+	s32 i;
+
+	if (arg1);
+
+	for (i = 0; i < 20; i++) {
+		if (modelGetPart(model->filedata, 201 + i) == NULL) {
+			break;
+		}
+
+		func0f069d38(obj, i, arg1);
+	}
+}
 
 struct prop *objInit(struct defaultobj *obj, struct modelfiledata *filedata, struct prop *prop, struct model *model)
 {
