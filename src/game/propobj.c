@@ -1339,47 +1339,14 @@ glabel var7f1aa1cc
 /*  f067420:	00c01025 */ 	or	$v0,$a2,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f067424
-/*  f067424:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f067428:	afb10028 */ 	sw	$s1,0x28($sp)
-/*  f06742c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f067430:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f067434:	c4840014 */ 	lwc1	$f4,0x14($a0)
-/*  f067438:	00c08825 */ 	or	$s1,$a2,$zero
-/*  f06743c:	8c86000c */ 	lw	$a2,0xc($a0)
-/*  f067440:	8c870010 */ 	lw	$a3,0x10($a0)
-/*  f067444:	c48e0008 */ 	lwc1	$f14,0x8($a0)
-/*  f067448:	c48c0004 */ 	lwc1	$f12,0x4($a0)
-/*  f06744c:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*  f067450:	c4860018 */ 	lwc1	$f6,0x18($a0)
-/*  f067454:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f067458:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f06745c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f067460:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f067464:	0fc19ad7 */ 	jal	func0f066b5c
-/*  f067468:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*  f06746c:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f067470:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*  f067474:	a2220001 */ 	sb	$v0,0x1($s1)
-/*  f067478:	a22e0000 */ 	sb	$t6,0x0($s1)
-/*  f06747c:	0fc19a0f */ 	jal	func0f06683c
-/*  f067480:	02002825 */ 	or	$a1,$s0,$zero
-/*  f067484:	c6080034 */ 	lwc1	$f8,0x34($s0)
-/*  f067488:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f06748c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f067490:	46080280 */ 	add.s	$f10,$f0,$f8
-/*  f067494:	0fc19a1b */ 	jal	func0f06686c
-/*  f067498:	e62a0008 */ 	swc1	$f10,0x8($s1)
-/*  f06749c:	c6100034 */ 	lwc1	$f16,0x34($s0)
-/*  f0674a0:	46100480 */ 	add.s	$f18,$f0,$f16
-/*  f0674a4:	e6320004 */ 	swc1	$f18,0x4($s1)
-/*  f0674a8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0674ac:	8fb10028 */ 	lw	$s1,0x28($sp)
-/*  f0674b0:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*  f0674b4:	03e00008 */ 	jr	$ra
-/*  f0674b8:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void func0f067424(struct modelrodata_bbox *bbox, Mtxf *mtx, struct tiletype2 *tile)
+{
+	tile->header.numvertices = func0f066b5c(
+			bbox->xmin, bbox->xmax, bbox->ymin, bbox->ymax, bbox->zmin, bbox->zmax, mtx, tile);
+	tile->header.type = TILETYPE_02;
+	tile->ymin = mtx->m[3][1] + func0f06683c(bbox, mtx);
+	tile->ymax = mtx->m[3][1] + func0f06686c(bbox, mtx);
+}
 
 GLOBAL_ASM(
 glabel func0f0674bc
@@ -67282,7 +67249,7 @@ void doorUpdateTiles(struct doorobj *door)
 {
 	struct modelrodata_bbox bbox;
 	Mtxf spdc;
-	struct tiletype3 *geo;
+	struct tiletype2 *geo;
 	Mtxf sp98;
 	struct coord sp8c;
 	struct coord sp80;
@@ -67368,7 +67335,7 @@ void doorUpdateTiles(struct doorobj *door)
 		return;
 	}
 
-	geo = door->base.geo3;
+	geo = door->base.geo2;
 	door->base.hidden &= ~OBJHFLAG_DOORPERIMDISABLED;
 
 	if ((door->doorflags & DOORFLAG_0020) == 0) {
