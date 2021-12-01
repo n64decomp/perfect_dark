@@ -1673,6 +1673,10 @@ struct doorobj { // objtype 0x01
 	/*0xcd*/ u8 unusedmaybe[3];
 	/*0xd0*/ u8 shadeinfo1[4]; // player 1
 	/*0xd4*/ u8 shadeinfo2[4]; // player 2
+	/*0xd8*/ u8 actual1;
+	/*0xd9*/ u8 actual2;
+	/*0xda*/ u8 extra1;
+	/*0xdb*/ u8 extra2;
 };
 
 struct doorscaleobj { // objtype 0x02
