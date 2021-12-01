@@ -10752,9 +10752,9 @@ void bgun0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf 
 			objSetProjectileFlag4(objprop);
 			mtx4Copy(matrix2, (Mtxf *)&obj->projectile->unk020);
 
-			obj->projectile->unk004.x = arg4[0];
-			obj->projectile->unk004.y = arg4[1];
-			obj->projectile->unk004.z = arg4[2];
+			obj->projectile->speed.x = arg4[0];
+			obj->projectile->speed.y = arg4[1];
+			obj->projectile->speed.z = arg4[2];
 			obj->projectile->obj = obj;
 			obj->projectile->unk0d8 = g_Vars.lvframenum;
 		}
@@ -16650,14 +16650,14 @@ void bgunLoseGun(struct prop *attackerprop)
 
 			if (prop2 && prop2->obj) {
 				struct defaultobj *obj = prop2->obj;
-				objSetDropped(prop2, DROPREASON_1);
+				objSetDropped(prop2, DROPTYPE_DEFAULT);
 
 				if (obj->hidden & OBJHFLAG_AIRBORNE) {
 					obj->projectile->unk0b4 = PALDOWN(240);
 					obj->projectile->unk108 = attackerprop;
 				}
 
-				propDrop(prop2, true);
+				objDrop(prop2, true);
 			}
 		}
 

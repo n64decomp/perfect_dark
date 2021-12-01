@@ -1191,7 +1191,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 								skipthething = true;
 								bgun0f0a8404(&playerprop->pos, playerprop->rooms, -1);
 								objTakeGunfire(obj, damage, &prop->pos, gset->weaponnum, g_Vars.currentplayernum);
-								propDropRecursive(prop, false);
+								objDropRecursively(prop, false);
 							}
 						} else if (arg2) {
 							chr->chrflags |= CHRCFLAG_10000000;

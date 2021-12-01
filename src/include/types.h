@@ -1475,7 +1475,7 @@ struct chrdata {
 // So I guess it denotes a generic moving object?
 struct projectile {
 	/*0x000*/ u32 flags;
-	/*0x004*/ struct coord unk004; // distance moved in last tick
+	/*0x004*/ struct coord speed; // distance moved in last tick
 	/*0x010*/ f32 unk010;
 	/*0x014*/ f32 unk014;
 	/*0x018*/ f32 unk018;
@@ -1516,7 +1516,7 @@ struct projectile {
 	/*0x0a4*/ s32 unk0a4;
 	/*0x0a8*/ u32 unk0a8;
 	/*0x0ac*/ u32 unk0ac;
-	/*0x0b0*/ s16 dropreason;
+	/*0x0b0*/ s16 droptype;
 	/*0x0b2*/ s16 unk0b2;
 	/*0x0b4*/ s32 unk0b4;
 	/*0x0b8*/ f32 unk0b8;

@@ -29,7 +29,7 @@ bool chrTickBeams(struct prop *prop);
 s32 func0f023098(struct prop *prop);
 void chrDropConcealedItems(struct chrdata *chr);
 void chrSetHudpieceVisible(struct chrdata *chr, bool visible);
-void chrDropWeapons(struct chrdata *chr);
+void chrDropItemsForOwnerReap(struct chrdata *chr);
 void func0f0246e4(u8 *arg0);
 bool func0f024738(struct chrdata *chr);
 bool func0f024b18(struct model *model, struct modelnode *node);

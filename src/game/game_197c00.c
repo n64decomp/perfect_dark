@@ -1041,8 +1041,8 @@ void func0f19978c(struct chrdata *chr, s32 weaponnum, u8 arg2)
 					struct prop *prop = weaponCreateForChr(chr, modelnum, item->type_weap.weapon1, OBJFLAG_WEAPON_AICANNOTUSE, NULL, NULL);
 
 					if (prop) {
-						objSetDropped(prop, DROPREASON_1);
-						propDrop(prop, true);
+						objSetDropped(prop, DROPTYPE_DEFAULT);
+						objDrop(prop, true);
 
 						if (item->type_weap.weapon1 == WEAPON_BRIEFCASE2) {
 							func0f187288(chr, prop);

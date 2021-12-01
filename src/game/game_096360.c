@@ -22,11 +22,11 @@ void func0f096360(Mtxf *mtx)
 	mtx4LoadRotation(&coord, mtx);
 }
 
-void func0f0964b4(f32 *arg0, Mtxf *mtx)
+void func0f0964b4(struct coord *coord, Mtxf *mtx)
 {
-	arg0[0] = random() * (1.0f / U32_MAX) * 1.6666666269302f * 4.0f - 3.3333332538605f;
-	arg0[1] = random() * (1.0f / U32_MAX) * 1.6666666269302f * 4.0f;
-	arg0[2] = random() * (1.0f / U32_MAX) * 1.6666666269302f * 4.0f - 3.3333332538605f;
+	coord->x = random() * (1.0f / U32_MAX) * 1.6666666269302f * 4.0f - 3.3333332538605f;
+	coord->y = random() * (1.0f / U32_MAX) * 1.6666666269302f * 4.0f;
+	coord->z = random() * (1.0f / U32_MAX) * 1.6666666269302f * 4.0f - 3.3333332538605f;
 
 	func0f096360(mtx);
 }

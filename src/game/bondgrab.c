@@ -81,8 +81,8 @@ void bgrabInit(void)
 
 		if (obj->hidden & OBJHFLAG_AIRBORNE) {
 			struct projectile *projectile = obj->projectile;
-			g_Vars.currentplayer->bondshotspeed[0] += projectile->unk004.x * 0.2f;
-			g_Vars.currentplayer->bondshotspeed[2] += projectile->unk004.z * 0.2f;
+			g_Vars.currentplayer->bondshotspeed[0] += projectile->speed.x * 0.2f;
+			g_Vars.currentplayer->bondshotspeed[2] += projectile->speed.z * 0.2f;
 			objEndFlight(obj);
 		}
 

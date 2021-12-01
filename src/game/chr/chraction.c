@@ -2017,11 +2017,11 @@ void chrSurrenderChooseAnimation(struct chrdata *chr)
 		modelSetAnimLooping(chr->model, 40, 16);
 
 		if (gun1) {
-			objSetDropped(gun1, DROPREASON_2);
+			objSetDropped(gun1, DROPTYPE_SURRENDER);
 		}
 
 		if (gun0) {
-			objSetDropped(gun0, DROPREASON_2);
+			objSetDropped(gun0, DROPTYPE_SURRENDER);
 		}
 
 		chr->hidden |= CHRHFLAG_00000001;
@@ -3436,12 +3436,12 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 	// Drop items
 	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
 		if (chr->weapons_held[0] && (chr->weapons_held[0]->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
-			objSetDropped(chr->weapons_held[0], DROPREASON_1);
+			objSetDropped(chr->weapons_held[0], DROPTYPE_DEFAULT);
 			chr->hidden |= CHRHFLAG_00000001;
 		}
 
 		if (chr->weapons_held[1] && (chr->weapons_held[1]->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
-			objSetDropped(chr->weapons_held[1], DROPREASON_1);
+			objSetDropped(chr->weapons_held[1], DROPTYPE_DEFAULT);
 			chr->hidden |= CHRHFLAG_00000001;
 		}
 
@@ -4623,7 +4623,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		} else if (type != HATTYPE_METAL) {
 			// Normal hat
 			damage = 0;
-			objSetDropped(chr->weapons_held[2], DROPREASON_4);
+			objSetDropped(chr->weapons_held[2], DROPTYPE_HAT);
 			chr->hidden |= CHRHFLAG_00000001;
 		} else {
 			// Metal helmets don't fall off and make a metallic chink noise when shot
@@ -4906,7 +4906,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 
 				if (weapon) {
 					chr->gunprop = weapon;
-					objSetDropped(weapon, DROPREASON_1);
+					objSetDropped(weapon, DROPTYPE_DEFAULT);
 					chr->hidden |= CHRHFLAG_00000001;
 				}
 
@@ -4914,7 +4914,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 
 				if (weapon) {
 					chr->gunprop = weapon;
-					objSetDropped(weapon, DROPREASON_1);
+					objSetDropped(weapon, DROPTYPE_DEFAULT);
 					chr->hidden |= CHRHFLAG_00000001;
 				}
 			}
@@ -5052,14 +5052,14 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 							weapon = chr->weapons_held[HAND_RIGHT];
 
 							if (weapon && (weapon->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
-								objSetDropped(weapon, DROPREASON_1);
+								objSetDropped(weapon, DROPTYPE_DEFAULT);
 								chr->hidden |= CHRHFLAG_00000001;
 							}
 
 							weapon = chr->weapons_held[HAND_LEFT];
 
 							if (weapon && (weapon->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
-								objSetDropped(weapon, DROPREASON_1);
+								objSetDropped(weapon, DROPTYPE_DEFAULT);
 								chr->hidden |= CHRHFLAG_00000001;
 							}
 						}
@@ -8163,7 +8163,7 @@ bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum)
 		modelSetScale(weapon->base.model, weapon->base.model->scale);
 		propReparent(weapon->base.prop, chr->prop);
 		weapon->timer240 = PALDOWN(720);
-		objSetDropped(weapon->base.prop, DROPREASON_1);
+		objSetDropped(weapon->base.prop, DROPTYPE_DEFAULT);
 		chr->hidden |= CHRHFLAG_00000001;
 
 		return true;
@@ -9252,7 +9252,7 @@ void chrTickDead(struct chrdata *chr)
 		// screen and there's lots of other chrs around)
 		if (chr->act_dead.fadenow) {
 			chr->act_dead.fadetimer60 = 0;
-			chrDropWeapons(chr);
+			chrDropItemsForOwnerReap(chr);
 		}
 
 		if (chr->prop->flags & PROPFLAG_80) {
@@ -9270,7 +9270,7 @@ void chrTickDead(struct chrdata *chr)
 
 			chr->fadealpha = 0;
 
-			chrDropWeapons(chr);
+			chrDropItemsForOwnerReap(chr);
 		}
 	}
 
@@ -9741,14 +9741,14 @@ glabel chrTickDruggedComingUp
 //		weapon = chr->weapons_held[HAND_RIGHT];
 //
 //		if (weapon && (weapon->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
-//			objSetDropped(weapon, DROPREASON_1);
+//			objSetDropped(weapon, DROPTYPE_DEFAULT);
 //			chr->hidden |= CHRHFLAG_00000001;
 //		}
 //
 //		weapon = chr->weapons_held[HAND_LEFT];
 //
 //		if (weapon && (weapon->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
-//			objSetDropped(weapon, DROPREASON_1);
+//			objSetDropped(weapon, DROPTYPE_DEFAULT);
 //			chr->hidden |= CHRHFLAG_00000001;
 //		}
 //
@@ -9850,7 +9850,7 @@ void chrTickDruggedKo(struct chrdata *chr)
 	if (reap) {
 		chr->fadealpha = 0;
 		chr->hidden |= CHRHFLAG_REAPED;
-		chrDropWeapons(chr);
+		chrDropItemsForOwnerReap(chr);
 	}
 }
 
@@ -18104,7 +18104,7 @@ void chrTickThrowGrenade(struct chrdata *chr)
 			(frame >= 57 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_NOPIN) ||
 			(frame >= 58 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_CROUCHING)) {
 		weapon = weaponprop->weapon;
-		objSetDropped(weaponprop, DROPREASON_3);
+		objSetDropped(weaponprop, DROPTYPE_THROWGRENADE);
 		chr->hidden |= CHRHFLAG_00000001;
 		weapon->timer240 = PALDOWN(240);
 	}

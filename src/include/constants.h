@@ -720,12 +720,12 @@
 #define DRCAROLLIMAGE_RANDOM25     7
 #define DRCAROLLIMAGE_RANDOM       8
 
-#define DROPREASON_1 1
-#define DROPREASON_2 2
-#define DROPREASON_3 3
-#define DROPREASON_4 4
-#define DROPREASON_5 5
-#define DROPREASON_6 6
+#define DROPTYPE_DEFAULT      1
+#define DROPTYPE_SURRENDER    2
+#define DROPTYPE_THROWGRENADE 3
+#define DROPTYPE_HAT          4
+#define DROPTYPE_5            5
+#define DROPTYPE_OWNERREAP    6
 
 #define EXPLOSIONTYPE_0  0
 #define EXPLOSIONTYPE_1  1

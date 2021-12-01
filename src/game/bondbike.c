@@ -57,8 +57,8 @@ void bbikeInit(void)
 
 	if (hoverbike->base.hidden & OBJHFLAG_AIRBORNE) {
 		struct projectile *projectile = hoverbike->base.projectile;
-		hoverbike->speed[0] = projectile->unk004.x;
-		hoverbike->speed[1] = projectile->unk004.z;
+		hoverbike->speed[0] = projectile->speed.x;
+		hoverbike->speed[1] = projectile->speed.z;
 		hoverbike->w = projectile->unk0dc;
 	}
 

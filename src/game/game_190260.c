@@ -4231,7 +4231,7 @@ void aibotLoseGun(struct chrdata *chr, struct prop *attackerprop)
 
 		if (prop && prop->obj) {
 			obj = prop->obj;
-			objSetDropped(prop, DROPREASON_1);
+			objSetDropped(prop, DROPTYPE_DEFAULT);
 			chr->hidden |= CHRHFLAG_00000001;
 
 			if (obj->hidden & OBJHFLAG_AIRBORNE) {

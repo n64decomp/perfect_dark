@@ -7216,7 +7216,7 @@ glabel var7f1a99ecpf
 /*  f023538:	304a0001 */ 	andi	$t2,$v0,0x1
 /*  f02353c:	11400003 */ 	beqz	$t2,.PF0f02354c
 /*  f023540:	8fa40250 */ 	lw	$a0,0x250($sp)
-/*  f023544:	0fc1c248 */ 	jal	propDropRecursive
+/*  f023544:	0fc1c248 */ 	jal	objDropRecursively
 /*  f023548:	24050001 */ 	li	$a1,0x1
 .PF0f02354c:
 /*  f02354c:	8fa40250 */ 	lw	$a0,0x250($sp)
@@ -7818,7 +7818,7 @@ glabel var7f1a99ecpf
 /*  f023ddc:	2841000b */ 	slti	$at,$v0,0xb
 /*  f023de0:	14200009 */ 	bnez	$at,.PF0f023e08
 /*  f023de4:	ac620000 */ 	sw	$v0,0x0($v1)
-/*  f023de8:	0fc091e3 */ 	jal	chrDropWeapons
+/*  f023de8:	0fc091e3 */ 	jal	chrDropItemsForOwnerReap
 /*  f023dec:	afa00204 */ 	sw	$zero,0x204($sp)
 /*  f023df0:	8e180014 */ 	lw	$t8,0x14($s0)
 /*  f023df4:	8fa70204 */ 	lw	$a3,0x204($sp)
@@ -8375,7 +8375,7 @@ glabel var7f1a99ecpf
 /*  f024604:	31f80001 */ 	andi	$t8,$t7,0x1
 /*  f024608:	13000007 */ 	beqz	$t8,.PF0f024628
 /*  f02460c:	00000000 */ 	nop
-/*  f024610:	0fc1c248 */ 	jal	propDropRecursive
+/*  f024610:	0fc1c248 */ 	jal	objDropRecursively
 /*  f024614:	00002825 */ 	move	$a1,$zero
 /*  f024618:	8e080014 */ 	lw	$t0,0x14($s0)
 /*  f02461c:	2401fffe */ 	li	$at,-2
@@ -8654,7 +8654,7 @@ glabel var7f1a87d8
 /*  f023414:	304c0001 */ 	andi	$t4,$v0,0x1
 /*  f023418:	11800003 */ 	beqz	$t4,.L0f023428
 /*  f02341c:	8fa40250 */ 	lw	$a0,0x250($sp)
-/*  f023420:	0fc1c1a6 */ 	jal	propDropRecursive
+/*  f023420:	0fc1c1a6 */ 	jal	objDropRecursively
 /*  f023424:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f023428:
 /*  f023428:	8fa40250 */ 	lw	$a0,0x250($sp)
@@ -9256,7 +9256,7 @@ glabel var7f1a87d8
 /*  f023cb8:	2841000b */ 	slti	$at,$v0,0xb
 /*  f023cbc:	14200009 */ 	bnez	$at,.L0f023ce4
 /*  f023cc0:	ac620000 */ 	sw	$v0,0x0($v1)
-/*  f023cc4:	0fc0919a */ 	jal	chrDropWeapons
+/*  f023cc4:	0fc0919a */ 	jal	chrDropItemsForOwnerReap
 /*  f023cc8:	afa00204 */ 	sw	$zero,0x204($sp)
 /*  f023ccc:	8e080014 */ 	lw	$t0,0x14($s0)
 /*  f023cd0:	8fa70204 */ 	lw	$a3,0x204($sp)
@@ -9813,7 +9813,7 @@ glabel var7f1a87d8
 /*  f0244e0:	33280001 */ 	andi	$t0,$t9,0x1
 /*  f0244e4:	11000007 */ 	beqz	$t0,.L0f024504
 /*  f0244e8:	00000000 */ 	nop
-/*  f0244ec:	0fc1c1a6 */ 	jal	propDropRecursive
+/*  f0244ec:	0fc1c1a6 */ 	jal	objDropRecursively
 /*  f0244f0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0244f4:	8e0e0014 */ 	lw	$t6,0x14($s0)
 /*  f0244f8:	2401fffe */ 	addiu	$at,$zero,-2
@@ -10082,7 +10082,7 @@ glabel var7f1a87d8
 /*  f022edc:	30490001 */ 	andi	$t1,$v0,0x1
 /*  f022ee0:	11200003 */ 	beqz	$t1,.NB0f022ef0
 /*  f022ee4:	8fa40250 */ 	lw	$a0,0x250($sp)
-/*  f022ee8:	0fc1bd25 */ 	jal	propDropRecursive
+/*  f022ee8:	0fc1bd25 */ 	jal	objDropRecursively
 /*  f022eec:	24050001 */ 	addiu	$a1,$zero,0x1
 .NB0f022ef0:
 /*  f022ef0:	8fa40250 */ 	lw	$a0,0x250($sp)
@@ -11193,7 +11193,7 @@ glabel var7f1a87d8
 /*  f023efc:	31880001 */ 	andi	$t0,$t4,0x1
 /*  f023f00:	11000007 */ 	beqz	$t0,.NB0f023f20
 /*  f023f04:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f023f08:	0fc1bd25 */ 	jal	propDropRecursive
+/*  f023f08:	0fc1bd25 */ 	jal	objDropRecursively
 /*  f023f0c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f023f10:	8e0f0014 */ 	lw	$t7,0x14($s0)
 /*  f023f14:	2401fffe */ 	addiu	$at,$zero,-2
@@ -11222,7 +11222,7 @@ void chrDropConcealedItems(struct chrdata *chr)
 				&& prop != chr->weapons_held[0]
 				&& (prop->obj->hidden & OBJHFLAG_00000040) == 0
 				&& (prop->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
-			objSetDropped(prop, DROPREASON_1);
+			objSetDropped(prop, DROPTYPE_DEFAULT);
 		}
 
 		prop = prop->next;
@@ -11253,7 +11253,7 @@ void chrSetHudpieceVisible(struct chrdata *chr, bool visible)
 	}
 }
 
-void chrDropWeapons(struct chrdata *chr)
+void chrDropItemsForOwnerReap(struct chrdata *chr)
 {
 	struct prop *prop = chr->prop->child;
 
@@ -11263,7 +11263,7 @@ void chrDropWeapons(struct chrdata *chr)
 			struct defaultobj *obj = prop->obj;
 
 			if ((obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
-				objSetDropped(prop, DROPREASON_6);
+				objSetDropped(prop, DROPTYPE_OWNERREAP);
 			}
 		}
 
