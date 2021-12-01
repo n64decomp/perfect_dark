@@ -2617,79 +2617,31 @@ struct modelrodata_bbox *objFindBboxRodata(struct defaultobj *obj)
 	return modelFindBboxRodata(obj->model);
 }
 
-GLOBAL_ASM(
-glabel func0f068b14
-/*  f068b14:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f068b18:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f068b1c:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f068b20:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f068b24:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f068b28:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f068b2c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f068b30:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f068b34:	848e0000 */ 	lh	$t6,0x0($a0)
-/*  f068b38:	2414ffff */ 	addiu	$s4,$zero,-1
-/*  f068b3c:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f068b40:	00008825 */ 	or	$s1,$zero,$zero
-/*  f068b44:	128e0013 */ 	beq	$s4,$t6,.L0f068b94
-/*  f068b48:	00009825 */ 	or	$s3,$zero,$zero
-/*  f068b4c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f068b50:	24150001 */ 	addiu	$s5,$zero,0x1
-.L0f068b54:
-/*  f068b54:	16400005 */ 	bnez	$s2,.L0f068b6c
-/*  f068b58:	00000000 */ 	nop
-/*  f068b5c:	0fc002c9 */ 	jal	func0f000b24
-/*  f068b60:	86040000 */ 	lh	$a0,0x0($s0)
-/*  f068b64:	10000006 */ 	b	.L0f068b80
-/*  f068b68:	02228821 */ 	addu	$s1,$s1,$v0
-.L0f068b6c:
-/*  f068b6c:	56550005 */ 	bnel	$s2,$s5,.L0f068b84
-/*  f068b70:	860f0002 */ 	lh	$t7,0x2($s0)
-/*  f068b74:	0fc00315 */ 	jal	func0f000c54
-/*  f068b78:	86040000 */ 	lh	$a0,0x0($s0)
-/*  f068b7c:	02228821 */ 	addu	$s1,$s1,$v0
-.L0f068b80:
-/*  f068b80:	860f0002 */ 	lh	$t7,0x2($s0)
-.L0f068b84:
-/*  f068b84:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f068b88:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f068b8c:	168ffff1 */ 	bne	$s4,$t7,.L0f068b54
-/*  f068b90:	00000000 */ 	nop
-.L0f068b94:
-/*  f068b94:	12600012 */ 	beqz	$s3,.L0f068be0
-/*  f068b98:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f068b9c:	0233001a */ 	div	$zero,$s1,$s3
-/*  f068ba0:	16600002 */ 	bnez	$s3,.L0f068bac
-/*  f068ba4:	00000000 */ 	nop
-/*  f068ba8:	0007000d */ 	break	0x7
-.L0f068bac:
-/*  f068bac:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f068bb0:	16610004 */ 	bne	$s3,$at,.L0f068bc4
-/*  f068bb4:	3c018000 */ 	lui	$at,0x8000
-/*  f068bb8:	16210002 */ 	bne	$s1,$at,.L0f068bc4
-/*  f068bbc:	00000000 */ 	nop
-/*  f068bc0:	0006000d */ 	break	0x6
-.L0f068bc4:
-/*  f068bc4:	00001012 */ 	mflo	$v0
-/*  f068bc8:	28410100 */ 	slti	$at,$v0,0x100
-/*  f068bcc:	14200002 */ 	bnez	$at,.L0f068bd8
-/*  f068bd0:	00401825 */ 	or	$v1,$v0,$zero
-/*  f068bd4:	240300ff */ 	addiu	$v1,$zero,0xff
-.L0f068bd8:
-/*  f068bd8:	10000002 */ 	b	.L0f068be4
-/*  f068bdc:	00601025 */ 	or	$v0,$v1,$zero
-.L0f068be0:
-/*  f068be0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f068be4:
-/*  f068be4:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f068be8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f068bec:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f068bf0:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f068bf4:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f068bf8:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f068bfc:	03e00008 */ 	jr	$ra
-/*  f068c00:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+s32 func0f068b14(s16 *rooms, s32 arg1)
+{
+	s32 total = 0;
+	s32 i;
+
+	for (i = 0; rooms[i] != -1; i++) {
+		if (arg1 == 0) {
+			total += func0f000b24(rooms[i]);
+		} else if (arg1 == 1) {
+			total += func0f000c54(rooms[i]);
+		}
+	}
+
+	if (i) {
+		s32 average = total / i;
+
+		if (average > 255) {
+			average = 255;
+		}
+
+		return average;
+	}
+
+	return 0;
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
