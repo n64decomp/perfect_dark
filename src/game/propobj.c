@@ -6206,22 +6206,14 @@ void objFreePermanently(struct defaultobj *obj, bool freeprop)
 	objFree(obj, freeprop, false);
 }
 
-GLOBAL_ASM(
-glabel func0f06b36c
-/*  f06b36c:	908e0003 */ 	lbu	$t6,0x3($a0)
-/*  f06b370:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f06b374:	15c10004 */ 	bne	$t6,$at,.L0f06b388
-/*  f06b378:	3c0141a0 */ 	lui	$at,0x41a0
-/*  f06b37c:	44810000 */ 	mtc1	$at,$f0
-/*  f06b380:	03e00008 */ 	jr	$ra
-/*  f06b384:	00000000 */ 	nop
-.L0f06b388:
-/*  f06b388:	3c014120 */ 	lui	$at,0x4120
-/*  f06b38c:	44810000 */ 	mtc1	$at,$f0
-/*  f06b390:	00000000 */ 	nop
-/*  f06b394:	03e00008 */ 	jr	$ra
-/*  f06b398:	00000000 */ 	nop
-);
+f32 objGetWidth(struct defaultobj *obj)
+{
+	if (obj->type == OBJTYPE_KEY) {
+		return 20;
+	}
+
+	return 10;
+}
 
 bool func0f06b39c(struct coord *arg0, struct coord *arg1, struct coord *arg2, f32 arg3)
 {
@@ -9546,7 +9538,7 @@ glabel var7f1aa26c
 /*  f06d390:	8c900014 */ 	lw	$s0,0x14($a0)
 /*  f06d394:	00c08825 */ 	or	$s1,$a2,$zero
 /*  f06d398:	afa500ac */ 	sw	$a1,0xac($sp)
-/*  f06d39c:	0fc1acdb */ 	jal	func0f06b36c
+/*  f06d39c:	0fc1acdb */ 	jal	objGetWidth
 /*  f06d3a0:	afa400a8 */ 	sw	$a0,0xa8($sp)
 /*  f06d3a4:	3c018007 */ 	lui	$at,%hi(var80069930)
 /*  f06d3a8:	8fa500ac */ 	lw	$a1,0xac($sp)
@@ -9937,7 +9929,7 @@ glabel var7f1aa26c
 /*  f06d390:	8c900014 */ 	lw	$s0,0x14($a0)
 /*  f06d394:	00c08825 */ 	or	$s1,$a2,$zero
 /*  f06d398:	afa500ac */ 	sw	$a1,0xac($sp)
-/*  f06d39c:	0fc1acdb */ 	jal	func0f06b36c
+/*  f06d39c:	0fc1acdb */ 	jal	objGetWidth
 /*  f06d3a0:	afa400a8 */ 	sw	$a0,0xa8($sp)
 /*  f06d3a4:	3c018007 */ 	lui	$at,%hi(var80069930)
 /*  f06d3a8:	8fa500ac */ 	lw	$a1,0xac($sp)
@@ -10328,7 +10320,7 @@ glabel var7f1aa26c
 /*  f06d390:	8c900014 */ 	lw	$s0,0x14($a0)
 /*  f06d394:	00c08825 */ 	or	$s1,$a2,$zero
 /*  f06d398:	afa500ac */ 	sw	$a1,0xac($sp)
-/*  f06d39c:	0fc1acdb */ 	jal	func0f06b36c
+/*  f06d39c:	0fc1acdb */ 	jal	objGetWidth
 /*  f06d3a0:	afa400a8 */ 	sw	$a0,0xa8($sp)
 /*  f06d3a4:	3c018007 */ 	lui	$at,%hi(var80069930)
 /*  f06d3a8:	8fa500ac */ 	lw	$a1,0xac($sp)
@@ -56833,7 +56825,7 @@ bool objDrop(struct prop *prop, bool lazy)
 
 				if (cd0002de34(&root->pos, root->rooms, &spe4, rooms, CDTYPE_ALL, 7) == CDRESULT_COLLISION
 						|| (projectile->flags & PROJECTILEFLAG_00000004) == 0) {
-					if (cdTestVolume(&spe4, func0f06b36c(obj), rooms, CDTYPE_ALL, 0, 0.0f, 0) == CDRESULT_COLLISION) {
+					if (cdTestVolume(&spe4, objGetWidth(obj), rooms, CDTYPE_ALL, 0, 0.0f, 0) == CDRESULT_COLLISION) {
 						spf0.m[3][0] = root->pos.x;
 						spf0.m[3][2] = root->pos.z;
 					}

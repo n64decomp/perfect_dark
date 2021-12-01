@@ -107,7 +107,7 @@ void objEndFlight(struct defaultobj *obj);
 void func0f06ac90(struct prop *prop);
 void objFree(struct defaultobj *obj, bool freeprop, bool canregen);
 void objFreePermanently(struct defaultobj *obj, bool freeprop);
-f32 func0f06b36c(struct defaultobj *obj);
+f32 objGetWidth(struct defaultobj *obj);
 bool func0f06b39c(struct coord *arg0, struct coord *arg1, struct coord *arg2, f32 arg3);
 u32 func0f06b488(void);
 u32 func0f06b610(void);
