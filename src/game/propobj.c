@@ -2662,17 +2662,10 @@ struct modelrodata_bbox *modelFindBboxRodata(struct model *model)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f068ad4
-/*  f068ad4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f068ad8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f068adc:	0fc1a266 */ 	jal	modelFindBboxNode
-/*  f068ae0:	8c840018 */ 	lw	$a0,0x18($a0)
-/*  f068ae4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f068ae8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f068aec:	03e00008 */ 	jr	$ra
-/*  f068af0:	00000000 */ 	nop
-);
+struct modelnode *objFindBboxNode(struct defaultobj *obj)
+{
+	return modelFindBboxNode(obj->model);
+}
 
 struct modelrodata_bbox *objFindBboxRodata(struct defaultobj *obj)
 {
@@ -56721,10 +56714,10 @@ bool objDrop(struct prop *prop, bool lazy)
 			f32 spa4;
 			f32 spa0;
 
-			node1 = func0f068ad4(obj);
+			node1 = objFindBboxNode(obj);
 			modelNodeGetPosition(obj->model, model0001a740(node1), &spb8);
 
-			node2 = func0f068ad4(rootobj);
+			node2 = objFindBboxNode(rootobj);
 			modelNodeGetPosition(rootobj->model, model0001a740(node2), &spa8);
 
 			spe4.x = spb8.x - spa8.x;

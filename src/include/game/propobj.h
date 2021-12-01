@@ -80,7 +80,7 @@ struct modelnode *modelFileDataFindBboxNode(struct modelfiledata *filedata);
 struct modelrodata_bbox *modelFileDataFindBboxRodata(struct modelfiledata *filedata);
 struct modelnode *modelFindBboxNode(struct model *model);
 struct modelrodata_bbox *modelFindBboxRodata(struct model *model);
-struct modelnode *func0f068ad4(struct defaultobj *obj);
+struct modelnode *objFindBboxNode(struct defaultobj *obj);
 struct modelrodata_bbox *objFindBboxRodata(struct defaultobj *obj);
 s32 func0f068b14(s16 *rooms, s32 arg1);
 s32 func0f068c04(struct prop *prop, s32 *arg1, s32 *arg2);
