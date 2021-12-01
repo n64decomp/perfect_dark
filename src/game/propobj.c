@@ -61154,6 +61154,9 @@ u32 var8006a944pf[] = {
 	0x00000014, 0x522d5244, 0x81018181, 0x81000000,
 	0x00000015, 0x522e5245, 0x01010201, 0x02000000,
 	0x00000000, 0x00000000, 0x00000000, 0x00000000,
+};
+
+u32 var8006aa94pf[] = {
 	0x00000002, 0x4c070000, 0x01010102, 0x02000000,
 	0x00000003, 0x4c080000, 0x01010102, 0x02000000,
 	0x00000004, 0x4c090000, 0x01010102, 0x02000000,
@@ -62366,119 +62369,26 @@ s32 weaponGetPickupAmmoQty(struct weaponobj *weapon)
 	return qty;
 }
 
-#if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel weaponGetPickupText
-/*  f088578:	3c07800a */ 	lui	$a3,0x800a
-/*  f08857c:	24e7a510 */ 	addiu	$a3,$a3,-23280
-/*  f088580:	8cee006c */ 	lw	$t6,0x6c($a3)
-/*  f088584:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f088588:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f08858c:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f088590:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f088594:	11c00003 */ 	beqz	$t6,.PF0f0885a4
-/*  f088598:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f08859c:	10000002 */ 	b	.PF0f0885a8
-/*  f0885a0:	24080001 */ 	li	$t0,0x1
-.PF0f0885a4:
-/*  f0885a4:	00004025 */ 	move	$t0,$zero
-.PF0f0885a8:
-/*  f0885a8:	8cef0068 */ 	lw	$t7,0x68($a3)
-/*  f0885ac:	00002025 */ 	move	$a0,$zero
-/*  f0885b0:	00002825 */ 	move	$a1,$zero
-/*  f0885b4:	11e00003 */ 	beqz	$t7,.PF0f0885c4
-/*  f0885b8:	00001825 */ 	move	$v1,$zero
-/*  f0885bc:	10000001 */ 	b	.PF0f0885c4
-/*  f0885c0:	24040001 */ 	li	$a0,0x1
-.PF0f0885c4:
-/*  f0885c4:	8cf80064 */ 	lw	$t8,0x64($a3)
-/*  f0885c8:	13000003 */ 	beqz	$t8,.PF0f0885d8
-/*  f0885cc:	00000000 */ 	nop
-/*  f0885d0:	10000001 */ 	b	.PF0f0885d8
-/*  f0885d4:	24050001 */ 	li	$a1,0x1
-.PF0f0885d8:
-/*  f0885d8:	8cf90070 */ 	lw	$t9,0x70($a3)
-/*  f0885dc:	13200003 */ 	beqz	$t9,.PF0f0885ec
-/*  f0885e0:	00000000 */ 	nop
-/*  f0885e4:	10000001 */ 	b	.PF0f0885ec
-/*  f0885e8:	24030001 */ 	li	$v1,0x1
-.PF0f0885ec:
-/*  f0885ec:	00654821 */ 	addu	$t1,$v1,$a1
-/*  f0885f0:	01245021 */ 	addu	$t2,$t1,$a0
-/*  f0885f4:	01481021 */ 	addu	$v0,$t2,$t0
-/*  f0885f8:	28430003 */ 	slti	$v1,$v0,0x3
-/*  f0885fc:	10600013 */ 	beqz	$v1,.PF0f08864c
-/*  f088600:	38420002 */ 	xori	$v0,$v0,0x2
-/*  f088604:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f088608:	2c430001 */ 	sltiu	$v1,$v0,0x1
-/*  f08860c:	54600010 */ 	bnezl	$v1,.PF0f088650
-/*  f088610:	8fac002c */ 	lw	$t4,0x2c($sp)
-/*  f088614:	0fc54ef9 */ 	jal	optionsGetScreenSplit
-/*  f088618:	00000000 */ 	nop
-/*  f08861c:	24050001 */ 	li	$a1,0x1
-/*  f088620:	00a22026 */ 	xor	$a0,$a1,$v0
-/*  f088624:	2c840001 */ 	sltiu	$a0,$a0,0x1
-/*  f088628:	2c830001 */ 	sltiu	$v1,$a0,0x1
-/*  f08862c:	3c07800a */ 	lui	$a3,0x800a
-/*  f088630:	10600006 */ 	beqz	$v1,.PF0f08864c
-/*  f088634:	24e7a510 */ 	addiu	$a3,$a3,-23280
-/*  f088638:	3c0b8009 */ 	lui	$t3,0x8009
-/*  f08863c:	916b1040 */ 	lbu	$t3,0x1040($t3)
-/*  f088640:	00ab1826 */ 	xor	$v1,$a1,$t3
-/*  f088644:	2c630001 */ 	sltiu	$v1,$v1,0x1
-/*  f088648:	2c630001 */ 	sltiu	$v1,$v1,0x1
-.PF0f08864c:
-/*  f08864c:	8fac002c */ 	lw	$t4,0x2c($sp)
-.PF0f088650:
-/*  f088650:	2401002e */ 	li	$at,0x2e
-/*  f088654:	afa30020 */ 	sw	$v1,0x20($sp)
-/*  f088658:	55810017 */ 	bnel	$t4,$at,.PF0f0886b8
-/*  f08865c:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f088660:	0fc59965 */ 	jal	stageGetIndex
-/*  f088664:	8ce404b4 */ 	lw	$a0,0x4b4($a3)
-/*  f088668:	3c07800a */ 	lui	$a3,0x800a
-/*  f08866c:	24010013 */ 	li	$at,0x13
-/*  f088670:	14410004 */ 	bne	$v0,$at,.PF0f088684
-/*  f088674:	24e7a510 */ 	addiu	$a3,$a3,-23280
-/*  f088678:	240d03e6 */ 	li	$t5,0x3e6
-/*  f08867c:	1000000d */ 	b	.PF0f0886b4
-/*  f088680:	afad002c */ 	sw	$t5,0x2c($sp)
-.PF0f088684:
-/*  f088684:	0fc59965 */ 	jal	stageGetIndex
-/*  f088688:	8ce404b4 */ 	lw	$a0,0x4b4($a3)
-/*  f08868c:	3c07800a */ 	lui	$a3,0x800a
-/*  f088690:	24010023 */ 	li	$at,0x23
-/*  f088694:	10410005 */ 	beq	$v0,$at,.PF0f0886ac
-/*  f088698:	24e7a510 */ 	addiu	$a3,$a3,-23280
-/*  f08869c:	0fc59965 */ 	jal	stageGetIndex
-/*  f0886a0:	8ce404b4 */ 	lw	$a0,0x4b4($a3)
-/*  f0886a4:	24010009 */ 	li	$at,0x9
-/*  f0886a8:	14410002 */ 	bne	$v0,$at,.PF0f0886b4
-.PF0f0886ac:
-/*  f0886ac:	240e03e5 */ 	li	$t6,0x3e5
-/*  f0886b0:	afae002c */ 	sw	$t6,0x2c($sp)
-.PF0f0886b4:
-/*  f0886b4:	8fa70020 */ 	lw	$a3,0x20($sp)
-.PF0f0886b8:
-/*  f0886b8:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*  f0886bc:	3c198007 */ 	lui	$t9,0x8007
-/*  f0886c0:	2739aa94 */ 	addiu	$t9,$t9,-21868
-/*  f0886c4:	2cef0001 */ 	sltiu	$t7,$a3,0x1
-/*  f0886c8:	01e03825 */ 	move	$a3,$t7
-/*  f0886cc:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f0886d0:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f0886d4:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f0886d8:	00003025 */ 	move	$a2,$zero
-/*  f0886dc:	0fc21e32 */ 	jal	func0f0878c8pf
-/*  f0886e0:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f0886e4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0886e8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0886ec:	03e00008 */ 	jr	$ra
-/*  f0886f0:	00000000 */ 	nop
-);
-#else
 void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 {
+#if VERSION >= VERSION_PAL_FINAL
+	// PAL changes the implementation of this function to use a lookup table,
+	// with some fake weaponnums for the different eyespy types.
+	s32 playercount = PLAYERCOUNT();
+	s32 full = playercount <= 2
+		&& !(playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()));
+
+	if (weaponnum == WEAPON_EYESPY) {
+		if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_AIRBASE) {
+			weaponnum = 998;
+		} else if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR
+				|| stageGetIndex(g_Vars.stagenum) == STAGEINDEX_CHICAGO) {
+			weaponnum = 997;
+		}
+	}
+
+	func0f0878c8pf(buffer, weaponnum, 0, !full, dual, var8006aa94pf);
+#else
 	s32 playercount = PLAYERCOUNT();
 	s32 full = playercount <= 2
 		&& !(playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()));
@@ -62558,8 +62468,8 @@ void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 	}
 
 	strcat(buffer, ".\n");
-}
 #endif
+}
 
 void currentPlayerQueuePickupWeaponHudmsg(u32 weaponnum, bool dual)
 {
