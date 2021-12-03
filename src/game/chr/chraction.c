@@ -24940,13 +24940,13 @@ f32 chrGetLateralDistanceToCoord(struct chrdata *chr, struct coord *pos)
 	return sqrtf(xdiff * xdiff + zdiff * zdiff);
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 f32 chrGetLateralDistanceToPad(struct chrdata *chr, s32 pad_id)
 {
 	struct prop *prop = chr->prop;
 	f32 xdiff, zdiff;
 	struct pad pad;
 
+#if VERSION >= VERSION_NTSC_1_0
 	f32 distance = 0;
 
 	pad_id = chrResolvePadId(chr, pad_id);
@@ -24959,37 +24959,14 @@ f32 chrGetLateralDistanceToPad(struct chrdata *chr, s32 pad_id)
 	}
 
 	return distance;
-}
 #else
-GLOBAL_ASM(
-glabel chrGetLateralDistanceToPad
-/*  f048910:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f048914:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f048918:	8c8e001c */ 	lw	$t6,0x1c($a0)
-/*  f04891c:	0fc1228f */ 	jal	chrResolvePadId
-/*  f048920:	afae0074 */ 	sw	$t6,0x74($sp)
-/*  f048924:	00402025 */ 	or	$a0,$v0,$zero
-/*  f048928:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f04892c:	0fc43fc4 */ 	jal	padUnpack
-/*  f048930:	27a60018 */ 	addiu	$a2,$sp,0x18
-/*  f048934:	8fa20074 */ 	lw	$v0,0x74($sp)
-/*  f048938:	c7a40018 */ 	lwc1	$f4,0x18($sp)
-/*  f04893c:	c7a80020 */ 	lwc1	$f8,0x20($sp)
-/*  f048940:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f048944:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f048948:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f04894c:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f048950:	46000402 */ 	mul.s	$f16,$f0,$f0
-/*  f048954:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f048958:	46021482 */ 	mul.s	$f18,$f2,$f2
-/*  f04895c:	0c012e84 */ 	jal	sqrtf
-/*  f048960:	46128300 */ 	add.s	$f12,$f16,$f18
-/*  f048964:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f048968:	27bd0078 */ 	addiu	$sp,$sp,0x78
-/*  f04896c:	03e00008 */ 	jr	$ra
-/*  f048970:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	pad_id = chrResolvePadId(chr, pad_id);
+	padUnpack(pad_id, PADFIELD_POS, &pad);
+	xdiff = pad.pos.x - prop->pos.x;
+	zdiff = pad.pos.z - prop->pos.z;
+	return sqrtf(xdiff * xdiff + zdiff * zdiff);
 #endif
+}
 
 f32 chrGetSquaredDistanceToCoord(struct chrdata *chr, struct coord *pos)
 {
