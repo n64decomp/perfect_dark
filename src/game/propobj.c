@@ -61099,7 +61099,23 @@ void propObjGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 	}
 }
 
+#if VERSION < VERSION_PAL_FINAL
+void ammotypeGetPickedUpText(char *dst)
+{
+	strcat(dst, langGet(L_PROPOBJ_000)); // "Picked up"
+}
+#endif
+
 #if VERSION >= VERSION_PAL_FINAL
+struct nameinfo {
+	s32 id;
+	u16 singulartext;
+	u16 pluraltext;
+	u8 unk08[5];
+};
+
+struct nameinfo *func0f087888pf(s32 id, struct nameinfo *table);
+
 GLOBAL_ASM(
 glabel func0f087888pf
 /*  f087888:	50a0000d */ 	beqzl	$a1,.PF0f0878c0
@@ -61124,134 +61140,131 @@ glabel func0f087888pf
 );
 #endif
 
-#if VERSION < VERSION_PAL_FINAL
-void ammotypeGetPickedUpText(char *dst)
-{
-	strcat(dst, langGet(L_PROPOBJ_000)); // "Picked up"
-}
-#endif
-
 #if VERSION >= VERSION_PAL_FINAL
-u32 var8006a944pf[] = {
-	0x000003e7, 0x52095246, 0x01010600, 0x07000000,
-	0x00000009, 0x52145215, 0x01010101, 0x01000000,
-	0x00000003, 0x522a5241, 0x01010102, 0x01000000,
-	0x00000005, 0x520a5247, 0x01010201, 0x02000000,
-	0x00000006, 0x522b5242, 0x02010201, 0x01000000,
-	0x00000007, 0x520d524a, 0x01010202, 0x02000000,
-	0x00000008, 0x520f524c, 0x01010201, 0x01000000,
-	0x0000000a, 0x520b5248, 0x01010202, 0x02000000,
-	0x0000000b, 0x520e524b, 0x01010201, 0x02000000,
-	0x0000000c, 0x5211524e, 0x01010202, 0x02000000,
-	0x0000000d, 0x5212524f, 0x01010202, 0x02000000,
-	0x0000000e, 0x52135250, 0x01010202, 0x02000000,
-	0x0000000f, 0x522c5243, 0x01010600, 0x07000000,
-	0x00000010, 0x5210524d, 0x01010201, 0x01000000,
-	0x00000011, 0x52165251, 0x01010201, 0x02000000,
-	0x00000012, 0x52175252, 0x02010202, 0x02000000,
-	0x00000013, 0x52185253, 0x05050105, 0x05000000,
-	0x00000016, 0x52185253, 0x05050105, 0x05000000,
-	0x00000014, 0x522d5244, 0x81018181, 0x81000000,
-	0x00000015, 0x522e5245, 0x01010201, 0x02000000,
-	0x00000000, 0x00000000, 0x00000000, 0x00000000,
+
+#define DETERMINER_A     1
+#define DETERMINER_AN    2
+#define DETERMINER_THE   3
+#define DETERMINER_4     4
+#define DETERMINER_SOME5 5
+#define DETERMINER_SOME6 6
+#define DETERMINER_SOME7 7
+#define DETERMINER_8     8
+#define DETERMINER_YOUR  9
+
+struct nameinfo var8006a944pf[] = {
+	{ 999,                   L_PROPOBJ_009, L_PROPOBJ_070, { DETERMINER_A,        DETERMINER_A,     DETERMINER_SOME6,    0,                   DETERMINER_SOME7    } },
+	{ AMMOTYPE_KNIFE,        L_PROPOBJ_020, L_PROPOBJ_021, { DETERMINER_A,        DETERMINER_A,     DETERMINER_A,        DETERMINER_A,        DETERMINER_A        } },
+	{ AMMOTYPE_CROSSBOW,     L_PROPOBJ_042, L_PROPOBJ_065, { DETERMINER_A,        DETERMINER_A,     DETERMINER_A,        DETERMINER_AN,       DETERMINER_A        } },
+	{ AMMOTYPE_SHOTGUN,      L_PROPOBJ_010, L_PROPOBJ_071, { DETERMINER_A,        DETERMINER_A,     DETERMINER_AN,       DETERMINER_A,        DETERMINER_AN       } },
+	{ AMMOTYPE_FARSIGHT,     L_PROPOBJ_043, L_PROPOBJ_066, { DETERMINER_AN,       DETERMINER_A,     DETERMINER_AN,       DETERMINER_A,        DETERMINER_A        } },
+	{ AMMOTYPE_GRENADE,      L_PROPOBJ_013, L_PROPOBJ_074, { DETERMINER_A,        DETERMINER_A,     DETERMINER_AN,       DETERMINER_AN,       DETERMINER_AN       } },
+	{ AMMOTYPE_ROCKET,       L_PROPOBJ_015, L_PROPOBJ_076, { DETERMINER_A,        DETERMINER_A,     DETERMINER_AN,       DETERMINER_A,        DETERMINER_A        } },
+	{ AMMOTYPE_MAGNUM,       L_PROPOBJ_011, L_PROPOBJ_072, { DETERMINER_A,        DETERMINER_A,     DETERMINER_AN,       DETERMINER_AN,       DETERMINER_AN       } },
+	{ AMMOTYPE_DEVASTATOR,   L_PROPOBJ_014, L_PROPOBJ_075, { DETERMINER_A,        DETERMINER_A,     DETERMINER_AN,       DETERMINER_A,        DETERMINER_AN       } },
+	{ AMMOTYPE_REMOTE_MINE,  L_PROPOBJ_017, L_PROPOBJ_078, { DETERMINER_A,        DETERMINER_A,     DETERMINER_AN,       DETERMINER_AN,       DETERMINER_AN       } },
+	{ AMMOTYPE_PROXY_MINE,   L_PROPOBJ_018, L_PROPOBJ_079, { DETERMINER_A,        DETERMINER_A,     DETERMINER_AN,       DETERMINER_AN,       DETERMINER_AN       } },
+	{ AMMOTYPE_TIMED_MINE,   L_PROPOBJ_019, L_PROPOBJ_080, { DETERMINER_A,        DETERMINER_A,     DETERMINER_AN,       DETERMINER_AN,       DETERMINER_AN       } },
+	{ AMMOTYPE_REAPER,       L_PROPOBJ_044, L_PROPOBJ_067, { DETERMINER_A,        DETERMINER_A,     DETERMINER_SOME6,    0,                   DETERMINER_SOME7    } },
+	{ AMMOTYPE_HOMINGROCKET, L_PROPOBJ_016, L_PROPOBJ_077, { DETERMINER_A,        DETERMINER_A,     DETERMINER_AN,       DETERMINER_A,        DETERMINER_A        } },
+	{ AMMOTYPE_DART,         L_PROPOBJ_022, L_PROPOBJ_081, { DETERMINER_A,        DETERMINER_A,     DETERMINER_AN,       DETERMINER_A,        DETERMINER_AN       } },
+	{ AMMOTYPE_NBOMB,        L_PROPOBJ_023, L_PROPOBJ_082, { DETERMINER_AN,       DETERMINER_A,     DETERMINER_AN,       DETERMINER_AN,       DETERMINER_AN       } },
+	{ AMMOTYPE_SEDATIVE,     L_PROPOBJ_024, L_PROPOBJ_083, { DETERMINER_SOME5,    DETERMINER_SOME5, DETERMINER_A,        DETERMINER_SOME5,    DETERMINER_SOME5    } },
+	{ AMMOTYPE_PSYCHOSIS,    L_PROPOBJ_024, L_PROPOBJ_083, { DETERMINER_SOME5,    DETERMINER_SOME5, DETERMINER_A,        DETERMINER_SOME5,    DETERMINER_SOME5    } },
+	{ AMMOTYPE_CLOAK,        L_PROPOBJ_045, L_PROPOBJ_068, { DETERMINER_A | 0x80, DETERMINER_A,     DETERMINER_A | 0x80, DETERMINER_A | 0x80, DETERMINER_A | 0x80 } },
+	{ AMMOTYPE_BOOST,        L_PROPOBJ_046, L_PROPOBJ_069, { DETERMINER_A,        DETERMINER_A,     DETERMINER_AN,       DETERMINER_A,        DETERMINER_AN       } },
+	{ 0 },
 };
 
-u32 var8006aa94pf[] = {
-	0x00000002, 0x4c070000, 0x01010102, 0x02000000,
-	0x00000003, 0x4c080000, 0x01010102, 0x02000000,
-	0x00000004, 0x4c090000, 0x01010102, 0x02000000,
-	0x00000005, 0x4c0a0000, 0x01010102, 0x02000000,
-	0x00000006, 0x4c0b0000, 0x01010102, 0x02000000,
-	0x00000007, 0x4c0e0000, 0x01010102, 0x02000000,
-	0x00000008, 0x4c0c0000, 0x01010102, 0x02000000,
-	0x00000009, 0x4c0d0000, 0x01010102, 0x02000000,
-	0x0000000a, 0x4c0f0000, 0x01010101, 0x02000000,
-	0x0000000b, 0x4c140000, 0x01010102, 0x02000000,
-	0x0000000c, 0x4c170000, 0x01010102, 0x02000000,
-	0x0000000d, 0x4c160000, 0x02010102, 0x02000000,
-	0x0000000e, 0x4c180000, 0x01010101, 0x02000000,
-	0x0000000f, 0x4c110000, 0x01010102, 0x02000000,
-	0x00000010, 0x4c130000, 0x01010101, 0x02000000,
-	0x00000011, 0x4c100000, 0x02010102, 0x03000000,
-	0x00000012, 0x4c120000, 0x01010102, 0x02000000,
-	0x00000013, 0x4c190000, 0x01010102, 0x02000000,
-	0x00000014, 0x4c1a0000, 0x03010102, 0x01000000,
-	0x00000015, 0x4c200000, 0x01010101, 0x01000000,
-	0x00000016, 0x4c1f0000, 0x01010101, 0x02000000,
-	0x00000017, 0x4c1c0000, 0x01010101, 0x01000000,
-	0x00000018, 0x4c1b0000, 0x01010101, 0x01000000,
-	0x00000019, 0x4c1d0000, 0x01010101, 0x01000000,
-	0x0000001a, 0x4c230000, 0x01010101, 0x01000000,
-	0x0000001b, 0x4c210000, 0x01010202, 0x02000000,
-	0x0000001c, 0x4c220000, 0x01010101, 0x01000000,
-	0x0000001d, 0x4c2f0000, 0x01010101, 0x01000000,
-	0x0000001e, 0x4c240000, 0x01010202, 0x02000000,
-	0x0000001f, 0x4c250000, 0x02010202, 0x02000000,
-	0x00000020, 0x4c260000, 0x01010202, 0x02000000,
-	0x00000021, 0x4c270000, 0x01010202, 0x02000000,
-	0x00000022, 0x4c280000, 0x01010202, 0x02000000,
-	0x00000023, 0x4c4a4cf2, 0x05050505, 0x05000000,
-	0x00000024, 0x4c320000, 0x01010102, 0x02000000,
-	0x00000025, 0x4c330000, 0x01010102, 0x02000000,
-	0x00000026, 0x4c340000, 0x01010102, 0x02000000,
-	0x00000027, 0x4c350000, 0x01010102, 0x02000000,
-	0x00000028, 0x4c360000, 0x01010102, 0x02000000,
-	0x00000029, 0x4c370000, 0x01010101, 0x02000000,
-	0x0000002a, 0x4c380000, 0x02010102, 0x03000000,
-	0x0000002b, 0x4c390000, 0x02010102, 0x02000000,
-	0x0000002c, 0x4c310000, 0x01010102, 0x02000000,
-	0x0000002d, 0x4c3b0000, 0x01010200, 0x00000000,
-	0x0000002e, 0x4c3c0000, 0x09010909, 0x09000000,
-	0x000003e6, 0x4c3d0000, 0x09010909, 0x09000000,
-	0x000003e5, 0x4c3e0000, 0x09010909, 0x09000000,
-	0x0000002f, 0x4c410000, 0x02010101, 0x04000000,
-	0x00000030, 0x4c450000, 0x01010101, 0x04000000,
-	0x00000031, 0x4c490000, 0x01010101, 0x01000000,
-	0x00000032, 0x4c4c0000, 0x02010101, 0x01000000,
-	0x00000035, 0x4c290000, 0x02010202, 0x02000000,
-	0x00000036, 0x4c4b0000, 0x01010101, 0x01000000,
-	0x00000037, 0x4c460000, 0x01010101, 0x01000000,
-	0x00000038, 0x4cdb0000, 0x01010100, 0x00000000,
-	0x00000039, 0x4c3f0000, 0x01010101, 0x01000000,
-	0x0000003a, 0x4cdc0000, 0x01010100, 0x01000000,
-	0x0000003b, 0x4c400000, 0x05050503, 0x00000000,
-	0x0000003c, 0x4cdd0000, 0x01010100, 0x00000000,
-	0x0000003d, 0x4cde0000, 0x01010100, 0x00000000,
-	0x0000003e, 0x4cdf0000, 0x01010100, 0x00000000,
-	0x0000003f, 0x4ce00000, 0x01010100, 0x00000000,
-	0x00000040, 0x4c2b0000, 0x01010101, 0x01000000,
-	0x00000041, 0x4c2b0000, 0x01010101, 0x01000000,
-	0x00000042, 0x4ce10000, 0x01010100, 0x00000000,
-	0x00000043, 0x4ce20000, 0x01010100, 0x00000000,
-	0x00000044, 0x4ce30000, 0x01010100, 0x00000000,
-	0x00000045, 0x4ce40000, 0x01010100, 0x00000000,
-	0x00000046, 0x4ce40000, 0x01010100, 0x00000000,
-	0x00000047, 0x4ce40000, 0x01010100, 0x00000000,
-	0x00000048, 0x4ce40000, 0x01010100, 0x00000000,
-	0x00000049, 0x4ce40000, 0x01010100, 0x00000000,
-	0x0000004a, 0x4ce40000, 0x01010100, 0x00000000,
-	0x0000004b, 0x4ce40000, 0x01010100, 0x00000000,
-	0x0000004c, 0x4ce40000, 0x01010100, 0x00000000,
-	0x0000004d, 0x4c430000, 0x01010202, 0x02000000,
-	0x0000004e, 0x4ce50000, 0x01010201, 0x02000000,
-	0x0000004f, 0x4cf00000, 0x01010500, 0x00000000,
-	0x00000050, 0x4ce60000, 0x01010100, 0x00000000,
-	0x0000005d, 0x4c480000, 0x01010202, 0x02000000,
-	0x00000053, 0x4c2c0000, 0x01010201, 0x01000000,
-	0x00000054, 0x4c2d0000, 0x01010201, 0x01000000,
-	0x00000055, 0x4c2e0000, 0x01010201, 0x02000000,
-	0x00000056, 0x4c300000, 0x01010102, 0x01000000,
-	0x00000057, 0x4c470000, 0x03010201, 0x02000000,
-	0x00000058, 0x4c2c0000, 0x01010201, 0x02000000,
-	0x00000000, 0x00000000, 0x00000000, 0x00000000,
+struct nameinfo var8006aa94pf[] = {
+	{ WEAPON_FALCON2,          L_GUN_007, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_FALCON2_SILENCER, L_GUN_008, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_FALCON2_SCOPE,    L_GUN_009, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_MAGSEC4,          L_GUN_010, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_MAULER,           L_GUN_011, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_PHOENIX,          L_GUN_014, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_DY357MAGNUM,      L_GUN_012, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_DY357LX,          L_GUN_013, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_CMP150,           L_GUN_015, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN    } },
+	{ WEAPON_CYCLONE,          L_GUN_020, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_CALLISTO,         L_GUN_023, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_RCP120,           L_GUN_022, 0,         { DETERMINER_AN,    DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_LAPTOPGUN,        L_GUN_024, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN    } },
+	{ WEAPON_DRAGON,           L_GUN_017, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_K7AVENGER,        L_GUN_019, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN    } },
+	{ WEAPON_AR34,             L_GUN_016, 0,         { DETERMINER_AN,    DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_THE   } },
+	{ WEAPON_SUPERDRAGON,      L_GUN_018, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_SHOTGUN,          L_GUN_025, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_REAPER,           L_GUN_026, 0,         { DETERMINER_THE,   DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_A     } },
+	{ WEAPON_SNIPERRIFLE,      L_GUN_032, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A     } },
+	{ WEAPON_FARSIGHT,         L_GUN_031, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN    } },
+	{ WEAPON_DEVASTATOR,       L_GUN_028, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A     } },
+	{ WEAPON_ROCKETLAUNCHER,   L_GUN_027, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A     } },
+	{ WEAPON_SLAYER,           L_GUN_029, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A     } },
+	{ WEAPON_COMBATKNIFE,      L_GUN_035, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A     } },
+	{ WEAPON_CROSSBOW,         L_GUN_033, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_TRANQUILIZER,     L_GUN_034, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A     } },
+	{ WEAPON_LASER,            L_GUN_047, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A     } },
+	{ WEAPON_GRENADE,          L_GUN_036, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_NBOMB,            L_GUN_037, 0,         { DETERMINER_AN,    DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_TIMEDMINE,        L_GUN_038, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_PROXIMITYMINE,    L_GUN_039, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_REMOTEMINE,       L_GUN_040, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_COMBATBOOST,      L_GUN_074, L_GUN_242, { DETERMINER_SOME5, DETERMINER_SOME5, DETERMINER_SOME5, DETERMINER_SOME5, DETERMINER_SOME5 } },
+	{ WEAPON_PP9I,             L_GUN_050, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_CC13,             L_GUN_051, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_KL01313,          L_GUN_052, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_KF7SPECIAL,       L_GUN_053, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_ZZT,              L_GUN_054, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_DMC,              L_GUN_055, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN    } },
+	{ WEAPON_AR53,             L_GUN_056, 0,         { DETERMINER_AN,    DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_THE   } },
+	{ WEAPON_RCP45,            L_GUN_057, 0,         { DETERMINER_AN,    DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_PSYCHOSISGUN,     L_GUN_049, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_NIGHTVISION,      L_GUN_059, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    0,                0                } },
+	{ WEAPON_EYESPY,           L_GUN_060, 0,         { DETERMINER_YOUR,  DETERMINER_A,     DETERMINER_YOUR,  DETERMINER_YOUR,  DETERMINER_YOUR  } },
+	{ 998,                     L_GUN_061, 0,         { DETERMINER_YOUR,  DETERMINER_A,     DETERMINER_YOUR,  DETERMINER_YOUR,  DETERMINER_YOUR  } },
+	{ 997,                     L_GUN_062, 0,         { DETERMINER_YOUR,  DETERMINER_A,     DETERMINER_YOUR,  DETERMINER_YOUR,  DETERMINER_YOUR  } },
+	{ WEAPON_XRAYSCANNER,      L_GUN_065, 0,         { DETERMINER_AN,    DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_4     } },
+	{ WEAPON_IRSCANNER,        L_GUN_069, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_4     } },
+	{ WEAPON_CLOAKINGDEVICE,   L_GUN_073, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A     } },
+	{ WEAPON_HORIZONSCANNER,   L_GUN_076, 0,         { DETERMINER_AN,    DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A     } },
+	{ WEAPON_ECMMINE,          L_GUN_041, 0,         { DETERMINER_AN,    DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_DATAUPLINK,       L_GUN_075, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A     } },
+	{ WEAPON_RTRACKER,         L_GUN_070, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A     } },
+	{ WEAPON_PRESIDENTSCANNER, L_GUN_219, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                0                } },
+	{ WEAPON_DOORDECODER,      L_GUN_063, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A     } },
+	{ WEAPON_AUTOSURGEON,      L_GUN_220, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                DETERMINER_A     } },
+	{ WEAPON_EXPLOSIVES,       L_GUN_064, 0,         { DETERMINER_SOME5, DETERMINER_SOME5, DETERMINER_SOME5, DETERMINER_THE,   0                } },
+	{ WEAPON_SKEDARBOMB,       L_GUN_221, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                0                } },
+	{ WEAPON_COMMSRIDER,       L_GUN_222, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                0                } },
+	{ WEAPON_TRACERBUG,        L_GUN_223, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                0                } },
+	{ WEAPON_TARGETAMPLIFIER,  L_GUN_224, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                0                } },
+	{ WEAPON_DISGUISE40,       L_GUN_043, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A     } },
+	{ WEAPON_DISGUISE41,       L_GUN_043, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_A     } },
+	{ WEAPON_FLIGHTPLANS,      L_GUN_225, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                0                } },
+	{ WEAPON_RESEARCHTAPE,     L_GUN_226, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                0                } },
+	{ WEAPON_BACKUPDISK,       L_GUN_227, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                0                } },
+	{ WEAPON_KEYCARD45,        L_GUN_228, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                0                } },
+	{ WEAPON_KEYCARD46,        L_GUN_228, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                0                } },
+	{ WEAPON_KEYCARD47,        L_GUN_228, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                0                } },
+	{ WEAPON_KEYCARD48,        L_GUN_228, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                0                } },
+	{ WEAPON_KEYCARD49,        L_GUN_228, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                0                } },
+	{ WEAPON_KEYCARD4A,        L_GUN_228, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                0                } },
+	{ WEAPON_KEYCARD4B,        L_GUN_228, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                0                } },
+	{ WEAPON_KEYCARD4C,        L_GUN_228, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                0                } },
+	{ WEAPON_SUITCASE,         L_GUN_067, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_BRIEFCASE,        L_GUN_229, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_A,     DETERMINER_AN    } },
+	{ WEAPON_SHIELDTECHITEM,   L_GUN_240, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_SOME5, 0,                0                } },
+	{ WEAPON_NECKLACE,         L_GUN_230, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     0,                0                } },
+	{ WEAPON_SUICIDEPILL,      L_GUN_072, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_AN,    DETERMINER_AN    } },
+	{ WEAPON_ROCKET,           L_GUN_044, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_A,     DETERMINER_A     } },
+	{ WEAPON_HOMINGROCKET,     L_GUN_045, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_A,     DETERMINER_A     } },
+	{ WEAPON_GRENADEROUND,     L_GUN_046, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_A,     DETERMINER_AN    } },
+	{ WEAPON_BOLT,             L_GUN_048, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_A     } },
+	{ WEAPON_BRIEFCASE2,       L_GUN_071, 0,         { DETERMINER_THE,   DETERMINER_A,     DETERMINER_AN,    DETERMINER_A,     DETERMINER_AN    } },
+	{ WEAPON_SKROCKET,         L_GUN_044, 0,         { DETERMINER_A,     DETERMINER_A,     DETERMINER_AN,    DETERMINER_A,     DETERMINER_AN    } },
+	{ 0 },
 };
-
-const char varf71ab2f8pf[] = "%s%s";
-const char varf71ab300pf[] = "%s";
-const char varf71ab304pf[] = "%s%s.\n";
-const char varf71ab30cpf[] = "%s.\n";
-
-void func0f0878c8pf(char *dst, s32 ammotype, s32 qty, bool full, u32 arg4, u32 *arg5);
 
 GLOBAL_ASM(
 glabel func0f0878c8pf
@@ -61554,6 +61567,155 @@ glabel var7f1abe2cpf
 /*  f087c74:	03e00008 */ 	jr	$ra
 /*  f087c78:	00000000 */ 	nop
 );
+
+const char varf71ab2f8pf[] = "%s%s";
+const char varf71ab300pf[] = "%s";
+const char varf71ab304pf[] = "%s%s.\n";
+const char varf71ab30cpf[] = "%s.\n";
+
+// Mismatch: determiner needs to be copied into t8 for the first switch
+//void func0f0878c8pf(char *dst, s32 id, bool plural, bool full, bool dual, struct nameinfo *table)
+//{
+//	struct nameinfo *info;
+//	u8 *ptr;
+//	s32 languageid = g_LanguageId;
+//	u16 nametextid = 0;
+//	u16 determinertextid = 0;
+//	s32 index = 0;
+//	u8 buffer[100];
+//
+//	if (languageid > LANGUAGE_PAL_ES) {
+//		languageid = LANGUAGE_PAL_EN;
+//	}
+//
+//	*dst = '\0';
+//
+//	info = func0f087888pf(id, table);
+//
+//	if (info != NULL) {
+//		s32 determiner = info->unk08[languageid] & 0x7f;
+//
+//		switch (info->unk08[languageid] & 0x7f) {
+//		case DETERMINER_SOME5:
+//		case DETERMINER_SOME6:
+//		case DETERMINER_SOME7:
+//		case DETERMINER_8:
+//			plural = true;
+//			break;
+//		}
+//
+//		if (info->unk08[languageid] & 0x80) {
+//			switch (info->unk08[languageid] & 0x7f) {
+//			case DETERMINER_A:
+//			case DETERMINER_AN:
+//			case DETERMINER_THE:
+//			case DETERMINER_4:
+//				plural = false;
+//				break;
+//			case DETERMINER_SOME5:
+//				plural = true;
+//				break;
+//			}
+//		}
+//
+//		if (plural) {
+//			if (info->pluraltext) {
+//				nametextid = info->pluraltext;
+//
+//				switch (info->unk08[languageid] & 0x7f) {
+//				case DETERMINER_A:
+//					determiner = DETERMINER_SOME5;
+//					break;
+//				case DETERMINER_AN:
+//					determiner = DETERMINER_SOME6;
+//					break;
+//				case DETERMINER_THE:
+//					determiner = DETERMINER_SOME7;
+//					break;
+//				case DETERMINER_4:
+//					determiner = DETERMINER_8;
+//					break;
+//				}
+//			} else {
+//				nametextid = info->singulartext;
+//			}
+//		} else {
+//			nametextid = info->singulartext;
+//		}
+//
+//		if (nametextid != 0) {
+//			switch (determiner) {
+//			case DETERMINER_A:
+//				determinertextid = full ? L_PROPOBJ_058 : L_PROPOBJ_057; // "A", "a"
+//				break;
+//			case DETERMINER_AN:
+//				determinertextid = full ? L_PROPOBJ_060 : L_PROPOBJ_059; // "An", "an"
+//				index = 1;
+//				break;
+//			case DETERMINER_THE:
+//				determinertextid = full ? L_PROPOBJ_062 : L_PROPOBJ_061; // "The", "the"
+//				index = 2;
+//				break;
+//			case DETERMINER_4:
+//				determinertextid = full ? L_PROPOBJ_064 : L_PROPOBJ_063; // "", ""
+//				index = 3;
+//				break;
+//			case DETERMINER_SOME5:
+//				determinertextid = full ? L_PROPOBJ_050 : L_PROPOBJ_049; // "Some", "some"
+//				index = 4;
+//				break;
+//			case DETERMINER_SOME6:
+//				determinertextid = full ? L_PROPOBJ_052 : L_PROPOBJ_051; // "Some", "some"
+//				index = 5;
+//				break;
+//			case DETERMINER_SOME7:
+//				determinertextid = full ? L_PROPOBJ_054 : L_PROPOBJ_053; // "Some", "some"
+//				index = 6;
+//				break;
+//			case DETERMINER_8:
+//				determinertextid = full ? L_PROPOBJ_056 : L_PROPOBJ_055; // "", ""
+//				index = 7;
+//				break;
+//			case DETERMINER_YOUR:
+//				determinertextid = full ? L_PROPOBJ_048 : L_PROPOBJ_047; // "Your", "your"
+//				index = 1;
+//				break;
+//			}
+//
+//			if (!full && languageid == LANGUAGE_PAL_DE) {
+//				determinertextid = 0;
+//			}
+//
+//			if (dual) {
+//				determinertextid = 0;
+//			}
+//
+//			if (determinertextid) {
+//				sprintf(buffer, "%s%s", langGet(determinertextid), langGet(nametextid));
+//			} else {
+//				sprintf(buffer, "%s", langGet(nametextid));
+//			}
+//
+//			ptr = buffer;
+//
+//			while (*ptr != '\0') {
+//				if (*ptr == '\n') {
+//					*ptr = '\0';
+//				} else {
+//					ptr++;
+//				}
+//			}
+//
+//			if (dual) {
+//				sprintf(dst, "%s%s.\n", langGet(L_PROPOBJ_008), buffer); // "Double"
+//			} else if (!full) {
+//				sprintf(dst, langGet(L_PROPOBJ_000 + index), buffer); // "Picked up %s.\n"
+//			} else {
+//				sprintf(dst, "%s.\n", buffer);
+//			}
+//		}
+//	}
+//}
 #endif
 
 #if VERSION < VERSION_PAL_FINAL
