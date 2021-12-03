@@ -165,7 +165,7 @@ bool posIsMovingTowardsPosOrStoppedInRange(struct coord *prevpos, struct coord *
 bool posIsArrivingLaterallyAtPos(struct coord *prevpos, struct coord *curpos, struct coord *targetpos, f32 range);
 bool posIsArrivingAtPos(struct coord *prevpos, struct coord *curpos, struct coord *targetpos, f32 range);
 void chrTickRunPos(struct chrdata *chr);
-u32 func0f044b68(void);
+void func0f044b68(struct coord *arg0, struct coord *arg1, struct coord *arg2);
 u32 func0f044c38(void);
 u32 func0f0451a8(void);
 u32 func0f045760(void);

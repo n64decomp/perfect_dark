@@ -18543,62 +18543,35 @@ void chrTickRunPos(struct chrdata *chr)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f044b68
-/*  f044b68:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f044b6c:	c4860000 */ 	lwc1	$f6,0x0($a0)
-/*  f044b70:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f044b74:	44800000 */ 	mtc1	$zero,$f0
-/*  f044b78:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f044b7c:	e7a8000c */ 	swc1	$f8,0xc($sp)
-/*  f044b80:	c4900004 */ 	lwc1	$f16,0x4($a0)
-/*  f044b84:	c4aa0004 */ 	lwc1	$f10,0x4($a1)
-/*  f044b88:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f044b8c:	e7b20010 */ 	swc1	$f18,0x10($sp)
-/*  f044b90:	c4860008 */ 	lwc1	$f6,0x8($a0)
-/*  f044b94:	c4a40008 */ 	lwc1	$f4,0x8($a1)
-/*  f044b98:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f044b9c:	e7a80014 */ 	swc1	$f8,0x14($sp)
-/*  f044ba0:	c4ca0008 */ 	lwc1	$f10,0x8($a2)
-/*  f044ba4:	e7a00004 */ 	swc1	$f0,0x4($sp)
-/*  f044ba8:	c7a40014 */ 	lwc1	$f4,0x14($sp)
-/*  f044bac:	46005407 */ 	neg.s	$f16,$f10
-/*  f044bb0:	e7b00000 */ 	swc1	$f16,0x0($sp)
-/*  f044bb4:	c4d20000 */ 	lwc1	$f18,0x0($a2)
-/*  f044bb8:	c7aa0000 */ 	lwc1	$f10,0x0($sp)
-/*  f044bbc:	c7b0000c */ 	lwc1	$f16,0xc($sp)
-/*  f044bc0:	e7b20008 */ 	swc1	$f18,0x8($sp)
-/*  f044bc4:	c7a60008 */ 	lwc1	$f6,0x8($sp)
-/*  f044bc8:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f044bcc:	00000000 */ 	nop
-/*  f044bd0:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f044bd4:	46124100 */ 	add.s	$f4,$f8,$f18
-/*  f044bd8:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f044bdc:	00000000 */ 	nop
-/*  f044be0:	45010013 */ 	bc1t	.L0f044c30
-/*  f044be4:	00000000 */ 	nop
-/*  f044be8:	c4860000 */ 	lwc1	$f6,0x0($a0)
-/*  f044bec:	e7a6000c */ 	swc1	$f6,0xc($sp)
-/*  f044bf0:	c48a0004 */ 	lwc1	$f10,0x4($a0)
-/*  f044bf4:	e7aa0010 */ 	swc1	$f10,0x10($sp)
-/*  f044bf8:	c4900008 */ 	lwc1	$f16,0x8($a0)
-/*  f044bfc:	e7b00014 */ 	swc1	$f16,0x14($sp)
-/*  f044c00:	c4a80000 */ 	lwc1	$f8,0x0($a1)
-/*  f044c04:	e4880000 */ 	swc1	$f8,0x0($a0)
-/*  f044c08:	c4b20004 */ 	lwc1	$f18,0x4($a1)
-/*  f044c0c:	e4920004 */ 	swc1	$f18,0x4($a0)
-/*  f044c10:	c4a40008 */ 	lwc1	$f4,0x8($a1)
-/*  f044c14:	e4840008 */ 	swc1	$f4,0x8($a0)
-/*  f044c18:	c7a6000c */ 	lwc1	$f6,0xc($sp)
-/*  f044c1c:	e4a60000 */ 	swc1	$f6,0x0($a1)
-/*  f044c20:	c7aa0010 */ 	lwc1	$f10,0x10($sp)
-/*  f044c24:	e4aa0004 */ 	swc1	$f10,0x4($a1)
-/*  f044c28:	c7b00014 */ 	lwc1	$f16,0x14($sp)
-/*  f044c2c:	e4b00008 */ 	swc1	$f16,0x8($a1)
-.L0f044c30:
-/*  f044c30:	03e00008 */ 	jr	$ra
-/*  f044c34:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void func0f044b68(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+{
+	struct coord sp0c;
+	struct coord sp00;
+
+	sp0c.x = arg1->x - arg0->x;
+	sp0c.y = arg1->y - arg0->y;
+	sp0c.z = arg1->z - arg0->z;
+
+	sp00.x = -arg2->z;
+	sp00.y = 0;
+	sp00.z = arg2->x;
+
+	if (sp00.f[0] * sp0c.f[0] + sp00.f[2] * sp0c.f[2] > 0) {
+		// empty
+	} else {
+		sp0c.x = arg0->x;
+		sp0c.y = arg0->y;
+		sp0c.z = arg0->z;
+
+		arg0->x = arg1->x;
+		arg0->y = arg1->y;
+		arg0->z = arg1->z;
+
+		arg1->x = sp0c.x;
+		arg1->y = sp0c.y;
+		arg1->z = sp0c.z;
+	}
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
