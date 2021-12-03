@@ -11952,7 +11952,7 @@ glabel var7f1a87f8
  */
 void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderdata, bool withalpha, struct chrdata *chr)
 {
-	if (prop->flags & PROPFLAG_ONSCREEN) {
+	if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 		u32 stack;
 		struct defaultobj *obj = prop->obj;
 		struct model *model = obj->model;
@@ -14166,7 +14166,7 @@ void func0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool 
 	struct coord spd0;
 	struct chrdata *chr = prop->chr;
 
-	if ((chr->chrflags & CHRCFLAG_HIDDEN) == 0 && (prop->flags & PROPFLAG_ONSCREEN)) {
+	if ((chr->chrflags & CHRCFLAG_HIDDEN) == 0 && (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
 		f32 fStack32 = func0f0278a4(chr);
 
 		if (prop->z - fStack32 < shotdata->unk34) {

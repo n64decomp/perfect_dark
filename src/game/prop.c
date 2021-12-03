@@ -67,7 +67,7 @@ void propsSort(void)
 
 	// Populate onscreenprops with the list of props
 	while (prop != g_Vars.pausedprops) {
-		if ((prop->flags & (PROPFLAG_ONSCREEN | PROPFLAG_ENABLED)) == (PROPFLAG_ONSCREEN | PROPFLAG_ENABLED)) {
+		if ((prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ENABLED)) == (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ENABLED)) {
 			depths[count] = prop->z;
 			g_Vars.onscreenprops[count] = prop;
 			count++;
@@ -389,7 +389,7 @@ Gfx *propsRender(Gfx *gdl, s16 arg1, s32 arg2, s16 *arg3)
 
 				if (prop) {
 					if ((arg2 == 0 && (prop->flags & (PROPFLAG_20 | PROPFLAG_01)) == 0)
-							|| (arg2 == 2 && (prop->flags & (PROPFLAG_20 | PROPFLAG_01)) == 1)) {
+							|| (arg2 == 2 && (prop->flags & (PROPFLAG_20 | PROPFLAG_01)) == PROPFLAG_01)) {
 						gdl = propRender(gdl, prop, false);
 					}
 				}
@@ -4685,15 +4685,15 @@ glabel propsTick
 //		while (prop < end) {
 //			flags = prop->flags;
 //
-//			if (flags & PROPFLAG_ONSCREEN) {
-//				flags &= ~PROPFLAG_ONSCREEN;
+//			if (flags & PROPFLAG_ONTHISSCREENTHISTICK) {
+//				flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
 //			}
 //
-//			if (flags & PROPFLAG_40) {
-//				flags |= PROPFLAG_80;
-//				flags &= ~PROPFLAG_40;
-//			} else if (flags & PROPFLAG_80) {
-//				flags &= ~PROPFLAG_80;
+//			if (flags & PROPFLAG_ONANYSCREENTHISTICK) {
+//				flags |= PROPFLAG_ONANYSCREENPREVTICK;
+//				flags &= ~PROPFLAG_ONANYSCREENTHISTICK;
+//			} else if (flags & PROPFLAG_ONANYSCREENPREVTICK) {
+//				flags &= ~PROPFLAG_ONANYSCREENPREVTICK;
 //			}
 //
 //			(prop++)->flags = flags | PROPFLAG_08;
@@ -4706,8 +4706,8 @@ glabel propsTick
 //		while (prop < end) {
 //			flags = prop->flags;
 //
-//			if (flags & PROPFLAG_ONSCREEN) {
-//				flags &= ~PROPFLAG_ONSCREEN;
+//			if (flags & PROPFLAG_ONTHISSCREENTHISTICK) {
+//				flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
 //			}
 //
 //			prop->flags = flags;
@@ -4750,7 +4750,7 @@ glabel propsTick
 //			}
 //
 //			if (score == 0) {
-//				if ((prop->flags & (PROPFLAG_ENABLED | PROPFLAG_80)) == (PROPFLAG_ENABLED | PROPFLAG_80)) {
+//				if ((prop->flags & (PROPFLAG_ENABLED | PROPFLAG_ONANYSCREENPREVTICK)) == (PROPFLAG_ENABLED | PROPFLAG_ONANYSCREENPREVTICK)) {
 //					score++;
 //				} else if (prop->forceonetick) {
 //					score++;
@@ -5502,7 +5502,7 @@ void autoaimTick(void)
 					aimpos[0] = (threat->x2 + threat->x1) / 2;
 					aimpos[1] = (threat->y2 + threat->y1) / 2;
 
-					if (bestprop->flags & PROPFLAG_ONSCREEN) {
+					if (bestprop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 						struct defaultobj *obj = bestprop->obj;
 						Mtxf *mtx = model0001a60c(obj->model);
 						struct coord spac;

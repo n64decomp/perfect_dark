@@ -171,7 +171,7 @@ void *func0f12955c(s32 count, s32 index, s32 arg2, s32 arg3)
 
 		if (chr->model
 				&& chr->prop
-				&& (chr->prop->flags & PROPFLAG_80) == 0
+				&& (chr->prop->flags & PROPFLAG_ONANYSCREENPREVTICK) == 0
 				&& chr->actiontype == ACT_DEAD
 				&& chr->act_dead.fadewheninvis == false) {
 			if (tally < 6) {

@@ -11942,7 +11942,7 @@ void bgun0f09f848(s32 handnum)
 			mtx4Copy(&hand->muzzlemat, &model->matrices[0]);
 			model0001cb0c(model, model->filedata->rootnode);
 
-			objprop->flags |= PROPFLAG_40 | PROPFLAG_ONSCREEN;
+			objprop->flags |= PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONTHISSCREENTHISTICK;
 			objprop->z = -model->matrices[0].m[3][2];
 		}
 	}

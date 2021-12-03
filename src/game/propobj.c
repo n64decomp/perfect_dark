@@ -12715,7 +12715,7 @@ bool propExplode(struct prop *prop, s32 exptype)
 			parent = parent->parent;
 		}
 
-		if (prop->flags & PROPFLAG_ONSCREEN) {
+		if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 			Mtxf *mtx = model0001a60c(obj->model);
 
 			pos.x = mtx->m[3][0];
@@ -16459,7 +16459,7 @@ glabel var7f1aa2c4
 //		}
 //	}
 //
-//	if ((obj->flags3 & OBJFLAG3_CANHARDFREE) && (prop->flags & PROPFLAG_ONSCREEN)) {
+//	if ((obj->flags3 & OBJFLAG3_CANHARDFREE) && (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
 //		g_Vars.hardfreeabletally++;
 //
 //		if (g_Vars.hardfreeabletally > 20) {
@@ -16503,7 +16503,7 @@ void func0f0706f8(struct prop *prop, bool arg1)
 	if (obj->hidden & OBJHFLAG_REAPABLE) {
 		objFree(obj, true, obj->hidden2 & OBJH2FLAG_CANREGEN);
 	} else {
-		prop->flags &= ~PROPFLAG_ONSCREEN;
+		prop->flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
 		func0f07063c(prop, arg1);
 
 		// Recurse into children
@@ -49338,7 +49338,7 @@ void hoverpropTick(struct prop *prop, bool arg1)
 	struct hoverpropobj *obj = (struct hoverpropobj *)prop->obj;
 
 	if ((obj->base.hidden & OBJHFLAG_GRABBED) == 0
-			&& (arg1 || (prop->flags & PROPFLAG_80) || (obj->base.flags & OBJFLAG_CHOPPER_INACTIVE))) {
+			&& (arg1 || (prop->flags & PROPFLAG_ONANYSCREENPREVTICK) || (obj->base.flags & OBJFLAG_CHOPPER_INACTIVE))) {
 		func0f0714b8(&obj->base, &obj->hov);
 	}
 }
@@ -49349,7 +49349,7 @@ void hoverbikeTick(struct prop *prop, bool arg1)
 
 	if ((obj->base.hidden & OBJHFLAG_MOUNTED) == 0) {
 		if ((obj->base.hidden & OBJHFLAG_GRABBED) == 0
-				&& (arg1 || (prop->flags & PROPFLAG_80))) {
+				&& (arg1 || (prop->flags & PROPFLAG_ONANYSCREENPREVTICK))) {
 			func0f0714b8(&obj->base, &obj->hov);
 		}
 
@@ -49612,7 +49612,7 @@ s32 objTick(struct prop *prop)
 	if (obj->hidden & OBJHFLAG_ISRETICK) {
 		obj->hidden &= ~OBJHFLAG_ISRETICK;
 	} else if ((obj->hidden & OBJHFLAG_AIRBORNE) && (obj->projectile->flags & PROJECTILEFLAG_00000800) == 0) {
-		prop->flags &= ~PROPFLAG_ONSCREEN;
+		prop->flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
 		obj->hidden |= OBJHFLAG_ISRETICK;
 		return TICKOP_RETICK;
 	}
@@ -49921,7 +49921,7 @@ s32 objTick(struct prop *prop)
 		}
 
 		if (sp572) {
-			if (prop->flags & PROPFLAG_80) {
+			if (prop->flags & PROPFLAG_ONANYSCREENPREVTICK) {
 				colourTween(obj->shadecol, obj->nextcol);
 			} else {
 				obj->shadecol[0] = obj->nextcol[0];
@@ -49931,7 +49931,7 @@ s32 objTick(struct prop *prop)
 			}
 		}
 
-		prop->flags |= PROPFLAG_40 | PROPFLAG_ONSCREEN;
+		prop->flags |= PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONTHISSCREENTHISTICK;
 
 		if (obj->type == OBJTYPE_FAN) {
 			fanUpdateModel(prop);
@@ -49955,7 +49955,7 @@ s32 objTick(struct prop *prop)
 			child = next;
 		}
 	} else {
-		prop->flags &= ~PROPFLAG_ONSCREEN;
+		prop->flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
 		func0f07063c(prop, sp572);
 		child = prop->child;
 
@@ -51948,7 +51948,7 @@ glabel var7f1aa824
 
 void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool withalpha)
 {
-	if (prop->flags & PROPFLAG_ONSCREEN) {
+	if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 		struct defaultobj *obj = prop->obj;
 		struct model *model = obj->model;
 		bool sp6c;
@@ -56710,7 +56710,7 @@ bool objDrop(struct prop *prop, bool lazy)
 				func0f0964b4(&projectile->speed, (Mtxf *)&projectile->unk020);
 			}
 
-			if (!lazy && (prop->flags & PROPFLAG_ONSCREEN)) {
+			if (!lazy && (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
 				// Do collision checks
 				Mtxf *sp48 = model0001a60c(model);
 				mtx00015be4(currentPlayerGetUnk174c(), sp48, &spf0);
@@ -58810,7 +58810,7 @@ void func0f084f64(struct defaultobj *obj)
 	Mtxf *sp7c;
 	Mtxf matrix;
 
-	if (prop->flags & PROPFLAG_ONSCREEN) {
+	if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 		rodata = modelGetPartRodata(model->filedata, 2);
 		sp7c = model0001a5cc(model, modelGetPart(model->filedata, 1), 0);
 		mtx00015be4(currentPlayerGetUnk174c(), sp7c, &matrix);
@@ -59191,7 +59191,7 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 		return;
 	}
 
-	if ((prop->flags & PROPFLAG_ONSCREEN) == 0) {
+	if ((prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) == 0) {
 		return;
 	}
 
@@ -59278,7 +59278,7 @@ void func0f085e00(struct prop *prop, struct shotdata *shotdata)
 	struct model *model = obj->model;
 	struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
 
-	if ((prop->flags & PROPFLAG_ONSCREEN)
+	if ((prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)
 			&& (obj->hidden & OBJHFLAG_00001000) == 0
 			&& (obj->flags2 & OBJFLAG2_SHOOTTHROUGH) == 0) {
 		tmp = -(model->matrices[0].m[3][2] + func0f0668cc(bbox, model->matrices));
@@ -60808,7 +60808,7 @@ bool objTestForInteract(struct prop *prop)
 	}
 
 	if (maybe
-			&& (prop->flags & PROPFLAG_ONSCREEN)
+			&& (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)
 			&& objIsHealthy(obj)
 			&& (obj->flags & OBJFLAG_CANNOT_ACTIVATE) == 0) {
 		struct prop *playerprop = g_Vars.currentplayer->prop;
@@ -64954,7 +64954,7 @@ s32 objTestForPickup(struct prop *prop)
 
 bool func0f0899dc(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3)
 {
-	if (prop->flags & PROPFLAG_ONSCREEN) {
+	if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 		struct defaultobj *obj = prop->obj;
 		Mtxf *matrix = model0001a60c(obj->model);
 
@@ -65268,7 +65268,7 @@ struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, struct mod
 
 		if (usable) {
 			if (!musthavemodel || func0f0b28d0(g_WeaponSlots[i].base.model, filedata)) {
-				if ((g_WeaponSlots[i].base.prop->flags & (PROPFLAG_ONSCREEN | PROPFLAG_40 | PROPFLAG_80)) == 0 && sp40 < 0) {
+				if ((g_WeaponSlots[i].base.prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0 && sp40 < 0) {
 					sp40 = i;
 				}
 
@@ -65357,7 +65357,7 @@ struct hatobj *hatCreate(bool musthaveprop, bool musthavemodel, struct modelfile
 		} else if ((g_HatSlots[i].base.hidden & OBJHFLAG_AIRBORNE) == 0
 				&& g_HatSlots[i].base.prop->parent == NULL
 				&& (!musthavemodel || func0f0b28d0(g_HatSlots[i].base.model, filedata))) {
-			if ((g_HatSlots[i].base.prop->flags & (PROPFLAG_ONSCREEN | PROPFLAG_40 | PROPFLAG_80)) == 0 && sp40 < 0) {
+			if ((g_HatSlots[i].base.prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0 && sp40 < 0) {
 				sp40 = i;
 			}
 
@@ -65442,7 +65442,7 @@ struct ammocrateobj *ammocrateAllocate(void)
 		if ((g_AmmoCrates[i].base.hidden & OBJHFLAG_AIRBORNE) == 0
 				&& (g_AmmoCrates[i].base.hidden2 & OBJH2FLAG_CANREGEN) == 0
 				&& g_AmmoCrates[i].base.prop->parent == NULL
-				&& (g_AmmoCrates[i].base.prop->flags & (PROPFLAG_ONSCREEN | PROPFLAG_40 | PROPFLAG_80)) == 0) {
+				&& (g_AmmoCrates[i].base.prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0) {
 			objFreePermanently(&g_AmmoCrates[i].base, true);
 			return &g_AmmoCrates[i];
 		}
@@ -69499,7 +69499,7 @@ bool doorTestForInteract(struct prop *prop)
 
 	if ((door->base.flags & OBJFLAG_CANNOT_ACTIVATE) == 0
 			&& door->maxfrac > 0
-			&& (prop->flags & PROPFLAG_ONSCREEN)) {
+			&& (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
 		bool maybe = false;
 		bool usingeyespy = g_Vars.currentplayer->eyespy && g_Vars.currentplayer->eyespy->active;
 		struct prop *playerprop = usingeyespy ? g_Vars.currentplayer->eyespy->prop : g_Vars.currentplayer->prop;
@@ -69994,7 +69994,7 @@ void func0f091030(void)
 
 	while (prop) {
 		if (prop->type == PROPTYPE_OBJ
-				&& (prop->flags & (PROPFLAG_ONSCREEN | PROPFLAG_40 | PROPFLAG_80)) == 0
+				&& (prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0
 				&& (prop->obj->hidden2 & OBJH2FLAG_DESTROYED)
 				&& (prop->obj->hidden2 & OBJH2FLAG_80)) {
 			objFreePermanently(prop->obj, true);

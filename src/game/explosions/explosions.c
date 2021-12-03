@@ -5105,7 +5105,7 @@ u32 explosionTick(struct prop *prop)
 		prop->z -= 100;
 	}
 
-	prop->flags |= PROPFLAG_40 | PROPFLAG_ONSCREEN;
+	prop->flags |= PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONTHISSCREENTHISTICK;
 
 	return TICKOP_NONE;
 }

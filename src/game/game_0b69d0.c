@@ -15259,7 +15259,7 @@ s32 playerTick(struct prop *prop)
 
 			func0f0220ac(prop->chr);
 
-			if (prop->flags & PROPFLAG_ONSCREEN) {
+			if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 				if (player->model00d4->filedata->type == &g_ModelTypeChr) {
 					spe8 = player->model00d4->matrices;
 				} else {
@@ -15404,7 +15404,7 @@ s32 playerTick(struct prop *prop)
 		}
 	}
 
-	prop->flags &= ~PROPFLAG_ONSCREEN;
+	prop->flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
 
 	return TICKOP_NONE;
 }

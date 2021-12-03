@@ -6417,7 +6417,7 @@ bool chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 flags)
 
 		if ((!isgopos || ismagic)
 				&& g_Vars.normmplayerisrunning == false
-				&& (prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_ONSCREEN)) == 0
+				&& (prop->flags & (PROPFLAG_ONANYSCREENPREVTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONTHISSCREENTHISTICK)) == 0
 				&& func0f036c08(chr, &curwppos, curwprooms)
 				&& chr->inlift == false) {
 			chrGoPosInitMagic(chr, &chr->act_gopos.waydata, &curwppos, &prevpos);
@@ -6839,7 +6839,7 @@ glabel var7f1a8dd0
 //			chrPatrolGetCurWaypointInfo(chr, &nextpos, nextrooms);
 //
 //			if (!g_Vars.normmplayerisrunning
-//					&& (chr->prop->flags & (PROPFLAG_ONSCREEN | PROPFLAG_40 | PROPFLAG_80)) == 0
+//					&& (chr->prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0
 //					&& func0f036c08(chr, &nextpos, nextrooms)
 //					&& !chr->inlift) {
 //				chrGoPosInitMagic(chr, &chr->act_patrol.waydata, &nextpos, &prop->pos);
@@ -9037,7 +9037,7 @@ glabel var7f1a8f08
 //		return;
 //	}
 //
-//	if (chr->prop->flags & PROPFLAG_80) {
+//	if (chr->prop->flags & PROPFLAG_ONANYSCREENPREVTICK) {
 //		chr->sleep = 0;
 //	} else {
 //		chr->sleep = 14 + (random() % 5);
@@ -9255,7 +9255,7 @@ void chrTickDead(struct chrdata *chr)
 			chrDropItemsForOwnerReap(chr);
 		}
 
-		if (chr->prop->flags & PROPFLAG_80) {
+		if (chr->prop->flags & PROPFLAG_ONANYSCREENPREVTICK) {
 			// Keep corpse for now
 			chr->act_dead.invistimer60 = 0;
 		} else {
@@ -9836,7 +9836,7 @@ void chrTickDruggedKo(struct chrdata *chr)
 			chr->act_dead.fadetimer60 = 0;
 		}
 
-		if (chr->prop->flags & PROPFLAG_80) {
+		if (chr->prop->flags & PROPFLAG_ONANYSCREENPREVTICK) {
 			chr->act_dead.invistimer60 = 0;
 		} else {
 			chr->act_dead.invistimer60 += g_Vars.lvupdate240_60;
@@ -11531,7 +11531,7 @@ bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2)
 		obj = weaponprop->obj;
 		model = obj->model;
 
-		if ((chr->prop->flags & PROPFLAG_ONSCREEN) && (weaponprop->flags & PROPFLAG_ONSCREEN)) {
+		if ((chr->prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) && (weaponprop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
 			if ((part0 = modelGetPart(model->filedata, MODELPART_0000))) {
 				spac = model0001a5cc(model, part0, 0);
 				rodata = &part0->rodata->gunfire;
@@ -11599,7 +11599,7 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 	u32 stack3;
 
 	if (prop->type != PROPTYPE_PLAYER || g_Vars.normmplayerisrunning || chrGetShield(chr) > 0) {
-		if (prop->flags & (PROPFLAG_ONSCREEN | PROPFLAG_40 | PROPFLAG_80)) {
+		if (prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) {
 			bestnode = NULL;
 			bestvolume = MAXFLOAT;
 			lVar4 = func0f0b5050(chr->model->matrices);
@@ -22454,7 +22454,7 @@ void chrTickGoPos(struct chrdata *chr)
 
 	// Check if chr needs to exit magic mode
 	if (chr->act_gopos.waydata.mode == WAYMODE_MAGIC) {
-		if ((!enteringmagic && ((prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_ONSCREEN)) || !func0f036c08(chr, &curwppos, curwprooms)))
+		if ((!enteringmagic && ((prop->flags & (PROPFLAG_ONANYSCREENPREVTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONTHISSCREENTHISTICK)) || !func0f036c08(chr, &curwppos, curwprooms)))
 				|| (curwpflags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))
 				|| chr->inlift) {
 			// Exiting magic mode
@@ -22699,7 +22699,7 @@ void chrTickPatrol(struct chrdata *chr)
 	}
 
 	if (chr->act_patrol.waydata.mode == WAYMODE_MAGIC) {
-		if ((!enteringmagic && ((prop->flags & (PROPFLAG_ONSCREEN | PROPFLAG_40 | PROPFLAG_80)) || !func0f036c08(chr, &sp58, sp48)))
+		if ((!enteringmagic && ((prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) || !func0f036c08(chr, &sp58, sp48)))
 				|| (flags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))
 				|| chr->inlift) {
 			// Exit magic for lifts
@@ -24396,7 +24396,7 @@ glabel func0f048398
 //			}
 //
 //			// 698
-//			if (chr->prop->flags & PROPFLAG_80) {
+//			if (chr->prop->flags & PROPFLAG_ONANYSCREENPREVTICK) {
 //				// 6a0
 //				if (chr->actiontype != ACT_DEAD && chr->actiontype != ACT_DRUGGEDKO) {
 //					numalivewithpropflag80++;
@@ -24457,7 +24457,7 @@ glabel func0f048398
 //			if (chr->model) {
 //				if (chr->actiontype == ACT_DEAD
 //						|| (chr->actiontype == ACT_DRUGGEDKO && chr->prop && (chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0)) {
-//					if (chr->prop->flags & PROPFLAG_80) {
+//					if (chr->prop->flags & PROPFLAG_ONANYSCREENPREVTICK) {
 //						if (chr->act_dead.fadetimer60 < 0 && !chr->act_dead.fadenow) {
 //							numreapablewithpropflag80++;
 //

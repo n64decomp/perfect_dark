@@ -1188,7 +1188,7 @@ bool lvCheckCmpFollowThreat(struct threat *threat, s32 index)
 				}
 			}
 
-			if ((threat->prop->flags & PROPFLAG_ONSCREEN)
+			if ((threat->prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)
 					&& (chr->chrflags & CHRCFLAG_NOAUTOAIM) == 0) {
 				struct model *model = chr->model;
 				sp72 = -1;
@@ -1204,7 +1204,7 @@ bool lvCheckCmpFollowThreat(struct threat *threat, s32 index)
 			return false;
 		case PROPTYPE_OBJ:
 		case PROPTYPE_WEAPON:
-			if (threat->prop->flags & PROPFLAG_ONSCREEN) {
+			if (threat->prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 				struct defaultobj *obj = threat->prop->obj;
 				struct model *model = obj->model;
 				sp72 = -1;
@@ -1316,7 +1316,7 @@ void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerp
 	}
 
 	if (prop->obj
-			&& (prop->flags & PROPFLAG_ONSCREEN)
+			&& (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)
 			&& (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON)
 			&& condition) {
 		pass = false;
@@ -1437,7 +1437,7 @@ void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 
 
 	for (i = 0; i != 4; i++) {
 		if (g_Vars.currentplayer->cmpfollowprops[i].prop == prop
-				&& (prop->flags & PROPFLAG_ONSCREEN)) {
+				&& (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
 			model = NULL;
 
 			if (prop->type == PROPTYPE_OBJ
