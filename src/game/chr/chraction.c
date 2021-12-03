@@ -5160,70 +5160,30 @@ void chrDie(struct chrdata *chr, s32 aplayernum)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f03645c
-/*  f03645c:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f036460:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f036464:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f036468:	afa50054 */ 	sw	$a1,0x54($sp)
-/*  f03646c:	afa60058 */ 	sw	$a2,0x58($sp)
-/*  f036470:	afa7005c */ 	sw	$a3,0x5c($sp)
-/*  f036474:	afa0004c */ 	sw	$zero,0x4c($sp)
-/*  f036478:	8c84001c */ 	lw	$a0,0x1c($a0)
-/*  f03647c:	27a70044 */ 	addiu	$a3,$sp,0x44
-/*  f036480:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f036484:	27a50040 */ 	addiu	$a1,$sp,0x40
-/*  f036488:	0fc0a277 */ 	jal	propChrGetBbox
-/*  f03648c:	afa4002c */ 	sw	$a0,0x2c($sp)
-/*  f036490:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f036494:	0fc079ef */ 	jal	chrSetPerimEnabled
-/*  f036498:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03649c:	8faf0064 */ 	lw	$t7,0x64($sp)
-/*  f0364a0:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*  f0364a4:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f0364a8:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f0364ac:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0364b0:	c720000c */ 	lwc1	$f0,0xc($t9)
-/*  f0364b4:	c7a40048 */ 	lwc1	$f4,0x48($sp)
-/*  f0364b8:	c7a80044 */ 	lwc1	$f8,0x44($sp)
-/*  f0364bc:	8fa40054 */ 	lw	$a0,0x54($sp)
-/*  f0364c0:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f0364c4:	8fa50058 */ 	lw	$a1,0x58($sp)
-/*  f0364c8:	8fa6005c */ 	lw	$a2,0x5c($sp)
-/*  f0364cc:	46004281 */ 	sub.s	$f10,$f8,$f0
-/*  f0364d0:	e7a60018 */ 	swc1	$f6,0x18($sp)
-/*  f0364d4:	27a70030 */ 	addiu	$a3,$sp,0x30
-/*  f0364d8:	0c00b610 */ 	jal	cd0002d840
-/*  f0364dc:	e7aa001c */ 	swc1	$f10,0x1c($sp)
-/*  f0364e0:	10400012 */ 	beqz	$v0,.L0f03652c
-/*  f0364e4:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0364e8:	8fa9002c */ 	lw	$t1,0x2c($sp)
-/*  f0364ec:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f0364f0:	c7b00048 */ 	lwc1	$f16,0x48($sp)
-/*  f0364f4:	c520000c */ 	lwc1	$f0,0xc($t1)
-/*  f0364f8:	c7a40044 */ 	lwc1	$f4,0x44($sp)
-/*  f0364fc:	8fa4005c */ 	lw	$a0,0x5c($sp)
-/*  f036500:	46008481 */ 	sub.s	$f18,$f16,$f0
-/*  f036504:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*  f036508:	8fa60060 */ 	lw	$a2,0x60($sp)
-/*  f03650c:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f036510:	e7b20014 */ 	swc1	$f18,0x14($sp)
-/*  f036514:	8fa70064 */ 	lw	$a3,0x64($sp)
-/*  f036518:	0c00b5ab */ 	jal	cd0002d6ac
-/*  f03651c:	e7a60018 */ 	swc1	$f6,0x18($sp)
-/*  f036520:	10400002 */ 	beqz	$v0,.L0f03652c
-/*  f036524:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f036528:	afaa004c */ 	sw	$t2,0x4c($sp)
-.L0f03652c:
-/*  f03652c:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f036530:	0fc079ef */ 	jal	chrSetPerimEnabled
-/*  f036534:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f036538:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f03653c:	8fa2004c */ 	lw	$v0,0x4c($sp)
-/*  f036540:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f036544:	03e00008 */ 	jr	$ra
-/*  f036548:	00000000 */ 	nop
-);
+bool func0f03645c(struct chrdata *chr, struct coord *arg1, s16 *arg2, struct coord *arg3, struct coord *arg4, s32 arg5)
+{
+	bool result = false;
+	f32 ymax;
+	f32 ymin;
+	f32 width;
+	u32 stack[3];
+	s16 sp32;
+	s16 sp30;
+	struct prop *prop = chr->prop;
+
+	propChrGetBbox(prop, &width, &ymax, &ymin);
+	chrSetPerimEnabled(chr, false);
+
+	if (cd0002d840(arg1, arg2, arg3, &sp30, arg5, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
+		if (cd0002d6ac(arg3, &sp30, arg4, arg5, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
+			result = true;
+		}
+	}
+
+	chrSetPerimEnabled(chr, true);
+
+	return result;
+}
 
 bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, struct coord *vector, f32 arg6, u32 types)
 {

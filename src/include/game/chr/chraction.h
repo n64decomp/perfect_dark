@@ -66,7 +66,7 @@ void chrDamageByImpact(struct chrdata *chr, f32 damage, struct coord *vector, st
 void chrDamageByExplosion(struct chrdata *chr, f32 damage, struct coord *vector, struct prop *prop, struct coord *explosionpos);
 void playerUpdateDamageStats(struct prop *attacker, struct prop *victim, f32 damage);
 void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *aprop, s32 hitpart, bool damageshield, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, s16 *arg11, bool explosion, struct coord *explosionpos);
-u32 func0f03645c(void);
+bool func0f03645c(struct chrdata *chr, struct coord *arg1, s16 *arg2, struct coord *arg3, struct coord *arg4, s32 arg5);
 bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, struct coord *vector, f32 arg6, u32 types);
 bool propchrHasClearLineToPos(struct prop *prop, struct coord *dstpos, struct coord *vector);
 bool propchrHasClearLineInVector(struct prop *prop, struct coord *coord, f32 arg2);
