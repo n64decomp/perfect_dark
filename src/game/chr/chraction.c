@@ -25934,7 +25934,6 @@ bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, b
  * triggered, but the function will not attempt to spawn the chr until the next
  * time it's called.
  */
-#if VERSION >= VERSION_NTSC_1_0
 struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *rooms, f32 angle, u8 *ailist, u32 spawnflags)
 {
 	struct prop *prop;
@@ -25994,10 +25993,22 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 	if (getNumFreeChrSlots() < 4) {
 #if VERSION >= VERSION_NTSC_1_0
 		s32 stack2;
+		struct chrdata *replacechr;
+		s32 startindex;
+		s32 index;
+#else
+		s32 startindex;
+		struct chrdata *replacechr;
+		s32 index;
 #endif
-		struct chrdata *replacechr = NULL;
-		s32 startindex = random() % g_NumChrSlots;
-		s32 index = startindex;
+
+		replacechr = NULL;
+		startindex = random() % g_NumChrSlots;
+		index = startindex;
+
+#if VERSION < VERSION_NTSC_1_0
+		if (startindex);
+#endif
 
 		do {
 			if (g_ChrSlots[index].chrnum >= 0 && g_ChrSlots[index].model && g_ChrSlots[index].prop) {
@@ -26033,172 +26044,6 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 
 	return NULL;
 }
-#else
-GLOBAL_ASM(
-glabel chrSpawnAtCoord
-/*  f04a594:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f04a598:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f04a59c:	afa40068 */ 	sw	$a0,0x68($sp)
-/*  f04a5a0:	afa5006c */ 	sw	$a1,0x6c($sp)
-/*  f04a5a4:	afa60070 */ 	sw	$a2,0x70($sp)
-/*  f04a5a8:	0fc0801f */ 	jal	getNumFreeChrSlots
-/*  f04a5ac:	afa70074 */ 	sw	$a3,0x74($sp)
-/*  f04a5b0:	28410002 */ 	slti	$at,$v0,0x2
-/*  f04a5b4:	14200049 */ 	bnez	$at,.NB0f04a6dc
-/*  f04a5b8:	8fa30070 */ 	lw	$v1,0x70($sp)
-/*  f04a5bc:	8fae006c */ 	lw	$t6,0x6c($sp)
-/*  f04a5c0:	05c30006 */ 	bgezl	$t6,.NB0f04a5dc
-/*  f04a5c4:	c4640000 */ 	lwc1	$f4,0x0($v1)
-/*  f04a5c8:	0fc0b36d */ 	jal	bodyChooseHead
-/*  f04a5cc:	8fa40068 */ 	lw	$a0,0x68($sp)
-/*  f04a5d0:	8fa30070 */ 	lw	$v1,0x70($sp)
-/*  f04a5d4:	afa2006c */ 	sw	$v0,0x6c($sp)
-/*  f04a5d8:	c4640000 */ 	lwc1	$f4,0x0($v1)
-.NB0f04a5dc:
-/*  f04a5dc:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*  f04a5e0:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*  f04a5e4:	e7a40058 */ 	swc1	$f4,0x58($sp)
-/*  f04a5e8:	c4660004 */ 	lwc1	$f6,0x4($v1)
-/*  f04a5ec:	e7a6005c */ 	swc1	$f6,0x5c($sp)
-/*  f04a5f0:	c4680008 */ 	lwc1	$f8,0x8($v1)
-/*  f04a5f4:	0fc19283 */ 	jal	roomsCopy
-/*  f04a5f8:	e7a80060 */ 	swc1	$f8,0x60($sp)
-/*  f04a5fc:	8faf0080 */ 	lw	$t7,0x80($sp)
-/*  f04a600:	3c0141a0 */ 	lui	$at,0x41a0
-/*  f04a604:	44816000 */ 	mtc1	$at,$f12
-/*  f04a608:	31f80010 */ 	andi	$t8,$t7,0x10
-/*  f04a60c:	0018c82b */ 	sltu	$t9,$zero,$t8
-/*  f04a610:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f04a614:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f04a618:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f04a61c:	8fa70078 */ 	lw	$a3,0x78($sp)
-/*  f04a620:	0fc128dd */ 	jal	chrAdjustPosForSpawn
-/*  f04a624:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f04a628:	1040002c */ 	beqz	$v0,.NB0f04a6dc
-/*  f04a62c:	8fa40068 */ 	lw	$a0,0x68($sp)
-/*  f04a630:	8fa5006c */ 	lw	$a1,0x6c($sp)
-/*  f04a634:	0fc0b343 */ 	jal	modelAllocateChr
-/*  f04a638:	8fa60080 */ 	lw	$a2,0x80($sp)
-/*  f04a63c:	10400027 */ 	beqz	$v0,.NB0f04a6dc
-/*  f04a640:	00402025 */ 	or	$a0,$v0,$zero
-/*  f04a644:	8fab007c */ 	lw	$t3,0x7c($sp)
-/*  f04a648:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f04a64c:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f04a650:	8fa70078 */ 	lw	$a3,0x78($sp)
-/*  f04a654:	afa20040 */ 	sw	$v0,0x40($sp)
-/*  f04a658:	0fc08202 */ 	jal	propAllocateChr
-/*  f04a65c:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f04a660:	1040001c */ 	beqz	$v0,.NB0f04a6d4
-/*  f04a664:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*  f04a668:	00402025 */ 	or	$a0,$v0,$zero
-/*  f04a66c:	0fc17dfe */ 	jal	propActivateThisFrame
-/*  f04a670:	afa20064 */ 	sw	$v0,0x64($sp)
-/*  f04a674:	0fc17d6c */ 	jal	propEnable
-/*  f04a678:	8fa40064 */ 	lw	$a0,0x64($sp)
-/*  f04a67c:	8fac0064 */ 	lw	$t4,0x64($sp)
-/*  f04a680:	8fad006c */ 	lw	$t5,0x6c($sp)
-/*  f04a684:	8d830004 */ 	lw	$v1,0x4($t4)
-/*  f04a688:	a06d0006 */ 	sb	$t5,0x6($v1)
-/*  f04a68c:	8fae0068 */ 	lw	$t6,0x68($sp)
-/*  f04a690:	a46e0010 */ 	sh	$t6,0x10($v1)
-/*  f04a694:	84640010 */ 	lh	$a0,0x10($v1)
-/*  f04a698:	0fc0b1e0 */ 	jal	bodyGetRace
-/*  f04a69c:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f04a6a0:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f04a6a4:	a06202fe */ 	sb	$v0,0x2fe($v1)
-/*  f04a6a8:	ac600114 */ 	sw	$zero,0x114($v1)
-/*  f04a6ac:	ac600118 */ 	sw	$zero,0x118($v1)
-/*  f04a6b0:	8faf0080 */ 	lw	$t7,0x80($sp)
-/*  f04a6b4:	31f82000 */ 	andi	$t8,$t7,0x2000
-/*  f04a6b8:	13000004 */ 	beqz	$t8,.NB0f04a6cc
-/*  f04a6bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a6c0:	906b032e */ 	lbu	$t3,0x32e($v1)
-/*  f04a6c4:	356c0010 */ 	ori	$t4,$t3,0x10
-/*  f04a6c8:	a06c032e */ 	sb	$t4,0x32e($v1)
-.NB0f04a6cc:
-/*  f04a6cc:	10000042 */ 	beqz	$zero,.NB0f04a7d8
-/*  f04a6d0:	8fa20064 */ 	lw	$v0,0x64($sp)
-.NB0f04a6d4:
-/*  f04a6d4:	0fc2c38b */ 	jal	modelFree
-/*  f04a6d8:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f04a6dc:
-/*  f04a6dc:	0fc0801f */ 	jal	getNumFreeChrSlots
-/*  f04a6e0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a6e4:	28410004 */ 	slti	$at,$v0,0x4
-/*  f04a6e8:	5020003b */ 	beqzl	$at,.NB0f04a7d8
-/*  f04a6ec:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04a6f0:	0c004d84 */ 	jal	random
-/*  f04a6f4:	afa00034 */ 	sw	$zero,0x34($sp)
-/*  f04a6f8:	3c0a8006 */ 	lui	$t2,0x8006
-/*  f04a6fc:	8d4a4e9c */ 	lw	$t2,0x4e9c($t2)
-/*  f04a700:	3c058006 */ 	lui	$a1,0x8006
-/*  f04a704:	8fa60034 */ 	lw	$a2,0x34($sp)
-/*  f04a708:	004a001b */ 	divu	$zero,$v0,$t2
-/*  f04a70c:	00004810 */ 	mfhi	$t1
-/*  f04a710:	01202025 */ 	or	$a0,$t1,$zero
-/*  f04a714:	8ca54e98 */ 	lw	$a1,0x4e98($a1)
-/*  f04a718:	24080005 */ 	addiu	$t0,$zero,0x5
-/*  f04a71c:	24070368 */ 	addiu	$a3,$zero,0x368
-/*  f04a720:	15400002 */ 	bnez	$t2,.NB0f04a72c
-/*  f04a724:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a728:	0007000d */ 	break	0x7
-.NB0f04a72c:
-/*  f04a72c:	00870019 */ 	multu	$a0,$a3
-/*  f04a730:	248b0001 */ 	addiu	$t3,$a0,0x1
-/*  f04a734:	00001812 */ 	mflo	$v1
-/*  f04a738:	00a31021 */ 	addu	$v0,$a1,$v1
-/*  f04a73c:	844d0000 */ 	lh	$t5,0x0($v0)
-/*  f04a740:	05a00013 */ 	bltz	$t5,.NB0f04a790
-/*  f04a744:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a748:	8c4e0020 */ 	lw	$t6,0x20($v0)
-/*  f04a74c:	11c00010 */ 	beqz	$t6,.NB0f04a790
-/*  f04a750:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a754:	8c4f001c */ 	lw	$t7,0x1c($v0)
-/*  f04a758:	11e0000d */ 	beqz	$t7,.NB0f04a790
-/*  f04a75c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a760:	80580007 */ 	lb	$t8,0x7($v0)
-/*  f04a764:	1518000a */ 	bne	$t0,$t8,.NB0f04a790
-/*  f04a768:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a76c:	8c590034 */ 	lw	$t9,0x34($v0)
-/*  f04a770:	2b210078 */ 	slti	$at,$t9,0x78
-/*  f04a774:	14200003 */ 	bnez	$at,.NB0f04a784
-/*  f04a778:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a77c:	10000011 */ 	beqz	$zero,.NB0f04a7c4
-/*  f04a780:	00653021 */ 	addu	$a2,$v1,$a1
-.NB0f04a784:
-/*  f04a784:	14c00002 */ 	bnez	$a2,.NB0f04a790
-/*  f04a788:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a78c:	00653021 */ 	addu	$a2,$v1,$a1
-.NB0f04a790:
-/*  f04a790:	016a001a */ 	div	$zero,$t3,$t2
-/*  f04a794:	00002010 */ 	mfhi	$a0
-/*  f04a798:	15400002 */ 	bnez	$t2,.NB0f04a7a4
-/*  f04a79c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a7a0:	0007000d */ 	break	0x7
-.NB0f04a7a4:
-/*  f04a7a4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f04a7a8:	15410004 */ 	bne	$t2,$at,.NB0f04a7bc
-/*  f04a7ac:	3c018000 */ 	lui	$at,0x8000
-/*  f04a7b0:	15610002 */ 	bne	$t3,$at,.NB0f04a7bc
-/*  f04a7b4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a7b8:	0006000d */ 	break	0x6
-.NB0f04a7bc:
-/*  f04a7bc:	1489ffdb */ 	bne	$a0,$t1,.NB0f04a72c
-/*  f04a7c0:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f04a7c4:
-/*  f04a7c4:	10c00003 */ 	beqz	$a2,.NB0f04a7d4
-/*  f04a7c8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f04a7cc:	acc20030 */ 	sw	$v0,0x30($a2)
-/*  f04a7d0:	acc2002c */ 	sw	$v0,0x2c($a2)
-.NB0f04a7d4:
-/*  f04a7d4:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f04a7d8:
-/*  f04a7d8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f04a7dc:	27bd0068 */ 	addiu	$sp,$sp,0x68
-/*  f04a7e0:	03e00008 */ 	jr	$ra
-/*  f04a7e4:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
 
 struct prop *chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_id, u8 *ailist, u32 spawnflags)
 {
