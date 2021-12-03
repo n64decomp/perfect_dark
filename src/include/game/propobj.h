@@ -349,7 +349,7 @@ void alarmTick(void);
 void func0f091030(void);
 void currentPlayerDropAllItems(void);
 void weaponCreateForPlayerDrop(s32 weaponnum);
-void projectileCreate(struct prop *fromprop, u32 arg1, struct coord *pos, struct coord *direction, s32 weaponnum, struct prop *targetprop);
+void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct coord *pos, struct coord *direction, s32 weaponnum, struct prop *targetprop);
 void objSetModelPartVisible(struct defaultobj *obj, s32 partnum, bool visible);
 
 #endif

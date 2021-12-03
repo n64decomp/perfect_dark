@@ -146,8 +146,8 @@ void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, struct gs
 bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2);
 void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord *vector, struct modelnode **node, s32 *hitpart, struct model **model, s32 *side);
 void func0f04031c(struct coord *coord, f32 arg1, struct coord *coord2, f32 *arg3);
-u32 func0f0404d4(void);
-u32 func0f041a74(void);
+void func0f0404d4(struct chrdata *chr, s32 arg1);
+void func0f041a74(struct chrdata *chr);
 bool func0f041c44(struct chrdata *chr);
 void chrAttackAmountUpdateAnimation(struct chrdata *chr);
 void chrTickFire(struct chrdata *chr);
