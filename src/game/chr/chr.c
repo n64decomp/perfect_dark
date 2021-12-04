@@ -16032,70 +16032,39 @@ s32 func0f02932c(struct prop *prop, s32 arg1)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f0293ec
-/*  f0293ec:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0293f0:	afa40040 */ 	sw	$a0,0x40($sp)
-/*  f0293f4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0293f8:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f0293fc:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f029400:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f029404:	27ae002c */ 	addiu	$t6,$sp,0x2c
-/*  f029408:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f02940c:	8fa50040 */ 	lw	$a1,0x40($sp)
-/*  f029410:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f029414:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*  f029418:	0fc0a39b */ 	jal	func0f028e6c
-/*  f02941c:	27a70030 */ 	addiu	$a3,$sp,0x30
-/*  f029420:	10400025 */ 	beqz	$v0,.L0f0294b8
-/*  f029424:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f029428:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f02942c:	50800023 */ 	beqzl	$a0,.L0f0294bc
-/*  f029430:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f029434:	0c0069f3 */ 	jal	model0001a7cc
-/*  f029438:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f02943c:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f029440:	10400007 */ 	beqz	$v0,.L0f029460
-/*  f029444:	00402825 */ 	or	$a1,$v0,$zero
-/*  f029448:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*  f02944c:	8fa6002c */ 	lw	$a2,0x2c($sp)
-/*  f029450:	0fc0a386 */ 	jal	func0f028e18
-/*  f029454:	8fa70040 */ 	lw	$a3,0x40($sp)
-/*  f029458:	10000017 */ 	b	.L0f0294b8
-/*  f02945c:	00401825 */ 	or	$v1,$v0,$zero
-.L0f029460:
-/*  f029460:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*  f029464:	8de4001c */ 	lw	$a0,0x1c($t7)
-/*  f029468:	50800014 */ 	beqzl	$a0,.L0f0294bc
-/*  f02946c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f029470:	8c860018 */ 	lw	$a2,0x18($a0)
-.L0f029474:
-/*  f029474:	8fb8002c */ 	lw	$t8,0x2c($sp)
-/*  f029478:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*  f02947c:	8cd90018 */ 	lw	$t9,0x18($a2)
-/*  f029480:	5719000b */ 	bnel	$t8,$t9,.L0f0294b0
-/*  f029484:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f029488:	8cc9001c */ 	lw	$t1,0x1c($a2)
-/*  f02948c:	55090008 */ 	bnel	$t0,$t1,.L0f0294b0
-/*  f029490:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f029494:	8cca0008 */ 	lw	$t2,0x8($a2)
-/*  f029498:	8fa70040 */ 	lw	$a3,0x40($sp)
-/*  f02949c:	0fc0a386 */ 	jal	func0f028e18
-/*  f0294a0:	8d450000 */ 	lw	$a1,0x0($t2)
-/*  f0294a4:	10000004 */ 	b	.L0f0294b8
-/*  f0294a8:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0294ac:	8c840020 */ 	lw	$a0,0x20($a0)
-.L0f0294b0:
-/*  f0294b0:	5480fff0 */ 	bnezl	$a0,.L0f029474
-/*  f0294b4:	8c860018 */ 	lw	$a2,0x18($a0)
-.L0f0294b8:
-/*  f0294b8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0294bc:
-/*  f0294bc:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f0294c0:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0294c4:	03e00008 */ 	jr	$ra
-/*  f0294c8:	00000000 */ 	nop
-);
+s32 func0f0293ec(struct prop *prop, s32 cmnum)
+{
+	s32 result = -1;
+	struct modelnode *node2;
+	struct prop *prop2;
+	struct modelnode *node;
+	struct model *model;
+
+	if (func0f028e6c(cmnum, prop, &prop2, &node, &model) && node) {
+		node2 = model0001a7cc(node);
+
+		if (node2) {
+			result = func0f028e18(prop2, node2, model, prop);
+		} else {
+			struct prop *child = prop2->child;
+
+			while (child) {
+				struct model *parentmodel = child->parentmodel;
+
+				if (model == parentmodel->attachedtomodel) {
+					if (node == parentmodel->attachedtonode) {
+						result = func0f028e18(child, parentmodel->filedata->rootnode, parentmodel, prop);
+						break;
+					}
+				}
+
+				child = child->next;
+			}
+		}
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f0294cc

@@ -421,7 +421,10 @@ struct prop {
 
 	/*0x08*/ struct coord pos;
 	/*0x14*/ f32 z;
-	/*0x18*/ struct prop *parent;
+	union {
+		/*0x18*/ struct prop *parent;
+		/*0x18*/ struct model *parentmodel;
+	};
 	/*0x1c*/ struct prop *child;
 	/*0x20*/ struct prop *next;
 	/*0x24*/ struct prop *prev;
