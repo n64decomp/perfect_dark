@@ -22784,7 +22784,6 @@ u32 var80068454 = 0;
 #endif
 
 s32 var80068458 = 0;
-u32 var8006845c = 0x01020408;
 
 #if PAL
 GLOBAL_ASM(
@@ -27806,79 +27805,53 @@ glabel var7f1a942c
 //	return true;
 //}
 
-GLOBAL_ASM(
-glabel rebuildTeams
-/*  f04cc04:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f04cc08:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04cc0c:	0fc07934 */ 	jal	getNumChrSlots
-/*  f04cc10:	00000000 */ 	nop
-/*  f04cc14:	3c0e8007 */ 	lui	$t6,%hi(var8006845c)
-/*  f04cc18:	25ce845c */ 	addiu	$t6,$t6,%lo(var8006845c)
-/*  f04cc1c:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f04cc20:	27ab0024 */ 	addiu	$t3,$sp,0x24
-/*  f04cc24:	3c0c8006 */ 	lui	$t4,%hi(g_ChrSlots)
-/*  f04cc28:	ad610000 */ 	sw	$at,0x0($t3)
-/*  f04cc2c:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f04cc30:	3c098006 */ 	lui	$t1,%hi(g_TeamList)
-/*  f04cc34:	00405025 */ 	or	$t2,$v0,$zero
-/*  f04cc38:	24070007 */ 	addiu	$a3,$zero,0x7
-/*  f04cc3c:	25297e64 */ 	addiu	$t1,$t1,%lo(g_TeamList)
-/*  f04cc40:	258c2988 */ 	addiu	$t4,$t4,%lo(g_ChrSlots)
-/*  f04cc44:	00004025 */ 	or	$t0,$zero,$zero
-/*  f04cc48:	241f0008 */ 	addiu	$ra,$zero,0x8
-/*  f04cc4c:	240dfffe */ 	addiu	$t5,$zero,-2
-/*  f04cc50:	ad790004 */ 	sw	$t9,0x4($t3)
-.L0f04cc54:
-/*  f04cc54:	11000005 */ 	beqz	$t0,.L0f04cc6c
-/*  f04cc58:	00003025 */ 	or	$a2,$zero,$zero
-/*  f04cc5c:	8d380000 */ 	lw	$t8,0x0($t1)
-/*  f04cc60:	00087840 */ 	sll	$t7,$t0,0x1
-/*  f04cc64:	030f7021 */ 	addu	$t6,$t8,$t7
-/*  f04cc68:	a5c7fffe */ 	sh	$a3,-0x2($t6)
-.L0f04cc6c:
-/*  f04cc6c:	18400015 */ 	blez	$v0,.L0f04ccc4
-/*  f04cc70:	00001825 */ 	or	$v1,$zero,$zero
-.L0f04cc74:
-/*  f04cc74:	8d990000 */ 	lw	$t9,0x0($t4)
-/*  f04cc78:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f04cc7c:	0168c021 */ 	addu	$t8,$t3,$t0
-/*  f04cc80:	00792021 */ 	addu	$a0,$v1,$t9
-/*  f04cc84:	84850000 */ 	lh	$a1,0x0($a0)
-/*  f04cc88:	04a0000c */ 	bltz	$a1,.L0f04ccbc
-/*  f04cc8c:	00000000 */ 	nop
-/*  f04cc90:	930f0000 */ 	lbu	$t7,0x0($t8)
-/*  f04cc94:	908e0125 */ 	lbu	$t6,0x125($a0)
-/*  f04cc98:	01eec824 */ 	and	$t9,$t7,$t6
-/*  f04cc9c:	13200007 */ 	beqz	$t9,.L0f04ccbc
-/*  f04cca0:	00077840 */ 	sll	$t7,$a3,0x1
-/*  f04cca4:	8d380000 */ 	lw	$t8,0x0($t1)
-/*  f04cca8:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f04ccac:	0007cc00 */ 	sll	$t9,$a3,0x10
-/*  f04ccb0:	030f7021 */ 	addu	$t6,$t8,$t7
-/*  f04ccb4:	a5c50000 */ 	sh	$a1,0x0($t6)
-/*  f04ccb8:	00193c03 */ 	sra	$a3,$t9,0x10
-.L0f04ccbc:
-/*  f04ccbc:	14caffed */ 	bne	$a2,$t2,.L0f04cc74
-/*  f04ccc0:	24630368 */ 	addiu	$v1,$v1,0x368
-.L0f04ccc4:
-/*  f04ccc4:	00077040 */ 	sll	$t6,$a3,0x1
-/*  f04ccc8:	8d2f0000 */ 	lw	$t7,0x0($t1)
-/*  f04cccc:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f04ccd0:	0007c400 */ 	sll	$t8,$a3,0x10
-/*  f04ccd4:	00183c03 */ 	sra	$a3,$t8,0x10
-/*  f04ccd8:	28e10108 */ 	slti	$at,$a3,0x108
-/*  f04ccdc:	01eec821 */ 	addu	$t9,$t7,$t6
-/*  f04cce0:	10200004 */ 	beqz	$at,.L0f04ccf4
-/*  f04cce4:	a72d0000 */ 	sh	$t5,0x0($t9)
-/*  f04cce8:	25080001 */ 	addiu	$t0,$t0,0x1
-/*  f04ccec:	151fffd9 */ 	bne	$t0,$ra,.L0f04cc54
-/*  f04ccf0:	00000000 */ 	nop
-.L0f04ccf4:
-/*  f04ccf4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04ccf8:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f04ccfc:	03e00008 */ 	jr	$ra
-/*  f04cd00:	00000000 */ 	nop
-);
+/**
+ * Chrs are assigned to teams, and they can be assigned to more than one.
+ * The team assignments determine if a chr considers another chr to be friendly
+ * or not.
+ *
+ * The chr->team value is a bitmask of which teams they belong to. There are 8
+ * teams total. Each team supports up to 32 chrs. If a team is overallocated
+ * then the overallocated chrs won't be registered in the team list and won't
+ * be considered to be part of the team. This means they may attack each other.
+ *
+ * The team list is an array of 264 shorts. The first 7 are indexes into
+ * the same list which mark the start of each team. Team 0 does not have
+ * an entry in this list because it always starts at offset 7.
+ *
+ * Elements 7 onwards are chrnums. Each team is terminated with -2.
+ */
+void rebuildTeams(void)
+{
+	s32 numchrs = getNumChrSlots();
+	s16 index = 7;
+	s32 team;
+	s32 i;
+	struct chrdata *chr;
+	u8 teammasks[] = { 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80 };
+
+	for (team = 0; team < 8; team++) {
+		if (team != 0) {
+			g_TeamList[team - 1] = index;
+		}
+
+		for (i = 0; i < numchrs; i++) {
+			chr = &g_ChrSlots[i];
+
+			if (chr->chrnum >= 0 && (chr->team & teammasks[team])) {
+				g_TeamList[index] = chr->chrnum;
+				index++;
+			}
+		}
+
+		g_TeamList[index] = -2;
+		index++;
+
+		if (index >= 8 * 33) {
+			break;
+		}
+	}
+}
 
 /**
  * Chrs are partitioned into squadrons for AI scripting purposes, where their
@@ -27924,8 +27897,6 @@ void rebuildSquadrons(void)
 		}
 	}
 }
-
-u32 var80068460 = 0x10204080;
 
 s16 *teamGetChrIds(s32 team_id)
 {
