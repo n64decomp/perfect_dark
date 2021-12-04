@@ -27880,79 +27880,50 @@ glabel rebuildTeams
 /*  f04cd00:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel rebuildSquadrons
-/*  f04cd04:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f04cd08:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f04cd0c:	0fc07934 */ 	jal	getNumChrSlots
-/*  f04cd10:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f04cd14:	3c0c8006 */ 	lui	$t4,%hi(g_ChrSlots)
-/*  f04cd18:	3c0a8006 */ 	lui	$t2,%hi(g_SquadronList)
-/*  f04cd1c:	00405825 */ 	or	$t3,$v0,$zero
-/*  f04cd20:	2408000f */ 	addiu	$t0,$zero,0xf
-/*  f04cd24:	254a7e68 */ 	addiu	$t2,$t2,%lo(g_SquadronList)
-/*  f04cd28:	258c2988 */ 	addiu	$t4,$t4,%lo(g_ChrSlots)
-/*  f04cd2c:	00004825 */ 	or	$t1,$zero,$zero
-/*  f04cd30:	24100010 */ 	addiu	$s0,$zero,0x10
-/*  f04cd34:	241ffffe */ 	addiu	$ra,$zero,-2
-/*  f04cd38:	240d0006 */ 	addiu	$t5,$zero,0x6
-.L0f04cd3c:
-/*  f04cd3c:	11200005 */ 	beqz	$t1,.L0f04cd54
-/*  f04cd40:	00003825 */ 	or	$a3,$zero,$zero
-/*  f04cd44:	8d4e0000 */ 	lw	$t6,0x0($t2)
-/*  f04cd48:	00097840 */ 	sll	$t7,$t1,0x1
-/*  f04cd4c:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f04cd50:	a708fffe */ 	sh	$t0,-0x2($t8)
-.L0f04cd54:
-/*  f04cd54:	18400019 */ 	blez	$v0,.L0f04cdbc
-/*  f04cd58:	00002825 */ 	or	$a1,$zero,$zero
-.L0f04cd5c:
-/*  f04cd5c:	8d990000 */ 	lw	$t9,0x0($t4)
-/*  f04cd60:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f04cd64:	00b91821 */ 	addu	$v1,$a1,$t9
-/*  f04cd68:	84660000 */ 	lh	$a2,0x0($v1)
-/*  f04cd6c:	04c00011 */ 	bltz	$a2,.L0f04cdb4
-/*  f04cd70:	00000000 */ 	nop
-/*  f04cd74:	906e02a2 */ 	lbu	$t6,0x2a2($v1)
-/*  f04cd78:	152e000e */ 	bne	$t1,$t6,.L0f04cdb4
-/*  f04cd7c:	00000000 */ 	nop
-/*  f04cd80:	8c64001c */ 	lw	$a0,0x1c($v1)
-/*  f04cd84:	0008c840 */ 	sll	$t9,$t0,0x1
-/*  f04cd88:	50800005 */ 	beqzl	$a0,.L0f04cda0
-/*  f04cd8c:	8d580000 */ 	lw	$t8,0x0($t2)
-/*  f04cd90:	908f0000 */ 	lbu	$t7,0x0($a0)
-/*  f04cd94:	11af0007 */ 	beq	$t5,$t7,.L0f04cdb4
-/*  f04cd98:	00000000 */ 	nop
-/*  f04cd9c:	8d580000 */ 	lw	$t8,0x0($t2)
-.L0f04cda0:
-/*  f04cda0:	25080001 */ 	addiu	$t0,$t0,0x1
-/*  f04cda4:	00087c00 */ 	sll	$t7,$t0,0x10
-/*  f04cda8:	03197021 */ 	addu	$t6,$t8,$t9
-/*  f04cdac:	a5c60000 */ 	sh	$a2,0x0($t6)
-/*  f04cdb0:	000f4403 */ 	sra	$t0,$t7,0x10
-.L0f04cdb4:
-/*  f04cdb4:	14ebffe9 */ 	bne	$a3,$t3,.L0f04cd5c
-/*  f04cdb8:	24a50368 */ 	addiu	$a1,$a1,0x368
-.L0f04cdbc:
-/*  f04cdbc:	00087040 */ 	sll	$t6,$t0,0x1
-/*  f04cdc0:	8d590000 */ 	lw	$t9,0x0($t2)
-/*  f04cdc4:	25080001 */ 	addiu	$t0,$t0,0x1
-/*  f04cdc8:	0008c400 */ 	sll	$t8,$t0,0x10
-/*  f04cdcc:	00184403 */ 	sra	$t0,$t8,0x10
-/*  f04cdd0:	29010110 */ 	slti	$at,$t0,0x110
-/*  f04cdd4:	032e7821 */ 	addu	$t7,$t9,$t6
-/*  f04cdd8:	10200004 */ 	beqz	$at,.L0f04cdec
-/*  f04cddc:	a5ff0000 */ 	sh	$ra,0x0($t7)
-/*  f04cde0:	25290001 */ 	addiu	$t1,$t1,0x1
-/*  f04cde4:	1530ffd5 */ 	bne	$t1,$s0,.L0f04cd3c
-/*  f04cde8:	00000000 */ 	nop
-.L0f04cdec:
-/*  f04cdec:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f04cdf0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f04cdf4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f04cdf8:	03e00008 */ 	jr	$ra
-/*  f04cdfc:	00000000 */ 	nop
-);
+/**
+ * Chrs are partitioned into squadrons for AI scripting purposes, where their
+ * squadron number is in the range 0-15. Each squadron supports up to 16 chrs.
+ * If a squadron is overallocated then the overallocated chrs won't be
+ * registered in the squadron list and won't be considered to be part of the
+ * squadron.
+ *
+ * The squadron list is an array of 272 shorts. The first 15 are indexes into
+ * the same list which mark the start of each squadron. Squadron 0 does not have
+ * an entry in this list because it always starts at offset 15.
+ *
+ * Elements 15 onwards are chrnums. Each squadron is terminated with -2.
+ */
+void rebuildSquadrons(void)
+{
+	s32 numchrs = getNumChrSlots();
+	s16 index = 15;
+	s32 squadron;
+	s32 i;
+
+	for (squadron = 0; squadron < 16; squadron++) {
+		if (squadron != 0) {
+			g_SquadronList[squadron - 1] = index;
+		}
+
+		for (i = 0; i < numchrs; i++) {
+			struct chrdata *chr = &g_ChrSlots[i];
+
+			if (chr->chrnum >= 0 && chr->squadron == squadron) {
+				if (chr->prop == NULL || chr->prop->type != PROPTYPE_PLAYER) {
+					g_SquadronList[index] = chr->chrnum;
+					index++;
+				}
+			}
+		}
+
+		g_SquadronList[index] = -2;
+		index++;
+
+		if (index >= 16 * 17) {
+			break;
+		}
+	}
+}
 
 u32 var80068460 = 0x10204080;
 
