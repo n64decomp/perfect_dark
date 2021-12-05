@@ -484,7 +484,7 @@
 #define CHRCFLAG_00000001                    0x00000001 // Villa takers, Attack Ship Cass and skedar - both set at end of intros
 #define CHRCFLAG_CLONEABLE                   0x00000002
 #define CHRCFLAG_NEAR_MISS                   0x00000004
-#define CHRCFLAG_NEVER_BEEN_ON_SCREEN        0x00000008
+#define CHRCFLAG_EVERONSCREEN                0x00000008
 #define CHRCFLAG_INVINCIBLE                  0x00000010
 #define CHRCFLAG_LOSEXTRAHEIGHT              0x00000020 // Chicago, Infiltration, AF1, Ruins, WAR
 #define CHRCFLAG_00000040                    0x00000040 // Used quite a lot
@@ -1122,6 +1122,7 @@
 #define HANGARBIO_MAIANVESSEL    21
 #define HANGARBIO_SKEDARSHUTTLE  22
 
+#define HATTYPE_2     2
 #define HATTYPE_METAL 3
 #define HATTYPE_CLOTH 5
 
@@ -2062,7 +2063,7 @@
 #define MODELPART_HAND_0035           0x0035 // toggle
 #define MODELPART_HAND_0036           0x0036 // toggle
 #define MODELPART_HEAD_SUNGLASSES     0x0000 // toggle
-#define MODELPART_HEAD_0001           0x0001 // toggle
+#define MODELPART_HEAD_HAT            0x0001 // toggle
 #define MODELPART_HEAD_EYESOPEN       0x0002 // toggle
 #define MODELPART_HEAD_EYESCLOSED     0x0003 // toggle
 #define MODELPART_HEAD_HUDPIECE       0x0004 // toggle
@@ -3244,7 +3245,7 @@
 #define PROPFLAG_01                   0x01
 #define PROPFLAG_ONTHISSCREENTHISTICK 0x02
 #define PROPFLAG_ENABLED              0x04
-#define PROPFLAG_08                   0x08
+#define PROPFLAG_NOTYETTICKED                   0x08
 #define PROPFLAG_DONTPAUSE            0x10
 #define PROPFLAG_20                   0x20
 #define PROPFLAG_ONANYSCREENTHISTICK  0x40

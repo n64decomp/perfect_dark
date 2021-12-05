@@ -40,10 +40,10 @@
 s16 *g_RoomPropListChunkIndexes;
 struct roomproplistchunk *g_RoomPropListChunks;
 struct prop *g_InteractProp;
-u32 var8009cdac;
+s32 var8009cdac;
 
 #if VERSION >= VERSION_NTSC_1_0
-u32 var8009cdb0;
+s32 var8009cdb0;
 u32 var8009cdb4;
 u32 var8009cdb8;
 u32 var8009cdbc;
@@ -1978,7 +1978,7 @@ glabel var7f1ab190pf
 /*  f063754:	10000004 */ 	b	.PF0f063768
 /*  f063758:	00403025 */ 	move	$a2,$v0
 .PF0f06375c:
-/*  f06375c:	0fc08c75 */ 	jal	func0f023098
+/*  f06375c:	0fc08c75 */ 	jal	chrTick
 /*  f063760:	02002025 */ 	move	$a0,$s0
 /*  f063764:	00403025 */ 	move	$a2,$v0
 .PF0f063768:
@@ -2148,7 +2148,7 @@ glabel var7f1ab190pf
 /*  f0639c0:	1000003c */ 	b	.PF0f063ab4
 /*  f0639c4:	00403025 */ 	move	$a2,$v0
 .PF0f0639c8:
-/*  f0639c8:	0fc08c75 */ 	jal	func0f023098
+/*  f0639c8:	0fc08c75 */ 	jal	chrTick
 /*  f0639cc:	02002025 */ 	move	$a0,$s0
 /*  f0639d0:	10000038 */ 	b	.PF0f063ab4
 /*  f0639d4:	00403025 */ 	move	$a2,$v0
@@ -2964,7 +2964,7 @@ glabel propsTick
 /*  f0634e8:	10000004 */ 	b	.L0f0634fc
 /*  f0634ec:	00403025 */ 	or	$a2,$v0,$zero
 .L0f0634f0:
-/*  f0634f0:	0fc08c26 */ 	jal	func0f023098
+/*  f0634f0:	0fc08c26 */ 	jal	chrTick
 /*  f0634f4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0634f8:	00403025 */ 	or	$a2,$v0,$zero
 .L0f0634fc:
@@ -3128,7 +3128,7 @@ glabel propsTick
 /*  f06373c:	1000003c */ 	b	.L0f063830
 /*  f063740:	00403025 */ 	or	$a2,$v0,$zero
 .L0f063744:
-/*  f063744:	0fc08c26 */ 	jal	func0f023098
+/*  f063744:	0fc08c26 */ 	jal	chrTick
 /*  f063748:	02002025 */ 	or	$a0,$s0,$zero
 /*  f06374c:	10000038 */ 	b	.L0f063830
 /*  f063750:	00403025 */ 	or	$a2,$v0,$zero
@@ -3937,7 +3937,7 @@ glabel propsTick
 /*  f06275c:	10000004 */ 	beqz	$zero,.NB0f062770
 /*  f062760:	00403025 */ 	or	$a2,$v0,$zero
 .NB0f062764:
-/*  f062764:	0fc08ae1 */ 	jal	func0f023098
+/*  f062764:	0fc08ae1 */ 	jal	chrTick
 /*  f062768:	02002025 */ 	or	$a0,$s0,$zero
 /*  f06276c:	00403025 */ 	or	$a2,$v0,$zero
 .NB0f062770:
@@ -4101,7 +4101,7 @@ glabel propsTick
 /*  f0629b0:	1000003c */ 	beqz	$zero,.NB0f062aa4
 /*  f0629b4:	00403025 */ 	or	$a2,$v0,$zero
 .NB0f0629b8:
-/*  f0629b8:	0fc08ae1 */ 	jal	func0f023098
+/*  f0629b8:	0fc08ae1 */ 	jal	chrTick
 /*  f0629bc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0629c0:	10000038 */ 	beqz	$zero,.NB0f062aa4
 /*  f0629c4:	00403025 */ 	or	$a2,$v0,$zero
@@ -4696,7 +4696,7 @@ glabel propsTick
 //				flags &= ~PROPFLAG_ONANYSCREENPREVTICK;
 //			}
 //
-//			(prop++)->flags = flags | PROPFLAG_08;
+//			(prop++)->flags = flags | PROPFLAG_NOTYETTICKED;
 //		}
 //	} else {
 //		// 23c
@@ -4805,7 +4805,7 @@ glabel propsTick
 //				if (chr && chr->aibot) {
 //					op = aibotTick(prop);
 //				} else {
-//					op = func0f023098(prop);
+//					op = chrTick(prop);
 //				}
 //
 //				g_Vars.propstates[prop->propstateindex].foregroundchrpropcount++;
@@ -4868,7 +4868,7 @@ glabel propsTick
 //					if (chr && chr->aibot) {
 //						op = aibotTick(prop);
 //					} else {
-//						op = func0f023098(prop);
+//						op = chrTick(prop);
 //					}
 //				} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
 //					struct defaultobj *obj = prop->obj;

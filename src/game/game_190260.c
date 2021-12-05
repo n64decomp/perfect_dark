@@ -3190,7 +3190,7 @@ glabel var7f1b8ef0
 .L0f191f2c:
 /*  f191f2c:	0fc64512 */ 	jal	func0f191448
 /*  f191f30:	02202025 */ 	or	$a0,$s1,$zero
-/*  f191f34:	0fc08c26 */ 	jal	func0f023098
+/*  f191f34:	0fc08c26 */ 	jal	chrTick
 /*  f191f38:	8fa40068 */ 	lw	$a0,0x68($sp)
 /*  f191f3c:	3c0d800a */ 	lui	$t5,%hi(g_Vars+0x8)
 /*  f191f40:	8dad9fc8 */ 	lw	$t5,%lo(g_Vars+0x8)($t5)
@@ -3702,7 +3702,7 @@ glabel var7f1b8ef0
 .L0f191f2c:
 /*  f191f2c:	0fc64512 */ 	jal	func0f191448
 /*  f191f30:	02202025 */ 	or	$a0,$s1,$zero
-/*  f191f34:	0fc08c26 */ 	jal	func0f023098
+/*  f191f34:	0fc08c26 */ 	jal	chrTick
 /*  f191f38:	8fa40068 */ 	lw	$a0,0x68($sp)
 /*  f191f3c:	3c0d800a */ 	lui	$t5,%hi(g_Vars+0x8)
 /*  f191f40:	8dad9fc8 */ 	lw	$t5,%lo(g_Vars+0x8)($t5)
@@ -3749,7 +3749,7 @@ glabel var7f1b8ef0
 //	f32 tweenangle;
 //	s32 i;
 //
-//	updateable = ((prop->flags & PROPFLAG_08) && g_Vars.lvupdate240) != 0;
+//	updateable = ((prop->flags & PROPFLAG_NOTYETTICKED) && g_Vars.lvupdate240) != 0;
 //
 //	if (aibot) {
 //		if (updateable && g_Vars.lvframe60 >= 145) {
@@ -3908,7 +3908,7 @@ glabel var7f1b8ef0
 //
 //		func0f191448(chr);
 //
-//		result = func0f023098(prop);
+//		result = chrTick(prop);
 //
 //		if (g_Vars.lvframe60 >= 145) {
 //			if (updateable) {

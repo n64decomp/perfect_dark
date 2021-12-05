@@ -22601,7 +22601,7 @@ void chrTickSkJump(struct chrdata *chr)
 	}
 }
 
-void chrTick(struct chrdata *chr)
+void chraTick(struct chrdata *chr)
 {
 	u32 race = CHRRACE(chr);
 
@@ -22963,7 +22963,7 @@ glabel func0f048398
 /*  f04860c:	53000006 */ 	beqzl	$t8,.L0f048628
 /*  f048610:	26b50001 */ 	addiu	$s5,$s5,0x1
 .L0f048614:
-/*  f048614:	0fc11f20 */ 	jal	chrTick
+/*  f048614:	0fc11f20 */ 	jal	chraTick
 /*  f048618:	02622021 */ 	addu	$a0,$s3,$v0
 /*  f04861c:	3c038006 */ 	lui	$v1,%hi(g_NumBgChrs)
 /*  f048620:	8c637e60 */ 	lw	$v1,%lo(g_NumBgChrs)($v1)
@@ -23423,7 +23423,7 @@ glabel func0f048398
 /*  f04860c:	53000006 */ 	beqzl	$t8,.L0f048628
 /*  f048610:	26b50001 */ 	addiu	$s5,$s5,0x1
 .L0f048614:
-/*  f048614:	0fc11f20 */ 	jal	chrTick
+/*  f048614:	0fc11f20 */ 	jal	chraTick
 /*  f048618:	02622021 */ 	addu	$a0,$s3,$v0
 /*  f04861c:	3c038006 */ 	lui	$v1,%hi(g_NumBgChrs)
 /*  f048620:	8c637e60 */ 	lw	$v1,%lo(g_NumBgChrs)($v1)
@@ -23761,7 +23761,7 @@ glabel func0f048398
 /*  f047b78:	51600006 */ 	beqzl	$t3,.NB0f047b94
 /*  f047b7c:	26730001 */ 	addiu	$s3,$s3,0x1
 .NB0f047b80:
-/*  f047b80:	0fc11cec */ 	jal	chrTick
+/*  f047b80:	0fc11cec */ 	jal	chraTick
 /*  f047b84:	02422021 */ 	addu	$a0,$s2,$v0
 /*  f047b88:	3c038007 */ 	lui	$v1,0x8007
 /*  f047b8c:	8c63a578 */ 	lw	$v1,-0x5a88($v1)
@@ -24096,7 +24096,7 @@ glabel func0f048398
 //
 //	for (i = 0; i < g_NumBgChrs; i++) {
 //		if (!g_Vars.autocutplaying || (g_BgChrs[i].hidden2 & CHRH2FLAG_TICKDURINGAUTOCUT)) {
-//			chrTick(&g_BgChrs[i]);
+//			chraTick(&g_BgChrs[i]);
 //		}
 //	}
 //

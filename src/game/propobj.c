@@ -49592,6 +49592,14 @@ u32 func0f07e474(struct prop *prop)
 	return TICKOP_NONE;
 }
 
+/**
+ * Tick the given object.
+ *
+ * This function is called once per player per frame. The first time it is
+ * called per frame a "fulltick" is done. On consecutive calls for this tick
+ * much of the logic is skipped, and only the logic specific to the current
+ * player is executed.
+ */
 s32 objTick(struct prop *prop)
 {
 	bool pass;
@@ -49602,7 +49610,7 @@ s32 objTick(struct prop *prop)
 	struct prop *child;
 	struct prop *next;
 	s32 result = TICKOP_NONE;
-	bool sp572 = false;
+	bool fulltick = false;
 	u32 playercount = PLAYERCOUNT();
 	bool sp564 = true;
 	bool sp560 = false;
@@ -49643,16 +49651,16 @@ s32 objTick(struct prop *prop)
 		}
 	}
 
-	if (prop->flags & PROPFLAG_08) {
-		sp572 = true;
-		prop->flags &= ~PROPFLAG_08;
+	if (prop->flags & PROPFLAG_NOTYETTICKED) {
+		fulltick = true;
+		prop->flags &= ~PROPFLAG_NOTYETTICKED;
 	}
 
 	if (obj->hidden & OBJHFLAG_AIRBORNE) {
 		struct projectile *projectile = obj->projectile;
 
 		if (projectile->ownerprop && propGetPlayerNum(projectile->ownerprop) >= 0) {
-			sp572 = (projectile->ownerprop == g_Vars.currentplayer->prop);
+			fulltick = (projectile->ownerprop == g_Vars.currentplayer->prop);
 		}
 	}
 
@@ -49670,7 +49678,7 @@ s32 objTick(struct prop *prop)
 				s16 sp384[8];
 				struct hov *hov = NULL;
 
-				if (sp572) {
+				if (fulltick) {
 					s32 iVar10 = g_Vars.lvupdate240;
 
 					if (g_Vars.tickmode == TICKMODE_CUTSCENE && iVar10 > 0 && g_Vars.cutsceneskip60ths > 0) {
@@ -49686,7 +49694,7 @@ s32 objTick(struct prop *prop)
 						&& anim0002384c(model->anim->animnum, model->anim->framea) < 0) {
 					sp552 = true;
 				} else {
-					if (sp572) {
+					if (fulltick) {
 						model0001b3bc(model);
 					}
 
@@ -49695,7 +49703,7 @@ s32 objTick(struct prop *prop)
 					sp476.matrix = currentPlayerGetMatrix1740();
 					model0001cebc(&sp476, model);
 
-					if (sp572) {
+					if (fulltick) {
 						mtx00015be4(currentPlayerGetUnk174c(), model->matrices, &sp412);
 						mtx4ToMtx3(&sp412, obj->realrot);
 
@@ -49767,7 +49775,7 @@ s32 objTick(struct prop *prop)
 			u8 *end;
 			f32 damage;
 
-			if (sp572) {
+			if (fulltick) {
 				sp148 = floorf(model->anim->frame);
 				sp148++;
 				model0001ee18(model, g_Vars.lvupdate240, 1);
@@ -49793,7 +49801,7 @@ s32 objTick(struct prop *prop)
 			sp312.matrix = &sp152;
 			model0001cebc(&sp312, model);
 
-			if (sp572) {
+			if (fulltick) {
 				sp236.x = (f32)sp116.x + prop->pos.x;
 				sp236.y = prop->pos.y;
 				sp236.z = (f32)sp116.z + prop->pos.z;
@@ -49847,7 +49855,7 @@ s32 objTick(struct prop *prop)
 		}
 	}
 
-	if (sp572) {
+	if (fulltick) {
 		if (model->anim == NULL && (obj->hidden & OBJHFLAG_AIRBORNE)) {
 			sp592 = func0f073c6c(obj, &sp560);
 
@@ -49920,7 +49928,7 @@ s32 objTick(struct prop *prop)
 			func0f069630(prop, obj->nextcol, obj->floorcol);
 		}
 
-		if (sp572) {
+		if (fulltick) {
 			if (prop->flags & PROPFLAG_ONANYSCREENPREVTICK) {
 				colourTween(obj->shadecol, obj->nextcol);
 			} else {
@@ -49946,22 +49954,22 @@ s32 objTick(struct prop *prop)
 		}
 
 		prop->z = -model->matrices[0].m[3][2];
-		func0f07063c(prop, sp572);
+		func0f07063c(prop, fulltick);
 		child = prop->child;
 
 		while (child) {
 			next = child->next;
-			func0f07079c(child, sp572);
+			func0f07079c(child, fulltick);
 			child = next;
 		}
 	} else {
 		prop->flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
-		func0f07063c(prop, sp572);
+		func0f07063c(prop, fulltick);
 		child = prop->child;
 
 		while (child) {
 			next = child->next;
-			func0f0706f8(child, sp572);
+			func0f0706f8(child, fulltick);
 			child = next;
 		}
 	}
@@ -49971,7 +49979,7 @@ s32 objTick(struct prop *prop)
 		objDamage(obj, random() * (1.0f / U32_MAX) * 4.0f + 2.0f, &prop->pos, WEAPON_NONE, (obj->hidden & 0xf0000000) >> 28);
 	}
 
-	if (sp572) {
+	if (fulltick) {
 		if (obj->type == OBJTYPE_AUTOGUN) {
 			func0f079f1c(prop);
 		}
@@ -68443,7 +68451,7 @@ bool func0f08e794(struct coord *coord, f32 arg1)
 	return result;
 }
 
-bool func0f08e8ac(struct prop *prop, struct coord *coord, f32 arg2, bool arg3)
+u32 func0f08e8ac(struct prop *prop, struct coord *coord, f32 arg2, bool arg3)
 {
 	s16 *rooms;
 	s32 roomnum;

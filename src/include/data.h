@@ -403,7 +403,7 @@ extern struct modeltype g_ModelTypeDrCaroll;
 extern struct modeltype g_ModelType22;
 extern struct modeltype g_ModelTypeRobot;
 extern struct headorbody g_HeadsAndBodies[];
-extern u32 var8007dae4;
+extern struct hatposition var8007dae4[1][6];
 extern f32 var8007db80;
 extern f32 var8007db84;
 extern u32 var8007db88;

@@ -15251,7 +15251,7 @@ s32 playerTick(struct prop *prop)
 			chr->chrflags |= CHRCFLAG_00000001;
 
 			player->bondperimenabled = false;
-			tickop1 = func0f023098(prop);
+			tickop1 = chrTick(prop);
 			player->bondperimenabled = true;
 
 			player->vv_ground = chr->ground;
@@ -15354,7 +15354,7 @@ s32 playerTick(struct prop *prop)
 
 		chr->chrflags |= CHRHFLAG_00000001;
 
-		tickop2 = func0f023098(prop);
+		tickop2 = chrTick(prop);
 
 		prop->pos.x = sp80.x;
 		prop->pos.y = sp80.y;

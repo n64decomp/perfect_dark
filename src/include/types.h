@@ -7344,4 +7344,13 @@ struct var8007f8dc {
 	/*0x100*/ u32 unk100;
 };
 
+struct hatposition {
+	f32 x;
+	f32 y;
+	f32 z;
+	f32 unk0c;
+	f32 unk10;
+	f32 unk14;
+};
+
 #endif

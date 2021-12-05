@@ -1471,7 +1471,7 @@ bool ai0045(void)
  */
 bool aiIfNeverBeenOnScreen(void)
 {
-	if ((g_Vars.chrdata->chrflags & CHRCFLAG_NEVER_BEEN_ON_SCREEN) == 0) {
+	if ((g_Vars.chrdata->chrflags & CHRCFLAG_EVERONSCREEN) == 0) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
