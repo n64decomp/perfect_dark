@@ -471,7 +471,7 @@
 
 // chr->hidden2
 #define CHRH2FLAG_0001              0x0001
-#define CHRH2FLAG_0002              0x0002 // Equivalent to OBJFLAG3_00020000
+#define CHRH2FLAG_SHIELDHIT         0x0002 // Turns off when shield no longer visible
 #define CHRH2FLAG_0004              0x0004
 #define CHRH2FLAG_BLUESIGHT         0x0008
 #define CHRH2FLAG_TICKDURINGAUTOCUT 0x0010
@@ -2917,7 +2917,7 @@
 #define OBJFLAG3_ISFETCHTARGET      0x00004000 // AI bot is fetching this obj
 #define OBJFLAG3_REACTTOSIGHT       0x00008000 // Turn sight blue or red when targeted with R
 #define OBJFLAG3_INTERACTABLE       0x00010000
-#define OBJFLAG3_00020000           0x00020000 // Equivalent to CHRH2FLAG_0002
+#define OBJFLAG3_SHIELDHIT          0x00020000 // Turns off when shield no longer visible
 #define OBJFLAG3_00040000           0x00040000 // Not used in scripts
 #define OBJFLAG3_00080000           0x00080000 // Not used in scripts
 #define OBJFLAG3_HOVERBEDSHIELD     0x00100000

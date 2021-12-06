@@ -4130,7 +4130,7 @@ bool func0f034080(struct chrdata *chr, struct modelnode *node, struct prop *prop
 {
 	if (chrGetShield(chr) > 0) {
 		if (node && (node->type & 0xff) == MODELNODETYPE_BBOX) {
-			func0f028f7c(chr->prop, chrGetShield(chr), prop, node, model, side, arg5);
+			shieldhitCreate(chr->prop, chrGetShield(chr), prop, node, model, side, arg5);
 		}
 
 		return true;
@@ -4591,7 +4591,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 			if (prop2 && node && chr->model) {
 				func0f034080(chr, node, prop2, model, side, arg11);
 			} else {
-				func0f028f7c(chr->prop, chrGetShield(chr), NULL, NULL, NULL, 0, 0);
+				shieldhitCreate(chr->prop, chrGetShield(chr), NULL, NULL, NULL, 0, 0);
 			}
 
 			if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_ONEHITKILLS)) {

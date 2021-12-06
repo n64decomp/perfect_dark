@@ -6054,7 +6054,7 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 		}
 
 		func0f0926bc(obj->prop, 1, 0xffff);
-		func0f0292bc(obj->prop);
+		shieldhitsRemoveByProp(obj->prop);
 
 		propClearReferences(obj->prop - g_Vars.props);
 		projectilesUnrefOwner(obj->prop);
@@ -24820,7 +24820,7 @@ glabel var7f1ab6dcpf
 /*  f075c3c:	afad0018 */ 	sw	$t5,0x18($sp)
 /*  f075c40:	8ce7d3d4 */ 	lw	$a3,-0x2c2c($a3)
 /*  f075c44:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f075c48:	0fc0a428 */ 	jal	func0f028f7c
+/*  f075c48:	0fc0a428 */ 	jal	shieldhitCreate
 /*  f075c4c:	afb80010 */ 	sw	$t8,0x10($sp)
 .PF0f075c50:
 /*  f075c50:	8faa0180 */ 	lw	$t2,0x180($sp)
@@ -24942,7 +24942,7 @@ glabel var7f1ab6dcpf
 /*  f075dfc:	afac0018 */ 	sw	$t4,0x18($sp)
 /*  f075e00:	8ce7d3d4 */ 	lw	$a3,-0x2c2c($a3)
 /*  f075e04:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*  f075e08:	0fc0a428 */ 	jal	func0f028f7c
+/*  f075e08:	0fc0a428 */ 	jal	shieldhitCreate
 /*  f075e0c:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f075e10:	3c0e8007 */ 	lui	$t6,0x8007
 /*  f075e14:	8dce9610 */ 	lw	$t6,-0x69f0($t6)
@@ -25027,7 +25027,7 @@ glabel var7f1ab6dcpf
 /*  f075f28:	afab0018 */ 	sw	$t3,0x18($sp)
 /*  f075f2c:	8ce7d3d4 */ 	lw	$a3,-0x2c2c($a3)
 /*  f075f30:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f075f34:	0fc0a428 */ 	jal	func0f028f7c
+/*  f075f34:	0fc0a428 */ 	jal	shieldhitCreate
 /*  f075f38:	afad0014 */ 	sw	$t5,0x14($sp)
 .PF0f075f3c:
 /*  f075f3c:	8faf034c */ 	lw	$t7,0x34c($sp)
@@ -28358,7 +28358,7 @@ glabel var7f1aa438
 /*  f0759b8:	afad0018 */ 	sw	$t5,0x18($sp)
 /*  f0759bc:	8ce7ce74 */ 	lw	$a3,%lo(var8009ce74)($a3)
 /*  f0759c0:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f0759c4:	0fc0a3df */ 	jal	func0f028f7c
+/*  f0759c4:	0fc0a3df */ 	jal	shieldhitCreate
 /*  f0759c8:	afb80010 */ 	sw	$t8,0x10($sp)
 .L0f0759cc:
 /*  f0759cc:	8faa0180 */ 	lw	$t2,0x180($sp)
@@ -28480,7 +28480,7 @@ glabel var7f1aa438
 /*  f075b78:	afac0018 */ 	sw	$t4,0x18($sp)
 /*  f075b7c:	8ce7ce74 */ 	lw	$a3,%lo(var8009ce74)($a3)
 /*  f075b80:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*  f075b84:	0fc0a3df */ 	jal	func0f028f7c
+/*  f075b84:	0fc0a3df */ 	jal	shieldhitCreate
 /*  f075b88:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f075b8c:	3c0e8007 */ 	lui	$t6,%hi(var80069930)
 /*  f075b90:	8dce9930 */ 	lw	$t6,%lo(var80069930)($t6)
@@ -28565,7 +28565,7 @@ glabel var7f1aa438
 /*  f075ca4:	afab0018 */ 	sw	$t3,0x18($sp)
 /*  f075ca8:	8ce7ce74 */ 	lw	$a3,%lo(var8009ce74)($a3)
 /*  f075cac:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f075cb0:	0fc0a3df */ 	jal	func0f028f7c
+/*  f075cb0:	0fc0a3df */ 	jal	shieldhitCreate
 /*  f075cb4:	afad0014 */ 	sw	$t5,0x14($sp)
 .L0f075cb8:
 /*  f075cb8:	8faf034c */ 	lw	$t7,0x34c($sp)
@@ -31860,7 +31860,7 @@ glabel var7f1aa438
 /*  f0746e4:	afb90018 */ 	sw	$t9,0x18($sp)
 /*  f0746e8:	8ce715a4 */ 	lw	$a3,0x15a4($a3)
 /*  f0746ec:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f0746f0:	0fc0a24a */ 	jal	func0f028f7c
+/*  f0746f0:	0fc0a24a */ 	jal	shieldhitCreate
 /*  f0746f4:	afb80010 */ 	sw	$t8,0x10($sp)
 .NB0f0746f8:
 /*  f0746f8:	8fac0184 */ 	lw	$t4,0x184($sp)
@@ -31983,7 +31983,7 @@ glabel var7f1aa438
 /*  f0748a8:	8ce715a4 */ 	lw	$a3,0x15a4($a3)
 /*  f0748ac:	afa80180 */ 	sw	$t0,0x180($sp)
 /*  f0748b0:	afab0014 */ 	sw	$t3,0x14($sp)
-/*  f0748b4:	0fc0a24a */ 	jal	func0f028f7c
+/*  f0748b4:	0fc0a24a */ 	jal	shieldhitCreate
 /*  f0748b8:	afa90010 */ 	sw	$t1,0x10($sp)
 /*  f0748bc:	3c0a8007 */ 	lui	$t2,0x8007
 /*  f0748c0:	8d4ac030 */ 	lw	$t2,-0x3fd0($t2)
@@ -32068,7 +32068,7 @@ glabel var7f1aa438
 /*  f0749d4:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f0749d8:	8ce715a4 */ 	lw	$a3,0x15a4($a3)
 /*  f0749dc:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f0749e0:	0fc0a24a */ 	jal	func0f028f7c
+/*  f0749e0:	0fc0a24a */ 	jal	shieldhitCreate
 /*  f0749e4:	afad0014 */ 	sw	$t5,0x14($sp)
 .NB0f0749e8:
 /*  f0749e8:	8fb9034c */ 	lw	$t9,0x34c($sp)
@@ -52086,7 +52086,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool w
 				func0f0c33f0(model->matrices, model->filedata->nummatrices);
 			}
 
-			if ((obj->flags3 & (OBJFLAG3_SHOWSHIELD | OBJFLAG3_00020000)) && objIsHealthy(obj)) {
+			if ((obj->flags3 & (OBJFLAG3_SHOWSHIELD | OBJFLAG3_SHIELDHIT)) && objIsHealthy(obj)) {
 				gSPSetGeometryMode(renderdata->gdl++, G_CULL_BACK);
 
 				renderdata->gdl = func0f02b7d4(renderdata->gdl, prop, prop, 0xff, 0, 0, 1, 2, 3);
@@ -59536,7 +59536,7 @@ glabel func0f085eac
 /*  f086204:	25a10001 */ 	addiu	$at,$t5,0x1
 /*  f086208:	00017043 */ 	sra	$t6,$at,0x1
 .L0f08620c:
-/*  f08620c:	0fc0a3df */ 	jal	func0f028f7c
+/*  f08620c:	0fc0a3df */ 	jal	shieldhitCreate
 /*  f086210:	afae0014 */ 	sw	$t6,0x14($sp)
 .L0f086214:
 /*  f086214:	0fc21a6a */ 	jal	objIsHealthy
@@ -60265,7 +60265,7 @@ glabel func0f085eac
 /*  f084a60:	25a10001 */ 	addiu	$at,$t5,0x1
 /*  f084a64:	0001c043 */ 	sra	$t8,$at,0x1
 .NB0f084a68:
-/*  f084a68:	0fc0a24a */ 	jal	func0f028f7c
+/*  f084a68:	0fc0a24a */ 	jal	shieldhitCreate
 /*  f084a6c:	afb80014 */ 	sw	$t8,0x14($sp)
 .NB0f084a70:
 /*  f084a70:	0fc21481 */ 	jal	objIsHealthy

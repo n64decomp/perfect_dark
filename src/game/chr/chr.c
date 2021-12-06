@@ -120,7 +120,7 @@ void propsTick2(void)
 		g_Vars.players[i]->bondextrapos.z = 0;
 	}
 
-	func0f02c9b0();
+	shieldhitsTick();
 	func0f048398();
 
 	prop = g_Vars.activeprops;
@@ -4593,7 +4593,7 @@ void func0f020d44(struct prop *prop, bool removechr)
 
 	func0f14159c(prop);
 	func0f0926bc(prop, 1, 0xffff);
-	func0f0292bc(prop);
+	shieldhitsRemoveByProp(prop);
 	func0f089a94(0, model);
 	propDeregisterRooms(prop);
 
@@ -8622,7 +8622,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 	return gdl;
 }
 
-struct var80062a8c *var80062a8c = NULL;
+struct shieldhit *g_ShieldHits = NULL;
 
 void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct coord *coord, struct coord *coord2, struct chrdata *chr2)
 {
@@ -11977,10 +11977,10 @@ glabel func0f028e6c
 //}
 
 GLOBAL_ASM(
-glabel func0f028f7c
+glabel shieldhitCreate
 /*  f028f7c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f028f80:	3c0a8006 */ 	lui	$t2,%hi(var80062a8c)
-/*  f028f84:	8d4a2a8c */ 	lw	$t2,%lo(var80062a8c)($t2)
+/*  f028f80:	3c0a8006 */ 	lui	$t2,%hi(g_ShieldHits)
+/*  f028f84:	8d4a2a8c */ 	lw	$t2,%lo(g_ShieldHits)($t2)
 /*  f028f88:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f028f8c:	00808025 */ 	or	$s0,$a0,$zero
 /*  f028f90:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -12071,8 +12071,8 @@ glabel func0f028f7c
 /*  f0290c0:	240a0001 */ 	addiu	$t2,$zero,0x1
 /*  f0290c4:	00004825 */ 	or	$t1,$zero,$zero
 /*  f0290c8:	11a00024 */ 	beqz	$t5,.L0f02915c
-/*  f0290cc:	3c088006 */ 	lui	$t0,%hi(var80062a8c)
-/*  f0290d0:	8d082a8c */ 	lw	$t0,%lo(var80062a8c)($t0)
+/*  f0290cc:	3c088006 */ 	lui	$t0,%hi(g_ShieldHits)
+/*  f0290d0:	8d082a8c */ 	lw	$t0,%lo(g_ShieldHits)($t0)
 /*  f0290d4:	24060020 */ 	addiu	$a2,$zero,0x20
 /*  f0290d8:	2405fffe */ 	addiu	$a1,$zero,-2
 .L0f0290dc:
@@ -12144,65 +12144,65 @@ glabel func0f028f7c
 /*  f0291b8:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0f0291bc:
 /*  f0291bc:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f0291c0:	3c018006 */ 	lui	$at,%hi(var80062a90)
+/*  f0291c0:	3c018006 */ 	lui	$at,%hi(g_ShieldHitActive)
 /*  f0291c4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0291c8:	ac2d2a90 */ 	sw	$t5,%lo(var80062a90)($at)
+/*  f0291c8:	ac2d2a90 */ 	sw	$t5,%lo(g_ShieldHitActive)($at)
 /*  f0291cc:	03e00008 */ 	jr	$ra
 /*  f0291d0:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-// Mismatch: Goal uses a temp register for thing and handles the i/j loop
+// Mismatch: Goal uses a temp register for shieldhit and handles the i/j loop
 // differently.
-//void func0f028f7c(struct prop *prop, f32 shield, struct prop *arg2, struct modelnode *node, struct model *model, s32 side, s16 *arg6)
+//void shieldhitCreate(struct prop *prop, f32 shield, struct prop *arg2, struct modelnode *node, struct model *model, s32 side, s16 *arg6)
 //{
-//	struct var80062a8c *thing = NULL;
+//	struct shieldhit *shieldhit = NULL;
 //	s32 i;
 //	s32 j;
 //
 //	for (i = 0; i < 20; i++) {
-//		if (var80062a8c[i].prop == NULL) {
-//			thing = &var80062a8c[i];
+//		if (g_ShieldHits[i].prop == NULL) {
+//			shieldhit = &g_ShieldHits[i];
 //			break;
 //		}
 //	}
 //
-//	if (thing == NULL) {
+//	if (shieldhit == NULL) {
 //		for (i = 0; i < 20; i++) {
-//			if (var80062a8c[i].lvframe60 < g_Vars.lvframe60) {
-//				thing = &var80062a8c[i];
+//			if (g_ShieldHits[i].lvframe60 < g_Vars.lvframe60) {
+//				shieldhit = &g_ShieldHits[i];
 //			}
 //		}
 //	}
 //
-//	if (thing) {
-//		thing->prop = prop;
-//		thing->node = node;
-//		thing->model = model;
-//		thing->side = side;
-//		thing->lvframe60 = g_Vars.lvframe60;
+//	if (shieldhit) {
+//		shieldhit->prop = prop;
+//		shieldhit->node = node;
+//		shieldhit->model = model;
+//		shieldhit->side = side;
+//		shieldhit->lvframe60 = g_Vars.lvframe60;
 //
 //		for (i = 0; i < 32; i++) {
-//			thing->unk018[i] = -1;
+//			shieldhit->unk018[i] = -1;
 //		}
 //
-//		thing->unk011 = 2 + (random() % 6);
-//		thing->shield = shield;
+//		shieldhit->unk011 = 2 + (random() % 6);
+//		shieldhit->shield = shield;
 //
 //		if (arg6) {
-//			thing->unk012 = arg6[0];
-//			thing->unk014 = arg6[1];
-//			thing->unk016 = arg6[2];
+//			shieldhit->unk012 = arg6[0];
+//			shieldhit->unk014 = arg6[1];
+//			shieldhit->unk016 = arg6[2];
 //		} else {
-//			thing->unk012 = 0x7fff;
+//			shieldhit->unk012 = 0x7fff;
 //		}
 //
 //		if (node) {
 //			bool pass = true;
 //
 //			for (i = 0; i < 20; i++) {
-//				if (var80062a8c[i].prop == prop) {
+//				if (g_ShieldHits[i].prop == prop) {
 //					for (j = 0; j < 32; j++) {
-//						if (var80062a8c[i].unk018[j] != -1 && var80062a8c[i].unk018[j] != -2) {
+//						if (g_ShieldHits[i].unk018[j] != -1 && g_ShieldHits[i].unk018[j] != -2) {
 //							pass = false;
 //							break;
 //						}
@@ -12218,67 +12218,68 @@ glabel func0f028f7c
 //				s32 index = func0f028e18(arg2, node, model, prop);
 //
 //				if (index < 32) {
-//					thing->unk018[index] = 0;
-//					thing->unk038[index] = 0;
+//					shieldhit->unk018[index] = 0;
+//					shieldhit->unk038[index] = 0;
 //				}
 //			}
 //		}
 //
 //		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
-//			prop->chr->hidden2 |= CHRH2FLAG_0002;
+//			prop->chr->hidden2 |= CHRH2FLAG_SHIELDHIT;
 //		} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
-//			prop->obj->flags3 |= OBJFLAG3_00020000;
+//			prop->obj->flags3 |= OBJFLAG3_SHIELDHIT;
 //		}
 //	}
 //
-//	var80062a90 = true;
+//	g_ShieldHitActive = true;
 //}
 
-void func0f0291d4(struct var80062a8c *thing)
+void shieldhitRemove(struct shieldhit *shieldhit)
 {
 	s32 exists = false;
 	s32 i;
-	struct prop *prop = thing->prop;
-	thing->prop = NULL;
+	struct prop *prop = shieldhit->prop;
+	shieldhit->prop = NULL;
 
-	// Check if the var80062a8c array has any props in it
-	var80062a90 = false;
+	// Check if there are other shield hits active
+	g_ShieldHitActive = false;
 
 	for (i = 0; i < 20; i++) {
-		if (var80062a8c[i].prop) {
-			var80062a90 = true;
+		if (g_ShieldHits[i].prop) {
+			g_ShieldHitActive = true;
 			break;
 		}
 	}
 
-	// Check if the passed prop exists in the array
+	// Check if the prop being removed has other shield hits too
 	for (i = 0; i < 20; i++) {
-		if (prop == var80062a8c[i].prop) {
+		if (prop == g_ShieldHits[i].prop) {
 			exists = true;
 			break;
 		}
 	}
 
 	if (!exists) {
+		// Mark prop as shield no longer visible
 		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
 			struct chrdata *chr = prop->chr;
-			chr->hidden2 &= ~CHRH2FLAG_0002;
+			chr->hidden2 &= ~CHRH2FLAG_SHIELDHIT;
 		} else if (prop->type == PROPTYPE_OBJ
 				|| prop->type == PROPTYPE_WEAPON
 				|| prop->type == PROPTYPE_DOOR) {
 			struct defaultobj *obj = prop->obj;
-			obj->flags3 &= ~OBJFLAG3_00020000;
+			obj->flags3 &= ~OBJFLAG3_SHIELDHIT;
 		}
 	}
 }
 
-void func0f0292bc(struct prop *prop)
+void shieldhitsRemoveByProp(struct prop *prop)
 {
 	s32 i;
 
 	for (i = 0; i < 20; i++) {
-		if (prop == var80062a8c[i].prop) {
-			func0f0291d4(&var80062a8c[i]);
+		if (prop == g_ShieldHits[i].prop) {
+			shieldhitRemove(&g_ShieldHits[i]);
 		}
 	}
 }
@@ -16865,9 +16866,9 @@ glabel func0f02b7d4
 /*  f02b8a8:	02e03025 */ 	or	$a2,$s7,$zero
 /*  f02b8ac:	0fc0a386 */ 	jal	func0f028e18
 /*  f02b8b0:	02a03825 */ 	or	$a3,$s5,$zero
-/*  f02b8b4:	3c058006 */ 	lui	$a1,%hi(var80062a8c)
+/*  f02b8b4:	3c058006 */ 	lui	$a1,%hi(g_ShieldHits)
 /*  f02b8b8:	00404025 */ 	or	$t0,$v0,$zero
-/*  f02b8bc:	8ca52a8c */ 	lw	$a1,%lo(var80062a8c)($a1)
+/*  f02b8bc:	8ca52a8c */ 	lw	$a1,%lo(g_ShieldHits)($a1)
 /*  f02b8c0:	00002025 */ 	or	$a0,$zero,$zero
 .L0f02b8c4:
 /*  f02b8c4:	8cb80000 */ 	lw	$t8,0x0($a1)
@@ -17840,7 +17841,7 @@ Gfx *chrRenderShield(Gfx *gdl, struct chrdata *chr, u32 alpha)
 		}
 	}
 
-	if ((chr->hidden2 & CHRH2FLAG_0002)
+	if ((chr->hidden2 & CHRH2FLAG_SHIELDHIT)
 			|| (chrGetShield(chr) > 0 && chr->cmcount < 10)
 			|| (chr->cloakfadefrac > 0 && !chr->cloakfadefinished)) {
 		if (chrGetShield(chr) > 0 && g_Vars.lvupdate240 > 0) {
@@ -17917,10 +17918,9 @@ Gfx *chrRenderShield(Gfx *gdl, struct chrdata *chr, u32 alpha)
 }
 
 /**
- * This appears to tick the shield damage effect when you shoot a shielded chr.
- * It handles showing the shield on the body parts that were *not* hit.
+ * This ticks the shield damage effect when you shoot a shielded chr.
  */
-void func0f02c9b0(void)
+void shieldhitsTick(void)
 {
 	s32 index;
 	bool changed = false;
@@ -17928,59 +17928,59 @@ void func0f02c9b0(void)
 	s32 i;
 	s32 j;
 
-	if (var80062a90 != 0) {
+	if (g_ShieldHitActive) {
 		for (i = 0; i < 20; i++) {
-			if (var80062a8c[i].prop) {
-				if (var80062a8c[i].lvframe60 >= g_Vars.lvframe60 - PALDOWN(80)) {
+			if (g_ShieldHits[i].prop) {
+				if (g_ShieldHits[i].lvframe60 >= g_Vars.lvframe60 - PALDOWN(80)) {
 					changed = true;
-					var80062a8c[i].shield += (propGetShieldThing(&var80062a8c[i].prop) - var80062a8c[i].shield) * g_Vars.lvupdate240f * (PAL ? 0.0151515156f : 0.0125f);
+					g_ShieldHits[i].shield += (propGetShieldThing(&g_ShieldHits[i].prop) - g_ShieldHits[i].shield) * g_Vars.lvupdate240f * (PAL ? 0.0151515156f : 0.0125f);
 				}
 
 				for (j = 0; j < 32; j++) {
-					if (var80062a8c[i].unk018[j] >= 0) {
+					if (g_ShieldHits[i].unk018[j] >= 0) {
 						changed = true;
-						time60 = var80062a8c[i].unk018[j] + g_Vars.lvupdate240_60;
+						time60 = g_ShieldHits[i].unk018[j] + g_Vars.lvupdate240_60;
 
-						if (var80062a8c[i].unk018[j] < 1 && time60 > 0) {
-							index = func0f02932c(var80062a8c[i].prop, j);
+						if (g_ShieldHits[i].unk018[j] < 1 && time60 > 0) {
+							index = func0f02932c(g_ShieldHits[i].prop, j);
 
 							if (index >= 0 && index < 32) {
-								if (var80062a8c[i].unk018[index] == -1) {
-									var80062a8c[i].unk018[index] = -3;
-									var80062a8c[i].unk038[index] = var80062a8c[i].unk038[j] + 1;
+								if (g_ShieldHits[i].unk018[index] == -1) {
+									g_ShieldHits[i].unk018[index] = -3;
+									g_ShieldHits[i].unk038[index] = g_ShieldHits[i].unk038[j] + 1;
 								}
 							}
 
-							index = func0f0293ec(var80062a8c[i].prop, j);
+							index = func0f0293ec(g_ShieldHits[i].prop, j);
 
 							while (index >= 0) {
 								if (index < 32) {
-									if (var80062a8c[i].unk018[index] == -1) {
-										var80062a8c[i].unk018[index] = -3;
-										var80062a8c[i].unk038[index] = var80062a8c[i].unk038[j] + 1;
+									if (g_ShieldHits[i].unk018[index] == -1) {
+										g_ShieldHits[i].unk018[index] = -3;
+										g_ShieldHits[i].unk038[index] = g_ShieldHits[i].unk038[j] + 1;
 									}
 								}
 
-								index = func0f0294cc(var80062a8c[i].prop, index);
+								index = func0f0294cc(g_ShieldHits[i].prop, index);
 							}
 						}
 
 						if (time60 < PALDOWN(30)) {
-							var80062a8c[i].unk018[j] = time60;
+							g_ShieldHits[i].unk018[j] = time60;
 						} else {
-							var80062a8c[i].unk018[j] = -2;
+							g_ShieldHits[i].unk018[j] = -2;
 						}
 					}
 				}
 
 				for (j = 0; j < 32; j++) {
-					if (var80062a8c[i].unk018[j] == -3) {
-						var80062a8c[i].unk018[j] = 0;
+					if (g_ShieldHits[i].unk018[j] == -3) {
+						g_ShieldHits[i].unk018[j] = 0;
 					}
 				}
 
 				if (!changed) {
-					func0f0291d4(&var80062a8c[i]);
+					shieldhitRemove(&g_ShieldHits[i]);
 				}
 			}
 		}
@@ -18019,7 +18019,7 @@ void chrSetDrCarollImages(struct chrdata *drcaroll, s32 imageleft, s32 imagerigh
 	}
 }
 
-s32 var80062a90 = false;
+s32 g_ShieldHitActive = false;
 u32 var80062a94 = 0x00000000;
 u32 var80062a98 = 0x00000000;
 u32 var80062a9c = 0x00000000;

@@ -6087,7 +6087,7 @@ struct rend_vidat {
 	/*0x28*/ u8 *fb;
 };
 
-struct var80062a8c {
+struct shieldhit {
 	/*0x00*/ struct prop *prop;
 	/*0x04*/ struct modelnode *node;
 	/*0x08*/ struct model *model;

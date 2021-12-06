@@ -41,13 +41,13 @@ void func0f00b510(void)
 	g_ChrSlots = NULL;
 	g_NumChrSlots = 0;
 
-	var80062a8c = mempAlloc(sizeof(struct var80062a8c) * 20, MEMPOOL_STAGE);
+	g_ShieldHits = mempAlloc(sizeof(struct shieldhit) * 20, MEMPOOL_STAGE);
 
 	for (i = 0; i < 20; i++) {
-		var80062a8c[i].prop = NULL;
+		g_ShieldHits[i].prop = NULL;
 	}
 
-	var80062a90 = 0;
+	g_ShieldHitActive = 0;
 	g_NumChrs = 0;
 	g_Chrnums = NULL;
 	g_ChrIndexes = NULL;
