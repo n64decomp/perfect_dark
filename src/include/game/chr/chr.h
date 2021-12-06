@@ -60,7 +60,7 @@ u32 func0f02983c(void);
 Gfx *func0f02b7d4(Gfx *gdl, struct prop *arg1, struct prop *arg2, s32 alpha, bool arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8);
 Gfx *func0f02bdf8(Gfx *gdl, struct prop *chr1, struct prop *chr2);
 Gfx *chrRenderShield(Gfx *gdl, struct chrdata *chr, u32 alpha);
-u32 func0f02c9b0(void);
+void func0f02c9b0(void);
 void chrSetDrCarollImages(struct chrdata *drcaroll, s32 imageleft, s32 imageright);
 s32 getNumChrSlots(void);
 void chrRegister(s32 chrnum, s32 chrindex);
