@@ -134,7 +134,7 @@ extern u8 var80062948;
 extern u8 var8006294c;
 extern u32 var80062950;
 extern bool g_WeatherTickEnabled;
-extern void *var80062960;
+extern struct var80062960 *var80062960;
 extern f32 var80062968;
 extern bool var8006296c;
 extern s32 g_SelectedAnimNum;

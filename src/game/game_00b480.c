@@ -51,11 +51,10 @@ void func0f00b510(void)
 	g_NumChrs = 0;
 	g_Chrnums = NULL;
 	g_ChrIndexes = NULL;
-	var80062960 = mempAlloc(0x1470, MEMPOOL_STAGE);
+	var80062960 = mempAlloc(ALIGN16(15 * sizeof(struct var80062960)), MEMPOOL_STAGE);
 
 	for (i = 0; i < 20; i++) {
-		// @bug? Should the ALIGN64 should surely be applied before mempAlloc...?
-		// Not a bug if only 0x200 bytes are being used
+		// @bug? ALIGN64 should surely be applied before mempAlloc...?
 		var8009ccc0[i] = (void *)ALIGN64(mempAlloc(0x240, MEMPOOL_STAGE));
 	}
 
