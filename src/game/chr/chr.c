@@ -12339,91 +12339,47 @@ s32 func0f0293ec(struct prop *prop, s32 cmnum)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f0294cc
-/*  f0294cc:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0294d0:	afa40040 */ 	sw	$a0,0x40($sp)
-/*  f0294d4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0294d8:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f0294dc:	240effff */ 	addiu	$t6,$zero,-1
-/*  f0294e0:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f0294e4:	27af002c */ 	addiu	$t7,$sp,0x2c
-/*  f0294e8:	afae003c */ 	sw	$t6,0x3c($sp)
-/*  f0294ec:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0294f0:	8fa50040 */ 	lw	$a1,0x40($sp)
-/*  f0294f4:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*  f0294f8:	0fc0a39b */ 	jal	func0f028e6c
-/*  f0294fc:	27a70030 */ 	addiu	$a3,$sp,0x30
-/*  f029500:	10400038 */ 	beqz	$v0,.L0f0295e4
-/*  f029504:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f029508:	50800037 */ 	beqzl	$a0,.L0f0295e8
-/*  f02950c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f029510:	0c006a17 */ 	jal	model0001a85c
-/*  f029514:	00000000 */ 	nop
-/*  f029518:	10400007 */ 	beqz	$v0,.L0f029538
-/*  f02951c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f029520:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*  f029524:	8fa6002c */ 	lw	$a2,0x2c($sp)
-/*  f029528:	0fc0a386 */ 	jal	func0f028e18
-/*  f02952c:	8fa70040 */ 	lw	$a3,0x40($sp)
-/*  f029530:	1000002c */ 	b	.L0f0295e4
-/*  f029534:	afa2003c */ 	sw	$v0,0x3c($sp)
-.L0f029538:
-/*  f029538:	0c0069e1 */ 	jal	model0001a784
-/*  f02953c:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f029540:	14400028 */ 	bnez	$v0,.L0f0295e4
-/*  f029544:	8fb80034 */ 	lw	$t8,0x34($sp)
-/*  f029548:	8f020018 */ 	lw	$v0,0x18($t8)
-/*  f02954c:	50400026 */ 	beqzl	$v0,.L0f0295e8
-/*  f029550:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f029554:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f029558:	10800009 */ 	beqz	$a0,.L0f029580
-/*  f02955c:	00000000 */ 	nop
-/*  f029560:	10980007 */ 	beq	$a0,$t8,.L0f029580
-/*  f029564:	00000000 */ 	nop
-/*  f029568:	8c840020 */ 	lw	$a0,0x20($a0)
-.L0f02956c:
-/*  f02956c:	8fb90034 */ 	lw	$t9,0x34($sp)
-/*  f029570:	10800003 */ 	beqz	$a0,.L0f029580
-/*  f029574:	00000000 */ 	nop
-/*  f029578:	5499fffc */ 	bnel	$a0,$t9,.L0f02956c
-/*  f02957c:	8c840020 */ 	lw	$a0,0x20($a0)
-.L0f029580:
-/*  f029580:	50800019 */ 	beqzl	$a0,.L0f0295e8
-/*  f029584:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f029588:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f02958c:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*  f029590:	50800015 */ 	beqzl	$a0,.L0f0295e8
-/*  f029594:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f029598:	8d020018 */ 	lw	$v0,0x18($t0)
-/*  f02959c:	8c860018 */ 	lw	$a2,0x18($a0)
-.L0f0295a0:
-/*  f0295a0:	8faa002c */ 	lw	$t2,0x2c($sp)
-/*  f0295a4:	8cc90018 */ 	lw	$t1,0x18($a2)
-/*  f0295a8:	5449000c */ 	bnel	$v0,$t1,.L0f0295dc
-/*  f0295ac:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f0295b0:	8d4b001c */ 	lw	$t3,0x1c($t2)
-/*  f0295b4:	8ccc001c */ 	lw	$t4,0x1c($a2)
-/*  f0295b8:	556c0008 */ 	bnel	$t3,$t4,.L0f0295dc
-/*  f0295bc:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f0295c0:	8ccd0008 */ 	lw	$t5,0x8($a2)
-/*  f0295c4:	8fa70040 */ 	lw	$a3,0x40($sp)
-/*  f0295c8:	0fc0a386 */ 	jal	func0f028e18
-/*  f0295cc:	8da50000 */ 	lw	$a1,0x0($t5)
-/*  f0295d0:	10000004 */ 	b	.L0f0295e4
-/*  f0295d4:	afa2003c */ 	sw	$v0,0x3c($sp)
-/*  f0295d8:	8c840020 */ 	lw	$a0,0x20($a0)
-.L0f0295dc:
-/*  f0295dc:	5480fff0 */ 	bnezl	$a0,.L0f0295a0
-/*  f0295e0:	8c860018 */ 	lw	$a2,0x18($a0)
-.L0f0295e4:
-/*  f0295e4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0295e8:
-/*  f0295e8:	8fa2003c */ 	lw	$v0,0x3c($sp)
-/*  f0295ec:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f0295f0:	03e00008 */ 	jr	$ra
-/*  f0295f4:	00000000 */ 	nop
-);
+s32 func0f0294cc(struct prop *prop, s32 arg1)
+{
+	s32 result = -1;
+	struct prop *child;
+	struct prop *prop2;
+	struct modelnode *node2;
+	struct model *model2;
+
+	if (func0f028e6c(arg1, prop, &prop2, &node2, &model2) && node2) {
+		struct modelnode *node3 = model0001a85c(node2);
+
+		if (node3) {
+			result = func0f028e18(prop2, node3, model2, prop);
+		} else if (model0001a784(node2) == NULL && prop2->parent) {
+			child = prop2->parent->child;
+
+			while (child && child != prop2) {
+				child = child->next;
+			}
+
+			if (child) {
+				child = child->next;
+
+				while (child) {
+					struct model *parent = child->parentmodel;
+
+					if (parent->attachedtomodel == model2->attachedtomodel) {
+						if (parent->attachedtonode == model2->attachedtonode) {
+							result = func0f028e18(child, parent->filedata->rootnode, parent, prop);
+							break;
+						}
+					}
+
+					child = child->next;
+				}
+			}
+		}
+	}
+
+	return result;
+}
 
 void func0f0295f8(f32 arg0, s32 *arg1, s32 *arg2, s32 *arg3)
 {
