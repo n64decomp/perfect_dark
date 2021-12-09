@@ -5593,7 +5593,7 @@ void autoaimTick(void)
 								|| chrGetEquippedWeaponProp(chr, HAND_LEFT)
 								|| (chr->chrflags & CHRCFLAG_FORCEAUTOAIM)
 								|| chr->gunprop)
-							&& func0f028a50(prop, &sp94, sp8c, sp84)) {
+							&& chrCalculateAutoAim(prop, &sp94, sp8c, sp84)) {
 						f32 thing = func0f06438c(prop, &sp94, sp8c, sp84, sp78, 0, cangangsta, 0);
 
 						if (thing > bestthing) {
