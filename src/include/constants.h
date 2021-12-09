@@ -3245,7 +3245,7 @@
 #define PROPFLAG_01                   0x01
 #define PROPFLAG_ONTHISSCREENTHISTICK 0x02
 #define PROPFLAG_ENABLED              0x04
-#define PROPFLAG_NOTYETTICKED                   0x08
+#define PROPFLAG_NOTYETTICKED         0x08
 #define PROPFLAG_DONTPAUSE            0x10
 #define PROPFLAG_20                   0x20
 #define PROPFLAG_ONANYSCREENTHISTICK  0x40

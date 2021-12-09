@@ -88,22 +88,6 @@ s32 g_NumChrSlots = 0;
 
 u32 var80062990 = 0x00000000;
 u32 var80062994 = 0x00000000;
-u32 var80062998 = 0x00000000;
-u32 var8006299c = 0x00000001;
-u32 var800629a0 = 0x00000003;
-u32 var800629a4 = 0x00000000;
-u32 var800629a8 = 0x00000000;
-u32 var800629ac = 0x00000000;
-u32 var800629b0 = 0x00000000;
-u32 var800629b4 = 0x00000000;
-u32 var800629b8 = 0x00000000;
-u32 var800629bc = 0x00000000;
-u32 var800629c0 = 0x00000000;
-u32 var800629c4 = 0x00000000;
-u32 var800629c8 = 0x00000000;
-u32 var800629cc = 0x00000000;
-u32 var800629d0 = 0x00000000;
-u32 var800629d4 = 0x00000000;
 
 void propsTick2(void)
 {
@@ -6440,6 +6424,23 @@ void func0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2)
 	}
 }
 
+u32 var80062998 = 0x00000000;
+u32 var8006299c = 0x00000001;
+u32 var800629a0 = 0x00000003;
+u32 var800629a4 = 0x00000000;
+u32 var800629a8 = 0x00000000;
+u32 var800629ac = 0x00000000;
+u32 var800629b0 = 0x00000000;
+u32 var800629b4 = 0x00000000;
+u32 var800629b8 = 0x00000000;
+u32 var800629bc = 0x00000000;
+u32 var800629c0 = 0x00000000;
+u32 var800629c4 = 0x00000000;
+u32 var800629c8 = 0x00000000;
+u32 var800629cc = 0x00000000;
+u32 var800629d0 = 0x00000000;
+u32 var800629d4 = 0x00000000;
+
 GLOBAL_ASM(
 glabel func0f022214
 .late_rodata
@@ -6618,6 +6619,79 @@ glabel var7f1a87a8
 /*  f02247c:	03e00008 */ 	jr	$ra
 /*  f022480:	27bd0118 */ 	addiu	$sp,$sp,0x118
 );
+
+// Mismatch: regalloc
+//void func0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
+//{
+//	struct defaultobj *obj = prop->obj;
+//	struct model *model = obj->model;
+//	struct prop *child;
+//	struct prop *next;
+//
+//	if (obj->hidden & OBJHFLAG_REAPABLE) {
+//		objFree(obj, true, obj->hidden2 & OBJH2FLAG_CANREGEN);
+//		return;
+//	}
+//
+//	if (prop);
+//	if (prop);
+//
+//	if (model->attachedtomodel && model->attachedtonode
+//			&& (obj->hidden & OBJHFLAG_00000800) == 0
+//			&& (obj->flags2 & OBJFLAG2_INVISIBLE) == 0) {
+//		Mtxf *sp104 = model0001a5cc(model->attachedtomodel, model->attachedtonode, 0);
+//		struct objticksp476 thing = {NULL, 1, 3};
+//		u32 stack;
+//		Mtxf sp80;
+//		Mtxf sp40;
+//
+//		prop->flags |= PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK;
+//
+//		if (obj->hidden & OBJHFLAG_00000040) {
+//			mtx00015be4(sp104, (Mtxf *)&obj->projectile->speed, &sp80);
+//			thing.matrix = &sp80;
+//		} else if (CHRRACE(chr) == RACE_SKEDAR) {
+//			// The skedar hand position is rotated weirdly, so compensate for it
+//			mtx4LoadYRotation(1.3192588090897f, &sp80);
+//			mtx4LoadZRotation(1.5705462694168f, &sp40);
+//			mtx4MultMtx4InPlace(&sp40, &sp80);
+//			mtx4MultMtx4InPlace(sp104, &sp80);
+//			thing.matrix = &sp80;
+//		} else if (prop == chr->weapons_held[HAND_LEFT]) {
+//			// Flip the model
+//			mtx4LoadZRotation(M_BADPI, &sp80);
+//			mtx4MultMtx4InPlace(sp104, &sp80);
+//			thing.matrix = &sp80;
+//		} else {
+//			thing.matrix = sp104;
+//		}
+//
+//		thing.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
+//		model0001ce64(&thing, model);
+//
+//		func0f07063c(prop, fulltick);
+//
+//		child = prop->child;
+//
+//		while (child) {
+//			next = child->next;
+//			func0f022214(chr, child, fulltick);
+//			child = next;
+//		}
+//	} else {
+//		prop->flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
+//
+//		func0f07063c(prop, fulltick);
+//
+//		child = prop->child;
+//
+//		while (child) {
+//			next = child->next;
+//			func0f0706f8(child, fulltick);
+//			child = next;
+//		}
+//	}
+//}
 
 void chrCloak(struct chrdata *chr, bool value)
 {
