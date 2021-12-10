@@ -236,7 +236,7 @@ void objTakeGunfire(struct defaultobj *obj, f32 damage, struct coord *pos, s32 w
 void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weaponnum, s32 playernum);
 void func0f0859a0(struct prop *prop, struct shotdata *shotdata);
 void func0f085e00(struct prop *prop, struct shotdata *shotdata);
-void func0f085eac(struct shotdata *shotdata, struct hit *hit);
+void objHit(struct shotdata *shotdata, struct hit *hit);
 u32 propobjGetCiTagId(struct prop *prop);
 bool objIsHealthy(struct defaultobj *obj);
 bool objTestForInteract(struct prop *prop);

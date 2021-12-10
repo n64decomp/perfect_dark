@@ -59299,7 +59299,7 @@ void func0f085e00(struct prop *prop, struct shotdata *shotdata)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f085eac
+glabel objHit
 /*  f085eac:	27bdfee0 */ 	addiu	$sp,$sp,-288
 /*  f085eb0:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f085eb4:	afa40120 */ 	sw	$a0,0x120($sp)
@@ -60030,7 +60030,7 @@ glabel func0f085eac
 );
 #else
 GLOBAL_ASM(
-glabel func0f085eac
+glabel objHit
 /*  f084710:	27bdfee0 */ 	addiu	$sp,$sp,-288
 /*  f084714:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f084718:	afa40120 */ 	sw	$a0,0x120($sp)

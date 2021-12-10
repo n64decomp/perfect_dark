@@ -6268,6 +6268,7 @@ struct var800ab718 {
 	u32 unk10;
 };
 
+// This struct might be the same struct as shotdata
 struct splat {
 	/*0x000*/ struct coord unk000;
 	/*0x00c*/ struct coord unk00c;
@@ -7062,7 +7063,7 @@ struct hitthing {
 struct hit {
 	/*0x00*/ f32 distance;
 	/*0x04*/ struct prop *prop;
-	/*0x08*/ u32 unk08;
+	/*0x08*/ s32 hitpart;
 	/*0x0c*/ struct modelnode *node;
 	/*0x10*/ struct hitthing hitthing;
 	/*0x40*/ u32 unk40;

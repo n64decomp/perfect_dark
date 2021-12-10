@@ -636,7 +636,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 
 	for (i = 0; i != 10; i++) {
 		shotdata.hits[i].prop = NULL;
-		shotdata.hits[i].unk08 = 0;
+		shotdata.hits[i].hitpart = 0;
 		shotdata.hits[i].node = NULL;
 	}
 
@@ -755,9 +755,9 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 				}
 
 				if (root->type == PROPTYPE_CHR || root->type == PROPTYPE_PLAYER) {
-					func0f027e1c(&shotdata, &shotdata.hits[i]);
+					chrHit(&shotdata, &shotdata.hits[i]);
 				} else if (hitprop->type == PROPTYPE_OBJ || hitprop->type == PROPTYPE_WEAPON || hitprop->type == PROPTYPE_DOOR) {
-					func0f085eac(&shotdata, &shotdata.hits[i]);
+					objHit(&shotdata, &shotdata.hits[i]);
 				}
 
 				if (shotdata.hits[i].unk4d) {
@@ -995,7 +995,7 @@ void handCreateBulletRaycast(s32 handnum, bool arg1, bool dorandom, s32 arg3, bo
 	}
 }
 
-void func0f061fa8(struct shotdata *shotdata, struct prop *prop, f32 arg2, s32 arg3, struct modelnode *node, struct hitthing *hitthing, s32 arg6, struct modelnode *arg7, struct model *model, bool arg9, s32 arg10, struct coord *arg11, struct coord *arg12)
+void func0f061fa8(struct shotdata *shotdata, struct prop *prop, f32 arg2, s32 hitpart, struct modelnode *node, struct hitthing *hitthing, s32 arg6, struct modelnode *arg7, struct model *model, bool arg9, s32 arg10, struct coord *arg11, struct coord *arg12)
 {
 	s32 i;
 	f32 fVar8;
@@ -1054,7 +1054,7 @@ void func0f061fa8(struct shotdata *shotdata, struct prop *prop, f32 arg2, s32 ar
 
 			hit->distance = arg2;
 			hit->prop = prop;
-			hit->unk08 = arg3;
+			hit->hitpart = hitpart;
 			hit->node = node;
 			hit->hitthing = *hitthing;
 			hit->unk40 = arg6;
