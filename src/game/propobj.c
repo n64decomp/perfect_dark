@@ -52089,7 +52089,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool w
 			if ((obj->flags3 & (OBJFLAG3_SHOWSHIELD | OBJFLAG3_SHIELDHIT)) && objIsHealthy(obj)) {
 				gSPSetGeometryMode(renderdata->gdl++, G_CULL_BACK);
 
-				renderdata->gdl = func0f02b7d4(renderdata->gdl, prop, prop, 0xff, 0, 0, 1, 2, 3);
+				renderdata->gdl = shieldhitRender(renderdata->gdl, prop, prop, 0xff, 0, 0, 1, 2, 3);
 			}
 		}
 	}
