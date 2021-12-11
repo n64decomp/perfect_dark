@@ -10632,7 +10632,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 						darker = false;
 					}
 
-					func0f0268bc(hit->model, hit->unk08, hit->node, &sp5c);
+					func0f0268bc(hit->model, hit->hitpart, hit->node, &sp5c);
 
 					func0f148e54(prop, (struct splat *)shotdata, &sp98, &hitpos, darker, 0, g_Vars.currentplayer->prop->chr);
 				}
