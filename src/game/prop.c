@@ -714,7 +714,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 			if (prop->type == PROPTYPE_CHR
 					|| (prop->type == PROPTYPE_PLAYER && prop->chr && propGetPlayerNum(prop) != g_Vars.currentplayernum)) {
 				if (!shortrange) {
-					func0f027994(prop, &shotdata, arg1, arg8);
+					chr0f027994(prop, &shotdata, arg1, arg8);
 				}
 			} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
 				func0f085e00(prop, &shotdata);
@@ -2609,7 +2609,7 @@ glabel var7f1ab190pf
 /*  f064028:	0fc198b9 */ 	jal	propsDefragRoomProps
 /*  f06402c:	00000000 */ 	nop
 .PF0f064030:
-/*  f064030:	0fc09214 */ 	jal	func0f02472c
+/*  f064030:	0fc09214 */ 	jal	chr0f02472c
 /*  f064034:	00000000 */ 	nop
 /*  f064038:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*  f06403c:	8fb00014 */ 	lw	$s0,0x14($sp)
@@ -3586,7 +3586,7 @@ glabel propsTick
 /*  f063d98:	0fc19815 */ 	jal	propsDefragRoomProps
 /*  f063d9c:	00000000 */ 	nop
 .L0f063da0:
-/*  f063da0:	0fc091cb */ 	jal	func0f02472c
+/*  f063da0:	0fc091cb */ 	jal	chr0f02472c
 /*  f063da4:	00000000 */ 	nop
 /*  f063da8:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*  f063dac:	8fb00014 */ 	lw	$s0,0x14($sp)
@@ -4559,7 +4559,7 @@ glabel propsTick
 /*  f06300c:	0fc194af */ 	jal	propsDefragRoomProps
 /*  f063010:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f063014:
-/*  f063014:	0fc09052 */ 	jal	func0f02472c
+/*  f063014:	0fc09052 */ 	jal	chr0f02472c
 /*  f063018:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f06301c:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*  f063020:	8fb00014 */ 	lw	$s0,0x14($sp)
@@ -5113,7 +5113,7 @@ glabel propsTick
 //		propsDefragRoomProps();
 //	}
 //
-//	func0f02472c();
+//	chr0f02472c();
 //}
 
 void propsTickPadEffects(void)
@@ -5406,7 +5406,7 @@ void farsightChooseTarget(void)
 	s32 i;
 
 	if (weaponnum == WEAPON_FARSIGHT) {
-		s32 numchrs = getNumChrSlots();
+		s32 numchrs = chrsGetNumSlots();
 
 		for (i = numchrs - 1; i >= 0; i--) {
 			struct prop *prop = g_ChrSlots[i].prop;
@@ -5589,8 +5589,8 @@ void autoaimTick(void)
 					chr = prop->chr;
 
 					if (!chrCompareTeams(g_Vars.currentplayer->prop->chr, chr, COMPARE_FRIENDS)
-							&& (chrGetEquippedWeaponProp(chr, HAND_RIGHT)
-								|| chrGetEquippedWeaponProp(chr, HAND_LEFT)
+							&& (chrGetHeldProp(chr, HAND_RIGHT)
+								|| chrGetHeldProp(chr, HAND_LEFT)
 								|| (chr->chrflags & CHRCFLAG_FORCEAUTOAIM)
 								|| chr->gunprop)
 							&& chrCalculateAutoAim(prop, &sp94, sp8c, sp84)) {
@@ -6168,7 +6168,7 @@ void func0f0661fc(void)
 void propGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 {
 	if (prop->type == PROPTYPE_CHR) {
-		propChrGetBbox(prop, width, ymax, ymin);
+		chrGetBbox(prop, width, ymax, ymin);
 	} else if (prop->type == PROPTYPE_PLAYER) {
 		propPlayerGetBbox(prop, width, ymax, ymin);
 	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR) {

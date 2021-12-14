@@ -16,7 +16,7 @@ void chrsReset(void)
 		if (g_ChrSlots[i].chrnum >= 0
 				&& g_ChrSlots[i].prop
 				&& g_ChrSlots[i].prop->type == PROPTYPE_CHR) {
-			func0f020d44(g_ChrSlots[i].prop, true);
+			chr0f020d44(g_ChrSlots[i].prop, true);
 			propDelist(g_ChrSlots[i].prop);
 			propDisable(g_ChrSlots[i].prop);
 			propFree(g_ChrSlots[i].prop);

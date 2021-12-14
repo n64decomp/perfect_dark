@@ -163,7 +163,7 @@ void *func0f12955c(s32 count, s32 index, s32 arg2, s32 arg3)
 	// reaping on a random corpse and replace its entry in the array.
 	// So at the end, we'll have an array of up to six unreapable corpses and
 	// all other corpses will be flagged for reaping.
-	numchrs = getNumChrSlots();
+	numchrs = chrsGetNumSlots();
 	tally = 0;
 
 	for (i = 0; i < numchrs; i++) {
@@ -296,7 +296,7 @@ glabel func0f12955c
 /*  f1242ec:	1420ffcb */ 	bnez	$at,.NB0f12421c
 /*  f1242f0:	26100010 */ 	addiu	$s0,$s0,0x10
 .NB0f1242f4:
-/*  f1242f4:	0fc0786c */ 	jal	getNumChrSlots
+/*  f1242f4:	0fc0786c */ 	jal	chrsGetNumSlots
 /*  f1242f8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f1242fc:	0040a825 */ 	or	$s5,$v0,$zero
 /*  f124300:	18400039 */ 	blez	$v0,.NB0f1243e8

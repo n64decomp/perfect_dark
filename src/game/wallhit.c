@@ -340,7 +340,7 @@ void func0f13e5c8(struct prop *prop)
 {
 	if (prop && prop->chr && (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER)) {
 		struct chrdata *chr = prop->chr;
-		bodyGetBloodColour(chr->bodynum, var8007f744, NULL);
+		chrGetBloodColour(chr->bodynum, var8007f744, NULL);
 	} else {
 		var8007f744[0] = 0x40;
 		var8007f744[1] = 0x0a;

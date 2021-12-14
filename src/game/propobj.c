@@ -420,7 +420,7 @@ bool doorCallLift(struct prop *doorprop, bool allowclose)
 						handled = false;
 					} else {
 						bool vacant = true;
-						s32 numchrslots = getNumChrSlots();
+						s32 numchrslots = chrsGetNumSlots();
 						s32 i;
 
 						for (i = 0; i < PLAYERCOUNT(); i++) {
@@ -6023,7 +6023,7 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 
 		// If obj is an occupied chair, remove the chr from it
 		if (obj->hidden & OBJHFLAG_OCCUPIEDCHAIR) {
-			s32 numchrs = getNumChrSlots();
+			s32 numchrs = chrsGetNumSlots();
 			s32 i;
 
 			obj->hidden &= ~OBJHFLAG_OCCUPIEDCHAIR;
@@ -6056,7 +6056,7 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 		func0f0926bc(obj->prop, 1, 0xffff);
 		shieldhitsRemoveByProp(obj->prop);
 
-		propClearReferences(obj->prop - g_Vars.props);
+		chrClearReferences(obj->prop - g_Vars.props);
 		projectilesUnrefOwner(obj->prop);
 
 		func0f13e40c(obj->prop, 0);
@@ -7383,7 +7383,7 @@ glabel func0f06c28c
 /*  f06c2c4:	afa700fc */ 	sw	$a3,0xfc($sp)
 /*  f06c2c8:	8c8e001c */ 	lw	$t6,0x1c($a0)
 /*  f06c2cc:	00808025 */ 	or	$s0,$a0,$zero
-/*  f06c2d0:	0fc09e29 */ 	jal	func0f0278a4
+/*  f06c2d0:	0fc09e29 */ 	jal	chr0f0278a4
 /*  f06c2d4:	afae00e8 */ 	sw	$t6,0xe8($sp)
 /*  f06c2d8:	8fa200e8 */ 	lw	$v0,0xe8($sp)
 /*  f06c2dc:	8fa300f4 */ 	lw	$v1,0xf4($sp)
@@ -24781,7 +24781,7 @@ glabel var7f1ab6dcpf
 /*  f075bac:	8cc6d3d4 */ 	lw	$a2,-0x2c2c($a2)
 /*  f075bb0:	8ca59614 */ 	lw	$a1,-0x69ec($a1)
 /*  f075bb4:	8c84d3d0 */ 	lw	$a0,-0x2c30($a0)
-/*  f075bb8:	0fc0987a */ 	jal	func0f0260c4
+/*  f075bb8:	0fc0987a */ 	jal	chr0f0260c4
 /*  f075bbc:	27a701c8 */ 	addiu	$a3,$sp,0x1c8
 /*  f075bc0:	100000df */ 	b	.PF0f075f40
 /*  f075bc4:	8faf034c */ 	lw	$t7,0x34c($sp)
@@ -28319,7 +28319,7 @@ glabel var7f1aa438
 /*  f075928:	8cc6ce74 */ 	lw	$a2,%lo(var8009ce74)($a2)
 /*  f07592c:	8ca59934 */ 	lw	$a1,%lo(var80069934)($a1)
 /*  f075930:	8c84ce70 */ 	lw	$a0,%lo(var8009ce70)($a0)
-/*  f075934:	0fc09831 */ 	jal	func0f0260c4
+/*  f075934:	0fc09831 */ 	jal	chr0f0260c4
 /*  f075938:	27a701c8 */ 	addiu	$a3,$sp,0x1c8
 /*  f07593c:	100000df */ 	b	.L0f075cbc
 /*  f075940:	8faf034c */ 	lw	$t7,0x34c($sp)
@@ -31821,7 +31821,7 @@ glabel var7f1aa438
 /*  f074654:	8cc615a4 */ 	lw	$a2,0x15a4($a2)
 /*  f074658:	8ca5c034 */ 	lw	$a1,-0x3fcc($a1)
 /*  f07465c:	8c8415a0 */ 	lw	$a0,0x15a0($a0)
-/*  f074660:	0fc096b8 */ 	jal	func0f0260c4
+/*  f074660:	0fc096b8 */ 	jal	chr0f0260c4
 /*  f074664:	27a701cc */ 	addiu	$a3,$sp,0x1cc
 /*  f074668:	100000e0 */ 	beqz	$zero,.NB0f0749ec
 /*  f07466c:	8fb9034c */ 	lw	$t9,0x34c($sp)
@@ -33840,7 +33840,7 @@ glabel var7f1aa454
 /*  f0778d8:	02802825 */ 	or	$a1,$s4,$zero
 /*  f0778dc:	0fc1979d */ 	jal	func0f065e74
 /*  f0778e0:	26270028 */ 	addiu	$a3,$s1,0x28
-/*  f0778e4:	0fc0882b */ 	jal	func0f0220ac
+/*  f0778e4:	0fc0882b */ 	jal	chr0f0220ac
 /*  f0778e8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0778ec:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f0778f0:	0c006b4d */ 	jal	modelSetRootPosition
@@ -34226,7 +34226,7 @@ glabel var7f1aa454
 /*  f0778d8:	02802825 */ 	or	$a1,$s4,$zero
 /*  f0778dc:	0fc1979d */ 	jal	func0f065e74
 /*  f0778e0:	26270028 */ 	addiu	$a3,$s1,0x28
-/*  f0778e4:	0fc0882b */ 	jal	func0f0220ac
+/*  f0778e4:	0fc0882b */ 	jal	chr0f0220ac
 /*  f0778e8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0778ec:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f0778f0:	0c006b4d */ 	jal	modelSetRootPosition
@@ -34609,7 +34609,7 @@ glabel var7f1aa454
 /*  f0764d0:	02c02825 */ 	or	$a1,$s6,$zero
 /*  f0764d4:	0fc19437 */ 	jal	func0f065e74
 /*  f0764d8:	26270028 */ 	addiu	$a3,$s1,0x28
-/*  f0764dc:	0fc086f9 */ 	jal	func0f0220ac
+/*  f0764dc:	0fc086f9 */ 	jal	chr0f0220ac
 /*  f0764e0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0764e4:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f0764e8:	0c006f6d */ 	jal	modelSetRootPosition
@@ -35626,7 +35626,7 @@ glabel var7f1aa580
 /*  f07908c:	10000007 */ 	b	.L0f0790ac
 /*  f079090:	8ca5c530 */ 	lw	$a1,%lo(g_MpNumPlayers)($a1)
 .L0f079094:
-/*  f079094:	0fc07934 */ 	jal	getNumChrSlots
+/*  f079094:	0fc07934 */ 	jal	chrsGetNumSlots
 /*  f079098:	afa800ac */ 	sw	$t0,0xac($sp)
 /*  f07909c:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f0790a0:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
@@ -36848,7 +36848,7 @@ glabel var7f1aa580
 /*  f07908c:	10000007 */ 	b	.L0f0790ac
 /*  f079090:	8ca5c530 */ 	lw	$a1,%lo(g_MpNumPlayers)($a1)
 .L0f079094:
-/*  f079094:	0fc07934 */ 	jal	getNumChrSlots
+/*  f079094:	0fc07934 */ 	jal	chrsGetNumSlots
 /*  f079098:	afa800ac */ 	sw	$t0,0xac($sp)
 /*  f07909c:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f0790a0:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
@@ -49820,7 +49820,7 @@ s32 objTick(struct prop *prop)
 					tagnum = objGetTagNum(obj);
 
 					if (tagnum >= 0) {
-						numchrs = getNumChrSlots();
+						numchrs = chrsGetNumSlots();
 
 						for (i = 0; i < numchrs; i++) {
 							if (g_ChrSlots[i].myspecial == tagnum) {
@@ -65681,7 +65681,7 @@ void coordTriggerProxies(struct coord *pos, bool arg1)
 
 void chrsTriggerProxies(void)
 {
-	s32 numchrs = getNumChrSlots();
+	s32 numchrs = chrsGetNumSlots();
 	s32 i;
 
 	for (i = 0; i < numchrs; i++) {

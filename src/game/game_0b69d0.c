@@ -1654,7 +1654,7 @@ bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
 		g_Vars.currentplayer->haschrbody = false;
 		g_Vars.currentplayer->model00d4 = NULL;
 
-		func0f020d44(g_Vars.currentplayer->prop, false);
+		chr0f020d44(g_Vars.currentplayer->prop, false);
 
 		if (hostchr->bodynum == BODY_SKEDAR) {
 			g_Vars.antiheadnum = HEAD_MRBLONDE;
@@ -1684,7 +1684,7 @@ bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
 		playerchr->chrwidth = hostchr->chrwidth;
 		g_Vars.currentplayer->bond2.width = hostchr->chrwidth;
 
-		func0f020d44(hostprop, true);
+		chr0f020d44(hostprop, true);
 		propDeregisterRooms(hostprop);
 		propDelist(hostprop);
 		propDisable(hostprop);
@@ -1759,7 +1759,7 @@ void currentPlayerSpawn(void)
 				func0f0b8ba0();
 			}
 
-			for (i = 0; i < getNumChrSlots(); i++) {
+			for (i = 0; i < chrsGetNumSlots(); i++) {
 				if (g_ChrSlots[i].model
 						&& g_ChrSlots[i].prop
 						&& (g_ChrSlots[i].hidden & CHRHFLAG_00400000)
@@ -2472,7 +2472,7 @@ glabel var7f1ad5b4
 /*  f0b9200:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0b9204:	e7b20010 */ 	swc1	$f18,0x10($sp)
 /*  f0b9208:	24860008 */ 	addiu	$a2,$a0,0x8
-/*  f0b920c:	0fc082c5 */ 	jal	func0f020b14
+/*  f0b920c:	0fc082c5 */ 	jal	chr0f020b14
 /*  f0b9210:	24870028 */ 	addiu	$a3,$a0,0x28
 /*  f0b9214:	8e0f0284 */ 	lw	$t7,0x284($s0)
 /*  f0b9218:	24090006 */ 	addiu	$t1,$zero,0x6
@@ -3130,7 +3130,7 @@ glabel var7f1ad5b4
 /*  f0b6f18:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0b6f1c:	e7b20010 */ 	swc1	$f18,0x10($sp)
 /*  f0b6f20:	24860008 */ 	addiu	$a2,$a0,0x8
-/*  f0b6f24:	0fc08195 */ 	jal	func0f020b14
+/*  f0b6f24:	0fc08195 */ 	jal	chr0f020b14
 /*  f0b6f28:	24870028 */ 	addiu	$a3,$a0,0x28
 /*  f0b6f2c:	8e0f0284 */ 	lw	$t7,0x284($s0)
 /*  f0b6f30:	24090006 */ 	addiu	$t1,$zero,0x6
@@ -3336,7 +3336,7 @@ void func0f0b9538(void)
 	if (g_Vars.currentplayer->haschrbody) {
 		if (!g_Vars.mplayerisrunning || (IS4MB() && PLAYERCOUNT() == 1)) {
 			g_Vars.currentplayer->haschrbody = false;
-			func0f020d44(g_Vars.currentplayer->prop, false);
+			chr0f020d44(g_Vars.currentplayer->prop, false);
 			g_Vars.currentplayer->model00d4 = NULL;
 			bmove0f0cb8c4(g_Vars.currentplayer);
 			bgun0f09df50();
@@ -14343,7 +14343,7 @@ Gfx *currentPlayerRenderShield(Gfx *gdl)
 		sp88[0] = currentPlayerGetScreenWidth() * (1.0f + 0.002f * ((g_Vars.currentplayer->shieldshowrnd >> 20) % 100) + (g_Vars.currentplayer->shieldshowtime * (0.2f + 0.002f * (g_Vars.currentplayer->shieldshowrnd % 100)) * (1.0f / 60.0f)));
 		sp88[1] = currentPlayerGetScreenHeight() * (1.0f + 0.002f * ((g_Vars.currentplayer->shieldshowrnd >> 24) % 100) + (g_Vars.currentplayer->shieldshowtime * (0.2f + 0.002f * ((g_Vars.currentplayer->shieldshowrnd >> 8) % 100)) * (1.0f / 60.0f)));
 
-		func0f0295f8(shield, &red, &green, &blue);
+		chr0f0295f8(shield, &red, &green, &blue);
 
 		if (g_Vars.currentplayer->shieldshowtime < 30) {
 			f20 = 1 - g_Vars.currentplayer->shieldshowtime * (1.0f / 120.0f);
@@ -15257,7 +15257,7 @@ s32 playerTick(struct prop *prop)
 			player->vv_ground = chr->ground;
 			player->vv_manground = chr->ground;
 
-			func0f0220ac(prop->chr);
+			chr0f0220ac(prop->chr);
 
 			if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 				if (player->model00d4->filedata->type == &g_ModelTypeChr) {
@@ -15298,8 +15298,8 @@ s32 playerTick(struct prop *prop)
 		chr->actiontype = ACT_BONDMULTI;
 
 		if ((chr->hidden & CHRHFLAG_00000800) == 0) {
-			leftprop = chrGetEquippedWeaponProp(chr, HAND_LEFT);
-			rightprop = chrGetEquippedWeaponProp(chr, HAND_RIGHT);
+			leftprop = chrGetHeldProp(chr, HAND_LEFT);
+			rightprop = chrGetHeldProp(chr, HAND_RIGHT);
 			animnum = modelGetAnimNum(chr->model);
 
 			func0f0c2a58(chr, bmoveGetCrouchPosByPlayer(playernum), player->speedsideways, player->speedforwards, player->speedtheta, &player->angleoffset, &chr->act_bondmulti.animcfg);
@@ -15445,11 +15445,11 @@ glabel var7f1ad744
 /*  f0c2a64:	afa40060 */ 	sw	$a0,0x60($sp)
 /*  f0c2a68:	afa60068 */ 	sw	$a2,0x68($sp)
 /*  f0c2a6c:	afa7006c */ 	sw	$a3,0x6c($sp)
-/*  f0c2a70:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
+/*  f0c2a70:	0fc0a209 */ 	jal	chrGetHeldProp
 /*  f0c2a74:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0c2a78:	8fa40060 */ 	lw	$a0,0x60($sp)
 /*  f0c2a7c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0c2a80:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
+/*  f0c2a80:	0fc0a209 */ 	jal	chrGetHeldProp
 /*  f0c2a84:	afa2005c */ 	sw	$v0,0x5c($sp)
 /*  f0c2a88:	8fa3005c */ 	lw	$v1,0x5c($sp)
 /*  f0c2a8c:	3c01bf80 */ 	lui	$at,0xbf80

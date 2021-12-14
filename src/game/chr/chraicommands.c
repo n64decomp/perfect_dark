@@ -434,7 +434,7 @@ bool aiChrDoAnimation(void)
 		chrTryStartAnim(chr, anim_id, fstartframe, fendframe, cmd[8], cmd[9], speed);
 
 		if (startframe == 0xfffe) {
-			func0f0220ec(chr, 1, 1);
+			chr0f0220ec(chr, 1, 1);
 
 			if (chr->prop->type == PROPTYPE_PLAYER) {
 				u32 playernum = propGetPlayerNum(chr->prop);
@@ -830,13 +830,13 @@ bool aiChrDamageChr(void)
 	struct chrdata *chr2 = chrFindById(g_Vars.chrdata, cmd[3]);
 
 	if (chr1 && chr2 && chr1->prop && chr2->prop) {
-		struct prop *prop = chrGetEquippedWeaponPropWithCheck(chr1, HAND_RIGHT);
+		struct prop *prop = chrGetHeldUsableProp(chr1, HAND_RIGHT);
 		f32 damage;
 		struct coord vector = {0, 0, 0};
 		struct weaponobj *weapon;
 
 		if (!prop) {
-			prop = chrGetEquippedWeaponPropWithCheck(chr1, HAND_LEFT);
+			prop = chrGetHeldUsableProp(chr1, HAND_LEFT);
 		}
 
 		if (prop) {
@@ -4586,10 +4586,10 @@ bool aiDuplicateChr(void)
 
 		if (cloneprop) {
 			clone = cloneprop->chr;
-			chrSetChrnum(clone, getNextUnusedChrnum());
+			chrSetChrnum(clone, chrsGetNextUnusedChrnum());
 			chr->chrdup = clone->chrnum;
 
-			srcweapon0prop = chrGetEquippedWeaponProp(chr, 0);
+			srcweapon0prop = chrGetHeldProp(chr, 0);
 
 			if (srcweapon0prop) {
 				srcweapon0 = srcweapon0prop->weapon;
@@ -4600,7 +4600,7 @@ bool aiDuplicateChr(void)
 				}
 			}
 
-			srcweapon1prop = chrGetEquippedWeaponProp(chr, 1);
+			srcweapon1prop = chrGetHeldProp(chr, 1);
 
 			if (srcweapon1prop) {
 				srcweapon1 = srcweapon1prop->weapon;
@@ -5436,7 +5436,7 @@ bool aiEnableChr(void)
 	if (chr && chr->prop && chr->model) {
 		propActivate(chr->prop);
 		propEnable(chr->prop);
-		func0f0220ac(chr);
+		chr0f0220ac(chr);
 	}
 
 	g_Vars.aioffset += 3;
@@ -11523,8 +11523,8 @@ bool aiDoPresetAnimation(void)
 	if (cmd[2] == 255) {
 		chrTryStartAnim(g_Vars.chrdata, anims[7 + (random() % 8)], 0, -1, 0, 15, 0.5);
 	} else if (cmd[2] == 254) {
-		struct prop *prop0 = chrGetEquippedWeaponProp(g_Vars.chrdata, 1);
-		struct prop *prop1 = chrGetEquippedWeaponProp(g_Vars.chrdata, 0);
+		struct prop *prop0 = chrGetHeldProp(g_Vars.chrdata, 1);
+		struct prop *prop1 = chrGetHeldProp(g_Vars.chrdata, 0);
 
 		if (weaponIsOneHanded(prop0) || weaponIsOneHanded(prop1)) {
 			chrTryStartAnim(g_Vars.chrdata, ANIM_FIX_GUN_JAM_EASY, 0, -1, 0, 5, 0.5);
@@ -12362,14 +12362,14 @@ bool aiShowCutsceneChrs(void)
 	s32 i;
 
 	if (show) {
-		for (i = getNumChrSlots() - 1; i >= 0; i--) {
+		for (i = chrsGetNumSlots() - 1; i >= 0; i--) {
 			if (g_ChrSlots[i].chrnum >= 0 && g_ChrSlots[i].prop && (g_ChrSlots[i].hidden2 & CHRH2FLAG_0001)) {
 				g_ChrSlots[i].hidden2 &= ~CHRH2FLAG_0001;
 				g_ChrSlots[i].chrflags &= ~CHRCFLAG_HIDDEN;
 			}
 		}
 	} else {
-		for (i = getNumChrSlots() - 1; i >= 0; i--) {
+		for (i = chrsGetNumSlots() - 1; i >= 0; i--) {
 			if (g_ChrSlots[i].chrnum >= 0 && g_ChrSlots[i].prop &&
 					(g_ChrSlots[i].chrflags & (CHRCFLAG_UNPLAYABLE | CHRCFLAG_HIDDEN)) == 0) {
 				g_ChrSlots[i].hidden2 |= CHRH2FLAG_0001;
@@ -12603,7 +12603,7 @@ bool aiRemoveReferencesToChr(void)
 {
 	if (g_Vars.chrdata && g_Vars.chrdata->prop) {
 		u32 index = g_Vars.chrdata->prop - g_Vars.props;
-		propClearReferences(index);
+		chrClearReferences(index);
 	}
 
 	g_Vars.aioffset += 2;
@@ -12619,7 +12619,7 @@ bool aiRemoveReferencesToChr(void)
 bool ai01b4(void)
 {
 	if (g_Vars.chrdata && g_Vars.chrdata->prop &&
-			func0f01f264(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, g_Vars.chrdata->prop->rooms, 0, false)) {
+			chr0f01f264(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, g_Vars.chrdata->prop->rooms, 0, false)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {

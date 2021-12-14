@@ -1169,7 +1169,7 @@ glabel var7f1a827c
 /*  f0122d4:	24450394 */ 	addiu	$a1,$v0,0x394
 /*  f0122d8:	0fc30864 */ 	jal	currentPlayerSetCamPropertiesWithRoom
 /*  f0122dc:	24460388 */ 	addiu	$a2,$v0,0x388
-/*  f0122e0:	0fc0797c */ 	jal	getNumChrSlots
+/*  f0122e0:	0fc0797c */ 	jal	chrsGetNumSlots
 /*  f0122e4:	00000000 */ 	nop
 /*  f0122e8:	18400026 */ 	blez	$v0,.PF0f012384
 /*  f0122ec:	00402025 */ 	move	$a0,$v0
@@ -1990,7 +1990,7 @@ glabel var7f1a827c
 /*  f0122b0:	24450394 */ 	addiu	$a1,$v0,0x394
 /*  f0122b4:	0fc30709 */ 	jal	currentPlayerSetCamPropertiesWithRoom
 /*  f0122b8:	24460388 */ 	addiu	$a2,$v0,0x388
-/*  f0122bc:	0fc07934 */ 	jal	getNumChrSlots
+/*  f0122bc:	0fc07934 */ 	jal	chrsGetNumSlots
 /*  f0122c0:	00000000 */ 	nop
 /*  f0122c4:	18400026 */ 	blez	$v0,.L0f012360
 /*  f0122c8:	00402025 */ 	or	$a0,$v0,$zero
@@ -2803,7 +2803,7 @@ glabel var7f1a827c
 /*  f011fd4:	24450394 */ 	addiu	$a1,$v0,0x394
 /*  f011fd8:	0fc2fdfb */ 	jal	currentPlayerSetCamPropertiesWithRoom
 /*  f011fdc:	24460388 */ 	addiu	$a2,$v0,0x388
-/*  f011fe0:	0fc0786c */ 	jal	getNumChrSlots
+/*  f011fe0:	0fc0786c */ 	jal	chrsGetNumSlots
 /*  f011fe4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f011fe8:	18400026 */ 	blez	$v0,.NB0f012084
 /*  f011fec:	00402025 */ 	or	$a0,$v0,$zero
@@ -3236,7 +3236,7 @@ glabel var7f1a827c
 //			&g_Vars.currentplayer->bond2.unk28,
 //			&g_Vars.currentplayer->bond2.unk1c, rooms[0]);
 //
-//	numchrs = getNumChrSlots();
+//	numchrs = chrsGetNumSlots();
 //
 //	for (i = 0; i < numchrs; i++) {
 //		if (g_ChrSlots[i].target == -2) {

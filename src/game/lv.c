@@ -2616,7 +2616,7 @@ glabel var7f1b8e7cpf
 /*  f16b29c:	0010582b */ 	sltu	$t3,$zero,$s0
 /*  f16b2a0:	01608025 */ 	move	$s0,$t3
 .PF0f16b2a4:
-/*  f16b2a4:	0fc0a16f */ 	jal	func0f028498
+/*  f16b2a4:	0fc0a16f */ 	jal	chr0f028498
 /*  f16b2a8:	02002025 */ 	move	$a0,$s0
 /*  f16b2ac:	0fc1fe48 */ 	jal	propsRenderBeams
 /*  f16b2b0:	02602025 */ 	move	$a0,$s3
@@ -3771,7 +3771,7 @@ Gfx *lvRender(Gfx *gdl)
 
 				func0f0641f4();
 				gdl = bgRender(gdl);
-				func0f028498(var80075d68 == 15 || g_AnimHostEnabled);
+				chr0f028498(var80075d68 == 15 || g_AnimHostEnabled);
 				gdl = propsRenderBeams(gdl);
 				gdl = shardsRender(gdl);
 				gdl = sparksRender(gdl);
@@ -5208,7 +5208,7 @@ glabel var7f1b1fd4nb
 /*  f164fb4:	0010582b */ 	sltu	$t3,$zero,$s0
 /*  f164fb8:	01608025 */ 	or	$s0,$t3,$zero
 .NB0f164fbc:
-/*  f164fbc:	0fc09fa8 */ 	jal	func0f028498
+/*  f164fbc:	0fc09fa8 */ 	jal	chr0f028498
 /*  f164fc0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f164fc4:	0fc1f852 */ 	jal	propsRenderBeams
 /*  f164fc8:	02602025 */ 	or	$a0,$s3,$zero

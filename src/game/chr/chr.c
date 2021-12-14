@@ -149,7 +149,7 @@ void propsTick2(void)
 	} while (!done);
 }
 
-s32 getNumChrSlots(void)
+s32 chrsGetNumSlots(void)
 {
 	return g_NumChrSlots;
 }
@@ -239,22 +239,22 @@ struct gfxvtx *chrAllocateVertices(s32 numvertices)
 	return (struct gfxvtx *) gfxAllocate(numvertices * sizeof(struct gfxvtx));
 }
 
-void setVar8006297c(u32 arg0)
+void chrsSetVar8006297c(u32 arg0)
 {
 	var8006297c = arg0;
 }
 
-u32 getVar8006297c(void)
+u32 chrsGetVar8006297c(void)
 {
 	return var8006297c;
 }
 
-void setVar80062980(u32 arg0)
+void chrsSetVar80062980(u32 arg0)
 {
 	var80062980 = arg0;
 }
 
-u32 getVar80062980(void)
+u32 chrsGetVar80062980(void)
 {
 	return var80062980;
 }
@@ -311,7 +311,7 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 		return;
 	}
 
-	propChrGetBbox(prop, &width, &ymax, &ymin);
+	chrGetBbox(prop, &width, &ymax, &ymin);
 	halfwidth = width * 0.5f;
 	chrSetPerimEnabled(chr, false);
 
@@ -336,7 +336,7 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 	}
 #endif
 
-	func0f021fa8(chr, dstpos, dstrooms);
+	chr0f021fa8(chr, dstpos, dstrooms);
 
 	movex = dstpos->x - prop->pos.x;
 	movez = dstpos->z - prop->pos.z;
@@ -398,7 +398,7 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 				}
 #endif
 
-				func0f021fa8(chr, &sp44, dstrooms);
+				chr0f021fa8(chr, &sp44, dstrooms);
 
 				movex = sp44.x - prop->pos.x;
 				movez = sp44.z - prop->pos.z;
@@ -454,7 +454,7 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 						}
 #endif
 
-						func0f021fa8(chr, &sp44, dstrooms);
+						chr0f021fa8(chr, &sp44, dstrooms);
 
 						movex = sp44.x - prop->pos.x;
 						movez = sp44.z - prop->pos.z;
@@ -508,7 +508,7 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 							}
 #endif
 
-							func0f021fa8(chr, &sp44, dstrooms);
+							chr0f021fa8(chr, &sp44, dstrooms);
 
 							movex = sp44.x - prop->pos.x;
 							movez = sp44.z - prop->pos.z;
@@ -551,7 +551,7 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 	}
 }
 
-bool func0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, bool arg4)
+bool chr0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, bool arg4)
 {
 	bool result;
 	struct coord newpos;
@@ -564,9 +564,9 @@ bool func0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, 
 	newpos.y = pos->y + arg3;
 	newpos.z = pos->z;
 
-	propChrGetBbox(chr->prop, &width, &ymax, &ymin);
+	chrGetBbox(chr->prop, &width, &ymax, &ymin);
 	func0f065e74(pos, rooms, &newpos, newrooms);
-	func0f021fa8(chr, &newpos, newrooms);
+	chr0f021fa8(chr, &newpos, newrooms);
 	chrSetPerimEnabled(chr, false);
 	result = cdTestVolume(&newpos, width, newrooms, CDTYPE_ALL, 1,
 			ymax - chr->prop->pos.y,
@@ -585,7 +585,7 @@ bool func0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, 
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f01f378
+glabel chr0f01f378
 .late_rodata
 glabel var7f1a98dcpf
 .word 0xc9742400
@@ -1313,7 +1313,7 @@ glabel var7f1a992cpf
 /*  f01fea4:	27a600fc */ 	addiu	$a2,$sp,0xfc
 /*  f01fea8:	24090001 */ 	li	$t1,0x1
 /*  f01feac:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f01feb0:	0fc07ce1 */ 	jal	func0f01f264
+/*  f01feb0:	0fc07ce1 */ 	jal	chr0f01f264
 /*  f01feb4:	8fa700f0 */ 	lw	$a3,0xf0($sp)
 /*  f01feb8:	10400005 */ 	beqz	$v0,.PF0f01fed0
 /*  f01febc:	3c017f1b */ 	lui	$at,0x7f1b
@@ -1342,7 +1342,7 @@ glabel var7f1a992cpf
 /*  f01ff0c:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f01ff10:	02202825 */ 	move	$a1,$s1
 /*  f01ff14:	27a600fc */ 	addiu	$a2,$sp,0xfc
-/*  f01ff18:	0fc07ce1 */ 	jal	func0f01f264
+/*  f01ff18:	0fc07ce1 */ 	jal	chr0f01f264
 /*  f01ff1c:	8fa700f0 */ 	lw	$a3,0xf0($sp)
 /*  f01ff20:	10400005 */ 	beqz	$v0,.PF0f01ff38
 /*  f01ff24:	3c017f1b */ 	lui	$at,0x7f1b
@@ -1410,7 +1410,7 @@ glabel var7f1a992cpf
 /*  f02000c:	e7a40090 */ 	swc1	$f4,0x90($sp)
 /*  f020010:	02002025 */ 	move	$a0,$s0
 /*  f020014:	27a50088 */ 	addiu	$a1,$sp,0x88
-/*  f020018:	0fc08839 */ 	jal	func0f021fa8
+/*  f020018:	0fc08839 */ 	jal	chr0f021fa8
 /*  f02001c:	27a60078 */ 	addiu	$a2,$sp,0x78
 /*  f020020:	10000004 */ 	b	.PF0f020034
 /*  f020024:	8e050024 */ 	lw	$a1,0x24($s0)
@@ -1595,7 +1595,7 @@ glabel var7f1a992cpf
 /*  f0202bc:	02202825 */ 	move	$a1,$s1
 /*  f0202c0:	27a600fc */ 	addiu	$a2,$sp,0xfc
 /*  f0202c4:	8fa700f0 */ 	lw	$a3,0xf0($sp)
-/*  f0202c8:	0fc07ce1 */ 	jal	func0f01f264
+/*  f0202c8:	0fc07ce1 */ 	jal	chr0f01f264
 /*  f0202cc:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f0202d0:	44808000 */ 	mtc1	$zero,$f16
 /*  f0202d4:	10400007 */ 	beqz	$v0,.PF0f0202f4
@@ -1753,7 +1753,7 @@ glabel var7f1a992cpf
 /*  f020508:	e6240004 */ 	swc1	$f4,0x4($s1)
 /*  f02050c:	02002025 */ 	move	$a0,$s0
 /*  f020510:	02202825 */ 	move	$a1,$s1
-/*  f020514:	0fc08839 */ 	jal	func0f021fa8
+/*  f020514:	0fc08839 */ 	jal	chr0f021fa8
 /*  f020518:	27a600fc */ 	addiu	$a2,$sp,0xfc
 /*  f02051c:	c60000b4 */ 	lwc1	$f0,0xb4($s0)
 .PF0f020520:
@@ -1824,7 +1824,7 @@ glabel var7f1a992cpf
 /*  f02060c:	14a3fff3 */ 	bne	$a1,$v1,.PF0f0205dc
 /*  f020610:	00000000 */ 	nop
 .PF0f020614:
-/*  f020614:	0fc0887a */ 	jal	func0f0220ac
+/*  f020614:	0fc0887a */ 	jal	chr0f0220ac
 /*  f020618:	02002025 */ 	move	$a0,$s0
 /*  f02061c:	8fa40118 */ 	lw	$a0,0x118($sp)
 /*  f020620:	260500fc */ 	addiu	$a1,$s0,0xfc
@@ -1839,7 +1839,7 @@ glabel var7f1a992cpf
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f01f378
+glabel chr0f01f378
 .late_rodata
 glabel var7f1a86ac
 .word 0xc9742400
@@ -2585,7 +2585,7 @@ glabel var7f1a8720
 /*  f01fd88:	27a600fc */ 	addiu	$a2,$sp,0xfc
 /*  f01fd8c:	24090001 */ 	addiu	$t1,$zero,0x1
 /*  f01fd90:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f01fd94:	0fc07c99 */ 	jal	func0f01f264
+/*  f01fd94:	0fc07c99 */ 	jal	chr0f01f264
 /*  f01fd98:	8fa700f0 */ 	lw	$a3,0xf0($sp)
 /*  f01fd9c:	10400005 */ 	beqz	$v0,.L0f01fdb4
 /*  f01fda0:	3c017f1b */ 	lui	$at,%hi(var7f1a86dc)
@@ -2614,7 +2614,7 @@ glabel var7f1a8720
 /*  f01fdf0:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f01fdf4:	02202825 */ 	or	$a1,$s1,$zero
 /*  f01fdf8:	27a600fc */ 	addiu	$a2,$sp,0xfc
-/*  f01fdfc:	0fc07c99 */ 	jal	func0f01f264
+/*  f01fdfc:	0fc07c99 */ 	jal	chr0f01f264
 /*  f01fe00:	8fa700f0 */ 	lw	$a3,0xf0($sp)
 /*  f01fe04:	10400005 */ 	beqz	$v0,.L0f01fe1c
 /*  f01fe08:	3c017f1b */ 	lui	$at,%hi(var7f1a86e0)
@@ -2684,7 +2684,7 @@ glabel var7f1a8720
 /*  f01fef8:	e7aa0090 */ 	swc1	$f10,0x90($sp)
 /*  f01fefc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f01ff00:	27a50088 */ 	addiu	$a1,$sp,0x88
-/*  f01ff04:	0fc087ea */ 	jal	func0f021fa8
+/*  f01ff04:	0fc087ea */ 	jal	chr0f021fa8
 /*  f01ff08:	27a60078 */ 	addiu	$a2,$sp,0x78
 /*  f01ff0c:	10000004 */ 	b	.L0f01ff20
 /*  f01ff10:	8e050024 */ 	lw	$a1,0x24($s0)
@@ -2873,7 +2873,7 @@ glabel var7f1a8720
 /*  f0201b8:	02202825 */ 	or	$a1,$s1,$zero
 /*  f0201bc:	27a600fc */ 	addiu	$a2,$sp,0xfc
 /*  f0201c0:	8fa700f0 */ 	lw	$a3,0xf0($sp)
-/*  f0201c4:	0fc07c99 */ 	jal	func0f01f264
+/*  f0201c4:	0fc07c99 */ 	jal	chr0f01f264
 /*  f0201c8:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f0201cc:	44809000 */ 	mtc1	$zero,$f18
 /*  f0201d0:	10400007 */ 	beqz	$v0,.L0f0201f0
@@ -3029,7 +3029,7 @@ glabel var7f1a8720
 /*  f0203fc:	e62a0004 */ 	swc1	$f10,0x4($s1)
 /*  f020400:	02002025 */ 	or	$a0,$s0,$zero
 /*  f020404:	02202825 */ 	or	$a1,$s1,$zero
-/*  f020408:	0fc087ea */ 	jal	func0f021fa8
+/*  f020408:	0fc087ea */ 	jal	chr0f021fa8
 /*  f02040c:	27a600fc */ 	addiu	$a2,$sp,0xfc
 /*  f020410:	c60000b4 */ 	lwc1	$f0,0xb4($s0)
 .L0f020414:
@@ -3100,7 +3100,7 @@ glabel var7f1a8720
 /*  f020500:	14a3fff3 */ 	bne	$a1,$v1,.L0f0204d0
 /*  f020504:	00000000 */ 	nop
 .L0f020508:
-/*  f020508:	0fc0882b */ 	jal	func0f0220ac
+/*  f020508:	0fc0882b */ 	jal	chr0f0220ac
 /*  f02050c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f020510:	8fa40118 */ 	lw	$a0,0x118($sp)
 /*  f020514:	260500fc */ 	addiu	$a1,$s0,0xfc
@@ -3115,7 +3115,7 @@ glabel var7f1a8720
 );
 #else
 GLOBAL_ASM(
-glabel func0f01f378
+glabel chr0f01f378
 .late_rodata
 glabel var7f1a86ac
 .word 0xc9742400
@@ -3796,7 +3796,7 @@ glabel var7f1a8720
 /*  f01fa74:	02202825 */ 	or	$a1,$s1,$zero
 /*  f01fa78:	11600016 */ 	beqz	$t3,.NB0f01fad4
 /*  f01fa7c:	27a600cc */ 	addiu	$a2,$sp,0xcc
-/*  f01fa80:	0fc07c17 */ 	jal	func0f01f264
+/*  f01fa80:	0fc07c17 */ 	jal	chr0f01f264
 /*  f01fa84:	8fa700c0 */ 	lw	$a3,0xc0($sp)
 /*  f01fa88:	10400009 */ 	beqz	$v0,.NB0f01fab0
 /*  f01fa8c:	3c017f1a */ 	lui	$at,0x7f1a
@@ -3827,7 +3827,7 @@ glabel var7f1a8720
 /*  f01fae4:	24010003 */ 	addiu	$at,$zero,0x3
 /*  f01fae8:	02202825 */ 	or	$a1,$s1,$zero
 /*  f01faec:	27a600cc */ 	addiu	$a2,$sp,0xcc
-/*  f01faf0:	0fc07c17 */ 	jal	func0f01f264
+/*  f01faf0:	0fc07c17 */ 	jal	chr0f01f264
 /*  f01faf4:	8fa700c0 */ 	lw	$a3,0xc0($sp)
 /*  f01faf8:	10400009 */ 	beqz	$v0,.NB0f01fb20
 /*  f01fafc:	3c017f1a */ 	lui	$at,0x7f1a
@@ -3901,7 +3901,7 @@ glabel var7f1a8720
 /*  f01fbfc:	e7aa0088 */ 	swc1	$f10,0x88($sp)
 /*  f01fc00:	02002025 */ 	or	$a0,$s0,$zero
 /*  f01fc04:	27a50080 */ 	addiu	$a1,$sp,0x80
-/*  f01fc08:	0fc086ba */ 	jal	func0f021fa8
+/*  f01fc08:	0fc086ba */ 	jal	chr0f021fa8
 /*  f01fc0c:	27a60070 */ 	addiu	$a2,$sp,0x70
 /*  f01fc10:	10000004 */ 	beqz	$zero,.NB0f01fc24
 /*  f01fc14:	8e050024 */ 	lw	$a1,0x24($s0)
@@ -4025,7 +4025,7 @@ glabel var7f1a8720
 /*  f01fdc4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f01fdc8:	02202825 */ 	or	$a1,$s1,$zero
 /*  f01fdcc:	27a600cc */ 	addiu	$a2,$sp,0xcc
-/*  f01fdd0:	0fc07c17 */ 	jal	func0f01f264
+/*  f01fdd0:	0fc07c17 */ 	jal	chr0f01f264
 /*  f01fdd4:	8fa700c0 */ 	lw	$a3,0xc0($sp)
 /*  f01fdd8:	44809000 */ 	mtc1	$zero,$f18
 /*  f01fddc:	10400007 */ 	beqz	$v0,.NB0f01fdfc
@@ -4197,7 +4197,7 @@ glabel var7f1a8720
 /*  f020040:	27a400cc */ 	addiu	$a0,$sp,0xcc
 /*  f020044:	0fc19283 */ 	jal	roomsCopy
 /*  f020048:	8fa50044 */ 	lw	$a1,0x44($sp)
-/*  f02004c:	0fc086f9 */ 	jal	func0f0220ac
+/*  f02004c:	0fc086f9 */ 	jal	chr0f0220ac
 /*  f020050:	02002025 */ 	or	$a0,$s0,$zero
 /*  f020054:	8fa400e8 */ 	lw	$a0,0xe8($sp)
 /*  f020058:	260500fc */ 	addiu	$a1,$s0,0xfc
@@ -4212,7 +4212,7 @@ glabel var7f1a8720
 );
 #endif
 
-s32 getNumFreeChrSlots(void)
+s32 chrsGetNumFree(void)
 {
 	s32 count = 0;
 	s32 i;
@@ -4250,7 +4250,7 @@ f32 chrGetArmor(struct chrdata *chr)
 	return 0;
 }
 
-s16 getNextUnusedChrnum(void)
+s16 chrsGetNextUnusedChrnum(void)
 {
 	s32 chrnum;
 	struct chrdata *chr;
@@ -4281,7 +4281,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	}
 
 	prop->chr = chr;
-	chr->chrnum = getNextUnusedChrnum();
+	chr->chrnum = chrsGetNextUnusedChrnum();
 	chrRegister(chr->chrnum, i);
 
 	chr->headnum = 0;
@@ -4484,7 +4484,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chrInitSplats(chr);
 }
 
-struct prop *func0f020b14(struct prop *prop, struct model *model,
+struct prop *chr0f020b14(struct prop *prop, struct model *model,
 		struct coord *pos, s16 *rooms, f32 faceangle, u8 *ailist)
 {
 	struct chrdata *chr;
@@ -4500,7 +4500,7 @@ struct prop *func0f020b14(struct prop *prop, struct model *model,
 
 	chr = prop->chr;
 
-	modelSetAnim70(model, func0f01f378);
+	modelSetAnim70(model, chr0f01f378);
 	model->chr = chr;
 	model->unk01 = 1;
 	chr->model = model;
@@ -4521,7 +4521,7 @@ struct prop *func0f020b14(struct prop *prop, struct model *model,
 
 	propDeregisterRooms(prop);
 	roomsCopy(rooms, prop->rooms);
-	func0f0220ac(chr);
+	chr0f0220ac(chr);
 	modelSetRootPosition(model, &prop->pos);
 
 	nodetype = chr->model->filedata->rootnode->type;
@@ -4540,12 +4540,12 @@ struct prop *func0f020b14(struct prop *prop, struct model *model,
 	return prop;
 }
 
-struct prop *propAllocateChr(struct model *model, struct coord *pos, s16 *rooms, f32 faceangle, u8 *ailist)
+struct prop *chrAllocate(struct model *model, struct coord *pos, s16 *rooms, f32 faceangle, u8 *ailist)
 {
 	struct prop *prop = propAllocate();
 
 	if (prop) {
-		prop = func0f020b14(prop, model, pos, rooms, faceangle, ailist);
+		prop = chr0f020b14(prop, model, pos, rooms, faceangle, ailist);
 
 		if (cheatIsActive(CHEAT_ENEMYSHIELDS)) {
 			chrSetShield(prop->chr, 8);
@@ -4558,7 +4558,7 @@ struct prop *propAllocateChr(struct model *model, struct coord *pos, s16 *rooms,
 /**
  * Appears to hide a chr. If removechr is true, deallocates the chr completely.
  */
-void func0f020d44(struct prop *prop, bool removechr)
+void chr0f020d44(struct prop *prop, bool removechr)
 {
 	struct chrdata *chr = prop->chr;
 	struct model *model = chr->model;
@@ -4612,7 +4612,7 @@ void func0f020d44(struct prop *prop, bool removechr)
 			chr->cover = -1;
 		}
 
-		propClearReferences(prop - g_Vars.props);
+		chrClearReferences(prop - g_Vars.props);
 		projectilesUnrefOwner(prop);
 
 		if (g_Vars.normmplayerisrunning == false && g_MissionConfig.iscoop) {
@@ -4632,7 +4632,7 @@ void func0f020d44(struct prop *prop, bool removechr)
 	}
 }
 
-void propClearReferences(s32 propnum)
+void chrClearReferences(s32 propnum)
 {
 	s32 i;
 	s32 j;
@@ -4661,7 +4661,7 @@ void propClearReferences(s32 propnum)
 	}
 }
 
-void func0f0211a8(f32 arg0)
+void chr0f0211a8(f32 arg0)
 {
 	s32 i;
 
@@ -4674,7 +4674,7 @@ void func0f0211a8(f32 arg0)
 	}
 }
 
-f32 func0f02124c(void)
+f32 chr0f02124c(void)
 {
 	return var80062968;
 }
@@ -4736,7 +4736,7 @@ void chrFlinchHead(struct chrdata *chr, f32 arg1)
 	chr->hidden2 |= value << 13;
 }
 
-f32 func0f02143c(struct chrdata *chr)
+f32 chr0f02143c(struct chrdata *chr)
 {
 	f32 value = chr->flinchcnt;
 
@@ -4757,11 +4757,11 @@ f32 func0f02143c(struct chrdata *chr)
 	return value;
 }
 
-void func0f02152c(void);
+void chr0f02152c(void);
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f02152c
+glabel chr0f02152c
 .late_rodata
 glabel var7f1a8740
 .word 0x40c907a9
@@ -5205,7 +5205,7 @@ glabel var7f1a879c
 /*  f021ab4:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f021ab8:	afa20028 */ 	sw	$v0,0x28($sp)
 /*  f021abc:	e7ac00a0 */ 	swc1	$f12,0xa0($sp)
-/*  f021ac0:	0fc0850f */ 	jal	func0f02143c
+/*  f021ac0:	0fc0850f */ 	jal	chr0f02143c
 /*  f021ac4:	e7ae00a4 */ 	swc1	$f14,0xa4($sp)
 /*  f021ac8:	3c0c800a */ 	lui	$t4,%hi(var8009cd1c)
 /*  f021acc:	8d8ccd1c */ 	lw	$t4,%lo(var8009cd1c)($t4)
@@ -5313,7 +5313,7 @@ glabel var7f1a879c
 /*  f021c38:	afb80088 */ 	sw	$t8,0x88($sp)
 /*  f021c3c:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f021c40:	e7ac00a0 */ 	swc1	$f12,0xa0($sp)
-/*  f021c44:	0fc0850f */ 	jal	func0f02143c
+/*  f021c44:	0fc0850f */ 	jal	chr0f02143c
 /*  f021c48:	e7ae00a4 */ 	swc1	$f14,0xa4($sp)
 /*  f021c4c:	3c017f1b */ 	lui	$at,%hi(var7f1a8780)
 /*  f021c50:	c42a8780 */ 	lwc1	$f10,%lo(var7f1a8780)($at)
@@ -5339,7 +5339,7 @@ glabel var7f1a879c
 /*  f021c98:	14ea0033 */ 	bne	$a3,$t2,.L0f021d68
 /*  f021c9c:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f021ca0:	e7ac00a0 */ 	swc1	$f12,0xa0($sp)
-/*  f021ca4:	0fc0850f */ 	jal	func0f02143c
+/*  f021ca4:	0fc0850f */ 	jal	chr0f02143c
 /*  f021ca8:	e7ae00a4 */ 	swc1	$f14,0xa4($sp)
 /*  f021cac:	3c19800a */ 	lui	$t9,%hi(var8009cd1c)
 /*  f021cb0:	3c017f1b */ 	lui	$at,%hi(var7f1a8788)
@@ -5555,7 +5555,7 @@ glabel var7f1a879c
 );
 #else
 GLOBAL_ASM(
-glabel func0f02152c
+glabel chr0f02152c
 .late_rodata
 glabel var7f1a8740
 .word 0x40c907a9
@@ -5999,7 +5999,7 @@ glabel var7f1a879c
 /*  f021ab4:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f021ab8:	afa20028 */ 	sw	$v0,0x28($sp)
 /*  f021abc:	e7ac00a0 */ 	swc1	$f12,0xa0($sp)
-/*  f021ac0:	0fc0850f */ 	jal	func0f02143c
+/*  f021ac0:	0fc0850f */ 	jal	chr0f02143c
 /*  f021ac4:	e7ae00a4 */ 	swc1	$f14,0xa4($sp)
 /*  f021ac8:	3c0c800a */ 	lui	$t4,%hi(var8009cd1c)
 /*  f021acc:	8d8ccd1c */ 	lw	$t4,%lo(var8009cd1c)($t4)
@@ -6107,7 +6107,7 @@ glabel var7f1a879c
 /*  f021c38:	afb80088 */ 	sw	$t8,0x88($sp)
 /*  f021c3c:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f021c40:	e7ac00a0 */ 	swc1	$f12,0xa0($sp)
-/*  f021c44:	0fc0850f */ 	jal	func0f02143c
+/*  f021c44:	0fc0850f */ 	jal	chr0f02143c
 /*  f021c48:	e7ae00a4 */ 	swc1	$f14,0xa4($sp)
 /*  f021c4c:	3c017f1b */ 	lui	$at,%hi(var7f1a8780)
 /*  f021c50:	c42a8780 */ 	lwc1	$f10,%lo(var7f1a8780)($at)
@@ -6133,7 +6133,7 @@ glabel var7f1a879c
 /*  f021c98:	14ea0033 */ 	bne	$a3,$t2,.L0f021d68
 /*  f021c9c:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f021ca0:	e7ac00a0 */ 	swc1	$f12,0xa0($sp)
-/*  f021ca4:	0fc0850f */ 	jal	func0f02143c
+/*  f021ca4:	0fc0850f */ 	jal	chr0f02143c
 /*  f021ca8:	e7ae00a4 */ 	swc1	$f14,0xa4($sp)
 /*  f021cac:	3c19800a */ 	lui	$t9,%hi(var8009cd1c)
 /*  f021cb0:	3c017f1b */ 	lui	$at,%hi(var7f1a8788)
@@ -6349,7 +6349,7 @@ glabel var7f1a879c
 );
 #endif
 
-void func0f021fa8(struct chrdata *chr, struct coord *pos, s16 *rooms)
+void chr0f021fa8(struct chrdata *chr, struct coord *pos, s16 *rooms)
 {
 	struct coord lower;
 	struct coord upper;
@@ -6382,19 +6382,19 @@ void func0f021fa8(struct chrdata *chr, struct coord *pos, s16 *rooms)
 	func0f1650d0(&lower, &upper, rooms, 7, 1);
 }
 
-void func0f022084(struct chrdata *chr, s16 *room)
+void chr0f022084(struct chrdata *chr, s16 *room)
 {
-	func0f021fa8(chr, &chr->prop->pos, room);
+	chr0f021fa8(chr, &chr->prop->pos, room);
 }
 
-void func0f0220ac(struct chrdata *chr)
+void chr0f0220ac(struct chrdata *chr)
 {
 	propDeregisterRooms(chr->prop);
-	func0f022084(chr, chr->prop->rooms);
+	chr0f022084(chr, chr->prop->rooms);
 	propRegisterRooms(chr->prop);
 }
 
-void func0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2)
+void chr0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2)
 {
 	struct model *model = chr->model;
 
@@ -6442,7 +6442,7 @@ u32 var800629d0 = 0x00000000;
 u32 var800629d4 = 0x00000000;
 
 GLOBAL_ASM(
-glabel func0f022214
+glabel chr0f022214
 .late_rodata
 glabel var7f1a87a0
 .word 0x3fa8dd79
@@ -6586,7 +6586,7 @@ glabel var7f1a87a8
 /*  f022404:	8e300020 */ 	lw	$s0,0x20($s1)
 /*  f022408:	02802025 */ 	or	$a0,$s4,$zero
 /*  f02240c:	02202825 */ 	or	$a1,$s1,$zero
-/*  f022410:	0fc08885 */ 	jal	func0f022214
+/*  f022410:	0fc08885 */ 	jal	chr0f022214
 /*  f022414:	02603025 */ 	or	$a2,$s3,$zero
 /*  f022418:	1600fffa */ 	bnez	$s0,.L0f022404
 /*  f02241c:	02008825 */ 	or	$s1,$s0,$zero
@@ -6621,7 +6621,7 @@ glabel var7f1a87a8
 );
 
 // Mismatch: regalloc
-//void func0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
+//void chr0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
 //{
 //	struct defaultobj *obj = prop->obj;
 //	struct model *model = obj->model;
@@ -6675,7 +6675,7 @@ glabel var7f1a87a8
 //
 //		while (child) {
 //			next = child->next;
-//			func0f022214(chr, child, fulltick);
+//			chr0f022214(chr, child, fulltick);
 //			child = next;
 //		}
 //	} else {
@@ -6894,7 +6894,7 @@ void chrUpdateCloak(struct chrdata *chr)
 	}
 }
 
-s32 func0f022be4(struct chrdata *chr)
+s32 chr0f022be4(struct chrdata *chr)
 {
 	s32 result = 255;
 
@@ -7126,7 +7126,7 @@ s32 chrTick(struct prop *prop)
 				objDropRecursively(prop, true);
 			}
 
-			func0f020d44(prop, true);
+			chr0f020d44(prop, true);
 			return TICKOP_FREE;
 		}
 	}
@@ -7142,7 +7142,7 @@ s32 chrTick(struct prop *prop)
 			}
 
 			if (fulltick) {
-				func0f0220ec(chr, lvupdate240, 1);
+				chr0f0220ec(chr, lvupdate240, 1);
 			}
 		} else {
 			onscreen = false;
@@ -7161,9 +7161,9 @@ s32 chrTick(struct prop *prop)
 			model->anim->average = false;
 
 			if (chr->actiontype == ACT_ANIM && !chr->act_anim.movewheninvis && chr->act_anim.lockpos) {
-				func0f0220ec(chr, lvupdate240, 0);
+				chr0f0220ec(chr, lvupdate240, 0);
 			} else {
-				func0f0220ec(chr, lvupdate240, 1);
+				chr0f0220ec(chr, lvupdate240, 1);
 			}
 		}
 
@@ -7192,7 +7192,7 @@ s32 chrTick(struct prop *prop)
 			}
 		} else {
 			if (fulltick) {
-				func0f0220ec(chr, lvupdate240, 1);
+				chr0f0220ec(chr, lvupdate240, 1);
 			}
 
 			onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
@@ -7215,16 +7215,16 @@ s32 chrTick(struct prop *prop)
 			model->anim->average = false;
 
 			if (onscreen && !chr->act_anim.lockpos) {
-				func0f0220ec(chr, lvupdate240, 1);
+				chr0f0220ec(chr, lvupdate240, 1);
 			} else {
-				func0f0220ec(chr, lvupdate240, 0);
+				chr0f0220ec(chr, lvupdate240, 0);
 			}
 		}
 	} else if (chr->actiontype == ACT_STAND) {
 		model->anim->average = false;
 
 		if (chr->chrflags & CHRCFLAG_00000001) {
-			func0f0220ec(chr, lvupdate240, 1);
+			chr0f0220ec(chr, lvupdate240, 1);
 			onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
 		} else {
 			onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
@@ -7233,22 +7233,22 @@ s32 chrTick(struct prop *prop)
 				if (fulltick) {
 					if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
 						if (onscreen) {
-							func0f0220ec(chr, lvupdate240, 1);
+							chr0f0220ec(chr, lvupdate240, 1);
 						} else if (model->anim->animnum2 != 0) {
-							func0f0220ec(chr, lvupdate240, 0);
+							chr0f0220ec(chr, lvupdate240, 0);
 						}
 					} else {
-						func0f0220ec(chr, lvupdate240, 1);
+						chr0f0220ec(chr, lvupdate240, 1);
 					}
 				}
 			} else if (onscreen) {
 				if (chr->act_stand.playwalkanim == true) {
-					func0f0220ec(chr, lvupdate240, 0);
+					chr0f0220ec(chr, lvupdate240, 0);
 				} else {
-					func0f0220ec(chr, lvupdate240, 1);
+					chr0f0220ec(chr, lvupdate240, 1);
 				}
 			} else if (model->anim->animnum2 != 0) {
-				func0f0220ec(chr, lvupdate240, 0);
+				chr0f0220ec(chr, lvupdate240, 0);
 			}
 		}
 	} else if (chr->actiontype == ACT_DEAD) {
@@ -7258,14 +7258,14 @@ s32 chrTick(struct prop *prop)
 				|| (player = g_Vars.players[propGetPlayerNum(prop)], player->cameramode == CAMERAMODE_EYESPY)
 				|| (player->cameramode == CAMERAMODE_THIRDPERSON && player->visionmode == VISIONMODE_SLAYERROCKET))) {
 		model->anim->average = false;
-		func0f0220ec(chr, lvupdate240, 1);
+		chr0f0220ec(chr, lvupdate240, 1);
 		onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
 	} else {
 		offscreen2 = false;
 
 		if (fulltick) {
 			model->anim->average = false;
-			func0f0220ec(chr, lvupdate240, 1);
+			chr0f0220ec(chr, lvupdate240, 1);
 		}
 
 		if (chr->model && chr->model->anim && (g_Anims[chr->model->anim->animnum].flags & ANIMFLAG_04)) {
@@ -7335,7 +7335,7 @@ s32 chrTick(struct prop *prop)
 			modelSetDistanceScale(0.3125f);
 		}
 
-		var8005efcc = &func0f02152c;
+		var8005efcc = &chr0f02152c;
 		var8009cd1c = chr;
 
 		if (CHRRACE(chr) == RACE_DRCAROLL && g_Vars.tickmode != TICKMODE_CUTSCENE) {
@@ -7463,7 +7463,7 @@ s32 chrTick(struct prop *prop)
 
 			while (child) {
 				next = child->next;
-				func0f022214(chr, child, fulltick);
+				chr0f022214(chr, child, fulltick);
 				child = next;
 			}
 
@@ -7619,26 +7619,26 @@ void chrDropItemsForOwnerReap(struct chrdata *chr)
 
 u8 var80062a48[] = { 64, 10, 10 };
 
-void func0f0246e4(u8 *arg0)
+void chr0f0246e4(u8 *arg0)
 {
 	var80062a48[0] = arg0[0];
 	var80062a48[1] = arg0[1];
 	var80062a48[2] = arg0[2];
 }
 
-void func0f024708(u8 *arg0)
+void chr0f024708(u8 *arg0)
 {
 	arg0[0] = var80062a48[0];
 	arg0[1] = var80062a48[1];
 	arg0[2] = var80062a48[2];
 }
 
-void func0f02472c(void)
+void chr0f02472c(void)
 {
 	var80062964 = 0;
 }
 
-bool func0f024738(struct chrdata *chr)
+bool chr0f024738(struct chrdata *chr)
 {
 	s16 *propnumptr;
 	s16 propnums[256];
@@ -7736,24 +7736,24 @@ next:
 }
 
 GLOBAL_ASM(
-glabel func0f024b18
+glabel chr0f024b18
 .late_rodata
 glabel var7f1a87dc
-.word func0f024b18+0x2b8 # f024dd0
+.word chr0f024b18+0x2b8 # f024dd0
 glabel var7f1a87e0
-.word func0f024b18+0x2d4 # f024dec
+.word chr0f024b18+0x2d4 # f024dec
 glabel var7f1a87e4
-.word func0f024b18+0x2f0 # f024e08
+.word chr0f024b18+0x2f0 # f024e08
 glabel var7f1a87e8
-.word func0f024b18+0x30c # f024e24
+.word chr0f024b18+0x30c # f024e24
 glabel var7f1a87ec
-.word func0f024b18+0x328 # f024e40
+.word chr0f024b18+0x328 # f024e40
 glabel var7f1a87f0
-.word func0f024b18+0x344 # f024e5c
+.word chr0f024b18+0x344 # f024e5c
 glabel var7f1a87f4
-.word func0f024b18+0x360 # f024e78
+.word chr0f024b18+0x360 # f024e78
 glabel var7f1a87f8
-.word func0f024b18+0x37c # f024e94
+.word chr0f024b18+0x37c # f024e94
 .text
 /*  f024b18:	27bdfee8 */ 	addiu	$sp,$sp,-280
 /*  f024b1c:	afbf0044 */ 	sw	$ra,0x44($sp)
@@ -8156,7 +8156,7 @@ void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderda
 	}
 }
 
-void bodyGetBloodColour(s16 bodynum, u8 *colour1, u32 *colour2)
+void chrGetBloodColour(s16 bodynum, u8 *colour1, u32 *colour2)
 {
 	switch (bodynum) {
 	case BODY_ELVIS1:
@@ -8256,8 +8256,8 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		alpha = (f32)alpha * (PALDOWN(120) - chr->aibot->unk058) * (PAL ? 0.01f : 0.0083333337679505f);
 	}
 
-	bodyGetBloodColour(chr->bodynum, spec, NULL);
-	func0f0246e4(spec);
+	chrGetBloodColour(chr->bodynum, spec, NULL);
+	chr0f0246e4(spec);
 	alpha *= func0f08e6bc(prop, model0001af80(model));
 
 	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
@@ -8286,7 +8286,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 			|| g_InCutscene
 			|| !EYESPYINACTIVE()
 			|| (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_IRSCANNER) == 0) {
-		alpha = func0f022be4(chr) * alpha * 0.0039215688593686f;
+		alpha = chr0f022be4(chr) * alpha * 0.0039215688593686f;
 	}
 
 	if (alpha < 0xff) {
@@ -8317,7 +8317,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		u32 stack;
 
 		if (withalpha && chr->cloakfadefrac > 0 && !chr->cloakfadefinished) {
-			gdl = func0f02bdf8(gdl, chr->prop, chr->prop);
+			gdl = chrRenderCloak(gdl, chr->prop, chr->prop);
 		}
 
 		if (func0f08e5a8(prop->rooms, &screenbox) > 0 && (chr->chrflags & CHRCFLAG_UNPLAYABLE) == 0) {
@@ -8440,8 +8440,8 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 
 		g_Vars.currentplayerstats->drawplayercount++;
 
-		if (func0f024738(chr)) {
-			var8005efc4 = func0f024b18;
+		if (chr0f024738(chr)) {
+			var8005efc4 = chr0f024b18;
 		}
 
 		// Render the chr's model
@@ -8578,7 +8578,7 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct c
 }
 
 GLOBAL_ASM(
-glabel func0f0260c4
+glabel chr0f0260c4
 /*  f0260c4:	27bdfed8 */ 	addiu	$sp,$sp,-296
 /*  f0260c8:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0260cc:	afbf003c */ 	sw	$ra,0x3c($sp)
@@ -9142,42 +9142,42 @@ glabel func0f0260c4
 );
 
 GLOBAL_ASM(
-glabel func0f0268bc
+glabel chrBruise
 .late_rodata
 glabel var7f1a8904
-.word func0f0268bc+0x778 # f027034
+.word chrBruise+0x778 # f027034
 glabel var7f1a8908
-.word func0f0268bc+0x7bc # f027078
+.word chrBruise+0x7bc # f027078
 glabel var7f1a890c
-.word func0f0268bc+0x424 # f026ce0
+.word chrBruise+0x424 # f026ce0
 glabel var7f1a8910
-.word func0f0268bc+0x7bc # f027078
+.word chrBruise+0x7bc # f027078
 glabel var7f1a8914
-.word func0f0268bc+0x7bc # f027078
+.word chrBruise+0x7bc # f027078
 glabel var7f1a8918
-.word func0f0268bc+0x7bc # f027078
+.word chrBruise+0x7bc # f027078
 glabel var7f1a891c
-.word func0f0268bc+0x7bc # f027078
+.word chrBruise+0x7bc # f027078
 glabel var7f1a8920
-.word func0f0268bc+0x7bc # f027078
+.word chrBruise+0x7bc # f027078
 glabel var7f1a8924
-.word func0f0268bc+0x7bc # f027078
+.word chrBruise+0x7bc # f027078
 glabel var7f1a8928
-.word func0f0268bc+0x7bc # f027078
+.word chrBruise+0x7bc # f027078
 glabel var7f1a892c
-.word func0f0268bc+0x790 # f02704c
+.word chrBruise+0x790 # f02704c
 glabel var7f1a8930
-.word func0f0268bc+0x7bc # f027078
+.word chrBruise+0x7bc # f027078
 glabel var7f1a8934
-.word func0f0268bc+0x7bc # f027078
+.word chrBruise+0x7bc # f027078
 glabel var7f1a8938
-.word func0f0268bc+0x7bc # f027078
+.word chrBruise+0x7bc # f027078
 glabel var7f1a893c
-.word func0f0268bc+0x7bc # f027078
+.word chrBruise+0x7bc # f027078
 glabel var7f1a8940
-.word func0f0268bc+0x7a8 # f027064
+.word chrBruise+0x7a8 # f027064
 glabel var7f1a8944
-.word func0f0268bc+0x484 # f026d40
+.word chrBruise+0x484 # f026d40
 .text
 /*  f0268bc:	27bdfee0 */ 	addiu	$sp,$sp,-288
 /*  f0268c0:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -9758,7 +9758,7 @@ glabel var7f1a8944
 );
 
 GLOBAL_ASM(
-glabel func0f0270f4
+glabel chr0f0270f4
 /*  f0270f4:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f0270f8:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f0270fc:	afbe0038 */ 	sw	$s8,0x38($sp)
@@ -10305,7 +10305,7 @@ glabel func0f0270f4
 /*  f0278a0:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-f32 func0f0278a4(struct chrdata *chr)
+f32 chr0f0278a4(struct chrdata *chr)
 {
 	s32 i;
 	f32 result;
@@ -10337,14 +10337,14 @@ f32 func0f0278a4(struct chrdata *chr)
 	return result;
 }
 
-void func0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool arg3)
+void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool arg3)
 {
 	struct coord spdc;
 	struct coord spd0;
 	struct chrdata *chr = prop->chr;
 
 	if ((chr->chrflags & CHRCFLAG_HIDDEN) == 0 && (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
-		f32 fStack32 = func0f0278a4(chr);
+		f32 fStack32 = chr0f0278a4(chr);
 
 		if (prop->z - fStack32 < shotdata->unk34) {
 			struct model *model = chr->model;
@@ -10609,10 +10609,10 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 					}
 
 					if (!chrIsUsingPaintball(g_Vars.currentplayer->prop->chr)) {
-						func0f0268bc(hit->model, hit->hitpart, hit->node, &sp5c);
+						chrBruise(hit->model, hit->hitpart, hit->node, &sp5c);
 					}
 
-					func0f148e54(prop, (struct splat *)shotdata, &sp98, &hitpos, darker, 0, g_Vars.currentplayer->prop->chr);
+					splatsCreateForChrHit(prop, (struct splat *)shotdata, &sp98, &hitpos, darker, 0, g_Vars.currentplayer->prop->chr);
 				}
 #else
 				// NTSC beta wraps all the blood logic in this paintball check.
@@ -10632,9 +10632,9 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 						darker = false;
 					}
 
-					func0f0268bc(hit->model, hit->hitpart, hit->node, &sp5c);
+					chrBruise(hit->model, hit->hitpart, hit->node, &sp5c);
 
-					func0f148e54(prop, (struct splat *)shotdata, &sp98, &hitpos, darker, 0, g_Vars.currentplayer->prop->chr);
+					splatsCreateForChrHit(prop, (struct splat *)shotdata, &sp98, &hitpos, darker, 0, g_Vars.currentplayer->prop->chr);
 				}
 #endif
 			}
@@ -10642,18 +10642,18 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 	}
 }
 
-void func0f028490(f32 arg1)
+void chr0f028490(f32 arg1)
 {
 	// empty
 }
 
-void func0f028498(bool value)
+void chr0f028498(bool value)
 {
 	var8006296c = value;
 	var8005efbc = value;
 }
 
-void func0f0284ac(s32 arg0)
+void chr0f0284ac(s32 arg0)
 {
 	g_SelectedAnimNum -= arg0;
 
@@ -10662,7 +10662,7 @@ void func0f0284ac(s32 arg0)
 	}
 }
 
-void func0f0284f4(s32 arg0)
+void chr0f0284f4(s32 arg0)
 {
 	g_SelectedAnimNum += arg0;
 
@@ -10671,12 +10671,12 @@ void func0f0284f4(s32 arg0)
 	}
 }
 
-void func0f028544(void)
+void chr0f028544(void)
 {
 	var80062974 = !var80062974;
 }
 
-void func0f02855c(s32 arg0)
+void chr0f02855c(s32 arg0)
 {
 	var80062978 = arg0;
 
@@ -10751,12 +10751,12 @@ struct chrdata *chrFindByLiteralId(s32 chrnum)
 	return NULL;
 }
 
-struct prop *chrGetEquippedWeaponProp(struct chrdata *chr, s32 hand)
+struct prop *chrGetHeldProp(struct chrdata *chr, s32 hand)
 {
 	return chr->weapons_held[hand];
 }
 
-struct prop *chrGetEquippedWeaponPropWithCheck(struct chrdata *chr, s32 hand)
+struct prop *chrGetHeldUsableProp(struct chrdata *chr, s32 hand)
 {
 	struct prop *prop = chr->weapons_held[hand];
 
@@ -10830,7 +10830,7 @@ bool chrUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 
 }
 
-void propChrGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
+void chrGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 {
 	struct chrdata *chr = prop->chr;
 
@@ -10910,7 +10910,7 @@ bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *
 	return false;
 }
 
-bool func0f028d50(struct prop *arg0, struct prop *arg1, struct modelnode *node, struct model *model, s32 *total)
+bool chr0f028d50(struct prop *arg0, struct prop *arg1, struct modelnode *node, struct model *model, s32 *total)
 {
 	if (arg1 == arg0) {
 		*total += model0001a524(node, 0);
@@ -10919,22 +10919,22 @@ bool func0f028d50(struct prop *arg0, struct prop *arg1, struct modelnode *node, 
 
 	*total += model->filedata->nummatrices;
 
-	if (arg0->child && func0f028d50(arg0->child, arg1, node, model, total) > 0) {
+	if (arg0->child && chr0f028d50(arg0->child, arg1, node, model, total) > 0) {
 		return true;
 	}
 
-	if (arg0->next && func0f028d50(arg0->next, arg1, node, model, total) > 0) {
+	if (arg0->next && chr0f028d50(arg0->next, arg1, node, model, total) > 0) {
 		return true;
 	}
 
 	return false;
 }
 
-s32 func0f028e18(struct prop *arg0, struct modelnode *node, struct model *model, struct prop *arg3)
+s32 chr0f028e18(struct prop *arg0, struct modelnode *node, struct model *model, struct prop *arg3)
 {
 	s32 result = 0;
 
-	if (func0f028d50(arg3, arg0, node, model, &result)) {
+	if (chr0f028d50(arg3, arg0, node, model, &result)) {
 		return result;
 	}
 
@@ -10942,7 +10942,7 @@ s32 func0f028e18(struct prop *arg0, struct modelnode *node, struct model *model,
 }
 
 GLOBAL_ASM(
-glabel func0f028e6c
+glabel chr0f028e6c
 /*  f028e6c:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f028e70:	afb60038 */ 	sw	$s6,0x38($sp)
 /*  f028e74:	afb50034 */ 	sw	$s5,0x34($sp)
@@ -10986,7 +10986,7 @@ glabel func0f028e6c
 /*  f028efc:	02202025 */ 	or	$a0,$s1,$zero
 /*  f028f00:	50a00005 */ 	beqzl	$a1,.L0f028f18
 /*  f028f04:	8e020020 */ 	lw	$v0,0x20($s0)
-/*  f028f08:	0fc0a39b */ 	jal	func0f028e6c
+/*  f028f08:	0fc0a39b */ 	jal	chr0f028e6c
 /*  f028f0c:	afb40010 */ 	sw	$s4,0x10($sp)
 /*  f028f10:	00401825 */ 	or	$v1,$v0,$zero
 /*  f028f14:	8e020020 */ 	lw	$v0,0x20($s0)
@@ -11022,7 +11022,7 @@ glabel func0f028e6c
 );
 
 // Mismatch: Reordered instructions
-//bool func0f028e6c(s32 arg0, struct prop *prop, struct prop **propptr, struct modelnode **nodeptr, struct model **modelptr)
+//bool chr0f028e6c(s32 arg0, struct prop *prop, struct prop **propptr, struct modelnode **nodeptr, struct model **modelptr)
 //{
 //	while (true) {
 //		bool result = false;
@@ -11041,7 +11041,7 @@ glabel func0f028e6c
 //			arg0 -= model->filedata->nummatrices;
 //
 //			if (prop->child) {
-//				result = func0f028e6c(arg0, prop->child, propptr, nodeptr, modelptr);
+//				result = chr0f028e6c(arg0, prop->child, propptr, nodeptr, modelptr);
 //			}
 //
 //			if (prop->next && !result) {
@@ -11188,7 +11188,7 @@ glabel shieldhitCreate
 /*  f029130:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*  f029134:	8fa60038 */ 	lw	$a2,0x38($sp)
 /*  f029138:	02003825 */ 	or	$a3,$s0,$zero
-/*  f02913c:	0fc0a386 */ 	jal	func0f028e18
+/*  f02913c:	0fc0a386 */ 	jal	chr0f028e18
 /*  f029140:	afab0024 */ 	sw	$t3,0x24($sp)
 /*  f029144:	28410020 */ 	slti	$at,$v0,0x20
 /*  f029148:	10200004 */ 	beqz	$at,.L0f02915c
@@ -11298,7 +11298,7 @@ glabel shieldhitCreate
 //			}
 //
 //			if (pass) {
-//				s32 index = func0f028e18(arg2, node, model, prop);
+//				s32 index = chr0f028e18(arg2, node, model, prop);
 //
 //				if (index < 32) {
 //					shieldhit->unk018[index] = 0;
@@ -11367,7 +11367,7 @@ void shieldhitsRemoveByProp(struct prop *prop)
 	}
 }
 
-s32 func0f02932c(struct prop *prop, s32 arg1)
+s32 chr0f02932c(struct prop *prop, s32 arg1)
 {
 	s32 result = -1;
 	struct modelnode *node2;
@@ -11375,20 +11375,20 @@ s32 func0f02932c(struct prop *prop, s32 arg1)
 	struct modelnode *node;
 	struct model *model;
 
-	if (func0f028e6c(arg1, prop, &prop2, &node, &model) && node) {
+	if (chr0f028e6c(arg1, prop, &prop2, &node, &model) && node) {
 		node2 = model0001a784(node);
 
 		if (node2) {
-			result = func0f028e18(prop2, node2, model, prop);
+			result = chr0f028e18(prop2, node2, model, prop);
 		} else if (prop2->parent && model->attachedtomodel && model->attachedtonode) {
-			result = func0f028e18(prop2->parent, model->attachedtonode, model->attachedtomodel, prop);
+			result = chr0f028e18(prop2->parent, model->attachedtonode, model->attachedtomodel, prop);
 		}
 	}
 
 	return result;
 }
 
-s32 func0f0293ec(struct prop *prop, s32 cmnum)
+s32 chr0f0293ec(struct prop *prop, s32 cmnum)
 {
 	s32 result = -1;
 	struct modelnode *node2;
@@ -11396,11 +11396,11 @@ s32 func0f0293ec(struct prop *prop, s32 cmnum)
 	struct modelnode *node;
 	struct model *model;
 
-	if (func0f028e6c(cmnum, prop, &prop2, &node, &model) && node) {
+	if (chr0f028e6c(cmnum, prop, &prop2, &node, &model) && node) {
 		node2 = model0001a7cc(node);
 
 		if (node2) {
-			result = func0f028e18(prop2, node2, model, prop);
+			result = chr0f028e18(prop2, node2, model, prop);
 		} else {
 			struct prop *child = prop2->child;
 
@@ -11409,7 +11409,7 @@ s32 func0f0293ec(struct prop *prop, s32 cmnum)
 
 				if (model == parentmodel->attachedtomodel) {
 					if (node == parentmodel->attachedtonode) {
-						result = func0f028e18(child, parentmodel->filedata->rootnode, parentmodel, prop);
+						result = chr0f028e18(child, parentmodel->filedata->rootnode, parentmodel, prop);
 						break;
 					}
 				}
@@ -11422,7 +11422,7 @@ s32 func0f0293ec(struct prop *prop, s32 cmnum)
 	return result;
 }
 
-s32 func0f0294cc(struct prop *prop, s32 arg1)
+s32 chr0f0294cc(struct prop *prop, s32 arg1)
 {
 	s32 result = -1;
 	struct prop *child;
@@ -11430,11 +11430,11 @@ s32 func0f0294cc(struct prop *prop, s32 arg1)
 	struct modelnode *node2;
 	struct model *model2;
 
-	if (func0f028e6c(arg1, prop, &prop2, &node2, &model2) && node2) {
+	if (chr0f028e6c(arg1, prop, &prop2, &node2, &model2) && node2) {
 		struct modelnode *node3 = model0001a85c(node2);
 
 		if (node3) {
-			result = func0f028e18(prop2, node3, model2, prop);
+			result = chr0f028e18(prop2, node3, model2, prop);
 		} else if (model0001a784(node2) == NULL && prop2->parent) {
 			child = prop2->parent->child;
 
@@ -11450,7 +11450,7 @@ s32 func0f0294cc(struct prop *prop, s32 arg1)
 
 					if (parent->attachedtomodel == model2->attachedtomodel) {
 						if (parent->attachedtonode == model2->attachedtonode) {
-							result = func0f028e18(child, parent->filedata->rootnode, parent, prop);
+							result = chr0f028e18(child, parent->filedata->rootnode, parent, prop);
 							break;
 						}
 					}
@@ -11464,7 +11464,7 @@ s32 func0f0294cc(struct prop *prop, s32 arg1)
 	return result;
 }
 
-void func0f0295f8(f32 arg0, s32 *arg1, s32 *arg2, s32 *arg3)
+void chr0f0295f8(f32 arg0, s32 *arg1, s32 *arg2, s32 *arg3)
 {
 	if (arg0 < 1.5f) {
 		*arg1 = 57 - (s32)((1.5f - arg0) * 28.0f);
@@ -11524,7 +11524,7 @@ f32 propGetShieldThing(struct prop **propptr)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f02983c
+glabel chr0f02983c
 .late_rodata
 glabel var7f1a9b60pf
 .word 0x3c40c0c1
@@ -11908,7 +11908,7 @@ glabel var7f1a9ba0pf
 /*  f029e8c:	46087302 */ 	mul.s	$f12,$f14,$f8
 /*  f029e90:	00000000 */ 	nop
 .PF0f029e94:
-/*  f029e94:	0fc0a5c7 */ 	jal	func0f0295f8
+/*  f029e94:	0fc0a5c7 */ 	jal	chr0f0295f8
 /*  f029e98:	27a700f8 */ 	addiu	$a3,$sp,0xf8
 /*  f029e9c:	8fac0100 */ 	lw	$t4,0x100($sp)
 /*  f029ea0:	8fad00fc */ 	lw	$t5,0xfc($sp)
@@ -13686,7 +13686,7 @@ glabel var7f1a9ba0pf
 );
 #else
 GLOBAL_ASM(
-glabel func0f02983c
+glabel chr0f02983c
 .late_rodata
 glabel var7f1a894c
 .word 0x3c40c0c1
@@ -14064,7 +14064,7 @@ glabel var7f1a8980
 /*  f029d68:	46087302 */ 	mul.s	$f12,$f14,$f8
 /*  f029d6c:	00000000 */ 	nop
 .L0f029d70:
-/*  f029d70:	0fc0a57e */ 	jal	func0f0295f8
+/*  f029d70:	0fc0a57e */ 	jal	chr0f0295f8
 /*  f029d74:	27a700f8 */ 	addiu	$a3,$sp,0xf8
 /*  f029d78:	8fac0100 */ 	lw	$t4,0x100($sp)
 /*  f029d7c:	8fad00fc */ 	lw	$t5,0xfc($sp)
@@ -15877,7 +15877,7 @@ Gfx *shieldhitRender(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alpha
 					struct shieldhit *s0 = NULL;
 					struct shieldhit *s1 = NULL;
 					struct shieldhit *s2 = NULL;
-					s32 index = func0f028e18(prop2, node, model, prop1);
+					s32 index = chr0f028e18(prop2, node, model, prop1);
 					s32 i;
 
 					for (i = 0; i < 20; i++) {
@@ -15905,11 +15905,11 @@ Gfx *shieldhitRender(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alpha
 					}
 
 					if (s0) {
-						gdl = func0f02983c(gdl, s0, prop1, s0->model, s0->node, s0->side, -1, -1, 255);
+						gdl = chr0f02983c(gdl, s0, prop1, s0->model, s0->node, s0->side, -1, -1, 255);
 					} else if (s1) {
-						gdl = func0f02983c(gdl, s1, prop1, model, node, -1, -1, -1, 255);
+						gdl = chr0f02983c(gdl, s1, prop1, model, node, -1, -1, -1, 255);
 					} else if (s2) {
-						gdl = func0f02983c(gdl, s2, prop1, model, node, -2, s2->unk018[index], s2->unk038[index], 255);
+						gdl = chr0f02983c(gdl, s2, prop1, model, node, -2, s2->unk018[index], s2->unk038[index], 255);
 					} else {
 						if (arg4) {
 							if (specificnode) {
@@ -15930,16 +15930,16 @@ Gfx *shieldhitRender(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alpha
 							gDPSetTextureFilter(gdl++, G_TF_BILERP);
 							gDPSetColorDither(gdl++, G_CD_BAYER);
 
-							gdl = func0f02983c(gdl, NULL, prop1, model, node, -7, -1, -1, 255);
+							gdl = chr0f02983c(gdl, NULL, prop1, model, node, -7, -1, -1, 255);
 						} else {
 							if (index == cmnum1) {
-								gdl = func0f02983c(gdl, NULL, prop1, model, node, -3, -1, -1, alpha);
+								gdl = chr0f02983c(gdl, NULL, prop1, model, node, -3, -1, -1, alpha);
 							} else if (index == cmnum2) {
-								gdl = func0f02983c(gdl, NULL, prop1, model, node, -4, -1, -1, alpha);
+								gdl = chr0f02983c(gdl, NULL, prop1, model, node, -4, -1, -1, alpha);
 							} else if (index == cmnum3) {
-								gdl = func0f02983c(gdl, NULL, prop1, model, node, -5, -1, -1, alpha);
+								gdl = chr0f02983c(gdl, NULL, prop1, model, node, -5, -1, -1, alpha);
 							} else if (index == cmnum4) {
-								gdl = func0f02983c(gdl, NULL, prop1, model, node, -6, -1, -1, alpha);
+								gdl = chr0f02983c(gdl, NULL, prop1, model, node, -6, -1, -1, alpha);
 							}
 						}
 					}
@@ -15973,7 +15973,7 @@ Gfx *shieldhitRender(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alpha
 }
 
 GLOBAL_ASM(
-glabel func0f02bdf8
+glabel chrRenderCloak
 /*  f02bdf8:	27bdfeb0 */ 	addiu	$sp,$sp,-336
 /*  f02bdfc:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f02be00:	afb70038 */ 	sw	$s7,0x38($sp)
@@ -16171,7 +16171,7 @@ glabel func0f02bdf8
 .L0f02c0ec:
 /*  f02c0ec:	02002825 */ 	or	$a1,$s0,$zero
 /*  f02c0f0:	02e03025 */ 	or	$a2,$s7,$zero
-/*  f02c0f4:	0fc0a386 */ 	jal	func0f028e18
+/*  f02c0f4:	0fc0a386 */ 	jal	chr0f028e18
 /*  f02c0f8:	8fa70154 */ 	lw	$a3,0x154($sp)
 /*  f02c0fc:	12c00002 */ 	beqz	$s6,.L0f02c108
 /*  f02c100:	0040a825 */ 	or	$s5,$v0,$zero
@@ -16450,7 +16450,7 @@ glabel func0f02bdf8
 /*  f02c504:	8fa50154 */ 	lw	$a1,0x154($sp)
 .L0f02c508:
 /*  f02c508:	02202025 */ 	or	$a0,$s1,$zero
-/*  f02c50c:	0fc0af7e */ 	jal	func0f02bdf8
+/*  f02c50c:	0fc0af7e */ 	jal	chrRenderCloak
 /*  f02c510:	02003025 */ 	or	$a2,$s0,$zero
 /*  f02c514:	8e100020 */ 	lw	$s0,0x20($s0)
 /*  f02c518:	00408825 */ 	or	$s1,$v0,$zero
@@ -16596,7 +16596,7 @@ Gfx *chrRenderShield(Gfx *gdl, struct chrdata *chr, u32 alpha)
 
 			for (i = 0; i <= numiterations; ) {
 				if (operation == 0) {
-					candidate = func0f02932c(chr->prop, chr->cmnum);
+					candidate = chr0f02932c(chr->prop, chr->cmnum);
 					operation = 1;
 
 					if (candidate >= 0) {
@@ -16609,7 +16609,7 @@ Gfx *chrRenderShield(Gfx *gdl, struct chrdata *chr, u32 alpha)
 						again = false;
 					}
 				} else if (operation == 1) {
-					candidate = func0f0293ec(chr->prop, chr->cmnum);
+					candidate = chr0f0293ec(chr->prop, chr->cmnum);
 
 					if (candidate >= 0) {
 						operation = 2;
@@ -16627,7 +16627,7 @@ Gfx *chrRenderShield(Gfx *gdl, struct chrdata *chr, u32 alpha)
 						}
 					}
 				} else if (operation == 2) {
-					candidate = func0f0294cc(chr->prop, candidate);
+					candidate = chr0f0294cc(chr->prop, candidate);
 
 					if (candidate >= 0) {
 						if (candidate != chr->cmnum2) {
@@ -16684,7 +16684,7 @@ void shieldhitsTick(void)
 						time60 = g_ShieldHits[i].unk018[j] + g_Vars.lvupdate240_60;
 
 						if (g_ShieldHits[i].unk018[j] < 1 && time60 > 0) {
-							index = func0f02932c(g_ShieldHits[i].prop, j);
+							index = chr0f02932c(g_ShieldHits[i].prop, j);
 
 							if (index >= 0 && index < 32) {
 								if (g_ShieldHits[i].unk018[index] == -1) {
@@ -16693,7 +16693,7 @@ void shieldhitsTick(void)
 								}
 							}
 
-							index = func0f0293ec(g_ShieldHits[i].prop, j);
+							index = chr0f0293ec(g_ShieldHits[i].prop, j);
 
 							while (index >= 0) {
 								if (index < 32) {
@@ -16703,7 +16703,7 @@ void shieldhitsTick(void)
 									}
 								}
 
-								index = func0f0294cc(g_ShieldHits[i].prop, index);
+								index = chr0f0294cc(g_ShieldHits[i].prop, index);
 							}
 						}
 

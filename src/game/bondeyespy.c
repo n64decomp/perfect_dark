@@ -95,7 +95,7 @@ s32 eyespyTryMoveUpwards(f32 yvel)
 	}
 
 	func0f065e74(&prop->pos, prop->rooms, &dstpos, dstrooms);
-	func0f021fa8(prop->chr, &dstpos, dstrooms);
+	chr0f021fa8(prop->chr, &dstpos, dstrooms);
 	propSetPerimEnabled(prop, false);
 
 	f0 -= 0.1f;
@@ -164,7 +164,7 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 			}
 		}
 
-		func0f021fa8(eyespyprop->chr, &dstpos, dstrooms);
+		chr0f021fa8(eyespyprop->chr, &dstpos, dstrooms);
 
 		// Check if the eyespy is moving 13cm or more along either the X or Z
 		// axis in a single frame. If less, only do a collision check for the
@@ -539,7 +539,7 @@ void eyespyUpdateVertical(void)
 		g_EyespyHit = sp73;
 	}
 
-	func0f0220ac(chr);
+	chr0f0220ac(chr);
 
 	dist.x = prop->pos.x - origpos.x;
 	dist.y = prop->pos.y - origpos.y;
@@ -675,7 +675,7 @@ bool eyespyTryLaunch(void)
 	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
 			&g_Vars.currentplayer->eyespy->prop->pos, g_Vars.currentplayer->eyespy->prop->rooms);
 
-	func0f0220ac(chr);
+	chr0f0220ac(chr);
 
 	return launched;
 }
@@ -1281,7 +1281,7 @@ glabel var7f1adb00
 /*  f0d165c:	030e2023 */ 	subu	$a0,$t8,$t6
 /*  f0d1660:	0081001a */ 	div	$zero,$a0,$at
 /*  f0d1664:	00002012 */ 	mflo	$a0
-/*  f0d1668:	0fc0842c */ 	jal	propClearReferences
+/*  f0d1668:	0fc0842c */ 	jal	chrClearReferences
 /*  f0d166c:	00000000 */ 	nop
 /*  f0d1670:	3c09800a */ 	lui	$t1,0x800a
 /*  f0d1674:	44808000 */ 	mtc1	$zero,$f16
@@ -2279,7 +2279,7 @@ glabel var7f1adb00
 /*  f0d2540:	03382023 */ 	subu	$a0,$t9,$t8
 /*  f0d2544:	0081001a */ 	div	$zero,$a0,$at
 /*  f0d2548:	00002012 */ 	mflo	$a0
-/*  f0d254c:	0fc0842c */ 	jal	propClearReferences
+/*  f0d254c:	0fc0842c */ 	jal	chrClearReferences
 /*  f0d2550:	00000000 */ 	nop
 /*  f0d2554:	8faf00e4 */ 	lw	$t7,0xe4($sp)
 .PF0f0d2558:
@@ -2893,7 +2893,7 @@ glabel var7f1adb00
 /*  f0d10b8:	032f2023 */ 	subu	$a0,$t9,$t7
 /*  f0d10bc:	0081001a */ 	div	$zero,$a0,$at
 /*  f0d10c0:	00002012 */ 	mflo	$a0
-/*  f0d10c4:	0fc083e4 */ 	jal	propClearReferences
+/*  f0d10c4:	0fc083e4 */ 	jal	chrClearReferences
 /*  f0d10c8:	00000000 */ 	nop
 /*  f0d10cc:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f0d10d0:	44808000 */ 	mtc1	$zero,$f16
@@ -3891,7 +3891,7 @@ glabel var7f1adb00
 /*  f0d1f9c:	01d92023 */ 	subu	$a0,$t6,$t9
 /*  f0d1fa0:	0081001a */ 	div	$zero,$a0,$at
 /*  f0d1fa4:	00002012 */ 	mflo	$a0
-/*  f0d1fa8:	0fc083e4 */ 	jal	propClearReferences
+/*  f0d1fa8:	0fc083e4 */ 	jal	chrClearReferences
 /*  f0d1fac:	00000000 */ 	nop
 /*  f0d1fb0:	8fb800e4 */ 	lw	$t8,0xe4($sp)
 .L0f0d1fb4:
@@ -4495,7 +4495,7 @@ glabel var7f1adb00
 /*  f0ce81c:	01f92023 */ 	subu	$a0,$t7,$t9
 /*  f0ce820:	0081001a */ 	div	$zero,$a0,$at
 /*  f0ce824:	00002012 */ 	mflo	$a0
-/*  f0ce828:	0fc082b4 */ 	jal	propClearReferences
+/*  f0ce828:	0fc082b4 */ 	jal	chrClearReferences
 /*  f0ce82c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0ce830:	3c09800a */ 	lui	$t1,0x800a
 /*  f0ce834:	44808000 */ 	mtc1	$zero,$f16
@@ -5522,7 +5522,7 @@ glabel var7f1adb00
 /*  f0cf768:	030f2023 */ 	subu	$a0,$t8,$t7
 /*  f0cf76c:	0081001a */ 	div	$zero,$a0,$at
 /*  f0cf770:	00002012 */ 	mflo	$a0
-/*  f0cf774:	0fc082b4 */ 	jal	propClearReferences
+/*  f0cf774:	0fc082b4 */ 	jal	chrClearReferences
 /*  f0cf778:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0cf77c:	8fae00e4 */ 	lw	$t6,0xe4($sp)
 .NB0f0cf780:
@@ -5764,7 +5764,7 @@ glabel var7f1adb00
 //
 //		chr->chrflags |= CHRCFLAG_HIDDEN;
 //
-//		propClearReferences(g_Vars.currentplayer->eyespy->prop - g_Vars.props);
+//		chrClearReferences(g_Vars.currentplayer->eyespy->prop - g_Vars.props);
 //	}
 //
 //	// 0e8
@@ -6075,7 +6075,7 @@ glabel var7f1adb00
 //		weaponPlayPickupSound(WEAPON_EYESPY);
 //		currentPlayerQueuePickupWeaponHudmsg(WEAPON_EYESPY, false);
 //		func0f0926bc(g_Vars.currentplayer->eyespy->prop, 1, 0xffff);
-//		propClearReferences(g_Vars.currentplayer->eyespy->prop - g_Vars.props);
+//		chrClearReferences(g_Vars.currentplayer->eyespy->prop - g_Vars.props);
 //	}
 //
 //	coordTriggerProxies(&chr->prop->pos, true);

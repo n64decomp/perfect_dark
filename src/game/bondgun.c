@@ -25186,7 +25186,7 @@ glabel var7f1aca90
 .L0f0a78e4:
 /*  f0a78e4:	8e6f00bc */ 	lw	$t7,0xbc($s3)
 .L0f0a78e8:
-/*  f0a78e8:	0fc08af9 */ 	jal	func0f022be4
+/*  f0a78e8:	0fc08af9 */ 	jal	chr0f022be4
 /*  f0a78ec:	8de40004 */ 	lw	$a0,0x4($t7)
 /*  f0a78f0:	284100ff */ 	slti	$at,$v0,0xff
 /*  f0a78f4:	1020000f */ 	beqz	$at,.L0f0a7934
@@ -26027,7 +26027,7 @@ glabel var7f1aca90
 .L0f0a78e4:
 /*  f0a78e4:	8e6f00bc */ 	lw	$t7,0xbc($s3)
 .L0f0a78e8:
-/*  f0a78e8:	0fc08af9 */ 	jal	func0f022be4
+/*  f0a78e8:	0fc08af9 */ 	jal	chr0f022be4
 /*  f0a78ec:	8de40004 */ 	lw	$a0,0x4($t7)
 /*  f0a78f0:	284100ff */ 	slti	$at,$v0,0xff
 /*  f0a78f4:	1020000f */ 	beqz	$at,.L0f0a7934
@@ -26868,7 +26868,7 @@ glabel var7f1aca90
 .NB0f0a5630:
 /*  f0a5630:	8e6f00bc */ 	lw	$t7,0xbc($s3)
 .NB0f0a5634:
-/*  f0a5634:	0fc089b4 */ 	jal	func0f022be4
+/*  f0a5634:	0fc089b4 */ 	jal	chr0f022be4
 /*  f0a5638:	8de40004 */ 	lw	$a0,0x4($t7)
 /*  f0a563c:	284100ff */ 	slti	$at,$v0,0xff
 /*  f0a5640:	1020000f */ 	beqz	$at,.NB0f0a5680

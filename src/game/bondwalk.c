@@ -1082,7 +1082,7 @@ glabel bwalkCalculateNewPositionWithPush
 /*  f0c45ac:	27a40058 */ 	addiu	$a0,$sp,0x58
 /*  f0c45b0:	0fc195e9 */ 	jal	roomsCopy
 /*  f0c45b4:	24a50028 */ 	addiu	$a1,$a1,0x28
-/*  f0c45b8:	0fc0882b */ 	jal	func0f0220ac
+/*  f0c45b8:	0fc0882b */ 	jal	chr0f0220ac
 /*  f0c45bc:	8fa40074 */ 	lw	$a0,0x74($sp)
 /*  f0c45c0:	8fab0074 */ 	lw	$t3,0x74($sp)
 /*  f0c45c4:	27a50068 */ 	addiu	$a1,$sp,0x68
@@ -1425,7 +1425,7 @@ glabel bwalkCalculateNewPositionWithPush
 /*  f0c45ac:	27a40058 */ 	addiu	$a0,$sp,0x58
 /*  f0c45b0:	0fc195e9 */ 	jal	roomsCopy
 /*  f0c45b4:	24a50028 */ 	addiu	$a1,$a1,0x28
-/*  f0c45b8:	0fc0882b */ 	jal	func0f0220ac
+/*  f0c45b8:	0fc0882b */ 	jal	chr0f0220ac
 /*  f0c45bc:	8fa40074 */ 	lw	$a0,0x74($sp)
 /*  f0c45c0:	8fab0074 */ 	lw	$t3,0x74($sp)
 /*  f0c45c4:	27a50068 */ 	addiu	$a1,$sp,0x68
@@ -1768,7 +1768,7 @@ glabel bwalkCalculateNewPositionWithPush
 /*  f0c45ac:	27a40058 */ 	addiu	$a0,$sp,0x58
 /*  f0c45b0:	0fc195e9 */ 	jal	roomsCopy
 /*  f0c45b4:	24a50028 */ 	addiu	$a1,$a1,0x28
-/*  f0c45b8:	0fc0882b */ 	jal	func0f0220ac
+/*  f0c45b8:	0fc0882b */ 	jal	chr0f0220ac
 /*  f0c45bc:	8fa40074 */ 	lw	$a0,0x74($sp)
 /*  f0c45c0:	8fab0074 */ 	lw	$t3,0x74($sp)
 /*  f0c45c4:	27a50068 */ 	addiu	$a1,$sp,0x68
@@ -1971,7 +1971,7 @@ glabel bwalkCalculateNewPositionWithPush
 //
 //							propDeregisterRooms(obstacle);
 //							roomsCopy(newrooms, obstacle->rooms);
-//							func0f0220ac(chr);
+//							chr0f0220ac(chr);
 //							modelSetRootPosition(chr->model, &newpos);
 //
 //							result = bwalkCalculateNewPosition(delta, rotateamount, apply, extrawidth, types);

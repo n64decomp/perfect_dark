@@ -1648,15 +1648,15 @@ f32 func0f02e684(struct prop *prop, f32 arg1, f32 arg2)
 	f32 ymin;
 	f32 width;
 
-	propChrGetBbox(prop, &width, &ymax, &ymin);
+	chrGetBbox(prop, &width, &ymax, &ymin);
 
 	return func0f02e550(prop, arg1, arg2, CDTYPE_ALL, ymax, ymin);
 }
 
 void chrStandChooseAnimation(struct chrdata *chr, f32 mergetime)
 {
-	struct prop *gun1 = chrGetEquippedWeaponProp(chr, 1);
-	struct prop *gun2 = chrGetEquippedWeaponProp(chr, 0);
+	struct prop *gun1 = chrGetHeldProp(chr, 1);
+	struct prop *gun2 = chrGetHeldProp(chr, 0);
 	s32 race = CHRRACE(chr);
 	s32 prevanimnum = modelGetAnimNum(chr->model);
 
@@ -1819,8 +1819,8 @@ void chrStop(struct chrdata *chr)
 
 void chrKneelChooseAnimation(struct chrdata *chr)
 {
-	struct prop *gun1 = chrGetEquippedWeaponProp(chr, 1);
-	struct prop *gun2 = chrGetEquippedWeaponProp(chr, 0);
+	struct prop *gun1 = chrGetHeldProp(chr, 1);
+	struct prop *gun2 = chrGetHeldProp(chr, 0);
 
 	if (chr->aibot == NULL) {
 		if ((gun1 && gun2)
@@ -1853,8 +1853,8 @@ void chrKneel(struct chrdata *chr)
 
 void chrStartAlarmChooseAnimation(struct chrdata *chr)
 {
-	struct prop *gun1 = chrGetEquippedWeaponProp(chr, 1);
-	struct prop *gun2 = chrGetEquippedWeaponProp(chr, 0);
+	struct prop *gun1 = chrGetHeldProp(chr, 1);
+	struct prop *gun2 = chrGetHeldProp(chr, 0);
 	bool flip = false;
 
 	if (gun1 && !gun2) {
@@ -1925,8 +1925,8 @@ void chrThrowGrenade(struct chrdata *chr, s32 hand, s32 needsequip)
 void chrSurprisedChooseAnimation(struct chrdata *chr)
 {
 	if (chr->act_surprised.type == 1) {
-		struct prop *gun1 = chrGetEquippedWeaponProp(chr, 1);
-		struct prop *gun0 = chrGetEquippedWeaponProp(chr, 0);
+		struct prop *gun1 = chrGetHeldProp(chr, 1);
+		struct prop *gun0 = chrGetHeldProp(chr, 0);
 		s32 flip = 0;
 
 		if (gun1 != NULL && gun0 == NULL) {
@@ -2009,8 +2009,8 @@ void chrDoSurprisedLookAround(struct chrdata *chr)
 
 void chrSurrenderChooseAnimation(struct chrdata *chr)
 {
-	struct prop *gun1 = chrGetEquippedWeaponProp(chr, 1);
-	struct prop *gun0 = chrGetEquippedWeaponProp(chr, 0);
+	struct prop *gun1 = chrGetHeldProp(chr, 1);
+	struct prop *gun0 = chrGetHeldProp(chr, 0);
 
 	if (gun0 || gun1) {
 		modelSetAnimation(chr->model, ANIM_SURRENDER_002F, random() & 1, 0, 0.5, 16);
@@ -2053,8 +2053,8 @@ void chrSurrender(struct chrdata *chr)
 
 void chrSidestepChooseAnimation(struct chrdata *chr)
 {
-	struct prop *gun1 = chrGetEquippedWeaponProp(chr, 1);
-	struct prop *gun2 = chrGetEquippedWeaponProp(chr, 0);
+	struct prop *gun1 = chrGetHeldProp(chr, 1);
+	struct prop *gun2 = chrGetHeldProp(chr, 0);
 	bool flip = false;
 	bool allowflip = false;
 	u32 race = CHRRACE(chr);
@@ -2117,8 +2117,8 @@ void chrSidestep(struct chrdata *chr, bool side)
 
 void chrJumpOutChooseAnimation(struct chrdata *chr)
 {
-	struct prop *gun1 = chrGetEquippedWeaponProp(chr, 1);
-	struct prop *gun2 = chrGetEquippedWeaponProp(chr, 0);
+	struct prop *gun1 = chrGetHeldProp(chr, 1);
+	struct prop *gun2 = chrGetHeldProp(chr, 0);
 	bool flip = false;
 
 	if (gun1 && !gun2) {
@@ -2158,8 +2158,8 @@ void chrRunPosChooseAnimation(struct chrdata *chr)
 	f32 ydiff = chr->prop->pos.y - chr->act_runpos.pos.y;
 	f32 zdiff = chr->prop->pos.z - chr->act_runpos.pos.z;
 	f32 distance = sqrtf(xdiff * xdiff + zdiff * zdiff);
-	struct prop *gun1 = chrGetEquippedWeaponProp(chr, 1);
-	struct prop *gun2 = chrGetEquippedWeaponProp(chr, 0);
+	struct prop *gun1 = chrGetHeldProp(chr, 1);
+	struct prop *gun2 = chrGetHeldProp(chr, 0);
 	bool heavy = true;
 	bool flip;
 	s32 race = CHRRACE(chr);
@@ -2224,16 +2224,16 @@ void chrRunToPos(struct chrdata *chr, struct coord *pos)
 
 void chrAttackStand(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
-	struct prop *leftgun = chrGetEquippedWeaponProp(chr, HAND_LEFT);
-	struct prop *rightgun = chrGetEquippedWeaponProp(chr, HAND_RIGHT);
+	struct prop *leftgun = chrGetHeldProp(chr, HAND_LEFT);
+	struct prop *rightgun = chrGetHeldProp(chr, HAND_RIGHT);
 	bool flip;
 	struct attackanimgroup **animgroup;
 	bool firing[] = {false, false};
 	s32 race = CHRRACE(chr);
 
 	if (leftgun && rightgun) {
-		struct prop *leftgun2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_LEFT);
-		struct prop *rightgun2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_RIGHT);
+		struct prop *leftgun2 = chrGetHeldUsableProp(chr, HAND_LEFT);
+		struct prop *rightgun2 = chrGetHeldUsableProp(chr, HAND_RIGHT);
 
 		if (leftgun2 && rightgun2) {
 			flip = random() % 2;
@@ -2280,7 +2280,7 @@ glabel chrAttackLie
 /*  f030310:	afa5004c */ 	sw	$a1,0x4c($sp)
 /*  f030314:	afa60050 */ 	sw	$a2,0x50($sp)
 /*  f030318:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03031c:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
+/*  f03031c:	0fc0a209 */ 	jal	chrGetHeldProp
 /*  f030320:	afa40048 */ 	sw	$a0,0x48($sp)
 /*  f030324:	3c0e8007 */ 	lui	$t6,%hi(var80068024)
 /*  f030328:	25ce8024 */ 	addiu	$t6,$t6,%lo(var80068024)
@@ -2321,7 +2321,7 @@ glabel chrAttackLie
 //void chrAttackLie(struct chrdata *chr, u32 attackflags, s32 entityid)
 //{
 //	u32 stack1[2];
-//	struct prop *gun = chrGetEquippedWeaponProp(chr, 0);
+//	struct prop *gun = chrGetHeldProp(chr, 0);
 //	s32 firing[2] = {false, false};
 //	u32 stack2[2];
 //
@@ -2338,8 +2338,8 @@ glabel chrAttackLie
 
 void chrAttackKneel(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
-	struct prop *leftgun = chrGetEquippedWeaponProp(chr, HAND_LEFT);
-	struct prop *rightgun = chrGetEquippedWeaponProp(chr, HAND_RIGHT);
+	struct prop *leftgun = chrGetHeldProp(chr, HAND_LEFT);
+	struct prop *rightgun = chrGetHeldProp(chr, HAND_RIGHT);
 	s32 flip;
 	struct attackanimgroup **animgroup;
 	bool firing[2] = {false, false};
@@ -2348,8 +2348,8 @@ void chrAttackKneel(struct chrdata *chr, u32 attackflags, s32 entityid)
 	struct prop *rightgun2;
 
 	if (leftgun && rightgun) {
-		leftgun2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_LEFT);
-		rightgun2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_RIGHT);
+		leftgun2 = chrGetHeldUsableProp(chr, HAND_LEFT);
+		rightgun2 = chrGetHeldUsableProp(chr, HAND_RIGHT);
 
 		if (leftgun2 && rightgun2) {
 			flip = random() % 2;
@@ -2397,8 +2397,8 @@ void chrAttackWalkChooseAnimation(struct chrdata *chr)
 void chrAttackWalk(struct chrdata *chr, bool run)
 {
 	struct attackanimconfig *animcfg;
-	struct prop *leftgun = chrGetEquippedWeaponProp(chr, HAND_LEFT);
-	struct prop *rightgun = chrGetEquippedWeaponProp(chr, HAND_RIGHT);
+	struct prop *leftgun = chrGetHeldProp(chr, HAND_LEFT);
+	struct prop *rightgun = chrGetHeldProp(chr, HAND_RIGHT);
 	bool flip;
 	bool firing[] = {false, false};
 	bool everytick[] = {false, false};
@@ -2408,8 +2408,8 @@ void chrAttackWalk(struct chrdata *chr, bool run)
 	struct weaponobj *weapon;
 
 	if (leftgun && rightgun) {
-		struct prop *leftgun2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_LEFT);
-		struct prop *rightgun2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_RIGHT);
+		struct prop *leftgun2 = chrGetHeldUsableProp(chr, HAND_LEFT);
+		struct prop *rightgun2 = chrGetHeldUsableProp(chr, HAND_RIGHT);
 		s32 style = 0;
 
 		if (leftgun2 && rightgun2) {
@@ -2482,7 +2482,7 @@ void chrAttackWalk(struct chrdata *chr, bool run)
 
 	for (i = 0; i < 2; i++) {
 		if (firing[i]) {
-			prop = chrGetEquippedWeaponProp(chr, i);
+			prop = chrGetHeldProp(chr, i);
 			weapon = prop->weapon;
 
 			if (weaponGetNumTicksPerShot(weapon->weaponnum, weapon->gunfunc) < 1) {
@@ -2568,8 +2568,8 @@ void chrAttackRollChooseAnimation(struct chrdata *chr)
 void chrAttackRoll(struct chrdata *chr, bool toleft)
 {
 	struct attackanimconfig *animcfg;
-	struct prop *leftgun = chrGetEquippedWeaponProp(chr, HAND_LEFT);
-	struct prop *rightgun = chrGetEquippedWeaponProp(chr, HAND_RIGHT);
+	struct prop *leftgun = chrGetHeldProp(chr, HAND_LEFT);
+	struct prop *rightgun = chrGetHeldProp(chr, HAND_RIGHT);
 	bool flip;
 	bool onehanded = false;
 	struct prop *prop;
@@ -2582,8 +2582,8 @@ void chrAttackRoll(struct chrdata *chr, bool toleft)
 	bool singleshot[] = {false, false};
 
 	if (leftgun && rightgun) {
-		struct prop *leftgun2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_LEFT);
-		struct prop *rightgun2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_RIGHT);
+		struct prop *leftgun2 = chrGetHeldUsableProp(chr, HAND_LEFT);
+		struct prop *rightgun2 = chrGetHeldUsableProp(chr, HAND_RIGHT);
 
 		if (leftgun2 && rightgun2) {
 			flip = random() % 2;
@@ -2640,7 +2640,7 @@ void chrAttackRoll(struct chrdata *chr, bool toleft)
 
 	for (i = 0; i < 2; i++) {
 		if (firing[i]) {
-			prop = chrGetEquippedWeaponProp(chr, i);
+			prop = chrGetHeldProp(chr, i);
 			weapon = prop->weapon;
 
 			if (weaponGetNumTicksPerShot(weapon->weaponnum, weapon->gunfunc) < 1) {
@@ -2883,7 +2883,7 @@ void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool fl
 
 		for (i = 0; i < 2; i++) {
 			if (firing[i]) {
-				prop = chrGetEquippedWeaponProp(chr, i);
+				prop = chrGetHeldProp(chr, i);
 
 				if (prop == NULL) {
 					chrStandChooseAnimation(chr, 16);
@@ -2989,7 +2989,7 @@ void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool fl
 void chrAttackAmount(struct chrdata *chr, u32 attackflags, u32 entityid, u32 maxshots)
 {
 	u32 stack;
-	struct prop *prop = chrGetEquippedWeaponProp(chr, 0);
+	struct prop *prop = chrGetHeldProp(chr, 0);
 	struct attackanimgroup **things = NULL;
 	bool firing[] = {false, false};
 	u32 race = CHRRACE(chr);
@@ -3542,8 +3542,8 @@ void chrBeginArgh(struct chrdata *chr, f32 angle, s32 hitpart)
 			&& g_AnimTablesByRace[race][index].injuryanimcount > 0) {
 		// If shot in a hand that's holding a gun, remap the hit location to the
 		// forearm because the hand injury animations assume the hand is empty.
-		struct prop *lgun = chrGetEquippedWeaponProp(chr, HAND_LEFT);
-		struct prop *rgun = chrGetEquippedWeaponProp(chr, HAND_RIGHT);
+		struct prop *lgun = chrGetHeldProp(chr, HAND_LEFT);
+		struct prop *rgun = chrGetHeldProp(chr, HAND_RIGHT);
 		s32 rowindex;
 		struct animtablerow *row;
 
@@ -4725,8 +4725,8 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 				onehitko = true;
 			}
 
-			if (chrGetEquippedWeaponProp(chr, HAND_RIGHT) == NULL
-					&& chrGetEquippedWeaponProp(chr, HAND_LEFT) == NULL
+			if (chrGetHeldProp(chr, HAND_RIGHT) == NULL
+					&& chrGetHeldProp(chr, HAND_LEFT) == NULL
 					&& (chr->gunprop == NULL || chr->actiontype == ACT_SURRENDER || chr->actiontype == ACT_SURPRISED)) {
 				// Chr is unarmed and has no hope of getting their gun
 				onehitko = true;
@@ -4902,7 +4902,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 			if (chr->aibot) {
 				aibotLoseGun(chr, aprop);
 			} else {
-				weapon = chrGetEquippedWeaponProp(chr, HAND_RIGHT);
+				weapon = chrGetHeldProp(chr, HAND_RIGHT);
 
 				if (weapon) {
 					chr->gunprop = weapon;
@@ -4910,7 +4910,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 					chr->hidden |= CHRHFLAG_00000001;
 				}
 
-				weapon = chrGetEquippedWeaponProp(chr, HAND_LEFT);
+				weapon = chrGetHeldProp(chr, HAND_LEFT);
 
 				if (weapon) {
 					chr->gunprop = weapon;
@@ -5171,7 +5171,7 @@ bool func0f03645c(struct chrdata *chr, struct coord *arg1, s16 *arg2, struct coo
 	s16 sp30;
 	struct prop *prop = chr->prop;
 
-	propChrGetBbox(prop, &width, &ymax, &ymin);
+	chrGetBbox(prop, &width, &ymax, &ymin);
 	chrSetPerimEnabled(chr, false);
 
 	if (cd0002d840(arg1, arg2, arg3, &sp30, arg5, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
@@ -5203,7 +5203,7 @@ bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coo
 	prop = chr->prop;
 
 	chrSetPerimEnabled(chr, false);
-	propChrGetBbox(prop, &width, &ymax, &ymin);
+	chrGetBbox(prop, &width, &ymax, &ymin);
 
 	if ((rooms2 && cdTestAToB2(pos, rooms, pos2, rooms2, types, 1, ymax - prop->pos.y, ymin - prop->pos.y))
 			|| (rooms2 == NULL && cd0002d6ac(pos, rooms, pos2, types, 1, ymax - prop->pos.y, ymin - prop->pos.y))) {
@@ -5895,7 +5895,7 @@ void chrGoPosTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, 
 		// Reached end of segment
 		chrSetPerimEnabled(chr, false);
 		roomsCopy(rooms, sp118);
-		func0f021fa8(chr, arg3, sp118);
+		chr0f021fa8(chr, arg3, sp118);
 
 		ground = cdFindGroundY(arg3, chr->chrwidth, sp118, &floorcol, &floortype, 0, &floorroom, NULL, NULL);
 
@@ -5904,8 +5904,8 @@ void chrGoPosTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, 
 		spf4.z = arg3->z;
 
 		roomsCopy(rooms, sp118);
-		func0f021fa8(chr, &spf4, sp118);
-		propChrGetBbox(chr->prop, &width, &ymax, &ymin);
+		chr0f021fa8(chr, &spf4, sp118);
+		chrGetBbox(chr->prop, &width, &ymax, &ymin);
 
 		if (cdTestVolume(&spf4, chr->chrwidth, sp118, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
 			// Reached end of segment with no collision
@@ -6027,8 +6027,8 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 {
 	s32 gospeed = chr->act_gopos.flags & 3;
 	s32 male = g_HeadsAndBodies[chr->bodynum].ismale;
-	struct prop *gun1 = chrGetEquippedWeaponProp(chr, 1);
-	struct prop *gun2 = chrGetEquippedWeaponProp(chr, 0);
+	struct prop *gun1 = chrGetHeldProp(chr, 1);
+	struct prop *gun2 = chrGetHeldProp(chr, 0);
 	s32 flip = false;
 	s32 heavy;
 	s32 race = CHRRACE(chr);
@@ -6415,8 +6415,8 @@ struct path *pathFindById(u32 path_id)
 
 void chrPatrolChooseAnimation(struct chrdata *chr)
 {
-	struct prop *leftprop = chrGetEquippedWeaponProp(chr, HAND_LEFT);
-	struct prop *rightprop = chrGetEquippedWeaponProp(chr, HAND_RIGHT);
+	struct prop *leftprop = chrGetHeldProp(chr, HAND_LEFT);
+	struct prop *rightprop = chrGetHeldProp(chr, HAND_RIGHT);
 	s32 flip;
 	bool heavy;
 	s32 race = CHRRACE(chr);
@@ -6511,7 +6511,7 @@ glabel var7f1a8dd0
 /*  f038c34:	27a50070 */ 	addiu	$a1,$sp,0x70
 /*  f038c38:	27a60078 */ 	addiu	$a2,$sp,0x78
 /*  f038c3c:	27a70074 */ 	addiu	$a3,$sp,0x74
-/*  f038c40:	0fc0a277 */ 	jal	propChrGetBbox
+/*  f038c40:	0fc0a277 */ 	jal	chrGetBbox
 /*  f038c44:	a7b9007c */ 	sh	$t9,0x7c($sp)
 /*  f038c48:	02602025 */ 	or	$a0,$s3,$zero
 /*  f038c4c:	0fc079ef */ 	jal	chrSetPerimEnabled
@@ -6739,7 +6739,7 @@ glabel var7f1a8dd0
 //			rooms[0] = pad.room;
 //			rooms[1] = -1;
 //
-//			propChrGetBbox(prop, &width, &ymax, &ymin);
+//			chrGetBbox(prop, &width, &ymax, &ymin);
 //
 //			chrSetPerimEnabled(chr, false);
 //
@@ -6839,10 +6839,10 @@ bool chrCanSeeEntity(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, b
 		result = true;
 	} else {
 		types = CDTYPE_DOORSWITHOUTFLAG | CDTYPE_ALL;
-		weaponprop = chrGetEquippedWeaponProp(chr, HAND_RIGHT);
+		weaponprop = chrGetHeldProp(chr, HAND_RIGHT);
 
 		if (weaponprop == NULL) {
-			weaponprop = chrGetEquippedWeaponProp(chr, HAND_LEFT);
+			weaponprop = chrGetHeldProp(chr, HAND_LEFT);
 		}
 
 		if (weaponprop) {
@@ -7317,7 +7317,7 @@ bool chrTryAttackWalk(struct chrdata *chr)
 		struct prop *prop = chr->prop;
 
 		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, false)
-				&& (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))
+				&& (chrGetHeldUsableProp(chr, 0) || chrGetHeldUsableProp(chr, 1))
 				&& g_Vars.lvframe60 - chr->lastwalk60 > PALDOWN(120)) {
 			struct prop *target = chrGetTargetProp(chr);
 			f32 x = target->pos.x - prop->pos.x;
@@ -7346,7 +7346,7 @@ bool chrTryAttackRun(struct chrdata *chr)
 		struct prop *prop = chr->prop;
 
 		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, false)
-				&& (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))
+				&& (chrGetHeldUsableProp(chr, 0) || chrGetHeldUsableProp(chr, 1))
 				&& g_Vars.lvframe60 - chr->lastwalk60 > PALDOWN(180)) {
 			struct prop *target = chrGetTargetProp(chr);
 			f32 x = target->pos.x - prop->pos.x;
@@ -7369,7 +7369,7 @@ bool chrTryAttackRoll(struct chrdata *chr)
 		struct prop *prop = chr->prop;
 
 		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, false) &&
-				(chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))) {
+				(chrGetHeldUsableProp(chr, 0) || chrGetHeldUsableProp(chr, 1))) {
 			struct prop *target = chrGetTargetProp(chr);
 			f32 x = target->pos.x - prop->pos.x;
 			f32 y = target->pos.y - prop->pos.y;
@@ -7458,8 +7458,8 @@ bool chrTryAttackStand(struct chrdata *chr, u32 attackflags, s32 entityid)
 		}
 
 		if (race == RACE_HUMAN || race == RACE_SKEDAR) {
-			if (chrGetEquippedWeaponPropWithCheck(chr, 0) ||
-					(chrGetEquippedWeaponPropWithCheck(chr, 1))) {
+			if (chrGetHeldUsableProp(chr, 0) ||
+					(chrGetHeldUsableProp(chr, 1))) {
 				chrAttackStand(chr, attackflags, entityid);
 				return true;
 			}
@@ -7474,7 +7474,7 @@ bool chrTryAttackKneel(struct chrdata *chr, u32 attackflags, s32 entityid)
 	s32 race = CHRRACE(chr);
 
 	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
-		if (chrIsReadyForOrders(chr) && (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))) {
+		if (chrIsReadyForOrders(chr) && (chrGetHeldUsableProp(chr, 0) || chrGetHeldUsableProp(chr, 1))) {
 			chrAttackKneel(chr, attackflags, entityid);
 			return true;
 		}
@@ -7488,7 +7488,7 @@ bool chrTryAttackLie(struct chrdata *chr, u32 attackflags, s32 entityid)
 	s32 race = CHRRACE(chr);
 
 	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
-		if (chrIsReadyForOrders(chr) && (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))) {
+		if (chrIsReadyForOrders(chr) && (chrGetHeldUsableProp(chr, 0) || chrGetHeldUsableProp(chr, 1))) {
 			chrAttackLie(chr, attackflags, entityid);
 			return true;
 		}
@@ -8028,8 +8028,8 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 attackflags, u32 entityid)
 		}
 
 		if (target && cd0002dc18(&chr->prop->pos, chr->prop->rooms, &pos, 0x33)) {
-			struct prop *leftprop = chrGetEquippedWeaponProp(chr, 1);
-			struct prop *rightprop = chrGetEquippedWeaponProp(chr, 0);
+			struct prop *leftprop = chrGetHeldProp(chr, 1);
+			struct prop *rightprop = chrGetHeldProp(chr, 0);
 			struct weaponobj *weapon;
 
 #if PIRACYCHECKS
@@ -8404,8 +8404,8 @@ void chrTickStand(struct chrdata *chr)
 
 			if ((relangle > 0.34901028871536f && relangle < 5.9331746101379f)
 					|| (relangle > 0.17450514435768f && relangle < 6.1076798439026f && !chr->act_stand.playwalkanim)) {
-				leftgun = chrGetEquippedWeaponProp(chr, HAND_LEFT);
-				rightgun = chrGetEquippedWeaponProp(chr, HAND_RIGHT);
+				leftgun = chrGetHeldProp(chr, HAND_LEFT);
+				rightgun = chrGetHeldProp(chr, HAND_RIGHT);
 
 				chr->act_stand.reaim = true;
 				chr->act_stand.turning = TURNSTATE_TURNING;
@@ -8694,7 +8694,7 @@ void chrAlertOthersOfInjury(struct chrdata *chr, bool dying)
 {
 	s32 index = 0;
 	s32 numinrange = 0;
-	s32 numchrs = getNumChrSlots();
+	s32 numchrs = chrsGetNumSlots();
 
 	if (g_Vars.antiplayernum >= 0 && chr->prop == g_Vars.anti->prop) {
 		return;
@@ -9398,7 +9398,7 @@ void chrCreateFireslot(struct chrdata *chr, s32 handnum, bool withsound, bool wi
 	u8 duration;
 	u16 soundnum;
 
-	weaponprop = chrGetEquippedWeaponProp(chr, handnum);
+	weaponprop = chrGetHeldProp(chr, handnum);
 
 	if (weaponprop) {
 		weapon = weaponprop->weapon;
@@ -10259,12 +10259,12 @@ glabel var7f1a8fc8
 /*  f03f214:	11e00006 */ 	beqz	$t7,.L0f03f230
 /*  f03f218:	8fa40190 */ 	lw	$a0,0x190($sp)
 /*  f03f21c:	8fa40190 */ 	lw	$a0,0x190($sp)
-/*  f03f220:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
+/*  f03f220:	0fc0a209 */ 	jal	chrGetHeldProp
 /*  f03f224:	00002825 */ 	or	$a1,$zero,$zero
 /*  f03f228:	10000004 */ 	b	.L0f03f23c
 /*  f03f22c:	00404025 */ 	or	$t0,$v0,$zero
 .L0f03f230:
-/*  f03f230:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
+/*  f03f230:	0fc0a209 */ 	jal	chrGetHeldProp
 /*  f03f234:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f03f238:	00404025 */ 	or	$t0,$v0,$zero
 .L0f03f23c:
@@ -10673,7 +10673,7 @@ void chrResetAimEndProperties(struct chrdata *chr)
 
 void chrSetFiring(struct chrdata *chr, s32 hand, bool firing)
 {
-	struct prop *prop = chrGetEquippedWeaponProp(chr, hand);
+	struct prop *prop = chrGetHeldProp(chr, hand);
 
 	chr->prop->forcetick = firing ? true : false;
 
@@ -10684,7 +10684,7 @@ void chrSetFiring(struct chrdata *chr, s32 hand, bool firing)
 
 bool chrIsGunfireVisible(struct chrdata *chr, s32 hand)
 {
-	struct prop *prop = chrGetEquippedWeaponProp(chr, hand);
+	struct prop *prop = chrGetHeldProp(chr, hand);
 
 	if (prop) {
 		return weaponIsGunfireVisible(prop);
@@ -10915,7 +10915,7 @@ void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, struct gs
 
 bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2)
 {
-	struct prop *weaponprop = chrGetEquippedWeaponProp(chr, handnum);
+	struct prop *weaponprop = chrGetHeldProp(chr, handnum);
 	struct defaultobj *obj;
 	struct model *model;
 	bool result = false;
@@ -11370,7 +11370,7 @@ glabel var7f1a9184
 /*  f040688:	24020001 */ 	li	$v0,0x1
 /*  f04068c:	a3a2026f */ 	sb	$v0,0x26f($sp)
 .PF0f040690:
-/*  f040690:	0fc0a252 */ 	jal	chrGetEquippedWeaponProp
+/*  f040690:	0fc0a252 */ 	jal	chrGetHeldProp
 /*  f040694:	afa40278 */ 	sw	$a0,0x278($sp)
 /*  f040698:	5040055c */ 	beqzl	$v0,.PF0f041c0c
 /*  f04069c:	8fbf0044 */ 	lw	$ra,0x44($sp)
@@ -12968,7 +12968,7 @@ glabel var7f1a9184
 /*  f040504:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f040508:	a3a2026f */ 	sb	$v0,0x26f($sp)
 .L0f04050c:
-/*  f04050c:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
+/*  f04050c:	0fc0a209 */ 	jal	chrGetHeldProp
 /*  f040510:	afa40278 */ 	sw	$a0,0x278($sp)
 /*  f040514:	50400554 */ 	beqzl	$v0,.L0f041a68
 /*  f040518:	8fbf0044 */ 	lw	$ra,0x44($sp)
@@ -14558,7 +14558,7 @@ glabel var7f1a9184
 /*  f03fce4:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f03fce8:	a3a2026f */ 	sb	$v0,0x26f($sp)
 .NB0f03fcec:
-/*  f03fcec:	0fc0a074 */ 	jal	chrGetEquippedWeaponProp
+/*  f03fcec:	0fc0a074 */ 	jal	chrGetHeldProp
 /*  f03fcf0:	afa40278 */ 	sw	$a0,0x278($sp)
 /*  f03fcf4:	5040054e */ 	beqzl	$v0,.NB0f041230
 /*  f03fcf8:	8fbf0044 */ 	lw	$ra,0x44($sp)
@@ -17278,7 +17278,7 @@ void chrTickThrowGrenade(struct chrdata *chr)
 	model = chr->model;
 	frame = modelGetCurAnimFrame(model);
 	hand = model->anim->flip ? 1 : 0;
-	weaponprop = chrGetEquippedWeaponProp(chr, hand);
+	weaponprop = chrGetHeldProp(chr, hand);
 
 	if ((frame >= 20 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_STANDING) ||
 			(frame >= 1 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_NOPIN) ||
@@ -17787,7 +17787,7 @@ glabel var7f1a9244
 /*  f044c64:	27a50078 */ 	addiu	$a1,$sp,0x78
 /*  f044c68:	27a7007c */ 	addiu	$a3,$sp,0x7c
 /*  f044c6c:	27a60080 */ 	addiu	$a2,$sp,0x80
-/*  f044c70:	0fc0a277 */ 	jal	propChrGetBbox
+/*  f044c70:	0fc0a277 */ 	jal	chrGetBbox
 /*  f044c74:	afa4003c */ 	sw	$a0,0x3c($sp)
 /*  f044c78:	8fa200ec */ 	lw	$v0,0xec($sp)
 /*  f044c7c:	c6060000 */ 	lwc1	$f6,0x0($s0)
@@ -18162,7 +18162,7 @@ glabel var7f1a9244
 /*  f044c64:	27a50078 */ 	addiu	$a1,$sp,0x78
 /*  f044c68:	27a7007c */ 	addiu	$a3,$sp,0x7c
 /*  f044c6c:	27a60080 */ 	addiu	$a2,$sp,0x80
-/*  f044c70:	0fc0a277 */ 	jal	propChrGetBbox
+/*  f044c70:	0fc0a277 */ 	jal	chrGetBbox
 /*  f044c74:	afa4003c */ 	sw	$a0,0x3c($sp)
 /*  f044c78:	8fa200ec */ 	lw	$v0,0xec($sp)
 /*  f044c7c:	c6060000 */ 	lwc1	$f6,0x0($s0)
@@ -18537,7 +18537,7 @@ glabel var7f1a9244
 /*  f044c64:	27a50078 */ 	addiu	$a1,$sp,0x78
 /*  f044c68:	27a7007c */ 	addiu	$a3,$sp,0x7c
 /*  f044c6c:	27a60080 */ 	addiu	$a2,$sp,0x80
-/*  f044c70:	0fc0a277 */ 	jal	propChrGetBbox
+/*  f044c70:	0fc0a277 */ 	jal	chrGetBbox
 /*  f044c74:	afa4003c */ 	sw	$a0,0x3c($sp)
 /*  f044c78:	8fa200ec */ 	lw	$v0,0xec($sp)
 /*  f044c7c:	c6060000 */ 	lwc1	$f6,0x0($s0)
@@ -18914,7 +18914,7 @@ glabel var7f1a9254
 /*  f0451d4:	27a50078 */ 	addiu	$a1,$sp,0x78
 /*  f0451d8:	27a7007c */ 	addiu	$a3,$sp,0x7c
 /*  f0451dc:	27a60080 */ 	addiu	$a2,$sp,0x80
-/*  f0451e0:	0fc0a277 */ 	jal	propChrGetBbox
+/*  f0451e0:	0fc0a277 */ 	jal	chrGetBbox
 /*  f0451e4:	afa4003c */ 	sw	$a0,0x3c($sp)
 /*  f0451e8:	8fa200f4 */ 	lw	$v0,0xf4($sp)
 /*  f0451ec:	c6060000 */ 	lwc1	$f6,0x0($s0)
@@ -19308,7 +19308,7 @@ glabel var7f1a9254
 /*  f0451d4:	27a50078 */ 	addiu	$a1,$sp,0x78
 /*  f0451d8:	27a7007c */ 	addiu	$a3,$sp,0x7c
 /*  f0451dc:	27a60080 */ 	addiu	$a2,$sp,0x80
-/*  f0451e0:	0fc0a277 */ 	jal	propChrGetBbox
+/*  f0451e0:	0fc0a277 */ 	jal	chrGetBbox
 /*  f0451e4:	afa4003c */ 	sw	$a0,0x3c($sp)
 /*  f0451e8:	8fa200f4 */ 	lw	$v0,0xf4($sp)
 /*  f0451ec:	c6060000 */ 	lwc1	$f6,0x0($s0)
@@ -19702,7 +19702,7 @@ glabel var7f1a9254
 /*  f0451d4:	27a50078 */ 	addiu	$a1,$sp,0x78
 /*  f0451d8:	27a7007c */ 	addiu	$a3,$sp,0x7c
 /*  f0451dc:	27a60080 */ 	addiu	$a2,$sp,0x80
-/*  f0451e0:	0fc0a277 */ 	jal	propChrGetBbox
+/*  f0451e0:	0fc0a277 */ 	jal	chrGetBbox
 /*  f0451e4:	afa4003c */ 	sw	$a0,0x3c($sp)
 /*  f0451e8:	8fa200f4 */ 	lw	$v0,0xf4($sp)
 /*  f0451ec:	c6060000 */ 	lwc1	$f6,0x0($s0)
@@ -21922,7 +21922,7 @@ bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 		return false;
 	}
 
-	propChrGetBbox(prop, &width, &ymax, &ymin);
+	chrGetBbox(prop, &width, &ymax, &ymin);
 	chrSetPerimEnabled(chr, false);
 	propSetPerimEnabled(target, false);
 	iVar2 = cd0002d6ac(&prop->pos, prop->rooms, &target->pos, 51, 1,
@@ -22238,7 +22238,7 @@ glabel func0f048398
 /*  f0483b4:	afb30024 */ 	sw	$s3,0x24($sp)
 /*  f0483b8:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f0483bc:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0483c0:	0fc07934 */ 	jal	getNumChrSlots
+/*  f0483c0:	0fc07934 */ 	jal	chrsGetNumSlots
 /*  f0483c4:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0483c8:	3c1e8006 */ 	lui	$s8,%hi(var80062cb0)
 /*  f0483cc:	27de2cb0 */ 	addiu	$s8,$s8,%lo(var80062cb0)
@@ -22698,7 +22698,7 @@ glabel func0f048398
 /*  f0483b4:	afb30024 */ 	sw	$s3,0x24($sp)
 /*  f0483b8:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f0483bc:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0483c0:	0fc07934 */ 	jal	getNumChrSlots
+/*  f0483c0:	0fc07934 */ 	jal	chrsGetNumSlots
 /*  f0483c4:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0483c8:	3c1e8006 */ 	lui	$s8,%hi(var80062cb0)
 /*  f0483cc:	27de2cb0 */ 	addiu	$s8,$s8,%lo(var80062cb0)
@@ -23158,7 +23158,7 @@ glabel func0f048398
 /*  f047ad8:	afb30024 */ 	sw	$s3,0x24($sp)
 /*  f047adc:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f047ae0:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f047ae4:	0fc0786c */ 	jal	getNumChrSlots
+/*  f047ae4:	0fc0786c */ 	jal	chrsGetNumSlots
 /*  f047ae8:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f047aec:	afa20098 */ 	sw	$v0,0x98($sp)
 /*  f047af0:	00008025 */ 	or	$s0,$zero,$zero
@@ -23462,7 +23462,7 @@ glabel func0f048398
 // Mismatch because it uses the stack differently.
 //void func0f048398(void)
 //{
-//	s32 numchrs = getNumChrSlots(); // e0
+//	s32 numchrs = chrsGetNumSlots(); // e0
 //	s32 numalivewithpropflag80; // dc
 //	struct chrdata *spb8[10];
 //	struct chrdata *spa4[5]; // a4
@@ -24198,7 +24198,7 @@ void chrsClearRefsToPlayer(s32 playernum)
 			playerpropnum = g_Vars.coop->prop - g_Vars.props;
 		}
 
-		for (i = 0; i < getNumChrSlots(); i++) {
+		for (i = 0; i < chrsGetNumSlots(); i++) {
 			if (g_ChrSlots[i].p1p2 == playernum) {
 				g_ChrSlots[i].p1p2 = otherplayernum;
 			}
@@ -25073,7 +25073,7 @@ bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, b
 
 		if ((arg6 && cd0002d840(pos, rooms, &testpos, testrooms, CDTYPE_ALL & ~CDTYPE_PLAYERS, 1, ymax, -200) != CDRESULT_COLLISION)
 				|| (!arg6 && cd0002deac(pos, rooms, &testpos, testrooms, CDTYPE_BG))) {
-			func0f021fa8(NULL, &testpos, testrooms);
+			chr0f021fa8(NULL, &testpos, testrooms);
 			ground = cdFindGroundYSimple(&testpos, width, testrooms, 0, 0);
 			ymin = -200;
 
@@ -25167,7 +25167,7 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 	s16 rooms2[8];
 	s32 stack;
 
-	if (getNumFreeChrSlots() > 1) {
+	if (chrsGetNumFree() > 1) {
 		if (headnum < 0) {
 			headnum = bodyChooseHead(bodynum);
 		}
@@ -25187,7 +25187,7 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 			struct chrdata *chr;
 
 			if (model) {
-				prop = propAllocateChr(model, &pos2, rooms2, angle, ailist);
+				prop = chrAllocate(model, &pos2, rooms2, angle, ailist);
 
 				if (prop) {
 					propActivateThisFrame(prop);
@@ -25216,7 +25216,7 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 	}
 
 	// Low memory - find a corpse to reap
-	if (getNumFreeChrSlots() < 4) {
+	if (chrsGetNumFree() < 4) {
 #if VERSION >= VERSION_NTSC_1_0
 		s32 stack2;
 		struct chrdata *replacechr;
@@ -25363,7 +25363,7 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 
 		propDeregisterRooms(chr->prop);
 		roomsCopy(rooms2, chr->prop->rooms);
-		func0f0220ac(chr);
+		chr0f0220ac(chr);
 		modelSetRootPosition(chr->model, &pos2);
 
 		nodetype = chr->model->filedata->rootnode->type;
@@ -26500,7 +26500,7 @@ glabel var7f1a942c
 /*  f04c9cc:	c6320010 */ 	lwc1	$f18,0x10($s1)
 /*  f04c9d0:	46109100 */ 	add.s	$f4,$f18,$f16
 /*  f04c9d4:	e6040008 */ 	swc1	$f4,0x8($s0)
-/*  f04c9d8:	0fc0a277 */ 	jal	propChrGetBbox
+/*  f04c9d8:	0fc0a277 */ 	jal	chrGetBbox
 /*  f04c9dc:	8e64001c */ 	lw	$a0,0x1c($s3)
 /*  f04c9e0:	c7a800cc */ 	lwc1	$f8,0xcc($sp)
 /*  f04c9e4:	c7a600a0 */ 	lwc1	$f6,0xa0($sp)
@@ -26743,7 +26743,7 @@ glabel var7f1a942c
 /*  f04c9cc:	c6320010 */ 	lwc1	$f18,0x10($s1)
 /*  f04c9d0:	46109100 */ 	add.s	$f4,$f18,$f16
 /*  f04c9d4:	e6040008 */ 	swc1	$f4,0x8($s0)
-/*  f04c9d8:	0fc0a277 */ 	jal	propChrGetBbox
+/*  f04c9d8:	0fc0a277 */ 	jal	chrGetBbox
 /*  f04c9dc:	8e64001c */ 	lw	$a0,0x1c($s3)
 /*  f04c9e0:	c7a800cc */ 	lwc1	$f8,0xcc($sp)
 /*  f04c9e4:	c7a600a0 */ 	lwc1	$f6,0xa0($sp)
@@ -26986,7 +26986,7 @@ glabel var7f1a942c
 /*  f04c9cc:	c6320010 */ 	lwc1	$f18,0x10($s1)
 /*  f04c9d0:	46109100 */ 	add.s	$f4,$f18,$f16
 /*  f04c9d4:	e6040008 */ 	swc1	$f4,0x8($s0)
-/*  f04c9d8:	0fc0a277 */ 	jal	propChrGetBbox
+/*  f04c9d8:	0fc0a277 */ 	jal	chrGetBbox
 /*  f04c9dc:	8e64001c */ 	lw	$a0,0x1c($s3)
 /*  f04c9e0:	c7a800cc */ 	lwc1	$f8,0xcc($sp)
 /*  f04c9e4:	c7a600a0 */ 	lwc1	$f6,0xa0($sp)
@@ -27175,7 +27175,7 @@ glabel var7f1a942c
 //		pos->y = chrpos.y;
 //		pos->z = target->pos.z + (xdiff * sine + zdiff * cosine);
 //
-//		propChrGetBbox(chr->prop, &width, &ymax, &ymin);
+//		chrGetBbox(chr->prop, &width, &ymax, &ymin);
 //
 //		// a14
 //		result = cd0002d7c0(&chrpos, chr->prop->rooms, pos,
@@ -27263,7 +27263,7 @@ glabel var7f1a942c
  */
 void rebuildTeams(void)
 {
-	s32 numchrs = getNumChrSlots();
+	s32 numchrs = chrsGetNumSlots();
 	s16 index = 7;
 	s32 team;
 	s32 i;
@@ -27308,7 +27308,7 @@ void rebuildTeams(void)
  */
 void rebuildSquadrons(void)
 {
-	s32 numchrs = getNumChrSlots();
+	s32 numchrs = chrsGetNumSlots();
 	s16 index = 15;
 	s32 squadron;
 	s32 i;
@@ -27416,7 +27416,7 @@ Gfx *chrsRenderChrStats(Gfx *gdl, s16 *rooms)
 	char aibotbuffer[120];
 	u8 aibot = 0;
 	s32 i;
-	s32 numchrs = getNumChrSlots();
+	s32 numchrs = chrsGetNumSlots();
 
 	gdl = func0f153628(gdl);
 
@@ -27553,12 +27553,12 @@ void chrAvoid(struct chrdata *chr)
 			dstpos.y = chr->prop->pos.y;
 			dstpos.z = chr->prop->pos.z + cosf(chrangle) * 100;
 
-			propChrGetBbox(chr->prop, &width, &ymax, &ymin);
+			chrGetBbox(chr->prop, &width, &ymax, &ymin);
 
 			halfchrwidth = width * 0.5f;
 
 			func0f065e74(&chr->prop->pos, chr->prop->rooms, &dstpos, dstrooms);
-			func0f021fa8(chr, &dstpos, dstrooms);
+			chr0f021fa8(chr, &dstpos, dstrooms);
 
 			xdiff = dstpos.x - chr->prop->pos.x;
 			zdiff = dstpos.z - chr->prop->pos.z;

@@ -70,7 +70,7 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 		struct coord pos = {0.0f, 0.0f, 0.0f};
 		u32 stack;
 
-		prop = propAllocateChr(model, &pos, rooms, 0.0f, ailistFindById(GAILIST_AI_BOT_INIT));
+		prop = chrAllocate(model, &pos, rooms, 0.0f, ailistFindById(GAILIST_AI_BOT_INIT));
 
 		if (prop != NULL) {
 			propActivate(prop);
