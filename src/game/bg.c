@@ -8954,7 +8954,7 @@ bool func0f15d08c(struct coord *a, struct coord *b)
 	b->z = a->z;
 
 	mtx4TransformVecInPlace(matrix, b);
-	func0f0b4d68(b, b);
+	func0f0b4d68(b, b->f);
 
 	if (b->z > 0) {
 		return false;
