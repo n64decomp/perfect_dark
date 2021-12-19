@@ -20218,6 +20218,88 @@ glabel var7f1a925c
 /*  f045a6c:	00000000 */ 	nop
 );
 
+// Mismatch: regalloc
+//bool func0f045760(struct chrdata *chr, struct coord *arg1, bool arg2,
+//		struct coord *arg3, f32 width, bool arg5, struct coord *nextpos,
+//		struct waydata *waydata, f32 arg8, s32 arg9, s32 arg10)
+//{
+//	struct prop *prop = chr->prop; // 74
+//	struct coord sp68;
+//	struct coord sp5c;
+//	f32 norm = 1; // 58
+//	f32 sp54;
+//	struct coord sp48;
+//	struct coord *sp44;
+//	struct coord *sp40;
+//
+//	if (arg2) {
+//		sp44 = arg1;
+//		sp40 = arg3;
+//	} else {
+//		sp44 = arg3;
+//		sp40 = arg1;
+//	}
+//
+//	sp68.x = arg1->f[0] - prop->pos.f[0];
+//	sp68.y = 0;
+//	sp68.z = arg1->f[2] - prop->pos.f[2];
+//
+//	if (sp68.f[0] || sp68.f[2]) {
+//		f32 tmp = sqrtf(sp68.f[0] * sp68.f[0] + sp68.f[2] * sp68.f[2]);
+//
+//		if (tmp > 0) {
+//			norm = 1 / tmp;
+//			sp68.f[0] *= width * norm;
+//			sp68.f[2] *= width * norm;
+//			sp54 = width * norm;
+//		} else {
+//			sp68.f[2] = width;
+//			sp54 = width * norm;
+//		}
+//	} else {
+//		sp68.f[2] = width;
+//		sp54 = width * norm;
+//	}
+//
+//	if (sp54 > 1) {
+//		sp54 = 0.7852731347084f;
+//	} else {
+//		sp54 = func0f0969d0(sp54);
+//	}
+//
+//	if (!arg2 && sp54) {
+//		sp54 = M_BADTAU - sp54;
+//	}
+//
+//	sp48.x = sp68.f[0] * -cosf(sp54) + sp68.f[2] * sinf(sp54);
+//	sp48.y = 0;
+//	sp48.z = sp68.f[0] * -sinf(sp54) - sp68.f[2] * cosf(sp54);
+//
+//	sp5c.x = arg1->f[0] + sp48.f[0];
+//	sp5c.y = arg1->f[1];
+//	sp5c.z = arg1->f[2] + sp48.f[2];
+//
+//	if (func0f044c38(chr, &prop->pos, prop->rooms, &sp5c, sp44, sp40, arg8, chr->chrwidth, arg9, 1)) {
+//		if (!arg5 || func0f03645c(chr, &prop->pos, prop->rooms, &sp5c, nextpos, arg9)) {
+//			if (arg10) {
+//				waydata->gotaimposobj = true;
+//				waydata->aimposobj.x = sp5c.x;
+//				waydata->aimposobj.y = sp5c.y;
+//				waydata->aimposobj.z = sp5c.z;
+//			} else {
+//				waydata->gotaimpos = true;
+//				waydata->aimpos.x = sp5c.x;
+//				waydata->aimpos.y = sp5c.y;
+//				waydata->aimpos.z = sp5c.z;
+//			}
+//
+//			return true;
+//		}
+//	}
+//
+//	return false;
+//}
+
 /**
  * Check for doors in front of the chr and open them if possible.
  *
