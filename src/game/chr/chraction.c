@@ -11129,130 +11129,57 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f04031c
-.late_rodata
-glabel var7f1a90bc
-.word 0x3c23d70a
-glabel var7f1a90c0
-.word 0x3f199999
-glabel var7f1a90c4
-.word 0x411cf5c3
-.text
-/*  f04031c:	3c017f1b */ 	lui	$at,%hi(var7f1a90bc)
-/*  f040320:	c42090bc */ 	lwc1	$f0,%lo(var7f1a90bc)($at)
-/*  f040324:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f040328:	afa5005c */ 	sw	$a1,0x5c($sp)
-/*  f04032c:	3c017f1b */ 	lui	$at,%hi(var7f1a90c0)
-/*  f040330:	c42690c0 */ 	lwc1	$f6,%lo(var7f1a90c0)($at)
-/*  f040334:	c7a4005c */ 	lwc1	$f4,0x5c($sp)
-/*  f040338:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04033c:	afa70064 */ 	sw	$a3,0x64($sp)
-/*  f040340:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f040344:	e7a8005c */ 	swc1	$f8,0x5c($sp)
-/*  f040348:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f04034c:	c4ca0000 */ 	lwc1	$f10,0x0($a2)
-/*  f040350:	c4c80004 */ 	lwc1	$f8,0x4($a2)
-/*  f040354:	46045181 */ 	sub.s	$f6,$f10,$f4
-/*  f040358:	c48a0004 */ 	lwc1	$f10,0x4($a0)
-/*  f04035c:	46003482 */ 	mul.s	$f18,$f6,$f0
-/*  f040360:	460a4101 */ 	sub.s	$f4,$f8,$f10
-/*  f040364:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*  f040368:	c4c60008 */ 	lwc1	$f6,0x8($a2)
-/*  f04036c:	46002082 */ 	mul.s	$f2,$f4,$f0
-/*  f040370:	46083281 */ 	sub.s	$f10,$f6,$f8
-/*  f040374:	e7b20054 */ 	swc1	$f18,0x54($sp)
-/*  f040378:	46005102 */ 	mul.s	$f4,$f10,$f0
-/*  f04037c:	e7a20050 */ 	swc1	$f2,0x50($sp)
-/*  f040380:	46129382 */ 	mul.s	$f14,$f18,$f18
-/*  f040384:	00000000 */ 	nop
-/*  f040388:	46042402 */ 	mul.s	$f16,$f4,$f4
-/*  f04038c:	e7a4004c */ 	swc1	$f4,0x4c($sp)
-/*  f040390:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f040394:	e7ae0020 */ 	swc1	$f14,0x20($sp)
-/*  f040398:	e7b0001c */ 	swc1	$f16,0x1c($sp)
-/*  f04039c:	46067200 */ 	add.s	$f8,$f14,$f6
-/*  f0403a0:	0c012974 */ 	jal	sqrtf
-/*  f0403a4:	46104300 */ 	add.s	$f12,$f8,$f16
-/*  f0403a8:	c7ae0020 */ 	lwc1	$f14,0x20($sp)
-/*  f0403ac:	c7b0001c */ 	lwc1	$f16,0x1c($sp)
-/*  f0403b0:	e7a00044 */ 	swc1	$f0,0x44($sp)
-/*  f0403b4:	0c012974 */ 	jal	sqrtf
-/*  f0403b8:	46107300 */ 	add.s	$f12,$f14,$f16
-/*  f0403bc:	c7aa0044 */ 	lwc1	$f10,0x44($sp)
-/*  f0403c0:	e7a00048 */ 	swc1	$f0,0x48($sp)
-/*  f0403c4:	460a0303 */ 	div.s	$f12,$f0,$f10
-/*  f0403c8:	0fc25a74 */ 	jal	func0f0969d0
-/*  f0403cc:	e7ac0038 */ 	swc1	$f12,0x38($sp)
-/*  f0403d0:	c7a20050 */ 	lwc1	$f2,0x50($sp)
-/*  f0403d4:	44802000 */ 	mtc1	$zero,$f4
-/*  f0403d8:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0403dc:	44819000 */ 	mtc1	$at,$f18
-/*  f0403e0:	4604103c */ 	c.lt.s	$f2,$f4
-/*  f0403e4:	c7ae0038 */ 	lwc1	$f14,0x38($sp)
-/*  f0403e8:	46000406 */ 	mov.s	$f16,$f0
-/*  f0403ec:	3c017f1b */ 	lui	$at,%hi(var7f1a90c4)
-/*  f0403f0:	45000002 */ 	bc1f	.L0f0403fc
-/*  f0403f4:	c7a60044 */ 	lwc1	$f6,0x44($sp)
-/*  f0403f8:	46000407 */ 	neg.s	$f16,$f0
-.L0f0403fc:
-/*  f0403fc:	c42890c4 */ 	lwc1	$f8,%lo(var7f1a90c4)($at)
-/*  f040400:	3c013f80 */ 	lui	$at,0x3f80
-/*  f040404:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f040408:	00000000 */ 	nop
-/*  f04040c:	460e5102 */ 	mul.s	$f4,$f10,$f14
-/*  f040410:	c7aa005c */ 	lwc1	$f10,0x5c($sp)
-/*  f040414:	460e2202 */ 	mul.s	$f8,$f4,$f14
-/*  f040418:	00000000 */ 	nop
-/*  f04041c:	460a5102 */ 	mul.s	$f4,$f10,$f10
-/*  f040420:	46044283 */ 	div.s	$f10,$f8,$f4
-/*  f040424:	46061203 */ 	div.s	$f8,$f2,$f6
-/*  f040428:	46085000 */ 	add.s	$f0,$f10,$f8
-/*  f04042c:	4612003c */ 	c.lt.s	$f0,$f18
-/*  f040430:	46000306 */ 	mov.s	$f12,$f0
-/*  f040434:	45000003 */ 	bc1f	.L0f040444
-/*  f040438:	00000000 */ 	nop
-/*  f04043c:	10000008 */ 	b	.L0f040460
-/*  f040440:	46009306 */ 	mov.s	$f12,$f18
-.L0f040444:
-/*  f040444:	44811000 */ 	mtc1	$at,$f2
-/*  f040448:	00000000 */ 	nop
-/*  f04044c:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f040450:	00000000 */ 	nop
-/*  f040454:	45000002 */ 	bc1f	.L0f040460
-/*  f040458:	00000000 */ 	nop
-/*  f04045c:	46001306 */ 	mov.s	$f12,$f2
-.L0f040460:
-/*  f040460:	0fc25a9f */ 	jal	func0f096a7c
-/*  f040464:	e7b00040 */ 	swc1	$f16,0x40($sp)
-/*  f040468:	c7b00040 */ 	lwc1	$f16,0x40($sp)
-/*  f04046c:	3c013f00 */ 	lui	$at,0x3f00
-/*  f040470:	44813000 */ 	mtc1	$at,$f6
-/*  f040474:	46100101 */ 	sub.s	$f4,$f0,$f16
-/*  f040478:	46062282 */ 	mul.s	$f10,$f4,$f6
-/*  f04047c:	46105300 */ 	add.s	$f12,$f10,$f16
-/*  f040480:	0c0068f4 */ 	jal	cosf
-/*  f040484:	e7ac003c */ 	swc1	$f12,0x3c($sp)
-/*  f040488:	c7ac003c */ 	lwc1	$f12,0x3c($sp)
-/*  f04048c:	0c0068f7 */ 	jal	sinf
-/*  f040490:	e7a00028 */ 	swc1	$f0,0x28($sp)
-/*  f040494:	c7ac0048 */ 	lwc1	$f12,0x48($sp)
-/*  f040498:	c7a80054 */ 	lwc1	$f8,0x54($sp)
-/*  f04049c:	c7a20028 */ 	lwc1	$f2,0x28($sp)
-/*  f0404a0:	8fa20064 */ 	lw	$v0,0x64($sp)
-/*  f0404a4:	460c4103 */ 	div.s	$f4,$f8,$f12
-/*  f0404a8:	e4400004 */ 	swc1	$f0,0x4($v0)
-/*  f0404ac:	46022182 */ 	mul.s	$f6,$f4,$f2
-/*  f0404b0:	e4460000 */ 	swc1	$f6,0x0($v0)
-/*  f0404b4:	c7aa004c */ 	lwc1	$f10,0x4c($sp)
-/*  f0404b8:	460c5203 */ 	div.s	$f8,$f10,$f12
-/*  f0404bc:	46024102 */ 	mul.s	$f4,$f8,$f2
-/*  f0404c0:	e4440008 */ 	swc1	$f4,0x8($v0)
-/*  f0404c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0404c8:	27bd0058 */ 	addiu	$sp,$sp,0x58
-/*  f0404cc:	03e00008 */ 	jr	$ra
-/*  f0404d0:	00000000 */ 	nop
-);
+/**
+ * Sets the speed and trajectory for some thrown items. Specifically, for bots
+ * throwing grenades, and maybe other things.
+ */
+void func0f04031c(struct coord *frompos, f32 arg1, struct coord *aimpos, struct coord *arg3)
+{
+	f32 xvel;
+	f32 yvel;
+	f32 zvel;
+	f32 latvel;
+	f32 vel;
+	f32 sp40;
+	f32 sp3c;
+	f32 sp38;
+	f32 sp30;
+	f32 sp2c;
+	f32 sp24;
+	f32 sp28;
+	f32 sp20;
+
+	arg1 *= 0.59999999f;
+
+	xvel = (aimpos->x - frompos->x) * 0.01f;
+	yvel = (aimpos->y - frompos->y) * 0.01f;
+	zvel = (aimpos->z - frompos->z) * 0.01f;
+
+	vel = sqrtf(xvel * xvel + yvel * yvel + zvel * zvel);
+	latvel = sqrtf(xvel * xvel + zvel * zvel);
+	sp38 = latvel / vel;
+	sp40 = func0f0969d0(sp38);
+
+	if (yvel < 0) {
+		sp40 = -sp40;
+	}
+
+	sp2c = (vel * 9.81f * sp38 * sp38) / (arg1 * arg1) + yvel / vel;
+
+	if (sp2c < -1) {
+		sp2c = -1;
+	} else if (sp2c > 1) {
+		sp2c = 1;
+	}
+
+	sp3c = (func0f096a7c(sp2c) - sp40) * 0.5f + sp40;
+	sp28 = cosf(sp3c);
+	sp30 = sinf(sp3c);
+
+	arg3->x = xvel / latvel * sp28;
+	arg3->y = sp30;
+	arg3->z = zvel / latvel * sp28;
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
