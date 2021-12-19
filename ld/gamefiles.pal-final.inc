@@ -87,8 +87,8 @@
 	build/ROMID/game/game_096360.o (section); \
 	build/ROMID/game/game_096700.o (section); \
 	build/ROMID/game/atan2f.o (section); \
-	build/ROMID/game/game_096890.o (section); \
-	build/ROMID/game/game_0969d0.o (section); \
+	build/ROMID/game/acosasin.o (section); \
+	build/ROMID/game/acosfasinf.o (section); \
 	build/ROMID/game/game_096b20.o (section); \
 	build/ROMID/game/game_096ca0.o (section); \
 	build/ROMID/game/floor.o (section); \

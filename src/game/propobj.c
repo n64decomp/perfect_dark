@@ -16,7 +16,7 @@
 #include "game/game_095320.h"
 #include "game/game_096360.h"
 #include "game/atan2f.h"
-#include "game/game_0969d0.h"
+#include "game/acosfasinf.h"
 #include "game/game_096ca0.h"
 #include "game/floor.h"
 #include "game/ceil.h"
@@ -11549,7 +11549,7 @@ glabel var7f1aa298
 /*  f06e6a0:	46082180 */ 	add.s	$f6,$f4,$f8
 /*  f06e6a4:	c4640008 */ 	lwc1	$f4,0x8($v1)
 /*  f06e6a8:	46045202 */ 	mul.s	$f8,$f10,$f4
-/*  f06e6ac:	0fc25a74 */ 	jal	func0f0969d0
+/*  f06e6ac:	0fc25a74 */ 	jal	acosf
 /*  f06e6b0:	46064300 */ 	add.s	$f12,$f8,$f6
 /*  f06e6b4:	44809000 */ 	mtc1	$zero,$f18
 /*  f06e6b8:	8fa60030 */ 	lw	$a2,0x30($sp)
@@ -11619,7 +11619,7 @@ glabel var7f1aa298
 /*  f06e7ac:	460a4100 */ 	add.s	$f4,$f8,$f10
 /*  f06e7b0:	46000282 */ 	mul.s	$f10,$f0,$f0
 /*  f06e7b4:	46043200 */ 	add.s	$f8,$f6,$f4
-/*  f06e7b8:	0fc25a74 */ 	jal	func0f0969d0
+/*  f06e7b8:	0fc25a74 */ 	jal	acosf
 /*  f06e7bc:	460a4303 */ 	div.s	$f12,$f8,$f10
 /*  f06e7c0:	c7b0006c */ 	lwc1	$f16,0x6c($sp)
 /*  f06e7c4:	44809000 */ 	mtc1	$zero,$f18
@@ -24127,7 +24127,7 @@ glabel var7f1ab6dcpf
 /*  f07520c:	00000000 */ 	nop
 /*  f075210:	46124102 */ 	mul.s	$f4,$f8,$f18
 /*  f075214:	46045200 */ 	add.s	$f8,$f10,$f4
-/*  f075218:	0fc25a3c */ 	jal	func0f0969d0
+/*  f075218:	0fc25a3c */ 	jal	acosf
 /*  f07521c:	46083300 */ 	add.s	$f12,$f6,$f8
 /*  f075220:	3c017f1b */ 	lui	$at,0x7f1b
 /*  f075224:	c42ab6a0 */ 	lwc1	$f10,-0x4960($at)
@@ -27665,7 +27665,7 @@ glabel var7f1aa438
 /*  f074f88:	00000000 */ 	nop
 /*  f074f8c:	46123282 */ 	mul.s	$f10,$f6,$f18
 /*  f074f90:	460a4180 */ 	add.s	$f6,$f8,$f10
-/*  f074f94:	0fc25a74 */ 	jal	func0f0969d0
+/*  f074f94:	0fc25a74 */ 	jal	acosf
 /*  f074f98:	46062300 */ 	add.s	$f12,$f4,$f6
 /*  f074f9c:	3c017f1b */ 	lui	$at,%hi(var7f1aa404)
 /*  f074fa0:	c428a404 */ 	lwc1	$f8,%lo(var7f1aa404)($at)
@@ -31190,7 +31190,7 @@ glabel var7f1aa438
 /*  f073d04:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f073d08:	46123282 */ 	mul.s	$f10,$f6,$f18
 /*  f073d0c:	460a4180 */ 	add.s	$f6,$f8,$f10
-/*  f073d10:	0fc25258 */ 	jal	func0f0969d0
+/*  f073d10:	0fc25258 */ 	jal	acosf
 /*  f073d14:	46062300 */ 	add.s	$f12,$f4,$f6
 /*  f073d18:	3c017f1a */ 	lui	$at,0x7f1a
 /*  f073d1c:	c4284724 */ 	lwc1	$f8,0x4724($at)

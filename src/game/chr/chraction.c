@@ -12,7 +12,7 @@
 #include "game/game_092610.h"
 #include "game/game_095320.h"
 #include "game/atan2f.h"
-#include "game/game_0969d0.h"
+#include "game/acosfasinf.h"
 #include "game/bondgun.h"
 #include "game/game_0abe70.h"
 #include "game/game_0b0fd0.h"
@@ -11158,7 +11158,7 @@ void func0f04031c(struct coord *frompos, f32 arg1, struct coord *aimpos, struct 
 	vel = sqrtf(xvel * xvel + yvel * yvel + zvel * zvel);
 	latvel = sqrtf(xvel * xvel + zvel * zvel);
 	sp38 = latvel / vel;
-	sp40 = func0f0969d0(sp38);
+	sp40 = acosf(sp38);
 
 	if (yvel < 0) {
 		sp40 = -sp40;
@@ -11172,7 +11172,7 @@ void func0f04031c(struct coord *frompos, f32 arg1, struct coord *aimpos, struct 
 		sp2c = 1;
 	}
 
-	sp3c = (func0f096a7c(sp2c) - sp40) * 0.5f + sp40;
+	sp3c = (asinf(sp2c) - sp40) * 0.5f + sp40;
 	sp28 = cosf(sp3c);
 	sp30 = sinf(sp3c);
 
@@ -20093,7 +20093,7 @@ glabel var7f1a925c
 /*  f045894:	10000005 */ 	b	.L0f0458ac
 /*  f045898:	c42c9258 */ 	lwc1	$f12,%lo(var7f1a9258)($at)
 .L0f04589c:
-/*  f04589c:	0fc25a74 */ 	jal	func0f0969d0
+/*  f04589c:	0fc25a74 */ 	jal	acosf
 /*  f0458a0:	00000000 */ 	nop
 /*  f0458a4:	44808000 */ 	mtc1	$zero,$f16
 /*  f0458a8:	46000306 */ 	mov.s	$f12,$f0
@@ -20264,7 +20264,7 @@ glabel var7f1a925c
 //	if (sp54 > 1) {
 //		sp54 = 0.7852731347084f;
 //	} else {
-//		sp54 = func0f0969d0(sp54);
+//		sp54 = acosf(sp54);
 //	}
 //
 //	if (!arg2 && sp54) {
@@ -21326,7 +21326,7 @@ void chrTickGoPos(struct chrdata *chr)
 						sp156 = sqrtf((sp180 * sp180 + sp176 * sp176) * (sp172 * sp172 + sp168 * sp168));
 
 						if (sp156 > 0) {
-							sp160 = func0f0969d0((sp180 * sp172 + sp176 * sp168) / sp156);
+							sp160 = acosf((sp180 * sp172 + sp176 * sp168) / sp156);
 
 							// sp160 < DEG2RAD(45) || sp160 > DEG2RAD(315)
 							if (sp160 < 0.7852731347084f || sp160 > 5.4969120025635f) {

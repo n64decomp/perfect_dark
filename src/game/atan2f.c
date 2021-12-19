@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "game/game_0969d0.h"
+#include "game/acosfasinf.h"
 #include "data.h"
 #include "types.h"
 
@@ -23,13 +23,13 @@ f32 atan2f(f32 x, f32 z)
 		result = sqrtf(x * x + z * z);
 
 		if (z < x) {
-			result = func0f0969d0(z / result);
+			result = acosf(z / result);
 
 			if (x < 0) {
 				result = M_TAU - result;
 			}
 		} else {
-			result = func0f0969d0(x / result);
+			result = acosf(x / result);
 			result = 1.5707963705063f - result;
 
 			if (z < 0) {

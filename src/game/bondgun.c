@@ -9,7 +9,7 @@
 #include "game/prop.h"
 #include "game/game_092610.h"
 #include "game/game_096360.h"
-#include "game/game_0969d0.h"
+#include "game/acosfasinf.h"
 #include "game/game_096b20.h"
 #include "game/game_096ca0.h"
 #include "game/game_097aa0.h"
@@ -11091,7 +11091,7 @@ glabel var7f1ac72c
 /*  f09f3d0:	c7aa01e4 */ 	lwc1	$f10,0x1e4($sp)
 /*  f09f3d4:	460a3402 */ 	mul.s	$f16,$f6,$f10
 /*  f09f3d8:	46124100 */ 	add.s	$f4,$f8,$f18
-/*  f09f3dc:	0fc25a74 */ 	jal	func0f0969d0
+/*  f09f3dc:	0fc25a74 */ 	jal	acosf
 /*  f09f3e0:	46048300 */ 	add.s	$f12,$f16,$f4
 /*  f09f3e4:	3c017f1b */ 	lui	$at,%hi(var7f1ac718)
 /*  f09f3e8:	c428c714 */ 	lwc1	$f8,%lo(var7f1ac714)($at)
@@ -11607,7 +11607,7 @@ glabel var7f1ac72c
 /*  f09f3d0:	c7aa01e4 */ 	lwc1	$f10,0x1e4($sp)
 /*  f09f3d4:	460a3402 */ 	mul.s	$f16,$f6,$f10
 /*  f09f3d8:	46124100 */ 	add.s	$f4,$f8,$f18
-/*  f09f3dc:	0fc25a74 */ 	jal	func0f0969d0
+/*  f09f3dc:	0fc25a74 */ 	jal	acosf
 /*  f09f3e0:	46048300 */ 	add.s	$f12,$f16,$f4
 /*  f09f3e4:	3c017f1b */ 	lui	$at,%hi(var7f1ac718)
 /*  f09f3e8:	c428c714 */ 	lwc1	$f8,%lo(var7f1ac714)($at)
@@ -12130,7 +12130,7 @@ glabel var7f1ac740
 /*  f09ff84:	c7a40200 */ 	lwc1	$f4,0x200($sp)
 /*  f09ff88:	46048482 */ 	mul.s	$f18,$f16,$f4
 /*  f09ff8c:	46085180 */ 	add.s	$f6,$f10,$f8
-/*  f09ff90:	0fc25a3c */ 	jal	func0f0969d0
+/*  f09ff90:	0fc25a3c */ 	jal	acosf
 /*  f09ff94:	46069300 */ 	add.s	$f12,$f18,$f6
 /*  f09ff98:	3c017f1b */ 	lui	$at,0x7f1b
 /*  f09ff9c:	c42ad934 */ 	lwc1	$f10,-0x26cc($at)
@@ -12765,7 +12765,7 @@ glabel var7f1ac740
 /*  f09fc80:	c7a40200 */ 	lwc1	$f4,0x200($sp)
 /*  f09fc84:	46048482 */ 	mul.s	$f18,$f16,$f4
 /*  f09fc88:	46085180 */ 	add.s	$f6,$f10,$f8
-/*  f09fc8c:	0fc25a74 */ 	jal	func0f0969d0
+/*  f09fc8c:	0fc25a74 */ 	jal	acosf
 /*  f09fc90:	46069300 */ 	add.s	$f12,$f18,$f6
 /*  f09fc94:	3c017f1b */ 	lui	$at,%hi(var7f1ac734)
 /*  f09fc98:	c42ac734 */ 	lwc1	$f10,%lo(var7f1ac734)($at)
@@ -13391,7 +13391,7 @@ glabel var7f1ac740
 /*  f09daf4:	c7a40200 */ 	lwc1	$f4,0x200($sp)
 /*  f09daf8:	46048482 */ 	mul.s	$f18,$f16,$f4
 /*  f09dafc:	46085180 */ 	add.s	$f6,$f10,$f8
-/*  f09db00:	0fc25258 */ 	jal	func0f0969d0
+/*  f09db00:	0fc25258 */ 	jal	acosf
 /*  f09db04:	46069300 */ 	add.s	$f12,$f18,$f6
 /*  f09db08:	3c017f1a */ 	lui	$at,0x7f1a
 /*  f09db0c:	c42a6a7c */ 	lwc1	$f10,0x6a7c($at)
@@ -16130,7 +16130,7 @@ f32 bgun0f0a2498(f32 arg0, f32 arg1, f32 arg2, f32 arg3)
 {
 	f32 a = arg0 - arg2;
 
-	return func0f096a7c(a / sqrtf(a * a + (arg1 - arg3) * (arg1 - arg3)));
+	return asinf(a / sqrtf(a * a + (arg1 - arg3) * (arg1 - arg3)));
 }
 
 void bgun0f0a24f0(struct coord *arg0, s32 handnum)

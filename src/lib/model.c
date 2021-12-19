@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/game_096700.h"
-#include "game/game_0969d0.h"
+#include "game/acosfasinf.h"
 #include "game/game_096ca0.h"
 #include "game/game_0b4950.h"
 #include "game/floor.h"
@@ -1254,7 +1254,7 @@ glabel var70054320
 /*    1be90:	afac0028 */ 	sw	$t4,0x28($sp)
 .L0001be94:
 /*    1be94:	8fad00b4 */ 	lw	$t5,0xb4($sp)
-/*    1be98:	0fc25a74 */ 	jal	func0f0969d0
+/*    1be98:	0fc25a74 */ 	jal	acosf
 /*    1be9c:	c5ac0000 */ 	lwc1	$f12,0x0($t5)
 /*    1bea0:	46000080 */ 	add.s	$f2,$f0,$f0
 /*    1bea4:	3c017005 */ 	lui	$at,%hi(var7005430c)
@@ -5123,7 +5123,7 @@ glabel var70054454
 /*    21910:	46065200 */ 	add.s	$f8,$f10,$f6
 /*    21914:	c7aa00e8 */ 	lwc1	$f10,0xe8($sp)
 /*    21918:	460a2182 */ 	mul.s	$f6,$f4,$f10
-/*    2191c:	0fc25a74 */ 	jal	func0f0969d0
+/*    2191c:	0fc25a74 */ 	jal	acosf
 /*    21920:	46083300 */ 	add.s	$f12,$f6,$f8
 /*    21924:	e7a000ec */ 	swc1	$f0,0xec($sp)
 /*    21928:	0c0068f7 */ 	jal	sinf
@@ -5140,7 +5140,7 @@ glabel var70054454
 /*    21954:	46062282 */ 	mul.s	$f10,$f4,$f6
 /*    21958:	460a4100 */ 	add.s	$f4,$f8,$f10
 /*    2195c:	46002187 */ 	neg.s	$f6,$f4
-/*    21960:	0fc25a74 */ 	jal	func0f0969d0
+/*    21960:	0fc25a74 */ 	jal	acosf
 /*    21964:	46003303 */ 	div.s	$f12,$f6,$f0
 /*    21968:	c7a800e0 */ 	lwc1	$f8,0xe0($sp)
 /*    2196c:	c64a0000 */ 	lwc1	$f10,0x0($s2)
@@ -5565,8 +5565,8 @@ glabel var70054454
 //		}
 //
 //		// 8f4
-//		spec = func0f0969d0(spe0.f[0] * mtx->m[1][0] + spe0.f[1] * mtx->m[1][1] + spe0.f[2] * mtx->m[1][2]);
-//		spf0 = func0f0969d0(-(spe0.f[0] * mtx->m[2][0] + spe0.f[1] * mtx->m[2][1] + spe0.f[2] * mtx->m[2][2]) / sinf(spec));
+//		spec = acosf(spe0.f[0] * mtx->m[1][0] + spe0.f[1] * mtx->m[1][1] + spe0.f[2] * mtx->m[1][2]);
+//		spf0 = acosf(-(spe0.f[0] * mtx->m[2][0] + spe0.f[1] * mtx->m[2][1] + spe0.f[2] * mtx->m[2][2]) / sinf(spec));
 //
 //		tmp = -(spe0.f[0] * mtx->m[0][0] + spe0.f[1] * mtx->m[0][1] + spe0.f[2] * mtx->m[0][2]);
 //

@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_0969d0.h"
+#include "game/acosfasinf.h"
 #include "game/bondgun.h"
 #include "game/game_0abe70.h"
 #include "game/game_0b0fd0.h"
@@ -328,7 +328,7 @@ glabel var7f1acc48
 /*  f0ac3e4:	c7a60058 */ 	lwc1	$f6,0x58($sp)
 /*  f0ac3e8:	46069282 */ 	mul.s	$f10,$f18,$f6
 /*  f0ac3ec:	46044400 */ 	add.s	$f16,$f8,$f4
-/*  f0ac3f0:	0fc25a74 */ 	jal	func0f0969d0
+/*  f0ac3f0:	0fc25a74 */ 	jal	acosf
 /*  f0ac3f4:	46105300 */ 	add.s	$f12,$f10,$f16
 /*  f0ac3f8:	3c017f1b */ 	lui	$at,%hi(var7f1acc48)
 /*  f0ac3fc:	c428cc48 */ 	lwc1	$f8,%lo(var7f1acc48)($at)
@@ -571,7 +571,7 @@ glabel var7f1acc48
 /*  f0aa144:	c7a60058 */ 	lwc1	$f6,0x58($sp)
 /*  f0aa148:	46069282 */ 	mul.s	$f10,$f18,$f6
 /*  f0aa14c:	46044400 */ 	add.s	$f16,$f8,$f4
-/*  f0aa150:	0fc25258 */ 	jal	func0f0969d0
+/*  f0aa150:	0fc25258 */ 	jal	acosf
 /*  f0aa154:	46105300 */ 	add.s	$f12,$f10,$f16
 /*  f0aa158:	3c017f1a */ 	lui	$at,0x7f1a
 /*  f0aa15c:	c4286f98 */ 	lwc1	$f8,0x6f98($at)

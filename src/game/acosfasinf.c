@@ -1,11 +1,11 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_096890.h"
+#include "game/acosasin.h"
 #include "bss.h"
 #include "data.h"
 #include "types.h"
 
-f32 func0f0969d0(f32 value)
+f32 acosf(f32 value)
 {
 	s16 intval;
 
@@ -17,10 +17,10 @@ f32 func0f0969d0(f32 value)
 		intval = value * 32767.0f;
 	}
 
-	return (func0f096910(intval) * M_PI) / 65535.0f;
+	return (acos(intval) * M_PI) / 65535.0f;
 }
 
-f32 func0f096a7c(f32 value)
+f32 asinf(f32 value)
 {
 	s16 intval;
 
@@ -32,5 +32,5 @@ f32 func0f096a7c(f32 value)
 		intval = (value * 32767.0f);
 	}
 
-	return (func0f096964(intval) * M_PI) / 65535.0f;
+	return (asin(intval) * M_PI) / 65535.0f;
 }

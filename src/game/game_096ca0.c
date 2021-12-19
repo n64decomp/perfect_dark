@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_0969d0.h"
+#include "game/acosfasinf.h"
 #include "game/game_096ca0.h"
 #include "bss.h"
 #include "lib/mtx.h"
@@ -497,7 +497,7 @@ glabel func0f0972b8
 /*  f0973b0:	afa40030 */ 	sw	$a0,0x30($sp)
 /*  f0973b4:	afa50034 */ 	sw	$a1,0x34($sp)
 /*  f0973b8:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f0973bc:	0fc25a74 */ 	jal	func0f0969d0
+/*  f0973bc:	0fc25a74 */ 	jal	acosf
 /*  f0973c0:	e7ae0038 */ 	swc1	$f14,0x38($sp)
 /*  f0973c4:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0973c8:	c7ae0038 */ 	lwc1	$f14,0x38($sp)
@@ -636,7 +636,7 @@ glabel func0f097518
 /*  f0975bc:	afa40038 */ 	sw	$a0,0x38($sp)
 /*  f0975c0:	afa60040 */ 	sw	$a2,0x40($sp)
 /*  f0975c4:	e7ae003c */ 	swc1	$f14,0x3c($sp)
-/*  f0975c8:	0fc25a74 */ 	jal	func0f0969d0
+/*  f0975c8:	0fc25a74 */ 	jal	acosf
 /*  f0975cc:	e7b00030 */ 	swc1	$f16,0x30($sp)
 /*  f0975d0:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0975d4:	44811000 */ 	mtc1	$at,$f2

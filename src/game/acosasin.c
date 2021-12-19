@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_096890.h"
+#include "game/acosasin.h"
 #include "bss.h"
 #include "data.h"
 #include "types.h"
@@ -63,7 +63,7 @@ s32 func0f096890(s32 arg0)
 	return value - (((value - nextvalue) * (arg0 & mask)) >> shiftamount);
 }
 
-u16 func0f096910(s16 arg0)
+u16 acos(s16 arg0)
 {
 	s32 value = arg0 >= 0 ? arg0 : -arg0;
 
@@ -76,7 +76,7 @@ u16 func0f096910(s16 arg0)
 	return value;
 }
 
-s16 func0f096964(s16 arg0)
+s16 asin(s16 arg0)
 {
 	s32 value = arg0 >= 0 ? arg0 : -arg0;
 
