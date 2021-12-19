@@ -5,6 +5,6 @@
 #include "types.h"
 
 u32 random2(void);
-u32 rng2SetSeed(void);
+void rng2SetSeed(u32 seed);
 
 #endif

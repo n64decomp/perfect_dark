@@ -4648,7 +4648,7 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 			}
 
 			gSPSegment(renderdata->gdl++, 0x04, osVirtualToPhysical(rwdata->dl.vertices));
-			gSPSegment(renderdata->gdl++, 0x06, osVirtualToPhysical(rwdata->dl.unk08));
+			gSPSegment(renderdata->gdl++, 0x06, osVirtualToPhysical(rwdata->dl.colours));
 
 			gSPDisplayList(renderdata->gdl++, rwdata->dl.gdl);
 
@@ -4671,7 +4671,7 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 			}
 
 			gSPSegment(renderdata->gdl++, 0x04, osVirtualToPhysical(rwdata->dl.vertices));
-			gSPSegment(renderdata->gdl++, 0x06, osVirtualToPhysical(rwdata->dl.unk08));
+			gSPSegment(renderdata->gdl++, 0x06, osVirtualToPhysical(rwdata->dl.colours));
 
 			model00020248(renderdata, false);
 
@@ -6453,7 +6453,7 @@ void modelInitRwData(struct model *model, struct modelnode *startnode)
 			rwdata = modelGetNodeRwData(model, node);
 			rwdata->dl.vertices = rodata->dl.vertices;
 			rwdata->dl.gdl = rodata->dl.primary;
-			rwdata->dl.unk08 = (void *) ALIGN8((u32)(rodata->dl.vertices + rodata->dl.numvertices));
+			rwdata->dl.colours = (void *) ALIGN8((u32)(rodata->dl.vertices + rodata->dl.numvertices));
 			if (rodata->dl.numvertices);
 			if (rodata->dl.numvertices);
 			if (rodata->dl.numvertices);

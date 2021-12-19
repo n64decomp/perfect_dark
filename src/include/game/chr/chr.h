@@ -39,7 +39,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha);
 void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct coord *coord, struct coord *coord2, struct chrdata *chr2);
 u32 chr0f0260c4(void);
 void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct coord *arg3);
-u32 chr0f0270f4(void);
+void chrDisfigure(struct chrdata *chr, u32 arg1, u32 arg2);
 f32 chr0f0278a4(struct chrdata *chr);
 void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool arg3);
 void chrHit(struct shotdata *shotdata, struct hit *hit);

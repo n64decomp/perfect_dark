@@ -2130,7 +2130,7 @@ glabel var7f1b68a0pf
 /*  f12c674:	17000004 */ 	bnez	$t8,.PF0f12c688
 /*  f12c678:	02402025 */ 	move	$a0,$s2
 /*  f12c67c:	4406d000 */ 	mfc1	$a2,$f26
-/*  f12c680:	0fc09c86 */ 	jal	chr0f0270f4
+/*  f12c680:	0fc09c86 */ 	jal	chrDisfigure
 /*  f12c684:	02602825 */ 	move	$a1,$s3
 .PF0f12c688:
 /*  f12c688:	86820002 */ 	lh	$v0,0x2($s4)
@@ -2898,7 +2898,7 @@ glabel var7f1b559c
 /*  f12bb70:	17000004 */ 	bnez	$t8,.L0f12bb84
 /*  f12bb74:	02402025 */ 	or	$a0,$s2,$zero
 /*  f12bb78:	4406d000 */ 	mfc1	$a2,$f26
-/*  f12bb7c:	0fc09c3d */ 	jal	chr0f0270f4
+/*  f12bb7c:	0fc09c3d */ 	jal	chrDisfigure
 /*  f12bb80:	02602825 */ 	or	$a1,$s3,$zero
 .L0f12bb84:
 /*  f12bb84:	86820002 */ 	lh	$v0,0x2($s4)
@@ -3663,7 +3663,7 @@ glabel var7f1b559c
 /*  f126700:	17000004 */ 	bnez	$t8,.NB0f126714
 /*  f126704:	02402025 */ 	or	$a0,$s2,$zero
 /*  f126708:	4406d000 */ 	mfc1	$a2,$f26
-/*  f12670c:	0fc09ac4 */ 	jal	chr0f0270f4
+/*  f12670c:	0fc09ac4 */ 	jal	chrDisfigure
 /*  f126710:	02602825 */ 	or	$a1,$s3,$zero
 .NB0f126714:
 /*  f126714:	86820002 */ 	lh	$v0,0x2($s4)

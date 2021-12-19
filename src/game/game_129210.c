@@ -44,7 +44,7 @@ struct var8007e3d0 var8007e3d0[] = {
  * Search all props and their model data for something, and replace it with
  * something else.
  */
-void func0f129210(union modelrwdata *find, union modelrwdata *replacement)
+void vtxstoreFixRefs(union modelrwdata *find, union modelrwdata *replacement)
 {
 	u32 stack;
 	struct prop *prop = g_Vars.activeprops;
@@ -96,7 +96,7 @@ void func0f129210(union modelrwdata *find, union modelrwdata *replacement)
 	}
 }
 
-void func0f12939c(void)
+void vtxstoreTick(void)
 {
 	s32 i;
 	s32 j;
@@ -109,7 +109,7 @@ void func0f12939c(void)
 							&& var8007e3d0[1].unk24[i].unk04 == var8007e3d0[1].unk24[j].unk04
 							&& var8007e3d0[1].unk24[i].unk08 == var8007e3d0[1].unk24[j].unk08) {
 						s32 size = ALIGN16(var8007e3d0[1].unk24[j].unk0c * 0x0c);
-						func0f129210(var8007e3d0[1].unk24[j].unk00, var8007e3d0[1].unk24[i].unk00);
+						vtxstoreFixRefs(var8007e3d0[1].unk24[j].unk00, var8007e3d0[1].unk24[i].unk00);
 						var8007e3d0[1].unk24[i].unk0e += var8007e3d0[1].unk24[j].unk0e;
 						memaFree(var8007e3d0[1].unk24[j].unk00, size);
 						var8007e3d0[1].unk24[j].unk0e = 0;
@@ -126,7 +126,7 @@ void func0f12939c(void)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void *func0f12955c(s32 count, s32 index, s32 arg2, s32 arg3)
+void *vtxstoreAllocate(s32 count, s32 index, s32 arg2, s32 arg3)
 {
 	s32 i;
 	s32 numchrs;
@@ -204,7 +204,7 @@ void *func0f12955c(s32 count, s32 index, s32 arg2, s32 arg3)
 }
 #else
 GLOBAL_ASM(
-glabel func0f12955c
+glabel vtxstoreAllocate
 /*  f12419c:	00057080 */ 	sll	$t6,$a1,0x2
 /*  f1241a0:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*  f1241a4:	01c57023 */ 	subu	$t6,$t6,$a1
@@ -407,7 +407,7 @@ glabel func0f12955c
 );
 #endif
 
-void func0f129818(s32 arg0, void *arg1)
+void vtxstoreFree(s32 arg0, void *arg1)
 {
 	s32 i;
 

@@ -7872,7 +7872,7 @@ glabel var7f1b8ed0pf
 .PF0f16d7ac:
 /*  f16d7ac:	0fc5b16f */ 	jal	lvUpdateCutsceneTime
 /*  f16d7b0:	00000000 */ 	nop
-/*  f16d7b4:	0fc4a79b */ 	jal	func0f12939c
+/*  f16d7b4:	0fc4a79b */ 	jal	vtxstoreTick
 /*  f16d7b8:	00000000 */ 	nop
 /*  f16d7bc:	0fc5af9f */ 	jal	lvUpdateSoloHandicaps
 /*  f16d7c0:	00000000 */ 	nop
@@ -8275,7 +8275,7 @@ void lvTick(void)
 		func0f01d860();
 	} else {
 		lvUpdateCutsceneTime();
-		func0f12939c();
+		vtxstoreTick();
 		lvUpdateSoloHandicaps();
 		func0f01d8c0();
 		func0f01d990();
@@ -9474,7 +9474,7 @@ glabel lvTick
 .NB0f167718:
 /*  f167718:	0fc5998f */ 	jal	lvUpdateCutsceneTime
 /*  f16771c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f167720:	0fc48ff7 */ 	jal	func0f12939c
+/*  f167720:	0fc48ff7 */ 	jal	vtxstoreTick
 /*  f167724:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f167728:	0fc597c1 */ 	jal	lvUpdateSoloHandicaps
 /*  f16772c:	00000000 */ 	sll	$zero,$zero,0x0

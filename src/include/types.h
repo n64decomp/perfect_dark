@@ -668,7 +668,7 @@ struct modelrodata_dl { // type 0x18
 	/*0x00*/ Gfx *primary;
 	/*0x04*/ Gfx *secondary;
 	/*0x08*/ u32 *colourtable;
-	/*0x0c*/ struct gfxvtx *vertices;
+	/*0x0c*/ struct gfxvtx *vertices; // colours follow this array
 	/*0x10*/ s16 numvertices;
 	/*0x12*/ s16 mcount;
 	/*0x14*/ u16 rwdataindex;
@@ -785,10 +785,23 @@ struct modelrwdata_headspot { // type 0x17
 	void *rwdatas;
 };
 
+struct colour {
+	union {
+		u32 word;
+		u8 bytes[4];
+		struct {
+			u8 r;
+			u8 g;
+			u8 b;
+			u8 a;
+		};
+	};
+};
+
 struct modelrwdata_dl { // type 0x18
 	struct gfxvtx *vertices;
 	Gfx *gdl;
-	u32 *unk08;
+	struct colour *colours;
 };
 
 union modelrwdata {
@@ -6834,18 +6847,6 @@ struct roomacousticdata {
 struct var8009dd78 {
 	s16 unk00;
 	f32 unk04;
-};
-
-struct colour {
-	union {
-		struct {
-			u8 r;
-			u8 g;
-			u8 b;
-			u8 a;
-		} u8;
-		u32 u32;
-	};
 };
 
 struct var800ab570 {
