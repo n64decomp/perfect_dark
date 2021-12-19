@@ -3904,6 +3904,11 @@
 #define VOICEBOX_FEMALE 3
 
 #define WAYMODE_EXPENSIVE 0
+#define WAYMODE_1         1
+#define WAYMODE_2         2
+#define WAYMODE_3         3
+#define WAYMODE_4         4
+#define WAYMODE_5         5
 #define WAYMODE_MAGIC     6
 
 enum weaponnum {

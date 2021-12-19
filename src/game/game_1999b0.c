@@ -346,7 +346,7 @@ void func0f19a37c(struct chrdata *chr)
 {
 	struct coord sp228 = {0, 0, 0};
 	Mtxf sp164;
-	f32 sp152[3];
+	struct coord sp152;
 	struct prop *prop = chr->prop;
 	Mtxf sp84;
 	f32 sp80 = chrGetAimAngle(chr);
@@ -373,21 +373,21 @@ void func0f19a37c(struct chrdata *chr)
 			}
 		}
 
-		func0f04031c(&prop->pos, 16.666666f, &sp56, sp152);
+		func0f04031c(&prop->pos, 16.666666f, &sp56, &sp152);
 	} else {
 		// These numbers are about 2 billionths away from BADDEG2RAD(20),
 		// but tweaking the multiplier in BADDEG2RAD doesn't make this match
 		// without creating mismatches in other places :(
-		sp152[0] = cosf(0.34901028871536f) * sinf(sp80);
-		sp152[1] = sinf(0.34901028871536f);
-		sp152[2] = cosf(0.34901028871536f) * cosf(sp80);
+		sp152.x = cosf(0.34901028871536f) * sinf(sp80);
+		sp152.y = sinf(0.34901028871536f);
+		sp152.z = cosf(0.34901028871536f) * cosf(sp80);
 	}
 
 	mult = 16.666666f;
 
-	sp228.x = sp152[0] * mult;
-	sp228.y = sp152[1] * mult;
-	sp228.z = sp152[2] * mult;
+	sp228.x = sp152.x * mult;
+	sp228.y = sp152.y * mult;
+	sp228.z = sp152.z * mult;
 
 	mtx4LoadIdentity(&sp164);
 

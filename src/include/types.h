@@ -1168,20 +1168,14 @@ struct act_runpos {
 
 struct waydata {
 	/*0x00*/ s8 mode;
-	/*0x01*/ u8 iter;
-	/*0x02*/ u8 gotaimpos;
-	/*0x03*/ u8 gotaimposobj;
+	/*0x01*/ s8 iter;
+	/*0x02*/ s8 gotaimpos;
+	/*0x03*/ s8 gotaimposobj;
 	/*0x04*/ struct coord aimpos;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
+	/*0x10*/ struct coord unk10;
+	/*0x1c*/ struct coord unk1c;
 	/*0x28*/ s32 age;
-	/*0x2c*/ u32 aimposobj;
-	/*0x30*/ s8 unk30_test;
-	/*0x34*/ u32 unk34;
+	/*0x2c*/ struct coord aimposobj;
 
 	// These are the distances between the current waypoint and the previous
 	// when using magic mode.

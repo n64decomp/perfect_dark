@@ -166,11 +166,11 @@ bool posIsArrivingLaterallyAtPos(struct coord *prevpos, struct coord *curpos, st
 bool posIsArrivingAtPos(struct coord *prevpos, struct coord *curpos, struct coord *targetpos, f32 range);
 void chrTickRunPos(struct chrdata *chr);
 void func0f044b68(struct coord *arg0, struct coord *arg1, struct coord *arg2);
-u32 func0f044c38(void);
-u32 func0f0451a8(void);
-u32 func0f045760(void);
+bool func0f044c38(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coord *aimpos, struct coord *arg4, struct coord *arg5, f32 negwidth, f32 width, s32 arg8, s32 arg9);
+bool func0f0451a8(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coord *aimpos, struct coord *arg4, struct coord *arg5, f32 negwidth, f32 width, s32 soundnum, s32 arg9);
+bool func0f045760(struct chrdata *chr, struct coord *arg1, bool arg2, struct coord *arg3, f32 width, bool arg5, struct coord *nextpos, struct waydata *waydata, f32 arg8, s32 arg9, s32 arg10);
 struct prop *chrOpenDoor(struct chrdata *chr, struct coord *coord);
-void func0f045b9c(struct chrdata *chr, struct coord *pos, struct waydata *waydata, bool arg3);
+void chrTickWay(struct chrdata *chr, struct coord *pos, struct waydata *waydata, bool arg3);
 bool goPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, bool arrivingatlift, s16 curpadnum, s32 nextpadnum);
 s16 chrGoPosGetNextPadNum(struct chrdata *chr);
 void chrTickGoPos(struct chrdata *chr);
