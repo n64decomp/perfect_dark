@@ -139,8 +139,22 @@
 	build/ROMID/game/debug2.o (section); \
 	build/ROMID/game/debug3.o (section); \
 	build/ROMID/game/stubs/game_11eff0.o (section); \
-	build/ROMID/game/data/ailists.o (section); \
-	build/ROMID/game/data/data_020df0.o (section); \
+	build/ROMID/game/gailists.o (section); \
+	build/ROMID/game/modeldata/general.o (section); \
+	build/ROMID/game/modeldata/basic.o (section); \
+	build/ROMID/game/modeldata/chrgun.o (section); \
+	build/ROMID/game/modeldata/skel0b.o (section); \
+	build/ROMID/game/modeldata/player.o (section); \
+	build/ROMID/game/modeldata/skel0a.o (section); \
+	build/ROMID/game/modeldata/skel20.o (section); \
+	build/ROMID/game/modeldata/classicgun.o (section); \
+	build/ROMID/game/modeldata/casing.o (section); \
+	build/ROMID/game/modeldata/skel06.o (section); \
+	build/ROMID/game/modeldata/uzi.o (section); \
+	build/ROMID/game/modeldata/weapon.o (section); \
+	build/ROMID/game/modeldata/chr.o (section); \
+	build/ROMID/game/modeldata/skedar.o (section); \
+	build/ROMID/game/modeldata/robot.o (section); \
 	build/ROMID/game/game_11f000.o (section); \
 	build/ROMID/game/game_127910.o (section); \
 	build/ROMID/game/crc.o (section); \

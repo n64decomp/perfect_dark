@@ -4821,13 +4821,13 @@ glabel var7f1a879c
 /*  f021544:	afa5015c */ 	sw	$a1,0x15c($sp)
 /*  f021548:	e7a40154 */ 	swc1	$f4,0x154($sp)
 /*  f02154c:	8cce0020 */ 	lw	$t6,0x20($a2)
-/*  f021550:	3c188008 */ 	lui	$t8,%hi(g_ModelTypeRobot)
+/*  f021550:	3c188008 */ 	lui	$t8,%hi(g_SkelRobot)
 /*  f021554:	00803825 */ 	or	$a3,$a0,$zero
 /*  f021558:	8dcf0008 */ 	lw	$t7,0x8($t6)
-/*  f02155c:	2718cefc */ 	addiu	$t8,$t8,%lo(g_ModelTypeRobot)
-/*  f021560:	3c198008 */ 	lui	$t9,%hi(g_ModelTypeChr)
+/*  f02155c:	2718cefc */ 	addiu	$t8,$t8,%lo(g_SkelRobot)
+/*  f021560:	3c198008 */ 	lui	$t9,%hi(g_SkelChr)
 /*  f021564:	8de20004 */ 	lw	$v0,0x4($t7)
-/*  f021568:	2739ce40 */ 	addiu	$t9,$t9,%lo(g_ModelTypeChr)
+/*  f021568:	2739ce40 */ 	addiu	$t9,$t9,%lo(g_SkelChr)
 /*  f02156c:	24040007 */ 	addiu	$a0,$zero,0x7
 /*  f021570:	1702006d */ 	bne	$t8,$v0,.L0f021728
 /*  f021574:	00000000 */ 	nop
@@ -4948,14 +4948,14 @@ glabel var7f1a879c
 /*  f021724:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f021728:
 /*  f021728:	17220006 */ 	bne	$t9,$v0,.L0f021744
-/*  f02172c:	3c0b8008 */ 	lui	$t3,%hi(g_ModelTypeSkedar)
+/*  f02172c:	3c0b8008 */ 	lui	$t3,%hi(g_SkelSkedar)
 /*  f021730:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f021734:	24080003 */ 	addiu	$t0,$zero,0x3
 /*  f021738:	240a0001 */ 	addiu	$t2,$zero,0x1
 /*  f02173c:	1000000c */ 	b	.L0f021770
 /*  f021740:	00004825 */ 	or	$t1,$zero,$zero
 .L0f021744:
-/*  f021744:	256bce98 */ 	addiu	$t3,$t3,%lo(g_ModelTypeSkedar)
+/*  f021744:	256bce98 */ 	addiu	$t3,$t3,%lo(g_SkelSkedar)
 /*  f021748:	15620006 */ 	bne	$t3,$v0,.L0f021764
 /*  f02174c:	2405ffff */ 	addiu	$a1,$zero,-1
 /*  f021750:	24050003 */ 	addiu	$a1,$zero,0x3
@@ -5615,13 +5615,13 @@ glabel var7f1a879c
 /*  f021544:	afa5015c */ 	sw	$a1,0x15c($sp)
 /*  f021548:	e7a40154 */ 	swc1	$f4,0x154($sp)
 /*  f02154c:	8cce0020 */ 	lw	$t6,0x20($a2)
-/*  f021550:	3c188008 */ 	lui	$t8,%hi(g_ModelTypeRobot)
+/*  f021550:	3c188008 */ 	lui	$t8,%hi(g_SkelRobot)
 /*  f021554:	00803825 */ 	or	$a3,$a0,$zero
 /*  f021558:	8dcf0008 */ 	lw	$t7,0x8($t6)
-/*  f02155c:	2718cefc */ 	addiu	$t8,$t8,%lo(g_ModelTypeRobot)
-/*  f021560:	3c198008 */ 	lui	$t9,%hi(g_ModelTypeChr)
+/*  f02155c:	2718cefc */ 	addiu	$t8,$t8,%lo(g_SkelRobot)
+/*  f021560:	3c198008 */ 	lui	$t9,%hi(g_SkelChr)
 /*  f021564:	8de20004 */ 	lw	$v0,0x4($t7)
-/*  f021568:	2739ce40 */ 	addiu	$t9,$t9,%lo(g_ModelTypeChr)
+/*  f021568:	2739ce40 */ 	addiu	$t9,$t9,%lo(g_SkelChr)
 /*  f02156c:	24040007 */ 	addiu	$a0,$zero,0x7
 /*  f021570:	1702006d */ 	bne	$t8,$v0,.L0f021728
 /*  f021574:	00000000 */ 	nop
@@ -5742,14 +5742,14 @@ glabel var7f1a879c
 /*  f021724:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f021728:
 /*  f021728:	17220006 */ 	bne	$t9,$v0,.L0f021744
-/*  f02172c:	3c0b8008 */ 	lui	$t3,%hi(g_ModelTypeSkedar)
+/*  f02172c:	3c0b8008 */ 	lui	$t3,%hi(g_SkelSkedar)
 /*  f021730:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f021734:	24080003 */ 	addiu	$t0,$zero,0x3
 /*  f021738:	240a0001 */ 	addiu	$t2,$zero,0x1
 /*  f02173c:	1000000c */ 	b	.L0f021770
 /*  f021740:	00004825 */ 	or	$t1,$zero,$zero
 .L0f021744:
-/*  f021744:	256bce98 */ 	addiu	$t3,$t3,%lo(g_ModelTypeSkedar)
+/*  f021744:	256bce98 */ 	addiu	$t3,$t3,%lo(g_SkelSkedar)
 /*  f021748:	15620006 */ 	bne	$t3,$v0,.L0f021764
 /*  f02174c:	2405ffff */ 	addiu	$a1,$zero,-1
 /*  f021750:	24050003 */ 	addiu	$a1,$zero,0x3
@@ -7505,7 +7505,7 @@ s32 chrTick(struct prop *prop)
 				}
 			}
 
-			if (model->filedata->type == &g_ModelTypeChr) {
+			if (model->filedata->skel == &g_SkelChr) {
 				struct modelnode *headspotnode = modelGetPart(model->filedata, MODELPART_CHR_HEADSPOT);
 
 				if (headspotnode && headspotnode->type == MODELNODETYPE_HEADSPOT) {
@@ -7579,7 +7579,7 @@ void chrSetHudpieceVisible(struct chrdata *chr, bool visible)
 {
 	struct modelfiledata *modelfiledata = chr->model->filedata;
 
-	if (modelfiledata->type == &g_ModelTypeChr) {
+	if (modelfiledata->skel == &g_SkelChr) {
 		struct modelnode *headspotnode = modelGetPart(modelfiledata, MODELPART_CHR_HEADSPOT);
 
 		if (headspotnode && headspotnode->type == MODELNODETYPE_HEADSPOT) {
@@ -7663,7 +7663,7 @@ bool chr0f024738(struct chrdata *chr)
 				struct doorobj *door = prop->door;
 				struct coord pos;
 
-				if (obj->model->filedata->type != &g_ModelTypeWindowedDoor
+				if (obj->model->filedata->skel != &g_SkelWindowedDoor
 						&& door->doortype != DOORTYPE_EYE
 						&& door->doortype != DOORTYPE_IRIS
 						&& door->doortype != DOORTYPE_FALLAWAY
@@ -8394,7 +8394,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		}
 
 		// Set Skedar eyes open or closed
-		if (model->filedata->type == &g_ModelTypeSkedar) {
+		if (model->filedata->skel == &g_SkelSkedar) {
 			struct modelnode *node1 = modelGetPart(model->filedata, MODELPART_SKEDAR_EYESOPEN);
 			struct modelnode *node2 = modelGetPart(model->filedata, MODELPART_SKEDAR_EYESCLOSED);
 
@@ -8412,7 +8412,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 				|| chr->headnum == HEAD_ELVIS
 				|| chr->headnum == HEAD_MAIAN_S
 				|| chr->headnum == HEAD_ELVIS_GOGS) {
-			if (model->filedata->type == &g_ModelTypeChr) {
+			if (model->filedata->skel == &g_SkelChr) {
 				struct modelnode *headspotnode = modelGetPart(model->filedata, MODELPART_CHR_HEADSPOT);
 
 				if (headspotnode && headspotnode->type == MODELNODETYPE_HEADSPOT) {
@@ -10519,14 +10519,14 @@ bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *
 		Mtxf *mtx1;
 		Mtxf *mtx2;
 
-		if (model->filedata->type == &g_ModelTypeChr) {
+		if (model->filedata->skel == &g_SkelChr) {
 			mtx1 = &model->matrices[0];
 			mtx2 = &model->matrices[1];
 			arg1->z = mtx2->m[3][2] + (mtx1->m[3][2] - mtx2->m[3][2]) * 0.5f;
-		} else if (model->filedata->type == &g_ModelTypeSkedar) {
+		} else if (model->filedata->skel == &g_SkelSkedar) {
 			mtx2 = &model->matrices[0];
 			arg1->z = mtx2->m[3][2];
-		} else if (model->filedata->type == &g_ModelTypeDrCaroll) {
+		} else if (model->filedata->skel == &g_SkelDrCaroll) {
 			mtx2 = &model->matrices[0];
 			arg1->z = mtx2->m[3][2];
 		} else {
@@ -10534,13 +10534,13 @@ bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *
 		}
 
 		if (arg1->z < 0) {
-			if (model->filedata->type == &g_ModelTypeChr) {
+			if (model->filedata->skel == &g_SkelChr) {
 				arg1->x = mtx2->m[3][0] + (mtx1->m[3][0] - mtx2->m[3][0]) * 0.5f;
 				arg1->y = mtx2->m[3][1] + (mtx1->m[3][1] - mtx2->m[3][1]) * 0.5f;
-			} else if (model->filedata->type == &g_ModelTypeSkedar) {
+			} else if (model->filedata->skel == &g_SkelSkedar) {
 				arg1->x = mtx2->m[3][0];
 				arg1->y = mtx2->m[3][1];
-			} else if (model->filedata->type == &g_ModelTypeDrCaroll) {
+			} else if (model->filedata->skel == &g_SkelDrCaroll) {
 				arg1->x = mtx2->m[3][0];
 				arg1->y = mtx2->m[3][1];
 			} else {

@@ -667,7 +667,7 @@ void model0001b400(struct objticksp476 *arg0, struct model *model, struct modeln
 	u32 stack1;
 	Mtxf *mtx = &model->matrices[rodata->chrinfo.mtxindex];
 	s32 sp240 = rodata->chrinfo.unk00;
-	struct modeltype *type = model->filedata->type;
+	struct skeleton *skel = model->filedata->skel;
 	struct coord sp230;
 	struct coord sp224;
 	struct coord sp218;
@@ -701,7 +701,7 @@ void model0001b400(struct objticksp476 *arg0, struct model *model, struct modeln
 		sp24c = arg0->matrix;
 	}
 
-	anim00024050(sp240, anim->flip, type, anim->animnum, anim->unk04, &sp230, &sp224, &sp218);
+	anim00024050(sp240, anim->flip, skel, anim->animnum, anim->unk04, &sp230, &sp224, &sp218);
 
 	if (g_Vars.in_cutscene && anim->speed > 0) {
 #if VERSION >= VERSION_PAL_FINAL
@@ -714,15 +714,15 @@ void model0001b400(struct objticksp476 *arg0, struct model *model, struct modeln
 	}
 
 	if (sp154 != 0.0f) {
-		anim00024050(sp240, anim->flip, type, anim->animnum, anim->unk05, &sp148, &sp13c, &sp130);
+		anim00024050(sp240, anim->flip, skel, anim->animnum, anim->unk05, &sp148, &sp13c, &sp130);
 		model0001b07c(&sp230, &sp148, sp154);
 	}
 
 	if (anim->fracmerge != 0.0f) {
-		anim00024050(sp240, anim->flip2, type, anim->animnum2, anim->unk06, &sp124, &sp118, &sp10c);
+		anim00024050(sp240, anim->flip2, skel, anim->animnum2, anim->unk06, &sp124, &sp118, &sp10c);
 
 		if (anim->frac2 != 0.0f) {
-			anim00024050(sp240, anim->flip2, type, anim->animnum2, anim->unk07, &spd0, &spc4, &spb8);
+			anim00024050(sp240, anim->flip2, skel, anim->animnum2, anim->unk07, &spd0, &spc4, &spb8);
 			model0001b07c(&sp124, &spd0, anim->frac2);
 		}
 
@@ -2781,7 +2781,7 @@ void model0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, 
 			struct modelrodata_chrinfo *rodata = &model->filedata->rootnode->rodata->chrinfo;
 			struct modelrwdata_chrinfo *rwdata = (struct modelrwdata_chrinfo *) modelGetNodeRwData(model, model->filedata->rootnode);
 			s32 spa4 = rodata->unk00;
-			struct modeltype *type = model->filedata->type;
+			struct skeleton *skel = model->filedata->skel;
 			f32 scale;
 			f32 sp98;
 			f32 sp94;
@@ -2803,7 +2803,7 @@ void model0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, 
 				anim00023d38(anim->animnum);
 				sp83 = anim00023ab0(anim->animnum, anim->framea);
 				anim00023d0c();
-				anim00024050(spa4, anim->flip, type, anim->animnum, sp83, &sp74, &sp88, &sp68);
+				anim00024050(spa4, anim->flip, skel, anim->animnum, sp83, &sp74, &sp88, &sp68);
 
 				rwdata->unk34.x = sp88.x * sp64;
 				rwdata->unk34.y = sp88.y * sp64;
@@ -2816,7 +2816,7 @@ void model0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, 
 					anim00023d38(anim->animnum);
 					sp83 = anim00023ab0(anim->animnum, anim->frameb);
 					anim00023d0c();
-					anim00024050(spa4, anim->flip, type, anim->animnum, sp83, &sp74, &sp88, &sp68);
+					anim00024050(spa4, anim->flip, skel, anim->animnum, sp83, &sp74, &sp88, &sp68);
 
 					rwdata->unk24.x = sp88.x * sp64;
 					rwdata->unk24.y = sp88.y * sp64;
@@ -2826,7 +2826,7 @@ void model0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, 
 					rwdata->unk01 = 1;
 				}
 			} else {
-				sp84 = anim00024b64(spa4, anim->flip, type, anim->animnum, anim->frameb, &sp88, anim->average);
+				sp84 = anim00024b64(spa4, anim->flip, skel, anim->animnum, anim->frameb, &sp88, anim->average);
 				scale = model->scale * anim->animscale;
 
 				if (scale != 1) {

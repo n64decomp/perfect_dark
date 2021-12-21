@@ -22,7 +22,7 @@ void func0f0125a0(s16 animnum, s32 loopframe, s32 endframe, s32 *arg3)
 	arg3[2] = 0;
 
 	while (loopframe < endframe) {
-		anim0002485c(0, 0, &g_ModelTypeChr, animnum, loopframe, sp48, 0);
+		anim0002485c(0, 0, &g_SkelChr, animnum, loopframe, sp48, 0);
 
 		arg3[0] += sp48[0];
 		arg3[1] += sp48[1];

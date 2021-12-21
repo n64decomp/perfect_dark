@@ -1498,7 +1498,7 @@ glabel anim0002485c
 /*    24b60:	01001025 */ 	or	$v0,$t0,$zero
 );
 
-f32 anim00024b64(u32 arg0, u32 arg1, struct modeltype *arg2, s16 animnum, u32 arg4, struct coord *coord, u32 arg6)
+f32 anim00024b64(u32 arg0, u32 arg1, struct skeleton *arg2, s16 animnum, u32 arg4, struct coord *coord, u32 arg6)
 {
 	s16 sp30[3];
 

@@ -6,6 +6,16 @@
 #include "data.h"
 #include "types.h"
 
+/**
+ * gailists - Global AI Lists
+ *
+ * AI lists are bytecode that is interpreted by the game engine to implement AI.
+ * The u8 arrays below make heavy use of macros for readability purposes.
+ *
+ * The file contains the AI lists that are common to all stages such as general
+ * guard combat.
+ */
+
 u8 func0000_idle[] = {
 	dprint 'd','y','e','n','g',0,
 	beginloop(0x0d)

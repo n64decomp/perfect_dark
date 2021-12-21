@@ -16412,8 +16412,8 @@ glabel var7f1a91dc
 /*  f042ab0:	0fc10a76 */ 	jal	func0f0429d8
 /*  f042ab4:	02402025 */ 	or	$a0,$s2,$zero
 /*  f042ab8:	8e4f0020 */ 	lw	$t7,0x20($s2)
-/*  f042abc:	3c0e8008 */ 	lui	$t6,%hi(g_ModelTypeRobot)
-/*  f042ac0:	25cecefc */ 	addiu	$t6,$t6,%lo(g_ModelTypeRobot)
+/*  f042abc:	3c0e8008 */ 	lui	$t6,%hi(g_SkelRobot)
+/*  f042ac0:	25cecefc */ 	addiu	$t6,$t6,%lo(g_SkelRobot)
 /*  f042ac4:	8df80008 */ 	lw	$t8,0x8($t7)
 /*  f042ac8:	2655002c */ 	addiu	$s5,$s2,0x2c
 /*  f042acc:	02a0b825 */ 	or	$s7,$s5,$zero
@@ -16796,7 +16796,7 @@ glabel var7f1a91dc
 //
 //	func0f0429d8(chr, 0.085f, invtheta);
 //
-//	if (chr->model->filedata->type != &g_ModelTypeRobot) {
+//	if (chr->model->filedata->type != &g_SkelRobot) {
 //		act->finished = true;
 //		return;
 //	}

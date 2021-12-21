@@ -3893,7 +3893,7 @@ void func0f0ba190(u32 arg0)
 	anim00023d38(g_CutsceneAnimNum);
 	sp7f = anim00023ab0(g_CutsceneAnimNum, lastframe);
 	anim00023d0c();
-	anim00024050(0, 0, &g_ModelType20, g_CutsceneAnimNum, sp7f, &sp94, &sp88, &sp7c);
+	anim00024050(0, 0, &g_Skel20, g_CutsceneAnimNum, sp7f, &sp94, &sp88, &sp7c);
 	mtx4LoadRotation(&sp94, &sp38);
 
 	theta = atan2f(-sp38.m[2][0], -sp38.m[2][2]);
@@ -3984,7 +3984,7 @@ void func0f0ba29c(bool arg0)
 	g_Vars.in_cutscene = (g_Vars.tickmode == TICKMODE_CUTSCENE && g_CutsceneCurAnimFrame60 < endframe);
 	sp15f = anim00023ab0(g_CutsceneAnimNum, g_CutsceneCurAnimFrame60);
 	anim00023d0c();
-	anim00024050(0, 0, &g_ModelType20, g_CutsceneAnimNum, sp15f, &sp178, &sp16c, &sp160);
+	anim00024050(0, 0, &g_Skel20, g_CutsceneAnimNum, sp15f, &sp178, &sp16c, &sp160);
 
 	pos.x = sp16c.x * sp118;
 	pos.y = sp16c.y * sp118;
@@ -15260,7 +15260,7 @@ s32 playerTick(struct prop *prop)
 			chr0f0220ac(prop->chr);
 
 			if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
-				if (player->model00d4->filedata->type == &g_ModelTypeChr) {
+				if (player->model00d4->filedata->skel == &g_SkelChr) {
 					spe8 = player->model00d4->matrices;
 				} else {
 					spe8 = player->model00d4->matrices;

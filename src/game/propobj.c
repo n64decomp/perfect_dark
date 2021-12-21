@@ -4056,20 +4056,20 @@ glabel func0f069850
 /*  f06988c:	0c005775 */ 	jal	mtx4SetTranslation
 /*  f069890:	27a50038 */ 	addiu	$a1,$sp,0x38
 /*  f069894:	8e0e0018 */ 	lw	$t6,0x18($s0)
-/*  f069898:	3c0f8008 */ 	lui	$t7,%hi(g_ModelTypeHoverbike)
-/*  f06989c:	25efaf3c */ 	addiu	$t7,$t7,%lo(g_ModelTypeHoverbike)
+/*  f069898:	3c0f8008 */ 	lui	$t7,%hi(g_SkelHoverbike)
+/*  f06989c:	25efaf3c */ 	addiu	$t7,$t7,%lo(g_SkelHoverbike)
 /*  f0698a0:	8dc40008 */ 	lw	$a0,0x8($t6)
-/*  f0698a4:	3c188008 */ 	lui	$t8,%hi(g_ModelTypeBasic)
-/*  f0698a8:	2718c06c */ 	addiu	$t8,$t8,%lo(g_ModelTypeBasic)
+/*  f0698a4:	3c188008 */ 	lui	$t8,%hi(g_SkelBasic)
+/*  f0698a8:	2718c06c */ 	addiu	$t8,$t8,%lo(g_SkelBasic)
 /*  f0698ac:	8c820004 */ 	lw	$v0,0x4($a0)
 /*  f0698b0:	11e20009 */ 	beq	$t7,$v0,.L0f0698d8
 /*  f0698b4:	00000000 */ 	nop
 /*  f0698b8:	13020007 */ 	beq	$t8,$v0,.L0f0698d8
-/*  f0698bc:	3c198008 */ 	lui	$t9,%hi(g_ModelTypeMaianUfo)
-/*  f0698c0:	2739afc8 */ 	addiu	$t9,$t9,%lo(g_ModelTypeMaianUfo)
+/*  f0698bc:	3c198008 */ 	lui	$t9,%hi(g_SkelMaianUfo)
+/*  f0698c0:	2739afc8 */ 	addiu	$t9,$t9,%lo(g_SkelMaianUfo)
 /*  f0698c4:	13220004 */ 	beq	$t9,$v0,.L0f0698d8
-/*  f0698c8:	3c088008 */ 	lui	$t0,%hi(g_ModelTypeDropship)
-/*  f0698cc:	2508adf0 */ 	addiu	$t0,$t0,%lo(g_ModelTypeDropship)
+/*  f0698c8:	3c088008 */ 	lui	$t0,%hi(g_SkelDropship)
+/*  f0698cc:	2508adf0 */ 	addiu	$t0,$t0,%lo(g_SkelDropship)
 /*  f0698d0:	55020005 */ 	bnel	$t0,$v0,.L0f0698e8
 /*  f0698d4:	8e090010 */ 	lw	$t1,0x10($s0)
 .L0f0698d8:
@@ -33366,7 +33366,7 @@ void doorTick(struct prop *doorprop)
 	}
 
 	// Consider playing a sound effect
-	if (model->filedata->type == &g_ModelType13) {
+	if (model->filedata->skel == &g_Skel13) {
 		f32 soundpoint = door->maxfrac * 0.3f;
 
 		if (door->frac > soundpoint) {
@@ -33440,7 +33440,7 @@ void doorUpdatePortalIfWindowed(struct prop *doorprop, s32 playercount)
 			canhide = false;
 		}
 
-		if (model->filedata->type == &g_ModelTypeWindowedDoor) {
+		if (model->filedata->skel == &g_SkelWindowedDoor) {
 			node = modelGetPart(model->filedata, MODELPART_WINDOWEDDOOR_0001);
 			rwdata = modelGetNodeRwData(model, node);
 
@@ -33497,13 +33497,13 @@ glabel var7f1aa44c
 /*  f07749c:	0c0056f8 */ 	jal	mtx00015be0
 /*  f0774a0:	02a02825 */ 	or	$a1,$s5,$zero
 /*  f0774a4:	8ec40008 */ 	lw	$a0,0x8($s6)
-/*  f0774a8:	3c0e8008 */ 	lui	$t6,%hi(g_ModelType11)
-/*  f0774ac:	25ceae84 */ 	addiu	$t6,$t6,%lo(g_ModelType11)
+/*  f0774a8:	3c0e8008 */ 	lui	$t6,%hi(g_Skel11)
+/*  f0774ac:	25ceae84 */ 	addiu	$t6,$t6,%lo(g_Skel11)
 /*  f0774b0:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f0774b4:	3c0f8008 */ 	lui	$t7,%hi(g_ModelType13)
+/*  f0774b4:	3c0f8008 */ 	lui	$t7,%hi(g_Skel13)
 /*  f0774b8:	3c017f1b */ 	lui	$at,%hi(var7f1aa440)
 /*  f0774bc:	15c20024 */ 	bne	$t6,$v0,.L0f077550
-/*  f0774c0:	25efaea8 */ 	addiu	$t7,$t7,%lo(g_ModelType13)
+/*  f0774c0:	25efaea8 */ 	addiu	$t7,$t7,%lo(g_Skel13)
 /*  f0774c4:	c42ea440 */ 	lwc1	$f14,%lo(var7f1aa440)($at)
 /*  f0774c8:	c604007c */ 	lwc1	$f4,0x7c($s0)
 /*  f0774cc:	3c017f1b */ 	lui	$at,%hi(var7f1aa444)
@@ -33628,7 +33628,7 @@ glabel var7f1aa44c
 //	func0f08c424(door, matrices);
 //	mtx00015be0(currentPlayerGetMatrix1740(), matrices);
 //
-//	if (model->filedata->type == &g_ModelType11) {
+//	if (model->filedata->type == &g_Skel11) {
 //		f32 xrot = M_BADTAU - door->frac * 0.017450513318181f;
 //
 //		rodata = modelGetPartRodata(model->filedata, 1);
@@ -33640,7 +33640,7 @@ glabel var7f1aa44c
 //		mtx4LoadXRotation(M_BADTAU - xrot, &matrices[2]);
 //		mtx4SetTranslation(&rodata->position.pos, &matrices[2]);
 //		mtx4MultMtx4InPlace(matrices, &matrices[2]);
-//	} else if (model->filedata->type == &g_ModelType13) {
+//	} else if (model->filedata->type == &g_Skel13) {
 //		f32 zrot1 = 0;
 //		f32 zrot2 = door->frac * 0.017450513318181f;
 //		f32 limit = door->maxfrac * 0.3f;
@@ -49782,7 +49782,7 @@ s32 objTick(struct prop *prop)
 				sp144 = floorf(model->anim->frame);
 
 				for (i = sp148; i <= sp144; i++) {
-					anim00024b64(0, 0, model->filedata->type, model->anim->animnum, i, &sp128, 0);
+					anim00024b64(0, 0, model->filedata->skel, model->anim->animnum, i, &sp128, 0);
 
 					sp116.x += sp128.x * 0.1f;
 					sp112 = sp128.y * 0.1f;
@@ -49943,7 +49943,7 @@ s32 objTick(struct prop *prop)
 
 		if (obj->type == OBJTYPE_FAN) {
 			fanUpdateModel(prop);
-		} else if (obj->model->filedata->type == &g_ModelTypeDropship) {
+		} else if (obj->model->filedata->skel == &g_SkelDropship) {
 			dropshipUpdateInterior(prop);
 		}
 
@@ -53838,13 +53838,13 @@ glabel var7f1aa82c
 
 bool modelIsNodeNotTvscreen(struct modelfiledata *filedata, struct modelnode *node)
 {
-	if (filedata->type == &g_ModelTypeTerminal) {
+	if (filedata->skel == &g_SkelTerminal) {
 		if (modelGetPart(filedata, MODELPART_TERMINAL_0000) == node) {
 			return false;
 		}
 	}
 
-	if (filedata->type == &g_ModelTypeCiHub) {
+	if (filedata->skel == &g_SkelCiHub) {
 		if (modelGetPart(filedata, MODELPART_CIHUB_0000) == node
 				|| modelGetPart(filedata, MODELPART_CIHUB_0001) == node
 				|| modelGetPart(filedata, MODELPART_CIHUB_0002) == node
@@ -57662,10 +57662,10 @@ glabel func0f0841dc
 /*  f08421c:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x2ac)
 /*  f084220:	8f39a26c */ 	lw	$t9,%lo(g_Vars+0x2ac)($t9)
 /*  f084224:	8e050014 */ 	lw	$a1,0x14($s0)
-/*  f084228:	3c068008 */ 	lui	$a2,%hi(propexplosiontypes+0x8)
+/*  f084228:	3c068008 */ 	lui	$a2,%hi(g_PropExplosionTypes+0x8)
 /*  f08422c:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f084230:	00d83021 */ 	addu	$a2,$a2,$t8
-/*  f084234:	80c6be3c */ 	lb	$a2,%lo(propexplosiontypes+0x8)($a2)
+/*  f084234:	80c6be3c */ 	lb	$a2,%lo(g_PropExplosionTypes+0x8)($a2)
 /*  f084238:	17210007 */ 	bne	$t9,$at,.L0f084258
 /*  f08423c:	00a01825 */ 	or	$v1,$a1,$zero
 /*  f084240:	3c08800a */ 	lui	$t0,%hi(g_CutsceneAnimNum)
@@ -57924,10 +57924,10 @@ glabel func0f0841dc
 /*  f08421c:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x2ac)
 /*  f084220:	8f39a26c */ 	lw	$t9,%lo(g_Vars+0x2ac)($t9)
 /*  f084224:	8e050014 */ 	lw	$a1,0x14($s0)
-/*  f084228:	3c068008 */ 	lui	$a2,%hi(propexplosiontypes+0x8)
+/*  f084228:	3c068008 */ 	lui	$a2,%hi(g_PropExplosionTypes+0x8)
 /*  f08422c:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f084230:	00d83021 */ 	addu	$a2,$a2,$t8
-/*  f084234:	80c6be3c */ 	lb	$a2,%lo(propexplosiontypes+0x8)($a2)
+/*  f084234:	80c6be3c */ 	lb	$a2,%lo(g_PropExplosionTypes+0x8)($a2)
 /*  f084238:	17210007 */ 	bne	$t9,$at,.L0f084258
 /*  f08423c:	00a01825 */ 	or	$v1,$a1,$zero
 /*  f084240:	3c08800a */ 	lui	$t0,%hi(g_CutsceneAnimNum)
@@ -59258,7 +59258,7 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 			if ((obj->flags & OBJFLAG_INVINCIBLE) == 0) {
 				if (obj->type == OBJTYPE_GLASS || obj->type == OBJTYPE_TINTEDGLASS) {
 					isnotglass = false;
-				} else if (obj->model->filedata->type == &g_ModelTypeWindowedDoor
+				} else if (obj->model->filedata->skel == &g_SkelWindowedDoor
 						&& modelGetPart(obj->model->filedata, MODELPART_WINDOWEDDOOR_0003) == node2) {
 					isnotglass = false;
 				}
@@ -59598,8 +59598,8 @@ glabel objHit
 /*  f0862e4:	15c00041 */ 	bnez	$t6,.L0f0863ec
 /*  f0862e8:	00000000 */ 	nop
 /*  f0862ec:	8f2f0018 */ 	lw	$t7,0x18($t9)
-/*  f0862f0:	3c188008 */ 	lui	$t8,%hi(g_ModelTypeWindowedDoor)
-/*  f0862f4:	2718aed8 */ 	addiu	$t8,$t8,%lo(g_ModelTypeWindowedDoor)
+/*  f0862f0:	3c188008 */ 	lui	$t8,%hi(g_SkelWindowedDoor)
+/*  f0862f4:	2718aed8 */ 	addiu	$t8,$t8,%lo(g_SkelWindowedDoor)
 /*  f0862f8:	8deb0008 */ 	lw	$t3,0x8($t7)
 /*  f0862fc:	8d0a0004 */ 	lw	$t2,0x4($t0)
 /*  f086300:	00001825 */ 	or	$v1,$zero,$zero
@@ -59700,9 +59700,9 @@ glabel objHit
 /*  f086458:	afa600d0 */ 	sw	$a2,0xd0($sp)
 /*  f08645c:	8fa600d0 */ 	lw	$a2,0xd0($sp)
 /*  f086460:	8fb9011c */ 	lw	$t9,0x11c($sp)
-/*  f086464:	3c188008 */ 	lui	$t8,%hi(g_ModelTypeWindowedDoor)
+/*  f086464:	3c188008 */ 	lui	$t8,%hi(g_SkelWindowedDoor)
 /*  f086468:	84ce000a */ 	lh	$t6,0xa($a2)
-/*  f08646c:	2718aed8 */ 	addiu	$t8,$t8,%lo(g_ModelTypeWindowedDoor)
+/*  f08646c:	2718aed8 */ 	addiu	$t8,$t8,%lo(g_SkelWindowedDoor)
 /*  f086470:	24050003 */ 	addiu	$a1,$zero,0x3
 /*  f086474:	004e001b */ 	divu	$zero,$v0,$t6
 /*  f086478:	00007810 */ 	mfhi	$t7
@@ -59728,8 +59728,8 @@ glabel objHit
 /*  f0864c4:	8de40008 */ 	lw	$a0,0x8($t7)
 /*  f0864c8:	8c830004 */ 	lw	$v1,0x4($a0)
 .L0f0864cc:
-/*  f0864cc:	3c198008 */ 	lui	$t9,%hi(g_ModelTypeCctv)
-/*  f0864d0:	2739ae34 */ 	addiu	$t9,$t9,%lo(g_ModelTypeCctv)
+/*  f0864cc:	3c198008 */ 	lui	$t9,%hi(g_SkelCctv)
+/*  f0864d0:	2739ae34 */ 	addiu	$t9,$t9,%lo(g_SkelCctv)
 /*  f0864d4:	17230009 */ 	bne	$t9,$v1,.L0f0864fc
 /*  f0864d8:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0864dc:	0c006a47 */ 	jal	modelGetPart
@@ -59833,8 +59833,8 @@ glabel objHit
 /*  f086644:	1441001d */ 	bne	$v0,$at,.L0f0866bc
 /*  f086648:	8fac0100 */ 	lw	$t4,0x100($sp)
 /*  f08664c:	8fae011c */ 	lw	$t6,0x11c($sp)
-/*  f086650:	3c0b8008 */ 	lui	$t3,%hi(g_ModelTypeCctv)
-/*  f086654:	256bae34 */ 	addiu	$t3,$t3,%lo(g_ModelTypeCctv)
+/*  f086650:	3c0b8008 */ 	lui	$t3,%hi(g_SkelCctv)
+/*  f086654:	256bae34 */ 	addiu	$t3,$t3,%lo(g_SkelCctv)
 /*  f086658:	8dcf0018 */ 	lw	$t7,0x18($t6)
 /*  f08665c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f086660:	8de40008 */ 	lw	$a0,0x8($t7)
@@ -59892,8 +59892,8 @@ glabel objHit
 /*  f086718:	0fc2149c */ 	jal	objTakeGunfire
 /*  f08671c:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f086720:	8fa4011c */ 	lw	$a0,0x11c($sp)
-/*  f086724:	3c0b8008 */ 	lui	$t3,%hi(g_ModelTypeWindowedDoor)
-/*  f086728:	256baed8 */ 	addiu	$t3,$t3,%lo(g_ModelTypeWindowedDoor)
+/*  f086724:	3c0b8008 */ 	lui	$t3,%hi(g_SkelWindowedDoor)
+/*  f086728:	256baed8 */ 	addiu	$t3,$t3,%lo(g_SkelWindowedDoor)
 /*  f08672c:	8c980018 */ 	lw	$t8,0x18($a0)
 /*  f086730:	8fac0124 */ 	lw	$t4,0x124($sp)
 /*  f086734:	8f190008 */ 	lw	$t9,0x8($t8)
@@ -65126,7 +65126,7 @@ glabel func0f089a94
 
 struct prop *hatApplyToChr(struct hatobj *hat, struct chrdata *chr, struct modelfiledata *filedata, struct prop *prop, struct model *model)
 {
-	if (chr->model->filedata->type == &g_ModelTypeChr) {
+	if (chr->model->filedata->skel == &g_SkelChr) {
 		prop = objInit(&hat->base, filedata, prop, model);
 
 		if (prop && hat->base.model) {
@@ -65763,7 +65763,7 @@ bool chrEquipWeapon(struct weaponobj *weapon, struct chrdata *chr)
 			}
 
 			if (!chr->weapons_held[handnum]) {
-				if (chr->model->filedata->type == &g_ModelTypeChr) {
+				if (chr->model->filedata->skel == &g_SkelChr) {
 					weapon->base.model->attachedtomodel = chr->model;
 
 					if (handnum == HAND_RIGHT) {
@@ -65777,7 +65777,7 @@ bool chrEquipWeapon(struct weaponobj *weapon, struct chrdata *chr)
 					if ((weapon->base.flags & OBJFLAG_80000000) && chr->weapons_held[1 - handnum]) {
 						propweaponSetDual(weapon, chr->weapons_held[1 - handnum]->weapon);
 					}
-				} else if (chr->model->filedata->type == &g_ModelTypeSkedar) {
+				} else if (chr->model->filedata->skel == &g_SkelSkedar) {
 					weapon->base.model->attachedtomodel = chr->model;
 
 					if (handnum == HAND_RIGHT) {
@@ -66603,7 +66603,7 @@ void weaponSetGunfireVisible(struct prop *prop, bool visible, s16 room)
 	if (obj && obj->type == OBJTYPE_WEAPON) {
 		struct model *model = obj->model;
 
-		if (model && model->filedata->type == &g_ModelTypeChrGun) {
+		if (model && model->filedata->skel == &g_SkelChrGun) {
 			node1 = modelGetPart(model->filedata, MODELPART_CHRGUN_GUNFIRE);
 
 			if (node1) {
@@ -66639,7 +66639,7 @@ bool weaponIsGunfireVisible(struct prop *prop)
 	struct model *model = obj->model;
 	struct modelnode *node;
 
-	if (model && model->filedata->type == &g_ModelTypeChrGun) {
+	if (model && model->filedata->skel == &g_SkelChrGun) {
 		node = modelGetPart(model->filedata, MODELPART_CHRGUN_GUNFIRE);
 
 		if (node) {

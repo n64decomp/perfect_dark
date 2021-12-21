@@ -535,10 +535,10 @@ struct anim {
 	/*0x88*/ f32 animscale;
 };
 
-struct modeltype {
-	s16 type;
+struct skeleton {
+	s16 skel;
 	u16 numthings;
-	u16 *things;
+	u8 (*things)[2];
 };
 
 struct modelrodata_chrinfo { // type 0x01
@@ -704,7 +704,7 @@ struct modelnode {
 
 struct modelfiledata {
 	struct modelnode *rootnode;
-	struct modeltype *type;
+	struct skeleton *skel;
 
 	// This is a pointer to a variable length array of pointers to modelnodes,
 	// but the array is followed by an s16 array of part numbers.

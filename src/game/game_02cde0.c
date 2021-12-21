@@ -234,8 +234,8 @@ glabel var7f1a8a84
 /*  f02cf4c:	056200b9 */ 	bltzl	$t3,.L0f02d234
 /*  f02cf50:	8fa2005c */ 	lw	$v0,0x5c($sp)
 /*  f02cf54:	8d830004 */ 	lw	$v1,0x4($t4)
-/*  f02cf58:	3c0d8008 */ 	lui	$t5,%hi(g_ModelTypeChr)
-/*  f02cf5c:	25adce40 */ 	addiu	$t5,$t5,%lo(g_ModelTypeChr)
+/*  f02cf58:	3c0d8008 */ 	lui	$t5,%hi(g_SkelChr)
+/*  f02cf5c:	25adce40 */ 	addiu	$t5,$t5,%lo(g_SkelChr)
 /*  f02cf60:	15a30090 */ 	bne	$t5,$v1,.L0f02d1a4
 /*  f02cf64:	01802025 */ 	or	$a0,$t4,$zero
 /*  f02cf68:	0c006a47 */ 	jal	modelGetPart
@@ -390,8 +390,8 @@ glabel var7f1a8a84
 /*  f02d19c:	10000024 */ 	b	.L0f02d230
 /*  f02d1a0:	e7aa0044 */ 	swc1	$f10,0x44($sp)
 .L0f02d1a4:
-/*  f02d1a4:	3c0d8008 */ 	lui	$t5,%hi(g_ModelTypeSkedar)
-/*  f02d1a8:	25adce98 */ 	addiu	$t5,$t5,%lo(g_ModelTypeSkedar)
+/*  f02d1a4:	3c0d8008 */ 	lui	$t5,%hi(g_SkelSkedar)
+/*  f02d1a8:	25adce98 */ 	addiu	$t5,$t5,%lo(g_SkelSkedar)
 /*  f02d1ac:	15a30020 */ 	bne	$t5,$v1,.L0f02d230
 /*  f02d1b0:	0002c080 */ 	sll	$t8,$v0,0x2
 /*  f02d1b4:	0701001e */ 	bgez	$t8,.L0f02d230
@@ -527,7 +527,7 @@ glabel var7f1a8a84
 //	modelCalculateRwDataLen(bodyfiledata);
 //
 //	if (!g_HeadsAndBodies[bodynum].unk00_01) {
-//		if (bodyfiledata->type == &g_ModelTypeChr) {
+//		if (bodyfiledata->type == &g_SkelChr) {
 //			node = modelGetPart(bodyfiledata, MODELPART_CHR_HEADSPOT);
 //
 //			if (node != NULL) {
@@ -575,7 +575,7 @@ glabel var7f1a8a84
 //					}
 //				}
 //			}
-//		} else if (bodyfiledata->type == &g_ModelTypeSkedar) {
+//		} else if (bodyfiledata->type == &g_SkelSkedar) {
 //			if (g_HeadsAndBodies[bodynum].canvaryheight && varyheight && bodynum == BODY_SKEDAR) {
 //				// Set height to between 65% and 85%
 //				f32 frac = random() * (1.0f / U32_MAX);
@@ -601,7 +601,7 @@ glabel var7f1a8a84
 //
 //			func0f0b32a0(model, node, headfiledata);
 //
-//			if ((s16)*(s32 *)&headfiledata->type == MODELTYPE_HEAD) {
+//			if ((s16)*(s32 *)&headfiledata->type == SKEL_HEAD) {
 //				struct modelnode *node2;
 //
 //				if (!sunglasses) {
@@ -982,7 +982,7 @@ void bodyCalculateHeadOffset(struct modelfiledata *headfiledata, s32 headnum, s3
 	struct modelrodata_bbox *bbox;
 	s32 i;
 
-	if ((s16)(*(s32 *)&headfiledata->type) == MODELTYPE_HEAD) {
+	if ((s16)(*(s32 *)&headfiledata->skel) == SKEL_HEAD) {
 		if (g_HeadsAndBodies[headnum].type == g_HeadsAndBodies[bodynum].type) {
 			return;
 		}
