@@ -70,7 +70,7 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 		struct coord pos = {0.0f, 0.0f, 0.0f};
 		u32 stack;
 
-		prop = chrAllocate(model, &pos, rooms, 0.0f, ailistFindById(GAILIST_AI_BOT_INIT));
+		prop = chrAllocate(model, &pos, rooms, 0.0f, ailistFindById(GAILIST_AIBOT_INIT));
 
 		if (prop != NULL) {
 			propActivate(prop);
@@ -88,7 +88,7 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 			chr->headnum = headnum;
 			chr->bodynum = bodynum;
 			chr->race = bodyGetRace(chr->bodynum);
-			chr->flags = CHRFLAG0_CAN_EXAMINE_BODY; // likely reused flag
+			chr->flags = CHRFLAG0_CAN_EXAMINE_BODY; // reused flag?
 			chr->flags2 = 0;
 			chr->team = 1 << g_MpSimulants[aibotnum].base.team;
 			chr->squadron = 0;

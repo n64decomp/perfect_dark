@@ -5144,7 +5144,7 @@ void chrDie(struct chrdata *chr, s32 aplayernum)
 		chr->act_die.thudframe2 = -1;
 		chr->act_die.timeextra = 0;
 
-		chr->ailist = ailistFindById(GAILIST_AI_BOT_DEAD);
+		chr->ailist = ailistFindById(GAILIST_AIBOT_DEAD);
 		chr->aioffset = 0;
 
 		mpstatsRecordDeath(aplayernum, mpPlayerGetIndex(chr));
@@ -7012,7 +7012,7 @@ bool chrCanSeePos(struct chrdata *chr, struct coord *pos, s16 *rooms)
 	// This check is pointless because chrHasLineOfSightToPos is called
 	// with the same arguments regardless.
 	if ((diffangle < 1.7450513839722f || diffangle > 4.5371336936951f)
-			&& chrHasFlag(chr, CHRFLAG1_00200000, BANK_1) == false) {
+			&& chrHasFlag(chr, CHRFLAG1_NOOP_00200000, BANK_1) == false) {
 		return chrHasLineOfSightToPos(chr, pos, rooms);
 	}
 
@@ -7548,7 +7548,7 @@ bool chrGoToPad(struct chrdata *chr, s32 padnum, u32 speed)
 #if VERSION >= VERSION_NTSC_1_0
 			&& (var80062cbc <= 8
 				|| (chr->hidden & CHRHFLAG_00400000) == 0
-				|| (chr->flags & CHRFLAG0_CAN_GO_TO_PLACES))
+				|| (chr->flags & CHRFLAG0_CAN_TRAVEL))
 #else
 			&& var80062cbc <= 9
 #endif
@@ -7619,7 +7619,7 @@ bool chrGoToTarget(struct chrdata *chr, u32 speed)
 #if VERSION >= VERSION_NTSC_1_0
 				var80062cbc <= 8 ||
 				(chr->hidden & CHRHFLAG_00400000) == 0 ||
-				(chr->flags & CHRFLAG0_CAN_GO_TO_PLACES)
+				(chr->flags & CHRFLAG0_CAN_TRAVEL)
 #else
 				var80062cbc <= 9
 #endif
@@ -7642,7 +7642,7 @@ bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 speed)
 #if VERSION >= VERSION_NTSC_1_0
 				var80062cbc <= 8 ||
 				(chr->hidden & CHRHFLAG_00400000) == 0 ||
-				(chr->flags & CHRFLAG0_CAN_GO_TO_PLACES)
+				(chr->flags & CHRFLAG0_CAN_TRAVEL)
 #else
 				var80062cbc <= 9
 #endif
@@ -21134,7 +21134,7 @@ void chrTickGoPos(struct chrdata *chr)
 #if VERSION >= VERSION_NTSC_1_0
 	if (var80062cbc >= 9
 			&& (chr->hidden & CHRHFLAG_00400000)
-			&& (chr->flags & CHRFLAG0_CAN_GO_TO_PLACES) == 0) {
+			&& (chr->flags & CHRFLAG0_CAN_TRAVEL) == 0) {
 		chrStop(chr);
 		return;
 	}
@@ -24940,7 +24940,7 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 	return result;
 }
 
-bool chrCheckCoverOutOfSight(struct chrdata *chr, s32 covernum, bool arg2)
+bool chrCheckCoverOutOfSight(struct chrdata *chr, s32 covernum, bool soft)
 {
 	struct cover cover;
 	struct prop *target;
@@ -24957,8 +24957,8 @@ bool chrCheckCoverOutOfSight(struct chrdata *chr, s32 covernum, bool arg2)
 		return false;
 	}
 
-	if (arg2) {
-		targetcanseecover = cd0002db98(&target->pos, target->rooms, cover.pos, 35, 8);
+	if (soft) {
+		targetcanseecover = cd0002db98(&target->pos, target->rooms, cover.pos, CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_BG, 8);
 	} else {
 		targetcanseecover = cd0002f450(&target->pos, target->rooms, cover.pos, 50, 35);
 	}
@@ -25511,7 +25511,7 @@ glabel chrAssignCoverByCriteria
 //
 //	// Assign the first out of sight cover
 //	for (i = 0; i < numcandidates; i++) {
-//		if (chrCheckCoverOutOfSight(chr, g_CoverCandidates[i].covernum, criteria & COVERCRITERIA_8000)) {
+//		if (chrCheckCoverOutOfSight(chr, g_CoverCandidates[i].covernum, criteria & COVERCRITERIA_ALLOWSOFT)) {
 //			chr->cover = g_CoverCandidates[i].covernum;
 //
 //			if (oldcover != -1) {

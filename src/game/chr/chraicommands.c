@@ -1484,9 +1484,9 @@ bool aiIfNeverBeenOnScreen(void)
 /**
  * @cmd 0047
  */
-bool ai0047(void)
+bool aiIfOnScreen(void)
 {
-	if (g_Vars.chrdata->prop->flags & 0xc2) {
+	if (g_Vars.chrdata->prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -7065,7 +7065,7 @@ bool aiDetectEnemyOnSameFloor(void)
 					&& y - chr->prop->pos.y < 200
 					&& ((g_Vars.chrdata->hidden & CHRHFLAG_PSYCHOSISED) == 0
 						|| (chr->hidden & CHRHFLAG_ANTINONINTERACTABLE) == 0
-						|| chr->hidden & CHRHFLAG_08000000)
+						|| (chr->hidden & CHRHFLAG_DONTSHOOTME))
 					&& g_Vars.chrdata->chrnum != chr->chrnum) {
 				distance = chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum);
 
@@ -7148,7 +7148,7 @@ bool aiDetectEnemy(void)
 					&& (
 						(g_Vars.chrdata->hidden & CHRHFLAG_PSYCHOSISED) == 0
 						|| (chr->hidden & CHRHFLAG_ANTINONINTERACTABLE) == 0
-						|| chr->hidden & CHRHFLAG_08000000)) {
+						|| (chr->hidden & CHRHFLAG_DONTSHOOTME))) {
 				f32 distance = chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum);
 
 				if (distance < maxdist && distance != 0 && distance < closestdist
@@ -9812,7 +9812,7 @@ glabel var7f1a9d64
 //				} else {
 //					g_Vars.chrdata->soundtimer = 0;
 //					g_Vars.chrdata->soundgap = cmd[5];
-//					chrUnsetFlags(g_Vars.chrdata, CHRFLAG1_DISSPEE, BANK_1);
+//					chrUnsetFlags(g_Vars.chrdata, CHRFLAG1_TALKINGTODISGUISE, BANK_1);
 //				}
 //			}
 //		}
@@ -9835,7 +9835,7 @@ void func0f05abdc(struct prop *prop)
 /**
  * @cmd 01a7
  */
-bool aiIfChrPropsoundcountZero(void)
+bool aiIfChrNotTalking(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindByLiteralId(cmd[2]);
@@ -12363,8 +12363,8 @@ bool aiShowCutsceneChrs(void)
 
 	if (show) {
 		for (i = chrsGetNumSlots() - 1; i >= 0; i--) {
-			if (g_ChrSlots[i].chrnum >= 0 && g_ChrSlots[i].prop && (g_ChrSlots[i].hidden2 & CHRH2FLAG_0001)) {
-				g_ChrSlots[i].hidden2 &= ~CHRH2FLAG_0001;
+			if (g_ChrSlots[i].chrnum >= 0 && g_ChrSlots[i].prop && (g_ChrSlots[i].hidden2 & CHRH2FLAG_HIDDENFORCUTSCENE)) {
+				g_ChrSlots[i].hidden2 &= ~CHRH2FLAG_HIDDENFORCUTSCENE;
 				g_ChrSlots[i].chrflags &= ~CHRCFLAG_HIDDEN;
 			}
 		}
@@ -12372,7 +12372,7 @@ bool aiShowCutsceneChrs(void)
 		for (i = chrsGetNumSlots() - 1; i >= 0; i--) {
 			if (g_ChrSlots[i].chrnum >= 0 && g_ChrSlots[i].prop &&
 					(g_ChrSlots[i].chrflags & (CHRCFLAG_UNPLAYABLE | CHRCFLAG_HIDDEN)) == 0) {
-				g_ChrSlots[i].hidden2 |= CHRH2FLAG_0001;
+				g_ChrSlots[i].hidden2 |= CHRH2FLAG_HIDDENFORCUTSCENE;
 				g_ChrSlots[i].chrflags |= CHRCFLAG_HIDDEN;
 			}
 		}

@@ -798,8 +798,8 @@ void chrUnpack(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 				chr->hidden |= CHRHFLAG_ANTINONINTERACTABLE;
 			}
 
-			if (packed->spawnflags & SPAWNFLAG_00000800) {
-				chr->hidden |= CHRHFLAG_08000000;
+			if (packed->spawnflags & SPAWNFLAG_DONTSHOOTME) {
+				chr->hidden |= CHRHFLAG_DONTSHOOTME;
 			}
 
 			if (packed->spawnflags & SPAWNFLAG_HIDDEN) {
@@ -822,8 +822,8 @@ void chrUnpack(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 			chr->flags2 = packed->flags2;
 
 			if (cheatIsActive(CHEAT_MARQUIS)) {
-				chr->flags2 &= ~CHRFLAG1_00001000;
-				chr->flags2 |= CHRFLAG1_00000001;
+				chr->flags2 &= ~CHRFLAG1_NOHANDCOMBAT;
+				chr->flags2 |= CHRFLAG1_HANDCOMBATONLY;
 			}
 
 			chr->team = packed->team;

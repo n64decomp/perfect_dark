@@ -81,7 +81,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0044*/ aiIfHeardTargetRecently,
 	/*0x0045*/ ai0045,
 	/*0x0046*/ aiIfNeverBeenOnScreen,
-	/*0x0047*/ ai0047,
+	/*0x0047*/ aiIfOnScreen,
 	/*0x0048*/ aiIfChrInActiveRoom,
 	/*0x0049*/ aiIfRoomActive,
 	/*0x004a*/ ai004a,
@@ -433,7 +433,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01a4*/ aiShowHudmsgMiddle,
 	/*0x01a5*/ aiIfUsingLift,
 	/*0x01a6*/ aiIfTargetYDifferenceLessThan,
-	/*0x01a7*/ aiIfChrPropsoundcountZero,
+	/*0x01a7*/ aiIfChrNotTalking,
 	/*0x01a8*/ NULL,
 	/*0x01a9*/ NULL,
 	/*0x01aa*/ ai01aa,
@@ -729,7 +729,7 @@ void chraiExecute(void *entity, s32 proptype)
 			if (g_Vars.chrdata->aishootingatmelist >= 0
 					&& ailistFindById(g_Vars.chrdata->aishootingatmelist) != g_Vars.chrdata->ailist
 					&& g_Vars.chrdata->dodgerating > (u32)random() % 100
-					&& chrHasFlag(g_Vars.chrdata, CHRFLAG1_00000400, BANK_1) == 0
+					&& chrHasFlag(g_Vars.chrdata, CHRFLAG1_INDARKROOM, BANK_1) == 0
 					&& chrHasFlag(g_Vars.chrdata, CHRFLAG0_AIVSAI, BANK_0) == 0
 					&& ailistFindById(g_Vars.chrdata->aishootingatmelist) != g_Vars.chrdata->ailist
 					&& g_Vars.chrdata->actiontype != ACT_ATTACK
@@ -753,7 +753,7 @@ void chraiExecute(void *entity, s32 proptype)
 			}
 		} else if (g_Vars.chrdata
 				&& g_Vars.chrdata->darkroomthing
-				&& chrHasFlag(g_Vars.chrdata, CHRFLAG1_00000400, BANK_1) == 0
+				&& chrHasFlag(g_Vars.chrdata, CHRFLAG1_INDARKROOM, BANK_1) == 0
 				&& ailistFindById(g_Vars.chrdata->aidarkroomlist) != g_Vars.chrdata->ailist
 				&& g_Vars.stagenum != STAGE_CRASHSITE) {
 			g_Vars.chrdata->darkroomthing = 0;
@@ -763,8 +763,8 @@ void chraiExecute(void *entity, s32 proptype)
 					&& g_Vars.chrdata->actiontype != ACT_DEAD
 					&& g_Vars.chrdata->actiontype != ACT_ARGH) {
 				// Set darkroom list
-				chrSetFlags(g_Vars.chrdata, CHRFLAG1_00000400, BANK_1);
-				chrSetFlags(g_Vars.chrdata, CHRFLAG1_10000000, BANK_1);
+				chrSetFlags(g_Vars.chrdata, CHRFLAG1_INDARKROOM, BANK_1);
+				chrSetFlags(g_Vars.chrdata, CHRFLAG1_SEARCHSAMEROOM, BANK_1);
 				g_Vars.chrdata->alertness = 0;
 				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aidarkroomlist);
 				g_Vars.aioffset = 0;

@@ -75,7 +75,7 @@
 /*0x0044*/ bool aiIfHeardTargetRecently(void);
 /*0x0045*/ bool ai0045(void);
 /*0x0046*/ bool aiIfNeverBeenOnScreen(void);
-/*0x0047*/ bool ai0047(void);
+/*0x0047*/ bool aiIfOnScreen(void);
 /*0x0048*/ bool aiIfChrInActiveRoom(void);
 /*0x0049*/ bool aiIfRoomActive(void);
 /*0x004a*/ bool ai004a(void);
@@ -391,7 +391,7 @@
 /*0x01a4*/ bool aiShowHudmsgMiddle(void);
 /*0x01a5*/ bool aiIfUsingLift(void);
 /*0x01a6*/ bool aiIfTargetYDifferenceLessThan(void);
-/*0x01a7*/ bool aiIfChrPropsoundcountZero(void);
+/*0x01a7*/ bool aiIfChrNotTalking(void);
 /*0x01aa*/ bool ai01aa(void);
 /*0x01ab*/ bool aiIfNumKnockedOutChrs(void);
 /*0x01ad*/ bool aiReleaseObject(void);

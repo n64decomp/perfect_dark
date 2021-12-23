@@ -265,9 +265,9 @@ u32 props[] = {
 	chr(SPAWNFLAG_NOBLOOD, 0x03, PAD_DISH_00F7, BODY_CILABTECH, HEAD_MARK2, 0x0421, -1, -1, 1000, 6, 0, 0, TEAM_20, SQUADRON_05, -1, 0, 2, 0, 0, 0)
 	chr(SPAWNFLAG_NOBLOOD, 0x04, PAD_DISH_00F9, BODY_CIFEMTECH, HEAD_SECRETARY, 0x0422, -1, -1, 1000, 6, 0, 0, TEAM_20, SQUADRON_05, -1, 0, 2, 0, 0, 0)
 	chr(SPAWNFLAG_NOBLOOD, 0x05, PAD_DISH_00FB, BODY_CILABTECH, HEAD_BRIAN, 0x0423, -1, -1, 1000, 6, 0, 0, TEAM_20, SQUADRON_05, -1, 0, 2, 0, 0, 0)
-	chr(SPAWNFLAG_NOBLOOD | SPAWNFLAG_FIXEDHEIGHT, 0x06, PAD_DISH_00FD, BODY_CILABTECH, HEAD_RUSS, 0x0425, -1, -1, 0, 0, CHRFLAG0_08000000 | CHRFLAG0_NOHEAR | CHRFLAG0_CANLOSEGUN, CHRFLAG1_DOINGIDLEANIMATION, TEAM_ENEMY, SQUADRON_0D, 0x01, 0, 0, 2, 0, 0)
-	chr(SPAWNFLAG_NOBLOOD | SPAWNFLAG_FIXEDHEIGHT, 0x07, PAD_DISH_00FC, BODY_CILABTECH, HEAD_BEAU1, 0x0426, -1, -1, 0, 0, CHRFLAG0_08000000 | CHRFLAG0_NOHEAR | CHRFLAG0_CANLOSEGUN, CHRFLAG1_DOINGIDLEANIMATION, TEAM_ENEMY, SQUADRON_0D, 0x00, 0, 0, 2, 0, 0)
-	chr(SPAWNFLAG_NOBLOOD | SPAWNFLAG_FIXEDHEIGHT, 0x08, PAD_DISH_00FE, BODY_CIFEMTECH, HEAD_SECRETARY, 0x0427, -1, -1, 0, 0, CHRFLAG0_08000000 | CHRFLAG0_NOHEAR | CHRFLAG0_CANLOSEGUN, CHRFLAG1_DOINGIDLEANIMATION, TEAM_ENEMY, SQUADRON_0D, 0x02, 0, 0, 2, 0, 0)
+	chr(SPAWNFLAG_NOBLOOD | SPAWNFLAG_FIXEDHEIGHT, 0x06, PAD_DISH_00FD, BODY_CILABTECH, HEAD_RUSS, 0x0425, -1, -1, 0, 0, CHRFLAG0_COVER_TYPE2 | CHRFLAG0_NOHEAR | CHRFLAG0_CANLOSEGUN, CHRFLAG1_DOINGIDLEANIMATION, TEAM_ENEMY, SQUADRON_0D, 0x01, 0, 0, 2, 0, 0)
+	chr(SPAWNFLAG_NOBLOOD | SPAWNFLAG_FIXEDHEIGHT, 0x07, PAD_DISH_00FC, BODY_CILABTECH, HEAD_BEAU1, 0x0426, -1, -1, 0, 0, CHRFLAG0_COVER_TYPE2 | CHRFLAG0_NOHEAR | CHRFLAG0_CANLOSEGUN, CHRFLAG1_DOINGIDLEANIMATION, TEAM_ENEMY, SQUADRON_0D, 0x00, 0, 0, 2, 0, 0)
+	chr(SPAWNFLAG_NOBLOOD | SPAWNFLAG_FIXEDHEIGHT, 0x08, PAD_DISH_00FE, BODY_CIFEMTECH, HEAD_SECRETARY, 0x0427, -1, -1, 0, 0, CHRFLAG0_COVER_TYPE2 | CHRFLAG0_NOHEAR | CHRFLAG0_CANLOSEGUN, CHRFLAG1_DOINGIDLEANIMATION, TEAM_ENEMY, SQUADRON_0D, 0x02, 0, 0, 2, 0, 0)
 	tag(0x1e, 8)
 	tag(0x1f, 8)
 	tag(0x20, 8)
@@ -631,7 +631,7 @@ u8 func041e_colleague[] = {
 
 		label(0x06)
 		if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x7f)
-		do_preset_animation(3)
+		do_preset_animation(PRESETANIM_TALK3)
 		goto_next(0x2f)
 
 		label(0x7f)
@@ -666,7 +666,7 @@ u8 func041e_colleague[] = {
 		goto_first(0x59)
 
 		label(0x06)
-		do_preset_animation(-1)
+		do_preset_animation(PRESETANIM_TALKRANDOM)
 		label(0x06)
 		play_cistaff_quip(CIQUIP_MAIN, CHANNEL_6)
 		restart_timer
@@ -705,7 +705,7 @@ u8 func041e_colleague[] = {
 
 		label(0x30)
 		if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x7f)
-		do_preset_animation(-1)
+		do_preset_animation(PRESETANIM_TALKRANDOM)
 		goto_next(0x06)
 
 		label(0x7f)
@@ -2530,7 +2530,7 @@ u8 func0429_grimshaw_disguise[] = {
 
 	label(0x06)
 	dprint 'I','n','i','t','i','a','l','i','s','e','c',0,
-	do_preset_animation(3)
+	do_preset_animation(PRESETANIM_TALK3)
 	play_cistaff_quip(CIQUIP_GREETING, CHANNEL_6)
 	restart_timer
 
@@ -2566,7 +2566,7 @@ u8 func0429_grimshaw_disguise[] = {
 
 	label(0x06)
 	if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISED, /*goto*/ 0x2f)
-	do_preset_animation(-1)
+	do_preset_animation(PRESETANIM_TALKRANDOM)
 	speak(CHR_TARGET, L_DISH_044, MP3_0518, CHANNEL_6, COLOR_05_GREEN) // "Go away, Joanna. You're not fooling anybody!"
 
 	beginloop(0x5c)
@@ -2579,7 +2579,7 @@ u8 func0429_grimshaw_disguise[] = {
 	goto_next(0x0d)
 
 	label(0x2f)
-	do_preset_animation(-1)
+	do_preset_animation(PRESETANIM_TALKRANDOM)
 	speak(CHR_TARGET, L_DISH_045, MP3_0519, CHANNEL_6, COLOR_05_GREEN) // "Here you go. Don't drop it now."
 
 	beginloop(0x5d)
@@ -2730,7 +2730,7 @@ u8 func042a_carrington_cloak[] = {
 	endloop(0x57)
 
 	label(0x06)
-	do_preset_animation(-1)
+	do_preset_animation(PRESETANIM_TALKRANDOM)
 	speak(CHR_BOND, L_DISH_049, MP3_051B, CHANNEL_6, COLOR_06_WHITE) // "Joanna, where did you spring from?"
 
 	beginloop(0x59)
@@ -2745,7 +2745,7 @@ u8 func042a_carrington_cloak[] = {
 	endloop(0x5b)
 
 	label(0x06)
-	do_preset_animation(-1)
+	do_preset_animation(PRESETANIM_TALKRANDOM)
 	speak(CHR_TARGET, L_DISH_053, MP3_051C, CHANNEL_6, COLOR_06_WHITE) // "I think we can safely say your training is now complete!"
 
 	beginloop(0x5c)
@@ -3009,7 +3009,7 @@ u8 func042c_carrington_tour[] = {
 	label(0x06)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_INFINITESHIELD)
 	set_savefile_flag(GAMEFILEFLAG_CI_TOUR_STARTED)
-	do_preset_animation(-1)
+	do_preset_animation(PRESETANIM_TALKRANDOM)
 	remove_hudmsgs
 	speak(CHR_TARGET, L_DISH_066, SFX_8029, CHANNEL_6, COLOR_06_WHITE) // "Joanna, it's good to see you."
 	restart_timer
@@ -3019,7 +3019,7 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x57)
 
 	label(0x06)
-	do_preset_animation(-1)
+	do_preset_animation(PRESETANIM_TALKRANDOM)
 	speak(CHR_TARGET, L_DISH_067, MP3_051D, CHANNEL_6, COLOR_06_WHITE) // "Come with me. I'll walk you round the training rooms."
 	restart_timer
 
@@ -3050,7 +3050,7 @@ u8 func042c_carrington_tour[] = {
 	goto_first(0x5c)
 
 	label(0x2f)
-	do_preset_animation(-1)
+	do_preset_animation(PRESETANIM_TALKRANDOM)
 	remove_hudmsgs
 	speak(CHR_TARGET, L_DISH_068, MP3_0520, CHANNEL_6, COLOR_06_WHITE) // "The information center is through this door."
 	restart_timer
@@ -3076,7 +3076,7 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x5f)
 
 	label(0x06)
-	do_preset_animation(-1)
+	do_preset_animation(PRESETANIM_TALKRANDOM)
 	play_sound(SFX_802A, CHANNEL_6)
 	set_ailist(0x03, 0x042d)
 	restart_timer
@@ -3118,7 +3118,7 @@ u8 func042c_carrington_tour[] = {
 #if VERSION >= VERSION_NTSC_1_0
 	set_ailist(0x01, GAILIST_IDLE)
 #endif
-	do_preset_animation(-1)
+	do_preset_animation(PRESETANIM_TALKRANDOM)
 	speak(CHR_TARGET, L_DISH_069, MP3_051F, CHANNEL_6, COLOR_06_WHITE) // "In here we have the device lab."
 	restart_timer
 
@@ -3135,7 +3135,7 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x65)
 
 	label(0x06)
-	do_preset_animation(-1)
+	do_preset_animation(PRESETANIM_TALKRANDOM)
 	play_sound(SFX_CARR_HELLO_JOANNA, CHANNEL_6)
 	set_ailist(0x01, AILIST_DEVICEGIRL_REPLY_TO_CARRINGTON)
 	restart_timer
@@ -3174,7 +3174,7 @@ u8 func042c_carrington_tour[] = {
 	goto_first(0x6a)
 
 	label(0x2f)
-	do_preset_animation(-1)
+	do_preset_animation(PRESETANIM_TALKRANDOM)
 	speak(CHR_TARGET, L_DISH_070, MP3_0521, CHANNEL_6, COLOR_06_WHITE) // "This leads to the simulant training room."
 	restart_timer
 
@@ -3210,7 +3210,7 @@ u8 func042c_carrington_tour[] = {
 	goto_first(0x6e)
 
 	label(0x2f)
-	do_preset_animation(-1)
+	do_preset_animation(PRESETANIM_TALKRANDOM)
 	speak(CHR_TARGET, L_DISH_071, MP3_051E, CHANNEL_6, COLOR_06_WHITE) // "This is the firing range, Jo."
 	restart_timer
 
@@ -3265,7 +3265,7 @@ u8 func042c_carrington_tour[] = {
 	goto_first(0x74)
 
 	label(0x2f)
-	do_preset_animation(-1)
+	do_preset_animation(PRESETANIM_TALKRANDOM)
 	speak(CHR_TARGET, L_DISH_072, MP3_0522, CHANNEL_6, COLOR_06_WHITE) // "This corridor leads down to the hangar."
 	restart_timer
 
@@ -3283,7 +3283,7 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x79)
 
 	label(0x2f)
-	do_preset_animation(-1)
+	do_preset_animation(PRESETANIM_TALKRANDOM)
 	speak(CHR_TARGET, L_DISH_124, MP3_07DC, CHANNEL_6, COLOR_06_WHITE) // "Okay, Jo, I'll leave you to prepare for the mission."
 
 	beginloop(0x7a)

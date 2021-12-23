@@ -13210,7 +13210,7 @@ glabel var7f1ad6ac
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
 //												BADDEG2RAD(g_Vars.currentplayer->vv_theta / 2),
-//												ailistFindById(GAILIST_INIT_COOP_100),
+//												ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
 //												0);
 //									} else if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR) {
 //										// d64
@@ -13218,7 +13218,7 @@ glabel var7f1ad6ac
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
 //												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
-//												ailistFindById(GAILIST_INIT_COOP_100),
+//												ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
 //												0);
 //									} else {
 //										// db4
@@ -13226,17 +13226,17 @@ glabel var7f1ad6ac
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
 //												BADDEG2RAD(g_Vars.currentplayer->vv_theta / 2),
-//												ailistFindById(GAILIST_INIT_COOP_100),
+//												ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
 //												0);
 //									}
 //
 //									if (prop) {
 //										struct chrdata *chr = prop->chr;
-//										chr->flags |= CHRFLAG0_00002000;
-//										chr->flags2 |= CHRFLAG1_40000000 | CHRFLAG1_00200000 | CHRFLAG1_00100000;
+//										chr->flags |= CHRFLAG0_SKIPSAFETYCHECKS;
+//										chr->flags2 |= CHRFLAG1_IGNORECOVER | CHRFLAG1_NOOP_00200000 | CHRFLAG1_AIVSAI_ADVANTAGED;
 //										chr->team = TEAM_ALLY;
 //										chr->squadron = SQUADRON_01;
-//										chr->hidden |= CHRHFLAG_PSYCHOSISED;
+//										chr->hidden |= CHRHFLAG_DETECTED;
 //										chr->voicebox = VOICEBOX_FEMALE;
 //										chr->teamscandist = 50;
 //										chr->accuracyrating = 100;
@@ -13266,7 +13266,7 @@ glabel var7f1ad6ac
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
 //												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
-//												ailistFindById(GAILIST_INIT_COOP_100),
+//												ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
 //												0);
 //									} else {
 //										// ef34
@@ -13274,18 +13274,18 @@ glabel var7f1ad6ac
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
 //												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
-//												ailistFindById(GAILIST_INIT_COOP_200),
+//												ailistFindById(GAILIST_INIT_PUGILIST_BUDDY),
 //												0);
 //									}
 //
 //									if (prop) {
 //										struct chrdata *chr = prop->chr;
-//										chr->flags |= CHRFLAG0_00002000 | CHRFLAG0_CHUCKNORRIS;
-//										chr->flags2 |= CHRFLAG1_40000000 | CHRFLAG1_00200000 | CHRFLAG1_00100000 | CHRFLAG1_ADJUSTPUNCHSPEED | CHRFLAG1_00000001;
+//										chr->flags |= CHRFLAG0_SKIPSAFETYCHECKS | CHRFLAG0_CHUCKNORRIS;
+//										chr->flags2 |= CHRFLAG1_IGNORECOVER | CHRFLAG1_NOOP_00200000 | CHRFLAG1_AIVSAI_ADVANTAGED | CHRFLAG1_ADJUSTPUNCHSPEED | CHRFLAG1_HANDCOMBATONLY;
 //										chr->team = TEAM_ALLY;
 //										chr->squadron = SQUADRON_01;
 //										chr->teamscandist = 100;
-//										chr->hidden |= CHRHFLAG_PSYCHOSISED;
+//										chr->hidden |= CHRHFLAG_DETECTED;
 //										chr->voicebox = VOICEBOX_MALE1;
 //										chr->accuracyrating = 100;
 //										chr->speedrating = 100;
@@ -13298,7 +13298,7 @@ glabel var7f1ad6ac
 //
 //										chr->cloakfadefinished = true;
 //										chr->chrflags |= CHRCFLAG_00040000;
-//										chr->hidden |= CHRHFLAG_PSYCHOSISED;
+//										chr->hidden |= CHRHFLAG_DETECTED;
 //										chr->cloakfadefrac = 0;
 //
 //										chrSetMaxDamage(chr, 20);
@@ -13312,7 +13312,7 @@ glabel var7f1ad6ac
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
 //												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
-//												ailistFindById(GAILIST_INIT_COOP_100),
+//												ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
 //												0);
 //									} else {
 //										// f0a0
@@ -13320,17 +13320,17 @@ glabel var7f1ad6ac
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
 //												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
-//												ailistFindById(GAILIST_INIT_COOP_100),
+//												ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
 //												0);
 //									}
 //
 //									if (prop) {
 //										struct chrdata *chr = prop->chr;
-//										chr->flags |= CHRFLAG0_00002000;
-//										chr->flags2 |= CHRFLAG1_PUNCHHARDER | CHRFLAG1_00200000 | CHRFLAG1_00100000;
+//										chr->flags |= CHRFLAG0_SKIPSAFETYCHECKS;
+//										chr->flags2 |= CHRFLAG1_PUNCHHARDER | CHRFLAG1_NOOP_00200000 | CHRFLAG1_AIVSAI_ADVANTAGED;
 //										chr->team = TEAM_ALLY;
 //										chr->squadron = SQUADRON_01;
-//										chr->hidden |= CHRHFLAG_PSYCHOSISED;
+//										chr->hidden |= CHRHFLAG_DETECTED;
 //										chr->voicebox = VOICEBOX_MALE2;
 //										chr->teamscandist = 50;
 //										chr->accuracyrating = 50;
@@ -13360,7 +13360,7 @@ glabel var7f1ad6ac
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
 //												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
-//												ailistFindById(GAILIST_INIT_COOP_100),
+//												ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
 //												0);
 //									} else {
 //										// f224
@@ -13368,17 +13368,17 @@ glabel var7f1ad6ac
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
 //												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
-//												ailistFindById(GAILIST_INIT_COOP_100),
+//												ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
 //												0);
 //									}
 //
 //									if (prop) {
 //										struct chrdata *chr = prop->chr;
-//										chr->flags |= CHRFLAG0_00002000;
-//										chr->flags2 |= CHRFLAG1_40000000 | CHRFLAG1_00200000 | CHRFLAG1_00100000;
+//										chr->flags |= CHRFLAG0_SKIPSAFETYCHECKS;
+//										chr->flags2 |= CHRFLAG1_IGNORECOVER | CHRFLAG1_NOOP_00200000 | CHRFLAG1_AIVSAI_ADVANTAGED;
 //										chr->team = TEAM_ALLY;
 //										chr->squadron = SQUADRON_01;
-//										chr->hidden |= CHRHFLAG_PSYCHOSISED;
+//										chr->hidden |= CHRHFLAG_DETECTED;
 //										chr->voicebox = VOICEBOX_MALE0;
 //										chr->teamscandist = 100;
 //										chr->accuracyrating = 50;
@@ -13409,7 +13409,7 @@ glabel var7f1ad6ac
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
 //												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
-//												ailistFindById(GAILIST_INIT_COOP_100),
+//												ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
 //												0);
 //									} else {
 //										// f3b8
@@ -13417,17 +13417,17 @@ glabel var7f1ad6ac
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
 //												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
-//												ailistFindById(GAILIST_INIT_COOP_100),
+//												ailistFindById(GAILIST_INIT_DEFAULT_BUDDY),
 //												0);
 //									}
 //
 //									if (prop) {
 //										struct chrdata *chr = prop->chr;
-//										chr->flags |= CHRFLAG0_00002000;
-//										chr->flags2 |= CHRFLAG1_PUNCHHARDER | CHRFLAG1_40000000 | CHRFLAG1_00200000 | CHRFLAG1_00100000;
+//										chr->flags |= CHRFLAG0_SKIPSAFETYCHECKS;
+//										chr->flags2 |= CHRFLAG1_PUNCHHARDER | CHRFLAG1_IGNORECOVER | CHRFLAG1_NOOP_00200000 | CHRFLAG1_AIVSAI_ADVANTAGED;
 //										chr->team = TEAM_ALLY;
 //										chr->squadron = SQUADRON_01;
-//										chr->hidden |= CHRHFLAG_PSYCHOSISED;
+//										chr->hidden |= CHRHFLAG_DETECTED;
 //										chr->voicebox = VOICEBOX_MALE0;
 //										chr->teamscandist = 150;
 //										chr->accuracyrating = 100;

@@ -670,7 +670,11 @@
 	mkshort(0x0046), \
 	label,
 
-#define if_bitcheck_in_prop_struct(label) \
+/**
+ * Checks if the chr is on any player's screen,
+ * either on this tick or on the prev tick.
+ */
+#define if_onscreen(label) \
 	mkshort(0x0047), \
 	label,
 
@@ -3268,8 +3272,13 @@
 	amount, \
 	operation,
 
-// Likely related to being disarmed.
-// Not sure what this does if the chr had no gun to begin with.
+/**
+ * Follow the label if the given chr is holding their original gun
+ * or never had a gun to begin with.
+ *
+ * Do not follow the label if the gun is on the ground,
+ * has been collected by the player, or if the chr has drawn a backup gun.
+ */
 #define if_has_gun(chr, label) \
 	mkshort(0x016f), \
 	chr, \
@@ -3676,10 +3685,12 @@
 	channel,
 
 /**
- * If value is 0-2 or 4-14, do talking animation from g_PresetAnimations array.
+ * If value is 0-2 or 4-14, do talking animation from a hard coded array.
  * If value is 3, choose a random talking anim out of 2.
  * If value is 254, do a gun jam animation.
  * If value is 255, choose a random talking anim out of 8.
+ *
+ * See the PRESETANIM constants.
  */
 #define do_preset_animation(value) \
 	mkshort(0x01a3), \
@@ -3717,7 +3728,10 @@
 	distance / 10, \
 	label
 
-#define if_chr_propsoundcount_zero(chr, label) \
+/**
+ * Checks if the chr is not currently talking.
+ */
+#define if_chr_not_talking(chr, label) \
 	mkshort(0x01a7), \
 	chr, \
 	label,

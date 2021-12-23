@@ -369,70 +369,70 @@
 
 // chr->flags
 #define CHRFLAG0_CANT_ALERT_GROUP   0x00000001 // Don't set group alertness when becoming aware
-#define CHRFLAG0_00000002           0x00000002 // Not used in scripts
-#define CHRFLAG0_00000004           0x00000004 // Can search for player when heard?
+#define CHRFLAG0_UNUSED_00000002    0x00000002
+#define CHRFLAG0_GP1                0x00000004 // General purpose
 #define CHRFLAG0_CAN_EXAMINE_BODY   0x00000008
-#define CHRFLAG0_00000010           0x00000010 // Globals, Skedar Ruins
+#define CHRFLAG0_UNDERCOVER         0x00000010 // Chr is hiding behind cover
 #define CHRFLAG0_SAID_INJURY_QUIP   0x00000020
-#define CHRFLAG0_00000040           0x00000040 // Globals - related to cover?
+#define CHRFLAG0_COVER_TYPE1        0x00000040 // Use a certain type of cover - never set though
 #define CHRFLAG0_CHUCKNORRIS        0x00000080 // Makes punch animation faster, and damage is multiplied by the chr's morale then doubled. Must also have CHRFLAG1_ADJUSTPUNCHSPEED
 #define CHRFLAG0_CAN_BACKOFF        0x00000100
 #define CHRFLAG0_CAN_RETREAT        0x00000200
-#define CHRFLAG0_UNSURPRISABLE      0x00000400 // may also be "can uncover disguise"
+#define CHRFLAG0_SURPRISABLE        0x00000400
 #define CHRFLAG0_CAN_THROW_GRENADES 0x00000800
 #define CHRFLAG0_CAN_FLANK          0x00001000
-#define CHRFLAG0_00002000           0x00002000 // Used quite a lot
-#define CHRFLAG0_00004000           0x00004000 // Patroller - if set, overrides the 00002000 flag (interprets 00002000 as off)
+#define CHRFLAG0_SKIPSAFETYCHECKS   0x00002000
+#define CHRFLAG0_FORCESAFETYCHECKS  0x00004000 // Overrides CHRFLAG0_SKIPSAFETYCHECKS
 #define CHRFLAG0_00008000           0x00008000 // Something to do with breaking cover or grenades?
-#define CHRFLAG0_AIVSAI             0x00010000
+#define CHRFLAG0_AIVSAI             0x00010000 // Allow chr to fight with other AI
 #define CHRFLAG0_CAN_TRAP           0x00020000
-#define CHRFLAG0_CAN_GO_TO_PLACES   0x00040000
+#define CHRFLAG0_CAN_TRAVEL         0x00040000
 #define CHRFLAG0_SQUADALERTANYDIST  0x00080000
-#define CHRFLAG0_00100000           0x00100000 // Become alert when hearing player and never on screen
-#define CHRFLAG0_00200000           0x00200000 // Globals, Villa hostage takers
-#define CHRFLAG0_00400000           0x00400000 // Not used in scripts
+#define CHRFLAG0_ALERT_ON_HEARSPAWN 0x00100000 // Become alert when hearing player and never on screen
+#define CHRFLAG0_CAN_FLEESURRENDER  0x00200000 // When unarmed, chr can run from player and surrender if caught up
+#define CHRFLAG0_UNUSED_00400000    0x00400000
 #define CHRFLAG0_CAN_HEAR_ALARMS    0x00800000
-#define CHRFLAG0_01000000           0x01000000 // Globals
-#define CHRFLAG0_02000000           0x02000000 // Globals - set when ambushing
-#define CHRFLAG0_04000000           0x04000000 // If set, chr can't follow player (ie. stays)?
-#define CHRFLAG0_08000000           0x08000000 // Globals, Villa, Infiltration, Pelagic
-#define CHRFLAG0_10000000           0x10000000 // If set, "IM GOING TO POP"
+#define CHRFLAG0_NOACCURACYAFTERJAM 0x01000000
+#define CHRFLAG0_SAID_AMBUSH_QUIP   0x02000000
+#define CHRFLAG0_HOLD_POSITION      0x04000000 // Chr can't track (follow) player
+#define CHRFLAG0_COVER_TYPE2        0x08000000
+#define CHRFLAG0_CAN_USE_COVER      0x10000000 // Flag is turned off permanently if player gets too close
 #define CHRFLAG0_CAN_HEARSPAWN      0x20000000
-#define CHRFLAG0_NOHEAR             0x40000000 // Globals, Villa
-#define CHRFLAG0_CANLOSEGUN         0x80000000 // Globals, Villa, Chicago, CI Training
+#define CHRFLAG0_NOHEAR             0x40000000
+#define CHRFLAG0_CANLOSEGUN         0x80000000
 
 // chr->flags2
-#define CHRFLAG1_00000001                  0x00000001 // Globals, Extraction, Air Base, Deep Sea
-#define CHRFLAG1_00000002                  0x00000002 // Globals
-#define CHRFLAG1_00000004                  0x00000004 // Globals - If set, avoids try_attack_amount
-#define CHRFLAG1_00000008                  0x00000008 // Only used in WAR. If set, chr waits 2 seconds before attacking while defending
-#define CHRFLAG1_00000010                  0x00000010 // Globals - If set, avoids try_attack_amount
-#define CHRFLAG1_00000020                  0x00000020 // Globals, AF1, Defense - related to reload animation
+#define CHRFLAG1_HANDCOMBATONLY            0x00000001
+#define CHRFLAG1_LOSTGUN                   0x00000002 // Chr has dropped their gun and can no longer recover it
+#define CHRFLAG1_CAN_ATTACKAMOUNT          0x00000004 // Can use ACT_ATTACKAMOUNT as part of general attack anims
+#define CHRFLAG1_WARFIRSTKING              0x00000008 // Specific to WAR only
+#define CHRFLAG1_CAN_ATTACKAMOUNTRELOAD    0x00000010 // Same as CHRFLAG1_CAN_ATTACKAMOUNT, but reload afterwards
+#define CHRFLAG1_CAN_RELOAD                0x00000020
 #define CHRFLAG1_CAN_SNIPE                 0x00000040
 #define CHRFLAG1_ADJUSTPUNCHSPEED          0x00000080 // Makes chr punch slower, unless chr also has CHRFLAG0_CHUCKNORRIS
 #define CHRFLAG1_DOINGIDLEANIMATION        0x00000100
-#define CHRFLAG1_WARNED                    0x00000200
-#define CHRFLAG1_00000400                  0x00000400 // Globals
-#define CHRFLAG1_00000800                  0x00000800 // Globals - related to punch damage
-#define CHRFLAG1_00001000                  0x00001000 // Globals, Chicago, Infiltration
-#define CHRFLAG1_00002000                  0x00002000 // Globals - triggers grenade throw
-#define CHRFLAG1_00004000                  0x00004000 // Globals - related to cover
+#define CHRFLAG1_PREWARNED                 0x00000200
+#define CHRFLAG1_INDARKROOM                0x00000400 // Lights are out - chr has poor visibility
+#define CHRFLAG1_PUNCHAIEXTRADAMAGE        0x00000800 // Punch does extra damage if target is AI - once only
+#define CHRFLAG1_NOHANDCOMBAT              0x00001000 // Chr will not use hand combat
+#define CHRFLAG1_THROWGRENADEFIRST         0x00002000 // Chr will throw grenade as first attack
+#define CHRFLAG1_ALLOWSOFTCOVER            0x00004000
 #define CHRFLAG1_LONG_CAMSPY_OBSERVATION   0x00008000
-#define CHRFLAG1_00010000                  0x00010000 // Globals - if set, prevents setting of chrflag0_00100000
-#define CHRFLAG1_00020000                  0x00020000 // Globals
-#define CHRFLAG1_00040000                  0x00040000 // Globals - seems related to 00020000
-#define CHRFLAG1_00080000                  0x00080000 // Set in many places, read in globals and AF1
-#define CHRFLAG1_00100000                  0x00100000 // Globals
-#define CHRFLAG1_00200000                  0x00200000 // Deep Sea (Elvis)
+#define CHRFLAG1_HEARSPAWN_ALERT_IF_ALARM  0x00010000 // After hearing an alarm, if the chr spawns a clone due to hearing you the chr themself will become alert
+#define CHRFLAG1_DODGED                    0x00020000 // Has no effect
+#define CHRFLAG1_FLANKED                   0x00040000
+#define CHRFLAG1_NOIDLEANIMS               0x00080000 // Don't yawn etc
+#define CHRFLAG1_AIVSAI_ADVANTAGED         0x00100000 // Chr will attack other AI first
+#define CHRFLAG1_NOOP_00200000             0x00200000
 #define CHRFLAG1_PUNCH_THEN_GENERAL_COMBAT 0x00400000 // If unset, return after punching. If set, assign general combat
 #define CHRFLAG1_DONE_SEARCH_ANIM          0x00800000
-#define CHRFLAG1_01000000                  0x01000000 // Can search for player when heard?
-#define CHRFLAG1_02000000                  0x02000000 // Globals
+#define CHRFLAG1_LOOKINGFORTARGET          0x01000000 // Chr is tracking/searching for their target
+#define CHRFLAG1_STOPTRACKINGIFLOOKEDAT    0x02000000
 #define CHRFLAG1_CAN_LOOK_AROUND           0x04000000
-#define CHRFLAG1_DISSPEE                   0x08000000
-#define CHRFLAG1_10000000                  0x10000000 // Some kind of param for searching
+#define CHRFLAG1_TALKINGTODISGUISE         0x08000000
+#define CHRFLAG1_SEARCHSAMEROOM            0x10000000 // Search for player in chr's current room rather than player's current room
 #define CHRFLAG1_CAN_DRAW_PISTOL           0x20000000
-#define CHRFLAG1_40000000                  0x40000000 // Globals
+#define CHRFLAG1_IGNORECOVER               0x40000000
 #define CHRFLAG1_PUNCHHARDER               0x80000000 // Punches deal 6x the usual damage. Must not have CHRFLAG0_CHUCKNORRIS
 
 // chr->hidden
@@ -448,7 +448,7 @@
 #define CHRHFLAG_00000200            0x00000200 // Not used in scripts
 #define CHRHFLAG_PASSIVE             0x00000400
 #define CHRHFLAG_00000800            0x00000800
-#define CHRHFLAG_UNTARGETABLE        0x00001000
+#define CHRHFLAG_UNTARGETABLE        0x00001000 // Player is disgused on Rescue, or just warped
 #define CHRHFLAG_00002000            0x00002000 // Globals, Rescue guards once disguised
 #define CHRHFLAG_TRIGGER_BUDDY_WARP  0x00004000
 #define CHRHFLAG_PERFECTACCURACY     0x00008000
@@ -460,17 +460,18 @@
 #define CHRHFLAG_NEEDANIM            0x00200000
 #define CHRHFLAG_00400000            0x00400000 // Set in Chicago, G5, AF1, Defense, Attack Ship, Skedar Ruins, Maian SOS, WAR
 #define CHRHFLAG_00800000            0x00800000 // Not used in scripts
-#define CHRHFLAG_01000000            0x01000000 // Globals - asked about gun (eg. "where did you get that?")
-#define CHRHFLAG_02000000            0x02000000 // Similar to DISGUISED flag, but not sure where set
+#define CHRHFLAG_ASKEDABOUTGUN       0x01000000
+#define CHRHFLAG_ALMOSTUNCOVERED     0x02000000
 #define CHRHFLAG_04000000            0x04000000 // Related to disguise and detection
-#define CHRHFLAG_08000000            0x08000000 // Globals, Villa and G5
+#define CHRHFLAG_DONTSHOOTME         0x08000000 // Globals, Villa and G5
 #define CHRHFLAG_INFINITESHIELD      0x10000000
 #define CHRHFLAG_CLOAKED             0x20000000
 #define CHRHFLAG_ANTINONINTERACTABLE 0x40000000
-#define CHRHFLAG_PSYCHOSISED         0x80000000
+#define CHRHFLAG_DETECTED            0x80000000 // If set on player
+#define CHRHFLAG_PSYCHOSISED         0x80000000 // If set on AI
 
 // chr->hidden2
-#define CHRH2FLAG_0001              0x0001
+#define CHRH2FLAG_HIDDENFORCUTSCENE 0x0001
 #define CHRH2FLAG_SHIELDHIT         0x0002 // Turns off when shield no longer visible
 #define CHRH2FLAG_0004              0x0004
 #define CHRH2FLAG_BLUESIGHT         0x0008
@@ -592,7 +593,7 @@
 #define COVERCRITERIA_1000                   0x1000
 #define COVERCRITERIA_2000                   0x2000
 #define COVERCRITERIA_DISTTOFETCHPROP        0x4000
-#define COVERCRITERIA_8000                   0x8000
+#define COVERCRITERIA_ALLOWSOFT                   0x8000
 
 #define COVERFLAG_0001            0x0001
 #define COVERFLAG_INUSE           0x0002
@@ -916,21 +917,21 @@
 #define GAILIST_HAND_COMBAT            0x000f
 #define GAILIST_CIVILIAN_SAY_COMMENT   0x0010
 #define GAILIST_FLEE_FROM_GRENADE      0x0011
-#define GAILIST_INIT_COOP_100          0x0012
-#define GAILIST_INIT_COOP_200          0x0013
-#define GAILIST_COOP_BUDDY             0x0014
-#define GAILIST_AIBUDDY_STEALTH        0x0015
+#define GAILIST_INIT_DEFAULT_BUDDY     0x0012
+#define GAILIST_INIT_PUGILIST_BUDDY    0x0013
+#define GAILIST_BUDDY_MAIN             0x0014
+#define GAILIST_BUDDY_STEALTH          0x0015
 #define GAILIST_SHOW_OBJ_FAILED_MSG    (VERSION >= VERSION_NTSC_1_0 ? 0x0016 : 0x0015)
 #define GAILIST_REBUILD_GROUPS         (VERSION >= VERSION_NTSC_1_0 ? 0x0017 : 0x0016)
 #define GAILIST_DO_BORED_ANIMATION     (VERSION >= VERSION_NTSC_1_0 ? 0x0018 : 0x0017)
 #define GAILIST_DO_SITTING_ANIMATION   (VERSION >= VERSION_NTSC_1_0 ? 0x0019 : 0x0018)
-#define GAILIST_DISGUISE_DETECTION     (VERSION >= VERSION_NTSC_1_0 ? 0x001a : 0x0019)
+#define GAILIST_PATROLLER_DIS_TALKING  (VERSION >= VERSION_NTSC_1_0 ? 0x001a : 0x0019)
 #define GAILIST_OBSERVE_CAMSPY         (VERSION >= VERSION_NTSC_1_0 ? 0x001b : 0x001a)
 #define GAILIST_SURPRISED              (VERSION >= VERSION_NTSC_1_0 ? 0x001c : 0x001b)
 #define GAILIST_SEARCH_FOR_PLAYER      (VERSION >= VERSION_NTSC_1_0 ? 0x001d : 0x001c)
 #define GAILIST_LOOK_AROUND            (VERSION >= VERSION_NTSC_1_0 ? 0x001e : 0x001d)
 #define GAILIST_RELATED_TO_SPAWNING    (VERSION >= VERSION_NTSC_1_0 ? 0x001f : 0x001e)
-#define GAILIST_PLACE_COOP_BUDDY       (VERSION >= VERSION_NTSC_1_0 ? 0x0020 : 0x001f)
+#define GAILIST_BUDDY_WARP             (VERSION >= VERSION_NTSC_1_0 ? 0x0020 : 0x001f)
 #define GAILIST_STOP_AND_IDLE          (VERSION >= VERSION_NTSC_1_0 ? 0x0021 : 0x0020)
 #define GAILIST_COMMENT_ON_PLAYER_DEAD (VERSION >= VERSION_NTSC_1_0 ? 0x0022 : 0x0021) // unused
 #define GAILIST_DODGE                  (VERSION >= VERSION_NTSC_1_0 ? 0x0023 : 0x0022)
@@ -938,10 +939,10 @@
 #define GAILIST_POINTLESS              (VERSION >= VERSION_NTSC_1_0 ? 0x0025 : 0x0024) // unused
 #define GAILIST_INIT_PSYCHOSIS         (VERSION >= VERSION_NTSC_1_0 ? 0x0026 : 0x0025)
 #define GAILIST_PSYCHOSISED            (VERSION >= VERSION_NTSC_1_0 ? 0x0027 : 0x0026)
-#define GAILIST_AI_BOT_DEAD            (VERSION >= VERSION_NTSC_1_0 ? 0x0028 : 0x0027) // unused
-#define GAILIST_AI_BOT_INIT            (VERSION >= VERSION_NTSC_1_0 ? 0x0029 : 0x0028) // unused
-#define GAILIST_AI_BOT_ALIVE           (VERSION >= VERSION_NTSC_1_0 ? 0x002a : 0x0029) // unused
-#define GAILIST_DO_SOMETHING_AND_WAIT  (VERSION >= VERSION_NTSC_1_0 ? 0x002b : 0x002a) // unused
+#define GAILIST_AIBOT_DEAD             (VERSION >= VERSION_NTSC_1_0 ? 0x0028 : 0x0027) // unused
+#define GAILIST_AIBOT_INIT             (VERSION >= VERSION_NTSC_1_0 ? 0x0029 : 0x0028) // unused
+#define GAILIST_AIBOT_MAIN             (VERSION >= VERSION_NTSC_1_0 ? 0x002a : 0x0029) // unused
+#define GAILIST_AVOID                  (VERSION >= VERSION_NTSC_1_0 ? 0x002b : 0x002a) // unused
 #define GAILIST_INIT_SEARCH            (VERSION >= VERSION_NTSC_1_0 ? 0x002c : 0x002b) // unused
 #define GAILIST_INVINCIBLE_AND_IDLE    (VERSION >= VERSION_NTSC_1_0 ? 0x002d : 0x002c)
 
@@ -3146,6 +3147,17 @@
 #define PORTALMODE_SHOW 0
 #define PORTALMODE_HIDE 1
 
+#define PRESETANIM_TALK0      0
+#define PRESETANIM_TALK1      1
+#define PRESETANIM_TALK2      2
+#define PRESETANIM_TALK3      3
+#define PRESETANIM_TALK4      4
+#define PRESETANIM_TALK5      5
+#define PRESETANIM_TALK6      6
+#define PRESETANIM_TALK7      7
+#define PRESETANIM_GUNJAM     254
+#define PRESETANIM_TALKRANDOM 255
+
 #define PROFILE_MAINTICK_END     0x10000
 #define PROFILE_RSP_END          0x10001
 #define PROFILE_RDP_END          0x10002
@@ -3498,7 +3510,7 @@
 #define SPAWNFLAG_IGNORECOLLISION     0x00000100 // For initial chr placement only
 #define SPAWNFLAG_00000200            0x00000200
 #define SPAWNFLAG_ANTINONINTERACTABLE 0x00000400
-#define SPAWNFLAG_00000800            0x00000800
+#define SPAWNFLAG_DONTSHOOTME            0x00000800
 #define SPAWNFLAG_HIDDEN              0x00001000
 #define SPAWNFLAG_NOBLOOD             0x00002000
 #define SPAWNFLAG_FIXEDHEIGHT         0x00004000 // By default, chr heights vary slightly. This disables it.
