@@ -7910,12 +7910,13 @@ s32 cdTestAToB3(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, f3
 	return result;
 }
 
-void cd0002da50(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, u32 types, s32 arg5, f32 ymax, f32 ymin)
+s32 cd0002da50(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, u32 types, s32 arg5, f32 ymax, f32 ymin)
 {
 	s16 rooms[21];
 
 	func00018148(arg0, arg2, arg1, arg3, rooms, 20);
-	cd0002d3b0(arg0, arg2, rooms, types, 4, 0, arg5, ymax, ymin);
+
+	return cd0002d3b0(arg0, arg2, rooms, types, 4, 0, arg5, ymax, ymin);
 }
 
 s32 cd0002dac8(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, f32 width, u32 types, s32 arg6, f32 ymax, f32 ymin)
