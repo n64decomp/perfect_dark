@@ -5309,213 +5309,53 @@ bool chrCanJumpInDirection(struct chrdata *chr, bool side, f32 distance)
 	return propchrHasClearLineToPos(prop, &dstpos, &vector);
 }
 
-GLOBAL_ASM(
-glabel func0f036c08
-/*  f036c08:	27bdff58 */ 	addiu	$sp,$sp,-168
-/*  f036c0c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f036c10:	afb30028 */ 	sw	$s3,0x28($sp)
-/*  f036c14:	afb20024 */ 	sw	$s2,0x24($sp)
-/*  f036c18:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f036c1c:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f036c20:	afa500ac */ 	sw	$a1,0xac($sp)
-/*  f036c24:	afa600b0 */ 	sw	$a2,0xb0($sp)
-/*  f036c28:	8c88001c */ 	lw	$t0,0x1c($a0)
-/*  f036c2c:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f036c30:	afae0060 */ 	sw	$t6,0x60($sp)
-/*  f036c34:	8c8f0014 */ 	lw	$t7,0x14($a0)
-/*  f036c38:	3c13800a */ 	lui	$s3,%hi(g_Vars)
-/*  f036c3c:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
-/*  f036c40:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f036c44:	07010018 */ 	bgez	$t8,.L0f036ca8
-/*  f036c48:	25040008 */ 	addiu	$a0,$t0,0x8
-/*  f036c4c:	8e630284 */ 	lw	$v1,0x284($s3)
-/*  f036c50:	3c098007 */ 	lui	$t1,%hi(g_InCutscene)
-/*  f036c54:	8c7900d8 */ 	lw	$t9,0xd8($v1)
-/*  f036c58:	57200049 */ 	bnezl	$t9,.L0f036d80
-/*  f036c5c:	8fab0060 */ 	lw	$t3,0x60($sp)
-/*  f036c60:	8d290764 */ 	lw	$t1,%lo(g_InCutscene)($t1)
-/*  f036c64:	55200046 */ 	bnezl	$t1,.L0f036d80
-/*  f036c68:	8fab0060 */ 	lw	$t3,0x60($sp)
-/*  f036c6c:	8c620480 */ 	lw	$v0,0x480($v1)
-/*  f036c70:	50400007 */ 	beqzl	$v0,.L0f036c90
-/*  f036c74:	8c6c1c54 */ 	lw	$t4,0x1c54($v1)
-/*  f036c78:	50400041 */ 	beqzl	$v0,.L0f036d80
-/*  f036c7c:	8fab0060 */ 	lw	$t3,0x60($sp)
-/*  f036c80:	804a0037 */ 	lb	$t2,0x37($v0)
-/*  f036c84:	5540003e */ 	bnezl	$t2,.L0f036d80
-/*  f036c88:	8fab0060 */ 	lw	$t3,0x60($sp)
-/*  f036c8c:	8c6c1c54 */ 	lw	$t4,0x1c54($v1)
-.L0f036c90:
-/*  f036c90:	8c6b00c4 */ 	lw	$t3,0xc4($v1)
-/*  f036c94:	01806827 */ 	nor	$t5,$t4,$zero
-/*  f036c98:	016d7024 */ 	and	$t6,$t3,$t5
-/*  f036c9c:	31cf0008 */ 	andi	$t7,$t6,0x8
-/*  f036ca0:	51e00037 */ 	beqzl	$t7,.L0f036d80
-/*  f036ca4:	8fab0060 */ 	lw	$t3,0x60($sp)
-.L0f036ca8:
-/*  f036ca8:	3c13800a */ 	lui	$s3,%hi(g_Vars)
-/*  f036cac:	27b8007c */ 	addiu	$t8,$sp,0x7c
-/*  f036cb0:	24190014 */ 	addiu	$t9,$zero,0x14
-/*  f036cb4:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
-/*  f036cb8:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f036cbc:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f036cc0:	25050028 */ 	addiu	$a1,$t0,0x28
-/*  f036cc4:	8fa600ac */ 	lw	$a2,0xac($sp)
-/*  f036cc8:	0fc1977f */ 	jal	func0f065dfc
-/*  f036ccc:	27a70064 */ 	addiu	$a3,$sp,0x64
-/*  f036cd0:	8e690314 */ 	lw	$t1,0x314($s3)
-/*  f036cd4:	87aa007c */ 	lh	$t2,0x7c($sp)
-/*  f036cd8:	87af007c */ 	lh	$t7,0x7c($sp)
-/*  f036cdc:	11200013 */ 	beqz	$t1,.L0f036d2c
-/*  f036ce0:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f036ce4:	108a0025 */ 	beq	$a0,$t2,.L0f036d7c
-/*  f036ce8:	27a2007c */ 	addiu	$v0,$sp,0x7c
-/*  f036cec:	3c05800a */ 	lui	$a1,%hi(g_MpRoomVisibility)
-/*  f036cf0:	8ca5492c */ 	lw	$a1,%lo(g_MpRoomVisibility)($a1)
-/*  f036cf4:	84430000 */ 	lh	$v1,0x0($v0)
-/*  f036cf8:	00655821 */ 	addu	$t3,$v1,$a1
-.L0f036cfc:
-/*  f036cfc:	916d0000 */ 	lbu	$t5,0x0($t3)
-/*  f036d00:	31ae000f */ 	andi	$t6,$t5,0xf
-/*  f036d04:	51c00004 */ 	beqzl	$t6,.L0f036d18
-/*  f036d08:	84430002 */ 	lh	$v1,0x2($v0)
-/*  f036d0c:	1000001b */ 	b	.L0f036d7c
-/*  f036d10:	afa00060 */ 	sw	$zero,0x60($sp)
-/*  f036d14:	84430002 */ 	lh	$v1,0x2($v0)
-.L0f036d18:
-/*  f036d18:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  f036d1c:	5483fff7 */ 	bnel	$a0,$v1,.L0f036cfc
-/*  f036d20:	00655821 */ 	addu	$t3,$v1,$a1
-/*  f036d24:	10000016 */ 	b	.L0f036d80
-/*  f036d28:	8fab0060 */ 	lw	$t3,0x60($sp)
-.L0f036d2c:
-/*  f036d2c:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f036d30:	108f0012 */ 	beq	$a0,$t7,.L0f036d7c
-/*  f036d34:	27a2007c */ 	addiu	$v0,$sp,0x7c
-/*  f036d38:	3c05800a */ 	lui	$a1,%hi(g_Rooms)
-/*  f036d3c:	8ca54928 */ 	lw	$a1,%lo(g_Rooms)($a1)
-/*  f036d40:	84430000 */ 	lh	$v1,0x0($v0)
-/*  f036d44:	2406008c */ 	addiu	$a2,$zero,0x8c
-.L0f036d48:
-/*  f036d48:	00660019 */ 	multu	$v1,$a2
-/*  f036d4c:	0000c812 */ 	mflo	$t9
-/*  f036d50:	00b94821 */ 	addu	$t1,$a1,$t9
-/*  f036d54:	952a0000 */ 	lhu	$t2,0x0($t1)
-/*  f036d58:	314c0004 */ 	andi	$t4,$t2,0x4
-/*  f036d5c:	51800004 */ 	beqzl	$t4,.L0f036d70
-/*  f036d60:	84430002 */ 	lh	$v1,0x2($v0)
-/*  f036d64:	10000005 */ 	b	.L0f036d7c
-/*  f036d68:	afa00060 */ 	sw	$zero,0x60($sp)
-/*  f036d6c:	84430002 */ 	lh	$v1,0x2($v0)
-.L0f036d70:
-/*  f036d70:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  f036d74:	1483fff4 */ 	bne	$a0,$v1,.L0f036d48
-/*  f036d78:	00000000 */ 	nop
-.L0f036d7c:
-/*  f036d7c:	8fab0060 */ 	lw	$t3,0x60($sp)
-.L0f036d80:
-/*  f036d80:	51600051 */ 	beqzl	$t3,.L0f036ec8
-/*  f036d84:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f036d88:	8e6d006c */ 	lw	$t5,0x6c($s3)
-/*  f036d8c:	00009025 */ 	or	$s2,$zero,$zero
-/*  f036d90:	00002825 */ 	or	$a1,$zero,$zero
-/*  f036d94:	11a00003 */ 	beqz	$t5,.L0f036da4
-/*  f036d98:	00002025 */ 	or	$a0,$zero,$zero
-/*  f036d9c:	10000001 */ 	b	.L0f036da4
-/*  f036da0:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f036da4:
-/*  f036da4:	8e6e0068 */ 	lw	$t6,0x68($s3)
-/*  f036da8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f036dac:	00001025 */ 	or	$v0,$zero,$zero
-/*  f036db0:	11c00003 */ 	beqz	$t6,.L0f036dc0
-/*  f036db4:	00126080 */ 	sll	$t4,$s2,0x2
-/*  f036db8:	10000001 */ 	b	.L0f036dc0
-/*  f036dbc:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f036dc0:
-/*  f036dc0:	8e6f0064 */ 	lw	$t7,0x64($s3)
-/*  f036dc4:	026c8021 */ 	addu	$s0,$s3,$t4
-/*  f036dc8:	27b10050 */ 	addiu	$s1,$sp,0x50
-/*  f036dcc:	11e00003 */ 	beqz	$t7,.L0f036ddc
-/*  f036dd0:	00000000 */ 	nop
-/*  f036dd4:	10000001 */ 	b	.L0f036ddc
-/*  f036dd8:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f036ddc:
-/*  f036ddc:	8e780070 */ 	lw	$t8,0x70($s3)
-/*  f036de0:	13000003 */ 	beqz	$t8,.L0f036df0
-/*  f036de4:	00000000 */ 	nop
-/*  f036de8:	10000001 */ 	b	.L0f036df0
-/*  f036dec:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f036df0:
-/*  f036df0:	0043c821 */ 	addu	$t9,$v0,$v1
-/*  f036df4:	03244821 */ 	addu	$t1,$t9,$a0
-/*  f036df8:	01255021 */ 	addu	$t2,$t1,$a1
-/*  f036dfc:	59400032 */ 	blezl	$t2,.L0f036ec8
-/*  f036e00:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f036e04:	8e0b0064 */ 	lw	$t3,0x64($s0)
-.L0f036e08:
-/*  f036e08:	8fa400ac */ 	lw	$a0,0xac($sp)
-/*  f036e0c:	8fa600b0 */ 	lw	$a2,0xb0($sp)
-/*  f036e10:	8d6500bc */ 	lw	$a1,0xbc($t3)
-/*  f036e14:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f036e18:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f036e1c:	02203825 */ 	or	$a3,$s1,$zero
-/*  f036e20:	0c006052 */ 	jal	func00018148
-/*  f036e24:	24a50008 */ 	addiu	$a1,$a1,8
-/*  f036e28:	8e0d0064 */ 	lw	$t5,0x64($s0)
-/*  f036e2c:	02202825 */ 	or	$a1,$s1,$zero
-/*  f036e30:	8da400bc */ 	lw	$a0,0xbc($t5)
-/*  f036e34:	0fc19620 */ 	jal	arrayIntersects
-/*  f036e38:	24840028 */ 	addiu	$a0,$a0,0x28
-/*  f036e3c:	10400003 */ 	beqz	$v0,.L0f036e4c
-/*  f036e40:	00002825 */ 	or	$a1,$zero,$zero
-/*  f036e44:	1000001f */ 	b	.L0f036ec4
-/*  f036e48:	afa00060 */ 	sw	$zero,0x60($sp)
-.L0f036e4c:
-/*  f036e4c:	8e6e006c */ 	lw	$t6,0x6c($s3)
-/*  f036e50:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f036e54:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f036e58:	11c00003 */ 	beqz	$t6,.L0f036e68
-/*  f036e5c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f036e60:	10000001 */ 	b	.L0f036e68
-/*  f036e64:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f036e68:
-/*  f036e68:	8e6f0068 */ 	lw	$t7,0x68($s3)
-/*  f036e6c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f036e70:	00001025 */ 	or	$v0,$zero,$zero
-/*  f036e74:	11e00003 */ 	beqz	$t7,.L0f036e84
-/*  f036e78:	00000000 */ 	nop
-/*  f036e7c:	10000001 */ 	b	.L0f036e84
-/*  f036e80:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f036e84:
-/*  f036e84:	8e780064 */ 	lw	$t8,0x64($s3)
-/*  f036e88:	13000003 */ 	beqz	$t8,.L0f036e98
-/*  f036e8c:	00000000 */ 	nop
-/*  f036e90:	10000001 */ 	b	.L0f036e98
-/*  f036e94:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f036e98:
-/*  f036e98:	8e790070 */ 	lw	$t9,0x70($s3)
-/*  f036e9c:	13200003 */ 	beqz	$t9,.L0f036eac
-/*  f036ea0:	00000000 */ 	nop
-/*  f036ea4:	10000001 */ 	b	.L0f036eac
-/*  f036ea8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f036eac:
-/*  f036eac:	00434821 */ 	addu	$t1,$v0,$v1
-/*  f036eb0:	01245021 */ 	addu	$t2,$t1,$a0
-/*  f036eb4:	01456021 */ 	addu	$t4,$t2,$a1
-/*  f036eb8:	024c082a */ 	slt	$at,$s2,$t4
-/*  f036ebc:	5420ffd2 */ 	bnezl	$at,.L0f036e08
-/*  f036ec0:	8e0b0064 */ 	lw	$t3,0x64($s0)
-.L0f036ec4:
-/*  f036ec4:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f036ec8:
-/*  f036ec8:	8fa20060 */ 	lw	$v0,0x60($sp)
-/*  f036ecc:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f036ed0:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f036ed4:	8fb20024 */ 	lw	$s2,0x24($sp)
-/*  f036ed8:	8fb30028 */ 	lw	$s3,0x28($sp)
-/*  f036edc:	03e00008 */ 	jr	$ra
-/*  f036ee0:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
-);
+bool chrIsRoomOffScreen(struct chrdata *chr, struct coord *waypos, s16 *wayrooms)
+{
+	struct prop *prop = chr->prop;
+	s16 sp7c[20];
+	u32 stack;
+	s32 i;
+	s16 sp64[8];
+	bool offscreen = true;
+	s16 sp50[8];
+
+	if ((chr->hidden & CHRHFLAG_CLOAKED) == 0
+			|| (!g_Vars.currentplayer->isdead
+				&& !g_InCutscene
+				&& EYESPYINACTIVE()
+				&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_IRSCANNER))) {
+		func0f065dfc(&prop->pos, prop->rooms, waypos, sp64, sp7c, 20);
+
+		if (g_Vars.mplayerisrunning) {
+			for (i = 0; sp7c[i] != -1; i++) {
+				if (g_MpRoomVisibility[sp7c[i]] & 0x0f) {
+					offscreen = false;
+					break;
+				}
+			}
+		} else {
+			for (i = 0; sp7c[i] != -1; i++) {
+				if (g_Rooms[sp7c[i]].flags & ROOMFLAG_VISIBLEBYPLAYER) {
+					offscreen = false;
+					break;
+				}
+			}
+		}
+	}
+
+	if (offscreen) {
+		for (i = 0; i < PLAYERCOUNT(); i++) {
+			func00018148(waypos, &g_Vars.players[i]->prop->pos, wayrooms, sp50, 0, 0);
+
+			if (arrayIntersects(g_Vars.players[i]->prop->rooms, sp50)) {
+				offscreen = false;
+				break;
+			}
+		}
+	}
+
+	return offscreen;
+}
 
 void chrGoPosInitMagic(struct chrdata *chr, struct waydata *waydata, struct coord *padpos, struct coord *chrpos)
 {
@@ -6332,7 +6172,7 @@ bool chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 flags)
 		if ((!isgopos || ismagic)
 				&& g_Vars.normmplayerisrunning == false
 				&& (prop->flags & (PROPFLAG_ONANYSCREENPREVTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONTHISSCREENTHISTICK)) == 0
-				&& func0f036c08(chr, &curwppos, curwprooms)
+				&& chrIsRoomOffScreen(chr, &curwppos, curwprooms)
 				&& chr->inlift == false) {
 			chrGoPosInitMagic(chr, &chr->act_gopos.waydata, &curwppos, &prevpos);
 		}
@@ -6610,7 +6450,7 @@ glabel var7f1a8dd0
 /*  f038e60:	314b00c2 */ 	andi	$t3,$t2,0xc2
 /*  f038e64:	5560000d */ 	bnezl	$t3,.L0f038e9c
 /*  f038e68:	826e0068 */ 	lb	$t6,0x68($s3)
-/*  f038e6c:	0fc0db02 */ 	jal	func0f036c08
+/*  f038e6c:	0fc0db02 */ 	jal	chrIsRoomOffScreen
 /*  f038e70:	02203025 */ 	or	$a2,$s1,$zero
 /*  f038e74:	50400009 */ 	beqzl	$v0,.L0f038e9c
 /*  f038e78:	826e0068 */ 	lb	$t6,0x68($s3)
@@ -6754,7 +6594,7 @@ glabel var7f1a8dd0
 //
 //			if (!g_Vars.normmplayerisrunning
 //					&& (chr->prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0
-//					&& func0f036c08(chr, &nextpos, nextrooms)
+//					&& chrIsRoomOffScreen(chr, &nextpos, nextrooms)
 //					&& !chr->inlift) {
 //				chrGoPosInitMagic(chr, &chr->act_patrol.waydata, &nextpos, &prop->pos);
 //			}
@@ -18915,7 +18755,7 @@ void chrTickGoPos(struct chrdata *chr)
 	if (chr->act_gopos.waydata.mode != WAYMODE_MAGIC
 			&& chr->act_gopos.waydata.lastvisible60 + PALDOWN(180) < g_Vars.lvframe60
 			&& g_Vars.normmplayerisrunning == false
-			&& func0f036c08(chr, &curwppos, curwprooms) // related to eyespy
+			&& chrIsRoomOffScreen(chr, &curwppos, curwprooms) // related to eyespy
 			&& (curwpflags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT)) == 0
 			&& chr->inlift == false) {
 		enteringmagic = true;
@@ -18952,7 +18792,7 @@ void chrTickGoPos(struct chrdata *chr)
 
 	// Check if chr needs to exit magic mode
 	if (chr->act_gopos.waydata.mode == WAYMODE_MAGIC) {
-		if ((!enteringmagic && ((prop->flags & (PROPFLAG_ONANYSCREENPREVTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONTHISSCREENTHISTICK)) || !func0f036c08(chr, &curwppos, curwprooms)))
+		if ((!enteringmagic && ((prop->flags & (PROPFLAG_ONANYSCREENPREVTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONTHISSCREENTHISTICK)) || !chrIsRoomOffScreen(chr, &curwppos, curwprooms)))
 				|| (curwpflags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))
 				|| chr->inlift) {
 			// Exiting magic mode
@@ -19189,7 +19029,7 @@ void chrTickPatrol(struct chrdata *chr)
 	if (chr->act_patrol.waydata.mode != WAYMODE_MAGIC
 			&& g_Vars.lvframe60 > chr->act_patrol.waydata.lastvisible60 + PALDOWN(180)
 			&& !g_Vars.normmplayerisrunning
-			&& func0f036c08(chr, &sp58, sp48)
+			&& chrIsRoomOffScreen(chr, &sp58, sp48)
 			&& (flags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT)) == 0
 			&& !chr->inlift) {
 		enteringmagic = true;
@@ -19197,7 +19037,7 @@ void chrTickPatrol(struct chrdata *chr)
 	}
 
 	if (chr->act_patrol.waydata.mode == WAYMODE_MAGIC) {
-		if ((!enteringmagic && ((prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) || !func0f036c08(chr, &sp58, sp48)))
+		if ((!enteringmagic && ((prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) || !chrIsRoomOffScreen(chr, &sp58, sp48)))
 				|| (flags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))
 				|| chr->inlift) {
 			// Exit magic for lifts

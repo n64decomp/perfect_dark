@@ -75,7 +75,7 @@ void chrGetSideVectorToTarget(struct chrdata *chr, bool side, struct coord *vect
 bool chrCanRollInDirection(struct chrdata *chr, bool toleft, f32 distance);
 void chrGetSideVector(struct chrdata *chr, bool side, struct coord *vector);
 bool chrCanJumpInDirection(struct chrdata *chr, bool side, f32 distance);
-s32 func0f036c08(struct chrdata *chr, struct coord *arg1, s16 *rooms);
+bool chrIsRoomOffScreen(struct chrdata *chr, struct coord *waypos, s16 *wayrooms);
 void chrGoPosInitMagic(struct chrdata *chr, struct waydata *waydata, struct coord *arg2, struct coord *prevpos);
 void chrGoPosGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags);
 f32 func0f0370a8(struct chrdata *chr);
