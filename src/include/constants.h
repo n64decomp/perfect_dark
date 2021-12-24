@@ -3920,13 +3920,13 @@
 #define VOICEBOX_MALE2  2
 #define VOICEBOX_FEMALE 3
 
-#define WAYMODE_EXPENSIVE 0
-#define WAYMODE_1         1
-#define WAYMODE_2         2
-#define WAYMODE_3         3
-#define WAYMODE_4         4
-#define WAYMODE_5         5
-#define WAYMODE_MAGIC     6
+#define WAYMODE_INIT        0
+#define WAYMODE_LOST1       1
+#define WAYMODE_RETRY       2
+#define WAYMODE_LOST2       3
+#define WAYMODE_HAVEAIMPOS  4
+#define WAYMODE_NEWOBSACTLE 5
+#define WAYMODE_MAGIC       6
 
 enum weaponnum {
 	/*0x00*/ WEAPON_NONE,

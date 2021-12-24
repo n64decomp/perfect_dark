@@ -1171,11 +1171,11 @@ struct waydata {
 	/*0x01*/ s8 iter;
 	/*0x02*/ s8 gotaimpos;
 	/*0x03*/ s8 gotaimposobj;
-	/*0x04*/ struct coord aimpos;
-	/*0x10*/ struct coord unk10;
-	/*0x1c*/ struct coord unk1c;
+	/*0x04*/ struct coord aimpos; // world coords of next pad
+	/*0x10*/ struct coord obstacleleft;  // world coord of left (from chr's perspective) edge of obj
+	/*0x1c*/ struct coord obstacleright; // world coord of right (from chr's perspective) edge of obj
 	/*0x28*/ s32 age;
-	/*0x2c*/ struct coord aimposobj;
+	/*0x2c*/ struct coord aimposobj; // left or right edge + chr's width, or aimpos if no obj
 
 	// These are the distances between the current waypoint and the previous
 	// when using magic mode.
