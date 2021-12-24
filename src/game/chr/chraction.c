@@ -8892,275 +8892,87 @@ void chrTickDie(struct chrdata *chr)
 	chrAlertOthersOfInjury(chr, true);
 }
 
-u32 var80068408 = 0x808d808e;
-u32 var8006840c = 0x808f8090;
-u32 var80068410 = 0x80918092;
-u32 var80068414 = 0x80938094;
-u32 var80068418 = 0x80958096;
-u32 var8006841c = 0x80970000;
+void chrTickDruggedComingUp(struct chrdata *chr)
+{
+	u16 thuds[] = {
+		SFX_THUD_808D,
+		SFX_THUD_808E,
+		SFX_THUD_808F,
+		SFX_THUD_8090,
+		SFX_THUD_8091,
+		SFX_THUD_8092,
+		SFX_THUD_8093,
+		SFX_THUD_8094,
+		SFX_THUD_8095,
+		SFX_THUD_8096,
+		SFX_THUD_8097,
+	};
 
-GLOBAL_ASM(
-glabel chrTickDruggedComingUp
-/*  f03d7ec:	27bdff58 */ 	addiu	$sp,$sp,-168
-/*  f03d7f0:	3c0f8007 */ 	lui	$t7,%hi(var80068408)
-/*  f03d7f4:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*  f03d7f8:	afbe0058 */ 	sw	$s8,0x58($sp)
-/*  f03d7fc:	afb70054 */ 	sw	$s7,0x54($sp)
-/*  f03d800:	afb60050 */ 	sw	$s6,0x50($sp)
-/*  f03d804:	afb5004c */ 	sw	$s5,0x4c($sp)
-/*  f03d808:	afb40048 */ 	sw	$s4,0x48($sp)
-/*  f03d80c:	afb30044 */ 	sw	$s3,0x44($sp)
-/*  f03d810:	afb20040 */ 	sw	$s2,0x40($sp)
-/*  f03d814:	afb1003c */ 	sw	$s1,0x3c($sp)
-/*  f03d818:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f03d81c:	f7b60030 */ 	sdc1	$f22,0x30($sp)
-/*  f03d820:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f03d824:	25ef8408 */ 	addiu	$t7,$t7,%lo(var80068408)
-/*  f03d828:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f03d82c:	27ae0090 */ 	addiu	$t6,$sp,0x90
-/*  f03d830:	8de90004 */ 	lw	$t1,0x4($t7)
-/*  f03d834:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f03d838:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f03d83c:	adc90004 */ 	sw	$t1,0x4($t6)
-/*  f03d840:	8de9000c */ 	lw	$t1,0xc($t7)
-/*  f03d844:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f03d848:	8de10010 */ 	lw	$at,0x10($t7)
-/*  f03d84c:	adc9000c */ 	sw	$t1,0xc($t6)
-/*  f03d850:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x38)
-/*  f03d854:	adc10010 */ 	sw	$at,0x10($t6)
-/*  f03d858:	95e10014 */ 	lhu	$at,0x14($t7)
-/*  f03d85c:	0080f025 */ 	or	$s8,$a0,$zero
-/*  f03d860:	00009825 */ 	or	$s3,$zero,$zero
-/*  f03d864:	a5c10014 */ 	sh	$at,0x14($t6)
-/*  f03d868:	848a002c */ 	lh	$t2,0x2c($a0)
-/*  f03d86c:	8d6b9ff8 */ 	lw	$t3,%lo(g_Vars+0x38)($t3)
-/*  f03d870:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f03d874:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03d878:	014b6021 */ 	addu	$t4,$t2,$t3
-/*  f03d87c:	a48c002c */ 	sh	$t4,0x2c($a0)
-/*  f03d880:	848d002c */ 	lh	$t5,0x2c($a0)
-/*  f03d884:	59a00074 */ 	blezl	$t5,.L0f03da58
-/*  f03d888:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*  f03d88c:	50800005 */ 	beqzl	$a0,.L0f03d8a4
-/*  f03d890:	afa00088 */ 	sw	$zero,0x88($sp)
-/*  f03d894:	909902fe */ 	lbu	$t9,0x2fe($a0)
-/*  f03d898:	10000002 */ 	b	.L0f03d8a4
-/*  f03d89c:	afb90088 */ 	sw	$t9,0x88($sp)
-/*  f03d8a0:	afa00088 */ 	sw	$zero,0x88($sp)
-.L0f03d8a4:
-/*  f03d8a4:	8fd70020 */ 	lw	$s7,0x20($s8)
-/*  f03d8a8:	0fc08946 */ 	jal	chrUncloak
-/*  f03d8ac:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f03d8b0:	2418001e */ 	addiu	$t8,$zero,0x1e
-/*  f03d8b4:	3c014180 */ 	lui	$at,0x4180
-/*  f03d8b8:	a3d80007 */ 	sb	$t8,0x7($s8)
-/*  f03d8bc:	3c158006 */ 	lui	$s5,%hi(g_AnimTablesByRace)
-/*  f03d8c0:	4481b000 */ 	mtc1	$at,$f22
-/*  f03d8c4:	4480a000 */ 	mtc1	$zero,$f20
-/*  f03d8c8:	26b552b8 */ 	addiu	$s5,$s5,%lo(g_AnimTablesByRace)
-/*  f03d8cc:	8fa20088 */ 	lw	$v0,0x88($sp)
-/*  f03d8d0:	24160014 */ 	addiu	$s6,$zero,0x14
-.L0f03d8d4:
-/*  f03d8d4:	06600033 */ 	bltz	$s3,.L0f03d9a4
-/*  f03d8d8:	00000000 */ 	nop
-/*  f03d8dc:	02760019 */ 	multu	$s3,$s6
-/*  f03d8e0:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f03d8e4:	02ae8821 */ 	addu	$s1,$s5,$t6
-/*  f03d8e8:	8e2f0000 */ 	lw	$t7,0x0($s1)
-/*  f03d8ec:	00009012 */ 	mflo	$s2
-/*  f03d8f0:	01f21821 */ 	addu	$v1,$t7,$s2
-/*  f03d8f4:	8c690004 */ 	lw	$t1,0x4($v1)
-/*  f03d8f8:	1120002a */ 	beqz	$t1,.L0f03d9a4
-/*  f03d8fc:	00000000 */ 	nop
-/*  f03d900:	8c6a000c */ 	lw	$t2,0xc($v1)
-/*  f03d904:	19400027 */ 	blez	$t2,.L0f03d9a4
-/*  f03d908:	00000000 */ 	nop
-/*  f03d90c:	0c004b70 */ 	jal	random
-/*  f03d910:	24140001 */ 	addiu	$s4,$zero,0x1
-/*  f03d914:	8e2b0000 */ 	lw	$t3,0x0($s1)
-/*  f03d918:	4407a000 */ 	mfc1	$a3,$f20
-/*  f03d91c:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f03d920:	01721821 */ 	addu	$v1,$t3,$s2
-/*  f03d924:	8c6c000c */ 	lw	$t4,0xc($v1)
-/*  f03d928:	8c6d0004 */ 	lw	$t5,0x4($v1)
-/*  f03d92c:	02e02025 */ 	or	$a0,$s7,$zero
-/*  f03d930:	004c001b */ 	divu	$zero,$v0,$t4
-/*  f03d934:	00004010 */ 	mfhi	$t0
-/*  f03d938:	0008c8c0 */ 	sll	$t9,$t0,0x3
-/*  f03d93c:	0328c823 */ 	subu	$t9,$t9,$t0
-/*  f03d940:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f03d944:	01b98021 */ 	addu	$s0,$t5,$t9
-/*  f03d948:	c6040014 */ 	lwc1	$f4,0x14($s0)
-/*  f03d94c:	15800002 */ 	bnez	$t4,.L0f03d958
-/*  f03d950:	00000000 */ 	nop
-/*  f03d954:	0007000d */ 	break	0x7
-.L0f03d958:
-/*  f03d958:	e7c40030 */ 	swc1	$f4,0x30($s8)
-/*  f03d95c:	c6060018 */ 	lwc1	$f6,0x18($s0)
-/*  f03d960:	e7c60034 */ 	swc1	$f6,0x34($s8)
-/*  f03d964:	c608000c */ 	lwc1	$f8,0xc($s0)
-/*  f03d968:	8e060004 */ 	lw	$a2,0x4($s0)
-/*  f03d96c:	86050000 */ 	lh	$a1,0x0($s0)
-/*  f03d970:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f03d974:	e7b60014 */ 	swc1	$f22,0x14($sp)
-/*  f03d978:	0c0076ff */ 	jal	modelSetAnimationWithMerge
-/*  f03d97c:	e7a80010 */ 	swc1	$f8,0x10($sp)
-/*  f03d980:	c6000008 */ 	lwc1	$f0,0x8($s0)
-/*  f03d984:	4600a03e */ 	c.le.s	$f20,$f0
-/*  f03d988:	00000000 */ 	nop
-/*  f03d98c:	45020005 */ 	bc1fl	.L0f03d9a4
-/*  f03d990:	8fa20088 */ 	lw	$v0,0x88($sp)
-/*  f03d994:	44050000 */ 	mfc1	$a1,$f0
-/*  f03d998:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f03d99c:	02e02025 */ 	or	$a0,$s7,$zero
-/*  f03d9a0:	8fa20088 */ 	lw	$v0,0x88($sp)
-.L0f03d9a4:
-/*  f03d9a4:	1680000d */ 	bnez	$s4,.L0f03d9dc
-/*  f03d9a8:	00000000 */ 	nop
-/*  f03d9ac:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f03d9b0:	02760019 */ 	multu	$s3,$s6
-/*  f03d9b4:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f03d9b8:	02ae7821 */ 	addu	$t7,$s5,$t6
-/*  f03d9bc:	8de90000 */ 	lw	$t1,0x0($t7)
-/*  f03d9c0:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f03d9c4:	00005012 */ 	mflo	$t2
-/*  f03d9c8:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f03d9cc:	8d6c0000 */ 	lw	$t4,0x0($t3)
-/*  f03d9d0:	15810002 */ 	bne	$t4,$at,.L0f03d9dc
-/*  f03d9d4:	00000000 */ 	nop
-/*  f03d9d8:	24140001 */ 	addiu	$s4,$zero,0x1
-.L0f03d9dc:
-/*  f03d9dc:	1280ffbd */ 	beqz	$s4,.L0f03d8d4
-/*  f03d9e0:	00000000 */ 	nop
-/*  f03d9e4:	8fc40170 */ 	lw	$a0,0x170($s8)
-/*  f03d9e8:	5080000c */ 	beqzl	$a0,.L0f03da1c
-/*  f03d9ec:	8fc40174 */ 	lw	$a0,0x174($s8)
-/*  f03d9f0:	8c8d0004 */ 	lw	$t5,0x4($a0)
-/*  f03d9f4:	8db90008 */ 	lw	$t9,0x8($t5)
-/*  f03d9f8:	33382000 */ 	andi	$t8,$t9,0x2000
-/*  f03d9fc:	57000007 */ 	bnezl	$t8,.L0f03da1c
-/*  f03da00:	8fc40174 */ 	lw	$a0,0x174($s8)
-/*  f03da04:	0fc20a59 */ 	jal	objSetDropped
-/*  f03da08:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03da0c:	8fce0014 */ 	lw	$t6,0x14($s8)
-/*  f03da10:	35cf0001 */ 	ori	$t7,$t6,0x1
-/*  f03da14:	afcf0014 */ 	sw	$t7,0x14($s8)
-/*  f03da18:	8fc40174 */ 	lw	$a0,0x174($s8)
-.L0f03da1c:
-/*  f03da1c:	1080000b */ 	beqz	$a0,.L0f03da4c
-/*  f03da20:	00000000 */ 	nop
-/*  f03da24:	8c890004 */ 	lw	$t1,0x4($a0)
-/*  f03da28:	8d2a0008 */ 	lw	$t2,0x8($t1)
-/*  f03da2c:	314b2000 */ 	andi	$t3,$t2,0x2000
-/*  f03da30:	15600006 */ 	bnez	$t3,.L0f03da4c
-/*  f03da34:	00000000 */ 	nop
-/*  f03da38:	0fc20a59 */ 	jal	objSetDropped
-/*  f03da3c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03da40:	8fcc0014 */ 	lw	$t4,0x14($s8)
-/*  f03da44:	358d0001 */ 	ori	$t5,$t4,0x1
-/*  f03da48:	afcd0014 */ 	sw	$t5,0x14($s8)
-.L0f03da4c:
-/*  f03da4c:	0fc09149 */ 	jal	chrDropConcealedItems
-/*  f03da50:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f03da54:	8fbf005c */ 	lw	$ra,0x5c($sp)
-.L0f03da58:
-/*  f03da58:	d7b40028 */ 	ldc1	$f20,0x28($sp)
-/*  f03da5c:	d7b60030 */ 	ldc1	$f22,0x30($sp)
-/*  f03da60:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f03da64:	8fb1003c */ 	lw	$s1,0x3c($sp)
-/*  f03da68:	8fb20040 */ 	lw	$s2,0x40($sp)
-/*  f03da6c:	8fb30044 */ 	lw	$s3,0x44($sp)
-/*  f03da70:	8fb40048 */ 	lw	$s4,0x48($sp)
-/*  f03da74:	8fb5004c */ 	lw	$s5,0x4c($sp)
-/*  f03da78:	8fb60050 */ 	lw	$s6,0x50($sp)
-/*  f03da7c:	8fb70054 */ 	lw	$s7,0x54($sp)
-/*  f03da80:	8fbe0058 */ 	lw	$s8,0x58($sp)
-/*  f03da84:	03e00008 */ 	jr	$ra
-/*  f03da88:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
-);
+	chr->act_druggedcomingup.timer60 += g_Vars.lvupdate240_60;
 
-// Mismatch: regalloc
-//void chrTickDruggedComingUp(struct chrdata *chr)
-//{
-//	u16 thuds[] = {
-//		SFX_THUD_808D,
-//		SFX_THUD_808E,
-//		SFX_THUD_808F,
-//		SFX_THUD_8090,
-//		SFX_THUD_8091,
-//		SFX_THUD_8092,
-//		SFX_THUD_8093,
-//		SFX_THUD_8094,
-//		SFX_THUD_8095,
-//		SFX_THUD_8096,
-//		SFX_THUD_8097,
-//	};
-//
-//	u32 stack;
-//
-//	chr->act_druggedcomingup.timer60 += g_Vars.lvupdate240_60;
-//
-//	if (chr->act_druggedcomingup.timer60 > 0) {
-//		s32 race = CHRRACE(chr);
-//		struct model *model = chr->model;
-//		s32 i = 0;
-//		bool done = false;
-//		struct prop *weapon;
-//
-//		chrUncloak(chr, true);
-//
-//		chr->actiontype = ACT_DRUGGEDDROP;
-//
-//		while (!done) {
-//			if (i >= 0
-//					&& g_AnimTablesByRace[race][i].deathanims != NULL
-//					&& g_AnimTablesByRace[race][i].deathanimcount > 0) {
-//				struct animtablerow *row = &g_AnimTablesByRace[race][i].deathanims[random() % g_AnimTablesByRace[race][i].deathanimcount];
-//
-//				chr->act_die.thudframe1 = row->thudframe1;
-//				chr->act_die.thudframe2 = row->thudframe2;
-//
-//				modelSetAnimationWithMerge(model, row->animnum, row->flip, 0, row->speed, 16, true);
-//
-//				if (row->endframe >= 0) {
-//					modelSetAnimEndFrame(model, row->endframe);
-//				}
-//
-//				done = true;
-//			}
-//
-//			if (!done) {
-//				i++;
-//
-//				if (g_AnimTablesByRace[race][i].hitpart == -1) {
-//					done = true;
-//				}
-//			}
-//		}
-//
-//		weapon = chr->weapons_held[HAND_RIGHT];
-//
-//		if (weapon && (weapon->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
-//			objSetDropped(weapon, DROPTYPE_DEFAULT);
-//			chr->hidden |= CHRHFLAG_00000001;
-//		}
-//
-//		weapon = chr->weapons_held[HAND_LEFT];
-//
-//		if (weapon && (weapon->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
-//			objSetDropped(weapon, DROPTYPE_DEFAULT);
-//			chr->hidden |= CHRHFLAG_00000001;
-//		}
-//
-//		chrDropConcealedItems(chr);
-//	}
-//}
+	if (chr->act_druggedcomingup.timer60 > 0) {
+		struct animtablerow *row;
+		s32 race = CHRRACE(chr);
+		struct model *model = chr->model;
+		s32 i = 0;
+		bool done = false;
+		struct prop *weapon;
+
+		chrUncloak(chr, true);
+
+		chr->actiontype = ACT_DRUGGEDDROP;
+
+		while (!done) {
+			if (i >= 0
+					&& g_AnimTablesByRace[race][i].deathanims != NULL
+					&& g_AnimTablesByRace[race][i].deathanimcount > 0) {
+				s32 index = random() % g_AnimTablesByRace[race][i].deathanimcount;
+				row = &g_AnimTablesByRace[race][i].deathanims[index];
+
+				chr->act_die.thudframe1 = row->thudframe1;
+				chr->act_die.thudframe2 = row->thudframe2;
+
+				modelSetAnimationWithMerge(model, row->animnum, row->flip, 0, row->speed, 16, true);
+
+				if (row->endframe >= 0) {
+					modelSetAnimEndFrame(model, row->endframe);
+				}
+
+				done = true;
+			}
+
+			if (!done) {
+				i++;
+
+				if (g_AnimTablesByRace[race][i].hitpart == -1) {
+					done = true;
+				}
+			}
+		}
+
+		weapon = chr->weapons_held[HAND_RIGHT];
+
+		if (weapon && (weapon->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
+			objSetDropped(weapon, DROPTYPE_DEFAULT);
+			chr->hidden |= CHRHFLAG_00000001;
+		}
+
+		weapon = chr->weapons_held[HAND_LEFT];
+
+		if (weapon && (weapon->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
+			objSetDropped(weapon, DROPTYPE_DEFAULT);
+			chr->hidden |= CHRHFLAG_00000001;
+		}
+
+		chrDropConcealedItems(chr);
+	}
+}
 
 void chrTickDruggedDrop(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 
-	u16 thuds[11] = {
+	u16 thuds[] = {
 		SFX_THUD_808D,
 		SFX_THUD_808E,
 		SFX_THUD_808F,
