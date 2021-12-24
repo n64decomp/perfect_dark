@@ -2270,71 +2270,25 @@ void chrAttackStand(struct chrdata *chr, u32 attackflags, s32 entityid)
 	chrAttack(chr, animgroup, flip, firing, attackflags, entityid, true);
 }
 
-u32 var80068024 = 0x00000000;
-u32 var80068028 = 0x00000000;
+void chrAttackLie(struct chrdata *chr, u32 attackflags, s32 entityid)
+{
+	u32 stack[2];
+	struct prop *gun = chrGetHeldProp(chr, HAND_RIGHT);
+	s32 firing[2] = {false, false};
 
-GLOBAL_ASM(
-glabel chrAttackLie
-/*  f030308:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f03030c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f030310:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*  f030314:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f030318:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03031c:	0fc0a209 */ 	jal	chrGetHeldProp
-/*  f030320:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f030324:	3c0e8007 */ 	lui	$t6,%hi(var80068024)
-/*  f030328:	25ce8024 */ 	addiu	$t6,$t6,%lo(var80068024)
-/*  f03032c:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f030330:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*  f030334:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*  f030338:	27a70034 */ 	addiu	$a3,$sp,0x34
-/*  f03033c:	ace10000 */ 	sw	$at,0x0($a3)
-/*  f030340:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f030344:	312a0020 */ 	andi	$t2,$t1,0x20
-/*  f030348:	00404025 */ 	or	$t0,$v0,$zero
-/*  f03034c:	11400004 */ 	beqz	$t2,.L0f030360
-/*  f030350:	acf90004 */ 	sw	$t9,0x4($a3)
-/*  f030354:	afa00038 */ 	sw	$zero,0x38($sp)
-/*  f030358:	10000005 */ 	b	.L0f030370
-/*  f03035c:	afa00034 */ 	sw	$zero,0x34($sp)
-.L0f030360:
-/*  f030360:	2c430001 */ 	sltiu	$v1,$v0,0x1
-/*  f030364:	2c6b0001 */ 	sltiu	$t3,$v1,0x1
-/*  f030368:	afa30038 */ 	sw	$v1,0x38($sp)
-/*  f03036c:	afab0034 */ 	sw	$t3,0x34($sp)
-.L0f030370:
-/*  f030370:	8fac0050 */ 	lw	$t4,0x50($sp)
-/*  f030374:	3c058006 */ 	lui	$a1,%hi(g_LieAttackAnims)
-/*  f030378:	24a57e50 */ 	addiu	$a1,$a1,%lo(g_LieAttackAnims)
-/*  f03037c:	2d060001 */ 	sltiu	$a2,$t0,0x1
-/*  f030380:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f030384:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f030388:	0fc0c4e1 */ 	jal	chrAttack
-/*  f03038c:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f030390:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f030394:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f030398:	03e00008 */ 	jr	$ra
-/*  f03039c:	00000000 */ 	nop
-);
+	if (chr);
 
-// Mismatch because some instructions are swapped
-//void chrAttackLie(struct chrdata *chr, u32 attackflags, s32 entityid)
-//{
-//	u32 stack1[2];
-//	struct prop *gun = chrGetHeldProp(chr, 0);
-//	s32 firing[2] = {false, false};
-//	u32 stack2[2];
-//
-//	if (attackflags & 0x20) {
-//		firing[1] = false;
-//		firing[0] = false;
-//	} else {
-//		firing[1] = gun == NULL;
-//		firing[0] = !firing[1];
-//	}
-//
-//	chrAttack(chr, &g_LieAttackAnims, gun == NULL, firing, attackflags, entityid, false);
-//}
+	if (attackflags & ATTACKFLAG_AIMONLY) {
+		firing[1] = false;
+		firing[0] = false;
+	} else {
+		bool tmp = gun == NULL;
+		firing[1] = tmp;
+		firing[0] = (bool)!tmp;
+	}
+
+	chrAttack(chr, &g_LieAttackAnims, gun == NULL, firing, attackflags, entityid, false);
+}
 
 void chrAttackKneel(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
