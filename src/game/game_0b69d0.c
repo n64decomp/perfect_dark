@@ -15362,7 +15362,7 @@ s32 playerTick(struct prop *prop)
 
 		if ((chr->hidden & CHRHFLAG_00000800) == 0) {
 			for (i = 0; i < 2; i++) {
-				if (func0f03fde4(chr, i, &player->chrmuzzlelastpos[i])) {
+				if (chrGetGunPos(chr, i, &player->chrmuzzlelastpos[i])) {
 					player->chrmuzzlelast[i] = g_Vars.lvframenum;
 				} else if (player->chrmuzzlelast[i] < g_Vars.lvframenum - 1) {
 					player->chrmuzzlelastpos[i].x = player->hands[i].muzzlepos.x;

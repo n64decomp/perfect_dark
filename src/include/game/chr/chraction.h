@@ -143,10 +143,10 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, s32 arg
 void chrCalculateAimEndProperties(struct chrdata *chr, struct attackanimconfig *animcfg, bool hasleftgun, bool hasrightgun, f32 shootrotx);
 f32 chrGetAimLimitAngle(f32 sqdist);
 void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, struct gset *gset);
-bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2);
+bool chrGetGunPos(struct chrdata *chr, s32 handnum, struct coord *gunpos);
 void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord *vector, struct modelnode **node, s32 *hitpart, struct model **model, s32 *side);
 void func0f04031c(struct coord *frompos, f32 arg1, struct coord *aimpos, struct coord *arg3);
-void func0f0404d4(struct chrdata *chr, s32 arg1);
+void chrShoot(struct chrdata *chr, s32 handnum);
 void func0f041a74(struct chrdata *chr);
 bool func0f041c44(struct chrdata *chr);
 void chrAttackAmountUpdateAnimation(struct chrdata *chr);

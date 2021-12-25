@@ -213,7 +213,7 @@ struct g_vars {
 	/*000482*/ u16 unk000482;
 	/*000484*/ s32 mphilltime;
 	/*000488*/ s32 totalkills;
-	/*00048c*/ u32 unk00048c;
+	/*00048c*/ bool unk00048c;
 
 	// 1 when entering game setup
 	// 2 when entering combat simulator
@@ -923,7 +923,7 @@ struct aibot {
 	/*0x0d8*/ s32 unk0d8;
 	/*0x0dc*/ u32 unk0dc;
 	/*0x0e0*/ s16 unk0e0[2];
-	/*0x0e4*/ f32 unk0e4[2];
+	/*0x0e4*/ f32 maulercharge[2];
 	/*0x0ec*/ u32 unk0ec;
 	/*0x0f0*/ u32 unk0f0;
 	/*0x0f4*/ u32 unk0f4;
@@ -937,7 +937,7 @@ struct aibot {
 	/*0x11c*/ s32 unk11c;
 	/*0x120*/ s32 unk120;
 	/*0x124*/ s32 unk124;
-	/*0x128*/ u32 unk128;
+	/*0x128*/ s32 unk128;
 	/*0x12c*/ u32 unk12c;
 	/*0x130*/ s8 unk130[12];
 	/*0x13c*/ f32 playerdistances[12];
@@ -1539,7 +1539,7 @@ struct projectile {
 	/*0x0dc*/ f32 unk0dc;
 	/*0x0e0*/ f32 unk0e0;
 	/*0x0e4*/ f32 unk0e4;
-	/*0x0e8*/ u32 unk0e8;
+	/*0x0e8*/ struct prop *unk0e8;
 	/*0x0ec*/ f32 unk0ec;
 	/*0x0f0*/ f32 unk0f0;
 	/*0x0f4*/ u32 unk0f4;
@@ -3104,12 +3104,12 @@ struct weaponfunc_shootprojectile {
 	/*0x40*/ s32 projectilemodelnum;
 	/*0x44*/ u32 unk44;
 	/*0x48*/ u32 unk48;
-	/*0x4c*/ u32 unk4c;
-	/*0x50*/ u32 unk50;
-	/*0x54*/ u32 unk54;
-	/*0x58*/ u32 unk58;
-	/*0x5c*/ u32 unk5c;
-	/*0x60*/ u32 unk60;
+	/*0x4c*/ s32 unk4c;
+	/*0x50*/ f32 unk50;
+	/*0x54*/ s32 unk54;
+	/*0x58*/ s32 timer60;
+	/*0x5c*/ f32 unk5c;
+	/*0x60*/ s16 unk60;
 };
 
 struct weaponfunc_throw {

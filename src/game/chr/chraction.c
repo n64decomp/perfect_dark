@@ -10519,7 +10519,13 @@ void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, struct gs
 	}
 }
 
-bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2)
+/**
+ * If the chr's gun is on screen, populate gunpos with the world coordinates of
+ * their gun and return true.
+ *
+ * If the chr's gun is off screen, return false without populating gunpos.
+ */
+bool chrGetGunPos(struct chrdata *chr, s32 handnum, struct coord *gunpos)
 {
 	struct prop *weaponprop = chrGetHeldProp(chr, handnum);
 	struct defaultobj *obj;
@@ -10542,21 +10548,21 @@ bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2)
 				spac = model0001a5cc(model, part0, 0);
 				rodata = &part0->rodata->gunfire;
 
-				arg2->x = rodata->pos.x;
-				arg2->y = rodata->pos.y;
-				arg2->z = rodata->pos.z;
+				gunpos->x = rodata->pos.x;
+				gunpos->y = rodata->pos.y;
+				gunpos->z = rodata->pos.z;
 
 				mtx00015be4(currentPlayerGetUnk174c(), spac, &sp6c);
-				mtx4TransformVecInPlace(&sp6c, arg2);
+				mtx4TransformVecInPlace(&sp6c, gunpos);
 				result = true;
 			} else if ((part1 = modelGetPart(model->filedata, MODELPART_0001))) {
 				sp64 = model0001a5cc(model, part1, 0);
 
 				mtx00015be4(currentPlayerGetUnk174c(), sp64, &sp24);
 
-				arg2->x = sp24.m[3][0];
-				arg2->y = sp24.m[3][1];
-				arg2->z = sp24.m[3][2];
+				gunpos->x = sp24.m[3][0];
+				gunpos->y = sp24.m[3][1];
+				gunpos->z = sp24.m[3][2];
 
 				result = true;
 			}
@@ -10789,7 +10795,7 @@ void func0f04031c(struct coord *frompos, f32 arg1, struct coord *aimpos, struct 
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0404d4
+glabel chrShoot
 .late_rodata
 glabel var7f1a90c8
 .word 0x3d888889
@@ -10804,89 +10810,89 @@ glabel var7f1a90d8
 glabel var7f1a90dc
 .word 0x461c4000
 glabel var7f1a90e0
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a90e4
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a90e8
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a90ec
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a90f0
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a90f4
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a90f8
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a90fc
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a9100
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a9104
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a9108
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a910c
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a9110
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a9114
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a9118
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a911c
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a9120
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a9124
-.word func0f0404d4+0x1508
+.word chrShoot+0x1508
 glabel var7f1a9128
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a912c
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a9130
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a9134
-.word func0f0404d4+0x1508
+.word chrShoot+0x1508
 glabel var7f1a9138
-.word func0f0404d4+0x1508
+.word chrShoot+0x1508
 glabel var7f1a913c
-.word func0f0404d4+0x1508
+.word chrShoot+0x1508
 glabel var7f1a9140
-.word func0f0404d4+0x1508
+.word chrShoot+0x1508
 glabel var7f1a9144
-.word func0f0404d4+0x1508
+.word chrShoot+0x1508
 glabel var7f1a9148
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a914c
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a9150
-.word func0f0404d4+0x1508
+.word chrShoot+0x1508
 glabel var7f1a9154
-.word func0f0404d4+0x1508
+.word chrShoot+0x1508
 glabel var7f1a9158
-.word func0f0404d4+0x1508
+.word chrShoot+0x1508
 glabel var7f1a915c
-.word func0f0404d4+0x1508
+.word chrShoot+0x1508
 glabel var7f1a9160
-.word func0f0404d4+0x1508
+.word chrShoot+0x1508
 glabel var7f1a9164
-.word func0f0404d4+0x1508
+.word chrShoot+0x1508
 glabel var7f1a9168
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a916c
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a9170
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a9174
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a9178
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a917c
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a9180
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 glabel var7f1a9184
-.word func0f0404d4+0x14fc
+.word chrShoot+0x14fc
 .text
 /*  f040658:	27bdfd88 */ 	addiu	$sp,$sp,-632
 /*  f04065c:	afbf0044 */ 	sw	$ra,0x44($sp)
@@ -11058,7 +11064,7 @@ glabel var7f1a9184
 .PF0f0408cc:
 /*  f0408cc:	afae0268 */ 	sw	$t6,0x268($sp)
 /*  f0408d0:	8fa40278 */ 	lw	$a0,0x278($sp)
-/*  f0408d4:	0fc0ffda */ 	jal	func0f03fde4
+/*  f0408d4:	0fc0ffda */ 	jal	chrGetGunPos
 /*  f0408d8:	8fa5027c */ 	lw	$a1,0x27c($sp)
 /*  f0408dc:	54400032 */ 	bnezl	$v0,.PF0f0409a8
 /*  f0408e0:	8fa40278 */ 	lw	$a0,0x278($sp)
@@ -11266,7 +11272,7 @@ glabel var7f1a9184
 /*  f040bd4:	00002825 */ 	move	$a1,$zero
 /*  f040bd8:	afae0250 */ 	sw	$t6,0x250($sp)
 /*  f040bdc:	27a601e0 */ 	addiu	$a2,$sp,0x1e0
-/*  f040be0:	0fc66c21 */ 	jal	aibotDoFarsightThing
+/*  f040be0:	0fc66c21 */ 	jal	aibotShootFarsightThroughWalls
 /*  f040be4:	27a70244 */ 	addiu	$a3,$sp,0x244
 /*  f040be8:	24010002 */ 	li	$at,0x2
 /*  f040bec:	5441000a */ 	bnel	$v0,$at,.PF0f040c18
@@ -12387,7 +12393,7 @@ glabel var7f1a9184
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f0404d4
+glabel chrShoot
 .late_rodata
 glabel var7f1a90c8
 .word 0x3d638e39
@@ -12402,89 +12408,89 @@ glabel var7f1a90d8
 glabel var7f1a90dc
 .word 0x461c4000
 glabel var7f1a90e0
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a90e4
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a90e8
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a90ec
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a90f0
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a90f4
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a90f8
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a90fc
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a9100
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a9104
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a9108
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a910c
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a9110
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a9114
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a9118
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a911c
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a9120
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a9124
-.word func0f0404d4+0x14e8 # f0419bc
+.word chrShoot+0x14e8 # f0419bc
 glabel var7f1a9128
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a912c
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a9130
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a9134
-.word func0f0404d4+0x14e8 # f0419bc
+.word chrShoot+0x14e8 # f0419bc
 glabel var7f1a9138
-.word func0f0404d4+0x14e8 # f0419bc
+.word chrShoot+0x14e8 # f0419bc
 glabel var7f1a913c
-.word func0f0404d4+0x14e8 # f0419bc
+.word chrShoot+0x14e8 # f0419bc
 glabel var7f1a9140
-.word func0f0404d4+0x14e8 # f0419bc
+.word chrShoot+0x14e8 # f0419bc
 glabel var7f1a9144
-.word func0f0404d4+0x14e8 # f0419bc
+.word chrShoot+0x14e8 # f0419bc
 glabel var7f1a9148
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a914c
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a9150
-.word func0f0404d4+0x14e8 # f0419bc
+.word chrShoot+0x14e8 # f0419bc
 glabel var7f1a9154
-.word func0f0404d4+0x14e8 # f0419bc
+.word chrShoot+0x14e8 # f0419bc
 glabel var7f1a9158
-.word func0f0404d4+0x14e8 # f0419bc
+.word chrShoot+0x14e8 # f0419bc
 glabel var7f1a915c
-.word func0f0404d4+0x14e8 # f0419bc
+.word chrShoot+0x14e8 # f0419bc
 glabel var7f1a9160
-.word func0f0404d4+0x14e8 # f0419bc
+.word chrShoot+0x14e8 # f0419bc
 glabel var7f1a9164
-.word func0f0404d4+0x14e8 # f0419bc
+.word chrShoot+0x14e8 # f0419bc
 glabel var7f1a9168
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a916c
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a9170
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a9174
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a9178
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a917c
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a9180
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 glabel var7f1a9184
-.word func0f0404d4+0x14dc # f0419b0
+.word chrShoot+0x14dc # f0419b0
 .text
 /*  f0404d4:	27bdfd88 */ 	addiu	$sp,$sp,-632
 /*  f0404d8:	afbf0044 */ 	sw	$ra,0x44($sp)
@@ -12656,7 +12662,7 @@ glabel var7f1a9184
 .L0f040748:
 /*  f040748:	afae0268 */ 	sw	$t6,0x268($sp)
 /*  f04074c:	8fa40278 */ 	lw	$a0,0x278($sp)
-/*  f040750:	0fc0ff79 */ 	jal	func0f03fde4
+/*  f040750:	0fc0ff79 */ 	jal	chrGetGunPos
 /*  f040754:	8fa5027c */ 	lw	$a1,0x27c($sp)
 /*  f040758:	54400032 */ 	bnezl	$v0,.L0f040824
 /*  f04075c:	8fa40278 */ 	lw	$a0,0x278($sp)
@@ -12864,7 +12870,7 @@ glabel var7f1a9184
 /*  f040a50:	00002825 */ 	or	$a1,$zero,$zero
 /*  f040a54:	afae0250 */ 	sw	$t6,0x250($sp)
 /*  f040a58:	27a601e0 */ 	addiu	$a2,$sp,0x1e0
-/*  f040a5c:	0fc667e1 */ 	jal	aibotDoFarsightThing
+/*  f040a5c:	0fc667e1 */ 	jal	aibotShootFarsightThroughWalls
 /*  f040a60:	27a70244 */ 	addiu	$a3,$sp,0x244
 /*  f040a64:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f040a68:	5441000a */ 	bnel	$v0,$at,.L0f040a94
@@ -13977,7 +13983,7 @@ glabel var7f1a9184
 );
 #else
 GLOBAL_ASM(
-glabel func0f0404d4
+glabel chrShoot
 .late_rodata
 glabel var7f1a90c8
 .word 0x3d638e39
@@ -13992,89 +13998,89 @@ glabel var7f1a90d8
 glabel var7f1a90dc
 .word 0x461c4000
 glabel var7f1a90e0
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a90e4
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a90e8
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a90ec
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a90f0
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a90f4
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a90f8
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a90fc
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a9100
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a9104
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a9108
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a910c
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a9110
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a9114
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a9118
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a911c
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a9120
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a9124
-.word func0f0404d4+0x14d0
+.word chrShoot+0x14d0
 glabel var7f1a9128
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a912c
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a9130
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a9134
-.word func0f0404d4+0x14d0
+.word chrShoot+0x14d0
 glabel var7f1a9138
-.word func0f0404d4+0x14d0
+.word chrShoot+0x14d0
 glabel var7f1a913c
-.word func0f0404d4+0x14d0
+.word chrShoot+0x14d0
 glabel var7f1a9140
-.word func0f0404d4+0x14d0
+.word chrShoot+0x14d0
 glabel var7f1a9144
-.word func0f0404d4+0x14d0
+.word chrShoot+0x14d0
 glabel var7f1a9148
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a914c
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a9150
-.word func0f0404d4+0x14d0
+.word chrShoot+0x14d0
 glabel var7f1a9154
-.word func0f0404d4+0x14d0
+.word chrShoot+0x14d0
 glabel var7f1a9158
-.word func0f0404d4+0x14d0
+.word chrShoot+0x14d0
 glabel var7f1a915c
-.word func0f0404d4+0x14d0
+.word chrShoot+0x14d0
 glabel var7f1a9160
-.word func0f0404d4+0x14d0
+.word chrShoot+0x14d0
 glabel var7f1a9164
-.word func0f0404d4+0x14d0
+.word chrShoot+0x14d0
 glabel var7f1a9168
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a916c
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a9170
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a9174
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a9178
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a917c
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a9180
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 glabel var7f1a9184
-.word func0f0404d4+0x14c4
+.word chrShoot+0x14c4
 .text
 /*  f03fcb4:	27bdfd88 */ 	addiu	$sp,$sp,-632
 /*  f03fcb8:	afbf0044 */ 	sw	$ra,0x44($sp)
@@ -14246,7 +14252,7 @@ glabel var7f1a9184
 .NB0f03ff28:
 /*  f03ff28:	afae0268 */ 	sw	$t6,0x268($sp)
 /*  f03ff2c:	8fa40278 */ 	lw	$a0,0x278($sp)
-/*  f03ff30:	0fc0fd76 */ 	jal	func0f03fde4
+/*  f03ff30:	0fc0fd76 */ 	jal	chrGetGunPos
 /*  f03ff34:	8fa5027c */ 	lw	$a1,0x27c($sp)
 /*  f03ff38:	54400032 */ 	bnezl	$v0,.NB0f040004
 /*  f03ff3c:	8fa40278 */ 	lw	$a0,0x278($sp)
@@ -14454,7 +14460,7 @@ glabel var7f1a9184
 /*  f040230:	00002825 */ 	or	$a1,$zero,$zero
 /*  f040234:	afae0250 */ 	sw	$t6,0x250($sp)
 /*  f040238:	27a601e0 */ 	addiu	$a2,$sp,0x1e0
-/*  f04023c:	0fc64fd9 */ 	jal	aibotDoFarsightThing
+/*  f04023c:	0fc64fd9 */ 	jal	aibotShootFarsightThroughWalls
 /*  f040240:	27a70244 */ 	addiu	$a3,$sp,0x244
 /*  f040244:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f040248:	5441000a */ 	bnel	$v0,$at,.NB0f040274
@@ -15561,6 +15567,630 @@ glabel var7f1a9184
 );
 #endif
 
+/**
+ * Fire the chr's gun, check what was hit and do all the appropriate things such
+ * as dealing damage, creating beams and sparks and playing sounds.
+ *
+ * This should be called on every tick while the chr is shooting. The function
+ * takes care of the gun's fire rate.
+ */
+// Mismatches:
+// - near aibotShootFarsightThroughWalls, chr needs to be loaded into t3 which
+//   should solve instruction ordering.
+// - Float calculations near 65536 have diffent codegen
+// - Calculation of sp168 and spcc have reordered instructions
+// - Calculate of xdiff/ydiff/zdiff prior to chrCalculateHit is different
+//void chrShoot(struct chrdata *chr, s32 handnum)
+//{
+//	struct prop *chrprop = chr->prop; // 274
+//	struct prop *gunprop;
+//	u8 isaibot = false; // 26f
+//	u8 normalshoot = true; // 26e
+//
+//	if (chr->aibot) {
+//		isaibot = true;
+//	}
+//
+//	gunprop = chrGetHeldProp(chr, handnum);
+//
+//	if (gunprop) {
+//		bool firingthistick = false;
+//		struct weaponobj *weapon = gunprop->weapon; // 264
+//		struct gset gset; // 260
+//		struct prop *targetprop = chrGetTargetProp(chr); // 25c
+//		u32 attackflags;
+//		bool shotdue; // 254
+//		bool makebeam; // 250
+//		struct coord gunpos; // 244
+//		s16 gunrooms[8]; // 234
+//		struct coord hitpos; // 228
+//		bool hitsomething; // 224
+//		s16 hitrooms[8]; // 214
+//		bool sp210;
+//		s32 tickspershot;
+//		f32 sp208; // unused?
+//
+//		gset = *(struct gset *)&weapon->weaponnum;
+//		attackflags = ATTACKFLAG_AIMATTARGET;
+//
+//		if (chr->actiontype == ACT_ATTACK
+//				|| chr->actiontype == ACT_BOT_ATTACKSTAND
+//				|| chr->actiontype == ACT_BOT_ATTACKKNEEL
+//				|| chr->actiontype == ACT_BOT_ATTACKSTRAFE) {
+//			attackflags = chr->act_attack.flags;
+//		}
+//
+//		shotdue = false;
+//		makebeam = false;
+//		hitsomething = false;
+//		sp210 = false;
+//
+//		// Most guns can fire at most once every few ticks - even automatics.
+//		// The chr's firecount property tracks how many ticks have elapsed since
+//		// the last bullet, which is used to determine if another bullet should
+//		// be discharged on this tick.
+//		tickspershot = weaponGetNumTicksPerShot(gset.weaponnum, gset.weaponfunc);
+//
+//		if (tickspershot <= 0) {
+//			shotdue = true;
+//			makebeam = true;
+//		} else {
+//			if (chr->aibot
+//					&& chr->aibot->weaponnum == WEAPON_REAPER
+//					&& chr->aibot->gunfunc == FUNC_PRIMARY) {
+//				sp208 = (PALDOWN(90) - chr->aibot->unk0e0[handnum]);
+//				sp208 *= 1.0f / 1.8f;
+//				tickspershot *= sp208 + 1;
+//			}
+//
+//			chr->firecount[handnum] += g_Vars.lvupdate240_60;
+//
+//			if (chr->firecount[handnum] >= tickspershot) {
+//				chr->firecount[handnum] = 0;
+//				chr->unk32c_12 ^= 1 << handnum;
+//
+//				shotdue = true;
+//
+//				if ((chr->unk32c_12 & (1 << handnum)) || gset.weaponnum == WEAPON_LASER) {
+//					makebeam = true;
+//				}
+//
+//				if (chr->actiontype == ACT_ATTACK) {
+//					if (modelGetAnimNum(chr->model) == ANIM_SNIPING_ONGROUND) {
+//						chr->act_attack.numshots++;
+//					}
+//				}
+//			}
+//		}
+//
+//		if (shotdue) {
+//			f32 aimangle = chrGetAimAngle(chr);
+//			f32 sp200 = func0f03e754(chr);
+//			bool sp1fc = isaibot ? CDTYPE_PLAYERS : 0;
+//
+//			firingthistick = true;
+//
+//			if (!chrGetGunPos(chr, handnum, &gunpos)) {
+//				// Gun is off screen - use a quick but inexact calculation
+//				gunpos.f[0] = chrprop->pos.f[0];
+//				gunpos.f[1] = chrprop->pos.f[1] + 30;
+//				gunpos.f[2] = chrprop->pos.f[2];
+//
+//				if (handnum == HAND_LEFT) {
+//					gunpos.f[0] += cosf(aimangle) * 10;
+//					gunpos.f[2] += -sinf(aimangle) * 10;
+//				} else {
+//					gunpos.f[0] += -cosf(aimangle) * 10;
+//					gunpos.f[2] += sinf(aimangle) * 10;
+//				}
+//			}
+//
+//			// Check that the chr isn't clipping their gun through anything such
+//			// as another chr or a closed door. If they are, the shot won't be
+//			// taken because that wouldn't be fair.
+//			// How nice of the developers to check for this!
+//			chrSetPerimEnabled(chr, false);
+//
+//			if (cd0002de34(&chrprop->pos, chrprop->rooms, &gunpos, gunrooms,
+//						CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_BG | CDTYPE_DOORSWITHOUTFLAG | sp1fc,
+//						0x10) == CDRESULT_COLLISION) {
+//				firingthistick = false;
+//			}
+//
+//			chrSetPerimEnabled(chr, true);
+//
+//			if (firingthistick) {
+//				bool angleok = false; // 1f8
+//				bool hitplayer = false; // 1f4
+//				bool effective = true; // 1f0
+//				u32 sp1ec;
+//				struct coord vector; // 1e0
+//				f32 xdiff;
+//				f32 ydiff;
+//				f32 zdiff;
+//				f32 sqshotdist; // 1d0
+//				struct prop *hitprop = NULL; // 1cc
+//				u32 sp1c8 = isaibot
+//					? CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_DOORSWITHOUTFLAG | CDTYPE_PLAYERS
+//					: CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_DOORSWITHOUTFLAG;
+//				u32 sp1c4;
+//				bool isshootingeyespy = CHRRACE(targetprop->chr) == RACE_EYESPY && chrGetDistanceToTarget(chr) > 150; // 1c0
+//				bool fudgeforeyespy = false; // 1bc
+//
+//				if (isshootingeyespy) {
+//					vector.f[0] = xdiff = targetprop->pos.f[0] - gunpos.f[0];
+//					vector.f[1] = ydiff = targetprop->pos.f[1] - gunpos.f[1];
+//					vector.f[2] = zdiff = targetprop->pos.f[2] - gunpos.f[2];
+//
+//					guNormalize(&vector.f[0], &vector.f[1], &vector.f[2]);
+//					propSetPerimEnabled(targetprop, true);
+//				} else {
+//					vector.f[0] = cosf(sp200) * sinf(aimangle);
+//					vector.f[1] = sinf(sp200);
+//					vector.f[2] = cosf(sp200) * cosf(aimangle);
+//
+//					if (isaibot) {
+//						bgun0f0a0fac(&vector, chr->aibot->weaponnum, chr->aibot->gunfunc, chr->aibot->unk04d[handnum], chrGuessCrouchPos(chr), chr->weapons_held[0] && chr->weapons_held[1]);
+//					}
+//				}
+//
+//				// Handle Farsight shots by aibots specially
+//				// because they can shoot through walls.
+//				if (chr->aibot && gset.weaponnum == WEAPON_FARSIGHT && !chr->aibot->unk128) {
+//					makebeam = true;
+//
+//					// This function can never return 2 though...
+//					if (aibotShootFarsightThroughWalls(chr, 0, &vector, &gunpos) == 2) {
+//						normalshoot = random() % 255 > 200;
+//					}
+//				}
+//
+//				// Check if the shot would hit anything
+//				hitpos.f[0] = gunpos.f[0] + vector.f[0] * 65536;
+//				hitpos.f[1] = gunpos.f[1] + vector.f[1] * 65536;
+//				hitpos.f[2] = gunpos.f[2] + vector.f[2] * 65536;
+//
+//				chrSetPerimEnabled(chr, false);
+//
+//				if (isaibot) {
+//					g_Vars.unk00048c = true;
+//				}
+//
+//				if (cdTestAToB4(&gunpos, gunrooms, &hitpos, sp1c8, 0x10) == CDRESULT_COLLISION) {
+//					hitsomething = true;
+//					cdGetPos(&hitpos, 12072, "chraction.c");
+//					hitprop = cdGetObstacle();
+//				}
+//
+//				chrSetPerimEnabled(chr, true);
+//
+//				if (isaibot) {
+//					g_Vars.unk00048c = false;
+//				}
+//
+//				// Eyespy is small and hard to hit, so make it a 50/50 chance
+//				if (hitprop == NULL && isshootingeyespy) {
+//					fudgeforeyespy = random() % 100 > 50;
+//
+//					if (fudgeforeyespy) {
+//						hitprop = targetprop;
+//
+//						hitpos.x = targetprop->pos.x;
+//						hitpos.y = targetprop->pos.y;
+//						hitpos.z = targetprop->pos.z;
+//					}
+//				}
+//
+//				xdiff = hitpos.x - gunpos.x;
+//				ydiff = hitpos.y - gunpos.y;
+//				zdiff = hitpos.z - gunpos.z;
+//
+//				sqshotdist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
+//
+//				// Handle projectile launchers specially
+//				if (gset.weaponnum == WEAPON_ROCKETLAUNCHER
+//						|| gset.weaponnum == WEAPON_SLAYER
+//						|| (gset.weaponnum == WEAPON_SUPERDRAGON && gset.weaponfunc == FUNC_SECONDARY)
+//						|| gset.weaponnum == WEAPON_DEVASTATOR
+//						|| gset.weaponnum == WEAPON_CROSSBOW
+//						|| gset.weaponnum == WEAPON_ROCKETLAUNCHER_34) {
+//					makebeam = false;
+//
+//					// AI bots won't fire their projectile weapon in less than
+//					// 4 metres of space
+//					if (isaibot || sqshotdist > 400 * 400) {
+//						struct weaponobj *projectileobj; // 1b8
+//						Mtxf sp178;
+//						struct coord sp16c;
+//						f32 sp168;
+//						struct coord sp15c;
+//						Mtxf sp11c;
+//						Mtxf spdc;
+//						struct weapon *weapondef = weaponFindById(gset.weaponnum);
+//						struct weaponfunc_shootprojectile *func = weapondef->functions[gset.weaponfunc]; // d4
+//
+//						// Handle creating the projectile
+//						if (gset.weaponnum == WEAPON_ROCKETLAUNCHER
+//								|| gset.weaponnum == WEAPON_ROCKETLAUNCHER_34
+//								|| gset.weaponnum == WEAPON_SLAYER) {
+//							s32 rockettype = WEAPON_ROCKET;
+//
+//							if (func->base.base.flags & FUNCFLAG_HOMINGROCKET) {
+//								rockettype = WEAPON_HOMINGROCKET;
+//							}
+//
+//							projectileobj = func0f08b880(func->projectilemodelnum, rockettype, chr);
+//						} else if (gset.weaponnum == WEAPON_CROSSBOW) {
+//							projectileobj = func0f08b880(func->projectilemodelnum, WEAPON_BOLT, chr);
+//
+//							if (projectileobj) {
+//								projectileobj->gunfunc = gset.weaponfunc;
+//							}
+//						} else if (gset.weaponnum == WEAPON_DEVASTATOR) {
+//							projectileobj = func0f08b880(func->projectilemodelnum, WEAPON_GRENADEROUND, chr);
+//
+//							if (projectileobj) {
+//								projectileobj->gunfunc = gset.weaponfunc;
+//							}
+//						} else if (gset.weaponnum == WEAPON_SUPERDRAGON) {
+//							projectileobj = func0f08b880(func->projectilemodelnum, WEAPON_GRENADEROUND, chr);
+//
+//							if (projectileobj) {
+//								projectileobj->gunfunc = FUNC_2;
+//							}
+//						} else {
+//							// Unreachable
+//							projectileobj = func0f08b658(func->projectilemodelnum, &gset, g_Vars.currentplayer->prop->chr);
+//						}
+//
+//						if (projectileobj) {
+//							f32 spcc;
+//
+//							sp168 = func->unk4c * (1.0f / 0.6f) / 60.0f;
+//							spcc = func->unk54 * (1.0f / 0.6f);
+//
+//							// AI bots are a bit smarter than solo chrs
+//							// with regard to how they aim their projectiles
+//							if (isaibot && chrIsTargetInFov(chr, 30, 0)) {
+//								bool hasaimpos = false;
+//								f32 tmp1;
+//								struct coord aimpos; // b8
+//
+//								if (gset.weaponfunc == FUNC_PRIMARY &&
+//										(gset.weaponnum == WEAPON_ROCKETLAUNCHER
+//										 || gset.weaponnum == WEAPON_ROCKETLAUNCHER_34
+//										 || gset.weaponnum == WEAPON_SLAYER)) {
+//									if (targetprop->type == PROPTYPE_CHR || targetprop->type == PROPTYPE_PLAYER) {
+//										// Rockets - aim at target's feet
+//										aimpos.f[0] = targetprop->pos.f[0];
+//										aimpos.f[1] = targetprop->chr->manground;
+//										aimpos.f[2] = targetprop->pos.f[2];
+//
+//										vector.f[0] = aimpos.f[0] - gunpos.f[0];
+//										vector.f[1] = aimpos.f[1] - gunpos.f[1];
+//										vector.f[2] = aimpos.f[2] - gunpos.f[2];
+//
+//										guNormalize(&vector.f[0], &vector.f[1], &vector.f[2]);
+//										hasaimpos = true;
+//									}
+//								} else if ((gset.weaponnum == WEAPON_DEVASTATOR && gset.weaponfunc == FUNC_PRIMARY)
+//										|| gset.weaponnum == WEAPON_SUPERDRAGON) {
+//									if (targetprop->type == PROPTYPE_CHR || targetprop->type == PROPTYPE_PLAYER) {
+//										// Grenades - aim at target's feet
+//										aimpos.x = targetprop->pos.x;
+//										aimpos.y = targetprop->chr->manground;
+//										aimpos.z = targetprop->pos.z;
+//
+//										func0f04031c(&gunpos, spcc, &aimpos, &vector);
+//										hasaimpos = true;
+//									}
+//								} else if ((gset.weaponnum == WEAPON_DEVASTATOR && gset.weaponfunc == FUNC_SECONDARY)
+//										|| gset.weaponnum == WEAPON_CROSSBOW) {
+//									// Wall hugger grenade or crossbow - aim at target directly
+//									aimpos.x = targetprop->pos.x;
+//									aimpos.y = targetprop->pos.y;
+//									aimpos.z = targetprop->pos.z;
+//
+//									if (targetprop->type == PROPTYPE_PLAYER) {
+//										aimpos.y -= 25;
+//									}
+//
+//									func0f04031c(&gunpos, spcc, &aimpos, &vector);
+//									hasaimpos = true;
+//								}
+//
+//								if (hasaimpos) {
+//									f32 angle = chrGetAngleToPos(chr, &aimpos); // b4
+//									f32 cos = cosf(angle); // b0
+//									f32 sin = sinf(angle);
+//
+//									tmp1 = vector.f[0];
+//									vector.x = vector.f[2] * sin + vector.f[0] * cos;
+//									vector.z = vector.f[2] * cos - tmp1 * sin;
+//								}
+//							}
+//
+//							// Calculate and projectile's matrix,
+//							// spawn position and speed
+//							mtx4LoadIdentity(&sp178);
+//							mtx4LoadXRotation(sp200, &sp11c);
+//							mtx4LoadYRotation(aimangle, &spdc);
+//							mtx00015be0(&spdc, &sp11c);
+//
+//							sp15c.f[0] = xdiff = vector.f[0] * sp168;
+//							sp15c.f[1] = ydiff = vector.f[1] * sp168;
+//							sp15c.f[2] = zdiff = vector.f[2] * sp168;
+//
+//							sp16c.x = vector.f[0] * spcc + xdiff * g_Vars.lvupdate240freal;
+//							sp16c.y = vector.f[1] * spcc + ydiff * g_Vars.lvupdate240freal;
+//							sp16c.z = vector.f[2] * spcc + zdiff * g_Vars.lvupdate240freal;
+//
+//							projectileobj->timer240 = func->timer60;
+//
+//							if (projectileobj->timer240 != -1) {
+//#if PAL
+//								projectileobj->timer240 = projectileobj->timer240 * 200 / 60;
+//#else
+//								projectileobj->timer240 *= 4;
+//#endif
+//							}
+//
+//							bgun0f09ebcc(&projectileobj->base, &gunpos, gunrooms, &sp11c, &sp16c, &sp178, chrprop, &gunpos);
+//
+//							if (projectileobj->base.hidden & OBJHFLAG_AIRBORNE) {
+//								if (func->base.base.flags & FUNCFLAG_80000000) {
+//									projectileobj->base.projectile->flags |= PROJECTILEFLAG_40000000;
+//								} else if (func->base.base.flags & FUNCFLAG_08000000) {
+//									projectileobj->base.projectile->flags |= PROJECTILEFLAG_00000010;
+//								}
+//
+//								projectileobj->base.projectile->unk010 = sp15c.x;
+//								projectileobj->base.projectile->unk014 = sp15c.y;
+//								projectileobj->base.projectile->unk018 = sp15c.z;
+//
+//								projectileobj->base.projectile->unk0b4 = 240;
+//								projectileobj->base.projectile->unk08c = func->unk5c;
+//								projectileobj->base.projectile->unk098 = func->unk50 * (1.0f / 0.6f);
+//
+//								projectileobj->base.projectile->unk0e8 = chrGetTargetProp(chr);
+//
+//								// Play sound
+//								if (func->unk60 > 0) {
+//									func0f0939f8(NULL, projectileobj->base.prop, func->unk60, -1,
+//											-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
+//								}
+//							}
+//						}
+//					} else {
+//						firingthistick = false;
+//					}
+//
+//					normalshoot = false;
+//				} else if (gset.weaponnum == WEAPON_MAULER && isaibot && gset.weaponfunc == FUNC_SECONDARY) {
+//					gset.unk063a = (s32)(chr->aibot->maulercharge[handnum] * 10);
+//					chr->aibot->maulercharge[handnum] = 0;
+//				}
+//
+//				if (normalshoot) {
+//					if (!isaibot) {
+//						if ((attackflags & ATTACKFLAG_AIMATTARGET)
+//								&& targetprop->type == PROPTYPE_PLAYER
+//								&& chrCanSeeAttackTarget(chr, &gunpos, gunrooms, false)
+//#if VERSION >= VERSION_NTSC_1_0
+//								&& chrCompareTeams(targetprop->chr, chr, COMPARE_ENEMIES)
+//#endif
+//								) {
+//							// Solo chr shooting at a player
+//							f32 xdiff = targetprop->pos.f[0] - gunpos.f[0] - vector.f[0] * 15;
+//							f32 ydiff = targetprop->pos.f[1] - gunpos.f[1] - vector.f[1] * 15;
+//							f32 zdiff = targetprop->pos.f[2] - gunpos.f[2] - vector.f[2] * 15;
+//
+//							if (xdiff * xdiff + ydiff * ydiff + zdiff * zdiff <= sqshotdist) {
+//								// Player has a chance of being hit
+//								chrCalculateHit(chr, &angleok, &hitplayer, &gset);
+//
+//								// If the player was hit then turn off effective
+//								// (There's no need to check other props for
+//								// hits later on in this function)
+//								effective = !hitplayer;
+//
+//								if (angleok
+//										&& (chr->actiontype == ACT_ATTACK
+//										 || chr->actiontype == ACT_ATTACKROLL
+//										 || chr->actiontype == ACT_BOT_ATTACKSTAND
+//										 || chr->actiontype == ACT_BOT_ATTACKKNEEL
+//										 || chr->actiontype == ACT_BOT_ATTACKSTRAFE)) {
+//									chr->act_attack.lastontarget60 = g_Vars.lvframe60;
+//								}
+//							}
+//						} else {
+//							// Solo chr shooting at something else
+//							if (chr->actiontype == ACT_ATTACK
+//									|| chr->actiontype == ACT_ATTACKROLL
+//									|| chr->actiontype == ACT_BOT_ATTACKSTAND
+//									|| chr->actiontype == ACT_BOT_ATTACKKNEEL
+//									|| chr->actiontype == ACT_BOT_ATTACKSTRAFE) {
+//								chr->act_attack.lastontarget60 = g_Vars.lvframe60;
+//							}
+//						}
+//
+//						if (hitplayer) {
+//							f32 damage = gsetGetDamage(&gset); // 9c
+//							struct modelnode *node = NULL; // 98
+//							struct model *model = NULL; // 94
+//							s32 side = -1; // 90
+//							s32 hitpart = HITPART_GENERAL; // 8c
+//							struct chrdata *targetchr = targetprop->chr; // 88
+//
+//							hitpos.x = targetprop->pos.x;
+//							hitpos.y = targetprop->pos.y;
+//							hitpos.z = targetprop->pos.z;
+//
+//							if (random() % 2) {
+//								hitpos.y += 2 + random() % 10;
+//							} else {
+//								hitpos.y -= 2 + random() % 10;
+//							}
+//
+//							bgunPlayPropHitSound(&gset, targetprop, -1);
+//
+//							if (targetchr->model && chrGetShield(targetchr) > 0) {
+//								chrCalculateShieldHit(targetchr, &hitpos, &vector, &node, &hitpart, &model, &side);
+//							}
+//
+//							func0f0341dc(targetchr, damage, &vector, &gset, chr->prop, HITPART_GENERAL, targetprop, node, model, side, NULL);
+//						} else if ((hitprop == NULL || (hitprop->type != PROPTYPE_CHR && hitprop->type != PROPTYPE_PLAYER))
+//								&& sqshotdist < 100 * 100) {
+//							// Hit the background or something other than a
+//							// player or chr, and the shot distance was less
+//							// than 1 metre. Don't bother applying damage etc.
+//							effective = false;
+//						}
+//					}
+//
+//					if (effective) {
+//						if (hitprop) {
+//							if (hitprop->type == PROPTYPE_PLAYER || hitprop->type == PROPTYPE_CHR) {
+//								// Hit a player or chr other than the one they
+//								// were aiming for
+//								if (isaibot
+//										|| fudgeforeyespy
+//										|| ((chr->chrflags & CHRCFLAG_00000040) && chrCompareTeams(hitprop->chr, chr, COMPARE_ENEMIES))) {
+//									struct modelnode *node = NULL; // 84
+//									struct model *model = NULL; // 80
+//									s32 side = -1; // 7c
+//									s32 hitpart = HITPART_GENERAL; // 78
+//									f32 damage = gsetGetDamage(&gset);
+//									struct chrdata *hitchr = hitprop->chr; // 70
+//
+//									bgunPlayPropHitSound(&gset, hitprop, -1);
+//
+//									if (hitchr->model && chrGetShield(hitchr) > 0) {
+//										chrCalculateShieldHit(hitchr, &hitpos, &vector, &node, &hitpart, &model, &side);
+//									}
+//
+//									chrEmitSparks(hitchr, hitprop, hitpart, &hitpos, &vector, chr);
+//									func0f0341dc(hitchr, damage, &vector, &gset, chr->prop, HITPART_GENERAL, hitprop, node, model, side, NULL);
+//								} else {
+//									makebeam = false;
+//									firingthistick = false;
+//								}
+//							} else if (hitprop->type == PROPTYPE_OBJ
+//									|| hitprop->type == PROPTYPE_WEAPON
+//									|| hitprop->type == PROPTYPE_DOOR) {
+//								// Hit an object
+//								struct defaultobj *hitobj = hitprop->obj; // 6c
+//								s32 playernum = -1; // 68
+//
+//								if (g_Vars.mplayerisrunning) {
+//									playernum = mpPlayerGetIndex(chr);
+//								}
+//
+//								bgunPlayPropHitSound(&gset, hitprop, -1);
+//								func0f065e74(&gunpos, gunrooms, &hitpos, hitrooms);
+//								sp210 = true;
+//
+//								if (chrIsUsingPaintball(chr)) {
+//									sparksCreate(hitrooms[0], hitprop, &hitpos, NULL, NULL, SPARKTYPE_19);
+//								} else {
+//									sparksCreate(hitrooms[0], hitprop, &hitpos, NULL, NULL, SPARKTYPE_00);
+//								}
+//
+//								if (g_MissionConfig.iscoop && chr->team == TEAM_ALLY
+//										&& (hitobj->flags2 & OBJFLAG2_00000001)) {
+//									// empty
+//								} else {
+//									objTakeGunfire(hitobj, gsetGetDamage(&gset), &hitpos, gset.weaponnum, playernum);
+//								}
+//							}
+//						} else if (hitsomething) {
+//							// Hit the background
+//							func0f065e74(&gunpos, gunrooms, &hitpos, hitrooms);
+//							sp210 = true;
+//							bgunPlayBgHitSound(&gset, &hitpos, -1, hitrooms);
+//
+//							if (chrIsUsingPaintball(chr)) {
+//								sparksCreate(hitrooms[0], 0, &hitpos, NULL, NULL, SPARKTYPE_19);
+//							} else {
+//								sparksCreate(hitrooms[0], 0, &hitpos, NULL, NULL, SPARKTYPE_00);
+//							}
+//						}
+//
+//						// Create explosion if using Phoenix
+//						if (gset.weaponnum == WEAPON_PHOENIX && gset.weaponfunc == FUNC_SECONDARY) {
+//							s32 playernum = chr->aibot ? mpPlayerGetIndex(chr) : g_Vars.currentplayernum;
+//
+//							if (!sp210) {
+//								func0f065e74(&gunpos, gunrooms, &hitpos, hitrooms);
+//							}
+//
+//							explosionCreateSimple(0, &hitpos, hitrooms, EXPLOSIONTYPE_22, playernum);
+//						}
+//					}
+//				}
+//
+//				if (isshootingeyespy) {
+//					propSetPerimEnabled(targetprop, false);
+//				}
+//			}
+//		}
+//
+//		if (makebeam) {
+//			switch (gset.weaponnum) {
+//			case WEAPON_FALCON2:
+//			case WEAPON_FALCON2_SILENCER:
+//			case WEAPON_FALCON2_SCOPE:
+//			case WEAPON_MAGSEC4:
+//			case WEAPON_MAULER:
+//			case WEAPON_PHOENIX:
+//			case WEAPON_DY357MAGNUM:
+//			case WEAPON_DY357LX:
+//			case WEAPON_CMP150:
+//			case WEAPON_CYCLONE:
+//			case WEAPON_CALLISTO:
+//			case WEAPON_RCP120:
+//			case WEAPON_LAPTOPGUN:
+//			case WEAPON_DRAGON:
+//			case WEAPON_K7AVENGER:
+//			case WEAPON_AR34:
+//			case WEAPON_SUPERDRAGON:
+//			case WEAPON_REAPER:
+//			case WEAPON_SNIPERRIFLE:
+//			case WEAPON_FARSIGHT:
+//			case WEAPON_TRANQUILIZER:
+//			case WEAPON_LASER:
+//			case WEAPON_PP9I:
+//			case WEAPON_CC13:
+//			case WEAPON_KL01313:
+//			case WEAPON_KF7SPECIAL:
+//			case WEAPON_ZZT:
+//			case WEAPON_DMC:
+//			case WEAPON_AR53:
+//			case WEAPON_RCP45:
+//				makebeam = true;
+//				break;
+//			default:
+//				makebeam = false;
+//				break;
+//			}
+//		}
+//
+//		chrCreateFireslot(chr, handnum, firingthistick, firingthistick && makebeam, &gunpos, &hitpos);
+//
+//		if (isaibot) {
+//			if (firingthistick) {
+//				if (chr->aibot->loadedammo[handnum] > 0) {
+//					chr->aibot->loadedammo[handnum]--;
+//				}
+//			}
+//
+//			chrSetFiring(chr, handnum, firingthistick && normalshoot);
+//		} else {
+//			chrSetFiring(chr, handnum, firingthistick);
+//		}
+//	}
+//}
+
 void func0f041a74(struct chrdata *chr)
 {
 #if VERSION >= VERSION_NTSC_1_0
@@ -15594,16 +16224,16 @@ void func0f041a74(struct chrdata *chr)
 	} else if (chr->actiontype == ACT_ATTACKAMOUNT) {
 		if (chr->act_attack.numshots < chr->act_attack.maxshots
 				&& (chr->hidden & CHRHFLAG_FIRINGRIGHT)) {
-			func0f0404d4(chr, 0);
+			chrShoot(chr, 0);
 		}
 	} else {
 		if (chr->hidden & CHRHFLAG_FIRINGRIGHT) {
-			func0f0404d4(chr, 0);
+			chrShoot(chr, 0);
 			chr->hidden &= ~CHRHFLAG_FIRINGRIGHT;
 		}
 
 		if (chr->hidden & CHRHFLAG_FIRINGLEFT) {
-			func0f0404d4(chr, 1);
+			chrShoot(chr, 1);
 			chr->hidden &= ~CHRHFLAG_FIRINGLEFT;
 		}
 	}

@@ -216,10 +216,8 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 					aibot->unk0dc = 0;
 					aibot->unk0e0[HAND_LEFT] = 0;
 					aibot->unk0e0[HAND_RIGHT] = 0;
-
-					aibot->unk0e4[1] = 0.0f;
-					aibot->unk0e4[0] = 0.0f;
-
+					aibot->maulercharge[HAND_LEFT] = 0.0f;
+					aibot->maulercharge[HAND_RIGHT] = 0.0f;
 					aibot->unk0a4 = model0001ae44(chr->model);
 					aibot->angleoffset = 0.0f;
 					aibot->speedtheta = 0.0f;

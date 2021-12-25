@@ -49,7 +49,7 @@ void aibotReloadWeapon(struct chrdata *chr, s32 handnum, bool withsound)
 {
 	struct aibot *aibot = chr->aibot;
 	aibot->unk02c[handnum] = 0;
-	aibot->unk0e4[handnum] = 0;
+	aibot->maulercharge[handnum] = 0;
 
 	if (chr->weapons_held[handnum]
 			&& func0f19a29c(aibot->weaponnum, aibot->gunfunc) == 0) {
@@ -209,11 +209,7 @@ void aibotGiveAmmoByType(struct aibot *aibot, u32 ammotype, s32 quantity)
 	dprint();
 }
 
-/**
- * This function appears to handle aibots shooting chrs with the Farsight, but
- * is called conditionally and I haven't determined what those conditions are.
- */
-bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *vector, struct coord *arg3)
+bool aibotShootFarsightThroughWalls(struct chrdata *chr, s32 arg1, struct coord *vector, struct coord *arg3)
 {
 	struct aibot *aibot;
 	struct chrdata *oppchr;
@@ -495,21 +491,21 @@ void aibotCreateSlayerRocket(struct chrdata *chr)
 		struct coord sp120 = {0, 0, 0};
 		f32 a;
 		f32 b;
-		f32 sp100[3];
+		struct coord sp100;
 
 		a = chrGetAimAngle(chr);
 		b = func0f03e754(chr);
 
-		sp100[0] = cosf(b) * sinf(a);
-		sp100[1] = sinf(b);
-		sp100[2] = cosf(b) * cosf(a);
+		sp100.x = cosf(b) * sinf(a);
+		sp100.y = sinf(b);
+		sp100.z = cosf(b) * cosf(a);
 
 		mtx4LoadXRotation(b, &sp196);
 		mtx4LoadYRotation(a, &sp132);
 		mtx00015be0(&sp132, &sp196);
 		mtx4LoadIdentity(&sp260);
 
-		bgun0f09ebcc(&rocket->base, &chr->prop->pos, chr->prop->rooms, &sp196, sp100, &sp260, chr->prop, &chr->prop->pos);
+		bgun0f09ebcc(&rocket->base, &chr->prop->pos, chr->prop->rooms, &sp196, &sp100, &sp260, chr->prop, &chr->prop->pos);
 
 		if (rocket->base.hidden & OBJHFLAG_AIRBORNE) {
 			struct prop *target = chrGetTargetProp(chr);

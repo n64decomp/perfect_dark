@@ -10720,7 +10720,7 @@ s32 bgun0f09ebbc(void)
 	return g_Vars.currentplayer->gunctrl.unk1598;
 }
 
-void bgun0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf *matrix1, f32 *arg4, Mtxf *matrix2, struct prop *prop, struct coord *pos)
+void bgun0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf *matrix1, struct coord *arg4, Mtxf *matrix2, struct prop *prop, struct coord *pos)
 {
 	struct prop *objprop = obj->prop;
 
@@ -10752,16 +10752,16 @@ void bgun0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf 
 			objSetProjectileFlag4(objprop);
 			mtx4Copy(matrix2, (Mtxf *)&obj->projectile->unk020);
 
-			obj->projectile->speed.x = arg4[0];
-			obj->projectile->speed.y = arg4[1];
-			obj->projectile->speed.z = arg4[2];
+			obj->projectile->speed.x = arg4->x;
+			obj->projectile->speed.y = arg4->y;
+			obj->projectile->speed.z = arg4->z;
 			obj->projectile->obj = obj;
 			obj->projectile->unk0d8 = g_Vars.lvframenum;
 		}
 	}
 }
 
-void bgun0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, f32 *arg3, Mtxf *arg4)
+void bgun0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, struct coord *arg3, Mtxf *arg4)
 {
 	struct prop *objprop = obj->prop;
 	struct coord pos;
@@ -10853,7 +10853,7 @@ struct defaultobj *bgun0f09ee18(struct chrdata *chr, struct gset *gset, struct c
 	}
 
 	if (obj != NULL) {
-		bgun0f09ebcc(obj, pos, rooms, arg4, (f32 *)arg5, &mtx, chr->prop, pos);
+		bgun0f09ebcc(obj, pos, rooms, arg4, arg5, &mtx, chr->prop, pos);
 
 		obj->hidden &= 0x0fffffff;
 
