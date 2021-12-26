@@ -2922,14 +2922,14 @@ glabel bgunTickIncIdle
 /*  f099404:	2483ffff */ 	addiu	$v1,$a0,-1
 /*  f099408:	000370c3 */ 	sra	$t6,$v1,0x3
 /*  f09940c:	8d6c0070 */ 	lw	$t4,0x70($t3)
-/*  f099410:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers+0x97)
+/*  f099410:	3c18800b */ 	lui	$t8,%hi(g_PlayerConfigsArray+0x97)
 /*  f099414:	30790007 */ 	andi	$t9,$v1,0x7
 /*  f099418:	000c6880 */ 	sll	$t5,$t4,0x2
 /*  f09941c:	01ac6821 */ 	addu	$t5,$t5,$t4
 /*  f099420:	000d6940 */ 	sll	$t5,$t5,0x5
 /*  f099424:	01ae7821 */ 	addu	$t7,$t5,$t6
 /*  f099428:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f09942c:	9318c84f */ 	lbu	$t8,%lo(g_MpPlayers+0x97)($t8)
+/*  f09942c:	9318c84f */ 	lbu	$t8,%lo(g_PlayerConfigsArray+0x97)($t8)
 /*  f099430:	24090001 */ 	addiu	$t1,$zero,0x1
 /*  f099434:	03295004 */ 	sllv	$t2,$t1,$t9
 /*  f099438:	030a1024 */ 	and	$v0,$t8,$t2
@@ -3243,7 +3243,7 @@ glabel bgunTickIncIdle
 //			// Consider switching to other gun function
 //			usesec = g_Vars.currentplayer->gunctrl.weaponnum >= WEAPON_UNARMED
 //				&& g_Vars.currentplayer->gunctrl.weaponnum <= WEAPON_COMBATBOOST
-//				&& (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->gunctrl.weaponnum - 1 & 7)));
+//				&& (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->gunctrl.weaponnum - 1 & 7)));
 //
 //			if (usesec == gunfunc) {
 //				sp30 = bgun0f098ca0(1 - hand->gset.weaponfunc, info, hand);
@@ -27835,14 +27835,14 @@ glabel var7f1acb14
 /*  f0a8a9c:	24e2ffff */ 	addiu	$v0,$a3,-1
 /*  f0a8aa0:	0002c0c3 */ 	sra	$t8,$v0,0x3
 /*  f0a8aa4:	8dae0070 */ 	lw	$t6,0x70($t5)
-/*  f0a8aa8:	3c09800b */ 	lui	$t1,%hi(g_MpPlayers+0x97)
+/*  f0a8aa8:	3c09800b */ 	lui	$t1,%hi(g_PlayerConfigsArray+0x97)
 /*  f0a8aac:	304a0007 */ 	andi	$t2,$v0,0x7
 /*  f0a8ab0:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f0a8ab4:	01ee7821 */ 	addu	$t7,$t7,$t6
 /*  f0a8ab8:	000f7940 */ 	sll	$t7,$t7,0x5
 /*  f0a8abc:	01f8c821 */ 	addu	$t9,$t7,$t8
 /*  f0a8ac0:	01394821 */ 	addu	$t1,$t1,$t9
-/*  f0a8ac4:	9129c84f */ 	lbu	$t1,%lo(g_MpPlayers+0x97)($t1)
+/*  f0a8ac4:	9129c84f */ 	lbu	$t1,%lo(g_PlayerConfigsArray+0x97)($t1)
 /*  f0a8ac8:	240b0001 */ 	addiu	$t3,$zero,0x1
 /*  f0a8acc:	014b6004 */ 	sllv	$t4,$t3,$t2
 /*  f0a8ad0:	012c2024 */ 	and	$a0,$t1,$t4
@@ -27854,8 +27854,8 @@ glabel var7f1acb14
 /*  f0a8ae4:	24e2ffff */ 	addiu	$v0,$a3,-1
 /*  f0a8ae8:	0002c8c3 */ 	sra	$t9,$v0,0x3
 /*  f0a8aec:	8dcf0070 */ 	lw	$t7,0x70($t6)
-/*  f0a8af0:	3c0a800b */ 	lui	$t2,%hi(g_MpPlayers)
-/*  f0a8af4:	254ac7b8 */ 	addiu	$t2,$t2,%lo(g_MpPlayers)
+/*  f0a8af0:	3c0a800b */ 	lui	$t2,%hi(g_PlayerConfigsArray)
+/*  f0a8af4:	254ac7b8 */ 	addiu	$t2,$t2,%lo(g_PlayerConfigsArray)
 /*  f0a8af8:	000fc080 */ 	sll	$t8,$t7,0x2
 /*  f0a8afc:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f0a8b00:	0018c140 */ 	sll	$t8,$t8,0x5
@@ -27906,9 +27906,9 @@ glabel var7f1acb14
 /*  f0a8ba0:	24e2ffff */ 	addiu	$v0,$a3,-1
 /*  f0a8ba4:	8d0d0288 */ 	lw	$t5,0x288($t0)
 /*  f0a8ba8:	0002c0c3 */ 	sra	$t8,$v0,0x3
-/*  f0a8bac:	3c0b800b */ 	lui	$t3,%hi(g_MpPlayers)
+/*  f0a8bac:	3c0b800b */ 	lui	$t3,%hi(g_PlayerConfigsArray)
 /*  f0a8bb0:	8dae0070 */ 	lw	$t6,0x70($t5)
-/*  f0a8bb4:	256bc7b8 */ 	addiu	$t3,$t3,%lo(g_MpPlayers)
+/*  f0a8bb4:	256bc7b8 */ 	addiu	$t3,$t3,%lo(g_PlayerConfigsArray)
 /*  f0a8bb8:	304a0007 */ 	andi	$t2,$v0,0x7
 /*  f0a8bbc:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f0a8bc0:	01ee7821 */ 	addu	$t7,$t7,$t6
@@ -27927,8 +27927,8 @@ glabel var7f1acb14
 /*  f0a8bec:	24e2ffff */ 	addiu	$v0,$a3,-1
 /*  f0a8bf0:	0002c0c3 */ 	sra	$t8,$v0,0x3
 /*  f0a8bf4:	8dae0070 */ 	lw	$t6,0x70($t5)
-/*  f0a8bf8:	3c0b800b */ 	lui	$t3,%hi(g_MpPlayers)
-/*  f0a8bfc:	256bc7b8 */ 	addiu	$t3,$t3,%lo(g_MpPlayers)
+/*  f0a8bf8:	3c0b800b */ 	lui	$t3,%hi(g_PlayerConfigsArray)
+/*  f0a8bfc:	256bc7b8 */ 	addiu	$t3,$t3,%lo(g_PlayerConfigsArray)
 /*  f0a8c00:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f0a8c04:	01ee7821 */ 	addu	$t7,$t7,$t6
 /*  f0a8c08:	000f7940 */ 	sll	$t7,$t7,0x5
@@ -28103,14 +28103,14 @@ glabel var7f1acb14
 /*  f0a8a9c:	24e2ffff */ 	addiu	$v0,$a3,-1
 /*  f0a8aa0:	0002c0c3 */ 	sra	$t8,$v0,0x3
 /*  f0a8aa4:	8dae0070 */ 	lw	$t6,0x70($t5)
-/*  f0a8aa8:	3c09800b */ 	lui	$t1,%hi(g_MpPlayers+0x97)
+/*  f0a8aa8:	3c09800b */ 	lui	$t1,%hi(g_PlayerConfigsArray+0x97)
 /*  f0a8aac:	304a0007 */ 	andi	$t2,$v0,0x7
 /*  f0a8ab0:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f0a8ab4:	01ee7821 */ 	addu	$t7,$t7,$t6
 /*  f0a8ab8:	000f7940 */ 	sll	$t7,$t7,0x5
 /*  f0a8abc:	01f8c821 */ 	addu	$t9,$t7,$t8
 /*  f0a8ac0:	01394821 */ 	addu	$t1,$t1,$t9
-/*  f0a8ac4:	9129c84f */ 	lbu	$t1,%lo(g_MpPlayers+0x97)($t1)
+/*  f0a8ac4:	9129c84f */ 	lbu	$t1,%lo(g_PlayerConfigsArray+0x97)($t1)
 /*  f0a8ac8:	240b0001 */ 	addiu	$t3,$zero,0x1
 /*  f0a8acc:	014b6004 */ 	sllv	$t4,$t3,$t2
 /*  f0a8ad0:	012c2024 */ 	and	$a0,$t1,$t4
@@ -28122,8 +28122,8 @@ glabel var7f1acb14
 /*  f0a8ae4:	24e2ffff */ 	addiu	$v0,$a3,-1
 /*  f0a8ae8:	0002c8c3 */ 	sra	$t9,$v0,0x3
 /*  f0a8aec:	8dcf0070 */ 	lw	$t7,0x70($t6)
-/*  f0a8af0:	3c0a800b */ 	lui	$t2,%hi(g_MpPlayers)
-/*  f0a8af4:	254ac7b8 */ 	addiu	$t2,$t2,%lo(g_MpPlayers)
+/*  f0a8af0:	3c0a800b */ 	lui	$t2,%hi(g_PlayerConfigsArray)
+/*  f0a8af4:	254ac7b8 */ 	addiu	$t2,$t2,%lo(g_PlayerConfigsArray)
 /*  f0a8af8:	000fc080 */ 	sll	$t8,$t7,0x2
 /*  f0a8afc:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f0a8b00:	0018c140 */ 	sll	$t8,$t8,0x5
@@ -28174,9 +28174,9 @@ glabel var7f1acb14
 /*  f0a8ba0:	24e2ffff */ 	addiu	$v0,$a3,-1
 /*  f0a8ba4:	8d0d0288 */ 	lw	$t5,0x288($t0)
 /*  f0a8ba8:	0002c0c3 */ 	sra	$t8,$v0,0x3
-/*  f0a8bac:	3c0b800b */ 	lui	$t3,%hi(g_MpPlayers)
+/*  f0a8bac:	3c0b800b */ 	lui	$t3,%hi(g_PlayerConfigsArray)
 /*  f0a8bb0:	8dae0070 */ 	lw	$t6,0x70($t5)
-/*  f0a8bb4:	256bc7b8 */ 	addiu	$t3,$t3,%lo(g_MpPlayers)
+/*  f0a8bb4:	256bc7b8 */ 	addiu	$t3,$t3,%lo(g_PlayerConfigsArray)
 /*  f0a8bb8:	304a0007 */ 	andi	$t2,$v0,0x7
 /*  f0a8bbc:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f0a8bc0:	01ee7821 */ 	addu	$t7,$t7,$t6
@@ -28195,8 +28195,8 @@ glabel var7f1acb14
 /*  f0a8bec:	24e2ffff */ 	addiu	$v0,$a3,-1
 /*  f0a8bf0:	0002c0c3 */ 	sra	$t8,$v0,0x3
 /*  f0a8bf4:	8dae0070 */ 	lw	$t6,0x70($t5)
-/*  f0a8bf8:	3c0b800b */ 	lui	$t3,%hi(g_MpPlayers)
-/*  f0a8bfc:	256bc7b8 */ 	addiu	$t3,$t3,%lo(g_MpPlayers)
+/*  f0a8bf8:	3c0b800b */ 	lui	$t3,%hi(g_PlayerConfigsArray)
+/*  f0a8bfc:	256bc7b8 */ 	addiu	$t3,$t3,%lo(g_PlayerConfigsArray)
 /*  f0a8c00:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f0a8c04:	01ee7821 */ 	addu	$t7,$t7,$t6
 /*  f0a8c08:	000f7940 */ 	sll	$t7,$t7,0x5
@@ -28371,14 +28371,14 @@ glabel var7f1a7044nb
 /*  f0a8a9c:	24e2ffff */ 	addiu	$v0,$a3,-1
 /*  f0a8aa0:	0002c0c3 */ 	sra	$t8,$v0,0x3
 /*  f0a8aa4:	8dae0070 */ 	lw	$t6,0x70($t5)
-/*  f0a8aa8:	3c09800b */ 	lui	$t1,%hi(g_MpPlayers+0x97)
+/*  f0a8aa8:	3c09800b */ 	lui	$t1,%hi(g_PlayerConfigsArray+0x97)
 /*  f0a8aac:	304a0007 */ 	andi	$t2,$v0,0x7
 /*  f0a8ab0:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f0a8ab4:	01ee7821 */ 	addu	$t7,$t7,$t6
 /*  f0a8ab8:	000f7940 */ 	sll	$t7,$t7,0x5
 /*  f0a8abc:	01f8c821 */ 	addu	$t9,$t7,$t8
 /*  f0a8ac0:	01394821 */ 	addu	$t1,$t1,$t9
-/*  f0a8ac4:	9129c84f */ 	lbu	$t1,%lo(g_MpPlayers+0x97)($t1)
+/*  f0a8ac4:	9129c84f */ 	lbu	$t1,%lo(g_PlayerConfigsArray+0x97)($t1)
 /*  f0a8ac8:	240b0001 */ 	addiu	$t3,$zero,0x1
 /*  f0a8acc:	014b6004 */ 	sllv	$t4,$t3,$t2
 /*  f0a8ad0:	012c2024 */ 	and	$a0,$t1,$t4
@@ -28390,8 +28390,8 @@ glabel var7f1a7044nb
 /*  f0a8ae4:	24e2ffff */ 	addiu	$v0,$a3,-1
 /*  f0a8ae8:	0002c8c3 */ 	sra	$t9,$v0,0x3
 /*  f0a8aec:	8dcf0070 */ 	lw	$t7,0x70($t6)
-/*  f0a8af0:	3c0a800b */ 	lui	$t2,%hi(g_MpPlayers)
-/*  f0a8af4:	254ac7b8 */ 	addiu	$t2,$t2,%lo(g_MpPlayers)
+/*  f0a8af0:	3c0a800b */ 	lui	$t2,%hi(g_PlayerConfigsArray)
+/*  f0a8af4:	254ac7b8 */ 	addiu	$t2,$t2,%lo(g_PlayerConfigsArray)
 /*  f0a8af8:	000fc080 */ 	sll	$t8,$t7,0x2
 /*  f0a8afc:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f0a8b00:	0018c140 */ 	sll	$t8,$t8,0x5
@@ -28442,9 +28442,9 @@ glabel var7f1a7044nb
 /*  f0a8ba0:	24e2ffff */ 	addiu	$v0,$a3,-1
 /*  f0a8ba4:	8d0d0288 */ 	lw	$t5,0x288($t0)
 /*  f0a8ba8:	0002c0c3 */ 	sra	$t8,$v0,0x3
-/*  f0a8bac:	3c0b800b */ 	lui	$t3,%hi(g_MpPlayers)
+/*  f0a8bac:	3c0b800b */ 	lui	$t3,%hi(g_PlayerConfigsArray)
 /*  f0a8bb0:	8dae0070 */ 	lw	$t6,0x70($t5)
-/*  f0a8bb4:	256bc7b8 */ 	addiu	$t3,$t3,%lo(g_MpPlayers)
+/*  f0a8bb4:	256bc7b8 */ 	addiu	$t3,$t3,%lo(g_PlayerConfigsArray)
 /*  f0a8bb8:	304a0007 */ 	andi	$t2,$v0,0x7
 /*  f0a8bbc:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f0a8bc0:	01ee7821 */ 	addu	$t7,$t7,$t6
@@ -28463,8 +28463,8 @@ glabel var7f1a7044nb
 /*  f0a8bec:	24e2ffff */ 	addiu	$v0,$a3,-1
 /*  f0a8bf0:	0002c0c3 */ 	sra	$t8,$v0,0x3
 /*  f0a8bf4:	8dae0070 */ 	lw	$t6,0x70($t5)
-/*  f0a8bf8:	3c0b800b */ 	lui	$t3,%hi(g_MpPlayers)
-/*  f0a8bfc:	256bc7b8 */ 	addiu	$t3,$t3,%lo(g_MpPlayers)
+/*  f0a8bf8:	3c0b800b */ 	lui	$t3,%hi(g_PlayerConfigsArray)
+/*  f0a8bfc:	256bc7b8 */ 	addiu	$t3,$t3,%lo(g_PlayerConfigsArray)
 /*  f0a8c00:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f0a8c04:	01ee7821 */ 	addu	$t7,$t7,$t6
 /*  f0a8c08:	000f7940 */ 	sll	$t7,$t7,0x5
@@ -28546,12 +28546,12 @@ glabel var7f1a7044nb
 //				// A macro is probably used here, hence the duplicate checks
 //				if ((g_Vars.currentplayer->weaponnum >= WEAPON_UNARMED
 //						&& g_Vars.currentplayer->weaponnum <= WEAPON_COMBATBOOST
-//						&& (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] & (1 << ((g_Vars.currentplayer->weaponnum - 1) & 7)))) != 1) {
+//						&& (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] & (1 << ((g_Vars.currentplayer->weaponnum - 1) & 7)))) != 1) {
 //					// b24
-//					g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] |= 1 << ((g_Vars.currentplayer->weaponnum - 1) & 7);
+//					g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] |= 1 << ((g_Vars.currentplayer->weaponnum - 1) & 7);
 //				} else {
 //					// b34
-//					g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] &= ~(1 << ((g_Vars.currentplayer->weaponnum - 1) & 7));
+//					g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] &= ~(1 << ((g_Vars.currentplayer->weaponnum - 1) & 7));
 //				}
 //			}
 //
@@ -28568,10 +28568,10 @@ glabel var7f1a7044nb
 //					&& g_Vars.currentplayer->weaponnum <= WEAPON_COMBATBOOST) {
 //				if (!(g_Vars.currentplayer->weaponnum >= WEAPON_UNARMED
 //							&& g_Vars.currentplayer->weaponnum <= WEAPON_COMBATBOOST
-//							&& (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] & (1 << ((g_Vars.currentplayer->weaponnum - 1) & 7))))) {
-//					g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] |= 1 << ((g_Vars.currentplayer->weaponnum - 1) & 7);
+//							&& (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] & (1 << ((g_Vars.currentplayer->weaponnum - 1) & 7))))) {
+//					g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] |= 1 << ((g_Vars.currentplayer->weaponnum - 1) & 7);
 //				} else {
-//					g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] &= ~(1 << ((g_Vars.currentplayer->weaponnum - 1) & 7));
+//					g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] &= ~(1 << ((g_Vars.currentplayer->weaponnum - 1) & 7));
 //				}
 //			}
 //		}
@@ -28596,7 +28596,7 @@ bool bgunIsUsingSecondaryFunction(void)
 		s32 index = (weaponnum - 1) >> 3;
 		s32 value = 1 << ((weaponnum - 1) & 7);
 
-		if (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[index] & value) {
+		if (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].gunfuncs[index] & value) {
 			if (player->gunctrl.invertgunfunc == true) {
 				return false;
 			}

@@ -264,6 +264,43 @@
 #define BANK_0 0
 #define BANK_1 1
 
+#define BOTDIFF_MEAT     0
+#define BOTDIFF_EASY     1
+#define BOTDIFF_NORMAL   2
+#define BOTDIFF_HARD     3
+#define BOTDIFF_PERFECT  4
+#define BOTDIFF_DARK     5
+#define BOTDIFF_DISABLED 6
+
+#define BOTDISTCFG_CLOSE          0
+#define BOTDISTCFG_PISTOL         1
+#define BOTDISTCFG_DEFAULT        2
+#define BOTDISTCFG_SHOOTEXPLOSIVE 3
+#define BOTDISTCFG_KAZE           4
+#define BOTDISTCFG_FARSIGHT       5
+#define BOTDISTCFG_FOLLOW         6
+#define BOTDISTCFG_THROWEXPLOSIVE 7
+
+// Bot distance modes
+#define BOTDISTMODE_BACKUP  1
+#define BOTDISTMODE_OK      2
+#define BOTDISTMODE_ADVANCE 3
+#define BOTDISTMODE_GOTO    4
+
+#define BOTTYPE_GENERAL 0
+#define BOTTYPE_PEACE   1  // Collects weapons but doesn't engage in combat
+#define BOTTYPE_SHIELD  2  // Prioritises full shield before combat
+#define BOTTYPE_ROCKET  3  // Prefers explosive weapons
+#define BOTTYPE_KAZE    4  // Does not keep distance
+#define BOTTYPE_FIST    5  // Uses fists only
+#define BOTTYPE_PREY    6  // Target players who are newly spawned, have inferior weapons or are low on health
+#define BOTTYPE_COWARD  7  // Runs away, only attacks if opponent's weapon is inferior
+#define BOTTYPE_JUDGE   8  // Targets the winning player
+#define BOTTYPE_FEUD    9  // Targets a single player for the whole match
+#define BOTTYPE_SPEED   10 // Runs faster
+#define BOTTYPE_TURTLE  11 // Moves slower and has double shield
+#define BOTTYPE_VENGE   12 // Targets the last player who killed it
+
 #define BRIEFINGTYPE_LOCATION 0
 #define BRIEFINGTYPE_TEXT_PA  1
 #define BRIEFINGTYPE_TEXT_SA  2
@@ -2457,10 +2494,10 @@
 #define MPFEATURE_WEAPON_SHIELD          0x16
 #define MPFEATURE_WEAPON_CLOAKINGDEVICE  0x17
 #define MPFEATURE_WEAPON_COMBATBOOST     0x18
-#define MPFEATURE_SIMDIFF_HARD           0x19
-#define MPFEATURE_SIMDIFF_PERFECT        0x1a
+#define MPFEATURE_BOTDIFF_HARD           0x19
+#define MPFEATURE_BOTDIFF_PERFECT        0x1a
 #define MPFEATURE_1B                     0x1b
-#define MPFEATURE_SIMDIFF_DARK           0x1c
+#define MPFEATURE_BOTDIFF_DARK           0x1c
 #define MPFEATURE_SLOWMOTION             0x1d
 #define MPFEATURE_ONEHITKILLS            0x1e
 #define MPFEATURE_1F                     0x1f
@@ -3322,28 +3359,6 @@
 #define SIGHTTARGET_3 3
 #define SIGHTTARGET_4 4
 #define SIGHTTARGET_5 5
-
-#define SIMDIFF_MEAT     0
-#define SIMDIFF_EASY     1
-#define SIMDIFF_NORMAL   2
-#define SIMDIFF_HARD     3
-#define SIMDIFF_PERFECT  4
-#define SIMDIFF_DARK     5
-#define SIMDIFF_DISABLED 6
-
-#define SIMTYPE_GENERAL 0
-#define SIMTYPE_PEACE   1
-#define SIMTYPE_SHIELD  2
-#define SIMTYPE_ROCKET  3
-#define SIMTYPE_KAZE    4
-#define SIMTYPE_FIST    5
-#define SIMTYPE_PREY    6
-#define SIMTYPE_COWARD  7
-#define SIMTYPE_JUDGE   8
-#define SIMTYPE_FEUD    9
-#define SIMTYPE_SPEED   10
-#define SIMTYPE_TURTLE  11
-#define SIMTYPE_VENGE   12
 
 #define SKEL_BASIC          0x02
 #define SKEL_CHRGUN         0x03

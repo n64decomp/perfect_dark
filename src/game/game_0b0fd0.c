@@ -8,7 +8,7 @@
 #include "game/hudmsg.h"
 #include "game/game_127910.h"
 #include "game/mplayer/setup.h"
-#include "game/game_197600.h"
+#include "game/botcmd.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/options.h"

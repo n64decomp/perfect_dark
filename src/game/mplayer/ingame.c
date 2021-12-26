@@ -51,9 +51,9 @@ s32 mpStatsForPlayerDropdownHandler(s32 operation, struct menuitem *item, union 
 		for (a1 = 0; a1 < 12; a1++) {
 			if (g_MpSetup.chrslots & (1 << a1)) {
 				if (a1 < 4) {
-					name = g_MpPlayers[a1].base.name;
+					name = g_PlayerConfigsArray[a1].base.name;
 				} else {
-					name = g_MpSimulants[a1 - 4].base.name;
+					name = g_BotConfigsArray[a1 - 4].base.name;
 				}
 
 				if (v0 == data->list.value) {
@@ -219,9 +219,9 @@ char *mpMenuTitleStatsFor(struct menudialog *dialog)
 	char *name;
 
 	if (g_MpSelectedPlayersForStats[g_MpPlayerNum] < 4) {
-		name = g_MpPlayers[g_MpSelectedPlayersForStats[g_MpPlayerNum]].base.name;
+		name = g_PlayerConfigsArray[g_MpSelectedPlayersForStats[g_MpPlayerNum]].base.name;
 	} else {
-		name = g_MpSimulants[g_MpSelectedPlayersForStats[g_MpPlayerNum] - 4].base.name;
+		name = g_BotConfigsArray[g_MpSelectedPlayersForStats[g_MpPlayerNum] - 4].base.name;
 	}
 
 	// "Stats for %s"
@@ -409,13 +409,13 @@ char *mpMenuTextPlacementWithSuffix(struct menuitem *item)
 		L_MPMENU_275, // "12th"
 	};
 
-	return langGet(suffixes[g_MpPlayers[g_MpPlayerNum].base.placement]);
+	return langGet(suffixes[g_PlayerConfigsArray[g_MpPlayerNum].base.placement]);
 }
 
 s32 mpPlacementMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_GETCOLOUR) {
-		if (g_MpPlayers[g_MpPlayerNum].base.placement == 0) { // winner
+		if (g_PlayerConfigsArray[g_MpPlayerNum].base.placement == 0) { // winner
 			data->label.colour2 = colourBlend(data->label.colour2, 0xffff00ff, func0f006b08(40) * 255);
 		}
 	}
@@ -434,7 +434,7 @@ s32 mpAwardsMenuHandler(s32 operation, struct menuitem *item, union handlerdata 
 		u32 colour;
 
 		for (i = 0; i < 4; i++) {
-			if (g_MpPlayers[g_MpPlayerNum].medals & (1 << i)) {
+			if (g_PlayerConfigsArray[g_MpPlayerNum].medals & (1 << i)) {
 				switch (i) {
 				case 0: colour = 0xff7f7fff; break; // killmaster - red
 				case 1: colour = 0xbfbf00ff; break; // headshot - yellow
@@ -487,7 +487,7 @@ s32 mpAwardsMenuHandler(s32 operation, struct menuitem *item, union handlerdata 
 s32 mpPlayerTitleMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_GETCOLOUR) {
-		if (g_MpPlayers[g_MpPlayerNum].title != g_MpPlayers[g_MpPlayerNum].newtitle) {
+		if (g_PlayerConfigsArray[g_MpPlayerNum].title != g_PlayerConfigsArray[g_MpPlayerNum].newtitle) {
 			data->label.colour2 = colourBlend(data->label.colour2, 0xffff00ff, func0f006b08(40) * 255);
 		}
 	}
@@ -497,7 +497,7 @@ s32 mpPlayerTitleMenuHandler(s32 operation, struct menuitem *item, union handler
 
 char *mpMenuTextPlayerTitle(s32 arg0)
 {
-	return langGet(L_MISC_185 + g_MpPlayers[g_MpPlayerNum].title);
+	return langGet(L_MISC_185 + g_PlayerConfigsArray[g_MpPlayerNum].title);
 }
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -510,10 +510,10 @@ s32 mpConfirmPlayerNameHandler(s32 operation, struct menuitem *item, union handl
 	case MENUOP_GETTEXT:
 		i = 0;
 
-		while (g_MpPlayers[g_MpPlayerNum].base.name[i] != '\n'
-				&& g_MpPlayers[g_MpPlayerNum].base.name[i] != '\0'
+		while (g_PlayerConfigsArray[g_MpPlayerNum].base.name[i] != '\n'
+				&& g_PlayerConfigsArray[g_MpPlayerNum].base.name[i] != '\0'
 				&& i <= 10) {
-			name[i] = g_MpPlayers[g_MpPlayerNum].base.name[i];
+			name[i] = g_PlayerConfigsArray[g_MpPlayerNum].base.name[i];
 			i++;
 		}
 
@@ -526,15 +526,15 @@ s32 mpConfirmPlayerNameHandler(s32 operation, struct menuitem *item, union handl
 		i = 0;
 
 		while (i <= 10 && name[i] != '\0') {
-			g_MpPlayers[g_MpPlayerNum].base.name[i] = name[i];
+			g_PlayerConfigsArray[g_MpPlayerNum].base.name[i] = name[i];
 			i++;
 		}
 
-		g_MpPlayers[g_MpPlayerNum].base.name[i] = '\n';
+		g_PlayerConfigsArray[g_MpPlayerNum].base.name[i] = '\n';
 		i++;
 
 		while (i <= 10) {
-			g_MpPlayers[g_MpPlayerNum].base.name[i] = '\0';
+			g_PlayerConfigsArray[g_MpPlayerNum].base.name[i] = '\0';
 			i++;
 		}
 		break;
@@ -603,10 +603,10 @@ void mpPushEndscreenDialog(u32 arg0, u32 playernum)
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
-	if ((g_MpPlayers[g_MpPlayerNum].options & OPTION_ASKEDSAVEPLAYER) == 0
-			&& g_MpPlayers[g_MpPlayerNum].fileguid.fileid == 0
-			&& g_MpPlayers[g_MpPlayerNum].fileguid.deviceserial == 0) {
-		g_MpPlayers[g_MpPlayerNum].options |= OPTION_ASKEDSAVEPLAYER;
+	if ((g_PlayerConfigsArray[g_MpPlayerNum].options & OPTION_ASKEDSAVEPLAYER) == 0
+			&& g_PlayerConfigsArray[g_MpPlayerNum].fileguid.fileid == 0
+			&& g_PlayerConfigsArray[g_MpPlayerNum].fileguid.deviceserial == 0) {
+		g_PlayerConfigsArray[g_MpPlayerNum].options |= OPTION_ASKEDSAVEPLAYER;
 		menuPushDialog(&g_MpEndscreenSavePlayerMenuDialog);
 	}
 #endif

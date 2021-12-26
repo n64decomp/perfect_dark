@@ -20,7 +20,7 @@
 #include "game/smoke/smoke.h"
 #include "game/sparks/sparks.h"
 #include "game/bg.h"
-#include "game/game_190260.h"
+#include "game/bot.h"
 #include "game/training/training.h"
 #include "game/pad.h"
 #include "game/propobj.h"
@@ -1973,7 +1973,7 @@ glabel var7f1ab190pf
 /*  f063740:	8c4f02d4 */ 	lw	$t7,0x2d4($v0)
 /*  f063744:	11e00005 */ 	beqz	$t7,.PF0f06375c
 /*  f063748:	00000000 */ 	nop
-/*  f06374c:	0fc64a62 */ 	jal	aibotTick
+/*  f06374c:	0fc64a62 */ 	jal	botTick
 /*  f063750:	02002025 */ 	move	$a0,$s0
 /*  f063754:	10000004 */ 	b	.PF0f063768
 /*  f063758:	00403025 */ 	move	$a2,$v0
@@ -2143,7 +2143,7 @@ glabel var7f1ab190pf
 /*  f0639ac:	8c4f02d4 */ 	lw	$t7,0x2d4($v0)
 /*  f0639b0:	11e00005 */ 	beqz	$t7,.PF0f0639c8
 /*  f0639b4:	00000000 */ 	nop
-/*  f0639b8:	0fc64a62 */ 	jal	aibotTick
+/*  f0639b8:	0fc64a62 */ 	jal	botTick
 /*  f0639bc:	02002025 */ 	move	$a0,$s0
 /*  f0639c0:	1000003c */ 	b	.PF0f063ab4
 /*  f0639c4:	00403025 */ 	move	$a2,$v0
@@ -2959,7 +2959,7 @@ glabel propsTick
 /*  f0634d4:	8c4f02d4 */ 	lw	$t7,0x2d4($v0)
 /*  f0634d8:	11e00005 */ 	beqz	$t7,.L0f0634f0
 /*  f0634dc:	00000000 */ 	nop
-/*  f0634e0:	0fc64634 */ 	jal	aibotTick
+/*  f0634e0:	0fc64634 */ 	jal	botTick
 /*  f0634e4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0634e8:	10000004 */ 	b	.L0f0634fc
 /*  f0634ec:	00403025 */ 	or	$a2,$v0,$zero
@@ -3123,7 +3123,7 @@ glabel propsTick
 /*  f063728:	8c4f02d4 */ 	lw	$t7,0x2d4($v0)
 /*  f06372c:	11e00005 */ 	beqz	$t7,.L0f063744
 /*  f063730:	00000000 */ 	nop
-/*  f063734:	0fc64634 */ 	jal	aibotTick
+/*  f063734:	0fc64634 */ 	jal	botTick
 /*  f063738:	02002025 */ 	or	$a0,$s0,$zero
 /*  f06373c:	1000003c */ 	b	.L0f063830
 /*  f063740:	00403025 */ 	or	$a2,$v0,$zero
@@ -3932,7 +3932,7 @@ glabel propsTick
 /*  f062748:	8c4f02d4 */ 	lw	$t7,0x2d4($v0)
 /*  f06274c:	11e00005 */ 	beqz	$t7,.NB0f062764
 /*  f062750:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f062754:	0fc62e6d */ 	jal	aibotTick
+/*  f062754:	0fc62e6d */ 	jal	botTick
 /*  f062758:	02002025 */ 	or	$a0,$s0,$zero
 /*  f06275c:	10000004 */ 	beqz	$zero,.NB0f062770
 /*  f062760:	00403025 */ 	or	$a2,$v0,$zero
@@ -4096,7 +4096,7 @@ glabel propsTick
 /*  f06299c:	8c4f02d4 */ 	lw	$t7,0x2d4($v0)
 /*  f0629a0:	11e00005 */ 	beqz	$t7,.NB0f0629b8
 /*  f0629a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0629a8:	0fc62e6d */ 	jal	aibotTick
+/*  f0629a8:	0fc62e6d */ 	jal	botTick
 /*  f0629ac:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0629b0:	1000003c */ 	beqz	$zero,.NB0f062aa4
 /*  f0629b4:	00403025 */ 	or	$a2,$v0,$zero
@@ -4803,7 +4803,7 @@ glabel propsTick
 //				splatTick(prop);
 //
 //				if (chr && chr->aibot) {
-//					op = aibotTick(prop);
+//					op = botTick(prop);
 //				} else {
 //					op = chrTick(prop);
 //				}
@@ -4866,7 +4866,7 @@ glabel propsTick
 //					splatTick(prop);
 //
 //					if (chr && chr->aibot) {
-//						op = aibotTick(prop);
+//						op = botTick(prop);
 //					} else {
 //						op = chrTick(prop);
 //					}

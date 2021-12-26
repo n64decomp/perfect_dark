@@ -1143,8 +1143,8 @@ void filemgrDeleteCurrentFile(void)
 	} else {
 		// If deleting a loaded MP player, reset them to default
 		for (i = 0; i < 4; i++) {
-			if (g_FilemgrFileToDelete.fileid == g_MpPlayers[i].fileguid.fileid
-					&& g_FilemgrFileToDelete.deviceserial == g_MpPlayers[i].fileguid.deviceserial) {
+			if (g_FilemgrFileToDelete.fileid == g_PlayerConfigsArray[i].fileguid.fileid
+					&& g_FilemgrFileToDelete.deviceserial == g_PlayerConfigsArray[i].fileguid.deviceserial) {
 				mpPlayerSetDefaults(i, true);
 			}
 		}
@@ -1331,9 +1331,9 @@ void filemgrGetRenameName(char *buffer)
 		i = 0;
 		j = 0;
 
-		while (g_MpPlayers[g_MpPlayerNum].base.name[i] != '\0') {
-			if (g_MpPlayers[g_MpPlayerNum].base.name[i] != '\n') {
-				buffer[j] = g_MpPlayers[g_MpPlayerNum].base.name[i];
+		while (g_PlayerConfigsArray[g_MpPlayerNum].base.name[i] != '\0') {
+			if (g_PlayerConfigsArray[g_MpPlayerNum].base.name[i] != '\n') {
+				buffer[j] = g_PlayerConfigsArray[g_MpPlayerNum].base.name[i];
 				j++;
 			}
 
@@ -1371,7 +1371,7 @@ void filemgrSetRenameName(char *name)
 		break;
 	case 6:
 	case 12:
-		sprintf(g_MpPlayers[g_MpPlayerNum].base.name, "%s\n", name);
+		sprintf(g_PlayerConfigsArray[g_MpPlayerNum].base.name, "%s\n", name);
 		break;
 	case 7:
 	case 13:
@@ -2060,8 +2060,8 @@ bool filemgrIsFileInUse(struct filelistfile *file)
 
 	for (i = 0; i < 4; i++) {
 		if ((g_MpSetup.chrslots & (1 << i))
-				&& g_MpPlayers[i].fileguid.fileid == file->fileid
-				&& g_MpPlayers[i].fileguid.deviceserial == file->deviceserial) {
+				&& g_PlayerConfigsArray[i].fileguid.fileid == file->fileid
+				&& g_PlayerConfigsArray[i].fileguid.deviceserial == file->deviceserial) {
 			return true;
 		}
 	}
@@ -2885,8 +2885,8 @@ s32 filemgrMainMenuDialog(s32 operation, struct menudialog *dialog, union handle
 
 		// Set MP player names to "Player 1" through 4 if blank
 		for (i = 0; i < 4; i++) {
-			if (g_MpPlayers[i].base.name[0] == '\0') {
-				sprintf(g_MpPlayers[i].base.name, "%s %d\n", langGet(L_MISC_437), i + 1);
+			if (g_PlayerConfigsArray[i].base.name[0] == '\0') {
+				sprintf(g_PlayerConfigsArray[i].base.name, "%s %d\n", langGet(L_MISC_437), i + 1);
 			}
 		}
 		break;

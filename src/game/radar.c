@@ -261,7 +261,7 @@ Gfx *radarRender(Gfx *gdl)
 			return gdl;
 		}
 
-		if ((g_MpPlayers[g_Vars.currentplayerstats->mpindex].base.displayoptions & 0x00000004) == 0) {
+		if ((g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.displayoptions & 0x00000004) == 0) {
 			return gdl;
 		}
 	} else if ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_RTRACKER) == 0) {
@@ -340,7 +340,7 @@ Gfx *radarRender(Gfx *gdl)
 				pos.z = g_Vars.players[i]->prop->pos.z - g_Vars.currentplayer->prop->pos.z;
 
 				if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_TEAMSENABLED)) {
-					s32 index = g_MpPlayers[g_Vars.playerstats[i].mpindex].base.team;
+					s32 index = g_PlayerConfigsArray[g_Vars.playerstats[i].mpindex].base.team;
 					colour = g_TeamColours[index];
 				} else {
 					colour = 0x00ff0000;
@@ -372,21 +372,21 @@ Gfx *radarRender(Gfx *gdl)
 
 	// Draw dots for MP simulants
 	if (g_Vars.normmplayerisrunning != 0) {
-		for (i = 0; i < g_NumMpSimulantChrs; i++) {
-			if (!chrIsDead(g_MpSimulantChrs[i])
-					&& (g_MpSimulantChrs[i]->hidden & CHRHFLAG_CLOAKED) == 0
-					&& scenarioRadar2(&gdl, g_MpSimulantChrs[i]->prop) == false) {
-				pos.x = g_MpSimulantChrs[i]->prop->pos.x - g_Vars.currentplayer->prop->pos.x;
-				pos.y = g_MpSimulantChrs[i]->prop->pos.y - g_Vars.currentplayer->prop->pos.y;
-				pos.z = g_MpSimulantChrs[i]->prop->pos.z - g_Vars.currentplayer->prop->pos.z;
+		for (i = 0; i < g_BotCount; i++) {
+			if (!chrIsDead(g_MpBotChrPtrs[i])
+					&& (g_MpBotChrPtrs[i]->hidden & CHRHFLAG_CLOAKED) == 0
+					&& scenarioRadar2(&gdl, g_MpBotChrPtrs[i]->prop) == false) {
+				pos.x = g_MpBotChrPtrs[i]->prop->pos.x - g_Vars.currentplayer->prop->pos.x;
+				pos.y = g_MpBotChrPtrs[i]->prop->pos.y - g_Vars.currentplayer->prop->pos.y;
+				pos.z = g_MpBotChrPtrs[i]->prop->pos.z - g_Vars.currentplayer->prop->pos.z;
 
 				if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_TEAMSENABLED)) {
-					colour = g_TeamColours[radarGetTeamIndex(g_MpSimulantChrs[i]->team)];
+					colour = g_TeamColours[radarGetTeamIndex(g_MpBotChrPtrs[i]->team)];
 				} else {
 					colour = 0x00ff0000;
 				}
 
-				gdl = radarDrawDot(gdl, g_MpSimulantChrs[i]->prop, &pos, colour, 0, 0);
+				gdl = radarDrawDot(gdl, g_MpBotChrPtrs[i]->prop, &pos, colour, 0, 0);
 			}
 		}
 	}
@@ -405,7 +405,7 @@ Gfx *radarRender(Gfx *gdl)
 		pos.z = 0;
 
 		if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_TEAMSENABLED)) {
-			s32 index = g_MpPlayers[g_Vars.playerstats[playernum].mpindex].base.team;
+			s32 index = g_PlayerConfigsArray[g_Vars.playerstats[playernum].mpindex].base.team;
 			colour = g_TeamColours[index];
 		} else {
 			colour = 0x00ff0000;

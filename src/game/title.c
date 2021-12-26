@@ -6975,12 +6975,12 @@ void setNumPlayers(s32 numplayers)
 
 s32 playerGetTeam(s32 playernum)
 {
-	return g_MpPlayers[g_Vars.playerstats[playernum].mpindex].base.team;
+	return g_PlayerConfigsArray[g_Vars.playerstats[playernum].mpindex].base.team;
 }
 
 void playerSetTeam(s32 playernum, s32 team)
 {
-	g_MpPlayers[g_Vars.playerstats[playernum].mpindex].base.team = team;
+	g_PlayerConfigsArray[g_Vars.playerstats[playernum].mpindex].base.team = team;
 }
 
 void titleInitSkip(void)

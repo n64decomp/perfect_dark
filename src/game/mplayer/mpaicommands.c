@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/chr/chrai.h"
-#include "game/game_190260.h"
+#include "game/bot.h"
 #include "bss.h"
 #include "data.h"
 #include "types.h"
@@ -11,7 +11,7 @@
  */
 bool aiMpInitSimulants(void)
 {
-	mpInitSimulants();
+	botSpawnAll();
 	g_Vars.aioffset += 2;
 	return false;
 }

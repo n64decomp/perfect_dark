@@ -42,7 +42,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **Payload:** Rewrites the start of `func0f08f968` so it immediately returns false. This makes it impossible to open doors.
 
-### propobjHandlePickupByAibot
+### botPickupProp
 
 **When Called:** When a simulant in multiplayer picks up an item.
 
@@ -54,7 +54,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **When Called:** When a guard uncloaks.
 
-**What It Checks:** Checksums `propobjHandlePickupByAibot` to make sure it hasn't been modified.
+**What It Checks:** Checksums `botPickupProp` to make sure it hasn't been modified.
 
 **Payload:** Disables the ability for the player and other characters to go up or down slopes. This is done by nopping the `jr ra` instruction in `cdFindGroundY`, which causes it to flow into the following function, which unconditionally returns false and only exists for this purpose.
 

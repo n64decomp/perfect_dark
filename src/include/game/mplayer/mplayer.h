@@ -5,7 +5,7 @@
 #include "types.h"
 
 f32 mpHandicapToDamageScale(u8 value);
-void func0f187838(struct mpchr *mpchr);
+void func0f187838(struct mpchrconfig *mpchr);
 void mpStartMatch(void);
 void mpInit(void);
 void mpCalculateTeamIsOnlyAi(void);
@@ -43,7 +43,7 @@ u32 func0f189cc0(void);
 u32 func0f189dc8(void);
 u32 func0f189ed0(void);
 u32 func0f18a030(void);
-void mpCalculatePlayerTitle(struct mpplayer *mpplayer);
+void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer);
 void func0f18a56c(void);
 void mpEndMatch(void);
 s32 mpGetNumHeads2(void);
@@ -80,7 +80,7 @@ void mpRandomiseMultiTracks(void);
 void mpSetTrackToRandom(void);
 s32 mpGetCurrentTrackSlotNum(void);
 u32 mpChooseRandomTrack(void);
-struct mpchr *func0f18c794(s32 index);
+struct mpchrconfig *func0f18c794(s32 index);
 u32 func0f18c828(void);
 s32 mpGetNumChrs(void);
 u32 func0f18c8b8(void);

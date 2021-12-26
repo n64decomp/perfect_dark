@@ -832,7 +832,7 @@ struct waypoint {
 struct aibot {
 	/*0x000*/ u8 unk000;
 	/*0x002*/ s16 aibotnum;
-	/*0x004*/ struct mpsim *simulant;
+	/*0x004*/ struct mpbotconfig *config;
 	/*0x008*/ s16 attackingplayernum;
 	/*0x00a*/ s16 followingplayernum;
 	/*0x00c*/ s16 dangerouspropnum; // index into g_DangerousProps
@@ -886,7 +886,7 @@ struct aibot {
 	/*0x068*/ struct attackanimconfig *unk068;
 	/*0x06c*/ f32 unk06c;
 	/*0x070*/ f32 unk070;
-	/*0x074*/ s8 unk074;
+	/*0x074*/ s8 distmode;
 	/*0x075*/ s8 unk075;
 	/*0x076*/ s16 lastkilledbyplayernum;
 	/*0x078*/ u8 unk078;
@@ -918,7 +918,7 @@ struct aibot {
 	/*0x0c0*/ s32 attackpropnum;
 	/*0x0c4*/ u32 unk0c4[2];
 	/*0x0cc*/ u32 unk0cc; // Timer? Related to weapon switching
-	/*0x0d0*/ s32 unk0d0;
+	/*0x0d0*/ s32 distmodettl60;
 	/*0x0d4*/ s32 followprotectpropnum;
 	/*0x0d8*/ s32 unk0d8;
 	/*0x0dc*/ u32 unk0dc;
@@ -3258,7 +3258,7 @@ struct mphead {
 	u8 requirefeature;
 };
 
-struct mpsimulanttype {
+struct botprofile {
 	/*0x00*/ u8 type;
 	/*0x01*/ u8 difficulty;
 	/*0x02*/ u16 name;
@@ -4565,7 +4565,7 @@ struct gamefile {
 	/*0xb5*/ u8 weaponsfound[6];
 };
 
-struct mpchr {
+struct mpchrconfig {
 	/*0x00*/ char name[12]; // up to 10 visible chars plus line break plus null byte
 	/*0x0c*/ u8 unk0c;
 	/*0x0d*/ u8 unk0d;
@@ -4583,15 +4583,13 @@ struct mpchr {
 	/*0x3c*/ s16 numdeaths;
 	/*0x3e*/ s16 unk3e;
 	/*0x40*/ s16 unk40;
-	/*0x42*/ u16 unk42;
+};
+
+struct mpplayerconfig {
+	/*0x00*/ struct mpchrconfig base;
 	/*0x44*/ u8 controlmode;
 	/*0x45*/ s8 contpad1;
 	/*0x46*/ s8 contpad2;
-	/*0x47*/ u8 simtype;
-};
-
-struct mpplayer {
-	/*0x00*/ struct mpchr base;
 	/*0x48*/ u16 options;
 	/*0x4c*/ struct fileguid fileguid;
 	/*0x54*/ u32 kills;
@@ -4618,8 +4616,10 @@ struct mpplayer {
 	/*0x9d*/ u8 handicap;
 };
 
-struct mpsim {
-	/*0x00*/ struct mpchr base;
+struct mpbotconfig {
+	/*0x00*/ struct mpchrconfig base;
+	/*0x44*/ u8 unk44[3];
+	/*0x47*/ u8 type;
 	/*0x48*/ u8 difficulty;
 };
 
@@ -4688,7 +4688,7 @@ struct mpscenario {
 	void (*tickfunc)(void);
 	void (*unk14)(struct chrdata *chr);
 	void *unk18;
-	void (*killfunc)(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3);
+	void (*killfunc)(struct mpchrconfig *mpchr, s32 arg1, s32 *score, s32 *arg3);
 	Gfx *(*radarfunc)(Gfx *gdl);
 	bool (*radar2func)(Gfx **gdl, struct prop *prop);
 	bool (*highlightfunc)(struct prop *prop, u32 *colour);
@@ -4762,7 +4762,7 @@ struct scenariodata_cbt {
 	u32 unk04;
 	u32 unk08;
 	u16 unk0c;
-	s16 unk0e[1]; // possibly for a different scenario - see mpGetNumTeammatesDefendingHill
+	s16 unk0e[1]; // possibly for a different scenario - see botGetNumTeammatesDefendingHill
 };
 
 struct scenariodata_htb {
@@ -5232,7 +5232,7 @@ struct chrbio {
 };
 
 struct mpteaminfo {
-	struct mpchr *mpchr;
+	struct mpchrconfig *mpchr;
 	u32 teamnum;
 	u32 positionindex;
 	u8 unk0c;
@@ -6945,8 +6945,8 @@ struct aibotweaponpreference {
 	u8 unk03;
 	u16 unk04_00 : 1;
 	u16 unk04_01 : 1;
-	u16 unk04_02 : 4;
-	u16 unk04_06 : 4;
+	u16 pridistconfig : 4;
+	u16 secdistconfig : 4;
 	u16 unk06;
 	u16 unk08;
 	u16 unk0a;

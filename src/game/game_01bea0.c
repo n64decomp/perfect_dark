@@ -2463,9 +2463,9 @@ glabel var7f1a863c
 /*  f01c778:	15c10005 */ 	bne	$t6,$at,.L0f01c790
 /*  f01c77c:	0311c021 */ 	addu	$t8,$t8,$s1
 /*  f01c780:	0018c140 */ 	sll	$t8,$t8,0x5
-/*  f01c784:	3c01800b */ 	lui	$at,%hi(g_MpPlayers+0x11)
+/*  f01c784:	3c01800b */ 	lui	$at,%hi(g_PlayerConfigsArray+0x11)
 /*  f01c788:	00380821 */ 	addu	$at,$at,$t8
-/*  f01c78c:	a020c7c9 */ 	sb	$zero,%lo(g_MpPlayers+0x11)($at)
+/*  f01c78c:	a020c7c9 */ 	sb	$zero,%lo(g_PlayerConfigsArray+0x11)($at)
 .L0f01c790:
 /*  f01c790:	1080003b */ 	beqz	$a0,.L0f01c880
 /*  f01c794:	30591000 */ 	andi	$t9,$v0,0x1000
@@ -2474,9 +2474,9 @@ glabel var7f1a863c
 /*  f01c7a0:	00117880 */ 	sll	$t7,$s1,0x2
 /*  f01c7a4:	01f17821 */ 	addu	$t7,$t7,$s1
 /*  f01c7a8:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f01c7ac:	3c01800b */ 	lui	$at,%hi(g_MpPlayers+0x9d)
+/*  f01c7ac:	3c01800b */ 	lui	$at,%hi(g_PlayerConfigsArray+0x9d)
 /*  f01c7b0:	002f0821 */ 	addu	$at,$at,$t7
-/*  f01c7b4:	a02dc855 */ 	sb	$t5,%lo(g_MpPlayers+0x9d)($at)
+/*  f01c7b4:	a02dc855 */ 	sb	$t5,%lo(g_PlayerConfigsArray+0x9d)($at)
 /*  f01c7b8:	8e630490 */ 	lw	$v1,0x490($s3)
 /*  f01c7bc:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f01c7c0:	02714021 */ 	addu	$t0,$s3,$s1
@@ -2594,9 +2594,9 @@ glabel var7f1a863c
 /*  f01c950:	00116880 */ 	sll	$t5,$s1,0x2
 /*  f01c954:	01b16821 */ 	addu	$t5,$t5,$s1
 /*  f01c958:	000d6940 */ 	sll	$t5,$t5,0x5
-/*  f01c95c:	3c04800b */ 	lui	$a0,%hi(g_MpPlayers+0x45)
+/*  f01c95c:	3c04800b */ 	lui	$a0,%hi(g_PlayerConfigsArray+0x45)
 /*  f01c960:	008d2021 */ 	addu	$a0,$a0,$t5
-/*  f01c964:	8084c7fd */ 	lb	$a0,%lo(g_MpPlayers+0x45)($a0)
+/*  f01c964:	8084c7fd */ 	lb	$a0,%lo(g_PlayerConfigsArray+0x45)($a0)
 /*  f01c968:	0c005408 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f01c96c:	3405ffff */ 	dli	$a1,0xffff
 /*  f01c970:	304f4000 */ 	andi	$t7,$v0,0x4000
@@ -2948,8 +2948,8 @@ glabel var7f1a863c
 .L0f01ce44:
 /*  f01ce44:	00116880 */ 	sll	$t5,$s1,0x2
 /*  f01ce48:	01b16821 */ 	addu	$t5,$t5,$s1
-/*  f01ce4c:	3c19800b */ 	lui	$t9,%hi(g_MpPlayers)
-/*  f01ce50:	2739c7b8 */ 	addiu	$t9,$t9,%lo(g_MpPlayers)
+/*  f01ce4c:	3c19800b */ 	lui	$t9,%hi(g_PlayerConfigsArray)
+/*  f01ce50:	2739c7b8 */ 	addiu	$t9,$t9,%lo(g_PlayerConfigsArray)
 /*  f01ce54:	000d6940 */ 	sll	$t5,$t5,0x5
 /*  f01ce58:	01b91021 */ 	addu	$v0,$t5,$t9
 /*  f01ce5c:	afa20058 */ 	sw	$v0,0x58($sp)
@@ -3120,19 +3120,19 @@ glabel var7f1a863c
 /*  f01d0a8:	8e630298 */ 	lw	$v1,0x298($s3)
 .L0f01d0ac:
 /*  f01d0ac:	8e630298 */ 	lw	$v1,0x298($s3)
-/*  f01d0b0:	3c04800b */ 	lui	$a0,%hi(g_MpPlayers+0x280)
-/*  f01d0b4:	2484ca38 */ 	addiu	$a0,$a0,%lo(g_MpPlayers+0x280)
+/*  f01d0b0:	3c04800b */ 	lui	$a0,%hi(g_PlayerConfigsArray+0x280)
+/*  f01d0b4:	2484ca38 */ 	addiu	$a0,$a0,%lo(g_PlayerConfigsArray+0x280)
 /*  f01d0b8:	04610003 */ 	bgez	$v1,.L0f01d0c8
 /*  f01d0bc:	27a20070 */ 	addiu	$v0,$sp,0x70
 /*  f01d0c0:	8e78029c */ 	lw	$t8,0x29c($s3)
 /*  f01d0c4:	0700005a */ 	bltz	$t8,.L0f01d230
 .L0f01d0c8:
-/*  f01d0c8:	3c05800b */ 	lui	$a1,%hi(g_MpPlayers+0x320)
-/*  f01d0cc:	3c06800b */ 	lui	$a2,%hi(g_MpPlayers+0xa0)
-/*  f01d0d0:	3c07800b */ 	lui	$a3,%hi(g_MpPlayers)
-/*  f01d0d4:	24e7c7b8 */ 	addiu	$a3,$a3,%lo(g_MpPlayers)
-/*  f01d0d8:	24c6c858 */ 	addiu	$a2,$a2,%lo(g_MpPlayers+0xa0)
-/*  f01d0dc:	24a5cad8 */ 	addiu	$a1,$a1,%lo(g_MpPlayers+0x320)
+/*  f01d0c8:	3c05800b */ 	lui	$a1,%hi(g_PlayerConfigsArray+0x320)
+/*  f01d0cc:	3c06800b */ 	lui	$a2,%hi(g_PlayerConfigsArray+0xa0)
+/*  f01d0d0:	3c07800b */ 	lui	$a3,%hi(g_PlayerConfigsArray)
+/*  f01d0d4:	24e7c7b8 */ 	addiu	$a3,$a3,%lo(g_PlayerConfigsArray)
+/*  f01d0d8:	24c6c858 */ 	addiu	$a2,$a2,%lo(g_PlayerConfigsArray+0xa0)
+/*  f01d0dc:	24a5cad8 */ 	addiu	$a1,$a1,%lo(g_PlayerConfigsArray+0x320)
 /*  f01d0e0:	00807825 */ 	or	$t7,$a0,$zero
 /*  f01d0e4:	00407025 */ 	or	$t6,$v0,$zero
 /*  f01d0e8:	2499009c */ 	addiu	$t9,$a0,0x9c
@@ -5700,12 +5700,12 @@ glabel var7f1a863c
 //
 //					// c76c
 //					if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
-//						g_MpPlayers[i].base.team = 0;
+//						g_PlayerConfigsArray[i].base.team = 0;
 //					}
 //
 //					// c790
 //					if (pass2 && (buttons & START_BUTTON)) {
-//						g_MpPlayers[i].handicap = 128;
+//						g_PlayerConfigsArray[i].handicap = 128;
 //
 //						if (g_Vars.unk000490 == 2) {
 //							if (g_Vars.unk000494[i] == 0) {
@@ -5758,7 +5758,7 @@ glabel var7f1a863c
 //				}
 //
 //				if (g_MenuData.root == MENUROOT_MPENDSCREEN) {
-//					u16 buttons2 = joyGetButtonsPressedThisFrame(g_MpPlayers[i].base.unk45, 0xffff);
+//					u16 buttons2 = joyGetButtonsPressedThisFrame(g_PlayerConfigsArray[i].base.unk45, 0xffff);
 //
 //					if (buttons2 & B_BUTTON) {
 //						s32 playernum = -1;
@@ -5902,7 +5902,7 @@ glabel var7f1a863c
 //							mpPushEndscreenDialog(sp288, i);
 //							sp344 = true;
 //
-//							if (g_MpPlayers[i].unk4c.unk00 && g_MpPlayers[i].unk4c.unk04) {
+//							if (g_PlayerConfigsArray[i].unk4c.unk00 && g_PlayerConfigsArray[i].unk4c.unk04) {
 //								func0f0fd548(i);
 //							}
 //						}
@@ -5969,15 +5969,15 @@ glabel var7f1a863c
 //				} else {
 //					// d0ac
 //					if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-//						struct mpplayer tmp;
+//						struct mpplayerconfig tmp;
 //
-//						tmp = g_MpPlayers[4];
-//						g_MpPlayers[4] = g_MpPlayers[0];
-//						g_MpPlayers[0] = tmp;
+//						tmp = g_PlayerConfigsArray[4];
+//						g_PlayerConfigsArray[4] = g_PlayerConfigsArray[0];
+//						g_PlayerConfigsArray[0] = tmp;
 //
-//						tmp = g_MpPlayers[5];
-//						g_MpPlayers[5] = g_MpPlayers[1];
-//						g_MpPlayers[1] = tmp;
+//						tmp = g_PlayerConfigsArray[5];
+//						g_PlayerConfigsArray[5] = g_PlayerConfigsArray[1];
+//						g_PlayerConfigsArray[1] = tmp;
 //					}
 //				}
 //

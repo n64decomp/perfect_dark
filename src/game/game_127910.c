@@ -650,8 +650,8 @@ void currentPlayerCalculateAiBuddyNums(void)
 	s32 playernum = g_Vars.currentplayernum;
 	s32 playercount = PLAYERCOUNT();
 
-	for (i = playercount; i < g_MpNumPlayers; i++) {
-		if (var800ac500[i]->team == var800ac500[playernum]->team) {
+	for (i = playercount; i < g_MpNumChrs; i++) {
+		if (g_MpAllChrConfigPtrs[i]->team == g_MpAllChrConfigPtrs[playernum]->team) {
 			g_Vars.players[playernum]->aibuddynums[g_Vars.players[playernum]->numaibuddies] = i;
 			g_Vars.players[playernum]->numaibuddies++;
 		}

@@ -24,77 +24,77 @@ u16 var8008231cnb = 0x7fff;
 
 s32 optionsGetControlMode(s32 mpchrnum)
 {
-	return g_MpPlayers[mpchrnum].base.controlmode;
+	return g_PlayerConfigsArray[mpchrnum].controlmode;
 }
 
 void optionsSetControlMode(s32 mpchrnum, s32 mode)
 {
-	g_MpPlayers[mpchrnum].base.controlmode = mode;
+	g_PlayerConfigsArray[mpchrnum].controlmode = mode;
 }
 
 s32 optionsGetContpadNum1(s32 mpchrnum)
 {
-	return g_MpPlayers[mpchrnum].base.contpad1;
+	return g_PlayerConfigsArray[mpchrnum].contpad1;
 }
 
 s32 optionsGetContpadNum2(s32 mpchrnum)
 {
-	return g_MpPlayers[mpchrnum].base.contpad2;
+	return g_PlayerConfigsArray[mpchrnum].contpad2;
 }
 
 s32 optionsGetForwardPitch(s32 mpchrnum)
 {
-	return (g_MpPlayers[mpchrnum].options & OPTION_FORWARDPITCH) != 0;
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_FORWARDPITCH) != 0;
 }
 
 s32 optionsGetAutoAim(s32 mpchrnum)
 {
-	return (g_MpPlayers[mpchrnum].options & OPTION_AUTOAIM) != 0;
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_AUTOAIM) != 0;
 }
 
 s32 optionsGetLookAhead(s32 mpchrnum)
 {
-	return (g_MpPlayers[mpchrnum].options & OPTION_LOOKAHEAD) != 0;
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_LOOKAHEAD) != 0;
 }
 
 s32 optionsGetAimControl(s32 mpchrnum)
 {
-	return (g_MpPlayers[mpchrnum].options & OPTION_AIMCONTROL) != 0;
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_AIMCONTROL) != 0;
 }
 
 s32 optionsGetSightOnScreen(s32 mpchrnum)
 {
-	return (g_MpPlayers[mpchrnum].options & OPTION_SIGHTONSCREEN) != 0;
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_SIGHTONSCREEN) != 0;
 }
 
 s32 optionsGetAmmoOnScreen(s32 mpchrnum)
 {
-	return (g_MpPlayers[mpchrnum].options & OPTION_AMMOONSCREEN) != 0;
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_AMMOONSCREEN) != 0;
 }
 
 s32 optionsGetShowGunFunction(s32 mpchrnum)
 {
-	return (g_MpPlayers[mpchrnum].options & OPTION_SHOWGUNFUNCTION) != 0;
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_SHOWGUNFUNCTION) != 0;
 }
 
 s32 optionsGetAlwaysShowTarget(s32 mpchrnum)
 {
-	return (g_MpPlayers[mpchrnum].options & OPTION_ALWAYSSHOWTARGET) != 0;
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_ALWAYSSHOWTARGET) != 0;
 }
 
 s32 optionsGetShowZoomRange(s32 mpchrnum)
 {
-	return (g_MpPlayers[mpchrnum].options & OPTION_SHOWZOOMRANGE) != 0;
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_SHOWZOOMRANGE) != 0;
 }
 
 s32 optionsGetPaintball(s32 mpchrnum)
 {
-	return (g_MpPlayers[mpchrnum].options & OPTION_PAINTBALL) != 0;
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_PAINTBALL) != 0;
 }
 
 s32 optionsGetShowMissionTime(s32 mpchrnum)
 {
-	return (g_MpPlayers[mpchrnum].options & OPTION_SHOWMISSIONTIME) != 0;
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_SHOWMISSIONTIME) != 0;
 }
 
 u8 optionsGetInGameSubtitles(void)
@@ -109,105 +109,105 @@ u8 optionsGetCutsceneSubtitles(void)
 
 s32 optionsGetHeadRoll(s32 mpchrnum)
 {
-	return (g_MpPlayers[mpchrnum].options & OPTION_HEADROLL) != 0;
+	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_HEADROLL) != 0;
 }
 
 void optionsSetForwardPitch(s32 mpchrnum, bool enable)
 {
 	if (enable) {
-		g_MpPlayers[mpchrnum].options |= OPTION_FORWARDPITCH;
+		g_PlayerConfigsArray[mpchrnum].options |= OPTION_FORWARDPITCH;
 	} else {
-		g_MpPlayers[mpchrnum].options &= ~OPTION_FORWARDPITCH;
+		g_PlayerConfigsArray[mpchrnum].options &= ~OPTION_FORWARDPITCH;
 	}
 }
 
 void optionsSetAutoAim(s32 mpchrnum, bool enable)
 {
 	if (enable) {
-		g_MpPlayers[mpchrnum].options |= OPTION_AUTOAIM;
+		g_PlayerConfigsArray[mpchrnum].options |= OPTION_AUTOAIM;
 	} else {
-		g_MpPlayers[mpchrnum].options &= ~OPTION_AUTOAIM;
+		g_PlayerConfigsArray[mpchrnum].options &= ~OPTION_AUTOAIM;
 	}
 }
 
 void optionsSetLookAhead(s32 mpchrnum, bool enable)
 {
 	if (enable) {
-		g_MpPlayers[mpchrnum].options |= OPTION_LOOKAHEAD;
+		g_PlayerConfigsArray[mpchrnum].options |= OPTION_LOOKAHEAD;
 	} else {
-		g_MpPlayers[mpchrnum].options &= ~OPTION_LOOKAHEAD;
+		g_PlayerConfigsArray[mpchrnum].options &= ~OPTION_LOOKAHEAD;
 	}
 }
 
 void optionsSetAimControl(s32 mpchrnum, s32 index)
 {
 	if (index) {
-		g_MpPlayers[mpchrnum].options |= OPTION_AIMCONTROL;
+		g_PlayerConfigsArray[mpchrnum].options |= OPTION_AIMCONTROL;
 	} else {
-		g_MpPlayers[mpchrnum].options &= ~OPTION_AIMCONTROL;
+		g_PlayerConfigsArray[mpchrnum].options &= ~OPTION_AIMCONTROL;
 	}
 }
 
 void optionsSetSightOnScreen(s32 mpchrnum, bool enable)
 {
 	if (enable) {
-		g_MpPlayers[mpchrnum].options |= OPTION_SIGHTONSCREEN;
+		g_PlayerConfigsArray[mpchrnum].options |= OPTION_SIGHTONSCREEN;
 	} else {
-		g_MpPlayers[mpchrnum].options &= ~OPTION_SIGHTONSCREEN;
+		g_PlayerConfigsArray[mpchrnum].options &= ~OPTION_SIGHTONSCREEN;
 	}
 }
 
 void optionsSetAmmoOnScreen(s32 mpchrnum, bool enable)
 {
 	if (enable) {
-		g_MpPlayers[mpchrnum].options |= OPTION_AMMOONSCREEN;
+		g_PlayerConfigsArray[mpchrnum].options |= OPTION_AMMOONSCREEN;
 	} else {
-		g_MpPlayers[mpchrnum].options &= ~OPTION_AMMOONSCREEN;
+		g_PlayerConfigsArray[mpchrnum].options &= ~OPTION_AMMOONSCREEN;
 	}
 }
 
 void optionsSetShowGunFunction(s32 mpchrnum, bool enable)
 {
 	if (enable) {
-		g_MpPlayers[mpchrnum].options |= OPTION_SHOWGUNFUNCTION;
+		g_PlayerConfigsArray[mpchrnum].options |= OPTION_SHOWGUNFUNCTION;
 	} else {
-		g_MpPlayers[mpchrnum].options &= ~OPTION_SHOWGUNFUNCTION;
+		g_PlayerConfigsArray[mpchrnum].options &= ~OPTION_SHOWGUNFUNCTION;
 	}
 }
 
 void optionsSetAlwaysShowTarget(s32 mpchrnum, bool enable)
 {
 	if (enable) {
-		g_MpPlayers[mpchrnum].options |= OPTION_ALWAYSSHOWTARGET;
+		g_PlayerConfigsArray[mpchrnum].options |= OPTION_ALWAYSSHOWTARGET;
 	} else {
-		g_MpPlayers[mpchrnum].options &= ~OPTION_ALWAYSSHOWTARGET;
+		g_PlayerConfigsArray[mpchrnum].options &= ~OPTION_ALWAYSSHOWTARGET;
 	}
 }
 
 void optionsSetShowZoomRange(s32 mpchrnum, bool enable)
 {
 	if (enable) {
-		g_MpPlayers[mpchrnum].options |= OPTION_SHOWZOOMRANGE;
+		g_PlayerConfigsArray[mpchrnum].options |= OPTION_SHOWZOOMRANGE;
 	} else {
-		g_MpPlayers[mpchrnum].options &= ~OPTION_SHOWZOOMRANGE;
+		g_PlayerConfigsArray[mpchrnum].options &= ~OPTION_SHOWZOOMRANGE;
 	}
 }
 
 void optionsSetPaintball(s32 mpchrnum, bool enable)
 {
 	if (enable) {
-		g_MpPlayers[mpchrnum].options |= OPTION_PAINTBALL;
+		g_PlayerConfigsArray[mpchrnum].options |= OPTION_PAINTBALL;
 	} else {
-		g_MpPlayers[mpchrnum].options &= ~OPTION_PAINTBALL;
+		g_PlayerConfigsArray[mpchrnum].options &= ~OPTION_PAINTBALL;
 	}
 }
 
 void optionsSetShowMissionTime(s32 mpchrnum, bool enable)
 {
 	if (enable) {
-		g_MpPlayers[mpchrnum].options |= OPTION_SHOWMISSIONTIME;
+		g_PlayerConfigsArray[mpchrnum].options |= OPTION_SHOWMISSIONTIME;
 	} else {
-		g_MpPlayers[mpchrnum].options &= ~OPTION_SHOWMISSIONTIME;
+		g_PlayerConfigsArray[mpchrnum].options &= ~OPTION_SHOWMISSIONTIME;
 	}
 }
 
@@ -224,9 +224,9 @@ void optionsSetCutsceneSubtitles(s32 enable)
 void optionsSetHeadRoll(s32 mpchrnum, bool enable)
 {
 	if (enable) {
-		g_MpPlayers[mpchrnum].options |= OPTION_HEADROLL;
+		g_PlayerConfigsArray[mpchrnum].options |= OPTION_HEADROLL;
 	} else {
-		g_MpPlayers[mpchrnum].options &= ~OPTION_HEADROLL;
+		g_PlayerConfigsArray[mpchrnum].options &= ~OPTION_HEADROLL;
 	}
 }
 

@@ -8,7 +8,7 @@
 #include "game/hudmsg.h"
 #include "game/game_127910.h"
 #include "game/mplayer/setup.h"
-#include "game/game_197600.h"
+#include "game/botcmd.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/options.h"
@@ -172,16 +172,16 @@ void mpstatsRecordPlayerSuicide(void)
 	s32 duration;
 	s32 time;
 	s32 mpindex;
-	struct mpchr *mpchr;
+	struct mpchrconfig *mpchr;
 
 	if (g_Vars.normmplayerisrunning) {
 		time = getMissionTime();
 		mpindex = g_Vars.currentplayerstats->mpindex;
 
 		if (mpindex < 4) {
-			mpchr = &g_MpPlayers[mpindex].base;
+			mpchr = &g_PlayerConfigsArray[mpindex].base;
 		} else {
-			mpchr = &g_MpSimulants[mpindex - 4].base;
+			mpchr = &g_BotConfigsArray[mpindex - 4].base;
 		}
 
 		// Show HUD message
@@ -231,9 +231,9 @@ void mpstatsRecordPlayerSuicide(void)
 void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 {
 	s32 vmpindex = -1;
-	struct mpchr *vmpchr = NULL;
+	struct mpchrconfig *vmpchr = NULL;
 	s32 ampindex;
-	struct mpchr *ampchr = NULL;
+	struct mpchrconfig *ampchr = NULL;
 	s32 prevplayernum;
 	char text[256];
 
@@ -247,9 +247,9 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 
 		if (ampindex >= 0) {
 			if (ampindex < 4) {
-				ampchr = &g_MpPlayers[ampindex].base;
+				ampchr = &g_PlayerConfigsArray[ampindex].base;
 			} else {
-				ampchr = &g_MpSimulants[ampindex - 4].base;
+				ampchr = &g_BotConfigsArray[ampindex - 4].base;
 			}
 		}
 	}
@@ -259,9 +259,9 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 
 		if (vmpindex >= 0) {
 			if (vmpindex < 4) {
-				vmpchr = &g_MpPlayers[vmpindex].base;
+				vmpchr = &g_PlayerConfigsArray[vmpindex].base;
 			} else {
-				vmpchr = &g_MpSimulants[vmpindex - 4].base;
+				vmpchr = &g_BotConfigsArray[vmpindex - 4].base;
 			}
 		}
 	}
@@ -293,7 +293,7 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 
 				if (g_Vars.normmplayerisrunning && aplayernum >= 0) {
 					// "Killed by %s"
-					sprintf(text, "%s %s", langGet(L_MISC_183), var800ac500[aplayernum]->name);
+					sprintf(text, "%s %s", langGet(L_MISC_183), g_MpAllChrConfigPtrs[aplayernum]->name);
 					hudmsgCreate(text, HUDMSGTYPE_DEFAULT);
 				}
 
@@ -313,7 +313,7 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 
 			if (g_Vars.normmplayerisrunning && vplayernum >= 0) {
 				// "Killed %s"
-				sprintf(text, "%s %s", langGet(L_MISC_184), var800ac500[vplayernum]->name);
+				sprintf(text, "%s %s", langGet(L_MISC_184), g_MpAllChrConfigPtrs[vplayernum]->name);
 				hudmsgCreate(text, HUDMSGTYPE_DEFAULT);
 			}
 
@@ -326,18 +326,18 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 				&& aplayernum >= 0
 				&& vplayernum >= PLAYERCOUNT()
 				&& aplayernum != vplayernum) {
-			g_MpPlayerChrs[vplayernum]->aibot->lastkilledbyplayernum = aplayernum;
+			g_MpAllChrPtrs[vplayernum]->aibot->lastkilledbyplayernum = aplayernum;
 		}
 	}
 
-	if (g_Vars.normmplayerisrunning && aplayernum >= 0 && g_MpPlayerChrs[aplayernum]->aibot) {
-		s32 index = mpGetWeaponIndexByWeaponNum(g_MpPlayerChrs[aplayernum]->aibot->weaponnum);
+	if (g_Vars.normmplayerisrunning && aplayernum >= 0 && g_MpAllChrPtrs[aplayernum]->aibot) {
+		s32 index = mpGetWeaponSlotByWeaponNum(g_MpAllChrPtrs[aplayernum]->aibot->weaponnum);
 
 		if (index >= 0) {
 			if (aplayernum == vplayernum) {
-				g_MpPlayerChrs[aplayernum]->aibot->suicidesbygunfunc[index][g_MpPlayerChrs[aplayernum]->aibot->gunfunc]++;
+				g_MpAllChrPtrs[aplayernum]->aibot->suicidesbygunfunc[index][g_MpAllChrPtrs[aplayernum]->aibot->gunfunc]++;
 			} else {
-				g_MpPlayerChrs[aplayernum]->aibot->killsbygunfunc[index][g_MpPlayerChrs[aplayernum]->aibot->gunfunc]++;
+				g_MpAllChrPtrs[aplayernum]->aibot->killsbygunfunc[index][g_MpAllChrPtrs[aplayernum]->aibot->gunfunc]++;
 			}
 		}
 	}

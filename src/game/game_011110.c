@@ -1829,7 +1829,7 @@ glabel var7f1a827c
 /*  f01204c:	8e2f0284 */ 	lw	$t7,0x284($s1)
 /*  f012050:	8e2e0288 */ 	lw	$t6,0x288($s1)
 /*  f012054:	8e2d0284 */ 	lw	$t5,0x284($s1)
-/*  f012058:	3c09800b */ 	lui	$t1,%hi(g_MpPlayers+0x11)
+/*  f012058:	3c09800b */ 	lui	$t1,%hi(g_PlayerConfigsArray+0x11)
 /*  f01205c:	8dcf0070 */ 	lw	$t7,0x70($t6)
 /*  f012060:	8dac00bc */ 	lw	$t4,0xbc($t5)
 /*  f012064:	240b0001 */ 	addiu	$t3,$zero,0x1
@@ -1837,7 +1837,7 @@ glabel var7f1a827c
 /*  f01206c:	014f5021 */ 	addu	$t2,$t2,$t7
 /*  f012070:	000a5140 */ 	sll	$t2,$t2,0x5
 /*  f012074:	012a4821 */ 	addu	$t1,$t1,$t2
-/*  f012078:	9129c7c9 */ 	lbu	$t1,%lo(g_MpPlayers+0x11)($t1)
+/*  f012078:	9129c7c9 */ 	lbu	$t1,%lo(g_PlayerConfigsArray+0x11)($t1)
 /*  f01207c:	8d990004 */ 	lw	$t9,0x4($t4)
 /*  f012080:	012bc004 */ 	sllv	$t8,$t3,$t1
 /*  f012084:	10000006 */ 	b	.L0f0120a0
@@ -3178,7 +3178,7 @@ glabel var7f1a827c
 //		}
 //	} else {
 //		if (g_Vars.mplayerisrunning) {
-//			g_Vars.currentplayer->prop->chr->team = 1 << g_MpPlayers[g_Vars.currentplayerstats->mpindex].base.team;
+//			g_Vars.currentplayer->prop->chr->team = 1 << g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.team;
 //		} else {
 //			g_Vars.currentplayer->prop->chr->team = TEAM_ALLY;
 //		}

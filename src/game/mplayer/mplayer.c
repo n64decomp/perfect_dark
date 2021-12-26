@@ -29,13 +29,13 @@
 #include "types.h"
 
 // bss
-struct chrdata *g_MpPlayerChrs[MAX_MPCHRS];
-struct mpchr *var800ac500[MAX_MPCHRS];
-s32 g_MpNumPlayers;
+struct chrdata *g_MpAllChrPtrs[MAX_MPCHRS];
+struct mpchrconfig *g_MpAllChrConfigPtrs[MAX_MPCHRS];
+s32 g_MpNumChrs;
 u32 var800ac534;
-struct mpsim g_MpSimulants[MAX_SIMULANTS];
+struct mpbotconfig g_BotConfigsArray[MAX_SIMULANTS];
 u8 g_MpSimulantDifficultiesPerNumPlayers[32];
-struct mpplayer g_MpPlayers[6];
+struct mpplayerconfig g_PlayerConfigsArray[6];
 u8 g_AmBotCommands[16];
 struct mpsetup g_MpSetup;
 struct bossfile g_BossFile;
@@ -120,7 +120,7 @@ f32 mpHandicapToDamageScale(u8 value)
 	return tmp * tmp * 3 - 2;
 }
 
-void func0f187838(struct mpchr *mpchr)
+void func0f187838(struct mpchrconfig *mpchr)
 {
 	s32 i = 0;
 
@@ -174,7 +174,7 @@ void mpInit(void)
 	s32 i;
 	s32 mpindex = 0;
 
-	g_MpNumPlayers = 0;
+	g_MpNumChrs = 0;
 	g_Vars.mplayerisrunning = true;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
@@ -190,74 +190,74 @@ void mpInit(void)
 	}
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		struct mpplayer tmp;
+		struct mpplayerconfig tmp;
 
-		tmp = g_MpPlayers[4];
-		g_MpPlayers[4] = g_MpPlayers[0];
-		g_MpPlayers[0] = tmp;
+		tmp = g_PlayerConfigsArray[4];
+		g_PlayerConfigsArray[4] = g_PlayerConfigsArray[0];
+		g_PlayerConfigsArray[0] = tmp;
 
-		tmp = g_MpPlayers[5];
-		g_MpPlayers[5] = g_MpPlayers[1];
-		g_MpPlayers[1] = tmp;
+		tmp = g_PlayerConfigsArray[5];
+		g_PlayerConfigsArray[5] = g_PlayerConfigsArray[1];
+		g_PlayerConfigsArray[1] = tmp;
 
 		// Player index 0
 		g_Vars.playerstats[0].mpindex = 0;
 
-		g_MpPlayers[0].base.contpad1 = 0;
-		g_MpPlayers[0].base.contpad2 = 2;
+		g_PlayerConfigsArray[0].contpad1 = 0;
+		g_PlayerConfigsArray[0].contpad2 = 2;
 
 		if ((g_Vars.coopplayernum >= 0 && g_Vars.coopradaron)
 				|| (g_Vars.antiplayernum >= 0 && g_Vars.antiradaron)) {
-			g_MpPlayers[0].base.displayoptions |= MPDISPLAYOPTION_RADAR;
+			g_PlayerConfigsArray[0].base.displayoptions |= MPDISPLAYOPTION_RADAR;
 		} else {
-			g_MpPlayers[0].base.displayoptions &= ~MPDISPLAYOPTION_RADAR;
+			g_PlayerConfigsArray[0].base.displayoptions &= ~MPDISPLAYOPTION_RADAR;
 		}
 
 		// Player index 1
 		g_Vars.playerstats[1].mpindexu32 = 1;
 
-		g_MpPlayers[1].base.contpad1 = 1;
-		g_MpPlayers[1].base.contpad2 = 3;
+		g_PlayerConfigsArray[1].contpad1 = 1;
+		g_PlayerConfigsArray[1].contpad2 = 3;
 
 		if ((g_Vars.coopplayernum >= 0 && g_Vars.coopradaron)
 				|| (g_Vars.antiplayernum >= 0 && g_Vars.antiradaron)) {
-			g_MpPlayers[1].base.displayoptions |= MPDISPLAYOPTION_RADAR;
+			g_PlayerConfigsArray[1].base.displayoptions |= MPDISPLAYOPTION_RADAR;
 		} else {
-			g_MpPlayers[1].base.displayoptions &= ~MPDISPLAYOPTION_RADAR;
+			g_PlayerConfigsArray[1].base.displayoptions &= ~MPDISPLAYOPTION_RADAR;
 		}
 
-		g_MpNumPlayers = 2;
+		g_MpNumChrs = 2;
 	} else {
 		for (i = 0; i < 4; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
 				g_Vars.playerstats[mpindex].mpindex = i;
 
-				g_MpPlayers[i].base.contpad1 = i;
-				g_MpPlayers[i].base.contpad2 = 0;
+				g_PlayerConfigsArray[i].contpad1 = i;
+				g_PlayerConfigsArray[i].contpad2 = 0;
 
-				mpCalculatePlayerTitle(&g_MpPlayers[i]);
+				mpCalculatePlayerTitle(&g_PlayerConfigsArray[i]);
 
 
-				g_MpPlayers[i].newtitle = g_MpPlayers[i].title;
-				g_MpNumPlayers++;
+				g_PlayerConfigsArray[i].newtitle = g_PlayerConfigsArray[i].title;
+				g_MpNumChrs++;
 				mpindex++;
 			}
 		}
 	}
 
 	for (i = 0; i != 12; i++) {
-		struct mpchr *mpchr;
+		struct mpchrconfig *mpchr;
 
 		if (i < 4) {
-			mpchr = &g_MpPlayers[i].base;
+			mpchr = &g_PlayerConfigsArray[i].base;
 		} else {
-			mpchr = &g_MpSimulants[i - 4].base;
+			mpchr = &g_BotConfigsArray[i - 4].base;
 		}
 
 		func0f187838(mpchr);
 
 #if VERSION >= VERSION_NTSC_1_0
-		g_MpPlayerChrs[i] = NULL;
+		g_MpAllChrPtrs[i] = NULL;
 #endif
 	}
 
@@ -335,19 +335,19 @@ void mpCalculateTeamIsOnlyAi(void)
 	s32 i;
 	s32 j;
 
-	// Iterate simulants, which go after players in the g_MpPlayerChrs array
-	for (i = playercount; i < g_MpNumPlayers; i++) {
-		if (!g_MpPlayerChrs[i]) {
+	// Iterate simulants, which go after players in the g_MpAllChrPtrs array
+	for (i = playercount; i < g_MpNumChrs; i++) {
+		if (!g_MpAllChrPtrs[i]) {
 			continue;
 		}
 
-		g_MpPlayerChrs[i]->aibot->teamisonlyai = true;
+		g_MpAllChrPtrs[i]->aibot->teamisonlyai = true;
 
 		if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
 			// Iterate human players
 			for (j = 0; j < playercount; j++) {
-				if (g_MpPlayerChrs[i]->team == g_MpPlayerChrs[j]->team) {
-					g_MpPlayerChrs[i]->aibot->teamisonlyai = false;
+				if (g_MpAllChrPtrs[i]->team == g_MpAllChrPtrs[j]->team) {
+					g_MpAllChrPtrs[i]->aibot->teamisonlyai = false;
 					break;
 				}
 			}
@@ -357,9 +357,9 @@ void mpCalculateTeamIsOnlyAi(void)
 
 void func0f187fbc(s32 playernum)
 {
-	g_MpPlayers[playernum].base.unk18 = 80;
-	g_MpPlayers[playernum].base.unk1a = 80;
-	g_MpPlayers[playernum].base.unk1c = 75;
+	g_PlayerConfigsArray[playernum].base.unk18 = 80;
+	g_PlayerConfigsArray[playernum].base.unk1a = 80;
+	g_PlayerConfigsArray[playernum].base.unk1c = 75;
 }
 
 void func0f187fec(void)
@@ -376,9 +376,9 @@ void mpPlayerSetDefaults(s32 playernum, bool autonames)
 
 	func0f187fbc(playernum);
 
-	g_MpPlayers[playernum].base.controlmode = CONTROLMODE_11;
+	g_PlayerConfigsArray[playernum].controlmode = CONTROLMODE_11;
 
-	g_MpPlayers[playernum].options = OPTION_LOOKAHEAD
+	g_PlayerConfigsArray[playernum].options = OPTION_LOOKAHEAD
 		| OPTION_SIGHTONSCREEN
 		| OPTION_AUTOAIM
 		| OPTION_AMMOONSCREEN
@@ -388,53 +388,53 @@ void mpPlayerSetDefaults(s32 playernum, bool autonames)
 		| OPTION_ALWAYSSHOWTARGET
 		| OPTION_SHOWZOOMRANGE;
 
-	g_MpPlayers[playernum].handicap = 128;
+	g_PlayerConfigsArray[playernum].handicap = 128;
 
 	switch (playernum) {
 	case 0:
 	default:
-		g_MpPlayers[playernum].base.mpbodynum = MPBODY_DARK_COMBAT;
+		g_PlayerConfigsArray[playernum].base.mpbodynum = MPBODY_DARK_COMBAT;
 		break;
 	case 1:
-		g_MpPlayers[playernum].base.mpbodynum = MPBODY_CASSANDRA;
+		g_PlayerConfigsArray[playernum].base.mpbodynum = MPBODY_CASSANDRA;
 		break;
 	case 2:
-		g_MpPlayers[playernum].base.mpbodynum = MPBODY_CARRINGTON;
+		g_PlayerConfigsArray[playernum].base.mpbodynum = MPBODY_CARRINGTON;
 		break;
 	case 3:
-		g_MpPlayers[playernum].base.mpbodynum = MPBODY_CILABTECH;
+		g_PlayerConfigsArray[playernum].base.mpbodynum = MPBODY_CILABTECH;
 		break;
 	}
 
-	g_MpPlayers[playernum].base.mpheadnum = mpGetMpheadnumByMpbodynum(g_MpPlayers[playernum].base.mpbodynum);
-	g_MpPlayers[playernum].base.displayoptions = MPDISPLAYOPTION_RADAR | MPDISPLAYOPTION_HIGHLIGHTTEAMS;
-	g_MpPlayers[playernum].fileguid.fileid = 0;
-	g_MpPlayers[playernum].fileguid.deviceserial = 0;
+	g_PlayerConfigsArray[playernum].base.mpheadnum = mpGetMpheadnumByMpbodynum(g_PlayerConfigsArray[playernum].base.mpbodynum);
+	g_PlayerConfigsArray[playernum].base.displayoptions = MPDISPLAYOPTION_RADAR | MPDISPLAYOPTION_HIGHLIGHTTEAMS;
+	g_PlayerConfigsArray[playernum].fileguid.fileid = 0;
+	g_PlayerConfigsArray[playernum].fileguid.deviceserial = 0;
 
 	if (autonames) {
 		// "Player 1" etc
-		sprintf(g_MpPlayers[playernum].base.name, "%s %d\n", langGet(L_MISC_437), playernum + 1);
+		sprintf(g_PlayerConfigsArray[playernum].base.name, "%s %d\n", langGet(L_MISC_437), playernum + 1);
 	} else {
-		g_MpPlayers[playernum].base.name[0] = '\0';
+		g_PlayerConfigsArray[playernum].base.name[0] = '\0';
 	}
 
-	g_MpPlayers[playernum].kills = 0;
-	g_MpPlayers[playernum].deaths = 0;
-	g_MpPlayers[playernum].gamesplayed = 0;
-	g_MpPlayers[playernum].gameswon = 0;
-	g_MpPlayers[playernum].gameslost = 0;
-	g_MpPlayers[playernum].time = 0;
-	g_MpPlayers[playernum].distance = 0;
-	g_MpPlayers[playernum].accuracy = 1000;
-	g_MpPlayers[playernum].damagedealt = 0;
-	g_MpPlayers[playernum].painreceived = 0;
-	g_MpPlayers[playernum].headshots = 0;
-	g_MpPlayers[playernum].ammoused = 0;
-	g_MpPlayers[playernum].accuracymedals = 0;
-	g_MpPlayers[playernum].headshotmedals = 0;
-	g_MpPlayers[playernum].killmastermedals = 0;
-	g_MpPlayers[playernum].survivormedals = 0;
-	g_MpPlayers[playernum].title = MPPLAYERTITLE_BEGINNER;
+	g_PlayerConfigsArray[playernum].kills = 0;
+	g_PlayerConfigsArray[playernum].deaths = 0;
+	g_PlayerConfigsArray[playernum].gamesplayed = 0;
+	g_PlayerConfigsArray[playernum].gameswon = 0;
+	g_PlayerConfigsArray[playernum].gameslost = 0;
+	g_PlayerConfigsArray[playernum].time = 0;
+	g_PlayerConfigsArray[playernum].distance = 0;
+	g_PlayerConfigsArray[playernum].accuracy = 1000;
+	g_PlayerConfigsArray[playernum].damagedealt = 0;
+	g_PlayerConfigsArray[playernum].painreceived = 0;
+	g_PlayerConfigsArray[playernum].headshots = 0;
+	g_PlayerConfigsArray[playernum].ammoused = 0;
+	g_PlayerConfigsArray[playernum].accuracymedals = 0;
+	g_PlayerConfigsArray[playernum].headshotmedals = 0;
+	g_PlayerConfigsArray[playernum].killmastermedals = 0;
+	g_PlayerConfigsArray[playernum].survivormedals = 0;
+	g_PlayerConfigsArray[playernum].title = MPPLAYERTITLE_BEGINNER;
 
 	if (playernum < 4) {
 		for (i = 0; i < 30; i++) {
@@ -447,17 +447,17 @@ void mpPlayerSetDefaults(s32 playernum, bool autonames)
 	}
 
 	for (i = 0; i < 6; i++) {
-		g_MpPlayers[playernum].gunfuncs[i] = 0;
+		g_PlayerConfigsArray[playernum].gunfuncs[i] = 0;
 	}
 }
 
 void func0f1881d4(s32 index)
 {
-	g_MpSimulants[index].base.name[0] = '\0';
-	g_MpSimulants[index].base.mpheadnum = MPHEAD_DARK_COMBAT;
-	g_MpSimulants[index].base.mpbodynum = MPBODY_DARK_COMBAT;
-	g_MpSimulants[index].base.simtype = SIMTYPE_GENERAL;
-	g_MpSimulants[index].difficulty = SIMDIFF_DISABLED;
+	g_BotConfigsArray[index].base.name[0] = '\0';
+	g_BotConfigsArray[index].base.mpheadnum = MPHEAD_DARK_COMBAT;
+	g_BotConfigsArray[index].base.mpbodynum = MPBODY_DARK_COMBAT;
+	g_BotConfigsArray[index].type = BOTTYPE_GENERAL;
+	g_BotConfigsArray[index].difficulty = BOTDIFF_DISABLED;
 }
 
 void mpSetDefaultSetup(void)
@@ -516,9 +516,9 @@ void mpSetDefaultSetup(void)
 
 	mpForceUnlockSimulantFeatures();
 
-	for (i = 0; i < ARRAYCOUNT(g_MpPlayers); i++) {
+	for (i = 0; i < ARRAYCOUNT(g_PlayerConfigsArray); i++) {
 		for (j = 0; j < 6; j++) {
-			g_MpPlayers[i].gunfuncs[j] = 0;
+			g_PlayerConfigsArray[i].gunfuncs[j] = 0;
 		}
 	}
 
@@ -628,8 +628,8 @@ void mpSetDefaultNamesIfEmpty(void)
 
 	// Player names
 	for (i = 0; i < 4; i++) {
-		if (g_MpPlayers[i].base.name[0] == '\0') {
-			sprintf(g_MpPlayers[i].base.name, "%s %d\n", langGet(L_MISC_437), i + 1); // "Player 1" etc
+		if (g_PlayerConfigsArray[i].base.name[0] == '\0') {
+			sprintf(g_PlayerConfigsArray[i].base.name, "%s %d\n", langGet(L_MISC_437), i + 1); // "Player 1" etc
 		}
 	}
 }
@@ -725,8 +725,8 @@ glabel mpGetPlayerRankings
 /*  f188654:	00001825 */ 	or	$v1,$zero,$zero
 /*  f188658:	0011c880 */ 	sll	$t9,$s1,0x2
 /*  f18865c:	0331c821 */ 	addu	$t9,$t9,$s1
-/*  f188660:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers)
-/*  f188664:	2718c7b8 */ 	addiu	$t8,$t8,%lo(g_MpPlayers)
+/*  f188660:	3c18800b */ 	lui	$t8,%hi(g_PlayerConfigsArray)
+/*  f188664:	2718c7b8 */ 	addiu	$t8,$t8,%lo(g_PlayerConfigsArray)
 /*  f188668:	0019c940 */ 	sll	$t9,$t9,0x5
 /*  f18866c:	1000000a */ 	b	.L0f188698
 /*  f188670:	03389021 */ 	addu	$s2,$t9,$t8
@@ -736,8 +736,8 @@ glabel mpGetPlayerRankings
 /*  f18867c:	000e7080 */ 	sll	$t6,$t6,0x2
 /*  f188680:	01d17023 */ 	subu	$t6,$t6,$s1
 /*  f188684:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f188688:	3c19800b */ 	lui	$t9,%hi(g_MpSimulants)
-/*  f18868c:	2739c538 */ 	addiu	$t9,$t9,%lo(g_MpSimulants)
+/*  f188688:	3c19800b */ 	lui	$t9,%hi(g_BotConfigsArray)
+/*  f18868c:	2739c538 */ 	addiu	$t9,$t9,%lo(g_BotConfigsArray)
 /*  f188690:	25cffed0 */ 	addiu	$t7,$t6,-304
 /*  f188694:	01f99021 */ 	addu	$s2,$t7,$t9
 .L0f188698:
@@ -1169,14 +1169,14 @@ glabel func0f188930
 /*  f188950:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f188954:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f188958:	3c14800b */ 	lui	$s4,%hi(g_MpSetup)
-/*  f18895c:	3c15800b */ 	lui	$s5,%hi(g_MpPlayers)
+/*  f18895c:	3c15800b */ 	lui	$s5,%hi(g_PlayerConfigsArray)
 /*  f188960:	00809825 */ 	or	$s3,$a0,$zero
 /*  f188964:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f188968:	afa50064 */ 	sw	$a1,0x64($sp)
 /*  f18896c:	00008825 */ 	or	$s1,$zero,$zero
 /*  f188970:	00009025 */ 	or	$s2,$zero,$zero
 /*  f188974:	afa00050 */ 	sw	$zero,0x50($sp)
-/*  f188978:	26b5c7b8 */ 	addiu	$s5,$s5,%lo(g_MpPlayers)
+/*  f188978:	26b5c7b8 */ 	addiu	$s5,$s5,%lo(g_PlayerConfigsArray)
 /*  f18897c:	2694cb88 */ 	addiu	$s4,$s4,%lo(g_MpSetup)
 /*  f188980:	00008025 */ 	or	$s0,$zero,$zero
 /*  f188984:	241600a0 */ 	addiu	$s6,$zero,0xa0
@@ -1201,8 +1201,8 @@ glabel func0f188930
 /*  f1889c8:	00094880 */ 	sll	$t1,$t1,0x2
 /*  f1889cc:	01304823 */ 	subu	$t1,$t1,$s0
 /*  f1889d0:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f1889d4:	3c0b800b */ 	lui	$t3,%hi(g_MpSimulants)
-/*  f1889d8:	256bc538 */ 	addiu	$t3,$t3,%lo(g_MpSimulants)
+/*  f1889d4:	3c0b800b */ 	lui	$t3,%hi(g_BotConfigsArray)
+/*  f1889d8:	256bc538 */ 	addiu	$t3,$t3,%lo(g_BotConfigsArray)
 /*  f1889dc:	252afed0 */ 	addiu	$t2,$t1,-304
 /*  f1889e0:	014b2021 */ 	addu	$a0,$t2,$t3
 /*  f1889e4:	908c0011 */ 	lbu	$t4,0x11($a0)
@@ -3764,7 +3764,7 @@ u32 var800874e8 = 0x500e500f;
 u32 var800874ec = 0x50100000;
 
 #if VERSION >= VERSION_NTSC_1_0
-void mpCalculatePlayerTitle(struct mpplayer *mpplayer)
+void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
 {
 	const u32 tiers[] = { 2, 4, 8, 16, 28, 60, 100, 150, 210, 300 };
 	s32 tallies[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -4272,26 +4272,26 @@ u32 table_0x2d678[] = {
 };
 
 // 2d74c
-struct mpsimulanttype g_MpSimulantTypes[] = {
-	// type,           difficulty,      name,        body,                 require feature
-	{ SIMTYPE_GENERAL, SIMDIFF_MEAT,    L_MISC_088,  MPBODY_DD_GUARD,      0                         },
-	{ SIMTYPE_GENERAL, SIMDIFF_EASY,    L_MISC_089,  MPBODY_DD_SECGUARD,   0                         },
-	{ SIMTYPE_GENERAL, SIMDIFF_NORMAL,  L_MISC_090,  MPBODY_DD_SHOCK_INF,  0                         },
-	{ SIMTYPE_GENERAL, SIMDIFF_HARD,    L_MISC_091,  MPBODY_DDSHOCK,       MPFEATURE_SIMDIFF_HARD    },
-	{ SIMTYPE_GENERAL, SIMDIFF_PERFECT, L_MISC_092,  MPBODY_STRIPES,       MPFEATURE_SIMDIFF_PERFECT },
-	{ SIMTYPE_GENERAL, SIMDIFF_DARK,    L_MISC_093,  MPBODY_MOORE,         MPFEATURE_SIMDIFF_DARK    },
-	{ SIMTYPE_PEACE,   SIMDIFF_NORMAL,  L_MISC_094,  MPBODY_DD_LABTECH,    0                         },
-	{ SIMTYPE_SHIELD,  SIMDIFF_NORMAL,  L_MISC_095,  MPBODY_G5_SWAT_GUARD, 0                         },
-	{ SIMTYPE_ROCKET,  SIMDIFF_NORMAL,  L_MISC_096,  MPBODY_G5_GUARD,      0                         },
-	{ SIMTYPE_KAZE,    SIMDIFF_NORMAL,  L_MISC_097,  MPBODY_PRES_SECURITY, 0                         },
-	{ SIMTYPE_FIST,    SIMDIFF_NORMAL,  L_MISC_098,  MPBODY_PELAGIC_GUARD, 0                         },
-	{ SIMTYPE_PREY,    SIMDIFF_NORMAL,  L_MISC_099,  MPBODY_DDSHOCK,       0                         },
-	{ SIMTYPE_COWARD,  SIMDIFF_NORMAL,  L_MISC_100, MPBODY_PRESIDENT,     0                         },
-	{ SIMTYPE_JUDGE,   SIMDIFF_NORMAL,  L_MISC_101, MPBODY_STEWARD,       0                         },
-	{ SIMTYPE_FEUD,    SIMDIFF_NORMAL,  L_MISC_102, MPBODY_NSA_LACKEY,    0                         },
-	{ SIMTYPE_SPEED,   SIMDIFF_NORMAL,  L_MISC_103, MPBODY_MRBLONDE,      0                         },
-	{ SIMTYPE_TURTLE,  SIMDIFF_NORMAL,  L_MISC_104, MPBODY_CARRINGTON,    0                         },
-	{ SIMTYPE_VENGE,   SIMDIFF_NORMAL,  L_MISC_105, MPBODY_ALASKAN_GUARD, 0                         },
+struct botprofile g_BotProfiles[] = {
+	// type,           difficulty,      name,       body,                 require feature
+	{ BOTTYPE_GENERAL, BOTDIFF_MEAT,    L_MISC_088, MPBODY_DD_GUARD,      0                         },
+	{ BOTTYPE_GENERAL, BOTDIFF_EASY,    L_MISC_089, MPBODY_DD_SECGUARD,   0                         },
+	{ BOTTYPE_GENERAL, BOTDIFF_NORMAL,  L_MISC_090, MPBODY_DD_SHOCK_INF,  0                         },
+	{ BOTTYPE_GENERAL, BOTDIFF_HARD,    L_MISC_091, MPBODY_DDSHOCK,       MPFEATURE_BOTDIFF_HARD    },
+	{ BOTTYPE_GENERAL, BOTDIFF_PERFECT, L_MISC_092, MPBODY_STRIPES,       MPFEATURE_BOTDIFF_PERFECT },
+	{ BOTTYPE_GENERAL, BOTDIFF_DARK,    L_MISC_093, MPBODY_MOORE,         MPFEATURE_BOTDIFF_DARK    },
+	{ BOTTYPE_PEACE,   BOTDIFF_NORMAL,  L_MISC_094, MPBODY_DD_LABTECH,    0                         },
+	{ BOTTYPE_SHIELD,  BOTDIFF_NORMAL,  L_MISC_095, MPBODY_G5_SWAT_GUARD, 0                         },
+	{ BOTTYPE_ROCKET,  BOTDIFF_NORMAL,  L_MISC_096, MPBODY_G5_GUARD,      0                         },
+	{ BOTTYPE_KAZE,    BOTDIFF_NORMAL,  L_MISC_097, MPBODY_PRES_SECURITY, 0                         },
+	{ BOTTYPE_FIST,    BOTDIFF_NORMAL,  L_MISC_098, MPBODY_PELAGIC_GUARD, 0                         },
+	{ BOTTYPE_PREY,    BOTDIFF_NORMAL,  L_MISC_099, MPBODY_DDSHOCK,       0                         },
+	{ BOTTYPE_COWARD,  BOTDIFF_NORMAL,  L_MISC_100, MPBODY_PRESIDENT,     0                         },
+	{ BOTTYPE_JUDGE,   BOTDIFF_NORMAL,  L_MISC_101, MPBODY_STEWARD,       0                         },
+	{ BOTTYPE_FEUD,    BOTDIFF_NORMAL,  L_MISC_102, MPBODY_NSA_LACKEY,    0                         },
+	{ BOTTYPE_SPEED,   BOTDIFF_NORMAL,  L_MISC_103, MPBODY_MRBLONDE,      0                         },
+	{ BOTTYPE_TURTLE,  BOTDIFF_NORMAL,  L_MISC_104, MPBODY_CARRINGTON,    0                         },
+	{ BOTTYPE_VENGE,   BOTDIFF_NORMAL,  L_MISC_105, MPBODY_ALASKAN_GUARD, 0                         },
 };
 
 // 2d7dc
@@ -4516,9 +4516,9 @@ glabel var7f1b8db0
 /*  f18a680:	25cf0001 */ 	addiu	$t7,$t6,0x1
 /*  f18a684:	448f2000 */ 	mtc1	$t7,$f4
 /*  f18a688:	3c14800a */ 	lui	$s4,%hi(g_Vars)
-/*  f18a68c:	3c1e800b */ 	lui	$s8,%hi(g_MpPlayers)
+/*  f18a68c:	3c1e800b */ 	lui	$s8,%hi(g_PlayerConfigsArray)
 /*  f18a690:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f18a694:	27dec7b8 */ 	addiu	$s8,$s8,%lo(g_MpPlayers)
+/*  f18a694:	27dec7b8 */ 	addiu	$s8,$s8,%lo(g_PlayerConfigsArray)
 /*  f18a698:	26949fc0 */ 	addiu	$s4,$s4,%lo(g_Vars)
 /*  f18a69c:	27b301fc */ 	addiu	$s3,$sp,0x1fc
 /*  f18a6a0:	2417000c */ 	addiu	$s7,$zero,0xc
@@ -4587,8 +4587,8 @@ glabel var7f1b8db0
 /*  f18a784:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f18a788:	01e37823 */ 	subu	$t7,$t7,$v1
 /*  f18a78c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f18a790:	3c19800b */ 	lui	$t9,%hi(g_MpSimulants)
-/*  f18a794:	2739c538 */ 	addiu	$t9,$t9,%lo(g_MpSimulants)
+/*  f18a790:	3c19800b */ 	lui	$t9,%hi(g_BotConfigsArray)
+/*  f18a794:	2739c538 */ 	addiu	$t9,$t9,%lo(g_BotConfigsArray)
 /*  f18a798:	25f8fed0 */ 	addiu	$t8,$t7,-304
 /*  f18a79c:	03191021 */ 	addu	$v0,$t8,$t9
 /*  f18a7a0:	00447021 */ 	addu	$t6,$v0,$a0
@@ -4998,8 +4998,8 @@ glabel var7f1b8db0
 /*  f18ad88:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f18ad8c:	01e37823 */ 	subu	$t7,$t7,$v1
 /*  f18ad90:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f18ad94:	3c0d800b */ 	lui	$t5,%hi(g_MpSimulants)
-/*  f18ad98:	25adc538 */ 	addiu	$t5,$t5,%lo(g_MpSimulants)
+/*  f18ad94:	3c0d800b */ 	lui	$t5,%hi(g_BotConfigsArray)
+/*  f18ad98:	25adc538 */ 	addiu	$t5,$t5,%lo(g_BotConfigsArray)
 /*  f18ad9c:	25f8fed0 */ 	addiu	$t8,$t7,-304
 /*  f18ada0:	030d1021 */ 	addu	$v0,$t8,$t5
 .L0f18ada4:
@@ -5068,8 +5068,8 @@ glabel var7f1b8db0
 /*  f18ae80:	000d6880 */ 	sll	$t5,$t5,0x2
 /*  f18ae84:	01a36823 */ 	subu	$t5,$t5,$v1
 /*  f18ae88:	000d6880 */ 	sll	$t5,$t5,0x2
-/*  f18ae8c:	3c19800b */ 	lui	$t9,%hi(g_MpSimulants)
-/*  f18ae90:	2739c538 */ 	addiu	$t9,$t9,%lo(g_MpSimulants)
+/*  f18ae8c:	3c19800b */ 	lui	$t9,%hi(g_BotConfigsArray)
+/*  f18ae90:	2739c538 */ 	addiu	$t9,$t9,%lo(g_BotConfigsArray)
 /*  f18ae94:	25b8fed0 */ 	addiu	$t8,$t5,-304
 /*  f18ae98:	03191021 */ 	addu	$v0,$t8,$t9
 /*  f18ae9c:	8c4f0020 */ 	lw	$t7,0x20($v0)
@@ -5103,8 +5103,8 @@ glabel var7f1b8db0
 /*  f18aef8:	16cffdec */ 	bne	$s6,$t7,.L0f18a6ac
 /*  f18aefc:	26940080 */ 	addiu	$s4,$s4,0x80
 .L0f18af00:
-/*  f18af00:	3c1e800b */ 	lui	$s8,%hi(g_MpPlayers)
-/*  f18af04:	27dec7b8 */ 	addiu	$s8,$s8,%lo(g_MpPlayers)
+/*  f18af00:	3c1e800b */ 	lui	$s8,%hi(g_PlayerConfigsArray)
+/*  f18af04:	27dec7b8 */ 	addiu	$s8,$s8,%lo(g_PlayerConfigsArray)
 /*  f18af08:	2417000c */ 	addiu	$s7,$zero,0xc
 /*  f18af0c:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f18af10:	8fa402f0 */ 	lw	$a0,0x2f0($sp)
@@ -5656,12 +5656,12 @@ glabel var7f1b8db0
 /*  f18b6d4:	14200072 */ 	bnez	$at,.L0f18b8a0
 /*  f18b6d8:	3c0800ff */ 	lui	$t0,0xff
 /*  f18b6dc:	3c07800b */ 	lui	$a3,%hi(g_MpSetup+0x16)
-/*  f18b6e0:	3c0b800b */ 	lui	$t3,%hi(g_MpSimulants)
+/*  f18b6e0:	3c0b800b */ 	lui	$t3,%hi(g_BotConfigsArray)
 /*  f18b6e4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f18b6e8:	2409ffff */ 	addiu	$t1,$zero,-1
 /*  f18b6ec:	3508ffff */ 	ori	$t0,$t0,0xffff
 /*  f18b6f0:	240affff */ 	addiu	$t2,$zero,-1
-/*  f18b6f4:	256bc538 */ 	addiu	$t3,$t3,%lo(g_MpSimulants)
+/*  f18b6f4:	256bc538 */ 	addiu	$t3,$t3,%lo(g_BotConfigsArray)
 /*  f18b6f8:	94e7cb9e */ 	lhu	$a3,%lo(g_MpSetup+0x16)($a3)
 /*  f18b6fc:	00002825 */ 	or	$a1,$zero,$zero
 /*  f18b700:	240c004c */ 	addiu	$t4,$zero,0x4c
@@ -5743,8 +5743,8 @@ glabel var7f1b8db0
 /*  f18b804:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f18b808:	0329c823 */ 	subu	$t9,$t9,$t1
 /*  f18b80c:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f18b810:	3c0e800b */ 	lui	$t6,%hi(g_MpSimulants)
-/*  f18b814:	25cec538 */ 	addiu	$t6,$t6,%lo(g_MpSimulants)
+/*  f18b810:	3c0e800b */ 	lui	$t6,%hi(g_BotConfigsArray)
+/*  f18b814:	25cec538 */ 	addiu	$t6,$t6,%lo(g_BotConfigsArray)
 /*  f18b818:	272ffed0 */ 	addiu	$t7,$t9,-304
 /*  f18b81c:	01ee1021 */ 	addu	$v0,$t7,$t6
 .L0f18b820:
@@ -5773,8 +5773,8 @@ glabel var7f1b8db0
 /*  f18b86c:	000d6880 */ 	sll	$t5,$t5,0x2
 /*  f18b870:	01aa6823 */ 	subu	$t5,$t5,$t2
 /*  f18b874:	000d6880 */ 	sll	$t5,$t5,0x2
-/*  f18b878:	3c19800b */ 	lui	$t9,%hi(g_MpSimulants)
-/*  f18b87c:	2739c538 */ 	addiu	$t9,$t9,%lo(g_MpSimulants)
+/*  f18b878:	3c19800b */ 	lui	$t9,%hi(g_BotConfigsArray)
+/*  f18b87c:	2739c538 */ 	addiu	$t9,$t9,%lo(g_BotConfigsArray)
 /*  f18b880:	25b8fed0 */ 	addiu	$t8,$t5,-304
 /*  f18b884:	03191021 */ 	addu	$v0,$t8,$t9
 .L0f18b888:
@@ -7403,15 +7403,15 @@ glabel func0f18bd90
 /*  f18bda0:	afb6002c */ 	sw	$s6,0x2c($sp)
 /*  f18bda4:	afb40024 */ 	sw	$s4,0x24($sp)
 /*  f18bda8:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f18bdac:	3c12800b */ 	lui	$s2,%hi(g_MpPlayers)
-/*  f18bdb0:	3c15800b */ 	lui	$s5,%hi(g_MpSimulants)
+/*  f18bdac:	3c12800b */ 	lui	$s2,%hi(g_PlayerConfigsArray)
+/*  f18bdb0:	3c15800b */ 	lui	$s5,%hi(g_BotConfigsArray)
 /*  f18bdb4:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f18bdb8:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f18bdbc:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f18bdc0:	afa40038 */ 	sw	$a0,0x38($sp)
 /*  f18bdc4:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f18bdc8:	26b5c538 */ 	addiu	$s5,$s5,%lo(g_MpSimulants)
-/*  f18bdcc:	2652c7b8 */ 	addiu	$s2,$s2,%lo(g_MpPlayers)
+/*  f18bdc8:	26b5c538 */ 	addiu	$s5,$s5,%lo(g_BotConfigsArray)
+/*  f18bdcc:	2652c7b8 */ 	addiu	$s2,$s2,%lo(g_PlayerConfigsArray)
 /*  f18bdd0:	241300a0 */ 	addiu	$s3,$zero,0xa0
 /*  f18bdd4:	2414000c */ 	addiu	$s4,$zero,0xc
 /*  f18bdd8:	2416004c */ 	addiu	$s6,$zero,0x4c
@@ -8231,8 +8231,8 @@ glabel func0f18c794
 /*  f18c7cc:	00054880 */ 	sll	$t1,$a1,0x2
 /*  f18c7d0:	0005c880 */ 	sll	$t9,$a1,0x2
 /*  f18c7d4:	0325c821 */ 	addu	$t9,$t9,$a1
-/*  f18c7d8:	3c08800b */ 	lui	$t0,%hi(g_MpPlayers)
-/*  f18c7dc:	2508c7b8 */ 	addiu	$t0,$t0,%lo(g_MpPlayers)
+/*  f18c7d8:	3c08800b */ 	lui	$t0,%hi(g_PlayerConfigsArray)
+/*  f18c7dc:	2508c7b8 */ 	addiu	$t0,$t0,%lo(g_PlayerConfigsArray)
 /*  f18c7e0:	0019c940 */ 	sll	$t9,$t9,0x5
 /*  f18c7e4:	03e00008 */ 	jr	$ra
 /*  f18c7e8:	03281021 */ 	addu	$v0,$t9,$t0
@@ -8241,8 +8241,8 @@ glabel func0f18c794
 /*  f18c7f0:	00094880 */ 	sll	$t1,$t1,0x2
 /*  f18c7f4:	01254823 */ 	subu	$t1,$t1,$a1
 /*  f18c7f8:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f18c7fc:	3c0b800b */ 	lui	$t3,%hi(g_MpSimulants)
-/*  f18c800:	256bc538 */ 	addiu	$t3,$t3,%lo(g_MpSimulants)
+/*  f18c7fc:	3c0b800b */ 	lui	$t3,%hi(g_BotConfigsArray)
+/*  f18c800:	256bc538 */ 	addiu	$t3,$t3,%lo(g_BotConfigsArray)
 /*  f18c804:	252afed0 */ 	addiu	$t2,$t1,-304
 /*  f18c808:	03e00008 */ 	jr	$ra
 /*  f18c80c:	014b1021 */ 	addu	$v0,$t2,$t3
@@ -8303,11 +8303,11 @@ s32 mpGetNumChrs(void)
 GLOBAL_ASM(
 glabel func0f18c8b8
 /*  f18c8b8:	3c05800b */ 	lui	$a1,%hi(g_MpSetup+0x16)
-/*  f18c8bc:	3c0b800b */ 	lui	$t3,%hi(g_MpSimulants)
-/*  f18c8c0:	3c08800b */ 	lui	$t0,%hi(g_MpPlayers)
+/*  f18c8bc:	3c0b800b */ 	lui	$t3,%hi(g_BotConfigsArray)
+/*  f18c8c0:	3c08800b */ 	lui	$t0,%hi(g_PlayerConfigsArray)
 /*  f18c8c4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18c8c8:	2508c7b8 */ 	addiu	$t0,$t0,%lo(g_MpPlayers)
-/*  f18c8cc:	256bc538 */ 	addiu	$t3,$t3,%lo(g_MpSimulants)
+/*  f18c8c8:	2508c7b8 */ 	addiu	$t0,$t0,%lo(g_PlayerConfigsArray)
+/*  f18c8cc:	256bc538 */ 	addiu	$t3,$t3,%lo(g_BotConfigsArray)
 /*  f18c8d0:	94a5cb9e */ 	lhu	$a1,%lo(g_MpSetup+0x16)($a1)
 /*  f18c8d4:	240c004c */ 	addiu	$t4,$zero,0x4c
 /*  f18c8d8:	240a000c */ 	addiu	$t2,$zero,0xc
@@ -8384,14 +8384,14 @@ glabel func0f18c984
 /*  f18c9c0:	afa0005c */ 	sw	$zero,0x5c($sp)
 /*  f18c9c4:	2415004c */ 	addiu	$s5,$zero,0x4c
 /*  f18c9c8:	02150019 */ 	multu	$s0,$s5
-/*  f18c9cc:	3c188008 */ 	lui	$t8,%hi(g_MpSimulantTypes)
-/*  f18c9d0:	2718772c */ 	addiu	$t8,$t8,%lo(g_MpSimulantTypes)
+/*  f18c9cc:	3c188008 */ 	lui	$t8,%hi(g_BotProfiles)
+/*  f18c9d0:	2718772c */ 	addiu	$t8,$t8,%lo(g_BotProfiles)
 /*  f18c9d4:	001278c0 */ 	sll	$t7,$s2,0x3
 /*  f18c9d8:	01f83821 */ 	addu	$a3,$t7,$t8
 /*  f18c9dc:	90e80001 */ 	lbu	$t0,0x1($a3)
-/*  f18c9e0:	3c14800b */ 	lui	$s4,%hi(g_MpSimulants)
+/*  f18c9e0:	3c14800b */ 	lui	$s4,%hi(g_BotConfigsArray)
 /*  f18c9e4:	90f90000 */ 	lbu	$t9,0x0($a3)
-/*  f18c9e8:	2694c538 */ 	addiu	$s4,$s4,%lo(g_MpSimulants)
+/*  f18c9e8:	2694c538 */ 	addiu	$s4,$s4,%lo(g_BotConfigsArray)
 /*  f18c9ec:	3c0a800b */ 	lui	$t2,%hi(g_MpSimulantDifficultiesPerNumPlayers)
 /*  f18c9f0:	00007012 */ 	mflo	$t6
 /*  f18c9f4:	028ef021 */ 	addu	$s8,$s4,$t6
@@ -8425,10 +8425,10 @@ glabel func0f18c984
 /*  f18ca60:	0c004c4c */ 	jal	strcpy
 /*  f18ca64:	afa70040 */ 	sw	$a3,0x40($sp)
 /*  f18ca68:	a3d10011 */ 	sb	$s1,0x11($s8)
-/*  f18ca6c:	3c11800b */ 	lui	$s1,%hi(g_MpPlayers)
+/*  f18ca6c:	3c11800b */ 	lui	$s1,%hi(g_PlayerConfigsArray)
 /*  f18ca70:	3c168008 */ 	lui	$s6,%hi(table_0x2d678)
 /*  f18ca74:	26d67658 */ 	addiu	$s6,$s6,%lo(table_0x2d678)
-/*  f18ca78:	2631c7b8 */ 	addiu	$s1,$s1,%lo(g_MpPlayers)
+/*  f18ca78:	2631c7b8 */ 	addiu	$s1,$s1,%lo(g_PlayerConfigsArray)
 /*  f18ca7c:	24170035 */ 	addiu	$s7,$zero,0x35
 /*  f18ca80:	2413000c */ 	addiu	$s3,$zero,0xc
 /*  f18ca84:	241200a0 */ 	addiu	$s2,$zero,0xa0
@@ -8501,8 +8501,8 @@ glabel func0f18cb60
 /*  f18cb64:	01c47021 */ 	addu	$t6,$t6,$a0
 /*  f18cb68:	000e7080 */ 	sll	$t6,$t6,0x2
 /*  f18cb6c:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f18cb70:	3c0f800b */ 	lui	$t7,%hi(g_MpSimulants)
-/*  f18cb74:	25efc538 */ 	addiu	$t7,$t7,%lo(g_MpSimulants)
+/*  f18cb70:	3c0f800b */ 	lui	$t7,%hi(g_BotConfigsArray)
+/*  f18cb74:	25efc538 */ 	addiu	$t7,$t7,%lo(g_BotConfigsArray)
 /*  f18cb78:	000e7080 */ 	sll	$t6,$t6,0x2
 /*  f18cb7c:	01cf1021 */ 	addu	$v0,$t6,$t7
 /*  f18cb80:	3c19800b */ 	lui	$t9,%hi(g_MpSimulantDifficultiesPerNumPlayers)
@@ -8537,7 +8537,7 @@ s32 mpGetNumSimulants(void)
 void mpRemoveSimulant(s32 index)
 {
 	g_MpSetup.chrslots &= ~(1 << (index + 4));
-	g_MpSimulants[index].base.name[0] = '\0';
+	g_BotConfigsArray[index].base.name[0] = '\0';
 	func0f1881d4(index);
 	func0f18cddc();
 }
@@ -8614,21 +8614,21 @@ s32 mpGetSimTypeIndex(s32 type, s32 difficulty)
 {
 	s32 i;
 
-	if (type == SIMTYPE_GENERAL) {
-		for (i = 0; i < ARRAYCOUNT(g_MpSimulantTypes); i++) {
-			if (g_MpSimulantTypes[i].difficulty == difficulty) {
+	if (type == BOTTYPE_GENERAL) {
+		for (i = 0; i < ARRAYCOUNT(g_BotProfiles); i++) {
+			if (g_BotProfiles[i].difficulty == difficulty) {
 				break;
 			}
 		}
 	} else {
-		for (i = 0; i < ARRAYCOUNT(g_MpSimulantTypes); i++) {
-			if (g_MpSimulantTypes[i].type == type) {
+		for (i = 0; i < ARRAYCOUNT(g_BotProfiles); i++) {
+			if (g_BotProfiles[i].type == type) {
 				break;
 			}
 		}
 	}
 
-	if (i >= ARRAYCOUNT(g_MpSimulantTypes)) {
+	if (i >= ARRAYCOUNT(g_BotProfiles)) {
 		i = -1;
 	}
 
@@ -8655,10 +8655,10 @@ glabel func0f18cddc
 /*  f18ce14:	0043082b */ 	sltu	$at,$v0,$v1
 /*  f18ce18:	1420fffd */ 	bnez	$at,.L0f18ce10
 /*  f18ce1c:	ac40fffc */ 	sw	$zero,-0x4($v0)
-/*  f18ce20:	3c17800b */ 	lui	$s7,%hi(g_MpSimulants)
+/*  f18ce20:	3c17800b */ 	lui	$s7,%hi(g_BotConfigsArray)
 /*  f18ce24:	3c16800b */ 	lui	$s6,%hi(g_MpSetup)
 /*  f18ce28:	26d6cb88 */ 	addiu	$s6,$s6,%lo(g_MpSetup)
-/*  f18ce2c:	26f7c538 */ 	addiu	$s7,$s7,%lo(g_MpSimulants)
+/*  f18ce2c:	26f7c538 */ 	addiu	$s7,$s7,%lo(g_BotConfigsArray)
 /*  f18ce30:	24110004 */ 	addiu	$s1,$zero,0x4
 /*  f18ce34:	241e004c */ 	addiu	$s8,$zero,0x4c
 /*  f18ce38:	27b50068 */ 	addiu	$s5,$sp,0x68
@@ -8705,8 +8705,8 @@ glabel func0f18cddc
 /*  f18cec8:	0044082b */ 	sltu	$at,$v0,$a0
 /*  f18cecc:	5420fff7 */ 	bnezl	$at,.L0f18ceac
 /*  f18ced0:	8c4c0000 */ 	lw	$t4,0x0($v0)
-/*  f18ced4:	3c148008 */ 	lui	$s4,%hi(g_MpSimulantTypes)
-/*  f18ced8:	2694772c */ 	addiu	$s4,$s4,%lo(g_MpSimulantTypes)
+/*  f18ced4:	3c148008 */ 	lui	$s4,%hi(g_BotProfiles)
+/*  f18ced8:	2694772c */ 	addiu	$s4,$s4,%lo(g_BotProfiles)
 /*  f18cedc:	24110004 */ 	addiu	$s1,$zero,0x4
 /*  f18cee0:	27b30050 */ 	addiu	$s3,$sp,0x50
 /*  f18cee4:	96cd0016 */ 	lhu	$t5,0x16($s6)
@@ -8788,8 +8788,8 @@ s32 mpPlayerGetIndex(struct chrdata *chr)
 {
 	s32 i;
 
-	for (i = 0; i < g_MpNumPlayers; i++) {
-		if (g_MpPlayerChrs[i] == chr) {
+	for (i = 0; i < g_MpNumChrs; i++) {
+		if (g_MpAllChrPtrs[i] == chr) {
 			return i;
 		}
 	}
@@ -8799,8 +8799,8 @@ s32 mpPlayerGetIndex(struct chrdata *chr)
 
 struct chrdata *mpGetChrFromPlayerIndex(s32 index)
 {
-	if (index >= 0 && index < g_MpNumPlayers) {
-		return g_MpPlayerChrs[index];
+	if (index >= 0 && index < g_MpNumChrs) {
+		return g_MpAllChrPtrs[index];
 	}
 
 	return NULL;
@@ -8811,13 +8811,13 @@ s32 func0f18d074(s32 index)
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		if (&g_MpPlayers[i].base == var800ac500[index]) {
+		if (&g_PlayerConfigsArray[i].base == g_MpAllChrConfigPtrs[index]) {
 			return i;
 		}
 	}
 
 	for (i = 0; i < MAX_SIMULANTS; i++) {
-		if (&g_MpSimulants[i].base == var800ac500[index]) {
+		if (&g_BotConfigsArray[i].base == g_MpAllChrConfigPtrs[index]) {
 			return i + 4;
 		}
 	}
@@ -8830,14 +8830,14 @@ s32 func0f18d0e8(s32 arg0)
 	s32 i;
 
 	if (arg0 < 4) {
-		for (i = 0; i < g_MpNumPlayers; i++) {
-			if (var800ac500[i] == &g_MpPlayers[arg0].base) {
+		for (i = 0; i < g_MpNumChrs; i++) {
+			if (g_MpAllChrConfigPtrs[i] == &g_PlayerConfigsArray[arg0].base) {
 				return i;
 			}
 		}
 	} else {
-		for (i = 0; i < g_MpNumPlayers; i++) {
-			if (var800ac500[i] == &g_MpSimulants[arg0 - 4].base) {
+		for (i = 0; i < g_MpNumChrs; i++) {
+			if (g_MpAllChrConfigPtrs[i] == &g_BotConfigsArray[arg0 - 4].base) {
 				return i;
 			}
 		}
@@ -8858,7 +8858,7 @@ void mpplayerfileLoadGunFuncs(struct savebuffer *buffer, s32 playernum)
 			numbits = 8;
 		}
 
-		g_MpPlayers[playernum].gunfuncs[i] = savebufferReadBits(buffer, numbits);
+		g_PlayerConfigsArray[playernum].gunfuncs[i] = savebufferReadBits(buffer, numbits);
 
 		bitsremaining -= 8;
 		i++;
@@ -8877,7 +8877,7 @@ void mpplayerfileSaveGunFuncs(struct savebuffer *buffer, s32 playernum)
 			numbits = 8;
 		}
 
-		savebufferOr(buffer, g_MpPlayers[playernum].gunfuncs[i], numbits);
+		savebufferOr(buffer, g_PlayerConfigsArray[playernum].gunfuncs[i], numbits);
 
 		bitsremaining -= 8;
 		i++;
@@ -8891,16 +8891,16 @@ void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2)
 	s32 i;
 	s32 j;
 
-	savebufferReadString(buffer, g_MpPlayers[playernum].base.name, 1);
-	g_MpPlayers[playernum].time = savebufferReadBits(buffer, 28);
+	savebufferReadString(buffer, g_PlayerConfigsArray[playernum].base.name, 1);
+	g_PlayerConfigsArray[playernum].time = savebufferReadBits(buffer, 28);
 
 	if (arg2 != 0) {
-		g_MpPlayers[playernum].base.mpheadnum = savebufferReadBits(buffer, 7);
-		g_MpPlayers[playernum].base.mpbodynum = savebufferReadBits(buffer, 7);
+		g_PlayerConfigsArray[playernum].base.mpheadnum = savebufferReadBits(buffer, 7);
+		g_PlayerConfigsArray[playernum].base.mpbodynum = savebufferReadBits(buffer, 7);
 
 		savebufferReadGuid(buffer, &guid);
 
-		if (g_MpPlayers[playernum].base.mpheadnum >= mpGetNumHeads2()) {
+		if (g_PlayerConfigsArray[playernum].base.mpheadnum >= mpGetNumHeads2()) {
 			if (guid.fileid != 0 && guid.deviceserial != 0) {
 				if (g_MenuData.unk668 < 11) {
 					g_MenuData.unk668++;
@@ -8910,7 +8910,7 @@ void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2)
 					g_MenuData.unk5d8[g_MenuData.unk668].unk09 = g_MpPlayerNum;
 				}
 			} else {
-				g_MpPlayers[playernum].base.mpheadnum = MPHEAD_DARK_COMBAT;
+				g_PlayerConfigsArray[playernum].base.mpheadnum = MPHEAD_DARK_COMBAT;
 			}
 		}
 	} else {
@@ -8919,24 +8919,24 @@ void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2)
 		savebufferReadGuid(buffer, &guid);
 	}
 
-	g_MpPlayers[playernum].base.displayoptions = savebufferReadBits(buffer, 8);
-	g_MpPlayers[playernum].kills = savebufferReadBits(buffer, 20);
-	g_MpPlayers[playernum].deaths = savebufferReadBits(buffer, 20);
-	g_MpPlayers[playernum].gamesplayed = savebufferReadBits(buffer, 19);
-	g_MpPlayers[playernum].gameswon = savebufferReadBits(buffer, 19);
-	g_MpPlayers[playernum].gameslost = savebufferReadBits(buffer, 19);
-	g_MpPlayers[playernum].distance = savebufferReadBits(buffer, 25);
-	g_MpPlayers[playernum].accuracy = savebufferReadBits(buffer, 10);
-	g_MpPlayers[playernum].damagedealt = savebufferReadBits(buffer, 26);
-	g_MpPlayers[playernum].painreceived = savebufferReadBits(buffer, 26);
-	g_MpPlayers[playernum].headshots = savebufferReadBits(buffer, 20);
-	g_MpPlayers[playernum].ammoused = savebufferReadBits(buffer, 30);
-	g_MpPlayers[playernum].accuracymedals = savebufferReadBits(buffer, 18);
-	g_MpPlayers[playernum].headshotmedals = savebufferReadBits(buffer, 18);
-	g_MpPlayers[playernum].killmastermedals = savebufferReadBits(buffer, 18);
-	g_MpPlayers[playernum].survivormedals = savebufferReadBits(buffer, 16);
-	g_MpPlayers[playernum].base.controlmode = savebufferReadBits(buffer, 2);
-	g_MpPlayers[playernum].options = savebufferReadBits(buffer, 12);
+	g_PlayerConfigsArray[playernum].base.displayoptions = savebufferReadBits(buffer, 8);
+	g_PlayerConfigsArray[playernum].kills = savebufferReadBits(buffer, 20);
+	g_PlayerConfigsArray[playernum].deaths = savebufferReadBits(buffer, 20);
+	g_PlayerConfigsArray[playernum].gamesplayed = savebufferReadBits(buffer, 19);
+	g_PlayerConfigsArray[playernum].gameswon = savebufferReadBits(buffer, 19);
+	g_PlayerConfigsArray[playernum].gameslost = savebufferReadBits(buffer, 19);
+	g_PlayerConfigsArray[playernum].distance = savebufferReadBits(buffer, 25);
+	g_PlayerConfigsArray[playernum].accuracy = savebufferReadBits(buffer, 10);
+	g_PlayerConfigsArray[playernum].damagedealt = savebufferReadBits(buffer, 26);
+	g_PlayerConfigsArray[playernum].painreceived = savebufferReadBits(buffer, 26);
+	g_PlayerConfigsArray[playernum].headshots = savebufferReadBits(buffer, 20);
+	g_PlayerConfigsArray[playernum].ammoused = savebufferReadBits(buffer, 30);
+	g_PlayerConfigsArray[playernum].accuracymedals = savebufferReadBits(buffer, 18);
+	g_PlayerConfigsArray[playernum].headshotmedals = savebufferReadBits(buffer, 18);
+	g_PlayerConfigsArray[playernum].killmastermedals = savebufferReadBits(buffer, 18);
+	g_PlayerConfigsArray[playernum].survivormedals = savebufferReadBits(buffer, 16);
+	g_PlayerConfigsArray[playernum].controlmode = savebufferReadBits(buffer, 2);
+	g_PlayerConfigsArray[playernum].options = savebufferReadBits(buffer, 12);
 
 	for (i = 0; i < 30; i++) {
 		for (j = 1; j < 5; j++) {
@@ -8945,7 +8945,7 @@ void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2)
 	}
 
 	mpDetermineUnlockedFeatures();
-	mpCalculatePlayerTitle(&g_MpPlayers[playernum]);
+	mpCalculatePlayerTitle(&g_PlayerConfigsArray[playernum]);
 	mpplayerfileLoadGunFuncs(buffer, playernum);
 }
 
@@ -8955,19 +8955,19 @@ void mpplayerfileSaveWad(s32 playernum, struct savebuffer *buffer)
 	s32 j;
 	u32 stack;
 
-	func0f0d55a4(buffer, g_MpPlayers[playernum].base.name);
+	func0f0d55a4(buffer, g_PlayerConfigsArray[playernum].base.name);
 
-	if (g_MpPlayers[playernum].time > 0x0fffffff) { // over 3106 days
-		g_MpPlayers[playernum].time = 0x0fffffff;
+	if (g_PlayerConfigsArray[playernum].time > 0x0fffffff) { // over 3106 days
+		g_PlayerConfigsArray[playernum].time = 0x0fffffff;
 	}
 
-	savebufferOr(buffer, g_MpPlayers[playernum].time, 28);
-	savebufferOr(buffer, g_MpPlayers[playernum].base.mpheadnum, 7);
-	savebufferOr(buffer, g_MpPlayers[playernum].base.mpbodynum, 7);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].time, 28);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].base.mpheadnum, 7);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].base.mpbodynum, 7);
 
-	if (g_MpPlayers[playernum].base.mpheadnum >= mpGetNumHeads2()) {
+	if (g_PlayerConfigsArray[playernum].base.mpheadnum >= mpGetNumHeads2()) {
 		struct fileguid guid;
-		phGetGuid(g_MpPlayers[playernum].base.mpheadnum - mpGetNumHeads2(), &guid);
+		phGetGuid(g_PlayerConfigsArray[playernum].base.mpheadnum - mpGetNumHeads2(), &guid);
 		savebufferWriteGuid(buffer, &guid);
 	} else {
 		struct fileguid guid;
@@ -8976,100 +8976,100 @@ void mpplayerfileSaveWad(s32 playernum, struct savebuffer *buffer)
 		savebufferWriteGuid(buffer, &guid);
 	}
 
-	savebufferOr(buffer, g_MpPlayers[playernum].base.displayoptions, 8);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].base.displayoptions, 8);
 
-	if (g_MpPlayers[playernum].kills > 0xfffff) { // 1,048,575
-		g_MpPlayers[playernum].kills = 0xfffff;
+	if (g_PlayerConfigsArray[playernum].kills > 0xfffff) { // 1,048,575
+		g_PlayerConfigsArray[playernum].kills = 0xfffff;
 	}
 
-	savebufferOr(buffer, g_MpPlayers[playernum].kills, 20);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].kills, 20);
 
-	if (g_MpPlayers[playernum].deaths > 0xfffff) { // 1,048,575
-		g_MpPlayers[playernum].deaths = 0xfffff;
+	if (g_PlayerConfigsArray[playernum].deaths > 0xfffff) { // 1,048,575
+		g_PlayerConfigsArray[playernum].deaths = 0xfffff;
 	}
 
-	savebufferOr(buffer, g_MpPlayers[playernum].deaths, 20);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].deaths, 20);
 
-	if (g_MpPlayers[playernum].gamesplayed > 0x7ffff) { // 524,287
-		g_MpPlayers[playernum].gamesplayed = 0x7ffff;
+	if (g_PlayerConfigsArray[playernum].gamesplayed > 0x7ffff) { // 524,287
+		g_PlayerConfigsArray[playernum].gamesplayed = 0x7ffff;
 	}
 
-	savebufferOr(buffer, g_MpPlayers[playernum].gamesplayed, 19);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].gamesplayed, 19);
 
-	if (g_MpPlayers[playernum].gameswon > 0x7ffff) { // 524,287
-		g_MpPlayers[playernum].gameswon = 0x7ffff;
+	if (g_PlayerConfigsArray[playernum].gameswon > 0x7ffff) { // 524,287
+		g_PlayerConfigsArray[playernum].gameswon = 0x7ffff;
 	}
 
-	savebufferOr(buffer, g_MpPlayers[playernum].gameswon, 19);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].gameswon, 19);
 
-	if (g_MpPlayers[playernum].gameslost > 0x7ffff) { // 524,287
-		g_MpPlayers[playernum].gameslost = 0x7ffff;
+	if (g_PlayerConfigsArray[playernum].gameslost > 0x7ffff) { // 524,287
+		g_PlayerConfigsArray[playernum].gameslost = 0x7ffff;
 	}
 
-	savebufferOr(buffer, g_MpPlayers[playernum].gameslost, 19);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].gameslost, 19);
 
-	if (g_MpPlayers[playernum].distance > 0x1ffffff) { // 33,554,431
-		g_MpPlayers[playernum].distance = 0x1ffffff;
+	if (g_PlayerConfigsArray[playernum].distance > 0x1ffffff) { // 33,554,431
+		g_PlayerConfigsArray[playernum].distance = 0x1ffffff;
 	}
 
-	savebufferOr(buffer, g_MpPlayers[playernum].distance, 25);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].distance, 25);
 
-	if (g_MpPlayers[playernum].accuracy > 0x3ff) { // 1023
-		g_MpPlayers[playernum].accuracy = 0x3ff;
+	if (g_PlayerConfigsArray[playernum].accuracy > 0x3ff) { // 1023
+		g_PlayerConfigsArray[playernum].accuracy = 0x3ff;
 	}
 
-	savebufferOr(buffer, g_MpPlayers[playernum].accuracy, 10);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].accuracy, 10);
 
-	if (g_MpPlayers[playernum].damagedealt > 0x3ffffff) { // 67,108,863
-		g_MpPlayers[playernum].damagedealt = 0x3ffffff;
+	if (g_PlayerConfigsArray[playernum].damagedealt > 0x3ffffff) { // 67,108,863
+		g_PlayerConfigsArray[playernum].damagedealt = 0x3ffffff;
 	}
 
-	savebufferOr(buffer, g_MpPlayers[playernum].damagedealt, 26);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].damagedealt, 26);
 
-	if (g_MpPlayers[playernum].painreceived > 0x3ffffff) { // 67,108,863
-		g_MpPlayers[playernum].painreceived = 0x3ffffff;
+	if (g_PlayerConfigsArray[playernum].painreceived > 0x3ffffff) { // 67,108,863
+		g_PlayerConfigsArray[playernum].painreceived = 0x3ffffff;
 	}
 
-	savebufferOr(buffer, g_MpPlayers[playernum].painreceived, 26);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].painreceived, 26);
 
-	if (g_MpPlayers[playernum].headshots > 0xfffff) { // 1,048,575
-		g_MpPlayers[playernum].headshots = 0xfffff;
+	if (g_PlayerConfigsArray[playernum].headshots > 0xfffff) { // 1,048,575
+		g_PlayerConfigsArray[playernum].headshots = 0xfffff;
 	}
 
-	savebufferOr(buffer, g_MpPlayers[playernum].headshots, 20);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].headshots, 20);
 
-	if (g_MpPlayers[playernum].ammoused > 0x3fffffff) { // 1,073,741,823
-		g_MpPlayers[playernum].ammoused = 0x3fffffff;
+	if (g_PlayerConfigsArray[playernum].ammoused > 0x3fffffff) { // 1,073,741,823
+		g_PlayerConfigsArray[playernum].ammoused = 0x3fffffff;
 	}
 
-	savebufferOr(buffer, g_MpPlayers[playernum].ammoused, 30);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].ammoused, 30);
 
-	if (g_MpPlayers[playernum].accuracymedals > 0x3ffff) { // 262,143
-		g_MpPlayers[playernum].accuracymedals = 0x3ffff;
+	if (g_PlayerConfigsArray[playernum].accuracymedals > 0x3ffff) { // 262,143
+		g_PlayerConfigsArray[playernum].accuracymedals = 0x3ffff;
 	}
 
-	savebufferOr(buffer, g_MpPlayers[playernum].accuracymedals, 18);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].accuracymedals, 18);
 
-	if (g_MpPlayers[playernum].headshotmedals > 0x3ffff) { // 262,143
-		g_MpPlayers[playernum].headshotmedals = 0x3ffff;
+	if (g_PlayerConfigsArray[playernum].headshotmedals > 0x3ffff) { // 262,143
+		g_PlayerConfigsArray[playernum].headshotmedals = 0x3ffff;
 	}
 
-	savebufferOr(buffer, g_MpPlayers[playernum].headshotmedals, 18);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].headshotmedals, 18);
 
-	if (g_MpPlayers[playernum].killmastermedals > 0x3ffff) { // 262,143
-		g_MpPlayers[playernum].killmastermedals = 0x3ffff;
+	if (g_PlayerConfigsArray[playernum].killmastermedals > 0x3ffff) { // 262,143
+		g_PlayerConfigsArray[playernum].killmastermedals = 0x3ffff;
 	}
 
-	savebufferOr(buffer, g_MpPlayers[playernum].killmastermedals, 18);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].killmastermedals, 18);
 
-	if (g_MpPlayers[playernum].survivormedals > 0xffff) { // 65,535
-		g_MpPlayers[playernum].survivormedals = 0xffff;
+	if (g_PlayerConfigsArray[playernum].survivormedals > 0xffff) { // 65,535
+		g_PlayerConfigsArray[playernum].survivormedals = 0xffff;
 	}
 
-	savebufferOr(buffer, g_MpPlayers[playernum].survivormedals, 16);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].survivormedals, 16);
 
-	savebufferOr(buffer, g_MpPlayers[playernum].base.controlmode, 2);
-	savebufferOr(buffer, g_MpPlayers[playernum].options, 12);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].controlmode, 2);
+	savebufferOr(buffer, g_PlayerConfigsArray[playernum].options, 12);
 
 	for (i = 0; i < 30; i++) {
 		for (j = 1; j < 5; j++) {
@@ -9106,8 +9106,8 @@ s32 mpplayerfileSave(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
 		ret = pakSaveAtGuid(device, fileid, PAKFILETYPE_MPPLAYER, buffer.bytes, &newfileid, 0);
 
 		if (ret == 0) {
-			g_MpPlayers[playernum].fileguid.fileid = newfileid;
-			g_MpPlayers[playernum].fileguid.deviceserial = deviceserial;
+			g_PlayerConfigsArray[playernum].fileguid.fileid = newfileid;
+			g_PlayerConfigsArray[playernum].fileguid.deviceserial = deviceserial;
 			return 0;
 		}
 
@@ -9129,13 +9129,13 @@ s32 mpplayerfileLoad(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
 		ret = pakReadBodyAtGuid(device, fileid, buffer.bytes, 0);
 
 		if (ret == 0) {
-			g_MpPlayers[playernum].fileguid.fileid = fileid;
-			g_MpPlayers[playernum].fileguid.deviceserial = deviceserial;
+			g_PlayerConfigsArray[playernum].fileguid.fileid = fileid;
+			g_PlayerConfigsArray[playernum].fileguid.deviceserial = deviceserial;
 
 			mpplayerfileLoadWad(playernum, &buffer, 1);
 			func0f0d54c4(&buffer);
 
-			g_MpPlayers[playernum].handicap = 0x80;
+			g_PlayerConfigsArray[playernum].handicap = 0x80;
 			return 0;
 		}
 
@@ -9406,8 +9406,8 @@ glabel func0f18dcec
 /*  f18dd60:	8f210000 */ 	lw	$at,0x0($t9)
 /*  f18dd64:	3c09800b */ 	lui	$t1,%hi(g_MpSimulantDifficultiesPerNumPlayers)
 /*  f18dd68:	2537c798 */ 	addiu	$s7,$t1,%lo(g_MpSimulantDifficultiesPerNumPlayers)
-/*  f18dd6c:	3c11800b */ 	lui	$s1,%hi(g_MpSimulants)
-/*  f18dd70:	2631c538 */ 	addiu	$s1,$s1,%lo(g_MpSimulants)
+/*  f18dd6c:	3c11800b */ 	lui	$s1,%hi(g_BotConfigsArray)
+/*  f18dd70:	2631c538 */ 	addiu	$s1,$s1,%lo(g_BotConfigsArray)
 /*  f18dd74:	02e0a825 */ 	or	$s5,$s7,$zero
 /*  f18dd78:	00009825 */ 	or	$s3,$zero,$zero
 /*  f18dd7c:	03c0a025 */ 	or	$s4,$s8,$zero
@@ -9677,21 +9677,21 @@ void mpsetupfileLoadWad(struct savebuffer *buffer)
 	g_MpSetup.chrslots &= 0x000f;
 
 	for (i = 0; i < MAX_SIMULANTS; i++) {
-		g_MpSimulants[i].base.name[0] = '\0';
-		g_MpSimulants[i].base.simtype = savebufferReadBits(buffer, 5);
-		g_MpSimulants[i].difficulty = savebufferReadBits(buffer, 3);
+		g_BotConfigsArray[i].base.name[0] = '\0';
+		g_BotConfigsArray[i].type = savebufferReadBits(buffer, 5);
+		g_BotConfigsArray[i].difficulty = savebufferReadBits(buffer, 3);
 
 		for (j = 0; j < 4; j++) {
-			g_MpSimulantDifficultiesPerNumPlayers[i * 4 + j] = g_MpSimulants[i].difficulty;
+			g_MpSimulantDifficultiesPerNumPlayers[i * 4 + j] = g_BotConfigsArray[i].difficulty;
 		}
 
-		if (g_MpSimulants[i].difficulty != SIMDIFF_DISABLED) {
+		if (g_BotConfigsArray[i].difficulty != BOTDIFF_DISABLED) {
 			g_MpSetup.chrslots |= 1 << (i + 4);
 		}
 
-		g_MpSimulants[i].base.mpheadnum = savebufferReadBits(buffer, 7);
-		g_MpSimulants[i].base.mpbodynum = savebufferReadBits(buffer, 7);
-		g_MpSimulants[i].base.team = savebufferReadBits(buffer, 3);
+		g_BotConfigsArray[i].base.mpheadnum = savebufferReadBits(buffer, 7);
+		g_BotConfigsArray[i].base.mpbodynum = savebufferReadBits(buffer, 7);
+		g_BotConfigsArray[i].base.team = savebufferReadBits(buffer, 3);
 	}
 
 	func0f18cddc();
@@ -9707,7 +9707,7 @@ void mpsetupfileLoadWad(struct savebuffer *buffer)
 	g_MpSetup.teamscorelimit = savebufferReadBits(buffer, 9);
 
 	for (i = 0; i < 4; i++) {
-		g_MpPlayers[i].base.team = savebufferReadBits(buffer, 3);
+		g_PlayerConfigsArray[i].base.team = savebufferReadBits(buffer, 3);
 	}
 
 	mpForceUnlockSimulantFeatures();
@@ -9736,30 +9736,30 @@ void mpsetupfileSaveWad(struct savebuffer *buffer)
 	savebufferOr(buffer, g_MpSetup.options, 21);
 
 	for (i = 0; i < 8; i++) {
-		savebufferOr(buffer, g_MpSimulants[i].base.simtype, 5);
+		savebufferOr(buffer, g_BotConfigsArray[i].type, 5);
 
 		if (g_MpSetup.chrslots & (1 << (i + 4))) {
-			savebufferOr(buffer, g_MpSimulants[i].difficulty, 3);
+			savebufferOr(buffer, g_BotConfigsArray[i].difficulty, 3);
 		} else {
-			savebufferOr(buffer, SIMDIFF_DISABLED, 3);
+			savebufferOr(buffer, BOTDIFF_DISABLED, 3);
 		}
 
-		savebufferOr(buffer, g_MpSimulants[i].base.mpheadnum, 7);
+		savebufferOr(buffer, g_BotConfigsArray[i].base.mpheadnum, 7);
 
-		if (g_MpSimulants[i].base.mpbodynum == 0xff) {
-			s32 index = mpGetSimTypeIndex(g_MpSimulants[i].base.simtype, g_MpSimulants[i].difficulty);
+		if (g_BotConfigsArray[i].base.mpbodynum == 0xff) {
+			s32 index = mpGetSimTypeIndex(g_BotConfigsArray[i].type, g_BotConfigsArray[i].difficulty);
 
-			if (index < 0 || index >= ARRAYCOUNT(g_MpSimulantTypes)) {
+			if (index < 0 || index >= ARRAYCOUNT(g_BotProfiles)) {
 				index = 0;
 			}
 
-			mpbodynum = g_MpSimulantTypes[index].body;
+			mpbodynum = g_BotProfiles[index].body;
 		} else {
-			mpbodynum = g_MpSimulants[i].base.mpbodynum;
+			mpbodynum = g_BotConfigsArray[i].base.mpbodynum;
 		}
 
 		savebufferOr(buffer, mpbodynum, 7);
-		savebufferOr(buffer, g_MpSimulants[i].base.team, 3);
+		savebufferOr(buffer, g_BotConfigsArray[i].base.team, 3);
 	}
 
 	for (i = 0; i < 6; i++) {
@@ -9771,7 +9771,7 @@ void mpsetupfileSaveWad(struct savebuffer *buffer)
 	savebufferOr(buffer, g_MpSetup.teamscorelimit, 9);
 
 	for (i = 0; i < 4; i++) {
-		savebufferOr(buffer, g_MpPlayers[i].base.team, 3);
+		savebufferOr(buffer, g_PlayerConfigsArray[i].base.team, 3);
 	}
 }
 

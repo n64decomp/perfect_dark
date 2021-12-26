@@ -313,13 +313,13 @@ f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms,
 
 		roomGetNeighbours(pad.room, neighbours, 20);
 
-		for (i = 0; i < g_NumMpSimulantChrs; i++) {
-			if (g_MpSimulantChrs[i]->prop
-					&& g_MpSimulantChrs[i]->prop != prop
-					&& (!prop || chrCompareTeams(prop->chr, g_MpSimulantChrs[i], COMPARE_ENEMIES))) {
-				xdiff = g_MpSimulantChrs[i]->prop->pos.x - pad.pos.x;
-				ydiff = g_MpSimulantChrs[i]->prop->pos.y - pad.pos.y;
-				zdiff = g_MpSimulantChrs[i]->prop->pos.z - pad.pos.z;
+		for (i = 0; i < g_BotCount; i++) {
+			if (g_MpBotChrPtrs[i]->prop
+					&& g_MpBotChrPtrs[i]->prop != prop
+					&& (!prop || chrCompareTeams(prop->chr, g_MpBotChrPtrs[i], COMPARE_ENEMIES))) {
+				xdiff = g_MpBotChrPtrs[i]->prop->pos.x - pad.pos.x;
+				ydiff = g_MpBotChrPtrs[i]->prop->pos.y - pad.pos.y;
+				zdiff = g_MpBotChrPtrs[i]->prop->pos.z - pad.pos.z;
 
 				sqdist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
 
@@ -327,11 +327,11 @@ f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms,
 					bestsqdist = sqdist;
 				}
 
-				if (arrayIntersects(tmppadrooms, g_MpSimulantChrs[i]->prop->rooms)) {
+				if (arrayIntersects(tmppadrooms, g_MpBotChrPtrs[i]->prop->rooms)) {
 					verybadpads[p] = true;
 				}
 
-				if (verybadpads[p] || arrayIntersects(neighbours, g_MpSimulantChrs[i]->prop->rooms)) {
+				if (verybadpads[p] || arrayIntersects(neighbours, g_MpBotChrPtrs[i]->prop->rooms)) {
 					badpads[p] = true;
 				}
 			}
@@ -1867,7 +1867,7 @@ void currentPlayerSpawn(void)
 
 #if VERSION >= VERSION_NTSC_1_0
 			if (g_Vars.currentplayer->model00d4 == NULL
-					&& (IS8MB() || g_Vars.fourmeg2player || g_MpPlayerChrs[g_Vars.currentplayernum] == NULL)) {
+					&& (IS8MB() || g_Vars.fourmeg2player || g_MpAllChrPtrs[g_Vars.currentplayernum] == NULL)) {
 				func0f0b8ba0();
 			}
 #else
@@ -1930,17 +1930,17 @@ void currentPlayerChooseBodyAndHead(s32 *bodynum, s32 *headnum, s32 *arg2)
 	}
 
 	if (g_Vars.normmplayerisrunning) {
-		if (g_MpPlayers[g_Vars.currentplayerstats->mpindex].base.mpheadnum < mpGetNumHeads2()) {
-			*headnum = mpGetHeadId(g_MpPlayers[g_Vars.currentplayerstats->mpindex].base.mpheadnum);
+		if (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.mpheadnum < mpGetNumHeads2()) {
+			*headnum = mpGetHeadId(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.mpheadnum);
 		} else {
-			*headnum = g_MpPlayers[g_Vars.currentplayerstats->mpindex].base.mpheadnum - mpGetNumHeads2();
+			*headnum = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.mpheadnum - mpGetNumHeads2();
 
 			if (arg2) {
 				*arg2 = true;
 			}
 		}
 
-		*bodynum = mpGetBodyId(g_MpPlayers[g_Vars.currentplayerstats->mpindex].base.mpbodynum);
+		*bodynum = mpGetBodyId(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.mpbodynum);
 		return;
 	}
 
@@ -2484,21 +2484,21 @@ glabel var7f1ad5b4
 /*  f0b9230:	11600011 */ 	beqz	$t3,.L0f0b9278
 /*  f0b9234:	8da60004 */ 	lw	$a2,0x4($t5)
 /*  f0b9238:	8e02028c */ 	lw	$v0,0x28c($s0)
-/*  f0b923c:	3c01800b */ 	lui	$at,%hi(g_MpPlayerChrs)
-/*  f0b9240:	3c0f800b */ 	lui	$t7,%hi(g_MpPlayers)
+/*  f0b923c:	3c01800b */ 	lui	$at,%hi(g_MpAllChrPtrs)
+/*  f0b9240:	3c0f800b */ 	lui	$t7,%hi(g_PlayerConfigsArray)
 /*  f0b9244:	00027080 */ 	sll	$t6,$v0,0x2
 /*  f0b9248:	002e0821 */ 	addu	$at,$at,$t6
-/*  f0b924c:	ac26c4d0 */ 	sw	$a2,%lo(g_MpPlayerChrs)($at)
+/*  f0b924c:	ac26c4d0 */ 	sw	$a2,%lo(g_MpAllChrPtrs)($at)
 /*  f0b9250:	8e080288 */ 	lw	$t0,0x288($s0)
-/*  f0b9254:	3c01800b */ 	lui	$at,%hi(var800ac500)
-/*  f0b9258:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_MpPlayers)
+/*  f0b9254:	3c01800b */ 	lui	$at,%hi(g_MpAllChrConfigPtrs)
+/*  f0b9258:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_PlayerConfigsArray)
 /*  f0b925c:	8d180070 */ 	lw	$t8,0x70($t0)
 /*  f0b9260:	002e0821 */ 	addu	$at,$at,$t6
 /*  f0b9264:	0018c880 */ 	sll	$t9,$t8,0x2
 /*  f0b9268:	0338c821 */ 	addu	$t9,$t9,$t8
 /*  f0b926c:	0019c940 */ 	sll	$t9,$t9,0x5
 /*  f0b9270:	032f4821 */ 	addu	$t1,$t9,$t7
-/*  f0b9274:	ac29c500 */ 	sw	$t1,%lo(var800ac500)($at)
+/*  f0b9274:	ac29c500 */ 	sw	$t1,%lo(g_MpAllChrConfigPtrs)($at)
 .L0f0b9278:
 /*  f0b9278:	8cca0018 */ 	lw	$t2,0x18($a2)
 /*  f0b927c:	354c0001 */ 	ori	$t4,$t2,0x1

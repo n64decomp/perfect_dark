@@ -14,9 +14,9 @@
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
 #include "game/radar.h"
-#include "game/game_190260.h"
-#include "game/game_197600.h"
-#include "game/game_1999b0.h"
+#include "game/bot.h"
+#include "game/botcmd.h"
+#include "game/botact.h"
 #include "game/game_19aa80.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
@@ -32,9 +32,9 @@
 #include "data.h"
 #include "types.h"
 
-struct chrdata *g_MpSimulantChrs[MAX_SIMULANTS];
+struct chrdata *g_MpBotChrPtrs[MAX_SIMULANTS];
 
-u8 g_NumMpSimulantChrs = 0;
+u8 g_BotCount = 0;
 
 struct simdifficulty g_SimDifficulties[] = {
 #if PAL
@@ -73,14 +73,14 @@ u32 g_MpBotCommands[NUM_MPBOTCOMMANDS] = {
 	L_MISC_214, // "Protect"
 };
 
-bool func0f190260(struct chrdata *chr)
+bool bot0f190260(struct chrdata *chr)
 {
-	return chr->blurdrugamount >= g_SimDifficulties[chr->aibot->simulant->difficulty].blurdrugamount;
+	return chr->blurdrugamount >= g_SimDifficulties[chr->aibot->config->difficulty].blurdrugamount;
 }
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel mpChrReset
+glabel botReset
 /*  f19134c:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f191350:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f191354:	afb10018 */ 	sw	$s1,0x18($sp)
@@ -146,7 +146,7 @@ glabel mpChrReset
 /*  f191440:	28610084 */ 	slti	$at,$v1,0x84
 /*  f191444:	1420fffb */ 	bnez	$at,.PF0f191434
 /*  f191448:	af000000 */ 	sw	$zero,0x0($t8)
-/*  f19144c:	0fc66340 */ 	jal	aibotClearInventory
+/*  f19144c:	0fc66340 */ 	jal	botinvClear
 /*  f191450:	02202025 */ 	move	$a0,$s1
 /*  f191454:	9208004c */ 	lbu	$t0,0x4c($s0)
 /*  f191458:	920d009c */ 	lbu	$t5,0x9c($s0)
@@ -308,7 +308,7 @@ glabel mpChrReset
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel mpChrReset
+glabel botReset
 /*  f19028c:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f190290:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f190294:	afb10018 */ 	sw	$s1,0x18($sp)
@@ -374,7 +374,7 @@ glabel mpChrReset
 /*  f190380:	28610084 */ 	slti	$at,$v1,0x84
 /*  f190384:	1420fffb */ 	bnez	$at,.L0f190374
 /*  f190388:	af000000 */ 	sw	$zero,0x0($t8)
-/*  f19038c:	0fc65f00 */ 	jal	aibotClearInventory
+/*  f19038c:	0fc65f00 */ 	jal	botinvClear
 /*  f190390:	02202025 */ 	or	$a0,$s1,$zero
 /*  f190394:	9208004c */ 	lbu	$t0,0x4c($s0)
 /*  f190398:	920e009c */ 	lbu	$t6,0x9c($s0)
@@ -538,7 +538,7 @@ glabel mpChrReset
 );
 #else
 GLOBAL_ASM(
-glabel mpChrReset
+glabel botReset
 /*  f18a44c:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f18a450:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f18a454:	afb10018 */ 	sw	$s1,0x18($sp)
@@ -600,7 +600,7 @@ glabel mpChrReset
 /*  f18a530:	28410084 */ 	slti	$at,$v0,0x84
 /*  f18a534:	1420fffb */ 	bnez	$at,.NB0f18a524
 /*  f18a538:	af000000 */ 	sw	$zero,0x0($t8)
-/*  f18a53c:	0fc646f8 */ 	jal	aibotClearInventory
+/*  f18a53c:	0fc646f8 */ 	jal	botinvClear
 /*  f18a540:	02202025 */ 	or	$a0,$s1,$zero
 /*  f18a544:	9208004c */ 	lbu	$t0,0x4c($s0)
 /*  f18a548:	920e009c */ 	lbu	$t6,0x9c($s0)
@@ -761,7 +761,7 @@ glabel mpChrReset
 );
 #endif
 
-//void mpChrReset(struct chrdata *chr, u8 full)
+//void botReset(struct chrdata *chr, u8 respawning)
 //{
 //	s32 i;
 //	u32 rand;
@@ -775,7 +775,7 @@ glabel mpChrReset
 //		chr->myaction = MA_AIBOTMAINLOOP;
 //		chr->shotbondsum = 0;
 //
-//		if (full) {
+//		if (respawning) {
 //			chr->numclosearghs = 0;
 //			chr->damage = 0;
 //			chr->target = -1;
@@ -803,7 +803,7 @@ glabel mpChrReset
 //				aibot->unk01c->unk00[i] = 0;
 //			}
 //
-//			aibotClearInventory(chr);
+//			botinvClear(chr);
 //
 //			aibot->gunfunc = 0;
 //			aibot->iscloserangeweapon = true;
@@ -884,11 +884,11 @@ glabel mpChrReset
 //			aibot->unk09d = 0;
 //		}
 //
-//		if (aibot->simulant->type == SIMTYPE_TURTLE || aibot->simulant->type == SIMTYPE_SHIELD) {
+//		if (aibot->config->type == BOTTYPE_TURTLE || aibot->config->type == BOTTYPE_SHIELD) {
 //			chr->cshield = 8;
 //		}
 //
-//		if (aibot->simulant->difficulty == SIMDIFF_DARK) {
+//		if (aibot->config->difficulty == BOTDIFF_DARK) {
 //			aibot->unk064 &= ~1;
 //
 //			if (mpHasShield()) {
@@ -901,7 +901,7 @@ glabel mpChrReset
 //	}
 //}
 
-void mpInitSimulant(struct chrdata *chr, u8 full)
+void botSpawn(struct chrdata *chr, u8 respawning)
 {
 	f32 thing;
 	struct prop *prop;
@@ -925,7 +925,7 @@ void mpInitSimulant(struct chrdata *chr, u8 full)
 	}
 
 	if (aibot) {
-		mpChrReset(chr, full);
+		botReset(chr, respawning);
 		chrInitSplats(chr);
 		thing = scenarioChooseSpawnLocation(chr->chrwidth, &pos, rooms, chr->prop);
 		chr->hidden |= CHRHFLAG_00100000;
@@ -940,12 +940,12 @@ void mpInitSimulant(struct chrdata *chr, u8 full)
 	}
 }
 
-void mpInitSimulants(void)
+void botSpawnAll(void)
 {
 	s32 i;
 
-	for (i = 0; i < g_NumMpSimulantChrs; i++) {
-		mpInitSimulant(g_MpSimulantChrs[i], false);
+	for (i = 0; i < g_BotCount; i++) {
+		botSpawn(g_MpBotChrPtrs[i], false);
 	}
 }
 
@@ -957,7 +957,7 @@ u32 add87654321(u32 value)
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
+u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 {
 	struct defaultobj *obj = prop->obj;
 
@@ -979,7 +979,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 			dprint();
 
 			if (qty) {
-				aibotGiveAmmoByType(chr->aibot, crate->ammotype, qty);
+				botactGiveAmmoByType(chr->aibot, crate->ammotype, qty);
 			}
 
 			// Pickup sound
@@ -1029,7 +1029,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 				}
 
 				if (qty) {
-					aibotGiveAmmoByType(chr->aibot, i + 1, qty);
+					botactGiveAmmoByType(chr->aibot, i + 1, qty);
 				}
 			}
 
@@ -1043,7 +1043,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 	case OBJTYPE_WEAPON:
 		{
 			struct weaponobj *weapon = prop->weapon;
-			u32 itemtype = aibotGetInvItemType(chr, weapon->weaponnum);
+			u32 itemtype = botinvGetItemType(chr, weapon->weaponnum);
 			u32 result;
 			u32 qty;
 
@@ -1056,25 +1056,25 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 				qty = weaponGetPickupAmmoQty(weapon);
 
 				if (qty) {
-					aibotGiveAmmoByWeapon(chr->aibot, weapon->weaponnum, weapon->gunfunc, qty);
+					botactGiveAmmoByWeapon(chr->aibot, weapon->weaponnum, weapon->gunfunc, qty);
 				}
 
 				if (itemtype) {
 					struct weapon *weapondef = weaponFindById(weapon->weaponnum);
-					u32 originalpad = aibotGetWeaponPad(chr, weapon->weaponnum);
+					u32 originalpad = botinvGetWeaponPad(chr, weapon->weaponnum);
 					u32 currentpad = obj->pad;
 
 					if (itemtype == INVITEMTYPE_WEAP
 							&& weapondef
 							&& (weapondef->flags & WEAPONFLAG_DUALWIELD)
 							&& originalpad != currentpad) {
-						aibotGiveDualWeapon(chr, weapon->weaponnum);
+						botinvGiveDualWeapon(chr, weapon->weaponnum);
 						result = 1;
 					} else {
 						result = 2;
 					}
 				} else {
-					aibotGiveProp(chr, prop);
+					botinvGiveProp(chr, prop);
 					result = 1;
 				}
 
@@ -1130,98 +1130,98 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 }
 #else
 GLOBAL_ASM(
-glabel propobjHandlePickupByAibot
+glabel botPickupProp
 .late_rodata
 glabel var7f1b33d0nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b33d4nb
-.word propobjHandlePickupByAibot+0x080
+.word botPickupProp+0x080
 glabel var7f1b33d8nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b33dcnb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b33e0nb
-.word propobjHandlePickupByAibot+0x080
+.word botPickupProp+0x080
 glabel var7f1b33e4nb
-.word propobjHandlePickupByAibot+0x1f4
+.word botPickupProp+0x1f4
 glabel var7f1b33e8nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b33ecnb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b33f0nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b33f4nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b33f8nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b33fcnb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3400nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3404nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3408nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b340cnb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3410nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3414nb
-.word propobjHandlePickupByAibot+0x130
+.word botPickupProp+0x130
 glabel var7f1b3418nb
-.word propobjHandlePickupByAibot+0x314
+.word botPickupProp+0x314
 glabel var7f1b341cnb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3420nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3424nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3428nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b342cnb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3430nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3434nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3438nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b343cnb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3440nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3444nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3448nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b344cnb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3450nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3454nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3458nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b345cnb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3460nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3464nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3468nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b346cnb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3470nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3474nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3478nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b347cnb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 glabel var7f1b3480nb
-.word propobjHandlePickupByAibot+0x3ac
+.word botPickupProp+0x3ac
 .text
 /*  f18a918:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f18a91c:	afbf0054 */ 	sw	$ra,0x54($sp)
@@ -1266,7 +1266,7 @@ glabel var7f1b3480nb
 /*  f18a9b0:	12000004 */ 	beqz	$s0,.NB0f18a9c4
 /*  f18a9b4:	02003025 */ 	or	$a2,$s0,$zero
 /*  f18a9b8:	8e4402d4 */ 	lw	$a0,0x2d4($s2)
-/*  f18a9bc:	0fc64fb5 */ 	jal	aibotGiveAmmoByType
+/*  f18a9bc:	0fc64fb5 */ 	jal	botactGiveAmmoByType
 /*  f18a9c0:	8e25005c */ 	lw	$a1,0x5c($s1)
 .NB0f18a9c4:
 /*  f18a9c4:	3c01bf80 */ 	lui	$at,0xbf80
@@ -1319,7 +1319,7 @@ glabel var7f1b3480nb
 .NB0f18aa78:
 /*  f18aa78:	10c00003 */ 	beqz	$a2,.NB0f18aa88
 /*  f18aa7c:	26050001 */ 	addiu	$a1,$s0,0x1
-/*  f18aa80:	0fc64fb5 */ 	jal	aibotGiveAmmoByType
+/*  f18aa80:	0fc64fb5 */ 	jal	botactGiveAmmoByType
 /*  f18aa84:	8e4402d4 */ 	lw	$a0,0x2d4($s2)
 .NB0f18aa88:
 /*  f18aa88:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -1358,7 +1358,7 @@ glabel var7f1b3480nb
 /*  f18ab0c:	8fad0080 */ 	lw	$t5,0x80($sp)
 /*  f18ab10:	02402025 */ 	or	$a0,$s2,$zero
 /*  f18ab14:	8db00004 */ 	lw	$s0,0x4($t5)
-/*  f18ab18:	0fc64788 */ 	jal	aibotGetInvItemType
+/*  f18ab18:	0fc64788 */ 	jal	botinvGetItemType
 /*  f18ab1c:	9205005c */ 	lbu	$a1,0x5c($s0)
 /*  f18ab20:	afa2005c */ 	sw	$v0,0x5c($sp)
 /*  f18ab24:	9205005c */ 	lbu	$a1,0x5c($s0)
@@ -1387,7 +1387,7 @@ glabel var7f1b3480nb
 /*  f18ab78:	00403825 */ 	or	$a3,$v0,$zero
 /*  f18ab7c:	8e4402d4 */ 	lw	$a0,0x2d4($s2)
 /*  f18ab80:	9205005c */ 	lbu	$a1,0x5c($s0)
-/*  f18ab84:	0fc64f87 */ 	jal	aibotGiveAmmoByWeapon
+/*  f18ab84:	0fc64f87 */ 	jal	botactGiveAmmoByWeapon
 /*  f18ab88:	9206005f */ 	lbu	$a2,0x5f($s0)
 .NB0f18ab8c:
 /*  f18ab8c:	8fae005c */ 	lw	$t6,0x5c($sp)
@@ -1398,7 +1398,7 @@ glabel var7f1b3480nb
 /*  f18aba0:	9204005c */ 	lbu	$a0,0x5c($s0)
 /*  f18aba4:	00408825 */ 	or	$s1,$v0,$zero
 /*  f18aba8:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18abac:	0fc647c4 */ 	jal	aibotGetWeaponPad
+/*  f18abac:	0fc647c4 */ 	jal	botinvGetWeaponPad
 /*  f18abb0:	9205005c */ 	lbu	$a1,0x5c($s0)
 /*  f18abb4:	8fb8005c */ 	lw	$t8,0x5c($sp)
 /*  f18abb8:	8faf007c */ 	lw	$t7,0x7c($sp)
@@ -1413,7 +1413,7 @@ glabel var7f1b3480nb
 /*  f18abdc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18abe0:	10430005 */ 	beq	$v0,$v1,.NB0f18abf8
 /*  f18abe4:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18abe8:	0fc647b9 */ 	jal	aibotGiveDualWeapon
+/*  f18abe8:	0fc647b9 */ 	jal	botinvGiveDualWeapon
 /*  f18abec:	9205005c */ 	lbu	$a1,0x5c($s0)
 /*  f18abf0:	10000006 */ 	beqz	$zero,.NB0f18ac0c
 /*  f18abf4:	24100001 */ 	addiu	$s0,$zero,0x1
@@ -1421,7 +1421,7 @@ glabel var7f1b3480nb
 /*  f18abf8:	10000004 */ 	beqz	$zero,.NB0f18ac0c
 /*  f18abfc:	24100002 */ 	addiu	$s0,$zero,0x2
 .NB0f18ac00:
-/*  f18ac00:	0fc647d3 */ 	jal	aibotGiveProp
+/*  f18ac00:	0fc647d3 */ 	jal	botinvGiveProp
 /*  f18ac04:	8fa50080 */ 	lw	$a1,0x80($sp)
 /*  f18ac08:	24100001 */ 	addiu	$s0,$zero,0x1
 .NB0f18ac0c:
@@ -1486,7 +1486,7 @@ glabel var7f1b3480nb
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f190be4
+glabel botTestPropForPickup
 .late_rodata
 glabel var7f1b8ea4
 .word 0x47742400
@@ -1603,7 +1603,7 @@ glabel var7f1b8ea8
 /*  f190d6c:	8dc20004 */ 	lw	$v0,0x4($t6)
 /*  f190d70:	8fa4008c */ 	lw	$a0,0x8c($sp)
 /*  f190d74:	9045005c */ 	lbu	$a1,0x5c($v0)
-/*  f190d78:	0fc65f90 */ 	jal	aibotGetInvItemType
+/*  f190d78:	0fc65f90 */ 	jal	botinvGetItemType
 /*  f190d7c:	afa20080 */ 	sw	$v0,0x80($sp)
 /*  f190d80:	8faf0080 */ 	lw	$t7,0x80($sp)
 /*  f190d84:	91e4005c */ 	lbu	$a0,0x5c($t7)
@@ -1632,12 +1632,12 @@ glabel var7f1b8ea8
 /*  f190dd8:	8d0402d4 */ 	lw	$a0,0x2d4($t0)
 /*  f190ddc:	02002825 */ 	or	$a1,$s0,$zero
 /*  f190de0:	9046005f */ 	lbu	$a2,0x5f($v0)
-/*  f190de4:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f190de4:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f190de8:	00003825 */ 	or	$a3,$zero,$zero
 /*  f190dec:	8fa90080 */ 	lw	$t1,0x80($sp)
 /*  f190df0:	00408025 */ 	or	$s0,$v0,$zero
 /*  f190df4:	9124005c */ 	lbu	$a0,0x5c($t1)
-/*  f190df8:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
+/*  f190df8:	0fc6666c */ 	jal	botactGetAmmoTypeByFunction
 /*  f190dfc:	9125005f */ 	lbu	$a1,0x5f($t1)
 /*  f190e00:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
 /*  f190e04:	00402025 */ 	or	$a0,$v0,$zero
@@ -1670,7 +1670,7 @@ glabel var7f1b8ea8
 /*  f190e64:	8fae008c */ 	lw	$t6,0x8c($sp)
 /*  f190e68:	00003025 */ 	or	$a2,$zero,$zero
 /*  f190e6c:	8e05005c */ 	lw	$a1,0x5c($s0)
-/*  f190e70:	0fc6672e */ 	jal	aibotGetAmmoQuantityByType
+/*  f190e70:	0fc6672e */ 	jal	botactGetAmmoQuantityByType
 /*  f190e74:	8dc402d4 */ 	lw	$a0,0x2d4($t6)
 /*  f190e78:	8e04005c */ 	lw	$a0,0x5c($s0)
 /*  f190e7c:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
@@ -1701,7 +1701,7 @@ glabel var7f1b8ea8
 .L0f190ed8:
 /*  f190ed8:	24500001 */ 	addiu	$s0,$v0,0x1
 /*  f190edc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f190ee0:	0fc668c7 */ 	jal	ammotypeGetWeapon
+/*  f190ee0:	0fc668c7 */ 	jal	botactGetWeaponByAmmoType
 /*  f190ee4:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f190ee8:	8fa30028 */ 	lw	$v1,0x28($sp)
 /*  f190eec:	afa20068 */ 	sw	$v0,0x68($sp)
@@ -1712,7 +1712,7 @@ glabel var7f1b8ea8
 /*  f190f00:	5b20001d */ 	blezl	$t9,.L0f190f78
 /*  f190f04:	24010013 */ 	addiu	$at,$zero,0x13
 /*  f190f08:	8d0402d4 */ 	lw	$a0,0x2d4($t0)
-/*  f190f0c:	0fc6672e */ 	jal	aibotGetAmmoQuantityByType
+/*  f190f0c:	0fc6672e */ 	jal	botactGetAmmoQuantityByType
 /*  f190f10:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f190f14:	02002025 */ 	or	$a0,$s0,$zero
 /*  f190f18:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
@@ -1727,14 +1727,14 @@ glabel var7f1b8ea8
 /*  f190f3c:	8fa4008c */ 	lw	$a0,0x8c($sp)
 /*  f190f40:	51200011 */ 	beqzl	$t1,.L0f190f88
 /*  f190f44:	8faa0064 */ 	lw	$t2,0x64($sp)
-/*  f190f48:	0fc65f90 */ 	jal	aibotGetInvItemType
+/*  f190f48:	0fc65f90 */ 	jal	botinvGetItemType
 /*  f190f4c:	01202825 */ 	or	$a1,$t1,$zero
 /*  f190f50:	5440000d */ 	bnezl	$v0,.L0f190f88
 /*  f190f54:	8faa0064 */ 	lw	$t2,0x64($sp)
 /*  f190f58:	0fc47bba */ 	jal	dprint
 /*  f190f5c:	00000000 */ 	nop
 /*  f190f60:	8fa4008c */ 	lw	$a0,0x8c($sp)
-/*  f190f64:	0fc65fdb */ 	jal	aibotGiveProp
+/*  f190f64:	0fc65fdb */ 	jal	botinvGiveProp
 /*  f190f68:	8fa50088 */ 	lw	$a1,0x88($sp)
 /*  f190f6c:	10000006 */ 	b	.L0f190f88
 /*  f190f70:	8faa0064 */ 	lw	$t2,0x64($sp)
@@ -1878,7 +1878,7 @@ glabel var7f1b8ea8
 /*  f191164:	0fc47bba */ 	jal	dprint
 /*  f191168:	00000000 */ 	nop
 /*  f19116c:	8fa40088 */ 	lw	$a0,0x88($sp)
-/*  f191170:	0fc641e1 */ 	jal	propobjHandlePickupByAibot
+/*  f191170:	0fc641e1 */ 	jal	botPickupProp
 /*  f191174:	8fa5008c */ 	lw	$a1,0x8c($sp)
 /*  f191178:	10000002 */ 	b	.L0f191184
 /*  f19117c:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -1892,7 +1892,7 @@ glabel var7f1b8ea8
 );
 #else
 GLOBAL_ASM(
-glabel func0f190be4
+glabel botTestPropForPickup
 .late_rodata
 glabel var7f1b8ea4
 .word 0x47742400
@@ -2004,7 +2004,7 @@ glabel var7f1b8ea8
 /*  f18ae58:	8da20004 */ 	lw	$v0,0x4($t5)
 /*  f18ae5c:	8fa4008c */ 	lw	$a0,0x8c($sp)
 /*  f18ae60:	9045005c */ 	lbu	$a1,0x5c($v0)
-/*  f18ae64:	0fc64788 */ 	jal	aibotGetInvItemType
+/*  f18ae64:	0fc64788 */ 	jal	botinvGetItemType
 /*  f18ae68:	afa20080 */ 	sw	$v0,0x80($sp)
 /*  f18ae6c:	8fae0080 */ 	lw	$t6,0x80($sp)
 /*  f18ae70:	91c4005c */ 	lbu	$a0,0x5c($t6)
@@ -2033,12 +2033,12 @@ glabel var7f1b8ea8
 /*  f18aec4:	8f2402d4 */ 	lw	$a0,0x2d4($t9)
 /*  f18aec8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f18aecc:	9046005f */ 	lbu	$a2,0x5f($v0)
-/*  f18aed0:	0fc64ef1 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f18aed0:	0fc64ef1 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f18aed4:	00003825 */ 	or	$a3,$zero,$zero
 /*  f18aed8:	8fa80080 */ 	lw	$t0,0x80($sp)
 /*  f18aedc:	00408025 */ 	or	$s0,$v0,$zero
 /*  f18aee0:	9104005c */ 	lbu	$a0,0x5c($t0)
-/*  f18aee4:	0fc64e64 */ 	jal	weaponGetAmmoTypeByFunction
+/*  f18aee4:	0fc64e64 */ 	jal	botactGetAmmoTypeByFunction
 /*  f18aee8:	9105005f */ 	lbu	$a1,0x5f($t0)
 /*  f18aeec:	0fc29da5 */ 	jal	bgunGetCapacityByAmmotype
 /*  f18aef0:	00402025 */ 	or	$a0,$v0,$zero
@@ -2071,7 +2071,7 @@ glabel var7f1b8ea8
 /*  f18af50:	8fad008c */ 	lw	$t5,0x8c($sp)
 /*  f18af54:	00003025 */ 	or	$a2,$zero,$zero
 /*  f18af58:	8e05005c */ 	lw	$a1,0x5c($s0)
-/*  f18af5c:	0fc64f26 */ 	jal	aibotGetAmmoQuantityByType
+/*  f18af5c:	0fc64f26 */ 	jal	botactGetAmmoQuantityByType
 /*  f18af60:	8da402d4 */ 	lw	$a0,0x2d4($t5)
 /*  f18af64:	8e04005c */ 	lw	$a0,0x5c($s0)
 /*  f18af68:	0fc29da5 */ 	jal	bgunGetCapacityByAmmotype
@@ -2102,7 +2102,7 @@ glabel var7f1b8ea8
 .NB0f18afc4:
 /*  f18afc4:	24500001 */ 	addiu	$s0,$v0,0x1
 /*  f18afc8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f18afcc:	0fc650bf */ 	jal	ammotypeGetWeapon
+/*  f18afcc:	0fc650bf */ 	jal	botactGetWeaponByAmmoType
 /*  f18afd0:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f18afd4:	8fa30028 */ 	lw	$v1,0x28($sp)
 /*  f18afd8:	afa20068 */ 	sw	$v0,0x68($sp)
@@ -2113,7 +2113,7 @@ glabel var7f1b8ea8
 /*  f18afec:	5b00001d */ 	blezl	$t8,.NB0f18b064
 /*  f18aff0:	24010013 */ 	addiu	$at,$zero,0x13
 /*  f18aff4:	8f2402d4 */ 	lw	$a0,0x2d4($t9)
-/*  f18aff8:	0fc64f26 */ 	jal	aibotGetAmmoQuantityByType
+/*  f18aff8:	0fc64f26 */ 	jal	botactGetAmmoQuantityByType
 /*  f18affc:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f18b000:	02002025 */ 	or	$a0,$s0,$zero
 /*  f18b004:	0fc29da5 */ 	jal	bgunGetCapacityByAmmotype
@@ -2128,14 +2128,14 @@ glabel var7f1b8ea8
 /*  f18b028:	8fa4008c */ 	lw	$a0,0x8c($sp)
 /*  f18b02c:	51000011 */ 	beqzl	$t0,.NB0f18b074
 /*  f18b030:	8fa90064 */ 	lw	$t1,0x64($sp)
-/*  f18b034:	0fc64788 */ 	jal	aibotGetInvItemType
+/*  f18b034:	0fc64788 */ 	jal	botinvGetItemType
 /*  f18b038:	01002825 */ 	or	$a1,$t0,$zero
 /*  f18b03c:	5440000d */ 	bnezl	$v0,.NB0f18b074
 /*  f18b040:	8fa90064 */ 	lw	$t1,0x64($sp)
 /*  f18b044:	0fc466bd */ 	jal	dprint
 /*  f18b048:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18b04c:	8fa4008c */ 	lw	$a0,0x8c($sp)
-/*  f18b050:	0fc647d3 */ 	jal	aibotGiveProp
+/*  f18b050:	0fc647d3 */ 	jal	botinvGiveProp
 /*  f18b054:	8fa50088 */ 	lw	$a1,0x88($sp)
 /*  f18b058:	10000006 */ 	beqz	$zero,.NB0f18b074
 /*  f18b05c:	8fa90064 */ 	lw	$t1,0x64($sp)
@@ -2279,7 +2279,7 @@ glabel var7f1b8ea8
 /*  f18b250:	0fc466bd */ 	jal	dprint
 /*  f18b254:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18b258:	8fa40088 */ 	lw	$a0,0x88($sp)
-/*  f18b25c:	0fc62a46 */ 	jal	propobjHandlePickupByAibot
+/*  f18b25c:	0fc62a46 */ 	jal	botPickupProp
 /*  f18b260:	8fa5008c */ 	lw	$a1,0x8c($sp)
 /*  f18b264:	10000002 */ 	beqz	$zero,.NB0f18b270
 /*  f18b268:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -2294,7 +2294,7 @@ glabel var7f1b8ea8
 #endif
 
 // Mismatch: Uses too many callee-save registers
-//bool func0f190be4(struct prop *prop, struct chrdata *chr)
+//bool botTestPropForPickup(struct prop *prop, struct chrdata *chr)
 //{
 //	struct defaultobj *obj = prop->obj; // 84
 //
@@ -2371,7 +2371,7 @@ glabel var7f1b8ea8
 //	// d64
 //	if (obj->type == OBJTYPE_WEAPON) {
 //		weaponobj = prop->weapon; // 80
-//		itemtype = aibotGetInvItemType(chr, weaponobj->weaponnum); // 7c
+//		itemtype = botinvGetItemType(chr, weaponobj->weaponnum); // 7c
 //		weapon = weaponFindById(weaponobj->weaponnum);
 //		singleonly = weapon && (weapon->flags & WEAPONFLAG_DUALWIELD) == 0;
 //
@@ -2379,8 +2379,8 @@ glabel var7f1b8ea8
 //			// If aibot is dual wielding, or single wielding and weapon doesn't support dual,
 //			// ignore the pickup if at max ammo already
 //			if (itemtype == INVITEMTYPE_DUAL || (itemtype == INVITEMTYPE_WEAP && singleonly)) {
-//				qty = aibotGetAmmoQuantityByWeapon(chr->aibot, weaponobj->weaponnum, weaponobj->gunfunc, false);
-//				cap = bgunGetCapacityByAmmotype(weaponGetAmmoTypeByFunction(weaponobj->weaponnum, weaponobj->gunfunc));
+//				qty = botactGetAmmoQuantityByWeapon(chr->aibot, weaponobj->weaponnum, weaponobj->gunfunc, false);
+//				cap = bgunGetCapacityByAmmotype(botactGetAmmoTypeByFunction(weaponobj->weaponnum, weaponobj->gunfunc));
 //
 //				if (qty >= cap) {
 //					return false;
@@ -2397,7 +2397,7 @@ glabel var7f1b8ea8
 //		crate = (struct ammocrateobj *)prop->obj;
 //
 //		// Ignore ammo crate if at max ammo already
-//		if (aibotGetAmmoQuantityByType(chr->aibot, crate->ammotype, false) >= bgunGetCapacityByAmmotype(crate->ammotype)) {
+//		if (botactGetAmmoQuantityByType(chr->aibot, crate->ammotype, false) >= bgunGetCapacityByAmmotype(crate->ammotype)) {
 //			return false;
 //		}
 //	} else /*e9c*/ if (obj->type == OBJTYPE_MULTIAMMOCRATE) {
@@ -2410,15 +2410,15 @@ glabel var7f1b8ea8
 //		}
 //
 //		for (i = 0; i < 0x13; i++) {
-//			weaponnum = ammotypeGetWeapon(i + 1);
+//			weaponnum = botactGetWeaponByAmmoType(i + 1);
 //
 //			if (crate2->slots[i].quantity > 0) {
-//				if (aibotGetAmmoQuantityByType(chr->aibot, i + 1, false) < bgunGetCapacityByAmmotype(i + 1)) {
+//				if (botactGetAmmoQuantityByType(chr->aibot, i + 1, false) < bgunGetCapacityByAmmotype(i + 1)) {
 //					ignore1 = false;
 //
-//					if (weaponnum && !aibotGetInvItemType(chr, weaponnum)) {
+//					if (weaponnum && !botinvGetItemType(chr, weaponnum)) {
 //						dprint();
-//						aibotGiveProp(chr, prop);
+//						botinvGiveProp(chr, prop);
 //					}
 //
 //					break;
@@ -2476,13 +2476,13 @@ glabel var7f1b8ea8
 //	// 15c
 //	if (sp3c) {
 //		dprint();
-//		return propobjHandlePickupByAibot(prop, chr);
+//		return botPickupProp(prop, chr);
 //	}
 //
 //	return false;
 //}
 
-s32 mpObjIsSafe(struct defaultobj *obj)
+s32 botIsObjCollectable(struct defaultobj *obj)
 {
 	if (!obj) {
 		return false;
@@ -2497,14 +2497,14 @@ s32 mpObjIsSafe(struct defaultobj *obj)
 	if (obj->type == OBJTYPE_WEAPON) {
 		struct weaponobj *weapon = (struct weaponobj *)obj;
 
-		if (weapon->weaponnum == WEAPON_NBOMB ||
-				weapon->weaponnum == WEAPON_GRENADE ||
-				weapon->weaponnum == WEAPON_GRENADEROUND ||
-				weapon->weaponnum == WEAPON_PROXIMITYMINE ||
-				weapon->weaponnum == WEAPON_REMOTEMINE ||
-				weapon->weaponnum == WEAPON_TIMEDMINE ||
-				weapon->weaponnum == WEAPON_SKROCKET ||
-				(weapon->weaponnum == WEAPON_DRAGON && weapon->gunfunc == FUNC_SECONDARY)) {
+		if (weapon->weaponnum == WEAPON_NBOMB
+				|| weapon->weaponnum == WEAPON_GRENADE
+				|| weapon->weaponnum == WEAPON_GRENADEROUND
+				|| weapon->weaponnum == WEAPON_PROXIMITYMINE
+				|| weapon->weaponnum == WEAPON_REMOTEMINE
+				|| weapon->weaponnum == WEAPON_TIMEDMINE
+				|| weapon->weaponnum == WEAPON_SKROCKET
+				|| (weapon->weaponnum == WEAPON_DRAGON && weapon->gunfunc == FUNC_SECONDARY)) {
 			return false;
 		}
 
@@ -2514,7 +2514,10 @@ s32 mpObjIsSafe(struct defaultobj *obj)
 	return false;
 }
 
-void func0f19124c(struct chrdata *chr)
+/**
+ * Check nearby props to see if the chr is picking them up on this frame.
+ */
+void botCheckPickups(struct chrdata *chr)
 {
 	s32 i;
 	s16 *propnumptr;
@@ -2547,9 +2550,9 @@ void func0f19124c(struct chrdata *chr)
 							|| obj->projectile == NULL
 							|| obj->projectile->unk0b4 <= 0
 							|| obj->projectile->unk090) {
-						if (mpObjIsSafe(obj)) {
-							if (func0f190be4(prop, chr)) {
-								propExecuteTickOperation(prop, 1);
+						if (botIsObjCollectable(obj)) {
+							if (botTestPropForPickup(prop, chr)) {
+								propExecuteTickOperation(prop, TICKOP_FREE);
 							} else {
 								dprint();
 							}
@@ -2563,7 +2566,7 @@ void func0f19124c(struct chrdata *chr)
 	}
 }
 
-s32 chrGuessCrouchPos(struct chrdata *chr)
+s32 botGuessCrouchPos(struct chrdata *chr)
 {
 	s32 crouchpos;
 
@@ -2578,7 +2581,7 @@ s32 chrGuessCrouchPos(struct chrdata *chr)
 	return crouchpos;
 }
 
-bool func0f191448(struct chrdata *chr)
+bool botApplyMovement(struct chrdata *chr)
 {
 	struct aibot *aibot;
 	u32 stack;
@@ -2602,7 +2605,7 @@ bool func0f191448(struct chrdata *chr)
 	speedforwards = aibot->unk06c * cosf(angle) - sinf(angle) * aibot->unk070;
 	speedsideways = aibot->unk06c * sinf(angle) + cosf(angle) * aibot->unk070;
 
-	func0f0c2a58(chr, chrGuessCrouchPos(chr), speedsideways, speedforwards, aibot->speedtheta, &aibot->angleoffset, &aibot->unk068);
+	func0f0c2a58(chr, botGuessCrouchPos(chr), speedsideways, speedforwards, aibot->speedtheta, &aibot->angleoffset, &aibot->unk068);
 
 	angle2 = chrGetInverseTheta(chr) - aibot->angleoffset;
 
@@ -2619,7 +2622,7 @@ bool func0f191448(struct chrdata *chr)
 	return true;
 }
 
-s32 mpchrGetWeaponNum(struct chrdata *chr)
+s32 botGetWeaponNum(struct chrdata *chr)
 {
 	if (chr->aibot) {
 		return chr->aibot->weaponnum;
@@ -2628,19 +2631,19 @@ s32 mpchrGetWeaponNum(struct chrdata *chr)
 	return g_Vars.players[propGetPlayerNum(chr->prop)]->hands[HAND_RIGHT].gset.weaponnum;
 }
 
-u8 mpchrGetTargetsWeaponNum(struct chrdata *chr)
+u8 botGetTargetsWeaponNum(struct chrdata *chr)
 {
 	struct prop *target = chrGetTargetProp(chr);
-	u8 weaponnum = 0;
+	u8 weaponnum = WEAPON_NONE;
 
 	if (target) {
-		weaponnum = mpchrGetWeaponNum(target->chr);
+		weaponnum = botGetWeaponNum(target->chr);
 	}
 
 	return weaponnum;
 }
 
-bool func0f191638(struct chrdata *chr, bool arg1)
+bool bot0f191638(struct chrdata *chr, bool arg1)
 {
 	bool result = false;
 	struct prop *target;
@@ -2656,20 +2659,20 @@ bool func0f191638(struct chrdata *chr, bool arg1)
 			result = true;
 		}
 
-		if (chr->aibot->simulant->difficulty > SIMDIFF_MEAT) {
+		if (chr->aibot->config->difficulty > BOTDIFF_MEAT) {
 			if (chr->aibot->unk178[mpindex] >= g_Vars.lvframe60 - PALDOWN(240)
 					|| (arrayIntersects(chr->prop->rooms, target->rooms))) {
 				result = true;
 			}
 
-			if (chr->aibot->simulant->difficulty >= SIMDIFF_NORMAL) {
+			if (chr->aibot->config->difficulty >= BOTDIFF_NORMAL) {
 				if (roomsAreNeighbours(chr->prop->rooms[0], target->rooms[0])
 						|| chr->aibot->unk1a8[mpindex] == target->rooms[0]
 						|| roomsAreNeighbours(chr->aibot->unk1a8[mpindex], target->rooms[0])) {
 					result = true;
 				}
 
-				if (chr->aibot->simulant->difficulty == SIMDIFF_NORMAL) {
+				if (chr->aibot->config->difficulty == BOTDIFF_NORMAL) {
 					if (chr->aibot->unk208 > 0 && chr->aibot->unk208 < 4) {
 						result = true;
 					}
@@ -2682,7 +2685,7 @@ bool func0f191638(struct chrdata *chr, bool arg1)
 		}
 
 		if (!arg1
-				&& (chr->aibot->simulant->difficulty == SIMDIFF_MEAT || chr->aibot->simulant->difficulty == SIMDIFF_EASY)
+				&& (chr->aibot->config->difficulty == BOTDIFF_MEAT || chr->aibot->config->difficulty == BOTDIFF_EASY)
 				&& !func0f02e064(chr)) {
 			f32 tmp = func0f03e578(chr);
 			f32 angle = atan2f(target->pos.x - chr->prop->pos.x, target->pos.z - chr->prop->pos.z) - tmp;
@@ -2695,12 +2698,12 @@ bool func0f191638(struct chrdata *chr, bool arg1)
 				angle = M_BADTAU - angle;
 			}
 
-			if (chr->aibot->simulant->difficulty == SIMDIFF_MEAT) {
+			if (chr->aibot->config->difficulty == BOTDIFF_MEAT) {
 				if (angle > 0.43626284599304f) {
 					result = false;
 				}
 			} else {
-				if (chr->aibot->simulant->difficulty == SIMDIFF_EASY && angle > 1.5705461502075f) {
+				if (chr->aibot->config->difficulty == BOTDIFF_EASY && angle > 1.5705461502075f) {
 					result = false;
 				}
 			}
@@ -2712,7 +2715,7 @@ bool func0f191638(struct chrdata *chr, bool arg1)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel aibotTick
+glabel botTick
 .late_rodata
 glabel var7f1b8ecc
 .word 0x40c907a9
@@ -2761,7 +2764,7 @@ glabel var7f1b8ef0
 /*  f191928:	29010091 */ 	slti	$at,$t0,0x91
 /*  f19192c:	1420017f */ 	bnez	$at,.L0f191f2c
 /*  f191930:	00000000 */ 	nop
-/*  f191934:	0fc652d0 */ 	jal	func0f194b40
+/*  f191934:	0fc652d0 */ 	jal	botTickUnpaused
 /*  f191938:	02202025 */ 	or	$a0,$s1,$zero
 /*  f19193c:	920a009c */ 	lbu	$t2,0x9c($s0)
 /*  f191940:	2401ffff */ 	addiu	$at,$zero,-1
@@ -2837,7 +2840,7 @@ glabel var7f1b8ef0
 /*  f191a3c:	10000053 */ 	b	.L0f191b8c
 /*  f191a40:	46000086 */ 	mov.s	$f2,$f0
 .L0f191a44:
-/*  f191a44:	0fc6458e */ 	jal	func0f191638
+/*  f191a44:	0fc6458e */ 	jal	bot0f191638
 /*  f191a48:	00002825 */ 	or	$a1,$zero,$zero
 /*  f191a4c:	5040000c */ 	beqzl	$v0,.L0f191a80
 /*  f191a50:	922402a0 */ 	lbu	$a0,0x2a0($s1)
@@ -2897,10 +2900,10 @@ glabel var7f1b8ef0
 /*  f191b20:	914b0048 */ 	lbu	$t3,0x48($t2)
 /*  f191b24:	51600008 */ 	beqzl	$t3,.L0f191b48
 /*  f191b28:	24010033 */ 	addiu	$at,$zero,0x33
-/*  f191b2c:	3c04800b */ 	lui	$a0,%hi(g_MpPlayerChrs)
+/*  f191b2c:	3c04800b */ 	lui	$a0,%hi(g_MpAllChrPtrs)
 /*  f191b30:	00832021 */ 	addu	$a0,$a0,$v1
 /*  f191b34:	0fc0f917 */ 	jal	chrGetInverseTheta
-/*  f191b38:	8c84c4d0 */ 	lw	$a0,%lo(g_MpPlayerChrs)($a0)
+/*  f191b38:	8c84c4d0 */ 	lw	$a0,%lo(g_MpAllChrPtrs)($a0)
 /*  f191b3c:	10000013 */ 	b	.L0f191b8c
 /*  f191b40:	46000086 */ 	mov.s	$f2,$f0
 .L0f191b44:
@@ -3188,7 +3191,7 @@ glabel var7f1b8ef0
 /*  f191f24:	8d8c9fc8 */ 	lw	$t4,%lo(g_Vars+0x8)($t4)
 /*  f191f28:	ae0c01e4 */ 	sw	$t4,0x1e4($s0)
 .L0f191f2c:
-/*  f191f2c:	0fc64512 */ 	jal	func0f191448
+/*  f191f2c:	0fc64512 */ 	jal	botApplyMovement
 /*  f191f30:	02202025 */ 	or	$a0,$s1,$zero
 /*  f191f34:	0fc08c26 */ 	jal	chrTick
 /*  f191f38:	8fa40068 */ 	lw	$a0,0x68($sp)
@@ -3211,7 +3214,7 @@ glabel var7f1b8ef0
 /*  f191f78:	02202025 */ 	or	$a0,$s1,$zero
 /*  f191f7c:	54400004 */ 	bnezl	$v0,.L0f191f90
 /*  f191f80:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f191f84:	0fc64493 */ 	jal	func0f19124c
+/*  f191f84:	0fc64493 */ 	jal	botCheckPickups
 /*  f191f88:	02202025 */ 	or	$a0,$s1,$zero
 .L0f191f8c:
 /*  f191f8c:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -3224,7 +3227,7 @@ glabel var7f1b8ef0
 );
 #else
 GLOBAL_ASM(
-glabel aibotTick
+glabel botTick
 .late_rodata
 glabel var7f1b8ecc
 .word 0x40c907a9
@@ -3273,7 +3276,7 @@ glabel var7f1b8ef0
 /*  f191928:	29010091 */ 	slti	$at,$t0,0x91
 /*  f19192c:	1420017f */ 	bnez	$at,.L0f191f2c
 /*  f191930:	00000000 */ 	nop
-/*  f191934:	0fc652d0 */ 	jal	func0f194b40
+/*  f191934:	0fc652d0 */ 	jal	botTickUnpaused
 /*  f191938:	02202025 */ 	or	$a0,$s1,$zero
 /*  f19193c:	920a009c */ 	lbu	$t2,0x9c($s0)
 /*  f191940:	2401ffff */ 	addiu	$at,$zero,-1
@@ -3349,7 +3352,7 @@ glabel var7f1b8ef0
 /*  f191a3c:	10000053 */ 	b	.L0f191b8c
 /*  f191a40:	46000086 */ 	mov.s	$f2,$f0
 .L0f191a44:
-/*  f191a44:	0fc6458e */ 	jal	func0f191638
+/*  f191a44:	0fc6458e */ 	jal	bot0f191638
 /*  f191a48:	00002825 */ 	or	$a1,$zero,$zero
 /*  f191a4c:	5040000c */ 	beqzl	$v0,.L0f191a80
 /*  f191a50:	922402a0 */ 	lbu	$a0,0x2a0($s1)
@@ -3409,10 +3412,10 @@ glabel var7f1b8ef0
 /*  f191b20:	914b0048 */ 	lbu	$t3,0x48($t2)
 /*  f191b24:	51600008 */ 	beqzl	$t3,.L0f191b48
 /*  f191b28:	24010033 */ 	addiu	$at,$zero,0x33
-/*  f191b2c:	3c04800b */ 	lui	$a0,%hi(g_MpPlayerChrs)
+/*  f191b2c:	3c04800b */ 	lui	$a0,%hi(g_MpAllChrPtrs)
 /*  f191b30:	00832021 */ 	addu	$a0,$a0,$v1
 /*  f191b34:	0fc0f917 */ 	jal	chrGetInverseTheta
-/*  f191b38:	8c84c4d0 */ 	lw	$a0,%lo(g_MpPlayerChrs)($a0)
+/*  f191b38:	8c84c4d0 */ 	lw	$a0,%lo(g_MpAllChrPtrs)($a0)
 /*  f191b3c:	10000013 */ 	b	.L0f191b8c
 /*  f191b40:	46000086 */ 	mov.s	$f2,$f0
 .L0f191b44:
@@ -3700,7 +3703,7 @@ glabel var7f1b8ef0
 /*  f191f24:	8d8c9fc8 */ 	lw	$t4,%lo(g_Vars+0x8)($t4)
 /*  f191f28:	ae0c01e4 */ 	sw	$t4,0x1e4($s0)
 .L0f191f2c:
-/*  f191f2c:	0fc64512 */ 	jal	func0f191448
+/*  f191f2c:	0fc64512 */ 	jal	botApplyMovement
 /*  f191f30:	02202025 */ 	or	$a0,$s1,$zero
 /*  f191f34:	0fc08c26 */ 	jal	chrTick
 /*  f191f38:	8fa40068 */ 	lw	$a0,0x68($sp)
@@ -3723,7 +3726,7 @@ glabel var7f1b8ef0
 /*  f191f78:	02202025 */ 	or	$a0,$s1,$zero
 /*  f191f7c:	54400004 */ 	bnezl	$v0,.L0f191f90
 /*  f191f80:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f191f84:	0fc64493 */ 	jal	func0f19124c
+/*  f191f84:	0fc64493 */ 	jal	botCheckPickups
 /*  f191f88:	02202025 */ 	or	$a0,$s1,$zero
 .L0f191f8c:
 /*  f191f8c:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -3737,7 +3740,7 @@ glabel var7f1b8ef0
 #endif
 
 // Mismatch: updateable is calculated differently
-//s32 aibotTick(struct prop *prop)
+//s32 botTick(struct prop *prop)
 //{
 //	struct chrdata *chr = prop->chr;
 //	struct aibot *aibot = chr->aibot;
@@ -3753,7 +3756,7 @@ glabel var7f1b8ef0
 //
 //	if (aibot) {
 //		if (updateable && g_Vars.lvframe60 >= 145) {
-//			func0f194b40(chr);
+//			botTickUnpaused(chr);
 //
 //			// Calculate cheap
 //			aibot->cheap = true;
@@ -3786,7 +3789,7 @@ glabel var7f1b8ef0
 //				newangle = chrGetInverseTheta(chr);
 //			} else if (aibot->skrocket) {
 //				newangle = chrGetInverseTheta(chr);
-//			} else if (func0f191638(chr, false)) {
+//			} else if (bot0f191638(chr, false)) {
 //				struct prop *target = chrGetTargetProp(chr);
 //				newangle = oldangle + chrGetAngleToPos(chr, &target->pos) + aibot->unk1c0;
 //			} else if (chr->myaction == MA_AIBOTDOWNLOAD && g_ScenarioData.htm.unk0d4 != -1) {
@@ -3795,11 +3798,11 @@ glabel var7f1b8ef0
 //					&& aibot->followingplayernum >= 0
 //					&& aibot->playerdistances[aibot->followingplayernum] < 300
 //					&& aibot->unk1e4 >= g_Vars.lvframe60 - 60
-//					&& aibot->simulant->difficulty != SIMDIFF_MEAT) {
-//				newangle = chrGetInverseTheta(g_MpPlayerChrs[aibot->followingplayernum]);
+//					&& aibot->config->difficulty != BOTDIFF_MEAT) {
+//				newangle = chrGetInverseTheta(g_MpAllChrPtrs[aibot->followingplayernum]);
 //			} else if (chr->myaction == MA_AIBOTDEFEND
 //					&& aibot->unk1e4 >= g_Vars.lvframe60 - 60
-//					&& aibot->simulant->difficulty != SIMDIFF_MEAT) {
+//					&& aibot->config->difficulty != BOTDIFF_MEAT) {
 //				newangle = aibot->unk098;
 //			} else {
 //				newangle = func0f03e578(chr);
@@ -3906,7 +3909,7 @@ glabel var7f1b8ef0
 //			}
 //		}
 //
-//		func0f191448(chr);
+//		botApplyMovement(chr);
 //
 //		result = chrTick(prop);
 //
@@ -3916,7 +3919,7 @@ glabel var7f1b8ef0
 //			}
 //
 //			if (updateable && !chrIsDead(chr)) {
-//				func0f19124c(chr);
+//				botCheckPickups(chr);
 //			}
 //		}
 //	}
@@ -3924,7 +3927,7 @@ glabel var7f1b8ef0
 //	return result;
 //}
 
-f32 aibotCalculateMaxSpeed(struct chrdata *chr)
+f32 botCalculateMaxSpeed(struct chrdata *chr)
 {
 	f32 speed;
 
@@ -3936,37 +3939,37 @@ f32 aibotCalculateMaxSpeed(struct chrdata *chr)
 
 	speed = speed * 0.002830188954249f + 1.0f;
 
-	if (chr->aibot->simulant->base.simtype == SIMTYPE_TURTLE) {
+	if (chr->aibot->config->type == BOTTYPE_TURTLE) {
 		speed *= 3.5f;
-	} else if (chr->aibot->simulant->base.simtype == SIMTYPE_SPEED) {
+	} else if (chr->aibot->config->type == BOTTYPE_SPEED) {
 		speed *= 14.0f;
 	} else {
-		switch (chr->aibot->simulant->difficulty) {
-		case SIMDIFF_MEAT:
+		switch (chr->aibot->config->difficulty) {
+		case BOTDIFF_MEAT:
 			speed *= 5.0f;
 			break;
-		case SIMDIFF_EASY:
+		case BOTDIFF_EASY:
 			speed *= 6.2f;
 			break;
 		default:
-		case SIMDIFF_NORMAL:
+		case BOTDIFF_NORMAL:
 			speed *= 7.6f;
 			break;
-		case SIMDIFF_HARD:
+		case BOTDIFF_HARD:
 			speed *= 9.4f;
 			break;
-		case SIMDIFF_PERFECT:
+		case BOTDIFF_PERFECT:
 			speed *= 11.2f;
 			break;
-		case SIMDIFF_DARK:
+		case BOTDIFF_DARK:
 			speed *= 11.2f;
 			break;
 		}
 	}
 
-	if (chrGuessCrouchPos(chr) == CROUCHPOS_SQUAT) {
+	if (botGuessCrouchPos(chr) == CROUCHPOS_SQUAT) {
 		speed *= 0.35f;
-	} else if (chrGuessCrouchPos(chr) == CROUCHPOS_DUCK) {
+	} else if (botGuessCrouchPos(chr) == CROUCHPOS_DUCK) {
 		speed *= 0.5f;
 	} else if (chr->actiontype == ACT_GOPOS
 			&& chr->act_gopos.waypoints[chr->act_gopos.curindex] == NULL
@@ -3978,7 +3981,7 @@ f32 aibotCalculateMaxSpeed(struct chrdata *chr)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void func0f1921f8(struct chrdata *chr, f32 *move, s32 numupdates, f32 arg3)
+void bot0f1921f8(struct chrdata *chr, f32 *move, s32 numupdates, f32 arg3)
 {
 	s32 i;
 	f32 sp50;
@@ -4004,7 +4007,7 @@ void func0f1921f8(struct chrdata *chr, f32 *move, s32 numupdates, f32 arg3)
 	fVar7 = chr->aibot->unk070;
 	fVar8 = chr->aibot->unk06c;
 
-	speed = aibotCalculateMaxSpeed(chr);
+	speed = botCalculateMaxSpeed(chr);
 
 	fVar7 *= speed;
 	fVar8 *= speed;
@@ -4032,7 +4035,7 @@ void func0f1921f8(struct chrdata *chr, f32 *move, s32 numupdates, f32 arg3)
 }
 #else
 GLOBAL_ASM(
-glabel func0f1921f8
+glabel bot0f1921f8
 .late_rodata
 glabel var7f1b3510nb
 .word 0x3d6147b0
@@ -4064,7 +4067,7 @@ glabel var7f1b3514nb
 /*  f18c334:	c4540070 */ 	lwc1	$f20,0x70($v0)
 .NB0f18c338:
 /*  f18c338:	c456006c */ 	lwc1	$f22,0x6c($v0)
-/*  f18c33c:	0fc63022 */ 	jal	aibotCalculateMaxSpeed
+/*  f18c33c:	0fc63022 */ 	jal	botCalculateMaxSpeed
 /*  f18c340:	afa5005c */ 	sw	$a1,0x5c($sp)
 /*  f18c344:	4600a502 */ 	mul.s	$f20,$f20,$f0
 /*  f18c348:	02002025 */ 	or	$a0,$s0,$zero
@@ -4146,7 +4149,7 @@ glabel var7f1b3514nb
 );
 #endif
 
-char *mpGetBotCommandName(s32 command)
+char *botGetCommandName(s32 command)
 {
 	if (command < 0 || command >= NUM_MPBOTCOMMANDS) {
 		return langGet(L_MISC_179); // "Normal"
@@ -4155,28 +4158,28 @@ char *mpGetBotCommandName(s32 command)
 	return langGet(g_MpBotCommands[command]);
 }
 
-void mpAibotApplyAttack(struct chrdata *chr, struct prop *prop)
+void botApplyAttack(struct chrdata *chr, struct prop *prop)
 {
 	chr->aibot->command = AIBOTCMD_ATTACK;
 	chr->aibot->attackpropnum = prop - g_Vars.props;
 	chr->aibot->unk0d8 = 1;
 }
 
-void mpAibotApplyFollow(struct chrdata *chr, struct prop *prop)
+void botApplyFollow(struct chrdata *chr, struct prop *prop)
 {
 	chr->aibot->command = AIBOTCMD_FOLLOW;
 	chr->aibot->followprotectpropnum = prop - g_Vars.props;
 	chr->aibot->unk0d8 = 1;
 }
 
-void mpAibotApplyProtect(struct chrdata *chr, struct prop *prop)
+void botApplyProtect(struct chrdata *chr, struct prop *prop)
 {
 	chr->aibot->command = AIBOTCMD_PROTECT;
 	chr->aibot->followprotectpropnum = prop - g_Vars.props;
 	chr->aibot->unk0d8 = 1;
 }
 
-void mpAibotApplyDefend(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
+void botApplyDefend(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
 {
 	chr->aibot->command = AIBOTCMD_DEFEND;
 	chr->aibot->defendholdpos.x = pos->x;
@@ -4187,7 +4190,7 @@ void mpAibotApplyDefend(struct chrdata *chr, struct coord *pos, s16 *room, f32 a
 	chr->aibot->unk0d8 = 1;
 }
 
-void mpAibotApplyHold(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
+void botApplyHold(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
 {
 	chr->aibot->command = AIBOTCMD_HOLD;
 	chr->aibot->defendholdpos.x = pos->x;
@@ -4198,13 +4201,13 @@ void mpAibotApplyHold(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg
 	chr->aibot->unk0d8 = 1;
 }
 
-void mpAibotApplyScenarioCommand(struct chrdata *chr, u32 command)
+void botApplyScenarioCommand(struct chrdata *chr, u32 command)
 {
 	chr->aibot->command = command;
 	chr->aibot->unk0d8 = 1;
 }
 
-void aibotLoseGun(struct chrdata *chr, struct prop *attackerprop)
+void botLoseGun(struct chrdata *chr, struct prop *attackerprop)
 {
 	if (chr->aibot->weaponnum >= WEAPON_FALCON2 && chr->aibot->weaponnum != WEAPON_BRIEFCASE2) {
 		struct prop *prop = NULL;
@@ -4240,16 +4243,16 @@ void aibotLoseGun(struct chrdata *chr, struct prop *attackerprop)
 			}
 		}
 
-		aibotRemoveInvItem(chr, chr->aibot->weaponnum);
+		botinvRemoveItem(chr, chr->aibot->weaponnum);
 
 		chr->aibot->loadedammo[0] = 0;
 		chr->aibot->loadedammo[1] = 0;
 
-		aibotSwitchToWeapon(chr, WEAPON_UNARMED, FUNC_PRIMARY);
+		botinvSwitchToWeapon(chr, WEAPON_UNARMED, FUNC_PRIMARY);
 	}
 }
 
-void func0f19277c(struct chrdata *chr, s32 propnum)
+void bot0f19277c(struct chrdata *chr, s32 propnum)
 {
 	struct chrdata *chr2 = NULL;
 	s32 index;
@@ -4310,7 +4313,7 @@ void func0f19277c(struct chrdata *chr, s32 propnum)
 	}
 }
 
-bool func0f19294c(struct chrdata *botchr, struct chrdata *otherchr)
+bool bot0f19294c(struct chrdata *botchr, struct chrdata *otherchr)
 {
 	if (otherchr->prop->type == PROPTYPE_PLAYER && !g_Vars.bondvisible) {
 		return true;
@@ -4339,15 +4342,15 @@ bool func0f19294c(struct chrdata *botchr, struct chrdata *otherchr)
  * The death barrier is at -30000.
  * It's assumed that no walkable ground exists below -20000.
  */
-bool chrHasGround(struct chrdata *chr)
+bool botHasGround(struct chrdata *chr)
 {
 	return chr->ground >= -20000;
 }
 
-void func0f192a74(struct chrdata *chr)
+void bot0f192a74(struct chrdata *chr)
 {
 	struct aibot *aibot = chr->aibot;
-	s32 diff = aibot->simulant->difficulty;
+	s32 diff = aibot->config->difficulty;
 	s32 i;
 	f32 fVar12;
 	f32 fVar11;
@@ -4421,49 +4424,57 @@ void func0f192a74(struct chrdata *chr)
 	aibot->unk1c0 = aibot->unk1c4 * (PAL ? 0.029999971389771f : 0.024999976158142f);
 }
 
-bool func0f192d64(struct chrdata *botchr, struct chrdata *otherchr)
+/**
+ * Return true if the bot is a peacesim and is happy to fight the given chr,
+ * or if the bot is not a peacesim.
+ */
+bool botPassesPeaceCheck(struct chrdata *botchr, struct chrdata *otherchr)
 {
 	struct aibot *aibot = botchr->aibot;
-	bool result = true;
+	bool pass = true;
 
-	if (aibot->simulant->base.simtype == SIMTYPE_PEACE) {
-		s32 weaponnum = mpchrGetWeaponNum(otherchr);
+	if (aibot->config->type == BOTTYPE_PEACE) {
+		s32 otherweaponnum = botGetWeaponNum(otherchr);
 
-		if (weaponnum == WEAPON_NONE || weaponnum == WEAPON_UNARMED) {
-			result = false;
+		if (otherweaponnum == WEAPON_NONE || otherweaponnum == WEAPON_UNARMED) {
+			pass = false;
 		}
 	}
 
-	return result;
+	return pass;
 }
 
-bool func0f192dc0(struct chrdata *botchr, struct chrdata *chr)
+/**
+ * Return true if the bot is a cowardsim and is happy to fight the given chr,
+ * or if the bot is not a cowardsim.
+ */
+bool botPassesCowardCheck(struct chrdata *botchr, struct chrdata *otherchr)
 {
 	struct aibot *aibot = botchr->aibot;
-	bool result = true;
+	bool pass = true;
 	s32 otherweaponnum;
 	s32 myscore1;
 	s32 myscore2;
 	s32 theirscore1;
 	s32 theirscore2;
 
-	if (aibot->simulant->base.simtype == SIMTYPE_COWARD) {
-		otherweaponnum = mpchrGetWeaponNum(chr);
+	if (aibot->config->type == BOTTYPE_COWARD) {
+		otherweaponnum = botGetWeaponNum(otherchr);
 
-		aibotScoreWeapon(botchr, aibot->weaponnum, FUNC_PRIMARY, 1, false, &myscore1, &myscore2, false, false);
-		aibotScoreWeapon(botchr, otherweaponnum, FUNC_PRIMARY, 1, false, &theirscore1, &theirscore2, false, false);
+		botinvScoreWeapon(botchr, aibot->weaponnum, FUNC_PRIMARY, 1, false, &myscore1, &myscore2, false, false);
+		botinvScoreWeapon(botchr, otherweaponnum, FUNC_PRIMARY, 1, false, &theirscore1, &theirscore2, false, false);
 
 		if (theirscore1 >= myscore1 - 30) {
-			result = false;
+			pass = false;
 		}
 	}
 
-	return result;
+	return pass;
 }
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f192e90
+glabel bot0f192e90
 /*  f192e90:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f192e94:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f192e98:	afb50028 */ 	sw	$s5,0x28($sp)
@@ -4476,8 +4487,8 @@ glabel func0f192e90
 /*  f192eb4:	240effff */ 	addiu	$t6,$zero,-1
 /*  f192eb8:	a7ae006a */ 	sh	$t6,0x6a($sp)
 /*  f192ebc:	8e6f012c */ 	lw	$t7,0x12c($s3)
-/*  f192ec0:	3c19800b */ 	lui	$t9,%hi(g_MpNumPlayers)
-/*  f192ec4:	8f39c530 */ 	lw	$t9,%lo(g_MpNumPlayers)($t9)
+/*  f192ec0:	3c19800b */ 	lui	$t9,%hi(g_MpNumChrs)
+/*  f192ec4:	8f39c530 */ 	lw	$t9,%lo(g_MpNumChrs)($t9)
 /*  f192ec8:	25f80001 */ 	addiu	$t8,$t7,0x1
 /*  f192ecc:	0080a825 */ 	or	$s5,$a0,$zero
 /*  f192ed0:	0319001a */ 	div	$zero,$t8,$t9
@@ -4502,10 +4513,10 @@ glabel func0f192e90
 /*  f192f14:	00000000 */ 	nop
 /*  f192f18:	24013840 */ 	addiu	$at,$zero,0x2ee0
 /*  f192f1c:	0041001b */ 	divu	$zero,$v0,$at
-/*  f192f20:	3c0d800b */ 	lui	$t5,%hi(g_MpNumPlayers)
+/*  f192f20:	3c0d800b */ 	lui	$t5,%hi(g_MpNumChrs)
 /*  f192f24:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x38)
 /*  f192f28:	8dce9ff8 */ 	lw	$t6,%lo(g_Vars+0x38)($t6)
-/*  f192f2c:	8dadc530 */ 	lw	$t5,%lo(g_MpNumPlayers)($t5)
+/*  f192f2c:	8dadc530 */ 	lw	$t5,%lo(g_MpNumChrs)($t5)
 /*  f192f30:	00006010 */ 	mfhi	$t4
 /*  f192f34:	00000000 */ 	nop
 /*  f192f38:	00000000 */ 	nop
@@ -4542,8 +4553,8 @@ glabel func0f192e90
 /*  f192fb0:	318fffef */ 	andi	$t7,$t4,0xffef
 /*  f192fb4:	a26f009c */ 	sb	$t7,0x9c($s3)
 .L0f192fb8:
-/*  f192fb8:	3c07800b */ 	lui	$a3,%hi(g_MpNumPlayers)
-/*  f192fbc:	8ce7c530 */ 	lw	$a3,%lo(g_MpNumPlayers)($a3)
+/*  f192fb8:	3c07800b */ 	lui	$a3,%hi(g_MpNumChrs)
+/*  f192fbc:	8ce7c530 */ 	lw	$a3,%lo(g_MpNumChrs)($a3)
 /*  f192fc0:	00009025 */ 	or	$s2,$zero,$zero
 /*  f192fc4:	02608025 */ 	or	$s0,$s3,$zero
 /*  f192fc8:	18e00010 */ 	blez	$a3,.L0f19300c
@@ -4556,9 +4567,9 @@ glabel func0f192e90
 /*  f192fe0:	26520001 */ 	addiu	$s2,$s2,0x1
 /*  f192fe4:	8d4b0008 */ 	lw	$t3,0x8($t2)
 /*  f192fe8:	026dc821 */ 	addu	$t9,$s3,$t5
-/*  f192fec:	3c07800b */ 	lui	$a3,%hi(g_MpNumPlayers)
+/*  f192fec:	3c07800b */ 	lui	$a3,%hi(g_MpNumChrs)
 /*  f192ff0:	af2b0178 */ 	sw	$t3,0x178($t9)
-/*  f192ff4:	8ce7c530 */ 	lw	$a3,%lo(g_MpNumPlayers)($a3)
+/*  f192ff4:	8ce7c530 */ 	lw	$a3,%lo(g_MpNumChrs)($a3)
 /*  f192ff8:	26520001 */ 	addiu	$s2,$s2,0x1
 .L0f192ffc:
 /*  f192ffc:	0247082a */ 	slt	$at,$s2,$a3
@@ -4615,22 +4626,22 @@ glabel func0f192e90
 /*  f1930a8:	a3060130 */ 	sb	$a2,0x130($t8)
 /*  f1930ac:	010d5821 */ 	addu	$t3,$t0,$t5
 /*  f1930b0:	ad690000 */ 	sw	$t1,0x0($t3)
-/*  f1930b4:	3c07800b */ 	lui	$a3,%hi(g_MpNumPlayers)
-/*  f1930b8:	8ce7c530 */ 	lw	$a3,%lo(g_MpNumPlayers)($a3)
+/*  f1930b4:	3c07800b */ 	lui	$a3,%hi(g_MpNumChrs)
+/*  f1930b8:	8ce7c530 */ 	lw	$a3,%lo(g_MpNumChrs)($a3)
 .L0f1930bc:
 /*  f1930bc:	26520001 */ 	addiu	$s2,$s2,0x1
 /*  f1930c0:	0247082a */ 	slt	$at,$s2,$a3
 /*  f1930c4:	5420ffdf */ 	bnezl	$at,.L0f193044
 /*  f1930c8:	2406ffff */ 	addiu	$a2,$zero,-1
 .L0f1930cc:
-/*  f1930cc:	0fc64a9d */ 	jal	func0f192a74
+/*  f1930cc:	0fc64a9d */ 	jal	bot0f192a74
 /*  f1930d0:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f1930d4:	92a202a0 */ 	lbu	$v0,0x2a0($s5)
 /*  f1930d8:	2401002e */ 	addiu	$at,$zero,0x2e
 /*  f1930dc:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f1930e0:	54410006 */ 	bnel	$v0,$at,.L0f1930fc
 /*  f1930e4:	2401002f */ 	addiu	$at,$zero,0x2f
-/*  f1930e8:	0fc649df */ 	jal	func0f19277c
+/*  f1930e8:	0fc649df */ 	jal	bot0f19277c
 /*  f1930ec:	2405ffff */ 	addiu	$a1,$zero,-1
 /*  f1930f0:	100000f2 */ 	b	.L0f1934bc
 /*  f1930f4:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -4642,8 +4653,8 @@ glabel func0f192e90
 /*  f193108:	0440001b */ 	bltz	$v0,.L0f193178
 /*  f19310c:	0262c821 */ 	addu	$t9,$s3,$v0
 /*  f193110:	932c016c */ 	lbu	$t4,0x16c($t9)
-/*  f193114:	3c10800b */ 	lui	$s0,%hi(g_MpPlayerChrs)
-/*  f193118:	2610c4d0 */ 	addiu	$s0,$s0,%lo(g_MpPlayerChrs)
+/*  f193114:	3c10800b */ 	lui	$s0,%hi(g_MpAllChrPtrs)
+/*  f193118:	2610c4d0 */ 	addiu	$s0,$s0,%lo(g_MpAllChrPtrs)
 /*  f19311c:	11800016 */ 	beqz	$t4,.L0f193178
 /*  f193120:	00027080 */ 	sll	$t6,$v0,0x2
 /*  f193124:	020e7821 */ 	addu	$t7,$s0,$t6
@@ -4663,7 +4674,7 @@ glabel func0f192e90
 /*  f19315c:	018e2823 */ 	subu	$a1,$t4,$t6
 /*  f193160:	00a1001a */ 	div	$zero,$a1,$at
 /*  f193164:	00002812 */ 	mflo	$a1
-/*  f193168:	0fc649df */ 	jal	func0f19277c
+/*  f193168:	0fc649df */ 	jal	bot0f19277c
 /*  f19316c:	00000000 */ 	nop
 /*  f193170:	100000d2 */ 	b	.L0f1934bc
 /*  f193174:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -4686,7 +4697,7 @@ glabel func0f192e90
 /*  f1931ac:	8dab0128 */ 	lw	$t3,0x128($t5)
 /*  f1931b0:	55600007 */ 	bnezl	$t3,.L0f1931d0
 /*  f1931b4:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f1931b8:	0fc64a53 */ 	jal	func0f19294c
+/*  f1931b8:	0fc64a53 */ 	jal	bot0f19294c
 /*  f1931bc:	8e050004 */ 	lw	$a1,0x4($s0)
 /*  f1931c0:	50400003 */ 	beqzl	$v0,.L0f1931d0
 /*  f1931c4:	02a02025 */ 	or	$a0,$s5,$zero
@@ -4700,7 +4711,7 @@ glabel func0f192e90
 /*  f1931e0:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f1931e4:	a6b1017e */ 	sh	$s1,0x17e($s5)
 .L0f1931e8:
-/*  f1931e8:	0fc64b59 */ 	jal	func0f192d64
+/*  f1931e8:	0fc64b59 */ 	jal	botPassesPeaceCheck
 /*  f1931ec:	8e050004 */ 	lw	$a1,0x4($s0)
 /*  f1931f0:	14400002 */ 	bnez	$v0,.L0f1931fc
 /*  f1931f4:	02a02025 */ 	or	$a0,$s5,$zero
@@ -4710,18 +4721,18 @@ glabel func0f192e90
 /*  f193200:	8f2c0128 */ 	lw	$t4,0x128($t9)
 /*  f193204:	55800007 */ 	bnezl	$t4,.L0f193224
 /*  f193208:	86a2017e */ 	lh	$v0,0x17e($s5)
-/*  f19320c:	0fc64b70 */ 	jal	func0f192dc0
+/*  f19320c:	0fc64b70 */ 	jal	botPassesCowardCheck
 /*  f193210:	8e050004 */ 	lw	$a1,0x4($s0)
 /*  f193214:	54400003 */ 	bnezl	$v0,.L0f193224
 /*  f193218:	86a2017e */ 	lh	$v0,0x17e($s5)
 /*  f19321c:	a6b1017e */ 	sh	$s1,0x17e($s5)
 /*  f193220:	86a2017e */ 	lh	$v0,0x17e($s5)
 .L0f193224:
-/*  f193224:	3c0f800b */ 	lui	$t7,%hi(g_MpNumPlayers)
+/*  f193224:	3c0f800b */ 	lui	$t7,%hi(g_MpNumChrs)
 /*  f193228:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x338)
 /*  f19322c:	16220062 */ 	bne	$s1,$v0,.L0f1933b8
 /*  f193230:	000268c0 */ 	sll	$t5,$v0,0x3
-/*  f193234:	8defc530 */ 	lw	$t7,%lo(g_MpNumPlayers)($t7)
+/*  f193234:	8defc530 */ 	lw	$t7,%lo(g_MpNumChrs)($t7)
 /*  f193238:	240effff */ 	addiu	$t6,$zero,-1
 /*  f19323c:	afae0050 */ 	sw	$t6,0x50($sp)
 /*  f193240:	19e00047 */ 	blez	$t7,.L0f193360
@@ -4742,7 +4753,7 @@ glabel func0f192e90
 /*  f193278:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f19327c:	10400031 */ 	beqz	$v0,.L0f193344
 /*  f193280:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f193284:	0fc64b59 */ 	jal	func0f192d64
+/*  f193284:	0fc64b59 */ 	jal	botPassesPeaceCheck
 /*  f193288:	02202825 */ 	or	$a1,$s1,$zero
 /*  f19328c:	1040002d */ 	beqz	$v0,.L0f193344
 /*  f193290:	0270c021 */ 	addu	$t8,$s3,$s0
@@ -4757,12 +4768,12 @@ glabel func0f192e90
 /*  f1932b4:	01792823 */ 	subu	$a1,$t3,$t9
 /*  f1932b8:	00a1001a */ 	div	$zero,$a1,$at
 /*  f1932bc:	00002812 */ 	mflo	$a1
-/*  f1932c0:	0fc649df */ 	jal	func0f19277c
+/*  f1932c0:	0fc649df */ 	jal	bot0f19277c
 /*  f1932c4:	00000000 */ 	nop
 /*  f1932c8:	1000007c */ 	b	.L0f1934bc
 /*  f1932cc:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f1932d0:
-/*  f1932d0:	0fc64a53 */ 	jal	func0f19294c
+/*  f1932d0:	0fc64a53 */ 	jal	bot0f19294c
 /*  f1932d4:	02202825 */ 	or	$a1,$s1,$zero
 /*  f1932d8:	14400013 */ 	bnez	$v0,.L0f193328
 /*  f1932dc:	02a02025 */ 	or	$a0,$s5,$zero
@@ -4781,12 +4792,12 @@ glabel func0f192e90
 /*  f19330c:	01f82823 */ 	subu	$a1,$t7,$t8
 /*  f193310:	00a1001a */ 	div	$zero,$a1,$at
 /*  f193314:	00002812 */ 	mflo	$a1
-/*  f193318:	0fc649df */ 	jal	func0f19277c
+/*  f193318:	0fc649df */ 	jal	bot0f19277c
 /*  f19331c:	00000000 */ 	nop
 /*  f193320:	10000066 */ 	b	.L0f1934bc
 /*  f193324:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f193328:
-/*  f193328:	0fc64a53 */ 	jal	func0f19294c
+/*  f193328:	0fc64a53 */ 	jal	bot0f19294c
 /*  f19332c:	02202825 */ 	or	$a1,$s1,$zero
 /*  f193330:	14400004 */ 	bnez	$v0,.L0f193344
 /*  f193334:	8fab0050 */ 	lw	$t3,0x50($sp)
@@ -4794,8 +4805,8 @@ glabel func0f192e90
 /*  f19333c:	00000000 */ 	nop
 /*  f193340:	afb00050 */ 	sw	$s0,0x50($sp)
 .L0f193344:
-/*  f193344:	3c19800b */ 	lui	$t9,%hi(g_MpNumPlayers)
-/*  f193348:	8f39c530 */ 	lw	$t9,%lo(g_MpNumPlayers)($t9)
+/*  f193344:	3c19800b */ 	lui	$t9,%hi(g_MpNumChrs)
+/*  f193348:	8f39c530 */ 	lw	$t9,%lo(g_MpNumChrs)($t9)
 /*  f19334c:	26520001 */ 	addiu	$s2,$s2,0x1
 /*  f193350:	26940001 */ 	addiu	$s4,$s4,0x1
 /*  f193354:	0259082a */ 	slt	$at,$s2,$t9
@@ -4816,12 +4827,12 @@ glabel func0f192e90
 /*  f19338c:	01cf2823 */ 	subu	$a1,$t6,$t7
 /*  f193390:	00a1001a */ 	div	$zero,$a1,$at
 /*  f193394:	00002812 */ 	mflo	$a1
-/*  f193398:	0fc649df */ 	jal	func0f19277c
+/*  f193398:	0fc649df */ 	jal	bot0f19277c
 /*  f19339c:	00000000 */ 	nop
 /*  f1933a0:	10000046 */ 	b	.L0f1934bc
 /*  f1933a4:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f1933a8:
-/*  f1933a8:	0fc649df */ 	jal	func0f19277c
+/*  f1933a8:	0fc649df */ 	jal	bot0f19277c
 /*  f1933ac:	2405ffff */ 	addiu	$a1,$zero,-1
 /*  f1933b0:	10000042 */ 	b	.L0f1934bc
 /*  f1933b4:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -4835,15 +4846,15 @@ glabel func0f192e90
 /*  f1933d0:	02626021 */ 	addu	$t4,$s3,$v0
 /*  f1933d4:	918e016c */ 	lbu	$t6,0x16c($t4)
 /*  f1933d8:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f1933dc:	3c0f800b */ 	lui	$t7,%hi(g_MpNumPlayers)
+/*  f1933dc:	3c0f800b */ 	lui	$t7,%hi(g_MpNumChrs)
 /*  f1933e0:	11c00005 */ 	beqz	$t6,.L0f1933f8
 /*  f1933e4:	00000000 */ 	nop
-/*  f1933e8:	0fc649df */ 	jal	func0f19277c
+/*  f1933e8:	0fc649df */ 	jal	bot0f19277c
 /*  f1933ec:	86a5017e */ 	lh	$a1,0x17e($s5)
 /*  f1933f0:	10000032 */ 	b	.L0f1934bc
 /*  f1933f4:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f1933f8:
-/*  f1933f8:	8defc530 */ 	lw	$t7,%lo(g_MpNumPlayers)($t7)
+/*  f1933f8:	8defc530 */ 	lw	$t7,%lo(g_MpNumChrs)($t7)
 /*  f1933fc:	00009025 */ 	or	$s2,$zero,$zero
 /*  f193400:	02608025 */ 	or	$s0,$s3,$zero
 /*  f193404:	59e0002a */ 	blezl	$t7,.L0f1934b0
@@ -4867,7 +4878,7 @@ glabel func0f192e90
 /*  f193448:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f19344c:	10400010 */ 	beqz	$v0,.L0f193490
 /*  f193450:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f193454:	0fc64b59 */ 	jal	func0f192d64
+/*  f193454:	0fc64b59 */ 	jal	botPassesPeaceCheck
 /*  f193458:	02202825 */ 	or	$a1,$s1,$zero
 /*  f19345c:	1040000c */ 	beqz	$v0,.L0f193490
 /*  f193460:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x338)
@@ -4878,13 +4889,13 @@ glabel func0f192e90
 /*  f193474:	01792823 */ 	subu	$a1,$t3,$t9
 /*  f193478:	00a1001a */ 	div	$zero,$a1,$at
 /*  f19347c:	00002812 */ 	mflo	$a1
-/*  f193480:	0fc649df */ 	jal	func0f19277c
+/*  f193480:	0fc649df */ 	jal	bot0f19277c
 /*  f193484:	00000000 */ 	nop
 /*  f193488:	1000000c */ 	b	.L0f1934bc
 /*  f19348c:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f193490:
-/*  f193490:	3c0e800b */ 	lui	$t6,%hi(g_MpNumPlayers)
-/*  f193494:	8dcec530 */ 	lw	$t6,%lo(g_MpNumPlayers)($t6)
+/*  f193490:	3c0e800b */ 	lui	$t6,%hi(g_MpNumChrs)
+/*  f193494:	8dcec530 */ 	lw	$t6,%lo(g_MpNumChrs)($t6)
 /*  f193498:	26520001 */ 	addiu	$s2,$s2,0x1
 /*  f19349c:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f1934a0:	024e082a */ 	slt	$at,$s2,$t6
@@ -4892,7 +4903,7 @@ glabel func0f192e90
 /*  f1934a8:	82040130 */ 	lb	$a0,0x130($s0)
 /*  f1934ac:	02a02025 */ 	or	$a0,$s5,$zero
 .L0f1934b0:
-/*  f1934b0:	0fc649df */ 	jal	func0f19277c
+/*  f1934b0:	0fc649df */ 	jal	bot0f19277c
 /*  f1934b4:	86a5017e */ 	lh	$a1,0x17e($s5)
 /*  f1934b8:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f1934bc:
@@ -4907,7 +4918,7 @@ glabel func0f192e90
 );
 #else
 GLOBAL_ASM(
-glabel func0f192e90
+glabel bot0f192e90
 /*  f192e90:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f192e94:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f192e98:	afb50028 */ 	sw	$s5,0x28($sp)
@@ -4920,8 +4931,8 @@ glabel func0f192e90
 /*  f192eb4:	240effff */ 	addiu	$t6,$zero,-1
 /*  f192eb8:	a7ae006a */ 	sh	$t6,0x6a($sp)
 /*  f192ebc:	8e6f012c */ 	lw	$t7,0x12c($s3)
-/*  f192ec0:	3c19800b */ 	lui	$t9,%hi(g_MpNumPlayers)
-/*  f192ec4:	8f39c530 */ 	lw	$t9,%lo(g_MpNumPlayers)($t9)
+/*  f192ec0:	3c19800b */ 	lui	$t9,%hi(g_MpNumChrs)
+/*  f192ec4:	8f39c530 */ 	lw	$t9,%lo(g_MpNumChrs)($t9)
 /*  f192ec8:	25f80001 */ 	addiu	$t8,$t7,0x1
 /*  f192ecc:	0080a825 */ 	or	$s5,$a0,$zero
 /*  f192ed0:	0319001a */ 	div	$zero,$t8,$t9
@@ -4946,10 +4957,10 @@ glabel func0f192e90
 /*  f192f14:	00000000 */ 	nop
 /*  f192f18:	24013840 */ 	addiu	$at,$zero,0x3840
 /*  f192f1c:	0041001b */ 	divu	$zero,$v0,$at
-/*  f192f20:	3c0d800b */ 	lui	$t5,%hi(g_MpNumPlayers)
+/*  f192f20:	3c0d800b */ 	lui	$t5,%hi(g_MpNumChrs)
 /*  f192f24:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x38)
 /*  f192f28:	8dce9ff8 */ 	lw	$t6,%lo(g_Vars+0x38)($t6)
-/*  f192f2c:	8dadc530 */ 	lw	$t5,%lo(g_MpNumPlayers)($t5)
+/*  f192f2c:	8dadc530 */ 	lw	$t5,%lo(g_MpNumChrs)($t5)
 /*  f192f30:	00006010 */ 	mfhi	$t4
 /*  f192f34:	00000000 */ 	nop
 /*  f192f38:	00000000 */ 	nop
@@ -4986,8 +4997,8 @@ glabel func0f192e90
 /*  f192fb0:	318fffef */ 	andi	$t7,$t4,0xffef
 /*  f192fb4:	a26f009c */ 	sb	$t7,0x9c($s3)
 .L0f192fb8:
-/*  f192fb8:	3c07800b */ 	lui	$a3,%hi(g_MpNumPlayers)
-/*  f192fbc:	8ce7c530 */ 	lw	$a3,%lo(g_MpNumPlayers)($a3)
+/*  f192fb8:	3c07800b */ 	lui	$a3,%hi(g_MpNumChrs)
+/*  f192fbc:	8ce7c530 */ 	lw	$a3,%lo(g_MpNumChrs)($a3)
 /*  f192fc0:	00009025 */ 	or	$s2,$zero,$zero
 /*  f192fc4:	02608025 */ 	or	$s0,$s3,$zero
 /*  f192fc8:	18e00010 */ 	blez	$a3,.L0f19300c
@@ -5000,9 +5011,9 @@ glabel func0f192e90
 /*  f192fe0:	26520001 */ 	addiu	$s2,$s2,0x1
 /*  f192fe4:	8d4b0008 */ 	lw	$t3,0x8($t2)
 /*  f192fe8:	026dc821 */ 	addu	$t9,$s3,$t5
-/*  f192fec:	3c07800b */ 	lui	$a3,%hi(g_MpNumPlayers)
+/*  f192fec:	3c07800b */ 	lui	$a3,%hi(g_MpNumChrs)
 /*  f192ff0:	af2b0178 */ 	sw	$t3,0x178($t9)
-/*  f192ff4:	8ce7c530 */ 	lw	$a3,%lo(g_MpNumPlayers)($a3)
+/*  f192ff4:	8ce7c530 */ 	lw	$a3,%lo(g_MpNumChrs)($a3)
 /*  f192ff8:	26520001 */ 	addiu	$s2,$s2,0x1
 .L0f192ffc:
 /*  f192ffc:	0247082a */ 	slt	$at,$s2,$a3
@@ -5059,22 +5070,22 @@ glabel func0f192e90
 /*  f1930a8:	a3060130 */ 	sb	$a2,0x130($t8)
 /*  f1930ac:	010d5821 */ 	addu	$t3,$t0,$t5
 /*  f1930b0:	ad690000 */ 	sw	$t1,0x0($t3)
-/*  f1930b4:	3c07800b */ 	lui	$a3,%hi(g_MpNumPlayers)
-/*  f1930b8:	8ce7c530 */ 	lw	$a3,%lo(g_MpNumPlayers)($a3)
+/*  f1930b4:	3c07800b */ 	lui	$a3,%hi(g_MpNumChrs)
+/*  f1930b8:	8ce7c530 */ 	lw	$a3,%lo(g_MpNumChrs)($a3)
 .L0f1930bc:
 /*  f1930bc:	26520001 */ 	addiu	$s2,$s2,0x1
 /*  f1930c0:	0247082a */ 	slt	$at,$s2,$a3
 /*  f1930c4:	5420ffdf */ 	bnezl	$at,.L0f193044
 /*  f1930c8:	2406ffff */ 	addiu	$a2,$zero,-1
 .L0f1930cc:
-/*  f1930cc:	0fc64a9d */ 	jal	func0f192a74
+/*  f1930cc:	0fc64a9d */ 	jal	bot0f192a74
 /*  f1930d0:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f1930d4:	92a202a0 */ 	lbu	$v0,0x2a0($s5)
 /*  f1930d8:	2401002e */ 	addiu	$at,$zero,0x2e
 /*  f1930dc:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f1930e0:	54410006 */ 	bnel	$v0,$at,.L0f1930fc
 /*  f1930e4:	2401002f */ 	addiu	$at,$zero,0x2f
-/*  f1930e8:	0fc649df */ 	jal	func0f19277c
+/*  f1930e8:	0fc649df */ 	jal	bot0f19277c
 /*  f1930ec:	2405ffff */ 	addiu	$a1,$zero,-1
 /*  f1930f0:	100000f2 */ 	b	.L0f1934bc
 /*  f1930f4:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -5086,8 +5097,8 @@ glabel func0f192e90
 /*  f193108:	0440001b */ 	bltz	$v0,.L0f193178
 /*  f19310c:	0262c821 */ 	addu	$t9,$s3,$v0
 /*  f193110:	932c016c */ 	lbu	$t4,0x16c($t9)
-/*  f193114:	3c10800b */ 	lui	$s0,%hi(g_MpPlayerChrs)
-/*  f193118:	2610c4d0 */ 	addiu	$s0,$s0,%lo(g_MpPlayerChrs)
+/*  f193114:	3c10800b */ 	lui	$s0,%hi(g_MpAllChrPtrs)
+/*  f193118:	2610c4d0 */ 	addiu	$s0,$s0,%lo(g_MpAllChrPtrs)
 /*  f19311c:	11800016 */ 	beqz	$t4,.L0f193178
 /*  f193120:	00027080 */ 	sll	$t6,$v0,0x2
 /*  f193124:	020e7821 */ 	addu	$t7,$s0,$t6
@@ -5107,7 +5118,7 @@ glabel func0f192e90
 /*  f19315c:	018e2823 */ 	subu	$a1,$t4,$t6
 /*  f193160:	00a1001a */ 	div	$zero,$a1,$at
 /*  f193164:	00002812 */ 	mflo	$a1
-/*  f193168:	0fc649df */ 	jal	func0f19277c
+/*  f193168:	0fc649df */ 	jal	bot0f19277c
 /*  f19316c:	00000000 */ 	nop
 /*  f193170:	100000d2 */ 	b	.L0f1934bc
 /*  f193174:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -5130,7 +5141,7 @@ glabel func0f192e90
 /*  f1931ac:	8dab0128 */ 	lw	$t3,0x128($t5)
 /*  f1931b0:	55600007 */ 	bnezl	$t3,.L0f1931d0
 /*  f1931b4:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f1931b8:	0fc64a53 */ 	jal	func0f19294c
+/*  f1931b8:	0fc64a53 */ 	jal	bot0f19294c
 /*  f1931bc:	8e050004 */ 	lw	$a1,0x4($s0)
 /*  f1931c0:	50400003 */ 	beqzl	$v0,.L0f1931d0
 /*  f1931c4:	02a02025 */ 	or	$a0,$s5,$zero
@@ -5144,7 +5155,7 @@ glabel func0f192e90
 /*  f1931e0:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f1931e4:	a6b1017e */ 	sh	$s1,0x17e($s5)
 .L0f1931e8:
-/*  f1931e8:	0fc64b59 */ 	jal	func0f192d64
+/*  f1931e8:	0fc64b59 */ 	jal	botPassesPeaceCheck
 /*  f1931ec:	8e050004 */ 	lw	$a1,0x4($s0)
 /*  f1931f0:	14400002 */ 	bnez	$v0,.L0f1931fc
 /*  f1931f4:	02a02025 */ 	or	$a0,$s5,$zero
@@ -5154,18 +5165,18 @@ glabel func0f192e90
 /*  f193200:	8f2c0128 */ 	lw	$t4,0x128($t9)
 /*  f193204:	55800007 */ 	bnezl	$t4,.L0f193224
 /*  f193208:	86a2017e */ 	lh	$v0,0x17e($s5)
-/*  f19320c:	0fc64b70 */ 	jal	func0f192dc0
+/*  f19320c:	0fc64b70 */ 	jal	botPassesCowardCheck
 /*  f193210:	8e050004 */ 	lw	$a1,0x4($s0)
 /*  f193214:	54400003 */ 	bnezl	$v0,.L0f193224
 /*  f193218:	86a2017e */ 	lh	$v0,0x17e($s5)
 /*  f19321c:	a6b1017e */ 	sh	$s1,0x17e($s5)
 /*  f193220:	86a2017e */ 	lh	$v0,0x17e($s5)
 .L0f193224:
-/*  f193224:	3c0f800b */ 	lui	$t7,%hi(g_MpNumPlayers)
+/*  f193224:	3c0f800b */ 	lui	$t7,%hi(g_MpNumChrs)
 /*  f193228:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x338)
 /*  f19322c:	16220062 */ 	bne	$s1,$v0,.L0f1933b8
 /*  f193230:	000268c0 */ 	sll	$t5,$v0,0x3
-/*  f193234:	8defc530 */ 	lw	$t7,%lo(g_MpNumPlayers)($t7)
+/*  f193234:	8defc530 */ 	lw	$t7,%lo(g_MpNumChrs)($t7)
 /*  f193238:	240effff */ 	addiu	$t6,$zero,-1
 /*  f19323c:	afae0050 */ 	sw	$t6,0x50($sp)
 /*  f193240:	19e00047 */ 	blez	$t7,.L0f193360
@@ -5186,7 +5197,7 @@ glabel func0f192e90
 /*  f193278:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f19327c:	10400031 */ 	beqz	$v0,.L0f193344
 /*  f193280:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f193284:	0fc64b59 */ 	jal	func0f192d64
+/*  f193284:	0fc64b59 */ 	jal	botPassesPeaceCheck
 /*  f193288:	02202825 */ 	or	$a1,$s1,$zero
 /*  f19328c:	1040002d */ 	beqz	$v0,.L0f193344
 /*  f193290:	0270c021 */ 	addu	$t8,$s3,$s0
@@ -5201,12 +5212,12 @@ glabel func0f192e90
 /*  f1932b4:	01792823 */ 	subu	$a1,$t3,$t9
 /*  f1932b8:	00a1001a */ 	div	$zero,$a1,$at
 /*  f1932bc:	00002812 */ 	mflo	$a1
-/*  f1932c0:	0fc649df */ 	jal	func0f19277c
+/*  f1932c0:	0fc649df */ 	jal	bot0f19277c
 /*  f1932c4:	00000000 */ 	nop
 /*  f1932c8:	1000007c */ 	b	.L0f1934bc
 /*  f1932cc:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f1932d0:
-/*  f1932d0:	0fc64a53 */ 	jal	func0f19294c
+/*  f1932d0:	0fc64a53 */ 	jal	bot0f19294c
 /*  f1932d4:	02202825 */ 	or	$a1,$s1,$zero
 /*  f1932d8:	14400013 */ 	bnez	$v0,.L0f193328
 /*  f1932dc:	02a02025 */ 	or	$a0,$s5,$zero
@@ -5225,12 +5236,12 @@ glabel func0f192e90
 /*  f19330c:	01f82823 */ 	subu	$a1,$t7,$t8
 /*  f193310:	00a1001a */ 	div	$zero,$a1,$at
 /*  f193314:	00002812 */ 	mflo	$a1
-/*  f193318:	0fc649df */ 	jal	func0f19277c
+/*  f193318:	0fc649df */ 	jal	bot0f19277c
 /*  f19331c:	00000000 */ 	nop
 /*  f193320:	10000066 */ 	b	.L0f1934bc
 /*  f193324:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f193328:
-/*  f193328:	0fc64a53 */ 	jal	func0f19294c
+/*  f193328:	0fc64a53 */ 	jal	bot0f19294c
 /*  f19332c:	02202825 */ 	or	$a1,$s1,$zero
 /*  f193330:	14400004 */ 	bnez	$v0,.L0f193344
 /*  f193334:	8fab0050 */ 	lw	$t3,0x50($sp)
@@ -5238,8 +5249,8 @@ glabel func0f192e90
 /*  f19333c:	00000000 */ 	nop
 /*  f193340:	afb00050 */ 	sw	$s0,0x50($sp)
 .L0f193344:
-/*  f193344:	3c19800b */ 	lui	$t9,%hi(g_MpNumPlayers)
-/*  f193348:	8f39c530 */ 	lw	$t9,%lo(g_MpNumPlayers)($t9)
+/*  f193344:	3c19800b */ 	lui	$t9,%hi(g_MpNumChrs)
+/*  f193348:	8f39c530 */ 	lw	$t9,%lo(g_MpNumChrs)($t9)
 /*  f19334c:	26520001 */ 	addiu	$s2,$s2,0x1
 /*  f193350:	26940001 */ 	addiu	$s4,$s4,0x1
 /*  f193354:	0259082a */ 	slt	$at,$s2,$t9
@@ -5260,12 +5271,12 @@ glabel func0f192e90
 /*  f19338c:	01cf2823 */ 	subu	$a1,$t6,$t7
 /*  f193390:	00a1001a */ 	div	$zero,$a1,$at
 /*  f193394:	00002812 */ 	mflo	$a1
-/*  f193398:	0fc649df */ 	jal	func0f19277c
+/*  f193398:	0fc649df */ 	jal	bot0f19277c
 /*  f19339c:	00000000 */ 	nop
 /*  f1933a0:	10000046 */ 	b	.L0f1934bc
 /*  f1933a4:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f1933a8:
-/*  f1933a8:	0fc649df */ 	jal	func0f19277c
+/*  f1933a8:	0fc649df */ 	jal	bot0f19277c
 /*  f1933ac:	2405ffff */ 	addiu	$a1,$zero,-1
 /*  f1933b0:	10000042 */ 	b	.L0f1934bc
 /*  f1933b4:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -5279,15 +5290,15 @@ glabel func0f192e90
 /*  f1933d0:	02626021 */ 	addu	$t4,$s3,$v0
 /*  f1933d4:	918e016c */ 	lbu	$t6,0x16c($t4)
 /*  f1933d8:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f1933dc:	3c0f800b */ 	lui	$t7,%hi(g_MpNumPlayers)
+/*  f1933dc:	3c0f800b */ 	lui	$t7,%hi(g_MpNumChrs)
 /*  f1933e0:	11c00005 */ 	beqz	$t6,.L0f1933f8
 /*  f1933e4:	00000000 */ 	nop
-/*  f1933e8:	0fc649df */ 	jal	func0f19277c
+/*  f1933e8:	0fc649df */ 	jal	bot0f19277c
 /*  f1933ec:	86a5017e */ 	lh	$a1,0x17e($s5)
 /*  f1933f0:	10000032 */ 	b	.L0f1934bc
 /*  f1933f4:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f1933f8:
-/*  f1933f8:	8defc530 */ 	lw	$t7,%lo(g_MpNumPlayers)($t7)
+/*  f1933f8:	8defc530 */ 	lw	$t7,%lo(g_MpNumChrs)($t7)
 /*  f1933fc:	00009025 */ 	or	$s2,$zero,$zero
 /*  f193400:	02608025 */ 	or	$s0,$s3,$zero
 /*  f193404:	59e0002a */ 	blezl	$t7,.L0f1934b0
@@ -5311,7 +5322,7 @@ glabel func0f192e90
 /*  f193448:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f19344c:	10400010 */ 	beqz	$v0,.L0f193490
 /*  f193450:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f193454:	0fc64b59 */ 	jal	func0f192d64
+/*  f193454:	0fc64b59 */ 	jal	botPassesPeaceCheck
 /*  f193458:	02202825 */ 	or	$a1,$s1,$zero
 /*  f19345c:	1040000c */ 	beqz	$v0,.L0f193490
 /*  f193460:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x338)
@@ -5322,13 +5333,13 @@ glabel func0f192e90
 /*  f193474:	01792823 */ 	subu	$a1,$t3,$t9
 /*  f193478:	00a1001a */ 	div	$zero,$a1,$at
 /*  f19347c:	00002812 */ 	mflo	$a1
-/*  f193480:	0fc649df */ 	jal	func0f19277c
+/*  f193480:	0fc649df */ 	jal	bot0f19277c
 /*  f193484:	00000000 */ 	nop
 /*  f193488:	1000000c */ 	b	.L0f1934bc
 /*  f19348c:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f193490:
-/*  f193490:	3c0e800b */ 	lui	$t6,%hi(g_MpNumPlayers)
-/*  f193494:	8dcec530 */ 	lw	$t6,%lo(g_MpNumPlayers)($t6)
+/*  f193490:	3c0e800b */ 	lui	$t6,%hi(g_MpNumChrs)
+/*  f193494:	8dcec530 */ 	lw	$t6,%lo(g_MpNumChrs)($t6)
 /*  f193498:	26520001 */ 	addiu	$s2,$s2,0x1
 /*  f19349c:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f1934a0:	024e082a */ 	slt	$at,$s2,$t6
@@ -5336,7 +5347,7 @@ glabel func0f192e90
 /*  f1934a8:	82040130 */ 	lb	$a0,0x130($s0)
 /*  f1934ac:	02a02025 */ 	or	$a0,$s5,$zero
 .L0f1934b0:
-/*  f1934b0:	0fc649df */ 	jal	func0f19277c
+/*  f1934b0:	0fc649df */ 	jal	bot0f19277c
 /*  f1934b4:	86a5017e */ 	lh	$a1,0x17e($s5)
 /*  f1934b8:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f1934bc:
@@ -5351,7 +5362,7 @@ glabel func0f192e90
 );
 #endif
 
-bool mpIsChrFollowedByChr(struct chrdata *leader, struct chrdata *follower)
+bool botIsFollowing(struct chrdata *leader, struct chrdata *follower)
 {
 	bool result = true;
 
@@ -5362,7 +5373,7 @@ bool mpIsChrFollowedByChr(struct chrdata *leader, struct chrdata *follower)
 			break;
 		}
 
-		follower = g_MpPlayerChrs[aibot->followingplayernum];
+		follower = g_MpAllChrPtrs[aibot->followingplayernum];
 
 		if (follower == leader) {
 			result = false;
@@ -5373,7 +5384,7 @@ bool mpIsChrFollowedByChr(struct chrdata *leader, struct chrdata *follower)
 	return result;
 }
 
-s32 func0f193530(struct chrdata *chr, f32 range)
+s32 bot0f193530(struct chrdata *chr, f32 range)
 {
 	s32 result = -1;
 
@@ -5384,11 +5395,11 @@ s32 func0f193530(struct chrdata *chr, f32 range)
 		s32 closestplayernum = -1;
 		s32 i;
 
-		for (i = 0; i < g_MpNumPlayers; i++) {
-			if (chr != g_MpPlayerChrs[i]
-					&& !chrIsDead(g_MpPlayerChrs[i])
-					&& chr->team == g_MpPlayerChrs[i]->team
-					&& mpIsChrFollowedByChr(chr, g_MpPlayerChrs[i])) {
+		for (i = 0; i < g_MpNumChrs; i++) {
+			if (chr != g_MpAllChrPtrs[i]
+					&& !chrIsDead(g_MpAllChrPtrs[i])
+					&& chr->team == g_MpAllChrPtrs[i]->team
+					&& botIsFollowing(chr, g_MpAllChrPtrs[i])) {
 				f32 distance = chr->aibot->playerdistances[i];
 
 				if (closestplayernum < 0 || distance < closestdistance) {
@@ -5406,12 +5417,12 @@ s32 func0f193530(struct chrdata *chr, f32 range)
 	return result;
 }
 
-void func0f19369c(struct chrdata *chr, s32 arg1)
+void bot0f19369c(struct chrdata *chr, s32 arg1)
 {
 	chr->aibot->unk02c[arg1] = g_AibotWeaponPreferences[chr->aibot->weaponnum].unk0e_00 * (PAL ? 50 : 60);
 
 	if (g_AibotWeaponPreferences[chr->aibot->weaponnum].unk0e_03) {
-		s32 capacity = weaponGetClipCapacityByFunction(chr->aibot->weaponnum, chr->aibot->gunfunc);
+		s32 capacity = botactGetClipCapacityByFunction(chr->aibot->weaponnum, chr->aibot->gunfunc);
 
 		chr->aibot->unk02c[arg1] *= capacity - chr->aibot->loadedammo[arg1];
 		chr->aibot->unk02c[arg1] /= capacity;
@@ -5420,7 +5431,7 @@ void func0f19369c(struct chrdata *chr, s32 arg1)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f1937a4
+glabel bot0f1937a4
 .late_rodata
 glabel var7f1b8f48
 .word 0x40fccccd
@@ -5460,10 +5471,10 @@ glabel var7f1b8f50
 /*  f193814:	852a0028 */ 	lh	$t2,0x28($t1)
 /*  f193818:	554b000e */ 	bnel	$t2,$t3,.L0f193854
 /*  f19381c:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f193820:	0fc65241 */ 	jal	mpGetNumTeammatesDefendingHill
+/*  f193820:	0fc65241 */ 	jal	botGetNumTeammatesDefendingHill
 /*  f193824:	00000000 */ 	nop
 /*  f193828:	00408025 */ 	or	$s0,$v0,$zero
-/*  f19382c:	0fc65264 */ 	jal	mpGetNumOpponentsInHill
+/*  f19382c:	0fc65264 */ 	jal	botGetNumOpponentsInHill
 /*  f193830:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f193834:	0202082a */ 	slt	$at,$s0,$v0
 /*  f193838:	14200005 */ 	bnez	$at,.L0f193850
@@ -5477,7 +5488,7 @@ glabel var7f1b8f50
 .L0f193854:
 /*  f193854:	27a5025c */ 	addiu	$a1,$sp,0x25c
 /*  f193858:	27a60244 */ 	addiu	$a2,$sp,0x244
-/*  f19385c:	0fc6601a */ 	jal	func0f198068
+/*  f19385c:	0fc6601a */ 	jal	botinvScoreAllWeapons
 /*  f193860:	27a7022c */ 	addiu	$a3,$sp,0x22c
 /*  f193864:	27b00214 */ 	addiu	$s0,$sp,0x214
 /*  f193868:	24140001 */ 	addiu	$s4,$zero,0x1
@@ -5502,7 +5513,7 @@ glabel var7f1b8f50
 /*  f1938ac:	27b100f4 */ 	addiu	$s1,$sp,0xf4
 .L0f1938b0:
 /*  f1938b0:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f1938b4:	0fc65f3c */ 	jal	aibotGetInvItem
+/*  f1938b4:	0fc65f3c */ 	jal	botinvGetItem
 /*  f1938b8:	8e650000 */ 	lw	$a1,0x0($s3)
 /*  f1938bc:	26100004 */ 	addiu	$s0,$s0,0x4
 /*  f1938c0:	26940001 */ 	addiu	$s4,$s4,0x1
@@ -5578,7 +5589,7 @@ glabel var7f1b8f50
 /*  f1939c4:	1662ffe0 */ 	bne	$s3,$v0,.L0f193948
 /*  f1939c8:	26d60004 */ 	addiu	$s6,$s6,0x4
 .L0f1939cc:
-/*  f1939cc:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
+/*  f1939cc:	0fc6666c */ 	jal	botactGetAmmoTypeByFunction
 /*  f1939d0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f1939d4:	18400019 */ 	blez	$v0,.L0f193a3c
 /*  f1939d8:	00408825 */ 	or	$s1,$v0,$zero
@@ -5634,7 +5645,7 @@ glabel var7f1b8f50
 /*  f193a90:	966d005e */ 	lhu	$t5,0x5e($s3)
 /*  f193a94:	59a0003f */ 	blezl	$t5,.L0f193b94
 /*  f193a98:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f193a9c:	0fc668c7 */ 	jal	ammotypeGetWeapon
+/*  f193a9c:	0fc668c7 */ 	jal	botactGetWeaponByAmmoType
 /*  f193aa0:	02802025 */ 	or	$a0,$s4,$zero
 /*  f193aa4:	18400022 */ 	blez	$v0,.L0f193b30
 /*  f193aa8:	00008025 */ 	or	$s0,$zero,$zero
@@ -5765,12 +5776,12 @@ glabel var7f1b8f50
 .L0f193c64:
 /*  f193c64:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f193c68:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f193c6c:	0fc6639e */ 	jal	func0f198e78
+/*  f193c6c:	0fc6639e */ 	jal	botinvAllowsWeapon
 /*  f193c70:	00003025 */ 	or	$a2,$zero,$zero
 /*  f193c74:	14400006 */ 	bnez	$v0,.L0f193c90
 /*  f193c78:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f193c7c:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f193c80:	0fc6639e */ 	jal	func0f198e78
+/*  f193c80:	0fc6639e */ 	jal	botinvAllowsWeapon
 /*  f193c84:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f193c88:	50400013 */ 	beqzl	$v0,.L0f193cd8
 /*  f193c8c:	26730004 */ 	addiu	$s3,$s3,0x4
@@ -5880,7 +5891,7 @@ glabel var7f1b8f50
 .L0f193e0c:
 /*  f193e0c:	14610016 */ 	bne	$v1,$at,.L0f193e68
 /*  f193e10:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f193e14:	0fc65227 */ 	jal	func0f19489c
+/*  f193e14:	0fc65227 */ 	jal	bot0f19489c
 /*  f193e18:	e7a20094 */ 	swc1	$f2,0x94($sp)
 /*  f193e1c:	3c014080 */ 	lui	$at,0x4080
 /*  f193e20:	44818000 */ 	mtc1	$at,$f16
@@ -6086,7 +6097,7 @@ glabel var7f1b8f50
 /*  f1940fc:	24140001 */ 	addiu	$s4,$zero,0x1
 /*  f194100:	55810008 */ 	bnel	$t4,$at,.L0f194124
 /*  f194104:	93cf02a0 */ 	lbu	$t7,0x2a0($s8)
-/*  f194108:	0fc65227 */ 	jal	func0f19489c
+/*  f194108:	0fc65227 */ 	jal	bot0f19489c
 /*  f19410c:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f194110:	10400003 */ 	beqz	$v0,.L0f194120
 /*  f194114:	240d0001 */ 	addiu	$t5,$zero,0x1
@@ -6127,7 +6138,7 @@ glabel var7f1b8f50
 .L0f194190:
 /*  f194190:	5080000c */ 	beqzl	$a0,.L0f1941c4
 /*  f194194:	00035c40 */ 	sll	$t3,$v1,0x11
-/*  f194198:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f194198:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f19419c:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f1941a0:	0057082a */ 	slt	$at,$v0,$s7
 /*  f1941a4:	5020000f */ 	beqzl	$at,.L0f1941e4
@@ -6142,7 +6153,7 @@ glabel var7f1b8f50
 /*  f1941c4:	05610080 */ 	bgez	$t3,.L0f1943c8
 /*  f1941c8:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f1941cc:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f1941d0:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f1941d0:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f1941d4:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f1941d8:	0055082a */ 	slt	$at,$v0,$s5
 /*  f1941dc:	1420007a */ 	bnez	$at,.L0f1943c8
@@ -6154,13 +6165,13 @@ glabel var7f1b8f50
 /*  f1941ec:	15a1002f */ 	bne	$t5,$at,.L0f1942ac
 /*  f1941f0:	8fa9027c */ 	lw	$t1,0x27c($sp)
 /*  f1941f4:	8e640000 */ 	lw	$a0,0x0($s3)
-/*  f1941f8:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
+/*  f1941f8:	0fc6666c */ 	jal	botactGetAmmoTypeByFunction
 /*  f1941fc:	00002825 */ 	or	$a1,$zero,$zero
 /*  f194200:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
 /*  f194204:	00402025 */ 	or	$a0,$v0,$zero
 /*  f194208:	0040b825 */ 	or	$s7,$v0,$zero
 /*  f19420c:	8e640000 */ 	lw	$a0,0x0($s3)
-/*  f194210:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
+/*  f194210:	0fc6666c */ 	jal	botactGetAmmoTypeByFunction
 /*  f194214:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f194218:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
 /*  f19421c:	00402025 */ 	or	$a0,$v0,$zero
@@ -6175,7 +6186,7 @@ glabel var7f1b8f50
 /*  f194240:	0003c3c2 */ 	srl	$t8,$v1,0xf
 /*  f194244:	5300000c */ 	beqzl	$t8,.L0f194278
 /*  f194248:	00034440 */ 	sll	$t0,$v1,0x11
-/*  f19424c:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f19424c:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f194250:	00003825 */ 	or	$a3,$zero,$zero
 /*  f194254:	0057082a */ 	slt	$at,$v0,$s7
 /*  f194258:	14200012 */ 	bnez	$at,.L0f1942a4
@@ -6190,7 +6201,7 @@ glabel var7f1b8f50
 /*  f194278:	05010007 */ 	bgez	$t0,.L0f194298
 /*  f19427c:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f194280:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f194284:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f194284:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f194288:	00003825 */ 	or	$a3,$zero,$zero
 /*  f19428c:	0055082a */ 	slt	$at,$v0,$s5
 /*  f194290:	14200004 */ 	bnez	$at,.L0f1942a4
@@ -6217,7 +6228,7 @@ glabel var7f1b8f50
 /*  f1942d8:	1180000c */ 	beqz	$t4,.L0f19430c
 /*  f1942dc:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f1942e0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1942e4:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f1942e4:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f1942e8:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f1942ec:	0057082a */ 	slt	$at,$v0,$s7
 /*  f1942f0:	5020000f */ 	beqzl	$at,.L0f194330
@@ -6232,7 +6243,7 @@ glabel var7f1b8f50
 /*  f194310:	0701002d */ 	bgez	$t8,.L0f1943c8
 /*  f194314:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f194318:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f19431c:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f19431c:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f194320:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f194324:	0055082a */ 	slt	$at,$v0,$s5
 /*  f194328:	14200027 */ 	bnez	$at,.L0f1943c8
@@ -6256,7 +6267,7 @@ glabel var7f1b8f50
 /*  f194368:	1140000c */ 	beqz	$t2,.L0f19439c
 /*  f19436c:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f194370:	00003025 */ 	or	$a2,$zero,$zero
-/*  f194374:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f194374:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f194378:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f19437c:	0057082a */ 	slt	$at,$v0,$s7
 /*  f194380:	5020000f */ 	beqzl	$at,.L0f1943c0
@@ -6271,7 +6282,7 @@ glabel var7f1b8f50
 /*  f1943a0:	05a10009 */ 	bgez	$t5,.L0f1943c8
 /*  f1943a4:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f1943a8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f1943ac:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f1943ac:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f1943b0:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f1943b4:	0055082a */ 	slt	$at,$v0,$s5
 /*  f1943b8:	14200003 */ 	bnez	$at,.L0f1943c8
@@ -6285,11 +6296,11 @@ glabel var7f1b8f50
 /*  f1943cc:	03c02025 */ 	or	$a0,$s8,$zero
 .L0f1943d0:
 /*  f1943d0:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f1943d4:	0fc6639e */ 	jal	func0f198e78
+/*  f1943d4:	0fc6639e */ 	jal	botinvAllowsWeapon
 /*  f1943d8:	02003025 */ 	or	$a2,$s0,$zero
 /*  f1943dc:	10400017 */ 	beqz	$v0,.L0f19443c
 /*  f1943e0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1943e4:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
+/*  f1943e4:	0fc6666c */ 	jal	botactGetAmmoTypeByFunction
 /*  f1943e8:	8e640000 */ 	lw	$a0,0x0($s3)
 /*  f1943ec:	18400013 */ 	blez	$v0,.L0f19443c
 /*  f1943f0:	00409025 */ 	or	$s2,$v0,$zero
@@ -6301,7 +6312,7 @@ glabel var7f1b8f50
 /*  f194404:	02e08825 */ 	or	$s1,$s7,$zero
 .L0f194408:
 /*  f194408:	02402825 */ 	or	$a1,$s2,$zero
-/*  f19440c:	0fc6672e */ 	jal	aibotGetAmmoQuantityByType
+/*  f19440c:	0fc6672e */ 	jal	botactGetAmmoQuantityByType
 /*  f194410:	02803025 */ 	or	$a2,$s4,$zero
 /*  f194414:	0051082a */ 	slt	$at,$v0,$s1
 /*  f194418:	10200008 */ 	beqz	$at,.L0f19443c
@@ -6352,7 +6363,7 @@ glabel var7f1b8f50
 /*  f1944b4:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f1944b8:	55810008 */ 	bnel	$t4,$at,.L0f1944dc
 /*  f1944bc:	93cf02a0 */ 	lbu	$t7,0x2a0($s8)
-/*  f1944c0:	0fc65227 */ 	jal	func0f19489c
+/*  f1944c0:	0fc65227 */ 	jal	bot0f19489c
 /*  f1944c4:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f1944c8:	10400003 */ 	beqz	$v0,.L0f1944d8
 /*  f1944cc:	240d0001 */ 	addiu	$t5,$zero,0x1
@@ -6371,12 +6382,12 @@ glabel var7f1b8f50
 .L0f1944f8:
 /*  f1944f8:	15c00014 */ 	bnez	$t6,.L0f19454c
 /*  f1944fc:	00003025 */ 	or	$a2,$zero,$zero
-/*  f194500:	0fc6639e */ 	jal	func0f198e78
+/*  f194500:	0fc6639e */ 	jal	botinvAllowsWeapon
 /*  f194504:	8e650000 */ 	lw	$a1,0x0($s3)
 /*  f194508:	14400005 */ 	bnez	$v0,.L0f194520
 /*  f19450c:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f194510:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f194514:	0fc6639e */ 	jal	func0f198e78
+/*  f194514:	0fc6639e */ 	jal	botinvAllowsWeapon
 /*  f194518:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f19451c:	1040000b */ 	beqz	$v0,.L0f19454c
 .L0f194520:
@@ -6419,17 +6430,17 @@ glabel var7f1b8f50
 /*  f1945a0:	03c02025 */ 	or	$a0,$s8,$zero
 .L0f1945a4:
 /*  f1945a4:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f1945a8:	0fc6639e */ 	jal	func0f198e78
+/*  f1945a8:	0fc6639e */ 	jal	botinvAllowsWeapon
 /*  f1945ac:	02203025 */ 	or	$a2,$s1,$zero
 /*  f1945b0:	10400016 */ 	beqz	$v0,.L0f19460c
 /*  f1945b4:	02202825 */ 	or	$a1,$s1,$zero
-/*  f1945b8:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
+/*  f1945b8:	0fc6666c */ 	jal	botactGetAmmoTypeByFunction
 /*  f1945bc:	8e640000 */ 	lw	$a0,0x0($s3)
 /*  f1945c0:	18400012 */ 	blez	$v0,.L0f19460c
 /*  f1945c4:	00408025 */ 	or	$s0,$v0,$zero
 /*  f1945c8:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f1945cc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1945d0:	0fc6672e */ 	jal	aibotGetAmmoQuantityByType
+/*  f1945d0:	0fc6672e */ 	jal	botactGetAmmoQuantityByType
 /*  f1945d4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f1945d8:	00409025 */ 	or	$s2,$v0,$zero
 /*  f1945dc:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
@@ -6476,7 +6487,7 @@ glabel var7f1b8f50
 );
 #else
 GLOBAL_ASM(
-glabel func0f1937a4
+glabel bot0f1937a4
 .late_rodata
 glabel var7f1b8f48
 .word 0x40fccccd
@@ -6516,10 +6527,10 @@ glabel var7f1b8f50
 /*  f193814:	852a0028 */ 	lh	$t2,0x28($t1)
 /*  f193818:	554b000e */ 	bnel	$t2,$t3,.L0f193854
 /*  f19381c:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f193820:	0fc65241 */ 	jal	mpGetNumTeammatesDefendingHill
+/*  f193820:	0fc65241 */ 	jal	botGetNumTeammatesDefendingHill
 /*  f193824:	00000000 */ 	nop
 /*  f193828:	00408025 */ 	or	$s0,$v0,$zero
-/*  f19382c:	0fc65264 */ 	jal	mpGetNumOpponentsInHill
+/*  f19382c:	0fc65264 */ 	jal	botGetNumOpponentsInHill
 /*  f193830:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f193834:	0202082a */ 	slt	$at,$s0,$v0
 /*  f193838:	14200005 */ 	bnez	$at,.L0f193850
@@ -6533,7 +6544,7 @@ glabel var7f1b8f50
 .L0f193854:
 /*  f193854:	27a5025c */ 	addiu	$a1,$sp,0x25c
 /*  f193858:	27a60244 */ 	addiu	$a2,$sp,0x244
-/*  f19385c:	0fc6601a */ 	jal	func0f198068
+/*  f19385c:	0fc6601a */ 	jal	botinvScoreAllWeapons
 /*  f193860:	27a7022c */ 	addiu	$a3,$sp,0x22c
 /*  f193864:	27b00214 */ 	addiu	$s0,$sp,0x214
 /*  f193868:	24140001 */ 	addiu	$s4,$zero,0x1
@@ -6558,7 +6569,7 @@ glabel var7f1b8f50
 /*  f1938ac:	27b100f4 */ 	addiu	$s1,$sp,0xf4
 .L0f1938b0:
 /*  f1938b0:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f1938b4:	0fc65f3c */ 	jal	aibotGetInvItem
+/*  f1938b4:	0fc65f3c */ 	jal	botinvGetItem
 /*  f1938b8:	8e650000 */ 	lw	$a1,0x0($s3)
 /*  f1938bc:	26100004 */ 	addiu	$s0,$s0,0x4
 /*  f1938c0:	26940001 */ 	addiu	$s4,$s4,0x1
@@ -6634,7 +6645,7 @@ glabel var7f1b8f50
 /*  f1939c4:	1662ffe0 */ 	bne	$s3,$v0,.L0f193948
 /*  f1939c8:	26d60004 */ 	addiu	$s6,$s6,0x4
 .L0f1939cc:
-/*  f1939cc:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
+/*  f1939cc:	0fc6666c */ 	jal	botactGetAmmoTypeByFunction
 /*  f1939d0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f1939d4:	18400019 */ 	blez	$v0,.L0f193a3c
 /*  f1939d8:	00408825 */ 	or	$s1,$v0,$zero
@@ -6690,7 +6701,7 @@ glabel var7f1b8f50
 /*  f193a90:	966d005e */ 	lhu	$t5,0x5e($s3)
 /*  f193a94:	59a0003f */ 	blezl	$t5,.L0f193b94
 /*  f193a98:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f193a9c:	0fc668c7 */ 	jal	ammotypeGetWeapon
+/*  f193a9c:	0fc668c7 */ 	jal	botactGetWeaponByAmmoType
 /*  f193aa0:	02802025 */ 	or	$a0,$s4,$zero
 /*  f193aa4:	18400022 */ 	blez	$v0,.L0f193b30
 /*  f193aa8:	00008025 */ 	or	$s0,$zero,$zero
@@ -6821,12 +6832,12 @@ glabel var7f1b8f50
 .L0f193c64:
 /*  f193c64:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f193c68:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f193c6c:	0fc6639e */ 	jal	func0f198e78
+/*  f193c6c:	0fc6639e */ 	jal	botinvAllowsWeapon
 /*  f193c70:	00003025 */ 	or	$a2,$zero,$zero
 /*  f193c74:	14400006 */ 	bnez	$v0,.L0f193c90
 /*  f193c78:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f193c7c:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f193c80:	0fc6639e */ 	jal	func0f198e78
+/*  f193c80:	0fc6639e */ 	jal	botinvAllowsWeapon
 /*  f193c84:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f193c88:	50400013 */ 	beqzl	$v0,.L0f193cd8
 /*  f193c8c:	26730004 */ 	addiu	$s3,$s3,0x4
@@ -6936,7 +6947,7 @@ glabel var7f1b8f50
 .L0f193e0c:
 /*  f193e0c:	14610016 */ 	bne	$v1,$at,.L0f193e68
 /*  f193e10:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f193e14:	0fc65227 */ 	jal	func0f19489c
+/*  f193e14:	0fc65227 */ 	jal	bot0f19489c
 /*  f193e18:	e7a20094 */ 	swc1	$f2,0x94($sp)
 /*  f193e1c:	3c014080 */ 	lui	$at,0x4080
 /*  f193e20:	44818000 */ 	mtc1	$at,$f16
@@ -7142,7 +7153,7 @@ glabel var7f1b8f50
 /*  f1940fc:	24140001 */ 	addiu	$s4,$zero,0x1
 /*  f194100:	55810008 */ 	bnel	$t4,$at,.L0f194124
 /*  f194104:	93cf02a0 */ 	lbu	$t7,0x2a0($s8)
-/*  f194108:	0fc65227 */ 	jal	func0f19489c
+/*  f194108:	0fc65227 */ 	jal	bot0f19489c
 /*  f19410c:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f194110:	10400003 */ 	beqz	$v0,.L0f194120
 /*  f194114:	240d0001 */ 	addiu	$t5,$zero,0x1
@@ -7183,7 +7194,7 @@ glabel var7f1b8f50
 .L0f194190:
 /*  f194190:	5080000c */ 	beqzl	$a0,.L0f1941c4
 /*  f194194:	00035c40 */ 	sll	$t3,$v1,0x11
-/*  f194198:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f194198:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f19419c:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f1941a0:	0057082a */ 	slt	$at,$v0,$s7
 /*  f1941a4:	5020000f */ 	beqzl	$at,.L0f1941e4
@@ -7198,7 +7209,7 @@ glabel var7f1b8f50
 /*  f1941c4:	05610080 */ 	bgez	$t3,.L0f1943c8
 /*  f1941c8:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f1941cc:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f1941d0:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f1941d0:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f1941d4:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f1941d8:	0055082a */ 	slt	$at,$v0,$s5
 /*  f1941dc:	1420007a */ 	bnez	$at,.L0f1943c8
@@ -7210,13 +7221,13 @@ glabel var7f1b8f50
 /*  f1941ec:	15a1002f */ 	bne	$t5,$at,.L0f1942ac
 /*  f1941f0:	8fa9027c */ 	lw	$t1,0x27c($sp)
 /*  f1941f4:	8e640000 */ 	lw	$a0,0x0($s3)
-/*  f1941f8:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
+/*  f1941f8:	0fc6666c */ 	jal	botactGetAmmoTypeByFunction
 /*  f1941fc:	00002825 */ 	or	$a1,$zero,$zero
 /*  f194200:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
 /*  f194204:	00402025 */ 	or	$a0,$v0,$zero
 /*  f194208:	0040b825 */ 	or	$s7,$v0,$zero
 /*  f19420c:	8e640000 */ 	lw	$a0,0x0($s3)
-/*  f194210:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
+/*  f194210:	0fc6666c */ 	jal	botactGetAmmoTypeByFunction
 /*  f194214:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f194218:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
 /*  f19421c:	00402025 */ 	or	$a0,$v0,$zero
@@ -7231,7 +7242,7 @@ glabel var7f1b8f50
 /*  f194240:	0003c3c2 */ 	srl	$t8,$v1,0xf
 /*  f194244:	5300000c */ 	beqzl	$t8,.L0f194278
 /*  f194248:	00034440 */ 	sll	$t0,$v1,0x11
-/*  f19424c:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f19424c:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f194250:	00003825 */ 	or	$a3,$zero,$zero
 /*  f194254:	0057082a */ 	slt	$at,$v0,$s7
 /*  f194258:	14200012 */ 	bnez	$at,.L0f1942a4
@@ -7246,7 +7257,7 @@ glabel var7f1b8f50
 /*  f194278:	05010007 */ 	bgez	$t0,.L0f194298
 /*  f19427c:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f194280:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f194284:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f194284:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f194288:	00003825 */ 	or	$a3,$zero,$zero
 /*  f19428c:	0055082a */ 	slt	$at,$v0,$s5
 /*  f194290:	14200004 */ 	bnez	$at,.L0f1942a4
@@ -7273,7 +7284,7 @@ glabel var7f1b8f50
 /*  f1942d8:	1180000c */ 	beqz	$t4,.L0f19430c
 /*  f1942dc:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f1942e0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1942e4:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f1942e4:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f1942e8:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f1942ec:	0057082a */ 	slt	$at,$v0,$s7
 /*  f1942f0:	5020000f */ 	beqzl	$at,.L0f194330
@@ -7288,7 +7299,7 @@ glabel var7f1b8f50
 /*  f194310:	0701002d */ 	bgez	$t8,.L0f1943c8
 /*  f194314:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f194318:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f19431c:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f19431c:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f194320:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f194324:	0055082a */ 	slt	$at,$v0,$s5
 /*  f194328:	14200027 */ 	bnez	$at,.L0f1943c8
@@ -7312,7 +7323,7 @@ glabel var7f1b8f50
 /*  f194368:	1140000c */ 	beqz	$t2,.L0f19439c
 /*  f19436c:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f194370:	00003025 */ 	or	$a2,$zero,$zero
-/*  f194374:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f194374:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f194378:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f19437c:	0057082a */ 	slt	$at,$v0,$s7
 /*  f194380:	5020000f */ 	beqzl	$at,.L0f1943c0
@@ -7327,7 +7338,7 @@ glabel var7f1b8f50
 /*  f1943a0:	05a10009 */ 	bgez	$t5,.L0f1943c8
 /*  f1943a4:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f1943a8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f1943ac:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f1943ac:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f1943b0:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f1943b4:	0055082a */ 	slt	$at,$v0,$s5
 /*  f1943b8:	14200003 */ 	bnez	$at,.L0f1943c8
@@ -7341,11 +7352,11 @@ glabel var7f1b8f50
 /*  f1943cc:	03c02025 */ 	or	$a0,$s8,$zero
 .L0f1943d0:
 /*  f1943d0:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f1943d4:	0fc6639e */ 	jal	func0f198e78
+/*  f1943d4:	0fc6639e */ 	jal	botinvAllowsWeapon
 /*  f1943d8:	02003025 */ 	or	$a2,$s0,$zero
 /*  f1943dc:	10400017 */ 	beqz	$v0,.L0f19443c
 /*  f1943e0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1943e4:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
+/*  f1943e4:	0fc6666c */ 	jal	botactGetAmmoTypeByFunction
 /*  f1943e8:	8e640000 */ 	lw	$a0,0x0($s3)
 /*  f1943ec:	18400013 */ 	blez	$v0,.L0f19443c
 /*  f1943f0:	00409025 */ 	or	$s2,$v0,$zero
@@ -7357,7 +7368,7 @@ glabel var7f1b8f50
 /*  f194404:	02e08825 */ 	or	$s1,$s7,$zero
 .L0f194408:
 /*  f194408:	02402825 */ 	or	$a1,$s2,$zero
-/*  f19440c:	0fc6672e */ 	jal	aibotGetAmmoQuantityByType
+/*  f19440c:	0fc6672e */ 	jal	botactGetAmmoQuantityByType
 /*  f194410:	02803025 */ 	or	$a2,$s4,$zero
 /*  f194414:	0051082a */ 	slt	$at,$v0,$s1
 /*  f194418:	10200008 */ 	beqz	$at,.L0f19443c
@@ -7408,7 +7419,7 @@ glabel var7f1b8f50
 /*  f1944b4:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f1944b8:	55810008 */ 	bnel	$t4,$at,.L0f1944dc
 /*  f1944bc:	93cf02a0 */ 	lbu	$t7,0x2a0($s8)
-/*  f1944c0:	0fc65227 */ 	jal	func0f19489c
+/*  f1944c0:	0fc65227 */ 	jal	bot0f19489c
 /*  f1944c4:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f1944c8:	10400003 */ 	beqz	$v0,.L0f1944d8
 /*  f1944cc:	240d0001 */ 	addiu	$t5,$zero,0x1
@@ -7427,12 +7438,12 @@ glabel var7f1b8f50
 .L0f1944f8:
 /*  f1944f8:	15c00014 */ 	bnez	$t6,.L0f19454c
 /*  f1944fc:	00003025 */ 	or	$a2,$zero,$zero
-/*  f194500:	0fc6639e */ 	jal	func0f198e78
+/*  f194500:	0fc6639e */ 	jal	botinvAllowsWeapon
 /*  f194504:	8e650000 */ 	lw	$a1,0x0($s3)
 /*  f194508:	14400005 */ 	bnez	$v0,.L0f194520
 /*  f19450c:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f194510:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f194514:	0fc6639e */ 	jal	func0f198e78
+/*  f194514:	0fc6639e */ 	jal	botinvAllowsWeapon
 /*  f194518:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f19451c:	1040000b */ 	beqz	$v0,.L0f19454c
 .L0f194520:
@@ -7475,17 +7486,17 @@ glabel var7f1b8f50
 /*  f1945a0:	03c02025 */ 	or	$a0,$s8,$zero
 .L0f1945a4:
 /*  f1945a4:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f1945a8:	0fc6639e */ 	jal	func0f198e78
+/*  f1945a8:	0fc6639e */ 	jal	botinvAllowsWeapon
 /*  f1945ac:	02203025 */ 	or	$a2,$s1,$zero
 /*  f1945b0:	10400016 */ 	beqz	$v0,.L0f19460c
 /*  f1945b4:	02202825 */ 	or	$a1,$s1,$zero
-/*  f1945b8:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
+/*  f1945b8:	0fc6666c */ 	jal	botactGetAmmoTypeByFunction
 /*  f1945bc:	8e640000 */ 	lw	$a0,0x0($s3)
 /*  f1945c0:	18400012 */ 	blez	$v0,.L0f19460c
 /*  f1945c4:	00408025 */ 	or	$s0,$v0,$zero
 /*  f1945c8:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f1945cc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1945d0:	0fc6672e */ 	jal	aibotGetAmmoQuantityByType
+/*  f1945d0:	0fc6672e */ 	jal	botactGetAmmoQuantityByType
 /*  f1945d4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f1945d8:	00409025 */ 	or	$s2,$v0,$zero
 /*  f1945dc:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
@@ -7532,28 +7543,28 @@ glabel var7f1b8f50
 );
 #endif
 
-bool func0f194670(struct chrdata *chr)
+bool bot0f194670(struct chrdata *chr)
 {
-	return func0f1937a4(chr, 1) != 0;
+	return bot0f1937a4(chr, 1) != 0;
 }
 
-s32 func0f194694(struct chrdata *chr)
+s32 bot0f194694(struct chrdata *chr)
 {
-	return func0f1937a4(chr, 0);
+	return bot0f1937a4(chr, 0);
 }
 
-s32 func0f1946b4(struct chrdata *chr)
+s32 bot0f1946b4(struct chrdata *chr)
 {
-	return func0f1937a4(chr, 2);
+	return bot0f1937a4(chr, 2);
 }
 
-s32 mpGetNumPlayerTeammates(struct chrdata *chr)
+s32 botGetNumPlayerTeammates(struct chrdata *chr)
 {
 	s32 count = 0;
 	s32 i;
 
-	for (i = 0; i < g_MpNumPlayers; i++) {
-		if (chr->team == g_MpPlayerChrs[i]->team) {
+	for (i = 0; i < g_MpNumChrs; i++) {
+		if (chr->team == g_MpAllChrPtrs[i]->team) {
 			count++;
 		}
 	}
@@ -7561,15 +7572,15 @@ s32 mpGetNumPlayerTeammates(struct chrdata *chr)
 	return count;
 }
 
-s32 mpCountAibotsWithCommand(struct chrdata *self, u32 command, bool includeself)
+s32 botCountByCommand(struct chrdata *self, u32 command, bool includeself)
 {
 	s32 count = 0;
 	s32 i;
 
-	for (i = PLAYERCOUNT(); i < g_MpNumPlayers; i++) {
-		if (self->team == g_MpPlayerChrs[i]->team) {
-			if (includeself || self != g_MpPlayerChrs[i]) {
-				if (command == g_MpPlayerChrs[i]->aibot->command) {
+	for (i = PLAYERCOUNT(); i < g_MpNumChrs; i++) {
+		if (self->team == g_MpAllChrPtrs[i]->team) {
+			if (includeself || self != g_MpAllChrPtrs[i]) {
+				if (command == g_MpAllChrPtrs[i]->aibot->command) {
 					count++;
 				}
 			}
@@ -7579,20 +7590,20 @@ s32 mpCountAibotsWithCommand(struct chrdata *self, u32 command, bool includeself
 	return count;
 }
 
-s32 scenarioCtcIsChrsTokenHeld(struct chrdata *chr)
+s32 botIsChrsTokenHeld(struct chrdata *chr)
 {
-	struct mpchr *mpchr = var800ac500[mpPlayerGetIndex(chr)];
+	struct mpchrconfig *mpchr = g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)];
 	struct prop *prop = g_ScenarioData.ctc.tokens[mpchr->team];
 
 	return prop && (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER);
 }
 
-bool func0f19489c(struct chrdata *chr)
+bool bot0f19489c(struct chrdata *chr)
 {
 	if (chr->aibot->unk09c_01) {
 		if (!chr->aibot->teamisonlyai
-				|| mpGetNumPlayerTeammates(chr) >= 2
-				|| !scenarioCtcIsChrsTokenHeld(chr)) {
+				|| botGetNumPlayerTeammates(chr) >= 2
+				|| !botIsChrsTokenHeld(chr)) {
 			return true;
 		}
 	}
@@ -7600,16 +7611,16 @@ bool func0f19489c(struct chrdata *chr)
 	return false;
 }
 
-s32 mpGetNumTeammatesDefendingHill(struct chrdata *bot)
+s32 botGetNumTeammatesDefendingHill(struct chrdata *bot)
 {
 	s32 count = 0;
 	s32 i;
 
-	for (i = 0; i < g_MpNumPlayers; i++) {
-		if (bot->team == g_MpPlayerChrs[i]->team
-				&& g_MpPlayerChrs[i]->prop->rooms[0] == g_ScenarioData.cbt.unk0e[0]) {
-			if (g_MpPlayerChrs[i]->aibot->command == AIBOTCMD_DEFHILL
-					|| g_MpPlayerChrs[i]->aibot->command == AIBOTCMD_HOLDHILL) {
+	for (i = 0; i < g_MpNumChrs; i++) {
+		if (bot->team == g_MpAllChrPtrs[i]->team
+				&& g_MpAllChrPtrs[i]->prop->rooms[0] == g_ScenarioData.cbt.unk0e[0]) {
+			if (g_MpAllChrPtrs[i]->aibot->command == AIBOTCMD_DEFHILL
+					|| g_MpAllChrPtrs[i]->aibot->command == AIBOTCMD_HOLDHILL) {
 				count++;
 			}
 		}
@@ -7624,22 +7635,22 @@ s32 mpGetNumTeammatesDefendingHill(struct chrdata *bot)
  *
  * This function is slightly misnamed.
  */
-s32 mpGetNumOpponentsInHill(struct chrdata *chr)
+s32 botGetNumOpponentsInHill(struct chrdata *chr)
 {
-	struct mpchr *mpchr = var800ac500[mpPlayerGetIndex(chr)];
-	struct mpchr *loopmpchr;
+	struct mpchrconfig *mpchr = g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)];
+	struct mpchrconfig *loopmpchr;
 	s32 countsperteam[8] = {0};
 	s32 max = 0;
 	s32 i;
 
-	for (i = 0; i < g_MpNumPlayers; i++) {
-		if (g_MpPlayerChrs[i]->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) {
+	for (i = 0; i < g_MpNumChrs; i++) {
+		if (g_MpAllChrPtrs[i]->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) {
 			s32 mpindex = func0f18d074(i);
 
 			if (mpindex < 4) {
-				loopmpchr = &g_MpPlayers[mpindex].base;
+				loopmpchr = &g_PlayerConfigsArray[mpindex].base;
 			} else {
-				loopmpchr = &g_MpSimulants[mpindex - 4].base;
+				loopmpchr = &g_BotConfigsArray[mpindex - 4].base;
 			}
 
 			if (loopmpchr->team != mpchr->team) {
@@ -7659,66 +7670,66 @@ s32 mpGetNumOpponentsInHill(struct chrdata *chr)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f194b40
+glabel botTickUnpaused
 .late_rodata
 glabel var7f1b8f54
 .word 0x49742400
 glabel var7f1b8f58
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8f5c
-.word func0f194b40+0x23fc
+.word botTickUnpaused+0x23fc
 glabel var7f1b8f60
-.word func0f194b40+0x23fc
+.word botTickUnpaused+0x23fc
 glabel var7f1b8f64
-.word func0f194b40+0x23fc
+.word botTickUnpaused+0x23fc
 glabel var7f1b8f68
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8f6c
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8f70
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8f74
-.word func0f194b40+0x23fc
+.word botTickUnpaused+0x23fc
 glabel var7f1b8f78
-.word func0f194b40+0x23fc
+.word botTickUnpaused+0x23fc
 glabel var7f1b8f7c
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8f80
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8f84
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8f88
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8f8c
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8f90
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8f94
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8f98
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8f9c
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8fa0
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8fa4
-.word func0f194b40+0x2474
+.word botTickUnpaused+0x2474
 glabel var7f1b8fa8
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8fac
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8fb0
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8fb4
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8fb8
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8fbc
-.word func0f194b40+0x23fc
+.word botTickUnpaused+0x23fc
 glabel var7f1b8fc0
-.word func0f194b40+0x2398
+.word botTickUnpaused+0x2398
 glabel var7f1b8fc4
-.word func0f194b40+0x2450
+.word botTickUnpaused+0x2450
 glabel var7f1b8fc8
 .word 0x3d4ccccd
 .text
@@ -7784,7 +7795,7 @@ glabel var7f1b8fc8
 /*  f195cd8:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f195cdc:	02002825 */ 	move	$a1,$s0
 /*  f195ce0:	24060001 */ 	li	$a2,0x1
-/*  f195ce4:	0fc66ad0 */ 	jal	aibotReloadWeapon
+/*  f195ce4:	0fc66ad0 */ 	jal	botactReload
 /*  f195ce8:	afa70054 */ 	sw	$a3,0x54($sp)
 /*  f195cec:	10000030 */ 	b	.PF0f195db0
 /*  f195cf0:	8fa70054 */ 	lw	$a3,0x54($sp)
@@ -7793,7 +7804,7 @@ glabel var7f1b8fc8
 /*  f195cf8:	8e440020 */ 	lw	$a0,0x20($s2)
 /*  f195cfc:	afa70054 */ 	sw	$a3,0x54($sp)
 /*  f195d00:	00057080 */ 	sll	$t6,$a1,0x2
-/*  f195d04:	0fc66ce7 */ 	jal	func0f19a29c
+/*  f195d04:	0fc66ce7 */ 	jal	botactIsWeaponThrowable
 /*  f195d08:	000e2fc2 */ 	srl	$a1,$t6,0x1f
 /*  f195d0c:	14400028 */ 	bnez	$v0,.PF0f195db0
 /*  f195d10:	8fa70054 */ 	lw	$a3,0x54($sp)
@@ -7805,7 +7816,7 @@ glabel var7f1b8fc8
 /*  f195d28:	00054880 */ 	sll	$t1,$a1,0x2
 /*  f195d2c:	00092fc2 */ 	srl	$a1,$t1,0x1f
 /*  f195d30:	afa70054 */ 	sw	$a3,0x54($sp)
-/*  f195d34:	0fc66abe */ 	jal	weaponGetClipCapacityByFunction
+/*  f195d34:	0fc66abe */ 	jal	botactGetClipCapacityByFunction
 /*  f195d38:	afa302e8 */ 	sw	$v1,0x2e8($sp)
 /*  f195d3c:	8fa302e8 */ 	lw	$v1,0x2e8($sp)
 /*  f195d40:	8fa70054 */ 	lw	$a3,0x54($sp)
@@ -7814,7 +7825,7 @@ glabel var7f1b8fc8
 /*  f195d4c:	18400006 */ 	blez	$v0,.PF0f195d68
 /*  f195d50:	02802025 */ 	move	$a0,$s4
 /*  f195d54:	02002825 */ 	move	$a1,$s0
-/*  f195d58:	0fc651d3 */ 	jal	func0f19369c
+/*  f195d58:	0fc651d3 */ 	jal	bot0f19369c
 /*  f195d5c:	afa70054 */ 	sw	$a3,0x54($sp)
 /*  f195d60:	10000013 */ 	b	.PF0f195db0
 /*  f195d64:	8fa70054 */ 	lw	$a3,0x54($sp)
@@ -7835,7 +7846,7 @@ glabel var7f1b8fc8
 /*  f195d98:	50200006 */ 	beqzl	$at,.PF0f195db4
 /*  f195d9c:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f195da0:	02002825 */ 	move	$a1,$s0
-/*  f195da4:	0fc651d3 */ 	jal	func0f19369c
+/*  f195da4:	0fc651d3 */ 	jal	bot0f19369c
 /*  f195da8:	afa70054 */ 	sw	$a3,0x54($sp)
 /*  f195dac:	8fa70054 */ 	lw	$a3,0x54($sp)
 .PF0f195db0:
@@ -7852,7 +7863,7 @@ glabel var7f1b8fc8
 /*  f195dd4:	004fc823 */ 	subu	$t9,$v0,$t7
 /*  f195dd8:	1f20003f */ 	bgtz	$t9,.PF0f195ed8
 /*  f195ddc:	ae5900cc */ 	sw	$t9,0xcc($s2)
-/*  f195de0:	0fc6637c */ 	jal	aibotGetInvItem
+/*  f195de0:	0fc6637c */ 	jal	botinvGetItem
 /*  f195de4:	8e450020 */ 	lw	$a1,0x20($s2)
 /*  f195de8:	00408025 */ 	move	$s0,$v0
 /*  f195dec:	0fc4a571 */ 	jal	weaponGetModel
@@ -7867,7 +7878,7 @@ glabel var7f1b8fc8
 /*  f195e10:	00003825 */ 	move	$a3,$zero
 /*  f195e14:	02802025 */ 	move	$a0,$s4
 /*  f195e18:	00002825 */ 	move	$a1,$zero
-/*  f195e1c:	0fc66ad0 */ 	jal	aibotReloadWeapon
+/*  f195e1c:	0fc66ad0 */ 	jal	botactReload
 /*  f195e20:	00003025 */ 	move	$a2,$zero
 /*  f195e24:	8e090000 */ 	lw	$t1,0x0($s0)
 /*  f195e28:	24010003 */ 	li	$at,0x3
@@ -7879,7 +7890,7 @@ glabel var7f1b8fc8
 /*  f195e40:	3c071000 */ 	lui	$a3,0x1000
 /*  f195e44:	02802025 */ 	move	$a0,$s4
 /*  f195e48:	24050001 */ 	li	$a1,0x1
-/*  f195e4c:	0fc66ad0 */ 	jal	aibotReloadWeapon
+/*  f195e4c:	0fc66ad0 */ 	jal	botactReload
 /*  f195e50:	00003025 */ 	move	$a2,$zero
 .PF0f195e54:
 /*  f195e54:	1000000e */ 	b	.PF0f195e90
@@ -7934,7 +7945,7 @@ glabel var7f1b8fc8
 /*  f195efc:	8df80050 */ 	lw	$t8,0x50($t7)
 /*  f195f00:	1b00000d */ 	blez	$t8,.PF0f195f38
 /*  f195f04:	02802025 */ 	move	$a0,$s4
-/*  f195f08:	0fc649bc */ 	jal	func0f191638
+/*  f195f08:	0fc649bc */ 	jal	bot0f191638
 /*  f195f0c:	02e02825 */ 	move	$a1,$s7
 /*  f195f10:	54400006 */ 	bnezl	$v0,.PF0f195f2c
 /*  f195f14:	924a004c */ 	lbu	$t2,0x4c($s2)
@@ -7993,11 +8004,11 @@ glabel var7f1b8fc8
 /*  f195fc8:	17210033 */ 	bne	$t9,$at,.PF0f196098
 /*  f195fcc:	2405000d */ 	li	$a1,0xd
 /*  f195fd0:	00003025 */ 	move	$a2,$zero
-/*  f195fd4:	0fc66b39 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f195fd4:	0fc66b39 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f195fd8:	02e03825 */ 	move	$a3,$s7
 /*  f195fdc:	00408025 */ 	move	$s0,$v0
 /*  f195fe0:	02802025 */ 	move	$a0,$s4
-/*  f195fe4:	0fc649bc */ 	jal	func0f191638
+/*  f195fe4:	0fc649bc */ 	jal	bot0f191638
 /*  f195fe8:	02e02825 */ 	move	$a1,$s7
 /*  f195fec:	5040001a */ 	beqzl	$v0,.PF0f196058
 /*  f195ff0:	8e4b0210 */ 	lw	$t3,0x210($s2)
@@ -8084,7 +8095,7 @@ glabel var7f1b8fc8
 .PF0f196114:
 /*  f196114:	5c40013a */ 	bgtzl	$v0,.PF0f196600
 /*  f196118:	928d02a0 */ 	lbu	$t5,0x2a0($s4)
-/*  f19611c:	0fc655e3 */ 	jal	mpGetNumPlayerTeammates
+/*  f19611c:	0fc655e3 */ 	jal	botGetNumPlayerTeammates
 /*  f196120:	02802025 */ 	move	$a0,$s4
 /*  f196124:	3c03800b */ 	lui	$v1,0x800b
 /*  f196128:	9063d138 */ 	lbu	$v1,-0x2ec8($v1)
@@ -8093,7 +8104,7 @@ glabel var7f1b8fc8
 /*  f196134:	16e3001e */ 	bne	$s7,$v1,.PF0f1961b0
 /*  f196138:	24010002 */ 	li	$at,0x2
 /*  f19613c:	2405000b */ 	li	$a1,0xb
-/*  f196140:	0fc655f7 */ 	jal	mpCountAibotsWithCommand
+/*  f196140:	0fc655f7 */ 	jal	botCountByCommand
 /*  f196144:	00003025 */ 	move	$a2,$zero
 /*  f196148:	18400010 */ 	blez	$v0,.PF0f19618c
 /*  f19614c:	266c0001 */ 	addiu	$t4,$s3,0x1
@@ -8116,12 +8127,12 @@ glabel var7f1b8fc8
 .PF0f19618c:
 /*  f19618c:	02802025 */ 	move	$a0,$s4
 .PF0f196190:
-/*  f196190:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f196190:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f196194:	2405000b */ 	li	$a1,0xb
 /*  f196198:	10000111 */ 	b	.PF0f1965e0
 /*  f19619c:	00000000 */ 	nop
 .PF0f1961a0:
-/*  f1961a0:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1961a0:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f1961a4:	24050004 */ 	li	$a1,0x4
 /*  f1961a8:	1000010d */ 	b	.PF0f1965e0
 /*  f1961ac:	00000000 */ 	nop
@@ -8129,7 +8140,7 @@ glabel var7f1b8fc8
 /*  f1961b0:	14610022 */ 	bne	$v1,$at,.PF0f19623c
 /*  f1961b4:	02802025 */ 	move	$a0,$s4
 /*  f1961b8:	24050005 */ 	li	$a1,0x5
-/*  f1961bc:	0fc655f7 */ 	jal	mpCountAibotsWithCommand
+/*  f1961bc:	0fc655f7 */ 	jal	botCountByCommand
 /*  f1961c0:	00003025 */ 	move	$a2,$zero
 /*  f1961c4:	8e58004c */ 	lw	$t8,0x4c($s2)
 /*  f1961c8:	00184940 */ 	sll	$t1,$t8,0x5
@@ -8156,12 +8167,12 @@ glabel var7f1b8fc8
 .PF0f196218:
 /*  f196218:	02802025 */ 	move	$a0,$s4
 .PF0f19621c:
-/*  f19621c:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f19621c:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f196220:	24050005 */ 	li	$a1,0x5
 /*  f196224:	100000ee */ 	b	.PF0f1965e0
 /*  f196228:	00000000 */ 	nop
 .PF0f19622c:
-/*  f19622c:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f19622c:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f196230:	24050004 */ 	li	$a1,0x4
 /*  f196234:	100000ea */ 	b	.PF0f1965e0
 /*  f196238:	00000000 */ 	nop
@@ -8170,7 +8181,7 @@ glabel var7f1b8fc8
 /*  f196240:	1461001e */ 	bne	$v1,$at,.PF0f1962bc
 /*  f196244:	02802025 */ 	move	$a0,$s4
 /*  f196248:	2405000c */ 	li	$a1,0xc
-/*  f19624c:	0fc655f7 */ 	jal	mpCountAibotsWithCommand
+/*  f19624c:	0fc655f7 */ 	jal	botCountByCommand
 /*  f196250:	00003025 */ 	move	$a2,$zero
 /*  f196254:	18400010 */ 	blez	$v0,.PF0f196298
 /*  f196258:	266c0001 */ 	addiu	$t4,$s3,0x1
@@ -8193,12 +8204,12 @@ glabel var7f1b8fc8
 .PF0f196298:
 /*  f196298:	02802025 */ 	move	$a0,$s4
 .PF0f19629c:
-/*  f19629c:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f19629c:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f1962a0:	2405000c */ 	li	$a1,0xc
 /*  f1962a4:	100000ce */ 	b	.PF0f1965e0
 /*  f1962a8:	00000000 */ 	nop
 .PF0f1962ac:
-/*  f1962ac:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1962ac:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f1962b0:	24050004 */ 	li	$a1,0x4
 /*  f1962b4:	100000ca */ 	b	.PF0f1965e0
 /*  f1962b8:	00000000 */ 	nop
@@ -8206,7 +8217,7 @@ glabel var7f1b8fc8
 /*  f1962bc:	24010004 */ 	li	$at,0x4
 /*  f1962c0:	54610034 */ 	bnel	$v1,$at,.PF0f196394
 /*  f1962c4:	24010005 */ 	li	$at,0x5
-/*  f1962c8:	0fc6566f */ 	jal	mpGetNumTeammatesDefendingHill
+/*  f1962c8:	0fc6566f */ 	jal	botGetNumTeammatesDefendingHill
 /*  f1962cc:	02802025 */ 	move	$a0,$s4
 /*  f1962d0:	8e98001c */ 	lw	$t8,0x1c($s4)
 /*  f1962d4:	3c09800b */ 	lui	$t1,0x800b
@@ -8229,12 +8240,12 @@ glabel var7f1b8fc8
 /*  f196310:	10200005 */ 	beqz	$at,.PF0f196328
 /*  f196314:	00000000 */ 	nop
 .PF0f196318:
-/*  f196318:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f196318:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f19631c:	2405000a */ 	li	$a1,0xa
 /*  f196320:	100000af */ 	b	.PF0f1965e0
 /*  f196324:	00000000 */ 	nop
 .PF0f196328:
-/*  f196328:	0fc65692 */ 	jal	mpGetNumOpponentsInHill
+/*  f196328:	0fc65692 */ 	jal	botGetNumOpponentsInHill
 /*  f19632c:	02802025 */ 	move	$a0,$s4
 /*  f196330:	0050082a */ 	slt	$at,$v0,$s0
 /*  f196334:	10200012 */ 	beqz	$at,.PF0f196380
@@ -8248,17 +8259,17 @@ glabel var7f1b8fc8
 /*  f196354:	10200006 */ 	beqz	$at,.PF0f196370
 /*  f196358:	02802025 */ 	move	$a0,$s4
 /*  f19635c:	02802025 */ 	move	$a0,$s4
-/*  f196360:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f196360:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f196364:	24050009 */ 	li	$a1,0x9
 /*  f196368:	1000009d */ 	b	.PF0f1965e0
 /*  f19636c:	00000000 */ 	nop
 .PF0f196370:
-/*  f196370:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f196370:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f196374:	24050004 */ 	li	$a1,0x4
 /*  f196378:	10000099 */ 	b	.PF0f1965e0
 /*  f19637c:	00000000 */ 	nop
 .PF0f196380:
-/*  f196380:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f196380:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f196384:	2405000a */ 	li	$a1,0xa
 /*  f196388:	10000095 */ 	b	.PF0f1965e0
 /*  f19638c:	00000000 */ 	nop
@@ -8270,19 +8281,19 @@ glabel var7f1b8fc8
 /*  f1963a0:	02802025 */ 	move	$a0,$s4
 /*  f1963a4:	02802025 */ 	move	$a0,$s4
 /*  f1963a8:	24050006 */ 	li	$a1,0x6
-/*  f1963ac:	0fc655f7 */ 	jal	mpCountAibotsWithCommand
+/*  f1963ac:	0fc655f7 */ 	jal	botCountByCommand
 /*  f1963b0:	02e03025 */ 	move	$a2,$s7
 /*  f1963b4:	00408025 */ 	move	$s0,$v0
-/*  f1963b8:	0fc65655 */ 	jal	func0f19489c
+/*  f1963b8:	0fc65655 */ 	jal	bot0f19489c
 /*  f1963bc:	02802025 */ 	move	$a0,$s4
 /*  f1963c0:	10400005 */ 	beqz	$v0,.PF0f1963d8
 /*  f1963c4:	02802025 */ 	move	$a0,$s4
-/*  f1963c8:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1963c8:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f1963cc:	24050006 */ 	li	$a1,0x6
 /*  f1963d0:	10000083 */ 	b	.PF0f1965e0
 /*  f1963d4:	00000000 */ 	nop
 .PF0f1963d8:
-/*  f1963d8:	0fc6563b */ 	jal	scenarioCtcIsChrsTokenHeld
+/*  f1963d8:	0fc6563b */ 	jal	botIsChrsTokenHeld
 /*  f1963dc:	02802025 */ 	move	$a0,$s4
 /*  f1963e0:	10400012 */ 	beqz	$v0,.PF0f19642c
 /*  f1963e4:	00000000 */ 	nop
@@ -8295,12 +8306,12 @@ glabel var7f1b8fc8
 /*  f196400:	10200006 */ 	beqz	$at,.PF0f19641c
 /*  f196404:	02802025 */ 	move	$a0,$s4
 /*  f196408:	02802025 */ 	move	$a0,$s4
-/*  f19640c:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f19640c:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f196410:	24050006 */ 	li	$a1,0x6
 /*  f196414:	10000072 */ 	b	.PF0f1965e0
 /*  f196418:	00000000 */ 	nop
 .PF0f19641c:
-/*  f19641c:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f19641c:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f196420:	24050008 */ 	li	$a1,0x8
 /*  f196424:	1000006e */ 	b	.PF0f1965e0
 /*  f196428:	00000000 */ 	nop
@@ -8316,35 +8327,35 @@ glabel var7f1b8fc8
 /*  f19644c:	1e000005 */ 	bgtz	$s0,.PF0f196464
 /*  f196450:	24050008 */ 	li	$a1,0x8
 .PF0f196454:
-/*  f196454:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f196454:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f196458:	24050006 */ 	li	$a1,0x6
 /*  f19645c:	10000060 */ 	b	.PF0f1965e0
 /*  f196460:	00000000 */ 	nop
 .PF0f196464:
-/*  f196464:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f196464:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f196468:	02802025 */ 	move	$a0,$s4
 /*  f19646c:	1000005c */ 	b	.PF0f1965e0
 /*  f196470:	00000000 */ 	nop
 .PF0f196474:
 /*  f196474:	24050006 */ 	li	$a1,0x6
-/*  f196478:	0fc655f7 */ 	jal	mpCountAibotsWithCommand
+/*  f196478:	0fc655f7 */ 	jal	botCountByCommand
 /*  f19647c:	00003025 */ 	move	$a2,$zero
 /*  f196480:	00408825 */ 	move	$s1,$v0
 /*  f196484:	02802025 */ 	move	$a0,$s4
 /*  f196488:	24050008 */ 	li	$a1,0x8
-/*  f19648c:	0fc655f7 */ 	jal	mpCountAibotsWithCommand
+/*  f19648c:	0fc655f7 */ 	jal	botCountByCommand
 /*  f196490:	00003025 */ 	move	$a2,$zero
 /*  f196494:	00408025 */ 	move	$s0,$v0
-/*  f196498:	0fc65655 */ 	jal	func0f19489c
+/*  f196498:	0fc65655 */ 	jal	bot0f19489c
 /*  f19649c:	02802025 */ 	move	$a0,$s4
 /*  f1964a0:	10400005 */ 	beqz	$v0,.PF0f1964b8
 /*  f1964a4:	02802025 */ 	move	$a0,$s4
-/*  f1964a8:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1964a8:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f1964ac:	24050006 */ 	li	$a1,0x6
 /*  f1964b0:	1000004b */ 	b	.PF0f1965e0
 /*  f1964b4:	00000000 */ 	nop
 .PF0f1964b8:
-/*  f1964b8:	0fc6563b */ 	jal	scenarioCtcIsChrsTokenHeld
+/*  f1964b8:	0fc6563b */ 	jal	botIsChrsTokenHeld
 /*  f1964bc:	02802025 */ 	move	$a0,$s4
 /*  f1964c0:	10400014 */ 	beqz	$v0,.PF0f196514
 /*  f1964c4:	00000000 */ 	nop
@@ -8360,12 +8371,12 @@ glabel var7f1b8fc8
 /*  f1964ec:	02802025 */ 	move	$a0,$s4
 /*  f1964f0:	02802025 */ 	move	$a0,$s4
 .PF0f1964f4:
-/*  f1964f4:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1964f4:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f1964f8:	24050008 */ 	li	$a1,0x8
 /*  f1964fc:	10000038 */ 	b	.PF0f1965e0
 /*  f196500:	00000000 */ 	nop
 .PF0f196504:
-/*  f196504:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f196504:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f196508:	24050006 */ 	li	$a1,0x6
 /*  f19650c:	10000034 */ 	b	.PF0f1965e0
 /*  f196510:	00000000 */ 	nop
@@ -8378,7 +8389,7 @@ glabel var7f1b8fc8
 /*  f196528:	10200005 */ 	beqz	$at,.PF0f196540
 .PF0f19652c:
 /*  f19652c:	02802025 */ 	move	$a0,$s4
-/*  f196530:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f196530:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f196534:	24050006 */ 	li	$a1,0x6
 /*  f196538:	10000029 */ 	b	.PF0f1965e0
 /*  f19653c:	00000000 */ 	nop
@@ -8394,7 +8405,7 @@ glabel var7f1b8fc8
 /*  f19655c:	10200005 */ 	beqz	$at,.PF0f196574
 /*  f196560:	00000000 */ 	nop
 .PF0f196564:
-/*  f196564:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f196564:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f196568:	24050008 */ 	li	$a1,0x8
 /*  f19656c:	1000001c */ 	b	.PF0f1965e0
 /*  f196570:	00000000 */ 	nop
@@ -8407,7 +8418,7 @@ glabel var7f1b8fc8
 /*  f196588:	2f21001e */ 	sltiu	$at,$t9,0x1e
 /*  f19658c:	10200005 */ 	beqz	$at,.PF0f1965a4
 /*  f196590:	02802025 */ 	move	$a0,$s4
-/*  f196594:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f196594:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f196598:	24050006 */ 	li	$a1,0x6
 /*  f19659c:	10000010 */ 	b	.PF0f1965e0
 /*  f1965a0:	00000000 */ 	nop
@@ -8421,12 +8432,12 @@ glabel var7f1b8fc8
 /*  f1965bc:	10200006 */ 	beqz	$at,.PF0f1965d8
 /*  f1965c0:	02802025 */ 	move	$a0,$s4
 /*  f1965c4:	02802025 */ 	move	$a0,$s4
-/*  f1965c8:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1965c8:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f1965cc:	24050008 */ 	li	$a1,0x8
 /*  f1965d0:	10000003 */ 	b	.PF0f1965e0
 /*  f1965d4:	00000000 */ 	nop
 .PF0f1965d8:
-/*  f1965d8:	0fc64db2 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1965d8:	0fc64db2 */ 	jal	botApplyScenarioCommand
 /*  f1965dc:	24050004 */ 	li	$a1,0x4
 .PF0f1965e0:
 /*  f1965e0:	0c004ad4 */ 	jal	random
@@ -8468,7 +8479,7 @@ glabel var7f1b8fc8
 .PF0f196668:
 /*  f196668:	06a10006 */ 	bgez	$s5,.PF0f196684
 /*  f19666c:	00000000 */ 	nop
-/*  f196670:	0fc655d3 */ 	jal	func0f194694
+/*  f196670:	0fc655d3 */ 	jal	bot0f194694
 /*  f196674:	02802025 */ 	move	$a0,$s4
 /*  f196678:	10400002 */ 	beqz	$v0,.PF0f196684
 /*  f19667c:	ae420010 */ 	sw	$v0,0x10($s2)
@@ -8490,11 +8501,11 @@ glabel var7f1b8fc8
 /*  f1966b8:	02002025 */ 	move	$a0,$s0
 /*  f1966bc:	14400232 */ 	bnez	$v0,.PF0f196f88
 /*  f1966c0:	02802025 */ 	move	$a0,$s4
-/*  f1966c4:	0fc64e81 */ 	jal	func0f19294c
+/*  f1966c4:	0fc64e81 */ 	jal	bot0f19294c
 /*  f1966c8:	02002825 */ 	move	$a1,$s0
 /*  f1966cc:	1440022e */ 	bnez	$v0,.PF0f196f88
 /*  f1966d0:	02802025 */ 	move	$a0,$s4
-/*  f1966d4:	0fc64f9c */ 	jal	func0f192dc0
+/*  f1966d4:	0fc64f9c */ 	jal	botPassesCowardCheck
 /*  f1966d8:	02002825 */ 	move	$a1,$s0
 /*  f1966dc:	1040022a */ 	beqz	$v0,.PF0f196f88
 /*  f1966e0:	02002025 */ 	move	$a0,$s0
@@ -8689,7 +8700,7 @@ glabel var7f1b8fc8
 /*  f196980:	10000181 */ 	b	.PF0f196f88
 /*  f196984:	ae420010 */ 	sw	$v0,0x10($s2)
 .PF0f196988:
-/*  f196988:	0fc65163 */ 	jal	mpIsChrFollowedByChr
+/*  f196988:	0fc65163 */ 	jal	botIsFollowing
 /*  f19698c:	8c450004 */ 	lw	$a1,0x4($v0)
 /*  f196990:	1040000a */ 	beqz	$v0,.PF0f1969bc
 /*  f196994:	00000000 */ 	nop
@@ -8732,7 +8743,7 @@ glabel var7f1b8fc8
 /*  f196a1c:	920b0125 */ 	lbu	$t3,0x125($s0)
 /*  f196a20:	154b000e */ 	bne	$t2,$t3,.PF0f196a5c
 /*  f196a24:	00000000 */ 	nop
-/*  f196a28:	0fc65163 */ 	jal	mpIsChrFollowedByChr
+/*  f196a28:	0fc65163 */ 	jal	botIsFollowing
 /*  f196a2c:	02002825 */ 	move	$a1,$s0
 /*  f196a30:	10400155 */ 	beqz	$v0,.PF0f196f88
 /*  f196a34:	00000000 */ 	nop
@@ -8750,11 +8761,11 @@ glabel var7f1b8fc8
 /*  f196a60:	02002025 */ 	move	$a0,$s0
 /*  f196a64:	14400148 */ 	bnez	$v0,.PF0f196f88
 /*  f196a68:	02802025 */ 	move	$a0,$s4
-/*  f196a6c:	0fc64e81 */ 	jal	func0f19294c
+/*  f196a6c:	0fc64e81 */ 	jal	bot0f19294c
 /*  f196a70:	02002825 */ 	move	$a1,$s0
 /*  f196a74:	14400144 */ 	bnez	$v0,.PF0f196f88
 /*  f196a78:	02802025 */ 	move	$a0,$s4
-/*  f196a7c:	0fc64f9c */ 	jal	func0f192dc0
+/*  f196a7c:	0fc64f9c */ 	jal	botPassesCowardCheck
 /*  f196a80:	02002825 */ 	move	$a1,$s0
 /*  f196a84:	10400140 */ 	beqz	$v0,.PF0f196f88
 /*  f196a88:	02002025 */ 	move	$a0,$s0
@@ -8801,7 +8812,7 @@ glabel var7f1b8fc8
 /*  f196b24:	0fc0a26a */ 	jal	chrGetTargetProp
 /*  f196b28:	02802025 */ 	move	$a0,$s4
 /*  f196b2c:	02802025 */ 	move	$a0,$s4
-/*  f196b30:	0fc64f9c */ 	jal	func0f192dc0
+/*  f196b30:	0fc64f9c */ 	jal	botPassesCowardCheck
 /*  f196b34:	8c450004 */ 	lw	$a1,0x4($v0)
 /*  f196b38:	10400009 */ 	beqz	$v0,.PF0f196b60
 /*  f196b3c:	02802025 */ 	move	$a0,$s4
@@ -8935,7 +8946,7 @@ glabel var7f1b8fc8
 /*  f196d2c:	02002825 */ 	move	$a1,$s0
 /*  f196d30:	15cc000e */ 	bne	$t6,$t4,.PF0f196d6c
 /*  f196d34:	00000000 */ 	nop
-/*  f196d38:	0fc65163 */ 	jal	mpIsChrFollowedByChr
+/*  f196d38:	0fc65163 */ 	jal	botIsFollowing
 /*  f196d3c:	02802025 */ 	move	$a0,$s4
 /*  f196d40:	10400091 */ 	beqz	$v0,.PF0f196f88
 /*  f196d44:	00000000 */ 	nop
@@ -8949,11 +8960,11 @@ glabel var7f1b8fc8
 /*  f196d64:	10000088 */ 	b	.PF0f196f88
 /*  f196d68:	a642000a */ 	sh	$v0,0xa($s2)
 .PF0f196d6c:
-/*  f196d6c:	0fc64e81 */ 	jal	func0f19294c
+/*  f196d6c:	0fc64e81 */ 	jal	bot0f19294c
 /*  f196d70:	02002825 */ 	move	$a1,$s0
 /*  f196d74:	14400084 */ 	bnez	$v0,.PF0f196f88
 /*  f196d78:	02802025 */ 	move	$a0,$s4
-/*  f196d7c:	0fc64f9c */ 	jal	func0f192dc0
+/*  f196d7c:	0fc64f9c */ 	jal	botPassesCowardCheck
 /*  f196d80:	02002825 */ 	move	$a1,$s0
 /*  f196d84:	10400080 */ 	beqz	$v0,.PF0f196f88
 /*  f196d88:	02002025 */ 	move	$a0,$s0
@@ -8999,7 +9010,7 @@ glabel var7f1b8fc8
 /*  f196e1c:	02002825 */ 	move	$a1,$s0
 /*  f196e20:	156e000e */ 	bne	$t3,$t6,.PF0f196e5c
 /*  f196e24:	00000000 */ 	nop
-/*  f196e28:	0fc65163 */ 	jal	mpIsChrFollowedByChr
+/*  f196e28:	0fc65163 */ 	jal	botIsFollowing
 /*  f196e2c:	02802025 */ 	move	$a0,$s4
 /*  f196e30:	10400055 */ 	beqz	$v0,.PF0f196f88
 /*  f196e34:	00000000 */ 	nop
@@ -9013,11 +9024,11 @@ glabel var7f1b8fc8
 /*  f196e54:	1000004c */ 	b	.PF0f196f88
 /*  f196e58:	a642000a */ 	sh	$v0,0xa($s2)
 .PF0f196e5c:
-/*  f196e5c:	0fc64e81 */ 	jal	func0f19294c
+/*  f196e5c:	0fc64e81 */ 	jal	bot0f19294c
 /*  f196e60:	02002825 */ 	move	$a1,$s0
 /*  f196e64:	14400048 */ 	bnez	$v0,.PF0f196f88
 /*  f196e68:	02802025 */ 	move	$a0,$s4
-/*  f196e6c:	0fc64f9c */ 	jal	func0f192dc0
+/*  f196e6c:	0fc64f9c */ 	jal	botPassesCowardCheck
 /*  f196e70:	02002825 */ 	move	$a1,$s0
 /*  f196e74:	10400044 */ 	beqz	$v0,.PF0f196f88
 /*  f196e78:	02002025 */ 	move	$a0,$s0
@@ -9065,7 +9076,7 @@ glabel var7f1b8fc8
 /*  f196f18:	02002825 */ 	move	$a1,$s0
 /*  f196f1c:	15f8000e */ 	bne	$t7,$t8,.PF0f196f58
 /*  f196f20:	00000000 */ 	nop
-/*  f196f24:	0fc65163 */ 	jal	mpIsChrFollowedByChr
+/*  f196f24:	0fc65163 */ 	jal	botIsFollowing
 /*  f196f28:	02802025 */ 	move	$a0,$s4
 /*  f196f2c:	10400016 */ 	beqz	$v0,.PF0f196f88
 /*  f196f30:	00000000 */ 	nop
@@ -9079,11 +9090,11 @@ glabel var7f1b8fc8
 /*  f196f50:	1000000d */ 	b	.PF0f196f88
 /*  f196f54:	a642000a */ 	sh	$v0,0xa($s2)
 .PF0f196f58:
-/*  f196f58:	0fc64e81 */ 	jal	func0f19294c
+/*  f196f58:	0fc64e81 */ 	jal	bot0f19294c
 /*  f196f5c:	02002825 */ 	move	$a1,$s0
 /*  f196f60:	14400009 */ 	bnez	$v0,.PF0f196f88
 /*  f196f64:	02802025 */ 	move	$a0,$s4
-/*  f196f68:	0fc64f9c */ 	jal	func0f192dc0
+/*  f196f68:	0fc64f9c */ 	jal	botPassesCowardCheck
 /*  f196f6c:	02002825 */ 	move	$a1,$s0
 /*  f196f70:	10400005 */ 	beqz	$v0,.PF0f196f88
 /*  f196f74:	02002025 */ 	move	$a0,$s0
@@ -9111,7 +9122,7 @@ glabel var7f1b8fc8
 /*  f196fc8:	10200005 */ 	beqz	$at,.PF0f196fe0
 /*  f196fcc:	02802025 */ 	move	$a0,$s4
 /*  f196fd0:	3c0547c3 */ 	lui	$a1,0x47c3
-/*  f196fd4:	0fc65178 */ 	jal	func0f193530
+/*  f196fd4:	0fc65178 */ 	jal	bot0f193530
 /*  f196fd8:	34a55000 */ 	ori	$a1,$a1,0x5000
 /*  f196fdc:	00408025 */ 	move	$s0,$v0
 .PF0f196fe0:
@@ -9150,7 +9161,7 @@ glabel var7f1b8fc8
 /*  f19705c:	10200005 */ 	beqz	$at,.PF0f197074
 /*  f197060:	02802025 */ 	move	$a0,$s4
 /*  f197064:	3c0547c3 */ 	lui	$a1,0x47c3
-/*  f197068:	0fc65178 */ 	jal	func0f193530
+/*  f197068:	0fc65178 */ 	jal	bot0f193530
 /*  f19706c:	34a55000 */ 	ori	$a1,$a1,0x5000
 /*  f197070:	00408025 */ 	move	$s0,$v0
 .PF0f197074:
@@ -9167,7 +9178,7 @@ glabel var7f1b8fc8
 /*  f197098:	24010005 */ 	li	$at,0x5
 /*  f19709c:	54610021 */ 	bnel	$v1,$at,.PF0f197124
 /*  f1970a0:	24010002 */ 	li	$at,0x2
-/*  f1970a4:	0fc65655 */ 	jal	func0f19489c
+/*  f1970a4:	0fc65655 */ 	jal	bot0f19489c
 /*  f1970a8:	02802025 */ 	move	$a0,$s4
 /*  f1970ac:	1040002f */ 	beqz	$v0,.PF0f19716c
 /*  f1970b0:	00000000 */ 	nop
@@ -9232,7 +9243,7 @@ glabel var7f1b8fc8
 /*  f197194:	04400098 */ 	bltz	$v0,.PF0f1973f8
 /*  f197198:	0002c880 */ 	sll	$t9,$v0,0x2
 /*  f19719c:	00b92821 */ 	addu	$a1,$a1,$t9
-/*  f1971a0:	0fc64e81 */ 	jal	func0f19294c
+/*  f1971a0:	0fc64e81 */ 	jal	bot0f19294c
 /*  f1971a4:	8ca5ca70 */ 	lw	$a1,-0x3590($a1)
 /*  f1971a8:	14400093 */ 	bnez	$v0,.PF0f1973f8
 /*  f1971ac:	00000000 */ 	nop
@@ -9269,7 +9280,7 @@ glabel var7f1b8fc8
 /*  f19721c:	04400076 */ 	bltz	$v0,.PF0f1973f8
 /*  f197220:	00027080 */ 	sll	$t6,$v0,0x2
 /*  f197224:	00ae2821 */ 	addu	$a1,$a1,$t6
-/*  f197228:	0fc64e81 */ 	jal	func0f19294c
+/*  f197228:	0fc64e81 */ 	jal	bot0f19294c
 /*  f19722c:	8ca5ca70 */ 	lw	$a1,-0x3590($a1)
 /*  f197230:	14400071 */ 	bnez	$v0,.PF0f1973f8
 /*  f197234:	00000000 */ 	nop
@@ -9309,7 +9320,7 @@ glabel var7f1b8fc8
 /*  f1972b4:	24060002 */ 	li	$a2,0x2
 /*  f1972b8:	10400008 */ 	beqz	$v0,.PF0f1972dc
 /*  f1972bc:	02802025 */ 	move	$a0,$s4
-/*  f1972c0:	0fc64e81 */ 	jal	func0f19294c
+/*  f1972c0:	0fc64e81 */ 	jal	bot0f19294c
 /*  f1972c4:	02202825 */ 	move	$a1,$s1
 /*  f1972c8:	14400004 */ 	bnez	$v0,.PF0f1972dc
 /*  f1972cc:	8fa900d8 */ 	lw	$t1,0xd8($sp)
@@ -9351,7 +9362,7 @@ glabel var7f1b8fc8
 /*  f197350:	1040001f */ 	beqz	$v0,.PF0f1973d0
 /*  f197354:	8fa500c0 */ 	lw	$a1,0xc0($sp)
 /*  f197358:	02802025 */ 	move	$a0,$s4
-/*  f19735c:	0fc64e81 */ 	jal	func0f19294c
+/*  f19735c:	0fc64e81 */ 	jal	bot0f19294c
 /*  f197360:	afa500c0 */ 	sw	$a1,0xc0($sp)
 /*  f197364:	1440001a */ 	bnez	$v0,.PF0f1973d0
 /*  f197368:	8fa500c0 */ 	lw	$a1,0xc0($sp)
@@ -9405,7 +9416,7 @@ glabel var7f1b8fc8
 /*  f19740c:	0fc0a26a */ 	jal	chrGetTargetProp
 /*  f197410:	02802025 */ 	move	$a0,$s4
 /*  f197414:	02802025 */ 	move	$a0,$s4
-/*  f197418:	0fc64f9c */ 	jal	func0f192dc0
+/*  f197418:	0fc64f9c */ 	jal	botPassesCowardCheck
 /*  f19741c:	8c450004 */ 	lw	$a1,0x4($v0)
 /*  f197420:	10400003 */ 	beqz	$v0,.PF0f197430
 /*  f197424:	00000000 */ 	nop
@@ -9414,7 +9425,7 @@ glabel var7f1b8fc8
 .PF0f197430:
 /*  f197430:	06a1000b */ 	bgez	$s5,.PF0f197460
 /*  f197434:	02802025 */ 	move	$a0,$s4
-/*  f197438:	0fc65178 */ 	jal	func0f193530
+/*  f197438:	0fc65178 */ 	jal	bot0f193530
 /*  f19743c:	3c054396 */ 	lui	$a1,0x4396
 /*  f197440:	04400007 */ 	bltz	$v0,.PF0f197460
 /*  f197444:	00408025 */ 	move	$s0,$v0
@@ -9427,7 +9438,7 @@ glabel var7f1b8fc8
 .PF0f197460:
 /*  f197460:	06a10006 */ 	bgez	$s5,.PF0f19747c
 /*  f197464:	00000000 */ 	nop
-/*  f197468:	0fc655db */ 	jal	func0f1946b4
+/*  f197468:	0fc655db */ 	jal	bot0f1946b4
 /*  f19746c:	02802025 */ 	move	$a0,$s4
 /*  f197470:	10400002 */ 	beqz	$v0,.PF0f19747c
 /*  f197474:	ae420010 */ 	sw	$v0,0x10($s2)
@@ -9472,7 +9483,7 @@ glabel var7f1b8fc8
 /*  f197504:	02802025 */ 	move	$a0,$s4
 /*  f197508:	51c00061 */ 	beqzl	$t6,.PF0f197690
 /*  f19750c:	928202a0 */ 	lbu	$v0,0x2a0($s4)
-/*  f197510:	0fc64e0d */ 	jal	func0f19277c
+/*  f197510:	0fc64e0d */ 	jal	bot0f19277c
 /*  f197514:	03c02825 */ 	move	$a1,$s8
 /*  f197518:	1000005d */ 	b	.PF0f197690
 /*  f19751c:	928202a0 */ 	lbu	$v0,0x2a0($s4)
@@ -9485,7 +9496,7 @@ glabel var7f1b8fc8
 /*  f197534:	02802025 */ 	move	$a0,$s4
 /*  f197538:	51800004 */ 	beqzl	$t4,.PF0f19754c
 /*  f19753c:	02802025 */ 	move	$a0,$s4
-/*  f197540:	0fc64e0d */ 	jal	func0f19277c
+/*  f197540:	0fc64e0d */ 	jal	bot0f19277c
 /*  f197544:	03c02825 */ 	move	$a1,$s8
 /*  f197548:	02802025 */ 	move	$a0,$s4
 .PF0f19754c:
@@ -9618,7 +9629,7 @@ glabel var7f1b8fc8
 /*  f197714:	02802025 */ 	move	$a0,$s4
 /*  f197718:	000cc080 */ 	sll	$t8,$t4,0x2
 /*  f19771c:	00b82821 */ 	addu	$a1,$a1,$t8
-/*  f197720:	0fc64f9c */ 	jal	func0f192dc0
+/*  f197720:	0fc64f9c */ 	jal	botPassesCowardCheck
 /*  f197724:	8ca5ca70 */ 	lw	$a1,-0x3590($a1)
 /*  f197728:	14400003 */ 	bnez	$v0,.PF0f197738
 /*  f19772c:	240f0029 */ 	li	$t7,0x29
@@ -9641,7 +9652,7 @@ glabel var7f1b8fc8
 /*  f197768:	0fc0a26a */ 	jal	chrGetTargetProp
 /*  f19776c:	02802025 */ 	move	$a0,$s4
 /*  f197770:	02802025 */ 	move	$a0,$s4
-/*  f197774:	0fc64f9c */ 	jal	func0f192dc0
+/*  f197774:	0fc64f9c */ 	jal	botPassesCowardCheck
 /*  f197778:	8c450004 */ 	lw	$a1,0x4($v0)
 /*  f19777c:	14400003 */ 	bnez	$v0,.PF0f19778c
 /*  f197780:	240a0029 */ 	li	$t2,0x29
@@ -9649,9 +9660,9 @@ glabel var7f1b8fc8
 /*  f197784:	10000134 */ 	b	.PF0f197c58
 /*  f197788:	a28a02a0 */ 	sb	$t2,0x2a0($s4)
 .PF0f19778c:
-/*  f19778c:	0fc661c0 */ 	jal	func0f197600
+/*  f19778c:	0fc661c0 */ 	jal	botcmdTickDistMode
 /*  f197790:	02802025 */ 	move	$a0,$s4
-/*  f197794:	0fc655ca */ 	jal	func0f194670
+/*  f197794:	0fc655ca */ 	jal	bot0f194670
 /*  f197798:	02802025 */ 	move	$a0,$s4
 /*  f19779c:	10400003 */ 	beqz	$v0,.PF0f1977ac
 /*  f1977a0:	240d0029 */ 	li	$t5,0x29
@@ -9687,7 +9698,7 @@ glabel var7f1b8fc8
 /*  f19780c:	10000112 */ 	b	.PF0f197c58
 /*  f197810:	a29902a0 */ 	sb	$t9,0x2a0($s4)
 .PF0f197814:
-/*  f197814:	0fc661c0 */ 	jal	func0f197600
+/*  f197814:	0fc661c0 */ 	jal	botcmdTickDistMode
 /*  f197818:	02802025 */ 	move	$a0,$s4
 /*  f19781c:	8e4901e0 */ 	lw	$t1,0x1e0($s2)
 /*  f197820:	11200037 */ 	beqz	$t1,.PF0f197900
@@ -9701,7 +9712,7 @@ glabel var7f1b8fc8
 /*  f197840:	0fc0a26a */ 	jal	chrGetTargetProp
 /*  f197844:	02802025 */ 	move	$a0,$s4
 /*  f197848:	02802025 */ 	move	$a0,$s4
-/*  f19784c:	0fc64f9c */ 	jal	func0f192dc0
+/*  f19784c:	0fc64f9c */ 	jal	botPassesCowardCheck
 /*  f197850:	8c450004 */ 	lw	$a1,0x4($v0)
 /*  f197854:	1040002a */ 	beqz	$v0,.PF0f197900
 /*  f197858:	3c0143fa */ 	lui	$at,0x43fa
@@ -9749,7 +9760,7 @@ glabel var7f1b8fc8
 /*  f1978f8:	ae4f01d8 */ 	sw	$t7,0x1d8($s2)
 /*  f1978fc:	a25e0074 */ 	sb	$s8,0x74($s2)
 .PF0f197900:
-/*  f197900:	0fc655ca */ 	jal	func0f194670
+/*  f197900:	0fc655ca */ 	jal	bot0f194670
 /*  f197904:	02802025 */ 	move	$a0,$s4
 /*  f197908:	104000d3 */ 	beqz	$v0,.PF0f197c58
 /*  f19790c:	24190029 */ 	li	$t9,0x29
@@ -9838,7 +9849,7 @@ glabel var7f1b8fc8
 /*  f197a3c:	0fc0a26a */ 	jal	chrGetTargetProp
 /*  f197a40:	02802025 */ 	move	$a0,$s4
 /*  f197a44:	02802025 */ 	move	$a0,$s4
-/*  f197a48:	0fc64f9c */ 	jal	func0f192dc0
+/*  f197a48:	0fc64f9c */ 	jal	botPassesCowardCheck
 /*  f197a4c:	8c450004 */ 	lw	$a1,0x4($v0)
 /*  f197a50:	1040000a */ 	beqz	$v0,.PF0f197a7c
 /*  f197a54:	2409002f */ 	li	$t1,0x2f
@@ -9859,7 +9870,7 @@ glabel var7f1b8fc8
 /*  f197a88:	00000000 */ 	nop
 /*  f197a8c:	ae4e00dc */ 	sw	$t6,0xdc($s2)
 .PF0f197a90:
-/*  f197a90:	0fc655ca */ 	jal	func0f194670
+/*  f197a90:	0fc655ca */ 	jal	bot0f194670
 /*  f197a94:	02802025 */ 	move	$a0,$s4
 /*  f197a98:	1040006f */ 	beqz	$v0,.PF0f197c58
 /*  f197a9c:	240b0029 */ 	li	$t3,0x29
@@ -9914,7 +9925,7 @@ glabel var7f1b8fc8
 /*  f197b4c:	10000042 */ 	b	.PF0f197c58
 /*  f197b50:	a28c02a0 */ 	sb	$t4,0x2a0($s4)
 .PF0f197b54:
-/*  f197b54:	0fc655ca */ 	jal	func0f194670
+/*  f197b54:	0fc655ca */ 	jal	bot0f194670
 /*  f197b58:	02802025 */ 	move	$a0,$s4
 /*  f197b5c:	1040003e */ 	beqz	$v0,.PF0f197c58
 /*  f197b60:	24180029 */ 	li	$t8,0x29
@@ -9924,7 +9935,7 @@ glabel var7f1b8fc8
 /*  f197b6c:	2401002c */ 	li	$at,0x2c
 /*  f197b70:	54410029 */ 	bnel	$v0,$at,.PF0f197c18
 /*  f197b74:	2401002e */ 	li	$at,0x2e
-/*  f197b78:	0fc655ca */ 	jal	func0f194670
+/*  f197b78:	0fc655ca */ 	jal	bot0f194670
 /*  f197b7c:	02802025 */ 	move	$a0,$s4
 /*  f197b80:	10400003 */ 	beqz	$v0,.PF0f197b90
 /*  f197b84:	240f0029 */ 	li	$t7,0x29
@@ -9970,7 +9981,7 @@ glabel var7f1b8fc8
 .PF0f197c18:
 /*  f197c18:	1441000f */ 	bne	$v0,$at,.PF0f197c58
 /*  f197c1c:	00000000 */ 	nop
-/*  f197c20:	0fc655ca */ 	jal	func0f194670
+/*  f197c20:	0fc655ca */ 	jal	bot0f194670
 /*  f197c24:	02802025 */ 	move	$a0,$s4
 /*  f197c28:	10400003 */ 	beqz	$v0,.PF0f197c38
 /*  f197c2c:	24180029 */ 	li	$t8,0x29
@@ -9986,7 +9997,7 @@ glabel var7f1b8fc8
 /*  f197c50:	00000000 */ 	nop
 /*  f197c54:	a29902a0 */ 	sb	$t9,0x2a0($s4)
 .PF0f197c58:
-/*  f197c58:	0fc64fd0 */ 	jal	func0f192e90
+/*  f197c58:	0fc64fd0 */ 	jal	bot0f192e90
 /*  f197c5c:	02802025 */ 	move	$a0,$s4
 /*  f197c60:	0fc63831 */ 	jal	mpPlayerGetIndex
 /*  f197c64:	02802025 */ 	move	$a0,$s4
@@ -10043,7 +10054,7 @@ glabel var7f1b8fc8
 /*  f197d28:	0fc45348 */ 	jal	waypointSetHashThing
 /*  f197d2c:	00002825 */ 	move	$a1,$zero
 .PF0f197d30:
-/*  f197d30:	0fc667fb */ 	jal	aibotTickInventory
+/*  f197d30:	0fc667fb */ 	jal	botinvTick
 /*  f197d34:	02802025 */ 	move	$a0,$s4
 /*  f197d38:	afa00088 */ 	sw	$zero,0x88($sp)
 /*  f197d3c:	00009825 */ 	move	$s3,$zero
@@ -10096,7 +10107,7 @@ glabel var7f1b8fc8
 /*  f197de8:	01a2082a */ 	slt	$at,$t5,$v0
 /*  f197dec:	10200005 */ 	beqz	$at,.PF0f197e04
 /*  f197df0:	02602825 */ 	move	$a1,$s3
-/*  f197df4:	0fc651d3 */ 	jal	func0f19369c
+/*  f197df4:	0fc651d3 */ 	jal	bot0f19369c
 /*  f197df8:	a460003c */ 	sh	$zero,0x3c($v1)
 /*  f197dfc:	100001f2 */ 	b	.PF0f1985c8
 /*  f197e00:	00000000 */ 	nop
@@ -10122,7 +10133,7 @@ glabel var7f1b8fc8
 /*  f197e4c:	032e082a */ 	slt	$at,$t9,$t6
 /*  f197e50:	54200034 */ 	bnezl	$at,.PF0f197f24
 /*  f197e54:	a460003c */ 	sh	$zero,0x3c($v1)
-/*  f197e58:	0fc644c8 */ 	jal	func0f190260
+/*  f197e58:	0fc644c8 */ 	jal	bot0f190260
 /*  f197e5c:	afa30054 */ 	sw	$v1,0x54($sp)
 /*  f197e60:	14400030 */ 	bnez	$v0,.PF0f197f24
 /*  f197e64:	8fa30054 */ 	lw	$v1,0x54($sp)
@@ -10285,7 +10296,7 @@ glabel var7f1b8fc8
 /*  f1980a4:	00000000 */ 	nop
 /*  f1980a8:	0fc089cc */ 	jal	chrUncloakTemporarily
 /*  f1980ac:	02802025 */ 	move	$a0,$s4
-/*  f1980b0:	0fc66e54 */ 	jal	aibotCreateSlayerRocket
+/*  f1980b0:	0fc66e54 */ 	jal	botactCreateSlayerRocket
 /*  f1980b4:	02802025 */ 	move	$a0,$s4
 /*  f1980b8:	8e4c0024 */ 	lw	$t4,0x24($s2)
 /*  f1980bc:	258fffff */ 	addiu	$t7,$t4,-1
@@ -10294,7 +10305,7 @@ glabel var7f1b8fc8
 .PF0f1980c8:
 /*  f1980c8:	0005c7c2 */ 	srl	$t8,$a1,0x1f
 .PF0f1980cc:
-/*  f1980cc:	0fc66ce7 */ 	jal	func0f19a29c
+/*  f1980cc:	0fc66ce7 */ 	jal	botactIsWeaponThrowable
 /*  f1980d0:	03002825 */ 	move	$a1,$t8
 /*  f1980d4:	1040005b */ 	beqz	$v0,.PF0f198244
 /*  f1980d8:	8fb8004c */ 	lw	$t8,0x4c($sp)
@@ -10316,7 +10327,7 @@ glabel var7f1b8fc8
 /*  f198114:	8e450020 */ 	lw	$a1,0x20($s2)
 /*  f198118:	00003825 */ 	move	$a3,$zero
 /*  f19811c:	00067080 */ 	sll	$t6,$a2,0x2
-/*  f198120:	0fc66b39 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f198120:	0fc66b39 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f198124:	000e37c2 */ 	srl	$a2,$t6,0x1f
 /*  f198128:	5c400008 */ 	bgtzl	$v0,.PF0f19814c
 /*  f19812c:	868c017e */ 	lh	$t4,0x17e($s4)
@@ -10345,7 +10356,7 @@ glabel var7f1b8fc8
 /*  f198180:	0319082a */ 	slt	$at,$t8,$t9
 /*  f198184:	1420000b */ 	bnez	$at,.PF0f1981b4
 /*  f198188:	00000000 */ 	nop
-/*  f19818c:	0fc644c8 */ 	jal	func0f190260
+/*  f19818c:	0fc644c8 */ 	jal	bot0f190260
 /*  f198190:	02802025 */ 	move	$a0,$s4
 /*  f198194:	14400006 */ 	bnez	$v0,.PF0f1981b0
 /*  f198198:	02802025 */ 	move	$a0,$s4
@@ -10366,9 +10377,9 @@ glabel var7f1b8fc8
 /*  f1981cc:	8e450020 */ 	lw	$a1,0x20($s2)
 /*  f1981d0:	00067080 */ 	sll	$t6,$a2,0x2
 /*  f1981d4:	000e37c2 */ 	srl	$a2,$t6,0x1f
-/*  f1981d8:	0fc66b9c */ 	jal	aibotTryRemoveAmmoFromReserve
+/*  f1981d8:	0fc66b9c */ 	jal	botactTryRemoveAmmoFromReserve
 /*  f1981dc:	02e03825 */ 	move	$a3,$s7
-/*  f1981e0:	0fc66d1f */ 	jal	func0f19a37c
+/*  f1981e0:	0fc66d1f */ 	jal	botact0f19a37c
 /*  f1981e4:	02802025 */ 	move	$a0,$s4
 /*  f1981e8:	8e45004c */ 	lw	$a1,0x4c($s2)
 /*  f1981ec:	8e440020 */ 	lw	$a0,0x20($s2)
@@ -10382,15 +10393,15 @@ glabel var7f1b8fc8
 /*  f19820c:	00095340 */ 	sll	$t2,$t1,0xd
 /*  f198210:	05430008 */ 	bgezl	$t2,.PF0f198234
 /*  f198214:	8e8d02d4 */ 	lw	$t5,0x2d4($s4)
-/*  f198218:	0fc663a5 */ 	jal	aibotRemoveInvItem
+/*  f198218:	0fc663a5 */ 	jal	botinvRemoveItem
 /*  f19821c:	8e450020 */ 	lw	$a1,0x20($s2)
 /*  f198220:	02802025 */ 	move	$a0,$s4
 /*  f198224:	02e02825 */ 	move	$a1,$s7
-/*  f198228:	0fc6696c */ 	jal	aibotSwitchToWeapon
+/*  f198228:	0fc6696c */ 	jal	botinvSwitchToWeapon
 /*  f19822c:	00003025 */ 	move	$a2,$zero
 /*  f198230:	8e8d02d4 */ 	lw	$t5,0x2d4($s4)
 .PF0f198234:
-/*  f198234:	0fc66cf7 */ 	jal	aibotGetProjectileThrowInterval
+/*  f198234:	0fc66cf7 */ 	jal	botactGetProjectileThrowInterval
 /*  f198238:	8da40020 */ 	lw	$a0,0x20($t5)
 /*  f19823c:	100000e2 */ 	b	.PF0f1985c8
 /*  f198240:	ae420034 */ 	sw	$v0,0x34($s2)
@@ -10492,7 +10503,7 @@ glabel var7f1b8fc8
 /*  f1983a4:	016a082a */ 	slt	$at,$t3,$t2
 /*  f1983a8:	1420002a */ 	bnez	$at,.PF0f198454
 /*  f1983ac:	00000000 */ 	nop
-/*  f1983b0:	0fc644c8 */ 	jal	func0f190260
+/*  f1983b0:	0fc644c8 */ 	jal	bot0f190260
 /*  f1983b4:	02802025 */ 	move	$a0,$s4
 /*  f1983b8:	14400006 */ 	bnez	$v0,.PF0f1983d4
 /*  f1983bc:	02802025 */ 	move	$a0,$s4
@@ -10564,7 +10575,7 @@ glabel var7f1b8fc8
 /*  f1984b0:	8e45004c */ 	lw	$a1,0x4c($s2)
 /*  f1984b4:	8e440020 */ 	lw	$a0,0x20($s2)
 /*  f1984b8:	00054880 */ 	sll	$t1,$a1,0x2
-/*  f1984bc:	0fc66dc3 */ 	jal	func0f19a60c
+/*  f1984bc:	0fc66dc3 */ 	jal	botact0f19a60c
 /*  f1984c0:	00092fc2 */ 	srl	$a1,$t1,0x1f
 /*  f1984c4:	28410006 */ 	slti	$at,$v0,0x6
 /*  f1984c8:	1420000b */ 	bnez	$at,.PF0f1984f8
@@ -10673,66 +10684,66 @@ glabel var7f1b8fc8
 );
 #else
 GLOBAL_ASM(
-glabel func0f194b40
+glabel botTickUnpaused
 .late_rodata
 glabel var7f1b8f54
 .word 0x49742400
 glabel var7f1b8f58
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8f5c
-.word func0f194b40+0x23e4 # f196f24
+.word botTickUnpaused+0x23e4 # f196f24
 glabel var7f1b8f60
-.word func0f194b40+0x23e4 # f196f24
+.word botTickUnpaused+0x23e4 # f196f24
 glabel var7f1b8f64
-.word func0f194b40+0x23e4 # f196f24
+.word botTickUnpaused+0x23e4 # f196f24
 glabel var7f1b8f68
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8f6c
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8f70
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8f74
-.word func0f194b40+0x23e4 # f196f24
+.word botTickUnpaused+0x23e4 # f196f24
 glabel var7f1b8f78
-.word func0f194b40+0x23e4 # f196f24
+.word botTickUnpaused+0x23e4 # f196f24
 glabel var7f1b8f7c
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8f80
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8f84
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8f88
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8f8c
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8f90
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8f94
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8f98
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8f9c
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8fa0
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8fa4
-.word func0f194b40+0x245c # f196f9c
+.word botTickUnpaused+0x245c # f196f9c
 glabel var7f1b8fa8
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8fac
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8fb0
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8fb4
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8fb8
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8fbc
-.word func0f194b40+0x23e4 # f196f24
+.word botTickUnpaused+0x23e4 # f196f24
 glabel var7f1b8fc0
-.word func0f194b40+0x2380 # f196ec0
+.word botTickUnpaused+0x2380 # f196ec0
 glabel var7f1b8fc4
-.word func0f194b40+0x2438 # f196f78
+.word botTickUnpaused+0x2438 # f196f78
 glabel var7f1b8fc8
 .word 0x3d4ccccd
 .text
@@ -10798,7 +10809,7 @@ glabel var7f1b8fc8
 /*  f194c20:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f194c24:	02002825 */ 	or	$a1,$s0,$zero
 /*  f194c28:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f194c2c:	0fc66690 */ 	jal	aibotReloadWeapon
+/*  f194c2c:	0fc66690 */ 	jal	botactReload
 /*  f194c30:	afa70054 */ 	sw	$a3,0x54($sp)
 /*  f194c34:	10000030 */ 	b	.L0f194cf8
 /*  f194c38:	8fa70054 */ 	lw	$a3,0x54($sp)
@@ -10807,7 +10818,7 @@ glabel var7f1b8fc8
 /*  f194c40:	8e440020 */ 	lw	$a0,0x20($s2)
 /*  f194c44:	afa70054 */ 	sw	$a3,0x54($sp)
 /*  f194c48:	00057080 */ 	sll	$t6,$a1,0x2
-/*  f194c4c:	0fc668a7 */ 	jal	func0f19a29c
+/*  f194c4c:	0fc668a7 */ 	jal	botactIsWeaponThrowable
 /*  f194c50:	000e2fc2 */ 	srl	$a1,$t6,0x1f
 /*  f194c54:	14400028 */ 	bnez	$v0,.L0f194cf8
 /*  f194c58:	8fa70054 */ 	lw	$a3,0x54($sp)
@@ -10819,7 +10830,7 @@ glabel var7f1b8fc8
 /*  f194c70:	00054880 */ 	sll	$t1,$a1,0x2
 /*  f194c74:	00092fc2 */ 	srl	$a1,$t1,0x1f
 /*  f194c78:	afa70054 */ 	sw	$a3,0x54($sp)
-/*  f194c7c:	0fc6667e */ 	jal	weaponGetClipCapacityByFunction
+/*  f194c7c:	0fc6667e */ 	jal	botactGetClipCapacityByFunction
 /*  f194c80:	afa302e8 */ 	sw	$v1,0x2e8($sp)
 /*  f194c84:	8fa302e8 */ 	lw	$v1,0x2e8($sp)
 /*  f194c88:	8fa70054 */ 	lw	$a3,0x54($sp)
@@ -10828,7 +10839,7 @@ glabel var7f1b8fc8
 /*  f194c94:	18400006 */ 	blez	$v0,.L0f194cb0
 /*  f194c98:	02802025 */ 	or	$a0,$s4,$zero
 /*  f194c9c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f194ca0:	0fc64da7 */ 	jal	func0f19369c
+/*  f194ca0:	0fc64da7 */ 	jal	bot0f19369c
 /*  f194ca4:	afa70054 */ 	sw	$a3,0x54($sp)
 /*  f194ca8:	10000013 */ 	b	.L0f194cf8
 /*  f194cac:	8fa70054 */ 	lw	$a3,0x54($sp)
@@ -10849,7 +10860,7 @@ glabel var7f1b8fc8
 /*  f194ce0:	50200006 */ 	beqzl	$at,.L0f194cfc
 /*  f194ce4:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f194ce8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f194cec:	0fc64da7 */ 	jal	func0f19369c
+/*  f194cec:	0fc64da7 */ 	jal	bot0f19369c
 /*  f194cf0:	afa70054 */ 	sw	$a3,0x54($sp)
 /*  f194cf4:	8fa70054 */ 	lw	$a3,0x54($sp)
 .L0f194cf8:
@@ -10866,7 +10877,7 @@ glabel var7f1b8fc8
 /*  f194d1c:	004fc823 */ 	subu	$t9,$v0,$t7
 /*  f194d20:	1f20003f */ 	bgtz	$t9,.L0f194e20
 /*  f194d24:	ae5900cc */ 	sw	$t9,0xcc($s2)
-/*  f194d28:	0fc65f3c */ 	jal	aibotGetInvItem
+/*  f194d28:	0fc65f3c */ 	jal	botinvGetItem
 /*  f194d2c:	8e450020 */ 	lw	$a1,0x20($s2)
 /*  f194d30:	00408025 */ 	or	$s0,$v0,$zero
 /*  f194d34:	0fc4a2bd */ 	jal	weaponGetModel
@@ -10881,7 +10892,7 @@ glabel var7f1b8fc8
 /*  f194d58:	00003825 */ 	or	$a3,$zero,$zero
 /*  f194d5c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f194d60:	00002825 */ 	or	$a1,$zero,$zero
-/*  f194d64:	0fc66690 */ 	jal	aibotReloadWeapon
+/*  f194d64:	0fc66690 */ 	jal	botactReload
 /*  f194d68:	00003025 */ 	or	$a2,$zero,$zero
 /*  f194d6c:	8e090000 */ 	lw	$t1,0x0($s0)
 /*  f194d70:	24010003 */ 	addiu	$at,$zero,0x3
@@ -10893,7 +10904,7 @@ glabel var7f1b8fc8
 /*  f194d88:	3c071000 */ 	lui	$a3,0x1000
 /*  f194d8c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f194d90:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f194d94:	0fc66690 */ 	jal	aibotReloadWeapon
+/*  f194d94:	0fc66690 */ 	jal	botactReload
 /*  f194d98:	00003025 */ 	or	$a2,$zero,$zero
 .L0f194d9c:
 /*  f194d9c:	1000000e */ 	b	.L0f194dd8
@@ -10948,7 +10959,7 @@ glabel var7f1b8fc8
 /*  f194e44:	8df80050 */ 	lw	$t8,0x50($t7)
 /*  f194e48:	1b00000d */ 	blez	$t8,.L0f194e80
 /*  f194e4c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f194e50:	0fc6458e */ 	jal	func0f191638
+/*  f194e50:	0fc6458e */ 	jal	bot0f191638
 /*  f194e54:	02e02825 */ 	or	$a1,$s7,$zero
 /*  f194e58:	54400006 */ 	bnezl	$v0,.L0f194e74
 /*  f194e5c:	924a004c */ 	lbu	$t2,0x4c($s2)
@@ -11007,11 +11018,11 @@ glabel var7f1b8fc8
 /*  f194f10:	17210033 */ 	bne	$t9,$at,.L0f194fe0
 /*  f194f14:	2405000d */ 	addiu	$a1,$zero,0xd
 /*  f194f18:	00003025 */ 	or	$a2,$zero,$zero
-/*  f194f1c:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f194f1c:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f194f20:	02e03825 */ 	or	$a3,$s7,$zero
 /*  f194f24:	00408025 */ 	or	$s0,$v0,$zero
 /*  f194f28:	02802025 */ 	or	$a0,$s4,$zero
-/*  f194f2c:	0fc6458e */ 	jal	func0f191638
+/*  f194f2c:	0fc6458e */ 	jal	bot0f191638
 /*  f194f30:	02e02825 */ 	or	$a1,$s7,$zero
 /*  f194f34:	5040001a */ 	beqzl	$v0,.L0f194fa0
 /*  f194f38:	8e4b0210 */ 	lw	$t3,0x210($s2)
@@ -11098,7 +11109,7 @@ glabel var7f1b8fc8
 .L0f19505c:
 /*  f19505c:	5c40013a */ 	bgtzl	$v0,.L0f195548
 /*  f195060:	928d02a0 */ 	lbu	$t5,0x2a0($s4)
-/*  f195064:	0fc651b5 */ 	jal	mpGetNumPlayerTeammates
+/*  f195064:	0fc651b5 */ 	jal	botGetNumPlayerTeammates
 /*  f195068:	02802025 */ 	or	$a0,$s4,$zero
 /*  f19506c:	3c03800b */ 	lui	$v1,%hi(g_MpSetup+0x10)
 /*  f195070:	9063cb98 */ 	lbu	$v1,%lo(g_MpSetup+0x10)($v1)
@@ -11107,7 +11118,7 @@ glabel var7f1b8fc8
 /*  f19507c:	16e3001e */ 	bne	$s7,$v1,.L0f1950f8
 /*  f195080:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f195084:	2405000b */ 	addiu	$a1,$zero,0xb
-/*  f195088:	0fc651c9 */ 	jal	mpCountAibotsWithCommand
+/*  f195088:	0fc651c9 */ 	jal	botCountByCommand
 /*  f19508c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f195090:	18400010 */ 	blez	$v0,.L0f1950d4
 /*  f195094:	266c0001 */ 	addiu	$t4,$s3,0x1
@@ -11130,12 +11141,12 @@ glabel var7f1b8fc8
 .L0f1950d4:
 /*  f1950d4:	02802025 */ 	or	$a0,$s4,$zero
 .L0f1950d8:
-/*  f1950d8:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1950d8:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f1950dc:	2405000b */ 	addiu	$a1,$zero,0xb
 /*  f1950e0:	10000111 */ 	b	.L0f195528
 /*  f1950e4:	00000000 */ 	nop
 .L0f1950e8:
-/*  f1950e8:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1950e8:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f1950ec:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f1950f0:	1000010d */ 	b	.L0f195528
 /*  f1950f4:	00000000 */ 	nop
@@ -11143,7 +11154,7 @@ glabel var7f1b8fc8
 /*  f1950f8:	14610022 */ 	bne	$v1,$at,.L0f195184
 /*  f1950fc:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195100:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f195104:	0fc651c9 */ 	jal	mpCountAibotsWithCommand
+/*  f195104:	0fc651c9 */ 	jal	botCountByCommand
 /*  f195108:	00003025 */ 	or	$a2,$zero,$zero
 /*  f19510c:	8e58004c */ 	lw	$t8,0x4c($s2)
 /*  f195110:	00184940 */ 	sll	$t1,$t8,0x5
@@ -11170,12 +11181,12 @@ glabel var7f1b8fc8
 .L0f195160:
 /*  f195160:	02802025 */ 	or	$a0,$s4,$zero
 .L0f195164:
-/*  f195164:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f195164:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f195168:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f19516c:	100000ee */ 	b	.L0f195528
 /*  f195170:	00000000 */ 	nop
 .L0f195174:
-/*  f195174:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f195174:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f195178:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f19517c:	100000ea */ 	b	.L0f195528
 /*  f195180:	00000000 */ 	nop
@@ -11184,7 +11195,7 @@ glabel var7f1b8fc8
 /*  f195188:	1461001e */ 	bne	$v1,$at,.L0f195204
 /*  f19518c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195190:	2405000c */ 	addiu	$a1,$zero,0xc
-/*  f195194:	0fc651c9 */ 	jal	mpCountAibotsWithCommand
+/*  f195194:	0fc651c9 */ 	jal	botCountByCommand
 /*  f195198:	00003025 */ 	or	$a2,$zero,$zero
 /*  f19519c:	18400010 */ 	blez	$v0,.L0f1951e0
 /*  f1951a0:	266c0001 */ 	addiu	$t4,$s3,0x1
@@ -11207,12 +11218,12 @@ glabel var7f1b8fc8
 .L0f1951e0:
 /*  f1951e0:	02802025 */ 	or	$a0,$s4,$zero
 .L0f1951e4:
-/*  f1951e4:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1951e4:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f1951e8:	2405000c */ 	addiu	$a1,$zero,0xc
 /*  f1951ec:	100000ce */ 	b	.L0f195528
 /*  f1951f0:	00000000 */ 	nop
 .L0f1951f4:
-/*  f1951f4:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1951f4:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f1951f8:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f1951fc:	100000ca */ 	b	.L0f195528
 /*  f195200:	00000000 */ 	nop
@@ -11220,7 +11231,7 @@ glabel var7f1b8fc8
 /*  f195204:	24010004 */ 	addiu	$at,$zero,0x4
 /*  f195208:	54610034 */ 	bnel	$v1,$at,.L0f1952dc
 /*  f19520c:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f195210:	0fc65241 */ 	jal	mpGetNumTeammatesDefendingHill
+/*  f195210:	0fc65241 */ 	jal	botGetNumTeammatesDefendingHill
 /*  f195214:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195218:	8e98001c */ 	lw	$t8,0x1c($s4)
 /*  f19521c:	3c09800b */ 	lui	$t1,%hi(g_ScenarioData+0xe)
@@ -11243,12 +11254,12 @@ glabel var7f1b8fc8
 /*  f195258:	10200005 */ 	beqz	$at,.L0f195270
 /*  f19525c:	00000000 */ 	nop
 .L0f195260:
-/*  f195260:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f195260:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f195264:	2405000a */ 	addiu	$a1,$zero,0xa
 /*  f195268:	100000af */ 	b	.L0f195528
 /*  f19526c:	00000000 */ 	nop
 .L0f195270:
-/*  f195270:	0fc65264 */ 	jal	mpGetNumOpponentsInHill
+/*  f195270:	0fc65264 */ 	jal	botGetNumOpponentsInHill
 /*  f195274:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195278:	0050082a */ 	slt	$at,$v0,$s0
 /*  f19527c:	10200012 */ 	beqz	$at,.L0f1952c8
@@ -11262,17 +11273,17 @@ glabel var7f1b8fc8
 /*  f19529c:	10200006 */ 	beqz	$at,.L0f1952b8
 /*  f1952a0:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1952a4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1952a8:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1952a8:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f1952ac:	24050009 */ 	addiu	$a1,$zero,0x9
 /*  f1952b0:	1000009d */ 	b	.L0f195528
 /*  f1952b4:	00000000 */ 	nop
 .L0f1952b8:
-/*  f1952b8:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1952b8:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f1952bc:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f1952c0:	10000099 */ 	b	.L0f195528
 /*  f1952c4:	00000000 */ 	nop
 .L0f1952c8:
-/*  f1952c8:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1952c8:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f1952cc:	2405000a */ 	addiu	$a1,$zero,0xa
 /*  f1952d0:	10000095 */ 	b	.L0f195528
 /*  f1952d4:	00000000 */ 	nop
@@ -11284,19 +11295,19 @@ glabel var7f1b8fc8
 /*  f1952e8:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1952ec:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1952f0:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f1952f4:	0fc651c9 */ 	jal	mpCountAibotsWithCommand
+/*  f1952f4:	0fc651c9 */ 	jal	botCountByCommand
 /*  f1952f8:	02e03025 */ 	or	$a2,$s7,$zero
 /*  f1952fc:	00408025 */ 	or	$s0,$v0,$zero
-/*  f195300:	0fc65227 */ 	jal	func0f19489c
+/*  f195300:	0fc65227 */ 	jal	bot0f19489c
 /*  f195304:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195308:	10400005 */ 	beqz	$v0,.L0f195320
 /*  f19530c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195310:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f195310:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f195314:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f195318:	10000083 */ 	b	.L0f195528
 /*  f19531c:	00000000 */ 	nop
 .L0f195320:
-/*  f195320:	0fc6520d */ 	jal	scenarioCtcIsChrsTokenHeld
+/*  f195320:	0fc6520d */ 	jal	botIsChrsTokenHeld
 /*  f195324:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195328:	10400012 */ 	beqz	$v0,.L0f195374
 /*  f19532c:	00000000 */ 	nop
@@ -11309,12 +11320,12 @@ glabel var7f1b8fc8
 /*  f195348:	10200006 */ 	beqz	$at,.L0f195364
 /*  f19534c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195350:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195354:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f195354:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f195358:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f19535c:	10000072 */ 	b	.L0f195528
 /*  f195360:	00000000 */ 	nop
 .L0f195364:
-/*  f195364:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f195364:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f195368:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f19536c:	1000006e */ 	b	.L0f195528
 /*  f195370:	00000000 */ 	nop
@@ -11330,35 +11341,35 @@ glabel var7f1b8fc8
 /*  f195394:	1e000005 */ 	bgtz	$s0,.L0f1953ac
 /*  f195398:	24050008 */ 	addiu	$a1,$zero,0x8
 .L0f19539c:
-/*  f19539c:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f19539c:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f1953a0:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f1953a4:	10000060 */ 	b	.L0f195528
 /*  f1953a8:	00000000 */ 	nop
 .L0f1953ac:
-/*  f1953ac:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1953ac:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f1953b0:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1953b4:	1000005c */ 	b	.L0f195528
 /*  f1953b8:	00000000 */ 	nop
 .L0f1953bc:
 /*  f1953bc:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f1953c0:	0fc651c9 */ 	jal	mpCountAibotsWithCommand
+/*  f1953c0:	0fc651c9 */ 	jal	botCountByCommand
 /*  f1953c4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f1953c8:	00408825 */ 	or	$s1,$v0,$zero
 /*  f1953cc:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1953d0:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f1953d4:	0fc651c9 */ 	jal	mpCountAibotsWithCommand
+/*  f1953d4:	0fc651c9 */ 	jal	botCountByCommand
 /*  f1953d8:	00003025 */ 	or	$a2,$zero,$zero
 /*  f1953dc:	00408025 */ 	or	$s0,$v0,$zero
-/*  f1953e0:	0fc65227 */ 	jal	func0f19489c
+/*  f1953e0:	0fc65227 */ 	jal	bot0f19489c
 /*  f1953e4:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1953e8:	10400005 */ 	beqz	$v0,.L0f195400
 /*  f1953ec:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1953f0:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1953f0:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f1953f4:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f1953f8:	1000004b */ 	b	.L0f195528
 /*  f1953fc:	00000000 */ 	nop
 .L0f195400:
-/*  f195400:	0fc6520d */ 	jal	scenarioCtcIsChrsTokenHeld
+/*  f195400:	0fc6520d */ 	jal	botIsChrsTokenHeld
 /*  f195404:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195408:	10400014 */ 	beqz	$v0,.L0f19545c
 /*  f19540c:	00000000 */ 	nop
@@ -11374,12 +11385,12 @@ glabel var7f1b8fc8
 /*  f195434:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195438:	02802025 */ 	or	$a0,$s4,$zero
 .L0f19543c:
-/*  f19543c:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f19543c:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f195440:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f195444:	10000038 */ 	b	.L0f195528
 /*  f195448:	00000000 */ 	nop
 .L0f19544c:
-/*  f19544c:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f19544c:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f195450:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f195454:	10000034 */ 	b	.L0f195528
 /*  f195458:	00000000 */ 	nop
@@ -11392,7 +11403,7 @@ glabel var7f1b8fc8
 /*  f195470:	10200005 */ 	beqz	$at,.L0f195488
 .L0f195474:
 /*  f195474:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195478:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f195478:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f19547c:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f195480:	10000029 */ 	b	.L0f195528
 /*  f195484:	00000000 */ 	nop
@@ -11408,7 +11419,7 @@ glabel var7f1b8fc8
 /*  f1954a4:	10200005 */ 	beqz	$at,.L0f1954bc
 /*  f1954a8:	00000000 */ 	nop
 .L0f1954ac:
-/*  f1954ac:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1954ac:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f1954b0:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f1954b4:	1000001c */ 	b	.L0f195528
 /*  f1954b8:	00000000 */ 	nop
@@ -11421,7 +11432,7 @@ glabel var7f1b8fc8
 /*  f1954d0:	2f21001e */ 	sltiu	$at,$t9,0x1e
 /*  f1954d4:	10200005 */ 	beqz	$at,.L0f1954ec
 /*  f1954d8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1954dc:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f1954dc:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f1954e0:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f1954e4:	10000010 */ 	b	.L0f195528
 /*  f1954e8:	00000000 */ 	nop
@@ -11435,12 +11446,12 @@ glabel var7f1b8fc8
 /*  f195504:	10200006 */ 	beqz	$at,.L0f195520
 /*  f195508:	02802025 */ 	or	$a0,$s4,$zero
 /*  f19550c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195510:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f195510:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f195514:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f195518:	10000003 */ 	b	.L0f195528
 /*  f19551c:	00000000 */ 	nop
 .L0f195520:
-/*  f195520:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
+/*  f195520:	0fc64984 */ 	jal	botApplyScenarioCommand
 /*  f195524:	24050004 */ 	addiu	$a1,$zero,0x4
 .L0f195528:
 /*  f195528:	0c004b70 */ 	jal	random
@@ -11482,7 +11493,7 @@ glabel var7f1b8fc8
 .L0f1955b0:
 /*  f1955b0:	06a10006 */ 	bgez	$s5,.L0f1955cc
 /*  f1955b4:	00000000 */ 	nop
-/*  f1955b8:	0fc651a5 */ 	jal	func0f194694
+/*  f1955b8:	0fc651a5 */ 	jal	bot0f194694
 /*  f1955bc:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1955c0:	10400002 */ 	beqz	$v0,.L0f1955cc
 /*  f1955c4:	ae420010 */ 	sw	$v0,0x10($s2)
@@ -11504,11 +11515,11 @@ glabel var7f1b8fc8
 /*  f195600:	02002025 */ 	or	$a0,$s0,$zero
 /*  f195604:	14400232 */ 	bnez	$v0,.L0f195ed0
 /*  f195608:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19560c:	0fc64a53 */ 	jal	func0f19294c
+/*  f19560c:	0fc64a53 */ 	jal	bot0f19294c
 /*  f195610:	02002825 */ 	or	$a1,$s0,$zero
 /*  f195614:	1440022e */ 	bnez	$v0,.L0f195ed0
 /*  f195618:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19561c:	0fc64b70 */ 	jal	func0f192dc0
+/*  f19561c:	0fc64b70 */ 	jal	botPassesCowardCheck
 /*  f195620:	02002825 */ 	or	$a1,$s0,$zero
 /*  f195624:	1040022a */ 	beqz	$v0,.L0f195ed0
 /*  f195628:	02002025 */ 	or	$a0,$s0,$zero
@@ -11703,7 +11714,7 @@ glabel var7f1b8fc8
 /*  f1958c8:	10000181 */ 	b	.L0f195ed0
 /*  f1958cc:	ae420010 */ 	sw	$v0,0x10($s2)
 .L0f1958d0:
-/*  f1958d0:	0fc64d37 */ 	jal	mpIsChrFollowedByChr
+/*  f1958d0:	0fc64d37 */ 	jal	botIsFollowing
 /*  f1958d4:	8c450004 */ 	lw	$a1,0x4($v0)
 /*  f1958d8:	1040000a */ 	beqz	$v0,.L0f195904
 /*  f1958dc:	00000000 */ 	nop
@@ -11746,7 +11757,7 @@ glabel var7f1b8fc8
 /*  f195964:	920b0125 */ 	lbu	$t3,0x125($s0)
 /*  f195968:	154b000e */ 	bne	$t2,$t3,.L0f1959a4
 /*  f19596c:	00000000 */ 	nop
-/*  f195970:	0fc64d37 */ 	jal	mpIsChrFollowedByChr
+/*  f195970:	0fc64d37 */ 	jal	botIsFollowing
 /*  f195974:	02002825 */ 	or	$a1,$s0,$zero
 /*  f195978:	10400155 */ 	beqz	$v0,.L0f195ed0
 /*  f19597c:	00000000 */ 	nop
@@ -11764,11 +11775,11 @@ glabel var7f1b8fc8
 /*  f1959a8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1959ac:	14400148 */ 	bnez	$v0,.L0f195ed0
 /*  f1959b0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1959b4:	0fc64a53 */ 	jal	func0f19294c
+/*  f1959b4:	0fc64a53 */ 	jal	bot0f19294c
 /*  f1959b8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1959bc:	14400144 */ 	bnez	$v0,.L0f195ed0
 /*  f1959c0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1959c4:	0fc64b70 */ 	jal	func0f192dc0
+/*  f1959c4:	0fc64b70 */ 	jal	botPassesCowardCheck
 /*  f1959c8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1959cc:	10400140 */ 	beqz	$v0,.L0f195ed0
 /*  f1959d0:	02002025 */ 	or	$a0,$s0,$zero
@@ -11815,7 +11826,7 @@ glabel var7f1b8fc8
 /*  f195a6c:	0fc0a221 */ 	jal	chrGetTargetProp
 /*  f195a70:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195a74:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195a78:	0fc64b70 */ 	jal	func0f192dc0
+/*  f195a78:	0fc64b70 */ 	jal	botPassesCowardCheck
 /*  f195a7c:	8c450004 */ 	lw	$a1,0x4($v0)
 /*  f195a80:	10400009 */ 	beqz	$v0,.L0f195aa8
 /*  f195a84:	02802025 */ 	or	$a0,$s4,$zero
@@ -11949,7 +11960,7 @@ glabel var7f1b8fc8
 /*  f195c74:	02002825 */ 	or	$a1,$s0,$zero
 /*  f195c78:	15cc000e */ 	bne	$t6,$t4,.L0f195cb4
 /*  f195c7c:	00000000 */ 	nop
-/*  f195c80:	0fc64d37 */ 	jal	mpIsChrFollowedByChr
+/*  f195c80:	0fc64d37 */ 	jal	botIsFollowing
 /*  f195c84:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195c88:	10400091 */ 	beqz	$v0,.L0f195ed0
 /*  f195c8c:	00000000 */ 	nop
@@ -11963,11 +11974,11 @@ glabel var7f1b8fc8
 /*  f195cac:	10000088 */ 	b	.L0f195ed0
 /*  f195cb0:	a642000a */ 	sh	$v0,0xa($s2)
 .L0f195cb4:
-/*  f195cb4:	0fc64a53 */ 	jal	func0f19294c
+/*  f195cb4:	0fc64a53 */ 	jal	bot0f19294c
 /*  f195cb8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f195cbc:	14400084 */ 	bnez	$v0,.L0f195ed0
 /*  f195cc0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195cc4:	0fc64b70 */ 	jal	func0f192dc0
+/*  f195cc4:	0fc64b70 */ 	jal	botPassesCowardCheck
 /*  f195cc8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f195ccc:	10400080 */ 	beqz	$v0,.L0f195ed0
 /*  f195cd0:	02002025 */ 	or	$a0,$s0,$zero
@@ -12013,7 +12024,7 @@ glabel var7f1b8fc8
 /*  f195d64:	02002825 */ 	or	$a1,$s0,$zero
 /*  f195d68:	156e000e */ 	bne	$t3,$t6,.L0f195da4
 /*  f195d6c:	00000000 */ 	nop
-/*  f195d70:	0fc64d37 */ 	jal	mpIsChrFollowedByChr
+/*  f195d70:	0fc64d37 */ 	jal	botIsFollowing
 /*  f195d74:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195d78:	10400055 */ 	beqz	$v0,.L0f195ed0
 /*  f195d7c:	00000000 */ 	nop
@@ -12027,11 +12038,11 @@ glabel var7f1b8fc8
 /*  f195d9c:	1000004c */ 	b	.L0f195ed0
 /*  f195da0:	a642000a */ 	sh	$v0,0xa($s2)
 .L0f195da4:
-/*  f195da4:	0fc64a53 */ 	jal	func0f19294c
+/*  f195da4:	0fc64a53 */ 	jal	bot0f19294c
 /*  f195da8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f195dac:	14400048 */ 	bnez	$v0,.L0f195ed0
 /*  f195db0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195db4:	0fc64b70 */ 	jal	func0f192dc0
+/*  f195db4:	0fc64b70 */ 	jal	botPassesCowardCheck
 /*  f195db8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f195dbc:	10400044 */ 	beqz	$v0,.L0f195ed0
 /*  f195dc0:	02002025 */ 	or	$a0,$s0,$zero
@@ -12059,11 +12070,11 @@ glabel var7f1b8fc8
 /*  f195e10:	0002c840 */ 	sll	$t9,$v0,0x1
 /*  f195e14:	01394821 */ 	addu	$t1,$t1,$t9
 /*  f195e18:	8529c118 */ 	lh	$t1,%lo(g_ScenarioData+0x8)($t1)
-/*  f195e1c:	3c0d800b */ 	lui	$t5,%hi(g_MpPlayerChrs)
+/*  f195e1c:	3c0d800b */ 	lui	$t5,%hi(g_MpAllChrPtrs)
 /*  f195e20:	8e8b001c */ 	lw	$t3,0x1c($s4)
 /*  f195e24:	00095080 */ 	sll	$t2,$t1,0x2
 /*  f195e28:	01aa6821 */ 	addu	$t5,$t5,$t2
-/*  f195e2c:	8dadc4d0 */ 	lw	$t5,%lo(g_MpPlayerChrs)($t5)
+/*  f195e2c:	8dadc4d0 */ 	lw	$t5,%lo(g_MpAllChrPtrs)($t5)
 /*  f195e30:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0xc)
 /*  f195e34:	8da3001c */ 	lw	$v1,0x1c($t5)
 /*  f195e38:	106b0025 */ 	beq	$v1,$t3,.L0f195ed0
@@ -12079,7 +12090,7 @@ glabel var7f1b8fc8
 /*  f195e60:	02002825 */ 	or	$a1,$s0,$zero
 /*  f195e64:	15f8000e */ 	bne	$t7,$t8,.L0f195ea0
 /*  f195e68:	00000000 */ 	nop
-/*  f195e6c:	0fc64d37 */ 	jal	mpIsChrFollowedByChr
+/*  f195e6c:	0fc64d37 */ 	jal	botIsFollowing
 /*  f195e70:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195e74:	10400016 */ 	beqz	$v0,.L0f195ed0
 /*  f195e78:	00000000 */ 	nop
@@ -12093,11 +12104,11 @@ glabel var7f1b8fc8
 /*  f195e98:	1000000d */ 	b	.L0f195ed0
 /*  f195e9c:	a642000a */ 	sh	$v0,0xa($s2)
 .L0f195ea0:
-/*  f195ea0:	0fc64a53 */ 	jal	func0f19294c
+/*  f195ea0:	0fc64a53 */ 	jal	bot0f19294c
 /*  f195ea4:	02002825 */ 	or	$a1,$s0,$zero
 /*  f195ea8:	14400009 */ 	bnez	$v0,.L0f195ed0
 /*  f195eac:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195eb0:	0fc64b70 */ 	jal	func0f192dc0
+/*  f195eb0:	0fc64b70 */ 	jal	botPassesCowardCheck
 /*  f195eb4:	02002825 */ 	or	$a1,$s0,$zero
 /*  f195eb8:	10400005 */ 	beqz	$v0,.L0f195ed0
 /*  f195ebc:	02002025 */ 	or	$a0,$s0,$zero
@@ -12125,7 +12136,7 @@ glabel var7f1b8fc8
 /*  f195f10:	10200005 */ 	beqz	$at,.L0f195f28
 /*  f195f14:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195f18:	3c0547c3 */ 	lui	$a1,0x47c3
-/*  f195f1c:	0fc64d4c */ 	jal	func0f193530
+/*  f195f1c:	0fc64d4c */ 	jal	bot0f193530
 /*  f195f20:	34a55000 */ 	ori	$a1,$a1,0x5000
 /*  f195f24:	00408025 */ 	or	$s0,$v0,$zero
 .L0f195f28:
@@ -12147,11 +12158,11 @@ glabel var7f1b8fc8
 /*  f195f60:	00027840 */ 	sll	$t7,$v0,0x1
 /*  f195f64:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f195f68:	8718c118 */ 	lh	$t8,%lo(g_ScenarioData+0x8)($t8)
-/*  f195f6c:	3c09800b */ 	lui	$t1,%hi(g_MpPlayerChrs)
+/*  f195f6c:	3c09800b */ 	lui	$t1,%hi(g_MpAllChrPtrs)
 /*  f195f70:	8e8a001c */ 	lw	$t2,0x1c($s4)
 /*  f195f74:	0018c880 */ 	sll	$t9,$t8,0x2
 /*  f195f78:	01394821 */ 	addu	$t1,$t1,$t9
-/*  f195f7c:	8d29c4d0 */ 	lw	$t1,%lo(g_MpPlayerChrs)($t1)
+/*  f195f7c:	8d29c4d0 */ 	lw	$t1,%lo(g_MpAllChrPtrs)($t1)
 /*  f195f80:	8d23001c */ 	lw	$v1,0x1c($t1)
 /*  f195f84:	146a004b */ 	bne	$v1,$t2,.L0f1960b4
 /*  f195f88:	00000000 */ 	nop
@@ -12164,7 +12175,7 @@ glabel var7f1b8fc8
 /*  f195fa4:	10200005 */ 	beqz	$at,.L0f195fbc
 /*  f195fa8:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195fac:	3c0547c3 */ 	lui	$a1,0x47c3
-/*  f195fb0:	0fc64d4c */ 	jal	func0f193530
+/*  f195fb0:	0fc64d4c */ 	jal	bot0f193530
 /*  f195fb4:	34a55000 */ 	ori	$a1,$a1,0x5000
 /*  f195fb8:	00408025 */ 	or	$s0,$v0,$zero
 .L0f195fbc:
@@ -12181,7 +12192,7 @@ glabel var7f1b8fc8
 /*  f195fe0:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f195fe4:	54610021 */ 	bnel	$v1,$at,.L0f19606c
 /*  f195fe8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f195fec:	0fc65227 */ 	jal	func0f19489c
+/*  f195fec:	0fc65227 */ 	jal	bot0f19489c
 /*  f195ff0:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195ff4:	1040002f */ 	beqz	$v0,.L0f1960b4
 /*  f195ff8:	00000000 */ 	nop
@@ -12242,12 +12253,12 @@ glabel var7f1b8fc8
 /*  f1960cc:	24010009 */ 	addiu	$at,$zero,0x9
 /*  f1960d0:	86420076 */ 	lh	$v0,0x76($s2)
 /*  f1960d4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1960d8:	3c05800b */ 	lui	$a1,%hi(g_MpPlayerChrs)
+/*  f1960d8:	3c05800b */ 	lui	$a1,%hi(g_MpAllChrPtrs)
 /*  f1960dc:	04400096 */ 	bltz	$v0,.L0f196338
 /*  f1960e0:	0002c880 */ 	sll	$t9,$v0,0x2
 /*  f1960e4:	00b92821 */ 	addu	$a1,$a1,$t9
-/*  f1960e8:	0fc64a53 */ 	jal	func0f19294c
-/*  f1960ec:	8ca5c4d0 */ 	lw	$a1,%lo(g_MpPlayerChrs)($a1)
+/*  f1960e8:	0fc64a53 */ 	jal	bot0f19294c
+/*  f1960ec:	8ca5c4d0 */ 	lw	$a1,%lo(g_MpAllChrPtrs)($a1)
 /*  f1960f0:	14400091 */ 	bnez	$v0,.L0f196338
 /*  f1960f4:	00000000 */ 	nop
 /*  f1960f8:	86490076 */ 	lh	$t1,0x76($s2)
@@ -12264,11 +12275,11 @@ glabel var7f1b8fc8
 /*  f196120:	8e420114 */ 	lw	$v0,0x114($s2)
 /*  f196124:	86420076 */ 	lh	$v0,0x76($s2)
 /*  f196128:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19612c:	3c05800b */ 	lui	$a1,%hi(g_MpPlayerChrs)
+/*  f19612c:	3c05800b */ 	lui	$a1,%hi(g_MpAllChrPtrs)
 /*  f196130:	04400009 */ 	bltz	$v0,.L0f196158
 /*  f196134:	00026880 */ 	sll	$t5,$v0,0x2
 /*  f196138:	00ad2821 */ 	addu	$a1,$a1,$t5
-/*  f19613c:	8ca5c4d0 */ 	lw	$a1,%lo(g_MpPlayerChrs)($a1)
+/*  f19613c:	8ca5c4d0 */ 	lw	$a1,%lo(g_MpAllChrPtrs)($a1)
 /*  f196140:	0fc12aa3 */ 	jal	chrCompareTeams
 /*  f196144:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f196148:	54400004 */ 	bnezl	$v0,.L0f19615c
@@ -12279,12 +12290,12 @@ glabel var7f1b8fc8
 /*  f196158:	8e420114 */ 	lw	$v0,0x114($s2)
 .L0f19615c:
 /*  f19615c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196160:	3c05800b */ 	lui	$a1,%hi(g_MpPlayerChrs)
+/*  f196160:	3c05800b */ 	lui	$a1,%hi(g_MpAllChrPtrs)
 /*  f196164:	04400074 */ 	bltz	$v0,.L0f196338
 /*  f196168:	00027080 */ 	sll	$t6,$v0,0x2
 /*  f19616c:	00ae2821 */ 	addu	$a1,$a1,$t6
-/*  f196170:	0fc64a53 */ 	jal	func0f19294c
-/*  f196174:	8ca5c4d0 */ 	lw	$a1,%lo(g_MpPlayerChrs)($a1)
+/*  f196170:	0fc64a53 */ 	jal	bot0f19294c
+/*  f196174:	8ca5c4d0 */ 	lw	$a1,%lo(g_MpAllChrPtrs)($a1)
 /*  f196178:	1440006f */ 	bnez	$v0,.L0f196338
 /*  f19617c:	00000000 */ 	nop
 /*  f196180:	8e4c0114 */ 	lw	$t4,0x114($s2)
@@ -12322,7 +12333,7 @@ glabel var7f1b8fc8
 /*  f1961f8:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f1961fc:	10400008 */ 	beqz	$v0,.L0f196220
 /*  f196200:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196204:	0fc64a53 */ 	jal	func0f19294c
+/*  f196204:	0fc64a53 */ 	jal	bot0f19294c
 /*  f196208:	8fa500d4 */ 	lw	$a1,0xd4($sp)
 /*  f19620c:	14400004 */ 	bnez	$v0,.L0f196220
 /*  f196210:	8fb900d8 */ 	lw	$t9,0xd8($sp)
@@ -12339,8 +12350,8 @@ glabel var7f1b8fc8
 /*  f196238:	24010006 */ 	addiu	$at,$zero,0x6
 .L0f19623c:
 /*  f19623c:	1441003e */ 	bne	$v0,$at,.L0f196338
-/*  f196240:	3c13800b */ 	lui	$s3,%hi(g_MpNumPlayers)
-/*  f196244:	2673c530 */ 	addiu	$s3,$s3,%lo(g_MpNumPlayers)
+/*  f196240:	3c13800b */ 	lui	$s3,%hi(g_MpNumChrs)
+/*  f196244:	2673c530 */ 	addiu	$s3,$s3,%lo(g_MpNumChrs)
 /*  f196248:	8e690000 */ 	lw	$t1,0x0($s3)
 /*  f19624c:	44805000 */ 	mtc1	$zero,$f10
 /*  f196250:	03c08825 */ 	or	$s1,$s8,$zero
@@ -12363,7 +12374,7 @@ glabel var7f1b8fc8
 /*  f196290:	1040001f */ 	beqz	$v0,.L0f196310
 /*  f196294:	8fa500c0 */ 	lw	$a1,0xc0($sp)
 /*  f196298:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19629c:	0fc64a53 */ 	jal	func0f19294c
+/*  f19629c:	0fc64a53 */ 	jal	bot0f19294c
 /*  f1962a0:	afa500c0 */ 	sw	$a1,0xc0($sp)
 /*  f1962a4:	1440001a */ 	bnez	$v0,.L0f196310
 /*  f1962a8:	8fa500c0 */ 	lw	$a1,0xc0($sp)
@@ -12417,7 +12428,7 @@ glabel var7f1b8fc8
 /*  f19634c:	0fc0a221 */ 	jal	chrGetTargetProp
 /*  f196350:	02802025 */ 	or	$a0,$s4,$zero
 /*  f196354:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196358:	0fc64b70 */ 	jal	func0f192dc0
+/*  f196358:	0fc64b70 */ 	jal	botPassesCowardCheck
 /*  f19635c:	8c450004 */ 	lw	$a1,0x4($v0)
 /*  f196360:	10400003 */ 	beqz	$v0,.L0f196370
 /*  f196364:	00000000 */ 	nop
@@ -12426,7 +12437,7 @@ glabel var7f1b8fc8
 .L0f196370:
 /*  f196370:	06a1000b */ 	bgez	$s5,.L0f1963a0
 /*  f196374:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196378:	0fc64d4c */ 	jal	func0f193530
+/*  f196378:	0fc64d4c */ 	jal	bot0f193530
 /*  f19637c:	3c054396 */ 	lui	$a1,0x4396
 /*  f196380:	04400007 */ 	bltz	$v0,.L0f1963a0
 /*  f196384:	00408025 */ 	or	$s0,$v0,$zero
@@ -12439,15 +12450,15 @@ glabel var7f1b8fc8
 .L0f1963a0:
 /*  f1963a0:	06a10006 */ 	bgez	$s5,.L0f1963bc
 /*  f1963a4:	00000000 */ 	nop
-/*  f1963a8:	0fc651ad */ 	jal	func0f1946b4
+/*  f1963a8:	0fc651ad */ 	jal	bot0f1946b4
 /*  f1963ac:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1963b0:	10400002 */ 	beqz	$v0,.L0f1963bc
 /*  f1963b4:	ae420010 */ 	sw	$v0,0x10($s2)
 /*  f1963b8:	2415002a */ 	addiu	$s5,$zero,0x2a
 .L0f1963bc:
-/*  f1963bc:	3c13800b */ 	lui	$s3,%hi(g_MpNumPlayers)
+/*  f1963bc:	3c13800b */ 	lui	$s3,%hi(g_MpNumChrs)
 /*  f1963c0:	06a0007f */ 	bltz	$s5,.L0f1965c0
-/*  f1963c4:	2673c530 */ 	addiu	$s3,$s3,%lo(g_MpNumPlayers)
+/*  f1963c4:	2673c530 */ 	addiu	$s3,$s3,%lo(g_MpNumChrs)
 /*  f1963c8:	2401002a */ 	addiu	$at,$zero,0x2a
 /*  f1963cc:	56a1000a */ 	bnel	$s5,$at,.L0f1963f8
 /*  f1963d0:	2401002f */ 	addiu	$at,$zero,0x2f
@@ -12482,7 +12493,7 @@ glabel var7f1b8fc8
 /*  f19643c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f196440:	51a00060 */ 	beqzl	$t5,.L0f1965c4
 /*  f196444:	928202a0 */ 	lbu	$v0,0x2a0($s4)
-/*  f196448:	0fc649df */ 	jal	func0f19277c
+/*  f196448:	0fc649df */ 	jal	bot0f19277c
 /*  f19644c:	03c02825 */ 	or	$a1,$s8,$zero
 /*  f196450:	1000005c */ 	b	.L0f1965c4
 /*  f196454:	928202a0 */ 	lbu	$v0,0x2a0($s4)
@@ -12494,7 +12505,7 @@ glabel var7f1b8fc8
 /*  f196468:	02802025 */ 	or	$a0,$s4,$zero
 /*  f19646c:	51600004 */ 	beqzl	$t3,.L0f196480
 /*  f196470:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196474:	0fc649df */ 	jal	func0f19277c
+/*  f196474:	0fc649df */ 	jal	bot0f19277c
 /*  f196478:	03c02825 */ 	or	$a1,$s8,$zero
 /*  f19647c:	02802025 */ 	or	$a0,$s4,$zero
 .L0f196480:
@@ -12615,21 +12626,21 @@ glabel var7f1b8fc8
 /*  f196618:	1441003e */ 	bne	$v0,$at,.L0f196714
 /*  f19661c:	00000000 */ 	nop
 /*  f196620:	86420008 */ 	lh	$v0,0x8($s2)
-/*  f196624:	3c04800b */ 	lui	$a0,%hi(g_MpPlayerChrs)
+/*  f196624:	3c04800b */ 	lui	$a0,%hi(g_MpAllChrPtrs)
 /*  f196628:	04400011 */ 	bltz	$v0,.L0f196670
 /*  f19662c:	00026880 */ 	sll	$t5,$v0,0x2
 /*  f196630:	008d2021 */ 	addu	$a0,$a0,$t5
 /*  f196634:	0fc0e6a5 */ 	jal	chrIsDead
-/*  f196638:	8c84c4d0 */ 	lw	$a0,%lo(g_MpPlayerChrs)($a0)
+/*  f196638:	8c84c4d0 */ 	lw	$a0,%lo(g_MpAllChrPtrs)($a0)
 /*  f19663c:	5440000a */ 	bnezl	$v0,.L0f196668
 /*  f196640:	240c0029 */ 	addiu	$t4,$zero,0x29
 /*  f196644:	864b0008 */ 	lh	$t3,0x8($s2)
-/*  f196648:	3c05800b */ 	lui	$a1,%hi(g_MpPlayerChrs)
+/*  f196648:	3c05800b */ 	lui	$a1,%hi(g_MpAllChrPtrs)
 /*  f19664c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f196650:	000b7080 */ 	sll	$t6,$t3,0x2
 /*  f196654:	00ae2821 */ 	addu	$a1,$a1,$t6
-/*  f196658:	0fc64b70 */ 	jal	func0f192dc0
-/*  f19665c:	8ca5c4d0 */ 	lw	$a1,%lo(g_MpPlayerChrs)($a1)
+/*  f196658:	0fc64b70 */ 	jal	botPassesCowardCheck
+/*  f19665c:	8ca5c4d0 */ 	lw	$a1,%lo(g_MpAllChrPtrs)($a1)
 /*  f196660:	14400003 */ 	bnez	$v0,.L0f196670
 /*  f196664:	240c0029 */ 	addiu	$t4,$zero,0x29
 .L0f196668:
@@ -12651,7 +12662,7 @@ glabel var7f1b8fc8
 /*  f1966a0:	0fc0a221 */ 	jal	chrGetTargetProp
 /*  f1966a4:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1966a8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1966ac:	0fc64b70 */ 	jal	func0f192dc0
+/*  f1966ac:	0fc64b70 */ 	jal	botPassesCowardCheck
 /*  f1966b0:	8c450004 */ 	lw	$a1,0x4($v0)
 /*  f1966b4:	14400003 */ 	bnez	$v0,.L0f1966c4
 /*  f1966b8:	24190029 */ 	addiu	$t9,$zero,0x29
@@ -12659,9 +12670,9 @@ glabel var7f1b8fc8
 /*  f1966bc:	10000132 */ 	b	.L0f196b88
 /*  f1966c0:	a29902a0 */ 	sb	$t9,0x2a0($s4)
 .L0f1966c4:
-/*  f1966c4:	0fc65d80 */ 	jal	func0f197600
+/*  f1966c4:	0fc65d80 */ 	jal	botcmdTickDistMode
 /*  f1966c8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1966cc:	0fc6519c */ 	jal	func0f194670
+/*  f1966cc:	0fc6519c */ 	jal	bot0f194670
 /*  f1966d0:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1966d4:	10400003 */ 	beqz	$v0,.L0f1966e4
 /*  f1966d8:	24090029 */ 	addiu	$t1,$zero,0x29
@@ -12684,19 +12695,19 @@ glabel var7f1b8fc8
 /*  f196714:	1602004d */ 	bne	$s0,$v0,.L0f19684c
 /*  f196718:	24010033 */ 	addiu	$at,$zero,0x33
 /*  f19671c:	8642000a */ 	lh	$v0,0xa($s2)
-/*  f196720:	3c04800b */ 	lui	$a0,%hi(g_MpPlayerChrs)
+/*  f196720:	3c04800b */ 	lui	$a0,%hi(g_MpAllChrPtrs)
 /*  f196724:	04400005 */ 	bltz	$v0,.L0f19673c
 /*  f196728:	00026080 */ 	sll	$t4,$v0,0x2
 /*  f19672c:	008c2021 */ 	addu	$a0,$a0,$t4
 /*  f196730:	0fc0e6a5 */ 	jal	chrIsDead
-/*  f196734:	8c84c4d0 */ 	lw	$a0,%lo(g_MpPlayerChrs)($a0)
+/*  f196734:	8c84c4d0 */ 	lw	$a0,%lo(g_MpAllChrPtrs)($a0)
 /*  f196738:	10400003 */ 	beqz	$v0,.L0f196748
 .L0f19673c:
 /*  f19673c:	24180029 */ 	addiu	$t8,$zero,0x29
 /*  f196740:	10000111 */ 	b	.L0f196b88
 /*  f196744:	a29802a0 */ 	sb	$t8,0x2a0($s4)
 .L0f196748:
-/*  f196748:	0fc65d80 */ 	jal	func0f197600
+/*  f196748:	0fc65d80 */ 	jal	botcmdTickDistMode
 /*  f19674c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f196750:	8e4f01e0 */ 	lw	$t7,0x1e0($s2)
 /*  f196754:	11e00037 */ 	beqz	$t7,.L0f196834
@@ -12710,16 +12721,16 @@ glabel var7f1b8fc8
 /*  f196774:	0fc0a221 */ 	jal	chrGetTargetProp
 /*  f196778:	02802025 */ 	or	$a0,$s4,$zero
 /*  f19677c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196780:	0fc64b70 */ 	jal	func0f192dc0
+/*  f196780:	0fc64b70 */ 	jal	botPassesCowardCheck
 /*  f196784:	8c450004 */ 	lw	$a1,0x4($v0)
 /*  f196788:	1040002a */ 	beqz	$v0,.L0f196834
 /*  f19678c:	3c0143fa */ 	lui	$at,0x43fa
 /*  f196790:	864d000a */ 	lh	$t5,0xa($s2)
-/*  f196794:	3c0b800b */ 	lui	$t3,%hi(g_MpPlayerChrs)
+/*  f196794:	3c0b800b */ 	lui	$t3,%hi(g_MpAllChrPtrs)
 /*  f196798:	8e83001c */ 	lw	$v1,0x1c($s4)
 /*  f19679c:	000d5080 */ 	sll	$t2,$t5,0x2
 /*  f1967a0:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f1967a4:	8d6bc4d0 */ 	lw	$t3,%lo(g_MpPlayerChrs)($t3)
+/*  f1967a4:	8d6bc4d0 */ 	lw	$t3,%lo(g_MpAllChrPtrs)($t3)
 /*  f1967a8:	c4680008 */ 	lwc1	$f8,0x8($v1)
 /*  f1967ac:	44806000 */ 	mtc1	$zero,$f12
 /*  f1967b0:	8d62001c */ 	lw	$v0,0x1c($t3)
@@ -12758,7 +12769,7 @@ glabel var7f1b8fc8
 /*  f19682c:	ae4c01d8 */ 	sw	$t4,0x1d8($s2)
 /*  f196830:	a25e0074 */ 	sb	$s8,0x74($s2)
 .L0f196834:
-/*  f196834:	0fc6519c */ 	jal	func0f194670
+/*  f196834:	0fc6519c */ 	jal	bot0f194670
 /*  f196838:	02802025 */ 	or	$a0,$s4,$zero
 /*  f19683c:	104000d2 */ 	beqz	$v0,.L0f196b88
 /*  f196840:	24180029 */ 	addiu	$t8,$zero,0x29
@@ -12846,7 +12857,7 @@ glabel var7f1b8fc8
 /*  f19696c:	0fc0a221 */ 	jal	chrGetTargetProp
 /*  f196970:	02802025 */ 	or	$a0,$s4,$zero
 /*  f196974:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196978:	0fc64b70 */ 	jal	func0f192dc0
+/*  f196978:	0fc64b70 */ 	jal	botPassesCowardCheck
 /*  f19697c:	8c450004 */ 	lw	$a1,0x4($v0)
 /*  f196980:	1040000a */ 	beqz	$v0,.L0f1969ac
 /*  f196984:	240f002f */ 	addiu	$t7,$zero,0x2f
@@ -12867,7 +12878,7 @@ glabel var7f1b8fc8
 /*  f1969b8:	00000000 */ 	nop
 /*  f1969bc:	ae4d00dc */ 	sw	$t5,0xdc($s2)
 .L0f1969c0:
-/*  f1969c0:	0fc6519c */ 	jal	func0f194670
+/*  f1969c0:	0fc6519c */ 	jal	bot0f194670
 /*  f1969c4:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1969c8:	1040006f */ 	beqz	$v0,.L0f196b88
 /*  f1969cc:	240a0029 */ 	addiu	$t2,$zero,0x29
@@ -12922,7 +12933,7 @@ glabel var7f1b8fc8
 /*  f196a7c:	10000042 */ 	b	.L0f196b88
 /*  f196a80:	a28b02a0 */ 	sb	$t3,0x2a0($s4)
 .L0f196a84:
-/*  f196a84:	0fc6519c */ 	jal	func0f194670
+/*  f196a84:	0fc6519c */ 	jal	bot0f194670
 /*  f196a88:	02802025 */ 	or	$a0,$s4,$zero
 /*  f196a8c:	1040003e */ 	beqz	$v0,.L0f196b88
 /*  f196a90:	240e0029 */ 	addiu	$t6,$zero,0x29
@@ -12932,7 +12943,7 @@ glabel var7f1b8fc8
 /*  f196a9c:	2401002c */ 	addiu	$at,$zero,0x2c
 /*  f196aa0:	54410029 */ 	bnel	$v0,$at,.L0f196b48
 /*  f196aa4:	2401002e */ 	addiu	$at,$zero,0x2e
-/*  f196aa8:	0fc6519c */ 	jal	func0f194670
+/*  f196aa8:	0fc6519c */ 	jal	bot0f194670
 /*  f196aac:	02802025 */ 	or	$a0,$s4,$zero
 /*  f196ab0:	10400003 */ 	beqz	$v0,.L0f196ac0
 /*  f196ab4:	240c0029 */ 	addiu	$t4,$zero,0x29
@@ -12978,7 +12989,7 @@ glabel var7f1b8fc8
 .L0f196b48:
 /*  f196b48:	1441000f */ 	bne	$v0,$at,.L0f196b88
 /*  f196b4c:	00000000 */ 	nop
-/*  f196b50:	0fc6519c */ 	jal	func0f194670
+/*  f196b50:	0fc6519c */ 	jal	bot0f194670
 /*  f196b54:	02802025 */ 	or	$a0,$s4,$zero
 /*  f196b58:	10400003 */ 	beqz	$v0,.L0f196b68
 /*  f196b5c:	240e0029 */ 	addiu	$t6,$zero,0x29
@@ -12994,7 +13005,7 @@ glabel var7f1b8fc8
 /*  f196b80:	00000000 */ 	nop
 /*  f196b84:	a29802a0 */ 	sb	$t8,0x2a0($s4)
 .L0f196b88:
-/*  f196b88:	0fc64ba4 */ 	jal	func0f192e90
+/*  f196b88:	0fc64ba4 */ 	jal	bot0f192e90
 /*  f196b8c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f196b90:	0fc633fe */ 	jal	mpPlayerGetIndex
 /*  f196b94:	02802025 */ 	or	$a0,$s4,$zero
@@ -13051,7 +13062,7 @@ glabel var7f1b8fc8
 /*  f196c58:	0fc45090 */ 	jal	waypointSetHashThing
 /*  f196c5c:	00002825 */ 	or	$a1,$zero,$zero
 .L0f196c60:
-/*  f196c60:	0fc663bb */ 	jal	aibotTickInventory
+/*  f196c60:	0fc663bb */ 	jal	botinvTick
 /*  f196c64:	02802025 */ 	or	$a0,$s4,$zero
 /*  f196c68:	afa00088 */ 	sw	$zero,0x88($sp)
 /*  f196c6c:	00009825 */ 	or	$s3,$zero,$zero
@@ -13104,7 +13115,7 @@ glabel var7f1b8fc8
 /*  f196d18:	0122082a */ 	slt	$at,$t1,$v0
 /*  f196d1c:	10200005 */ 	beqz	$at,.L0f196d34
 /*  f196d20:	02602825 */ 	or	$a1,$s3,$zero
-/*  f196d24:	0fc64da7 */ 	jal	func0f19369c
+/*  f196d24:	0fc64da7 */ 	jal	bot0f19369c
 /*  f196d28:	a460003c */ 	sh	$zero,0x3c($v1)
 /*  f196d2c:	100001e7 */ 	b	.L0f1974cc
 /*  f196d30:	00000000 */ 	nop
@@ -13130,7 +13141,7 @@ glabel var7f1b8fc8
 /*  f196d7c:	030d082a */ 	slt	$at,$t8,$t5
 /*  f196d80:	54200034 */ 	bnezl	$at,.L0f196e54
 /*  f196d84:	a460003c */ 	sh	$zero,0x3c($v1)
-/*  f196d88:	0fc64098 */ 	jal	func0f190260
+/*  f196d88:	0fc64098 */ 	jal	bot0f190260
 /*  f196d8c:	afa30054 */ 	sw	$v1,0x54($sp)
 /*  f196d90:	14400030 */ 	bnez	$v0,.L0f196e54
 /*  f196d94:	8fa30054 */ 	lw	$v1,0x54($sp)
@@ -13293,7 +13304,7 @@ glabel var7f1b8fc8
 /*  f196fd4:	00000000 */ 	nop
 /*  f196fd8:	0fc0897d */ 	jal	chrUncloakTemporarily
 /*  f196fdc:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196fe0:	0fc66a14 */ 	jal	aibotCreateSlayerRocket
+/*  f196fe0:	0fc66a14 */ 	jal	botactCreateSlayerRocket
 /*  f196fe4:	02802025 */ 	or	$a0,$s4,$zero
 /*  f196fe8:	8e4b0024 */ 	lw	$t3,0x24($s2)
 /*  f196fec:	256cffff */ 	addiu	$t4,$t3,-1
@@ -13302,7 +13313,7 @@ glabel var7f1b8fc8
 .L0f196ff8:
 /*  f196ff8:	000577c2 */ 	srl	$t6,$a1,0x1f
 .L0f196ffc:
-/*  f196ffc:	0fc668a7 */ 	jal	func0f19a29c
+/*  f196ffc:	0fc668a7 */ 	jal	botactIsWeaponThrowable
 /*  f197000:	01c02825 */ 	or	$a1,$t6,$zero
 /*  f197004:	1040005b */ 	beqz	$v0,.L0f197174
 /*  f197008:	8fae004c */ 	lw	$t6,0x4c($sp)
@@ -13324,7 +13335,7 @@ glabel var7f1b8fc8
 /*  f197044:	8e450020 */ 	lw	$a1,0x20($s2)
 /*  f197048:	00003825 */ 	or	$a3,$zero,$zero
 /*  f19704c:	00066880 */ 	sll	$t5,$a2,0x2
-/*  f197050:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
+/*  f197050:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
 /*  f197054:	000d37c2 */ 	srl	$a2,$t5,0x1f
 /*  f197058:	5c400008 */ 	bgtzl	$v0,.L0f19707c
 /*  f19705c:	868b017e */ 	lh	$t3,0x17e($s4)
@@ -13353,7 +13364,7 @@ glabel var7f1b8fc8
 /*  f1970b0:	01d8082a */ 	slt	$at,$t6,$t8
 /*  f1970b4:	1420000b */ 	bnez	$at,.L0f1970e4
 /*  f1970b8:	00000000 */ 	nop
-/*  f1970bc:	0fc64098 */ 	jal	func0f190260
+/*  f1970bc:	0fc64098 */ 	jal	bot0f190260
 /*  f1970c0:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1970c4:	14400006 */ 	bnez	$v0,.L0f1970e0
 /*  f1970c8:	02802025 */ 	or	$a0,$s4,$zero
@@ -13374,9 +13385,9 @@ glabel var7f1b8fc8
 /*  f1970fc:	8e450020 */ 	lw	$a1,0x20($s2)
 /*  f197100:	00066880 */ 	sll	$t5,$a2,0x2
 /*  f197104:	000d37c2 */ 	srl	$a2,$t5,0x1f
-/*  f197108:	0fc6675c */ 	jal	aibotTryRemoveAmmoFromReserve
+/*  f197108:	0fc6675c */ 	jal	botactTryRemoveAmmoFromReserve
 /*  f19710c:	02e03825 */ 	or	$a3,$s7,$zero
-/*  f197110:	0fc668df */ 	jal	func0f19a37c
+/*  f197110:	0fc668df */ 	jal	botact0f19a37c
 /*  f197114:	02802025 */ 	or	$a0,$s4,$zero
 /*  f197118:	8e45004c */ 	lw	$a1,0x4c($s2)
 /*  f19711c:	8e440020 */ 	lw	$a0,0x20($s2)
@@ -13390,15 +13401,15 @@ glabel var7f1b8fc8
 /*  f19713c:	000fcb40 */ 	sll	$t9,$t7,0xd
 /*  f197140:	07230008 */ 	bgezl	$t9,.L0f197164
 /*  f197144:	8e8902d4 */ 	lw	$t1,0x2d4($s4)
-/*  f197148:	0fc65f65 */ 	jal	aibotRemoveInvItem
+/*  f197148:	0fc65f65 */ 	jal	botinvRemoveItem
 /*  f19714c:	8e450020 */ 	lw	$a1,0x20($s2)
 /*  f197150:	02802025 */ 	or	$a0,$s4,$zero
 /*  f197154:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f197158:	0fc6652c */ 	jal	aibotSwitchToWeapon
+/*  f197158:	0fc6652c */ 	jal	botinvSwitchToWeapon
 /*  f19715c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f197160:	8e8902d4 */ 	lw	$t1,0x2d4($s4)
 .L0f197164:
-/*  f197164:	0fc668b7 */ 	jal	aibotGetProjectileThrowInterval
+/*  f197164:	0fc668b7 */ 	jal	botactGetProjectileThrowInterval
 /*  f197168:	8d240020 */ 	lw	$a0,0x20($t1)
 /*  f19716c:	100000d7 */ 	b	.L0f1974cc
 /*  f197170:	ae420034 */ 	sw	$v0,0x34($s2)
@@ -13499,7 +13510,7 @@ glabel var7f1b8fc8
 /*  f1972d0:	0159082a */ 	slt	$at,$t2,$t9
 /*  f1972d4:	1420002a */ 	bnez	$at,.L0f197380
 /*  f1972d8:	00000000 */ 	nop
-/*  f1972dc:	0fc64098 */ 	jal	func0f190260
+/*  f1972dc:	0fc64098 */ 	jal	bot0f190260
 /*  f1972e0:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1972e4:	14400006 */ 	bnez	$v0,.L0f197300
 /*  f1972e8:	02802025 */ 	or	$a0,$s4,$zero
@@ -13571,7 +13582,7 @@ glabel var7f1b8fc8
 /*  f1973dc:	8e45004c */ 	lw	$a1,0x4c($s2)
 /*  f1973e0:	8e440020 */ 	lw	$a0,0x20($s2)
 /*  f1973e4:	00057880 */ 	sll	$t7,$a1,0x2
-/*  f1973e8:	0fc66983 */ 	jal	func0f19a60c
+/*  f1973e8:	0fc66983 */ 	jal	botact0f19a60c
 /*  f1973ec:	000f2fc2 */ 	srl	$a1,$t7,0x1f
 /*  f1973f0:	ae22005c */ 	sw	$v0,0x5c($s1)
 /*  f1973f4:	8e45004c */ 	lw	$a1,0x4c($s2)
@@ -13668,9 +13679,9 @@ glabel var7f1b8fc8
 );
 #endif
 
-void func0f197544(struct chrdata *chr)
+void botCheckFetch(struct chrdata *chr)
 {
-	bool pass = false;
+	bool alreadyfetching = false;
 	struct aibot *aibot = chr->aibot;
 
 	if (chr->myaction == MA_AIBOTGETITEM) {
@@ -13694,10 +13705,10 @@ void func0f197544(struct chrdata *chr)
 		}
 
 		aibot->unk0d8 = 1;
-		pass = true;
+		alreadyfetching = true;
 	}
 
-	if (!pass) {
+	if (!alreadyfetching) {
 		chrGoToPos(chr, &chr->act_gopos.endpos, chr->act_gopos.endrooms, chr->act_gopos.flags);
 	}
 }

@@ -2935,7 +2935,7 @@ void setupParseObjects(s32 stagenum)
 				}
 			}
 
-			mpRemoveAllSimulants();
+			botmgrRemoveAll();
 			index = 0;
 
 			obj = (struct defaultobj *)g_StageSetup.props;
@@ -3471,7 +3471,7 @@ void setupParseObjects(s32 stagenum)
 
 					if ((g_MpSetup.chrslots & (1 << (slotnum + 4)))
 							&& mpIsSimSlotEnabled(slotnum)) {
-						aibotAllocate(chrnum, slotnum);
+						botmgrAllocateBot(chrnum, slotnum);
 						chrnum++;
 					}
 

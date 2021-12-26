@@ -47,7 +47,8 @@
 	build/ROMID/game/game_013ee0.o (section); \
 	build/ROMID/game/game_0147a0.o (section); \
 	build/ROMID/game/game_0147d0.o (section); \
-	build/ROMID/game/game_014e90.o (section); \
+	build/ROMID/game/botmgr.o (section); \
+	build/ROMID/game/botinvinit.o (section); \
 	build/ROMID/game/game_014f10.o (section); \
 	build/ROMID/game/game_015010.o (section); \
 	build/ROMID/game/game_0150a0.o (section); \
@@ -202,10 +203,10 @@
 	build/ROMID/game/mplayer/scenarios.o (section); \
 	build/ROMID/game/mplayer/mplayer.o (section); \
 	build/ROMID/game/radar.o (section); \
-	build/ROMID/game/game_190260.o (section); \
-	build/ROMID/game/game_197600.o (section); \
-	build/ROMID/game/game_197c00.o (section); \
-	build/ROMID/game/game_1999b0.o (section); \
+	build/ROMID/game/bot.o (section); \
+	build/ROMID/game/botcmd.o (section); \
+	build/ROMID/game/botinv.o (section); \
+	build/ROMID/game/botact.o (section); \
 	build/ROMID/game/mplayer/mpaicommands.o (section); \
 	build/ROMID/game/vmstats.o (section); \
 	build/ROMID/game/game_19aa80.o (section); \

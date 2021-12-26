@@ -7,9 +7,9 @@
 #include "game/game_0b0fd0.h"
 #include "game/game_127910.h"
 #include "game/mplayer/setup.h"
-#include "game/game_190260.h"
-#include "game/game_197600.h"
-#include "game/game_1999b0.h"
+#include "game/bot.h"
+#include "game/botcmd.h"
+#include "game/botact.h"
 #include "game/mplayer/mplayer.h"
 #include "game/propobj.h"
 #include "bss.h"
@@ -17,121 +17,132 @@
 #include "data.h"
 #include "types.h"
 
-f32 var80087e50[][3] = {
-	{ 0,    120,  10000 },
-	{ 300,  450,  4500  },
-	{ 300,  600,  4500  },
-	{ 600,  1200, 4500  },
-	{ 150,  250,  4500  },
-	{ 1000, 2000, 3000  },
-	{ 0,    250,  10000 },
-	{ 450,  700,  4500  },
+/**
+ * This table defines the ideal distance ranges for attacking.
+ *
+ * The first value is the minimum attack distance.
+ * The second value is the maximum attack distance.
+ * The third value doesn't appear to have any purpose.
+ */
+f32 g_BotDistConfigs[][3] = {
+	{ 0,    120,  10000 }, // BOTDISTCFG_CLOSE
+	{ 300,  450,  4500  }, // BOTDISTCFG_PISTOL
+	{ 300,  600,  4500  }, // BOTDISTCFG_DEFAULT
+	{ 600,  1200, 4500  }, // BOTDISTCFG_SHOOTEXPLOSIVE
+	{ 150,  250,  4500  }, // BOTDISTCFG_KAZE
+	{ 1000, 2000, 3000  }, // BOTDISTCFG_FARSIGHT
+	{ 0,    250,  10000 }, // BOTDISTCFG_FOLLOW
+	{ 450,  700,  4500  }, // BOTDISTCFG_THROWEXPLOSIVE
 };
 
 #if VERSION >= VERSION_NTSC_1_0
-void func0f197600(struct chrdata *chr)
+void botcmdTickDistMode(struct chrdata *chr)
 {
-	s32 index;
+	s32 confignum;
 	f32 *limits;
 	f32 distance;
-	u8 new074;
+	u8 newmode;
 	struct aibot *aibot = chr->aibot;
-	s32 prev074 = aibot->unk074;
-	struct prop *prop = NULL;
+	s32 prevmode = aibot->distmode;
+	struct prop *targetprop = NULL;
 	s32 somevalue = 0;
-	f32 limit1;
-	f32 limit2;
+	f32 minattackdistance;
+	f32 maxattackdistance;
 	f32 limit3;
 	u32 stack;
 
-	if (aibot->simulant->base.simtype == SIMTYPE_KAZE) {
-		index = 4;
+	if (aibot->config->type == BOTTYPE_KAZE) {
+		confignum = BOTDISTCFG_KAZE;
 	} else {
-		index = func0f198e38(aibot->weaponnum, aibot->gunfunc);
+		confignum = botinvGetDistConfig(aibot->weaponnum, aibot->gunfunc);
 	}
 
 	if (chr->myaction == MA_AIBOTFOLLOW && aibot->followingplayernum >= 0) {
-		limits = var80087e50[6];
-		prop = g_MpPlayerChrs[aibot->followingplayernum]->prop;
+		limits = g_BotDistConfigs[BOTDISTCFG_FOLLOW];
+		targetprop = g_MpAllChrPtrs[aibot->followingplayernum]->prop;
 		somevalue = aibot->unk16c[aibot->followingplayernum];
 
-		if (chr->target != -1 && (index == 0 || index == 4)) {
+		if (chr->target != -1 && (confignum == BOTDISTCFG_CLOSE || confignum == BOTDISTCFG_KAZE)) {
 			struct prop *target = chrGetTargetProp(chr);
-			f32 xdiff = prop->pos.x - target->pos.x;
-			f32 ydiff = prop->pos.y - target->pos.y;
-			f32 zdiff = prop->pos.z - target->pos.z;
+			f32 xdiff = targetprop->pos.x - target->pos.x;
+			f32 ydiff = targetprop->pos.y - target->pos.y;
+			f32 zdiff = targetprop->pos.z - target->pos.z;
 
 			if (xdiff * xdiff + ydiff * ydiff + zdiff * zdiff < 500 * 500) {
-				limits = var80087e50[index];
-				prop = target;
+				limits = g_BotDistConfigs[confignum];
+				targetprop = target;
 				somevalue = aibot->unk128;
 			}
 		}
 	} else {
-		limits = var80087e50[index];
+		limits = g_BotDistConfigs[confignum];
 
 		if (chr->myaction == MA_AIBOTATTACK && aibot->attackingplayernum >= 0) {
-			prop = g_MpPlayerChrs[aibot->attackingplayernum]->prop;
+			targetprop = g_MpAllChrPtrs[aibot->attackingplayernum]->prop;
 			somevalue = aibot->unk16c[aibot->attackingplayernum];
 		} else if (chr->target != -1) {
-			prop = chrGetTargetProp(chr);
+			targetprop = chrGetTargetProp(chr);
 			somevalue = aibot->unk128;
 		}
 	}
 
-	if (prop == NULL) {
+	if (targetprop == NULL) {
 		return;
 	}
 
-	if (!chrHasGround(prop->chr)) {
+	if (!botHasGround(targetprop->chr)) {
 		return;
 	}
 
-	distance = chrGetDistanceToCoord(chr, &prop->pos);
-	limit1 = limits[0];
-	limit2 = limits[1];
+	distance = chrGetDistanceToCoord(chr, &targetprop->pos);
+	minattackdistance = limits[0];
+	maxattackdistance = limits[1];
 	limit3 = limits[2];
 
-	if (chr->aibot->simulant->difficulty == SIMDIFF_MEAT) {
-		limit1 *= 0.35f;
-	} else if (chr->aibot->simulant->difficulty == SIMDIFF_EASY) {
-		limit1 *= 0.5f;
+	if (chr->aibot->config->difficulty == BOTDIFF_MEAT) {
+		minattackdistance *= 0.35f;
+	} else if (chr->aibot->config->difficulty == BOTDIFF_EASY) {
+		minattackdistance *= 0.5f;
 	}
 
-	if (aibot->unk074 == 1) {
-		limit1 += 25.0f;
-	} else if (aibot->unk074 == 3 || aibot->unk074 == 4) {
-		limit2 -= 25.0f;
+	if (aibot->distmode == BOTDISTMODE_BACKUP) {
+		minattackdistance += 25.0f;
+	} else if (aibot->distmode == BOTDISTMODE_ADVANCE || aibot->distmode == BOTDISTMODE_GOTO) {
+		maxattackdistance -= 25.0f;
 	}
 
-	if (distance < limit1) {
-		new074 = 1;
-	} else if (distance >= limit1 && distance < limit2) {
-		new074 = 2;
-	} else if (distance >= limit2 && distance < limit3) {
-		new074 = 3;
+	if (distance < minattackdistance) {
+		// Bot is too close to target - move back a bit
+		newmode = BOTDISTMODE_BACKUP;
+	} else if (distance >= minattackdistance && distance < maxattackdistance) {
+		// Bot is a good distance from target for attacking
+		newmode = BOTDISTMODE_OK;
+	} else if (distance >= maxattackdistance && distance < limit3) {
+		// Bot needs to come closer to target
+		newmode = BOTDISTMODE_ADVANCE;
 	} else {
-		new074 = 4;
+		// Bot needs to come a lot closer to target
+		newmode = BOTDISTMODE_GOTO;
 	}
 
-	if (new074 != 1 || somevalue == 0 || aibot->unk050 != prop) {
+	if (newmode != BOTDISTMODE_BACKUP || somevalue == 0 || aibot->unk050 != targetprop) {
 		aibot->unk050 = NULL;
 		aibot->unk09d = 0;
 	}
 
-	if (new074 == 2) {
+	if (newmode == BOTDISTMODE_OK) {
 		if (somevalue == 0) {
-			new074 = 3;
+			newmode = BOTDISTMODE_ADVANCE;
 		}
-	} else if (new074 == 1) {
+	} else if (newmode == BOTDISTMODE_BACKUP) {
 		if (somevalue == 0) {
-			new074 = 3;
-			aibot->unk050 = prop;
+			newmode = BOTDISTMODE_ADVANCE;
+			aibot->unk050 = targetprop;
 			aibot->unk09d = PALDOWN(20) + (random() % PALDOWN(120));
 		} else if (aibot->unk050) {
 			if (aibot->unk09d > g_Vars.lvupdate240_60) {
 				aibot->unk09d -= g_Vars.lvupdate240_60;
-				new074 = 2;
+				newmode = BOTDISTMODE_OK;
 			} else {
 				aibot->unk050 = NULL;
 				aibot->unk09d = 0;
@@ -139,34 +150,35 @@ void func0f197600(struct chrdata *chr)
 		}
 	}
 
-	aibot->unk074 = new074;
+	aibot->distmode = newmode;
 
-	if (aibot->unk0d0 >= 0) {
-		aibot->unk0d0 -= g_Vars.lvupdate240_60;
+	if (aibot->distmodettl60 >= 0) {
+		aibot->distmodettl60 -= g_Vars.lvupdate240_60;
 	}
 
-	if (new074 != prev074 || (new074 != 2 && (chr->actiontype == ACT_STAND || aibot->unk0d0 <= 0))) {
-		switch (new074) {
-		case 1:
-			chrRunFromPos(chr, SPEED_RUN, 10000, &prop->pos);
+	if (newmode != prevmode
+			|| (newmode != BOTDISTMODE_OK && (chr->actiontype == ACT_STAND || aibot->distmodettl60 <= 0))) {
+		switch (newmode) {
+		case BOTDISTMODE_BACKUP:
+			chrRunFromPos(chr, SPEED_RUN, 10000, &targetprop->pos);
 			break;
-		case 2:
+		case BOTDISTMODE_OK:
 			chrTryStop(chr);
 			break;
-		case 3:
-			chrGoToProp(chr, prop, SPEED_RUN);
+		case BOTDISTMODE_ADVANCE:
+			chrGoToProp(chr, targetprop, SPEED_RUN);
 			break;
-		case 4:
-			chrGoToProp(chr, prop, SPEED_RUN);
+		case BOTDISTMODE_GOTO:
+			chrGoToProp(chr, targetprop, SPEED_RUN);
 			break;
 		}
 
-		aibot->unk0d0 = PALDOWN(60);
+		aibot->distmodettl60 = PALDOWN(60);
 	}
 }
 #else
 GLOBAL_ASM(
-glabel func0f197600
+glabel botcmdTickDistMode
 .late_rodata
 glabel var7f1b35b0
 .word 0x48742400
@@ -195,7 +207,7 @@ glabel var7f1b35b4
 /*  f1916c8:	00055080 */ 	sll	$t2,$a1,0x2
 /*  f1916cc:	000a2fc2 */ 	srl	$a1,$t2,0x1f
 /*  f1916d0:	afa80054 */ 	sw	$t0,0x54($sp)
-/*  f1916d4:	0fc64b86 */ 	jal	func0f198e38
+/*  f1916d4:	0fc64b86 */ 	jal	botinvGetDistConfig
 /*  f1916d8:	afa7004c */ 	sw	$a3,0x4c($sp)
 /*  f1916dc:	8fa7004c */ 	lw	$a3,0x4c($sp)
 /*  f1916e0:	8fa80054 */ 	lw	$t0,0x54($sp)
@@ -306,7 +318,7 @@ glabel var7f1b35b4
 /*  f191870:	afa90048 */ 	sw	$t1,0x48($sp)
 /*  f191874:	afa80054 */ 	sw	$t0,0x54($sp)
 /*  f191878:	afa7004c */ 	sw	$a3,0x4c($sp)
-/*  f19187c:	0fc632b2 */ 	jal	chrHasGround
+/*  f19187c:	0fc632b2 */ 	jal	botHasGround
 /*  f191880:	afa60060 */ 	sw	$a2,0x60($sp)
 /*  f191884:	8fa60060 */ 	lw	$a2,0x60($sp)
 /*  f191888:	8fa7004c */ 	lw	$a3,0x4c($sp)
@@ -477,7 +489,7 @@ glabel var7f1b35b4
 );
 #endif
 
-void mpAibotApplyCommand(struct chrdata *chr, u32 command)
+void botcmdApply(struct chrdata *chr, u32 command)
 {
 	f32 value;
 
@@ -486,21 +498,21 @@ void mpAibotApplyCommand(struct chrdata *chr, u32 command)
 		amOpenPickTarget();
 		break;
 	case AIBOTCMD_FOLLOW:
-		mpAibotApplyFollow(chr, g_Vars.currentplayer->prop);
+		botApplyFollow(chr, g_Vars.currentplayer->prop);
 		break;
 	case AIBOTCMD_PROTECT:
-		mpAibotApplyProtect(chr, g_Vars.currentplayer->prop);
+		botApplyProtect(chr, g_Vars.currentplayer->prop);
 		break;
 	case AIBOTCMD_DEFEND:
 		value = chrGetInverseTheta(g_Vars.currentplayer->prop->chr);
-		mpAibotApplyDefend(chr, &g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, value);
+		botApplyDefend(chr, &g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, value);
 		break;
 	case AIBOTCMD_HOLD:
 		value = chrGetInverseTheta(g_Vars.currentplayer->prop->chr);
-		mpAibotApplyHold(chr, &g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, value);
+		botApplyHold(chr, &g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, value);
 		break;
 	default:
-		mpAibotApplyScenarioCommand(chr, command);
+		botApplyScenarioCommand(chr, command);
 		break;
 	}
 }

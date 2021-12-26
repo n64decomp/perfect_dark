@@ -29,8 +29,8 @@
 #include "game/game_165670.h"
 #include "game/file.h"
 #include "game/mplayer/setup.h"
-#include "game/game_190260.h"
-#include "game/game_1999b0.h"
+#include "game/bot.h"
+#include "game/botact.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"
 #include "game/propobj.h"
@@ -791,7 +791,7 @@ glabel var7f1a992cpf
 .PF0f01f6f0:
 /*  f01f6f0:	8fa700dc */ 	lw	$a3,0xdc($sp)
 .PF0f01f6f4:
-/*  f01f6f4:	0fc64cac */ 	jal	func0f1921f8
+/*  f01f6f4:	0fc64cac */ 	jal	bot0f1921f8
 /*  f01f6f8:	e7ac00e0 */ 	swc1	$f12,0xe0($sp)
 /*  f01f6fc:	3c08800a */ 	lui	$t0,0x800a
 /*  f01f700:	44808000 */ 	mtc1	$zero,$f16
@@ -2059,7 +2059,7 @@ glabel var7f1a8720
 .L0f01f5c0:
 /*  f01f5c0:	8fa700dc */ 	lw	$a3,0xdc($sp)
 .L0f01f5c4:
-/*  f01f5c4:	0fc6487e */ 	jal	func0f1921f8
+/*  f01f5c4:	0fc6487e */ 	jal	bot0f1921f8
 /*  f01f5c8:	e7ac00e0 */ 	swc1	$f12,0xe0($sp)
 /*  f01f5cc:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f01f5d0:	44809000 */ 	mtc1	$zero,$f18
@@ -3286,7 +3286,7 @@ glabel var7f1a8720
 /*  f01f2e4:	8d2b0004 */ 	lw	$t3,0x4($t1)
 /*  f01f2e8:	1b200005 */ 	blez	$t9,.NB0f01f300
 /*  f01f2ec:	acab0004 */ 	sw	$t3,0x4($a1)
-/*  f01f2f0:	0fc630b7 */ 	jal	func0f1921f8
+/*  f01f2f0:	0fc630b7 */ 	jal	bot0f1921f8
 /*  f01f2f4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f01f2f8:	44809000 */ 	mtc1	$zero,$f18
 /*  f01f2fc:	00000000 */ 	sll	$zero,$zero,0x0
@@ -6716,8 +6716,8 @@ void chrUncloak(struct chrdata *chr, bool value)
 #if PIRACYCHECKS
 		{
 			u32 checksum = 0;
-			u32 *i = (u32 *)&propobjHandlePickupByAibot;
-			u32 *end = (u32 *)&func0f190be4;
+			u32 *i = (u32 *)&botPickupProp;
+			u32 *end = (u32 *)&botTestPropForPickup;
 
 			while (i < end) {
 				checksum += ~*i;
@@ -6776,7 +6776,7 @@ void chrUpdateCloak(struct chrdata *chr)
 		} else if (chr->aibot->rcp120cloakenabled) {
 			if (chr->aibot->weaponnum == WEAPON_RCP120
 					&& !chrIsDead(chr)
-					&& aibotGetAmmoQuantityByWeapon(chr->aibot, WEAPON_RCP120, 0, 1) > 0) {
+					&& botactGetAmmoQuantityByWeapon(chr->aibot, WEAPON_RCP120, 0, 1) > 0) {
 				if (chr->hidden & CHRHFLAG_CLOAKED) {
 					chr->aibot->unk2c4 += (PAL ? g_Vars.lvupdate240freal : g_Vars.lvupdate240f) * 0.4f;
 
@@ -6791,7 +6791,7 @@ void chrUpdateCloak(struct chrdata *chr)
 								chr->aibot->loadedammo[0] = 0;
 							}
 						} else {
-							ammotype = weaponGetAmmoTypeByFunction(WEAPON_RCP120, 0);
+							ammotype = botactGetAmmoTypeByFunction(WEAPON_RCP120, 0);
 
 							if (chr->aibot->ammoheld[ammotype] > 0) {
 								chr->aibot->ammoheld[ammotype] -= qty;

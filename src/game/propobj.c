@@ -48,8 +48,8 @@
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
 #include "game/mpstats.h"
-#include "game/game_190260.h"
-#include "game/game_1999b0.h"
+#include "game/bot.h"
+#include "game/botact.h"
 #include "game/training/training.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
@@ -5975,9 +5975,9 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 				&& obj->projectile->ownerprop) {
 			s32 i;
 
-			for (i = 0; i < g_MpNumPlayers; i++) {
-				if (g_MpPlayerChrs[i]->aibot && g_MpPlayerChrs[i]->aibot->skrocket == obj->prop) {
-					g_MpPlayerChrs[i]->aibot->skrocket = NULL;
+			for (i = 0; i < g_MpNumChrs; i++) {
+				if (g_MpAllChrPtrs[i]->aibot && g_MpAllChrPtrs[i]->aibot->skrocket == obj->prop) {
+					g_MpAllChrPtrs[i]->aibot->skrocket = NULL;
 				}
 			}
 		}
@@ -6046,9 +6046,9 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 		if (g_Vars.normmplayerisrunning) {
 			s32 i;
 
-			for (i = 0; i < g_MpNumPlayers; i++) {
-				if (g_MpPlayerChrs[i]->aibot && g_MpPlayerChrs[i]->aibot->fetchprop == obj->prop) {
-					g_MpPlayerChrs[i]->aibot->fetchprop = NULL;
+			for (i = 0; i < g_MpNumChrs; i++) {
+				if (g_MpAllChrPtrs[i]->aibot && g_MpAllChrPtrs[i]->aibot->fetchprop == obj->prop) {
+					g_MpAllChrPtrs[i]->aibot->fetchprop = NULL;
 				}
 			}
 		}
@@ -21716,7 +21716,7 @@ glabel var7f1aa3d0
 /*  f073564:	26650008 */ 	addiu	$a1,$s3,0x8
 /*  f073568:	24460008 */ 	addiu	$a2,$v0,0x8
 /*  f07356c:	26670028 */ 	addiu	$a3,$s3,0x28
-/*  f073570:	0fc669b4 */ 	jal	func0f19a6d0
+/*  f073570:	0fc669b4 */ 	jal	botactFindRocketRoute
 /*  f073574:	afb20014 */ 	sw	$s2,0x14($sp)
 /*  f073578:	c7ac0094 */ 	lwc1	$f12,0x94($sp)
 /*  f07357c:	1440000c */ 	bnez	$v0,.L0f0735b0
@@ -21729,7 +21729,7 @@ glabel var7f1aa3d0
 /*  f073594:	956400f8 */ 	lhu	$a0,0xf8($t3)
 /*  f073598:	e7ae008c */ 	swc1	$f14,0x8c($sp)
 /*  f07359c:	e7ac0094 */ 	swc1	$f12,0x94($sp)
-/*  f0735a0:	0fc669f4 */ 	jal	func0f19a7d0
+/*  f0735a0:	0fc669f4 */ 	jal	botactGetRocketSpawnPos
 /*  f0735a4:	264500c4 */ 	addiu	$a1,$s2,0xc4
 /*  f0735a8:	c7ac0094 */ 	lwc1	$f12,0x94($sp)
 /*  f0735ac:	c7ae008c */ 	lwc1	$f14,0x8c($sp)
@@ -21941,10 +21941,10 @@ glabel var7f1aa3d0
 /*  f0738ac:	12800065 */ 	beqz	$s4,.L0f073a44
 /*  f0738b0:	8faf0188 */ 	lw	$t7,0x188($sp)
 /*  f0738b4:	85f80062 */ 	lh	$t8,0x62($t7)
-/*  f0738b8:	3c19800b */ 	lui	$t9,%hi(g_MpNumPlayers)
+/*  f0738b8:	3c19800b */ 	lui	$t9,%hi(g_MpNumChrs)
 /*  f0738bc:	13000061 */ 	beqz	$t8,.L0f073a44
 /*  f0738c0:	00000000 */ 	nop
-/*  f0738c4:	8f39c530 */ 	lw	$t9,%lo(g_MpNumPlayers)($t9)
+/*  f0738c4:	8f39c530 */ 	lw	$t9,%lo(g_MpNumChrs)($t9)
 /*  f0738c8:	00008825 */ 	or	$s1,$zero,$zero
 /*  f0738cc:	1b20005d */ 	blez	$t9,.L0f073a44
 /*  f0738d0:	00000000 */ 	nop
@@ -21962,7 +21962,7 @@ glabel var7f1aa3d0
 /*  f0738fc:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f073900:	1040004a */ 	beqz	$v0,.L0f073a2c
 /*  f073904:	00002025 */ 	or	$a0,$zero,$zero
-/*  f073908:	0fc64a53 */ 	jal	func0f19294c
+/*  f073908:	0fc64a53 */ 	jal	bot0f19294c
 /*  f07390c:	02002825 */ 	or	$a1,$s0,$zero
 /*  f073910:	14400046 */ 	bnez	$v0,.L0f073a2c
 /*  f073914:	00000000 */ 	nop
@@ -21998,8 +21998,8 @@ glabel var7f1aa3d0
 /*  f073988:	00000000 */ 	nop
 /*  f07398c:	0fc633fe */ 	jal	mpPlayerGetIndex
 /*  f073990:	02802025 */ 	or	$a0,$s4,$zero
-/*  f073994:	3c0b800b */ 	lui	$t3,%hi(g_MpNumPlayers)
-/*  f073998:	8d6bc530 */ 	lw	$t3,%lo(g_MpNumPlayers)($t3)
+/*  f073994:	3c0b800b */ 	lui	$t3,%hi(g_MpNumChrs)
+/*  f073998:	8d6bc530 */ 	lw	$t3,%lo(g_MpNumChrs)($t3)
 /*  f07399c:	8eaa000c */ 	lw	$t2,0xc($s5)
 /*  f0739a0:	26640008 */ 	addiu	$a0,$s3,0x8
 /*  f0739a4:	26650028 */ 	addiu	$a1,$s3,0x28
@@ -22039,8 +22039,8 @@ glabel var7f1aa3d0
 /*  f073a24:	a2400104 */ 	sb	$zero,0x104($s2)
 /*  f073a28:	e64600cc */ 	swc1	$f6,0xcc($s2)
 .L0f073a2c:
-/*  f073a2c:	3c08800b */ 	lui	$t0,%hi(g_MpNumPlayers)
-/*  f073a30:	8d08c530 */ 	lw	$t0,%lo(g_MpNumPlayers)($t0)
+/*  f073a2c:	3c08800b */ 	lui	$t0,%hi(g_MpNumChrs)
+/*  f073a30:	8d08c530 */ 	lw	$t0,%lo(g_MpNumChrs)($t0)
 /*  f073a34:	26310001 */ 	addiu	$s1,$s1,0x1
 /*  f073a38:	0228082a */ 	slt	$at,$s1,$t0
 /*  f073a3c:	1420ffa5 */ 	bnez	$at,.L0f0738d4
@@ -22173,7 +22173,7 @@ glabel var7f1aa3d0
 /*  f073564:	26650008 */ 	addiu	$a1,$s3,0x8
 /*  f073568:	24460008 */ 	addiu	$a2,$v0,0x8
 /*  f07356c:	26670028 */ 	addiu	$a3,$s3,0x28
-/*  f073570:	0fc669b4 */ 	jal	func0f19a6d0
+/*  f073570:	0fc669b4 */ 	jal	botactFindRocketRoute
 /*  f073574:	afb20014 */ 	sw	$s2,0x14($sp)
 /*  f073578:	c7ac0094 */ 	lwc1	$f12,0x94($sp)
 /*  f07357c:	1440000c */ 	bnez	$v0,.L0f0735b0
@@ -22186,7 +22186,7 @@ glabel var7f1aa3d0
 /*  f073594:	956400f8 */ 	lhu	$a0,0xf8($t3)
 /*  f073598:	e7ae008c */ 	swc1	$f14,0x8c($sp)
 /*  f07359c:	e7ac0094 */ 	swc1	$f12,0x94($sp)
-/*  f0735a0:	0fc669f4 */ 	jal	func0f19a7d0
+/*  f0735a0:	0fc669f4 */ 	jal	botactGetRocketSpawnPos
 /*  f0735a4:	264500c4 */ 	addiu	$a1,$s2,0xc4
 /*  f0735a8:	c7ac0094 */ 	lwc1	$f12,0x94($sp)
 /*  f0735ac:	c7ae008c */ 	lwc1	$f14,0x8c($sp)
@@ -22398,10 +22398,10 @@ glabel var7f1aa3d0
 /*  f0738ac:	12800065 */ 	beqz	$s4,.L0f073a44
 /*  f0738b0:	8faf0188 */ 	lw	$t7,0x188($sp)
 /*  f0738b4:	85f80062 */ 	lh	$t8,0x62($t7)
-/*  f0738b8:	3c19800b */ 	lui	$t9,%hi(g_MpNumPlayers)
+/*  f0738b8:	3c19800b */ 	lui	$t9,%hi(g_MpNumChrs)
 /*  f0738bc:	13000061 */ 	beqz	$t8,.L0f073a44
 /*  f0738c0:	00000000 */ 	nop
-/*  f0738c4:	8f39c530 */ 	lw	$t9,%lo(g_MpNumPlayers)($t9)
+/*  f0738c4:	8f39c530 */ 	lw	$t9,%lo(g_MpNumChrs)($t9)
 /*  f0738c8:	00008825 */ 	or	$s1,$zero,$zero
 /*  f0738cc:	1b20005d */ 	blez	$t9,.L0f073a44
 /*  f0738d0:	00000000 */ 	nop
@@ -22419,7 +22419,7 @@ glabel var7f1aa3d0
 /*  f0738fc:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f073900:	1040004a */ 	beqz	$v0,.L0f073a2c
 /*  f073904:	00002025 */ 	or	$a0,$zero,$zero
-/*  f073908:	0fc64a53 */ 	jal	func0f19294c
+/*  f073908:	0fc64a53 */ 	jal	bot0f19294c
 /*  f07390c:	02002825 */ 	or	$a1,$s0,$zero
 /*  f073910:	14400046 */ 	bnez	$v0,.L0f073a2c
 /*  f073914:	00000000 */ 	nop
@@ -22455,8 +22455,8 @@ glabel var7f1aa3d0
 /*  f073988:	00000000 */ 	nop
 /*  f07398c:	0fc633fe */ 	jal	mpPlayerGetIndex
 /*  f073990:	02802025 */ 	or	$a0,$s4,$zero
-/*  f073994:	3c0b800b */ 	lui	$t3,%hi(g_MpNumPlayers)
-/*  f073998:	8d6bc530 */ 	lw	$t3,%lo(g_MpNumPlayers)($t3)
+/*  f073994:	3c0b800b */ 	lui	$t3,%hi(g_MpNumChrs)
+/*  f073998:	8d6bc530 */ 	lw	$t3,%lo(g_MpNumChrs)($t3)
 /*  f07399c:	8eaa000c */ 	lw	$t2,0xc($s5)
 /*  f0739a0:	26640008 */ 	addiu	$a0,$s3,0x8
 /*  f0739a4:	26650028 */ 	addiu	$a1,$s3,0x28
@@ -22496,8 +22496,8 @@ glabel var7f1aa3d0
 /*  f073a24:	a2400104 */ 	sb	$zero,0x104($s2)
 /*  f073a28:	e64600cc */ 	swc1	$f6,0xcc($s2)
 .L0f073a2c:
-/*  f073a2c:	3c08800b */ 	lui	$t0,%hi(g_MpNumPlayers)
-/*  f073a30:	8d08c530 */ 	lw	$t0,%lo(g_MpNumPlayers)($t0)
+/*  f073a2c:	3c08800b */ 	lui	$t0,%hi(g_MpNumChrs)
+/*  f073a30:	8d08c530 */ 	lw	$t0,%lo(g_MpNumChrs)($t0)
 /*  f073a34:	26310001 */ 	addiu	$s1,$s1,0x1
 /*  f073a38:	0228082a */ 	slt	$at,$s1,$t0
 /*  f073a3c:	1420ffa5 */ 	bnez	$at,.L0f0738d4
@@ -35620,11 +35620,11 @@ glabel var7f1aa580
 /*  f079074:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f079078:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
 /*  f07907c:	8d390318 */ 	lw	$t9,0x318($t1)
-/*  f079080:	3c05800b */ 	lui	$a1,%hi(g_MpNumPlayers)
+/*  f079080:	3c05800b */ 	lui	$a1,%hi(g_MpNumChrs)
 /*  f079084:	13200003 */ 	beqz	$t9,.L0f079094
 /*  f079088:	00000000 */ 	nop
 /*  f07908c:	10000007 */ 	b	.L0f0790ac
-/*  f079090:	8ca5c530 */ 	lw	$a1,%lo(g_MpNumPlayers)($a1)
+/*  f079090:	8ca5c530 */ 	lw	$a1,%lo(g_MpNumChrs)($a1)
 .L0f079094:
 /*  f079094:	0fc07934 */ 	jal	chrsGetNumSlots
 /*  f079098:	afa800ac */ 	sw	$t0,0xac($sp)
@@ -35659,9 +35659,9 @@ glabel var7f1aa580
 /*  f0790fc:	00417024 */ 	and	$t6,$v0,$at
 /*  f079100:	000e7f02 */ 	srl	$t7,$t6,0x1c
 /*  f079104:	11e3ffea */ 	beq	$t7,$v1,.L0f0790b0
-/*  f079108:	3c04800b */ 	lui	$a0,%hi(g_MpPlayerChrs)
+/*  f079108:	3c04800b */ 	lui	$a0,%hi(g_MpAllChrPtrs)
 /*  f07910c:	00982021 */ 	addu	$a0,$a0,$t8
-/*  f079110:	8c84c4d0 */ 	lw	$a0,%lo(g_MpPlayerChrs)($a0)
+/*  f079110:	8c84c4d0 */ 	lw	$a0,%lo(g_MpAllChrPtrs)($a0)
 /*  f079114:	8c99001c */ 	lw	$t9,0x1c($a0)
 /*  f079118:	5320ffe6 */ 	beqzl	$t9,.L0f0790b4
 /*  f07911c:	246a0001 */ 	addiu	$t2,$v1,0x1
@@ -36842,11 +36842,11 @@ glabel var7f1aa580
 /*  f079074:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f079078:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
 /*  f07907c:	8d390318 */ 	lw	$t9,0x318($t1)
-/*  f079080:	3c05800b */ 	lui	$a1,%hi(g_MpNumPlayers)
+/*  f079080:	3c05800b */ 	lui	$a1,%hi(g_MpNumChrs)
 /*  f079084:	13200003 */ 	beqz	$t9,.L0f079094
 /*  f079088:	00000000 */ 	nop
 /*  f07908c:	10000007 */ 	b	.L0f0790ac
-/*  f079090:	8ca5c530 */ 	lw	$a1,%lo(g_MpNumPlayers)($a1)
+/*  f079090:	8ca5c530 */ 	lw	$a1,%lo(g_MpNumChrs)($a1)
 .L0f079094:
 /*  f079094:	0fc07934 */ 	jal	chrsGetNumSlots
 /*  f079098:	afa800ac */ 	sw	$t0,0xac($sp)
@@ -36881,9 +36881,9 @@ glabel var7f1aa580
 /*  f0790fc:	00417024 */ 	and	$t6,$v0,$at
 /*  f079100:	000e7f02 */ 	srl	$t7,$t6,0x1c
 /*  f079104:	11e3ffea */ 	beq	$t7,$v1,.L0f0790b0
-/*  f079108:	3c04800b */ 	lui	$a0,%hi(g_MpPlayerChrs)
+/*  f079108:	3c04800b */ 	lui	$a0,%hi(g_MpAllChrPtrs)
 /*  f07910c:	00982021 */ 	addu	$a0,$a0,$t8
-/*  f079110:	8c84c4d0 */ 	lw	$a0,%lo(g_MpPlayerChrs)($a0)
+/*  f079110:	8c84c4d0 */ 	lw	$a0,%lo(g_MpAllChrPtrs)($a0)
 /*  f079114:	8c99001c */ 	lw	$t9,0x1c($a0)
 /*  f079118:	5320ffe6 */ 	beqzl	$t9,.L0f0790b4
 /*  f07911c:	246a0001 */ 	addiu	$t2,$v1,0x1
@@ -65939,7 +65939,7 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 			laptop->shotbondsum = 0;
 
 			if (chr->aibot) {
-				laptop->ammoquantity = aibotTryRemoveAmmoFromReserve(chr->aibot, WEAPON_LAPTOPGUN, FUNC_PRIMARY, 200);
+				laptop->ammoquantity = botactTryRemoveAmmoFromReserve(chr->aibot, WEAPON_LAPTOPGUN, FUNC_PRIMARY, 200);
 			} else if (chr->prop->type == PROPTYPE_PLAYER) {
 				s32 qty;
 				s32 prevplayernum = g_Vars.currentplayernum;

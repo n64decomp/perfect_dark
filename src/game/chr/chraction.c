@@ -30,9 +30,10 @@
 #include "game/game_165670.h"
 #include "game/game_1657c0.h"
 #include "game/lv.h"
-#include "game/game_190260.h"
-#include "game/game_197600.h"
-#include "game/game_1999b0.h"
+#include "game/bot.h"
+#include "game/botact.h"
+#include "game/botcmd.h"
+#include "game/botinv.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"
 #include "game/padhalllv.h"
@@ -4526,7 +4527,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 	if (damageshield) {
 		shield = chrGetShield(chr);
 
-		if (chr->aibot && chr->aibot->simulant->base.simtype == SIMTYPE_TURTLE) {
+		if (chr->aibot && chr->aibot->config->type == BOTTYPE_TURTLE) {
 			armourscale = 4;
 		}
 
@@ -4534,9 +4535,9 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 			if (g_Vars.normmplayerisrunning) {
 #if VERSION >= VERSION_PAL_FINAL
 				// Fixing a @bug?
-				damage = damage * mpHandicapToDamageScale(g_MpPlayers[g_Vars.currentplayerstats->mpindex].handicap);
+				damage = damage * mpHandicapToDamageScale(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].handicap);
 #else
-				damage /= mpHandicapToDamageScale(g_MpPlayers[g_Vars.currentplayerstats->mpindex].handicap);
+				damage /= mpHandicapToDamageScale(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].handicap);
 #endif
 			}
 
@@ -4741,7 +4742,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 			setCurrentPlayerNum(propGetPlayerNum(vprop));
 
 			if (g_Vars.normmplayerisrunning) {
-				damage /= mpHandicapToDamageScale(g_MpPlayers[g_Vars.currentplayerstats->mpindex].handicap);
+				damage /= mpHandicapToDamageScale(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].handicap);
 			}
 
 			if (g_Vars.currentplayer->isdead == false && !g_PlayerInvincible) {
@@ -4854,7 +4855,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		if (gsetHasFunctionFlags(gset, FUNCFLAG_DROPWEAPON)
 				&& ((chr->flags & CHRFLAG0_CANLOSEGUN) || chr->aibot)) {
 			if (chr->aibot) {
-				aibotLoseGun(chr, aprop);
+				botLoseGun(chr, aprop);
 			} else {
 				weapon = chrGetHeldProp(chr, HAND_RIGHT);
 
@@ -5102,7 +5103,7 @@ void chrDie(struct chrdata *chr, s32 aplayernum)
 		chr->aioffset = 0;
 
 		mpstatsRecordDeath(aplayernum, mpPlayerGetIndex(chr));
-		func0f199964(chr, chr->aibot->weaponnum);
+		botinvDropAll(chr, chr->aibot->weaponnum);
 
 #if VERSION >= VERSION_NTSC_1_0
 		chr->aibot->unk09c_00 = 0;
@@ -5417,7 +5418,7 @@ f32 func0f0370a8(struct chrdata *chr)
 	f32 result;
 
 	if (chr->aibot) {
-		result = aibotCalculateMaxSpeed(chr);
+		result = botCalculateMaxSpeed(chr);
 	} else {
 		s16 animnum = modelGetAnimNum(chr->model);
 		result = func0f02dff0(animnum) * (chr->model->scale * 9.999999f);
@@ -5485,7 +5486,7 @@ void chrGoPosConsiderRestart(struct chrdata *chr)
 			chr->act_gopos.restartttl = value;
 		} else if (chr->act_gopos.restartttl <= (u16)g_Vars.lvupdate240_60) {
 			if (chr->aibot) {
-				func0f197544(chr);
+				botCheckFetch(chr);
 			} else {
 				chrGoToPos(chr, &chr->act_gopos.endpos, chr->act_gopos.endrooms, chr->act_gopos.flags);
 			}
@@ -6728,7 +6729,7 @@ bool chrCanSeeChr(struct chrdata *chr, struct chrdata *target, s16 *room)
 	u32 stack;
 	s16 sp88[] = {-1, 0, 0, 0, 0, 0, 0, 0};
 
-	if (func0f19294c(chr, target) == 0) {
+	if (bot0f19294c(chr, target) == 0) {
 		struct prop *prop = chr->prop;
 		struct coord pos;
 		s16 rooms[8];
@@ -8433,7 +8434,7 @@ void chrTickDead(struct chrdata *chr)
 			chr->fadealpha = 0;
 
 			if (aibot) {
-				mpInitSimulant(chr, true);
+				botSpawn(chr, true);
 			} else {
 				chr->hidden |= CHRHFLAG_REAPED;
 			}
@@ -11230,7 +11231,7 @@ glabel var7f1a9184
 /*  f040b38:	46060282 */ 	mul.s	$f10,$f0,$f6
 /*  f040b3c:	11800019 */ 	beqz	$t4,.PF0f040ba4
 /*  f040b40:	e7aa01e8 */ 	swc1	$f10,0x1e8($sp)
-/*  f040b44:	0fc6492c */ 	jal	chrGuessCrouchPos
+/*  f040b44:	0fc6492c */ 	jal	botGuessCrouchPos
 /*  f040b48:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f040b4c:	8fb90278 */ 	lw	$t9,0x278($sp)
 /*  f040b50:	00404825 */ 	move	$t1,$v0
@@ -11272,7 +11273,7 @@ glabel var7f1a9184
 /*  f040bd4:	00002825 */ 	move	$a1,$zero
 /*  f040bd8:	afae0250 */ 	sw	$t6,0x250($sp)
 /*  f040bdc:	27a601e0 */ 	addiu	$a2,$sp,0x1e0
-/*  f040be0:	0fc66c21 */ 	jal	aibotShootFarsightThroughWalls
+/*  f040be0:	0fc66c21 */ 	jal	botactShootFarsight
 /*  f040be4:	27a70244 */ 	addiu	$a3,$sp,0x244
 /*  f040be8:	24010002 */ 	li	$at,0x2
 /*  f040bec:	5441000a */ 	bnel	$v0,$at,.PF0f040c18
@@ -12828,7 +12829,7 @@ glabel var7f1a9184
 /*  f0409b4:	46060282 */ 	mul.s	$f10,$f0,$f6
 /*  f0409b8:	11800019 */ 	beqz	$t4,.L0f040a20
 /*  f0409bc:	e7aa01e8 */ 	swc1	$f10,0x1e8($sp)
-/*  f0409c0:	0fc644fe */ 	jal	chrGuessCrouchPos
+/*  f0409c0:	0fc644fe */ 	jal	botGuessCrouchPos
 /*  f0409c4:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f0409c8:	8fb90278 */ 	lw	$t9,0x278($sp)
 /*  f0409cc:	00404825 */ 	or	$t1,$v0,$zero
@@ -12870,7 +12871,7 @@ glabel var7f1a9184
 /*  f040a50:	00002825 */ 	or	$a1,$zero,$zero
 /*  f040a54:	afae0250 */ 	sw	$t6,0x250($sp)
 /*  f040a58:	27a601e0 */ 	addiu	$a2,$sp,0x1e0
-/*  f040a5c:	0fc667e1 */ 	jal	aibotShootFarsightThroughWalls
+/*  f040a5c:	0fc667e1 */ 	jal	botactShootFarsight
 /*  f040a60:	27a70244 */ 	addiu	$a3,$sp,0x244
 /*  f040a64:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f040a68:	5441000a */ 	bnel	$v0,$at,.L0f040a94
@@ -14418,7 +14419,7 @@ glabel var7f1a9184
 /*  f040194:	46060282 */ 	mul.s	$f10,$f0,$f6
 /*  f040198:	11800019 */ 	beqz	$t4,.NB0f040200
 /*  f04019c:	e7aa01e8 */ 	swc1	$f10,0x1e8($sp)
-/*  f0401a0:	0fc62d37 */ 	jal	chrGuessCrouchPos
+/*  f0401a0:	0fc62d37 */ 	jal	botGuessCrouchPos
 /*  f0401a4:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f0401a8:	8fb90278 */ 	lw	$t9,0x278($sp)
 /*  f0401ac:	00404825 */ 	or	$t1,$v0,$zero
@@ -14460,7 +14461,7 @@ glabel var7f1a9184
 /*  f040230:	00002825 */ 	or	$a1,$zero,$zero
 /*  f040234:	afae0250 */ 	sw	$t6,0x250($sp)
 /*  f040238:	27a601e0 */ 	addiu	$a2,$sp,0x1e0
-/*  f04023c:	0fc64fd9 */ 	jal	aibotShootFarsightThroughWalls
+/*  f04023c:	0fc64fd9 */ 	jal	botactShootFarsight
 /*  f040240:	27a70244 */ 	addiu	$a3,$sp,0x244
 /*  f040244:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f040248:	5441000a */ 	bnel	$v0,$at,.NB0f040274
@@ -15575,7 +15576,7 @@ glabel var7f1a9184
  * takes care of the gun's fire rate.
  */
 // Mismatches:
-// - near aibotShootFarsightThroughWalls, chr needs to be loaded into t3 which
+// - near botactShootFarsight, chr needs to be loaded into t3 which
 //   should solve instruction ordering.
 // - Float calculations near 65536 have diffent codegen
 // - Calculation of sp168 and spcc have reordered instructions
@@ -15730,7 +15731,7 @@ glabel var7f1a9184
 //					vector.f[2] = cosf(sp200) * cosf(aimangle);
 //
 //					if (isaibot) {
-//						bgun0f0a0fac(&vector, chr->aibot->weaponnum, chr->aibot->gunfunc, chr->aibot->unk04d[handnum], chrGuessCrouchPos(chr), chr->weapons_held[0] && chr->weapons_held[1]);
+//						bgun0f0a0fac(&vector, chr->aibot->weaponnum, chr->aibot->gunfunc, chr->aibot->unk04d[handnum], botGuessCrouchPos(chr), chr->weapons_held[0] && chr->weapons_held[1]);
 //					}
 //				}
 //
@@ -15740,7 +15741,7 @@ glabel var7f1a9184
 //					makebeam = true;
 //
 //					// This function can never return 2 though...
-//					if (aibotShootFarsightThroughWalls(chr, 0, &vector, &gunpos) == 2) {
+//					if (botactShootFarsight(chr, 0, &vector, &gunpos) == 2) {
 //						normalshoot = random() % 255 > 200;
 //					}
 //				}
@@ -25246,7 +25247,7 @@ Gfx *chrsRenderChrStats(Gfx *gdl, s16 *rooms)
 				if (chr->aibot) {
 					if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
 						aibot = 1;
-						sprintf(aibotbuffer, "\nTEAM %d: Cmd: %s", chr->team, mpGetBotCommandName(chr->aibot->command));
+						sprintf(aibotbuffer, "\nTEAM %d: Cmd: %s", chr->team, botGetCommandName(chr->aibot->command));
 					}
 				}
 

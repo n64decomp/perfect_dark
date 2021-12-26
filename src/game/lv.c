@@ -396,8 +396,8 @@ void lvInit(s32 stagenum)
 
 		if (g_Vars.mplayerisrunning == false) {
 			g_Vars.playerstats[0].mpindex = 4;
-			g_MpPlayers[4].base.contpad1 = 0;
-			g_MpPlayers[4].base.contpad2 = 1;
+			g_PlayerConfigsArray[4].contpad1 = 0;
+			g_PlayerConfigsArray[4].contpad2 = 1;
 		}
 
 		for (i = 0; i != ARRAYCOUNT(g_Vars.playerstats); i++) {
@@ -8211,8 +8211,8 @@ void lvTick(void)
 				}
 			}
 
-			for (i = 0; i < g_MpNumPlayers; i++) {
-				if (g_MpPlayerChrs[i]->actiontype == ACT_DIE) {
+			for (i = 0; i < g_MpNumChrs; i++) {
+				if (g_MpAllChrPtrs[i]->actiontype == ACT_DIE) {
 					numdying++;
 				}
 			}

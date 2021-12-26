@@ -18,7 +18,7 @@
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
 #include "game/radar.h"
-#include "game/game_197600.h"
+#include "game/botcmd.h"
 #include "game/game_19aa80.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
@@ -904,14 +904,14 @@ void scenarioHtbTick(void)
 
 	// Check if a simulant is holding it
 	if (g_ScenarioData.htb.token == NULL) {
-		for (i = PLAYERCOUNT(); i < g_MpNumPlayers; i++) {
+		for (i = PLAYERCOUNT(); i < g_MpNumChrs; i++) {
 #if VERSION >= VERSION_NTSC_1_0
-			if (g_MpPlayerChrs[i]->prop && g_MpPlayerChrs[i]->aibot->unk09c_00)
+			if (g_MpAllChrPtrs[i]->prop && g_MpAllChrPtrs[i]->aibot->unk09c_00)
 #else
-			if (g_MpPlayerChrs[i]->aibot->unk09c_00)
+			if (g_MpAllChrPtrs[i]->aibot->unk09c_00)
 #endif
 			{
-				g_ScenarioData.htb.token = g_MpPlayerChrs[i]->prop;
+				g_ScenarioData.htb.token = g_MpAllChrPtrs[i]->prop;
 				break;
 			}
 		}
@@ -941,7 +941,7 @@ void scenarioHtbCallback14(struct chrdata *chr)
 
 			if (chr->aibot->unk0a0 >= PALDOWN(7200)) {
 				sndStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
-				var800ac500[mpPlayerGetIndex(chr)]->unk3e++;
+				g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)]->unk3e++;
 				chr->aibot->unk0a0 = 0;
 			}
 		} else {
@@ -953,7 +953,7 @@ void scenarioHtbCallback14(struct chrdata *chr)
 
 			if (g_Vars.currentplayerstats->tokenheldtime >= PALDOWN(7200)) {
 				sndStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
-				var800ac500[g_Vars.currentplayernum]->unk3e++;
+				g_MpAllChrConfigPtrs[g_Vars.currentplayernum]->unk3e++;
 				hudmsgCreateWithFlags(langGet(L_MPWEAPONS_024), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE); // "1 Point!"
 				g_Vars.currentplayerstats->tokenheldtime = 0;
 			}
@@ -1318,9 +1318,9 @@ glabel scenarioHtbCallback18
 );
 #endif
 
-void scenarioHtbKill(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
+void scenarioHtbKill(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 {
-	struct mpchr *loopmpchr;
+	struct mpchrconfig *loopmpchr;
 	s32 i;
 
 	*score = 0;
@@ -1332,9 +1332,9 @@ void scenarioHtbKill(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 				*score -= mpchr->killcounts[i];
 			} else if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
 				if (i < 4) {
-					loopmpchr = &g_MpPlayers[i].base;
+					loopmpchr = &g_PlayerConfigsArray[i].base;
 				} else {
-					loopmpchr = &g_MpSimulants[i - 4].base;
+					loopmpchr = &g_BotConfigsArray[i - 4].base;
 				}
 
 				if (loopmpchr->team == mpchr->team) {
@@ -1428,12 +1428,12 @@ void scenarioCtcInit(void)
 
 	for (k = 0; k < MAX_MPCHRS; k++) {
 		if (g_MpSetup.chrslots & (1 << k)) {
-			struct mpchr *basedata;
+			struct mpchrconfig *basedata;
 
 			if (k < 4) {
-				basedata = &g_MpPlayers[k].base;
+				basedata = &g_PlayerConfigsArray[k].base;
 			} else {
-				basedata = &g_MpSimulants[k - 4].base;
+				basedata = &g_BotConfigsArray[k - 4].base;
 			}
 
 			while (basedata->team >= scenarioGetMaxTeams()) {
@@ -1603,8 +1603,8 @@ glabel scenarioCtcReset
 /*  f180f64:	00116080 */ 	sll	$t4,$s1,0x2
 /*  f180f68:	00115080 */ 	sll	$t2,$s1,0x2
 /*  f180f6c:	01515021 */ 	addu	$t2,$t2,$s1
-/*  f180f70:	3c0b800b */ 	lui	$t3,%hi(g_MpPlayers)
-/*  f180f74:	256bc7b8 */ 	addiu	$t3,$t3,%lo(g_MpPlayers)
+/*  f180f70:	3c0b800b */ 	lui	$t3,%hi(g_PlayerConfigsArray)
+/*  f180f74:	256bc7b8 */ 	addiu	$t3,$t3,%lo(g_PlayerConfigsArray)
 /*  f180f78:	000a5140 */ 	sll	$t2,$t2,0x5
 /*  f180f7c:	10000009 */ 	b	.L0f180fa4
 /*  f180f80:	014b8021 */ 	addu	$s0,$t2,$t3
@@ -1613,8 +1613,8 @@ glabel scenarioCtcReset
 /*  f180f88:	000c6080 */ 	sll	$t4,$t4,0x2
 /*  f180f8c:	01916023 */ 	subu	$t4,$t4,$s1
 /*  f180f90:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f180f94:	3c19800b */ 	lui	$t9,%hi(g_MpSimulants)
-/*  f180f98:	2739c538 */ 	addiu	$t9,$t9,%lo(g_MpSimulants)
+/*  f180f94:	3c19800b */ 	lui	$t9,%hi(g_BotConfigsArray)
+/*  f180f98:	2739c538 */ 	addiu	$t9,$t9,%lo(g_BotConfigsArray)
 /*  f180f9c:	258dfed0 */ 	addiu	$t5,$t4,-304
 /*  f180fa0:	01b98021 */ 	addu	$s0,$t5,$t9
 .L0f180fa4:
@@ -2306,9 +2306,9 @@ glabel scenarioCtcReset
 );
 #endif
 
-void scenarioCtcKill(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
+void scenarioCtcKill(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 {
-	struct mpchr *loopmpchr;
+	struct mpchrconfig *loopmpchr;
 	s32 i;
 
 	*score = 0;
@@ -2320,9 +2320,9 @@ void scenarioCtcKill(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 				*score -= mpchr->killcounts[i];
 			} else {
 				if (i < 4) {
-					loopmpchr = &g_MpPlayers[i].base;
+					loopmpchr = &g_PlayerConfigsArray[i].base;
 				} else {
-					loopmpchr = &g_MpSimulants[i - 4].base;
+					loopmpchr = &g_BotConfigsArray[i - 4].base;
 				}
 
 				if (loopmpchr->team == mpchr->team) {
@@ -3828,14 +3828,14 @@ glabel var7f1b8950
 /*  f1822f8:	00009025 */ 	or	$s2,$zero,$zero
 /*  f1822fc:	0c004241 */ 	jal	sndStart
 /*  f182300:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*  f182304:	3c03800b */ 	lui	$v1,%hi(g_MpNumPlayers)
-/*  f182308:	8c63c530 */ 	lw	$v1,%lo(g_MpNumPlayers)($v1)
-/*  f18230c:	3c10800b */ 	lui	$s0,%hi(g_MpPlayerChrs)
-/*  f182310:	2610c4d0 */ 	addiu	$s0,$s0,%lo(g_MpPlayerChrs)
+/*  f182304:	3c03800b */ 	lui	$v1,%hi(g_MpNumChrs)
+/*  f182308:	8c63c530 */ 	lw	$v1,%lo(g_MpNumChrs)($v1)
+/*  f18230c:	3c10800b */ 	lui	$s0,%hi(g_MpAllChrPtrs)
+/*  f182310:	2610c4d0 */ 	addiu	$s0,$s0,%lo(g_MpAllChrPtrs)
 /*  f182314:	1860001e */ 	blez	$v1,.L0f182390
 /*  f182318:	00002825 */ 	or	$a1,$zero,$zero
-/*  f18231c:	3c11800b */ 	lui	$s1,%hi(var800ac500)
-/*  f182320:	2631c500 */ 	addiu	$s1,$s1,%lo(var800ac500)
+/*  f18231c:	3c11800b */ 	lui	$s1,%hi(g_MpAllChrConfigPtrs)
+/*  f182320:	2631c500 */ 	addiu	$s1,$s1,%lo(g_MpAllChrConfigPtrs)
 .L0f182324:
 /*  f182324:	8e0d0000 */ 	lw	$t5,0x0($s0)
 /*  f182328:	91a40125 */ 	lbu	$a0,0x125($t5)
@@ -3857,8 +3857,8 @@ glabel var7f1b8950
 /*  f182368:	252a0001 */ 	addiu	$t2,$t1,0x1
 /*  f18236c:	a44a003e */ 	sh	$t2,0x3e($v0)
 .L0f182370:
-/*  f182370:	3c03800b */ 	lui	$v1,%hi(g_MpNumPlayers)
-/*  f182374:	8c63c530 */ 	lw	$v1,%lo(g_MpNumPlayers)($v1)
+/*  f182370:	3c03800b */ 	lui	$v1,%hi(g_MpNumChrs)
+/*  f182374:	8c63c530 */ 	lw	$v1,%lo(g_MpNumChrs)($v1)
 /*  f182378:	26520001 */ 	addiu	$s2,$s2,0x1
 /*  f18237c:	24a50004 */ 	addiu	$a1,$a1,0x0004
 /*  f182380:	0243082a */ 	slt	$at,$s2,$v1
@@ -3868,8 +3868,8 @@ glabel var7f1b8950
 .L0f182390:
 /*  f182390:	1860001b */ 	blez	$v1,.L0f182400
 /*  f182394:	8e91028c */ 	lw	$s1,0x28c($s4)
-/*  f182398:	3c10800b */ 	lui	$s0,%hi(g_MpPlayerChrs)
-/*  f18239c:	2610c4d0 */ 	addiu	$s0,$s0,%lo(g_MpPlayerChrs)
+/*  f182398:	3c10800b */ 	lui	$s0,%hi(g_MpAllChrPtrs)
+/*  f18239c:	2610c4d0 */ 	addiu	$s0,$s0,%lo(g_MpAllChrPtrs)
 /*  f1823a0:	8e020000 */ 	lw	$v0,0x0($s0)
 .L0f1823a4:
 /*  f1823a4:	8c4b02d4 */ 	lw	$t3,0x2d4($v0)
@@ -3889,8 +3889,8 @@ glabel var7f1b8950
 /*  f1823dc:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f1823e0:	24060001 */ 	addiu	$a2,$zero,0x1
 .L0f1823e4:
-/*  f1823e4:	3c0d800b */ 	lui	$t5,%hi(g_MpNumPlayers)
-/*  f1823e8:	8dadc530 */ 	lw	$t5,%lo(g_MpNumPlayers)($t5)
+/*  f1823e4:	3c0d800b */ 	lui	$t5,%hi(g_MpNumChrs)
+/*  f1823e8:	8dadc530 */ 	lw	$t5,%lo(g_MpNumChrs)($t5)
 /*  f1823ec:	26520001 */ 	addiu	$s2,$s2,0x1
 /*  f1823f0:	26100004 */ 	addiu	$s0,$s0,0x4
 /*  f1823f4:	024d082a */ 	slt	$at,$s2,$t5
@@ -4617,9 +4617,9 @@ glabel scenarioKohCallback18
 );
 #endif
 
-void scenarioKohKill(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
+void scenarioKohKill(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 {
-	struct mpchr *loopmpchr;
+	struct mpchrconfig *loopmpchr;
 	s32 i;
 
 	*score = 0;
@@ -4631,9 +4631,9 @@ void scenarioKohKill(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 				*score -= mpchr->killcounts[i];
 			} else {
 				if (i < 4) {
-					loopmpchr = &g_MpPlayers[i].base;
+					loopmpchr = &g_PlayerConfigsArray[i].base;
 				} else {
-					loopmpchr = &g_MpSimulants[i - 4].base;
+					loopmpchr = &g_BotConfigsArray[i - 4].base;
 				}
 
 				if (loopmpchr->team == mpchr->team) {
@@ -5331,9 +5331,9 @@ void scenarioHtmTick(void)
 
 	// Check if a simulant is holding it
 	if (g_ScenarioData.htm.uplink == NULL) {
-		for (i = PLAYERCOUNT(); i < g_MpNumPlayers; i++) {
-			if (g_MpPlayerChrs[i]->aibot->unk04c_05) {
-				g_ScenarioData.htm.uplink = g_MpPlayerChrs[i]->prop;
+		for (i = PLAYERCOUNT(); i < g_MpNumChrs; i++) {
+			if (g_MpAllChrPtrs[i]->aibot->unk04c_05) {
+				g_ScenarioData.htm.uplink = g_MpAllChrPtrs[i]->prop;
 				break;
 			}
 		}
@@ -6492,9 +6492,9 @@ glabel scenarioHtmCallback18
 );
 #endif
 
-void scenarioHtmKill(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
+void scenarioHtmKill(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 {
-	struct mpchr *loopmpchr;
+	struct mpchrconfig *loopmpchr;
 	s32 i;
 	s32 index;
 
@@ -6511,9 +6511,9 @@ void scenarioHtmKill(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 				*score -= mpchr->killcounts[i];
 			} else if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
 				if (i < 4) {
-					loopmpchr = &g_MpPlayers[i].base;
+					loopmpchr = &g_PlayerConfigsArray[i].base;
 				} else {
-					loopmpchr = &g_MpSimulants[i - 4].base;
+					loopmpchr = &g_BotConfigsArray[i - 4].base;
 				}
 
 				if (loopmpchr->team == mpchr->team) {
@@ -6962,8 +6962,8 @@ glabel scenarioPacChooseVictims
 /*  f184418:	a440001e */ 	sh	$zero,0x1e($v0)
 /*  f18441c:	1443fffd */ 	bne	$v0,$v1,.L0f184414
 /*  f184420:	a4400036 */ 	sh	$zero,0x36($v0)
-/*  f184424:	3c13800b */ 	lui	$s3,%hi(g_MpNumPlayers)
-/*  f184428:	2673c530 */ 	addiu	$s3,$s3,%lo(g_MpNumPlayers)
+/*  f184424:	3c13800b */ 	lui	$s3,%hi(g_MpNumChrs)
+/*  f184428:	2673c530 */ 	addiu	$s3,$s3,%lo(g_MpNumChrs)
 /*  f18442c:	8e640000 */ 	lw	$a0,0x0($s3)
 /*  f184430:	00008825 */ 	or	$s1,$zero,$zero
 /*  f184434:	1880001f */ 	blez	$a0,.L0f1844b4
@@ -7038,9 +7038,9 @@ glabel scenarioPacChooseVictims
 //
 //	i = 0;
 //
-//	while (i < g_MpNumPlayers) {
+//	while (i < g_MpNumChrs) {
 //		bool isnew = true;
-//		s32 victimplayernum = random() % g_MpNumPlayers;
+//		s32 victimplayernum = random() % g_MpNumChrs;
 //
 //		for (j = 0; j < i; j++) {
 //			if (g_ScenarioData.pac.victims[j] == victimplayernum) {
@@ -7055,7 +7055,7 @@ glabel scenarioPacChooseVictims
 //		}
 //	}
 //
-//	for (i = 0; i < g_MpNumPlayers; i++) {
+//	for (i = 0; i < g_MpNumChrs; i++) {
 //		// This loop probably printed debug messages
 //	}
 //}
@@ -7092,11 +7092,11 @@ glabel scenarioPacHighlight
 /*  f18456c:	00184040 */ 	sll	$t0,$t8,0x1
 /*  f184570:	01284821 */ 	addu	$t1,$t1,$t0
 /*  f184574:	8529c118 */ 	lh	$t1,%lo(g_ScenarioData+0x8)($t1)
-/*  f184578:	3c0b800b */ 	lui	$t3,%hi(g_MpPlayerChrs)
+/*  f184578:	3c0b800b */ 	lui	$t3,%hi(g_MpAllChrPtrs)
 /*  f18457c:	8c990004 */ 	lw	$t9,0x4($a0)
 /*  f184580:	00095080 */ 	sll	$t2,$t1,0x2
 /*  f184584:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f184588:	8d6bc4d0 */ 	lw	$t3,%lo(g_MpPlayerChrs)($t3)
+/*  f184588:	8d6bc4d0 */ 	lw	$t3,%lo(g_MpAllChrPtrs)($t3)
 /*  f18458c:	240c00ff */ 	addiu	$t4,$zero,0xff
 /*  f184590:	240d0040 */ 	addiu	$t5,$zero,0x40
 /*  f184594:	172b0006 */ 	bne	$t9,$t3,.L0f1845b0
@@ -7118,7 +7118,7 @@ glabel scenarioPacHighlight
 //	if ((g_MpSetup.options & MPOPTION_PAC_HIGHLIGHTTARGET) &&
 //			(prop->type == PROPTYPE_PLAYER || prop->type == PROPTYPE_CHR) &&
 //			g_ScenarioData.pac.victimindex != -1 &&
-//			prop->chr == g_MpPlayerChrs[g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex]]) {
+//			prop->chr == g_MpAllChrPtrs[g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex]]) {
 //		colour[0] = 0;
 //		colour[1] = 0xff;
 //		colour[2] = 0;
@@ -7137,10 +7137,10 @@ glabel func0f1845bc
 /*  f1845c0:	2442c110 */ 	addiu	$v0,$v0,%lo(g_ScenarioData)
 /*  f1845c4:	8c4e0004 */ 	lw	$t6,0x4($v0)
 /*  f1845c8:	27bdff70 */ 	addiu	$sp,$sp,-144
-/*  f1845cc:	3c18800b */ 	lui	$t8,%hi(g_MpNumPlayers)
+/*  f1845cc:	3c18800b */ 	lui	$t8,%hi(g_MpNumChrs)
 /*  f1845d0:	25cf0001 */ 	addiu	$t7,$t6,0x1
 /*  f1845d4:	ac4f0004 */ 	sw	$t7,0x4($v0)
-/*  f1845d8:	8f18c530 */ 	lw	$t8,%lo(g_MpNumPlayers)($t8)
+/*  f1845d8:	8f18c530 */ 	lw	$t8,%lo(g_MpNumChrs)($t8)
 /*  f1845dc:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f1845e0:	afb40028 */ 	sw	$s4,0x28($sp)
 /*  f1845e4:	afb30024 */ 	sw	$s3,0x24($sp)
@@ -7205,8 +7205,8 @@ glabel func0f1845bc
 /*  f1846b4:	10000018 */ 	b	.L0f184718
 /*  f1846b8:	02202025 */ 	or	$a0,$s1,$zero
 .L0f1846bc:
-/*  f1846bc:	3c09800b */ 	lui	$t1,%hi(var800ac500)
-/*  f1846c0:	2529c500 */ 	addiu	$t1,$t1,%lo(var800ac500)
+/*  f1846bc:	3c09800b */ 	lui	$t1,%hi(g_MpAllChrConfigPtrs)
+/*  f1846c0:	2529c500 */ 	addiu	$t1,$t1,%lo(g_MpAllChrConfigPtrs)
 /*  f1846c4:	00144080 */ 	sll	$t0,$s4,0x2
 /*  f1846c8:	01098021 */ 	addu	$s0,$t0,$t1
 /*  f1846cc:	0fc619e0 */ 	jal	mpChrsAreSameTeam
@@ -7283,10 +7283,10 @@ glabel func0f1845bc
 /*  f1845c0:	2442c110 */ 	addiu	$v0,$v0,%lo(g_ScenarioData)
 /*  f1845c4:	8c4e0004 */ 	lw	$t6,0x4($v0)
 /*  f1845c8:	27bdff70 */ 	addiu	$sp,$sp,-144
-/*  f1845cc:	3c18800b */ 	lui	$t8,%hi(g_MpNumPlayers)
+/*  f1845cc:	3c18800b */ 	lui	$t8,%hi(g_MpNumChrs)
 /*  f1845d0:	25cf0001 */ 	addiu	$t7,$t6,0x1
 /*  f1845d4:	ac4f0004 */ 	sw	$t7,0x4($v0)
-/*  f1845d8:	8f18c530 */ 	lw	$t8,%lo(g_MpNumPlayers)($t8)
+/*  f1845d8:	8f18c530 */ 	lw	$t8,%lo(g_MpNumChrs)($t8)
 /*  f1845dc:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f1845e0:	afb40028 */ 	sw	$s4,0x28($sp)
 /*  f1845e4:	afb30024 */ 	sw	$s3,0x24($sp)
@@ -7351,8 +7351,8 @@ glabel func0f1845bc
 /*  f1846b4:	10000018 */ 	b	.L0f184718
 /*  f1846b8:	02202025 */ 	or	$a0,$s1,$zero
 .L0f1846bc:
-/*  f1846bc:	3c09800b */ 	lui	$t1,%hi(var800ac500)
-/*  f1846c0:	2529c500 */ 	addiu	$t1,$t1,%lo(var800ac500)
+/*  f1846bc:	3c09800b */ 	lui	$t1,%hi(g_MpAllChrConfigPtrs)
+/*  f1846c0:	2529c500 */ 	addiu	$t1,$t1,%lo(g_MpAllChrConfigPtrs)
 /*  f1846c4:	00144080 */ 	sll	$t0,$s4,0x2
 /*  f1846c8:	01098021 */ 	addu	$s0,$t0,$t1
 /*  f1846cc:	0fc619e0 */ 	jal	mpChrsAreSameTeam
@@ -8338,9 +8338,9 @@ glabel scenarioPacCallback18
 );
 #endif
 
-void scenarioPacKill(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
+void scenarioPacKill(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 {
-	struct mpchr *loopmpchr;
+	struct mpchrconfig *loopmpchr;
 	s32 i;
 	s32 index;
 
@@ -8358,9 +8358,9 @@ void scenarioPacKill(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 				*score -= mpchr->killcounts[i];
 			} else if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
 				if (i < 4) {
-					loopmpchr = &g_MpPlayers[i].base;
+					loopmpchr = &g_PlayerConfigsArray[i].base;
 				} else {
-					loopmpchr = &g_MpSimulants[i - 4].base;
+					loopmpchr = &g_BotConfigsArray[i - 4].base;
 				}
 
 				if (loopmpchr->team == mpchr->team) {
@@ -8398,11 +8398,11 @@ glabel scenarioPacRadar2
 /*  f184db8:	000fc040 */ 	sll	$t8,$t7,0x1
 /*  f184dbc:	0338c821 */ 	addu	$t9,$t9,$t8
 /*  f184dc0:	8739c118 */ 	lh	$t9,%lo(g_ScenarioData+0x8)($t9)
-/*  f184dc4:	3c09800b */ 	lui	$t1,%hi(g_MpPlayerChrs)
+/*  f184dc4:	3c09800b */ 	lui	$t1,%hi(g_MpAllChrPtrs)
 /*  f184dc8:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
 /*  f184dcc:	00194080 */ 	sll	$t0,$t9,0x2
 /*  f184dd0:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f184dd4:	8d29c4d0 */ 	lw	$t1,%lo(g_MpPlayerChrs)($t1)
+/*  f184dd4:	8d29c4d0 */ 	lw	$t1,%lo(g_MpAllChrPtrs)($t1)
 /*  f184dd8:	8d2a001c */ 	lw	$t2,0x1c($t1)
 /*  f184ddc:	15450033 */ 	bne	$t2,$a1,.L0f184eac
 /*  f184de0:	afaa0034 */ 	sw	$t2,0x34($sp)
@@ -8472,7 +8472,7 @@ glabel scenarioPacRadar2
 //{
 //	if ((g_MpSetup.options & MPOPTION_PAC_SHOWONRADAR) && g_ScenarioData.pac.victimindex >= 0) {
 //		s32 index = g_ScenarioData.pac.victimindex;
-//		struct prop *thing = g_MpPlayerChrs[g_ScenarioData.pac.victims[index]]->prop;
+//		struct prop *thing = g_MpAllChrPtrs[g_ScenarioData.pac.victims[index]]->prop;
 //
 //		if (thing == prop) {
 //			struct coord dist;
@@ -8958,8 +8958,8 @@ void mpCreateMatchStartHudmsgs(void)
 
 	sprintf(scenarioname, "%s\n", langGet(g_MpScenarioOverviews[g_MpSetup.scenario].name));
 
-	for (i = 0; i < g_MpNumPlayers; i++) {
-		if (g_MpPlayerChrs[i]->aibot == NULL) {
+	for (i = 0; i < g_MpNumChrs; i++) {
+		if (g_MpAllChrPtrs[i]->aibot == NULL) {
 			setCurrentPlayerNum(i);
 
 			if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
@@ -9561,11 +9561,11 @@ glabel func0f185c14
 /*  f185c60:	1000003b */ 	b	.L0f185d50
 /*  f185c64:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0f185c68:
-/*  f185c68:	3c09800b */ 	lui	$t1,%hi(g_MpSimulants)
-/*  f185c6c:	3c07800b */ 	lui	$a3,%hi(g_MpPlayers)
+/*  f185c68:	3c09800b */ 	lui	$t1,%hi(g_BotConfigsArray)
+/*  f185c6c:	3c07800b */ 	lui	$a3,%hi(g_PlayerConfigsArray)
 /*  f185c70:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f185c74:	24e7c7b8 */ 	addiu	$a3,$a3,%lo(g_MpPlayers)
-/*  f185c78:	2529c538 */ 	addiu	$t1,$t1,%lo(g_MpSimulants)
+/*  f185c74:	24e7c7b8 */ 	addiu	$a3,$a3,%lo(g_PlayerConfigsArray)
+/*  f185c78:	2529c538 */ 	addiu	$t1,$t1,%lo(g_BotConfigsArray)
 /*  f185c7c:	00001025 */ 	or	$v0,$zero,$zero
 /*  f185c80:	02001825 */ 	or	$v1,$s0,$zero
 /*  f185c84:	240a004c */ 	addiu	$t2,$zero,0x4c
@@ -9730,13 +9730,13 @@ glabel var7f1b89b8
 /*  f185ebc:	00001025 */ 	or	$v0,$zero,$zero
 .L0f185ec0:
 /*  f185ec0:	8d8ca248 */ 	lw	$t4,%lo(g_Vars+0x288)($t4)
-/*  f185ec4:	3c0f800b */ 	lui	$t7,%hi(g_MpPlayers+0x14)
+/*  f185ec4:	3c0f800b */ 	lui	$t7,%hi(g_PlayerConfigsArray+0x14)
 /*  f185ec8:	8d8d0070 */ 	lw	$t5,0x70($t4)
 /*  f185ecc:	000d7080 */ 	sll	$t6,$t5,0x2
 /*  f185ed0:	01cd7021 */ 	addu	$t6,$t6,$t5
 /*  f185ed4:	000e7140 */ 	sll	$t6,$t6,0x5
 /*  f185ed8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f185edc:	8defc7cc */ 	lw	$t7,%lo(g_MpPlayers+0x14)($t7)
+/*  f185edc:	8defc7cc */ 	lw	$t7,%lo(g_PlayerConfigsArray+0x14)($t7)
 /*  f185ee0:	31f80002 */ 	andi	$t8,$t7,0x2
 /*  f185ee4:	530000a1 */ 	beqzl	$t8,.L0f18616c
 /*  f185ee8:	00001025 */ 	or	$v0,$zero,$zero
@@ -9819,13 +9819,13 @@ glabel var7f1b89b8
 /*  f18600c:	1160000e */ 	beqz	$t3,.L0f186048
 /*  f186010:	3c0c800a */ 	lui	$t4,%hi(g_Vars+0x288)
 /*  f186014:	8d8ca248 */ 	lw	$t4,%lo(g_Vars+0x288)($t4)
-/*  f186018:	3c0f800b */ 	lui	$t7,%hi(g_MpPlayers+0x14)
+/*  f186018:	3c0f800b */ 	lui	$t7,%hi(g_PlayerConfigsArray+0x14)
 /*  f18601c:	8d8d0070 */ 	lw	$t5,0x70($t4)
 /*  f186020:	000d7080 */ 	sll	$t6,$t5,0x2
 /*  f186024:	01cd7021 */ 	addu	$t6,$t6,$t5
 /*  f186028:	000e7140 */ 	sll	$t6,$t6,0x5
 /*  f18602c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f186030:	8defc7cc */ 	lw	$t7,%lo(g_MpPlayers+0x14)($t7)
+/*  f186030:	8defc7cc */ 	lw	$t7,%lo(g_PlayerConfigsArray+0x14)($t7)
 /*  f186034:	31f80008 */ 	andi	$t8,$t7,0x8
 /*  f186038:	13000003 */ 	beqz	$t8,.L0f186048
 /*  f18603c:	00000000 */ 	nop
@@ -9834,13 +9834,13 @@ glabel var7f1b89b8
 .L0f186048:
 /*  f186048:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x288)
 /*  f18604c:	8f39a248 */ 	lw	$t9,%lo(g_Vars+0x288)($t9)
-/*  f186050:	3c0b800b */ 	lui	$t3,%hi(g_MpPlayers+0x14)
+/*  f186050:	3c0b800b */ 	lui	$t3,%hi(g_PlayerConfigsArray+0x14)
 /*  f186054:	8f290070 */ 	lw	$t1,0x70($t9)
 /*  f186058:	00095080 */ 	sll	$t2,$t1,0x2
 /*  f18605c:	01495021 */ 	addu	$t2,$t2,$t1
 /*  f186060:	000a5140 */ 	sll	$t2,$t2,0x5
 /*  f186064:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f186068:	8d6bc7cc */ 	lw	$t3,%lo(g_MpPlayers+0x14)($t3)
+/*  f186068:	8d6bc7cc */ 	lw	$t3,%lo(g_PlayerConfigsArray+0x14)($t3)
 /*  f18606c:	316c0001 */ 	andi	$t4,$t3,0x1
 /*  f186070:	11800002 */ 	beqz	$t4,.L0f18607c
 /*  f186074:	00000000 */ 	nop
@@ -10227,8 +10227,8 @@ void mpCreateScenarioHudmsg(s32 playernum, char *message)
 
 bool mpChrsAreSameTeam(s32 arg0, s32 arg1)
 {
-	struct mpchr *achr;
-	struct mpchr *bchr;
+	struct mpchrconfig *achr;
+	struct mpchrconfig *bchr;
 
 	if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) && arg0 >= 0 && arg1 >= 0) {
 		s32 a = func0f18d074(arg0);
@@ -10236,15 +10236,15 @@ bool mpChrsAreSameTeam(s32 arg0, s32 arg1)
 
 		if (a >= 0 && b >= 0) {
 			if (a < 4) {
-				achr = &g_MpPlayers[a].base;
+				achr = &g_PlayerConfigsArray[a].base;
 			} else {
-				achr = &g_MpSimulants[a - 4].base;
+				achr = &g_BotConfigsArray[a - 4].base;
 			}
 
 			if (b < 4) {
-				bchr = &g_MpPlayers[b].base;
+				bchr = &g_PlayerConfigsArray[b].base;
 			} else {
-				bchr = &g_MpSimulants[b - 4].base;
+				bchr = &g_BotConfigsArray[b - 4].base;
 			}
 
 			return (achr->team == bchr->team) ? true : false;
@@ -10294,7 +10294,7 @@ glabel chrGiveBriefcase
 /*  f187924:	8c8302d4 */ 	lw	$v1,0x2d4($a0)
 /*  f187928:	906e009c */ 	lbu	$t6,0x9c($v1)
 /*  f18792c:	35d80080 */ 	ori	$t8,$t6,0x80
-/*  f187930:	0fc663e3 */ 	jal	aibotGiveSingleWeapon
+/*  f187930:	0fc663e3 */ 	jal	botinvGiveSingleWeapon
 /*  f187934:	a078009c */ 	sb	$t8,0x9c($v1)
 /*  f187938:	3c11800a */ 	lui	$s1,0x800a
 /*  f18793c:	10000020 */ 	b	.PF0f1879c0
@@ -10544,7 +10544,7 @@ glabel chrGiveBriefcase
 .PF0f187ca4:
 /*  f187ca4:	11a00009 */ 	beqz	$t5,.PF0f187ccc
 /*  f187ca8:	01802025 */ 	move	$a0,$t4
-/*  f187cac:	0fc66aa1 */ 	jal	func0f199984
+/*  f187cac:	0fc66aa1 */ 	jal	botinvDropOne
 /*  f187cb0:	24050057 */ 	li	$a1,0x57
 /*  f187cb4:	8fae0128 */ 	lw	$t6,0x128($sp)
 /*  f187cb8:	8dc302d4 */ 	lw	$v1,0x2d4($t6)
@@ -10895,7 +10895,7 @@ glabel chrGiveBriefcase
 /*  f18818c:	01e02025 */ 	move	$a0,$t7
 /*  f188190:	13200009 */ 	beqz	$t9,.PF0f1881b8
 /*  f188194:	00000000 */ 	nop
-/*  f188198:	0fc663e3 */ 	jal	aibotGiveSingleWeapon
+/*  f188198:	0fc663e3 */ 	jal	botinvGiveSingleWeapon
 /*  f18819c:	24050057 */ 	li	$a1,0x57
 /*  f1881a0:	8fab0124 */ 	lw	$t3,0x124($sp)
 /*  f1881a4:	00001025 */ 	move	$v0,$zero
@@ -10966,9 +10966,9 @@ glabel chrGiveBriefcase
 /*  f1868ec:	0fc633fe */ 	jal	mpPlayerGetIndex
 /*  f1868f0:	00000000 */ 	nop
 /*  f1868f4:	00025080 */ 	sll	$t2,$v0,0x2
-/*  f1868f8:	3c0b800b */ 	lui	$t3,%hi(var800ac500)
+/*  f1868f8:	3c0b800b */ 	lui	$t3,%hi(g_MpAllChrConfigPtrs)
 /*  f1868fc:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f186900:	8d6bc500 */ 	lw	$t3,%lo(var800ac500)($t3)
+/*  f186900:	8d6bc500 */ 	lw	$t3,%lo(g_MpAllChrConfigPtrs)($t3)
 /*  f186904:	8fac0120 */ 	lw	$t4,0x120($sp)
 /*  f186908:	8fa4012c */ 	lw	$a0,0x12c($sp)
 /*  f18690c:	afab0050 */ 	sw	$t3,0x50($sp)
@@ -10979,20 +10979,20 @@ glabel chrGiveBriefcase
 /*  f186920:	8c8302d4 */ 	lw	$v1,0x2d4($a0)
 /*  f186924:	906e009c */ 	lbu	$t6,0x9c($v1)
 /*  f186928:	35d80080 */ 	ori	$t8,$t6,0x80
-/*  f18692c:	0fc65fa3 */ 	jal	aibotGiveSingleWeapon
+/*  f18692c:	0fc65fa3 */ 	jal	botinvGiveSingleWeapon
 /*  f186930:	a078009c */ 	sb	$t8,0x9c($v1)
 /*  f186934:	3c11800a */ 	lui	$s1,%hi(g_Vars)
 /*  f186938:	10000020 */ 	b	.L0f1869bc
 /*  f18693c:	26319fc0 */ 	addiu	$s1,$s1,%lo(g_Vars)
 /*  f186940:	8e39028c */ 	lw	$t9,0x28c($s1)
 .L0f186944:
-/*  f186944:	3c0c800b */ 	lui	$t4,%hi(g_MpPlayers)
-/*  f186948:	258cc7b8 */ 	addiu	$t4,$t4,%lo(g_MpPlayers)
+/*  f186944:	3c0c800b */ 	lui	$t4,%hi(g_PlayerConfigsArray)
+/*  f186948:	258cc7b8 */ 	addiu	$t4,$t4,%lo(g_PlayerConfigsArray)
 /*  f18694c:	001979c0 */ 	sll	$t7,$t9,0x7
 /*  f186950:	022f5021 */ 	addu	$t2,$s1,$t7
 /*  f186954:	8d4200e4 */ 	lw	$v0,0xe4($t2)
-/*  f186958:	3c19800b */ 	lui	$t9,%hi(g_MpSimulants)
-/*  f18695c:	2739c538 */ 	addiu	$t9,$t9,%lo(g_MpSimulants)
+/*  f186958:	3c19800b */ 	lui	$t9,%hi(g_BotConfigsArray)
+/*  f18695c:	2739c538 */ 	addiu	$t9,$t9,%lo(g_BotConfigsArray)
 /*  f186960:	28410004 */ 	slti	$at,$v0,0x4
 /*  f186964:	10200007 */ 	beqz	$at,.L0f186984
 /*  f186968:	00027080 */ 	sll	$t6,$v0,0x2
@@ -11151,9 +11151,9 @@ glabel chrGiveBriefcase
 /*  f186b80:	0fc633fe */ 	jal	mpPlayerGetIndex
 /*  f186b84:	01402025 */ 	or	$a0,$t2,$zero
 /*  f186b88:	00025880 */ 	sll	$t3,$v0,0x2
-/*  f186b8c:	3c0c800b */ 	lui	$t4,%hi(var800ac500)
+/*  f186b8c:	3c0c800b */ 	lui	$t4,%hi(g_MpAllChrConfigPtrs)
 /*  f186b90:	018b6021 */ 	addu	$t4,$t4,$t3
-/*  f186b94:	8d8cc500 */ 	lw	$t4,%lo(var800ac500)($t4)
+/*  f186b94:	8d8cc500 */ 	lw	$t4,%lo(g_MpAllChrConfigPtrs)($t4)
 /*  f186b98:	8fad0128 */ 	lw	$t5,0x128($sp)
 /*  f186b9c:	3c11800a */ 	lui	$s1,%hi(g_Vars)
 /*  f186ba0:	afac0050 */ 	sw	$t4,0x50($sp)
@@ -11162,13 +11162,13 @@ glabel chrGiveBriefcase
 /*  f186bac:	8da302d4 */ 	lw	$v1,0x2d4($t5)
 /*  f186bb0:	8e2e028c */ 	lw	$t6,0x28c($s1)
 .L0f186bb4:
-/*  f186bb4:	3c0a800b */ 	lui	$t2,%hi(g_MpPlayers)
-/*  f186bb8:	254ac7b8 */ 	addiu	$t2,$t2,%lo(g_MpPlayers)
+/*  f186bb4:	3c0a800b */ 	lui	$t2,%hi(g_PlayerConfigsArray)
+/*  f186bb8:	254ac7b8 */ 	addiu	$t2,$t2,%lo(g_PlayerConfigsArray)
 /*  f186bbc:	000ec1c0 */ 	sll	$t8,$t6,0x7
 /*  f186bc0:	0238c821 */ 	addu	$t9,$s1,$t8
 /*  f186bc4:	8f2200e4 */ 	lw	$v0,0xe4($t9)
-/*  f186bc8:	3c0e800b */ 	lui	$t6,%hi(g_MpSimulants)
-/*  f186bcc:	25cec538 */ 	addiu	$t6,$t6,%lo(g_MpSimulants)
+/*  f186bc8:	3c0e800b */ 	lui	$t6,%hi(g_BotConfigsArray)
+/*  f186bcc:	25cec538 */ 	addiu	$t6,$t6,%lo(g_BotConfigsArray)
 /*  f186bd0:	28410004 */ 	slti	$at,$v0,0x4
 /*  f186bd4:	10200007 */ 	beqz	$at,.L0f186bf4
 /*  f186bd8:	00026080 */ 	sll	$t4,$v0,0x2
@@ -11229,7 +11229,7 @@ glabel chrGiveBriefcase
 .L0f186ca0:
 /*  f186ca0:	11a00009 */ 	beqz	$t5,.L0f186cc8
 /*  f186ca4:	01802025 */ 	or	$a0,$t4,$zero
-/*  f186ca8:	0fc66661 */ 	jal	func0f199984
+/*  f186ca8:	0fc66661 */ 	jal	botinvDropOne
 /*  f186cac:	24050057 */ 	addiu	$a1,$zero,0x57
 /*  f186cb0:	8fae0128 */ 	lw	$t6,0x128($sp)
 /*  f186cb4:	8dc302d4 */ 	lw	$v1,0x2d4($t6)
@@ -11336,7 +11336,7 @@ glabel chrGiveBriefcase
 /*  f186e28:	02002025 */ 	or	$a0,$s0,$zero
 /*  f186e2c:	8fae0128 */ 	lw	$t6,0x128($sp)
 /*  f186e30:	00107880 */ 	sll	$t7,$s0,0x2
-/*  f186e34:	3c0b800b */ 	lui	$t3,%hi(var800ac500)
+/*  f186e34:	3c0b800b */ 	lui	$t3,%hi(g_MpAllChrConfigPtrs)
 /*  f186e38:	8dd902d4 */ 	lw	$t9,0x2d4($t6)
 /*  f186e3c:	8faa0118 */ 	lw	$t2,0x118($sp)
 /*  f186e40:	016f5821 */ 	addu	$t3,$t3,$t7
@@ -11350,7 +11350,7 @@ glabel chrGiveBriefcase
 /*  f186e60:	10000011 */ 	b	.L0f186ea8
 /*  f186e64:	8e2c006c */ 	lw	$t4,0x6c($s1)
 .L0f186e68:
-/*  f186e68:	8d6bc500 */ 	lw	$t3,%lo(var800ac500)($t3)
+/*  f186e68:	8d6bc500 */ 	lw	$t3,%lo(g_MpAllChrConfigPtrs)($t3)
 /*  f186e6c:	8fb80114 */ 	lw	$t8,0x114($sp)
 /*  f186e70:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f186e74:	916d0011 */ 	lbu	$t5,0x11($t3)
@@ -11531,7 +11531,7 @@ glabel chrGiveBriefcase
 /*  f1870e4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1870e8:	8fb90128 */ 	lw	$t9,0x128($sp)
 /*  f1870ec:	00107080 */ 	sll	$t6,$s0,0x2
-/*  f1870f0:	3c0a800b */ 	lui	$t2,%hi(var800ac500)
+/*  f1870f0:	3c0a800b */ 	lui	$t2,%hi(g_MpAllChrConfigPtrs)
 /*  f1870f4:	8f2b02d4 */ 	lw	$t3,0x2d4($t9)
 /*  f1870f8:	8fb80118 */ 	lw	$t8,0x118($sp)
 /*  f1870fc:	014e5021 */ 	addu	$t2,$t2,$t6
@@ -11545,7 +11545,7 @@ glabel chrGiveBriefcase
 /*  f18711c:	10000011 */ 	b	.L0f187164
 /*  f187120:	8e39006c */ 	lw	$t9,0x6c($s1)
 .L0f187124:
-/*  f187124:	8d4ac500 */ 	lw	$t2,%lo(var800ac500)($t2)
+/*  f187124:	8d4ac500 */ 	lw	$t2,%lo(g_MpAllChrConfigPtrs)($t2)
 /*  f187128:	85ac0062 */ 	lh	$t4,0x62($t5)
 /*  f18712c:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f187130:	914f0011 */ 	lbu	$t7,0x11($t2)
@@ -11604,7 +11604,7 @@ glabel chrGiveBriefcase
 /*  f1871e8:	01e02025 */ 	or	$a0,$t7,$zero
 /*  f1871ec:	13200009 */ 	beqz	$t9,.L0f187214
 /*  f1871f0:	00000000 */ 	nop
-/*  f1871f4:	0fc65fa3 */ 	jal	aibotGiveSingleWeapon
+/*  f1871f4:	0fc65fa3 */ 	jal	botinvGiveSingleWeapon
 /*  f1871f8:	24050057 */ 	addiu	$a1,$zero,0x57
 /*  f1871fc:	8fab0124 */ 	lw	$t3,0x124($sp)
 /*  f187200:	00001025 */ 	or	$v0,$zero,$zero
@@ -11688,7 +11688,7 @@ glabel chrGiveBriefcase
 /*  f180d88:	8c8302d4 */ 	lw	$v1,0x2d4($a0)
 /*  f180d8c:	906e009c */ 	lbu	$t6,0x9c($v1)
 /*  f180d90:	35d80080 */ 	ori	$t8,$t6,0x80
-/*  f180d94:	0fc6479b */ 	jal	aibotGiveSingleWeapon
+/*  f180d94:	0fc6479b */ 	jal	botinvGiveSingleWeapon
 /*  f180d98:	a078009c */ 	sb	$t8,0x9c($v1)
 /*  f180d9c:	3c11800a */ 	lui	$s1,0x800a
 /*  f180da0:	10000020 */ 	beqz	$zero,.NB0f180e24
@@ -11932,7 +11932,7 @@ glabel chrGiveBriefcase
 .NB0f1810f0:
 /*  f1810f0:	11800009 */ 	beqz	$t4,.NB0f181118
 /*  f1810f4:	01602025 */ 	or	$a0,$t3,$zero
-/*  f1810f8:	0fc64e59 */ 	jal	func0f199984
+/*  f1810f8:	0fc64e59 */ 	jal	botinvDropOne
 /*  f1810fc:	24050056 */ 	addiu	$a1,$zero,0x56
 /*  f181100:	8fad0128 */ 	lw	$t5,0x128($sp)
 /*  f181104:	8da302d4 */ 	lw	$v1,0x2d4($t5)
@@ -12307,7 +12307,7 @@ glabel chrGiveBriefcase
 /*  f181638:	01c02025 */ 	or	$a0,$t6,$zero
 /*  f18163c:	13200009 */ 	beqz	$t9,.NB0f181664
 /*  f181640:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f181644:	0fc6479b */ 	jal	aibotGiveSingleWeapon
+/*  f181644:	0fc6479b */ 	jal	botinvGiveSingleWeapon
 /*  f181648:	24050056 */ 	addiu	$a1,$zero,0x56
 /*  f18164c:	8faa0124 */ 	lw	$t2,0x124($sp)
 /*  f181650:	00001025 */ 	or	$v0,$zero,$zero
@@ -12456,7 +12456,7 @@ glabel func0f187288
 s32 chrGiveUplink(struct chrdata *chr, struct prop *prop)
 {
 	s32 i;
-	struct mpchr *mpchr;
+	struct mpchrconfig *mpchr;
 	char message[60];
 	s32 mpindex;
 	u32 playernum;
@@ -12469,14 +12469,14 @@ s32 chrGiveUplink(struct chrdata *chr, struct prop *prop)
 		g_ScenarioData.htm.uplink = chr->prop;
 
 		if (chr->aibot) {
-			mpchr = var800ac500[mpPlayerGetIndex(chr)];
+			mpchr = g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)];
 		} else {
 			mpindex = g_Vars.playerstats[g_Vars.currentplayernum].mpindex;
 
 			if (mpindex < 4) {
-				mpchr = &g_MpPlayers[mpindex].base;
+				mpchr = &g_PlayerConfigsArray[mpindex].base;
 			} else {
-				mpchr = &g_MpSimulants[mpindex - 4].base;
+				mpchr = &g_BotConfigsArray[mpindex - 4].base;
 			}
 		}
 
@@ -12500,7 +12500,7 @@ s32 chrGiveUplink(struct chrdata *chr, struct prop *prop)
 
 		if (chr->aibot) {
 			propPlayPickupSound(prop, WEAPON_DATAUPLINK);
-			aibotGiveSingleWeapon(chr, WEAPON_DATAUPLINK);
+			botinvGiveSingleWeapon(chr, WEAPON_DATAUPLINK);
 			chr->aibot->unk04c_05 = true;
 
 #if VERSION >= VERSION_NTSC_1_0

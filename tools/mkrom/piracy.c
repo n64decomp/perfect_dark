@@ -157,8 +157,8 @@ void piracy_patch(void)
 	// algorithm, patch function, sum function
 	patch(algo01, "__scHandleTasks", "bootPhase1");
 	patch(algo02, "cheatMenuHandleDialog", "__scHandleTasks");
-	patch(algo03, "propobjHandlePickupByAibot", "doorFinishClose");
-	patch(algo04, "chrUncloak", "propobjHandlePickupByAibot");
+	patch(algo03, "botPickupProp", "doorFinishClose");
+	patch(algo04, "chrUncloak", "botPickupProp");
 	patch(algo05, "chrsCheckForNoise", "__scHandleRetrace");
 	patch(algo06, "lvInit", "lvGetSlowMotionType");
 	patch(algo07, "propAllocateEyespy", "lvInit");

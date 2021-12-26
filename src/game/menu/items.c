@@ -10868,7 +10868,7 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 	s32 y;
 	u32 maincolour;
 	s32 playernum = g_MpSelectedPlayersForStats[g_MpPlayerNum];
-	struct mpchr *mpchr;
+	struct mpchrconfig *mpchr;
 	u32 selectioncolour;
 	s32 textheight;
 	s32 textwidth;
@@ -10880,9 +10880,9 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 	s32 ypos = 0;
 
 	if (playernum < 4) {
-		mpchr = &g_MpPlayers[playernum].base;
+		mpchr = &g_PlayerConfigsArray[playernum].base;
 	} else {
-		mpchr = &g_MpSimulants[playernum - 4].base;
+		mpchr = &g_BotConfigsArray[playernum - 4].base;
 	}
 
 	gdl = func0f153628(gdl);
@@ -11035,12 +11035,12 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 
 		for (i = 0; i < 12; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
-				struct mpchr *loopmpchr;
+				struct mpchrconfig *loopmpchr;
 
 				if (i < 4) {
-					loopmpchr = &g_MpPlayers[i].base;
+					loopmpchr = &g_PlayerConfigsArray[i].base;
 				} else {
-					loopmpchr = &g_MpSimulants[i - 4].base;
+					loopmpchr = &g_BotConfigsArray[i - 4].base;
 				}
 
 				if (i != playernum) {
