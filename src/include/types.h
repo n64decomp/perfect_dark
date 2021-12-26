@@ -934,16 +934,16 @@ struct aibot {
 	/*0x108*/ struct coord shotspeed; // "boost" when aibot is shot
 	/*0x114*/ s32 unk114;
 	/*0x118*/ u32 unk118;
-	/*0x11c*/ s32 unk11c;
-	/*0x120*/ s32 unk120;
-	/*0x124*/ s32 unk124;
-	/*0x128*/ s32 unk128;
-	/*0x12c*/ u32 unk12c;
-	/*0x130*/ s8 unk130[12];
-	/*0x13c*/ f32 playerdistances[12];
-	/*0x16c*/ u8 unk16c[12];
-	/*0x178*/ s32 unk178[12];
-	/*0x1a8*/ s16 unk1a8[12];
+	/*0x11c*/ s32 targethotness; // ticks up when target onscreen, down when offscreen, always >= 0
+	/*0x120*/ s32 targetlastseen60;
+	/*0x124*/ s32 lastseenanytarget60;
+	/*0x128*/ bool targetinsight;
+	/*0x12c*/ s32 queryplayernum;
+	/*0x130*/ s8 chrnumsbydistanceasc[12];
+	/*0x13c*/ f32 chrdistances[12];
+	/*0x16c*/ u8 chrsinsight[12];
+	/*0x178*/ s32 chrslastseen60[12];
+	/*0x1a8*/ s16 chrrooms[12];
 	/*0x1c0*/ f32 unk1c0;
 	/*0x1c4*/ f32 unk1c4;
 	/*0x1c8*/ f32 unk1c8;
@@ -978,7 +978,15 @@ struct aibot {
 	 */
 	/*0x2c4*/ f32 unk2c4;
 
-	/*0x2c8*/ s32 unk2c8;
+	/**
+	 * 120 when target is in sight
+	 * 0 when target is not in sight
+	 * Ticks down when target is in sight but cloaked
+	 *
+	 * Bot maintains target while cloak timer is active
+	 */
+	/*0x2c8*/ s32 targetcloaktimer60;
+
 	/*0x2cc*/ u32 unk2cc;
 	/*0x2d0*/ u32 unk2d0;
 	/*0x2d4*/ f32 unk2d4;

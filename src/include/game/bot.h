@@ -25,13 +25,13 @@ void bot0f1921f8(struct chrdata *chr, f32 *move);
 #endif
 
 void botLoseGun(struct chrdata *chr, struct prop *attacker);
-void bot0f19277c(struct chrdata *chr, s32 propnum);
-bool bot0f19294c(struct chrdata *botchr, struct chrdata *otherchr);
+void botSetTarget(struct chrdata *chr, s32 propnum);
+bool botIsTargetInvisible(struct chrdata *botchr, struct chrdata *otherchr);
 bool botHasGround(struct chrdata *chr);
 void bot0f192a74(struct chrdata *chr);
 bool botPassesPeaceCheck(struct chrdata *botchr, struct chrdata *otherchr);
 bool botPassesCowardCheck(struct chrdata *botchr, struct chrdata *otherchr);
-u32 bot0f192e90(void);
+void botChooseGeneralTarget(struct chrdata *chr);
 void bot0f19369c(struct chrdata *chr, s32 arg1);
 s32 bot0f1937a4(struct chrdata *chr, s32 arg1);
 s32 botGetNumOpponentsInHill(struct chrdata *chr);

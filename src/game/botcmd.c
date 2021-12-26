@@ -44,7 +44,7 @@ void botcmdTickDistMode(struct chrdata *chr)
 	struct aibot *aibot = chr->aibot;
 	s32 prevmode = aibot->distmode;
 	struct prop *targetprop = NULL;
-	s32 somevalue = 0;
+	bool insight = false;
 	f32 minattackdistance;
 	f32 maxattackdistance;
 	f32 limit3;
@@ -59,7 +59,7 @@ void botcmdTickDistMode(struct chrdata *chr)
 	if (chr->myaction == MA_AIBOTFOLLOW && aibot->followingplayernum >= 0) {
 		limits = g_BotDistConfigs[BOTDISTCFG_FOLLOW];
 		targetprop = g_MpAllChrPtrs[aibot->followingplayernum]->prop;
-		somevalue = aibot->unk16c[aibot->followingplayernum];
+		insight = aibot->chrsinsight[aibot->followingplayernum];
 
 		if (chr->target != -1 && (confignum == BOTDISTCFG_CLOSE || confignum == BOTDISTCFG_KAZE)) {
 			struct prop *target = chrGetTargetProp(chr);
@@ -70,7 +70,7 @@ void botcmdTickDistMode(struct chrdata *chr)
 			if (xdiff * xdiff + ydiff * ydiff + zdiff * zdiff < 500 * 500) {
 				limits = g_BotDistConfigs[confignum];
 				targetprop = target;
-				somevalue = aibot->unk128;
+				insight = aibot->targetinsight;
 			}
 		}
 	} else {
@@ -78,10 +78,10 @@ void botcmdTickDistMode(struct chrdata *chr)
 
 		if (chr->myaction == MA_AIBOTATTACK && aibot->attackingplayernum >= 0) {
 			targetprop = g_MpAllChrPtrs[aibot->attackingplayernum]->prop;
-			somevalue = aibot->unk16c[aibot->attackingplayernum];
+			insight = aibot->chrsinsight[aibot->attackingplayernum];
 		} else if (chr->target != -1) {
 			targetprop = chrGetTargetProp(chr);
-			somevalue = aibot->unk128;
+			insight = aibot->targetinsight;
 		}
 	}
 
@@ -125,17 +125,17 @@ void botcmdTickDistMode(struct chrdata *chr)
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (newmode != BOTDISTMODE_BACKUP || somevalue == 0 || aibot->unk050 != targetprop) {
+	if (newmode != BOTDISTMODE_BACKUP || !insight || aibot->unk050 != targetprop) {
 		aibot->unk050 = NULL;
 		aibot->unk09d = 0;
 	}
 
 	if (newmode == BOTDISTMODE_OK) {
-		if (somevalue == 0) {
+		if (!insight) {
 			newmode = BOTDISTMODE_ADVANCE;
 		}
 	} else if (newmode == BOTDISTMODE_BACKUP) {
-		if (somevalue == 0) {
+		if (!insight) {
 			newmode = BOTDISTMODE_ADVANCE;
 			aibot->unk050 = targetprop;
 			aibot->unk09d = PALDOWN(20) + (random() % PALDOWN(120));
@@ -150,7 +150,7 @@ void botcmdTickDistMode(struct chrdata *chr)
 		}
 	}
 #else
-	if (newmode == BOTDISTMODE_OK && somevalue == 0) {
+	if (newmode == BOTDISTMODE_OK && !insight) {
 		newmode = BOTDISTMODE_ADVANCE;
 	}
 #endif

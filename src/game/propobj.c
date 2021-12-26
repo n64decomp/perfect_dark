@@ -21962,7 +21962,7 @@ glabel var7f1aa3d0
 /*  f0738fc:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f073900:	1040004a */ 	beqz	$v0,.L0f073a2c
 /*  f073904:	00002025 */ 	or	$a0,$zero,$zero
-/*  f073908:	0fc64a53 */ 	jal	bot0f19294c
+/*  f073908:	0fc64a53 */ 	jal	botIsTargetInvisible
 /*  f07390c:	02002825 */ 	or	$a1,$s0,$zero
 /*  f073910:	14400046 */ 	bnez	$v0,.L0f073a2c
 /*  f073914:	00000000 */ 	nop
@@ -22419,7 +22419,7 @@ glabel var7f1aa3d0
 /*  f0738fc:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f073900:	1040004a */ 	beqz	$v0,.L0f073a2c
 /*  f073904:	00002025 */ 	or	$a0,$zero,$zero
-/*  f073908:	0fc64a53 */ 	jal	bot0f19294c
+/*  f073908:	0fc64a53 */ 	jal	botIsTargetInvisible
 /*  f07390c:	02002825 */ 	or	$a1,$s0,$zero
 /*  f073910:	14400046 */ 	bnez	$v0,.L0f073a2c
 /*  f073914:	00000000 */ 	nop

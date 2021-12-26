@@ -6729,7 +6729,7 @@ bool chrCanSeeChr(struct chrdata *chr, struct chrdata *target, s16 *room)
 	u32 stack;
 	s16 sp88[] = {-1, 0, 0, 0, 0, 0, 0, 0};
 
-	if (bot0f19294c(chr, target) == 0) {
+	if (botIsTargetInvisible(chr, target) == 0) {
 		struct prop *prop = chr->prop;
 		struct coord pos;
 		s16 rooms[8];

@@ -211,18 +211,18 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->shotspeed.y = 0.0f;
 					aibot->shotspeed.z = 0.0f;
 					aibot->unk118 = 0;
-					aibot->unk11c = 0;
-					aibot->unk120 = -1;
-					aibot->unk124 = -1;
-					aibot->unk128 = 0;
-					aibot->unk12c = 0;
+					aibot->targethotness = 0;
+					aibot->targetlastseen60 = -1;
+					aibot->lastseenanytarget60 = -1;
+					aibot->targetinsight = false;
+					aibot->queryplayernum = 0;
 
 					for (i = 0; i < 12; i++) {
-						aibot->unk130[i] = -1;
-						aibot->playerdistances[i] = U32_MAX;
-						aibot->unk16c[i] = 0;
-						aibot->unk178[i] = -1;
-						aibot->unk1a8[i] = -1;
+						aibot->chrnumsbydistanceasc[i] = -1;
+						aibot->chrdistances[i] = U32_MAX;
+						aibot->chrsinsight[i] = 0;
+						aibot->chrslastseen60[i] = -1;
+						aibot->chrrooms[i] = -1;
 					}
 
 					aibot->unk1c0 = 0.0f;
@@ -253,7 +253,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->unk2a4 = 0;
 					aibot->dampensuicidesttl60 = 0;
 					aibot->unk2c4 = 0.0f;
-					aibot->unk2c8 = 0;
+					aibot->targetcloaktimer60 = 0;
 
 					aibot->unk09c_03 = 0;
 
