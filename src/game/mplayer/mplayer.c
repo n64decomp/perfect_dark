@@ -45,7 +45,7 @@ struct modelfiledata *var800acc28[18];
 
 // Forward declaractions
 struct mpweaponset g_MpWeaponSets[12];
-u32 var800874c8;
+s32 var800874c8;
 
 #if VERSION >= VERSION_NTSC_1_0
 const char var7f1b8a00[] = "||||||||||||| Starting game... players %d\n";
@@ -2207,23 +2207,12 @@ void mpSetWeaponSet(s32 weaponsetnum)
 	func0f1892dc();
 }
 
-GLOBAL_ASM(
-glabel func0f1895e8
-/*  f1895e8:	3c0e8008 */ 	lui	$t6,%hi(var800874c8)
-/*  f1895ec:	8dce74c8 */ 	lw	$t6,%lo(var800874c8)($t6)
-/*  f1895f0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1895f4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1895f8:	29c1000c */ 	slti	$at,$t6,0xc
-/*  f1895fc:	50200004 */ 	beqzl	$at,.L0f189610
-/*  f189600:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f189604:	0fc624b7 */ 	jal	func0f1892dc
-/*  f189608:	00000000 */ 	nop
-/*  f18960c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f189610:
-/*  f189610:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f189614:	03e00008 */ 	jr	$ra
-/*  f189618:	00000000 */ 	nop
-);
+void func0f1895e8(void)
+{
+	if (var800874c8 < 12) {
+		func0f1892dc();
+	}
+}
 
 s32 mpGetWeaponSet(void)
 {
@@ -3752,7 +3741,7 @@ struct mpweaponset g_MpWeaponSets[12] = {
 	{ /*0x0b*/ L_MPWEAPONS_044, { WEAPON_COMBATKNIFE,      WEAPON_COMBATKNIFE, WEAPON_TIMEDMINE,   WEAPON_CROSSBOW,       WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_CROSSBOW,        0,                           0,                              0                       }, WEAPON_COMBATKNIFE, WEAPON_COMBATKNIFE, WEAPON_TIMEDMINE, WEAPON_TIMEDMINE,      WEAPON_MPSHIELD, WEAPON_DISABLED }, // Close Combat
 };
 
-u32 var800874c8 = 0x00000000;
+s32 var800874c8 = 0x00000000;
 u32 var800874cc = 0x50005001;
 u32 var800874d0 = 0x50025003;
 u32 var800874d4 = 0x50045005;
