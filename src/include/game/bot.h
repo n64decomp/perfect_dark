@@ -17,7 +17,13 @@ bool botApplyMovement(struct chrdata *chr);
 bool bot0f191638(struct chrdata *chr, bool arg1);
 s32 botTick(struct prop *prop);
 f32 botCalculateMaxSpeed(struct chrdata *chr);
-void bot0f1921f8(struct chrdata *chr, f32 *arg1, s32 arg2, f32 arg3);
+
+#if VERSION >= VERSION_NTSC_1_0
+void bot0f1921f8(struct chrdata *chr, f32 *move, s32 numupdates, f32 arg3);
+#else
+void bot0f1921f8(struct chrdata *chr, f32 *move);
+#endif
+
 void botLoseGun(struct chrdata *chr, struct prop *attacker);
 void bot0f19277c(struct chrdata *chr, s32 propnum);
 bool bot0f19294c(struct chrdata *botchr, struct chrdata *otherchr);
