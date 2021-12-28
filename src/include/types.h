@@ -407,7 +407,7 @@ struct explosion;
 struct prop {
 	/*0x00*/ u8 type;
 	/*0x01*/ u8 flags;
-	/*0x02*/ s16 timetoregen; // ticks down
+	/*0x02*/ s16 timetoregen; // 0 when available, ticks down when unavailable
 
 	/*0x04*/
 	union {
@@ -830,24 +830,23 @@ struct waypoint {
 };
 
 struct aibot {
-	/*0x000*/ u8 unk000;
+	/*0x000*/ u8 followchance;
 	/*0x002*/ s16 aibotnum;
 	/*0x004*/ struct mpbotconfig *config;
 	/*0x008*/ s16 attackingplayernum;
 	/*0x00a*/ s16 followingplayernum;
 	/*0x00c*/ s16 dangerouspropnum; // index into g_DangerousProps
-	/*0x010*/ struct prop *fetchprop;
+	/*0x010*/ struct prop *gotoprop;
 	/*0x014*/ struct invitem *items;
 	/*0x018*/ s8 maxitems;
 	/*0x01c*/ s32 *ammoheld;
 	/*0x020*/ s32 weaponnum;
 	/*0x024*/ s32 loadedammo[2]; // amount of ammo in current clip
-	/*0x02c*/ s16 unk02c[2];
+	/*0x02c*/ s16 timeuntilreload60[2];
 	/*0x030*/ u32 unk030; // timer of some sort
-	/*0x034*/ u32 unk034;
+	/*0x034*/ s32 throwtimer60;
 	/*0x038*/ u32 unk038;
-	/*0x03c*/ u16 unk03c;
-	/*0x03e*/ s16 unk03e;
+	/*0x03c*/ s16 punchtimer60[2];
 	/*0x040*/ f32 unk040;
 	/*0x044*/ struct prop *skrocket;
 	/*0x048*/ s16 unk048;
@@ -857,24 +856,15 @@ struct aibot {
 	/*0x04c*/ u8 gunfunc : 1;
 	/*0x04c*/ u8 unk04c_03 : 1;
 	/*0x04c*/ u8 unk04c_04 : 1;
-	/*0x04c*/ u8 unk04c_05 : 1;
+	/*0x04c*/ u8 hasuplink : 1;
 	/*0x04c*/ u8 cloakdeviceenabled : 1;
-	/*0x04c*/ u8 unk04c_07 : 1;
-	/*0x04d*/ u8 unk04d[2];
+	/*0x04d*/ u8 burstsdone[2];
 	/*0x04f*/ u8 teamisonlyai : 1;
-	/*0x04f*/ u8 unk04f_01 : 1;
-	/*0x04f*/ u8 unk04f_02 : 1;
-	/*0x04f*/ u8 unk04f_03 : 1;
-	/*0x04f*/ u8 unk04f_04 : 1;
-	/*0x04f*/ u8 unk04f_05 : 1;
-	/*0x04f*/ u8 unk04f_06 : 1;
-	/*0x04f*/ u8 unk04f_07 : 1;
 	/*0x050*/ struct prop *unk050;
 	/*0x054*/ u32 unk054;
 	/*0x058*/ u8 unk058; // related to fireslots
 	/*0x059*/ u8 unk059;
-	/*0x05c*/ u32 unk05c;
-	/*0x060*/ u32 unk060;
+	/*0x05c*/ s32 nextbullettimer60[2];
 
 	/**
 	 * 0x0001 = has unlimited ammo (darksim?)
@@ -891,17 +881,17 @@ struct aibot {
 	/*0x076*/ s16 lastkilledbyplayernum;
 	/*0x078*/ u8 unk078;
 	/*0x079*/ u8 command;
-	/*0x07a*/ s16 rooms[1];
+	/*0x07a*/ s16 defendholdrooms[1];
 	/*0x07c*/ u32 unk07c;
 	/*0x080*/ u32 unk080;
 	/*0x084*/ u32 unk084;
 	/*0x088*/ u32 unk088;
 	/*0x08c*/ struct coord defendholdpos;
 	/*0x098*/ f32 unk098;
-	/*0x09c*/ u8 unk09c_00 : 1;
-	/*0x09c*/ u8 unk09c_01 : 1;
+	/*0x09c*/ u8 hasbriefcase : 1; // htb
+	/*0x09c*/ u8 hascase : 1;      // ctc
 	/*0x09c*/ u8 rcp120cloakenabled : 1;
-	/*0x09c*/ u8 unk09c_03 : 1;
+	/*0x09c*/ u8 canseecloaked : 1;
 	/*0x09c*/ u8 unk09c_04 : 1;
 	/*0x09c*/ u8 unk09c_05 : 1;
 	/*0x09c*/ u8 unk09c_06 : 1;
@@ -914,27 +904,22 @@ struct aibot {
 	/*0x0b0*/ f32 unk0b0; // likely to be the turn angle to 360 degrees, in radians
 	/*0x0b4*/ f32 unk0b4;
 	/*0x0b8*/ f32 unk0b8;
-	/*0x0bc*/ s32 unk0bc;
+	/*0x0bc*/ s32 lastknownhill;
 	/*0x0c0*/ s32 attackpropnum;
-	/*0x0c4*/ u32 unk0c4[2];
-	/*0x0cc*/ u32 unk0cc; // Timer? Related to weapon switching
+	/*0x0c4*/ bool cyclonedischarging[2];
+	/*0x0cc*/ s32 changeguntimer60;
 	/*0x0d0*/ s32 distmodettl60;
 	/*0x0d4*/ s32 followprotectpropnum;
-	/*0x0d8*/ s32 unk0d8;
-	/*0x0dc*/ u32 unk0dc;
-	/*0x0e0*/ s16 unk0e0[2];
+	/*0x0d8*/ bool forcemainloop;
+	/*0x0dc*/ s32 returntodefendtimer60;
+	/*0x0e0*/ s16 reaperspeed[2];
 	/*0x0e4*/ f32 maulercharge[2];
-	/*0x0ec*/ u32 unk0ec;
-	/*0x0f0*/ u32 unk0f0;
-	/*0x0f4*/ u32 unk0f4;
-	/*0x0f8*/ u32 unk0f8;
-	/*0x0fc*/ u32 unk0fc;
-	/*0x100*/ u32 unk100;
-	/*0x104*/ u32 unk104;
+	/*0x0ec*/ struct coord gotopos;
+	/*0x0f8*/ s16 gotorooms[8];
 	/*0x108*/ struct coord shotspeed; // "boost" when aibot is shot
-	/*0x114*/ s32 unk114;
-	/*0x118*/ u32 unk118;
-	/*0x11c*/ s32 targethotness; // ticks up when target onscreen, down when offscreen, always >= 0
+	/*0x114*/ s32 feudplayernum;
+	/*0x118*/ s32 commandtimer60;
+	/*0x11c*/ s32 shootdelaytimer60; // ticks up when target onscreen, down when offscreen, always >= 0
 	/*0x120*/ s32 targetlastseen60;
 	/*0x124*/ s32 lastseenanytarget60;
 	/*0x128*/ bool targetinsight;
@@ -950,21 +935,14 @@ struct aibot {
 	/*0x1cc*/ s32 unk1cc;
 	/*0x1d0*/ u32 unk1d0;
 	/*0x1d4*/ f32 unk1d4;
-	/*0x1d8*/ u32 unk1d8;
-	/*0x1dc*/ u32 unk1dc;
-	/*0x1e0*/ u32 unk1e0;
+	/*0x1d8*/ s32 abortattacktimer60;
+	/*0x1dc*/ bool canbreakdefend;
+	/*0x1e0*/ bool canbreakfollow;
 	/*0x1e4*/ s32 unk1e4;
-	/*0x1e8*/ u32 unk1e8;
-	/*0x1ec*/ u32 unk1ec;
-	/*0x1f0*/ u32 unk1f0;
-	/*0x1f4*/ u32 unk1f4;
-	/*0x1f8*/ u32 unk1f8;
-	/*0x1fc*/ u32 unk1fc;
-	/*0x200*/ u32 unk200;
-	/*0x204*/ u32 unk204;
+	/*0x1e8*/ struct waypoint *waypoints[8];
 	/*0x208*/ s32 unk208;
-	/*0x20c*/ s32 randttl60;
-	/*0x210*/ u32 rand;
+	/*0x20c*/ s32 random1ttl60;
+	/*0x210*/ u32 random1;
 	/*0x214*/ f32 killsbygunfunc[6][2];
 	/*0x244*/ f32 suicidesbygunfunc[6][2];
 	/*0x274*/ s32 equipdurations60[6][2];
@@ -987,9 +965,9 @@ struct aibot {
 	 */
 	/*0x2c8*/ s32 targetcloaktimer60;
 
-	/*0x2cc*/ u32 unk2cc;
-	/*0x2d0*/ u32 unk2d0;
-	/*0x2d4*/ f32 unk2d4;
+	/*0x2cc*/ s32 random2ttl60;
+	/*0x2d0*/ u32 random2;
+	/*0x2d4*/ f32 randomfrac;
 	/*0x2d8*/ u32 unk2d8;
 	/*0x2dc*/ u32 unk2dc;
 };
@@ -4796,7 +4774,7 @@ struct scenariodata_htm {
 	/*0x800ac114*/ s16 padnums[60];
 	/*0x800ac18c*/ struct htmthing unk07c[7]; // only the first element is used?
 	/*0x800ac1e0*/ s16 unk0d0;
-	/*0x800ac1e2*/ s16 unk0d2;
+	/*0x800ac1e2*/ s16 uplinkingplayernum;
 	/*0x800ac1e4*/ s32 unk0d4;
 	/*0x800ac1e8*/ u32 unk0d8[12];
 	/*0x800ac218*/ u32 unk108[12];
@@ -4830,7 +4808,7 @@ struct scenariodata_koh {
 };
 
 struct ctcspawnpadsperteam {
-	s16 teamindex;
+	s16 homepad;
 	s16 numspawnpads;
 	s16 spawnpads[6];
 };
@@ -5168,15 +5146,15 @@ struct modelstate {
 	u16 scale;
 };
 
-struct simdifficulty {
-	u8 unk00;
+struct botdifficulty {
+	u8 shootdelay;
 	f32 unk04;
 	f32 unk08;
 	u16 unk0c;
 	f32 unk10;
 	f32 unk14;
 	f32 unk18;
-	s32 blurdrugamount;
+	s32 dizzyamount;
 };
 
 struct animtablerow {
@@ -6959,8 +6937,8 @@ struct aibotweaponpreference {
 	u16 unk08;
 	u16 unk0a;
 	u16 unk0c;
-	u16 unk0e_00 : 3;
-	u16 unk0e_03 : 1;
+	u16 reloaddelay : 3; // in seconds
+	u16 allowpartialreloaddelay : 1;
 };
 
 struct handweaponinfo {

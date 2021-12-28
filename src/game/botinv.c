@@ -565,12 +565,12 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3
 		}
 		break;
 	case WEAPON_CYCLONE:
-		if (funcnum == (chr->aibot->rand % 2)) {
+		if (funcnum == (chr->aibot->random1 % 2)) {
 			score1--;
 		}
 		break;
 	case WEAPON_CALLISTO:
-		if (funcnum == (chr->aibot->rand % 2)) {
+		if (funcnum == (chr->aibot->random1 % 2)) {
 			score1--;
 		}
 		break;
@@ -578,8 +578,8 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3
 		if (chr->aibot->cloakdeviceenabled == false
 				&& botactGetAmmoQuantityByWeapon(chr->aibot, WEAPON_RCP120, FUNC_PRIMARY, true) > 500
 				&& chr->aibot->config->difficulty > BOTDIFF_MEAT) {
-			score1 += chr->aibot->rand % 10;
-			score2 += chr->aibot->rand % 10;
+			score1 += chr->aibot->random1 % 10;
+			score2 += chr->aibot->random1 % 10;
 		}
 		break;
 	case WEAPON_LAPTOPGUN:
@@ -596,12 +596,12 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3
 		break;
 	case WEAPON_SUPERDRAGON:
 		if (chr->aibot->config->type != BOTDIFF_HARD
-				&& (chr->aibot->rand % 2) == funcnum) {
+				&& (chr->aibot->random1 % 2) == funcnum) {
 			score1 -= 15;
 		}
 		break;
 	case WEAPON_SHOTGUN:
-		if (funcnum == (chr->aibot->rand % 2)) {
+		if (funcnum == (chr->aibot->random1 % 2)) {
 			score1--;
 		}
 		break;
@@ -618,7 +618,7 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3
 		}
 		break;
 	case WEAPON_ROCKETLAUNCHER:
-		if (funcnum == (chr->aibot->rand % 2)) {
+		if (funcnum == (chr->aibot->random1 % 2)) {
 			score1--;
 		}
 		break;
@@ -629,7 +629,7 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3
 					if (comparewithtarget) {
 						if (chr->target != -1
 								&& chr->aibot->chrsinsight[mpPlayerGetIndex(chrGetTargetProp(chr)->chr)] == 0
-								&& (chr->aibot->rand % 2) == 0) {
+								&& (chr->aibot->random1 % 2) == 0) {
 							score1 += 10;
 						} else {
 							score1 -= 10;
@@ -646,7 +646,7 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3
 					if (comparewithtarget) {
 						if (chr->target != -1
 								&& chr->aibot->chrsinsight[mpPlayerGetIndex(chrGetTargetProp(chr)->chr)] == 0
-								&& (chr->aibot->rand % 2) == 0) {
+								&& (chr->aibot->random1 % 2) == 0) {
 							score1 = 178;
 							score2 = 188;
 						} else {
@@ -698,11 +698,11 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3
 				if (chr->aibot->config->difficulty <= BOTDIFF_MEAT) {
 					score1 = 0;
 					score2 = 0;
-				} else if (bluramount > PALDOWN(3500) && (chr->aibot->rand % 2) == 0) {
-					score1 = chr->aibot->rand % 140 + 48;
+				} else if (bluramount > PALDOWN(3500) && (chr->aibot->random1 % 2) == 0) {
+					score1 = chr->aibot->random1 % 140 + 48;
 					score2 = 188;
-				} else if (chr->aibot->rand % 10 == 0) {
-					score1 = chr->aibot->rand % 140 + 48;
+				} else if (chr->aibot->random1 % 10 == 0) {
+					score1 = chr->aibot->random1 % 140 + 48;
 					score2 = 188;
 				} else {
 					score1 = 0;
@@ -712,7 +712,7 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3
 				if (bluramount >= PALDOWN(5000)) {
 					score2 = 48;
 
-					if (chr->aibot->rand % 2) {
+					if (chr->aibot->random1 % 2) {
 						score1 = 0;
 						score2 = 0;
 					}
@@ -727,10 +727,10 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3
 					value *= value;
 					value *= value;
 
-					if (value < chr->aibot->rand) {
+					if (value < chr->aibot->random1) {
 						score2 = 48;
 
-						if (chr->aibot->rand % 2) {
+						if (chr->aibot->random1 % 2) {
 							score1 = 0;
 							score2 = 0;
 						}
@@ -905,19 +905,19 @@ void botinvTick(struct chrdata *chr)
 
 	// Every 2-12 seconds, generate a new random value which is used as a factor
 	// in various aibot logic.
-	aibot->randttl60 -= g_Vars.lvupdate240_60;
+	aibot->random1ttl60 -= g_Vars.lvupdate240_60;
 
-	if (aibot->randttl60 < 0) {
-		aibot->randttl60 = PALDOWN(120) + random() % PALDOWN(600);
-		aibot->rand = random();
+	if (aibot->random1ttl60 < 0) {
+		aibot->random1ttl60 = PALDOWN(120) + random() % PALDOWN(600);
+		aibot->random1 = random();
 	}
 
-	if (aibot->unk0c4[1] == 0
-			&& aibot->unk0c4[0] == 0
-			&& aibot->unk04d[1] <= 0
-			&& aibot->unk04d[0] <= 0
-			&& aibot->unk0e0[1] <= 0
-			&& aibot->unk0e0[0] <= 0
+	if (aibot->cyclonedischarging[HAND_LEFT] == 0
+			&& aibot->cyclonedischarging[HAND_RIGHT] == 0
+			&& aibot->burstsdone[HAND_LEFT] <= 0
+			&& aibot->burstsdone[HAND_RIGHT] <= 0
+			&& aibot->reaperspeed[HAND_LEFT] <= 0
+			&& aibot->reaperspeed[HAND_RIGHT] <= 0
 			&& aibot->skrocket == NULL) {
 		if (chr->myaction == MA_AIBOTDOWNLOAD) {
 			keepcurrentweapon = true;
@@ -1037,12 +1037,12 @@ bool botinvSwitchToWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
 	changingfunc = funcnum != aibot->gunfunc;
 
 	if (changinggun) {
-		aibot->unk0cc = PALDOWN(60);
+		aibot->changeguntimer60 = PALDOWN(60);
 
 		for (i = 0; i < 2; i++) {
-			aibot->unk0c4[i] = 0;
-			aibot->unk04d[i] = 0;
-			aibot->unk0e0[i] = 0;
+			aibot->cyclonedischarging[i] = false;
+			aibot->burstsdone[i] = 0;
+			aibot->reaperspeed[i] = 0;
 
 			if (chr->weapons_held[i]) {
 				chr->weapons_held[i]->obj->hidden |= OBJHFLAG_REAPABLE;

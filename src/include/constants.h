@@ -640,6 +640,7 @@
 #define COVERFLAG_0020            0x0020
 #define COVERFLAG_0040            0x0040
 #define COVERFLAG_0080            0x0080
+#define COVERFLAG_0100            0x0100
 
 // L/C/R = left/centered/right
 // big/med/sml is the font size
@@ -3063,6 +3064,7 @@
 #define PADFLAG_AIDUCK          0x4000
 #define PADFLAG_8000            0x8000
 #define PADFLAG_10000           0x10000
+#define PADFLAG_20000           0x20000
 
 #define PAK010_00 0
 #define PAK010_01 1

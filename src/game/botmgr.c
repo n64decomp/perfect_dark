@@ -112,45 +112,45 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 
 					switch (g_BotConfigsArray[aibotnum].difficulty) {
 					case BOTDIFF_MEAT:
-						aibot->unk000 = 0;
+						aibot->followchance = 0;
 						break;
 					case BOTDIFF_EASY:
-						aibot->unk000 = 10;
+						aibot->followchance = 10;
 						break;
 					default:
 					case BOTDIFF_NORMAL:
-						aibot->unk000 = 20;
+						aibot->followchance = 20;
 						break;
 					case BOTDIFF_HARD:
-						aibot->unk000 = 40;
+						aibot->followchance = 40;
 						break;
 					case BOTDIFF_PERFECT:
-						aibot->unk000 = 60;
+						aibot->followchance = 60;
 						break;
 					case BOTDIFF_DARK:
-						aibot->unk000 = 0;
+						aibot->followchance = 0;
 						break;
 					}
 
 					aibot->aibotnum = aibotnum;
 					aibot->unk064 = 0;
-					aibot->fetchprop = NULL;
-					aibot->unk02c[0] = 0;
-					aibot->unk02c[1] = 0;
-					aibot->unk034 = 0;
+					aibot->gotoprop = NULL;
+					aibot->timeuntilreload60[0] = 0;
+					aibot->timeuntilreload60[1] = 0;
+					aibot->throwtimer60 = 0;
 					aibot->unk040 = 0.0f;
 					aibot->loadedammo[0] = 0;
 					aibot->loadedammo[1] = 0;
 					aibot->unk058 = 0;
 					aibot->unk059 = 0;
-					aibot->unk05c = 0;
-					aibot->unk060 = 0;
+					aibot->nextbullettimer60[0] = 0;
+					aibot->nextbullettimer60[1] = 0;
 #if !PAL
 					aibot->unk030 = 301;
 #endif
 					aibot->unk038 = 0;
-					aibot->unk03e = -1;
-					aibot->unk03c = 0;
+					aibot->punchtimer60[HAND_LEFT] = -1;
+					aibot->punchtimer60[HAND_RIGHT] = 0;
 					aibot->attackingplayernum = -1;
 					aibot->followingplayernum = -1;
 					aibot->dangerouspropnum = -1;
@@ -159,7 +159,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->unk070 = 0.0f;
 					aibot->distmode = -1;
 					aibot->lastkilledbyplayernum = -1;
-					aibot->unk114 = -1;
+					aibot->feudplayernum = -1;
 					aibot->command = AIBOTCMD_NORMAL;
 					aibot->unk098 = 0.0f;
 
@@ -169,35 +169,35 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 
 					aibot->weaponnum = WEAPON_UNARMED;
 
-					aibot->unk04d[0] = 0;
-					aibot->unk04d[1] = 0;
+					aibot->burstsdone[0] = 0;
+					aibot->burstsdone[1] = 0;
 					aibot->skrocket = NULL;
 					aibot->unk0a0 = 0;
 
-					aibot->gunfunc = 0;
+					aibot->gunfunc = FUNC_PRIMARY;
 					aibot->iscloserangeweapon = true;
-					aibot->teamisonlyai = 0;
-					aibot->unk09c_00 = 0;
-					aibot->unk09c_01 = 0;
+					aibot->teamisonlyai = false;
+					aibot->hasbriefcase = false;
+					aibot->hascase = false;
 					aibot->cloakdeviceenabled = false;
 					aibot->rcp120cloakenabled = false;
-					aibot->unk04c_04 = 0;
-					aibot->unk04c_03 = 0;
-					aibot->unk04c_05 = 0;
-					aibot->unk04c_00 = 0;
+					aibot->unk04c_04 = false;
+					aibot->unk04c_03 = false;
+					aibot->hasuplink = false;
+					aibot->unk04c_00 = false;
 
 					aibot->unk048 = -1;
 					aibot->unk04a = -1;
 
-					aibot->unk0bc = -1;
-					aibot->unk0c4[HAND_LEFT] = 0;
-					aibot->unk0c4[HAND_RIGHT] = 0;
-					aibot->unk0cc = 0;
+					aibot->lastknownhill = -1;
+					aibot->cyclonedischarging[HAND_LEFT] = false;
+					aibot->cyclonedischarging[HAND_RIGHT] = false;
+					aibot->changeguntimer60 = 0;
 					aibot->distmodettl60 = 0;
-					aibot->unk0d8 = 0;
-					aibot->unk0dc = 0;
-					aibot->unk0e0[HAND_LEFT] = 0;
-					aibot->unk0e0[HAND_RIGHT] = 0;
+					aibot->forcemainloop = false;
+					aibot->returntodefendtimer60 = 0;
+					aibot->reaperspeed[HAND_LEFT] = 0;
+					aibot->reaperspeed[HAND_RIGHT] = 0;
 					aibot->maulercharge[HAND_LEFT] = 0.0f;
 					aibot->maulercharge[HAND_RIGHT] = 0.0f;
 					aibot->unk0a4 = model0001ae44(chr->model);
@@ -210,8 +210,8 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->shotspeed.x = 0.0f;
 					aibot->shotspeed.y = 0.0f;
 					aibot->shotspeed.z = 0.0f;
-					aibot->unk118 = 0;
-					aibot->targethotness = 0;
+					aibot->commandtimer60 = 0;
+					aibot->shootdelaytimer60 = 0;
 					aibot->targetlastseen60 = -1;
 					aibot->lastseenanytarget60 = -1;
 					aibot->targetinsight = false;
@@ -232,10 +232,10 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->unk1d0 = 0;
 					aibot->unk1d4 = 0.0f;
 					aibot->unk1e4 = -1;
-					aibot->unk1e8 = 0;
+					aibot->waypoints[0] = NULL;
 					aibot->unk208 = 0;
-					aibot->rand = random();
-					aibot->randttl60 = 0;
+					aibot->random1 = random();
+					aibot->random1ttl60 = 0;
 
 					for (i = 0; i < 6; i++) {
 						aibot->killsbygunfunc[i][0] = 0.0f;
@@ -254,12 +254,11 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->dampensuicidesttl60 = 0;
 					aibot->unk2c4 = 0.0f;
 					aibot->targetcloaktimer60 = 0;
+					aibot->canseecloaked = false;
 
-					aibot->unk09c_03 = 0;
-
-					aibot->unk2cc = 0;
-					aibot->unk2d0 = random();
-					aibot->unk2d4 = random() * (1.0f / U32_MAX);
+					aibot->random2ttl60 = 0;
+					aibot->random2 = random();
+					aibot->randomfrac = random() * (1.0f / U32_MAX);
 					aibot->cheap = false;
 #if VERSION >= VERSION_NTSC_1_0
 					aibot->unk078 = 0;

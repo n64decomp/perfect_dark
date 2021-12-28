@@ -13,11 +13,11 @@ s32 botactTryRemoveAmmoFromReserve(struct aibot *aibot, s32 weaponnum, s32 funcn
 void botactGiveAmmoByWeapon(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32 qty);
 void botactGiveAmmoByType(struct aibot *aibot, u32 ammotype, s32 quantity);
 bool botactShootFarsight(struct chrdata *chr, s32 arg1, struct coord *arg2, struct coord *arg3);
-bool botactIsWeaponThrowable(u32 weaponnum, bool is_secondary);
+bool botactIsWeaponThrowable(s32 weaponnum, bool is_secondary);
 u32 botactGetProjectileThrowInterval(u32 weapon);
 u32 botactGetWeaponByAmmoType(u32 ammotype);
 void botact0f19a37c(struct chrdata *chr);
-s32 botact0f19a60c(s32 weaponnum, s32 funcnum);
+s32 botactGetShootInterval60(s32 weaponnum, s32 funcnum);
 bool botactFindRocketRoute(struct chrdata *chr, struct coord *frompos, struct coord *topos, s16 *fromrooms, s16 *torooms, struct projectile *projectile);
 void botactGetRocketSpawnPos(u16 padnum, struct coord *pos);
 void botactCreateSlayerRocket(struct chrdata *chr);

@@ -906,9 +906,9 @@ void scenarioHtbTick(void)
 	if (g_ScenarioData.htb.token == NULL) {
 		for (i = PLAYERCOUNT(); i < g_MpNumChrs; i++) {
 #if VERSION >= VERSION_NTSC_1_0
-			if (g_MpAllChrPtrs[i]->prop && g_MpAllChrPtrs[i]->aibot->unk09c_00)
+			if (g_MpAllChrPtrs[i]->prop && g_MpAllChrPtrs[i]->aibot->hasbriefcase)
 #else
-			if (g_MpAllChrPtrs[i]->aibot->unk09c_00)
+			if (g_MpAllChrPtrs[i]->aibot->hasbriefcase)
 #endif
 			{
 				g_ScenarioData.htb.token = g_MpAllChrPtrs[i]->prop;
@@ -936,7 +936,7 @@ void scenarioHtbTick(void)
 void scenarioHtbCallback14(struct chrdata *chr)
 {
 	if (chr) {
-		if (chr->aibot->unk09c_00) {
+		if (chr->aibot->hasbriefcase) {
 			chr->aibot->unk0a0 += g_Vars.lvupdate240;
 
 			if (chr->aibot->unk0a0 >= PALDOWN(7200)) {
@@ -1413,7 +1413,7 @@ void scenarioCtcInit(void)
 
 	for (i = 0; i < 4; i++) {
 		s32 j;
-		g_ScenarioData.ctc.spawnpadsperteam[i].teamindex = i;
+		g_ScenarioData.ctc.spawnpadsperteam[i].homepad = i;
 		g_ScenarioData.ctc.spawnpadsperteam[i].numspawnpads = 0;
 
 		for (j = 0; j < 6; j++) {
@@ -2496,7 +2496,7 @@ void mpCtcAddPad(s32 *cmd)
 	s32 i;
 
 	if (cmd[0] == INTROCMD_CASE) {
-		g_ScenarioData.ctc.spawnpadsperteam[cmd[1]].teamindex = cmd[2];
+		g_ScenarioData.ctc.spawnpadsperteam[cmd[1]].homepad = cmd[2];
 	}
 
 	if (cmd[0] == INTROCMD_CASERESPAWN) {
@@ -4752,7 +4752,7 @@ void func0f182bf4(void)
 	g_ScenarioData.htm.unk002 = 0;
 	g_ScenarioData.htm.unk138 = 0;
 	g_ScenarioData.htm.unk0d0 = -1;
-	g_ScenarioData.htm.unk0d2 = -1;
+	g_ScenarioData.htm.uplinkingplayernum = -1;
 	g_ScenarioData.htm.unk0d4 = -1;
 	g_ScenarioData.htm.unk140 = 0;
 
@@ -5332,7 +5332,7 @@ void scenarioHtmTick(void)
 	// Check if a simulant is holding it
 	if (g_ScenarioData.htm.uplink == NULL) {
 		for (i = PLAYERCOUNT(); i < g_MpNumChrs; i++) {
-			if (g_MpAllChrPtrs[i]->aibot->unk04c_05) {
+			if (g_MpAllChrPtrs[i]->aibot->hasuplink) {
 				g_ScenarioData.htm.uplink = g_MpAllChrPtrs[i]->prop;
 				break;
 			}
@@ -9940,7 +9940,7 @@ void mpPrepareScenario(void)
 		break;
 	case MPSCENARIO_CAPTURETHECASE:
 		for (i = 0; i < ARRAYCOUNT(g_ScenarioData.ctc.spawnpadsperteam); i++) {
-			g_ScenarioData.ctc.spawnpadsperteam[i].teamindex = -1;
+			g_ScenarioData.ctc.spawnpadsperteam[i].homepad = -1;
 			g_ScenarioData.ctc.spawnpadsperteam[i].numspawnpads = 0;
 
 			for (j = 0; j < ARRAYCOUNT(g_ScenarioData.ctc.spawnpadsperteam[i].spawnpads); j++) {
@@ -12501,7 +12501,7 @@ s32 chrGiveUplink(struct chrdata *chr, struct prop *prop)
 		if (chr->aibot) {
 			propPlayPickupSound(prop, WEAPON_DATAUPLINK);
 			botinvGiveSingleWeapon(chr, WEAPON_DATAUPLINK);
-			chr->aibot->unk04c_05 = true;
+			chr->aibot->hasuplink = true;
 
 #if VERSION >= VERSION_NTSC_1_0
 			obj->hidden |= OBJHFLAG_REAPABLE;

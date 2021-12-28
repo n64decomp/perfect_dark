@@ -17,6 +17,7 @@
 #include "game/bot.h"
 #include "game/botcmd.h"
 #include "game/botact.h"
+#include "game/botinv.h"
 #include "game/game_19aa80.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
@@ -36,46 +37,28 @@ struct chrdata *g_MpBotChrPtrs[MAX_SIMULANTS];
 
 u8 g_BotCount = 0;
 
-struct simdifficulty g_SimDifficulties[] = {
-#if PAL
-	{ 75, 0.26175770163536,  0.52351540327072,  500, 10, 0.69802051782608, 0.34901025891304,  833  },
-	{ 50, 0.12215359508991,  0.24430719017982,  300, 10, 0.49733963608742, 0.13960410654545,  833  },
-	{ 25, 0.069802053272724, 0.13960410654545,  150, 4,  0.34901025891304, 0.08725256472826,  1250 },
-	{ 12, 0.026175770908594, 0.069802053272724, 75,  2,  0.24430719017982, 0.034901026636362, 2083 },
-	{ 0,  0,                 0.034901026636362, 37,  1,  0.17450512945652, 0,                 3333 },
-	{ 0,  0,                 0,                 0,   0,  0.13960410654545, 0,                 3333 },
-	{ 0,  0,                 0,                 0,   0,  0,                0,                 0    },
-#else
-	{ 90, 0.26175770163536,  0.52351540327072,  600, 10, 0.69802051782608, 0.34901025891304,  1000 },
-	{ 60, 0.12215359508991,  0.24430719017982,  360, 10, 0.49733963608742, 0.13960410654545,  1000 },
-	{ 30, 0.069802053272724, 0.13960410654545,  180, 4,  0.34901025891304, 0.08725256472826,  1500 },
-	{ 15, 0.026175770908594, 0.069802053272724, 90,  2,  0.24430719017982, 0.034901026636362, 2500 },
-	{ 0,  0,                 0.034901026636362, 45,  1,  0.17450512945652, 0,                 4000 },
-	{ 0,  0,                 0,                 0,   0,  0.13960410654545, 0,                 4000 },
-	{ 0,  0,                 0,                 0,   0,  0,                0,                 0    },
-#endif
+struct botdifficulty g_BotDifficulties[] = {
+	//           shootdelay
+	//           |            unk04
+	//           |            |                  unk08
+	//           |            |                  |                  unk0c
+	//           |            |                  |                  |             unk10
+	//           |            |                  |                  |             |   unk14
+	//           |            |                  |                  |             |   |                 unk18
+	//           |            |                  |                  |             |   |                 |                  dizzyamount
+	//           |            |                  |                  |             |   |                 |                  |
+	/* meat */ { PALDOWN(90), 0.26175770163536,  0.52351540327072,  PALDOWN(600), 10, 0.69802051782608, 0.34901025891304,  PALDOWN(1000) },
+	/* easy */ { PALDOWN(60), 0.12215359508991,  0.24430719017982,  PALDOWN(360), 10, 0.49733963608742, 0.13960410654545,  PALDOWN(1000) },
+	/* norm */ { PALDOWN(30), 0.069802053272724, 0.13960410654545,  PALDOWN(180), 4,  0.34901025891304, 0.08725256472826,  PALDOWN(1500) },
+	/* hard */ { PALDOWN(15), 0.026175770908594, 0.069802053272724, PALDOWN(90),  2,  0.24430719017982, 0.034901026636362, PALDOWN(2500) },
+	/* perf */ { PALDOWN(0),  0,                 0.034901026636362, PALDOWN(45),  1,  0.17450512945652, 0,                 PALDOWN(4000) },
+	/* dark */ { PALDOWN(0),  0,                 0,                 PALDOWN(0),   0,  0.13960410654545, 0,                 PALDOWN(4000) },
+	{ 0 },
 };
 
-u32 g_MpBotCommands[NUM_MPBOTCOMMANDS] = {
-	L_MISC_175, // "Follow"
-	L_MISC_176, // "Attack"
-	L_MISC_177, // "Defend"
-	L_MISC_178, // "Hold"
-	L_MISC_179, // "Normal"
-	L_MISC_180, // "Download"
-	L_MISC_181, // "Get Case"
-	L_MISC_182, // "Tag Box"
-	L_MISC_209, // "Save Case"
-	L_MISC_210, // "Def Hill"
-	L_MISC_211, // "Hold Hill"
-	L_MISC_212, // "Get Case"
-	L_MISC_213, // "Pop Cap"
-	L_MISC_214, // "Protect"
-};
-
-bool bot0f190260(struct chrdata *chr)
+bool botIsDizzy(struct chrdata *chr)
 {
-	return chr->blurdrugamount >= g_SimDifficulties[chr->aibot->config->difficulty].blurdrugamount;
+	return chr->blurdrugamount >= g_BotDifficulties[chr->aibot->config->difficulty].dizzyamount;
 }
 
 #if VERSION >= VERSION_PAL_FINAL
@@ -807,45 +790,45 @@ glabel botReset
 //
 //			aibot->gunfunc = 0;
 //			aibot->iscloserangeweapon = true;
-//			aibot->unk09c_00 = 0;
+//			aibot->hasbriefcase = false;
 //			aibot->cloakdeviceenabled = false;
-//			aibot->unk04c_04 = 0;
-//			aibot->unk04c_03 = 0;
-//			aibot->unk09c_01 = 0;
-//			aibot->unk04c_05 = 0;
+//			aibot->unk04c_04 = false;
+//			aibot->unk04c_03 = false;
+//			aibot->hascase = false;
+//			aibot->hasuplink = false;
 //			aibot->weaponnum = WEAPON_UNARMED;
 //			aibot->loadedammo[0] = 0;
 //			aibot->loadedammo[1] = 0;
-//			aibot->fetchprop = NULL;
-//			aibot->unk02c = 0;
-//			aibot->unk02e = 0;
-//			aibot->unk05c = 0;
+//			aibot->gotoprop = NULL;
+//			aibot->timeuntilreload60[0] = 0;
+//			aibot->timeuntilreload60[1] = 0;
+//			aibot->nextbullettimer60 = 0;
 //			aibot->unk060 = 0;
 //			aibot->unk074 = -1;
 //			aibot->unk030 = 301;
-//			aibot->unk034 = 0;
-//			aibot->unk04d = 0;
-//			aibot->unk04e = 0;
+//			aibot->throwtimer60 = 0;
+//			aibot->burstsdone[0] = 0;
+//			aibot->burstsdone[1] = 0;
 //			aibot->skrocket = NULL;
 //			aibot->unk0a0 = 0;
 //			aibot->rcp120cloakenabled = false;
 //			aibot->unk064 = 0;
-//			aibot->unk04c_00 = 0;
+//			aibot->unk04c_00 = false;
 //			aibot->unk048 = -1;
 //			aibot->unk04a = -1;
-//			aibot->unk0bc = -1;
-//			aibot->unk0c8 = 0;
-//			aibot->unk0c4 = 0;
+//			aibot->lastknownhill = -1;
+//			aibot->cyclonedischarging[1] = 0;
+//			aibot->cyclonedischarging[0] = 0;
 //			aibot->unk0cc = 0;
 //			aibot->unk0d0 = 0;
-//			aibot->unk0d8 = 0;
-//			aibot->unk0dc = 0;
-//			aibot->unk03e = -1;
-//			aibot->unk03c = 0;
-//			aibot->unk0e2 = 0;
-//			aibot->unk0e0 = 0;
-//			aibot->unk118 = 0;
-//			aibot->targethotness = 0;
+//			aibot->forcemainloop = false;
+//			aibot->returntodefendtimer60 = 0;
+//			aibot->punchtimer60[HAND_LEFT] = -1;
+//			aibot->punchtimer60[HAND_RIGHT] = 0;
+//			aibot->reaperspeed[HAND_LEFT] = 0;
+//			aibot->reaperspeed[HAND_RIGHT] = 0;
+//			aibot->commandtimer60 = 0;
+//			aibot->shootdelaytimer60 = 0;
 //			aibot->unk120 = -1;
 //			aibot->lastseenanytarget60 = -1;
 //			aibot->targetinsight = 0;
@@ -869,14 +852,14 @@ glabel botReset
 //
 //			aibot->unk1e8 = 0;
 //			aibot->unk208 = 0;
-//			aibot->rand = random();
-//			aibot->randttl60 = 0;
+//			aibot->random1 = random();
+//			aibot->random1ttl60 = 0;
 //			aibot->targetcloaktimer60 = 0;
-//			aibot->unk09c_03 = 0;
-//			aibot->unk2cc = 0;
+//			aibot->canseecloaked = 0;
+//			aibot->random2ttl60 = 0;
 //			aibot->unk2c4 = 0;
 //
-//			aibot->unk2d0 = random();
+//			aibot->random2 = random();
 //			aibot->aibot = random();
 //			aibot->unk078 = 0;
 //			aibot->cheap = 0;
@@ -2435,7 +2418,7 @@ glabel var7f1b8ea8
 //
 //		if (shield->amount <= chrGetShield(chr) * 0.125f) {
 //			ignore2 = true;
-//		} else if (g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE && chr->aibot->unk09c_00) {
+//		} else if (g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE && chr->aibot->hasbriefcase) {
 //			ignore2 = true;
 //		}
 //
@@ -2643,7 +2626,7 @@ u8 botGetTargetsWeaponNum(struct chrdata *chr)
 	return weaponnum;
 }
 
-bool bot0f191638(struct chrdata *chr, bool arg1)
+bool botIsAboutToAttack(struct chrdata *chr, bool arg1)
 {
 	bool result = false;
 	struct prop *target;
@@ -2840,7 +2823,7 @@ glabel var7f1b8ef0
 /*  f191a3c:	10000053 */ 	b	.L0f191b8c
 /*  f191a40:	46000086 */ 	mov.s	$f2,$f0
 .L0f191a44:
-/*  f191a44:	0fc6458e */ 	jal	bot0f191638
+/*  f191a44:	0fc6458e */ 	jal	botIsAboutToAttack
 /*  f191a48:	00002825 */ 	or	$a1,$zero,$zero
 /*  f191a4c:	5040000c */ 	beqzl	$v0,.L0f191a80
 /*  f191a50:	922402a0 */ 	lbu	$a0,0x2a0($s1)
@@ -3352,7 +3335,7 @@ glabel var7f1b8ef0
 /*  f191a3c:	10000053 */ 	b	.L0f191b8c
 /*  f191a40:	46000086 */ 	mov.s	$f2,$f0
 .L0f191a44:
-/*  f191a44:	0fc6458e */ 	jal	bot0f191638
+/*  f191a44:	0fc6458e */ 	jal	botIsAboutToAttack
 /*  f191a48:	00002825 */ 	or	$a1,$zero,$zero
 /*  f191a4c:	5040000c */ 	beqzl	$v0,.L0f191a80
 /*  f191a50:	922402a0 */ 	lbu	$a0,0x2a0($s1)
@@ -3789,7 +3772,7 @@ glabel var7f1b8ef0
 //				newangle = chrGetInverseTheta(chr);
 //			} else if (aibot->skrocket) {
 //				newangle = chrGetInverseTheta(chr);
-//			} else if (bot0f191638(chr, false)) {
+//			} else if (botIsAboutToAttack(chr, false)) {
 //				struct prop *target = chrGetTargetProp(chr);
 //				newangle = oldangle + chrGetAngleToPos(chr, &target->pos) + aibot->unk1c0;
 //			} else if (chr->myaction == MA_AIBOTDOWNLOAD && g_ScenarioData.htm.unk0d4 != -1) {
@@ -3931,7 +3914,7 @@ f32 botCalculateMaxSpeed(struct chrdata *chr)
 {
 	f32 speed;
 
-	if (chr->aibot->unk09c_01 || chr->aibot->unk09c_00) {
+	if (chr->aibot->hascase || chr->aibot->hasbriefcase) {
 		speed = -63.600006103516f;
 	} else {
 		speed = g_HeadsAndBodies[chr->bodynum].height * (1.0f / 159.0f);
@@ -4050,6 +4033,23 @@ void bot0f1921f8(struct chrdata *chr, f32 *move)
 #endif
 }
 
+u32 g_MpBotCommands[NUM_MPBOTCOMMANDS] = {
+	L_MISC_175, // "Follow"
+	L_MISC_176, // "Attack"
+	L_MISC_177, // "Defend"
+	L_MISC_178, // "Hold"
+	L_MISC_179, // "Normal"
+	L_MISC_180, // "Download"
+	L_MISC_181, // "Get Case"
+	L_MISC_182, // "Tag Box"
+	L_MISC_209, // "Save Case"
+	L_MISC_210, // "Def Hill"
+	L_MISC_211, // "Hold Hill"
+	L_MISC_212, // "Get Case"
+	L_MISC_213, // "Pop Cap"
+	L_MISC_214, // "Protect"
+};
+
 char *botGetCommandName(s32 command)
 {
 	if (command < 0 || command >= NUM_MPBOTCOMMANDS) {
@@ -4063,21 +4063,21 @@ void botApplyAttack(struct chrdata *chr, struct prop *prop)
 {
 	chr->aibot->command = AIBOTCMD_ATTACK;
 	chr->aibot->attackpropnum = prop - g_Vars.props;
-	chr->aibot->unk0d8 = 1;
+	chr->aibot->forcemainloop = true;
 }
 
 void botApplyFollow(struct chrdata *chr, struct prop *prop)
 {
 	chr->aibot->command = AIBOTCMD_FOLLOW;
 	chr->aibot->followprotectpropnum = prop - g_Vars.props;
-	chr->aibot->unk0d8 = 1;
+	chr->aibot->forcemainloop = true;
 }
 
 void botApplyProtect(struct chrdata *chr, struct prop *prop)
 {
 	chr->aibot->command = AIBOTCMD_PROTECT;
 	chr->aibot->followprotectpropnum = prop - g_Vars.props;
-	chr->aibot->unk0d8 = 1;
+	chr->aibot->forcemainloop = true;
 }
 
 void botApplyDefend(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
@@ -4086,9 +4086,9 @@ void botApplyDefend(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
 	chr->aibot->defendholdpos.x = pos->x;
 	chr->aibot->defendholdpos.y = pos->y;
 	chr->aibot->defendholdpos.z = pos->z;
-	roomsCopy(room, chr->aibot->rooms);
+	roomsCopy(room, chr->aibot->defendholdrooms);
 	chr->aibot->unk098 = arg3;
-	chr->aibot->unk0d8 = 1;
+	chr->aibot->forcemainloop = true;
 }
 
 void botApplyHold(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
@@ -4097,15 +4097,15 @@ void botApplyHold(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
 	chr->aibot->defendholdpos.x = pos->x;
 	chr->aibot->defendholdpos.y = pos->y;
 	chr->aibot->defendholdpos.z = pos->z;
-	roomsCopy(room, chr->aibot->rooms);
+	roomsCopy(room, chr->aibot->defendholdrooms);
 	chr->aibot->unk098 = arg3;
-	chr->aibot->unk0d8 = 1;
+	chr->aibot->forcemainloop = true;
 }
 
 void botApplyScenarioCommand(struct chrdata *chr, u32 command)
 {
 	chr->aibot->command = command;
-	chr->aibot->unk0d8 = 1;
+	chr->aibot->forcemainloop = true;
 }
 
 void botLoseGun(struct chrdata *chr, struct prop *attackerprop)
@@ -4182,8 +4182,8 @@ void botSetTarget(struct chrdata *botchr, s32 propnum)
 
 	if (botchr->target != propnum) {
 		botchr->target = propnum;
-		botchr->aibot->targethotness = 0;
-		botchr->aibot->unk1e8 = 0;
+		botchr->aibot->shootdelaytimer60 = 0;
+		botchr->aibot->waypoints[0] = NULL;
 		botchr->aibot->unk208 = 0;
 
 		if (botchr->aibot->targetinsight && otherchr) {
@@ -4194,15 +4194,15 @@ void botSetTarget(struct chrdata *botchr, s32 propnum)
 	} else {
 		if (botchr->aibot->targetinsight) {
 			if (g_Vars.lvupdate240 > 0) {
-				botchr->aibot->targethotness += g_Vars.diffframe60;
+				botchr->aibot->shootdelaytimer60 += g_Vars.diffframe60;
 			}
 		} else {
 			if (g_Vars.lvupdate240 > 0) {
-				botchr->aibot->targethotness -= g_Vars.diffframe60;
+				botchr->aibot->shootdelaytimer60 -= g_Vars.diffframe60;
 			}
 
-			if (botchr->aibot->targethotness < 0) {
-				botchr->aibot->targethotness = 0;
+			if (botchr->aibot->shootdelaytimer60 < 0) {
+				botchr->aibot->shootdelaytimer60 = 0;
 			}
 		}
 	}
@@ -4233,7 +4233,7 @@ bool botIsTargetInvisible(struct chrdata *botchr, struct chrdata *otherchr)
 	if ((otherchr->hidden & CHRHFLAG_CLOAKED)) {
 		if (botchr && botchr->aibot
 				&& ((botchr->target != -1 && chrGetTargetProp(botchr) == otherchr->prop && botchr->aibot->targetcloaktimer60 > 0)
-				|| (botchr->aibot->unk09c_03 && func0f04911c(botchr, &otherchr->prop->pos, 32)))) {
+				|| (botchr->aibot->canseecloaked && chrIsLookingAtPos(botchr, &otherchr->prop->pos, 32)))) {
 			return false;
 		}
 
@@ -4277,7 +4277,7 @@ void bot0f192a74(struct chrdata *chr)
 			aibot->unk1d4 -= g_Vars.diffframe60;
 		}
 
-		tmp = g_SimDifficulties[diff].unk10 * (aibot->speedtheta * g_Vars.lvupdate240f);
+		tmp = g_BotDifficulties[diff].unk10 * (aibot->speedtheta * g_Vars.lvupdate240f);
 
 		if (tmp < 0) {
 			tmp = -tmp;
@@ -4286,36 +4286,36 @@ void bot0f192a74(struct chrdata *chr)
 		aibot->unk1d4 -= tmp;
 	}
 
-	if (aibot->unk1d4 > aibot->targethotness) {
-		aibot->unk1d4 = aibot->targethotness;
+	if (aibot->unk1d4 > aibot->shootdelaytimer60) {
+		aibot->unk1d4 = aibot->shootdelaytimer60;
 	}
 
 	if (aibot->unk1d4 < 0) {
 		aibot->unk1d4 = 0;
 	}
 
-	if (aibot->unk1d4 >= g_SimDifficulties[diff].unk0c) {
-		aibot->unk1d4 = g_SimDifficulties[diff].unk0c;
+	if (aibot->unk1d4 >= g_BotDifficulties[diff].unk0c) {
+		aibot->unk1d4 = g_BotDifficulties[diff].unk0c;
 		fVar12 = 0;
 		fVar11 = 0;
 	} else {
-		tmp = (g_SimDifficulties[diff].unk0c - aibot->unk1d4) / g_SimDifficulties[diff].unk0c;
-		fVar12 = g_SimDifficulties[diff].unk04 * tmp;
-		fVar11 = g_SimDifficulties[diff].unk08 * tmp;
+		tmp = (g_BotDifficulties[diff].unk0c - aibot->unk1d4) / g_BotDifficulties[diff].unk0c;
+		fVar12 = g_BotDifficulties[diff].unk04 * tmp;
+		fVar11 = g_BotDifficulties[diff].unk08 * tmp;
 	}
 
 	if (chr->target != -1) {
 		struct prop *target = chrGetTargetProp(chr);
 
 		if (target->chr->hidden & CHRHFLAG_CLOAKED) {
-			if (fVar11 < g_SimDifficulties[diff].unk14) {
-				fVar11 = g_SimDifficulties[diff].unk14;
+			if (fVar11 < g_BotDifficulties[diff].unk14) {
+				fVar11 = g_BotDifficulties[diff].unk14;
 			}
 		}
 	}
 
-	if (fVar11 < g_SimDifficulties[diff].unk18) {
-		fVar11 = g_SimDifficulties[diff].unk18;
+	if (fVar11 < g_BotDifficulties[diff].unk18) {
+		fVar11 = g_BotDifficulties[diff].unk18;
 	}
 
 	aibot->unk1c8 = (fVar11 - fVar12) * (aibot->unk1d0 & 0xffff) * 0.000015259021893144f + fVar12;
@@ -4404,16 +4404,19 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 	trychr = mpGetChrFromPlayerIndex(aibot->queryplayernum);
 
 	if (trychr != botchr) {
-		// This condition passes on average once every 4 minutes per player
+		// This condition passes on average once every 4 minutes per player.
+		// However, the usage of canseecloaked appears to be botched.
+		// It is implemented in botIsTargetInvisible, but that function is not
+		// called here while canseecloaked is true.
 		if (random() % PALDOWN(4 * 60 * 60) < g_MpNumChrs * g_Vars.lvupdate240_60) {
-			aibot->unk09c_03 = true;
+			aibot->canseecloaked = true;
 		}
 
 		aibot->chrdistances[aibot->queryplayernum] = chrGetDistanceToCoord(botchr, &trychr->prop->pos);
 		aibot->chrsinsight[aibot->queryplayernum] = chrCanSeeChr(botchr, trychr, &room);
 		aibot->chrrooms[aibot->queryplayernum] = room;
 
-		aibot->unk09c_03 = false;
+		aibot->canseecloaked = false;
 	}
 
 	// Update last seen timestamps for all visible chrs
@@ -4453,7 +4456,7 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 		return;
 	}
 
-	// if the bot is attacking, keep the same target if possible
+	// If the bot is attacking, keep the same target if possible
 	if (botchr->myaction == MA_AIBOTATTACK
 			&& aibot->attackingplayernum >= 0
 			&& aibot->chrsinsight[aibot->attackingplayernum]
@@ -4565,35 +4568,42 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 	botSetTarget(botchr, botchr->target);
 }
 
-bool botIsFollowing(struct chrdata *leader, struct chrdata *follower)
+/**
+ * Check if the bot is capable of following the given chr.
+ *
+ * They are not capable if it would create a circular follow loop.
+ */
+bool botCanFollow(struct chrdata *botchr, struct chrdata *leader)
 {
-	bool result = true;
+	bool canfollow = true;
 
 	while (true) {
-		struct aibot *aibot = follower->aibot;
+		struct aibot *aibot = leader->aibot;
 
-		if (!aibot || follower->myaction != MA_AIBOTFOLLOW || aibot->followingplayernum < 0) {
+		if (!aibot || leader->myaction != MA_AIBOTFOLLOW || aibot->followingplayernum < 0) {
+			// Okay to follow
 			break;
 		}
 
-		follower = g_MpAllChrPtrs[aibot->followingplayernum];
+		leader = g_MpAllChrPtrs[aibot->followingplayernum];
 
-		if (follower == leader) {
-			result = false;
+		if (leader == botchr) {
+			// Can't follow - it would create a follow loop
+			canfollow = false;
 			break;
 		}
 	}
 
-	return result;
+	return canfollow;
 }
 
-s32 bot0f193530(struct chrdata *chr, f32 range)
+s32 botFindTeammateToFollow(struct chrdata *chr, f32 range)
 {
 	s32 result = -1;
 
 	if ((g_MpSetup.options & MPOPTION_TEAMSENABLED)
 			&& chr->myaction != MA_AIBOTFOLLOW
-			&& (random() % 100) < chr->aibot->unk000) {
+			&& (random() % 100) < chr->aibot->followchance) {
 		f32 closestdistance = 0;
 		s32 closestplayernum = -1;
 		s32 i;
@@ -4602,7 +4612,7 @@ s32 bot0f193530(struct chrdata *chr, f32 range)
 			if (chr != g_MpAllChrPtrs[i]
 					&& !chrIsDead(g_MpAllChrPtrs[i])
 					&& chr->team == g_MpAllChrPtrs[i]->team
-					&& botIsFollowing(chr, g_MpAllChrPtrs[i])) {
+					&& botCanFollow(chr, g_MpAllChrPtrs[i])) {
 				f32 distance = chr->aibot->chrdistances[i];
 
 				if (closestplayernum < 0 || distance < closestdistance) {
@@ -4620,21 +4630,21 @@ s32 bot0f193530(struct chrdata *chr, f32 range)
 	return result;
 }
 
-void bot0f19369c(struct chrdata *chr, s32 arg1)
+void botScheduleReload(struct chrdata *chr, s32 handnum)
 {
-	chr->aibot->unk02c[arg1] = g_AibotWeaponPreferences[chr->aibot->weaponnum].unk0e_00 * (PAL ? 50 : 60);
+	chr->aibot->timeuntilreload60[handnum] = g_AibotWeaponPreferences[chr->aibot->weaponnum].reloaddelay * (PAL ? 50 : 60);
 
-	if (g_AibotWeaponPreferences[chr->aibot->weaponnum].unk0e_03) {
+	if (g_AibotWeaponPreferences[chr->aibot->weaponnum].allowpartialreloaddelay) {
 		s32 capacity = botactGetClipCapacityByFunction(chr->aibot->weaponnum, chr->aibot->gunfunc);
 
-		chr->aibot->unk02c[arg1] *= capacity - chr->aibot->loadedammo[arg1];
-		chr->aibot->unk02c[arg1] /= capacity;
+		chr->aibot->timeuntilreload60[handnum] *= capacity - chr->aibot->loadedammo[handnum];
+		chr->aibot->timeuntilreload60[handnum] /= capacity;
 	}
 }
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel bot0f1937a4
+glabel botFindPickup
 .late_rodata
 glabel var7f1b8f48
 .word 0x40fccccd
@@ -5094,7 +5104,7 @@ glabel var7f1b8f50
 .L0f193e0c:
 /*  f193e0c:	14610016 */ 	bne	$v1,$at,.L0f193e68
 /*  f193e10:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f193e14:	0fc65227 */ 	jal	bot0f19489c
+/*  f193e14:	0fc65227 */ 	jal	botShouldReturnCtcToken
 /*  f193e18:	e7a20094 */ 	swc1	$f2,0x94($sp)
 /*  f193e1c:	3c014080 */ 	lui	$at,0x4080
 /*  f193e20:	44818000 */ 	mtc1	$at,$f16
@@ -5300,7 +5310,7 @@ glabel var7f1b8f50
 /*  f1940fc:	24140001 */ 	addiu	$s4,$zero,0x1
 /*  f194100:	55810008 */ 	bnel	$t4,$at,.L0f194124
 /*  f194104:	93cf02a0 */ 	lbu	$t7,0x2a0($s8)
-/*  f194108:	0fc65227 */ 	jal	bot0f19489c
+/*  f194108:	0fc65227 */ 	jal	botShouldReturnCtcToken
 /*  f19410c:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f194110:	10400003 */ 	beqz	$v0,.L0f194120
 /*  f194114:	240d0001 */ 	addiu	$t5,$zero,0x1
@@ -5566,7 +5576,7 @@ glabel var7f1b8f50
 /*  f1944b4:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f1944b8:	55810008 */ 	bnel	$t4,$at,.L0f1944dc
 /*  f1944bc:	93cf02a0 */ 	lbu	$t7,0x2a0($s8)
-/*  f1944c0:	0fc65227 */ 	jal	bot0f19489c
+/*  f1944c0:	0fc65227 */ 	jal	botShouldReturnCtcToken
 /*  f1944c4:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f1944c8:	10400003 */ 	beqz	$v0,.L0f1944d8
 /*  f1944cc:	240d0001 */ 	addiu	$t5,$zero,0x1
@@ -5690,7 +5700,7 @@ glabel var7f1b8f50
 );
 #else
 GLOBAL_ASM(
-glabel bot0f1937a4
+glabel botFindPickup
 .late_rodata
 glabel var7f1b8f48
 .word 0x40fccccd
@@ -6150,7 +6160,7 @@ glabel var7f1b8f50
 .L0f193e0c:
 /*  f193e0c:	14610016 */ 	bne	$v1,$at,.L0f193e68
 /*  f193e10:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f193e14:	0fc65227 */ 	jal	bot0f19489c
+/*  f193e14:	0fc65227 */ 	jal	botShouldReturnCtcToken
 /*  f193e18:	e7a20094 */ 	swc1	$f2,0x94($sp)
 /*  f193e1c:	3c014080 */ 	lui	$at,0x4080
 /*  f193e20:	44818000 */ 	mtc1	$at,$f16
@@ -6356,7 +6366,7 @@ glabel var7f1b8f50
 /*  f1940fc:	24140001 */ 	addiu	$s4,$zero,0x1
 /*  f194100:	55810008 */ 	bnel	$t4,$at,.L0f194124
 /*  f194104:	93cf02a0 */ 	lbu	$t7,0x2a0($s8)
-/*  f194108:	0fc65227 */ 	jal	bot0f19489c
+/*  f194108:	0fc65227 */ 	jal	botShouldReturnCtcToken
 /*  f19410c:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f194110:	10400003 */ 	beqz	$v0,.L0f194120
 /*  f194114:	240d0001 */ 	addiu	$t5,$zero,0x1
@@ -6622,7 +6632,7 @@ glabel var7f1b8f50
 /*  f1944b4:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f1944b8:	55810008 */ 	bnel	$t4,$at,.L0f1944dc
 /*  f1944bc:	93cf02a0 */ 	lbu	$t7,0x2a0($s8)
-/*  f1944c0:	0fc65227 */ 	jal	bot0f19489c
+/*  f1944c0:	0fc65227 */ 	jal	botShouldReturnCtcToken
 /*  f1944c4:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f1944c8:	10400003 */ 	beqz	$v0,.L0f1944d8
 /*  f1944cc:	240d0001 */ 	addiu	$t5,$zero,0x1
@@ -6748,20 +6758,23 @@ glabel var7f1b8f50
 
 bool bot0f194670(struct chrdata *chr)
 {
-	return bot0f1937a4(chr, 1) != 0;
+	return botFindPickup(chr, 1) != 0;
 }
 
-s32 bot0f194694(struct chrdata *chr)
+/**
+ * Choose a prop to fetch.
+ */
+struct prop *botFindNecessaryPickup(struct chrdata *chr)
 {
-	return bot0f1937a4(chr, 0);
+	return botFindPickup(chr, 0);
 }
 
-s32 bot0f1946b4(struct chrdata *chr)
+struct prop *botFindUnnecessaryPickup(struct chrdata *chr)
 {
-	return bot0f1937a4(chr, 2);
+	return botFindPickup(chr, 2);
 }
 
-s32 botGetNumPlayerTeammates(struct chrdata *chr)
+s32 botGetTeamSize(struct chrdata *chr)
 {
 	s32 count = 0;
 	s32 i;
@@ -6775,7 +6788,7 @@ s32 botGetNumPlayerTeammates(struct chrdata *chr)
 	return count;
 }
 
-s32 botCountByCommand(struct chrdata *self, u32 command, bool includeself)
+s32 botGetCountInTeamDoingCommand(struct chrdata *self, u32 command, bool includeself)
 {
 	s32 count = 0;
 	s32 i;
@@ -6793,7 +6806,7 @@ s32 botCountByCommand(struct chrdata *self, u32 command, bool includeself)
 	return count;
 }
 
-s32 botIsChrsTokenHeld(struct chrdata *chr)
+s32 botIsChrsCtcTokenHeld(struct chrdata *chr)
 {
 	struct mpchrconfig *mpchr = g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)];
 	struct prop *prop = g_ScenarioData.ctc.tokens[mpchr->team];
@@ -6801,12 +6814,16 @@ s32 botIsChrsTokenHeld(struct chrdata *chr)
 	return prop && (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER);
 }
 
-bool bot0f19489c(struct chrdata *chr)
+/**
+ * If chr doesn't have the case, return false.
+ * If chr has the case:
+ *     If chr is on a team by themself and their token is stolen, return false
+ *     Otherwise, return true
+ */
+bool botShouldReturnCtcToken(struct chrdata *chr)
 {
-	if (chr->aibot->unk09c_01) {
-		if (!chr->aibot->teamisonlyai
-				|| botGetNumPlayerTeammates(chr) >= 2
-				|| !botIsChrsTokenHeld(chr)) {
+	if (chr->aibot->hascase) {
+		if (!chr->aibot->teamisonlyai || botGetTeamSize(chr) >= 2 || !botIsChrsCtcTokenHeld(chr)) {
 			return true;
 		}
 	}
@@ -7028,7 +7045,7 @@ glabel var7f1b8fc8
 /*  f195d4c:	18400006 */ 	blez	$v0,.PF0f195d68
 /*  f195d50:	02802025 */ 	move	$a0,$s4
 /*  f195d54:	02002825 */ 	move	$a1,$s0
-/*  f195d58:	0fc651d3 */ 	jal	bot0f19369c
+/*  f195d58:	0fc651d3 */ 	jal	botScheduleReload
 /*  f195d5c:	afa70054 */ 	sw	$a3,0x54($sp)
 /*  f195d60:	10000013 */ 	b	.PF0f195db0
 /*  f195d64:	8fa70054 */ 	lw	$a3,0x54($sp)
@@ -7049,7 +7066,7 @@ glabel var7f1b8fc8
 /*  f195d98:	50200006 */ 	beqzl	$at,.PF0f195db4
 /*  f195d9c:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f195da0:	02002825 */ 	move	$a1,$s0
-/*  f195da4:	0fc651d3 */ 	jal	bot0f19369c
+/*  f195da4:	0fc651d3 */ 	jal	botScheduleReload
 /*  f195da8:	afa70054 */ 	sw	$a3,0x54($sp)
 /*  f195dac:	8fa70054 */ 	lw	$a3,0x54($sp)
 .PF0f195db0:
@@ -7148,7 +7165,7 @@ glabel var7f1b8fc8
 /*  f195efc:	8df80050 */ 	lw	$t8,0x50($t7)
 /*  f195f00:	1b00000d */ 	blez	$t8,.PF0f195f38
 /*  f195f04:	02802025 */ 	move	$a0,$s4
-/*  f195f08:	0fc649bc */ 	jal	bot0f191638
+/*  f195f08:	0fc649bc */ 	jal	botIsAboutToAttack
 /*  f195f0c:	02e02825 */ 	move	$a1,$s7
 /*  f195f10:	54400006 */ 	bnezl	$v0,.PF0f195f2c
 /*  f195f14:	924a004c */ 	lbu	$t2,0x4c($s2)
@@ -7211,7 +7228,7 @@ glabel var7f1b8fc8
 /*  f195fd8:	02e03825 */ 	move	$a3,$s7
 /*  f195fdc:	00408025 */ 	move	$s0,$v0
 /*  f195fe0:	02802025 */ 	move	$a0,$s4
-/*  f195fe4:	0fc649bc */ 	jal	bot0f191638
+/*  f195fe4:	0fc649bc */ 	jal	botIsAboutToAttack
 /*  f195fe8:	02e02825 */ 	move	$a1,$s7
 /*  f195fec:	5040001a */ 	beqzl	$v0,.PF0f196058
 /*  f195ff0:	8e4b0210 */ 	lw	$t3,0x210($s2)
@@ -7298,7 +7315,7 @@ glabel var7f1b8fc8
 .PF0f196114:
 /*  f196114:	5c40013a */ 	bgtzl	$v0,.PF0f196600
 /*  f196118:	928d02a0 */ 	lbu	$t5,0x2a0($s4)
-/*  f19611c:	0fc655e3 */ 	jal	botGetNumPlayerTeammates
+/*  f19611c:	0fc655e3 */ 	jal	botGetTeamSize
 /*  f196120:	02802025 */ 	move	$a0,$s4
 /*  f196124:	3c03800b */ 	lui	$v1,0x800b
 /*  f196128:	9063d138 */ 	lbu	$v1,-0x2ec8($v1)
@@ -7307,7 +7324,7 @@ glabel var7f1b8fc8
 /*  f196134:	16e3001e */ 	bne	$s7,$v1,.PF0f1961b0
 /*  f196138:	24010002 */ 	li	$at,0x2
 /*  f19613c:	2405000b */ 	li	$a1,0xb
-/*  f196140:	0fc655f7 */ 	jal	botCountByCommand
+/*  f196140:	0fc655f7 */ 	jal	botGetCountInTeamDoingCommand
 /*  f196144:	00003025 */ 	move	$a2,$zero
 /*  f196148:	18400010 */ 	blez	$v0,.PF0f19618c
 /*  f19614c:	266c0001 */ 	addiu	$t4,$s3,0x1
@@ -7343,7 +7360,7 @@ glabel var7f1b8fc8
 /*  f1961b0:	14610022 */ 	bne	$v1,$at,.PF0f19623c
 /*  f1961b4:	02802025 */ 	move	$a0,$s4
 /*  f1961b8:	24050005 */ 	li	$a1,0x5
-/*  f1961bc:	0fc655f7 */ 	jal	botCountByCommand
+/*  f1961bc:	0fc655f7 */ 	jal	botGetCountInTeamDoingCommand
 /*  f1961c0:	00003025 */ 	move	$a2,$zero
 /*  f1961c4:	8e58004c */ 	lw	$t8,0x4c($s2)
 /*  f1961c8:	00184940 */ 	sll	$t1,$t8,0x5
@@ -7384,7 +7401,7 @@ glabel var7f1b8fc8
 /*  f196240:	1461001e */ 	bne	$v1,$at,.PF0f1962bc
 /*  f196244:	02802025 */ 	move	$a0,$s4
 /*  f196248:	2405000c */ 	li	$a1,0xc
-/*  f19624c:	0fc655f7 */ 	jal	botCountByCommand
+/*  f19624c:	0fc655f7 */ 	jal	botGetCountInTeamDoingCommand
 /*  f196250:	00003025 */ 	move	$a2,$zero
 /*  f196254:	18400010 */ 	blez	$v0,.PF0f196298
 /*  f196258:	266c0001 */ 	addiu	$t4,$s3,0x1
@@ -7484,10 +7501,10 @@ glabel var7f1b8fc8
 /*  f1963a0:	02802025 */ 	move	$a0,$s4
 /*  f1963a4:	02802025 */ 	move	$a0,$s4
 /*  f1963a8:	24050006 */ 	li	$a1,0x6
-/*  f1963ac:	0fc655f7 */ 	jal	botCountByCommand
+/*  f1963ac:	0fc655f7 */ 	jal	botGetCountInTeamDoingCommand
 /*  f1963b0:	02e03025 */ 	move	$a2,$s7
 /*  f1963b4:	00408025 */ 	move	$s0,$v0
-/*  f1963b8:	0fc65655 */ 	jal	bot0f19489c
+/*  f1963b8:	0fc65655 */ 	jal	botShouldReturnCtcToken
 /*  f1963bc:	02802025 */ 	move	$a0,$s4
 /*  f1963c0:	10400005 */ 	beqz	$v0,.PF0f1963d8
 /*  f1963c4:	02802025 */ 	move	$a0,$s4
@@ -7496,7 +7513,7 @@ glabel var7f1b8fc8
 /*  f1963d0:	10000083 */ 	b	.PF0f1965e0
 /*  f1963d4:	00000000 */ 	nop
 .PF0f1963d8:
-/*  f1963d8:	0fc6563b */ 	jal	botIsChrsTokenHeld
+/*  f1963d8:	0fc6563b */ 	jal	botIsChrsCtcTokenHeld
 /*  f1963dc:	02802025 */ 	move	$a0,$s4
 /*  f1963e0:	10400012 */ 	beqz	$v0,.PF0f19642c
 /*  f1963e4:	00000000 */ 	nop
@@ -7541,15 +7558,15 @@ glabel var7f1b8fc8
 /*  f196470:	00000000 */ 	nop
 .PF0f196474:
 /*  f196474:	24050006 */ 	li	$a1,0x6
-/*  f196478:	0fc655f7 */ 	jal	botCountByCommand
+/*  f196478:	0fc655f7 */ 	jal	botGetCountInTeamDoingCommand
 /*  f19647c:	00003025 */ 	move	$a2,$zero
 /*  f196480:	00408825 */ 	move	$s1,$v0
 /*  f196484:	02802025 */ 	move	$a0,$s4
 /*  f196488:	24050008 */ 	li	$a1,0x8
-/*  f19648c:	0fc655f7 */ 	jal	botCountByCommand
+/*  f19648c:	0fc655f7 */ 	jal	botGetCountInTeamDoingCommand
 /*  f196490:	00003025 */ 	move	$a2,$zero
 /*  f196494:	00408025 */ 	move	$s0,$v0
-/*  f196498:	0fc65655 */ 	jal	bot0f19489c
+/*  f196498:	0fc65655 */ 	jal	botShouldReturnCtcToken
 /*  f19649c:	02802025 */ 	move	$a0,$s4
 /*  f1964a0:	10400005 */ 	beqz	$v0,.PF0f1964b8
 /*  f1964a4:	02802025 */ 	move	$a0,$s4
@@ -7558,7 +7575,7 @@ glabel var7f1b8fc8
 /*  f1964b0:	1000004b */ 	b	.PF0f1965e0
 /*  f1964b4:	00000000 */ 	nop
 .PF0f1964b8:
-/*  f1964b8:	0fc6563b */ 	jal	botIsChrsTokenHeld
+/*  f1964b8:	0fc6563b */ 	jal	botIsChrsCtcTokenHeld
 /*  f1964bc:	02802025 */ 	move	$a0,$s4
 /*  f1964c0:	10400014 */ 	beqz	$v0,.PF0f196514
 /*  f1964c4:	00000000 */ 	nop
@@ -7682,7 +7699,7 @@ glabel var7f1b8fc8
 .PF0f196668:
 /*  f196668:	06a10006 */ 	bgez	$s5,.PF0f196684
 /*  f19666c:	00000000 */ 	nop
-/*  f196670:	0fc655d3 */ 	jal	bot0f194694
+/*  f196670:	0fc655d3 */ 	jal	botFindNecessaryPickup
 /*  f196674:	02802025 */ 	move	$a0,$s4
 /*  f196678:	10400002 */ 	beqz	$v0,.PF0f196684
 /*  f19667c:	ae420010 */ 	sw	$v0,0x10($s2)
@@ -7903,7 +7920,7 @@ glabel var7f1b8fc8
 /*  f196980:	10000181 */ 	b	.PF0f196f88
 /*  f196984:	ae420010 */ 	sw	$v0,0x10($s2)
 .PF0f196988:
-/*  f196988:	0fc65163 */ 	jal	botIsFollowing
+/*  f196988:	0fc65163 */ 	jal	botCanFollow
 /*  f19698c:	8c450004 */ 	lw	$a1,0x4($v0)
 /*  f196990:	1040000a */ 	beqz	$v0,.PF0f1969bc
 /*  f196994:	00000000 */ 	nop
@@ -7946,7 +7963,7 @@ glabel var7f1b8fc8
 /*  f196a1c:	920b0125 */ 	lbu	$t3,0x125($s0)
 /*  f196a20:	154b000e */ 	bne	$t2,$t3,.PF0f196a5c
 /*  f196a24:	00000000 */ 	nop
-/*  f196a28:	0fc65163 */ 	jal	botIsFollowing
+/*  f196a28:	0fc65163 */ 	jal	botCanFollow
 /*  f196a2c:	02002825 */ 	move	$a1,$s0
 /*  f196a30:	10400155 */ 	beqz	$v0,.PF0f196f88
 /*  f196a34:	00000000 */ 	nop
@@ -8149,7 +8166,7 @@ glabel var7f1b8fc8
 /*  f196d2c:	02002825 */ 	move	$a1,$s0
 /*  f196d30:	15cc000e */ 	bne	$t6,$t4,.PF0f196d6c
 /*  f196d34:	00000000 */ 	nop
-/*  f196d38:	0fc65163 */ 	jal	botIsFollowing
+/*  f196d38:	0fc65163 */ 	jal	botCanFollow
 /*  f196d3c:	02802025 */ 	move	$a0,$s4
 /*  f196d40:	10400091 */ 	beqz	$v0,.PF0f196f88
 /*  f196d44:	00000000 */ 	nop
@@ -8213,7 +8230,7 @@ glabel var7f1b8fc8
 /*  f196e1c:	02002825 */ 	move	$a1,$s0
 /*  f196e20:	156e000e */ 	bne	$t3,$t6,.PF0f196e5c
 /*  f196e24:	00000000 */ 	nop
-/*  f196e28:	0fc65163 */ 	jal	botIsFollowing
+/*  f196e28:	0fc65163 */ 	jal	botCanFollow
 /*  f196e2c:	02802025 */ 	move	$a0,$s4
 /*  f196e30:	10400055 */ 	beqz	$v0,.PF0f196f88
 /*  f196e34:	00000000 */ 	nop
@@ -8279,7 +8296,7 @@ glabel var7f1b8fc8
 /*  f196f18:	02002825 */ 	move	$a1,$s0
 /*  f196f1c:	15f8000e */ 	bne	$t7,$t8,.PF0f196f58
 /*  f196f20:	00000000 */ 	nop
-/*  f196f24:	0fc65163 */ 	jal	botIsFollowing
+/*  f196f24:	0fc65163 */ 	jal	botCanFollow
 /*  f196f28:	02802025 */ 	move	$a0,$s4
 /*  f196f2c:	10400016 */ 	beqz	$v0,.PF0f196f88
 /*  f196f30:	00000000 */ 	nop
@@ -8325,7 +8342,7 @@ glabel var7f1b8fc8
 /*  f196fc8:	10200005 */ 	beqz	$at,.PF0f196fe0
 /*  f196fcc:	02802025 */ 	move	$a0,$s4
 /*  f196fd0:	3c0547c3 */ 	lui	$a1,0x47c3
-/*  f196fd4:	0fc65178 */ 	jal	bot0f193530
+/*  f196fd4:	0fc65178 */ 	jal	botFindTeammateToFollow
 /*  f196fd8:	34a55000 */ 	ori	$a1,$a1,0x5000
 /*  f196fdc:	00408025 */ 	move	$s0,$v0
 .PF0f196fe0:
@@ -8364,7 +8381,7 @@ glabel var7f1b8fc8
 /*  f19705c:	10200005 */ 	beqz	$at,.PF0f197074
 /*  f197060:	02802025 */ 	move	$a0,$s4
 /*  f197064:	3c0547c3 */ 	lui	$a1,0x47c3
-/*  f197068:	0fc65178 */ 	jal	bot0f193530
+/*  f197068:	0fc65178 */ 	jal	botFindTeammateToFollow
 /*  f19706c:	34a55000 */ 	ori	$a1,$a1,0x5000
 /*  f197070:	00408025 */ 	move	$s0,$v0
 .PF0f197074:
@@ -8381,7 +8398,7 @@ glabel var7f1b8fc8
 /*  f197098:	24010005 */ 	li	$at,0x5
 /*  f19709c:	54610021 */ 	bnel	$v1,$at,.PF0f197124
 /*  f1970a0:	24010002 */ 	li	$at,0x2
-/*  f1970a4:	0fc65655 */ 	jal	bot0f19489c
+/*  f1970a4:	0fc65655 */ 	jal	botShouldReturnCtcToken
 /*  f1970a8:	02802025 */ 	move	$a0,$s4
 /*  f1970ac:	1040002f */ 	beqz	$v0,.PF0f19716c
 /*  f1970b0:	00000000 */ 	nop
@@ -8628,7 +8645,7 @@ glabel var7f1b8fc8
 .PF0f197430:
 /*  f197430:	06a1000b */ 	bgez	$s5,.PF0f197460
 /*  f197434:	02802025 */ 	move	$a0,$s4
-/*  f197438:	0fc65178 */ 	jal	bot0f193530
+/*  f197438:	0fc65178 */ 	jal	botFindTeammateToFollow
 /*  f19743c:	3c054396 */ 	lui	$a1,0x4396
 /*  f197440:	04400007 */ 	bltz	$v0,.PF0f197460
 /*  f197444:	00408025 */ 	move	$s0,$v0
@@ -8641,7 +8658,7 @@ glabel var7f1b8fc8
 .PF0f197460:
 /*  f197460:	06a10006 */ 	bgez	$s5,.PF0f19747c
 /*  f197464:	00000000 */ 	nop
-/*  f197468:	0fc655db */ 	jal	bot0f1946b4
+/*  f197468:	0fc655db */ 	jal	botFindUnnecessaryPickup
 /*  f19746c:	02802025 */ 	move	$a0,$s4
 /*  f197470:	10400002 */ 	beqz	$v0,.PF0f19747c
 /*  f197474:	ae420010 */ 	sw	$v0,0x10($s2)
@@ -9310,7 +9327,7 @@ glabel var7f1b8fc8
 /*  f197de8:	01a2082a */ 	slt	$at,$t5,$v0
 /*  f197dec:	10200005 */ 	beqz	$at,.PF0f197e04
 /*  f197df0:	02602825 */ 	move	$a1,$s3
-/*  f197df4:	0fc651d3 */ 	jal	bot0f19369c
+/*  f197df4:	0fc651d3 */ 	jal	botScheduleReload
 /*  f197df8:	a460003c */ 	sh	$zero,0x3c($v1)
 /*  f197dfc:	100001f2 */ 	b	.PF0f1985c8
 /*  f197e00:	00000000 */ 	nop
@@ -9336,7 +9353,7 @@ glabel var7f1b8fc8
 /*  f197e4c:	032e082a */ 	slt	$at,$t9,$t6
 /*  f197e50:	54200034 */ 	bnezl	$at,.PF0f197f24
 /*  f197e54:	a460003c */ 	sh	$zero,0x3c($v1)
-/*  f197e58:	0fc644c8 */ 	jal	bot0f190260
+/*  f197e58:	0fc644c8 */ 	jal	botIsDizzy
 /*  f197e5c:	afa30054 */ 	sw	$v1,0x54($sp)
 /*  f197e60:	14400030 */ 	bnez	$v0,.PF0f197f24
 /*  f197e64:	8fa30054 */ 	lw	$v1,0x54($sp)
@@ -9559,7 +9576,7 @@ glabel var7f1b8fc8
 /*  f198180:	0319082a */ 	slt	$at,$t8,$t9
 /*  f198184:	1420000b */ 	bnez	$at,.PF0f1981b4
 /*  f198188:	00000000 */ 	nop
-/*  f19818c:	0fc644c8 */ 	jal	bot0f190260
+/*  f19818c:	0fc644c8 */ 	jal	botIsDizzy
 /*  f198190:	02802025 */ 	move	$a0,$s4
 /*  f198194:	14400006 */ 	bnez	$v0,.PF0f1981b0
 /*  f198198:	02802025 */ 	move	$a0,$s4
@@ -9706,7 +9723,7 @@ glabel var7f1b8fc8
 /*  f1983a4:	016a082a */ 	slt	$at,$t3,$t2
 /*  f1983a8:	1420002a */ 	bnez	$at,.PF0f198454
 /*  f1983ac:	00000000 */ 	nop
-/*  f1983b0:	0fc644c8 */ 	jal	bot0f190260
+/*  f1983b0:	0fc644c8 */ 	jal	botIsDizzy
 /*  f1983b4:	02802025 */ 	move	$a0,$s4
 /*  f1983b8:	14400006 */ 	bnez	$v0,.PF0f1983d4
 /*  f1983bc:	02802025 */ 	move	$a0,$s4
@@ -9778,7 +9795,7 @@ glabel var7f1b8fc8
 /*  f1984b0:	8e45004c */ 	lw	$a1,0x4c($s2)
 /*  f1984b4:	8e440020 */ 	lw	$a0,0x20($s2)
 /*  f1984b8:	00054880 */ 	sll	$t1,$a1,0x2
-/*  f1984bc:	0fc66dc3 */ 	jal	botact0f19a60c
+/*  f1984bc:	0fc66dc3 */ 	jal	botactGetShootInterval60
 /*  f1984c0:	00092fc2 */ 	srl	$a1,$t1,0x1f
 /*  f1984c4:	28410006 */ 	slti	$at,$v0,0x6
 /*  f1984c8:	1420000b */ 	bnez	$at,.PF0f1984f8
@@ -9886,3000 +9903,1244 @@ glabel var7f1b8fc8
 /*  f19863c:	27bd02f8 */ 	addiu	$sp,$sp,0x2f8
 );
 #else
-GLOBAL_ASM(
-glabel botTickUnpaused
-.late_rodata
-glabel var7f1b8f54
-.word 0x49742400
-glabel var7f1b8f58
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8f5c
-.word botTickUnpaused+0x23e4 # f196f24
-glabel var7f1b8f60
-.word botTickUnpaused+0x23e4 # f196f24
-glabel var7f1b8f64
-.word botTickUnpaused+0x23e4 # f196f24
-glabel var7f1b8f68
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8f6c
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8f70
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8f74
-.word botTickUnpaused+0x23e4 # f196f24
-glabel var7f1b8f78
-.word botTickUnpaused+0x23e4 # f196f24
-glabel var7f1b8f7c
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8f80
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8f84
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8f88
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8f8c
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8f90
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8f94
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8f98
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8f9c
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8fa0
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8fa4
-.word botTickUnpaused+0x245c # f196f9c
-glabel var7f1b8fa8
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8fac
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8fb0
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8fb4
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8fb8
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8fbc
-.word botTickUnpaused+0x23e4 # f196f24
-glabel var7f1b8fc0
-.word botTickUnpaused+0x2380 # f196ec0
-glabel var7f1b8fc4
-.word botTickUnpaused+0x2438 # f196f78
-glabel var7f1b8fc8
-.word 0x3d4ccccd
-.text
-/*  f194b40:	27bdfd08 */ 	addiu	$sp,$sp,-760
-/*  f194b44:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f194b48:	afb50034 */ 	sw	$s5,0x34($sp)
-/*  f194b4c:	afb40030 */ 	sw	$s4,0x30($sp)
-/*  f194b50:	0080a025 */ 	or	$s4,$a0,$zero
-/*  f194b54:	afbe0040 */ 	sw	$s8,0x40($sp)
-/*  f194b58:	afb7003c */ 	sw	$s7,0x3c($sp)
-/*  f194b5c:	afb60038 */ 	sw	$s6,0x38($sp)
-/*  f194b60:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*  f194b64:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f194b68:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f194b6c:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f194b70:	0fc0e6a5 */ 	jal	chrIsDead
-/*  f194b74:	2415ffff */ 	addiu	$s5,$zero,-1
-/*  f194b78:	14400a66 */ 	bnez	$v0,.L0f197514
-/*  f194b7c:	3c16800a */ 	lui	$s6,%hi(g_Vars)
-/*  f194b80:	8e9202d4 */ 	lw	$s2,0x2d4($s4)
-/*  f194b84:	26d69fc0 */ 	addiu	$s6,$s6,%lo(g_Vars)
-/*  f194b88:	8ecf0038 */ 	lw	$t7,0x38($s6)
-/*  f194b8c:	8e4e02cc */ 	lw	$t6,0x2cc($s2)
-/*  f194b90:	01cfc823 */ 	subu	$t9,$t6,$t7
-/*  f194b94:	07210017 */ 	bgez	$t9,.L0f194bf4
-/*  f194b98:	ae5902cc */ 	sw	$t9,0x2cc($s2)
-/*  f194b9c:	0c004b70 */ 	jal	random
-/*  f194ba0:	00000000 */ 	nop
-/*  f194ba4:	24013840 */ 	addiu	$at,$zero,0x3840
-/*  f194ba8:	0041001b */ 	divu	$zero,$v0,$at
-/*  f194bac:	00004810 */ 	mfhi	$t1
-/*  f194bb0:	252a0708 */ 	addiu	$t2,$t1,0x708
-/*  f194bb4:	0c004b70 */ 	jal	random
-/*  f194bb8:	ae4a02cc */ 	sw	$t2,0x2cc($s2)
-/*  f194bbc:	0c004b70 */ 	jal	random
-/*  f194bc0:	ae4202d0 */ 	sw	$v0,0x2d0($s2)
-/*  f194bc4:	44822000 */ 	mtc1	$v0,$f4
-/*  f194bc8:	3c014f80 */ 	lui	$at,0x4f80
-/*  f194bcc:	04410004 */ 	bgez	$v0,.L0f194be0
-/*  f194bd0:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f194bd4:	44814000 */ 	mtc1	$at,$f8
-/*  f194bd8:	00000000 */ 	nop
-/*  f194bdc:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f194be0:
-/*  f194be0:	3c012f80 */ 	lui	$at,0x2f80
-/*  f194be4:	44815000 */ 	mtc1	$at,$f10
-/*  f194be8:	00000000 */ 	nop
-/*  f194bec:	460a3482 */ 	mul.s	$f18,$f6,$f10
-/*  f194bf0:	e65202d4 */ 	swc1	$f18,0x2d4($s2)
-.L0f194bf4:
-/*  f194bf4:	00008025 */ 	or	$s0,$zero,$zero
-/*  f194bf8:	02403825 */ 	or	$a3,$s2,$zero
-.L0f194bfc:
-/*  f194bfc:	84e2002c */ 	lh	$v0,0x2c($a3)
-/*  f194c00:	5840000f */ 	blezl	$v0,.L0f194c40
-/*  f194c04:	8e45004c */ 	lw	$a1,0x4c($s2)
-/*  f194c08:	8ecb0038 */ 	lw	$t3,0x38($s6)
-/*  f194c0c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f194c10:	004b6023 */ 	subu	$t4,$v0,$t3
-/*  f194c14:	a4ec002c */ 	sh	$t4,0x2c($a3)
-/*  f194c18:	84ed002c */ 	lh	$t5,0x2c($a3)
-/*  f194c1c:	5da00037 */ 	bgtzl	$t5,.L0f194cfc
-/*  f194c20:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f194c24:	02002825 */ 	or	$a1,$s0,$zero
-/*  f194c28:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f194c2c:	0fc66690 */ 	jal	botactReload
-/*  f194c30:	afa70054 */ 	sw	$a3,0x54($sp)
-/*  f194c34:	10000030 */ 	b	.L0f194cf8
-/*  f194c38:	8fa70054 */ 	lw	$a3,0x54($sp)
-/*  f194c3c:	8e45004c */ 	lw	$a1,0x4c($s2)
-.L0f194c40:
-/*  f194c40:	8e440020 */ 	lw	$a0,0x20($s2)
-/*  f194c44:	afa70054 */ 	sw	$a3,0x54($sp)
-/*  f194c48:	00057080 */ 	sll	$t6,$a1,0x2
-/*  f194c4c:	0fc668a7 */ 	jal	botactIsWeaponThrowable
-/*  f194c50:	000e2fc2 */ 	srl	$a1,$t6,0x1f
-/*  f194c54:	14400028 */ 	bnez	$v0,.L0f194cf8
-/*  f194c58:	8fa70054 */ 	lw	$a3,0x54($sp)
-/*  f194c5c:	8e45004c */ 	lw	$a1,0x4c($s2)
-/*  f194c60:	0010c080 */ 	sll	$t8,$s0,0x2
-/*  f194c64:	0258c821 */ 	addu	$t9,$s2,$t8
-/*  f194c68:	8f230024 */ 	lw	$v1,0x24($t9)
-/*  f194c6c:	8e440020 */ 	lw	$a0,0x20($s2)
-/*  f194c70:	00054880 */ 	sll	$t1,$a1,0x2
-/*  f194c74:	00092fc2 */ 	srl	$a1,$t1,0x1f
-/*  f194c78:	afa70054 */ 	sw	$a3,0x54($sp)
-/*  f194c7c:	0fc6667e */ 	jal	botactGetClipCapacityByFunction
-/*  f194c80:	afa302e8 */ 	sw	$v1,0x2e8($sp)
-/*  f194c84:	8fa302e8 */ 	lw	$v1,0x2e8($sp)
-/*  f194c88:	8fa70054 */ 	lw	$a3,0x54($sp)
-/*  f194c8c:	1c600008 */ 	bgtz	$v1,.L0f194cb0
-/*  f194c90:	00000000 */ 	nop
-/*  f194c94:	18400006 */ 	blez	$v0,.L0f194cb0
-/*  f194c98:	02802025 */ 	or	$a0,$s4,$zero
-/*  f194c9c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f194ca0:	0fc64da7 */ 	jal	bot0f19369c
-/*  f194ca4:	afa70054 */ 	sw	$a3,0x54($sp)
-/*  f194ca8:	10000013 */ 	b	.L0f194cf8
-/*  f194cac:	8fa70054 */ 	lw	$a3,0x54($sp)
-.L0f194cb0:
-/*  f194cb0:	04410003 */ 	bgez	$v0,.L0f194cc0
-/*  f194cb4:	00025843 */ 	sra	$t3,$v0,0x1
-/*  f194cb8:	24410001 */ 	addiu	$at,$v0,0x1
-/*  f194cbc:	00015843 */ 	sra	$t3,$at,0x1
-.L0f194cc0:
-/*  f194cc0:	006b082a */ 	slt	$at,$v1,$t3
-/*  f194cc4:	5020000d */ 	beqzl	$at,.L0f194cfc
-/*  f194cc8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f194ccc:	8ecd0008 */ 	lw	$t5,0x8($s6)
-/*  f194cd0:	8e4c0124 */ 	lw	$t4,0x124($s2)
-/*  f194cd4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f194cd8:	25aeff88 */ 	addiu	$t6,$t5,-120
-/*  f194cdc:	018e082a */ 	slt	$at,$t4,$t6
-/*  f194ce0:	50200006 */ 	beqzl	$at,.L0f194cfc
-/*  f194ce4:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f194ce8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f194cec:	0fc64da7 */ 	jal	bot0f19369c
-/*  f194cf0:	afa70054 */ 	sw	$a3,0x54($sp)
-/*  f194cf4:	8fa70054 */ 	lw	$a3,0x54($sp)
-.L0f194cf8:
-/*  f194cf8:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f194cfc:
-/*  f194cfc:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f194d00:	1601ffbe */ 	bne	$s0,$at,.L0f194bfc
-/*  f194d04:	24e70002 */ 	addiu	$a3,$a3,0x2
-/*  f194d08:	8e4200cc */ 	lw	$v0,0xcc($s2)
-/*  f194d0c:	58400045 */ 	blezl	$v0,.L0f194e24
-/*  f194d10:	8e4d0020 */ 	lw	$t5,0x20($s2)
-/*  f194d14:	8ecf0038 */ 	lw	$t7,0x38($s6)
-/*  f194d18:	02802025 */ 	or	$a0,$s4,$zero
-/*  f194d1c:	004fc823 */ 	subu	$t9,$v0,$t7
-/*  f194d20:	1f20003f */ 	bgtz	$t9,.L0f194e20
-/*  f194d24:	ae5900cc */ 	sw	$t9,0xcc($s2)
-/*  f194d28:	0fc65f3c */ 	jal	botinvGetItem
-/*  f194d2c:	8e450020 */ 	lw	$a1,0x20($s2)
-/*  f194d30:	00408025 */ 	or	$s0,$v0,$zero
-/*  f194d34:	0fc4a2bd */ 	jal	weaponGetModel
-/*  f194d38:	8e440020 */ 	lw	$a0,0x20($s2)
-/*  f194d3c:	12000019 */ 	beqz	$s0,.L0f194da4
-/*  f194d40:	00408825 */ 	or	$s1,$v0,$zero
-/*  f194d44:	04400017 */ 	bltz	$v0,.L0f194da4
-/*  f194d48:	02802025 */ 	or	$a0,$s4,$zero
-/*  f194d4c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f194d50:	8e460020 */ 	lw	$a2,0x20($s2)
-/*  f194d54:	0fc22eb4 */ 	jal	chrGiveWeapon
-/*  f194d58:	00003825 */ 	or	$a3,$zero,$zero
-/*  f194d5c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f194d60:	00002825 */ 	or	$a1,$zero,$zero
-/*  f194d64:	0fc66690 */ 	jal	botactReload
-/*  f194d68:	00003025 */ 	or	$a2,$zero,$zero
-/*  f194d6c:	8e090000 */ 	lw	$t1,0x0($s0)
-/*  f194d70:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f194d74:	02802025 */ 	or	$a0,$s4,$zero
-/*  f194d78:	15210008 */ 	bne	$t1,$at,.L0f194d9c
-/*  f194d7c:	02202825 */ 	or	$a1,$s1,$zero
-/*  f194d80:	8e460020 */ 	lw	$a2,0x20($s2)
-/*  f194d84:	0fc22eb4 */ 	jal	chrGiveWeapon
-/*  f194d88:	3c071000 */ 	lui	$a3,0x1000
-/*  f194d8c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f194d90:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f194d94:	0fc66690 */ 	jal	botactReload
-/*  f194d98:	00003025 */ 	or	$a2,$zero,$zero
-.L0f194d9c:
-/*  f194d9c:	1000000e */ 	b	.L0f194dd8
-/*  f194da0:	ae400034 */ 	sw	$zero,0x34($s2)
-.L0f194da4:
-/*  f194da4:	8e8a02d4 */ 	lw	$t2,0x2d4($s4)
-/*  f194da8:	24170001 */ 	addiu	$s7,$zero,0x1
-/*  f194dac:	ad570020 */ 	sw	$s7,0x20($t2)
-/*  f194db0:	8e8302d4 */ 	lw	$v1,0x2d4($s4)
-/*  f194db4:	906b004c */ 	lbu	$t3,0x4c($v1)
-/*  f194db8:	316dffdf */ 	andi	$t5,$t3,0xffdf
-/*  f194dbc:	a06d004c */ 	sb	$t5,0x4c($v1)
-/*  f194dc0:	8e8302d4 */ 	lw	$v1,0x2d4($s4)
-/*  f194dc4:	906c004c */ 	lbu	$t4,0x4c($v1)
-/*  f194dc8:	318effbf */ 	andi	$t6,$t4,0xffbf
-/*  f194dcc:	35cf0040 */ 	ori	$t7,$t6,0x40
-/*  f194dd0:	a06f004c */ 	sb	$t7,0x4c($v1)
-/*  f194dd4:	ae400034 */ 	sw	$zero,0x34($s2)
-.L0f194dd8:
-/*  f194dd8:	02401025 */ 	or	$v0,$s2,$zero
-/*  f194ddc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f194de0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f194de4:	24060008 */ 	addiu	$a2,$zero,0x8
-.L0f194de8:
-/*  f194de8:	a440003c */ 	sh	$zero,0x3c($v0)
-/*  f194dec:	8c850170 */ 	lw	$a1,0x170($a0)
-/*  f194df0:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  f194df4:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f194df8:	10a00007 */ 	beqz	$a1,.L0f194e18
-/*  f194dfc:	00000000 */ 	nop
-/*  f194e00:	8e9802d4 */ 	lw	$t8,0x2d4($s4)
-/*  f194e04:	8cab0004 */ 	lw	$t3,0x4($a1)
-/*  f194e08:	8f19004c */ 	lw	$t9,0x4c($t8)
-/*  f194e0c:	00194880 */ 	sll	$t1,$t9,0x2
-/*  f194e10:	000957c2 */ 	srl	$t2,$t1,0x1f
-/*  f194e14:	a16a005f */ 	sb	$t2,0x5f($t3)
-.L0f194e18:
-/*  f194e18:	1466fff3 */ 	bne	$v1,$a2,.L0f194de8
-/*  f194e1c:	24840004 */ 	addiu	$a0,$a0,0x4
-.L0f194e20:
-/*  f194e20:	8e4d0020 */ 	lw	$t5,0x20($s2)
-.L0f194e24:
-/*  f194e24:	2401001d */ 	addiu	$at,$zero,0x1d
-/*  f194e28:	24170001 */ 	addiu	$s7,$zero,0x1
-/*  f194e2c:	55a10005 */ 	bnel	$t5,$at,.L0f194e44
-/*  f194e30:	8e4f001c */ 	lw	$t7,0x1c($s2)
-/*  f194e34:	8e8e02d4 */ 	lw	$t6,0x2d4($s4)
-/*  f194e38:	240c03e7 */ 	addiu	$t4,$zero,0x3e7
-/*  f194e3c:	adcc0024 */ 	sw	$t4,0x24($t6)
-/*  f194e40:	8e4f001c */ 	lw	$t7,0x1c($s2)
-.L0f194e44:
-/*  f194e44:	8df80050 */ 	lw	$t8,0x50($t7)
-/*  f194e48:	1b00000d */ 	blez	$t8,.L0f194e80
-/*  f194e4c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f194e50:	0fc6458e */ 	jal	bot0f191638
-/*  f194e54:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f194e58:	54400006 */ 	bnezl	$v0,.L0f194e74
-/*  f194e5c:	924a004c */ 	lbu	$t2,0x4c($s2)
-/*  f194e60:	929902a0 */ 	lbu	$t9,0x2a0($s4)
-/*  f194e64:	2401002e */ 	addiu	$at,$zero,0x2e
-/*  f194e68:	57210006 */ 	bnel	$t9,$at,.L0f194e84
-/*  f194e6c:	8e420210 */ 	lw	$v0,0x210($s2)
-/*  f194e70:	924a004c */ 	lbu	$t2,0x4c($s2)
-.L0f194e74:
-/*  f194e74:	354b0002 */ 	ori	$t3,$t2,0x2
-/*  f194e78:	1000001e */ 	b	.L0f194ef4
-/*  f194e7c:	a24b004c */ 	sb	$t3,0x4c($s2)
-.L0f194e80:
-/*  f194e80:	8e420210 */ 	lw	$v0,0x210($s2)
-.L0f194e84:
-/*  f194e84:	240404b0 */ 	addiu	$a0,$zero,0x4b0
-/*  f194e88:	8e4d001c */ 	lw	$t5,0x1c($s2)
-/*  f194e8c:	00026142 */ 	srl	$t4,$v0,0x5
-/*  f194e90:	0184001b */ 	divu	$zero,$t4,$a0
-/*  f194e94:	8da30050 */ 	lw	$v1,0x50($t5)
-/*  f194e98:	00007010 */ 	mfhi	$t6
-/*  f194e9c:	25cf04b0 */ 	addiu	$t7,$t6,0x4b0
-/*  f194ea0:	14800002 */ 	bnez	$a0,.L0f194eac
-/*  f194ea4:	00000000 */ 	nop
-/*  f194ea8:	0007000d */ 	break	0x7
-.L0f194eac:
-/*  f194eac:	01e3082b */ 	sltu	$at,$t7,$v1
-/*  f194eb0:	10200005 */ 	beqz	$at,.L0f194ec8
-/*  f194eb4:	00025442 */ 	srl	$t2,$v0,0x11
-/*  f194eb8:	9259004c */ 	lbu	$t9,0x4c($s2)
-/*  f194ebc:	37290002 */ 	ori	$t1,$t9,0x2
-/*  f194ec0:	1000000c */ 	b	.L0f194ef4
-/*  f194ec4:	a249004c */ 	sb	$t1,0x4c($s2)
-.L0f194ec8:
-/*  f194ec8:	0144001b */ 	divu	$zero,$t2,$a0
-/*  f194ecc:	00005810 */ 	mfhi	$t3
-/*  f194ed0:	0163082b */ 	sltu	$at,$t3,$v1
-/*  f194ed4:	14800002 */ 	bnez	$a0,.L0f194ee0
-/*  f194ed8:	00000000 */ 	nop
-/*  f194edc:	0007000d */ 	break	0x7
-.L0f194ee0:
-/*  f194ee0:	54200005 */ 	bnezl	$at,.L0f194ef8
-/*  f194ee4:	8e4e004c */ 	lw	$t6,0x4c($s2)
-/*  f194ee8:	924d004c */ 	lbu	$t5,0x4c($s2)
-/*  f194eec:	31acfffd */ 	andi	$t4,$t5,0xfffd
-/*  f194ef0:	a24c004c */ 	sb	$t4,0x4c($s2)
-.L0f194ef4:
-/*  f194ef4:	8e4e004c */ 	lw	$t6,0x4c($s2)
-.L0f194ef8:
-/*  f194ef8:	000ec180 */ 	sll	$t8,$t6,0x6
-/*  f194efc:	07020039 */ 	bltzl	$t8,.L0f194fe4
-/*  f194f00:	924b009c */ 	lbu	$t3,0x9c($s2)
-/*  f194f04:	8e590020 */ 	lw	$t9,0x20($s2)
-/*  f194f08:	2401000d */ 	addiu	$at,$zero,0xd
-/*  f194f0c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f194f10:	17210033 */ 	bne	$t9,$at,.L0f194fe0
-/*  f194f14:	2405000d */ 	addiu	$a1,$zero,0xd
-/*  f194f18:	00003025 */ 	or	$a2,$zero,$zero
-/*  f194f1c:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
-/*  f194f20:	02e03825 */ 	or	$a3,$s7,$zero
-/*  f194f24:	00408025 */ 	or	$s0,$v0,$zero
-/*  f194f28:	02802025 */ 	or	$a0,$s4,$zero
-/*  f194f2c:	0fc6458e */ 	jal	bot0f191638
-/*  f194f30:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f194f34:	5040001a */ 	beqzl	$v0,.L0f194fa0
-/*  f194f38:	8e4b0210 */ 	lw	$t3,0x210($s2)
-/*  f194f3c:	8e420210 */ 	lw	$v0,0x210($s2)
-/*  f194f40:	240100c8 */ 	addiu	$at,$zero,0xc8
-/*  f194f44:	00024982 */ 	srl	$t1,$v0,0x6
-/*  f194f48:	0121001b */ 	divu	$zero,$t1,$at
-/*  f194f4c:	00005010 */ 	mfhi	$t2
-/*  f194f50:	254b00c8 */ 	addiu	$t3,$t2,0xc8
-/*  f194f54:	0170082b */ 	sltu	$at,$t3,$s0
-/*  f194f58:	10200005 */ 	beqz	$at,.L0f194f70
-/*  f194f5c:	00027c02 */ 	srl	$t7,$v0,0x10
-/*  f194f60:	924c009c */ 	lbu	$t4,0x9c($s2)
-/*  f194f64:	358e0020 */ 	ori	$t6,$t4,0x20
-/*  f194f68:	10000020 */ 	b	.L0f194fec
-/*  f194f6c:	a24e009c */ 	sb	$t6,0x9c($s2)
-.L0f194f70:
-/*  f194f70:	24010046 */ 	addiu	$at,$zero,0x46
-/*  f194f74:	01e1001b */ 	divu	$zero,$t7,$at
-/*  f194f78:	0000c010 */ 	mfhi	$t8
-/*  f194f7c:	2719001e */ 	addiu	$t9,$t8,0x1e
-/*  f194f80:	0330082b */ 	sltu	$at,$t9,$s0
-/*  f194f84:	5420001a */ 	bnezl	$at,.L0f194ff0
-/*  f194f88:	8e4c0004 */ 	lw	$t4,0x4($s2)
-/*  f194f8c:	9249009c */ 	lbu	$t1,0x9c($s2)
-/*  f194f90:	312affdf */ 	andi	$t2,$t1,0xffdf
-/*  f194f94:	10000015 */ 	b	.L0f194fec
-/*  f194f98:	a24a009c */ 	sb	$t2,0x9c($s2)
-/*  f194f9c:	8e4b0210 */ 	lw	$t3,0x210($s2)
-.L0f194fa0:
-/*  f194fa0:	240101f4 */ 	addiu	$at,$zero,0x1f4
-/*  f194fa4:	000b6b02 */ 	srl	$t5,$t3,0xc
-/*  f194fa8:	01a1001b */ 	divu	$zero,$t5,$at
-/*  f194fac:	00006010 */ 	mfhi	$t4
-/*  f194fb0:	258e012c */ 	addiu	$t6,$t4,0x12c
-/*  f194fb4:	01d0082b */ 	sltu	$at,$t6,$s0
-/*  f194fb8:	50200006 */ 	beqzl	$at,.L0f194fd4
-/*  f194fbc:	9249009c */ 	lbu	$t1,0x9c($s2)
-/*  f194fc0:	9258009c */ 	lbu	$t8,0x9c($s2)
-/*  f194fc4:	37190020 */ 	ori	$t9,$t8,0x20
-/*  f194fc8:	10000008 */ 	b	.L0f194fec
-/*  f194fcc:	a259009c */ 	sb	$t9,0x9c($s2)
-/*  f194fd0:	9249009c */ 	lbu	$t1,0x9c($s2)
-.L0f194fd4:
-/*  f194fd4:	312affdf */ 	andi	$t2,$t1,0xffdf
-/*  f194fd8:	10000004 */ 	b	.L0f194fec
-/*  f194fdc:	a24a009c */ 	sb	$t2,0x9c($s2)
-.L0f194fe0:
-/*  f194fe0:	924b009c */ 	lbu	$t3,0x9c($s2)
-.L0f194fe4:
-/*  f194fe4:	316dffdf */ 	andi	$t5,$t3,0xffdf
-/*  f194fe8:	a24d009c */ 	sb	$t5,0x9c($s2)
-.L0f194fec:
-/*  f194fec:	8e4c0004 */ 	lw	$t4,0x4($s2)
-.L0f194ff0:
-/*  f194ff0:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f194ff4:	918e0047 */ 	lbu	$t6,0x47($t4)
-/*  f194ff8:	55c1000e */ 	bnel	$t6,$at,.L0f195034
-/*  f194ffc:	824a004f */ 	lb	$t2,0x4f($s2)
-/*  f195000:	868f017e */ 	lh	$t7,0x17e($s4)
-/*  f195004:	241effff */ 	addiu	$s8,$zero,-1
-/*  f195008:	53cf000a */ 	beql	$s8,$t7,.L0f195034
-/*  f19500c:	824a004f */ 	lb	$t2,0x4f($s2)
-/*  f195010:	8e580128 */ 	lw	$t8,0x128($s2)
-/*  f195014:	53000007 */ 	beqzl	$t8,.L0f195034
-/*  f195018:	824a004f */ 	lb	$t2,0x4f($s2)
-/*  f19501c:	929902a0 */ 	lbu	$t9,0x2a0($s4)
-/*  f195020:	2401002f */ 	addiu	$at,$zero,0x2f
-/*  f195024:	53210003 */ 	beql	$t9,$at,.L0f195034
-/*  f195028:	824a004f */ 	lb	$t2,0x4f($s2)
-/*  f19502c:	ae5700d8 */ 	sw	$s7,0xd8($s2)
-/*  f195030:	824a004f */ 	lb	$t2,0x4f($s2)
-.L0f195034:
-/*  f195034:	241effff */ 	addiu	$s8,$zero,-1
-/*  f195038:	05430143 */ 	bgezl	$t2,.L0f195548
-/*  f19503c:	928d02a0 */ 	lbu	$t5,0x2a0($s4)
-/*  f195040:	8e420118 */ 	lw	$v0,0x118($s2)
-/*  f195044:	18400005 */ 	blez	$v0,.L0f19505c
-/*  f195048:	00000000 */ 	nop
-/*  f19504c:	8ecb0038 */ 	lw	$t3,0x38($s6)
-/*  f195050:	004b6823 */ 	subu	$t5,$v0,$t3
-/*  f195054:	ae4d0118 */ 	sw	$t5,0x118($s2)
-/*  f195058:	01a01025 */ 	or	$v0,$t5,$zero
-.L0f19505c:
-/*  f19505c:	5c40013a */ 	bgtzl	$v0,.L0f195548
-/*  f195060:	928d02a0 */ 	lbu	$t5,0x2a0($s4)
-/*  f195064:	0fc651b5 */ 	jal	botGetNumPlayerTeammates
-/*  f195068:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19506c:	3c03800b */ 	lui	$v1,%hi(g_MpSetup+0x10)
-/*  f195070:	9063cb98 */ 	lbu	$v1,%lo(g_MpSetup+0x10)($v1)
-/*  f195074:	00409825 */ 	or	$s3,$v0,$zero
-/*  f195078:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19507c:	16e3001e */ 	bne	$s7,$v1,.L0f1950f8
-/*  f195080:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f195084:	2405000b */ 	addiu	$a1,$zero,0xb
-/*  f195088:	0fc651c9 */ 	jal	botCountByCommand
-/*  f19508c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f195090:	18400010 */ 	blez	$v0,.L0f1950d4
-/*  f195094:	266c0001 */ 	addiu	$t4,$s3,0x1
-/*  f195098:	05810003 */ 	bgez	$t4,.L0f1950a8
-/*  f19509c:	000c7043 */ 	sra	$t6,$t4,0x1
-/*  f1950a0:	25810001 */ 	addiu	$at,$t4,0x1
-/*  f1950a4:	00017043 */ 	sra	$t6,$at,0x1
-.L0f1950a8:
-/*  f1950a8:	004e082a */ 	slt	$at,$v0,$t6
-/*  f1950ac:	5420000a */ 	bnezl	$at,.L0f1950d8
-/*  f1950b0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1950b4:	0c004b70 */ 	jal	random
-/*  f1950b8:	00000000 */ 	nop
-/*  f1950bc:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f1950c0:	0041001b */ 	divu	$zero,$v0,$at
-/*  f1950c4:	00007810 */ 	mfhi	$t7
-/*  f1950c8:	2de10042 */ 	sltiu	$at,$t7,0x42
-/*  f1950cc:	10200006 */ 	beqz	$at,.L0f1950e8
-/*  f1950d0:	02802025 */ 	or	$a0,$s4,$zero
-.L0f1950d4:
-/*  f1950d4:	02802025 */ 	or	$a0,$s4,$zero
-.L0f1950d8:
-/*  f1950d8:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f1950dc:	2405000b */ 	addiu	$a1,$zero,0xb
-/*  f1950e0:	10000111 */ 	b	.L0f195528
-/*  f1950e4:	00000000 */ 	nop
-.L0f1950e8:
-/*  f1950e8:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f1950ec:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f1950f0:	1000010d */ 	b	.L0f195528
-/*  f1950f4:	00000000 */ 	nop
-.L0f1950f8:
-/*  f1950f8:	14610022 */ 	bne	$v1,$at,.L0f195184
-/*  f1950fc:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195100:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f195104:	0fc651c9 */ 	jal	botCountByCommand
-/*  f195108:	00003025 */ 	or	$a2,$zero,$zero
-/*  f19510c:	8e58004c */ 	lw	$t8,0x4c($s2)
-/*  f195110:	00184940 */ 	sll	$t1,$t8,0x5
-/*  f195114:	05220013 */ 	bltzl	$t1,.L0f195164
-/*  f195118:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19511c:	18400010 */ 	blez	$v0,.L0f195160
-/*  f195120:	266a0001 */ 	addiu	$t2,$s3,0x1
-/*  f195124:	05410003 */ 	bgez	$t2,.L0f195134
-/*  f195128:	000a5843 */ 	sra	$t3,$t2,0x1
-/*  f19512c:	25410001 */ 	addiu	$at,$t2,0x1
-/*  f195130:	00015843 */ 	sra	$t3,$at,0x1
-.L0f195134:
-/*  f195134:	004b082a */ 	slt	$at,$v0,$t3
-/*  f195138:	5420000a */ 	bnezl	$at,.L0f195164
-/*  f19513c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195140:	0c004b70 */ 	jal	random
-/*  f195144:	00000000 */ 	nop
-/*  f195148:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f19514c:	0041001b */ 	divu	$zero,$v0,$at
-/*  f195150:	00006810 */ 	mfhi	$t5
-/*  f195154:	2da10032 */ 	sltiu	$at,$t5,0x32
-/*  f195158:	10200006 */ 	beqz	$at,.L0f195174
-/*  f19515c:	02802025 */ 	or	$a0,$s4,$zero
-.L0f195160:
-/*  f195160:	02802025 */ 	or	$a0,$s4,$zero
-.L0f195164:
-/*  f195164:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f195168:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f19516c:	100000ee */ 	b	.L0f195528
-/*  f195170:	00000000 */ 	nop
-.L0f195174:
-/*  f195174:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f195178:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f19517c:	100000ea */ 	b	.L0f195528
-/*  f195180:	00000000 */ 	nop
-.L0f195184:
-/*  f195184:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f195188:	1461001e */ 	bne	$v1,$at,.L0f195204
-/*  f19518c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195190:	2405000c */ 	addiu	$a1,$zero,0xc
-/*  f195194:	0fc651c9 */ 	jal	botCountByCommand
-/*  f195198:	00003025 */ 	or	$a2,$zero,$zero
-/*  f19519c:	18400010 */ 	blez	$v0,.L0f1951e0
-/*  f1951a0:	266c0001 */ 	addiu	$t4,$s3,0x1
-/*  f1951a4:	05810003 */ 	bgez	$t4,.L0f1951b4
-/*  f1951a8:	000c7043 */ 	sra	$t6,$t4,0x1
-/*  f1951ac:	25810001 */ 	addiu	$at,$t4,0x1
-/*  f1951b0:	00017043 */ 	sra	$t6,$at,0x1
-.L0f1951b4:
-/*  f1951b4:	004e082a */ 	slt	$at,$v0,$t6
-/*  f1951b8:	5420000a */ 	bnezl	$at,.L0f1951e4
-/*  f1951bc:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1951c0:	0c004b70 */ 	jal	random
-/*  f1951c4:	00000000 */ 	nop
-/*  f1951c8:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f1951cc:	0041001b */ 	divu	$zero,$v0,$at
-/*  f1951d0:	00007810 */ 	mfhi	$t7
-/*  f1951d4:	2de10032 */ 	sltiu	$at,$t7,0x32
-/*  f1951d8:	10200006 */ 	beqz	$at,.L0f1951f4
-/*  f1951dc:	02802025 */ 	or	$a0,$s4,$zero
-.L0f1951e0:
-/*  f1951e0:	02802025 */ 	or	$a0,$s4,$zero
-.L0f1951e4:
-/*  f1951e4:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f1951e8:	2405000c */ 	addiu	$a1,$zero,0xc
-/*  f1951ec:	100000ce */ 	b	.L0f195528
-/*  f1951f0:	00000000 */ 	nop
-.L0f1951f4:
-/*  f1951f4:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f1951f8:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f1951fc:	100000ca */ 	b	.L0f195528
-/*  f195200:	00000000 */ 	nop
-.L0f195204:
-/*  f195204:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f195208:	54610034 */ 	bnel	$v1,$at,.L0f1952dc
-/*  f19520c:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f195210:	0fc65241 */ 	jal	botGetNumTeammatesDefendingHill
-/*  f195214:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195218:	8e98001c */ 	lw	$t8,0x1c($s4)
-/*  f19521c:	3c09800b */ 	lui	$t1,%hi(g_ScenarioData+0xe)
-/*  f195220:	8529c11e */ 	lh	$t1,%lo(g_ScenarioData+0xe)($t1)
-/*  f195224:	87190028 */ 	lh	$t9,0x28($t8)
-/*  f195228:	00408025 */ 	or	$s0,$v0,$zero
-/*  f19522c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195230:	17290002 */ 	bne	$t9,$t1,.L0f19523c
-/*  f195234:	00000000 */ 	nop
-/*  f195238:	2450ffff */ 	addiu	$s0,$v0,-1
-.L0f19523c:
-/*  f19523c:	1a000008 */ 	blez	$s0,.L0f195260
-/*  f195240:	00000000 */ 	nop
-/*  f195244:	06610003 */ 	bgez	$s3,.L0f195254
-/*  f195248:	00135043 */ 	sra	$t2,$s3,0x1
-/*  f19524c:	26610001 */ 	addiu	$at,$s3,0x1
-/*  f195250:	00015043 */ 	sra	$t2,$at,0x1
-.L0f195254:
-/*  f195254:	020a082a */ 	slt	$at,$s0,$t2
-/*  f195258:	10200005 */ 	beqz	$at,.L0f195270
-/*  f19525c:	00000000 */ 	nop
-.L0f195260:
-/*  f195260:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f195264:	2405000a */ 	addiu	$a1,$zero,0xa
-/*  f195268:	100000af */ 	b	.L0f195528
-/*  f19526c:	00000000 */ 	nop
-.L0f195270:
-/*  f195270:	0fc65264 */ 	jal	botGetNumOpponentsInHill
-/*  f195274:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195278:	0050082a */ 	slt	$at,$v0,$s0
-/*  f19527c:	10200012 */ 	beqz	$at,.L0f1952c8
-/*  f195280:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195284:	0c004b70 */ 	jal	random
-/*  f195288:	00000000 */ 	nop
-/*  f19528c:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f195290:	0041001b */ 	divu	$zero,$v0,$at
-/*  f195294:	00005810 */ 	mfhi	$t3
-/*  f195298:	2d610032 */ 	sltiu	$at,$t3,0x32
-/*  f19529c:	10200006 */ 	beqz	$at,.L0f1952b8
-/*  f1952a0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1952a4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1952a8:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f1952ac:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f1952b0:	1000009d */ 	b	.L0f195528
-/*  f1952b4:	00000000 */ 	nop
-.L0f1952b8:
-/*  f1952b8:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f1952bc:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f1952c0:	10000099 */ 	b	.L0f195528
-/*  f1952c4:	00000000 */ 	nop
-.L0f1952c8:
-/*  f1952c8:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f1952cc:	2405000a */ 	addiu	$a1,$zero,0xa
-/*  f1952d0:	10000095 */ 	b	.L0f195528
-/*  f1952d4:	00000000 */ 	nop
-/*  f1952d8:	24010005 */ 	addiu	$at,$zero,0x5
-.L0f1952dc:
-/*  f1952dc:	14610092 */ 	bne	$v1,$at,.L0f195528
-/*  f1952e0:	00000000 */ 	nop
-/*  f1952e4:	14570035 */ 	bne	$v0,$s7,.L0f1953bc
-/*  f1952e8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1952ec:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1952f0:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f1952f4:	0fc651c9 */ 	jal	botCountByCommand
-/*  f1952f8:	02e03025 */ 	or	$a2,$s7,$zero
-/*  f1952fc:	00408025 */ 	or	$s0,$v0,$zero
-/*  f195300:	0fc65227 */ 	jal	bot0f19489c
-/*  f195304:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195308:	10400005 */ 	beqz	$v0,.L0f195320
-/*  f19530c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195310:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f195314:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f195318:	10000083 */ 	b	.L0f195528
-/*  f19531c:	00000000 */ 	nop
-.L0f195320:
-/*  f195320:	0fc6520d */ 	jal	botIsChrsTokenHeld
-/*  f195324:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195328:	10400012 */ 	beqz	$v0,.L0f195374
-/*  f19532c:	00000000 */ 	nop
-/*  f195330:	0c004b70 */ 	jal	random
-/*  f195334:	00000000 */ 	nop
-/*  f195338:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f19533c:	0041001b */ 	divu	$zero,$v0,$at
-/*  f195340:	00006810 */ 	mfhi	$t5
-/*  f195344:	2da1001e */ 	sltiu	$at,$t5,0x1e
-/*  f195348:	10200006 */ 	beqz	$at,.L0f195364
-/*  f19534c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195350:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195354:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f195358:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f19535c:	10000072 */ 	b	.L0f195528
-/*  f195360:	00000000 */ 	nop
-.L0f195364:
-/*  f195364:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f195368:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f19536c:	1000006e */ 	b	.L0f195528
-/*  f195370:	00000000 */ 	nop
-.L0f195374:
-/*  f195374:	0c004b70 */ 	jal	random
-/*  f195378:	00000000 */ 	nop
-/*  f19537c:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f195380:	0041001b */ 	divu	$zero,$v0,$at
-/*  f195384:	00006010 */ 	mfhi	$t4
-/*  f195388:	2d810046 */ 	sltiu	$at,$t4,0x46
-/*  f19538c:	14200003 */ 	bnez	$at,.L0f19539c
-/*  f195390:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195394:	1e000005 */ 	bgtz	$s0,.L0f1953ac
-/*  f195398:	24050008 */ 	addiu	$a1,$zero,0x8
-.L0f19539c:
-/*  f19539c:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f1953a0:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f1953a4:	10000060 */ 	b	.L0f195528
-/*  f1953a8:	00000000 */ 	nop
-.L0f1953ac:
-/*  f1953ac:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f1953b0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1953b4:	1000005c */ 	b	.L0f195528
-/*  f1953b8:	00000000 */ 	nop
-.L0f1953bc:
-/*  f1953bc:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f1953c0:	0fc651c9 */ 	jal	botCountByCommand
-/*  f1953c4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1953c8:	00408825 */ 	or	$s1,$v0,$zero
-/*  f1953cc:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1953d0:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f1953d4:	0fc651c9 */ 	jal	botCountByCommand
-/*  f1953d8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1953dc:	00408025 */ 	or	$s0,$v0,$zero
-/*  f1953e0:	0fc65227 */ 	jal	bot0f19489c
-/*  f1953e4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1953e8:	10400005 */ 	beqz	$v0,.L0f195400
-/*  f1953ec:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1953f0:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f1953f4:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f1953f8:	1000004b */ 	b	.L0f195528
-/*  f1953fc:	00000000 */ 	nop
-.L0f195400:
-/*  f195400:	0fc6520d */ 	jal	botIsChrsTokenHeld
-/*  f195404:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195408:	10400014 */ 	beqz	$v0,.L0f19545c
-/*  f19540c:	00000000 */ 	nop
-/*  f195410:	5a00000a */ 	blezl	$s0,.L0f19543c
-/*  f195414:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195418:	0c004b70 */ 	jal	random
-/*  f19541c:	00000000 */ 	nop
-/*  f195420:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f195424:	0041001b */ 	divu	$zero,$v0,$at
-/*  f195428:	00007010 */ 	mfhi	$t6
-/*  f19542c:	2dc10046 */ 	sltiu	$at,$t6,0x46
-/*  f195430:	10200006 */ 	beqz	$at,.L0f19544c
-/*  f195434:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195438:	02802025 */ 	or	$a0,$s4,$zero
-.L0f19543c:
-/*  f19543c:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f195440:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f195444:	10000038 */ 	b	.L0f195528
-/*  f195448:	00000000 */ 	nop
-.L0f19544c:
-/*  f19544c:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f195450:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f195454:	10000034 */ 	b	.L0f195528
-/*  f195458:	00000000 */ 	nop
-.L0f19545c:
-/*  f19545c:	1a200005 */ 	blez	$s1,.L0f195474
-/*  f195460:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f195464:	0261001a */ 	div	$zero,$s3,$at
-/*  f195468:	00007812 */ 	mflo	$t7
-/*  f19546c:	022f082a */ 	slt	$at,$s1,$t7
-/*  f195470:	10200005 */ 	beqz	$at,.L0f195488
-.L0f195474:
-/*  f195474:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195478:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f19547c:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f195480:	10000029 */ 	b	.L0f195528
-/*  f195484:	00000000 */ 	nop
-.L0f195488:
-/*  f195488:	1a000008 */ 	blez	$s0,.L0f1954ac
-/*  f19548c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195490:	06610003 */ 	bgez	$s3,.L0f1954a0
-/*  f195494:	0013c083 */ 	sra	$t8,$s3,0x2
-/*  f195498:	26610003 */ 	addiu	$at,$s3,0x3
-/*  f19549c:	0001c083 */ 	sra	$t8,$at,0x2
-.L0f1954a0:
-/*  f1954a0:	0218082a */ 	slt	$at,$s0,$t8
-/*  f1954a4:	10200005 */ 	beqz	$at,.L0f1954bc
-/*  f1954a8:	00000000 */ 	nop
-.L0f1954ac:
-/*  f1954ac:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f1954b0:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f1954b4:	1000001c */ 	b	.L0f195528
-/*  f1954b8:	00000000 */ 	nop
-.L0f1954bc:
-/*  f1954bc:	0c004b70 */ 	jal	random
-/*  f1954c0:	00000000 */ 	nop
-/*  f1954c4:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f1954c8:	0041001b */ 	divu	$zero,$v0,$at
-/*  f1954cc:	0000c810 */ 	mfhi	$t9
-/*  f1954d0:	2f21001e */ 	sltiu	$at,$t9,0x1e
-/*  f1954d4:	10200005 */ 	beqz	$at,.L0f1954ec
-/*  f1954d8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1954dc:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f1954e0:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f1954e4:	10000010 */ 	b	.L0f195528
-/*  f1954e8:	00000000 */ 	nop
-.L0f1954ec:
-/*  f1954ec:	0c004b70 */ 	jal	random
-/*  f1954f0:	00000000 */ 	nop
-/*  f1954f4:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f1954f8:	0041001b */ 	divu	$zero,$v0,$at
-/*  f1954fc:	00004810 */ 	mfhi	$t1
-/*  f195500:	2d21001e */ 	sltiu	$at,$t1,0x1e
-/*  f195504:	10200006 */ 	beqz	$at,.L0f195520
-/*  f195508:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19550c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195510:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f195514:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f195518:	10000003 */ 	b	.L0f195528
-/*  f19551c:	00000000 */ 	nop
-.L0f195520:
-/*  f195520:	0fc64984 */ 	jal	botApplyScenarioCommand
-/*  f195524:	24050004 */ 	addiu	$a1,$zero,0x4
-.L0f195528:
-/*  f195528:	0c004b70 */ 	jal	random
-/*  f19552c:	00000000 */ 	nop
-/*  f195530:	24010960 */ 	addiu	$at,$zero,0x960
-/*  f195534:	0041001b */ 	divu	$zero,$v0,$at
-/*  f195538:	00005010 */ 	mfhi	$t2
-/*  f19553c:	254b04b0 */ 	addiu	$t3,$t2,0x4b0
-/*  f195540:	ae4b0118 */ 	sw	$t3,0x118($s2)
-/*  f195544:	928d02a0 */ 	lbu	$t5,0x2a0($s4)
-.L0f195548:
-/*  f195548:	24010029 */ 	addiu	$at,$zero,0x29
-/*  f19554c:	51a10005 */ 	beql	$t5,$at,.L0f195564
-/*  f195550:	8e4e0004 */ 	lw	$t6,0x4($s2)
-/*  f195554:	8e4c00d8 */ 	lw	$t4,0xd8($s2)
-/*  f195558:	11800398 */ 	beqz	$t4,.L0f1963bc
-/*  f19555c:	00000000 */ 	nop
-/*  f195560:	8e4e0004 */ 	lw	$t6,0x4($s2)
-.L0f195564:
-/*  f195564:	ae4000d8 */ 	sw	$zero,0xd8($s2)
-/*  f195568:	a65e0008 */ 	sh	$s8,0x8($s2)
-/*  f19556c:	91cf0047 */ 	lbu	$t7,0x47($t6)
-/*  f195570:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f195574:	15e1000e */ 	bne	$t7,$at,.L0f1955b0
-/*  f195578:	00000000 */ 	nop
-/*  f19557c:	8698017e */ 	lh	$t8,0x17e($s4)
-/*  f195580:	13d8000b */ 	beq	$s8,$t8,.L0f1955b0
-/*  f195584:	00000000 */ 	nop
-/*  f195588:	8e590128 */ 	lw	$t9,0x128($s2)
-/*  f19558c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195590:	13200007 */ 	beqz	$t9,.L0f1955b0
-/*  f195594:	00000000 */ 	nop
-/*  f195598:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f19559c:	2415002f */ 	addiu	$s5,$zero,0x2f
-/*  f1955a0:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f1955a4:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f1955a8:	a6420008 */ 	sh	$v0,0x8($s2)
-/*  f1955ac:	ae5e01d8 */ 	sw	$s8,0x1d8($s2)
-.L0f1955b0:
-/*  f1955b0:	06a10006 */ 	bgez	$s5,.L0f1955cc
-/*  f1955b4:	00000000 */ 	nop
-/*  f1955b8:	0fc651a5 */ 	jal	bot0f194694
-/*  f1955bc:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1955c0:	10400002 */ 	beqz	$v0,.L0f1955cc
-/*  f1955c4:	ae420010 */ 	sw	$v0,0x10($s2)
-/*  f1955c8:	2415002a */ 	addiu	$s5,$zero,0x2a
-.L0f1955cc:
-/*  f1955cc:	06a10240 */ 	bgez	$s5,.L0f195ed0
-/*  f1955d0:	00000000 */ 	nop
-/*  f1955d4:	92420079 */ 	lbu	$v0,0x79($s2)
-/*  f1955d8:	16e20019 */ 	bne	$s7,$v0,.L0f195640
-/*  f1955dc:	00000000 */ 	nop
-/*  f1955e0:	8e4900c0 */ 	lw	$t1,0xc0($s2)
-/*  f1955e4:	8ecb0338 */ 	lw	$t3,0x338($s6)
-/*  f1955e8:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f1955ec:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f1955f0:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*  f1955f4:	014b6821 */ 	addu	$t5,$t2,$t3
-/*  f1955f8:	8db00004 */ 	lw	$s0,0x4($t5)
-/*  f1955fc:	0fc0e6a5 */ 	jal	chrIsDead
-/*  f195600:	02002025 */ 	or	$a0,$s0,$zero
-/*  f195604:	14400232 */ 	bnez	$v0,.L0f195ed0
-/*  f195608:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19560c:	0fc64a53 */ 	jal	botIsTargetInvisible
-/*  f195610:	02002825 */ 	or	$a1,$s0,$zero
-/*  f195614:	1440022e */ 	bnez	$v0,.L0f195ed0
-/*  f195618:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19561c:	0fc64b70 */ 	jal	botPassesCowardCheck
-/*  f195620:	02002825 */ 	or	$a1,$s0,$zero
-/*  f195624:	1040022a */ 	beqz	$v0,.L0f195ed0
-/*  f195628:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19562c:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f195630:	2415002f */ 	addiu	$s5,$zero,0x2f
-/*  f195634:	a6420008 */ 	sh	$v0,0x8($s2)
-/*  f195638:	10000225 */ 	b	.L0f195ed0
-/*  f19563c:	ae5e01d8 */ 	sw	$s8,0x1d8($s2)
-.L0f195640:
-/*  f195640:	1440000d */ 	bnez	$v0,.L0f195678
-/*  f195644:	2401000d */ 	addiu	$at,$zero,0xd
-/*  f195648:	8e4c00d4 */ 	lw	$t4,0xd4($s2)
-/*  f19564c:	ae5701e0 */ 	sw	$s7,0x1e0($s2)
-/*  f195650:	8ecf0338 */ 	lw	$t7,0x338($s6)
-/*  f195654:	000c70c0 */ 	sll	$t6,$t4,0x3
-/*  f195658:	01cc7021 */ 	addu	$t6,$t6,$t4
-/*  f19565c:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f195660:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f195664:	24150032 */ 	addiu	$s5,$zero,0x32
-/*  f195668:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f19566c:	8f040004 */ 	lw	$a0,0x4($t8)
-/*  f195670:	10000217 */ 	b	.L0f195ed0
-/*  f195674:	a642000a */ 	sh	$v0,0xa($s2)
-.L0f195678:
-/*  f195678:	5441000e */ 	bnel	$v0,$at,.L0f1956b4
-/*  f19567c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f195680:	8e5900d4 */ 	lw	$t9,0xd4($s2)
-/*  f195684:	ae4001e0 */ 	sw	$zero,0x1e0($s2)
-/*  f195688:	8eca0338 */ 	lw	$t2,0x338($s6)
-/*  f19568c:	001948c0 */ 	sll	$t1,$t9,0x3
-/*  f195690:	01394821 */ 	addu	$t1,$t1,$t9
-/*  f195694:	000948c0 */ 	sll	$t1,$t1,0x3
-/*  f195698:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f19569c:	24150032 */ 	addiu	$s5,$zero,0x32
-/*  f1956a0:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f1956a4:	8d640004 */ 	lw	$a0,0x4($t3)
-/*  f1956a8:	10000209 */ 	b	.L0f195ed0
-/*  f1956ac:	a642000a */ 	sh	$v0,0xa($s2)
-/*  f1956b0:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f1956b4:
-/*  f1956b4:	54410005 */ 	bnel	$v0,$at,.L0f1956cc
-/*  f1956b8:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f1956bc:	24150033 */ 	addiu	$s5,$zero,0x33
-/*  f1956c0:	10000203 */ 	b	.L0f195ed0
-/*  f1956c4:	ae5701dc */ 	sw	$s7,0x1dc($s2)
-/*  f1956c8:	24010003 */ 	addiu	$at,$zero,0x3
-.L0f1956cc:
-/*  f1956cc:	54410005 */ 	bnel	$v0,$at,.L0f1956e4
-/*  f1956d0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1956d4:	24150033 */ 	addiu	$s5,$zero,0x33
-/*  f1956d8:	100001fd */ 	b	.L0f195ed0
-/*  f1956dc:	ae4001dc */ 	sw	$zero,0x1dc($s2)
-/*  f1956e0:	24010006 */ 	addiu	$at,$zero,0x6
-.L0f1956e4:
-/*  f1956e4:	14410089 */ 	bne	$v0,$at,.L0f19590c
-/*  f1956e8:	3c0d800b */ 	lui	$t5,%hi(g_MpSetup+0x10)
-/*  f1956ec:	91adcb98 */ 	lbu	$t5,%lo(g_MpSetup+0x10)($t5)
-/*  f1956f0:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f1956f4:	15a10083 */ 	bne	$t5,$at,.L0f195904
-/*  f1956f8:	00000000 */ 	nop
-/*  f1956fc:	8e4c009c */ 	lw	$t4,0x9c($s2)
-/*  f195700:	000c7840 */ 	sll	$t7,$t4,0x1
-/*  f195704:	05e0007f */ 	bltz	$t7,.L0f195904
-/*  f195708:	00000000 */ 	nop
-/*  f19570c:	0fc63a5a */ 	jal	radarGetTeamIndex
-/*  f195710:	92840125 */ 	lbu	$a0,0x125($s4)
-/*  f195714:	3c07800b */ 	lui	$a3,%hi(g_ScenarioData)
-/*  f195718:	00003025 */ 	or	$a2,$zero,$zero
-/*  f19571c:	24e7c110 */ 	addiu	$a3,$a3,%lo(g_ScenarioData)
-/*  f195720:	00002825 */ 	or	$a1,$zero,$zero
-/*  f195724:	27b00298 */ 	addiu	$s0,$sp,0x298
-/*  f195728:	24080003 */ 	addiu	$t0,$zero,0x3
-.L0f19572c:
-/*  f19572c:	10a20020 */ 	beq	$a1,$v0,.L0f1957b0
-/*  f195730:	0005c040 */ 	sll	$t8,$a1,0x1
-/*  f195734:	00f8c821 */ 	addu	$t9,$a3,$t8
-/*  f195738:	87290000 */ 	lh	$t1,0x0($t9)
-/*  f19573c:	00055080 */ 	sll	$t2,$a1,0x2
-/*  f195740:	00ea5821 */ 	addu	$t3,$a3,$t2
-/*  f195744:	5120001b */ 	beqzl	$t1,.L0f1957b4
-/*  f195748:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f19574c:	8d640058 */ 	lw	$a0,0x58($t3)
-/*  f195750:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f195754:	00066880 */ 	sll	$t5,$a2,0x2
-/*  f195758:	90830000 */ 	lbu	$v1,0x0($a0)
-/*  f19575c:	020d6021 */ 	addu	$t4,$s0,$t5
-/*  f195760:	50610004 */ 	beql	$v1,$at,.L0f195774
-/*  f195764:	ad840000 */ 	sw	$a0,0x0($t4)
-/*  f195768:	16e30004 */ 	bne	$s7,$v1,.L0f19577c
-/*  f19576c:	00000000 */ 	nop
-/*  f195770:	ad840000 */ 	sw	$a0,0x0($t4)
-.L0f195774:
-/*  f195774:	1000000e */ 	b	.L0f1957b0
-/*  f195778:	24c60001 */ 	addiu	$a2,$a2,0x1
-.L0f19577c:
-/*  f19577c:	11030003 */ 	beq	$t0,$v1,.L0f19578c
-/*  f195780:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f195784:	5461000b */ 	bnel	$v1,$at,.L0f1957b4
-/*  f195788:	24a50001 */ 	addiu	$a1,$a1,0x1
-.L0f19578c:
-/*  f19578c:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f195790:	928e0125 */ 	lbu	$t6,0x125($s4)
-/*  f195794:	0006c080 */ 	sll	$t8,$a2,0x2
-/*  f195798:	906f0125 */ 	lbu	$t7,0x125($v1)
-/*  f19579c:	0218c821 */ 	addu	$t9,$s0,$t8
-/*  f1957a0:	55cf0004 */ 	bnel	$t6,$t7,.L0f1957b4
-/*  f1957a4:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f1957a8:	af240000 */ 	sw	$a0,0x0($t9)
-/*  f1957ac:	24c60001 */ 	addiu	$a2,$a2,0x1
-.L0f1957b0:
-/*  f1957b0:	24a50001 */ 	addiu	$a1,$a1,0x1
-.L0f1957b4:
-/*  f1957b4:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f1957b8:	14a1ffdc */ 	bne	$a1,$at,.L0f19572c
-/*  f1957bc:	00000000 */ 	nop
-/*  f1957c0:	18c00050 */ 	blez	$a2,.L0f195904
-/*  f1957c4:	00000000 */ 	nop
-/*  f1957c8:	0c004b70 */ 	jal	random
-/*  f1957cc:	afa60294 */ 	sw	$a2,0x294($sp)
-/*  f1957d0:	8fa60294 */ 	lw	$a2,0x294($sp)
-/*  f1957d4:	0046001b */ 	divu	$zero,$v0,$a2
-/*  f1957d8:	00002010 */ 	mfhi	$a0
-/*  f1957dc:	24890001 */ 	addiu	$t1,$a0,0x1
-/*  f1957e0:	00808825 */ 	or	$s1,$a0,$zero
-/*  f1957e4:	0126001a */ 	div	$zero,$t1,$a2
-/*  f1957e8:	00001810 */ 	mfhi	$v1
-/*  f1957ec:	14c00002 */ 	bnez	$a2,.L0f1957f8
-/*  f1957f0:	00000000 */ 	nop
-/*  f1957f4:	0007000d */ 	break	0x7
-.L0f1957f8:
-/*  f1957f8:	14c00002 */ 	bnez	$a2,.L0f195804
-/*  f1957fc:	00000000 */ 	nop
-/*  f195800:	0007000d */ 	break	0x7
-.L0f195804:
-/*  f195804:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f195808:	14c10004 */ 	bne	$a2,$at,.L0f19581c
-/*  f19580c:	3c018000 */ 	lui	$at,0x8000
-/*  f195810:	15210002 */ 	bne	$t1,$at,.L0f19581c
-/*  f195814:	00000000 */ 	nop
-/*  f195818:	0006000d */ 	break	0x6
-.L0f19581c:
-/*  f19581c:	00035080 */ 	sll	$t2,$v1,0x2
-.L0f195820:
-/*  f195820:	020a5821 */ 	addu	$t3,$s0,$t2
-/*  f195824:	8d650000 */ 	lw	$a1,0x0($t3)
-/*  f195828:	afa60294 */ 	sw	$a2,0x294($sp)
-/*  f19582c:	afa30288 */ 	sw	$v1,0x288($sp)
-/*  f195830:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195834:	0fc12555 */ 	jal	chrGetSquaredDistanceToCoord
-/*  f195838:	24a50008 */ 	addiu	$a1,$a1,0x8
-/*  f19583c:	3c017f1c */ 	lui	$at,%hi(var7f1b8f54)
-/*  f195840:	c4248f54 */ 	lwc1	$f4,%lo(var7f1b8f54)($at)
-/*  f195844:	8fa30288 */ 	lw	$v1,0x288($sp)
-/*  f195848:	8fa60294 */ 	lw	$a2,0x294($sp)
-/*  f19584c:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f195850:	246d0001 */ 	addiu	$t5,$v1,0x1
-/*  f195854:	45000003 */ 	bc1f	.L0f195864
-/*  f195858:	00000000 */ 	nop
-/*  f19585c:	10000010 */ 	b	.L0f1958a0
-/*  f195860:	00608825 */ 	or	$s1,$v1,$zero
-.L0f195864:
-/*  f195864:	5071000f */ 	beql	$v1,$s1,.L0f1958a4
-/*  f195868:	00116080 */ 	sll	$t4,$s1,0x2
-/*  f19586c:	01a6001a */ 	div	$zero,$t5,$a2
-/*  f195870:	00001810 */ 	mfhi	$v1
-/*  f195874:	14c00002 */ 	bnez	$a2,.L0f195880
-/*  f195878:	00000000 */ 	nop
-/*  f19587c:	0007000d */ 	break	0x7
-.L0f195880:
-/*  f195880:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f195884:	14c10004 */ 	bne	$a2,$at,.L0f195898
-/*  f195888:	3c018000 */ 	lui	$at,0x8000
-/*  f19588c:	15a10002 */ 	bne	$t5,$at,.L0f195898
-/*  f195890:	00000000 */ 	nop
-/*  f195894:	0006000d */ 	break	0x6
-.L0f195898:
-/*  f195898:	1000ffe1 */ 	b	.L0f195820
-/*  f19589c:	00035080 */ 	sll	$t2,$v1,0x2
-.L0f1958a0:
-/*  f1958a0:	00116080 */ 	sll	$t4,$s1,0x2
-.L0f1958a4:
-/*  f1958a4:	020c9821 */ 	addu	$s3,$s0,$t4
-/*  f1958a8:	8e620000 */ 	lw	$v0,0x0($s3)
-/*  f1958ac:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f1958b0:	90430000 */ 	lbu	$v1,0x0($v0)
-/*  f1958b4:	50610004 */ 	beql	$v1,$at,.L0f1958c8
-/*  f1958b8:	2415002a */ 	addiu	$s5,$zero,0x2a
-/*  f1958bc:	16e30004 */ 	bne	$s7,$v1,.L0f1958d0
-/*  f1958c0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1958c4:	2415002a */ 	addiu	$s5,$zero,0x2a
-.L0f1958c8:
-/*  f1958c8:	10000181 */ 	b	.L0f195ed0
-/*  f1958cc:	ae420010 */ 	sw	$v0,0x10($s2)
-.L0f1958d0:
-/*  f1958d0:	0fc64d37 */ 	jal	botIsFollowing
-/*  f1958d4:	8c450004 */ 	lw	$a1,0x4($v0)
-/*  f1958d8:	1040000a */ 	beqz	$v0,.L0f195904
-/*  f1958dc:	00000000 */ 	nop
-/*  f1958e0:	0c004b70 */ 	jal	random
-/*  f1958e4:	24150032 */ 	addiu	$s5,$zero,0x32
-/*  f1958e8:	304e0003 */ 	andi	$t6,$v0,0x3
-/*  f1958ec:	2dcf0001 */ 	sltiu	$t7,$t6,0x1
-/*  f1958f0:	ae4f01e0 */ 	sw	$t7,0x1e0($s2)
-/*  f1958f4:	8e780000 */ 	lw	$t8,0x0($s3)
-/*  f1958f8:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f1958fc:	8f040004 */ 	lw	$a0,0x4($t8)
-/*  f195900:	a642000a */ 	sh	$v0,0xa($s2)
-.L0f195904:
-/*  f195904:	10000172 */ 	b	.L0f195ed0
-/*  f195908:	00000000 */ 	nop
-.L0f19590c:
-/*  f19590c:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f195910:	14410043 */ 	bne	$v0,$at,.L0f195a20
-/*  f195914:	3c19800b */ 	lui	$t9,%hi(g_MpSetup+0x10)
-/*  f195918:	9339cb98 */ 	lbu	$t9,%lo(g_MpSetup+0x10)($t9)
-/*  f19591c:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f195920:	1721016b */ 	bne	$t9,$at,.L0f195ed0
-/*  f195924:	00000000 */ 	nop
-/*  f195928:	0fc63a5a */ 	jal	radarGetTeamIndex
-/*  f19592c:	92840125 */ 	lbu	$a0,0x125($s4)
-/*  f195930:	00024880 */ 	sll	$t1,$v0,0x2
-/*  f195934:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData+0x58)
-/*  f195938:	00691821 */ 	addu	$v1,$v1,$t1
-/*  f19593c:	8c63c168 */ 	lw	$v1,%lo(g_ScenarioData+0x58)($v1)
-/*  f195940:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f195944:	90640000 */ 	lbu	$a0,0x0($v1)
-/*  f195948:	10810003 */ 	beq	$a0,$at,.L0f195958
-/*  f19594c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f195950:	54810026 */ 	bnel	$a0,$at,.L0f1959ec
-/*  f195954:	c4680008 */ 	lwc1	$f8,0x8($v1)
-.L0f195958:
-/*  f195958:	8c700004 */ 	lw	$s0,0x4($v1)
-/*  f19595c:	928a0125 */ 	lbu	$t2,0x125($s4)
-/*  f195960:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195964:	920b0125 */ 	lbu	$t3,0x125($s0)
-/*  f195968:	154b000e */ 	bne	$t2,$t3,.L0f1959a4
-/*  f19596c:	00000000 */ 	nop
-/*  f195970:	0fc64d37 */ 	jal	botIsFollowing
-/*  f195974:	02002825 */ 	or	$a1,$s0,$zero
-/*  f195978:	10400155 */ 	beqz	$v0,.L0f195ed0
-/*  f19597c:	00000000 */ 	nop
-/*  f195980:	0c004b70 */ 	jal	random
-/*  f195984:	24150032 */ 	addiu	$s5,$zero,0x32
-/*  f195988:	304d0003 */ 	andi	$t5,$v0,0x3
-/*  f19598c:	2dac0001 */ 	sltiu	$t4,$t5,0x1
-/*  f195990:	ae4c01e0 */ 	sw	$t4,0x1e0($s2)
-/*  f195994:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f195998:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19599c:	1000014c */ 	b	.L0f195ed0
-/*  f1959a0:	a642000a */ 	sh	$v0,0xa($s2)
-.L0f1959a4:
-/*  f1959a4:	0fc0e6a5 */ 	jal	chrIsDead
-/*  f1959a8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1959ac:	14400148 */ 	bnez	$v0,.L0f195ed0
-/*  f1959b0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1959b4:	0fc64a53 */ 	jal	botIsTargetInvisible
-/*  f1959b8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1959bc:	14400144 */ 	bnez	$v0,.L0f195ed0
-/*  f1959c0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1959c4:	0fc64b70 */ 	jal	botPassesCowardCheck
-/*  f1959c8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1959cc:	10400140 */ 	beqz	$v0,.L0f195ed0
-/*  f1959d0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1959d4:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f1959d8:	2415002f */ 	addiu	$s5,$zero,0x2f
-/*  f1959dc:	a6420008 */ 	sh	$v0,0x8($s2)
-/*  f1959e0:	1000013b */ 	b	.L0f195ed0
-/*  f1959e4:	ae5e01d8 */ 	sw	$s8,0x1d8($s2)
-/*  f1959e8:	c4680008 */ 	lwc1	$f8,0x8($v1)
-.L0f1959ec:
-/*  f1959ec:	2415002b */ 	addiu	$s5,$zero,0x2b
-/*  f1959f0:	24640028 */ 	addiu	$a0,$v1,0x28
-/*  f1959f4:	e64800ec */ 	swc1	$f8,0xec($s2)
-/*  f1959f8:	c466000c */ 	lwc1	$f6,0xc($v1)
-/*  f1959fc:	264500f8 */ 	addiu	$a1,$s2,0xf8
-/*  f195a00:	e64600f0 */ 	swc1	$f6,0xf0($s2)
-/*  f195a04:	c46a0010 */ 	lwc1	$f10,0x10($v1)
-/*  f195a08:	0fc195e9 */ 	jal	roomsCopy
-/*  f195a0c:	e64a00f4 */ 	swc1	$f10,0xf4($s2)
-/*  f195a10:	924e004c */ 	lbu	$t6,0x4c($s2)
-/*  f195a14:	31cfff7f */ 	andi	$t7,$t6,0xff7f
-/*  f195a18:	1000012d */ 	b	.L0f195ed0
-/*  f195a1c:	a24f004c */ 	sb	$t7,0x4c($s2)
-.L0f195a20:
-/*  f195a20:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f195a24:	14410048 */ 	bne	$v0,$at,.L0f195b48
-/*  f195a28:	3c18800b */ 	lui	$t8,%hi(g_MpSetup+0x10)
-/*  f195a2c:	9318cb98 */ 	lbu	$t8,%lo(g_MpSetup+0x10)($t8)
-/*  f195a30:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f195a34:	17010126 */ 	bne	$t8,$at,.L0f195ed0
-/*  f195a38:	00000000 */ 	nop
-/*  f195a3c:	8e99001c */ 	lw	$t9,0x1c($s4)
-/*  f195a40:	3c0a800b */ 	lui	$t2,%hi(g_ScenarioData+0xe)
-/*  f195a44:	854ac11e */ 	lh	$t2,%lo(g_ScenarioData+0xe)($t2)
-/*  f195a48:	87290028 */ 	lh	$t1,0x28($t9)
-/*  f195a4c:	152a0016 */ 	bne	$t1,$t2,.L0f195aa8
-/*  f195a50:	00000000 */ 	nop
-/*  f195a54:	868b017e */ 	lh	$t3,0x17e($s4)
-/*  f195a58:	13cb0013 */ 	beq	$s8,$t3,.L0f195aa8
-/*  f195a5c:	00000000 */ 	nop
-/*  f195a60:	8e4d0128 */ 	lw	$t5,0x128($s2)
-/*  f195a64:	11a00010 */ 	beqz	$t5,.L0f195aa8
-/*  f195a68:	00000000 */ 	nop
-/*  f195a6c:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f195a70:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195a74:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195a78:	0fc64b70 */ 	jal	botPassesCowardCheck
-/*  f195a7c:	8c450004 */ 	lw	$a1,0x4($v0)
-/*  f195a80:	10400009 */ 	beqz	$v0,.L0f195aa8
-/*  f195a84:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195a88:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f195a8c:	2415002f */ 	addiu	$s5,$zero,0x2f
-/*  f195a90:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f195a94:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f195a98:	240c012c */ 	addiu	$t4,$zero,0x12c
-/*  f195a9c:	a6420008 */ 	sh	$v0,0x8($s2)
-/*  f195aa0:	1000010b */ 	b	.L0f195ed0
-/*  f195aa4:	ae4c01d8 */ 	sw	$t4,0x1d8($s2)
-.L0f195aa8:
-/*  f195aa8:	3c04800b */ 	lui	$a0,%hi(g_ScenarioData+0xe)
-/*  f195aac:	27ae0260 */ 	addiu	$t6,$sp,0x260
-/*  f195ab0:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f195ab4:	8484c11e */ 	lh	$a0,%lo(g_ScenarioData+0xe)($a0)
-/*  f195ab8:	27a5026c */ 	addiu	$a1,$sp,0x26c
-/*  f195abc:	27a60268 */ 	addiu	$a2,$sp,0x268
-/*  f195ac0:	0fc66adc */ 	jal	func0f19ab70
-/*  f195ac4:	27a70264 */ 	addiu	$a3,$sp,0x264
-/*  f195ac8:	10400101 */ 	beqz	$v0,.L0f195ed0
-/*  f195acc:	c7b2026c */ 	lwc1	$f18,0x26c($sp)
-/*  f195ad0:	e65200ec */ 	swc1	$f18,0xec($s2)
-/*  f195ad4:	c7a40270 */ 	lwc1	$f4,0x270($sp)
-/*  f195ad8:	3c04800b */ 	lui	$a0,%hi(g_ScenarioData+0xe)
-/*  f195adc:	2415002b */ 	addiu	$s5,$zero,0x2b
-/*  f195ae0:	e64400f0 */ 	swc1	$f4,0xf0($s2)
-/*  f195ae4:	c7a80274 */ 	lwc1	$f8,0x274($sp)
-/*  f195ae8:	2484c11e */ 	addiu	$a0,$a0,%lo(g_ScenarioData+0xe)
-/*  f195aec:	264500f8 */ 	addiu	$a1,$s2,0xf8
-/*  f195af0:	0fc195e9 */ 	jal	roomsCopy
-/*  f195af4:	e64800f4 */ 	swc1	$f8,0xf4($s2)
-/*  f195af8:	8e8f001c */ 	lw	$t7,0x1c($s4)
-/*  f195afc:	3c19800b */ 	lui	$t9,%hi(g_ScenarioData+0xe)
-/*  f195b00:	8739c11e */ 	lh	$t9,%lo(g_ScenarioData+0xe)($t9)
-/*  f195b04:	85f80028 */ 	lh	$t8,0x28($t7)
-/*  f195b08:	924e004c */ 	lbu	$t6,0x4c($s2)
-/*  f195b0c:	3c0a800b */ 	lui	$t2,%hi(g_ScenarioData+0xe)
-/*  f195b10:	03194826 */ 	xor	$t1,$t8,$t9
-/*  f195b14:	2d290001 */ 	sltiu	$t1,$t1,0x1
-/*  f195b18:	0009582b */ 	sltu	$t3,$zero,$t1
-/*  f195b1c:	000b61c0 */ 	sll	$t4,$t3,0x7
-/*  f195b20:	31cfff7f */ 	andi	$t7,$t6,0xff7f
-/*  f195b24:	018fc025 */ 	or	$t8,$t4,$t7
-/*  f195b28:	a258004c */ 	sb	$t8,0x4c($s2)
-/*  f195b2c:	8fb90264 */ 	lw	$t9,0x264($sp)
-/*  f195b30:	a6590048 */ 	sh	$t9,0x48($s2)
-/*  f195b34:	8fa90260 */ 	lw	$t1,0x260($sp)
-/*  f195b38:	a649004a */ 	sh	$t1,0x4a($s2)
-/*  f195b3c:	854ac11e */ 	lh	$t2,%lo(g_ScenarioData+0xe)($t2)
-/*  f195b40:	100000e3 */ 	b	.L0f195ed0
-/*  f195b44:	ae4a00bc */ 	sw	$t2,0xbc($s2)
-.L0f195b48:
-/*  f195b48:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f195b4c:	1441002c */ 	bne	$v0,$at,.L0f195c00
-/*  f195b50:	3c0b800b */ 	lui	$t3,%hi(g_MpSetup+0x10)
-/*  f195b54:	916bcb98 */ 	lbu	$t3,%lo(g_MpSetup+0x10)($t3)
-/*  f195b58:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f195b5c:	3c04800b */ 	lui	$a0,%hi(g_ScenarioData+0xe)
-/*  f195b60:	156100db */ 	bne	$t3,$at,.L0f195ed0
-/*  f195b64:	27a50254 */ 	addiu	$a1,$sp,0x254
-/*  f195b68:	27ad0248 */ 	addiu	$t5,$sp,0x248
-/*  f195b6c:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f195b70:	8484c11e */ 	lh	$a0,%lo(g_ScenarioData+0xe)($a0)
-/*  f195b74:	27a60250 */ 	addiu	$a2,$sp,0x250
-/*  f195b78:	0fc66adc */ 	jal	func0f19ab70
-/*  f195b7c:	27a7024c */ 	addiu	$a3,$sp,0x24c
-/*  f195b80:	104000d3 */ 	beqz	$v0,.L0f195ed0
-/*  f195b84:	c7a60254 */ 	lwc1	$f6,0x254($sp)
-/*  f195b88:	e64600ec */ 	swc1	$f6,0xec($s2)
-/*  f195b8c:	c7aa0258 */ 	lwc1	$f10,0x258($sp)
-/*  f195b90:	3c04800b */ 	lui	$a0,%hi(g_ScenarioData+0xe)
-/*  f195b94:	2415002b */ 	addiu	$s5,$zero,0x2b
-/*  f195b98:	e64a00f0 */ 	swc1	$f10,0xf0($s2)
-/*  f195b9c:	c7b2025c */ 	lwc1	$f18,0x25c($sp)
-/*  f195ba0:	2484c11e */ 	addiu	$a0,$a0,%lo(g_ScenarioData+0xe)
-/*  f195ba4:	264500f8 */ 	addiu	$a1,$s2,0xf8
-/*  f195ba8:	0fc195e9 */ 	jal	roomsCopy
-/*  f195bac:	e65200f4 */ 	swc1	$f18,0xf4($s2)
-/*  f195bb0:	8e8e001c */ 	lw	$t6,0x1c($s4)
-/*  f195bb4:	3c0f800b */ 	lui	$t7,%hi(g_ScenarioData+0xe)
-/*  f195bb8:	85efc11e */ 	lh	$t7,%lo(g_ScenarioData+0xe)($t7)
-/*  f195bbc:	85cc0028 */ 	lh	$t4,0x28($t6)
-/*  f195bc0:	924d004c */ 	lbu	$t5,0x4c($s2)
-/*  f195bc4:	3c19800b */ 	lui	$t9,%hi(g_ScenarioData+0xe)
-/*  f195bc8:	018fc026 */ 	xor	$t8,$t4,$t7
-/*  f195bcc:	2f180001 */ 	sltiu	$t8,$t8,0x1
-/*  f195bd0:	0018482b */ 	sltu	$t1,$zero,$t8
-/*  f195bd4:	000959c0 */ 	sll	$t3,$t1,0x7
-/*  f195bd8:	31aeff7f */ 	andi	$t6,$t5,0xff7f
-/*  f195bdc:	016e6025 */ 	or	$t4,$t3,$t6
-/*  f195be0:	a24c004c */ 	sb	$t4,0x4c($s2)
-/*  f195be4:	8faf024c */ 	lw	$t7,0x24c($sp)
-/*  f195be8:	a64f0048 */ 	sh	$t7,0x48($s2)
-/*  f195bec:	8fb80248 */ 	lw	$t8,0x248($sp)
-/*  f195bf0:	a658004a */ 	sh	$t8,0x4a($s2)
-/*  f195bf4:	8739c11e */ 	lh	$t9,%lo(g_ScenarioData+0xe)($t9)
-/*  f195bf8:	100000b5 */ 	b	.L0f195ed0
-/*  f195bfc:	ae5900bc */ 	sw	$t9,0xbc($s2)
-.L0f195c00:
-/*  f195c00:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f195c04:	1441003b */ 	bne	$v0,$at,.L0f195cf4
-/*  f195c08:	3c09800b */ 	lui	$t1,%hi(g_MpSetup+0x10)
-/*  f195c0c:	9129cb98 */ 	lbu	$t1,%lo(g_MpSetup+0x10)($t1)
-/*  f195c10:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f195c14:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData+0x13c)
-/*  f195c18:	152100ad */ 	bne	$t1,$at,.L0f195ed0
-/*  f195c1c:	00000000 */ 	nop
-/*  f195c20:	8c42c24c */ 	lw	$v0,%lo(g_ScenarioData+0x13c)($v0)
-/*  f195c24:	104000aa */ 	beqz	$v0,.L0f195ed0
-/*  f195c28:	00000000 */ 	nop
-/*  f195c2c:	8e8a001c */ 	lw	$t2,0x1c($s4)
-/*  f195c30:	104a00a7 */ 	beq	$v0,$t2,.L0f195ed0
-/*  f195c34:	00000000 */ 	nop
-/*  f195c38:	90430000 */ 	lbu	$v1,0x0($v0)
-/*  f195c3c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f195c40:	3c0d800b */ 	lui	$t5,%hi(g_MpSetup+0xc)
-/*  f195c44:	10610003 */ 	beq	$v1,$at,.L0f195c54
-/*  f195c48:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f195c4c:	54610027 */ 	bnel	$v1,$at,.L0f195cec
-/*  f195c50:	2415002c */ 	addiu	$s5,$zero,0x2c
-.L0f195c54:
-/*  f195c54:	8dadcb94 */ 	lw	$t5,%lo(g_MpSetup+0xc)($t5)
-/*  f195c58:	8c500004 */ 	lw	$s0,0x4($v0)
-/*  f195c5c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195c60:	31ab0002 */ 	andi	$t3,$t5,0x2
-/*  f195c64:	11600013 */ 	beqz	$t3,.L0f195cb4
-/*  f195c68:	00000000 */ 	nop
-/*  f195c6c:	928e0125 */ 	lbu	$t6,0x125($s4)
-/*  f195c70:	920c0125 */ 	lbu	$t4,0x125($s0)
-/*  f195c74:	02002825 */ 	or	$a1,$s0,$zero
-/*  f195c78:	15cc000e */ 	bne	$t6,$t4,.L0f195cb4
-/*  f195c7c:	00000000 */ 	nop
-/*  f195c80:	0fc64d37 */ 	jal	botIsFollowing
-/*  f195c84:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195c88:	10400091 */ 	beqz	$v0,.L0f195ed0
-/*  f195c8c:	00000000 */ 	nop
-/*  f195c90:	0c004b70 */ 	jal	random
-/*  f195c94:	24150032 */ 	addiu	$s5,$zero,0x32
-/*  f195c98:	304f0003 */ 	andi	$t7,$v0,0x3
-/*  f195c9c:	2df80001 */ 	sltiu	$t8,$t7,0x1
-/*  f195ca0:	ae5801e0 */ 	sw	$t8,0x1e0($s2)
-/*  f195ca4:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f195ca8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f195cac:	10000088 */ 	b	.L0f195ed0
-/*  f195cb0:	a642000a */ 	sh	$v0,0xa($s2)
-.L0f195cb4:
-/*  f195cb4:	0fc64a53 */ 	jal	botIsTargetInvisible
-/*  f195cb8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f195cbc:	14400084 */ 	bnez	$v0,.L0f195ed0
-/*  f195cc0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195cc4:	0fc64b70 */ 	jal	botPassesCowardCheck
-/*  f195cc8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f195ccc:	10400080 */ 	beqz	$v0,.L0f195ed0
-/*  f195cd0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f195cd4:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f195cd8:	2415002f */ 	addiu	$s5,$zero,0x2f
-/*  f195cdc:	a6420008 */ 	sh	$v0,0x8($s2)
-/*  f195ce0:	1000007b */ 	b	.L0f195ed0
-/*  f195ce4:	ae5e01d8 */ 	sw	$s8,0x1d8($s2)
-/*  f195ce8:	2415002c */ 	addiu	$s5,$zero,0x2c
-.L0f195cec:
-/*  f195cec:	10000078 */ 	b	.L0f195ed0
-/*  f195cf0:	ae420010 */ 	sw	$v0,0x10($s2)
-.L0f195cf4:
-/*  f195cf4:	2401000b */ 	addiu	$at,$zero,0xb
-/*  f195cf8:	1441003a */ 	bne	$v0,$at,.L0f195de4
-/*  f195cfc:	3c19800b */ 	lui	$t9,%hi(g_MpSetup+0x10)
-/*  f195d00:	9339cb98 */ 	lbu	$t9,%lo(g_MpSetup+0x10)($t9)
-/*  f195d04:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData+0x4)
-/*  f195d08:	16f90071 */ 	bne	$s7,$t9,.L0f195ed0
-/*  f195d0c:	00000000 */ 	nop
-/*  f195d10:	8c42c114 */ 	lw	$v0,%lo(g_ScenarioData+0x4)($v0)
-/*  f195d14:	1040006e */ 	beqz	$v0,.L0f195ed0
-/*  f195d18:	00000000 */ 	nop
-/*  f195d1c:	8e89001c */ 	lw	$t1,0x1c($s4)
-/*  f195d20:	1049006b */ 	beq	$v0,$t1,.L0f195ed0
-/*  f195d24:	00000000 */ 	nop
-/*  f195d28:	90430000 */ 	lbu	$v1,0x0($v0)
-/*  f195d2c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f195d30:	3c0a800b */ 	lui	$t2,%hi(g_MpSetup+0xc)
-/*  f195d34:	10610003 */ 	beq	$v1,$at,.L0f195d44
-/*  f195d38:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f195d3c:	54610027 */ 	bnel	$v1,$at,.L0f195ddc
-/*  f195d40:	2415002c */ 	addiu	$s5,$zero,0x2c
-.L0f195d44:
-/*  f195d44:	8d4acb94 */ 	lw	$t2,%lo(g_MpSetup+0xc)($t2)
-/*  f195d48:	8c500004 */ 	lw	$s0,0x4($v0)
-/*  f195d4c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195d50:	314d0002 */ 	andi	$t5,$t2,0x2
-/*  f195d54:	11a00013 */ 	beqz	$t5,.L0f195da4
-/*  f195d58:	00000000 */ 	nop
-/*  f195d5c:	928b0125 */ 	lbu	$t3,0x125($s4)
-/*  f195d60:	920e0125 */ 	lbu	$t6,0x125($s0)
-/*  f195d64:	02002825 */ 	or	$a1,$s0,$zero
-/*  f195d68:	156e000e */ 	bne	$t3,$t6,.L0f195da4
-/*  f195d6c:	00000000 */ 	nop
-/*  f195d70:	0fc64d37 */ 	jal	botIsFollowing
-/*  f195d74:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195d78:	10400055 */ 	beqz	$v0,.L0f195ed0
-/*  f195d7c:	00000000 */ 	nop
-/*  f195d80:	0c004b70 */ 	jal	random
-/*  f195d84:	24150032 */ 	addiu	$s5,$zero,0x32
-/*  f195d88:	304c0003 */ 	andi	$t4,$v0,0x3
-/*  f195d8c:	2d8f0001 */ 	sltiu	$t7,$t4,0x1
-/*  f195d90:	ae4f01e0 */ 	sw	$t7,0x1e0($s2)
-/*  f195d94:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f195d98:	02002025 */ 	or	$a0,$s0,$zero
-/*  f195d9c:	1000004c */ 	b	.L0f195ed0
-/*  f195da0:	a642000a */ 	sh	$v0,0xa($s2)
-.L0f195da4:
-/*  f195da4:	0fc64a53 */ 	jal	botIsTargetInvisible
-/*  f195da8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f195dac:	14400048 */ 	bnez	$v0,.L0f195ed0
-/*  f195db0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195db4:	0fc64b70 */ 	jal	botPassesCowardCheck
-/*  f195db8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f195dbc:	10400044 */ 	beqz	$v0,.L0f195ed0
-/*  f195dc0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f195dc4:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f195dc8:	2415002f */ 	addiu	$s5,$zero,0x2f
-/*  f195dcc:	a6420008 */ 	sh	$v0,0x8($s2)
-/*  f195dd0:	1000003f */ 	b	.L0f195ed0
-/*  f195dd4:	ae5e01d8 */ 	sw	$s8,0x1d8($s2)
-/*  f195dd8:	2415002c */ 	addiu	$s5,$zero,0x2c
-.L0f195ddc:
-/*  f195ddc:	1000003c */ 	b	.L0f195ed0
-/*  f195de0:	ae420010 */ 	sw	$v0,0x10($s2)
-.L0f195de4:
-/*  f195de4:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f195de8:	14410039 */ 	bne	$v0,$at,.L0f195ed0
-/*  f195dec:	3c18800b */ 	lui	$t8,%hi(g_MpSetup+0x10)
-/*  f195df0:	9318cb98 */ 	lbu	$t8,%lo(g_MpSetup+0x10)($t8)
-/*  f195df4:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f195df8:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData+0x4)
-/*  f195dfc:	17010034 */ 	bne	$t8,$at,.L0f195ed0
-/*  f195e00:	00000000 */ 	nop
-/*  f195e04:	8c42c114 */ 	lw	$v0,%lo(g_ScenarioData+0x4)($v0)
-/*  f195e08:	3c09800b */ 	lui	$t1,%hi(g_ScenarioData+0x8)
-/*  f195e0c:	04400030 */ 	bltz	$v0,.L0f195ed0
-/*  f195e10:	0002c840 */ 	sll	$t9,$v0,0x1
-/*  f195e14:	01394821 */ 	addu	$t1,$t1,$t9
-/*  f195e18:	8529c118 */ 	lh	$t1,%lo(g_ScenarioData+0x8)($t1)
-/*  f195e1c:	3c0d800b */ 	lui	$t5,%hi(g_MpAllChrPtrs)
-/*  f195e20:	8e8b001c */ 	lw	$t3,0x1c($s4)
-/*  f195e24:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f195e28:	01aa6821 */ 	addu	$t5,$t5,$t2
-/*  f195e2c:	8dadc4d0 */ 	lw	$t5,%lo(g_MpAllChrPtrs)($t5)
-/*  f195e30:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0xc)
-/*  f195e34:	8da3001c */ 	lw	$v1,0x1c($t5)
-/*  f195e38:	106b0025 */ 	beq	$v1,$t3,.L0f195ed0
-/*  f195e3c:	00000000 */ 	nop
-/*  f195e40:	8dcecb94 */ 	lw	$t6,%lo(g_MpSetup+0xc)($t6)
-/*  f195e44:	8c700004 */ 	lw	$s0,0x4($v1)
-/*  f195e48:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195e4c:	31cc0002 */ 	andi	$t4,$t6,0x2
-/*  f195e50:	11800013 */ 	beqz	$t4,.L0f195ea0
-/*  f195e54:	00000000 */ 	nop
-/*  f195e58:	928f0125 */ 	lbu	$t7,0x125($s4)
-/*  f195e5c:	92180125 */ 	lbu	$t8,0x125($s0)
-/*  f195e60:	02002825 */ 	or	$a1,$s0,$zero
-/*  f195e64:	15f8000e */ 	bne	$t7,$t8,.L0f195ea0
-/*  f195e68:	00000000 */ 	nop
-/*  f195e6c:	0fc64d37 */ 	jal	botIsFollowing
-/*  f195e70:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195e74:	10400016 */ 	beqz	$v0,.L0f195ed0
-/*  f195e78:	00000000 */ 	nop
-/*  f195e7c:	0c004b70 */ 	jal	random
-/*  f195e80:	24150032 */ 	addiu	$s5,$zero,0x32
-/*  f195e84:	30590003 */ 	andi	$t9,$v0,0x3
-/*  f195e88:	2f290001 */ 	sltiu	$t1,$t9,0x1
-/*  f195e8c:	ae4901e0 */ 	sw	$t1,0x1e0($s2)
-/*  f195e90:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f195e94:	02002025 */ 	or	$a0,$s0,$zero
-/*  f195e98:	1000000d */ 	b	.L0f195ed0
-/*  f195e9c:	a642000a */ 	sh	$v0,0xa($s2)
-.L0f195ea0:
-/*  f195ea0:	0fc64a53 */ 	jal	botIsTargetInvisible
-/*  f195ea4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f195ea8:	14400009 */ 	bnez	$v0,.L0f195ed0
-/*  f195eac:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195eb0:	0fc64b70 */ 	jal	botPassesCowardCheck
-/*  f195eb4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f195eb8:	10400005 */ 	beqz	$v0,.L0f195ed0
-/*  f195ebc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f195ec0:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f195ec4:	2415002f */ 	addiu	$s5,$zero,0x2f
-/*  f195ec8:	a6420008 */ 	sh	$v0,0x8($s2)
-/*  f195ecc:	ae5e01d8 */ 	sw	$s8,0x1d8($s2)
-.L0f195ed0:
-/*  f195ed0:	06a10078 */ 	bgez	$s5,.L0f1960b4
-/*  f195ed4:	3c03800b */ 	lui	$v1,%hi(g_MpSetup+0x10)
-/*  f195ed8:	9063cb98 */ 	lbu	$v1,%lo(g_MpSetup+0x10)($v1)
-/*  f195edc:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f195ee0:	16e3001a */ 	bne	$s7,$v1,.L0f195f4c
-/*  f195ee4:	00000000 */ 	nop
-/*  f195ee8:	8e4a009c */ 	lw	$t2,0x9c($s2)
-/*  f195eec:	000a6fc2 */ 	srl	$t5,$t2,0x1f
-/*  f195ef0:	11a00070 */ 	beqz	$t5,.L0f1960b4
-/*  f195ef4:	00000000 */ 	nop
-/*  f195ef8:	0c004b70 */ 	jal	random
-/*  f195efc:	03c08025 */ 	or	$s0,$s8,$zero
-/*  f195f00:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f195f04:	0041001b */ 	divu	$zero,$v0,$at
-/*  f195f08:	00005810 */ 	mfhi	$t3
-/*  f195f0c:	2d610042 */ 	sltiu	$at,$t3,0x42
-/*  f195f10:	10200005 */ 	beqz	$at,.L0f195f28
-/*  f195f14:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195f18:	3c0547c3 */ 	lui	$a1,0x47c3
-/*  f195f1c:	0fc64d4c */ 	jal	bot0f193530
-/*  f195f20:	34a55000 */ 	ori	$a1,$a1,0x5000
-/*  f195f24:	00408025 */ 	or	$s0,$v0,$zero
-.L0f195f28:
-/*  f195f28:	06000062 */ 	bltz	$s0,.L0f1960b4
-/*  f195f2c:	00000000 */ 	nop
-/*  f195f30:	0c004b70 */ 	jal	random
-/*  f195f34:	24150032 */ 	addiu	$s5,$zero,0x32
-/*  f195f38:	304e0003 */ 	andi	$t6,$v0,0x3
-/*  f195f3c:	2dcc0001 */ 	sltiu	$t4,$t6,0x1
-/*  f195f40:	ae4c01e0 */ 	sw	$t4,0x1e0($s2)
-/*  f195f44:	1000005b */ 	b	.L0f1960b4
-/*  f195f48:	a650000a */ 	sh	$s0,0xa($s2)
-.L0f195f4c:
-/*  f195f4c:	14610024 */ 	bne	$v1,$at,.L0f195fe0
-/*  f195f50:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData+0x4)
-/*  f195f54:	8c42c114 */ 	lw	$v0,%lo(g_ScenarioData+0x4)($v0)
-/*  f195f58:	3c18800b */ 	lui	$t8,%hi(g_ScenarioData+0x8)
-/*  f195f5c:	04400055 */ 	bltz	$v0,.L0f1960b4
-/*  f195f60:	00027840 */ 	sll	$t7,$v0,0x1
-/*  f195f64:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f195f68:	8718c118 */ 	lh	$t8,%lo(g_ScenarioData+0x8)($t8)
-/*  f195f6c:	3c09800b */ 	lui	$t1,%hi(g_MpAllChrPtrs)
-/*  f195f70:	8e8a001c */ 	lw	$t2,0x1c($s4)
-/*  f195f74:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f195f78:	01394821 */ 	addu	$t1,$t1,$t9
-/*  f195f7c:	8d29c4d0 */ 	lw	$t1,%lo(g_MpAllChrPtrs)($t1)
-/*  f195f80:	8d23001c */ 	lw	$v1,0x1c($t1)
-/*  f195f84:	146a004b */ 	bne	$v1,$t2,.L0f1960b4
-/*  f195f88:	00000000 */ 	nop
-/*  f195f8c:	0c004b70 */ 	jal	random
-/*  f195f90:	03c08025 */ 	or	$s0,$s8,$zero
-/*  f195f94:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f195f98:	0041001b */ 	divu	$zero,$v0,$at
-/*  f195f9c:	00006810 */ 	mfhi	$t5
-/*  f195fa0:	2da10042 */ 	sltiu	$at,$t5,0x42
-/*  f195fa4:	10200005 */ 	beqz	$at,.L0f195fbc
-/*  f195fa8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195fac:	3c0547c3 */ 	lui	$a1,0x47c3
-/*  f195fb0:	0fc64d4c */ 	jal	bot0f193530
-/*  f195fb4:	34a55000 */ 	ori	$a1,$a1,0x5000
-/*  f195fb8:	00408025 */ 	or	$s0,$v0,$zero
-.L0f195fbc:
-/*  f195fbc:	0600003d */ 	bltz	$s0,.L0f1960b4
-/*  f195fc0:	00000000 */ 	nop
-/*  f195fc4:	0c004b70 */ 	jal	random
-/*  f195fc8:	24150032 */ 	addiu	$s5,$zero,0x32
-/*  f195fcc:	304b0003 */ 	andi	$t3,$v0,0x3
-/*  f195fd0:	2d6e0001 */ 	sltiu	$t6,$t3,0x1
-/*  f195fd4:	ae4e01e0 */ 	sw	$t6,0x1e0($s2)
-/*  f195fd8:	10000036 */ 	b	.L0f1960b4
-/*  f195fdc:	a650000a */ 	sh	$s0,0xa($s2)
-.L0f195fe0:
-/*  f195fe0:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f195fe4:	54610021 */ 	bnel	$v1,$at,.L0f19606c
-/*  f195fe8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f195fec:	0fc65227 */ 	jal	bot0f19489c
-/*  f195ff0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195ff4:	1040002f */ 	beqz	$v0,.L0f1960b4
-/*  f195ff8:	00000000 */ 	nop
-/*  f195ffc:	92840125 */ 	lbu	$a0,0x125($s4)
-/*  f196000:	0fc63a5a */ 	jal	radarGetTeamIndex
-/*  f196004:	2415002b */ 	addiu	$s5,$zero,0x2b
-/*  f196008:	3c07800b */ 	lui	$a3,%hi(g_ScenarioData)
-/*  f19600c:	24e7c110 */ 	addiu	$a3,$a3,%lo(g_ScenarioData)
-/*  f196010:	00026040 */ 	sll	$t4,$v0,0x1
-/*  f196014:	00ec7821 */ 	addu	$t7,$a3,$t4
-/*  f196018:	85e30008 */ 	lh	$v1,0x8($t7)
-/*  f19601c:	24050042 */ 	addiu	$a1,$zero,0x42
-/*  f196020:	27a601d8 */ 	addiu	$a2,$sp,0x1d8
-/*  f196024:	0003c100 */ 	sll	$t8,$v1,0x4
-/*  f196028:	00f8c821 */ 	addu	$t9,$a3,$t8
-/*  f19602c:	0fc456ac */ 	jal	padUnpack
-/*  f196030:	87240018 */ 	lh	$a0,0x18($t9)
-/*  f196034:	c7a401d8 */ 	lwc1	$f4,0x1d8($sp)
-/*  f196038:	924a004c */ 	lbu	$t2,0x4c($s2)
-/*  f19603c:	e64400ec */ 	swc1	$f4,0xec($s2)
-/*  f196040:	c7a801dc */ 	lwc1	$f8,0x1dc($sp)
-/*  f196044:	314dff7f */ 	andi	$t5,$t2,0xff7f
-/*  f196048:	e64800f0 */ 	swc1	$f8,0xf0($s2)
-/*  f19604c:	c7a601e0 */ 	lwc1	$f6,0x1e0($sp)
-/*  f196050:	e64600f4 */ 	swc1	$f6,0xf4($s2)
-/*  f196054:	8fa90220 */ 	lw	$t1,0x220($sp)
-/*  f196058:	a65e00fa */ 	sh	$s8,0xfa($s2)
-/*  f19605c:	a24d004c */ 	sb	$t5,0x4c($s2)
-/*  f196060:	10000014 */ 	b	.L0f1960b4
-/*  f196064:	a64900f8 */ 	sh	$t1,0xf8($s2)
-/*  f196068:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f19606c:
-/*  f19606c:	14610011 */ 	bne	$v1,$at,.L0f1960b4
-/*  f196070:	3c0b800b */ 	lui	$t3,%hi(g_ScenarioData+0x13c)
-/*  f196074:	8d6bc24c */ 	lw	$t3,%lo(g_ScenarioData+0x13c)($t3)
-/*  f196078:	8e8e001c */ 	lw	$t6,0x1c($s4)
-/*  f19607c:	156e000d */ 	bne	$t3,$t6,.L0f1960b4
-/*  f196080:	00000000 */ 	nop
-/*  f196084:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f196088:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19608c:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
-/*  f196090:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
-/*  f196094:	846c00d2 */ 	lh	$t4,0xd2($v1)
-/*  f196098:	2415002e */ 	addiu	$s5,$zero,0x2e
-/*  f19609c:	104c0005 */ 	beq	$v0,$t4,.L0f1960b4
-/*  f1960a0:	00000000 */ 	nop
-/*  f1960a4:	8c6f0080 */ 	lw	$t7,0x80($v1)
-/*  f1960a8:	2415002c */ 	addiu	$s5,$zero,0x2c
-/*  f1960ac:	10000001 */ 	b	.L0f1960b4
-/*  f1960b0:	ae4f0010 */ 	sw	$t7,0x10($s2)
-.L0f1960b4:
-/*  f1960b4:	06a100a0 */ 	bgez	$s5,.L0f196338
-/*  f1960b8:	00000000 */ 	nop
-/*  f1960bc:	8e580004 */ 	lw	$t8,0x4($s2)
-/*  f1960c0:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f1960c4:	93020047 */ 	lbu	$v0,0x47($t8)
-/*  f1960c8:	54410011 */ 	bnel	$v0,$at,.L0f196110
-/*  f1960cc:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f1960d0:	86420076 */ 	lh	$v0,0x76($s2)
-/*  f1960d4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1960d8:	3c05800b */ 	lui	$a1,%hi(g_MpAllChrPtrs)
-/*  f1960dc:	04400096 */ 	bltz	$v0,.L0f196338
-/*  f1960e0:	0002c880 */ 	sll	$t9,$v0,0x2
-/*  f1960e4:	00b92821 */ 	addu	$a1,$a1,$t9
-/*  f1960e8:	0fc64a53 */ 	jal	botIsTargetInvisible
-/*  f1960ec:	8ca5c4d0 */ 	lw	$a1,%lo(g_MpAllChrPtrs)($a1)
-/*  f1960f0:	14400091 */ 	bnez	$v0,.L0f196338
-/*  f1960f4:	00000000 */ 	nop
-/*  f1960f8:	86490076 */ 	lh	$t1,0x76($s2)
-/*  f1960fc:	2415002f */ 	addiu	$s5,$zero,0x2f
-/*  f196100:	ae5e01d8 */ 	sw	$s8,0x1d8($s2)
-/*  f196104:	1000008c */ 	b	.L0f196338
-/*  f196108:	a6490008 */ 	sh	$t1,0x8($s2)
-/*  f19610c:	24010009 */ 	addiu	$at,$zero,0x9
-.L0f196110:
-/*  f196110:	54410021 */ 	bnel	$v0,$at,.L0f196198
-/*  f196114:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f196118:	8e4a0114 */ 	lw	$t2,0x114($s2)
-/*  f19611c:	0543000f */ 	bgezl	$t2,.L0f19615c
-/*  f196120:	8e420114 */ 	lw	$v0,0x114($s2)
-/*  f196124:	86420076 */ 	lh	$v0,0x76($s2)
-/*  f196128:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19612c:	3c05800b */ 	lui	$a1,%hi(g_MpAllChrPtrs)
-/*  f196130:	04400009 */ 	bltz	$v0,.L0f196158
-/*  f196134:	00026880 */ 	sll	$t5,$v0,0x2
-/*  f196138:	00ad2821 */ 	addu	$a1,$a1,$t5
-/*  f19613c:	8ca5c4d0 */ 	lw	$a1,%lo(g_MpAllChrPtrs)($a1)
-/*  f196140:	0fc12aa3 */ 	jal	chrCompareTeams
-/*  f196144:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f196148:	54400004 */ 	bnezl	$v0,.L0f19615c
-/*  f19614c:	8e420114 */ 	lw	$v0,0x114($s2)
-/*  f196150:	864b0076 */ 	lh	$t3,0x76($s2)
-/*  f196154:	ae4b0114 */ 	sw	$t3,0x114($s2)
-.L0f196158:
-/*  f196158:	8e420114 */ 	lw	$v0,0x114($s2)
-.L0f19615c:
-/*  f19615c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196160:	3c05800b */ 	lui	$a1,%hi(g_MpAllChrPtrs)
-/*  f196164:	04400074 */ 	bltz	$v0,.L0f196338
-/*  f196168:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f19616c:	00ae2821 */ 	addu	$a1,$a1,$t6
-/*  f196170:	0fc64a53 */ 	jal	botIsTargetInvisible
-/*  f196174:	8ca5c4d0 */ 	lw	$a1,%lo(g_MpAllChrPtrs)($a1)
-/*  f196178:	1440006f */ 	bnez	$v0,.L0f196338
-/*  f19617c:	00000000 */ 	nop
-/*  f196180:	8e4c0114 */ 	lw	$t4,0x114($s2)
-/*  f196184:	2415002f */ 	addiu	$s5,$zero,0x2f
-/*  f196188:	ae5e01d8 */ 	sw	$s8,0x1d8($s2)
-/*  f19618c:	1000006a */ 	b	.L0f196338
-/*  f196190:	a64c0008 */ 	sh	$t4,0x8($s2)
-/*  f196194:	24010008 */ 	addiu	$at,$zero,0x8
-.L0f196198:
-/*  f196198:	54410028 */ 	bnel	$v0,$at,.L0f19623c
-/*  f19619c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1961a0:	0fc62179 */ 	jal	mpGetPlayerRankings
-/*  f1961a4:	27a400e4 */ 	addiu	$a0,$sp,0xe4
-/*  f1961a8:	18400063 */ 	blez	$v0,.L0f196338
-/*  f1961ac:	00408825 */ 	or	$s1,$v0,$zero
-/*  f1961b0:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f1961b4:	0302c021 */ 	addu	$t8,$t8,$v0
-/*  f1961b8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1961bc:	27b000e4 */ 	addiu	$s0,$sp,0xe4
-/*  f1961c0:	03109821 */ 	addu	$s3,$t8,$s0
-.L0f1961c4:
-/*  f1961c4:	0fc6343a */ 	jal	func0f18d0e8
-/*  f1961c8:	8e040004 */ 	lw	$a0,0x4($s0)
-/*  f1961cc:	afa200d8 */ 	sw	$v0,0xd8($sp)
-/*  f1961d0:	0fc63410 */ 	jal	mpGetChrFromPlayerIndex
-/*  f1961d4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1961d8:	10540011 */ 	beq	$v0,$s4,.L0f196220
-/*  f1961dc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1961e0:	0fc0e6a5 */ 	jal	chrIsDead
-/*  f1961e4:	afa200d4 */ 	sw	$v0,0xd4($sp)
-/*  f1961e8:	1440000d */ 	bnez	$v0,.L0f196220
-/*  f1961ec:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1961f0:	8fa500d4 */ 	lw	$a1,0xd4($sp)
-/*  f1961f4:	0fc12aa3 */ 	jal	chrCompareTeams
-/*  f1961f8:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f1961fc:	10400008 */ 	beqz	$v0,.L0f196220
-/*  f196200:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196204:	0fc64a53 */ 	jal	botIsTargetInvisible
-/*  f196208:	8fa500d4 */ 	lw	$a1,0xd4($sp)
-/*  f19620c:	14400004 */ 	bnez	$v0,.L0f196220
-/*  f196210:	8fb900d8 */ 	lw	$t9,0xd8($sp)
-/*  f196214:	2415002f */ 	addiu	$s5,$zero,0x2f
-/*  f196218:	a6590008 */ 	sh	$t9,0x8($s2)
-/*  f19621c:	ae5e01d8 */ 	sw	$s8,0x1d8($s2)
-.L0f196220:
-/*  f196220:	26100014 */ 	addiu	$s0,$s0,0x14
-/*  f196224:	0213082b */ 	sltu	$at,$s0,$s3
-/*  f196228:	1420ffe6 */ 	bnez	$at,.L0f1961c4
-/*  f19622c:	00000000 */ 	nop
-/*  f196230:	10000041 */ 	b	.L0f196338
-/*  f196234:	00000000 */ 	nop
-/*  f196238:	24010006 */ 	addiu	$at,$zero,0x6
-.L0f19623c:
-/*  f19623c:	1441003e */ 	bne	$v0,$at,.L0f196338
-/*  f196240:	3c13800b */ 	lui	$s3,%hi(g_MpNumChrs)
-/*  f196244:	2673c530 */ 	addiu	$s3,$s3,%lo(g_MpNumChrs)
-/*  f196248:	8e690000 */ 	lw	$t1,0x0($s3)
-/*  f19624c:	44805000 */ 	mtc1	$zero,$f10
-/*  f196250:	03c08825 */ 	or	$s1,$s8,$zero
-/*  f196254:	00008025 */ 	or	$s0,$zero,$zero
-/*  f196258:	19200032 */ 	blez	$t1,.L0f196324
-/*  f19625c:	e7aa00d0 */ 	swc1	$f10,0xd0($sp)
-.L0f196260:
-/*  f196260:	0fc63410 */ 	jal	mpGetChrFromPlayerIndex
-/*  f196264:	02002025 */ 	or	$a0,$s0,$zero
-/*  f196268:	10540029 */ 	beq	$v0,$s4,.L0f196310
-/*  f19626c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f196270:	0fc0e6a5 */ 	jal	chrIsDead
-/*  f196274:	afa200c0 */ 	sw	$v0,0xc0($sp)
-/*  f196278:	14400025 */ 	bnez	$v0,.L0f196310
-/*  f19627c:	8fa500c0 */ 	lw	$a1,0xc0($sp)
-/*  f196280:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196284:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f196288:	0fc12aa3 */ 	jal	chrCompareTeams
-/*  f19628c:	afa500c0 */ 	sw	$a1,0xc0($sp)
-/*  f196290:	1040001f */ 	beqz	$v0,.L0f196310
-/*  f196294:	8fa500c0 */ 	lw	$a1,0xc0($sp)
-/*  f196298:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19629c:	0fc64a53 */ 	jal	botIsTargetInvisible
-/*  f1962a0:	afa500c0 */ 	sw	$a1,0xc0($sp)
-/*  f1962a4:	1440001a */ 	bnez	$v0,.L0f196310
-/*  f1962a8:	8fa500c0 */ 	lw	$a1,0xc0($sp)
-/*  f1962ac:	8caa02d4 */ 	lw	$t2,0x2d4($a1)
-/*  f1962b0:	11400005 */ 	beqz	$t2,.L0f1962c8
-/*  f1962b4:	00000000 */ 	nop
-/*  f1962b8:	c4b20104 */ 	lwc1	$f18,0x104($a1)
-/*  f1962bc:	c4a40100 */ 	lwc1	$f4,0x100($a1)
-/*  f1962c0:	1000000b */ 	b	.L0f1962f0
-/*  f1962c4:	46049001 */ 	sub.s	$f0,$f18,$f4
-.L0f1962c8:
-/*  f1962c8:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f1962cc:	8ca4001c */ 	lw	$a0,0x1c($a1)
-/*  f1962d0:	00026880 */ 	sll	$t5,$v0,0x2
-/*  f1962d4:	02cd5821 */ 	addu	$t3,$s6,$t5
-/*  f1962d8:	8d6e0064 */ 	lw	$t6,0x64($t3)
-/*  f1962dc:	3c014100 */ 	lui	$at,0x4100
-/*  f1962e0:	44813000 */ 	mtc1	$at,$f6
-/*  f1962e4:	c5c800dc */ 	lwc1	$f8,0xdc($t6)
-/*  f1962e8:	46064002 */ 	mul.s	$f0,$f8,$f6
-/*  f1962ec:	00000000 */ 	nop
-.L0f1962f0:
-/*  f1962f0:	06200005 */ 	bltz	$s1,.L0f196308
-/*  f1962f4:	c7aa00d0 */ 	lwc1	$f10,0xd0($sp)
-/*  f1962f8:	460a003c */ 	c.lt.s	$f0,$f10
-/*  f1962fc:	00000000 */ 	nop
-/*  f196300:	45020004 */ 	bc1fl	.L0f196314
-/*  f196304:	8e6c0000 */ 	lw	$t4,0x0($s3)
-.L0f196308:
-/*  f196308:	02008825 */ 	or	$s1,$s0,$zero
-/*  f19630c:	e7a000d0 */ 	swc1	$f0,0xd0($sp)
-.L0f196310:
-/*  f196310:	8e6c0000 */ 	lw	$t4,0x0($s3)
-.L0f196314:
-/*  f196314:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f196318:	020c082a */ 	slt	$at,$s0,$t4
-/*  f19631c:	1420ffd0 */ 	bnez	$at,.L0f196260
-/*  f196320:	00000000 */ 	nop
-.L0f196324:
-/*  f196324:	06200004 */ 	bltz	$s1,.L0f196338
-/*  f196328:	00000000 */ 	nop
-/*  f19632c:	2415002f */ 	addiu	$s5,$zero,0x2f
-/*  f196330:	a6510008 */ 	sh	$s1,0x8($s2)
-/*  f196334:	ae5e01d8 */ 	sw	$s8,0x1d8($s2)
-.L0f196338:
-/*  f196338:	06a1000d */ 	bgez	$s5,.L0f196370
-/*  f19633c:	00000000 */ 	nop
-/*  f196340:	8698017e */ 	lh	$t8,0x17e($s4)
-/*  f196344:	13d8000a */ 	beq	$s8,$t8,.L0f196370
-/*  f196348:	00000000 */ 	nop
-/*  f19634c:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f196350:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196354:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196358:	0fc64b70 */ 	jal	botPassesCowardCheck
-/*  f19635c:	8c450004 */ 	lw	$a1,0x4($v0)
-/*  f196360:	10400003 */ 	beqz	$v0,.L0f196370
-/*  f196364:	00000000 */ 	nop
-/*  f196368:	2415002f */ 	addiu	$s5,$zero,0x2f
-/*  f19636c:	ae5e01d8 */ 	sw	$s8,0x1d8($s2)
-.L0f196370:
-/*  f196370:	06a1000b */ 	bgez	$s5,.L0f1963a0
-/*  f196374:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196378:	0fc64d4c */ 	jal	bot0f193530
-/*  f19637c:	3c054396 */ 	lui	$a1,0x4396
-/*  f196380:	04400007 */ 	bltz	$v0,.L0f1963a0
-/*  f196384:	00408025 */ 	or	$s0,$v0,$zero
-/*  f196388:	0c004b70 */ 	jal	random
-/*  f19638c:	24150032 */ 	addiu	$s5,$zero,0x32
-/*  f196390:	304f0003 */ 	andi	$t7,$v0,0x3
-/*  f196394:	2df90001 */ 	sltiu	$t9,$t7,0x1
-/*  f196398:	ae5901e0 */ 	sw	$t9,0x1e0($s2)
-/*  f19639c:	a650000a */ 	sh	$s0,0xa($s2)
-.L0f1963a0:
-/*  f1963a0:	06a10006 */ 	bgez	$s5,.L0f1963bc
-/*  f1963a4:	00000000 */ 	nop
-/*  f1963a8:	0fc651ad */ 	jal	bot0f1946b4
-/*  f1963ac:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1963b0:	10400002 */ 	beqz	$v0,.L0f1963bc
-/*  f1963b4:	ae420010 */ 	sw	$v0,0x10($s2)
-/*  f1963b8:	2415002a */ 	addiu	$s5,$zero,0x2a
-.L0f1963bc:
-/*  f1963bc:	3c13800b */ 	lui	$s3,%hi(g_MpNumChrs)
-/*  f1963c0:	06a0007f */ 	bltz	$s5,.L0f1965c0
-/*  f1963c4:	2673c530 */ 	addiu	$s3,$s3,%lo(g_MpNumChrs)
-/*  f1963c8:	2401002a */ 	addiu	$at,$zero,0x2a
-/*  f1963cc:	56a1000a */ 	bnel	$s5,$at,.L0f1963f8
-/*  f1963d0:	2401002f */ 	addiu	$at,$zero,0x2f
-/*  f1963d4:	8e450010 */ 	lw	$a1,0x10($s2)
-/*  f1963d8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1963dc:	50a00079 */ 	beqzl	$a1,.L0f1965c4
-/*  f1963e0:	928202a0 */ 	lbu	$v0,0x2a0($s4)
-/*  f1963e4:	0fc0eadd */ 	jal	chrGoToProp
-/*  f1963e8:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f1963ec:	10000074 */ 	b	.L0f1965c0
-/*  f1963f0:	a29502a0 */ 	sb	$s5,0x2a0($s4)
-/*  f1963f4:	2401002f */ 	addiu	$at,$zero,0x2f
-.L0f1963f8:
-/*  f1963f8:	16a10008 */ 	bne	$s5,$at,.L0f19641c
-/*  f1963fc:	24100032 */ 	addiu	$s0,$zero,0x32
-/*  f196400:	928902a0 */ 	lbu	$t1,0x2a0($s4)
-/*  f196404:	2401002f */ 	addiu	$at,$zero,0x2f
-/*  f196408:	5121006e */ 	beql	$t1,$at,.L0f1965c4
-/*  f19640c:	928202a0 */ 	lbu	$v0,0x2a0($s4)
-/*  f196410:	a29502a0 */ 	sb	$s5,0x2a0($s4)
-/*  f196414:	1000006a */ 	b	.L0f1965c0
-/*  f196418:	a25e0074 */ 	sb	$s8,0x74($s2)
-.L0f19641c:
-/*  f19641c:	16b0000e */ 	bne	$s5,$s0,.L0f196458
-/*  f196420:	24010033 */ 	addiu	$at,$zero,0x33
-/*  f196424:	928a02a0 */ 	lbu	$t2,0x2a0($s4)
-/*  f196428:	520a0066 */ 	beql	$s0,$t2,.L0f1965c4
-/*  f19642c:	928202a0 */ 	lbu	$v0,0x2a0($s4)
-/*  f196430:	a29502a0 */ 	sb	$s5,0x2a0($s4)
-/*  f196434:	8e4d01e0 */ 	lw	$t5,0x1e0($s2)
-/*  f196438:	a25e0074 */ 	sb	$s8,0x74($s2)
-/*  f19643c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196440:	51a00060 */ 	beqzl	$t5,.L0f1965c4
-/*  f196444:	928202a0 */ 	lbu	$v0,0x2a0($s4)
-/*  f196448:	0fc649df */ 	jal	botSetTarget
-/*  f19644c:	03c02825 */ 	or	$a1,$s8,$zero
-/*  f196450:	1000005c */ 	b	.L0f1965c4
-/*  f196454:	928202a0 */ 	lbu	$v0,0x2a0($s4)
-.L0f196458:
-/*  f196458:	56a10010 */ 	bnel	$s5,$at,.L0f19649c
-/*  f19645c:	2401002b */ 	addiu	$at,$zero,0x2b
-/*  f196460:	a29502a0 */ 	sb	$s5,0x2a0($s4)
-/*  f196464:	8e4b01dc */ 	lw	$t3,0x1dc($s2)
-/*  f196468:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19646c:	51600004 */ 	beqzl	$t3,.L0f196480
-/*  f196470:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196474:	0fc649df */ 	jal	botSetTarget
-/*  f196478:	03c02825 */ 	or	$a1,$s8,$zero
-/*  f19647c:	02802025 */ 	or	$a0,$s4,$zero
-.L0f196480:
-/*  f196480:	2645008c */ 	addiu	$a1,$s2,0x8c
-/*  f196484:	2646007a */ 	addiu	$a2,$s2,0x7a
-/*  f196488:	0fc0e10f */ 	jal	chrGoToPos
-/*  f19648c:	24070002 */ 	addiu	$a3,$zero,0x2
-/*  f196490:	1000004c */ 	b	.L0f1965c4
-/*  f196494:	928202a0 */ 	lbu	$v0,0x2a0($s4)
-/*  f196498:	2401002b */ 	addiu	$at,$zero,0x2b
-.L0f19649c:
-/*  f19649c:	56a10037 */ 	bnel	$s5,$at,.L0f19657c
-/*  f1964a0:	2401002c */ 	addiu	$at,$zero,0x2c
-/*  f1964a4:	8e83001c */ 	lw	$v1,0x1c($s4)
-/*  f1964a8:	c64400ec */ 	lwc1	$f4,0xec($s2)
-/*  f1964ac:	44808000 */ 	mtc1	$zero,$f16
-/*  f1964b0:	c4720008 */ 	lwc1	$f18,0x8($v1)
-/*  f1964b4:	c64600f0 */ 	lwc1	$f6,0xf0($s2)
-/*  f1964b8:	c468000c */ 	lwc1	$f8,0xc($v1)
-/*  f1964bc:	46049001 */ 	sub.s	$f0,$f18,$f4
-/*  f1964c0:	c65200f4 */ 	lwc1	$f18,0xf4($s2)
-/*  f1964c4:	c46a0010 */ 	lwc1	$f10,0x10($v1)
-/*  f1964c8:	3c0141a0 */ 	lui	$at,0x41a0
-/*  f1964cc:	4610003c */ 	c.lt.s	$f0,$f16
-/*  f1964d0:	44817000 */ 	mtc1	$at,$f14
-/*  f1964d4:	46064081 */ 	sub.s	$f2,$f8,$f6
-/*  f1964d8:	45000002 */ 	bc1f	.L0f1964e4
-/*  f1964dc:	46125301 */ 	sub.s	$f12,$f10,$f18
-/*  f1964e0:	46000007 */ 	neg.s	$f0,$f0
-.L0f1964e4:
-/*  f1964e4:	4610103c */ 	c.lt.s	$f2,$f16
-/*  f1964e8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1964ec:	264500ec */ 	addiu	$a1,$s2,0xec
-/*  f1964f0:	264600f8 */ 	addiu	$a2,$s2,0xf8
-/*  f1964f4:	45000002 */ 	bc1f	.L0f196500
-/*  f1964f8:	24070002 */ 	addiu	$a3,$zero,0x2
-/*  f1964fc:	46001087 */ 	neg.s	$f2,$f2
-.L0f196500:
-/*  f196500:	4610603c */ 	c.lt.s	$f12,$f16
-/*  f196504:	00000000 */ 	nop
-/*  f196508:	45020003 */ 	bc1fl	.L0f196518
-/*  f19650c:	4600703c */ 	c.lt.s	$f14,$f0
-/*  f196510:	46006307 */ 	neg.s	$f12,$f12
-/*  f196514:	4600703c */ 	c.lt.s	$f14,$f0
-.L0f196518:
-/*  f196518:	00000000 */ 	nop
-/*  f19651c:	4501000e */ 	bc1t	.L0f196558
-/*  f196520:	00000000 */ 	nop
-/*  f196524:	460c703c */ 	c.lt.s	$f14,$f12
-/*  f196528:	3c014348 */ 	lui	$at,0x4348
-/*  f19652c:	4501000a */ 	bc1t	.L0f196558
-/*  f196530:	00000000 */ 	nop
-/*  f196534:	44812000 */ 	mtc1	$at,$f4
-/*  f196538:	00000000 */ 	nop
-/*  f19653c:	4602203c */ 	c.lt.s	$f4,$f2
-/*  f196540:	00000000 */ 	nop
-/*  f196544:	45000008 */ 	bc1f	.L0f196568
-/*  f196548:	00000000 */ 	nop
-/*  f19654c:	828c032d */ 	lb	$t4,0x32d($s4)
-/*  f196550:	05800005 */ 	bltz	$t4,.L0f196568
-/*  f196554:	00000000 */ 	nop
-.L0f196558:
-/*  f196558:	0fc0e10f */ 	jal	chrGoToPos
-/*  f19655c:	a29502a0 */ 	sb	$s5,0x2a0($s4)
-/*  f196560:	10000018 */ 	b	.L0f1965c4
-/*  f196564:	928202a0 */ 	lbu	$v0,0x2a0($s4)
-.L0f196568:
-/*  f196568:	0fc0baaf */ 	jal	chrStand
-/*  f19656c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196570:	10000014 */ 	b	.L0f1965c4
-/*  f196574:	928202a0 */ 	lbu	$v0,0x2a0($s4)
-/*  f196578:	2401002c */ 	addiu	$at,$zero,0x2c
-.L0f19657c:
-/*  f19657c:	56a1000c */ 	bnel	$s5,$at,.L0f1965b0
-/*  f196580:	2401002e */ 	addiu	$at,$zero,0x2e
-/*  f196584:	8e580010 */ 	lw	$t8,0x10($s2)
-/*  f196588:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19658c:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f196590:	5300000c */ 	beqzl	$t8,.L0f1965c4
-/*  f196594:	928202a0 */ 	lbu	$v0,0x2a0($s4)
-/*  f196598:	a29502a0 */ 	sb	$s5,0x2a0($s4)
-/*  f19659c:	0fc0eadd */ 	jal	chrGoToProp
-/*  f1965a0:	8e450010 */ 	lw	$a1,0x10($s2)
-/*  f1965a4:	10000007 */ 	b	.L0f1965c4
-/*  f1965a8:	928202a0 */ 	lbu	$v0,0x2a0($s4)
-/*  f1965ac:	2401002e */ 	addiu	$at,$zero,0x2e
-.L0f1965b0:
-/*  f1965b0:	16a10003 */ 	bne	$s5,$at,.L0f1965c0
-/*  f1965b4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1965b8:	0fc0baaf */ 	jal	chrStand
-/*  f1965bc:	a29502a0 */ 	sb	$s5,0x2a0($s4)
-.L0f1965c0:
-/*  f1965c0:	928202a0 */ 	lbu	$v0,0x2a0($s4)
-.L0f1965c4:
-/*  f1965c4:	2401002a */ 	addiu	$at,$zero,0x2a
-/*  f1965c8:	24100032 */ 	addiu	$s0,$zero,0x32
-/*  f1965cc:	54410012 */ 	bnel	$v0,$at,.L0f196618
-/*  f1965d0:	2401002f */ 	addiu	$at,$zero,0x2f
-/*  f1965d4:	828f0007 */ 	lb	$t7,0x7($s4)
-/*  f1965d8:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f1965dc:	240a0029 */ 	addiu	$t2,$zero,0x29
-/*  f1965e0:	15e1000a */ 	bne	$t7,$at,.L0f19660c
-/*  f1965e4:	00000000 */ 	nop
-/*  f1965e8:	8e450010 */ 	lw	$a1,0x10($s2)
-/*  f1965ec:	10a00007 */ 	beqz	$a1,.L0f19660c
-/*  f1965f0:	00000000 */ 	nop
-/*  f1965f4:	8cb90018 */ 	lw	$t9,0x18($a1)
-/*  f1965f8:	17200004 */ 	bnez	$t9,.L0f19660c
-/*  f1965fc:	00000000 */ 	nop
-/*  f196600:	84a90002 */ 	lh	$t1,0x2($a1)
-/*  f196604:	11200160 */ 	beqz	$t1,.L0f196b88
-/*  f196608:	00000000 */ 	nop
-.L0f19660c:
-/*  f19660c:	1000015e */ 	b	.L0f196b88
-/*  f196610:	a28a02a0 */ 	sb	$t2,0x2a0($s4)
-/*  f196614:	2401002f */ 	addiu	$at,$zero,0x2f
-.L0f196618:
-/*  f196618:	1441003e */ 	bne	$v0,$at,.L0f196714
-/*  f19661c:	00000000 */ 	nop
-/*  f196620:	86420008 */ 	lh	$v0,0x8($s2)
-/*  f196624:	3c04800b */ 	lui	$a0,%hi(g_MpAllChrPtrs)
-/*  f196628:	04400011 */ 	bltz	$v0,.L0f196670
-/*  f19662c:	00026880 */ 	sll	$t5,$v0,0x2
-/*  f196630:	008d2021 */ 	addu	$a0,$a0,$t5
-/*  f196634:	0fc0e6a5 */ 	jal	chrIsDead
-/*  f196638:	8c84c4d0 */ 	lw	$a0,%lo(g_MpAllChrPtrs)($a0)
-/*  f19663c:	5440000a */ 	bnezl	$v0,.L0f196668
-/*  f196640:	240c0029 */ 	addiu	$t4,$zero,0x29
-/*  f196644:	864b0008 */ 	lh	$t3,0x8($s2)
-/*  f196648:	3c05800b */ 	lui	$a1,%hi(g_MpAllChrPtrs)
-/*  f19664c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196650:	000b7080 */ 	sll	$t6,$t3,0x2
-/*  f196654:	00ae2821 */ 	addu	$a1,$a1,$t6
-/*  f196658:	0fc64b70 */ 	jal	botPassesCowardCheck
-/*  f19665c:	8ca5c4d0 */ 	lw	$a1,%lo(g_MpAllChrPtrs)($a1)
-/*  f196660:	14400003 */ 	bnez	$v0,.L0f196670
-/*  f196664:	240c0029 */ 	addiu	$t4,$zero,0x29
-.L0f196668:
-/*  f196668:	10000147 */ 	b	.L0f196b88
-/*  f19666c:	a28c02a0 */ 	sb	$t4,0x2a0($s4)
-.L0f196670:
-/*  f196670:	86580008 */ 	lh	$t8,0x8($s2)
-/*  f196674:	07010013 */ 	bgez	$t8,.L0f1966c4
-/*  f196678:	00000000 */ 	nop
-/*  f19667c:	868f017e */ 	lh	$t7,0x17e($s4)
-/*  f196680:	53cf000e */ 	beql	$s8,$t7,.L0f1966bc
-/*  f196684:	24190029 */ 	addiu	$t9,$zero,0x29
-/*  f196688:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f19668c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196690:	0fc0e6a5 */ 	jal	chrIsDead
-/*  f196694:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f196698:	54400008 */ 	bnezl	$v0,.L0f1966bc
-/*  f19669c:	24190029 */ 	addiu	$t9,$zero,0x29
-/*  f1966a0:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f1966a4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1966a8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1966ac:	0fc64b70 */ 	jal	botPassesCowardCheck
-/*  f1966b0:	8c450004 */ 	lw	$a1,0x4($v0)
-/*  f1966b4:	14400003 */ 	bnez	$v0,.L0f1966c4
-/*  f1966b8:	24190029 */ 	addiu	$t9,$zero,0x29
-.L0f1966bc:
-/*  f1966bc:	10000132 */ 	b	.L0f196b88
-/*  f1966c0:	a29902a0 */ 	sb	$t9,0x2a0($s4)
-.L0f1966c4:
-/*  f1966c4:	0fc65d80 */ 	jal	botcmdTickDistMode
-/*  f1966c8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1966cc:	0fc6519c */ 	jal	bot0f194670
-/*  f1966d0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1966d4:	10400003 */ 	beqz	$v0,.L0f1966e4
-/*  f1966d8:	24090029 */ 	addiu	$t1,$zero,0x29
-/*  f1966dc:	1000012a */ 	b	.L0f196b88
-/*  f1966e0:	a28902a0 */ 	sb	$t1,0x2a0($s4)
-.L0f1966e4:
-/*  f1966e4:	8e4201d8 */ 	lw	$v0,0x1d8($s2)
-/*  f1966e8:	04400127 */ 	bltz	$v0,.L0f196b88
-/*  f1966ec:	00000000 */ 	nop
-/*  f1966f0:	8ecd0008 */ 	lw	$t5,0x8($s6)
-/*  f1966f4:	8e4a0120 */ 	lw	$t2,0x120($s2)
-/*  f1966f8:	240e0029 */ 	addiu	$t6,$zero,0x29
-/*  f1966fc:	01a25823 */ 	subu	$t3,$t5,$v0
-/*  f196700:	014b082a */ 	slt	$at,$t2,$t3
-/*  f196704:	10200120 */ 	beqz	$at,.L0f196b88
-/*  f196708:	00000000 */ 	nop
-/*  f19670c:	1000011e */ 	b	.L0f196b88
-/*  f196710:	a28e02a0 */ 	sb	$t6,0x2a0($s4)
-.L0f196714:
-/*  f196714:	1602004d */ 	bne	$s0,$v0,.L0f19684c
-/*  f196718:	24010033 */ 	addiu	$at,$zero,0x33
-/*  f19671c:	8642000a */ 	lh	$v0,0xa($s2)
-/*  f196720:	3c04800b */ 	lui	$a0,%hi(g_MpAllChrPtrs)
-/*  f196724:	04400005 */ 	bltz	$v0,.L0f19673c
-/*  f196728:	00026080 */ 	sll	$t4,$v0,0x2
-/*  f19672c:	008c2021 */ 	addu	$a0,$a0,$t4
-/*  f196730:	0fc0e6a5 */ 	jal	chrIsDead
-/*  f196734:	8c84c4d0 */ 	lw	$a0,%lo(g_MpAllChrPtrs)($a0)
-/*  f196738:	10400003 */ 	beqz	$v0,.L0f196748
-.L0f19673c:
-/*  f19673c:	24180029 */ 	addiu	$t8,$zero,0x29
-/*  f196740:	10000111 */ 	b	.L0f196b88
-/*  f196744:	a29802a0 */ 	sb	$t8,0x2a0($s4)
-.L0f196748:
-/*  f196748:	0fc65d80 */ 	jal	botcmdTickDistMode
-/*  f19674c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196750:	8e4f01e0 */ 	lw	$t7,0x1e0($s2)
-/*  f196754:	11e00037 */ 	beqz	$t7,.L0f196834
-/*  f196758:	00000000 */ 	nop
-/*  f19675c:	8699017e */ 	lh	$t9,0x17e($s4)
-/*  f196760:	13d90034 */ 	beq	$s8,$t9,.L0f196834
-/*  f196764:	00000000 */ 	nop
-/*  f196768:	8e490128 */ 	lw	$t1,0x128($s2)
-/*  f19676c:	11200031 */ 	beqz	$t1,.L0f196834
-/*  f196770:	00000000 */ 	nop
-/*  f196774:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f196778:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19677c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196780:	0fc64b70 */ 	jal	botPassesCowardCheck
-/*  f196784:	8c450004 */ 	lw	$a1,0x4($v0)
-/*  f196788:	1040002a */ 	beqz	$v0,.L0f196834
-/*  f19678c:	3c0143fa */ 	lui	$at,0x43fa
-/*  f196790:	864d000a */ 	lh	$t5,0xa($s2)
-/*  f196794:	3c0b800b */ 	lui	$t3,%hi(g_MpAllChrPtrs)
-/*  f196798:	8e83001c */ 	lw	$v1,0x1c($s4)
-/*  f19679c:	000d5080 */ 	sll	$t2,$t5,0x2
-/*  f1967a0:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f1967a4:	8d6bc4d0 */ 	lw	$t3,%lo(g_MpAllChrPtrs)($t3)
-/*  f1967a8:	c4680008 */ 	lwc1	$f8,0x8($v1)
-/*  f1967ac:	44806000 */ 	mtc1	$zero,$f12
-/*  f1967b0:	8d62001c */ 	lw	$v0,0x1c($t3)
-/*  f1967b4:	c46a0010 */ 	lwc1	$f10,0x10($v1)
-/*  f1967b8:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f1967bc:	c4520010 */ 	lwc1	$f18,0x10($v0)
-/*  f1967c0:	46064001 */ 	sub.s	$f0,$f8,$f6
-/*  f1967c4:	46125081 */ 	sub.s	$f2,$f10,$f18
-/*  f1967c8:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f1967cc:	00000000 */ 	nop
-/*  f1967d0:	45020003 */ 	bc1fl	.L0f1967e0
-/*  f1967d4:	460c103c */ 	c.lt.s	$f2,$f12
-/*  f1967d8:	46000007 */ 	neg.s	$f0,$f0
-/*  f1967dc:	460c103c */ 	c.lt.s	$f2,$f12
-.L0f1967e0:
-/*  f1967e0:	44816000 */ 	mtc1	$at,$f12
-/*  f1967e4:	45020003 */ 	bc1fl	.L0f1967f4
-/*  f1967e8:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f1967ec:	46001087 */ 	neg.s	$f2,$f2
-/*  f1967f0:	460c003c */ 	c.lt.s	$f0,$f12
-.L0f1967f4:
-/*  f1967f4:	00000000 */ 	nop
-/*  f1967f8:	4500000e */ 	bc1f	.L0f196834
-/*  f1967fc:	00000000 */ 	nop
-/*  f196800:	460c103c */ 	c.lt.s	$f2,$f12
-/*  f196804:	240e002f */ 	addiu	$t6,$zero,0x2f
-/*  f196808:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19680c:	45000009 */ 	bc1f	.L0f196834
-/*  f196810:	00000000 */ 	nop
-/*  f196814:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f196818:	a28e02a0 */ 	sb	$t6,0x2a0($s4)
-/*  f19681c:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f196820:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f196824:	240c012c */ 	addiu	$t4,$zero,0x12c
-/*  f196828:	a6420008 */ 	sh	$v0,0x8($s2)
-/*  f19682c:	ae4c01d8 */ 	sw	$t4,0x1d8($s2)
-/*  f196830:	a25e0074 */ 	sb	$s8,0x74($s2)
-.L0f196834:
-/*  f196834:	0fc6519c */ 	jal	bot0f194670
-/*  f196838:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19683c:	104000d2 */ 	beqz	$v0,.L0f196b88
-/*  f196840:	24180029 */ 	addiu	$t8,$zero,0x29
-/*  f196844:	100000d0 */ 	b	.L0f196b88
-/*  f196848:	a29802a0 */ 	sb	$t8,0x2a0($s4)
-.L0f19684c:
-/*  f19684c:	54410063 */ 	bnel	$v0,$at,.L0f1969dc
-/*  f196850:	2401002b */ 	addiu	$at,$zero,0x2b
-/*  f196854:	828f0007 */ 	lb	$t7,0x7($s4)
-/*  f196858:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f19685c:	11e10058 */ 	beq	$t7,$at,.L0f1969c0
-/*  f196860:	00000000 */ 	nop
-/*  f196864:	8e83001c */ 	lw	$v1,0x1c($s4)
-/*  f196868:	c648008c */ 	lwc1	$f8,0x8c($s2)
-/*  f19686c:	44807000 */ 	mtc1	$zero,$f14
-/*  f196870:	c4640008 */ 	lwc1	$f4,0x8($v1)
-/*  f196874:	c64a0090 */ 	lwc1	$f10,0x90($s2)
-/*  f196878:	c466000c */ 	lwc1	$f6,0xc($v1)
-/*  f19687c:	46082001 */ 	sub.s	$f0,$f4,$f8
-/*  f196880:	c6440094 */ 	lwc1	$f4,0x94($s2)
-/*  f196884:	c4720010 */ 	lwc1	$f18,0x10($v1)
-/*  f196888:	3c014220 */ 	lui	$at,0x4220
-/*  f19688c:	460e003c */ 	c.lt.s	$f0,$f14
-/*  f196890:	460a3081 */ 	sub.s	$f2,$f6,$f10
-/*  f196894:	45000002 */ 	bc1f	.L0f1968a0
-/*  f196898:	46049301 */ 	sub.s	$f12,$f18,$f4
-/*  f19689c:	46000007 */ 	neg.s	$f0,$f0
-.L0f1968a0:
-/*  f1968a0:	460e103c */ 	c.lt.s	$f2,$f14
-/*  f1968a4:	00000000 */ 	nop
-/*  f1968a8:	45020003 */ 	bc1fl	.L0f1968b8
-/*  f1968ac:	460e603c */ 	c.lt.s	$f12,$f14
-/*  f1968b0:	46001087 */ 	neg.s	$f2,$f2
-/*  f1968b4:	460e603c */ 	c.lt.s	$f12,$f14
-.L0f1968b8:
-/*  f1968b8:	44817000 */ 	mtc1	$at,$f14
-/*  f1968bc:	45020003 */ 	bc1fl	.L0f1968cc
-/*  f1968c0:	8e4200dc */ 	lw	$v0,0xdc($s2)
-/*  f1968c4:	46006307 */ 	neg.s	$f12,$f12
-/*  f1968c8:	8e4200dc */ 	lw	$v0,0xdc($s2)
-.L0f1968cc:
-/*  f1968cc:	58400005 */ 	blezl	$v0,.L0f1968e4
-/*  f1968d0:	4600703c */ 	c.lt.s	$f14,$f0
-/*  f1968d4:	8ed90038 */ 	lw	$t9,0x38($s6)
-/*  f1968d8:	00594823 */ 	subu	$t1,$v0,$t9
-/*  f1968dc:	ae4900dc */ 	sw	$t1,0xdc($s2)
-/*  f1968e0:	4600703c */ 	c.lt.s	$f14,$f0
-.L0f1968e4:
-/*  f1968e4:	00000000 */ 	nop
-/*  f1968e8:	4503000f */ 	bc1tl	.L0f196928
-/*  f1968ec:	8e4b00dc */ 	lw	$t3,0xdc($s2)
-/*  f1968f0:	460c703c */ 	c.lt.s	$f14,$f12
-/*  f1968f4:	3c014348 */ 	lui	$at,0x4348
-/*  f1968f8:	4503000b */ 	bc1tl	.L0f196928
-/*  f1968fc:	8e4b00dc */ 	lw	$t3,0xdc($s2)
-/*  f196900:	44814000 */ 	mtc1	$at,$f8
-/*  f196904:	00000000 */ 	nop
-/*  f196908:	4602403c */ 	c.lt.s	$f8,$f2
-/*  f19690c:	00000000 */ 	nop
-/*  f196910:	4502000e */ 	bc1fl	.L0f19694c
-/*  f196914:	8e4e01dc */ 	lw	$t6,0x1dc($s2)
-/*  f196918:	828a032d */ 	lb	$t2,0x32d($s4)
-/*  f19691c:	0542000b */ 	bltzl	$t2,.L0f19694c
-/*  f196920:	8e4e01dc */ 	lw	$t6,0x1dc($s2)
-/*  f196924:	8e4b00dc */ 	lw	$t3,0xdc($s2)
-.L0f196928:
-/*  f196928:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19692c:	2645008c */ 	addiu	$a1,$s2,0x8c
-/*  f196930:	1d60001e */ 	bgtz	$t3,.L0f1969ac
-/*  f196934:	2646007a */ 	addiu	$a2,$s2,0x7a
-/*  f196938:	0fc0e10f */ 	jal	chrGoToPos
-/*  f19693c:	24070002 */ 	addiu	$a3,$zero,0x2
-/*  f196940:	1000001b */ 	b	.L0f1969b0
-/*  f196944:	8e4900dc */ 	lw	$t1,0xdc($s2)
-/*  f196948:	8e4e01dc */ 	lw	$t6,0x1dc($s2)
-.L0f19694c:
-/*  f19694c:	51c00018 */ 	beqzl	$t6,.L0f1969b0
-/*  f196950:	8e4900dc */ 	lw	$t1,0xdc($s2)
-/*  f196954:	868c017e */ 	lh	$t4,0x17e($s4)
-/*  f196958:	53cc0015 */ 	beql	$s8,$t4,.L0f1969b0
-/*  f19695c:	8e4900dc */ 	lw	$t1,0xdc($s2)
-/*  f196960:	8e580128 */ 	lw	$t8,0x128($s2)
-/*  f196964:	53000012 */ 	beqzl	$t8,.L0f1969b0
-/*  f196968:	8e4900dc */ 	lw	$t1,0xdc($s2)
-/*  f19696c:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f196970:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196974:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196978:	0fc64b70 */ 	jal	botPassesCowardCheck
-/*  f19697c:	8c450004 */ 	lw	$a1,0x4($v0)
-/*  f196980:	1040000a */ 	beqz	$v0,.L0f1969ac
-/*  f196984:	240f002f */ 	addiu	$t7,$zero,0x2f
-/*  f196988:	a28f02a0 */ 	sb	$t7,0x2a0($s4)
-/*  f19698c:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f196990:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196994:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f196998:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f19699c:	2419012c */ 	addiu	$t9,$zero,0x12c
-/*  f1969a0:	a6420008 */ 	sh	$v0,0x8($s2)
-/*  f1969a4:	ae5901d8 */ 	sw	$t9,0x1d8($s2)
-/*  f1969a8:	a25e0074 */ 	sb	$s8,0x74($s2)
-.L0f1969ac:
-/*  f1969ac:	8e4900dc */ 	lw	$t1,0xdc($s2)
-.L0f1969b0:
-/*  f1969b0:	240d003c */ 	addiu	$t5,$zero,0x3c
-/*  f1969b4:	1d200002 */ 	bgtz	$t1,.L0f1969c0
-/*  f1969b8:	00000000 */ 	nop
-/*  f1969bc:	ae4d00dc */ 	sw	$t5,0xdc($s2)
-.L0f1969c0:
-/*  f1969c0:	0fc6519c */ 	jal	bot0f194670
-/*  f1969c4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1969c8:	1040006f */ 	beqz	$v0,.L0f196b88
-/*  f1969cc:	240a0029 */ 	addiu	$t2,$zero,0x29
-/*  f1969d0:	1000006d */ 	b	.L0f196b88
-/*  f1969d4:	a28a02a0 */ 	sb	$t2,0x2a0($s4)
-/*  f1969d8:	2401002b */ 	addiu	$at,$zero,0x2b
-.L0f1969dc:
-/*  f1969dc:	1441002f */ 	bne	$v0,$at,.L0f196a9c
-/*  f1969e0:	3c0b800b */ 	lui	$t3,%hi(g_MpSetup+0x10)
-/*  f1969e4:	916bcb98 */ 	lbu	$t3,%lo(g_MpSetup+0x10)($t3)
-/*  f1969e8:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f1969ec:	5561001f */ 	bnel	$t3,$at,.L0f196a6c
-/*  f1969f0:	828a0007 */ 	lb	$t2,0x7($s4)
-/*  f1969f4:	8e4e004c */ 	lw	$t6,0x4c($s2)
-/*  f1969f8:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData+0xe)
-/*  f1969fc:	000e67c2 */ 	srl	$t4,$t6,0x1f
-/*  f196a00:	5180001a */ 	beqzl	$t4,.L0f196a6c
-/*  f196a04:	828a0007 */ 	lb	$t2,0x7($s4)
-/*  f196a08:	8442c11e */ 	lh	$v0,%lo(g_ScenarioData+0xe)($v0)
-/*  f196a0c:	8e5800bc */ 	lw	$t8,0xbc($s2)
-/*  f196a10:	53020006 */ 	beql	$t8,$v0,.L0f196a2c
-/*  f196a14:	8e89001c */ 	lw	$t1,0x1c($s4)
-/*  f196a18:	924f004c */ 	lbu	$t7,0x4c($s2)
-/*  f196a1c:	31f9ff7f */ 	andi	$t9,$t7,0xff7f
-/*  f196a20:	10000011 */ 	b	.L0f196a68
-/*  f196a24:	a259004c */ 	sb	$t9,0x4c($s2)
-/*  f196a28:	8e89001c */ 	lw	$t1,0x1c($s4)
-.L0f196a2c:
-/*  f196a2c:	852d0028 */ 	lh	$t5,0x28($t1)
-/*  f196a30:	51a2000e */ 	beql	$t5,$v0,.L0f196a6c
-/*  f196a34:	828a0007 */ 	lb	$t2,0x7($s4)
-/*  f196a38:	86440048 */ 	lh	$a0,0x48($s2)
-/*  f196a3c:	04820006 */ 	bltzl	$a0,.L0f196a58
-/*  f196a40:	8644004a */ 	lh	$a0,0x4a($s2)
-/*  f196a44:	0fc45890 */ 	jal	padSetFlag
-/*  f196a48:	3c050002 */ 	lui	$a1,0x2
-/*  f196a4c:	10000007 */ 	b	.L0f196a6c
-/*  f196a50:	828a0007 */ 	lb	$t2,0x7($s4)
-/*  f196a54:	8644004a */ 	lh	$a0,0x4a($s2)
-.L0f196a58:
-/*  f196a58:	04820004 */ 	bltzl	$a0,.L0f196a6c
-/*  f196a5c:	828a0007 */ 	lb	$t2,0x7($s4)
-/*  f196a60:	0fc45942 */ 	jal	coverSetFlag
-/*  f196a64:	24050100 */ 	addiu	$a1,$zero,0x100
-.L0f196a68:
-/*  f196a68:	828a0007 */ 	lb	$t2,0x7($s4)
-.L0f196a6c:
-/*  f196a6c:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f196a70:	240b0029 */ 	addiu	$t3,$zero,0x29
-/*  f196a74:	11410003 */ 	beq	$t2,$at,.L0f196a84
-/*  f196a78:	00000000 */ 	nop
-/*  f196a7c:	10000042 */ 	b	.L0f196b88
-/*  f196a80:	a28b02a0 */ 	sb	$t3,0x2a0($s4)
-.L0f196a84:
-/*  f196a84:	0fc6519c */ 	jal	bot0f194670
-/*  f196a88:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196a8c:	1040003e */ 	beqz	$v0,.L0f196b88
-/*  f196a90:	240e0029 */ 	addiu	$t6,$zero,0x29
-/*  f196a94:	1000003c */ 	b	.L0f196b88
-/*  f196a98:	a28e02a0 */ 	sb	$t6,0x2a0($s4)
-.L0f196a9c:
-/*  f196a9c:	2401002c */ 	addiu	$at,$zero,0x2c
-/*  f196aa0:	54410029 */ 	bnel	$v0,$at,.L0f196b48
-/*  f196aa4:	2401002e */ 	addiu	$at,$zero,0x2e
-/*  f196aa8:	0fc6519c */ 	jal	bot0f194670
-/*  f196aac:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196ab0:	10400003 */ 	beqz	$v0,.L0f196ac0
-/*  f196ab4:	240c0029 */ 	addiu	$t4,$zero,0x29
-/*  f196ab8:	10000033 */ 	b	.L0f196b88
-/*  f196abc:	a28c02a0 */ 	sb	$t4,0x2a0($s4)
-.L0f196ac0:
-/*  f196ac0:	82980007 */ 	lb	$t8,0x7($s4)
-/*  f196ac4:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f196ac8:	24190029 */ 	addiu	$t9,$zero,0x29
-/*  f196acc:	17010008 */ 	bne	$t8,$at,.L0f196af0
-/*  f196ad0:	00000000 */ 	nop
-/*  f196ad4:	8e450010 */ 	lw	$a1,0x10($s2)
-/*  f196ad8:	10a00005 */ 	beqz	$a1,.L0f196af0
-/*  f196adc:	00000000 */ 	nop
-/*  f196ae0:	8caf0018 */ 	lw	$t7,0x18($a1)
-/*  f196ae4:	3c03800b */ 	lui	$v1,%hi(g_MpSetup+0x10)
-/*  f196ae8:	11e00003 */ 	beqz	$t7,.L0f196af8
-/*  f196aec:	00000000 */ 	nop
-.L0f196af0:
-/*  f196af0:	10000025 */ 	b	.L0f196b88
-/*  f196af4:	a29902a0 */ 	sb	$t9,0x2a0($s4)
-.L0f196af8:
-/*  f196af8:	9063cb98 */ 	lbu	$v1,%lo(g_MpSetup+0x10)($v1)
-/*  f196afc:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f196b00:	12e30021 */ 	beq	$s7,$v1,.L0f196b88
-/*  f196b04:	00000000 */ 	nop
-/*  f196b08:	1461001f */ 	bne	$v1,$at,.L0f196b88
-/*  f196b0c:	3c09800b */ 	lui	$t1,%hi(g_ScenarioData+0x13c)
-/*  f196b10:	8d29c24c */ 	lw	$t1,%lo(g_ScenarioData+0x13c)($t1)
-/*  f196b14:	8e8d001c */ 	lw	$t5,0x1c($s4)
-/*  f196b18:	152d001b */ 	bne	$t1,$t5,.L0f196b88
-/*  f196b1c:	00000000 */ 	nop
-/*  f196b20:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f196b24:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196b28:	3c0a800b */ 	lui	$t2,%hi(g_ScenarioData+0xd2)
-/*  f196b2c:	854ac1e2 */ 	lh	$t2,%lo(g_ScenarioData+0xd2)($t2)
-/*  f196b30:	240b0029 */ 	addiu	$t3,$zero,0x29
-/*  f196b34:	144a0014 */ 	bne	$v0,$t2,.L0f196b88
-/*  f196b38:	00000000 */ 	nop
-/*  f196b3c:	10000012 */ 	b	.L0f196b88
-/*  f196b40:	a28b02a0 */ 	sb	$t3,0x2a0($s4)
-/*  f196b44:	2401002e */ 	addiu	$at,$zero,0x2e
-.L0f196b48:
-/*  f196b48:	1441000f */ 	bne	$v0,$at,.L0f196b88
-/*  f196b4c:	00000000 */ 	nop
-/*  f196b50:	0fc6519c */ 	jal	bot0f194670
-/*  f196b54:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196b58:	10400003 */ 	beqz	$v0,.L0f196b68
-/*  f196b5c:	240e0029 */ 	addiu	$t6,$zero,0x29
-/*  f196b60:	10000009 */ 	b	.L0f196b88
-/*  f196b64:	a28e02a0 */ 	sb	$t6,0x2a0($s4)
-.L0f196b68:
-/*  f196b68:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f196b6c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196b70:	3c0c800b */ 	lui	$t4,%hi(g_ScenarioData+0xd2)
-/*  f196b74:	858cc1e2 */ 	lh	$t4,%lo(g_ScenarioData+0xd2)($t4)
-/*  f196b78:	24180029 */ 	addiu	$t8,$zero,0x29
-/*  f196b7c:	104c0002 */ 	beq	$v0,$t4,.L0f196b88
-/*  f196b80:	00000000 */ 	nop
-/*  f196b84:	a29802a0 */ 	sb	$t8,0x2a0($s4)
-.L0f196b88:
-/*  f196b88:	0fc64ba4 */ 	jal	botChooseGeneralTarget
-/*  f196b8c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196b90:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f196b94:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196b98:	8ecf000c */ 	lw	$t7,0xc($s6)
-/*  f196b9c:	8e790000 */ 	lw	$t9,0x0($s3)
-/*  f196ba0:	01f9001a */ 	div	$zero,$t7,$t9
-/*  f196ba4:	00004810 */ 	mfhi	$t1
-/*  f196ba8:	17200002 */ 	bnez	$t9,.L0f196bb4
-/*  f196bac:	00000000 */ 	nop
-/*  f196bb0:	0007000d */ 	break	0x7
-.L0f196bb4:
-/*  f196bb4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f196bb8:	17210004 */ 	bne	$t9,$at,.L0f196bcc
-/*  f196bbc:	3c018000 */ 	lui	$at,0x8000
-/*  f196bc0:	15e10002 */ 	bne	$t7,$at,.L0f196bcc
-/*  f196bc4:	00000000 */ 	nop
-/*  f196bc8:	0006000d */ 	break	0x6
-.L0f196bcc:
-/*  f196bcc:	14490024 */ 	bne	$v0,$t1,.L0f196c60
-/*  f196bd0:	00000000 */ 	nop
-/*  f196bd4:	868d017e */ 	lh	$t5,0x17e($s4)
-/*  f196bd8:	13cd0021 */ 	beq	$s8,$t5,.L0f196c60
-/*  f196bdc:	00000000 */ 	nop
-/*  f196be0:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f196be4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196be8:	8e83001c */ 	lw	$v1,0x1c($s4)
-/*  f196bec:	00408025 */ 	or	$s0,$v0,$zero
-/*  f196bf0:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f196bf4:	0fc45095 */ 	jal	waypointFindClosestToPos
-/*  f196bf8:	24650028 */ 	addiu	$a1,$v1,0x28
-/*  f196bfc:	00408825 */ 	or	$s1,$v0,$zero
-/*  f196c00:	26040008 */ 	addiu	$a0,$s0,0x8
-/*  f196c04:	0fc45095 */ 	jal	waypointFindClosestToPos
-/*  f196c08:	26050028 */ 	addiu	$a1,$s0,0x28
-/*  f196c0c:	12200014 */ 	beqz	$s1,.L0f196c60
-/*  f196c10:	00408025 */ 	or	$s0,$v0,$zero
-/*  f196c14:	10400012 */ 	beqz	$v0,.L0f196c60
-/*  f196c18:	00000000 */ 	nop
-/*  f196c1c:	8eca0008 */ 	lw	$t2,0x8($s6)
-/*  f196c20:	868c0000 */ 	lh	$t4,0x0($s4)
-/*  f196c24:	000a5a43 */ 	sra	$t3,$t2,0x9
-/*  f196c28:	000b71c0 */ 	sll	$t6,$t3,0x7
-/*  f196c2c:	000cc0c0 */ 	sll	$t8,$t4,0x3
-/*  f196c30:	01d82021 */ 	addu	$a0,$t6,$t8
-/*  f196c34:	0fc45090 */ 	jal	waypointSetHashThing
-/*  f196c38:	00802825 */ 	or	$a1,$a0,$zero
-/*  f196c3c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f196c40:	02202825 */ 	or	$a1,$s1,$zero
-/*  f196c44:	264601e8 */ 	addiu	$a2,$s2,0x1e8
-/*  f196c48:	0fc4547b */ 	jal	waypointFindRoute
-/*  f196c4c:	24070008 */ 	addiu	$a3,$zero,0x8
-/*  f196c50:	ae420208 */ 	sw	$v0,0x208($s2)
-/*  f196c54:	00002025 */ 	or	$a0,$zero,$zero
-/*  f196c58:	0fc45090 */ 	jal	waypointSetHashThing
-/*  f196c5c:	00002825 */ 	or	$a1,$zero,$zero
-.L0f196c60:
-/*  f196c60:	0fc663bb */ 	jal	botinvTick
-/*  f196c64:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196c68:	afa00088 */ 	sw	$zero,0x88($sp)
-/*  f196c6c:	00009825 */ 	or	$s3,$zero,$zero
-/*  f196c70:	afa0004c */ 	sw	$zero,0x4c($sp)
-/*  f196c74:	02408825 */ 	or	$s1,$s2,$zero
-.L0f196c78:
-/*  f196c78:	8e22005c */ 	lw	$v0,0x5c($s1)
-/*  f196c7c:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f196c80:	18400004 */ 	blez	$v0,.L0f196c94
-/*  f196c84:	00000000 */ 	nop
-/*  f196c88:	8ecf0038 */ 	lw	$t7,0x38($s6)
-/*  f196c8c:	004fc823 */ 	subu	$t9,$v0,$t7
-/*  f196c90:	ae39005c */ 	sw	$t9,0x5c($s1)
-.L0f196c94:
-/*  f196c94:	16770004 */ 	bne	$s3,$s7,.L0f196ca8
-/*  f196c98:	8fa90088 */ 	lw	$t1,0x88($sp)
-/*  f196c9c:	51200003 */ 	beqzl	$t1,.L0f196cac
-/*  f196ca0:	8e4d0044 */ 	lw	$t5,0x44($s2)
-/*  f196ca4:	ae37005c */ 	sw	$s7,0x5c($s1)
-.L0f196ca8:
-/*  f196ca8:	8e4d0044 */ 	lw	$t5,0x44($s2)
-.L0f196cac:
-/*  f196cac:	15a00207 */ 	bnez	$t5,.L0f1974cc
-/*  f196cb0:	00000000 */ 	nop
-/*  f196cb4:	8e4a00cc */ 	lw	$t2,0xcc($s2)
-/*  f196cb8:	1d400204 */ 	bgtz	$t2,.L0f1974cc
-/*  f196cbc:	00000000 */ 	nop
-/*  f196cc0:	8e42004c */ 	lw	$v0,0x4c($s2)
-/*  f196cc4:	00137040 */ 	sll	$t6,$s3,0x1
-/*  f196cc8:	024e1821 */ 	addu	$v1,$s2,$t6
-/*  f196ccc:	00026040 */ 	sll	$t4,$v0,0x1
-/*  f196cd0:	058300b5 */ 	bgezl	$t4,.L0f196fa8
-/*  f196cd4:	8e440020 */ 	lw	$a0,0x20($s2)
-/*  f196cd8:	8478003c */ 	lh	$t8,0x3c($v1)
-/*  f196cdc:	070001fb */ 	bltz	$t8,.L0f1974cc
-/*  f196ce0:	00000000 */ 	nop
-/*  f196ce4:	846f002c */ 	lh	$t7,0x2c($v1)
-/*  f196ce8:	1de001f8 */ 	bgtz	$t7,.L0f1974cc
-/*  f196cec:	00000000 */ 	nop
-/*  f196cf0:	8e590020 */ 	lw	$t9,0x20($s2)
-/*  f196cf4:	2401001c */ 	addiu	$at,$zero,0x1c
-/*  f196cf8:	2404001c */ 	addiu	$a0,$zero,0x1c
-/*  f196cfc:	1721000d */ 	bne	$t9,$at,.L0f196d34
-/*  f196d00:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f196d04:	0fc26d36 */ 	jal	bgunGetMinClipQty
-/*  f196d08:	afa30054 */ 	sw	$v1,0x54($sp)
-/*  f196d0c:	8e290024 */ 	lw	$t1,0x24($s1)
-/*  f196d10:	8fa30054 */ 	lw	$v1,0x54($sp)
-/*  f196d14:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196d18:	0122082a */ 	slt	$at,$t1,$v0
-/*  f196d1c:	10200005 */ 	beqz	$at,.L0f196d34
-/*  f196d20:	02602825 */ 	or	$a1,$s3,$zero
-/*  f196d24:	0fc64da7 */ 	jal	bot0f19369c
-/*  f196d28:	a460003c */ 	sh	$zero,0x3c($v1)
-/*  f196d2c:	100001e7 */ 	b	.L0f1974cc
-/*  f196d30:	00000000 */ 	nop
-.L0f196d34:
-/*  f196d34:	846d003c */ 	lh	$t5,0x3c($v1)
-/*  f196d38:	8eca0038 */ 	lw	$t2,0x38($s6)
-/*  f196d3c:	01aa5823 */ 	subu	$t3,$t5,$t2
-/*  f196d40:	a46b003c */ 	sh	$t3,0x3c($v1)
-/*  f196d44:	868c017e */ 	lh	$t4,0x17e($s4)
-/*  f196d48:	53cc0042 */ 	beql	$s8,$t4,.L0f196e54
-/*  f196d4c:	a460003c */ 	sh	$zero,0x3c($v1)
-/*  f196d50:	8e4e0128 */ 	lw	$t6,0x128($s2)
-/*  f196d54:	51c0003f */ 	beqzl	$t6,.L0f196e54
-/*  f196d58:	a460003c */ 	sh	$zero,0x3c($v1)
-/*  f196d5c:	8e4f0004 */ 	lw	$t7,0x4($s2)
-/*  f196d60:	3c0d8008 */ 	lui	$t5,%hi(g_SimDifficulties)
-/*  f196d64:	8e58011c */ 	lw	$t8,0x11c($s2)
-/*  f196d68:	91f90048 */ 	lbu	$t9,0x48($t7)
-/*  f196d6c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196d70:	00194940 */ 	sll	$t1,$t9,0x5
-/*  f196d74:	01a96821 */ 	addu	$t5,$t5,$t1
-/*  f196d78:	91ad7d14 */ 	lbu	$t5,%lo(g_SimDifficulties)($t5)
-/*  f196d7c:	030d082a */ 	slt	$at,$t8,$t5
-/*  f196d80:	54200034 */ 	bnezl	$at,.L0f196e54
-/*  f196d84:	a460003c */ 	sh	$zero,0x3c($v1)
-/*  f196d88:	0fc64098 */ 	jal	bot0f190260
-/*  f196d8c:	afa30054 */ 	sw	$v1,0x54($sp)
-/*  f196d90:	14400030 */ 	bnez	$v0,.L0f196e54
-/*  f196d94:	8fa30054 */ 	lw	$v1,0x54($sp)
-/*  f196d98:	8e4a0020 */ 	lw	$t2,0x20($s2)
-/*  f196d9c:	2401001c */ 	addiu	$at,$zero,0x1c
-/*  f196da0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196da4:	15410014 */ 	bne	$t2,$at,.L0f196df8
-/*  f196da8:	24050028 */ 	addiu	$a1,$zero,0x28
-/*  f196dac:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196db0:	2405001e */ 	addiu	$a1,$zero,0x1e
-/*  f196db4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f196db8:	0fc1241a */ 	jal	chrIsTargetInFov
-/*  f196dbc:	afa30054 */ 	sw	$v1,0x54($sp)
-/*  f196dc0:	1040000b */ 	beqz	$v0,.L0f196df0
-/*  f196dc4:	8fa30054 */ 	lw	$v1,0x54($sp)
-/*  f196dc8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196dcc:	0fc12472 */ 	jal	chrGetDistanceToTarget
-/*  f196dd0:	afa30054 */ 	sw	$v1,0x54($sp)
-/*  f196dd4:	3c014352 */ 	lui	$at,0x4352
-/*  f196dd8:	44813000 */ 	mtc1	$at,$f6
-/*  f196ddc:	8fa30054 */ 	lw	$v1,0x54($sp)
-/*  f196de0:	4600303c */ 	c.lt.s	$f6,$f0
-/*  f196de4:	00000000 */ 	nop
-/*  f196de8:	4502001b */ 	bc1fl	.L0f196e58
-/*  f196dec:	846b003c */ 	lh	$t3,0x3c($v1)
-.L0f196df0:
-/*  f196df0:	10000018 */ 	b	.L0f196e54
-/*  f196df4:	a460003c */ 	sh	$zero,0x3c($v1)
-.L0f196df8:
-/*  f196df8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f196dfc:	0fc1241a */ 	jal	chrIsTargetInFov
-/*  f196e00:	afa30054 */ 	sw	$v1,0x54($sp)
-/*  f196e04:	10400010 */ 	beqz	$v0,.L0f196e48
-/*  f196e08:	8fa30054 */ 	lw	$v1,0x54($sp)
-/*  f196e0c:	3c014352 */ 	lui	$at,0x4352
-/*  f196e10:	44815000 */ 	mtc1	$at,$f10
-/*  f196e14:	3c014316 */ 	lui	$at,0x4316
-/*  f196e18:	44819000 */ 	mtc1	$at,$f18
-/*  f196e1c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196e20:	afa30054 */ 	sw	$v1,0x54($sp)
-/*  f196e24:	46125100 */ 	add.s	$f4,$f10,$f18
-/*  f196e28:	0fc12472 */ 	jal	chrGetDistanceToTarget
-/*  f196e2c:	e7a40050 */ 	swc1	$f4,0x50($sp)
-/*  f196e30:	c7a80050 */ 	lwc1	$f8,0x50($sp)
-/*  f196e34:	8fa30054 */ 	lw	$v1,0x54($sp)
-/*  f196e38:	4600403c */ 	c.lt.s	$f8,$f0
-/*  f196e3c:	00000000 */ 	nop
-/*  f196e40:	45020005 */ 	bc1fl	.L0f196e58
-/*  f196e44:	846b003c */ 	lh	$t3,0x3c($v1)
-.L0f196e48:
-/*  f196e48:	10000002 */ 	b	.L0f196e54
-/*  f196e4c:	a460003c */ 	sh	$zero,0x3c($v1)
-/*  f196e50:	a460003c */ 	sh	$zero,0x3c($v1)
-.L0f196e54:
-/*  f196e54:	846b003c */ 	lh	$t3,0x3c($v1)
-.L0f196e58:
-/*  f196e58:	3c014352 */ 	lui	$at,0x4352
-/*  f196e5c:	0561019b */ 	bgez	$t3,.L0f1974cc
-/*  f196e60:	00000000 */ 	nop
-/*  f196e64:	44813000 */ 	mtc1	$at,$f6
-/*  f196e68:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196e6c:	4600328d */ 	trunc.w.s	$f10,$f6
-/*  f196e70:	44105000 */ 	mfc1	$s0,$f10
-/*  f196e74:	0fc0897d */ 	jal	chrUncloakTemporarily
-/*  f196e78:	00000000 */ 	nop
-/*  f196e7c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196e80:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f196e84:	02003025 */ 	or	$a2,$s0,$zero
-/*  f196e88:	0fc0ee91 */ 	jal	chrPunchInflictDamage
-/*  f196e8c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f196e90:	1660018e */ 	bnez	$s3,.L0f1974cc
-/*  f196e94:	00000000 */ 	nop
-/*  f196e98:	8e4e0020 */ 	lw	$t6,0x20($s2)
-/*  f196e9c:	25cfffff */ 	addiu	$t7,$t6,-1
-/*  f196ea0:	2de1001c */ 	sltiu	$at,$t7,0x1c
-/*  f196ea4:	10200006 */ 	beqz	$at,.L0f196ec0
-/*  f196ea8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f196eac:	3c017f1c */ 	lui	$at,%hi(var7f1b8f58)
-/*  f196eb0:	002f0821 */ 	addu	$at,$at,$t7
-/*  f196eb4:	8c2f8f58 */ 	lw	$t7,%lo(var7f1b8f58)($at)
-/*  f196eb8:	01e00008 */ 	jr	$t7
-/*  f196ebc:	00000000 */ 	nop
-.L0f196ec0:
-/*  f196ec0:	8e9902d4 */ 	lw	$t9,0x2d4($s4)
-/*  f196ec4:	24180078 */ 	addiu	$t8,$zero,0x78
-/*  f196ec8:	8f290004 */ 	lw	$t1,0x4($t9)
-/*  f196ecc:	91220048 */ 	lbu	$v0,0x48($t1)
-/*  f196ed0:	14400003 */ 	bnez	$v0,.L0f196ee0
-/*  f196ed4:	00000000 */ 	nop
-/*  f196ed8:	10000007 */ 	b	.L0f196ef8
-/*  f196edc:	a658003c */ 	sh	$t8,0x3c($s2)
-.L0f196ee0:
-/*  f196ee0:	16e20004 */ 	bne	$s7,$v0,.L0f196ef4
-/*  f196ee4:	240a001e */ 	addiu	$t2,$zero,0x1e
-/*  f196ee8:	240d003c */ 	addiu	$t5,$zero,0x3c
-/*  f196eec:	10000002 */ 	b	.L0f196ef8
-/*  f196ef0:	a64d003c */ 	sh	$t5,0x3c($s2)
-.L0f196ef4:
-/*  f196ef4:	a64a003c */ 	sh	$t2,0x3c($s2)
-.L0f196ef8:
-/*  f196ef8:	0c004b70 */ 	jal	random
-/*  f196efc:	00000000 */ 	nop
-/*  f196f00:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f196f04:	0041001b */ 	divu	$zero,$v0,$at
-/*  f196f08:	00005810 */ 	mfhi	$t3
-/*  f196f0c:	1560016f */ 	bnez	$t3,.L0f1974cc
-/*  f196f10:	00000000 */ 	nop
-/*  f196f14:	864c003c */ 	lh	$t4,0x3c($s2)
-/*  f196f18:	258effec */ 	addiu	$t6,$t4,-20
-/*  f196f1c:	1000016b */ 	b	.L0f1974cc
-/*  f196f20:	a64e003e */ 	sh	$t6,0x3e($s2)
-/*  f196f24:	8e8f02d4 */ 	lw	$t7,0x2d4($s4)
-/*  f196f28:	24090078 */ 	addiu	$t1,$zero,0x78
-/*  f196f2c:	8df90004 */ 	lw	$t9,0x4($t7)
-/*  f196f30:	93220048 */ 	lbu	$v0,0x48($t9)
-/*  f196f34:	14400003 */ 	bnez	$v0,.L0f196f44
-/*  f196f38:	00000000 */ 	nop
-/*  f196f3c:	10000007 */ 	b	.L0f196f5c
-/*  f196f40:	a649003c */ 	sh	$t1,0x3c($s2)
-.L0f196f44:
-/*  f196f44:	16e20004 */ 	bne	$s7,$v0,.L0f196f58
-/*  f196f48:	240d003c */ 	addiu	$t5,$zero,0x3c
-/*  f196f4c:	2418005a */ 	addiu	$t8,$zero,0x5a
-/*  f196f50:	10000002 */ 	b	.L0f196f5c
-/*  f196f54:	a658003c */ 	sh	$t8,0x3c($s2)
-.L0f196f58:
-/*  f196f58:	a64d003c */ 	sh	$t5,0x3c($s2)
-.L0f196f5c:
-/*  f196f5c:	8e8a0174 */ 	lw	$t2,0x174($s4)
-/*  f196f60:	1140015a */ 	beqz	$t2,.L0f1974cc
-/*  f196f64:	00000000 */ 	nop
-/*  f196f68:	864b003c */ 	lh	$t3,0x3c($s2)
-/*  f196f6c:	256cffd8 */ 	addiu	$t4,$t3,-40
-/*  f196f70:	10000156 */ 	b	.L0f1974cc
-/*  f196f74:	a64c003e */ 	sh	$t4,0x3e($s2)
-/*  f196f78:	240e003c */ 	addiu	$t6,$zero,0x3c
-/*  f196f7c:	a64e003c */ 	sh	$t6,0x3c($s2)
-/*  f196f80:	2404001c */ 	addiu	$a0,$zero,0x1c
-/*  f196f84:	0fc26d36 */ 	jal	bgunGetMinClipQty
-/*  f196f88:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f196f8c:	8e4f0024 */ 	lw	$t7,0x24($s2)
-/*  f196f90:	01e2c823 */ 	subu	$t9,$t7,$v0
-/*  f196f94:	1000014d */ 	b	.L0f1974cc
-/*  f196f98:	ae590024 */ 	sw	$t9,0x24($s2)
-/*  f196f9c:	1000014b */ 	b	.L0f1974cc
-/*  f196fa0:	a640003c */ 	sh	$zero,0x3c($s2)
-/*  f196fa4:	8e440020 */ 	lw	$a0,0x20($s2)
-.L0f196fa8:
-/*  f196fa8:	24010019 */ 	addiu	$at,$zero,0x19
-/*  f196fac:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f196fb0:	14810011 */ 	bne	$a0,$at,.L0f196ff8
-/*  f196fb4:	00022880 */ 	sll	$a1,$v0,0x2
-/*  f196fb8:	07030010 */ 	bgezl	$t8,.L0f196ffc
-/*  f196fbc:	000577c2 */ 	srl	$t6,$a1,0x1f
-/*  f196fc0:	868d017e */ 	lh	$t5,0x17e($s4)
-/*  f196fc4:	53cd000d */ 	beql	$s8,$t5,.L0f196ffc
-/*  f196fc8:	000577c2 */ 	srl	$t6,$a1,0x1f
-/*  f196fcc:	8e4a0024 */ 	lw	$t2,0x24($s2)
-/*  f196fd0:	1940013e */ 	blez	$t2,.L0f1974cc
-/*  f196fd4:	00000000 */ 	nop
-/*  f196fd8:	0fc0897d */ 	jal	chrUncloakTemporarily
-/*  f196fdc:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196fe0:	0fc66a14 */ 	jal	botactCreateSlayerRocket
-/*  f196fe4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f196fe8:	8e4b0024 */ 	lw	$t3,0x24($s2)
-/*  f196fec:	256cffff */ 	addiu	$t4,$t3,-1
-/*  f196ff0:	10000136 */ 	b	.L0f1974cc
-/*  f196ff4:	ae4c0024 */ 	sw	$t4,0x24($s2)
-.L0f196ff8:
-/*  f196ff8:	000577c2 */ 	srl	$t6,$a1,0x1f
-.L0f196ffc:
-/*  f196ffc:	0fc668a7 */ 	jal	botactIsWeaponThrowable
-/*  f197000:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f197004:	1040005b */ 	beqz	$v0,.L0f197174
-/*  f197008:	8fae004c */ 	lw	$t6,0x4c($sp)
-/*  f19700c:	1660012f */ 	bnez	$s3,.L0f1974cc
-/*  f197010:	00000000 */ 	nop
-/*  f197014:	8e420034 */ 	lw	$v0,0x34($s2)
-/*  f197018:	02402025 */ 	or	$a0,$s2,$zero
-/*  f19701c:	58400005 */ 	blezl	$v0,.L0f197034
-/*  f197020:	8e8902d4 */ 	lw	$t1,0x2d4($s4)
-/*  f197024:	8ecf0038 */ 	lw	$t7,0x38($s6)
-/*  f197028:	004fc823 */ 	subu	$t9,$v0,$t7
-/*  f19702c:	ae590034 */ 	sw	$t9,0x34($s2)
-/*  f197030:	8e8902d4 */ 	lw	$t1,0x2d4($s4)
-.L0f197034:
-/*  f197034:	8d380034 */ 	lw	$t8,0x34($t1)
-/*  f197038:	1f000124 */ 	bgtz	$t8,.L0f1974cc
-/*  f19703c:	00000000 */ 	nop
-/*  f197040:	8e46004c */ 	lw	$a2,0x4c($s2)
-/*  f197044:	8e450020 */ 	lw	$a1,0x20($s2)
-/*  f197048:	00003825 */ 	or	$a3,$zero,$zero
-/*  f19704c:	00066880 */ 	sll	$t5,$a2,0x2
-/*  f197050:	0fc666f9 */ 	jal	botactGetAmmoQuantityByWeapon
-/*  f197054:	000d37c2 */ 	srl	$a2,$t5,0x1f
-/*  f197058:	5c400008 */ 	bgtzl	$v0,.L0f19707c
-/*  f19705c:	868b017e */ 	lh	$t3,0x17e($s4)
-/*  f197060:	8e440020 */ 	lw	$a0,0x20($s2)
-/*  f197064:	2401000e */ 	addiu	$at,$zero,0xe
-/*  f197068:	10810003 */ 	beq	$a0,$at,.L0f197078
-/*  f19706c:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f197070:	14810116 */ 	bne	$a0,$at,.L0f1974cc
-/*  f197074:	00000000 */ 	nop
-.L0f197078:
-/*  f197078:	868b017e */ 	lh	$t3,0x17e($s4)
-.L0f19707c:
-/*  f19707c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f197080:	13cb0018 */ 	beq	$s8,$t3,.L0f1970e4
-/*  f197084:	00000000 */ 	nop
-/*  f197088:	8e4c0128 */ 	lw	$t4,0x128($s2)
-/*  f19708c:	11800015 */ 	beqz	$t4,.L0f1970e4
-/*  f197090:	00000000 */ 	nop
-/*  f197094:	8e4f0004 */ 	lw	$t7,0x4($s2)
-/*  f197098:	3c188008 */ 	lui	$t8,%hi(g_SimDifficulties)
-/*  f19709c:	8e4e011c */ 	lw	$t6,0x11c($s2)
-/*  f1970a0:	91f90048 */ 	lbu	$t9,0x48($t7)
-/*  f1970a4:	00194940 */ 	sll	$t1,$t9,0x5
-/*  f1970a8:	0309c021 */ 	addu	$t8,$t8,$t1
-/*  f1970ac:	93187d14 */ 	lbu	$t8,%lo(g_SimDifficulties)($t8)
-/*  f1970b0:	01d8082a */ 	slt	$at,$t6,$t8
-/*  f1970b4:	1420000b */ 	bnez	$at,.L0f1970e4
-/*  f1970b8:	00000000 */ 	nop
-/*  f1970bc:	0fc64098 */ 	jal	bot0f190260
-/*  f1970c0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1970c4:	14400006 */ 	bnez	$v0,.L0f1970e0
-/*  f1970c8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1970cc:	2405002d */ 	addiu	$a1,$zero,0x2d
-/*  f1970d0:	0fc1241a */ 	jal	chrIsTargetInFov
-/*  f1970d4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1970d8:	10400002 */ 	beqz	$v0,.L0f1970e4
-/*  f1970dc:	00000000 */ 	nop
-.L0f1970e0:
-/*  f1970e0:	02e08025 */ 	or	$s0,$s7,$zero
-.L0f1970e4:
-/*  f1970e4:	120000f9 */ 	beqz	$s0,.L0f1974cc
-/*  f1970e8:	00000000 */ 	nop
-/*  f1970ec:	0fc0897d */ 	jal	chrUncloakTemporarily
-/*  f1970f0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1970f4:	8e46004c */ 	lw	$a2,0x4c($s2)
-/*  f1970f8:	02402025 */ 	or	$a0,$s2,$zero
-/*  f1970fc:	8e450020 */ 	lw	$a1,0x20($s2)
-/*  f197100:	00066880 */ 	sll	$t5,$a2,0x2
-/*  f197104:	000d37c2 */ 	srl	$a2,$t5,0x1f
-/*  f197108:	0fc6675c */ 	jal	botactTryRemoveAmmoFromReserve
-/*  f19710c:	02e03825 */ 	or	$a3,$s7,$zero
-/*  f197110:	0fc668df */ 	jal	botact0f19a37c
-/*  f197114:	02802025 */ 	or	$a0,$s4,$zero
-/*  f197118:	8e45004c */ 	lw	$a1,0x4c($s2)
-/*  f19711c:	8e440020 */ 	lw	$a0,0x20($s2)
-/*  f197120:	00055880 */ 	sll	$t3,$a1,0x2
-/*  f197124:	0fc2c401 */ 	jal	weaponGetFunctionById
-/*  f197128:	000b2fc2 */ 	srl	$a1,$t3,0x1f
-/*  f19712c:	5040000d */ 	beqzl	$v0,.L0f197164
-/*  f197130:	8e8902d4 */ 	lw	$t1,0x2d4($s4)
-/*  f197134:	8c4f0010 */ 	lw	$t7,0x10($v0)
-/*  f197138:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19713c:	000fcb40 */ 	sll	$t9,$t7,0xd
-/*  f197140:	07230008 */ 	bgezl	$t9,.L0f197164
-/*  f197144:	8e8902d4 */ 	lw	$t1,0x2d4($s4)
-/*  f197148:	0fc65f65 */ 	jal	botinvRemoveItem
-/*  f19714c:	8e450020 */ 	lw	$a1,0x20($s2)
-/*  f197150:	02802025 */ 	or	$a0,$s4,$zero
-/*  f197154:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f197158:	0fc6652c */ 	jal	botinvSwitchToWeapon
-/*  f19715c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f197160:	8e8902d4 */ 	lw	$t1,0x2d4($s4)
-.L0f197164:
-/*  f197164:	0fc668b7 */ 	jal	botactGetProjectileThrowInterval
-/*  f197168:	8d240020 */ 	lw	$a0,0x20($t1)
-/*  f19716c:	100000d7 */ 	b	.L0f1974cc
-/*  f197170:	ae420034 */ 	sw	$v0,0x34($s2)
-.L0f197174:
-/*  f197174:	028ec021 */ 	addu	$t8,$s4,$t6
-/*  f197178:	8f0d0170 */ 	lw	$t5,0x170($t8)
-/*  f19717c:	02537821 */ 	addu	$t7,$s2,$s3
-/*  f197180:	51a000ce */ 	beqzl	$t5,.L0f1974bc
-/*  f197184:	ae2000c4 */ 	sw	$zero,0xc4($s1)
-/*  f197188:	8e2a0024 */ 	lw	$t2,0x24($s1)
-/*  f19718c:	594000cb */ 	blezl	$t2,.L0f1974bc
-/*  f197190:	ae2000c4 */ 	sw	$zero,0xc4($s1)
-/*  f197194:	8e45004c */ 	lw	$a1,0x4c($s2)
-/*  f197198:	00008025 */ 	or	$s0,$zero,$zero
-/*  f19719c:	8e440020 */ 	lw	$a0,0x20($s2)
-/*  f1971a0:	00055880 */ 	sll	$t3,$a1,0x2
-/*  f1971a4:	0fc2c7ba */ 	jal	weaponGetNumTicksPerShot
-/*  f1971a8:	000b2fc2 */ 	srl	$a1,$t3,0x1f
-/*  f1971ac:	5c400030 */ 	bgtzl	$v0,.L0f197270
-/*  f1971b0:	02e08025 */ 	or	$s0,$s7,$zero
-/*  f1971b4:	8e4f0020 */ 	lw	$t7,0x20($s2)
-/*  f1971b8:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1971bc:	55e10027 */ 	bnel	$t7,$at,.L0f19725c
-/*  f1971c0:	8e2f005c */ 	lw	$t7,0x5c($s1)
-/*  f1971c4:	8e59004c */ 	lw	$t9,0x4c($s2)
-/*  f1971c8:	00194880 */ 	sll	$t1,$t9,0x2
-/*  f1971cc:	000977c2 */ 	srl	$t6,$t1,0x1f
-/*  f1971d0:	56ee0022 */ 	bnel	$s7,$t6,.L0f19725c
-/*  f1971d4:	8e2f005c */ 	lw	$t7,0x5c($s1)
-/*  f1971d8:	8e380024 */ 	lw	$t8,0x24($s1)
-/*  f1971dc:	2b010002 */ 	slti	$at,$t8,0x2
-/*  f1971e0:	1420001d */ 	bnez	$at,.L0f197258
-/*  f1971e4:	3c017f1c */ 	lui	$at,%hi(var7f1b8fc8)
-/*  f1971e8:	c4288fc8 */ 	lwc1	$f8,%lo(var7f1b8fc8)($at)
-/*  f1971ec:	c6c4004c */ 	lwc1	$f4,0x4c($s6)
-/*  f1971f0:	c62000e4 */ 	lwc1	$f0,0xe4($s1)
-/*  f1971f4:	3c0140a0 */ 	lui	$at,0x40a0
-/*  f1971f8:	46082182 */ 	mul.s	$f6,$f4,$f8
-/*  f1971fc:	4600048d */ 	trunc.w.s	$f18,$f0
-/*  f197200:	44039000 */ 	mfc1	$v1,$f18
-/*  f197204:	44819000 */ 	mtc1	$at,$f18
-/*  f197208:	46060280 */ 	add.s	$f10,$f0,$f6
-/*  f19720c:	3c0140a0 */ 	lui	$at,0x40a0
-/*  f197210:	e62a00e4 */ 	swc1	$f10,0xe4($s1)
-/*  f197214:	c62000e4 */ 	lwc1	$f0,0xe4($s1)
-/*  f197218:	4600903c */ 	c.lt.s	$f18,$f0
-/*  f19721c:	00000000 */ 	nop
-/*  f197220:	45020006 */ 	bc1fl	.L0f19723c
-/*  f197224:	4600020d */ 	trunc.w.s	$f8,$f0
-/*  f197228:	44812000 */ 	mtc1	$at,$f4
-/*  f19722c:	00000000 */ 	nop
-/*  f197230:	e62400e4 */ 	swc1	$f4,0xe4($s1)
-/*  f197234:	c62000e4 */ 	lwc1	$f0,0xe4($s1)
-/*  f197238:	4600020d */ 	trunc.w.s	$f8,$f0
-.L0f19723c:
-/*  f19723c:	44024000 */ 	mfc1	$v0,$f8
-/*  f197240:	00000000 */ 	nop
-/*  f197244:	50430005 */ 	beql	$v0,$v1,.L0f19725c
-/*  f197248:	8e2f005c */ 	lw	$t7,0x5c($s1)
-/*  f19724c:	8e2b0024 */ 	lw	$t3,0x24($s1)
-/*  f197250:	256cffff */ 	addiu	$t4,$t3,-1
-/*  f197254:	ae2c0024 */ 	sw	$t4,0x24($s1)
-.L0f197258:
-/*  f197258:	8e2f005c */ 	lw	$t7,0x5c($s1)
-.L0f19725c:
-/*  f19725c:	1de00004 */ 	bgtz	$t7,.L0f197270
-/*  f197260:	00000000 */ 	nop
-/*  f197264:	10000002 */ 	b	.L0f197270
-/*  f197268:	02e08025 */ 	or	$s0,$s7,$zero
-/*  f19726c:	02e08025 */ 	or	$s0,$s7,$zero
-.L0f197270:
-/*  f197270:	52000052 */ 	beqzl	$s0,.L0f1973bc
-/*  f197274:	8e45004c */ 	lw	$a1,0x4c($s2)
-/*  f197278:	8e3900c4 */ 	lw	$t9,0xc4($s1)
-/*  f19727c:	02534821 */ 	addu	$t1,$s2,$s3
-/*  f197280:	17200004 */ 	bnez	$t9,.L0f197294
-/*  f197284:	00000000 */ 	nop
-/*  f197288:	912e004d */ 	lbu	$t6,0x4d($t1)
-/*  f19728c:	59c00004 */ 	blezl	$t6,.L0f1972a0
-/*  f197290:	8698017e */ 	lh	$t8,0x17e($s4)
-.L0f197294:
-/*  f197294:	1000003a */ 	b	.L0f197380
-/*  f197298:	02e0a825 */ 	or	$s5,$s7,$zero
-/*  f19729c:	8698017e */ 	lh	$t8,0x17e($s4)
-.L0f1972a0:
-/*  f1972a0:	13d80037 */ 	beq	$s8,$t8,.L0f197380
-/*  f1972a4:	00000000 */ 	nop
-/*  f1972a8:	8e4d0128 */ 	lw	$t5,0x128($s2)
-/*  f1972ac:	11a00034 */ 	beqz	$t5,.L0f197380
-/*  f1972b0:	00000000 */ 	nop
-/*  f1972b4:	8e4b0004 */ 	lw	$t3,0x4($s2)
-/*  f1972b8:	3c198008 */ 	lui	$t9,%hi(g_SimDifficulties)
-/*  f1972bc:	8e4a011c */ 	lw	$t2,0x11c($s2)
-/*  f1972c0:	916c0048 */ 	lbu	$t4,0x48($t3)
-/*  f1972c4:	000c7940 */ 	sll	$t7,$t4,0x5
-/*  f1972c8:	032fc821 */ 	addu	$t9,$t9,$t7
-/*  f1972cc:	93397d14 */ 	lbu	$t9,%lo(g_SimDifficulties)($t9)
-/*  f1972d0:	0159082a */ 	slt	$at,$t2,$t9
-/*  f1972d4:	1420002a */ 	bnez	$at,.L0f197380
-/*  f1972d8:	00000000 */ 	nop
-/*  f1972dc:	0fc64098 */ 	jal	bot0f190260
-/*  f1972e0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1972e4:	14400006 */ 	bnez	$v0,.L0f197300
-/*  f1972e8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1972ec:	2405002d */ 	addiu	$a1,$zero,0x2d
-/*  f1972f0:	0fc1241a */ 	jal	chrIsTargetInFov
-/*  f1972f4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1972f8:	10400021 */ 	beqz	$v0,.L0f197380
-/*  f1972fc:	00000000 */ 	nop
-.L0f197300:
-/*  f197300:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f197304:	02802025 */ 	or	$a0,$s4,$zero
-/*  f197308:	0fc0e6a5 */ 	jal	chrIsDead
-/*  f19730c:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f197310:	1440001b */ 	bnez	$v0,.L0f197380
-/*  f197314:	00000000 */ 	nop
-/*  f197318:	8e440020 */ 	lw	$a0,0x20($s2)
-/*  f19731c:	2401000b */ 	addiu	$at,$zero,0xb
-/*  f197320:	02e0a825 */ 	or	$s5,$s7,$zero
-/*  f197324:	54810009 */ 	bnel	$a0,$at,.L0f19734c
-/*  f197328:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f19732c:	8e49004c */ 	lw	$t1,0x4c($s2)
-/*  f197330:	00097080 */ 	sll	$t6,$t1,0x2
-/*  f197334:	000ec7c2 */ 	srl	$t8,$t6,0x1f
-/*  f197338:	56f80004 */ 	bnel	$s7,$t8,.L0f19734c
-/*  f19733c:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f197340:	1000000f */ 	b	.L0f197380
-/*  f197344:	ae3700c4 */ 	sw	$s7,0xc4($s1)
-/*  f197348:	24010014 */ 	addiu	$at,$zero,0x14
-.L0f19734c:
-/*  f19734c:	1481000c */ 	bne	$a0,$at,.L0f197380
-/*  f197350:	00136840 */ 	sll	$t5,$s3,0x1
-/*  f197354:	024d1821 */ 	addu	$v1,$s2,$t5
-/*  f197358:	846b00e0 */ 	lh	$t3,0xe0($v1)
-/*  f19735c:	8ecc0038 */ 	lw	$t4,0x38($s6)
-/*  f197360:	2419005a */ 	addiu	$t9,$zero,0x5a
-/*  f197364:	016c7821 */ 	addu	$t7,$t3,$t4
-/*  f197368:	a46f00e0 */ 	sh	$t7,0xe0($v1)
-/*  f19736c:	846a00e0 */ 	lh	$t2,0xe0($v1)
-/*  f197370:	2941005b */ 	slti	$at,$t2,0x5b
-/*  f197374:	14200002 */ 	bnez	$at,.L0f197380
-/*  f197378:	00000000 */ 	nop
-/*  f19737c:	a47900e0 */ 	sh	$t9,0xe0($v1)
-.L0f197380:
-/*  f197380:	16a0000d */ 	bnez	$s5,.L0f1973b8
-/*  f197384:	00134840 */ 	sll	$t1,$s3,0x1
-/*  f197388:	02491821 */ 	addu	$v1,$s2,$t1
-/*  f19738c:	846200e0 */ 	lh	$v0,0xe0($v1)
-/*  f197390:	5840000a */ 	blezl	$v0,.L0f1973bc
-/*  f197394:	8e45004c */ 	lw	$a1,0x4c($s2)
-/*  f197398:	8ece0038 */ 	lw	$t6,0x38($s6)
-/*  f19739c:	02e0a825 */ 	or	$s5,$s7,$zero
-/*  f1973a0:	004ec023 */ 	subu	$t8,$v0,$t6
-/*  f1973a4:	a47800e0 */ 	sh	$t8,0xe0($v1)
-/*  f1973a8:	846d00e0 */ 	lh	$t5,0xe0($v1)
-/*  f1973ac:	05a30003 */ 	bgezl	$t5,.L0f1973bc
-/*  f1973b0:	8e45004c */ 	lw	$a1,0x4c($s2)
-/*  f1973b4:	a46000e0 */ 	sh	$zero,0xe0($v1)
-.L0f1973b8:
-/*  f1973b8:	8e45004c */ 	lw	$a1,0x4c($s2)
-.L0f1973bc:
-/*  f1973bc:	8e440020 */ 	lw	$a0,0x20($s2)
-/*  f1973c0:	00055880 */ 	sll	$t3,$a1,0x2
-/*  f1973c4:	0fc2c7ba */ 	jal	weaponGetNumTicksPerShot
-/*  f1973c8:	000b2fc2 */ 	srl	$a1,$t3,0x1f
-/*  f1973cc:	1c40003f */ 	bgtz	$v0,.L0f1974cc
-/*  f1973d0:	00000000 */ 	nop
-/*  f1973d4:	12a0003d */ 	beqz	$s5,.L0f1974cc
-/*  f1973d8:	00000000 */ 	nop
-/*  f1973dc:	8e45004c */ 	lw	$a1,0x4c($s2)
-/*  f1973e0:	8e440020 */ 	lw	$a0,0x20($s2)
-/*  f1973e4:	00057880 */ 	sll	$t7,$a1,0x2
-/*  f1973e8:	0fc66983 */ 	jal	botact0f19a60c
-/*  f1973ec:	000f2fc2 */ 	srl	$a1,$t7,0x1f
-/*  f1973f0:	ae22005c */ 	sw	$v0,0x5c($s1)
-/*  f1973f4:	8e45004c */ 	lw	$a1,0x4c($s2)
-/*  f1973f8:	8e440020 */ 	lw	$a0,0x20($s2)
-/*  f1973fc:	0005c880 */ 	sll	$t9,$a1,0x2
-/*  f197400:	0fc2c401 */ 	jal	weaponGetFunctionById
-/*  f197404:	00192fc2 */ 	srl	$a1,$t9,0x1f
-/*  f197408:	10400030 */ 	beqz	$v0,.L0f1974cc
-/*  f19740c:	00000000 */ 	nop
-/*  f197410:	8c430010 */ 	lw	$v1,0x10($v0)
-/*  f197414:	306e1002 */ 	andi	$t6,$v1,0x1002
-/*  f197418:	11c0002c */ 	beqz	$t6,.L0f1974cc
-/*  f19741c:	00000000 */ 	nop
-/*  f197420:	8e380024 */ 	lw	$t8,0x24($s1)
-/*  f197424:	306d1000 */ 	andi	$t5,$v1,0x1000
-/*  f197428:	2b010002 */ 	slti	$at,$t8,0x2
-/*  f19742c:	14200027 */ 	bnez	$at,.L0f1974cc
-/*  f197430:	00000000 */ 	nop
-/*  f197434:	11a00003 */ 	beqz	$t5,.L0f197444
-/*  f197438:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f19743c:	10000001 */ 	b	.L0f197444
-/*  f197440:	24040002 */ 	addiu	$a0,$zero,0x2
-.L0f197444:
-/*  f197444:	8e8b02d4 */ 	lw	$t3,0x2d4($s4)
-/*  f197448:	01731021 */ 	addu	$v0,$t3,$s3
-/*  f19744c:	904c004d */ 	lbu	$t4,0x4d($v0)
-/*  f197450:	258f0001 */ 	addiu	$t7,$t4,0x1
-/*  f197454:	a04f004d */ 	sb	$t7,0x4d($v0)
-/*  f197458:	8e8a02d4 */ 	lw	$t2,0x2d4($s4)
-/*  f19745c:	01531021 */ 	addu	$v0,$t2,$s3
-/*  f197460:	9059004d */ 	lbu	$t9,0x4d($v0)
-/*  f197464:	0324001a */ 	div	$zero,$t9,$a0
-/*  f197468:	00004810 */ 	mfhi	$t1
-/*  f19746c:	a049004d */ 	sb	$t1,0x4d($v0)
-/*  f197470:	8e8302d4 */ 	lw	$v1,0x2d4($s4)
-/*  f197474:	14800002 */ 	bnez	$a0,.L0f197480
-/*  f197478:	00000000 */ 	nop
-/*  f19747c:	0007000d */ 	break	0x7
-.L0f197480:
-/*  f197480:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f197484:	14810004 */ 	bne	$a0,$at,.L0f197498
-/*  f197488:	3c018000 */ 	lui	$at,0x8000
-/*  f19748c:	17210002 */ 	bne	$t9,$at,.L0f197498
-/*  f197490:	00000000 */ 	nop
-/*  f197494:	0006000d */ 	break	0x6
-.L0f197498:
-/*  f197498:	00737021 */ 	addu	$t6,$v1,$s3
-/*  f19749c:	91d8004d */ 	lbu	$t8,0x4d($t6)
-/*  f1974a0:	8fab004c */ 	lw	$t3,0x4c($sp)
-/*  f1974a4:	13000009 */ 	beqz	$t8,.L0f1974cc
-/*  f1974a8:	240d0005 */ 	addiu	$t5,$zero,0x5
-/*  f1974ac:	006b6021 */ 	addu	$t4,$v1,$t3
-/*  f1974b0:	10000006 */ 	b	.L0f1974cc
-/*  f1974b4:	ad8d005c */ 	sw	$t5,0x5c($t4)
-/*  f1974b8:	ae2000c4 */ 	sw	$zero,0xc4($s1)
-.L0f1974bc:
-/*  f1974bc:	00135040 */ 	sll	$t2,$s3,0x1
-/*  f1974c0:	a1e0004d */ 	sb	$zero,0x4d($t7)
-/*  f1974c4:	024ac821 */ 	addu	$t9,$s2,$t2
-/*  f1974c8:	a72000e0 */ 	sh	$zero,0xe0($t9)
-.L0f1974cc:
-/*  f1974cc:	52a00007 */ 	beqzl	$s5,.L0f1974ec
-/*  f1974d0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1974d4:	0fc0897d */ 	jal	chrUncloakTemporarily
-/*  f1974d8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1974dc:	56600003 */ 	bnezl	$s3,.L0f1974ec
-/*  f1974e0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1974e4:	afb70088 */ 	sw	$s7,0x88($sp)
-/*  f1974e8:	02802025 */ 	or	$a0,$s4,$zero
-.L0f1974ec:
-/*  f1974ec:	02602825 */ 	or	$a1,$s3,$zero
-/*  f1974f0:	0fc0fe62 */ 	jal	chrSetHandFiring
-/*  f1974f4:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f1974f8:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*  f1974fc:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f197500:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f197504:	252e0004 */ 	addiu	$t6,$t1,0x4
-/*  f197508:	afae004c */ 	sw	$t6,0x4c($sp)
-/*  f19750c:	1661fdda */ 	bne	$s3,$at,.L0f196c78
-/*  f197510:	26310004 */ 	addiu	$s1,$s1,0x4
-.L0f197514:
-/*  f197514:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f197518:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f19751c:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f197520:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f197524:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*  f197528:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*  f19752c:	8fb50034 */ 	lw	$s5,0x34($sp)
-/*  f197530:	8fb60038 */ 	lw	$s6,0x38($sp)
-/*  f197534:	8fb7003c */ 	lw	$s7,0x3c($sp)
-/*  f197538:	8fbe0040 */ 	lw	$s8,0x40($sp)
-/*  f19753c:	03e00008 */ 	jr	$ra
-/*  f197540:	27bd02f8 */ 	addiu	$sp,$sp,0x2f8
-);
+/**
+ * The tick function for a multiplayer simulant while the game is running.
+ *
+ * The function implements per-scenario decision logic as well as shooting and
+ * reloading.
+ *
+ * General function overview:
+ * - Some minor things at the start
+ * - If team is only AI, choose scenario commands as if player had assigned them
+ * - If the bot is in its main loop:
+ *     - Choose a new myaction value based on the command.
+ *     - Apply the new myaction if any
+ * - If the existing myaction is no longer valid, force a return to the main
+ *   loop on the next tick
+ * - Decide whether to switch weapons (via botinvTick)
+ * - Decide whether to discharge a shot on this tick
+ */
+void botTickUnpaused(struct chrdata *chr)
+{
+	s32 newaction = -1;
+
+	if (!chrIsDead(chr)) {
+		struct aibot *aibot = chr->aibot;
+		s32 i;
+
+		// Consider updating random values
+		aibot->random2ttl60 -= g_Vars.lvupdate240_60;
+
+		if (aibot->random2ttl60 < 0) {
+			aibot->random2ttl60 = 1800 + random() % 14400;
+			aibot->random2 = random();
+			aibot->randomfrac = random() * (1.0f / U32_MAX);
+		}
+
+		// Consider reloading
+		for (i = 0; i != 2; i++) {
+			// Reload if timer has reached 0
+			if (aibot->timeuntilreload60[i] > 0) {
+				aibot->timeuntilreload60[i] -= g_Vars.lvupdate240_60;
+
+				if (aibot->timeuntilreload60[i] <= 0) {
+					botactReload(chr, i, true);
+				}
+			} else if (!botactIsWeaponThrowable(aibot->weaponnum, aibot->gunfunc)) {
+				// If the weapon is reloadable, schedule a reload if bot is out
+				// of ammo or has less than half a clip and last saw their
+				// target 2 seconds ago
+				s32 loadedammo = aibot->loadedammo[i];
+				s32 clipsize = botactGetClipCapacityByFunction(aibot->weaponnum, aibot->gunfunc);
+
+				if (loadedammo <= 0 && clipsize > 0) {
+					botScheduleReload(chr, i);
+				} else if (loadedammo < clipsize / 2 && aibot->lastseenanytarget60 < g_Vars.lvframe60 - 120) {
+					botScheduleReload(chr, i);
+				}
+			}
+		}
+
+		// Handle switching weapons
+		if (aibot->changeguntimer60 > 0) {
+			aibot->changeguntimer60 -= g_Vars.lvupdate240_60;
+
+			if (aibot->changeguntimer60 <= 0) {
+				struct invitem *item = botinvGetItem(chr, aibot->weaponnum);
+				s32 modelnum = weaponGetModel(aibot->weaponnum);
+				s32 i;
+
+				if (item && modelnum >= 0) {
+					chrGiveWeapon(chr, modelnum, aibot->weaponnum, 0);
+					botactReload(chr, HAND_RIGHT, false);
+
+					if (item->type == INVITEMTYPE_DUAL) {
+						chrGiveWeapon(chr, modelnum, aibot->weaponnum, OBJFLAG_WEAPON_LEFTHANDED);
+						botactReload(chr, HAND_LEFT, false);
+					}
+				} else {
+					// Bot doesn't have the weapon it was told to switch to
+					chr->aibot->weaponnum = WEAPON_UNARMED;
+					chr->aibot->gunfunc = FUNC_PRIMARY;
+					chr->aibot->iscloserangeweapon = 1;
+				}
+
+				aibot->throwtimer60 = 0;
+
+				for (i = 0; i < 2; i++) {
+					aibot->punchtimer60[i] = 0;
+
+					if (chr->weapons_held[i]) {
+						chr->weapons_held[i]->weapon->gunfunc = chr->aibot->gunfunc;
+					}
+				}
+			}
+		}
+
+		// The laser has unlimited ammo
+		if (aibot->weaponnum == WEAPON_LASER) {
+			chr->aibot->loadedammo[HAND_RIGHT] = 999;
+		}
+
+		// Consider starting or stopping cloak
+		if (aibot->ammoheld[AMMOTYPE_CLOAK] > 0
+				&& (botIsAboutToAttack(chr, true) || chr->myaction == MA_AIBOTDOWNLOAD)) {
+			aibot->cloakdeviceenabled = true;
+		} else if (aibot->ammoheld[AMMOTYPE_CLOAK] > 1200 + (aibot->random1 >> 5) % 1200) {
+			aibot->cloakdeviceenabled = true;
+		} else if (aibot->ammoheld[AMMOTYPE_CLOAK] <= (aibot->random1 >> 17) % 1200) {
+			aibot->cloakdeviceenabled = false;
+		}
+
+		// Consider starting or stopping RC-P120 cloak
+		if (!aibot->cloakdeviceenabled && aibot->weaponnum == WEAPON_RCP120) {
+			s32 qty = botactGetAmmoQuantityByWeapon(aibot, WEAPON_RCP120, FUNC_PRIMARY, true);
+
+			if (botIsAboutToAttack(chr, true)) {
+				if (qty > 200 + (aibot->random1 >> 6) % 200) {
+					aibot->rcp120cloakenabled = true;
+				} else if (qty <= 30 + (aibot->random1 >> 16) % 70) {
+					aibot->rcp120cloakenabled = false;
+				}
+			} else {
+				if (qty > 300 + (aibot->random1 >> 12) % 500) {
+					aibot->rcp120cloakenabled = true;
+				} else {
+					aibot->rcp120cloakenabled = false;
+				}
+			}
+		} else {
+			aibot->rcp120cloakenabled = false;
+		}
+
+		// KazeSims will attack on sight
+		if (aibot->config->type == BOTTYPE_KAZE
+				&& chr->target != -1
+				&& aibot->targetinsight
+				&& chr->myaction != MA_AIBOTATTACK) {
+			aibot->forcemainloop = true;
+		}
+
+		// If there's no humans on the bot's team to give it commands, figure
+		// out which commands to apply automatically based on the scenario.
+		if (aibot->teamisonlyai) {
+			if (aibot->commandtimer60 > 0) {
+				aibot->commandtimer60 -= g_Vars.lvupdate240_60;
+			}
+
+			if (aibot->commandtimer60 <= 0) {
+				s32 teamsize = botGetTeamSize(chr);
+
+				if (g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE) {
+					s32 numgetting = botGetCountInTeamDoingCommand(chr, AIBOTCMD_GETCASE2, false);
+
+					if (numgetting <= 0 || (numgetting < (teamsize + 1) / 2 || random() % 100 < 66)) {
+						botApplyScenarioCommand(chr, AIBOTCMD_GETCASE2);
+					} else {
+						botApplyScenarioCommand(chr, AIBOTCMD_NORMAL);
+					}
+				} else if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL) {
+					s32 numbots = botGetCountInTeamDoingCommand(chr, AIBOTCMD_DOWNLOAD, false);
+
+					if (aibot->hasuplink || numbots <= 0 || (numbots < (teamsize + 1) / 2 || random() % 100 < 50)) {
+						botApplyScenarioCommand(chr, AIBOTCMD_DOWNLOAD);
+					} else {
+						botApplyScenarioCommand(chr, AIBOTCMD_NORMAL);
+					}
+				} else if (g_MpSetup.scenario == MPSCENARIO_POPACAP) {
+					s32 numchasing = botGetCountInTeamDoingCommand(chr, AIBOTCMD_POPCAP, false);
+
+					if (numchasing <= 0 || numchasing < (teamsize + 1) / 2 || random() % 100 < 50) {
+						botApplyScenarioCommand(chr, AIBOTCMD_POPCAP);
+					} else {
+						botApplyScenarioCommand(chr, AIBOTCMD_NORMAL);
+					}
+				} else if (g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL) {
+					s32 numinhill = botGetNumTeammatesDefendingHill(chr);
+
+					// Don't count ourselves
+					if (chr->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) {
+						numinhill--;
+					}
+
+					if (numinhill <= 0 || numinhill < teamsize / 2) {
+						botApplyScenarioCommand(chr, AIBOTCMD_HOLDHILL);
+					} else if (numinhill > botGetNumOpponentsInHill(chr)) {
+						if (random() % 100 < 50) {
+							botApplyScenarioCommand(chr, AIBOTCMD_DEFHILL);
+						} else {
+							botApplyScenarioCommand(chr, AIBOTCMD_NORMAL);
+						}
+					} else {
+						botApplyScenarioCommand(chr, AIBOTCMD_HOLDHILL);
+					}
+				} else if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE) {
+					if (teamsize == 1) {
+						// One man team
+						s32 numgetting = botGetCountInTeamDoingCommand(chr, AIBOTCMD_GETCASE, true);
+
+						if (botShouldReturnCtcToken(chr)) {
+							botApplyScenarioCommand(chr, AIBOTCMD_GETCASE);
+						} else if (botIsChrsCtcTokenHeld(chr)) {
+							if (random() % 100 < 30) {
+								botApplyScenarioCommand(chr, AIBOTCMD_GETCASE);
+							} else {
+								botApplyScenarioCommand(chr, AIBOTCMD_SAVECASE);
+							}
+						} else {
+							if (random() % 100 < 70 || numgetting <= 0) {
+								botApplyScenarioCommand(chr, AIBOTCMD_GETCASE);
+							} else {
+								botApplyScenarioCommand(chr, AIBOTCMD_SAVECASE);
+							}
+						}
+					} else {
+						// Not a one man team
+						s32 numgetting = botGetCountInTeamDoingCommand(chr, AIBOTCMD_GETCASE, false);
+						s32 numsaving = botGetCountInTeamDoingCommand(chr, AIBOTCMD_SAVECASE, false);
+
+						if (botShouldReturnCtcToken(chr)) {
+							botApplyScenarioCommand(chr, AIBOTCMD_GETCASE);
+						} else if (botIsChrsCtcTokenHeld(chr)) {
+							if (numsaving <= 0 || random() % 100 < 70) {
+								botApplyScenarioCommand(chr, AIBOTCMD_SAVECASE);
+							} else {
+								botApplyScenarioCommand(chr, AIBOTCMD_GETCASE);
+							}
+						} else if (numgetting <= 0 || numgetting < teamsize / 3) {
+							botApplyScenarioCommand(chr, AIBOTCMD_GETCASE);
+						} else if (numsaving <= 0 || numsaving < teamsize / 4) {
+							botApplyScenarioCommand(chr, AIBOTCMD_SAVECASE);
+						} else if (random() % 100 < 30) {
+							botApplyScenarioCommand(chr, AIBOTCMD_GETCASE);
+						} else if (random() % 100 < 30) {
+							botApplyScenarioCommand(chr, AIBOTCMD_SAVECASE);
+						} else {
+							botApplyScenarioCommand(chr, AIBOTCMD_NORMAL);
+						}
+					}
+				}
+
+				// Consider changing command in 20 to 60 seconds
+				aibot->commandtimer60 = 1200 + random() % 2400;
+			}
+		}
+
+		// The main loop is entered whenever the bot needs something to do
+		// or when a player gives it a command. It calculates a new myaction
+		// value and associated arguments based on its assigned command.
+		if (chr->myaction == MA_AIBOTMAINLOOP || aibot->forcemainloop) {
+			aibot->forcemainloop = false;
+			aibot->attackingplayernum = -1;
+
+			// KazeSim will attack people on sight regardless of command
+			if (aibot->config->type == BOTTYPE_KAZE && chr->target != -1 && aibot->targetinsight) {
+				newaction = MA_AIBOTATTACK;
+				aibot->attackingplayernum = mpPlayerGetIndex(chrGetTargetProp(chr)->chr);
+				aibot->abortattacktimer60 = -1;
+			}
+
+			// Check if the bot needs to fetch some weapons or ammo
+			if (newaction < 0) {
+				aibot->gotoprop = botFindNecessaryPickup(chr);
+
+				if (aibot->gotoprop) {
+					newaction = MA_AIBOTGETITEM;
+				}
+			}
+
+			// Bot is good to implement the assigned command
+			if (newaction < 0) {
+				if (aibot->command == AIBOTCMD_ATTACK) {
+					// Attack the prop (player) given in attackpropnum
+					// This is a human command only
+					struct chrdata *targetchr = (g_Vars.props + aibot->attackpropnum)->chr;
+
+					if (!chrIsDead(targetchr)
+							&& !botIsTargetInvisible(chr, targetchr)
+							&& botPassesCowardCheck(chr, targetchr)) {
+						newaction = MA_AIBOTATTACK;
+						aibot->attackingplayernum = mpPlayerGetIndex(targetchr);
+						aibot->abortattacktimer60 = -1;
+					}
+				} else if (aibot->command == AIBOTCMD_FOLLOW) {
+					// Follow the prop (player) given in followprotectpropnum
+					// This is a human command only
+					newaction = MA_AIBOTFOLLOW;
+					aibot->canbreakfollow = true;
+					aibot->followingplayernum = mpPlayerGetIndex((g_Vars.props + aibot->followprotectpropnum)->chr);
+				} else if (aibot->command == AIBOTCMD_PROTECT) {
+					// Protect the prop (player) given in followprotectpropnum
+					// This is a human command only
+					newaction = MA_AIBOTFOLLOW;
+					aibot->canbreakfollow = false;
+					aibot->followingplayernum = mpPlayerGetIndex((g_Vars.props + aibot->followprotectpropnum)->chr);
+				} else if (aibot->command == AIBOTCMD_DEFEND) {
+					// Defend the position given in defendholdpos
+					// This is a human command only
+					newaction = MA_AIBOTDEFEND;
+					aibot->canbreakdefend = true;
+				} else if (aibot->command == AIBOTCMD_HOLD) {
+					// Hold the position given in defendholdpos
+					// This is a human command only
+					newaction = MA_AIBOTDEFEND;
+					aibot->canbreakdefend = false;
+				} else if (aibot->command == AIBOTCMD_GETCASE) {
+					// Capture the case - fetch and return the opponent's token
+					if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE && !aibot->hascase) {
+						// Make an array of pointers to other teams' tokens
+						// but ignore enemy tokens held by other teams
+						s32 botteamindex = radarGetTeamIndex(chr->team);
+						s32 i;
+						struct prop *tokens[4];
+						s32 numtokens = 0;
+
+						for (i = 0; i != 4; i++) {
+							if (i != botteamindex && g_ScenarioData.ctc.unk00[i]) {
+								if (g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_WEAPON
+										|| g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_OBJ) {
+									// Token is not held
+									tokens[numtokens++] = g_ScenarioData.ctc.tokens[i];
+								} else if (g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_CHR
+										|| g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_PLAYER) {
+									// Token is held
+									struct chrdata *tokenchr = g_ScenarioData.ctc.tokens[i]->chr;
+
+									if (tokenchr->team == chr->team) {
+										// Token is held by teammate
+										tokens[numtokens++] = g_ScenarioData.ctc.tokens[i];
+									}
+								}
+							}
+						}
+
+						// Prefer a token within 10 metres, otherwise pick any
+						if (numtokens > 0) {
+							s32 index;
+							s32 i;
+
+							index = random() % numtokens;
+
+							i = (index + 1) % numtokens;
+
+							while (true) {
+								f32 sqdist = chrGetSquaredDistanceToCoord(chr, &tokens[i]->pos);
+
+								if (sqdist < 1000 * 1000) {
+									index = i;
+									break;
+								}
+
+								if (i == index) {
+									break;
+								}
+
+								i = (i + 1) % numtokens;
+							}
+
+							if (index);
+
+							// If the chosen token is not held then collect it,
+							// otherwise it's held by a teammate so go protect them
+							if (tokens[index]->type == PROPTYPE_WEAPON || tokens[index]->type == PROPTYPE_OBJ) {
+								newaction = MA_AIBOTGETITEM;
+								aibot->gotoprop = tokens[index];
+							} else if (botCanFollow(chr, tokens[index]->chr)) {
+								newaction = MA_AIBOTFOLLOW;
+								aibot->canbreakfollow = random() % 4 == 0;
+								aibot->followingplayernum = mpPlayerGetIndex(tokens[index]->chr);
+							}
+						}
+					}
+				} else if (aibot->command == AIBOTCMD_SAVECASE) {
+					// Capture the case - recover/protect bot's own token
+					if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE) {
+						// Find out where the bot's token is
+						struct prop *token = g_ScenarioData.ctc.tokens[radarGetTeamIndex(chr->team)];
+
+						if (token->type == PROPTYPE_CHR || token->type == PROPTYPE_PLAYER) {
+							struct chrdata *tokenchr = token->chr;
+
+							if (tokenchr->team == chr->team) {
+								// Held by a teammate - follow/protect them
+								if (botCanFollow(chr, tokenchr)) {
+									newaction = MA_AIBOTFOLLOW;
+									aibot->canbreakfollow = random() % 4 == 0;
+									aibot->followingplayernum = mpPlayerGetIndex(tokenchr);
+								}
+							} else {
+								// Held by an opponent - attack them
+								if (!chrIsDead(tokenchr)
+										&& !botIsTargetInvisible(chr, tokenchr)
+										&& botPassesCowardCheck(chr, tokenchr)) {
+									newaction = MA_AIBOTATTACK;
+									aibot->attackingplayernum = mpPlayerGetIndex(tokenchr);
+									aibot->abortattacktimer60 = -1;
+								}
+							}
+						} else {
+							// Token is not held - go to the pos to defend it
+							newaction = MA_AIBOTGOTOPOS;
+							aibot->gotopos.x = token->pos.x;
+							aibot->gotopos.y = token->pos.y;
+							aibot->gotopos.z = token->pos.z;
+							roomsCopy(token->rooms, aibot->gotorooms);
+							aibot->unk04c_00 = false;
+						}
+					}
+				} else if (aibot->command == AIBOTCMD_DEFHILL) {
+					// King of the hill - defend the hill (allow wandering out)
+					if (g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL) {
+						if (chr->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]
+								&& chr->target != -1
+								&& aibot->targetinsight
+								&& botPassesCowardCheck(chr, chrGetTargetProp(chr)->chr)) {
+							// Bot is in the hill and sees target - attack them
+							newaction = MA_AIBOTATTACK;
+							aibot->attackingplayernum = mpPlayerGetIndex(chrGetTargetProp(chr)->chr);
+							aibot->abortattacktimer60 = 300;
+						} else {
+							// Go to the hill if not there already
+							u32 stack;
+							struct coord sp26c;
+							s32 sp268;
+							s32 sp264;
+							s32 sp260;
+
+							if (func0f19ab70(g_ScenarioData.koh.hillrooms[0], &sp26c, &sp268, &sp264, &sp260)) {
+								newaction = MA_AIBOTGOTOPOS;
+								aibot->gotopos.x = sp26c.x;
+								aibot->gotopos.y = sp26c.y;
+								aibot->gotopos.z = sp26c.z;
+								roomsCopy(g_ScenarioData.koh.hillrooms, aibot->gotorooms);
+								aibot->unk04c_00 = (chr->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) != 0;
+								aibot->unk048 = sp264;
+								aibot->unk04a = sp260;
+								aibot->lastknownhill = g_ScenarioData.koh.hillrooms[0];
+							}
+						}
+					}
+				} else if (aibot->command == AIBOTCMD_HOLDHILL) {
+					// King of the hill - hold the hill (don't wander out)
+					if (g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL) {
+						struct coord uStack164;
+						s32 a;
+						s32 b;
+						s32 c;
+
+						// Go to the hill if not there already
+						if (func0f19ab70(g_ScenarioData.koh.hillrooms[0], &uStack164, &a, &b, &c)) {
+							newaction = MA_AIBOTGOTOPOS;
+							aibot->gotopos.x = uStack164.x;
+							aibot->gotopos.y = uStack164.y;
+							aibot->gotopos.z = uStack164.z;
+							roomsCopy(g_ScenarioData.koh.hillrooms, aibot->gotorooms);
+							aibot->unk04c_00 = (chr->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) != 0;
+							aibot->unk048 = b;
+							aibot->unk04a = c;
+							aibot->lastknownhill = g_ScenarioData.koh.hillrooms[0];
+						}
+					}
+				} else if (aibot->command == AIBOTCMD_DOWNLOAD) {
+					// Hacker Central - fetch uplink
+					if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL
+							&& g_ScenarioData.htm.uplink
+							&& g_ScenarioData.htm.uplink != chr->prop) {
+						// Uplink is not held by current bot
+						if (g_ScenarioData.htm.uplink->type == PROPTYPE_CHR
+								|| g_ScenarioData.htm.uplink->type == PROPTYPE_PLAYER) {
+							struct chrdata *uplinkchr = g_ScenarioData.htm.uplink->chr;
+
+							if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) && uplinkchr->team == chr->team) {
+								// Uplink is held by teammate - protect them
+								if (botCanFollow(chr, uplinkchr)) {
+									newaction = MA_AIBOTFOLLOW;
+									aibot->canbreakfollow = random() % 4 == 0;
+									aibot->followingplayernum = mpPlayerGetIndex(uplinkchr);
+								}
+							} else {
+								// Uplink is held by opponent - attack them
+								if (!botIsTargetInvisible(chr, uplinkchr) && botPassesCowardCheck(chr, uplinkchr)) {
+									newaction = MA_AIBOTATTACK;
+									aibot->attackingplayernum = mpPlayerGetIndex(uplinkchr);
+									aibot->abortattacktimer60 = -1;
+								}
+							}
+						} else {
+							// Uplink is not held by anyone - fetch it
+							newaction = MA_AIBOTGOTOPROP;
+							aibot->gotoprop = g_ScenarioData.htm.uplink;
+						}
+					}
+				} else if (aibot->command == AIBOTCMD_GETCASE2) {
+					// Hold the briefcase - fetch and hold the case
+					if (g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE
+							&& g_ScenarioData.htb.token
+							&& g_ScenarioData.htb.token != chr->prop) {
+						// Briefcase is not held by current bot
+						if (g_ScenarioData.htb.token->type == PROPTYPE_CHR
+								|| g_ScenarioData.htb.token->type == PROPTYPE_PLAYER) {
+							struct chrdata *tokenchr = g_ScenarioData.htb.token->chr;
+
+							if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) && tokenchr->team == chr->team) {
+								// Briefcase is held by teammate - protect them
+								if (botCanFollow(chr, tokenchr)) {
+									newaction = MA_AIBOTFOLLOW;
+									aibot->canbreakfollow = random() % 4 == 0;
+									aibot->followingplayernum = mpPlayerGetIndex(tokenchr);
+								}
+							} else if (!botIsTargetInvisible(chr, tokenchr) && botPassesCowardCheck(chr, tokenchr)) {
+								// Briefcase is held by opponent - attack them
+								newaction = MA_AIBOTATTACK;
+								aibot->attackingplayernum = mpPlayerGetIndex(tokenchr);
+								aibot->abortattacktimer60 = -1;
+							}
+						} else {
+							// Briefcase is not held by anyone - fetch it
+							newaction = MA_AIBOTGOTOPROP;
+							aibot->gotoprop = g_ScenarioData.htb.token;
+						}
+					}
+				} else if (aibot->command == AIBOTCMD_POPCAP) {
+					// Pop a cap - attack the target
+					if (g_MpSetup.scenario == MPSCENARIO_POPACAP && g_ScenarioData.pac.victimindex >= 0) {
+						struct prop *victimprop = g_MpAllChrPtrs[g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex]]->prop;
+
+						if (victimprop != chr->prop) {
+							// Victim is not the current bot
+							struct chrdata *victimchr = victimprop->chr;
+
+							if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) && victimchr->team == chr->team) {
+								// Victim is a teammate - protect them
+								if (botCanFollow(chr, victimchr)) {
+									newaction = MA_AIBOTFOLLOW;
+									aibot->canbreakfollow = random() % 4 == 0;
+									aibot->followingplayernum = mpPlayerGetIndex(victimchr);
+								}
+							} else {
+								// Victim is an opponent - attack them
+								if (!botIsTargetInvisible(chr, victimchr) && botPassesCowardCheck(chr, victimchr)) {
+									newaction = MA_AIBOTATTACK;
+									aibot->attackingplayernum = mpPlayerGetIndex(victimchr);
+									aibot->abortattacktimer60 = -1;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			// The bot can still not have an action if it's general combat, or
+			// in some situations like having the uplink in Hacker Central or
+			// holding the briefcase in Hold the Briefcase.
+			if (newaction < 0) {
+				if (g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE) {
+					if (aibot->hasbriefcase) {
+						// Current bot has the briefcase - follow a teammate for protection
+						s32 playernum = -1;
+
+						if (random() % 100 < 66) {
+							playernum = botFindTeammateToFollow(chr, 100000);
+						}
+
+						if (playernum >= 0) {
+							newaction = MA_AIBOTFOLLOW;
+							aibot->canbreakfollow = random() % 4 == 0;
+							aibot->followingplayernum = playernum;
+						}
+					}
+				} else if (g_MpSetup.scenario == MPSCENARIO_POPACAP) {
+					if (g_ScenarioData.pac.victimindex >= 0) {
+						struct prop *victimprop = g_MpAllChrPtrs[g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex]]->prop;
+
+						if (victimprop == chr->prop) {
+							// Current bot is the victim - follow a teammate for protection
+							s32 playernum = -1;
+
+							if (random() % 100 < 66) {
+								playernum = botFindTeammateToFollow(chr, 100000);
+							}
+
+							if (playernum >= 0) {
+								newaction = MA_AIBOTFOLLOW;
+								aibot->canbreakfollow = random() % 4 == 0;
+								aibot->followingplayernum = playernum;
+							}
+						}
+					}
+				} else if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE) {
+					// If the bot is holding an opponent's token, take it home
+					if (botShouldReturnCtcToken(chr)) {
+						struct pad pad;
+						s32 teamindex = g_ScenarioData.ctc.teamindexes[radarGetTeamIndex(chr->team)];
+						newaction = MA_AIBOTGOTOPOS;
+						padUnpack(g_ScenarioData.ctc.spawnpadsperteam[teamindex].homepad, PADFIELD_POS | PADFIELD_ROOM, &pad);
+						aibot->gotopos.x = pad.pos.x;
+						aibot->gotopos.y = pad.pos.y;
+						aibot->gotopos.z = pad.pos.z;
+						aibot->gotorooms[0] = pad.room;
+						aibot->gotorooms[1] = -1;
+						aibot->unk04c_00 = false;
+					}
+				} else if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL) {
+					// If the bot has the uplink, go to the terminal
+					if (g_ScenarioData.htm.uplink == chr->prop) {
+						if (g_ScenarioData.htm.uplinkingplayernum != mpPlayerGetIndex(chr)) {
+							newaction = MA_AIBOTGOTOPROP;
+							aibot->gotoprop = g_ScenarioData.htm.unk07c[0].prop;
+						} else {
+							newaction = MA_AIBOTDOWNLOAD;
+						}
+					}
+				}
+			}
+
+			// If there's nothing to do for scenarios then go find some people to kill
+			if (newaction < 0) {
+				if (aibot->config->type == BOTTYPE_VENGE) {
+					// Attack the last player who killed the bot
+					if (aibot->lastkilledbyplayernum >= 0
+							&& !botIsTargetInvisible(chr, g_MpAllChrPtrs[aibot->lastkilledbyplayernum])) {
+						newaction = MA_AIBOTATTACK;
+						aibot->attackingplayernum = aibot->lastkilledbyplayernum;
+						aibot->abortattacktimer60 = -1;
+					}
+				} else if (aibot->config->type == BOTTYPE_FEUD) {
+					// Attack a single player the whole match
+					if (aibot->feudplayernum < 0
+							&& aibot->lastkilledbyplayernum >= 0
+							&& !chrCompareTeams(chr, g_MpAllChrPtrs[aibot->lastkilledbyplayernum], COMPARE_FRIENDS)) {
+						aibot->feudplayernum = aibot->lastkilledbyplayernum;
+					}
+
+					if (aibot->feudplayernum >= 0 && !botIsTargetInvisible(chr, g_MpAllChrPtrs[aibot->feudplayernum])) {
+						newaction = MA_AIBOTATTACK;
+						aibot->abortattacktimer60 = -1;
+						aibot->attackingplayernum = aibot->feudplayernum;
+					}
+				} else if (aibot->config->type == BOTTYPE_JUDGE) {
+					// Attack the winning player
+					struct mpteaminfo infos[12];
+					s32 count = mpGetPlayerRankings(infos);
+					s32 i;
+
+					for (i = 0; i < count; i++) {
+						s32 playernum = func0f18d0e8(infos[i].teamnum);
+						struct chrdata *otherchr = mpGetChrFromPlayerIndex(playernum);
+
+						if (otherchr != chr
+								&& !chrIsDead(otherchr)
+								&& chrCompareTeams(chr, otherchr, COMPARE_ENEMIES)
+								&& !botIsTargetInvisible(chr, otherchr)) {
+							newaction = MA_AIBOTATTACK;
+							aibot->attackingplayernum = playernum;
+							aibot->abortattacktimer60 = -1;
+						}
+					}
+				} else if (aibot->config->type == BOTTYPE_PREY) {
+					// Attack the weakest player
+					f32 minhealth = 0;
+					s32 weakestplayernum = -1;
+					f32 health;
+					s32 i;
+
+					for (i = 0; i < g_MpNumChrs; i++) {
+						struct chrdata *otherchr = mpGetChrFromPlayerIndex(i);
+
+						if (otherchr != chr
+								&& !chrIsDead(otherchr)
+								&& chrCompareTeams(chr, otherchr, COMPARE_ENEMIES)
+								&& !botIsTargetInvisible(chr, otherchr)) {
+							if (otherchr->aibot) {
+								health = otherchr->maxdamage - otherchr->damage;
+							} else {
+								health = g_Vars.players[propGetPlayerNum(otherchr->prop)]->bondhealth * 8;
+							}
+
+							if (weakestplayernum < 0 || health < minhealth) {
+								weakestplayernum = i;
+								minhealth = health;
+							}
+						}
+					}
+
+					if (weakestplayernum >= 0) {
+						newaction = MA_AIBOTATTACK;
+						aibot->attackingplayernum = weakestplayernum;
+						aibot->abortattacktimer60 = -1;
+					}
+				}
+			}
+
+			// If the bot didn't set an action above,
+			// try attacking the existing target
+			if (newaction < 0) {
+				if (chr->target != -1 && botPassesCowardCheck(chr, chrGetTargetProp(chr)->chr)) {
+					newaction = MA_AIBOTATTACK;
+					aibot->abortattacktimer60 = -1;
+				}
+			}
+
+			// If there's no existing target, just follow a teammate
+			if (newaction < 0) {
+				s32 playernum = botFindTeammateToFollow(chr, 300);
+
+				if (playernum >= 0) {
+					newaction = MA_AIBOTFOLLOW;
+					aibot->canbreakfollow = random() % 4 == 0;
+					aibot->followingplayernum = playernum;
+				}
+			}
+
+			// If there's no teammate to follow, stock up on weapons and ammo
+			if (newaction < 0) {
+				aibot->gotoprop = botFindUnnecessaryPickup(chr);
+
+				if (aibot->gotoprop) {
+					newaction = MA_AIBOTGETITEM;
+				}
+			}
+		}
+
+		// Implement the new action
+		if (newaction >= 0) {
+			if (newaction == MA_AIBOTGETITEM) {
+				if (aibot->gotoprop) {
+					chrGoToProp(chr, aibot->gotoprop, SPEED_RUN);
+					chr->myaction = newaction;
+				}
+			} else if (newaction == MA_AIBOTATTACK) {
+				if (chr->myaction != MA_AIBOTATTACK) {
+					chr->myaction = newaction;
+					aibot->distmode = -1;
+				}
+			} else if (newaction == MA_AIBOTFOLLOW) {
+				if (chr->myaction != MA_AIBOTFOLLOW) {
+					chr->myaction = newaction;
+					aibot->distmode = -1;
+
+					if (aibot->canbreakfollow) {
+						botSetTarget(chr, -1);
+					}
+				}
+			} else if (newaction == MA_AIBOTDEFEND) {
+				chr->myaction = newaction;
+
+				if (aibot->canbreakdefend) {
+					botSetTarget(chr, -1);
+				}
+
+				chrGoToPos(chr, &aibot->defendholdpos, aibot->defendholdrooms, SPEED_RUN);
+			} else if (newaction == MA_AIBOTGOTOPOS) {
+				f32 xdist = chr->prop->pos.x - aibot->gotopos.x;
+				f32 ydist = chr->prop->pos.y - aibot->gotopos.y;
+				f32 zdist = chr->prop->pos.z - aibot->gotopos.z;
+
+				if (xdist < 0) {
+					xdist = -xdist;
+				}
+
+				if (ydist < 0) {
+					ydist = -ydist;
+				}
+
+				if (zdist < 0) {
+					zdist = -zdist;
+				}
+
+				if (xdist > 20 || zdist > 20 || (ydist > 200 && chr->inlift == 0)) {
+					chr->myaction = newaction;
+					chrGoToPos(chr, &aibot->gotopos, aibot->gotorooms, SPEED_RUN);
+				} else {
+					chrStand(chr);
+				}
+			} else if (newaction == MA_AIBOTGOTOPROP) {
+				if (aibot->gotoprop) {
+					chr->myaction = newaction;
+					chrGoToProp(chr, aibot->gotoprop, SPEED_RUN);
+				}
+			} else if (newaction == MA_AIBOTDOWNLOAD) {
+				chr->myaction = newaction;
+				chrStand(chr);
+			}
+		}
+
+		// If the action is no longer valid, go back to the main loop
+		// so another action can be chosen on the next tick
+		if (chr->myaction == MA_AIBOTGETITEM) {
+			if (chr->actiontype != ACT_GOPOS
+					|| aibot->gotoprop == NULL
+					|| aibot->gotoprop->parent
+					|| aibot->gotoprop->timetoregen != 0) {
+				chr->myaction = MA_AIBOTMAINLOOP;
+			}
+		} else if (chr->myaction == MA_AIBOTATTACK) {
+			if (aibot->attackingplayernum >= 0
+					&& (chrIsDead(g_MpAllChrPtrs[aibot->attackingplayernum]) || !botPassesCowardCheck(chr, g_MpAllChrPtrs[aibot->attackingplayernum]))) {
+				chr->myaction = MA_AIBOTMAINLOOP;
+			} else if (aibot->attackingplayernum < 0
+					&& (chr->target == -1
+						|| chrIsDead(chrGetTargetProp(chr)->chr)
+						|| !botPassesCowardCheck(chr, chrGetTargetProp(chr)->chr))) {
+				chr->myaction = MA_AIBOTMAINLOOP;
+			} else {
+				botcmdTickDistMode(chr);
+
+				if (bot0f194670(chr)) {
+					chr->myaction = MA_AIBOTMAINLOOP;
+				} else if (aibot->abortattacktimer60 >= 0 && aibot->targetlastseen60 < g_Vars.lvframe60 - aibot->abortattacktimer60) {
+					chr->myaction = MA_AIBOTMAINLOOP;
+				}
+			}
+		} else if (chr->myaction == MA_AIBOTFOLLOW) {
+			if (aibot->followingplayernum < 0
+					|| chrIsDead(g_MpAllChrPtrs[aibot->followingplayernum])) {
+				chr->myaction = MA_AIBOTMAINLOOP;
+			} else {
+				botcmdTickDistMode(chr);
+
+				if (aibot->canbreakfollow
+						&& chr->target != -1
+						&& aibot->targetinsight
+						&& botPassesCowardCheck(chr, chrGetTargetProp(chr)->chr)) {
+					f32 xdist = chr->prop->pos.x - g_MpAllChrPtrs[aibot->followingplayernum]->prop->pos.x;
+					f32 zdist = chr->prop->pos.z - g_MpAllChrPtrs[aibot->followingplayernum]->prop->pos.z;
+
+					if (xdist < 0) {
+						xdist = -xdist;
+					}
+
+					if (zdist < 0) {
+						zdist = -zdist;
+					}
+
+					// No y check?
+					if (xdist < 500 && zdist < 500) {
+						chr->myaction = MA_AIBOTATTACK;
+						aibot->attackingplayernum = mpPlayerGetIndex(chrGetTargetProp(chr)->chr);
+						aibot->abortattacktimer60 = 300;
+						aibot->distmode = -1;
+					}
+				}
+
+				if (bot0f194670(chr)) {
+					chr->myaction = MA_AIBOTMAINLOOP;
+				}
+			}
+		} else if (chr->myaction == MA_AIBOTDEFEND) {
+			if (chr->actiontype != ACT_GOPOS) {
+				f32 xdist = chr->prop->pos.x - aibot->defendholdpos.x;
+				f32 ydist = chr->prop->pos.y - aibot->defendholdpos.y;
+				f32 zdist = chr->prop->pos.z - aibot->defendholdpos.z;
+
+				if (xdist < 0) {
+					xdist = -xdist;
+				}
+
+				if (ydist < 0) {
+					ydist = -ydist;
+				}
+
+				if (zdist < 0) {
+					zdist = -zdist;
+				}
+
+				if (aibot->returntodefendtimer60 > 0) {
+					aibot->returntodefendtimer60 -= g_Vars.lvupdate240_60;
+				}
+
+				if (xdist > 40 || zdist > 40 || (ydist > 200 && !chr->inlift)) {
+					if (aibot->returntodefendtimer60 <= 0) {
+						chrGoToPos(chr, &aibot->defendholdpos, aibot->defendholdrooms, SPEED_RUN);
+					}
+				} else if (aibot->canbreakdefend
+						&& chr->target != -1
+						&& aibot->targetinsight
+						&& botPassesCowardCheck(chr, chrGetTargetProp(chr)->chr)) {
+					chr->myaction = MA_AIBOTATTACK;
+					aibot->attackingplayernum = mpPlayerGetIndex(chrGetTargetProp(chr)->chr);
+					aibot->abortattacktimer60 = 300;
+					aibot->distmode = -1;
+				}
+
+				if (aibot->returntodefendtimer60 <= 0) {
+					aibot->returntodefendtimer60 = 60;
+				}
+			}
+
+			if (bot0f194670(chr)) {
+				chr->myaction = MA_AIBOTMAINLOOP;
+			}
+		} else if (chr->myaction == MA_AIBOTGOTOPOS) {
+			if (g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL && aibot->unk04c_00) {
+				if (aibot->lastknownhill != g_ScenarioData.koh.hillrooms[0]) {
+					// Someone scored the hill
+					aibot->unk04c_00 = false;
+				} else if (chr->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) {
+					// empty
+				} else if (aibot->unk048 >= 0) {
+					padSetFlag(aibot->unk048, PADFLAG_20000);
+				} else if (aibot->unk04a >= 0) {
+					coverSetFlag(aibot->unk04a, COVERFLAG_0100);
+				}
+			}
+
+			if (chr->actiontype != ACT_GOPOS) {
+				chr->myaction = MA_AIBOTMAINLOOP;
+			} else if (bot0f194670(chr)) {
+				chr->myaction = MA_AIBOTMAINLOOP;
+			}
+		} else if (chr->myaction == MA_AIBOTGOTOPROP) {
+			if (bot0f194670(chr)) {
+				chr->myaction = MA_AIBOTMAINLOOP;
+			} else if (chr->actiontype != ACT_GOPOS || aibot->gotoprop == NULL || aibot->gotoprop->parent) {
+				chr->myaction = MA_AIBOTMAINLOOP;
+			} else if (g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE) {
+				// empty
+			} else if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL
+					&& g_ScenarioData.htm.uplink == chr->prop
+					&& g_ScenarioData.htm.uplinkingplayernum == mpPlayerGetIndex(chr)) {
+				chr->myaction = MA_AIBOTMAINLOOP;
+			}
+		} else if (chr->myaction == MA_AIBOTDOWNLOAD) {
+			if (bot0f194670(chr)) {
+				chr->myaction = MA_AIBOTMAINLOOP;
+			} else if (g_ScenarioData.htm.uplinkingplayernum != mpPlayerGetIndex(chr)) {
+				chr->myaction = MA_AIBOTMAINLOOP;
+			}
+		}
+
+		// Regardless of the action, choose a general target and maintain a
+		// route to them, even if it won't be followed
+		botChooseGeneralTarget(chr);
+
+		if (mpPlayerGetIndex(chr) == (g_Vars.lvframenum % g_MpNumChrs) && chr->target != -1) {
+			struct prop *targetprop = chrGetTargetProp(chr);
+			struct waypoint *first = waypointFindClosestToPos(&chr->prop->pos, chr->prop->rooms);
+			struct waypoint *last = waypointFindClosestToPos(&targetprop->pos, targetprop->rooms);
+
+			if (first && last) {
+				s32 hash = (g_Vars.lvframe60 >> 9) * 128 + chr->chrnum * 8;
+				waypointSetHashThing(hash, hash);
+				aibot->unk208 = waypointFindRoute(last, first, aibot->waypoints, ARRAYCOUNT(aibot->waypoints));
+				waypointSetHashThing(0, 0);
+			}
+		}
+
+		// Tick the bot's inventory. They may decide to switch weapons.
+		botinvTick(chr);
+
+		// Iterate both hands and handle shooting
+		{
+			bool firingright = false;
+			s32 i;
+
+			for (i = 0; i < 2; i++) {
+				bool firing = false;
+
+				// nextbullettimer60 is positive if the chr is firing
+				// It's used to implement the weapon's fire rate correctly
+				if (aibot->nextbullettimer60[i] > 0) {
+					aibot->nextbullettimer60[i] -= g_Vars.lvupdate240_60;
+				}
+
+				// Don't shoot the left hand on the same frame as the right
+				// (note that right is iterated first)
+				if (i == HAND_LEFT && firingright) {
+					aibot->nextbullettimer60[i] = 1;
+				}
+
+				if (aibot->skrocket == NULL && aibot->changeguntimer60 <= 0) {
+					if (aibot->iscloserangeweapon) {
+						// Consider punching, pistol whipping etc
+						// Despite the name, punchtimer60 is used for all close
+						// range attacks. Its value is 0 if not currently
+						// punching, positive (and ticking down) when cooling
+						// down from a previous punch, and negative when
+						// starting the punch.
+						if (aibot->punchtimer60[i] >= 0 && aibot->timeuntilreload60[i] <= 0) {
+							if (aibot->weaponnum == WEAPON_TRANQUILIZER
+									&& aibot->loadedammo[i] < bgunGetMinClipQty(WEAPON_TRANQUILIZER, FUNC_SECONDARY)) {
+								aibot->punchtimer60[i] = 0;
+								botScheduleReload(chr, i);
+							} else {
+								f32 range = 210;
+
+								// Decide whether to actually punch or not.
+								// This seems a bit backwards in that the timer
+								// is set to negative (ie. punch) then the check
+								// below has to cancel it by setting it back to 0.
+								aibot->punchtimer60[i] -= g_Vars.lvupdate240_60;
+
+								if (chr->target != -1
+										&& aibot->targetinsight
+										&& aibot->shootdelaytimer60 >= g_BotDifficulties[aibot->config->difficulty].shootdelay) {
+									if (!botIsDizzy(chr)) {
+										if (aibot->weaponnum == WEAPON_TRANQUILIZER) {
+											if (!chrIsTargetInFov(chr, 30, 0) || chrGetDistanceToTarget(chr) > range) {
+												aibot->punchtimer60[i] = 0;
+											}
+										} else {
+											if (!chrIsTargetInFov(chr, 40, 0) || chrGetDistanceToTarget(chr) > range + 150) {
+												aibot->punchtimer60[i] = 0;
+											}
+										}
+									}
+								} else {
+									aibot->punchtimer60[i] = 0;
+								}
+
+								// If the punch was not cancelled, execute it
+								if (aibot->punchtimer60[i] < 0) {
+									chrUncloakTemporarily(chr);
+									chrPunchInflictDamage(chr, 2, range, false);
+
+									if (i == HAND_RIGHT) {
+										// Set the punch cooldown timer
+										switch (aibot->weaponnum) {
+										case WEAPON_UNARMED:
+										case WEAPON_MAGSEC4:
+										case WEAPON_MAULER:
+										case WEAPON_PHOENIX:
+										case WEAPON_CMP150:
+										case WEAPON_CYCLONE:
+										case WEAPON_CALLISTO:
+										case WEAPON_RCP120:
+										case WEAPON_LAPTOPGUN:
+										case WEAPON_DRAGON:
+										case WEAPON_K7AVENGER:
+										case WEAPON_AR34:
+										case WEAPON_SUPERDRAGON:
+										case WEAPON_SHOTGUN:
+										case WEAPON_SNIPERRIFLE:
+										case WEAPON_FARSIGHT:
+										case WEAPON_DEVASTATOR:
+										case WEAPON_ROCKETLAUNCHER:
+										case WEAPON_SLAYER:
+										case WEAPON_CROSSBOW:
+										default:
+											if (chr->aibot->config->difficulty == BOTDIFF_MEAT) {
+												aibot->punchtimer60[0] = 120;
+											} else if (chr->aibot->config->difficulty == BOTDIFF_EASY) {
+												aibot->punchtimer60[0] = 60;
+											} else {
+												aibot->punchtimer60[0] = 30;
+											}
+
+											if (random() % 3 == 0) {
+												aibot->punchtimer60[1] = aibot->punchtimer60[0] - 20;
+											}
+											break;
+										case WEAPON_FALCON2:
+										case WEAPON_FALCON2_SILENCER:
+										case WEAPON_FALCON2_SCOPE:
+										case WEAPON_DY357MAGNUM:
+										case WEAPON_DY357LX:
+										case WEAPON_COMBATKNIFE:
+											if (chr->aibot->config->difficulty == BOTDIFF_MEAT) {
+												aibot->punchtimer60[0] = 120;
+											} else if (chr->aibot->config->difficulty == BOTDIFF_EASY) {
+												aibot->punchtimer60[0] = 90;
+											} else {
+												aibot->punchtimer60[0] = 60;
+											}
+
+											if (chr->weapons_held[HAND_LEFT]) {
+												aibot->punchtimer60[1] = aibot->punchtimer60[0] - 40;
+											}
+											break;
+										case WEAPON_TRANQUILIZER:
+											aibot->punchtimer60[0] = 60;
+											aibot->loadedammo[0] -= bgunGetMinClipQty(WEAPON_TRANQUILIZER, FUNC_SECONDARY);
+											break;
+										case WEAPON_REAPER:
+											aibot->punchtimer60[0] = 0;
+											break;
+										}
+									}
+								}
+							}
+						}
+					} else if (aibot->weaponnum == WEAPON_SLAYER && aibot->gunfunc != FUNC_PRIMARY && chr->target != -1) {
+						// Bots fire Slayer rockets regardless of where they are
+						// on the map provided they have ammo
+						if (aibot->loadedammo[0] > 0) {
+							chrUncloakTemporarily(chr);
+							botactCreateSlayerRocket(chr);
+							aibot->loadedammo[0]--;
+						}
+					} else if (botactIsWeaponThrowable(aibot->weaponnum, aibot->gunfunc)) {
+						// Hand throwing a weapon
+						if (i == HAND_RIGHT) {
+							if (aibot->throwtimer60 > 0) {
+								aibot->throwtimer60 -= g_Vars.lvupdate240_60;
+							}
+
+							if (chr->aibot->throwtimer60 <= 0) {
+								if (botactGetAmmoQuantityByWeapon(aibot, aibot->weaponnum, aibot->gunfunc, false) > 0
+										|| aibot->weaponnum == WEAPON_LAPTOPGUN
+										|| aibot->weaponnum == WEAPON_DRAGON) {
+									bool throw = false;
+
+									if (chr->target != -1
+											&& aibot->targetinsight
+											&& aibot->shootdelaytimer60 >= g_BotDifficulties[aibot->config->difficulty].shootdelay
+											&& (botIsDizzy(chr) || chrIsTargetInFov(chr, 45, false))) {
+										throw = true;
+									}
+
+									if (throw) {
+										struct weaponfunc *func;
+
+										chrUncloakTemporarily(chr);
+										botactTryRemoveAmmoFromReserve(aibot, aibot->weaponnum, aibot->gunfunc, 1);
+										botact0f19a37c(chr);
+
+										func = weaponGetFunctionById(aibot->weaponnum, aibot->gunfunc);
+
+										if (func && (func->flags & FUNCFLAG_DISCARDWEAPON)) {
+											botinvRemoveItem(chr, aibot->weaponnum);
+											botinvSwitchToWeapon(chr, WEAPON_UNARMED, FUNC_PRIMARY);
+										}
+
+										aibot->throwtimer60 = botactGetProjectileThrowInterval(chr->aibot->weaponnum);
+									}
+								}
+							}
+						}
+					} else if (chr->weapons_held[i] && aibot->loadedammo[i] > 0) {
+						// Handle firing a regular weapon
+						bool canshoot = false;
+
+						if (weaponGetNumTicksPerShot(aibot->weaponnum, aibot->gunfunc) <= 0) {
+							// Increment the mauler charge and deplete ammo as
+							// the charge amount crosses each whole number.
+							// Yes, this is actually implemented for bots.
+							if (aibot->weaponnum == WEAPON_MAULER
+									&& aibot->gunfunc == FUNC_SECONDARY
+									&& aibot->loadedammo[i] >= 2) {
+								s32 newchargei;
+								s32 oldchargei = aibot->maulercharge[i];
+
+								aibot->maulercharge[i] += g_Vars.lvupdate240freal * 0.05f;
+
+								if (aibot->maulercharge[i] > 5) {
+									aibot->maulercharge[i] = 5;
+								}
+
+								newchargei = aibot->maulercharge[i];
+
+								if (newchargei != oldchargei) {
+									aibot->loadedammo[i]--;
+								}
+							}
+
+							if (aibot->nextbullettimer60[i] <= 0) {
+								canshoot = true;
+							}
+						} else {
+							canshoot = true;
+						}
+
+						if (canshoot) {
+							if (aibot->cyclonedischarging[i] || aibot->burstsdone[i] > 0) {
+								firing = true;
+							} else if (chr->target != -1
+									&& aibot->targetinsight
+									&& aibot->shootdelaytimer60 >= g_BotDifficulties[aibot->config->difficulty].shootdelay
+									&& (botIsDizzy(chr) || chrIsTargetInFov(chr, 45, false))
+									&& !chrIsDead(chrGetTargetProp(chr)->chr)) {
+								firing = true;
+
+								if (aibot->weaponnum == WEAPON_CYCLONE && aibot->gunfunc == FUNC_SECONDARY) {
+									aibot->cyclonedischarging[i] = true;
+								} else if (aibot->weaponnum == WEAPON_REAPER) {
+									aibot->reaperspeed[i] += g_Vars.lvupdate240_60;
+
+									if (aibot->reaperspeed[i] > 90) {
+										aibot->reaperspeed[i] = 90;
+									}
+								}
+							}
+
+							// The Reaper continues shooting momentarily when
+							// the trigger is released
+							if (!firing && aibot->reaperspeed[i] > 0) {
+								firing = true;
+
+								aibot->reaperspeed[i] -= g_Vars.lvupdate240_60;
+
+								if (aibot->reaperspeed[i] < 0) {
+									aibot->reaperspeed[i] = 0;
+								}
+							}
+						}
+
+						if (weaponGetNumTicksPerShot(aibot->weaponnum, aibot->gunfunc) <= 0 && firing) {
+							struct weaponfunc *func;
+							aibot->nextbullettimer60[i] = botactGetShootInterval60(aibot->weaponnum, aibot->gunfunc);
+
+#if PAL
+							if (aibot->nextbullettimer60[i] >= 6) {
+								aibot->nextbullettimer60[i] = aibot->nextbullettimer60[i] * 50 / 60;
+							}
+#endif
+
+							func = weaponGetFunctionById(aibot->weaponnum, aibot->gunfunc);
+
+							if (func
+									&& (func->flags & (FUNCFLAG_BURST3 | FUNCFLAG_BURST2))
+									&& aibot->loadedammo[i] >= 2) {
+								s32 burstqty = (func->flags & FUNCFLAG_BURST2) ? 2 : 3;
+
+								chr->aibot->burstsdone[i]++;
+								chr->aibot->burstsdone[i] %= burstqty;
+
+								if (chr->aibot->burstsdone[i]) {
+									chr->aibot->nextbullettimer60[i] = 5;
+								}
+							}
+						}
+					} else {
+						aibot->cyclonedischarging[i] = false;
+						aibot->burstsdone[i] = 0;
+						aibot->reaperspeed[i] = 0;
+					}
+				}
+
+				if (firing) {
+					chrUncloakTemporarily(chr);
+
+					if (i == HAND_RIGHT) {
+						firingright = true;
+					}
+				}
+
+				chrSetHandFiring(chr, i, firing);
+			}
+		}
+	}
+}
 #endif
 
 void botCheckFetch(struct chrdata *chr)
@@ -12889,7 +11150,7 @@ void botCheckFetch(struct chrdata *chr)
 
 	if (chr->myaction == MA_AIBOTGETITEM) {
 		if (chr->act_gopos.waypoints[chr->act_gopos.curindex] == 0) {
-			struct prop *prop = aibot->fetchprop;
+			struct prop *prop = aibot->gotoprop;
 
 #if VERSION >= VERSION_PAL_FINAL
 			// pal-final adds a check for prop->obj
@@ -12907,7 +11168,7 @@ void botCheckFetch(struct chrdata *chr)
 #endif
 		}
 
-		aibot->unk0d8 = 1;
+		aibot->forcemainloop = true;
 		alreadyfetching = true;
 	}
 

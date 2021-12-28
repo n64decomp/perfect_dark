@@ -5106,11 +5106,11 @@ void chrDie(struct chrdata *chr, s32 aplayernum)
 		botinvDropAll(chr, chr->aibot->weaponnum);
 
 #if VERSION >= VERSION_NTSC_1_0
-		chr->aibot->unk09c_00 = 0;
-		chr->aibot->unk09c_01 = 0;
-		chr->aibot->unk04c_04 = 0;
-		chr->aibot->unk04c_03 = 0;
-		chr->aibot->unk04c_05 = 0;
+		chr->aibot->hasbriefcase = false;
+		chr->aibot->hascase = false;
+		chr->aibot->unk04c_04 = false;
+		chr->aibot->unk04c_03 = false;
+		chr->aibot->hasuplink = false;
 #endif
 	}
 }
@@ -15639,7 +15639,7 @@ glabel var7f1a9184
 //			if (chr->aibot
 //					&& chr->aibot->weaponnum == WEAPON_REAPER
 //					&& chr->aibot->gunfunc == FUNC_PRIMARY) {
-//				sp208 = (PALDOWN(90) - chr->aibot->unk0e0[handnum]);
+//				sp208 = (PALDOWN(90) - chr->aibot->reaperspeed[handnum]);
 //				sp208 *= 1.0f / 1.8f;
 //				tickspershot *= sp208 + 1;
 //			}
@@ -15731,7 +15731,7 @@ glabel var7f1a9184
 //					vector.f[2] = cosf(sp200) * cosf(aimangle);
 //
 //					if (isaibot) {
-//						bgun0f0a0fac(&vector, chr->aibot->weaponnum, chr->aibot->gunfunc, chr->aibot->unk04d[handnum], botGuessCrouchPos(chr), chr->weapons_held[0] && chr->weapons_held[1]);
+//						bgun0f0a0fac(&vector, chr->aibot->weaponnum, chr->aibot->gunfunc, chr->aibot->burstsdone[handnum], botGuessCrouchPos(chr), chr->weapons_held[0] && chr->weapons_held[1]);
 //					}
 //				}
 //
@@ -21792,7 +21792,7 @@ bool chrIsTargetInFov(struct chrdata *chr, u8 arg1, u8 reverse)
 	return false;
 }
 
-bool func0f04911c(struct chrdata *chr, struct coord *pos, u8 arg2)
+bool chrIsLookingAtPos(struct chrdata *chr, struct coord *pos, u8 arg2)
 {
 	f32 angle = chrGetAngleToPos(chr, pos);
 
@@ -23671,14 +23671,14 @@ glabel chrAssignCoverByCriteria
 //	f32 sqdist;
 //	f32 y = chr->prop->pos.y + 170;
 //	s32 currefdist = refdist;
-//	struct prop *fetchprop;
+//	struct prop *gotoprop;
 //
 //	if (criteria & COVERCRITERIA_DISTTOFETCHPROP) {
-//		if (!chr->aibot || !chr->aibot->fetchprop) {
+//		if (!chr->aibot || !chr->aibot->gotoprop) {
 //			return -1;
 //		}
 //
-//		fetchprop = chr->aibot->fetchprop;
+//		gotoprop = chr->aibot->gotoprop;
 //	}
 //
 //	if (chr == NULL) {
@@ -23733,7 +23733,7 @@ glabel chrAssignCoverByCriteria
 //					} else if (criteria & COVERCRITERIA_DISTTOTARGET) {
 //						sqdist = coordGetSquaredDistanceToCoord(&target->pos, cover.pos);
 //					} else if (criteria & COVERCRITERIA_DISTTOFETCHPROP) {
-//						sqdist = coordGetSquaredDistanceToCoord(&fetchprop->pos, cover.pos);
+//						sqdist = coordGetSquaredDistanceToCoord(&gotoprop->pos, cover.pos);
 //					} else if (userandomdist) {
 //						sqdist = random() % 0xf000;
 //					} else {

@@ -48,7 +48,8 @@ s32 botactGetClipCapacityByFunction(s32 weaponnum, u32 funcnum)
 void botactReload(struct chrdata *chr, s32 handnum, bool withsound)
 {
 	struct aibot *aibot = chr->aibot;
-	aibot->unk02c[handnum] = 0;
+
+	aibot->timeuntilreload60[handnum] = 0;
 	aibot->maulercharge[handnum] = 0;
 
 	if (chr->weapons_held[handnum] && !botactIsWeaponThrowable(aibot->weaponnum, aibot->gunfunc)) {
@@ -284,7 +285,7 @@ s32 botactGetWeaponModel(s32 weapon)
 	return weaponGetModel(weapon);
 }
 
-bool botactIsWeaponThrowable(u32 weaponnum, bool is_secondary)
+bool botactIsWeaponThrowable(s32 weaponnum, bool is_secondary)
 {
 	switch (weaponnum) {
 	case WEAPON_LAPTOPGUN:
@@ -403,9 +404,9 @@ void botact0f19a37c(struct chrdata *chr)
 }
 
 /**
- * Get the fire rate of the given weapon?
+ * Get the shoot interval of the given weapon, in time60.
  */
-s32 botact0f19a60c(s32 weaponnum, s32 funcnum)
+s32 botactGetShootInterval60(s32 weaponnum, s32 funcnum)
 {
 	s32 stack[2];
 	s32 result = 1;

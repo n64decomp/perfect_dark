@@ -6047,8 +6047,8 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 			s32 i;
 
 			for (i = 0; i < g_MpNumChrs; i++) {
-				if (g_MpAllChrPtrs[i]->aibot && g_MpAllChrPtrs[i]->aibot->fetchprop == obj->prop) {
-					g_MpAllChrPtrs[i]->aibot->fetchprop = NULL;
+				if (g_MpAllChrPtrs[i]->aibot && g_MpAllChrPtrs[i]->aibot->gotoprop == obj->prop) {
+					g_MpAllChrPtrs[i]->aibot->gotoprop = NULL;
 				}
 			}
 		}

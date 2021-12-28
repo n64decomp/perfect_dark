@@ -9,7 +9,7 @@ extern struct mpconfigfull *g_MpCurrentChallengeConfig;
 extern struct challenge g_MpChallenges[NUM_CHALLENGES];
 
 bool ai0176(void);
-u32 func0f19ab70(void);
+bool func0f19ab70(s32 room, struct coord *arg1, s32 *arg2, s32 *arg3, s32 *arg4);
 void mpDetermineUnlockedFeatures(void);
 void mpPerformSanityChecks(void);
 char *mpGetChallengeNameBySlot(s32 slot);

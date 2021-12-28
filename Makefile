@@ -202,7 +202,7 @@ CFLAGS = $(C_DEFINES) \
 	$(LOOPUNROLL) \
 	-Wab,-r4300_mul \
 	-non_shared \
-	-Olimit 1000 \
+	-Olimit 2000 \
 	-G 0 \
 	-Xcpluscomm \
 	-w2 \
