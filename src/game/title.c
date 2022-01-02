@@ -1854,8 +1854,7 @@ u32 var80062858 = 0x00000000;
 u32 var8006285c = 0x00000000;
 u32 var80062860 = 0x447a0000;
 struct sndstate *g_TitleAudioHandle = NULL;
-u32 var80062868 = 0x00000000;
-u32 var8006286c = 0x00000000;
+bool g_TitleTypewriterFinishing = false;
 
 GLOBAL_ASM(
 glabel func0f017248
@@ -5093,163 +5092,73 @@ void titleTickRarePresents(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f018ebc
-/*  f018ebc:	27bdff70 */ 	addiu	$sp,$sp,-144
-/*  f018ec0:	afb5004c */ 	sw	$s5,0x4c($sp)
-/*  f018ec4:	8fb500a0 */ 	lw	$s5,0xa0($sp)
-/*  f018ec8:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f018ecc:	afb60050 */ 	sw	$s6,0x50($sp)
-/*  f018ed0:	02a1001a */ 	div	$zero,$s5,$at
-/*  f018ed4:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f018ed8:	0080b025 */ 	or	$s6,$a0,$zero
-/*  f018edc:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*  f018ee0:	00008012 */ 	mflo	$s0
-/*  f018ee4:	30e4ffff */ 	andi	$a0,$a3,0xffff
-/*  f018ee8:	afbe0058 */ 	sw	$s8,0x58($sp)
-/*  f018eec:	afb70054 */ 	sw	$s7,0x54($sp)
-/*  f018ef0:	afb40048 */ 	sw	$s4,0x48($sp)
-/*  f018ef4:	afb30044 */ 	sw	$s3,0x44($sp)
-/*  f018ef8:	afb20040 */ 	sw	$s2,0x40($sp)
-/*  f018efc:	afb1003c */ 	sw	$s1,0x3c($sp)
-/*  f018f00:	afa50094 */ 	sw	$a1,0x94($sp)
-/*  f018f04:	afa60098 */ 	sw	$a2,0x98($sp)
-/*  f018f08:	afa7009c */ 	sw	$a3,0x9c($sp)
-/*  f018f0c:	0fc5b9f1 */ 	jal	langGet
-/*  f018f10:	afb0008c */ 	sw	$s0,0x8c($sp)
-/*  f018f14:	3c0f8006 */ 	lui	$t7,%hi(var8006286c)
-/*  f018f18:	95ef286c */ 	lhu	$t7,%lo(var8006286c)($t7)
-/*  f018f1c:	00409825 */ 	or	$s3,$v0,$zero
-/*  f018f20:	00402025 */ 	or	$a0,$v0,$zero
-/*  f018f24:	0c012983 */ 	jal	strlen
-/*  f018f28:	a7af0080 */ 	sh	$t7,0x80($sp)
-/*  f018f2c:	1e000003 */ 	bgtz	$s0,.L0f018f3c
-/*  f018f30:	0050082a */ 	slt	$at,$v0,$s0
-/*  f018f34:	10000048 */ 	b	.L0f019058
-/*  f018f38:	02c01025 */ 	or	$v0,$s6,$zero
-.L0f018f3c:
-/*  f018f3c:	10200002 */ 	beqz	$at,.L0f018f48
-/*  f018f40:	02a08825 */ 	or	$s1,$s5,$zero
-/*  f018f44:	afa2008c */ 	sw	$v0,0x8c($sp)
-.L0f018f48:
-/*  f018f48:	8fb8008c */ 	lw	$t8,0x8c($sp)
-/*  f018f4c:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f018f50:	02609025 */ 	or	$s2,$s3,$zero
-/*  f018f54:	1b00003f */ 	blez	$t8,.L0f019054
-/*  f018f58:	3c1e8006 */ 	lui	$s8,%hi(var80062868)
-/*  f018f5c:	27de2868 */ 	addiu	$s8,$s8,%lo(var80062868)
-/*  f018f60:	8fb700a4 */ 	lw	$s7,0xa4($sp)
-/*  f018f64:	2415003c */ 	addiu	$s5,$zero,0x3c
-.L0f018f68:
-/*  f018f68:	2a21003d */ 	slti	$at,$s1,0x3d
-/*  f018f6c:	14200002 */ 	bnez	$at,.L0f018f78
-/*  f018f70:	02201025 */ 	or	$v0,$s1,$zero
-/*  f018f74:	02a01025 */ 	or	$v0,$s5,$zero
-.L0f018f78:
-/*  f018f78:	2841000a */ 	slti	$at,$v0,0xa
-/*  f018f7c:	10200003 */ 	beqz	$at,.L0f018f8c
-/*  f018f80:	02a24023 */ 	subu	$t0,$s5,$v0
-/*  f018f84:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f018f88:	afd90000 */ 	sw	$t9,0x0($s8)
-.L0f018f8c:
-/*  f018f8c:	00084a00 */ 	sll	$t1,$t0,0x8
-/*  f018f90:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f018f94:	0135001a */ 	div	$zero,$t1,$s5
-/*  f018f98:	00008012 */ 	mflo	$s0
-/*  f018f9c:	aef00000 */ 	sw	$s0,0x0($s7)
-/*  f018fa0:	924a0000 */ 	lbu	$t2,0x0($s2)
-/*  f018fa4:	16a00002 */ 	bnez	$s5,.L0f018fb0
-/*  f018fa8:	00000000 */ 	nop
-/*  f018fac:	0007000d */ 	break	0x7
-.L0f018fb0:
-/*  f018fb0:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f018fb4:	16a10004 */ 	bne	$s5,$at,.L0f018fc8
-/*  f018fb8:	3c018000 */ 	lui	$at,0x8000
-/*  f018fbc:	15210002 */ 	bne	$t1,$at,.L0f018fc8
-/*  f018fc0:	00000000 */ 	nop
-/*  f018fc4:	0006000d */ 	break	0x6
-.L0f018fc8:
-/*  f018fc8:	a3aa0080 */ 	sb	$t2,0x80($sp)
-/*  f018fcc:	0c002f02 */ 	jal	viGetWidth
-/*  f018fd0:	00000000 */ 	nop
-/*  f018fd4:	00029c00 */ 	sll	$s3,$v0,0x10
-/*  f018fd8:	00135c03 */ 	sra	$t3,$s3,0x10
-/*  f018fdc:	0c002f06 */ 	jal	viGetHeight
-/*  f018fe0:	01609825 */ 	or	$s3,$t3,$zero
-/*  f018fe4:	3c017f7f */ 	lui	$at,0x7f7f
-/*  f018fe8:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f018fec:	3c0c8008 */ 	lui	$t4,%hi(g_CharsHandelGothicLg)
-/*  f018ff0:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicLg)
-/*  f018ff4:	00107200 */ 	sll	$t6,$s0,0x8
-/*  f018ff8:	8dadfb1c */ 	lw	$t5,%lo(g_FontHandelGothicLg)($t5)
-/*  f018ffc:	8d8cfb20 */ 	lw	$t4,%lo(g_CharsHandelGothicLg)($t4)
-/*  f019000:	01c17825 */ 	or	$t7,$t6,$at
-/*  f019004:	0010c400 */ 	sll	$t8,$s0,0x10
-/*  f019008:	01f8c825 */ 	or	$t9,$t7,$t8
-/*  f01900c:	afb90018 */ 	sw	$t9,0x18($sp)
-/*  f019010:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f019014:	8fa50094 */ 	lw	$a1,0x94($sp)
-/*  f019018:	8fa60098 */ 	lw	$a2,0x98($sp)
-/*  f01901c:	27a70080 */ 	addiu	$a3,$sp,0x80
-/*  f019020:	afb3001c */ 	sw	$s3,0x1c($sp)
-/*  f019024:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f019028:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f01902c:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f019030:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f019034:	0fc5580f */ 	jal	textRenderProjected
-/*  f019038:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f01903c:	8fa8008c */ 	lw	$t0,0x8c($sp)
-/*  f019040:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f019044:	2631fffd */ 	addiu	$s1,$s1,-3
-/*  f019048:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f01904c:	1688ffc6 */ 	bne	$s4,$t0,.L0f018f68
-/*  f019050:	0040b025 */ 	or	$s6,$v0,$zero
-.L0f019054:
-/*  f019054:	02c01025 */ 	or	$v0,$s6,$zero
-.L0f019058:
-/*  f019058:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*  f01905c:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f019060:	8fb1003c */ 	lw	$s1,0x3c($sp)
-/*  f019064:	8fb20040 */ 	lw	$s2,0x40($sp)
-/*  f019068:	8fb30044 */ 	lw	$s3,0x44($sp)
-/*  f01906c:	8fb40048 */ 	lw	$s4,0x48($sp)
-/*  f019070:	8fb5004c */ 	lw	$s5,0x4c($sp)
-/*  f019074:	8fb60050 */ 	lw	$s6,0x50($sp)
-/*  f019078:	8fb70054 */ 	lw	$s7,0x54($sp)
-/*  f01907c:	8fbe0058 */ 	lw	$s8,0x58($sp)
-/*  f019080:	03e00008 */ 	jr	$ra
-/*  f019084:	27bd0090 */ 	addiu	$sp,$sp,0x90
-);
+Gfx *titleRenderTypewriterText(Gfx *gdl, s32 *x, s32 *y, u16 textnum, s32 timer, s32 *colourcomponent)
+{
+	s32 lentoprint = timer / 3;
+	char *text = langGet(textnum);
+	s32 i;
+	u8 buffer[] = {'\0', '\0'};
+	s32 fulllen = strlen(text);
+
+	if (lentoprint <= 0) {
+		return gdl;
+	}
+
+	if (lentoprint > fulllen) {
+		lentoprint = fulllen;
+	}
+
+	for (i = 0; i < lentoprint; i++) {
+		s32 remaining = timer - 3 * i;
+		s32 tmp;
+
+		if (remaining > 60) {
+			remaining = 60;
+		}
+
+		if (remaining < 10) {
+			g_TitleTypewriterFinishing = true;
+		}
+
+		*colourcomponent = tmp = (60 - remaining) * 255 / 60;
+
+		buffer[0] = text[i];
+		gdl = textRenderProjected(gdl, x, y, buffer, g_CharsHandelGothicLg, g_FontHandelGothicLg,
+				0x7f7fffff | (tmp << 8) | (tmp << 16), viGetWidth(), viGetHeight(), 0, 0);
+	}
+
+	return gdl;
+}
 
 Gfx *titleRenderRarePresents(Gfx *gdl)
 {
-	s32 sp84;
-	s32 sp80;
-	s32 sp76 = 255;
+	s32 x;
+	s32 y;
+	s32 colourcomponent = 255;
 
 	gdl = func0f01afc0(gdl);
 	gdl = func0f153628(gdl);
 
-	sp84 = viGetViewLeft() + 50;
-	sp80 = viGetViewTop() + viGetViewHeight() - 80;
+	x = viGetViewLeft() + 50;
+	y = viGetViewTop() + viGetViewHeight() - 80;
 
-	var80062868 = 0;
+	g_TitleTypewriterFinishing = false;
 
 	if (g_TitleMode == TITLEMODE_RAREPRESENTS1) {
-		gdl = func0f018ebc(gdl, &sp84, &sp80, L_OPTIONS_005, g_TitleTimer, &sp76); // "earth:"
+		gdl = titleRenderTypewriterText(gdl, &x, &y, L_OPTIONS_005, g_TitleTimer, &colourcomponent); // "earth:"
 
 		if (g_TitleTimer > 70) {
-			sp84 = viGetViewLeft() + 50;
-			sp80 = viGetViewTop() + viGetViewHeight() - 60;
-			gdl = func0f018ebc(gdl, &sp84, &sp80, L_OPTIONS_006, g_TitleTimer - 100, &sp76); // "   prehistory"
+			x = viGetViewLeft() + 50;
+			y = viGetViewTop() + viGetViewHeight() - 60;
+			gdl = titleRenderTypewriterText(gdl, &x, &y, L_OPTIONS_006, g_TitleTimer - 100, &colourcomponent); // "   prehistory"
 		}
 	} else {
-		gdl = func0f018ebc(gdl, &sp84, &sp80, L_OPTIONS_007, g_TitleTimer - 35, &sp76); // "rare presents"
+		gdl = titleRenderTypewriterText(gdl, &x, &y, L_OPTIONS_007, g_TitleTimer - 35, &colourcomponent); // "rare presents"
 	}
 
 	gdl = func0f153780(gdl);
 
-	if (var80062868) {
+	if (g_TitleTypewriterFinishing) {
 		if (g_TitleAudioHandle == NULL) {
 			sndStart(var80095200, SFX_HUDMSG, &g_TitleAudioHandle, -1, -1, -1, -1, -1);
 		}
@@ -5262,8 +5171,8 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 	}
 
 	if (((s32)(var80061630 * 80.0f) % 2) == 0) {
-		u32 colour = (sp76 << 8) | 0x7f7fffff | (sp76 << 16);
-		gdl = func0f153a34(gdl, sp84 + 2, sp80, sp84 + 12, sp80 + 20, colour);
+		u32 colour = (colourcomponent << 8) | 0x7f7fffff | (colourcomponent << 16);
+		gdl = func0f153a34(gdl, x + 2, y, x + 12, y + 20, colour);
 	}
 
 	gdl = bviewRenderRarePresents(gdl);

@@ -26,7 +26,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl);
 void titleInitRarePresents(void);
 void titleExitRarePresents(void);
 void titleTickRarePresents(void);
-Gfx *func0f018ebc(Gfx *gdl, s32 *x, s32 *y, u32 textnum, s32 timer, s32 *arg5);
+Gfx *titleRenderTypewriterText(Gfx *gdl, s32 *x, s32 *y, u16 textnum, s32 timer, s32 *colourcomponent);
 Gfx *titleRenderRarePresents(Gfx *gdl);
 void titleInitNintendoLogo(void);
 void titleExitNintendoLogo(void);
