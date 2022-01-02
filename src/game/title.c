@@ -52,10 +52,10 @@ u32 var800624d8 = 0x00000000;
 u32 var800624dc = 0x00000000;
 u32 var800624e0 = 0x00000000;
 s32 g_TitleNextStage = -1; // appears to be used for more than just title
-u32 var800624e8 = 0x00000001;
+s32 var800624e8 = 1;
 u32 var800624ec = 0x00000001;
 u32 var800624f0 = 0x00000000;
-u32 var800624f4 = 0x00000001;
+s32 var800624f4 = 1;
 struct model *g_TitleModel = NULL;
 struct model *g_TitleModel2 = NULL;
 u32 var80062500 = 0x00000000;
@@ -1642,7 +1642,7 @@ glabel titleInitPdLogo
 /*  f017068:	27bd0070 */ 	addiu	$sp,$sp,0x70
 );
 
-// Mismatch due to regalloc in modelthing block
+// Mismatch due to regalloc in lat block
 //void titleInitPdLogo(void)
 //{
 //	u8 *nextaddr = var8009cca0;
@@ -1705,10 +1705,10 @@ glabel titleInitPdLogo
 //
 //	{
 //		// fb0
-//		struct modelthing *modelthing = modelGetPartRodata(g_ModelStates[MODEL_PDTWO].filedata, 2);
+//		struct modelrodata_dl *rodata = (struct modelrodata_dl *)modelGetPartRodata(g_ModelStates[MODEL_PDTWO].filedata, MODELPART_LOGO_0002);
 //		u32 size2;
 //
-//		size = ALIGN8(modelthing->unk10 * 0xc);
+//		size = ALIGN8(rodata->numvertices * sizeof(struct gfxvtx));
 //
 //		var8009cca8[0] = nextaddr;
 //
@@ -1718,7 +1718,7 @@ glabel titleInitPdLogo
 //
 //		nextaddr += size;
 //		remaining -= size;
-//		size2 = ALIGN8(modelthing->unk16 * 4);
+//		size2 = ALIGN8(rodata->numcolours * sizeof(struct colour));
 //		var8009ccb0[0] = nextaddr;
 //
 //		nextaddr += size2;
