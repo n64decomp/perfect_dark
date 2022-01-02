@@ -19,106 +19,113 @@
 #include "types.h"
 
 struct aibotweaponpreference g_AibotWeaponPreferences[] = {
-	/*0x00*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,   0,   0,  0,  0, 0 }, // WEAPON_NONE
-	/*0x01*/ { 13,  13,  13,  13,  1, 1, BOTDISTCFG_CLOSE,          BOTDISTCFG_CLOSE,          0,   0,   0,  0,  0, 0 }, // WEAPON_UNARMED
-	/*0x02*/ { 56,  60,  84,  88,  1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_CLOSE,          30,  0,   10, 0,  1, 0 }, // WEAPON_FALCON2
-	/*0x03*/ { 52,  60,  80,  88,  1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_CLOSE,          30,  0,   10, 0,  1, 0 }, // WEAPON_FALCON2_SILENCER
-	/*0x04*/ { 60,  60,  88,  88,  1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_CLOSE,          30,  0,   10, 0,  1, 0 }, // WEAPON_FALCON2_SCOPE
-	/*0x05*/ { 76,  88,  104, 120, 1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_DEFAULT,        30,  30,  10, 10, 1, 0 }, // WEAPON_MAGSEC4
-	/*0x06*/ { 64,  88,  92,  120, 1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_DEFAULT,        30,  30,  10, 10, 1, 0 }, // WEAPON_MAULER
-	/*0x07*/ { 72,  76,  100, 120, 1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_DEFAULT,        30,  30,  10, 10, 2, 0 }, // WEAPON_PHOENIX
-	/*0x08*/ { 68,  76,  96,  120, 1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_CLOSE,          30,  0,   8,  0,  3, 0 }, // WEAPON_DY357MAGNUM
-	/*0x09*/ { 180, 188, 184, 188, 1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_CLOSE,          20,  0,   6,  0,  3, 0 }, // WEAPON_DY357LX
-	/*0x0a*/ { 116, 128, 136, 152, 1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        100, 100, 30, 30, 2, 0 }, // WEAPON_CMP150
-	/*0x0b*/ { 120, 128, 132, 140, 1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        150, 150, 50, 50, 2, 0 }, // WEAPON_CYCLONE
-	/*0x0c*/ { 152, 176, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        100, 70,  25, 15, 2, 0 }, // WEAPON_CALLISTO
-	/*0x0d*/ { 172, 188, 0,   0,   1, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        300, 0,   40, 0,  2, 0 }, // WEAPON_RCP120
-	/*0x0e*/ { 128, 140, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        100, 0,   30, 0,  3, 0 }, // WEAPON_LAPTOPGUN
-	/*0x0f*/ { 124, 148, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        90,  0,   30, 0,  1, 0 }, // WEAPON_DRAGON
-	/*0x10*/ { 156, 180, 0,   0,   1, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        150, 0,   40, 0,  2, 0 }, // WEAPON_K7AVENGER
-	/*0x11*/ { 148, 176, 0,   0,   1, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        120, 0,   40, 0,  2, 0 }, // WEAPON_AR34
-	/*0x12*/ { 164, 188, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_SHOOTEXPLOSIVE, 120, 20,  30, 6,  1, 0 }, // WEAPON_SUPERDRAGON
-	/*0x13*/ { 140, 156, 0,   0,   1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_PISTOL,         18,  18,  8,  8,  6, 1 }, // WEAPON_SHOTGUN
-	/*0x14*/ { 144, 176, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_CLOSE,          400, 0,   80, 0,  3, 0 }, // WEAPON_REAPER
-	/*0x15*/ { 28,  40,  0,   0,   1, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        30,  30,  10, 10, 2, 0 }, // WEAPON_SNIPERRIFLE
-	/*0x16*/ { 188, 188, 0,   0,   1, 0, BOTDISTCFG_SHOOTEXPLOSIVE, BOTDISTCFG_FARSIGHT,       16,  0,   4,  0,  2, 0 }, // WEAPON_FARSIGHT
-	/*0x17*/ { 176, 188, 0,   0,   1, 1, BOTDISTCFG_SHOOTEXPLOSIVE, BOTDISTCFG_SHOOTEXPLOSIVE, 20,  20,  4,  4,  2, 0 }, // WEAPON_DEVASTATOR
-	/*0x18*/ { 160, 188, 0,   0,   1, 1, BOTDISTCFG_SHOOTEXPLOSIVE, BOTDISTCFG_SHOOTEXPLOSIVE, 2,   2,   1,  1,  2, 0 }, // WEAPON_ROCKETLAUNCHER
-	/*0x19*/ { 168, 188, 0,   0,   1, 1, BOTDISTCFG_SHOOTEXPLOSIVE, BOTDISTCFG_SHOOTEXPLOSIVE, 2,   2,   1,  1,  3, 0 }, // WEAPON_SLAYER
-	/*0x1a*/ { 20,  40,  24,  40,  1, 1, BOTDISTCFG_CLOSE,          BOTDISTCFG_DEFAULT,        0,   5,   0,  1,  1, 0 }, // WEAPON_COMBATKNIFE
-	/*0x1b*/ { 108, 176, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        15,  15,  5,  5,  4, 1 }, // WEAPON_CROSSBOW
-	/*0x1c*/ { 48,  188, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_CLOSE,          20,  24,  6,  8,  1, 0 }, // WEAPON_TRANQUILIZER
-	/*0x1d*/ { 112, 112, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_CLOSE,          0,   0,   0,  0,  1, 0 }, // WEAPON_LASER
-	/*0x1e*/ { 36,  172, 0,   0,   1, 1, BOTDISTCFG_THROWEXPLOSIVE, BOTDISTCFG_THROWEXPLOSIVE, 6,   6,   2,  2,  1, 0 }, // WEAPON_GRENADE
-	/*0x1f*/ { 32,  188, 0,   0,   1, 1, BOTDISTCFG_THROWEXPLOSIVE, BOTDISTCFG_THROWEXPLOSIVE, 3,   3,   1,  1,  1, 0 }, // WEAPON_NBOMB
-	/*0x20*/ { 12,  12,  0,   0,   0, 0, BOTDISTCFG_THROWEXPLOSIVE, BOTDISTCFG_DEFAULT,        5,   5,   1,  1,  1, 0 }, // WEAPON_TIMEDMINE
-	/*0x21*/ { 40,  176, 0,   0,   0, 0, BOTDISTCFG_THROWEXPLOSIVE, BOTDISTCFG_DEFAULT,        5,   5,   1,  1,  1, 0 }, // WEAPON_PROXIMITYMINE
-	/*0x22*/ { 44,  156, 0,   0,   1, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        5,   5,   2,  2,  1, 0 }, // WEAPON_REMOTEMINE
-	/*0x23*/ { 8,   8,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,   0,   0,  0,  1, 0 }, // WEAPON_COMBATBOOST
-	/*0x24*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,   0,   0,  0,  1, 0 }, // WEAPON_PP9I
-	/*0x25*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,   0,   0,  0,  1, 0 }, // WEAPON_CC13
-	/*0x26*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,   0,   0,  0,  1, 0 }, // WEAPON_KL01313
-	/*0x27*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,   0,   0,  0,  1, 0 }, // WEAPON_KF7SPECIAL
-	/*0x28*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,   0,   0,  0,  1, 0 }, // WEAPON_ZZT
-	/*0x29*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,   0,   0,  0,  1, 0 }, // WEAPON_DMC
-	/*0x2a*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,   0,   0,  0,  1, 0 }, // WEAPON_AR53
-	/*0x2b*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,   0,   0,  0,  1, 0 }, // WEAPON_RCP45
-	/*0x2c*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,   0,   0,  0,  1, 0 }, // WEAPON_PSYCHOSISGUN
-	/*0x2d*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,   0,   0,  0,  1, 0 }, // WEAPON_NIGHTVISION
-	/*0x2e*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,   0,   0,  0,  1, 0 }, // WEAPON_EYESPY
-	/*0x2f*/ { 4,   4,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,   0,   0,  0,  1, 0 }, // WEAPON_XRAYSCANNER
-	/*0x30*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,   0,   0,  0,  1, 0 }, // WEAPON_IRSCANNER
-#if PAL
-	/*0x31*/ { 218, 218, 0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 1000, 0,   0,  0,  1, 0 }, // WEAPON_CLOAKINGDEVICE
-#else
-	/*0x31*/ { 218, 218, 0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 1200, 0,   0,  0,  1, 0 }, // WEAPON_CLOAKINGDEVICE
-#endif
-	/*0x32*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_HORIZONSCANNER
-	/*0x33*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_TESTER
-	/*0x34*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_ROCKETLAUNCHER_34
-	/*0x35*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_ECMMINE
-	/*0x36*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_DATAUPLINK
-	/*0x37*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_RTRACKER
-	/*0x38*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_PRESIDENTSCANNER
-	/*0x39*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_DOORDECODER
-	/*0x3a*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_AUTOSURGEON
-	/*0x3b*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_EXPLOSIVES
-	/*0x3c*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_SKEDARBOMB
-	/*0x3d*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_COMMSRIDER
-	/*0x3e*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_TRACERBUG
-	/*0x3f*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_TARGETAMPLIFIER
-	/*0x40*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_DISGUISE40
-	/*0x41*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_DISGUISE41
-	/*0x42*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_FLIGHTPLANS
-	/*0x43*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_RESEARCHTAPE
-	/*0x44*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_BACKUPDISK
-	/*0x45*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD45
-	/*0x46*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD46
-	/*0x47*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD47
-	/*0x48*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD48
-	/*0x49*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD49
-	/*0x4a*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD4A
-	/*0x4b*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD4B
-	/*0x4c*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD4C
-	/*0x4d*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_SUITCASE
-	/*0x4e*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_BRIEFCASE
+	//                             haspriammogoal
+	//                             |  hassecammogoal
+	//                             |  |  pridistconfig
+	//                             |  |  |                          secdistconfig
+	//                             |  |  |                          |                          targetammopri
+	//                             |  |  |                          |                          |              targetammosec
+	//                             |  |  |                          |                          |              |    criticalammopri
+	//                             |  |  |                          |                          |              |    |   criticalammosec
+	//                             |  |  |                          |                          |              |    |   |   reloaddelay (seconds)
+	//                             |  |  |                          |                          |              |    |   |   |  allowpartialreloaddelay
+	//                             |  |  |                          |                          |              |    |   |   |  |
+	/*0x00*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  0, 0 }, // WEAPON_NONE
+	/*0x01*/ { 13,  13,  13,  13,  1, 1, BOTDISTCFG_CLOSE,          BOTDISTCFG_CLOSE,          0,             0,   0,  0,  0, 0 }, // WEAPON_UNARMED
+	/*0x02*/ { 56,  60,  84,  88,  1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_CLOSE,          30,            0,   10, 0,  1, 0 }, // WEAPON_FALCON2
+	/*0x03*/ { 52,  60,  80,  88,  1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_CLOSE,          30,            0,   10, 0,  1, 0 }, // WEAPON_FALCON2_SILENCER
+	/*0x04*/ { 60,  60,  88,  88,  1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_CLOSE,          30,            0,   10, 0,  1, 0 }, // WEAPON_FALCON2_SCOPE
+	/*0x05*/ { 76,  88,  104, 120, 1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_DEFAULT,        30,            30,  10, 10, 1, 0 }, // WEAPON_MAGSEC4
+	/*0x06*/ { 64,  88,  92,  120, 1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_DEFAULT,        30,            30,  10, 10, 1, 0 }, // WEAPON_MAULER
+	/*0x07*/ { 72,  76,  100, 120, 1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_DEFAULT,        30,            30,  10, 10, 2, 0 }, // WEAPON_PHOENIX
+	/*0x08*/ { 68,  76,  96,  120, 1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_CLOSE,          30,            0,   8,  0,  3, 0 }, // WEAPON_DY357MAGNUM
+	/*0x09*/ { 180, 188, 184, 188, 1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_CLOSE,          20,            0,   6,  0,  3, 0 }, // WEAPON_DY357LX
+	/*0x0a*/ { 116, 128, 136, 152, 1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        100,           100, 30, 30, 2, 0 }, // WEAPON_CMP150
+	/*0x0b*/ { 120, 128, 132, 140, 1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        150,           150, 50, 50, 2, 0 }, // WEAPON_CYCLONE
+	/*0x0c*/ { 152, 176, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        100,           70,  25, 15, 2, 0 }, // WEAPON_CALLISTO
+	/*0x0d*/ { 172, 188, 0,   0,   1, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        300,           0,   40, 0,  2, 0 }, // WEAPON_RCP120
+	/*0x0e*/ { 128, 140, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        100,           0,   30, 0,  3, 0 }, // WEAPON_LAPTOPGUN
+	/*0x0f*/ { 124, 148, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        90,            0,   30, 0,  1, 0 }, // WEAPON_DRAGON
+	/*0x10*/ { 156, 180, 0,   0,   1, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        150,           0,   40, 0,  2, 0 }, // WEAPON_K7AVENGER
+	/*0x11*/ { 148, 176, 0,   0,   1, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        120,           0,   40, 0,  2, 0 }, // WEAPON_AR34
+	/*0x12*/ { 164, 188, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_SHOOTEXPLOSIVE, 120,           20,  30, 6,  1, 0 }, // WEAPON_SUPERDRAGON
+	/*0x13*/ { 140, 156, 0,   0,   1, 1, BOTDISTCFG_PISTOL,         BOTDISTCFG_PISTOL,         18,            18,  8,  8,  6, 1 }, // WEAPON_SHOTGUN
+	/*0x14*/ { 144, 176, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_CLOSE,          400,           0,   80, 0,  3, 0 }, // WEAPON_REAPER
+	/*0x15*/ { 28,  40,  0,   0,   1, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        30,            30,  10, 10, 2, 0 }, // WEAPON_SNIPERRIFLE
+	/*0x16*/ { 188, 188, 0,   0,   1, 0, BOTDISTCFG_SHOOTEXPLOSIVE, BOTDISTCFG_FARSIGHT,       16,            0,   4,  0,  2, 0 }, // WEAPON_FARSIGHT
+	/*0x17*/ { 176, 188, 0,   0,   1, 1, BOTDISTCFG_SHOOTEXPLOSIVE, BOTDISTCFG_SHOOTEXPLOSIVE, 20,            20,  4,  4,  2, 0 }, // WEAPON_DEVASTATOR
+	/*0x18*/ { 160, 188, 0,   0,   1, 1, BOTDISTCFG_SHOOTEXPLOSIVE, BOTDISTCFG_SHOOTEXPLOSIVE, 2,             2,   1,  1,  2, 0 }, // WEAPON_ROCKETLAUNCHER
+	/*0x19*/ { 168, 188, 0,   0,   1, 1, BOTDISTCFG_SHOOTEXPLOSIVE, BOTDISTCFG_SHOOTEXPLOSIVE, 2,             2,   1,  1,  3, 0 }, // WEAPON_SLAYER
+	/*0x1a*/ { 20,  40,  24,  40,  1, 1, BOTDISTCFG_CLOSE,          BOTDISTCFG_DEFAULT,        0,             5,   0,  1,  1, 0 }, // WEAPON_COMBATKNIFE
+	/*0x1b*/ { 108, 176, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        15,            15,  5,  5,  4, 1 }, // WEAPON_CROSSBOW
+	/*0x1c*/ { 48,  188, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_CLOSE,          20,            24,  6,  8,  1, 0 }, // WEAPON_TRANQUILIZER
+	/*0x1d*/ { 112, 112, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_CLOSE,          0,             0,   0,  0,  1, 0 }, // WEAPON_LASER
+	/*0x1e*/ { 36,  172, 0,   0,   1, 1, BOTDISTCFG_THROWEXPLOSIVE, BOTDISTCFG_THROWEXPLOSIVE, 6,             6,   2,  2,  1, 0 }, // WEAPON_GRENADE
+	/*0x1f*/ { 32,  188, 0,   0,   1, 1, BOTDISTCFG_THROWEXPLOSIVE, BOTDISTCFG_THROWEXPLOSIVE, 3,             3,   1,  1,  1, 0 }, // WEAPON_NBOMB
+	/*0x20*/ { 12,  12,  0,   0,   0, 0, BOTDISTCFG_THROWEXPLOSIVE, BOTDISTCFG_DEFAULT,        5,             5,   1,  1,  1, 0 }, // WEAPON_TIMEDMINE
+	/*0x21*/ { 40,  176, 0,   0,   0, 0, BOTDISTCFG_THROWEXPLOSIVE, BOTDISTCFG_DEFAULT,        5,             5,   1,  1,  1, 0 }, // WEAPON_PROXIMITYMINE
+	/*0x22*/ { 44,  156, 0,   0,   1, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        5,             5,   2,  2,  1, 0 }, // WEAPON_REMOTEMINE
+	/*0x23*/ { 8,   8,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_COMBATBOOST
+	/*0x24*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_PP9I
+	/*0x25*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_CC13
+	/*0x26*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_KL01313
+	/*0x27*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_KF7SPECIAL
+	/*0x28*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_ZZT
+	/*0x29*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_DMC
+	/*0x2a*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_AR53
+	/*0x2b*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_RCP45
+	/*0x2c*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_PSYCHOSISGUN
+	/*0x2d*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_NIGHTVISION
+	/*0x2e*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_EYESPY
+	/*0x2f*/ { 4,   4,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_XRAYSCANNER
+	/*0x30*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_IRSCANNER
+	/*0x31*/ { 218, 218, 0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        PALDOWN(1200), 0,   0,  0,  1, 0 }, // WEAPON_CLOAKINGDEVICE
+	/*0x32*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_HORIZONSCANNER
+	/*0x33*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_TESTER
+	/*0x34*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_ROCKETLAUNCHER_34
+	/*0x35*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_ECMMINE
+	/*0x36*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_DATAUPLINK
+	/*0x37*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_RTRACKER
+	/*0x38*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_PRESIDENTSCANNER
+	/*0x39*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_DOORDECODER
+	/*0x3a*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_AUTOSURGEON
+	/*0x3b*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_EXPLOSIVES
+	/*0x3c*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_SKEDARBOMB
+	/*0x3d*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_COMMSRIDER
+	/*0x3e*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_TRACERBUG
+	/*0x3f*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_TARGETAMPLIFIER
+	/*0x40*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_DISGUISE40
+	/*0x41*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_DISGUISE41
+	/*0x42*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_FLIGHTPLANS
+	/*0x43*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_RESEARCHTAPE
+	/*0x44*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_BACKUPDISK
+	/*0x45*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_KEYCARD45
+	/*0x46*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_KEYCARD46
+	/*0x47*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_KEYCARD47
+	/*0x48*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_KEYCARD48
+	/*0x49*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_KEYCARD49
+	/*0x4a*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_KEYCARD4A
+	/*0x4b*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_KEYCARD4B
+	/*0x4c*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_KEYCARD4C
+	/*0x4d*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_SUITCASE
+	/*0x4e*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_BRIEFCASE
 #if VERSION >= VERSION_NTSC_1_0
-	/*0x4f*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_SHIELDTECHITEM
+	/*0x4f*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_SHIELDTECHITEM
 #endif
-	/*0x50*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_NECKLACE
-	/*0x51*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_HAMMER
-	/*0x52*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_SCREWDRIVER
-	/*0x53*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_ROCKET
-	/*0x54*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_HOMINGROCKET
-	/*0x55*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_GRENADEROUND
-	/*0x56*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_BOLT
-	/*0x57*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_BRIEFCASE2
-	/*0x58*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_SKROCKET
-	/*0x59*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_59
-	/*0x5a*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_WATCHLASER
-	/*0x5b*/ { 220, 220, 0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_MPSHIELD
-	/*0x5c*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_DISABLED
-	/*0x5d*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT, 0,    0,   0,  0,  1, 0 }, // WEAPON_SUICIDEPILL
+	/*0x50*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_NECKLACE
+	/*0x51*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_HAMMER
+	/*0x52*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_SCREWDRIVER
+	/*0x53*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_ROCKET
+	/*0x54*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_HOMINGROCKET
+	/*0x55*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_GRENADEROUND
+	/*0x56*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_BOLT
+	/*0x57*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_BRIEFCASE2
+	/*0x58*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_SKROCKET
+	/*0x59*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_59
+	/*0x5a*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_WATCHLASER
+	/*0x5b*/ { 220, 220, 0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_MPSHIELD
+	/*0x5c*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_DISABLED
+	/*0x5d*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_SUICIDEPILL
 };
 
 /**
@@ -166,7 +173,7 @@ struct invitem *botinvGetFreeSlot(struct chrdata *chr)
 /**
  * Retrieve an inventory item from the bot's inventory.
  */
-struct invitem *botinvGetItem(struct chrdata *chr, u32 weaponnum)
+struct invitem *botinvGetItem(struct chrdata *chr, s32 weaponnum)
 {
 	s32 i;
 
@@ -458,8 +465,8 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3
 	// @dangerous: Array overflow can occur if more weapons are added to the
 	// game without extending the preferences table
 	if (arg3 < 0
-			|| (!funcnum && arg3 == g_AibotWeaponPreferences[weaponnum].unk04_00)
-			|| (funcnum && arg3 == g_AibotWeaponPreferences[weaponnum].unk04_01)) {
+			|| (!funcnum && arg3 == g_AibotWeaponPreferences[weaponnum].haspriammogoal)
+			|| (funcnum && arg3 == g_AibotWeaponPreferences[weaponnum].hassecammogoal)) {
 		if (arg4) {
 			score1 = g_AibotWeaponPreferences[weaponnum].unk02;
 			score2 = g_AibotWeaponPreferences[weaponnum].unk03;
@@ -952,9 +959,9 @@ void botinvTick(struct chrdata *chr)
 				if (weaponnum >= 0) {
 					for (j = 1; j >= 0; j--) {
 						if (j != FUNC_PRIMARY) {
-							canuse = g_AibotWeaponPreferences[weaponnum].unk04_01;
+							canuse = g_AibotWeaponPreferences[weaponnum].hassecammogoal;
 						} else {
-							canuse = g_AibotWeaponPreferences[weaponnum].unk04_00;
+							canuse = g_AibotWeaponPreferences[weaponnum].haspriammogoal;
 						}
 
 						if (canuse && botinvAllowsWeapon(chr, weaponnum, j)) {

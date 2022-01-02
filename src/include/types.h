@@ -4743,14 +4743,6 @@ struct challenge {
 	/*0x09*/ u8 unlockfeatures[16];
 };
 
-struct scenariodata_cbt {
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
-	u16 unk0c;
-	s16 unk0e[1]; // possibly for a different scenario - see botGetNumTeammatesDefendingHill
-};
-
 struct scenariodata_htb {
 	u32 unk00;
 	struct prop *token; // Briefcase or chr
@@ -4823,7 +4815,6 @@ struct scenariodata_ctc {
 
 struct scenariodata {
 	union {
-		struct scenariodata_cbt cbt;
 		struct scenariodata_htb htb;
 		struct scenariodata_htm htm;
 		struct scenariodata_pac pac;
@@ -6929,14 +6920,14 @@ struct aibotweaponpreference {
 	u8 unk01;
 	u8 unk02;
 	u8 unk03;
-	u16 unk04_00 : 1;
-	u16 unk04_01 : 1;
+	u16 haspriammogoal : 1;
+	u16 hassecammogoal : 1;
 	u16 pridistconfig : 4;
 	u16 secdistconfig : 4;
-	u16 unk06;
-	u16 unk08;
-	u16 unk0a;
-	u16 unk0c;
+	u16 targetammopri;
+	u16 targetammosec;
+	u16 criticalammopri;
+	u16 criticalammosec;
 	u16 reloaddelay : 3; // in seconds
 	u16 allowpartialreloaddelay : 1;
 };

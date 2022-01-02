@@ -155,7 +155,7 @@ void bgunSetGunAmmoVisible(u32 reason, bool enable);
 void bgunSetAmmoQuantity(s32 ammotype, s32 quantity);
 s32 bgunGetReservedAmmoCount(s32 type);
 s32 bgunGetAmmoCount(s32 ammotype);
-s32 bgunGetCapacityByAmmotype(u32 ammotype);
+s32 bgunGetCapacityByAmmotype(s32 ammotype);
 bool bgunAmmotypeAllowsUnlimitedAmmo(u32 ammotype);
 void bgunGiveMaxAmmo(bool force);
 u32 bgunGetAmmoTypeForWeapon(u32 weaponnum, u32 func);

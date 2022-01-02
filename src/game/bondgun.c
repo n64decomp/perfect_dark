@@ -28979,7 +28979,7 @@ s32 bgunGetAmmoCount(s32 ammotype)
 	return total;
 }
 
-s32 bgunGetCapacityByAmmotype(u32 ammotype)
+s32 bgunGetCapacityByAmmotype(s32 ammotype)
 {
 	return g_AmmoTypes[ammotype].capacity;
 }

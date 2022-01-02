@@ -33,6 +33,10 @@
 #include "data.h"
 #include "types.h"
 
+#define PICKUPCRITERIA_DEFAULT  0
+#define PICKUPCRITERIA_CRITICAL 1
+#define PICKUPCRITERIA_ANY      2
+
 struct chrdata *g_MpBotChrPtrs[MAX_SIMULANTS];
 
 u8 g_BotCount = 0;
@@ -6756,22 +6760,486 @@ glabel var7f1b8f50
 );
 #endif
 
-bool bot0f194670(struct chrdata *chr)
+#define HASENOUGHPRI(aibot, weaponnum, goal) (g_AibotWeaponPreferences[weaponnum].haspriammogoal && botactGetAmmoQuantityByWeapon(aibot, weaponnum, FUNC_PRIMARY, true) >= (goal))
+#define HASENOUGHSEC(aibot, weaponnum, goal) (g_AibotWeaponPreferences[weaponnum].hassecammogoal && botactGetAmmoQuantityByWeapon(aibot, weaponnum, FUNC_SECONDARY, true) >= (goal))
+
+/**
+ * Find a prop for the bot to pick up.
+ *
+ * Criteria can be:
+ *
+ * PICKUPCRITERIA_DEFAULT:
+ *     This is the most common criteria. It is used when the bot has spawned and
+ *     is gathering weapons, as well as when they return to their main loop.
+ *
+ * PICKUPCRITERIA_CRITICAL:
+ *     Find props only if the bot needs them critically, eg if they are low on
+ *     shield or ammo. This is used when the bot has other things it can be
+ *     doing such as scenario objectives and has to decide between the two.
+ *
+ * PICKUPCRITERIA_ANY:
+ *     Find pretty much any prop. This is used when the bot has nothing else to
+ *     do (eg. if all opponents are cloaked) and may as well stock up on ammo.
+ */
+// Mismatch: The below uses a1/a2/a3 for aibot/criteria/1 near ce8
+// while goal loads them from the stack when used
+//struct prop *botFindPickup(struct chrdata *chr, s32 criteria)
+//{
+//	struct aibot *aibot = chr->aibot; // 274
+//	s32 weaponnums[6]; // 25c
+//	s32 scores1[6]; // 244
+//	s32 scores2[6]; // 22c
+//	struct prop *weapproplist[6]; // 214
+//	f32 weapdistlist[6]; // 1fc
+//	struct prop *ammoproplist[33]; // 178
+//	f32 ammodistlist[33]; // f4
+//	struct invitem *invitems[6]; // dc
+//	s32 i; // d8
+//	s32 j;
+//	u32 stack[2];
+//	struct prop *chosenprop = NULL; // c8
+//	bool barelydominatinghill = false; // c4
+//	s32 numteam;
+//	s32 numopponents;
+//	f32 healthlimit;
+//	f32 shieldlimit;
+//	s32 priammogoal;
+//	s32 secammogoal;
+//	bool include_equipped;
+//	s32 ammotype;
+//	s32 bestscore1; // a0
+//	bool done; // 9c
+//	struct prop *prop;
+//
+//	// 7f0
+//	// If the hill has one or two bots from the same team in it, the bots will
+//	// be less likely to leave the hill for pickups (barelydominatinghill = true).
+//	// If there are three or more then this limitation is removed.
+//	// The amount increases if there are opponents in the hill too.
+//	if (aibot->teamisonlyai
+//			&& g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL
+//			&& chr->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) {
+//		numteam = botGetNumTeammatesDefendingHill(chr);
+//		numopponents = botGetNumOpponentsInHill(chr);
+//
+//		if (numteam >= numopponents && numteam <= numopponents + 2) {
+//			barelydominatinghill = true;
+//		}
+//	}
+//
+//	// 850
+//	botinvScoreAllWeapons(chr, weaponnums, scores1, scores2);
+//
+//	for (i = 0; i < 6; i++) {
+//		weapproplist[i] = NULL;
+//	}
+//
+//	for (i = 0; i < 33; i++) {
+//		ammoproplist[i] = NULL;
+//	}
+//
+//	for (i = 0; i < 6; i++) {
+//		invitems[i] = botinvGetItem(chr, weaponnums[i]);
+//	}
+//
+//	// Iterate all active props and populate the proplist and distlist arrays.
+//	// Generally these arrays are populated with the closest prop of each weapon
+//	// and ammotype, however there's a 1/16 chance that any prop will be skipped
+//	// and a 1/16 chance that a further prop will overwrite the current closest.
+//	prop = g_Vars.activeprops;
+//
+//	// 8e0
+//	while (prop) {
+//		if (prop->parent == NULL && prop->timetoregen == 0) {
+//			if (prop->type == PROPTYPE_WEAPON) {
+//				struct weaponobj *weapon = prop->weapon;
+//
+//				if ((weapon->base.flags3 & OBJFLAG3_ISFETCHTARGET) == 0) {
+//					f32 sqdist = chrGetSquaredDistanceToCoord(chr, &prop->pos);
+//					s32 ammotype;
+//
+//					for (i = 0; i < 6; i++) {
+//						if (weaponnums[i] > WEAPON_UNARMED && weaponnums[i] == weapon->weaponnum) {
+//							if (random() % 16) {
+//								if (weapproplist[i] == NULL || sqdist < weapdistlist[i] || random() % 16 == 0) {
+//									weapproplist[i] = prop;
+//									weapdistlist[i] = sqdist;
+//								}
+//							}
+//							break;
+//						}
+//					}
+//
+//					ammotype = botactGetAmmoTypeByFunction(weapon->weaponnum, FUNC_PRIMARY);
+//
+//					if (ammotype > 0 && random() % 16) {
+//						if (ammoproplist[ammotype] == NULL || sqdist < ammodistlist[ammotype] || random() % 16 == 0) {
+//							ammoproplist[ammotype] = prop;
+//							ammodistlist[ammotype] = sqdist;
+//						}
+//					}
+//				}
+//			} else if (prop->type == PROPTYPE_OBJ) {
+//				struct defaultobj *obj = prop->obj;
+//				f32 sqdist;
+//
+//				if ((obj->flags3 & OBJFLAG3_ISFETCHTARGET) == 0) {
+//					if (obj->type == OBJTYPE_MULTIAMMOCRATE) {
+//						struct multiammocrateobj *crate = (struct multiammocrateobj *)prop->obj;
+//						sqdist = chrGetSquaredDistanceToCoord(chr, &prop->pos);
+//
+//						for (i = 0; i < 19; i++) {
+//							s32 ammotype = i + 1;
+//
+//							if (crate->slots[i].quantity > 0) {
+//								s32 weaponnum = botactGetWeaponByAmmoType(ammotype);
+//
+//								if (weaponnum > 0) {
+//									for (j = 0; j < 6; j++) {
+//										if (weaponnums[j] > WEAPON_UNARMED && weaponnum == weaponnums[j]) {
+//											if (random() % 16) {
+//												if (weapproplist[j] == NULL || sqdist < weapdistlist[j] || random() % 16 == 0) {
+//													weapproplist[j] = prop;
+//													weapdistlist[j] = sqdist;
+//												}
+//											}
+//											break;
+//										}
+//									}
+//								}
+//
+//								if (random() % 16) {
+//									if (ammoproplist[ammotype] == NULL || sqdist < ammodistlist[ammotype] || random() % 16 == 0) {
+//										ammoproplist[ammotype] = prop;
+//										ammodistlist[ammotype] = sqdist;
+//									}
+//								}
+//							}
+//						}
+//					} else if (obj->type == OBJTYPE_SHIELD) {
+//						for (i = 0; i < 6; i++) {
+//							if (weaponnums[i] == WEAPON_MPSHIELD) {
+//								sqdist = chrGetSquaredDistanceToCoord(chr, &prop->pos);
+//
+//								if (random() % 16 == 0) {
+//									break;
+//								}
+//
+//								if (weapproplist[i] == NULL || sqdist < weapdistlist[i] || random() % 16 == 0) {
+//									weapproplist[i] = prop;
+//									weapdistlist[i] = sqdist;
+//								}
+//
+//								break;
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//
+//		prop = prop->next;
+//	}
+//
+//	// c50
+//	// Find the best score out of the 6 weapons
+//	bestscore1 = 0;
+//	done = false;
+//
+//	for (i = 0; i < 6; i++) {
+//		if ((botinvAllowsWeapon(chr, weaponnums[i], FUNC_PRIMARY) || botinvAllowsWeapon(chr, weaponnums[i], FUNC_SECONDARY))
+//				&& (g_AibotWeaponPreferences[weaponnums[i]].haspriammogoal || g_AibotWeaponPreferences[weaponnums[i]].hassecammogoal)
+//				&& scores1[i] > bestscore1) {
+//			bestscore1 = scores1[i];
+//		}
+//	}
+//
+//	// ce8
+//	// Decide if the bot wants to find a shield, based on the amount of health
+//	// and shield the bot currently has. This shield logic is done prior to
+//	// weapons and ammo, so a shield takes precedence.
+//	// Note that max health and shield is 8 each, and that the bot must be under
+//	// BOTH the limits for a shield to be fetched.
+//	for (i = 0; i < 6 && !done; i++) {
+//		if (weaponnums[i] == WEAPON_MPSHIELD
+//				&& (g_MpSetup.scenario != MPSCENARIO_HOLDTHEBRIEFCASE || !chr->aibot->hasbriefcase)) {
+//			healthlimit = 8.1f;
+//			shieldlimit = 0;
+//
+//			// d64
+//			if (aibot->config->type == BOTTYPE_SHIELD) {
+//				// Setting higher shield limits makes ShieldSims more likely to
+//				// fetch shields
+//				if (criteria == PICKUPCRITERIA_ANY) {
+//					shieldlimit = 7.9f;
+//				} else if (criteria == PICKUPCRITERIA_DEFAULT) {
+//					shieldlimit = 6 - (aibot->randomfrac + aibot->randomfrac);
+//				} else if (criteria == PICKUPCRITERIA_CRITICAL) {
+//					shieldlimit = 4 - (aibot->randomfrac + aibot->randomfrac);
+//				}
+//			} else if (barelydominatinghill) {
+//				// Bots will be less likely to fetch shields while defending the hill
+//				healthlimit = 4 - (aibot->randomfrac + aibot->randomfrac);
+//				shieldlimit = 1 - aibot->randomfrac;
+//			} else if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE && botShouldReturnCtcToken(chr)) {
+//				// Bots will be less likely to fetch shields while returning a CTC case
+//				healthlimit = 3 - (aibot->randomfrac + aibot->randomfrac);
+//			} else if (chr->myaction == MA_AIBOTDOWNLOAD) {
+//				// Bots will be less likely to fetch shields while uplinking
+//				healthlimit = 4 - (aibot->randomfrac + aibot->randomfrac);
+//				shieldlimit = 1;
+//			} else {
+//				// Default behaviour
+//				if (criteria == PICKUPCRITERIA_ANY) {
+//					shieldlimit = 7.9f;
+//				} else if (criteria == PICKUPCRITERIA_DEFAULT) {
+//					shieldlimit = 4 - (aibot->randomfrac + aibot->randomfrac);
+//				} else if (criteria == PICKUPCRITERIA_CRITICAL) {
+//					shieldlimit = 2 - aibot->randomfrac;
+//				}
+//			}
+//
+//			// Meat, easy and normal sims reduce the limits further,
+//			// making them less likely to fetch shields.
+//			if (aibot->config->difficulty == BOTDIFF_MEAT) {
+//				s32 rand = aibot->random2 % 8;
+//
+//				if (rand < 2) {
+//					healthlimit = 0;
+//					shieldlimit = 0;
+//				} else if (rand < 4) {
+//					healthlimit = 2 - aibot->randomfrac;
+//					shieldlimit = 0;
+//				} else {
+//					shieldlimit -= aibot->randomfrac * 16;
+//
+//					if (shieldlimit <= 0) {
+//						healthlimit += shieldlimit;
+//						shieldlimit = 0;
+//					}
+//				}
+//			} else if (aibot->config->difficulty == BOTDIFF_EASY) {
+//				s32 rand = aibot->random2 % 8;
+//
+//				if (rand <= 0) {
+//					healthlimit = 0;
+//					shieldlimit = 0;
+//				} else {
+//					shieldlimit -= aibot->randomfrac * 11;
+//
+//					if (shieldlimit <= 0) {
+//						healthlimit += shieldlimit;
+//						shieldlimit = 0;
+//					}
+//				}
+//			} else if (aibot->config->difficulty == BOTDIFF_NORMAL) {
+//				shieldlimit -= aibot->randomfrac * 4;
+//
+//				if (shieldlimit <= 0) {
+//					healthlimit += shieldlimit;
+//					shieldlimit = 0;
+//				}
+//			}
+//
+//			// Actually check the limits and decide if the shield is desired
+//			if (chr->maxdamage - chr->damage < healthlimit
+//					&& chr->cshield <= shieldlimit
+//					&& weapproplist[i] != NULL
+//					&& scores2[i] >= bestscore1) {
+//				chosenprop = weapproplist[i];
+//				done = true;
+//				break;
+//			}
+//		}
+//	}
+//
+//	// 078
+//	// Consider ammo for weapons that the bot already has.
+//	// This loop is iterated in order of highest scoring weapons first. If the
+//	// first iterated weapon which the bot holds has enough ammo then the lower
+//	// scoring weapons will not be considered, nor will any new weapons be
+//	// picked up.
+//	for (i = 0; i < 6 && !done; i++) {
+//		if (weaponnums[i] != WEAPON_MPSHIELD
+//				&& invitems[i] != NULL
+//				&& (g_AibotWeaponPreferences[weaponnums[i]].haspriammogoal
+//					|| g_AibotWeaponPreferences[weaponnums[i]].hassecammogoal)
+//				&& scores2[i] >= bestscore1) {
+//			// 0fc
+//			include_equipped = true;
+//
+//			// Don't go after ammo when returning a CTC token
+//			if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE && botShouldReturnCtcToken(chr)) {
+//				done = true;
+//				break;
+//			}
+//
+//			// Don't go after ammo when downloading in Hacker Central
+//			if (chr->myaction == MA_AIBOTDOWNLOAD) {
+//				done = true;
+//				break;
+//			}
+//
+//			if (barelydominatinghill) {
+//				// If the bot's team is only barely controlling the hill,
+//				// don't leave it unless the bot is out of ammo
+//				priammogoal = g_AibotWeaponPreferences[weaponnums[i]].criticalammopri;
+//
+//				if (priammogoal > 1) {
+//					priammogoal = 1;
+//				}
+//
+//				secammogoal = g_AibotWeaponPreferences[weaponnums[i]].criticalammosec;
+//
+//				if (secammogoal > 1) {
+//					secammogoal = 1;
+//				}
+//
+//				if (HASENOUGHPRI(aibot, weaponnums[i], priammogoal)
+//						|| HASENOUGHSEC(aibot, weaponnums[i], secammogoal)) {
+//					done = true;
+//					break;
+//				}
+//			} else if (criteria == PICKUPCRITERIA_ANY) {
+//				// If looking for any pickups at all, use the weapon's ammo
+//				// capacities as the goal ammo
+//				priammogoal = bgunGetCapacityByAmmotype(botactGetAmmoTypeByFunction(weaponnums[i], FUNC_PRIMARY));
+//				secammogoal = bgunGetCapacityByAmmotype(botactGetAmmoTypeByFunction(weaponnums[i], FUNC_SECONDARY));
+//
+//				// If bot has max ammo for both weapon's functions
+//				if ((g_AibotWeaponPreferences[weaponnums[i]].haspriammogoal == false
+//							|| botactGetAmmoQuantityByWeapon(aibot, weaponnums[i], FUNC_PRIMARY, false) >= priammogoal)
+//						&& (g_AibotWeaponPreferences[weaponnums[i]].hassecammogoal == false
+//							|| botactGetAmmoQuantityByWeapon(aibot, weaponnums[i], FUNC_SECONDARY, false) >= secammogoal)) {
+//					// Consider next weapon
+//					continue;
+//				}
+//
+//				include_equipped = false;
+//			} else if (criteria == PICKUPCRITERIA_DEFAULT) {
+//				// Default - use the target ammo amount
+//				priammogoal = g_AibotWeaponPreferences[weaponnums[i]].targetammopri;
+//				secammogoal = g_AibotWeaponPreferences[weaponnums[i]].targetammosec;
+//
+//				if (HASENOUGHPRI(aibot, weaponnums[i], priammogoal)
+//						|| HASENOUGHSEC(aibot, weaponnums[i], secammogoal)) {
+//					done = true;
+//					break;
+//				}
+//			} else if (criteria == PICKUPCRITERIA_CRITICAL) {
+//				// Critical - use the critical ammo amount
+//				priammogoal = g_AibotWeaponPreferences[weaponnums[i]].criticalammopri;
+//				secammogoal = g_AibotWeaponPreferences[weaponnums[i]].criticalammosec;
+//
+//				if (HASENOUGHPRI(aibot, weaponnums[i], priammogoal)
+//						|| HASENOUGHSEC(aibot, weaponnums[i], secammogoal)) {
+//					done = true;
+//					break;
+//				}
+//			}
+//
+//			// Iterate both weapon functions and check
+//			// if the bot has enough ammo for that function
+//			for (j = 0; j < 2; j++) {
+//				if (botinvAllowsWeapon(chr, weaponnums[i], j)) {
+//					s32 ammotype = botactGetAmmoTypeByFunction(weaponnums[i], j);
+//
+//					if (ammotype > 0) {
+//						s32 goal = j ? secammogoal : priammogoal;
+//						s32 qty = botactGetAmmoQuantityByType(aibot, ammotype, include_equipped);
+//
+//						if (qty < goal
+//								&& ammoproplist[ammotype]) {
+//							chosenprop = ammoproplist[ammotype];
+//							done = true;
+//							break;
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	// 478
+//	// If done is still false, the bot mustn't have any weapons.
+//	// Consider picking up weapons that the bot doesn't have.
+//	// Fetch the highest scoring weapon if there are any pickups for it.
+//	for (i = 0; i < 6 && !done; i++) {
+//		if (weaponnums[i] != WEAPON_MPSHIELD) {
+//			if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE && botShouldReturnCtcToken(chr)) {
+//				done = true;
+//				break;
+//			}
+//
+//			if (chr->myaction == MA_AIBOTDOWNLOAD) {
+//				done = true;
+//				break;
+//			}
+//
+//			if (!barelydominatinghill
+//					&& (botinvAllowsWeapon(chr, weaponnums[i], FUNC_PRIMARY)
+//						|| botinvAllowsWeapon(chr, weaponnums[i], FUNC_SECONDARY))
+//					&& invitems[i] == NULL
+//					&& weapproplist[i] != NULL) {
+//				chosenprop = weapproplist[i];
+//				done = true;
+//				break;
+//			}
+//		}
+//	}
+//
+//	// 568
+//	if (criteria == PICKUPCRITERIA_ANY) {
+//		// Consider ammo even for weapons that the bot doesn't have
+//		for (i = 0; i < 6 && !done; i++) {
+//			if (weaponnums[i] != WEAPON_MPSHIELD) {
+//				for (j = 0; j < 2; j++) {
+//					if (botinvAllowsWeapon(chr, weaponnums[i], j)) {
+//						ammotype = botactGetAmmoTypeByFunction(weaponnums[i], j);
+//
+//						if (ammotype > 0
+//								&& botactGetAmmoQuantityByType(aibot, ammotype, false) < bgunGetCapacityByAmmotype(ammotype)
+//								&& ammoproplist[ammotype] != NULL) {
+//							chosenprop = ammoproplist[ammotype];
+//							done = true;
+//							break;
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	return chosenprop;
+//}
+
+/**
+ * Check if the bot wants to do a critical pickup.
+ *
+ * This returns true when the bot is low on health or ammo and there are pickups
+ * available.
+ */
+bool botCanDoCriticalPickup(struct chrdata *chr)
 {
-	return botFindPickup(chr, 1) != 0;
+	return botFindPickup(chr, PICKUPCRITERIA_CRITICAL) != NULL;
 }
 
 /**
- * Choose a prop to fetch.
+ * Find a pickup to fetch based on default criteria. Default criteria basically
+ * means a good amount of ammo - not lacking but not excessive either.
  */
-struct prop *botFindNecessaryPickup(struct chrdata *chr)
+struct prop *botFindDefaultPickup(struct chrdata *chr)
 {
-	return botFindPickup(chr, 0);
+	return botFindPickup(chr, PICKUPCRITERIA_DEFAULT);
 }
 
-struct prop *botFindUnnecessaryPickup(struct chrdata *chr)
+/**
+ * Find any pickup to fetch. This is used when the bot has nothing else to do
+ * (eg. if all opponents are cloaked).
+ */
+struct prop *botFindAnyPickup(struct chrdata *chr)
 {
-	return botFindPickup(chr, 2);
+	return botFindPickup(chr, PICKUPCRITERIA_ANY);
 }
 
 s32 botGetTeamSize(struct chrdata *chr)
@@ -6838,7 +7306,7 @@ s32 botGetNumTeammatesDefendingHill(struct chrdata *bot)
 
 	for (i = 0; i < g_MpNumChrs; i++) {
 		if (bot->team == g_MpAllChrPtrs[i]->team
-				&& g_MpAllChrPtrs[i]->prop->rooms[0] == g_ScenarioData.cbt.unk0e[0]) {
+				&& g_MpAllChrPtrs[i]->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) {
 			if (g_MpAllChrPtrs[i]->aibot->command == AIBOTCMD_DEFHILL
 					|| g_MpAllChrPtrs[i]->aibot->command == AIBOTCMD_HOLDHILL) {
 				count++;
@@ -7699,7 +8167,7 @@ glabel var7f1b8fc8
 .PF0f196668:
 /*  f196668:	06a10006 */ 	bgez	$s5,.PF0f196684
 /*  f19666c:	00000000 */ 	nop
-/*  f196670:	0fc655d3 */ 	jal	botFindNecessaryPickup
+/*  f196670:	0fc655d3 */ 	jal	botFindDefaultPickup
 /*  f196674:	02802025 */ 	move	$a0,$s4
 /*  f196678:	10400002 */ 	beqz	$v0,.PF0f196684
 /*  f19667c:	ae420010 */ 	sw	$v0,0x10($s2)
@@ -8658,7 +9126,7 @@ glabel var7f1b8fc8
 .PF0f197460:
 /*  f197460:	06a10006 */ 	bgez	$s5,.PF0f19747c
 /*  f197464:	00000000 */ 	nop
-/*  f197468:	0fc655db */ 	jal	botFindUnnecessaryPickup
+/*  f197468:	0fc655db */ 	jal	botFindAnyPickup
 /*  f19746c:	02802025 */ 	move	$a0,$s4
 /*  f197470:	10400002 */ 	beqz	$v0,.PF0f19747c
 /*  f197474:	ae420010 */ 	sw	$v0,0x10($s2)
@@ -8882,7 +9350,7 @@ glabel var7f1b8fc8
 .PF0f19778c:
 /*  f19778c:	0fc661c0 */ 	jal	botcmdTickDistMode
 /*  f197790:	02802025 */ 	move	$a0,$s4
-/*  f197794:	0fc655ca */ 	jal	bot0f194670
+/*  f197794:	0fc655ca */ 	jal	botCanDoCriticalPickup
 /*  f197798:	02802025 */ 	move	$a0,$s4
 /*  f19779c:	10400003 */ 	beqz	$v0,.PF0f1977ac
 /*  f1977a0:	240d0029 */ 	li	$t5,0x29
@@ -8980,7 +9448,7 @@ glabel var7f1b8fc8
 /*  f1978f8:	ae4f01d8 */ 	sw	$t7,0x1d8($s2)
 /*  f1978fc:	a25e0074 */ 	sb	$s8,0x74($s2)
 .PF0f197900:
-/*  f197900:	0fc655ca */ 	jal	bot0f194670
+/*  f197900:	0fc655ca */ 	jal	botCanDoCriticalPickup
 /*  f197904:	02802025 */ 	move	$a0,$s4
 /*  f197908:	104000d3 */ 	beqz	$v0,.PF0f197c58
 /*  f19790c:	24190029 */ 	li	$t9,0x29
@@ -9090,7 +9558,7 @@ glabel var7f1b8fc8
 /*  f197a88:	00000000 */ 	nop
 /*  f197a8c:	ae4e00dc */ 	sw	$t6,0xdc($s2)
 .PF0f197a90:
-/*  f197a90:	0fc655ca */ 	jal	bot0f194670
+/*  f197a90:	0fc655ca */ 	jal	botCanDoCriticalPickup
 /*  f197a94:	02802025 */ 	move	$a0,$s4
 /*  f197a98:	1040006f */ 	beqz	$v0,.PF0f197c58
 /*  f197a9c:	240b0029 */ 	li	$t3,0x29
@@ -9145,7 +9613,7 @@ glabel var7f1b8fc8
 /*  f197b4c:	10000042 */ 	b	.PF0f197c58
 /*  f197b50:	a28c02a0 */ 	sb	$t4,0x2a0($s4)
 .PF0f197b54:
-/*  f197b54:	0fc655ca */ 	jal	bot0f194670
+/*  f197b54:	0fc655ca */ 	jal	botCanDoCriticalPickup
 /*  f197b58:	02802025 */ 	move	$a0,$s4
 /*  f197b5c:	1040003e */ 	beqz	$v0,.PF0f197c58
 /*  f197b60:	24180029 */ 	li	$t8,0x29
@@ -9155,7 +9623,7 @@ glabel var7f1b8fc8
 /*  f197b6c:	2401002c */ 	li	$at,0x2c
 /*  f197b70:	54410029 */ 	bnel	$v0,$at,.PF0f197c18
 /*  f197b74:	2401002e */ 	li	$at,0x2e
-/*  f197b78:	0fc655ca */ 	jal	bot0f194670
+/*  f197b78:	0fc655ca */ 	jal	botCanDoCriticalPickup
 /*  f197b7c:	02802025 */ 	move	$a0,$s4
 /*  f197b80:	10400003 */ 	beqz	$v0,.PF0f197b90
 /*  f197b84:	240f0029 */ 	li	$t7,0x29
@@ -9201,7 +9669,7 @@ glabel var7f1b8fc8
 .PF0f197c18:
 /*  f197c18:	1441000f */ 	bne	$v0,$at,.PF0f197c58
 /*  f197c1c:	00000000 */ 	nop
-/*  f197c20:	0fc655ca */ 	jal	bot0f194670
+/*  f197c20:	0fc655ca */ 	jal	botCanDoCriticalPickup
 /*  f197c24:	02802025 */ 	move	$a0,$s4
 /*  f197c28:	10400003 */ 	beqz	$v0,.PF0f197c38
 /*  f197c2c:	24180029 */ 	li	$t8,0x29
@@ -10162,7 +10630,7 @@ void botTickUnpaused(struct chrdata *chr)
 
 			// Check if the bot needs to fetch some weapons or ammo
 			if (newaction < 0) {
-				aibot->gotoprop = botFindNecessaryPickup(chr);
+				aibot->gotoprop = botFindDefaultPickup(chr);
 
 				if (aibot->gotoprop) {
 					newaction = MA_AIBOTGETITEM;
@@ -10614,7 +11082,7 @@ void botTickUnpaused(struct chrdata *chr)
 
 			// If there's no teammate to follow, stock up on weapons and ammo
 			if (newaction < 0) {
-				aibot->gotoprop = botFindUnnecessaryPickup(chr);
+				aibot->gotoprop = botFindAnyPickup(chr);
 
 				if (aibot->gotoprop) {
 					newaction = MA_AIBOTGETITEM;
@@ -10706,7 +11174,7 @@ void botTickUnpaused(struct chrdata *chr)
 			} else {
 				botcmdTickDistMode(chr);
 
-				if (bot0f194670(chr)) {
+				if (botCanDoCriticalPickup(chr)) {
 					chr->myaction = MA_AIBOTMAINLOOP;
 				} else if (aibot->abortattacktimer60 >= 0 && aibot->targetlastseen60 < g_Vars.lvframe60 - aibot->abortattacktimer60) {
 					chr->myaction = MA_AIBOTMAINLOOP;
@@ -10743,7 +11211,7 @@ void botTickUnpaused(struct chrdata *chr)
 					}
 				}
 
-				if (bot0f194670(chr)) {
+				if (botCanDoCriticalPickup(chr)) {
 					chr->myaction = MA_AIBOTMAINLOOP;
 				}
 			}
@@ -10788,7 +11256,7 @@ void botTickUnpaused(struct chrdata *chr)
 				}
 			}
 
-			if (bot0f194670(chr)) {
+			if (botCanDoCriticalPickup(chr)) {
 				chr->myaction = MA_AIBOTMAINLOOP;
 			}
 		} else if (chr->myaction == MA_AIBOTGOTOPOS) {
@@ -10807,11 +11275,11 @@ void botTickUnpaused(struct chrdata *chr)
 
 			if (chr->actiontype != ACT_GOPOS) {
 				chr->myaction = MA_AIBOTMAINLOOP;
-			} else if (bot0f194670(chr)) {
+			} else if (botCanDoCriticalPickup(chr)) {
 				chr->myaction = MA_AIBOTMAINLOOP;
 			}
 		} else if (chr->myaction == MA_AIBOTGOTOPROP) {
-			if (bot0f194670(chr)) {
+			if (botCanDoCriticalPickup(chr)) {
 				chr->myaction = MA_AIBOTMAINLOOP;
 			} else if (chr->actiontype != ACT_GOPOS || aibot->gotoprop == NULL || aibot->gotoprop->parent) {
 				chr->myaction = MA_AIBOTMAINLOOP;
@@ -10823,7 +11291,7 @@ void botTickUnpaused(struct chrdata *chr)
 				chr->myaction = MA_AIBOTMAINLOOP;
 			}
 		} else if (chr->myaction == MA_AIBOTDOWNLOAD) {
-			if (bot0f194670(chr)) {
+			if (botCanDoCriticalPickup(chr)) {
 				chr->myaction = MA_AIBOTMAINLOOP;
 			} else if (g_ScenarioData.htm.uplinkingplayernum != mpPlayerGetIndex(chr)) {
 				chr->myaction = MA_AIBOTMAINLOOP;

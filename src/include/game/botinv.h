@@ -6,7 +6,7 @@
 
 void botinvClear(struct chrdata *chr);
 struct invitem *botinvGetFreeSlot(struct chrdata *chr);
-struct invitem *botinvGetItem(struct chrdata *chr, u32 weaponnum);
+struct invitem *botinvGetItem(struct chrdata *chr, s32 weaponnum);
 void botinvRemoveItem(struct chrdata *chr, s32 weaponnum);
 u32 botinvGetItemType(struct chrdata *chr, u32 weaponnum);
 bool botinvGiveSingleWeapon(struct chrdata *chr, u32 weaponnum);

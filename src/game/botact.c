@@ -19,7 +19,7 @@
 #include "data.h"
 #include "types.h"
 
-s32 botactGetAmmoTypeByFunction(s32 weaponnum, u32 funcnum)
+s32 botactGetAmmoTypeByFunction(s32 weaponnum, s32 funcnum)
 {
 	if (weaponnum >= WEAPON_FALCON2 && weaponnum <= WEAPON_SUICIDEPILL) {
 		struct inventory_ammo *ammo = weaponGetAmmoByFunction(weaponnum, funcnum);
@@ -322,7 +322,7 @@ u32 botactGetProjectileThrowInterval(u32 weapon)
 	}
 }
 
-u32 botactGetWeaponByAmmoType(u32 ammotype)
+s32 botactGetWeaponByAmmoType(s32 ammotype)
 {
 	switch (ammotype) {
 	case AMMOTYPE_NBOMB:       return WEAPON_NBOMB;
