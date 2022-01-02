@@ -481,74 +481,25 @@ Gfx *titleRenderCheckControllers(Gfx *gdl)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f0165f0
-/*  f0165f0:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f0165f4:	3c0e8008 */ 	lui	$t6,%hi(g_FontHandelGothicLg)
-/*  f0165f8:	8dcefb1c */ 	lw	$t6,%lo(g_FontHandelGothicLg)($t6)
-/*  f0165fc:	afa7005c */ 	sw	$a3,0x5c($sp)
-/*  f016600:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f016604:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f016608:	afa50054 */ 	sw	$a1,0x54($sp)
-/*  f01660c:	afa60058 */ 	sw	$a2,0x58($sp)
-/*  f016610:	3c078008 */ 	lui	$a3,%hi(g_CharsHandelGothicLg)
-/*  f016614:	afa00048 */ 	sw	$zero,0x48($sp)
-/*  f016618:	afa0004c */ 	sw	$zero,0x4c($sp)
-/*  f01661c:	8ce7fb20 */ 	lw	$a3,%lo(g_CharsHandelGothicLg)($a3)
-/*  f016620:	8fa60064 */ 	lw	$a2,0x64($sp)
-/*  f016624:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*  f016628:	27a4004c */ 	addiu	$a0,$sp,0x4c
-/*  f01662c:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f016630:	0fc55cbe */ 	jal	textMeasure
-/*  f016634:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f016638:	8faf005c */ 	lw	$t7,0x5c($sp)
-/*  f01663c:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*  f016640:	8fab0060 */ 	lw	$t3,0x60($sp)
-/*  f016644:	8fac004c */ 	lw	$t4,0x4c($sp)
-/*  f016648:	01f80019 */ 	multu	$t7,$t8
-/*  f01664c:	8fa90054 */ 	lw	$t1,0x54($sp)
-/*  f016650:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*  f016654:	0000c812 */ 	mflo	$t9
-/*  f016658:	07210003 */ 	bgez	$t9,.L0f016668
-/*  f01665c:	00194043 */ 	sra	$t0,$t9,0x1
-/*  f016660:	27210001 */ 	addiu	$at,$t9,0x1
-/*  f016664:	00014043 */ 	sra	$t0,$at,0x1
-.L0f016668:
-/*  f016668:	016c0019 */ 	multu	$t3,$t4
-/*  f01666c:	01285023 */ 	subu	$t2,$t1,$t0
-/*  f016670:	afaa0044 */ 	sw	$t2,0x44($sp)
-/*  f016674:	00006812 */ 	mflo	$t5
-/*  f016678:	05a10003 */ 	bgez	$t5,.L0f016688
-/*  f01667c:	000d7043 */ 	sra	$t6,$t5,0x1
-/*  f016680:	25a10001 */ 	addiu	$at,$t5,0x1
-/*  f016684:	00017043 */ 	sra	$t6,$at,0x1
-.L0f016688:
-/*  f016688:	01eec023 */ 	subu	$t8,$t7,$t6
-/*  f01668c:	0c002f02 */ 	jal	viGetWidth
-/*  f016690:	afb80040 */ 	sw	$t8,0x40($sp)
-/*  f016694:	0c002f06 */ 	jal	viGetHeight
-/*  f016698:	a7a2003c */ 	sh	$v0,0x3c($sp)
-/*  f01669c:	8fb90068 */ 	lw	$t9,0x68($sp)
-/*  f0166a0:	8fa9006c */ 	lw	$t1,0x6c($sp)
-/*  f0166a4:	8fa80070 */ 	lw	$t0,0x70($sp)
-/*  f0166a8:	87aa003c */ 	lh	$t2,0x3c($sp)
-/*  f0166ac:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f0166b0:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f0166b4:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f0166b8:	8fa70064 */ 	lw	$a3,0x64($sp)
-/*  f0166bc:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f0166c0:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f0166c4:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0166c8:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f0166cc:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f0166d0:	afa80018 */ 	sw	$t0,0x18($sp)
-/*  f0166d4:	0fc5580f */ 	jal	textRenderProjected
-/*  f0166d8:	afaa001c */ 	sw	$t2,0x1c($sp)
-/*  f0166dc:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0166e0:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f0166e4:	03e00008 */ 	jr	$ra
-/*  f0166e8:	00000000 */ 	nop
-);
+Gfx *title0f0165f0(Gfx *gdl, s32 xcentre, s32 ycentre, s32 xscale, s32 yscale, char *text, struct fontchar *font1, struct font *font2, s32 colour)
+{
+	s32 textheight;
+	s32 textwidth;
+	s32 x;
+	s32 y;
+
+	textwidth = 0;
+	textheight = 0;
+
+	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+
+	x = xcentre - xscale * textwidth / 2;
+	y = ycentre - yscale * textheight / 2;
+
+	gdl = textRenderProjected(gdl, &x, &y, text, font1, font2, colour, viGetWidth(), viGetHeight(), 0, 0);
+
+	return gdl;
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
