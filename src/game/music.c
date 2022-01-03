@@ -740,7 +740,7 @@ void musicEndCutscene(void)
 {
 	g_Vars.dontplaynrg = false;
 
-	if (var800624a4 == 0) {
+	if (!g_IsTitleDemo) {
 		musicQueueStopEvent(TRACKTYPE_PRIMARY);
 		musicQueueStopEvent(TRACKTYPE_AMBIENT);
 		musicStartPrimary(0.5f);

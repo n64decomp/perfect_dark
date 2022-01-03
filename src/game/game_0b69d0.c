@@ -3459,7 +3459,7 @@ void func0f0b9a20(void)
 
 void currentPlayerEndCutscene(void)
 {
-	if (var800624a4) {
+	if (g_IsTitleDemo) {
 		mainChangeToStage(STAGE_TITLE);
 	} else if (g_Vars.autocutplaying) {
 		g_Vars.autocutfinished = true;
@@ -3855,7 +3855,7 @@ void func0f0ba010(void)
 
 void cameraDoAnimation(s16 animnum)
 {
-	if ((!var800624a4 && !g_Vars.autocutplaying)
+	if ((!g_IsTitleDemo && !g_Vars.autocutplaying)
 			|| !g_Vars.in_cutscene
 			|| !g_CutsceneSkipRequested) {
 		joyDisableTemporarily();
@@ -13977,7 +13977,7 @@ glabel func0f0bfc7c
 /*  f0bfce0:	af220064 */ 	sw	$v0,0x64($t9)
 /*  f0bfce4:	8e490284 */ 	lw	$t1,0x284($s2)
 /*  f0bfce8:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f0bfcec:	0fc59e6c */ 	jal	gfxAllocate4Words
+/*  f0bfcec:	0fc59e6c */ 	jal	gfxAllocateLookAt
 /*  f0bfcf0:	ad220068 */ 	sw	$v0,0x68($t1)
 /*  f0bfcf4:	8fa80110 */ 	lw	$t0,0x110($sp)
 /*  f0bfcf8:	8e430284 */ 	lw	$v1,0x284($s2)
@@ -14192,7 +14192,7 @@ glabel func0f0bfc7c
 //	g_Vars.currentplayer->matrix64 = gfxAllocateMatrix();
 //	g_Vars.currentplayer->matrix68 = gfxAllocateMatrix();
 //
-//	spcc = gfxAllocate4Words(2);
+//	spcc = gfxAllocateLookAt(2);
 //
 //	sp74.x = (cam_pos->x - g_Vars.currentplayer->globaldrawworldoffset.x) * scale;
 //	sp74.y = (cam_pos->y - g_Vars.currentplayer->globaldrawworldoffset.y) * scale;

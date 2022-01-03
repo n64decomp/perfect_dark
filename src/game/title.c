@@ -31,15 +31,15 @@
 
 u8 *var8009cca0;
 u32 var8009cca4;
-u8 *var8009cca8[2];
-u8 *var8009ccb0[2];
+struct gfxvtx *var8009cca8[2];
+u32 *var8009ccb0[2];
 u32 var8009ccb8;
 
-s16 var800624a0 = 480;
-s32 var800624a4 = false;
-s32 var800624a8 = 0;
-s32 var800624ac = 0;
-u32 var800624b0 = 0x00000000;
+s16 g_TitleViewHeight = 480;
+bool g_IsTitleDemo = false;
+bool g_TitleButtonPressed = false;
+bool g_TitleFastForward = false;
+u32 g_TitleIdleTime60 = 0;
 s32 g_TitleMode = -1;
 s32 g_TitleNextMode = -1;
 u32 g_TitleDelayedTimer = 2;
@@ -58,11 +58,11 @@ u32 var800624ec = 0x00000001;
 u32 var800624f0 = 0x00000000;
 s32 var800624f4 = 1;
 struct model *g_TitleModel = NULL;
-struct model *g_TitleModel2 = NULL;
+struct model *g_TitleModelNLogo2 = NULL;
 u32 var80062500 = 0x00000000;
 u32 var80062504 = 0x00000000;
-struct model *var80062508 = NULL;
-struct model *var8006250c = NULL;
+struct model *g_TitleModelPdTwo = NULL;
+struct model *g_TitleModelPdThree = NULL;
 u32 var80062510 = 0x00000000;
 u32 var80062514 = 0x00000000;
 u32 var80062518 = 0x96969600;
@@ -71,32 +71,12 @@ u32 var80062520 = 0xffffff00;
 u32 var80062524 = 0xffffff00;
 u32 var80062528 = 0x4d4d2e00;
 u32 var8006252c = 0x00000000;
-u32 var80062530 = 0xffffff00;
-u32 var80062534 = 0xffffff00;
-u32 var80062538 = 0x00000000;
-u32 var8006253c = 0x00000000;
-u32 var80062540 = 0x00000000;
-u32 var80062544 = 0x00000000;
-u32 var80062548 = 0x3fff3f00;
-u32 var8006254c = 0x3fff3f00;
-u32 var80062550 = 0x00000000;
-u32 var80062554 = 0x00000000;
-u32 var80062558 = 0x00000000;
-u32 var8006255c = 0x00000000;
-u32 var80062560 = 0xffffff00;
-u32 var80062564 = 0xffffff00;
-u32 var80062568 = 0x00000000;
-u32 var8006256c = 0x00000000;
-u32 var80062570 = 0x00000000;
-u32 var80062574 = 0x00000000;
-u32 var80062578 = 0x00000000;
-u32 var8006257c = 0x00000000;
-u32 var80062580 = 0xffffff00;
-u32 var80062584 = 0xffffff00;
-u32 var80062588 = 0x00007f00;
-u32 var8006258c = 0x00000000;
 
-Lights1 var80062590 = gdSPDefLights1(0xff, 0xff, 0xff, 0, 0, 0, 0, 0, 0);
+Lights1 var80062530 = gdSPDefLights1(0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+Lights1 var80062548 = gdSPDefLights1(0x3f, 0xff, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+Lights1 var80062560 = gdSPDefLights1(0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+Lights1 var80062578 = gdSPDefLights1(0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00, 0x00, 0x7f);
+Lights1 var80062590 = gdSPDefLights1(0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
 
 u32 var800625a8 = 0x00000000;
 u32 var800625ac = 0x00000000;
@@ -324,8 +304,8 @@ void titleInitLegal(void)
 	musicQueueStopAllEvent();
 	var800624f4 = 1;
 	g_TitleTimer = 0;
-	var800624a8 = 0;
-	var800624ac = 0;
+	g_TitleButtonPressed = false;
+	g_TitleFastForward = false;
 }
 
 void titleExitLegal(void)
@@ -597,8 +577,8 @@ Gfx *titleRenderLegal(Gfx *gdl)
 }
 
 bool g_LegalEnabled = true;
-s32 var80062730 = 1;
-u32 var80062734 = 0x00000000;
+bool g_PdLogoIsFirstTick = true;
+bool g_PdLogoTriggerExit = false;
 
 u32 var80062738 = 0;
 u32 var8006273c = 0;
@@ -691,14 +671,14 @@ glabel titleInitPdLogo
 /*  f016e58:	8e240248 */ 	lw	$a0,0x248($s1)
 /*  f016e5c:	0fc2cca0 */ 	jal	func0f0b3280
 /*  f016e60:	8e240248 */ 	lw	$a0,0x248($s1)
-/*  f016e64:	3c038006 */ 	lui	$v1,%hi(g_TitleModel2)
-/*  f016e68:	246324fc */ 	addiu	$v1,$v1,%lo(g_TitleModel2)
+/*  f016e64:	3c038006 */ 	lui	$v1,%hi(g_TitleModelNLogo2)
+/*  f016e68:	246324fc */ 	addiu	$v1,$v1,%lo(g_TitleModelNLogo2)
 /*  f016e6c:	ac620000 */ 	sw	$v0,0x0($v1)
 /*  f016e70:	00402025 */ 	or	$a0,$v0,$zero
 /*  f016e74:	0c006bd6 */ 	jal	modelSetScale
 /*  f016e78:	3c053f80 */ 	lui	$a1,0x3f80
-/*  f016e7c:	3c048006 */ 	lui	$a0,%hi(g_TitleModel2)
-/*  f016e80:	8c8424fc */ 	lw	$a0,%lo(g_TitleModel2)($a0)
+/*  f016e7c:	3c048006 */ 	lui	$a0,%hi(g_TitleModelNLogo2)
+/*  f016e80:	8c8424fc */ 	lw	$a0,%lo(g_TitleModelNLogo2)($a0)
 /*  f016e84:	0c006b4d */ 	jal	modelSetRootPosition
 /*  f016e88:	27a5004c */ 	addiu	$a1,$sp,0x4c
 /*  f016e8c:	3c098006 */ 	lui	$t1,%hi(var80062750)
@@ -727,14 +707,14 @@ glabel titleInitPdLogo
 /*  f016ee8:	8e240268 */ 	lw	$a0,0x268($s1)
 /*  f016eec:	0fc2cc2b */ 	jal	modelInstantiate
 /*  f016ef0:	8e240268 */ 	lw	$a0,0x268($s1)
-/*  f016ef4:	3c038006 */ 	lui	$v1,%hi(var80062508)
-/*  f016ef8:	24632508 */ 	addiu	$v1,$v1,%lo(var80062508)
+/*  f016ef4:	3c038006 */ 	lui	$v1,%hi(g_TitleModelPdTwo)
+/*  f016ef8:	24632508 */ 	addiu	$v1,$v1,%lo(g_TitleModelPdTwo)
 /*  f016efc:	ac620000 */ 	sw	$v0,0x0($v1)
 /*  f016f00:	00402025 */ 	or	$a0,$v0,$zero
 /*  f016f04:	0c006bd6 */ 	jal	modelSetScale
 /*  f016f08:	3c053f80 */ 	lui	$a1,0x3f80
-/*  f016f0c:	3c048006 */ 	lui	$a0,%hi(var80062508)
-/*  f016f10:	8c842508 */ 	lw	$a0,%lo(var80062508)($a0)
+/*  f016f0c:	3c048006 */ 	lui	$a0,%hi(g_TitleModelPdTwo)
+/*  f016f10:	8c842508 */ 	lw	$a0,%lo(g_TitleModelPdTwo)($a0)
 /*  f016f14:	0c006b4d */ 	jal	modelSetRootPosition
 /*  f016f18:	27a50040 */ 	addiu	$a1,$sp,0x40
 /*  f016f1c:	3c188006 */ 	lui	$t8,%hi(var8006275c)
@@ -763,14 +743,14 @@ glabel titleInitPdLogo
 /*  f016f78:	8e240270 */ 	lw	$a0,0x270($s1)
 /*  f016f7c:	0fc2cc2b */ 	jal	modelInstantiate
 /*  f016f80:	8e240270 */ 	lw	$a0,0x270($s1)
-/*  f016f84:	3c038006 */ 	lui	$v1,%hi(var8006250c)
-/*  f016f88:	2463250c */ 	addiu	$v1,$v1,%lo(var8006250c)
+/*  f016f84:	3c038006 */ 	lui	$v1,%hi(g_TitleModelPdThree)
+/*  f016f88:	2463250c */ 	addiu	$v1,$v1,%lo(g_TitleModelPdThree)
 /*  f016f8c:	ac620000 */ 	sw	$v0,0x0($v1)
 /*  f016f90:	00402025 */ 	or	$a0,$v0,$zero
 /*  f016f94:	0c006bd6 */ 	jal	modelSetScale
 /*  f016f98:	3c053f80 */ 	lui	$a1,0x3f80
-/*  f016f9c:	3c048006 */ 	lui	$a0,%hi(var8006250c)
-/*  f016fa0:	8c84250c */ 	lw	$a0,%lo(var8006250c)($a0)
+/*  f016f9c:	3c048006 */ 	lui	$a0,%hi(g_TitleModelPdThree)
+/*  f016fa0:	8c84250c */ 	lw	$a0,%lo(g_TitleModelPdThree)($a0)
 /*  f016fa4:	0c006b4d */ 	jal	modelSetRootPosition
 /*  f016fa8:	27a50034 */ 	addiu	$a1,$sp,0x34
 /*  f016fac:	8e240268 */ 	lw	$a0,0x268($s1)
@@ -806,14 +786,14 @@ glabel titleInitPdLogo
 /*  f017024:	ac3024f4 */ 	sw	$s0,%lo(var800624f4)($at)
 /*  f017028:	0c005204 */ 	jal	joy00014810
 /*  f01702c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f017030:	3c188006 */ 	lui	$t8,%hi(var800624a8)
-/*  f017034:	8f1824a8 */ 	lw	$t8,%lo(var800624a8)($t8)
-/*  f017038:	3c018006 */ 	lui	$at,%hi(var80062730)
-/*  f01703c:	ac302730 */ 	sw	$s0,%lo(var80062730)($at)
-/*  f017040:	3c018006 */ 	lui	$at,%hi(var80062734)
+/*  f017030:	3c188006 */ 	lui	$t8,%hi(g_TitleButtonPressed)
+/*  f017034:	8f1824a8 */ 	lw	$t8,%lo(g_TitleButtonPressed)($t8)
+/*  f017038:	3c018006 */ 	lui	$at,%hi(g_PdLogoIsFirstTick)
+/*  f01703c:	ac302730 */ 	sw	$s0,%lo(g_PdLogoIsFirstTick)($at)
+/*  f017040:	3c018006 */ 	lui	$at,%hi(g_PdLogoTriggerExit)
 /*  f017044:	13000003 */ 	beqz	$t8,.L0f017054
-/*  f017048:	ac202734 */ 	sw	$zero,%lo(var80062734)($at)
-/*  f01704c:	0fc05e60 */ 	jal	func0f017980
+/*  f017048:	ac202734 */ 	sw	$zero,%lo(g_PdLogoTriggerExit)($at)
+/*  f01704c:	0fc05e60 */ 	jal	titleSkipToPdTitle
 /*  f017050:	00000000 */ 	nop
 .L0f017054:
 /*  f017054:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -854,9 +834,9 @@ glabel titleInitPdLogo
 //		remaining -= size;
 //		modelCalculateRwDataLen(g_ModelStates[MODEL_NLOGO2].filedata);
 //
-//		g_TitleModel2 = func0f0b3280(g_ModelStates[MODEL_NLOGO2].filedata);
-//		modelSetScale(g_TitleModel2, 1);
-//		modelSetRootPosition(g_TitleModel2, &coord);
+//		g_TitleModelNLogo2 = func0f0b3280(g_ModelStates[MODEL_NLOGO2].filedata);
+//		modelSetScale(g_TitleModelNLogo2, 1);
+//		modelSetRootPosition(g_TitleModelNLogo2, &coord);
 //	}
 //
 //	{
@@ -867,9 +847,9 @@ glabel titleInitPdLogo
 //		remaining -= size;
 //		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTWO].filedata);
 //
-//		var80062508 = modelInstantiate(g_ModelStates[MODEL_PDTWO].filedata);
-//		modelSetScale(var80062508, 1);
-//		modelSetRootPosition(var80062508, &coord);
+//		g_TitleModelPdTwo = modelInstantiate(g_ModelStates[MODEL_PDTWO].filedata);
+//		modelSetScale(g_TitleModelPdTwo, 1);
+//		modelSetRootPosition(g_TitleModelPdTwo, &coord);
 //	}
 //
 //	{
@@ -880,9 +860,9 @@ glabel titleInitPdLogo
 //		remaining -= size;
 //		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTHREE].filedata);
 //
-//		var8006250c = modelInstantiate(g_ModelStates[MODEL_PDTHREE].filedata);
-//		modelSetScale(var8006250c, 1);
-//		modelSetRootPosition(var8006250c, &coord);
+//		g_TitleModelPdThree = modelInstantiate(g_ModelStates[MODEL_PDTHREE].filedata);
+//		modelSetScale(g_TitleModelPdThree, 1);
+//		modelSetRootPosition(g_TitleModelPdThree, &coord);
 //	}
 //
 //	{
@@ -912,11 +892,11 @@ glabel titleInitPdLogo
 //
 //		joy00014810(false);
 //
-//		var80062730 = 1;
-//		var80062734 = 0;
+//		g_PdLogoIsFirstTick = true;
+//		g_PdLogoTriggerExit = false;
 //
-//		if (var800624a8) {
-//			func0f017980();
+//		if (g_TitleButtonPressed) {
+//			titleSkipToPdTitle();
 //		}
 //	}
 //}
@@ -924,9 +904,9 @@ glabel titleInitPdLogo
 void titleExitPdLogo(void)
 {
 	modelFree(g_TitleModel);
-	modelFree(g_TitleModel2);
-	modelFree(var80062508);
-	modelFree(var8006250c);
+	modelFree(g_TitleModelNLogo2);
+	modelFree(g_TitleModelPdTwo);
+	modelFree(g_TitleModelPdThree);
 
 	joy00014810(true);
 }
@@ -941,7 +921,8 @@ void titleTickPdLogo(void)
 	g_TitleTimer += g_Vars.lvupdate240_60;
 	var8009ccb8 = 1 - var8009ccb8;
 
-	if (var80062734) {
+	if (g_PdLogoTriggerExit) {
+		// Exiting due to player not pressing anything
 		if (g_AltTitleEnabled && IS8MB()) {
 			g_TitleMode = TITLEMODE_SKIP;
 			creditsRequestAltTitle();
@@ -959,12 +940,13 @@ void titleTickPdLogo(void)
 			titleSetNextMode(TITLEMODE_SKIP);
 		}
 	}
-	if (var800624a8 && g_TitleTimer > PALDOWN(666)) {
+
+	if (g_TitleButtonPressed && g_TitleTimer > PALDOWN(666)) {
 		titleSetNextMode(TITLEMODE_SKIP);
 	}
 
 	if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
-		var800624a8 = var800624ac = 1;
+		g_TitleButtonPressed = g_TitleFastForward = true;
 
 		if (g_TitleTimer < PALDOWN(549)) {
 			titleSetNextMode(TITLEMODE_PDLOGO);
@@ -988,58 +970,38 @@ u32 var80062798 = 0x00000000;
 u32 var8006279c = 0x00000000;
 u32 var800627a0 = 0x00000000;
 u32 var800627a4 = 0x00000000;
-f32 var800627a8 = 0;
-f32 var800627ac = 0;
-f32 var800627b0 = 0;
-f32 var800627b4 = 0;
-f32 var800627b8 = 1;
-f32 var800627bc = 0;
-s32 var800627c0 = 0;
-f32 var800627c4 = 0;
-f32 var800627c8 = 1;
-u32 var800627cc = 0x00000000;
-u32 var800627d0 = 0x00000000;
-u32 var800627d4 = 0x00000000;
-u32 var800627d8 = 0x00000000;
-u32 var800627dc = 0x00000000;
-u32 var800627e0 = 0x00000000;
-u32 var800627e4 = 0x00000000;
-u32 var800627e8 = 0x00000000;
-u32 var800627ec = 0x00000000;
-u32 var800627f0 = 0x00000000;
-f32 var800627f4 = 0;
-s32 var800627f8 = 0;
-s32 var800627fc = 0;
-u32 var80062800 = 0x00000000;
+
+f32 g_PdLogoYRotCur = 0;
+f32 g_PdLogoYRotSpeed = 0;
+f32 g_PdLogoXRotCur = 0;
+f32 g_PdLogoXRotSpeed = 0;
+f32 g_PdLogoScale = 1;
+f32 g_PdLogoFrac = 0;
+bool g_PdLogoUseCombinedModel = false;
+f32 g_PdLogoEndYRot = 0;
+f32 g_PdLogoAmbientLightFrac = 1;
+s32 g_PdLogoBlackTimer = 0;
+bool g_PdLogoYRotEnabled = false;
+s32 g_PdLogoPreMorphTimer = 0;
+bool g_PdLogoMorphing = false;
+s32 g_PdLogoExitTimer = 0;
+s32 g_PdLogoMorphEndTimer = 0;
+bool g_PdLogoYRotStopping = false;
+bool g_PdLogoDarkenEnabled = false;
+bool g_PdLogoPointlessTimerEnabled = false;
+s32 g_PdLogoPreTitleTimer = 0;
+f32 g_PdLogoTitleStepFrac = 0;
+s32 g_PdLogoTitleStep = 0;
+bool g_PdLogoTitlePresenting = false;
+s32 g_PdLogoPointlessTimer = 0;
 s32 var80062804 = 1;
-f32 var80062808 = 1.5705462694168;
-s32 var8006280c = 0;
-s32 var80062810 = 0;
-f32 var80062814 = 0;
-u32 var80062818 = 0x00000000;
-u32 var8006281c = 0x00000001;
-u32 var80062820 = 0x00000003;
-u32 var80062824 = 0x00000000;
-u32 var80062828 = 0x00000000;
-u32 var8006282c = 0x00000000;
-u32 var80062830 = 0x00000000;
-u32 var80062834 = 0x00000000;
-u32 var80062838 = 0x00000000;
-u32 var8006283c = 0x00000000;
-u32 var80062840 = 0x00000000;
-u32 var80062844 = 0x00000000;
-u32 var80062848 = 0x00000000;
-u32 var8006284c = 0x00000000;
-u32 var80062850 = 0x00000000;
-u32 var80062854 = 0x00000000;
-u32 var80062858 = 0x00000000;
-u32 var8006285c = 0x00000000;
-u32 var80062860 = 0x447a0000;
-struct sndstate *g_TitleAudioHandle = NULL;
-bool g_TitleTypewriterFinishing = false;
+f32 g_PdLogoUnusedRot = 1.5705462694168;
+bool g_PdLogoUnusedRotEnabled = false;
+bool g_PdLogoLightMoving = false;
+f32 g_PdLogoLightDirFrac = 0;
 
 GLOBAL_ASM(
-glabel func0f017248
+glabel titleRenderPdLogoModel
 /*  f017248:	27bdfeb0 */ 	addiu	$sp,$sp,-336
 /*  f01724c:	f7b40018 */ 	sdc1	$f20,0x18($sp)
 /*  f017250:	3c0f8006 */ 	lui	$t7,%hi(var80062768)
@@ -1538,39 +1500,44 @@ glabel func0f017248
 /*  f01797c:	27bd0150 */ 	addiu	$sp,$sp,0x150
 );
 
-void func0f017980(void)
+/**
+ * Skip immediately to the "PERFECT DARK" part of the PdLogo mode.
+ *
+ * Assumes the title mode is already PdLogo, but at an earlier point.
+ */
+void titleSkipToPdTitle(void)
 {
-	var800627a8 = 0;
-	var800627ac = 0;
-	var800627b0 = 0;
-	var800627b4 = 0;
-	var800627b8 = 0.35f;
-	var800627bc = 1;
-	var800627f4 = 0.63f;
-	var80062808 = 1.6443619728088f;
-	var80062814 = 0.19975f;
-	var800627c4 = 0;
-	var800627c8 = 0;
+	g_PdLogoYRotCur = 0;
+	g_PdLogoYRotSpeed = 0;
+	g_PdLogoXRotCur = 0;
+	g_PdLogoXRotSpeed = 0;
+	g_PdLogoScale = 0.35f;
+	g_PdLogoFrac = 1;
+	g_PdLogoTitleStepFrac = 0.63f;
+	g_PdLogoUnusedRot = 1.6443619728088f;
+	g_PdLogoLightDirFrac = 0.19975f;
+	g_PdLogoEndYRot = 0;
+	g_PdLogoAmbientLightFrac = 0;
 
-	var800627c0 = 1;
-	var800627cc = 0;
-	var800627d0 = 0;
-	var800627d4 = 0;
-	var800627d8 = 0;
-	var800627dc = 0;
-	var800627e0 = 0;
-	var800627e4 = 0;
-	var800627e8 = 0;
-	var800627ec = 0;
-	var800627f0 = 0;
-	var800627f8 = 1;
-	var800627fc = 1;
-	var80062800 = 0;
+	g_PdLogoUseCombinedModel = true;
+	g_PdLogoBlackTimer = 0;
+	g_PdLogoYRotEnabled = false;
+	g_PdLogoPreMorphTimer = 0;
+	g_PdLogoMorphing = false;
+	g_PdLogoExitTimer = 0;
+	g_PdLogoMorphEndTimer = 0;
+	g_PdLogoYRotStopping = false;
+	g_PdLogoDarkenEnabled = false;
+	g_PdLogoPointlessTimerEnabled = false;
+	g_PdLogoPreTitleTimer = 0;
+	g_PdLogoTitleStep = 1;
+	g_PdLogoTitlePresenting = true;
+	g_PdLogoPointlessTimer = 0;
 	var80062804 = 1;
-	var8006280c = 1;
-	var80062810 = 1;
+	g_PdLogoUnusedRotEnabled = true;
+	g_PdLogoLightMoving = true;
 	g_TitleTimer = PALDOWN(549);
-	var80062730 = 0;
+	g_PdLogoIsFirstTick = false;
 
 	musicStartTemporaryPrimary(MUSIC_TITLE2);
 }
@@ -2258,7 +2225,7 @@ glabel var7f1a8468
 /*  f0184bc:	10000272 */ 	b	.PF0f018e88
 /*  f0184c0:	8fbf0034 */ 	lw	$ra,0x34($sp)
 .PF0f0184c4:
-/*  f0184c4:	0fc5a24c */ 	jal	gfxAllocate4Words
+/*  f0184c4:	0fc5a24c */ 	jal	gfxAllocateLookAt
 /*  f0184c8:	afa30330 */ 	sw	$v1,0x330($sp)
 /*  f0184cc:	44809000 */ 	mtc1	$zero,$f18
 /*  f0184d0:	3c01457a */ 	lui	$at,0x457a
@@ -2710,7 +2677,7 @@ glabel var7f1a8468
 /*  f018b98:	8fa5022c */ 	lw	$a1,0x22c($sp)
 /*  f018b9c:	afa20020 */ 	sw	$v0,0x20($sp)
 /*  f018ba0:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f018ba4:	0fc05cc9 */ 	jal	func0f017248
+/*  f018ba4:	0fc05cc9 */ 	jal	titleRenderPdLogoModel
 /*  f018ba8:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f018bac:	3c0fbc00 */ 	lui	$t7,0xbc00
 /*  f018bb0:	3c0e8000 */ 	lui	$t6,0x8000
@@ -2793,7 +2760,7 @@ glabel var7f1a8468
 /*  f018ce0:	e7a00014 */ 	swc1	$f0,0x14($sp)
 /*  f018ce4:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f018ce8:	afae0020 */ 	sw	$t6,0x20($sp)
-/*  f018cec:	0fc05cc9 */ 	jal	func0f017248
+/*  f018cec:	0fc05cc9 */ 	jal	titleRenderPdLogoModel
 /*  f018cf0:	afb9001c */ 	sw	$t9,0x1c($sp)
 /*  f018cf4:	10000062 */ 	b	.PF0f018e80
 /*  f018cf8:	afa20330 */ 	sw	$v0,0x330($sp)
@@ -2832,7 +2799,7 @@ glabel var7f1a8468
 /*  f018d74:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f018d78:	afae0020 */ 	sw	$t6,0x20($sp)
 /*  f018d7c:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f018d80:	0fc05cc9 */ 	jal	func0f017248
+/*  f018d80:	0fc05cc9 */ 	jal	titleRenderPdLogoModel
 /*  f018d84:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*  f018d88:	1000003d */ 	b	.PF0f018e80
 /*  f018d8c:	afa20330 */ 	sw	$v0,0x330($sp)
@@ -2870,7 +2837,7 @@ glabel var7f1a8468
 /*  f018e04:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f018e08:	afae0020 */ 	sw	$t6,0x20($sp)
 /*  f018e0c:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f018e10:	0fc05cc9 */ 	jal	func0f017248
+/*  f018e10:	0fc05cc9 */ 	jal	titleRenderPdLogoModel
 /*  f018e14:	e7a80014 */ 	swc1	$f8,0x14($sp)
 /*  f018e18:	10000019 */ 	b	.PF0f018e80
 /*  f018e1c:	afa20330 */ 	sw	$v0,0x330($sp)
@@ -2896,7 +2863,7 @@ glabel var7f1a8468
 /*  f018e68:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f018e6c:	afae0020 */ 	sw	$t6,0x20($sp)
 /*  f018e70:	e7aa0014 */ 	swc1	$f10,0x14($sp)
-/*  f018e74:	0fc05cc9 */ 	jal	func0f017248
+/*  f018e74:	0fc05cc9 */ 	jal	titleRenderPdLogoModel
 /*  f018e78:	afb9001c */ 	sw	$t9,0x1c($sp)
 /*  f018e7c:	afa20330 */ 	sw	$v0,0x330($sp)
 .PF0f018e80:
@@ -2969,9 +2936,9 @@ glabel var7f1a8468
 .text
 /*  f017ac0:	27bdfcd0 */ 	addiu	$sp,$sp,-816
 /*  f017ac4:	3c0f8006 */ 	lui	$t7,%hi(var80062818)
-/*  f017ac8:	3c028006 */ 	lui	$v0,%hi(var80062730)
+/*  f017ac8:	3c028006 */ 	lui	$v0,%hi(g_PdLogoIsFirstTick)
 /*  f017acc:	25ef2818 */ 	addiu	$t7,$t7,%lo(var80062818)
-/*  f017ad0:	24422730 */ 	addiu	$v0,$v0,%lo(var80062730)
+/*  f017ad0:	24422730 */ 	addiu	$v0,$v0,%lo(g_PdLogoIsFirstTick)
 /*  f017ad4:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f017ad8:	afa40330 */ 	sw	$a0,0x330($sp)
 /*  f017adc:	25f9003c */ 	addiu	$t9,$t7,0x3c
@@ -2988,7 +2955,7 @@ glabel var7f1a8468
 /*  f017b04:	adc1fffc */ 	sw	$at,-0x4($t6)
 /*  f017b08:	8de10000 */ 	lw	$at,0x0($t7)
 /*  f017b0c:	3c188006 */ 	lui	$t8,%hi(g_TitleTimer)
-/*  f017b10:	3c048006 */ 	lui	$a0,%hi(var800627cc)
+/*  f017b10:	3c048006 */ 	lui	$a0,%hi(g_PdLogoBlackTimer)
 /*  f017b14:	adc10000 */ 	sw	$at,0x0($t6)
 /*  f017b18:	8f1824c4 */ 	lw	$t8,%lo(g_TitleTimer)($t8)
 /*  f017b1c:	3c017f1b */ 	lui	$at,%hi(var7f1a8400)
@@ -2998,104 +2965,104 @@ glabel var7f1a8468
 /*  f017b2c:	8c590000 */ 	lw	$t9,0x0($v0)
 /*  f017b30:	468021a0 */ 	cvt.s.w	$f6,$f4
 /*  f017b34:	c4248404 */ 	lwc1	$f4,%lo(var7f1a8404)($at)
-/*  f017b38:	3c098006 */ 	lui	$t1,%hi(var800627d4)
-/*  f017b3c:	3c0a8006 */ 	lui	$t2,%hi(var800627e0)
-/*  f017b40:	3c0c8006 */ 	lui	$t4,%hi(var800627f0)
-/*  f017b44:	3c0d8006 */ 	lui	$t5,%hi(var80062800)
+/*  f017b38:	3c098006 */ 	lui	$t1,%hi(g_PdLogoPreMorphTimer)
+/*  f017b3c:	3c0a8006 */ 	lui	$t2,%hi(g_PdLogoMorphEndTimer)
+/*  f017b40:	3c0c8006 */ 	lui	$t4,%hi(g_PdLogoPreTitleTimer)
+/*  f017b44:	3c0d8006 */ 	lui	$t5,%hi(g_PdLogoPointlessTimer)
 /*  f017b48:	46083283 */ 	div.s	$f10,$f6,$f8
-/*  f017b4c:	3c0b8006 */ 	lui	$t3,%hi(var800627c4)
-/*  f017b50:	25ad2800 */ 	addiu	$t5,$t5,%lo(var80062800)
-/*  f017b54:	258c27f0 */ 	addiu	$t4,$t4,%lo(var800627f0)
-/*  f017b58:	254a27e0 */ 	addiu	$t2,$t2,%lo(var800627e0)
-/*  f017b5c:	252927d4 */ 	addiu	$t1,$t1,%lo(var800627d4)
+/*  f017b4c:	3c0b8006 */ 	lui	$t3,%hi(g_PdLogoEndYRot)
+/*  f017b50:	25ad2800 */ 	addiu	$t5,$t5,%lo(g_PdLogoPointlessTimer)
+/*  f017b54:	258c27f0 */ 	addiu	$t4,$t4,%lo(g_PdLogoPreTitleTimer)
+/*  f017b58:	254a27e0 */ 	addiu	$t2,$t2,%lo(g_PdLogoMorphEndTimer)
+/*  f017b5c:	252927d4 */ 	addiu	$t1,$t1,%lo(g_PdLogoPreMorphTimer)
 /*  f017b60:	3c013f80 */ 	lui	$at,0x3f80
-/*  f017b64:	248427cc */ 	addiu	$a0,$a0,%lo(var800627cc)
+/*  f017b64:	248427cc */ 	addiu	$a0,$a0,%lo(g_PdLogoBlackTimer)
 /*  f017b68:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f017b6c:	256b27c4 */ 	addiu	$t3,$t3,%lo(var800627c4)
+/*  f017b6c:	256b27c4 */ 	addiu	$t3,$t3,%lo(g_PdLogoEndYRot)
 /*  f017b70:	46045181 */ 	sub.s	$f6,$f10,$f4
 /*  f017b74:	13200041 */ 	beqz	$t9,.L0f017c7c
 /*  f017b78:	e7a6013c */ 	swc1	$f6,0x13c($sp)
 /*  f017b7c:	44817000 */ 	mtc1	$at,$f14
 /*  f017b80:	3c017f1b */ 	lui	$at,%hi(var7f1a8408)
 /*  f017b84:	c4288408 */ 	lwc1	$f8,%lo(var7f1a8408)($at)
-/*  f017b88:	3c018006 */ 	lui	$at,%hi(var800627a8)
+/*  f017b88:	3c018006 */ 	lui	$at,%hi(g_PdLogoYRotCur)
 /*  f017b8c:	44809000 */ 	mtc1	$zero,$f18
-/*  f017b90:	e42827a8 */ 	swc1	$f8,%lo(var800627a8)($at)
+/*  f017b90:	e42827a8 */ 	swc1	$f8,%lo(g_PdLogoYRotCur)($at)
 /*  f017b94:	3c017f1b */ 	lui	$at,%hi(var7f1a840c)
 /*  f017b98:	c42a840c */ 	lwc1	$f10,%lo(var7f1a840c)($at)
-/*  f017b9c:	3c018006 */ 	lui	$at,%hi(var800627ac)
-/*  f017ba0:	3c1f8006 */ 	lui	$ra,%hi(var800627d8)
-/*  f017ba4:	e42a27ac */ 	swc1	$f10,%lo(var800627ac)($at)
+/*  f017b9c:	3c018006 */ 	lui	$at,%hi(g_PdLogoYRotSpeed)
+/*  f017ba0:	3c1f8006 */ 	lui	$ra,%hi(g_PdLogoMorphing)
+/*  f017ba4:	e42a27ac */ 	swc1	$f10,%lo(g_PdLogoYRotSpeed)($at)
 /*  f017ba8:	3c017f1b */ 	lui	$at,%hi(var7f1a8410)
 /*  f017bac:	c4248410 */ 	lwc1	$f4,%lo(var7f1a8410)($at)
-/*  f017bb0:	3c018006 */ 	lui	$at,%hi(var800627b0)
-/*  f017bb4:	27ff27d8 */ 	addiu	$ra,$ra,%lo(var800627d8)
-/*  f017bb8:	e42427b0 */ 	swc1	$f4,%lo(var800627b0)($at)
-/*  f017bbc:	3c018006 */ 	lui	$at,%hi(var800627b4)
-/*  f017bc0:	e43227b4 */ 	swc1	$f18,%lo(var800627b4)($at)
+/*  f017bb0:	3c018006 */ 	lui	$at,%hi(g_PdLogoXRotCur)
+/*  f017bb4:	27ff27d8 */ 	addiu	$ra,$ra,%lo(g_PdLogoMorphing)
+/*  f017bb8:	e42427b0 */ 	swc1	$f4,%lo(g_PdLogoXRotCur)($at)
+/*  f017bbc:	3c018006 */ 	lui	$at,%hi(g_PdLogoXRotSpeed)
+/*  f017bc0:	e43227b4 */ 	swc1	$f18,%lo(g_PdLogoXRotSpeed)($at)
 /*  f017bc4:	3c017f1b */ 	lui	$at,%hi(var7f1a8414)
 /*  f017bc8:	c4268414 */ 	lwc1	$f6,%lo(var7f1a8414)($at)
-/*  f017bcc:	3c018006 */ 	lui	$at,%hi(var800627b8)
+/*  f017bcc:	3c018006 */ 	lui	$at,%hi(g_PdLogoScale)
 /*  f017bd0:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f017bd4:	e42627b8 */ 	swc1	$f6,%lo(var800627b8)($at)
-/*  f017bd8:	3c018006 */ 	lui	$at,%hi(var800627bc)
-/*  f017bdc:	e43227bc */ 	swc1	$f18,%lo(var800627bc)($at)
-/*  f017be0:	3c018006 */ 	lui	$at,%hi(var800627c0)
-/*  f017be4:	ac2027c0 */ 	sw	$zero,%lo(var800627c0)($at)
-/*  f017be8:	3c018006 */ 	lui	$at,%hi(var800627c8)
-/*  f017bec:	e42e27c8 */ 	swc1	$f14,%lo(var800627c8)($at)
+/*  f017bd4:	e42627b8 */ 	swc1	$f6,%lo(g_PdLogoScale)($at)
+/*  f017bd8:	3c018006 */ 	lui	$at,%hi(g_PdLogoFrac)
+/*  f017bdc:	e43227bc */ 	swc1	$f18,%lo(g_PdLogoFrac)($at)
+/*  f017be0:	3c018006 */ 	lui	$at,%hi(g_PdLogoUseCombinedModel)
+/*  f017be4:	ac2027c0 */ 	sw	$zero,%lo(g_PdLogoUseCombinedModel)($at)
+/*  f017be8:	3c018006 */ 	lui	$at,%hi(g_PdLogoAmbientLightFrac)
+/*  f017bec:	e42e27c8 */ 	swc1	$f14,%lo(g_PdLogoAmbientLightFrac)($at)
 /*  f017bf0:	ac400000 */ 	sw	$zero,0x0($v0)
 /*  f017bf4:	ac830000 */ 	sw	$v1,0x0($a0)
-/*  f017bf8:	3c018006 */ 	lui	$at,%hi(var800627d0)
-/*  f017bfc:	ac2027d0 */ 	sw	$zero,%lo(var800627d0)($at)
+/*  f017bf8:	3c018006 */ 	lui	$at,%hi(g_PdLogoYRotEnabled)
+/*  f017bfc:	ac2027d0 */ 	sw	$zero,%lo(g_PdLogoYRotEnabled)($at)
 /*  f017c00:	ad200000 */ 	sw	$zero,0x0($t1)
 /*  f017c04:	afe00000 */ 	sw	$zero,0x0($ra)
-/*  f017c08:	3c018006 */ 	lui	$at,%hi(var800627dc)
-/*  f017c0c:	ac2027dc */ 	sw	$zero,%lo(var800627dc)($at)
+/*  f017c08:	3c018006 */ 	lui	$at,%hi(g_PdLogoExitTimer)
+/*  f017c0c:	ac2027dc */ 	sw	$zero,%lo(g_PdLogoExitTimer)($at)
 /*  f017c10:	ad400000 */ 	sw	$zero,0x0($t2)
-/*  f017c14:	3c018006 */ 	lui	$at,%hi(var800627e4)
-/*  f017c18:	ac2027e4 */ 	sw	$zero,%lo(var800627e4)($at)
-/*  f017c1c:	3c018006 */ 	lui	$at,%hi(var800627e8)
-/*  f017c20:	ac2027e8 */ 	sw	$zero,%lo(var800627e8)($at)
+/*  f017c14:	3c018006 */ 	lui	$at,%hi(g_PdLogoYRotStopping)
+/*  f017c18:	ac2027e4 */ 	sw	$zero,%lo(g_PdLogoYRotStopping)($at)
+/*  f017c1c:	3c018006 */ 	lui	$at,%hi(g_PdLogoDarkenEnabled)
+/*  f017c20:	ac2027e8 */ 	sw	$zero,%lo(g_PdLogoDarkenEnabled)($at)
 /*  f017c24:	3c018006 */ 	lui	$at,%hi(var80062804)
 /*  f017c28:	ac232804 */ 	sw	$v1,%lo(var80062804)($at)
-/*  f017c2c:	3c018006 */ 	lui	$at,%hi(var800627ec)
-/*  f017c30:	ac2027ec */ 	sw	$zero,%lo(var800627ec)($at)
+/*  f017c2c:	3c018006 */ 	lui	$at,%hi(g_PdLogoPointlessTimerEnabled)
+/*  f017c30:	ac2027ec */ 	sw	$zero,%lo(g_PdLogoPointlessTimerEnabled)($at)
 /*  f017c34:	ad800000 */ 	sw	$zero,0x0($t4)
-/*  f017c38:	3c018006 */ 	lui	$at,%hi(var800627f4)
-/*  f017c3c:	e43227f4 */ 	swc1	$f18,%lo(var800627f4)($at)
-/*  f017c40:	3c018006 */ 	lui	$at,%hi(var800627fc)
-/*  f017c44:	ac2027fc */ 	sw	$zero,%lo(var800627fc)($at)
-/*  f017c48:	3c018006 */ 	lui	$at,%hi(var800627f8)
-/*  f017c4c:	ac2f27f8 */ 	sw	$t7,%lo(var800627f8)($at)
+/*  f017c38:	3c018006 */ 	lui	$at,%hi(g_PdLogoTitleStepFrac)
+/*  f017c3c:	e43227f4 */ 	swc1	$f18,%lo(g_PdLogoTitleStepFrac)($at)
+/*  f017c40:	3c018006 */ 	lui	$at,%hi(g_PdLogoTitlePresenting)
+/*  f017c44:	ac2027fc */ 	sw	$zero,%lo(g_PdLogoTitlePresenting)($at)
+/*  f017c48:	3c018006 */ 	lui	$at,%hi(g_PdLogoTitleStep)
+/*  f017c4c:	ac2f27f8 */ 	sw	$t7,%lo(g_PdLogoTitleStep)($at)
 /*  f017c50:	ada00000 */ 	sw	$zero,0x0($t5)
-/*  f017c54:	3c018006 */ 	lui	$at,%hi(var8006280c)
-/*  f017c58:	ac20280c */ 	sw	$zero,%lo(var8006280c)($at)
+/*  f017c54:	3c018006 */ 	lui	$at,%hi(g_PdLogoUnusedRotEnabled)
+/*  f017c58:	ac20280c */ 	sw	$zero,%lo(g_PdLogoUnusedRotEnabled)($at)
 /*  f017c5c:	3c017f1b */ 	lui	$at,%hi(var7f1a8418)
 /*  f017c60:	c4288418 */ 	lwc1	$f8,%lo(var7f1a8418)($at)
-/*  f017c64:	3c018006 */ 	lui	$at,%hi(var80062808)
-/*  f017c68:	e4282808 */ 	swc1	$f8,%lo(var80062808)($at)
-/*  f017c6c:	3c018006 */ 	lui	$at,%hi(var80062810)
-/*  f017c70:	ac202810 */ 	sw	$zero,%lo(var80062810)($at)
-/*  f017c74:	3c018006 */ 	lui	$at,%hi(var80062814)
-/*  f017c78:	e4322814 */ 	swc1	$f18,%lo(var80062814)($at)
+/*  f017c64:	3c018006 */ 	lui	$at,%hi(g_PdLogoUnusedRot)
+/*  f017c68:	e4282808 */ 	swc1	$f8,%lo(g_PdLogoUnusedRot)($at)
+/*  f017c6c:	3c018006 */ 	lui	$at,%hi(g_PdLogoLightMoving)
+/*  f017c70:	ac202810 */ 	sw	$zero,%lo(g_PdLogoLightMoving)($at)
+/*  f017c74:	3c018006 */ 	lui	$at,%hi(g_PdLogoLightDirFrac)
+/*  f017c78:	e4322814 */ 	swc1	$f18,%lo(g_PdLogoLightDirFrac)($at)
 .L0f017c7c:
-/*  f017c7c:	3c048006 */ 	lui	$a0,%hi(var800627cc)
-/*  f017c80:	248427cc */ 	addiu	$a0,$a0,%lo(var800627cc)
+/*  f017c7c:	3c048006 */ 	lui	$a0,%hi(g_PdLogoBlackTimer)
+/*  f017c80:	248427cc */ 	addiu	$a0,$a0,%lo(g_PdLogoBlackTimer)
 /*  f017c84:	8c820000 */ 	lw	$v0,0x0($a0)
 /*  f017c88:	3c013f80 */ 	lui	$at,0x3f80
 /*  f017c8c:	44817000 */ 	mtc1	$at,$f14
-/*  f017c90:	3c098006 */ 	lui	$t1,%hi(var800627d4)
-/*  f017c94:	3c0a8006 */ 	lui	$t2,%hi(var800627e0)
-/*  f017c98:	3c0c8006 */ 	lui	$t4,%hi(var800627f0)
-/*  f017c9c:	3c0d8006 */ 	lui	$t5,%hi(var80062800)
-/*  f017ca0:	3c1f8006 */ 	lui	$ra,%hi(var800627d8)
+/*  f017c90:	3c098006 */ 	lui	$t1,%hi(g_PdLogoPreMorphTimer)
+/*  f017c94:	3c0a8006 */ 	lui	$t2,%hi(g_PdLogoMorphEndTimer)
+/*  f017c98:	3c0c8006 */ 	lui	$t4,%hi(g_PdLogoPreTitleTimer)
+/*  f017c9c:	3c0d8006 */ 	lui	$t5,%hi(g_PdLogoPointlessTimer)
+/*  f017ca0:	3c1f8006 */ 	lui	$ra,%hi(g_PdLogoMorphing)
 /*  f017ca4:	44809000 */ 	mtc1	$zero,$f18
-/*  f017ca8:	27ff27d8 */ 	addiu	$ra,$ra,%lo(var800627d8)
-/*  f017cac:	25ad2800 */ 	addiu	$t5,$t5,%lo(var80062800)
-/*  f017cb0:	258c27f0 */ 	addiu	$t4,$t4,%lo(var800627f0)
-/*  f017cb4:	254a27e0 */ 	addiu	$t2,$t2,%lo(var800627e0)
-/*  f017cb8:	252927d4 */ 	addiu	$t1,$t1,%lo(var800627d4)
+/*  f017ca8:	27ff27d8 */ 	addiu	$ra,$ra,%lo(g_PdLogoMorphing)
+/*  f017cac:	25ad2800 */ 	addiu	$t5,$t5,%lo(g_PdLogoPointlessTimer)
+/*  f017cb0:	258c27f0 */ 	addiu	$t4,$t4,%lo(g_PdLogoPreTitleTimer)
+/*  f017cb4:	254a27e0 */ 	addiu	$t2,$t2,%lo(g_PdLogoMorphEndTimer)
+/*  f017cb8:	252927d4 */ 	addiu	$t1,$t1,%lo(g_PdLogoPreMorphTimer)
 /*  f017cbc:	10400009 */ 	beqz	$v0,.L0f017ce4
 /*  f017cc0:	24030001 */ 	addiu	$v1,$zero,0x1
 /*  f017cc4:	244e0001 */ 	addiu	$t6,$v0,0x1
@@ -3103,23 +3070,23 @@ glabel var7f1a8468
 /*  f017ccc:	14200005 */ 	bnez	$at,.L0f017ce4
 /*  f017cd0:	ac8e0000 */ 	sw	$t6,0x0($a0)
 /*  f017cd4:	ac800000 */ 	sw	$zero,0x0($a0)
-/*  f017cd8:	3c018006 */ 	lui	$at,%hi(var800627d0)
-/*  f017cdc:	ac2327d0 */ 	sw	$v1,%lo(var800627d0)($at)
+/*  f017cd8:	3c018006 */ 	lui	$at,%hi(g_PdLogoYRotEnabled)
+/*  f017cdc:	ac2327d0 */ 	sw	$v1,%lo(g_PdLogoYRotEnabled)($at)
 /*  f017ce0:	ad230000 */ 	sw	$v1,0x0($t1)
 .L0f017ce4:
-/*  f017ce4:	3c198006 */ 	lui	$t9,%hi(var800627e4)
-/*  f017ce8:	8f3927e4 */ 	lw	$t9,%lo(var800627e4)($t9)
-/*  f017cec:	3c018006 */ 	lui	$at,%hi(var800627a8)
+/*  f017ce4:	3c198006 */ 	lui	$t9,%hi(g_PdLogoYRotStopping)
+/*  f017ce8:	8f3927e4 */ 	lw	$t9,%lo(g_PdLogoYRotStopping)($t9)
+/*  f017cec:	3c018006 */ 	lui	$at,%hi(g_PdLogoYRotCur)
 /*  f017cf0:	13200049 */ 	beqz	$t9,.L0f017e18
 /*  f017cf4:	00000000 */ 	nop
-/*  f017cf8:	c42027a8 */ 	lwc1	$f0,%lo(var800627a8)($at)
+/*  f017cf8:	c42027a8 */ 	lwc1	$f0,%lo(g_PdLogoYRotCur)($at)
 /*  f017cfc:	c5620000 */ 	lwc1	$f2,0x0($t3)
-/*  f017d00:	3c048006 */ 	lui	$a0,%hi(var800627a8)
-/*  f017d04:	3c068006 */ 	lui	$a2,%hi(var800627ac)
+/*  f017d00:	3c048006 */ 	lui	$a0,%hi(g_PdLogoYRotCur)
+/*  f017d04:	3c068006 */ 	lui	$a2,%hi(g_PdLogoYRotSpeed)
 /*  f017d08:	4602003c */ 	c.lt.s	$f0,$f2
 /*  f017d0c:	3c017f1b */ 	lui	$at,%hi(var7f1a841c)
-/*  f017d10:	24c627ac */ 	addiu	$a2,$a2,%lo(var800627ac)
-/*  f017d14:	248427a8 */ 	addiu	$a0,$a0,%lo(var800627a8)
+/*  f017d10:	24c627ac */ 	addiu	$a2,$a2,%lo(g_PdLogoYRotSpeed)
+/*  f017d14:	248427a8 */ 	addiu	$a0,$a0,%lo(g_PdLogoYRotCur)
 /*  f017d18:	45020038 */ 	bc1fl	.L0f017dfc
 /*  f017d1c:	4600103e */ 	c.le.s	$f2,$f0
 /*  f017d20:	c420841c */ 	lwc1	$f0,%lo(var7f1a841c)($at)
@@ -3130,28 +3097,28 @@ glabel var7f1a8468
 /*  f017d34:	e7a00010 */ 	swc1	$f0,0x10($sp)
 /*  f017d38:	0fc1b643 */ 	jal	applySpeed
 /*  f017d3c:	e7aa0014 */ 	swc1	$f10,0x14($sp)
-/*  f017d40:	3c028006 */ 	lui	$v0,%hi(var800627a8)
-/*  f017d44:	3c0b8006 */ 	lui	$t3,%hi(var800627c4)
-/*  f017d48:	256b27c4 */ 	addiu	$t3,$t3,%lo(var800627c4)
-/*  f017d4c:	244227a8 */ 	addiu	$v0,$v0,%lo(var800627a8)
+/*  f017d40:	3c028006 */ 	lui	$v0,%hi(g_PdLogoYRotCur)
+/*  f017d44:	3c0b8006 */ 	lui	$t3,%hi(g_PdLogoEndYRot)
+/*  f017d48:	256b27c4 */ 	addiu	$t3,$t3,%lo(g_PdLogoEndYRot)
+/*  f017d4c:	244227a8 */ 	addiu	$v0,$v0,%lo(g_PdLogoYRotCur)
 /*  f017d50:	c4400000 */ 	lwc1	$f0,0x0($v0)
 /*  f017d54:	c5620000 */ 	lwc1	$f2,0x0($t3)
-/*  f017d58:	3c098006 */ 	lui	$t1,%hi(var800627d4)
-/*  f017d5c:	3c0a8006 */ 	lui	$t2,%hi(var800627e0)
+/*  f017d58:	3c098006 */ 	lui	$t1,%hi(g_PdLogoPreMorphTimer)
+/*  f017d5c:	3c0a8006 */ 	lui	$t2,%hi(g_PdLogoMorphEndTimer)
 /*  f017d60:	4600103e */ 	c.le.s	$f2,$f0
-/*  f017d64:	3c0c8006 */ 	lui	$t4,%hi(var800627f0)
-/*  f017d68:	3c0d8006 */ 	lui	$t5,%hi(var80062800)
-/*  f017d6c:	3c1f8006 */ 	lui	$ra,%hi(var800627d8)
+/*  f017d64:	3c0c8006 */ 	lui	$t4,%hi(g_PdLogoPreTitleTimer)
+/*  f017d68:	3c0d8006 */ 	lui	$t5,%hi(g_PdLogoPointlessTimer)
+/*  f017d6c:	3c1f8006 */ 	lui	$ra,%hi(g_PdLogoMorphing)
 /*  f017d70:	44809000 */ 	mtc1	$zero,$f18
-/*  f017d74:	27ff27d8 */ 	addiu	$ra,$ra,%lo(var800627d8)
-/*  f017d78:	25ad2800 */ 	addiu	$t5,$t5,%lo(var80062800)
-/*  f017d7c:	258c27f0 */ 	addiu	$t4,$t4,%lo(var800627f0)
-/*  f017d80:	254a27e0 */ 	addiu	$t2,$t2,%lo(var800627e0)
+/*  f017d74:	27ff27d8 */ 	addiu	$ra,$ra,%lo(g_PdLogoMorphing)
+/*  f017d78:	25ad2800 */ 	addiu	$t5,$t5,%lo(g_PdLogoPointlessTimer)
+/*  f017d7c:	258c27f0 */ 	addiu	$t4,$t4,%lo(g_PdLogoPreTitleTimer)
+/*  f017d80:	254a27e0 */ 	addiu	$t2,$t2,%lo(g_PdLogoMorphEndTimer)
 /*  f017d84:	45000005 */ 	bc1f	.L0f017d9c
-/*  f017d88:	252927d4 */ 	addiu	$t1,$t1,%lo(var800627d4)
+/*  f017d88:	252927d4 */ 	addiu	$t1,$t1,%lo(g_PdLogoPreMorphTimer)
 /*  f017d8c:	e4420000 */ 	swc1	$f2,0x0($v0)
-/*  f017d90:	3c018006 */ 	lui	$at,%hi(var800627ac)
-/*  f017d94:	e43227ac */ 	swc1	$f18,%lo(var800627ac)($at)
+/*  f017d90:	3c018006 */ 	lui	$at,%hi(g_PdLogoYRotSpeed)
+/*  f017d94:	e43227ac */ 	swc1	$f18,%lo(g_PdLogoYRotSpeed)($at)
 /*  f017d98:	c4400000 */ 	lwc1	$f0,0x0($v0)
 .L0f017d9c:
 /*  f017d9c:	3c017f1b */ 	lui	$at,%hi(var7f1a8424)
@@ -3185,22 +3152,22 @@ glabel var7f1a8468
 /*  f017e00:	44817000 */ 	mtc1	$at,$f14
 /*  f017e04:	24030001 */ 	addiu	$v1,$zero,0x1
 /*  f017e08:	45000021 */ 	bc1f	.L0f017e90
-/*  f017e0c:	3c018006 */ 	lui	$at,%hi(var800627e4)
+/*  f017e0c:	3c018006 */ 	lui	$at,%hi(g_PdLogoYRotStopping)
 /*  f017e10:	1000001f */ 	b	.L0f017e90
-/*  f017e14:	ac2027e4 */ 	sw	$zero,%lo(var800627e4)($at)
+/*  f017e14:	ac2027e4 */ 	sw	$zero,%lo(g_PdLogoYRotStopping)($at)
 .L0f017e18:
-/*  f017e18:	3c0f8006 */ 	lui	$t7,%hi(var800627d0)
-/*  f017e1c:	8def27d0 */ 	lw	$t7,%lo(var800627d0)($t7)
+/*  f017e18:	3c0f8006 */ 	lui	$t7,%hi(g_PdLogoYRotEnabled)
+/*  f017e1c:	8def27d0 */ 	lw	$t7,%lo(g_PdLogoYRotEnabled)($t7)
 /*  f017e20:	11e0001b */ 	beqz	$t7,.L0f017e90
 /*  f017e24:	3c017f1b */ 	lui	$at,%hi(var7f1a842c)
 /*  f017e28:	c42c842c */ 	lwc1	$f12,%lo(var7f1a842c)($at)
 /*  f017e2c:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f017e30:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f017e34:	3c018006 */ 	lui	$at,%hi(var800627ac)
-/*  f017e38:	c42427ac */ 	lwc1	$f4,%lo(var800627ac)($at)
+/*  f017e34:	3c018006 */ 	lui	$at,%hi(g_PdLogoYRotSpeed)
+/*  f017e38:	c42427ac */ 	lwc1	$f4,%lo(g_PdLogoYRotSpeed)($at)
 /*  f017e3c:	c506004c */ 	lwc1	$f6,0x4c($t0)
-/*  f017e40:	3c028006 */ 	lui	$v0,%hi(var800627a8)
-/*  f017e44:	244227a8 */ 	addiu	$v0,$v0,%lo(var800627a8)
+/*  f017e40:	3c028006 */ 	lui	$v0,%hi(g_PdLogoYRotCur)
+/*  f017e44:	244227a8 */ 	addiu	$v0,$v0,%lo(g_PdLogoYRotCur)
 /*  f017e48:	46062202 */ 	mul.s	$f8,$f4,$f6
 /*  f017e4c:	c44a0000 */ 	lwc1	$f10,0x0($v0)
 /*  f017e50:	46085100 */ 	add.s	$f4,$f10,$f8
@@ -3224,39 +3191,39 @@ glabel var7f1a8468
 /*  f017e90:	8d220000 */ 	lw	$v0,0x0($t1)
 .L0f017e94:
 /*  f017e94:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f017e98:	3c0b8006 */ 	lui	$t3,%hi(var800627c4)
+/*  f017e98:	3c0b8006 */ 	lui	$t3,%hi(g_PdLogoEndYRot)
 /*  f017e9c:	3c017f1b */ 	lui	$at,%hi(var7f1a8430)
 /*  f017ea0:	c42c8430 */ 	lwc1	$f12,%lo(var7f1a8430)($at)
-/*  f017ea4:	256b27c4 */ 	addiu	$t3,$t3,%lo(var800627c4)
+/*  f017ea4:	256b27c4 */ 	addiu	$t3,$t3,%lo(g_PdLogoEndYRot)
 /*  f017ea8:	1040001a */ 	beqz	$v0,.L0f017f14
 /*  f017eac:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
 /*  f017eb0:	8d0e0038 */ 	lw	$t6,0x38($t0)
 /*  f017eb4:	24190050 */ 	addiu	$t9,$zero,0x50
-/*  f017eb8:	3c018006 */ 	lui	$at,%hi(var800627bc)
+/*  f017eb8:	3c018006 */ 	lui	$at,%hi(g_PdLogoFrac)
 /*  f017ebc:	004ec021 */ 	addu	$t8,$v0,$t6
 /*  f017ec0:	ad380000 */ 	sw	$t8,0x0($t1)
 /*  f017ec4:	1b000009 */ 	blez	$t8,.L0f017eec
 /*  f017ec8:	03001025 */ 	or	$v0,$t8,$zero
 /*  f017ecc:	44824000 */ 	mtc1	$v0,$f8
 /*  f017ed0:	44993000 */ 	mtc1	$t9,$f6
-/*  f017ed4:	3c018006 */ 	lui	$at,%hi(var800627bc)
+/*  f017ed4:	3c018006 */ 	lui	$at,%hi(g_PdLogoFrac)
 /*  f017ed8:	46804120 */ 	cvt.s.w	$f4,$f8
 /*  f017edc:	468032a0 */ 	cvt.s.w	$f10,$f6
 /*  f017ee0:	460a2203 */ 	div.s	$f8,$f4,$f10
 /*  f017ee4:	10000002 */ 	b	.L0f017ef0
-/*  f017ee8:	e42827bc */ 	swc1	$f8,%lo(var800627bc)($at)
+/*  f017ee8:	e42827bc */ 	swc1	$f8,%lo(g_PdLogoFrac)($at)
 .L0f017eec:
-/*  f017eec:	e43227bc */ 	swc1	$f18,%lo(var800627bc)($at)
+/*  f017eec:	e43227bc */ 	swc1	$f18,%lo(g_PdLogoFrac)($at)
 .L0f017ef0:
 /*  f017ef0:	28410051 */ 	slti	$at,$v0,0x51
 /*  f017ef4:	54200008 */ 	bnezl	$at,.L0f017f18
 /*  f017ef8:	8fef0000 */ 	lw	$t7,0x0($ra)
 /*  f017efc:	ad200000 */ 	sw	$zero,0x0($t1)
 /*  f017f00:	afe30000 */ 	sw	$v1,0x0($ra)
-/*  f017f04:	3c018006 */ 	lui	$at,%hi(var800627bc)
-/*  f017f08:	e43227bc */ 	swc1	$f18,%lo(var800627bc)($at)
-/*  f017f0c:	3c018006 */ 	lui	$at,%hi(var800627c0)
-/*  f017f10:	ac2327c0 */ 	sw	$v1,%lo(var800627c0)($at)
+/*  f017f04:	3c018006 */ 	lui	$at,%hi(g_PdLogoFrac)
+/*  f017f08:	e43227bc */ 	swc1	$f18,%lo(g_PdLogoFrac)($at)
+/*  f017f0c:	3c018006 */ 	lui	$at,%hi(g_PdLogoUseCombinedModel)
+/*  f017f10:	ac2327c0 */ 	sw	$v1,%lo(g_PdLogoUseCombinedModel)($at)
 .L0f017f14:
 /*  f017f14:	8fef0000 */ 	lw	$t7,0x0($ra)
 .L0f017f18:
@@ -3264,14 +3231,14 @@ glabel var7f1a8468
 /*  f017f1c:	3c017f1b */ 	lui	$at,%hi(var7f1a8434)
 /*  f017f20:	c4268434 */ 	lwc1	$f6,%lo(var7f1a8434)($at)
 /*  f017f24:	c504004c */ 	lwc1	$f4,0x4c($t0)
-/*  f017f28:	3c018006 */ 	lui	$at,%hi(var800627bc)
-/*  f017f2c:	c42827bc */ 	lwc1	$f8,%lo(var800627bc)($at)
+/*  f017f28:	3c018006 */ 	lui	$at,%hi(g_PdLogoFrac)
+/*  f017f2c:	c42827bc */ 	lwc1	$f8,%lo(g_PdLogoFrac)($at)
 /*  f017f30:	46043282 */ 	mul.s	$f10,$f6,$f4
 /*  f017f34:	460a4000 */ 	add.s	$f0,$f8,$f10
-/*  f017f38:	e42027bc */ 	swc1	$f0,%lo(var800627bc)($at)
+/*  f017f38:	e42027bc */ 	swc1	$f0,%lo(g_PdLogoFrac)($at)
 /*  f017f3c:	3c017f1b */ 	lui	$at,%hi(var7f1a8438)
 /*  f017f40:	c4248438 */ 	lwc1	$f4,%lo(var7f1a8438)($at)
-/*  f017f44:	3c018006 */ 	lui	$at,%hi(var800627bc)
+/*  f017f44:	3c018006 */ 	lui	$at,%hi(g_PdLogoFrac)
 /*  f017f48:	4600203e */ 	c.le.s	$f4,$f0
 /*  f017f4c:	00000000 */ 	nop
 /*  f017f50:	45020006 */ 	bc1fl	.L0f017f6c
@@ -3285,7 +3252,7 @@ glabel var7f1a8468
 /*  f017f6c:	00000000 */ 	nop
 /*  f017f70:	45020004 */ 	bc1fl	.L0f017f84
 /*  f017f74:	8d430000 */ 	lw	$v1,0x0($t2)
-/*  f017f78:	e42e27bc */ 	swc1	$f14,%lo(var800627bc)($at)
+/*  f017f78:	e42e27bc */ 	swc1	$f14,%lo(g_PdLogoFrac)($at)
 /*  f017f7c:	afe00000 */ 	sw	$zero,0x0($ra)
 .L0f017f80:
 /*  f017f80:	8d430000 */ 	lw	$v1,0x0($t2)
@@ -3293,16 +3260,16 @@ glabel var7f1a8468
 /*  f017f84:	10600064 */ 	beqz	$v1,.L0f018118
 /*  f017f88:	00000000 */ 	nop
 /*  f017f8c:	8d180038 */ 	lw	$t8,0x38($t0)
-/*  f017f90:	3c018006 */ 	lui	$at,%hi(var800627b0)
-/*  f017f94:	3c048006 */ 	lui	$a0,%hi(var800627b0)
+/*  f017f90:	3c018006 */ 	lui	$at,%hi(g_PdLogoXRotCur)
+/*  f017f94:	3c048006 */ 	lui	$a0,%hi(g_PdLogoXRotCur)
 /*  f017f98:	0078c821 */ 	addu	$t9,$v1,$t8
 /*  f017f9c:	ad590000 */ 	sw	$t9,0x0($t2)
-/*  f017fa0:	c42827b0 */ 	lwc1	$f8,%lo(var800627b0)($at)
-/*  f017fa4:	3c068006 */ 	lui	$a2,%hi(var800627b4)
+/*  f017fa0:	c42827b0 */ 	lwc1	$f8,%lo(g_PdLogoXRotCur)($at)
+/*  f017fa4:	3c068006 */ 	lui	$a2,%hi(g_PdLogoXRotSpeed)
 /*  f017fa8:	3c017f1b */ 	lui	$at,%hi(var7f1a843c)
 /*  f017fac:	4608903c */ 	c.lt.s	$f18,$f8
-/*  f017fb0:	24c627b4 */ 	addiu	$a2,$a2,%lo(var800627b4)
-/*  f017fb4:	248427b0 */ 	addiu	$a0,$a0,%lo(var800627b0)
+/*  f017fb0:	24c627b4 */ 	addiu	$a2,$a2,%lo(g_PdLogoXRotSpeed)
+/*  f017fb4:	248427b0 */ 	addiu	$a0,$a0,%lo(g_PdLogoXRotCur)
 /*  f017fb8:	4502001f */ 	bc1fl	.L0f018038
 /*  f017fbc:	8d430000 */ 	lw	$v1,0x0($t2)
 /*  f017fc0:	c420843c */ 	lwc1	$f0,%lo(var7f1a843c)($at)
@@ -3315,25 +3282,25 @@ glabel var7f1a8468
 /*  f017fdc:	e7aa0014 */ 	swc1	$f10,0x14($sp)
 /*  f017fe0:	3c017f1b */ 	lui	$at,%hi(var7f1a8444)
 /*  f017fe4:	c42c8444 */ 	lwc1	$f12,%lo(var7f1a8444)($at)
-/*  f017fe8:	3c018006 */ 	lui	$at,%hi(var800627b0)
+/*  f017fe8:	3c018006 */ 	lui	$at,%hi(g_PdLogoXRotCur)
 /*  f017fec:	44809000 */ 	mtc1	$zero,$f18
-/*  f017ff0:	c42627b0 */ 	lwc1	$f6,%lo(var800627b0)($at)
+/*  f017ff0:	c42627b0 */ 	lwc1	$f6,%lo(g_PdLogoXRotCur)($at)
 /*  f017ff4:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f017ff8:	3c0a8006 */ 	lui	$t2,%hi(var800627e0)
+/*  f017ff8:	3c0a8006 */ 	lui	$t2,%hi(g_PdLogoMorphEndTimer)
 /*  f017ffc:	4612303e */ 	c.le.s	$f6,$f18
-/*  f018000:	3c0b8006 */ 	lui	$t3,%hi(var800627c4)
-/*  f018004:	3c0c8006 */ 	lui	$t4,%hi(var800627f0)
-/*  f018008:	3c0d8006 */ 	lui	$t5,%hi(var80062800)
-/*  f01800c:	25ad2800 */ 	addiu	$t5,$t5,%lo(var80062800)
-/*  f018010:	258c27f0 */ 	addiu	$t4,$t4,%lo(var800627f0)
-/*  f018014:	256b27c4 */ 	addiu	$t3,$t3,%lo(var800627c4)
-/*  f018018:	254a27e0 */ 	addiu	$t2,$t2,%lo(var800627e0)
+/*  f018000:	3c0b8006 */ 	lui	$t3,%hi(g_PdLogoEndYRot)
+/*  f018004:	3c0c8006 */ 	lui	$t4,%hi(g_PdLogoPreTitleTimer)
+/*  f018008:	3c0d8006 */ 	lui	$t5,%hi(g_PdLogoPointlessTimer)
+/*  f01800c:	25ad2800 */ 	addiu	$t5,$t5,%lo(g_PdLogoPointlessTimer)
+/*  f018010:	258c27f0 */ 	addiu	$t4,$t4,%lo(g_PdLogoPreTitleTimer)
+/*  f018014:	256b27c4 */ 	addiu	$t3,$t3,%lo(g_PdLogoEndYRot)
+/*  f018018:	254a27e0 */ 	addiu	$t2,$t2,%lo(g_PdLogoMorphEndTimer)
 /*  f01801c:	45000005 */ 	bc1f	.L0f018034
 /*  f018020:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f018024:	3c018006 */ 	lui	$at,%hi(var800627b0)
-/*  f018028:	e43227b0 */ 	swc1	$f18,%lo(var800627b0)($at)
-/*  f01802c:	3c018006 */ 	lui	$at,%hi(var800627b4)
-/*  f018030:	e43227b4 */ 	swc1	$f18,%lo(var800627b4)($at)
+/*  f018024:	3c018006 */ 	lui	$at,%hi(g_PdLogoXRotCur)
+/*  f018028:	e43227b0 */ 	swc1	$f18,%lo(g_PdLogoXRotCur)($at)
+/*  f01802c:	3c018006 */ 	lui	$at,%hi(g_PdLogoXRotSpeed)
+/*  f018030:	e43227b4 */ 	swc1	$f18,%lo(g_PdLogoXRotSpeed)($at)
 .L0f018034:
 /*  f018034:	8d430000 */ 	lw	$v1,0x0($t2)
 .L0f018038:
@@ -3347,12 +3314,12 @@ glabel var7f1a8468
 /*  f018054:	006f7023 */ 	subu	$t6,$v1,$t7
 /*  f018058:	29c1001f */ 	slti	$at,$t6,0x1f
 /*  f01805c:	10200016 */ 	beqz	$at,.L0f0180b8
-/*  f018060:	3c018006 */ 	lui	$at,%hi(var800627d0)
-/*  f018064:	ac2027d0 */ 	sw	$zero,%lo(var800627d0)($at)
-/*  f018068:	3c018006 */ 	lui	$at,%hi(var800627e4)
-/*  f01806c:	ac2427e4 */ 	sw	$a0,%lo(var800627e4)($at)
-/*  f018070:	3c018006 */ 	lui	$at,%hi(var800627a8)
-/*  f018074:	c42427a8 */ 	lwc1	$f4,%lo(var800627a8)($at)
+/*  f018060:	3c018006 */ 	lui	$at,%hi(g_PdLogoYRotEnabled)
+/*  f018064:	ac2027d0 */ 	sw	$zero,%lo(g_PdLogoYRotEnabled)($at)
+/*  f018068:	3c018006 */ 	lui	$at,%hi(g_PdLogoYRotStopping)
+/*  f01806c:	ac2427e4 */ 	sw	$a0,%lo(g_PdLogoYRotStopping)($at)
+/*  f018070:	3c018006 */ 	lui	$at,%hi(g_PdLogoYRotCur)
+/*  f018074:	c42427a8 */ 	lwc1	$f4,%lo(g_PdLogoYRotCur)($at)
 /*  f018078:	3c014080 */ 	lui	$at,0x4080
 /*  f01807c:	44814000 */ 	mtc1	$at,$f8
 /*  f018080:	3c013e80 */ 	lui	$at,0x3e80
@@ -3370,25 +3337,25 @@ glabel var7f1a8468
 /*  f0180b0:	46043202 */ 	mul.s	$f8,$f6,$f4
 /*  f0180b4:	e5680000 */ 	swc1	$f8,0x0($t3)
 .L0f0180b8:
-/*  f0180b8:	3c028006 */ 	lui	$v0,%hi(var800627e4)
+/*  f0180b8:	3c028006 */ 	lui	$v0,%hi(g_PdLogoYRotStopping)
 /*  f0180bc:	28610065 */ 	slti	$at,$v1,0x65
 /*  f0180c0:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0180c4:	14200009 */ 	bnez	$at,.L0f0180ec
-/*  f0180c8:	8c4227e4 */ 	lw	$v0,%lo(var800627e4)($v0)
+/*  f0180c8:	8c4227e4 */ 	lw	$v0,%lo(g_PdLogoYRotStopping)($v0)
 /*  f0180cc:	8d190038 */ 	lw	$t9,0x38($t0)
-/*  f0180d0:	3c058006 */ 	lui	$a1,%hi(var800627e8)
-/*  f0180d4:	24a527e8 */ 	addiu	$a1,$a1,%lo(var800627e8)
+/*  f0180d0:	3c058006 */ 	lui	$a1,%hi(g_PdLogoDarkenEnabled)
+/*  f0180d4:	24a527e8 */ 	addiu	$a1,$a1,%lo(g_PdLogoDarkenEnabled)
 /*  f0180d8:	00797823 */ 	subu	$t7,$v1,$t9
 /*  f0180dc:	29e10065 */ 	slti	$at,$t7,0x65
 /*  f0180e0:	10200002 */ 	beqz	$at,.L0f0180ec
 /*  f0180e4:	00000000 */ 	nop
 /*  f0180e8:	aca40000 */ 	sw	$a0,0x0($a1)
 .L0f0180ec:
-/*  f0180ec:	3c058006 */ 	lui	$a1,%hi(var800627e8)
+/*  f0180ec:	3c058006 */ 	lui	$a1,%hi(g_PdLogoDarkenEnabled)
 /*  f0180f0:	14400009 */ 	bnez	$v0,.L0f018118
-/*  f0180f4:	24a527e8 */ 	addiu	$a1,$a1,%lo(var800627e8)
-/*  f0180f8:	3c018006 */ 	lui	$at,%hi(var800627b0)
-/*  f0180fc:	c42a27b0 */ 	lwc1	$f10,%lo(var800627b0)($at)
+/*  f0180f4:	24a527e8 */ 	addiu	$a1,$a1,%lo(g_PdLogoDarkenEnabled)
+/*  f0180f8:	3c018006 */ 	lui	$at,%hi(g_PdLogoXRotCur)
+/*  f0180fc:	c42a27b0 */ 	lwc1	$f10,%lo(g_PdLogoXRotCur)($at)
 /*  f018100:	4612503e */ 	c.le.s	$f10,$f18
 /*  f018104:	00000000 */ 	nop
 /*  f018108:	45000003 */ 	bc1f	.L0f018118
@@ -3396,22 +3363,22 @@ glabel var7f1a8468
 /*  f018110:	ad400000 */ 	sw	$zero,0x0($t2)
 /*  f018114:	aca40000 */ 	sw	$a0,0x0($a1)
 .L0f018118:
-/*  f018118:	3c058006 */ 	lui	$a1,%hi(var800627e8)
-/*  f01811c:	24a527e8 */ 	addiu	$a1,$a1,%lo(var800627e8)
+/*  f018118:	3c058006 */ 	lui	$a1,%hi(g_PdLogoDarkenEnabled)
+/*  f01811c:	24a527e8 */ 	addiu	$a1,$a1,%lo(g_PdLogoDarkenEnabled)
 /*  f018120:	8cae0000 */ 	lw	$t6,0x0($a1)
 /*  f018124:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f018128:	3c0f8006 */ 	lui	$t7,%hi(var8006280c)
+/*  f018128:	3c0f8006 */ 	lui	$t7,%hi(g_PdLogoUnusedRotEnabled)
 /*  f01812c:	11c00012 */ 	beqz	$t6,.L0f018178
 /*  f018130:	3c017f1b */ 	lui	$at,%hi(var7f1a8448)
 /*  f018134:	c4268448 */ 	lwc1	$f6,%lo(var7f1a8448)($at)
 /*  f018138:	c504004c */ 	lwc1	$f4,0x4c($t0)
-/*  f01813c:	3c038006 */ 	lui	$v1,%hi(var800627c8)
-/*  f018140:	246327c8 */ 	addiu	$v1,$v1,%lo(var800627c8)
+/*  f01813c:	3c038006 */ 	lui	$v1,%hi(g_PdLogoAmbientLightFrac)
+/*  f018140:	246327c8 */ 	addiu	$v1,$v1,%lo(g_PdLogoAmbientLightFrac)
 /*  f018144:	46043202 */ 	mul.s	$f8,$f6,$f4
 /*  f018148:	c46a0000 */ 	lwc1	$f10,0x0($v1)
-/*  f01814c:	3c018006 */ 	lui	$at,%hi(var800627c8)
+/*  f01814c:	3c018006 */ 	lui	$at,%hi(g_PdLogoAmbientLightFrac)
 /*  f018150:	46085181 */ 	sub.s	$f6,$f10,$f8
-/*  f018154:	e42627c8 */ 	swc1	$f6,%lo(var800627c8)($at)
+/*  f018154:	e42627c8 */ 	swc1	$f6,%lo(g_PdLogoAmbientLightFrac)($at)
 /*  f018158:	c4640000 */ 	lwc1	$f4,0x0($v1)
 /*  f01815c:	4612203e */ 	c.le.s	$f4,$f18
 /*  f018160:	00000000 */ 	nop
@@ -3423,7 +3390,7 @@ glabel var7f1a8468
 .L0f018178:
 /*  f018178:	8d820000 */ 	lw	$v0,0x0($t4)
 .L0f01817c:
-/*  f01817c:	3c0e8006 */ 	lui	$t6,%hi(var800627ec)
+/*  f01817c:	3c0e8006 */ 	lui	$t6,%hi(g_PdLogoPointlessTimerEnabled)
 /*  f018180:	10400009 */ 	beqz	$v0,.L0f0181a8
 /*  f018184:	00000000 */ 	nop
 /*  f018188:	8d180038 */ 	lw	$t8,0x38($t0)
@@ -3432,105 +3399,105 @@ glabel var7f1a8468
 /*  f018194:	14200004 */ 	bnez	$at,.L0f0181a8
 /*  f018198:	ad990000 */ 	sw	$t9,0x0($t4)
 /*  f01819c:	ad800000 */ 	sw	$zero,0x0($t4)
-/*  f0181a0:	3c018006 */ 	lui	$at,%hi(var800627ec)
-/*  f0181a4:	ac2427ec */ 	sw	$a0,%lo(var800627ec)($at)
+/*  f0181a0:	3c018006 */ 	lui	$at,%hi(g_PdLogoPointlessTimerEnabled)
+/*  f0181a4:	ac2427ec */ 	sw	$a0,%lo(g_PdLogoPointlessTimerEnabled)($at)
 .L0f0181a8:
-/*  f0181a8:	8dce27ec */ 	lw	$t6,%lo(var800627ec)($t6)
-/*  f0181ac:	3c018006 */ 	lui	$at,%hi(var800627ec)
+/*  f0181a8:	8dce27ec */ 	lw	$t6,%lo(g_PdLogoPointlessTimerEnabled)($t6)
+/*  f0181ac:	3c018006 */ 	lui	$at,%hi(g_PdLogoPointlessTimerEnabled)
 /*  f0181b0:	51c00004 */ 	beqzl	$t6,.L0f0181c4
 /*  f0181b4:	8da20000 */ 	lw	$v0,0x0($t5)
-/*  f0181b8:	ac2027ec */ 	sw	$zero,%lo(var800627ec)($at)
+/*  f0181b8:	ac2027ec */ 	sw	$zero,%lo(g_PdLogoPointlessTimerEnabled)($at)
 /*  f0181bc:	ada40000 */ 	sw	$a0,0x0($t5)
 /*  f0181c0:	8da20000 */ 	lw	$v0,0x0($t5)
 .L0f0181c4:
-/*  f0181c4:	3c018006 */ 	lui	$at,%hi(var8006280c)
+/*  f0181c4:	3c018006 */ 	lui	$at,%hi(g_PdLogoUnusedRotEnabled)
 /*  f0181c8:	1040000f */ 	beqz	$v0,.L0f018208
 /*  f0181cc:	00000000 */ 	nop
 /*  f0181d0:	8d180038 */ 	lw	$t8,0x38($t0)
-/*  f0181d4:	3c068006 */ 	lui	$a2,%hi(var80062810)
-/*  f0181d8:	24c62810 */ 	addiu	$a2,$a2,%lo(var80062810)
+/*  f0181d4:	3c068006 */ 	lui	$a2,%hi(g_PdLogoLightMoving)
+/*  f0181d8:	24c62810 */ 	addiu	$a2,$a2,%lo(g_PdLogoLightMoving)
 /*  f0181dc:	0058c821 */ 	addu	$t9,$v0,$t8
 /*  f0181e0:	1b200009 */ 	blez	$t9,.L0f018208
 /*  f0181e4:	adb90000 */ 	sw	$t9,0x0($t5)
-/*  f0181e8:	3c078006 */ 	lui	$a3,%hi(var800627fc)
-/*  f0181ec:	3c098006 */ 	lui	$t1,%hi(var800627f8)
-/*  f0181f0:	252927f8 */ 	addiu	$t1,$t1,%lo(var800627f8)
-/*  f0181f4:	24e727fc */ 	addiu	$a3,$a3,%lo(var800627fc)
+/*  f0181e8:	3c078006 */ 	lui	$a3,%hi(g_PdLogoTitlePresenting)
+/*  f0181ec:	3c098006 */ 	lui	$t1,%hi(g_PdLogoTitleStep)
+/*  f0181f0:	252927f8 */ 	addiu	$t1,$t1,%lo(g_PdLogoTitleStep)
+/*  f0181f4:	24e727fc */ 	addiu	$a3,$a3,%lo(g_PdLogoTitlePresenting)
 /*  f0181f8:	ada00000 */ 	sw	$zero,0x0($t5)
 /*  f0181fc:	ace40000 */ 	sw	$a0,0x0($a3)
 /*  f018200:	ad240000 */ 	sw	$a0,0x0($t1)
 /*  f018204:	acc40000 */ 	sw	$a0,0x0($a2)
 .L0f018208:
-/*  f018208:	3c078006 */ 	lui	$a3,%hi(var800627fc)
-/*  f01820c:	24e727fc */ 	addiu	$a3,$a3,%lo(var800627fc)
+/*  f018208:	3c078006 */ 	lui	$a3,%hi(g_PdLogoTitlePresenting)
+/*  f01820c:	24e727fc */ 	addiu	$a3,$a3,%lo(g_PdLogoTitlePresenting)
 /*  f018210:	8cee0000 */ 	lw	$t6,0x0($a3)
-/*  f018214:	3c068006 */ 	lui	$a2,%hi(var80062810)
-/*  f018218:	3c098006 */ 	lui	$t1,%hi(var800627f8)
-/*  f01821c:	252927f8 */ 	addiu	$t1,$t1,%lo(var800627f8)
+/*  f018214:	3c068006 */ 	lui	$a2,%hi(g_PdLogoLightMoving)
+/*  f018218:	3c098006 */ 	lui	$t1,%hi(g_PdLogoTitleStep)
+/*  f01821c:	252927f8 */ 	addiu	$t1,$t1,%lo(g_PdLogoTitleStep)
 /*  f018220:	11c0002c */ 	beqz	$t6,.L0f0182d4
-/*  f018224:	24c62810 */ 	addiu	$a2,$a2,%lo(var80062810)
-/*  f018228:	ac24280c */ 	sw	$a0,%lo(var8006280c)($at)
+/*  f018224:	24c62810 */ 	addiu	$a2,$a2,%lo(g_PdLogoLightMoving)
+/*  f018228:	ac24280c */ 	sw	$a0,%lo(g_PdLogoUnusedRotEnabled)($at)
 /*  f01822c:	8d220000 */ 	lw	$v0,0x0($t1)
-/*  f018230:	3c018006 */ 	lui	$at,%hi(var800627f4)
+/*  f018230:	3c018006 */ 	lui	$at,%hi(g_PdLogoTitleStepFrac)
 /*  f018234:	14400008 */ 	bnez	$v0,.L0f018258
 /*  f018238:	24580001 */ 	addiu	$t8,$v0,0x1
-/*  f01823c:	c42a27f4 */ 	lwc1	$f10,%lo(var800627f4)($at)
+/*  f01823c:	c42a27f4 */ 	lwc1	$f10,%lo(g_PdLogoTitleStepFrac)($at)
 /*  f018240:	3c017f1b */ 	lui	$at,%hi(var7f1a844c)
 /*  f018244:	c428844c */ 	lwc1	$f8,%lo(var7f1a844c)($at)
-/*  f018248:	3c018006 */ 	lui	$at,%hi(var800627f4)
+/*  f018248:	3c018006 */ 	lui	$at,%hi(g_PdLogoTitleStepFrac)
 /*  f01824c:	46085180 */ 	add.s	$f6,$f10,$f8
 /*  f018250:	10000011 */ 	b	.L0f018298
-/*  f018254:	e42627f4 */ 	swc1	$f6,%lo(var800627f4)($at)
+/*  f018254:	e42627f4 */ 	swc1	$f6,%lo(g_PdLogoTitleStepFrac)($at)
 .L0f018258:
 /*  f018258:	14820009 */ 	bne	$a0,$v0,.L0f018280
-/*  f01825c:	3c018006 */ 	lui	$at,%hi(var800627f4)
-/*  f018260:	3c018006 */ 	lui	$at,%hi(var800627f4)
-/*  f018264:	c42427f4 */ 	lwc1	$f4,%lo(var800627f4)($at)
+/*  f01825c:	3c018006 */ 	lui	$at,%hi(g_PdLogoTitleStepFrac)
+/*  f018260:	3c018006 */ 	lui	$at,%hi(g_PdLogoTitleStepFrac)
+/*  f018264:	c42427f4 */ 	lwc1	$f4,%lo(g_PdLogoTitleStepFrac)($at)
 /*  f018268:	3c017f1b */ 	lui	$at,%hi(var7f1a8450)
 /*  f01826c:	c42a8450 */ 	lwc1	$f10,%lo(var7f1a8450)($at)
-/*  f018270:	3c018006 */ 	lui	$at,%hi(var800627f4)
+/*  f018270:	3c018006 */ 	lui	$at,%hi(g_PdLogoTitleStepFrac)
 /*  f018274:	460a2200 */ 	add.s	$f8,$f4,$f10
 /*  f018278:	10000007 */ 	b	.L0f018298
-/*  f01827c:	e42827f4 */ 	swc1	$f8,%lo(var800627f4)($at)
+/*  f01827c:	e42827f4 */ 	swc1	$f8,%lo(g_PdLogoTitleStepFrac)($at)
 .L0f018280:
-/*  f018280:	c42627f4 */ 	lwc1	$f6,%lo(var800627f4)($at)
+/*  f018280:	c42627f4 */ 	lwc1	$f6,%lo(g_PdLogoTitleStepFrac)($at)
 /*  f018284:	3c017f1b */ 	lui	$at,%hi(var7f1a8454)
 /*  f018288:	c4248454 */ 	lwc1	$f4,%lo(var7f1a8454)($at)
-/*  f01828c:	3c018006 */ 	lui	$at,%hi(var800627f4)
+/*  f01828c:	3c018006 */ 	lui	$at,%hi(g_PdLogoTitleStepFrac)
 /*  f018290:	46043280 */ 	add.s	$f10,$f6,$f4
-/*  f018294:	e42a27f4 */ 	swc1	$f10,%lo(var800627f4)($at)
+/*  f018294:	e42a27f4 */ 	swc1	$f10,%lo(g_PdLogoTitleStepFrac)($at)
 .L0f018298:
-/*  f018298:	3c018006 */ 	lui	$at,%hi(var800627f4)
-/*  f01829c:	c42827f4 */ 	lwc1	$f8,%lo(var800627f4)($at)
-/*  f0182a0:	3c018006 */ 	lui	$at,%hi(var800627f4)
+/*  f018298:	3c018006 */ 	lui	$at,%hi(g_PdLogoTitleStepFrac)
+/*  f01829c:	c42827f4 */ 	lwc1	$f8,%lo(g_PdLogoTitleStepFrac)($at)
+/*  f0182a0:	3c018006 */ 	lui	$at,%hi(g_PdLogoTitleStepFrac)
 /*  f0182a4:	4608703e */ 	c.le.s	$f14,$f8
 /*  f0182a8:	00000000 */ 	nop
 /*  f0182ac:	45000009 */ 	bc1f	.L0f0182d4
 /*  f0182b0:	00000000 */ 	nop
-/*  f0182b4:	e43227f4 */ 	swc1	$f18,%lo(var800627f4)($at)
+/*  f0182b4:	e43227f4 */ 	swc1	$f18,%lo(g_PdLogoTitleStepFrac)($at)
 /*  f0182b8:	2401000a */ 	addiu	$at,$zero,0xa
 /*  f0182bc:	17010005 */ 	bne	$t8,$at,.L0f0182d4
 /*  f0182c0:	ad380000 */ 	sw	$t8,0x0($t1)
-/*  f0182c4:	3c058006 */ 	lui	$a1,%hi(var800627dc)
-/*  f0182c8:	24a527dc */ 	addiu	$a1,$a1,%lo(var800627dc)
+/*  f0182c4:	3c058006 */ 	lui	$a1,%hi(g_PdLogoExitTimer)
+/*  f0182c8:	24a527dc */ 	addiu	$a1,$a1,%lo(g_PdLogoExitTimer)
 /*  f0182cc:	ace00000 */ 	sw	$zero,0x0($a3)
 /*  f0182d0:	aca40000 */ 	sw	$a0,0x0($a1)
 .L0f0182d4:
-/*  f0182d4:	8def280c */ 	lw	$t7,%lo(var8006280c)($t7)
-/*  f0182d8:	3c058006 */ 	lui	$a1,%hi(var800627dc)
-/*  f0182dc:	24a527dc */ 	addiu	$a1,$a1,%lo(var800627dc)
+/*  f0182d4:	8def280c */ 	lw	$t7,%lo(g_PdLogoUnusedRotEnabled)($t7)
+/*  f0182d8:	3c058006 */ 	lui	$a1,%hi(g_PdLogoExitTimer)
+/*  f0182dc:	24a527dc */ 	addiu	$a1,$a1,%lo(g_PdLogoExitTimer)
 /*  f0182e0:	11e00012 */ 	beqz	$t7,.L0f01832c
 /*  f0182e4:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0182e8:	3c017f1b */ 	lui	$at,%hi(var7f1a8458)
 /*  f0182ec:	c4268458 */ 	lwc1	$f6,%lo(var7f1a8458)($at)
 /*  f0182f0:	c504004c */ 	lwc1	$f4,0x4c($t0)
-/*  f0182f4:	3c028006 */ 	lui	$v0,%hi(var80062808)
-/*  f0182f8:	24422808 */ 	addiu	$v0,$v0,%lo(var80062808)
+/*  f0182f4:	3c028006 */ 	lui	$v0,%hi(g_PdLogoUnusedRot)
+/*  f0182f8:	24422808 */ 	addiu	$v0,$v0,%lo(g_PdLogoUnusedRot)
 /*  f0182fc:	46043282 */ 	mul.s	$f10,$f6,$f4
 /*  f018300:	c4480000 */ 	lwc1	$f8,0x0($v0)
-/*  f018304:	3c018006 */ 	lui	$at,%hi(var80062808)
+/*  f018304:	3c018006 */ 	lui	$at,%hi(g_PdLogoUnusedRot)
 /*  f018308:	460a4180 */ 	add.s	$f6,$f8,$f10
-/*  f01830c:	e4262808 */ 	swc1	$f6,%lo(var80062808)($at)
+/*  f01830c:	e4262808 */ 	swc1	$f6,%lo(g_PdLogoUnusedRot)($at)
 /*  f018310:	c4400000 */ 	lwc1	$f0,0x0($v0)
 /*  f018314:	4600603e */ 	c.le.s	$f12,$f0
 /*  f018318:	00000000 */ 	nop
@@ -3546,13 +3513,13 @@ glabel var7f1a8468
 /*  f018338:	8ca20000 */ 	lw	$v0,0x0($a1)
 /*  f01833c:	c428845c */ 	lwc1	$f8,%lo(var7f1a845c)($at)
 /*  f018340:	c50a004c */ 	lwc1	$f10,0x4c($t0)
-/*  f018344:	3c0a8006 */ 	lui	$t2,%hi(var80062814)
-/*  f018348:	254a2814 */ 	addiu	$t2,$t2,%lo(var80062814)
+/*  f018344:	3c0a8006 */ 	lui	$t2,%hi(g_PdLogoLightDirFrac)
+/*  f018348:	254a2814 */ 	addiu	$t2,$t2,%lo(g_PdLogoLightDirFrac)
 /*  f01834c:	460a4182 */ 	mul.s	$f6,$f8,$f10
 /*  f018350:	c5440000 */ 	lwc1	$f4,0x0($t2)
-/*  f018354:	3c018006 */ 	lui	$at,%hi(var80062814)
+/*  f018354:	3c018006 */ 	lui	$at,%hi(g_PdLogoLightDirFrac)
 /*  f018358:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f01835c:	e4282814 */ 	swc1	$f8,%lo(var80062814)($at)
+/*  f01835c:	e4282814 */ 	swc1	$f8,%lo(g_PdLogoLightDirFrac)($at)
 /*  f018360:	c54a0000 */ 	lwc1	$f10,0x0($t2)
 /*  f018364:	460a703e */ 	c.le.s	$f14,$f10
 /*  f018368:	00000000 */ 	nop
@@ -3571,8 +3538,8 @@ glabel var7f1a8468
 /*  f018398:	14200004 */ 	bnez	$at,.L0f0183ac
 /*  f01839c:	acb90000 */ 	sw	$t9,0x0($a1)
 /*  f0183a0:	aca00000 */ 	sw	$zero,0x0($a1)
-/*  f0183a4:	3c018006 */ 	lui	$at,%hi(var80062734)
-/*  f0183a8:	ac242734 */ 	sw	$a0,%lo(var80062734)($at)
+/*  f0183a4:	3c018006 */ 	lui	$at,%hi(g_PdLogoTriggerExit)
+/*  f0183a8:	ac242734 */ 	sw	$a0,%lo(g_PdLogoTriggerExit)($at)
 .L0f0183ac:
 /*  f0183ac:	8fa40330 */ 	lw	$a0,0x330($sp)
 .L0f0183b0:
@@ -3580,8 +3547,8 @@ glabel var7f1a8468
 /*  f0183b4:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0183b8:	0c002cb1 */ 	jal	viFillBuffer
 /*  f0183bc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0183c0:	3c0e8006 */ 	lui	$t6,%hi(var800627cc)
-/*  f0183c4:	8dce27cc */ 	lw	$t6,%lo(var800627cc)($t6)
+/*  f0183c0:	3c0e8006 */ 	lui	$t6,%hi(g_PdLogoBlackTimer)
+/*  f0183c4:	8dce27cc */ 	lw	$t6,%lo(g_PdLogoBlackTimer)($t6)
 /*  f0183c8:	00401825 */ 	or	$v1,$v0,$zero
 /*  f0183cc:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f0183d0:	11c00003 */ 	beqz	$t6,.L0f0183e0
@@ -3589,7 +3556,7 @@ glabel var7f1a8468
 /*  f0183d8:	10000272 */ 	b	.L0f018da4
 /*  f0183dc:	8fbf0034 */ 	lw	$ra,0x34($sp)
 .L0f0183e0:
-/*  f0183e0:	0fc59e6c */ 	jal	gfxAllocate4Words
+/*  f0183e0:	0fc59e6c */ 	jal	gfxAllocateLookAt
 /*  f0183e4:	afa30330 */ 	sw	$v1,0x330($sp)
 /*  f0183e8:	44809000 */ 	mtc1	$zero,$f18
 /*  f0183ec:	3c01457a */ 	lui	$at,0x457a
@@ -3623,8 +3590,8 @@ glabel var7f1a8468
 /*  f01845c:	250f0010 */ 	addiu	$t7,$t0,0x10
 /*  f018460:	ac8f0004 */ 	sw	$t7,0x4($a0)
 /*  f018464:	ac990000 */ 	sw	$t9,0x0($a0)
-/*  f018468:	3c018006 */ 	lui	$at,%hi(var80062814)
-/*  f01846c:	c4202814 */ 	lwc1	$f0,%lo(var80062814)($at)
+/*  f018468:	3c018006 */ 	lui	$at,%hi(g_PdLogoLightDirFrac)
+/*  f01846c:	c4202814 */ 	lwc1	$f0,%lo(g_PdLogoLightDirFrac)($at)
 /*  f018470:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f018474:	44814000 */ 	mtc1	$at,$f8
 /*  f018478:	3c017f1b */ 	lui	$at,%hi(var7f1a8464)
@@ -3663,7 +3630,7 @@ glabel var7f1a8468
 /*  f0184fc:	3c0142fe */ 	lui	$at,0x42fe
 /*  f018500:	44815000 */ 	mtc1	$at,$f10
 /*  f018504:	c7a40050 */ 	lwc1	$f4,0x50($sp)
-/*  f018508:	3c018006 */ 	lui	$at,%hi(var80062588)
+/*  f018508:	3c018006 */ 	lui	$at,%hi(var80062578+0x10)
 /*  f01850c:	c7ac00e0 */ 	lwc1	$f12,0xe0($sp)
 /*  f018510:	46045182 */ 	mul.s	$f6,$f10,$f4
 /*  f018514:	00000000 */ 	nop
@@ -3671,16 +3638,16 @@ glabel var7f1a8468
 /*  f01851c:	4600428d */ 	trunc.w.s	$f10,$f8
 /*  f018520:	44195000 */ 	mfc1	$t9,$f10
 /*  f018524:	0c0068f7 */ 	jal	sinf
-/*  f018528:	a0392588 */ 	sb	$t9,%lo(var80062588)($at)
+/*  f018528:	a0392588 */ 	sb	$t9,%lo(var80062578+0x10)($at)
 /*  f01852c:	3c0142fe */ 	lui	$at,0x42fe
 /*  f018530:	44812000 */ 	mtc1	$at,$f4
-/*  f018534:	3c018006 */ 	lui	$at,%hi(var80062588+0x1)
+/*  f018534:	3c018006 */ 	lui	$at,%hi(var80062578+0x10+0x1)
 /*  f018538:	c7ac00e4 */ 	lwc1	$f12,0xe4($sp)
 /*  f01853c:	46040182 */ 	mul.s	$f6,$f0,$f4
 /*  f018540:	4600320d */ 	trunc.w.s	$f8,$f6
 /*  f018544:	440e4000 */ 	mfc1	$t6,$f8
 /*  f018548:	0c0068f4 */ 	jal	cosf
-/*  f01854c:	a02e2589 */ 	sb	$t6,%lo(var80062588+0x1)($at)
+/*  f01854c:	a02e2589 */ 	sb	$t6,%lo(var80062578+0x10+0x1)($at)
 /*  f018550:	e7a00050 */ 	swc1	$f0,0x50($sp)
 /*  f018554:	0c0068f4 */ 	jal	cosf
 /*  f018558:	c7ac00e0 */ 	lwc1	$f12,0xe0($sp)
@@ -3688,7 +3655,7 @@ glabel var7f1a8468
 /*  f018560:	44815000 */ 	mtc1	$at,$f10
 /*  f018564:	c7a40050 */ 	lwc1	$f4,0x50($sp)
 /*  f018568:	44809000 */ 	mtc1	$zero,$f18
-/*  f01856c:	3c018006 */ 	lui	$at,%hi(var80062588+0x2)
+/*  f01856c:	3c018006 */ 	lui	$at,%hi(var80062578+0x10+0x2)
 /*  f018570:	46045182 */ 	mul.s	$f6,$f10,$f4
 /*  f018574:	44059000 */ 	mfc1	$a1,$f18
 /*  f018578:	44069000 */ 	mfc1	$a2,$f18
@@ -3703,13 +3670,13 @@ glabel var7f1a8468
 /*  f01859c:	4600428d */ 	trunc.w.s	$f10,$f8
 /*  f0185a0:	44195000 */ 	mfc1	$t9,$f10
 /*  f0185a4:	00000000 */ 	nop
-/*  f0185a8:	a039258a */ 	sb	$t9,%lo(var80062588+0x2)($at)
+/*  f0185a8:	a039258a */ 	sb	$t9,%lo(var80062578+0x10+0x2)($at)
 /*  f0185ac:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0185b0:	44812000 */ 	mtc1	$at,$f4
 /*  f0185b4:	0c005ab9 */ 	jal	mtx00016ae4
 /*  f0185b8:	e7a40020 */ 	swc1	$f4,0x20($sp)
-/*  f0185bc:	3c0f8006 */ 	lui	$t7,%hi(var800627c0)
-/*  f0185c0:	8def27c0 */ 	lw	$t7,%lo(var800627c0)($t7)
+/*  f0185bc:	3c0f8006 */ 	lui	$t7,%hi(g_PdLogoUseCombinedModel)
+/*  f0185c0:	8def27c0 */ 	lw	$t7,%lo(g_PdLogoUseCombinedModel)($t7)
 /*  f0185c4:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0185c8:	27a501e8 */ 	addiu	$a1,$sp,0x1e8
 /*  f0185cc:	15e10004 */ 	bne	$t7,$at,.L0f0185e0
@@ -3718,15 +3685,15 @@ glabel var7f1a8468
 /*  f0185d8:	10000004 */ 	b	.L0f0185ec
 /*  f0185dc:	afae022c */ 	sw	$t6,0x22c($sp)
 .L0f0185e0:
-/*  f0185e0:	3c188006 */ 	lui	$t8,%hi(g_TitleModel2)
-/*  f0185e4:	8f1824fc */ 	lw	$t8,%lo(g_TitleModel2)($t8)
+/*  f0185e0:	3c188006 */ 	lui	$t8,%hi(g_TitleModelNLogo2)
+/*  f0185e4:	8f1824fc */ 	lw	$t8,%lo(g_TitleModelNLogo2)($t8)
 /*  f0185e8:	afb8022c */ 	sw	$t8,0x22c($sp)
 .L0f0185ec:
-/*  f0185ec:	3c018006 */ 	lui	$at,%hi(var800627a8)
+/*  f0185ec:	3c018006 */ 	lui	$at,%hi(g_PdLogoYRotCur)
 /*  f0185f0:	0c0058dd */ 	jal	mtx4LoadYRotation
-/*  f0185f4:	c42c27a8 */ 	lwc1	$f12,%lo(var800627a8)($at)
-/*  f0185f8:	3c018006 */ 	lui	$at,%hi(var800627b0)
-/*  f0185fc:	c42c27b0 */ 	lwc1	$f12,%lo(var800627b0)($at)
+/*  f0185f4:	c42c27a8 */ 	lwc1	$f12,%lo(g_PdLogoYRotCur)($at)
+/*  f0185f8:	3c018006 */ 	lui	$at,%hi(g_PdLogoXRotCur)
+/*  f0185fc:	c42c27b0 */ 	lwc1	$f12,%lo(g_PdLogoXRotCur)($at)
 /*  f018600:	0c0058ba */ 	jal	mtx4LoadXRotation
 /*  f018604:	27a501a8 */ 	addiu	$a1,$sp,0x1a8
 /*  f018608:	27a401a8 */ 	addiu	$a0,$sp,0x1a8
@@ -3736,14 +3703,14 @@ glabel var7f1a8468
 /*  f018618:	27a501e8 */ 	addiu	$a1,$sp,0x1e8
 /*  f01861c:	0c005680 */ 	jal	mtx4MultMtx4
 /*  f018620:	27a60270 */ 	addiu	$a2,$sp,0x270
-/*  f018624:	3c018006 */ 	lui	$at,%hi(var800627b8)
-/*  f018628:	c42c27b8 */ 	lwc1	$f12,%lo(var800627b8)($at)
+/*  f018624:	3c018006 */ 	lui	$at,%hi(g_PdLogoScale)
+/*  f018628:	c42c27b8 */ 	lwc1	$f12,%lo(g_PdLogoScale)($at)
 /*  f01862c:	0c0057c1 */ 	jal	mtx00015f04
 /*  f018630:	27a50270 */ 	addiu	$a1,$sp,0x270
 /*  f018634:	3c01437f */ 	lui	$at,0x437f
 /*  f018638:	44813000 */ 	mtc1	$at,$f6
-/*  f01863c:	3c018006 */ 	lui	$at,%hi(var800627c8)
-/*  f018640:	c42827c8 */ 	lwc1	$f8,%lo(var800627c8)($at)
+/*  f01863c:	3c018006 */ 	lui	$at,%hi(g_PdLogoAmbientLightFrac)
+/*  f018640:	c42827c8 */ 	lwc1	$f8,%lo(g_PdLogoAmbientLightFrac)($at)
 /*  f018644:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f018648:	3c038006 */ 	lui	$v1,%hi(var80062560)
 /*  f01864c:	46083282 */ 	mul.s	$f10,$f6,$f8
@@ -3823,8 +3790,8 @@ glabel var7f1a8468
 /*  f018768:	3c0f8006 */ 	lui	$t7,%hi(var80062530)
 /*  f01876c:	3c190388 */ 	lui	$t9,0x388
 /*  f018770:	ac4e0008 */ 	sw	$t6,0x8($v0)
-/*  f018774:	3c188006 */ 	lui	$t8,%hi(var80062538)
-/*  f018778:	27182538 */ 	addiu	$t8,$t8,%lo(var80062538)
+/*  f018774:	3c188006 */ 	lui	$t8,%hi(var80062530+0x8)
+/*  f018778:	27182538 */ 	addiu	$t8,$t8,%lo(var80062530+0x8)
 /*  f01877c:	37390010 */ 	ori	$t9,$t9,0x10
 /*  f018780:	25ef2530 */ 	addiu	$t7,$t7,%lo(var80062530)
 /*  f018784:	3c0e0601 */ 	lui	$t6,0x601
@@ -3860,10 +3827,10 @@ glabel var7f1a8468
 /*  f0187f8:	24040028 */ 	addiu	$a0,$zero,0x28
 /*  f0187fc:	8faf0160 */ 	lw	$t7,0x160($sp)
 /*  f018800:	8fa60164 */ 	lw	$a2,0x164($sp)
-/*  f018804:	3c018006 */ 	lui	$at,%hi(var800627c8)
+/*  f018804:	3c018006 */ 	lui	$at,%hi(g_PdLogoAmbientLightFrac)
 /*  f018808:	ade20004 */ 	sw	$v0,0x4($t7)
 /*  f01880c:	44809000 */ 	mtc1	$zero,$f18
-/*  f018810:	c42627c8 */ 	lwc1	$f6,%lo(var800627c8)($at)
+/*  f018810:	c42627c8 */ 	lwc1	$f6,%lo(g_PdLogoAmbientLightFrac)($at)
 /*  f018814:	24450008 */ 	addiu	$a1,$v0,0x8
 /*  f018818:	3c188000 */ 	lui	$t8,0x8000
 /*  f01881c:	4606903c */ 	c.lt.s	$f18,$f6
@@ -3877,8 +3844,8 @@ glabel var7f1a8468
 /*  f01883c:	ac4e0000 */ 	sw	$t6,0x0($v0)
 /*  f018840:	ac580004 */ 	sw	$t8,0x4($v0)
 /*  f018844:	37390010 */ 	ori	$t9,$t9,0x10
-/*  f018848:	3c0f8006 */ 	lui	$t7,%hi(var80062568)
-/*  f01884c:	25ef2568 */ 	addiu	$t7,$t7,%lo(var80062568)
+/*  f018848:	3c0f8006 */ 	lui	$t7,%hi(var80062560+0x8)
+/*  f01884c:	25ef2568 */ 	addiu	$t7,$t7,%lo(var80062560+0x8)
 /*  f018850:	acb90000 */ 	sw	$t9,0x0($a1)
 /*  f018854:	acaf0004 */ 	sw	$t7,0x4($a1)
 /*  f018858:	3c188006 */ 	lui	$t8,%hi(var80062560)
@@ -3922,10 +3889,10 @@ glabel var7f1a8468
 /*  f0188e8:	24040028 */ 	addiu	$a0,$zero,0x28
 /*  f0188ec:	8fb90160 */ 	lw	$t9,0x160($sp)
 /*  f0188f0:	8fa60164 */ 	lw	$a2,0x164($sp)
-/*  f0188f4:	3c018006 */ 	lui	$at,%hi(var800627c8)
+/*  f0188f4:	3c018006 */ 	lui	$at,%hi(g_PdLogoAmbientLightFrac)
 /*  f0188f8:	af220004 */ 	sw	$v0,0x4($t9)
 /*  f0188fc:	44809000 */ 	mtc1	$zero,$f18
-/*  f018900:	c42827c8 */ 	lwc1	$f8,%lo(var800627c8)($at)
+/*  f018900:	c42827c8 */ 	lwc1	$f8,%lo(g_PdLogoAmbientLightFrac)($at)
 /*  f018904:	24450008 */ 	addiu	$a1,$v0,0x8
 /*  f018908:	3c0e8000 */ 	lui	$t6,0x8000
 /*  f01890c:	4608903c */ 	c.lt.s	$f18,$f8
@@ -3939,8 +3906,8 @@ glabel var7f1a8468
 /*  f01892c:	ac4f0000 */ 	sw	$t7,0x0($v0)
 /*  f018930:	ac4e0004 */ 	sw	$t6,0x4($v0)
 /*  f018934:	37180010 */ 	ori	$t8,$t8,0x10
-/*  f018938:	3c198006 */ 	lui	$t9,%hi(var80062568)
-/*  f01893c:	27392568 */ 	addiu	$t9,$t9,%lo(var80062568)
+/*  f018938:	3c198006 */ 	lui	$t9,%hi(var80062560+0x8)
+/*  f01893c:	27392568 */ 	addiu	$t9,$t9,%lo(var80062560+0x8)
 /*  f018940:	acb80000 */ 	sw	$t8,0x0($a1)
 /*  f018944:	acb90004 */ 	sw	$t9,0x4($a1)
 /*  f018948:	3c0e8006 */ 	lui	$t6,%hi(var80062560)
@@ -3984,10 +3951,10 @@ glabel var7f1a8468
 /*  f0189d8:	24040028 */ 	addiu	$a0,$zero,0x28
 /*  f0189dc:	8fb80160 */ 	lw	$t8,0x160($sp)
 /*  f0189e0:	8fa60164 */ 	lw	$a2,0x164($sp)
-/*  f0189e4:	3c018006 */ 	lui	$at,%hi(var800627c8)
+/*  f0189e4:	3c018006 */ 	lui	$at,%hi(g_PdLogoAmbientLightFrac)
 /*  f0189e8:	af020004 */ 	sw	$v0,0x4($t8)
 /*  f0189ec:	44809000 */ 	mtc1	$zero,$f18
-/*  f0189f0:	c42a27c8 */ 	lwc1	$f10,%lo(var800627c8)($at)
+/*  f0189f0:	c42a27c8 */ 	lwc1	$f10,%lo(g_PdLogoAmbientLightFrac)($at)
 /*  f0189f4:	24450008 */ 	addiu	$a1,$v0,0x8
 /*  f0189f8:	3c0f8000 */ 	lui	$t7,0x8000
 /*  f0189fc:	460a903c */ 	c.lt.s	$f18,$f10
@@ -4001,8 +3968,8 @@ glabel var7f1a8468
 /*  f018a1c:	ac590000 */ 	sw	$t9,0x0($v0)
 /*  f018a20:	ac4f0004 */ 	sw	$t7,0x4($v0)
 /*  f018a24:	35ce0010 */ 	ori	$t6,$t6,0x10
-/*  f018a28:	3c188006 */ 	lui	$t8,%hi(var80062568)
-/*  f018a2c:	27182568 */ 	addiu	$t8,$t8,%lo(var80062568)
+/*  f018a28:	3c188006 */ 	lui	$t8,%hi(var80062560+0x8)
+/*  f018a2c:	27182568 */ 	addiu	$t8,$t8,%lo(var80062560+0x8)
 /*  f018a30:	acae0000 */ 	sw	$t6,0x0($a1)
 /*  f018a34:	acb80004 */ 	sw	$t8,0x4($a1)
 /*  f018a38:	3c0f8006 */ 	lui	$t7,%hi(var80062560)
@@ -4030,18 +3997,18 @@ glabel var7f1a8468
 /*  f018a88:	44812000 */ 	mtc1	$at,$f4
 /*  f018a8c:	8fb80044 */ 	lw	$t8,0x44($sp)
 /*  f018a90:	3c068006 */ 	lui	$a2,%hi(var80062804)
-/*  f018a94:	3c078006 */ 	lui	$a3,%hi(var800627bc)
+/*  f018a94:	3c078006 */ 	lui	$a3,%hi(g_PdLogoFrac)
 /*  f018a98:	240f00f0 */ 	addiu	$t7,$zero,0xf0
 /*  f018a9c:	27ae0270 */ 	addiu	$t6,$sp,0x270
 /*  f018aa0:	afae0018 */ 	sw	$t6,0x18($sp)
 /*  f018aa4:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f018aa8:	8ce727bc */ 	lw	$a3,%lo(var800627bc)($a3)
+/*  f018aa8:	8ce727bc */ 	lw	$a3,%lo(g_PdLogoFrac)($a3)
 /*  f018aac:	8cc62804 */ 	lw	$a2,%lo(var80062804)($a2)
 /*  f018ab0:	8fa40330 */ 	lw	$a0,0x330($sp)
 /*  f018ab4:	8fa5022c */ 	lw	$a1,0x22c($sp)
 /*  f018ab8:	afa20020 */ 	sw	$v0,0x20($sp)
 /*  f018abc:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*  f018ac0:	0fc05c92 */ 	jal	func0f017248
+/*  f018ac0:	0fc05c92 */ 	jal	titleRenderPdLogoModel
 /*  f018ac4:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f018ac8:	3c19bc00 */ 	lui	$t9,0xbc00
 /*  f018acc:	3c0f8000 */ 	lui	$t7,0x8000
@@ -4049,8 +4016,8 @@ glabel var7f1a8468
 /*  f018ad4:	35ce0010 */ 	ori	$t6,$t6,0x10
 /*  f018ad8:	35ef0040 */ 	ori	$t7,$t7,0x40
 /*  f018adc:	37390002 */ 	ori	$t9,$t9,0x2
-/*  f018ae0:	3c188006 */ 	lui	$t8,%hi(var80062580)
-/*  f018ae4:	27182580 */ 	addiu	$t8,$t8,%lo(var80062580)
+/*  f018ae0:	3c188006 */ 	lui	$t8,%hi(var80062578+0x8)
+/*  f018ae4:	27182580 */ 	addiu	$t8,$t8,%lo(var80062578+0x8)
 /*  f018ae8:	ac590000 */ 	sw	$t9,0x0($v0)
 /*  f018aec:	ac4f0004 */ 	sw	$t7,0x4($v0)
 /*  f018af0:	ac4e0008 */ 	sw	$t6,0x8($v0)
@@ -4088,17 +4055,17 @@ glabel var7f1a8468
 /*  f018b70:	c42c8468 */ 	lwc1	$f12,%lo(var7f1a8468)($at)
 /*  f018b74:	0c0057c1 */ 	jal	mtx00015f04
 /*  f018b78:	27a50230 */ 	addiu	$a1,$sp,0x230
-/*  f018b7c:	3c028006 */ 	lui	$v0,%hi(var800627f8)
-/*  f018b80:	8c4227f8 */ 	lw	$v0,%lo(var800627f8)($v0)
+/*  f018b7c:	3c028006 */ 	lui	$v0,%hi(g_PdLogoTitleStep)
+/*  f018b80:	8c4227f8 */ 	lw	$v0,%lo(g_PdLogoTitleStep)($v0)
 /*  f018b84:	27a30230 */ 	addiu	$v1,$sp,0x230
 /*  f018b88:	04420085 */ 	bltzl	$v0,.L0f018da0
 /*  f018b8c:	8fa20330 */ 	lw	$v0,0x330($sp)
 /*  f018b90:	10400082 */ 	beqz	$v0,.L0f018d9c
 /*  f018b94:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f018b98:	1441001f */ 	bne	$v0,$at,.L0f018c18
-/*  f018b9c:	3c058006 */ 	lui	$a1,%hi(var8006250c)
-/*  f018ba0:	3c018006 */ 	lui	$at,%hi(var800627f4)
-/*  f018ba4:	c42027f4 */ 	lwc1	$f0,%lo(var800627f4)($at)
+/*  f018b9c:	3c058006 */ 	lui	$a1,%hi(g_TitleModelPdThree)
+/*  f018ba0:	3c018006 */ 	lui	$at,%hi(g_PdLogoTitleStepFrac)
+/*  f018ba4:	c42027f4 */ 	lwc1	$f0,%lo(g_PdLogoTitleStepFrac)($at)
 /*  f018ba8:	3c013f00 */ 	lui	$at,0x3f00
 /*  f018bac:	44815000 */ 	mtc1	$at,$f10
 /*  f018bb0:	44070000 */ 	mfc1	$a3,$f0
@@ -4113,7 +4080,7 @@ glabel var7f1a8468
 .L0f018bd4:
 /*  f018bd4:	8c42ccb8 */ 	lw	$v0,%lo(var8009ccb8)($v0)
 /*  f018bd8:	3c0f800a */ 	lui	$t7,%hi(var8009ccb0)
-/*  f018bdc:	8ca5250c */ 	lw	$a1,%lo(var8006250c)($a1)
+/*  f018bdc:	8ca5250c */ 	lw	$a1,%lo(g_TitleModelPdThree)($a1)
 /*  f018be0:	0002c880 */ 	sll	$t9,$v0,0x2
 /*  f018be4:	0319c021 */ 	addu	$t8,$t8,$t9
 /*  f018be8:	01f97821 */ 	addu	$t7,$t7,$t9
@@ -4124,16 +4091,16 @@ glabel var7f1a8468
 /*  f018bfc:	e7a00014 */ 	swc1	$f0,0x14($sp)
 /*  f018c00:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f018c04:	afaf0020 */ 	sw	$t7,0x20($sp)
-/*  f018c08:	0fc05c92 */ 	jal	func0f017248
+/*  f018c08:	0fc05c92 */ 	jal	titleRenderPdLogoModel
 /*  f018c0c:	afb8001c */ 	sw	$t8,0x1c($sp)
 /*  f018c10:	10000062 */ 	b	.L0f018d9c
 /*  f018c14:	afa20330 */ 	sw	$v0,0x330($sp)
 .L0f018c18:
 /*  f018c18:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f018c1c:	14410023 */ 	bne	$v0,$at,.L0f018cac
-/*  f018c20:	3c058006 */ 	lui	$a1,%hi(var80062508)
-/*  f018c24:	3c018006 */ 	lui	$at,%hi(var800627f4)
-/*  f018c28:	c42027f4 */ 	lwc1	$f0,%lo(var800627f4)($at)
+/*  f018c20:	3c058006 */ 	lui	$a1,%hi(g_TitleModelPdTwo)
+/*  f018c24:	3c018006 */ 	lui	$at,%hi(g_PdLogoTitleStepFrac)
+/*  f018c28:	c42027f4 */ 	lwc1	$f0,%lo(g_PdLogoTitleStepFrac)($at)
 /*  f018c2c:	3c013f00 */ 	lui	$at,0x3f00
 /*  f018c30:	44812000 */ 	mtc1	$at,$f4
 /*  f018c34:	3c013f80 */ 	lui	$at,0x3f80
@@ -4157,28 +4124,28 @@ glabel var7f1a8468
 /*  f018c78:	8f18cca8 */ 	lw	$t8,%lo(var8009cca8)($t8)
 /*  f018c7c:	44815000 */ 	mtc1	$at,$f10
 /*  f018c80:	44074000 */ 	mfc1	$a3,$f8
-/*  f018c84:	8ca52508 */ 	lw	$a1,%lo(var80062508)($a1)
+/*  f018c84:	8ca52508 */ 	lw	$a1,%lo(g_TitleModelPdTwo)($a1)
 /*  f018c88:	03201025 */ 	or	$v0,$t9,$zero
 /*  f018c8c:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f018c90:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f018c94:	afaf0020 */ 	sw	$t7,0x20($sp)
 /*  f018c98:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*  f018c9c:	0fc05c92 */ 	jal	func0f017248
+/*  f018c9c:	0fc05c92 */ 	jal	titleRenderPdLogoModel
 /*  f018ca0:	e7aa0014 */ 	swc1	$f10,0x14($sp)
 /*  f018ca4:	1000003d */ 	b	.L0f018d9c
 /*  f018ca8:	afa20330 */ 	sw	$v0,0x330($sp)
 .L0f018cac:
 /*  f018cac:	24010003 */ 	addiu	$at,$zero,0x3
 /*  f018cb0:	14410022 */ 	bne	$v0,$at,.L0f018d3c
-/*  f018cb4:	3c058006 */ 	lui	$a1,%hi(var80062508)
-/*  f018cb8:	3c018006 */ 	lui	$at,%hi(var800627f4)
-/*  f018cbc:	c42027f4 */ 	lwc1	$f0,%lo(var800627f4)($at)
+/*  f018cb4:	3c058006 */ 	lui	$a1,%hi(g_TitleModelPdTwo)
+/*  f018cb8:	3c018006 */ 	lui	$at,%hi(g_PdLogoTitleStepFrac)
+/*  f018cbc:	c42027f4 */ 	lwc1	$f0,%lo(g_PdLogoTitleStepFrac)($at)
 /*  f018cc0:	3c013f00 */ 	lui	$at,0x3f00
 /*  f018cc4:	44812000 */ 	mtc1	$at,$f4
 /*  f018cc8:	44070000 */ 	mfc1	$a3,$f0
 /*  f018ccc:	00003025 */ 	or	$a2,$zero,$zero
 /*  f018cd0:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f018cd4:	3c058006 */ 	lui	$a1,%hi(var80062508)
+/*  f018cd4:	3c058006 */ 	lui	$a1,%hi(g_TitleModelPdTwo)
 /*  f018cd8:	3c013f80 */ 	lui	$at,0x3f80
 /*  f018cdc:	8fa40330 */ 	lw	$a0,0x330($sp)
 /*  f018ce0:	45000002 */ 	bc1f	.L0f018cec
@@ -4195,13 +4162,13 @@ glabel var7f1a8468
 /*  f018d08:	8defccb0 */ 	lw	$t7,%lo(var8009ccb0)($t7)
 /*  f018d0c:	8f18cca8 */ 	lw	$t8,%lo(var8009cca8)($t8)
 /*  f018d10:	44813000 */ 	mtc1	$at,$f6
-/*  f018d14:	8ca52508 */ 	lw	$a1,%lo(var80062508)($a1)
+/*  f018d14:	8ca52508 */ 	lw	$a1,%lo(g_TitleModelPdTwo)($a1)
 /*  f018d18:	03201025 */ 	or	$v0,$t9,$zero
 /*  f018d1c:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f018d20:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f018d24:	afaf0020 */ 	sw	$t7,0x20($sp)
 /*  f018d28:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*  f018d2c:	0fc05c92 */ 	jal	func0f017248
+/*  f018d2c:	0fc05c92 */ 	jal	titleRenderPdLogoModel
 /*  f018d30:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*  f018d34:	10000019 */ 	b	.L0f018d9c
 /*  f018d38:	afa20330 */ 	sw	$v0,0x330($sp)
@@ -4218,7 +4185,7 @@ glabel var7f1a8468
 /*  f018d60:	8defccb0 */ 	lw	$t7,%lo(var8009ccb0)($t7)
 /*  f018d64:	8f18cca8 */ 	lw	$t8,%lo(var8009cca8)($t8)
 /*  f018d68:	240e00ff */ 	addiu	$t6,$zero,0xff
-/*  f018d6c:	8ca52508 */ 	lw	$a1,%lo(var80062508)($a1)
+/*  f018d6c:	8ca52508 */ 	lw	$a1,%lo(g_TitleModelPdTwo)($a1)
 /*  f018d70:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f018d74:	03201025 */ 	or	$v0,$t9,$zero
 /*  f018d78:	8fa40330 */ 	lw	$a0,0x330($sp)
@@ -4227,7 +4194,7 @@ glabel var7f1a8468
 /*  f018d84:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f018d88:	afaf0020 */ 	sw	$t7,0x20($sp)
 /*  f018d8c:	e7a80014 */ 	swc1	$f8,0x14($sp)
-/*  f018d90:	0fc05c92 */ 	jal	func0f017248
+/*  f018d90:	0fc05c92 */ 	jal	titleRenderPdLogoModel
 /*  f018d94:	afb8001c */ 	sw	$t8,0x1c($sp)
 /*  f018d98:	afa20330 */ 	sw	$v0,0x330($sp)
 .L0f018d9c:
@@ -4240,6 +4207,458 @@ glabel var7f1a8468
 /*  f018dac:	00000000 */ 	nop
 );
 #endif
+
+u32 var80062818 = 0x00000000;
+u32 var8006281c = 0x00000001;
+u32 var80062820 = 0x00000003;
+u32 var80062824 = 0x00000000;
+u32 var80062828 = 0x00000000;
+u32 var8006282c = 0x00000000;
+u32 var80062830 = 0x00000000;
+u32 var80062834 = 0x00000000;
+u32 var80062838 = 0x00000000;
+u32 var8006283c = 0x00000000;
+u32 var80062840 = 0x00000000;
+u32 var80062844 = 0x00000000;
+u32 var80062848 = 0x00000000;
+u32 var8006284c = 0x00000000;
+u32 var80062850 = 0x00000000;
+u32 var80062854 = 0x00000000;
+
+u32 var80062858 = 0x00000000;
+u32 var8006285c = 0x00000000;
+f32 var80062860 = 1000;
+
+// Mismatch: first tick assignments need to be permutated
+//Gfx *titleRenderPdLogo(Gfx *gdl)
+//{
+//	struct modelrenderdata renderdata = { NULL, true, 3 }; // 2f0
+//	Mtxf sp2b0;
+//	Mtxf sp270;
+//	Mtxf sp230;
+//	struct model *model; // 22c
+//	Mtxf sp1e8;
+//	Mtxf sp1a8;
+//	struct modelnode *node;
+//	struct modelrodata_dl *rodata; // 164
+//	struct modelrwdata_dl *rwdata; // 160
+//	f32 sp13c = g_TitleTimer / 4500.0f - 0.1f;
+//	LookAt *lookat; // 134
+//	Mtx spf0;
+//	f32 spe4;
+//	f32 spe0;
+//	s32 numvertices; // dc
+//	s32 numcolours; // d8
+//
+//	// b74
+//	if (g_PdLogoIsFirstTick) {
+//		g_PdLogoYRotCur = 4.2404751777649f;
+//		g_PdLogoYRotSpeed = 0.018846554681659f;
+//		g_PdLogoXRotCur = 0.47116386890411f;
+//		g_PdLogoXRotSpeed = 0.0f;
+//		g_PdLogoScale = 0.35f;
+//		g_PdLogoFrac = 0.0f;
+//		g_PdLogoUseCombinedModel = false;
+//		g_PdLogoAmbientLightFrac = 1.0f;
+//		g_PdLogoIsFirstTick = false;
+//		g_PdLogoBlackTimer = 1;
+//		g_PdLogoYRotEnabled = false;
+//		g_PdLogoPreMorphTimer = 0;
+//		g_PdLogoMorphing = false;
+//		g_PdLogoExitTimer = 0;
+//		g_PdLogoMorphEndTimer = 0;
+//		g_PdLogoYRotStopping = false;
+//		g_PdLogoDarkenEnabled = false;
+//		var80062804 = 1;
+//		g_PdLogoPointlessTimerEnabled = false;
+//		g_PdLogoPreTitleTimer = 0;
+//		g_PdLogoTitleStepFrac = 0.0f;
+//		g_PdLogoTitlePresenting = false;
+//		g_PdLogoTitleStep = -1;
+//		g_PdLogoPointlessTimer = 0;
+//		g_PdLogoUnusedRotEnabled = false;
+//		g_PdLogoUnusedRot = 1.5705462694168f;
+//		g_PdLogoLightMoving = false;
+//		g_PdLogoLightDirFrac = 0.0f;
+//	}
+//
+//	// c7c
+//	if (g_PdLogoBlackTimer != 0) {
+//		g_PdLogoBlackTimer++;
+//
+//		if (g_PdLogoBlackTimer >= 4) {
+//			g_PdLogoBlackTimer = 0;
+//			g_PdLogoYRotEnabled = true;
+//			g_PdLogoPreMorphTimer = 1;
+//		}
+//	}
+//
+//	// ce4
+//	if (g_PdLogoYRotStopping) {
+//		if (g_PdLogoYRotCur < g_PdLogoEndYRot) {
+//			applySpeed(&g_PdLogoYRotCur, g_PdLogoEndYRot, &g_PdLogoYRotSpeed, 0.00018846555030905f, 0.00018846555030905f, 0.018846554681659f);
+//
+//			if (g_PdLogoYRotCur >= g_PdLogoEndYRot) {
+//				g_PdLogoYRotCur = g_PdLogoEndYRot;
+//				g_PdLogoYRotSpeed = 0.0f;
+//			}
+//
+//			if (g_PdLogoYRotCur >= M_BADTAU) {
+//				g_PdLogoYRotCur -= M_BADTAU;
+//				g_PdLogoEndYRot -= M_BADTAU;
+//			} else if (g_PdLogoYRotCur < 0.0f) {
+//				g_PdLogoYRotCur += M_BADTAU;
+//				g_PdLogoEndYRot += M_BADTAU;
+//			}
+//		}
+//
+//		if (g_PdLogoYRotCur >= g_PdLogoEndYRot) {
+//			g_PdLogoYRotStopping = false;
+//		}
+//	} else /*e18*/ if (g_PdLogoYRotEnabled) {
+//		g_PdLogoYRotCur += g_PdLogoYRotSpeed * g_Vars.lvupdate240freal;
+//
+//		if (g_PdLogoYRotCur >= M_BADTAU) {
+//			g_PdLogoYRotCur -= M_BADTAU;
+//		} else if (g_PdLogoYRotCur < 0.0f) {
+//			g_PdLogoYRotCur += M_BADTAU;
+//		}
+//	}
+//
+//	// e90
+//	if (g_PdLogoPreMorphTimer != 0) {
+//		s32 duration = 80;
+//
+//		g_PdLogoPreMorphTimer += g_Vars.lvupdate240_60;
+//
+//		if (g_PdLogoPreMorphTimer > 0) {
+//			g_PdLogoFrac = (f32) g_PdLogoPreMorphTimer / (f32) duration;
+//		} else {
+//			g_PdLogoFrac = 0.0f;
+//		}
+//
+//		if (g_PdLogoPreMorphTimer > duration) {
+//			g_PdLogoPreMorphTimer = 0;
+//			g_PdLogoMorphing = true;
+//			g_PdLogoFrac = 0.0f;
+//			g_PdLogoUseCombinedModel = true;
+//		}
+//	}
+//
+//	// f14
+//	if (g_PdLogoMorphing) {
+//		g_PdLogoFrac += 0.004f * g_Vars.lvupdate240freal;
+//
+//		if (g_PdLogoFrac >= 0.8f) {
+//			if (g_PdLogoMorphEndTimer == 0) {
+//				g_PdLogoMorphEndTimer = 1;
+//			}
+//		}
+//
+//		if (g_PdLogoFrac >= 1.0f) {
+//			g_PdLogoFrac = 1.0f;
+//			g_PdLogoMorphing = false;
+//		}
+//	}
+//
+//	// f80
+//	if (g_PdLogoMorphEndTimer != 0) {
+//		g_PdLogoMorphEndTimer += g_Vars.lvupdate240_60;
+//
+//		if (g_PdLogoXRotCur > 0.0f) {
+//			// Implement the camera lowering effect, but it's actually
+//			// the model that rotates upwards to face the camera
+//			applyRotation(&g_PdLogoXRotCur, 0.0f, &g_PdLogoXRotSpeed, 0.00011307933164062f, 0.00011307933164062f, 0.011307933367789f);
+//
+//			if (g_PdLogoXRotCur <= 0.0f) {
+//				g_PdLogoXRotCur = 0.0f;
+//				g_PdLogoXRotSpeed = 0.0f;
+//			}
+//		}
+//
+//		if (g_PdLogoMorphEndTimer > 30 && g_PdLogoMorphEndTimer - g_Vars.lvupdate240_60 <= 30) {
+//			// Start slowing the spinning rotation
+//			g_PdLogoYRotEnabled = false;
+//			g_PdLogoYRotStopping = true;
+//			g_PdLogoEndYRot = ((s32) (g_PdLogoYRotCur * 4.0f / M_BADTAU) + 2) * M_BADTAU * 0.25f;
+//		}
+//
+//		if (g_PdLogoMorphEndTimer > 100 && g_PdLogoMorphEndTimer - g_Vars.lvupdate240_60 <= 100) {
+//			g_PdLogoDarkenEnabled = true;
+//		}
+//
+//		if (!g_PdLogoYRotStopping && g_PdLogoXRotCur <= 0.0f) {
+//			// Spinning has stopped and model is also facing camera vertically
+//			g_PdLogoMorphEndTimer = 0;
+//			g_PdLogoDarkenEnabled = true;
+//		}
+//	}
+//
+//	// 118
+//	if (g_PdLogoDarkenEnabled) {
+//		// Fading out the side and back faces of the logo...
+//		// This is done by adjusting the ambient lighting. I guess the front
+//		// face is excluded from ambient light?
+//		g_PdLogoAmbientLightFrac -= 0.0075f * g_Vars.lvupdate240freal;
+//
+//		if (g_PdLogoAmbientLightFrac <= 0.0f) {
+//			g_PdLogoAmbientLightFrac = 0.0f;
+//			g_PdLogoDarkenEnabled = false;
+//			g_PdLogoPreTitleTimer = 1;
+//		}
+//	}
+//
+//	// 178
+//	if (g_PdLogoPreTitleTimer != 0) {
+//		g_PdLogoPreTitleTimer += g_Vars.lvupdate240_60;
+//
+//		if (g_PdLogoPreTitleTimer > 20) {
+//			g_PdLogoPreTitleTimer = 0;
+//			g_PdLogoPointlessTimerEnabled = true;
+//		}
+//	}
+//
+//	// 1a8
+//	if (g_PdLogoPointlessTimerEnabled) {
+//		g_PdLogoPointlessTimerEnabled = false;
+//		g_PdLogoPointlessTimer = 1;
+//	}
+//
+//	// 1c4
+//	if (g_PdLogoPointlessTimer != 0) {
+//		g_PdLogoPointlessTimer += g_Vars.lvupdate240_60;
+//
+//		if (g_PdLogoPointlessTimer > 0) {
+//			g_PdLogoPointlessTimer = 0;
+//			g_PdLogoTitlePresenting = true;
+//			g_PdLogoTitleStep = 1;
+//			g_PdLogoLightMoving = true;
+//		}
+//	}
+//
+//	// 208
+//	if (g_PdLogoTitlePresenting) {
+//		g_PdLogoUnusedRotEnabled = true;
+//
+//		if (g_PdLogoTitleStep == 0) {
+//			// Unreachable - step 0 is not used
+//			g_PdLogoTitleStepFrac += 0.025f;
+//		} else if (g_PdLogoTitleStep == 1) {
+//			g_PdLogoTitleStepFrac += 0.09f;
+//		} else {
+//			g_PdLogoTitleStepFrac += 0.1f;
+//		}
+//
+//		if (g_PdLogoTitleStepFrac >= 1.0f) {
+//			g_PdLogoTitleStepFrac = 0.0f;
+//			g_PdLogoTitleStep++;
+//
+//			if (g_PdLogoTitleStep == 10) {
+//				g_PdLogoTitlePresenting = false;
+//				g_PdLogoExitTimer = 1;
+//			}
+//		}
+//	}
+//
+//	// 2d4
+//	if (g_PdLogoUnusedRotEnabled) {
+//		// Some unused value... maybe a different method of rotating the light?
+//		g_PdLogoUnusedRot += 0.0062821852043271f * g_Vars.lvupdate240freal;
+//
+//		if (g_PdLogoUnusedRot >= M_BADTAU) {
+//			g_PdLogoUnusedRot -= M_BADTAU;
+//		}
+//	}
+//
+//	// 32c
+//	if (g_PdLogoLightMoving) {
+//		g_PdLogoLightDirFrac += 0.017f * g_Vars.lvupdate240freal;
+//
+//		if (g_PdLogoLightDirFrac >= 1.0f) {
+//			g_PdLogoLightDirFrac = 1.0f;
+//			g_PdLogoLightMoving = false;
+//		}
+//	}
+//
+//	// 380
+//	if (g_PdLogoExitTimer != 0) {
+//		g_PdLogoExitTimer += g_Vars.lvupdate240_60;
+//
+//		if (g_PdLogoExitTimer > 60) {
+//			g_PdLogoExitTimer = 0;
+//			g_PdLogoTriggerExit = true;
+//		}
+//	}
+//
+//	// 3b0
+//	gdl = viSetFillColour(gdl, 0, 0, 0);
+//	gdl = viFillBuffer(gdl);
+//
+//	if (g_PdLogoBlackTimer != 0) {
+//		return gdl;
+//	}
+//
+//	lookat = gfxAllocateLookAt(2);
+//
+//	guLookAtReflect(&spf0, lookat,
+//			0.0f, 0.0f, 4000.0f,
+//			0.0f, 0.0f, 0.0f,
+//			0.0f, 1.0f, 0.0f);
+//
+//	gSPLookAt(gdl++, lookat);
+//
+//	spe4 = (g_PdLogoLightDirFrac + -1.0f) * M_PI + M_PI;
+//	spe0 = (0.0f - 0.15f * g_PdLogoLightDirFrac) * M_PI + M_PI;
+//
+//	var80062578.a.l.colc[0] = var80062578.a.l.colc[1] = var80062578.a.l.colc[2] = 0;
+//	var80062578.a.l.col[0] = var80062578.a.l.col[1] = var80062578.a.l.col[2] = 0;
+//	var80062578.l[0].l.colc[0] = var80062578.l[0].l.colc[1] = var80062578.l[0].l.colc[2] = 255;
+//	var80062578.l[0].l.col[0] = var80062578.l[0].l.col[1] = var80062578.l[0].l.col[2] = 255;
+//
+//	var80062578.l[0].l.dir[0] = 127.0f * sinf(spe4) * cosf(spe0);
+//	var80062578.l[0].l.dir[1] = 127.0f * sinf(spe0);
+//	var80062578.l[0].l.dir[2] = 127.0f * cosf(spe4) * cosf(spe0);
+//
+//	mtx00016ae4(&sp2b0,
+//			0.0f, 0.0f, 4000,
+//			0.0f, 0.0f, 0.0f,
+//			0.0f, 1.0f, 0.0f);
+//
+//	if (g_PdLogoUseCombinedModel == true) {
+//		model = g_TitleModel;
+//	} else {
+//		model = g_TitleModelNLogo2;
+//	}
+//
+//	mtx4LoadYRotation(g_PdLogoYRotCur, &sp1e8);
+//	mtx4LoadXRotation(g_PdLogoXRotCur, &sp1a8);
+//	mtx4MultMtx4InPlace(&sp1a8, &sp1e8);
+//	mtx4MultMtx4(&sp2b0, &sp1e8, &sp270);
+//	mtx00015f04(g_PdLogoScale, &sp270);
+//
+//	var80062560.a.l.colc[0] = var80062560.a.l.colc[1] = var80062560.a.l.colc[2] = 255.0f * g_PdLogoAmbientLightFrac;
+//	var80062560.a.l.col[0] = var80062560.a.l.col[1] = var80062560.a.l.col[2] = 255.0f * g_PdLogoAmbientLightFrac;
+//
+//	numvertices = 0;
+//	numcolours = 0;
+//
+//	node = modelGetPart(model->filedata, MODELPART_LOGO_0002);
+//
+//	if (node) {
+//		Gfx *tmp;
+//
+//		rodata = &node->rodata->dl;
+//		numvertices += rodata->numvertices + 1;
+//		numcolours += rodata->numcolours + 1;
+//
+//		rwdata = modelGetNodeRwData(model, node);
+//		rwdata->gdl = tmp = gfxAllocate(5 * sizeof(Gfx));
+//
+//		gSPSetLights1(tmp++, var80062530);
+//		gSPBranchList(tmp++, rodata->primary);
+//	}
+//
+//	node = modelGetPart(model->filedata, MODELPART_LOGO_0004);
+//
+//	if (node) {
+//		Gfx *tmp;
+//
+//		rodata = &node->rodata->dl;
+//		numvertices += rodata->numvertices + 1;
+//		numcolours += rodata->numcolours + 1;
+//
+//		rwdata = modelGetNodeRwData(model, node);
+//		rwdata->gdl = tmp = gfxAllocate(5 * sizeof(Gfx));
+//
+//		if (g_PdLogoAmbientLightFrac > 0.0f) {
+//			gSPSetLights1(tmp++, var80062560);
+//			gSPBranchList(tmp++, rodata->primary);
+//		} else {
+//			gSPEndDisplayList(tmp++);
+//		}
+//	}
+//
+//	node = modelGetPart(model->filedata, MODELPART_LOGO_0006);
+//
+//	if (node) {
+//		Gfx *tmp;
+//
+//		rodata = &node->rodata->dl;
+//		numvertices += rodata->numvertices + 1;
+//		numcolours += rodata->numcolours + 1;
+//
+//		rwdata = modelGetNodeRwData(model, node);
+//		rwdata->gdl = tmp = gfxAllocate(5 * sizeof(Gfx));
+//
+//		if (g_PdLogoAmbientLightFrac > 0.0f) {
+//			gSPSetLights1(tmp++, var80062560);
+//			gSPBranchList(tmp++, rodata->primary);
+//		} else {
+//			gSPEndDisplayList(tmp++);
+//		}
+//	}
+//
+//	node = modelGetPart(model->filedata, MODELPART_LOGO_0008);
+//
+//	if (node) {
+//		Gfx *tmp;
+//
+//		rodata = &node->rodata->dl;
+//		numvertices += rodata->numvertices + 1;
+//		numcolours += rodata->numcolours + 1;
+//
+//		rwdata = modelGetNodeRwData(model, node);
+//		rwdata->gdl = tmp = gfxAllocate(5 * sizeof(Gfx));
+//
+//		if (g_PdLogoAmbientLightFrac > 0.0f) {
+//			gSPSetLights1(tmp++, var80062560);
+//			gSPBranchList(tmp++, rodata->primary);
+//		} else {
+//			gSPEndDisplayList(tmp++);
+//		}
+//	}
+//
+//	gdl = titleRenderPdLogoModel(gdl, model, var80062804, g_PdLogoFrac, 240, 1.0f, &sp270, gfxAllocateVertices(numvertices), gfxAllocateColours(numcolours));
+//
+//	gSPSetLights1(gdl++, var80062578);
+//
+//	{
+//		struct coord sp64 = {0, 0, 1000};
+//
+//		mtx4LoadTranslation(&sp64, &sp1e8);
+//		mtx00015f88(1.0f + sp13c, &sp1e8);
+//		mtx4MultMtx4(&sp2b0, &sp1e8, &sp230);
+//		mtx00015f04(0.308f, &sp230);
+//
+//		if (g_PdLogoTitleStep >= 0) {
+//			if (g_PdLogoTitleStep == 0) {
+//				// empty
+//			} else if (g_PdLogoTitleStep == 1) {
+//				f32 frac = g_PdLogoTitleStepFrac;
+//				s32 a2 = g_PdLogoTitleStepFrac < 0.5f;
+//
+//				gdl = titleRenderPdLogoModel(gdl, g_TitleModelPdThree, a2, frac, 255, frac, &sp230, var8009cca8[var8009ccb8], var8009ccb0[var8009ccb8]);
+//			} else if (g_PdLogoTitleStep == 2) {
+//				f32 frac = g_PdLogoTitleStepFrac;
+//				s32 a2 = g_PdLogoTitleStepFrac < 0.5f;
+//
+//				gdl = titleRenderPdLogoModel(gdl, g_TitleModelPdTwo, a2, 1.0f - frac, 255, 1.0f, &sp230, var8009cca8[var8009ccb8], var8009ccb0[var8009ccb8]);
+//			} else if (g_PdLogoTitleStep == 3) {
+//				f32 frac = g_PdLogoTitleStepFrac;
+//				s32 a2 = g_PdLogoTitleStepFrac < 0.5f;
+//
+//				gdl = titleRenderPdLogoModel(gdl, g_TitleModelPdTwo, a2, frac, 255, 1.0f, &sp230, var8009cca8[var8009ccb8], var8009ccb0[var8009ccb8]);
+//			} else {
+//				gdl = titleRenderPdLogoModel(gdl, g_TitleModelPdTwo, 0, 1.0f, 255, 1.0f, &sp230, var8009cca8[var8009ccb8], var8009ccb0[var8009ccb8]);
+//			}
+//		}
+//	}
+//
+//	return gdl;
+//}
+
+struct sndstate *g_TitleAudioHandle = NULL;
+bool g_TitleTypewriterFinishing = false;
 
 void titleInitRarePresents(void)
 {
@@ -4376,9 +4795,9 @@ void titleInitNintendoLogo(void)
 {
 	u8 *nextaddr = var8009cca0;
 
-	var800624ac = 0;
+	g_TitleFastForward = false;
 
-	if (var800624a8) {
+	if (g_TitleButtonPressed) {
 		g_TitleTimer = PAL ? 133 : 180;
 	} else {
 		g_TitleTimer = 0;
@@ -4404,6 +4823,12 @@ void titleExitNintendoLogo(void)
 	joy00014810(true);
 }
 
+/**
+ * If no button has been pressed during the Rare logo (so g_TitleButtonPressed
+ * is false) and the player presses a button within 140 ticks of the Nintendo
+ * logo, the Nintendo logo sequence will play at double speed until it exits at
+ * the 140 tick mark.
+ */
 void titleTickNintendoLogo(void)
 {
 	viSetFovY(60);
@@ -4413,22 +4838,22 @@ void titleTickNintendoLogo(void)
 
 	g_TitleTimer += g_Vars.lvupdate240_60;
 
-	if (var800624ac) {
+	if (g_TitleFastForward) {
 		g_TitleTimer += g_Vars.lvupdate240_60;
 	}
 
 	if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
 		if (osResetType == 1 /*warm*/) {
-			var800624a8 = 1;
+			g_TitleButtonPressed = true;
 			titleSetNextMode(TITLEMODE_PDLOGO);
-		} else if (var800624a8 == 0) {
-			var800624ac = 1;
+		} else if (!g_TitleButtonPressed) {
+			g_TitleFastForward = true;
 		}
 	}
 
-	if (var800624ac && var800624a8 == 0 && g_TitleTimer > PALDOWN(140)) {
-		var800624a8 = 1;
-		var800624ac = 0;
+	if (g_TitleFastForward && !g_TitleButtonPressed && g_TitleTimer > PALDOWN(140)) {
+		g_TitleButtonPressed = true;
+		g_TitleFastForward = false;
 		titleSetNextMode(TITLEMODE_PDLOGO);
 	}
 
@@ -4547,8 +4972,8 @@ void titleInitRareLogo(void)
 		musicQueueStopAllEvent();
 		joy00014810(false);
 
-		if (var800624a4 == false && g_Is4Mb != true) {
-			var800624a4 = true;
+		if (!g_IsTitleDemo && IS8MB()) {
+			g_IsTitleDemo = true;
 		}
 	}
 }
@@ -4559,6 +4984,16 @@ void titleExitRareLogo(void)
 	joy00014810(true);
 }
 
+/**
+ * If a button is pressed between 0-59 ticks, set the timer to 100 and schedule
+ * the next mode for 140 (ie. in 40 ticks time).
+ *
+ * If a button is pressed at 60+ ticks, set the next mode immediately.
+ *
+ * So the fastest way to skip through the Rare logo is to press a button as
+ * early as possible, but if you press the button between 20-59 ticks it'll end
+ * up taking longer than if you'd waited a second.
+ */
 void titleTickRareLogo(void)
 {
 	viSetFovY(60);
@@ -4577,25 +5012,25 @@ void titleTickRareLogo(void)
 
 		if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
 			if (osResetType == 1 /*warm*/) {
-				var800624a8 = 1;
+				g_TitleButtonPressed = true;
 				titleSetNextMode(TITLEMODE_PDLOGO);
-			} else if (var800624a8 == 0) {
+			} else if (!g_TitleButtonPressed) {
 				if (g_TitleTimer < PALDOWN(60)) {
-					var800624a8 = 1;
+					g_TitleButtonPressed = true;
 
 					if (g_TitleTimer < PALDOWN(100)) {
 						g_TitleTimer = PALDOWN(100);
 					}
 				} else {
-					var800624ac = 1;
-					var800624a8 = 1;
+					g_TitleFastForward = true;
+					g_TitleButtonPressed = true;
 				}
 			}
 		}
 
 		if (g_TitleTimer > PALDOWN(240)
-				|| var800624ac
-				|| (var800624a8 && g_TitleTimer > PALDOWN(140))) {
+				|| g_TitleFastForward
+				|| (g_TitleButtonPressed && g_TitleTimer > PALDOWN(140))) {
 			titleSetNextMode(TITLEMODE_NINTENDOLOGO);
 		}
 	}
@@ -4669,7 +5104,6 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 		} else {
 			func0f01616c(&var800625a8, s0, s0, s0, 0, &sp104);
 		}
-
 
 		var80062920 += g_Vars.lvupdate240f / 90;
 
@@ -4798,9 +5232,9 @@ void titleInitSkip(void)
 
 	setNumPlayers(1);
 
-	if (var800624a4 != 0) {
+	if (g_IsTitleDemo) {
 		g_TitleNextStage = STAGE_DEFECTION;
-		var800624a4++;
+		g_IsTitleDemo++;
 	}
 
 	if (IS4MB()) {
@@ -4868,8 +5302,8 @@ glabel titleRenderNoController
 /*  f01a564:	0fc55cbe */ 	jal	textMeasure
 /*  f01a568:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f01a56c:	8faf0060 */ 	lw	$t7,0x60($sp)
-/*  f01a570:	3c098006 */ 	lui	$t1,%hi(var800624a0)
-/*  f01a574:	852924a0 */ 	lh	$t1,%lo(var800624a0)($t1)
+/*  f01a570:	3c098006 */ 	lui	$t1,%hi(g_TitleViewHeight)
+/*  f01a574:	852924a0 */ 	lh	$t1,%lo(g_TitleViewHeight)($t1)
 /*  f01a578:	8fab0064 */ 	lw	$t3,0x64($sp)
 /*  f01a57c:	000fc043 */ 	sra	$t8,$t7,0x1
 /*  f01a580:	3c0f8008 */ 	lui	$t7,%hi(g_Jpn)
@@ -4953,8 +5387,8 @@ glabel titleRenderNoController
 /*  f01a6ac:	0fc55cbe */ 	jal	textMeasure
 /*  f01a6b0:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f01a6b4:	8fb90060 */ 	lw	$t9,0x60($sp)
-/*  f01a6b8:	3c0b8006 */ 	lui	$t3,%hi(var800624a0)
-/*  f01a6bc:	856b24a0 */ 	lh	$t3,%lo(var800624a0)($t3)
+/*  f01a6b8:	3c0b8006 */ 	lui	$t3,%hi(g_TitleViewHeight)
+/*  f01a6bc:	856b24a0 */ 	lh	$t3,%lo(g_TitleViewHeight)($t3)
 /*  f01a6c0:	8fac0064 */ 	lw	$t4,0x64($sp)
 /*  f01a6c4:	0019c043 */ 	sra	$t8,$t9,0x1
 /*  f01a6c8:	3c198008 */ 	lui	$t9,%hi(g_Jpn)
@@ -5062,7 +5496,7 @@ glabel titleRenderNoController
 //	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 //
 //	x = 288 - (textwidth >> 1);
-//	y = ((var800624a0 / 2) - (textheight >> 1)) - 12;
+//	y = ((g_TitleViewHeight / 2) - (textheight >> 1)) - 12;
 //
 //	if (g_Jpn) {
 //		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg,
@@ -5077,7 +5511,7 @@ glabel titleRenderNoController
 //	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 //
 //	x = 288 - (textwidth >> 1);
-//	y = ((var800624a0 / 2) - (textheight >> 1)) + 12;
+//	y = ((g_TitleViewHeight / 2) - (textheight >> 1)) + 12;
 //
 //	if (g_Jpn) {
 //		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg,
@@ -5107,14 +5541,14 @@ s32 titleGetMode(void)
 void titleTick(void)
 {
 #if PAL
-	viSetAspect(576.0f / var800624a0 * 1.1904761791229f);
+	viSetAspect(576.0f / g_TitleViewHeight * 1.1904761791229f);
 #else
-	viSetAspect(576.0f / var800624a0);
+	viSetAspect(576.0f / g_TitleViewHeight);
 #endif
-	viSetSize(576, var800624a0);
-	viSetBufSize(576, var800624a0);
-	currentPlayerSetViewSize(576, var800624a0);
-	viSetViewSize(576, var800624a0);
+	viSetSize(576, g_TitleViewHeight);
+	viSetBufSize(576, g_TitleViewHeight);
+	currentPlayerSetViewSize(576, g_TitleViewHeight);
+	viSetViewSize(576, g_TitleViewHeight);
 	currentPlayerSetViewPosition(0, 0);
 	viSetViewPosition(0, 0);
 
@@ -5170,7 +5604,7 @@ void titleTick(void)
 	if (g_TitleNextMode >= 0) {
 		g_TitleMode = g_TitleNextMode;
 		g_TitleNextMode = -1;
-		var800624ac = 0;
+		g_TitleFastForward = false;
 
 		switch (g_TitleMode) {
 		case TITLEMODE_LEGAL:
@@ -5325,10 +5759,10 @@ bool func0f01ad5c(void)
 void func0f01adb8(void)
 {
 	viSetMode(VIMODE_HI);
-	viSetSize(576, var800624a0);
-	viSetBufSize(576, var800624a0);
-	currentPlayerSetViewSize(576, var800624a0);
-	viSetViewSize(576, var800624a0);
+	viSetSize(576, g_TitleViewHeight);
+	viSetBufSize(576, g_TitleViewHeight);
+	currentPlayerSetViewSize(576, g_TitleViewHeight);
+	viSetViewSize(576, g_TitleViewHeight);
 	currentPlayerSetViewPosition(0, 0);
 	viSetViewPosition(0, 0);
 }

@@ -5250,7 +5250,7 @@ bool aiNoOp00db(void)
 bool aiEndLevel(void)
 {
 	if (debugAllowEndLevel()) {
-		if (var800624a4) {
+		if (g_IsTitleDemo) {
 			mainChangeToStage(STAGE_TITLE);
 		} else if (g_Vars.autocutplaying) {
 			g_Vars.autocutfinished = true;

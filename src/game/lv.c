@@ -8127,16 +8127,16 @@ void lvTick(void)
 				|| joyGetStickX(3) > 10
 				|| joyGetStickX(3) < -10
 				|| joyGetStickY(3) > 10
-				|| joyGetStickY(3) < -10) && var800624a4) {
+				|| joyGetStickY(3) < -10) && g_IsTitleDemo) {
 		if (g_Vars.stagenum != STAGE_TITLE) {
 			titleSetNextMode(TITLEMODE_SKIP);
 			mainChangeToStage(STAGE_TITLE);
 		}
 
-		var800624a4 = 0;
+		g_IsTitleDemo = false;
 	}
 
-	if (g_Vars.stagenum < STAGE_TITLE && !var800624a4 && !g_Vars.in_cutscene) {
+	if (g_Vars.stagenum < STAGE_TITLE && !g_IsTitleDemo && !g_Vars.in_cutscene) {
 		if (joyGetButtons(0, 0xffff) == 0
 				&& joyGetStickX(0) < 10
 				&& joyGetStickX(0) > -10
@@ -8157,12 +8157,12 @@ void lvTick(void)
 				&& joyGetStickX(3) > -10
 				&& joyGetStickY(3) < 10
 				&& joyGetStickY(3) > -10) {
-			var800624b0 += g_Vars.diffframe60;
+			g_TitleIdleTime60 += g_Vars.diffframe60;
 		} else {
-			var800624b0 = 0;
+			g_TitleIdleTime60 = 0;
 		}
 	} else {
-		var800624b0 = 0;
+		g_TitleIdleTime60 = 0;
 	}
 
 	g_NumReasonsToEndMpMatch = 0;

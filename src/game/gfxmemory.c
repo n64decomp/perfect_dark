@@ -138,7 +138,7 @@ void *gfxAllocateMatrix(void)
 	return ptr;
 }
 
-void *gfxAllocate4Words(s32 count)
+void *gfxAllocateLookAt(s32 count)
 {
 	void *ptr = g_GfxMemPos;
 	g_GfxMemPos += count * 0x10;
