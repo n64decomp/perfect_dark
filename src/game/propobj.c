@@ -68505,264 +68505,52 @@ bool posIsInDrawDistance(struct coord *pos)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel doorCreateSparks
-/*  f08ea50:	27bdff18 */ 	addiu	$sp,$sp,-232
-/*  f08ea54:	afb30050 */ 	sw	$s3,0x50($sp)
-/*  f08ea58:	00809825 */ 	or	$s3,$a0,$zero
-/*  f08ea5c:	afbf0054 */ 	sw	$ra,0x54($sp)
-/*  f08ea60:	afb2004c */ 	sw	$s2,0x4c($sp)
-/*  f08ea64:	afb10048 */ 	sw	$s1,0x48($sp)
-/*  f08ea68:	afb00044 */ 	sw	$s0,0x44($sp)
-/*  f08ea6c:	84840006 */ 	lh	$a0,0x6($a0)
-/*  f08ea70:	27a60094 */ 	addiu	$a2,$sp,0x94
-/*  f08ea74:	0fc456ac */ 	jal	padUnpack
-/*  f08ea78:	2405003a */ 	addiu	$a1,$zero,0x3a
-/*  f08ea7c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f08ea80:	44816000 */ 	mtc1	$at,$f12
-/*  f08ea84:	c7a400d0 */ 	lwc1	$f4,0xd0($sp)
-/*  f08ea88:	c7a600cc */ 	lwc1	$f6,0xcc($sp)
-/*  f08ea8c:	c668007c */ 	lwc1	$f8,0x7c($s3)
-/*  f08ea90:	27b00070 */ 	addiu	$s0,$sp,0x70
-/*  f08ea94:	46062081 */ 	sub.s	$f2,$f4,$f6
-/*  f08ea98:	c7a400ac */ 	lwc1	$f4,0xac($sp)
-/*  f08ea9c:	27b100ac */ 	addiu	$s1,$sp,0xac
-/*  f08eaa0:	46086281 */ 	sub.s	$f10,$f12,$f8
-/*  f08eaa4:	27b20088 */ 	addiu	$s2,$sp,0x88
-/*  f08eaa8:	240e0009 */ 	addiu	$t6,$zero,0x9
-/*  f08eaac:	02403025 */ 	or	$a2,$s2,$zero
-/*  f08eab0:	46025402 */ 	mul.s	$f16,$f10,$f2
-/*  f08eab4:	c7aa0094 */ 	lwc1	$f10,0x94($sp)
-/*  f08eab8:	02003825 */ 	or	$a3,$s0,$zero
-/*  f08eabc:	46103480 */ 	add.s	$f18,$f6,$f16
-/*  f08eac0:	46122202 */ 	mul.s	$f8,$f4,$f18
-/*  f08eac4:	460a4000 */ 	add.s	$f0,$f8,$f10
-/*  f08eac8:	e7a0007c */ 	swc1	$f0,0x7c($sp)
-/*  f08eacc:	e7a00088 */ 	swc1	$f0,0x88($sp)
-/*  f08ead0:	c670007c */ 	lwc1	$f16,0x7c($s3)
-/*  f08ead4:	46106481 */ 	sub.s	$f18,$f12,$f16
-/*  f08ead8:	c7b000b0 */ 	lwc1	$f16,0xb0($sp)
-/*  f08eadc:	46029202 */ 	mul.s	$f8,$f18,$f2
-/*  f08eae0:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f08eae4:	c7a80098 */ 	lwc1	$f8,0x98($sp)
-/*  f08eae8:	460a8482 */ 	mul.s	$f18,$f16,$f10
-/*  f08eaec:	46089000 */ 	add.s	$f0,$f18,$f8
-/*  f08eaf0:	e7a00080 */ 	swc1	$f0,0x80($sp)
-/*  f08eaf4:	e7a0008c */ 	swc1	$f0,0x8c($sp)
-/*  f08eaf8:	c66a007c */ 	lwc1	$f10,0x7c($s3)
-/*  f08eafc:	460a6481 */ 	sub.s	$f18,$f12,$f10
-/*  f08eb00:	46029202 */ 	mul.s	$f8,$f18,$f2
-/*  f08eb04:	c7b200b4 */ 	lwc1	$f18,0xb4($sp)
-/*  f08eb08:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f08eb0c:	c7a8009c */ 	lwc1	$f8,0x9c($sp)
-/*  f08eb10:	460a9182 */ 	mul.s	$f6,$f18,$f10
-/*  f08eb14:	c7aa00a0 */ 	lwc1	$f10,0xa0($sp)
-/*  f08eb18:	46083000 */ 	add.s	$f0,$f6,$f8
-/*  f08eb1c:	c7a600d8 */ 	lwc1	$f6,0xd8($sp)
-/*  f08eb20:	46065202 */ 	mul.s	$f8,$f10,$f6
-/*  f08eb24:	c7a60088 */ 	lwc1	$f6,0x88($sp)
-/*  f08eb28:	e7a00090 */ 	swc1	$f0,0x90($sp)
-/*  f08eb2c:	e7a00084 */ 	swc1	$f0,0x84($sp)
-/*  f08eb30:	46083180 */ 	add.s	$f6,$f6,$f8
-/*  f08eb34:	c7a800a4 */ 	lwc1	$f8,0xa4($sp)
-/*  f08eb38:	e7a60088 */ 	swc1	$f6,0x88($sp)
-/*  f08eb3c:	c7a600d8 */ 	lwc1	$f6,0xd8($sp)
-/*  f08eb40:	46064202 */ 	mul.s	$f8,$f8,$f6
-/*  f08eb44:	c7a6008c */ 	lwc1	$f6,0x8c($sp)
-/*  f08eb48:	46083180 */ 	add.s	$f6,$f6,$f8
-/*  f08eb4c:	c7a800a8 */ 	lwc1	$f8,0xa8($sp)
-/*  f08eb50:	e7a6008c */ 	swc1	$f6,0x8c($sp)
-/*  f08eb54:	c7a600d8 */ 	lwc1	$f6,0xd8($sp)
-/*  f08eb58:	46064202 */ 	mul.s	$f8,$f8,$f6
-/*  f08eb5c:	46080180 */ 	add.s	$f6,$f0,$f8
-/*  f08eb60:	c7a800d4 */ 	lwc1	$f8,0xd4($sp)
-/*  f08eb64:	e7a60090 */ 	swc1	$f6,0x90($sp)
-/*  f08eb68:	46085182 */ 	mul.s	$f6,$f10,$f8
-/*  f08eb6c:	c7aa007c */ 	lwc1	$f10,0x7c($sp)
-/*  f08eb70:	46065200 */ 	add.s	$f8,$f10,$f6
-/*  f08eb74:	c7a600d4 */ 	lwc1	$f6,0xd4($sp)
-/*  f08eb78:	c7aa00a4 */ 	lwc1	$f10,0xa4($sp)
-/*  f08eb7c:	e7a8007c */ 	swc1	$f8,0x7c($sp)
-/*  f08eb80:	46065202 */ 	mul.s	$f8,$f10,$f6
-/*  f08eb84:	c7aa0080 */ 	lwc1	$f10,0x80($sp)
-/*  f08eb88:	46085180 */ 	add.s	$f6,$f10,$f8
-/*  f08eb8c:	c7a800d4 */ 	lwc1	$f8,0xd4($sp)
-/*  f08eb90:	c7aa00a8 */ 	lwc1	$f10,0xa8($sp)
-/*  f08eb94:	e7a60080 */ 	swc1	$f6,0x80($sp)
-/*  f08eb98:	46085182 */ 	mul.s	$f6,$f10,$f8
-/*  f08eb9c:	46002207 */ 	neg.s	$f8,$f4
-/*  f08eba0:	e7a80070 */ 	swc1	$f8,0x70($sp)
-/*  f08eba4:	46060280 */ 	add.s	$f10,$f0,$f6
-/*  f08eba8:	46008187 */ 	neg.s	$f6,$f16
-/*  f08ebac:	e7aa0084 */ 	swc1	$f10,0x84($sp)
-/*  f08ebb0:	46009287 */ 	neg.s	$f10,$f18
-/*  f08ebb4:	e7a60074 */ 	swc1	$f6,0x74($sp)
-/*  f08ebb8:	e7aa0078 */ 	swc1	$f10,0x78($sp)
-/*  f08ebbc:	8e650014 */ 	lw	$a1,0x14($s3)
-/*  f08ebc0:	84a40028 */ 	lh	$a0,0x28($a1)
-/*  f08ebc4:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f08ebc8:	0fc4be7c */ 	jal	sparksCreate
-/*  f08ebcc:	afb10010 */ 	sw	$s1,0x10($sp)
-/*  f08ebd0:	8e650014 */ 	lw	$a1,0x14($s3)
-/*  f08ebd4:	240f0009 */ 	addiu	$t7,$zero,0x9
-/*  f08ebd8:	27a6007c */ 	addiu	$a2,$sp,0x7c
-/*  f08ebdc:	84a40028 */ 	lh	$a0,0x28($a1)
-/*  f08ebe0:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f08ebe4:	afb10010 */ 	sw	$s1,0x10($sp)
-/*  f08ebe8:	0fc4be7c */ 	jal	sparksCreate
-/*  f08ebec:	02003825 */ 	or	$a3,$s0,$zero
-/*  f08ebf0:	0c004b70 */ 	jal	random
-/*  f08ebf4:	00000000 */ 	nop
-/*  f08ebf8:	30580001 */ 	andi	$t8,$v0,0x1
-/*  f08ebfc:	1300000b */ 	beqz	$t8,.L0f08ec2c
-/*  f08ec00:	02403025 */ 	or	$a2,$s2,$zero
-/*  f08ec04:	8e650014 */ 	lw	$a1,0x14($s3)
-/*  f08ec08:	2419000c */ 	addiu	$t9,$zero,0xc
-/*  f08ec0c:	02403025 */ 	or	$a2,$s2,$zero
-/*  f08ec10:	84a40028 */ 	lh	$a0,0x28($a1)
-/*  f08ec14:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f08ec18:	afb10010 */ 	sw	$s1,0x10($sp)
-/*  f08ec1c:	0fc4be7c */ 	jal	sparksCreate
-/*  f08ec20:	02003825 */ 	or	$a3,$s0,$zero
-/*  f08ec24:	10000008 */ 	b	.L0f08ec48
-/*  f08ec28:	00000000 */ 	nop
-.L0f08ec2c:
-/*  f08ec2c:	8e650014 */ 	lw	$a1,0x14($s3)
-/*  f08ec30:	2408000d */ 	addiu	$t0,$zero,0xd
-/*  f08ec34:	02003825 */ 	or	$a3,$s0,$zero
-/*  f08ec38:	84a40028 */ 	lh	$a0,0x28($a1)
-/*  f08ec3c:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f08ec40:	0fc4be7c */ 	jal	sparksCreate
-/*  f08ec44:	afb10010 */ 	sw	$s1,0x10($sp)
-.L0f08ec48:
-/*  f08ec48:	0fc25480 */ 	jal	propsndGetRandomSparkSound
-/*  f08ec4c:	00000000 */ 	nop
-/*  f08ec50:	8e650014 */ 	lw	$a1,0x14($s3)
-/*  f08ec54:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f08ec58:	44810000 */ 	mtc1	$at,$f0
-/*  f08ec5c:	00023400 */ 	sll	$a2,$v0,0x10
-/*  f08ec60:	00064c03 */ 	sra	$t1,$a2,0x10
-/*  f08ec64:	240affff */ 	addiu	$t2,$zero,-1
-/*  f08ec68:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f08ec6c:	24ab0028 */ 	addiu	$t3,$a1,0x28
-/*  f08ec70:	afab0028 */ 	sw	$t3,0x28($sp)
-/*  f08ec74:	afac002c */ 	sw	$t4,0x2c($sp)
-/*  f08ec78:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f08ec7c:	01203025 */ 	or	$a2,$t1,$zero
-/*  f08ec80:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f08ec84:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f08ec88:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f08ec8c:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f08ec90:	00002025 */ 	or	$a0,$zero,$zero
-/*  f08ec94:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f08ec98:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f08ec9c:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f08eca0:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f08eca4:	0fc24e7e */ 	jal	func0f0939f8
-/*  f08eca8:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f08ecac:	0fc25480 */ 	jal	propsndGetRandomSparkSound
-/*  f08ecb0:	00000000 */ 	nop
-/*  f08ecb4:	8e650014 */ 	lw	$a1,0x14($s3)
-/*  f08ecb8:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f08ecbc:	44810000 */ 	mtc1	$at,$f0
-/*  f08ecc0:	00023400 */ 	sll	$a2,$v0,0x10
-/*  f08ecc4:	00066c03 */ 	sra	$t5,$a2,0x10
-/*  f08ecc8:	240effff */ 	addiu	$t6,$zero,-1
-/*  f08eccc:	27af007c */ 	addiu	$t7,$sp,0x7c
-/*  f08ecd0:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f08ecd4:	24b80028 */ 	addiu	$t8,$a1,0x28
-/*  f08ecd8:	afb80028 */ 	sw	$t8,0x28($sp)
-/*  f08ecdc:	afb9002c */ 	sw	$t9,0x2c($sp)
-/*  f08ece0:	afaf0020 */ 	sw	$t7,0x20($sp)
-/*  f08ece4:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f08ece8:	01a03025 */ 	or	$a2,$t5,$zero
-/*  f08ecec:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f08ecf0:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f08ecf4:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f08ecf8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f08ecfc:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f08ed00:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f08ed04:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f08ed08:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f08ed0c:	0fc24e7e */ 	jal	func0f0939f8
-/*  f08ed10:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f08ed14:	8e650014 */ 	lw	$a1,0x14($s3)
-/*  f08ed18:	2412ffff */ 	addiu	$s2,$zero,-1
-/*  f08ed1c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f08ed20:	84a80028 */ 	lh	$t0,0x28($a1)
-/*  f08ed24:	5248000d */ 	beql	$s2,$t0,.L0f08ed5c
-/*  f08ed28:	8fbf0054 */ 	lw	$ra,0x54($sp)
-/*  f08ed2c:	84b10028 */ 	lh	$s1,0x28($a1)
-/*  f08ed30:	02202025 */ 	or	$a0,$s1,$zero
-.L0f08ed34:
-/*  f08ed34:	24050080 */ 	addiu	$a1,$zero,0x80
-/*  f08ed38:	0fc010e3 */ 	jal	roomAdjustLighting
-/*  f08ed3c:	240600c8 */ 	addiu	$a2,$zero,0xc8
-/*  f08ed40:	8e690014 */ 	lw	$t1,0x14($s3)
-/*  f08ed44:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f08ed48:	01305021 */ 	addu	$t2,$t1,$s0
-/*  f08ed4c:	85510028 */ 	lh	$s1,0x28($t2)
-/*  f08ed50:	5651fff8 */ 	bnel	$s2,$s1,.L0f08ed34
-/*  f08ed54:	02202025 */ 	or	$a0,$s1,$zero
-/*  f08ed58:	8fbf0054 */ 	lw	$ra,0x54($sp)
-.L0f08ed5c:
-/*  f08ed5c:	8fb00044 */ 	lw	$s0,0x44($sp)
-/*  f08ed60:	8fb10048 */ 	lw	$s1,0x48($sp)
-/*  f08ed64:	8fb2004c */ 	lw	$s2,0x4c($sp)
-/*  f08ed68:	8fb30050 */ 	lw	$s3,0x50($sp)
-/*  f08ed6c:	03e00008 */ 	jr	$ra
-/*  f08ed70:	27bd00e8 */ 	addiu	$sp,$sp,0xe8
-);
+void doorCreateSparks(struct doorobj *door)
+{
+	struct pad pad;
+	struct coord sp88;
+	struct coord sp7c;
+	struct coord sp70;
+	s32 i;
 
-// Mismatch: float instructions are ordered differently
-//void doorCreateSparks(struct doorobj *door)
-//{
-//	struct pad pad;
-//	struct coord sp88;
-//	struct coord sp7c;
-//	struct coord sp70;
-//	f32 height;
-//	s32 i;
-//
-//	padUnpack(door->base.pad, PADFIELD_POS | PADFIELD_UP | PADFIELD_NORMAL | PADFIELD_BBOX, &pad);
-//	height = pad.bbox.ymax - pad.bbox.ymin;
-//
-//	sp88.x = sp7c.x = pad.pos.x + pad.up.x * (pad.bbox.ymin + height * (1 - door->frac));
-//	sp88.y = sp7c.y = pad.pos.y + pad.up.y * (pad.bbox.ymin + height * (1 - door->frac));
-//	sp88.z = sp7c.z = pad.pos.z + pad.up.z * (pad.bbox.ymin + height * (1 - door->frac));
-//
-//	sp88.x += pad.look.x * pad.bbox.zmax;
-//	sp88.y += pad.look.y * pad.bbox.zmax;
-//	sp88.z += pad.look.z * pad.bbox.zmax;
-//
-//	sp7c.x += pad.look.x * pad.bbox.zmin;
-//	sp7c.y += pad.look.y * pad.bbox.zmin;
-//	sp7c.z += pad.look.z * pad.bbox.zmin;
-//
-//	sp70.x = -pad.up.x;
-//	sp70.y = -pad.up.y;
-//	sp70.z = -pad.up.z;
-//
-//	sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_09);
-//
-//	sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp7c, &sp70, &pad.up, SPARKTYPE_09);
-//
-//	if (random() % 2) {
-//		sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_0C);
-//	} else {
-//		sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_0D);
-//	}
-//
-//	func0f0939f8(NULL, door->base.prop, propsndGetRandomSparkSound(), -1,
-//			-1, 0, 0, 0, &sp88, -1, door->base.prop->rooms, -1, -1, -1, -1);
-//
-//	func0f0939f8(NULL, door->base.prop, propsndGetRandomSparkSound(), -1,
-//			-1, 0, 0, 0, &sp7c, -1, door->base.prop->rooms, -1, -1, -1, -1);
-//
-//	for (i = 0; door->base.prop->rooms[i] != -1; i++) {
-//		roomAdjustLighting(door->base.prop->rooms[i], 128, 200);
-//	}
-//}
+	padUnpack(door->base.pad, PADFIELD_POS | PADFIELD_UP | PADFIELD_NORMAL | PADFIELD_BBOX, &pad);
+
+	sp88.x = sp7c.f[0] = pad.pos.f[0] + pad.up.f[0] * (pad.bbox.ymin + (1 - door->frac) * (pad.bbox.ymax - pad.bbox.ymin));
+	sp88.y = sp7c.f[1] = pad.pos.f[1] + pad.up.f[1] * (pad.bbox.ymin + (1 - door->frac) * (pad.bbox.ymax - pad.bbox.ymin));
+	sp88.z = sp7c.f[2] = pad.pos.f[2] + pad.up.f[2] * (pad.bbox.ymin + (1 - door->frac) * (pad.bbox.ymax - pad.bbox.ymin));
+
+	sp88.x += pad.look.f[0] * pad.bbox.zmax;
+	sp88.y += pad.look.f[1] * pad.bbox.zmax;
+	sp88.z += pad.look.f[2] * pad.bbox.zmax;
+
+	sp7c.x += pad.look.f[0] * pad.bbox.zmin;
+	sp7c.y += pad.look.f[1] * pad.bbox.zmin;
+	sp7c.z += pad.look.f[2] * pad.bbox.zmin;
+
+	sp70.x = -pad.up.x;
+	sp70.y = -pad.up.y;
+	sp70.z = -pad.up.z;
+
+	sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_09);
+
+	sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp7c, &sp70, &pad.up, SPARKTYPE_09);
+
+	if (random() % 2) {
+		sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_0C);
+	} else {
+		sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_0D);
+	}
+
+	func0f0939f8(NULL, door->base.prop, propsndGetRandomSparkSound(), -1,
+			-1, 0, 0, 0, &sp88, -1, door->base.prop->rooms, -1, -1, -1, -1);
+
+	func0f0939f8(NULL, door->base.prop, propsndGetRandomSparkSound(), -1,
+			-1, 0, 0, 0, &sp7c, -1, door->base.prop->rooms, -1, -1, -1, -1);
+
+	for (i = 0; door->base.prop->rooms[i] != -1; i++) {
+		roomAdjustLighting(door->base.prop->rooms[i], 128, 200);
+	}
+}
 
 /**
  * Calculate/tick a door's frac (the amount it's open) without any consideration
