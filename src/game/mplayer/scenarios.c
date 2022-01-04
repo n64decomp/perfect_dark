@@ -4682,44 +4682,22 @@ bool scenarioKohIsRoomHighlighted(s16 room)
 	return room == g_ScenarioData.koh.hillrooms[0];
 }
 
-GLOBAL_ASM(
-glabel scenarioKohCallback38
-/*  f182b08:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData)
-/*  f182b0c:	2442c110 */ 	addiu	$v0,$v0,%lo(g_ScenarioData)
-/*  f182b10:	8458000e */ 	lh	$t8,0xe($v0)
-/*  f182b14:	00047400 */ 	sll	$t6,$a0,0x10
-/*  f182b18:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*  f182b1c:	15f8001a */ 	bne	$t7,$t8,.L0f182b88
-/*  f182b20:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f182b24:	8cb90000 */ 	lw	$t9,0x0($a1)
-/*  f182b28:	8cc80000 */ 	lw	$t0,0x0($a2)
-/*  f182b2c:	8ce90000 */ 	lw	$t1,0x0($a3)
-/*  f182b30:	44992000 */ 	mtc1	$t9,$f4
-/*  f182b34:	44883000 */ 	mtc1	$t0,$f6
-/*  f182b38:	c44a0030 */ 	lwc1	$f10,0x30($v0)
-/*  f182b3c:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f182b40:	44894000 */ 	mtc1	$t1,$f8
-/*  f182b44:	c4500034 */ 	lwc1	$f16,0x34($v0)
-/*  f182b48:	c4520038 */ 	lwc1	$f18,0x38($v0)
-/*  f182b4c:	468030a0 */ 	cvt.s.w	$f2,$f6
-/*  f182b50:	460a0002 */ 	mul.s	$f0,$f0,$f10
-/*  f182b54:	00000000 */ 	nop
-/*  f182b58:	46101082 */ 	mul.s	$f2,$f2,$f16
-/*  f182b5c:	46804320 */ 	cvt.s.w	$f12,$f8
-/*  f182b60:	4600010d */ 	trunc.w.s	$f4,$f0
-/*  f182b64:	46126302 */ 	mul.s	$f12,$f12,$f18
-/*  f182b68:	440b2000 */ 	mfc1	$t3,$f4
-/*  f182b6c:	4600118d */ 	trunc.w.s	$f6,$f2
-/*  f182b70:	acab0000 */ 	sw	$t3,0x0($a1)
-/*  f182b74:	4600620d */ 	trunc.w.s	$f8,$f12
-/*  f182b78:	440d3000 */ 	mfc1	$t5,$f6
-/*  f182b7c:	440f4000 */ 	mfc1	$t7,$f8
-/*  f182b80:	accd0000 */ 	sw	$t5,0x0($a2)
-/*  f182b84:	acef0000 */ 	sw	$t7,0x0($a3)
-.L0f182b88:
-/*  f182b88:	03e00008 */ 	jr	$ra
-/*  f182b8c:	00000000 */ 	nop
-);
+void scenarioKohCallback38(s16 roomnum, s32 *arg1, s32 *arg2, s32 *arg3)
+{
+	if (roomnum == g_ScenarioData.koh.hillrooms[0]) {
+		f32 a = *arg1;
+		f32 b = *arg2;
+		f32 c = *arg3;
+
+		a *= g_ScenarioData.koh.unk30;
+		b *= g_ScenarioData.koh.unk34;
+		c *= g_ScenarioData.koh.unk38;
+
+		*arg1 = a;
+		*arg2 = b;
+		*arg3 = c;
+	}
+}
 
 void scenarioHtmInit(void)
 {
