@@ -9453,51 +9453,29 @@ glabel func0f18dcec
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f18dec4
-/*  f18dec4:	27bdfe00 */ 	addiu	$sp,$sp,-512
-/*  f18dec8:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f18decc:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f18ded0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f18ded4:	00808825 */ 	or	$s1,$a0,$zero
-/*  f18ded8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f18dedc:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f18dee0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f18dee4:	2412000e */ 	addiu	$s2,$zero,0xe
-.L0f18dee8:
-/*  f18dee8:	0fc636e1 */ 	jal	mpIsPresetUnlocked
-/*  f18deec:	02002025 */ 	or	$a0,$s0,$zero
-/*  f18def0:	5040000c */ 	beqzl	$v0,.L0f18df24
-/*  f18def4:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f18def8:	16200008 */ 	bnez	$s1,.L0f18df1c
-/*  f18defc:	00107080 */ 	sll	$t6,$s0,0x2
-/*  f18df00:	01d07023 */ 	subu	$t6,$t6,$s0
-/*  f18df04:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f18df08:	3c0f8008 */ 	lui	$t7,%hi(g_MpPresets+0x4)
-/*  f18df0c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f18df10:	8def7b70 */ 	lw	$t7,%lo(g_MpPresets+0x4)($t7)
-/*  f18df14:	10000005 */ 	b	.L0f18df2c
-/*  f18df18:	afaf002c */ 	sw	$t7,0x2c($sp)
-.L0f18df1c:
-/*  f18df1c:	2631ffff */ 	addiu	$s1,$s1,-1
-/*  f18df20:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f18df24:
-/*  f18df24:	1612fff0 */ 	bne	$s0,$s2,.L0f18dee8
-/*  f18df28:	00000000 */ 	nop
-.L0f18df2c:
-/*  f18df2c:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f18df30:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*  f18df34:	0fc66e45 */ 	jal	mpLoadConfig
-/*  f18df38:	240601ca */ 	addiu	$a2,$zero,0x1ca
-/*  f18df3c:	0fc6373b */ 	jal	func0f18dcec
-/*  f18df40:	00402025 */ 	or	$a0,$v0,$zero
-/*  f18df44:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f18df48:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f18df4c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f18df50:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f18df54:	03e00008 */ 	jr	$ra
-/*  f18df58:	27bd0200 */ 	addiu	$sp,$sp,0x200
-);
+void func0f18dec4(s32 slot)
+{
+	struct mpconfigfull *config;
+	u8 buffer[0x1ca];
+	s32 confignum = 0;
+	s32 i;
+
+	for (i = 0; i < 14; i++) {
+		if (mpIsPresetUnlocked(i)) {
+			if (slot == 0) {
+				confignum = g_MpPresets[i].confignum;
+				break;
+			}
+
+			slot--;
+		}
+
+	}
+
+	config = mpLoadConfig(confignum, buffer, sizeof(buffer));
+
+	func0f18dcec(config);
+}
 
 void mpsetupfileLoadWad(struct savebuffer *buffer)
 {

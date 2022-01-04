@@ -109,7 +109,7 @@ bool mpIsPresetUnlocked(s32 presetnum);
 s32 mpGetNumUnlockedPresets(void);
 char *mpGetPresetNameBySlot(s32 slot);
 void func0f18dcec(struct mpconfigfull *mpconfig);
-u32 func0f18dec4(void);
+void func0f18dec4(s32 arg0);
 void mpsetupfileLoadWad(struct savebuffer *buffer);
 void mpsetupfileSaveWad(struct savebuffer *buffer);
 void mpsetupfileGetOverview(char *arg0, char *filename, u16 *numsims, u16 *stagenum, u16 *scenarionum);
