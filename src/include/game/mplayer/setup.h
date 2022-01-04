@@ -96,7 +96,7 @@ Gfx *scenarioHtmRadar(Gfx *gdl);
 void scenarioPacChooseVictims(void);
 bool scenarioPacHighlight(struct prop *prop, u32 *colour);
 void func0f1845bc(void);
-u32 func0f1847b8(void);
+void scenarioPacHandleDeath(s32 cplayernum, s32 vplayernum);
 void scenarioPacTick(void);
 u32 scenarioPacCallback18(void);
 bool scenarioPacRadar2(Gfx **gdl, struct prop *prop);

@@ -238,7 +238,7 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 	char text[256];
 
 	if (g_Vars.normmplayerisrunning && g_MpSetup.scenario == MPSCENARIO_POPACAP) {
-		func0f1847b8();
+		scenarioPacHandleDeath(aplayernum, vplayernum);
 	}
 
 	// Find attacker and victim mpchrs
