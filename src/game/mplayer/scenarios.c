@@ -2433,72 +2433,28 @@ bool scenarioCtcIsRoomHighlighted(s16 room)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel scenarioCtcCallback38
-/*  f1819a4:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f1819a8:	00047400 */ 	sll	$t6,$a0,0x10
-/*  f1819ac:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
-/*  f1819b0:	000e2403 */ 	sra	$a0,$t6,0x10
-/*  f1819b4:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
-/*  f1819b8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1819bc:	24080004 */ 	addiu	$t0,$zero,0x4
-.L0f1819c0:
-/*  f1819c0:	84780010 */ 	lh	$t8,0x10($v1)
-/*  f1819c4:	1498002f */ 	bne	$a0,$t8,.L0f181a84
-/*  f1819c8:	0002c880 */ 	sll	$t9,$v0,0x2
-/*  f1819cc:	3c038008 */ 	lui	$v1,%hi(g_TeamColours)
-/*  f1819d0:	00791821 */ 	addu	$v1,$v1,$t9
-/*  f1819d4:	8c637cc4 */ 	lw	$v1,%lo(g_TeamColours)($v1)
-/*  f1819d8:	8ca90000 */ 	lw	$t1,0x0($a1)
-/*  f1819dc:	3c013b00 */ 	lui	$at,0x3b00
-/*  f1819e0:	00036602 */ 	srl	$t4,$v1,0x18
-/*  f1819e4:	318d00ff */ 	andi	$t5,$t4,0xff
-/*  f1819e8:	25ae00ff */ 	addiu	$t6,$t5,0xff
-/*  f1819ec:	448e5000 */ 	mtc1	$t6,$f10
-/*  f1819f0:	44817000 */ 	mtc1	$at,$f14
-/*  f1819f4:	8cca0000 */ 	lw	$t2,0x0($a2)
-/*  f1819f8:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f1819fc:	44892000 */ 	mtc1	$t1,$f4
-/*  f181a00:	00037c02 */ 	srl	$t7,$v1,0x10
-/*  f181a04:	31f800ff */ 	andi	$t8,$t7,0xff
-/*  f181a08:	448a3000 */ 	mtc1	$t2,$f6
-/*  f181a0c:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f181a10:	460e8482 */ 	mul.s	$f18,$f16,$f14
-/*  f181a14:	271900ff */ 	addiu	$t9,$t8,0xff
-/*  f181a18:	44992000 */ 	mtc1	$t9,$f4
-/*  f181a1c:	8ceb0000 */ 	lw	$t3,0x0($a3)
-/*  f181a20:	00034a02 */ 	srl	$t1,$v1,0x8
-/*  f181a24:	312a00ff */ 	andi	$t2,$t1,0xff
-/*  f181a28:	468030a0 */ 	cvt.s.w	$f2,$f6
-/*  f181a2c:	448b4000 */ 	mtc1	$t3,$f8
-/*  f181a30:	46120002 */ 	mul.s	$f0,$f0,$f18
-/*  f181a34:	254b00ff */ 	addiu	$t3,$t2,0xff
-/*  f181a38:	448b5000 */ 	mtc1	$t3,$f10
-/*  f181a3c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f181a40:	46804320 */ 	cvt.s.w	$f12,$f8
-/*  f181a44:	460e3202 */ 	mul.s	$f8,$f6,$f14
-/*  f181a48:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f181a4c:	46081082 */ 	mul.s	$f2,$f2,$f8
-/*  f181a50:	00000000 */ 	nop
-/*  f181a54:	460e8482 */ 	mul.s	$f18,$f16,$f14
-/*  f181a58:	4600010d */ 	trunc.w.s	$f4,$f0
-/*  f181a5c:	46126302 */ 	mul.s	$f12,$f12,$f18
-/*  f181a60:	440d2000 */ 	mfc1	$t5,$f4
-/*  f181a64:	4600118d */ 	trunc.w.s	$f6,$f2
-/*  f181a68:	acad0000 */ 	sw	$t5,0x0($a1)
-/*  f181a6c:	4600620d */ 	trunc.w.s	$f8,$f12
-/*  f181a70:	440f3000 */ 	mfc1	$t7,$f6
-/*  f181a74:	44194000 */ 	mfc1	$t9,$f8
-/*  f181a78:	accf0000 */ 	sw	$t7,0x0($a2)
-/*  f181a7c:	03e00008 */ 	jr	$ra
-/*  f181a80:	acf90000 */ 	sw	$t9,0x0($a3)
-.L0f181a84:
-/*  f181a84:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f181a88:	1448ffcd */ 	bne	$v0,$t0,.L0f1819c0
-/*  f181a8c:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f181a90:	03e00008 */ 	jr	$ra
-/*  f181a94:	00000000 */ 	nop
-);
+void scenarioCtcCallback38(s16 roomnum, s32 *arg1, s32 *arg2, s32 *arg3)
+{
+	s32 i;
+
+	for (i = 0; i < 4; i++) {
+		if (g_ScenarioData.ctc.baserooms[i] == roomnum) {
+			u32 colour = g_TeamColours[i];
+			f32 a = *arg1;
+			f32 b = *arg2;
+			f32 c = *arg3;
+
+			a *= (s32)((colour >> 24 & 0xff) + 0xff) * (1.0f / 512.0f);
+			b *= (s32)((colour >> 16 & 0xff) + 0xff) * (1.0f / 512.0f);
+			c *= (s32)((colour >> 8 & 0xff) + 0xff) * (1.0f / 512.0f);
+
+			*arg1 = a;
+			*arg2 = b;
+			*arg3 = c;
+			return;
+		}
+	}
+}
 
 s32 menuhandlerMpHillTime(s32 operation, struct menuitem *item, union handlerdata *data)
 {

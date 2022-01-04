@@ -81,7 +81,7 @@ u32 scenarioHtbCallback18(void);
 void scenarioCtcReset(void);
 bool scenarioCtcHighlight(struct prop *prop, u32 *colour);
 void mpCtcAddPad(s32 *cmd);
-void scenarioCtcCallback38(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3);
+void scenarioCtcCallback38(s16 roomnum, s32 *arg1, s32 *arg2, s32 *arg3);
 void scenarioKohTick(void);
 u32 scenarioKohCallback18(void);
 void mpKohAddHill(s32 *cmd);
