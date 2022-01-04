@@ -8246,33 +8246,25 @@ glabel func0f18c794
 );
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f18c828
-/*  f18c828:	3c06800b */ 	lui	$a2,%hi(g_MpSetup+0x16)
-/*  f18c82c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f18c830:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18c834:	94c6cb9e */ 	lhu	$a2,%lo(g_MpSetup+0x16)($a2)
-/*  f18c838:	00002825 */ 	or	$a1,$zero,$zero
-/*  f18c83c:	2407000c */ 	addiu	$a3,$zero,0xc
-/*  f18c840:	240e0001 */ 	addiu	$t6,$zero,0x1
-.L0f18c844:
-/*  f18c844:	00ae7804 */ 	sllv	$t7,$t6,$a1
-/*  f18c848:	00cfc024 */ 	and	$t8,$a2,$t7
-/*  f18c84c:	53000007 */ 	beqzl	$t8,.L0f18c86c
-/*  f18c850:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f18c854:	54440004 */ 	bnel	$v0,$a0,.L0f18c868
-/*  f18c858:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f18c85c:	03e00008 */ 	jr	$ra
-/*  f18c860:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f18c864:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f18c868:
-/*  f18c868:	24a50001 */ 	addiu	$a1,$a1,0x1
-.L0f18c86c:
-/*  f18c86c:	54a7fff5 */ 	bnel	$a1,$a3,.L0f18c844
-/*  f18c870:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f18c874:	03e00008 */ 	jr	$ra
-/*  f18c878:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 func0f18c828(s32 wantindex)
+{
+	s32 i;
+	s32 count = 0;
+	s32 result = 0;
+
+	for (i = 0; i < 12; i++) {
+		if (g_MpSetup.chrslots & (1 << i)) {
+			if (count == wantindex) {
+				result = i;
+				break;
+			}
+
+			count++;
+		}
+	}
+
+	return result;
+}
 #endif
 
 s32 mpGetNumChrs(void)

@@ -81,7 +81,7 @@ void mpSetTrackToRandom(void);
 s32 mpGetCurrentTrackSlotNum(void);
 u32 mpChooseRandomTrack(void);
 struct mpchrconfig *func0f18c794(s32 index);
-u32 func0f18c828(void);
+s32 func0f18c828(s32 index);
 s32 mpGetNumChrs(void);
 u32 func0f18c8b8(void);
 void func0f18c984(s32 numsims, u8 difficulty);
