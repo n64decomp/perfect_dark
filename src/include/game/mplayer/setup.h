@@ -74,7 +74,7 @@ u32 func0f17fa28(void);
 void func0f17fcb0(s32 silent);
 s32 menuhandlerMpSlowMotion(s32 operation, struct menuitem *item, union handlerdata *data);
 void mpHtbAddPad(s16 padnum);
-u32 func0f17ffe4(void);
+void scenarioHtmRemoveAmmoCrateAtPad(s16 padnum);
 void func0f180078(void);
 void func0f1800a8(void);
 u32 scenarioHtbCallback18(void);

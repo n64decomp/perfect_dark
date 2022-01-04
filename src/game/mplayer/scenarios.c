@@ -419,50 +419,26 @@ s32 scenarioHtbCallback08(void)
 	return 1;
 }
 
-GLOBAL_ASM(
-glabel func0f17ffe4
-/*  f17ffe4:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x33c)
-/*  f17ffe8:	8c42a2fc */ 	lw	$v0,%lo(g_Vars+0x33c)($v0)
-/*  f17ffec:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f17fff0:	00047400 */ 	sll	$t6,$a0,0x10
-/*  f17fff4:	1040001e */ 	beqz	$v0,.L0f180070
-/*  f17fff8:	000e2403 */ 	sra	$a0,$t6,0x10
-/*  f17fffc:	240900c1 */ 	addiu	$t1,$zero,0xc1
-/*  f180000:	24080014 */ 	addiu	$t0,$zero,0x14
-/*  f180004:	24070007 */ 	addiu	$a3,$zero,0x7
-/*  f180008:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f18000c:	90580000 */ 	lbu	$t8,0x0($v0)
-.L0f180010:
-/*  f180010:	54d80015 */ 	bnel	$a2,$t8,.L0f180068
-/*  f180014:	8c420020 */ 	lw	$v0,0x20($v0)
-/*  f180018:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f18001c:	84790006 */ 	lh	$t9,0x6($v1)
-/*  f180020:	54990011 */ 	bnel	$a0,$t9,.L0f180068
-/*  f180024:	8c420020 */ 	lw	$v0,0x20($v0)
-/*  f180028:	90650003 */ 	lbu	$a1,0x3($v1)
-/*  f18002c:	50e50004 */ 	beql	$a3,$a1,.L0f180040
-/*  f180030:	846a0004 */ 	lh	$t2,0x4($v1)
-/*  f180034:	5505000c */ 	bnel	$t0,$a1,.L0f180068
-/*  f180038:	8c420020 */ 	lw	$v0,0x20($v0)
-/*  f18003c:	846a0004 */ 	lh	$t2,0x4($v1)
-.L0f180040:
-/*  f180040:	552a0009 */ 	bnel	$t1,$t2,.L0f180068
-/*  f180044:	8c420020 */ 	lw	$v0,0x20($v0)
-/*  f180048:	8c6b0040 */ 	lw	$t3,0x40($v1)
-/*  f18004c:	906d0002 */ 	lbu	$t5,0x2($v1)
-/*  f180050:	356c0004 */ 	ori	$t4,$t3,0x4
-/*  f180054:	31aefffb */ 	andi	$t6,$t5,0xfffb
-/*  f180058:	ac6c0040 */ 	sw	$t4,0x40($v1)
-/*  f18005c:	03e00008 */ 	jr	$ra
-/*  f180060:	a06e0002 */ 	sb	$t6,0x2($v1)
-/*  f180064:	8c420020 */ 	lw	$v0,0x20($v0)
-.L0f180068:
-/*  f180068:	5440ffe9 */ 	bnezl	$v0,.L0f180010
-/*  f18006c:	90580000 */ 	lbu	$t8,0x0($v0)
-.L0f180070:
-/*  f180070:	03e00008 */ 	jr	$ra
-/*  f180074:	00000000 */ 	nop
-);
+void scenarioHtmRemoveAmmoCrateAtPad(s16 padnum)
+{
+	struct prop *prop = g_Vars.activeprops;
+
+	while (prop) {
+		if (prop->type == PROPTYPE_OBJ) {
+			struct defaultobj *obj = prop->obj;
+
+			if (obj->pad == padnum
+					&& (obj->type == OBJTYPE_AMMOCRATE || obj->type == OBJTYPE_MULTIAMMOCRATE)
+					&& obj->modelnum == MODEL_MULTI_AMMO_CRATE) {
+				obj->hidden |= OBJHFLAG_REAPABLE;
+				obj->hidden2 &= ~OBJH2FLAG_CANREGEN;
+				return;
+			}
+		}
+
+		prop = prop->next;
+	}
+}
 
 void func0f180078(void)
 {
@@ -5154,7 +5130,7 @@ glabel var7f1b8954
 /*  f18304c:	0fc61942 */ 	jal	func0f186508
 /*  f183050:	afb30014 */ 	sw	$s3,0x14($sp)
 /*  f183054:	ae020080 */ 	sw	$v0,0x80($s0)
-/*  f183058:	0fc5fff9 */ 	jal	func0f17ffe4
+/*  f183058:	0fc5fff9 */ 	jal	scenarioHtmRemoveAmmoCrateAtPad
 /*  f18305c:	86040084 */ 	lh	$a0,0x84($s0)
 /*  f183060:	2610000c */ 	addiu	$s0,$s0,0xc
 /*  f183064:	5614fff5 */ 	bnel	$s0,$s4,.L0f18303c
