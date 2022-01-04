@@ -7719,117 +7719,32 @@ Gfx *scenarioPacRadar(Gfx *gdl)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel scenarioPacRadar2
-/*  f184d8c:	3c03800b */ 	lui	$v1,%hi(g_MpSetup+0xc)
-/*  f184d90:	8c63cb94 */ 	lw	$v1,%lo(g_MpSetup+0xc)($v1)
-/*  f184d94:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f184d98:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f184d9c:	000372c0 */ 	sll	$t6,$v1,0xb
-/*  f184da0:	05c10042 */ 	bgez	$t6,.L0f184eac
-/*  f184da4:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f184da8:	3c0f800b */ 	lui	$t7,%hi(g_ScenarioData+0x4)
-/*  f184dac:	8defc114 */ 	lw	$t7,%lo(g_ScenarioData+0x4)($t7)
-/*  f184db0:	3c19800b */ 	lui	$t9,%hi(g_ScenarioData+0x8)
-/*  f184db4:	05e0003d */ 	bltz	$t7,.L0f184eac
-/*  f184db8:	000fc040 */ 	sll	$t8,$t7,0x1
-/*  f184dbc:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f184dc0:	8739c118 */ 	lh	$t9,%lo(g_ScenarioData+0x8)($t9)
-/*  f184dc4:	3c09800b */ 	lui	$t1,%hi(g_MpAllChrPtrs)
-/*  f184dc8:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f184dcc:	00194080 */ 	sll	$t0,$t9,0x2
-/*  f184dd0:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f184dd4:	8d29c4d0 */ 	lw	$t1,%lo(g_MpAllChrPtrs)($t1)
-/*  f184dd8:	8d2a001c */ 	lw	$t2,0x1c($t1)
-/*  f184ddc:	15450033 */ 	bne	$t2,$a1,.L0f184eac
-/*  f184de0:	afaa0034 */ 	sw	$t2,0x34($sp)
-/*  f184de4:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f184de8:	c4a40008 */ 	lwc1	$f4,0x8($a1)
-/*  f184dec:	306e0002 */ 	andi	$t6,$v1,0x2
-/*  f184df0:	8c4b00bc */ 	lw	$t3,0xbc($v0)
-/*  f184df4:	8faa0048 */ 	lw	$t2,0x48($sp)
-/*  f184df8:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f184dfc:	c5660008 */ 	lwc1	$f6,0x8($t3)
-/*  f184e00:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f184e04:	3c0700ff */ 	lui	$a3,0xff
-/*  f184e08:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f184e0c:	e7a80038 */ 	swc1	$f8,0x38($sp)
-/*  f184e10:	8c4c00bc */ 	lw	$t4,0xbc($v0)
-/*  f184e14:	c4aa000c */ 	lwc1	$f10,0xc($a1)
-/*  f184e18:	c590000c */ 	lwc1	$f16,0xc($t4)
-/*  f184e1c:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f184e20:	e7b2003c */ 	swc1	$f18,0x3c($sp)
-/*  f184e24:	8c4d00bc */ 	lw	$t5,0xbc($v0)
-/*  f184e28:	c4a40010 */ 	lwc1	$f4,0x10($a1)
-/*  f184e2c:	c5a60010 */ 	lwc1	$f6,0x10($t5)
-/*  f184e30:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f184e34:	11c00014 */ 	beqz	$t6,.L0f184e88
-/*  f184e38:	e7a80040 */ 	swc1	$f8,0x40($sp)
-/*  f184e3c:	8caf0004 */ 	lw	$t7,0x4($a1)
-/*  f184e40:	0fc63a5a */ 	jal	radarGetTeamIndex
-/*  f184e44:	91e40125 */ 	lbu	$a0,0x125($t7)
-/*  f184e48:	8fb90048 */ 	lw	$t9,0x48($sp)
-/*  f184e4c:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f184e50:	3c078008 */ 	lui	$a3,%hi(g_TeamColours)
-/*  f184e54:	00f83821 */ 	addu	$a3,$a3,$t8
-/*  f184e58:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f184e5c:	8f240000 */ 	lw	$a0,0x0($t9)
-/*  f184e60:	8ce77cc4 */ 	lw	$a3,%lo(g_TeamColours)($a3)
-/*  f184e64:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f184e68:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f184e6c:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f184e70:	0fc63a7b */ 	jal	radarDrawDot
-/*  f184e74:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f184e78:	8fa90048 */ 	lw	$t1,0x48($sp)
-/*  f184e7c:	ad220000 */ 	sw	$v0,0x0($t1)
-/*  f184e80:	1000000b */ 	b	.L0f184eb0
-/*  f184e84:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f184e88:
-/*  f184e88:	8d440000 */ 	lw	$a0,0x0($t2)
-/*  f184e8c:	afab0014 */ 	sw	$t3,0x14($sp)
-/*  f184e90:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f184e94:	0fc63a7b */ 	jal	radarDrawDot
-/*  f184e98:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f184e9c:	8fac0048 */ 	lw	$t4,0x48($sp)
-/*  f184ea0:	ad820000 */ 	sw	$v0,0x0($t4)
-/*  f184ea4:	10000002 */ 	b	.L0f184eb0
-/*  f184ea8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f184eac:
-/*  f184eac:	00001025 */ 	or	$v0,$zero,$zero
-.L0f184eb0:
-/*  f184eb0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f184eb4:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f184eb8:	03e00008 */ 	jr	$ra
-/*  f184ebc:	00000000 */ 	nop
-);
+bool scenarioPacRadar2(Gfx **gdl, struct prop *prop)
+{
+	struct scenariodata_pac *data = &g_ScenarioData.pac;
+	struct coord dist;
 
-// Mismatch because the game jumps to pac properties directly
-// while decomp loads the base pac address then uses offsets.
-//bool scenarioPacRadar2(Gfx **gdl, struct prop *prop)
-//{
-//	if ((g_MpSetup.options & MPOPTION_PAC_SHOWONRADAR) && g_ScenarioData.pac.victimindex >= 0) {
-//		s32 index = g_ScenarioData.pac.victimindex;
-//		struct prop *thing = g_MpAllChrPtrs[g_ScenarioData.pac.victims[index]]->prop;
-//
-//		if (thing == prop) {
-//			struct coord dist;
-//			dist.x = prop->pos.x - g_Vars.currentplayer->prop->pos.x;
-//			dist.y = prop->pos.y - g_Vars.currentplayer->prop->pos.y;
-//			dist.z = prop->pos.z - g_Vars.currentplayer->prop->pos.z;
-//
-//			if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-//				u32 colour = g_TeamColours[radarGetTeamIndex(prop->chr->team)];
-//				*gdl = radarDrawDot(*gdl, thing, &dist, colour, 0, 1);
-//			} else {
-//				*gdl = radarDrawDot(*gdl, thing, &dist, 0xff0000, 0, 1);
-//			}
-//
-//			return true;
-//		}
-//	}
-//
-//	return false;
-//}
+	if ((g_MpSetup.options & MPOPTION_PAC_SHOWONRADAR) && data->victimindex >= 0) {
+		struct prop *vprop = g_MpAllChrPtrs[data->victims[data->victimindex]]->prop;
+
+		if (vprop == prop) {
+			dist.x = prop->pos.x - g_Vars.currentplayer->prop->pos.x;
+			dist.y = prop->pos.y - g_Vars.currentplayer->prop->pos.y;
+			dist.z = prop->pos.z - g_Vars.currentplayer->prop->pos.z;
+
+			if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
+				u32 colour = g_TeamColours[radarGetTeamIndex(prop->chr->team)];
+				*gdl = radarDrawDot(*gdl, vprop, &dist, colour, 0, 1);
+			} else {
+				*gdl = radarDrawDot(*gdl, vprop, &dist, 0xff0000, 0, 1);
+			}
+
+			return true;
+		}
+	}
+
+	return false;
+}
 
 /**
  * While the options dialog is open, check if another player has changed the
