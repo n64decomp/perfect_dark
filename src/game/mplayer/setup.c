@@ -5947,7 +5947,7 @@ s32 menuhandlerMpNTeams(s32 operation, struct menuitem *item, union handlerdata 
 		i = (start + 1) % numchrs;
 
 		do {
-			struct mpchrconfig *mpchr = func0f18c794(i);
+			struct mpchrconfig *mpchr = mpGetChrConfigBySlotNum(i);
 
 			if (teamsremaining);
 
@@ -6073,7 +6073,7 @@ glabel menuhandlerMpNTeams
 /*  f177ccc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f177cd0:	0006000d */ 	break	0x6
 .NB0f177cd4:
-/*  f177cd4:	0fc61a7b */ 	jal	func0f18c794
+/*  f177cd4:	0fc61a7b */ 	jal	mpGetChrConfigBySlotNum
 /*  f177cd8:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f177cdc:	0274082a */ 	slt	$at,$s3,$s4
 /*  f177ce0:	14200022 */ 	bnez	$at,.NB0f177d6c
@@ -6304,7 +6304,7 @@ s32 menuhandlerMpHumanSimulantPairs(s32 operation, struct menuitem *item, union 
 
 char *mpMenuTextChrNameForTeamSetup(struct menuitem *item)
 {
-	struct mpchrconfig *mpchr = func0f18c794(item->param);
+	struct mpchrconfig *mpchr = mpGetChrConfigBySlotNum(item->param);
 
 	if (mpchr) {
 		return mpchr->name;
@@ -6336,11 +6336,11 @@ s32 menuhandlerMpTeamSlot(s32 operation, struct menuitem *item, union handlerdat
 
 	switch (operation) {
 	case MENUOP_SET:
-		mpchr = func0f18c794(item->param);
+		mpchr = mpGetChrConfigBySlotNum(item->param);
 		mpchr->team = data->dropdown.value;
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		mpchr = func0f18c794(item->param);
+		mpchr = mpGetChrConfigBySlotNum(item->param);
 
 		if (!mpchr) {
 			data->dropdown.value = 0xff;
@@ -6350,7 +6350,7 @@ s32 menuhandlerMpTeamSlot(s32 operation, struct menuitem *item, union handlerdat
 
 		break;
 	case MENUOP_CHECKDISABLED:
-		mpchr = func0f18c794(item->param);
+		mpchr = mpGetChrConfigBySlotNum(item->param);
 
 		if (!mpchr) {
 			return 1;
@@ -8177,7 +8177,7 @@ void mpConfigureQuickTeamSimulants(void)
 			break;
 		case MPQUICKTEAM_PLAYERSIMTEAMS:
 			for (i = mpGetNumChrs() - 1; i >= 0; i--) {
-				mpchr = func0f18c794(i);
+				mpchr = mpGetChrConfigBySlotNum(i);
 
 				for (j = 0; j < g_Vars.unk0004a0; j++) {
 					numsims = mpGetNumSimulants();
