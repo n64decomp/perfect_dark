@@ -7048,65 +7048,23 @@ void scenarioPacReset(void)
 	scenarioPacChooseVictims();
 }
 
-GLOBAL_ASM(
-glabel scenarioPacHighlight
-/*  f18452c:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0xc)
-/*  f184530:	8dcecb94 */ 	lw	$t6,%lo(g_MpSetup+0xc)($t6)
-/*  f184534:	000e7b00 */ 	sll	$t7,$t6,0xc
-/*  f184538:	05e3001e */ 	bgezl	$t7,.L0f1845b4
-/*  f18453c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f184540:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f184544:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f184548:	3c18800b */ 	lui	$t8,%hi(g_ScenarioData+0x4)
-/*  f18454c:	10410003 */ 	beq	$v0,$at,.L0f18455c
-/*  f184550:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f184554:	54410017 */ 	bnel	$v0,$at,.L0f1845b4
-/*  f184558:	00001025 */ 	or	$v0,$zero,$zero
-.L0f18455c:
-/*  f18455c:	8f18c114 */ 	lw	$t8,%lo(g_ScenarioData+0x4)($t8)
-/*  f184560:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f184564:	3c09800b */ 	lui	$t1,%hi(g_ScenarioData+0x8)
-/*  f184568:	13010011 */ 	beq	$t8,$at,.L0f1845b0
-/*  f18456c:	00184040 */ 	sll	$t0,$t8,0x1
-/*  f184570:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f184574:	8529c118 */ 	lh	$t1,%lo(g_ScenarioData+0x8)($t1)
-/*  f184578:	3c0b800b */ 	lui	$t3,%hi(g_MpAllChrPtrs)
-/*  f18457c:	8c990004 */ 	lw	$t9,0x4($a0)
-/*  f184580:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f184584:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f184588:	8d6bc4d0 */ 	lw	$t3,%lo(g_MpAllChrPtrs)($t3)
-/*  f18458c:	240c00ff */ 	addiu	$t4,$zero,0xff
-/*  f184590:	240d0040 */ 	addiu	$t5,$zero,0x40
-/*  f184594:	172b0006 */ 	bne	$t9,$t3,.L0f1845b0
-/*  f184598:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f18459c:	aca00000 */ 	sw	$zero,0x0($a1)
-/*  f1845a0:	acac0004 */ 	sw	$t4,0x4($a1)
-/*  f1845a4:	aca00008 */ 	sw	$zero,0x8($a1)
-/*  f1845a8:	03e00008 */ 	jr	$ra
-/*  f1845ac:	acad000c */ 	sw	$t5,0xc($a1)
-.L0f1845b0:
-/*  f1845b0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1845b4:
-/*  f1845b4:	03e00008 */ 	jr	$ra
-/*  f1845b8:	00000000 */ 	nop
-);
+bool scenarioPacHighlight(struct prop *prop, u32 *colour)
+{
+	struct scenariodata_pac *data = &g_ScenarioData.pac;
 
-//bool scenarioPacHighlight(struct prop *prop, u32 *colour)
-//{
-//	if ((g_MpSetup.options & MPOPTION_PAC_HIGHLIGHTTARGET) &&
-//			(prop->type == PROPTYPE_PLAYER || prop->type == PROPTYPE_CHR) &&
-//			g_ScenarioData.pac.victimindex != -1 &&
-//			prop->chr == g_MpAllChrPtrs[g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex]]) {
-//		colour[0] = 0;
-//		colour[1] = 0xff;
-//		colour[2] = 0;
-//		colour[3] = 0x40;
-//
-//		return true;
-//	}
-//
-//	return false;
-//}
+	if (g_MpSetup.options & MPOPTION_PAC_HIGHLIGHTTARGET
+			&& (prop->type == PROPTYPE_PLAYER || prop->type == PROPTYPE_CHR)
+			&& data->victimindex != -1
+			&& prop->chr == g_MpAllChrPtrs[data->victims[data->victimindex]]) {
+		colour[0] = 0;
+		colour[1] = 0xff;
+		colour[2] = 0;
+		colour[3] = 0x40;
+		return true;
+	}
+
+	return false;
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
