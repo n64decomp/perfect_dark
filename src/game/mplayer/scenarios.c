@@ -2381,115 +2381,29 @@ bool scenarioCtcRadar2(Gfx **gdl, struct prop *prop)
 	return false;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel scenarioCtcHighlight
-/*  f181764:	90860000 */ 	lbu	$a2,0x0($a0)
-/*  f181768:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f18176c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f181770:	10c10006 */ 	beq	$a2,$at,.L0f18178c
-/*  f181774:	00601025 */ 	or	$v0,$v1,$zero
-/*  f181778:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f18177c:	10c10003 */ 	beq	$a2,$at,.L0f18178c
-/*  f181780:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f181784:	54c1001c */ 	bnel	$a2,$at,.L0f1817f8
-/*  f181788:	00001025 */ 	or	$v0,$zero,$zero
-.L0f18178c:
-/*  f18178c:	904e0003 */ 	lbu	$t6,0x3($v0)
-/*  f181790:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f181794:	55c10018 */ 	bnel	$t6,$at,.L0f1817f8
-/*  f181798:	00001025 */ 	or	$v0,$zero,$zero
-/*  f18179c:	906f005c */ 	lbu	$t7,0x5c($v1)
-/*  f1817a0:	24010057 */ 	addiu	$at,$zero,0x57
-/*  f1817a4:	55e10014 */ 	bnel	$t7,$at,.L0f1817f8
-/*  f1817a8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1817ac:	84780062 */ 	lh	$t8,0x62($v1)
-/*  f1817b0:	3c038008 */ 	lui	$v1,%hi(g_TeamColours)
-/*  f1817b4:	240e004b */ 	addiu	$t6,$zero,0x4b
-/*  f1817b8:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f1817bc:	00791821 */ 	addu	$v1,$v1,$t9
-/*  f1817c0:	8c637cc4 */ 	lw	$v1,%lo(g_TeamColours)($v1)
-/*  f1817c4:	acae000c */ 	sw	$t6,0xc($a1)
-/*  f1817c8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1817cc:	00034602 */ 	srl	$t0,$v1,0x18
-/*  f1817d0:	00035402 */ 	srl	$t2,$v1,0x10
-/*  f1817d4:	00036202 */ 	srl	$t4,$v1,0x8
-/*  f1817d8:	310900ff */ 	andi	$t1,$t0,0xff
-/*  f1817dc:	314b00ff */ 	andi	$t3,$t2,0xff
-/*  f1817e0:	318d00ff */ 	andi	$t5,$t4,0xff
-/*  f1817e4:	aca90000 */ 	sw	$t1,0x0($a1)
-/*  f1817e8:	acab0004 */ 	sw	$t3,0x4($a1)
-/*  f1817ec:	03e00008 */ 	jr	$ra
-/*  f1817f0:	acad0008 */ 	sw	$t5,0x8($a1)
-/*  f1817f4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1817f8:
-/*  f1817f8:	03e00008 */ 	jr	$ra
-/*  f1817fc:	00000000 */ 	nop
-);
-#else
-GLOBAL_ASM(
-glabel scenarioCtcHighlight
-/*  f181764:	90860000 */ 	lbu	$a2,0x0($a0)
-/*  f181768:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f18176c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f181770:	10c10006 */ 	beq	$a2,$at,.L0f18178c
-/*  f181774:	00601025 */ 	or	$v0,$v1,$zero
-/*  f181778:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f18177c:	10c10003 */ 	beq	$a2,$at,.L0f18178c
-/*  f181780:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f181784:	54c1001c */ 	bnel	$a2,$at,.L0f1817f8
-/*  f181788:	00001025 */ 	or	$v0,$zero,$zero
-.L0f18178c:
-/*  f18178c:	904e0003 */ 	lbu	$t6,0x3($v0)
-/*  f181790:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f181794:	55c10018 */ 	bnel	$t6,$at,.L0f1817f8
-/*  f181798:	00001025 */ 	or	$v0,$zero,$zero
-/*  f18179c:	906f005c */ 	lbu	$t7,0x5c($v1)
-/*  f1817a0:	24010057 */ 	addiu	$at,$zero,0x56
-/*  f1817a4:	55e10014 */ 	bnel	$t7,$at,.L0f1817f8
-/*  f1817a8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1817ac:	84780062 */ 	lh	$t8,0x62($v1)
-/*  f1817b0:	3c038008 */ 	lui	$v1,%hi(g_TeamColours)
-/*  f1817b4:	240e004b */ 	addiu	$t6,$zero,0x4b
-/*  f1817b8:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f1817bc:	00791821 */ 	addu	$v1,$v1,$t9
-/*  f1817c0:	8c637cc4 */ 	lw	$v1,%lo(g_TeamColours)($v1)
-/*  f1817c4:	acae000c */ 	sw	$t6,0xc($a1)
-/*  f1817c8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1817cc:	00034602 */ 	srl	$t0,$v1,0x18
-/*  f1817d0:	00035402 */ 	srl	$t2,$v1,0x10
-/*  f1817d4:	00036202 */ 	srl	$t4,$v1,0x8
-/*  f1817d8:	310900ff */ 	andi	$t1,$t0,0xff
-/*  f1817dc:	314b00ff */ 	andi	$t3,$t2,0xff
-/*  f1817e0:	318d00ff */ 	andi	$t5,$t4,0xff
-/*  f1817e4:	aca90000 */ 	sw	$t1,0x0($a1)
-/*  f1817e8:	acab0004 */ 	sw	$t3,0x4($a1)
-/*  f1817ec:	03e00008 */ 	jr	$ra
-/*  f1817f0:	acad0008 */ 	sw	$t5,0x8($a1)
-/*  f1817f4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1817f8:
-/*  f1817f8:	03e00008 */ 	jr	$ra
-/*  f1817fc:	00000000 */ 	nop
-);
-#endif
+bool scenarioCtcHighlight(struct prop *prop, u32 *colour)
+{
+	struct defaultobj *obj = prop->obj;
 
-//bool scenarioCtcHighlight(struct prop *prop, u32 *colour)
-//{
-//	if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
-//		if (prop->obj->type == OBJTYPE_WEAPON && prop->weapon->weaponnum == WEAPON_BRIEFCASE2) {
-//			u32 teamcolour = g_TeamColours[prop->weapon->team];
-//
-//			colour[0] = teamcolour >> 24 & 0xff;
-//			colour[1] = teamcolour >> 16 & 0xff;
-//			colour[2] = teamcolour >> 8 & 0xff;
-//			colour[3] = 75;
-//
-//			return true;
-//		}
-//	}
-//
-//	return false;
-//}
+	if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
+		if (obj->type == OBJTYPE_WEAPON) {
+			struct weaponobj *weapon = prop->weapon;
+
+			if (weapon->weaponnum == WEAPON_BRIEFCASE2) {
+				u32 teamcolour = g_TeamColours[weapon->timer240];
+
+				colour[0] = teamcolour >> 24 & 0xff;
+				colour[1] = teamcolour >> 16 & 0xff;
+				colour[2] = teamcolour >> 8 & 0xff;
+				colour[3] = 75;
+
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
 
 void mpCtcAddPad(s32 *cmd)
 {
