@@ -1321,113 +1321,38 @@ s32 mpGetWeaponSlot(s32 slot)
 	return count;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f188e24
-/*  f188e24:	24860001 */ 	addiu	$a2,$a0,0x1
-/*  f188e28:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*  f188e2c:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f188e30:	18c0001e */ 	blez	$a2,.L0f188eac
-/*  f188e34:	00002825 */ 	or	$a1,$zero,$zero
-/*  f188e38:	3c088008 */ 	lui	$t0,%hi(g_MpWeapons)
-/*  f188e3c:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
-/*  f188e40:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
-/*  f188e44:	25087268 */ 	addiu	$t0,$t0,%lo(g_MpWeapons)
-/*  f188e48:	2409000a */ 	addiu	$t1,$zero,0xa
-/*  f188e4c:	2407005c */ 	addiu	$a3,$zero,0x5c
-/*  f188e50:	00857021 */ 	addu	$t6,$a0,$a1
-.L0f188e54:
-/*  f188e54:	91c30018 */ 	lbu	$v1,0x18($t6)
-/*  f188e58:	00690019 */ 	multu	$v1,$t1
-/*  f188e5c:	00007812 */ 	mflo	$t7
-/*  f188e60:	010fc021 */ 	addu	$t8,$t0,$t7
-/*  f188e64:	93190000 */ 	lbu	$t9,0x0($t8)
-/*  f188e68:	10f90002 */ 	beq	$a3,$t9,.L0f188e74
-/*  f188e6c:	00000000 */ 	nop
-/*  f188e70:	2442ffff */ 	addiu	$v0,$v0,-1
-.L0f188e74:
-/*  f188e74:	1840000a */ 	blez	$v0,.L0f188ea0
-/*  f188e78:	00000000 */ 	nop
-/*  f188e7c:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f188e80:	28a10006 */ 	slti	$at,$a1,0x6
-/*  f188e84:	14200006 */ 	bnez	$at,.L0f188ea0
-/*  f188e88:	00000000 */ 	nop
-/*  f188e8c:	14c20003 */ 	bne	$a2,$v0,.L0f188e9c
-/*  f188e90:	00002825 */ 	or	$a1,$zero,$zero
-/*  f188e94:	00001825 */ 	or	$v1,$zero,$zero
-/*  f188e98:	00001025 */ 	or	$v0,$zero,$zero
-.L0f188e9c:
-/*  f188e9c:	00403025 */ 	or	$a2,$v0,$zero
-.L0f188ea0:
-/*  f188ea0:	5c40ffec */ 	bgtzl	$v0,.L0f188e54
-/*  f188ea4:	00857021 */ 	addu	$t6,$a0,$a1
-/*  f188ea8:	a3a30003 */ 	sb	$v1,0x3($sp)
-.L0f188eac:
-/*  f188eac:	93a30003 */ 	lbu	$v1,0x3($sp)
-/*  f188eb0:	2409000a */ 	addiu	$t1,$zero,0xa
-/*  f188eb4:	3c088008 */ 	lui	$t0,%hi(g_MpWeapons)
-/*  f188eb8:	00690019 */ 	multu	$v1,$t1
-/*  f188ebc:	25087268 */ 	addiu	$t0,$t0,%lo(g_MpWeapons)
-/*  f188ec0:	27bd0010 */ 	addiu	$sp,$sp,0x10
-/*  f188ec4:	00005012 */ 	mflo	$t2
-/*  f188ec8:	010a1021 */ 	addu	$v0,$t0,$t2
-/*  f188ecc:	03e00008 */ 	jr	$ra
-/*  f188ed0:	00000000 */ 	nop
-);
-#else
-GLOBAL_ASM(
-glabel func0f188e24
-/*  f188e24:	24860001 */ 	addiu	$a2,$a0,0x1
-/*  f188e28:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*  f188e2c:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f188e30:	18c0001e */ 	blez	$a2,.L0f188eac
-/*  f188e34:	00002825 */ 	or	$a1,$zero,$zero
-/*  f188e38:	3c088008 */ 	lui	$t0,%hi(g_MpWeapons)
-/*  f188e3c:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
-/*  f188e40:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
-/*  f188e44:	25087268 */ 	addiu	$t0,$t0,%lo(g_MpWeapons)
-/*  f188e48:	2409000a */ 	addiu	$t1,$zero,0xa
-/*  f188e4c:	2407005c */ 	addiu	$a3,$zero,0x5b
-/*  f188e50:	00857021 */ 	addu	$t6,$a0,$a1
-.L0f188e54:
-/*  f188e54:	91c30018 */ 	lbu	$v1,0x18($t6)
-/*  f188e58:	00690019 */ 	multu	$v1,$t1
-/*  f188e5c:	00007812 */ 	mflo	$t7
-/*  f188e60:	010fc021 */ 	addu	$t8,$t0,$t7
-/*  f188e64:	93190000 */ 	lbu	$t9,0x0($t8)
-/*  f188e68:	10f90002 */ 	beq	$a3,$t9,.L0f188e74
-/*  f188e6c:	00000000 */ 	nop
-/*  f188e70:	2442ffff */ 	addiu	$v0,$v0,-1
-.L0f188e74:
-/*  f188e74:	1840000a */ 	blez	$v0,.L0f188ea0
-/*  f188e78:	00000000 */ 	nop
-/*  f188e7c:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f188e80:	28a10006 */ 	slti	$at,$a1,0x6
-/*  f188e84:	14200006 */ 	bnez	$at,.L0f188ea0
-/*  f188e88:	00000000 */ 	nop
-/*  f188e8c:	14c20003 */ 	bne	$a2,$v0,.L0f188e9c
-/*  f188e90:	00002825 */ 	or	$a1,$zero,$zero
-/*  f188e94:	00001825 */ 	or	$v1,$zero,$zero
-/*  f188e98:	00001025 */ 	or	$v0,$zero,$zero
-.L0f188e9c:
-/*  f188e9c:	00403025 */ 	or	$a2,$v0,$zero
-.L0f188ea0:
-/*  f188ea0:	5c40ffec */ 	bgtzl	$v0,.L0f188e54
-/*  f188ea4:	00857021 */ 	addu	$t6,$a0,$a1
-/*  f188ea8:	a3a30003 */ 	sb	$v1,0x3($sp)
-.L0f188eac:
-/*  f188eac:	93a30003 */ 	lbu	$v1,0x3($sp)
-/*  f188eb0:	2409000a */ 	addiu	$t1,$zero,0xa
-/*  f188eb4:	3c088008 */ 	lui	$t0,%hi(g_MpWeapons)
-/*  f188eb8:	00690019 */ 	multu	$v1,$t1
-/*  f188ebc:	25087268 */ 	addiu	$t0,$t0,%lo(g_MpWeapons)
-/*  f188ec0:	27bd0010 */ 	addiu	$sp,$sp,0x10
-/*  f188ec4:	00005012 */ 	mflo	$t2
-/*  f188ec8:	010a1021 */ 	addu	$v0,$t0,$t2
-/*  f188ecc:	03e00008 */ 	jr	$ra
-/*  f188ed0:	00000000 */ 	nop
-);
-#endif
+struct mpweapon *func0f188e24(s32 arg0)
+{
+	s32 v0 = arg0 + 1;
+	s32 slot = 0;
+	s32 a2 = v0;
+	u8 mpweaponnum;
+
+	while (v0 > 0) {
+		mpweaponnum = g_MpSetup.weapons[slot];
+
+		if (g_MpWeapons[mpweaponnum].weaponnum != WEAPON_DISABLED) {
+			v0--;
+		}
+
+		if (v0 > 0) {
+			slot++;
+
+			if (slot >= 6) {
+				slot = 0;
+
+				if (a2 == v0) {
+					mpweaponnum = 0;
+					v0 = 0;
+				}
+
+				a2 = v0;
+			}
+		}
+	}
+
+	return &g_MpWeapons[mpweaponnum];
+}
 
 s32 mpCountWeaponSetThing(s32 weaponsetindex)
 {
