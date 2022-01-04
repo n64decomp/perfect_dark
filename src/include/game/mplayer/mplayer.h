@@ -57,7 +57,7 @@ s32 mpGetMpbodynumByBodynum(u16 bodynum);
 char *mpGetBodyName(u8 mpbodynum);
 u8 mpGetBodyRequiredFeature(u8 bodynum);
 s32 mpGetMpheadnumByMpbodynum(s32 bodynum);
-u32 mpChooseRandomLockPlayer(void);
+s32 mpChooseRandomLockPlayer(void);
 bool mpSetLock(s32 locktype, s32 playernum);
 s32 mpGetLockType(void);
 u32 mpGetLockPlayerNum(void);

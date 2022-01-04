@@ -7481,47 +7481,19 @@ glabel func0f18bd90
 /*  f18bee4:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-GLOBAL_ASM(
-glabel mpChooseRandomLockPlayer
-/*  f18bee8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18beec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18bef0:	0c004b70 */ 	jal	random
-/*  f18bef4:	00000000 */ 	nop
-/*  f18bef8:	30440003 */ 	andi	$a0,$v0,0x3
-/*  f18befc:	24830001 */ 	addiu	$v1,$a0,0x1
-/*  f18bf00:	04610004 */ 	bgez	$v1,.L0f18bf14
-/*  f18bf04:	306e0003 */ 	andi	$t6,$v1,0x3
-/*  f18bf08:	11c00002 */ 	beqz	$t6,.L0f18bf14
-/*  f18bf0c:	00000000 */ 	nop
-/*  f18bf10:	25cefffc */ 	addiu	$t6,$t6,-4
-.L0f18bf14:
-/*  f18bf14:	3c05800b */ 	lui	$a1,%hi(g_MpSetup+0x16)
-/*  f18bf18:	94a5cb9e */ 	lhu	$a1,%lo(g_MpSetup+0x16)($a1)
-/*  f18bf1c:	01c01825 */ 	or	$v1,$t6,$zero
-/*  f18bf20:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f18bf24:	006fc004 */ 	sllv	$t8,$t7,$v1
-/*  f18bf28:	00b8c824 */ 	and	$t9,$a1,$t8
-/*  f18bf2c:	1720000d */ 	bnez	$t9,.L0f18bf64
-/*  f18bf30:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f18bf34:
-/*  f18bf34:	1064000b */ 	beq	$v1,$a0,.L0f18bf64
-/*  f18bf38:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f18bf3c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f18bf40:	04610004 */ 	bgez	$v1,.L0f18bf54
-/*  f18bf44:	30680003 */ 	andi	$t0,$v1,0x3
-/*  f18bf48:	11000002 */ 	beqz	$t0,.L0f18bf54
-/*  f18bf4c:	00000000 */ 	nop
-/*  f18bf50:	2508fffc */ 	addiu	$t0,$t0,-4
-.L0f18bf54:
-/*  f18bf54:	010fc004 */ 	sllv	$t8,$t7,$t0
-/*  f18bf58:	00b8c824 */ 	and	$t9,$a1,$t8
-/*  f18bf5c:	1320fff5 */ 	beqz	$t9,.L0f18bf34
-/*  f18bf60:	01001825 */ 	or	$v1,$t0,$zero
-.L0f18bf64:
-/*  f18bf64:	00601025 */ 	or	$v0,$v1,$zero
-/*  f18bf68:	03e00008 */ 	jr	$ra
-/*  f18bf6c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+s32 mpChooseRandomLockPlayer(void)
+{
+	s32 start = random() % 4;
+	s32 i;
+
+	for (i = (start + 1) % 4;; i = (i + 1) % 4) {
+		if ((g_MpSetup.chrslots & (1 << i)) || i == start) {
+			break;
+		}
+	}
+
+	return i;
+}
 
 bool mpSetLock(s32 locktype, s32 playernum)
 {
