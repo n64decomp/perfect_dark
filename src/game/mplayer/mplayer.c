@@ -34,7 +34,7 @@ struct mpchrconfig *g_MpAllChrConfigPtrs[MAX_MPCHRS];
 s32 g_MpNumChrs;
 u32 var800ac534;
 struct mpbotconfig g_BotConfigsArray[MAX_SIMULANTS];
-u8 g_MpSimulantDifficultiesPerNumPlayers[32];
+u8 g_MpSimulantDifficultiesPerNumPlayers[8][4];
 struct mpplayerconfig g_PlayerConfigsArray[6];
 u8 g_AmBotCommands[16];
 struct mpsetup g_MpSetup;
@@ -8484,32 +8484,16 @@ glabel func0f18c984
 /*  f18cb5c:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-GLOBAL_ASM(
-glabel func0f18cb60
-/*  f18cb60:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f18cb64:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f18cb68:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f18cb6c:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f18cb70:	3c0f800b */ 	lui	$t7,%hi(g_BotConfigsArray)
-/*  f18cb74:	25efc538 */ 	addiu	$t7,$t7,%lo(g_BotConfigsArray)
-/*  f18cb78:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f18cb7c:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f18cb80:	3c19800b */ 	lui	$t9,%hi(g_MpSimulantDifficultiesPerNumPlayers)
-/*  f18cb84:	a0450048 */ 	sb	$a1,0x48($v0)
-/*  f18cb88:	2739c798 */ 	addiu	$t9,$t9,%lo(g_MpSimulantDifficultiesPerNumPlayers)
-/*  f18cb8c:	0004c080 */ 	sll	$t8,$a0,0x2
-/*  f18cb90:	03193021 */ 	addu	$a2,$t8,$t9
-/*  f18cb94:	24020004 */ 	addiu	$v0,$zero,0x4
-/*  f18cb98:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18cb9c:	30a700ff */ 	andi	$a3,$a1,0xff
-.L0f18cba0:
-/*  f18cba0:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f18cba4:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f18cba8:	1462fffd */ 	bne	$v1,$v0,.L0f18cba0
-/*  f18cbac:	a0c7ffff */ 	sb	$a3,-0x1($a2)
-/*  f18cbb0:	03e00008 */ 	jr	$ra
-/*  f18cbb4:	00000000 */ 	nop
-);
+void mpSetBotDifficulty(s32 botnum, s32 difficulty)
+{
+	s32 i;
+
+	g_BotConfigsArray[botnum].difficulty = difficulty;
+
+	for (i = 0; i < 4; i++) {
+		g_MpSimulantDifficultiesPerNumPlayers[botnum][i] = g_BotConfigsArray[botnum].difficulty;
+	}
+}
 
 s32 mpGetNumSimulants(void)
 {
@@ -9671,7 +9655,7 @@ void mpsetupfileLoadWad(struct savebuffer *buffer)
 		g_BotConfigsArray[i].difficulty = savebufferReadBits(buffer, 3);
 
 		for (j = 0; j < 4; j++) {
-			g_MpSimulantDifficultiesPerNumPlayers[i * 4 + j] = g_BotConfigsArray[i].difficulty;
+			g_MpSimulantDifficultiesPerNumPlayers[i][j] = g_BotConfigsArray[i].difficulty;
 		}
 
 		if (g_BotConfigsArray[i].difficulty != BOTDIFF_DISABLED) {

@@ -4869,7 +4869,7 @@ glabel var7f1b81e8
 /*  f17c8a0:	17000004 */ 	bnez	$t8,.L0f17c8b4
 /*  f17c8a4:	a04e0047 */ 	sb	$t6,0x47($v0)
 /*  f17c8a8:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f17c8ac:	0fc632d8 */ 	jal	func0f18cb60
+/*  f17c8ac:	0fc632d8 */ 	jal	mpSetBotDifficulty
 /*  f17c8b0:	92050001 */ 	lbu	$a1,0x1($s0)
 .L0f17c8b4:
 /*  f17c8b4:	0fc63377 */ 	jal	func0f18cddc
@@ -5158,7 +5158,7 @@ glabel var7f1b81e8
 /*  f176fc0:	17000004 */ 	bnez	$t8,.NB0f176fd4
 /*  f176fc4:	a04e0047 */ 	sb	$t6,0x47($v0)
 /*  f176fc8:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f176fcc:	0fc61b59 */ 	jal	func0f18cb60
+/*  f176fcc:	0fc61b59 */ 	jal	mpSetBotDifficulty
 /*  f176fd0:	92050001 */ 	lbu	$a1,0x1($s0)
 .NB0f176fd4:
 /*  f176fd4:	0fc61bf8 */ 	jal	func0f18cddc
@@ -5369,7 +5369,7 @@ glabel menuhandlerMpSimulantDifficulty
 /*  f17ce1c:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f17ce20:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f17ce24:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f17ce28:	0fc632d8 */ 	jal	func0f18cb60
+/*  f17ce28:	0fc632d8 */ 	jal	mpSetBotDifficulty
 /*  f17ce2c:	8c84ee1c */ 	lw	$a0,%lo(g_Menus+0xe1c)($a0)
 /*  f17ce30:	0fc63377 */ 	jal	func0f18cddc
 /*  f17ce34:	00000000 */ 	nop
@@ -5496,7 +5496,7 @@ glabel menuhandlerMpSimulantDifficulty
 /*  f17ce1c:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f17ce20:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f17ce24:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f17ce28:	0fc632d8 */ 	jal	func0f18cb60
+/*  f17ce28:	0fc632d8 */ 	jal	mpSetBotDifficulty
 /*  f17ce2c:	8c84ee1c */ 	lw	$a0,%lo(g_Menus+0xe1c)($a0)
 /*  f17ce30:	0fc63377 */ 	jal	func0f18cddc
 /*  f17ce34:	00000000 */ 	nop
@@ -5623,7 +5623,7 @@ glabel menuhandlerMpSimulantDifficulty
 /*  f17753c:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f177540:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f177544:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f177548:	0fc61b59 */ 	jal	func0f18cb60
+/*  f177548:	0fc61b59 */ 	jal	mpSetBotDifficulty
 /*  f17754c:	8c843538 */ 	lw	$a0,0x3538($a0)
 /*  f177550:	0fc61bf8 */ 	jal	func0f18cddc
 /*  f177554:	00000000 */ 	sll	$zero,$zero,0x0

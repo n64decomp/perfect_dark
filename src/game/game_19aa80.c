@@ -905,7 +905,7 @@ void mpPerformSanityChecks(void)
 		g_MpSetup.chrslots &= 0x000f;
 
 		for (i = 0; i != MAX_SIMULANTS; i++) {
-			g_BotConfigsArray[i].difficulty = g_MpSimulantDifficultiesPerNumPlayers[i * 4 + numplayers - 1];
+			g_BotConfigsArray[i].difficulty = g_MpSimulantDifficultiesPerNumPlayers[i][numplayers - 1];
 
 			if (g_BotConfigsArray[i].difficulty != BOTDIFF_DISABLED) {
 				g_MpSetup.chrslots |= 1 << (i + 4);
