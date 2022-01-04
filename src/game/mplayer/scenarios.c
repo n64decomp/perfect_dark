@@ -7473,279 +7473,30 @@ glabel func0f1847b8
 );
 #endif
 
-#if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel scenarioPacTick
-/*  f1848c0:	3c09800b */ 	lui	$t1,%hi(g_ScenarioData)
-/*  f1848c4:	2529c110 */ 	addiu	$t1,$t1,%lo(g_ScenarioData)
-/*  f1848c8:	8d2e0004 */ 	lw	$t6,0x4($t1)
-/*  f1848cc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1848d0:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f1848d4:	15c10005 */ 	bne	$t6,$at,.L0f1848ec
-/*  f1848d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1848dc:	0fc6116f */ 	jal	func0f1845bc
-/*  f1848e0:	00000000 */ 	nop
-/*  f1848e4:	3c09800b */ 	lui	$t1,%hi(g_ScenarioData)
-/*  f1848e8:	2529c110 */ 	addiu	$t1,$t1,%lo(g_ScenarioData)
-.L0f1848ec:
-/*  f1848ec:	3c0f800b */ 	lui	$t7,%hi(g_ScenarioData+0x4)
-/*  f1848f0:	8defc114 */ 	lw	$t7,%lo(g_ScenarioData+0x4)($t7)
-/*  f1848f4:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f1848f8:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f1848fc:	05e00042 */ 	bltz	$t7,.L0f184a08
-/*  f184900:	3c0c800b */ 	lui	$t4,%hi(g_ScenarioData+0x4)
-/*  f184904:	8cf8006c */ 	lw	$t8,0x6c($a3)
-/*  f184908:	00004025 */ 	or	$t0,$zero,$zero
-/*  f18490c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f184910:	13000003 */ 	beqz	$t8,.L0f184920
-/*  f184914:	00003025 */ 	or	$a2,$zero,$zero
-/*  f184918:	10000001 */ 	b	.L0f184920
-/*  f18491c:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0f184920:
-/*  f184920:	8cf90068 */ 	lw	$t9,0x68($a3)
-/*  f184924:	00001025 */ 	or	$v0,$zero,$zero
-/*  f184928:	13200003 */ 	beqz	$t9,.L0f184938
-/*  f18492c:	00000000 */ 	nop
-/*  f184930:	10000001 */ 	b	.L0f184938
-/*  f184934:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f184938:
-/*  f184938:	8cea0064 */ 	lw	$t2,0x64($a3)
-/*  f18493c:	11400003 */ 	beqz	$t2,.L0f18494c
-/*  f184940:	00000000 */ 	nop
-/*  f184944:	10000001 */ 	b	.L0f18494c
-/*  f184948:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f18494c:
-/*  f18494c:	8ceb0070 */ 	lw	$t3,0x70($a3)
-/*  f184950:	11600003 */ 	beqz	$t3,.L0f184960
-/*  f184954:	00000000 */ 	nop
-/*  f184958:	10000001 */ 	b	.L0f184960
-/*  f18495c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f184960:
-/*  f184960:	8d8cc114 */ 	lw	$t4,%lo(g_ScenarioData+0x4)($t4)
-/*  f184964:	00467021 */ 	addu	$t6,$v0,$a2
-/*  f184968:	01c57821 */ 	addu	$t7,$t6,$a1
-/*  f18496c:	000c6840 */ 	sll	$t5,$t4,0x1
-/*  f184970:	012d1821 */ 	addu	$v1,$t1,$t5
-/*  f184974:	84640008 */ 	lh	$a0,0x8($v1)
-/*  f184978:	01e8c021 */ 	addu	$t8,$t7,$t0
-/*  f18497c:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData+0x2)
-/*  f184980:	0098082a */ 	slt	$at,$a0,$t8
-/*  f184984:	10200006 */ 	beqz	$at,.L0f1849a0
-/*  f184988:	0004c880 */ 	sll	$t9,$a0,0x2
-/*  f18498c:	00f95021 */ 	addu	$t2,$a3,$t9
-/*  f184990:	8d4b0064 */ 	lw	$t3,0x64($t2)
-/*  f184994:	8d6c00d8 */ 	lw	$t4,0xd8($t3)
-/*  f184998:	5580001c */ 	bnezl	$t4,.L0f184a0c
-/*  f18499c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1849a0:
-/*  f1849a0:	9442c112 */ 	lhu	$v0,%lo(g_ScenarioData+0x2)($v0)
-/*  f1849a4:	8ced0034 */ 	lw	$t5,0x34($a3)
-/*  f1849a8:	3c01800b */ 	lui	$at,%hi(g_ScenarioData+0x2)
-/*  f1849ac:	004d1021 */ 	addu	$v0,$v0,$t5
-/*  f1849b0:	304effff */ 	andi	$t6,$v0,0xffff
-/*  f1849b4:	a42ec112 */ 	sh	$t6,%lo(g_ScenarioData+0x2)($at)
-/*  f1849b8:	2dc13841 */ 	sltiu	$at,$t6,0x2ee1
-/*  f1849bc:	14200012 */ 	bnez	$at,.L0f184a08
-/*  f1849c0:	3c01800b */ 	lui	$at,%hi(g_ScenarioData+0x2)
-/*  f1849c4:	a420c112 */ 	sh	$zero,%lo(g_ScenarioData+0x2)($at)
-/*  f1849c8:	846f0008 */ 	lh	$t7,0x8($v1)
-/*  f1849cc:	24045407 */ 	addiu	$a0,$zero,0x5408
-/*  f1849d0:	000fc040 */ 	sll	$t8,$t7,0x1
-/*  f1849d4:	01381021 */ 	addu	$v0,$t1,$t8
-/*  f1849d8:	84590038 */ 	lh	$t9,0x38($v0)
-/*  f1849dc:	272a0001 */ 	addiu	$t2,$t9,0x1
-/*  f1849e0:	0fc5b9f1 */ 	jal	langGet
-/*  f1849e4:	a44a0038 */ 	sh	$t2,0x38($v0)
-/*  f1849e8:	3c0b800b */ 	lui	$t3,%hi(g_ScenarioData+0x4)
-/*  f1849ec:	8d6bc114 */ 	lw	$t3,%lo(g_ScenarioData+0x4)($t3)
-/*  f1849f0:	3c04800b */ 	lui	$a0,%hi(g_ScenarioData+0x8)
-/*  f1849f4:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1849f8:	000b6040 */ 	sll	$t4,$t3,0x1
-/*  f1849fc:	008c2021 */ 	addu	$a0,$a0,$t4
-/*  f184a00:	0fc619ae */ 	jal	mpCreateScenarioHudmsg
-/*  f184a04:	8484c118 */ 	lh	$a0,%lo(g_ScenarioData+0x8)($a0)
-.L0f184a08:
-/*  f184a08:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f184a0c:
-/*  f184a0c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f184a10:	03e00008 */ 	jr	$ra
-/*  f184a14:	00000000 */ 	nop
-);
-#elif VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel scenarioPacTick
-/*  f1848c0:	3c09800b */ 	lui	$t1,%hi(g_ScenarioData)
-/*  f1848c4:	2529c110 */ 	addiu	$t1,$t1,%lo(g_ScenarioData)
-/*  f1848c8:	8d2e0004 */ 	lw	$t6,0x4($t1)
-/*  f1848cc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1848d0:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f1848d4:	15c10005 */ 	bne	$t6,$at,.L0f1848ec
-/*  f1848d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1848dc:	0fc6116f */ 	jal	func0f1845bc
-/*  f1848e0:	00000000 */ 	nop
-/*  f1848e4:	3c09800b */ 	lui	$t1,%hi(g_ScenarioData)
-/*  f1848e8:	2529c110 */ 	addiu	$t1,$t1,%lo(g_ScenarioData)
-.L0f1848ec:
-/*  f1848ec:	3c0f800b */ 	lui	$t7,%hi(g_ScenarioData+0x4)
-/*  f1848f0:	8defc114 */ 	lw	$t7,%lo(g_ScenarioData+0x4)($t7)
-/*  f1848f4:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f1848f8:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f1848fc:	05e00042 */ 	bltz	$t7,.L0f184a08
-/*  f184900:	3c0c800b */ 	lui	$t4,%hi(g_ScenarioData+0x4)
-/*  f184904:	8cf8006c */ 	lw	$t8,0x6c($a3)
-/*  f184908:	00004025 */ 	or	$t0,$zero,$zero
-/*  f18490c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f184910:	13000003 */ 	beqz	$t8,.L0f184920
-/*  f184914:	00003025 */ 	or	$a2,$zero,$zero
-/*  f184918:	10000001 */ 	b	.L0f184920
-/*  f18491c:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0f184920:
-/*  f184920:	8cf90068 */ 	lw	$t9,0x68($a3)
-/*  f184924:	00001025 */ 	or	$v0,$zero,$zero
-/*  f184928:	13200003 */ 	beqz	$t9,.L0f184938
-/*  f18492c:	00000000 */ 	nop
-/*  f184930:	10000001 */ 	b	.L0f184938
-/*  f184934:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f184938:
-/*  f184938:	8cea0064 */ 	lw	$t2,0x64($a3)
-/*  f18493c:	11400003 */ 	beqz	$t2,.L0f18494c
-/*  f184940:	00000000 */ 	nop
-/*  f184944:	10000001 */ 	b	.L0f18494c
-/*  f184948:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f18494c:
-/*  f18494c:	8ceb0070 */ 	lw	$t3,0x70($a3)
-/*  f184950:	11600003 */ 	beqz	$t3,.L0f184960
-/*  f184954:	00000000 */ 	nop
-/*  f184958:	10000001 */ 	b	.L0f184960
-/*  f18495c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f184960:
-/*  f184960:	8d8cc114 */ 	lw	$t4,%lo(g_ScenarioData+0x4)($t4)
-/*  f184964:	00467021 */ 	addu	$t6,$v0,$a2
-/*  f184968:	01c57821 */ 	addu	$t7,$t6,$a1
-/*  f18496c:	000c6840 */ 	sll	$t5,$t4,0x1
-/*  f184970:	012d1821 */ 	addu	$v1,$t1,$t5
-/*  f184974:	84640008 */ 	lh	$a0,0x8($v1)
-/*  f184978:	01e8c021 */ 	addu	$t8,$t7,$t0
-/*  f18497c:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData+0x2)
-/*  f184980:	0098082a */ 	slt	$at,$a0,$t8
-/*  f184984:	10200006 */ 	beqz	$at,.L0f1849a0
-/*  f184988:	0004c880 */ 	sll	$t9,$a0,0x2
-/*  f18498c:	00f95021 */ 	addu	$t2,$a3,$t9
-/*  f184990:	8d4b0064 */ 	lw	$t3,0x64($t2)
-/*  f184994:	8d6c00d8 */ 	lw	$t4,0xd8($t3)
-/*  f184998:	5580001c */ 	bnezl	$t4,.L0f184a0c
-/*  f18499c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1849a0:
-/*  f1849a0:	9442c112 */ 	lhu	$v0,%lo(g_ScenarioData+0x2)($v0)
-/*  f1849a4:	8ced0034 */ 	lw	$t5,0x34($a3)
-/*  f1849a8:	3c01800b */ 	lui	$at,%hi(g_ScenarioData+0x2)
-/*  f1849ac:	004d1021 */ 	addu	$v0,$v0,$t5
-/*  f1849b0:	304effff */ 	andi	$t6,$v0,0xffff
-/*  f1849b4:	a42ec112 */ 	sh	$t6,%lo(g_ScenarioData+0x2)($at)
-/*  f1849b8:	2dc13841 */ 	sltiu	$at,$t6,0x3841
-/*  f1849bc:	14200012 */ 	bnez	$at,.L0f184a08
-/*  f1849c0:	3c01800b */ 	lui	$at,%hi(g_ScenarioData+0x2)
-/*  f1849c4:	a420c112 */ 	sh	$zero,%lo(g_ScenarioData+0x2)($at)
-/*  f1849c8:	846f0008 */ 	lh	$t7,0x8($v1)
-/*  f1849cc:	24045407 */ 	addiu	$a0,$zero,0x5407
-/*  f1849d0:	000fc040 */ 	sll	$t8,$t7,0x1
-/*  f1849d4:	01381021 */ 	addu	$v0,$t1,$t8
-/*  f1849d8:	84590038 */ 	lh	$t9,0x38($v0)
-/*  f1849dc:	272a0001 */ 	addiu	$t2,$t9,0x1
-/*  f1849e0:	0fc5b9f1 */ 	jal	langGet
-/*  f1849e4:	a44a0038 */ 	sh	$t2,0x38($v0)
-/*  f1849e8:	3c0b800b */ 	lui	$t3,%hi(g_ScenarioData+0x4)
-/*  f1849ec:	8d6bc114 */ 	lw	$t3,%lo(g_ScenarioData+0x4)($t3)
-/*  f1849f0:	3c04800b */ 	lui	$a0,%hi(g_ScenarioData+0x8)
-/*  f1849f4:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1849f8:	000b6040 */ 	sll	$t4,$t3,0x1
-/*  f1849fc:	008c2021 */ 	addu	$a0,$a0,$t4
-/*  f184a00:	0fc619ae */ 	jal	mpCreateScenarioHudmsg
-/*  f184a04:	8484c118 */ 	lh	$a0,%lo(g_ScenarioData+0x8)($a0)
-.L0f184a08:
-/*  f184a08:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f184a0c:
-/*  f184a0c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f184a10:	03e00008 */ 	jr	$ra
-/*  f184a14:	00000000 */ 	nop
-);
-#else
-GLOBAL_ASM(
-glabel scenarioPacTick
-/*  f17eef8:	3c03800b */ 	lui	$v1,0x800b
-/*  f17eefc:	246309c0 */ 	addiu	$v1,$v1,0x9c0
-/*  f17ef00:	8c6e0004 */ 	lw	$t6,0x4($v1)
-/*  f17ef04:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17ef08:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f17ef0c:	15c10005 */ 	bne	$t6,$at,.NB0f17ef24
-/*  f17ef10:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17ef14:	0fc5fb00 */ 	jal	func0f1845bc
-/*  f17ef18:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17ef1c:	3c03800b */ 	lui	$v1,0x800b
-/*  f17ef20:	246309c0 */ 	addiu	$v1,$v1,0x9c0
-.NB0f17ef24:
-/*  f17ef24:	3c0f800b */ 	lui	$t7,0x800b
-/*  f17ef28:	8def09c4 */ 	lw	$t7,0x9c4($t7)
-/*  f17ef2c:	3c02800b */ 	lui	$v0,0x800b
-/*  f17ef30:	3c18800a */ 	lui	$t8,0x800a
-/*  f17ef34:	05e2001e */ 	bltzl	$t7,.NB0f17efb0
-/*  f17ef38:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17ef3c:	944209c2 */ 	lhu	$v0,0x9c2($v0)
-/*  f17ef40:	8f18e6f4 */ 	lw	$t8,-0x190c($t8)
-/*  f17ef44:	3c01800b */ 	lui	$at,0x800b
-/*  f17ef48:	000f4040 */ 	sll	$t0,$t7,0x1
-/*  f17ef4c:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f17ef50:	3059ffff */ 	andi	$t9,$v0,0xffff
-/*  f17ef54:	a43909c2 */ 	sh	$t9,0x9c2($at)
-/*  f17ef58:	2f213841 */ 	sltiu	$at,$t9,0x3841
-/*  f17ef5c:	14200013 */ 	bnez	$at,.NB0f17efac
-/*  f17ef60:	00684821 */ 	addu	$t1,$v1,$t0
-/*  f17ef64:	3c01800b */ 	lui	$at,0x800b
-/*  f17ef68:	a42009c2 */ 	sh	$zero,0x9c2($at)
-/*  f17ef6c:	852a0008 */ 	lh	$t2,0x8($t1)
-/*  f17ef70:	24045407 */ 	addiu	$a0,$zero,0x5407
-/*  f17ef74:	000a5840 */ 	sll	$t3,$t2,0x1
-/*  f17ef78:	006b1021 */ 	addu	$v0,$v1,$t3
-/*  f17ef7c:	844c0038 */ 	lh	$t4,0x38($v0)
-/*  f17ef80:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*  f17ef84:	0fc5a4dd */ 	jal	langGet
-/*  f17ef88:	a44d0038 */ 	sh	$t5,0x38($v0)
-/*  f17ef8c:	3c0e800b */ 	lui	$t6,0x800b
-/*  f17ef90:	8dce09c4 */ 	lw	$t6,0x9c4($t6)
-/*  f17ef94:	3c04800b */ 	lui	$a0,0x800b
-/*  f17ef98:	00402825 */ 	or	$a1,$v0,$zero
-/*  f17ef9c:	000ec040 */ 	sll	$t8,$t6,0x1
-/*  f17efa0:	00982021 */ 	addu	$a0,$a0,$t8
-/*  f17efa4:	0fc602c8 */ 	jal	mpCreateScenarioHudmsg
-/*  f17efa8:	848409c8 */ 	lh	$a0,0x9c8($a0)
-.NB0f17efac:
-/*  f17efac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f17efb0:
-/*  f17efb0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17efb4:	03e00008 */ 	jr	$ra
-/*  f17efb8:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
+void scenarioPacTick(void)
+{
+	struct scenariodata_pac *data = &g_ScenarioData.pac;
 
-//void scenarioPacTick(void)
-//{
-//	if (g_ScenarioData.pac.victimindex == -1) {
-//		func0f1845bc();
-//	}
-//
-//	if (g_ScenarioData.pac.victimindex >= 0) {
-//		if (PLAYERCOUNT() <= g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex] ||
-//				g_Vars.players[g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex]]->isdead == false) {
-//			g_ScenarioData.pac.age240 += g_Vars.lvupdate240;
-//
-//			if (g_ScenarioData.pac.age240 > SECSTOTIME240(60)) {
-//				g_ScenarioData.pac.age240 = 0;
-//				g_ScenarioData.pac.wincounts[g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex]]++;
-//				mpCreateScenarioHudmsg(g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex], langGet(L_MPWEAPONS_007)); // "Have a point for living!"
-//			}
-//		}
-//	}
-//}
+	if (data->victimindex == -1) {
+		func0f1845bc();
+	}
+
+	if (data->victimindex >= 0) {
+#if VERSION >= VERSION_NTSC_1_0
+		if (data->victims[data->victimindex] >= PLAYERCOUNT() ||
+				g_Vars.players[data->victims[data->victimindex]]->isdead == false)
+#endif
+		{
+			data->age240 += g_Vars.lvupdate240;
+
+			if (data->age240 > (u32)PALDOWN(240 * 60)) {
+				data->age240 = 0;
+				data->wincounts[data->victims[data->victimindex]]++;
+				mpCreateScenarioHudmsg(data->victims[data->victimindex], langGet(L_MPWEAPONS_007)); // "Have a point for living!"
+			}
+		}
+	}
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
