@@ -8100,69 +8100,42 @@ s32 mpGetNumChrs(void)
 	return count;
 }
 
-GLOBAL_ASM(
-glabel func0f18c8b8
-/*  f18c8b8:	3c05800b */ 	lui	$a1,%hi(g_MpSetup+0x16)
-/*  f18c8bc:	3c0b800b */ 	lui	$t3,%hi(g_BotConfigsArray)
-/*  f18c8c0:	3c08800b */ 	lui	$t0,%hi(g_PlayerConfigsArray)
-/*  f18c8c4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18c8c8:	2508c7b8 */ 	addiu	$t0,$t0,%lo(g_PlayerConfigsArray)
-/*  f18c8cc:	256bc538 */ 	addiu	$t3,$t3,%lo(g_BotConfigsArray)
-/*  f18c8d0:	94a5cb9e */ 	lhu	$a1,%lo(g_MpSetup+0x16)($a1)
-/*  f18c8d4:	240c004c */ 	addiu	$t4,$zero,0x4c
-/*  f18c8d8:	240a000c */ 	addiu	$t2,$zero,0xc
-/*  f18c8dc:	240900a0 */ 	addiu	$t1,$zero,0xa0
-/*  f18c8e0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f18c8e4:
-/*  f18c8e4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f18c8e8:	240e0001 */ 	addiu	$t6,$zero,0x1
-.L0f18c8ec:
-/*  f18c8ec:	008e7804 */ 	sllv	$t7,$t6,$a0
-/*  f18c8f0:	00afc024 */ 	and	$t8,$a1,$t7
-/*  f18c8f4:	13000010 */ 	beqz	$t8,.L0f18c938
-/*  f18c8f8:	28810004 */ 	slti	$at,$a0,0x4
-/*  f18c8fc:	10200006 */ 	beqz	$at,.L0f18c918
-/*  f18c900:	00603825 */ 	or	$a3,$v1,$zero
-/*  f18c904:	00890019 */ 	multu	$a0,$t1
-/*  f18c908:	0000c812 */ 	mflo	$t9
-/*  f18c90c:	01193021 */ 	addu	$a2,$t0,$t9
-/*  f18c910:	10000006 */ 	b	.L0f18c92c
-/*  f18c914:	90ce0011 */ 	lbu	$t6,0x11($a2)
-.L0f18c918:
-/*  f18c918:	008c0019 */ 	multu	$a0,$t4
-/*  f18c91c:	00006812 */ 	mflo	$t5
-/*  f18c920:	016d3021 */ 	addu	$a2,$t3,$t5
-/*  f18c924:	24c6fed0 */ 	addiu	$a2,$a2,-304
-/*  f18c928:	90ce0011 */ 	lbu	$t6,0x11($a2)
-.L0f18c92c:
-/*  f18c92c:	54ee0003 */ 	bnel	$a3,$t6,.L0f18c93c
-/*  f18c930:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f18c934:	00001025 */ 	or	$v0,$zero,$zero
-.L0f18c938:
-/*  f18c938:	24840001 */ 	addiu	$a0,$a0,0x1
-.L0f18c93c:
-/*  f18c93c:	548affeb */ 	bnel	$a0,$t2,.L0f18c8ec
-/*  f18c940:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f18c944:	54400005 */ 	bnezl	$v0,.L0f18c95c
-/*  f18c948:	28610007 */ 	slti	$at,$v1,0x7
-/*  f18c94c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f18c950:	306f00ff */ 	andi	$t7,$v1,0xff
-/*  f18c954:	01e01825 */ 	or	$v1,$t7,$zero
-/*  f18c958:	28610007 */ 	slti	$at,$v1,0x7
-.L0f18c95c:
-/*  f18c95c:	50200004 */ 	beqzl	$at,.L0f18c970
-/*  f18c960:	28610008 */ 	slti	$at,$v1,0x8
-/*  f18c964:	5040ffdf */ 	beqzl	$v0,.L0f18c8e4
-/*  f18c968:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f18c96c:	28610008 */ 	slti	$at,$v1,0x8
-.L0f18c970:
-/*  f18c970:	14200002 */ 	bnez	$at,.L0f18c97c
-/*  f18c974:	00000000 */ 	nop
-/*  f18c978:	24030007 */ 	addiu	$v1,$zero,0x7
-.L0f18c97c:
-/*  f18c97c:	03e00008 */ 	jr	$ra
-/*  f18c980:	00601025 */ 	or	$v0,$v1,$zero
-);
+u8 mpFindUnusedTeamNum(void)
+{
+	u8 teamnum = 0;
+	bool available = false;
+	s32 i;
+
+	while (teamnum < 7 && !available) {
+		available = true;
+
+		for (i = 0; i < 12; i++) {
+			if (g_MpSetup.chrslots & (1 << i)) {
+				struct mpchrconfig *mpchr;
+
+				if (i < 4) {
+					mpchr = &g_PlayerConfigsArray[i].base;
+				} else {
+					mpchr = &g_BotConfigsArray[i - 4].base;
+				}
+
+				if (mpchr->team == teamnum) {
+					available = false;
+				}
+			}
+		}
+
+		if (!available) {
+			teamnum++;
+		}
+	}
+
+	if (teamnum > 7) {
+		teamnum = 7;
+	}
+
+	return teamnum;
+}
 
 GLOBAL_ASM(
 glabel func0f18c984
@@ -8180,7 +8153,7 @@ glabel func0f18c984
 /*  f18c9b0:	afb30024 */ 	sw	$s3,0x24($sp)
 /*  f18c9b4:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f18c9b8:	afa50064 */ 	sw	$a1,0x64($sp)
-/*  f18c9bc:	0fc6322e */ 	jal	func0f18c8b8
+/*  f18c9bc:	0fc6322e */ 	jal	mpFindUnusedTeamNum
 /*  f18c9c0:	afa0005c */ 	sw	$zero,0x5c($sp)
 /*  f18c9c4:	2415004c */ 	addiu	$s5,$zero,0x4c
 /*  f18c9c8:	02150019 */ 	multu	$s0,$s5

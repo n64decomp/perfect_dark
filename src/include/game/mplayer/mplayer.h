@@ -83,7 +83,7 @@ u32 mpChooseRandomTrack(void);
 struct mpchrconfig *mpGetChrConfigBySlotNum(s32 slot);
 s32 mpGetChrIndexBySlotNum(s32 slot);
 s32 mpGetNumChrs(void);
-u32 func0f18c8b8(void);
+u8 mpFindUnusedTeamNum(void);
 void func0f18c984(s32 numsims, u8 difficulty);
 void mpSetBotDifficulty(s32 botnum, s32 difficulty);
 s32 mpGetNumSimulants(void);
