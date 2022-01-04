@@ -541,46 +541,16 @@ void mpGetTeamsWithDefaultName(u8 *mask)
 #endif
 
 #if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel mpSetTeamNamesToDefault
-/*  f189384:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f189388:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f18938c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f189390:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f189394:	309300ff */ 	andi	$s3,$a0,0xff
-/*  f189398:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f18939c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f1893a0:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f1893a4:	00008025 */ 	move	$s0,$zero
-/*  f1893a8:	24120008 */ 	li	$s2,0x8
-/*  f1893ac:	240f0001 */ 	li	$t7,0x1
-.PF0f1893b0:
-/*  f1893b0:	020fc004 */ 	sllv	$t8,$t7,$s0
-/*  f1893b4:	0278c824 */ 	and	$t9,$s3,$t8
-/*  f1893b8:	1320000b */ 	beqz	$t9,.PF0f1893e8
-/*  f1893bc:	26045608 */ 	addiu	$a0,$s0,0x5608
-/*  f1893c0:	00104080 */ 	sll	$t0,$s0,0x2
-/*  f1893c4:	01104023 */ 	subu	$t0,$t0,$s0
-/*  f1893c8:	3c09800b */ 	lui	$t1,0x800b
-/*  f1893cc:	2529d150 */ 	addiu	$t1,$t1,-11952
-/*  f1893d0:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f1893d4:	0fc5bdaa */ 	jal	langGet
-/*  f1893d8:	01098821 */ 	addu	$s1,$t0,$t1
-/*  f1893dc:	02202025 */ 	move	$a0,$s1
-/*  f1893e0:	0c004bb0 */ 	jal	strcpy
-/*  f1893e4:	00402825 */ 	move	$a1,$v0
-.PF0f1893e8:
-/*  f1893e8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1893ec:	5612fff0 */ 	bnel	$s0,$s2,.PF0f1893b0
-/*  f1893f0:	240f0001 */ 	li	$t7,0x1
-/*  f1893f4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1893f8:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f1893fc:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f189400:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f189404:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f189408:	03e00008 */ 	jr	$ra
-/*  f18940c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void mpSetTeamNamesToDefault(u8 mask)
+{
+	s32 i;
+
+	for (i = 0; i < 8; i++) {
+		if (mask & (1 << i)) {
+			strcpy(g_BossFile.teamnames[i], langGet(L_OPTIONS_008 + i));
+		}
+	}
+}
 #endif
 
 void mpSetDefaultNamesIfEmpty(void)
