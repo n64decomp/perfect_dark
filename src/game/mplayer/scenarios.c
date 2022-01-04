@@ -6763,126 +6763,43 @@ bool scenarioHtmHighlight(struct prop *prop, u32 *colour)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel scenarioPacChooseVictims
-/*  f1843d4:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f1843d8:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f1843dc:	3c14800b */ 	lui	$s4,%hi(g_ScenarioData)
-/*  f1843e0:	2694c110 */ 	addiu	$s4,$s4,%lo(g_ScenarioData)
-/*  f1843e4:	240effff */ 	addiu	$t6,$zero,-1
-/*  f1843e8:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData)
-/*  f1843ec:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData+0x18)
-/*  f1843f0:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f1843f4:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f1843f8:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f1843fc:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f184400:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f184404:	ae8e0004 */ 	sw	$t6,0x4($s4)
-/*  f184408:	a6800002 */ 	sh	$zero,0x2($s4)
-/*  f18440c:	2463c128 */ 	addiu	$v1,$v1,%lo(g_ScenarioData+0x18)
-/*  f184410:	2442c110 */ 	addiu	$v0,$v0,%lo(g_ScenarioData)
-.L0f184414:
-/*  f184414:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  f184418:	a440001e */ 	sh	$zero,0x1e($v0)
-/*  f18441c:	1443fffd */ 	bne	$v0,$v1,.L0f184414
-/*  f184420:	a4400036 */ 	sh	$zero,0x36($v0)
-/*  f184424:	3c13800b */ 	lui	$s3,%hi(g_MpNumChrs)
-/*  f184428:	2673c530 */ 	addiu	$s3,$s3,%lo(g_MpNumChrs)
-/*  f18442c:	8e640000 */ 	lw	$a0,0x0($s3)
-/*  f184430:	00008825 */ 	or	$s1,$zero,$zero
-/*  f184434:	1880001f */ 	blez	$a0,.L0f1844b4
-/*  f184438:	00008025 */ 	or	$s0,$zero,$zero
-.L0f18443c:
-/*  f18443c:	0c004b70 */ 	jal	random
-/*  f184440:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f184444:	8e640000 */ 	lw	$a0,0x0($s3)
-/*  f184448:	0011c040 */ 	sll	$t8,$s1,0x1
-/*  f18444c:	0298c821 */ 	addu	$t9,$s4,$t8
-/*  f184450:	0044001b */ 	divu	$zero,$v0,$a0
-/*  f184454:	00001810 */ 	mfhi	$v1
-/*  f184458:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData)
-/*  f18445c:	14800002 */ 	bnez	$a0,.L0f184468
-/*  f184460:	00000000 */ 	nop
-/*  f184464:	0007000d */ 	break	0x7
-.L0f184468:
-/*  f184468:	2442c110 */ 	addiu	$v0,$v0,%lo(g_ScenarioData)
-/*  f18446c:	1a200009 */ 	blez	$s1,.L0f184494
-/*  f184470:	00000000 */ 	nop
-.L0f184474:
-/*  f184474:	844f0008 */ 	lh	$t7,0x8($v0)
-/*  f184478:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f18447c:	146f0003 */ 	bne	$v1,$t7,.L0f18448c
-/*  f184480:	00000000 */ 	nop
-/*  f184484:	10000003 */ 	b	.L0f184494
-/*  f184488:	00009025 */ 	or	$s2,$zero,$zero
-.L0f18448c:
-/*  f18448c:	1611fff9 */ 	bne	$s0,$s1,.L0f184474
-/*  f184490:	24420002 */ 	addiu	$v0,$v0,0x2
-.L0f184494:
-/*  f184494:	52400005 */ 	beqzl	$s2,.L0f1844ac
-/*  f184498:	0224082a */ 	slt	$at,$s1,$a0
-/*  f18449c:	a7230008 */ 	sh	$v1,0x8($t9)
-/*  f1844a0:	8e640000 */ 	lw	$a0,0x0($s3)
-/*  f1844a4:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f1844a8:	0224082a */ 	slt	$at,$s1,$a0
-.L0f1844ac:
-/*  f1844ac:	5420ffe3 */ 	bnezl	$at,.L0f18443c
-/*  f1844b0:	00008025 */ 	or	$s0,$zero,$zero
-.L0f1844b4:
-/*  f1844b4:	18800005 */ 	blez	$a0,.L0f1844cc
-/*  f1844b8:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1844bc:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f1844c0:
-/*  f1844c0:	0204082a */ 	slt	$at,$s0,$a0
-/*  f1844c4:	5420fffe */ 	bnezl	$at,.L0f1844c0
-/*  f1844c8:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f1844cc:
-/*  f1844cc:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f1844d0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1844d4:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f1844d8:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f1844dc:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f1844e0:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f1844e4:	03e00008 */ 	jr	$ra
-/*  f1844e8:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void scenarioPacChooseVictims(void)
+{
+	s32 i;
+	s32 j;
+	struct scenariodata_pac *data = &g_ScenarioData.pac;
 
-//void scenarioPacChooseVictims(void)
-//{
-//	s32 i;
-//	s32 j;
-//
-//	g_ScenarioData.pac.unk04 = -1;
-//	g_ScenarioData.pac.unk02 = 0;
-//
-//	for (i = 0; i != MAX_MPCHRS; i++) {
-//		g_ScenarioData.pac.unk20[i] = 0;
-//		g_ScenarioData.pac.unk34[i] = 0;
-//	}
-//
-//	i = 0;
-//
-//	while (i < g_MpNumChrs) {
-//		bool isnew = true;
-//		s32 victimplayernum = random() % g_MpNumChrs;
-//
-//		for (j = 0; j < i; j++) {
-//			if (g_ScenarioData.pac.victims[j] == victimplayernum) {
-//				isnew = false;
-//				break;
-//			}
-//		}
-//
-//		if (isnew) {
-//			g_ScenarioData.pac.victims[i] = victimplayernum;
-//			i++;
-//		}
-//	}
-//
-//	for (i = 0; i < g_MpNumChrs; i++) {
-//		// This loop probably printed debug messages
-//	}
-//}
+	data->victimindex = -1;
+	data->age240 = 0;
+
+	for (i = 0; i != MAX_MPCHRS; i++) {
+		data->unk20[i] = 0;
+		data->wincounts[i] = 0;
+	}
+
+	i = 0;
+
+	while (i < g_MpNumChrs) {
+		bool isnew;
+		s32 victimplayernum = random() % g_MpNumChrs;
+
+		for (j = 0, isnew = true; j < i; j++) {
+			if (data->victims[j] == victimplayernum) {
+				isnew = false;
+				break;
+			}
+		}
+
+		if (isnew) {
+			data->victims[i] = victimplayernum;
+			i++;
+		}
+	}
+
+	for (j = 0; j < g_MpNumChrs; j++) {
+		// This loop probably printed debug messages
+	}
+}
 
 void scenarioPacInit(void)
 {
