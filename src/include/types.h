@@ -3518,7 +3518,7 @@ struct menuitemrenderdata {
 
 struct handlerdata_type19 {
 	Gfx *gdl;
-	struct menuitemrenderdata *renderdata1;
+	struct menuitemrenderdata *renderdata1; // actually the list value?
 	struct menuitemrenderdata *renderdata2;
 };
 
