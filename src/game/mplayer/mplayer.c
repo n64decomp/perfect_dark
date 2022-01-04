@@ -526,50 +526,23 @@ void mpSetDefaultSetup(void)
 }
 
 #if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel func0f1892fcpf
-/*  f1892fc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f189300:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f189304:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f189308:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f18930c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f189310:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f189314:	3c11800b */ 	lui	$s1,0x800b
-/*  f189318:	00809025 */ 	move	$s2,$a0
-/*  f18931c:	a0800000 */ 	sb	$zero,0x0($a0)
-/*  f189320:	2631d150 */ 	addiu	$s1,$s1,-11952
-/*  f189324:	00008025 */ 	move	$s0,$zero
-/*  f189328:	24130008 */ 	li	$s3,0x8
-.PF0f18932c:
-/*  f18932c:	0fc5bdaa */ 	jal	langGet
-/*  f189330:	26045608 */ 	addiu	$a0,$s0,0x5608
-/*  f189334:	02202025 */ 	move	$a0,$s1
-/*  f189338:	0c004c01 */ 	jal	strcmp
-/*  f18933c:	00402825 */ 	move	$a1,$v0
-/*  f189340:	54400007 */ 	bnezl	$v0,.PF0f189360
-/*  f189344:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f189348:	924e0000 */ 	lbu	$t6,0x0($s2)
-/*  f18934c:	240f0001 */ 	li	$t7,0x1
-/*  f189350:	020fc004 */ 	sllv	$t8,$t7,$s0
-/*  f189354:	01d8c825 */ 	or	$t9,$t6,$t8
-/*  f189358:	a2590000 */ 	sb	$t9,0x0($s2)
-/*  f18935c:	26100001 */ 	addiu	$s0,$s0,0x1
-.PF0f189360:
-/*  f189360:	1613fff2 */ 	bne	$s0,$s3,.PF0f18932c
-/*  f189364:	2631000c */ 	addiu	$s1,$s1,0xc
-/*  f189368:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f18936c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f189370:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f189374:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f189378:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f18937c:	03e00008 */ 	jr	$ra
-/*  f189380:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void mpGetTeamsWithDefaultName(u8 *mask)
+{
+	s32 i;
+
+	*mask = 0;
+
+	for (i = 0; i < 8; i++) {
+		if (strcmp(g_BossFile.teamnames[i], langGet(L_OPTIONS_008 + i)) == 0) {
+			*mask |= 1 << i;
+		}
+	}
+}
 #endif
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f189384pf
+glabel mpSetTeamNamesToDefault
 /*  f189384:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f189388:	afb30020 */ 	sw	$s3,0x20($sp)
 /*  f18938c:	afb2001c */ 	sw	$s2,0x1c($sp)

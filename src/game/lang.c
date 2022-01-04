@@ -569,7 +569,7 @@ glabel var7f1b9094pf
 .PF0f16f77c:
 /*  f16f77c:	10400004 */ 	beqz	$v0,.PF0f16f790
 /*  f16f780:	27a4001f */ 	addiu	$a0,$sp,0x1f
-/*  f16f784:	0fc624bf */ 	jal	func0f1892fcpf
+/*  f16f784:	0fc624bf */ 	jal	mpGetTeamsWithDefaultName
 /*  f16f788:	afa20018 */ 	sw	$v0,0x18($sp)
 /*  f16f78c:	8fa20018 */ 	lw	$v0,0x18($sp)
 .PF0f16f790:
@@ -610,7 +610,7 @@ glabel var7f1b9094pf
 /*  f16f814:	8fa20018 */ 	lw	$v0,0x18($sp)
 /*  f16f818:	50400004 */ 	beqzl	$v0,.PF0f16f82c
 /*  f16f81c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16f820:	0fc624e1 */ 	jal	func0f189384pf
+/*  f16f820:	0fc624e1 */ 	jal	mpSetTeamNamesToDefault
 /*  f16f824:	93a4001f */ 	lbu	$a0,0x1f($sp)
 /*  f16f828:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .PF0f16f82c:
