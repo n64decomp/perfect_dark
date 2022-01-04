@@ -5773,7 +5773,7 @@ s32 menuhandlerMpAddSimulant(s32 operation, struct menuitem *item, union handler
 		menuPushDialog(&g_MpAddSimulantMenuDialog);
 		break;
 	case MENUOP_CHECKDISABLED:
-		if (func0f18cc8c() == 0) {
+		if (mpHasUnusedBotSlots() == 0) {
 			return true;
 		}
 	}

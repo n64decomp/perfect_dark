@@ -89,7 +89,7 @@ void mpSetBotDifficulty(s32 botnum, s32 difficulty);
 s32 mpGetNumSimulants(void);
 void mpRemoveSimulant(s32 index);
 bool mpHasSimulants(void);
-u32 func0f18cc8c(void);
+bool mpHasUnusedBotSlots(void);
 bool mpIsSimSlotEnabled(s32 slot);
 s32 mpGetSimTypeIndex(s32 type, s32 difficulty);
 void func0f18cddc(void);

@@ -8516,42 +8516,23 @@ bool mpHasSimulants(void)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f18cc8c
-/*  f18cc8c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18cc90:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18cc94:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f18cc98:	24040040 */ 	addiu	$a0,$zero,0x40
-/*  f18cc9c:	10400003 */ 	beqz	$v0,.L0f18ccac
-/*  f18cca0:	3c04800b */ 	lui	$a0,%hi(g_MpSetup+0x16)
-/*  f18cca4:	10000002 */ 	b	.L0f18ccb0
-/*  f18cca8:	24030008 */ 	addiu	$v1,$zero,0x8
-.L0f18ccac:
-/*  f18ccac:	24030004 */ 	addiu	$v1,$zero,0x4
-.L0f18ccb0:
-/*  f18ccb0:	24020004 */ 	addiu	$v0,$zero,0x4
-/*  f18ccb4:	9484cb9e */ 	lhu	$a0,%lo(g_MpSetup+0x16)($a0)
-/*  f18ccb8:	2405000c */ 	addiu	$a1,$zero,0xc
-/*  f18ccbc:	240e0001 */ 	addiu	$t6,$zero,0x1
-.L0f18ccc0:
-/*  f18ccc0:	004e7804 */ 	sllv	$t7,$t6,$v0
-/*  f18ccc4:	008fc024 */ 	and	$t8,$a0,$t7
-/*  f18ccc8:	13000002 */ 	beqz	$t8,.L0f18ccd4
-/*  f18cccc:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f18ccd0:	2463ffff */ 	addiu	$v1,$v1,-1
-.L0f18ccd4:
-/*  f18ccd4:	5445fffa */ 	bnel	$v0,$a1,.L0f18ccc0
-/*  f18ccd8:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f18ccdc:	18600003 */ 	blez	$v1,.L0f18ccec
-/*  f18cce0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18cce4:	10000002 */ 	b	.L0f18ccf0
-/*  f18cce8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f18ccec:
-/*  f18ccec:	00001025 */ 	or	$v0,$zero,$zero
-.L0f18ccf0:
-/*  f18ccf0:	03e00008 */ 	jr	$ra
-/*  f18ccf4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+bool mpHasUnusedBotSlots(void)
+{
+	s32 numvacant = mpIsFeatureUnlocked(MPFEATURE_8BOTS) ? 8 : 4;
+	s32 i;
+
+	for (i = 4; i < 12; i++) {
+		if (g_MpSetup.chrslots & (1 << i)) {
+			numvacant--;
+		}
+	}
+
+	if (numvacant > 0) {
+		return true;
+	}
+
+	return false;
+}
 
 bool mpIsSimSlotEnabled(s32 slot)
 {
