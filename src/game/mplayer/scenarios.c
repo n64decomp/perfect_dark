@@ -4170,7 +4170,7 @@ void func0f182bf4(void)
 	for (i = 0; i < 1; i++) {
 		g_ScenarioData.htm.unk07c[i].unk00 = 0;
 		g_ScenarioData.htm.unk07c[i].prop = NULL;
-		g_ScenarioData.htm.unk07c[i].unk08 = -1;
+		g_ScenarioData.htm.unk07c[i].padnum = -1;
 		g_ScenarioData.htm.unk07c[i].unk0a = 0xff;
 		g_ScenarioData.htm.unk07c[i].unk0b = 0xff;
 	}
@@ -4574,7 +4574,7 @@ void scenarioHtmReset(void)
 			padnum = data->padnums[rand];
 		} while (padnum <= 0);
 
-		data->unk07c[data->unk002].unk08 = padnum;
+		data->unk07c[data->unk002].padnum = padnum;
 		data->unk002++;
 		data->padnums[rand] = -1;
 	}
@@ -4582,14 +4582,17 @@ void scenarioHtmReset(void)
 	osSyncPrintf("HackThatMacInitProps -> %d/%d Random box pads generated - Listing\n", data->unk002, scenarioHtmCallback08());
 
 	for (i = 0; i < data->unk002; i++) {
-		osSyncPrintf("Pad %d -> Pad Id = %d\n", i, data->unk07c[i].unk08);
+		osSyncPrintf("Pad %d -> Pad Id = %d\n", i, data->unk07c[i].padnum);
 	}
 
 	for (i = 0; i < 1; i++) {
-		data->unk07c[i].prop = func0f186508(MODEL_GOODPC, data->unk07c[i].unk08, 0.2f, 0x420001, 0x204000, 0x12000);
+		data->unk07c[i].prop = scenarioCreateObj(MODEL_GOODPC, data->unk07c[i].padnum, 0.2f,
+				OBJFLAG_00000001 | OBJFLAG_INVINCIBLE | OBJFLAG_00400000,
+				OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_00200000,
+				OBJFLAG3_HTMTERMINAL | OBJFLAG3_INTERACTABLE);
 		osSyncPrintf("HackThatMacInitProps -> Building and adding custom prop %d - Pad=%d, Ptr=%08x\n",
-				i, data->unk07c[i].unk08, data->unk07c[i].prop);
-		scenarioHtmRemoveAmmoCrateAtPad(data->unk07c[i].unk08);
+				i, data->unk07c[i].padnum, data->unk07c[i].prop);
+		scenarioHtmRemoveAmmoCrateAtPad(data->unk07c[i].padnum);
 	}
 
 	var800869ec = NULL;
@@ -8086,148 +8089,50 @@ struct menudialog g_MpQuickTeamScenarioMenuDialog = {
 	NULL,
 };
 
-u32 var800871fc = 0x01000003;
-u32 var80087200 = 0x0020ffff;
-u32 var80087204 = 0x00000000;
-u32 var80087208 = 0x00000000;
-u32 var8008720c = 0x00000000;
-u32 var80087210 = 0x00000000;
-u32 var80087214 = 0x00000000;
-u32 var80087218 = 0x3f800000;
-u32 var8008721c = 0x00000000;
-u32 var80087220 = 0x00000000;
-u32 var80087224 = 0x00000000;
-u32 var80087228 = 0x3f800000;
-u32 var8008722c = 0x00000000;
-u32 var80087230 = 0x00000000;
-u32 var80087234 = 0x00000000;
-u32 var80087238 = 0x3f800000;
-u32 var8008723c = 0x00000000;
-u32 var80087240 = 0x00000000;
-u32 var80087244 = 0x00000000;
-u32 var80087248 = 0x000003e8;
-u32 var8008724c = 0xffffff00;
-u32 var80087250 = 0xffffff00;
-u32 var80087254 = 0x0fff0000;
-u32 var80087258 = 0x00000000;
-u32 var8008725c = 0x00000000;
+struct prop *scenarioCreateObj(s32 modelnum, s16 padnum, f32 arg2, u32 flags, u32 flags2, u32 flags3)
+{
+	struct defaultobj template = {
+		256,                    // extrascale
+		0,                      // hidden2
+		OBJTYPE_BASIC,          // type
+		MODEL_A51_CRATE1,       // modelnum
+		-1,                     // pad
+		0,                      // flags
+		0,                      // flags2
+		0,                      // flags3
+		NULL,                   // prop
+		NULL,                   // model
+		1, 0, 0,                // realrot
+		0, 1, 0,
+		0, 0, 1,
+		0,                      // hidden
+		NULL,                   // geo
+		NULL,                   // projectile
+		0,                      // damage
+		1000,                   // maxdamage
+		0xff, 0xff, 0xff, 0x00, // shadecol
+		0xff, 0xff, 0xff, 0x00, // nextcol
+		0x0fff,                 // floorcol
+		0,                      // tiles
+	};
 
-GLOBAL_ASM(
-glabel func0f186508
-/*  f186508:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f18650c:	3c0f8008 */ 	lui	$t7,%hi(var800871fc)
-/*  f186510:	25ef71fc */ 	addiu	$t7,$t7,%lo(var800871fc)
-/*  f186514:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f186518:	afa40078 */ 	sw	$a0,0x78($sp)
-/*  f18651c:	afa5007c */ 	sw	$a1,0x7c($sp)
-/*  f186520:	afa60080 */ 	sw	$a2,0x80($sp)
-/*  f186524:	afa70084 */ 	sw	$a3,0x84($sp)
-/*  f186528:	25e80054 */ 	addiu	$t0,$t7,0x54
-/*  f18652c:	27ae001c */ 	addiu	$t6,$sp,0x1c
-.L0f186530:
-/*  f186530:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f186534:	25ef000c */ 	addiu	$t7,$t7,0xc
-/*  f186538:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f18653c:	adc1fff4 */ 	sw	$at,-0xc($t6)
-/*  f186540:	8de1fff8 */ 	lw	$at,-0x8($t7)
-/*  f186544:	adc1fff8 */ 	sw	$at,-0x8($t6)
-/*  f186548:	8de1fffc */ 	lw	$at,-0x4($t7)
-/*  f18654c:	15e8fff8 */ 	bne	$t7,$t0,.L0f186530
-/*  f186550:	adc1fffc */ 	sw	$at,-0x4($t6)
-/*  f186554:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f186558:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f18655c:	24040060 */ 	addiu	$a0,$zero,0x60
-/*  f186560:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f186564:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f186568:	0c0048f2 */ 	jal	mempAlloc
-/*  f18656c:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f186570:	27a9001c */ 	addiu	$t1,$sp,0x1c
-/*  f186574:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f186578:	252c0054 */ 	addiu	$t4,$t1,0x54
-/*  f18657c:	00406825 */ 	or	$t5,$v0,$zero
-.L0f186580:
-/*  f186580:	8d210000 */ 	lw	$at,0x0($t1)
-/*  f186584:	2529000c */ 	addiu	$t1,$t1,0xc
-/*  f186588:	25ad000c */ 	addiu	$t5,$t5,0xc
-/*  f18658c:	ada1fff4 */ 	sw	$at,-0xc($t5)
-/*  f186590:	8d21fff8 */ 	lw	$at,-0x8($t1)
-/*  f186594:	ada1fff8 */ 	sw	$at,-0x8($t5)
-/*  f186598:	8d21fffc */ 	lw	$at,-0x4($t1)
-/*  f18659c:	152cfff8 */ 	bne	$t1,$t4,.L0f186580
-/*  f1865a0:	ada1fffc */ 	sw	$at,-0x4($t5)
-/*  f1865a4:	8d210000 */ 	lw	$at,0x0($t1)
-/*  f1865a8:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f1865ac:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1865b0:	ada10000 */ 	sw	$at,0x0($t5)
-/*  f1865b4:	8d2c0004 */ 	lw	$t4,0x4($t1)
-/*  f1865b8:	3c014380 */ 	lui	$at,0x4380
-/*  f1865bc:	44813000 */ 	mtc1	$at,$f6
-/*  f1865c0:	adac0004 */ 	sw	$t4,0x4($t5)
-/*  f1865c4:	8fb90078 */ 	lw	$t9,0x78($sp)
-/*  f1865c8:	3c014f00 */ 	lui	$at,0x4f00
-/*  f1865cc:	2405007b */ 	addiu	$a1,$zero,0x7b
-/*  f1865d0:	a4590004 */ 	sh	$t9,0x4($v0)
-/*  f1865d4:	87b8007e */ 	lh	$t8,0x7e($sp)
-/*  f1865d8:	a4580006 */ 	sh	$t8,0x6($v0)
-/*  f1865dc:	8fa80084 */ 	lw	$t0,0x84($sp)
-/*  f1865e0:	ac480008 */ 	sw	$t0,0x8($v0)
-/*  f1865e4:	8faf0088 */ 	lw	$t7,0x88($sp)
-/*  f1865e8:	ac4f000c */ 	sw	$t7,0xc($v0)
-/*  f1865ec:	8fae008c */ 	lw	$t6,0x8c($sp)
-/*  f1865f0:	ac4e0010 */ 	sw	$t6,0x10($v0)
-/*  f1865f4:	c7a40080 */ 	lwc1	$f4,0x80($sp)
-/*  f1865f8:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f1865fc:	444bf800 */ 	cfc1	$t3,$31
-/*  f186600:	44caf800 */ 	ctc1	$t2,$31
-/*  f186604:	00000000 */ 	nop
-/*  f186608:	460042a4 */ 	cvt.w.s	$f10,$f8
-/*  f18660c:	444af800 */ 	cfc1	$t2,$31
-/*  f186610:	00000000 */ 	nop
-/*  f186614:	314a0078 */ 	andi	$t2,$t2,0x78
-/*  f186618:	51400013 */ 	beqzl	$t2,.L0f186668
-/*  f18661c:	440a5000 */ 	mfc1	$t2,$f10
-/*  f186620:	44815000 */ 	mtc1	$at,$f10
-/*  f186624:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f186628:	460a4281 */ 	sub.s	$f10,$f8,$f10
-/*  f18662c:	44caf800 */ 	ctc1	$t2,$31
-/*  f186630:	00000000 */ 	nop
-/*  f186634:	460052a4 */ 	cvt.w.s	$f10,$f10
-/*  f186638:	444af800 */ 	cfc1	$t2,$31
-/*  f18663c:	00000000 */ 	nop
-/*  f186640:	314a0078 */ 	andi	$t2,$t2,0x78
-/*  f186644:	15400005 */ 	bnez	$t2,.L0f18665c
-/*  f186648:	00000000 */ 	nop
-/*  f18664c:	440a5000 */ 	mfc1	$t2,$f10
-/*  f186650:	3c018000 */ 	lui	$at,0x8000
-/*  f186654:	10000007 */ 	b	.L0f186674
-/*  f186658:	01415025 */ 	or	$t2,$t2,$at
-.L0f18665c:
-/*  f18665c:	10000005 */ 	b	.L0f186674
-/*  f186660:	240affff */ 	addiu	$t2,$zero,-1
-/*  f186664:	440a5000 */ 	mfc1	$t2,$f10
-.L0f186668:
-/*  f186668:	00000000 */ 	nop
-/*  f18666c:	0540fffb */ 	bltz	$t2,.L0f18665c
-/*  f186670:	00000000 */ 	nop
-.L0f186674:
-/*  f186674:	904c0002 */ 	lbu	$t4,0x2($v0)
-/*  f186678:	44cbf800 */ 	ctc1	$t3,$31
-/*  f18667c:	a44a0000 */ 	sh	$t2,0x0($v0)
-/*  f186680:	3189fffb */ 	andi	$t1,$t4,0xfffb
-/*  f186684:	0fc033b9 */ 	jal	setupGenericObject
-/*  f186688:	a0490002 */ 	sb	$t1,0x2($v0)
-/*  f18668c:	8fad0018 */ 	lw	$t5,0x18($sp)
-/*  f186690:	0fc1812f */ 	jal	propActivate
-/*  f186694:	8da40014 */ 	lw	$a0,0x14($t5)
-/*  f186698:	8fb90018 */ 	lw	$t9,0x18($sp)
-/*  f18669c:	0fc180bc */ 	jal	propEnable
-/*  f1866a0:	8f240014 */ 	lw	$a0,0x14($t9)
-/*  f1866a4:	8fb80018 */ 	lw	$t8,0x18($sp)
-/*  f1866a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1866ac:	8f020014 */ 	lw	$v0,0x14($t8)
-/*  f1866b0:	03e00008 */ 	jr	$ra
-/*  f1866b4:	27bd0078 */ 	addiu	$sp,$sp,0x78
-);
+	struct defaultobj *obj = mempAlloc(ALIGN16(sizeof(struct defaultobj)), MEMPOOL_STAGE);
+	*obj = template;
+
+	obj->modelnum = modelnum;
+	obj->pad = padnum;
+	obj->flags = flags;
+	obj->flags2 = flags2;
+	obj->flags3 = flags3;
+	obj->extrascale = arg2 * 256;
+	obj->hidden2 &= ~OBJHFLAG_REAPABLE;
+
+	setupGenericObject(obj, 123);
+	propActivate(obj->prop);
+	propEnable(obj->prop);
+
+	return obj->prop;
+}
 
 void mpCreateScenarioHudmsg(s32 playernum, char *message)
 {

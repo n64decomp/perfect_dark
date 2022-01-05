@@ -4755,7 +4755,7 @@ struct scenariodata_htb {
 struct htmthing {
 	u32 unk00;
 	struct prop *prop;
-	s16 unk08;
+	s16 padnum;
 	u8 unk0a;
 	u8 unk0b;
 };
