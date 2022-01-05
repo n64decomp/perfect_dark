@@ -226,148 +226,48 @@ s32 menuhandlerMpOneHitKills(s32 operation, struct menuitem *item, union handler
 	return menuhandlerMpCheckboxOption(operation, item, data);
 }
 
-u16 mpslowmotionoptions[] = {
-	L_MPMENU_240, // "Off"
-	L_MPMENU_241, // "On"
-	L_MPMENU_242, // "Smart"
-};
+s32 menuhandlerMpSlowMotion(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	u16 labels[] = {
+		L_MPMENU_240, // "Off"
+		L_MPMENU_241, // "On"
+		L_MPMENU_242, // "Smart"
+	};
 
-GLOBAL_ASM(
-glabel menuhandlerMpSlowMotion
-.late_rodata
-glabel var7f1b88dc
-.word menuhandlerMpSlowMotion+0x6c # f17febc
-glabel var7f1b88e0
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b88e4
-.word menuhandlerMpSlowMotion+0x78 # f17fec8
-glabel var7f1b88e8
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b88ec
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b88f0
-.word menuhandlerMpSlowMotion+0x94 # f17fee4
-glabel var7f1b88f4
-.word menuhandlerMpSlowMotion+0xe4 # f17ff34
-glabel var7f1b88f8
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b88fc
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b8900
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b8904
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b8908
-.word menuhandlerMpSlowMotion+0x4c # f17fe9c
-glabel var7f1b890c
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b8910
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b8914
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b8918
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b891c
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b8920
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b8924
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b8928
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b892c
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b8930
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b8934
-.word menuhandlerMpSlowMotion+0x11c # f17ff6c
-glabel var7f1b8938
-.word menuhandlerMpSlowMotion+0x4c # f17fe9c
-.text
-/*  f17fe50:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f17fe54:	3c0e8008 */ 	lui	$t6,%hi(mpslowmotionoptions)
-/*  f17fe58:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17fe5c:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f17fe60:	25ce67c0 */ 	addiu	$t6,$t6,%lo(mpslowmotionoptions)
-/*  f17fe64:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f17fe68:	27a20020 */ 	addiu	$v0,$sp,0x20
-/*  f17fe6c:	2488ffff */ 	addiu	$t0,$a0,-1
-/*  f17fe70:	ac410000 */ 	sw	$at,0x0($v0)
-/*  f17fe74:	95c10004 */ 	lhu	$at,0x4($t6)
-/*  f17fe78:	a4410004 */ 	sh	$at,0x4($v0)
-/*  f17fe7c:	2d010018 */ 	sltiu	$at,$t0,0x18
-/*  f17fe80:	1020003a */ 	beqz	$at,.L0f17ff6c
-/*  f17fe84:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f17fe88:	3c017f1c */ 	lui	$at,%hi(var7f1b88dc)
-/*  f17fe8c:	00280821 */ 	addu	$at,$at,$t0
-/*  f17fe90:	8c2888dc */ 	lw	$t0,%lo(var7f1b88dc)($at)
-/*  f17fe94:	01000008 */ 	jr	$t0
-/*  f17fe98:	00000000 */ 	nop
-/*  f17fe9c:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f17fea0:	2404001d */ 	addiu	$a0,$zero,0x1d
-/*  f17fea4:	10400003 */ 	beqz	$v0,.L0f17feb4
-/*  f17fea8:	00000000 */ 	nop
-/*  f17feac:	10000030 */ 	b	.L0f17ff70
-/*  f17feb0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17feb4:
-/*  f17feb4:	1000002e */ 	b	.L0f17ff70
-/*  f17feb8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f17febc:	24090003 */ 	addiu	$t1,$zero,0x3
-/*  f17fec0:	1000002a */ 	b	.L0f17ff6c
-/*  f17fec4:	acc90000 */ 	sw	$t1,0x0($a2)
-/*  f17fec8:	8cca0000 */ 	lw	$t2,0x0($a2)
-/*  f17fecc:	000a5840 */ 	sll	$t3,$t2,0x1
-/*  f17fed0:	004b6021 */ 	addu	$t4,$v0,$t3
-/*  f17fed4:	0fc5b9f1 */ 	jal	langGet
-/*  f17fed8:	95840000 */ 	lhu	$a0,0x0($t4)
-/*  f17fedc:	10000025 */ 	b	.L0f17ff74
-/*  f17fee0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17fee4:	3c02800b */ 	lui	$v0,%hi(g_MpSetup)
-/*  f17fee8:	2442cb88 */ 	addiu	$v0,$v0,%lo(g_MpSetup)
-/*  f17feec:	8c4d000c */ 	lw	$t5,0xc($v0)
-/*  f17fef0:	2401ff3f */ 	addiu	$at,$zero,-193
-/*  f17fef4:	01a1c024 */ 	and	$t8,$t5,$at
-/*  f17fef8:	ac58000c */ 	sw	$t8,0xc($v0)
-/*  f17fefc:	8cc30000 */ 	lw	$v1,0x0($a2)
-/*  f17ff00:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f17ff04:	370e0040 */ 	ori	$t6,$t8,0x40
-/*  f17ff08:	54610004 */ 	bnel	$v1,$at,.L0f17ff1c
-/*  f17ff0c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f17ff10:	10000016 */ 	b	.L0f17ff6c
-/*  f17ff14:	ac4e000c */ 	sw	$t6,0xc($v0)
-/*  f17ff18:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f17ff1c:
-/*  f17ff1c:	54610014 */ 	bnel	$v1,$at,.L0f17ff70
-/*  f17ff20:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17ff24:	8c59000c */ 	lw	$t9,0xc($v0)
-/*  f17ff28:	37280080 */ 	ori	$t0,$t9,0x80
-/*  f17ff2c:	1000000f */ 	b	.L0f17ff6c
-/*  f17ff30:	ac48000c */ 	sw	$t0,0xc($v0)
-/*  f17ff34:	3c02800b */ 	lui	$v0,%hi(g_MpSetup)
-/*  f17ff38:	2442cb88 */ 	addiu	$v0,$v0,%lo(g_MpSetup)
-/*  f17ff3c:	8c43000c */ 	lw	$v1,0xc($v0)
-/*  f17ff40:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*  f17ff44:	30690080 */ 	andi	$t1,$v1,0x80
-/*  f17ff48:	11200003 */ 	beqz	$t1,.L0f17ff58
-/*  f17ff4c:	306b0040 */ 	andi	$t3,$v1,0x40
-/*  f17ff50:	10000006 */ 	b	.L0f17ff6c
-/*  f17ff54:	acca0000 */ 	sw	$t2,0x0($a2)
-.L0f17ff58:
-/*  f17ff58:	11600003 */ 	beqz	$t3,.L0f17ff68
-/*  f17ff5c:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f17ff60:	10000002 */ 	b	.L0f17ff6c
-/*  f17ff64:	accc0000 */ 	sw	$t4,0x0($a2)
-.L0f17ff68:
-/*  f17ff68:	acc00000 */ 	sw	$zero,0x0($a2)
-.L0f17ff6c:
-/*  f17ff6c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17ff70:
-/*  f17ff70:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17ff74:
-/*  f17ff74:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f17ff78:	03e00008 */ 	jr	$ra
-/*  f17ff7c:	00000000 */ 	nop
-);
+	switch (operation) {
+	case MENUOP_CHECKDISABLED:
+	case MENUOP_CHECKHIDDEN:
+		if (mpIsFeatureUnlocked(MPFEATURE_SLOWMOTION)) {
+			return false;
+		}
+		return true;
+	case MENUOP_GETOPTIONCOUNT:
+		data->dropdown.value = 3;
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		return (s32)langGet(labels[data->dropdown.value]);
+	case MENUOP_SET:
+		g_MpSetup.options &= ~(MPOPTION_SLOWMOTION_ON | MPOPTION_SLOWMOTION_SMART);
+
+		if (data->dropdown.value == SLOWMOTION_ON) {
+			g_MpSetup.options |= MPOPTION_SLOWMOTION_ON;
+		} else if (data->dropdown.value == SLOWMOTION_SMART) {
+			g_MpSetup.options |= MPOPTION_SLOWMOTION_SMART;
+		}
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		if (g_MpSetup.options & MPOPTION_SLOWMOTION_SMART) {
+			data->dropdown.value = SLOWMOTION_SMART;
+		} else if (g_MpSetup.options & MPOPTION_SLOWMOTION_ON) {
+			data->dropdown.value = SLOWMOTION_ON;
+		} else {
+			data->dropdown.value = SLOWMOTION_OFF;
+		}
+		break;
+	}
+
+	return 0;
+}
 
 void scenarioHtbInit(void)
 {
