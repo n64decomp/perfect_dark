@@ -4787,7 +4787,7 @@ struct scenariodata_pac {
 struct scenariodata_koh {
 	/*0x800ac110*/ u32 unk00;
 	/*0x800ac114*/ s16 occupiedteam;
-	/*0x800ac116*/ s16 unk06;
+	/*0x800ac116*/ s16 elapsed240;
 	/*0x800ac118*/ s16 unk08;
 	/*0x800ac11a*/ s16 hillindex;
 	/*0x800ac11c*/ s16 hillcount;
