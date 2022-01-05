@@ -690,7 +690,7 @@ glabel mpGetPlayerRankings
 /*  f1886a4:	27a7006c */ 	addiu	$a3,$sp,0x6c
 /*  f1886a8:	afa30060 */ 	sw	$v1,0x60($sp)
 /*  f1886ac:	afa80064 */ 	sw	$t0,0x64($sp)
-/*  f1886b0:	0fc61705 */ 	jal	func0f185c14
+/*  f1886b0:	0fc61705 */ 	jal	mpCalculatePlayerScore
 /*  f1886b4:	afac016c */ 	sw	$t4,0x16c($sp)
 /*  f1886b8:	8fa30060 */ 	lw	$v1,0x60($sp)
 /*  f1886bc:	8fa80064 */ 	lw	$t0,0x64($sp)
@@ -923,7 +923,7 @@ glabel mpGetPlayerRankings
 /*  f182aa0:	27a70064 */ 	addiu	$a3,$sp,0x64
 /*  f182aa4:	afa20058 */ 	sw	$v0,0x58($sp)
 /*  f182aa8:	afa3005c */ 	sw	$v1,0x5c($sp)
-/*  f182aac:	0fc6001f */ 	jal	func0f185c14
+/*  f182aac:	0fc6001f */ 	jal	mpCalculatePlayerScore
 /*  f182ab0:	afac0164 */ 	sw	$t4,0x164($sp)
 /*  f182ab4:	8fa20058 */ 	lw	$v0,0x58($sp)
 /*  f182ab8:	8fa3005c */ 	lw	$v1,0x5c($sp)
@@ -1099,99 +1099,50 @@ glabel mpGetPlayerRankings
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f188930
-/*  f188930:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f188934:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f188938:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f18893c:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f188940:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f188944:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f188948:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f18894c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f188950:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f188954:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f188958:	3c14800b */ 	lui	$s4,%hi(g_MpSetup)
-/*  f18895c:	3c15800b */ 	lui	$s5,%hi(g_PlayerConfigsArray)
-/*  f188960:	00809825 */ 	or	$s3,$a0,$zero
-/*  f188964:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f188968:	afa50064 */ 	sw	$a1,0x64($sp)
-/*  f18896c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f188970:	00009025 */ 	or	$s2,$zero,$zero
-/*  f188974:	afa00050 */ 	sw	$zero,0x50($sp)
-/*  f188978:	26b5c7b8 */ 	addiu	$s5,$s5,%lo(g_PlayerConfigsArray)
-/*  f18897c:	2694cb88 */ 	addiu	$s4,$s4,%lo(g_MpSetup)
-/*  f188980:	00008025 */ 	or	$s0,$zero,$zero
-/*  f188984:	241600a0 */ 	addiu	$s6,$zero,0xa0
-/*  f188988:	27b70044 */ 	addiu	$s7,$sp,0x44
-/*  f18898c:	27be0040 */ 	addiu	$s8,$sp,0x40
-/*  f188990:	968e0016 */ 	lhu	$t6,0x16($s4)
-.L0f188994:
-/*  f188994:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f188998:	020fc004 */ 	sllv	$t8,$t7,$s0
-/*  f18899c:	01d8c824 */ 	and	$t9,$t6,$t8
-/*  f1889a0:	1320001c */ 	beqz	$t9,.L0f188a14
-/*  f1889a4:	2a010004 */ 	slti	$at,$s0,0x4
-/*  f1889a8:	10200006 */ 	beqz	$at,.L0f1889c4
-/*  f1889ac:	00104880 */ 	sll	$t1,$s0,0x2
-/*  f1889b0:	02160019 */ 	multu	$s0,$s6
-/*  f1889b4:	00004012 */ 	mflo	$t0
-/*  f1889b8:	02a82021 */ 	addu	$a0,$s5,$t0
-/*  f1889bc:	1000000a */ 	b	.L0f1889e8
-/*  f1889c0:	908c0011 */ 	lbu	$t4,0x11($a0)
-.L0f1889c4:
-/*  f1889c4:	01304821 */ 	addu	$t1,$t1,$s0
-/*  f1889c8:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f1889cc:	01304823 */ 	subu	$t1,$t1,$s0
-/*  f1889d0:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f1889d4:	3c0b800b */ 	lui	$t3,%hi(g_BotConfigsArray)
-/*  f1889d8:	256bc538 */ 	addiu	$t3,$t3,%lo(g_BotConfigsArray)
-/*  f1889dc:	252afed0 */ 	addiu	$t2,$t1,-304
-/*  f1889e0:	014b2021 */ 	addu	$a0,$t2,$t3
-/*  f1889e4:	908c0011 */ 	lbu	$t4,0x11($a0)
-.L0f1889e8:
-/*  f1889e8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1889ec:	02e03025 */ 	or	$a2,$s7,$zero
-/*  f1889f0:	166c0008 */ 	bne	$s3,$t4,.L0f188a14
-/*  f1889f4:	03c03825 */ 	or	$a3,$s8,$zero
-/*  f1889f8:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f1889fc:	0fc61705 */ 	jal	func0f185c14
-/*  f188a00:	afad0050 */ 	sw	$t5,0x50($sp)
-/*  f188a04:	8faf0044 */ 	lw	$t7,0x44($sp)
-/*  f188a08:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*  f188a0c:	022f8821 */ 	addu	$s1,$s1,$t7
-/*  f188a10:	024e9021 */ 	addu	$s2,$s2,$t6
-.L0f188a14:
-/*  f188a14:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f188a18:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f188a1c:	5601ffdd */ 	bnel	$s0,$at,.L0f188994
-/*  f188a20:	968e0016 */ 	lhu	$t6,0x16($s4)
-/*  f188a24:	8fb80050 */ 	lw	$t8,0x50($sp)
-/*  f188a28:	8fb90064 */ 	lw	$t9,0x64($sp)
-/*  f188a2c:	34018000 */ 	dli	$at,0x8000
-/*  f188a30:	13000008 */ 	beqz	$t8,.L0f188a54
-/*  f188a34:	00001025 */ 	or	$v0,$zero,$zero
-/*  f188a38:	02214021 */ 	addu	$t0,$s1,$at
-/*  f188a3c:	340affff */ 	dli	$t2,0xffff
-/*  f188a40:	01525823 */ 	subu	$t3,$t2,$s2
-/*  f188a44:	00084c00 */ 	sll	$t1,$t0,0x10
-/*  f188a48:	af310000 */ 	sw	$s1,0x0($t9)
-/*  f188a4c:	10000001 */ 	b	.L0f188a54
-/*  f188a50:	012b1025 */ 	or	$v0,$t1,$t3
-.L0f188a54:
-/*  f188a54:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f188a58:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f188a5c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f188a60:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f188a64:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f188a68:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f188a6c:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f188a70:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f188a74:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f188a78:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f188a7c:	03e00008 */ 	jr	$ra
-/*  f188a80:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
+/**
+ * Iterate players on the given team and add their scores.
+ *
+ * There are two score values:
+ * - The team score, which is written to the result pointer and eventually
+ *   displayed on screen
+ * - The rankable score, which is the returned value. The rankable score is
+ *   similar to the team score but uses the number of deaths as a tie breaker.
+ */
+s32 mpCalculateTeamScore(s32 teamnum, s32 *result)
+{
+	struct mpchrconfig *mpchr;
+	s32 teamscore = 0;
+	s32 teamdeaths = 0;
+	bool teamexists = false;
+	s32 i;
+	u32 stack;
+	s32 score;
+	s32 deaths;
+
+	for (i = 0; i < 12; i++) {
+		if (g_MpSetup.chrslots & (1 << i)) {
+			if (i < 4) {
+				mpchr = &g_PlayerConfigsArray[i].base;
+			} else {
+				mpchr = &g_BotConfigsArray[i - 4].base;
+			}
+
+			if (mpchr->team == teamnum) {
+				mpCalculatePlayerScore(mpchr, i, &score, &deaths);
+				teamexists = true;
+				teamscore += score;
+				teamdeaths += deaths;
+			}
+		}
+	}
+
+	if (teamexists) {
+		*result = teamscore;
+		return (teamscore + 0x8000) << 16 | 0xffff - teamdeaths;
+	}
+
+	return 0;
+}
 
 s32 mpGetTeamRankings(struct mpteaminfo *info)
 {
@@ -1206,7 +1157,7 @@ s32 mpGetTeamRankings(struct mpteaminfo *info)
 
 	for (i = 0; i < 8; i++) {
 		apparentscores[i] = -8000;
-		rankablescores[i] = func0f188930(i, &apparentscores[i]);
+		rankablescores[i] = mpCalculateTeamScore(i, &apparentscores[i]);
 	}
 
 	do {

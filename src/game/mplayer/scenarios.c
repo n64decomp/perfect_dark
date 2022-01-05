@@ -8707,7 +8707,7 @@ glabel func0f185774
 #endif
 
 GLOBAL_ASM(
-glabel func0f185c14
+glabel mpCalculatePlayerScore
 /*  f185c14:	3c0b800b */ 	lui	$t3,%hi(g_MpSetup)
 /*  f185c18:	256bcb88 */ 	addiu	$t3,$t3,%lo(g_MpSetup)
 /*  f185c1c:	916e0010 */ 	lbu	$t6,0x10($t3)

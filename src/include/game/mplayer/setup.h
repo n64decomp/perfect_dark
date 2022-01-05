@@ -106,7 +106,7 @@ char *mpMenuTextScenarioName(struct menuitem *item);
 s32 menuhandler00185068(s32 operation, struct menuitem *item, union handlerdata *data);
 void mpCreateMatchStartHudmsgs(void);
 Gfx *func0f185774(Gfx *gdl);
-u32 func0f185c14(void);
+void mpCalculatePlayerScore(struct mpchrconfig *mpchr, s32 chrnum, s32 *arg2, s32 *arg3);
 bool func0f185e20(struct prop *prop, s32 *arg1);
 void mpPrepareScenario(void);
 u32 func0f186508(void);
