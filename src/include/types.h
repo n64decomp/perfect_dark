@@ -4673,7 +4673,7 @@ struct mpscenario {
 	void (*resetfunc)(void);
 	void (*tickfunc)(void);
 	void (*unk14)(struct chrdata *chr);
-	void *unk18;
+	Gfx *(*hudfunc)(Gfx *gdl);
 	void (*calcscorefunc)(struct mpchrconfig *mpchr, s32 chrnum, s32 *score, s32 *deaths);
 	Gfx *(*radarfunc)(Gfx *gdl);
 	bool (*radar2func)(Gfx **gdl, struct prop *prop);

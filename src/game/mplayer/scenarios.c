@@ -199,33 +199,6 @@ u32 var800ac4cc;
 struct mpscenario g_MpScenarios[6];
 
 const char var7f1b8440[] = "CaptureTheBriefcaseAddBankPad -> Adding New Pad %d  - Pad Id = %d-> Saving Pad\n";
-const char var7f1b8490[] = "%d:%02d";
-const char var7f1b8498[] = "%d:%02d";
-const char var7f1b84a0[] = "%02d";
-const char var7f1b84a8[] = "HackThatMacAddBankPad -> Adding New Pad %d  - Pad Id = %d-> Saving Pad\n";
-const char var7f1b84f0[] = "HackThatMacReset -> Working\n";
-const char var7f1b8510[] = "HackThatMacInitProps -> Start : %d Bank Pads\n";
-const char var7f1b8540[] = "HackThatMacInitProps -> Adding prop %d (%x)\n";
-const char var7f1b8570[] = "HackThatMacInitProps -> Mid : %d Bank Pads\n";
-const char var7f1b859c[] = "HackThatMacInitProps -> Generating %d random box pads from %d in the bank\n";
-const char var7f1b85e8[] = "HackThatMacInitProps -> %d/%d Random box pads generated - Listing\n";
-const char var7f1b862c[] = "Pad %d -> Pad Id = %d\n";
-const char var7f1b8644[] = "HackThatMacInitProps -> Building and adding custom prop %d - Pad=%d, Ptr=%08x\n";
-const char var7f1b8694[] = "HackThatMacInitProps -> End\n";
-const char var7f1b86b4[] = "HTM : Player %d - Term Pos = (%d,%d,%d)";
-const char var7f1b86dc[] = "HTM : Player %d - Play Pos = (%d,%d,%d)";
-const char var7f1b8704[] = "HTM : Player %d - T/P  Rel = (%d,%d,%d)";
-const char var7f1b872c[] = "HTM : Player %d - Range XZ = %d";
-const char var7f1b874c[] = "HTM : Player %d - Range Y  = %d";
-const char var7f1b876c[] = "HTM : Player %d - Angle XZ = %d";
-const char var7f1b878c[] = "HTM : Player %d - Dwnld Plr=%d, Dwnld Prop=%d\n";
-const char var7f1b87bc[] = "HTM : Player %d - Download Time = %d";
-const char var7f1b87e4[] = "PopACapReset -> num_mplayers=%d : Working\n";
-const char var7f1b8810[] = "PopACapReset -> Generated %d victims for this game : Listing\n";
-const char var7f1b8850[] = "PopACapReset -> Victim %d is player %d\n";
-const char var7f1b8878[] = "PopACapReset -> Done\n";
-const char var7f1b8890[] = "PopACapTick : Current Victim = %d (Player %d)\n";
-const char var7f1b88c0[] = "%d:%02d";
 
 s32 menuhandlerMpDisplayTeam(s32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -939,360 +912,87 @@ void scenarioHtbCallback14(struct chrdata *chr)
 	}
 }
 
+/**
+ * @bug: In NTSC Final, the calculation of mins and subsequent subtraction from
+ * time240 should use 60 * 240 instead of 30 * 240. This has no noticeable
+ * effect unless the score duration is increased to above 30 seconds.
+ *
+ * PAL recognises that mins will always be 0 and simplifies the calculation.
+ */
+Gfx *scenarioHtbRenderHud(Gfx *gdl)
+{
+	s32 time240;
+	s32 mins;
+	s32 secs;
+	s32 textwidth;
+	s32 textheight;
+	s32 x;
+	s32 y;
+	char text[64];
+
+	if (invHasBriefcase()) {
+		x = viGetViewLeft() + viGetViewWidth() / 2;
+		y = viGetViewTop() + 10;
+
 #if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel scenarioHtbCallback18
-/*  f1817dc:	27bdff60 */ 	addiu	$sp,$sp,-160
-/*  f1817e0:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f1817e4:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f1817e8:	0fc44cc9 */ 	jal	invHasBriefcase
-/*  f1817ec:	00808025 */ 	move	$s0,$a0
-/*  f1817f0:	50400058 */ 	beqzl	$v0,.PF0f181954
-/*  f1817f4:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f1817f8:	0c002e91 */ 	jal	viGetViewLeft
-/*  f1817fc:	00000000 */ 	nop
-/*  f181800:	0c002e73 */ 	jal	viGetViewWidth
-/*  f181804:	a7a20042 */ 	sh	$v0,0x42($sp)
-/*  f181808:	87af0042 */ 	lh	$t7,0x42($sp)
-/*  f18180c:	04410003 */ 	bgez	$v0,.PF0f18181c
-/*  f181810:	00027043 */ 	sra	$t6,$v0,0x1
-/*  f181814:	24410001 */ 	addiu	$at,$v0,0x1
-/*  f181818:	00017043 */ 	sra	$t6,$at,0x1
-.PF0f18181c:
-/*  f18181c:	01cf2821 */ 	addu	$a1,$t6,$t7
-/*  f181820:	0c002e95 */ 	jal	viGetViewTop
-/*  f181824:	afa50088 */ 	sw	$a1,0x88($sp)
-/*  f181828:	3c19800a */ 	lui	$t9,0x800a
-/*  f18182c:	8f39a798 */ 	lw	$t9,-0x5868($t9)
-/*  f181830:	2458000a */ 	addiu	$t8,$v0,0xa
-/*  f181834:	afb80084 */ 	sw	$t8,0x84($sp)
-/*  f181838:	8f280060 */ 	lw	$t0,0x60($t9)
-/*  f18183c:	24091770 */ 	li	$t1,0x1770
-/*  f181840:	240100c8 */ 	li	$at,0xc8
-/*  f181844:	01281823 */ 	subu	$v1,$t1,$t0
-/*  f181848:	246700c7 */ 	addiu	$a3,$v1,0xc7
-/*  f18184c:	00e1001a */ 	div	$zero,$a3,$at
-/*  f181850:	00003812 */ 	mflo	$a3
-/*  f181854:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f181858:	24a59ae0 */ 	addiu	$a1,$a1,-25888
-/*  f18185c:	27a40044 */ 	addiu	$a0,$sp,0x44
-/*  f181860:	0c004d11 */ 	jal	sprintf
-/*  f181864:	00003025 */ 	move	$a2,$zero
-/*  f181868:	0fc550cf */ 	jal	func0f153628
-/*  f18186c:	02002025 */ 	move	$a0,$s0
-/*  f181870:	3c0b8008 */ 	lui	$t3,0x8008
-/*  f181874:	8d6b0064 */ 	lw	$t3,0x64($t3)
-/*  f181878:	3c078008 */ 	lui	$a3,0x8008
-/*  f18187c:	00408025 */ 	move	$s0,$v0
-/*  f181880:	8ce70068 */ 	lw	$a3,0x68($a3)
-/*  f181884:	27a4008c */ 	addiu	$a0,$sp,0x8c
-/*  f181888:	27a50090 */ 	addiu	$a1,$sp,0x90
-/*  f18188c:	27a60044 */ 	addiu	$a2,$sp,0x44
-/*  f181890:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f181894:	0fc5609a */ 	jal	textMeasure
-/*  f181898:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f18189c:	8fa70090 */ 	lw	$a3,0x90($sp)
-/*  f1818a0:	8fa50088 */ 	lw	$a1,0x88($sp)
-/*  f1818a4:	8fa2008c */ 	lw	$v0,0x8c($sp)
-/*  f1818a8:	8fa60084 */ 	lw	$a2,0x84($sp)
-/*  f1818ac:	04e10003 */ 	bgez	$a3,.PF0f1818bc
-/*  f1818b0:	00076043 */ 	sra	$t4,$a3,0x1
-/*  f1818b4:	24e10001 */ 	addiu	$at,$a3,0x1
-/*  f1818b8:	00016043 */ 	sra	$t4,$at,0x1
-.PF0f1818bc:
-/*  f1818bc:	00ac2823 */ 	subu	$a1,$a1,$t4
-/*  f1818c0:	00e53821 */ 	addu	$a3,$a3,$a1
-/*  f1818c4:	00461021 */ 	addu	$v0,$v0,$a2
-/*  f1818c8:	afa20010 */ 	sw	$v0,0x10($sp)
-/*  f1818cc:	afa2008c */ 	sw	$v0,0x8c($sp)
-/*  f1818d0:	afa70090 */ 	sw	$a3,0x90($sp)
-/*  f1818d4:	afa50088 */ 	sw	$a1,0x88($sp)
-/*  f1818d8:	0fc551a9 */ 	jal	func0f153990
-/*  f1818dc:	02002025 */ 	move	$a0,$s0
-/*  f1818e0:	0c002e53 */ 	jal	viGetWidth
-/*  f1818e4:	00408025 */ 	move	$s0,$v0
-/*  f1818e8:	0c002e57 */ 	jal	viGetHeight
-/*  f1818ec:	a7a20040 */ 	sh	$v0,0x40($sp)
-/*  f1818f0:	3c0d8008 */ 	lui	$t5,0x8008
-/*  f1818f4:	3c0e8008 */ 	lui	$t6,0x8008
-/*  f1818f8:	8dce005c */ 	lw	$t6,0x5c($t6)
-/*  f1818fc:	8dad0060 */ 	lw	$t5,0x60($t5)
-/*  f181900:	87b90040 */ 	lh	$t9,0x40($sp)
-/*  f181904:	3c0f00ff */ 	lui	$t7,0xff
-/*  f181908:	35ef00a0 */ 	ori	$t7,$t7,0xa0
-/*  f18190c:	241800a0 */ 	li	$t8,0xa0
-/*  f181910:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*  f181914:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*  f181918:	02002025 */ 	move	$a0,$s0
-/*  f18191c:	27a50088 */ 	addiu	$a1,$sp,0x88
-/*  f181920:	27a60084 */ 	addiu	$a2,$sp,0x84
-/*  f181924:	27a70044 */ 	addiu	$a3,$sp,0x44
-/*  f181928:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f18192c:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f181930:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f181934:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f181938:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f18193c:	0fc55fa0 */ 	jal	textRender
-/*  f181940:	afb90020 */ 	sw	$t9,0x20($sp)
-/*  f181944:	0fc55125 */ 	jal	func0f153780
-/*  f181948:	00402025 */ 	move	$a0,$v0
-/*  f18194c:	00408025 */ 	move	$s0,$v0
-/*  f181950:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.PF0f181954:
-/*  f181954:	02001025 */ 	move	$v0,$s0
-/*  f181958:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f18195c:	03e00008 */ 	jr	$ra
-/*  f181960:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
-);
-#elif VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel scenarioHtbCallback18
-/*  f18079c:	27bdff58 */ 	addiu	$sp,$sp,-168
-/*  f1807a0:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f1807a4:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f1807a8:	0fc44a11 */ 	jal	invHasBriefcase
-/*  f1807ac:	00808025 */ 	or	$s0,$a0,$zero
-/*  f1807b0:	50400067 */ 	beqzl	$v0,.L0f180950
-/*  f1807b4:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f1807b8:	0c002f40 */ 	jal	viGetViewLeft
-/*  f1807bc:	00000000 */ 	nop
-/*  f1807c0:	0c002f22 */ 	jal	viGetViewWidth
-/*  f1807c4:	a7a2004a */ 	sh	$v0,0x4a($sp)
-/*  f1807c8:	87af004a */ 	lh	$t7,0x4a($sp)
-/*  f1807cc:	04410003 */ 	bgez	$v0,.L0f1807dc
-/*  f1807d0:	00027043 */ 	sra	$t6,$v0,0x1
-/*  f1807d4:	24410001 */ 	addiu	$at,$v0,0x1
-/*  f1807d8:	00017043 */ 	sra	$t6,$at,0x1
-.L0f1807dc:
-/*  f1807dc:	01cf2821 */ 	addu	$a1,$t6,$t7
-/*  f1807e0:	0c002f44 */ 	jal	viGetViewTop
-/*  f1807e4:	afa50090 */ 	sw	$a1,0x90($sp)
-/*  f1807e8:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x288)
-/*  f1807ec:	8f39a248 */ 	lw	$t9,%lo(g_Vars+0x288)($t9)
-/*  f1807f0:	2458000a */ 	addiu	$t8,$v0,0xa
-/*  f1807f4:	afb8008c */ 	sw	$t8,0x8c($sp)
-/*  f1807f8:	8f2a0060 */ 	lw	$t2,0x60($t9)
-/*  f1807fc:	24091c20 */ 	addiu	$t1,$zero,0x1c20
-/*  f180800:	3c057f1c */ 	lui	$a1,%hi(var7f1b8490)
-/*  f180804:	012a1823 */ 	subu	$v1,$t1,$t2
-/*  f180808:	0069001a */ 	div	$zero,$v1,$t1
-/*  f18080c:	00004012 */ 	mflo	$t0
-/*  f180810:	01003025 */ 	or	$a2,$t0,$zero
-/*  f180814:	15200002 */ 	bnez	$t1,.L0f180820
-/*  f180818:	00000000 */ 	nop
-/*  f18081c:	0007000d */ 	break	0x7
-.L0f180820:
-/*  f180820:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f180824:	15210004 */ 	bne	$t1,$at,.L0f180838
-/*  f180828:	3c018000 */ 	lui	$at,0x8000
-/*  f18082c:	14610002 */ 	bne	$v1,$at,.L0f180838
-/*  f180830:	00000000 */ 	nop
-/*  f180834:	0006000d */ 	break	0x6
-.L0f180838:
-/*  f180838:	01090019 */ 	multu	$t0,$t1
-/*  f18083c:	240100f0 */ 	addiu	$at,$zero,0xf0
-/*  f180840:	24a58490 */ 	addiu	$a1,$a1,%lo(var7f1b8490)
-/*  f180844:	27a4004c */ 	addiu	$a0,$sp,0x4c
-/*  f180848:	00005812 */ 	mflo	$t3
-/*  f18084c:	006b1823 */ 	subu	$v1,$v1,$t3
-/*  f180850:	246700ef */ 	addiu	$a3,$v1,0xef
-/*  f180854:	00e1001a */ 	div	$zero,$a3,$at
-/*  f180858:	00003812 */ 	mflo	$a3
-/*  f18085c:	0c004dad */ 	jal	sprintf
-/*  f180860:	00000000 */ 	nop
-/*  f180864:	0fc54d8a */ 	jal	func0f153628
-/*  f180868:	02002025 */ 	or	$a0,$s0,$zero
-/*  f18086c:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicXs)
-/*  f180870:	8dadfb04 */ 	lw	$t5,%lo(g_FontHandelGothicXs)($t5)
-/*  f180874:	3c078008 */ 	lui	$a3,%hi(g_CharsHandelGothicXs)
-/*  f180878:	00408025 */ 	or	$s0,$v0,$zero
-/*  f18087c:	8ce7fb08 */ 	lw	$a3,%lo(g_CharsHandelGothicXs)($a3)
-/*  f180880:	27a40094 */ 	addiu	$a0,$sp,0x94
-/*  f180884:	27a50098 */ 	addiu	$a1,$sp,0x98
-/*  f180888:	27a6004c */ 	addiu	$a2,$sp,0x4c
-/*  f18088c:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f180890:	0fc55cbe */ 	jal	textMeasure
-/*  f180894:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f180898:	8fa70098 */ 	lw	$a3,0x98($sp)
-/*  f18089c:	8fa50090 */ 	lw	$a1,0x90($sp)
-/*  f1808a0:	8fa20094 */ 	lw	$v0,0x94($sp)
-/*  f1808a4:	8fa6008c */ 	lw	$a2,0x8c($sp)
-/*  f1808a8:	04e10003 */ 	bgez	$a3,.L0f1808b8
-/*  f1808ac:	00077043 */ 	sra	$t6,$a3,0x1
-/*  f1808b0:	24e10001 */ 	addiu	$at,$a3,0x1
-/*  f1808b4:	00017043 */ 	sra	$t6,$at,0x1
-.L0f1808b8:
-/*  f1808b8:	00ae2823 */ 	subu	$a1,$a1,$t6
-/*  f1808bc:	00e53821 */ 	addu	$a3,$a3,$a1
-/*  f1808c0:	00461021 */ 	addu	$v0,$v0,$a2
-/*  f1808c4:	afa20010 */ 	sw	$v0,0x10($sp)
-/*  f1808c8:	afa20094 */ 	sw	$v0,0x94($sp)
-/*  f1808cc:	afa70098 */ 	sw	$a3,0x98($sp)
-/*  f1808d0:	afa50090 */ 	sw	$a1,0x90($sp)
-/*  f1808d4:	0fc54e64 */ 	jal	func0f153990
-/*  f1808d8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1808dc:	0c002f02 */ 	jal	viGetWidth
-/*  f1808e0:	00408025 */ 	or	$s0,$v0,$zero
-/*  f1808e4:	0c002f06 */ 	jal	viGetHeight
-/*  f1808e8:	a7a20048 */ 	sh	$v0,0x48($sp)
-/*  f1808ec:	3c0f8008 */ 	lui	$t7,%hi(g_CharsNumeric)
-/*  f1808f0:	3c188008 */ 	lui	$t8,%hi(g_FontNumeric)
-/*  f1808f4:	8f18fafc */ 	lw	$t8,%lo(g_FontNumeric)($t8)
-/*  f1808f8:	8deffb00 */ 	lw	$t7,%lo(g_CharsNumeric)($t7)
-/*  f1808fc:	87ab0048 */ 	lh	$t3,0x48($sp)
-/*  f180900:	3c1900ff */ 	lui	$t9,0xff
-/*  f180904:	373900a0 */ 	ori	$t9,$t9,0xa0
-/*  f180908:	240a00a0 */ 	addiu	$t2,$zero,0xa0
-/*  f18090c:	afaa001c */ 	sw	$t2,0x1c($sp)
-/*  f180910:	afb90018 */ 	sw	$t9,0x18($sp)
-/*  f180914:	02002025 */ 	or	$a0,$s0,$zero
-/*  f180918:	27a50090 */ 	addiu	$a1,$sp,0x90
-/*  f18091c:	27a6008c */ 	addiu	$a2,$sp,0x8c
-/*  f180920:	27a7004c */ 	addiu	$a3,$sp,0x4c
-/*  f180924:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f180928:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f18092c:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f180930:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f180934:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f180938:	0fc55b92 */ 	jal	textRender
-/*  f18093c:	afab0020 */ 	sw	$t3,0x20($sp)
-/*  f180940:	0fc54de0 */ 	jal	func0f153780
-/*  f180944:	00402025 */ 	or	$a0,$v0,$zero
-/*  f180948:	00408025 */ 	or	$s0,$v0,$zero
-/*  f18094c:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f180950:
-/*  f180950:	02001025 */ 	or	$v0,$s0,$zero
-/*  f180954:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f180958:	03e00008 */ 	jr	$ra
-/*  f18095c:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
-);
+		time240 = (30 * 200) - g_Vars.currentplayerstats->tokenheldtime;
+		secs = (time240 + 199) / 200;
+		sprintf(text, "%d:%02d", 0, secs);
 #else
-GLOBAL_ASM(
-glabel scenarioHtbCallback18
-/*  f17adec:	27bdff58 */ 	addiu	$sp,$sp,-168
-/*  f17adf0:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f17adf4:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f17adf8:	0fc43329 */ 	jal	invHasBriefcase
-/*  f17adfc:	00808025 */ 	or	$s0,$a0,$zero
-/*  f17ae00:	5040006b */ 	beqzl	$v0,.NB0f17afb0
-/*  f17ae04:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f17ae08:	0c002fb5 */ 	jal	viGetViewLeft
-/*  f17ae0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17ae10:	0c002f97 */ 	jal	viGetViewWidth
-/*  f17ae14:	a7a2004a */ 	sh	$v0,0x4a($sp)
-/*  f17ae18:	87af004a */ 	lh	$t7,0x4a($sp)
-/*  f17ae1c:	04410003 */ 	bgez	$v0,.NB0f17ae2c
-/*  f17ae20:	00027043 */ 	sra	$t6,$v0,0x1
-/*  f17ae24:	24410001 */ 	addiu	$at,$v0,0x1
-/*  f17ae28:	00017043 */ 	sra	$t6,$at,0x1
-.NB0f17ae2c:
-/*  f17ae2c:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f17ae30:	0c002fb9 */ 	jal	viGetViewTop
-/*  f17ae34:	afa30090 */ 	sw	$v1,0x90($sp)
-/*  f17ae38:	3c19800a */ 	lui	$t9,0x800a
-/*  f17ae3c:	8f39e948 */ 	lw	$t9,-0x16b8($t9)
-/*  f17ae40:	2458000a */ 	addiu	$t8,$v0,0xa
-/*  f17ae44:	afb8008c */ 	sw	$t8,0x8c($sp)
-/*  f17ae48:	8f2a0060 */ 	lw	$t2,0x60($t9)
-/*  f17ae4c:	24091c20 */ 	addiu	$t1,$zero,0x1c20
-/*  f17ae50:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f17ae54:	012a1823 */ 	subu	$v1,$t1,$t2
-/*  f17ae58:	0069001a */ 	div	$zero,$v1,$t1
-/*  f17ae5c:	00004012 */ 	mflo	$t0
-/*  f17ae60:	01003025 */ 	or	$a2,$t0,$zero
-/*  f17ae64:	15200002 */ 	bnez	$t1,.NB0f17ae70
-/*  f17ae68:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17ae6c:	0007000d */ 	break	0x7
-.NB0f17ae70:
-/*  f17ae70:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f17ae74:	15210004 */ 	bne	$t1,$at,.NB0f17ae88
-/*  f17ae78:	3c018000 */ 	lui	$at,0x8000
-/*  f17ae7c:	14610002 */ 	bne	$v1,$at,.NB0f17ae88
-/*  f17ae80:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17ae84:	0006000d */ 	break	0x6
-.NB0f17ae88:
-/*  f17ae88:	01090019 */ 	multu	$t0,$t1
-/*  f17ae8c:	240100f0 */ 	addiu	$at,$zero,0xf0
-/*  f17ae90:	24a52d80 */ 	addiu	$a1,$a1,0x2d80
-/*  f17ae94:	27a4004c */ 	addiu	$a0,$sp,0x4c
-/*  f17ae98:	00005812 */ 	mflo	$t3
-/*  f17ae9c:	006b1823 */ 	subu	$v1,$v1,$t3
-/*  f17aea0:	246700ef */ 	addiu	$a3,$v1,0xef
-/*  f17aea4:	00e1001a */ 	div	$zero,$a3,$at
-/*  f17aea8:	00003812 */ 	mflo	$a3
-/*  f17aeac:	0c004fc1 */ 	jal	sprintf
-/*  f17aeb0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17aeb4:	0fc5374a */ 	jal	func0f153628
-/*  f17aeb8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f17aebc:	3c0d8008 */ 	lui	$t5,0x8008
-/*  f17aec0:	8dad2364 */ 	lw	$t5,0x2364($t5)
-/*  f17aec4:	3c078008 */ 	lui	$a3,0x8008
-/*  f17aec8:	00408025 */ 	or	$s0,$v0,$zero
-/*  f17aecc:	8ce72368 */ 	lw	$a3,0x2368($a3)
-/*  f17aed0:	27a40094 */ 	addiu	$a0,$sp,0x94
-/*  f17aed4:	27a50098 */ 	addiu	$a1,$sp,0x98
-/*  f17aed8:	27a6004c */ 	addiu	$a2,$sp,0x4c
-/*  f17aedc:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f17aee0:	0fc54655 */ 	jal	textMeasure
-/*  f17aee4:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f17aee8:	8fa20098 */ 	lw	$v0,0x98($sp)
-/*  f17aeec:	8fa30090 */ 	lw	$v1,0x90($sp)
-/*  f17aef0:	8faf0094 */ 	lw	$t7,0x94($sp)
-/*  f17aef4:	8fb8008c */ 	lw	$t8,0x8c($sp)
-/*  f17aef8:	04410003 */ 	bgez	$v0,.NB0f17af08
-/*  f17aefc:	00027043 */ 	sra	$t6,$v0,0x1
-/*  f17af00:	24410001 */ 	addiu	$at,$v0,0x1
-/*  f17af04:	00017043 */ 	sra	$t6,$at,0x1
-.NB0f17af08:
-/*  f17af08:	006e1823 */ 	subu	$v1,$v1,$t6
-/*  f17af0c:	27aa0094 */ 	addiu	$t2,$sp,0x94
-/*  f17af10:	00431021 */ 	addu	$v0,$v0,$v1
-/*  f17af14:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f17af18:	afb90094 */ 	sw	$t9,0x94($sp)
-/*  f17af1c:	afa20098 */ 	sw	$v0,0x98($sp)
-/*  f17af20:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f17af24:	afa30090 */ 	sw	$v1,0x90($sp)
-/*  f17af28:	02002025 */ 	or	$a0,$s0,$zero
-/*  f17af2c:	27a50090 */ 	addiu	$a1,$sp,0x90
-/*  f17af30:	27a6008c */ 	addiu	$a2,$sp,0x8c
-/*  f17af34:	0fc537d6 */ 	jal	func0f153858
-/*  f17af38:	27a70098 */ 	addiu	$a3,$sp,0x98
-/*  f17af3c:	0c002f77 */ 	jal	viGetWidth
-/*  f17af40:	00408025 */ 	or	$s0,$v0,$zero
-/*  f17af44:	0c002f7b */ 	jal	viGetHeight
-/*  f17af48:	a7a20048 */ 	sh	$v0,0x48($sp)
-/*  f17af4c:	3c0b8008 */ 	lui	$t3,0x8008
-/*  f17af50:	3c0c8008 */ 	lui	$t4,0x8008
-/*  f17af54:	8d8c235c */ 	lw	$t4,0x235c($t4)
-/*  f17af58:	8d6b2360 */ 	lw	$t3,0x2360($t3)
-/*  f17af5c:	87af0048 */ 	lh	$t7,0x48($sp)
-/*  f17af60:	3c0d00ff */ 	lui	$t5,0xff
-/*  f17af64:	35ad00a0 */ 	ori	$t5,$t5,0xa0
-/*  f17af68:	240e0088 */ 	addiu	$t6,$zero,0x88
-/*  f17af6c:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f17af70:	afad0018 */ 	sw	$t5,0x18($sp)
-/*  f17af74:	02002025 */ 	or	$a0,$s0,$zero
-/*  f17af78:	27a50090 */ 	addiu	$a1,$sp,0x90
-/*  f17af7c:	27a6008c */ 	addiu	$a2,$sp,0x8c
-/*  f17af80:	27a7004c */ 	addiu	$a3,$sp,0x4c
-/*  f17af84:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f17af88:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f17af8c:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f17af90:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f17af94:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f17af98:	0fc54529 */ 	jal	textRender
-/*  f17af9c:	afaf0020 */ 	sw	$t7,0x20($sp)
-/*  f17afa0:	0fc537a0 */ 	jal	func0f153780
-/*  f17afa4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f17afa8:	00408025 */ 	or	$s0,$v0,$zero
-/*  f17afac:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.NB0f17afb0:
-/*  f17afb0:	02001025 */ 	or	$v0,$s0,$zero
-/*  f17afb4:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f17afb8:	03e00008 */ 	jr	$ra
-/*  f17afbc:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
-);
+		time240 = (30 * 240) - g_Vars.currentplayerstats->tokenheldtime;
+		mins = time240 / (30 * 240);
+		time240 -= (30 * 240) * mins;
+		secs = (time240 + 239) / 240;
+		sprintf(text, "%d:%02d", mins, secs);
 #endif
+
+		gdl = func0f153628(gdl);
+		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
+
+		x -= textwidth / 2;
+		textwidth += x;
+		textheight += y;
+
+#if VERSION >= VERSION_NTSC_1_0
+		gdl = func0f153990(gdl, x, y, textwidth, textheight);
+		gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0xa0, viGetWidth(), viGetHeight(), 0, 0);
+#else
+		gdl = func0f153858(gdl, &x, &y, &textwidth, &textheight);
+		gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0x88, viGetWidth(), viGetHeight(), 0, 0);
+#endif
+
+		gdl = func0f153780(gdl);
+	}
+
+	return gdl;
+}
+
+const char var7f1b8498[] = "%d:%02d";
+const char var7f1b84a0[] = "%02d";
+const char var7f1b84a8[] = "HackThatMacAddBankPad -> Adding New Pad %d  - Pad Id = %d-> Saving Pad\n";
+const char var7f1b84f0[] = "HackThatMacReset -> Working\n";
+const char var7f1b8510[] = "HackThatMacInitProps -> Start : %d Bank Pads\n";
+const char var7f1b8540[] = "HackThatMacInitProps -> Adding prop %d (%x)\n";
+const char var7f1b8570[] = "HackThatMacInitProps -> Mid : %d Bank Pads\n";
+const char var7f1b859c[] = "HackThatMacInitProps -> Generating %d random box pads from %d in the bank\n";
+const char var7f1b85e8[] = "HackThatMacInitProps -> %d/%d Random box pads generated - Listing\n";
+const char var7f1b862c[] = "Pad %d -> Pad Id = %d\n";
+const char var7f1b8644[] = "HackThatMacInitProps -> Building and adding custom prop %d - Pad=%d, Ptr=%08x\n";
+const char var7f1b8694[] = "HackThatMacInitProps -> End\n";
+const char var7f1b86b4[] = "HTM : Player %d - Term Pos = (%d,%d,%d)";
+const char var7f1b86dc[] = "HTM : Player %d - Play Pos = (%d,%d,%d)";
+const char var7f1b8704[] = "HTM : Player %d - T/P  Rel = (%d,%d,%d)";
+const char var7f1b872c[] = "HTM : Player %d - Range XZ = %d";
+const char var7f1b874c[] = "HTM : Player %d - Range Y  = %d";
+const char var7f1b876c[] = "HTM : Player %d - Angle XZ = %d";
+const char var7f1b878c[] = "HTM : Player %d - Dwnld Plr=%d, Dwnld Prop=%d\n";
+const char var7f1b87bc[] = "HTM : Player %d - Download Time = %d";
+const char var7f1b87e4[] = "PopACapReset -> num_mplayers=%d : Working\n";
+const char var7f1b8810[] = "PopACapReset -> Generated %d victims for this game : Listing\n";
+const char var7f1b8850[] = "PopACapReset -> Victim %d is player %d\n";
+const char var7f1b8878[] = "PopACapReset -> Done\n";
+const char var7f1b8890[] = "PopACapTick : Current Victim = %d (Player %d)\n";
+const char var7f1b88c0[] = "%d:%02d";
 
 void scenarioHtbCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
 {
@@ -3918,7 +3618,7 @@ glabel var7f1b8950
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel scenarioKohCallback18
+glabel scenarioKohRenderHud
 /*  f18367c:	3c0e800a */ 	lui	$t6,0x800a
 /*  f183680:	8dcea794 */ 	lw	$t6,-0x586c($t6)
 /*  f183684:	27bdff50 */ 	addiu	$sp,$sp,-176
@@ -4097,7 +3797,7 @@ glabel scenarioKohCallback18
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel scenarioKohCallback18
+glabel scenarioKohRenderHud
 /*  f182670:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
 /*  f182674:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
 /*  f182678:	27bdff50 */ 	addiu	$sp,$sp,-176
@@ -4278,7 +3978,7 @@ glabel scenarioKohCallback18
 );
 #else
 GLOBAL_ASM(
-glabel scenarioKohCallback18
+glabel scenarioKohRenderHud
 /*  f17ccd8:	3c0e800a */ 	lui	$t6,0x800a
 /*  f17ccdc:	8dcee944 */ 	lw	$t6,-0x16bc($t6)
 /*  f17cce0:	27bdff50 */ 	addiu	$sp,$sp,-176
@@ -6034,7 +5734,7 @@ glabel var7f1b8960
 
 #if PAL
 GLOBAL_ASM(
-glabel scenarioHtmCallback18
+glabel scenarioHtmRenderHud
 /*  f1839a8:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x28c)
 /*  f1839ac:	8c42a24c */ 	lw	$v0,%lo(g_Vars+0x28c)($v0)
 /*  f1839b0:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
@@ -6175,7 +5875,7 @@ glabel scenarioHtmCallback18
 );
 #else
 GLOBAL_ASM(
-glabel scenarioHtmCallback18
+glabel scenarioHtmRenderHud
 /*  f1839a8:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x28c)
 /*  f1839ac:	8c42a24c */ 	lw	$v0,%lo(g_Vars+0x28c)($v0)
 /*  f1839b0:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
@@ -7177,7 +6877,7 @@ void scenarioPacTick(void)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel scenarioPacCallback18
+glabel scenarioPacRenderHud
 /*  f184a18:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData)
 /*  f184a1c:	2442c110 */ 	addiu	$v0,$v0,%lo(g_ScenarioData)
 /*  f184a20:	8c4f0004 */ 	lw	$t7,0x4($v0)
@@ -7316,7 +7016,7 @@ glabel scenarioPacCallback18
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel scenarioPacCallback18
+glabel scenarioPacRenderHud
 /*  f184a18:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData)
 /*  f184a1c:	2442c110 */ 	addiu	$v0,$v0,%lo(g_ScenarioData)
 /*  f184a20:	8c4f0004 */ 	lw	$t7,0x4($v0)
@@ -7455,7 +7155,7 @@ glabel scenarioPacCallback18
 );
 #else
 GLOBAL_ASM(
-glabel scenarioPacCallback18
+glabel scenarioPacRenderHud
 /*  f17efbc:	3c02800b */ 	lui	$v0,0x800b
 /*  f17efc0:	244209c0 */ 	addiu	$v0,$v0,0x9c0
 /*  f17efc4:	8c4f0004 */ 	lw	$t7,0x4($v0)
@@ -7737,7 +7437,7 @@ struct mpscenario g_MpScenarios[6] = {
 		scenarioHtbReset,
 		scenarioHtbTick,
 		scenarioHtbCallback14,
-		scenarioHtbCallback18,
+		scenarioHtbRenderHud,
 		scenarioHtbCalculatePlayerScore,
 		scenarioHtbRadar,
 		scenarioHtbRadar2,
@@ -7749,7 +7449,7 @@ struct mpscenario g_MpScenarios[6] = {
 		scenarioHtmReset,
 		scenarioHtmTick,
 		scenarioHtmCallback14,
-		scenarioHtmCallback18,
+		scenarioHtmRenderHud,
 		scenarioHtmCalculatePlayerScore,
 		scenarioHtmRadar,
 		scenarioHtmRadar2,
@@ -7761,7 +7461,7 @@ struct mpscenario g_MpScenarios[6] = {
 		scenarioPacReset,
 		scenarioPacTick,
 		NULL,
-		scenarioPacCallback18,
+		scenarioPacRenderHud,
 		scenarioPacCalculatePlayerScore,
 		scenarioPacRadar,
 		scenarioPacRadar2,
@@ -7773,7 +7473,7 @@ struct mpscenario g_MpScenarios[6] = {
 		scenarioKohReset,
 		scenarioKohTick,
 		NULL,
-		scenarioKohCallback18,
+		scenarioKohRenderHud,
 		scenarioKohCalculatePlayerScore,
 		scenarioKohRadar,
 		NULL,
