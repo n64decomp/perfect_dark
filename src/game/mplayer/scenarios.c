@@ -871,27 +871,6 @@ const char var7f1b8498[] = "%d:%02d";
 const char var7f1b84a0[] = "%02d";
 const char var7f1b84a8[] = "HackThatMacAddBankPad -> Adding New Pad %d  - Pad Id = %d-> Saving Pad\n";
 const char var7f1b84f0[] = "HackThatMacReset -> Working\n";
-const char var7f1b8510[] = "HackThatMacInitProps -> Start : %d Bank Pads\n";
-const char var7f1b8540[] = "HackThatMacInitProps -> Adding prop %d (%x)\n";
-const char var7f1b8570[] = "HackThatMacInitProps -> Mid : %d Bank Pads\n";
-const char var7f1b859c[] = "HackThatMacInitProps -> Generating %d random box pads from %d in the bank\n";
-const char var7f1b85e8[] = "HackThatMacInitProps -> %d/%d Random box pads generated - Listing\n";
-const char var7f1b862c[] = "Pad %d -> Pad Id = %d\n";
-const char var7f1b8644[] = "HackThatMacInitProps -> Building and adding custom prop %d - Pad=%d, Ptr=%08x\n";
-const char var7f1b8694[] = "HackThatMacInitProps -> End\n";
-const char var7f1b86b4[] = "HTM : Player %d - Term Pos = (%d,%d,%d)";
-const char var7f1b86dc[] = "HTM : Player %d - Play Pos = (%d,%d,%d)";
-const char var7f1b8704[] = "HTM : Player %d - T/P  Rel = (%d,%d,%d)";
-const char var7f1b872c[] = "HTM : Player %d - Range XZ = %d";
-const char var7f1b874c[] = "HTM : Player %d - Range Y  = %d";
-const char var7f1b876c[] = "HTM : Player %d - Angle XZ = %d";
-const char var7f1b878c[] = "HTM : Player %d - Dwnld Plr=%d, Dwnld Prop=%d\n";
-const char var7f1b87bc[] = "HTM : Player %d - Download Time = %d";
-const char var7f1b87e4[] = "PopACapReset -> num_mplayers=%d : Working\n";
-const char var7f1b8810[] = "PopACapReset -> Generated %d victims for this game : Listing\n";
-const char var7f1b8850[] = "PopACapReset -> Victim %d is player %d\n";
-const char var7f1b8878[] = "PopACapReset -> Done\n";
-const char var7f1b8890[] = "PopACapTick : Current Victim = %d (Player %d)\n";
 
 void scenarioHtbCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
 {
@@ -4557,154 +4536,82 @@ glabel func0f182c98
 );
 #endif
 
-GLOBAL_ASM(
-glabel scenarioHtmReset
-.late_rodata
-glabel var7f1b8954
-.word 0x3e4ccccd
-.text
-/*  f182e98:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f182e9c:	afb1002c */ 	sw	$s1,0x2c($sp)
-/*  f182ea0:	3c11800a */ 	lui	$s1,%hi(g_Vars+0x33c)
-/*  f182ea4:	8e31a2fc */ 	lw	$s1,%lo(g_Vars+0x33c)($s1)
-/*  f182ea8:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f182eac:	3c10800b */ 	lui	$s0,%hi(g_ScenarioData)
-/*  f182eb0:	2610c110 */ 	addiu	$s0,$s0,%lo(g_ScenarioData)
-/*  f182eb4:	afb60040 */ 	sw	$s6,0x40($sp)
-/*  f182eb8:	afb20030 */ 	sw	$s2,0x30($sp)
-/*  f182ebc:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f182ec0:	afb5003c */ 	sw	$s5,0x3c($sp)
-/*  f182ec4:	afb40038 */ 	sw	$s4,0x38($sp)
-/*  f182ec8:	afb30034 */ 	sw	$s3,0x34($sp)
-/*  f182ecc:	f7b40020 */ 	sdc1	$f20,0x20($sp)
-/*  f182ed0:	0200b025 */ 	or	$s6,$s0,$zero
-/*  f182ed4:	12200017 */ 	beqz	$s1,.L0f182f34
-/*  f182ed8:	00009025 */ 	or	$s2,$zero,$zero
-/*  f182edc:	241500c1 */ 	addiu	$s5,$zero,0xc1
-/*  f182ee0:	24140014 */ 	addiu	$s4,$zero,0x14
-/*  f182ee4:	24130007 */ 	addiu	$s3,$zero,0x7
-/*  f182ee8:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f182eec:	922e0000 */ 	lbu	$t6,0x0($s1)
-.L0f182ef0:
-/*  f182ef0:	564e000d */ 	bnel	$s2,$t6,.L0f182f28
-/*  f182ef4:	8e310020 */ 	lw	$s1,0x20($s1)
-/*  f182ef8:	8e220004 */ 	lw	$v0,0x4($s1)
-/*  f182efc:	90430003 */ 	lbu	$v1,0x3($v0)
-/*  f182f00:	52630004 */ 	beql	$s3,$v1,.L0f182f14
-/*  f182f04:	844f0004 */ 	lh	$t7,0x4($v0)
-/*  f182f08:	56830007 */ 	bnel	$s4,$v1,.L0f182f28
-/*  f182f0c:	8e310020 */ 	lw	$s1,0x20($s1)
-/*  f182f10:	844f0004 */ 	lh	$t7,0x4($v0)
-.L0f182f14:
-/*  f182f14:	56af0004 */ 	bnel	$s5,$t7,.L0f182f28
-/*  f182f18:	8e310020 */ 	lw	$s1,0x20($s1)
-/*  f182f1c:	0fc60ae9 */ 	jal	mpHtmAddPad
-/*  f182f20:	84440006 */ 	lh	$a0,0x6($v0)
-/*  f182f24:	8e310020 */ 	lw	$s1,0x20($s1)
-.L0f182f28:
-/*  f182f28:	5620fff1 */ 	bnezl	$s1,.L0f182ef0
-/*  f182f2c:	922e0000 */ 	lbu	$t6,0x0($s1)
-/*  f182f30:	00009025 */ 	or	$s2,$zero,$zero
-.L0f182f34:
-/*  f182f34:	0fc60ae7 */ 	jal	scenarioHtmCallback08
-/*  f182f38:	00000000 */ 	nop
-/*  f182f3c:	3c01800b */ 	lui	$at,%hi(g_ScenarioData+0x2)
-/*  f182f40:	0fc60ae7 */ 	jal	scenarioHtmCallback08
-/*  f182f44:	a420c112 */ 	sh	$zero,%lo(g_ScenarioData+0x2)($at)
-/*  f182f48:	3c18800b */ 	lui	$t8,%hi(g_ScenarioData+0x2)
-/*  f182f4c:	8718c112 */ 	lh	$t8,%lo(g_ScenarioData+0x2)($t8)
-/*  f182f50:	2413ffff */ 	addiu	$s3,$zero,-1
-/*  f182f54:	2411000c */ 	addiu	$s1,$zero,0xc
-/*  f182f58:	0302082a */ 	slt	$at,$t8,$v0
-/*  f182f5c:	10200020 */ 	beqz	$at,.L0f182fe0
-/*  f182f60:	00000000 */ 	nop
-.L0f182f64:
-/*  f182f64:	0c004b70 */ 	jal	random
-/*  f182f68:	00000000 */ 	nop
-/*  f182f6c:	3c19800b */ 	lui	$t9,%hi(g_ScenarioData)
-/*  f182f70:	8739c110 */ 	lh	$t9,%lo(g_ScenarioData)($t9)
-/*  f182f74:	0059001b */ 	divu	$zero,$v0,$t9
-/*  f182f78:	00001810 */ 	mfhi	$v1
-/*  f182f7c:	00034040 */ 	sll	$t0,$v1,0x1
-/*  f182f80:	02082821 */ 	addu	$a1,$s0,$t0
-/*  f182f84:	84a40004 */ 	lh	$a0,0x4($a1)
-/*  f182f88:	17200002 */ 	bnez	$t9,.L0f182f94
-/*  f182f8c:	00000000 */ 	nop
-/*  f182f90:	0007000d */ 	break	0x7
-.L0f182f94:
-/*  f182f94:	1880fff3 */ 	blez	$a0,.L0f182f64
-/*  f182f98:	00000000 */ 	nop
-/*  f182f9c:	3c09800b */ 	lui	$t1,%hi(g_ScenarioData+0x2)
-/*  f182fa0:	8529c112 */ 	lh	$t1,%lo(g_ScenarioData+0x2)($t1)
-/*  f182fa4:	3c0c800b */ 	lui	$t4,%hi(g_ScenarioData+0x2)
-/*  f182fa8:	3c01800b */ 	lui	$at,%hi(g_ScenarioData+0x2)
-/*  f182fac:	01310019 */ 	multu	$t1,$s1
-/*  f182fb0:	00005012 */ 	mflo	$t2
-/*  f182fb4:	020a5821 */ 	addu	$t3,$s0,$t2
-/*  f182fb8:	a5640084 */ 	sh	$a0,0x84($t3)
-/*  f182fbc:	858cc112 */ 	lh	$t4,%lo(g_ScenarioData+0x2)($t4)
-/*  f182fc0:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*  f182fc4:	a42dc112 */ 	sh	$t5,%lo(g_ScenarioData+0x2)($at)
-/*  f182fc8:	0fc60ae7 */ 	jal	scenarioHtmCallback08
-/*  f182fcc:	a4b30004 */ 	sh	$s3,0x4($a1)
-/*  f182fd0:	86ce0002 */ 	lh	$t6,0x2($s6)
-/*  f182fd4:	01c2082a */ 	slt	$at,$t6,$v0
-/*  f182fd8:	1420ffe2 */ 	bnez	$at,.L0f182f64
-/*  f182fdc:	00000000 */ 	nop
-.L0f182fe0:
-/*  f182fe0:	0fc60ae7 */ 	jal	scenarioHtmCallback08
-/*  f182fe4:	00000000 */ 	nop
-/*  f182fe8:	3c0f800b */ 	lui	$t7,%hi(g_ScenarioData+0x2)
-/*  f182fec:	85efc112 */ 	lh	$t7,%lo(g_ScenarioData+0x2)($t7)
-/*  f182ff0:	3c10800b */ 	lui	$s0,%hi(g_ScenarioData)
-/*  f182ff4:	2610c110 */ 	addiu	$s0,$s0,%lo(g_ScenarioData)
-/*  f182ff8:	19e00006 */ 	blez	$t7,.L0f183014
-/*  f182ffc:	3c14800b */ 	lui	$s4,%hi(g_ScenarioData+0xc)
-/*  f183000:	86c20002 */ 	lh	$v0,0x2($s6)
-/*  f183004:	26520001 */ 	addiu	$s2,$s2,0x1
-.L0f183008:
-/*  f183008:	0242082a */ 	slt	$at,$s2,$v0
-/*  f18300c:	5420fffe */ 	bnezl	$at,.L0f183008
-/*  f183010:	26520001 */ 	addiu	$s2,$s2,0x1
-.L0f183014:
-/*  f183014:	3c017f1c */ 	lui	$at,%hi(var7f1b8954)
-/*  f183018:	3c130001 */ 	lui	$s3,0x1
-/*  f18301c:	3c120020 */ 	lui	$s2,0x20
-/*  f183020:	3c110042 */ 	lui	$s1,0x42
-/*  f183024:	36310001 */ 	ori	$s1,$s1,0x1
-/*  f183028:	36524000 */ 	ori	$s2,$s2,0x4000
-/*  f18302c:	36732000 */ 	ori	$s3,$s3,0x2000
-/*  f183030:	c4348954 */ 	lwc1	$f20,%lo(var7f1b8954)($at)
-/*  f183034:	2694c11c */ 	addiu	$s4,$s4,%lo(g_ScenarioData+0xc)
-/*  f183038:	4406a000 */ 	mfc1	$a2,$f20
-.L0f18303c:
-/*  f18303c:	24040156 */ 	addiu	$a0,$zero,0x156
-/*  f183040:	86050084 */ 	lh	$a1,0x84($s0)
-/*  f183044:	02203825 */ 	or	$a3,$s1,$zero
-/*  f183048:	afb20010 */ 	sw	$s2,0x10($sp)
-/*  f18304c:	0fc61942 */ 	jal	func0f186508
-/*  f183050:	afb30014 */ 	sw	$s3,0x14($sp)
-/*  f183054:	ae020080 */ 	sw	$v0,0x80($s0)
-/*  f183058:	0fc5fff9 */ 	jal	scenarioHtmRemoveAmmoCrateAtPad
-/*  f18305c:	86040084 */ 	lh	$a0,0x84($s0)
-/*  f183060:	2610000c */ 	addiu	$s0,$s0,0xc
-/*  f183064:	5614fff5 */ 	bnel	$s0,$s4,.L0f18303c
-/*  f183068:	4406a000 */ 	mfc1	$a2,$f20
-/*  f18306c:	3c018008 */ 	lui	$at,%hi(var800869ec)
-/*  f183070:	0fc60b26 */ 	jal	func0f182c98
-/*  f183074:	ac2069ec */ 	sw	$zero,%lo(var800869ec)($at)
-/*  f183078:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f18307c:	d7b40020 */ 	ldc1	$f20,0x20($sp)
-/*  f183080:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f183084:	8fb1002c */ 	lw	$s1,0x2c($sp)
-/*  f183088:	8fb20030 */ 	lw	$s2,0x30($sp)
-/*  f18308c:	8fb30034 */ 	lw	$s3,0x34($sp)
-/*  f183090:	8fb40038 */ 	lw	$s4,0x38($sp)
-/*  f183094:	8fb5003c */ 	lw	$s5,0x3c($sp)
-/*  f183098:	8fb60040 */ 	lw	$s6,0x40($sp)
-/*  f18309c:	03e00008 */ 	jr	$ra
-/*  f1830a0:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+void scenarioHtmReset(void)
+{
+	struct scenariodata_htm *data = &g_ScenarioData.htm;
+	struct prop *prop = g_Vars.activeprops;
+	s32 i = 0;
+	s32 rand;
+
+	osSyncPrintf("HackThatMacInitProps -> Start : %d Bank Pads\n", data->unk002);
+
+	while (prop) {
+		if (prop->type == PROPTYPE_OBJ) {
+			struct defaultobj *obj = prop->obj;
+
+			if (obj->type == OBJTYPE_AMMOCRATE || obj->type == OBJTYPE_MULTIAMMOCRATE) {
+				if (obj->modelnum == MODEL_MULTI_AMMO_CRATE) {
+					osSyncPrintf("HackThatMacInitProps -> Adding prop %d (%x)\n", i, obj->pad);
+					mpHtmAddPad(obj->pad);
+				}
+			}
+		}
+
+		prop = prop->next;
+		i++;
+	}
+
+	osSyncPrintf("HackThatMacInitProps -> Mid : %d Bank Pads\n", data->nextindex);
+	osSyncPrintf("HackThatMacInitProps -> Generating %d random box pads from %d in the bank\n", scenarioHtmCallback08(), data->nextindex);
+
+	data->unk002 = 0;
+
+	while (data->unk002 < scenarioHtmCallback08()) {
+		s32 padnum;
+
+		do {
+			rand = random() % data->nextindex;
+			padnum = data->padnums[rand];
+		} while (padnum <= 0);
+
+		data->unk07c[data->unk002].unk08 = padnum;
+		data->unk002++;
+		data->padnums[rand] = -1;
+	}
+
+	osSyncPrintf("HackThatMacInitProps -> %d/%d Random box pads generated - Listing\n", data->unk002, scenarioHtmCallback08());
+
+	for (i = 0; i < data->unk002; i++) {
+		osSyncPrintf("Pad %d -> Pad Id = %d\n", i, data->unk07c[i].unk08);
+	}
+
+	for (i = 0; i < 1; i++) {
+		data->unk07c[i].prop = func0f186508(MODEL_GOODPC, data->unk07c[i].unk08, 0.2f, 0x420001, 0x204000, 0x12000);
+		osSyncPrintf("HackThatMacInitProps -> Building and adding custom prop %d - Pad=%d, Ptr=%08x\n",
+				i, data->unk07c[i].unk08, data->unk07c[i].prop);
+		scenarioHtmRemoveAmmoCrateAtPad(data->unk07c[i].unk08);
+	}
+
+	var800869ec = NULL;
+
+	func0f182c98();
+
+	osSyncPrintf("HackThatMacInitProps -> End\n");
+}
+
+const char var7f1b86b4[] = "HTM : Player %d - Term Pos = (%d,%d,%d)";
+const char var7f1b86dc[] = "HTM : Player %d - Play Pos = (%d,%d,%d)";
+const char var7f1b8704[] = "HTM : Player %d - T/P  Rel = (%d,%d,%d)";
+const char var7f1b872c[] = "HTM : Player %d - Range XZ = %d";
+const char var7f1b874c[] = "HTM : Player %d - Range Y  = %d";
+const char var7f1b876c[] = "HTM : Player %d - Angle XZ = %d";
+const char var7f1b878c[] = "HTM : Player %d - Dwnld Plr=%d, Dwnld Prop=%d\n";
+const char var7f1b87bc[] = "HTM : Player %d - Download Time = %d";
+const char var7f1b87e4[] = "PopACapReset -> num_mplayers=%d : Working\n";
+const char var7f1b8810[] = "PopACapReset -> Generated %d victims for this game : Listing\n";
+const char var7f1b8850[] = "PopACapReset -> Victim %d is player %d\n";
+const char var7f1b8878[] = "PopACapReset -> Done\n";
+const char var7f1b8890[] = "PopACapTick : Current Victim = %d (Player %d)\n";
 
 void scenarioHtmTick(void)
 {
