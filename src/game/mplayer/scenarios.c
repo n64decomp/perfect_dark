@@ -10267,111 +10267,40 @@ glabel chrGiveBriefcase
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f187288
-/*  f187288:	27bdfef0 */ 	addiu	$sp,$sp,-272
-/*  f18728c:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x10)
-/*  f187290:	91cecb98 */ 	lbu	$t6,%lo(g_MpSetup+0x10)($t6)
-/*  f187294:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*  f187298:	afbe0058 */ 	sw	$s8,0x58($sp)
-/*  f18729c:	afb70054 */ 	sw	$s7,0x54($sp)
-/*  f1872a0:	afb60050 */ 	sw	$s6,0x50($sp)
-/*  f1872a4:	afb5004c */ 	sw	$s5,0x4c($sp)
-/*  f1872a8:	afb40048 */ 	sw	$s4,0x48($sp)
-/*  f1872ac:	afb30044 */ 	sw	$s3,0x44($sp)
-/*  f1872b0:	afb20040 */ 	sw	$s2,0x40($sp)
-/*  f1872b4:	afb1003c */ 	sw	$s1,0x3c($sp)
-/*  f1872b8:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f1872bc:	f7b40030 */ 	sdc1	$f20,0x30($sp)
-/*  f1872c0:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f1872c4:	00a0b825 */ 	or	$s7,$a1,$zero
-/*  f1872c8:	0080f025 */ 	or	$s8,$a0,$zero
-/*  f1872cc:	15c10043 */ 	bne	$t6,$at,.L0f1873dc
-/*  f1872d0:	8cb60004 */ 	lw	$s6,0x4($a1)
-/*  f1872d4:	3c11800b */ 	lui	$s1,%hi(g_ScenarioData)
-/*  f1872d8:	4480a000 */ 	mtc1	$zero,$f20
-/*  f1872dc:	2631c110 */ 	addiu	$s1,$s1,%lo(g_ScenarioData)
-/*  f1872e0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1872e4:	27b50070 */ 	addiu	$s5,$sp,0x70
-/*  f1872e8:	27b400b0 */ 	addiu	$s4,$sp,0xb0
-.L0f1872ec:
-/*  f1872ec:	8fcf001c */ 	lw	$t7,0x1c($s8)
-/*  f1872f0:	8e380058 */ 	lw	$t8,0x58($s1)
-/*  f1872f4:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f1872f8:	0010c840 */ 	sll	$t9,$s0,0x1
-/*  f1872fc:	15f80033 */ 	bne	$t7,$t8,.L0f1873cc
-/*  f187300:	3c08800b */ 	lui	$t0,%hi(g_ScenarioData)
-/*  f187304:	2508c110 */ 	addiu	$t0,$t0,%lo(g_ScenarioData)
-/*  f187308:	0fc1ab10 */ 	jal	objEndFlight
-/*  f18730c:	03289821 */ 	addu	$s3,$t9,$t0
-/*  f187310:	ae370058 */ 	sw	$s7,0x58($s1)
-/*  f187314:	a6d00062 */ 	sh	$s0,0x62($s6)
-/*  f187318:	86690008 */ 	lh	$t1,0x8($s3)
-/*  f18731c:	3c04800b */ 	lui	$a0,%hi(g_ScenarioData+0x18)
-/*  f187320:	8ef20004 */ 	lw	$s2,0x4($s7)
-/*  f187324:	00095100 */ 	sll	$t2,$t1,0x4
-/*  f187328:	008a2021 */ 	addu	$a0,$a0,$t2
-/*  f18732c:	8484c128 */ 	lh	$a0,%lo(g_ScenarioData+0x18)($a0)
-/*  f187330:	2405004e */ 	addiu	$a1,$zero,0x4e
-/*  f187334:	0fc456ac */ 	jal	padUnpack
-/*  f187338:	02803025 */ 	or	$a2,$s4,$zero
-/*  f18733c:	c7a400bc */ 	lwc1	$f4,0xbc($sp)
-/*  f187340:	c7a800c0 */ 	lwc1	$f8,0xc0($sp)
-/*  f187344:	c7b000c4 */ 	lwc1	$f16,0xc4($sp)
-/*  f187348:	46002187 */ 	neg.s	$f6,$f4
-/*  f18734c:	46004287 */ 	neg.s	$f10,$f8
-/*  f187350:	e7a60010 */ 	swc1	$f6,0x10($sp)
-/*  f187354:	c7a600cc */ 	lwc1	$f6,0xcc($sp)
-/*  f187358:	c7a800d0 */ 	lwc1	$f8,0xd0($sp)
-/*  f18735c:	c7a400c8 */ 	lwc1	$f4,0xc8($sp)
-/*  f187360:	46008487 */ 	neg.s	$f18,$f16
-/*  f187364:	4405a000 */ 	mfc1	$a1,$f20
-/*  f187368:	4406a000 */ 	mfc1	$a2,$f20
-/*  f18736c:	4407a000 */ 	mfc1	$a3,$f20
-/*  f187370:	e7b20018 */ 	swc1	$f18,0x18($sp)
-/*  f187374:	e7aa0014 */ 	swc1	$f10,0x14($sp)
-/*  f187378:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f18737c:	e7a60020 */ 	swc1	$f6,0x20($sp)
-/*  f187380:	e7a80024 */ 	swc1	$f8,0x24($sp)
-/*  f187384:	0c005b56 */ 	jal	mtx00016d58
-/*  f187388:	e7a4001c */ 	swc1	$f4,0x1c($sp)
-/*  f18738c:	8e420018 */ 	lw	$v0,0x18($s2)
-/*  f187390:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f187394:	50400004 */ 	beqzl	$v0,.L0f1873a8
-/*  f187398:	8fab00f8 */ 	lw	$t3,0xf8($sp)
-/*  f18739c:	0c0057c1 */ 	jal	mtx00015f04
-/*  f1873a0:	c44c0014 */ 	lwc1	$f12,0x14($v0)
-/*  f1873a4:	8fab00f8 */ 	lw	$t3,0xf8($sp)
-.L0f1873a8:
-/*  f1873a8:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f1873ac:	a7ac006e */ 	sh	$t4,0x6e($sp)
-/*  f1873b0:	02402025 */ 	or	$a0,$s2,$zero
-/*  f1873b4:	02802825 */ 	or	$a1,$s4,$zero
-/*  f1873b8:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f1873bc:	27a7006c */ 	addiu	$a3,$sp,0x6c
-/*  f1873c0:	afb40010 */ 	sw	$s4,0x10($sp)
-/*  f1873c4:	0fc1a9cc */ 	jal	func0f06a730
-/*  f1873c8:	a7ab006c */ 	sh	$t3,0x6c($sp)
-.L0f1873cc:
-/*  f1873cc:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1873d0:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f1873d4:	1601ffc5 */ 	bne	$s0,$at,.L0f1872ec
-/*  f1873d8:	26310004 */ 	addiu	$s1,$s1,0x4
-.L0f1873dc:
-/*  f1873dc:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*  f1873e0:	d7b40030 */ 	ldc1	$f20,0x30($sp)
-/*  f1873e4:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f1873e8:	8fb1003c */ 	lw	$s1,0x3c($sp)
-/*  f1873ec:	8fb20040 */ 	lw	$s2,0x40($sp)
-/*  f1873f0:	8fb30044 */ 	lw	$s3,0x44($sp)
-/*  f1873f4:	8fb40048 */ 	lw	$s4,0x48($sp)
-/*  f1873f8:	8fb5004c */ 	lw	$s5,0x4c($sp)
-/*  f1873fc:	8fb60050 */ 	lw	$s6,0x50($sp)
-/*  f187400:	8fb70054 */ 	lw	$s7,0x54($sp)
-/*  f187404:	8fbe0058 */ 	lw	$s8,0x58($sp)
-/*  f187408:	03e00008 */ 	jr	$ra
-/*  f18740c:	27bd0110 */ 	addiu	$sp,$sp,0x110
-);
+void scenarioReleaseToken(struct chrdata *chr, struct prop *prop)
+{
+	s32 i;
+	struct weaponobj *weapon = prop->weapon;
+	struct defaultobj *obj;
+	struct pad pad;
+	Mtxf mtx;
+	s16 rooms[2];
+
+	if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE) {
+		for (i = 0; i < 4; i++) {
+			if (chr->prop == g_ScenarioData.ctc.tokens[i]) {
+				objEndFlight(&weapon->base);
+
+				g_ScenarioData.ctc.tokens[i] = prop;
+				weapon->timer240 = i;
+				obj = prop->obj;
+
+				padUnpack(g_ScenarioData.ctc.spawnpadsperteam[g_ScenarioData.ctc.teamindexes[i]].homepad,
+						PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_ROOM, &pad);
+				mtx00016d58(&mtx, 0, 0, 0, -pad.look.x, -pad.look.y, -pad.look.z, pad.up.x, pad.up.y, pad.up.z);
+
+				if (obj->model) {
+					mtx00015f04(obj->model->scale, &mtx);
+				}
+
+				rooms[0] = pad.room;
+				rooms[1] = -1;
+
+				func0f06a730(obj, &pad, &mtx, rooms, &pad);
+			}
+		}
+	}
+}
 
 s32 chrGiveUplink(struct chrdata *chr, struct prop *prop)
 {

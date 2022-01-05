@@ -69892,7 +69892,7 @@ void weaponCreateForPlayerDrop(s32 weaponnum)
 		objDrop(prop, true);
 
 		if (weaponnum == WEAPON_BRIEFCASE2) {
-			func0f187288(chr, prop);
+			scenarioReleaseToken(chr, prop);
 		}
 	}
 }
