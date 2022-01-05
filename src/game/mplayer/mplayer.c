@@ -7202,103 +7202,43 @@ s32 mpGetMpheadnumByMpbodynum(s32 mpbodynum)
 	return index;
 }
 
-GLOBAL_ASM(
-glabel func0f18bd90
-/*  f18bd90:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f18bd94:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f18bd98:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f18bd9c:	afb70030 */ 	sw	$s7,0x30($sp)
-/*  f18bda0:	afb6002c */ 	sw	$s6,0x2c($sp)
-/*  f18bda4:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f18bda8:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f18bdac:	3c12800b */ 	lui	$s2,%hi(g_PlayerConfigsArray)
-/*  f18bdb0:	3c15800b */ 	lui	$s5,%hi(g_BotConfigsArray)
-/*  f18bdb4:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f18bdb8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f18bdbc:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f18bdc0:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f18bdc4:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f18bdc8:	26b5c538 */ 	addiu	$s5,$s5,%lo(g_BotConfigsArray)
-/*  f18bdcc:	2652c7b8 */ 	addiu	$s2,$s2,%lo(g_PlayerConfigsArray)
-/*  f18bdd0:	241300a0 */ 	addiu	$s3,$zero,0xa0
-/*  f18bdd4:	2414000c */ 	addiu	$s4,$zero,0xc
-/*  f18bdd8:	2416004c */ 	addiu	$s6,$zero,0x4c
-/*  f18bddc:	2417004b */ 	addiu	$s7,$zero,0x4b
-.L0f18bde0:
-/*  f18bde0:	0c004b70 */ 	jal	random
-/*  f18bde4:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f18bde8:	0057001b */ 	divu	$zero,$v0,$s7
-/*  f18bdec:	00008810 */ 	mfhi	$s1
-/*  f18bdf0:	322e00ff */ 	andi	$t6,$s1,0xff
-/*  f18bdf4:	16e00002 */ 	bnez	$s7,.L0f18be00
-/*  f18bdf8:	00000000 */ 	nop
-/*  f18bdfc:	0007000d */ 	break	0x7
-.L0f18be00:
-/*  f18be00:	01c08825 */ 	or	$s1,$t6,$zero
-/*  f18be04:	0c004b70 */ 	jal	random
-/*  f18be08:	00000000 */ 	nop
-/*  f18be0c:	3c07800b */ 	lui	$a3,%hi(g_MpSetup+0x16)
-/*  f18be10:	94e7cb9e */ 	lhu	$a3,%lo(g_MpSetup+0x16)($a3)
-/*  f18be14:	00002025 */ 	or	$a0,$zero,$zero
-/*  f18be18:	240f0001 */ 	addiu	$t7,$zero,0x1
-.L0f18be1c:
-/*  f18be1c:	008fc004 */ 	sllv	$t8,$t7,$a0
-/*  f18be20:	00f8c824 */ 	and	$t9,$a3,$t8
-/*  f18be24:	13200019 */ 	beqz	$t9,.L0f18be8c
-/*  f18be28:	02202825 */ 	or	$a1,$s1,$zero
-/*  f18be2c:	2401003d */ 	addiu	$at,$zero,0x3d
-/*  f18be30:	0041001b */ 	divu	$zero,$v0,$at
-/*  f18be34:	00003010 */ 	mfhi	$a2
-/*  f18be38:	30c800ff */ 	andi	$t0,$a2,0xff
-/*  f18be3c:	28810004 */ 	slti	$at,$a0,0x4
-/*  f18be40:	10200006 */ 	beqz	$at,.L0f18be5c
-/*  f18be44:	01003025 */ 	or	$a2,$t0,$zero
-/*  f18be48:	00930019 */ 	multu	$a0,$s3
-/*  f18be4c:	00004812 */ 	mflo	$t1
-/*  f18be50:	02491821 */ 	addu	$v1,$s2,$t1
-/*  f18be54:	10000006 */ 	b	.L0f18be70
-/*  f18be58:	906b000f */ 	lbu	$t3,0xf($v1)
-.L0f18be5c:
-/*  f18be5c:	00960019 */ 	multu	$a0,$s6
-/*  f18be60:	00005012 */ 	mflo	$t2
-/*  f18be64:	02aa1821 */ 	addu	$v1,$s5,$t2
-/*  f18be68:	2463fed0 */ 	addiu	$v1,$v1,-304
-/*  f18be6c:	906b000f */ 	lbu	$t3,0xf($v1)
-.L0f18be70:
-/*  f18be70:	54ab0003 */ 	bnel	$a1,$t3,.L0f18be80
-/*  f18be74:	906c0010 */ 	lbu	$t4,0x10($v1)
-/*  f18be78:	00008025 */ 	or	$s0,$zero,$zero
-/*  f18be7c:	906c0010 */ 	lbu	$t4,0x10($v1)
-.L0f18be80:
-/*  f18be80:	54cc0003 */ 	bnel	$a2,$t4,.L0f18be90
-/*  f18be84:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f18be88:	00008025 */ 	or	$s0,$zero,$zero
-.L0f18be8c:
-/*  f18be8c:	24840001 */ 	addiu	$a0,$a0,0x1
-.L0f18be90:
-/*  f18be90:	5494ffe2 */ 	bnel	$a0,$s4,.L0f18be1c
-/*  f18be94:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f18be98:	1200ffd1 */ 	beqz	$s0,.L0f18bde0
-/*  f18be9c:	00000000 */ 	nop
-/*  f18bea0:	2401003d */ 	addiu	$at,$zero,0x3d
-/*  f18bea4:	0041001b */ 	divu	$zero,$v0,$at
-/*  f18bea8:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*  f18beac:	00006810 */ 	mfhi	$t5
-/*  f18beb0:	a1d10000 */ 	sb	$s1,0x0($t6)
-/*  f18beb4:	8faf003c */ 	lw	$t7,0x3c($sp)
-/*  f18beb8:	a1ed0000 */ 	sb	$t5,0x0($t7)
-/*  f18bebc:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f18bec0:	8fb70030 */ 	lw	$s7,0x30($sp)
-/*  f18bec4:	8fb6002c */ 	lw	$s6,0x2c($sp)
-/*  f18bec8:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f18becc:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f18bed0:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f18bed4:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f18bed8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f18bedc:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f18bee0:	03e00008 */ 	jr	$ra
-/*  f18bee4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void mpFindUnusedHeadAndBody(u8 *mpheadnum, u8 *mpbodynum)
+{
+	struct mpchrconfig *mpchr;
+	bool available;
+	u8 trympheadnum;
+	u8 trympbodynum;
+	s32 i;
+
+	do {
+		available = true;
+		trympheadnum = random() % 75;
+		trympbodynum = random() % 61;
+
+		for (i = 0; i < 12; i++) {
+			if (g_MpSetup.chrslots & (1 << i)) {
+				if (i < 4) {
+					mpchr = &g_PlayerConfigsArray[i].base;
+				} else {
+					mpchr = &g_BotConfigsArray[i - 4].base;
+				}
+
+				if (mpchr->mpheadnum == trympheadnum) {
+					available = false;
+				}
+
+				if (mpchr->mpbodynum == trympbodynum) {
+					available = false;
+				}
+			}
+		}
+	} while (!available);
+
+	if (1);
+
+	*mpheadnum = trympheadnum;
+	*mpbodynum = trympbodynum;
+}
 
 s32 mpChooseRandomLockPlayer(void)
 {
