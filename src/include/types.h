@@ -4567,7 +4567,7 @@ struct mpchrconfig {
 	/*0x20*/ u32 unk20;
 	/*0x24*/ s16 killcounts[12]; // per player - each index is a chrslot
 	/*0x3c*/ s16 numdeaths;
-	/*0x3e*/ s16 unk3e;
+	/*0x3e*/ s16 numpoints;
 	/*0x40*/ s16 unk40;
 };
 
@@ -4674,7 +4674,7 @@ struct mpscenario {
 	void (*tickfunc)(void);
 	void (*unk14)(struct chrdata *chr);
 	void *unk18;
-	void (*killfunc)(struct mpchrconfig *mpchr, s32 arg1, s32 *score, s32 *arg3);
+	void (*calcscorefunc)(struct mpchrconfig *mpchr, s32 chrnum, s32 *score, s32 *deaths);
 	Gfx *(*radarfunc)(Gfx *gdl);
 	bool (*radar2func)(Gfx **gdl, struct prop *prop);
 	bool (*highlightfunc)(struct prop *prop, u32 *colour);

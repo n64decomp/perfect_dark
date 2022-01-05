@@ -917,7 +917,7 @@ void scenarioHtbCallback14(struct chrdata *chr)
 
 			if (chr->aibot->unk0a0 >= PALDOWN(7200)) {
 				sndStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
-				g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)]->unk3e++;
+				g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)]->numpoints++;
 				chr->aibot->unk0a0 = 0;
 			}
 		} else {
@@ -929,7 +929,7 @@ void scenarioHtbCallback14(struct chrdata *chr)
 
 			if (g_Vars.currentplayerstats->tokenheldtime >= PALDOWN(7200)) {
 				sndStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
-				g_MpAllChrConfigPtrs[g_Vars.currentplayernum]->unk3e++;
+				g_MpAllChrConfigPtrs[g_Vars.currentplayernum]->numpoints++;
 				hudmsgCreateWithFlags(langGet(L_MPWEAPONS_024), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE); // "1 Point!"
 				g_Vars.currentplayerstats->tokenheldtime = 0;
 			}
@@ -1294,13 +1294,13 @@ glabel scenarioHtbCallback18
 );
 #endif
 
-void scenarioHtbKill(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
+void scenarioHtbCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
 {
 	struct mpchrconfig *loopmpchr;
 	s32 i;
 
 	*score = 0;
-	*score = mpchr->unk3e;
+	*score += mpchr->numpoints;
 
 	if (g_MpSetup.options & MPOPTION_KILLSSCORE) {
 		for (i = 0; i != MAX_MPCHRS; i++) {
@@ -1324,7 +1324,7 @@ void scenarioHtbKill(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *a
 		}
 	}
 
-	*arg3 = mpchr->numdeaths;
+	*deaths = mpchr->numdeaths;
 }
 
 Gfx *scenarioHtbRadar(Gfx *gdl)
@@ -2282,13 +2282,13 @@ glabel scenarioCtcReset
 );
 #endif
 
-void scenarioCtcKill(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
+void scenarioCtcCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
 {
 	struct mpchrconfig *loopmpchr;
 	s32 i;
 
 	*score = 0;
-	*score = mpchr->unk3e * 3;
+	*score += mpchr->numpoints * 3;
 
 	if (g_MpSetup.options & MPOPTION_KILLSSCORE) {
 		for (i = 0; i != MAX_MPCHRS; i++) {
@@ -2310,7 +2310,7 @@ void scenarioCtcKill(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *a
 		}
 	}
 
-	*arg3 = mpchr->numdeaths;
+	*deaths = mpchr->numdeaths;
 }
 
 Gfx *scenarioCtcRadar(Gfx *gdl)
@@ -4463,13 +4463,13 @@ glabel scenarioKohCallback18
 );
 #endif
 
-void scenarioKohKill(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
+void scenarioKohCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
 {
 	struct mpchrconfig *loopmpchr;
 	s32 i;
 
 	*score = 0;
-	*score = mpchr->unk3e;
+	*score += mpchr->numpoints;
 
 	if (g_MpSetup.options & MPOPTION_KILLSSCORE) {
 		for (i = 0; i != MAX_MPCHRS; i++) {
@@ -4491,7 +4491,7 @@ void scenarioKohKill(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *a
 		}
 	}
 
-	*arg3 = mpchr->numdeaths;
+	*deaths = mpchr->numdeaths;
 }
 
 Gfx *scenarioKohRadar(Gfx *gdl)
@@ -6316,7 +6316,7 @@ glabel scenarioHtmCallback18
 );
 #endif
 
-void scenarioHtmKill(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
+void scenarioHtmCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 {
 	struct mpchrconfig *loopmpchr;
 	s32 i;
@@ -7592,7 +7592,7 @@ glabel scenarioPacCallback18
 );
 #endif
 
-void scenarioPacKill(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
+void scenarioPacCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 {
 	struct mpchrconfig *loopmpchr;
 	s32 i;
@@ -7738,7 +7738,7 @@ struct mpscenario g_MpScenarios[6] = {
 		scenarioHtbTick,
 		scenarioHtbCallback14,
 		scenarioHtbCallback18,
-		scenarioHtbKill,
+		scenarioHtbCalculatePlayerScore,
 		scenarioHtbRadar,
 		scenarioHtbRadar2,
 		scenarioHtbHighlight,
@@ -7750,7 +7750,7 @@ struct mpscenario g_MpScenarios[6] = {
 		scenarioHtmTick,
 		scenarioHtmCallback14,
 		scenarioHtmCallback18,
-		scenarioHtmKill,
+		scenarioHtmCalculatePlayerScore,
 		scenarioHtmRadar,
 		scenarioHtmRadar2,
 		scenarioHtmHighlight,
@@ -7762,7 +7762,7 @@ struct mpscenario g_MpScenarios[6] = {
 		scenarioPacTick,
 		NULL,
 		scenarioPacCallback18,
-		scenarioPacKill,
+		scenarioPacCalculatePlayerScore,
 		scenarioPacRadar,
 		scenarioPacRadar2,
 		scenarioPacHighlight,
@@ -7774,7 +7774,7 @@ struct mpscenario g_MpScenarios[6] = {
 		scenarioKohTick,
 		NULL,
 		scenarioKohCallback18,
-		scenarioKohKill,
+		scenarioKohCalculatePlayerScore,
 		scenarioKohRadar,
 		NULL,
 		NULL,
@@ -7793,7 +7793,7 @@ struct mpscenario g_MpScenarios[6] = {
 		scenarioCtcTick,
 		scenarioCtcCallback14,
 		NULL,
-		scenarioCtcKill,
+		scenarioCtcCalculatePlayerScore,
 		scenarioCtcRadar,
 		scenarioCtcRadar2,
 		scenarioCtcHighlight,
@@ -8706,101 +8706,39 @@ glabel func0f185774
 );
 #endif
 
-GLOBAL_ASM(
-glabel mpCalculatePlayerScore
-/*  f185c14:	3c0b800b */ 	lui	$t3,%hi(g_MpSetup)
-/*  f185c18:	256bcb88 */ 	addiu	$t3,$t3,%lo(g_MpSetup)
-/*  f185c1c:	916e0010 */ 	lbu	$t6,0x10($t3)
-/*  f185c20:	3c028008 */ 	lui	$v0,%hi(g_MpScenarios+0x1c)
-/*  f185c24:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f185c28:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f185c2c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f185c30:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f185c34:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f185c38:	8c426fb4 */ 	lw	$v0,%lo(g_MpScenarios+0x1c)($v0)
-/*  f185c3c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f185c40:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f185c44:	00808025 */ 	or	$s0,$a0,$zero
-/*  f185c48:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f185c4c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f185c50:	10400005 */ 	beqz	$v0,.L0f185c68
-/*  f185c54:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f185c58:	0040f809 */ 	jalr	$v0
-/*  f185c5c:	00000000 */ 	nop
-/*  f185c60:	1000003b */ 	b	.L0f185d50
-/*  f185c64:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f185c68:
-/*  f185c68:	3c09800b */ 	lui	$t1,%hi(g_BotConfigsArray)
-/*  f185c6c:	3c07800b */ 	lui	$a3,%hi(g_PlayerConfigsArray)
-/*  f185c70:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f185c74:	24e7c7b8 */ 	addiu	$a3,$a3,%lo(g_PlayerConfigsArray)
-/*  f185c78:	2529c538 */ 	addiu	$t1,$t1,%lo(g_BotConfigsArray)
-/*  f185c7c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f185c80:	02001825 */ 	or	$v1,$s0,$zero
-/*  f185c84:	240a004c */ 	addiu	$t2,$zero,0x4c
-/*  f185c88:	240800a0 */ 	addiu	$t0,$zero,0xa0
-/*  f185c8c:	2405000c */ 	addiu	$a1,$zero,0xc
-.L0f185c90:
-/*  f185c90:	54510007 */ 	bnel	$v0,$s1,.L0f185cb0
-/*  f185c94:	8d6d000c */ 	lw	$t5,0xc($t3)
-/*  f185c98:	8cd80000 */ 	lw	$t8,0x0($a2)
-/*  f185c9c:	84790024 */ 	lh	$t9,0x24($v1)
-/*  f185ca0:	03196023 */ 	subu	$t4,$t8,$t9
-/*  f185ca4:	10000023 */ 	b	.L0f185d34
-/*  f185ca8:	accc0000 */ 	sw	$t4,0x0($a2)
-/*  f185cac:	8d6d000c */ 	lw	$t5,0xc($t3)
-.L0f185cb0:
-/*  f185cb0:	28410004 */ 	slti	$at,$v0,0x4
-/*  f185cb4:	31ae0002 */ 	andi	$t6,$t5,0x2
-/*  f185cb8:	51c0001b */ 	beqzl	$t6,.L0f185d28
-/*  f185cbc:	8ccd0000 */ 	lw	$t5,0x0($a2)
-/*  f185cc0:	10200006 */ 	beqz	$at,.L0f185cdc
-/*  f185cc4:	00000000 */ 	nop
-/*  f185cc8:	00480019 */ 	multu	$v0,$t0
-/*  f185ccc:	00007812 */ 	mflo	$t7
-/*  f185cd0:	00ef2021 */ 	addu	$a0,$a3,$t7
-/*  f185cd4:	10000006 */ 	b	.L0f185cf0
-/*  f185cd8:	92190011 */ 	lbu	$t9,0x11($s0)
-.L0f185cdc:
-/*  f185cdc:	004a0019 */ 	multu	$v0,$t2
-/*  f185ce0:	0000c012 */ 	mflo	$t8
-/*  f185ce4:	01382021 */ 	addu	$a0,$t1,$t8
-/*  f185ce8:	2484fed0 */ 	addiu	$a0,$a0,-304
-/*  f185cec:	92190011 */ 	lbu	$t9,0x11($s0)
-.L0f185cf0:
-/*  f185cf0:	908c0011 */ 	lbu	$t4,0x11($a0)
-/*  f185cf4:	572c0007 */ 	bnel	$t9,$t4,.L0f185d14
-/*  f185cf8:	8cd80000 */ 	lw	$t8,0x0($a2)
-/*  f185cfc:	8ccd0000 */ 	lw	$t5,0x0($a2)
-/*  f185d00:	846e0024 */ 	lh	$t6,0x24($v1)
-/*  f185d04:	01ae7823 */ 	subu	$t7,$t5,$t6
-/*  f185d08:	1000000a */ 	b	.L0f185d34
-/*  f185d0c:	accf0000 */ 	sw	$t7,0x0($a2)
-/*  f185d10:	8cd80000 */ 	lw	$t8,0x0($a2)
-.L0f185d14:
-/*  f185d14:	84790024 */ 	lh	$t9,0x24($v1)
-/*  f185d18:	03196021 */ 	addu	$t4,$t8,$t9
-/*  f185d1c:	10000005 */ 	b	.L0f185d34
-/*  f185d20:	accc0000 */ 	sw	$t4,0x0($a2)
-/*  f185d24:	8ccd0000 */ 	lw	$t5,0x0($a2)
-.L0f185d28:
-/*  f185d28:	846e0024 */ 	lh	$t6,0x24($v1)
-/*  f185d2c:	01ae7821 */ 	addu	$t7,$t5,$t6
-/*  f185d30:	accf0000 */ 	sw	$t7,0x0($a2)
-.L0f185d34:
-/*  f185d34:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f185d38:	1445ffd5 */ 	bne	$v0,$a1,.L0f185c90
-/*  f185d3c:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f185d40:	8618003c */ 	lh	$t8,0x3c($s0)
-/*  f185d44:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*  f185d48:	af380000 */ 	sw	$t8,0x0($t9)
-/*  f185d4c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f185d50:
-/*  f185d50:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f185d54:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f185d58:	03e00008 */ 	jr	$ra
-/*  f185d5c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void scenarioCalculatePlayerScore(struct mpchrconfig *mpchr, s32 chrnum, s32 *score, s32 *deaths)
+{
+	struct mpchrconfig *othermpchr;
+	s32 i;
+
+	if (g_MpScenarios[g_MpSetup.scenario].calcscorefunc) {
+		g_MpScenarios[g_MpSetup.scenario].calcscorefunc(mpchr, chrnum, score, deaths);
+	} else {
+		*score = 0;
+
+		for (i = 0; i < 12; i++) {
+			if (i == chrnum) {
+				*score -= mpchr->killcounts[i];
+			} else if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
+				if (i < 4) {
+					othermpchr = &g_PlayerConfigsArray[i].base;
+				} else {
+					othermpchr = &g_BotConfigsArray[i - 4].base;
+				}
+
+				if (othermpchr->team == mpchr->team) {
+					*score -= mpchr->killcounts[i];
+				} else {
+					*score += mpchr->killcounts[i];
+				}
+			} else {
+				*score += mpchr->killcounts[i];
+			}
+		}
+
+		*deaths = mpchr->numdeaths;
+	}
+}
 
 Gfx *scenarioRadar(Gfx *gdl)
 {

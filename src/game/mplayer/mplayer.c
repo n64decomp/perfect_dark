@@ -129,7 +129,7 @@ void func0f187838(struct mpchrconfig *mpchr)
 	}
 
 	mpchr->numdeaths = 0;
-	mpchr->unk3e = 0;
+	mpchr->numpoints = 0;
 	mpchr->unk40 = 0;
 }
 
@@ -690,7 +690,7 @@ glabel mpGetPlayerRankings
 /*  f1886a4:	27a7006c */ 	addiu	$a3,$sp,0x6c
 /*  f1886a8:	afa30060 */ 	sw	$v1,0x60($sp)
 /*  f1886ac:	afa80064 */ 	sw	$t0,0x64($sp)
-/*  f1886b0:	0fc61705 */ 	jal	mpCalculatePlayerScore
+/*  f1886b0:	0fc61705 */ 	jal	scenarioCalculatePlayerScore
 /*  f1886b4:	afac016c */ 	sw	$t4,0x16c($sp)
 /*  f1886b8:	8fa30060 */ 	lw	$v1,0x60($sp)
 /*  f1886bc:	8fa80064 */ 	lw	$t0,0x64($sp)
@@ -923,7 +923,7 @@ glabel mpGetPlayerRankings
 /*  f182aa0:	27a70064 */ 	addiu	$a3,$sp,0x64
 /*  f182aa4:	afa20058 */ 	sw	$v0,0x58($sp)
 /*  f182aa8:	afa3005c */ 	sw	$v1,0x5c($sp)
-/*  f182aac:	0fc6001f */ 	jal	mpCalculatePlayerScore
+/*  f182aac:	0fc6001f */ 	jal	scenarioCalculatePlayerScore
 /*  f182ab0:	afac0164 */ 	sw	$t4,0x164($sp)
 /*  f182ab4:	8fa20058 */ 	lw	$v0,0x58($sp)
 /*  f182ab8:	8fa3005c */ 	lw	$v1,0x5c($sp)
@@ -1128,7 +1128,7 @@ s32 mpCalculateTeamScore(s32 teamnum, s32 *result)
 			}
 
 			if (mpchr->team == teamnum) {
-				mpCalculatePlayerScore(mpchr, i, &score, &deaths);
+				scenarioCalculatePlayerScore(mpchr, i, &score, &deaths);
 				teamexists = true;
 				teamscore += score;
 				teamdeaths += deaths;
