@@ -4677,7 +4677,7 @@ struct mpscenario {
 	void (*calcscorefunc)(struct mpchrconfig *mpchr, s32 chrnum, s32 *score, s32 *deaths);
 	Gfx *(*radarfunc)(Gfx *gdl);
 	bool (*radar2func)(Gfx **gdl, struct prop *prop);
-	bool (*highlightfunc)(struct prop *prop, u32 *colour);
+	bool (*highlightfunc)(struct prop *prop, s32 *colour);
 	bool (*spawnfunc)(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, f32 *arg4);
 	s32 (*maxteamsfunc)(void);
 	bool (*isroomhighlightedfunc)(s16 room);

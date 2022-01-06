@@ -8347,7 +8347,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		}
 
 		if (g_Vars.normmplayerisrunning) {
-			speb = func0f185e20(prop, colour);
+			speb = scenarioHighlight(prop, colour);
 		}
 
 		if (!speb) {

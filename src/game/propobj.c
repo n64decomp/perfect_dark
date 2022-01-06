@@ -52709,7 +52709,7 @@ glabel var7f1aa82c
 /*  f0818b0:	8cca0318 */ 	lw	$t2,0x318($a2)
 /*  f0818b4:	51400006 */ 	beqzl	$t2,.L0f0818d0
 /*  f0818b8:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f0818bc:	0fc61788 */ 	jal	func0f185e20
+/*  f0818bc:	0fc61788 */ 	jal	scenarioHighlight
 /*  f0818c0:	8fa400f8 */ 	lw	$a0,0xf8($sp)
 /*  f0818c4:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f0818c8:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
@@ -53344,7 +53344,7 @@ glabel var7f1aa82c
 /*  f0818b0:	8cca0318 */ 	lw	$t2,0x318($a2)
 /*  f0818b4:	51400006 */ 	beqzl	$t2,.L0f0818d0
 /*  f0818b8:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f0818bc:	0fc61788 */ 	jal	func0f185e20
+/*  f0818bc:	0fc61788 */ 	jal	scenarioHighlight
 /*  f0818c0:	8fa400f8 */ 	lw	$a0,0xf8($sp)
 /*  f0818c4:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f0818c8:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
@@ -53755,7 +53755,7 @@ glabel var7f1aa82c
 //	}
 //
 //	if (g_Vars.normmplayerisrunning) {
-//		func0f185e20(prop, colour);
+//		scenarioHighlight(prop, colour);
 //	}
 //
 //	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
