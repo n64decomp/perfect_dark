@@ -88,7 +88,7 @@ void mpKohAddHill(s32 *cmd);
 void scenarioKohCallback38(s16 roomnum, s32 *arg1, s32 *arg2, s32 *arg3);
 void mpHtmAddPad(s16 padnum);
 void func0f182bf4(void);
-void func0f182c98(void);
+void scenarioHtmCreateUplink(void);
 void scenarioHtmReset(void);
 void scenarioHtmCallback14(struct chrdata *chr);
 Gfx *scenarioHtmRenderHud(Gfx *gdl);
