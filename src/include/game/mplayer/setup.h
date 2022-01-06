@@ -76,7 +76,7 @@ s32 menuhandlerMpSlowMotion(s32 operation, struct menuitem *item, union handlerd
 void mpHtbAddPad(s16 padnum);
 void scenarioHtmRemoveAmmoCrateAtPad(s16 padnum);
 void func0f180078(void);
-void func0f1800a8(void);
+void scenarioHtbCreateToken(void);
 Gfx *scenarioHtbRenderHud(Gfx *gdl);
 void scenarioCtcReset(void);
 bool scenarioCtcHighlight(struct prop *prop, u32 *colour);

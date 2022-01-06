@@ -4747,7 +4747,7 @@ struct scenariodata_htb {
 	u32 unk00;
 	struct prop *token; // Briefcase or chr
 	struct coord pos;
-	u32 unk14;
+	s32 tokenpad;
 	s16 nextindex;
 	s16 padnums[60];
 };
