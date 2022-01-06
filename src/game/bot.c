@@ -10975,7 +10975,7 @@ void botTickUnpaused(struct chrdata *chr)
 					if (g_ScenarioData.htm.uplink == chr->prop) {
 						if (g_ScenarioData.htm.uplinkingplayernum != mpPlayerGetIndex(chr)) {
 							newaction = MA_AIBOTGOTOPROP;
-							aibot->gotoprop = g_ScenarioData.htm.unk07c[0].prop;
+							aibot->gotoprop = g_ScenarioData.htm.terminals[0].prop;
 						} else {
 							newaction = MA_AIBOTDOWNLOAD;
 						}
