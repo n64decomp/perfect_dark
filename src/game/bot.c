@@ -10684,7 +10684,7 @@ void botTickUnpaused(struct chrdata *chr)
 						s32 numtokens = 0;
 
 						for (i = 0; i != 4; i++) {
-							if (i != botteamindex && g_ScenarioData.ctc.unk00[i]) {
+							if (i != botteamindex && g_ScenarioData.ctc.playercountsperteam[i]) {
 								if (g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_WEAPON
 										|| g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_OBJ) {
 									// Token is not held

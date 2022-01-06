@@ -4806,7 +4806,7 @@ struct ctcspawnpadsperteam {
 };
 
 struct scenariodata_ctc {
-	/*0x00*/ s16 unk00[4]; // teams enabled?
+	/*0x00*/ s16 playercountsperteam[4];
 	/*0x08*/ s16 teamindexes[4];
 	/*0x10*/ s16 baserooms[4];
 	/*0x18*/ struct ctcspawnpadsperteam spawnpadsperteam[4];
