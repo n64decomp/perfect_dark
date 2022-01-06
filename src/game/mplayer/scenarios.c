@@ -5695,262 +5695,113 @@ struct mpscenario g_MpScenarios[6] = {
 };
 
 struct mpscenariooverview g_MpScenarioOverviews[] = {
-	// Full name, short name, unlock flags?
-	{ L_MPMENU_246, L_MPMENU_253, 0x00, false }, // "Combat", "Combat"
-	{ L_MPMENU_247, L_MPMENU_254, 0x20, false }, // "Hold the Briefcase", "Briefcase"
-	{ L_MPMENU_248, L_MPMENU_255, 0x4e, false }, // "Hacker Central", "Hacker"
-	{ L_MPMENU_249, L_MPMENU_256, 0x4d, false }, // "Pop a Cap", "Pop"
-	{ L_MPMENU_250, L_MPMENU_257, 0x1f, true  }, // "King of the Hill", "Hill"
-	{ L_MPMENU_251, L_MPMENU_258, 0x21, true  }, // "Capture the Case", "Capture"
+	// Full name, short name, require feature, team only
+	{ L_MPMENU_246, L_MPMENU_253, 0, false }, // "Combat", "Combat"
+	{ L_MPMENU_247, L_MPMENU_254, MPFEATURE_SCENARIO_HTB, false }, // "Hold the Briefcase", "Briefcase"
+	{ L_MPMENU_248, L_MPMENU_255, MPFEATURE_SCENARIO_HTM, false }, // "Hacker Central", "Hacker"
+	{ L_MPMENU_249, L_MPMENU_256, MPFEATURE_SCENARIO_PAC, false }, // "Pop a Cap", "Pop"
+	{ L_MPMENU_250, L_MPMENU_257, MPFEATURE_SCENARIO_KOH, true }, // "King of the Hill", "Hill"
+	{ L_MPMENU_251, L_MPMENU_258, MPFEATURE_SCENARIO_CTC, true }, // "Capture the Case", "Capture"
 };
 
-u32 var8008716c = 0x00000000;
-u32 var80087170 = 0x50f40000; // "Free for All!"
-u32 var80087174 = 0x00000004;
-u32 var80087178 = 0x50f50000; // "-Teamwork-"
+struct scenariogroup {
+	s32 startindex;
+	u16 textid;
+};
 
-GLOBAL_ASM(
-glabel menuhandler00185068
-.late_rodata
-glabel var7f1b8964
-.word menuhandler00185068+0xa8 # f185110
-glabel var7f1b8968
-.word menuhandler00185068+0x224 # f18528c
-glabel var7f1b896c
-.word menuhandler00185068+0xf4 # f18515c
-glabel var7f1b8970
-.word menuhandler00185068+0x260 # f1852c8
-glabel var7f1b8974
-.word menuhandler00185068+0x27c # f1852e4
-glabel var7f1b8978
-.word menuhandler00185068+0x15c # f1851c4
-glabel var7f1b897c
-.word menuhandler00185068+0x1c4 # f18522c
-.text
-/*  f185068:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f18506c:	3c0e8008 */ 	lui	$t6,%hi(var8008716c)
-/*  f185070:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f185074:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f185078:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f18507c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f185080:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f185084:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f185088:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f18508c:	25ce716c */ 	addiu	$t6,$t6,%lo(var8008716c)
-/*  f185090:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f185094:	27b30040 */ 	addiu	$s3,$sp,0x40
-/*  f185098:	00c0a825 */ 	or	$s5,$a2,$zero
-/*  f18509c:	ae610000 */ 	sw	$at,0x0($s3)
-/*  f1850a0:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f1850a4:	00009025 */ 	or	$s2,$zero,$zero
-/*  f1850a8:	24140001 */ 	addiu	$s4,$zero,0x1
-/*  f1850ac:	ae790004 */ 	sw	$t9,0x4($s3)
-/*  f1850b0:	8dc10008 */ 	lw	$at,0x8($t6)
-/*  f1850b4:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x4b0)
-/*  f1850b8:	2489ffff */ 	addiu	$t1,$a0,-1
-/*  f1850bc:	ae610008 */ 	sw	$at,0x8($s3)
-/*  f1850c0:	8dd9000c */ 	lw	$t9,0xc($t6)
-/*  f1850c4:	ae79000c */ 	sw	$t9,0xc($s3)
-/*  f1850c8:	90a80001 */ 	lbu	$t0,0x1($a1)
-/*  f1850cc:	51000009 */ 	beqzl	$t0,.L0f1850f4
-/*  f1850d0:	2d210007 */ 	sltiu	$at,$t1,0x7
-/*  f1850d4:	8c42a470 */ 	lw	$v0,%lo(g_Vars+0x4b0)($v0)
-/*  f1850d8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1850dc:	50400004 */ 	beqzl	$v0,.L0f1850f0
-/*  f1850e0:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f1850e4:	54410003 */ 	bnel	$v0,$at,.L0f1850f4
-/*  f1850e8:	2d210007 */ 	sltiu	$at,$t1,0x7
-/*  f1850ec:	0000a025 */ 	or	$s4,$zero,$zero
-.L0f1850f0:
-/*  f1850f0:	2d210007 */ 	sltiu	$at,$t1,0x7
-.L0f1850f4:
-/*  f1850f4:	10200098 */ 	beqz	$at,.L0f185358
-/*  f1850f8:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f1850fc:	3c017f1c */ 	lui	$at,%hi(var7f1b8964)
-/*  f185100:	00290821 */ 	addu	$at,$at,$t1
-/*  f185104:	8c298964 */ 	lw	$t1,%lo(var7f1b8964)($at)
-/*  f185108:	01200008 */ 	jr	$t1
-/*  f18510c:	00000000 */ 	nop
-/*  f185110:	3c108008 */ 	lui	$s0,%hi(g_MpScenarioOverviews)
-/*  f185114:	3c118008 */ 	lui	$s1,%hi(var8008716c)
-/*  f185118:	2631716c */ 	addiu	$s1,$s1,%lo(var8008716c)
-/*  f18511c:	26107148 */ 	addiu	$s0,$s0,%lo(g_MpScenarioOverviews)
-.L0f185120:
-/*  f185120:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f185124:	92040004 */ 	lbu	$a0,0x4($s0)
-/*  f185128:	50400008 */ 	beqzl	$v0,.L0f18514c
-/*  f18512c:	26100006 */ 	addiu	$s0,$s0,0x6
-/*  f185130:	56800005 */ 	bnezl	$s4,.L0f185148
-/*  f185134:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f185138:	920a0005 */ 	lbu	$t2,0x5($s0)
-/*  f18513c:	55400003 */ 	bnezl	$t2,.L0f18514c
-/*  f185140:	26100006 */ 	addiu	$s0,$s0,0x6
-/*  f185144:	26520001 */ 	addiu	$s2,$s2,0x1
-.L0f185148:
-/*  f185148:	26100006 */ 	addiu	$s0,$s0,0x6
-.L0f18514c:
-/*  f18514c:	1611fff4 */ 	bne	$s0,$s1,.L0f185120
-/*  f185150:	00000000 */ 	nop
-/*  f185154:	10000080 */ 	b	.L0f185358
-/*  f185158:	aeb20000 */ 	sw	$s2,0x0($s5)
-/*  f18515c:	3c108008 */ 	lui	$s0,%hi(g_MpScenarioOverviews)
-/*  f185160:	3c118008 */ 	lui	$s1,%hi(var8008716c)
-/*  f185164:	2631716c */ 	addiu	$s1,$s1,%lo(var8008716c)
-/*  f185168:	26107148 */ 	addiu	$s0,$s0,%lo(g_MpScenarioOverviews)
-.L0f18516c:
-/*  f18516c:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f185170:	92040004 */ 	lbu	$a0,0x4($s0)
-/*  f185174:	5040000f */ 	beqzl	$v0,.L0f1851b4
-/*  f185178:	26100006 */ 	addiu	$s0,$s0,0x6
-/*  f18517c:	56800005 */ 	bnezl	$s4,.L0f185194
-/*  f185180:	8eac0000 */ 	lw	$t4,0x0($s5)
-/*  f185184:	920b0005 */ 	lbu	$t3,0x5($s0)
-/*  f185188:	5560000a */ 	bnezl	$t3,.L0f1851b4
-/*  f18518c:	26100006 */ 	addiu	$s0,$s0,0x6
-/*  f185190:	8eac0000 */ 	lw	$t4,0x0($s5)
-.L0f185194:
-/*  f185194:	564c0006 */ 	bnel	$s2,$t4,.L0f1851b0
-/*  f185198:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f18519c:	0fc5b9f1 */ 	jal	langGet
-/*  f1851a0:	96040000 */ 	lhu	$a0,0x0($s0)
-/*  f1851a4:	1000006e */ 	b	.L0f185360
-/*  f1851a8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f1851ac:	26520001 */ 	addiu	$s2,$s2,0x1
-.L0f1851b0:
-/*  f1851b0:	26100006 */ 	addiu	$s0,$s0,0x6
-.L0f1851b4:
-/*  f1851b4:	1611ffed */ 	bne	$s0,$s1,.L0f18516c
-/*  f1851b8:	00000000 */ 	nop
-/*  f1851bc:	10000067 */ 	b	.L0f18535c
-/*  f1851c0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1851c4:	3c108008 */ 	lui	$s0,%hi(g_MpScenarioOverviews)
-/*  f1851c8:	26107148 */ 	addiu	$s0,$s0,%lo(g_MpScenarioOverviews)
-/*  f1851cc:	00008825 */ 	or	$s1,$zero,$zero
-/*  f1851d0:	24130006 */ 	addiu	$s3,$zero,0x6
-.L0f1851d4:
-/*  f1851d4:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f1851d8:	92040004 */ 	lbu	$a0,0x4($s0)
-/*  f1851dc:	5040000d */ 	beqzl	$v0,.L0f185214
-/*  f1851e0:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f1851e4:	56800005 */ 	bnezl	$s4,.L0f1851fc
-/*  f1851e8:	8eb80000 */ 	lw	$t8,0x0($s5)
-/*  f1851ec:	920d0005 */ 	lbu	$t5,0x5($s0)
-/*  f1851f0:	55a00008 */ 	bnezl	$t5,.L0f185214
-/*  f1851f4:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f1851f8:	8eb80000 */ 	lw	$t8,0x0($s5)
-.L0f1851fc:
-/*  f1851fc:	16580003 */ 	bne	$s2,$t8,.L0f18520c
-/*  f185200:	3c01800b */ 	lui	$at,%hi(g_MpSetup+0x10)
-/*  f185204:	10000005 */ 	b	.L0f18521c
-/*  f185208:	a031cb98 */ 	sb	$s1,%lo(g_MpSetup+0x10)($at)
-.L0f18520c:
-/*  f18520c:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f185210:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f185214:
-/*  f185214:	1633ffef */ 	bne	$s1,$s3,.L0f1851d4
-/*  f185218:	26100006 */ 	addiu	$s0,$s0,0x6
-.L0f18521c:
-/*  f18521c:	0fc61521 */ 	jal	scenarioInit
-/*  f185220:	00000000 */ 	nop
-/*  f185224:	1000004d */ 	b	.L0f18535c
-/*  f185228:	00001025 */ 	or	$v0,$zero,$zero
-/*  f18522c:	3c108008 */ 	lui	$s0,%hi(g_MpScenarioOverviews)
-/*  f185230:	26107148 */ 	addiu	$s0,$s0,%lo(g_MpScenarioOverviews)
-/*  f185234:	00008825 */ 	or	$s1,$zero,$zero
-/*  f185238:	24130006 */ 	addiu	$s3,$zero,0x6
-.L0f18523c:
-/*  f18523c:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f185240:	92040004 */ 	lbu	$a0,0x4($s0)
-/*  f185244:	5040000d */ 	beqzl	$v0,.L0f18527c
-/*  f185248:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f18524c:	16800004 */ 	bnez	$s4,.L0f185260
-/*  f185250:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x10)
-/*  f185254:	920f0005 */ 	lbu	$t7,0x5($s0)
-/*  f185258:	55e00008 */ 	bnezl	$t7,.L0f18527c
-/*  f18525c:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f185260:
-/*  f185260:	91cecb98 */ 	lbu	$t6,%lo(g_MpSetup+0x10)($t6)
-/*  f185264:	562e0004 */ 	bnel	$s1,$t6,.L0f185278
-/*  f185268:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f18526c:	1000003a */ 	b	.L0f185358
-/*  f185270:	aeb20000 */ 	sw	$s2,0x0($s5)
-/*  f185274:	26520001 */ 	addiu	$s2,$s2,0x1
-.L0f185278:
-/*  f185278:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f18527c:
-/*  f18527c:	1633ffef */ 	bne	$s1,$s3,.L0f18523c
-/*  f185280:	26100006 */ 	addiu	$s0,$s0,0x6
-/*  f185284:	10000035 */ 	b	.L0f18535c
-/*  f185288:	00001025 */ 	or	$v0,$zero,$zero
-/*  f18528c:	24190002 */ 	addiu	$t9,$zero,0x2
-/*  f185290:	12800009 */ 	beqz	$s4,.L0f1852b8
-/*  f185294:	aeb90000 */ 	sw	$t9,0x0($s5)
-/*  f185298:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f18529c:	2404001f */ 	addiu	$a0,$zero,0x1f
-/*  f1852a0:	5440002e */ 	bnezl	$v0,.L0f18535c
-/*  f1852a4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1852a8:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f1852ac:	24040021 */ 	addiu	$a0,$zero,0x21
-/*  f1852b0:	5440002a */ 	bnezl	$v0,.L0f18535c
-/*  f1852b4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1852b8:
-/*  f1852b8:	8ea80000 */ 	lw	$t0,0x0($s5)
-/*  f1852bc:	2509ffff */ 	addiu	$t1,$t0,-1
-/*  f1852c0:	10000025 */ 	b	.L0f185358
-/*  f1852c4:	aea90000 */ 	sw	$t1,0x0($s5)
-/*  f1852c8:	8eaa0000 */ 	lw	$t2,0x0($s5)
-/*  f1852cc:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f1852d0:	026b6021 */ 	addu	$t4,$s3,$t3
-/*  f1852d4:	0fc5b9f1 */ 	jal	langGet
-/*  f1852d8:	95840004 */ 	lhu	$a0,0x4($t4)
-/*  f1852dc:	10000020 */ 	b	.L0f185360
-/*  f1852e0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f1852e4:	8ead0000 */ 	lw	$t5,0x0($s5)
-/*  f1852e8:	3c108008 */ 	lui	$s0,%hi(g_MpScenarioOverviews)
-/*  f1852ec:	26107148 */ 	addiu	$s0,$s0,%lo(g_MpScenarioOverviews)
-/*  f1852f0:	000dc0c0 */ 	sll	$t8,$t5,0x3
-/*  f1852f4:	02787821 */ 	addu	$t7,$s3,$t8
-/*  f1852f8:	8dee0000 */ 	lw	$t6,0x0($t7)
-/*  f1852fc:	00008825 */ 	or	$s1,$zero,$zero
-/*  f185300:	59c00015 */ 	blezl	$t6,.L0f185358
-/*  f185304:	aeb20008 */ 	sw	$s2,0x8($s5)
-.L0f185308:
-/*  f185308:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f18530c:	92040004 */ 	lbu	$a0,0x4($s0)
-/*  f185310:	50400008 */ 	beqzl	$v0,.L0f185334
-/*  f185314:	8ea80000 */ 	lw	$t0,0x0($s5)
-/*  f185318:	56800005 */ 	bnezl	$s4,.L0f185330
-/*  f18531c:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f185320:	92190005 */ 	lbu	$t9,0x5($s0)
-/*  f185324:	57200003 */ 	bnezl	$t9,.L0f185334
-/*  f185328:	8ea80000 */ 	lw	$t0,0x0($s5)
-/*  f18532c:	26520001 */ 	addiu	$s2,$s2,0x1
-.L0f185330:
-/*  f185330:	8ea80000 */ 	lw	$t0,0x0($s5)
-.L0f185334:
-/*  f185334:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f185338:	26100006 */ 	addiu	$s0,$s0,0x6
-/*  f18533c:	000848c0 */ 	sll	$t1,$t0,0x3
-/*  f185340:	02695021 */ 	addu	$t2,$s3,$t1
-/*  f185344:	8d4b0000 */ 	lw	$t3,0x0($t2)
-/*  f185348:	022b082a */ 	slt	$at,$s1,$t3
-/*  f18534c:	1420ffee */ 	bnez	$at,.L0f185308
-/*  f185350:	00000000 */ 	nop
-/*  f185354:	aeb20008 */ 	sw	$s2,0x8($s5)
-.L0f185358:
-/*  f185358:	00001025 */ 	or	$v0,$zero,$zero
-.L0f18535c:
-/*  f18535c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f185360:
-/*  f185360:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f185364:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f185368:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f18536c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f185370:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f185374:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f185378:	03e00008 */ 	jr	$ra
-/*  f18537c:	27bd0050 */ 	addiu	$sp,$sp,0x50
-);
+s32 scenarioScenarioMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	struct scenariogroup groups[] = {
+		{ 0, L_MPMENU_244 }, // "Free for All!"
+		{ 4, L_MPMENU_245 }, // "-Teamwork-"
+	};
+
+	s32 i;
+	s32 count = 0;
+	bool teamgame = true;
+
+	if (item->param) {
+		if (g_Vars.mpquickteam == MPQUICKTEAM_PLAYERSONLY || g_Vars.mpquickteam == MPQUICKTEAM_PLAYERSANDSIMS) {
+			teamgame = false;
+		}
+	}
+
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		for (i = 0; i < ARRAYCOUNT(g_MpScenarioOverviews); i++) {
+			if (mpIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
+					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
+				count++;
+			}
+		}
+
+		data->list.value = count;
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		for (i = 0; i < ARRAYCOUNT(g_MpScenarioOverviews); i++) {
+			if (mpIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
+					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
+				if (count == data->list.value) {
+					return (s32)langGet(g_MpScenarioOverviews[i].name);
+				}
+
+				count++;
+			}
+		}
+
+		break;
+	case MENUOP_SET:
+		for (i = 0; i < ARRAYCOUNT(g_MpScenarioOverviews); i++) {
+			if (mpIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
+					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
+				if (count == data->list.value) {
+					g_MpSetup.scenario = i;
+					break;
+				}
+
+				count++;
+			}
+		}
+
+		scenarioInit();
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		for (i = 0; i < ARRAYCOUNT(g_MpScenarioOverviews); i++) {
+			if (mpIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
+					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
+				if (i == g_MpSetup.scenario) {
+					data->list.value = count;
+					break;
+				}
+
+				count++;
+			}
+		}
+
+		break;
+	case MENUOP_GETOPTGROUPCOUNT:
+		data->list.value = 2;
+
+		if (!teamgame || (!mpIsFeatureUnlocked(MPFEATURE_SCENARIO_KOH) && !mpIsFeatureUnlocked(MPFEATURE_SCENARIO_CTC))) {
+			data->list.value--;
+		}
+		break;
+	case MENUOP_GETOPTGROUPTEXT:
+		return (s32)langGet(groups[data->list.value].textid);
+	case MENUOP_GETGROUPSTARTINDEX:
+		for (i = 0; i < groups[data->list.value].startindex; i++) {
+			if (mpIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
+					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
+				count++;
+			}
+		}
+
+		data->list.groupstartindex = count;
+		break;
+	}
+
+	return 0;
+}
 
 s32 menuhandlerMpOpenOptions(s32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -6586,7 +6437,7 @@ void scenarioCallback38(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3)
 }
 
 struct menuitem g_MpScenarioMenuItems[] = {
-	 { MENUITEMTYPE_LIST,        0, 0x00020040, 0x00000078, 0x0000004d, menuhandler00185068 },
+	 { MENUITEMTYPE_LIST,        0, 0x00020040, 0x00000078, 0x0000004d, scenarioScenarioMenuHandler },
 	 { MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -6600,7 +6451,7 @@ struct menudialog g_MpScenarioMenuDialog = {
 };
 
 struct menuitem g_MpQuickTeamScenarioMenuItems[] = {
-	 { MENUITEMTYPE_LIST,        1, 0x00020040, 0x00000078, 0x0000004d, menuhandler00185068 },
+	 { MENUITEMTYPE_LIST,        1, 0x00020040, 0x00000078, 0x0000004d, scenarioScenarioMenuHandler },
 	 { MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

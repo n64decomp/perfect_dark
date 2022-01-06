@@ -103,7 +103,7 @@ bool scenarioPacRadar2(Gfx **gdl, struct prop *prop);
 s32 mpOptionsMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data);
 char *mpMenuTextScenarioShortName(struct menuitem *item);
 char *mpMenuTextScenarioName(struct menuitem *item);
-s32 menuhandler00185068(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 scenarioScenarioMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 void mpCreateMatchStartHudmsgs(void);
 Gfx *scenarioRenderHud(Gfx *gdl);
 void scenarioCalculatePlayerScore(struct mpchrconfig *mpchr, s32 chrnum, s32 *arg2, s32 *arg3);

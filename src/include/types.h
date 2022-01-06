@@ -4690,8 +4690,8 @@ struct mpscenario {
 struct mpscenariooverview {
 	u16 name;
 	u16 shortname;
-	u8 unlockfeature;
-	u8 unk05;
+	u8 requirefeature;
+	u8 teamonly;
 };
 
 struct mparena {

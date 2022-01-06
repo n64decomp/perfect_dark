@@ -1258,7 +1258,7 @@ s32 mpForceUnlockSetupFeatures(struct mpsetup *setup, u8 *array, s32 len)
 
 	// Force unlock the scenario
 	if (setup->scenario <= MPSCENARIO_CAPTURETHECASE) {
-		s32 featurenum = g_MpScenarioOverviews[setup->scenario].unlockfeature;
+		s32 featurenum = g_MpScenarioOverviews[setup->scenario].requirefeature;
 
 		if (featurenum) {
 			index = mpForceUnlockFeature(featurenum, array, index, len);
@@ -1330,7 +1330,7 @@ void mpForceUnlockConfigFeatures(struct mpconfig *config, u8 *array, s32 len, s3
 	} else if (challengeindex >= 20) {
 		index = mpForceUnlockFeature(MPFEATURE_STAGE_CARPARK, array, index, len);
 	} else if (challengeindex >= 15) {
-		index = mpForceUnlockFeature(MPFEATURE_4D, array, index, len);
+		index = mpForceUnlockFeature(MPFEATURE_SCENARIO_PAC, array, index, len);
 	}
 
 	if (challengeindex >= 10) {
@@ -1342,7 +1342,7 @@ void mpForceUnlockConfigFeatures(struct mpconfig *config, u8 *array, s32 len, s3
 	}
 
 	if (challengeindex >= 15) {
-		index = mpForceUnlockFeature(MPFEATURE_4D, array, index, len);
+		index = mpForceUnlockFeature(MPFEATURE_SCENARIO_PAC, array, index, len);
 	}
 
 	if (challengeindex >= 20) {
@@ -1623,7 +1623,7 @@ bool mpIsFeatureUnlockedByPlayer(u32 numplayers, s32 featurenum)
 	return (g_MpFeaturesUnlocked[featurenum] & (2 << numplayers)) != 0;
 }
 
-bool func0f19c96c(s32 featurenum)
+bool mpIsFeatureUnlockedByDefault(s32 featurenum)
 {
 	if (featurenum) {
 		return false;
