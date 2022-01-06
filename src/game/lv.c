@@ -3203,7 +3203,7 @@ glabel var7f1b8e7cpf
 /*  f16bb14:	00402025 */ 	move	$a0,$v0
 /*  f16bb18:	00409825 */ 	move	$s3,$v0
 .PF0f16bb1c:
-/*  f16bb1c:	0fc619de */ 	jal	func0f185774
+/*  f16bb1c:	0fc619de */ 	jal	scenarioRenderHud
 /*  f16bb20:	02602025 */ 	move	$a0,$s3
 /*  f16bb24:	0fc5a557 */ 	jal	lvRenderFade
 /*  f16bb28:	00402025 */ 	move	$a0,$v0
@@ -4040,7 +4040,7 @@ Gfx *lvRender(Gfx *gdl)
 					}
 				}
 
-				gdl = func0f185774(gdl);
+				gdl = scenarioRenderHud(gdl);
 				gdl = lvRenderFade(gdl);
 
 				if (g_FrIsValidWeapon) {
@@ -5944,7 +5944,7 @@ glabel var7f1b1fd4nb
 .NB0f165a64:
 /*  f165a64:	0fc58ba8 */ 	jal	lvRenderFade
 /*  f165a68:	02602025 */ 	or	$a0,$s3,$zero
-/*  f165a6c:	0fc5ff45 */ 	jal	func0f185774
+/*  f165a6c:	0fc5ff45 */ 	jal	scenarioRenderHud
 /*  f165a70:	00402025 */ 	or	$a0,$v0,$zero
 /*  f165a74:	3c0f8009 */ 	lui	$t7,0x8009
 /*  f165a78:	91efaf74 */ 	lbu	$t7,-0x508c($t7)

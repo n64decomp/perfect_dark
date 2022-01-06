@@ -505,7 +505,7 @@ extern struct botprofile g_BotProfiles[];
 extern struct mpbody g_MpBodies[NUM_MPBODIES];
 extern struct mppreset g_MpPresets[NUM_MPPRESETS];
 extern u32 g_TeamColours[];
-extern u16 var80087ce4[];
+extern u32 var80087ce4[];
 extern u8 g_BotCount;
 extern struct aibotweaponpreference g_AibotWeaponPreferences[];
 extern u32 var80087eb4;
