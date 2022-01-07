@@ -10973,7 +10973,7 @@ void botTickUnpaused(struct chrdata *chr)
 				} else if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL) {
 					// If the bot has the uplink, go to the terminal
 					if (g_ScenarioData.htm.uplink == chr->prop) {
-						if (g_ScenarioData.htm.uplinkingplayernum != mpPlayerGetIndex(chr)) {
+						if (g_ScenarioData.htm.playernuminrange != mpPlayerGetIndex(chr)) {
 							newaction = MA_AIBOTGOTOPROP;
 							aibot->gotoprop = g_ScenarioData.htm.terminals[0].prop;
 						} else {
@@ -11287,13 +11287,13 @@ void botTickUnpaused(struct chrdata *chr)
 				// empty
 			} else if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL
 					&& g_ScenarioData.htm.uplink == chr->prop
-					&& g_ScenarioData.htm.uplinkingplayernum == mpPlayerGetIndex(chr)) {
+					&& g_ScenarioData.htm.playernuminrange == mpPlayerGetIndex(chr)) {
 				chr->myaction = MA_AIBOTMAINLOOP;
 			}
 		} else if (chr->myaction == MA_AIBOTDOWNLOAD) {
 			if (botCanDoCriticalPickup(chr)) {
 				chr->myaction = MA_AIBOTMAINLOOP;
-			} else if (g_ScenarioData.htm.uplinkingplayernum != mpPlayerGetIndex(chr)) {
+			} else if (g_ScenarioData.htm.playernuminrange != mpPlayerGetIndex(chr)) {
 				chr->myaction = MA_AIBOTMAINLOOP;
 			}
 		}

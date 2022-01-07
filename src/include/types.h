@@ -4765,11 +4765,11 @@ struct scenariodata_htm {
 	/*0x800ac112*/ s16 unk002;
 	/*0x800ac114*/ s16 padnums[60];
 	/*0x800ac18c*/ struct htmterminal terminals[7]; // only the first element is used
-	/*0x800ac1e0*/ s16 unk0d0;
-	/*0x800ac1e2*/ s16 uplinkingplayernum;
-	/*0x800ac1e4*/ s32 unk0d4;
-	/*0x800ac1e8*/ u32 unk0d8[12];
-	/*0x800ac218*/ u32 unk108[12];
+	/*0x800ac1e0*/ s16 dlplayernum;
+	/*0x800ac1e2*/ s16 playernuminrange;
+	/*0x800ac1e4*/ s32 dlterminalnum;
+	/*0x800ac1e8*/ s32 numpoints[12];
+	/*0x800ac218*/ s32 dltime240[12];
 	/*0x800ac248*/ u32 unk138;
 	/*0x800ac24c*/ struct prop *uplink;
 	/*0x800ac250*/ u32 unk140;
