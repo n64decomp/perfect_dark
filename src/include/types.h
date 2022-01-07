@@ -1717,12 +1717,19 @@ struct weaponobj { // objtype 0x08
 	/*0x60*/ s8 fadeouttimer60;
 	/*0x61*/ s8 dualweaponnum;
 
-	/**
-	 * timer240 is used for activation of proxy Dragons, grenades and proxy
-	 * mines. It ticks down to 1 where it becomes active, and set to 0 when the
-	 * item should explode.
-	 */
-	/*0x62*/ s16 timer240;
+	union {
+		/**
+		 * timer240 is used for activation of proxy Dragons, grenades and proxy
+		 * mines. It ticks down to 1 where it becomes active, and set to 0 when the
+		 * item should explode.
+		 */
+		/*0x62*/ s16 timer240;
+
+		/**
+		 * team is used for MP briefcases (Capture The Case bases).
+		 */
+		/*0x62*/ s16 team;
+	};
 
 	/*0x64*/ struct weaponobj *dualweapon; // other weapon when dual wielding
 };

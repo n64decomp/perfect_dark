@@ -62713,7 +62713,7 @@ glabel var7f1aae70
 /*  f088a54:	24010036 */ 	addiu	$at,$zero,0x36
 /*  f088a58:	8c4a00bc */ 	lw	$t2,0xbc($v0)
 /*  f088a5c:	8fa500a0 */ 	lw	$a1,0xa0($sp)
-/*  f088a60:	0fc61a26 */ 	jal	chrGiveBriefcase
+/*  f088a60:	0fc61a26 */ 	jal	scenarioPickUpBriefcase
 /*  f088a64:	8d440004 */ 	lw	$a0,0x4($t2)
 /*  f088a68:	10400006 */ 	beqz	$v0,.L0f088a84
 /*  f088a6c:	00401825 */ 	or	$v1,$v0,$zero
@@ -63360,7 +63360,7 @@ glabel var7f1aae70
 /*  f088a54:	24010036 */ 	addiu	$at,$zero,0x36
 /*  f088a58:	8c4a00bc */ 	lw	$t2,0xbc($v0)
 /*  f088a5c:	8fa500a0 */ 	lw	$a1,0xa0($sp)
-/*  f088a60:	0fc61a26 */ 	jal	chrGiveBriefcase
+/*  f088a60:	0fc61a26 */ 	jal	scenarioPickUpBriefcase
 /*  f088a64:	8d440004 */ 	lw	$a0,0x4($t2)
 /*  f088a68:	10400006 */ 	beqz	$v0,.L0f088a84
 /*  f088a6c:	00401825 */ 	or	$v1,$v0,$zero
@@ -64007,7 +64007,7 @@ glabel var7f1aae70
 /*  f088a54:	24010036 */ 	addiu	$at,$zero,0x36
 /*  f088a58:	8c4a00bc */ 	lw	$t2,0xbc($v0)
 /*  f088a5c:	8fa500a0 */ 	lw	$a1,0xa0($sp)
-/*  f088a60:	0fc61a26 */ 	jal	chrGiveBriefcase
+/*  f088a60:	0fc61a26 */ 	jal	scenarioPickUpBriefcase
 /*  f088a64:	8d440004 */ 	lw	$a0,0x4($t2)
 /*  f088a68:	10400006 */ 	beqz	$v0,.L0f088a84
 /*  f088a6c:	00401825 */ 	or	$v1,$v0,$zero
@@ -64490,7 +64490,7 @@ glabel var7f1aae70
 //
 //			if (g_Vars.normmplayerisrunning) {
 //				if (weapon->weaponnum == WEAPON_BRIEFCASE2) {
-//					result = chrGiveBriefcase(g_Vars.currentplayer->prop->chr, prop);
+//					result = scenarioPickUpBriefcase(g_Vars.currentplayer->prop->chr, prop);
 //
 //					if (result) {
 //						weaponPlayPickupSound(weapon->weaponnum);

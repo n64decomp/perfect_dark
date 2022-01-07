@@ -112,7 +112,7 @@ void mpPrepareScenario(void);
 struct prop *scenarioCreateObj(s32 modelnum, s16 padnum, f32 arg2, u32 flags, u32 flags2, u32 flags3);
 void mpCreateScenarioHudmsg(s32 playernum, char *message);
 bool mpChrsAreSameTeam(s32 arg0, s32 arg1);
-u32 chrGiveBriefcase(struct chrdata *chr, struct prop *prop);
+s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop);
 void scenarioReleaseToken(struct chrdata *chr, struct prop *prop);
 s32 chrGiveUplink(struct chrdata *chr, struct prop *prop);
 void scenarioHtmActivateUplink(struct chrdata *chr, struct prop *prop);

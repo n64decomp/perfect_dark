@@ -1035,7 +1035,7 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 			u32 qty;
 
 			if (weapon->weaponnum == WEAPON_BRIEFCASE2) {
-				result = chrGiveBriefcase(chr, prop);
+				result = scenarioPickUpBriefcase(chr, prop);
 			} else if (weapon->weaponnum == WEAPON_DATAUPLINK) {
 				result = chrGiveUplink(chr, prop);
 			} else {
@@ -1353,7 +1353,7 @@ glabel var7f1b3480nb
 /*  f18ab2c:	02402025 */ 	or	$a0,$s2,$zero
 /*  f18ab30:	54a10006 */ 	bnel	$a1,$at,.NB0f18ab4c
 /*  f18ab34:	24010036 */ 	addiu	$at,$zero,0x36
-/*  f18ab38:	0fc60340 */ 	jal	chrGiveBriefcase
+/*  f18ab38:	0fc60340 */ 	jal	scenarioPickUpBriefcase
 /*  f18ab3c:	8fa50080 */ 	lw	$a1,0x80($sp)
 /*  f18ab40:	10000062 */ 	beqz	$zero,.NB0f18accc
 /*  f18ab44:	8fbf0054 */ 	lw	$ra,0x54($sp)
