@@ -331,7 +331,7 @@ Gfx *radarRender(Gfx *gdl)
 		if (i != playernum) {
 			if (g_Vars.players[i]->isdead == false
 					&& (g_Vars.players[i]->prop->chr->hidden & CHRHFLAG_CLOAKED) == 0
-					&& scenarioRadar2(&gdl, g_Vars.players[i]->prop) == false) {
+					&& scenarioRadarChr(&gdl, g_Vars.players[i]->prop) == false) {
 				pos.x = g_Vars.players[i]->prop->pos.x - g_Vars.currentplayer->prop->pos.x;
 				pos.y = g_Vars.players[i]->prop->pos.y - g_Vars.currentplayer->prop->pos.y;
 				pos.z = g_Vars.players[i]->prop->pos.z - g_Vars.currentplayer->prop->pos.z;
@@ -372,7 +372,7 @@ Gfx *radarRender(Gfx *gdl)
 		for (i = 0; i < g_BotCount; i++) {
 			if (!chrIsDead(g_MpBotChrPtrs[i])
 					&& (g_MpBotChrPtrs[i]->hidden & CHRHFLAG_CLOAKED) == 0
-					&& scenarioRadar2(&gdl, g_MpBotChrPtrs[i]->prop) == false) {
+					&& scenarioRadarChr(&gdl, g_MpBotChrPtrs[i]->prop) == false) {
 				pos.x = g_MpBotChrPtrs[i]->prop->pos.x - g_Vars.currentplayer->prop->pos.x;
 				pos.y = g_MpBotChrPtrs[i]->prop->pos.y - g_Vars.currentplayer->prop->pos.y;
 				pos.z = g_MpBotChrPtrs[i]->prop->pos.z - g_Vars.currentplayer->prop->pos.z;
@@ -388,7 +388,7 @@ Gfx *radarRender(Gfx *gdl)
 		}
 	}
 
-	gdl = scenarioRadar(gdl);
+	gdl = scenarioRadarExtra(gdl);
 
 	// Draw dots for r-tracked props
 	if (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_RTRACKER) {
@@ -396,7 +396,7 @@ Gfx *radarRender(Gfx *gdl)
 	}
 
 	// Draw dot for the current player
-	if (scenarioRadar2(&gdl, g_Vars.currentplayer->prop) == 0) {
+	if (scenarioRadarChr(&gdl, g_Vars.currentplayer->prop) == false) {
 		pos.x = 0;
 		pos.y = 0;
 		pos.z = 0;

@@ -178,11 +178,7 @@ void mpstatsRecordPlayerSuicide(void)
 		time = getMissionTime();
 		mpindex = g_Vars.currentplayerstats->mpindex;
 
-		if (mpindex < 4) {
-			mpchr = &g_PlayerConfigsArray[mpindex].base;
-		} else {
-			mpchr = &g_BotConfigsArray[mpindex - 4].base;
-		}
+		mpchr = MPCHR(mpindex);
 
 		// Show HUD message
 		// "Suicide count: %d"
@@ -238,7 +234,7 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 	char text[256];
 
 	if (g_Vars.normmplayerisrunning && g_MpSetup.scenario == MPSCENARIO_POPACAP) {
-		scenarioPacHandleDeath(aplayernum, vplayernum);
+		pacHandleDeath(aplayernum, vplayernum);
 	}
 
 	// Find attacker and victim mpchrs
@@ -246,11 +242,7 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 		ampindex = func0f18d074(aplayernum);
 
 		if (ampindex >= 0) {
-			if (ampindex < 4) {
-				ampchr = &g_PlayerConfigsArray[ampindex].base;
-			} else {
-				ampchr = &g_BotConfigsArray[ampindex - 4].base;
-			}
+			ampchr = MPCHR(ampindex);
 		}
 	}
 
@@ -258,11 +250,7 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 		vmpindex = func0f18d074(vplayernum);
 
 		if (vmpindex >= 0) {
-			if (vmpindex < 4) {
-				vmpchr = &g_PlayerConfigsArray[vmpindex].base;
-			} else {
-				vmpchr = &g_BotConfigsArray[vmpindex - 4].base;
-			}
+			vmpchr = MPCHR(vmpindex);
 		}
 	}
 

@@ -4673,34 +4673,6 @@ struct savebuffer {
 	u8 bytes[220];
 };
 
-struct mpscenario {
-	struct menudialog *optionsdialog;
-	void (*initfunc)(void);
-	s32 (*unk08)(void);
-	void (*resetfunc)(void);
-	void (*tickfunc)(void);
-	void (*unk14)(struct chrdata *chr);
-	Gfx *(*hudfunc)(Gfx *gdl);
-	void (*calcscorefunc)(struct mpchrconfig *mpchr, s32 chrnum, s32 *score, s32 *deaths);
-	Gfx *(*radarfunc)(Gfx *gdl);
-	bool (*radar2func)(Gfx **gdl, struct prop *prop);
-	bool (*highlightfunc)(struct prop *prop, s32 *colour);
-	bool (*spawnfunc)(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, f32 *arg4);
-	s32 (*maxteamsfunc)(void);
-	bool (*isroomhighlightedfunc)(s16 room);
-	void (*unk38)(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3);
-	void *unk3c;
-	void (*readsavefunc)(struct savebuffer *buffer);
-	void (*writesavefunc)(struct savebuffer *buffer);
-};
-
-struct mpscenariooverview {
-	u16 name;
-	u16 shortname;
-	u8 requirefeature;
-	u8 teamonly;
-};
-
 struct mparena {
 	s16 stagenum;
 	u8 requirefeature;
@@ -4768,8 +4740,8 @@ struct htmterminal {
 };
 
 struct scenariodata_htm {
-	/*0x800ac110*/ s16 nextindex;
-	/*0x800ac112*/ s16 unk002;
+	/*0x800ac110*/ s16 numpads;
+	/*0x800ac112*/ s16 numterminals;
 	/*0x800ac114*/ s16 padnums[60];
 	/*0x800ac18c*/ struct htmterminal terminals[7]; // only the first element is used
 	/*0x800ac1e0*/ s16 dlplayernum;
@@ -4780,6 +4752,7 @@ struct scenariodata_htm {
 	/*0x800ac248*/ u32 unk138;
 	/*0x800ac24c*/ struct prop *uplink;
 	/*0x800ac250*/ u32 unk140;
+	/*0x800ac250*/ u32 unk144;
 };
 
 struct scenariodata_pac {
@@ -4787,8 +4760,8 @@ struct scenariodata_pac {
 	u16 age240;
 	s32 victimindex;
 	s16 victims[12]; // shuffled list of player numbers
-	s16 unk20[12];
-	s16 wincounts[12]; // indexed by player num
+	s16 killcounts[12]; // indexed by player num
+	s16 survivalcounts[12]; // indexed by player num
 };
 
 struct scenariodata_koh {

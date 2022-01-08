@@ -2838,7 +2838,7 @@ void setupLoadFiles(s32 stagenum)
 		total += setupCountCommandType(OBJTYPE_ESCASTEP);
 
 		if (g_Vars.normmplayerisrunning) {
-			total += scenarioCallback08();
+			total += scenarioNumProps();
 		}
 
 		func0f011130(total, numchrs);
@@ -3480,7 +3480,7 @@ void setupParseObjects(s32 stagenum)
 			}
 
 			if (g_Vars.normmplayerisrunning) {
-				scenarioReset();
+				scenarioInitProps();
 			}
 
 			obj = (struct defaultobj *)g_StageSetup.props;

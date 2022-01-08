@@ -6219,13 +6219,7 @@ s32 menuhandlerMpMaximumTeams(s32 operation, struct menuitem *item, union handle
 
 		for (i = 0; i != MAX_MPCHRS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
-				struct mpchrconfig *mpchr;
-
-				if (i < 4) {
-					mpchr = &g_PlayerConfigsArray[i].base;
-				} else {
-					mpchr = &g_BotConfigsArray[i - 4].base;
-				}
+				struct mpchrconfig *mpchr = MPCHR(i);
 
 				mpchr->team = team++;
 
@@ -6248,13 +6242,7 @@ s32 menuhandlerMpHumansVsSimulants(s32 operation, struct menuitem *item, union h
 
 		for (i = 0; i != MAX_MPCHRS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
-				struct mpchrconfig *mpchr;
-
-				if (i < 4) {
-					mpchr = &g_PlayerConfigsArray[i].base;
-				} else {
-					mpchr = &g_BotConfigsArray[i - 4].base;
-				}
+				struct mpchrconfig *mpchr = MPCHR(i);
 
 				mpchr->team = i < 4 ? 0 : 1;
 			}
@@ -6276,13 +6264,7 @@ s32 menuhandlerMpHumanSimulantPairs(s32 operation, struct menuitem *item, union 
 
 		for (i = 0; i != MAX_MPCHRS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
-				struct mpchrconfig *mpchr;
-
-				if (i < 4) {
-					mpchr = &g_PlayerConfigsArray[i].base;
-				} else {
-					mpchr = &g_BotConfigsArray[i - 4].base;
-				}
+				struct mpchrconfig *mpchr = MPCHR(i);
 
 				if (i < 4) {
 					mpchr->team = team_ids[playerindex++];
@@ -8427,17 +8409,17 @@ glabel func0f17fa28
 /*  f17fa68:	3c148008 */ 	lui	$s4,%hi(g_MpChangeSimulantMenuDialog)
 /*  f17fa6c:	3c158008 */ 	lui	$s5,%hi(g_MpEditSimulantMenuDialog)
 /*  f17fa70:	3c168008 */ 	lui	$s6,%hi(g_MpCombatOptionsMenuDialog)
-/*  f17fa74:	3c178008 */ 	lui	$s7,%hi(g_MpBriefcaseOptionsMenuDialog)
-/*  f17fa78:	3c1e8008 */ 	lui	$s8,%hi(g_MpCaptureOptionsMenuDialog)
-/*  f17fa7c:	3c098008 */ 	lui	$t1,%hi(g_MpPopacapOptionsMenuDialog)
-/*  f17fa80:	3c088008 */ 	lui	$t0,%hi(g_MpHackerOptionsMenuDialog)
-/*  f17fa84:	3c078008 */ 	lui	$a3,%hi(g_MpHillOptionsMenuDialog)
+/*  f17fa74:	3c178008 */ 	lui	$s7,%hi(g_HtbOptionsMenuDialog)
+/*  f17fa78:	3c1e8008 */ 	lui	$s8,%hi(g_CtcOptionsMenuDialog)
+/*  f17fa7c:	3c098008 */ 	lui	$t1,%hi(g_PacOptionsMenuDialog)
+/*  f17fa80:	3c088008 */ 	lui	$t0,%hi(g_HtmOptionsMenuDialog)
+/*  f17fa84:	3c078008 */ 	lui	$a3,%hi(g_KohOptionsMenuDialog)
 /*  f17fa88:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f17fa8c:	24e76ce0 */ 	addiu	$a3,$a3,%lo(g_MpHillOptionsMenuDialog)
-/*  f17fa90:	25086dfc */ 	addiu	$t0,$t0,%lo(g_MpHackerOptionsMenuDialog)
-/*  f17fa94:	25296f80 */ 	addiu	$t1,$t1,%lo(g_MpPopacapOptionsMenuDialog)
-/*  f17fa98:	27de6b48 */ 	addiu	$s8,$s8,%lo(g_MpCaptureOptionsMenuDialog)
-/*  f17fa9c:	26f769d4 */ 	addiu	$s7,$s7,%lo(g_MpBriefcaseOptionsMenuDialog)
+/*  f17fa8c:	24e76ce0 */ 	addiu	$a3,$a3,%lo(g_KohOptionsMenuDialog)
+/*  f17fa90:	25086dfc */ 	addiu	$t0,$t0,%lo(g_HtmOptionsMenuDialog)
+/*  f17fa94:	25296f80 */ 	addiu	$t1,$t1,%lo(g_PacOptionsMenuDialog)
+/*  f17fa98:	27de6b48 */ 	addiu	$s8,$s8,%lo(g_CtcOptionsMenuDialog)
+/*  f17fa9c:	26f769d4 */ 	addiu	$s7,$s7,%lo(g_HtbOptionsMenuDialog)
 /*  f17faa0:	26d668b8 */ 	addiu	$s6,$s6,%lo(g_MpCombatOptionsMenuDialog)
 /*  f17faa4:	26b5592c */ 	addiu	$s5,$s5,%lo(g_MpEditSimulantMenuDialog)
 /*  f17faa8:	26945834 */ 	addiu	$s4,$s4,%lo(g_MpChangeSimulantMenuDialog)
@@ -8558,14 +8540,14 @@ glabel func0f17fa28
 /*  f17fc30:	00000000 */ 	nop
 /*  f17fc34:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f17fc38:	00000000 */ 	nop
-/*  f17fc3c:	3c078008 */ 	lui	$a3,%hi(g_MpHillOptionsMenuDialog)
-/*  f17fc40:	3c088008 */ 	lui	$t0,%hi(g_MpHackerOptionsMenuDialog)
-/*  f17fc44:	3c098008 */ 	lui	$t1,%hi(g_MpPopacapOptionsMenuDialog)
+/*  f17fc3c:	3c078008 */ 	lui	$a3,%hi(g_KohOptionsMenuDialog)
+/*  f17fc40:	3c088008 */ 	lui	$t0,%hi(g_HtmOptionsMenuDialog)
+/*  f17fc44:	3c098008 */ 	lui	$t1,%hi(g_PacOptionsMenuDialog)
 /*  f17fc48:	3c1f8007 */ 	lui	$ra,%hi(g_MpPlayerNum)
 /*  f17fc4c:	27ff1448 */ 	addiu	$ra,$ra,%lo(g_MpPlayerNum)
-/*  f17fc50:	25296f80 */ 	addiu	$t1,$t1,%lo(g_MpPopacapOptionsMenuDialog)
-/*  f17fc54:	25086dfc */ 	addiu	$t0,$t0,%lo(g_MpHackerOptionsMenuDialog)
-/*  f17fc58:	24e76ce0 */ 	addiu	$a3,$a3,%lo(g_MpHillOptionsMenuDialog)
+/*  f17fc50:	25296f80 */ 	addiu	$t1,$t1,%lo(g_PacOptionsMenuDialog)
+/*  f17fc54:	25086dfc */ 	addiu	$t0,$t0,%lo(g_HtmOptionsMenuDialog)
+/*  f17fc58:	24e76ce0 */ 	addiu	$a3,$a3,%lo(g_KohOptionsMenuDialog)
 .L0f17fc5c:
 /*  f17fc5c:	5200ffa7 */ 	beqzl	$s0,.L0f17fafc
 /*  f17fc60:	8fe20000 */ 	lw	$v0,0x0($ra)

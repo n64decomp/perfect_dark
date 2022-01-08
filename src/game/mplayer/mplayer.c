@@ -246,13 +246,7 @@ void mpInit(void)
 	}
 
 	for (i = 0; i != 12; i++) {
-		struct mpchrconfig *mpchr;
-
-		if (i < 4) {
-			mpchr = &g_PlayerConfigsArray[i].base;
-		} else {
-			mpchr = &g_BotConfigsArray[i - 4].base;
-		}
+		struct mpchrconfig *mpchr = MPCHR(i);
 
 		func0f187838(mpchr);
 
@@ -1121,11 +1115,7 @@ s32 mpCalculateTeamScore(s32 teamnum, s32 *result)
 
 	for (i = 0; i < 12; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
-			if (i < 4) {
-				mpchr = &g_PlayerConfigsArray[i].base;
-			} else {
-				mpchr = &g_BotConfigsArray[i - 4].base;
-			}
+			mpchr = MPCHR(i);
 
 			if (mpchr->team == teamnum) {
 				scenarioCalculatePlayerScore(mpchr, i, &score, &deaths);
@@ -7217,11 +7207,7 @@ void mpFindUnusedHeadAndBody(u8 *mpheadnum, u8 *mpbodynum)
 
 		for (i = 0; i < 12; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
-				if (i < 4) {
-					mpchr = &g_PlayerConfigsArray[i].base;
-				} else {
-					mpchr = &g_BotConfigsArray[i - 4].base;
-				}
+				mpchr = MPCHR(i);
 
 				if (mpchr->mpheadnum == trympheadnum) {
 					available = false;
@@ -7940,11 +7926,7 @@ struct mpchrconfig *mpGetChrConfigBySlotNum(s32 slot)
 	for (i = 0; i < 12; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
 			if (count == slot) {
-				if (i < 4) {
-					result = &g_PlayerConfigsArray[i].base;
-				} else {
-					result = &g_BotConfigsArray[i - 4].base;
-				}
+				result = MPCHR(i);
 				break;
 			}
 
@@ -8002,13 +7984,7 @@ u8 mpFindUnusedTeamNum(void)
 
 		for (i = 0; i < 12; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
-				struct mpchrconfig *mpchr;
-
-				if (i < 4) {
-					mpchr = &g_PlayerConfigsArray[i].base;
-				} else {
-					mpchr = &g_BotConfigsArray[i - 4].base;
-				}
+				struct mpchrconfig *mpchr = MPCHR(i);
 
 				if (mpchr->team == teamnum) {
 					available = false;

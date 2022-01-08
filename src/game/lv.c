@@ -429,7 +429,7 @@ void lvInit(s32 stagenum)
 	func0f011110();
 	func0f0108d0();
 	setupLoadFiles(stagenum);
-	mpPrepareScenario();
+	scenarioReset();
 	gvarsInitProps();
 	setupInit();
 	func0f00b510();
@@ -815,7 +815,7 @@ glabel var7f1b1f44nc
 /*  f162a94:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f162a98:	0fc03a25 */ 	jal	setupLoadFiles
 /*  f162a9c:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f162aa0:	0fc6019d */ 	jal	mpPrepareScenario
+/*  f162aa0:	0fc6019d */ 	jal	scenarioReset
 /*  f162aa4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f162aa8:	0fc02fbc */ 	jal	gvarsInitProps
 /*  f162aac:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2242,7 +2242,7 @@ glabel var7f1b8e7cpf
 /*  f16ad40:	00000000 */ 	nop
 /*  f16ad44:	0fc18ca3 */ 	jal	propsTick
 /*  f16ad48:	02202025 */ 	move	$a0,$s1
-/*  f16ad4c:	0fc619c9 */ 	jal	scenarioCallback14
+/*  f16ad4c:	0fc619c9 */ 	jal	scenarioTickChr
 /*  f16ad50:	00002025 */ 	move	$a0,$zero
 /*  f16ad54:	0fc18104 */ 	jal	propsSort
 /*  f16ad58:	00000000 */ 	nop
@@ -3655,7 +3655,7 @@ Gfx *lvRender(Gfx *gdl)
 				roomsTick();
 				func0f004314();
 				propsTick(islastplayer);
-				scenarioCallback14(NULL);
+				scenarioTickChr(NULL);
 				propsSort();
 				autoaimTick();
 				handsTickAttack();
@@ -4830,7 +4830,7 @@ glabel var7f1b1fd4nb
 /*  f164a48:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f164a4c:	0fc188ac */ 	jal	propsTick
 /*  f164a50:	02202025 */ 	or	$a0,$s1,$zero
-/*  f164a54:	0fc5ff30 */ 	jal	scenarioCallback14
+/*  f164a54:	0fc5ff30 */ 	jal	scenarioTickChr
 /*  f164a58:	00002025 */ 	or	$a0,$zero,$zero
 /*  f164a5c:	0fc17d1c */ 	jal	propsSort
 /*  f164a60:	00000000 */ 	sll	$zero,$zero,0x0

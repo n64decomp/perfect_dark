@@ -10879,11 +10879,7 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 	s32 gap;
 	s32 ypos = 0;
 
-	if (playernum < 4) {
-		mpchr = &g_PlayerConfigsArray[playernum].base;
-	} else {
-		mpchr = &g_BotConfigsArray[playernum - 4].base;
-	}
+	mpchr = MPCHR(playernum);
 
 	gdl = func0f153628(gdl);
 
@@ -11035,13 +11031,7 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 
 		for (i = 0; i < 12; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
-				struct mpchrconfig *loopmpchr;
-
-				if (i < 4) {
-					loopmpchr = &g_PlayerConfigsArray[i].base;
-				} else {
-					loopmpchr = &g_BotConfigsArray[i - 4].base;
-				}
+				struct mpchrconfig *loopmpchr = MPCHR(i);
 
 				if (i != playernum) {
 					// Name

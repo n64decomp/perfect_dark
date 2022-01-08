@@ -1143,7 +1143,7 @@ void botinvDrop(struct chrdata *chr, s32 weaponnum, u8 dropall)
 						objDrop(prop, true);
 
 						if (item->type_weap.weapon1 == WEAPON_BRIEFCASE2) {
-							scenarioReleaseToken(chr, prop);
+							scenarioHandleDroppedToken(chr, prop);
 						}
 					}
 				}

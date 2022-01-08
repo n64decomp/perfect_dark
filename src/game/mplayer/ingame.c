@@ -30,7 +30,7 @@ struct menudialog g_MpEndscreenSavePlayerMenuDialog;
 
 s32 mpStatsForPlayerDropdownHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	char *name;
+	struct mpchrconfig *mpchr;
 	s32 v0;
 	s32 v1;
 	s32 a1;
@@ -50,14 +50,10 @@ s32 mpStatsForPlayerDropdownHandler(s32 operation, struct menuitem *item, union 
 
 		for (a1 = 0; a1 < 12; a1++) {
 			if (g_MpSetup.chrslots & (1 << a1)) {
-				if (a1 < 4) {
-					name = g_PlayerConfigsArray[a1].base.name;
-				} else {
-					name = g_BotConfigsArray[a1 - 4].base.name;
-				}
+				mpchr = MPCHR(a1);
 
 				if (v0 == data->list.value) {
-					return (s32) name;
+					return (s32) mpchr->name;
 				}
 
 				v0++;
@@ -216,16 +212,10 @@ char *mpMenuTextWeaponDescription(struct menuitem *item)
 
 char *mpMenuTitleStatsFor(struct menudialog *dialog)
 {
-	char *name;
-
-	if (g_MpSelectedPlayersForStats[g_MpPlayerNum] < 4) {
-		name = g_PlayerConfigsArray[g_MpSelectedPlayersForStats[g_MpPlayerNum]].base.name;
-	} else {
-		name = g_BotConfigsArray[g_MpSelectedPlayersForStats[g_MpPlayerNum] - 4].base.name;
-	}
+	struct mpchrconfig *mpchr = MPCHR(g_MpSelectedPlayersForStats[g_MpPlayerNum]);
 
 	// "Stats for %s"
-	sprintf(g_StringPointer, langGet(L_MPMENU_280), name);
+	sprintf(g_StringPointer, langGet(L_MPMENU_280), mpchr->name);
 	return g_StringPointer;
 }
 

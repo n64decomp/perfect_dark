@@ -3340,7 +3340,7 @@ glabel var7f1aa1d8
 /*  f0692ac:	27a70050 */ 	addiu	$a3,$sp,0x50
 /*  f0692b0:	460a8481 */ 	sub.s	$f18,$f16,$f10
 /*  f0692b4:	e7b2005c */ 	swc1	$f18,0x5c($sp)
-/*  f0692b8:	0fc6192e */ 	jal	scenarioCallback38
+/*  f0692b8:	0fc6192e */ 	jal	scenarioHighlightRoom
 /*  f0692bc:	85c40028 */ 	lh	$a0,0x28($t6)
 /*  f0692c0:	920f0000 */ 	lbu	$t7,0x0($s0)
 /*  f0692c4:	8fb80058 */ 	lw	$t8,0x58($sp)
@@ -3684,7 +3684,7 @@ glabel var7f1aa1d8
 /*  f068518:	27a70050 */ 	addiu	$a3,$sp,0x50
 /*  f06851c:	460a8481 */ 	sub.s	$f18,$f16,$f10
 /*  f068520:	e7b2005c */ 	swc1	$f18,0x5c($sp)
-/*  f068524:	0fc60248 */ 	jal	scenarioCallback38
+/*  f068524:	0fc60248 */ 	jal	scenarioHighlightRoom
 /*  f068528:	85c40028 */ 	lh	$a0,0x28($t6)
 /*  f06852c:	920f0000 */ 	lbu	$t7,0x0($s0)
 /*  f068530:	8fb80058 */ 	lw	$t8,0x58($sp)
@@ -52709,7 +52709,7 @@ glabel var7f1aa82c
 /*  f0818b0:	8cca0318 */ 	lw	$t2,0x318($a2)
 /*  f0818b4:	51400006 */ 	beqzl	$t2,.L0f0818d0
 /*  f0818b8:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f0818bc:	0fc61788 */ 	jal	scenarioHighlight
+/*  f0818bc:	0fc61788 */ 	jal	scenarioHighlightProp
 /*  f0818c0:	8fa400f8 */ 	lw	$a0,0xf8($sp)
 /*  f0818c4:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f0818c8:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
@@ -53344,7 +53344,7 @@ glabel var7f1aa82c
 /*  f0818b0:	8cca0318 */ 	lw	$t2,0x318($a2)
 /*  f0818b4:	51400006 */ 	beqzl	$t2,.L0f0818d0
 /*  f0818b8:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f0818bc:	0fc61788 */ 	jal	scenarioHighlight
+/*  f0818bc:	0fc61788 */ 	jal	scenarioHighlightProp
 /*  f0818c0:	8fa400f8 */ 	lw	$a0,0xf8($sp)
 /*  f0818c4:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f0818c8:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
@@ -53755,7 +53755,7 @@ glabel var7f1aa82c
 //	}
 //
 //	if (g_Vars.normmplayerisrunning) {
-//		scenarioHighlight(prop, colour);
+//		scenarioHighlightProp(prop, colour);
 //	}
 //
 //	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
@@ -61018,7 +61018,7 @@ bool propobjInteract(struct prop *prop)
 	}
 
 	if (g_Vars.normmplayerisrunning) {
-		scenarioHtmActivateUplink(g_Vars.currentplayer->prop->chr, prop);
+		scenarioHandleActivatedProp(g_Vars.currentplayer->prop->chr, prop);
 	} else {
 		if (g_Vars.currentplayernum == g_Vars.coopplayernum) {
 			obj->hidden |= OBJHFLAG_ACTIVATED_BY_COOP;
@@ -62731,7 +62731,7 @@ glabel var7f1aae70
 /*  f088a94:	8d0f04cc */ 	lw	$t7,0x4cc($t0)
 /*  f088a98:	8c4c00bc */ 	lw	$t4,0xbc($v0)
 /*  f088a9c:	8fa500a0 */ 	lw	$a1,0xa0($sp)
-/*  f088aa0:	0fc61d04 */ 	jal	chrGiveUplink
+/*  f088aa0:	0fc61d04 */ 	jal	scenarioPickUpUplink
 /*  f088aa4:	8d840004 */ 	lw	$a0,0x4($t4)
 /*  f088aa8:	10400006 */ 	beqz	$v0,.L0f088ac4
 /*  f088aac:	00401825 */ 	or	$v1,$v0,$zero
@@ -63378,7 +63378,7 @@ glabel var7f1aae70
 /*  f088a94:	8d0f04cc */ 	lw	$t7,0x4cc($t0)
 /*  f088a98:	8c4c00bc */ 	lw	$t4,0xbc($v0)
 /*  f088a9c:	8fa500a0 */ 	lw	$a1,0xa0($sp)
-/*  f088aa0:	0fc61d04 */ 	jal	chrGiveUplink
+/*  f088aa0:	0fc61d04 */ 	jal	scenarioPickUpUplink
 /*  f088aa4:	8d840004 */ 	lw	$a0,0x4($t4)
 /*  f088aa8:	10400006 */ 	beqz	$v0,.L0f088ac4
 /*  f088aac:	00401825 */ 	or	$v1,$v0,$zero
@@ -64025,7 +64025,7 @@ glabel var7f1aae70
 /*  f088a94:	8d0f04cc */ 	lw	$t7,0x4cc($t0)
 /*  f088a98:	8c4c00bc */ 	lw	$t4,0xbc($v0)
 /*  f088a9c:	8fa500a0 */ 	lw	$a1,0xa0($sp)
-/*  f088aa0:	0fc61d04 */ 	jal	chrGiveUplink
+/*  f088aa0:	0fc61d04 */ 	jal	scenarioPickUpUplink
 /*  f088aa4:	8d840004 */ 	lw	$a0,0x4($t4)
 /*  f088aa8:	10400006 */ 	beqz	$v0,.L0f088ac4
 /*  f088aac:	00401825 */ 	or	$v1,$v0,$zero
@@ -64500,7 +64500,7 @@ glabel var7f1aae70
 //				}
 //
 //				if (weapon->weaponnum == WEAPON_DATAUPLINK) {
-//					result = chrGiveUplink(g_Vars.currentplayer->prop->chr, prop);
+//					result = scenarioPickUpUplink(g_Vars.currentplayer->prop->chr, prop);
 //
 //					if (result) {
 //						weaponPlayPickupSound(weapon->weaponnum);
@@ -69892,7 +69892,7 @@ void weaponCreateForPlayerDrop(s32 weaponnum)
 		objDrop(prop, true);
 
 		if (weaponnum == WEAPON_BRIEFCASE2) {
-			scenarioReleaseToken(chr, prop);
+			scenarioHandleDroppedToken(chr, prop);
 		}
 	}
 }

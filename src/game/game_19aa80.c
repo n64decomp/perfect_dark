@@ -11,6 +11,7 @@
 #include "game/training/training.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
+#include "game/mplayer/scenarios.h"
 #include "game/pad.h"
 #include "bss.h"
 #include "lib/dma.h"

@@ -1037,7 +1037,7 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 			if (weapon->weaponnum == WEAPON_BRIEFCASE2) {
 				result = scenarioPickUpBriefcase(chr, prop);
 			} else if (weapon->weaponnum == WEAPON_DATAUPLINK) {
-				result = chrGiveUplink(chr, prop);
+				result = scenarioPickUpUplink(chr, prop);
 			} else {
 				propPlayPickupSound(prop, weapon->weaponnum);
 				qty = weaponGetPickupAmmoQty(weapon);
@@ -1361,7 +1361,7 @@ glabel var7f1b3480nb
 .NB0f18ab4c:
 /*  f18ab4c:	14a10005 */ 	bne	$a1,$at,.NB0f18ab64
 /*  f18ab50:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18ab54:	0fc60612 */ 	jal	chrGiveUplink
+/*  f18ab54:	0fc60612 */ 	jal	scenarioPickUpUplink
 /*  f18ab58:	8fa50080 */ 	lw	$a1,0x80($sp)
 /*  f18ab5c:	1000005b */ 	beqz	$zero,.NB0f18accc
 /*  f18ab60:	8fbf0054 */ 	lw	$ra,0x54($sp)
@@ -3191,7 +3191,7 @@ glabel var7f1b8ef0
 /*  f191f54:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*  f191f58:	51c00004 */ 	beqzl	$t6,.L0f191f6c
 /*  f191f5c:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*  f191f60:	0fc615c8 */ 	jal	scenarioCallback14
+/*  f191f60:	0fc615c8 */ 	jal	scenarioTickChr
 /*  f191f64:	02202025 */ 	or	$a0,$s1,$zero
 /*  f191f68:	8faf0058 */ 	lw	$t7,0x58($sp)
 .L0f191f6c:
@@ -3703,7 +3703,7 @@ glabel var7f1b8ef0
 /*  f191f54:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*  f191f58:	51c00004 */ 	beqzl	$t6,.L0f191f6c
 /*  f191f5c:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*  f191f60:	0fc615c8 */ 	jal	scenarioCallback14
+/*  f191f60:	0fc615c8 */ 	jal	scenarioTickChr
 /*  f191f64:	02202025 */ 	or	$a0,$s1,$zero
 /*  f191f68:	8faf0058 */ 	lw	$t7,0x58($sp)
 .L0f191f6c:
@@ -3902,7 +3902,7 @@ glabel var7f1b8ef0
 //
 //		if (g_Vars.lvframe60 >= 145) {
 //			if (updateable) {
-//				scenarioCallback14(chr);
+//				scenarioTickChr(chr);
 //			}
 //
 //			if (updateable && !chrIsDead(chr)) {
@@ -7335,11 +7335,7 @@ s32 botGetNumOpponentsInHill(struct chrdata *chr)
 		if (g_MpAllChrPtrs[i]->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) {
 			s32 mpindex = func0f18d074(i);
 
-			if (mpindex < 4) {
-				loopmpchr = &g_PlayerConfigsArray[mpindex].base;
-			} else {
-				loopmpchr = &g_BotConfigsArray[mpindex - 4].base;
-			}
+			loopmpchr = MPCHR(mpindex);
 
 			if (loopmpchr->team != mpchr->team) {
 				countsperteam[loopmpchr->team]++;
