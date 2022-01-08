@@ -4795,15 +4795,15 @@ struct scenariodata_koh {
 	/*0x800ac110*/ u32 unk00;
 	/*0x800ac114*/ s16 occupiedteam;
 	/*0x800ac116*/ s16 elapsed240;
-	/*0x800ac118*/ s16 unk08;
+	/*0x800ac118*/ s16 movehill;
 	/*0x800ac11a*/ s16 hillindex;
 	/*0x800ac11c*/ s16 hillcount;
 	/*0x800ac11e*/ s16 hillrooms[2];
 	/*0x800ac122*/ s16 hillpads[9];
 	/*0x800ac134*/ struct coord hillpos;
-	/*0x800ac140*/ f32 unk30;
-	/*0x800ac144*/ f32 unk34;
-	/*0x800ac148*/ f32 unk38;
+	/*0x800ac140*/ f32 colourfracr;
+	/*0x800ac144*/ f32 colourfracg;
+	/*0x800ac148*/ f32 colourfracb;
 };
 
 struct ctcspawnpadsperteam {
