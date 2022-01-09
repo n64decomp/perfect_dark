@@ -3239,106 +3239,38 @@ s32 mpFindMinInt(s32 numplayers, s32 val0, s32 val1, s32 val2, s32 val3)
 	return bestplayer;
 }
 
-GLOBAL_ASM(
-glabel mpFindMaxFloat
-/*  f189ed0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f189ed4:	44856000 */ 	mtc1	$a1,$f12
-/*  f189ed8:	44867000 */ 	mtc1	$a2,$f14
-/*  f189edc:	28810002 */ 	slti	$at,$a0,0x2
-/*  f189ee0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f189ee4:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f189ee8:	1420004c */ 	bnez	$at,.L0f18a01c
-/*  f189eec:	00002825 */ 	or	$a1,$zero,$zero
-/*  f189ef0:	460e603c */ 	c.lt.s	$f12,$f14
-/*  f189ef4:	00000000 */ 	nop
-/*  f189ef8:	45030011 */ 	bc1tl	.L0f189f40
-/*  f189efc:	4600710d */ 	trunc.w.s	$f4,$f14
-/*  f189f00:	460c7032 */ 	c.eq.s	$f14,$f12
-/*  f189f04:	00000000 */ 	nop
-/*  f189f08:	45020012 */ 	bc1fl	.L0f189f54
-/*  f189f0c:	4600618d */ 	trunc.w.s	$f6,$f12
-/*  f189f10:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f189f14:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f189f18:	e7ac0024 */ 	swc1	$f12,0x24($sp)
-/*  f189f1c:	0c004b70 */ 	jal	random
-/*  f189f20:	e7ae0028 */ 	swc1	$f14,0x28($sp)
-/*  f189f24:	304e0001 */ 	andi	$t6,$v0,0x1
-/*  f189f28:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f189f2c:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f189f30:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*  f189f34:	11c00006 */ 	beqz	$t6,.L0f189f50
-/*  f189f38:	c7ae0028 */ 	lwc1	$f14,0x28($sp)
-/*  f189f3c:	4600710d */ 	trunc.w.s	$f4,$f14
-.L0f189f40:
-/*  f189f40:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f189f44:	44032000 */ 	mfc1	$v1,$f4
-/*  f189f48:	10000005 */ 	b	.L0f189f60
-/*  f189f4c:	28810003 */ 	slti	$at,$a0,0x3
-.L0f189f50:
-/*  f189f50:	4600618d */ 	trunc.w.s	$f6,$f12
-.L0f189f54:
-/*  f189f54:	44033000 */ 	mfc1	$v1,$f6
-/*  f189f58:	00000000 */ 	nop
-/*  f189f5c:	28810003 */ 	slti	$at,$a0,0x3
-.L0f189f60:
-/*  f189f60:	5420002f */ 	bnezl	$at,.L0f18a020
-/*  f189f64:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f189f68:	44834000 */ 	mtc1	$v1,$f8
-/*  f189f6c:	c7aa002c */ 	lwc1	$f10,0x2c($sp)
-/*  f189f70:	46804020 */ 	cvt.s.w	$f0,$f8
-/*  f189f74:	460a003c */ 	c.lt.s	$f0,$f10
-/*  f189f78:	00000000 */ 	nop
-/*  f189f7c:	4503000f */ 	bc1tl	.L0f189fbc
-/*  f189f80:	c7b0002c */ 	lwc1	$f16,0x2c($sp)
-/*  f189f84:	46005032 */ 	c.eq.s	$f10,$f0
-/*  f189f88:	00000000 */ 	nop
-/*  f189f8c:	45020010 */ 	bc1fl	.L0f189fd0
-/*  f189f90:	28810004 */ 	slti	$at,$a0,0x4
-/*  f189f94:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f189f98:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f189f9c:	0c004b70 */ 	jal	random
-/*  f189fa0:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f189fa4:	30590001 */ 	andi	$t9,$v0,0x1
-/*  f189fa8:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f189fac:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f189fb0:	13200006 */ 	beqz	$t9,.L0f189fcc
-/*  f189fb4:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f189fb8:	c7b0002c */ 	lwc1	$f16,0x2c($sp)
-.L0f189fbc:
-/*  f189fbc:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f189fc0:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f189fc4:	44039000 */ 	mfc1	$v1,$f18
-/*  f189fc8:	00000000 */ 	nop
-.L0f189fcc:
-/*  f189fcc:	28810004 */ 	slti	$at,$a0,0x4
-.L0f189fd0:
-/*  f189fd0:	54200013 */ 	bnezl	$at,.L0f18a020
-/*  f189fd4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f189fd8:	44832000 */ 	mtc1	$v1,$f4
-/*  f189fdc:	c7a20030 */ 	lwc1	$f2,0x30($sp)
-/*  f189fe0:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f189fe4:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f189fe8:	00000000 */ 	nop
-/*  f189fec:	4503000b */ 	bc1tl	.L0f18a01c
-/*  f189ff0:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f189ff4:	46001032 */ 	c.eq.s	$f2,$f0
-/*  f189ff8:	00000000 */ 	nop
-/*  f189ffc:	45020008 */ 	bc1fl	.L0f18a020
-/*  f18a000:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18a004:	0c004b70 */ 	jal	random
-/*  f18a008:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f18a00c:	30490001 */ 	andi	$t1,$v0,0x1
-/*  f18a010:	11200002 */ 	beqz	$t1,.L0f18a01c
-/*  f18a014:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f18a018:	24050003 */ 	addiu	$a1,$zero,0x3
-.L0f18a01c:
-/*  f18a01c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f18a020:
-/*  f18a020:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f18a024:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f18a028:	03e00008 */ 	jr	$ra
-/*  f18a02c:	00000000 */ 	nop
-);
+s32 mpFindMaxFloat(s32 numplayers, f32 val0, f32 val1, f32 val2, f32 val3)
+{
+	// @bug: bestvalue should be an f32. Any value saved into here will be
+	// rounded down which may cause the function to return an incorrect result.
+	s32 bestvalue;
+	s32 bestplayer = 0;
+
+	if (numplayers >= 2) {
+		if (val1 > val0 || (val1 == val0 && (random() % 2))) {
+			bestplayer = 1;
+			bestvalue = val1;
+		} else {
+			bestvalue = val0;
+			bestplayer = 0;
+		}
+
+		if (numplayers >= 3) {
+			if (val2 > bestvalue || (val2 == bestvalue && (random() % 2))) {
+				bestplayer = 2;
+				bestvalue = val2;
+			}
+
+			if (numplayers >= 4) {
+				if (val3 > bestvalue || (val3 == bestvalue && (random() % 2))) {
+					bestplayer = 3;
+				}
+			}
+		}
+	}
+
+	return bestplayer;
+}
 
 GLOBAL_ASM(
 glabel mpFindMinFloat
