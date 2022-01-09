@@ -3272,106 +3272,40 @@ s32 mpFindMaxFloat(s32 numplayers, f32 val0, f32 val1, f32 val2, f32 val3)
 	return bestplayer;
 }
 
-GLOBAL_ASM(
-glabel mpFindMinFloat
-/*  f18a030:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f18a034:	44856000 */ 	mtc1	$a1,$f12
-/*  f18a038:	44867000 */ 	mtc1	$a2,$f14
-/*  f18a03c:	28810002 */ 	slti	$at,$a0,0x2
-/*  f18a040:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18a044:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f18a048:	1420004c */ 	bnez	$at,.L0f18a17c
-/*  f18a04c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f18a050:	460c703c */ 	c.lt.s	$f14,$f12
-/*  f18a054:	00000000 */ 	nop
-/*  f18a058:	45030011 */ 	bc1tl	.L0f18a0a0
-/*  f18a05c:	4600710d */ 	trunc.w.s	$f4,$f14
-/*  f18a060:	460c7032 */ 	c.eq.s	$f14,$f12
-/*  f18a064:	00000000 */ 	nop
-/*  f18a068:	45020012 */ 	bc1fl	.L0f18a0b4
-/*  f18a06c:	4600618d */ 	trunc.w.s	$f6,$f12
-/*  f18a070:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f18a074:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f18a078:	e7ac0024 */ 	swc1	$f12,0x24($sp)
-/*  f18a07c:	0c004b70 */ 	jal	random
-/*  f18a080:	e7ae0028 */ 	swc1	$f14,0x28($sp)
-/*  f18a084:	304e0001 */ 	andi	$t6,$v0,0x1
-/*  f18a088:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f18a08c:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f18a090:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*  f18a094:	11c00006 */ 	beqz	$t6,.L0f18a0b0
-/*  f18a098:	c7ae0028 */ 	lwc1	$f14,0x28($sp)
-/*  f18a09c:	4600710d */ 	trunc.w.s	$f4,$f14
-.L0f18a0a0:
-/*  f18a0a0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f18a0a4:	44032000 */ 	mfc1	$v1,$f4
-/*  f18a0a8:	10000005 */ 	b	.L0f18a0c0
-/*  f18a0ac:	28810003 */ 	slti	$at,$a0,0x3
-.L0f18a0b0:
-/*  f18a0b0:	4600618d */ 	trunc.w.s	$f6,$f12
-.L0f18a0b4:
-/*  f18a0b4:	44033000 */ 	mfc1	$v1,$f6
-/*  f18a0b8:	00000000 */ 	nop
-/*  f18a0bc:	28810003 */ 	slti	$at,$a0,0x3
-.L0f18a0c0:
-/*  f18a0c0:	5420002f */ 	bnezl	$at,.L0f18a180
-/*  f18a0c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18a0c8:	44834000 */ 	mtc1	$v1,$f8
-/*  f18a0cc:	c7aa002c */ 	lwc1	$f10,0x2c($sp)
-/*  f18a0d0:	46804020 */ 	cvt.s.w	$f0,$f8
-/*  f18a0d4:	4600503c */ 	c.lt.s	$f10,$f0
-/*  f18a0d8:	00000000 */ 	nop
-/*  f18a0dc:	4503000f */ 	bc1tl	.L0f18a11c
-/*  f18a0e0:	c7b0002c */ 	lwc1	$f16,0x2c($sp)
-/*  f18a0e4:	46005032 */ 	c.eq.s	$f10,$f0
-/*  f18a0e8:	00000000 */ 	nop
-/*  f18a0ec:	45020010 */ 	bc1fl	.L0f18a130
-/*  f18a0f0:	28810004 */ 	slti	$at,$a0,0x4
-/*  f18a0f4:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f18a0f8:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f18a0fc:	0c004b70 */ 	jal	random
-/*  f18a100:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f18a104:	30590001 */ 	andi	$t9,$v0,0x1
-/*  f18a108:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f18a10c:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f18a110:	13200006 */ 	beqz	$t9,.L0f18a12c
-/*  f18a114:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f18a118:	c7b0002c */ 	lwc1	$f16,0x2c($sp)
-.L0f18a11c:
-/*  f18a11c:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f18a120:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f18a124:	44039000 */ 	mfc1	$v1,$f18
-/*  f18a128:	00000000 */ 	nop
-.L0f18a12c:
-/*  f18a12c:	28810004 */ 	slti	$at,$a0,0x4
-.L0f18a130:
-/*  f18a130:	54200013 */ 	bnezl	$at,.L0f18a180
-/*  f18a134:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18a138:	44832000 */ 	mtc1	$v1,$f4
-/*  f18a13c:	c7a20030 */ 	lwc1	$f2,0x30($sp)
-/*  f18a140:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f18a144:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f18a148:	00000000 */ 	nop
-/*  f18a14c:	4503000b */ 	bc1tl	.L0f18a17c
-/*  f18a150:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f18a154:	46001032 */ 	c.eq.s	$f2,$f0
-/*  f18a158:	00000000 */ 	nop
-/*  f18a15c:	45020008 */ 	bc1fl	.L0f18a180
-/*  f18a160:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18a164:	0c004b70 */ 	jal	random
-/*  f18a168:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f18a16c:	30490001 */ 	andi	$t1,$v0,0x1
-/*  f18a170:	11200002 */ 	beqz	$t1,.L0f18a17c
-/*  f18a174:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f18a178:	24050003 */ 	addiu	$a1,$zero,0x3
-.L0f18a17c:
-/*  f18a17c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f18a180:
-/*  f18a180:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f18a184:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f18a188:	03e00008 */ 	jr	$ra
-/*  f18a18c:	00000000 */ 	nop
-);
+s32 mpFindMinFloat(s32 numplayers, f32 val0, f32 val1, f32 val2, f32 val3)
+{
+	// @bug: bestvalue should be an f32. Any value saved into here will be
+	// rounded down which may cause the function to return an incorrect result.
+	s32 bestvalue;
+	s32 bestplayer = 0;
+
+	if (numplayers >= 2) {
+		if (val0);
+
+		if (val1 < val0 || (val1 == val0 && (random() % 2))) {
+			bestplayer = 1;
+			bestvalue = val1;
+		} else {
+			bestplayer = 0;
+			bestvalue = val0;
+		}
+
+		if (numplayers >= 3) {
+			if (val2 < bestvalue || (val2 == bestvalue && (random() % 2))) {
+				bestplayer = 2;
+				bestvalue = val2;
+			}
+
+			if (numplayers >= 4) {
+				if (val3 < bestvalue || (val3 == bestvalue && (random() % 2))) {
+					bestplayer = 3;
+				}
+			}
+		}
+	}
+
+	return bestplayer;
+}
 
 struct mpweaponset g_MpWeaponSets[12] = {
 	{ /*0x00*/ L_MPWEAPONS_055, { WEAPON_FALCON2,          WEAPON_MAGSEC4,     WEAPON_PHOENIX,     WEAPON_MAULER,         WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_PHOENIX,         MPFEATURE_WEAPON_MAULER,     0,                              0                       }, WEAPON_FALCON2,     WEAPON_MAGSEC4,     WEAPON_FALCON2,   WEAPON_DY357MAGNUM,    WEAPON_MPSHIELD, WEAPON_DISABLED }, // Pistols
