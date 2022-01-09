@@ -3255,83 +3255,36 @@ glabel mpFindMaxInt
 /*  f189dc4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel mpFindMinInt
-/*  f189dc8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f189dcc:	28810002 */ 	slti	$at,$a0,0x2
-/*  f189dd0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f189dd4:	14200039 */ 	bnez	$at,.L0f189ebc
-/*  f189dd8:	00004025 */ 	or	$t0,$zero,$zero
-/*  f189ddc:	00c5082a */ 	slt	$at,$a2,$a1
-/*  f189de0:	54200011 */ 	bnezl	$at,.L0f189e28
-/*  f189de4:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f189de8:	54c50012 */ 	bnel	$a2,$a1,.L0f189e34
-/*  f189dec:	00a01825 */ 	or	$v1,$a1,$zero
-/*  f189df0:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f189df4:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f189df8:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f189dfc:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f189e00:	0c004b70 */ 	jal	random
-/*  f189e04:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f189e08:	304e0001 */ 	andi	$t6,$v0,0x1
-/*  f189e0c:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f189e10:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f189e14:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f189e18:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f189e1c:	11c00004 */ 	beqz	$t6,.L0f189e30
-/*  f189e20:	8fa80018 */ 	lw	$t0,0x18($sp)
-/*  f189e24:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0f189e28:
-/*  f189e28:	10000002 */ 	b	.L0f189e34
-/*  f189e2c:	00c01825 */ 	or	$v1,$a2,$zero
-.L0f189e30:
-/*  f189e30:	00a01825 */ 	or	$v1,$a1,$zero
-.L0f189e34:
-/*  f189e34:	28810003 */ 	slti	$at,$a0,0x3
-/*  f189e38:	14200020 */ 	bnez	$at,.L0f189ebc
-/*  f189e3c:	00e3082a */ 	slt	$at,$a3,$v1
-/*  f189e40:	5420000f */ 	bnezl	$at,.L0f189e80
-/*  f189e44:	24080002 */ 	addiu	$t0,$zero,0x2
-/*  f189e48:	54e3000f */ 	bnel	$a3,$v1,.L0f189e88
-/*  f189e4c:	28810004 */ 	slti	$at,$a0,0x4
-/*  f189e50:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f189e54:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f189e58:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f189e5c:	0c004b70 */ 	jal	random
-/*  f189e60:	afa80018 */ 	sw	$t0,0x18($sp)
-/*  f189e64:	304f0001 */ 	andi	$t7,$v0,0x1
-/*  f189e68:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f189e6c:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f189e70:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f189e74:	11e00003 */ 	beqz	$t7,.L0f189e84
-/*  f189e78:	8fa80018 */ 	lw	$t0,0x18($sp)
-/*  f189e7c:	24080002 */ 	addiu	$t0,$zero,0x2
-.L0f189e80:
-/*  f189e80:	00e01825 */ 	or	$v1,$a3,$zero
-.L0f189e84:
-/*  f189e84:	28810004 */ 	slti	$at,$a0,0x4
-.L0f189e88:
-/*  f189e88:	1420000c */ 	bnez	$at,.L0f189ebc
-/*  f189e8c:	8fa20030 */ 	lw	$v0,0x30($sp)
-/*  f189e90:	0043082a */ 	slt	$at,$v0,$v1
-/*  f189e94:	54200009 */ 	bnezl	$at,.L0f189ebc
-/*  f189e98:	24080003 */ 	addiu	$t0,$zero,0x3
-/*  f189e9c:	54430008 */ 	bnel	$v0,$v1,.L0f189ec0
-/*  f189ea0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f189ea4:	0c004b70 */ 	jal	random
-/*  f189ea8:	afa80018 */ 	sw	$t0,0x18($sp)
-/*  f189eac:	30580001 */ 	andi	$t8,$v0,0x1
-/*  f189eb0:	13000002 */ 	beqz	$t8,.L0f189ebc
-/*  f189eb4:	8fa80018 */ 	lw	$t0,0x18($sp)
-/*  f189eb8:	24080003 */ 	addiu	$t0,$zero,0x3
-.L0f189ebc:
-/*  f189ebc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f189ec0:
-/*  f189ec0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f189ec4:	01001025 */ 	or	$v0,$t0,$zero
-/*  f189ec8:	03e00008 */ 	jr	$ra
-/*  f189ecc:	00000000 */ 	nop
-);
+s32 mpFindMinInt(s32 numplayers, s32 val0, s32 val1, s32 val2, s32 val3)
+{
+	s32 bestvalue = val0;
+	s32 bestplayer = 0;
+
+	if (numplayers >= 2) {
+		if (val1 < bestvalue || (val1 == bestvalue && (random() % 2))) {
+			bestplayer = 1;
+			bestvalue = val1;
+		} else {
+			bestvalue = val0;
+			bestplayer = 0;
+		}
+
+		if (numplayers >= 3) {
+			if (val2 < bestvalue || (val2 == bestvalue && (random() % 2))) {
+				bestplayer = 2;
+				bestvalue = val2;
+			}
+
+			if (numplayers >= 4) {
+				if (val3 < bestvalue || (val3 == bestvalue && (random() % 2))) {
+					bestplayer = 3;
+				}
+			}
+		}
+	}
+
+	return bestplayer;
+}
 
 GLOBAL_ASM(
 glabel mpFindMaxFloat
