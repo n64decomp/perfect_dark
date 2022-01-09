@@ -61,25 +61,25 @@ struct propstate {
 };
 
 struct playerstats {
-	/*0x00*/ u32 shotcount[7];
+	/*0x00*/ s32 shotcount[7];
 	/*0x1c*/ s32 killcount;
-	/*0x20*/ u32 ggkillcount;
-	/*0x24*/ u32 kills[4];
-	/*0x34*/ u32 drawplayercount;
+	/*0x20*/ s32 ggkillcount;
+	/*0x24*/ s32 kills[4];
+	/*0x34*/ s32 drawplayercount;
 	/*0x38*/ f32 distance;
-	/*0x3c*/ u32 backshotcount;
+	/*0x3c*/ s32 backshotcount;
 	/*0x40*/ f32 armourcount;
 	/*0x44*/ s32 fastest2kills;
 	/*0x48*/ s32 slowest2kills;
 	/*0x4c*/ s32 longestlife;
 	/*0x50*/ s32 shortestlife;
-	/*0x54*/ u32 maxkills;
+	/*0x54*/ s32 maxkills;
 	/*0x58*/ s32 maxsimulkills;
 	/*0x5c*/ f32 damagescale; // of received damage
 	/*0x60*/ s32 tokenheldtime;
-	/*0x64*/ u32 unk64;
-	/*0x68*/ u32 cloaktime;
-	/*0x6c*/ u32 speedpillcount;
+	/*0x64*/ s32 unk64;
+	/*0x68*/ s32 cloaktime;
+	/*0x6c*/ s32 speedpillcount;
 
 	// Temporary hack
 	union {
@@ -7343,6 +7343,24 @@ struct var80062960 {
 	/*0x150*/ u32 unk150;
 	/*0x154*/ u32 unk154;
 	/*0x158*/ u32 unk158;
+};
+
+struct awardmetrics {
+	/*0x00*/ s32 numshots;
+	/*0x04*/ s32 numheadshots;
+	/*0x08*/ s32 numkills;
+	/*0x0c*/ s32 numdeaths;
+	/*0x10*/ s32 numsuicides;
+	/*0x14*/ f32 ksratio; // kills/shots
+	/*0x18*/ f32 kdratio; // kills/deaths
+	/*0x1c*/ s32 backshotcount;
+	/*0x20*/ s32 drawplayercount;
+	/*0x24*/ f32 avgkmperhour; // average kilometres
+	/*0x28*/ f32 armourcount;
+	/*0x2c*/ u32 awards;
+	/*0x30*/ s32 longestlife;
+	/*0x34*/ s32 shortestlife;
+	/*0x38*/ f32 accuracyfrac;
 };
 
 #endif
