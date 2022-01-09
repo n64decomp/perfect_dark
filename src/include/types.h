@@ -6133,7 +6133,7 @@ struct mplockinfo {
 	s8 lastwinner;
 	s8 lastloser;
 	s8 unk03;
-	s32 unk04; // might not be part of struct
+	s32 unk04;
 };
 
 struct var8009da60 {

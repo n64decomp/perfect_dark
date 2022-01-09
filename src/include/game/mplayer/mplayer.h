@@ -79,7 +79,7 @@ void mpDisableAllMultiTracks(void);
 void mpRandomiseMultiTracks(void);
 void mpSetTrackToRandom(void);
 s32 mpGetCurrentTrackSlotNum(void);
-u32 mpChooseRandomTrack(void);
+s32 mpChooseTrack(void);
 struct mpchrconfig *mpGetChrConfigBySlotNum(s32 slot);
 s32 mpGetChrIndexBySlotNum(s32 slot);
 s32 mpGetNumChrs(void);

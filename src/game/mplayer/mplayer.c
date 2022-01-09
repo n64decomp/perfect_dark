@@ -276,7 +276,7 @@ void mpInit(void)
 			}
 		}
 
-		g_MpLockInfo.unk04 = 0xffffffff;
+		g_MpLockInfo.unk04 = -1;
 	}
 
 	// Assign aibot commands to active menu slots
@@ -7499,7 +7499,7 @@ s32 mpGetCurrentTrackSlotNum(void)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel mpChooseRandomTrack
+glabel mpChooseTrack
 /*  f18d564:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f18d568:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f18d56c:	afb60030 */ 	sw	$s6,0x30($sp)
@@ -7713,7 +7713,7 @@ glabel mpChooseRandomTrack
 );
 #else
 GLOBAL_ASM(
-glabel mpChooseRandomTrack
+glabel mpChooseTrack
 /*  f18c4c0:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f18c4c4:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f18c4c8:	afb60030 */ 	sw	$s6,0x30($sp)
@@ -7916,6 +7916,93 @@ glabel mpChooseRandomTrack
 /*  f18c790:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 #endif
+
+// Mismatch: goal uses shifting to calculate the offset into g_MpTracks
+// while the below uses multu.
+//s32 mpChooseTrack(void)
+//{
+//	s32 i;
+//	s32 tracknum;
+//
+//	if (mpGetUsingMultipleTunes()) {
+//		s32 numunlocked = mpGetNumUnlockedTracks();
+//		s32 numselected = 0;
+//
+//		// 508
+//		for (i = 0; i < numunlocked; i++) {
+//			if (mpIsMultiTrackSlotEnabled(i)) {
+//				numselected++;
+//			}
+//		}
+//
+//		// 528
+//		if (numselected == 0) {
+//			do {
+//				tracknum = mpGetTrackNumAtSlotIndex(random() % numunlocked);
+//			} while (tracknum == g_MpLockInfo.unk04);
+//
+//			// 568
+//			g_MpLockInfo.unk04 = tracknum;
+//			g_MusicLife60 = g_MpTracks[tracknum].duration * PALDOWN(60);
+//
+//			return g_MpTracks[tracknum].musicnum;
+//		}
+//
+//		// 5a4
+//		do {
+//			s32 selectionindex = random() % numselected;
+//			s32 selectioncount = 0;
+//			tracknum = -1; // s3
+//
+//			// 5d8
+//			for (i = 0; i < numunlocked; i++) {
+//				if (mpIsMultiTrackSlotEnabled(i)) {
+//					if (selectionindex == selectioncount) {
+//						tracknum = i;
+//					}
+//
+//					selectioncount++;
+//				}
+//			}
+//
+//			// 608
+//			if (tracknum == -1) {
+//				g_MusicLife60 = g_MpTracks[0].duration * PALDOWN(60);
+//				return g_MpTracks[0].musicnum;
+//			}
+//
+//			// 634
+//			tracknum = mpGetTrackNumAtSlotIndex(tracknum);
+//		} while (numselected > 1 && tracknum == g_MpLockInfo.unk04);
+//
+//		// 654
+//		g_MpLockInfo.unk04 = tracknum;
+//		g_MusicLife60 = g_MpTracks[tracknum].duration * PALDOWN(60);
+//
+//		return g_MpTracks[tracknum].musicnum;
+//	}
+//
+//	// 690
+//	tracknum = mpGetCurrentTrackSlotNum();
+//
+//	if (tracknum < 0) {
+//		s32 numunlocked = mpGetNumUnlockedTracks();
+//
+//		do {
+//			tracknum = mpGetTrackNumAtSlotIndex(random() % numunlocked);
+//		} while (tracknum == g_MpLockInfo.unk04);
+//
+//		g_MpLockInfo.unk04 = tracknum;
+//		g_MusicLife60 = g_MpTracks[tracknum].duration * PALDOWN(60);
+//		return g_MpTracks[tracknum].musicnum;
+//	}
+//
+//	tracknum = mpGetTrackNumAtSlotIndex(tracknum);
+//	g_MpLockInfo.unk04 = tracknum;
+//	g_MusicLife60 = g_MpTracks[g_MpLockInfo.unk04].duration * PALDOWN(60);
+//
+//	return g_MpTracks[tracknum].musicnum;
+//}
 
 struct mpchrconfig *mpGetChrConfigBySlotNum(s32 slot)
 {
