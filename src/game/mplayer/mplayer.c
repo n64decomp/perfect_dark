@@ -6712,17 +6712,6 @@ void mpCreateBotFromProfile(s32 botnum, u8 profilenum)
 	g_BotConfigsArray[botnum].base.mpbodynum = g_BotProfiles[profilenum].body;
 }
 
-const char var7f1b8b74[] = "%s:%d\n";
-const char var7f1b8b7c[] = "%s\n";
-
-#if VERSION >= VERSION_NTSC_1_0
-const char var7f1b8b80[] = "Adding GBCHead to load to slot %d: guid is %x-%x, player is %d\n";
-const char var7f1b8bc0[] = "PakId for player %d: %d\n";
-const char var7f1b8bdc[] = "Save Player Result: %d   New GUID: %x\n";
-const char var7f1b8c04[] = "PakId for player %d: %d\n";
-const char var7f1b8c20[] = "Load Player - Result: %d\n";
-#endif
-
 void mpSetBotDifficulty(s32 botnum, s32 difficulty)
 {
 	s32 i;
@@ -6755,7 +6744,7 @@ void mpRemoveSimulant(s32 index)
 	g_MpSetup.chrslots &= ~(1 << (index + 4));
 	g_BotConfigsArray[index].base.name[0] = '\0';
 	func0f1881d4(index);
-	func0f18cddc();
+	mpGenerateBotNames();
 }
 
 bool mpHasSimulants(void)
@@ -6807,7 +6796,7 @@ bool mpIsSimSlotEnabled(s32 slot)
 	return true;
 }
 
-s32 mpGetSimTypeIndex(s32 type, s32 difficulty)
+s32 mpFindBotProfile(s32 type, s32 difficulty)
 {
 	s32 i;
 
@@ -6832,154 +6821,66 @@ s32 mpGetSimTypeIndex(s32 type, s32 difficulty)
 	return i;
 }
 
-GLOBAL_ASM(
-glabel func0f18cddc
-/*  f18cddc:	27bdff50 */ 	addiu	$sp,$sp,-176
-/*  f18cde0:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f18cde4:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f18cde8:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f18cdec:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f18cdf0:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f18cdf4:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f18cdf8:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f18cdfc:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f18ce00:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f18ce04:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f18ce08:	27a20068 */ 	addiu	$v0,$sp,0x68
-/*  f18ce0c:	27a300b0 */ 	addiu	$v1,$sp,0xb0
-.L0f18ce10:
-/*  f18ce10:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f18ce14:	0043082b */ 	sltu	$at,$v0,$v1
-/*  f18ce18:	1420fffd */ 	bnez	$at,.L0f18ce10
-/*  f18ce1c:	ac40fffc */ 	sw	$zero,-0x4($v0)
-/*  f18ce20:	3c17800b */ 	lui	$s7,%hi(g_BotConfigsArray)
-/*  f18ce24:	3c16800b */ 	lui	$s6,%hi(g_MpSetup)
-/*  f18ce28:	26d6cb88 */ 	addiu	$s6,$s6,%lo(g_MpSetup)
-/*  f18ce2c:	26f7c538 */ 	addiu	$s7,$s7,%lo(g_BotConfigsArray)
-/*  f18ce30:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f18ce34:	241e004c */ 	addiu	$s8,$zero,0x4c
-/*  f18ce38:	27b50068 */ 	addiu	$s5,$sp,0x68
-/*  f18ce3c:	96ce0016 */ 	lhu	$t6,0x16($s6)
-.L0f18ce40:
-/*  f18ce40:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f18ce44:	022fc004 */ 	sllv	$t8,$t7,$s1
-/*  f18ce48:	01d8c824 */ 	and	$t9,$t6,$t8
-/*  f18ce4c:	53200010 */ 	beqzl	$t9,.L0f18ce90
-/*  f18ce50:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f18ce54:	023e0019 */ 	multu	$s1,$s8
-/*  f18ce58:	00004012 */ 	mflo	$t0
-/*  f18ce5c:	02e88021 */ 	addu	$s0,$s7,$t0
-/*  f18ce60:	9204ff17 */ 	lbu	$a0,-0xe9($s0)
-/*  f18ce64:	0fc6335a */ 	jal	mpGetSimTypeIndex
-/*  f18ce68:	9205ff18 */ 	lbu	$a1,-0xe8($s0)
-/*  f18ce6c:	04400007 */ 	bltz	$v0,.L0f18ce8c
-/*  f18ce70:	28410012 */ 	slti	$at,$v0,0x12
-/*  f18ce74:	10200005 */ 	beqz	$at,.L0f18ce8c
-/*  f18ce78:	00024880 */ 	sll	$t1,$v0,0x2
-/*  f18ce7c:	02a91821 */ 	addu	$v1,$s5,$t1
-/*  f18ce80:	8c6a0000 */ 	lw	$t2,0x0($v1)
-/*  f18ce84:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*  f18ce88:	ac6b0000 */ 	sw	$t3,0x0($v1)
-.L0f18ce8c:
-/*  f18ce8c:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f18ce90:
-/*  f18ce90:	2a21000c */ 	slti	$at,$s1,0xc
-/*  f18ce94:	5420ffea */ 	bnezl	$at,.L0f18ce40
-/*  f18ce98:	96ce0016 */ 	lhu	$t6,0x16($s6)
-/*  f18ce9c:	27a20068 */ 	addiu	$v0,$sp,0x68
-/*  f18cea0:	27a400b0 */ 	addiu	$a0,$sp,0xb0
-/*  f18cea4:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f18cea8:	8c4c0000 */ 	lw	$t4,0x0($v0)
-.L0f18ceac:
-/*  f18ceac:	29810002 */ 	slti	$at,$t4,0x2
-/*  f18ceb0:	50200004 */ 	beqzl	$at,.L0f18cec4
-/*  f18ceb4:	ac400000 */ 	sw	$zero,0x0($v0)
-/*  f18ceb8:	10000002 */ 	b	.L0f18cec4
-/*  f18cebc:	ac430000 */ 	sw	$v1,0x0($v0)
-/*  f18cec0:	ac400000 */ 	sw	$zero,0x0($v0)
-.L0f18cec4:
-/*  f18cec4:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f18cec8:	0044082b */ 	sltu	$at,$v0,$a0
-/*  f18cecc:	5420fff7 */ 	bnezl	$at,.L0f18ceac
-/*  f18ced0:	8c4c0000 */ 	lw	$t4,0x0($v0)
-/*  f18ced4:	3c148008 */ 	lui	$s4,%hi(g_BotProfiles)
-/*  f18ced8:	2694772c */ 	addiu	$s4,$s4,%lo(g_BotProfiles)
-/*  f18cedc:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f18cee0:	27b30050 */ 	addiu	$s3,$sp,0x50
-/*  f18cee4:	96cd0016 */ 	lhu	$t5,0x16($s6)
-.L0f18cee8:
-/*  f18cee8:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f18ceec:	022f7004 */ 	sllv	$t6,$t7,$s1
-/*  f18cef0:	01aec024 */ 	and	$t8,$t5,$t6
-/*  f18cef4:	53000031 */ 	beqzl	$t8,.L0f18cfbc
-/*  f18cef8:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f18cefc:	023e0019 */ 	multu	$s1,$s8
-/*  f18cf00:	0000c812 */ 	mflo	$t9
-/*  f18cf04:	02f98021 */ 	addu	$s0,$s7,$t9
-/*  f18cf08:	9204ff17 */ 	lbu	$a0,-0xe9($s0)
-/*  f18cf0c:	0fc6335a */ 	jal	mpGetSimTypeIndex
-/*  f18cf10:	9205ff18 */ 	lbu	$a1,-0xe8($s0)
-/*  f18cf14:	04400028 */ 	bltz	$v0,.L0f18cfb8
-/*  f18cf18:	00401825 */ 	or	$v1,$v0,$zero
-/*  f18cf1c:	28410012 */ 	slti	$at,$v0,0x12
-/*  f18cf20:	10200025 */ 	beqz	$at,.L0f18cfb8
-/*  f18cf24:	00024080 */ 	sll	$t0,$v0,0x2
-/*  f18cf28:	02a84821 */ 	addu	$t1,$s5,$t0
-/*  f18cf2c:	8d2a0000 */ 	lw	$t2,0x0($t1)
-/*  f18cf30:	0003c0c0 */ 	sll	$t8,$v1,0x3
-/*  f18cf34:	2612fed0 */ 	addiu	$s2,$s0,-304
-/*  f18cf38:	05400015 */ 	bltz	$t2,.L0f18cf90
-/*  f18cf3c:	0298c821 */ 	addu	$t9,$s4,$t8
-/*  f18cf40:	00025880 */ 	sll	$t3,$v0,0x2
-/*  f18cf44:	02ab8021 */ 	addu	$s0,$s5,$t3
-/*  f18cf48:	8e0c0000 */ 	lw	$t4,0x0($s0)
-/*  f18cf4c:	000268c0 */ 	sll	$t5,$v0,0x3
-/*  f18cf50:	028d7021 */ 	addu	$t6,$s4,$t5
-/*  f18cf54:	258f0001 */ 	addiu	$t7,$t4,0x1
-/*  f18cf58:	ae0f0000 */ 	sw	$t7,0x0($s0)
-/*  f18cf5c:	0fc5b9f1 */ 	jal	langGet
-/*  f18cf60:	85c40002 */ 	lh	$a0,0x2($t6)
-/*  f18cf64:	3c057f1c */ 	lui	$a1,%hi(var7f1b8b74)
-/*  f18cf68:	24a58b74 */ 	addiu	$a1,$a1,%lo(var7f1b8b74)
-/*  f18cf6c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18cf70:	00403025 */ 	or	$a2,$v0,$zero
-/*  f18cf74:	0c004dad */ 	jal	sprintf
-/*  f18cf78:	8e070000 */ 	lw	$a3,0x0($s0)
-/*  f18cf7c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18cf80:	0c004c4c */ 	jal	strcpy
-/*  f18cf84:	02602825 */ 	or	$a1,$s3,$zero
-/*  f18cf88:	1000000c */ 	b	.L0f18cfbc
-/*  f18cf8c:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f18cf90:
-/*  f18cf90:	0fc5b9f1 */ 	jal	langGet
-/*  f18cf94:	87240002 */ 	lh	$a0,0x2($t9)
-/*  f18cf98:	3c057f1c */ 	lui	$a1,%hi(var7f1b8b7c)
-/*  f18cf9c:	24a58b7c */ 	addiu	$a1,$a1,%lo(var7f1b8b7c)
-/*  f18cfa0:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18cfa4:	0c004dad */ 	jal	sprintf
-/*  f18cfa8:	00403025 */ 	or	$a2,$v0,$zero
-/*  f18cfac:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18cfb0:	0c004c4c */ 	jal	strcpy
-/*  f18cfb4:	02602825 */ 	or	$a1,$s3,$zero
-.L0f18cfb8:
-/*  f18cfb8:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f18cfbc:
-/*  f18cfbc:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f18cfc0:	5621ffc9 */ 	bnel	$s1,$at,.L0f18cee8
-/*  f18cfc4:	96cd0016 */ 	lhu	$t5,0x16($s6)
-/*  f18cfc8:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f18cfcc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f18cfd0:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f18cfd4:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f18cfd8:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f18cfdc:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f18cfe0:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f18cfe4:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f18cfe8:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f18cfec:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f18cff0:	03e00008 */ 	jr	$ra
-/*  f18cff4:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
-);
+void mpGenerateBotNames(void)
+{
+	s32 counts[ARRAYCOUNT(g_BotProfiles)];
+	s32 profilenum;
+	s32 i;
+	char name[16];
+
+	for (i = 0; i < ARRAYCOUNT(g_BotProfiles); i++) {
+		counts[i] = 0;
+	}
+
+	// Count the number of bots using each profile (MeatSim, TurtleSim etc)
+	for (i = 4; i < 12; i++) {
+		if (g_MpSetup.chrslots & (1 << i)) {
+			profilenum = mpFindBotProfile(g_BotConfigsArray[i - 4].type, g_BotConfigsArray[i - 4].difficulty);
+
+			if (profilenum >= 0 && profilenum < ARRAYCOUNT(g_BotProfiles)) {
+				counts[profilenum]++;
+			}
+		}
+	}
+
+	// Profiles with only one bot don't need to have to number appended to the
+	// name, so mark those as -1. For profiles with multiple bots, reset them
+	// to 0 because they'll be a counter for the final loop.
+	for (i = 0; i < ARRAYCOUNT(g_BotProfiles); i++) {
+		if (counts[i] <= 1) {
+			counts[i] = -1;
+		} else {
+			counts[i] = 0;
+		}
+	}
+
+	for (i = 4; i < 12; i++) {
+		if (g_MpSetup.chrslots & (1 << i)) {
+			profilenum = mpFindBotProfile(g_BotConfigsArray[i - 4].type, g_BotConfigsArray[i - 4].difficulty);
+
+			if (profilenum >= 0 && profilenum < ARRAYCOUNT(g_BotProfiles)) {
+				if (counts[profilenum] >= 0) {
+					// Multiple bots using this profile - append the number
+					counts[profilenum]++;
+					sprintf(name, "%s:%d\n", langGet(g_BotProfiles[profilenum].name), counts[profilenum]);
+					strcpy(g_BotConfigsArray[i - 4].base.name, name);
+				} else {
+					// One bots using this profile - just use the profile name
+					sprintf(name, "%s\n", langGet(g_BotProfiles[profilenum].name));
+					strcpy(g_BotConfigsArray[i - 4].base.name, name);
+				}
+			}
+		}
+	}
+}
+
+#if VERSION >= VERSION_NTSC_1_0
+const char var7f1b8b80[] = "Adding GBCHead to load to slot %d: guid is %x-%x, player is %d\n";
+const char var7f1b8bc0[] = "PakId for player %d: %d\n";
+const char var7f1b8bdc[] = "Save Player Result: %d   New GUID: %x\n";
+const char var7f1b8c04[] = "PakId for player %d: %d\n";
+const char var7f1b8c20[] = "Load Player - Result: %d\n";
+#endif
 
 s32 mpPlayerGetIndex(struct chrdata *chr)
 {
@@ -7551,7 +7452,7 @@ void mpsetupfileLoadWad(struct savebuffer *buffer)
 		g_BotConfigsArray[i].base.team = savebufferReadBits(buffer, 3);
 	}
 
-	func0f18cddc();
+	mpGenerateBotNames();
 
 	for (i = 0; i < 6; i++) {
 		g_MpSetup.weapons[i] = savebufferReadBits(buffer, 7);
@@ -7604,13 +7505,13 @@ void mpsetupfileSaveWad(struct savebuffer *buffer)
 		savebufferOr(buffer, g_BotConfigsArray[i].base.mpheadnum, 7);
 
 		if (g_BotConfigsArray[i].base.mpbodynum == 0xff) {
-			s32 index = mpGetSimTypeIndex(g_BotConfigsArray[i].type, g_BotConfigsArray[i].difficulty);
+			s32 profilenum = mpFindBotProfile(g_BotConfigsArray[i].type, g_BotConfigsArray[i].difficulty);
 
-			if (index < 0 || index >= ARRAYCOUNT(g_BotProfiles)) {
-				index = 0;
+			if (profilenum < 0 || profilenum >= ARRAYCOUNT(g_BotProfiles)) {
+				profilenum = 0;
 			}
 
-			mpbodynum = g_BotProfiles[index].body;
+			mpbodynum = g_BotProfiles[profilenum].body;
 		} else {
 			mpbodynum = g_BotConfigsArray[i].base.mpbodynum;
 		}

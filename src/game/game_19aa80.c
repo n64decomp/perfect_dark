@@ -1286,7 +1286,7 @@ void mpForceUnlockConfigFeatures(struct mpconfig *config, u8 *array, s32 len, s3
 	s32 i;
 
 	for (i = 0; i < 8; i++) {
-		s32 simtype = mpGetSimTypeIndex(config->simulants[i].type, BOTDIFF_NORMAL);
+		s32 simtype = mpFindBotProfile(config->simulants[i].type, BOTDIFF_NORMAL);
 
 		if (simtype >= 0) {
 			featurenum = g_BotProfiles[simtype].requirefeature;
@@ -1297,7 +1297,7 @@ void mpForceUnlockConfigFeatures(struct mpconfig *config, u8 *array, s32 len, s3
 		}
 
 		for (numplayers = 0; numplayers < 4; numplayers++) {
-			simtype = mpGetSimTypeIndex(0, config->simulants[i].difficulties[numplayers]);
+			simtype = mpFindBotProfile(0, config->simulants[i].difficulties[numplayers]);
 
 			if (simtype >= 0) {
 				featurenum = g_BotProfiles[simtype].requirefeature;
@@ -1365,7 +1365,7 @@ void mpForceUnlockSimulantFeatures(void)
 
 	for (i = 0; i < 8; i++) {
 		// Force unlock the simulant type
-		s32 simtypeindex = mpGetSimTypeIndex(g_BotConfigsArray[i].type, BOTDIFF_NORMAL);
+		s32 simtypeindex = mpFindBotProfile(g_BotConfigsArray[i].type, BOTDIFF_NORMAL);
 
 		if (simtypeindex >= 0) {
 			s32 featurenum = g_BotProfiles[simtypeindex].requirefeature;
@@ -1376,7 +1376,7 @@ void mpForceUnlockSimulantFeatures(void)
 		}
 
 		// Force unlock the simulant difficulty
-		simtypeindex = mpGetSimTypeIndex(BOTTYPE_GENERAL, g_BotConfigsArray[i].difficulty);
+		simtypeindex = mpFindBotProfile(BOTTYPE_GENERAL, g_BotConfigsArray[i].difficulty);
 
 		if (simtypeindex >= 0) {
 			s32 featurenum = g_BotProfiles[simtypeindex].requirefeature;

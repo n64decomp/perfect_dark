@@ -4872,7 +4872,7 @@ glabel var7f1b81e8
 /*  f17c8ac:	0fc632d8 */ 	jal	mpSetBotDifficulty
 /*  f17c8b0:	92050001 */ 	lbu	$a1,0x1($s0)
 .L0f17c8b4:
-/*  f17c8b4:	0fc63377 */ 	jal	func0f18cddc
+/*  f17c8b4:	0fc63377 */ 	jal	mpGenerateBotNames
 /*  f17c8b8:	00000000 */ 	nop
 /*  f17c8bc:	3c098007 */ 	lui	$t1,%hi(g_MpPlayerNum)
 /*  f17c8c0:	8d291448 */ 	lw	$t1,%lo(g_MpPlayerNum)($t1)
@@ -5161,7 +5161,7 @@ glabel var7f1b81e8
 /*  f176fcc:	0fc61b59 */ 	jal	mpSetBotDifficulty
 /*  f176fd0:	92050001 */ 	lbu	$a1,0x1($s0)
 .NB0f176fd4:
-/*  f176fd4:	0fc61bf8 */ 	jal	func0f18cddc
+/*  f176fd4:	0fc61bf8 */ 	jal	mpGenerateBotNames
 /*  f176fd8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f176fdc:	3c098007 */ 	lui	$t1,0x8007
 /*  f176fe0:	8d293af0 */ 	lw	$t1,0x3af0($t1)
@@ -5371,7 +5371,7 @@ glabel menuhandlerMpSimulantDifficulty
 /*  f17ce24:	008f2021 */ 	addu	$a0,$a0,$t7
 /*  f17ce28:	0fc632d8 */ 	jal	mpSetBotDifficulty
 /*  f17ce2c:	8c84ee1c */ 	lw	$a0,%lo(g_Menus+0xe1c)($a0)
-/*  f17ce30:	0fc63377 */ 	jal	func0f18cddc
+/*  f17ce30:	0fc63377 */ 	jal	mpGenerateBotNames
 /*  f17ce34:	00000000 */ 	nop
 /*  f17ce38:	1000003f */ 	b	.L0f17cf38
 /*  f17ce3c:	00001025 */ 	or	$v0,$zero,$zero
@@ -5498,7 +5498,7 @@ glabel menuhandlerMpSimulantDifficulty
 /*  f17ce24:	008f2021 */ 	addu	$a0,$a0,$t7
 /*  f17ce28:	0fc632d8 */ 	jal	mpSetBotDifficulty
 /*  f17ce2c:	8c84ee1c */ 	lw	$a0,%lo(g_Menus+0xe1c)($a0)
-/*  f17ce30:	0fc63377 */ 	jal	func0f18cddc
+/*  f17ce30:	0fc63377 */ 	jal	mpGenerateBotNames
 /*  f17ce34:	00000000 */ 	nop
 /*  f17ce38:	1000003f */ 	b	.L0f17cf38
 /*  f17ce3c:	00001025 */ 	or	$v0,$zero,$zero
@@ -5625,7 +5625,7 @@ glabel menuhandlerMpSimulantDifficulty
 /*  f177544:	008f2021 */ 	addu	$a0,$a0,$t7
 /*  f177548:	0fc61b59 */ 	jal	mpSetBotDifficulty
 /*  f17754c:	8c843538 */ 	lw	$a0,0x3538($a0)
-/*  f177550:	0fc61bf8 */ 	jal	func0f18cddc
+/*  f177550:	0fc61bf8 */ 	jal	mpGenerateBotNames
 /*  f177554:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f177558:	1000003f */ 	beqz	$zero,.NB0f177658
 /*  f17755c:	00001025 */ 	or	$v0,$zero,$zero
@@ -5735,11 +5735,11 @@ s32 menuhandlerMpChangeSimulantType(s32 operation, struct menuitem *item, union 
 	if (operation == MENUOP_SET) {
 		s32 i;
 		s32 count = 0;
-		s32 simtypeindex = mpGetSimTypeIndex(
+		s32 profilenum = mpFindBotProfile(
 				g_BotConfigsArray[g_Menus[g_MpPlayerNum].mpsetup.slotindex].type,
 				g_BotConfigsArray[g_Menus[g_MpPlayerNum].mpsetup.slotindex].difficulty);
 
-		for (i = 0; i < simtypeindex; i++) {
+		for (i = 0; i < profilenum; i++) {
 			if (mpIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
 				count++;
 			}
@@ -8139,7 +8139,7 @@ void mpConfigureQuickTeamSimulants(void)
 				}
 			}
 
-			func0f18cddc();
+			mpGenerateBotNames();
 			break;
 		case MPQUICKTEAM_PLAYERSVSSIMS:
 			for (i = 0; i < g_Vars.mpquickteamnumsims; i++) {
@@ -8150,7 +8150,7 @@ void mpConfigureQuickTeamSimulants(void)
 				}
 			}
 
-			func0f18cddc();
+			mpGenerateBotNames();
 
 			for (i = 0; i < ARRAYCOUNT(g_BotConfigsArray); i++) {
 				g_BotConfigsArray[i].base.team = 1;
@@ -8171,7 +8171,7 @@ void mpConfigureQuickTeamSimulants(void)
 				}
 			}
 
-			func0f18cddc();
+			mpGenerateBotNames();
 			break;
 		case MPQUICKTEAM_PLAYERSONLY:
 		case MPQUICKTEAM_PLAYERSTEAMS:
