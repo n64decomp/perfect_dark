@@ -3959,18 +3959,6 @@ const char var7f1b8b48[] = "Player %d TitleCalc ============\n";
 const u32 var7f1b3324nb[] = {2, 4, 8, 0x10, 0x1c, 0x30, 0x4e, 0x8a, 0xc6, 0x12c };
 #endif
 
-const char var7f1b8b6c[] = "Sim\n";
-const char var7f1b8b74[] = "%s:%d\n";
-const char var7f1b8b7c[] = "%s\n";
-
-#if VERSION >= VERSION_NTSC_1_0
-const char var7f1b8b80[] = "Adding GBCHead to load to slot %d: guid is %x-%x, player is %d\n";
-const char var7f1b8bc0[] = "PakId for player %d: %d\n";
-const char var7f1b8bdc[] = "Save Player Result: %d   New GUID: %x\n";
-const char var7f1b8c04[] = "PakId for player %d: %d\n";
-const char var7f1b8c20[] = "Load Player - Result: %d\n";
-#endif
-
 struct mphead g_MpBeauHeads[NUM_MPBEAUHEADS] = {
 	// head, require feature
 	{ HEAD_BEAU2, 0 },
@@ -4059,14 +4047,60 @@ struct mphead g_MpHeads[75] = {
 	{ /*0x4a*/ HEAD_WINNER,       0            },
 };
 
-// 2d678
-u32 table_0x2d678[] = {
-	21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-	31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-	41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
-	51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
-	61, 62, 63, 64, 65, 66, 67, 68, 69, 70,
-	71, 72, 73,
+u32 g_BotHeads[] = {
+	MPHEAD_JON,
+	MPHEAD_BEAU1,
+	MPHEAD_ROSS,
+	MPHEAD_MARK2,
+	MPHEAD_CHRIST,
+	MPHEAD_RUSS,
+	MPHEAD_DARLING,
+	MPHEAD_BRIAN,
+	MPHEAD_JAMIE,
+	MPHEAD_DUNCAN2,
+	MPHEAD_KEITH,
+	MPHEAD_STEVEM,
+	MPHEAD_GRANT,
+	MPHEAD_PENNY,
+	MPHEAD_DAVEC,
+	MPHEAD_JONES,
+	MPHEAD_GRAHAM,
+	MPHEAD_ROBERT,
+	MPHEAD_NEIL2,
+	MPHEAD_SHAUN,
+	MPHEAD_ROBIN,
+	MPHEAD_COOK,
+	MPHEAD_PRYCE,
+	MPHEAD_SILKE,
+	MPHEAD_SMITH,
+	MPHEAD_GARETH,
+	MPHEAD_MURCHIE,
+	MPHEAD_WONG,
+	MPHEAD_CARTER,
+	MPHEAD_TINTIN,
+	MPHEAD_MUNTON,
+	MPHEAD_STAMPER,
+	MPHEAD_PHELPS,
+	MPHEAD_ALEX,
+	MPHEAD_JULIANNE,
+	MPHEAD_LAURA,
+	MPHEAD_EDMCG,
+	MPHEAD_ANKA,
+	MPHEAD_LESLIE_S,
+	MPHEAD_MATT_C,
+	MPHEAD_PEER_S,
+	MPHEAD_EILEEN_T,
+	MPHEAD_ANDY_R,
+	MPHEAD_BEN_R,
+	MPHEAD_STEVE_K,
+	MPHEAD_SANCHEZ,
+	MPHEAD_TIM,
+	MPHEAD_KEN,
+	MPHEAD_EILEEN_H,
+	MPHEAD_SCOTT_H,
+	MPHEAD_JOEL,
+	MPHEAD_GRIFFEY,
+	MPHEAD_MOTO,
 };
 
 // 2d74c
@@ -8091,136 +8125,53 @@ u8 mpFindUnusedTeamNum(void)
 	return teamnum;
 }
 
-GLOBAL_ASM(
-glabel func0f18c984
-/*  f18c984:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f18c988:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f18c98c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f18c990:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f18c994:	00808025 */ 	or	$s0,$a0,$zero
-/*  f18c998:	30b200ff */ 	andi	$s2,$a1,0xff
-/*  f18c99c:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f18c9a0:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f18c9a4:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f18c9a8:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f18c9ac:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f18c9b0:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f18c9b4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f18c9b8:	afa50064 */ 	sw	$a1,0x64($sp)
-/*  f18c9bc:	0fc6322e */ 	jal	mpFindUnusedTeamNum
-/*  f18c9c0:	afa0005c */ 	sw	$zero,0x5c($sp)
-/*  f18c9c4:	2415004c */ 	addiu	$s5,$zero,0x4c
-/*  f18c9c8:	02150019 */ 	multu	$s0,$s5
-/*  f18c9cc:	3c188008 */ 	lui	$t8,%hi(g_BotProfiles)
-/*  f18c9d0:	2718772c */ 	addiu	$t8,$t8,%lo(g_BotProfiles)
-/*  f18c9d4:	001278c0 */ 	sll	$t7,$s2,0x3
-/*  f18c9d8:	01f83821 */ 	addu	$a3,$t7,$t8
-/*  f18c9dc:	90e80001 */ 	lbu	$t0,0x1($a3)
-/*  f18c9e0:	3c14800b */ 	lui	$s4,%hi(g_BotConfigsArray)
-/*  f18c9e4:	90f90000 */ 	lbu	$t9,0x0($a3)
-/*  f18c9e8:	2694c538 */ 	addiu	$s4,$s4,%lo(g_BotConfigsArray)
-/*  f18c9ec:	3c0a800b */ 	lui	$t2,%hi(g_MpSimulantDifficultiesPerNumPlayers)
-/*  f18c9f0:	00007012 */ 	mflo	$t6
-/*  f18c9f4:	028ef021 */ 	addu	$s8,$s4,$t6
-/*  f18c9f8:	305100ff */ 	andi	$s1,$v0,0xff
-/*  f18c9fc:	254ac798 */ 	addiu	$t2,$t2,%lo(g_MpSimulantDifficultiesPerNumPlayers)
-/*  f18ca00:	00104880 */ 	sll	$t1,$s0,0x2
-/*  f18ca04:	8fa6005c */ 	lw	$a2,0x5c($sp)
-/*  f18ca08:	012a2021 */ 	addu	$a0,$t1,$t2
-/*  f18ca0c:	24020004 */ 	addiu	$v0,$zero,0x4
-/*  f18ca10:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18ca14:	a3c80048 */ 	sb	$t0,0x48($s8)
-/*  f18ca18:	310500ff */ 	andi	$a1,$t0,0xff
-/*  f18ca1c:	a3d90047 */ 	sb	$t9,0x47($s8)
-.L0f18ca20:
-/*  f18ca20:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f18ca24:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f18ca28:	1462fffd */ 	bne	$v1,$v0,.L0f18ca20
-/*  f18ca2c:	a085ffff */ 	sb	$a1,-0x1($a0)
-/*  f18ca30:	3c02800b */ 	lui	$v0,%hi(g_MpSetup)
-/*  f18ca34:	2442cb88 */ 	addiu	$v0,$v0,%lo(g_MpSetup)
-/*  f18ca38:	944b0016 */ 	lhu	$t3,0x16($v0)
-/*  f18ca3c:	260c0004 */ 	addiu	$t4,$s0,0x4
-/*  f18ca40:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f18ca44:	018d7004 */ 	sllv	$t6,$t5,$t4
-/*  f18ca48:	3c057f1c */ 	lui	$a1,%hi(var7f1b8b6c)
-/*  f18ca4c:	016e7825 */ 	or	$t7,$t3,$t6
-/*  f18ca50:	a44f0016 */ 	sh	$t7,0x16($v0)
-/*  f18ca54:	24a58b6c */ 	addiu	$a1,$a1,%lo(var7f1b8b6c)
-/*  f18ca58:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f18ca5c:	afa6005c */ 	sw	$a2,0x5c($sp)
-/*  f18ca60:	0c004c4c */ 	jal	strcpy
-/*  f18ca64:	afa70040 */ 	sw	$a3,0x40($sp)
-/*  f18ca68:	a3d10011 */ 	sb	$s1,0x11($s8)
-/*  f18ca6c:	3c11800b */ 	lui	$s1,%hi(g_PlayerConfigsArray)
-/*  f18ca70:	3c168008 */ 	lui	$s6,%hi(table_0x2d678)
-/*  f18ca74:	26d67658 */ 	addiu	$s6,$s6,%lo(table_0x2d678)
-/*  f18ca78:	2631c7b8 */ 	addiu	$s1,$s1,%lo(g_PlayerConfigsArray)
-/*  f18ca7c:	24170035 */ 	addiu	$s7,$zero,0x35
-/*  f18ca80:	2413000c */ 	addiu	$s3,$zero,0xc
-/*  f18ca84:	241200a0 */ 	addiu	$s2,$zero,0xa0
-.L0f18ca88:
-/*  f18ca88:	0c004b70 */ 	jal	random
-/*  f18ca8c:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f18ca90:	0057001b */ 	divu	$zero,$v0,$s7
-/*  f18ca94:	0000c010 */ 	mfhi	$t8
-/*  f18ca98:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f18ca9c:	02d94021 */ 	addu	$t0,$s6,$t9
-/*  f18caa0:	3c04800b */ 	lui	$a0,%hi(g_MpSetup+0x16)
-/*  f18caa4:	8d060000 */ 	lw	$a2,0x0($t0)
-/*  f18caa8:	16e00002 */ 	bnez	$s7,.L0f18cab4
-/*  f18caac:	00000000 */ 	nop
-/*  f18cab0:	0007000d */ 	break	0x7
-.L0f18cab4:
-/*  f18cab4:	9484cb9e */ 	lhu	$a0,%lo(g_MpSetup+0x16)($a0)
-/*  f18cab8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18cabc:	24090001 */ 	addiu	$t1,$zero,0x1
-.L0f18cac0:
-/*  f18cac0:	00695004 */ 	sllv	$t2,$t1,$v1
-/*  f18cac4:	008a6824 */ 	and	$t5,$a0,$t2
-/*  f18cac8:	11a00010 */ 	beqz	$t5,.L0f18cb0c
-/*  f18cacc:	28610004 */ 	slti	$at,$v1,0x4
-/*  f18cad0:	10200006 */ 	beqz	$at,.L0f18caec
-/*  f18cad4:	00000000 */ 	nop
-/*  f18cad8:	00720019 */ 	multu	$v1,$s2
-/*  f18cadc:	00006012 */ 	mflo	$t4
-/*  f18cae0:	022c1021 */ 	addu	$v0,$s1,$t4
-/*  f18cae4:	10000006 */ 	b	.L0f18cb00
-/*  f18cae8:	904e000f */ 	lbu	$t6,0xf($v0)
-.L0f18caec:
-/*  f18caec:	00750019 */ 	multu	$v1,$s5
-/*  f18caf0:	00005812 */ 	mflo	$t3
-/*  f18caf4:	028b1021 */ 	addu	$v0,$s4,$t3
-/*  f18caf8:	2442fed0 */ 	addiu	$v0,$v0,-304
-/*  f18cafc:	904e000f */ 	lbu	$t6,0xf($v0)
-.L0f18cb00:
-/*  f18cb00:	54ce0003 */ 	bnel	$a2,$t6,.L0f18cb10
-/*  f18cb04:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f18cb08:	00008025 */ 	or	$s0,$zero,$zero
-.L0f18cb0c:
-/*  f18cb0c:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f18cb10:
-/*  f18cb10:	5473ffeb */ 	bnel	$v1,$s3,.L0f18cac0
-/*  f18cb14:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f18cb18:	1200ffdb */ 	beqz	$s0,.L0f18ca88
-/*  f18cb1c:	00000000 */ 	nop
-/*  f18cb20:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*  f18cb24:	a3c6000f */ 	sb	$a2,0xf($s8)
-/*  f18cb28:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f18cb2c:	85f80004 */ 	lh	$t8,0x4($t7)
-/*  f18cb30:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f18cb34:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f18cb38:	a3d80010 */ 	sb	$t8,0x10($s8)
-/*  f18cb3c:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f18cb40:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f18cb44:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f18cb48:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f18cb4c:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f18cb50:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f18cb54:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f18cb58:	03e00008 */ 	jr	$ra
-/*  f18cb5c:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
+void mpCreateBotFromProfile(s32 botnum, u8 profilenum)
+{
+	s32 headnum = 0;
+	u8 team = mpFindUnusedTeamNum();
+	bool available = false;
+	s32 i;
+
+	g_BotConfigsArray[botnum].type = g_BotProfiles[profilenum].type;
+	g_BotConfigsArray[botnum].difficulty = g_BotProfiles[profilenum].difficulty;
+
+	for (i = 0; i < 4; i++) {
+		g_MpSimulantDifficultiesPerNumPlayers[botnum][i] = g_BotConfigsArray[botnum].difficulty;
+	}
+
+	g_MpSetup.chrslots |= 1 << (botnum + 4);
+	strcpy(g_BotConfigsArray[botnum].base.name, "Sim\n");
+	g_BotConfigsArray[botnum].base.team = team;
+
+	while (!available) {
+		headnum = g_BotHeads[random() % ARRAYCOUNT(g_BotHeads)];
+		available = true;
+
+		for (i = 0; i < 12; i++) {
+			if (g_MpSetup.chrslots & (1 << i)) {
+				struct mpchrconfig *mpchr = MPCHR(i);
+
+				if (mpchr->mpheadnum == headnum) {
+					available = false;
+				}
+			}
+		}
+	}
+
+	g_BotConfigsArray[botnum].base.mpheadnum = headnum;
+	g_BotConfigsArray[botnum].base.mpbodynum = g_BotProfiles[profilenum].body;
+}
+
+const char var7f1b8b74[] = "%s:%d\n";
+const char var7f1b8b7c[] = "%s\n";
+
+#if VERSION >= VERSION_NTSC_1_0
+const char var7f1b8b80[] = "Adding GBCHead to load to slot %d: guid is %x-%x, player is %d\n";
+const char var7f1b8bc0[] = "PakId for player %d: %d\n";
+const char var7f1b8bdc[] = "Save Player Result: %d   New GUID: %x\n";
+const char var7f1b8c04[] = "PakId for player %d: %d\n";
+const char var7f1b8c20[] = "Load Player - Result: %d\n";
+#endif
 
 void mpSetBotDifficulty(s32 botnum, s32 difficulty)
 {
@@ -8233,11 +8184,15 @@ void mpSetBotDifficulty(s32 botnum, s32 difficulty)
 	}
 }
 
-s32 mpGetNumSimulants(void)
+/**
+ * Return the first unused bot slot (0-7), or return 7 if all slots are full.
+ *
+ * This is used for the quick team feature.
+ */
+s32 mpGetSlotForNewBot(void)
 {
 	s32 i = 0;
 
-	// @bug: This won't count the last simulant if there's 8
 	while (i < MAX_SIMULANTS - 1 && g_MpSetup.chrslots & (1 << (i + 4))) {
 		i++;
 	}

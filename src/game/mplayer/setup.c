@@ -4813,7 +4813,7 @@ glabel var7f1b81e8
 /*  f17c7d8:	3c18800b */ 	lui	$t8,%hi(g_MpSetup+0x16)
 /*  f17c7dc:	05810007 */ 	bgez	$t4,.L0f17c7fc
 /*  f17c7e0:	afac003c */ 	sw	$t4,0x3c($sp)
-/*  f17c7e4:	0fc632ee */ 	jal	mpGetNumSimulants
+/*  f17c7e4:	0fc632ee */ 	jal	mpGetSlotForNewBot
 /*  f17c7e8:	00000000 */ 	nop
 /*  f17c7ec:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*  f17c7f0:	afa2003c */ 	sw	$v0,0x3c($sp)
@@ -4853,7 +4853,7 @@ glabel var7f1b81e8
 /*  f17c864:	11800006 */ 	beqz	$t4,.L0f17c880
 /*  f17c868:	000d7880 */ 	sll	$t7,$t5,0x2
 /*  f17c86c:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f17c870:	0fc63261 */ 	jal	func0f18c984
+/*  f17c870:	0fc63261 */ 	jal	mpCreateBotFromProfile
 /*  f17c874:	322500ff */ 	andi	$a1,$s1,0xff
 /*  f17c878:	1000000e */ 	b	.L0f17c8b4
 /*  f17c87c:	00000000 */ 	nop
@@ -5102,7 +5102,7 @@ glabel var7f1b81e8
 /*  f176ef8:	3c18800b */ 	lui	$t8,0x800b
 /*  f176efc:	05810007 */ 	bgez	$t4,.NB0f176f1c
 /*  f176f00:	afac003c */ 	sw	$t4,0x3c($sp)
-/*  f176f04:	0fc61b6f */ 	jal	mpGetNumSimulants
+/*  f176f04:	0fc61b6f */ 	jal	mpGetSlotForNewBot
 /*  f176f08:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f176f0c:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*  f176f10:	afa2003c */ 	sw	$v0,0x3c($sp)
@@ -5142,7 +5142,7 @@ glabel var7f1b81e8
 /*  f176f84:	11800006 */ 	beqz	$t4,.NB0f176fa0
 /*  f176f88:	000d7880 */ 	sll	$t7,$t5,0x2
 /*  f176f8c:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f176f90:	0fc61ae2 */ 	jal	func0f18c984
+/*  f176f90:	0fc61ae2 */ 	jal	mpCreateBotFromProfile
 /*  f176f94:	322500ff */ 	andi	$a1,$s1,0xff
 /*  f176f98:	1000000e */ 	beqz	$zero,.NB0f176fd4
 /*  f176f9c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -8124,7 +8124,7 @@ void mpConfigureQuickTeamSimulants(void)
 {
 	struct mpchrconfig *mpchr;
 	s32 numchrs;
-	s32 numsims;
+	s32 botnum;
 	s32 i;
 	s32 j;
 
@@ -8132,10 +8132,10 @@ void mpConfigureQuickTeamSimulants(void)
 		switch (g_Vars.mpquickteam) {
 		case MPQUICKTEAM_PLAYERSANDSIMS:
 			for (i = 0; i < g_Vars.mpquickteamnumsims; i++) {
-				numsims = mpGetNumSimulants();
+				botnum = mpGetSlotForNewBot();
 
-				if (numsims >= 0) {
-					func0f18c984(numsims, g_Vars.mpsimdifficulty);
+				if (botnum >= 0) {
+					mpCreateBotFromProfile(botnum, g_Vars.mpsimdifficulty);
 				}
 			}
 
@@ -8143,10 +8143,10 @@ void mpConfigureQuickTeamSimulants(void)
 			break;
 		case MPQUICKTEAM_PLAYERSVSSIMS:
 			for (i = 0; i < g_Vars.mpquickteamnumsims; i++) {
-				numsims = mpGetNumSimulants();
+				botnum = mpGetSlotForNewBot();
 
-				if (numsims >= 0) {
-					func0f18c984(numsims, g_Vars.mpsimdifficulty);
+				if (botnum >= 0) {
+					mpCreateBotFromProfile(botnum, g_Vars.mpsimdifficulty);
 				}
 			}
 
@@ -8162,11 +8162,11 @@ void mpConfigureQuickTeamSimulants(void)
 				mpchr = mpGetChrConfigBySlotNum(i);
 
 				for (j = 0; j < g_Vars.unk0004a0; j++) {
-					numsims = mpGetNumSimulants();
+					botnum = mpGetSlotForNewBot();
 
-					if (numsims >= 0) {
-						func0f18c984(numsims, g_Vars.mpsimdifficulty);
-						g_BotConfigsArray[numsims].base.team = mpchr->team;
+					if (botnum >= 0) {
+						mpCreateBotFromProfile(botnum, g_Vars.mpsimdifficulty);
+						g_BotConfigsArray[botnum].base.team = mpchr->team;
 					}
 				}
 			}
