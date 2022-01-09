@@ -1438,7 +1438,7 @@ void func0f19c1cc(void)
 	s32 i;
 	u8 buffer[458];
 
-	func0f18dcec(mpLoadCurrentChallenge(buffer, 458));
+	mpApplyConfig(mpLoadCurrentChallenge(buffer, 458));
 	mpSetLock(MPLOCKTYPE_CHALLENGE, 5);
 
 	for (i = 0; i < 4; i++) {
