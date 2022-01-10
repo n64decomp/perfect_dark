@@ -71,33 +71,22 @@ struct stagetableentry g_Stages[61] = {
 	/*0x3c*/ STAGE_TEST_MP20,     2, 255, 100, 100, 0, FILE_BG_MP20_SEG, FILE_BG_MP20_TILES, FILE_BG_MP20_PADS, FILE_USETUPMP20, FILE_UMP_SETUPMP20, 1,                0.5, 100,             0, 0, -1, 255, 0x3e19999a, -1,  400, 0,   1,
 };
 
-GLOBAL_ASM(
-glabel stageGetCurrent
-/*  f1655c0:	3c068008 */ 	lui	$a2,%hi(g_Stages)
-/*  f1655c4:	24c3fcc0 */ 	addiu	$v1,$a2,%lo(g_Stages)
-/*  f1655c8:	3c0e8008 */ 	lui	$t6,%hi(g_Stages+0x1)
-/*  f1655cc:	24620d58 */ 	addiu	$v0,$v1,0xd58
-/*  f1655d0:	25cefcc1 */ 	addiu	$t6,$t6,%lo(g_Stages+0x1)
-/*  f1655d4:	3c05800a */ 	lui	$a1,%hi(g_Vars+0x4b4)
-/*  f1655d8:	004e082b */ 	sltu	$at,$v0,$t6
-/*  f1655dc:	1420000a */ 	bnez	$at,.L0f165608
-/*  f1655e0:	8ca5a474 */ 	lw	$a1,%lo(g_Vars+0x4b4)($a1)
-/*  f1655e4:	846f0000 */ 	lh	$t7,0x0($v1)
-.L0f1655e8:
-/*  f1655e8:	54af0004 */ 	bnel	$a1,$t7,.L0f1655fc
-/*  f1655ec:	24630038 */ 	addiu	$v1,$v1,0x38
-/*  f1655f0:	03e00008 */ 	jr	$ra
-/*  f1655f4:	00601025 */ 	or	$v0,$v1,$zero
-/*  f1655f8:	24630038 */ 	addiu	$v1,$v1,0x38
-.L0f1655fc:
-/*  f1655fc:	0062082b */ 	sltu	$at,$v1,$v0
-/*  f165600:	5420fff9 */ 	bnezl	$at,.L0f1655e8
-/*  f165604:	846f0000 */ 	lh	$t7,0x0($v1)
-.L0f165608:
-/*  f165608:	00001025 */ 	or	$v0,$zero,$zero
-/*  f16560c:	03e00008 */ 	jr	$ra
-/*  f165610:	00000000 */ 	nop
-);
+struct stagetableentry *stageGetCurrent(void)
+{
+	struct stagetableentry *stage = g_Stages;
+	struct stagetableentry *end = (struct stagetableentry *)(u32)stage + ARRAYCOUNT(g_Stages);
+	s32 stagenum = g_Vars.stagenum;
+
+	while (stage < end) {
+		if (stage->id == stagenum) {
+			return stage;
+		}
+
+		stage++;
+	}
+
+	return NULL;
+}
 
 s32 stageGetIndex(s32 stagenum)
 {
