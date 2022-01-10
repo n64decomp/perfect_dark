@@ -1540,268 +1540,33 @@ char *mpMenuTextDistance(struct menuitem *item)
 	return g_StringPointer;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel mpMenuTextTime
-/*  f17ab38:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17ab3c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17ab40:	3c02800b */ 	lui	$v0,%hi(g_PlayerConfigsArray+0x68)
-/*  f17ab44:	2408003c */ 	addiu	$t0,$zero,0x3c
-/*  f17ab48:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f17ab4c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17ab50:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f17ab54:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f17ab58:	8c42c820 */ 	lw	$v0,%lo(g_PlayerConfigsArray+0x68)($v0)
-/*  f17ab5c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f17ab60:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f17ab64:	0048001b */ 	divu	$zero,$v0,$t0
-/*  f17ab68:	00004810 */ 	mfhi	$t1
-/*  f17ab6c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f17ab70:	15000002 */ 	bnez	$t0,.L0f17ab7c
-/*  f17ab74:	00000000 */ 	nop
-/*  f17ab78:	0007000d */ 	break	0x7
-.L0f17ab7c:
-/*  f17ab7c:	3c017fff */ 	lui	$at,0x7fff
-/*  f17ab80:	54400005 */ 	bnezl	$v0,.L0f17ab98
-/*  f17ab84:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f17ab88:	3c027f1b */ 	lui	$v0,%hi(var7f1b7f48)
-/*  f17ab8c:	10000052 */ 	b	.L0f17acd8
-/*  f17ab90:	24427f48 */ 	addiu	$v0,$v0,%lo(var7f1b7f48)
-/*  f17ab94:	3421ffff */ 	ori	$at,$at,0xffff
-.L0f17ab98:
-/*  f17ab98:	0041082b */ 	sltu	$at,$v0,$at
-/*  f17ab9c:	14200004 */ 	bnez	$at,.L0f17abb0
-/*  f17aba0:	00000000 */ 	nop
-/*  f17aba4:	3c027f1b */ 	lui	$v0,%hi(var7f1b7f50)
-/*  f17aba8:	1000004b */ 	b	.L0f17acd8
-/*  f17abac:	24427f50 */ 	addiu	$v0,$v0,%lo(var7f1b7f50)
-.L0f17abb0:
-/*  f17abb0:	0048001b */ 	divu	$zero,$v0,$t0
-/*  f17abb4:	00001012 */ 	mflo	$v0
-/*  f17abb8:	240a0018 */ 	addiu	$t2,$zero,0x18
-/*  f17abbc:	15000002 */ 	bnez	$t0,.L0f17abc8
-/*  f17abc0:	00000000 */ 	nop
-/*  f17abc4:	0007000d */ 	break	0x7
-.L0f17abc8:
-/*  f17abc8:	0048001b */ 	divu	$zero,$v0,$t0
-/*  f17abcc:	00001812 */ 	mflo	$v1
-/*  f17abd0:	3c057f1b */ 	lui	$a1,%hi(var7f1b7f68)
-/*  f17abd4:	15000002 */ 	bnez	$t0,.L0f17abe0
-/*  f17abd8:	00000000 */ 	nop
-/*  f17abdc:	0007000d */ 	break	0x7
-.L0f17abe0:
-/*  f17abe0:	006a001a */ 	div	$zero,$v1,$t2
-/*  f17abe4:	00003012 */ 	mflo	$a2
-/*  f17abe8:	24a57f68 */ 	addiu	$a1,$a1,%lo(var7f1b7f68)
-/*  f17abec:	15400002 */ 	bnez	$t2,.L0f17abf8
-/*  f17abf0:	00000000 */ 	nop
-/*  f17abf4:	0007000d */ 	break	0x7
-.L0f17abf8:
-/*  f17abf8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f17abfc:	15410004 */ 	bne	$t2,$at,.L0f17ac10
-/*  f17ac00:	3c018000 */ 	lui	$at,0x8000
-/*  f17ac04:	14610002 */ 	bne	$v1,$at,.L0f17ac10
-/*  f17ac08:	00000000 */ 	nop
-/*  f17ac0c:	0006000d */ 	break	0x6
-.L0f17ac10:
-/*  f17ac10:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f17ac14:	14c0001a */ 	bnez	$a2,.L0f17ac80
-/*  f17ac18:	00000000 */ 	nop
-/*  f17ac1c:	006a001a */ 	div	$zero,$v1,$t2
-/*  f17ac20:	00003010 */ 	mfhi	$a2
-/*  f17ac24:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f17ac28:	3c057f1b */ 	lui	$a1,%hi(var7f1b7f58)
-/*  f17ac2c:	0048001b */ 	divu	$zero,$v0,$t0
-/*  f17ac30:	00003810 */ 	mfhi	$a3
-/*  f17ac34:	24a57f58 */ 	addiu	$a1,$a1,%lo(var7f1b7f58)
-/*  f17ac38:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17ac3c:	15400002 */ 	bnez	$t2,.L0f17ac48
-/*  f17ac40:	00000000 */ 	nop
-/*  f17ac44:	0007000d */ 	break	0x7
-.L0f17ac48:
-/*  f17ac48:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f17ac4c:	15410004 */ 	bne	$t2,$at,.L0f17ac60
-/*  f17ac50:	3c018000 */ 	lui	$at,0x8000
-/*  f17ac54:	14610002 */ 	bne	$v1,$at,.L0f17ac60
-/*  f17ac58:	00000000 */ 	nop
-/*  f17ac5c:	0006000d */ 	break	0x6
-.L0f17ac60:
-/*  f17ac60:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f17ac64:	15000002 */ 	bnez	$t0,.L0f17ac70
-/*  f17ac68:	00000000 */ 	nop
-/*  f17ac6c:	0007000d */ 	break	0x7
-.L0f17ac70:
-/*  f17ac70:	0c004dad */ 	jal	sprintf
-/*  f17ac74:	00000000 */ 	nop
-/*  f17ac78:	10000015 */ 	b	.L0f17acd0
-/*  f17ac7c:	00000000 */ 	nop
-.L0f17ac80:
-/*  f17ac80:	006a001a */ 	div	$zero,$v1,$t2
-/*  f17ac84:	00003810 */ 	mfhi	$a3
-/*  f17ac88:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17ac8c:	15400002 */ 	bnez	$t2,.L0f17ac98
-/*  f17ac90:	00000000 */ 	nop
-/*  f17ac94:	0007000d */ 	break	0x7
-.L0f17ac98:
-/*  f17ac98:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f17ac9c:	15410004 */ 	bne	$t2,$at,.L0f17acb0
-/*  f17aca0:	3c018000 */ 	lui	$at,0x8000
-/*  f17aca4:	14610002 */ 	bne	$v1,$at,.L0f17acb0
-/*  f17aca8:	00000000 */ 	nop
-/*  f17acac:	0006000d */ 	break	0x6
-.L0f17acb0:
-/*  f17acb0:	0048001b */ 	divu	$zero,$v0,$t0
-/*  f17acb4:	0000c010 */ 	mfhi	$t8
-/*  f17acb8:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f17acbc:	15000002 */ 	bnez	$t0,.L0f17acc8
-/*  f17acc0:	00000000 */ 	nop
-/*  f17acc4:	0007000d */ 	break	0x7
-.L0f17acc8:
-/*  f17acc8:	0c004dad */ 	jal	sprintf
-/*  f17accc:	00000000 */ 	nop
-.L0f17acd0:
-/*  f17acd0:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f17acd4:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-.L0f17acd8:
-/*  f17acd8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f17acdc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f17ace0:	03e00008 */ 	jr	$ra
-/*  f17ace4:	00000000 */ 	nop
-);
-#else
-GLOBAL_ASM(
-glabel mpMenuTextTime
-/*  f1754c0:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f1754c4:	8dce3af0 */ 	lw	$t6,0x3af0($t6)
-/*  f1754c8:	3c02800b */ 	lui	$v0,0x800b
-/*  f1754cc:	2408003c */ 	addiu	$t0,$zero,0x3c
-/*  f1754d0:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f1754d4:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f1754d8:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f1754dc:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f1754e0:	8c4210d0 */ 	lw	$v0,0x10d0($v0)
-/*  f1754e4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f1754e8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1754ec:	0048001b */ 	divu	$zero,$v0,$t0
-/*  f1754f0:	00004810 */ 	mfhi	$t1
-/*  f1754f4:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f1754f8:	15000002 */ 	bnez	$t0,.NB0f175504
-/*  f1754fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f175500:	0007000d */ 	break	0x7
-.NB0f175504:
-/*  f175504:	3c017fff */ 	lui	$at,0x7fff
-/*  f175508:	54400005 */ 	bnezl	$v0,.NB0f175520
-/*  f17550c:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f175510:	3c027f1b */ 	lui	$v0,0x7f1b
-/*  f175514:	10000052 */ 	beqz	$zero,.NB0f175660
-/*  f175518:	24422898 */ 	addiu	$v0,$v0,0x2898
-/*  f17551c:	3421ffff */ 	ori	$at,$at,0xffff
-.NB0f175520:
-/*  f175520:	0041082b */ 	sltu	$at,$v0,$at
-/*  f175524:	14200004 */ 	bnez	$at,.NB0f175538
-/*  f175528:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17552c:	3c027f1b */ 	lui	$v0,0x7f1b
-/*  f175530:	1000004b */ 	beqz	$zero,.NB0f175660
-/*  f175534:	244228a0 */ 	addiu	$v0,$v0,0x28a0
-.NB0f175538:
-/*  f175538:	0048001b */ 	divu	$zero,$v0,$t0
-/*  f17553c:	00001012 */ 	mflo	$v0
-/*  f175540:	240a0018 */ 	addiu	$t2,$zero,0x18
-/*  f175544:	15000002 */ 	bnez	$t0,.NB0f175550
-/*  f175548:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17554c:	0007000d */ 	break	0x7
-.NB0f175550:
-/*  f175550:	0048001b */ 	divu	$zero,$v0,$t0
-/*  f175554:	00001812 */ 	mflo	$v1
-/*  f175558:	3c04800a */ 	lui	$a0,0x800a
-/*  f17555c:	15000002 */ 	bnez	$t0,.NB0f175568
-/*  f175560:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f175564:	0007000d */ 	break	0x7
-.NB0f175568:
-/*  f175568:	006a001a */ 	div	$zero,$v1,$t2
-/*  f17556c:	00003012 */ 	mflo	$a2
-/*  f175570:	248426b0 */ 	addiu	$a0,$a0,0x26b0
-/*  f175574:	15400002 */ 	bnez	$t2,.NB0f175580
-/*  f175578:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17557c:	0007000d */ 	break	0x7
-.NB0f175580:
-/*  f175580:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f175584:	15410004 */ 	bne	$t2,$at,.NB0f175598
-/*  f175588:	3c018000 */ 	lui	$at,0x8000
-/*  f17558c:	14610002 */ 	bne	$v1,$at,.NB0f175598
-/*  f175590:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f175594:	0006000d */ 	break	0x6
-.NB0f175598:
-/*  f175598:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f17559c:	14c0001a */ 	bnez	$a2,.NB0f175608
-/*  f1755a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1755a4:	006a001a */ 	div	$zero,$v1,$t2
-/*  f1755a8:	00003010 */ 	mfhi	$a2
-/*  f1755ac:	3c04800a */ 	lui	$a0,0x800a
-/*  f1755b0:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f1755b4:	0048001b */ 	divu	$zero,$v0,$t0
-/*  f1755b8:	00003810 */ 	mfhi	$a3
-/*  f1755bc:	24a528a8 */ 	addiu	$a1,$a1,0x28a8
-/*  f1755c0:	248426b0 */ 	addiu	$a0,$a0,0x26b0
-/*  f1755c4:	15400002 */ 	bnez	$t2,.NB0f1755d0
-/*  f1755c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1755cc:	0007000d */ 	break	0x7
-.NB0f1755d0:
-/*  f1755d0:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f1755d4:	15410004 */ 	bne	$t2,$at,.NB0f1755e8
-/*  f1755d8:	3c018000 */ 	lui	$at,0x8000
-/*  f1755dc:	14610002 */ 	bne	$v1,$at,.NB0f1755e8
-/*  f1755e0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1755e4:	0006000d */ 	break	0x6
-.NB0f1755e8:
-/*  f1755e8:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f1755ec:	15000002 */ 	bnez	$t0,.NB0f1755f8
-/*  f1755f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1755f4:	0007000d */ 	break	0x7
-.NB0f1755f8:
-/*  f1755f8:	0c004fc1 */ 	jal	sprintf
-/*  f1755fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f175600:	10000015 */ 	beqz	$zero,.NB0f175658
-/*  f175604:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f175608:
-/*  f175608:	006a001a */ 	div	$zero,$v1,$t2
-/*  f17560c:	00003810 */ 	mfhi	$a3
-/*  f175610:	24a528b8 */ 	addiu	$a1,$a1,0x28b8
-/*  f175614:	15400002 */ 	bnez	$t2,.NB0f175620
-/*  f175618:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17561c:	0007000d */ 	break	0x7
-.NB0f175620:
-/*  f175620:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f175624:	15410004 */ 	bne	$t2,$at,.NB0f175638
-/*  f175628:	3c018000 */ 	lui	$at,0x8000
-/*  f17562c:	14610002 */ 	bne	$v1,$at,.NB0f175638
-/*  f175630:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f175634:	0006000d */ 	break	0x6
-.NB0f175638:
-/*  f175638:	0048001b */ 	divu	$zero,$v0,$t0
-/*  f17563c:	0000c010 */ 	mfhi	$t8
-/*  f175640:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f175644:	15000002 */ 	bnez	$t0,.NB0f175650
-/*  f175648:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17564c:	0007000d */ 	break	0x7
-.NB0f175650:
-/*  f175650:	0c004fc1 */ 	jal	sprintf
-/*  f175654:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f175658:
-/*  f175658:	3c02800a */ 	lui	$v0,0x800a
-/*  f17565c:	244226b0 */ 	addiu	$v0,$v0,0x26b0
-.NB0f175660:
-/*  f175660:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f175664:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f175668:	03e00008 */ 	jr	$ra
-/*  f17566c:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
+char *mpMenuTextTime(struct menuitem *item)
+{
+	u32 raw = g_PlayerConfigsArray[g_MpPlayerNum].time;
+	s32 secs = raw % 60;
+	s32 hours;
+	s32 days;
 
-const char var7f1b7f48[] = "--:--\n";
-const char var7f1b7f50[] = "==:==\n";
-const char var7f1b7f58[] = "%d:%02d.%02d";
-const char var7f1b7f68[] = "%d:%02d:%02d";
+	if (raw == 0) {
+		return "--:--\n";
+	}
+
+	if (raw >= 0x7fffffff) {
+		return "==:==\n";
+	}
+
+	raw = raw / 60;
+	hours = raw / 60;
+	days = hours / 24;
+
+	if (days == 0) {
+		sprintf(g_StringPointer, "%d:%02d.%02d", hours % 24, raw % 60, secs);
+	} else {
+		sprintf(g_StringPointer, "%d:%02d:%02d", days, hours % 24, raw % 60);
+	}
+
+	return g_StringPointer;
+}
 
 char *mpMenuTextAccuracy(struct menuitem *item)
 {
