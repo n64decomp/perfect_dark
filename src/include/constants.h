@@ -4105,6 +4105,10 @@ enum weaponnum {
 #define WEAPONFLAG_AIMTRACK          0x40000000 // Allow drawing red box around targets in aim mode
 #define WEAPONFLAG_FIRETOACTIVATE    0x80000000 // For devices/gadgets
 
+#define WEAPONSET_RANDOMFIVE 0x0c
+#define WEAPONSET_RANDOM     0x0d
+#define WEAPONSET_CUSTOM     0x0e
+
 #define WEATHERTYPE_RAIN 0
 #define WEATHERTYPE_SNOW 1
 

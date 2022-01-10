@@ -32,7 +32,7 @@ s32 func0f189058(s32 arg0);
 s32 func0f189088(void);
 char *mpGetWeaponSetName(s32 arg0);
 void func0f18913c(void);
-void func0f1892dc(void);
+void mpApplyWeaponSet(void);
 void mpSetWeaponSet(s32 weaponsetnum);
 void func0f1895e8(void);
 s32 mpGetWeaponSet(void);
