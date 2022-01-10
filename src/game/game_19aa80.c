@@ -1569,10 +1569,10 @@ bool mpIsChallengeCompleteForEndscreen(void)
 	setCurrentPlayerNum(prevplayernum);
 
 	if (!aborted) {
-		struct mpteaminfo info[12];
-		mpGetTeamRankings(info);
+		struct ranking rankings[12];
+		mpGetTeamRankings(rankings);
 
-		if (info[0].teamnum == 0) {
+		if (rankings[0].teamnum == 0) {
 			result = true;
 		}
 	}

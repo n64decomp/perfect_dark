@@ -10020,7 +10020,7 @@ Gfx *menuRenderItem07(Gfx *gdl)
 #if VERSION >= VERSION_NTSC_1_0
 Gfx *menuRenderItemRanking(Gfx *gdl, struct menurendercontext *context)
 {
-	struct mpteaminfo info[12];
+	struct ranking rankings[12];
 	s32 numrows;
 	u32 textcolour;
 	s32 x;
@@ -10037,9 +10037,9 @@ Gfx *menuRenderItemRanking(Gfx *gdl, struct menurendercontext *context)
 
 	if (context->item->param2 == 1) {
 		team = true;
-		numrows = mpGetTeamRankings(info);
+		numrows = mpGetTeamRankings(rankings);
 	} else {
-		numrows = mpGetPlayerRankings(info);
+		numrows = mpGetPlayerRankings(rankings);
 	}
 
 	gdl = func0f153628(gdl);
@@ -10174,7 +10174,7 @@ Gfx *menuRenderItemRanking(Gfx *gdl, struct menurendercontext *context)
 	gdl = func0f153628(gdl);
 
 	for (i = 0; i < numrows; i++) {
-		struct mpteaminfo *thisinfo = &info[i];
+		struct ranking *ranking = &rankings[i];
 		u32 weight = 0;
 		char valuebuffer[8];
 
@@ -10187,17 +10187,17 @@ Gfx *menuRenderItemRanking(Gfx *gdl, struct menurendercontext *context)
 		y = context->y + i * 10 - data->scrolloffset + 14;
 
 		if (team) {
-			gdl = textRenderProjected(gdl, &x, &y, g_BossFile.teamnames[thisinfo->teamnum],
+			gdl = textRenderProjected(gdl, &x, &y, g_BossFile.teamnames[ranking->teamnum],
 					g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
 		} else {
-			gdl = textRenderProjected(gdl, &x, &y, thisinfo->mpchr->name,
+			gdl = textRenderProjected(gdl, &x, &y, ranking->mpchr->name,
 					g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
 		}
 
 		if (!team) {
 			// Deaths value (red)
 			textcolour = colourBlend(0xcf0000ff, 0xff4040ff, weight);
-			sprintf(valuebuffer, "%d\n", thisinfo->mpchr->numdeaths);
+			sprintf(valuebuffer, "%d\n", ranking->mpchr->numdeaths);
 			textMeasure(&textheight, &textwidth, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 			x = context->x - textwidth + 91;
 			y = context->y + i * 10 - data->scrolloffset + 14;
@@ -10207,7 +10207,7 @@ Gfx *menuRenderItemRanking(Gfx *gdl, struct menurendercontext *context)
 
 		// Score value (green)
 		textcolour = colourBlend(0x009f00ff, 0x00ff00ff, weight);
-		sprintf(valuebuffer, "%d\n", thisinfo->score);
+		sprintf(valuebuffer, "%d\n", ranking->score);
 		textMeasure(&textheight, &textwidth, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = context->x - textwidth + 120;
 		y = context->y + i * 10 - data->scrolloffset + 14;

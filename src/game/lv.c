@@ -8218,22 +8218,22 @@ void lvTick(void)
 			}
 
 			if (g_MpScoreLimit > 0) {
-				struct mpteaminfo info[12];
-				s32 count = mpGetPlayerRankings(info);
+				struct ranking rankings[12];
+				s32 count = mpGetPlayerRankings(rankings);
 
 				for (i = 0; i < count; i++) {
-					if (info[i].score >= g_MpScoreLimit) {
+					if (rankings[i].score >= g_MpScoreLimit) {
 						g_NumReasonsToEndMpMatch++;
 					}
 				}
 			}
 
 			if (g_MpTeamScoreLimit > 0) {
-				struct mpteaminfo info[12];
-				s32 count = mpGetTeamRankings(info);
+				struct ranking rankings[12];
+				s32 count = mpGetTeamRankings(rankings);
 
 				for (i = 0; i < count; i++) {
-					if (info[i].score >= g_MpTeamScoreLimit) {
+					if (rankings[i].score >= g_MpTeamScoreLimit) {
 						g_NumReasonsToEndMpMatch++;
 					}
 				}

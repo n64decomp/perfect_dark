@@ -11004,12 +11004,12 @@ void botTickUnpaused(struct chrdata *chr)
 					}
 				} else if (aibot->config->type == BOTTYPE_JUDGE) {
 					// Attack the winning player
-					struct mpteaminfo infos[12];
-					s32 count = mpGetPlayerRankings(infos);
+					struct ranking rankings[12];
+					s32 count = mpGetPlayerRankings(rankings);
 					s32 i;
 
 					for (i = 0; i < count; i++) {
-						s32 playernum = func0f18d0e8(infos[i].teamnum);
+						s32 playernum = func0f18d0e8(rankings[i].chrnum);
 						struct chrdata *otherchr = mpGetChrFromPlayerIndex(playernum);
 
 						if (otherchr != chr

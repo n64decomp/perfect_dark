@@ -4571,7 +4571,7 @@ struct mpchrconfig {
 	/*0x1a*/ u16 unk1a;
 	/*0x1c*/ u16 unk1c;
 	/*0x1e*/ s8 placement; // 0 = winner, 1 = second place etc
-	/*0x20*/ u32 unk20;
+	/*0x20*/ s32 rankablescore;
 	/*0x24*/ s16 killcounts[12]; // per player - each index is a chrslot
 	/*0x3c*/ s16 numdeaths;
 	/*0x3e*/ s16 numpoints;
@@ -5188,9 +5188,12 @@ struct chrbio {
 	u32 description;
 };
 
-struct mpteaminfo {
+struct ranking {
 	struct mpchrconfig *mpchr;
-	u32 teamnum;
+	union {
+		u32 teamnum;
+		u32 chrnum;
+	};
 	u32 positionindex;
 	u8 unk0c;
 	s32 score;
