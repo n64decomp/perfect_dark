@@ -3399,121 +3399,47 @@ void func0f17b8f0(void)
 	func0f0f139c(g_MpCharacterMenuItems, -0.4f);
 }
 
-GLOBAL_ASM(
-glabel menuhandler0017b91c
-/*  f17b91c:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f17b920:	24010011 */ 	addiu	$at,$zero,0x11
-/*  f17b924:	10810006 */ 	beq	$a0,$at,.L0f17b940
-/*  f17b928:	8cc20000 */ 	lw	$v0,0x0($a2)
-/*  f17b92c:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f17b930:	10810034 */ 	beq	$a0,$at,.L0f17ba04
-/*  f17b934:	3c07800b */ 	lui	$a3,%hi(g_PlayerConfigsArray)
-/*  f17b938:	03e00008 */ 	jr	$ra
-/*  f17b93c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17b940:
-/*  f17b940:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
-/*  f17b944:	25081448 */ 	addiu	$t0,$t0,%lo(g_MpPlayerNum)
-/*  f17b948:	8d040000 */ 	lw	$a0,0x0($t0)
-/*  f17b94c:	3c07800b */ 	lui	$a3,%hi(g_PlayerConfigsArray)
-/*  f17b950:	24e7c7b8 */ 	addiu	$a3,$a3,%lo(g_PlayerConfigsArray)
-/*  f17b954:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f17b958:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f17b95c:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f17b960:	00ee7821 */ 	addu	$t7,$a3,$t6
-/*  f17b964:	91f80000 */ 	lbu	$t8,0x0($t7)
-/*  f17b968:	2409000a */ 	addiu	$t1,$zero,0xa
-/*  f17b96c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f17b970:	1138001a */ 	beq	$t1,$t8,.L0f17b9dc
-/*  f17b974:	0004c880 */ 	sll	$t9,$a0,0x2
-/*  f17b978:	0324c821 */ 	addu	$t9,$t9,$a0
-/*  f17b97c:	0019c940 */ 	sll	$t9,$t9,0x5
-/*  f17b980:	00f92821 */ 	addu	$a1,$a3,$t9
-/*  f17b984:	90ab0000 */ 	lbu	$t3,0x0($a1)
-/*  f17b988:	00403021 */ 	addu	$a2,$v0,$zero
-/*  f17b98c:	240a000b */ 	addiu	$t2,$zero,0xb
-/*  f17b990:	51600013 */ 	beqzl	$t3,.L0f17b9e0
-/*  f17b994:	2861000b */ 	slti	$at,$v1,0xb
-/*  f17b998:	90a40000 */ 	lbu	$a0,0x0($a1)
-/*  f17b99c:	a0c40000 */ 	sb	$a0,0x0($a2)
-.L0f17b9a0:
-/*  f17b9a0:	8d0d0000 */ 	lw	$t5,0x0($t0)
-/*  f17b9a4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f17b9a8:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f17b9ac:	000d7080 */ 	sll	$t6,$t5,0x2
-/*  f17b9b0:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*  f17b9b4:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f17b9b8:	00ee7821 */ 	addu	$t7,$a3,$t6
-/*  f17b9bc:	01e3c021 */ 	addu	$t8,$t7,$v1
-/*  f17b9c0:	93040000 */ 	lbu	$a0,0x0($t8)
-/*  f17b9c4:	51240006 */ 	beql	$t1,$a0,.L0f17b9e0
-/*  f17b9c8:	2861000b */ 	slti	$at,$v1,0xb
-/*  f17b9cc:	50800004 */ 	beqzl	$a0,.L0f17b9e0
-/*  f17b9d0:	2861000b */ 	slti	$at,$v1,0xb
-/*  f17b9d4:	546afff2 */ 	bnel	$v1,$t2,.L0f17b9a0
-/*  f17b9d8:	a0c40000 */ 	sb	$a0,0x0($a2)
-.L0f17b9dc:
-/*  f17b9dc:	2861000b */ 	slti	$at,$v1,0xb
-.L0f17b9e0:
-/*  f17b9e0:	10200032 */ 	beqz	$at,.L0f17baac
-/*  f17b9e4:	00433021 */ 	addu	$a2,$v0,$v1
-.L0f17b9e8:
-/*  f17b9e8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f17b9ec:	2861000b */ 	slti	$at,$v1,0xb
-/*  f17b9f0:	a0c00000 */ 	sb	$zero,0x0($a2)
-/*  f17b9f4:	1420fffc */ 	bnez	$at,.L0f17b9e8
-/*  f17b9f8:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f17b9fc:	03e00008 */ 	jr	$ra
-/*  f17ba00:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17ba04:
-/*  f17ba04:	90590000 */ 	lbu	$t9,0x0($v0)
-/*  f17ba08:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
-/*  f17ba0c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f17ba10:	13200014 */ 	beqz	$t9,.L0f17ba64
-/*  f17ba14:	25081448 */ 	addiu	$t0,$t0,%lo(g_MpPlayerNum)
-/*  f17ba18:	3c0b8007 */ 	lui	$t3,%hi(g_MpPlayerNum)
-/*  f17ba1c:	8d6b1448 */ 	lw	$t3,%lo(g_MpPlayerNum)($t3)
-/*  f17ba20:	3c0e800b */ 	lui	$t6,%hi(g_PlayerConfigsArray)
-/*  f17ba24:	25cec7b8 */ 	addiu	$t6,$t6,%lo(g_PlayerConfigsArray)
-/*  f17ba28:	000b6080 */ 	sll	$t4,$t3,0x2
-/*  f17ba2c:	018b6021 */ 	addu	$t4,$t4,$t3
-/*  f17ba30:	000c6140 */ 	sll	$t4,$t4,0x5
-/*  f17ba34:	018e2021 */ 	addu	$a0,$t4,$t6
-/*  f17ba38:	00403021 */ 	addu	$a2,$v0,$zero
-/*  f17ba3c:	90450000 */ 	lbu	$a1,0x0($v0)
-/*  f17ba40:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f17ba44:
-/*  f17ba44:	2861000b */ 	slti	$at,$v1,0xb
-/*  f17ba48:	a0850000 */ 	sb	$a1,0x0($a0)
-/*  f17ba4c:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f17ba50:	10200004 */ 	beqz	$at,.L0f17ba64
-/*  f17ba54:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f17ba58:	90c50000 */ 	lbu	$a1,0x0($a2)
-/*  f17ba5c:	54a0fff9 */ 	bnezl	$a1,.L0f17ba44
-/*  f17ba60:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f17ba64:
-/*  f17ba64:	8d0f0000 */ 	lw	$t7,0x0($t0)
-/*  f17ba68:	24e7c7b8 */ 	addiu	$a3,$a3,%lo(g_PlayerConfigsArray)
-/*  f17ba6c:	240b000a */ 	addiu	$t3,$zero,0xa
-/*  f17ba70:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f17ba74:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f17ba78:	0018c140 */ 	sll	$t8,$t8,0x5
-/*  f17ba7c:	00f8c821 */ 	addu	$t9,$a3,$t8
-/*  f17ba80:	03232021 */ 	addu	$a0,$t9,$v1
-/*  f17ba84:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f17ba88:	2861000b */ 	slti	$at,$v1,0xb
-/*  f17ba8c:	a08b0000 */ 	sb	$t3,0x0($a0)
-/*  f17ba90:	10200006 */ 	beqz	$at,.L0f17baac
-/*  f17ba94:	24840001 */ 	addiu	$a0,$a0,0x1
-.L0f17ba98:
-/*  f17ba98:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f17ba9c:	2861000b */ 	slti	$at,$v1,0xb
-/*  f17baa0:	a0800000 */ 	sb	$zero,0x0($a0)
-/*  f17baa4:	1420fffc */ 	bnez	$at,.L0f17ba98
-/*  f17baa8:	24840001 */ 	addiu	$a0,$a0,0x1
-.L0f17baac:
-/*  f17baac:	03e00008 */ 	jr	$ra
-/*  f17bab0:	00001025 */ 	or	$v0,$zero,$zero
-);
+s32 mpPlayerNameMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	char *name = data->keyboard.string;
+	s32 i;
+
+	switch (operation) {
+	case MENUOP_GETTEXT:
+		i = 0;
+
+		while (g_PlayerConfigsArray[g_MpPlayerNum].base.name[i] != '\n'
+				&& g_PlayerConfigsArray[g_MpPlayerNum].base.name[i] != '\0'
+				&& i < 11) {
+			name[i] = g_PlayerConfigsArray[g_MpPlayerNum].base.name[i];
+			i++;
+		}
+
+		while (i < 11) {
+			name[i] = '\0';
+			i++;
+		}
+		break;
+	case MENUOP_SETTEXT:
+		i = 0;
+
+		while (i < 11 && name[i] != '\0') {
+			g_PlayerConfigsArray[g_MpPlayerNum].base.name[i] = name[i];
+			i++;
+		}
+
+		g_PlayerConfigsArray[g_MpPlayerNum].base.name[i] = '\n';
+		i++;
+
+		while (i < 11) {
+			g_PlayerConfigsArray[g_MpPlayerNum].base.name[i] = '\0';
+			i++;
+		}
+		break;
+	}
+
+	return 0;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -4561,7 +4487,7 @@ struct menudialog g_MpCharacterMenuDialog = {
 };
 
 struct menuitem g_MpPlayerNameMenuItems[] = {
-	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, menuhandler0017b91c },
+	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, mpPlayerNameMenuHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
