@@ -99,29 +99,20 @@ glabel stageGetCurrent
 /*  f165610:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel stageGetIndex
-/*  f165614:	3c078008 */ 	lui	$a3,%hi(g_Stages)
-/*  f165618:	24e2fcc0 */ 	addiu	$v0,$a3,%lo(g_Stages)
-/*  f16561c:	3c0e8008 */ 	lui	$t6,%hi(g_Stages+0x1)
-/*  f165620:	24430d58 */ 	addiu	$v1,$v0,0xd58
-/*  f165624:	25cefcc1 */ 	addiu	$t6,$t6,%lo(g_Stages+0x1)
-/*  f165628:	006e082b */ 	sltu	$at,$v1,$t6
-/*  f16562c:	1420000a */ 	bnez	$at,.L0f165658
-/*  f165630:	00003025 */ 	or	$a2,$zero,$zero
-.L0f165634:
-/*  f165634:	844f0000 */ 	lh	$t7,0x0($v0)
-/*  f165638:	24420038 */ 	addiu	$v0,$v0,0x38
-/*  f16563c:	0043082b */ 	sltu	$at,$v0,$v1
-/*  f165640:	148f0003 */ 	bne	$a0,$t7,.L0f165650
-/*  f165644:	00000000 */ 	nop
-/*  f165648:	03e00008 */ 	jr	$ra
-/*  f16564c:	00c01025 */ 	or	$v0,$a2,$zero
-.L0f165650:
-/*  f165650:	1420fff8 */ 	bnez	$at,.L0f165634
-/*  f165654:	24c60001 */ 	addiu	$a2,$a2,0x1
-.L0f165658:
-/*  f165658:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f16565c:	03e00008 */ 	jr	$ra
-/*  f165660:	00000000 */ 	nop
-);
+s32 stageGetIndex(s32 stagenum)
+{
+	struct stagetableentry *stage = g_Stages;
+	struct stagetableentry *end = (struct stagetableentry *)(u32)stage + ARRAYCOUNT(g_Stages);
+	s32 i = 0;
+
+	while (stage < end) {
+		if (stage->id == stagenum) {
+			return i;
+		}
+
+		stage++;
+		i++;
+	}
+
+	return -1;
+}
