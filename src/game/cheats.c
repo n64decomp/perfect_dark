@@ -286,165 +286,56 @@ void cheatsActivate(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel cheatMenuHandleCheatCheckbox
-/*  f1076b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1076b4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1076b8:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1076bc:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f1076c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1076c4:	1081001f */ 	beq	$a0,$at,.L0f107744
-/*  f1076c8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1076cc:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f1076d0:	54810054 */ 	bnel	$a0,$at,.L0f107824
-/*  f1076d4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1076d8:	90a20001 */ 	lbu	$v0,0x1($a1)
-/*  f1076dc:	3c06800a */ 	lui	$a2,%hi(g_CheatsEnabledBank1)
-/*  f1076e0:	3c05800a */ 	lui	$a1,%hi(g_CheatsEnabledBank0)
-/*  f1076e4:	28410020 */ 	slti	$at,$v0,0x20
-/*  f1076e8:	1020000c */ 	beqz	$at,.L0f10771c
-/*  f1076ec:	24c621dc */ 	addiu	$a2,$a2,%lo(g_CheatsEnabledBank1)
-/*  f1076f0:	24a521d8 */ 	addiu	$a1,$a1,%lo(g_CheatsEnabledBank0)
-/*  f1076f4:	8cb80000 */ 	lw	$t8,0x0($a1)
-/*  f1076f8:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f1076fc:	004e7804 */ 	sllv	$t7,$t6,$v0
-/*  f107700:	01f8c824 */ 	and	$t9,$t7,$t8
-/*  f107704:	13200003 */ 	beqz	$t9,.L0f107714
-/*  f107708:	00000000 */ 	nop
-/*  f10770c:	10000045 */ 	b	.L0f107824
-/*  f107710:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f107714:
-/*  f107714:	10000043 */ 	b	.L0f107824
-/*  f107718:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10771c:
-/*  f10771c:	8cca0000 */ 	lw	$t2,0x0($a2)
-/*  f107720:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f107724:	00484804 */ 	sllv	$t1,$t0,$v0
-/*  f107728:	012a5824 */ 	and	$t3,$t1,$t2
-/*  f10772c:	11600003 */ 	beqz	$t3,.L0f10773c
-/*  f107730:	00000000 */ 	nop
-/*  f107734:	1000003b */ 	b	.L0f107824
-/*  f107738:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f10773c:
-/*  f10773c:	10000039 */ 	b	.L0f107824
-/*  f107740:	00001025 */ 	or	$v0,$zero,$zero
-.L0f107744:
-/*  f107744:	90c40001 */ 	lbu	$a0,0x1($a2)
-/*  f107748:	0fc41b50 */ 	jal	cheatIsUnlocked
-/*  f10774c:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f107750:	10400033 */ 	beqz	$v0,.L0f107820
-/*  f107754:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f107758:	90c20001 */ 	lbu	$v0,0x1($a2)
-/*  f10775c:	3c05800a */ 	lui	$a1,%hi(g_CheatsEnabledBank0)
-/*  f107760:	24a521d8 */ 	addiu	$a1,$a1,%lo(g_CheatsEnabledBank0)
-/*  f107764:	28410020 */ 	slti	$at,$v0,0x20
-/*  f107768:	1020001f */ 	beqz	$at,.L0f1077e8
-/*  f10776c:	00000000 */ 	nop
-/*  f107770:	8ca30000 */ 	lw	$v1,0x0($a1)
-/*  f107774:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f107778:	004c2004 */ 	sllv	$a0,$t4,$v0
-/*  f10777c:	00836824 */ 	and	$t5,$a0,$v1
-/*  f107780:	11a00005 */ 	beqz	$t5,.L0f107798
-/*  f107784:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f107788:	00807027 */ 	nor	$t6,$a0,$zero
-/*  f10778c:	01c37824 */ 	and	$t7,$t6,$v1
-/*  f107790:	10000023 */ 	b	.L0f107820
-/*  f107794:	acaf0000 */ 	sw	$t7,0x0($a1)
-.L0f107798:
-/*  f107798:	14410007 */ 	bne	$v0,$at,.L0f1077b8
-/*  f10779c:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f1077a0:	3c01fffb */ 	lui	$at,0xfffb
-/*  f1077a4:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f1077a8:	0061c024 */ 	and	$t8,$v1,$at
-/*  f1077ac:	acb80000 */ 	sw	$t8,0x0($a1)
-/*  f1077b0:	90c20001 */ 	lbu	$v0,0x1($a2)
-/*  f1077b4:	03001825 */ 	or	$v1,$t8,$zero
-.L0f1077b8:
-/*  f1077b8:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f1077bc:	14410006 */ 	bne	$v0,$at,.L0f1077d8
-/*  f1077c0:	3c01ffef */ 	lui	$at,0xffef
-/*  f1077c4:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f1077c8:	0061c824 */ 	and	$t9,$v1,$at
-/*  f1077cc:	acb90000 */ 	sw	$t9,0x0($a1)
-/*  f1077d0:	90c20001 */ 	lbu	$v0,0x1($a2)
-/*  f1077d4:	03201825 */ 	or	$v1,$t9,$zero
-.L0f1077d8:
-/*  f1077d8:	00484804 */ 	sllv	$t1,$t0,$v0
-/*  f1077dc:	01235025 */ 	or	$t2,$t1,$v1
-/*  f1077e0:	1000000f */ 	b	.L0f107820
-/*  f1077e4:	acaa0000 */ 	sw	$t2,0x0($a1)
-.L0f1077e8:
-/*  f1077e8:	3c06800a */ 	lui	$a2,%hi(g_CheatsEnabledBank1)
-/*  f1077ec:	24c621dc */ 	addiu	$a2,$a2,%lo(g_CheatsEnabledBank1)
-/*  f1077f0:	8cc30000 */ 	lw	$v1,0x0($a2)
-/*  f1077f4:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f1077f8:	004b2004 */ 	sllv	$a0,$t3,$v0
-/*  f1077fc:	00836024 */ 	and	$t4,$a0,$v1
-/*  f107800:	11800005 */ 	beqz	$t4,.L0f107818
-/*  f107804:	00802825 */ 	or	$a1,$a0,$zero
-/*  f107808:	00806827 */ 	nor	$t5,$a0,$zero
-/*  f10780c:	01a37024 */ 	and	$t6,$t5,$v1
-/*  f107810:	10000003 */ 	b	.L0f107820
-/*  f107814:	acce0000 */ 	sw	$t6,0x0($a2)
-.L0f107818:
-/*  f107818:	00a37825 */ 	or	$t7,$a1,$v1
-/*  f10781c:	accf0000 */ 	sw	$t7,0x0($a2)
-.L0f107820:
-/*  f107820:	00001025 */ 	or	$v0,$zero,$zero
-.L0f107824:
-/*  f107824:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f107828:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10782c:	03e00008 */ 	jr	$ra
-/*  f107830:	00000000 */ 	nop
-);
+s32 cheatCheckboxMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	switch (operation) {
+	case MENUOP_GET:
+		if (item->param < 32) {
+			if (g_CheatsEnabledBank0 & (1 << item->param)) {
+				return true;
+			}
 
-// Mismatch due to different registers in case 6 (v1/a0)
-//s32 cheatMenuHandleCheatCheckbox(u32 arg0, struct menuitem *item, s32 arg2)
-//{
-//	switch (arg0) {
-//	case 8:
-//		if (item->param < 32) {
-//			if (g_CheatsEnabledBank0 & (1 << item->param)) {
-//				return true;
-//			}
-//
-//			return false;
-//		}
-//
-//		if (g_CheatsEnabledBank1 & (1 << item->param)) {
-//			return true;
-//		}
-//
-//		return false;
-//	case 6:
-//		if (cheatIsUnlocked(item->param)) {
-//			if (item->param < 32) { // Bank 0
-//				if (g_CheatsEnabledBank0 & (1 << item->param)) { // Turning off
-//					g_CheatsEnabledBank0 = g_CheatsEnabledBank0 & ~(1 << item->param);
-//				} else { // Turning on
-//					// If enabling Marquis or enemy rockets, turn off the other
-//					if (item->param == CHEAT_MARQUIS) {
-//						g_CheatsEnabledBank0 = g_CheatsEnabledBank0 & ~(1 << CHEAT_ENEMYROCKETS);
-//					}
-//
-//					if (item->param == CHEAT_ENEMYROCKETS) {
-//						g_CheatsEnabledBank0 = g_CheatsEnabledBank0 & ~(1 << CHEAT_MARQUIS);
-//					}
-//
-//					g_CheatsEnabledBank0 = g_CheatsEnabledBank0 | (1 << item->param);
-//				}
-//			} else { // Bank 1
-//				if ((1 << item->param) & g_CheatsEnabledBank1) { // Turning off
-//					g_CheatsEnabledBank1 = g_CheatsEnabledBank1 & ~(1 << item->param);
-//				} else { // Turning on
-//					g_CheatsEnabledBank1 = g_CheatsEnabledBank1 | (1 << item->param);
-//				}
-//			}
-//		}
-//	}
-//
-//	return 0;
-//}
+			return false;
+		}
+
+		if (g_CheatsEnabledBank1 & (1 << item->param)) {
+			return true;
+		}
+
+		return false;
+	case MENUOP_SET:
+		if (cheatIsUnlocked(item->param)) {
+			if (item->param < 32) {
+				// Bank 0
+				if (g_CheatsEnabledBank0 & (1 << item->param)) {
+					g_CheatsEnabledBank0 = g_CheatsEnabledBank0 & ~(1 << item->param);
+				} else {
+					// If enabling Marquis or enemy rockets, turn off the other
+					if (item->param == CHEAT_MARQUIS) {
+						g_CheatsEnabledBank0 &= ~(1 << CHEAT_ENEMYROCKETS);
+					}
+
+					if (item->param == CHEAT_ENEMYROCKETS) {
+						g_CheatsEnabledBank0 &= ~(1 << CHEAT_MARQUIS);
+					}
+
+					g_CheatsEnabledBank0 = g_CheatsEnabledBank0 | 1 << item->param;
+				}
+			} else {
+				// Bank 1
+				if (g_CheatsEnabledBank1 & (1 << item->param)) {
+					if (1);
+					g_CheatsEnabledBank1 = g_CheatsEnabledBank1 & ~(1 << item->param);
+				} else {
+					g_CheatsEnabledBank1 = g_CheatsEnabledBank1 | 1 << item->param;
+				}
+			}
+		}
+		break;
+	}
+
+	return 0;
+}
 
 s32 cheatMenuHandleBuddyCheckbox(s32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -1056,12 +947,12 @@ u32 var80074024pf = 0;
 #endif
 
 struct menuitem g_CheatsFunMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_DKMODE,          0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SMALLJO,         0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SMALLCHARACTERS, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_TEAMHEADSONLY,   0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PLAYASELVIS,     0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SLOMO,           0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_DKMODE,          0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SMALLJO,         0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SMALLCHARACTERS, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_TEAMHEADSONLY,   0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PLAYASELVIS,     0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SLOMO,           0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
 	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000000, 0x00000096,                   0x00000000, NULL                         },
 	{ MENUITEMTYPE_MARQUEE,    0,                     0x00000a00, (u32)&cheatGetMarquee,        0x00000000, NULL                         },
 	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000000, 0x00000096,                   0x00000000, NULL                         },
@@ -1079,14 +970,14 @@ struct menudialog g_CheatsFunMenuDialog = {
 };
 
 struct menuitem g_CheatsGameplayMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_INVINCIBLE,      0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_CLOAKINGDEVICE,  0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_MARQUIS,         0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_JOSHIELD,        0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SUPERSHIELD,     0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_ENEMYSHIELDS,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_ENEMYROCKETS,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PERFECTDARKNESS, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_INVINCIBLE,      0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_CLOAKINGDEVICE,  0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_MARQUIS,         0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_JOSHIELD,        0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SUPERSHIELD,     0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_ENEMYSHIELDS,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_ENEMYROCKETS,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PERFECTDARKNESS, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
 	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000000, 0x00000096,                   0x00000000, NULL                         },
 	{ MENUITEMTYPE_MARQUEE,    0,                     0x00000a00, (u32)&cheatGetMarquee,        0x00000000, NULL                         },
 	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000000, 0x00000096,                   0x00000000, NULL                         },
@@ -1104,14 +995,14 @@ struct menudialog g_CheatsGameplayMenuDialog = {
 };
 
 struct menuitem g_CheatsSoloWeaponsMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_ROCKETLAUNCHER, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SNIPERRIFLE,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SUPERDRAGON,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_LAPTOPGUN,      0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PHOENIX,        0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PSYCHOSISGUN,   0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_TRENTSMAGNUM,   0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_FARSIGHT,       0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_ROCKETLAUNCHER, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SNIPERRIFLE,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SUPERDRAGON,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_LAPTOPGUN,      0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PHOENIX,        0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PSYCHOSISGUN,   0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_TRENTSMAGNUM,   0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_FARSIGHT,       0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000096,                   0x00000000, NULL                         },
 	{ MENUITEMTYPE_MARQUEE,    0,                    0x00000a00, (u32)&cheatGetMarquee,        0x00000000, NULL                         },
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000096,                   0x00000000, NULL                         },
@@ -1129,14 +1020,14 @@ struct menudialog g_CheatsSoloWeaponsMenuDialog = {
 };
 
 struct menuitem g_CheatsClassicWeaponsMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PP9I,       0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_CC13,       0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_KL01313,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_KF7SPECIAL, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_ZZT,        0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_DMC,        0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_AR53,       0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_RCP45,      0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PP9I,       0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_CC13,       0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_KL01313,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_KF7SPECIAL, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_ZZT,        0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_DMC,        0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_AR53,       0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_RCP45,      0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
 	{ MENUITEMTYPE_SEPARATOR,  0,                0x00000000, 0x000000c8,                   0x00000000, NULL                         },
 	{ MENUITEMTYPE_MARQUEE,    0,                0x00000a00, L_MPWEAPONS_144,             0x00000000, NULL                         }, // "Win Golds on the firing range to enable classic guns."
 	{ MENUITEMTYPE_SEPARATOR,  0,                0x00000000, 0x000000c8,                   0x00000000, NULL                         },
@@ -1154,14 +1045,14 @@ struct menudialog g_CheatsClassicWeaponsMenuDialog = {
 };
 
 struct menuitem g_CheatsWeaponsMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_CLASSICSIGHT,           0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_UNLIMITEDAMMOLAPTOP,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_HURRICANEFISTS,         0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_UNLIMITEDAMMO,          0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_UNLIMITEDAMMONORELOADS, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_XRAYSCANNER,            0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_RTRACKER,               0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
-	{ MENUITEMTYPE_CHECKBOX,   CHEAT_ALLGUNS,                0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_CLASSICSIGHT,           0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_UNLIMITEDAMMOLAPTOP,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_HURRICANEFISTS,         0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_UNLIMITEDAMMO,          0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_UNLIMITEDAMMONORELOADS, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_XRAYSCANNER,            0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_RTRACKER,               0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
+	{ MENUITEMTYPE_CHECKBOX,   CHEAT_ALLGUNS,                0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatCheckboxMenuHandler },
 	{ MENUITEMTYPE_SEPARATOR,  0,                            0x00000000, 0x00000096,                   0x00000000, NULL                         },
 	{ MENUITEMTYPE_MARQUEE,    0,                            0x00000a00, (u32)&cheatGetMarquee,        0x00000000, NULL                         },
 	{ MENUITEMTYPE_SEPARATOR,  0,                            0x00000000, 0x00000096,                   0x00000000, NULL                         },
