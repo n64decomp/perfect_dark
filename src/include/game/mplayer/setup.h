@@ -36,7 +36,7 @@ s32 mpCharacterHeadMenuHandler(s32 operation, struct menuitem *item, union handl
 char *mpMenuTextBodyName(struct menuitem *item);
 void func0f17b8f0(void);
 s32 mpPlayerNameMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandler0017bab4(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 mpLoadSettingsMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 char *mpMenuTextMpconfigMarquee(struct menuitem *item);
 s32 mpLoadPlayerMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerMpHandicapPlayer(s32 operation, struct menuitem *item, union handlerdata *data);
