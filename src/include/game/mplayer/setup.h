@@ -41,7 +41,7 @@ char *mpMenuTextMpconfigMarquee(struct menuitem *item);
 s32 mpLoadPlayerMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerMpHandicapPlayer(s32 operation, struct menuitem *item, union handlerdata *data);
 char *mpMenuTextHandicapPlayerName(struct menuitem *item);
-s32 menuhandler0017c6a4(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 mpAddChangeSimulantMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 char *mpMenuTextSimulantDescription(struct menuitem *item);
 s32 menudialog0017ccfc(s32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 mpBotDifficultyMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);

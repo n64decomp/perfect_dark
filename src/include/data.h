@@ -500,7 +500,7 @@ extern s32 var80087260;
 extern bool g_MpEnableMusicSwitching;
 extern struct mpweapon g_MpWeapons[0x27];
 extern struct mphead g_MpHeads[75];
-extern struct botprofile g_BotProfiles[];
+extern struct botprofile g_BotProfiles[18];
 extern struct mpbody g_MpBodies[NUM_MPBODIES];
 extern struct mppreset g_MpPresets[NUM_MPPRESETS];
 extern u32 g_TeamColours[];
