@@ -29,7 +29,7 @@ char *mpMenuTextAccuracy(struct menuitem *item);
 void mpFormatDamageValue(char *dst, f32 damage);
 char *mpMenuTextPainReceived(struct menuitem *item);
 char *mpMenuTextDamageDealt(struct menuitem *item);
-s32 menuhandlerMpMedal(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 mpMedalMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 char *mpMenuTitleStatsForPlayerName(struct menudialog *dialog);
 char *mpMenuTextUsernamePassword(struct menuitem *item);
 s32 func0f17b4f8(s32 operation, struct menuitem *item, union handlerdata *data, s32 mpheadnum, bool arg4);
