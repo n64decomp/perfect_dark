@@ -127,7 +127,7 @@ extern struct criteria_holograph *g_HolographCriterias;
 extern u32 var8009d0d0[2];
 extern s32 var8009d0d8;
 extern struct sndstate *g_BgunAudioHandles[4];
-extern struct fireslot g_Fireslots[];
+extern struct fireslot g_Fireslots[NUM_FIRESLOTS];
 extern struct casing g_Casings[20];
 extern struct var8009da60 var8009da60[8];
 extern struct lasersight g_LaserSights[4];
