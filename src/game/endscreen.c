@@ -1118,78 +1118,26 @@ char *soloMenuTextCompletionCheatName(struct menuitem *item)
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel soloMenuTextTargetTime
-/*  f10e4d8:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10e4dc:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10e4e0:	3c02800a */ 	lui	$v0,%hi(g_Menus+0xe20)
-/*  f10e4e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10e4e8:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10e4ec:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10e4f0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10e4f4:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10e4f8:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10e4fc:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10e500:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10e504:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f10e508:	8c42ee20 */ 	lw	$v0,%lo(g_Menus+0xe20)($v0)
-/*  f10e50c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10e510:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10e514:	30580100 */ 	andi	$t8,$v0,0x100
-/*  f10e518:	17000003 */ 	bnez	$t8,.L0f10e528
-/*  f10e51c:	00000000 */ 	nop
-/*  f10e520:	10000015 */ 	b	.L0f10e578
-/*  f10e524:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10e528:
-/*  f10e528:	0fc41fd9 */ 	jal	cheatGetTime
-/*  f10e52c:	304400ff */ 	andi	$a0,$v0,0xff
-/*  f10e530:	14400003 */ 	bnez	$v0,.L0f10e540
-/*  f10e534:	00403825 */ 	or	$a3,$v0,$zero
-/*  f10e538:	1000000f */ 	b	.L0f10e578
-/*  f10e53c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10e540:
-/*  f10e540:	00072900 */ 	sll	$a1,$a3,0x4
-/*  f10e544:	00a72823 */ 	subu	$a1,$a1,$a3
-/*  f10e548:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f10e54c:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f10e550:	00052880 */ 	sll	$a1,$a1,0x2
-/*  f10e554:	0fc355f8 */ 	jal	formatTime
-/*  f10e558:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f10e55c:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f10e560:	3c057f1b */ 	lui	$a1,%hi(var7f1b38bc)
-/*  f10e564:	24a538bc */ 	addiu	$a1,$a1,%lo(var7f1b38bc)
-/*  f10e568:	0c004c89 */ 	jal	strcat
-/*  f10e56c:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f10e570:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f10e574:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-.L0f10e578:
-/*  f10e578:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10e57c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10e580:	03e00008 */ 	jr	$ra
-/*  f10e584:	00000000 */ 	nop
-);
+char *soloMenuTextTargetTime(struct menuitem *item)
+{
+	s32 time;
+	s32 time2;
 
-const char var7f1b38bc[] = "\n";
+	if ((g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x00000100) == 0) {
+		return NULL;
+	}
 
-// regalloc
-//char *soloMenuTextTargetTime(struct menuitem *item)
-//{
-//	s32 time;
-//
-//	if ((g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x00000100) == 0) {
-//		return NULL;
-//	}
-//
-//	time = cheatGetTime(g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xff);
-//
-//	if (!time) {
-//		return NULL;
-//	}
-//
-//	formatTime(g_StringPointer, time * 60, 3);
-//	strcat(g_StringPointer, "\n");
-//	return g_StringPointer;
-//}
+	time = g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xff;
+	time = cheatGetTime(time);
+
+	if (!time) {
+		return NULL;
+	}
+
+	formatTime(g_StringPointer, time * 60, 3);
+	strcat(g_StringPointer, "\n");
+	return g_StringPointer;
+}
 #endif
 
 void endscreenSetCoopCompleted(void)
