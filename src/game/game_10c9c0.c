@@ -308,7 +308,7 @@ struct menudialog g_MpConfirmChallenge4MbMenuDialog = {
 };
 
 struct menuitem g_MpChallenges4MbMenuItems[] = {
-	{ MENUITEMTYPE_LIST,        1, 0x00200000, 0x00000078, 0x0000004d, menuhandler0017e4d4 },
+	{ MENUITEMTYPE_LIST,        1, 0x00200000, 0x00000078, 0x0000004d, mpChallengesListMenuHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

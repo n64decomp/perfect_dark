@@ -57,7 +57,7 @@ s32 mpTeamNameMenuHandler(s32 operation, struct menuitem *item, union handlerdat
 char *mpMenuTextTeamName(struct menuitem *item);
 char *func0f17e318(struct menudialog *dialog);
 s32 menudialog0017e3fc(s32 operation, struct menudialog *dialog, union handlerdata *data);
-s32 menuhandler0017e4d4(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 mpChallengesListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 char *mpMenuTextChallengeName(struct menuitem *item);
 s32 mpCombatChallengesMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data);
 char *mpMenuTextSavePlayerOrCopy(struct menuitem *item);

@@ -157,7 +157,7 @@ s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata
 			s32 x;
 			s32 y;
 			u32 colour;
-			s32 numremaining = (s32)data->type19.renderdata1;
+			s32 numremaining = (s32)data->type19.unk04;
 			s32 chrindex = -1;
 			struct chrdata *botchr = g_MpAllChrPtrs[g_Vars.currentplayer->aibuddynums[g_AmMenus[g_AmIndex].screenindex - 2]];
 			struct chrdata *playerchr = g_Vars.currentplayer->prop->chr;
