@@ -124,237 +124,108 @@ s16 mpChooseRandomStage(void)
 	return STAGE_MP_SKEDAR;
 }
 
-u32 var80084c00[] = {
-	0x00000000, 0x50740000, // "Dark"
-	0x0000000d, 0x50750000, // "Classic"
-	0x00000010, 0x50760000, // "Custom"
+struct arenagroup {
+	s32 groupstartindex;
+	u16 textid;
 };
 
-GLOBAL_ASM(
-glabel menuhandler001791c8
-.late_rodata
-glabel var7f1b805c
-.word menuhandler001791c8+0x80 # f179248
-glabel var7f1b8060
-.word menuhandler001791c8+0x194 # f17935c
-glabel var7f1b8064
-.word menuhandler001791c8+0xb4 # f17927c
-glabel var7f1b8068
-.word menuhandler001791c8+0x1dc # f1793a4
-glabel var7f1b806c
-.word menuhandler001791c8+0x234 # f1793fc
-glabel var7f1b8070
-.word menuhandler001791c8+0x104 # f1792cc
-glabel var7f1b8074
-.word menuhandler001791c8+0x148 # f179310
-.text
-/*  f1791c8:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f1791cc:	3c0f8008 */ 	lui	$t7,%hi(var80084c00)
-/*  f1791d0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1791d4:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f1791d8:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f1791dc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f1791e0:	afa5005c */ 	sw	$a1,0x5c($sp)
-/*  f1791e4:	25ef4c00 */ 	addiu	$t7,$t7,%lo(var80084c00)
-/*  f1791e8:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f1791ec:	27ae0040 */ 	addiu	$t6,$sp,0x40
-/*  f1791f0:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f1791f4:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f1791f8:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f1791fc:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f179200:	8de8000c */ 	lw	$t0,0xc($t7)
-/*  f179204:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f179208:	8de10010 */ 	lw	$at,0x10($t7)
-/*  f17920c:	adc8000c */ 	sw	$t0,0xc($t6)
-/*  f179210:	8de80014 */ 	lw	$t0,0x14($t7)
-/*  f179214:	2489ffff */ 	addiu	$t1,$a0,-1
-/*  f179218:	adc10010 */ 	sw	$at,0x10($t6)
-/*  f17921c:	2d210007 */ 	sltiu	$at,$t1,0x7
-/*  f179220:	00c09025 */ 	or	$s2,$a2,$zero
-/*  f179224:	00008825 */ 	or	$s1,$zero,$zero
-/*  f179228:	1020009b */ 	beqz	$at,.L0f179498
-/*  f17922c:	adc80014 */ 	sw	$t0,0x14($t6)
-/*  f179230:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f179234:	3c017f1c */ 	lui	$at,%hi(var7f1b805c)
-/*  f179238:	00290821 */ 	addu	$at,$at,$t1
-/*  f17923c:	8c29805c */ 	lw	$t1,%lo(var7f1b805c)($at)
-/*  f179240:	01200008 */ 	jr	$t1
-/*  f179244:	00000000 */ 	nop
-/*  f179248:	3c108008 */ 	lui	$s0,%hi(g_MpArenas)
-/*  f17924c:	26104b98 */ 	addiu	$s0,$s0,%lo(g_MpArenas)
-.L0f179250:
-/*  f179250:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f179254:	92040002 */ 	lbu	$a0,0x2($s0)
-/*  f179258:	10400002 */ 	beqz	$v0,.L0f179264
-/*  f17925c:	26100006 */ 	addiu	$s0,$s0,0x6
-/*  f179260:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f179264:
-/*  f179264:	3c0a8008 */ 	lui	$t2,%hi(g_MpArenas+0x66)
-/*  f179268:	254a4bfe */ 	addiu	$t2,$t2,%lo(g_MpArenas+0x66)
-/*  f17926c:	160afff8 */ 	bne	$s0,$t2,.L0f179250
-/*  f179270:	00000000 */ 	nop
-/*  f179274:	10000088 */ 	b	.L0f179498
-/*  f179278:	ae510000 */ 	sw	$s1,0x0($s2)
-/*  f17927c:	3c108008 */ 	lui	$s0,%hi(g_MpArenas)
-/*  f179280:	26104b98 */ 	addiu	$s0,$s0,%lo(g_MpArenas)
-.L0f179284:
-/*  f179284:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f179288:	92040002 */ 	lbu	$a0,0x2($s0)
-/*  f17928c:	10400009 */ 	beqz	$v0,.L0f1792b4
-/*  f179290:	3c0c8008 */ 	lui	$t4,%hi(g_MpArenas+0x66)
-/*  f179294:	8e4b0000 */ 	lw	$t3,0x0($s2)
-/*  f179298:	562b0006 */ 	bnel	$s1,$t3,.L0f1792b4
-/*  f17929c:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f1792a0:	0fc5b9f1 */ 	jal	langGet
-/*  f1792a4:	96040004 */ 	lhu	$a0,0x4($s0)
-/*  f1792a8:	1000007d */ 	b	.L0f1794a0
-/*  f1792ac:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1792b0:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f1792b4:
-/*  f1792b4:	26100006 */ 	addiu	$s0,$s0,0x6
-/*  f1792b8:	258c4bfe */ 	addiu	$t4,$t4,%lo(g_MpArenas+0x66)
-/*  f1792bc:	160cfff1 */ 	bne	$s0,$t4,.L0f179284
-/*  f1792c0:	00000000 */ 	nop
-/*  f1792c4:	10000075 */ 	b	.L0f17949c
-/*  f1792c8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1792cc:	3c108008 */ 	lui	$s0,%hi(g_MpArenas)
-/*  f1792d0:	26104b98 */ 	addiu	$s0,$s0,%lo(g_MpArenas)
-.L0f1792d4:
-/*  f1792d4:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f1792d8:	92040002 */ 	lbu	$a0,0x2($s0)
-/*  f1792dc:	10400004 */ 	beqz	$v0,.L0f1792f0
-/*  f1792e0:	3c198008 */ 	lui	$t9,%hi(g_MpArenas+0x66)
-/*  f1792e4:	8e4d0000 */ 	lw	$t5,0x0($s2)
-/*  f1792e8:	122d0005 */ 	beq	$s1,$t5,.L0f179300
-/*  f1792ec:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f1792f0:
-/*  f1792f0:	26100006 */ 	addiu	$s0,$s0,0x6
-/*  f1792f4:	27394bfe */ 	addiu	$t9,$t9,%lo(g_MpArenas+0x66)
-/*  f1792f8:	1619fff6 */ 	bne	$s0,$t9,.L0f1792d4
-/*  f1792fc:	00000000 */ 	nop
-.L0f179300:
-/*  f179300:	86180000 */ 	lh	$t8,0x0($s0)
-/*  f179304:	3c01800b */ 	lui	$at,%hi(g_MpSetup+0x11)
-/*  f179308:	10000063 */ 	b	.L0f179498
-/*  f17930c:	a038cb99 */ 	sb	$t8,%lo(g_MpSetup+0x11)($at)
-/*  f179310:	3c108008 */ 	lui	$s0,%hi(g_MpArenas)
-/*  f179314:	26104b98 */ 	addiu	$s0,$s0,%lo(g_MpArenas)
-.L0f179318:
-/*  f179318:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x11)
-/*  f17931c:	91cecb99 */ 	lbu	$t6,%lo(g_MpSetup+0x11)($t6)
-/*  f179320:	860f0000 */ 	lh	$t7,0x0($s0)
-/*  f179324:	15cf0002 */ 	bne	$t6,$t7,.L0f179330
-/*  f179328:	00000000 */ 	nop
-/*  f17932c:	ae510000 */ 	sw	$s1,0x0($s2)
-.L0f179330:
-/*  f179330:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f179334:	92040002 */ 	lbu	$a0,0x2($s0)
-/*  f179338:	10400002 */ 	beqz	$v0,.L0f179344
-/*  f17933c:	26100006 */ 	addiu	$s0,$s0,0x6
-/*  f179340:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f179344:
-/*  f179344:	3c088008 */ 	lui	$t0,%hi(g_MpArenas+0x66)
-/*  f179348:	25084bfe */ 	addiu	$t0,$t0,%lo(g_MpArenas+0x66)
-/*  f17934c:	1608fff2 */ 	bne	$s0,$t0,.L0f179318
-/*  f179350:	00000000 */ 	nop
-/*  f179354:	10000051 */ 	b	.L0f17949c
-/*  f179358:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17935c:	24090003 */ 	addiu	$t1,$zero,0x3
-/*  f179360:	ae490000 */ 	sw	$t1,0x0($s2)
-/*  f179364:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f179368:	24040024 */ 	addiu	$a0,$zero,0x24
-/*  f17936c:	5440004b */ 	bnezl	$v0,.L0f17949c
-/*  f179370:	00001025 */ 	or	$v0,$zero,$zero
-/*  f179374:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f179378:	24040027 */ 	addiu	$a0,$zero,0x27
-/*  f17937c:	54400047 */ 	bnezl	$v0,.L0f17949c
-/*  f179380:	00001025 */ 	or	$v0,$zero,$zero
-/*  f179384:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f179388:	2404002a */ 	addiu	$a0,$zero,0x2a
-/*  f17938c:	54400043 */ 	bnezl	$v0,.L0f17949c
-/*  f179390:	00001025 */ 	or	$v0,$zero,$zero
-/*  f179394:	8e4a0000 */ 	lw	$t2,0x0($s2)
-/*  f179398:	254bffff */ 	addiu	$t3,$t2,-1
-/*  f17939c:	1000003e */ 	b	.L0f179498
-/*  f1793a0:	ae4b0000 */ 	sw	$t3,0x0($s2)
-/*  f1793a4:	8e510000 */ 	lw	$s1,0x0($s2)
-/*  f1793a8:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f1793ac:	24040024 */ 	addiu	$a0,$zero,0x24
-/*  f1793b0:	5440000d */ 	bnezl	$v0,.L0f1793e8
-/*  f1793b4:	001160c0 */ 	sll	$t4,$s1,0x3
-/*  f1793b8:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f1793bc:	24040027 */ 	addiu	$a0,$zero,0x27
-/*  f1793c0:	54400009 */ 	bnezl	$v0,.L0f1793e8
-/*  f1793c4:	001160c0 */ 	sll	$t4,$s1,0x3
-/*  f1793c8:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f1793cc:	2404002a */ 	addiu	$a0,$zero,0x2a
-/*  f1793d0:	54400005 */ 	bnezl	$v0,.L0f1793e8
-/*  f1793d4:	001160c0 */ 	sll	$t4,$s1,0x3
-/*  f1793d8:	5a200003 */ 	blezl	$s1,.L0f1793e8
-/*  f1793dc:	001160c0 */ 	sll	$t4,$s1,0x3
-/*  f1793e0:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f1793e4:	001160c0 */ 	sll	$t4,$s1,0x3
-.L0f1793e8:
-/*  f1793e8:	03ac2021 */ 	addu	$a0,$sp,$t4
-/*  f1793ec:	0fc5b9f1 */ 	jal	langGet
-/*  f1793f0:	94840044 */ 	lhu	$a0,0x44($a0)
-/*  f1793f4:	1000002a */ 	b	.L0f1794a0
-/*  f1793f8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1793fc:	8e500000 */ 	lw	$s0,0x0($s2)
-/*  f179400:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f179404:	24040024 */ 	addiu	$a0,$zero,0x24
-/*  f179408:	5440000d */ 	bnezl	$v0,.L0f179440
-/*  f17940c:	001068c0 */ 	sll	$t5,$s0,0x3
-/*  f179410:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f179414:	24040027 */ 	addiu	$a0,$zero,0x27
-/*  f179418:	54400009 */ 	bnezl	$v0,.L0f179440
-/*  f17941c:	001068c0 */ 	sll	$t5,$s0,0x3
-/*  f179420:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f179424:	2404002a */ 	addiu	$a0,$zero,0x2a
-/*  f179428:	14400004 */ 	bnez	$v0,.L0f17943c
-/*  f17942c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f179430:	56010003 */ 	bnel	$s0,$at,.L0f179440
-/*  f179434:	001068c0 */ 	sll	$t5,$s0,0x3
-/*  f179438:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f17943c:
-/*  f17943c:	001068c0 */ 	sll	$t5,$s0,0x3
-.L0f179440:
-/*  f179440:	27b90040 */ 	addiu	$t9,$sp,0x40
-/*  f179444:	01b92821 */ 	addu	$a1,$t5,$t9
-/*  f179448:	8cb80000 */ 	lw	$t8,0x0($a1)
-/*  f17944c:	3c108008 */ 	lui	$s0,%hi(g_MpArenas)
-/*  f179450:	26104b98 */ 	addiu	$s0,$s0,%lo(g_MpArenas)
-/*  f179454:	1b00000f */ 	blez	$t8,.L0f179494
-/*  f179458:	00001825 */ 	or	$v1,$zero,$zero
-/*  f17945c:	92040002 */ 	lbu	$a0,0x2($s0)
-.L0f179460:
-/*  f179460:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f179464:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f179468:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f17946c:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f179470:	10400002 */ 	beqz	$v0,.L0f17947c
-/*  f179474:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f179478:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f17947c:
-/*  f17947c:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*  f179480:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f179484:	26100006 */ 	addiu	$s0,$s0,0x6
-/*  f179488:	006e082a */ 	slt	$at,$v1,$t6
-/*  f17948c:	5420fff4 */ 	bnezl	$at,.L0f179460
-/*  f179490:	92040002 */ 	lbu	$a0,0x2($s0)
-.L0f179494:
-/*  f179494:	ae510008 */ 	sw	$s1,0x8($s2)
-.L0f179498:
-/*  f179498:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17949c:
-/*  f17949c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f1794a0:
-/*  f1794a0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1794a4:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f1794a8:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f1794ac:	03e00008 */ 	jr	$ra
-/*  f1794b0:	27bd0058 */ 	addiu	$sp,$sp,0x58
-);
+s32 mpArenaMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	struct arenagroup groups[] = {
+		{ 0,  L_MPMENU_116 }, // "Dark"
+		{ 13, L_MPMENU_117 }, // "Classic"
+		{ 16, L_MPMENU_118 }, // "Random"
+	};
+
+	s32 i;
+	s32 count = 0;
+	s32 groupindex;
+
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		for (i = 0; i < ARRAYCOUNT(g_MpArenas); i++) {
+			if (mpIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
+				count++;
+			}
+		}
+
+		data->list.value = count;
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		for (i = 0; i < ARRAYCOUNT(g_MpArenas); i++) {
+			if (mpIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
+				if (count == data->list.value) {
+					return (s32)langGet(g_MpArenas[i].name);
+				}
+
+				count++;
+			}
+		}
+		break;
+	case MENUOP_SET:
+		for (i = 0; i < ARRAYCOUNT(g_MpArenas); i++) {
+			if (mpIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
+				if (count == data->list.value) {
+					break;
+				}
+
+				count++;
+			}
+		}
+
+		g_MpSetup.stagenum = g_MpArenas[i].stagenum;
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		for (i = 0; i < ARRAYCOUNT(g_MpArenas); i++) {
+			if (g_MpSetup.stagenum == g_MpArenas[i].stagenum) {
+				data->list.value = count;
+			}
+
+			if (mpIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
+				count++;
+			}
+		}
+		break;
+	case MENUOP_GETOPTGROUPCOUNT:
+		data->list.value = 3;
+
+		if (!mpIsFeatureUnlocked(MPFEATURE_STAGE_COMPLEX)
+				&& !mpIsFeatureUnlocked(MPFEATURE_STAGE_TEMPLE)
+				&& !mpIsFeatureUnlocked(MPFEATURE_STAGE_FELICITY)) {
+			data->list.value--;
+		}
+		break;
+	case MENUOP_GETOPTGROUPTEXT:
+		count = data->list.value;
+
+		if (!mpIsFeatureUnlocked(MPFEATURE_STAGE_COMPLEX)
+				&& !mpIsFeatureUnlocked(MPFEATURE_STAGE_TEMPLE)
+				&& !mpIsFeatureUnlocked(MPFEATURE_STAGE_FELICITY)
+				&& count > 0) {
+			count++;
+		}
+		return (s32)langGet(groups[count].textid);
+	case MENUOP_GETGROUPSTARTINDEX:
+		groupindex = data->list.value;
+
+		if (!mpIsFeatureUnlocked(MPFEATURE_STAGE_COMPLEX)
+				&& !mpIsFeatureUnlocked(MPFEATURE_STAGE_TEMPLE)
+				&& !mpIsFeatureUnlocked(MPFEATURE_STAGE_FELICITY)
+				&& groupindex == 1) {
+			groupindex++;
+		}
+
+		for (i = 0; i < groups[groupindex].groupstartindex; i++) {
+			if (mpIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
+				count++;
+			}
+		}
+		data->list.groupstartindex = count;
+		break;
+	}
+
+	return 0;
+}
 
 s32 menuhandlerMpControlStyle(s32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -3493,7 +3364,7 @@ struct menudialog g_MpLoadPlayerMenuDialog = {
 };
 
 struct menuitem g_MpArenaMenuItems[] = {
-	{ MENUITEMTYPE_LIST,        0, 0x00020000, 0x00000078, 0x0000004d, menuhandler001791c8 },
+	{ MENUITEMTYPE_LIST,        0, 0x00020000, 0x00000078, 0x0000004d, mpArenaMenuHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

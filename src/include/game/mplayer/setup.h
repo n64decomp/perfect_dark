@@ -6,7 +6,7 @@
 
 char *mpGetCurrentPlayerName(struct menuitem *item);
 s16 mpChooseRandomStage(void);
-s32 menuhandler001791c8(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 mpArenaMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 char *mpMenuTextWeaponNameForSlot(struct menuitem *item);
 char *mpMenuTextSetupName(struct menuitem *item);
 s32 mpCharacterBodyMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data, s32 mpheadnum, s32 mpbodynum, bool isplayer);
