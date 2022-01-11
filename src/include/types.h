@@ -4527,7 +4527,8 @@ struct menu {
 	/*0xde4*/ u32 unkde4;
 	/*0xde8*/ u32 unkde8;
 	/*0xdec*/ u32 unkdec;
-	/*0xdf0*/ u32 unkdf0;
+	/*0xdf0*/ u8 unkdf0;
+	/*0xdf1*/ u8 unkdf1 : 1;
 	/*0xdf4*/ struct modelpartvisibility *partvisibility;
 	/*0xdf8*/ u8 unkdf8;
 	/*0xdfc*/ struct menudfc unkdfc[4];

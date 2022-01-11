@@ -32,7 +32,7 @@ char *mpMenuTextDamageDealt(struct menuitem *item);
 s32 mpMedalMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 char *mpMenuTitleStatsForPlayerName(struct menudialog *dialog);
 char *mpMenuTextUsernamePassword(struct menuitem *item);
-s32 func0f17b4f8(s32 operation, struct menuitem *item, union handlerdata *data, s32 mpheadnum, bool arg4);
+s32 mpCharacterHeadMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data, s32 mpheadnum, bool arg4);
 char *mpMenuTextBodyName(struct menuitem *item);
 void func0f17b8f0(void);
 s32 mpPlayerNameMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
