@@ -498,87 +498,36 @@ glabel casingTick
 );
 #endif
 
-GLOBAL_ASM(
-glabel casingsTick
-/*  f01dd6c:	3c03800a */ 	lui	$v1,%hi(var8009d0d8)
-/*  f01dd70:	2463d0d8 */ 	addiu	$v1,$v1,%lo(var8009d0d8)
-/*  f01dd74:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f01dd78:	8c620000 */ 	lw	$v0,0x0($v1)
-/*  f01dd7c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f01dd80:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f01dd84:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f01dd88:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f01dd8c:	18400006 */ 	blez	$v0,.L0f01dda8
-/*  f01dd90:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f01dd94:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x34)
-/*  f01dd98:	8dce9ff4 */ 	lw	$t6,%lo(g_Vars+0x34)($t6)
-/*  f01dd9c:	004e7823 */ 	subu	$t7,$v0,$t6
-/*  f01dda0:	ac6f0000 */ 	sw	$t7,0x0($v1)
-/*  f01dda4:	01e01025 */ 	or	$v0,$t7,$zero
-.L0f01dda8:
-/*  f01dda8:	04410002 */ 	bgez	$v0,.L0f01ddb4
-/*  f01ddac:	3c118007 */ 	lui	$s1,%hi(g_CasingsActive)
-/*  f01ddb0:	ac600000 */ 	sw	$zero,0x0($v1)
-.L0f01ddb4:
-/*  f01ddb4:	26310524 */ 	addiu	$s1,$s1,%lo(g_CasingsActive)
-/*  f01ddb8:	8e380000 */ 	lw	$t8,0x0($s1)
-/*  f01ddbc:	3c13800a */ 	lui	$s3,%hi(var8009da60)
-/*  f01ddc0:	2673da60 */ 	addiu	$s3,$s3,%lo(var8009da60)
-/*  f01ddc4:	13000011 */ 	beqz	$t8,.L0f01de0c
-/*  f01ddc8:	3c10800a */ 	lui	$s0,%hi(g_Casings)
-/*  f01ddcc:	ae200000 */ 	sw	$zero,0x0($s1)
-/*  f01ddd0:	2610d510 */ 	addiu	$s0,$s0,%lo(g_Casings)
-/*  f01ddd4:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f01ddd8:	8e190040 */ 	lw	$t9,0x40($s0)
-.L0f01dddc:
-/*  f01dddc:	53200008 */ 	beqzl	$t9,.L0f01de00
-/*  f01dde0:	26100044 */ 	addiu	$s0,$s0,0x44
-/*  f01dde4:	0fc0767c */ 	jal	casingTick
-/*  f01dde8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f01ddec:	8e280000 */ 	lw	$t0,0x0($s1)
-/*  f01ddf0:	55000003 */ 	bnezl	$t0,.L0f01de00
-/*  f01ddf4:	26100044 */ 	addiu	$s0,$s0,0x44
-/*  f01ddf8:	ae320000 */ 	sw	$s2,0x0($s1)
-/*  f01ddfc:	26100044 */ 	addiu	$s0,$s0,0x44
-.L0f01de00:
-/*  f01de00:	0213082b */ 	sltu	$at,$s0,$s3
-/*  f01de04:	5420fff5 */ 	bnezl	$at,.L0f01dddc
-/*  f01de08:	8e190040 */ 	lw	$t9,0x40($s0)
-.L0f01de0c:
-/*  f01de0c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f01de10:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f01de14:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f01de18:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f01de1c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f01de20:	03e00008 */ 	jr	$ra
-/*  f01de24:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void casingsTick(void)
+{
+	s32 i;
+	struct casing *end;
+	struct casing *casing;
 
-// Mismatch: g_Casings needs to be moved into this file.
-// Also end loop condition is bnel but needs to be sltu, bnezl.
-//void casingsTick(void)
-//{
-//	s32 i;
-//
-//	if (var8009d0d8 > 0) {
-//		var8009d0d8 -= g_Vars.lvupdate240;
-//	}
-//
-//	if (var8009d0d8 < 0) {
-//		var8009d0d8 = 0;
-//	}
-//
-//	if (g_CasingsActive) {
-//		g_CasingsActive = false;
-//
-//		for (i = 0; i < ARRAYCOUNT(g_Casings); i++) {
-//			if (g_Casings[i].unk40) {
-//				casingTick(&g_Casings[i]);
-//
-//				if (!g_CasingsActive) {
-//					g_CasingsActive = true;
-//				}
-//			}
-//		}
-//	}
-//}
+	if (var8009d0d8 > 0) {
+		var8009d0d8 -= g_Vars.lvupdate240;
+	}
+
+	if (var8009d0d8 < 0) {
+		var8009d0d8 = 0;
+	}
+
+	if (g_CasingsActive) {
+		g_CasingsActive = false;
+
+		end = g_Casings + ARRAYCOUNT(g_Casings);
+		casing = g_Casings;
+
+		while (casing < end) {
+			if (casing->unk40) {
+				casingTick(casing);
+
+				if (!g_CasingsActive) {
+					g_CasingsActive = true;
+				}
+			}
+
+			casing++;
+		}
+	}
+}

@@ -7,6 +7,8 @@
 void casingsReset(void)
 {
 	s32 i;
+	struct casing *end;
+	struct casing *casing;
 
 	var8009d0d0[0] = 0;
 	var8009d0d0[1] = 0;
@@ -16,14 +18,12 @@ void casingsReset(void)
 		g_BgunAudioHandles[i] = 0;
 	}
 
-	{
-		struct casing *end = g_Casings + ARRAYCOUNT(g_Casings);
-		struct casing *casing = g_Casings;
+	end = g_Casings + ARRAYCOUNT(g_Casings);
+	casing = g_Casings;
 
-		while (casing < end) {
-			casing->unk40 = 0;
-			casing++;
-		}
+	while (casing < end) {
+		casing->unk40 = 0;
+		casing++;
 	}
 
 	g_CasingsActive = 0;
