@@ -52,7 +52,7 @@
 #include "types.h"
 
 #if VERSION >= VERSION_NTSC_1_0
-u32 var8009d0d0[2];
+struct sndstate *g_CasingAudioHandles[2];
 s32 var8009d0d8;
 u32 var8009d0dc;
 struct sndstate *g_BgunAudioHandles[4];
@@ -115,7 +115,7 @@ u32 var8009d144;
 s32 var8009d148;
 u32 var8009d14c;
 
-u32 var8009d0d0[2];
+u32 g_CasingAudioHandles[2];
 s32 var8009d0d8;
 struct sndstate *g_BgunAudioHandles[4];
 struct fireslot g_Fireslots[NUM_FIRESLOTS];

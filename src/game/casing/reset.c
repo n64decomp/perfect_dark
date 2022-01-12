@@ -10,8 +10,8 @@ void casingsReset(void)
 	struct casing *end;
 	struct casing *casing;
 
-	var8009d0d0[0] = 0;
-	var8009d0d0[1] = 0;
+	g_CasingAudioHandles[0] = 0;
+	g_CasingAudioHandles[1] = 0;
 	var8009d0d8 = 0;
 
 	for (i = 0; i != ARRAYCOUNT(g_BgunAudioHandles); i++) {

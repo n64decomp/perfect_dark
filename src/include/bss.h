@@ -124,7 +124,7 @@ extern struct briefingobj *g_BriefingObjs;
 extern struct criteria_roomentered *g_RoomEnteredCriterias;
 extern struct criteria_multiroomentered *g_MultiroomEnteredCriterias;
 extern struct criteria_holograph *g_HolographCriterias;
-extern u32 var8009d0d0[2];
+extern struct sndstate *g_CasingAudioHandles[2];
 extern s32 var8009d0d8;
 extern struct sndstate *g_BgunAudioHandles[4];
 extern struct fireslot g_Fireslots[NUM_FIRESLOTS];

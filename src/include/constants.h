@@ -1138,6 +1138,7 @@
 
 #define HANDMODE_NONE  0
 #define HANDMODE_1  1
+#define HANDMODE_2  2
 #define HANDMODE_6  6
 #define HANDMODE_7  7
 #define HANDMODE_8  8
