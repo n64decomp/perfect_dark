@@ -30501,24 +30501,14 @@ s32 menudialog000fcd48(s32 operation, struct menudialog *dialog, union handlerda
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f0fcdd0
-/*  f0fcdd0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0fcdd4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0fcdd8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0fcddc:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0fcde0:	14810004 */ 	bne	$a0,$at,.L0f0fcdf4
-/*  f0fcde4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0fcde8:	3c048007 */ 	lui	$a0,%hi(g_PakDamagedMenuDialog)
-/*  f0fcdec:	0fc3cdc1 */ 	jal	func0f0f3704
-/*  f0fcdf0:	2484176c */ 	addiu	$a0,$a0,%lo(g_PakDamagedMenuDialog)
-.L0f0fcdf4:
-/*  f0fcdf4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0fcdf8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0fcdfc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0fce00:	03e00008 */ 	jr	$ra
-/*  f0fce04:	00000000 */ 	nop
-);
+s32 func0f0fcdd0(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	if (operation == MENUOP_SET) {
+		func0f0f3704(&g_PakDamagedMenuDialog);
+	}
+
+	return 0;
+}
 #endif
 
 s32 menuhandlerRepairPak(s32 operation, struct menuitem *item, union handlerdata *data)
