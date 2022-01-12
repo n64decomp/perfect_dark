@@ -30793,51 +30793,22 @@ char *menuTextSaveDeviceName(struct menuitem *item)
 	return NULL;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 s32 menuhandlerRetrySavePak(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
+
+#if VERSION >= VERSION_NTSC_1_0
 		g_Vars.unk0004e4 &= 0xfff0;
 		g_Vars.unk0004e4 |= 8;
 		g_Vars.unk0004e4 |= 1 << ((u8)g_Menus[g_MpPlayerNum].fm.device3 + 8);
+#else
+		pak0f1169c8(g_Menus[g_MpPlayerNum].fm.device3, 0);
+#endif
 	}
 
 	return 0;
 }
-#else
-GLOBAL_ASM(
-glabel menuhandlerRetrySavePak
-/*  f0f9634:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0f9638:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0f963c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0f9640:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0f9644:	14810011 */ 	bne	$a0,$at,.NB0f0f968c
-/*  f0f9648:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0f964c:	0fc3c088 */ 	jal	menuPopDialog
-/*  f0f9650:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0f9654:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f0f9658:	8dce3af0 */ 	lw	$t6,0x3af0($t6)
-/*  f0f965c:	3c04800a */ 	lui	$a0,0x800a
-/*  f0f9660:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0f9664:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f0f9668:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f966c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0f9670:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f9674:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f0f9678:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f967c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0f9680:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f0f9684:	0fc44356 */ 	jal	pak0f1169c8
-/*  f0f9688:	80843578 */ 	lb	$a0,0x3578($a0)
-.NB0f0f968c:
-/*  f0f968c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f9690:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0f9694:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0f9698:	03e00008 */ 	jr	$ra
-/*  f0f969c:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
 
 s32 menuhandlerWarnRepairPak(s32 operation, struct menuitem *item, union handlerdata *data)
 {
