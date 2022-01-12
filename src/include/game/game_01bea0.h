@@ -6,6 +6,6 @@
 
 void func0f01bea0(void);
 void menuCountDialogs(void);
-void menuTickAll(void);
+void menuTick(void);
 
 #endif

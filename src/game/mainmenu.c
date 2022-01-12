@@ -6098,8 +6098,8 @@ s32 menuhandlerMainMenuCombatSimulator(s32 operation, struct menuitem *item, uni
 		g_Vars.coopplayernum = -1;
 		g_Vars.antiplayernum = -1;
 		mpDetermineUnlockedFeatures();
-		g_Vars.unk000490 = 2;
-		func0f0f820c(&g_CombatSimulatorMenuDialog, 3);
+		g_Vars.mpsetupmenu = MPSETUPMENU_GENERAL;
+		func0f0f820c(&g_CombatSimulatorMenuDialog, MENUROOT_MPSETUP);
 		func0f0f8300();
 	}
 

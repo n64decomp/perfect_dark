@@ -69,7 +69,7 @@ u32 func0f0f9030(void);
 u32 func0f0f935c(void);
 void func0f0fa574(struct menuframe *frame);
 void func0f0fa6ac(void);
-void func0f0fa704(void);
+void menuDialogTick(void);
 u32 func0f0fb488(void);
 Gfx *func0f0fbba0(Gfx *gdl, u8 param_2, s32 arg2);
 Gfx *func0f0fbc30(Gfx *gdl);

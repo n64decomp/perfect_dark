@@ -214,15 +214,10 @@ struct g_vars {
 	/*000484*/ s32 mphilltime;
 	/*000488*/ s32 totalkills;
 	/*00048c*/ bool unk00048c;
-
-	// 1 when entering game setup
-	// 2 when entering combat simulator
-	// 3 when entering Quick Go
-	/*000490*/ s32 unk000490;
-
-	/*000494*/ s8 unk000494[4];
+	/*000490*/ s32 mpsetupmenu;
+	/*000494*/ s8 waitingtojoin[4];
 	/*000498*/ s32 unk000498;
-	/*00049c*/ s32 unk00049c;
+	/*00049c*/ bool usingadvsetup;
 	/*0004a0*/ s32 unk0004a0;
 	/*0004a4*/ s32 mpquickteamnumsims;
 	/*0004a8*/ s32 mpsimdifficulty;
@@ -2942,7 +2937,7 @@ struct player {
 	/*0x1c3c*/ s32 unk1c3c;
 	/*0x1c40*/ u32 joybutinhibit;
 	/*0x1c44*/ struct coord bondextrapos;
-	/*0x1c50*/ u8 unk1c50_01 : 1;
+	/*0x1c50*/ u8 menuisactive : 1;
 	/*0x1c51*/ u8 disguised : 1;
 	/*0x1c54*/ u32 devicesinhibit;
 	/*0x1c58*/ f32 grabbedforcez;

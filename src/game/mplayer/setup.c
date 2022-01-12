@@ -3507,8 +3507,8 @@ char *mpMenuTextWeaponSetName(struct menuitem *item)
 s32 menudialogMpGameSetup(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
-		g_Vars.unk000490 = 1;
-		g_Vars.unk00049c = 1;
+		g_Vars.mpsetupmenu = MPSETUPMENU_ADVSETUP;
+		g_Vars.usingadvsetup = true;
 	}
 
 	return false;
@@ -3517,7 +3517,7 @@ s32 menudialogMpGameSetup(s32 operation, struct menudialog *dialog, union handle
 s32 menudialogMpQuickGo(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
-		g_Vars.unk000490 = 3;
+		g_Vars.mpsetupmenu = MPSETUPMENU_QUICKGO;
 	}
 
 	return false;
@@ -3806,18 +3806,18 @@ s32 menuhandlerMpQuickTeamOption(s32 operation, struct menuitem *item, union han
 s32 menudialogCombatSimulator(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
-		g_Vars.unk000494[0] = 0;
-		g_Vars.unk000494[1] = 0;
-		g_Vars.unk000494[2] = 0;
-		g_Vars.unk000494[3] = 0;
+		g_Vars.waitingtojoin[0] = false;
+		g_Vars.waitingtojoin[1] = false;
+		g_Vars.waitingtojoin[2] = false;
+		g_Vars.waitingtojoin[3] = false;
 	}
 
 	if (g_Menus[g_MpPlayerNum].curframe
 			&& g_Menus[g_MpPlayerNum].curframe->dialog == &g_CombatSimulatorMenuDialog
 			&& operation == MENUOP_TICK) {
-		g_Vars.unk000490 = 2;
+		g_Vars.mpsetupmenu = MPSETUPMENU_GENERAL;
 		g_Vars.mpquickteam = MPQUICKTEAM_NONE;
-		g_Vars.unk00049c = 0;
+		g_Vars.usingadvsetup = false;
 		mpClearCurrentChallenge();
 		mpRemoveLock();
 	}

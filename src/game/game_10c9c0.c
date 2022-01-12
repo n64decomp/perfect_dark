@@ -137,7 +137,7 @@ void func0f10cb2c(void)
 
 	if (g_FileState != FILESTATE_UNSELECTED) {
 		if (var80087260 == 0) {
-			g_Vars.unk000490 = 2;
+			g_Vars.mpsetupmenu = MPSETUPMENU_GENERAL;
 			menuPushRootDialog(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
 		}
 	} else {
@@ -163,18 +163,18 @@ void func0f10cb2c(void)
 s32 menudialog4MbMainMenu(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
-		g_Vars.unk000494[0] = 0;
-		g_Vars.unk000494[1] = 0;
-		g_Vars.unk000494[2] = 0;
-		g_Vars.unk000494[3] = 0;
+		g_Vars.waitingtojoin[0] = false;
+		g_Vars.waitingtojoin[1] = false;
+		g_Vars.waitingtojoin[2] = false;
+		g_Vars.waitingtojoin[3] = false;
 	}
 
 	if (g_Menus[g_MpPlayerNum].curframe &&
 			g_Menus[g_MpPlayerNum].curframe->dialog == &g_MainMenu4MbMenuDialog &&
 			operation == MENUOP_TICK) {
-		g_Vars.unk000490 = 2;
+		g_Vars.mpsetupmenu = MPSETUPMENU_GENERAL;
 		g_Vars.mpquickteam = MPQUICKTEAM_NONE;
-		g_Vars.unk00049c = 0;
+		g_Vars.usingadvsetup = false;
 		mpClearCurrentChallenge();
 		mpRemoveLock();
 	}

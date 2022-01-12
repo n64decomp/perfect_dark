@@ -15853,7 +15853,7 @@ glabel var7f1b296c
 /*  f0f7590:	00000000 */ 	nop
 );
 
-u32 var800714d8 = 0x00000001;
+u32 g_MpNumJoined = 1;
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -15866,7 +15866,7 @@ glabel func0f0f7594
 /*  f0f75a8:	aca00000 */ 	sw	$zero,0x0($a1)
 /*  f0f75ac:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
 /*  f0f75b0:	3c02800a */ 	lui	$v0,%hi(g_Menus+0x83b)
-/*  f0f75b4:	3c038007 */ 	lui	$v1,%hi(var800714d8)
+/*  f0f75b4:	3c038007 */ 	lui	$v1,%hi(g_MpNumJoined)
 /*  f0f75b8:	000fc0c0 */ 	sll	$t8,$t7,0x3
 /*  f0f75bc:	030fc023 */ 	subu	$t8,$t8,$t7
 /*  f0f75c0:	0018c080 */ 	sll	$t8,$t8,0x2
@@ -15878,7 +15878,7 @@ glabel func0f0f7594
 /*  f0f75d8:	9042e83b */ 	lbu	$v0,%lo(g_Menus+0x83b)($v0)
 /*  f0f75dc:	aca00000 */ 	sw	$zero,0x0($a1)
 /*  f0f75e0:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f0f75e4:	8c6314d8 */ 	lw	$v1,%lo(var800714d8)($v1)
+/*  f0f75e4:	8c6314d8 */ 	lw	$v1,%lo(g_MpNumJoined)($v1)
 /*  f0f75e8:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0f75ec:	10610009 */ 	beq	$v1,$at,.L0f0f7614
 /*  f0f75f0:	24010002 */ 	addiu	$at,$zero,0x2
@@ -16257,8 +16257,8 @@ glabel var7f1b2990
 /*  f0f790c:	00000000 */ 	nop
 /*  f0f7910:	2484fff6 */ 	addiu	$a0,$a0,-10
 .L0f0f7914:
-/*  f0f7914:	3c028007 */ 	lui	$v0,%hi(var800714d8)
-/*  f0f7918:	8c4214d8 */ 	lw	$v0,%lo(var800714d8)($v0)
+/*  f0f7914:	3c028007 */ 	lui	$v0,%hi(g_MpNumJoined)
+/*  f0f7918:	8c4214d8 */ 	lw	$v0,%lo(g_MpNumJoined)($v0)
 /*  f0f791c:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0f7920:	1041000a */ 	beq	$v0,$at,.L0f0f794c
 /*  f0f7924:	24010002 */ 	addiu	$at,$zero,0x2
@@ -23750,34 +23750,34 @@ void func0f0fa6ac(void)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0fa704
+glabel menuDialogTick
 .late_rodata
 glabel var7f1b2a98
-.word func0f0fa704+0xd64
+.word menuDialogTick+0xd64
 glabel var7f1b2a9c
-.word func0f0fa704+0xd64
+.word menuDialogTick+0xd64
 glabel var7f1b2aa0
-.word func0f0fa704+0xc8c
+.word menuDialogTick+0xc8c
 glabel var7f1b2aa4
-.word func0f0fa704+0xd14
+.word menuDialogTick+0xd14
 glabel var7f1b2aa8
-.word func0f0fa704+0xd64
+.word menuDialogTick+0xd64
 glabel var7f1b2aac
-.word func0f0fa704+0xda8
+.word menuDialogTick+0xda8
 glabel var7f1b2ab0
-.word func0f0fa704+0xda8
+.word menuDialogTick+0xda8
 glabel var7f1b2ab4
-.word func0f0fa704+0xda8
+.word menuDialogTick+0xda8
 glabel var7f1b2ab8
-.word func0f0fa704+0xda8
+.word menuDialogTick+0xda8
 glabel var7f1b2abc
-.word func0f0fa704+0xda8
+.word menuDialogTick+0xda8
 glabel var7f1b2ac0
-.word func0f0fa704+0xc8c
+.word menuDialogTick+0xc8c
 glabel var7f1b2ac4
-.word func0f0fa704+0xda8
+.word menuDialogTick+0xda8
 glabel var7f1b2ac8
-.word func0f0fa704+0xd64
+.word menuDialogTick+0xd64
 .text
 /*  f0fae40:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f0fae44:	afb70034 */ 	sw	$s7,0x34($sp)
@@ -24801,34 +24801,34 @@ glabel var7f1b2ac8
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f0fa704
+glabel menuDialogTick
 .late_rodata
 glabel var7f1b2a98
-.word func0f0fa704+0xd10 # f0fb414
+.word menuDialogTick+0xd10 # f0fb414
 glabel var7f1b2a9c
-.word func0f0fa704+0xd10 # f0fb414
+.word menuDialogTick+0xd10 # f0fb414
 glabel var7f1b2aa0
-.word func0f0fa704+0xc38 # f0fb33c
+.word menuDialogTick+0xc38 # f0fb33c
 glabel var7f1b2aa4
-.word func0f0fa704+0xcc0 # f0fb3c4
+.word menuDialogTick+0xcc0 # f0fb3c4
 glabel var7f1b2aa8
-.word func0f0fa704+0xd10 # f0fb414
+.word menuDialogTick+0xd10 # f0fb414
 glabel var7f1b2aac
-.word func0f0fa704+0xd54 # f0fb458
+.word menuDialogTick+0xd54 # f0fb458
 glabel var7f1b2ab0
-.word func0f0fa704+0xd54 # f0fb458
+.word menuDialogTick+0xd54 # f0fb458
 glabel var7f1b2ab4
-.word func0f0fa704+0xd54 # f0fb458
+.word menuDialogTick+0xd54 # f0fb458
 glabel var7f1b2ab8
-.word func0f0fa704+0xd54 # f0fb458
+.word menuDialogTick+0xd54 # f0fb458
 glabel var7f1b2abc
-.word func0f0fa704+0xd54 # f0fb458
+.word menuDialogTick+0xd54 # f0fb458
 glabel var7f1b2ac0
-.word func0f0fa704+0xc38 # f0fb33c
+.word menuDialogTick+0xc38 # f0fb33c
 glabel var7f1b2ac4
-.word func0f0fa704+0xd54 # f0fb458
+.word menuDialogTick+0xd54 # f0fb458
 glabel var7f1b2ac8
-.word func0f0fa704+0xd10 # f0fb414
+.word menuDialogTick+0xd10 # f0fb414
 .text
 /*  f0fa704:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f0fa708:	afb70034 */ 	sw	$s7,0x34($sp)
@@ -25828,34 +25828,34 @@ glabel var7f1b2ac8
 );
 #else
 GLOBAL_ASM(
-glabel func0f0fa704
+glabel menuDialogTick
 .late_rodata
 glabel var7f1b2a98
-.word func0f0fa704+0xd10
+.word menuDialogTick+0xd10
 glabel var7f1b2a9c
-.word func0f0fa704+0xd10
+.word menuDialogTick+0xd10
 glabel var7f1b2aa0
-.word func0f0fa704+0xc38
+.word menuDialogTick+0xc38
 glabel var7f1b2aa4
-.word func0f0fa704+0xcc0
+.word menuDialogTick+0xcc0
 glabel var7f1b2aa8
-.word func0f0fa704+0xd10
+.word menuDialogTick+0xd10
 glabel var7f1b2aac
-.word func0f0fa704+0xd54
+.word menuDialogTick+0xd54
 glabel var7f1b2ab0
-.word func0f0fa704+0xd54
+.word menuDialogTick+0xd54
 glabel var7f1b2ab4
-.word func0f0fa704+0xd54
+.word menuDialogTick+0xd54
 glabel var7f1b2ab8
-.word func0f0fa704+0xd54
+.word menuDialogTick+0xd54
 glabel var7f1b2abc
-.word func0f0fa704+0xd54
+.word menuDialogTick+0xd54
 glabel var7f1b2ac0
-.word func0f0fa704+0xc38
+.word menuDialogTick+0xc38
 glabel var7f1b2ac4
-.word func0f0fa704+0xd54
+.word menuDialogTick+0xd54
 glabel var7f1b2ac8
-.word func0f0fa704+0xd10
+.word menuDialogTick+0xd10
 .text
 /*  f0f6e54:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f0f6e58:	afb70034 */ 	sw	$s7,0x34($sp)
@@ -28862,7 +28862,7 @@ glabel var7f1b2afc
 /*  f0fc340:	15610013 */ 	bne	$t3,$at,.L0f0fc390
 /*  f0fc344:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f0fc348:	1441000d */ 	bne	$v0,$at,.L0f0fc380
-/*  f0fc34c:	3c108007 */ 	lui	$s0,%hi(var800714d8)
+/*  f0fc34c:	3c108007 */ 	lui	$s0,%hi(g_MpNumJoined)
 /*  f0fc350:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f0fc354:	24100001 */ 	addiu	$s0,$zero,0x1
 /*  f0fc358:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
@@ -28878,7 +28878,7 @@ glabel var7f1b2afc
 /*  f0fc378:	10000005 */ 	b	.L0f0fc390
 /*  f0fc37c:	00000000 */ 	nop
 .L0f0fc380:
-/*  f0fc380:	8e1014d8 */ 	lw	$s0,%lo(var800714d8)($s0)
+/*  f0fc380:	8e1014d8 */ 	lw	$s0,%lo(g_MpNumJoined)($s0)
 /*  f0fc384:	2e0e0002 */ 	sltiu	$t6,$s0,0x2
 /*  f0fc388:	10000001 */ 	b	.L0f0fc390
 /*  f0fc38c:	01c08025 */ 	or	$s0,$t6,$zero

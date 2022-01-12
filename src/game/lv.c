@@ -3642,7 +3642,7 @@ Gfx *lvRender(Gfx *gdl)
 				gdl = currentPlayerScissorToViewport(gdl);
 				mtx00016748(1);
 
-				if (g_Vars.currentplayer->unk1c50_01) {
+				if (g_Vars.currentplayer->menuisactive) {
 					gdl = func0f0fbc30(gdl);
 				}
 			} else {
@@ -4059,7 +4059,7 @@ Gfx *lvRender(Gfx *gdl)
 				gdl = amRender(gdl);
 				mtx00016748(1);
 
-				if (g_Vars.currentplayer->unk1c50_01) {
+				if (g_Vars.currentplayer->menuisactive) {
 					gdl = func0f0fbc30(gdl);
 				}
 
@@ -7676,7 +7676,7 @@ glabel var7f1b8ed0pf
 /*  f16d720:	00002025 */ 	move	$a0,$zero
 /*  f16d724:	0fc2f738 */ 	jal	currentPlayerConfigureVi
 /*  f16d728:	00000000 */ 	nop
-/*  f16d72c:	0fc07006 */ 	jal	menuTickAll
+/*  f16d72c:	0fc07006 */ 	jal	menuTick
 /*  f16d730:	00000000 */ 	nop
 /*  f16d734:	0c0046c5 */ 	jal	musicTick
 /*  f16d738:	00000000 */ 	nop
@@ -7690,7 +7690,7 @@ glabel var7f1b8ed0pf
 .PF0f16d758:
 /*  f16d758:	5441000c */ 	bnel	$v0,$at,.PF0f16d78c
 /*  f16d75c:	2401005c */ 	li	$at,0x5c
-/*  f16d760:	0fc07006 */ 	jal	menuTickAll
+/*  f16d760:	0fc07006 */ 	jal	menuTick
 /*  f16d764:	00000000 */ 	nop
 /*  f16d768:	0c0046c5 */ 	jal	musicTick
 /*  f16d76c:	00000000 */ 	nop
@@ -7759,7 +7759,7 @@ glabel var7f1b8ed0pf
 /*  f16d858:	00000000 */ 	nop
 /*  f16d85c:	0fc06c94 */ 	jal	amTick
 /*  f16d860:	00000000 */ 	nop
-/*  f16d864:	0fc07006 */ 	jal	menuTickAll
+/*  f16d864:	0fc07006 */ 	jal	menuTick
 /*  f16d868:	00000000 */ 	nop
 /*  f16d86c:	0fc619ac */ 	jal	scenarioTick
 /*  f16d870:	00000000 */ 	nop
@@ -8102,12 +8102,12 @@ void lvTick(void)
 		musicTick();
 	} else if (g_Vars.stagenum == STAGE_BOOTPAKMENU) {
 		setCurrentPlayerNum(0);
-		menuTickAll();
+		menuTick();
 		musicTick();
 		func0f01d860();
 		pakExecuteDebugOperations();
 	} else if (g_Vars.stagenum == STAGE_4MBMENU) {
-		menuTickAll();
+		menuTick();
 		musicTick();
 		func0f01d860();
 		pakExecuteDebugOperations();
@@ -8141,7 +8141,7 @@ void lvTick(void)
 		func0f0b2904();
 		func0f0aefb8();
 		amTick();
-		menuTickAll();
+		menuTick();
 		scenarioTick();
 
 		if (!g_MainIsEndscreen) {
@@ -9278,7 +9278,7 @@ glabel lvTick
 /*  f16768c:	2401005d */ 	addiu	$at,$zero,0x5d
 /*  f167690:	0fc48d5b */ 	jal	setCurrentPlayerNum
 /*  f167694:	00002025 */ 	or	$a0,$zero,$zero
-/*  f167698:	0fc06f0a */ 	jal	menuTickAll
+/*  f167698:	0fc06f0a */ 	jal	menuTick
 /*  f16769c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1676a0:	0c004848 */ 	jal	musicTick
 /*  f1676a4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -9292,7 +9292,7 @@ glabel lvTick
 .NB0f1676c4:
 /*  f1676c4:	5441000c */ 	bnel	$v0,$at,.NB0f1676f8
 /*  f1676c8:	2401005c */ 	addiu	$at,$zero,0x5c
-/*  f1676cc:	0fc06f0a */ 	jal	menuTickAll
+/*  f1676cc:	0fc06f0a */ 	jal	menuTick
 /*  f1676d0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1676d4:	0c004848 */ 	jal	musicTick
 /*  f1676d8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -9361,7 +9361,7 @@ glabel lvTick
 /*  f1677c4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1677c8:	0fc06ba4 */ 	jal	amTick
 /*  f1677cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1677d0:	0fc06f0a */ 	jal	menuTickAll
+/*  f1677d0:	0fc06f0a */ 	jal	menuTick
 /*  f1677d4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1677d8:	0fc5ff13 */ 	jal	scenarioTick
 /*  f1677dc:	00000000 */ 	sll	$zero,$zero,0x0
