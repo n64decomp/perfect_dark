@@ -11029,7 +11029,7 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 
 		ypos -= data->scrolloffset;
 
-		for (i = 0; i < 12; i++) {
+		for (i = 0; i < MAX_MPCHRS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
 				struct mpchrconfig *loopmpchr = MPCHR(i);
 

@@ -625,7 +625,7 @@ void scenarioCalculatePlayerScore(struct mpchrconfig *mpchr, s32 chrnum, s32 *sc
 	} else {
 		*score = 0;
 
-		for (i = 0; i < 12; i++) {
+		for (i = 0; i < MAX_MPCHRS; i++) {
 			if (i == chrnum) {
 				*score -= mpchr->killcounts[i];
 			} else if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {

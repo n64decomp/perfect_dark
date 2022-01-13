@@ -149,7 +149,7 @@ void ctcInitProps(void)
 		teamsdone[g_ScenarioData.ctc.teamindexes[i]] = true;
 	}
 
-	for (k = 0; k < 12; k++) {
+	for (k = 0; k < MAX_MPCHRS; k++) {
 		if (g_MpSetup.chrslots & (1 << k)) {
 			mpchr = MPCHR(k);
 

@@ -37,7 +37,7 @@
 #define PICKUPCRITERIA_CRITICAL 1
 #define PICKUPCRITERIA_ANY      2
 
-struct chrdata *g_MpBotChrPtrs[MAX_SIMULANTS];
+struct chrdata *g_MpBotChrPtrs[MAX_BOTS];
 
 u8 g_BotCount = 0;
 
@@ -771,23 +771,23 @@ glabel botReset
 //			chrSetShield(chr, 0);
 //			chr->cmnum = 0;
 //			chr->cmnum2 = 0;
-//			bgunFreeFireslot(chr->fireslot[0]);
-//			bgunFreeFireslot(chr->fireslot[1]);
+//			bgunFreeFireslot(chr->fireslots[0]);
+//			bgunFreeFireslot(chr->fireslots[1]);
 //			chr->unk32c_12 = 0;
-//			chr->fireslot[0] = -1;
-//			chr->fireslot[1] = -1;
+//			chr->fireslots[0] = -1;
+//			chr->fireslots[1] = -1;
 //			chr->firecount[0] = 0;
 //			chr->firecount[1] = 0;
 //			chr->weapons_held[0] = NULL;
 //			chr->weapons_held[1] = NULL;
-//			chr->unk178 = 0;
+//			chr->weapons_held[2] = NULL;
 //			chr->liftaction = 0;
 //			chr->inlift = 0;
-//			chr->unk364 = 0;
+//			chr->lift = NULL;
 //			chr->chrheight = 185;
 //
 //			for (i = 0; i < 33; i++) {
-//				aibot->unk01c->unk00[i] = 0;
+//				aibot->ammoheld[i] = 0;
 //			}
 //
 //			botinvClear(chr);
@@ -806,9 +806,9 @@ glabel botReset
 //			aibot->gotoprop = NULL;
 //			aibot->timeuntilreload60[0] = 0;
 //			aibot->timeuntilreload60[1] = 0;
-//			aibot->nextbullettimer60 = 0;
-//			aibot->unk060 = 0;
-//			aibot->unk074 = -1;
+//			aibot->nextbullettimer60[0] = 0;
+//			aibot->nextbullettimer60[1] = 0;
+//			aibot->distmode = -1;
 //			aibot->unk030 = 301;
 //			aibot->throwtimer60 = 0;
 //			aibot->burstsdone[0] = 0;
@@ -823,8 +823,8 @@ glabel botReset
 //			aibot->lastknownhill = -1;
 //			aibot->cyclonedischarging[1] = 0;
 //			aibot->cyclonedischarging[0] = 0;
-//			aibot->unk0cc = 0;
-//			aibot->unk0d0 = 0;
+//			aibot->changeguntimer60 = 0;
+//			aibot->distmodettl60 = 0;
 //			aibot->forcemainloop = false;
 //			aibot->returntodefendtimer60 = 0;
 //			aibot->punchtimer60[HAND_LEFT] = -1;
@@ -833,20 +833,20 @@ glabel botReset
 //			aibot->reaperspeed[HAND_RIGHT] = 0;
 //			aibot->commandtimer60 = 0;
 //			aibot->shootdelaytimer60 = 0;
-//			aibot->unk120 = -1;
+//			aibot->targetlastseen60 = -1;
 //			aibot->lastseenanytarget60 = -1;
 //			aibot->targetinsight = 0;
 //			aibot->queryplayernum = 0;
 //			aibot->unk040 = 0;
 //			aibot->unk06c = 0;
 //			aibot->unk070 = 0;
-//			aibot->unk0e8 = 0;
-//			aibot->unk0e4 = 0;
-//			aibot->unk108 = 0;
-//			aibot->unk10c = 0;
-//			aibot->unk110 = 0;
+//			aibot->maulercharge[1] = 0;
+//			aibot->maulercharge[0] = 0;
+//			aibot->shotspeed.x = 0;
+//			aibot->shotspeed.y = 0;
+//			aibot->shotspeed.z = 0;
 //
-//			for (i = 0; i != 12; i++) {
+//			for (i = 0; i != MAX_MPCHRS; i++) {
 //				aibot->chrnumsbydistanceasc[i] = -1;
 //				aibot->chrdistances[i] = U32_MAX;
 //				aibot->chrsinsight[i] = false;
@@ -854,7 +854,7 @@ glabel botReset
 //				aibot->chrrooms[i] = -1;
 //			}
 //
-//			aibot->unk1e8 = 0;
+//			aibot->waypoints[0] = NULL;
 //			aibot->unk208 = 0;
 //			aibot->random1 = random();
 //			aibot->random1ttl60 = 0;
@@ -864,7 +864,7 @@ glabel botReset
 //			aibot->unk2c4 = 0;
 //
 //			aibot->random2 = random();
-//			aibot->aibot = random();
+//			aibot->randomfrac = random() * (1.0f / U32_MAX);
 //			aibot->unk078 = 0;
 //			aibot->cheap = 0;
 //			aibot->unk050 = 0;
@@ -4396,7 +4396,7 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 	struct aibot *aibot = botchr->aibot;
 	s32 i;
 	s32 j;
-	bool distancesdone[12];
+	bool distancesdone[MAX_MPCHRS];
 	s16 room = -1;
 	struct chrdata *trychr;
 	s32 playernum;
@@ -11004,7 +11004,7 @@ void botTickUnpaused(struct chrdata *chr)
 					}
 				} else if (aibot->config->type == BOTTYPE_JUDGE) {
 					// Attack the winning player
-					struct ranking rankings[12];
+					struct ranking rankings[MAX_MPCHRS];
 					s32 count = mpGetPlayerRankings(rankings);
 					s32 i;
 

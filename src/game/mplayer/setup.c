@@ -1502,7 +1502,7 @@ char *mpMenuTextMpconfigMarquee(struct menuitem *item)
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
-		if (scenarionum <= 5 && arenanum != -1 && numsims >= 0 && filename[0] != '\0' && numsims <= 8) {
+		if (scenarionum <= 5 && arenanum != -1 && numsims >= 0 && filename[0] != '\0' && numsims <= MAX_BOTS) {
 			// "%s:  Scenario: %s   Arena: %s    Simulants: %d"
 			sprintf(g_StringPointer, langGet(L_MPMENU_140),
 					filename,
@@ -2114,7 +2114,7 @@ s32 menuhandlerMpClearAllSimulants(s32 operation, struct menuitem *item, union h
 {
 	if (operation == MENUOP_SET) {
 		s32 i;
-		for (i = 0; i < MAX_SIMULANTS; i++) {
+		for (i = 0; i < MAX_BOTS; i++) {
 			mpRemoveSimulant(i);
 		}
 	}
@@ -3528,7 +3528,7 @@ void mpConfigureQuickTeamPlayers(void)
 	s32 i;
 
 	if (g_Vars.mpquickteam != MPQUICKTEAM_NONE) {
-		for (i = 0; i < 8; i++) {
+		for (i = 0; i < MAX_BOTS; i++) {
 			mpRemoveSimulant(i);
 		}
 
@@ -3692,7 +3692,7 @@ s32 menuhandlerMpNumberOfSimulants(s32 operation, struct menuitem *item, union h
 {
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->dropdown.value = !mpIsFeatureUnlocked(MPFEATURE_8BOTS) ? 4 : 8;
+		data->dropdown.value = !mpIsFeatureUnlocked(MPFEATURE_8BOTS) ? 4 : MAX_BOTS;
 		break;
 	case MENUOP_GETOPTIONTEXT:
 		sprintf(g_StringPointer, "%d\n", data->dropdown.value + 1);

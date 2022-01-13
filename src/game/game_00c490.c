@@ -3447,18 +3447,18 @@ void setupParseObjects(s32 stagenum)
 			if (g_Vars.normmplayerisrunning && mpHasSimulants()) {
 				u32 stack[4];
 				s32 i;
-				s32 slotsdone[8];
+				s32 slotsdone[MAX_BOTS];
 				s32 chrnum = 0;
 				s32 maxsimulants;
 				s32 slotnum;
 
 				if (mpIsFeatureUnlocked(MPFEATURE_8BOTS)) {
-					maxsimulants = 8;
+					maxsimulants = MAX_BOTS;
 				} else {
 					maxsimulants = 4;
 				}
 
-				for (i = 0; i < 8; i++) {
+				for (i = 0; i < MAX_BOTS; i++) {
 					slotsdone[i] = false;
 				}
 

@@ -39,7 +39,7 @@ s32 mpStatsForPlayerDropdownHandler(s32 operation, struct menuitem *item, union 
 	case MENUOP_GETOPTIONCOUNT:
 		data->list.value = 0;
 
-		for (v0 = 0; v0 < 12; v0++) {
+		for (v0 = 0; v0 < MAX_MPCHRS; v0++) {
 			if (g_MpSetup.chrslots & (1 << v0)) {
 				data->list.value++;
 			}
@@ -48,7 +48,7 @@ s32 mpStatsForPlayerDropdownHandler(s32 operation, struct menuitem *item, union 
 	case MENUOP_GETOPTIONTEXT:
 		v0 = 0;
 
-		for (a1 = 0; a1 < 12; a1++) {
+		for (a1 = 0; a1 < MAX_MPCHRS; a1++) {
 			if (g_MpSetup.chrslots & (1 << a1)) {
 				mpchr = MPCHR(a1);
 
@@ -64,7 +64,7 @@ s32 mpStatsForPlayerDropdownHandler(s32 operation, struct menuitem *item, union 
 	case MENUOP_SET:
 		v0 = 0;
 
-		for (a1 = 0; a1 < 12; a1++) {
+		for (a1 = 0; a1 < MAX_MPCHRS; a1++) {
 			if (g_MpSetup.chrslots & (1 << a1)) {
 				if (v0);
 
@@ -80,7 +80,7 @@ s32 mpStatsForPlayerDropdownHandler(s32 operation, struct menuitem *item, union 
 	case MENUOP_GETOPTIONVALUE:
 		v0 = 0;
 
-		for (v1 = 0; v1 < 12; v1++) {
+		for (v1 = 0; v1 < MAX_MPCHRS; v1++) {
 			if (g_MpSetup.chrslots & (1 << v1)) {
 				if (v0);
 

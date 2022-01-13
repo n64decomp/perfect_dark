@@ -1396,9 +1396,9 @@
 #define MAX_CHRWAYPOINTS   6
 #define MAX_DANGEROUSPROPS 12
 #define MAX_LIFTS          10
-#define MAX_MPCHRS         (4 + MAX_SIMULANTS)
+#define MAX_MPCHRS         (4 + MAX_BOTS)
 #define MAX_OBJECTIVES     10
-#define MAX_SIMULANTS      8
+#define MAX_BOTS           8
 #define MAX_SPAWNPOINTS    24
 #define MAX_SQUADRONS      16
 #define MAX_TEAMS          8

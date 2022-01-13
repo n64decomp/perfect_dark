@@ -919,11 +919,11 @@ struct aibot {
 	/*0x124*/ s32 lastseenanytarget60;
 	/*0x128*/ bool targetinsight;
 	/*0x12c*/ s32 queryplayernum;
-	/*0x130*/ s8 chrnumsbydistanceasc[12];
-	/*0x13c*/ f32 chrdistances[12];
-	/*0x16c*/ u8 chrsinsight[12];
-	/*0x178*/ s32 chrslastseen60[12];
-	/*0x1a8*/ s16 chrrooms[12];
+	/*0x130*/ s8 chrnumsbydistanceasc[MAX_MPCHRS];
+	/*0x13c*/ f32 chrdistances[MAX_MPCHRS];
+	/*0x16c*/ u8 chrsinsight[MAX_MPCHRS];
+	/*0x178*/ s32 chrslastseen60[MAX_MPCHRS];
+	/*0x1a8*/ s16 chrrooms[MAX_MPCHRS];
 	/*0x1c0*/ f32 unk1c0;
 	/*0x1c4*/ f32 unk1c4;
 	/*0x1c8*/ f32 unk1c8;
@@ -2912,7 +2912,7 @@ struct player {
 	/*0x1be0*/ f32 cachedlookahead;
 	/*0x1be4*/ u16 lookaheadframe;
 	/*0x1be6*/ u8 numaibuddies;
-	/*0x1be7*/ u8 aibuddynums[MAX_SIMULANTS];
+	/*0x1be7*/ u8 aibuddynums[MAX_BOTS];
 	/*0x1bf0*/ bool bondexploding;
 	/*0x1bf4*/ s32 bondnextexplode; // lvframe60 of next explosion
 	/*0x1bf8*/ s32 bondcurexplode;  // Increases by 1 on each tick even when not exploding
@@ -4568,7 +4568,7 @@ struct mpchrconfig {
 	/*0x1c*/ u16 unk1c;
 	/*0x1e*/ s8 placement; // 0 = winner, 1 = second place etc
 	/*0x20*/ s32 rankablescore;
-	/*0x24*/ s16 killcounts[12]; // per player - each index is a chrslot
+	/*0x24*/ s16 killcounts[MAX_MPCHRS]; // per player - each index is a chrslot
 	/*0x3c*/ s16 numdeaths;
 	/*0x3e*/ s16 numpoints;
 	/*0x40*/ s16 unk40;
@@ -4743,8 +4743,8 @@ struct scenariodata_htm {
 	/*0x800ac1e0*/ s16 dlplayernum;
 	/*0x800ac1e2*/ s16 playernuminrange;
 	/*0x800ac1e4*/ s32 dlterminalnum;
-	/*0x800ac1e8*/ s32 numpoints[12];
-	/*0x800ac218*/ s32 dltime240[12];
+	/*0x800ac1e8*/ s32 numpoints[MAX_MPCHRS];
+	/*0x800ac218*/ s32 dltime240[MAX_MPCHRS];
 	/*0x800ac248*/ u32 unk138;
 	/*0x800ac24c*/ struct prop *uplink;
 	/*0x800ac250*/ u32 unk140;
@@ -4755,9 +4755,9 @@ struct scenariodata_pac {
 	s16 unk00;
 	u16 age240;
 	s32 victimindex;
-	s16 victims[12]; // shuffled list of player numbers
-	s16 killcounts[12]; // indexed by player num
-	s16 survivalcounts[12]; // indexed by player num
+	s16 victims[MAX_MPCHRS]; // shuffled list of player numbers
+	s16 killcounts[MAX_MPCHRS]; // indexed by player num
+	s16 survivalcounts[MAX_MPCHRS]; // indexed by player num
 };
 
 struct scenariodata_koh {

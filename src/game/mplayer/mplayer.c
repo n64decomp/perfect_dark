@@ -33,8 +33,8 @@ struct chrdata *g_MpAllChrPtrs[MAX_MPCHRS];
 struct mpchrconfig *g_MpAllChrConfigPtrs[MAX_MPCHRS];
 s32 g_MpNumChrs;
 u32 var800ac534;
-struct mpbotconfig g_BotConfigsArray[MAX_SIMULANTS];
-u8 g_MpSimulantDifficultiesPerNumPlayers[8][4];
+struct mpbotconfig g_BotConfigsArray[MAX_BOTS];
+u8 g_MpSimulantDifficultiesPerNumPlayers[MAX_BOTS][4];
 struct mpplayerconfig g_PlayerConfigsArray[6];
 u8 g_AmBotCommands[16];
 struct mpsetup g_MpSetup;
@@ -245,7 +245,7 @@ void mpInit(void)
 		}
 	}
 
-	for (i = 0; i != 12; i++) {
+	for (i = 0; i != MAX_MPCHRS; i++) {
 		struct mpchrconfig *mpchr = MPCHR(i);
 
 		func0f187838(mpchr);
@@ -487,7 +487,7 @@ void mpSetDefaultSetup(void)
 		mpPlayerSetDefaults(i, false);
 	}
 
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < MAX_BOTS; i++) {
 		func0f1881d4(i);
 	}
 
@@ -636,13 +636,13 @@ void mpApplyLimits(void)
 s32 mpGetPlayerRankings(struct ranking *rankings)
 {
 	s32 i;
-	s32 scores[12];
-	u32 rankablescores[12];
-	struct mpchrconfig *mpchrs[12];
-	s32 chrnums[12];
+	s32 scores[MAX_MPCHRS];
+	u32 rankablescores[MAX_MPCHRS];
+	struct mpchrconfig *mpchrs[MAX_MPCHRS];
+	s32 chrnums[MAX_MPCHRS];
 	s32 count = 0;
 	s32 numteams;
-	struct ranking teamrankings[12];
+	struct ranking teamrankings[MAX_MPCHRS];
 	s32 winner;
 	s32 loser;
 	s32 score;
@@ -658,7 +658,7 @@ s32 mpGetPlayerRankings(struct ranking *rankings)
 	}
 
 	// Populate 4 arrays with player info, sorted by highest score descending
-	for (i = 0; i < 12; i++) {
+	for (i = 0; i < MAX_MPCHRS; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
 			mpchr = MPCHR(i);
 
@@ -777,7 +777,7 @@ s32 mpCalculateTeamScore(s32 teamnum, s32 *result)
 	s32 score;
 	s32 deaths;
 
-	for (i = 0; i < 12; i++) {
+	for (i = 0; i < MAX_MPCHRS; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
 			mpchr = MPCHR(i);
 
@@ -2157,7 +2157,7 @@ void mpCalculateAwards(void)
 
 	s32 numchrs;
 	s32 numteams;
-	struct ranking teamrankings[12];
+	struct ranking teamrankings[MAX_MPCHRS];
 	u32 stack[4];
 
 	playercount = PLAYERCOUNT();
@@ -2191,7 +2191,7 @@ void mpCalculateAwards(void)
 		metrics[i].numdeaths = 0;
 		metrics[i].numsuicides = 0;
 
-		for (j = 0; j < 12; j++) {
+		for (j = 0; j < MAX_MPCHRS; j++) {
 			if (chrnum == j) {
 				metrics[i].numsuicides += mpchr->killcounts[j];
 			} else {
@@ -2199,7 +2199,7 @@ void mpCalculateAwards(void)
 			}
 		}
 
-		for (j = 0; j < 12; j++) {
+		for (j = 0; j < MAX_MPCHRS; j++) {
 			struct mpchrconfig *othermpchr = MPCHR(j);
 			metrics[i].numdeaths += othermpchr->killcounts[chrnum];
 		}
@@ -2257,7 +2257,7 @@ void mpCalculateAwards(void)
 				bool lost = false;
 
 				if (mpplayer->base.placement == 0) {
-					for (j = 0; j < 12; j++) {
+					for (j = 0; j < MAX_MPCHRS; j++) {
 						if (g_MpSetup.chrslots & (1 << j)) {
 							struct mpchrconfig *othermpchr = MPCHR(j);
 
@@ -2278,7 +2278,7 @@ void mpCalculateAwards(void)
 						|| ((g_MpSetup.options & MPOPTION_TEAMSENABLED) && numteams == mpplayer->base.placement + 1)) {
 					bool won = false;
 
-					for (j = 0; j < 12; j++) {
+					for (j = 0; j < MAX_MPCHRS; j++) {
 						if (g_MpSetup.chrslots & (1 << j)) {
 							struct mpchrconfig *othermpchr = MPCHR(j);
 
@@ -2460,12 +2460,12 @@ void mpCalculateAwards(void)
 		s32 leastdeathsplayer = -1;
 		s32 k;
 
-		for (k = 0; k < 12; k++) {
+		for (k = 0; k < MAX_MPCHRS; k++) {
 			if (g_MpSetup.chrslots & (1 << k)) {
 				s32 totalkills = 0;
 				struct mpchrconfig *mpchr = MPCHR(k);
 
-				for (j = 0; j < 12; j++) {
+				for (j = 0; j < MAX_MPCHRS; j++) {
 					// @bug: i should be k. The value of i was incremented after
 					// the last iteration of its loop above so it'll be between
 					// 1 and 4 inclusively depending on the number of players.
@@ -4087,7 +4087,7 @@ void mpFindUnusedHeadAndBody(u8 *mpheadnum, u8 *mpbodynum)
 		trympheadnum = random() % 75;
 		trympbodynum = random() % 61;
 
-		for (i = 0; i < 12; i++) {
+		for (i = 0; i < MAX_MPCHRS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
 				mpchr = MPCHR(i);
 
@@ -4892,7 +4892,7 @@ struct mpchrconfig *mpGetChrConfigBySlotNum(s32 slot)
 	struct mpchrconfig *result = NULL;
 	s32 i;
 
-	for (i = 0; i < 12; i++) {
+	for (i = 0; i < MAX_MPCHRS; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
 			if (count == slot) {
 				result = MPCHR(i);
@@ -4913,7 +4913,7 @@ s32 mpGetChrIndexBySlotNum(s32 slot)
 	s32 result = 0;
 	s32 i;
 
-	for (i = 0; i < 12; i++) {
+	for (i = 0; i < MAX_MPCHRS; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
 			if (count == slot) {
 				result = i;
@@ -4951,7 +4951,7 @@ u8 mpFindUnusedTeamNum(void)
 	while (teamnum < 7 && !available) {
 		available = true;
 
-		for (i = 0; i < 12; i++) {
+		for (i = 0; i < MAX_MPCHRS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
 				struct mpchrconfig *mpchr = MPCHR(i);
 
@@ -4995,7 +4995,7 @@ void mpCreateBotFromProfile(s32 botnum, u8 profilenum)
 		headnum = g_BotHeads[random() % ARRAYCOUNT(g_BotHeads)];
 		available = true;
 
-		for (i = 0; i < 12; i++) {
+		for (i = 0; i < MAX_MPCHRS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
 				struct mpchrconfig *mpchr = MPCHR(i);
 
@@ -5030,7 +5030,7 @@ s32 mpGetSlotForNewBot(void)
 {
 	s32 i = 0;
 
-	while (i < MAX_SIMULANTS - 1 && g_MpSetup.chrslots & (1 << (i + 4))) {
+	while (i < MAX_BOTS - 1 && g_MpSetup.chrslots & (1 << (i + 4))) {
 		i++;
 	}
 
@@ -5056,10 +5056,10 @@ bool mpHasSimulants(void)
 
 bool mpHasUnusedBotSlots(void)
 {
-	s32 numvacant = mpIsFeatureUnlocked(MPFEATURE_8BOTS) ? 8 : 4;
+	s32 numvacant = mpIsFeatureUnlocked(MPFEATURE_8BOTS) ? MAX_BOTS : 4;
 	s32 i;
 
-	for (i = 4; i < 12; i++) {
+	for (i = 4; i < MAX_MPCHRS; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
 			numvacant--;
 		}
@@ -5074,11 +5074,11 @@ bool mpHasUnusedBotSlots(void)
 
 bool mpIsSimSlotEnabled(s32 slot)
 {
-	s32 numfree = 8;
+	s32 numfree = MAX_BOTS;
 	s32 i;
 
 	if ((g_MpSetup.chrslots & (1 << (slot + 4))) == 0) {
-		for (i = 0; i < 8; i++) {
+		for (i = 0; i < MAX_BOTS; i++) {
 			if (g_MpSetup.chrslots & (1 << (i + 4))) {
 				numfree--;
 			}
@@ -5131,7 +5131,7 @@ void mpGenerateBotNames(void)
 	}
 
 	// Count the number of bots using each profile (MeatSim, TurtleSim etc)
-	for (i = 4; i < 12; i++) {
+	for (i = 4; i < MAX_MPCHRS; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
 			profilenum = mpFindBotProfile(g_BotConfigsArray[i - 4].type, g_BotConfigsArray[i - 4].difficulty);
 
@@ -5152,7 +5152,7 @@ void mpGenerateBotNames(void)
 		}
 	}
 
-	for (i = 4; i < 12; i++) {
+	for (i = 4; i < MAX_MPCHRS; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
 			profilenum = mpFindBotProfile(g_BotConfigsArray[i - 4].type, g_BotConfigsArray[i - 4].difficulty);
 
@@ -5212,7 +5212,7 @@ s32 func0f18d074(s32 index)
 		}
 	}
 
-	for (i = 0; i < MAX_SIMULANTS; i++) {
+	for (i = 0; i < MAX_BOTS; i++) {
 		if (&g_BotConfigsArray[i].base == g_MpAllChrConfigPtrs[index]) {
 			return i + 4;
 		}
@@ -5654,7 +5654,7 @@ void mpApplyConfig(struct mpconfigfull *config)
 	g_MpSetup.chrslots = chrslots;
 #endif
 
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < MAX_BOTS; i++) {
 		g_BotConfigsArray[i].type = config->config.simulants[i].type;
 
 		for (j = 0; j < 4; j++) {
@@ -5732,7 +5732,7 @@ void mpsetupfileLoadWad(struct savebuffer *buffer)
 	g_MpSetup.options = savebufferReadBits(buffer, 21);
 	g_MpSetup.chrslots &= 0x000f;
 
-	for (i = 0; i < MAX_SIMULANTS; i++) {
+	for (i = 0; i < MAX_BOTS; i++) {
 		g_BotConfigsArray[i].base.name[0] = '\0';
 		g_BotConfigsArray[i].type = savebufferReadBits(buffer, 5);
 		g_BotConfigsArray[i].difficulty = savebufferReadBits(buffer, 3);
@@ -5777,7 +5777,7 @@ void mpsetupfileSaveWad(struct savebuffer *buffer)
 
 	func0f0d55a4(buffer, g_MpSetup.name);
 
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < MAX_BOTS; i++) {
 		if (g_MpSetup.chrslots & (1 << (i + 4))) {
 			numsims++;
 		}
@@ -5791,7 +5791,7 @@ void mpsetupfileSaveWad(struct savebuffer *buffer)
 
 	savebufferOr(buffer, g_MpSetup.options, 21);
 
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < MAX_BOTS; i++) {
 		savebufferOr(buffer, g_BotConfigsArray[i].type, 5);
 
 		if (g_MpSetup.chrslots & (1 << (i + 4))) {

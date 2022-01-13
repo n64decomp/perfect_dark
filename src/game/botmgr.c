@@ -18,7 +18,7 @@ void botmgrRemoveAll(void)
 {
 	s32 i;
 
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < MAX_BOTS; i++) {
 		g_MpBotChrPtrs[i] = NULL;
 	}
 
@@ -75,7 +75,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 			chr->team = 1 << g_BotConfigsArray[aibotnum].base.team;
 			chr->squadron = 0;
 
-			if (g_BotCount < 8) {
+			if (g_BotCount < MAX_BOTS) {
 				g_MpBotChrPtrs[g_BotCount] = chr;
 				g_BotCount++;
 
@@ -217,7 +217,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->targetinsight = false;
 					aibot->queryplayernum = 0;
 
-					for (i = 0; i < 12; i++) {
+					for (i = 0; i < MAX_MPCHRS; i++) {
 						aibot->chrnumsbydistanceasc[i] = -1;
 						aibot->chrdistances[i] = U32_MAX;
 						aibot->chrsinsight[i] = 0;

@@ -138,7 +138,7 @@ void kohTick(void)
 	char text[64];
 	s32 teamsinhill[8];
 	struct pad pad;
-	struct prop *chrsinhill[12];
+	struct prop *chrsinhill[MAX_MPCHRS];
 	struct prop *prop;
 	struct chrdata *chr;
 	s32 padnum;
