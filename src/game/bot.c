@@ -3726,20 +3726,21 @@ glabel var7f1b8ef0
 );
 #endif
 
-// Mismatch: updateable is calculated differently
+// Mismatch: regalloc for updateable calculation
 //s32 botTick(struct prop *prop)
 //{
 //	struct chrdata *chr = prop->chr;
 //	struct aibot *aibot = chr->aibot;
 //	s32 result = TICKOP_NONE;
 //	bool updateable;
-//	f32 oldangle;
-//	f32 newangle;
+//	s32 i;
 //	f32 diffangle;
 //	f32 tweenangle;
-//	s32 i;
+//	f32 targetangle;
+//	f32 oldangle;
+//	f32 newangle;
 //
-//	updateable = ((prop->flags & PROPFLAG_NOTYETTICKED) && g_Vars.lvupdate240) != 0;
+//	*(s32 *)&updateable = (prop->flags & PROPFLAG_NOTYETTICKED) && g_Vars.lvupdate240;
 //
 //	if (aibot) {
 //		if (updateable && g_Vars.lvframe60 >= 145) {
@@ -3757,8 +3758,8 @@ glabel var7f1b8ef0
 //
 //			// Dampen blur
 //			if (chr->blurdrugamount > 0) {
-//				if (chr->blurdrugamount > 5000) {
-//					chr->blurdrugamount = 5000;
+//				if (chr->blurdrugamount > PALDOWN(5000)) {
+//					chr->blurdrugamount = PALDOWN(5000);
 //				}
 //
 //				chr->blurdrugamount -= g_Vars.lvupdate240_60 * (chr->blurnumtimesdied + 1);
@@ -3773,60 +3774,60 @@ glabel var7f1b8ef0
 //			oldangle = chrGetInverseTheta(chr);
 //
 //			if (chrIsDead(chr)) {
-//				newangle = chrGetInverseTheta(chr);
+//				targetangle = chrGetInverseTheta(chr);
 //			} else if (aibot->skrocket) {
-//				newangle = chrGetInverseTheta(chr);
+//				targetangle = chrGetInverseTheta(chr);
 //			} else if (botIsAboutToAttack(chr, false)) {
 //				struct prop *target = chrGetTargetProp(chr);
-//				newangle = oldangle + chrGetAngleToPos(chr, &target->pos) + aibot->unk1c0;
-//			} else if (chr->myaction == MA_AIBOTDOWNLOAD && g_ScenarioData.htm.unk0d4 != -1) {
-//				newangle = oldangle + chrGetAngleToPos(chr, &g_ScenarioData.htm.unk07c[g_ScenarioData.htm.unk0d4].prop->pos);
+//				targetangle = chrGetAngleToPos(chr, &target->pos);
+//				targetangle = oldangle + targetangle + aibot->unk1c0;
+//			} else if (chr->myaction == MA_AIBOTDOWNLOAD && g_ScenarioData.htm.dlterminalnum != -1) {
+//				targetangle = chrGetAngleToPos(chr, &g_ScenarioData.htm.terminals[g_ScenarioData.htm.dlterminalnum].prop->pos);
+//				targetangle = oldangle + targetangle;
 //			} else if (chr->myaction == MA_AIBOTFOLLOW
 //					&& aibot->followingplayernum >= 0
 //					&& aibot->chrdistances[aibot->followingplayernum] < 300
-//					&& aibot->unk1e4 >= g_Vars.lvframe60 - 60
+//					&& aibot->unk1e4 >= g_Vars.lvframe60 - PALDOWN(60)
 //					&& aibot->config->difficulty != BOTDIFF_MEAT) {
-//				newangle = chrGetInverseTheta(g_MpAllChrPtrs[aibot->followingplayernum]);
+//				targetangle = chrGetInverseTheta(g_MpAllChrPtrs[aibot->followingplayernum]);
 //			} else if (chr->myaction == MA_AIBOTDEFEND
-//					&& aibot->unk1e4 >= g_Vars.lvframe60 - 60
+//					&& aibot->unk1e4 >= g_Vars.lvframe60 - PALDOWN(60)
 //					&& aibot->config->difficulty != BOTDIFF_MEAT) {
-//				newangle = aibot->unk098;
+//				targetangle = aibot->unk098;
 //			} else {
-//				newangle = func0f03e578(chr);
+//				targetangle = func0f03e578(chr);
 //			}
 //
-//			while (newangle >= M_BADTAU) {
-//				newangle -= M_BADTAU;
+//			while (targetangle >= M_BADTAU) {
+//				targetangle -= M_BADTAU;
 //			}
 //
-//			while (newangle < 0) {
-//				newangle += M_BADTAU;
+//			while (targetangle < 0) {
+//				targetangle += M_BADTAU;
 //			}
 //
 //			if (chr->blurdrugamount > 0 && !chrIsDead(chr) && aibot->skrocket == NULL) {
-//				newangle += chr->blurdrugamount * 0.00031410926021636f * sinf((g_Vars.lvframe60 % 120) * 0.052351541817188f);
+//				targetangle += chr->blurdrugamount * 0.00031410926021636f * sinf((g_Vars.lvframe60 % PALDOWN(120)) * 0.052351541817188f);
 //
-//				if (newangle >= M_BADTAU) {
-//					newangle -= M_BADTAU;
+//				if (targetangle >= M_BADTAU) {
+//					targetangle -= M_BADTAU;
 //				}
 //
-//				newangle += M_BADTAU;
+//				targetangle += M_BADTAU;
 //			}
 //
-//			diffangle = newangle - oldangle;
 //			tweenangle = g_Vars.lvupdate240freal * 0.061590049415827f;
+//			diffangle = targetangle - oldangle;
 //
-//			// cc8?
 //			if (diffangle < -M_PI) {
 //				diffangle += M_BADTAU;
 //			} else if (diffangle >= M_PI) {
 //				diffangle -= M_BADTAU;
 //			}
 //
-//			// cfc
 //			if (diffangle >= 0) {
-//				if (diffangle >= tweenangle) {
-//					newangle = tweenangle;
+//				if (diffangle <= tweenangle) {
+//					newangle = targetangle;
 //				} else {
 //					newangle = oldangle + tweenangle;
 //
@@ -3835,9 +3836,8 @@ glabel var7f1b8ef0
 //					}
 //				}
 //			} else {
-//				// d40
-//				if (diffangle <= -tweenangle) {
-//					newangle = tweenangle;
+//				if (diffangle >= -tweenangle) {
+//					newangle = targetangle;
 //				} else {
 //					newangle = oldangle - tweenangle;
 //
@@ -3853,7 +3853,7 @@ glabel var7f1b8ef0
 //				aibot->speedtheta += M_BADTAU;
 //			}
 //
-//			if (aibot->speedtheta >= M_BADPI) {
+//			if (aibot->speedtheta >= M_PI) {
 //				aibot->speedtheta -= M_BADTAU;
 //			}
 //
