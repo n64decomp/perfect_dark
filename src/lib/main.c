@@ -2643,7 +2643,7 @@ void mainTick(void)
 								g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 					}
 
-					lvRecordDistanceMoved();
+					lvTickPlayer();
 				}
 			}
 
@@ -2880,7 +2880,7 @@ glabel mainTick
 /*     ebf4:	0c002feb */ 	jal	viSetFovAspectAndSize
 /*     ebf8:	84470632 */ 	lh	$a3,0x632($v0)
 .NB0000ebfc:
-/*     ebfc:	0fc59e2f */ 	jal	lvRecordDistanceMoved
+/*     ebfc:	0fc59e2f */ 	jal	lvTickPlayer
 /*     ec00:	00000000 */ 	sll	$zero,$zero,0x0
 /*     ec04:	8e0d006c */ 	lw	$t5,0x6c($s0)
 /*     ec08:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -3122,7 +3122,7 @@ u32 var8005f690nb[] = {
 //								g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 //					}
 //
-//					lvRecordDistanceMoved();
+//					lvTickPlayer();
 //				}
 //			}
 //

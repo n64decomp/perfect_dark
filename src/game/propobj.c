@@ -16143,7 +16143,7 @@ glabel var7f1aa2c4
 //				for (i = 0; i < PLAYERCOUNT(); i++) {
 //					if (g_Vars.players[i]->slayerrocket == (struct weaponobj *)obj) {
 //						g_Vars.players[i]->slayerrocket = NULL;
-//						g_Vars.players[i]->visionmode = VISIONMODE_3;
+//						g_Vars.players[i]->visionmode = VISIONMODE_SLAYERROCKETSTATIC;
 //					}
 //				}
 //			}
@@ -16177,7 +16177,7 @@ glabel var7f1aa2c4
 //				for (i = 0; i < PLAYERCOUNT(); i++) {
 //					if (g_Vars.players[i]->slayerrocket == (struct weaponobj *)obj) {
 //						g_Vars.players[i]->slayerrocket = NULL;
-//						g_Vars.players[i]->visionmode = VISIONMODE_3;
+//						g_Vars.players[i]->visionmode = VISIONMODE_SLAYERROCKETSTATIC;
 //					}
 //				}
 //			}
@@ -16195,7 +16195,7 @@ glabel var7f1aa2c4
 //			for (i = 0; i < PLAYERCOUNT(); i++) {
 //				if (g_Vars.players[i]->slayerrocket == (struct weaponobj *)obj) {
 //					g_Vars.players[i]->slayerrocket = NULL;
-//					g_Vars.players[i]->visionmode = VISIONMODE_3;
+//					g_Vars.players[i]->visionmode = VISIONMODE_SLAYERROCKETSTATIC;
 //				}
 //			}
 //		}
@@ -16318,7 +16318,7 @@ glabel var7f1aa2c4
 //				for (i = 0; i < PLAYERCOUNT(); i++) {
 //					if (g_Vars.players[i]->slayerrocket == (struct weaponobj *)obj) {
 //						g_Vars.players[i]->slayerrocket = NULL;
-//						g_Vars.players[i]->visionmode = VISIONMODE_3;
+//						g_Vars.players[i]->visionmode = VISIONMODE_SLAYERROCKETSTATIC;
 //					}
 //				}
 //			} else {
@@ -16437,7 +16437,7 @@ glabel var7f1aa2c4
 //			for (i = 0; i < PLAYERCOUNT(); i++) {
 //				if (g_Vars.players[i]->slayerrocket == (struct weaponobj *)obj) {
 //					g_Vars.players[i]->slayerrocket = NULL;
-//					g_Vars.players[i]->visionmode = VISIONMODE_3;
+//					g_Vars.players[i]->visionmode = VISIONMODE_SLAYERROCKETSTATIC;
 //				}
 //			}
 //		}

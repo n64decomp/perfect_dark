@@ -131,7 +131,7 @@ bool sightIsReactiveToProp(struct prop *prop)
 		if (chr && chr->race == RACE_EYESPY) {
 			struct eyespy *eyespy = chrToEyespy(chr);
 
-			if (!eyespy || !eyespy->initialised) {
+			if (!eyespy || !eyespy->deployed) {
 				return false;
 			}
 		}

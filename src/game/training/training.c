@@ -7461,8 +7461,8 @@ void dtRestorePlayer(void)
 
 	if (g_Vars.currentplayer->eyespy) {
 		struct chrdata *chr = g_Vars.currentplayer->eyespy->prop->chr;
-		g_Vars.currentplayer->eyespy->initialised = false;
-		g_Vars.currentplayer->eyespy->init = true;
+		g_Vars.currentplayer->eyespy->deployed = false;
+		g_Vars.currentplayer->eyespy->held = true;
 		g_Vars.currentplayer->eyespy->active = false;
 
 		chr->chrflags |= CHRCFLAG_HIDDEN;

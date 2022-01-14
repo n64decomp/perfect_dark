@@ -2035,7 +2035,7 @@ glabel var7f1ab190pf
 /*  f06381c:	962e035e */ 	lhu	$t6,0x35e($s1)
 /*  f063820:	0fc5260c */ 	jal	splatTick
 /*  f063824:	02002025 */ 	move	$a0,$s0
-/*  f063828:	0fc30a3b */ 	jal	playerTick
+/*  f063828:	0fc30a3b */ 	jal	playerTickThirdPerson
 /*  f06382c:	02002025 */ 	move	$a0,$s0
 /*  f063830:	00403025 */ 	move	$a2,$v0
 .PF0f063834:
@@ -2210,7 +2210,7 @@ glabel var7f1ab190pf
 /*  f063a9c:	8faf0034 */ 	lw	$t7,0x34($sp)
 /*  f063aa0:	0fc5260c */ 	jal	splatTick
 /*  f063aa4:	02002025 */ 	move	$a0,$s0
-/*  f063aa8:	0fc30a3b */ 	jal	playerTick
+/*  f063aa8:	0fc30a3b */ 	jal	playerTickThirdPerson
 /*  f063aac:	02002025 */ 	move	$a0,$s0
 /*  f063ab0:	00403025 */ 	move	$a2,$v0
 .PF0f063ab4:
@@ -3021,7 +3021,7 @@ glabel propsTick
 /*  f0635b0:	962e035e */ 	lhu	$t6,0x35e($s1)
 /*  f0635b4:	0fc522e0 */ 	jal	splatTick
 /*  f0635b8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0635bc:	0fc308d9 */ 	jal	playerTick
+/*  f0635bc:	0fc308d9 */ 	jal	playerTickThirdPerson
 /*  f0635c0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0635c4:	00403025 */ 	or	$a2,$v0,$zero
 .L0f0635c8:
@@ -3190,7 +3190,7 @@ glabel propsTick
 /*  f063818:	8faf0034 */ 	lw	$t7,0x34($sp)
 /*  f06381c:	0fc522e0 */ 	jal	splatTick
 /*  f063820:	02002025 */ 	or	$a0,$s0,$zero
-/*  f063824:	0fc308d9 */ 	jal	playerTick
+/*  f063824:	0fc308d9 */ 	jal	playerTickThirdPerson
 /*  f063828:	02002025 */ 	or	$a0,$s0,$zero
 /*  f06382c:	00403025 */ 	or	$a2,$v0,$zero
 .L0f063830:
@@ -3994,7 +3994,7 @@ glabel propsTick
 /*  f062824:	962e035e */ 	lhu	$t6,0x35e($s1)
 /*  f062828:	0fc50cd4 */ 	jal	splatTick
 /*  f06282c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062830:	0fc2ffcb */ 	jal	playerTick
+/*  f062830:	0fc2ffcb */ 	jal	playerTickThirdPerson
 /*  f062834:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062838:	00403025 */ 	or	$a2,$v0,$zero
 .NB0f06283c:
@@ -4163,7 +4163,7 @@ glabel propsTick
 /*  f062a8c:	8faf0034 */ 	lw	$t7,0x34($sp)
 /*  f062a90:	0fc50cd4 */ 	jal	splatTick
 /*  f062a94:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062a98:	0fc2ffcb */ 	jal	playerTick
+/*  f062a98:	0fc2ffcb */ 	jal	playerTickThirdPerson
 /*  f062a9c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062aa0:	00403025 */ 	or	$a2,$v0,$zero
 .NB0f062aa4:
@@ -4820,7 +4820,7 @@ glabel propsTick
 //					op = smokeTick(prop);
 //				} else if (prop->type == PROPTYPE_PLAYER) {
 //					splatTick(prop);
-//					op = playerTick(prop);
+//					op = playerTickThirdPerson(prop);
 //				}
 //			}
 //
@@ -4892,7 +4892,7 @@ glabel propsTick
 //					op = smokeTick(prop);
 //				} else if (prop->type == PROPTYPE_PLAYER) {
 //					splatTick(prop);
-//					op = playerTick(prop);
+//					op = playerTickThirdPerson(prop);
 //				}
 //
 //				// 844
@@ -5544,12 +5544,12 @@ void autoaimTick(void)
 					aimpos[1] = top;
 				}
 
-				// Don't use this prop if it's an uninitialised eyespy, or if
+				// Don't use this prop if it's an undeployed eyespy, or if
 				// the threat is outside of the aim limits
 				if (chr && chr->race == RACE_EYESPY) {
 					struct eyespy *eyespy = chrToEyespy(chr);
 
-					if (eyespy == NULL || !eyespy->initialised) {
+					if (eyespy == NULL || !eyespy->deployed) {
 						bestprop = NULL;
 						aimpos[0] = aimpos[1] = 0;
 					}

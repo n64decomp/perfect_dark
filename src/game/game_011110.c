@@ -420,8 +420,8 @@ void currentPlayerInitEyespy(void)
 				g_Vars.currentplayer->eyespy->verta = 0;
 				g_Vars.currentplayer->eyespy->cosverta = 1;
 				g_Vars.currentplayer->eyespy->sinverta = 0;
-				g_Vars.currentplayer->eyespy->init = true;
-				g_Vars.currentplayer->eyespy->initialised = false;
+				g_Vars.currentplayer->eyespy->held = true;
+				g_Vars.currentplayer->eyespy->deployed = false;
 				g_Vars.currentplayer->eyespy->active = false;
 				g_Vars.currentplayer->eyespy->buttonheld = false;
 				g_Vars.currentplayer->eyespy->camerabuttonheld = false;

@@ -7134,7 +7134,7 @@ s32 chrTick(struct prop *prop)
 	if (race == RACE_EYESPY) {
 		struct eyespy *eyespy = chrToEyespy(chr);
 
-		if (eyespy && eyespy->initialised) {
+		if (eyespy && eyespy->deployed) {
 			if (eyespy == g_Vars.currentplayer->eyespy && eyespy->active) {
 				onscreen = false;
 			} else {
@@ -8236,7 +8236,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		eyespy = chrToEyespy(chr);
 
 		if (eyespy) {
-			if (!eyespy->initialised) {
+			if (!eyespy->deployed) {
 				return gdl;
 			}
 

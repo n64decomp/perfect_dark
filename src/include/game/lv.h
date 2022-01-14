@@ -23,7 +23,7 @@ s32 sub54321(s32 value);
 void lvUpdateCutsceneTime(void);
 s32 lvGetSlowMotionType(void);
 void lvTick(void);
-void lvRecordDistanceMoved(void);
+void lvTickPlayer(void);
 void lvCheckPauseStateChanged(void);
 void lvSetPaused(bool paused);
 void lvConfigureFade(u32 color, s16 num_frames);

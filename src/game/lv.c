@@ -3914,7 +3914,7 @@ Gfx *lvRender(Gfx *gdl)
 						}
 					}
 
-					if (g_Vars.currentplayer->visionmode == VISIONMODE_3) {
+					if (g_Vars.currentplayer->visionmode == VISIONMODE_SLAYERROCKETSTATIC) {
 						gdl = bviewRenderStatic(gdl, 0x4fffffff, 255);
 						g_Vars.currentplayer->visionmode = VISIONMODE_NORMAL;
 					}
@@ -9433,16 +9433,16 @@ const char var7f1b774c[] = "pos:%s%s %.2f %.2f %.2f\n";
 const char var7f1b7768[] = "";
 const char var7f1b776c[] = "";
 
-void lvRecordDistanceMoved(void)
+void lvTickPlayer(void)
 {
 	f32 xdiff;
 	f32 zdiff;
 
 	if (var80075d64 == 2) {
 		if (var80075d68 == 2) {
-			func0f0bd904(true);
+			playerTick(true);
 		} else {
-			func0f0bd904(false);
+			playerTick(false);
 		}
 	}
 

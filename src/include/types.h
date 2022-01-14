@@ -2099,10 +2099,10 @@ struct eyespy {
 	/*0x28*/ f32 verta;
 	/*0x2c*/ f32 cosverta;
 	/*0x30*/ f32 sinverta;
-	/*0x34*/ u8 init;
-	/*0x35*/ u8 initialised;
+	/*0x34*/ u8 held; // the eyespy is held by the player (opposite of deployed)
+	/*0x35*/ u8 deployed; // the eyespy is deployed in the stage somewhere
 	/*0x36*/ s8 startuptimer60;
-	/*0x37*/ s8 active;
+	/*0x37*/ s8 active; // player is currently controlling the eyespy
 	/*0x38*/ s8 buttonheld;
 	/*0x39*/ s8 camerabuttonheld;
 	/*0x3a*/ s16 bobdir;

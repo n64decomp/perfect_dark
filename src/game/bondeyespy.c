@@ -569,7 +569,7 @@ bool eyespyTryLaunch(void)
 
 	chr->soundtimer = PALDOWN(10);
 
-	g_Vars.currentplayer->eyespy->init = 0;
+	g_Vars.currentplayer->eyespy->held = false;
 	g_Vars.currentplayer->eyespy->up.x = 0;
 	g_Vars.currentplayer->eyespy->up.y = 1;
 	g_Vars.currentplayer->eyespy->up.z = 0;
@@ -638,7 +638,7 @@ bool eyespyTryLaunch(void)
 	if (insafe || !cdTestAToB4(&testfrompos, g_Vars.currentplayer->prop->rooms,
 				&g_Vars.currentplayer->eyespy->prop->pos, CDTYPE_ALL, 15)) {
 		// Launch failed due to not enough physical space, or we're in the G5 safe
-		g_Vars.currentplayer->eyespy->initialised = false;
+		g_Vars.currentplayer->eyespy->deployed = false;
 
 		chr->prevpos.x = g_Vars.currentplayer->eyespy->prop->pos.x = playerpos.f[0];
 		chr->prevpos.y = g_Vars.currentplayer->eyespy->prop->pos.y = g_Vars.currentplayer->eyespy->oldground + g_Vars.currentplayer->eyespy->height;
@@ -652,7 +652,7 @@ bool eyespyTryLaunch(void)
 		launched = false;
 	} else {
 		// Launch successful
-		g_Vars.currentplayer->eyespy->initialised = true;
+		g_Vars.currentplayer->eyespy->deployed = true;
 
 		sndStart(var80095200, SFX_DETONATE, 0, -1, -1, -1, -1, -1);
 
@@ -5758,8 +5758,8 @@ glabel var7f1adb00
 //
 //	// 04c
 //	if (!invHasSingleWeaponIncAllGuns(WEAPON_EYESPY)) {
-//		g_Vars.currentplayer->eyespy->initialised = false;
-//		g_Vars.currentplayer->eyespy->init = true;
+//		g_Vars.currentplayer->eyespy->deployed = false;
+//		g_Vars.currentplayer->eyespy->held = true;
 //		g_Vars.currentplayer->eyespy->active = false;
 //
 //		chr->chrflags |= CHRCFLAG_HIDDEN;
@@ -6065,8 +6065,8 @@ glabel var7f1adb00
 //
 //	// Handle pickup
 //	if (g_EyespyPickup) {
-//		g_Vars.currentplayer->eyespy->initialised = false;
-//		g_Vars.currentplayer->eyespy->init = true;
+//		g_Vars.currentplayer->eyespy->deployed = false;
+//		g_Vars.currentplayer->eyespy->held = true;
 //		g_Vars.currentplayer->eyespy->active = false;
 //
 //		chr->chrflags |= CHRCFLAG_HIDDEN;

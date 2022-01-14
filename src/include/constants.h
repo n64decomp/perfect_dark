@@ -3959,10 +3959,10 @@
 #define VIRES_LO 0
 #define VIRES_HI 1
 
-#define VISIONMODE_NORMAL       0
-#define VISIONMODE_XRAY         1
-#define VISIONMODE_SLAYERROCKET 2
-#define VISIONMODE_3            3
+#define VISIONMODE_NORMAL             0
+#define VISIONMODE_XRAY               1
+#define VISIONMODE_SLAYERROCKET       2
+#define VISIONMODE_SLAYERROCKETSTATIC 3
 
 #define VOICEBOX_MALE0  0
 #define VOICEBOX_MALE1  1
