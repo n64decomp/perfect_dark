@@ -4690,24 +4690,22 @@ void bgInit(s32 stagenum)
 	section2compsize = *(u16 *)&header[2];
 	inflatedsize = (inflatedsize | 0xf) + 1;
 
-	// Allocate space for the section 2 data (texture ID list), as well as an
-	// extra 0x8000 for scratch space, and copy the compressed data to scratch.
+	// Allocate space for the section 2 data (texture ID list).
+	// This is the cause and fix for the Challenge 7 memory corruption bug in
+	// NTSC 1.0. A full writeup about the bug and how the fix works can be found
+	// in the docs folder of this project.
 #if VERSION >= VERSION_NTSC_FINAL
 	section2 = mempAlloc(inflatedsize + 0x8000, MEMPOOL_STAGE);
 	scratch = (u32)section2 + 0x8000;
 #else
-	// ntsc-1.0 and earlier gives less space for the compressed buffer.
-	// This isn't a problem though as a stage would have to use at least 1024
-	// textures before this has a chance of overflowing and most stages only use
-	// a few dozen. This was likely increased to 0x8000 out of caution while
-	// trying to fix the Challenge 7 bug, but this is not the source of the bug.
-	section2 = mempAlloc(inflatedsize + 0x0800, MEMPOOL_STAGE);
-	scratch = (u32)section2 + 0x0800;
+	section2 = mempAlloc(inflatedsize + 0x800, MEMPOOL_STAGE);
+	scratch = (u32)section2 + 0x800;
 #endif
 
+	// Load compressed data from ROM to scratch
 	bgLoadFile((u8 *)scratch, section2start + 4, ((section2compsize - 1) | 0xf) + 1);
 
-	// Inflate section 2 to start of buffer
+	// Inflate section 2 to the start of the buffer
 	bgInflate((u8 *)scratch, section2, section2compsize);
 
 	// Iterate texture IDs and ensure they're loaded
