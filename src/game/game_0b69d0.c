@@ -788,9 +788,9 @@ void currentPlayerResetToDefault(void)
 	g_Vars.currentplayer->deadtimer = -1;
 	g_Vars.currentplayer->coopcanrestart = false;
 
-	g_Vars.currentplayer->unk1c1c = 0;
-	g_Vars.currentplayer->unk1c20 = 0;
-	g_Vars.currentplayer->unk1c24 = 0;
+	g_Vars.currentplayer->usinggoggles = false;
+	g_Vars.currentplayer->nvhum = NULL;
+	g_Vars.currentplayer->nvoverload = NULL;
 	g_Vars.currentplayer->unk1c28 = 0;
 	g_Vars.currentplayer->unk1c2c = 0;
 	g_Vars.currentplayer->unk1c30 = 0;

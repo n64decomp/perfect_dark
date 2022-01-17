@@ -3672,13 +3672,8 @@ Gfx *lvRender(Gfx *gdl)
 								|| g_Vars.currentplayer->lookingatprop.prop->type == PROPTYPE_PLAYER) {
 							chr = g_Vars.currentplayer->lookingatprop.prop->chr;
 
-							if (chr->hidden & CHRHFLAG_CLOAKED) {
-								if (g_Vars.currentplayer->isdead
-										|| g_InCutscene
-										|| !EYESPYINACTIVE()
-										|| (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_IRSCANNER) == false) {
-									g_Vars.currentplayer->lookingatprop.prop = NULL;
-								}
+							if ((chr->hidden & CHRHFLAG_CLOAKED) && !USINGDEVICE(DEVICE_IRSCANNER)) {
+								g_Vars.currentplayer->lookingatprop.prop = NULL;
 							}
 						} else if (g_Vars.currentplayer->lookingatprop.prop->type == PROPTYPE_OBJ
 								|| g_Vars.currentplayer->lookingatprop.prop->type == PROPTYPE_WEAPON

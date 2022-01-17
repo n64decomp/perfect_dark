@@ -8282,10 +8282,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		}
 	}
 
-	if (g_Vars.currentplayer->isdead
-			|| g_InCutscene
-			|| !EYESPYINACTIVE()
-			|| (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_IRSCANNER) == 0) {
+	if (!USINGDEVICE(DEVICE_IRSCANNER)) {
 		alpha = chr0f022be4(chr) * alpha * 0.0039215688593686f;
 	}
 
@@ -8331,10 +8328,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		renderdata.gdl = gdl;
 
 		// Configure colours for IR scanner or default
-		if (!g_Vars.currentplayer->isdead
-				&& !g_InCutscene
-				&& EYESPYINACTIVE()
-				&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_IRSCANNER)) {
+		if (USINGDEVICE(DEVICE_IRSCANNER)) {
 			colour[0] = 0xff;
 			colour[1] = 0;
 			colour[2] = 0;
@@ -8365,10 +8359,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		func0f069750(colour, sp104, sp108);
 
 		// Configure colours for night vision if in use
-		if (!g_Vars.currentplayer->isdead
-				&& !g_InCutscene
-				&& EYESPYINACTIVE()
-				&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_NIGHTVISION)) {
+		if (USINGDEVICE(DEVICE_NIGHTVISION)) {
 			colour[0] = var8009caec[3];
 			colour[1] = var8009caec[3];
 			colour[2] = var8009caec[3];
@@ -8513,10 +8504,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 
 			func0f0c33f0(model->matrices, model->filedata->nummatrices);
 
-			if (!g_Vars.currentplayer->isdead
-					&& !g_InCutscene
-					&& EYESPYINACTIVE()
-					&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_IRSCANNER)) {
+			if (USINGDEVICE(DEVICE_IRSCANNER)) {
 				gdl = chrRenderShield(gdl, chr, 0x80);
 			} else {
 				gdl = chrRenderShield(gdl, chr, alpha);
@@ -10510,9 +10498,7 @@ bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *
 			&& chr->actiontype != ACT_DRUGGEDKO
 			&& chr->actiontype != ACT_DEAD
 			&& (chr->chrflags & CHRCFLAG_NOAUTOAIM) == 0
-			&& ((chr->hidden & CHRHFLAG_CLOAKED) == 0
-				|| (!(g_Vars.currentplayer->isdead || g_InCutscene || !EYESPYINACTIVE())
-					&& g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_IRSCANNER))
+			&& ((chr->hidden & CHRHFLAG_CLOAKED) == 0 || USINGDEVICE(DEVICE_IRSCANNER))
 			&& !(prop->type == PROPTYPE_PLAYER && g_Vars.players[propGetPlayerNum(prop)]->isdead)
 			&& !(g_Vars.coopplayernum >= 0 && (prop == g_Vars.bond->prop || prop == g_Vars.coop->prop))) {
 		struct model *model = chr->model;

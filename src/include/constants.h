@@ -36,6 +36,11 @@
 #define SECSTOTIME60(secs)  (secs * 60)
 #define PFS(device)         (device == SAVEDEVICE_GAMEPAK ? NULL : &g_Pfses[device])
 
+#define USINGDEVICE(device) (!g_Vars.currentplayer->isdead \
+		&& !g_InCutscene \
+		&& EYESPYINACTIVE() \
+		&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & (device)))
+
 #if VERSION >= VERSION_NTSC_1_0
 #define VOLUME(volume)      (volume > 0x5000 ? 0x5000 : volume)
 #else

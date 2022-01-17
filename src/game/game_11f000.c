@@ -10432,17 +10432,11 @@ Gfx *func0f1274d8(Gfx *gdl)
 		gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
 		gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
 
-		if (!g_Vars.currentplayer->isdead
-				&& !g_InCutscene
-				&& EYESPYINACTIVE()
-				&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_NIGHTVISION)) {
+		if (USINGDEVICE(DEVICE_NIGHTVISION)) {
 			r *= 0.5f;
 			g *= 0.75f;
 			b *= 0.5f;
-		} else if (!g_Vars.currentplayer->isdead
-				&& !g_InCutscene
-				&& EYESPYINACTIVE()
-				&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_IRSCANNER)) {
+		} else if (USINGDEVICE(DEVICE_IRSCANNER)) {
 			r *= 0.75f;
 			g *= 0.5f;
 			b *= 0.5f;

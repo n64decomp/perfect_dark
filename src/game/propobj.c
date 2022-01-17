@@ -53793,20 +53793,14 @@ glabel var7f1aa82c
 //
 //	func0f069750(colour, spe4, &spe8);
 //
-//	if (!g_Vars.currentplayer->isdead
-//			&& !g_InCutscene
-//			&& EYESPYINACTIVE()
-//			&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_NIGHTVISION)) {
+//	if (USINGDEVICE(DEVICE_NIGHTVISION)) {
 //		if ((obj->flags & OBJFLAG_PATHBLOCKER) == 0) {
 //			colour[0] = var8009caec[1];
 //			colour[1] = var8009caec[1];
 //			colour[2] = var8009caec[1];
 //			colour[3] = var8009caec[2];
 //		}
-//	} else if (!g_Vars.currentplayer->isdead
-//			&& !g_InCutscene
-//			&& EYESPYINACTIVE()
-//			&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_IRSCANNER)) {
+//	} else if (USINGDEVICE(DEVICE_IRSCANNER)) {
 //		if ((obj->hidden & OBJHFLAG_CONDITIONALSCENERY) || (obj->flags3 & OBJFLAG3_INFRARED)) {
 //			colour[0] = 0xff;
 //			colour[1] = 0xff;

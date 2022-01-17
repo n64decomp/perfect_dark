@@ -2926,9 +2926,9 @@ struct player {
 	/*0x1c10*/ bool coopcanrestart;
 	/*0x1c14*/ s32 foot;
 	/*0x1c18*/ f32 footstepdist;
-	/*0x1c1c*/ u32 unk1c1c;
-	/*0x1c20*/ u32 unk1c20;
-	/*0x1c24*/ u32 unk1c24;
+	/*0x1c1c*/ bool usinggoggles; // using night vision or IR scanner
+	/*0x1c20*/ struct sndstate *nvhum;
+	/*0x1c24*/ struct sndstate *nvoverload;
 	/*0x1c28*/ s32 unk1c28;
 	/*0x1c2c*/ s32 unk1c2c;
 	/*0x1c30*/ s32 unk1c30;
