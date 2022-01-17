@@ -8004,7 +8004,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_029B",
+        "id": "ANIM_ONBIKE_UNARMED",
         "file": "029b.bin",
         "numframes": 12,
         "bytesperframe": 0,
@@ -8016,7 +8016,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_029C",
+        "id": "ANIM_ONBIKE_PISTOL",
         "file": "029c.bin",
         "numframes": 12,
         "bytesperframe": 0,
@@ -8028,7 +8028,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_029D",
+        "id": "ANIM_ONBIKE_DUALGUNS",
         "file": "029d.bin",
         "numframes": 12,
         "bytesperframe": 0,
@@ -8040,7 +8040,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_029E",
+        "id": "ANIM_ONBIKE_HEAVYGUN",
         "file": "029e.bin",
         "numframes": 12,
         "bytesperframe": 0,

@@ -269,7 +269,7 @@ extern bool g_PlayersWithControl[];
 extern bool g_PlayerInvincible;
 extern s32 g_InCutscene;
 extern s16 g_DeathAnimations[];
-extern u32 g_NumDeathAnimations;
+extern s32 g_NumDeathAnimations;
 extern s32 g_ScissorX1;
 extern s32 g_ScissorX2;
 extern s32 g_ScissorY1;

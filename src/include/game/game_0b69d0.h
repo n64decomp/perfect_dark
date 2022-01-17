@@ -77,7 +77,7 @@ void currentPlayerSetShieldFrac(f32 frac);
 s32 getMissionTime(void);
 s32 playerTickBeams(struct prop *prop);
 s32 playerTickThirdPerson(struct prop *prop);
-void func0f0c2a58(struct chrdata *chr, s32 crouchpos, f32 speedsideways, f32 speedforwards, f32 speedtheta, f32 *angleoffset, struct attackanimconfig **animcfg);
+void playerChooseThirdPersonAnimation(struct chrdata *chr, s32 crouchpos, f32 speedsideways, f32 speedforwards, f32 speedtheta, f32 *angleoffset, struct attackanimconfig **animcfg);
 Gfx *playerRender(struct prop *prop, Gfx *gdl, bool withalpha);
 Gfx *currentPlayerLoadMatrix(Gfx *gdl);
 void func0f0c3320(Mtxf *matrices, s32 count);

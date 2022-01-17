@@ -2592,7 +2592,7 @@ bool botApplyMovement(struct chrdata *chr)
 	speedforwards = aibot->unk06c * cosf(angle) - sinf(angle) * aibot->unk070;
 	speedsideways = aibot->unk06c * sinf(angle) + cosf(angle) * aibot->unk070;
 
-	func0f0c2a58(chr, botGuessCrouchPos(chr), speedsideways, speedforwards, aibot->speedtheta, &aibot->angleoffset, &aibot->unk068);
+	playerChooseThirdPersonAnimation(chr, botGuessCrouchPos(chr), speedsideways, speedforwards, aibot->speedtheta, &aibot->angleoffset, &aibot->unk068);
 
 	angle2 = chrGetInverseTheta(chr) - aibot->angleoffset;
 
