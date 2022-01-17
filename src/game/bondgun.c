@@ -9225,7 +9225,7 @@ bool bgun0f09dd7c(void)
 		|| (g_Vars.currentplayer->gunctrl.gunmemnew < 0 && g_Vars.currentplayer->gunctrl.unk15b0 == 4);
 }
 
-u32 bgun0f09ddcc(void)
+u32 bgunGetGunMemType(void)
 {
 	return g_Vars.currentplayer->gunctrl.gunmemtype;
 }
@@ -9235,12 +9235,12 @@ u32 bgun0f09dddc(void)
 	return g_Vars.currentplayer->gunctrl.unk1590;
 }
 
-u8 *bgun0f09ddec(void)
+u8 *bgunGetGunMem(void)
 {
-	return g_Vars.currentplayer->gunctrl.unk158c;
+	return g_Vars.currentplayer->gunctrl.gunmem;
 }
 
-u32 bgun0f09ddfc(void)
+u32 bgunCalculateGunMemCapacity(void)
 {
 	if (IS4MB() && PLAYERCOUNT() == 2) {
 		return var800700ac;
@@ -9975,9 +9975,9 @@ glabel bgun0f09e4e0
 /*  f09e680:	925915b1 */ 	lbu	$t9,0x15b1($s2)
 /*  f09e684:	1720000f */ 	bnez	$t9,.L0f09e6c4
 /*  f09e688:	00000000 */ 	nop
-/*  f09e68c:	0fc2777b */ 	jal	bgun0f09ddec
+/*  f09e68c:	0fc2777b */ 	jal	bgunGetGunMem
 /*  f09e690:	00000000 */ 	nop
-/*  f09e694:	0fc2777f */ 	jal	bgun0f09ddfc
+/*  f09e694:	0fc2777f */ 	jal	bgunCalculateGunMemCapacity
 /*  f09e698:	ae4215a0 */ 	sw	$v0,0x15a0($s2)
 /*  f09e69c:	24080001 */ 	addiu	$t0,$zero,0x1
 /*  f09e6a0:	26491594 */ 	addiu	$t1,$s2,0x1594
@@ -9999,9 +9999,9 @@ glabel bgun0f09e4e0
 /*  f09e6dc:	a651159c */ 	sh	$s1,0x159c($s2)
 /*  f09e6e0:	a640159c */ 	sh	$zero,0x159c($s2)
 .L0f09e6e4:
-/*  f09e6e4:	0fc2777b */ 	jal	bgun0f09ddec
+/*  f09e6e4:	0fc2777b */ 	jal	bgunGetGunMem
 /*  f09e6e8:	ae401594 */ 	sw	$zero,0x1594($s2)
-/*  f09e6ec:	0fc2777f */ 	jal	bgun0f09ddfc
+/*  f09e6ec:	0fc2777f */ 	jal	bgunCalculateGunMemCapacity
 /*  f09e6f0:	ae4215a0 */ 	sw	$v0,0x15a0($s2)
 /*  f09e6f4:	ae4215a4 */ 	sw	$v0,0x15a4($s2)
 .L0f09e6f8:
@@ -10227,7 +10227,7 @@ glabel bgun0f09e4e0
 /*  f09ea10:	ae4f0dd8 */ 	sw	$t7,0xdd8($s2)
 /*  f09ea14:	ae400dd8 */ 	sw	$zero,0xdd8($s2)
 .L0f09ea18:
-/*  f09ea18:	0fc2777f */ 	jal	bgun0f09ddfc
+/*  f09ea18:	0fc2777f */ 	jal	bgunCalculateGunMemCapacity
 /*  f09ea1c:	00000000 */ 	nop
 /*  f09ea20:	240a0004 */ 	addiu	$t2,$zero,0x4
 /*  f09ea24:	a24a15b0 */ 	sb	$t2,0x15b0($s2)
@@ -10382,9 +10382,9 @@ glabel bgun0f09e4e0
 /*  f09c52c:	924815b1 */ 	lbu	$t0,0x15b1($s2)
 /*  f09c530:	1500000f */ 	bnez	$t0,.NB0f09c570
 /*  f09c534:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f09c538:	0fc26f42 */ 	jal	bgun0f09ddec
+/*  f09c538:	0fc26f42 */ 	jal	bgunGetGunMem
 /*  f09c53c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f09c540:	0fc26f46 */ 	jal	bgun0f09ddfc
+/*  f09c540:	0fc26f46 */ 	jal	bgunCalculateGunMemCapacity
 /*  f09c544:	ae4215a0 */ 	sw	$v0,0x15a0($s2)
 /*  f09c548:	24090001 */ 	addiu	$t1,$zero,0x1
 /*  f09c54c:	264a1594 */ 	addiu	$t2,$s2,0x1594
@@ -10406,9 +10406,9 @@ glabel bgun0f09e4e0
 /*  f09c588:	a651159c */ 	sh	$s1,0x159c($s2)
 /*  f09c58c:	a640159c */ 	sh	$zero,0x159c($s2)
 .NB0f09c590:
-/*  f09c590:	0fc26f42 */ 	jal	bgun0f09ddec
+/*  f09c590:	0fc26f42 */ 	jal	bgunGetGunMem
 /*  f09c594:	ae401594 */ 	sw	$zero,0x1594($s2)
-/*  f09c598:	0fc26f46 */ 	jal	bgun0f09ddfc
+/*  f09c598:	0fc26f46 */ 	jal	bgunCalculateGunMemCapacity
 /*  f09c59c:	ae4215a0 */ 	sw	$v0,0x15a0($s2)
 /*  f09c5a0:	ae4215a4 */ 	sw	$v0,0x15a4($s2)
 .NB0f09c5a4:
@@ -10634,7 +10634,7 @@ glabel bgun0f09e4e0
 /*  f09c8bc:	ae580dd8 */ 	sw	$t8,0xdd8($s2)
 /*  f09c8c0:	ae400dd8 */ 	sw	$zero,0xdd8($s2)
 .NB0f09c8c4:
-/*  f09c8c4:	0fc26f46 */ 	jal	bgun0f09ddfc
+/*  f09c8c4:	0fc26f46 */ 	jal	bgunCalculateGunMemCapacity
 /*  f09c8c8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f09c8cc:	240b0004 */ 	addiu	$t3,$zero,0x4
 /*  f09c8d0:	a24b15b0 */ 	sb	$t3,0x15b0($s2)
@@ -21904,7 +21904,7 @@ glabel var7f1add20pf
 /*  f0a5f6c:	820d0008 */ 	lb	$t5,0x8($s0)
 /*  f0a5f70:	51a00006 */ 	beqzl	$t5,.PF0f0a5f8c
 /*  f0a5f74:	a2000007 */ 	sb	$zero,0x7($s0)
-/*  f0a5f78:	0fc27820 */ 	jal	bgun0f09ddcc
+/*  f0a5f78:	0fc27820 */ 	jal	bgunGetGunMemType
 /*  f0a5f7c:	00000000 */ 	nop
 /*  f0a5f80:	54400003 */ 	bnezl	$v0,.PF0f0a5f90
 /*  f0a5f84:	820c0007 */ 	lb	$t4,0x7($s0)
@@ -23443,7 +23443,7 @@ glabel var7f1aca70
 /*  f0a5c54:	820d0008 */ 	lb	$t5,0x8($s0)
 /*  f0a5c58:	51a00006 */ 	beqzl	$t5,.L0f0a5c74
 /*  f0a5c5c:	a2000007 */ 	sb	$zero,0x7($s0)
-/*  f0a5c60:	0fc27773 */ 	jal	bgun0f09ddcc
+/*  f0a5c60:	0fc27773 */ 	jal	bgunGetGunMemType
 /*  f0a5c64:	00000000 */ 	nop
 /*  f0a5c68:	54400003 */ 	bnezl	$v0,.L0f0a5c78
 /*  f0a5c6c:	820c0007 */ 	lb	$t4,0x7($s0)

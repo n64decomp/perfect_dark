@@ -144,10 +144,10 @@ void func0f010bb0(void)
 	if (IS4MB() && PLAYERCOUNT() == 2) {
 		i = ALIGN16(var800700ac);
 	} else {
-		i = ALIGN16(bgun0f09ddfc());
+		i = ALIGN16(bgunCalculateGunMemCapacity());
 	}
 
-	g_Vars.currentplayer->gunctrl.unk158c = mempAlloc(i, MEMPOOL_STAGE);
+	g_Vars.currentplayer->gunctrl.gunmem = mempAlloc(i, MEMPOOL_STAGE);
 	g_Vars.currentplayer->gunctrl.handfilenum = 0;
 	g_Vars.currentplayer->gunctrl.unk15a0 = 0;
 	g_Vars.currentplayer->gunctrl.unk15a4 = 0;

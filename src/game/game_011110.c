@@ -2947,7 +2947,7 @@ glabel var7f1a827c
 //	g_Vars.currentplayer->bondexploding = false;
 //	g_NumSpawnPoints = 0;
 //	g_Vars.currentplayer->bondtankexplode = false;
-//	g_Vars.currentplayer->unk1bd4 = 0;
+//	g_Vars.currentplayer->gunmem2 = NULL;
 //	g_PlayersWithControl[0] = true;
 //	g_PlayersWithControl[1] = true;
 //	g_PlayersWithControl[2] = true;

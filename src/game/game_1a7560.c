@@ -105,7 +105,6 @@ struct skeleton *g_Skeletons[] = {
 	&g_SkelBB,
 };
 
-
 GLOBAL_ASM(
 glabel func0f1a7560
 /*  f1a7560:	27bdff70 */ 	addiu	$sp,$sp,-144
@@ -247,9 +246,9 @@ void modelPromoteTypeToPointer(struct modelfiledata *filedata)
 	}
 }
 
-void *func0f1a7794(u16 fileid, u8 *arg1, s32 arg2, s32 arg3)
+struct modelfiledata *func0f1a7794(u16 fileid, u8 *arg1, s32 arg2, s32 *arg3)
 {
-	void *filedata;
+	struct modelfiledata *filedata;
 
 	g_LoadType = LOADTYPE_MODEL;
 

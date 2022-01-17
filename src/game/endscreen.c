@@ -411,17 +411,17 @@ glabel func0f10d730
 
 void func0f10d770(void)
 {
-	func0f0f8bb4(&g_Menus[0].unk840, bgun0f09ddfc() - func0f0e4fe0(), 0);
-	g_Menus[0].mpconfigbuffer = bgun0f09ddec() + func0f0e4fe0();
+	func0f0f8bb4(&g_Menus[0].unk840, bgunCalculateGunMemCapacity() - func0f0e4fe0(), 0);
+	g_Menus[0].mpconfigbuffer = bgunGetGunMem() + func0f0e4fe0();
 
-	func0f0f8bb4(&g_Menus[1].unk840, bgun0f09ddfc() - func0f0e4fe0(), 0);
-	g_Menus[1].mpconfigbuffer = bgun0f09ddec() + func0f0e4fe0();
+	func0f0f8bb4(&g_Menus[1].unk840, bgunCalculateGunMemCapacity() - func0f0e4fe0(), 0);
+	g_Menus[1].mpconfigbuffer = bgunGetGunMem() + func0f0e4fe0();
 
-	func0f0f8bb4(&g_Menus[2].unk840, bgun0f09ddfc() - func0f0e4fe0(), 0);
-	g_Menus[2].mpconfigbuffer = bgun0f09ddec() + func0f0e4fe0();
+	func0f0f8bb4(&g_Menus[2].unk840, bgunCalculateGunMemCapacity() - func0f0e4fe0(), 0);
+	g_Menus[2].mpconfigbuffer = bgunGetGunMem() + func0f0e4fe0();
 
-	func0f0f8bb4(&g_Menus[3].unk840, bgun0f09ddfc() - func0f0e4fe0(), 0);
-	g_Menus[3].mpconfigbuffer = bgun0f09ddec() + func0f0e4fe0();
+	func0f0f8bb4(&g_Menus[3].unk840, bgunCalculateGunMemCapacity() - func0f0e4fe0(), 0);
+	g_Menus[3].mpconfigbuffer = bgunGetGunMem() + func0f0e4fe0();
 }
 
 #if VERSION >= VERSION_NTSC_1_0

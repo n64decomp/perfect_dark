@@ -108,12 +108,12 @@ struct var800a4cf0 var800a4cf0;
 s32 g_StageIndex = 1;
 u32 var8007fc04 = 0x00000000;
 u8 *var8007fc08 = NULL;
-s16 var8007fc0c = 0;
 
 #if VERSION < VERSION_NTSC_1_0
 u32 var80082474nb = 0;
 #endif
 
+s16 var8007fc0c = 0;
 s16 var8007fc10 = 0;
 s32 var8007fc14 = 0;
 u32 var8007fc18 = 0x01000100;

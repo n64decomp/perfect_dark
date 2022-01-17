@@ -2469,7 +2469,7 @@ struct gunctrl {
 	/*0x1583*/ u8 passivemode : 1;
 	/*0x1584*/ s32 gunmemnew;
 	/*0x1588*/ s32 gunmemtype;
-	/*0x158c*/ void *unk158c;
+	/*0x158c*/ u8 *gunmem;
 	/*0x1590*/ u32 unk1590;
 	/*0x1594*/ struct modelfiledata *unk1594;
 	/*0x1598*/ s32 unk1598;
@@ -2906,7 +2906,7 @@ struct player {
 	/*0x1bb0*/ struct coord cam_pos;
 	/*0x1bbc*/ struct coord cam_look;
 	/*0x1bc8*/ struct coord cam_up;
-	/*0x1bd4*/ u32 unk1bd4;
+	/*0x1bd4*/ u8 *gunmem2;
 	/*0x1bd8*/ s32 autocontrol_x;
 	/*0x1bdc*/ s32 autocontrol_y;
 	/*0x1be0*/ f32 cachedlookahead;

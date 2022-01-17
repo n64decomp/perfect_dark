@@ -205,10 +205,10 @@ void menuTick(void)
 				var8009dfc0 = true;
 			}
 
-			if (var8009dfc0 && g_Vars.currentplayer->unk1bd4) {
+			if (var8009dfc0 && g_Vars.currentplayer->gunmem2) {
 				func0f0b9538();
 
-				if (g_Vars.currentplayer->unk1bd4);
+				if (g_Vars.currentplayer->gunmem2);
 			}
 		}
 	} else {
