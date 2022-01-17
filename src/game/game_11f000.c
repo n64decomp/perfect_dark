@@ -10292,99 +10292,24 @@ glabel func0f12715c
 /*  f127330:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
 
-GLOBAL_ASM(
-glabel func0f127334
-/*  f127334:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f127338:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f12733c:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f127340:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f127344:	8e0e0284 */ 	lw	$t6,0x284($s0)
-/*  f127348:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f12734c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f127350:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f127354:	8dc21c28 */ 	lw	$v0,0x1c28($t6)
-/*  f127358:	00420019 */ 	multu	$v0,$v0
-/*  f12735c:	00007812 */ 	mflo	$t7
-/*  f127360:	00000000 */ 	nop
-/*  f127364:	00000000 */ 	nop
-/*  f127368:	00840019 */ 	multu	$a0,$a0
-/*  f12736c:	0000c012 */ 	mflo	$t8
-/*  f127370:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f127374:	44992000 */ 	mtc1	$t9,$f4
-/*  f127378:	0c012974 */ 	jal	sqrtf
-/*  f12737c:	46802320 */ 	cvt.s.w	$f12,$f4
-/*  f127380:	4600018d */ 	trunc.w.s	$f6,$f0
-/*  f127384:	8e0a0284 */ 	lw	$t2,0x284($s0)
-/*  f127388:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f12738c:	44093000 */ 	mfc1	$t1,$f6
-/*  f127390:	00000000 */ 	nop
-/*  f127394:	ad491c28 */ 	sw	$t1,0x1c28($t2)
-/*  f127398:	8e0b0284 */ 	lw	$t3,0x284($s0)
-/*  f12739c:	8d621c2c */ 	lw	$v0,0x1c2c($t3)
-/*  f1273a0:	00420019 */ 	multu	$v0,$v0
-/*  f1273a4:	00006012 */ 	mflo	$t4
-/*  f1273a8:	00000000 */ 	nop
-/*  f1273ac:	00000000 */ 	nop
-/*  f1273b0:	00630019 */ 	multu	$v1,$v1
-/*  f1273b4:	00006812 */ 	mflo	$t5
-/*  f1273b8:	018d7021 */ 	addu	$t6,$t4,$t5
-/*  f1273bc:	448e4000 */ 	mtc1	$t6,$f8
-/*  f1273c0:	0c012974 */ 	jal	sqrtf
-/*  f1273c4:	46804320 */ 	cvt.s.w	$f12,$f8
-/*  f1273c8:	4600028d */ 	trunc.w.s	$f10,$f0
-/*  f1273cc:	8e190284 */ 	lw	$t9,0x284($s0)
-/*  f1273d0:	8fa30028 */ 	lw	$v1,0x28($sp)
-/*  f1273d4:	44185000 */ 	mfc1	$t8,$f10
-/*  f1273d8:	00000000 */ 	nop
-/*  f1273dc:	af381c2c */ 	sw	$t8,0x1c2c($t9)
-/*  f1273e0:	8e080284 */ 	lw	$t0,0x284($s0)
-/*  f1273e4:	8d021c30 */ 	lw	$v0,0x1c30($t0)
-/*  f1273e8:	00420019 */ 	multu	$v0,$v0
-/*  f1273ec:	00004812 */ 	mflo	$t1
-/*  f1273f0:	00000000 */ 	nop
-/*  f1273f4:	00000000 */ 	nop
-/*  f1273f8:	00630019 */ 	multu	$v1,$v1
-/*  f1273fc:	00005012 */ 	mflo	$t2
-/*  f127400:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f127404:	448b8000 */ 	mtc1	$t3,$f16
-/*  f127408:	0c012974 */ 	jal	sqrtf
-/*  f12740c:	46808320 */ 	cvt.s.w	$f12,$f16
-/*  f127410:	4600048d */ 	trunc.w.s	$f18,$f0
-/*  f127414:	8e0e0284 */ 	lw	$t6,0x284($s0)
-/*  f127418:	240300cc */ 	addiu	$v1,$zero,0xcc
-/*  f12741c:	440d9000 */ 	mfc1	$t5,$f18
-/*  f127420:	00000000 */ 	nop
-/*  f127424:	adcd1c30 */ 	sw	$t5,0x1c30($t6)
-/*  f127428:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f12742c:	8c4f1c28 */ 	lw	$t7,0x1c28($v0)
-/*  f127430:	29e100cd */ 	slti	$at,$t7,0xcd
-/*  f127434:	54200005 */ 	bnezl	$at,.L0f12744c
-/*  f127438:	8c581c2c */ 	lw	$t8,0x1c2c($v0)
-/*  f12743c:	ac431c28 */ 	sw	$v1,0x1c28($v0)
-/*  f127440:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f127444:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f127448:	8c581c2c */ 	lw	$t8,0x1c2c($v0)
-.L0f12744c:
-/*  f12744c:	240300cc */ 	addiu	$v1,$zero,0xcc
-/*  f127450:	2b0100cd */ 	slti	$at,$t8,0xcd
-/*  f127454:	54200005 */ 	bnezl	$at,.L0f12746c
-/*  f127458:	8c591c30 */ 	lw	$t9,0x1c30($v0)
-/*  f12745c:	ac431c2c */ 	sw	$v1,0x1c2c($v0)
-/*  f127460:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f127464:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f127468:	8c591c30 */ 	lw	$t9,0x1c30($v0)
-.L0f12746c:
-/*  f12746c:	2b2100cd */ 	slti	$at,$t9,0xcd
-/*  f127470:	54200003 */ 	bnezl	$at,.L0f127480
-/*  f127474:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f127478:	ac431c30 */ 	sw	$v1,0x1c30($v0)
-/*  f12747c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f127480:
-/*  f127480:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f127484:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f127488:	03e00008 */ 	jr	$ra
-/*  f12748c:	00000000 */ 	nop
-);
+void func0f127334(s32 arg0, s32 arg1, s32 arg2)
+{
+	g_Vars.currentplayer->unk1c28 = sqrtf(g_Vars.currentplayer->unk1c28 * g_Vars.currentplayer->unk1c28 + arg0 * arg0);
+	g_Vars.currentplayer->unk1c2c = sqrtf(g_Vars.currentplayer->unk1c2c * g_Vars.currentplayer->unk1c2c + arg1 * arg1);
+	g_Vars.currentplayer->unk1c30 = sqrtf(g_Vars.currentplayer->unk1c30 * g_Vars.currentplayer->unk1c30 + arg2 * arg2);
+
+	if (g_Vars.currentplayer->unk1c28 > 0xcc) {
+		g_Vars.currentplayer->unk1c28 = 0xcc;
+	}
+
+	if (g_Vars.currentplayer->unk1c2c > 0xcc) {
+		g_Vars.currentplayer->unk1c2c = 0xcc;
+	}
+
+	if (g_Vars.currentplayer->unk1c30 > 0xcc) {
+		g_Vars.currentplayer->unk1c30 = 0xcc;
+	}
+}
 
 s32 func0f127490(s32 arg0, s32 arg1)
 {
