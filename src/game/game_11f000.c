@@ -7275,31 +7275,19 @@ glabel func0f125948
 /*  f125a18:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f125a1c
-/*  f125a1c:	3c013e00 */ 	lui	$at,0x3e00
-/*  f125a20:	00802825 */ 	or	$a1,$a0,$zero
-/*  f125a24:	44801000 */ 	mtc1	$zero,$f2
-/*  f125a28:	44810000 */ 	mtc1	$at,$f0
-/*  f125a2c:	3404fffc */ 	dli	$a0,0xfffc
-/*  f125a30:	00001825 */ 	or	$v1,$zero,$zero
-/*  f125a34:	240600a0 */ 	addiu	$a2,$zero,0xa0
-/*  f125a38:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f125a3c:
-/*  f125a3c:	94ae0000 */ 	lhu	$t6,0x0($a1)
-/*  f125a40:	24630014 */ 	addiu	$v1,$v1,0x14
-/*  f125a44:	144e0005 */ 	bne	$v0,$t6,.L0f125a5c
-/*  f125a48:	00000000 */ 	nop
-/*  f125a4c:	94af0002 */ 	lhu	$t7,0x2($a1)
-/*  f125a50:	148f0002 */ 	bne	$a0,$t7,.L0f125a5c
-/*  f125a54:	00000000 */ 	nop
-/*  f125a58:	46001080 */ 	add.s	$f2,$f2,$f0
-.L0f125a5c:
-/*  f125a5c:	1466fff7 */ 	bne	$v1,$a2,.L0f125a3c
-/*  f125a60:	24a50014 */ 	addiu	$a1,$a1,0x14
-/*  f125a64:	03e00008 */ 	jr	$ra
-/*  f125a68:	46001006 */ 	mov.s	$f0,$f2
-);
+f32 func0f125a1c(struct bootbufferthingdeep *arg0)
+{
+	f32 sum = 0;
+	s32 i;
+
+	for (i = 0; i < 8; i++) {
+		if (arg0[i].unk00 == 1 && arg0[i].unk02 == 0xfffc) {
+			sum += 0.125f;
+		}
+	}
+
+	return sum;
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
