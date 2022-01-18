@@ -20,7 +20,7 @@ u32 func0f123fd4(void);
 u32 func0f125948(void);
 f32 func0f125a1c(struct bootbufferthingdeep *arg0);
 u32 func0f125a6c(void);
-Gfx *func0f126384(Gfx *gdl, u32 arg1, u32 arg2, f32 arg3, f32 orbsize, u32 arg5, f32 arg6);
+Gfx *func0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 orbsize, s32 arg5, f32 arg6);
 Gfx *func0f126c3c(Gfx *gdl, f32 x, f32 y, f32 z, f32 arg4, f32 arg5);
 Gfx *func0f126de8(Gfx *gdl);
 Gfx *func0f12715c(Gfx *gdl);
