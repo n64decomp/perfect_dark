@@ -59,8 +59,8 @@ void func0f13c510(void)
 	struct bootbufferthing *thing = bbufGetIndex0Buffer();
 	s32 i;
 
-	for (i = 0; i < ARRAYCOUNT(thing->unk00); i++) {
-		thing->unk00[i].unk00 = 0;
+	for (i = 0; i < 120; i++) {
+		thing->unk00[0][i].unk00 = 0;
 	}
 }
 
@@ -1002,7 +1002,7 @@ glabel func0f13c780
 /*  f13d280:	00000000 */ 	nop
 /*  f13d284:	45020029 */ 	bc1fl	.L0f13d32c
 /*  f13d288:	26f70006 */ 	addiu	$s7,$s7,0x6
-/*  f13d28c:	0fc595f3 */ 	jal	func0f1657cc
+/*  f13d28c:	0fc595f3 */ 	jal	skyGetCurrent
 /*  f13d290:	00000000 */ 	nop
 /*  f13d294:	9044000b */ 	lbu	$a0,0xb($v0)
 /*  f13d298:	8faf00b8 */ 	lw	$t7,0xb8($sp)
@@ -1173,7 +1173,7 @@ glabel func0f13d568
 /*  f13d604:	100002a2 */ 	b	.L0f13e090
 /*  f13d608:	8fa20160 */ 	lw	$v0,0x160($sp)
 .L0f13d60c:
-/*  f13d60c:	0fc595f3 */ 	jal	func0f1657cc
+/*  f13d60c:	0fc595f3 */ 	jal	skyGetCurrent
 /*  f13d610:	afa300a4 */ 	sw	$v1,0xa4($sp)
 /*  f13d614:	9052000b */ 	lbu	$s2,0xb($v0)
 /*  f13d618:	241e0002 */ 	addiu	$s8,$zero,0x2

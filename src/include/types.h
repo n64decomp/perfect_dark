@@ -3297,14 +3297,14 @@ struct var800a6600 {
 	f32 unk14;
 };
 
-struct var80081058 {
+struct sky {
 	/*0x00*/ s32 fogmin;
 	/*0x04*/ s32 fogmax;
 	/*0x08*/ u8 sky_r;
 	/*0x09*/ u8 sky_g;
 	/*0x0a*/ u8 sky_b;
-	/*0x0b*/ u8 num_suns;
-	/*0x0c*/ struct sun *sun;
+	/*0x0b*/ u8 numsuns;
+	/*0x0c*/ struct sun *suns;
 	/*0x10*/ u8 clouds_enabled;
 	/*0x14*/ f32 clouds_scale;
 	/*0x18*/ u16 unk18;
@@ -3332,7 +3332,7 @@ struct sun {
 	f32 y;
 	f32 z;
 	u16 texture_size;
-	u16 orb_size;
+	s16 orb_size;
 };
 
 struct skytype1 {
@@ -3347,8 +3347,8 @@ struct skytype1 {
 	/*0x10*/ u8 sky_r;
 	/*0x11*/ u8 sky_g;
 	/*0x12*/ u8 sky_b;
-	/*0x13*/ u8 num_suns;
-	/*0x14*/ struct sun *sun;
+	/*0x13*/ u8 numsuns;
+	/*0x14*/ struct sun *suns;
 	/*0x18*/ u8 clouds_enabled;
 	/*0x1a*/ s16 clouds_scale;
 	/*0x1c*/ u8 unk1c;
@@ -3375,8 +3375,8 @@ struct skytype2 {
 	/*0x0e*/ u8 sky_r;
 	/*0x0f*/ u8 sky_g;
 	/*0x10*/ u8 sky_b;
-	/*0x11*/ u8 num_suns;
-	/*0x14*/ struct sun *sun;
+	/*0x11*/ u8 numsuns;
+	/*0x14*/ struct sun *suns;
 	/*0x18*/ u8 clouds_enabled;
 	/*0x19*/ u8 clouds_r;
 	/*0x1a*/ u8 clouds_g;
@@ -3630,7 +3630,7 @@ struct bootbufferthingdeep {
 };
 
 struct bootbufferthing {
-	struct bootbufferthingdeep unk00[120];
+	struct bootbufferthingdeep unk00[15][8];
 };
 
 struct credit {

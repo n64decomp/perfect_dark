@@ -21,7 +21,7 @@ struct skytype1 *g_SkyTransitionTo;
 
 f32 var80081050 = MAXFLOAT;
 f32 var80081054 = 0;
-struct var80081058 var80081058 = {900, 1000};
+struct sky var80081058 = {900, 1000};
 u32 var800810a8 = 0;
 u32 var800810ac = 0;
 
@@ -122,7 +122,7 @@ void func0f1657c0(s32 arg0, s32 arg1)
 	// empty
 }
 
-struct var80081058 *func0f1657cc(void)
+struct sky *skyGetCurrent(void)
 {
 	return &var80081058;
 }
@@ -266,8 +266,8 @@ void skyApplyType1(struct skytype1 *sky)
 	var80081058.skygreenfrac = var80081058.sky_g / 255.0f;
 	var80081058.skybluefrac = var80081058.sky_b / 255.0f;
 
-	var80081058.num_suns = sky->num_suns;
-	var80081058.sun = sky->sun;
+	var80081058.numsuns = sky->numsuns;
+	var80081058.suns = sky->suns;
 
 	var80081058.clouds_enabled = sky->clouds_enabled;
 	var80081058.clouds_scale = sky->clouds_scale;
@@ -310,8 +310,8 @@ void skyApplyType2(struct skytype2 *sky)
 	var80081058.skygreenfrac = var80081058.sky_g / 255.0f;
 	var80081058.skybluefrac = var80081058.sky_b / 255.0f;
 
-	var80081058.num_suns = sky->num_suns;
-	var80081058.sun = sky->sun;
+	var80081058.numsuns = sky->numsuns;
+	var80081058.suns = sky->suns;
 	var80081058.clouds_enabled = sky->clouds_enabled;
 	var80081058.clouds_scale = sky->clouds_scale;
 	var80081058.unk18 = sky->unk20;

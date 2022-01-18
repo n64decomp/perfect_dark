@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-struct var80081058 *func0f1657cc(void);
+struct sky *skyGetCurrent(void);
 f32 func0f1657e4(void);
 void func0f1657f8(void);
 void skyApplyType1(struct skytype1 *sky);
