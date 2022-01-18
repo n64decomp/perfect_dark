@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0f11f000(void);
+void func0f11f000(f32 left, f32 top, struct coord *arg2);
 u32 func0f11f07c(void);
 u32 func0f11f1fc(void);
 void func0f11f384(struct coord *arg0, struct coord *arg1, struct coord *out);

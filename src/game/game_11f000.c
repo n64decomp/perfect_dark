@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/game_096ca0.h"
 #include "game/game_0b2150.h"
-#include "game/game_0b3350.h"
+#include "game/game_0b4950.h"
 #include "game/game_11f000.h"
 #include "game/game_152fa0.h"
 #include "game/game_1657c0.h"
@@ -84,40 +84,17 @@ u32 var8007dbfc = 0x3f800000;
 u32 var8007dc00 = 0x00000000;
 u32 var8007dc04 = 0x3f800000;
 
-GLOBAL_ASM(
-glabel func0f11f000
-/*  f11f000:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f11f004:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11f008:	e7ac0028 */ 	swc1	$f12,0x28($sp)
-/*  f11f00c:	e7ae002c */ 	swc1	$f14,0x2c($sp)
-/*  f11f010:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
-/*  f11f014:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f11f018:	0fc2d5fe */ 	jal	currentPlayerGetScreenLeft
-/*  f11f01c:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f11f020:	c7a40028 */ 	lwc1	$f4,0x28($sp)
-/*  f11f024:	46040180 */ 	add.s	$f6,$f0,$f4
-/*  f11f028:	0fc2d602 */ 	jal	currentPlayerGetScreenTop
-/*  f11f02c:	e7a6001c */ 	swc1	$f6,0x1c($sp)
-/*  f11f030:	0fc595f3 */ 	jal	skyGetCurrent
-/*  f11f034:	e7a00018 */ 	swc1	$f0,0x18($sp)
-/*  f11f038:	c7a8002c */ 	lwc1	$f8,0x2c($sp)
-/*  f11f03c:	c7aa0018 */ 	lwc1	$f10,0x18($sp)
-/*  f11f040:	c4520040 */ 	lwc1	$f18,0x40($v0)
-/*  f11f044:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f11f048:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f11f04c:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f11f050:	3c0642c8 */ 	lui	$a2,0x42c8
-/*  f11f054:	46109100 */ 	add.s	$f4,$f18,$f16
-/*  f11f058:	0fc2d30f */ 	jal	func0f0b4c3c
-/*  f11f05c:	e7a40020 */ 	swc1	$f4,0x20($sp)
-/*  f11f060:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f11f064:	0c0056c4 */ 	jal	mtx4RotateVecInPlace
-/*  f11f068:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f11f06c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11f070:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f11f074:	03e00008 */ 	jr	$ra
-/*  f11f078:	00000000 */ 	nop
-);
+void func0f11f000(f32 left, f32 top, struct coord *arg2)
+{
+	Mtxf *mtx = currentPlayerGetUnk174c();
+	f32 pos[2];
+
+	pos[0] = left + currentPlayerGetScreenLeft();
+	pos[1] = top + currentPlayerGetScreenTop() + skyGetCurrent()->unk40;
+
+	func0f0b4c3c(pos, arg2, 100);
+	mtx4RotateVecInPlace(mtx, arg2);
+}
 
 GLOBAL_ASM(
 glabel func0f11f07c
