@@ -75,14 +75,9 @@ u32 var8007dbd8 = 0x99ffffff;
 u32 var8007dbdc = 0x99ff99ff;
 u32 var8007dbe0 = 0xffff99ff;
 u32 var8007dbe4 = 0xff9999ff;
-u32 var8007dbe8 = 0x00000000;
-u32 var8007dbec = 0x00000000;
-u32 var8007dbf0 = 0x00000000;
-u32 var8007dbf4 = 0x00000000;
-u32 var8007dbf8 = 0x00000000;
-u32 var8007dbfc = 0x3f800000;
-u32 var8007dc00 = 0x00000000;
-u32 var8007dc04 = 0x3f800000;
+struct coord g_TeleportToPos = {0, 0, 0};
+struct coord g_TeleportToUp = {0, 0, 1};
+struct coord g_TeleportToLook = {0, 1, 0};
 
 void func0f11f000(f32 left, f32 top, struct coord *arg2)
 {
@@ -9874,256 +9869,87 @@ glabel func0f126c3c
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f126de8
-.late_rodata
-glabel var7f1b5120
-.word 0x40c907a9
-glabel var7f1b5124
-.word 0x3ea8f5c3
-glabel var7f1b5128
-.word 0x3f28f5c3
-glabel var7f1b512c
-.word 0x3ea8f5c3
-glabel var7f1b5130
-.word 0x3fa66666
-glabel var7f1b5134
-.word 0x3fd9999a
-glabel var7f1b5138
-.word 0x40490fdb
-glabel var7f1b513c
-.word 0x3fa0d2ee
-.text
-/*  f126de8:	27bdfea8 */ 	addiu	$sp,$sp,-344
-/*  f126dec:	3c018006 */ 	lui	$at,%hi(var80061630)
-/*  f126df0:	c4241630 */ 	lwc1	$f4,%lo(var80061630)($at)
-/*  f126df4:	3c017f1b */ 	lui	$at,%hi(var7f1b5120)
-/*  f126df8:	c4265120 */ 	lwc1	$f6,%lo(var7f1b5120)($at)
-/*  f126dfc:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x284)
-/*  f126e00:	8c63a244 */ 	lw	$v1,%lo(g_Vars+0x284)($v1)
-/*  f126e04:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f126e08:	afbf0074 */ 	sw	$ra,0x74($sp)
-/*  f126e0c:	afbe0070 */ 	sw	$s8,0x70($sp)
-/*  f126e10:	afb7006c */ 	sw	$s7,0x6c($sp)
-/*  f126e14:	afb60068 */ 	sw	$s6,0x68($sp)
-/*  f126e18:	afb50064 */ 	sw	$s5,0x64($sp)
-/*  f126e1c:	afb40060 */ 	sw	$s4,0x60($sp)
-/*  f126e20:	afb3005c */ 	sw	$s3,0x5c($sp)
-/*  f126e24:	afb20058 */ 	sw	$s2,0x58($sp)
-/*  f126e28:	afb10054 */ 	sw	$s1,0x54($sp)
-/*  f126e2c:	afb00050 */ 	sw	$s0,0x50($sp)
-/*  f126e30:	f7be0048 */ 	sdc1	$f30,0x48($sp)
-/*  f126e34:	f7bc0040 */ 	sdc1	$f28,0x40($sp)
-/*  f126e38:	f7ba0038 */ 	sdc1	$f26,0x38($sp)
-/*  f126e3c:	f7b80030 */ 	sdc1	$f24,0x30($sp)
-/*  f126e40:	f7b60028 */ 	sdc1	$f22,0x28($sp)
-/*  f126e44:	f7b40020 */ 	sdc1	$f20,0x20($sp)
-/*  f126e48:	e7a80154 */ 	swc1	$f8,0x154($sp)
-/*  f126e4c:	90621bfc */ 	lbu	$v0,0x1bfc($v1)
-/*  f126e50:	4480a000 */ 	mtc1	$zero,$f20
-/*  f126e54:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f126e58:	14410011 */ 	bne	$v0,$at,.L0f126ea0
-/*  f126e5c:	0080a825 */ 	or	$s5,$a0,$zero
-/*  f126e60:	906e1bfd */ 	lbu	$t6,0x1bfd($v1)
-/*  f126e64:	3c014f80 */ 	lui	$at,0x4f80
-/*  f126e68:	448e5000 */ 	mtc1	$t6,$f10
-/*  f126e6c:	05c10004 */ 	bgez	$t6,.L0f126e80
-/*  f126e70:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f126e74:	44819000 */ 	mtc1	$at,$f18
-/*  f126e78:	00000000 */ 	nop
-/*  f126e7c:	46128400 */ 	add.s	$f16,$f16,$f18
-.L0f126e80:
-/*  f126e80:	3c0141c0 */ 	lui	$at,0x41c0
-/*  f126e84:	44812000 */ 	mtc1	$at,$f4
-/*  f126e88:	3c017f1b */ 	lui	$at,%hi(var7f1b5124)
-/*  f126e8c:	c4285124 */ 	lwc1	$f8,%lo(var7f1b5124)($at)
-/*  f126e90:	46048183 */ 	div.s	$f6,$f16,$f4
-/*  f126e94:	46083502 */ 	mul.s	$f20,$f6,$f8
-/*  f126e98:	10000016 */ 	b	.L0f126ef4
-/*  f126e9c:	3c013f80 */ 	lui	$at,0x3f80
-.L0f126ea0:
-/*  f126ea0:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f126ea4:	54410013 */ 	bnel	$v0,$at,.L0f126ef4
-/*  f126ea8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f126eac:	906f1bfd */ 	lbu	$t7,0x1bfd($v1)
-/*  f126eb0:	3c014f80 */ 	lui	$at,0x4f80
-/*  f126eb4:	448f5000 */ 	mtc1	$t7,$f10
-/*  f126eb8:	05e10004 */ 	bgez	$t7,.L0f126ecc
-/*  f126ebc:	468054a0 */ 	cvt.s.w	$f18,$f10
-/*  f126ec0:	44818000 */ 	mtc1	$at,$f16
-/*  f126ec4:	00000000 */ 	nop
-/*  f126ec8:	46109480 */ 	add.s	$f18,$f18,$f16
-.L0f126ecc:
-/*  f126ecc:	3c014240 */ 	lui	$at,0x4240
-/*  f126ed0:	44812000 */ 	mtc1	$at,$f4
-/*  f126ed4:	3c017f1b */ 	lui	$at,%hi(var7f1b5128)
-/*  f126ed8:	c4285128 */ 	lwc1	$f8,%lo(var7f1b5128)($at)
-/*  f126edc:	46049183 */ 	div.s	$f6,$f18,$f4
-/*  f126ee0:	3c017f1b */ 	lui	$at,%hi(var7f1b512c)
-/*  f126ee4:	c430512c */ 	lwc1	$f16,%lo(var7f1b512c)($at)
-/*  f126ee8:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f126eec:	46105500 */ 	add.s	$f20,$f10,$f16
-/*  f126ef0:	3c013f80 */ 	lui	$at,0x3f80
-.L0f126ef4:
-/*  f126ef4:	44811000 */ 	mtc1	$at,$f2
-/*  f126ef8:	3c0140c0 */ 	lui	$at,0x40c0
-/*  f126efc:	44819000 */ 	mtc1	$at,$f18
-/*  f126f00:	3c017f1b */ 	lui	$at,%hi(var7f1b5130)
-/*  f126f04:	c4245130 */ 	lwc1	$f4,%lo(var7f1b5130)($at)
-/*  f126f08:	4612a302 */ 	mul.s	$f12,$f20,$f18
-/*  f126f0c:	3c017f1b */ 	lui	$at,%hi(var7f1b5134)
-/*  f126f10:	2405000e */ 	addiu	$a1,$zero,0xe
-/*  f126f14:	4604a582 */ 	mul.s	$f22,$f20,$f4
-/*  f126f18:	27a600ec */ 	addiu	$a2,$sp,0xec
-/*  f126f1c:	46006786 */ 	mov.s	$f30,$f12
-/*  f126f20:	4616103c */ 	c.lt.s	$f2,$f22
-/*  f126f24:	00000000 */ 	nop
-/*  f126f28:	45020003 */ 	bc1fl	.L0f126f38
-/*  f126f2c:	460c103c */ 	c.lt.s	$f2,$f12
-/*  f126f30:	46001586 */ 	mov.s	$f22,$f2
-/*  f126f34:	460c103c */ 	c.lt.s	$f2,$f12
-.L0f126f38:
-/*  f126f38:	00000000 */ 	nop
-/*  f126f3c:	45000002 */ 	bc1f	.L0f126f48
-/*  f126f40:	00000000 */ 	nop
-/*  f126f44:	46001786 */ 	mov.s	$f30,$f2
-.L0f126f48:
-/*  f126f48:	c4265134 */ 	lwc1	$f6,%lo(var7f1b5134)($at)
-/*  f126f4c:	4606a502 */ 	mul.s	$f20,$f20,$f6
-/*  f126f50:	4614103c */ 	c.lt.s	$f2,$f20
-/*  f126f54:	00000000 */ 	nop
-/*  f126f58:	45000002 */ 	bc1f	.L0f126f64
-/*  f126f5c:	00000000 */ 	nop
-/*  f126f60:	46001506 */ 	mov.s	$f20,$f2
-.L0f126f64:
-/*  f126f64:	0fc456ac */ 	jal	padUnpack
-/*  f126f68:	94641bfe */ 	lhu	$a0,0x1bfe($v1)
-/*  f126f6c:	3c118008 */ 	lui	$s1,%hi(var8007dbe8)
-/*  f126f70:	c7a800ec */ 	lwc1	$f8,0xec($sp)
-/*  f126f74:	c7aa00f0 */ 	lwc1	$f10,0xf0($sp)
-/*  f126f78:	c7b000f4 */ 	lwc1	$f16,0xf4($sp)
-/*  f126f7c:	2631dbe8 */ 	addiu	$s1,$s1,%lo(var8007dbe8)
-/*  f126f80:	3c128008 */ 	lui	$s2,%hi(var8007dc00)
-/*  f126f84:	3c138008 */ 	lui	$s3,%hi(var8007dbf4)
-/*  f126f88:	e6280000 */ 	swc1	$f8,0x0($s1)
-/*  f126f8c:	e62a0004 */ 	swc1	$f10,0x4($s1)
-/*  f126f90:	e6300008 */ 	swc1	$f16,0x8($s1)
-/*  f126f94:	c7b200f8 */ 	lwc1	$f18,0xf8($sp)
-/*  f126f98:	c7a400fc */ 	lwc1	$f4,0xfc($sp)
-/*  f126f9c:	c7a60100 */ 	lwc1	$f6,0x100($sp)
-/*  f126fa0:	c7a80104 */ 	lwc1	$f8,0x104($sp)
-/*  f126fa4:	c7aa0108 */ 	lwc1	$f10,0x108($sp)
-/*  f126fa8:	c7b0010c */ 	lwc1	$f16,0x10c($sp)
-/*  f126fac:	2673dbf4 */ 	addiu	$s3,$s3,%lo(var8007dbf4)
-/*  f126fb0:	2652dc00 */ 	addiu	$s2,$s2,%lo(var8007dc00)
-/*  f126fb4:	3c017f1b */ 	lui	$at,%hi(var7f1b5138)
-/*  f126fb8:	e6520000 */ 	swc1	$f18,0x0($s2)
-/*  f126fbc:	e6440004 */ 	swc1	$f4,0x4($s2)
-/*  f126fc0:	e6460008 */ 	swc1	$f6,0x8($s2)
-/*  f126fc4:	e6680000 */ 	swc1	$f8,0x0($s3)
-/*  f126fc8:	e66a0004 */ 	swc1	$f10,0x4($s3)
-/*  f126fcc:	e6700008 */ 	swc1	$f16,0x8($s3)
-/*  f126fd0:	c4325138 */ 	lwc1	$f18,%lo(var7f1b5138)($at)
-/*  f126fd4:	4612b302 */ 	mul.s	$f12,$f22,$f18
-/*  f126fd8:	0c0068f4 */ 	jal	cosf
-/*  f126fdc:	00000000 */ 	nop
-/*  f126fe0:	46000587 */ 	neg.s	$f22,$f0
-/*  f126fe4:	3c013f00 */ 	lui	$at,0x3f00
-/*  f126fe8:	44819000 */ 	mtc1	$at,$f18
-/*  f126fec:	44818000 */ 	mtc1	$at,$f16
-/*  f126ff0:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f126ff4:	4612b482 */ 	mul.s	$f18,$f22,$f18
-/*  f126ff8:	4481b000 */ 	mtc1	$at,$f22
-/*  f126ffc:	3c014348 */ 	lui	$at,0x4348
-/*  f127000:	44817000 */ 	mtc1	$at,$f14
-/*  f127004:	3c017f1b */ 	lui	$at,%hi(var7f1b513c)
-/*  f127008:	c43c513c */ 	lwc1	$f28,%lo(var7f1b513c)($at)
-/*  f12700c:	460ea682 */ 	mul.s	$f26,$f20,$f14
-/*  f127010:	46109400 */ 	add.s	$f16,$f18,$f16
-/*  f127014:	00008025 */ 	or	$s0,$zero,$zero
-/*  f127018:	241e0005 */ 	addiu	$s8,$zero,0x5
-/*  f12701c:	27b700e0 */ 	addiu	$s7,$sp,0xe0
-/*  f127020:	4610b602 */ 	mul.s	$f24,$f22,$f16
-/*  f127024:	27b600d0 */ 	addiu	$s6,$sp,0xd0
-/*  f127028:	27b40090 */ 	addiu	$s4,$sp,0x90
-.L0f12702c:
-/*  f12702c:	c6460000 */ 	lwc1	$f6,0x0($s2)
-/*  f127030:	c6480004 */ 	lwc1	$f8,0x4($s2)
-/*  f127034:	44909000 */ 	mtc1	$s0,$f18
-/*  f127038:	46183002 */ 	mul.s	$f0,$f6,$f24
-/*  f12703c:	c64a0008 */ 	lwc1	$f10,0x8($s2)
-/*  f127040:	c7a60154 */ 	lwc1	$f6,0x154($sp)
-/*  f127044:	46184082 */ 	mul.s	$f2,$f8,$f24
-/*  f127048:	00000000 */ 	nop
-/*  f12704c:	46185382 */ 	mul.s	$f14,$f10,$f24
-/*  f127050:	e7a000e0 */ 	swc1	$f0,0xe0($sp)
-/*  f127054:	e7a200e4 */ 	swc1	$f2,0xe4($sp)
-/*  f127058:	46809420 */ 	cvt.s.w	$f16,$f18
-/*  f12705c:	e7ae00e8 */ 	swc1	$f14,0xe8($sp)
-/*  f127060:	461c8102 */ 	mul.s	$f4,$f16,$f28
-/*  f127064:	46062580 */ 	add.s	$f22,$f4,$f6
-/*  f127068:	0c0068f7 */ 	jal	sinf
-/*  f12706c:	4600b306 */ 	mov.s	$f12,$f22
-/*  f127070:	46000506 */ 	mov.s	$f20,$f0
-/*  f127074:	0c0068f4 */ 	jal	cosf
-/*  f127078:	4600b306 */ 	mov.s	$f12,$f22
-/*  f12707c:	c6680000 */ 	lwc1	$f8,0x0($s3)
-/*  f127080:	c6720004 */ 	lwc1	$f18,0x4($s3)
-/*  f127084:	c6640008 */ 	lwc1	$f4,0x8($s3)
-/*  f127088:	46144282 */ 	mul.s	$f10,$f8,$f20
-/*  f12708c:	e7a000d0 */ 	swc1	$f0,0xd0($sp)
-/*  f127090:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f127094:	46149402 */ 	mul.s	$f16,$f18,$f20
-/*  f127098:	02802825 */ 	or	$a1,$s4,$zero
-/*  f12709c:	46142182 */ 	mul.s	$f6,$f4,$f20
-/*  f1270a0:	e7aa00d4 */ 	swc1	$f10,0xd4($sp)
-/*  f1270a4:	e7b000d8 */ 	swc1	$f16,0xd8($sp)
-/*  f1270a8:	0fc25bb5 */ 	jal	func0f096ed4
-/*  f1270ac:	e7a600dc */ 	swc1	$f6,0xdc($sp)
-/*  f1270b0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1270b4:	0c0056c4 */ 	jal	mtx4RotateVecInPlace
-/*  f1270b8:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f1270bc:	c7a000e0 */ 	lwc1	$f0,0xe0($sp)
-/*  f1270c0:	c7a200e4 */ 	lwc1	$f2,0xe4($sp)
-/*  f1270c4:	c7ae00e8 */ 	lwc1	$f14,0xe8($sp)
-/*  f1270c8:	c6280000 */ 	lwc1	$f8,0x0($s1)
-/*  f1270cc:	c62a0004 */ 	lwc1	$f10,0x4($s1)
-/*  f1270d0:	c6320008 */ 	lwc1	$f18,0x8($s1)
-/*  f1270d4:	46080000 */ 	add.s	$f0,$f0,$f8
-/*  f1270d8:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f1270dc:	e7ba0010 */ 	swc1	$f26,0x10($sp)
-/*  f1270e0:	460a1080 */ 	add.s	$f2,$f2,$f10
-/*  f1270e4:	44050000 */ 	mfc1	$a1,$f0
-/*  f1270e8:	e7a000e0 */ 	swc1	$f0,0xe0($sp)
-/*  f1270ec:	46127380 */ 	add.s	$f14,$f14,$f18
-/*  f1270f0:	44061000 */ 	mfc1	$a2,$f2
-/*  f1270f4:	e7a200e4 */ 	swc1	$f2,0xe4($sp)
-/*  f1270f8:	e7be0014 */ 	swc1	$f30,0x14($sp)
-/*  f1270fc:	44077000 */ 	mfc1	$a3,$f14
-/*  f127100:	0fc49b0f */ 	jal	func0f126c3c
-/*  f127104:	e7ae00e8 */ 	swc1	$f14,0xe8($sp)
-/*  f127108:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f12710c:	161effc7 */ 	bne	$s0,$s8,.L0f12702c
-/*  f127110:	0040a825 */ 	or	$s5,$v0,$zero
-/*  f127114:	8fbf0074 */ 	lw	$ra,0x74($sp)
-/*  f127118:	d7b40020 */ 	ldc1	$f20,0x20($sp)
-/*  f12711c:	d7b60028 */ 	ldc1	$f22,0x28($sp)
-/*  f127120:	d7b80030 */ 	ldc1	$f24,0x30($sp)
-/*  f127124:	d7ba0038 */ 	ldc1	$f26,0x38($sp)
-/*  f127128:	d7bc0040 */ 	ldc1	$f28,0x40($sp)
-/*  f12712c:	d7be0048 */ 	ldc1	$f30,0x48($sp)
-/*  f127130:	8fb00050 */ 	lw	$s0,0x50($sp)
-/*  f127134:	8fb10054 */ 	lw	$s1,0x54($sp)
-/*  f127138:	8fb20058 */ 	lw	$s2,0x58($sp)
-/*  f12713c:	8fb3005c */ 	lw	$s3,0x5c($sp)
-/*  f127140:	8fb40060 */ 	lw	$s4,0x60($sp)
-/*  f127144:	8fb50064 */ 	lw	$s5,0x64($sp)
-/*  f127148:	8fb60068 */ 	lw	$s6,0x68($sp)
-/*  f12714c:	8fb7006c */ 	lw	$s7,0x6c($sp)
-/*  f127150:	8fbe0070 */ 	lw	$s8,0x70($sp)
-/*  f127154:	03e00008 */ 	jr	$ra
-/*  f127158:	27bd0158 */ 	addiu	$sp,$sp,0x158
-);
+/**
+ * Render lens flares during teleport.
+ */
+Gfx *func0f126de8(Gfx *gdl)
+{
+	f32 sp154 = var80061630 * M_BADTAU;
+	s32 i;
+	f32 f20 = 0.0f;
+	f32 f20_2;
+	f32 f22;
+	f32 f22_3;
+	struct pad pad;
+	struct coord spe0;
+	f32 spd0[4];
+	Mtxf mtx;
+	f32 f24;
+	f32 f30;
+
+	if (g_Vars.currentplayer->teleportstate == TELEPORTSTATE_PREENTER) {
+		f20 = g_Vars.currentplayer->teleporttime / 24.0f * 0.33f;
+	} else if (g_Vars.currentplayer->teleportstate == TELEPORTSTATE_ENTERING) {
+		f20 = g_Vars.currentplayer->teleporttime / 48.0f * 0.66f + 0.33f;
+	}
+
+	f30 = f20 * 6.0f;
+	f22 = f20 * 1.3f;
+
+	if (f22 > 1.0f) {
+		f22 = 1.0f;
+	}
+
+	if (f30 > 1.0f) {
+		f30 = 1.0f;
+	}
+
+	f20 *= 1.7f;
+
+	if (f20 > 1.0f) {
+		f20 = 1.0f;
+	}
+
+	padUnpack(g_Vars.currentplayer->teleportpad, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP, &pad);
+
+	g_TeleportToPos.x = pad.pos.x;
+	g_TeleportToPos.y = pad.pos.y;
+	g_TeleportToPos.z = pad.pos.z;
+	g_TeleportToLook.x = pad.look.x;
+	g_TeleportToLook.y = pad.look.y;
+	g_TeleportToLook.z = pad.look.z;
+	g_TeleportToUp.x = pad.up.x;
+	g_TeleportToUp.y = pad.up.y;
+	g_TeleportToUp.z = pad.up.z;
+
+	f22 = -cosf(f22 * M_PI) * 0.5f + .5f;
+	f24 = 100 * f22;
+
+	for (i = 0; i < 5; i++) {
+		spe0.x = g_TeleportToLook.f[0] * f24;
+		spe0.y = g_TeleportToLook.f[1] * f24;
+		spe0.z = g_TeleportToLook.f[2] * f24;
+
+		f22_3 = sp154 + i * 1.2564370632172f;
+		f20_2 = sinf(f22_3);
+
+		spd0[0] = cosf(f22_3);
+		spd0[1] = g_TeleportToUp.f[0] * f20_2;
+		spd0[2] = g_TeleportToUp.f[1] * f20_2;
+		spd0[3] = g_TeleportToUp.f[2] * f20_2;
+
+		func0f096ed4(spd0, &mtx);
+		mtx4RotateVecInPlace(&mtx, &spe0);
+
+		spe0.x += g_TeleportToPos.x;
+		spe0.y += g_TeleportToPos.y;
+		spe0.z += g_TeleportToPos.z;
+
+		gdl = func0f126c3c(gdl, spe0.x, spe0.y, spe0.z, f20 * 200, f30);
+	}
+
+	return gdl;
+}
 
 /**
  * Render teleport lens flare and sun lens flares.

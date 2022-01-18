@@ -2918,7 +2918,7 @@ struct player {
 	/*0x1bf8*/ s32 bondcurexplode;  // Increases by 1 on each tick even when not exploding
 	/*0x1bfc*/ u8 teleportstate;
 	/*0x1bfd*/ u8 teleporttime;
-	/*0x1bfe*/ s16 teleportpad;
+	/*0x1bfe*/ u16 teleportpad;
 	/*0x1c00*/ u16 teleportcamerapad;
 	/*0x1c04*/ struct chrdata *commandingaibot;
 	/*0x1c08*/ u32 training;
