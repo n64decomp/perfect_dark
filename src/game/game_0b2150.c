@@ -439,88 +439,23 @@ void func0f0b2740(Gfx **gdl, f32 *arg1, f32 *arg2, s32 width, s32 height, bool a
 	func0f0b2150(gdl, arg1, arg2, width, height, arg5, arg6, arg7, arg8, false, false);
 }
 
-GLOBAL_ASM(
-glabel func0f0b278c
-/*  f0b278c:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0b2790:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0b2794:	44800000 */ 	mtc1	$zero,$f0
-/*  f0b2798:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*  f0b279c:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f0b27a0:	00000000 */ 	nop
-/*  f0b27a4:	45020044 */ 	bc1fl	.L0f0b28b8
-/*  f0b27a8:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0b27ac:	c4c60004 */ 	lwc1	$f6,0x4($a2)
-/*  f0b27b0:	4606003c */ 	c.lt.s	$f0,$f6
-/*  f0b27b4:	00000000 */ 	nop
-/*  f0b27b8:	4502003f */ 	bc1fl	.L0f0b28b8
-/*  f0b27bc:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0b27c0:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f0b27c4:	3c0efb00 */ 	lui	$t6,0xfb00
-/*  f0b27c8:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0b27cc:	ac6e0000 */ 	sw	$t6,0x0($v1)
-/*  f0b27d0:	8fb80058 */ 	lw	$t8,0x58($sp)
-/*  f0b27d4:	8fa8005c */ 	lw	$t0,0x5c($sp)
-/*  f0b27d8:	8fac0060 */ 	lw	$t4,0x60($sp)
-/*  f0b27dc:	0018ce00 */ 	sll	$t9,$t8,0x18
-/*  f0b27e0:	8fb80064 */ 	lw	$t8,0x64($sp)
-/*  f0b27e4:	310900ff */ 	andi	$t1,$t0,0xff
-/*  f0b27e8:	00095400 */ 	sll	$t2,$t1,0x10
-/*  f0b27ec:	318d00ff */ 	andi	$t5,$t4,0xff
-/*  f0b27f0:	000d7200 */ 	sll	$t6,$t5,0x8
-/*  f0b27f4:	032a5825 */ 	or	$t3,$t9,$t2
-/*  f0b27f8:	016e7825 */ 	or	$t7,$t3,$t6
-/*  f0b27fc:	330800ff */ 	andi	$t0,$t8,0xff
-/*  f0b2800:	01e84825 */ 	or	$t1,$t7,$t0
-/*  f0b2804:	ac690004 */ 	sw	$t1,0x4($v1)
-/*  f0b2808:	8fb90068 */ 	lw	$t9,0x68($sp)
-/*  f0b280c:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  f0b2810:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0b2814:	13200009 */ 	beqz	$t9,.L0f0b283c
-/*  f0b2818:	8fad006c */ 	lw	$t5,0x6c($sp)
-/*  f0b281c:	3c0afc26 */ 	lui	$t2,0xfc26
-/*  f0b2820:	3c0c1f14 */ 	lui	$t4,0x1f14
-/*  f0b2824:	358c93ff */ 	ori	$t4,$t4,0x93ff
-/*  f0b2828:	354aa005 */ 	ori	$t2,$t2,0xa005
-/*  f0b282c:	ac6a0000 */ 	sw	$t2,0x0($v1)
-/*  f0b2830:	ac6c0004 */ 	sw	$t4,0x4($v1)
-/*  f0b2834:	10000012 */ 	b	.L0f0b2880
-/*  f0b2838:	24420008 */ 	addiu	$v0,$v0,0x8
-.L0f0b283c:
-/*  f0b283c:	11a00009 */ 	beqz	$t5,.L0f0b2864
-/*  f0b2840:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0b2844:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0b2848:	3c0bfc12 */ 	lui	$t3,0xfc12
-/*  f0b284c:	356b9bff */ 	ori	$t3,$t3,0x9bff
-/*  f0b2850:	240efe38 */ 	addiu	$t6,$zero,-456
-/*  f0b2854:	ac6e0004 */ 	sw	$t6,0x4($v1)
-/*  f0b2858:	ac6b0000 */ 	sw	$t3,0x0($v1)
-/*  f0b285c:	10000008 */ 	b	.L0f0b2880
-/*  f0b2860:	24420008 */ 	addiu	$v0,$v0,0x8
-.L0f0b2864:
-/*  f0b2864:	3c18fc12 */ 	lui	$t8,0xfc12
-/*  f0b2868:	3c0fff37 */ 	lui	$t7,0xff37
-/*  f0b286c:	35efffff */ 	ori	$t7,$t7,0xffff
-/*  f0b2870:	37189a25 */ 	ori	$t8,$t8,0x9a25
-/*  f0b2874:	ac780000 */ 	sw	$t8,0x0($v1)
-/*  f0b2878:	ac6f0004 */ 	sw	$t7,0x4($v1)
-/*  f0b287c:	24420008 */ 	addiu	$v0,$v0,0x8
-.L0f0b2880:
-/*  f0b2880:	ac820000 */ 	sw	$v0,0x0($a0)
-/*  f0b2884:	8faa0054 */ 	lw	$t2,0x54($sp)
-/*  f0b2888:	8fb90050 */ 	lw	$t9,0x50($sp)
-/*  f0b288c:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*  f0b2890:	8fa80048 */ 	lw	$t0,0x48($sp)
-/*  f0b2894:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0b2898:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f0b289c:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f0b28a0:	afaa001c */ 	sw	$t2,0x1c($sp)
-/*  f0b28a4:	afb90018 */ 	sw	$t9,0x18($sp)
-/*  f0b28a8:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f0b28ac:	0fc2c854 */ 	jal	func0f0b2150
-/*  f0b28b0:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f0b28b4:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f0b28b8:
-/*  f0b28b8:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0b28bc:	03e00008 */ 	jr	$ra
-/*  f0b28c0:	00000000 */ 	nop
-);
+void func0f0b278c(Gfx **gdlptr, f32 *arg1, f32 *arg2, s32 twidth, u32 theight, u32 arg5, u32 arg6, u32 arg7, u32 r, u32 g, u32 b, u32 alpha, u32 arg12, u32 arg13)
+{
+	if (arg2[0] > 0.0f && arg2[1] > 0.0f) {
+		Gfx *gdl = *gdlptr;
+
+		gDPSetEnvColor(gdl++, r, g, b, alpha);
+
+		if (arg12) {
+			gDPSetCombineLERP(gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, COMBINED, 0, ENVIRONMENT, 0, COMBINED, 0, ENVIRONMENT, 0);
+		} else if (arg13) {
+			gDPSetCombineLERP(gdl++, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0, 0, 0, 0, COMBINED, 0, 0, 0, COMBINED);
+		} else {
+			gDPSetCombineLERP(gdl++, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0);
+		}
+
+		*gdlptr = gdl;
+
+		func0f0b2150(gdlptr, arg1, arg2, twidth, theight, arg5, arg6, arg7, false, false, false);
+	}
+}
