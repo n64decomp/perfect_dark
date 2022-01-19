@@ -434,28 +434,10 @@ glabel func0f0b2150
 /*  f0b273c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0b2740
-/*  f0b2740:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0b2744:	8fae0048 */ 	lw	$t6,0x48($sp)
-/*  f0b2748:	8faf004c */ 	lw	$t7,0x4c($sp)
-/*  f0b274c:	8fb80050 */ 	lw	$t8,0x50($sp)
-/*  f0b2750:	8fb90054 */ 	lw	$t9,0x54($sp)
-/*  f0b2754:	8fa80058 */ 	lw	$t0,0x58($sp)
-/*  f0b2758:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0b275c:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f0b2760:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0b2764:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0b2768:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f0b276c:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f0b2770:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f0b2774:	0fc2c854 */ 	jal	func0f0b2150
-/*  f0b2778:	afa80020 */ 	sw	$t0,0x20($sp)
-/*  f0b277c:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0b2780:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0b2784:	03e00008 */ 	jr	$ra
-/*  f0b2788:	00000000 */ 	nop
-);
+void func0f0b2740(Gfx **gdl, f32 *arg1, f32 *arg2, s32 width, s32 height, bool arg5, bool arg6, bool arg7, u32 arg8)
+{
+	func0f0b2150(gdl, arg1, arg2, width, height, arg5, arg6, arg7, arg8, false, false);
+}
 
 GLOBAL_ASM(
 glabel func0f0b278c
