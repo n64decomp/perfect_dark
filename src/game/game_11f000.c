@@ -9642,7 +9642,153 @@ glabel var7f1b511c
 #endif
 
 /**
- * Render a single lens flare artifact.
+ * Render a sun and its artifacts.
+ */
+//Gfx *func0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 size, s32 arg5, f32 arg6)
+//{
+//	f32 fa;
+//	f32 fb;
+//	f32 fc;
+//	f32 sp17c[2];
+//	f32 sp174[2];
+//	s32 sp15c[] = { 16, 32, 12, 32, 24, 64 }; // diameters?
+//	s32 sp144[] = { 60, 80, 225, 275, 470, 570 }; // distances from the sun?
+//
+//	u32 colours[] = { // 12c
+//		0xff99ffff, // pinkish/purple
+//		0x9999ffff, // blue
+//		0x99ffffff, // very light blue
+//		0x99ff99ff, // green
+//		0xffff99ff, // yellow
+//		0xff9999ff, // red
+//	};
+//
+//	f32 sp128;
+//	f32 sp124;
+//	s32 scale;
+//	s32 i;
+//	f32 f2;
+//	f32 f12;
+//	f32 f20;
+//	f32 f0;
+//
+//	scale = 1;
+//
+//	if (g_ViRes == VIRES_HI) {
+//		scale = 2;
+//	}
+//
+//	sp128 = (x - viGetViewWidth() * 0.5f) * 0.01f;
+//	sp124 = (y - viGetViewHeight() * 0.5f) * 0.01f;
+//
+//	// Render the sun
+//	func0f0b39c0(&gdl, &var800ab5a0[6], 4, 0, 2, 1, NULL);
+//
+//	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//	gDPSetColorDither(gdl++, G_CD_BAYER);
+//	gDPSetAlphaDither(gdl++, G_AD_PATTERN);
+//	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+//	gDPSetTexturePersp(gdl++, G_TP_NONE);
+//	gDPSetAlphaCompare(gdl++, G_AC_NONE);
+//	gDPSetTextureLOD(gdl++, G_TL_TILE);
+//	gDPSetTextureConvert(gdl++, G_TC_FILT);
+//	gDPSetTextureLUT(gdl++, G_TT_NONE);
+//	gDPSetTextureFilter(gdl++, G_TF_BILERP);
+//	gDPSetCombineLERP(gdl++,
+//			0, 0, 0, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0,
+//			0, 0, 0, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0);
+//
+//	fa = (size * (0.5f + 0.5f * arg3) * (60.0f / viGetFovY()));
+//
+//	gDPSetEnvColor(gdl++, 0xff, 0xff, 0xff, (s32)(arg6 * arg3 * 255.0f));
+//
+//	sp17c[0] = x;
+//	sp17c[1] = y;
+//	sp174[1] = fa;
+//	sp174[0] = fa * scale;
+//
+//	func0f0b2150(&gdl, sp17c, sp174, var800ab5a0[6].width, var800ab5a0[6].height, 0, 1, 1, 1, 0, 1);
+//
+//	// Render the artifacts
+//	func0f0b39c0(&gdl, &var800ab5a0[1], 4, 0, 2, 1, NULL);
+//
+//	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//	gDPSetColorDither(gdl++, G_CD_BAYER);
+//	gDPSetAlphaDither(gdl++, G_AD_PATTERN);
+//	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+//	gDPSetTexturePersp(gdl++, G_TP_NONE);
+//	gDPSetAlphaCompare(gdl++, G_AC_NONE);
+//	gDPSetTextureLOD(gdl++, G_TL_TILE);
+//	gDPSetTextureConvert(gdl++, G_TC_FILT);
+//	gDPSetTextureLUT(gdl++, G_TT_NONE);
+//	gDPSetTextureFilter(gdl++, G_TF_BILERP);
+//	gDPSetCombineLERP(gdl++,
+//			0, 0, 0, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0,
+//			0, 0, 0, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0);
+//
+//	for (i = 0; i < 6; i++) {
+//		// 90c
+//		if (arg5 < 90) {
+//			if (arg5 < 30) {
+//				f2 = arg5 * 0.033333335071802f;
+//			} else {
+//				f2 = 1.0f;
+//			}
+//		} else {
+//			f2 = (180.0f - (arg5 - 90)) * 0.0055555556900799f * 0.5f;
+//
+//			if (f2 < 0.0f) {
+//				f2 = 0.0f;
+//			}
+//
+//			f2 += 0.5f;
+//		}
+//
+//		// 974
+//		fb = x - sp144[i] * sp128;
+//		fc = y - sp144[i] * sp124;
+//		fa = sp15c[i] * 0.5f;
+//
+//		gDPSetEnvColor(gdl++, colours[i] >> 24, (colours[i] >> 16) & 0xff, (colours[i] >> 8) & 0xff, (s32)((colours[i] & 0xff) * (arg6 * f2)));
+//
+//		sp17c[0] = fb;
+//		sp17c[1] = fc;
+//
+//		sp174[1] = fa;
+//		sp174[0] = fa * scale;
+//
+//		func0f0b2150(&gdl, sp17c, sp174, var800ab5a0[1].width, var800ab5a0[1].height, 0, 0, 0, 0, 0, 1);
+//	}
+//
+//	f20 = viGetViewWidth() * .5f - x;
+//	f0 = viGetViewHeight() * .5f - y;
+//
+//	f12 = (40.0f - sqrtf(f20 * f20 + f0 * f0)) * 0.0125f;
+//
+//	if (f12 < 0.0f) {
+//		f12 = 0.0f;
+//	}
+//
+//	f12 += 0.1f;
+//
+//	if (arg5 <= g_Vars.lvupdate240) {
+//		f12 = 0.0f;
+//	}
+//
+//	if (f12 > 0.0f) {
+//		func0f127334(arg6 * f12 * 255.0f, arg6 * f12 * 255.0f, arg6 * f12 * 255.0f);
+//	}
+//
+//	gDPSetColorDither(gdl++, G_CD_BAYER);
+//	gDPSetAlphaDither(gdl++, G_AD_PATTERN | G_CD_DISABLE);
+//	gDPSetTexturePersp(gdl++, G_TP_PERSP);
+//	gDPSetTextureLOD(gdl++, G_TL_LOD);
+//
+//	return gdl;
+//}
+
+/**
+ * Render a sun and its artifacts if on screen.
  */
 Gfx *func0f126c3c(Gfx *gdl, f32 x, f32 y, f32 z, f32 arg4, f32 arg5)
 {
@@ -9762,7 +9908,7 @@ Gfx *func0f126de8(Gfx *gdl)
 }
 
 /**
- * Render teleport lens flare and sun lens flares.
+ * Render teleport artifacts, and all suns and their artifacts.
  */
 Gfx *func0f12715c(Gfx *gdl)
 {
