@@ -55,7 +55,7 @@ s32 htHoloListMenuHandler(s32 operation, struct menuitem *item, union handlerdat
 s32 menuhandler001a6a34(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandler001a6a70(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 ciHangarInformationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandler001a6ea4(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 ciHangarTitleMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 frDifficultyMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 
 #endif

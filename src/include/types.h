@@ -3551,7 +3551,7 @@ struct menuitem {
 	u8 type;
 	u8 param;
 	u32 param1;
-	u32 param2;
+	s32 param2;
 	s32 param3;
 
 	union {
