@@ -1275,7 +1275,7 @@ void scenarioHandleDroppedToken(struct chrdata *chr, struct prop *prop)
 				rooms[0] = pad.room;
 				rooms[1] = -1;
 
-				func0f06a730(obj, &pad, &mtx, rooms, &pad);
+				func0f06a730(obj, &pad.pos, &mtx, rooms, &pad.pos);
 			}
 		}
 	}

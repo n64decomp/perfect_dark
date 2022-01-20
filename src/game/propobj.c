@@ -19454,7 +19454,7 @@ void hovercarStartNextPath(struct hovercarobj *hovercar)
 	rooms[0] = pad.room;
 	rooms[1] = -1;
 
-	func0f06a730(&hovercar->base, &pad, &matrix, rooms, &pad);
+	func0f06a730(&hovercar->base, &pad.pos, &matrix, rooms, &pad.pos);
 
 	hovercar->base.flags |= OBJFLAG_HOVERCAR_20000000;
 }

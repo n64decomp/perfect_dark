@@ -35,28 +35,11 @@ u32 var8007f858 = 0xb8000000;
 u32 var8007f85c = 0x00000000;
 
 #if VERSION < VERSION_NTSC_1_0
-const char var7f1b02b0nb[] = "fsrad";
-const char var7f1b02b8nb[] = "fscs";
-
-GLOBAL_ASM(
-glabel func7f13c2d0nb
-/*  f13c2d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f13c2d4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f13c2d8:	3c047f1b */ 	lui	$a0,0x7f1b
-/*  f13c2dc:	3c058008 */ 	lui	$a1,0x8008
-/*  f13c2e0:	24a520ac */ 	addiu	$a1,$a1,0x20ac
-/*  f13c2e4:	0c00381c */ 	jal	mainOverrideVariable
-/*  f13c2e8:	248402b0 */ 	addiu	$a0,$a0,0x2b0
-/*  f13c2ec:	3c047f1b */ 	lui	$a0,0x7f1b
-/*  f13c2f0:	3c058008 */ 	lui	$a1,0x8008
-/*  f13c2f4:	24a520b0 */ 	addiu	$a1,$a1,0x20b0
-/*  f13c2f8:	0c00381c */ 	jal	mainOverrideVariable
-/*  f13c2fc:	248402b8 */ 	addiu	$a0,$a0,0x2b8
-/*  f13c300:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f13c304:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f13c308:	03e00008 */ 	jr	$ra
-/*  f13c30c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f13c2d0nb(void)
+{
+	mainOverrideVariable("fsrad", &g_IrBinocularRadius);
+	mainOverrideVariable("fscs", &var8007f850);
+}
 #endif
 
 Gfx *bviewRenderIrRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
@@ -15754,7 +15737,7 @@ glabel bviewRenderIrLens
 /*  f141f00:	24a503bc */ 	addiu	$a1,$a1,0x3bc
 /*  f141f04:	0c004e60 */ 	jal	strcpy
 /*  f141f08:	24848780 */ 	addiu	$a0,$a0,-30848
-/*  f141f0c:	0fc4f0b4 */ 	jal	func7f13c2d0nb
+/*  f141f0c:	0fc4f0b4 */ 	jal	func0f13c2d0nb
 /*  f141f10:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f141f14:	02111021 */ 	addu	$v0,$s0,$s1
 /*  f141f18:	02024021 */ 	addu	$t0,$s0,$v0

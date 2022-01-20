@@ -2420,7 +2420,7 @@ bool aiObjectMoveToPad(void)
 
 		rooms[0] = pad.room;
 		rooms[1] = -1;
-		func0f06a730(obj, &pad, &matrix, rooms, &pad);
+		func0f06a730(obj, &pad.pos, &matrix, rooms, &pad.pos);
 	}
 
 	g_Vars.aioffset += 5;
