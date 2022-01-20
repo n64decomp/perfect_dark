@@ -920,6 +920,243 @@ glabel var7f1a7f80
 /*  f00d66c:	00000000 */ 	nop
 );
 
+//void setupGenericObject(struct defaultobj *obj, s32 cmdindex)
+//{
+//	f32 f0;
+//	s32 modelnum; // 140
+//	struct pad pad; // ec
+//	Mtxf spac; // ac
+//	struct coord centre; // a0
+//	f32 scale; // 9c
+//	struct coord pos; // 90
+//	s16 rooms[8];
+//	struct prop *prop2; // 7c
+//	u32 stack[2];
+//	struct chrdata *chr; // 70
+//	struct prop *prop; // 6c
+//
+//	modelnum = obj->modelnum;
+//	modelLoad(modelnum);
+//	scale = obj->extrascale * (1.0f / 256.0f);
+//
+//	if (g_Vars.normmplayerisrunning || g_Vars.lvmpbotlevel) {
+//		obj->hidden2 |= OBJH2FLAG_CANREGEN;
+//	}
+//
+//	if (obj->flags & OBJFLAG_INSIDEANOTHEROBJ) {
+//		if (obj->type == OBJTYPE_WEAPON) {
+//			func0f08ae0c((struct weaponobj *)obj, g_ModelStates[modelnum].filedata);
+//		} else {
+//			objInitWithModelDef(obj, g_ModelStates[modelnum].filedata);
+//		}
+//
+//		modelSetScale(obj->model, obj->model->scale * scale);
+//		return;
+//	}
+//
+//	if (obj->flags & OBJFLAG_ASSIGNEDTOCHR) {
+//		chr = chrFindByLiteralId(obj->pad);
+//
+//		if (chr && chr->prop && chr->model) {
+//			if (obj->type == OBJTYPE_WEAPON) {
+//				prop = func0f08ae0c((struct weaponobj *)obj, g_ModelStates[modelnum].filedata);
+//			} else {
+//				prop = objInitWithModelDef(obj, g_ModelStates[modelnum].filedata);
+//			}
+//
+//			modelSetScale(obj->model, obj->model->scale * scale);
+//			propReparent(prop, chr->prop);
+//		}
+//	} else {
+//		if (obj->pad < 0) {
+//			if (obj->type == OBJTYPE_WEAPON) {
+//				func0f08ae0c((struct weaponobj *)obj, g_ModelStates[modelnum].filedata);
+//			} else {
+//				objInitWithModelDef(obj, g_ModelStates[modelnum].filedata);
+//			}
+//
+//			modelSetScale(obj->model, obj->model->scale * scale);
+//			return;
+//		}
+//
+//		padUnpack(obj->pad, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_BBOX | PADFIELD_ROOM, &pad);
+//
+//		if (pad.room > 0) {
+//			mtx00016d58(&spac, 0, 0, 0, -pad.look.x, -pad.look.y, -pad.look.z, pad.up.x, pad.up.y, pad.up.z);
+//
+//			pos.x = pad.pos.x;
+//			pos.y = pad.pos.y;
+//			pos.z = pad.pos.z;
+//
+//			rooms[0] = pad.room;
+//			rooms[1] = -1;
+//
+//			if (!padHasBboxData(obj->pad)) {
+//				if (obj->flags & OBJFLAG_00000002) {
+//					centre.x = pad.pos.x;
+//					centre.y = pad.pos.y;
+//					centre.z = pad.pos.z;
+//				} else {
+//					centre.x = pad.pos.x;
+//					centre.y = pad.pos.y;
+//					centre.z = pad.pos.z;
+//				}
+//			} else {
+//				padGetCentre(obj->pad, &centre);
+//				centre.x += (pad.bbox.ymin - pad.bbox.ymax) * 0.5f * pad.up.x;
+//				centre.y += (pad.bbox.ymin - pad.bbox.ymax) * 0.5f * pad.up.y;
+//				centre.z += (pad.bbox.ymin - pad.bbox.ymax) * 0.5f * pad.up.z;
+//			}
+//
+//			if (obj->type == OBJTYPE_WEAPON) {
+//				prop2 = func0f08ae0c((struct weaponobj *)obj, g_ModelStates[modelnum].filedata);
+//			} else {
+//				prop2 = objInitWithAutoModel(obj);
+//			}
+//
+//			if (padHasBboxData(obj->pad)) {
+//				struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
+//
+//				if (bbox != NULL) {
+//					f32 sp64 = 1.0f;
+//					f32 sp60 = 1.0f;
+//					f32 sp5c = 1.0f;
+//					f32 f12;
+//					f32 sp54;
+//
+//					if (obj->flags & OBJFLAG_00000020) {
+//						if (bbox->xmin < bbox->xmax) {
+//							if (obj->flags & OBJFLAG_00000002) {
+//								sp64 = (pad.bbox.xmax - pad.bbox.xmin) / ((bbox->xmax - bbox->xmin) * obj->model->scale);
+//							} else {
+//								sp64 = (pad.bbox.xmax - pad.bbox.xmin) / ((bbox->xmax - bbox->xmin) * obj->model->scale);
+//							}
+//						}
+//					}
+//
+//					if (obj->flags & OBJFLAG_00000040) {
+//						if (bbox->ymin < bbox->ymax) {
+//							if (obj->flags & OBJFLAG_00000002) {
+//								sp5c = (pad.bbox.zmax - pad.bbox.zmin) / ((bbox->ymax - bbox->ymin) * obj->model->scale);
+//							} else {
+//								sp60 = (pad.bbox.ymax - pad.bbox.ymin) / ((bbox->ymax - bbox->ymin) * obj->model->scale);
+//							}
+//						}
+//					}
+//
+//					if (obj->flags & OBJFLAG_00000080) {
+//						if (bbox->zmin < bbox->zmax) {
+//							if (obj->flags & OBJFLAG_00000002) {
+//								sp60 = (pad.bbox.ymax - pad.bbox.ymin) / ((bbox->zmax - bbox->zmin) * obj->model->scale);
+//							} else {
+//								sp5c = (pad.bbox.zmax - pad.bbox.zmin) / ((bbox->zmax - bbox->zmin) * obj->model->scale);
+//							}
+//						}
+//					}
+//
+//					// 400
+//					// Goal compares sp60 with sp64 here, then optimises out
+//					// whatever's inside the branch, then unconditionally sets
+//					// sp54 to sp64 around 418. The below isn't quite the same;
+//					// we set sp54 to sp60 to prevent the first if statement
+//					// from being completely optimised out which gives closer
+//					// codegen.
+//					//
+//					// Register mappings:
+//					// f12 = sp64
+//					// f16 = sp60
+//					// f18 = sp5c
+//					// f14 = sp54
+//
+//					sp54 = sp60;
+//
+//					if (sp64 > sp54) { // f12 < f16
+//						sp54 = sp64; // optimised out
+//					}
+//
+//					// 418
+//					if (sp60 > sp54) { // f12 < f16
+//						sp54 = sp60; // f14 = f16
+//					}
+//
+//					// 42c
+//					if (sp5c > sp54) { // f14 < f18
+//						sp54 = sp5c; // f14 = f18
+//					}
+//
+//					// 444
+//					if ((obj->flags & OBJFLAG_00000020) == 0) {
+//						if (obj->flags & OBJFLAG_00000002) {
+//							if (bbox->xmax == bbox->xmin) {
+//								sp64 = sp54;
+//							}
+//						} else if (bbox->xmax == bbox->xmin) {
+//							sp64 = sp54;
+//						}
+//					}
+//
+//					if ((obj->flags & OBJFLAG_00000040) == 0) {
+//						if (obj->flags & OBJFLAG_00000002) {
+//							if (bbox->ymax == bbox->ymin) {
+//								sp5c = sp54;
+//							}
+//						} else if (bbox->ymax == bbox->ymin) {
+//							sp60 = sp54;
+//						}
+//					}
+//
+//					if ((obj->flags & OBJFLAG_00000080) == 0) {
+//						if (obj->flags & OBJFLAG_00000002) {
+//							if (bbox->zmax == bbox->zmin) {
+//								sp60 = sp54;
+//							}
+//						} else if (bbox->zmax == bbox->zmin) {
+//							sp5c = sp54;
+//						}
+//					}
+//
+//					sp64 /= sp54;
+//					sp60 /= sp54;
+//					sp5c /= sp54;
+//
+//					if (sp64 <= 0.000001f || sp60 <= 0.000001f || sp5c <= 0.000001f) {
+//						sp64 = 1;
+//						sp60 = 1;
+//						sp5c = 1;
+//					}
+//
+//					mtx00015e24(sp64, &spac);
+//					mtx00015e80(sp60, &spac);
+//					mtx00015edc(sp5c, &spac);
+//
+//					modelSetScale(obj->model, obj->model->scale * sp54);
+//				}
+//			}
+//
+//			modelSetScale(obj->model, obj->model->scale * scale);
+//			mtx00015f04(obj->model->scale, &spac);
+//
+//			if (obj->flags2 & OBJFLAG2_00020000) {
+//				prop2->flags |= PROPFLAG_DONTPAUSE;
+//			}
+//
+//			if (obj->flags & OBJFLAG_00000002) {
+//				func0f06ab60(obj, &pos, &spac, rooms, &centre);
+//			} else {
+//				func0f06a730(obj, &pos, &spac, rooms, &centre);
+//			}
+//
+//			if (obj->hidden & OBJHFLAG_00008000) {
+//				propActivateThisFrame(prop2);
+//			} else {
+//				propActivate(prop2);
+//			}
+//
+//			propEnable(prop2);
+//		}
+//	}
+//}
+
 /**
  * Assigns a weapon to its home.
  *

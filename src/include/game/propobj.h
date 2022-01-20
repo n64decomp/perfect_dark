@@ -101,8 +101,8 @@ struct prop *objInitWithModelDef(struct defaultobj *obj, struct modelfiledata *m
 struct prop *objInitWithAutoModel(struct defaultobj *obj);
 void func0f06a580(struct defaultobj *obj, struct coord *pos, Mtxf *matrix, s16 *rooms);
 f32 func0f06a620(struct defaultobj *obj);
-void func0f06a730(struct defaultobj *obj, struct pad *newpad, Mtxf *matrix, s16 *rooms, struct pad *arg4);
-u32 func0f06ab60(void);
+void func0f06a730(struct defaultobj *obj, struct coord *arg1, Mtxf *matrix, s16 *rooms, struct coord *arg4);
+void func0f06ab60(struct defaultobj *obj, struct coord *arg1, Mtxf *matrix, s16 *rooms, struct coord *arg4);
 void objEndFlight(struct defaultobj *obj);
 void func0f06ac90(struct prop *prop);
 void objFree(struct defaultobj *obj, bool freeprop, bool canregen);
