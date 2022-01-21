@@ -88,6 +88,9 @@
 #define gDPTri2(pkt, x1, y1, z1, x2, y2, z2) \
 	gDPTri4(pkt, x1, y1, z1, x2, y2, z2, 0, 0, 0, 0, 0, 0)
 
+#define gDPTri1(pkt, x1, y1, z1) \
+	gDPTri4(pkt, x1, y1, z1, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
 /**
  * Like gDPSetPrimColor, but is useful when the input colour is already in
  * RGBA format. It avoids unnecessary bitshifting and masking.

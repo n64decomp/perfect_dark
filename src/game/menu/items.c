@@ -8256,10 +8256,10 @@ Gfx *menuRenderItemCarousel(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	// Left arrow
-	gdl = gfxDrawChevron(gdl, context->x, context->y + context->height / 2, 8, 1, -1, colour);
+	gdl = gfxDrawEquTri(gdl, context->x, context->y + context->height / 2, 8, 1, -1, colour);
 
 	// Right arrow
-	gdl = gfxDrawChevron(gdl, context->x + context->width, context->y + context->height / 2, 8, 3, -1, colour);
+	gdl = gfxDrawEquTri(gdl, context->x + context->width, context->y + context->height / 2, 8, 3, -1, colour);
 
 	// This part of the function is unused because param2 is always zero.
 	// Setting it to 0x7b causes a crash.
