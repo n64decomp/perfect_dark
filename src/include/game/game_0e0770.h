@@ -17,7 +17,7 @@ Gfx *func0f0e258c(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 arg5, s32 arg6, 
 Gfx *renderLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 arg5, s32 arg6);
 Gfx *func0f0e2744(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colourleft, u32 colourright);
 Gfx *func0f0e2aa4(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colourleft, u32 arg6, u32 arg7, u32 arg8);
-u32 func0f0e2ee8(void);
+Gfx *func0f0e2ee8(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colourleft, u32 colourright);
 Gfx *renderFilledRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colourleft, u32 colourright);
 Gfx *menuRenderCarouselArrow(Gfx *gdl, s32 x, s32 y, u32 arg3, u32 arg4, s32 arg5, u32 colour);
 u32 func0f0e3324(void);

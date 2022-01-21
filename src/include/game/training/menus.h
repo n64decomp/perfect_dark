@@ -45,7 +45,7 @@ s32 ciHangarHolographMenuDialog(s32 operation, struct menudialog *dialog, union 
 s32 frDetailsOkMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 frAbortMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandler001a44c0(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerFrFailedContinue(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 ciOfficeInformationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 dtDeviceListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
