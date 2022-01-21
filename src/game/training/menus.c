@@ -821,7 +821,7 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		// Render lines between the score table and the target texture
 
 		// Horizontal lines - bottom left
-		gdl = renderFilledRect(gdl, renderdata->x + 45, renderdata->y + 36, renderdata->x + 81, renderdata->y + 37, linecolourtex, linecolourmid);
+		gdl = gfxDrawFilledRect(gdl, renderdata->x + 45, renderdata->y + 36, renderdata->x + 81, renderdata->y + 37, linecolourtex, linecolourmid);
 		gdl = func0f0e2ee8(gdl, renderdata->x + 52, renderdata->y + 44, renderdata->x + 84, renderdata->y + 45, linecolourtex, linecolourmid);
 		gdl = func0f0e2ee8(gdl, renderdata->x + 62, renderdata->y + 50, renderdata->x + 87, renderdata->y + 51, linecolourtex, linecolourmid);
 		gdl = func0f0e2ee8(gdl, renderdata->x + 70, renderdata->y + 60, renderdata->x + 90, renderdata->y + 61, linecolourtex, linecolourmid);

@@ -12558,7 +12558,7 @@ glabel func0f0f5360
 /*  f0f65a0:	8fab01d4 */ 	lw	$t3,0x1d4($sp)
 /*  f0f65a4:	afb80014 */ 	sw	$t8,0x14($sp)
 /*  f0f65a8:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f0f65ac:	0fc38bd7 */ 	jal	renderFilledRect
+/*  f0f65ac:	0fc38bd7 */ 	jal	gfxDrawFilledRect
 /*  f0f65b0:	afab0010 */ 	sw	$t3,0x10($sp)
 /*  f0f65b4:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 .L0f0f65b8:
@@ -12685,7 +12685,7 @@ glabel func0f0f5360
 /*  f0f677c:	afa30014 */ 	sw	$v1,0x14($sp)
 /*  f0f6780:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f0f6784:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0f6788:	0fc38bd7 */ 	jal	renderFilledRect
+/*  f0f6788:	0fc38bd7 */ 	jal	gfxDrawFilledRect
 /*  f0f678c:	020e3821 */ 	addu	$a3,$s0,$t6
 /*  f0f6790:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 .L0f0f6794:
@@ -14774,7 +14774,7 @@ glabel func0f0f5360
 /*  f0f2f5c:	8fab01d4 */ 	lw	$t3,0x1d4($sp)
 /*  f0f2f60:	afad0014 */ 	sw	$t5,0x14($sp)
 /*  f0f2f64:	afad0018 */ 	sw	$t5,0x18($sp)
-/*  f0f2f68:	0fc380fc */ 	jal	renderFilledRect
+/*  f0f2f68:	0fc380fc */ 	jal	gfxDrawFilledRect
 /*  f0f2f6c:	afab0010 */ 	sw	$t3,0x10($sp)
 /*  f0f2f70:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 .NB0f0f2f74:
@@ -14900,7 +14900,7 @@ glabel func0f0f5360
 /*  f0f3134:	afa30014 */ 	sw	$v1,0x14($sp)
 /*  f0f3138:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f0f313c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0f3140:	0fc380fc */ 	jal	renderFilledRect
+/*  f0f3140:	0fc380fc */ 	jal	gfxDrawFilledRect
 /*  f0f3144:	020f3821 */ 	addu	$a3,$s0,$t7
 /*  f0f3148:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 .NB0f0f314c:

@@ -1750,7 +1750,7 @@ glabel menuRenderItemList
 /*  f0e73a4:	afae0018 */ 	sw	$t6,0x18($sp)
 /*  f0e73a8:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e73ac:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f0e73b0:	0fc38dec */ 	jal	renderCheckbox
+/*  f0e73b0:	0fc38dec */ 	jal	gfxDrawSquare
 /*  f0e73b4:	24070006 */ 	addiu	$a3,$zero,0x6
 /*  f0e73b8:	00409025 */ 	or	$s2,$v0,$zero
 .L0f0e73bc:
@@ -2817,7 +2817,7 @@ glabel menuRenderItemList
 /*  f0e4538:	afac0018 */ 	sw	$t4,0x18($sp)
 /*  f0e453c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e4540:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f0e4544:	0fc38311 */ 	jal	renderCheckbox
+/*  f0e4544:	0fc38311 */ 	jal	gfxDrawSquare
 /*  f0e4548:	24070006 */ 	addiu	$a3,$zero,0x6
 /*  f0e454c:	0040a025 */ 	or	$s4,$v0,$zero
 .NB0f0e4550:
@@ -4212,7 +4212,7 @@ Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *context)
 
 	// Render horizontal grid lines
 	for (row = 0; row < 6; row++) {
-		gdl = renderFilledRect(gdl, context->x + 4, context->y + row * 11 + 13,
+		gdl = gfxDrawFilledRect(gdl, context->x + 4, context->y + row * 11 + 13,
 				context->x + 124, context->y + row * 11 + 14, 0x00ffff7f, 0x00ffff7f);
 	}
 
@@ -4224,7 +4224,7 @@ Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *context)
 			rowspan = 4;
 		}
 
-		gdl = renderFilledRect(gdl, context->x + col * 12 + 4, context->y + 13,
+		gdl = gfxDrawFilledRect(gdl, context->x + col * 12 + 4, context->y + 13,
 				context->x + col * 12 + 5, context->y + rowspan * 11 + 14, 0x00ffff7f, 0x00ffff7f);
 	}
 
@@ -4380,10 +4380,10 @@ Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *context)
 			}
 		}
 
-		gdl = renderLine(gdl, x1, y1, x2, y1 + 1, -1, -1); // top
-		gdl = renderLine(gdl, x2, y1, x2 + 1, y2 + 1, -1, -1); // right
-		gdl = renderLine(gdl, x1, y2, x2, y2 + 1, -1, -1); // bottom
-		gdl = renderLine(gdl, x1, y1, x1 + 1, y2 + 1, -1, -1); // left
+		gdl = gfxDrawLine(gdl, x1, y1, x2, y1 + 1, -1, -1); // top
+		gdl = gfxDrawLine(gdl, x2, y1, x2 + 1, y2 + 1, -1, -1); // right
+		gdl = gfxDrawLine(gdl, x1, y2, x2, y2 + 1, -1, -1); // bottom
+		gdl = gfxDrawLine(gdl, x1, y1, x1 + 1, y2 + 1, -1, -1); // left
 	}
 
 	return gdl;
@@ -4639,7 +4639,7 @@ Gfx *menuRenderItemSeparator(Gfx *gdl, struct menurendercontext *context)
 
 	colour = (colour & 0xffffff00) | 0x3f;
 
-	return renderFilledRect(gdl,
+	return gfxDrawFilledRect(gdl,
 			context->x, context->y + 2, context->x + context->width, context->y + 3,
 			colour, colour);
 }
@@ -8256,10 +8256,10 @@ Gfx *menuRenderItemCarousel(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	// Left arrow
-	gdl = menuRenderCarouselArrow(gdl, context->x, context->y + context->height / 2, 8, 1, -1, colour);
+	gdl = gfxDrawChevron(gdl, context->x, context->y + context->height / 2, 8, 1, -1, colour);
 
 	// Right arrow
-	gdl = menuRenderCarouselArrow(gdl, context->x + context->width, context->y + context->height / 2, 8, 3, -1, colour);
+	gdl = gfxDrawChevron(gdl, context->x + context->width, context->y + context->height / 2, 8, 3, -1, colour);
 
 	// This part of the function is unused because param2 is always zero.
 	// Setting it to 0x7b causes a crash.
@@ -8694,7 +8694,7 @@ glabel menuRenderItemCheckbox
 /*  f0ecb74:	24070006 */ 	addiu	$a3,$zero,0x6
 /*  f0ecb78:	24c60002 */ 	addiu	$a2,$a2,0x2
 /*  f0ecb7c:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f0ecb80:	0fc38dec */ 	jal	renderCheckbox
+/*  f0ecb80:	0fc38dec */ 	jal	gfxDrawSquare
 /*  f0ecb84:	afa80018 */ 	sw	$t0,0x18($sp)
 /*  f0ecb88:	86290000 */ 	lh	$t1,0x0($s1)
 /*  f0ecb8c:	8fac0054 */ 	lw	$t4,0x54($sp)
@@ -8835,7 +8835,7 @@ glabel menuRenderItemCheckbox
 //		fillcolour = 0x7f002faf;
 //	}
 //
-//	gdl = renderCheckbox(gdl, context->x + context->width - 16, context->y + 2, 6,
+//	gdl = gfxDrawSquare(gdl, context->x + context->width - 16, context->y + 2, 6,
 //			checked, maincolour, fillcolour);
 //
 //	x = context->x + 10;
@@ -10117,7 +10117,7 @@ Gfx *menuRenderItemRanking(Gfx *gdl, struct menurendercontext *context)
 	linecolour2 = func0f153e94(context->x + context->width, context->y + 2, -129) & 0xff | linecolour2 & 0xffffff00;
 
 	// Horizontal line between header and body
-	gdl = renderFilledRect(gdl,
+	gdl = gfxDrawFilledRect(gdl,
 			context->x, context->y + 9,
 			context->x + context->width, context->y + 10,
 			linecolour1, linecolour1);
@@ -10505,7 +10505,7 @@ glabel menuRenderItemRanking
 /*  f0eafb0:	afb20014 */ 	sw	$s2,0x14($sp)
 /*  f0eafb4:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
 /*  f0eafb8:	24660009 */ 	addiu	$a2,$v1,0x9
-/*  f0eafbc:	0fc380fc */ 	jal	renderFilledRect
+/*  f0eafbc:	0fc380fc */ 	jal	gfxDrawFilledRect
 /*  f0eafc0:	00ac3821 */ 	addu	$a3,$a1,$t4
 /*  f0eafc4:	3c0de700 */ 	lui	$t5,0xe700
 /*  f0eafc8:	3c038008 */ 	lui	$v1,0x8008
