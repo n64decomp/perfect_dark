@@ -5799,7 +5799,7 @@ void menuCloseDialog(void)
 			g_Menus[g_MpPlayerNum].numframes--;
 		}
 
-		g_Menus[g_MpPlayerNum].unk65c = g_Menus[g_MpPlayerNum].unk660[layer->siblings[0]->unk04][3];
+		g_Menus[g_MpPlayerNum].unk65c = g_Menus[g_MpPlayerNum].unk660[layer->siblings[0]->unk04].unk06;
 		g_Menus[g_MpPlayerNum].unk6d8 = layer->siblings[0]->unk04;
 		g_Menus[g_MpPlayerNum].unk81c = layer->siblings[0]->unk06;
 		g_Menus[g_MpPlayerNum].depth--;
@@ -23139,181 +23139,28 @@ glabel var7f1b2a64
 );
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f0fa574
-/*  f0fa574:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0fa578:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f0fa57c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f0fa580:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0fa584:	afb70030 */ 	sw	$s7,0x30($sp)
-/*  f0fa588:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f0fa58c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0fa590:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0fa594:	afb6002c */ 	sw	$s6,0x2c($sp)
-/*  f0fa598:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f0fa59c:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f0fa5a0:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0fa5a4:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0fa5a8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0fa5ac:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0fa5b0:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0fa5b4:	90830005 */ 	lbu	$v1,0x5($a0)
-/*  f0fa5b8:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0fa5bc:	3c18800a */ 	lui	$t8,%hi(g_Menus)
-/*  f0fa5c0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0fa5c4:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f0fa5c8:	2718e000 */ 	addiu	$t8,$t8,%lo(g_Menus)
-/*  f0fa5cc:	0080a825 */ 	or	$s5,$a0,$zero
-/*  f0fa5d0:	01f89021 */ 	addu	$s2,$t7,$t8
-/*  f0fa5d4:	1860002a */ 	blez	$v1,.L0f0fa680
-/*  f0fa5d8:	0000b025 */ 	or	$s6,$zero,$zero
-/*  f0fa5dc:	2417000a */ 	addiu	$s7,$zero,0xa
-/*  f0fa5e0:	2414ffff */ 	addiu	$s4,$zero,-1
-/*  f0fa5e4:	24130014 */ 	addiu	$s3,$zero,0x14
-/*  f0fa5e8:	92b90004 */ 	lbu	$t9,0x4($s5)
-.L0f0fa5ec:
-/*  f0fa5ec:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0fa5f0:	03361021 */ 	addu	$v0,$t9,$s6
-/*  f0fa5f4:	00570019 */ 	multu	$v0,$s7
-/*  f0fa5f8:	00004012 */ 	mflo	$t0
-/*  f0fa5fc:	02488821 */ 	addu	$s1,$s2,$t0
-/*  f0fa600:	92290668 */ 	lbu	$t1,0x668($s1)
-/*  f0fa604:	5920001b */ 	blezl	$t1,.L0f0fa674
-/*  f0fa608:	26d60001 */ 	addiu	$s6,$s6,0x1
-/*  f0fa60c:	962a0666 */ 	lhu	$t2,0x666($s1)
-.L0f0fa610:
-/*  f0fa610:	8eae0000 */ 	lw	$t6,0x0($s5)
-/*  f0fa614:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0fa618:	01501821 */ 	addu	$v1,$t2,$s0
-/*  f0fa61c:	00035880 */ 	sll	$t3,$v1,0x2
-/*  f0fa620:	024b1021 */ 	addu	$v0,$s2,$t3
-/*  f0fa624:	904c04fe */ 	lbu	$t4,0x4fe($v0)
-/*  f0fa628:	804404ff */ 	lb	$a0,0x4ff($v0)
-/*  f0fa62c:	8dcf0008 */ 	lw	$t7,0x8($t6)
-/*  f0fa630:	01930019 */ 	multu	$t4,$s3
-/*  f0fa634:	0004c080 */ 	sll	$t8,$a0,0x2
-/*  f0fa638:	00006812 */ 	mflo	$t5
-/*  f0fa63c:	01af3021 */ 	addu	$a2,$t5,$t7
-/*  f0fa640:	12840003 */ 	beq	$s4,$a0,.L0f0fa650
-/*  f0fa644:	00000000 */ 	nop
-/*  f0fa648:	02582821 */ 	addu	$a1,$s2,$t8
-/*  f0fa64c:	24a506dc */ 	addiu	$a1,$a1,0x6dc
-.L0f0fa650:
-/*  f0fa650:	0fc3c218 */ 	jal	menuInitItem
-/*  f0fa654:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0fa658:	92390668 */ 	lbu	$t9,0x668($s1)
-/*  f0fa65c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0fa660:	0219082a */ 	slt	$at,$s0,$t9
-/*  f0fa664:	5420ffea */ 	bnezl	$at,.L0f0fa610
-/*  f0fa668:	962a0666 */ 	lhu	$t2,0x666($s1)
-/*  f0fa66c:	92a30005 */ 	lbu	$v1,0x5($s5)
-/*  f0fa670:	26d60001 */ 	addiu	$s6,$s6,0x1
-.L0f0fa674:
-/*  f0fa674:	02c3082a */ 	slt	$at,$s6,$v1
-/*  f0fa678:	5420ffdc */ 	bnezl	$at,.L0f0fa5ec
-/*  f0fa67c:	92b90004 */ 	lbu	$t9,0x4($s5)
-.L0f0fa680:
-/*  f0fa680:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0fa684:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0fa688:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0fa68c:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0fa690:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0fa694:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f0fa698:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f0fa69c:	8fb6002c */ 	lw	$s6,0x2c($sp)
-/*  f0fa6a0:	8fb70030 */ 	lw	$s7,0x30($sp)
-/*  f0fa6a4:	03e00008 */ 	jr	$ra
-/*  f0fa6a8:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
-#else
-GLOBAL_ASM(
-glabel func0f0fa574
-/*  f0f6cc4:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0f6cc8:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f0f6ccc:	8dce3af0 */ 	lw	$t6,0x3af0($t6)
-/*  f0f6cd0:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0f6cd4:	afb70030 */ 	sw	$s7,0x30($sp)
-/*  f0f6cd8:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f0f6cdc:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f6ce0:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0f6ce4:	afb6002c */ 	sw	$s6,0x2c($sp)
-/*  f0f6ce8:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f0f6cec:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f0f6cf0:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0f6cf4:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0f6cf8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0f6cfc:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0f6d00:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f6d04:	90830005 */ 	lbu	$v1,0x5($a0)
-/*  f0f6d08:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f0f6d0c:	3c18800a */ 	lui	$t8,0x800a
-/*  f0f6d10:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f6d14:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0f6d18:	271827c0 */ 	addiu	$t8,$t8,0x27c0
-/*  f0f6d1c:	0080a825 */ 	or	$s5,$a0,$zero
-/*  f0f6d20:	01f89021 */ 	addu	$s2,$t7,$t8
-/*  f0f6d24:	1860002a */ 	blez	$v1,.NB0f0f6dd0
-/*  f0f6d28:	0000b025 */ 	or	$s6,$zero,$zero
-/*  f0f6d2c:	2417000a */ 	addiu	$s7,$zero,0xa
-/*  f0f6d30:	2414ffff */ 	addiu	$s4,$zero,-1
-/*  f0f6d34:	24130014 */ 	addiu	$s3,$zero,0x14
-/*  f0f6d38:	92b90004 */ 	lbu	$t9,0x4($s5)
-.NB0f0f6d3c:
-/*  f0f6d3c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0f6d40:	03361021 */ 	addu	$v0,$t9,$s6
-/*  f0f6d44:	00570019 */ 	multu	$v0,$s7
-/*  f0f6d48:	00004012 */ 	mflo	$t0
-/*  f0f6d4c:	02488821 */ 	addu	$s1,$s2,$t0
-/*  f0f6d50:	922905d8 */ 	lbu	$t1,0x5d8($s1)
-/*  f0f6d54:	5920001b */ 	blezl	$t1,.NB0f0f6dc4
-/*  f0f6d58:	26d60001 */ 	addiu	$s6,$s6,0x1
-/*  f0f6d5c:	962a05d6 */ 	lhu	$t2,0x5d6($s1)
-.NB0f0f6d60:
-/*  f0f6d60:	8eae0000 */ 	lw	$t6,0x0($s5)
-/*  f0f6d64:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0f6d68:	01501821 */ 	addu	$v1,$t2,$s0
-/*  f0f6d6c:	00035880 */ 	sll	$t3,$v1,0x2
-/*  f0f6d70:	024b1021 */ 	addu	$v0,$s2,$t3
-/*  f0f6d74:	904c048e */ 	lbu	$t4,0x48e($v0)
-/*  f0f6d78:	8044048f */ 	lb	$a0,0x48f($v0)
-/*  f0f6d7c:	8dcf0008 */ 	lw	$t7,0x8($t6)
-/*  f0f6d80:	01930019 */ 	multu	$t4,$s3
-/*  f0f6d84:	0004c080 */ 	sll	$t8,$a0,0x2
-/*  f0f6d88:	00006812 */ 	mflo	$t5
-/*  f0f6d8c:	01af3021 */ 	addu	$a2,$t5,$t7
-/*  f0f6d90:	12840003 */ 	beq	$s4,$a0,.NB0f0f6da0
-/*  f0f6d94:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0f6d98:	02582821 */ 	addu	$a1,$s2,$t8
-/*  f0f6d9c:	24a50638 */ 	addiu	$a1,$a1,0x638
-.NB0f0f6da0:
-/*  f0f6da0:	0fc3b564 */ 	jal	menuInitItem
-/*  f0f6da4:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0f6da8:	923905d8 */ 	lbu	$t9,0x5d8($s1)
-/*  f0f6dac:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0f6db0:	0219082a */ 	slt	$at,$s0,$t9
-/*  f0f6db4:	5420ffea */ 	bnezl	$at,.NB0f0f6d60
-/*  f0f6db8:	962a05d6 */ 	lhu	$t2,0x5d6($s1)
-/*  f0f6dbc:	92a30005 */ 	lbu	$v1,0x5($s5)
-/*  f0f6dc0:	26d60001 */ 	addiu	$s6,$s6,0x1
-.NB0f0f6dc4:
-/*  f0f6dc4:	02c3082a */ 	slt	$at,$s6,$v1
-/*  f0f6dc8:	5420ffdc */ 	bnezl	$at,.NB0f0f6d3c
-/*  f0f6dcc:	92b90004 */ 	lbu	$t9,0x4($s5)
-.NB0f0f6dd0:
-/*  f0f6dd0:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0f6dd4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0f6dd8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0f6ddc:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0f6de0:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0f6de4:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f0f6de8:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f0f6dec:	8fb6002c */ 	lw	$s6,0x2c($sp)
-/*  f0f6df0:	8fb70030 */ 	lw	$s7,0x30($sp)
-/*  f0f6df4:	03e00008 */ 	jr	$ra
-/*  f0f6df8:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
-#endif
+void func0f0fa574(struct menuframe *frame)
+{
+	struct menu *menu = &g_Menus[g_MpPlayerNum];
+	s32 i;
+	s32 j;
+
+	for (i = 0; i < frame->unk05; i++) {
+		s32 index1 = frame->unk04 + i;
+
+		for (j = 0; j < menu->unk660[index1].unk08; j++) {
+			s32 index2 = menu->unk660[index1].unk06 + j;
+			struct menuitem *item = &frame->dialog->items[menu->unk4fc[index2].unk02];
+			union menuitemdata *data = NULL;
+
+			if (menu->unk4fc[index2].handlerdataindex != -1) {
+				data = (union menuitemdata *)&menu->handlerdatabuffer[menu->unk4fc[index2].handlerdataindex];
+			}
+
+			menuInitItem(item, data);
+		}
+	}
+}
 
 void func0f0fa6ac(void)
 {

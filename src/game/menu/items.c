@@ -9038,8 +9038,8 @@ bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, stru
 
 		func0f0f2354(frame, item, &index1, &index2);
 
-		wvalue = g_Menus[g_MpPlayerNum].unk660[index2][0];
-		hvalue = g_Menus[g_MpPlayerNum].unk4fc[index1][0];
+		wvalue = g_Menus[g_MpPlayerNum].unk660[index2].unk00;
+		hvalue = g_Menus[g_MpPlayerNum].unk4fc[index1].unk00;
 
 		if (menuIsScrollableUnscrollable(item)) {
 			width = wvalue - 10;
