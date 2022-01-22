@@ -945,69 +945,25 @@ glabel func0f0e0998
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f0e0cbc
-/*  f0e0cbc:	00067400 */ 	sll	$t6,$a2,0x10
-/*  f0e0cc0:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*  f0e0cc4:	2402000a */ 	addiu	$v0,$zero,0xa
-/*  f0e0cc8:	01e44823 */ 	subu	$t1,$t7,$a0
-/*  f0e0ccc:	01e20019 */ 	multu	$t7,$v0
-/*  f0e0cd0:	0007c400 */ 	sll	$t8,$a3,0x10
-/*  f0e0cd4:	252a0064 */ 	addiu	$t2,$t1,0x64
-/*  f0e0cd8:	448a2000 */ 	mtc1	$t2,$f4
-/*  f0e0cdc:	0018cc03 */ 	sra	$t9,$t8,0x10
-/*  f0e0ce0:	03256023 */ 	subu	$t4,$t9,$a1
-/*  f0e0ce4:	258d0064 */ 	addiu	$t5,$t4,0x64
-/*  f0e0ce8:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f0e0cec:	448d5000 */ 	mtc1	$t5,$f10
-/*  f0e0cf0:	3c013e80 */ 	lui	$at,0x3e80
-/*  f0e0cf4:	44810000 */ 	mtc1	$at,$f0
-/*  f0e0cf8:	00007012 */ 	mflo	$t6
-/*  f0e0cfc:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f0e0d00:	46003202 */ 	mul.s	$f8,$f6,$f0
-/*  f0e0d04:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0e0d08:	03220019 */ 	multu	$t9,$v0
-/*  f0e0d0c:	44802000 */ 	mtc1	$zero,$f4
-/*  f0e0d10:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e0d14:	46008482 */ 	mul.s	$f18,$f16,$f0
-/*  f0e0d18:	8fb00040 */ 	lw	$s0,0x40($sp)
-/*  f0e0d1c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0e0d20:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f0e0d24:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f0e0d28:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f0e0d2c:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f0e0d30:	e7a80024 */ 	swc1	$f8,0x24($sp)
-/*  f0e0d34:	e7b20028 */ 	swc1	$f18,0x28($sp)
-/*  f0e0d38:	e7a4002c */ 	swc1	$f4,0x2c($sp)
-/*  f0e0d3c:	00007812 */ 	mflo	$t7
-/*  f0e0d40:	2418fff6 */ 	addiu	$t8,$zero,-10
-/*  f0e0d44:	a60e0000 */ 	sh	$t6,0x0($s0)
-/*  f0e0d48:	a60f0002 */ 	sh	$t7,0x2($s0)
-/*  f0e0d4c:	a6180004 */ 	sh	$t8,0x4($s0)
-/*  f0e0d50:	a2000007 */ 	sb	$zero,0x7($s0)
-/*  f0e0d54:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0e0d58:	0c0056d9 */ 	jal	mtx4TransformVecInPlace
-/*  f0e0d5c:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f0e0d60:	3c014200 */ 	lui	$at,0x4200
-/*  f0e0d64:	44810000 */ 	mtc1	$at,$f0
-/*  f0e0d68:	c7a60024 */ 	lwc1	$f6,0x24($sp)
-/*  f0e0d6c:	46003202 */ 	mul.s	$f8,$f6,$f0
-/*  f0e0d70:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f0e0d74:	44085000 */ 	mfc1	$t0,$f10
-/*  f0e0d78:	00000000 */ 	nop
-/*  f0e0d7c:	a6080008 */ 	sh	$t0,0x8($s0)
-/*  f0e0d80:	c7b00028 */ 	lwc1	$f16,0x28($sp)
-/*  f0e0d84:	46008482 */ 	mul.s	$f18,$f16,$f0
-/*  f0e0d88:	4600910d */ 	trunc.w.s	$f4,$f18
-/*  f0e0d8c:	440a2000 */ 	mfc1	$t2,$f4
-/*  f0e0d90:	00000000 */ 	nop
-/*  f0e0d94:	a60a000a */ 	sh	$t2,0xa($s0)
-/*  f0e0d98:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0e0d9c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0e0da0:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0e0da4:	03e00008 */ 	jr	$ra
-/*  f0e0da8:	00000000 */ 	nop
-);
+void func0f0e0cbc(s32 arg0, s32 arg1, s16 arg2, s16 arg3, struct gfxvtx *vertex, Mtxf *arg5)
+{
+	struct coord sp24;
+
+	sp24.x = (arg2 - arg0 + 100) * 0.25f;
+	sp24.y = (arg3 - arg1 + 100) * 0.25f;
+	sp24.z = 0;
+
+	vertex->x = arg2 * 10;
+	vertex->y = arg3 * 10;
+	vertex->z = -10;
+
+	vertex->s = 0;
+
+	mtx4TransformVecInPlace(arg5, &sp24);
+
+	vertex->unk08 = sp24.x * 32;
+	vertex->unk0a = sp24.y * 32;
+}
 
 GLOBAL_ASM(
 glabel func0f0e0dac
@@ -1148,6 +1104,10 @@ glabel func0f0e0dac
 /*  f0e0fb4:	27bd0038 */ 	addiu	$sp,$sp,0x38
 /*  f0e0fb8:	03e00008 */ 	jr	$ra
 /*  f0e0fbc:	00000000 */ 	nop
+);
+
+GLOBAL_ASM(
+glabel func0f0e0fc0
 /*  f0e0fc0:	27bdfee8 */ 	addiu	$sp,$sp,-280
 /*  f0e0fc4:	afbf007c */ 	sw	$ra,0x7c($sp)
 /*  f0e0fc8:	afb30064 */ 	sw	$s3,0x64($sp)
@@ -4603,6 +4563,10 @@ glabel func0f0e4190
 /*  f0e4580:	8fb60070 */ 	lw	$s6,0x70($sp)
 /*  f0e4584:	03e00008 */ 	jr	$ra
 /*  f0e4588:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
+);
+
+GLOBAL_ASM(
+glabel func0f0e458c
 /*  f0e458c:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f0e4590:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f0e4594:	afb00028 */ 	sw	$s0,0x28($sp)
@@ -4677,6 +4641,10 @@ glabel func0f0e4190
 /*  f0e46a4:	ac20de98 */ 	sw	$zero,%lo(var8009de98)($at)
 /*  f0e46a8:	03e00008 */ 	jr	$ra
 /*  f0e46ac:	27bd0038 */ 	addiu	$sp,$sp,0x38
+);
+
+GLOBAL_ASM(
+glabel func0f0e46b0
 /*  f0e46b0:	3c0e800a */ 	lui	$t6,%hi(var8009de9c)
 /*  f0e46b4:	8dcede9c */ 	lw	$t6,%lo(var8009de9c)($t6)
 /*  f0e46b8:	44803000 */ 	mtc1	$zero,$f6
@@ -4766,6 +4734,10 @@ glabel func0f0e4190
 /*  f0e4808:	27bd0038 */ 	addiu	$sp,$sp,0x38
 /*  f0e480c:	03e00008 */ 	jr	$ra
 /*  f0e4810:	00000000 */ 	nop
+);
+
+GLOBAL_ASM(
+glabel func0f0e4814
 /*  f0e4814:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*  f0e4818:	3c017f1b */ 	lui	$at,%hi(var7f1adf50)
 /*  f0e481c:	c424df50 */ 	lwc1	$f4,%lo(var7f1adf50)($at)
