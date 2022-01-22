@@ -4565,83 +4565,31 @@ glabel func0f0e4190
 /*  f0e4588:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
 );
 
-GLOBAL_ASM(
-glabel func0f0e458c
-/*  f0e458c:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0e4590:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0e4594:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f0e4598:	3c01800a */ 	lui	$at,%hi(var8009de98)
-/*  f0e459c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0e45a0:	0c002f06 */ 	jal	viGetHeight
-/*  f0e45a4:	ac20de98 */ 	sw	$zero,%lo(var8009de98)($at)
-/*  f0e45a8:	04410003 */ 	bgez	$v0,.L0f0e45b8
-/*  f0e45ac:	00027043 */ 	sra	$t6,$v0,0x1
-/*  f0e45b0:	24410001 */ 	addiu	$at,$v0,0x1
-/*  f0e45b4:	00017043 */ 	sra	$t6,$at,0x1
-.L0f0e45b8:
-/*  f0e45b8:	240fffec */ 	addiu	$t7,$zero,-20
-/*  f0e45bc:	01eec023 */ 	subu	$t8,$t7,$t6
-/*  f0e45c0:	3c01800a */ 	lui	$at,%hi(var8009de9c)
-/*  f0e45c4:	ac38de9c */ 	sw	$t8,%lo(var8009de9c)($at)
-/*  f0e45c8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0e45cc:	0fc3528f */ 	jal	func0f0d4a3c
-/*  f0e45d0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0e45d4:	3c19fffe */ 	lui	$t9,0xfffe
-/*  f0e45d8:	37397960 */ 	ori	$t9,$t9,0x7960
-/*  f0e45dc:	3c01800a */ 	lui	$at,%hi(var8009de90)
-/*  f0e45e0:	ac39de90 */ 	sw	$t9,%lo(var8009de90)($at)
-/*  f0e45e4:	3c080001 */ 	lui	$t0,0x1
-/*  f0e45e8:	350886a0 */ 	ori	$t0,$t0,0x86a0
-/*  f0e45ec:	3c01800a */ 	lui	$at,%hi(var8009de94)
-/*  f0e45f0:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0e45f4:	0c002f06 */ 	jal	viGetHeight
-/*  f0e45f8:	ac28de94 */ 	sw	$t0,%lo(var8009de94)($at)
-/*  f0e45fc:	0c002f06 */ 	jal	viGetHeight
-/*  f0e4600:	a7a20034 */ 	sh	$v0,0x34($sp)
-/*  f0e4604:	87a60034 */ 	lh	$a2,0x34($sp)
-/*  f0e4608:	3c0300ff */ 	lui	$v1,0xff
-/*  f0e460c:	346300bf */ 	ori	$v1,$v1,0xbf
-/*  f0e4610:	2449000a */ 	addiu	$t1,$v0,0xa
-/*  f0e4614:	240a0006 */ 	addiu	$t2,$zero,0x6
-/*  f0e4618:	afaa001c */ 	sw	$t2,0x1c($sp)
-/*  f0e461c:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f0e4620:	afa30014 */ 	sw	$v1,0x14($sp)
-/*  f0e4624:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f0e4628:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0e462c:	2405fc18 */ 	addiu	$a1,$zero,-1000
-/*  f0e4630:	240707d0 */ 	addiu	$a3,$zero,0x7d0
-/*  f0e4634:	0fc35343 */ 	jal	func0f0d4d0c
-/*  f0e4638:	24c6000a */ 	addiu	$a2,$a2,0xa
-/*  f0e463c:	0c002f06 */ 	jal	viGetHeight
-/*  f0e4640:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0e4644:	0c002f06 */ 	jal	viGetHeight
-/*  f0e4648:	a7a20034 */ 	sh	$v0,0x34($sp)
-/*  f0e464c:	87a60034 */ 	lh	$a2,0x34($sp)
-/*  f0e4650:	3c03ffff */ 	lui	$v1,0xffff
-/*  f0e4654:	346300af */ 	ori	$v1,$v1,0xaf
-/*  f0e4658:	244b000a */ 	addiu	$t3,$v0,0xa
-/*  f0e465c:	240c0005 */ 	addiu	$t4,$zero,0x5
-/*  f0e4660:	afac001c */ 	sw	$t4,0x1c($sp)
-/*  f0e4664:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f0e4668:	afa30014 */ 	sw	$v1,0x14($sp)
-/*  f0e466c:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f0e4670:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0e4674:	2405fc18 */ 	addiu	$a1,$zero,-1000
-/*  f0e4678:	240707d0 */ 	addiu	$a3,$zero,0x7d0
-/*  f0e467c:	0fc35343 */ 	jal	func0f0d4d0c
-/*  f0e4680:	24c6000a */ 	addiu	$a2,$a2,0xa
-/*  f0e4684:	0fc35320 */ 	jal	func0f0d4c80
-/*  f0e4688:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0e468c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0e4690:	3c03800a */ 	lui	$v1,%hi(var8009de9c)
-/*  f0e4694:	2463de9c */ 	addiu	$v1,$v1,%lo(var8009de9c)
-/*  f0e4698:	ac600000 */ 	sw	$zero,0x0($v1)
-/*  f0e469c:	3c01800a */ 	lui	$at,%hi(var8009de98)
-/*  f0e46a0:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f0e46a4:	ac20de98 */ 	sw	$zero,%lo(var8009de98)($at)
-/*  f0e46a8:	03e00008 */ 	jr	$ra
-/*  f0e46ac:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+/**
+ * Fill the framebuffer with a transparent green overlay.
+ *
+ * The amount of transparency varies from frame to frame. It's quite volatile.
+ *
+ * This function is not called.
+ */
+Gfx *func0f0e458c(Gfx *gdl)
+{
+	var8009de98 = 0;
+	var8009de9c = -20 - viGetHeight() / 2;
+
+	gdl = func0f0d4a3c(gdl, 0);
+
+	var8009de90 = -100000;
+	var8009de94 = 100000;
+
+	gdl = func0f0d4d0c(gdl, -1000, viGetHeight() + 10, 2000, viGetHeight() + 10, 0x00ff00bf, 0x00ff00bf, 6);
+	gdl = func0f0d4d0c(gdl, -1000, viGetHeight() + 10, 2000, viGetHeight() + 10, 0xffff00af, 0xffff00af, 5);
+	gdl = func0f0d4c80(gdl);
+
+	var8009de98 = var8009de9c = 0;
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f0e46b0

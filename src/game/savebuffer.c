@@ -25,10 +25,10 @@ Vp *var80070f10 = NULL;
 Vp var80070f10;
 #endif
 
-u32 var8009de90;
-u32 var8009de94;
-u32 var8009de98;
-u32 var8009de9c;
+s32 var8009de90;
+s32 var8009de94;
+s32 var8009de98;
+s32 var8009de9c;
 
 u32 var80070f14 = 0x000003e8;
 u32 var80070f18 = 0x00000014;
