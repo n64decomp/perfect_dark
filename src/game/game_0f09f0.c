@@ -5951,7 +5951,7 @@ void menuUpdateCurFrame(void)
 	if (depth == 0) {
 		// No more parent menus - return control to the player
 		g_Vars.currentplayer->joybutinhibit = 0xffffffff;
-		func0f0f8040();
+		menuClose();
 		g_Menus[g_MpPlayerNum].curframe = NULL;
 	} else {
 		// Set up parent menu
@@ -17297,135 +17297,30 @@ glabel func0f0f7e98
 /*  f0f803c:	00000000 */ 	nop
 );
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f0f8040
-/*  f0f8040:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f0f8044:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f0f8048:	3c18800a */ 	lui	$t8,%hi(g_Menus)
-/*  f0f804c:	2718e000 */ 	addiu	$t8,$t8,%lo(g_Menus)
-/*  f0f8050:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f0f8054:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f8058:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0f805c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0f8060:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0f8064:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f8068:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f0f806c:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f0f8070:	3c04800a */ 	lui	$a0,%hi(g_MenuData)
-/*  f0f8074:	248419c0 */ 	addiu	$a0,$a0,%lo(g_MenuData)
-/*  f0f8078:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f0f807c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0f8080:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f0f8084:	2419000a */ 	addiu	$t9,$zero,0xa
-/*  f0f8088:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0f808c:	a44004f4 */ 	sh	$zero,0x4f4($v0)
-/*  f0f8090:	a4400460 */ 	sh	$zero,0x460($v0)
-/*  f0f8094:	ac40065c */ 	sw	$zero,0x65c($v0)
-/*  f0f8098:	ac4006d8 */ 	sw	$zero,0x6d8($v0)
-/*  f0f809c:	ac40081c */ 	sw	$zero,0x81c($v0)
-/*  f0f80a0:	ac4004f8 */ 	sw	$zero,0x4f8($v0)
-/*  f0f80a4:	14a30007 */ 	bne	$a1,$v1,.L0f0f80c4
-/*  f0f80a8:	a059083c */ 	sb	$t9,0x83c($v0)
-/*  f0f80ac:	9049083b */ 	lbu	$t1,0x83b($v0)
-/*  f0f80b0:	3c018007 */ 	lui	$at,%hi(g_PlayersWithControl)
-/*  f0f80b4:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0f80b8:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f0f80bc:	002a0821 */ 	addu	$at,$at,$t2
-/*  f0f80c0:	ac280750 */ 	sw	$t0,%lo(g_PlayersWithControl)($at)
-.L0f0f80c4:
-/*  f0f80c4:	8c8b0000 */ 	lw	$t3,0x0($a0)
-/*  f0f80c8:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0f80cc:	256cffff */ 	addiu	$t4,$t3,-1
-/*  f0f80d0:	14a3000a */ 	bne	$a1,$v1,.L0f0f80fc
-/*  f0f80d4:	ac8c0000 */ 	sw	$t4,0x0($a0)
-/*  f0f80d8:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0f80dc:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0f80e0:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0f80e4:	904d0250 */ 	lbu	$t5,0x250($v0)
-/*  f0f80e8:	55a10005 */ 	bnel	$t5,$at,.L0f0f8100
-/*  f0f80ec:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f0f80f0:	a04e0250 */ 	sb	$t6,0x250($v0)
-/*  f0f80f4:	3c03800a */ 	lui	$v1,%hi(g_MenuData+0x4)
-/*  f0f80f8:	8c6319c4 */ 	lw	$v1,%lo(g_MenuData+0x4)($v1)
-.L0f0f80fc:
-/*  f0f80fc:	24010007 */ 	addiu	$at,$zero,0x7
-.L0f0f8100:
-/*  f0f8100:	54610004 */ 	bnel	$v1,$at,.L0f0f8114
-/*  f0f8104:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f8108:	0c003a57 */ 	jal	mainChangeToStage
-/*  f0f810c:	2404005a */ 	addiu	$a0,$zero,0x5a
-/*  f0f8110:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0f8114:
-/*  f0f8114:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0f8118:	03e00008 */ 	jr	$ra
-/*  f0f811c:	00000000 */ 	nop
-);
-#else
-GLOBAL_ASM(
-glabel func0f0f8040
-/*  f0f49a8:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f0f49ac:	8dce3af0 */ 	lw	$t6,0x3af0($t6)
-/*  f0f49b0:	3c18800a */ 	lui	$t8,0x800a
-/*  f0f49b4:	271827c0 */ 	addiu	$t8,$t8,0x27c0
-/*  f0f49b8:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f0f49bc:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f49c0:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0f49c4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f49c8:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f0f49cc:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f49d0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0f49d4:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f0f49d8:	3c04800a */ 	lui	$a0,0x800a
-/*  f0f49dc:	24845eb0 */ 	addiu	$a0,$a0,0x5eb0
-/*  f0f49e0:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f0f49e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0f49e8:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f0f49ec:	2419000a */ 	addiu	$t9,$zero,0xa
-/*  f0f49f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0f49f4:	a4400484 */ 	sh	$zero,0x484($v0)
-/*  f0f49f8:	a44003f0 */ 	sh	$zero,0x3f0($v0)
-/*  f0f49fc:	ac4005cc */ 	sw	$zero,0x5cc($v0)
-/*  f0f4a00:	ac400634 */ 	sw	$zero,0x634($v0)
-/*  f0f4a04:	ac400778 */ 	sw	$zero,0x778($v0)
-/*  f0f4a08:	ac400488 */ 	sw	$zero,0x488($v0)
-/*  f0f4a0c:	14a30007 */ 	bne	$a1,$v1,.NB0f0f4a2c
-/*  f0f4a10:	a0590798 */ 	sb	$t9,0x798($v0)
-/*  f0f4a14:	90490797 */ 	lbu	$t1,0x797($v0)
-/*  f0f4a18:	3c018007 */ 	lui	$at,0x8007
-/*  f0f4a1c:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0f4a20:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f0f4a24:	002a0821 */ 	addu	$at,$at,$t2
-/*  f0f4a28:	ac282e10 */ 	sw	$t0,0x2e10($at)
-.NB0f0f4a2c:
-/*  f0f4a2c:	8c8b0000 */ 	lw	$t3,0x0($a0)
-/*  f0f4a30:	3c02800a */ 	lui	$v0,0x800a
-/*  f0f4a34:	256cffff */ 	addiu	$t4,$t3,-1
-/*  f0f4a38:	14a3000a */ 	bne	$a1,$v1,.NB0f0f4a64
-/*  f0f4a3c:	ac8c0000 */ 	sw	$t4,0x0($a0)
-/*  f0f4a40:	8c42e944 */ 	lw	$v0,-0x16bc($v0)
-/*  f0f4a44:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0f4a48:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0f4a4c:	904d0250 */ 	lbu	$t5,0x250($v0)
-/*  f0f4a50:	55a10005 */ 	bnel	$t5,$at,.NB0f0f4a68
-/*  f0f4a54:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f0f4a58:	a04e0250 */ 	sb	$t6,0x250($v0)
-/*  f0f4a5c:	3c03800a */ 	lui	$v1,0x800a
-/*  f0f4a60:	8c635eb4 */ 	lw	$v1,0x5eb4($v1)
-.NB0f0f4a64:
-/*  f0f4a64:	24010007 */ 	addiu	$at,$zero,0x7
-.NB0f0f4a68:
-/*  f0f4a68:	54610004 */ 	bnel	$v1,$at,.NB0f0f4a7c
-/*  f0f4a6c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f4a70:	0c003c56 */ 	jal	mainChangeToStage
-/*  f0f4a74:	2404005a */ 	addiu	$a0,$zero,0x5a
-/*  f0f4a78:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f0f4a7c:
-/*  f0f4a7c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0f4a80:	03e00008 */ 	jr	$ra
-/*  f0f4a84:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
+void menuClose(void)
+{
+	g_Menus[g_MpPlayerNum].depth = 0;
+	g_Menus[g_MpPlayerNum].numframes = 0;
+	g_Menus[g_MpPlayerNum].unk65c = 0;
+	g_Menus[g_MpPlayerNum].unk6d8 = 0;
+	g_Menus[g_MpPlayerNum].unk81c = 0;
+	g_Menus[g_MpPlayerNum].curframe = NULL;
+	g_Menus[g_MpPlayerNum].unk83c = 10;
+
+	if (g_MenuData.root == MENUROOT_MPPAUSE) {
+		g_PlayersWithControl[g_Menus[g_MpPlayerNum].playernum] = true;
+	}
+
+	g_MenuData.count--;
+
+	if (g_MenuData.root == MENUROOT_MPPAUSE && g_Vars.currentplayer->activemenumode == AMMODE_EDIT) {
+		g_Vars.currentplayer->activemenumode = AMMODE_VIEW;
+	}
+
+	if (g_MenuData.root == MENUROOT_BOOTPAKMGR) {
+		mainChangeToStage(STAGE_TITLE);
+	}
+}
 
 void func0f0f8120(void)
 {
