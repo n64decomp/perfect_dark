@@ -1169,7 +1169,7 @@ glabel menuRenderItemList
 /*  f0e6b40:	000b5280 */ 	sll	$t2,$t3,0xa
 /*  f0e6b44:	05430006 */ 	bgezl	$t2,.L0f0e6b60
 /*  f0e6b48:	8cf90010 */ 	lw	$t9,0x10($a3)
-/*  f0e6b4c:	0fc3d43f */ 	jal	func0f0f50fc
+/*  f0e6b4c:	0fc3d43f */ 	jal	menuApplyScissor
 /*  f0e6b50:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0e6b54:	00409025 */ 	or	$s2,$v0,$zero
 /*  f0e6b58:	8e270008 */ 	lw	$a3,0x8($s1)
@@ -1780,7 +1780,7 @@ glabel menuRenderItemList
 .L0f0e7410:
 /*  f0e7410:	5180fd95 */ 	beqzl	$t4,.L0f0e6a68
 /*  f0e7414:	8e230010 */ 	lw	$v1,0x10($s1)
-/*  f0e7418:	0fc3d43f */ 	jal	func0f0f50fc
+/*  f0e7418:	0fc3d43f */ 	jal	menuApplyScissor
 /*  f0e741c:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0e7420:	10000051 */ 	b	.L0f0e7568
 /*  f0e7424:	00409025 */ 	or	$s2,$v0,$zero
@@ -2359,7 +2359,7 @@ glabel menuRenderItemList
 /*  f0e3e90:	000e7a80 */ 	sll	$t7,$t6,0xa
 /*  f0e3e94:	05e30006 */ 	bgezl	$t7,.NB0f0e3eb0
 /*  f0e3e98:	8cf90010 */ 	lw	$t9,0x10($a3)
-/*  f0e3e9c:	0fc3c728 */ 	jal	func0f0f50fc
+/*  f0e3e9c:	0fc3c728 */ 	jal	menuApplyScissor
 /*  f0e3ea0:	02802025 */ 	or	$a0,$s4,$zero
 /*  f0e3ea4:	0040a025 */ 	or	$s4,$v0,$zero
 /*  f0e3ea8:	8e270008 */ 	lw	$a3,0x8($s1)
@@ -2847,7 +2847,7 @@ glabel menuRenderItemList
 .NB0f0e45a4:
 /*  f0e45a4:	5140fe04 */ 	beqzl	$t2,.NB0f0e3db8
 /*  f0e45a8:	8e230010 */ 	lw	$v1,0x10($s1)
-/*  f0e45ac:	0fc3c728 */ 	jal	func0f0f50fc
+/*  f0e45ac:	0fc3c728 */ 	jal	menuApplyScissor
 /*  f0e45b0:	02802025 */ 	or	$a0,$s4,$zero
 /*  f0e45b4:	10000051 */ 	beqz	$zero,.NB0f0e46fc
 /*  f0e45b8:	0040a025 */ 	or	$s4,$v0,$zero
@@ -9450,7 +9450,7 @@ glabel menuRenderItemMarquee
 /*  f0ed9f4:	afac0020 */ 	sw	$t4,0x20($sp)
 /*  f0ed9f8:	0fc54de0 */ 	jal	func0f153780
 /*  f0ed9fc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0eda00:	0fc3d43f */ 	jal	func0f0f50fc
+/*  f0eda00:	0fc3d43f */ 	jal	menuApplyScissor
 /*  f0eda04:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0eda08:	0fc54f4f */ 	jal	func0f153d3c
 /*  f0eda0c:	afa20088 */ 	sw	$v0,0x88($sp)
@@ -9704,7 +9704,7 @@ glabel menuRenderItemMarquee
 /*  f0eaa08:	afb90020 */ 	sw	$t9,0x20($sp)
 /*  f0eaa0c:	0fc537a0 */ 	jal	func0f153780
 /*  f0eaa10:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0eaa14:	0fc3c728 */ 	jal	func0f0f50fc
+/*  f0eaa14:	0fc3c728 */ 	jal	menuApplyScissor
 /*  f0eaa18:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0eaa1c:	0fc538e6 */ 	jal	func0f153d3c
 /*  f0eaa20:	afa20098 */ 	sw	$v0,0x98($sp)
@@ -9853,7 +9853,7 @@ u32 var800711ec = 0x20000000;
 //	gdl = textRenderProjected(gdl, &x, &y, &text[i], font1, font2,
 //			colour, context->width + context->x - x, context->height, 0, 0);
 //	gdl = func0f153780(gdl);
-//	gdl = func0f0f50fc(gdl);
+//	gdl = menuApplyScissor(gdl);
 //
 //	func0f153d3c();
 //
