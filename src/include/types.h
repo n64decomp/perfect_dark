@@ -3550,7 +3550,7 @@ union handlerdata {
 struct menuitem {
 	u8 type;
 	u8 param;
-	u32 param1;
+	u32 flags;
 	s32 param2;
 	s32 param3;
 
@@ -3924,14 +3924,14 @@ struct perfectheadtexturelist {
 
 struct menu4fc {
 	s16 unk00;
-	u8 unk02;
-	s8 handlerdataindex;
+	u8 itemindex;
+	s8 blockindex;
 };
 
 struct menu660 {
 	u16 unk00;
 	u16 unk02;
-	u16 unk04;
+	u8 unk04;
 	u16 unk06;
 	u8 unk08;
 };
@@ -3946,7 +3946,7 @@ struct menu {
 	/*0x65c*/ s32 unk65c;
 	/*0x660*/ struct menu660 unk660[VERSION >= VERSION_NTSC_1_0 ? 12 : 10];
 	/*0x6d8*/ s32 unk6d8;
-	/*0x6dc*/ u32 handlerdatabuffer[80];
+	/*0x6dc*/ u32 blocks[80]; // for menuitemdata
 	/*0x81c*/ s32 unk81c;
 	/*0x820*/ u32 unk820;
 	/*0x824*/ u32 unk824;

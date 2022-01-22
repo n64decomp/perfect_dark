@@ -22,7 +22,7 @@ void func0f0f1494(void);
 char *menuResolveText(u32 thing, void *dialogoritem);
 char *menuResolveParam2Text(struct menuitem *item);
 char *menuResolveDialogTitle(struct menudialog *dialog);
-void func0f0f15a4(u8 *arg0, u32 *arg1);
+void func0f0f15a4(struct menuitem *item, s32 *arg1);
 void func0f0f1618(struct menuitem *item, void *arg1, void *arg2, struct menuframe *frame);
 void func0f0f1d6c(struct menudialog *dialog, struct menuframe *frame, struct menu *menu);
 u32 func0f0f1ef4(void);

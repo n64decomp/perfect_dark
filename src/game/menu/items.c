@@ -2973,7 +2973,7 @@ bool menuTickItemList(struct menuitem *item, struct menuinputs *inputs, u32 arg2
 		return true;
 	}
 
-	if (item->param1 & 0x00200000) {
+	if (item->flags & MENUITEMFLAG_00200000) {
 		item->handler(MENUOP_GETOPTIONHEIGHT, item, &handlerdata2);
 		g_LineHeight = handlerdata2.list.value;
 	} else {
@@ -3104,7 +3104,7 @@ void menuInitItemDropdown(struct menuitem *item, union menuitemdata *data)
 
 	handler = item->handler;
 
-	if (item->param1 & 0x00200000) {
+	if (item->flags & MENUITEMFLAG_00200000) {
 		handler(MENUOP_GETOPTIONHEIGHT, item, &handlerdata2);
 		g_LineHeight = handlerdata2.dropdown.value;
 	} else {
@@ -3596,7 +3596,7 @@ bool menuTickItemDropdown(struct menuitem *item, struct menuframe *frame, struct
 			menuTickItemList(item, inputs, arg3, data);
 
 			if (mpIsPlayerLockedOut(g_MpPlayerNum)) {
-				if ((item->param1 & 0x00040000) || (frame->dialog->unk10 & 0x10)) {
+				if ((item->flags & MENUITEMFLAG_00040000) || (frame->dialog->unk10 & 0x10)) {
 					frame->dimmed = false;
 				}
 			}
@@ -4036,7 +4036,7 @@ glabel menuRenderOverlayDropdown
 //	}
 //
 //	// 334
-//	if (item->param1 & 0x00000080) {
+//	if (item->flags & MENUITEMFLAG_00000080) {
 //		context.x = x + 30;
 //	}
 //
@@ -4053,7 +4053,7 @@ glabel menuRenderOverlayDropdown
 //		// 380
 //		union handlerdata handlerdata; // 5c
 //
-//		if (item->param1 & 0x00200000) {
+//		if (item->flags & MENUITEMFLAG_00200000) {
 //			union handlerdata handlerdata2; // 4c
 //			item->handler(MENUOP_GETOPTIONHEIGHT, item, &handlerdata2);
 //			g_LineHeight = handlerdata2.dropdown.value;
@@ -6639,7 +6639,7 @@ Gfx *menuRenderItemObjectives(Gfx *gdl, struct menurendercontext *context)
 
 Gfx *menuRenderItemModel(Gfx *gdl, struct menurendercontext *context)
 {
-	if (context->item->param1 & 0x00200000) {
+	if (context->item->flags & MENUITEMFLAG_00200000) {
 		struct menuitemrenderdata renderdata;
 		union handlerdata data;
 
@@ -6687,7 +6687,7 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurendercontext *context)
 	x = context->x + 10;
 	y = context->y + 2;
 
-	if (context->item->param1 & 0x00000010) {
+	if (context->item->flags & MENUITEMFLAG_00000010) {
 		x -= 6;
 	}
 
@@ -6697,13 +6697,13 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurendercontext *context)
 		return gdl;
 	}
 
-	if (context->item->param1 & 0x00000200) {
+	if (context->item->flags & MENUITEMFLAG_00000200) {
 		font1 = g_CharsHandelGothicXs;
 		font2 = g_FontHandelGothicXs;
 		y -= 2;
 	}
 
-	if (context->item->param1 & 0x00000020) {
+	if (context->item->flags & MENUITEMFLAG_00000020) {
 		// Center
 		s32 textheight;
 		s32 textwidth;
@@ -6711,7 +6711,7 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurendercontext *context)
 		x = context->x + (context->width - textwidth) / 2;
 	}
 
-	if (context->item->param1 & 0x00000100) {
+	if (context->item->flags & MENUITEMFLAG_00000100) {
 		if (context->frame->transitiontimer < 0) {
 			colour1 = g_MenuColourPalettes[context->frame->type].checkedunfocused;
 		} else {
@@ -6780,7 +6780,7 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurendercontext *context)
 
 	colour2 = colour1;
 
-	if (context->item->param1 & 0x01000000) {
+	if (context->item->flags & MENUITEMFLAG_01000000) {
 		union handlerdata data;
 		data.label.colour2 = colour2;
 		data.label.colour1 = colour1;
@@ -6800,7 +6800,7 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurendercontext *context)
 	gdl = textRenderProjected(gdl, &x, &y, text,
 			font1, font2, colour1, context->width, context->height, 0, 0);
 
-	if ((context->item->param1 & 0x00008000) == 0) {
+	if ((context->item->flags & MENUITEMFLAG_00008000) == 0) {
 		// Right side text
 		text = menuResolveText(context->item->param3, context->item);
 
@@ -6811,14 +6811,14 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurendercontext *context)
 
 			y = context->y + 2;
 
-			if (context->item->param1 & 0x00000200) {
+			if (context->item->flags & MENUITEMFLAG_00000200) {
 				y -= 2;
 			}
 
 			textMeasure(&textheight, &textwidth, text, font1, font2, 0);
 			x = context->x + context->width - textwidth - 10;
 
-			if (context->item->param1 & 0x00000010) {
+			if (context->item->flags & MENUITEMFLAG_00000010) {
 				x += 6;
 			}
 
@@ -6839,7 +6839,7 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurendercontext *context)
 		func0f153c88();
 	}
 
-	if (context->item->param1 & 0x00200000) {
+	if (context->item->flags & MENUITEMFLAG_00200000) {
 		struct menuitemrenderdata renderdata;
 		union handlerdata data;
 
@@ -7317,11 +7317,11 @@ const char var7f1adfb8[] = "";
 //	struct fontchar *font1 = g_CharsHandelGothicSm;
 //	struct font *font2 = g_FontHandelGothicSm;
 //
-//	if (context->item->param1 & 0x00000010) {
+//	if (context->item->flags & MENUITEMFLAG_00000010) {
 //		x -= 6;
 //	}
 //
-//	if (context->item->param1 & 0x00400000) {
+//	if (context->item->flags & MENUITEMFLAG_00400000) {
 //		font1 = g_CharsHandelGothicMd;
 //		font2 = g_FontHandelGothicMd;
 //	}
@@ -7392,7 +7392,7 @@ const char var7f1adfb8[] = "";
 //				g_MenuColourPalettes2[context->frame->type].disabled);
 //	}
 //
-//	if (context->item->param1 & 0x00000020) {
+//	if (context->item->flags & MENUITEMFLAG_00000020) {
 //		// Center text
 //		s32 textheight;
 //		s32 textwidth;
@@ -7400,7 +7400,7 @@ const char var7f1adfb8[] = "";
 //		x = context->x + (context->width - textwidth) / 2;
 //	}
 //
-//	if (context->item->param1 & 0x00400000) {
+//	if (context->item->flags & MENUITEMFLAG_00400000) {
 //		x += 35;
 //		y += 6;
 //	}
@@ -7409,7 +7409,7 @@ const char var7f1adfb8[] = "";
 //	gdl = textRenderProjected(gdl, &x, &y, text, font1, font2,
 //			leftcolour, context->width, context->height, 0, 0);
 //
-//	if ((context->item->param1 & 0x00408000) == 0) {
+//	if ((context->item->flags & (MENUITEMFLAG_00008000 | MENUITEMFLAG_00400000)) == 0) {
 //		// Right side text
 //		text = menuResolveText(context->item->param3, context->item);
 //
@@ -7435,11 +7435,11 @@ bool menuTickItemSelectable(struct menuitem *item, struct menuinputs *inputs, u3
 	if ((arg2 & 2) && inputs->select) {
 		menuPlaySound(MENUSOUND_SELECT);
 
-		if (item->param1 & 0x00000008) {
+		if (item->flags & MENUITEMFLAG_00000008) {
 			menuPopDialog();
 		}
 
-		if (item->param1 & 0x00000004) {
+		if (item->flags & MENUITEMFLAG_00000004) {
 			menuPushDialog((struct menudialog *)item->handler);
 		} else if (item->handler) {
 			union handlerdata data;
@@ -8139,7 +8139,7 @@ bool menuTickItemSlider(struct menuitem *item, struct menuframe *frame, struct m
 				index = 0;
 			}
 
-			if ((item->param1 & 0x00000800) == 0 && !g_Menus[g_MpPlayerNum].unk82c) {
+			if ((item->flags & MENUITEMFLAG_00000800) == 0 && !g_Menus[g_MpPlayerNum].unk82c) {
 				index = index + inputs->leftright;
 			} else {
 				f0 = data->slider.unk00 / 1000.0f;
@@ -8166,7 +8166,7 @@ bool menuTickItemSlider(struct menuitem *item, struct menuframe *frame, struct m
 				f2 = f14;
 			}
 
-			if ((item->param1 & 0x00000800) == 0 && f2 < 40) {
+			if ((item->flags & MENUITEMFLAG_00000800) == 0 && f2 < 40) {
 				if (g_Menus[g_MpPlayerNum].unk82c) {
 					index = index + inputs->leftright;
 				}
@@ -8291,9 +8291,9 @@ bool menuTickItemCarousel(struct menuitem *item, struct menuinputs *inputs, u32 
 	bool done;
 	u32 stack;
 
-	if (((arg2 & 2) || (item->param1 & 0x04000000)) && item->handler) {
+	if (((arg2 & 2) || (item->flags & MENUITEMFLAG_04000000)) && item->handler) {
 		if (inputs->leftright != 0) {
-			if (mpIsPlayerLockedOut(g_MpPlayerNum) == 0 || (item->param1 & 0x00020000) == 0) {
+			if (mpIsPlayerLockedOut(g_MpPlayerNum) == 0 || (item->flags & MENUITEMFLAG_00020000) == 0) {
 				done = false;
 
 				item->handler(MENUOP_GETOPTIONCOUNT, item, &data);
@@ -8739,7 +8739,7 @@ glabel menuRenderItemCheckbox
 //	struct font *font2 = g_FontHandelGothicSm;
 //	struct fontchar *font1 = g_CharsHandelGothicSm;
 //
-//	if (context->item->param1 & 0x00000200) {
+//	if (context->item->flags & MENUITEMFLAG_00000200) {
 //		font2 = g_FontHandelGothicXs;
 //		font1 = g_CharsHandelGothicXs;
 //	}
@@ -9745,7 +9745,7 @@ u32 var800711ec = 0x20000000;
 //	struct font *font2 = g_FontHandelGothicSm; // 5c
 //	struct fontchar *font1 = g_CharsHandelGothicSm; // 58
 //
-//	if (context->item->param1 & 0x00000200) {
+//	if (context->item->flags & MENUITEMFLAG_00000200) {
 //		font2 = g_FontHandelGothicXs;
 //		font1 = g_CharsHandelGothicXs;
 //	}
@@ -9843,7 +9843,7 @@ u32 var800711ec = 0x20000000;
 //
 //	func0f153d24();
 //
-//	if (context->item->param1 & 0x00000800) {
+//	if (context->item->flags & MENUITEMFLAG_00000800) {
 //		func0f153ce8(context->x, context->x + context->width, 0xe);
 //	} else {
 //		func0f153ce8(context->x, context->x, 0xe);
@@ -9967,7 +9967,7 @@ bool menuTickItemMarquee(struct menuitem *item, union menuitemdata *data)
 	font2 = g_FontHandelGothicSm;
 	font1 = g_CharsHandelGothicSm;
 
-	if (item->param1 & 0x00000200) {
+	if (item->flags & MENUITEMFLAG_00000200) {
 		font2 = g_FontHandelGothicXs;
 		font1 = g_CharsHandelGothicXs;
 	}

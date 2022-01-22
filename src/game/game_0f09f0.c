@@ -1627,38 +1627,38 @@ char *menuResolveDialogTitle(struct menudialog *dialog)
 	return menuResolveText(dialog->title, dialog);
 }
 
-void func0f0f15a4(u8 *arg0, u32 *arg1)
+void func0f0f15a4(struct menuitem *item, s32 *arg1)
 {
-	switch (*arg0) {
-	case 8:
-	case 9:
-	case 14:
-	case 20:
-	case 24:
+	switch (item->type) {
+	case MENUITEMTYPE_SLIDER:
+	case MENUITEMTYPE_CHECKBOX:
+	case MENUITEMTYPE_RANKING:
+	case MENUITEMTYPE_14:
+	case MENUITEMTYPE_18:
 		*arg1 = 1;
 		break;
 #if VERSION < VERSION_PAL_FINAL
-	case 5:
+	case MENUITEMTYPE_SCROLLABLE:
 #endif
-	case 23:
-	case 25:
+	case MENUITEMTYPE_MARQUEE:
+	case MENUITEMTYPE_CONTROLLER:
 		*arg1 = 2;
 		break;
-	case 2:
+	case MENUITEMTYPE_LIST:
 #if VERSION >= VERSION_PAL_FINAL
-	case 5:
+	case MENUITEMTYPE_SCROLLABLE:
 #endif
 		*arg1 = 3;
 		break;
-	case 12:
+	case MENUITEMTYPE_DROPDOWN:
 		*arg1 = 4;
 		break;
-	case 15:
+	case MENUITEMTYPE_PLAYERSTATS:
 		*arg1 = 5;
 		break;
-	case 13:
-	case 16:
-	case 22:
+	case MENUITEMTYPE_KEYBOARD:
+	case MENUITEMTYPE_10:
+	case MENUITEMTYPE_16:
 		*arg1 = 3;
 		break;
 	}
@@ -3583,6 +3583,68 @@ glabel func0f0f1d6c
 );
 #endif
 
+// Mismatch: Goal stores index660 in v0 while the below stores it in v0
+// initially but then all the increments in v1, resulting in one less
+// instruction. Removing the + 1 from the assign to frame->unk04 or
+// menu->unk6d8 causes the below to use v0 only, which is a closer
+// match but is functionally incorrect.
+//void func0f0f1d6c(struct menudialog *dialog, struct menuframe *frame, struct menu *menu)
+//{
+//	s32 index660 = menu->unk6d8 - 1; // 64
+//	s32 index4fc = menu->unk65c;
+//	s32 numitems = 0;
+//	s32 numblocksthisitem; // 58
+//	struct menuitem *item = dialog->items;
+//	s16 totalblocksused = menu->unk81c;
+//
+//	frame->unk05 = 0;
+//	frame->unk04 = index660 + 1;
+//	frame->unk06 = totalblocksused;
+//
+//	if (item) {
+//		bool append = true;
+//
+//		while (item->type != MENUITEMTYPE_END) {
+//			if (item->flags & MENUITEMFLAG_00000001) {
+//				append = true;
+//			}
+//
+//			if (append) {
+//				frame->unk05++;
+//				index660++;
+//
+//				menu->unk660[index660].unk00 = 0;
+//				menu->unk660[index660].unk02 = 0;
+//				menu->unk660[index660].unk04 = 0;
+//				menu->unk660[index660].unk08 = 0;
+//				menu->unk660[index660].unk06 = index4fc;
+//
+//				append = false;
+//			}
+//
+//			numblocksthisitem = -1;
+//			func0f0f15a4(item, &numblocksthisitem);
+//
+//			if (numblocksthisitem != -1) {
+//				menu->unk4fc[index4fc].blockindex = totalblocksused;
+//				totalblocksused += (s16)numblocksthisitem;
+//			} else {
+//				menu->unk4fc[index4fc].blockindex = -1;
+//			}
+//
+//			menu->unk4fc[index4fc].itemindex = numitems;
+//			menu->unk660[index660].unk08++;
+//			index4fc++;
+//			item++;
+//			numitems++;
+//		}
+//	}
+//
+//	menu->unk6d8 = index660 + 1;
+//	menu->unk65c = index4fc;
+//	menu->unk81c = totalblocksused;
+//}
+
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0f0f1ef4
@@ -4497,11 +4559,11 @@ bool menuIsItemDisabled(struct menuitem *item, struct menuframe *frame)
 	s16 sp2c;
 	u32 stack[2];
 
-	if (item->param1 & 0x00000400) {
+	if (item->flags & MENUITEMFLAG_00000400) {
 		return true;
 	}
 
-	if (mpIsPlayerLockedOut(g_MpPlayerNum) && item->param1 & 0x00040000) {
+	if (mpIsPlayerLockedOut(g_MpPlayerNum) && item->flags & MENUITEMFLAG_00040000) {
 		return true;
 	}
 
@@ -4510,7 +4572,7 @@ bool menuIsItemDisabled(struct menuitem *item, struct menuframe *frame)
 	}
 
 	if (item->handler
-			&& (item->param1 & 0x00000004) == 0
+			&& (item->flags & MENUITEMFLAG_00000004) == 0
 			&& item->handler(MENUOP_CHECKDISABLED, item, &sp30)) {
 		return true;
 	}
@@ -4563,7 +4625,7 @@ struct menuitem *func0f0f26fc(s32 arg0, s32 arg1, struct menudialog *dialog, s32
 	s32 i;
 
 	for (i = 0, sum = 0; !done && i < g_Menus[g_MpPlayerNum].unk660[arg1].unk08; index++, i++) {
-		struct menuitem *item = &dialog->items[g_Menus[g_MpPlayerNum].unk4fc[index].unk02];
+		struct menuitem *item = &dialog->items[g_Menus[g_MpPlayerNum].unk4fc[index].itemindex];
 
 		if (func0f0f2674(item, frame, 1)) {
 			result = item;
@@ -5022,7 +5084,7 @@ void menuOpenDialog(struct menudialog *dialog, struct menuframe *frame, struct m
 
 	while (item->type != MENUITEMTYPE_END) {
 		if (item->handler
-				&& (item->param1 & 0x04) == 0
+				&& (item->flags & MENUITEMFLAG_00000004) == 0
 				&& item->handler(MENUOP_CHECKPREFOCUSED, item, &data1)) {
 			frame->focuseditem = item;
 		}
@@ -5033,7 +5095,7 @@ void menuOpenDialog(struct menudialog *dialog, struct menuframe *frame, struct m
 	// Run focus handler
 	if (frame->focuseditem
 			&& frame->focuseditem->handler
-			&& (frame->focuseditem->param1 & 0x04) == 0) {
+			&& (frame->focuseditem->flags & MENUITEMFLAG_00000004) == 0) {
 		frame->focuseditem->handler(MENUOP_FOCUS, frame->focuseditem, &data2);
 	}
 
@@ -22961,11 +23023,11 @@ void func0f0fa574(struct menuframe *frame)
 
 		for (j = 0; j < menu->unk660[index1].unk08; j++) {
 			s32 index2 = menu->unk660[index1].unk06 + j;
-			struct menuitem *item = &frame->dialog->items[menu->unk4fc[index2].unk02];
+			struct menuitem *item = &frame->dialog->items[menu->unk4fc[index2].itemindex];
 			union menuitemdata *data = NULL;
 
-			if (menu->unk4fc[index2].handlerdataindex != -1) {
-				data = (union menuitemdata *)&menu->handlerdatabuffer[menu->unk4fc[index2].handlerdataindex];
+			if (menu->unk4fc[index2].blockindex != -1) {
+				data = (union menuitemdata *)&menu->blocks[menu->unk4fc[index2].blockindex];
 			}
 
 			menuInitItem(item, data);
