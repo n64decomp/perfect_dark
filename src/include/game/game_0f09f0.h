@@ -82,7 +82,7 @@ bool func0f0fd1f4(s32 device, s32 arg1);
 void func0f0fd320(s8 device, s32 arg1);
 void func0f0fd494(struct coord *pos);
 void func0f0fd548(s32 arg0);
-bool menuIsDialogOpen(struct menudialog *dialog);
+struct menuframe *menuIsDialogOpen(struct menudialog *dialog);
 struct chrdata *currentPlayerGetCommandingAibot(void);
 
 s32 menuhandler000fcc34(s32 operation, struct menuitem *item, union handlerdata *data);

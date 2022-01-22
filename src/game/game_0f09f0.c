@@ -30803,139 +30803,24 @@ void func0f0fd548(s32 arg0)
 	g_MenuData.unk66f = 0;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel menuIsDialogOpen
-/*  f0fd570:	3c028007 */ 	lui	$v0,%hi(g_MpPlayerNum)
-/*  f0fd574:	8c421448 */ 	lw	$v0,%lo(g_MpPlayerNum)($v0)
-/*  f0fd578:	3c0f800a */ 	lui	$t7,%hi(g_Menus)
-/*  f0fd57c:	25efe000 */ 	addiu	$t7,$t7,%lo(g_Menus)
-/*  f0fd580:	000270c0 */ 	sll	$t6,$v0,0x3
-/*  f0fd584:	01c27023 */ 	subu	$t6,$t6,$v0
-/*  f0fd588:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f0fd58c:	01c27021 */ 	addu	$t6,$t6,$v0
-/*  f0fd590:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f0fd594:	01c27023 */ 	subu	$t6,$t6,$v0
-/*  f0fd598:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f0fd59c:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f0fd5a0:	8c7804f8 */ 	lw	$t8,0x4f8($v1)
-/*  f0fd5a4:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f0fd5a8:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f0fd5ac:	13000024 */ 	beqz	$t8,.L0f0fd640
-/*  f0fd5b0:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0fd5b4:	846504f4 */ 	lh	$a1,0x4f4($v1)
-/*  f0fd5b8:	0002c8c0 */ 	sll	$t9,$v0,0x3
-/*  f0fd5bc:	0322c823 */ 	subu	$t9,$t9,$v0
-/*  f0fd5c0:	18a0001f */ 	blez	$a1,.L0f0fd640
-/*  f0fd5c4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0fd5c8:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0fd5cc:	0322c821 */ 	addu	$t9,$t9,$v0
-/*  f0fd5d0:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f0fd5d4:	0322c823 */ 	subu	$t9,$t9,$v0
-/*  f0fd5d8:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f0fd5dc:	032f1821 */ 	addu	$v1,$t9,$t7
-/*  f0fd5e0:	00603025 */ 	or	$a2,$v1,$zero
-.L0f0fd5e4:
-/*  f0fd5e4:	80c70478 */ 	lb	$a3,0x478($a2)
-/*  f0fd5e8:	00045080 */ 	sll	$t2,$a0,0x2
-/*  f0fd5ec:	01445023 */ 	subu	$t2,$t2,$a0
-/*  f0fd5f0:	18e0000f */ 	blez	$a3,.L0f0fd630
-/*  f0fd5f4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0fd5f8:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*  f0fd5fc:	006a4021 */ 	addu	$t0,$v1,$t2
-.L0f0fd600:
-/*  f0fd600:	8d090464 */ 	lw	$t1,0x464($t0)
-/*  f0fd604:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0fd608:	0047082a */ 	slt	$at,$v0,$a3
-/*  f0fd60c:	11200006 */ 	beqz	$t1,.L0f0fd628
-/*  f0fd610:	00000000 */ 	nop
-/*  f0fd614:	8d2b0000 */ 	lw	$t3,0x0($t1)
-/*  f0fd618:	160b0003 */ 	bne	$s0,$t3,.L0f0fd628
-/*  f0fd61c:	00000000 */ 	nop
-/*  f0fd620:	10000008 */ 	b	.L0f0fd644
-/*  f0fd624:	01201025 */ 	or	$v0,$t1,$zero
-.L0f0fd628:
-/*  f0fd628:	1420fff5 */ 	bnez	$at,.L0f0fd600
-/*  f0fd62c:	25080004 */ 	addiu	$t0,$t0,0x4
-.L0f0fd630:
-/*  f0fd630:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f0fd634:	0085082a */ 	slt	$at,$a0,$a1
-/*  f0fd638:	1420ffea */ 	bnez	$at,.L0f0fd5e4
-/*  f0fd63c:	24c60018 */ 	addiu	$a2,$a2,0x18
-.L0f0fd640:
-/*  f0fd640:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0fd644:
-/*  f0fd644:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f0fd648:	03e00008 */ 	jr	$ra
-/*  f0fd64c:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
-#else
-GLOBAL_ASM(
-glabel menuIsDialogOpen
-/*  f0f9ad4:	3c028007 */ 	lui	$v0,0x8007
-/*  f0f9ad8:	8c423af0 */ 	lw	$v0,0x3af0($v0)
-/*  f0f9adc:	3c0f800a */ 	lui	$t7,0x800a
-/*  f0f9ae0:	25ef27c0 */ 	addiu	$t7,$t7,0x27c0
-/*  f0f9ae4:	000270c0 */ 	sll	$t6,$v0,0x3
-/*  f0f9ae8:	01c27023 */ 	subu	$t6,$t6,$v0
-/*  f0f9aec:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f0f9af0:	01c27023 */ 	subu	$t6,$t6,$v0
-/*  f0f9af4:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f0f9af8:	01c27023 */ 	subu	$t6,$t6,$v0
-/*  f0f9afc:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f0f9b00:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f0f9b04:	8c780488 */ 	lw	$t8,0x488($v1)
-/*  f0f9b08:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f0f9b0c:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f0f9b10:	13000024 */ 	beqz	$t8,.NB0f0f9ba4
-/*  f0f9b14:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0f9b18:	84650484 */ 	lh	$a1,0x484($v1)
-/*  f0f9b1c:	0002c8c0 */ 	sll	$t9,$v0,0x3
-/*  f0f9b20:	0322c823 */ 	subu	$t9,$t9,$v0
-/*  f0f9b24:	18a0001f */ 	blez	$a1,.NB0f0f9ba4
-/*  f0f9b28:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0f9b2c:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f0f9b30:	0322c823 */ 	subu	$t9,$t9,$v0
-/*  f0f9b34:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f0f9b38:	0322c823 */ 	subu	$t9,$t9,$v0
-/*  f0f9b3c:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0f9b40:	032f1821 */ 	addu	$v1,$t9,$t7
-/*  f0f9b44:	00603025 */ 	or	$a2,$v1,$zero
-.NB0f0f9b48:
-/*  f0f9b48:	80c70408 */ 	lb	$a3,0x408($a2)
-/*  f0f9b4c:	00045080 */ 	sll	$t2,$a0,0x2
-/*  f0f9b50:	01445023 */ 	subu	$t2,$t2,$a0
-/*  f0f9b54:	18e0000f */ 	blez	$a3,.NB0f0f9b94
-/*  f0f9b58:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0f9b5c:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*  f0f9b60:	006a4021 */ 	addu	$t0,$v1,$t2
-.NB0f0f9b64:
-/*  f0f9b64:	8d0903f4 */ 	lw	$t1,0x3f4($t0)
-/*  f0f9b68:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0f9b6c:	0047082a */ 	slt	$at,$v0,$a3
-/*  f0f9b70:	11200006 */ 	beqz	$t1,.NB0f0f9b8c
-/*  f0f9b74:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0f9b78:	8d2b0000 */ 	lw	$t3,0x0($t1)
-/*  f0f9b7c:	160b0003 */ 	bne	$s0,$t3,.NB0f0f9b8c
-/*  f0f9b80:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0f9b84:	10000008 */ 	beqz	$zero,.NB0f0f9ba8
-/*  f0f9b88:	01201025 */ 	or	$v0,$t1,$zero
-.NB0f0f9b8c:
-/*  f0f9b8c:	1420fff5 */ 	bnez	$at,.NB0f0f9b64
-/*  f0f9b90:	25080004 */ 	addiu	$t0,$t0,0x4
-.NB0f0f9b94:
-/*  f0f9b94:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f0f9b98:	0085082a */ 	slt	$at,$a0,$a1
-/*  f0f9b9c:	1420ffea */ 	bnez	$at,.NB0f0f9b48
-/*  f0f9ba0:	24c60018 */ 	addiu	$a2,$a2,0x18
-.NB0f0f9ba4:
-/*  f0f9ba4:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f0f9ba8:
-/*  f0f9ba8:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f0f9bac:	03e00008 */ 	jr	$ra
-/*  f0f9bb0:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
-#endif
+struct menuframe *menuIsDialogOpen(struct menudialog *dialog)
+{
+	s32 i;
+	s32 j;
+
+	if (g_Menus[g_MpPlayerNum].curframe) {
+		for (i = 0; i < g_Menus[g_MpPlayerNum].depth; i++) {
+			for (j = 0; j < g_Menus[g_MpPlayerNum].layers[i].numsiblings; j++) {
+				if (g_Menus[g_MpPlayerNum].layers[i].siblings[j]
+						&& g_Menus[g_MpPlayerNum].layers[i].siblings[j]->dialog == dialog) {
+					return g_Menus[g_MpPlayerNum].layers[i].siblings[j];
+				}
+			}
+		}
+	}
+
+	return false;
+}
 
 struct menuitem g_PakDamagedMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&menuTextSaveDeviceName, 0x00000000, NULL },
