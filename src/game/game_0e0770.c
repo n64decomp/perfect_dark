@@ -4684,6 +4684,36 @@ glabel func0f0e46b0
 /*  f0e4810:	00000000 */ 	nop
 );
 
+// Mismatch: Too much stack
+//Gfx *func0f0e46b0(Gfx *gdl, f32 arg1)
+//{
+//	s32 y1;
+//	s32 y2;
+//	f32 value;
+//
+//	value = var8009de9c + 120;
+//
+//	y1 = (f32)value + arg1 * (0 - value);
+//	y2 = (f32)value + arg1 * (240 - value);
+//
+//	if (y1);
+//	if (y2);
+//
+//	gdl = func0f0d4a3c(gdl, 0);
+//
+//	var8009de90 = -100000;
+//	var8009de94 = 100000;
+//
+//	gdl = func0f0d4d0c(gdl, -1000, y1, 2000, y1, 0xffff007f, 0xffff007f, 5);
+//	gdl = func0f0d4d0c(gdl, -1000, y1, 2000, y1, 0x00aa007f, 0x00aa007f, 6);
+//	gdl = func0f0d4d0c(gdl, -1000, y2, 2000, y2, 0xffff007f, 0xffff007f, 5);
+//	gdl = func0f0d4d0c(gdl, -1000, y2, 2000, y2, 0x00aa007f, 0x00aa007f, 6);
+//
+//	gdl = func0f0d4c80(gdl);
+//
+//	return gdl;
+//}
+
 GLOBAL_ASM(
 glabel func0f0e4814
 /*  f0e4814:	27bdff48 */ 	addiu	$sp,$sp,-184
