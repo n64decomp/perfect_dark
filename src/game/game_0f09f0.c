@@ -5701,193 +5701,78 @@ glabel menuPushDialog
 //}
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f0f3220
-/*  f0f3220:	3c03800a */ 	lui	$v1,%hi(g_MenuData+0x669)
-/*  f0f3224:	00641821 */ 	addu	$v1,$v1,$a0
-/*  f0f3228:	90632029 */ 	lbu	$v1,%lo(g_MenuData+0x669)($v1)
-/*  f0f322c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0f3230:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0f3234:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0f3238:	1461003d */ 	bne	$v1,$at,.L0f0f3330
-/*  f0f323c:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0f3240:	3c078007 */ 	lui	$a3,%hi(g_MpPlayerNum)
-/*  f0f3244:	24e71448 */ 	addiu	$a3,$a3,%lo(g_MpPlayerNum)
-/*  f0f3248:	3c03800a */ 	lui	$v1,%hi(g_Menus+0x2b50)
-/*  f0f324c:	8ce90000 */ 	lw	$t1,0x0($a3)
-/*  f0f3250:	24630b50 */ 	addiu	$v1,$v1,%lo(g_Menus+0x2b50)
-/*  f0f3254:	24020003 */ 	addiu	$v0,$zero,0x3
-.L0f0f3258:
-/*  f0f3258:	8c6e04f8 */ 	lw	$t6,0x4f8($v1)
-/*  f0f325c:	51c00003 */ 	beqzl	$t6,.L0f0f326c
-/*  f0f3260:	2442ffff */ 	addiu	$v0,$v0,-1
-/*  f0f3264:	ace20000 */ 	sw	$v0,0x0($a3)
-/*  f0f3268:	2442ffff */ 	addiu	$v0,$v0,-1
-.L0f0f326c:
-/*  f0f326c:	0441fffa */ 	bgez	$v0,.L0f0f3258
-/*  f0f3270:	2463f190 */ 	addiu	$v1,$v1,-3696
-/*  f0f3274:	8ce20000 */ 	lw	$v0,0x0($a3)
-/*  f0f3278:	3c18800a */ 	lui	$t8,%hi(g_Menus)
-/*  f0f327c:	2718e000 */ 	addiu	$t8,$t8,%lo(g_Menus)
-/*  f0f3280:	000278c0 */ 	sll	$t7,$v0,0x3
-/*  f0f3284:	01e27823 */ 	subu	$t7,$t7,$v0
-/*  f0f3288:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0f328c:	01e27821 */ 	addu	$t7,$t7,$v0
-/*  f0f3290:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0f3294:	01e27823 */ 	subu	$t7,$t7,$v0
-/*  f0f3298:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f0f329c:	01f81821 */ 	addu	$v1,$t7,$t8
-/*  f0f32a0:	847904f4 */ 	lh	$t9,0x4f4($v1)
-/*  f0f32a4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0f32a8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0f32ac:	2b210002 */ 	slti	$at,$t9,0x2
-/*  f0f32b0:	54200003 */ 	bnezl	$at,.L0f0f32c0
-/*  f0f32b4:	8c6404f8 */ 	lw	$a0,0x4f8($v1)
-/*  f0f32b8:	00004025 */ 	or	$t0,$zero,$zero
-/*  f0f32bc:	8c6404f8 */ 	lw	$a0,0x4f8($v1)
-.L0f0f32c0:
-/*  f0f32c0:	1080000f */ 	beqz	$a0,.L0f0f3300
-/*  f0f32c4:	00000000 */ 	nop
-/*  f0f32c8:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f0f32cc:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0f32d0:	3c0b8008 */ 	lui	$t3,%hi(g_MpEndscreenChallengeCheatedMenuDialog)
-/*  f0f32d4:	904a0000 */ 	lbu	$t2,0x0($v0)
-/*  f0f32d8:	256b4a40 */ 	addiu	$t3,$t3,%lo(g_MpEndscreenChallengeCheatedMenuDialog)
-/*  f0f32dc:	15410008 */ 	bne	$t2,$at,.L0f0f3300
-/*  f0f32e0:	00000000 */ 	nop
-/*  f0f32e4:	11620005 */ 	beq	$t3,$v0,.L0f0f32fc
-/*  f0f32e8:	00004025 */ 	or	$t0,$zero,$zero
-/*  f0f32ec:	3c0c8008 */ 	lui	$t4,%hi(g_MpEndscreenChallengeFailedMenuDialog)
-/*  f0f32f0:	258c4a58 */ 	addiu	$t4,$t4,%lo(g_MpEndscreenChallengeFailedMenuDialog)
-/*  f0f32f4:	15820002 */ 	bne	$t4,$v0,.L0f0f3300
-/*  f0f32f8:	00000000 */ 	nop
-.L0f0f32fc:
-/*  f0f32fc:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0f0f3300:
-/*  f0f3300:	11000009 */ 	beqz	$t0,.L0f0f3328
-/*  f0f3304:	3c04800a */ 	lui	$a0,%hi(g_GameFileGuid)
-/*  f0f3308:	248422c0 */ 	addiu	$a0,$a0,%lo(g_GameFileGuid)
-/*  f0f330c:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f0f3310:	0fc42539 */ 	jal	filemgrSaveOrLoad
-/*  f0f3314:	afa9001c */ 	sw	$t1,0x1c($sp)
-/*  f0f3318:	3c078007 */ 	lui	$a3,%hi(g_MpPlayerNum)
-/*  f0f331c:	24e71448 */ 	addiu	$a3,$a3,%lo(g_MpPlayerNum)
-/*  f0f3320:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f0f3324:	8fa9001c */ 	lw	$t1,0x1c($sp)
-.L0f0f3328:
-/*  f0f3328:	10000019 */ 	b	.L0f0f3390
-/*  f0f332c:	ace90000 */ 	sw	$t1,0x0($a3)
-.L0f0f3330:
-/*  f0f3330:	28610004 */ 	slti	$at,$v1,0x4
-/*  f0f3334:	10200016 */ 	beqz	$at,.L0f0f3390
-/*  f0f3338:	3c078007 */ 	lui	$a3,%hi(g_MpPlayerNum)
-/*  f0f333c:	00037080 */ 	sll	$t6,$v1,0x2
-/*  f0f3340:	24e71448 */ 	addiu	$a3,$a3,%lo(g_MpPlayerNum)
-/*  f0f3344:	01c37021 */ 	addu	$t6,$t6,$v1
-/*  f0f3348:	8ced0000 */ 	lw	$t5,0x0($a3)
-/*  f0f334c:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f0f3350:	3c18800b */ 	lui	$t8,%hi(g_PlayerConfigsArray)
-/*  f0f3354:	2718c7b8 */ 	addiu	$t8,$t8,%lo(g_PlayerConfigsArray)
-/*  f0f3358:	25cf004c */ 	addiu	$t7,$t6,0x4c
-/*  f0f335c:	ace30000 */ 	sw	$v1,0x0($a3)
-/*  f0f3360:	01f82021 */ 	addu	$a0,$t7,$t8
-/*  f0f3364:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0f3368:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f0f336c:	00603025 */ 	or	$a2,$v1,$zero
-/*  f0f3370:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f0f3374:	0fc42539 */ 	jal	filemgrSaveOrLoad
-/*  f0f3378:	afad0018 */ 	sw	$t5,0x18($sp)
-/*  f0f337c:	8fb90018 */ 	lw	$t9,0x18($sp)
-/*  f0f3380:	3c078007 */ 	lui	$a3,%hi(g_MpPlayerNum)
-/*  f0f3384:	24e71448 */ 	addiu	$a3,$a3,%lo(g_MpPlayerNum)
-/*  f0f3388:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f0f338c:	acf90000 */ 	sw	$t9,0x0($a3)
-.L0f0f3390:
-/*  f0f3390:	11000005 */ 	beqz	$t0,.L0f0f33a8
-/*  f0f3394:	3c0a800a */ 	lui	$t2,%hi(g_MenuData+0x66e)
-/*  f0f3398:	814a202e */ 	lb	$t2,%lo(g_MenuData+0x66e)($t2)
-/*  f0f339c:	3c01800a */ 	lui	$at,%hi(g_MenuData+0x66e)
-/*  f0f33a0:	254bffff */ 	addiu	$t3,$t2,-1
-/*  f0f33a4:	a02b202e */ 	sb	$t3,%lo(g_MenuData+0x66e)($at)
-.L0f0f33a8:
-/*  f0f33a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f33ac:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0f33b0:	01001025 */ 	or	$v0,$t0,$zero
-/*  f0f33b4:	03e00008 */ 	jr	$ra
-/*  f0f33b8:	00000000 */ 	nop
-);
+bool func0f0f3220(s32 arg0)
+{
+	bool save = true;
+	s32 i;
+
+	if (g_MenuData.unk669[arg0] == 4) {
+		s32 prevplayernum = g_MpPlayerNum;
+
+		for (i = 3; i >= 0; i--) {
+			if (g_Menus[i].curframe) {
+				g_MpPlayerNum = i;
+			}
+		}
+
+		if (g_Menus[g_MpPlayerNum].depth >= 2) {
+			save = false;
+		}
+
+		if (g_Menus[g_MpPlayerNum].curframe && g_Menus[g_MpPlayerNum].curframe->dialog->type == 2) {
+			save = false;
+
+			if (g_Menus[g_MpPlayerNum].curframe->dialog == &g_MpEndscreenChallengeCheatedMenuDialog
+					|| g_Menus[g_MpPlayerNum].curframe->dialog == &g_MpEndscreenChallengeFailedMenuDialog) {
+				save = true;
+			}
+		}
+
+		if (save) {
+			filemgrSaveOrLoad(&g_GameFileGuid, FILEOP_SAVE_GAME_000, 0);
+		}
+
+		g_MpPlayerNum = prevplayernum;
+	} else if (g_MenuData.unk669[arg0] < 4) {
+		s32 prevplayernum = g_MpPlayerNum;
+		g_MpPlayerNum = g_MenuData.unk669[arg0];
+		filemgrSaveOrLoad(&g_PlayerConfigsArray[g_MpPlayerNum].fileguid, FILEOP_SAVE_MPPLAYER, g_MpPlayerNum);
+		save = true;
+		g_MpPlayerNum = prevplayernum;
+	}
+
+	if (save) {
+		g_MenuData.unk66e--;
+	}
+
+	return save;
+}
 #else
-GLOBAL_ASM(
-glabel func0f0f3220
-/*  f0efe3c:	3c09800a */ 	lui	$t1,0x800a
-/*  f0efe40:	25295eb0 */ 	addiu	$t1,$t1,0x5eb0
-/*  f0efe44:	01247021 */ 	addu	$t6,$t1,$a0
-/*  f0efe48:	91c30669 */ 	lbu	$v1,0x669($t6)
-/*  f0efe4c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0efe50:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0efe54:	1461001b */ 	bne	$v1,$at,.NB0f0efec4
-/*  f0efe58:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0efe5c:	3c078007 */ 	lui	$a3,0x8007
-/*  f0efe60:	24e73af0 */ 	addiu	$a3,$a3,0x3af0
-/*  f0efe64:	3c03800a */ 	lui	$v1,0x800a
-/*  f0efe68:	8ce80000 */ 	lw	$t0,0x0($a3)
-/*  f0efe6c:	246350f4 */ 	addiu	$v1,$v1,0x50f4
-/*  f0efe70:	24020003 */ 	addiu	$v0,$zero,0x3
-.NB0f0efe74:
-/*  f0efe74:	8c6f0488 */ 	lw	$t7,0x488($v1)
-/*  f0efe78:	51e00003 */ 	beqzl	$t7,.NB0f0efe88
-/*  f0efe7c:	2442ffff */ 	addiu	$v0,$v0,-1
-/*  f0efe80:	ace20000 */ 	sw	$v0,0x0($a3)
-/*  f0efe84:	2442ffff */ 	addiu	$v0,$v0,-1
-.NB0f0efe88:
-/*  f0efe88:	0441fffa */ 	bgez	$v0,.NB0f0efe74
-/*  f0efe8c:	2463f244 */ 	addiu	$v1,$v1,-3516
-/*  f0efe90:	3c04800a */ 	lui	$a0,0x800a
-/*  f0efe94:	248467b0 */ 	addiu	$a0,$a0,0x67b0
-/*  f0efe98:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0efe9c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0efea0:	0fc41358 */ 	jal	filemgrSaveOrLoad
-/*  f0efea4:	afa80020 */ 	sw	$t0,0x20($sp)
-/*  f0efea8:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*  f0efeac:	3c078007 */ 	lui	$a3,0x8007
-/*  f0efeb0:	24e73af0 */ 	addiu	$a3,$a3,0x3af0
-/*  f0efeb4:	3c09800a */ 	lui	$t1,0x800a
-/*  f0efeb8:	25295eb0 */ 	addiu	$t1,$t1,0x5eb0
-/*  f0efebc:	10000019 */ 	beqz	$zero,.NB0f0eff24
-/*  f0efec0:	ace80000 */ 	sw	$t0,0x0($a3)
-.NB0f0efec4:
-/*  f0efec4:	28610004 */ 	slti	$at,$v1,0x4
-/*  f0efec8:	10200016 */ 	beqz	$at,.NB0f0eff24
-/*  f0efecc:	3c078007 */ 	lui	$a3,0x8007
-/*  f0efed0:	0003c880 */ 	sll	$t9,$v1,0x2
-/*  f0efed4:	24e73af0 */ 	addiu	$a3,$a3,0x3af0
-/*  f0efed8:	0323c821 */ 	addu	$t9,$t9,$v1
-/*  f0efedc:	8cf80000 */ 	lw	$t8,0x0($a3)
-/*  f0efee0:	0019c940 */ 	sll	$t9,$t9,0x5
-/*  f0efee4:	3c0b800b */ 	lui	$t3,0x800b
-/*  f0efee8:	256b1068 */ 	addiu	$t3,$t3,0x1068
-/*  f0efeec:	272a004c */ 	addiu	$t2,$t9,0x4c
-/*  f0efef0:	ace30000 */ 	sw	$v1,0x0($a3)
-/*  f0efef4:	014b2021 */ 	addu	$a0,$t2,$t3
-/*  f0efef8:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0efefc:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f0eff00:	00603025 */ 	or	$a2,$v1,$zero
-/*  f0eff04:	0fc41358 */ 	jal	filemgrSaveOrLoad
-/*  f0eff08:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*  f0eff0c:	8fac001c */ 	lw	$t4,0x1c($sp)
-/*  f0eff10:	3c078007 */ 	lui	$a3,0x8007
-/*  f0eff14:	24e73af0 */ 	addiu	$a3,$a3,0x3af0
-/*  f0eff18:	3c09800a */ 	lui	$t1,0x800a
-/*  f0eff1c:	25295eb0 */ 	addiu	$t1,$t1,0x5eb0
-/*  f0eff20:	acec0000 */ 	sw	$t4,0x0($a3)
-.NB0f0eff24:
-/*  f0eff24:	812d066e */ 	lb	$t5,0x66e($t1)
-/*  f0eff28:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0eff2c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0eff30:	25aeffff */ 	addiu	$t6,$t5,-1
-/*  f0eff34:	03e00008 */ 	jr	$ra
-/*  f0eff38:	a12e066e */ 	sb	$t6,0x66e($t1)
-);
+void func0f0f3220(s32 arg0)
+{
+	s32 i;
+
+	if (g_MenuData.unk669[arg0] == 4) {
+		s32 prevplayernum = g_MpPlayerNum;
+
+		for (i = 3; i >= 0; i--) {
+			if (g_Menus[i].curframe) {
+				g_MpPlayerNum = i;
+			}
+		}
+
+		filemgrSaveOrLoad(&g_GameFileGuid, FILEOP_SAVE_GAME_000, 0);
+
+		g_MpPlayerNum = prevplayernum;
+	} else if (g_MenuData.unk669[arg0] < 4) {
+		s32 prevplayernum = g_MpPlayerNum;
+		g_MpPlayerNum = g_MenuData.unk669[arg0];
+		filemgrSaveOrLoad(&g_PlayerConfigsArray[g_MpPlayerNum].fileguid, FILEOP_SAVE_MPPLAYER, g_MpPlayerNum);
+		g_MpPlayerNum = prevplayernum;
+	}
+
+	g_MenuData.unk66e--;
+}
 #endif
 
 void menuCloseDialog(void)

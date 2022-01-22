@@ -39,7 +39,13 @@ u32 func0f0f2b2c(void);
 u32 func0f0f2c44(void);
 void menuOpenDialog(struct menudialog *dialog, struct menuframe *arg1, struct menu *menu);
 void menuPushDialog(struct menudialog *dialog);
+
+#if VERSION >= VERSION_NTSC_1_0
+bool func0f0f3220(s32 arg0);
+#else
 void func0f0f3220(s32 arg0);
+#endif
+
 void menuCloseDialog(void);
 void menuUpdateCurFrame(void);
 void menuPopDialog(void);
