@@ -1542,9 +1542,9 @@ void func0f0f1494(void)
 	}
 }
 
-char *menuResolveText(u32 thing, struct menuitem *item)
+char *menuResolveText(u32 thing, void *dialogoritem)
 {
-	char *(*handler)(struct menuitem *item) = (void *)thing;
+	char *(*handler)(void *dialogoritem) = (void *)thing;
 
 	// Null/zero
 	if (thing == 0) {
@@ -1565,7 +1565,7 @@ char *menuResolveText(u32 thing, struct menuitem *item)
 
 	// Function pointer
 	if (handler) {
-		return handler(item);
+		return handler(dialogoritem);
 	}
 
 	return "";
@@ -1622,9 +1622,9 @@ char *menuResolveParam2Text(struct menuitem *item)
 	return menuResolveText(item->param2, item);
 }
 
-char *menuResolveParam1Text(struct menuitem *item)
+char *menuResolveDialogTitle(struct menudialog *dialog)
 {
-	return menuResolveText(item->param1, item);
+	return menuResolveText(dialog->title, dialog);
 }
 
 void func0f0f15a4(u8 *arg0, u32 *arg1)
@@ -4007,7 +4007,7 @@ glabel func0f0f2134
 /*  f0f2298:	00a31021 */ 	addu	$v0,$a1,$v1
 .L0f0f229c:
 /*  f0f229c:	2610000c */ 	addiu	$s0,$s0,0xc
-/*  f0f22a0:	0fc3c560 */ 	jal	menuResolveParam1Text
+/*  f0f22a0:	0fc3c560 */ 	jal	menuResolveDialogTitle
 /*  f0f22a4:	8d640000 */ 	lw	$a0,0x0($t3)
 /*  f0f22a8:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicSm)
 /*  f0f22ac:	8d8cfb0c */ 	lw	$t4,%lo(g_FontHandelGothicSm)($t4)
@@ -4158,7 +4158,7 @@ glabel func0f0f2134
 /*  f0eeeb4:	00a31021 */ 	addu	$v0,$a1,$v1
 .NB0f0eeeb8:
 /*  f0eeeb8:	2610000c */ 	addiu	$s0,$s0,0xc
-/*  f0eeebc:	0fc3b864 */ 	jal	menuResolveParam1Text
+/*  f0eeebc:	0fc3b864 */ 	jal	menuResolveDialogTitle
 /*  f0eeec0:	8d640000 */ 	lw	$a0,0x0($t3)
 /*  f0eeec4:	3c0c8008 */ 	lui	$t4,0x8008
 /*  f0eeec8:	8d8c236c */ 	lw	$t4,0x236c($t4)
@@ -4770,52 +4770,26 @@ glabel func0f0f26fc
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f0f288c
-/*  f0f288c:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0f2890:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0f2894:	afb30028 */ 	sw	$s3,0x28($sp)
-/*  f0f2898:	afb20024 */ 	sw	$s2,0x24($sp)
-/*  f0f289c:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f0f28a0:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f0f28a4:	908e0005 */ 	lbu	$t6,0x5($a0)
-/*  f0f28a8:	00809025 */ 	or	$s2,$a0,$zero
-/*  f0f28ac:	90900004 */ 	lbu	$s0,0x4($a0)
-/*  f0f28b0:	19c00012 */ 	blez	$t6,.L0f0f28fc
-/*  f0f28b4:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0f28b8:	27b30034 */ 	addiu	$s3,$sp,0x34
-/*  f0f28bc:	8e460000 */ 	lw	$a2,0x0($s2)
-.L0f0f28c0:
-/*  f0f28c0:	afb20010 */ 	sw	$s2,0x10($sp)
-/*  f0f28c4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0f28c8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0f28cc:	0fc3c9bf */ 	jal	func0f0f26fc
-/*  f0f28d0:	02603825 */ 	or	$a3,$s3,$zero
-/*  f0f28d4:	50400004 */ 	beqzl	$v0,.L0f0f28e8
-/*  f0f28d8:	924f0005 */ 	lbu	$t7,0x5($s2)
-/*  f0f28dc:	1000000c */ 	b	.L0f0f2910
-/*  f0f28e0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0f28e4:	924f0005 */ 	lbu	$t7,0x5($s2)
-.L0f0f28e8:
-/*  f0f28e8:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0f28ec:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0f28f0:	022f082a */ 	slt	$at,$s1,$t7
-/*  f0f28f4:	5420fff2 */ 	bnezl	$at,.L0f0f28c0
-/*  f0f28f8:	8e460000 */ 	lw	$a2,0x0($s2)
-.L0f0f28fc:
-/*  f0f28fc:	0fc3c560 */ 	jal	menuResolveParam1Text
-/*  f0f2900:	8e440000 */ 	lw	$a0,0x0($s2)
-/*  f0f2904:	8e580000 */ 	lw	$t8,0x0($s2)
-/*  f0f2908:	8f020008 */ 	lw	$v0,0x8($t8)
-/*  f0f290c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f0f2910:
-/*  f0f2910:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f0f2914:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f0f2918:	8fb20024 */ 	lw	$s2,0x24($sp)
-/*  f0f291c:	8fb30028 */ 	lw	$s3,0x28($sp)
-/*  f0f2920:	03e00008 */ 	jr	$ra
-/*  f0f2924:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+struct menuitem *func0f0f288c(struct menuframe *frame)
+{
+	s32 s0 = frame->unk04;
+	s32 i;
+	s32 sp34;
+
+	for (i = 0; i < frame->unk05; i++) {
+		struct menuitem *item = func0f0f26fc(0, s0, frame->dialog, &sp34, frame);
+
+		if (item != NULL) {
+			return item;
+		}
+
+		s0++;
+	}
+
+	menuResolveDialogTitle(frame->dialog);
+
+	return frame->dialog->items;
+}
 
 GLOBAL_ASM(
 glabel func0f0f2928
@@ -4852,7 +4826,7 @@ glabel func0f0f2928
 /*  f0f2998:	5420fff2 */ 	bnezl	$at,.L0f0f2964
 /*  f0f299c:	8e460000 */ 	lw	$a2,0x0($s2)
 .L0f0f29a0:
-/*  f0f29a0:	0fc3c560 */ 	jal	menuResolveParam1Text
+/*  f0f29a0:	0fc3c560 */ 	jal	menuResolveDialogTitle
 /*  f0f29a4:	8e440000 */ 	lw	$a0,0x0($s2)
 /*  f0f29a8:	8e580000 */ 	lw	$t8,0x0($s2)
 /*  f0f29ac:	8f020008 */ 	lw	$v0,0x8($t8)
@@ -11521,7 +11495,7 @@ glabel func0f0f5360
 /*  f0f5654:	02021821 */ 	addu	$v1,$s0,$v0
 /*  f0f5658:	afa301d4 */ 	sw	$v1,0x1d4($sp)
 /*  f0f565c:	afa30084 */ 	sw	$v1,0x84($sp)
-/*  f0f5660:	0fc3c560 */ 	jal	menuResolveParam1Text
+/*  f0f5660:	0fc3c560 */ 	jal	menuResolveDialogTitle
 /*  f0f5664:	afa201dc */ 	sw	$v0,0x1dc($sp)
 /*  f0f5668:	8fa701ec */ 	lw	$a3,0x1ec($sp)
 /*  f0f566c:	0040b825 */ 	or	$s7,$v0,$zero
@@ -13429,7 +13403,7 @@ glabel func0f0f5360
 .L0f0f7298:
 /*  f0f7298:	02386021 */ 	addu	$t4,$s1,$t8
 /*  f0f729c:	8d8f0000 */ 	lw	$t7,0x0($t4)
-/*  f0f72a0:	0fc3c560 */ 	jal	menuResolveParam1Text
+/*  f0f72a0:	0fc3c560 */ 	jal	menuResolveDialogTitle
 /*  f0f72a4:	8de40000 */ 	lw	$a0,0x0($t7)
 /*  f0f72a8:	3c138008 */ 	lui	$s3,%hi(g_FontHandelGothicXs)
 /*  f0f72ac:	2673fb04 */ 	addiu	$s3,$s3,%lo(g_FontHandelGothicXs)
@@ -13496,7 +13470,7 @@ glabel func0f0f5360
 .L0f0f7398:
 /*  f0f7398:	02397021 */ 	addu	$t6,$s1,$t9
 /*  f0f739c:	8dcb0000 */ 	lw	$t3,0x0($t6)
-/*  f0f73a0:	0fc3c560 */ 	jal	menuResolveParam1Text
+/*  f0f73a0:	0fc3c560 */ 	jal	menuResolveDialogTitle
 /*  f0f73a4:	8d640000 */ 	lw	$a0,0x0($t3)
 /*  f0f73a8:	8e780000 */ 	lw	$t8,0x0($s3)
 /*  f0f73ac:	00408025 */ 	or	$s0,$v0,$zero
@@ -13724,7 +13698,7 @@ glabel func0f0f5360
 /*  f0f1fdc:	8ce30018 */ 	lw	$v1,0x18($a3)
 /*  f0f1fe0:	0043f021 */ 	addu	$s8,$v0,$v1
 /*  f0f1fe4:	afbe01d4 */ 	sw	$s8,0x1d4($sp)
-/*  f0f1fe8:	0fc3b864 */ 	jal	menuResolveParam1Text
+/*  f0f1fe8:	0fc3b864 */ 	jal	menuResolveDialogTitle
 /*  f0f1fec:	afa301dc */ 	sw	$v1,0x1dc($sp)
 /*  f0f1ff0:	8fa701ec */ 	lw	$a3,0x1ec($sp)
 /*  f0f1ff4:	0040b825 */ 	or	$s7,$v0,$zero
@@ -15626,7 +15600,7 @@ glabel func0f0f5360
 .NB0f0f3c10:
 /*  f0f3c10:	02396821 */ 	addu	$t5,$s1,$t9
 /*  f0f3c14:	8dab0000 */ 	lw	$t3,0x0($t5)
-/*  f0f3c18:	0fc3b864 */ 	jal	menuResolveParam1Text
+/*  f0f3c18:	0fc3b864 */ 	jal	menuResolveDialogTitle
 /*  f0f3c1c:	8d640000 */ 	lw	$a0,0x0($t3)
 /*  f0f3c20:	3c138008 */ 	lui	$s3,0x8008
 /*  f0f3c24:	26732364 */ 	addiu	$s3,$s3,0x2364
@@ -15693,7 +15667,7 @@ glabel func0f0f5360
 .NB0f0f3d10:
 /*  f0f3d10:	022c7821 */ 	addu	$t7,$s1,$t4
 /*  f0f3d14:	8df80000 */ 	lw	$t8,0x0($t7)
-/*  f0f3d18:	0fc3b864 */ 	jal	menuResolveParam1Text
+/*  f0f3d18:	0fc3b864 */ 	jal	menuResolveDialogTitle
 /*  f0f3d1c:	8f040000 */ 	lw	$a0,0x0($t8)
 /*  f0f3d20:	8e790000 */ 	lw	$t9,0x0($s3)
 /*  f0f3d24:	00408025 */ 	or	$s0,$v0,$zero
