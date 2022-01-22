@@ -2789,7 +2789,7 @@ Gfx *gfxDrawLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colo
 }
 
 GLOBAL_ASM(
-glabel func0f0e2744
+glabel gfxDrawTessellatedRect
 /*  f0e2744:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0e2748:	afbf004c */ 	sw	$ra,0x4c($sp)
 /*  f0e274c:	afbe0048 */ 	sw	$s8,0x48($sp)
@@ -3022,6 +3022,87 @@ glabel func0f0e2744
 /*  f0e2a9c:	03e00008 */ 	jr	$ra
 /*  f0e2aa0:	27bd0098 */ 	addiu	$sp,$sp,0x98
 );
+
+// Mismatch: Uses callee-save registers differently
+//Gfx *gfxDrawTessellatedRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
+//{
+//	if (func0f153e58()) {
+//		if (y2 - y1 > x2 - x1) {
+//			// Portrait
+//			s32 numfullparts; // 94
+//			u32 nextcolour;
+//			u32 thiscolour; // 8c
+//			s32 i;
+//			s32 nexty;
+//			s32 thisy; // 80
+//			u32 stack[2];
+//
+//			numfullparts = (y2 - y1) / 15;
+//			thiscolour = func0f153e94(x1, y1, colour1);
+//			thisy = y1;
+//
+//			for (i = 0; i < numfullparts; i++) {
+//				nexty = y1 + i * 15;
+//
+//				if (y2 - nexty < 3) {
+//					nexty = y2;
+//					nextcolour = func0f153e94(x2, y2, colour2);
+//				} else {
+//					nextcolour = colourBlend(colour2, colour1, (nexty - y1) * 255 / (y2 - y1));
+//					// @bug? Should y1 be x1?
+//					nextcolour = func0f153e94(y1, thisy, nextcolour);
+//				}
+//
+//				gdl = gfxDrawTri2(gdl, x1, thisy, x2, nexty, thiscolour, nextcolour, false);
+//
+//				thisy = nexty;
+//				thiscolour = nextcolour;
+//			}
+//
+//			nextcolour = func0f153e94(x2, y2, colour2);
+//			gdl = gfxDrawTri2(gdl, x1, thisy, x2, y2, thiscolour, nextcolour, false);
+//		} else {
+//			// Landscape
+//			// 8f4
+//			s32 numfullparts; // 74
+//			u32 nextcolour;
+//			u32 thiscolour; // 6c
+//			s32 i;
+//			s32 nextx;
+//			s32 thisx; // 60
+//			u32 stack[1];
+//
+//			numfullparts = (x2 - x1) / 15;
+//			thiscolour = func0f153e94(x1, y1, colour1);
+//			thisx = x1;
+//
+//			for (i = 0; i < numfullparts; i++) {
+//				nextx = x1 + i * 15;
+//
+//				if (x2 - nextx < 3) {
+//					nextx = x2;
+//					nextcolour = func0f153e94(x2, y2, colour2);
+//				} else {
+//					nextcolour = colourBlend(colour2, colour1, (nextx - x1) * 255 / (x2 - x1));
+//					nextcolour = func0f153e94(thisx, y1, nextcolour);
+//				}
+//
+//				gdl = gfxDrawTri2(gdl, thisx, y1, nextx, y2, thiscolour, nextcolour, false);
+//
+//				thisx = nextx;
+//				thiscolour = nextcolour;
+//			}
+//
+//			nextcolour = func0f153e94(x2, y2, colour2);
+//			gdl = gfxDrawTri2(gdl, thisx, y1, x2, y2, thiscolour, nextcolour, false);
+//		}
+//	} else {
+//		// a40
+//		gdl = gfxDrawTri2(gdl, x1, y1, x2, y2, colour1, colour2, false);
+//	}
+//
+//	return gdl;
+//}
 
 GLOBAL_ASM(
 glabel func0f0e2aa4
@@ -3331,7 +3412,7 @@ Gfx *func0f0e2ee8(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 col
 Gfx *gfxDrawFilledRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
 {
 	gdl = func0f0e2498(gdl);
-	gdl = func0f0e2744(gdl, x1, y1, x2, y2, colour1, colour2);
+	gdl = gfxDrawTessellatedRect(gdl, x1, y1, x2, y2, colour1, colour2);
 	gdl = func0f0e2aa4(gdl, x1, y1, x2, y2, colour1, 0, 10, 0);
 
 	return gdl;
