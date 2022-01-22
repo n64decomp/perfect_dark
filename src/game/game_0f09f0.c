@@ -29989,82 +29989,32 @@ u32 menuGetRoot(void)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel menuhandler000fcc34
-/*  f0fcc34:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0fcc38:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0fcc3c:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f0fcc40:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f0fcc44:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f0fcc48:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f0fcc4c:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f0fcc50:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f0fcc54:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f0fcc58:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0fcc5c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0fcc60:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0fcc64:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f0fcc68:	1481002a */ 	bne	$a0,$at,.L0f0fcd14
-/*  f0fcc6c:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f0fcc70:	3c1e8007 */ 	lui	$s8,%hi(g_PakDamagedMenuDialog)
-/*  f0fcc74:	3c178007 */ 	lui	$s7,%hi(g_PakAttemptRepairMenuDialog)
-/*  f0fcc78:	3c168007 */ 	lui	$s6,%hi(g_PakRepairFailedMenuDialog)
-/*  f0fcc7c:	3c158007 */ 	lui	$s5,%hi(g_PakRemovedMenuDialog)
-/*  f0fcc80:	3c148007 */ 	lui	$s4,%hi(g_PakRepairSuccessMenuDialog)
-/*  f0fcc84:	3c128007 */ 	lui	$s2,%hi(g_MpPlayerNum)
-/*  f0fcc88:	3c11800a */ 	lui	$s1,%hi(g_Menus)
-/*  f0fcc8c:	2631e000 */ 	addiu	$s1,$s1,%lo(g_Menus)
-/*  f0fcc90:	26521448 */ 	addiu	$s2,$s2,%lo(g_MpPlayerNum)
-/*  f0fcc94:	269415b0 */ 	addiu	$s4,$s4,%lo(g_PakRepairSuccessMenuDialog)
-/*  f0fcc98:	26b51548 */ 	addiu	$s5,$s5,%lo(g_PakRemovedMenuDialog)
-/*  f0fcc9c:	26d61618 */ 	addiu	$s6,$s6,%lo(g_PakRepairFailedMenuDialog)
-/*  f0fcca0:	26f716a8 */ 	addiu	$s7,$s7,%lo(g_PakAttemptRepairMenuDialog)
-/*  f0fcca4:	27de176c */ 	addiu	$s8,$s8,%lo(g_PakDamagedMenuDialog)
-/*  f0fcca8:	24130e70 */ 	addiu	$s3,$zero,0xe70
-/*  f0fccac:	8e4e0000 */ 	lw	$t6,0x0($s2)
-.L0f0fccb0:
-/*  f0fccb0:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f0fccb4:	01d30019 */ 	multu	$t6,$s3
-/*  f0fccb8:	00007812 */ 	mflo	$t7
-/*  f0fccbc:	022fc021 */ 	addu	$t8,$s1,$t7
-/*  f0fccc0:	8f0304f8 */ 	lw	$v1,0x4f8($t8)
-/*  f0fccc4:	10600011 */ 	beqz	$v1,.L0f0fcd0c
-/*  f0fccc8:	00000000 */ 	nop
-/*  f0fcccc:	8c620000 */ 	lw	$v0,0x0($v1)
-/*  f0fccd0:	1282000c */ 	beq	$s4,$v0,.L0f0fcd04
-/*  f0fccd4:	00000000 */ 	nop
-/*  f0fccd8:	12a2000a */ 	beq	$s5,$v0,.L0f0fcd04
-/*  f0fccdc:	00000000 */ 	nop
-/*  f0fcce0:	12c20008 */ 	beq	$s6,$v0,.L0f0fcd04
-/*  f0fcce4:	00000000 */ 	nop
-/*  f0fcce8:	12e20006 */ 	beq	$s7,$v0,.L0f0fcd04
-/*  f0fccec:	00000000 */ 	nop
-/*  f0fccf0:	13c20004 */ 	beq	$s8,$v0,.L0f0fcd04
-/*  f0fccf4:	3c198007 */ 	lui	$t9,%hi(g_PakFullMenuDialog)
-/*  f0fccf8:	27391810 */ 	addiu	$t9,$t9,%lo(g_PakFullMenuDialog)
-/*  f0fccfc:	17220003 */ 	bne	$t9,$v0,.L0f0fcd0c
-/*  f0fcd00:	00000000 */ 	nop
-.L0f0fcd04:
-/*  f0fcd04:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f0fcd08:	00008025 */ 	or	$s0,$zero,$zero
-.L0f0fcd0c:
-/*  f0fcd0c:	5200ffe8 */ 	beqzl	$s0,.L0f0fccb0
-/*  f0fcd10:	8e4e0000 */ 	lw	$t6,0x0($s2)
-.L0f0fcd14:
-/*  f0fcd14:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f0fcd18:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0fcd1c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0fcd20:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0fcd24:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f0fcd28:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f0fcd2c:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f0fcd30:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f0fcd34:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f0fcd38:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f0fcd3c:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f0fcd40:	03e00008 */ 	jr	$ra
-/*  f0fcd44:	00001025 */ 	or	$v0,$zero,$zero
-);
+struct menudialog g_PakAttemptRepairMenuDialog;
+
+s32 menuhandler000fcc34(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	bool done = false;
+
+	if (operation == MENUOP_SET) {
+		while (!done) {
+			done = true;
+
+			if (g_Menus[g_MpPlayerNum].curframe) {
+				if (g_Menus[g_MpPlayerNum].curframe->dialog == &g_PakRepairSuccessMenuDialog
+						|| g_Menus[g_MpPlayerNum].curframe->dialog == &g_PakRemovedMenuDialog
+						|| g_Menus[g_MpPlayerNum].curframe->dialog == &g_PakRepairFailedMenuDialog
+						|| g_Menus[g_MpPlayerNum].curframe->dialog == &g_PakAttemptRepairMenuDialog
+						|| g_Menus[g_MpPlayerNum].curframe->dialog == &g_PakDamagedMenuDialog
+						|| g_Menus[g_MpPlayerNum].curframe->dialog == &g_PakFullMenuDialog) {
+					done = false;
+					menuPopDialog();
+				}
+			}
+		}
+	}
+
+	return 0;
+}
 #endif
 
 s32 menudialog000fcd48(s32 operation, struct menudialog *dialog, union handlerdata *data)
