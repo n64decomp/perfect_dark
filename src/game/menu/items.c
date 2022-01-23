@@ -9027,24 +9027,24 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 		char *rawtext;
 		s32 width;
 		s32 height;
-		s32 index1;
-		s32 index2;
-		s16 wvalue;
-		s16 hvalue;
+		s32 rowindex;
+		s32 colindex;
+		s16 colwidth;
+		s16 rowheight;
 
 #if PAL
 		data->scrollable.unk08 = g_LanguageId;
 #endif
 
-		func0f0f2354(dialog, item, &index1, &index2);
+		dialogFindItem(dialog, item, &rowindex, &colindex);
 
-		wvalue = g_Menus[g_MpPlayerNum].unk660[index2].unk00;
-		hvalue = g_Menus[g_MpPlayerNum].unk4fc[index1].unk00;
+		colwidth = g_Menus[g_MpPlayerNum].cols[colindex].width;
+		rowheight = g_Menus[g_MpPlayerNum].rows[rowindex].height;
 
 		if (menuIsScrollableUnscrollable(item)) {
-			width = wvalue - 10;
+			width = colwidth - 10;
 		} else {
-			width = wvalue - 24;
+			width = colwidth - 24;
 		}
 
 		rawtext = menuitemScrollableGetText(item->param);
@@ -9055,7 +9055,7 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 
 		textMeasure(&height, &width, wrapped, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 
-		data->scrollable.unk04 = height - hvalue + 5;
+		data->scrollable.unk04 = height - rowheight + 5;
 
 		if (data->scrollable.unk04 < -10) {
 			data->scrollable.unk04 = -10;

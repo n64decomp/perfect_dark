@@ -3771,9 +3771,9 @@ struct menulayer {
 
 struct menudialog {
 	struct menudialogdef *definition;
-	u8 unk04;
-	u8 unk05;
-	u16 unk06;
+	u8 colstart;
+	u8 numcols;
+	u16 blockstart;
 	struct menuitem *focuseditem;
 	/*0x0c*/ bool dimmed; // when dropdown is open or slider is active
 	/*0x10*/ u32 unk10;
@@ -3927,18 +3927,18 @@ struct perfectheadtexturelist {
 	struct textureconfig selectedtexture;
 };
 
-struct menu4fc {
-	s16 unk00;
+struct menurow {
+	s16 height;
 	u8 itemindex;
 	s8 blockindex;
 };
 
-struct menu660 {
-	s16 unk00;
-	s16 unk02;
+struct menucolumn {
+	s16 width;
+	s16 height;
 	u8 unk04;
-	u16 unk06;
-	u8 unk08;
+	u16 rowstart;
+	u8 numrows;
 };
 
 struct menu {
@@ -3947,12 +3947,12 @@ struct menu {
 	/*0x464*/ struct menulayer layers[6];
 	/*0x4f4*/ s16 depth; // index into layers. 1-indexed?
 	/*0x4f8*/ struct menudialog *curdialog;
-	/*0x4fc*/ struct menu4fc unk4fc[VERSION >= VERSION_NTSC_1_0 ? 88 : 80];
-	/*0x65c*/ s32 unk65c;
-	/*0x660*/ struct menu660 unk660[VERSION >= VERSION_NTSC_1_0 ? 12 : 10];
-	/*0x6d8*/ s32 unk6d8;
+	/*0x4fc*/ struct menurow rows[VERSION >= VERSION_NTSC_1_0 ? 88 : 80];
+	/*0x65c*/ s32 rowend;
+	/*0x660*/ struct menucolumn cols[VERSION >= VERSION_NTSC_1_0 ? 12 : 10];
+	/*0x6d8*/ s32 colend;
 	/*0x6dc*/ u32 blocks[80]; // for menuitemdata
-	/*0x81c*/ s32 unk81c;
+	/*0x81c*/ s32 blockend;
 	/*0x820*/ u8 unk820;
 	/*0x824*/ u32 unk824;
 	/*0x828*/ u32 unk828;
