@@ -27,7 +27,7 @@ void func0f0f1618(struct menuitem *item, void *arg1, void *arg2, struct menudial
 void func0f0f1d6c(struct menudialogdef *dialogdef, struct menudialog *dialog, struct menu *menu);
 u32 func0f0f1ef4(void);
 void func0f0f2134(struct menudialogdef *dialogdef, struct menudialog *dialog, struct menu *menu);
-u32 func0f0f2354(struct menudialog *dialog, struct menuitem *item, u32 *arg2, u32 *arg3);
+s32 func0f0f2354(struct menudialog *dialog, struct menuitem *item, s32 *arg2, s32 *arg3);
 bool menuIsScrollableUnscrollable(struct menuitem *item);
 bool menuIsItemDisabled(struct menuitem *item, struct menudialog *dialog);
 bool func0f0f2674(struct menuitem *item, struct menudialog *dialog, u32 arg2);
