@@ -3846,6 +3846,12 @@ struct menudata_mppause {
 	u32 unke20;
 	u32 unke24;
 	s32 weaponnum; // of selected weapon in inventory menu
+	u32 unke2c;
+	u32 unke30;
+	u32 unke34;
+	u32 unke38;
+	u32 unke3c;
+	u8 unke40_00 : 1;
 };
 
 struct menudata_mpend {
@@ -5139,8 +5145,8 @@ struct menudata {
 	/*0x008*/ s32 unk008; // also a menuroot constant
 	/*0x00c*/ struct menudialogdef *unk00c;
 	/*0x010*/ f32 unk010;
-	/*0x014*/ u8 unk014;
-	/*0x015*/ u8 unk015;
+	/*0x014*/ u8 bg;
+	/*0x015*/ u8 nextbg;
 	/*0x016*/ u8 unk016;
 	/*0x017*/ u8 unk017[4];
 	/*0x01b*/ s8 unk01b;
@@ -5510,6 +5516,9 @@ struct menudata {
 	/*0x5c8*/ u32 unk5c8;
 	/*0x5cc*/ u8 unk5cc;
 	/*0x5cd*/ u8 unk5cd_01 : 1;
+	/*0x5cd*/ u8 unk5cd_02 : 1;
+	/*0x5cd*/ u8 unk5cd_03 : 1;
+	/*0x5cd*/ u8 unk5cd_04 : 1;
 	/*0x5d0*/ u32 unk5d0;
 	/*0x5d4*/ u8 unk5d4;
 	/*0x5d5*/ u8 unk5d5_01 : 1;

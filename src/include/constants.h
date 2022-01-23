@@ -1423,6 +1423,16 @@
 #define MEMPOOL_7         7
 #define MEMPOOL_8         8
 
+#define MENUBG_BLUR         1
+#define MENUBG_BLACK        2 // solid black, unused?
+#define MENUBG_FAILURE      3 // solo mission failure endscreen
+#define MENUBG_TUNNELALPHA  4 // combat simulator
+#define MENUBG_GRADIENT     5 // blue/red gradient (bootpakmgr)
+#define MENUBG_6            6
+#define MENUBG_SUCCESS      7 // solo mission success endscreen
+#define MENUBG_8            8
+#define MENUBG_TUNNELOPAQUE 9 // 4MB combat simulator
+
 #define MENUDIALOGTYPE_DEFAULT 1
 #define MENUDIALOGTYPE_DANGER  2
 #define MENUDIALOGTYPE_SUCCESS 3

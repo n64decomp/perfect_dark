@@ -94,8 +94,8 @@ void menuTick(void)
 		}
 	}
 
-	if (!anyopen && g_MenuData.unk014 != 0 && g_MenuData.unk015 == 255) {
-		g_MenuData.unk015 = 0;
+	if (!anyopen && g_MenuData.bg != 0 && g_MenuData.nextbg == 255) {
+		g_MenuData.nextbg = 0;
 	}
 
 	if (anyopen && g_MenuData.unk66e > 0 && var8009dfc0) {
@@ -123,33 +123,33 @@ void menuTick(void)
 		}
 	}
 
-	if (g_MenuData.unk015 != 255) {
-		if (g_MenuData.unk015 == g_MenuData.unk014) {
-			g_MenuData.unk015 = 255;
+	if (g_MenuData.nextbg != 255) {
+		if (g_MenuData.nextbg == g_MenuData.bg) {
+			g_MenuData.nextbg = 255;
 		} else {
 			f32 mult = 0.02f;
 
-			if (g_MenuData.unk014 == 0) {
+			if (g_MenuData.bg == 0) {
 				mult = mult + mult;
 			}
 
-			if (g_MenuData.unk015 == 0) {
+			if (g_MenuData.nextbg == 0) {
 				mult = mult + mult;
 			}
 
-			if (g_MenuData.unk015 == 8) {
+			if (g_MenuData.nextbg == MENUBG_8) {
 				mult = mult / 5.0f;
 			}
 
-			if (g_MenuData.unk015 == 7) {
+			if (g_MenuData.nextbg == MENUBG_SUCCESS) {
 				mult = mult / 3.0f;
 			}
 
-			if (g_MenuData.unk015 == 6) {
+			if (g_MenuData.nextbg == MENUBG_6) {
 				mult = mult / 10.0f;
 			}
 
-			if (g_MenuData.unk015 == 0) {
+			if (g_MenuData.nextbg == 0) {
 				var8009dfc0 = false;
 
 				if (g_Vars.currentplayer->gunctrl.gunmemowner) {
@@ -157,7 +157,7 @@ void menuTick(void)
 				}
 			}
 
-			if (g_MenuData.unk016 == 0 || g_MenuData.unk014 != 0) {
+			if (g_MenuData.unk016 == 0 || g_MenuData.bg != 0) {
 #if VERSION >= VERSION_PAL_FINAL
 				f32 diffframe = g_Vars.diffframe60freal;
 #else
@@ -172,36 +172,36 @@ void menuTick(void)
 			}
 
 			if (g_MenuData.unk010 > 1) {
-				if (g_MenuData.unk015) {
+				if (g_MenuData.nextbg) {
 					var8009dfc0 = true;
 				}
 
 				g_MenuData.unk010 = 0;
-				g_MenuData.unk014 = g_MenuData.unk015;
-				g_MenuData.unk015 = 255;
+				g_MenuData.bg = g_MenuData.nextbg;
+				g_MenuData.nextbg = 255;
 
 				if (g_MenuData.root == MENUROOT_ENDSCREEN) {
-					if (g_MenuData.unk014 == 1) {
-						g_MenuData.unk015 = 6;
+					if (g_MenuData.bg == MENUBG_BLUR) {
+						g_MenuData.nextbg = MENUBG_6;
 					}
 
-					if (g_MenuData.unk014 == 6) {
+					if (g_MenuData.bg == MENUBG_6) {
 						func0f0e4fd4();
-						g_MenuData.unk014 = 1;
-						g_MenuData.unk015 = 8;
+						g_MenuData.bg = MENUBG_BLUR;
+						g_MenuData.nextbg = MENUBG_8;
 					}
 
-					if (g_MenuData.unk014 == 8) {
-						g_MenuData.unk015 = 7;
+					if (g_MenuData.bg == MENUBG_8) {
+						g_MenuData.nextbg = MENUBG_SUCCESS;
 					}
 				}
 
-				if (g_MenuData.unk014 == 0) {
+				if (g_MenuData.bg == 0) {
 					func0f0fa6ac();
 				}
 			}
 
-			if (g_MenuData.unk015 == 3) {
+			if (g_MenuData.nextbg == MENUBG_FAILURE) {
 				var8009dfc0 = true;
 			}
 
@@ -213,7 +213,7 @@ void menuTick(void)
 		}
 	} else {
 		g_MenuData.unk010 = 0;
-		var8009dfc0 = g_MenuData.unk014 == 0 ? false : true;
+		var8009dfc0 = g_MenuData.bg == 0 ? false : true;
 	}
 
 	// Check if returning from a multiplayer match
@@ -680,15 +680,15 @@ void menuTick(void)
 	menuCountDialogs();
 
 	if (g_MenuData.count == 0) {
-		if (g_MenuData.unk015 != 255) {
-			if (g_MenuData.unk015 != 0) {
-				g_MenuData.unk014 = g_MenuData.unk015;
-				g_MenuData.unk015 = 0;
+		if (g_MenuData.nextbg != 255) {
+			if (g_MenuData.nextbg != 0) {
+				g_MenuData.bg = g_MenuData.nextbg;
+				g_MenuData.nextbg = 0;
 				g_MenuData.unk010 = 1.0f - g_MenuData.unk010;
 			}
 		} else {
-			if (g_MenuData.unk014 != 0) {
-				g_MenuData.unk015 = 0;
+			if (g_MenuData.bg != 0) {
+				g_MenuData.nextbg = 0;
 			}
 		}
 
@@ -714,8 +714,8 @@ void menuTick(void)
 		}
 
 		if (mpindex >= 0 && g_Vars.players[i]) {
-			if (g_MenuData.unk015 != 255U
-					|| g_MenuData.unk014
+			if (g_MenuData.nextbg != 255U
+					|| g_MenuData.bg
 					|| g_MenuData.unk5d5_05
 					|| g_MenuData.unk5d4
 					|| g_Menus[mpindex].curdialog
