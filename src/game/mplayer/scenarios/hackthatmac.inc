@@ -25,7 +25,7 @@ struct menuitem g_HtmOptionsMenuItems[] = {
 	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,    0x00000000,                     NULL                        },
 };
 
-struct menudialog g_HtmOptionsMenuDialog = {
+struct menudialogdef g_HtmOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_217, // "Hacker Options"
 	g_HtmOptionsMenuItems,

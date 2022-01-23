@@ -38,7 +38,7 @@ s32 menuhandlerDeclineMission(s32 operation, struct menuitem *item, union handle
 	return 0;
 }
 
-s32 menudialogRetryMission(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialogRetryMission(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_TICK:
@@ -50,9 +50,9 @@ s32 menudialogRetryMission(s32 operation, struct menudialog *dialog, union handl
 			 * when the dialog is not on screen?
 			 */
 #if VERSION >= VERSION_NTSC_FINAL
-			if (g_Menus[g_MpPlayerNum].curframe) {
-				if (dialog == g_Menus[g_MpPlayerNum].curframe->dialog
-						|| (dialog->nextsibling && dialog->nextsibling == g_Menus[g_MpPlayerNum].curframe->dialog)) {
+			if (g_Menus[g_MpPlayerNum].curdialog) {
+				if (dialogdef == g_Menus[g_MpPlayerNum].curdialog->definition
+						|| (dialogdef->nextsibling && dialogdef->nextsibling == g_Menus[g_MpPlayerNum].curdialog->definition)) {
 #endif
 					struct menuinputs *inputs = data->dialog2.inputs;
 					bool accept = false;
@@ -71,16 +71,16 @@ s32 menudialogRetryMission(s32 operation, struct menudialog *dialog, union handl
 					inputs->start = false;
 
 					if (inputs->select
-							&& g_Menus[g_MpPlayerNum].curframe
-							&& dialog->nextsibling
-							&& dialog->nextsibling == g_Menus[g_MpPlayerNum].curframe->dialog) {
+							&& g_Menus[g_MpPlayerNum].curdialog
+							&& dialogdef->nextsibling
+							&& dialogdef->nextsibling == g_Menus[g_MpPlayerNum].curdialog->definition) {
 						accept = true;
 						inputs->select = false;
 					}
 
 					if (accept) {
 						union handlerdata data2;
-						menuhandlerAcceptMission(MENUOP_SET, &dialog->items[1], &data2);
+						menuhandlerAcceptMission(MENUOP_SET, &dialogdef->items[1], &data2);
 					}
 #if VERSION >= VERSION_NTSC_FINAL
 				}
@@ -89,15 +89,15 @@ s32 menudialogRetryMission(s32 operation, struct menudialog *dialog, union handl
 		}
 	}
 
-	menudialog00103608(operation, dialog, data);
+	menudialog00103608(operation, dialogdef, data);
 }
 
-char *menuDialogTitleRetryStageName(struct menudialog *dialog)
+char *menuDialogTitleRetryStageName(struct menudialogdef *dialogdef)
 {
 	char *name;
 	char *prefix;
 
-	if (g_Menus[g_MpPlayerNum].curframe->dialog != dialog) {
+	if (g_Menus[g_MpPlayerNum].curdialog->definition != dialogdef) {
 		return langGet(L_OPTIONS_300); // "Objectives"
 	}
 
@@ -109,12 +109,12 @@ char *menuDialogTitleRetryStageName(struct menudialog *dialog)
 	return g_StringPointer;
 }
 
-char *menuDialogTitleNextMissionStageName(struct menudialog *dialog)
+char *menuDialogTitleNextMissionStageName(struct menudialogdef *dialogdef)
 {
 	char *name;
 	char *prefix;
 
-	if (g_Menus[g_MpPlayerNum].curframe->dialog != dialog) {
+	if (g_Menus[g_MpPlayerNum].curdialog->definition != dialogdef) {
 		return langGet(L_OPTIONS_300); // "Objectives"
 	}
 
@@ -143,7 +143,7 @@ struct menuitem g_RetryMissionMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_RetryMissionMenuDialog = {
+struct menudialogdef g_RetryMissionMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&menuDialogTitleRetryStageName,
 	g_RetryMissionMenuItems,
@@ -161,7 +161,7 @@ struct menuitem g_NextMissionMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_NextMissionMenuDialog = {
+struct menudialogdef g_NextMissionMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&menuDialogTitleNextMissionStageName,
 	g_NextMissionMenuItems,
@@ -354,7 +354,7 @@ char *soloMenuTextMissionTime(struct menuitem *item)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-struct menudialog *func0f10d730(void)
+struct menudialogdef *func0f10d730(void)
 {
 	g_MissionConfig.stageindex++;
 	g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
@@ -450,7 +450,7 @@ struct menuitem g_SoloEndscreenObjectivesMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_SoloEndscreenObjectivesFailedMenuDialog = {
+struct menudialogdef g_SoloEndscreenObjectivesFailedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS_300, // "Objectives"
 	g_SoloEndscreenObjectivesMenuItems,
@@ -459,7 +459,7 @@ struct menudialog g_SoloEndscreenObjectivesFailedMenuDialog = {
 	NULL,
 };
 
-struct menudialog g_SoloEndscreenObjectivesCompletedMenuDialog = {
+struct menudialogdef g_SoloEndscreenObjectivesCompletedMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_OPTIONS_300, // "Objectives"
 	g_SoloEndscreenObjectivesMenuItems,
@@ -468,7 +468,7 @@ struct menudialog g_SoloEndscreenObjectivesCompletedMenuDialog = {
 	NULL,
 };
 
-struct menudialog g_2PMissionEndscreenObjectivesFailedVMenuDialog = {
+struct menudialogdef g_2PMissionEndscreenObjectivesFailedVMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS_300, // "Objectives"
 	g_2PMissionEndscreenObjectivesVMenuItems,
@@ -477,7 +477,7 @@ struct menudialog g_2PMissionEndscreenObjectivesFailedVMenuDialog = {
 	NULL,
 };
 
-struct menudialog g_2PMissionEndscreenObjectivesCompletedVMenuDialog = {
+struct menudialogdef g_2PMissionEndscreenObjectivesCompletedVMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_OPTIONS_300, // "Objectives"
 	g_2PMissionEndscreenObjectivesVMenuItems,
@@ -507,7 +507,7 @@ struct menuitem g_MissionContinueOrReplyMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MissionContinueOrReplyMenuDialog = {
+struct menudialogdef g_MissionContinueOrReplyMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&menuTextCurrentStageName3,
 	g_MissionContinueOrReplyMenuItems,
@@ -622,16 +622,16 @@ void endscreenHandleContinue(s32 context)
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-s32 menudialogSolo2PEndscreenCompleted(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialogSolo2PEndscreenCompleted(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		g_Menus[g_MpPlayerNum].endscreen.unke1c = 0;
 	}
 
 	if (operation == MENUOP_TICK) {
-		if (g_Menus[g_MpPlayerNum].curframe) {
-			if (g_Menus[g_MpPlayerNum].curframe->dialog == dialog
-					|| (dialog->nextsibling && dialog->nextsibling == g_Menus[g_MpPlayerNum].curframe->dialog)) {
+		if (g_Menus[g_MpPlayerNum].curdialog) {
+			if (g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef
+					|| (dialogdef->nextsibling && dialogdef->nextsibling == g_Menus[g_MpPlayerNum].curdialog->definition)) {
 				struct menuinputs *inputs = data->dialog2.inputs;
 
 				if (inputs->select || inputs->back || inputs->start) {
@@ -908,16 +908,16 @@ glabel menudialogSolo2PEndscreenCompleted
 );
 #endif
 
-s32 menudialogSolo2PEndscreenFailed(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialogSolo2PEndscreenFailed(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		g_Menus[g_MpPlayerNum].endscreen.unke1c = 0;
 	}
 
 	if (operation == MENUOP_TICK) {
-		if (g_Menus[g_MpPlayerNum].curframe) {
-			if (g_Menus[g_MpPlayerNum].curframe->dialog == dialog
-					|| (dialog->nextsibling && dialog->nextsibling == g_Menus[g_MpPlayerNum].curframe->dialog)) {
+		if (g_Menus[g_MpPlayerNum].curdialog) {
+			if (g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef
+					|| (dialogdef->nextsibling && dialogdef->nextsibling == g_Menus[g_MpPlayerNum].curdialog->definition)) {
 				struct menuinputs *inputs = data->dialog2.inputs;
 
 				if (inputs->select || inputs->back || inputs->start) {
@@ -1153,7 +1153,7 @@ void endscreenSetCoopCompleted(void)
 	}
 }
 
-struct menudialog g_SoloMissionEndscreenCompletedMenuDialog = {
+struct menudialogdef g_SoloMissionEndscreenCompletedMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	(u32)&menuTitleStageCompleted,
 	g_MissionEndscreenMenuItems,
@@ -1162,7 +1162,7 @@ struct menudialog g_SoloMissionEndscreenCompletedMenuDialog = {
 	&g_SoloEndscreenObjectivesCompletedMenuDialog,
 };
 
-struct menudialog g_SoloMissionEndscreenFailedMenuDialog = {
+struct menudialogdef g_SoloMissionEndscreenFailedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	(u32)&menuTitleStageFailed,
 	g_MissionEndscreenMenuItems,
@@ -1554,7 +1554,7 @@ glabel endscreenPrepare
 );
 #endif
 
-struct menudialog g_2PMissionEndscreenCompletedHMenuDialog = {
+struct menudialogdef g_2PMissionEndscreenCompletedHMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	(u32)&menuTitleStageCompleted,
 	g_MissionEndscreenMenuItems,
@@ -1563,7 +1563,7 @@ struct menudialog g_2PMissionEndscreenCompletedHMenuDialog = {
 	&g_SoloEndscreenObjectivesCompletedMenuDialog,
 };
 
-struct menudialog g_2PMissionEndscreenFailedHMenuDialog = {
+struct menudialogdef g_2PMissionEndscreenFailedHMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	(u32)&menuTitleStageFailed,
 	g_MissionEndscreenMenuItems,
@@ -1572,7 +1572,7 @@ struct menudialog g_2PMissionEndscreenFailedHMenuDialog = {
 	&g_SoloEndscreenObjectivesFailedMenuDialog,
 };
 
-struct menudialog g_2PMissionEndscreenCompletedVMenuDialog = {
+struct menudialogdef g_2PMissionEndscreenCompletedVMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_OPTIONS_276, // "Completed"
 	g_2PMissionEndscreenVMenuItems,
@@ -1581,7 +1581,7 @@ struct menudialog g_2PMissionEndscreenCompletedVMenuDialog = {
 	&g_2PMissionEndscreenObjectivesCompletedVMenuDialog,
 };
 
-struct menudialog g_2PMissionEndscreenFailedVMenuDialog = {
+struct menudialogdef g_2PMissionEndscreenFailedVMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS_277, // "Failed"
 	g_2PMissionEndscreenVMenuItems,

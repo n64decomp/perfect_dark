@@ -19,7 +19,7 @@ u32 g_CheatsEnabledBank0;
 u32 g_CheatsEnabledBank1;
 
 struct menuitem g_CheatsBuddiesMenuItems[];
-struct menudialog g_CheatsBuddiesMenuDialog;
+struct menudialogdef g_CheatsBuddiesMenuDialog;
 
 #define TIME(mins, secs) (mins * 60 + secs)
 #define m
@@ -387,7 +387,7 @@ char *cheatGetNameIfUnlocked(struct menuitem *item)
 	return langGet(L_MPWEAPONS_074); // "----------"
 }
 
-s32 cheatMenuHandleDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 cheatMenuHandleDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		func0f14a52c();
@@ -742,13 +742,13 @@ char *cheatGetMarquee(struct menuitem *arg0)
 	char difficultyname[256];
 	char cheatname[256];
 
-	if (g_Menus[g_MpPlayerNum].curframe
-			&& g_Menus[g_MpPlayerNum].curframe->focuseditem
-			&& g_Menus[g_MpPlayerNum].curframe->focuseditem->type == MENUITEMTYPE_CHECKBOX) {
-		cheat_id = g_Menus[g_MpPlayerNum].curframe->focuseditem->param;
+	if (g_Menus[g_MpPlayerNum].curdialog
+			&& g_Menus[g_MpPlayerNum].curdialog->focuseditem
+			&& g_Menus[g_MpPlayerNum].curdialog->focuseditem->type == MENUITEMTYPE_CHECKBOX) {
+		cheat_id = g_Menus[g_MpPlayerNum].curdialog->focuseditem->param;
 
-		if (g_Menus[g_MpPlayerNum].curframe->dialog == &g_CheatsBuddiesMenuDialog
-				&& g_Menus[g_MpPlayerNum].curframe->focuseditem == &g_CheatsBuddiesMenuItems[0]) {
+		if (g_Menus[g_MpPlayerNum].curdialog->definition == &g_CheatsBuddiesMenuDialog
+				&& g_Menus[g_MpPlayerNum].curdialog->focuseditem == &g_CheatsBuddiesMenuItems[0]) {
 			// Velvet
 #if VERSION >= VERSION_NTSC_1_0
 			sprintf(g_CheatMarqueeString, "%s: %s", langGet(L_MPWEAPONS_143), langGet(L_MPWEAPONS_117)); // "Buddy Available", "Velvet Dark"
@@ -763,13 +763,13 @@ char *cheatGetMarquee(struct menuitem *arg0)
 			// Show cheat name
 #if VERSION >= VERSION_NTSC_1_0
 			sprintf(g_CheatMarqueeString, "%s: %s\n",
-					g_Menus[g_MpPlayerNum].curframe->dialog == &g_CheatsBuddiesMenuDialog ? langGet(L_MPWEAPONS_143) : langGet(L_MPWEAPONS_136), // "Buddy Available", "Cheat available"
+					g_Menus[g_MpPlayerNum].curdialog->definition == &g_CheatsBuddiesMenuDialog ? langGet(L_MPWEAPONS_143) : langGet(L_MPWEAPONS_136), // "Buddy Available", "Cheat available"
 					langGet(g_Cheats[cheat_id].nametextid)
 			);
 			return g_CheatMarqueeString;
 #else
 			sprintf(g_StringPointer, "%s: %s\n",
-					g_Menus[g_MpPlayerNum].curframe->dialog == &g_CheatsBuddiesMenuDialog ? langGet(L_MPWEAPONS_143) : langGet(L_MPWEAPONS_136), // "Buddy Available", "Cheat available"
+					g_Menus[g_MpPlayerNum].curdialog->definition == &g_CheatsBuddiesMenuDialog ? langGet(L_MPWEAPONS_143) : langGet(L_MPWEAPONS_136), // "Buddy Available", "Cheat available"
 					langGet(g_Cheats[cheat_id].nametextid)
 			);
 			return g_StringPointer;
@@ -932,7 +932,7 @@ struct menuitem g_CheatsWarningMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_CheatsWarningMenuDialog = {
+struct menudialogdef g_CheatsWarningMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_MPMENU_478, // "Warning"
 	g_CheatsWarningMenuItems,
@@ -960,7 +960,7 @@ struct menuitem g_CheatsFunMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,                     0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
-struct menudialog g_CheatsFunMenuDialog = {
+struct menudialogdef g_CheatsFunMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS_118, // "Fun"
 	g_CheatsFunMenuItems,
@@ -985,7 +985,7 @@ struct menuitem g_CheatsGameplayMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,                     0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
-struct menudialog g_CheatsGameplayMenuDialog = {
+struct menudialogdef g_CheatsGameplayMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS_119, // "Gameplay"
 	g_CheatsGameplayMenuItems,
@@ -1010,7 +1010,7 @@ struct menuitem g_CheatsSoloWeaponsMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
-struct menudialog g_CheatsSoloWeaponsMenuDialog = {
+struct menudialogdef g_CheatsSoloWeaponsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS_122, // "Weapons for Jo in Solo"
 	g_CheatsSoloWeaponsMenuItems,
@@ -1035,7 +1035,7 @@ struct menuitem g_CheatsClassicWeaponsMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,                0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
-struct menudialog g_CheatsClassicWeaponsMenuDialog = {
+struct menudialogdef g_CheatsClassicWeaponsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS_123, // "Classic Weapons for Jo in Solo"
 	g_CheatsClassicWeaponsMenuItems,
@@ -1060,7 +1060,7 @@ struct menuitem g_CheatsWeaponsMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,                            0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
-struct menudialog g_CheatsWeaponsMenuDialog = {
+struct menudialogdef g_CheatsWeaponsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS_120, // "Weapons"
 	g_CheatsWeaponsMenuItems,
@@ -1082,7 +1082,7 @@ struct menuitem g_CheatsBuddiesMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,               0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
-struct menudialog g_CheatsBuddiesMenuDialog = {
+struct menudialogdef g_CheatsBuddiesMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS_121, // "Buddies"
 	g_CheatsBuddiesMenuItems,
@@ -1105,7 +1105,7 @@ struct menuitem g_CheatsMenuItems[] = {
 	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,       0x00000000, NULL                              },
 };
 
-struct menudialog g_CheatsMenuDialog = {
+struct menudialogdef g_CheatsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_476, // "Cheats"
 	g_CheatsMenuItems,

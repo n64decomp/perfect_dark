@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-extern struct menudialog g_CheatsMenuDialog;
+extern struct menudialogdef g_CheatsMenuDialog;
 
 u32 cheatIsUnlocked(s32 cheat_id);
 bool cheatIsActive(s32 cheat_id);
@@ -18,7 +18,7 @@ s32 cheatGetByTimedStageIndex(s32 stage_index, s32 difficulty);
 s32 cheatGetByCompletedStageIndex(s32 stage_index);
 s32 cheatGetTime(s32 cheat_id);
 char *cheatGetName(s32 cheat_id);
-s32 cheatMenuHandleDialog(s32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 cheatMenuHandleDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
 s32 cheatCheckboxMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 cheatMenuHandleBuddyCheckbox(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 cheatMenuHandleTurnOffAllCheats(s32 operation, struct menuitem *item, union handlerdata *data);

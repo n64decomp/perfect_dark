@@ -4,8 +4,8 @@
 #include "data.h"
 #include "types.h"
 
-extern struct menudialog g_MpScenarioMenuDialog;
-extern struct menudialog g_MpQuickTeamScenarioMenuDialog;
+extern struct menudialogdef g_MpScenarioMenuDialog;
+extern struct menudialogdef g_MpQuickTeamScenarioMenuDialog;
 
 struct mpscenariooverview {
 	u16 name;

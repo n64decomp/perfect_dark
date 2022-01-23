@@ -23,11 +23,11 @@
 #include "types.h"
 
 struct menuitem g_MpCharacterMenuItems[];
-struct menudialog g_MpAddSimulantMenuDialog;
-struct menudialog g_MpChangeSimulantMenuDialog;
-struct menudialog g_MpChangeTeamNameMenuDialog;
-struct menudialog g_MpEditSimulantMenuDialog;
-struct menudialog g_MpSaveSetupNameMenuDialog;
+struct menudialogdef g_MpAddSimulantMenuDialog;
+struct menudialogdef g_MpChangeSimulantMenuDialog;
+struct menudialogdef g_MpChangeTeamNameMenuDialog;
+struct menudialogdef g_MpEditSimulantMenuDialog;
+struct menudialogdef g_MpSaveSetupNameMenuDialog;
 
 s32 menuhandlerMpDropOut(s32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -62,7 +62,7 @@ struct menuitem g_MpDropOutMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpDropOutMenuDialog = {
+struct menudialogdef g_MpDropOutMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPMENU_195, // "Drop Out"
 	g_MpDropOutMenuItems,
@@ -630,7 +630,7 @@ s32 menuhandlerMpCharacterBody(s32 operation, struct menuitem *item, union handl
 			g_PlayerConfigsArray[g_MpPlayerNum].base.mpheadnum, true);
 }
 
-s32 menudialog0017a174(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialog0017a174(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
@@ -638,11 +638,11 @@ s32 menudialog0017a174(s32 operation, struct menudialog *dialog, union handlerda
 	case MENUOP_CLOSE:
 		break;
 	case MENUOP_TICK:
-		if (g_Menus[g_MpPlayerNum].curframe->dialog == dialog
-				&& g_Menus[g_MpPlayerNum].curframe->focuseditem != &dialog->items[1]
-				&& g_Menus[g_MpPlayerNum].curframe->focuseditem != &dialog->items[2]) {
+		if (g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef
+				&& g_Menus[g_MpPlayerNum].curdialog->focuseditem != &dialogdef->items[1]
+				&& g_Menus[g_MpPlayerNum].curdialog->focuseditem != &dialogdef->items[2]) {
 			union handlerdata data;
-			menuhandlerMpCharacterBody(MENUOP_11, &dialog->items[2], &data);
+			menuhandlerMpCharacterBody(MENUOP_11, &dialogdef->items[2], &data);
 		}
 	}
 
@@ -972,7 +972,7 @@ s32 mpMedalMenuHandler(s32 operation, struct menuitem *item, union handlerdata *
 	return 0;
 }
 
-char *mpMenuTitleStatsForPlayerName(struct menudialog *dialog)
+char *mpMenuTitleStatsForPlayerName(struct menudialogdef *dialogdef)
 {
 	// "Stats for %s"
 	sprintf(g_StringPointer, langGet(L_MPMENU_145), g_PlayerConfigsArray[g_MpPlayerNum].base.name);
@@ -998,7 +998,7 @@ struct menuitem g_MpSavePlayerMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpSavePlayerMenuDialog = {
+struct menudialogdef g_MpSavePlayerMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_190, // "Confirm"
 	g_MpSavePlayerMenuItems,
@@ -1013,7 +1013,7 @@ struct menuitem g_MpSaveSetupNameMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpSaveSetupNameMenuDialog = {
+struct menudialogdef g_MpSaveSetupNameMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_188, // "Game File Name"
 	g_MpSaveSetupNameMenuItems,
@@ -1034,7 +1034,7 @@ struct menuitem g_MpSaveSetupExistsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpSaveSetupExistsMenuDialog = {
+struct menudialogdef g_MpSaveSetupExistsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_183, // "Save Game Setup"
 	g_MpSaveSetupExistsMenuItems,
@@ -1058,7 +1058,7 @@ struct menuitem g_MpWeaponsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpWeaponsMenuDialog = {
+struct menudialogdef g_MpWeaponsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_173, // "Weapons"
 	g_MpWeaponsMenuItems,
@@ -1080,7 +1080,7 @@ struct menuitem g_MpQuickTeamWeaponsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpQuickTeamWeaponsMenuDialog = {
+struct menudialogdef g_MpQuickTeamWeaponsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_173, // "Weapons"
 	g_MpQuickTeamWeaponsMenuItems,
@@ -1099,7 +1099,7 @@ struct menuitem g_MpPlayerOptionsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpPlayerOptionsMenuDialog = {
+struct menudialogdef g_MpPlayerOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_167, // "Options"
 	g_MpPlayerOptionsMenuItems,
@@ -1127,7 +1127,7 @@ struct menuitem g_MpControlMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000,    0x00000000,              NULL },
 };
 
-struct menudialog g_MpControlMenuDialog = {
+struct menudialogdef g_MpControlMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_199, // "Control"
 	g_MpControlMenuItems,
@@ -1141,7 +1141,7 @@ struct menuitem g_MpCompletedChallengesMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpCompletedChallengesMenuDialog = {
+struct menudialogdef g_MpCompletedChallengesMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_165, // "Completed Challenges"
 	g_MpCompletedChallengesMenuItems,
@@ -1245,7 +1245,7 @@ struct menuitem g_MpPlayerStatsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpPlayerStatsMenuDialog = {
+struct menudialogdef g_MpPlayerStatsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&mpMenuTitleStatsForPlayerName,
 	g_MpPlayerStatsMenuItems,
@@ -1699,7 +1699,7 @@ s32 menuhandlerMpRestoreHandicapDefaults(s32 operation, struct menuitem *item, u
 	return 0;
 }
 
-s32 menudialogMpReady(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialogMpReady(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		if (g_PlayerConfigsArray[g_MpPlayerNum].fileguid.fileid && g_PlayerConfigsArray[g_MpPlayerNum].fileguid.deviceserial) {
@@ -1710,7 +1710,7 @@ s32 menudialogMpReady(s32 operation, struct menudialog *dialog, union handlerdat
 	return false;
 }
 
-s32 menudialogMpSimulant(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialogMpSimulant(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
 		if ((u8)g_BotConfigsArray[g_Menus[g_MpPlayerNum].mpsetup.slotindex].base.name[0] == '\0') {
@@ -1728,7 +1728,7 @@ struct menuitem g_MpCharacterMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpCharacterMenuDialog = {
+struct menudialogdef g_MpCharacterMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_143, // "Character"
 	g_MpCharacterMenuItems,
@@ -1742,7 +1742,7 @@ struct menuitem g_MpPlayerNameMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpPlayerNameMenuDialog = {
+struct menudialogdef g_MpPlayerNameMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_142, // "Player Name"
 	g_MpPlayerNameMenuItems,
@@ -1757,7 +1757,7 @@ struct menuitem g_MpLoadSettingsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpLoadSettingsMenuDialog = {
+struct menudialogdef g_MpLoadSettingsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_139, // "Load Game Settings"
 	g_MpLoadSettingsMenuItems,
@@ -1772,7 +1772,7 @@ struct menuitem g_MpLoadPresetMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpLoadPresetMenuDialog = {
+struct menudialogdef g_MpLoadPresetMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_139, // "Load Game Settings"
 	g_MpLoadPresetMenuItems,
@@ -1787,7 +1787,7 @@ struct menuitem g_MpLoadPlayerMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpLoadPlayerMenuDialog = {
+struct menudialogdef g_MpLoadPlayerMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_137, // "Load Player"
 	g_MpLoadPlayerMenuItems,
@@ -1801,7 +1801,7 @@ struct menuitem g_MpArenaMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpArenaMenuDialog = {
+struct menudialogdef g_MpArenaMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_115, // "Arena"
 	g_MpArenaMenuItems,
@@ -1820,7 +1820,7 @@ struct menuitem g_MpLimitsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpLimitsMenuDialog = {
+struct menudialogdef g_MpLimitsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_107, // "Limits"
 	g_MpLimitsMenuItems,
@@ -1840,7 +1840,7 @@ struct menuitem g_MpHandicapsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpHandicapsMenuDialog = {
+struct menudialogdef g_MpHandicapsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS_184, // "Player Handicaps"
 	g_MpHandicapsMenuItems,
@@ -1854,7 +1854,7 @@ struct menuitem g_MpReadyMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpReadyMenuDialog = {
+struct menudialogdef g_MpReadyMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_MPMENU_105, // "Ready!"
 	g_MpReadyMenuItems,
@@ -2011,19 +2011,19 @@ s32 menuhandlerMpSimulantBody(s32 operation, struct menuitem *item, union handle
 			false);
 }
 
-s32 menudialog0017ccfc(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialog0017ccfc(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_TICK:
-		if (g_Menus[g_MpPlayerNum].curframe->dialog == dialog
-				&& g_Menus[g_MpPlayerNum].curframe->focuseditem != &dialog->items[0]
-				&& g_Menus[g_MpPlayerNum].curframe->focuseditem != &dialog->items[1]) {
+		if (g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef
+				&& g_Menus[g_MpPlayerNum].curdialog->focuseditem != &dialogdef->items[0]
+				&& g_Menus[g_MpPlayerNum].curdialog->focuseditem != &dialogdef->items[1]) {
 			union handlerdata data;
-			menuhandlerMpCharacterBody(MENUOP_11, &dialog->items[1], &data);
+			menuhandlerMpCharacterBody(MENUOP_11, &dialogdef->items[1], &data);
 		}
 	}
 
-	return menudialogMpSimulant(operation, dialog, data);
+	return menudialogMpSimulant(operation, dialogdef, data);
 }
 
 s32 mpBotDifficultyMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
@@ -2081,7 +2081,7 @@ s32 menuhandlerMpDeleteSimulant(s32 operation, struct menuitem *item, union hand
 	return 0;
 }
 
-char *mpMenuTitleEditSimulant(struct menudialog *dialog)
+char *mpMenuTitleEditSimulant(struct menudialogdef *dialogdef)
 {
 	sprintf(g_StringPointer, "%s", &g_BotConfigsArray[g_Menus[g_MpPlayerNum].mpsetup.slotindex].base.name);
 	return g_StringPointer;
@@ -2190,7 +2190,7 @@ char *func0f17d3dc(struct menuitem *item)
 	return g_StringPointer;
 }
 
-s32 menudialogMpSimulants(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialogMpSimulants(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		g_Menus[g_MpPlayerNum].mpsetup.slotcount = 0;
@@ -2205,7 +2205,7 @@ struct menuitem g_MpAddChangeSimulantMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpAddSimulantMenuDialog = {
+struct menudialogdef g_MpAddSimulantMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_101, // "Add Simulant"
 	g_MpAddChangeSimulantMenuItems,
@@ -2214,7 +2214,7 @@ struct menudialog g_MpAddSimulantMenuDialog = {
 	NULL,
 };
 
-struct menudialog g_MpChangeSimulantMenuDialog = {
+struct menudialogdef g_MpChangeSimulantMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_102, // "Change Simulant"
 	g_MpAddChangeSimulantMenuItems,
@@ -2229,7 +2229,7 @@ struct menuitem g_MpSimulantCharacterMenuItems[] = {
 	 { MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpSimulantCharacterMenuDialog = {
+struct menudialogdef g_MpSimulantCharacterMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_100, // "Simulant Character"
 	g_MpSimulantCharacterMenuItems,
@@ -2248,7 +2248,7 @@ struct menuitem g_MpEditSimulantMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpEditSimulantMenuDialog = {
+struct menudialogdef g_MpEditSimulantMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&mpMenuTitleEditSimulant,
 	g_MpEditSimulantMenuItems,
@@ -2274,7 +2274,7 @@ struct menuitem g_MpSimulantsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpSimulantsMenuDialog = {
+struct menudialogdef g_MpSimulantsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_083, // "Simulants"
 	g_MpSimulantsMenuItems,
@@ -2722,7 +2722,7 @@ struct menuitem g_MpAutoTeamMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpAutoTeamMenuDialog = {
+struct menudialogdef g_MpAutoTeamMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_075, // "Auto Team"
 	g_MpAutoTeamMenuItems,
@@ -2753,7 +2753,7 @@ struct menuitem g_MpTeamsMenuItems[] = {
 	{ MENUITEMTYPE_END,          0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpTeamsMenuDialog = {
+struct menudialogdef g_MpTeamsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_070, // "Team Control"
 	g_MpTeamsMenuItems,
@@ -2868,7 +2868,7 @@ s32 mpSelectTuneListHandler(s32 operation, struct menuitem *item, union handlerd
 	return 0;
 }
 
-s32 menudialogMpSelectTune(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialogMpSelectTune(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		var800840e0 = 80;
@@ -2978,7 +2978,7 @@ s32 menuhandlerMpTeamNameSlot(s32 operation, struct menuitem *item, union handle
 	return 0;
 }
 
-char *func0f17e318(struct menudialog *dialog)
+char *func0f17e318(struct menudialogdef *dialogdef)
 {
 	sprintf(g_StringPointer, langGet(L_MPMENU_056), mpGetChallengeNameBySlot(g_Menus[g_MpPlayerNum].mpsetup.slotindex));
 	return g_StringPointer;
@@ -3001,7 +3001,7 @@ s32 menuhandler0017e38c(s32 operation, struct menuitem *item, union handlerdata 
 	return 0;
 }
 
-s32 menudialog0017e3fc(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialog0017e3fc(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
@@ -3029,7 +3029,7 @@ struct menuitem g_MpSelectTunesMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpSelectTunesMenuDialog = {
+struct menudialogdef g_MpSelectTunesMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&mpMenuTextSelectTuneOrTunes,
 	g_MpSelectTunesMenuItems,
@@ -3049,7 +3049,7 @@ struct menuitem g_MpSoundtrackMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpSoundtrackMenuDialog = {
+struct menudialogdef g_MpSoundtrackMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_062, // "Soundtrack"
 	g_MpSoundtrackMenuItems,
@@ -3063,7 +3063,7 @@ struct menuitem g_MpChangeTeamNameMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpChangeTeamNameMenuDialog = {
+struct menudialogdef g_MpChangeTeamNameMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_061, // "Change Team Name"
 	g_MpChangeTeamNameMenuItems,
@@ -3086,7 +3086,7 @@ struct menuitem g_MpTeamNamesMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpTeamNamesMenuDialog = {
+struct menudialogdef g_MpTeamNamesMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_059, // "Team Names"
 	g_MpTeamNamesMenuItems,
@@ -3103,7 +3103,7 @@ struct menuitem g_MpConfirmChallengeViaListOrDetailsMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,   0x00000000, NULL                },
 };
 
-struct menudialog g_MpConfirmChallengeViaListOrDetailsMenuDialog = {
+struct menudialogdef g_MpConfirmChallengeViaListOrDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f17e318,
 	g_MpConfirmChallengeViaListOrDetailsMenuItems,
@@ -3124,7 +3124,7 @@ struct menuitem g_MpChallengesListOrDetailsMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,                       0x00000000, 0x00000000,       0x00000000, NULL                        },
 };
 
-struct menudialog g_MpChallengeListOrDetailsMenuDialog = {
+struct menudialogdef g_MpChallengeListOrDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 #if VERSION >= VERSION_NTSC_1_0
 	(u32)&mpMenuTextChallengeName,
@@ -3141,9 +3141,9 @@ struct menudialog g_MpChallengeListOrDetailsMenuDialog = {
 	NULL,
 };
 
-struct menudialog g_MpAdvancedSetupViaAdvChallengeMenuDialog;
+struct menudialogdef g_MpAdvancedSetupViaAdvChallengeMenuDialog;
 
-struct menudialog g_MpChallengeListOrDetailsViaAdvChallengeMenuDialog = {
+struct menudialogdef g_MpChallengeListOrDetailsViaAdvChallengeMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 #if VERSION >= VERSION_NTSC_1_0
 	(u32)&mpMenuTextChallengeName,
@@ -3169,7 +3169,7 @@ struct menuitem g_MpConfirmChallengeMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,   0x00000000, NULL                },
 };
 
-struct menudialog g_MpConfirmChallengeMenuDialog = {
+struct menudialogdef g_MpConfirmChallengeMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f17e318,
 	g_MpConfirmChallengeMenuItems,
@@ -3344,12 +3344,12 @@ char *mpMenuTextChallengeName(struct menuitem *item)
 	return g_StringPointer;
 }
 
-s32 mpCombatChallengesMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 mpCombatChallengesMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
 		if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE
-				&& g_Menus[g_MpPlayerNum].curframe
-				&& g_Menus[g_MpPlayerNum].curframe->dialog == dialog
+				&& g_Menus[g_MpPlayerNum].curdialog
+				&& g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef
 				&& !mpIsChallengeLoaded()) {
 			g_Menus[g_MpPlayerNum].unk850 = 0x4fac5ace;
 
@@ -3383,7 +3383,7 @@ struct menuitem g_MpChallengesMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpChallengesMenuDialog = {
+struct menudialogdef g_MpChallengesMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_050, // "Combat Challenges"
 	g_MpChallengesMenuItems,
@@ -3504,7 +3504,7 @@ char *mpMenuTextWeaponSetName(struct menuitem *item)
 	return mpGetWeaponSetName(mpGetWeaponSet());
 }
 
-s32 menudialogMpGameSetup(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialogMpGameSetup(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		g_Vars.mpsetupmenu = MPSETUPMENU_ADVSETUP;
@@ -3514,7 +3514,7 @@ s32 menudialogMpGameSetup(s32 operation, struct menudialog *dialog, union handle
 	return false;
 }
 
-s32 menudialogMpQuickGo(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialogMpQuickGo(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		g_Vars.mpsetupmenu = MPSETUPMENU_QUICKGO;
@@ -3803,7 +3803,7 @@ s32 menuhandlerMpQuickTeamOption(s32 operation, struct menuitem *item, union han
 	return 0;
 }
 
-s32 menudialogCombatSimulator(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialogCombatSimulator(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		g_Vars.waitingtojoin[0] = false;
@@ -3812,8 +3812,8 @@ s32 menudialogCombatSimulator(s32 operation, struct menudialog *dialog, union ha
 		g_Vars.waitingtojoin[3] = false;
 	}
 
-	if (g_Menus[g_MpPlayerNum].curframe
-			&& g_Menus[g_MpPlayerNum].curframe->dialog == &g_CombatSimulatorMenuDialog
+	if (g_Menus[g_MpPlayerNum].curdialog
+			&& g_Menus[g_MpPlayerNum].curdialog->definition == &g_CombatSimulatorMenuDialog
 			&& operation == MENUOP_TICK) {
 		g_Vars.mpsetupmenu = MPSETUPMENU_GENERAL;
 		g_Vars.mpquickteam = MPQUICKTEAM_NONE;
@@ -3850,7 +3850,7 @@ void mpCloseDialogsForNewSetup(void)
 		g_MpPlayerNum = i;
 
 		// If they have a menu open
-		if (g_Menus[g_MpPlayerNum].curframe) {
+		if (g_Menus[g_MpPlayerNum].curdialog) {
 			bool ok = false;
 
 			// Repeat the following steps until we've stopped finding dialogs
@@ -3863,19 +3863,19 @@ void mpCloseDialogsForNewSetup(void)
 					// Loop through the siblings (left/right) in this layer
 					for (k = 0; k < g_Menus[g_MpPlayerNum].layers[j].numsiblings; k++) {
 						if (g_Menus[g_MpPlayerNum].layers[j].siblings[k]) {
-							struct menudialog *dialog = g_Menus[g_MpPlayerNum].layers[j].siblings[k]->dialog;
+							struct menudialogdef *dialogdef = g_Menus[g_MpPlayerNum].layers[j].siblings[k]->definition;
 
-							if (dialog == &g_MpSaveSetupNameMenuDialog) ok = false;
-							if (dialog == &g_MpSaveSetupExistsMenuDialog) ok = false;
-							if (dialog == &g_MpAddSimulantMenuDialog) ok = false;
-							if (dialog == &g_MpChangeSimulantMenuDialog) ok = false;
-							if (dialog == &g_MpEditSimulantMenuDialog) ok = false;
-							if (dialog == &g_MpCombatOptionsMenuDialog) ok = false;
-							if (dialog == &g_HtbOptionsMenuDialog) ok = false;
-							if (dialog == &g_CtcOptionsMenuDialog) ok = false;
-							if (dialog == &g_KohOptionsMenuDialog) ok = false;
-							if (dialog == &g_HtmOptionsMenuDialog) ok = false;
-							if (dialog == &g_PacOptionsMenuDialog) ok = false;
+							if (dialogdef == &g_MpSaveSetupNameMenuDialog) ok = false;
+							if (dialogdef == &g_MpSaveSetupExistsMenuDialog) ok = false;
+							if (dialogdef == &g_MpAddSimulantMenuDialog) ok = false;
+							if (dialogdef == &g_MpChangeSimulantMenuDialog) ok = false;
+							if (dialogdef == &g_MpEditSimulantMenuDialog) ok = false;
+							if (dialogdef == &g_MpCombatOptionsMenuDialog) ok = false;
+							if (dialogdef == &g_HtbOptionsMenuDialog) ok = false;
+							if (dialogdef == &g_CtcOptionsMenuDialog) ok = false;
+							if (dialogdef == &g_KohOptionsMenuDialog) ok = false;
+							if (dialogdef == &g_HtmOptionsMenuDialog) ok = false;
+							if (dialogdef == &g_PacOptionsMenuDialog) ok = false;
 						}
 					}
 				}
@@ -3891,7 +3891,7 @@ void mpCloseDialogsForNewSetup(void)
 	g_MpPlayerNum = prevplayernum;
 }
 
-struct menudialog g_MpAbortMenuDialog;
+struct menudialogdef g_MpAbortMenuDialog;
 
 struct menuitem g_MpStuffMenuItems[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU_041, 0x00000000, (void *)&g_MpSoundtrackMenuDialog }, // "Soundtrack"
@@ -3907,7 +3907,7 @@ struct menuitem g_MpStuffMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpStuffMenuDialog = {
+struct menudialogdef g_MpStuffMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_040, // "Stuff"
 	g_MpStuffMenuItems,
@@ -3916,7 +3916,7 @@ struct menudialog g_MpStuffMenuDialog = {
 	&g_MpChallengeListOrDetailsMenuDialog,
 };
 
-struct menudialog g_MpStuffViaAdvChallengeMenuDialog = {
+struct menudialogdef g_MpStuffViaAdvChallengeMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_040, // "Stuff"
 	g_MpStuffMenuItems,
@@ -3937,7 +3937,7 @@ struct menuitem g_MpPlayerSetup234MenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpPlayerSetupViaAdvMenuDialog = {
+struct menudialogdef g_MpPlayerSetupViaAdvMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_028, // "Player Setup"
 	g_MpPlayerSetup234MenuItems,
@@ -3946,7 +3946,7 @@ struct menudialog g_MpPlayerSetupViaAdvMenuDialog = {
 	&g_MpStuffMenuDialog,
 };
 
-struct menudialog g_MpPlayerSetupViaAdvChallengeMenuDialog = {
+struct menudialogdef g_MpPlayerSetupViaAdvChallengeMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_028, // "Player Setup"
 	g_MpPlayerSetup234MenuItems,
@@ -3955,7 +3955,7 @@ struct menudialog g_MpPlayerSetupViaAdvChallengeMenuDialog = {
 	&g_MpStuffViaAdvChallengeMenuDialog,
 };
 
-struct menudialog g_MpPlayerSetupViaQuickGoMenuDialog = {
+struct menudialogdef g_MpPlayerSetupViaQuickGoMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_028, // "Player Setup"
 	g_MpPlayerSetup234MenuItems,
@@ -3971,7 +3971,7 @@ struct menuitem g_MpAbortMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpAbortMenuDialog = {
+struct menudialogdef g_MpAbortMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPMENU_052, // "Abort"
 	g_MpAbortMenuItems,
@@ -3995,7 +3995,7 @@ struct menuitem g_MpAdvancedSetupMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpAdvancedSetupMenuDialog = {
+struct menudialogdef g_MpAdvancedSetupMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_017, // "Game Setup"
 	g_MpAdvancedSetupMenuItems,
@@ -4004,7 +4004,7 @@ struct menudialog g_MpAdvancedSetupMenuDialog = {
 	&g_MpPlayerSetupViaAdvMenuDialog,
 };
 
-struct menudialog g_MpAdvancedSetupViaAdvChallengeMenuDialog = {
+struct menudialogdef g_MpAdvancedSetupViaAdvChallengeMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_017, // "Game Setup"
 	g_MpAdvancedSetupMenuItems,
@@ -4023,7 +4023,7 @@ struct menuitem g_MpQuickGoMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpQuickGoMenuDialog = {
+struct menudialogdef g_MpQuickGoMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MISC_460, // "Quick Go"
 	g_MpQuickGoMenuItems,
@@ -4053,7 +4053,7 @@ struct menuitem g_MpQuickTeamGameSetupMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpQuickTeamGameSetupMenuDialog = {
+struct menudialogdef g_MpQuickTeamGameSetupMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_017, // "Game Setup"
 	g_MpQuickTeamGameSetupMenuItems,
@@ -4072,7 +4072,7 @@ struct menuitem g_MpQuickTeamMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpQuickTeamMenuDialog = {
+struct menudialogdef g_MpQuickTeamMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MISC_462, // "Quick Team"
 	g_MpQuickTeamMenuItems,
@@ -4089,7 +4089,7 @@ struct menuitem g_CombatSimulatorMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_CombatSimulatorMenuDialog = {
+struct menudialogdef g_CombatSimulatorMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MISC_445, // "Combat Simulator"
 	g_CombatSimulatorMenuItems,

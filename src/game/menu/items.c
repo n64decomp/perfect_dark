@@ -62,7 +62,7 @@ s32 func0f0e5ce0(s32 value)
 }
 
 GLOBAL_ASM(
-glabel func0f0e5d2c
+glabel menuitem0f0e5d2c
 /*  f0e5d2c:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f0e5d30:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f0e5d34:	afb50028 */ 	sw	$s5,0x28($sp)
@@ -196,7 +196,7 @@ glabel func0f0e5d2c
 );
 
 GLOBAL_ASM(
-glabel func0f0e5ef8
+glabel menuitem0f0e5ef8
 /*  f0e5ef8:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f0e5efc:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f0e5f00:	afb50028 */ 	sw	$s5,0x28($sp)
@@ -288,7 +288,7 @@ glabel func0f0e5ef8
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f0e6038
+glabel menuitem0f0e6038
 /*  f0e6038:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f0e603c:	afb10038 */ 	sw	$s1,0x38($sp)
 /*  f0e6040:	8fb1006c */ 	lw	$s1,0x6c($sp)
@@ -450,7 +450,7 @@ glabel func0f0e6038
 );
 #else
 GLOBAL_ASM(
-glabel func0f0e6038
+glabel menuitem0f0e6038
 /*  f0e34c8:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f0e34cc:	afb10038 */ 	sw	$s1,0x38($sp)
 /*  f0e34d0:	8fb1006c */ 	lw	$s1,0x6c($sp)
@@ -606,7 +606,7 @@ glabel func0f0e6038
 );
 #endif
 
-Gfx *menuRenderOverlayList(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2)
+Gfx *menuitemListOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2)
 {
 	gDPFillRectangleScaled(gdl++, x, y, x + x2, y + y2);
 	return gdl;
@@ -614,7 +614,7 @@ Gfx *menuRenderOverlayList(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel menuRenderItemList
+glabel menuitemListRender
 /*  f0e6328:	27bdfe90 */ 	addiu	$sp,$sp,-368
 /*  f0e632c:	afbf005c */ 	sw	$ra,0x5c($sp)
 /*  f0e6330:	afbe0058 */ 	sw	$s8,0x58($sp)
@@ -964,7 +964,7 @@ glabel menuRenderItemList
 /*  f0e6840:	870b0000 */ 	lh	$t3,0x0($t8)
 /*  f0e6844:	8e250008 */ 	lw	$a1,0x8($s1)
 /*  f0e6848:	01762023 */ 	subu	$a0,$t3,$s6
-/*  f0e684c:	0fc3974b */ 	jal	func0f0e5d2c
+/*  f0e684c:	0fc3974b */ 	jal	menuitem0f0e5d2c
 /*  f0e6850:	00808025 */ 	or	$s0,$a0,$zero
 /*  f0e6854:	862a0002 */ 	lh	$t2,0x2($s1)
 /*  f0e6858:	0040a825 */ 	or	$s5,$v0,$zero
@@ -978,7 +978,7 @@ glabel menuRenderItemList
 /*  f0e6878:	00409025 */ 	or	$s2,$v0,$zero
 /*  f0e687c:	02a09825 */ 	or	$s3,$s5,$zero
 /*  f0e6880:	01802025 */ 	or	$a0,$t4,$zero
-/*  f0e6884:	0fc397be */ 	jal	func0f0e5ef8
+/*  f0e6884:	0fc397be */ 	jal	menuitem0f0e5ef8
 /*  f0e6888:	8e250008 */ 	lw	$a1,0x8($s1)
 /*  f0e688c:	8fb9016c */ 	lw	$t9,0x16c($sp)
 /*  f0e6890:	00567021 */ 	addu	$t6,$v0,$s6
@@ -1065,7 +1065,7 @@ glabel menuRenderItemList
 /*  f0e69c4:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f0e69c8:	8e2e0010 */ 	lw	$t6,0x10($s1)
 /*  f0e69cc:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0e69d0:	0fc3980e */ 	jal	func0f0e6038
+/*  f0e69d0:	0fc3980e */ 	jal	menuitem0f0e6038
 /*  f0e69d4:	afae001c */ 	sw	$t6,0x1c($sp)
 /*  f0e69d8:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f0e69dc:	00409025 */ 	or	$s2,$v0,$zero
@@ -1202,7 +1202,7 @@ glabel menuRenderItemList
 /*  f0e6bbc:	01f43021 */ 	addu	$a2,$t7,$s4
 /*  f0e6bc0:	0006c400 */ 	sll	$t8,$a2,0x10
 /*  f0e6bc4:	00183403 */ 	sra	$a2,$t8,0x10
-/*  f0e6bc8:	0fc3980e */ 	jal	func0f0e6038
+/*  f0e6bc8:	0fc3980e */ 	jal	menuitem0f0e6038
 /*  f0e6bcc:	afb9001c */ 	sw	$t9,0x1c($sp)
 /*  f0e6bd0:	8fad014c */ 	lw	$t5,0x14c($sp)
 /*  f0e6bd4:	8fac0100 */ 	lw	$t4,0x100($sp)
@@ -1888,7 +1888,7 @@ glabel menuRenderItemList
 );
 #else
 GLOBAL_ASM(
-glabel menuRenderItemList
+glabel menuitemListRender
 /*  f0e37a0:	27bdfe90 */ 	addiu	$sp,$sp,-368
 /*  f0e37a4:	afbf0064 */ 	sw	$ra,0x64($sp)
 /*  f0e37a8:	afbe0060 */ 	sw	$s8,0x60($sp)
@@ -2157,7 +2157,7 @@ glabel menuRenderItemList
 /*  f0e3b9c:	85ae0000 */ 	lh	$t6,0x0($t5)
 /*  f0e3ba0:	8e250008 */ 	lw	$a1,0x8($s1)
 /*  f0e3ba4:	01d22023 */ 	subu	$a0,$t6,$s2
-/*  f0e3ba8:	0fc38c6f */ 	jal	func0f0e5d2c
+/*  f0e3ba8:	0fc38c6f */ 	jal	menuitem0f0e5d2c
 /*  f0e3bac:	00808025 */ 	or	$s0,$a0,$zero
 /*  f0e3bb0:	862f0002 */ 	lh	$t7,0x2($s1)
 /*  f0e3bb4:	00409825 */ 	or	$s3,$v0,$zero
@@ -2171,7 +2171,7 @@ glabel menuRenderItemList
 /*  f0e3bd4:	0040a025 */ 	or	$s4,$v0,$zero
 /*  f0e3bd8:	0260a825 */ 	or	$s5,$s3,$zero
 /*  f0e3bdc:	01802025 */ 	or	$a0,$t4,$zero
-/*  f0e3be0:	0fc38ce2 */ 	jal	func0f0e5ef8
+/*  f0e3be0:	0fc38ce2 */ 	jal	menuitem0f0e5ef8
 /*  f0e3be4:	8e250008 */ 	lw	$a1,0x8($s1)
 /*  f0e3be8:	8fb9016c */ 	lw	$t9,0x16c($sp)
 /*  f0e3bec:	00525021 */ 	addu	$t2,$v0,$s2
@@ -2256,7 +2256,7 @@ glabel menuRenderItemList
 /*  f0e3d18:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0e3d1c:	8e2a0010 */ 	lw	$t2,0x10($s1)
 /*  f0e3d20:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0e3d24:	0fc38d32 */ 	jal	func0f0e6038
+/*  f0e3d24:	0fc38d32 */ 	jal	menuitem0f0e6038
 /*  f0e3d28:	afaa001c */ 	sw	$t2,0x1c($sp)
 /*  f0e3d2c:	240b0001 */ 	addiu	$t3,$zero,0x1
 /*  f0e3d30:	0040a025 */ 	or	$s4,$v0,$zero
@@ -2392,7 +2392,7 @@ glabel menuRenderItemList
 /*  f0e3f0c:	01763021 */ 	addu	$a2,$t3,$s6
 /*  f0e3f10:	00066c00 */ 	sll	$t5,$a2,0x10
 /*  f0e3f14:	000d3403 */ 	sra	$a2,$t5,0x10
-/*  f0e3f18:	0fc38d32 */ 	jal	func0f0e6038
+/*  f0e3f18:	0fc38d32 */ 	jal	menuitem0f0e6038
 /*  f0e3f1c:	afb9001c */ 	sw	$t9,0x1c($sp)
 /*  f0e3f20:	8fb8014c */ 	lw	$t8,0x14c($sp)
 /*  f0e3f24:	8fac0100 */ 	lw	$t4,0x100($sp)
@@ -2956,7 +2956,7 @@ glabel menuRenderItemList
 );
 #endif
 
-bool menuTickItemList(struct menuitem *item, struct menuinputs *inputs, u32 arg2, union menuitemdata *data)
+bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 arg2, union menuitemdata *data)
 {
 	f32 f0;
 	union handlerdata handlerdata;
@@ -2985,7 +2985,7 @@ bool menuTickItemList(struct menuitem *item, struct menuinputs *inputs, u32 arg2
 		min = min / (s32)g_LineHeight;
 		min *= (s32)g_LineHeight;
 
-		data->list.unk04 = func0f0e5ef8(data->list.unk02, item);
+		data->list.unk04 = menuitem0f0e5ef8(data->list.unk02, item);
 
 		if (data->list.unk04 < min) {
 			data->list.unk04 = min;
@@ -3027,7 +3027,7 @@ bool menuTickItemList(struct menuitem *item, struct menuinputs *inputs, u32 arg2
 
 			if (data->list.unk02 > last) {
 				data->list.unk02 = last;
-				data->list.unk04 = func0f0e5ef8(data->list.unk02, item);
+				data->list.unk04 = menuitem0f0e5ef8(data->list.unk02, item);
 			}
 
 			if (inputs->updown) {
@@ -3042,7 +3042,7 @@ bool menuTickItemList(struct menuitem *item, struct menuinputs *inputs, u32 arg2
 					data->list.unk02 = 0;
 				}
 
-				data->list.unk04 = func0f0e5ef8(data->list.unk02, item);
+				data->list.unk04 = menuitem0f0e5ef8(data->list.unk02, item);
 
 				if (prev2 != data->list.unk02) {
 					handlerdata.list.value = data->list.unk02;
@@ -3083,13 +3083,13 @@ bool menuTickItemList(struct menuitem *item, struct menuinputs *inputs, u32 arg2
 
 	if (handlerdata.list.unk0c != handlerdata.list.value) {
 		data->list.unk02 = handlerdata.list.value;
-		data->list.unk04 = func0f0e5ef8(data->list.unk02, item);
+		data->list.unk04 = menuitem0f0e5ef8(data->list.unk02, item);
 	}
 
 	return true;
 }
 
-void menuInitItemDropdown(struct menuitem *item, union menuitemdata *data)
+void menuitemDropdownInit(struct menuitem *item, union menuitemdata *data)
 {
 	s32 (*handler)(s32 operation, struct menuitem *item, union handlerdata *data);
 	union handlerdata handlerdata;
@@ -3126,13 +3126,13 @@ void menuInitItemDropdown(struct menuitem *item, union menuitemdata *data)
 		data->dropdown.unk02 = handlerdata.dropdown.value;
 	}
 
-	data->dropdown.unk04 = func0f0e5ef8(data->dropdown.unk02, item);
+	data->dropdown.unk04 = menuitem0f0e5ef8(data->dropdown.unk02, item);
 
 	item->handler(MENUOP_LISTITEMFOCUS, item, &handlerdata);
 }
 
 GLOBAL_ASM(
-glabel menuRenderItemDropdown
+glabel menuitemDropdownRender
 /*  f0e7a8c:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f0e7a90:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f0e7a94:	afb10038 */ 	sw	$s1,0x38($sp)
@@ -3587,35 +3587,35 @@ glabel menuRenderItemDropdown
 /*  f0e8134:	27bd0080 */ 	addiu	$sp,$sp,0x80
 );
 
-bool menuTickItemDropdown(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemdata *data)
+bool menuitemDropdownTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 arg3, union menuitemdata *data)
 {
 	u32 stack;
 
 	if ((arg3 & 2) && item->handler) {
-		if (frame->dimmed && item == frame->focuseditem) {
-			menuTickItemList(item, inputs, arg3, data);
+		if (dialog->dimmed && item == dialog->focuseditem) {
+			menuitemListTick(item, inputs, arg3, data);
 
 			if (mpIsPlayerLockedOut(g_MpPlayerNum)) {
-				if ((item->flags & MENUITEMFLAG_00040000) || (frame->dialog->unk10 & 0x10)) {
-					frame->dimmed = false;
+				if ((item->flags & MENUITEMFLAG_00040000) || (dialog->definition->unk10 & 0x10)) {
+					dialog->dimmed = false;
 				}
 			}
 		}
 
-		if (inputs->back && frame->dimmed) {
-			frame->dimmed = false;
+		if (inputs->back && dialog->dimmed) {
+			dialog->dimmed = false;
 			inputs->back = false;
 			menuPlaySound(MENUSOUND_TOGGLEOFF);
 		}
 
 		if (inputs->select) {
-			if (frame->dimmed) {
-				frame->dimmed = false;
+			if (dialog->dimmed) {
+				dialog->dimmed = false;
 			} else {
 				union handlerdata handlerdata;
 
-				frame->dimmed = true;
-				menuInitItemDropdown(item, data);
+				dialog->dimmed = true;
+				menuitemDropdownInit(item, data);
 
 				handlerdata.dropdown.value = 0;
 				item->handler(MENUOP_GETOPTIONVALUE, item, &handlerdata);
@@ -3630,7 +3630,7 @@ bool menuTickItemDropdown(struct menuitem *item, struct menuframe *frame, struct
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel menuRenderOverlayDropdown
+glabel menuitemDropdownOverlay
 /*  f0e8290:	27bdff60 */ 	addiu	$sp,$sp,-160
 /*  f0e8294:	afb0001c */ 	sw	$s0,0x1c($sp)
 /*  f0e8298:	8fb000b8 */ 	lw	$s0,0xb8($sp)
@@ -3808,7 +3808,7 @@ glabel menuRenderOverlayDropdown
 /*  f0e8518:	a7a8006e */ 	sh	$t0,0x6e($sp)
 .L0f0e851c:
 /*  f0e851c:	8fa400a0 */ 	lw	$a0,0xa0($sp)
-/*  f0e8520:	0fc398ca */ 	jal	menuRenderItemList
+/*  f0e8520:	0fc398ca */ 	jal	menuitemListRender
 /*  f0e8524:	27a5006c */ 	addiu	$a1,$sp,0x6c
 /*  f0e8528:	afa200a0 */ 	sw	$v0,0xa0($sp)
 /*  f0e852c:	8fbf003c */ 	lw	$ra,0x3c($sp)
@@ -3827,7 +3827,7 @@ glabel menuRenderOverlayDropdown
 );
 #else
 GLOBAL_ASM(
-glabel menuRenderOverlayDropdown
+glabel menuitemDropdownOverlay
 /*  f0e5428:	27bdff60 */ 	addiu	$sp,$sp,-160
 /*  f0e542c:	afb0001c */ 	sw	$s0,0x1c($sp)
 /*  f0e5430:	8fb000b8 */ 	lw	$s0,0xb8($sp)
@@ -3994,7 +3994,7 @@ glabel menuRenderOverlayDropdown
 /*  f0e568c:	a7af006e */ 	sh	$t7,0x6e($sp)
 .NB0f0e5690:
 /*  f0e5690:	8fa400a0 */ 	lw	$a0,0xa0($sp)
-/*  f0e5694:	0fc38de8 */ 	jal	menuRenderItemList
+/*  f0e5694:	0fc38de8 */ 	jal	menuitemListRender
 /*  f0e5698:	27a5006c */ 	addiu	$a1,$sp,0x6c
 /*  f0e569c:	afa200a0 */ 	sw	$v0,0xa0($sp)
 /*  f0e56a0:	8fbf003c */ 	lw	$ra,0x3c($sp)
@@ -4015,7 +4015,7 @@ glabel menuRenderOverlayDropdown
 
 // Mismatch due to register initialisation order near 380.
 // 0x14 (MENUOP_GETOPTIONHEIGHT) is loaded into a0 earlier than it should be.
-//Gfx *menuRenderOverlayDropdown(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menuframe *frame, union menuitemdata *data)
+//Gfx *menuitemDropdownOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menudialog *dialog, union menuitemdata *data)
 //{
 //	s32 stack;
 //	s32 textwidth; // 98
@@ -4027,7 +4027,7 @@ glabel menuRenderOverlayDropdown
 //	struct menurendercontext context; // 6c
 //
 //	// 2e0
-//	if (frame->unk6e) {
+//	if (dialog->unk6e) {
 //		context.x = x + 78;
 //	} else if (x2 < 0) {
 //		context.x = x + 2;
@@ -4045,11 +4045,11 @@ glabel menuRenderOverlayDropdown
 //	context.width = 56;
 //	context.item = item;
 //	context.focused = true;
-//	context.frame = frame;
+//	context.dialog = dialog;
 //	context.data = data;
 //
 //	// 360
-//	if (frame->dimmed && item->handler && frame->focuseditem == item) {
+//	if (dialog->dimmed && item->handler && dialog->focuseditem == item) {
 //		// 380
 //		union handlerdata handlerdata; // 5c
 //
@@ -4086,27 +4086,27 @@ glabel menuRenderOverlayDropdown
 //		}
 //
 //		// 4a4
-//		if (context.y + context.height > frame->y + frame->height + 2) {
+//		if (context.y + context.height > dialog->y + dialog->height + 2) {
 //			// 4d0
-//			if (context.height > frame->height) {
-//				i = frame->height;
+//			if (context.height > dialog->height) {
+//				i = dialog->height;
 //				i = i / g_LineHeight;
 //				i = i * g_LineHeight;
 //				context.height = i;
 //			}
 //
 //			// 50c
-//			context.y = frame->y + frame->height - context.height + 2;
+//			context.y = dialog->y + dialog->height - context.height + 2;
 //		}
 //
 //		// 51c
-//		gdl = menuRenderItemList(gdl, &context);
+//		gdl = menuitemListRender(gdl, &context);
 //	}
 //
 //	return gdl;
 //}
 
-bool menuIsStringEmptyOrSpaces(char *text)
+bool menuitemKeyboardIsStringEmptyOrSpaces(char *text)
 {
 	s32 i;
 
@@ -4141,7 +4141,7 @@ bool menuIsStringEmptyOrSpaces(char *text)
  * |  DEL  |    CAPS   |   CANCEL  |   OK  |
  * +-------+-----------+-----------+-------+
  */
-Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 {
 	char label[8];
 	s32 x;
@@ -4162,8 +4162,8 @@ Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *context)
 	label[2] = '\0';
 
 	func0f153e38(
-			g_MenuColourPalettes3[context->frame->type].unfocused,
-			g_MenuColourPalettes2[context->frame->type].unfocused);
+			g_MenuColourPalettes3[context->dialog->type].unfocused,
+			g_MenuColourPalettes2[context->dialog->type].unfocused);
 
 	// Draw input field background
 	gdl = gfxSetPrimColour(gdl, 0x0000ff7f);
@@ -4193,13 +4193,13 @@ Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *context)
 	// Render cursor
 	alpha = func0f006b08(40) * 255;
 
-	if (context->frame->transitiontimer < 0) {
-		cursorcolour = g_MenuColourPalettes[context->frame->type].focused;
+	if (context->dialog->transitiontimer < 0) {
+		cursorcolour = g_MenuColourPalettes[context->dialog->type].focused;
 	} else {
 		cursorcolour = colourBlend(
-				g_MenuColourPalettes[context->frame->type2].focused,
-				g_MenuColourPalettes[context->frame->type].focused,
-				context->frame->colourweight);
+				g_MenuColourPalettes[context->dialog->type2].focused,
+				g_MenuColourPalettes[context->dialog->type].focused,
+				context->dialog->colourweight);
 	}
 
 	cursorcolour = colourBlend(colourBlend(0x0000ffff, 0x000000ff, 127), cursorcolour, alpha);
@@ -4235,16 +4235,16 @@ Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *context)
 
 	for (col = 0; col < 10; col++) {
 		for (row = 0; row < 5; row++) {
-			if (context->frame->transitiontimer < 0) {
-				textcolour = g_MenuColourPalettes[context->frame->type].unfocused;
+			if (context->dialog->transitiontimer < 0) {
+				textcolour = g_MenuColourPalettes[context->dialog->type].unfocused;
 			} else {
 				textcolour = colourBlend(
-						g_MenuColourPalettes[context->frame->type2].unfocused,
-						g_MenuColourPalettes[context->frame->type].unfocused,
-						context->frame->colourweight);
+						g_MenuColourPalettes[context->dialog->type2].unfocused,
+						g_MenuColourPalettes[context->dialog->type].unfocused,
+						context->dialog->colourweight);
 			}
 
-			if (context->frame->dimmed) {
+			if (context->dialog->dimmed) {
 				textcolour = colourBlend(textcolour, 0x00000000, 127) & 0xffffff00 | textcolour & 0xff;
 			}
 
@@ -4257,13 +4257,13 @@ Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *context)
 			if (col == data->col && row == data->row) {
 				alpha = func0f006b08(40) * 255;
 
-				if (context->frame->transitiontimer < 0) {
-					tmpcolour = g_MenuColourPalettes[context->frame->type].focused;
+				if (context->dialog->transitiontimer < 0) {
+					tmpcolour = g_MenuColourPalettes[context->dialog->type].focused;
 				} else {
 					tmpcolour = colourBlend(
-							g_MenuColourPalettes[context->frame->type2].focused,
-							g_MenuColourPalettes[context->frame->type].focused,
-							context->frame->colourweight);
+							g_MenuColourPalettes[context->dialog->type2].focused,
+							g_MenuColourPalettes[context->dialog->type].focused,
+							context->dialog->colourweight);
 				}
 
 				textcolour = colourBlend(colourBlend(textcolour, textcolour & 0xff, 127), tmpcolour, alpha);
@@ -4310,31 +4310,31 @@ Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *context)
 					x = (buttonwidth - textwidth) / 2 + x;
 
 					// Dim the OK button if string is empty
-					if (index == 3 && menuIsStringEmptyOrSpaces(data->string)) {
-						if (context->frame->transitiontimer < 0) {
-							textcolour = g_MenuColourPalettes[context->frame->type].disabled;
+					if (index == 3 && menuitemKeyboardIsStringEmptyOrSpaces(data->string)) {
+						if (context->dialog->transitiontimer < 0) {
+							textcolour = g_MenuColourPalettes[context->dialog->type].disabled;
 						} else {
 							textcolour = colourBlend(
-									g_MenuColourPalettes[context->frame->type2].disabled,
-									g_MenuColourPalettes[context->frame->type].disabled,
-									context->frame->colourweight);
+									g_MenuColourPalettes[context->dialog->type2].disabled,
+									g_MenuColourPalettes[context->dialog->type].disabled,
+									context->dialog->colourweight);
 						}
 
-						if (context->frame->dimmed) {
+						if (context->dialog->dimmed) {
 							textcolour = colourBlend(textcolour, 0, 127) & 0xffffff00 | textcolour & 0xff;
 						}
 
 						func0f153e38(
-								g_MenuColourPalettes3[context->frame->type].disabled,
-								g_MenuColourPalettes2[context->frame->type].disabled);
+								g_MenuColourPalettes3[context->dialog->type].disabled,
+								g_MenuColourPalettes2[context->dialog->type].disabled);
 					}
 
 					gdl = textRenderProjected(gdl, &x, &y, langGet(labels[index]), g_CharsHandelGothicXs, g_FontHandelGothicXs, textcolour, context->width, context->height, 0, 0);
 
-					if (index == 3 && menuIsStringEmptyOrSpaces(data->string)) {
+					if (index == 3 && menuitemKeyboardIsStringEmptyOrSpaces(data->string)) {
 						func0f153e38(
-								g_MenuColourPalettes3[context->frame->type].unfocused,
-								g_MenuColourPalettes2[context->frame->type].unfocused);
+								g_MenuColourPalettes3[context->dialog->type].unfocused,
+								g_MenuColourPalettes2[context->dialog->type].unfocused);
 					}
 				}
 			} else {
@@ -4403,7 +4403,7 @@ Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *context)
  * |  DEL  |    CAPS   |   CANCEL  |   OK  |
  * +-------+-----------+-----------+-------+
  */
-bool menuTickItemKeyboard(struct menuitem *item, struct menuinputs *inputs, u32 arg2, union menuitemdata *data)
+bool menuitemKeyboardTick(struct menuitem *item, struct menuinputs *inputs, u32 arg2, union menuitemdata *data)
 {
 	struct menuitemdata_keyboard *kb = &data->keyboard;
 	union handlerdata handlerdata;
@@ -4472,7 +4472,7 @@ bool menuTickItemKeyboard(struct menuitem *item, struct menuinputs *inputs, u32 
 		}
 
 		if (inputs->start) {
-			if (item->handler && !menuIsStringEmptyOrSpaces(kb->string)) {
+			if (item->handler && !menuitemKeyboardIsStringEmptyOrSpaces(kb->string)) {
 				menuPlaySound(MENUSOUND_SELECT);
 
 				handlerdata.keyboard.string = kb->string;
@@ -4500,7 +4500,7 @@ bool menuTickItemKeyboard(struct menuitem *item, struct menuinputs *inputs, u32 
 
 				// OK
 				if (kb->col == 8) {
-					if (item->handler && !menuIsStringEmptyOrSpaces(kb->string)) {
+					if (item->handler && !menuitemKeyboardIsStringEmptyOrSpaces(kb->string)) {
 						handlerdata.keyboard.string = kb->string;
 						item->handler(MENUOP_SETTEXT, item, &handlerdata);
 					}
@@ -4510,7 +4510,7 @@ bool menuTickItemKeyboard(struct menuitem *item, struct menuinputs *inputs, u32 
 				if (kb->col == 8 || kb->col == 5) {
 					s32 ok = (kb->col == 8);
 
-					if (kb->col == 5 || !menuIsStringEmptyOrSpaces(kb->string)) {
+					if (kb->col == 5 || !menuitemKeyboardIsStringEmptyOrSpaces(kb->string)) {
 						menuPopDialog();
 
 						if (ok) {
@@ -4603,7 +4603,7 @@ bool menuTickItemKeyboard(struct menuitem *item, struct menuinputs *inputs, u32 
 	return true;
 }
 
-void menuInitItemKeyboard(struct menuitem *item, union menuitemdata *data)
+void menuitemKeyboardInit(struct menuitem *item, union menuitemdata *data)
 {
 	u32 stack;
 	s32 i;
@@ -4624,17 +4624,17 @@ void menuInitItemKeyboard(struct menuitem *item, union menuitemdata *data)
 	data->keyboard.capslock = 0;
 }
 
-Gfx *menuRenderItemSeparator(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitemSeparatorRender(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 colour;
 
-	if (context->frame->transitiontimer < 0) {
-		colour = g_MenuColourPalettes[context->frame->type].unfocused;
+	if (context->dialog->transitiontimer < 0) {
+		colour = g_MenuColourPalettes[context->dialog->type].unfocused;
 	} else {
 		colour = colourBlend(
-				g_MenuColourPalettes[context->frame->type2].unfocused,
-				g_MenuColourPalettes[context->frame->type].unfocused,
-				context->frame->colourweight);
+				g_MenuColourPalettes[context->dialog->type2].unfocused,
+				g_MenuColourPalettes[context->dialog->type].unfocused,
+				context->dialog->colourweight);
 	}
 
 	colour = (colour & 0xffffff00) | 0x3f;
@@ -4648,7 +4648,7 @@ u32 var800711e8 = 0;
 
 #if PAL
 GLOBAL_ASM(
-glabel menuRenderObjective
+glabel menuitemObjectiveRender
 /*  f0e98ac:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f0e98b0:	8fae0154 */ 	lw	$t6,0x154($sp)
 /*  f0e98b4:	afbf003c */ 	sw	$ra,0x3c($sp)
@@ -5301,7 +5301,7 @@ glabel menuRenderObjective
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel menuRenderObjective
+glabel menuitemObjectiveRender
 /*  f0e98ac:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f0e98b0:	8fae0154 */ 	lw	$t6,0x154($sp)
 /*  f0e98b4:	afbf003c */ 	sw	$ra,0x3c($sp)
@@ -5954,7 +5954,7 @@ glabel menuRenderObjective
 );
 #else
 GLOBAL_ASM(
-glabel menuRenderObjective
+glabel menuitemObjectiveRender
 /*  f0e6a20:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f0e6a24:	8fae0154 */ 	lw	$t6,0x154($sp)
 /*  f0e6a28:	afbf003c */ 	sw	$ra,0x3c($sp)
@@ -6607,7 +6607,7 @@ glabel menuRenderObjective
 );
 #endif
 
-Gfx *menuRenderItemObjectives(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitemObjectivesRender(Gfx *gdl, struct menurendercontext *context)
 {
 	s32 y = context->y + 5;
 	s32 position = 1;
@@ -6616,8 +6616,8 @@ Gfx *menuRenderItemObjectives(Gfx *gdl, struct menurendercontext *context)
 	for (i = 0; i < 6; i++) {
 		if (g_Briefing.objectivenames[i]
 				&& g_Briefing.objectivedifficulties[i] & (1 << lvGetDifficulty())) {
-			gdl = menuRenderObjective(gdl,
-					context->frame,
+			gdl = menuitemObjectiveRender(gdl,
+					context->dialog,
 					i, position, context->x, y, context->width, context->height,
 					context->item->param != 1,
 					context->item->param == 2);
@@ -6637,7 +6637,7 @@ Gfx *menuRenderItemObjectives(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-Gfx *menuRenderItemModel(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitemModelRender(Gfx *gdl, struct menurendercontext *context)
 {
 	if (context->item->flags & MENUITEMFLAG_00200000) {
 		struct menuitemrenderdata renderdata;
@@ -6647,16 +6647,16 @@ Gfx *menuRenderItemModel(Gfx *gdl, struct menurendercontext *context)
 		renderdata.y = context->y;
 		renderdata.width = context->width;
 
-		if (context->frame->transitiontimer < 0) {
-			renderdata.colour = g_MenuColourPalettes[context->frame->type].focused;
+		if (context->dialog->transitiontimer < 0) {
+			renderdata.colour = g_MenuColourPalettes[context->dialog->type].focused;
 		} else {
 			renderdata.colour = colourBlend(
-					g_MenuColourPalettes[context->frame->type2].focused,
-					g_MenuColourPalettes[context->frame->type].focused,
-					context->frame->colourweight);
+					g_MenuColourPalettes[context->dialog->type2].focused,
+					g_MenuColourPalettes[context->dialog->type].focused,
+					context->dialog->colourweight);
 		}
 
-		if (context->frame->dimmed) {
+		if (context->dialog->dimmed) {
 			renderdata.colour = (colourBlend(renderdata.colour, 0, 127) & 0xffffff00) | (renderdata.colour & 0xff);
 		}
 
@@ -6672,7 +6672,7 @@ Gfx *menuRenderItemModel(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-Gfx *menuRenderItemLabel(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 colour1;
 	u32 colour2;
@@ -6712,58 +6712,58 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	if (context->item->flags & MENUITEMFLAG_00000100) {
-		if (context->frame->transitiontimer < 0) {
-			colour1 = g_MenuColourPalettes[context->frame->type].checkedunfocused;
+		if (context->dialog->transitiontimer < 0) {
+			colour1 = g_MenuColourPalettes[context->dialog->type].checkedunfocused;
 		} else {
 			colour1 = colourBlend(
-					g_MenuColourPalettes[context->frame->type2].checkedunfocused,
-					g_MenuColourPalettes[context->frame->type].checkedunfocused,
-					context->frame->colourweight);
+					g_MenuColourPalettes[context->dialog->type2].checkedunfocused,
+					g_MenuColourPalettes[context->dialog->type].checkedunfocused,
+					context->dialog->colourweight);
 		}
 
-		if (context->frame->dimmed) {
+		if (context->dialog->dimmed) {
 			colour1 = (colourBlend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
 		}
 
 		func0f153e38(
-				g_MenuColourPalettes3[context->frame->type].checkedunfocused,
-				g_MenuColourPalettes2[context->frame->type].checkedunfocused);
+				g_MenuColourPalettes3[context->dialog->type].checkedunfocused,
+				g_MenuColourPalettes2[context->dialog->type].checkedunfocused);
 	} else {
-		if (context->frame->transitiontimer < 0) {
-			colour1 = g_MenuColourPalettes[context->frame->type].unfocused;
+		if (context->dialog->transitiontimer < 0) {
+			colour1 = g_MenuColourPalettes[context->dialog->type].unfocused;
 		} else {
 			colour1 = colourBlend(
-					g_MenuColourPalettes[context->frame->type2].unfocused,
-					g_MenuColourPalettes[context->frame->type].unfocused,
-					context->frame->colourweight);
+					g_MenuColourPalettes[context->dialog->type2].unfocused,
+					g_MenuColourPalettes[context->dialog->type].unfocused,
+					context->dialog->colourweight);
 		}
 
-		if (context->frame->dimmed) {
+		if (context->dialog->dimmed) {
 			colour1 = (colourBlend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
 		}
 
 		func0f153e38(
-				g_MenuColourPalettes3[context->frame->type].unfocused,
-				g_MenuColourPalettes2[context->frame->type].unfocused);
+				g_MenuColourPalettes3[context->dialog->type].unfocused,
+				g_MenuColourPalettes2[context->dialog->type].unfocused);
 	}
 
-	if (menuIsItemDisabled(context->item, context->frame)) {
-		if (context->frame->transitiontimer < 0) {
-			colour1 = g_MenuColourPalettes[context->frame->type].disabled;
+	if (menuIsItemDisabled(context->item, context->dialog)) {
+		if (context->dialog->transitiontimer < 0) {
+			colour1 = g_MenuColourPalettes[context->dialog->type].disabled;
 		} else {
 			colour1 = colourBlend(
-					g_MenuColourPalettes[context->frame->type2].disabled,
-					g_MenuColourPalettes[context->frame->type].disabled,
-					context->frame->colourweight);
+					g_MenuColourPalettes[context->dialog->type2].disabled,
+					g_MenuColourPalettes[context->dialog->type].disabled,
+					context->dialog->colourweight);
 		}
 
-		if (context->frame->dimmed) {
+		if (context->dialog->dimmed) {
 			colour1 = (colourBlend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
 		}
 
 		func0f153e38(
-				g_MenuColourPalettes3[context->frame->type].disabled,
-				g_MenuColourPalettes2[context->frame->type].disabled);
+				g_MenuColourPalettes3[context->dialog->type].disabled,
+				g_MenuColourPalettes2[context->dialog->type].disabled);
 	}
 
 	menudfc = func0f0f1338(context->item);
@@ -6830,7 +6830,7 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurendercontext *context)
 	gdl = func0f153780(gdl);
 
 	if (menudfc) {
-		if (context->width + 200 < menudfc->unk04 * 300 && context->frame->unk48 < 0) {
+		if (context->width + 200 < menudfc->unk04 * 300 && context->dialog->unk48 < 0) {
 			func0f0f13ec(context->item);
 		}
 
@@ -6863,7 +6863,7 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurendercontext *context)
  * Renders two yellow bars and an optional label. Suspected to be a resource
  * meter but with the calculations ifdeffed out, so the widths are static.
  */
-Gfx *menuRenderItemMeter(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitemMeterRender(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 a = 9;
 	char *text;
@@ -6876,16 +6876,16 @@ Gfx *menuRenderItemMeter(Gfx *gdl, struct menurendercontext *context)
 	s32 x2;
 	s32 x3;
 
-	if (context->frame->transitiontimer < 0) {
-		colour = g_MenuColourPalettes[context->frame->type].unfocused;
+	if (context->dialog->transitiontimer < 0) {
+		colour = g_MenuColourPalettes[context->dialog->type].unfocused;
 	} else {
 		colour = colourBlend(
-				g_MenuColourPalettes[context->frame->type2].unfocused,
-				g_MenuColourPalettes[context->frame->type].unfocused,
-				context->frame->colourweight);
+				g_MenuColourPalettes[context->dialog->type2].unfocused,
+				g_MenuColourPalettes[context->dialog->type].unfocused,
+				context->dialog->colourweight);
 	}
 
-	if (context->frame->dimmed) {
+	if (context->dialog->dimmed) {
 		colour = (colourBlend(colour, 0, 127) & 0xffffff00) | (colour & 0xff);
 	}
 
@@ -6919,7 +6919,7 @@ Gfx *menuRenderItemMeter(Gfx *gdl, struct menurendercontext *context)
 }
 
 GLOBAL_ASM(
-glabel menuRenderItemSelectable
+glabel menuitemSelectableRender
 /*  f0eaec0:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f0eaec4:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f0eaec8:	afb10038 */ 	sw	$s1,0x38($sp)
@@ -7307,7 +7307,7 @@ glabel menuRenderItemSelectable
 
 const char var7f1adfb8[] = "";
 
-//Gfx *menuRenderItemSelectable(Gfx *gdl, struct menurendercontext *context)
+//Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 //{
 //	u32 leftcolour;
 //	u32 rightcolour;
@@ -7328,16 +7328,16 @@ const char var7f1adfb8[] = "";
 //
 //	text = menuResolveParam2Text(context->item);
 //
-//	if (context->frame->transitiontimer < 0) {
-//		leftcolour = g_MenuColourPalettes[context->frame->type].unfocused;
+//	if (context->dialog->transitiontimer < 0) {
+//		leftcolour = g_MenuColourPalettes[context->dialog->type].unfocused;
 //	} else {
 //		leftcolour = colourBlend(
-//				g_MenuColourPalettes[context->frame->type2].unfocused,
-//				g_MenuColourPalettes[context->frame->type].unfocused,
-//				context->frame->colourweight);
+//				g_MenuColourPalettes[context->dialog->type2].unfocused,
+//				g_MenuColourPalettes[context->dialog->type].unfocused,
+//				context->dialog->colourweight);
 //	}
 //
-//	if (context->frame->dimmed) {
+//	if (context->dialog->dimmed) {
 //		leftcolour = colourBlend(leftcolour, 0, 127) & 0xffffff00 | leftcolour & 0xff;
 //	}
 //
@@ -7351,45 +7351,45 @@ const char var7f1adfb8[] = "";
 //		u32 colour2;
 //		u32 weight = func0f006b08(40) * 255;
 //
-//		if (context->frame->transitiontimer < 0) {
-//			colour2 = g_MenuColourPalettes[context->frame->type].focused;
+//		if (context->dialog->transitiontimer < 0) {
+//			colour2 = g_MenuColourPalettes[context->dialog->type].focused;
 //		} else {
 //			colour2 = colourBlend(
-//					g_MenuColourPalettes[context->frame->type2].focused,
-//					g_MenuColourPalettes[context->frame->type].focused,
-//					context->frame->colourweight);
+//					g_MenuColourPalettes[context->dialog->type2].focused,
+//					g_MenuColourPalettes[context->dialog->type].focused,
+//					context->dialog->colourweight);
 //		}
 //
 //		leftcolour = colourBlend(colourBlend(leftcolour, leftcolour & 0x000000ff, 127), colour2, weight);
 //
 //		func0f153e38(
-//				g_MenuColourPalettes3[context->frame->type].focused,
-//				g_MenuColourPalettes2[context->frame->type].focused);
+//				g_MenuColourPalettes3[context->dialog->type].focused,
+//				g_MenuColourPalettes2[context->dialog->type].focused);
 //	} else {
 //		func0f153e38(
-//				g_MenuColourPalettes3[context->frame->type].unfocused,
-//				g_MenuColourPalettes2[context->frame->type].unfocused);
+//				g_MenuColourPalettes3[context->dialog->type].unfocused,
+//				g_MenuColourPalettes2[context->dialog->type].unfocused);
 //	}
 //
-//	if (menuIsItemDisabled(context->item, context->frame)) {
-//		if (context->frame->transitiontimer < 0) {
-//			leftcolour = g_MenuColourPalettes[context->frame->type].disabled;
+//	if (menuIsItemDisabled(context->item, context->dialog)) {
+//		if (context->dialog->transitiontimer < 0) {
+//			leftcolour = g_MenuColourPalettes[context->dialog->type].disabled;
 //		} else {
 //			leftcolour = colourBlend(
-//					g_MenuColourPalettes[context->frame->type2].disabled,
-//					g_MenuColourPalettes[context->frame->type].disabled,
-//					context->frame->colourweight);
+//					g_MenuColourPalettes[context->dialog->type2].disabled,
+//					g_MenuColourPalettes[context->dialog->type].disabled,
+//					context->dialog->colourweight);
 //		}
 //
-//		if (context->frame->dimmed) {
+//		if (context->dialog->dimmed) {
 //			leftcolour = colourBlend(leftcolour, 0x00000000, 127) & 0xffffff00 | leftcolour & 0xff;
 //		}
 //
 //		rightcolour = leftcolour;
 //
 //		func0f153e38(
-//				g_MenuColourPalettes3[context->frame->type].disabled,
-//				g_MenuColourPalettes2[context->frame->type].disabled);
+//				g_MenuColourPalettes3[context->dialog->type].disabled,
+//				g_MenuColourPalettes2[context->dialog->type].disabled);
 //	}
 //
 //	if (context->item->flags & MENUITEMFLAG_00000020) {
@@ -7430,7 +7430,7 @@ const char var7f1adfb8[] = "";
 //	return func0f153780(gdl);
 //}
 
-bool menuTickItemSelectable(struct menuitem *item, struct menuinputs *inputs, u32 arg2)
+bool menuitemSelectableTick(struct menuitem *item, struct menuinputs *inputs, u32 arg2)
 {
 	if ((arg2 & 2) && inputs->select) {
 		menuPlaySound(MENUSOUND_SELECT);
@@ -7440,7 +7440,7 @@ bool menuTickItemSelectable(struct menuitem *item, struct menuinputs *inputs, u3
 		}
 
 		if (item->flags & MENUITEMFLAG_00000004) {
-			menuPushDialog((struct menudialog *)item->handler);
+			menuPushDialog((struct menudialogdef *)item->handler);
 		} else if (item->handler) {
 			union handlerdata data;
 			item->handler(MENUOP_SET, item, &data);
@@ -7454,7 +7454,7 @@ const char var7f1adfbc[] = "";
 const char var7f1adfc0[] = "%d\n";
 
 GLOBAL_ASM(
-glabel menuRenderItemSlider
+glabel menuitemSliderRender
 /*  f0eb508:	27bdff50 */ 	addiu	$sp,$sp,-176
 /*  f0eb50c:	afbf0044 */ 	sw	$ra,0x44($sp)
 /*  f0eb510:	afb20040 */ 	sw	$s2,0x40($sp)
@@ -8121,7 +8121,7 @@ glabel menuRenderItemSlider
 /*  f0ebec4:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
 );
 
-bool menuTickItemSlider(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemdata *data)
+bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 arg3, union menuitemdata *data)
 {
 	s32 index;
 	union handlerdata handlerdata;
@@ -8218,11 +8218,11 @@ bool menuTickItemSlider(struct menuitem *item, struct menuframe *frame, struct m
 			}
 
 			if (inputs->select) {
-				frame->dimmed = false;
+				dialog->dimmed = false;
 			}
 		} else {
 			if (inputs->select) {
-				frame->dimmed = true;
+				dialog->dimmed = true;
 			}
 		}
 	}
@@ -8230,12 +8230,12 @@ bool menuTickItemSlider(struct menuitem *item, struct menuframe *frame, struct m
 	return true;
 }
 
-void menuInitItemSlider(union menuitemdata *data)
+void menuitemSliderInit(union menuitemdata *data)
 {
 	data->slider.unk00 = 0;
 }
 
-Gfx *menuRenderItemCarousel(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitemCarouselRender(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 colour = 0xff0000ff;
 
@@ -8243,13 +8243,13 @@ Gfx *menuRenderItemCarousel(Gfx *gdl, struct menurendercontext *context)
 		u32 colour1;
 		u32 weight = func0f006b08(40) * 255;
 
-		if (context->frame->transitiontimer < 0) {
-			colour1 = g_MenuColourPalettes[context->frame->type].focused;
+		if (context->dialog->transitiontimer < 0) {
+			colour1 = g_MenuColourPalettes[context->dialog->type].focused;
 		} else {
 			colour1 = colourBlend(
-					g_MenuColourPalettes[context->frame->type2].focused,
-					g_MenuColourPalettes[context->frame->type].focused,
-					context->frame->colourweight);
+					g_MenuColourPalettes[context->dialog->type2].focused,
+					g_MenuColourPalettes[context->dialog->type].focused,
+					context->dialog->colourweight);
 		}
 
 		colour = colourBlend(colourBlend(colour, 0x000000ff, 127), colour1, weight);
@@ -8283,7 +8283,7 @@ Gfx *menuRenderItemCarousel(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-bool menuTickItemCarousel(struct menuitem *item, struct menuinputs *inputs, u32 arg2)
+bool menuitemCarouselTick(struct menuitem *item, struct menuinputs *inputs, u32 arg2)
 {
 	union handlerdata data;
 	s32 index;
@@ -8340,7 +8340,7 @@ bool menuTickItemCarousel(struct menuitem *item, struct menuinputs *inputs, u32 
 }
 
 GLOBAL_ASM(
-glabel menuRenderItemCheckbox
+glabel menuitemCheckboxRender
 /*  f0ec64c:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f0ec650:	3c0eff00 */ 	lui	$t6,0xff00
 /*  f0ec654:	35ce2faf */ 	ori	$t6,$t6,0x2faf
@@ -8727,7 +8727,7 @@ glabel menuRenderItemCheckbox
 /*  f0ecbf8:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
 
-//Gfx *menuRenderItemCheckbox(Gfx *gdl, struct menurendercontext *context)
+//Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 //{
 //	u32 maincolour = 0x00000000;
 //	char *text;
@@ -8753,39 +8753,39 @@ glabel menuRenderItemCheckbox
 //			&& context->item->handler(MENUOP_GET, context->item, (union handlerdata *)data) == true) {
 //		checked = true;
 //
-//		if (context->frame->transitiontimer < 0) {
-//			maincolour = g_MenuColourPalettes[context->frame->type].checkedunfocused;
+//		if (context->dialog->transitiontimer < 0) {
+//			maincolour = g_MenuColourPalettes[context->dialog->type].checkedunfocused;
 //		} else {
 //			maincolour = colourBlend(
-//					g_MenuColourPalettes[context->frame->type2].checkedunfocused,
-//					g_MenuColourPalettes[context->frame->type].checkedunfocused,
-//					context->frame->colourweight);
+//					g_MenuColourPalettes[context->dialog->type2].checkedunfocused,
+//					g_MenuColourPalettes[context->dialog->type].checkedunfocused,
+//					context->dialog->colourweight);
 //		}
 //
-//		if (context->frame->dimmed) {
+//		if (context->dialog->dimmed) {
 //			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
 //		}
 //
 //		func0f153e38(
-//				g_MenuColourPalettes3[context->frame->type].checkedunfocused,
-//				g_MenuColourPalettes2[context->frame->type].checkedunfocused);
+//				g_MenuColourPalettes3[context->dialog->type].checkedunfocused,
+//				g_MenuColourPalettes2[context->dialog->type].checkedunfocused);
 //	} else {
-//		if (context->frame->transitiontimer < 0) {
-//			maincolour = g_MenuColourPalettes[context->frame->type].unfocused;
+//		if (context->dialog->transitiontimer < 0) {
+//			maincolour = g_MenuColourPalettes[context->dialog->type].unfocused;
 //		} else {
 //			maincolour = colourBlend(
-//					g_MenuColourPalettes[context->frame->type2].unfocused,
-//					g_MenuColourPalettes[context->frame->type].unfocused,
-//					context->frame->colourweight);
+//					g_MenuColourPalettes[context->dialog->type2].unfocused,
+//					g_MenuColourPalettes[context->dialog->type].unfocused,
+//					context->dialog->colourweight);
 //		}
 //
-//		if (context->frame->dimmed) {
+//		if (context->dialog->dimmed) {
 //			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
 //		}
 //
 //		func0f153e38(
-//				g_MenuColourPalettes3[context->frame->type].unfocused,
-//				g_MenuColourPalettes2[context->frame->type].unfocused);
+//				g_MenuColourPalettes3[context->dialog->type].unfocused,
+//				g_MenuColourPalettes2[context->dialog->type].unfocused);
 //	}
 //
 //	gdl = func0f153628(gdl);
@@ -8798,39 +8798,39 @@ glabel menuRenderItemCheckbox
 //		u32 focuscolour;
 //		u32 weight = func0f006b08(40) * 255;
 //
-//		if (context->frame->transitiontimer < 0) {
-//			focuscolour = g_MenuColourPalettes[context->frame->type].focused;
+//		if (context->dialog->transitiontimer < 0) {
+//			focuscolour = g_MenuColourPalettes[context->dialog->type].focused;
 //		} else {
 //			focuscolour = colourBlend(
-//					g_MenuColourPalettes[context->frame->type2].focused,
-//					g_MenuColourPalettes[context->frame->type].focused,
-//					context->frame->colourweight);
+//					g_MenuColourPalettes[context->dialog->type2].focused,
+//					g_MenuColourPalettes[context->dialog->type].focused,
+//					context->dialog->colourweight);
 //		}
 //
 //		maincolour = colourBlend(colourBlend(maincolour, maincolour & 0xff, 127), focuscolour, weight);
 //
 //		func0f153e38(
-//				g_MenuColourPalettes3[context->frame->type].focused,
-//				g_MenuColourPalettes2[context->frame->type].focused);
+//				g_MenuColourPalettes3[context->dialog->type].focused,
+//				g_MenuColourPalettes2[context->dialog->type].focused);
 //	}
 //
-//	if (menuIsItemDisabled(context->item, context->frame)) {
-//		if (context->frame->transitiontimer < 0) {
-//			maincolour = g_MenuColourPalettes[context->frame->type].disabled;
+//	if (menuIsItemDisabled(context->item, context->dialog)) {
+//		if (context->dialog->transitiontimer < 0) {
+//			maincolour = g_MenuColourPalettes[context->dialog->type].disabled;
 //		} else {
 //			maincolour = colourBlend(
-//					g_MenuColourPalettes[context->frame->type2].disabled,
-//					g_MenuColourPalettes[context->frame->type].disabled,
-//					context->frame->colourweight);
+//					g_MenuColourPalettes[context->dialog->type2].disabled,
+//					g_MenuColourPalettes[context->dialog->type].disabled,
+//					context->dialog->colourweight);
 //		}
 //
-//		if (context->frame->dimmed) {
+//		if (context->dialog->dimmed) {
 //			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
 //		}
 //
 //		func0f153e38(
-//				g_MenuColourPalettes3[context->frame->type].disabled,
-//				g_MenuColourPalettes2[context->frame->type].disabled);
+//				g_MenuColourPalettes3[context->dialog->type].disabled,
+//				g_MenuColourPalettes2[context->dialog->type].disabled);
 //
 //		fillcolour = 0x7f002faf;
 //	}
@@ -8846,7 +8846,7 @@ glabel menuRenderItemCheckbox
 //	return func0f153780(gdl);
 //}
 
-bool menuTickItemCheckbox(struct menuitem *item, struct menuinputs *inputs, u32 arg2)
+bool menuitemCheckboxTick(struct menuitem *item, struct menuinputs *inputs, u32 arg2)
 {
 	union handlerdata data;
 
@@ -8867,7 +8867,7 @@ bool menuTickItemCheckbox(struct menuitem *item, struct menuinputs *inputs, u32 
 	return true;
 }
 
-char *menuItemScrollableGetText(u32 type)
+char *menuitemScrollableGetText(u32 type)
 {
 	switch (type) {
 	case DESCRIPTION_MPCONFIG:
@@ -8897,7 +8897,7 @@ char *menuItemScrollableGetText(u32 type)
  * Render a scrollable menu item, such as briefing paragraphs and challenge
  * descriptions.
  *
- * The text returned from menuItemScrollableGetText is first wrapped to fit the
+ * The text returned from menuitemScrollableGetText is first wrapped to fit the
  * width of the dialog. It is then separated into two strings:
  *
  * headings - which are started with the pipe character and ended with a
@@ -8906,7 +8906,7 @@ char *menuItemScrollableGetText(u32 type)
  *
  * Headings are rendered in red, with a dropshadow and are outdented.
  */
-Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context)
 {
 	char alltext[8000] = "";
 	char headingtext[8000];
@@ -8922,7 +8922,7 @@ Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurendercontext *context)
 	char *rawtext;
 	s32 paddingright = 24;
 
-	rawtext = menuItemScrollableGetText(context->item->param);
+	rawtext = menuitemScrollableGetText(context->item->param);
 
 	if (menuIsScrollableUnscrollable(context->item)) {
 		paddingright = 10;
@@ -8973,22 +8973,22 @@ Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurendercontext *context)
 	x = context->x + 2;
 	y = context->y + 2;
 
-	if (context->frame->transitiontimer < 0) {
-		colour = g_MenuColourPalettes[context->frame->type].unfocused;
+	if (context->dialog->transitiontimer < 0) {
+		colour = g_MenuColourPalettes[context->dialog->type].unfocused;
 	} else {
 		colour = colourBlend(
-				g_MenuColourPalettes[context->frame->type2].unfocused,
-				g_MenuColourPalettes[context->frame->type].unfocused,
-				context->frame->colourweight);
+				g_MenuColourPalettes[context->dialog->type2].unfocused,
+				g_MenuColourPalettes[context->dialog->type].unfocused,
+				context->dialog->colourweight);
 	}
 
-	if (context->frame->dimmed) {
+	if (context->dialog->dimmed) {
 		colour = colourBlend(colour, 0, 0x7f) & 0xffffff00 | colour & 0xff;
 	}
 
 	func0f153e38(
-			g_MenuColourPalettes3[context->frame->type].unfocused,
-			g_MenuColourPalettes2[context->frame->type].unfocused);
+			g_MenuColourPalettes3[context->dialog->type].unfocused,
+			g_MenuColourPalettes2[context->dialog->type].unfocused);
 
 	gdl = func0f153628(gdl);
 
@@ -9014,14 +9014,14 @@ Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurendercontext *context)
 	return func0f153780(gdl);
 }
 
-bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemdata *data)
+bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 arg3, union menuitemdata *data)
 {
 	u32 stack;
 
 #if PAL
-	if ((s16)frame->height != data->scrollable.unk06 || data->scrollable.unk08 != g_LanguageId) {
+	if ((s16)dialog->height != data->scrollable.unk06 || data->scrollable.unk08 != g_LanguageId) {
 #else
-	if ((s16)frame->height != data->scrollable.unk06) {
+	if ((s16)dialog->height != data->scrollable.unk06) {
 #endif
 		char wrapped[8000] = "";
 		char *rawtext;
@@ -9036,7 +9036,7 @@ bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, stru
 		data->scrollable.unk08 = g_LanguageId;
 #endif
 
-		func0f0f2354(frame, item, &index1, &index2);
+		func0f0f2354(dialog, item, &index1, &index2);
 
 		wvalue = g_Menus[g_MpPlayerNum].unk660[index2].unk00;
 		hvalue = g_Menus[g_MpPlayerNum].unk4fc[index1].unk00;
@@ -9047,7 +9047,7 @@ bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, stru
 			width = wvalue - 24;
 		}
 
-		rawtext = menuItemScrollableGetText(item->param);
+		rawtext = menuitemScrollableGetText(item->param);
 
 		if (rawtext) {
 			textWrap(width, rawtext, wrapped, g_CharsHandelGothicSm, g_FontHandelGothicSm);
@@ -9061,7 +9061,7 @@ bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, stru
 			data->scrollable.unk04 = -10;
 		}
 
-		data->scrollable.unk06 = frame->height;
+		data->scrollable.unk06 = dialog->height;
 	}
 
 	if (menuIsScrollableUnscrollable(item)) {
@@ -9110,7 +9110,7 @@ bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, stru
 	return true;
 }
 
-void menuInitItemScrollable(union menuitemdata *data)
+void menuitemScrollableInit(union menuitemdata *data)
 {
 	data->scrollable.unk06 = -1;
 	data->scrollable.unk00 = -10;
@@ -9118,7 +9118,7 @@ void menuInitItemScrollable(union menuitemdata *data)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel menuRenderItemMarquee
+glabel menuitemMarqueeRender
 /*  f0ed528:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*  f0ed52c:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f0ed530:	afb10038 */ 	sw	$s1,0x38($sp)
@@ -9467,7 +9467,7 @@ glabel menuRenderItemMarquee
 );
 #else
 GLOBAL_ASM(
-glabel menuRenderItemMarquee
+glabel menuitemMarqueeRender
 /*  f0ea690:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0ea694:	afbf0054 */ 	sw	$ra,0x54($sp)
 /*  f0ea698:	afb70050 */ 	sw	$s7,0x50($sp)
@@ -9730,7 +9730,7 @@ glabel menuRenderItemMarquee
 u32 var800711ec = 0x20000000;
 
 // Mismatch at 718
-//Gfx *menuRenderItemMarquee(Gfx *gdl, struct menurendercontext *context)
+//Gfx *menuitemMarqueeRender(Gfx *gdl, struct menurendercontext *context)
 //{
 //	u16 *unk14 = context->unk14.u16; // 84
 //	char *text = menuResolveParam2Text(context->item); // 80
@@ -9755,17 +9755,17 @@ u32 var800711ec = 0x20000000;
 //	}
 //
 //	// 5b8
-//	if (context->frame->transitiontimer < 0) {
-//		colour = g_MenuColourPalettes[context->frame->type].unfocused;
+//	if (context->dialog->transitiontimer < 0) {
+//		colour = g_MenuColourPalettes[context->dialog->type].unfocused;
 //	} else {
 //		colour = colourBlend(
-//				g_MenuColourPalettes[context->frame->type2].unfocused,
-//				g_MenuColourPalettes[context->frame->type].unfocused,
-//				context->frame->colourweight);
+//				g_MenuColourPalettes[context->dialog->type2].unfocused,
+//				g_MenuColourPalettes[context->dialog->type].unfocused,
+//				context->dialog->colourweight);
 //	}
 //
 //	// 644
-//	if (context->frame->dimmed) {
+//	if (context->dialog->dimmed) {
 //		colour = colourBlend(colour, 0, 127) & 0xffffff00 | colour & 0xff;
 //	}
 //
@@ -9952,7 +9952,7 @@ u32 var80071348 = PAL ? 63 : 59;
 u32 var8007134c = 0x0000004b;
 u32 var80071350 = 0xffffffff;
 
-bool menuTickItemMarquee(struct menuitem *item, union menuitemdata *data)
+bool menuitemMarqueeTick(struct menuitem *item, union menuitemdata *data)
 {
 	s32 i;
 	s32 textheight;
@@ -10005,20 +10005,20 @@ bool menuTickItemMarquee(struct menuitem *item, union menuitemdata *data)
 	return true;
 }
 
-void menuInitItemMarquee(union menuitemdata *data)
+void menuitemMarqueeInit(union menuitemdata *data)
 {
 	data->marquee.totalmoved = 0;
 	data->marquee.unk04 = 50;
 	data->marquee.unk06 = 0;
 }
 
-Gfx *menuRenderItem07(Gfx *gdl)
+Gfx *menuitem07Render(Gfx *gdl)
 {
 	return gdl;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-Gfx *menuRenderItemRanking(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 {
 	struct ranking rankings[12];
 	s32 numrows;
@@ -10031,7 +10031,7 @@ Gfx *menuRenderItemRanking(Gfx *gdl, struct menurendercontext *context)
 	s32 team = false;
 	u32 linecolour1;
 	struct menuitemdata_ranking *data = &context->data->ranking;
-	struct menuframe *frame;
+	struct menudialog *dialog;
 	s32 gap;
 	s32 i;
 
@@ -10055,16 +10055,16 @@ Gfx *menuRenderItemRanking(Gfx *gdl, struct menurendercontext *context)
 		data->scrolloffset = gap;
 	}
 
-	if (context->frame->transitiontimer < 0) {
-		textcolour = g_MenuColourPalettes[context->frame->type].unfocused;
+	if (context->dialog->transitiontimer < 0) {
+		textcolour = g_MenuColourPalettes[context->dialog->type].unfocused;
 	} else {
 		textcolour = colourBlend(
-				g_MenuColourPalettes[context->frame->type2].unfocused,
-				g_MenuColourPalettes[context->frame->type].unfocused,
-				context->frame->colourweight);
+				g_MenuColourPalettes[context->dialog->type2].unfocused,
+				g_MenuColourPalettes[context->dialog->type].unfocused,
+				context->dialog->colourweight);
 	}
 
-	if (context->frame->dimmed) {
+	if (context->dialog->dimmed) {
 		textcolour = colourBlend(textcolour, 0, 127) & 0xffffff00 | textcolour & 0xff;
 	}
 
@@ -10085,31 +10085,31 @@ Gfx *menuRenderItemRanking(Gfx *gdl, struct menurendercontext *context)
 			textcolour, context->width, context->height, 0, 0);
 	gdl = func0f153780(gdl);
 
-	frame = context->frame;
+	dialog = context->dialog;
 
-	if (frame->transitiontimer < 0) {
-		linecolour1 = g_MenuColourPalettes[frame->type].unk00;
+	if (dialog->transitiontimer < 0) {
+		linecolour1 = g_MenuColourPalettes[dialog->type].unk00;
 	} else {
 		linecolour1 = colourBlend(
-				g_MenuColourPalettes[frame->type2].unk00,
-				g_MenuColourPalettes[frame->type].unk00,
-				frame->colourweight);
+				g_MenuColourPalettes[dialog->type2].unk00,
+				g_MenuColourPalettes[dialog->type].unk00,
+				dialog->colourweight);
 	}
 
-	if (frame->dimmed) {
+	if (dialog->dimmed) {
 		linecolour1 = colourBlend(linecolour1, 0, 44) & 0xffffff00 | linecolour1 & 0xff;
 	}
 
-	if (frame->transitiontimer < 0) {
-		linecolour2 = g_MenuColourPalettes[frame->type].unk08;
+	if (dialog->transitiontimer < 0) {
+		linecolour2 = g_MenuColourPalettes[dialog->type].unk08;
 	} else {
 		linecolour2 = colourBlend(
-				g_MenuColourPalettes[frame->type2].unk08,
-				g_MenuColourPalettes[frame->type].unk08,
-				frame->colourweight);
+				g_MenuColourPalettes[dialog->type2].unk08,
+				g_MenuColourPalettes[dialog->type].unk08,
+				dialog->colourweight);
 	}
 
-	if (frame->dimmed) {
+	if (dialog->dimmed) {
 		linecolour2 = colourBlend(linecolour2, 0, 44) & 0xffffff00 | linecolour2 & 0xff;
 	}
 
@@ -10225,7 +10225,7 @@ const char var7f1ac180nb[] = "%d\n";
 const char var7f1ac184nb[] = "%d\n";
 
 GLOBAL_ASM(
-glabel menuRenderItemRanking
+glabel menuitemRankingRender
 /*  f0eab98:	27bdfe50 */ 	addiu	$sp,$sp,-432
 /*  f0eab9c:	afbf005c */ 	sw	$ra,0x5c($sp)
 /*  f0eaba0:	afbe0058 */ 	sw	$s8,0x58($sp)
@@ -10820,7 +10820,7 @@ glabel menuRenderItemRanking
 );
 #endif
 
-bool menuTickItemRanking(struct menuinputs *inputs, u32 arg1, union menuitemdata *data)
+bool menuitemRankingTick(struct menuinputs *inputs, u32 arg1, union menuitemdata *data)
 {
 	f32 floatval;
 	s32 intval;
@@ -10855,13 +10855,13 @@ bool menuTickItemRanking(struct menuinputs *inputs, u32 arg1, union menuitemdata
 	return true;
 }
 
-void menuInitItemRanking(union menuitemdata *data)
+void menuitemRankingInit(union menuitemdata *data)
 {
 	data->ranking.scrolloffset = 0;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 {
 	struct menuitemdata_dropdown *data = &context->data->dropdown;
 	s32 x;
@@ -10886,13 +10886,13 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 	// Write selected player's name
 	weight = func0f006b08(40) * 255;
 
-	if (context->frame->transitiontimer < 0) {
-		selectioncolour = g_MenuColourPalettes[context->frame->type].focused;
+	if (context->dialog->transitiontimer < 0) {
+		selectioncolour = g_MenuColourPalettes[context->dialog->type].focused;
 	} else {
 		selectioncolour = colourBlend(
-				g_MenuColourPalettes[context->frame->type2].focused,
-				g_MenuColourPalettes[context->frame->type].focused,
-				context->frame->colourweight);
+				g_MenuColourPalettes[context->dialog->type2].focused,
+				g_MenuColourPalettes[context->dialog->type].focused,
+				context->dialog->colourweight);
 	}
 
 	selectioncolour = colourBlend(colourBlend(0xffffffff, 0x000000ff, 127), selectioncolour, weight);
@@ -10903,16 +10903,16 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 			selectioncolour, context->width, context->height, 0, 0);
 
 	// "Suicides" heading
-	if (context->frame->transitiontimer < 0) {
-		maincolour = g_MenuColourPalettes[context->frame->type].unfocused;
+	if (context->dialog->transitiontimer < 0) {
+		maincolour = g_MenuColourPalettes[context->dialog->type].unfocused;
 	} else {
 		maincolour = colourBlend(
-				g_MenuColourPalettes[context->frame->type2].unfocused,
-				g_MenuColourPalettes[context->frame->type].unfocused,
-				context->frame->colourweight);
+				g_MenuColourPalettes[context->dialog->type2].unfocused,
+				g_MenuColourPalettes[context->dialog->type].unfocused,
+				context->dialog->colourweight);
 	}
 
-	if (context->frame->dimmed) {
+	if (context->dialog->dimmed) {
 		maincolour = colourBlend(maincolour, 0x00000000, 127) & 0xffffff00 | maincolour & 0xff;
 	}
 
@@ -10936,16 +10936,16 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 	ypos += 12;
 
 	if (mpGetNumChrs() >= 2) {
-		if (context->frame->transitiontimer < 0) {
-			maincolour = g_MenuColourPalettes[context->frame->type].unfocused;
+		if (context->dialog->transitiontimer < 0) {
+			maincolour = g_MenuColourPalettes[context->dialog->type].unfocused;
 		} else {
 			maincolour = colourBlend(
-					g_MenuColourPalettes[context->frame->type2].unfocused,
-					g_MenuColourPalettes[context->frame->type].unfocused,
-					context->frame->colourweight);
+					g_MenuColourPalettes[context->dialog->type2].unfocused,
+					g_MenuColourPalettes[context->dialog->type].unfocused,
+					context->dialog->colourweight);
 		}
 
-		if (context->frame->dimmed) {
+		if (context->dialog->dimmed) {
 			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
 		}
 
@@ -11066,7 +11066,7 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 }
 #else
 GLOBAL_ASM(
-glabel menuRenderItemPlayerStats
+glabel menuitemPlayerStatsRender
 /*  f0eb54c:	27bdff40 */ 	addiu	$sp,$sp,-192
 /*  f0eb550:	3c0f8007 */ 	lui	$t7,0x8007
 /*  f0eb554:	8def3af0 */ 	lw	$t7,0x3af0($t7)
@@ -11728,12 +11728,12 @@ glabel menuRenderItemPlayerStats
 );
 #endif
 
-bool menuTickItemPlayerStats(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemdata *data)
+bool menuitemPlayerStatsTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 arg3, union menuitemdata *data)
 {
 	f32 floatval;
 	s32 intval;
 
-	if ((arg3 & 2) && !frame->dimmed) {
+	if ((arg3 & 2) && !dialog->dimmed) {
 		intval = 0;
 		floatval = inputs->yaxis < 0 ? -(f32)inputs->yaxis : inputs->yaxis;
 
@@ -11760,28 +11760,28 @@ bool menuTickItemPlayerStats(struct menuitem *item, struct menuframe *frame, str
 		}
 	}
 
-	menuTickItemDropdown(item, frame, inputs, arg3, data);
+	menuitemDropdownTick(item, dialog, inputs, arg3, data);
 }
 
-Gfx *menuRenderOverlayPlayerStats(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menuframe *frame, union menuitemdata *data)
+Gfx *menuitemPlayerStatsOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menudialog *dialog, union menuitemdata *data)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	return menuRenderOverlayDropdown(gdl, x + 1, y, -1, y2, item, frame, data);
+	return menuitemDropdownOverlay(gdl, x + 1, y, -1, y2, item, dialog, data);
 #else
-	return menuRenderOverlayDropdown(gdl, x, y, 56, y2, item, frame, data);
+	return menuitemDropdownOverlay(gdl, x, y, 56, y2, item, dialog, data);
 #endif
 }
 
-void menuInitItemPlayerStats(struct menuitem *item, union menuitemdata *data)
+void menuitemPlayerStatsInit(struct menuitem *item, union menuitemdata *data)
 {
 	data->dropdown.scrolloffset = 0;
 	g_MpSelectedPlayersForStats[g_MpPlayerNum] = g_MpPlayerNum;
 
-	menuInitItemDropdown(item, data);
+	menuitemDropdownInit(item, data);
 }
 
 GLOBAL_ASM(
-glabel func0f0ef394
+glabel menuitem0f0ef394
 /*  f0ef394:	3c098008 */ 	lui	$t1,%hi(g_ScaleX)
 /*  f0ef398:	8faf0010 */ 	lw	$t7,0x10($sp)
 /*  f0ef39c:	2529fac0 */ 	addiu	$t1,$t1,%lo(g_ScaleX)
@@ -11862,7 +11862,7 @@ glabel func0f0ef394
 /*  f0ef4b8:	00000000 */ 	nop
 );
 
-Gfx *menuRenderControllerTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32 alpha)
+Gfx *menuitemControllerRenderTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32 alpha)
 {
 	gDPPipeSync(gdl++);
 	gDPSetTexturePersp(gdl++, G_TP_NONE);
@@ -11893,7 +11893,7 @@ Gfx *menuRenderControllerTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32 alp
 }
 
 GLOBAL_ASM(
-glabel menuRenderControllerLines
+glabel menuitemControllerRenderLines
 /*  f0ef758:	3c018006 */ 	lui	$at,%hi(var80061630)
 /*  f0ef75c:	c4241630 */ 	lwc1	$f4,%lo(var80061630)($at)
 /*  f0ef760:	3c014080 */ 	lui	$at,0x4080
@@ -12090,7 +12090,7 @@ glabel menuRenderControllerLines
 /*  f0efa34:	01f33821 */ 	addu	$a3,$t7,$s3
 /*  f0efa38:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0efa3c:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f0efa40:	0fc3bce5 */ 	jal	func0f0ef394
+/*  f0efa40:	0fc3bce5 */ 	jal	menuitem0f0ef394
 /*  f0efa44:	8fa400a0 */ 	lw	$a0,0xa0($sp)
 /*  f0efa48:	8fac0050 */ 	lw	$t4,0x50($sp)
 /*  f0efa4c:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -12129,7 +12129,7 @@ u16 var80071354[][9] = {
 	/*11*/ { L_OPTIONS_003,   L_OPTIONS_003,   L_MPWEAPONS_212, L_OPTIONS_003,   L_MPWEAPONS_203, L_MPWEAPONS_204, L_MPWEAPONS_208, L_MPWEAPONS_205, L_OPTIONS_003   },
 };
 
-u16 menuControllerGetButtonAction(s32 mode, s32 buttonnum)
+u16 menuitemControllerGetButtonAction(s32 mode, s32 buttonnum)
 {
 	u32 textid = var80071354[mode][buttonnum];
 
@@ -12161,7 +12161,7 @@ u16 menuControllerGetButtonAction(s32 mode, s32 buttonnum)
  * is used because the rest is bitwise or'ed to white.
  */
 #if VERSION >= VERSION_NTSC_1_0
-Gfx *menuRenderControllerText(Gfx *gdl, s32 curmode, struct menurendercontext *context, s32 x, s32 y, u32 valuecolour, u32 labelcolour, s8 prevmode)
+Gfx *menuitemControllerTextRender(Gfx *gdl, s32 curmode, struct menurendercontext *context, s32 x, s32 y, u32 valuecolour, u32 labelcolour, s8 prevmode)
 {
 	s32 rx;
 	s32 ry;
@@ -12199,7 +12199,7 @@ Gfx *menuRenderControllerText(Gfx *gdl, s32 curmode, struct menurendercontext *c
 					g_CharsHandelGothicXs, g_FontHandelGothicXs, labelcolour, viGetWidth(), viGetHeight(), 0, 0);
 		}
 
-		textnum = menuControllerGetButtonAction(curmode, i);
+		textnum = menuitemControllerGetButtonAction(curmode, i);
 		colour = valuecolour;
 
 		// If there's a prevmode, get the text ID that was in this position for
@@ -12210,11 +12210,11 @@ Gfx *menuRenderControllerText(Gfx *gdl, s32 curmode, struct menurendercontext *c
 			// choose their control style separately to player 1, in which case
 			// there would have been 2.5, 2.6, 2.7 and 2.8 for player 2.
 			if (curmode > CONTROLMODE_24) {
-				if (textnum == menuControllerGetButtonAction(prevmode + 4, i)) {
+				if (textnum == menuitemControllerGetButtonAction(prevmode + 4, i)) {
 					colour = labelcolour;
 				}
 			} else {
-				if (textnum == menuControllerGetButtonAction(prevmode, i)) {
+				if (textnum == menuitemControllerGetButtonAction(prevmode, i)) {
 					colour = labelcolour;
 				}
 			}
@@ -12250,7 +12250,7 @@ u16 labels[] = {
 };
 
 GLOBAL_ASM(
-glabel menuRenderControllerText
+glabel menuitemControllerTextRender
 /*  f0ec8f0:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0ec8f4:	3c0f8007 */ 	lui	$t7,0x8007
 /*  f0ec8f8:	afbf005c */ 	sw	$ra,0x5c($sp)
@@ -12334,7 +12334,7 @@ glabel menuRenderControllerText
 .NB0f0eca28:
 /*  f0eca28:	02c02025 */ 	or	$a0,$s6,$zero
 .NB0f0eca2c:
-/*  f0eca2c:	0fc3b1f3 */ 	jal	menuControllerGetButtonAction
+/*  f0eca2c:	0fc3b1f3 */ 	jal	menuitemControllerGetButtonAction
 /*  f0eca30:	02402825 */ 	or	$a1,$s2,$zero
 /*  f0eca34:	3050ffff */ 	andi	$s0,$v0,0xffff
 /*  f0eca38:	06e00010 */ 	bltz	$s7,.NB0f0eca7c
@@ -12343,14 +12343,14 @@ glabel menuRenderControllerText
 /*  f0eca44:	14200008 */ 	bnez	$at,.NB0f0eca68
 /*  f0eca48:	02e02025 */ 	or	$a0,$s7,$zero
 /*  f0eca4c:	26e40004 */ 	addiu	$a0,$s7,0x4
-/*  f0eca50:	0fc3b1f3 */ 	jal	menuControllerGetButtonAction
+/*  f0eca50:	0fc3b1f3 */ 	jal	menuitemControllerGetButtonAction
 /*  f0eca54:	02402825 */ 	or	$a1,$s2,$zero
 /*  f0eca58:	56020009 */ 	bnel	$s0,$v0,.NB0f0eca80
 /*  f0eca5c:	2ac10004 */ 	slti	$at,$s6,0x4
 /*  f0eca60:	10000006 */ 	beqz	$zero,.NB0f0eca7c
 /*  f0eca64:	02808825 */ 	or	$s1,$s4,$zero
 .NB0f0eca68:
-/*  f0eca68:	0fc3b1f3 */ 	jal	menuControllerGetButtonAction
+/*  f0eca68:	0fc3b1f3 */ 	jal	menuitemControllerGetButtonAction
 /*  f0eca6c:	02402825 */ 	or	$a1,$s2,$zero
 /*  f0eca70:	56020003 */ 	bnel	$s0,$v0,.NB0f0eca80
 /*  f0eca74:	2ac10004 */ 	slti	$at,$s6,0x4
@@ -12419,27 +12419,27 @@ glabel menuRenderControllerText
 );
 #endif
 
-Gfx *menuRenderControllerInfo(Gfx *gdl, struct menurendercontext *context, s32 x, s32 y, s32 curmode, u32 alpha, u32 colour1, u32 colour2, s8 prevmode)
+Gfx *menuitemControllerInfoRender(Gfx *gdl, struct menurendercontext *context, s32 x, s32 y, s32 curmode, u32 alpha, u32 colour1, u32 colour2, s8 prevmode)
 {
 	s32 rx = context->x + x;
 	s32 ry = context->y + y + 4;
 
 	// The controller graphic is split into 4 textures
-	gdl = menuRenderControllerTexture(gdl, rx, ry, 0x33, alpha);
-	gdl = menuRenderControllerTexture(gdl, rx + 32, ry, 0x34, alpha);
-	gdl = menuRenderControllerTexture(gdl, rx, ry + 32, 0x35, alpha);
-	gdl = menuRenderControllerTexture(gdl, rx + 32, ry + 32, 0x36, alpha);
+	gdl = menuitemControllerRenderTexture(gdl, rx, ry, 0x33, alpha);
+	gdl = menuitemControllerRenderTexture(gdl, rx + 32, ry, 0x34, alpha);
+	gdl = menuitemControllerRenderTexture(gdl, rx, ry + 32, 0x35, alpha);
+	gdl = menuitemControllerRenderTexture(gdl, rx + 32, ry + 32, 0x36, alpha);
 
 	if (curmode >= CONTROLMODE_21) {
-		gdl = menuRenderControllerLines(gdl, context, 13, 19, x, y, alpha);
+		gdl = menuitemControllerRenderLines(gdl, context, 13, 19, x, y, alpha);
 	} else {
-		gdl = menuRenderControllerLines(gdl, context, 0, 21, x, y, alpha);
+		gdl = menuitemControllerRenderLines(gdl, context, 0, 21, x, y, alpha);
 	}
 
-	return menuRenderControllerText(gdl, curmode, context, x, y, colour1, colour2, prevmode);
+	return menuitemControllerTextRender(gdl, curmode, context, x, y, colour1, colour2, prevmode);
 }
 
-Gfx *menuRenderItemController(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
 {
 	struct menuitemdata_controller *data = &context->data->controller;
 	u32 colour;
@@ -12447,7 +12447,7 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurendercontext *context)
 	s32 x;
 	s32 y;
 	char text[32];
-	struct menuframe *frame = context->frame;
+	struct menudialog *dialog = context->dialog;
 	u32 contalpha;
 	u32 textalpha;
 
@@ -12501,22 +12501,22 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurendercontext *context)
 	contalpha = data->contfadetimer;
 	gdl = func0f153628(gdl);
 
-	if (frame->transitiontimer < 0) {
-		colour = g_MenuColourPalettes[frame->type].unfocused;
+	if (dialog->transitiontimer < 0) {
+		colour = g_MenuColourPalettes[dialog->type].unfocused;
 	} else {
 		colour = colourBlend(
-				g_MenuColourPalettes[frame->type2].unfocused,
-				g_MenuColourPalettes[frame->type].unfocused,
-				frame->colourweight);
+				g_MenuColourPalettes[dialog->type2].unfocused,
+				g_MenuColourPalettes[dialog->type].unfocused,
+				dialog->colourweight);
 	}
 
-	if (frame->dimmed) {
+	if (dialog->dimmed) {
 		colour = colourBlend(colour, 0, 44) & 0xffffff00 | colour & 0xff;
 	}
 
 	func0f153e38(
-			g_MenuColourPalettes3[frame->type].unfocused,
-			g_MenuColourPalettes2[frame->type].unfocused);
+			g_MenuColourPalettes3[dialog->type].unfocused,
+			g_MenuColourPalettes2[dialog->type].unfocused);
 
 	if (g_Menus[g_MpPlayerNum].main.controlmode >= CONTROLMODE_21) {
 		sprintf(text, langGet(L_MPWEAPONS_213), // "Control Style %s %s"
@@ -12538,14 +12538,14 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurendercontext *context)
 	colour = colourBlend(colour, colour & 0xffffff00, contalpha);
 
 	if (g_Menus[g_MpPlayerNum].main.controlmode >= CONTROLMODE_21) {
-		gdl = menuRenderControllerInfo(gdl, context, 0, 12,
+		gdl = menuitemControllerInfoRender(gdl, context, 0, 12,
 				g_Menus[g_MpPlayerNum].main.controlmode,
 				contalpha, textcolour, colour, data->prevmode);
-		gdl = menuRenderControllerInfo(gdl, context, 0, 80,
+		gdl = menuitemControllerInfoRender(gdl, context, 0, 80,
 				g_Menus[g_MpPlayerNum].main.controlmode + 4,
 				contalpha, textcolour, colour, data->prevmode);
 	} else {
-		gdl = menuRenderControllerInfo(gdl, context, 0, PAL ? 19 : 15,
+		gdl = menuitemControllerInfoRender(gdl, context, 0, PAL ? 19 : 15,
 				g_Menus[g_MpPlayerNum].main.controlmode,
 				contalpha, textcolour, colour, data->prevmode);
 
@@ -12562,7 +12562,7 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-void menuInitItemController(union menuitemdata *data)
+void menuitemControllerInit(union menuitemdata *data)
 {
 	data->controller.textfadetimer = 0;
 	data->controller.contfadetimer = 0;
@@ -12571,27 +12571,27 @@ void menuInitItemController(union menuitemdata *data)
 	data->controller.prevmode = -1;
 }
 
-Gfx *menuRenderItem(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitemRender(Gfx *gdl, struct menurendercontext *context)
 {
 	switch (context->item->type) {
-	case MENUITEMTYPE_LIST:        return menuRenderItemList(gdl, context);
-	case MENUITEMTYPE_SELECTABLE:  return menuRenderItemSelectable(gdl, context);
-	case MENUITEMTYPE_SLIDER:      return menuRenderItemSlider(gdl);
-	case MENUITEMTYPE_CHECKBOX:    return menuRenderItemCheckbox(gdl, context);
-	case MENUITEMTYPE_SCROLLABLE:  return menuRenderItemScrollable(gdl, context);
-	case MENUITEMTYPE_MARQUEE:     return menuRenderItemMarquee(gdl, context);
-	case MENUITEMTYPE_LABEL:       return menuRenderItemLabel(gdl, context);
-	case MENUITEMTYPE_METER:       return menuRenderItemMeter(gdl, context);
-	case MENUITEMTYPE_SEPARATOR:   return menuRenderItemSeparator(gdl, context);
-	case MENUITEMTYPE_OBJECTIVES:  return menuRenderItemObjectives(gdl, context);
-	case MENUITEMTYPE_07:          return menuRenderItem07(gdl);
-	case MENUITEMTYPE_DROPDOWN:    return menuRenderItemDropdown(gdl);
-	case MENUITEMTYPE_KEYBOARD:    return menuRenderItemKeyboard(gdl, context);
-	case MENUITEMTYPE_RANKING:     return menuRenderItemRanking(gdl, context);
-	case MENUITEMTYPE_PLAYERSTATS: return menuRenderItemPlayerStats(gdl, context);
-	case MENUITEMTYPE_CAROUSEL:    return menuRenderItemCarousel(gdl, context);
-	case MENUITEMTYPE_MODEL:       return menuRenderItemModel(gdl, context);
-	case MENUITEMTYPE_CONTROLLER:  return menuRenderItemController(gdl, context);
+	case MENUITEMTYPE_LIST:        return menuitemListRender(gdl, context);
+	case MENUITEMTYPE_SELECTABLE:  return menuitemSelectableRender(gdl, context);
+	case MENUITEMTYPE_SLIDER:      return menuitemSliderRender(gdl);
+	case MENUITEMTYPE_CHECKBOX:    return menuitemCheckboxRender(gdl, context);
+	case MENUITEMTYPE_SCROLLABLE:  return menuitemScrollableRender(gdl, context);
+	case MENUITEMTYPE_MARQUEE:     return menuitemMarqueeRender(gdl, context);
+	case MENUITEMTYPE_LABEL:       return menuitemLabelRender(gdl, context);
+	case MENUITEMTYPE_METER:       return menuitemMeterRender(gdl, context);
+	case MENUITEMTYPE_SEPARATOR:   return menuitemSeparatorRender(gdl, context);
+	case MENUITEMTYPE_OBJECTIVES:  return menuitemObjectivesRender(gdl, context);
+	case MENUITEMTYPE_07:          return menuitem07Render(gdl);
+	case MENUITEMTYPE_DROPDOWN:    return menuitemDropdownRender(gdl);
+	case MENUITEMTYPE_KEYBOARD:    return menuitemKeyboardRender(gdl, context);
+	case MENUITEMTYPE_RANKING:     return menuitemRankingRender(gdl, context);
+	case MENUITEMTYPE_PLAYERSTATS: return menuitemPlayerStatsRender(gdl, context);
+	case MENUITEMTYPE_CAROUSEL:    return menuitemCarouselRender(gdl, context);
+	case MENUITEMTYPE_MODEL:       return menuitemModelRender(gdl, context);
+	case MENUITEMTYPE_CONTROLLER:  return menuitemControllerRender(gdl, context);
 	}
 
 	return gdl;
@@ -12600,62 +12600,62 @@ Gfx *menuRenderItem(Gfx *gdl, struct menurendercontext *context)
 /**
  * Return true if default up/down/left/right/back behaviour should be used.
  */
-bool menuTickItem(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemdata *data)
+bool menuitemTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 arg3, union menuitemdata *data)
 {
 	switch (item->type) {
-	case MENUITEMTYPE_LIST:        return menuTickItemList(item, inputs, arg3, data);
-	case MENUITEMTYPE_SELECTABLE:  return menuTickItemSelectable(item, inputs, arg3);
-	case MENUITEMTYPE_SLIDER:      return menuTickItemSlider(item, frame, inputs, arg3, data);
-	case MENUITEMTYPE_CHECKBOX:    return menuTickItemCheckbox(item, inputs, arg3);
-	case MENUITEMTYPE_SCROLLABLE:  return menuTickItemScrollable(item, frame, inputs, arg3, data);
-	case MENUITEMTYPE_MARQUEE:     return menuTickItemMarquee(item, data);
-	case MENUITEMTYPE_RANKING:     return menuTickItemRanking(inputs, arg3, data);
-	case MENUITEMTYPE_DROPDOWN:    return menuTickItemDropdown(item, frame, inputs, arg3, data);
-	case MENUITEMTYPE_KEYBOARD:    return menuTickItemKeyboard(item, inputs, arg3, data);
-	case MENUITEMTYPE_CAROUSEL:    return menuTickItemCarousel(item, inputs, arg3);
-	case MENUITEMTYPE_PLAYERSTATS: return menuTickItemPlayerStats(item, frame, inputs, arg3, data);
+	case MENUITEMTYPE_LIST:        return menuitemListTick(item, inputs, arg3, data);
+	case MENUITEMTYPE_SELECTABLE:  return menuitemSelectableTick(item, inputs, arg3);
+	case MENUITEMTYPE_SLIDER:      return menuitemSliderTick(item, dialog, inputs, arg3, data);
+	case MENUITEMTYPE_CHECKBOX:    return menuitemCheckboxTick(item, inputs, arg3);
+	case MENUITEMTYPE_SCROLLABLE:  return menuitemScrollableTick(item, dialog, inputs, arg3, data);
+	case MENUITEMTYPE_MARQUEE:     return menuitemMarqueeTick(item, data);
+	case MENUITEMTYPE_RANKING:     return menuitemRankingTick(inputs, arg3, data);
+	case MENUITEMTYPE_DROPDOWN:    return menuitemDropdownTick(item, dialog, inputs, arg3, data);
+	case MENUITEMTYPE_KEYBOARD:    return menuitemKeyboardTick(item, inputs, arg3, data);
+	case MENUITEMTYPE_CAROUSEL:    return menuitemCarouselTick(item, inputs, arg3);
+	case MENUITEMTYPE_PLAYERSTATS: return menuitemPlayerStatsTick(item, dialog, inputs, arg3, data);
 	}
 
 	return true;
 }
 
-void menuInitItem(struct menuitem *item, union menuitemdata *data)
+void menuitemInit(struct menuitem *item, union menuitemdata *data)
 {
 	switch (item->type) {
 	case MENUITEMTYPE_LIST:
 	case MENUITEMTYPE_DROPDOWN:
-		menuInitItemDropdown(item, data);
+		menuitemDropdownInit(item, data);
 		break;
 	case MENUITEMTYPE_SCROLLABLE:
-		menuInitItemScrollable(data);
+		menuitemScrollableInit(data);
 		break;
 	case MENUITEMTYPE_MARQUEE:
-		menuInitItemMarquee(data);
+		menuitemMarqueeInit(data);
 		break;
 	case MENUITEMTYPE_RANKING:
-		menuInitItemRanking(data);
+		menuitemRankingInit(data);
 		break;
 	case MENUITEMTYPE_SLIDER:
-		menuInitItemSlider(data);
+		menuitemSliderInit(data);
 		break;
 	case MENUITEMTYPE_PLAYERSTATS:
-		menuInitItemPlayerStats(item, data);
+		menuitemPlayerStatsInit(item, data);
 		break;
 	case MENUITEMTYPE_KEYBOARD:
-		menuInitItemKeyboard(item, data);
+		menuitemKeyboardInit(item, data);
 		break;
 	case MENUITEMTYPE_CONTROLLER:
-		menuInitItemController(data);
+		menuitemControllerInit(data);
 		break;
 	}
 }
 
-Gfx *menuRenderOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menuframe *frame, union menuitemdata *data)
+Gfx *menuitemOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menudialog *dialog, union menuitemdata *data)
 {
 	switch (item->type) {
-	case MENUITEMTYPE_LIST:        return menuRenderOverlayList(gdl, x, y, x2, y2);
-	case MENUITEMTYPE_DROPDOWN:    return menuRenderOverlayDropdown(gdl, x, y, x2, y2, item, frame, data);
-	case MENUITEMTYPE_PLAYERSTATS: return menuRenderOverlayPlayerStats(gdl, x, y, x2, y2, item, frame, data);
+	case MENUITEMTYPE_LIST:        return menuitemListOverlay(gdl, x, y, x2, y2);
+	case MENUITEMTYPE_DROPDOWN:    return menuitemDropdownOverlay(gdl, x, y, x2, y2, item, dialog, data);
+	case MENUITEMTYPE_PLAYERSTATS: return menuitemPlayerStatsOverlay(gdl, x, y, x2, y2, item, dialog, data);
 	}
 
 	return gdl;

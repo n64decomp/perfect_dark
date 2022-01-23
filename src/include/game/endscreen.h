@@ -4,16 +4,16 @@
 #include "data.h"
 #include "types.h"
 
-s32 menudialogRetryMission(s32 operation, struct menudialog *dialog, union handlerdata *data);
-s32 menudialogSolo2PEndscreenCompleted(s32 operation, struct menudialog *dialog, union handlerdata *data);
-s32 menudialogSolo2PEndscreenFailed(s32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 menudialogRetryMission(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
+s32 menudialogSolo2PEndscreenCompleted(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
+s32 menudialogSolo2PEndscreenFailed(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
 s32 menuhandlerDeclineMission(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerEndscreenCheats(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerContinueMission(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerReplayLastLevel(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerReplayPreviousMission(s32 operation, struct menuitem *item, union handlerdata *data);
-char *menuDialogTitleRetryStageName(struct menudialog *dialog);
-char *menuDialogTitleNextMissionStageName(struct menudialog *dialog);
+char *menuDialogTitleRetryStageName(struct menudialogdef *dialogdef);
+char *menuDialogTitleNextMissionStageName(struct menudialogdef *dialogdef);
 char *soloMenuTextNumKills(struct menuitem *item);
 char *soloMenuTextNumShots(struct menuitem *item);
 char *soloMenuTextNumHeadShots(struct menuitem *item);
@@ -27,7 +27,7 @@ char *menuTitleStageCompleted(struct menuitem *item);
 char *menuTextCurrentStageName3(struct menuitem *item);
 char *menuTitleStageFailed(struct menuitem *item);
 char *soloMenuTextMissionTime(struct menuitem *item);
-struct menudialog *func0f10d730(void);
+struct menudialogdef *func0f10d730(void);
 void func0f10d770(void);
 void endscreenHandleContinue(s32 context);
 char *soloMenuTextTimedCheatName(struct menuitem *item);

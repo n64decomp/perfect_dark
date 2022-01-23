@@ -240,15 +240,15 @@ s32 optionsGetEffectiveScreenSize(void)
 	if (g_MenuData.root == MENUROOT_TRAINING) {
 		g_MpPlayerNum = 0;
 
-		if (g_Menus[g_MpPlayerNum].curframe && var8009dfc0) {
+		if (g_Menus[g_MpPlayerNum].curdialog && var8009dfc0) {
 			return SCREENSIZE_FULL;
 		}
 	}
 
-	if (g_Menus[g_MpPlayerNum].curframe && (
-				g_Menus[g_MpPlayerNum].curframe->dialog == &g_CiControlStylePlayer2MenuDialog ||
-				g_Menus[g_MpPlayerNum].curframe->dialog == &g_CiControlStyleMenuDialog ||
-				g_Menus[g_MpPlayerNum].curframe->dialog == &g_SoloMissionControlStyleMenuDialog)) {
+	if (g_Menus[g_MpPlayerNum].curdialog && (
+				g_Menus[g_MpPlayerNum].curdialog->definition == &g_CiControlStylePlayer2MenuDialog ||
+				g_Menus[g_MpPlayerNum].curdialog->definition == &g_CiControlStyleMenuDialog ||
+				g_Menus[g_MpPlayerNum].curdialog->definition == &g_SoloMissionControlStyleMenuDialog)) {
 		return SCREENSIZE_FULL;
 	}
 

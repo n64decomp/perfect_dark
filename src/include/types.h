@@ -3560,13 +3560,13 @@ struct menuitem {
 	};
 };
 
-struct menudialog {
+struct menudialogdef {
 	u8 type;
 	u32 title;
 	struct menuitem *items;
-	s32 (*handler)(s32 operation, struct menudialog *dialog, union handlerdata *data);
+	s32 (*handler)(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
 	u32 unk10;
-	struct menudialog *nextsibling;
+	struct menudialogdef *nextsibling;
 };
 
 struct twowords {
@@ -3764,13 +3764,13 @@ struct fireslot {
 };
 
 struct menulayer {
-	struct menuframe *siblings[5];
+	struct menudialog *siblings[5];
 	s8 numsiblings;
 	s8 cursibling;
 };
 
-struct menuframe {
-	struct menudialog *dialog;
+struct menudialog {
+	struct menudialogdef *definition;
 	u8 unk04;
 	u8 unk05;
 	u16 unk06;
@@ -3937,11 +3937,11 @@ struct menu660 {
 };
 
 struct menu {
-	struct menuframe frames[VERSION >= VERSION_NTSC_1_0 ? 10 : 9];
-	/*0x460*/ s16 numframes;
+	struct menudialog dialogs[VERSION >= VERSION_NTSC_1_0 ? 10 : 9];
+	/*0x460*/ s16 numdialogs;
 	/*0x464*/ struct menulayer layers[6];
 	/*0x4f4*/ s16 depth; // index into layers. 1-indexed?
-	/*0x4f8*/ struct menuframe *curframe;
+	/*0x4f8*/ struct menudialog *curdialog;
 	/*0x4fc*/ struct menu4fc unk4fc[VERSION >= VERSION_NTSC_1_0 ? 88 : 80];
 	/*0x65c*/ s32 unk65c;
 	/*0x660*/ struct menu660 unk660[VERSION >= VERSION_NTSC_1_0 ? 12 : 10];
@@ -5138,7 +5138,7 @@ struct menudata {
 	/*0x000*/ s32 count;
 	/*0x004*/ s32 root;
 	/*0x008*/ s32 unk008; // also a menuroot constant
-	/*0x00c*/ struct menudialog *unk00c;
+	/*0x00c*/ struct menudialogdef *unk00c;
 	/*0x010*/ f32 unk010;
 	/*0x014*/ u8 unk014;
 	/*0x015*/ u8 unk015;
@@ -6313,7 +6313,7 @@ struct menurendercontext {
 	s16 height;
 	struct menuitem *item;
 	bool focused;
-	struct menuframe *frame;
+	struct menudialog *dialog;
 	union menuitemdata *data;
 };
 

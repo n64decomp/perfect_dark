@@ -47,7 +47,7 @@ struct menuitem g_KohOptionsMenuItems[] = {
 	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,    0x00000000,               NULL                        },
 };
 
-struct menudialog g_KohOptionsMenuDialog = {
+struct menudialogdef g_KohOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_219, // "Hill Options"
 	g_KohOptionsMenuItems,

@@ -52,11 +52,11 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 s32 pakGameNoteListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 filemgrFileToCopyListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 filemgrFileToDeleteListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 filemgrInsertOriginalPakMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data);
-s32 filemgrCopyOrDeleteListMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data);
-s32 pakGameNotesMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data);
-s32 pakChoosePakMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data);
-s32 filemgrMainMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 filemgrInsertOriginalPakMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
+s32 filemgrCopyOrDeleteListMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
+s32 pakGameNotesMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
+s32 pakChoosePakMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
+s32 filemgrMainMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
 s32 filemgrDeviceNameMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 filemgrFileNameMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 filemgrDeviceNameForErrorMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);

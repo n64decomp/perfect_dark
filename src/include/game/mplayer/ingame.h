@@ -9,7 +9,7 @@ char *mpMenuTextInGameLimit(struct menuitem *item);
 char *menutextPauseOrUnpause(s32 arg0);
 char *menutextMatchTime(s32 arg0);
 char *mpMenuTextWeaponDescription(struct menuitem *item);
-char *mpMenuTitleStatsFor(struct menudialog *dialog);
+char *mpMenuTitleStatsFor(struct menudialogdef *dialogdef);
 char *mpMenuTextWeaponOfChoiceName(struct menuitem *item);
 char *mpMenuTextAward1(struct menuitem *item);
 char *mpMenuTextAward2(struct menuitem *item);

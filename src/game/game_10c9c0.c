@@ -160,7 +160,7 @@ void func0f10cb2c(void)
 }
 #endif
 
-s32 menudialog4MbMainMenu(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialog4MbMainMenu(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		g_Vars.waitingtojoin[0] = false;
@@ -169,9 +169,9 @@ s32 menudialog4MbMainMenu(s32 operation, struct menudialog *dialog, union handle
 		g_Vars.waitingtojoin[3] = false;
 	}
 
-	if (g_Menus[g_MpPlayerNum].curframe &&
-			g_Menus[g_MpPlayerNum].curframe->dialog == &g_MainMenu4MbMenuDialog &&
-			operation == MENUOP_TICK) {
+	if (g_Menus[g_MpPlayerNum].curdialog
+			&& g_Menus[g_MpPlayerNum].curdialog->definition == &g_MainMenu4MbMenuDialog
+			&& operation == MENUOP_TICK) {
 		g_Vars.mpsetupmenu = MPSETUPMENU_GENERAL;
 		g_Vars.mpquickteam = MPQUICKTEAM_NONE;
 		g_Vars.usingadvsetup = false;
@@ -197,7 +197,7 @@ struct menuitem g_GameFiles4MbMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_GameFiles4MbMenuDialog = {
+struct menudialogdef g_GameFiles4MbMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_099, // "Game Files"
 	g_GameFiles4MbMenuItems,
@@ -212,7 +212,7 @@ struct menuitem g_FilemgrFileSelect4MbMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_FilemgrFileSelect4MbMenuDialog = {
+struct menudialogdef g_FilemgrFileSelect4MbMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_095, // "Perfect Dark"
 	g_FilemgrFileSelect4MbMenuItems,
@@ -240,7 +240,7 @@ struct menuitem g_AudioVideo4MbMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_AudioVideo4MbMenuDialog = {
+struct menudialogdef g_AudioVideo4MbMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_307, // "Audio/Visual"
 	g_AudioVideo4MbMenuItems,
@@ -260,7 +260,7 @@ struct menuitem g_MpPlayerSetup4MbMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpPlayerSetup4MbMenuDialog = {
+struct menudialogdef g_MpPlayerSetup4MbMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_028, // "Player Setup"
 	g_MpPlayerSetup4MbMenuItems,
@@ -269,7 +269,7 @@ struct menudialog g_MpPlayerSetup4MbMenuDialog = {
 	&g_MpChallengeListOrDetailsMenuDialog,
 };
 
-struct menudialog g_MpDropOut4MbMenuDialog;
+struct menudialogdef g_MpDropOut4MbMenuDialog;
 
 struct menuitem g_MpQuickGo4MbMenuItems[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MISC_456, 0x00000000, (void *)&g_MpReadyMenuDialog }, // "Start Game"
@@ -281,7 +281,7 @@ struct menuitem g_MpQuickGo4MbMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpQuickGo4MbMenuDialog = {
+struct menudialogdef g_MpQuickGo4MbMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MISC_460, // "Quick Go"
 	g_MpQuickGo4MbMenuItems,
@@ -298,7 +298,7 @@ struct menuitem g_MpConfirmChallenge4MbMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,   0x00000000, NULL                },
 };
 
-struct menudialog g_MpConfirmChallenge4MbMenuDialog = {
+struct menudialogdef g_MpConfirmChallenge4MbMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f17e318,
 	g_MpConfirmChallenge4MbMenuItems,
@@ -312,7 +312,7 @@ struct menuitem g_MpChallenges4MbMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpChallenges4MbMenuDialog = {
+struct menudialogdef g_MpChallenges4MbMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_050, // "Combat Challenges"
 	g_MpChallenges4MbMenuItems,
@@ -332,7 +332,7 @@ struct menuitem g_MainMenu4MbMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MainMenu4MbMenuDialog = {
+struct menudialogdef g_MainMenu4MbMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_302, // "Small but Perfect Menu"
 	g_MainMenu4MbMenuItems,
@@ -348,7 +348,7 @@ struct menuitem g_MpDropOut4MbMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpDropOut4MbMenuDialog = {
+struct menudialogdef g_MpDropOut4MbMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPMENU_195, // "Drop Out"
 	g_MpDropOut4MbMenuItems,
@@ -364,7 +364,7 @@ struct menuitem g_UnusedAbortMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_UnusedAbortMenuDialog = {
+struct menudialogdef g_UnusedAbortMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPMENU_052, // "Abort"
 	g_UnusedAbortMenuItems,
@@ -382,7 +382,7 @@ struct menuitem g_MpEditSimulant4MbMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpEditSimulant4MbMenuDialog = {
+struct menudialogdef g_MpEditSimulant4MbMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&mpMenuTitleEditSimulant,
 	g_MpEditSimulant4MbMenuItems,
@@ -409,7 +409,7 @@ struct menuitem g_AdvancedSetup4MbMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_AdvancedSetup4MbMenuDialog = {
+struct menudialogdef g_AdvancedSetup4MbMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_017, // "Game Setup"
 	g_AdvancedSetup4MbMenuItems,

@@ -240,7 +240,7 @@ void amTick(void)
 				}
 
 				if (!stayopen &&
-						(g_Vars.currentplayer->activemenumode != AMMODE_EDIT || g_Menus[g_MpPlayerNum].curframe == NULL)) {
+						(g_Vars.currentplayer->activemenumode != AMMODE_EDIT || g_Menus[g_MpPlayerNum].curdialog == NULL)) {
 					amClose();
 					break;
 				}

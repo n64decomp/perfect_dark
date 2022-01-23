@@ -32,9 +32,9 @@
 
 u8 g_InventoryWeapon;
 
-struct menudialog g_2PMissionControlStyleMenuDialog;
-struct menudialog g_CiControlPlayer2MenuDialog;
-struct menudialog g_CinemaMenuDialog;
+struct menudialogdef g_2PMissionControlStyleMenuDialog;
+struct menudialogdef g_CiControlPlayer2MenuDialog;
+struct menudialogdef g_CinemaMenuDialog;
 
 char *menuTextCurrentStageName(struct menuitem *item)
 {
@@ -693,11 +693,11 @@ s32 menuhandlerSfxVolume(s32 operation, struct menuitem *item, union handlerdata
 	return 0;
 }
 
-s32 menudialogBriefing(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialogBriefing(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
-		if (g_Menus[g_MpPlayerNum].curframe
-				&& g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
+		if (g_Menus[g_MpPlayerNum].curdialog
+				&& g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
 			struct menuinputs *inputs = data->dialog2.inputs;
 
 			if (inputs->start) {
@@ -716,7 +716,7 @@ struct menuitem g_PreAndPostMissionBriefingMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_PreAndPostMissionBriefingMenuDialog = {
+struct menudialogdef g_PreAndPostMissionBriefingMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_247, // "Briefing"
 	g_PreAndPostMissionBriefingMenuItems,
@@ -781,9 +781,9 @@ s32 menuhandlerAcceptMission(s32 operation, struct menuitem *item, union handler
 	return 0;
 }
 
-char *soloMenuTitleStageOverview(struct menudialog *dialog)
+char *soloMenuTitleStageOverview(struct menudialogdef *dialogdef)
 {
-	if (dialog != g_Menus[g_MpPlayerNum].curframe->dialog) {
+	if (dialogdef != g_Menus[g_MpPlayerNum].curdialog->definition) {
 		return langGet(L_OPTIONS_273); // "Overview"
 	}
 
@@ -794,7 +794,7 @@ char *soloMenuTitleStageOverview(struct menudialog *dialog)
 	return g_StringPointer;
 }
 
-s32 menudialog00103608(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialog00103608(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
@@ -819,7 +819,7 @@ struct menuitem g_AcceptMissionMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_AcceptMissionMenuDialog = {
+struct menudialogdef g_AcceptMissionMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&soloMenuTitleStageOverview,
 	g_AcceptMissionMenuItems,
@@ -897,7 +897,7 @@ struct menuitem g_PdModeSettingsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_PdModeSettingsMenuDialog = {
+struct menudialogdef g_PdModeSettingsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS_221, // "Perfect Dark"
 	g_PdModeSettingsMenuItems,
@@ -1576,7 +1576,7 @@ struct menuitem g_SoloMissionDifficultyMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_SoloMissionDifficultyMenuDialog = {
+struct menudialogdef g_SoloMissionDifficultyMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_248, // "Select Difficulty"
 	g_SoloMissionDifficultyMenuItems,
@@ -1630,7 +1630,7 @@ s32 getMaxAiBuddies(void)
 }
 #endif
 
-s32 menudialogCoopAntiOptions(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialogCoopAntiOptions(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	if (operation == MENUOP_OPEN) {
@@ -1643,8 +1643,7 @@ s32 menudialogCoopAntiOptions(s32 operation, struct menudialog *dialog, union ha
 #endif
 
 	if (operation == MENUOP_TICK) {
-		if (g_Menus[g_MpPlayerNum].curframe &&
-				g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
+		if (g_Menus[g_MpPlayerNum].curdialog && g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
 			struct menuinputs *inputs = data->dialog2.inputs;
 
 			if (inputs->start) {
@@ -1961,7 +1960,7 @@ struct menuitem g_CoopOptionsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL }, // ""
 };
 
-struct menudialog g_CoopOptionsMenuDialog = {
+struct menudialogdef g_CoopOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_255, // "Co-Operative Options"
 	g_CoopOptionsMenuItems,
@@ -2014,7 +2013,7 @@ struct menuitem g_AntiOptionsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_AntiOptionsMenuDialog = {
+struct menudialogdef g_AntiOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_266, // "Counter-Operative Options"
 	g_AntiOptionsMenuItems,
@@ -2053,7 +2052,7 @@ struct menuitem g_CoopMissionDifficultyMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_CoopMissionDifficultyMenuDialog = {
+struct menudialogdef g_CoopMissionDifficultyMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_248, // "Select Difficulty"
 	g_CoopMissionDifficultyMenuItems,
@@ -2085,7 +2084,7 @@ struct menuitem g_AntiMissionDifficultyMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_AntiMissionDifficultyMenuDialog = {
+struct menudialogdef g_AntiMissionDifficultyMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_248, // "Select Difficulty"
 	g_AntiMissionDifficultyMenuItems,
@@ -4140,7 +4139,7 @@ glabel var7f1ad0fcnb
 );
 #endif
 
-s32 menudialog0010559c(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialog0010559c(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
@@ -4174,7 +4173,7 @@ struct menuitem g_2PMissionBreifingVMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_SoloMissionBriefingMenuDialog = {
+struct menudialogdef g_SoloMissionBriefingMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_247, // "Briefing"
 	g_MissionBriefingMenuItems,
@@ -4183,7 +4182,7 @@ struct menudialog g_SoloMissionBriefingMenuDialog = {
 	NULL,
 };
 
-struct menudialog g_2PMissionBriefingHMenuDialog = {
+struct menudialogdef g_2PMissionBriefingHMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_247, // "Briefing"
 	g_MissionBriefingMenuItems,
@@ -4192,7 +4191,7 @@ struct menudialog g_2PMissionBriefingHMenuDialog = {
 	NULL,
 };
 
-struct menudialog g_2PMissionBriefingVMenuDialog = {
+struct menudialogdef g_2PMissionBriefingVMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_247, // "Briefing"
 	g_2PMissionBreifingVMenuItems,
@@ -4268,7 +4267,7 @@ struct menuitem g_2PMissionControlStyleMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_2PMissionControlStyleMenuDialog = {
+struct menudialogdef g_2PMissionControlStyleMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_236, // "Control"
 	g_2PMissionControlStyleMenuItems,
@@ -4283,7 +4282,7 @@ struct menuitem g_SoloMissionControlStyleMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_SoloMissionControlStyleMenuDialog = {
+struct menudialogdef g_SoloMissionControlStyleMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_236, // "Control"
 	g_SoloMissionControlStyleMenuItems,
@@ -4298,7 +4297,7 @@ struct menuitem g_CiControlStyleMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_CiControlStyleMenuDialog = {
+struct menudialogdef g_CiControlStyleMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_236, // "Control"
 	g_CiControlStyleMenuItems,
@@ -4313,7 +4312,7 @@ struct menuitem g_CiControlStylePlayer2MenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_CiControlStylePlayer2MenuDialog = {
+struct menudialogdef g_CiControlStylePlayer2MenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_236, // "Control"
 	g_CiControlStylePlayer2MenuItems,
@@ -4337,7 +4336,7 @@ struct menuitem g_AudioOptionsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_AudioOptionsMenuDialog = {
+struct menudialogdef g_AudioOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_227, // "Audio Options"
 	g_AudioOptionsMenuItems,
@@ -4361,7 +4360,7 @@ struct menuitem g_2PMissionAudioOptionsVMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_2PMissionAudioOptionsVMenuDialog = {
+struct menudialogdef g_2PMissionAudioOptionsVMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_227, // "Audio Options"
 	g_2PMissionAudioOptionsVMenuItems,
@@ -4396,7 +4395,7 @@ struct menuitem g_2PMissionVideoOptionsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_VideoOptionsMenuDialog = {
+struct menudialogdef g_VideoOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_214, // "Video Options"
 	g_VideoOptionsMenuItems,
@@ -4405,7 +4404,7 @@ struct menudialog g_VideoOptionsMenuDialog = {
 	NULL,
 };
 
-struct menudialog g_2PMissionVideoOptionsMenuDialog = {
+struct menudialogdef g_2PMissionVideoOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_214, // "Video Options"
 	g_2PMissionVideoOptionsMenuItems,
@@ -4429,7 +4428,7 @@ struct menuitem g_MissionDisplayOptionsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MissionDisplayOptionsMenuDialog = {
+struct menudialogdef g_MissionDisplayOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_203, // "Display Options"
 	g_MissionDisplayOptionsMenuItems,
@@ -4458,7 +4457,7 @@ struct menuitem g_2PMissionDisplayOptionsVMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_2PMissionDisplayOptionsVMenuDialog = {
+struct menudialogdef g_2PMissionDisplayOptionsVMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_203, // "Display Options"
 	g_2PMissionDisplayOptionsVMenuItems,
@@ -4482,9 +4481,9 @@ struct menuitem g_CiDisplayMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_CiDisplayPlayer2MenuDialog;
+struct menudialogdef g_CiDisplayPlayer2MenuDialog;
 
-struct menudialog g_CiDisplayMenuDialog = {
+struct menudialogdef g_CiDisplayMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_203, // "Display Options"
 	g_CiDisplayMenuItems,
@@ -4508,7 +4507,7 @@ struct menuitem g_CiDisplayPlayer2MenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_CiDisplayPlayer2MenuDialog = {
+struct menudialogdef g_CiDisplayPlayer2MenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_204, // "Display Player 2"
 	g_CiDisplayPlayer2MenuItems,
@@ -4529,7 +4528,7 @@ struct menuitem g_MissionControlOptionsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MissionControlOptionsMenuDialog = {
+struct menudialogdef g_MissionControlOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_192, // "Control Options"
 	g_MissionControlOptionsMenuItems,
@@ -4551,7 +4550,7 @@ struct menuitem g_CiControlOptionsMenuItems2[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_CiControlOptionsMenuDialog2 = {
+struct menudialogdef g_CiControlOptionsMenuDialog2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_192, // "Control Options"
 	g_CiControlOptionsMenuItems2,
@@ -4573,7 +4572,7 @@ struct menuitem g_CiControlOptionsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_CiControlOptionsMenuDialog = {
+struct menudialogdef g_CiControlOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_192, // "Control Options"
 	g_CiControlOptionsMenuItems,
@@ -4594,7 +4593,7 @@ struct menuitem g_CiControlPlayer2MenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_CiControlPlayer2MenuDialog = {
+struct menudialogdef g_CiControlPlayer2MenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_193, // "Control Player 2"
 	g_CiControlPlayer2MenuItems,
@@ -4610,7 +4609,7 @@ struct menuitem g_ChangeAgentMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_ChangeAgentMenuDialog = {
+struct menudialogdef g_ChangeAgentMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS_188, // "Warning"
 	g_ChangeAgentMenuItems,
@@ -4661,7 +4660,7 @@ struct menuitem g_CiOptionsMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_SoloMissionOptionsMenuDialog = {
+struct menudialogdef g_SoloMissionOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_180, // "Options"
 	g_SoloMissionOptionsMenuItems,
@@ -4670,7 +4669,7 @@ struct menudialog g_SoloMissionOptionsMenuDialog = {
 	&g_SoloMissionBriefingMenuDialog,
 };
 
-struct menudialog g_CiOptionsViaPcMenuDialog = {
+struct menudialogdef g_CiOptionsViaPcMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_180, // "Options"
 	g_CiOptionsMenuItems,
@@ -4679,7 +4678,7 @@ struct menudialog g_CiOptionsViaPcMenuDialog = {
 	NULL,
 };
 
-struct menudialog g_CiOptionsViaPauseMenuDialog = {
+struct menudialogdef g_CiOptionsViaPauseMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_180, // "Options"
 	g_CiOptionsMenuItems,
@@ -4688,7 +4687,7 @@ struct menudialog g_CiOptionsViaPauseMenuDialog = {
 	NULL,
 };
 
-struct menudialog g_2PMissionOptionsHMenuDialog = {
+struct menudialogdef g_2PMissionOptionsHMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_180, // "Options"
 	g_2PMissionOptionsHMenuItems,
@@ -4697,7 +4696,7 @@ struct menudialog g_2PMissionOptionsHMenuDialog = {
 	&g_2PMissionBriefingHMenuDialog,
 };
 
-struct menudialog g_2PMissionOptionsVMenuDialog = {
+struct menudialogdef g_2PMissionOptionsVMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_180, // "Options"
 	g_2PMissionOptionsVMenuItems,
@@ -4707,10 +4706,6 @@ struct menudialog g_2PMissionOptionsVMenuDialog = {
 };
 
 u8 var80072d88 = 255;
-
-//-----------------------------------------------------------------------------\
-// @dialog Inventory ----------------------------------------------------------/
-//----------------------------------------------------------------------------/
 
 char *invMenuTextPrimaryFunction(struct menuitem *item)
 {
@@ -4890,10 +4885,10 @@ void func0f105948(s32 weaponnum)
 	}
 }
 
-s32 inventoryMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 inventoryMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
-		if (g_Menus[g_MpPlayerNum].curframe && g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
+		if (g_Menus[g_MpPlayerNum].curdialog && g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
 			g_Menus[g_MpPlayerNum].unkdb4 -= g_Vars.diffframe60;
 			g_Menus[g_MpPlayerNum].unkd8c = 18.849555969238f * var80061630;
 			g_Menus[g_MpPlayerNum].unkd64 = 18.849555969238f * var80061630;
@@ -5676,7 +5671,7 @@ struct menuitem g_FrWeaponsAvailableMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_SoloMissionInventoryMenuDialog = {
+struct menudialogdef g_SoloMissionInventoryMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_178, // "Inventory"
 	g_SoloMissionInventoryMenuItems,
@@ -5685,7 +5680,7 @@ struct menudialog g_SoloMissionInventoryMenuDialog = {
 	&g_SoloMissionOptionsMenuDialog,
 };
 
-struct menudialog g_FrWeaponsAvailableMenuDialog = {
+struct menudialogdef g_FrWeaponsAvailableMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_179, // "Weapons Available"
 	g_FrWeaponsAvailableMenuItems,
@@ -5695,10 +5690,6 @@ struct menudialog g_FrWeaponsAvailableMenuDialog = {
 };
 
 u32 var80073544 = 0;
-
-//-----------------------------------------------------------------------------\
-// @dialog SoloAbort ----------------------------------------------------------/
-//----------------------------------------------------------------------------/
 
 s32 menuhandlerAbortMission(s32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -5710,7 +5701,7 @@ s32 menuhandlerAbortMission(s32 operation, struct menuitem *item, union handlerd
 	return 0;
 }
 
-s32 menudialogAbortMission(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialogAbortMission(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
 		// empty
@@ -5726,7 +5717,7 @@ struct menuitem g_MissionAbortMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MissionAbortMenuDialog = {
+struct menudialogdef g_MissionAbortMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS_174, // "Warning"
 	g_MissionAbortMenuItems,
@@ -5742,7 +5733,7 @@ struct menuitem g_2PMissionAbortVMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_2PMissionAbortVMenuDialog = {
+struct menudialogdef g_2PMissionAbortVMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS_174, // "Warning"
 	g_2PMissionAbortVMenuItems,
@@ -5751,11 +5742,7 @@ struct menudialog g_2PMissionAbortVMenuDialog = {
 	NULL,
 };
 
-//-----------------------------------------------------------------------------\
-// @dialog SoloPauseStatus ----------------------------------------------------/
-//----------------------------------------------------------------------------/
-
-s32 soloMenuDialogPauseStatus(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 soloMenuDialogPauseStatus(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		struct briefingobj *briefing = g_BriefingObjs;
@@ -5797,9 +5784,9 @@ s32 soloMenuDialogPauseStatus(s32 operation, struct menudialog *dialog, union ha
 	return 0;
 }
 
-char *soloMenuTitlePauseStatus(struct menudialog *dialog)
+char *soloMenuTitlePauseStatus(struct menudialogdef *dialogdef)
 {
-	if (dialog != g_Menus[g_MpPlayerNum].curframe->dialog) {
+	if (dialogdef != g_Menus[g_MpPlayerNum].curdialog->definition) {
 		return langGet(L_OPTIONS_172); // "Status"
 	}
 
@@ -5822,7 +5809,7 @@ struct menuitem g_MissionPauseMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_SoloMissionPauseMenuDialog = {
+struct menudialogdef g_SoloMissionPauseMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&soloMenuTitlePauseStatus,
 	g_MissionPauseMenuItems,
@@ -5831,7 +5818,7 @@ struct menudialog g_SoloMissionPauseMenuDialog = {
 	&g_SoloMissionInventoryMenuDialog,
 };
 
-struct menudialog g_2PMissionPauseHMenuDialog = {
+struct menudialogdef g_2PMissionPauseHMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&soloMenuTitlePauseStatus,
 	g_MissionPauseMenuItems,
@@ -5840,7 +5827,7 @@ struct menudialog g_2PMissionPauseHMenuDialog = {
 	&g_2PMissionInventoryHMenuDialog,
 };
 
-struct menudialog g_2PMissionPauseVMenuDialog = {
+struct menudialogdef g_2PMissionPauseVMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_172, // "Status"
 	g_2PMissionPauseVMenuItems,
@@ -5848,10 +5835,6 @@ struct menudialog g_2PMissionPauseVMenuDialog = {
 	0x00000048,
 	&g_2PMissionInventoryVMenuDialog,
 };
-
-//-----------------------------------------------------------------------------\
-// @dialog Cinema -------------------------------------------------------------/
-//----------------------------------------------------------------------------/
 
 struct cutscene g_Cutscenes[] = {
 	// stage ID, mission, scene, name
@@ -6043,7 +6026,7 @@ struct menuitem g_CinemaMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_CinemaMenuDialog = {
+struct menudialogdef g_CinemaMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_490, // "Cinema"
 	g_CinemaMenuItems,
@@ -6052,16 +6035,12 @@ struct menudialog g_CinemaMenuDialog = {
 	NULL,
 };
 
-//-----------------------------------------------------------------------------\
-// @dialog SelectMission ------------------------------------------------------/
-//----------------------------------------------------------------------------/
-
 struct menuitem g_SelectMissionMenuItems[] = {
 	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x000000eb, 0x00000000, menuhandler0010476c },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_SelectMissionMenuDialog = {
+struct menudialogdef g_SelectMissionMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_122, // "Mission Select"
 	g_SelectMissionMenuItems,
@@ -6069,10 +6048,6 @@ struct menudialog g_SelectMissionMenuDialog = {
 	0x00000004,
 	NULL,
 };
-
-//-----------------------------------------------------------------------------\
-// @dialog MainMenu -----------------------------------------------------------/
-//----------------------------------------------------------------------------/
 
 s32 menuhandlerMainMenuSoloMissions(s32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -6134,15 +6109,15 @@ s32 menuhandlerMainMenuCounterOperative(s32 operation, struct menuitem *item, un
 	return 0;
 }
 
-s32 menudialogMainMenu(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialogMainMenu(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
 		g_Menus[g_MpPlayerNum].main.unke2c = 0;
 		break;
 	case MENUOP_TICK:
-		if (g_Menus[g_MpPlayerNum].curframe &&
-				g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
+		if (g_Menus[g_MpPlayerNum].curdialog &&
+				g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
 			g_MissionConfig.iscoop = false;
 			g_MissionConfig.isanti = false;
 		}
@@ -6185,7 +6160,7 @@ struct menuitem g_MainMenuMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_CiMenuViaPcMenuDialog = {
+struct menudialogdef g_CiMenuViaPcMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_116, // "Perfect Menu"
 	g_MainMenuMenuItems,
@@ -6194,7 +6169,7 @@ struct menudialog g_CiMenuViaPcMenuDialog = {
 	&g_CiOptionsViaPcMenuDialog,
 };
 
-struct menudialog g_CiMenuViaPauseMenuDialog = {
+struct menudialogdef g_CiMenuViaPauseMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_116, // "Perfect Menu"
 	g_MainMenuMenuItems,

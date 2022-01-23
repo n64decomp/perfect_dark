@@ -52,7 +52,7 @@
  */
 
 struct mpscenario {
-	struct menudialog *optionsdialog;
+	struct menudialogdef *optionsdialog;
 	void (*initfunc)(void);
 	s32 (*numpropsfunc)(void);
 	void (*initpropsfunc)(void);
@@ -243,15 +243,15 @@ struct mpscenariooverview g_MpScenarioOverviews[] = {
  * While the options dialog is open, check if another player has changed the
  * scenario to a different one. If so, replace this dialog with the new one.
  */
-s32 mpOptionsMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 mpOptionsMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
-		if (g_Menus[g_MpPlayerNum].curframe->dialog != g_MpScenarios[g_MpSetup.scenario].optionsdialog) {
+		if (g_Menus[g_MpPlayerNum].curdialog->definition != g_MpScenarios[g_MpSetup.scenario].optionsdialog) {
 			s32 i;
 			s32 end = ARRAYCOUNT(g_MpScenarios);
 
 			for (i = 0; i < end; i++) {
-				if (g_Menus[g_MpPlayerNum].curframe->dialog == g_MpScenarios[i].optionsdialog) {
+				if (g_Menus[g_MpPlayerNum].curdialog->definition == g_MpScenarios[i].optionsdialog) {
 					break;
 				}
 			}
@@ -910,7 +910,7 @@ struct menuitem g_MpScenarioMenuItems[] = {
 	 { MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpScenarioMenuDialog = {
+struct menudialogdef g_MpScenarioMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_243, // "Scenario"
 	g_MpScenarioMenuItems,
@@ -924,7 +924,7 @@ struct menuitem g_MpQuickTeamScenarioMenuItems[] = {
 	 { MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MpQuickTeamScenarioMenuDialog = {
+struct menudialogdef g_MpQuickTeamScenarioMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_243, // "Scenario"
 	g_MpQuickTeamScenarioMenuItems,

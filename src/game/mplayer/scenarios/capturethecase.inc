@@ -26,7 +26,7 @@ struct menuitem g_CtcOptionsMenuItems[] = {
 	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,    0x00000000,               NULL                        },
 };
 
-struct menudialog g_CtcOptionsMenuDialog = {
+struct menudialogdef g_CtcOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_220, // "Capture Options"
 	g_CtcOptionsMenuItems,

@@ -30,7 +30,7 @@ struct fontchar *g_AmFont1;
 struct font *g_AmFont2;
 s32 g_AmIndex;
 
-struct menudialog g_AmPickTargetMenuDialog;
+struct menudialogdef g_AmPickTargetMenuDialog;
 
 /**
  * This is a map of weapon numbers (as per the weapon set) to active menu slots.
@@ -199,7 +199,7 @@ s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata
 	return 0;
 }
 
-s32 amPickTargetMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 amPickTargetMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
@@ -221,7 +221,7 @@ struct menuitem g_AmPickTargetMenuItems[] = {
 	{ MENUITEMTYPE_END,  0, 0x00000000, 0x00000000, 0x00000000, NULL                 },
 };
 
-struct menudialog g_AmPickTargetMenuDialog = {
+struct menudialogdef g_AmPickTargetMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS_492, // "Pick Target"
 	g_AmPickTargetMenuItems,

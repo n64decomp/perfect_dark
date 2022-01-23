@@ -21,7 +21,7 @@ struct menuitem g_MpCombatOptionsMenuItems[] = {
 	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,    0x00000000,                 NULL                        },
 };
 
-struct menudialog g_MpCombatOptionsMenuDialog = {
+struct menudialogdef g_MpCombatOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_215, // "Combat Options"
 	g_MpCombatOptionsMenuItems,

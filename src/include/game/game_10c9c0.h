@@ -9,6 +9,6 @@ s32 menuhandler4MbDropOut(s32 operation, struct menuitem *item, union handlerdat
 s32 menuhandler0010ca1c(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandler4MbAdvancedSetup(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandler0010cabc(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 menudialog4MbMainMenu(s32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 menudialog4MbMainMenu(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
 
 #endif

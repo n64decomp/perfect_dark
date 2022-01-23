@@ -1168,7 +1168,7 @@ bool mpIsPaused(void)
 {
 	if (PLAYERCOUNT() == 1
 			&& g_Vars.mplayerisrunning
-			&& g_Menus[g_Vars.currentplayerstats->mpindex].curframe) {
+			&& g_Menus[g_Vars.currentplayerstats->mpindex].curdialog) {
 		return true;
 	}
 
@@ -1213,9 +1213,9 @@ Gfx *mpRenderModalText(Gfx *gdl)
 		x = viGetViewLeft() + viGetViewWidth() / 2;
 
 #if VERSION >= VERSION_NTSC_1_0
-		if (g_Menus[g_Vars.currentplayerstats->mpindex].curframe)
+		if (g_Menus[g_Vars.currentplayerstats->mpindex].curdialog)
 #else
-		if (g_Menus[g_Vars.currentplayernum].curframe)
+		if (g_Menus[g_Vars.currentplayernum].curdialog)
 #endif
 		{
 			y = viGetViewTop() + 10;

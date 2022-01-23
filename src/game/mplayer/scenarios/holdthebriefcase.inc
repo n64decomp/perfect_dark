@@ -25,7 +25,7 @@ struct menuitem g_HtbOptionsMenuItems[] = {
 	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,    0x00000000,                      NULL                        },
 };
 
-struct menudialog g_HtbOptionsMenuDialog = {
+struct menudialogdef g_HtbOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_216, // "Briefcase Options"
 	g_HtbOptionsMenuItems,

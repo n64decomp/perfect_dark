@@ -53,7 +53,7 @@ void menuCountDialogs(void)
 	g_MenuData.count = 0;
 
 	for (i = 0; i < 4; i++) {
-		if (g_Menus[i].curframe) {
+		if (g_Menus[i].curdialog) {
 			g_MenuData.count++;
 		}
 	}
@@ -89,7 +89,7 @@ void menuTick(void)
 			g_Menus[i].unk83c--;
 		}
 
-		if (g_Menus[i].curframe) {
+		if (g_Menus[i].curdialog) {
 			anyopen = true;
 		}
 	}
@@ -103,10 +103,10 @@ void menuTick(void)
 		s32 bVar11 = false;
 
 		for (j = 0; j < 4; j++) {
-			if (g_Menus[j].curframe) {
-				if (g_Menus[j].curframe->unk60 == 1
-						|| g_Menus[j].curframe->unk60 == 2
-						|| g_Menus[j].curframe->unk60 == 0) {
+			if (g_Menus[j].curdialog) {
+				if (g_Menus[j].curdialog->unk60 == 1
+						|| g_Menus[j].curdialog->unk60 == 2
+						|| g_Menus[j].curdialog->unk60 == 0) {
 					bVar11 = true;
 				}
 			}
@@ -297,7 +297,7 @@ void menuTick(void)
 			g_MpNumJoined = 0;
 
 			for (i = 0; i < 4; i++) {
-				if (g_Menus[i].curframe) {
+				if (g_Menus[i].curdialog) {
 					g_Menus[i].playernum = g_MpNumJoined++;
 
 					if (g_MenuData.unk008 == -1) {
@@ -313,8 +313,8 @@ void menuTick(void)
 		for (i = 0; i < 4; i++) {
 			g_MpPlayerNum = i;
 
-			if (g_Menus[g_MpPlayerNum].curframe) {
-				if (g_Menus[g_MpPlayerNum].curframe->dialog == &g_MpReadyMenuDialog) {
+			if (g_Menus[g_MpPlayerNum].curdialog) {
+				if (g_Menus[g_MpPlayerNum].curdialog->definition == &g_MpReadyMenuDialog) {
 					g_Vars.unk000498 = 1;
 				} else {
 					sp340 = false;
@@ -325,7 +325,7 @@ void menuTick(void)
 		for (i = 0; i < 4; i++) {
 			g_MpPlayerNum = i;
 
-			if (g_Menus[g_MpPlayerNum].curframe) {
+			if (g_Menus[g_MpPlayerNum].curdialog) {
 				// Player has a dialog open - tick it
 				s32 prevplayernum = g_Vars.currentplayernum;
 
@@ -494,7 +494,7 @@ void menuTick(void)
 	sp344 = false;
 
 	for (i = 0; i < 4; i++) {
-		if (g_Menus[i].curframe) {
+		if (g_Menus[i].curdialog) {
 			sp344 = true;
 		}
 	}
@@ -718,7 +718,7 @@ void menuTick(void)
 					|| g_MenuData.unk014
 					|| g_MenuData.unk5d5_05
 					|| g_MenuData.unk5d4
-					|| g_Menus[mpindex].curframe
+					|| g_Menus[mpindex].curdialog
 					|| g_MenuData.unk01b != -1) {
 				g_Vars.players[i]->menuisactive = true;
 			} else {
@@ -735,7 +735,7 @@ void menuTick(void)
 			case MENUROOT_4MBFILEMGR:
 			case MENUROOT_4MBMAINMENU:
 			case MENUROOT_TRAINING:
-				if (g_Menus[mpindex].curframe) {
+				if (g_Menus[mpindex].curdialog) {
 					g_Vars.paksconnected = 0x1f;
 				}
 				break;
@@ -745,7 +745,7 @@ void menuTick(void)
 
 			if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
 					&& PLAYERCOUNT() >= 2
-					&& g_Menus[mpindex].curframe) {
+					&& g_Menus[mpindex].curdialog) {
 				g_Vars.players[i]->devicesinhibit = 0
 					| DEVICE_NIGHTVISION
 					| DEVICE_XRAYSCANNER

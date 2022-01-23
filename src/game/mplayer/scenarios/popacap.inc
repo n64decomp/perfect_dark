@@ -23,7 +23,7 @@ struct menuitem g_PacOptionsMenuItems[] = {
 	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,    0x00000000,                   NULL                        },
 };
 
-struct menudialog g_PacOptionsMenuDialog = {
+struct menudialogdef g_PacOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_218, // "Pop a Cap Options"
 	g_PacOptionsMenuItems,
