@@ -3777,18 +3777,18 @@ struct menudialog {
 	struct menuitem *focuseditem;
 	/*0x0c*/ bool dimmed; // when dropdown is open or slider is active
 	/*0x10*/ u32 unk10;
-	/*0x14*/ s32 unk14;
-	/*0x18*/ s32 y;
-	/*0x1c*/ s32 unk1c;
-	/*0x20*/ s32 height;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ s32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
+	/*0x14*/ s32 x14;
+	/*0x18*/ s32 y18;
+	/*0x1c*/ s32 width1c;
+	/*0x20*/ s32 height20;
+	/*0x24*/ s32 width24;
+	/*0x28*/ s32 height28;
+	/*0x2c*/ s32 x2c;
+	/*0x30*/ s32 y30;
+	/*0x34*/ s32 width34;
+	/*0x38*/ s32 height38;
 	/*0x3c*/ u8 type; // dialog type
-	/*0x3c*/ u8 type2; // used when transitioning
+	/*0x3d*/ u8 type2; // used when transitioning
 	/*0x40*/ f32 transitiontimer; // >= 0 means transitioning from one dialog type to another
 	/*0x44*/ u32 colourweight;
 	/*0x48*/ f32 unk48;

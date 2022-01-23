@@ -5110,10 +5110,10 @@ void menuOpenDialog(struct menudialogdef *dialogdef, struct menudialog *dialog, 
 	func0f0f2134(dialogdef, dialog, menu);
 	func0f0f7e98(dialog);
 
-	dialog->unk14 = dialog->unk2c;
-	dialog->y = dialog->unk30;
-	dialog->unk1c = dialog->unk34;
-	dialog->height = dialog->unk38;
+	dialog->x14 = dialog->x2c;
+	dialog->y18 = dialog->y30;
+	dialog->width1c = dialog->width34;
+	dialog->height20 = dialog->height38;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -16761,126 +16761,55 @@ glabel var7f1b2990
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f0f7e98
-/*  f0f7e98:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f0f7e9c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0f7ea0:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0f7ea4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0f7ea8:	27a4004c */ 	addiu	$a0,$sp,0x4c
-/*  f0f7eac:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f0f7eb0:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f0f7eb4:	0fc3ddca */ 	jal	func0f0f7728
-/*  f0f7eb8:	27a70040 */ 	addiu	$a3,$sp,0x40
-/*  f0f7ebc:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*  f0f7ec0:	8fb9004c */ 	lw	$t9,0x4c($sp)
-/*  f0f7ec4:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*  f0f7ec8:	8faf0044 */ 	lw	$t7,0x44($sp)
-/*  f0f7ecc:	8e060024 */ 	lw	$a2,0x24($s0)
-/*  f0f7ed0:	03191023 */ 	subu	$v0,$t8,$t9
-/*  f0f7ed4:	2444fffa */ 	addiu	$a0,$v0,-6
-/*  f0f7ed8:	01cf2823 */ 	subu	$a1,$t6,$t7
-/*  f0f7edc:	24a5fffa */ 	addiu	$a1,$a1,-6
-/*  f0f7ee0:	00c4082a */ 	slt	$at,$a2,$a0
-/*  f0f7ee4:	10200002 */ 	beqz	$at,.L0f0f7ef0
-/*  f0f7ee8:	00a01825 */ 	or	$v1,$a1,$zero
-/*  f0f7eec:	00c02025 */ 	or	$a0,$a2,$zero
-.L0f0f7ef0:
-/*  f0f7ef0:	8e020028 */ 	lw	$v0,0x28($s0)
-/*  f0f7ef4:	8fa80048 */ 	lw	$t0,0x48($sp)
-/*  f0f7ef8:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*  f0f7efc:	0045082a */ 	slt	$at,$v0,$a1
-/*  f0f7f00:	10200002 */ 	beqz	$at,.L0f0f7f0c
-/*  f0f7f04:	01095021 */ 	addu	$t2,$t0,$t1
-/*  f0f7f08:	00401825 */ 	or	$v1,$v0,$zero
-.L0f0f7f0c:
-/*  f0f7f0c:	01445823 */ 	subu	$t3,$t2,$a0
-/*  f0f7f10:	05610003 */ 	bgez	$t3,.L0f0f7f20
-/*  f0f7f14:	000b6043 */ 	sra	$t4,$t3,0x1
-/*  f0f7f18:	25610001 */ 	addiu	$at,$t3,0x1
-/*  f0f7f1c:	00016043 */ 	sra	$t4,$at,0x1
-.L0f0f7f20:
-/*  f0f7f20:	ae0c002c */ 	sw	$t4,0x2c($s0)
-/*  f0f7f24:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*  f0f7f28:	8fad0044 */ 	lw	$t5,0x44($sp)
-/*  f0f7f2c:	8207006d */ 	lb	$a3,0x6d($s0)
-/*  f0f7f30:	ae040034 */ 	sw	$a0,0x34($s0)
-/*  f0f7f34:	01ae7821 */ 	addu	$t7,$t5,$t6
-/*  f0f7f38:	01e3c023 */ 	subu	$t8,$t7,$v1
-/*  f0f7f3c:	07010003 */ 	bgez	$t8,.L0f0f7f4c
-/*  f0f7f40:	0018c843 */ 	sra	$t9,$t8,0x1
-/*  f0f7f44:	27010001 */ 	addiu	$at,$t8,0x1
-/*  f0f7f48:	0001c843 */ 	sra	$t9,$at,0x1
-.L0f0f7f4c:
-/*  f0f7f4c:	ae190030 */ 	sw	$t9,0x30($s0)
-/*  f0f7f50:	10e00036 */ 	beqz	$a3,.L0f0f802c
-/*  f0f7f54:	ae030038 */ 	sw	$v1,0x38($s0)
-/*  f0f7f58:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f0f7f5c:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f0f7f60:	0fc3dd65 */ 	jal	func0f0f7594
-/*  f0f7f64:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f0f7f68:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*  f0f7f6c:	05030006 */ 	bgezl	$t0,.L0f0f7f88
-/*  f0f7f70:	8fac0030 */ 	lw	$t4,0x30($sp)
-/*  f0f7f74:	8e090034 */ 	lw	$t1,0x34($s0)
-/*  f0f7f78:	240afffc */ 	addiu	$t2,$zero,-4
-/*  f0f7f7c:	01495823 */ 	subu	$t3,$t2,$t1
-/*  f0f7f80:	ae0b002c */ 	sw	$t3,0x2c($s0)
-/*  f0f7f84:	8fac0030 */ 	lw	$t4,0x30($sp)
-.L0f0f7f88:
-/*  f0f7f88:	59800017 */ 	blezl	$t4,.L0f0f7fe8
-/*  f0f7f8c:	8fa80034 */ 	lw	$t0,0x34($sp)
-/*  f0f7f90:	0c002f40 */ 	jal	viGetViewLeft
-/*  f0f7f94:	00000000 */ 	nop
-/*  f0f7f98:	0c002f22 */ 	jal	viGetViewWidth
-/*  f0f7f9c:	a7a2002e */ 	sh	$v0,0x2e($sp)
-/*  f0f7fa0:	87ad002e */ 	lh	$t5,0x2e($sp)
-/*  f0f7fa4:	3c0f8008 */ 	lui	$t7,%hi(g_ScaleX)
-/*  f0f7fa8:	8deffac0 */ 	lw	$t7,%lo(g_ScaleX)($t7)
-/*  f0f7fac:	004d7021 */ 	addu	$t6,$v0,$t5
-/*  f0f7fb0:	01cf001a */ 	div	$zero,$t6,$t7
-/*  f0f7fb4:	0000c012 */ 	mflo	$t8
-/*  f0f7fb8:	27190004 */ 	addiu	$t9,$t8,0x4
-/*  f0f7fbc:	ae19002c */ 	sw	$t9,0x2c($s0)
-/*  f0f7fc0:	15e00002 */ 	bnez	$t7,.L0f0f7fcc
-/*  f0f7fc4:	00000000 */ 	nop
-/*  f0f7fc8:	0007000d */ 	break	0x7
-.L0f0f7fcc:
-/*  f0f7fcc:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0f7fd0:	15e10004 */ 	bne	$t7,$at,.L0f0f7fe4
-/*  f0f7fd4:	3c018000 */ 	lui	$at,0x8000
-/*  f0f7fd8:	15c10002 */ 	bne	$t6,$at,.L0f0f7fe4
-/*  f0f7fdc:	00000000 */ 	nop
-/*  f0f7fe0:	0006000d */ 	break	0x6
-.L0f0f7fe4:
-/*  f0f7fe4:	8fa80034 */ 	lw	$t0,0x34($sp)
-.L0f0f7fe8:
-/*  f0f7fe8:	05030006 */ 	bgezl	$t0,.L0f0f8004
-/*  f0f7fec:	8fac0034 */ 	lw	$t4,0x34($sp)
-/*  f0f7ff0:	8e0a0038 */ 	lw	$t2,0x38($s0)
-/*  f0f7ff4:	2409fffc */ 	addiu	$t1,$zero,-4
-/*  f0f7ff8:	012a5823 */ 	subu	$t3,$t1,$t2
-/*  f0f7ffc:	ae0b0030 */ 	sw	$t3,0x30($s0)
-/*  f0f8000:	8fac0034 */ 	lw	$t4,0x34($sp)
-.L0f0f8004:
-/*  f0f8004:	5980000a */ 	blezl	$t4,.L0f0f8030
-/*  f0f8008:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0f800c:	0c002f44 */ 	jal	viGetViewTop
-/*  f0f8010:	00000000 */ 	nop
-/*  f0f8014:	0c002f26 */ 	jal	viGetViewHeight
-/*  f0f8018:	a7a2002e */ 	sh	$v0,0x2e($sp)
-/*  f0f801c:	87ad002e */ 	lh	$t5,0x2e($sp)
-/*  f0f8020:	004d7021 */ 	addu	$t6,$v0,$t5
-/*  f0f8024:	25cf0004 */ 	addiu	$t7,$t6,0x4
-/*  f0f8028:	ae0f0030 */ 	sw	$t7,0x30($s0)
-.L0f0f802c:
-/*  f0f802c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0f8030:
-/*  f0f8030:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0f8034:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f0f8038:	03e00008 */ 	jr	$ra
-/*  f0f803c:	00000000 */ 	nop
-);
+void func0f0f7e98(struct menudialog *dialog)
+{
+	s32 sp4c;
+	s32 sp48;
+	s32 sp44;
+	s32 sp40;
+	s32 width;
+	s32 height;
+	s32 sp34;
+	s32 sp30;
+
+	func0f0f7728(&sp4c, &sp44, &sp48, &sp40);
+
+	height = sp40 - sp44 - 6;
+	width = sp48 - sp4c - 6;
+
+	if (width > dialog->width24) {
+		width = dialog->width24;
+	}
+
+	if (height > dialog->height28) {
+		height = dialog->height28;
+	}
+
+	dialog->x2c = (sp48 + sp4c - width) / 2;
+	dialog->y30 = (sp44 + sp40 - height) / 2;
+	dialog->width34 = width;
+	dialog->height38 = height;
+
+	if (dialog->unk6d) {
+		func0f0f7594(dialog->unk6d, &sp34, &sp30);
+
+		if (sp30 < 0) {
+			dialog->x2c = -4 - dialog->width34;
+		}
+
+		if (sp30 > 0) {
+			dialog->x2c = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX + 4;
+		}
+
+		if (sp34 < 0) {
+			dialog->y30 = -4 - dialog->height38;
+		}
+
+		if (sp34 > 0) {
+			dialog->y30 = viGetViewTop() + viGetViewHeight() + 4;
+		}
+	}
+}
 
 void menuClose(void)
 {

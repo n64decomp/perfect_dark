@@ -9019,9 +9019,9 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 	u32 stack;
 
 #if PAL
-	if ((s16)dialog->height != data->scrollable.unk06 || data->scrollable.unk08 != g_LanguageId) {
+	if ((s16)dialog->height20 != data->scrollable.unk06 || data->scrollable.unk08 != g_LanguageId) {
 #else
-	if ((s16)dialog->height != data->scrollable.unk06) {
+	if ((s16)dialog->height20 != data->scrollable.unk06) {
 #endif
 		char wrapped[8000] = "";
 		char *rawtext;
@@ -9061,7 +9061,7 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 			data->scrollable.unk04 = -10;
 		}
 
-		data->scrollable.unk06 = dialog->height;
+		data->scrollable.unk06 = dialog->height20;
 	}
 
 	if (menuIsScrollableUnscrollable(item)) {
