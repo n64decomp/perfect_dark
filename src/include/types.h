@@ -3870,7 +3870,7 @@ struct menudata_filemgr {
 	/*0xe3f*/ u8 listnum;
 	/*0xe40*/ u16 unke40_00 : 1;
 	/*0xe40*/ u16 unke40_01 : 1;
-	/*0xe40*/ u16 unke40_02 : 14;
+	/*0xe41*/ u8 unke41;
 	/*0xe42*/ u8 fileop;
 	union {
 		void *unke44;
@@ -3881,10 +3881,9 @@ struct menudata_filemgr {
 	/*0xe50*/ u16 isretryingsave;
 	/*0xe52*/ u8 device2;
 #if VERSION >= VERSION_NTSC_1_0
-	/*0xe53*/ char filename[20];
-#else
-	/*0xe53*/ char filename[4];
+	/*0xe53*/ char filename[16];
 #endif
+	/*0xe64*/ u32 unke64;
 	/*0xe68*/ struct perfectheadtexturelist *headtextures;
 	/*0xe6c*/ s8 device3;
 };
@@ -3948,7 +3947,7 @@ struct menu {
 	/*0x6d8*/ s32 unk6d8;
 	/*0x6dc*/ u32 blocks[80]; // for menuitemdata
 	/*0x81c*/ s32 unk81c;
-	/*0x820*/ u32 unk820;
+	/*0x820*/ u8 unk820;
 	/*0x824*/ u32 unk824;
 	/*0x828*/ u32 unk828;
 	/*0x82c*/ s16 unk82c;
@@ -4338,7 +4337,7 @@ struct menu {
 	/*0xdf0*/ u8 unkdf0;
 	/*0xdf1*/ u8 unkdf1 : 1;
 	/*0xdf4*/ struct modelpartvisibility *partvisibility;
-	/*0xdf8*/ u8 unkdf8;
+	/*0xdf8*/ s8 unkdf8;
 	/*0xdfc*/ struct menudfc unkdfc[4];
 
 	union {
@@ -5145,7 +5144,7 @@ struct menudata {
 	/*0x016*/ u8 unk016;
 	/*0x017*/ u8 unk017[4];
 	/*0x01b*/ s8 unk01b;
-	/*0x01c*/ u32 unk01c;
+	/*0x01c*/ u8 unk01c;
 	/*0x020*/ u32 unk020;
 	/*0x024*/ u32 unk024;
 	/*0x028*/ u32 unk028;
@@ -5469,23 +5468,23 @@ struct menudata {
 	/*0x520*/ u32 unk520;
 	/*0x524*/ u32 unk524;
 	/*0x528*/ u32 unk528;
-	/*0x52c*/ u32 unk52c;
-	/*0x530*/ u32 unk530;
-	/*0x534*/ u32 unk534;
-	/*0x538*/ u32 unk538;
-	/*0x53c*/ u32 unk53c;
-	/*0x540*/ u32 unk540;
-	/*0x544*/ u32 unk544;
+	/*0x52c*/ f32 unk52c;
+	/*0x530*/ f32 unk530;
+	/*0x534*/ f32 unk534;
+	/*0x538*/ f32 unk538;
+	/*0x53c*/ f32 unk53c;
+	/*0x540*/ f32 unk540;
+	/*0x544*/ f32 unk544;
 	/*0x548*/ u32 unk548;
 	/*0x54c*/ u32 unk54c;
 	/*0x550*/ u32 unk550;
-	/*0x554*/ u32 unk554;
-	/*0x558*/ u32 unk558;
-	/*0x55c*/ u32 unk55c;
-	/*0x560*/ u32 unk560;
-	/*0x564*/ u32 unk564;
-	/*0x568*/ u32 unk568;
-	/*0x56c*/ u32 unk56c;
+	/*0x554*/ f32 unk554;
+	/*0x558*/ f32 unk558;
+	/*0x55c*/ f32 unk55c;
+	/*0x560*/ f32 unk560;
+	/*0x564*/ f32 unk564;
+	/*0x568*/ f32 unk568;
+	/*0x56c*/ f32 unk56c;
 	/*0x570*/ u32 unk570;
 	/*0x574*/ u32 unk574;
 	/*0x578*/ u32 unk578;
@@ -5509,7 +5508,8 @@ struct menudata {
 	/*0x5c0*/ u32 unk5c0;
 	/*0x5c4*/ u32 unk5c4;
 	/*0x5c8*/ u32 unk5c8;
-	/*0x5cc*/ u32 unk5cc;
+	/*0x5cc*/ u8 unk5cc;
+	/*0x5cd*/ u8 unk5cd_01 : 1;
 	/*0x5d0*/ u32 unk5d0;
 	/*0x5d4*/ u8 unk5d4;
 	/*0x5d5*/ u8 unk5d5_01 : 1;
@@ -5522,8 +5522,7 @@ struct menudata {
 	/*0x5d5*/ u8 unk5d5_08 : 1;
 	/*0x5d8*/ struct menudata_5d8 unk5d8[12];
 	/*0x668*/ s8 unk668;
-	/*0x669*/ u8 unk669[4];
-	/*0x66d*/ u8 unk66d;
+	/*0x669*/ u8 unk669[5];
 	/*0x66e*/ s8 unk66e; // index into 669
 	/*0x66f*/ u8 unk66f;
 	/*0x670*/ s32 unk670;
