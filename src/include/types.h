@@ -3781,8 +3781,8 @@ struct menudialog {
 	/*0x18*/ s32 y18;
 	/*0x1c*/ s32 width1c;
 	/*0x20*/ s32 height20;
-	/*0x24*/ s32 width24;
-	/*0x28*/ s32 height28;
+	/*0x24*/ s32 contentwidth;
+	/*0x28*/ s32 contentheight;
 	/*0x2c*/ s32 x2c;
 	/*0x30*/ s32 y30;
 	/*0x34*/ s32 width34;
@@ -3928,8 +3928,8 @@ struct menu4fc {
 };
 
 struct menu660 {
-	u16 unk00;
-	u16 unk02;
+	s16 unk00;
+	s16 unk02;
 	u8 unk04;
 	u16 unk06;
 	u8 unk08;

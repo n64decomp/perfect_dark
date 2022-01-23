@@ -9027,8 +9027,8 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 		char *rawtext;
 		s32 width;
 		s32 height;
-		u32 index1;
-		u32 index2;
+		s32 index1;
+		s32 index2;
 		s16 wvalue;
 		s16 hvalue;
 
