@@ -73,7 +73,7 @@ bool menuSetBackground(s32 bg);
 void func0f0f8300(void);
 void menuPushRootDialog(struct menudialogdef *dialogdef, s32 arg1);
 void func0f0f85e0(struct menudialogdef *dialogdef, s32 root);
-u32 func0f0f8634(void);
+Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, s32 arg3);
 Gfx *menuRenderDialogs(Gfx *gdl);
 void func0f0f8bb4(u8 *arg0, u32 arg1, u32 arg2);
 void menuInit(void);
