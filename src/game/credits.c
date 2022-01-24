@@ -152,7 +152,7 @@ void func0f137874(struct gfxvtx *vertices, u32 *colours, s32 arg2, s32 alpha, s3
 	}
 
 	for (i = 0; i < ARRAYCOUNT(var8007f13c[arg2].s);) {
-		vertices[i].s = var8007f13c[arg2].s[i] * 4;
+		vertices[i].colour = var8007f13c[arg2].s[i] * 4;
 		i++;
 	}
 
@@ -726,10 +726,10 @@ Gfx *creditsRenderLine(Gfx *gdl, struct coord *from, struct coord *to)
 	vertices[3].y = to->y;
 	vertices[3].z = to->z;
 
-	vertices[0].s = 0;
-	vertices[1].s = 4;
-	vertices[2].s = 4;
-	vertices[3].s = 0;
+	vertices[0].colour = 0;
+	vertices[1].colour = 4;
+	vertices[2].colour = 4;
+	vertices[3].colour = 0;
 
 	colours[0] = 0xffffffff;
 	colours[1] = 0xffffffff;

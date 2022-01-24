@@ -2011,10 +2011,10 @@ Gfx *bviewRenderEyespySideRect(Gfx *gdl, s32 *points, u8 r, u8 g, u8 b, u8 alpha
 	colours[0] = r << 0x18 | g << 0x10 | b << 8 | 0xff;
 	colours[1] = r << 0x18 | g << 0x10 | b << 8 | alpha;
 
-	vertices[0].s = 0;
-	vertices[1].s = 0;
-	vertices[2].s = 4;
-	vertices[3].s = 4;
+	vertices[0].colour = 0;
+	vertices[1].colour = 0;
+	vertices[2].colour = 4;
+	vertices[3].colour = 4;
 
 	gDPSetColorArray(gdl++, colours, 2);
 	gDPSetVerticeArray(gdl++, vertices, 4);

@@ -51925,10 +51925,10 @@ glabel var7f1aa824
 //		colours[2] = screen->blue;
 //		colours[3] = screen->alpha;
 //
-//		vertices[0].s = 0;
-//		vertices[1].s = 0;
-//		vertices[2].s = 0;
-//		vertices[3].s = 0;
+//		vertices[0].colour = 0;
+//		vertices[1].colour = 0;
+//		vertices[2].colour = 0;
+//		vertices[3].colour = 0;
 //
 //		if (screen->alpha < 255) {
 //			arg5 = 2;

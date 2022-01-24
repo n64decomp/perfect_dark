@@ -5219,7 +5219,7 @@ glabel var7f1acd8c
 //					// 7b8
 //					vertices = gfxAllocateVertices(4);
 //
-//					vertices[0].s = vertices[1].s = vertices[2].s = vertices[3].s = 0;
+//					vertices[0].colour = vertices[1].colour = vertices[2].colour = vertices[3].colour = 0;
 //
 //					vertices[0].unk08 = 0;
 //					vertices[0].unk0a = 0;
@@ -5887,12 +5887,12 @@ glabel var7f1acd90
 //
 //			vertices = gfxAllocateVertices(6);
 //
-//			vertices[0].s = 0;
-//			vertices[1].s = 0;
-//			vertices[2].s = 0;
-//			vertices[3].s = 0;
-//			vertices[4].s = 4;
-//			vertices[5].s = 4;
+//			vertices[0].colour = 0;
+//			vertices[1].colour = 0;
+//			vertices[2].colour = 0;
+//			vertices[3].colour = 0;
+//			vertices[4].colour = 4;
+//			vertices[5].colour = 4;
 //
 //			vertices[0].unk08 = 0;
 //			vertices[0].unk0a = 0;

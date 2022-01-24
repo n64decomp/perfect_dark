@@ -957,7 +957,7 @@ void func0f0e0cbc(s32 arg0, s32 arg1, s16 arg2, s16 arg3, struct gfxvtx *vertex,
 	vertex->y = arg3 * 10;
 	vertex->z = -10;
 
-	vertex->s = 0;
+	vertex->colour = 0;
 
 	mtx4TransformVecInPlace(arg5, &sp24);
 
@@ -2423,6 +2423,79 @@ glabel menugfxRenderGradient
 /*  f0e1fa8:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
+// Mismatch: Goal has the if statement with empty contents
+//Gfx *menugfxRenderGradient(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colourstart, u32 colourmid, u32 colourend)
+//{
+//	u32 *colours = gfxAllocateColours(3);
+//	struct gfxvtx *vertices = gfxAllocateVertices(6);
+//	s32 ymid;
+//
+//	gDPPipeSync(gdl++);
+//	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//	gDPSetAlphaCompare(gdl++, G_AC_NONE);
+//	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
+//	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+//	gDPSetTextureFilter(gdl++, G_TF_BILERP);
+//
+//	func0f0b39c0(&gdl, NULL, 2, 0, 2, 1, NULL);
+//
+//	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+//
+//	ymid = (y1 + y2) / 2;
+//
+//	if (x2 - x1 < ymid * 2) {
+//		ymid <<= 0;
+//	}
+//
+//	// 0 = top left
+//	// 1 = top right
+//	// 2 = bottom right
+//	// 3 = bottom left
+//	// 4 = mid left
+//	// 5 = mid right
+//
+//	vertices[0].z = -10;
+//	vertices[1].z = -10;
+//	vertices[2].z = -10;
+//	vertices[3].z = -10;
+//	vertices[4].z = -10;
+//	vertices[5].z = -10;
+//
+//	vertices[0].x = x1 * 10;
+//	vertices[0].y = y1 * 10;
+//	vertices[0].colour = 0;
+//
+//	vertices[1].x = x2 * 10;
+//	vertices[1].y = y1 * 10;
+//	vertices[1].colour = 0;
+//
+//	vertices[2].x = x2 * 10;
+//	vertices[2].y = y2 * 10;
+//	vertices[2].colour = 4;
+//
+//	vertices[3].x = x1 * 10;
+//	vertices[3].y = y2 * 10;
+//	vertices[3].colour = 4;
+//
+//	vertices[4].x = x1 * 10;
+//	vertices[4].y = ymid * 10;
+//	vertices[4].colour = 8;
+//
+//	vertices[5].x = x2 * 10;
+//	vertices[5].y = ymid * 10;
+//	vertices[5].colour = 8;
+//
+//	colours[0] = colourstart;
+//	colours[2] = colourmid;
+//	colours[1] = colourend;
+//
+//	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 3);
+//	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
+//	gDPTri4(gdl++, 0, 1, 5, 5, 4, 0, 2, 3, 4, 4, 5, 2);
+//
+//	return gdl;
+//}
+
 GLOBAL_ASM(
 glabel func0f0e1fac
 /*  f0e1fac:	27bdffa0 */ 	addiu	$sp,$sp,-96
@@ -2719,15 +2792,15 @@ Gfx *gfxDrawTri2(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colo
 	vertices[3].z = -10;
 
 	if (!arg7) {
-		vertices[0].s = 0;
-		vertices[1].s = 4;
-		vertices[2].s = 4;
-		vertices[3].s = 0;
+		vertices[0].colour = 0;
+		vertices[1].colour = 4;
+		vertices[2].colour = 4;
+		vertices[3].colour = 0;
 	} else {
-		vertices[0].s = 0;
-		vertices[1].s = 0;
-		vertices[2].s = 4;
-		vertices[3].s = 4;
+		vertices[0].colour = 0;
+		vertices[1].colour = 0;
+		vertices[2].colour = 4;
+		vertices[3].colour = 4;
 	}
 
 	colours[0] = colour1;
@@ -3446,9 +3519,9 @@ Gfx *gfxDrawEquTri(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u32 colour1,
 	vertices[2].y = y * 10 + rely - halfheight;
 	vertices[2].z = -10;
 
-	vertices[0].s = 0;
-	vertices[1].s = 4;
-	vertices[2].s = 4;
+	vertices[0].colour = 0;
+	vertices[1].colour = 4;
+	vertices[2].colour = 4;
 
 	colours[0] = colour1;
 	colours[1] = colour2;

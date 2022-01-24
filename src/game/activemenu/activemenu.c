@@ -6620,14 +6620,14 @@ glabel amRender
 //		vertices[7].x = vertices[3].x + tmp2;
 //		vertices[7].y = vertices[3].y;
 //
-//		vertices[0].s = 0;
-//		vertices[1].s = 0;
-//		vertices[2].s = 0;
-//		vertices[3].s = 0;
-//		vertices[4].s = 4;
-//		vertices[5].s = 4;
-//		vertices[6].s = 4;
-//		vertices[7].s = 4;
+//		vertices[0].colour = 0;
+//		vertices[1].colour = 0;
+//		vertices[2].colour = 0;
+//		vertices[3].colour = 0;
+//		vertices[4].colour = 4;
+//		vertices[5].colour = 4;
+//		vertices[6].colour = 4;
+//		vertices[7].colour = 4;
 //
 //		colours[0] = 0x22222200;
 //		colours[1] = 0x0000004f;
