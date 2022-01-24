@@ -1603,7 +1603,7 @@ void func0f14bdbc(s32 index)
 	if (value == 4 || value == 5) {
 		thing->unk0f4 = 6;
 		g_MpPlayerNum = index;
-		func0f0f0ca0(-1, false);
+		menuSetBanner(-1, false);
 
 		thing2 = func0f14a06c(-1);
 		thing2->unk3f4_00 = false;
@@ -1678,7 +1678,7 @@ void func0f14bec8(s32 index)
 		func0f14bc04();
 		pak0f11d478(func0f14a5a4());
 		g_MpPlayerNum = index;
-		func0f0f0ca0(-1, false);
+		menuSetBanner(-1, false);
 		func0f14a678();
 		thing2->unk3f4_00 = true;
 		g_MpPlayerNum = index;
@@ -1783,7 +1783,7 @@ void func0f14c4c0(s32 index)
 	var8007f8dc[index].unk0f4 = 4;
 	g_MpPlayerNum = index;
 
-	func0f0f0ca0(2, false);
+	menuSetBanner(MENUBANNER_DOWNLOADINGIMAGE, false);
 }
 
 GLOBAL_ASM(
@@ -2166,7 +2166,7 @@ glabel var7f1b734c
 /*  f14cf74:	3c018007 */ 	lui	$at,%hi(g_MpPlayerNum)
 /*  f14cf78:	ac201448 */ 	sw	$zero,%lo(g_MpPlayerNum)($at)
 /*  f14cf7c:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14cf80:	0fc3c328 */ 	jal	func0f0f0ca0
+/*  f14cf80:	0fc3c328 */ 	jal	menuSetBanner
 /*  f14cf84:	00002825 */ 	or	$a1,$zero,$zero
 /*  f14cf88:	0fc52969 */ 	jal	func0f14a5a4
 /*  f14cf8c:	00000000 */ 	nop
@@ -2208,7 +2208,7 @@ glabel var7f1b734c
 /*  f14d01c:	3c018007 */ 	lui	$at,%hi(g_MpPlayerNum)
 /*  f14d020:	ac201448 */ 	sw	$zero,%lo(g_MpPlayerNum)($at)
 /*  f14d024:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14d028:	0fc3c328 */ 	jal	func0f0f0ca0
+/*  f14d028:	0fc3c328 */ 	jal	menuSetBanner
 /*  f14d02c:	00002825 */ 	or	$a1,$zero,$zero
 .L0f14d030:
 /*  f14d030:	0fc52969 */ 	jal	func0f14a5a4
@@ -2238,7 +2238,7 @@ void func0f14d064(s32 index, u8 *arg1)
 		thing->unk064 = 0x2000;
 		thing->unk060 = 6;
 		g_MpPlayerNum = index;
-		func0f0f0ca0(1, false);
+		menuSetBanner(MENUBANNER_CALIBRATINGCAMERA, false);
 		func0f14a16c(1);
 		pak0f1171b4(func0f14a5a4(), 1, 1);
 		thing->unk0f8 = 3;
@@ -2283,7 +2283,7 @@ void func0f14d064(s32 index, u8 *arg1)
 		thing->unk0f8 = 6;
 		thing->unk100 = thing->unk0fc;
 		g_MpPlayerNum = index;
-		func0f0f0ca0(-1, 0);
+		menuSetBanner(-1, false);
 		pak0f1171b4(func0f14a5a4(), 3, 0);
 		var8007f8dc[var800a45a0->unk000].unk0d4_04 = true;
 		thing->unk0f8 = 0;

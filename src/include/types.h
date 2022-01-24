@@ -4343,7 +4343,7 @@ struct menu {
 	/*0xdf0*/ u8 unkdf0;
 	/*0xdf1*/ u8 unkdf1 : 1;
 	/*0xdf4*/ struct modelpartvisibility *partvisibility;
-	/*0xdf8*/ s8 unkdf8;
+	/*0xdf8*/ s8 bannernum;
 	/*0xdfc*/ struct menudfc unkdfc[4];
 
 	union {
@@ -5149,7 +5149,7 @@ struct menudata {
 	/*0x015*/ u8 nextbg;
 	/*0x016*/ u8 unk016;
 	/*0x017*/ u8 playerjoinalpha[4];
-	/*0x01b*/ s8 unk01b;
+	/*0x01b*/ s8 bannernum;
 	/*0x01c*/ u8 unk01c;
 	/*0x020*/ u32 unk020;
 	/*0x024*/ u32 unk024;

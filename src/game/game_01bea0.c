@@ -719,7 +719,7 @@ void menuTick(void)
 					|| g_MenuData.unk5d5_05
 					|| g_MenuData.unk5d4
 					|| g_Menus[mpindex].curdialog
-					|| g_MenuData.unk01b != -1) {
+					|| g_MenuData.bannernum != -1) {
 				g_Vars.players[i]->menuisactive = true;
 			} else {
 				g_Vars.players[i]->menuisactive = false;

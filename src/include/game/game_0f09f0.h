@@ -12,12 +12,12 @@ void menuPlaySound(s32 menusound);
 bool menuIsSoloMissionOrMp(void);
 bool currentPlayerIsMenuOpenInSoloOrMp(void);
 bool func0f0f0c68(void);
-void func0f0f0ca0(s32 value, bool allplayers);
+void menuSetBanner(s32 bannernum, bool allplayers);
 
 #if VERSION >= VERSION_NTSC_1_0
-Gfx *menuRenderBannerMessages(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, bool arg5, s32 arg6, s32 arg7, s32 arg8);
+Gfx *menuRenderBanner(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, bool big, s32 msgnum, s32 arg7, s32 arg8);
 #else
-Gfx *menuRenderBannerMessages(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, bool arg5, s32 arg6);
+Gfx *menuRenderBanner(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, bool big, s32 msgnum);
 #endif
 
 struct menudfc *func0f0f1338(struct menuitem *item);

@@ -139,7 +139,6 @@ const struct menucolourpalette g_MenuColourPalettes3[] = {
 };
 
 #if VERSION >= VERSION_NTSC_1_0
-const u32 var7f1b23e8[] = {0x544d0000};
 char *g_StringPointer = g_CheatMarqueeString;
 char *g_StringPointer2 = &g_CheatMarqueeString[PAL ? 150 : 125];
 #endif
@@ -263,27 +262,19 @@ bool func0f0f0c68(void)
 	return true;
 }
 
-void func0f0f0ca0(s32 value, bool allplayers)
+void menuSetBanner(s32 bannernum, bool allplayers)
 {
 	if (allplayers) {
-		g_MenuData.unk01b = value;
+		g_MenuData.bannernum = bannernum;
 		return;
 	}
 
-	g_Menus[g_MpPlayerNum].unkdf8 = value;
+	g_Menus[g_MpPlayerNum].bannernum = bannernum;
 }
-
-u32 var8007144c = 0x51e451e5;
-u32 var80071450 = 0x51e651e7;
-u32 var80071454 = 0x51e851e9;
-u32 var80071458 = 0x51ea51eb;
-u32 var8007145c = 0x51ec51ed;
-u32 var80071460 = 0x51ee0000;
-u32 var80071464 = 0x00000000;
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel menuRenderBannerMessages
+glabel menuRenderBanner
 /*  f0f1408:	27bdff70 */ 	addiu	$sp,$sp,-144
 /*  f0f140c:	8fae00a4 */ 	lw	$t6,0xa4($sp)
 /*  f0f1410:	afb10038 */ 	sw	$s1,0x38($sp)
@@ -706,7 +697,7 @@ glabel menuRenderBannerMessages
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel menuRenderBannerMessages
+glabel menuRenderBanner
 /*  f0f0ce8:	27bdff70 */ 	addiu	$sp,$sp,-144
 /*  f0f0cec:	8fae00a4 */ 	lw	$t6,0xa4($sp)
 /*  f0f0cf0:	afb10038 */ 	sw	$s1,0x38($sp)
@@ -1125,7 +1116,7 @@ glabel menuRenderBannerMessages
 );
 #else
 GLOBAL_ASM(
-glabel menuRenderBannerMessages
+glabel menuRenderBanner
 /*  f0ed9ec:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0ed9f0:	8fae00ac */ 	lw	$t6,0xac($sp)
 /*  f0ed9f4:	afb30040 */ 	sw	$s3,0x40($sp)
@@ -1478,6 +1469,154 @@ glabel menuRenderBannerMessages
 /*  f0edf40:	27bd0098 */ 	addiu	$sp,$sp,0x98
 );
 #endif
+
+u32 var8007144c = 0x51e451e5;
+u32 var80071450 = 0x51e651e7;
+u32 var80071454 = 0x51e851e9;
+u32 var80071458 = 0x51ea51eb;
+u32 var8007145c = 0x51ec51ed;
+u32 var80071460 = 0x51ee0000;
+
+const char var7f1b23e8[] = "TM";
+
+// Mismatch: Regalloc at first y calculation. Note that the calculation of tmp
+// is postponed until later (tmp is eventually stored in a compiler-managed
+// stack slot).
+//#if VERSION >= VERSION_NTSC_1_0
+//Gfx *menuRenderBanner(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, bool big, s32 msgnum, s32 arg7, s32 arg8)
+//#else
+//Gfx *menuRenderBanner(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, bool big, s32 msgnum)
+//#endif
+//{
+//	s32 tmp;
+//	s32 x; // 88
+//	s32 y; // 84
+//	s32 texttop; // 80
+//	s32 textheight; // 7c
+//	s32 textwidth; // 78
+//	s32 waitheight; // 74
+//	s32 waitwidth; // 70
+//	s32 bannertop; // 6c
+//	s32 bannerbottom; // 68
+//	struct fontchar *chars; // 64
+//	struct font *font; // 60
+//
+//	static u16 msgs[] = {
+//		L_MPMENU_484, // "Searching for Camera!"
+//		L_MPMENU_485, // "Calibrating Camera"
+//		L_MPMENU_486, // "Downloading Image"
+//		L_MPMENU_487, // "Loading Image"
+//		L_MPMENU_488, // "Saving Image"
+//		L_MPMENU_489, // "Transferring Image"
+//		L_MPMENU_490, // "Uploading Segment"
+//		L_MPMENU_491, // "Checking Controller Pak"
+//		L_MPMENU_492, // "Getting PerfectHead"
+//		L_MPMENU_493, // "Saving PerfectHead"
+//		L_MPMENU_494, // "Auto Camera Adjustment"
+//	};
+//
+//	chars = g_CharsHandelGothicSm;
+//	font = g_FontHandelGothicSm;
+//
+//	if (big) {
+//#if VERSION >= VERSION_PAL_FINAL
+//		if (g_CharsHandelGothicMd) {
+//			chars = g_CharsHandelGothicMd;
+//			font = g_FontHandelGothicMd;
+//		}
+//#else
+//		chars = g_CharsHandelGothicMd;
+//		font = g_FontHandelGothicMd;
+//#endif
+//	}
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//	tmp = x1 + arg7 + x2 - arg8;
+//	tmp /= 2;
+//#else
+//	tmp = x1 + x2;
+//	tmp /= 2;
+//#endif
+//
+//	y = y1 + y2;
+//	y /= 2;
+//
+//	textMeasure(&textheight, &textwidth, langGet(msgs[msgnum]), chars, font, 0);
+//
+//	// "Please Wait..."
+//	textMeasure(&waitheight, &waitwidth, langGet(L_MPMENU_495), chars, font, 0);
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//	if (msgs[msgnum] == L_MPMENU_491) { // "Checking Controller Pak"
+//		// Add space for "TM"
+//		textwidth += 7;
+//	}
+//#endif
+//
+//	texttop = y - (textheight + waitheight) / 2;
+//	bannertop = texttop - 4;
+//	bannerbottom = texttop + textheight + waitheight + 7;
+//
+//	y = texttop;
+//
+//	// Black fill
+//	gdl = gfxSetPrimColour(gdl, 0x0000007f);
+//	gDPFillRectangleScaled(gdl++, x1, y1, x2, y2);
+//	gdl = func0f153838(gdl);
+//
+//	// Dark blue fill
+//	gdl = gfxSetPrimColour(gdl, 0x00007f7f);
+//	gDPFillRectangleScaled(gdl++, x1, bannertop, x2, bannerbottom);
+//	gdl = func0f153838(gdl);
+//
+//	// Top and bottom borders (light blue)
+//	gdl = gfxSetPrimColour(gdl, 0x7f7fff7f);
+//	gDPFillRectangleScaled(gdl++, x1, bannerbottom + 2, x2, bannerbottom + 4);
+//	gDPFillRectangleScaled(gdl++, x1, bannertop - 4, x2, bannertop - 2);
+//	gdl = func0f153838(gdl);
+//
+//	gdl = func0f153628(gdl);
+//
+//	// Render the selected message's shadow
+//	x = tmp - textwidth / 2 + 2;
+//	y += 2;
+//	gdl = textRenderProjected(gdl, &x, &y, langGet(msgs[msgnum]),
+//			chars, font, 0x000000ff, viGetWidth(), viGetWidth(), 0, 0);
+//
+//	// Render "Please Wait..." shadow
+//	x = tmp - waitwidth / 2 + 2;
+//	y += 3;
+//	gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_495),
+//			chars, font, 0x000000ff, viGetWidth(), viGetWidth(), 0, 0);
+//
+//	// Render the selected message proper
+//	x = tmp - textwidth / 2;
+//	y = texttop;
+//	gdl = textRenderProjected(gdl, &x, &y, langGet(msgs[msgnum]),
+//			chars, font, 0xbfbfffff, viGetWidth(), viGetWidth(), 0, 0);
+//
+//	// Render "Please Wait..." proper
+//	x = tmp - waitwidth / 2;
+//	y += 3;
+//	gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_495),
+//			chars, font, 0xbfbfffff, viGetWidth(), viGetWidth(), 0, 0);
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//	if (msgs[msgnum] == L_MPMENU_491) { // "Checking Controller Pak"
+//		// Render "TM"
+//		y = texttop - 1;
+//		x = textwidth / 2 + tmp - 7;
+//		gdl = textRenderProjected(gdl, &x, &y, "TM",
+//				g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xbfbfffff, viGetWidth(), viGetWidth(), 0, 0);
+//	}
+//#endif
+//
+//	gdl = func0f153780(gdl);
+//
+//	return gdl;
+//}
+
+u32 var80071464 = 0;
 
 struct menudfc *func0f0f1338(struct menuitem *item)
 {
@@ -14045,7 +14184,7 @@ Gfx *menuRenderDialogs(Gfx *gdl)
 		}
 
 		// Render banner messages
-		if (g_Menus[g_MpPlayerNum].unkdf8 != -1 && (g_Menus[g_MpPlayerNum].curdialog->definition->unk10 & 0x80) == 0) {
+		if (g_Menus[g_MpPlayerNum].bannernum != -1 && (g_Menus[g_MpPlayerNum].curdialog->definition->unk10 & 0x80) == 0) {
 			if (g_MenuData.count >= 2) {
 				s32 xmin;
 				s32 ymin;
@@ -14055,9 +14194,9 @@ Gfx *menuRenderDialogs(Gfx *gdl)
 				menuFindAvailableSize(&xmin, &ymin, &xmax, &ymax);
 
 #if VERSION >= VERSION_NTSC_1_0
-				gdl = menuRenderBannerMessages(gdl, xmin, ymin, xmax, ymax, 0, g_Menus[g_MpPlayerNum].unkdf8, 0, 0);
+				gdl = menuRenderBanner(gdl, xmin, ymin, xmax, ymax, false, g_Menus[g_MpPlayerNum].bannernum, 0, 0);
 #else
-				gdl = menuRenderBannerMessages(gdl, xmin, ymin, xmax, ymax, 0, g_Menus[g_MpPlayerNum].unkdf8);
+				gdl = menuRenderBanner(gdl, xmin, ymin, xmax, ymax, false, g_Menus[g_MpPlayerNum].bannernum);
 #endif
 			} else {
 				s32 xmin = viGetViewLeft() / g_ScaleX;
@@ -14066,9 +14205,9 @@ Gfx *menuRenderDialogs(Gfx *gdl)
 				s32 ymax = viGetViewTop() + viGetViewHeight();
 
 #if VERSION >= VERSION_NTSC_1_0
-				gdl = menuRenderBannerMessages(gdl, xmin, ymin, xmax, ymax, 1, g_Menus[g_MpPlayerNum].unkdf8, 0, 0);
+				gdl = menuRenderBanner(gdl, xmin, ymin, xmax, ymax, true, g_Menus[g_MpPlayerNum].bannernum, 0, 0);
 #else
-				gdl = menuRenderBannerMessages(gdl, xmin, ymin, xmax, ymax, 1, g_Menus[g_MpPlayerNum].unkdf8);
+				gdl = menuRenderBanner(gdl, xmin, ymin, xmax, ymax, true, g_Menus[g_MpPlayerNum].bannernum);
 #endif
 			}
 		}
@@ -14233,7 +14372,7 @@ void menuInit(void)
 		g_Menus[i].rowend = 0;
 		g_Menus[i].blockend = 0;
 		g_Menus[i].colend = 0;
-		g_Menus[i].unkdf8 = -1;
+		g_Menus[i].bannernum = -1;
 		g_Menus[i].fm.unke41 = 0;
 		g_Menus[i].fm.unke64 = 0;
 		g_Menus[i].fm.headtextures = NULL;
@@ -14248,7 +14387,7 @@ void menuInit(void)
 	g_MenuData.bg = 0;
 	g_MenuData.unk5d5_06 = false;
 	g_MenuData.nextbg = 255;
-	g_MenuData.unk01b = -1;
+	g_MenuData.bannernum = -1;
 
 	for (i = 0; i < 5; i++) {
 		g_MenuData.unk669[i] = 0xff;
@@ -22491,7 +22630,7 @@ Gfx *menuRender(Gfx *gdl)
 
 	// Render banner messages, such as "Please Wait...",
 	// "Checking Controller Pak" and some unused game boy camera texts.
-	if (g_MenuData.unk01b != -1) {
+	if (g_MenuData.bannernum != -1) {
 		s32 x1 = viGetViewLeft() / g_ScaleX;
 		s32 y1 = viGetViewTop();
 		s32 x2 = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX;
@@ -22517,7 +22656,7 @@ Gfx *menuRender(Gfx *gdl)
 			}
 		}
 
-		gdl = menuRenderBannerMessages(gdl, x1, y1, x2, y2, PLAYERCOUNT() < 2, g_MenuData.unk01b, left, right);
+		gdl = menuRenderBanner(gdl, x1, y1, x2, y2, PLAYERCOUNT() < 2, g_MenuData.bannernum, left, right);
 #else
 		if (PLAYERCOUNT() >= 3) {
 			if (g_Vars.currentplayernum == 1 || g_Vars.currentplayernum == 3) {
@@ -22535,7 +22674,7 @@ Gfx *menuRender(Gfx *gdl)
 			}
 		}
 
-		gdl = menuRenderBannerMessages(gdl, x1, y1, x2, y2, PLAYERCOUNT() < 2, g_MenuData.unk01b);
+		gdl = menuRenderBanner(gdl, x1, y1, x2, y2, PLAYERCOUNT() < 2, g_MenuData.bannernum);
 #endif
 	}
 

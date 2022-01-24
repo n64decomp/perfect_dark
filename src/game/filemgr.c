@@ -451,7 +451,7 @@ char *filemgrMenuTextFileType(struct menuitem *item)
 
 void func0f10898c(void)
 {
-	func0f0f0ca0(-1, false);
+	menuSetBanner(-1, false);
 
 	switch (g_Menus[g_MpPlayerNum].fm.fileop) {
 	case FILEOP_WRITE_GAME:
@@ -478,7 +478,7 @@ void func0f10898c(void)
 
 void filemgrHandleSuccess(void)
 {
-	func0f0f0ca0(-1, false);
+	menuSetBanner(-1, false);
 
 	switch (g_Menus[g_MpPlayerNum].fm.fileop) {
 	case FILEOP_WRITE_GAME:
