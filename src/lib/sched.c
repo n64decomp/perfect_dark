@@ -550,7 +550,7 @@ void __scHandleRDP(OSSched *sc)
 		bbufUpdateIndex2Buffer();
 
 		if (var8005dd18 == 0) {
-			func00002d90();
+			schedConsiderScreenshot();
 		}
 
 		profileSetMarker(PROFILE_RDP_END);
@@ -829,17 +829,17 @@ s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP)
 	return avail;
 }
 
-void func00002d90(void)
+void schedConsiderScreenshot(void)
 {
-	if (g_MenuData.unk016 == 1) {
+	if (g_MenuData.screenshottimer == 1) {
 		if (IS8MB()) {
 			menuCreateBlur();
 		}
 
-		g_MenuData.unk016 = 0;
+		g_MenuData.screenshottimer = 0;
 	}
 
-	if (g_MenuData.unk016 >= 2) {
-		g_MenuData.unk016--;
+	if (g_MenuData.screenshottimer >= 2) {
+		g_MenuData.screenshottimer--;
 	}
 }

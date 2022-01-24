@@ -157,7 +157,7 @@ void menuTick(void)
 				}
 			}
 
-			if (g_MenuData.unk016 == 0 || g_MenuData.bg != 0) {
+			if (g_MenuData.screenshottimer == 0 || g_MenuData.bg != 0) {
 #if VERSION >= VERSION_PAL_FINAL
 				f32 diffframe = g_Vars.diffframe60freal;
 #else

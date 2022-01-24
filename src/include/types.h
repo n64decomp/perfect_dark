@@ -5147,7 +5147,7 @@ struct menudata {
 	/*0x010*/ f32 unk010;
 	/*0x014*/ u8 bg;
 	/*0x015*/ u8 nextbg;
-	/*0x016*/ u8 unk016;
+	/*0x016*/ u8 screenshottimer;
 	/*0x017*/ u8 playerjoinalpha[4];
 	/*0x01b*/ s8 bannernum;
 	/*0x01c*/ u8 unk01c;

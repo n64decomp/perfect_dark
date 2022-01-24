@@ -516,7 +516,7 @@ const u32 var7f1adf9c[] = {0x00000000};
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0e0998
+glabel menugfxRenderBgBlur
 /*  f0e1038:	27bdff70 */ 	addiu	$sp,$sp,-144
 /*  f0e103c:	3c0e8009 */ 	lui	$t6,0x8009
 /*  f0e1040:	91ce1040 */ 	lbu	$t6,0x1040($t6)
@@ -542,7 +542,7 @@ glabel func0f0e0998
 /*  f0e1090:	00002825 */ 	move	$a1,$zero
 /*  f0e1094:	00003025 */ 	move	$a2,$zero
 /*  f0e1098:	87a70030 */ 	lh	$a3,0x30($sp)
-/*  f0e109c:	0fc388f1 */ 	jal	func0f0e1ce8
+/*  f0e109c:	0fc388f1 */ 	jal	menugfxRenderGradient
 /*  f0e10a0:	afa20010 */ 	sw	$v0,0x10($sp)
 /*  f0e10a4:	100000b8 */ 	b	.PF0f0e1388
 /*  f0e10a8:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -738,7 +738,7 @@ glabel func0f0e0998
 );
 #else
 GLOBAL_ASM(
-glabel func0f0e0998
+glabel menugfxRenderBgBlur
 /*  f0e0998:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*  f0e099c:	3c0e8009 */ 	lui	$t6,%hi(g_Is4Mb)
 /*  f0e09a0:	91ce0af0 */ 	lbu	$t6,%lo(g_Is4Mb)($t6)
@@ -764,7 +764,7 @@ glabel func0f0e0998
 /*  f0e09f0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0e09f4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0e09f8:	87a70030 */ 	lh	$a3,0x30($sp)
-/*  f0e09fc:	0fc3873a */ 	jal	func0f0e1ce8
+/*  f0e09fc:	0fc3873a */ 	jal	menugfxRenderGradient
 /*  f0e0a00:	afa20010 */ 	sw	$v0,0x10($sp)
 /*  f0e0a04:	100000a9 */ 	b	.L0f0e0cac
 /*  f0e0a08:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -2241,7 +2241,7 @@ glabel func0f0e194c
 #endif
 
 GLOBAL_ASM(
-glabel func0f0e1ce8
+glabel menugfxRenderGradient
 /*  f0e1ce8:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f0e1cec:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f0e1cf0:	afa40060 */ 	sw	$a0,0x60($sp)
@@ -3786,7 +3786,7 @@ Gfx *gfxDrawSquare(Gfx *gdl, s32 x, s32 y, s32 size, bool fill, u32 bordercolour
 }
 
 GLOBAL_ASM(
-glabel func0f0e39d0
+glabel menugfxRenderBgFailure
 /*  f0e39d0:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*  f0e39d4:	3c017f1b */ 	lui	$at,%hi(var7f1adf1c)
 /*  f0e39d8:	c424df1c */ 	lwc1	$f4,%lo(var7f1adf1c)($at)
@@ -5239,7 +5239,7 @@ u32 func0f0e4fe0(void)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0e5000
+glabel menugfxRenderBgSuccess
 /*  f0e5000:	27bdfeb0 */ 	addiu	$sp,$sp,-336
 /*  f0e5004:	3c0140a0 */ 	lui	$at,0x40a0
 /*  f0e5008:	3c0e8008 */ 	lui	$t6,%hi(g_StageIndex)
@@ -6106,7 +6106,7 @@ glabel func0f0e5000
 );
 #else
 GLOBAL_ASM(
-glabel func0f0e5000
+glabel menugfxRenderBgSuccess
 /*  f0e5000:	27bdfeb0 */ 	addiu	$sp,$sp,-336
 /*  f0e5004:	3c0140a0 */ 	lui	$at,0x40a0
 /*  f0e5008:	3c0e8008 */ 	lui	$t6,%hi(g_StageIndex)

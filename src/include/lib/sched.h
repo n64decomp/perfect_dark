@@ -19,6 +19,6 @@ struct bootbufferthing *bbufGetIndex1Buffer(void);
 void bbufIncIndex0(void);
 void bbufIncIndex1(void);
 void bbufUpdateIndex2Buffer(void);
-void func00002d90(void);
+void schedConsiderScreenshot(void);
 
 #endif
