@@ -13,7 +13,13 @@ bool menuIsSoloMissionOrMp(void);
 bool currentPlayerIsMenuOpenInSoloOrMp(void);
 bool func0f0f0c68(void);
 void func0f0f0ca0(s32 value, bool allplayers);
-u32 func0f0f0ce8(void);
+
+#if VERSION >= VERSION_NTSC_1_0
+Gfx *menuRenderBannerMessages(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, bool arg5, s32 arg6, s32 arg7, s32 arg8);
+#else
+Gfx *menuRenderBannerMessages(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, bool arg5, s32 arg6);
+#endif
+
 struct menudfc *func0f0f1338(struct menuitem *item);
 void func0f0f139c(struct menuitem *item, f32 arg1);
 void func0f0f13ec(struct menuitem *item);
@@ -52,7 +58,7 @@ void menuPopDialog(void);
 void func0f0f3704(struct menudialogdef *dialogdef);
 void func0f0f372c(u8 *arg0, f32 x, f32 y, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8);
 void func0f0f37a4(u8 *arg0);
-Gfx *func0f0f38b0(Gfx *gdl, u8 *arg1, u32 arg2);
+Gfx *menuRenderHudPiece(Gfx *gdl, u8 *arg1, u32 arg2);
 u32 func0f0f5004(void);
 Gfx *menuApplyScissor(Gfx *gdl);
 u32 func0f0f5360(void);
@@ -68,7 +74,7 @@ void func0f0f8300(void);
 void menuPushRootDialog(struct menudialogdef *dialogdef, s32 arg1);
 void func0f0f85e0(struct menudialogdef *dialogdef, s32 root);
 u32 func0f0f8634(void);
-u32 func0f0f86a8(void);
+Gfx *menuRenderDialogs(Gfx *gdl);
 void func0f0f8bb4(u8 *arg0, u32 arg1, u32 arg2);
 void menuInit(void);
 u32 func0f0f9030(void);
@@ -76,9 +82,9 @@ u32 func0f0f935c(void);
 void dialogInitItems(struct menudialog *dialog);
 void func0f0fa6ac(void);
 void menuDialogTick(void);
-u32 func0f0fb488(void);
-Gfx *func0f0fbba0(Gfx *gdl, u8 param_2, s32 arg2);
-Gfx *func0f0fbc30(Gfx *gdl);
+Gfx *menuRenderBackgroundLayer1(Gfx *gdl, u8 bg, f32 frac);
+Gfx *menuRenderBackgroundLayer2(Gfx *gdl, u8 bg, f32 frac);
+Gfx *menuRender(Gfx *gdl);
 u32 menuChooseMusic(void);
 u32 menuGetRoot(void);
 void func0f0fce8c(struct menudialogdef *dialogdef, s32 playernum, s32 arg2);

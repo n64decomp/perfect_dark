@@ -5148,7 +5148,7 @@ struct menudata {
 	/*0x014*/ u8 bg;
 	/*0x015*/ u8 nextbg;
 	/*0x016*/ u8 unk016;
-	/*0x017*/ u8 unk017[4];
+	/*0x017*/ u8 playerjoinalpha[4];
 	/*0x01b*/ s8 unk01b;
 	/*0x01c*/ u8 unk01c;
 	/*0x020*/ u32 unk020;
@@ -5173,7 +5173,8 @@ struct menudata {
 	/*0x06c*/ u32 unk06c;
 	/*0x070*/ u32 unk070;
 	/*0x074*/ u32 unk074;
-	/*0x078*/ u32 unk078;
+	/*0x078*/ u16 unk078;
+	/*0x07a*/ s16 unk07a;
 	/*0x07c*/ u32 unk07c;
 	/*0x080*/ u32 unk080;
 	/*0x084*/ u32 unk084;
@@ -5484,8 +5485,8 @@ struct menudata {
 	/*0x548*/ u32 unk548;
 	/*0x54c*/ u32 unk54c;
 	/*0x550*/ u32 unk550;
-	/*0x554*/ f32 unk554;
-	/*0x558*/ f32 unk558;
+	/*0x554*/ f32 hudpiecex; // screen coords of the base of the stem - usually off-screen
+	/*0x558*/ f32 hudpiecey;
 	/*0x55c*/ f32 unk55c;
 	/*0x560*/ f32 unk560;
 	/*0x564*/ f32 unk564;

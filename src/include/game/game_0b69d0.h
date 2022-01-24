@@ -38,7 +38,7 @@ void currentPlayerTickChrFade(void);
 void currentPlayerDisplayHealth(void);
 void currentPlayerTickDamageAndHealth(void);
 void currentPlayerDisplayDamage(void);
-Gfx *hudRenderHealthBar(Gfx *gdl);
+Gfx *playerRenderHealthBar(Gfx *gdl);
 void currentPlayerSurroundWithExplosions(s32 arg0);
 void currentPlayerTickExplode(void);
 void viResetLoResIf4Mb(void);

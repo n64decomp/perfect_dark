@@ -1737,7 +1737,7 @@ glabel var7f1b8e7cpf
 /*  f16a5c8:	00402025 */ 	move	$a0,$v0
 /*  f16a5cc:	0fc576bd */ 	jal	currentPlayerScissorToViewport
 /*  f16a5d0:	00402025 */ 	move	$a0,$v0
-/*  f16a5d4:	0fc3f0f0 */ 	jal	func0f0fbc30
+/*  f16a5d4:	0fc3f0f0 */ 	jal	menuRender
 /*  f16a5d8:	00402025 */ 	move	$a0,$v0
 /*  f16a5dc:	100005a4 */ 	b	.PF0f16bc70
 /*  f16a5e0:	00409825 */ 	move	$s3,$v0
@@ -1832,7 +1832,7 @@ glabel var7f1b8e7cpf
 /*  f16a740:	02602025 */ 	move	$a0,$s3
 /*  f16a744:	0fc576bd */ 	jal	currentPlayerScissorToViewport
 /*  f16a748:	00402025 */ 	move	$a0,$v0
-/*  f16a74c:	0fc3f0f0 */ 	jal	func0f0fbc30
+/*  f16a74c:	0fc3f0f0 */ 	jal	menuRender
 /*  f16a750:	00402025 */ 	move	$a0,$v0
 /*  f16a754:	8e4c0284 */ 	lw	$t4,0x284($s2)
 /*  f16a758:	00409825 */ 	move	$s3,$v0
@@ -2219,7 +2219,7 @@ glabel var7f1b8e7cpf
 /*  f16acec:	00185fc2 */ 	srl	$t3,$t8,0x1f
 /*  f16acf0:	116003cb */ 	beqz	$t3,.PF0f16bc20
 /*  f16acf4:	00000000 */ 	nop
-/*  f16acf8:	0fc3f0f0 */ 	jal	func0f0fbc30
+/*  f16acf8:	0fc3f0f0 */ 	jal	menuRender
 /*  f16acfc:	02602025 */ 	move	$a0,$s3
 /*  f16ad00:	100003c7 */ 	b	.PF0f16bc20
 /*  f16ad04:	00409825 */ 	move	$s3,$v0
@@ -3252,7 +3252,7 @@ glabel var7f1b8e7cpf
 /*  f16bbcc:	00186fc2 */ 	srl	$t5,$t8,0x1f
 /*  f16bbd0:	51a00005 */ 	beqzl	$t5,.PF0f16bbe8
 /*  f16bbd4:	8e4b0288 */ 	lw	$t3,0x288($s2)
-/*  f16bbd8:	0fc3f0f0 */ 	jal	func0f0fbc30
+/*  f16bbd8:	0fc3f0f0 */ 	jal	menuRender
 /*  f16bbdc:	02602025 */ 	move	$a0,$s3
 /*  f16bbe0:	00409825 */ 	move	$s3,$v0
 /*  f16bbe4:	8e4b0288 */ 	lw	$t3,0x288($s2)
@@ -3505,7 +3505,7 @@ Gfx *lvRender(Gfx *gdl)
 		gdl = vi0000b1d0(gdl);
 		gdl = viRenderViewportEdges(gdl);
 		gdl = currentPlayerScissorToViewport(gdl);
-		gdl = func0f0fbc30(gdl);
+		gdl = menuRender(gdl);
 	} else if (g_Vars.stagenum == STAGE_4MBMENU) {
 		gSPClipRatio(gdl++, FRUSTRATIO_2);
 		gSPDisplayList(gdl++, &var800613a0);
@@ -3519,7 +3519,7 @@ Gfx *lvRender(Gfx *gdl)
 
 		gdl = vi0000b1d0(gdl);
 		gdl = currentPlayerScissorToViewport(gdl);
-		gdl = func0f0fbc30(gdl);
+		gdl = menuRender(gdl);
 
 		if (g_Vars.currentplayer->pausemode != PAUSEMODE_UNPAUSED) {
 			currentPlayerTickPauseMenu();
@@ -3643,7 +3643,7 @@ Gfx *lvRender(Gfx *gdl)
 				mtx00016748(1);
 
 				if (g_Vars.currentplayer->menuisactive) {
-					gdl = func0f0fbc30(gdl);
+					gdl = menuRender(gdl);
 				}
 			} else {
 				if (var80075d60 == 2) {
@@ -4055,7 +4055,7 @@ Gfx *lvRender(Gfx *gdl)
 				mtx00016748(1);
 
 				if (g_Vars.currentplayer->menuisactive) {
-					gdl = func0f0fbc30(gdl);
+					gdl = menuRender(gdl);
 				}
 
 				mtx00016748(g_Vars.currentplayerstats->scale_bg2gfx);
@@ -4337,7 +4337,7 @@ glabel var7f1b1fd4nb
 /*  f164318:	00402025 */ 	or	$a0,$v0,$zero
 /*  f16431c:	0fc55c96 */ 	jal	currentPlayerScissorToViewport
 /*  f164320:	00402025 */ 	or	$a0,$v0,$zero
-/*  f164324:	0fc3e0e0 */ 	jal	func0f0fbc30
+/*  f164324:	0fc3e0e0 */ 	jal	menuRender
 /*  f164328:	00402025 */ 	or	$a0,$v0,$zero
 /*  f16432c:	10000658 */ 	beqz	$zero,.NB0f165c90
 /*  f164330:	00409825 */ 	or	$s3,$v0,$zero
@@ -4403,7 +4403,7 @@ glabel var7f1b1fd4nb
 /*  f16441c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f164420:	0fc55c96 */ 	jal	currentPlayerScissorToViewport
 /*  f164424:	00402025 */ 	or	$a0,$v0,$zero
-/*  f164428:	0fc3e0e0 */ 	jal	func0f0fbc30
+/*  f164428:	0fc3e0e0 */ 	jal	menuRender
 /*  f16442c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f164430:	8e4a0284 */ 	lw	$t2,0x284($s2)
 /*  f164434:	00409825 */ 	or	$s3,$v0,$zero
@@ -4802,7 +4802,7 @@ glabel var7f1b1fd4nb
 /*  f1649f4:	0018cfc2 */ 	srl	$t9,$t8,0x1f
 /*  f1649f8:	13200488 */ 	beqz	$t9,.NB0f165c1c
 /*  f1649fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f164a00:	0fc3e0e0 */ 	jal	func0f0fbc30
+/*  f164a00:	0fc3e0e0 */ 	jal	menuRender
 /*  f164a04:	02602025 */ 	or	$a0,$s3,$zero
 /*  f164a08:	10000484 */ 	beqz	$zero,.NB0f165c1c
 /*  f164a0c:	00409825 */ 	or	$s3,$v0,$zero
@@ -6036,7 +6036,7 @@ glabel var7f1b1fd4nb
 /*  f165bc8:	000c5fc2 */ 	srl	$t3,$t4,0x1f
 /*  f165bcc:	51600005 */ 	beqzl	$t3,.NB0f165be4
 /*  f165bd0:	8e580288 */ 	lw	$t8,0x288($s2)
-/*  f165bd4:	0fc3e0e0 */ 	jal	func0f0fbc30
+/*  f165bd4:	0fc3e0e0 */ 	jal	menuRender
 /*  f165bd8:	02602025 */ 	or	$a0,$s3,$zero
 /*  f165bdc:	00409825 */ 	or	$s3,$v0,$zero
 /*  f165be0:	8e580288 */ 	lw	$t8,0x288($s2)

@@ -2896,7 +2896,7 @@ void currentPlayerDisplayDamage(void)
 	}
 }
 
-Gfx *hudRenderHealthBar(Gfx *gdl)
+Gfx *playerRenderHealthBar(Gfx *gdl)
 {
 	Mtxf matrix;
 	Mtxf *addr = gfxAllocateMatrix();
@@ -5310,7 +5310,7 @@ Gfx *currentPlayerRenderHud(Gfx *gdl)
 	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY
 			&& currentPlayerIsHealthVisible()
 			&& func0f0f0c68()) {
-		gdl = hudRenderHealthBar(gdl);
+		gdl = playerRenderHealthBar(gdl);
 	}
 
 	if (g_Vars.normmplayerisrunning == false) {

@@ -5213,7 +5213,7 @@ glabel var7f1b5948
 /*  f13be0c:	ad2034a4 */ 	sw	$zero,0x34a4($t1)
 /*  f13be10:	8ce50000 */ 	lw	$a1,0x0($a3)
 /*  f13be14:	ac22fc3c */ 	sw	$v0,-0x3c4($at)
-/*  f13be18:	0fc3d001 */ 	jal	func0f0f38b0
+/*  f13be18:	0fc3d001 */ 	jal	menuRenderHudPiece
 /*  f13be1c:	24a52ef0 */ 	addiu	$a1,$a1,0x2ef0
 /*  f13be20:	3c0e0102 */ 	lui	$t6,0x102
 /*  f13be24:	35ce0040 */ 	ori	$t6,$t6,0x40
@@ -5522,7 +5522,7 @@ glabel var7f1b5948
 /*  f13b2a8:	ad2034a4 */ 	sw	$zero,0x34a4($t1)
 /*  f13b2ac:	8ce50000 */ 	lw	$a1,0x0($a3)
 /*  f13b2b0:	ac22f6dc */ 	sw	$v0,%lo(var8007f6dc)($at)
-/*  f13b2b4:	0fc3ce2c */ 	jal	func0f0f38b0
+/*  f13b2b4:	0fc3ce2c */ 	jal	menuRenderHudPiece
 /*  f13b2b8:	24a52ef0 */ 	addiu	$a1,$a1,0x2ef0
 /*  f13b2bc:	3c0e0102 */ 	lui	$t6,0x102
 /*  f13b2c0:	35ce0040 */ 	ori	$t6,$t6,0x40
@@ -5831,7 +5831,7 @@ glabel var7f1b5948
 /*  f135da8:	ad2034a4 */ 	sw	$zero,0x34a4($t1)
 /*  f135dac:	8ce50000 */ 	lw	$a1,0x0($a3)
 /*  f135db0:	ac221f30 */ 	sw	$v0,0x1f30($at)
-/*  f135db4:	0fc3c0fd */ 	jal	func0f0f38b0
+/*  f135db4:	0fc3c0fd */ 	jal	menuRenderHudPiece
 /*  f135db8:	24a52ef0 */ 	addiu	$a1,$a1,0x2ef0
 /*  f135dbc:	3c0e0102 */ 	lui	$t6,0x102
 /*  f135dc0:	35ce0040 */ 	ori	$t6,$t6,0x40
@@ -6023,7 +6023,7 @@ glabel var7f1b5948
 //			g_CreditsData->unk34a1 |= 0x02;
 //			g_CreditsData->unk34a4 = 0;
 //
-//			gdl = func0f0f38b0(gdl, &g_CreditsData->unk2ef0, 4);
+//			gdl = menuRenderHudPiece(gdl, &g_CreditsData->unk2ef0, 4);
 //
 //			gSPMatrix(gdl++, osVirtualToPhysical(matrix), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 //
