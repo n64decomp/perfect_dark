@@ -536,12 +536,12 @@ void func0f153d3c(void)
 	var800a45d0.unk00 = var800a45d0.unk2a;
 }
 
-void func0f153d50(s32 arg0, s32 arg1, s32 arg2)
+void func0f153d50(s32 arg0, s32 arg1, s32 cthresh)
 {
 	var800a45d0.unk00 |= 0x04;
 	var800a45d0.unk4c = arg0;
 	var800a45d0.unk50 = arg1;
-	var800a45d0.unk54 = arg2;
+	var800a45d0.cthresh = cthresh;
 	var800a45d0.colour58 = 0x44444400;
 	var800a45d0.colour5c = 0xffffff00;
 }

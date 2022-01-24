@@ -6368,7 +6368,7 @@ struct var800a45d0 {
 	/*0x48*/ u32 colour48;
 	/*0x4c*/ u32 unk4c;
 	/*0x50*/ u32 unk50;
-	/*0x54*/ u32 unk54;
+	/*0x54*/ s32 cthresh;
 	/*0x58*/ u32 colour58;
 	/*0x5c*/ u32 colour5c;
 	/*0x60*/ u32 unk60;

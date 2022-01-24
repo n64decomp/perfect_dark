@@ -8975,17 +8975,10 @@ const char var7f1b2684[] = "Enabling control %d\n";
 const char var7f1b269c[] = "NOT IN MODE MULTIINGAME!\n";
 const char var7f1b26b8[] = "Numactive now:%d\n";
 const char var7f1b26cc[] = "[]-[] SwitchMenuMode called, context %d\n";
-const char var7f1b26f8[] = "cthresh";
-const char var7f1b2700[] = "[]-[] slide from %d";
-const char var7f1b2714[] = " to %d\n";
-const char var7f1b271c[] = "UNPAUSE: enabling control 0\n";
-const char var7f1b273c[] = "file: type %d guid %x-%x data %x err %d\n";
-const char var7f1b2768[] = "StartSelects\n";
-const char var7f1b2778[] = "bblur";
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f0f5360
+glabel dialogRender
 /*  f0f5360:	27bdfe18 */ 	addiu	$sp,$sp,-488
 /*  f0f5364:	afbe0060 */ 	sw	$s8,0x60($sp)
 /*  f0f5368:	afbf0064 */ 	sw	$ra,0x64($sp)
@@ -11237,7 +11230,7 @@ glabel func0f0f5360
 );
 #else
 GLOBAL_ASM(
-glabel func0f0f5360
+glabel dialogRender
 /*  f0f1d94:	27bdfe18 */ 	addiu	$sp,$sp,-488
 /*  f0f1d98:	f7b40038 */ 	sdc1	$f20,0x38($sp)
 /*  f0f1d9c:	afbf0064 */ 	sw	$ra,0x64($sp)
@@ -13969,40 +13962,27 @@ void func0f0f85e0(struct menudialogdef *dialogdef, s32 root)
 	g_Vars.currentplayer->pausemode = PAUSEMODE_PAUSED;
 }
 
-u32 var800714dc = 0x00000078;
+u32 g_MenuCThresh = 120;
 
-GLOBAL_ASM(
-glabel dialogRender
-/*  f0f8634:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0f8638:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0f863c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0f8640:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0f8644:	3c058007 */ 	lui	$a1,%hi(var800714dc)
-/*  f0f8648:	3c047f1b */ 	lui	$a0,%hi(var7f1b26f8)
-/*  f0f864c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0f8650:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f0f8654:	248426f8 */ 	addiu	$a0,$a0,%lo(var7f1b26f8)
-/*  f0f8658:	0c0036cc */ 	jal	mainOverrideVariable
-/*  f0f865c:	24a514dc */ 	addiu	$a1,$a1,%lo(var800714dc)
-/*  f0f8660:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f0f8664:	3c068007 */ 	lui	$a2,%hi(var800714dc)
-/*  f0f8668:	8cc614dc */ 	lw	$a2,%lo(var800714dc)($a2)
-/*  f0f866c:	8c440054 */ 	lw	$a0,0x54($v0)
-/*  f0f8670:	0fc54f54 */ 	jal	func0f153d50
-/*  f0f8674:	8c450058 */ 	lw	$a1,0x58($v0)
-/*  f0f8678:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0f867c:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f0f8680:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f0f8684:	0fc3d4d8 */ 	jal	func0f0f5360
-/*  f0f8688:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f0f868c:	0fc54f93 */ 	jal	func0f153e4c
-/*  f0f8690:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f0f8694:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f8698:	8fa20018 */ 	lw	$v0,0x18($sp)
-/*  f0f869c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0f86a0:	03e00008 */ 	jr	$ra
-/*  f0f86a4:	00000000 */ 	nop
-);
+Gfx *menuRenderDialog(Gfx *gdl, struct menudialog *dialog, struct menu *menu, s32 arg3)
+{
+	mainOverrideVariable("cthresh", &g_MenuCThresh);
+
+	func0f153d50(dialog->unk54, dialog->unk58, g_MenuCThresh);
+
+	gdl = dialogRender(gdl, dialog, menu, arg3);
+
+	func0f153e4c();
+
+	return gdl;
+}
+
+const char var7f1b2700[] = "[]-[] slide from %d";
+const char var7f1b2714[] = " to %d\n";
+const char var7f1b271c[] = "UNPAUSE: enabling control 0\n";
+const char var7f1b273c[] = "file: type %d guid %x-%x data %x err %d\n";
+const char var7f1b2768[] = "StartSelects\n";
+const char var7f1b2778[] = "bblur";
 
 /**
  * Render all dialogs for the current player.
@@ -14020,7 +14000,7 @@ Gfx *menuRenderDialogs(Gfx *gdl)
 			var8009de98 = g_Menus[g_MpPlayerNum].curdialog->x14 + g_Menus[g_MpPlayerNum].curdialog->width1c / 2 - viGetWidth() / (g_ScaleX * 2);
 			var8009de9c = g_Menus[g_MpPlayerNum].curdialog->y18 + g_Menus[g_MpPlayerNum].curdialog->height20 / 2 - viGetHeight() / 2;
 
-			gdl = dialogRender(gdl, g_Menus[g_MpPlayerNum].curdialog, &g_Menus[g_MpPlayerNum], 0);
+			gdl = menuRenderDialog(gdl, g_Menus[g_MpPlayerNum].curdialog, &g_Menus[g_MpPlayerNum], 0);
 		} else {
 			s32 i;
 			s32 j;
@@ -14045,12 +14025,12 @@ Gfx *menuRenderDialogs(Gfx *gdl)
 
 			// Render the other dialog if any
 			if (dialogs[0]) {
-				gdl = dialogRender(gdl, dialogs[0], &g_Menus[g_MpPlayerNum], 0);
+				gdl = menuRenderDialog(gdl, dialogs[0], &g_Menus[g_MpPlayerNum], 0);
 			}
 
 			// Render the current dialog
 			if (g_Menus[g_MpPlayerNum].curdialog) {
-				gdl = dialogRender(gdl, g_Menus[g_MpPlayerNum].curdialog, &g_Menus[g_MpPlayerNum], 0);
+				gdl = menuRenderDialog(gdl, g_Menus[g_MpPlayerNum].curdialog, &g_Menus[g_MpPlayerNum], 0);
 			}
 #else
 			// NTSC beta renders all dialogs all the time, and in their natural order
@@ -14058,7 +14038,7 @@ Gfx *menuRenderDialogs(Gfx *gdl)
 				struct menulayer *layer = &g_Menus[g_MpPlayerNum].layers[i];
 
 				for (j = 0; j < layer->numsiblings; j++) {
-					gdl = dialogRender(gdl, layer->siblings[j], &g_Menus[g_MpPlayerNum], 0);
+					gdl = menuRenderDialog(gdl, layer->siblings[j], &g_Menus[g_MpPlayerNum], 0);
 				}
 			}
 #endif
@@ -16170,7 +16150,7 @@ glabel var7f1b2a64
 /*  f0f94d8:	afc80054 */ 	sw	$t0,0x54($s8)
 /*  f0f94dc:	8cea0000 */ 	lw	$t2,0x0($a3)
 /*  f0f94e0:	01006025 */ 	or	$t4,$t0,$zero
-/*  f0f94e4:	3c198007 */ 	lui	$t9,%hi(var800714dc)
+/*  f0f94e4:	3c198007 */ 	lui	$t9,%hi(g_MenuCThresh)
 /*  f0f94e8:	012a5821 */ 	addu	$t3,$t1,$t2
 /*  f0f94ec:	0164001a */ 	div	$zero,$t3,$a0
 /*  f0f94f0:	00006812 */ 	mflo	$t5
@@ -16179,7 +16159,7 @@ glabel var7f1b2a64
 /*  f0f94fc:	018d7021 */ 	addu	$t6,$t4,$t5
 /*  f0f9500:	afce0054 */ 	sw	$t6,0x54($s8)
 /*  f0f9504:	afcf005c */ 	sw	$t7,0x5c($s8)
-/*  f0f9508:	8f3914dc */ 	lw	$t9,%lo(var800714dc)($t9)
+/*  f0f9508:	8f3914dc */ 	lw	$t9,%lo(g_MenuCThresh)($t9)
 /*  f0f950c:	01601825 */ 	or	$v1,$t3,$zero
 /*  f0f9510:	460e003c */ 	c.lt.s	$f0,$f14
 /*  f0f9514:	01d9001b */ 	divu	$zero,$t6,$t9
