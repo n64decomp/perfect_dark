@@ -62,7 +62,7 @@ Gfx *menuRenderHudPiece(Gfx *gdl, u8 *arg1, u32 arg2);
 u32 func0f0f5004(void);
 Gfx *menuApplyScissor(Gfx *gdl);
 Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, s32 arg3);
-void func0f0f74a8(s8 *contpadnum1, s8 *contpadnum2);
+void menuGetContPads(s8 *contpadnum1, s8 *contpadnum2);
 void func0f0f7594(s32 arg0, s32 *vdir, s32 *hdir);
 void menuFindAvailableSize(s32 *xmin, s32 *ymin, s32 *xmax, s32 *ymax);
 void dialogCalculatePosition(struct menudialog *dialog);

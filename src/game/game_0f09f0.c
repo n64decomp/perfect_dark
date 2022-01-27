@@ -13570,92 +13570,31 @@ glabel dialogRender
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f0f74a8
-.late_rodata
-glabel var7f1b294c
-.word func0f0f74a8+0x3c # f0f74e4
-glabel var7f1b2950
-.word func0f0f74a8+0x58 # f0f7500
-glabel var7f1b2954
-.word func0f0f74a8+0x58 # f0f7500
-glabel var7f1b2958
-.word func0f0f74a8+0x3c # f0f74e4
-glabel var7f1b295c
-.word func0f0f74a8+0x3c # f0f74e4
-glabel var7f1b2960
-.word func0f0f74a8+0x58 # f0f7500
-glabel var7f1b2964
-.word func0f0f74a8+0x58 # f0f7500
-glabel var7f1b2968
-.word func0f0f74a8+0x3c # f0f74e4
-glabel var7f1b296c
-.word func0f0f74a8+0x3c # f0f74e4
-.text
-/*  f0f74a8:	3c0e800a */ 	lui	$t6,%hi(g_MenuData+0x4)
-/*  f0f74ac:	8dce19c4 */ 	lw	$t6,%lo(g_MenuData+0x4)($t6)
-/*  f0f74b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0f74b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0f74b8:	25cffffd */ 	addiu	$t7,$t6,-3
-/*  f0f74bc:	2de10009 */ 	sltiu	$at,$t7,0x9
-/*  f0f74c0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0f74c4:	1020000e */ 	beqz	$at,.L0f0f7500
-/*  f0f74c8:	00803025 */ 	or	$a2,$a0,$zero
-/*  f0f74cc:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0f74d0:	3c017f1b */ 	lui	$at,%hi(var7f1b294c)
-/*  f0f74d4:	002f0821 */ 	addu	$at,$at,$t7
-/*  f0f74d8:	8c2f294c */ 	lw	$t7,%lo(var7f1b294c)($at)
-/*  f0f74dc:	01e00008 */ 	jr	$t7
-/*  f0f74e0:	00000000 */ 	nop
-/*  f0f74e4:	3c188007 */ 	lui	$t8,%hi(g_MpPlayerNum)
-/*  f0f74e8:	8f181448 */ 	lw	$t8,%lo(g_MpPlayerNum)($t8)
-/*  f0f74ec:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f0f74f0:	a0d80000 */ 	sb	$t8,0x0($a2)
-/*  f0f74f4:	8fa8001c */ 	lw	$t0,0x1c($sp)
-/*  f0f74f8:	10000022 */ 	b	.L0f0f7584
-/*  f0f74fc:	a1190000 */ 	sb	$t9,0x0($t0)
-.L0f0f7500:
-/*  f0f7500:	3c09800a */ 	lui	$t1,%hi(g_Vars+0x288)
-/*  f0f7504:	8d29a248 */ 	lw	$t1,%lo(g_Vars+0x288)($t1)
-/*  f0f7508:	8d240070 */ 	lw	$a0,0x70($t1)
-/*  f0f750c:	0fc549d2 */ 	jal	optionsGetContpadNum1
-/*  f0f7510:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f0f7514:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f0f7518:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0f751c:	240affff */ 	addiu	$t2,$zero,-1
-/*  f0f7520:	a0c20000 */ 	sb	$v0,0x0($a2)
-/*  f0f7524:	8fab001c */ 	lw	$t3,0x1c($sp)
-/*  f0f7528:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0f752c:	a16a0000 */ 	sb	$t2,0x0($t3)
-/*  f0f7530:	8c6c0318 */ 	lw	$t4,0x318($v1)
-/*  f0f7534:	55800014 */ 	bnezl	$t4,.L0f0f7588
-/*  f0f7538:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f753c:	8c6d0288 */ 	lw	$t5,0x288($v1)
-/*  f0f7540:	0fc549c4 */ 	jal	optionsGetControlMode
-/*  f0f7544:	8da40070 */ 	lw	$a0,0x70($t5)
-/*  f0f7548:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0f754c:	10410008 */ 	beq	$v0,$at,.L0f0f7570
-/*  f0f7550:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x288)
-/*  f0f7554:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f0f7558:	10410005 */ 	beq	$v0,$at,.L0f0f7570
-/*  f0f755c:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f0f7560:	10410003 */ 	beq	$v0,$at,.L0f0f7570
-/*  f0f7564:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0f7568:	54410007 */ 	bnel	$v0,$at,.L0f0f7588
-/*  f0f756c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0f7570:
-/*  f0f7570:	8dcea248 */ 	lw	$t6,%lo(g_Vars+0x288)($t6)
-/*  f0f7574:	0fc549d9 */ 	jal	optionsGetContpadNum2
-/*  f0f7578:	8dc40070 */ 	lw	$a0,0x70($t6)
-/*  f0f757c:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f0f7580:	a1e20000 */ 	sb	$v0,0x0($t7)
-.L0f0f7584:
-/*  f0f7584:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0f7588:
-/*  f0f7588:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0f758c:	03e00008 */ 	jr	$ra
-/*  f0f7590:	00000000 */ 	nop
-);
+void menuGetContPads(s8 *contpadnum1, s8 *contpadnum2)
+{
+	switch (g_MenuData.root) {
+	case MENUROOT_MPSETUP:
+	case MENUROOT_FILEMGR:
+	case MENUROOT_BOOTPAKMGR:
+	case MENUROOT_4MBFILEMGR:
+	case MENUROOT_4MBMAINMENU:
+		*contpadnum1 = g_MpPlayerNum;
+		*contpadnum2 = -1;
+		break;
+	default:
+		*contpadnum1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
+		*contpadnum2 = -1;
+
+		if (!g_Vars.normmplayerisrunning) {
+			s32 mode = optionsGetControlMode(g_Vars.currentplayerstats->mpindex);
+
+			if (mode == CONTROLMODE_23 || mode == CONTROLMODE_24 || mode == CONTROLMODE_22 || mode == CONTROLMODE_21) {
+				*contpadnum2 = optionsGetContpadNum2(g_Vars.currentplayerstats->mpindex);
+			}
+		}
+		break;
+	}
+}
 
 u32 g_MpNumJoined = 1;
 
@@ -18845,7 +18784,7 @@ glabel var7f1b2ac8
 /*  f0faf6c:	afa90128 */ 	sw	$t1,0x128($sp)
 /*  f0faf70:	afaa00f4 */ 	sw	$t2,0xf4($sp)
 /*  f0faf74:	afab00f0 */ 	sw	$t3,0xf0($sp)
-/*  f0faf78:	0fc3defb */ 	jal	func0f0f74a8
+/*  f0faf78:	0fc3defb */ 	jal	menuGetContPads
 /*  f0faf7c:	afac012c */ 	sw	$t4,0x12c($sp)
 /*  f0faf80:	83a200d7 */ 	lb	$v0,0xd7($sp)
 /*  f0faf84:	8fa80124 */ 	lw	$t0,0x124($sp)
@@ -19896,7 +19835,7 @@ glabel var7f1b2ac8
 /*  f0fa830:	afa90128 */ 	sw	$t1,0x128($sp)
 /*  f0fa834:	afaa00f4 */ 	sw	$t2,0xf4($sp)
 /*  f0fa838:	afab00f0 */ 	sw	$t3,0xf0($sp)
-/*  f0fa83c:	0fc3dd2a */ 	jal	func0f0f74a8
+/*  f0fa83c:	0fc3dd2a */ 	jal	menuGetContPads
 /*  f0fa840:	afac012c */ 	sw	$t4,0x12c($sp)
 /*  f0fa844:	83a200d7 */ 	lb	$v0,0xd7($sp)
 /*  f0fa848:	8fa80124 */ 	lw	$t0,0x124($sp)
@@ -20923,7 +20862,7 @@ glabel var7f1b2ac8
 /*  f0f6f80:	afa90128 */ 	sw	$t1,0x128($sp)
 /*  f0f6f84:	afaa00f4 */ 	sw	$t2,0xf4($sp)
 /*  f0f6f88:	afab00f0 */ 	sw	$t3,0xf0($sp)
-/*  f0f6f8c:	0fc3cf88 */ 	jal	func0f0f74a8
+/*  f0f6f8c:	0fc3cf88 */ 	jal	menuGetContPads
 /*  f0f6f90:	afac012c */ 	sw	$t4,0x12c($sp)
 /*  f0f6f94:	83a200d7 */ 	lb	$v0,0xd7($sp)
 /*  f0f6f98:	8fa80124 */ 	lw	$t0,0x124($sp)
@@ -21903,7 +21842,7 @@ glabel var7f1b2ac8
 //			contpadnums[3] = 3;
 //			numcontpads = 4;
 //		} else {
-//			func0f0f74a8(&contpadnum1, &contpadnum2);
+//			menuGetContPads(&contpadnum1, &contpadnum2);
 //
 //			if (contpadnum1 >= 0) {
 //				contpadnums[numcontpads] = contpadnum1;
