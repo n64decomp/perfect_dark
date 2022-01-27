@@ -547,7 +547,7 @@ void mpPushPauseDialog(void)
 	{
 		g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
 
-		if (g_Menus[g_MpPlayerNum].unk83c == 0) {
+		if (g_Menus[g_MpPlayerNum].openinhibit == 0) {
 			g_Menus[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
 
 			if (g_Vars.normmplayerisrunning) {

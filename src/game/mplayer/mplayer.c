@@ -1275,7 +1275,7 @@ Gfx *mpRenderModalText(Gfx *gdl)
 
 		gdl = func0f153780(gdl);
 
-		g_Menus[g_Vars.currentplayerstats->mpindex].unk83c = 10;
+		g_Menus[g_Vars.currentplayerstats->mpindex].openinhibit = 10;
 	}
 
 	return gdl;

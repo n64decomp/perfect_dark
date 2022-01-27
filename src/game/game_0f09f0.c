@@ -19,6 +19,7 @@
 #include "game/game_1531a0.h"
 #include "game/file.h"
 #include "game/lv.h"
+#include "game/mplayer/setup.h"
 #include "game/music.h"
 #include "game/texdecompress.h"
 #include "game/mplayer/setup.h"
@@ -32,6 +33,7 @@
 #include "game/options.h"
 #include "game/propobj.h"
 #include "bss.h"
+#include "lib/joy.h"
 #include "lib/vi.h"
 #include "lib/main.h"
 #include "lib/snd.h"
@@ -13924,7 +13926,7 @@ void menuClose(void)
 	g_Menus[g_MpPlayerNum].colend = 0;
 	g_Menus[g_MpPlayerNum].blockend = 0;
 	g_Menus[g_MpPlayerNum].curdialog = NULL;
-	g_Menus[g_MpPlayerNum].unk83c = 10;
+	g_Menus[g_MpPlayerNum].openinhibit = 10;
 
 	if (g_MenuData.root == MENUROOT_MPPAUSE) {
 		g_PlayersWithControl[g_Menus[g_MpPlayerNum].playernum] = true;
@@ -14189,7 +14191,8 @@ Gfx *menuRenderDialogs(Gfx *gdl)
 		}
 
 		// Render banner messages
-		if (g_Menus[g_MpPlayerNum].bannernum != -1 && (g_Menus[g_MpPlayerNum].curdialog->definition->unk10 & 0x80) == 0) {
+		if (g_Menus[g_MpPlayerNum].bannernum != -1
+				&& (g_Menus[g_MpPlayerNum].curdialog->definition->flags & MENUDIALOGFLAG_0080) == 0) {
 			if (g_MenuData.count >= 2) {
 				s32 xmin;
 				s32 ymin;
@@ -14838,7 +14841,7 @@ glabel func0f0f9030
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0f935c
+glabel dialogProcessInput
 .late_rodata
 glabel var7f1b3d08pf
 .word 0x3c23d70a
@@ -16147,7 +16150,7 @@ glabel var7f1b3d5cpf
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f0f935c
+glabel dialogProcessInput
 .late_rodata
 glabel var7f1b2a10
 .word 0x3c23d70a
@@ -17458,7 +17461,7 @@ glabel var7f1b2a64
 );
 #else
 GLOBAL_ASM(
-glabel func0f0f935c
+glabel dialogProcessInput
 .late_rodata
 glabel var7f1b2a10
 .word 0x3c23d70a
@@ -18733,34 +18736,34 @@ void func0f0fa6ac(void)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel menuDialogTick
+glabel menuProcessInput
 .late_rodata
 glabel var7f1b2a98
-.word menuDialogTick+0xd64
+.word menuProcessInput+0xd64
 glabel var7f1b2a9c
-.word menuDialogTick+0xd64
+.word menuProcessInput+0xd64
 glabel var7f1b2aa0
-.word menuDialogTick+0xc8c
+.word menuProcessInput+0xc8c
 glabel var7f1b2aa4
-.word menuDialogTick+0xd14
+.word menuProcessInput+0xd14
 glabel var7f1b2aa8
-.word menuDialogTick+0xd64
+.word menuProcessInput+0xd64
 glabel var7f1b2aac
-.word menuDialogTick+0xda8
+.word menuProcessInput+0xda8
 glabel var7f1b2ab0
-.word menuDialogTick+0xda8
+.word menuProcessInput+0xda8
 glabel var7f1b2ab4
-.word menuDialogTick+0xda8
+.word menuProcessInput+0xda8
 glabel var7f1b2ab8
-.word menuDialogTick+0xda8
+.word menuProcessInput+0xda8
 glabel var7f1b2abc
-.word menuDialogTick+0xda8
+.word menuProcessInput+0xda8
 glabel var7f1b2ac0
-.word menuDialogTick+0xc8c
+.word menuProcessInput+0xc8c
 glabel var7f1b2ac4
-.word menuDialogTick+0xda8
+.word menuProcessInput+0xda8
 glabel var7f1b2ac8
-.word menuDialogTick+0xd64
+.word menuProcessInput+0xd64
 .text
 /*  f0fae40:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f0fae44:	afb70034 */ 	sw	$s7,0x34($sp)
@@ -19657,7 +19660,7 @@ glabel var7f1b2ac8
 /*  f0fba38:	24060001 */ 	li	$a2,0x1
 /*  f0fba3c:	24130001 */ 	li	$s3,0x1
 .PF0f0fba40:
-/*  f0fba40:	0fc3e6a8 */ 	jal	func0f0f935c
+/*  f0fba40:	0fc3e6a8 */ 	jal	dialogProcessInput
 /*  f0fba44:	8e240000 */ 	lw	$a0,0x0($s1)
 /*  f0fba48:	824e0014 */ 	lb	$t6,0x14($s2)
 /*  f0fba4c:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -19784,34 +19787,34 @@ glabel var7f1b2ac8
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel menuDialogTick
+glabel menuProcessInput
 .late_rodata
 glabel var7f1b2a98
-.word menuDialogTick+0xd10 # f0fb414
+.word menuProcessInput+0xd10 # f0fb414
 glabel var7f1b2a9c
-.word menuDialogTick+0xd10 # f0fb414
+.word menuProcessInput+0xd10 # f0fb414
 glabel var7f1b2aa0
-.word menuDialogTick+0xc38 # f0fb33c
+.word menuProcessInput+0xc38 # f0fb33c
 glabel var7f1b2aa4
-.word menuDialogTick+0xcc0 # f0fb3c4
+.word menuProcessInput+0xcc0 # f0fb3c4
 glabel var7f1b2aa8
-.word menuDialogTick+0xd10 # f0fb414
+.word menuProcessInput+0xd10 # f0fb414
 glabel var7f1b2aac
-.word menuDialogTick+0xd54 # f0fb458
+.word menuProcessInput+0xd54 # f0fb458
 glabel var7f1b2ab0
-.word menuDialogTick+0xd54 # f0fb458
+.word menuProcessInput+0xd54 # f0fb458
 glabel var7f1b2ab4
-.word menuDialogTick+0xd54 # f0fb458
+.word menuProcessInput+0xd54 # f0fb458
 glabel var7f1b2ab8
-.word menuDialogTick+0xd54 # f0fb458
+.word menuProcessInput+0xd54 # f0fb458
 glabel var7f1b2abc
-.word menuDialogTick+0xd54 # f0fb458
+.word menuProcessInput+0xd54 # f0fb458
 glabel var7f1b2ac0
-.word menuDialogTick+0xc38 # f0fb33c
+.word menuProcessInput+0xc38 # f0fb33c
 glabel var7f1b2ac4
-.word menuDialogTick+0xd54 # f0fb458
+.word menuProcessInput+0xd54 # f0fb458
 glabel var7f1b2ac8
-.word menuDialogTick+0xd10 # f0fb414
+.word menuProcessInput+0xd10 # f0fb414
 .text
 /*  f0fa704:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f0fa708:	afb70034 */ 	sw	$s7,0x34($sp)
@@ -20684,7 +20687,7 @@ glabel var7f1b2ac8
 /*  f0fb2a8:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f0fb2ac:	24130001 */ 	addiu	$s3,$zero,0x1
 .L0f0fb2b0:
-/*  f0fb2b0:	0fc3e4d7 */ 	jal	func0f0f935c
+/*  f0fb2b0:	0fc3e4d7 */ 	jal	dialogProcessInput
 /*  f0fb2b4:	8e240000 */ 	lw	$a0,0x0($s1)
 /*  f0fb2b8:	824f0014 */ 	lb	$t7,0x14($s2)
 /*  f0fb2bc:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -20811,34 +20814,34 @@ glabel var7f1b2ac8
 );
 #else
 GLOBAL_ASM(
-glabel menuDialogTick
+glabel menuProcessInput
 .late_rodata
 glabel var7f1b2a98
-.word menuDialogTick+0xd10
+.word menuProcessInput+0xd10
 glabel var7f1b2a9c
-.word menuDialogTick+0xd10
+.word menuProcessInput+0xd10
 glabel var7f1b2aa0
-.word menuDialogTick+0xc38
+.word menuProcessInput+0xc38
 glabel var7f1b2aa4
-.word menuDialogTick+0xcc0
+.word menuProcessInput+0xcc0
 glabel var7f1b2aa8
-.word menuDialogTick+0xd10
+.word menuProcessInput+0xd10
 glabel var7f1b2aac
-.word menuDialogTick+0xd54
+.word menuProcessInput+0xd54
 glabel var7f1b2ab0
-.word menuDialogTick+0xd54
+.word menuProcessInput+0xd54
 glabel var7f1b2ab4
-.word menuDialogTick+0xd54
+.word menuProcessInput+0xd54
 glabel var7f1b2ab8
-.word menuDialogTick+0xd54
+.word menuProcessInput+0xd54
 glabel var7f1b2abc
-.word menuDialogTick+0xd54
+.word menuProcessInput+0xd54
 glabel var7f1b2ac0
-.word menuDialogTick+0xc38
+.word menuProcessInput+0xc38
 glabel var7f1b2ac4
-.word menuDialogTick+0xd54
+.word menuProcessInput+0xd54
 glabel var7f1b2ac8
-.word menuDialogTick+0xd10
+.word menuProcessInput+0xd10
 .text
 /*  f0f6e54:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f0f6e58:	afb70034 */ 	sw	$s7,0x34($sp)
@@ -21711,7 +21714,7 @@ glabel var7f1b2ac8
 /*  f0f79f8:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f0f79fc:	24130001 */ 	addiu	$s3,$zero,0x1
 .NB0f0f7a00:
-/*  f0f7a00:	0fc3d6ec */ 	jal	func0f0f935c
+/*  f0f7a00:	0fc3d6ec */ 	jal	dialogProcessInput
 /*  f0f7a04:	8e240000 */ 	lw	$a0,0x0($s1)
 /*  f0f7a08:	824f0014 */ 	lb	$t7,0x14($s2)
 /*  f0f7a0c:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -21837,6 +21840,542 @@ glabel var7f1b2ac8
 /*  f0f7bd4:	27bd0130 */ 	addiu	$sp,$sp,0x130
 );
 #endif
+
+// Mismatch: regalloc in first for loop
+//void menuProcessInput(void)
+//{
+//	s32 yhelddir; // 12c
+//	s32 xhelddir; // 128
+//	s32 ytapdir; // 124
+//	s32 xtapdir; // 120
+//	bool starttoselect; // 11c
+//	struct menuinputs inputs; // 104
+//	struct menudialog *dialog; // 100
+//	struct menu *menu; // fc
+//	bool starttap; // f8
+//	s32 stickx; // f4
+//	s32 sticky; // f0
+//	s32 numcontpads; // ec
+//	s32 i;
+//	s32 contpadnums[4]; // d8
+//	s8 contpadnum1; // d7
+//	s8 contpadnum2; // d6
+//	struct fileguid guid; // cc
+//	s32 xdeadzone;
+//	s32 ydeadzone;
+//	s32 digitalrepeatinterval;
+//	s32 xstickintervalmult;
+//	s32 stickintervalbase;
+//	s32 ystickintervalmult;
+//	s32 allowdiagonal;
+//
+//	yhelddir = 0;
+//	xhelddir = 0;
+//	ytapdir = 0;
+//	xtapdir = 0;
+//	starttoselect = false;
+//
+//	menu = &g_Menus[g_MpPlayerNum];
+//	dialog = g_Menus[g_MpPlayerNum].curdialog;
+//
+//	if (g_MenuData.root == MENUROOT_MPPAUSE) {
+//		g_AmIndex = g_Vars.currentplayernum;
+//	}
+//
+//	func0f0f1418();
+//
+//	inputs.select = 0;
+//	inputs.back = 0;
+//	inputs.shoulder = 0;
+//	inputs.back2 = 0;
+//
+//	if (g_Menus[g_MpPlayerNum].curdialog) {
+//		stickx = 0;
+//		sticky = 0;
+//		starttap = false;
+//		numcontpads = 0;
+//
+//		// Decide which controller pads will control this player's menu
+//		if (g_MenuData.root == MENUROOT_BOOTPAKMGR) {
+//			contpadnums[0] = 0;
+//			contpadnums[1] = 1;
+//			contpadnums[2] = 2;
+//			contpadnums[3] = 3;
+//			numcontpads = 4;
+//		} else {
+//			func0f0f74a8(&contpadnum1, &contpadnum2);
+//
+//			if (contpadnum1 >= 0) {
+//				contpadnums[numcontpads] = contpadnum1;
+//				numcontpads++;
+//			}
+//
+//			if (contpadnum2 >= 0) {
+//				contpadnums[numcontpads] = contpadnum2;
+//				numcontpads++;
+//			}
+//		}
+//
+//		// Handle some kind of file save/load timer
+//		if (g_Menus[g_MpPlayerNum].fm.unke41 > 0) {
+//			g_Menus[g_MpPlayerNum].fm.unke41--;
+//
+//			if (g_Menus[g_MpPlayerNum].fm.unke41 == 0) {
+//				guid.fileid = g_Menus[g_MpPlayerNum].fm.fileid;
+//				guid.deviceserial = g_Menus[g_MpPlayerNum].fm.deviceserial;
+//
+//				filemgrSaveOrLoad(&guid, -1, 0);
+//			} else {
+//				g_Menus[g_MpPlayerNum].fm.unke40_00 = true;
+//			}
+//		}
+//
+//		// Iterate controllers and figure out which buttons are being pressed.
+//		// For the control stick input, take whichever stick is pressed the most.
+//		for (i = 0; i < numcontpads; i++) {
+//			s8 thisstickx = joyGetStickX(contpadnums[i]);
+//			s8 thissticky = joyGetStickY(contpadnums[i]);
+//			u16 buttons = joyGetButtons(contpadnums[i], 0xffff);
+//			s32 buttonsnow = joyGetButtonsPressedThisFrame(contpadnums[i], 0xffff);
+//
+//			if (buttonsnow & A_BUTTON) {
+//				inputs.select = 1;
+//			}
+//
+//			if (buttonsnow & B_BUTTON) {
+//				inputs.back = 1;
+//			}
+//
+//			if (buttonsnow & Z_TRIG) {
+//				inputs.select = 1;
+//			}
+//
+//			if (buttonsnow & START_BUTTON) {
+//				starttap = true;
+//			}
+//
+//			if (buttons & R_TRIG) {
+//				inputs.shoulder = 1;
+//			}
+//
+//			if (buttons & L_TRIG) {
+//				inputs.shoulder = 1;
+//			}
+//
+//			if ((stickx < 0 ? -stickx : stickx) < (thisstickx < 0 ? -thisstickx : thisstickx)) {
+//				stickx = thisstickx;
+//			}
+//
+//			if ((sticky < 0 ? -sticky : sticky) < (thissticky < 0 ? -thissticky : thissticky)) {
+//				sticky = thissticky;
+//			}
+//
+//			if (buttons & U_CBUTTONS) {
+//				yhelddir = -1;
+//			}
+//
+//			if (buttonsnow & U_CBUTTONS) {
+//				ytapdir = -1;
+//			}
+//
+//			if (buttons & D_CBUTTONS) {
+//				yhelddir = 1;
+//			}
+//
+//			if (buttonsnow & D_CBUTTONS) {
+//				ytapdir = 1;
+//			}
+//
+//			if (buttons & L_CBUTTONS) {
+//				xhelddir = -1;
+//			}
+//
+//			if (buttonsnow & L_CBUTTONS) {
+//				xtapdir = -1;
+//			}
+//
+//			if (buttons & R_CBUTTONS) {
+//				xhelddir = 1;
+//			}
+//
+//			if (buttonsnow & R_CBUTTONS) {
+//				xtapdir = 1;
+//			}
+//
+//			if (buttons & U_JPAD) {
+//				yhelddir = -1;
+//			}
+//
+//			if (buttonsnow & U_JPAD) {
+//				ytapdir = -1;
+//			}
+//
+//			if (buttons & D_JPAD) {
+//				yhelddir = 1;
+//			}
+//
+//			if (buttonsnow & D_JPAD) {
+//				ytapdir = 1;
+//			}
+//
+//			if (buttons & L_JPAD) {
+//				xhelddir = -1;
+//			}
+//
+//			if (buttonsnow & L_JPAD) {
+//				xtapdir = -1;
+//			}
+//
+//			if (buttons & R_JPAD) {
+//				xhelddir = 1;
+//			}
+//
+//			if (buttonsnow & R_JPAD) {
+//				xtapdir = 1;
+//			}
+//		}
+//
+//		// Prevent select and going back on the same frame
+//		if (inputs.select) {
+//			inputs.back = 0;
+//		}
+//
+//		if (ytapdir != 0) {
+//			yhelddir = ytapdir;
+//		}
+//
+//		if (xtapdir != 0) {
+//			xhelddir = xtapdir;
+//		}
+//
+//		// Choose repeat rate settings
+//		digitalrepeatinterval = 10;
+//		xdeadzone = 30;
+//		ydeadzone = 20;
+//		stickintervalbase = 60;
+//		xstickintervalmult = 33;
+//		ystickintervalmult = 44;
+//		allowdiagonal = false;
+//
+//		if (g_Menus[g_MpPlayerNum].curdialog) {
+//			struct menuitem *item = g_Menus[g_MpPlayerNum].curdialog->focuseditem;
+//
+//			if (item) {
+//				if (item->type == MENUITEMTYPE_SLIDER || item->type == MENUITEMTYPE_10) {
+//					if (g_Menus[g_MpPlayerNum].curdialog->dimmed) {
+//						digitalrepeatinterval = PALDOWN(5);
+//						xdeadzone = 20;
+//						stickintervalbase = 30;
+//						xstickintervalmult = 10;
+//					}
+//				}
+//
+//				if (item->type == MENUITEMTYPE_KEYBOARD) {
+//					allowdiagonal = true;
+//					digitalrepeatinterval = PALDOWN(5);
+//					xdeadzone = 20;
+//					xstickintervalmult = 10;
+//					ystickintervalmult = 10;
+//				}
+//			}
+//		}
+//
+//		// Handle left/right repeat
+//		{
+//			s32 absstickx;
+//			s32 abssticky;
+//			s32 oldslot;
+//			s32 newslot;
+//			s32 interval;
+//			bool apply = false;
+//
+//			// This check doesn't exist in the up/down code later on...
+//			// It's likely unnecessary
+//			if (xhelddir == 0) {
+//				menu->xrepeatmode = MENUREPEATMODE_RELEASED;
+//			}
+//
+//			if (xtapdir != 0) {
+//				// Direction was pressed this frame - reset the repeat properties
+//				menu->xrepeatmode = MENUREPEATMODE_SLOW;
+//				menu->xrepeattimer60 = 0;
+//				menu->xrepeatdir = xtapdir;
+//				apply = true;
+//			} else if (xhelddir != 0) {
+//				xhelddir = menu->xrepeatdir;
+//			}
+//
+//			// If held for 1 second, repeat faster
+//			if (menu->xrepeattimer60 > PALDOWN(60)) {
+//				menu->xrepeatmode = MENUREPEATMODE_FAST;
+//			}
+//
+//			// Calculate the old and new repeat slots.
+//			// If these are different, the repeat will be applied on this tick.
+//			oldslot = menu->xrepeattimer60 / digitalrepeatinterval;
+//			newslot = (menu->xrepeattimer60 + g_Vars.diffframe60) / digitalrepeatinterval;
+//
+//			if (menu->xrepeatmode == MENUREPEATMODE_SLOW) {
+//				oldslot /= 2;
+//				newslot /= 2;
+//			}
+//
+//			inputs.leftrightheld = xhelddir;
+//
+//			// Check if the stick is being pushed left or right
+//			absstickx = stickx < 0 ? -stickx : stickx;
+//			abssticky = sticky < 0 ? -sticky : sticky;
+//
+//			if (absstickx >= xdeadzone && (absstickx > abssticky || allowdiagonal)) {
+//				// Reset the repeat if it's a different direction
+//				if (stickx < 0 && menu->xrepeatcount > 0) {
+//					menu->xrepeatcount = 0;
+//				}
+//
+//				if (stickx > 0 && menu->xrepeatcount < 0) {
+//					menu->xrepeatcount = 0;
+//				}
+//
+//				if (menu->xrepeatcount == 0) {
+//					menu->xrepeattimer60 = 0;
+//				}
+//
+//				// Calculate the repeat interval based on the stick pressure
+//				if (absstickx > 70) {
+//					absstickx = 70;
+//				}
+//
+//				absstickx -= xdeadzone;
+//				interval = stickintervalbase - xstickintervalmult * absstickx / (70 - xdeadzone);
+//
+//				// After 3 repeats, halve the interval (ie. make faster)
+//				if (menu->xrepeatcount >= 3 || menu->xrepeatcount <= -3) {
+//					interval /= 2;
+//				}
+//
+//				if (interval > 0) {
+//#if PAL
+//					if (interval > 3) {
+//						interval = PALDOWN(interval);
+//					}
+//#endif
+//					oldslot = menu->xrepeattimer60 / interval;
+//					newslot = (menu->xrepeattimer60 + g_Vars.diffframe60) / interval;
+//
+//					xhelddir = stickx < 0 ? -1 : 1;
+//
+//					if (oldslot != newslot) {
+//						apply = true;
+//					}
+//
+//					if (menu->xrepeatcount == 0) {
+//						apply = true;
+//					}
+//
+//					if (apply) {
+//						menu->xrepeatcount += xhelddir;
+//					}
+//				}
+//			} else {
+//				menu->xrepeatcount = 0;
+//			}
+//
+//			if (oldslot != newslot) {
+//				apply = true;
+//			}
+//
+//			if (!apply) {
+//				xhelddir = 0;
+//			}
+//		}
+//
+//		// Handle up/down repeat
+//		{
+//			s32 absstickx;
+//			s32 abssticky;
+//			s32 oldslot;
+//			s32 newslot;
+//			s32 interval;
+//			bool apply = false;
+//
+//			if (ytapdir != 0) {
+//				// Direction was pressed this frame - reset the repeat properties
+//				apply = true;
+//				menu->yrepeatmode = MENUREPEATMODE_SLOW;
+//				menu->yrepeattimer60 = 0;
+//				menu->yrepeatdir = ytapdir;
+//			} else if (yhelddir != 0) {
+//				yhelddir = menu->yrepeatdir;
+//			}
+//
+//			// If held for 1 second, repeat faster
+//			if (menu->yrepeattimer60 > PALDOWN(60)) {
+//				menu->yrepeatmode = MENUREPEATMODE_FAST;
+//			}
+//
+//			// Calculate the old and new repeat slots.
+//			// If these are different, the repeat will be applied on this tick.
+//			oldslot = menu->yrepeattimer60 / digitalrepeatinterval;
+//			newslot = (menu->yrepeattimer60 + g_Vars.diffframe60) / digitalrepeatinterval;
+//
+//			if (menu->yrepeatmode == MENUREPEATMODE_SLOW) {
+//				oldslot /= 2;
+//				newslot /= 2;
+//			}
+//
+//			inputs.updownheld = yhelddir;
+//
+//			// Check if the stick is being pushed up or down
+//			abssticky = sticky < 0 ? -sticky : sticky;
+//			absstickx = stickx < 0 ? -stickx : stickx;
+//
+//			if (abssticky >= ydeadzone && (abssticky > absstickx || allowdiagonal)) {
+//				// Reset the repeat if it's a different direction
+//				if (sticky < 0 && menu->yrepeatcount < 0) {
+//					menu->yrepeatcount = 0;
+//				}
+//
+//				if (sticky > 0 && menu->yrepeatcount > 0) {
+//					menu->yrepeatcount = 0;
+//				}
+//
+//				if (menu->yrepeatcount == 0) {
+//					menu->yrepeattimer60 = 0;
+//				}
+//
+//				// Calculate the repeat interval based on the stick pressure
+//				if (abssticky > 70) {
+//					abssticky = 70;
+//				}
+//
+//				abssticky -= ydeadzone;
+//				interval = stickintervalbase - ystickintervalmult * abssticky / 50;
+//
+//				// After 3 repeats, third the interval (ie. make faster)
+//				if (menu->yrepeatcount >= 3 || menu->yrepeatcount <= -3) {
+//					interval /= 3;
+//				}
+//
+//				if (interval > 0) {
+//#if PAL
+//					if (interval > 3) {
+//						interval = PALDOWN(interval);
+//					}
+//#endif
+//
+//					oldslot = menu->yrepeattimer60 / interval;
+//					newslot = (menu->yrepeattimer60 + g_Vars.diffframe60) / interval;
+//
+//					yhelddir = sticky > 0 ? -1 : 1;
+//
+//					if (oldslot != newslot) {
+//						apply = true;
+//					}
+//
+//					if (menu->yrepeatcount == 0) {
+//						apply = true;
+//					}
+//
+//					if (apply) {
+//						menu->yrepeatcount += yhelddir;
+//					}
+//				}
+//			} else {
+//				menu->yrepeatcount = 0;
+//			}
+//
+//			if (oldslot != newslot) {
+//				apply = true;
+//			}
+//
+//			if (!apply) {
+//				yhelddir = 0;
+//			}
+//		}
+//
+//		menu->xrepeattimer60 += g_Vars.diffframe60;
+//		menu->yrepeattimer60 += g_Vars.diffframe60;
+//
+//		inputs.leftright = xhelddir;
+//		inputs.updown = yhelddir;
+//		inputs.xaxis = stickx;
+//		inputs.yaxis = sticky;
+//		inputs.unk14 = 0;
+//		inputs.start = starttap ? true : false;
+//
+//		// Handle dialogs that allow pressing start to select,
+//		// and handle pressing start on a list item.
+//		if (g_Menus[g_MpPlayerNum].curdialog && starttap) {
+//			struct menuitem *item;
+//
+//			if (g_Menus[g_MpPlayerNum].curdialog->definition->flags & MENUDIALOGFLAG_0004) {
+//				inputs.select = true;
+//				starttoselect = true;
+//			}
+//
+//			item = g_Menus[g_MpPlayerNum].curdialog->focuseditem;
+//
+//			if (item && item->type == MENUITEMTYPE_LIST) {
+//				inputs.select = true;
+//			}
+//		}
+//
+//		// Iterate all dialogs and give them the input for processing
+//		{
+//			bool foundcurrent = false;
+//			s32 i;
+//			s32 j;
+//
+//			for (i = 0; i < g_Menus[g_MpPlayerNum].depth; i++) {
+//				struct menulayer *layer = &g_Menus[g_MpPlayerNum].layers[i];
+//
+//				for (j = 0; j < layer->numsiblings; j++) {
+//					bool iscurrent = false;
+//
+//					if (i == g_Menus[g_MpPlayerNum].depth - 1 && j == layer->cursibling && !foundcurrent) {
+//						iscurrent = true;
+//						foundcurrent = true;
+//					}
+//
+//					dialogProcessInput(layer->siblings[j], &inputs, iscurrent);
+//				}
+//			}
+//		}
+//
+//		switch (g_MenuData.root) {
+//		case MENUROOT_MPSETUP:
+//		case MENUROOT_4MBMAINMENU:
+//			// Allow pressing start on most MP setup dialogs to jump straight to
+//			// the Ready dialog, or apply the quick start setup.
+//			if (inputs.start && !starttoselect && g_Menus[g_MpPlayerNum].curdialog && !dialog->dimmed) {
+//				if (g_Menus[g_MpPlayerNum].curdialog->definition);
+//
+//				if (g_Vars.mpsetupmenu != MPSETUPMENU_GENERAL
+//						&& g_Menus[g_MpPlayerNum].curdialog->definition != &g_MpReadyMenuDialog) {
+//					menuPushDialog(&g_MpReadyMenuDialog);
+//				} else if (g_Menus[g_MpPlayerNum].curdialog->definition == &g_MpQuickTeamGameSetupMenuDialog) {
+//					func0f17f428();
+//				}
+//			}
+//			break;
+//		case MENUROOT_MPPAUSE:
+//			if (g_InCutscene) {
+//				func0f0f8120();
+//			}
+//			g_Menus[g_MpPlayerNum].openinhibit = 10;
+//			// fall-through
+//		case MENUROOT_ENDSCREEN:
+//		case MENUROOT_MAINMENU:
+//		case MENUROOT_MPENDSCREEN:
+//		case MENUROOT_TRAINING:
+//			if (inputs.start && !starttoselect && g_Menus[g_MpPlayerNum].curdialog
+//					&& (dialog->definition->flags & MENUDIALOGFLAG_0020) == 0) {
+//				func0f0f8120();
+//			}
+//			break;
+//		}
+//	}
+//}
 
 /**
  * Render layer 1 of the menu background.

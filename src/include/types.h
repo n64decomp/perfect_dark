@@ -3565,7 +3565,7 @@ struct menudialogdef {
 	u32 title;
 	struct menuitem *items;
 	s32 (*handler)(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data);
-	u32 unk10;
+	u32 flags;
 	struct menudialogdef *nextsibling;
 };
 
@@ -3954,15 +3954,17 @@ struct menu {
 	/*0x6dc*/ u32 blocks[80]; // for menuitemdata
 	/*0x81c*/ s32 blockend;
 	/*0x820*/ u8 unk820;
-	/*0x824*/ u32 unk824;
-	/*0x828*/ u32 unk828;
-	/*0x82c*/ s16 unk82c;
-	/*0x830*/ u32 unk830;
-	/*0x834*/ u32 unk834;
-	/*0x838*/ u16 unk838;
+	/*0x824*/ s32 xrepeattimer60;
+	/*0x828*/ s16 xrepeatcount;
+	/*0x82a*/ s16 xrepeatdir;
+	/*0x82c*/ s16 xrepeatmode;
+	/*0x830*/ s32 yrepeattimer60;
+	/*0x834*/ s16 yrepeatcount;
+	/*0x836*/ s16 yrepeatdir;
+	/*0x838*/ s16 yrepeatmode;
 	/*0x83a*/ u8 unk83a;
 	/*0x83b*/ u8 playernum;
-	/*0x83c*/ u8 unk83c;
+	/*0x83c*/ u8 openinhibit;
 	/*0x83d*/ u8 unk83d;
 	/*0x83e*/ u8 unk83e;
 	/*0x83f*/ u8 unk83f;
@@ -5693,17 +5695,20 @@ struct var800a4cf0 {
 };
 
 struct menuinputs {
-	/*0x00*/ s8 leftright; // Both control stick and C/D buttons - set on initial press and key repeat
-	/*0x01*/ s8 updown;    // As above
-	/*0x02*/ u8 select;    // A/Z buttons
-	/*0x03*/ u8 back;      // B button
-	/*0x04*/ s8 xaxis;     // Control stick's current left/right position
-	/*0x05*/ s8 yaxis;     // Control stick's current up/down position
-	/*0x06*/ u8 shoulder;  // L or R buttons
-	/*0x07*/ u8 back2;     // Used in keyboard
-	/*0x08*/ s8 unk08;
-	/*0x09*/ s8 unk09;
+	/*0x00*/ s8 leftright;     // Both control stick and C/D buttons - set on initial press and on key repeat intervals
+	/*0x01*/ s8 updown;        // As above
+	/*0x02*/ u8 select;        // A/Z buttons
+	/*0x03*/ u8 back;          // B button
+	/*0x04*/ s8 xaxis;         // Control stick's current left/right position
+	/*0x05*/ s8 yaxis;         // Control stick's current up/down position
+	/*0x06*/ u8 shoulder;      // L or R buttons
+	/*0x07*/ u8 back2;         // Used in keyboard
+	/*0x08*/ s8 leftrightheld; // Same as leftright, but is also set between repeat intervals
+	/*0x09*/ s8 updownheld;    // As above
 	/*0x0a*/ s8 start;
+	/*0x0c*/ s32 unk0c;
+	/*0x10*/ s32 unk10;
+	/*0x14*/ u8 unk14;
 };
 
 struct mpconfigsim {

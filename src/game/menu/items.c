@@ -3596,7 +3596,7 @@ bool menuitemDropdownTick(struct menuitem *item, struct menudialog *dialog, stru
 			menuitemListTick(item, inputs, arg3, data);
 
 			if (mpIsPlayerLockedOut(g_MpPlayerNum)) {
-				if ((item->flags & MENUITEMFLAG_00040000) || (dialog->definition->unk10 & 0x10)) {
+				if ((item->flags & MENUITEMFLAG_00040000) || (dialog->definition->flags & MENUDIALOGFLAG_0010)) {
 					dialog->dimmed = false;
 				}
 			}
@@ -8139,15 +8139,16 @@ bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct
 				index = 0;
 			}
 
-			if ((item->flags & MENUITEMFLAG_00000800) == 0 && !g_Menus[g_MpPlayerNum].unk82c) {
+			if ((item->flags & MENUITEMFLAG_00000800) == 0
+					&& g_Menus[g_MpPlayerNum].xrepeatmode == MENUREPEATMODE_SLOW) {
 				index = index + inputs->leftright;
 			} else {
 				f0 = data->slider.unk00 / 1000.0f;
 				f0 = (f0 * 100.0f) / item->param3;
 #if VERSION >= VERSION_PAL_FINAL
-				f0 = f0 + inputs->unk08 * g_Vars.diffframe60freal;
+				f0 = f0 + inputs->leftrightheld * g_Vars.diffframe60freal;
 #else
-				f0 = f0 + inputs->unk08 * g_Vars.diffframe60;
+				f0 = f0 + inputs->leftrightheld * g_Vars.diffframe60;
 #endif
 				f0 = (item->param3 * f0) / 100.0f;
 
@@ -8167,7 +8168,7 @@ bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct
 			}
 
 			if ((item->flags & MENUITEMFLAG_00000800) == 0 && f2 < 40) {
-				if (g_Menus[g_MpPlayerNum].unk82c) {
+				if (g_Menus[g_MpPlayerNum].xrepeatmode != MENUREPEATMODE_SLOW) {
 					index = index + inputs->leftright;
 				}
 			} else {
@@ -9092,9 +9093,9 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 		}
 
 #if VERSION >= VERSION_PAL_FINAL
-		intval = intval + (s32)(((f32)inputs->unk09 + (f32)inputs->unk09) * g_Vars.diffframe60freal);
+		intval = intval + (s32)(((f32)inputs->updownheld + (f32)inputs->updownheld) * g_Vars.diffframe60freal);
 #else
-		intval += inputs->unk09 * 2 * g_Vars.diffframe60;
+		intval += inputs->updownheld * 2 * g_Vars.diffframe60;
 #endif
 		data->scrollable.unk00 += intval;
 
@@ -10841,9 +10842,9 @@ bool menuitemRankingTick(struct menuinputs *inputs, u32 arg1, union menuitemdata
 		}
 
 #if VERSION >= VERSION_PAL_FINAL
-		intval = intval + (s32)(((f32)inputs->unk09 + (f32)inputs->unk09) * g_Vars.diffframe60freal);
+		intval = intval + (s32)(((f32)inputs->updownheld + (f32)inputs->updownheld) * g_Vars.diffframe60freal);
 #else
-		intval += inputs->unk09 * 2 * g_Vars.diffframe60;
+		intval += inputs->updownheld * 2 * g_Vars.diffframe60;
 #endif
 		data->ranking.scrolloffset += intval;
 
@@ -11749,9 +11750,9 @@ bool menuitemPlayerStatsTick(struct menuitem *item, struct menudialog *dialog, s
 		}
 
 #if VERSION >= VERSION_PAL_FINAL
-		intval = intval + (s32)(((f32)inputs->unk09 + (f32)inputs->unk09) * g_Vars.diffframe60freal);
+		intval = intval + (s32)(((f32)inputs->updownheld + (f32)inputs->updownheld) * g_Vars.diffframe60freal);
 #else
-		intval += inputs->unk09 * 2 * g_Vars.diffframe60;
+		intval += inputs->updownheld * 2 * g_Vars.diffframe60;
 #endif
 		data->dropdown.scrolloffset += intval;
 

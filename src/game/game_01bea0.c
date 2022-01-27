@@ -85,8 +85,8 @@ void menuTick(void)
 	for (i = 0; i < 4; i++) {
 		if (i);
 
-		if (g_Menus[i].unk83c > 0) {
-			g_Menus[i].unk83c--;
+		if (g_Menus[i].openinhibit > 0) {
+			g_Menus[i].openinhibit--;
 		}
 
 		if (g_Menus[i].curdialog) {
@@ -274,10 +274,10 @@ void menuTick(void)
 		g_PlayersWithControl[0] = false;
 
 		if (g_Vars.lvframenum > 30 && g_Vars.tickmode != TICKMODE_CUTSCENE) {
-			g_Menus[0].unk83c = 0;
-			g_Menus[1].unk83c = 0;
-			g_Menus[2].unk83c = 0;
-			g_Menus[3].unk83c = 0;
+			g_Menus[0].openinhibit = 0;
+			g_Menus[1].openinhibit = 0;
+			g_Menus[2].openinhibit = 0;
+			g_Menus[3].openinhibit = 0;
 			g_Vars.currentplayer->pausemode = PAUSEMODE_UNPAUSED;
 			currentPlayerPause(MENUROOT_FILEMGR);
 			g_FileState = FILESTATE_SELECTED;
@@ -333,7 +333,7 @@ void menuTick(void)
 					setCurrentPlayerNum(g_Menus[g_MpPlayerNum].playernum);
 				}
 
-				menuDialogTick();
+				menuProcessInput();
 				setCurrentPlayerNum(prevplayernum);
 			} else {
 				if (g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU) {

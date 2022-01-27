@@ -142,7 +142,7 @@ void shardCreate(s16 room, struct coord *pos, f32 rotx, f32 size, s32 type)
 		g_Shards[g_NextShardNum].vertices[i].z = 0;
 		g_Shards[g_NextShardNum].vertices[i].unk08 = 0;
 		g_Shards[g_NextShardNum].vertices[i].unk0a = 0;
-		g_Shards[g_NextShardNum].vertices[i].s = i * 4;
+		g_Shards[g_NextShardNum].vertices[i].colour = i * 4;
 	}
 
 	if (type == SHARDTYPE_WOOD) {

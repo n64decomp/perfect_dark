@@ -2949,7 +2949,7 @@ glabel filemgrConsiderPushingFileSelectDialog
 #else
 bool filemgrConsiderPushingFileSelectDialog(void)
 {
-	if (g_Menus[g_MpPlayerNum].unk83c == 0) {
+	if (g_Menus[g_MpPlayerNum].openinhibit == 0) {
 		g_Menus[g_MpPlayerNum].playernum = 0;
 		menuPushRootDialog(&g_FilemgrFileSelectMenuDialog, MENUROOT_FILEMGR);
 		return true;

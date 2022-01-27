@@ -6180,7 +6180,7 @@ struct menudialogdef g_CiMenuViaPauseMenuDialog = {
 
 bool soloChoosePauseDialog(void)
 {
-	if (g_Menus[g_MpPlayerNum].unk83c == 0) {
+	if (g_Menus[g_MpPlayerNum].openinhibit == 0) {
 		g_Menus[g_MpPlayerNum].playernum = 0;
 
 		if (g_Vars.stagenum == STAGE_CITRAINING) {
