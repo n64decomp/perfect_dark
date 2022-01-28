@@ -3241,57 +3241,33 @@ glabel func0f0f2b2c
 /*  f0f2c40:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-GLOBAL_ASM(
-glabel func0f0f2c44
-/*  f0f2c44:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0f2c48:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0f2c4c:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f0f2c50:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f0f2c54:	14a00005 */ 	bnez	$a1,.L0f0f2c6c
-/*  f0f2c58:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0f2c5c:	14c00003 */ 	bnez	$a2,.L0f0f2c6c
-/*  f0f2c60:	00000000 */ 	nop
-/*  f0f2c64:	1000001f */ 	b	.L0f0f2ce4
-/*  f0f2c68:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0f2c6c:
-/*  f0f2c6c:	10c00007 */ 	beqz	$a2,.L0f0f2c8c
-/*  f0f2c70:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f0f2c74:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f0f2c78:	afa30034 */ 	sw	$v1,0x34($sp)
-/*  f0f2c7c:	0fc3ca73 */ 	jal	func0f0f29cc
-/*  f0f2c80:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f0f2c84:	8fa30034 */ 	lw	$v1,0x34($sp)
-/*  f0f2c88:	8fa7003c */ 	lw	$a3,0x3c($sp)
-.L0f0f2c8c:
-/*  f0f2c8c:	10e00004 */ 	beqz	$a3,.L0f0f2ca0
-/*  f0f2c90:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f0f2c94:	0fc3cacb */ 	jal	func0f0f2b2c
-/*  f0f2c98:	00e02825 */ 	or	$a1,$a3,$zero
-/*  f0f2c9c:	00401825 */ 	or	$v1,$v0,$zero
-.L0f0f2ca0:
-/*  f0f2ca0:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*  f0f2ca4:	8dc50008 */ 	lw	$a1,0x8($t6)
-/*  f0f2ca8:	50a0000e */ 	beqzl	$a1,.L0f0f2ce4
-/*  f0f2cac:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0f2cb0:	8ca20010 */ 	lw	$v0,0x10($a1)
-/*  f0f2cb4:	5040000b */ 	beqzl	$v0,.L0f0f2ce4
-/*  f0f2cb8:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0f2cbc:	8caf0004 */ 	lw	$t7,0x4($a1)
-/*  f0f2cc0:	2404000d */ 	addiu	$a0,$zero,0xd
-/*  f0f2cc4:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*  f0f2cc8:	31f80004 */ 	andi	$t8,$t7,0x4
-/*  f0f2ccc:	57000005 */ 	bnezl	$t8,.L0f0f2ce4
-/*  f0f2cd0:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0f2cd4:	0040f809 */ 	jalr	$v0
-/*  f0f2cd8:	afa30034 */ 	sw	$v1,0x34($sp)
-/*  f0f2cdc:	8fa30034 */ 	lw	$v1,0x34($sp)
-/*  f0f2ce0:	00601025 */ 	or	$v0,$v1,$zero
-.L0f0f2ce4:
-/*  f0f2ce4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f2ce8:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0f2cec:	03e00008 */ 	jr	$ra
-/*  f0f2cf0:	00000000 */ 	nop
-);
+s32 dialogChangeItemFocus(struct menudialog *dialog, s32 leftright, s32 updown)
+{
+	s32 result = 0;
+
+	if (leftright == 0 && updown == 0) {
+		return 0;
+	}
+
+	if (updown != 0) {
+		func0f0f29cc(dialog, updown);
+	}
+
+	if (leftright != 0) {
+		result = func0f0f2b2c(dialog, leftright);
+	}
+
+	if (dialog->focuseditem != 0) {
+		if (dialog->focuseditem->handler != NULL) {
+			if ((dialog->focuseditem->flags & MENUITEMFLAG_00000004) == 0) {
+				union handlerdata data;
+				dialog->focuseditem->handler(MENUOP_FOCUS, dialog->focuseditem, &data);
+			}
+		}
+	}
+
+	return result;
+}
 
 void menuOpenDialog(struct menudialogdef *dialogdef, struct menudialog *dialog, struct menu *menu)
 {
@@ -14825,7 +14801,7 @@ void dialogTick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickfl
 		if (layer->numsiblings <= 1) {
 			struct menuitem *prevfocuseditem = dialog->focuseditem;
 
-			func0f0f2c44(dialog, inputs->leftright, inputs->updown);
+			dialogChangeItemFocus(dialog, inputs->leftright, inputs->updown);
 
 			if (dialog->focuseditem != prevfocuseditem) {
 				menuPlaySound(MENUSOUND_FOCUS);
@@ -14834,7 +14810,7 @@ void dialogTick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickfl
 			struct menuitem *prevfocuseditem = dialog->focuseditem;
 			s32 result;
 
-			result = func0f0f2c44(dialog, inputs->leftright, inputs->updown);
+			result = dialogChangeItemFocus(dialog, inputs->leftright, inputs->updown);
 
 			if (result != 0) {
 				func0f0f9030(result);

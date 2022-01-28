@@ -40,9 +40,9 @@ bool func0f0f2674(struct menuitem *item, struct menudialog *dialog, u32 arg2);
 struct menuitem *dialogFindItemAtColY(s32 targety, s32 colindex, struct menudialogdef *dialogdef, s32 *rowindexptr, struct menudialog *dialog);
 struct menuitem *dialogFindFirstItem(struct menudialog *dialog);
 u32 func0f0f2928(void);
-u32 func0f0f29cc(void);
-u32 func0f0f2b2c(void);
-s32 func0f0f2c44(struct menudialog *dialog, s32 leftright, s32 updown);
+s32 func0f0f29cc(struct menudialog *dialog, s32 updown);
+s32 func0f0f2b2c(struct menudialog *dialog, s32 leftright);
+s32 dialogChangeItemFocus(struct menudialog *dialog, s32 leftright, s32 updown);
 void menuOpenDialog(struct menudialogdef *dialogdef, struct menudialog *arg1, struct menu *menu);
 void menuPushDialog(struct menudialogdef *dialogdef);
 
