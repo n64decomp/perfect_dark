@@ -28,7 +28,7 @@ struct menudialogdef g_PacOptionsMenuDialog = {
 	L_MPMENU_218, // "Pop a Cap Options"
 	g_PacOptionsMenuItems,
 	mpOptionsMenuDialog,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 

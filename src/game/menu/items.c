@@ -3596,7 +3596,7 @@ bool menuitemDropdownTick(struct menuitem *item, struct menudialog *dialog, stru
 			menuitemListTick(item, inputs, tickflags, data);
 
 			if (mpIsPlayerLockedOut(g_MpPlayerNum)) {
-				if ((item->flags & MENUITEMFLAG_00040000) || (dialog->definition->flags & MENUDIALOGFLAG_0010)) {
+				if ((item->flags & MENUITEMFLAG_00040000) || (dialog->definition->flags & MENUDIALOGFLAG_MPLOCKABLE)) {
 					dialog->dimmed = false;
 				}
 			}

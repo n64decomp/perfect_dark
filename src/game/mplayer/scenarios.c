@@ -915,7 +915,7 @@ struct menudialogdef g_MpScenarioMenuDialog = {
 	L_MPMENU_243, // "Scenario"
 	g_MpScenarioMenuItems,
 	NULL,
-	0x00000011,
+	MENUDIALOGFLAG_CLOSEONSELECT | MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -929,7 +929,7 @@ struct menudialogdef g_MpQuickTeamScenarioMenuDialog = {
 	L_MPMENU_243, // "Scenario"
 	g_MpQuickTeamScenarioMenuItems,
 	NULL,
-	0x00000011,
+	MENUDIALOGFLAG_CLOSEONSELECT | MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 

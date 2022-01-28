@@ -30,7 +30,7 @@ struct menudialogdef g_HtbOptionsMenuDialog = {
 	L_MPMENU_216, // "Briefcase Options"
 	g_HtbOptionsMenuItems,
 	mpOptionsMenuDialog,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 

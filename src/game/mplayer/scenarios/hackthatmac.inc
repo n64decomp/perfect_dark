@@ -30,7 +30,7 @@ struct menudialogdef g_HtmOptionsMenuDialog = {
 	L_MPMENU_217, // "Hacker Options"
 	g_HtmOptionsMenuItems,
 	mpOptionsMenuDialog,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 

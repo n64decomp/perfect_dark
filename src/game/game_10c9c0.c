@@ -202,7 +202,7 @@ struct menudialogdef g_GameFiles4MbMenuDialog = {
 	L_OPTIONS_099, // "Game Files"
 	g_GameFiles4MbMenuItems,
 	NULL,
-	0x00000020,
+	MENUDIALOGFLAG_IGNOREBACK,
 	NULL,
 };
 
@@ -217,7 +217,7 @@ struct menudialogdef g_FilemgrFileSelect4MbMenuDialog = {
 	L_OPTIONS_095, // "Perfect Dark"
 	g_FilemgrFileSelect4MbMenuItems,
 	filemgrMainMenuDialog,
-	0x00000020,
+	MENUDIALOGFLAG_IGNOREBACK,
 	&g_GameFiles4MbMenuDialog,
 };
 
@@ -245,7 +245,7 @@ struct menudialogdef g_AudioVideo4MbMenuDialog = {
 	L_OPTIONS_307, // "Audio/Visual"
 	g_AudioVideo4MbMenuItems,
 	menudialog0010559c,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -265,7 +265,7 @@ struct menudialogdef g_MpPlayerSetup4MbMenuDialog = {
 	L_MPMENU_028, // "Player Setup"
 	g_MpPlayerSetup4MbMenuItems,
 	NULL,
-	0x00000800,
+	MENUDIALOGFLAG_DROPOUTONCLOSE,
 	&g_MpChallengeListOrDetailsMenuDialog,
 };
 
@@ -286,7 +286,7 @@ struct menudialogdef g_MpQuickGo4MbMenuDialog = {
 	L_MISC_460, // "Quick Go"
 	g_MpQuickGo4MbMenuItems,
 	menudialogMpQuickGo,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -303,7 +303,7 @@ struct menudialogdef g_MpConfirmChallenge4MbMenuDialog = {
 	(u32)&func0f17e318,
 	g_MpConfirmChallenge4MbMenuItems,
 	menudialog0017e3fc,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -317,7 +317,7 @@ struct menudialogdef g_MpChallenges4MbMenuDialog = {
 	L_MPMENU_050, // "Combat Challenges"
 	g_MpChallenges4MbMenuItems,
 	mpCombatChallengesMenuDialog,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -337,7 +337,7 @@ struct menudialogdef g_MainMenu4MbMenuDialog = {
 	L_OPTIONS_302, // "Small but Perfect Menu"
 	g_MainMenu4MbMenuItems,
 	menudialog4MbMainMenu,
-	0x00000030,
+	MENUDIALOGFLAG_MPLOCKABLE | MENUDIALOGFLAG_IGNOREBACK,
 	NULL,
 };
 
@@ -353,7 +353,7 @@ struct menudialogdef g_MpDropOut4MbMenuDialog = {
 	L_MPMENU_195, // "Drop Out"
 	g_MpDropOut4MbMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -369,7 +369,7 @@ struct menudialogdef g_UnusedAbortMenuDialog = {
 	L_MPMENU_052, // "Abort"
 	g_UnusedAbortMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -387,7 +387,7 @@ struct menudialogdef g_MpEditSimulant4MbMenuDialog = {
 	(u32)&mpMenuTitleEditSimulant,
 	g_MpEditSimulant4MbMenuItems,
 	menudialogMpSimulant,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -414,6 +414,6 @@ struct menudialogdef g_AdvancedSetup4MbMenuDialog = {
 	L_MPMENU_017, // "Game Setup"
 	g_AdvancedSetup4MbMenuItems,
 	menudialogMpGameSetup,
-	0x00000810,
+	MENUDIALOGFLAG_MPLOCKABLE | MENUDIALOGFLAG_DROPOUTONCLOSE,
 	&g_MpPlayerSetup4MbMenuDialog,
 };

@@ -148,7 +148,7 @@ struct menudialogdef g_RetryMissionMenuDialog = {
 	(u32)&menuDialogTitleRetryStageName,
 	g_RetryMissionMenuItems,
 	menudialogRetryMission,
-	0x0000000c,
+	MENUDIALOGFLAG_STARTSELECTS | MENUDIALOGFLAG_DISABLEITEMSCROLL,
 	&g_PreAndPostMissionBriefingMenuDialog,
 };
 
@@ -166,7 +166,7 @@ struct menudialogdef g_NextMissionMenuDialog = {
 	(u32)&menuDialogTitleNextMissionStageName,
 	g_NextMissionMenuItems,
 	menudialogRetryMission,
-	0x0000000c,
+	MENUDIALOGFLAG_STARTSELECTS | MENUDIALOGFLAG_DISABLEITEMSCROLL,
 	&g_PreAndPostMissionBriefingMenuDialog,
 };
 
@@ -455,7 +455,7 @@ struct menudialogdef g_SoloEndscreenObjectivesFailedMenuDialog = {
 	L_OPTIONS_300, // "Objectives"
 	g_SoloEndscreenObjectivesMenuItems,
 	soloMenuDialogPauseStatus,
-	0x00000048,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL | MENUDIALOGFLAG_SMOOTHSCROLLABLE,
 	NULL,
 };
 
@@ -464,7 +464,7 @@ struct menudialogdef g_SoloEndscreenObjectivesCompletedMenuDialog = {
 	L_OPTIONS_300, // "Objectives"
 	g_SoloEndscreenObjectivesMenuItems,
 	soloMenuDialogPauseStatus,
-	0x00000048,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL | MENUDIALOGFLAG_SMOOTHSCROLLABLE,
 	NULL,
 };
 
@@ -473,7 +473,7 @@ struct menudialogdef g_2PMissionEndscreenObjectivesFailedVMenuDialog = {
 	L_OPTIONS_300, // "Objectives"
 	g_2PMissionEndscreenObjectivesVMenuItems,
 	soloMenuDialogPauseStatus,
-	0x00000048,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL | MENUDIALOGFLAG_SMOOTHSCROLLABLE,
 	NULL,
 };
 
@@ -482,7 +482,7 @@ struct menudialogdef g_2PMissionEndscreenObjectivesCompletedVMenuDialog = {
 	L_OPTIONS_300, // "Objectives"
 	g_2PMissionEndscreenObjectivesVMenuItems,
 	soloMenuDialogPauseStatus,
-	0x00000048,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL | MENUDIALOGFLAG_SMOOTHSCROLLABLE,
 	NULL,
 };
 
@@ -512,7 +512,7 @@ struct menudialogdef g_MissionContinueOrReplyMenuDialog = {
 	(u32)&menuTextCurrentStageName3,
 	g_MissionContinueOrReplyMenuItems,
 	NULL,
-	0x00000004,
+	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
 };
 #endif
@@ -1158,7 +1158,7 @@ struct menudialogdef g_SoloMissionEndscreenCompletedMenuDialog = {
 	(u32)&menuTitleStageCompleted,
 	g_MissionEndscreenMenuItems,
 	menudialogSolo2PEndscreenCompleted,
-	0x00000048,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL | MENUDIALOGFLAG_SMOOTHSCROLLABLE,
 	&g_SoloEndscreenObjectivesCompletedMenuDialog,
 };
 
@@ -1167,7 +1167,7 @@ struct menudialogdef g_SoloMissionEndscreenFailedMenuDialog = {
 	(u32)&menuTitleStageFailed,
 	g_MissionEndscreenMenuItems,
 	menudialogSolo2PEndscreenFailed,
-	0x00000048,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL | MENUDIALOGFLAG_SMOOTHSCROLLABLE,
 	&g_SoloEndscreenObjectivesFailedMenuDialog,
 };
 
@@ -1559,7 +1559,7 @@ struct menudialogdef g_2PMissionEndscreenCompletedHMenuDialog = {
 	(u32)&menuTitleStageCompleted,
 	g_MissionEndscreenMenuItems,
 	menudialogSolo2PEndscreenCompleted,
-	0x00000048,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL | MENUDIALOGFLAG_SMOOTHSCROLLABLE,
 	&g_SoloEndscreenObjectivesCompletedMenuDialog,
 };
 
@@ -1568,7 +1568,7 @@ struct menudialogdef g_2PMissionEndscreenFailedHMenuDialog = {
 	(u32)&menuTitleStageFailed,
 	g_MissionEndscreenMenuItems,
 	menudialogSolo2PEndscreenFailed,
-	0x00000048,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL | MENUDIALOGFLAG_SMOOTHSCROLLABLE,
 	&g_SoloEndscreenObjectivesFailedMenuDialog,
 };
 
@@ -1577,7 +1577,7 @@ struct menudialogdef g_2PMissionEndscreenCompletedVMenuDialog = {
 	L_OPTIONS_276, // "Completed"
 	g_2PMissionEndscreenVMenuItems,
 	menudialogSolo2PEndscreenCompleted,
-	0x00000048,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL | MENUDIALOGFLAG_SMOOTHSCROLLABLE,
 	&g_2PMissionEndscreenObjectivesCompletedVMenuDialog,
 };
 
@@ -1586,7 +1586,7 @@ struct menudialogdef g_2PMissionEndscreenFailedVMenuDialog = {
 	L_OPTIONS_277, // "Failed"
 	g_2PMissionEndscreenVMenuItems,
 	menudialogSolo2PEndscreenFailed,
-	0x00000048,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL | MENUDIALOGFLAG_SMOOTHSCROLLABLE,
 	&g_2PMissionEndscreenObjectivesFailedVMenuDialog,
 };
 

@@ -2357,7 +2357,7 @@ void dialog0f0f1ef4(struct menudialog *dialog)
 	s32 i;
 	s32 j;
 
-	if ((dialog->definition->flags & MENUDIALOGFLAG_0040) == 0
+	if ((dialog->definition->flags & MENUDIALOGFLAG_SMOOTHSCROLLABLE) == 0
 			&& g_MenuData.root != MENUROOT_TRAINING
 			&& bodyheight < dialog->contentheight) {
 		for (i = 0; i < dialog->numcols; i++) {
@@ -13225,7 +13225,7 @@ Gfx *menuRenderDialogs(Gfx *gdl)
 
 		// Render banner messages
 		if (g_Menus[g_MpPlayerNum].bannernum != -1
-				&& (g_Menus[g_MpPlayerNum].curdialog->definition->flags & MENUDIALOGFLAG_0080) == 0) {
+				&& (g_Menus[g_MpPlayerNum].curdialog->definition->flags & MENUDIALOGFLAG_DISABLEBANNER) == 0) {
 			if (g_MenuData.count >= 2) {
 				s32 xmin;
 				s32 ymin;
@@ -13558,7 +13558,7 @@ void dialogTick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickfl
 		if (dialog == g_Menus[g_MpPlayerNum].curdialog) {
 			transitiontotype = definition->type;
 
-			if (mpIsPlayerLockedOut(g_MpPlayerNum) && (dialog->definition->flags & MENUDIALOGFLAG_0010)) {
+			if (mpIsPlayerLockedOut(g_MpPlayerNum) && (dialog->definition->flags & MENUDIALOGFLAG_MPLOCKABLE)) {
 				transitiontotype = MENUDIALOGTYPE_DANGER;
 			}
 
@@ -13752,7 +13752,7 @@ void dialogTick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickfl
 		}
 	}
 
-	if ((dialog->definition->flags & MENUDIALOGFLAG_0200) == 0) {
+	if ((dialog->definition->flags & MENUDIALOGFLAG_DISABLERESIZE) == 0) {
 		dialogCalculateContentSize(dialog->definition, dialog, menu);
 	}
 
@@ -13955,16 +13955,16 @@ void dialogTick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickfl
 		}
 
 		if (inputs->back) {
-			if ((dialog->definition->flags & MENUDIALOGFLAG_0800) && g_Vars.unk000498) {
+			if ((dialog->definition->flags & MENUDIALOGFLAG_DROPOUTONCLOSE) && g_Vars.unk000498) {
 				if (IS4MB()) {
 					menuPushDialog(&g_MpDropOut4MbMenuDialog);
 				} else {
 					menuPushDialog(&g_MpDropOutMenuDialog);
 				}
-			} else if ((dialog->definition->flags & MENUDIALOGFLAG_0020) == 0) {
+			} else if ((dialog->definition->flags & MENUDIALOGFLAG_IGNOREBACK) == 0) {
 				menuPopDialog();
 			}
-		} else if (dialog->definition->flags & MENUDIALOGFLAG_0001) {
+		} else if (dialog->definition->flags & MENUDIALOGFLAG_CLOSEONSELECT) {
 			if (dialog->state > MENUDIALOGSTATE_PREOPEN) {
 				if ((inputs->select & 1) == 1 || (inputs->back & 1) == 1) {
 					menuPopDialog();
@@ -13974,7 +13974,7 @@ void dialogTick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickfl
 	}
 
 	// Scrolling related (when the dialog is too big vertically)
-	if (dialog->focuseditem && (dialog->definition->flags & MENUDIALOGFLAG_0008) == 0) {
+	if (dialog->focuseditem && (dialog->definition->flags & MENUDIALOGFLAG_DISABLEITEMSCROLL) == 0) {
 #if VERSION >= VERSION_NTSC_1_0
 		s32 dstscroll;
 		s32 itemy;
@@ -14005,7 +14005,7 @@ void dialogTick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickfl
 		} else {
 			dialog->dstscroll = 0;
 		}
-	} else if (dialog->definition->flags & MENUDIALOGFLAG_0040) {
+	} else if (dialog->definition->flags & MENUDIALOGFLAG_SMOOTHSCROLLABLE) {
 #if VERSION >= VERSION_PAL_FINAL
 		s32 adjustment = (s32)(inputs->yaxis * g_Vars.diffframe60freal / 20) - (s32)(inputs->updownheld * g_Vars.diffframe60freal);
 #else
@@ -17666,7 +17666,7 @@ glabel var7f1b2ac8
 //		if (g_Menus[g_MpPlayerNum].curdialog && starttap) {
 //			struct menuitem *item;
 //
-//			if (g_Menus[g_MpPlayerNum].curdialog->definition->flags & MENUDIALOGFLAG_0004) {
+//			if (g_Menus[g_MpPlayerNum].curdialog->definition->flags & MENUDIALOGFLAG_STARTSELECTS) {
 //				inputs.select = true;
 //				starttoselect = true;
 //			}
@@ -17727,7 +17727,7 @@ glabel var7f1b2ac8
 //		case MENUROOT_MPENDSCREEN:
 //		case MENUROOT_TRAINING:
 //			if (inputs.start && !starttoselect && g_Menus[g_MpPlayerNum].curdialog
-//					&& (dialog->definition->flags & MENUDIALOGFLAG_0020) == 0) {
+//					&& (dialog->definition->flags & MENUDIALOGFLAG_IGNOREBACK) == 0) {
 //				func0f0f8120();
 //			}
 //			break;
@@ -18392,7 +18392,7 @@ struct menudialogdef g_PakRemovedMenuDialog = {
 	L_MPWEAPONS_173, // "Error"
 	g_PakRemovedMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -18412,7 +18412,7 @@ struct menudialogdef g_PakRepairSuccessMenuDialog = {
 	L_MPWEAPONS_180, // "Repair Successful"
 	g_PakRepairSuccessMenuItems,
 	menudialog000fcd48,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -18428,7 +18428,7 @@ struct menudialogdef g_PakRepairFailedMenuDialog = {
 	L_MPWEAPONS_182, // "Repair Failed"
 	g_PakRepairFailedMenuItems,
 	menudialog000fcd48,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -18446,7 +18446,7 @@ struct menudialogdef g_PakAttemptRepairMenuDialog = {
 	L_MPWEAPONS_175, // "Attempt Repair"
 	g_PakAttemptRepairMenuItems,
 	menudialog000fcd48,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -18660,7 +18660,7 @@ struct menudialogdef g_PakDamagedMenuDialog = {
 #if VERSION >= VERSION_NTSC_1_0
 	0x00000020,
 #else
-	0x00000000,
+	0,
 #endif
 	NULL,
 };
@@ -18683,7 +18683,7 @@ struct menudialogdef g_PakFullMenuDialog = {
 #if VERSION >= VERSION_NTSC_1_0
 	0x00000020,
 #else
-	0x00000000,
+	0,
 #endif
 	NULL,
 };
@@ -18701,7 +18701,7 @@ struct menudialogdef g_PakCannotReadGameBoyMenuDialog = {
 	L_MPWEAPONS_253, // "Error"
 	g_PakCannotReadGameBoyMenuItems,
 	NULL,
-	0x00000020,
+	MENUDIALOGFLAG_IGNOREBACK,
 	NULL,
 };
 
@@ -18720,7 +18720,7 @@ struct menudialogdef g_PakDataLostMenuDialog = {
 	L_MPWEAPONS_256, // "Error"
 	g_PakDataLostMenuItems,
 	NULL,
-	0x00000020,
+	MENUDIALOGFLAG_IGNOREBACK,
 	NULL,
 };
 #endif

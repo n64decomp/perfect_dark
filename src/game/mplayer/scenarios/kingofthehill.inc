@@ -52,7 +52,7 @@ struct menudialogdef g_KohOptionsMenuDialog = {
 	L_MPMENU_219, // "Hill Options"
 	g_KohOptionsMenuItems,
 	mpOptionsMenuDialog,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 

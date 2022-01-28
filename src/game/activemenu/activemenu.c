@@ -226,7 +226,7 @@ struct menudialogdef g_AmPickTargetMenuDialog = {
 	L_OPTIONS_492, // "Pick Target"
 	g_AmPickTargetMenuItems,
 	amPickTargetMenuDialog,
-	0x00000000,
+	0,
 	NULL,
 };
 

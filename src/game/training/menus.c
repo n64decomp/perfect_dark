@@ -874,7 +874,7 @@ struct menudialogdef g_FrDifficultyMenuDialog = {
 	L_MPMENU_442, // "Difficulty"
 	g_FrDifficultyMenuItems,
 	NULL,
-	0x00000200,
+	MENUDIALOGFLAG_DISABLERESIZE,
 	NULL,
 };
 
@@ -888,7 +888,7 @@ struct menudialogdef g_FrWeaponListMenuDialog = {
 	L_MPMENU_446, // "Weapon"
 	g_FrWeaponListMenuItems,
 	NULL,
-	0x00000200,
+	MENUDIALOGFLAG_DISABLERESIZE,
 	NULL,
 };
 
@@ -911,7 +911,7 @@ struct menudialogdef g_FrTrainingInfoInGameMenuDialog = {
 	L_MPMENU_447, // "Training Info"
 	g_FrTrainingInfoInGameMenuItems,
 	frTrainingInfoMenuDialog,
-	0x00000602,
+	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400,
 	NULL,
 };
 
@@ -934,7 +934,7 @@ struct menudialogdef g_FrTrainingInfoPreGameMenuDialog = {
 	L_MPMENU_447, // "Training Info"
 	g_FrTrainingInfoPreGameMenuItems,
 	frTrainingInfoMenuDialog,
-	0x00000602,
+	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400,
 	NULL,
 };
 
@@ -965,7 +965,7 @@ struct menudialogdef g_FrCompletedMenuDialog = {
 	g_FrCompletedMenuItems,
 	frTrainingStatsMenuDialog,
 #if VERSION >= VERSION_NTSC_1_0
-	0x00000004,
+	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
 #else
 	0,
@@ -1000,10 +1000,10 @@ struct menudialogdef g_FrFailedMenuDialog = {
 	g_FrFailedMenuItems,
 	frTrainingStatsMenuDialog,
 #if VERSION >= VERSION_NTSC_1_0
-	0x00000004,
+	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
 #else
-	0x00000000,
+	0,
 	&g_FrWeaponListMenuDialog,
 #endif
 };
@@ -1069,7 +1069,7 @@ struct menudialogdef g_BioListMenuDialog = {
 	L_MPMENU_418, // "Information"
 	g_BioListMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -1085,7 +1085,7 @@ struct menudialogdef g_NowSafeMenuDialog = {
 	L_MPMENU_436, // "Cheats"
 	g_NowSafeMenuItems,
 	NULL,
-	0x00000200,
+	MENUDIALOGFLAG_DISABLERESIZE,
 	NULL,
 };
 
@@ -1313,7 +1313,7 @@ struct menudialogdef g_BioProfileMenuDialog = {
 	L_MPMENU_431, // "Character Profile"
 	g_BioProfileMenuItems,
 	ciCharacterProfileMenuDialog,
-	0x00000002,
+	MENUDIALOGFLAG_0002,
 	NULL,
 };
 
@@ -1329,7 +1329,7 @@ struct menudialogdef g_BioTextMenuDialog = {
 	(u32)&ciMenuTextMiscBioName,
 	g_BioTextMenuItems,
 	NULL,
-	0x00000200,
+	MENUDIALOGFLAG_DISABLERESIZE,
 	NULL,
 };
 
@@ -1343,7 +1343,7 @@ struct menudialogdef g_DtListMenuDialog = {
 	L_MPMENU_417, // "Device List"
 	g_DtListMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -1623,7 +1623,7 @@ struct menudialogdef g_DtDetailsMenuDialog = {
 	(u32)&dtMenuTextName,
 	g_DtDetailsMenuItems,
 	dtTrainingDetailsMenuDialog,
-	0x00000206,
+	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_STARTSELECTS | MENUDIALOGFLAG_DISABLERESIZE,
 	NULL,
 };
 
@@ -1641,7 +1641,7 @@ struct menudialogdef g_DtFailedMenuDialog = {
 	L_MPMENU_423, // "Training Stats"
 	g_DtFailedMenuItems,
 	menudialogDeviceTrainingResults,
-	0x00000200,
+	MENUDIALOGFLAG_DISABLERESIZE,
 	&g_DtListMenuDialog,
 };
 
@@ -1659,7 +1659,7 @@ struct menudialogdef g_DtCompletedMenuDialog = {
 	L_MPMENU_423, // "Training Stats"
 	g_DtCompletedMenuItems,
 	menudialogDeviceTrainingResults,
-	0x00000200,
+	MENUDIALOGFLAG_DISABLERESIZE,
 	&g_DtListMenuDialog,
 };
 
@@ -1673,7 +1673,7 @@ struct menudialogdef g_HtListMenuDialog = {
 	L_MPMENU_416, // "Holotraining"
 	g_HtListMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -1691,7 +1691,7 @@ struct menudialogdef g_HtDetailsMenuDialog = {
 	(u32)&htMenuTextName,
 	g_HtDetailsMenuItems,
 	menudialog001a6aa4,
-	0x00000206,
+	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_STARTSELECTS | MENUDIALOGFLAG_DISABLERESIZE,
 	NULL,
 };
 
@@ -1709,7 +1709,7 @@ struct menudialogdef g_HtFailedMenuDialog = {
 	L_MPMENU_423, // "Training Stats"
 	g_HtFailedMenuItems,
 	menudialogFiringRangeResults,
-	0x00000200,
+	MENUDIALOGFLAG_DISABLERESIZE,
 	&g_HtListMenuDialog,
 };
 
@@ -1727,7 +1727,7 @@ struct menudialogdef g_HtCompletedMenuDialog = {
 	L_MPMENU_423, // "Training Stats"
 	g_HtCompletedMenuItems,
 	menudialogFiringRangeResults,
-	0x00000200,
+	MENUDIALOGFLAG_DISABLERESIZE,
 	&g_HtListMenuDialog,
 };
 
@@ -2343,7 +2343,7 @@ struct menudialogdef g_HangarVehicleHolographMenuDialog = {
 	L_MISC_471, // "Holograph"
 	g_HangarVehicleHolographMenuItems,
 	ciHangarHolographMenuDialog,
-	0x00000202,
+	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE,
 	NULL,
 };
 
@@ -2352,7 +2352,7 @@ struct menudialogdef g_HangarVehicleDetailsMenuDialog = {
 	(u32)&bioMenuTextName,
 	g_HangarDetailsMenuItems,
 	NULL,
-	0x00000202,
+	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE,
 	&g_HangarVehicleHolographMenuDialog,
 };
 
@@ -2361,7 +2361,7 @@ struct menudialogdef g_HangarLocationDetailsMenuDialog = {
 	(u32)&bioMenuTextName,
 	g_HangarDetailsMenuItems,
 	NULL,
-	0x00000202,
+	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE,
 	NULL,
 };
 
@@ -2375,6 +2375,6 @@ struct menudialogdef g_HangarListMenuDialog = {
 	L_MPMENU_415, // "Hangar Information"
 	g_HangarListMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };

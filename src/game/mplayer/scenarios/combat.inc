@@ -26,6 +26,6 @@ struct menudialogdef g_MpCombatOptionsMenuDialog = {
 	L_MPMENU_215, // "Combat Options"
 	g_MpCombatOptionsMenuItems,
 	mpOptionsMenuDialog,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };

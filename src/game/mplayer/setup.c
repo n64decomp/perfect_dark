@@ -67,7 +67,7 @@ struct menudialogdef g_MpDropOutMenuDialog = {
 	L_MPMENU_195, // "Drop Out"
 	g_MpDropOutMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -1003,7 +1003,7 @@ struct menudialogdef g_MpSavePlayerMenuDialog = {
 	L_MPMENU_190, // "Confirm"
 	g_MpSavePlayerMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -1018,7 +1018,7 @@ struct menudialogdef g_MpSaveSetupNameMenuDialog = {
 	L_MPMENU_188, // "Game File Name"
 	g_MpSaveSetupNameMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -1039,7 +1039,7 @@ struct menudialogdef g_MpSaveSetupExistsMenuDialog = {
 	L_MPMENU_183, // "Save Game Setup"
 	g_MpSaveSetupExistsMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -1063,7 +1063,7 @@ struct menudialogdef g_MpWeaponsMenuDialog = {
 	L_MPMENU_173, // "Weapons"
 	g_MpWeaponsMenuItems,
 	NULL,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -1085,7 +1085,7 @@ struct menudialogdef g_MpQuickTeamWeaponsMenuDialog = {
 	L_MPMENU_173, // "Weapons"
 	g_MpQuickTeamWeaponsMenuItems,
 	NULL,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -1104,7 +1104,7 @@ struct menudialogdef g_MpPlayerOptionsMenuDialog = {
 	L_MPMENU_167, // "Options"
 	g_MpPlayerOptionsMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -1132,7 +1132,7 @@ struct menudialogdef g_MpControlMenuDialog = {
 	L_MPMENU_199, // "Control"
 	g_MpControlMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -1146,7 +1146,7 @@ struct menudialogdef g_MpCompletedChallengesMenuDialog = {
 	L_MPMENU_165, // "Completed Challenges"
 	g_MpCompletedChallengesMenuItems,
 	NULL,
-	0x00000048,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL | MENUDIALOGFLAG_SMOOTHSCROLLABLE,
 	NULL,
 };
 
@@ -1250,7 +1250,7 @@ struct menudialogdef g_MpPlayerStatsMenuDialog = {
 	(u32)&mpMenuTitleStatsForPlayerName,
 	g_MpPlayerStatsMenuItems,
 	NULL,
-	0x00000048,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL | MENUDIALOGFLAG_SMOOTHSCROLLABLE,
 	&g_MpCompletedChallengesMenuDialog,
 };
 
@@ -1733,7 +1733,7 @@ struct menudialogdef g_MpCharacterMenuDialog = {
 	L_MPMENU_143, // "Character"
 	g_MpCharacterMenuItems,
 	menudialog0017a174,
-	0x00000002,
+	MENUDIALOGFLAG_0002,
 	NULL,
 };
 
@@ -1747,7 +1747,7 @@ struct menudialogdef g_MpPlayerNameMenuDialog = {
 	L_MPMENU_142, // "Player Name"
 	g_MpPlayerNameMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -1762,7 +1762,7 @@ struct menudialogdef g_MpLoadSettingsMenuDialog = {
 	L_MPMENU_139, // "Load Game Settings"
 	g_MpLoadSettingsMenuItems,
 	NULL,
-	0x00000001,
+	MENUDIALOGFLAG_CLOSEONSELECT,
 	NULL,
 };
 
@@ -1777,7 +1777,7 @@ struct menudialogdef g_MpLoadPresetMenuDialog = {
 	L_MPMENU_139, // "Load Game Settings"
 	g_MpLoadPresetMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -1792,7 +1792,7 @@ struct menudialogdef g_MpLoadPlayerMenuDialog = {
 	L_MPMENU_137, // "Load Player"
 	g_MpLoadPlayerMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -1806,7 +1806,7 @@ struct menudialogdef g_MpArenaMenuDialog = {
 	L_MPMENU_115, // "Arena"
 	g_MpArenaMenuItems,
 	NULL,
-	0x00000011,
+	MENUDIALOGFLAG_CLOSEONSELECT | MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -1825,7 +1825,7 @@ struct menudialogdef g_MpLimitsMenuDialog = {
 	L_MPMENU_107, // "Limits"
 	g_MpLimitsMenuItems,
 	NULL,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -1845,7 +1845,7 @@ struct menudialogdef g_MpHandicapsMenuDialog = {
 	L_MPWEAPONS_184, // "Player Handicaps"
 	g_MpHandicapsMenuItems,
 	NULL,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -1859,7 +1859,7 @@ struct menudialogdef g_MpReadyMenuDialog = {
 	L_MPMENU_105, // "Ready!"
 	g_MpReadyMenuItems,
 	menudialogMpReady,
-	0x00000001,
+	MENUDIALOGFLAG_CLOSEONSELECT,
 	NULL,
 };
 
@@ -2210,7 +2210,7 @@ struct menudialogdef g_MpAddSimulantMenuDialog = {
 	L_MPMENU_101, // "Add Simulant"
 	g_MpAddChangeSimulantMenuItems,
 	NULL,
-	0x00000011,
+	MENUDIALOGFLAG_CLOSEONSELECT | MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -2219,7 +2219,7 @@ struct menudialogdef g_MpChangeSimulantMenuDialog = {
 	L_MPMENU_102, // "Change Simulant"
 	g_MpAddChangeSimulantMenuItems,
 	menudialogMpSimulant,
-	0x00000011,
+	MENUDIALOGFLAG_CLOSEONSELECT | MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -2234,7 +2234,7 @@ struct menudialogdef g_MpSimulantCharacterMenuDialog = {
 	L_MPMENU_100, // "Simulant Character"
 	g_MpSimulantCharacterMenuItems,
 	menudialog0017ccfc,
-	0x00000012,
+	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -2253,7 +2253,7 @@ struct menudialogdef g_MpEditSimulantMenuDialog = {
 	(u32)&mpMenuTitleEditSimulant,
 	g_MpEditSimulantMenuItems,
 	menudialogMpSimulant,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -2279,7 +2279,7 @@ struct menudialogdef g_MpSimulantsMenuDialog = {
 	L_MPMENU_083, // "Simulants"
 	g_MpSimulantsMenuItems,
 	menudialogMpSimulants,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -2727,7 +2727,7 @@ struct menudialogdef g_MpAutoTeamMenuDialog = {
 	L_MPMENU_075, // "Auto Team"
 	g_MpAutoTeamMenuItems,
 	NULL,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -2758,7 +2758,7 @@ struct menudialogdef g_MpTeamsMenuDialog = {
 	L_MPMENU_070, // "Team Control"
 	g_MpTeamsMenuItems,
 	NULL,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -3034,7 +3034,7 @@ struct menudialogdef g_MpSelectTunesMenuDialog = {
 	(u32)&mpMenuTextSelectTuneOrTunes,
 	g_MpSelectTunesMenuItems,
 	menudialogMpSelectTune,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -3054,7 +3054,7 @@ struct menudialogdef g_MpSoundtrackMenuDialog = {
 	L_MPMENU_062, // "Soundtrack"
 	g_MpSoundtrackMenuItems,
 	NULL,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -3068,7 +3068,7 @@ struct menudialogdef g_MpChangeTeamNameMenuDialog = {
 	L_MPMENU_061, // "Change Team Name"
 	g_MpChangeTeamNameMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -3091,7 +3091,7 @@ struct menudialogdef g_MpTeamNamesMenuDialog = {
 	L_MPMENU_059, // "Team Names"
 	g_MpTeamNamesMenuItems,
 	NULL,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -3108,7 +3108,7 @@ struct menudialogdef g_MpConfirmChallengeViaListOrDetailsMenuDialog = {
 	(u32)&func0f17e318,
 	g_MpConfirmChallengeViaListOrDetailsMenuItems,
 	menudialog0017e3fc,
-	0x00000014,
+	MENUDIALOGFLAG_STARTSELECTS | MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -3136,7 +3136,7 @@ struct menudialogdef g_MpChallengeListOrDetailsMenuDialog = {
 #if VERSION >= VERSION_NTSC_1_0
 	0x00000808,
 #else
-	0x00000800,
+	MENUDIALOGFLAG_DROPOUTONCLOSE,
 #endif
 	NULL,
 };
@@ -3156,7 +3156,7 @@ struct menudialogdef g_MpChallengeListOrDetailsViaAdvChallengeMenuDialog = {
 	0x00000808,
 	&g_MpAdvancedSetupViaAdvChallengeMenuDialog,
 #else
-	0x00000800,
+	MENUDIALOGFLAG_DROPOUTONCLOSE,
 	&g_MpAdvancedSetupMenuDialog,
 #endif
 };
@@ -3174,7 +3174,7 @@ struct menudialogdef g_MpConfirmChallengeMenuDialog = {
 	(u32)&func0f17e318,
 	g_MpConfirmChallengeMenuItems,
 	menudialog0017e3fc,
-	0x00000004,
+	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
 };
 
@@ -3388,7 +3388,7 @@ struct menudialogdef g_MpChallengesMenuDialog = {
 	L_MPMENU_050, // "Combat Challenges"
 	g_MpChallengesMenuItems,
 	mpCombatChallengesMenuDialog,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -3912,7 +3912,7 @@ struct menudialogdef g_MpStuffMenuDialog = {
 	L_MPMENU_040, // "Stuff"
 	g_MpStuffMenuItems,
 	NULL,
-	0x00000810,
+	MENUDIALOGFLAG_MPLOCKABLE | MENUDIALOGFLAG_DROPOUTONCLOSE,
 	&g_MpChallengeListOrDetailsMenuDialog,
 };
 
@@ -3921,7 +3921,7 @@ struct menudialogdef g_MpStuffViaAdvChallengeMenuDialog = {
 	L_MPMENU_040, // "Stuff"
 	g_MpStuffMenuItems,
 	NULL,
-	0x00000810,
+	MENUDIALOGFLAG_MPLOCKABLE | MENUDIALOGFLAG_DROPOUTONCLOSE,
 	NULL,
 };
 
@@ -3942,7 +3942,7 @@ struct menudialogdef g_MpPlayerSetupViaAdvMenuDialog = {
 	L_MPMENU_028, // "Player Setup"
 	g_MpPlayerSetup234MenuItems,
 	NULL,
-	0x00000800,
+	MENUDIALOGFLAG_DROPOUTONCLOSE,
 	&g_MpStuffMenuDialog,
 };
 
@@ -3951,7 +3951,7 @@ struct menudialogdef g_MpPlayerSetupViaAdvChallengeMenuDialog = {
 	L_MPMENU_028, // "Player Setup"
 	g_MpPlayerSetup234MenuItems,
 	NULL,
-	0x00000800,
+	MENUDIALOGFLAG_DROPOUTONCLOSE,
 	&g_MpStuffViaAdvChallengeMenuDialog,
 };
 
@@ -3960,7 +3960,7 @@ struct menudialogdef g_MpPlayerSetupViaQuickGoMenuDialog = {
 	L_MPMENU_028, // "Player Setup"
 	g_MpPlayerSetup234MenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -3976,7 +3976,7 @@ struct menudialogdef g_MpAbortMenuDialog = {
 	L_MPMENU_052, // "Abort"
 	g_MpAbortMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -4000,7 +4000,7 @@ struct menudialogdef g_MpAdvancedSetupMenuDialog = {
 	L_MPMENU_017, // "Game Setup"
 	g_MpAdvancedSetupMenuItems,
 	menudialogMpGameSetup,
-	0x00000810,
+	MENUDIALOGFLAG_MPLOCKABLE | MENUDIALOGFLAG_DROPOUTONCLOSE,
 	&g_MpPlayerSetupViaAdvMenuDialog,
 };
 
@@ -4009,7 +4009,7 @@ struct menudialogdef g_MpAdvancedSetupViaAdvChallengeMenuDialog = {
 	L_MPMENU_017, // "Game Setup"
 	g_MpAdvancedSetupMenuItems,
 	menudialogMpGameSetup,
-	0x00000810,
+	MENUDIALOGFLAG_MPLOCKABLE | MENUDIALOGFLAG_DROPOUTONCLOSE,
 	&g_MpPlayerSetupViaAdvChallengeMenuDialog,
 };
 
@@ -4028,7 +4028,7 @@ struct menudialogdef g_MpQuickGoMenuDialog = {
 	L_MISC_460, // "Quick Go"
 	g_MpQuickGoMenuItems,
 	menudialogMpQuickGo,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -4058,7 +4058,7 @@ struct menudialogdef g_MpQuickTeamGameSetupMenuDialog = {
 	L_MPMENU_017, // "Game Setup"
 	g_MpQuickTeamGameSetupMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -4077,7 +4077,7 @@ struct menudialogdef g_MpQuickTeamMenuDialog = {
 	L_MISC_462, // "Quick Team"
 	g_MpQuickTeamMenuItems,
 	NULL,
-	0x00000004,
+	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
 };
 
@@ -4094,7 +4094,7 @@ struct menudialogdef g_CombatSimulatorMenuDialog = {
 	L_MISC_445, // "Combat Simulator"
 	g_CombatSimulatorMenuItems,
 	menudialogCombatSimulator,
-	0x00000004,
+	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
 };
 

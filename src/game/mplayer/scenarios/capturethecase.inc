@@ -31,7 +31,7 @@ struct menudialogdef g_CtcOptionsMenuDialog = {
 	L_MPMENU_220, // "Capture Options"
 	g_CtcOptionsMenuItems,
 	mpOptionsMenuDialog,
-	0x00000010,
+	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 

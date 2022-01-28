@@ -93,7 +93,7 @@ struct menudialogdef g_ChooseLanguageMenuDialog = {
 	L_OPTIONS_095,
 	g_ChooseLanguageMenuItems,
 	NULL,
-	0x00000020,
+	MENUDIALOGFLAG_IGNOREBACK,
 	NULL,
 };
 #endif
@@ -337,7 +337,7 @@ struct menudialogdef g_FilemgrErrorMenuDialog = {
 	L_OPTIONS_320, // "Error"
 	g_FilemgrErrorMenuItems,
 	NULL,
-	0x00000080,
+	MENUDIALOGFLAG_DISABLEBANNER,
 	NULL,
 };
 
@@ -1162,7 +1162,7 @@ struct menudialogdef g_FilemgrFileSavedMenuDialog = {
 	L_OPTIONS_345, // "Cool!"
 	g_FilemgrFileSavedMenuItems,
 	NULL,
-	0x00000080,
+	MENUDIALOGFLAG_DISABLEBANNER,
 	NULL,
 };
 
@@ -1180,7 +1180,7 @@ struct menudialogdef g_FilemgrSaveErrorMenuDialog = {
 	(u32)&filemgrMenuTextErrorTitle,
 	g_FilemgrSaveErrorMenuItems,
 	NULL,
-	0x000000a0,
+	MENUDIALOGFLAG_IGNOREBACK | MENUDIALOGFLAG_DISABLEBANNER,
 	NULL,
 };
 
@@ -1201,7 +1201,7 @@ struct menudialogdef g_FilemgrFileLostMenuDialog = {
 	(u32)&filemgrMenuTextErrorTitle,
 	g_FilemgrFileLostMenuItems,
 	NULL,
-	0x000000a0,
+	MENUDIALOGFLAG_IGNOREBACK | MENUDIALOGFLAG_DISABLEBANNER,
 	NULL,
 };
 
@@ -1217,7 +1217,7 @@ struct menudialogdef g_FilemgrSaveElsewhereMenuDialog = {
 	L_OPTIONS_359, // "Save"
 	g_FilemgrSaveElsewhereMenuItems,
 	NULL,
-	0x000000a0,
+	MENUDIALOGFLAG_IGNOREBACK | MENUDIALOGFLAG_DISABLEBANNER,
 	NULL,
 };
 
@@ -1237,7 +1237,7 @@ struct menudialogdef g_PakNotOriginalMenuDialog = {
 	(u32)&filemgrMenuTextErrorTitle,
 	g_PakNotOriginalMenuItems,
 	filemgrInsertOriginalPakMenuDialog,
-	0x000000a0,
+	MENUDIALOGFLAG_IGNOREBACK | MENUDIALOGFLAG_DISABLEBANNER,
 	NULL,
 };
 
@@ -1591,7 +1591,7 @@ struct menudialogdef g_FilemgrRenameMenuDialog = {
 	L_MPWEAPONS_238, // "Change File Name"
 	g_FilemgrRenameMenuItems,
 	NULL,
-	0x00000080,
+	MENUDIALOGFLAG_DISABLEBANNER,
 	NULL,
 };
 #endif
@@ -1613,7 +1613,7 @@ struct menudialogdef g_FilemgrDuplicateNameMenuDialog = {
 	L_MPWEAPONS_232, // "Duplicate File Name"
 	g_FilemgrDuplicateMenuMenuItems,
 	NULL,
-	0x00000080,
+	MENUDIALOGFLAG_DISABLEBANNER,
 	NULL,
 };
 #endif
@@ -2986,7 +2986,7 @@ struct menudialogdef g_FilemgrSelectLocationMenuDialog = {
 	L_OPTIONS_367, // "Select Location"
 	g_FilemgrSelectLocationMenuItems,
 	NULL,
-	0x00000080,
+	MENUDIALOGFLAG_DISABLEBANNER,
 	NULL,
 };
 
@@ -3004,7 +3004,7 @@ struct menudialogdef g_FilemgrConfirmDeleteMenuDialog = {
 	L_OPTIONS_379, // "Warning"
 	g_FilemgrConfirmDeleteMenuItems,
 	NULL,
-	0x00000080,
+	MENUDIALOGFLAG_DISABLEBANNER,
 	NULL,
 };
 
@@ -3025,7 +3025,7 @@ struct menudialogdef g_FilemgrFileInUseMenuDialog = {
 	L_MPWEAPONS_159, // "Error"
 	g_FilemgrFileInUseMenuItems,
 	NULL,
-	0x00000080,
+	MENUDIALOGFLAG_DISABLEBANNER,
 	NULL,
 };
 
@@ -3041,7 +3041,7 @@ struct menudialogdef g_FilemgrDeleteMenuDialog = {
 	L_OPTIONS_376, // "Delete File"
 	g_FilemgrDeleteMenuItems,
 	filemgrCopyOrDeleteListMenuDialog,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -3057,7 +3057,7 @@ struct menudialogdef g_FilemgrCopyMenuDialog = {
 	L_OPTIONS_373, // "Copy File"
 	g_FilemgrCopyMenuItems,
 	filemgrCopyOrDeleteListMenuDialog,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -3075,7 +3075,7 @@ struct menudialogdef g_PakDeleteNoteMenuDialog = {
 	L_OPTIONS_383, // "Delete Game Note"
 	g_PakDeleteNoteMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -3095,7 +3095,7 @@ struct menudialogdef g_PakGameNotesMenuDialog = {
 	L_OPTIONS_387, // "Game Notes"
 	g_PakGameNotesMenuItems,
 	pakGameNotesMenuDialog,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -3117,7 +3117,7 @@ struct menudialogdef g_PakChoosePakMenuDialog = {
 	L_OPTIONS_107, // "Controller Pak Menu"
 	g_PakChoosePakMenuItems,
 	pakChoosePakMenuDialog,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -3141,7 +3141,7 @@ struct menudialogdef g_FilemgrOperationsMenuDialog = {
 	L_OPTIONS_099, // "Game Files"
 	g_FilemgrOperationsMenuItems,
 	NULL,
-	0x00000020,
+	MENUDIALOGFLAG_IGNOREBACK,
 	NULL,
 };
 
@@ -3155,7 +3155,7 @@ struct menudialogdef g_FilemgrEnterNameMenuDialog = {
 	L_OPTIONS_401, // "Enter Agent Name"
 	g_FilemgrEnterNameMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -3170,6 +3170,6 @@ struct menudialogdef g_FilemgrFileSelectMenuDialog = {
 	L_OPTIONS_095, // "Perfect Dark"
 	g_FilemgrFileSelectMenuItems,
 	filemgrMainMenuDialog,
-	0x00000020,
+	MENUDIALOGFLAG_IGNOREBACK,
 	&g_FilemgrOperationsMenuDialog,
 };

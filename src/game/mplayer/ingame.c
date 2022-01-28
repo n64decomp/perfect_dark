@@ -254,7 +254,7 @@ struct menudialogdef g_MpEndGameMenuDialog = {
 	L_MPMENU_290, // "End Game"
 	g_MpEndGameMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -276,7 +276,7 @@ struct menudialogdef g_MpPauseControlMenuDialog = {
 	L_MPMENU_285, // "Control"
 	g_MpPauseControlMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -291,7 +291,7 @@ struct menudialogdef g_MpPauseInventoryMenuDialog = {
 	L_MPMENU_284, // "Inventory"
 	g_Mp2PMissionInventoryMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	&g_MpPauseControlMenuDialog,
 };
 
@@ -300,7 +300,7 @@ struct menudialogdef g_2PMissionInventoryHMenuDialog = {
 	L_MPMENU_284, // "Inventory"
 	g_Mp2PMissionInventoryMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	&g_2PMissionOptionsHMenuDialog,
 };
 
@@ -309,7 +309,7 @@ struct menudialogdef g_2PMissionInventoryVMenuDialog = {
 	L_MPMENU_284, // "Inventory"
 	g_Mp2PMissionInventoryMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	&g_2PMissionOptionsVMenuDialog,
 };
 
@@ -323,7 +323,7 @@ struct menudialogdef g_MpPausePlayerStatsMenuDialog = {
 	(u32)&mpMenuTitleStatsFor,
 	g_MpInGamePlayerStatsMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	&g_MpPauseInventoryMenuDialog,
 };
 
@@ -332,7 +332,7 @@ struct menudialogdef g_MpEndscreenPlayerStatsMenuDialog = {
 	(u32)&mpMenuTitleStatsFor,
 	g_MpInGamePlayerStatsMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -346,7 +346,7 @@ struct menudialogdef g_MpPausePlayerRankingMenuDialog = {
 	L_MPMENU_276, // "Player Ranking"
 	g_MpPlayerRankingMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	&g_MpPausePlayerStatsMenuDialog,
 };
 
@@ -355,7 +355,7 @@ struct menudialogdef g_MpEndscreenPlayerRankingMenuDialog = {
 	L_MPMENU_276, // "Player Ranking"
 	g_MpPlayerRankingMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	&g_MpEndscreenPlayerStatsMenuDialog,
 };
 
@@ -369,7 +369,7 @@ struct menudialogdef g_MpPauseTeamRankingsMenuDialog = {
 	L_MPMENU_279, // "Team Ranking"
 	g_MpTeamRankingsMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	&g_MpPausePlayerRankingMenuDialog,
 };
 
@@ -378,7 +378,7 @@ struct menudialogdef g_MpEndscreenTeamRankingMenuDialog = {
 	L_MPMENU_279, // "Team Ranking"
 	g_MpTeamRankingsMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	&g_MpEndscreenPlayerRankingMenuDialog,
 };
 
@@ -622,7 +622,7 @@ struct menudialogdef g_MpEndscreenIndGameOverMenuDialog = {
 	L_MPMENU_260, // "Game Over"
 	g_MpGameOverMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	&g_MpEndscreenPlayerRankingMenuDialog,
 };
 
@@ -631,7 +631,7 @@ struct menudialogdef g_MpEndscreenTeamGameOverMenuDialog = {
 	L_MPMENU_260, // "Game Over"
 	g_MpGameOverMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	&g_MpEndscreenTeamRankingMenuDialog,
 };
 
@@ -640,7 +640,7 @@ struct menudialogdef g_MpEndscreenChallengeCompletedMenuDialog = {
 	L_MPWEAPONS_165, // "Challenge Completed!"
 	g_MpTeamRankingsMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	&g_MpEndscreenIndGameOverMenuDialog,
 };
 
@@ -649,7 +649,7 @@ struct menudialogdef g_MpEndscreenChallengeCheatedMenuDialog = {
 	L_MPWEAPONS_167, // "Challenge Cheated!"
 	g_MpTeamRankingsMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	&g_MpEndscreenIndGameOverMenuDialog,
 };
 
@@ -658,7 +658,7 @@ struct menudialogdef g_MpEndscreenChallengeFailedMenuDialog = {
 	L_MPWEAPONS_166, // "Challenge Failed!"
 	g_MpTeamRankingsMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	&g_MpEndscreenIndGameOverMenuDialog,
 };
 
@@ -674,7 +674,7 @@ struct menudialogdef g_MpEndscreenConfirmNameMenuDialog = {
 	L_MPMENU_142, // "Player Name"
 	g_MpEndscreenConfirmNameMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -690,7 +690,7 @@ struct menudialogdef g_MpEndscreenSavePlayerMenuDialog = {
 	L_MPWEAPONS_246, // "Save Player"
 	g_MpEndscreenSavePlayerMenuItems,
 	NULL,
-	0x00000004,
+	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
 };
 #endif

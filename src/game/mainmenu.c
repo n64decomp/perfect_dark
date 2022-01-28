@@ -721,7 +721,7 @@ struct menudialogdef g_PreAndPostMissionBriefingMenuDialog = {
 	L_OPTIONS_247, // "Briefing"
 	g_PreAndPostMissionBriefingMenuItems,
 	menudialogBriefing,
-	0x00000008,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL,
 	NULL,
 };
 
@@ -824,7 +824,7 @@ struct menudialogdef g_AcceptMissionMenuDialog = {
 	(u32)&soloMenuTitleStageOverview,
 	g_AcceptMissionMenuItems,
 	menudialog00103608,
-	0x0000000c,
+	MENUDIALOGFLAG_STARTSELECTS | MENUDIALOGFLAG_DISABLEITEMSCROLL,
 	&g_PreAndPostMissionBriefingMenuDialog,
 };
 
@@ -902,7 +902,7 @@ struct menudialogdef g_PdModeSettingsMenuDialog = {
 	L_MPWEAPONS_221, // "Perfect Dark"
 	g_PdModeSettingsMenuItems,
 	NULL,
-	0x00000004,
+	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
 };
 
@@ -1581,7 +1581,7 @@ struct menudialogdef g_SoloMissionDifficultyMenuDialog = {
 	L_OPTIONS_248, // "Select Difficulty"
 	g_SoloMissionDifficultyMenuItems,
 	NULL,
-	0x00000004,
+	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
 };
 
@@ -1965,7 +1965,7 @@ struct menudialogdef g_CoopOptionsMenuDialog = {
 	L_OPTIONS_255, // "Co-Operative Options"
 	g_CoopOptionsMenuItems,
 	menudialogCoopAntiOptions,
-	0x00000004,
+	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
 };
 
@@ -2018,7 +2018,7 @@ struct menudialogdef g_AntiOptionsMenuDialog = {
 	L_OPTIONS_266, // "Counter-Operative Options"
 	g_AntiOptionsMenuItems,
 	menudialogCoopAntiOptions,
-	0x00000004,
+	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
 };
 
@@ -2057,7 +2057,7 @@ struct menudialogdef g_CoopMissionDifficultyMenuDialog = {
 	L_OPTIONS_248, // "Select Difficulty"
 	g_CoopMissionDifficultyMenuItems,
 	NULL,
-	0x00000004,
+	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
 };
 
@@ -2089,7 +2089,7 @@ struct menudialogdef g_AntiMissionDifficultyMenuDialog = {
 	L_OPTIONS_248, // "Select Difficulty"
 	g_AntiMissionDifficultyMenuItems,
 	NULL,
-	0x00000004,
+	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
 };
 
@@ -4178,7 +4178,7 @@ struct menudialogdef g_SoloMissionBriefingMenuDialog = {
 	L_OPTIONS_247, // "Briefing"
 	g_MissionBriefingMenuItems,
 	NULL,
-	0x00000008,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL,
 	NULL,
 };
 
@@ -4187,7 +4187,7 @@ struct menudialogdef g_2PMissionBriefingHMenuDialog = {
 	L_OPTIONS_247, // "Briefing"
 	g_MissionBriefingMenuItems,
 	NULL,
-	0x00000008,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL,
 	NULL,
 };
 
@@ -4196,7 +4196,7 @@ struct menudialogdef g_2PMissionBriefingVMenuDialog = {
 	L_OPTIONS_247, // "Briefing"
 	g_2PMissionBreifingVMenuItems,
 	NULL,
-	0x00000008,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL,
 	NULL,
 };
 
@@ -4272,7 +4272,7 @@ struct menudialogdef g_2PMissionControlStyleMenuDialog = {
 	L_OPTIONS_236, // "Control"
 	g_2PMissionControlStyleMenuItems,
 	NULL,
-	0x00000400,
+	MENUDIALOGFLAG_0400,
 	NULL,
 };
 
@@ -4287,7 +4287,7 @@ struct menudialogdef g_SoloMissionControlStyleMenuDialog = {
 	L_OPTIONS_236, // "Control"
 	g_SoloMissionControlStyleMenuItems,
 	NULL,
-	0x00000400,
+	MENUDIALOGFLAG_0400,
 	NULL,
 };
 
@@ -4302,7 +4302,7 @@ struct menudialogdef g_CiControlStyleMenuDialog = {
 	L_OPTIONS_236, // "Control"
 	g_CiControlStyleMenuItems,
 	NULL,
-	0x00000400,
+	MENUDIALOGFLAG_0400,
 	NULL,
 };
 
@@ -4317,7 +4317,7 @@ struct menudialogdef g_CiControlStylePlayer2MenuDialog = {
 	L_OPTIONS_236, // "Control"
 	g_CiControlStylePlayer2MenuItems,
 	NULL,
-	0x00000400,
+	MENUDIALOGFLAG_0400,
 	NULL,
 };
 
@@ -4341,7 +4341,7 @@ struct menudialogdef g_AudioOptionsMenuDialog = {
 	L_OPTIONS_227, // "Audio Options"
 	g_AudioOptionsMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -4365,7 +4365,7 @@ struct menudialogdef g_2PMissionAudioOptionsVMenuDialog = {
 	L_OPTIONS_227, // "Audio Options"
 	g_2PMissionAudioOptionsVMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -4400,7 +4400,7 @@ struct menudialogdef g_VideoOptionsMenuDialog = {
 	L_OPTIONS_214, // "Video Options"
 	g_VideoOptionsMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -4409,7 +4409,7 @@ struct menudialogdef g_2PMissionVideoOptionsMenuDialog = {
 	L_OPTIONS_214, // "Video Options"
 	g_2PMissionVideoOptionsMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -4433,7 +4433,7 @@ struct menudialogdef g_MissionDisplayOptionsMenuDialog = {
 	L_OPTIONS_203, // "Display Options"
 	g_MissionDisplayOptionsMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -4462,7 +4462,7 @@ struct menudialogdef g_2PMissionDisplayOptionsVMenuDialog = {
 	L_OPTIONS_203, // "Display Options"
 	g_2PMissionDisplayOptionsVMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -4488,7 +4488,7 @@ struct menudialogdef g_CiDisplayMenuDialog = {
 	L_OPTIONS_203, // "Display Options"
 	g_CiDisplayMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	&g_CiDisplayPlayer2MenuDialog,
 };
 
@@ -4512,7 +4512,7 @@ struct menudialogdef g_CiDisplayPlayer2MenuDialog = {
 	L_OPTIONS_204, // "Display Player 2"
 	g_CiDisplayPlayer2MenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -4533,7 +4533,7 @@ struct menudialogdef g_MissionControlOptionsMenuDialog = {
 	L_OPTIONS_192, // "Control Options"
 	g_MissionControlOptionsMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -4555,7 +4555,7 @@ struct menudialogdef g_CiControlOptionsMenuDialog2 = {
 	L_OPTIONS_192, // "Control Options"
 	g_CiControlOptionsMenuItems2,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 #endif
@@ -4577,7 +4577,7 @@ struct menudialogdef g_CiControlOptionsMenuDialog = {
 	L_OPTIONS_192, // "Control Options"
 	g_CiControlOptionsMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	&g_CiControlPlayer2MenuDialog,
 };
 
@@ -4598,7 +4598,7 @@ struct menudialogdef g_CiControlPlayer2MenuDialog = {
 	L_OPTIONS_193, // "Control Player 2"
 	g_CiControlPlayer2MenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -4614,7 +4614,7 @@ struct menudialogdef g_ChangeAgentMenuDialog = {
 	L_OPTIONS_188, // "Warning"
 	g_ChangeAgentMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -4665,7 +4665,7 @@ struct menudialogdef g_SoloMissionOptionsMenuDialog = {
 	L_OPTIONS_180, // "Options"
 	g_SoloMissionOptionsMenuItems,
 	menudialog0010559c,
-	0x00000000,
+	0,
 	&g_SoloMissionBriefingMenuDialog,
 };
 
@@ -4674,7 +4674,7 @@ struct menudialogdef g_CiOptionsViaPcMenuDialog = {
 	L_OPTIONS_180, // "Options"
 	g_CiOptionsMenuItems,
 	menudialog0010559c,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -4683,7 +4683,7 @@ struct menudialogdef g_CiOptionsViaPauseMenuDialog = {
 	L_OPTIONS_180, // "Options"
 	g_CiOptionsMenuItems,
 	menudialog0010559c,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -4692,7 +4692,7 @@ struct menudialogdef g_2PMissionOptionsHMenuDialog = {
 	L_OPTIONS_180, // "Options"
 	g_2PMissionOptionsHMenuItems,
 	menudialog0010559c,
-	0x00000000,
+	0,
 	&g_2PMissionBriefingHMenuDialog,
 };
 
@@ -4701,7 +4701,7 @@ struct menudialogdef g_2PMissionOptionsVMenuDialog = {
 	L_OPTIONS_180, // "Options"
 	g_2PMissionOptionsVMenuItems,
 	menudialog0010559c,
-	0x00000000,
+	0,
 	&g_2PMissionBriefingVMenuDialog,
 };
 
@@ -5676,7 +5676,7 @@ struct menudialogdef g_SoloMissionInventoryMenuDialog = {
 	L_OPTIONS_178, // "Inventory"
 	g_SoloMissionInventoryMenuItems,
 	inventoryMenuDialog,
-	0x00000602,
+	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400,
 	&g_SoloMissionOptionsMenuDialog,
 };
 
@@ -5685,7 +5685,7 @@ struct menudialogdef g_FrWeaponsAvailableMenuDialog = {
 	L_OPTIONS_179, // "Weapons Available"
 	g_FrWeaponsAvailableMenuItems,
 	inventoryMenuDialog,
-	0x00000602,
+	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400,
 	NULL,
 };
 
@@ -5722,7 +5722,7 @@ struct menudialogdef g_MissionAbortMenuDialog = {
 	L_OPTIONS_174, // "Warning"
 	g_MissionAbortMenuItems,
 	menudialogAbortMission,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -5738,7 +5738,7 @@ struct menudialogdef g_2PMissionAbortVMenuDialog = {
 	L_OPTIONS_174, // "Warning"
 	g_2PMissionAbortVMenuItems,
 	menudialogAbortMission,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -5814,7 +5814,7 @@ struct menudialogdef g_SoloMissionPauseMenuDialog = {
 	(u32)&soloMenuTitlePauseStatus,
 	g_MissionPauseMenuItems,
 	soloMenuDialogPauseStatus,
-	0x00000048,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL | MENUDIALOGFLAG_SMOOTHSCROLLABLE,
 	&g_SoloMissionInventoryMenuDialog,
 };
 
@@ -5823,7 +5823,7 @@ struct menudialogdef g_2PMissionPauseHMenuDialog = {
 	(u32)&soloMenuTitlePauseStatus,
 	g_MissionPauseMenuItems,
 	soloMenuDialogPauseStatus,
-	0x00000048,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL | MENUDIALOGFLAG_SMOOTHSCROLLABLE,
 	&g_2PMissionInventoryHMenuDialog,
 };
 
@@ -5832,7 +5832,7 @@ struct menudialogdef g_2PMissionPauseVMenuDialog = {
 	L_OPTIONS_172, // "Status"
 	g_2PMissionPauseVMenuItems,
 	soloMenuDialogPauseStatus,
-	0x00000048,
+	MENUDIALOGFLAG_DISABLEITEMSCROLL | MENUDIALOGFLAG_SMOOTHSCROLLABLE,
 	&g_2PMissionInventoryVMenuDialog,
 };
 
@@ -6031,7 +6031,7 @@ struct menudialogdef g_CinemaMenuDialog = {
 	L_OPTIONS_490, // "Cinema"
 	g_CinemaMenuItems,
 	NULL,
-	0x00000004,
+	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
 };
 
@@ -6045,7 +6045,7 @@ struct menudialogdef g_SelectMissionMenuDialog = {
 	L_OPTIONS_122, // "Mission Select"
 	g_SelectMissionMenuItems,
 	NULL,
-	0x00000004,
+	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
 };
 
@@ -6165,7 +6165,7 @@ struct menudialogdef g_CiMenuViaPcMenuDialog = {
 	L_OPTIONS_116, // "Perfect Menu"
 	g_MainMenuMenuItems,
 	menudialogMainMenu,
-	0x00000004,
+	MENUDIALOGFLAG_STARTSELECTS,
 	&g_CiOptionsViaPcMenuDialog,
 };
 
@@ -6174,7 +6174,7 @@ struct menudialogdef g_CiMenuViaPauseMenuDialog = {
 	L_OPTIONS_116, // "Perfect Menu"
 	g_MainMenuMenuItems,
 	menudialogMainMenu,
-	0x00000004,
+	MENUDIALOGFLAG_STARTSELECTS,
 	&g_CiOptionsViaPauseMenuDialog,
 };
 

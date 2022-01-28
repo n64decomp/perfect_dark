@@ -937,7 +937,7 @@ struct menudialogdef g_CheatsWarningMenuDialog = {
 	L_MPMENU_478, // "Warning"
 	g_CheatsWarningMenuItems,
 	NULL,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -965,7 +965,7 @@ struct menudialogdef g_CheatsFunMenuDialog = {
 	L_MPWEAPONS_118, // "Fun"
 	g_CheatsFunMenuItems,
 	cheatMenuHandleDialog,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -990,7 +990,7 @@ struct menudialogdef g_CheatsGameplayMenuDialog = {
 	L_MPWEAPONS_119, // "Gameplay"
 	g_CheatsGameplayMenuItems,
 	cheatMenuHandleDialog,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -1015,7 +1015,7 @@ struct menudialogdef g_CheatsSoloWeaponsMenuDialog = {
 	L_MPWEAPONS_122, // "Weapons for Jo in Solo"
 	g_CheatsSoloWeaponsMenuItems,
 	cheatMenuHandleDialog,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -1040,7 +1040,7 @@ struct menudialogdef g_CheatsClassicWeaponsMenuDialog = {
 	L_MPWEAPONS_123, // "Classic Weapons for Jo in Solo"
 	g_CheatsClassicWeaponsMenuItems,
 	cheatMenuHandleDialog,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -1065,7 +1065,7 @@ struct menudialogdef g_CheatsWeaponsMenuDialog = {
 	L_MPWEAPONS_120, // "Weapons"
 	g_CheatsWeaponsMenuItems,
 	cheatMenuHandleDialog,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -1087,7 +1087,7 @@ struct menudialogdef g_CheatsBuddiesMenuDialog = {
 	L_MPWEAPONS_121, // "Buddies"
 	g_CheatsBuddiesMenuItems,
 	cheatMenuHandleDialog,
-	0x00000000,
+	0,
 	NULL,
 };
 
@@ -1110,6 +1110,6 @@ struct menudialogdef g_CheatsMenuDialog = {
 	L_MPMENU_476, // "Cheats"
 	g_CheatsMenuItems,
 	cheatMenuHandleDialog,
-	0x00000000,
+	0,
 	NULL,
 };
