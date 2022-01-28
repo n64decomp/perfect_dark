@@ -4145,7 +4145,7 @@ u32 mpGetLockPlayerNum(void)
 	return g_MpLockInfo.lockedplayernum;
 }
 
-bool mpIsPlayerLockedOut(u32 playernum)
+bool mpIsPlayerLockedOut(s32 playernum)
 {
 	if (g_BossFile.locktype == MPLOCKTYPE_NONE) {
 		return false;

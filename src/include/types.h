@@ -3777,29 +3777,29 @@ struct menudialog {
 	struct menuitem *focuseditem;
 	/*0x0c*/ bool dimmed; // when dropdown is open or slider is active
 	/*0x10*/ u32 unk10;
-	/*0x14*/ s32 x14;
-	/*0x18*/ s32 y18;
-	/*0x1c*/ s32 width1c;
-	/*0x20*/ s32 height20;
+	/*0x14*/ s32 x;
+	/*0x18*/ s32 y;
+	/*0x1c*/ s32 width;
+	/*0x20*/ s32 height;
 	/*0x24*/ s32 contentwidth;
 	/*0x28*/ s32 contentheight;
-	/*0x2c*/ s32 x2c;
-	/*0x30*/ s32 y30;
-	/*0x34*/ s32 width34;
-	/*0x38*/ s32 height38;
+	/*0x2c*/ s32 dstx;
+	/*0x30*/ s32 dsty;
+	/*0x34*/ s32 dstwidth;
+	/*0x38*/ s32 dstheight;
 	/*0x3c*/ u8 type; // dialog type
 	/*0x3d*/ u8 type2; // used when transitioning
-	/*0x40*/ f32 transitiontimer; // >= 0 means transitioning from one dialog type to another
+	/*0x40*/ f32 transitionfrac; // >= 0 means transitioning from one dialog type to another
 	/*0x44*/ u32 colourweight;
-	/*0x48*/ f32 unk48;
+	/*0x48*/ f32 redrawtimer;
 	/*0x4c*/ f32 unk4c;
-	/*0x50*/ f32 unk50;
-	/*0x54*/ u32 unk54;
+	/*0x50*/ f32 statefrac;
+	/*0x54*/ s32 unk54;
 	/*0x58*/ u32 unk58;
-	/*0x5c*/ u32 unk5c;
-	/*0x60*/ u8 unk60;
-	/*0x64*/ u32 unk64;
-	/*0x68*/ u32 unk68;
+	/*0x5c*/ s32 unk5c;
+	/*0x60*/ u8 state;
+	/*0x64*/ s32 scroll; // scroll related, 0 when at top, negative when scrolled down
+	/*0x68*/ s32 dstscroll; // same value as unk64
 	/*0x6c*/ u8 unk6c;
 	/*0x6d*/ s8 unk6d;
 	/*0x6e*/ u8 unk6e;

@@ -2956,7 +2956,7 @@ glabel menuitemListRender
 );
 #endif
 
-bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 arg2, union menuitemdata *data)
+bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	f32 f0;
 	union handlerdata handlerdata;
@@ -3019,7 +3019,7 @@ bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 arg2
 		}
 	}
 
-	if (arg2 & 2) {
+	if (tickflags & MENUTICKFLAG_ITEMISFOCUSED) {
 		item->handler(MENUOP_GETOPTIONCOUNT, item, &handlerdata);
 
 		if (handlerdata.list.value) {
@@ -3077,7 +3077,7 @@ bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 arg2
 	handlerdata.list.value = tmp;
 	handlerdata.list.unk04 = 1;
 	handlerdata.list.unk0c = tmp;
-	handlerdata.list.groupstartindex = (arg2 & 2) ? 1 : 0;
+	handlerdata.list.groupstartindex = (tickflags & MENUTICKFLAG_ITEMISFOCUSED) ? 1 : 0;
 
 	item->handler(MENUOP_25, item, &handlerdata);
 
@@ -3587,13 +3587,13 @@ glabel menuitemDropdownRender
 /*  f0e8134:	27bd0080 */ 	addiu	$sp,$sp,0x80
 );
 
-bool menuitemDropdownTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 arg3, union menuitemdata *data)
+bool menuitemDropdownTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	u32 stack;
 
-	if ((arg3 & 2) && item->handler) {
+	if ((tickflags & MENUTICKFLAG_ITEMISFOCUSED) && item->handler) {
 		if (dialog->dimmed && item == dialog->focuseditem) {
-			menuitemListTick(item, inputs, arg3, data);
+			menuitemListTick(item, inputs, tickflags, data);
 
 			if (mpIsPlayerLockedOut(g_MpPlayerNum)) {
 				if ((item->flags & MENUITEMFLAG_00040000) || (dialog->definition->flags & MENUDIALOGFLAG_0010)) {
@@ -4193,7 +4193,7 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 	// Render cursor
 	alpha = func0f006b08(40) * 255;
 
-	if (context->dialog->transitiontimer < 0) {
+	if (context->dialog->transitionfrac < 0) {
 		cursorcolour = g_MenuColourPalettes[context->dialog->type].focused;
 	} else {
 		cursorcolour = colourBlend(
@@ -4235,7 +4235,7 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 
 	for (col = 0; col < 10; col++) {
 		for (row = 0; row < 5; row++) {
-			if (context->dialog->transitiontimer < 0) {
+			if (context->dialog->transitionfrac < 0) {
 				textcolour = g_MenuColourPalettes[context->dialog->type].unfocused;
 			} else {
 				textcolour = colourBlend(
@@ -4257,7 +4257,7 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 			if (col == data->col && row == data->row) {
 				alpha = func0f006b08(40) * 255;
 
-				if (context->dialog->transitiontimer < 0) {
+				if (context->dialog->transitionfrac < 0) {
 					tmpcolour = g_MenuColourPalettes[context->dialog->type].focused;
 				} else {
 					tmpcolour = colourBlend(
@@ -4311,7 +4311,7 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 
 					// Dim the OK button if string is empty
 					if (index == 3 && menuitemKeyboardIsStringEmptyOrSpaces(data->string)) {
-						if (context->dialog->transitiontimer < 0) {
+						if (context->dialog->transitionfrac < 0) {
 							textcolour = g_MenuColourPalettes[context->dialog->type].disabled;
 						} else {
 							textcolour = colourBlend(
@@ -4403,13 +4403,13 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
  * |  DEL  |    CAPS   |   CANCEL  |   OK  |
  * +-------+-----------+-----------+-------+
  */
-bool menuitemKeyboardTick(struct menuitem *item, struct menuinputs *inputs, u32 arg2, union menuitemdata *data)
+bool menuitemKeyboardTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	struct menuitemdata_keyboard *kb = &data->keyboard;
 	union handlerdata handlerdata;
 	s32 delete = false;
 
-	if (arg2 & 2) {
+	if (tickflags & MENUTICKFLAG_ITEMISFOCUSED) {
 		s16 prevcol = kb->col;
 		s16 prevrow = kb->row;
 
@@ -4582,7 +4582,7 @@ bool menuitemKeyboardTick(struct menuitem *item, struct menuinputs *inputs, u32 
 	}
 
 	// Update caps
-	if (arg2 & 2) {
+	if (tickflags & MENUTICKFLAG_ITEMISFOCUSED) {
 		u32 prev = kb->capseffective;
 		kb->capseffective = kb->capslock;
 
@@ -4628,7 +4628,7 @@ Gfx *menuitemSeparatorRender(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 colour;
 
-	if (context->dialog->transitiontimer < 0) {
+	if (context->dialog->transitionfrac < 0) {
 		colour = g_MenuColourPalettes[context->dialog->type].unfocused;
 	} else {
 		colour = colourBlend(
@@ -6647,7 +6647,7 @@ Gfx *menuitemModelRender(Gfx *gdl, struct menurendercontext *context)
 		renderdata.y = context->y;
 		renderdata.width = context->width;
 
-		if (context->dialog->transitiontimer < 0) {
+		if (context->dialog->transitionfrac < 0) {
 			renderdata.colour = g_MenuColourPalettes[context->dialog->type].focused;
 		} else {
 			renderdata.colour = colourBlend(
@@ -6712,7 +6712,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	if (context->item->flags & MENUITEMFLAG_00000100) {
-		if (context->dialog->transitiontimer < 0) {
+		if (context->dialog->transitionfrac < 0) {
 			colour1 = g_MenuColourPalettes[context->dialog->type].checkedunfocused;
 		} else {
 			colour1 = colourBlend(
@@ -6729,7 +6729,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 				g_MenuColourPalettes3[context->dialog->type].checkedunfocused,
 				g_MenuColourPalettes2[context->dialog->type].checkedunfocused);
 	} else {
-		if (context->dialog->transitiontimer < 0) {
+		if (context->dialog->transitionfrac < 0) {
 			colour1 = g_MenuColourPalettes[context->dialog->type].unfocused;
 		} else {
 			colour1 = colourBlend(
@@ -6748,7 +6748,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	if (menuIsItemDisabled(context->item, context->dialog)) {
-		if (context->dialog->transitiontimer < 0) {
+		if (context->dialog->transitionfrac < 0) {
 			colour1 = g_MenuColourPalettes[context->dialog->type].disabled;
 		} else {
 			colour1 = colourBlend(
@@ -6830,7 +6830,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 	gdl = func0f153780(gdl);
 
 	if (menudfc) {
-		if (context->width + 200 < menudfc->unk04 * 300 && context->dialog->unk48 < 0) {
+		if (context->width + 200 < menudfc->unk04 * 300 && context->dialog->redrawtimer < 0) {
 			func0f0f13ec(context->item);
 		}
 
@@ -6876,7 +6876,7 @@ Gfx *menuitemMeterRender(Gfx *gdl, struct menurendercontext *context)
 	s32 x2;
 	s32 x3;
 
-	if (context->dialog->transitiontimer < 0) {
+	if (context->dialog->transitionfrac < 0) {
 		colour = g_MenuColourPalettes[context->dialog->type].unfocused;
 	} else {
 		colour = colourBlend(
@@ -7328,7 +7328,7 @@ const char var7f1adfb8[] = "";
 //
 //	text = menuResolveParam2Text(context->item);
 //
-//	if (context->dialog->transitiontimer < 0) {
+//	if (context->dialog->transitionfrac < 0) {
 //		leftcolour = g_MenuColourPalettes[context->dialog->type].unfocused;
 //	} else {
 //		leftcolour = colourBlend(
@@ -7351,7 +7351,7 @@ const char var7f1adfb8[] = "";
 //		u32 colour2;
 //		u32 weight = func0f006b08(40) * 255;
 //
-//		if (context->dialog->transitiontimer < 0) {
+//		if (context->dialog->transitionfrac < 0) {
 //			colour2 = g_MenuColourPalettes[context->dialog->type].focused;
 //		} else {
 //			colour2 = colourBlend(
@@ -7372,7 +7372,7 @@ const char var7f1adfb8[] = "";
 //	}
 //
 //	if (menuIsItemDisabled(context->item, context->dialog)) {
-//		if (context->dialog->transitiontimer < 0) {
+//		if (context->dialog->transitionfrac < 0) {
 //			leftcolour = g_MenuColourPalettes[context->dialog->type].disabled;
 //		} else {
 //			leftcolour = colourBlend(
@@ -7430,9 +7430,9 @@ const char var7f1adfb8[] = "";
 //	return func0f153780(gdl);
 //}
 
-bool menuitemSelectableTick(struct menuitem *item, struct menuinputs *inputs, u32 arg2)
+bool menuitemSelectableTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
 {
-	if ((arg2 & 2) && inputs->select) {
+	if ((tickflags & MENUTICKFLAG_ITEMISFOCUSED) && inputs->select) {
 		menuPlaySound(MENUSOUND_SELECT);
 
 		if (item->flags & MENUITEMFLAG_00000008) {
@@ -8121,7 +8121,7 @@ glabel menuitemSliderRender
 /*  f0ebec4:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
 );
 
-bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 arg3, union menuitemdata *data)
+bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	s32 index;
 	union handlerdata handlerdata;
@@ -8130,8 +8130,8 @@ bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct
 	f32 f2;
 	f32 f14;
 
-	if ((arg3 & 2)) {
-		if (arg3 & 4) {
+	if ((tickflags & MENUTICKFLAG_ITEMISFOCUSED)) {
+		if (tickflags & MENUTICKFLAG_DIALOGISDIMMED) {
 			if (item->handler) {
 				item->handler(MENUOP_GETSLIDER, item, &handlerdata);
 				index = (s16)handlerdata.slider.value;
@@ -8244,7 +8244,7 @@ Gfx *menuitemCarouselRender(Gfx *gdl, struct menurendercontext *context)
 		u32 colour1;
 		u32 weight = func0f006b08(40) * 255;
 
-		if (context->dialog->transitiontimer < 0) {
+		if (context->dialog->transitionfrac < 0) {
 			colour1 = g_MenuColourPalettes[context->dialog->type].focused;
 		} else {
 			colour1 = colourBlend(
@@ -8284,7 +8284,7 @@ Gfx *menuitemCarouselRender(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-bool menuitemCarouselTick(struct menuitem *item, struct menuinputs *inputs, u32 arg2)
+bool menuitemCarouselTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
 {
 	union handlerdata data;
 	s32 index;
@@ -8292,7 +8292,7 @@ bool menuitemCarouselTick(struct menuitem *item, struct menuinputs *inputs, u32 
 	bool done;
 	u32 stack;
 
-	if (((arg2 & 2) || (item->flags & MENUITEMFLAG_04000000)) && item->handler) {
+	if (((tickflags & MENUTICKFLAG_ITEMISFOCUSED) || (item->flags & MENUITEMFLAG_04000000)) && item->handler) {
 		if (inputs->leftright != 0) {
 			if (mpIsPlayerLockedOut(g_MpPlayerNum) == 0 || (item->flags & MENUITEMFLAG_00020000) == 0) {
 				done = false;
@@ -8754,7 +8754,7 @@ glabel menuitemCheckboxRender
 //			&& context->item->handler(MENUOP_GET, context->item, (union handlerdata *)data) == true) {
 //		checked = true;
 //
-//		if (context->dialog->transitiontimer < 0) {
+//		if (context->dialog->transitionfrac < 0) {
 //			maincolour = g_MenuColourPalettes[context->dialog->type].checkedunfocused;
 //		} else {
 //			maincolour = colourBlend(
@@ -8771,7 +8771,7 @@ glabel menuitemCheckboxRender
 //				g_MenuColourPalettes3[context->dialog->type].checkedunfocused,
 //				g_MenuColourPalettes2[context->dialog->type].checkedunfocused);
 //	} else {
-//		if (context->dialog->transitiontimer < 0) {
+//		if (context->dialog->transitionfrac < 0) {
 //			maincolour = g_MenuColourPalettes[context->dialog->type].unfocused;
 //		} else {
 //			maincolour = colourBlend(
@@ -8799,7 +8799,7 @@ glabel menuitemCheckboxRender
 //		u32 focuscolour;
 //		u32 weight = func0f006b08(40) * 255;
 //
-//		if (context->dialog->transitiontimer < 0) {
+//		if (context->dialog->transitionfrac < 0) {
 //			focuscolour = g_MenuColourPalettes[context->dialog->type].focused;
 //		} else {
 //			focuscolour = colourBlend(
@@ -8816,7 +8816,7 @@ glabel menuitemCheckboxRender
 //	}
 //
 //	if (menuIsItemDisabled(context->item, context->dialog)) {
-//		if (context->dialog->transitiontimer < 0) {
+//		if (context->dialog->transitionfrac < 0) {
 //			maincolour = g_MenuColourPalettes[context->dialog->type].disabled;
 //		} else {
 //			maincolour = colourBlend(
@@ -8847,11 +8847,11 @@ glabel menuitemCheckboxRender
 //	return func0f153780(gdl);
 //}
 
-bool menuitemCheckboxTick(struct menuitem *item, struct menuinputs *inputs, u32 arg2)
+bool menuitemCheckboxTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
 {
 	union handlerdata data;
 
-	if ((arg2 & 2) && inputs->select) {
+	if ((tickflags & MENUTICKFLAG_ITEMISFOCUSED) && inputs->select) {
 		if (item->handler && item->handler(MENUOP_GET, item, &data) == 1) {
 			data.checkbox.value = 0;
 			menuPlaySound(MENUSOUND_TOGGLEOFF);
@@ -8974,7 +8974,7 @@ Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context)
 	x = context->x + 2;
 	y = context->y + 2;
 
-	if (context->dialog->transitiontimer < 0) {
+	if (context->dialog->transitionfrac < 0) {
 		colour = g_MenuColourPalettes[context->dialog->type].unfocused;
 	} else {
 		colour = colourBlend(
@@ -9015,14 +9015,14 @@ Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context)
 	return func0f153780(gdl);
 }
 
-bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 arg3, union menuitemdata *data)
+bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	u32 stack;
 
 #if PAL
-	if ((s16)dialog->height20 != data->scrollable.unk06 || data->scrollable.unk08 != g_LanguageId) {
+	if ((s16)dialog->height != data->scrollable.unk06 || data->scrollable.unk08 != g_LanguageId) {
 #else
-	if ((s16)dialog->height20 != data->scrollable.unk06) {
+	if ((s16)dialog->height != data->scrollable.unk06) {
 #endif
 		char wrapped[8000] = "";
 		char *rawtext;
@@ -9062,12 +9062,12 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 			data->scrollable.unk04 = -10;
 		}
 
-		data->scrollable.unk06 = dialog->height20;
+		data->scrollable.unk06 = dialog->height;
 	}
 
 	if (menuIsScrollableUnscrollable(item)) {
 		data->scrollable.unk00 = 0;
-	} else if (arg3 & 2) {
+	} else if (tickflags & MENUTICKFLAG_ITEMISFOCUSED) {
 		f32 floatval;
 		s32 intval = 0;
 
@@ -9756,7 +9756,7 @@ u32 var800711ec = 0x20000000;
 //	}
 //
 //	// 5b8
-//	if (context->dialog->transitiontimer < 0) {
+//	if (context->dialog->transitionfrac < 0) {
 //		colour = g_MenuColourPalettes[context->dialog->type].unfocused;
 //	} else {
 //		colour = colourBlend(
@@ -10056,7 +10056,7 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 		data->scrolloffset = gap;
 	}
 
-	if (context->dialog->transitiontimer < 0) {
+	if (context->dialog->transitionfrac < 0) {
 		textcolour = g_MenuColourPalettes[context->dialog->type].unfocused;
 	} else {
 		textcolour = colourBlend(
@@ -10088,7 +10088,7 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 
 	dialog = context->dialog;
 
-	if (dialog->transitiontimer < 0) {
+	if (dialog->transitionfrac < 0) {
 		linecolour1 = g_MenuColourPalettes[dialog->type].unk00;
 	} else {
 		linecolour1 = colourBlend(
@@ -10101,7 +10101,7 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 		linecolour1 = colourBlend(linecolour1, 0, 44) & 0xffffff00 | linecolour1 & 0xff;
 	}
 
-	if (dialog->transitiontimer < 0) {
+	if (dialog->transitionfrac < 0) {
 		linecolour2 = g_MenuColourPalettes[dialog->type].unk08;
 	} else {
 		linecolour2 = colourBlend(
@@ -10821,12 +10821,12 @@ glabel menuitemRankingRender
 );
 #endif
 
-bool menuitemRankingTick(struct menuinputs *inputs, u32 arg1, union menuitemdata *data)
+bool menuitemRankingTick(struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	f32 floatval;
 	s32 intval;
 
-	if (arg1 & 2) {
+	if (tickflags & MENUTICKFLAG_ITEMISFOCUSED) {
 		intval = 0;
 		floatval = inputs->yaxis < 0 ? -(f32)inputs->yaxis : inputs->yaxis;
 
@@ -10887,7 +10887,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 	// Write selected player's name
 	weight = func0f006b08(40) * 255;
 
-	if (context->dialog->transitiontimer < 0) {
+	if (context->dialog->transitionfrac < 0) {
 		selectioncolour = g_MenuColourPalettes[context->dialog->type].focused;
 	} else {
 		selectioncolour = colourBlend(
@@ -10904,7 +10904,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 			selectioncolour, context->width, context->height, 0, 0);
 
 	// "Suicides" heading
-	if (context->dialog->transitiontimer < 0) {
+	if (context->dialog->transitionfrac < 0) {
 		maincolour = g_MenuColourPalettes[context->dialog->type].unfocused;
 	} else {
 		maincolour = colourBlend(
@@ -10937,7 +10937,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 	ypos += 12;
 
 	if (mpGetNumChrs() >= 2) {
-		if (context->dialog->transitiontimer < 0) {
+		if (context->dialog->transitionfrac < 0) {
 			maincolour = g_MenuColourPalettes[context->dialog->type].unfocused;
 		} else {
 			maincolour = colourBlend(
@@ -11729,12 +11729,12 @@ glabel menuitemPlayerStatsRender
 );
 #endif
 
-bool menuitemPlayerStatsTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 arg3, union menuitemdata *data)
+bool menuitemPlayerStatsTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	f32 floatval;
 	s32 intval;
 
-	if ((arg3 & 2) && !dialog->dimmed) {
+	if ((tickflags & MENUTICKFLAG_ITEMISFOCUSED) && !dialog->dimmed) {
 		intval = 0;
 		floatval = inputs->yaxis < 0 ? -(f32)inputs->yaxis : inputs->yaxis;
 
@@ -11761,7 +11761,7 @@ bool menuitemPlayerStatsTick(struct menuitem *item, struct menudialog *dialog, s
 		}
 	}
 
-	menuitemDropdownTick(item, dialog, inputs, arg3, data);
+	menuitemDropdownTick(item, dialog, inputs, tickflags, data);
 }
 
 Gfx *menuitemPlayerStatsOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menudialog *dialog, union menuitemdata *data)
@@ -12502,7 +12502,7 @@ Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
 	contalpha = data->contfadetimer;
 	gdl = func0f153628(gdl);
 
-	if (dialog->transitiontimer < 0) {
+	if (dialog->transitionfrac < 0) {
 		colour = g_MenuColourPalettes[dialog->type].unfocused;
 	} else {
 		colour = colourBlend(
@@ -12601,20 +12601,20 @@ Gfx *menuitemRender(Gfx *gdl, struct menurendercontext *context)
 /**
  * Return true if default up/down/left/right/back behaviour should be used.
  */
-bool menuitemTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 arg3, union menuitemdata *data)
+bool menuitemTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	switch (item->type) {
-	case MENUITEMTYPE_LIST:        return menuitemListTick(item, inputs, arg3, data);
-	case MENUITEMTYPE_SELECTABLE:  return menuitemSelectableTick(item, inputs, arg3);
-	case MENUITEMTYPE_SLIDER:      return menuitemSliderTick(item, dialog, inputs, arg3, data);
-	case MENUITEMTYPE_CHECKBOX:    return menuitemCheckboxTick(item, inputs, arg3);
-	case MENUITEMTYPE_SCROLLABLE:  return menuitemScrollableTick(item, dialog, inputs, arg3, data);
+	case MENUITEMTYPE_LIST:        return menuitemListTick(item, inputs, tickflags, data);
+	case MENUITEMTYPE_SELECTABLE:  return menuitemSelectableTick(item, inputs, tickflags);
+	case MENUITEMTYPE_SLIDER:      return menuitemSliderTick(item, dialog, inputs, tickflags, data);
+	case MENUITEMTYPE_CHECKBOX:    return menuitemCheckboxTick(item, inputs, tickflags);
+	case MENUITEMTYPE_SCROLLABLE:  return menuitemScrollableTick(item, dialog, inputs, tickflags, data);
 	case MENUITEMTYPE_MARQUEE:     return menuitemMarqueeTick(item, data);
-	case MENUITEMTYPE_RANKING:     return menuitemRankingTick(inputs, arg3, data);
-	case MENUITEMTYPE_DROPDOWN:    return menuitemDropdownTick(item, dialog, inputs, arg3, data);
-	case MENUITEMTYPE_KEYBOARD:    return menuitemKeyboardTick(item, inputs, arg3, data);
-	case MENUITEMTYPE_CAROUSEL:    return menuitemCarouselTick(item, inputs, arg3);
-	case MENUITEMTYPE_PLAYERSTATS: return menuitemPlayerStatsTick(item, dialog, inputs, arg3, data);
+	case MENUITEMTYPE_RANKING:     return menuitemRankingTick(inputs, tickflags, data);
+	case MENUITEMTYPE_DROPDOWN:    return menuitemDropdownTick(item, dialog, inputs, tickflags, data);
+	case MENUITEMTYPE_KEYBOARD:    return menuitemKeyboardTick(item, inputs, tickflags, data);
+	case MENUITEMTYPE_CAROUSEL:    return menuitemCarouselTick(item, inputs, tickflags);
+	case MENUITEMTYPE_PLAYERSTATS: return menuitemPlayerStatsTick(item, dialog, inputs, tickflags, data);
 	}
 
 	return true;

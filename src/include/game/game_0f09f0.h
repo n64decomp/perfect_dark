@@ -31,7 +31,7 @@ char *menuResolveDialogTitle(struct menudialogdef *dialogdef);
 void func0f0f15a4(struct menuitem *item, s32 *arg1);
 void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height, struct menudialog *dialog);
 void func0f0f1d6c(struct menudialogdef *dialogdef, struct menudialog *dialog, struct menu *menu);
-u32 func0f0f1ef4(void);
+void func0f0f1ef4(struct menudialog *dialog);
 void dialogCalculateContentSize(struct menudialogdef *dialogdef, struct menudialog *dialog, struct menu *menu);
 s32 dialogFindItem(struct menudialog *dialog, struct menuitem *item, s32 *rowindex, s32 *colindex);
 bool menuIsScrollableUnscrollable(struct menuitem *item);
@@ -42,7 +42,7 @@ struct menuitem *dialogFindFirstItem(struct menudialog *dialog);
 u32 func0f0f2928(void);
 u32 func0f0f29cc(void);
 u32 func0f0f2b2c(void);
-u32 func0f0f2c44(void);
+s32 func0f0f2c44(struct menudialog *dialog, s32 leftright, s32 updown);
 void menuOpenDialog(struct menudialogdef *dialogdef, struct menudialog *arg1, struct menu *menu);
 void menuPushDialog(struct menudialogdef *dialogdef);
 
@@ -77,8 +77,8 @@ Gfx *menuRenderDialog(Gfx *gdl, struct menudialog *dialog, struct menu *menu, s3
 Gfx *menuRenderDialogs(Gfx *gdl);
 void func0f0f8bb4(u8 *arg0, u32 arg1, u32 arg2);
 void menuInit(void);
-u32 func0f0f9030(void);
-void dialogProcessInput(struct menudialog *dialog, struct menuinputs *inputs, bool iscurrent);
+void func0f0f9030(s32 arg0);
+void dialogTick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags);
 void dialogInitItems(struct menudialog *dialog);
 void func0f0fa6ac(void);
 void menuProcessInput(void);

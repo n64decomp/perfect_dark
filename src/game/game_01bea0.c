@@ -104,9 +104,9 @@ void menuTick(void)
 
 		for (j = 0; j < 4; j++) {
 			if (g_Menus[j].curdialog) {
-				if (g_Menus[j].curdialog->unk60 == 1
-						|| g_Menus[j].curdialog->unk60 == 2
-						|| g_Menus[j].curdialog->unk60 == 0) {
+				if (g_Menus[j].curdialog->state == MENUDIALOGSTATE_OPENING
+						|| g_Menus[j].curdialog->state == MENUDIALOGSTATE_POPULATING
+						|| g_Menus[j].curdialog->state == MENUDIALOGSTATE_0) {
 					bVar11 = true;
 				}
 			}
