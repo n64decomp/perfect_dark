@@ -31,7 +31,7 @@ char *menuResolveDialogTitle(struct menudialogdef *dialogdef);
 void func0f0f15a4(struct menuitem *item, s32 *arg1);
 void menuCalculateItemSize(struct menuitem *item, s16 *width, s16 *height, struct menudialog *dialog);
 void func0f0f1d6c(struct menudialogdef *dialogdef, struct menudialog *dialog, struct menu *menu);
-void func0f0f1ef4(struct menudialog *dialog);
+void dialog0f0f1ef4(struct menudialog *dialog);
 void dialogCalculateContentSize(struct menudialogdef *dialogdef, struct menudialog *dialog, struct menu *menu);
 s32 dialogFindItem(struct menudialog *dialog, struct menuitem *item, s32 *rowindex, s32 *colindex);
 bool menuIsScrollableUnscrollable(struct menuitem *item);
