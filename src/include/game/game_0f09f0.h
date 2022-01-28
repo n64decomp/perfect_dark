@@ -39,7 +39,7 @@ bool menuIsItemDisabled(struct menuitem *item, struct menudialog *dialog);
 bool menuIsItemFocusable(struct menuitem *item, struct menudialog *dialog, s32 arg2);
 struct menuitem *dialogFindItemAtColY(s32 targety, s32 colindex, struct menudialogdef *dialogdef, s32 *rowindexptr, struct menudialog *dialog);
 struct menuitem *dialogFindFirstItem(struct menudialog *dialog);
-u32 func0f0f2928(void);
+struct menuitem *func0f0f2928(struct menudialog *dialog);
 void dialogChangeItemFocusVertically(struct menudialog *dialog, s32 updown);
 s32 dialogChangeItemFocusHorizontally(struct menudialog *dialog, s32 leftright);
 s32 dialogChangeItemFocus(struct menudialog *dialog, s32 leftright, s32 updown);
@@ -77,7 +77,7 @@ Gfx *menuRenderDialog(Gfx *gdl, struct menudialog *dialog, struct menu *menu, s3
 Gfx *menuRenderDialogs(Gfx *gdl);
 void func0f0f8bb4(u8 *arg0, u32 arg1, u32 arg2);
 void menuInit(void);
-void menuSwipe(s32 swipedir);
+void menuSwipe(s32 direction);
 void dialogTick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags);
 void dialogInitItems(struct menudialog *dialog);
 void func0f0fa6ac(void);

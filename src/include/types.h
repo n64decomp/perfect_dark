@@ -3801,7 +3801,7 @@ struct menudialog {
 	/*0x64*/ s32 scroll; // scroll related, 0 when at top, negative when scrolled down
 	/*0x68*/ s32 dstscroll; // same value as unk64
 	/*0x6c*/ u8 unk6c;
-	/*0x6d*/ s8 unk6d;
+	/*0x6d*/ s8 swipedir;
 	/*0x6e*/ u8 unk6e;
 };
 

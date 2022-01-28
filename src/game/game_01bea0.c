@@ -106,7 +106,7 @@ void menuTick(void)
 			if (g_Menus[j].curdialog) {
 				if (g_Menus[j].curdialog->state == MENUDIALOGSTATE_OPENING
 						|| g_Menus[j].curdialog->state == MENUDIALOGSTATE_POPULATING
-						|| g_Menus[j].curdialog->state == MENUDIALOGSTATE_0) {
+						|| g_Menus[j].curdialog->state == MENUDIALOGSTATE_PREOPEN) {
 					bVar11 = true;
 				}
 			}
