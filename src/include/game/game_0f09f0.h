@@ -36,12 +36,12 @@ void dialogCalculateContentSize(struct menudialogdef *dialogdef, struct menudial
 s32 dialogFindItem(struct menudialog *dialog, struct menuitem *item, s32 *rowindex, s32 *colindex);
 bool menuIsScrollableUnscrollable(struct menuitem *item);
 bool menuIsItemDisabled(struct menuitem *item, struct menudialog *dialog);
-bool func0f0f2674(struct menuitem *item, struct menudialog *dialog, u32 arg2);
+bool menuIsItemFocusable(struct menuitem *item, struct menudialog *dialog, s32 arg2);
 struct menuitem *dialogFindItemAtColY(s32 targety, s32 colindex, struct menudialogdef *dialogdef, s32 *rowindexptr, struct menudialog *dialog);
 struct menuitem *dialogFindFirstItem(struct menudialog *dialog);
 u32 func0f0f2928(void);
-s32 func0f0f29cc(struct menudialog *dialog, s32 updown);
-s32 func0f0f2b2c(struct menudialog *dialog, s32 leftright);
+void dialogChangeItemFocusVertically(struct menudialog *dialog, s32 updown);
+s32 dialogChangeItemFocusHorizontally(struct menudialog *dialog, s32 leftright);
 s32 dialogChangeItemFocus(struct menudialog *dialog, s32 leftright, s32 updown);
 void menuOpenDialog(struct menudialogdef *dialogdef, struct menudialog *arg1, struct menu *menu);
 void menuPushDialog(struct menudialogdef *dialogdef);

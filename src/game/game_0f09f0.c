@@ -2838,7 +2838,7 @@ bool menuIsItemDisabled(struct menuitem *item, struct menudialog *dialog)
 	return false;
 }
 
-bool func0f0f2674(struct menuitem *item, struct menudialog *dialog, u32 arg2)
+bool menuIsItemFocusable(struct menuitem *item, struct menudialog *dialog, s32 arg2)
 {
 	s32 rowindex;
 	s32 colindex;
@@ -2879,7 +2879,7 @@ struct menuitem *dialogFindItemAtColY(s32 targety, s32 colindex, struct menudial
 	for (i = 0, y = 0; !done && i < g_Menus[g_MpPlayerNum].cols[colindex].numrows; rowindex++, i++) {
 		struct menuitem *item = &dialogdef->items[g_Menus[g_MpPlayerNum].rows[rowindex].itemindex];
 
-		if (func0f0f2674(item, dialog, 1)) {
+		if (menuIsItemFocusable(item, dialog, 1)) {
 			result = item;
 
 			if (y >= targety) {
@@ -2965,204 +2965,49 @@ glabel func0f0f2928
 /*  f0f29c8:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f0f29cc
-/*  f0f29cc:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f0f29d0:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f0f29d4:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0f29d8:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f0f29dc:	00809825 */ 	or	$s3,$a0,$zero
-/*  f0f29e0:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f0f29e4:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f0f29e8:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f0f29ec:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f0f29f0:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f0f29f4:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f0f29f8:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0f29fc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0f2a00:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0f2a04:	8e650008 */ 	lw	$a1,0x8($s3)
-/*  f0f2a08:	27a6005c */ 	addiu	$a2,$sp,0x5c
-/*  f0f2a0c:	0fc3c8d5 */ 	jal	dialogFindItem
-/*  f0f2a10:	27a70058 */ 	addiu	$a3,$sp,0x58
-/*  f0f2a14:	8fa5005c */ 	lw	$a1,0x5c($sp)
-/*  f0f2a18:	3c168007 */ 	lui	$s6,%hi(g_MpPlayerNum)
-/*  f0f2a1c:	3c15800a */ 	lui	$s5,%hi(g_Menus)
-/*  f0f2a20:	26b5e000 */ 	addiu	$s5,$s5,%lo(g_Menus)
-/*  f0f2a24:	26d61448 */ 	addiu	$s6,$s6,%lo(g_MpPlayerNum)
-/*  f0f2a28:	241e0014 */ 	addiu	$s8,$zero,0x14
-/*  f0f2a2c:	2417000a */ 	addiu	$s7,$zero,0xa
-/*  f0f2a30:	00a0a025 */ 	or	$s4,$a1,$zero
-/*  f0f2a34:	8fb80058 */ 	lw	$t8,0x58($sp)
-.L0f0f2a38:
-/*  f0f2a38:	8ece0000 */ 	lw	$t6,0x0($s6)
-/*  f0f2a3c:	00b22821 */ 	addu	$a1,$a1,$s2
-/*  f0f2a40:	03170019 */ 	multu	$t8,$s7
-/*  f0f2a44:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f0f2a48:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f2a4c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0f2a50:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0f2a54:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0f2a58:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f2a5c:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f0f2a60:	02af3821 */ 	addu	$a3,$s5,$t7
-/*  f0f2a64:	0000c812 */ 	mflo	$t9
-/*  f0f2a68:	00f91021 */ 	addu	$v0,$a3,$t9
-/*  f0f2a6c:	94430666 */ 	lhu	$v1,0x666($v0)
-/*  f0f2a70:	90480668 */ 	lbu	$t0,0x668($v0)
-/*  f0f2a74:	01032021 */ 	addu	$a0,$t0,$v1
-/*  f0f2a78:	00a4082a */ 	slt	$at,$a1,$a0
-/*  f0f2a7c:	54200003 */ 	bnezl	$at,.L0f0f2a8c
-/*  f0f2a80:	00a3082a */ 	slt	$at,$a1,$v1
-/*  f0f2a84:	00602825 */ 	or	$a1,$v1,$zero
-/*  f0f2a88:	00a3082a */ 	slt	$at,$a1,$v1
-.L0f0f2a8c:
-/*  f0f2a8c:	10200003 */ 	beqz	$at,.L0f0f2a9c
-/*  f0f2a90:	afa5005c */ 	sw	$a1,0x5c($sp)
-/*  f0f2a94:	2485ffff */ 	addiu	$a1,$a0,-1
-/*  f0f2a98:	afa5005c */ 	sw	$a1,0x5c($sp)
-.L0f0f2a9c:
-/*  f0f2a9c:	8fa9005c */ 	lw	$t1,0x5c($sp)
-/*  f0f2aa0:	8e6e0000 */ 	lw	$t6,0x0($s3)
-/*  f0f2aa4:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0f2aa8:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f0f2aac:	00ea5821 */ 	addu	$t3,$a3,$t2
-/*  f0f2ab0:	916c04fe */ 	lbu	$t4,0x4fe($t3)
-/*  f0f2ab4:	8dcf0008 */ 	lw	$t7,0x8($t6)
-/*  f0f2ab8:	02403025 */ 	or	$a2,$s2,$zero
-/*  f0f2abc:	019e0019 */ 	multu	$t4,$s8
-/*  f0f2ac0:	00006812 */ 	mflo	$t5
-/*  f0f2ac4:	01af8821 */ 	addu	$s1,$t5,$t7
-/*  f0f2ac8:	0fc3c99d */ 	jal	func0f0f2674
-/*  f0f2acc:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0f2ad0:	10400002 */ 	beqz	$v0,.L0f0f2adc
-/*  f0f2ad4:	8fa5005c */ 	lw	$a1,0x5c($sp)
-/*  f0f2ad8:	24100001 */ 	addiu	$s0,$zero,0x1
-.L0f0f2adc:
-/*  f0f2adc:	14b40002 */ 	bne	$a1,$s4,.L0f0f2ae8
-/*  f0f2ae0:	00000000 */ 	nop
-/*  f0f2ae4:	24100001 */ 	addiu	$s0,$zero,0x1
-.L0f0f2ae8:
-/*  f0f2ae8:	5200ffd3 */ 	beqzl	$s0,.L0f0f2a38
-/*  f0f2aec:	8fb80058 */ 	lw	$t8,0x58($sp)
-/*  f0f2af0:	afa5005c */ 	sw	$a1,0x5c($sp)
-/*  f0f2af4:	afb1004c */ 	sw	$s1,0x4c($sp)
-/*  f0f2af8:	ae710008 */ 	sw	$s1,0x8($s3)
-/*  f0f2afc:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f0f2b00:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f0f2b04:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f0f2b08:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f0f2b0c:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f0f2b10:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f0f2b14:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f0f2b18:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0f2b1c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0f2b20:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0f2b24:	03e00008 */ 	jr	$ra
-/*  f0f2b28:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
-#else
-GLOBAL_ASM(
-glabel func0f0f29cc
-/*  f0ef5e8:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f0ef5ec:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f0ef5f0:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0ef5f4:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f0ef5f8:	00809825 */ 	or	$s3,$a0,$zero
-/*  f0ef5fc:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f0ef600:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f0ef604:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f0ef608:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f0ef60c:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f0ef610:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f0ef614:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0ef618:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ef61c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0ef620:	8e650008 */ 	lw	$a1,0x8($s3)
-/*  f0ef624:	27a6005c */ 	addiu	$a2,$sp,0x5c
-/*  f0ef628:	0fc3bbdc */ 	jal	dialogFindItem
-/*  f0ef62c:	27a70058 */ 	addiu	$a3,$sp,0x58
-/*  f0ef630:	8fa5005c */ 	lw	$a1,0x5c($sp)
-/*  f0ef634:	3c168007 */ 	lui	$s6,0x8007
-/*  f0ef638:	3c15800a */ 	lui	$s5,0x800a
-/*  f0ef63c:	26b527c0 */ 	addiu	$s5,$s5,0x27c0
-/*  f0ef640:	26d63af0 */ 	addiu	$s6,$s6,0x3af0
-/*  f0ef644:	241e0014 */ 	addiu	$s8,$zero,0x14
-/*  f0ef648:	2417000a */ 	addiu	$s7,$zero,0xa
-/*  f0ef64c:	00a0a025 */ 	or	$s4,$a1,$zero
-/*  f0ef650:	8fb80058 */ 	lw	$t8,0x58($sp)
-.NB0f0ef654:
-/*  f0ef654:	8ece0000 */ 	lw	$t6,0x0($s6)
-/*  f0ef658:	00b22821 */ 	addu	$a1,$a1,$s2
-/*  f0ef65c:	03170019 */ 	multu	$t8,$s7
-/*  f0ef660:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f0ef664:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0ef668:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0ef66c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0ef670:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f0ef674:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0ef678:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0ef67c:	02af3821 */ 	addu	$a3,$s5,$t7
-/*  f0ef680:	0000c812 */ 	mflo	$t9
-/*  f0ef684:	00f91021 */ 	addu	$v0,$a3,$t9
-/*  f0ef688:	944305d6 */ 	lhu	$v1,0x5d6($v0)
-/*  f0ef68c:	904805d8 */ 	lbu	$t0,0x5d8($v0)
-/*  f0ef690:	01032021 */ 	addu	$a0,$t0,$v1
-/*  f0ef694:	00a4082a */ 	slt	$at,$a1,$a0
-/*  f0ef698:	54200003 */ 	bnezl	$at,.NB0f0ef6a8
-/*  f0ef69c:	00a3082a */ 	slt	$at,$a1,$v1
-/*  f0ef6a0:	00602825 */ 	or	$a1,$v1,$zero
-/*  f0ef6a4:	00a3082a */ 	slt	$at,$a1,$v1
-.NB0f0ef6a8:
-/*  f0ef6a8:	10200003 */ 	beqz	$at,.NB0f0ef6b8
-/*  f0ef6ac:	afa5005c */ 	sw	$a1,0x5c($sp)
-/*  f0ef6b0:	2485ffff */ 	addiu	$a1,$a0,-1
-/*  f0ef6b4:	afa5005c */ 	sw	$a1,0x5c($sp)
-.NB0f0ef6b8:
-/*  f0ef6b8:	8fa9005c */ 	lw	$t1,0x5c($sp)
-/*  f0ef6bc:	8e6e0000 */ 	lw	$t6,0x0($s3)
-/*  f0ef6c0:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0ef6c4:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f0ef6c8:	00ea5821 */ 	addu	$t3,$a3,$t2
-/*  f0ef6cc:	916c048e */ 	lbu	$t4,0x48e($t3)
-/*  f0ef6d0:	8dcf0008 */ 	lw	$t7,0x8($t6)
-/*  f0ef6d4:	02403025 */ 	or	$a2,$s2,$zero
-/*  f0ef6d8:	019e0019 */ 	multu	$t4,$s8
-/*  f0ef6dc:	00006812 */ 	mflo	$t5
-/*  f0ef6e0:	01af8821 */ 	addu	$s1,$t5,$t7
-/*  f0ef6e4:	0fc3bca4 */ 	jal	func0f0f2674
-/*  f0ef6e8:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0ef6ec:	10400002 */ 	beqz	$v0,.NB0f0ef6f8
-/*  f0ef6f0:	8fa5005c */ 	lw	$a1,0x5c($sp)
-/*  f0ef6f4:	24100001 */ 	addiu	$s0,$zero,0x1
-.NB0f0ef6f8:
-/*  f0ef6f8:	14b40002 */ 	bne	$a1,$s4,.NB0f0ef704
-/*  f0ef6fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ef700:	24100001 */ 	addiu	$s0,$zero,0x1
-.NB0f0ef704:
-/*  f0ef704:	5200ffd3 */ 	beqzl	$s0,.NB0f0ef654
-/*  f0ef708:	8fb80058 */ 	lw	$t8,0x58($sp)
-/*  f0ef70c:	afa5005c */ 	sw	$a1,0x5c($sp)
-/*  f0ef710:	afb1004c */ 	sw	$s1,0x4c($sp)
-/*  f0ef714:	ae710008 */ 	sw	$s1,0x8($s3)
-/*  f0ef718:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f0ef71c:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f0ef720:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f0ef724:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f0ef728:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f0ef72c:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f0ef730:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f0ef734:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0ef738:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0ef73c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0ef740:	03e00008 */ 	jr	$ra
-/*  f0ef744:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
-#endif
+void dialogChangeItemFocusVertically(struct menudialog *dialog, s32 updown)
+{
+	s32 rowindex;
+	s32 colindex;
+	bool done = false;
+	s32 startrowindex;
+	struct menuitem *item;
+	s32 start;
+	s32 end;
+
+	dialogFindItem(dialog, dialog->focuseditem, &rowindex, &colindex);
+
+	startrowindex = rowindex;
+
+	while (!done) {
+		rowindex += updown;
+		start = g_Menus[g_MpPlayerNum].cols[colindex].rowstart;
+		end = g_Menus[g_MpPlayerNum].cols[colindex].numrows + start;
+
+		if (rowindex >= end) {
+			rowindex = start;
+		}
+
+		if (rowindex < start) {
+			rowindex = end - 1;
+		}
+
+		item = &dialog->definition->items[g_Menus[g_MpPlayerNum].rows[rowindex].itemindex];
+
+		if (menuIsItemFocusable(item, dialog, updown)) {
+			done = true;
+		}
+
+		if (rowindex == startrowindex) {
+			done = true;
+		}
+	}
+
+	dialog->focuseditem = item;
+}
 
 GLOBAL_ASM(
-glabel func0f0f2b2c
+glabel dialogChangeItemFocusHorizontally
 /*  f0f2b2c:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f0f2b30:	afb60038 */ 	sw	$s6,0x38($sp)
 /*  f0f2b34:	afb50034 */ 	sw	$s5,0x34($sp)
@@ -3250,11 +3095,11 @@ s32 dialogChangeItemFocus(struct menudialog *dialog, s32 leftright, s32 updown)
 	}
 
 	if (updown != 0) {
-		func0f0f29cc(dialog, updown);
+		dialogChangeItemFocusVertically(dialog, updown);
 	}
 
 	if (leftright != 0) {
-		result = func0f0f2b2c(dialog, leftright);
+		result = dialogChangeItemFocusHorizontally(dialog, leftright);
 	}
 
 	if (dialog->focuseditem != 0) {
