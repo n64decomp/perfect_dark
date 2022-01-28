@@ -2897,8 +2897,8 @@ struct menuitem *dialogFindItemAtColY(s32 targety, s32 colindex, struct menudial
 
 struct menuitem *dialogFindFirstItem(struct menudialog *dialog)
 {
-	s32 colindex = dialog->colstart;
 	s32 i;
+	s32 colindex = dialog->colstart;
 	s32 rowindex;
 
 	for (i = 0; i < dialog->numcols; i++) {
@@ -2916,54 +2916,26 @@ struct menuitem *dialogFindFirstItem(struct menudialog *dialog)
 	return dialog->definition->items;
 }
 
-GLOBAL_ASM(
-glabel func0f0f2928
-/*  f0f2928:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0f292c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0f2930:	afb30028 */ 	sw	$s3,0x28($sp)
-/*  f0f2934:	afb20024 */ 	sw	$s2,0x24($sp)
-/*  f0f2938:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f0f293c:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f0f2940:	908e0004 */ 	lbu	$t6,0x4($a0)
-/*  f0f2944:	90820005 */ 	lbu	$v0,0x5($a0)
-/*  f0f2948:	00809025 */ 	or	$s2,$a0,$zero
-/*  f0f294c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0f2950:	01c28021 */ 	addu	$s0,$t6,$v0
-/*  f0f2954:	18400012 */ 	blez	$v0,.L0f0f29a0
-/*  f0f2958:	2610ffff */ 	addiu	$s0,$s0,-1
-/*  f0f295c:	27b3003c */ 	addiu	$s3,$sp,0x3c
-/*  f0f2960:	8e460000 */ 	lw	$a2,0x0($s2)
-.L0f0f2964:
-/*  f0f2964:	afb20010 */ 	sw	$s2,0x10($sp)
-/*  f0f2968:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0f296c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0f2970:	0fc3c9bf */ 	jal	dialogFindItemAtColY
-/*  f0f2974:	02603825 */ 	or	$a3,$s3,$zero
-/*  f0f2978:	50400004 */ 	beqzl	$v0,.L0f0f298c
-/*  f0f297c:	924f0005 */ 	lbu	$t7,0x5($s2)
-/*  f0f2980:	1000000c */ 	b	.L0f0f29b4
-/*  f0f2984:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0f2988:	924f0005 */ 	lbu	$t7,0x5($s2)
-.L0f0f298c:
-/*  f0f298c:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0f2990:	2610ffff */ 	addiu	$s0,$s0,-1
-/*  f0f2994:	022f082a */ 	slt	$at,$s1,$t7
-/*  f0f2998:	5420fff2 */ 	bnezl	$at,.L0f0f2964
-/*  f0f299c:	8e460000 */ 	lw	$a2,0x0($s2)
-.L0f0f29a0:
-/*  f0f29a0:	0fc3c560 */ 	jal	menuResolveDialogTitle
-/*  f0f29a4:	8e440000 */ 	lw	$a0,0x0($s2)
-/*  f0f29a8:	8e580000 */ 	lw	$t8,0x0($s2)
-/*  f0f29ac:	8f020008 */ 	lw	$v0,0x8($t8)
-/*  f0f29b0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f0f29b4:
-/*  f0f29b4:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f0f29b8:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f0f29bc:	8fb20024 */ 	lw	$s2,0x24($sp)
-/*  f0f29c0:	8fb30028 */ 	lw	$s3,0x28($sp)
-/*  f0f29c4:	03e00008 */ 	jr	$ra
-/*  f0f29c8:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+struct menuitem *dialogFindFirstItemRight(struct menudialog *dialog)
+{
+	s32 i;
+	s32 colindex = dialog->colstart + dialog->numcols - 1;
+	s32 rowindex;
+
+	for (i = 0; i < dialog->numcols; i++) {
+		struct menuitem *item = dialogFindItemAtColY(0, colindex, dialog->definition, &rowindex, dialog);
+
+		if (item != NULL) {
+			return item;
+		}
+
+		colindex--;
+	}
+
+	menuResolveDialogTitle(dialog->definition);
+
+	return dialog->definition->items;
+}
 
 void dialogChangeItemFocusVertically(struct menudialog *dialog, s32 updown)
 {
@@ -13760,7 +13732,7 @@ void menuSwipe(s32 direction)
 		if (direction == 1) {
 			g_Menus[g_MpPlayerNum].curdialog->focuseditem = dialogFindFirstItem(g_Menus[g_MpPlayerNum].curdialog);
 		} else {
-			g_Menus[g_MpPlayerNum].curdialog->focuseditem = func0f0f2928(g_Menus[g_MpPlayerNum].curdialog);
+			g_Menus[g_MpPlayerNum].curdialog->focuseditem = dialogFindFirstItemRight(g_Menus[g_MpPlayerNum].curdialog);
 		}
 
 		item = g_Menus[g_MpPlayerNum].curdialog->definition->items;

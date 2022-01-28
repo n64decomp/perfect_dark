@@ -39,7 +39,7 @@ bool menuIsItemDisabled(struct menuitem *item, struct menudialog *dialog);
 bool menuIsItemFocusable(struct menuitem *item, struct menudialog *dialog, s32 arg2);
 struct menuitem *dialogFindItemAtColY(s32 targety, s32 colindex, struct menudialogdef *dialogdef, s32 *rowindexptr, struct menudialog *dialog);
 struct menuitem *dialogFindFirstItem(struct menudialog *dialog);
-struct menuitem *func0f0f2928(struct menudialog *dialog);
+struct menuitem *dialogFindFirstItemRight(struct menudialog *dialog);
 void dialogChangeItemFocusVertically(struct menudialog *dialog, s32 updown);
 s32 dialogChangeItemFocusHorizontally(struct menudialog *dialog, s32 leftright);
 s32 dialogChangeItemFocus(struct menudialog *dialog, s32 leftright, s32 updown);
