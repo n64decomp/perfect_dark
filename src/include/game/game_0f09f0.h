@@ -77,7 +77,7 @@ Gfx *menuRenderDialog(Gfx *gdl, struct menudialog *dialog, struct menu *menu, s3
 Gfx *menuRenderDialogs(Gfx *gdl);
 void func0f0f8bb4(u8 *arg0, u32 arg1, u32 arg2);
 void menuInit(void);
-void func0f0f9030(s32 arg0);
+void menuSwipe(s32 swipedir);
 void dialogTick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags);
 void dialogInitItems(struct menudialog *dialog);
 void func0f0fa6ac(void);

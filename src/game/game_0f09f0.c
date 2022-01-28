@@ -3006,89 +3006,50 @@ void dialogChangeItemFocusVertically(struct menudialog *dialog, s32 updown)
 	dialog->focuseditem = item;
 }
 
-GLOBAL_ASM(
-glabel dialogChangeItemFocusHorizontally
-/*  f0f2b2c:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f0f2b30:	afb60038 */ 	sw	$s6,0x38($sp)
-/*  f0f2b34:	afb50034 */ 	sw	$s5,0x34($sp)
-/*  f0f2b38:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0f2b3c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0f2b40:	00a0a825 */ 	or	$s5,$a1,$zero
-/*  f0f2b44:	27b6005c */ 	addiu	$s6,$sp,0x5c
-/*  f0f2b48:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f0f2b4c:	afb40030 */ 	sw	$s4,0x30($sp)
-/*  f0f2b50:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*  f0f2b54:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f0f2b58:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f0f2b5c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0f2b60:	00009025 */ 	or	$s2,$zero,$zero
-/*  f0f2b64:	8e050008 */ 	lw	$a1,0x8($s0)
-/*  f0f2b68:	02c03025 */ 	or	$a2,$s6,$zero
-/*  f0f2b6c:	0fc3c8d5 */ 	jal	dialogFindItem
-/*  f0f2b70:	27a70058 */ 	addiu	$a3,$sp,0x58
-/*  f0f2b74:	00409825 */ 	or	$s3,$v0,$zero
-/*  f0f2b78:	8fb40058 */ 	lw	$s4,0x58($sp)
-/*  f0f2b7c:	8fae0058 */ 	lw	$t6,0x58($sp)
-.L0f0f2b80:
-/*  f0f2b80:	02602025 */ 	or	$a0,$s3,$zero
-/*  f0f2b84:	02c03825 */ 	or	$a3,$s6,$zero
-/*  f0f2b88:	01d57821 */ 	addu	$t7,$t6,$s5
-/*  f0f2b8c:	afaf0058 */ 	sw	$t7,0x58($sp)
-/*  f0f2b90:	92180005 */ 	lbu	$t8,0x5($s0)
-/*  f0f2b94:	92020004 */ 	lbu	$v0,0x4($s0)
-/*  f0f2b98:	0058c821 */ 	addu	$t9,$v0,$t8
-/*  f0f2b9c:	01f9082a */ 	slt	$at,$t7,$t9
-/*  f0f2ba0:	54200005 */ 	bnezl	$at,.L0f0f2bb8
-/*  f0f2ba4:	8fa80058 */ 	lw	$t0,0x58($sp)
-/*  f0f2ba8:	afa20058 */ 	sw	$v0,0x58($sp)
-/*  f0f2bac:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f0f2bb0:	92020004 */ 	lbu	$v0,0x4($s0)
-/*  f0f2bb4:	8fa80058 */ 	lw	$t0,0x58($sp)
-.L0f0f2bb8:
-/*  f0f2bb8:	0102082a */ 	slt	$at,$t0,$v0
-/*  f0f2bbc:	50200007 */ 	beqzl	$at,.L0f0f2bdc
-/*  f0f2bc0:	8e060000 */ 	lw	$a2,0x0($s0)
-/*  f0f2bc4:	92090005 */ 	lbu	$t1,0x5($s0)
-/*  f0f2bc8:	2412ffff */ 	addiu	$s2,$zero,-1
-/*  f0f2bcc:	00495021 */ 	addu	$t2,$v0,$t1
-/*  f0f2bd0:	254bffff */ 	addiu	$t3,$t2,-1
-/*  f0f2bd4:	afab0058 */ 	sw	$t3,0x58($sp)
-/*  f0f2bd8:	8e060000 */ 	lw	$a2,0x0($s0)
-.L0f0f2bdc:
-/*  f0f2bdc:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f0f2be0:	0fc3c9bf */ 	jal	dialogFindItemAtColY
-/*  f0f2be4:	8fa50058 */ 	lw	$a1,0x58($sp)
-/*  f0f2be8:	10400002 */ 	beqz	$v0,.L0f0f2bf4
-/*  f0f2bec:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0f2bf0:	24110001 */ 	addiu	$s1,$zero,0x1
-.L0f0f2bf4:
-/*  f0f2bf4:	8fac0058 */ 	lw	$t4,0x58($sp)
-/*  f0f2bf8:	15940002 */ 	bne	$t4,$s4,.L0f0f2c04
-/*  f0f2bfc:	00000000 */ 	nop
-/*  f0f2c00:	24110001 */ 	addiu	$s1,$zero,0x1
-.L0f0f2c04:
-/*  f0f2c04:	5220ffde */ 	beqzl	$s1,.L0f0f2b80
-/*  f0f2c08:	8fae0058 */ 	lw	$t6,0x58($sp)
-/*  f0f2c0c:	10600002 */ 	beqz	$v1,.L0f0f2c18
-/*  f0f2c10:	afa30044 */ 	sw	$v1,0x44($sp)
-/*  f0f2c14:	ae030008 */ 	sw	$v1,0x8($s0)
-.L0f0f2c18:
-/*  f0f2c18:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f0f2c1c:	02401025 */ 	or	$v0,$s2,$zero
-/*  f0f2c20:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f0f2c24:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0f2c28:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f0f2c2c:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*  f0f2c30:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*  f0f2c34:	8fb50034 */ 	lw	$s5,0x34($sp)
-/*  f0f2c38:	8fb60038 */ 	lw	$s6,0x38($sp)
-/*  f0f2c3c:	03e00008 */ 	jr	$ra
-/*  f0f2c40:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
+s32 dialogChangeItemFocusHorizontally(struct menudialog *dialog, s32 leftright)
+{
+	s32 rowindex;
+	s32 colindex;
+	bool done = false;
+	s32 swipedir = 0;
+	s32 y = dialogFindItem(dialog, dialog->focuseditem, &rowindex, &colindex);
+	s32 startcolindex = colindex;
+	struct menuitem *item;
+
+	while (!done) {
+		colindex += leftright;
+
+		if (colindex >= dialog->colstart + dialog->numcols) {
+			swipedir = 1;
+			colindex = dialog->colstart;
+		}
+
+		if (colindex < dialog->colstart) {
+			swipedir = -1;
+			colindex = dialog->colstart + dialog->numcols - 1;
+		}
+
+		item = dialogFindItemAtColY(y, colindex, dialog->definition, &rowindex, dialog);
+
+		if (item) {
+			done = true;
+		}
+
+		if (colindex == startcolindex) {
+			done = true;
+		}
+	}
+
+	if (item) {
+		dialog->focuseditem = item;
+	}
+
+	return swipedir;
+}
 
 s32 dialogChangeItemFocus(struct menudialog *dialog, s32 leftright, s32 updown)
 {
-	s32 result = 0;
+	s32 swipedir = 0;
 
 	if (leftright == 0 && updown == 0) {
 		return 0;
@@ -3099,7 +3060,7 @@ s32 dialogChangeItemFocus(struct menudialog *dialog, s32 leftright, s32 updown)
 	}
 
 	if (leftright != 0) {
-		result = dialogChangeItemFocusHorizontally(dialog, leftright);
+		swipedir = dialogChangeItemFocusHorizontally(dialog, leftright);
 	}
 
 	if (dialog->focuseditem != 0) {
@@ -3111,7 +3072,7 @@ s32 dialogChangeItemFocus(struct menudialog *dialog, s32 leftright, s32 updown)
 		}
 	}
 
-	return result;
+	return swipedir;
 }
 
 void menuOpenDialog(struct menudialogdef *dialogdef, struct menudialog *dialog, struct menu *menu)
@@ -13776,7 +13737,7 @@ void menuInit(void)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f0f9030
+glabel menuSwipe
 /*  f0f9030:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*  f0f9034:	afb40024 */ 	sw	$s4,0x24($sp)
 /*  f0f9038:	3c148007 */ 	lui	$s4,%hi(g_MpPlayerNum)
@@ -13992,7 +13953,7 @@ glabel func0f0f9030
 );
 #else
 GLOBAL_ASM(
-glabel func0f0f9030
+glabel menuSwipe
 /*  f0f5884:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*  f0f5888:	afb40024 */ 	sw	$s4,0x24($sp)
 /*  f0f588c:	3c148007 */ 	lui	$s4,0x8007
@@ -14653,12 +14614,10 @@ void dialogTick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickfl
 			}
 		} else {
 			struct menuitem *prevfocuseditem = dialog->focuseditem;
-			s32 result;
+			s32 swipedir = dialogChangeItemFocus(dialog, inputs->leftright, inputs->updown);
 
-			result = dialogChangeItemFocus(dialog, inputs->leftright, inputs->updown);
-
-			if (result != 0) {
-				func0f0f9030(result);
+			if (swipedir != 0) {
+				menuSwipe(swipedir);
 			} else if (prevfocuseditem != dialog->focuseditem) {
 				menuPlaySound(MENUSOUND_FOCUS);
 			}
