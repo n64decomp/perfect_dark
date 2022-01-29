@@ -3071,77 +3071,52 @@ void func0f0f372c(struct menu840 *arg0, f32 x, f32 y, f32 arg3, f32 arg4, f32 ar
 	arg0->unk564 = 0.0f;
 }
 
-GLOBAL_ASM(
-glabel func0f0f37a4
-/*  f0f37a4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0f37a8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0f37ac:	8c8e0010 */ 	lw	$t6,0x10($a0)
-/*  f0f37b0:	3c014fac */ 	lui	$at,0x4fac
-/*  f0f37b4:	34215ace */ 	ori	$at,$at,0x5ace
-/*  f0f37b8:	55c10005 */ 	bnel	$t6,$at,.L0f0f37d0
-/*  f0f37bc:	44800000 */ 	mtc1	$zero,$f0
-/*  f0f37c0:	0fc6709a */ 	jal	mpClearCurrentChallenge
-/*  f0f37c4:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0f37c8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0f37cc:	44800000 */ 	mtc1	$zero,$f0
-.L0f0f37d0:
-/*  f0f37d0:	908f05b1 */ 	lbu	$t7,0x5b1($a0)
-/*  f0f37d4:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0f37d8:	44811000 */ 	mtc1	$at,$f2
-/*  f0f37dc:	31f9ff7f */ 	andi	$t9,$t7,0xff7f
-/*  f0f37e0:	332900bf */ 	andi	$t1,$t9,0xbf
-/*  f0f37e4:	a09905b1 */ 	sb	$t9,0x5b1($a0)
-/*  f0f37e8:	312b00df */ 	andi	$t3,$t1,0xdf
-/*  f0f37ec:	a08905b1 */ 	sb	$t1,0x5b1($a0)
-/*  f0f37f0:	316d00ef */ 	andi	$t5,$t3,0xef
-/*  f0f37f4:	a08b05b1 */ 	sb	$t3,0x5b1($a0)
-/*  f0f37f8:	31af00f7 */ 	andi	$t7,$t5,0xf7
-/*  f0f37fc:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0f3800:	44812000 */ 	mtc1	$at,$f4
-/*  f0f3804:	a08d05b1 */ 	sb	$t5,0x5b1($a0)
-/*  f0f3808:	31f900fb */ 	andi	$t9,$t7,0xfb
-/*  f0f380c:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f0f3810:	a08f05b1 */ 	sb	$t7,0x5b1($a0)
-/*  f0f3814:	a09905b1 */ 	sb	$t9,0x5b1($a0)
-/*  f0f3818:	332800fd */ 	andi	$t0,$t9,0xfd
-/*  f0f381c:	a0800000 */ 	sb	$zero,0x0($a0)
-/*  f0f3820:	ac80000c */ 	sw	$zero,0xc($a0)
-/*  f0f3824:	ac800010 */ 	sw	$zero,0x10($a0)
-/*  f0f3828:	ac800054 */ 	sw	$zero,0x54($a0)
-/*  f0f382c:	ac800058 */ 	sw	$zero,0x58($a0)
-/*  f0f3830:	a480005c */ 	sh	$zero,0x5c($a0)
-/*  f0f3834:	a480005e */ 	sh	$zero,0x5e($a0)
-/*  f0f3838:	a08005b0 */ 	sb	$zero,0x5b0($a0)
-/*  f0f383c:	a08805b1 */ 	sb	$t0,0x5b1($a0)
-/*  f0f3840:	ac8005b4 */ 	sw	$zero,0x5b4($a0)
-/*  f0f3844:	a4820560 */ 	sh	$v0,0x560($a0)
-/*  f0f3848:	a4820002 */ 	sh	$v0,0x2($a0)
-/*  f0f384c:	a482056a */ 	sh	$v0,0x56a($a0)
-/*  f0f3850:	e4800550 */ 	swc1	$f0,0x550($a0)
-/*  f0f3854:	e480054c */ 	swc1	$f0,0x54c($a0)
-/*  f0f3858:	e4800548 */ 	swc1	$f0,0x548($a0)
-/*  f0f385c:	e4800540 */ 	swc1	$f0,0x540($a0)
-/*  f0f3860:	e480053c */ 	swc1	$f0,0x53c($a0)
-/*  f0f3864:	e4800538 */ 	swc1	$f0,0x538($a0)
-/*  f0f3868:	e4800534 */ 	swc1	$f0,0x534($a0)
-/*  f0f386c:	e4800530 */ 	swc1	$f0,0x530($a0)
-/*  f0f3870:	e480052c */ 	swc1	$f0,0x52c($a0)
-/*  f0f3874:	e4800528 */ 	swc1	$f0,0x528($a0)
-/*  f0f3878:	e4800524 */ 	swc1	$f0,0x524($a0)
-/*  f0f387c:	e4800520 */ 	swc1	$f0,0x520($a0)
-/*  f0f3880:	e4800518 */ 	swc1	$f0,0x518($a0)
-/*  f0f3884:	e4800514 */ 	swc1	$f0,0x514($a0)
-/*  f0f3888:	e4800510 */ 	swc1	$f0,0x510($a0)
-/*  f0f388c:	e4800558 */ 	swc1	$f0,0x558($a0)
-/*  f0f3890:	e482055c */ 	swc1	$f2,0x55c($a0)
-/*  f0f3894:	e482051c */ 	swc1	$f2,0x51c($a0)
-/*  f0f3898:	e4820544 */ 	swc1	$f2,0x544($a0)
-/*  f0f389c:	e4840554 */ 	swc1	$f4,0x554($a0)
-/*  f0f38a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f38a4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0f38a8:	03e00008 */ 	jr	$ra
-/*  f0f38ac:	00000000 */ 	nop
-);
+void func0f0f37a4(struct menu840 *arg0)
+{
+	if (arg0->unk010 == 0x4fac5ace) {
+		mpClearCurrentChallenge();
+	}
+
+	arg0->unk000 = 0;
+	arg0->unk00c = 0;
+	arg0->unk010 = 0;
+	arg0->bodymodeldef = 0;
+	arg0->headmodeldef = 0;
+	arg0->unk05c = 0;
+	arg0->unk05e = 0;
+	arg0->unk5b0 = 0;
+	arg0->unk5b1_01 = false;
+	arg0->unk5b1_02 = false;
+	arg0->unk5b1_03 = false;
+	arg0->unk5b1_04 = false;
+	arg0->unk5b1_05 = false;
+	arg0->unk5b1_06 = false;
+	arg0->unk5b1_07 = false;
+	arg0->partvisibility = NULL;
+	arg0->unk560 = -1;
+	arg0->headnum = -1;
+	arg0->bodynum = -1;
+	arg0->unk550 = 0.0f;
+	arg0->unk54c = 0.0f;
+	arg0->unk548 = 0.0f;
+	arg0->unk540 = 0.0f;
+	arg0->unk53c = 0.0f;
+	arg0->unk538 = 0.0f;
+	arg0->unk534 = 0.0f;
+	arg0->unk530 = 0.0f;
+	arg0->unk52c = 0.0f;
+	arg0->unk528 = 0.0f;
+	arg0->unk524 = 0.0f;
+	arg0->unk520 = 0.0f;
+	arg0->unk518 = 0.0f;
+	arg0->unk514 = 0.0f;
+	arg0->unk510 = 0.0f;
+	arg0->unk558 = 0.0f;
+	arg0->unk55c = 1.0f;
+	arg0->unk51c = 1.0f;
+	arg0->unk544 = 1.0f;
+	arg0->unk554 = -1.0f;
+}
 
 u32 var80071468 = 0x96969600;
 u32 var8007146c = 0x96969600;

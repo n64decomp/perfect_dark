@@ -4222,9 +4222,9 @@ struct menu840 {
 	/*0x54c*/ f32 unk54c;
 	/*0x550*/ f32 unk550;
 	/*0x554*/ f32 unk554;
-	/*0x558*/ u32 unk558;
-	/*0x55c*/ u32 unk55c;
-	/*0x560*/ u32 unk560;
+	/*0x558*/ f32 unk558;
+	/*0x55c*/ f32 unk55c;
+	/*0x560*/ s16 unk560;
 	/*0x564*/ f32 unk564;
 	/*0x568*/ u8 unk568;
 	/*0x56a*/ s16 bodynum;
@@ -4252,6 +4252,7 @@ struct menu840 {
 	/*0x5b1*/ u8 unk5b1_04 : 1;
 	/*0x5b1*/ u8 unk5b1_05 : 1;
 	/*0x5b1*/ u8 unk5b1_06 : 1;
+	/*0x5b1*/ u8 unk5b1_07 : 1;
 	/*0x5b4*/ struct modelpartvisibility *partvisibility;
 };
 
