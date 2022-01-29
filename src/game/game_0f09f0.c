@@ -10,6 +10,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_0b4950.h"
 #include "game/game_0b69d0.h"
+#include "game/game_1a7560.h"
 #include "game/savebuffer.h"
 #include "game/game_0e0770.h"
 #include "game/menu/items.h"
@@ -27,6 +28,7 @@
 #include "game/training/training.h"
 #include "game/game_1a78b0.h"
 #include "game/gamefile.h"
+#include "game/gfxmemory.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pak/pak.h"
@@ -36,6 +38,7 @@
 #include "lib/joy.h"
 #include "lib/vi.h"
 #include "lib/main.h"
+#include "lib/model.h"
 #include "lib/snd.h"
 #include "lib/memp.h"
 #include "lib/rng.h"
@@ -65,40 +68,7 @@ s32 g_MenuScissorX1;
 s32 g_MenuScissorX2;
 s32 g_MenuScissorY1;
 s32 g_MenuScissorY2;
-u32 var800a2048;
-u32 var800a204c;
-u32 var800a2050;
-u32 var800a2054;
-u32 var800a2058;
-u32 var800a205c;
-u32 var800a2060;
-u32 var800a2064;
-u32 var800a2068;
-u32 var800a206c;
-u32 var800a2070;
-u32 var800a2074;
-u32 var800a2078;
-u32 var800a207c;
-u32 var800a2080;
-u32 var800a2084;
-u32 var800a2088;
-u32 var800a208c;
-u32 var800a2090;
-u32 var800a2094;
-u32 var800a2098;
-u32 var800a209c;
-u32 var800a20a0;
-u32 var800a20a4;
-u32 var800a20a8;
-u32 var800a20ac;
-u32 var800a20b0;
-u32 var800a20b4;
-u32 var800a20b8;
-u32 var800a20bc;
-u32 var800a20c0;
-u32 var800a20c4;
-u32 var800a20c8;
-u32 var800a20cc;
+Vp var800a2048[8];
 
 #if VERSION >= VERSION_NTSC_1_0
 struct menudialogdef g_PakCannotReadGameBoyMenuDialog;
@@ -3216,12 +3186,11 @@ u32 var80073b6cnb[3] = {0};
 #endif
 
 u32 var800714c0 = 0x0000000a;
-
 u32 var800714c4 = 0x0000012c;
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel menuRenderHudPiece
+glabel menuRenderModels
 .late_rodata
 glabel var7f1b3c1cpf
 .word 0x40f33333
@@ -4827,7 +4796,7 @@ glabel var7f1b3c40pf
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel menuRenderHudPiece
+glabel menuRenderModels
 .late_rodata
 glabel var7f1b292c
 .word 0x40f33333
@@ -6436,7 +6405,7 @@ glabel var7f1b2948
 );
 #else
 GLOBAL_ASM(
-glabel menuRenderHudPiece
+glabel menuRenderModels
 .late_rodata
 glabel var7f1b292c
 .word 0x40f33333
@@ -8070,6 +8039,602 @@ glabel var7f1b2948
 );
 #endif
 
+/**
+ * Render the hudpiece as well as any models within dialogs.
+ */
+// Mismatch: Not functionally identical (hudpiece/chrbios/vehicles do not render).
+// Revisit when more is known about the menu840 struct.
+//Gfx *menuRenderModels(Gfx *gdl, struct menu840 *thing, s32 arg2)
+//{
+//	f32 sp430;
+//	f32 sp42c;
+//	f32 sp428;
+//	f32 sp424;
+//	s32 bodyfilelen; // 420
+//	s32 sp410;
+//	s32 bodyfilelen2; // 40c
+//	u16 bodyfilenum; // 408
+//	s32 bodynum; // 404
+//	s32 headnum; // 400
+//	struct modelrenderdata renderdata; // 3b8
+//	Mtxf *sp3b4;
+//	struct coord sp398;
+//	f32 sp390[2];
+//	Mtxf sp350;
+//	Mtxf sp310;
+//	f32 sp30c;
+//	s32 sp308;
+//	struct coord sp2fc;
+//	f32 sp2f8;
+//	s32 sp2f4;
+//	f32 sp2d0;
+//	struct coord sp2bc;
+//	struct coord sp2ac;
+//	f32 sp29c;
+//	struct coord sp290;
+//	Mtxf sp244;
+//	Mtxf sp204;
+//	Mtxf sp1c4;
+//	Mtxf sp184;
+//	f32 aspect; // 17c
+//	f32 sp178;
+//	s32 sp160;
+//	Mtxf sp120;
+//	Mtxf spe0;
+//	struct coord spd0;
+//	f32 spc8[2];
+//	Mtxf sp70;
+//	s32 headfilenum;
+//	s32 i;
+//	s32 j;
+//	s32 totalfilelen;
+//
+//	if (g_Vars.stagenum != STAGE_CITRAINING && g_Vars.stagenum != STAGE_CREDITS) {
+//		if (g_MenuData.unk5d5_01 && arg2 != 1 && arg2 < 3) {
+//			return gdl;
+//		}
+//
+//		if (thing->unk004 == NULL) {
+//			if (bgun0f09e004(1)) {
+//				thing->unk004 = bgunGetGunMem();
+//				thing->unk008 = bgunCalculateGunMemCapacity();
+//			} else {
+//				return gdl;
+//			}
+//		}
+//	}
+//
+//	if (thing->unk004 == NULL) {
+//		return gdl;
+//	}
+//
+//	if (thing->unk00c != 0) {
+//		if (thing->unk010 == thing->unk00c) {
+//			thing->unk00c = 0;
+//			thing->unk000 = 0;
+//		} else {
+//			if (thing->unk010 == 0x4fac5ace) {
+//				mpClearCurrentChallenge();
+//			}
+//
+//			if (thing->unk000 == 0) {
+//				thing->unk000 = 1;
+//				return gdl;
+//			}
+//
+//			thing->unk000--;
+//
+//			if (thing->unk000 == 0) {
+//				if ((thing->unk00c & 0xffff) == 0xffff || (thing->unk00c & 0x80000000)) {
+//					if (thing->unk00c & 0x80000000) {
+//						headnum = thing->unk00c & 0x3ff;
+//						bodynum = (thing->unk00c & 0xffc00) >> 10;
+//					} else {
+//						s32 mpheadnum = (thing->unk00c >> 16) & 0xff;
+//						s32 mpbodynum = (thing->unk00c >> 24) & 0xff;
+//						bodynum = mpGetBodyId(mpbodynum);
+//
+//						if (mpheadnum < mpGetNumHeads2()) {
+//							headnum = mpGetHeadId(mpheadnum);
+//						} else {
+//							headnum = mpGetBeauHeadId(func0f14a9f8(mpheadnum - mpGetNumHeads2()));
+//							thing->unk5b0 = mpheadnum - mpGetNumHeads2();
+//						}
+//					}
+//
+//					bodyfilenum = g_HeadsAndBodies[bodynum].filenum;
+//					totalfilelen = ALIGN64(fileGetInflatedLength(g_HeadsAndBodies[bodynum].filenum));
+//
+//					if (g_HeadsAndBodies[bodynum].unk00_01) {
+//						headnum = -1;
+//						headfilenum = 0xffff;
+//					} else {
+//						headfilenum = g_HeadsAndBodies[headnum].filenum;
+//						totalfilelen += ALIGN64(fileGetInflatedLength(headfilenum));
+//					}
+//
+//					totalfilelen += 0x4000;
+//
+//					func0f172e70(&sp410, thing->unk004 + totalfilelen, thing->unk008 - totalfilelen);
+//
+//					thing->headnum = headnum;
+//					thing->bodynum = bodynum;
+//					thing->bodymodeldef = func0f1a7794(bodyfilenum, thing->unk004, totalfilelen, &sp410);
+//					bodyfilelen2 = ALIGN64(fileGetSize(bodyfilenum));
+//					modelCalculateRwDataLen(thing->bodymodeldef);
+//
+//					if (headnum < 0) {
+//						thing->headmodeldef = NULL;
+//					} else {
+//						thing->headmodeldef = func0f1a7794(headfilenum, thing->unk004 + bodyfilelen2, totalfilelen - bodyfilelen2, &sp410);
+//						fileGetSize(headfilenum);
+//						bodyCalculateHeadOffset(thing->headmodeldef, headnum, bodynum);
+//						modelCalculateRwDataLen(thing->headmodeldef);
+//					}
+//
+//					modelInit(&thing->bodymodel, thing->bodymodeldef, &thing->unk110, true);
+//					animInit(&thing->bodyanim);
+//
+//					thing->bodymodel.unk02 = 256;
+//					thing->bodymodel.anim = &thing->bodyanim;
+//
+//					func0f02ce8c(bodynum, headnum, thing->bodymodeldef, thing->headmodeldef, false, &thing->bodymodel, false, 1);
+//				} else {
+//					totalfilelen = ALIGN64(fileGetInflatedLength(thing->unk00c)) + 0x4000;
+//
+//					func0f172e70(&sp410, thing->unk004 + totalfilelen, thing->unk008 - totalfilelen);
+//
+//					thing->headnum = -1;
+//					thing->bodynum = -1;
+//					thing->bodymodeldef = func0f1a7794(thing->unk00c, thing->unk004, totalfilelen, &sp410);
+//
+//					fileGetSize(thing->unk00c);
+//					modelCalculateRwDataLen(thing->bodymodeldef);
+//					modelInit(&thing->bodymodel, thing->bodymodeldef, &thing->unk110, true);
+//					animInit(&thing->bodyanim);
+//
+//					thing->bodymodel.unk02 = 256;
+//					thing->bodymodel.anim = &thing->bodyanim;
+//				}
+//
+//				thing->unk010 = thing->unk00c;
+//				thing->unk05e = 0;
+//				thing->unk00c = 0;
+//			} else {
+//				return gdl;
+//			}
+//		}
+//	}
+//
+//	if (thing->bodymodeldef != NULL) {
+//		struct modelrenderdata sp3b8 = {NULL, false, 3};
+//
+//		if (arg2 < 3 && g_MenuData.unk5d5_03) {
+//			gdl = vi0000b280(gdl);
+//			gdl = vi0000b1d0(gdl);
+//
+//			g_MenuData.unk5d5_03 = false;
+//
+//			if (arg2 != 2) {
+//				gdl = menuApplyScissor(gdl);
+//			}
+//
+//			gSPSetGeometryMode(gdl++, G_ZBUFFER);
+//		}
+//
+//		gSPDisplayList(gdl++, var80061380);
+//		gSPDisplayList(gdl++, var800613a0);
+//
+//		sp308 = 0;
+//
+//		if (thing->unk554 > 0.0f) {
+//			sp2f4 = 1;
+//
+//			if (thing->bodymodeldef->skel == &g_SkelChr) {
+//				struct modelnode *node = modelGetPart(thing->bodymodeldef, MODELPART_CHR_0006);
+//
+//				if (node) {
+//					struct modelrodata_position *rodata = &node->rodata->position;
+//					f32 temp_f0 = func0f006bd0(thing->unk574 / 480.0f);
+//
+//					sp2fc.x = 0.0f;
+//					sp2fc.y = 0.0f - (rodata->pos.y / 7.6f * (1.0f - temp_f0 * temp_f0));
+//					sp2fc.z = 0.0f;
+//
+//					thing->unk554 = (1.0f - temp_f0) * 270.0f + 100.0f;
+//					sp2f4 = 0;
+//					sp2f8 = thing->unk554 / (rodata->pos.f[1] * 0.5f);
+//					sp308 = 1;
+//
+//					modelFindBboxRodata(&thing->bodymodel);
+//				}
+//			}
+//
+//			if (sp2f4 != 0) {
+//				struct modelrodata_bbox *bbox = modelFindBboxRodata(&thing->bodymodel);
+//
+//				if (bbox) {
+//					sp2fc.x = -(bbox->xmax - ((bbox->xmax - bbox->xmin) * 0.5f));
+//					sp2fc.y = -(bbox->ymax - ((bbox->ymax - bbox->ymin) * 0.5f));
+//					sp2fc.z = -(bbox->zmax - ((bbox->zmax - bbox->zmin) * 0.5f));
+//					sp308 = 1;
+//					sp2f8 = thing->unk554 / ((bbox->ymax - bbox->ymin) * 0.5f);
+//				}
+//			}
+//		}
+//
+//		mtx4LoadIdentity(&sp350);
+//
+//		if (arg2 == 1) {
+//			if (IS8MB()) {
+//				s32 i;
+//				if (thing->unk538 != thing->unk510) {
+//					for (i = 0; i < g_Vars.diffframe60; i++) {
+//						thing->unk510 = (thing->unk538 * 0.002f) + (0.998f * thing->unk510);
+//					}
+//				}
+//
+//				if (thing->unk53c != thing->unk514) {
+//					for (i = 0; i < g_Vars.diffframe60; i++) {
+//						thing->unk514 = (thing->unk53c * 0.002f) + (0.998f * thing->unk514);
+//					}
+//				}
+//
+//				if (thing->unk540 != thing->unk518) {
+//					for (i = 0; i < g_Vars.diffframe60; i++) {
+//						thing->unk518 = (thing->unk540 * 0.002f) + (0.998f * thing->unk518);
+//					}
+//				}
+//
+//				if (thing->unk544 != thing->unk51c) {
+//					for (i = 0; i < g_Vars.diffframe60; i++) {
+//						thing->unk51c = (thing->unk544 * 0.002f) + (0.998f * thing->unk51c);
+//					}
+//				}
+//
+//				sp430 = thing->unk510;
+//
+//				if (g_ViRes == VIRES_HI) {
+//					sp430 += sp430;
+//				}
+//
+//				sp42c = thing->unk514;
+//				sp428 = thing->unk518;
+//				sp424 = thing->unk51c;
+//
+//				sp398.x = thing->unk520 = thing->unk548;
+//				sp398.y = thing->unk524 = thing->unk54c;
+//				sp398.z = thing->unk528 = thing->unk550;
+//
+//				mtx4LoadRotation(&sp398, &sp350);
+//			}
+//		} else {
+//			if (thing->unk5b1_05) {
+//				thing->unk564 += g_Vars.diffframe60f / 40.0f;
+//
+//				if (thing->unk564 > 1.0f) {
+//					thing->unk5b1_05 = false;
+//					thing->unk510 = thing->unk538;
+//					thing->unk514 = thing->unk53c;
+//					thing->unk518 = thing->unk540;
+//					thing->unk51c = thing->unk544;
+//				} else {
+//					f32 sp2d0 = (-cosf(thing->unk564 * M_PI) * 0.5f) + 0.5f;
+//					f32 f12 = 1.0f - sp2d0;
+//
+//					if (thing->unk568 & 2) {
+//						sp430 = (thing->unk510 * f12) + (sp2d0 * thing->unk538);
+//						sp42c = (thing->unk514 * f12) + (sp2d0 * thing->unk53c);
+//						sp428 = (thing->unk518 * f12) + (sp2d0 * thing->unk540);
+//					} else {
+//						sp430 = thing->unk510 = thing->unk538;
+//						sp42c = thing->unk514 = thing->unk53c;
+//						sp428 = thing->unk518 = thing->unk540;
+//					}
+//
+//					if (thing->unk568 & 1) {
+//						sp424 = (thing->unk51c * f12) + (sp2d0 * thing->unk544);
+//					} else {
+//						sp424 = thing->unk51c = thing->unk544;
+//					}
+//
+//					if (thing->unk568 & 4) {
+//						sp290.x = thing->unk520;
+//						sp290.y = thing->unk524;
+//						sp290.z = thing->unk528;
+//
+//						func0f096ca0(&sp290, &sp2bc);
+//
+//						sp290.x = thing->unk548;
+//						sp290.y = thing->unk54c;
+//						sp290.z = thing->unk550;
+//
+//						func0f096ca0(&sp290, &sp2ac);
+//						func0f0972b8(&sp2bc, &sp2ac, sp2d0, &sp29c);
+//						func0f096ed4(&sp29c, &sp350);
+//					} else {
+//						sp398.x = thing->unk520 = thing->unk548;
+//						sp398.y = thing->unk524 = thing->unk54c;
+//						sp398.z = thing->unk528 = thing->unk550;
+//
+//						mtx4LoadRotation(&sp398, &sp350);
+//					}
+//				}
+//			}
+//
+//			if (!thing->unk5b1_05) {
+//				sp430 = thing->unk510 = thing->unk538;
+//				sp42c = thing->unk514 = thing->unk53c;
+//				sp428 = thing->unk518 = thing->unk540;
+//				sp424 = thing->unk51c = thing->unk544;
+//
+//				thing->unk520 = thing->unk548;
+//				thing->unk524 = thing->unk54c;
+//				thing->unk528 = thing->unk550;
+//
+//				sp398.x = thing->unk548;
+//				sp398.y = thing->unk54c;
+//				sp398.z = thing->unk550;
+//
+//				mtx4LoadRotation(&sp398, &sp350);
+//			}
+//		}
+//
+//		sp30c = -100.0f + sp428;
+//
+//		if (arg2 == 1) {
+//			if (IS8MB()) {
+//				sp390[0] = thing->unk510 * g_ScaleX;
+//				sp390[1] = thing->unk514;
+//			}
+//		} else {
+//			sp390[0] = viGetViewLeft() + g_ScaleX * sp430 + 0.5f * viGetViewWidth();
+//			sp390[1] = viGetViewTop() + viGetViewHeight() * 0.5f + sp42c;
+//		}
+//
+//		func0f0b4c3c(sp390, &sp398, 1.0f);
+//		mtx4LoadIdentity(&sp310);
+//
+//		if (thing->partvisibility != NULL) {
+//			struct modelpartvisibility *ptr = thing->partvisibility;
+//
+//			while (ptr->part != 255) {
+//				struct modelnode *node = modelGetPart(thing->bodymodeldef, ptr->part);
+//
+//				if (node) {
+//					union modelrwdata *rwdata = modelGetNodeRwData(&thing->bodymodel, node);
+//
+//					if (rwdata) {
+//						if (ptr->visible) {
+//							rwdata->toggle.visible = true;
+//						} else {
+//							rwdata->toggle.visible = false;
+//						}
+//					}
+//				}
+//
+//				ptr++;
+//			}
+//		}
+//
+//		if (arg2 == 3) {
+//			sp398.x = thing->unk510;
+//			sp398.y = thing->unk514;
+//			sp398.z = thing->unk518;
+//		} else {
+//			f32 mult = sp30c / sp398.z;
+//			sp398.x *= mult;
+//			sp398.y *= mult;
+//			sp398.z *= mult;
+//		}
+//
+//#if VERSION < VERSION_NTSC_1_0
+//		if (thing->unk010 < 0) {
+//			struct coord newpos = {0, 0, 0};
+//			struct coord oldpos;
+//
+//			model0001b3bc(&thing->bodymodel);
+//
+//			modelGetRootPosition(&thing->bodymodel, &oldpos);
+//
+//			if (joyGetButtons(0, L_TRIG)) {
+//				modelSetRootPosition(&thing->bodymodel, &newpos);
+//			}
+//		}
+//#endif
+//
+//		mtx4LoadTranslation(&sp398, &sp310);
+//
+//		if (sp308) {
+//			mtx00015f04(sp424 * sp2f8, &sp310);
+//		} else {
+//			mtx00015f04(sp424, &sp310);
+//		}
+//
+//		if (sp308) {
+//			mtx4LoadTranslation(&sp2fc, &sp204);
+//		} else {
+//			sp398.x = thing->unk52c;
+//			sp398.y = thing->unk530;
+//			sp398.z = thing->unk534;
+//			mtx4LoadTranslation(&sp398, &sp204);
+//		}
+//
+//		mtx4MultMtx4(&sp310, &sp350, &sp244);
+//
+//		if (arg2 == 3) {
+//			func0f13ae04(&sp1c4);
+//			mtx4MultMtx4(&sp1c4, &sp244, &sp184);
+//			mtx4MultMtx4(&sp184, &sp204, &thing->unk014);
+//		} else {
+//			mtx4MultMtx4(&sp244, &sp204, &thing->unk014);
+//		}
+//
+//		gdl = func0f0e2348(gdl);
+//
+//		if (arg2 < 3) {
+//			if (arg2 != 0) {
+//				gdl = func0f0d49c8(gdl);
+//				gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+//			} else {
+//				static u32 znear = 10;
+//				static u32 zfar = 300;
+//
+//				aspect = (f32) (g_MenuScissorX2 - g_MenuScissorX1) / (f32) (g_MenuScissorY2 - g_MenuScissorY1);
+//
+//				mainOverrideVariable("mzn", &znear);
+//				mainOverrideVariable("mzf", &zfar);
+//
+//				gdl = func0f0d49c8(gdl);
+//
+//				viSetViewPosition(g_MenuScissorX1 * g_ScaleX, g_MenuScissorY1);
+//				viSetFovAspectAndSize(g_Vars.currentplayer->fovy, aspect, (g_MenuScissorX2 - g_MenuScissorX1) * g_ScaleX, g_MenuScissorY2 - g_MenuScissorY1);
+//
+//				gdl = vi0000af00(gdl, &var800a2048[g_MpPlayerNum]);
+//				gdl = vi0000aca4(gdl, znear, zfar);
+//			}
+//		}
+//
+//		sp3b4 = gfxAllocate(thing->bodymodeldef->nummatrices * sizeof(Mtxf));
+//
+//		for (i = 0; i < thing->bodymodeldef->nummatrices; i++) {
+//			mtx4LoadIdentity(&sp3b4[i]);
+//		}
+//
+//		thing->bodymodel.matrices = sp3b4;
+//
+//		if (thing->unk05c && thing->unk05c != thing->unk05e) {
+//			if (thing->unk5b1_04) {
+//				modelSetAnimation(&thing->bodymodel, thing->unk05c, false, 0, -0.5f, 0.0f);
+//				model0001e018(&thing->bodymodel, modelGetNumAnimFrames(&thing->bodymodel));
+//			} else {
+//				modelSetAnimation(&thing->bodymodel, thing->unk05c, false, 0, 0.5f, 0.0f);
+//			}
+//
+//			thing->unk05e = thing->unk05c;
+//		}
+//
+//		thing->unk05c = 0;
+//
+//		if (thing->unk05e != 0) {
+//			model0001ee18(&thing->bodymodel, g_Vars.diffframe240, true);
+//
+//			if (thing->unk5b1_04) {
+//				sp178 = modelGetNumAnimFrames(&thing->bodymodel) - modelGetCurAnimFrame(&thing->bodymodel);
+//			} else {
+//				sp178 = modelGetCurAnimFrame(&thing->bodymodel);
+//			}
+//
+//			if (sp178 >= modelGetNumAnimFrames(&thing->bodymodel) - 1) {
+//				thing->unk05e = 0;
+//			}
+//		}
+//
+//		mtx4Copy(&thing->unk014, sp3b4);
+//
+//		renderdata.unk00 = &thing->unk014;
+//		renderdata.unk10 = thing->bodymodel.matrices;
+//
+//		model0001cebc(&renderdata, &thing->bodymodel);
+//
+//		if (thing->bodymodeldef->skel == &g_SkelHudPiece) {
+//			struct modelnode *node = modelGetPart(thing->bodymodeldef, MODELPART_HUDPIECE_0000);
+//
+//			if (node) {
+//				struct modelrodata_gundl *rodata = &node->rodata->gundl;
+//				s32 i;
+//
+//				for (i = 0; i < rodata->unk10; i++) {
+//					rodata->unk0c[i].unk08 -= g_Vars.diffframe60 * 100;
+//
+//					if (rodata->unk0c[i].unk08 < -0x6000) {
+//						for (j = 0; j < rodata->unk10; j++) {
+//							rodata->unk0c[j].unk08 += 0x2000;
+//						}
+//					}
+//				}
+//			}
+//
+//			node = modelGetPart(thing->bodymodeldef, MODELPART_HUDPIECE_0002);
+//
+//			if (node) {
+//				sp160 = model0001a524(node, 0);
+//				mtx4LoadIdentity(&sp120);
+//				mtx4LoadXRotation(func0f006b54(4), &sp120);
+//				mtx4MultMtx4(&sp3b4[sp160], &sp120, &spe0);
+//				mtx4Copy(&spe0, &sp3b4[sp160]);
+//			}
+//
+//			node = modelGetPart(thing->bodymodeldef, MODELPART_HUDPIECE_0001);
+//
+//			if (node) {
+//				if (g_MenuData.root == MENUROOT_MAINMENU
+//						|| g_MenuData.root == MENUROOT_FILEMGR
+//						|| g_MenuData.root == MENUROOT_MPSETUP
+//						|| g_MenuData.root == MENUROOT_TRAINING) {
+//					Mtxf *mtx = &sp3b4[model0001a524(node, 0)];
+//
+//					spd0.x = mtx->m[3][0];
+//					spd0.y = mtx->m[3][1];
+//					spd0.z = mtx->m[3][2];
+//
+//					func0f0b4d04(&spd0, spc8);
+//					var8009de98 = ((s32)spc8[0] - viGetWidth() / 2) / g_ScaleX;
+//					var8009de9c = (s32)spc8[1] - viGetHeight() / 2;
+//				}
+//			}
+//		}
+//
+//		gSPNumLights(gdl++, 1);
+//		gSPLight(gdl++, &var80071470, 1);
+//		gSPLight(gdl++, &var80071468, 2);
+//		gSPLookAtX(gdl++, currentPlayerGetUnk175c()->m[0]);
+//		gSPLookAtY(gdl++, currentPlayerGetUnk175c()->m[1]);
+//
+//		renderdata.unk30 = 1;
+//		renderdata.envcolour = 0xffffffff;
+//		renderdata.fogcolour = 0xffffffff;
+//
+//		gSPSetGeometryMode(gdl++, G_ZBUFFER);
+//
+//		renderdata.zbufferenabled = true;
+//
+//		renderdata.gdl = gdl;
+//		modelRender(&renderdata, &thing->bodymodel);
+//		gdl = renderdata.gdl;
+//
+//		mtx00016760();
+//
+//		for (i = 0; i < thing->bodymodeldef->nummatrices; i++) {
+//			mtx4Copy(&thing->bodymodel.matrices[i], &sp70);
+//			mtx00016054(&sp70, &thing->bodymodel.matrices[i]);
+//		}
+//
+//		mtx00016784();
+//
+//		if (arg2 < 3) {
+//			gdl = func0f0d479c(gdl);
+//		}
+//
+//		gDPPipeSync(gdl++);
+//		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//		gDPSetAlphaCompare(gdl++, G_AC_NONE);
+//		gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
+//		gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+//		gDPSetTextureFilter(gdl++, G_TF_BILERP);
+//
+//		func0f0b39c0(&gdl, NULL, 2, 0, 2, 1, NULL);
+//
+//		gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+//
+//		func0f0b39c0(&gdl, NULL, 2, 0, 2, 1, NULL);
+//
+//		gSPDisplayList(gdl++, var800613a0);
+//	}
+//
+//	return gdl;
+//}
+
 GLOBAL_ASM(
 glabel func0f0f5004
 /*  f0f5004:	27bdffa0 */ 	addiu	$sp,$sp,-96
@@ -8350,7 +8915,7 @@ glabel dialogRender
 /*  f0f5558:	256c0840 */ 	addiu	$t4,$t3,0x840
 /*  f0f555c:	018d2821 */ 	addu	$a1,$t4,$t5
 /*  f0f5560:	8fa401e8 */ 	lw	$a0,0x1e8($sp)
-/*  f0f5564:	0fc3ce2c */ 	jal	menuRenderHudPiece
+/*  f0f5564:	0fc3ce2c */ 	jal	menuRenderModels
 /*  f0f5568:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f0f556c:	24590008 */ 	addiu	$t9,$v0,0x8
 /*  f0f5570:	afb901e8 */ 	sw	$t9,0x1e8($sp)
@@ -9358,7 +9923,7 @@ glabel dialogRender
 /*  f0f6430:	272f0840 */ 	addiu	$t7,$t9,0x840
 /*  f0f6434:	24840008 */ 	addiu	$a0,$a0,0x8
 /*  f0f6438:	01ed2821 */ 	addu	$a1,$t7,$t5
-/*  f0f643c:	0fc3ce2c */ 	jal	menuRenderHudPiece
+/*  f0f643c:	0fc3ce2c */ 	jal	menuRenderModels
 /*  f0f6440:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0f6444:	244c0008 */ 	addiu	$t4,$v0,0x8
 /*  f0f6448:	afac01e8 */ 	sw	$t4,0x1e8($sp)
@@ -10579,7 +11144,7 @@ glabel dialogRender
 /*  f0f1f3c:	25f8079c */ 	addiu	$t8,$t7,0x79c
 /*  f0f1f40:	03192821 */ 	addu	$a1,$t8,$t9
 /*  f0f1f44:	8fa401e8 */ 	lw	$a0,0x1e8($sp)
-/*  f0f1f48:	0fc3c0fd */ 	jal	menuRenderHudPiece
+/*  f0f1f48:	0fc3c0fd */ 	jal	menuRenderModels
 /*  f0f1f4c:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f0f1f50:	244e0008 */ 	addiu	$t6,$v0,0x8
 /*  f0f1f54:	afae01e8 */ 	sw	$t6,0x1e8($sp)
@@ -11572,7 +12137,7 @@ glabel dialogRender
 /*  f0f2de4:	25d9079c */ 	addiu	$t9,$t6,0x79c
 /*  f0f2de8:	24840008 */ 	addiu	$a0,$a0,0x8
 /*  f0f2dec:	03382821 */ 	addu	$a1,$t9,$t8
-/*  f0f2df0:	0fc3c0fd */ 	jal	menuRenderHudPiece
+/*  f0f2df0:	0fc3c0fd */ 	jal	menuRenderModels
 /*  f0f2df4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0f2df8:	244f0008 */ 	addiu	$t7,$v0,0x8
 /*  f0f2dfc:	afaf01e8 */ 	sw	$t7,0x1e8($sp)
@@ -13086,7 +13651,7 @@ void menuPushRootDialog(struct menudialogdef *dialogdef, s32 root)
 			|| root == MENUROOT_MPSETUP
 			|| root == MENUROOT_TRAINING
 			|| root == MENUROOT_FILEMGR) {
-		if (IS8MB() && (g_MenuData.unk5d4 == 0 || g_MenuData.unk5cd_04)) {
+		if (IS8MB() && (g_MenuData.unk5d4 == 0 || g_MenuData.unk01c.unk5b1_04)) {
 			if (!g_MenuData.unk5d5_04) {
 				g_MenuData.unk5d5_05 = true;
 			}
@@ -13359,10 +13924,10 @@ void menuInit(void)
 	}
 
 	for (i = 0; i < 4; i++) {
-		g_Menus[i].unk844 = 0;
+		g_Menus[i].unk840.unk004 = NULL;
 	}
 
-	g_MenuData.unk020 = 0;
+	g_MenuData.unk01c.unk004 = NULL;
 
 	if (g_Vars.stagenum == STAGE_CITRAINING) {
 		g_MissionConfig.iscoop = false;
@@ -13389,17 +13954,17 @@ void menuInit(void)
 			func0f0f8bb4(&g_MenuData.unk01c, 0xc800, 1);
 		}
 
-		g_MenuData.unk028 = 0x259;
-		g_MenuData.unk540 = g_MenuData.unk568 = -M_PI;
-		g_MenuData.unk53c = g_MenuData.unk564 = 0;
-		g_MenuData.unk544 = g_MenuData.unk56c = 0;
-		g_MenuData.unk52c = g_MenuData.hudpiecex = -205.5f;
-		g_MenuData.unk530 = g_MenuData.hudpiecey = 244.7f;
-		g_MenuData.unk534 = g_MenuData.unk55c = 68.3f;
-		g_MenuData.unk538 = g_MenuData.unk560 = 0.12209f;
-		g_MenuData.unk5cd_01 = false;
-		g_MenuData.unk590 = 0;
-		g_MenuData.unk59c = 0;
+		g_MenuData.unk01c.unk00c = 0x259;
+		g_MenuData.unk01c.unk524 = g_MenuData.unk01c.unk54c = -M_PI;
+		g_MenuData.unk01c.unk520 = g_MenuData.unk01c.unk548 = 0;
+		g_MenuData.unk01c.unk528 = g_MenuData.unk01c.unk550 = 0;
+		g_MenuData.unk01c.unk510 = g_MenuData.unk01c.unk538 = -205.5f;
+		g_MenuData.unk01c.unk514 = g_MenuData.unk01c.unk53c = 244.7f;
+		g_MenuData.unk01c.unk518 = g_MenuData.unk01c.unk540 = 68.3f;
+		g_MenuData.unk01c.unk51c = g_MenuData.unk01c.unk544 = 0.12209f;
+		g_MenuData.unk01c.unk5b1_01 = false;
+		g_MenuData.unk01c.unk574 = 0;
+		g_MenuData.unk01c.unk580 = 0;
 	}
 
 	g_MenuData.unk5d4 = 0;
@@ -17891,10 +18456,10 @@ Gfx *menuRender(Gfx *gdl)
 
 	// Calculate hudpiece things then render it
 	if (g_MenuData.unk5d5_05) {
-		g_MenuData.unk07a = 0;
-		g_MenuData.unk078 = 0x40d;
-		g_MenuData.unk59c = 0;
-		g_MenuData.unk5cd_04 = false;
+		g_MenuData.unk01c.unk05e = 0;
+		g_MenuData.unk01c.unk05c = 0x40d;
+		g_MenuData.unk01c.unk580 = 0;
+		g_MenuData.unk01c.unk5b1_04 = false;
 		g_MenuData.unk5d4 = 1;
 		g_MenuData.unk5d5_05 = false;
 	}
@@ -17907,8 +18472,8 @@ Gfx *menuRender(Gfx *gdl)
 		// Everyone 1 in 100 frames on average, calculate a new X/Y for the hudpiece
 		// Note: unintentional 64-bit float comparison done here
 		if (random() * (1.0f / U32_MAX) < 0.01) {
-			g_MenuData.hudpiecex = random() * (1.0f / U32_MAX) * 80.0f + -205.5f - 40.0f;
-			g_MenuData.hudpiecey = random() * (1.0f / U32_MAX) * 80.0f + 244.7f - 40.0f;
+			g_MenuData.unk01c.unk538 = random() * (1.0f / U32_MAX) * 80.0f + -205.5f - 40.0f;
+			g_MenuData.unk01c.unk53c = random() * (1.0f / U32_MAX) * 80.0f + 244.7f - 40.0f;
 		}
 
 		var8009de98 = var8009de9c = 0;
@@ -17939,13 +18504,13 @@ Gfx *menuRender(Gfx *gdl)
 		}
 
 		if (removepiece) {
-			if (g_MenuData.unk59c == 0) {
-				g_MenuData.unk5cd_04 = true;
-				g_MenuData.unk07a = 0;
-				g_MenuData.unk078 = 0x40d;
-				g_MenuData.unk59c = 1;
-			} else if (g_MenuData.unk07a == 0) {
-				g_MenuData.unk59c = 0;
+			if (g_MenuData.unk01c.unk580 == 0) {
+				g_MenuData.unk01c.unk5b1_04 = true;
+				g_MenuData.unk01c.unk05e = 0;
+				g_MenuData.unk01c.unk05c = 0x40d;
+				g_MenuData.unk01c.unk580 = 1;
+			} else if (g_MenuData.unk01c.unk05e == 0) {
+				g_MenuData.unk01c.unk580 = 0;
 				g_MenuData.unk5d4 = 0;
 			}
 		}
@@ -17955,7 +18520,7 @@ Gfx *menuRender(Gfx *gdl)
 		if (usepiece) {
 			g_MenuData.unk5d5_03 = false;
 
-			gdl = menuRenderHudPiece(gdl, &g_MenuData.unk01c, 1);
+			gdl = menuRenderModels(gdl, &g_MenuData.unk01c, 1);
 			gSPClearGeometryMode(gdl++, G_ZBUFFER);
 
 			g_MenuData.unk5d5_03 = true;

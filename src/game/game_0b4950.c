@@ -873,12 +873,12 @@ Mtxf *currentPlayerGetUnk1768(void)
 	return g_Vars.currentplayer->unk1768;
 }
 
-void currentPlayerSetUnk175c(void *value)
+void currentPlayerSetUnk175c(Mtxf *mtx)
 {
-	g_Vars.currentplayer->unk175c = value;
+	g_Vars.currentplayer->unk175c = mtx;
 }
 
-void *currentPlayerGetUnk175c(void)
+Mtxf *currentPlayerGetUnk175c(void)
 {
 	return g_Vars.currentplayer->unk175c;
 }

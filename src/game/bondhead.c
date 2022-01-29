@@ -143,7 +143,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 		}
 
 		{
-			struct objticksp476 sp80 = {NULL, 1, 3};
+			struct modelrenderdata sp80 = {NULL, 1, 3};
 			Mtxf sp40;
 			struct coord modelpos = {0, 0, 0};
 			bool somebool = model0001e2a8();
@@ -156,7 +156,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 			model0001b3bc(&g_Vars.currentplayer->model);
 			mtx4LoadIdentity(&sp40);
 
-			sp80.matrix = &sp40;
+			sp80.unk00 = &sp40;
 			sp80.unk10 = g_Vars.currentplayer->bondheadmatrices;
 			model0001cebc(&sp80, &g_Vars.currentplayer->model);
 

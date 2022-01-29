@@ -6640,7 +6640,7 @@ glabel var7f1a87a8
 //			&& (obj->hidden & OBJHFLAG_00000800) == 0
 //			&& (obj->flags2 & OBJFLAG2_INVISIBLE) == 0) {
 //		Mtxf *sp104 = model0001a5cc(model->attachedtomodel, model->attachedtonode, 0);
-//		struct objticksp476 thing = {NULL, 1, 3};
+//		struct modelrenderdata thing = {NULL, 1, 3};
 //		u32 stack;
 //		Mtxf sp80;
 //		Mtxf sp40;
@@ -7027,7 +7027,7 @@ bool chrTickBeams(struct prop *prop)
  */
 s32 chrTick(struct prop *prop)
 {
-	struct objticksp476 sp210 = {0, 1, 3};
+	struct modelrenderdata sp210 = {0, 1, 3};
 	struct chrdata *chr = prop->chr;
 	struct model *model = chr->model;
 	bool onscreen;
@@ -7347,7 +7347,7 @@ s32 chrTick(struct prop *prop)
 
 			mtx4LoadTranslation(&sp190, &sp1a8);
 			mtx4MultMtx4InPlace(currentPlayerGetMatrix1740(), &sp1a8);
-			sp210.matrix = &sp1a8;
+			sp210.unk00 = &sp1a8;
 		} else if (prop->type == PROPTYPE_PLAYER) {
 			u8 stack[0x14];
 			f32 sp130;
@@ -7364,12 +7364,12 @@ s32 chrTick(struct prop *prop)
 
 				mtx4LoadTranslation(&sp17c, &sp1a8);
 				mtx4MultMtx4InPlace(currentPlayerGetMatrix1740(), &sp1a8);
-				sp210.matrix = &sp1a8;
+				sp210.unk00 = &sp1a8;
 			} else {
-				sp210.matrix = currentPlayerGetMatrix1740();
+				sp210.unk00 = currentPlayerGetMatrix1740();
 			}
 		} else {
-			sp210.matrix = currentPlayerGetMatrix1740();
+			sp210.unk00 = currentPlayerGetMatrix1740();
 		}
 
 		sp210.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));

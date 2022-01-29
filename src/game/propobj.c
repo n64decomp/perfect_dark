@@ -49470,14 +49470,14 @@ void objInitMatrices(struct prop *prop)
 			hangingmonitorInitMatrices(prop);
 		} else {
 			if (obj->model->filedata->nummatrices >= 2) {
-				struct objticksp476 thing = {NULL, 1, 3};
+				struct modelrenderdata thing = {NULL, 1, 3};
 				u32 stack;
 				Mtxf sp28;
 
 				mtx4Copy(obj->model->matrices, &sp28);
 
 				thing.unk10 = obj->model->matrices;
-				thing.matrix = &sp28;
+				thing.unk00 = &sp28;
 
 				model0001ce64(&thing, obj->model);
 			}
@@ -49672,7 +49672,7 @@ s32 objTick(struct prop *prop)
 				model->anim = NULL;
 			} else {
 				// In cutscene
-				struct objticksp476 sp476 = {0, 1, 3};
+				struct modelrenderdata sp476 = {0, 1, 3};
 				Mtxf sp412;
 				struct coord sp400;
 				s16 sp384[8];
@@ -49700,7 +49700,7 @@ s32 objTick(struct prop *prop)
 
 					sp556 = true;
 					sp476.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
-					sp476.matrix = currentPlayerGetMatrix1740();
+					sp476.unk00 = currentPlayerGetMatrix1740();
 					model0001cebc(&sp476, model);
 
 					if (fulltick) {
@@ -49758,7 +49758,7 @@ s32 objTick(struct prop *prop)
 				}
 			}
 		} else {
-			struct objticksp476 sp312 = {0, 1, 3};
+			struct modelrenderdata sp312 = {0, 1, 3};
 			Mtxf sp248;
 			struct coord sp236;
 			s16 sp220[8];
@@ -49798,7 +49798,7 @@ s32 objTick(struct prop *prop)
 
 			sp556 = true;
 			sp312.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
-			sp312.matrix = &sp152;
+			sp312.unk00 = &sp152;
 			model0001cebc(&sp312, model);
 
 			if (fulltick) {

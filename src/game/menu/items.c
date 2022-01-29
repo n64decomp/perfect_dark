@@ -8875,8 +8875,8 @@ char *menuitemScrollableGetText(u32 type)
 		return mpconfigGetDescription(g_Menus[g_MpPlayerNum].training.mpconfig);
 	case DESCRIPTION_MPCHALLENGE:
 		if (!mpIsChallengeLoaded()) {
-			g_Menus[g_MpPlayerNum].unk850 = 0x4fac5ace;
-			mpLoadAndStoreCurrentChallenge(g_Menus[g_MpPlayerNum].mpconfigbuffer, g_Menus[g_MpPlayerNum].mpconfigbufferlen);
+			g_Menus[g_MpPlayerNum].unk840.unk010 = 0x4fac5ace;
+			mpLoadAndStoreCurrentChallenge(g_Menus[g_MpPlayerNum].unk840.unk004, g_Menus[g_MpPlayerNum].unk840.unk008);
 		}
 		return mpGetCurrentChallengeDescription();
 	case DESCRIPTION_CHRBIO:         return ciGetChrBioDescription();

@@ -655,7 +655,7 @@ void model0001b3bc(struct model *model)
 	}
 }
 
-void model0001b400(struct objticksp476 *arg0, struct model *model, struct modelnode *node)
+void model0001b400(struct modelrenderdata *arg0, struct model *model, struct modelnode *node)
 {
 	struct anim *anim = model->anim;
 	union modelrodata *rodata = node->rodata;
@@ -698,7 +698,7 @@ void model0001b400(struct objticksp476 *arg0, struct model *model, struct modeln
 	if (node->parent) {
 		sp24c = model0001a5cc(model, node->parent, 0);
 	} else {
-		sp24c = arg0->matrix;
+		sp24c = arg0->unk00;
 	}
 
 	anim00024050(sp240, anim->flip, skel, anim->animnum, anim->unk04, &sp230, &sp224, &sp218);
@@ -2172,7 +2172,7 @@ glabel model0001bfa8
 );
 #endif
 
-void model0001c5b4(struct objticksp476 *arg0, struct model *model, struct modelnode *node)
+void model0001c5b4(struct modelrenderdata *arg0, struct model *model, struct modelnode *node)
 {
 	union modelrodata *rodata = node->rodata;
 	Mtxf *sp68;
@@ -2183,7 +2183,7 @@ void model0001c5b4(struct objticksp476 *arg0, struct model *model, struct modeln
 	if (node->parent) {
 		sp68 = model0001a5cc(model, node->parent, 0);
 	} else {
-		sp68 = arg0->matrix;
+		sp68 = arg0->unk00;
 	}
 
 	if (sp68) {
@@ -2472,7 +2472,7 @@ void model0001cc20(struct model *model)
 	}
 }
 
-void model0001cd18(struct objticksp476 *arg0, struct model *model)
+void model0001cd18(struct modelrenderdata *arg0, struct model *model)
 {
 	struct modelnode *node = model->filedata->rootnode;
 
@@ -2521,7 +2521,7 @@ void model0001cd18(struct objticksp476 *arg0, struct model *model)
 	}
 }
 
-void model0001ce64(struct objticksp476 *arg0, struct model *model)
+void model0001ce64(struct modelrenderdata *arg0, struct model *model)
 {
 	model->matrices = arg0->unk10;
 
@@ -2538,7 +2538,7 @@ void model0001ce64(struct objticksp476 *arg0, struct model *model)
 #endif
 }
 
-void model0001cebc(struct objticksp476 *arg0, struct model *model)
+void model0001cebc(struct modelrenderdata *arg0, struct model *model)
 {
 	struct anim *anim = model->anim;
 	f32 speed;
