@@ -3047,42 +3047,29 @@ void func0f0f3704(struct menudialogdef *dialogdef)
 	menuPushDialog(dialogdef);
 }
 
-GLOBAL_ASM(
-glabel func0f0f372c
-/*  f0f372c:	44856000 */ 	mtc1	$a1,$f12
-/*  f0f3730:	afa7000c */ 	sw	$a3,0xc($sp)
-/*  f0f3734:	93a50023 */ 	lbu	$a1,0x23($sp)
-/*  f0f3738:	908f05b1 */ 	lbu	$t7,0x5b1($a0)
-/*  f0f373c:	44867000 */ 	mtc1	$a2,$f14
-/*  f0f3740:	30b90002 */ 	andi	$t9,$a1,0x2
-/*  f0f3744:	35f80008 */ 	ori	$t8,$t7,0x8
-/*  f0f3748:	a09805b1 */ 	sb	$t8,0x5b1($a0)
-/*  f0f374c:	13200005 */ 	beqz	$t9,.L0f0f3764
-/*  f0f3750:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f0f3754:	e48c0538 */ 	swc1	$f12,0x538($a0)
-/*  f0f3758:	e48e053c */ 	swc1	$f14,0x53c($a0)
-/*  f0f375c:	c7a4000c */ 	lwc1	$f4,0xc($sp)
-/*  f0f3760:	e4840540 */ 	swc1	$f4,0x540($a0)
-.L0f0f3764:
-/*  f0f3764:	30480004 */ 	andi	$t0,$v0,0x4
-/*  f0f3768:	11000007 */ 	beqz	$t0,.L0f0f3788
-/*  f0f376c:	30490001 */ 	andi	$t1,$v0,0x1
-/*  f0f3770:	c7a60010 */ 	lwc1	$f6,0x10($sp)
-/*  f0f3774:	e4860548 */ 	swc1	$f6,0x548($a0)
-/*  f0f3778:	c7a80014 */ 	lwc1	$f8,0x14($sp)
-/*  f0f377c:	e488054c */ 	swc1	$f8,0x54c($a0)
-/*  f0f3780:	c7aa0018 */ 	lwc1	$f10,0x18($sp)
-/*  f0f3784:	e48a0550 */ 	swc1	$f10,0x550($a0)
-.L0f0f3788:
-/*  f0f3788:	11200002 */ 	beqz	$t1,.L0f0f3794
-/*  f0f378c:	c7b0001c */ 	lwc1	$f16,0x1c($sp)
-/*  f0f3790:	e4900544 */ 	swc1	$f16,0x544($a0)
-.L0f0f3794:
-/*  f0f3794:	44809000 */ 	mtc1	$zero,$f18
-/*  f0f3798:	a0850568 */ 	sb	$a1,0x568($a0)
-/*  f0f379c:	03e00008 */ 	jr	$ra
-/*  f0f37a0:	e4920564 */ 	swc1	$f18,0x564($a0)
-);
+void func0f0f372c(struct menu840 *arg0, f32 x, f32 y, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, u8 flags)
+{
+	arg0->unk5b1_05 = true;
+
+	if (flags & 2) {
+		arg0->unk538 = x;
+		arg0->unk53c = y;
+		arg0->unk540 = arg3;
+	}
+
+	if (flags & 4) {
+		arg0->unk548 = arg4;
+		arg0->unk54c = arg5;
+		arg0->unk550 = arg6;
+	}
+
+	if (flags & 1) {
+		arg0->unk544 = arg7;
+	}
+
+	arg0->unk568 = flags;
+	arg0->unk564 = 0.0f;
+}
 
 GLOBAL_ASM(
 glabel func0f0f37a4

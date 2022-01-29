@@ -56,7 +56,7 @@ void menuCloseDialog(void);
 void menuUpdateCurFrame(void);
 void menuPopDialog(void);
 void func0f0f3704(struct menudialogdef *dialogdef);
-void func0f0f372c(struct menu840 *arg0, f32 x, f32 y, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8);
+void func0f0f372c(struct menu840 *arg0, f32 x, f32 y, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, u8 flags);
 void func0f0f37a4(struct menu840 *arg0);
 Gfx *menuRenderModels(Gfx *gdl, struct menu840 *arg1, s32 arg2);
 u32 func0f0f5004(void);
