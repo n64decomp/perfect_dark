@@ -4251,6 +4251,7 @@ struct menu840 {
 	/*0x5b1*/ u8 unk5b1_03 : 1;
 	/*0x5b1*/ u8 unk5b1_04 : 1;
 	/*0x5b1*/ u8 unk5b1_05 : 1;
+	/*0x5b1*/ u8 unk5b1_06 : 1;
 	/*0x5b4*/ struct modelpartvisibility *partvisibility;
 };
 

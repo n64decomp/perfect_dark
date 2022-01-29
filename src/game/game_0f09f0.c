@@ -13811,68 +13811,41 @@ Gfx *menuRenderDialogs(Gfx *gdl)
 
 u32 var800714e8 = 0;
 
-GLOBAL_ASM(
-glabel func0f0f8bb4
-/*  f0f8bb4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0f8bb8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0f8bbc:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0f8bc0:	00803825 */ 	or	$a3,$a0,$zero
-/*  f0f8bc4:	10c00008 */ 	beqz	$a2,.L0f0f8be8
-/*  f0f8bc8:	ac850008 */ 	sw	$a1,0x8($a0)
-/*  f0f8bcc:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0f8bd0:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f0f8bd4:	0c0048f2 */ 	jal	mempAlloc
-/*  f0f8bd8:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f0f8bdc:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f0f8be0:	10000002 */ 	b	.L0f0f8bec
-/*  f0f8be4:	ace20004 */ 	sw	$v0,0x4($a3)
-.L0f0f8be8:
-/*  f0f8be8:	ace00004 */ 	sw	$zero,0x4($a3)
-.L0f0f8bec:
-/*  f0f8bec:	44800000 */ 	mtc1	$zero,$f0
-/*  f0f8bf0:	90f805b1 */ 	lbu	$t8,0x5b1($a3)
-/*  f0f8bf4:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f0f8bf8:	e4e0054c */ 	swc1	$f0,0x54c($a3)
-/*  f0f8bfc:	3308ff7f */ 	andi	$t0,$t8,0xff7f
-/*  f0f8c00:	310a00bf */ 	andi	$t2,$t0,0xbf
-/*  f0f8c04:	c4e4054c */ 	lwc1	$f4,0x54c($a3)
-/*  f0f8c08:	a0e805b1 */ 	sb	$t0,0x5b1($a3)
-/*  f0f8c0c:	314c00ef */ 	andi	$t4,$t2,0xef
-/*  f0f8c10:	a0ea05b1 */ 	sb	$t2,0x5b1($a3)
-/*  f0f8c14:	340fffff */ 	dli	$t7,0xffff
-/*  f0f8c18:	a0ec05b1 */ 	sb	$t4,0x5b1($a3)
-/*  f0f8c1c:	318d00fb */ 	andi	$t5,$t4,0xfb
-/*  f0f8c20:	a0e00000 */ 	sb	$zero,0x0($a3)
-/*  f0f8c24:	acef000c */ 	sw	$t7,0xc($a3)
-/*  f0f8c28:	ace00054 */ 	sw	$zero,0x54($a3)
-/*  f0f8c2c:	ace00010 */ 	sw	$zero,0x10($a3)
-/*  f0f8c30:	ace0056c */ 	sw	$zero,0x56c($a3)
-/*  f0f8c34:	ace00570 */ 	sw	$zero,0x570($a3)
-/*  f0f8c38:	ace005b4 */ 	sw	$zero,0x5b4($a3)
-/*  f0f8c3c:	a0ed05b1 */ 	sb	$t5,0x5b1($a3)
-/*  f0f8c40:	a4e20002 */ 	sh	$v0,0x2($a3)
-/*  f0f8c44:	a4e2056a */ 	sh	$v0,0x56a($a3)
-/*  f0f8c48:	e4e00538 */ 	swc1	$f0,0x538($a3)
-/*  f0f8c4c:	e4e00510 */ 	swc1	$f0,0x510($a3)
-/*  f0f8c50:	e4e0053c */ 	swc1	$f0,0x53c($a3)
-/*  f0f8c54:	e4e00514 */ 	swc1	$f0,0x514($a3)
-/*  f0f8c58:	e4e00540 */ 	swc1	$f0,0x540($a3)
-/*  f0f8c5c:	e4e00518 */ 	swc1	$f0,0x518($a3)
-/*  f0f8c60:	e4e00544 */ 	swc1	$f0,0x544($a3)
-/*  f0f8c64:	e4e0051c */ 	swc1	$f0,0x51c($a3)
-/*  f0f8c68:	e4e00548 */ 	swc1	$f0,0x548($a3)
-/*  f0f8c6c:	e4e00520 */ 	swc1	$f0,0x520($a3)
-/*  f0f8c70:	e4e00550 */ 	swc1	$f0,0x550($a3)
-/*  f0f8c74:	e4e00528 */ 	swc1	$f0,0x528($a3)
-/*  f0f8c78:	e4e00534 */ 	swc1	$f0,0x534($a3)
-/*  f0f8c7c:	e4e00530 */ 	swc1	$f0,0x530($a3)
-/*  f0f8c80:	e4e0052c */ 	swc1	$f0,0x52c($a3)
-/*  f0f8c84:	e4e40524 */ 	swc1	$f4,0x524($a3)
-/*  f0f8c88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f8c8c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0f8c90:	03e00008 */ 	jr	$ra
-/*  f0f8c94:	00000000 */ 	nop
-);
+void func0f0f8bb4(struct menu840 *arg0, u32 arg1, u32 arg2)
+{
+	arg0->unk008 = arg1;
+	arg0->unk004 = arg2 ? mempAlloc(arg1, MEMPOOL_STAGE) : NULL;
+	arg0->unk54c = 0.0f;
+	arg0->unk000 = 0;
+	arg0->unk00c = 0xffff;
+	arg0->bodymodeldef = NULL;
+	arg0->unk010 = 0;
+	arg0->unk56c = 0;
+	arg0->unk570 = 0;
+	arg0->partvisibility = NULL;
+	arg0->unk5b1_01 = false;
+	arg0->unk5b1_02 = false;
+	arg0->unk5b1_04 = false;
+	arg0->unk5b1_06 = false;
+	arg0->headnum = -1;
+	arg0->bodynum = -1;
+	arg0->unk538 = 0.0f;
+	arg0->unk510 = 0.0f;
+	arg0->unk53c = 0.0f;
+	arg0->unk514 = 0.0f;
+	arg0->unk540 = 0.0f;
+	arg0->unk518 = 0.0f;
+	arg0->unk544 = 0.0f;
+	arg0->unk51c = 0.0f;
+	arg0->unk548 = 0.0f;
+	arg0->unk520 = 0.0f;
+	arg0->unk550 = 0.0f;
+	arg0->unk528 = 0.0f;
+	arg0->unk534 = 0.0f;
+	arg0->unk530 = 0.0f;
+	arg0->unk52c = 0.0f;
+	arg0->unk524 = arg0->unk54c;
+}
 
 void menuInit(void)
 {
