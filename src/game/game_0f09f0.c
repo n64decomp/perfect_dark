@@ -2017,31 +2017,6 @@ const char var7f1b25d8[] = "Freeing challenge mem\n";
 const char var7f1b25f0[] = "mzn";
 const char var7f1b25f4[] = "mzf";
 
-const u32 var7f1b25f8[] = {0xbf000000};
-const u32 var7f1b25fc[] = {0x50000000};
-const u32 var7f1b2600[] = {0xff000000};
-const u32 var7f1b2604[] = {0xbfbf0000};
-const u32 var7f1b2608[] = {0x50500000};
-const u32 var7f1b260c[] = {0xffff0000};
-const u32 var7f1b2610[] = {0x0000bf00};
-const u32 var7f1b2614[] = {0x00005000};
-const u32 var7f1b2618[] = {0x0000ff00};
-const u32 var7f1b261c[] = {0xbf00bf00};
-const u32 var7f1b2620[] = {0x50005000};
-const u32 var7f1b2624[] = {0xff00ff00};
-const u32 var7f1b2628[] = {0x00bfbf00};
-const u32 var7f1b262c[] = {0x00505000};
-const u32 var7f1b2630[] = {0x00ffff00};
-const u32 var7f1b2634[] = {0xff885500};
-const u32 var7f1b2638[] = {0x7f482000};
-const u32 var7f1b263c[] = {0xff885500};
-const u32 var7f1b2640[] = {0xff888800};
-const u32 var7f1b2644[] = {0x7f484800};
-const u32 var7f1b2648[] = {0xff888800};
-const u32 var7f1b264c[] = {0x88445500};
-const u32 var7f1b2650[] = {0x48242000};
-const u32 var7f1b2654[] = {0x88445500};
-
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0f0f1d6c
@@ -8597,72 +8572,24 @@ glabel var7f1b2948
 //	return gdl;
 //}
 
-GLOBAL_ASM(
-glabel func0f0f5004
-/*  f0f5004:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f0f5008:	3c0e7f1b */ 	lui	$t6,%hi(var7f1b25f8)
-/*  f0f500c:	27a20000 */ 	addiu	$v0,$sp,0x0
-/*  f0f5010:	3c03800b */ 	lui	$v1,%hi(g_PlayerConfigsArray)
-/*  f0f5014:	3c078007 */ 	lui	$a3,%hi(g_MpPlayerNum)
-/*  f0f5018:	25ce25f8 */ 	addiu	$t6,$t6,%lo(var7f1b25f8)
-/*  f0f501c:	24e71448 */ 	addiu	$a3,$a3,%lo(g_MpPlayerNum)
-/*  f0f5020:	2463c7b8 */ 	addiu	$v1,$v1,%lo(g_PlayerConfigsArray)
-/*  f0f5024:	240800a0 */ 	addiu	$t0,$zero,0xa0
-/*  f0f5028:	2409000c */ 	addiu	$t1,$zero,0xc
-/*  f0f502c:	25d90060 */ 	addiu	$t9,$t6,0x60
-/*  f0f5030:	00405025 */ 	or	$t2,$v0,$zero
-.L0f0f5034:
-/*  f0f5034:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f0f5038:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f0f503c:	254a000c */ 	addiu	$t2,$t2,0xc
-/*  f0f5040:	ad41fff4 */ 	sw	$at,-0xc($t2)
-/*  f0f5044:	8dc1fff8 */ 	lw	$at,-0x8($t6)
-/*  f0f5048:	ad41fff8 */ 	sw	$at,-0x8($t2)
-/*  f0f504c:	8dc1fffc */ 	lw	$at,-0x4($t6)
-/*  f0f5050:	15d9fff8 */ 	bne	$t6,$t9,.L0f0f5034
-/*  f0f5054:	ad41fffc */ 	sw	$at,-0x4($t2)
-/*  f0f5058:	8ced0000 */ 	lw	$t5,0x0($a3)
-/*  f0f505c:	8c8b0000 */ 	lw	$t3,0x0($a0)
-/*  f0f5060:	01a80019 */ 	multu	$t5,$t0
-/*  f0f5064:	316c00ff */ 	andi	$t4,$t3,0xff
-/*  f0f5068:	0000c012 */ 	mflo	$t8
-/*  f0f506c:	00787821 */ 	addu	$t7,$v1,$t8
-/*  f0f5070:	91f90011 */ 	lbu	$t9,0x11($t7)
-/*  f0f5074:	03290019 */ 	multu	$t9,$t1
-/*  f0f5078:	00007012 */ 	mflo	$t6
-/*  f0f507c:	004e5021 */ 	addu	$t2,$v0,$t6
-/*  f0f5080:	8d4b0000 */ 	lw	$t3,0x0($t2)
-/*  f0f5084:	018b6825 */ 	or	$t5,$t4,$t3
-/*  f0f5088:	ac8d0000 */ 	sw	$t5,0x0($a0)
-/*  f0f508c:	8cf90000 */ 	lw	$t9,0x0($a3)
-/*  f0f5090:	8cb80000 */ 	lw	$t8,0x0($a1)
-/*  f0f5094:	03280019 */ 	multu	$t9,$t0
-/*  f0f5098:	330f00ff */ 	andi	$t7,$t8,0xff
-/*  f0f509c:	00007012 */ 	mflo	$t6
-/*  f0f50a0:	006e5021 */ 	addu	$t2,$v1,$t6
-/*  f0f50a4:	914c0011 */ 	lbu	$t4,0x11($t2)
-/*  f0f50a8:	01890019 */ 	multu	$t4,$t1
-/*  f0f50ac:	00005812 */ 	mflo	$t3
-/*  f0f50b0:	004b6821 */ 	addu	$t5,$v0,$t3
-/*  f0f50b4:	8db80004 */ 	lw	$t8,0x4($t5)
-/*  f0f50b8:	01f8c825 */ 	or	$t9,$t7,$t8
-/*  f0f50bc:	acb90000 */ 	sw	$t9,0x0($a1)
-/*  f0f50c0:	8cec0000 */ 	lw	$t4,0x0($a3)
-/*  f0f50c4:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*  f0f50c8:	01880019 */ 	multu	$t4,$t0
-/*  f0f50cc:	31ca00ff */ 	andi	$t2,$t6,0xff
-/*  f0f50d0:	00005812 */ 	mflo	$t3
-/*  f0f50d4:	006b6821 */ 	addu	$t5,$v1,$t3
-/*  f0f50d8:	91af0011 */ 	lbu	$t7,0x11($t5)
-/*  f0f50dc:	01e90019 */ 	multu	$t7,$t1
-/*  f0f50e0:	0000c012 */ 	mflo	$t8
-/*  f0f50e4:	0058c821 */ 	addu	$t9,$v0,$t8
-/*  f0f50e8:	8f2e0008 */ 	lw	$t6,0x8($t9)
-/*  f0f50ec:	27bd0060 */ 	addiu	$sp,$sp,0x60
-/*  f0f50f0:	014e6025 */ 	or	$t4,$t2,$t6
-/*  f0f50f4:	03e00008 */ 	jr	$ra
-/*  f0f50f8:	accc0000 */ 	sw	$t4,0x0($a2)
-);
+void menuGetTeamTitlebarColours(u32 *top, u32 *middle, u32 *bottom)
+{
+	const u32 colours[][3] = {
+		// top, middle, bottom
+		{ 0xbf000000, 0x50000000, 0xff000000 },
+		{ 0xbfbf0000, 0x50500000, 0xffff0000 },
+		{ 0x0000bf00, 0x00005000, 0x0000ff00 },
+		{ 0xbf00bf00, 0x50005000, 0xff00ff00 },
+		{ 0x00bfbf00, 0x00505000, 0x00ffff00 },
+		{ 0xff885500, 0x7f482000, 0xff885500 },
+		{ 0xff888800, 0x7f484800, 0xff888800 },
+		{ 0x88445500, 0x48242000, 0x88445500 },
+	};
+
+	*top = colours[g_PlayerConfigsArray[g_MpPlayerNum].base.team][0] | (*top & 0xff);
+	*middle = colours[g_PlayerConfigsArray[g_MpPlayerNum].base.team][1] | (*middle & 0xff);
+	*bottom = colours[g_PlayerConfigsArray[g_MpPlayerNum].base.team][2] | (*bottom & 0xff);
+}
 
 Gfx *menuApplyScissor(Gfx *gdl)
 {
@@ -9207,7 +9134,7 @@ glabel dialogRender
 /*  f0f5a38:	27a401bc */ 	addiu	$a0,$sp,0x1bc
 /*  f0f5a3c:	13210003 */ 	beq	$t9,$at,.L0f0f5a4c
 /*  f0f5a40:	27a501b8 */ 	addiu	$a1,$sp,0x1b8
-/*  f0f5a44:	0fc3d401 */ 	jal	func0f0f5004
+/*  f0f5a44:	0fc3d401 */ 	jal	menuGetTeamTitlebarColours
 /*  f0f5a48:	27a601b4 */ 	addiu	$a2,$sp,0x1b4
 .L0f0f5a4c:
 /*  f0f5a4c:	8fa301e0 */ 	lw	$v1,0x1e0($sp)
@@ -11418,7 +11345,7 @@ glabel dialogRender
 /*  f0f23e0:	27a401bc */ 	addiu	$a0,$sp,0x1bc
 /*  f0f23e4:	11a10003 */ 	beq	$t5,$at,.NB0f0f23f4
 /*  f0f23e8:	27a501b8 */ 	addiu	$a1,$sp,0x1b8
-/*  f0f23ec:	0fc3c6ea */ 	jal	func0f0f5004
+/*  f0f23ec:	0fc3c6ea */ 	jal	menuGetTeamTitlebarColours
 /*  f0f23f0:	27a601b4 */ 	addiu	$a2,$sp,0x1b4
 .NB0f0f23f4:
 /*  f0f23f4:	8fa301e0 */ 	lw	$v1,0x1e0($sp)

@@ -59,7 +59,7 @@ void func0f0f3704(struct menudialogdef *dialogdef);
 void func0f0f372c(struct menu840 *arg0, f32 x, f32 y, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, u8 flags);
 void func0f0f37a4(struct menu840 *arg0);
 Gfx *menuRenderModels(Gfx *gdl, struct menu840 *arg1, s32 arg2);
-u32 func0f0f5004(void);
+void menuGetTeamTitlebarColours(u32 *top, u32 *middle, u32 *bottom);
 Gfx *menuApplyScissor(Gfx *gdl);
 Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, s32 arg3);
 void menuGetContPads(s8 *contpadnum1, s8 *contpadnum2);
