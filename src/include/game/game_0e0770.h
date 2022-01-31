@@ -10,7 +10,7 @@ Gfx *menugfxRenderDialogBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, str
 u32 func0f0e1668(void);
 u32 func0f0e194c(void);
 Gfx *menugfxRenderGradient(Gfx *gdl, s32 x, s32 y, s32 width, s32 height, u32 colour1, u32 colour2, u32 colour3);
-u32 func0f0e1fac(void);
+Gfx *menugfxRenderSlider(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 markerx, u32 colour);
 Gfx *func0f0e2348(Gfx *gdl);
 Gfx *func0f0e2498(Gfx *gdl);
 Gfx *gfxDrawTri2(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2, bool arg7);
