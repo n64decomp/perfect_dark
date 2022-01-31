@@ -1435,15 +1435,15 @@
 #define MENUBANNER_SAVINGPERFECTHEAD  9
 #define MENUBANNER_AUTOADJUST         10
 
-#define MENUBG_BLUR         1
-#define MENUBG_BLACK        2 // solid black, unused?
-#define MENUBG_FAILURE      3 // solo mission failure endscreen
-#define MENUBG_TUNNELALPHA  4 // combat simulator
-#define MENUBG_GRADIENT     5 // blue/red gradient (bootpakmgr)
-#define MENUBG_6            6
-#define MENUBG_SUCCESS      7 // solo mission success endscreen
-#define MENUBG_8            8
-#define MENUBG_TUNNELOPAQUE 9 // 4MB combat simulator
+#define MENUBG_BLUR       1
+#define MENUBG_BLACK      2 // solid black, unused?
+#define MENUBG_FAILURE    3 // solo mission failure endscreen
+#define MENUBG_CONEALPHA  4 // combat simulator
+#define MENUBG_GRADIENT   5 // blue/red gradient (bootpakmgr)
+#define MENUBG_6          6
+#define MENUBG_SUCCESS    7 // solo mission success endscreen
+#define MENUBG_8          8
+#define MENUBG_CONEOPAQUE 9 // 4MB combat simulator
 
 #define MENUDIALOGFLAG_CLOSEONSELECT     0x0001
 #define MENUDIALOGFLAG_0002              0x0002

@@ -14093,7 +14093,7 @@ bool menuSetBackground(s32 bg)
 
 	// If there's already a screenshottable background queued,
 	// there's no need to create another
-	if (g_MenuData.nextbg == MENUBG_BLUR || g_MenuData.nextbg == MENUBG_TUNNELALPHA) {
+	if (g_MenuData.nextbg == MENUBG_BLUR || g_MenuData.nextbg == MENUBG_CONEALPHA) {
 		screenshot = false;
 	}
 
@@ -14170,14 +14170,14 @@ void menuPushRootDialog(struct menudialogdef *dialogdef, s32 root)
 
 	switch (root) {
 	case MENUROOT_MPSETUP:
-		menuSetBackground(MENUBG_TUNNELALPHA);
+		menuSetBackground(MENUBG_CONEALPHA);
 		break;
 	case MENUROOT_4MBFILEMGR:
 		musicStartMenu();
-		g_MenuData.bg = MENUBG_TUNNELOPAQUE;
+		g_MenuData.bg = MENUBG_CONEOPAQUE;
 		break;
 	case MENUROOT_4MBMAINMENU:
-		g_MenuData.bg = MENUBG_TUNNELOPAQUE;
+		g_MenuData.bg = MENUBG_CONEOPAQUE;
 		break;
 	case MENUROOT_ENDSCREEN:
 		if (dialogdef->type == MENUDIALOGTYPE_DANGER) {
@@ -14671,7 +14671,7 @@ void dialogTick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickfl
 	// it to finish before repeating the process. While the redraw timer is
 	// active, the text begins to fade before being redrawn.
 	if (dialog->state == MENUDIALOGSTATE_POPULATED) {
-		if (g_MenuData.nextbg != MENUBG_TUNNELALPHA) {
+		if (g_MenuData.nextbg != MENUBG_CONEALPHA) {
 			if (dialog->redrawtimer < 0.0f) {
 #if VERSION >= VERSION_PAL_FINAL
 				dialog->statefrac += g_Vars.diffframe60freal / 120.0f;
@@ -18854,7 +18854,7 @@ Gfx *menuRenderBackgroundLayer1(Gfx *gdl, u8 bg, f32 frac)
 			gdl = menugfxRenderBgFailure(gdl);
 		}
 		break;
-	case MENUBG_TUNNELALPHA:
+	case MENUBG_CONEALPHA:
 		mainOverrideVariable("bblur", &bblur);
 
 		if (g_MenuData.screenshottimer) {
@@ -18882,7 +18882,7 @@ Gfx *menuRenderBackgroundLayer1(Gfx *gdl, u8 bg, f32 frac)
 		// Blue to red
 		gdl = menugfxRenderGradient(gdl, 0, 0, viGetWidth(), viGetHeight(), 0x00007f7f, 0x000000ff, 0x8f0000ff);
 		break;
-	case MENUBG_TUNNELOPAQUE:
+	case MENUBG_CONEOPAQUE:
 		// Yellow to yellow (ie. not a gradient)
 		gdl = menugfxRenderGradient(gdl, 0, 0, viGetWidth(), viGetHeight(), 0x3f3f00ff, 0x7f0000ff, 0x3f3f00ff);
 		break;
@@ -18895,12 +18895,12 @@ u32 var800714f0 = 1;
 
 Gfx *menuRenderBackgroundLayer2(Gfx *gdl, u8 bg, f32 frac)
 {
-	if (bg == MENUBG_TUNNELALPHA || bg == MENUBG_TUNNELOPAQUE) {
+	if (bg == MENUBG_CONEALPHA || bg == MENUBG_CONEOPAQUE) {
 		mainOverrideVariable("cone", &var800714f0);
 
 		if (var800714f0
-				&& (g_MenuData.nextbg == MENUBG_TUNNELALPHA || g_MenuData.nextbg == 0 || g_MenuData.nextbg == 255)) {
-			gdl = func0f0e4190(gdl);
+				&& (g_MenuData.nextbg == MENUBG_CONEALPHA || g_MenuData.nextbg == 0 || g_MenuData.nextbg == 255)) {
+			gdl = menugfxRenderBgCone(gdl);
 		}
 	}
 
@@ -19015,8 +19015,8 @@ Gfx *menuRender(Gfx *gdl)
 		var8009de9c = g_MenuData.unk674;
 	}
 
-	// Render the second layer of the background (for the combat simulator
-	// tunnel effect, which draws over the top of the hud piece)
+	// Render the second layer of the background (for the combat simulator cone,
+	// which draws over the top of the hud piece)
 	if (g_MenuData.nextbg != 255) {
 		if (g_MenuData.nextbg == 0) {
 			gdl = menuRenderBackgroundLayer2(gdl, g_MenuData.bg, 1.0f - g_MenuData.unk010);

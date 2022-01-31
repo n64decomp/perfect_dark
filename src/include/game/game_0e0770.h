@@ -29,7 +29,7 @@ Gfx *gfxDrawEquTri(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u32 colour1,
 Gfx *func0f0e3324(Gfx *gdl, s32 x, s32 y, s32 arg2, s32 arg3, u32 colour1, u32 colour2, f32 arg7);
 Gfx *gfxDrawSquare(Gfx *gdl, s32 x, s32 y, s32 size, bool fill, u32 bordercolour, u32 fillcolour);
 Gfx *menugfxRenderBgFailure(Gfx *gdl);
-Gfx *func0f0e4190(Gfx *gdl);
+Gfx *menugfxRenderBgCone(Gfx *gdl);
 void func0f0e4fd4(void);
 u32 func0f0e4fe0(void);
 Gfx *menugfxRenderBgSuccess(Gfx *gdl);

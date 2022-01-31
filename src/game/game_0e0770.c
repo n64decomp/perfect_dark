@@ -476,45 +476,6 @@ u32 var80071180 = 1;
 
 u32 var80071184 = 0;
 
-const u32 var7f1adf08[] = {0x40c907a9};
-const u32 var7f1adf0c[] = {0x3e4ccccd};
-const u32 var7f1adf10[] = {0x3f666666};
-const u32 var7f1adf14[] = {0x3dcccccd};
-const u32 var7f1adf18[] = {0x3dcccccd};
-const u32 var7f1adf1c[] = {0x40c90fdb};
-const u32 var7f1adf20[] = {0x40490fdb};
-const u32 var7f1adf24[] = {0x3f060a92};
-const u32 var7f1adf28[] = {0x3f060a92};
-const u32 var7f1adf2c[] = {0x3e32b8c3};
-const u32 var7f1adf30[] = {0x3dcc40de};
-const u32 var7f1adf34[] = {0x40490fdb};
-const u32 var7f1adf38[] = {0x3e32b8c3};
-const u32 var7f1adf3c[] = {0x3dcc40de};
-const u32 var7f1adf40[] = {0x40c90fdb};
-const u32 var7f1adf44[] = {0x3f490fdb};
-const u32 var7f1adf48[] = {0x40490fdb};
-const u32 var7f1adf4c[] = {0x40c90fdb};
-const u32 var7f1adf50[] = {0x40c90fdb};
-const u32 var7f1adf54[] = {0x40490fdb};
-const u32 var7f1adf58[] = {0x3f060a92};
-const u32 var7f1adf5c[] = {0x3f060a92};
-const u32 var7f1adf60[] = {0x3e32b8c3};
-const u32 var7f1adf64[] = {0x3dcc40de};
-const u32 var7f1adf68[] = {0x40490fdb};
-const u32 var7f1adf6c[] = {0x3e32b8c3};
-const u32 var7f1adf70[] = {0x3dcc40de};
-const u32 var7f1adf74[] = {0x459c4000};
-const u32 var7f1adf78[] = {0x461c4000};
-const u32 var7f1adf7c[] = {0x461c4000};
-const u32 var7f1adf80[] = {0x459c4000};
-const u32 var7f1adf84[] = {0x40c907a9};
-const u32 var7f1adf88[] = {0xc5ce4000};
-const u32 var7f1adf8c[] = {0x40c907a9};
-const u32 var7f1adf90[] = {0x45ce4000};
-const u32 var7f1adf94[] = {0x00000000};
-const u32 var7f1adf98[] = {0x00000000};
-const u32 var7f1adf9c[] = {0x00000000};
-
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel menugfxRenderBgBlur
@@ -1001,6 +962,18 @@ Gfx *menugfxRenderDialogBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, str
 
 GLOBAL_ASM(
 glabel func0f0e0fc0
+.late_rodata
+glabel var7f1adf08
+.word 0x40c907a9
+glabel var7f1adf0c
+.word 0x3e4ccccd
+glabel var7f1adf10
+.word 0x3f666666
+glabel var7f1adf14
+.word 0x3dcccccd
+glabel var7f1adf18
+.word 0x3dcccccd
+.text
 /*  f0e0fc0:	27bdfee8 */ 	addiu	$sp,$sp,-280
 /*  f0e0fc4:	afbf007c */ 	sw	$ra,0x7c($sp)
 /*  f0e0fc8:	afb30064 */ 	sw	$s3,0x64($sp)
@@ -3444,6 +3417,26 @@ Gfx *gfxDrawSquare(Gfx *gdl, s32 x, s32 y, s32 size, bool fill, u32 bordercolour
 
 GLOBAL_ASM(
 glabel menugfxRenderBgFailure
+.late_rodata
+glabel var7f1adf1c
+.word 0x40c90fdb
+glabel var7f1adf20
+.word 0x40490fdb
+glabel var7f1adf24
+.word 0x3f060a92
+glabel var7f1adf28
+.word 0x3f060a92
+glabel var7f1adf2c
+.word 0x3e32b8c3
+glabel var7f1adf30
+.word 0x3dcc40de
+glabel var7f1adf34
+.word 0x40490fdb
+glabel var7f1adf38
+.word 0x3e32b8c3
+glabel var7f1adf3c
+.word 0x3dcc40de
+.text
 /*  f0e39d0:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*  f0e39d4:	3c017f1b */ 	lui	$at,%hi(var7f1adf1c)
 /*  f0e39d8:	c424df1c */ 	lwc1	$f4,%lo(var7f1adf1c)($at)
@@ -3956,7 +3949,17 @@ glabel menugfxRenderBgFailure
 );
 
 GLOBAL_ASM(
-glabel func0f0e4190
+glabel menugfxRenderBgCone
+.late_rodata
+glabel var7f1adf40
+.word 0x40c90fdb
+glabel var7f1adf44
+.word 0x3f490fdb
+glabel var7f1adf48
+.word 0x40490fdb
+glabel var7f1adf4c
+.word 0x40c90fdb
+.text
 /*  f0e4190:	27bdff60 */ 	addiu	$sp,$sp,-160
 /*  f0e4194:	afb60070 */ 	sw	$s6,0x70($sp)
 /*  f0e4198:	3c168006 */ 	lui	$s6,%hi(var80061630)
@@ -4222,6 +4225,77 @@ glabel func0f0e4190
 /*  f0e4588:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
 );
 
+// Mismatch: Float regalloc
+//Gfx *menugfxRenderBgCone(Gfx *gdl)
+//{
+//	f32 sp9c;
+//	u32 stack[2];
+//	f32 angle;
+//	s32 x1;
+//	s32 y1;
+//	s32 x2;
+//	s32 y2;
+//	u32 s0;
+//	f32 sp78;
+//	s32 colour;
+//	s32 i;
+//
+//	angle = M_BADTAU * var80061630;
+//	sp9c = angle * 2.0f;
+//	s0 = (u32)(func0f006b08(1) * 255.0f) << 16;
+//
+//	gdl = func0f0d4a3c(gdl, 0);
+//
+//	colour = s0 | 0xff00007f;
+//
+//	var8009de90 = -100000;
+//	var8009de94 = 100000;
+//
+//	for (i = 0; i < 8; i++) {
+//		angle = sp9c + i * 2.0f * M_PI * 0.125f;
+//
+//		x1 = 600.0f * sinf(angle);
+//		y1 = 600.0f * cosf(angle);
+//		x2 = 600.0f * sinf(angle + 0.78539818525314f);
+//		y2 = 600.0f * cosf(angle + 0.78539818525314f);
+//
+//		x1 += 160;
+//		x2 += 160;
+//		y1 += 120;
+//		y2 += 120;
+//
+//		gdl = func0f0d4d0c(gdl, x1, y1, x2, y2, colour, colour, 8);
+//	}
+//
+//	s0 = (u32)(255.0f - func0f006b54(1) * 255.0f) << 16;
+//
+//	if (M_BADTAU * var80061630);
+//	angle = M_BADTAU * var80061630;
+//	sp78 = -angle;
+//
+//	colour = s0 | 0xff00007f;
+//
+//	for (i = 0; i < 8; i++) {
+//		angle = sp78 + 2.0f * i * M_PI * 0.125f;
+//
+//		x1 = 600.0f * sinf(angle);
+//		y1 = 600.0f * cosf(angle);
+//		x2 = 600.0f * sinf(angle + 0.78539818525314f);
+//		y2 = 600.0f * cosf(angle + 0.78539818525314f);
+//
+//		x1 += 160;
+//		x2 += 160;
+//		y1 += 120;
+//		y2 += 120;
+//
+//		gdl = func0f0d4d0c(gdl, x1, y1, x2, y2, colour, colour, 9);
+//	}
+//
+//	gdl = func0f0d4c80(gdl);
+//
+//	return gdl;
+//}
+
 /**
  * Fill the framebuffer with a transparent green overlay.
  *
@@ -4373,6 +4447,26 @@ glabel func0f0e46b0
 
 GLOBAL_ASM(
 glabel func0f0e4814
+.late_rodata
+glabel var7f1adf50
+.word 0x40c90fdb
+glabel var7f1adf54
+.word 0x40490fdb
+glabel var7f1adf58
+.word 0x3f060a92
+glabel var7f1adf5c
+.word 0x3f060a92
+glabel var7f1adf60
+.word 0x3e32b8c3
+glabel var7f1adf64
+.word 0x3dcc40de
+glabel var7f1adf68
+.word 0x40490fdb
+glabel var7f1adf6c
+.word 0x3e32b8c3
+glabel var7f1adf70
+.word 0x3dcc40de
+.text
 /*  f0e4814:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*  f0e4818:	3c017f1b */ 	lui	$at,%hi(var7f1adf50)
 /*  f0e481c:	c424df50 */ 	lwc1	$f4,%lo(var7f1adf50)($at)
@@ -4897,6 +4991,24 @@ u32 func0f0e4fe0(void)
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel menugfxRenderBgSuccess
+.late_rodata
+glabel var7f1adf74
+.word 0x459c4000
+glabel var7f1adf78
+.word 0x461c4000
+glabel var7f1adf7c
+.word 0x461c4000
+glabel var7f1adf80
+.word 0x459c4000
+glabel var7f1adf84
+.word 0x40c907a9
+glabel var7f1adf88
+.word 0xc5ce4000
+glabel var7f1adf8c
+.word 0x40c907a9
+glabel var7f1adf90
+.word 0x45ce4000
+.text
 /*  f0e5000:	27bdfeb0 */ 	addiu	$sp,$sp,-336
 /*  f0e5004:	3c0140a0 */ 	lui	$at,0x40a0
 /*  f0e5008:	3c0e8008 */ 	lui	$t6,%hi(g_StageIndex)
@@ -5764,6 +5876,24 @@ glabel menugfxRenderBgSuccess
 #else
 GLOBAL_ASM(
 glabel menugfxRenderBgSuccess
+.late_rodata
+glabel var7f1adf74
+.word 0x459c4000
+glabel var7f1adf78
+.word 0x461c4000
+glabel var7f1adf7c
+.word 0x461c4000
+glabel var7f1adf80
+.word 0x459c4000
+glabel var7f1adf84
+.word 0x40c907a9
+glabel var7f1adf88
+.word 0xc5ce4000
+glabel var7f1adf8c
+.word 0x40c907a9
+glabel var7f1adf90
+.word 0x45ce4000
+.text
 /*  f0e5000:	27bdfeb0 */ 	addiu	$sp,$sp,-336
 /*  f0e5004:	3c0140a0 */ 	lui	$at,0x40a0
 /*  f0e5008:	3c0e8008 */ 	lui	$t6,%hi(g_StageIndex)
