@@ -5,7 +5,9 @@
 #include "types.h"
 
 void func0f1531a0(void);
-u32 func0f1531b8(void);
+void textSetRotation90(bool rotated);
+void func0f1531c4(s32 arg0);
+void func0f1531d0(s32 arg0);
 void func0f1531dc(bool arg0);
 void fontLoad(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar **charsptr, bool monospace);
 void fontsLoadForCurrentStage(void);
@@ -20,7 +22,7 @@ Gfx *func0f153a34(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour);
 Gfx *func0f153ab0(Gfx *gdl);
 void func0f153b40(void);
 void func0f153b6c(s32 arg0);
-void func0f153c20(s32 x, s32 y, f32 arg2, u8 arg3);
+void func0f153c20(s32 x, s32 y, f32 redrawtimer, u8 populated);
 void func0f153c50(void);
 void func0f153c88(void);
 void func0f153ce8(s32 x1, s32 x2, u32 arg2);
@@ -37,8 +39,8 @@ Gfx *func0f154ecc(Gfx *gdl, u32 arg1, u32 arg2);
 u32 func0f154f38(void);
 u32 func0f1552d4(void);
 u32 func0f15568c(void);
-u32 func0f156024(void);
-u32 func0f156030(void);
+void func0f156024(s32 arg0);
+void func0f156030(u32 colour);
 Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *font1, struct font *font2, s32 colour, s16 width, s16 height, s32 arg9, u32 arg10);
 Gfx *func0f1566cc(Gfx *gdl, u32 arg1, u32 arg2);
 u32 func0f156790(void);

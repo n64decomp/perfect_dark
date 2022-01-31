@@ -5892,6 +5892,7 @@ struct menurendercontext {
 	bool focused;
 	struct menudialog *dialog;
 	union menuitemdata *data;
+	bool unk18;
 };
 
 struct menucolourpalette {

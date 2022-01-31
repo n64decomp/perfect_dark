@@ -8651,22 +8651,6 @@ Gfx *menuApplyScissor(Gfx *gdl)
 	return gdl;
 }
 
-const char var7f1b2658[] = "1\n";
-const char var7f1b265c[] = "2\n";
-const char var7f1b2660[] = "3\n";
-const char var7f1b2664[] = "4\n";
-
-u32 var800714c8 = (u32)&var7f1b2658;
-u32 var800714cc = (u32)&var7f1b265c;
-u32 var800714d0 = (u32)&var7f1b2660;
-u32 var800714d4 = (u32)&var7f1b2664;
-
-const char var7f1b2668[] = "[]-[] Terminate Complete\n";
-const char var7f1b2684[] = "Enabling control %d\n";
-const char var7f1b269c[] = "NOT IN MODE MULTIINGAME!\n";
-const char var7f1b26b8[] = "Numactive now:%d\n";
-const char var7f1b26cc[] = "[]-[] SwitchMenuMode called, context %d\n";
-
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel dialogRender
@@ -10766,7 +10750,7 @@ glabel dialogRender
 .L0f0f7260:
 /*  f0f7260:	0fc54f93 */ 	jal	func0f153e4c
 /*  f0f7264:	00000000 */ 	nop
-/*  f0f7268:	0fc54c6e */ 	jal	func0f1531b8
+/*  f0f7268:	0fc54c6e */ 	jal	textSetRotation90
 /*  f0f726c:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0f7270:	0fc54d8a */ 	jal	func0f153628
 /*  f0f7274:	8fa401e8 */ 	lw	$a0,0x1e8($sp)
@@ -10900,7 +10884,7 @@ glabel dialogRender
 /*  f0f745c:	0fc54de0 */ 	jal	func0f153780
 /*  f0f7460:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0f7464:	afa201e8 */ 	sw	$v0,0x1e8($sp)
-/*  f0f7468:	0fc54c6e */ 	jal	func0f1531b8
+/*  f0f7468:	0fc54c6e */ 	jal	textSetRotation90
 /*  f0f746c:	00002025 */ 	or	$a0,$zero,$zero
 .L0f0f7470:
 /*  f0f7470:	8fa201e8 */ 	lw	$v0,0x1e8($sp)
@@ -12963,7 +12947,7 @@ glabel dialogRender
 .NB0f0f3bd8:
 /*  f0f3bd8:	0fc5392a */ 	jal	func0f153e4c
 /*  f0f3bdc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0f3be0:	0fc5362e */ 	jal	func0f1531b8
+/*  f0f3be0:	0fc5362e */ 	jal	textSetRotation90
 /*  f0f3be4:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0f3be8:	0fc5374a */ 	jal	func0f153628
 /*  f0f3bec:	8fa401e8 */ 	lw	$a0,0x1e8($sp)
@@ -13097,7 +13081,7 @@ glabel dialogRender
 /*  f0f3dd4:	0fc537a0 */ 	jal	func0f153780
 /*  f0f3dd8:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0f3ddc:	afa201e8 */ 	sw	$v0,0x1e8($sp)
-/*  f0f3de0:	0fc5362e */ 	jal	func0f1531b8
+/*  f0f3de0:	0fc5362e */ 	jal	textSetRotation90
 /*  f0f3de4:	00002025 */ 	or	$a0,$zero,$zero
 .NB0f0f3de8:
 /*  f0f3de8:	8fa201e8 */ 	lw	$v0,0x1e8($sp)
@@ -13117,6 +13101,641 @@ glabel dialogRender
 /*  f0f3e1c:	27bd01e8 */ 	addiu	$sp,$sp,0x1e8
 );
 #endif
+
+const char var7f1b2658[] = "1\n";
+const char var7f1b265c[] = "2\n";
+const char var7f1b2660[] = "3\n";
+const char var7f1b2664[] = "4\n";
+
+u32 var800714c8 = (u32)&var7f1b2658;
+u32 var800714cc = (u32)&var7f1b265c;
+u32 var800714d0 = (u32)&var7f1b2660;
+u32 var800714d4 = (u32)&var7f1b2664;
+
+/**
+ * Render a single menu dialog.
+ *
+ * The lightweight argument is always false. If set to true, a lighter-weight
+ * variant of the dialog is rendered which has no borders, less background,
+ * no overlays and no models such as inventory weapons.
+ */
+// Mismatch: Regalloc, and possibly some differences in compiler-managed stack
+// usage.
+//Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool lightweight)
+//{
+//	s32 i; // 1e4
+//	s32 dialogleft; // 1e0
+//	s32 dialogtop; // 1dc
+//	s32 dialogright;
+//	s32 dialogbottom; // 1d4
+//	s32 x; // 1d0
+//	s32 y; // 1cc
+//	s16 dialogwidth; // 1ca
+//	union menuitemdata *itemdata;
+//	s32 j; // 1c0
+//	u32 colour1; // 1bc
+//	u32 colour2; // 1b8
+//	u32 colour3; // 1b4
+//	struct menurendercontext context; // 198
+//	s32 curx; // 194
+//	s32 bgx1;
+//	s32 bgy1;
+//	s32 bgx2;
+//	s32 bgy2;
+//	s16 dialogheight;
+//	char *title;
+//	u32 colour4;
+//	u32 colour5;
+//	f32 sp170;
+//
+//	bgx1 = dialog->x;
+//	bgy1 = dialog->y;
+//	bgx2 = dialog->x + dialog->width;
+//	bgy2 = dialog->y + dialog->height;
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//	if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
+//			&& menuGetRoot() == MENUROOT_MPENDSCREEN
+//			&& !var8009dfc0) {
+//		return gdl;
+//	}
+//#endif
+//
+//	// Colours are stored in an array of palette structures that's indexed by
+//	// the dialog type. Usually this is a direct lookup, but if the dialog is
+//	// transitioning between two types it has to blend the two colours together.
+//	// This is done several times throughout the function, so a macro is used.
+//#define GETCOLOUR(property) (dialog->transitionfrac < 0.0f \
+//	? g_MenuColourPalettes[dialog->type].property \
+//	: colourBlend(g_MenuColourPalettes[dialog->type2].property, g_MenuColourPalettes[dialog->type].property, dialog->colourweight))
+//
+//	colour1 = GETCOLOUR(unk28);
+//
+//	func0f156030(colour1);
+//
+//	var8007fb9c = 0;
+//
+//	if (g_Menus[g_MpPlayerNum].curdialog == dialog
+//			&& (dialog->definition->flags & MENUDIALOGFLAG_0002)
+//			&& !lightweight
+//			&& g_Menus[g_MpPlayerNum].unk840.unk5b1_07 == 1) {
+//		gSPSetGeometryMode(gdl++, G_ZBUFFER);
+//		gdl = menuRenderModels(gdl, &g_Menus[g_MpPlayerNum].unk840, 2);
+//		gSPClearGeometryMode(gdl++, G_ZBUFFER);
+//	}
+//
+//	dialogwidth = dialog->width;
+//	dialogheight = dialog->height;
+//
+//	if (dialog->state == MENUDIALOGSTATE_PREOPEN) {
+//#if VERSION >= VERSION_NTSC_1_0
+//		if (dialog->definition == &g_MpReadyMenuDialog) {
+//			return gdl;
+//		}
+//#endif
+//
+//		sp170 = 1.0f - g_MenuData.unk010;
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//		if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && menuGetRoot() == MENUROOT_MPENDSCREEN) {
+//			sp170 = 1.0f - dialog->statefrac;
+//		}
+//#endif
+//
+//		sp170 = 1.0f - sp170 * sp170;
+//		dialogheight *= sp170;
+//		bgy2 = dialog->y + dialogheight;
+//	}
+//
+//	dialogleft = dialog->x;
+//	dialogtop = dialog->y;
+//	dialogbottom = dialogtop + dialogheight;
+//
+//	title = menuResolveDialogTitle(dialog->definition);
+//
+//	colour1 = GETCOLOUR(unk00);
+//	colour2 = GETCOLOUR(unk04);
+//	colour3 = GETCOLOUR(unk08);
+//
+//	gSPClearGeometryMode(gdl++, G_ZBUFFER);
+//
+//	colour4 = colour1;
+//	colour5 = colour3;
+//
+//	if ((colour4 & 0xff) > 0x3f) {
+//		colour4 = (colour4 & 0xffffff00) | 0x3f;
+//	}
+//
+//	if ((colour5 & 0xff) > 0x3f) {
+//		colour5 = (colour5 & 0xffffff00) | 0x3f;
+//	}
+//
+//	var8009de90 = -1000;
+//	var8009de94 = 1000;
+//
+//	if (dialog->definition->flags & MENUDIALOGFLAG_DISABLETITLEBAR) {
+//		bgy1 += 11;
+//	}
+//
+//	// Render the walls/floor/ceiling coming from the projection source.
+//	// Each surface is rendered a second time with the colours swapped.
+//	// The order is top, right, bottom, left.
+//	if (g_MenuData.root != MENUROOT_MPSETUP && (g_MenuData.root != MENUROOT_MPPAUSE || g_Vars.normmplayerisrunning)) {
+//		var800a4634 = func0f0d4d0c(var800a4634, bgx1, bgy1, bgx2, bgy1, colour4, colour5, 0);
+//		var800a4634 = func0f0d4d0c(var800a4634, bgx2, bgy1, bgx2, bgy2, colour5, colour4, 0);
+//		var800a4634 = func0f0d4d0c(var800a4634, bgx2, bgy2, bgx1, bgy2, colour4, colour5, 0);
+//		var800a4634 = func0f0d4d0c(var800a4634, bgx1, bgy2, bgx1, bgy1, colour5, colour4, 0);
+//		var800a4634 = func0f0d4d0c(var800a4634, bgx1, bgy1, bgx2, bgy1, colour5, colour4, 1);
+//		var800a4634 = func0f0d4d0c(var800a4634, bgx2, bgy1, bgx2, bgy2, colour4, colour5, 1);
+//		var800a4634 = func0f0d4d0c(var800a4634, bgx2, bgy2, bgx1, bgy2, colour5, colour4, 1);
+//		var800a4634 = func0f0d4d0c(var800a4634, bgx1, bgy2, bgx1, bgy1, colour4, colour5, 1);
+//	}
+//
+//	// Render the title bar
+//	if ((dialog->definition->flags & MENUDIALOGFLAG_DISABLETITLEBAR) == 0) {
+//		if (((g_MenuData.root == MENUROOT_MPSETUP) || (g_MenuData.root == MENUROOT_4MBMAINMENU))
+//				&& (g_MpSetup.options & MPOPTION_TEAMSENABLED)
+//				&& g_Vars.mpsetupmenu != MPSETUPMENU_GENERAL) {
+//			menuGetTeamTitlebarColours(&colour1, &colour2, &colour3);
+//		}
+//
+//		gdl = menugfxRenderGradient(gdl, dialogleft - 2, dialogtop, dialogleft + dialogwidth + 2, dialogtop + 11, colour1, colour2, colour3);
+//		gdl = func0f0e2aa4(gdl, dialogleft - 2, dialogtop, dialogleft + dialogwidth + 2, dialogtop + 1, (colour1 & 0xff) >> 1, 1, 40, 0);
+//		gdl = func0f0e2aa4(gdl, dialogleft - 2, dialogtop + 10, dialogleft + dialogwidth + 2, dialogtop + 11, (colour1 & 0xff) >> 1, 0, 40, 1);
+//
+//		x = dialogleft + 2;
+//		y = dialogtop + 2;
+//
+//		gdl = func0f153628(gdl);
+//
+//		context.unk18 = false;
+//
+//		if (lightweight) {
+//			context.unk18 = true;
+//		}
+//
+//		{
+//			char *sp154[] = {
+//				"1\n",
+//				"2\n",
+//				"3\n",
+//				"4\n",
+//			};
+//
+//			u32 stack;
+//
+//			colour1 = GETCOLOUR(unk0c);
+//
+//			func0f153e38(g_MenuColourPalettes3[dialog->type].unk0c, g_MenuColourPalettes2[dialog->type].unk0c);
+//
+//			// Title shadow
+//			x = dialogleft + 3;
+//			y = dialogtop + 3;
+//
+//			gdl = textRenderProjected(gdl, &x, &y, title, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour1 & 0xff, dialogwidth, viGetHeight(), 0, 0);
+//
+//			// Title proper
+//			x = dialogleft + 2;
+//			y = dialogtop + 2;
+//
+//			gdl = textRenderProjected(gdl, &x, &y, title, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour1, dialogwidth, viGetHeight(), 0, 0);
+//
+//			// In MP dialogs, render the player number in the top right
+//			if (g_MenuData.root == MENUROOT_MPSETUP
+//					|| g_MenuData.root == MENUROOT_MPPAUSE
+//					|| g_MenuData.root == MENUROOT_MPENDSCREEN
+//					|| g_MenuData.root == MENUROOT_4MBMAINMENU) {
+//				x = dialogleft + dialogwidth - 9;
+//				y = dialogtop + 2;
+//
+//				gdl = textRenderProjected(gdl, &x, &y, sp154[g_MpPlayerNum], g_CharsHandelGothicSm, g_FontHandelGothicSm, colour1, dialogwidth, viGetHeight(), 0, 0);
+//			}
+//		}
+//
+//		gdl = func0f153780(gdl);
+//	}
+//
+//	// Configure things for the redraw effect
+//	if (!(dialog->redrawtimer < 0.0f)) {
+//		if (g_MenuData.root != MENUROOT_MPPAUSE) {
+//			if (dialog->state >= MENUDIALOGSTATE_POPULATED) {
+//				func0f153c20(dialog->x, dialog->y, dialog->redrawtimer, 1);
+//			} else {
+//				func0f153c20(dialog->x, dialog->y, dialog->redrawtimer, 0);
+//			}
+//
+//			var8007fb9c = 1;
+//		}
+//	} else if (dialog->state == MENUDIALOGSTATE_POPULATED) {
+//		func0f153d88(dialog->statefrac);
+//	}
+//
+//	if (dialogbottom < dialogtop + 11) {
+//		dialogbottom = dialogtop + 11;
+//	}
+//
+//	colour1 = GETCOLOUR(unk10);
+//
+//	if (dialog->dimmed) {
+//		colour1 = (colourBlend(colour1, 0x00000000, 44) & 0xffffff00) | (colour1 & 0xff);
+//	}
+//
+//	colour2 = GETCOLOUR(unk14);
+//
+//	// Draw the dialog's background and outer borders
+//	if (!lightweight) {
+//		if (dialog->state == MENUDIALOGSTATE_OPENING) {
+//			gdl = func0f0e0dac(gdl, dialogleft + 1, dialogtop + 11, dialogleft + dialogwidth - 1, dialogbottom, dialog, colour1, colour2, 1.0f);
+//		} else if (dialog->state == MENUDIALOGSTATE_POPULATING) {
+//			gdl = func0f0e0dac(gdl, dialogleft + 1, dialogtop + 11, dialogleft + dialogwidth - 1, dialogbottom, dialog, colour1, colour2, dialog->statefrac);
+//		} else {
+//			gdl = func0f0e0dac(gdl, dialogleft + 1, dialogtop + 11, dialogleft + dialogwidth - 1, dialogbottom, dialog, colour1, colour2, -1.0f);
+//		}
+//
+//		// No dialog has this flag, so this branch is unused
+//		if (dialog->definition->flags & MENUDIALOGFLAG_DISABLETITLEBAR) {
+//			gdl = func0f0e2ee8(gdl, dialogleft + 1, dialogtop + 11, dialogleft + dialogwidth - 1, dialogtop + 12, GETCOLOUR(unk00), GETCOLOUR(unk08));
+//		}
+//	}
+//
+//	if (dialog->state == MENUDIALOGSTATE_PREOPEN) {
+//		return gdl;
+//	}
+//
+//	{
+//		struct menulayer *layer;
+//		s32 viewleft = viGetViewLeft() / g_ScaleX;
+//		s32 viewtop = viGetViewTop();
+//		s32 viewright = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX;
+//		s32 viewbottom = viGetViewTop() + viGetViewHeight();
+//
+//		// Goal loads the address of g_MenuScissorX2 for the store then loads it
+//		// again for the load for the subsequent if statement. If we use one
+//		// variable for this then it reuses the register instead of loading it
+//		// again. To make this match, a second variable has been configured in
+//		// the linker map with the same address as g_MenuScissorX2. This forces
+//		// the compiler to do the second load. It's obviously not correct though.
+//		extern s32 g_MenuScissorX2_2;
+//
+//		g_MenuScissorX1 = dialogleft + 2;
+//		g_MenuScissorX2_2 = dialogleft + dialogwidth - 2;
+//		g_MenuScissorY1 = dialogtop + 11;
+//		g_MenuScissorY2 = dialogbottom - 1;
+//
+//		if (g_MenuScissorX2 < viewleft) {
+//			return gdl;
+//		}
+//
+//		if (g_MenuScissorY2 < viewtop) {
+//			return gdl;
+//		}
+//
+//		if (g_MenuScissorX1 > viewright) {
+//			return gdl;
+//		}
+//
+//		if (g_MenuScissorY1 > viewbottom) {
+//			return gdl;
+//		}
+//
+//		if (g_MenuScissorX2 > viewright) {
+//			g_MenuScissorX2 = viewright;
+//		}
+//
+//		if (g_MenuScissorY2 > viewbottom) {
+//			g_MenuScissorY2 = viewbottom;
+//		}
+//
+//		if (g_MenuScissorX1 < viewleft) {
+//			g_MenuScissorX1 = viewleft;
+//		}
+//
+//		// @bug: This should be g_MenuScissorY1
+//		// but the condition can't pass anyway.
+//		if (g_MenuScissorX2 < viewtop) {
+//			g_MenuScissorX2 = viewtop;
+//		}
+//
+//		var8009de90 = g_MenuScissorY1;
+//		var8009de94 = g_MenuScissorY2;
+//
+//		gdl = menuApplyScissor(gdl);
+//
+//		// Render models (inventory, chr/vehicle bios)
+//		if (g_Menus[g_MpPlayerNum].curdialog == dialog
+//				&& (dialog->definition->flags & MENUDIALOGFLAG_0002)
+//				&& !lightweight
+//				&& !g_Menus[g_MpPlayerNum].unk840.unk5b1_07) {
+//			gSPSetGeometryMode(gdl++, G_ZBUFFER);
+//
+//			gdl = menuRenderModels(gdl, &g_Menus[g_MpPlayerNum].unk840, 0);
+//
+//			gSPClearGeometryMode(gdl++, G_ZBUFFER);
+//
+//			viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
+//			viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
+//					g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
+//		}
+//
+//		// Render menu items
+//		if (dialog->type != 0 || dialog->transitionfrac >= 0.0f) {
+//			s32 sumwidth; // 130
+//			s32 cury; // 12c
+//			bool prevwaslist; // 128
+//			s32 colwidth; // 124
+//			u32 sp120; // 120
+//			bool offscreen;
+//			struct menuitem *item; // 118
+//			s32 focused; // 114
+//			s32 colindex;
+//			s32 rowindex;
+//
+//			sumwidth = 0;
+//			curx = dialogleft;
+//
+//			for (i = 0; i < dialog->numcols; i++) {
+//				cury = dialogtop + 12 + dialog->scroll;
+//				prevwaslist = false;
+//
+//				sp120 = GETCOLOUR(unfocused);
+//				sp120 = (sp120 & 0xffffff00) | 0x3f;
+//
+//				colindex = dialog->colstart + i;
+//
+//				if (i != 0 && (dialog->definition->flags & MENUDIALOGFLAG_0400) == 0) {
+//					gdl = gfxDrawFilledRect(gdl, curx - 1, dialogtop + 12, curx, dialogbottom, sp120, sp120);
+//				}
+//
+//				colwidth = menu->cols[colindex].width;
+//				sumwidth += colwidth;
+//
+//				if (i == dialog->numcols - 1) {
+//					s32 v0 = (dialogleft + dialogwidth - dialogleft) - 2;
+//
+//					if (sumwidth < v0) {
+//						colwidth = (colwidth + v0) - sumwidth;
+//					}
+//				}
+//
+//				for (j = 0; j < menu->cols[colindex].numrows; j++) {
+//					focused = 0;
+//					rowindex = menu->cols[colindex].rowstart + j;
+//					item = &dialog->definition->items[menu->rows[rowindex].itemindex];
+//					itemdata = NULL;
+//					offscreen = false;
+//
+//					if (item == dialog->focuseditem) {
+//						focused = 1;
+//
+//						if (dialog->dimmed) {
+//							focused = 3;
+//						}
+//					}
+//
+//					if (menu->rows[rowindex].blockindex != -1) {
+//						itemdata = (union menuitemdata *)&menu->blocks[menu->rows[rowindex].blockindex];
+//					}
+//
+//					context.x = curx;
+//					context.y = cury;
+//					context.width = colwidth;
+//					context.height = menu->rows[rowindex].height;
+//
+//					if (context.y + context.height < dialogtop + 12) {
+//						offscreen = true;
+//					}
+//
+//					if (context.y > dialogbottom) {
+//						offscreen = true;
+//					}
+//
+//					if (context.height == 0) {
+//						offscreen = true;
+//					}
+//
+//					if (!offscreen) {
+//						context.item = item;
+//						context.data = itemdata;
+//						context.focused = focused;
+//						context.dialog = dialog;
+//
+//						if (prevwaslist) {
+//							gdl = gfxDrawFilledRect(gdl, context.x, context.y - 1, context.x + context.width, context.y, sp120, sp120);
+//							prevwaslist = false;
+//						}
+//
+//						if ((item->flags & MENUITEMFLAG_00004000) && !lightweight) {
+//							// Render a darker background behind the item
+//							s32 x1 = context.x;
+//							s32 y1 = context.y;
+//							s32 x2 = x1 + context.width;
+//							s32 y2 = y1 + context.height;
+//							u32 colour;
+//							u32 colour2;
+//
+//							colour2 = GETCOLOUR(unk28);
+//							colour = colourBlend(colour2, colour2 & 0xffffff00, 127);
+//
+//							gdl = gfxSetPrimColour(gdl, colour);
+//							gDPFillRectangleScaled(gdl++, x1, y1, x2, y2);
+//							gdl = func0f153838(gdl);
+//						}
+//
+//						if (focused) {
+//							if (item->type == MENUITEMTYPE_03
+//									|| item->type == MENUITEMTYPE_SELECTABLE
+//									|| item->type == MENUITEMTYPE_CHECKBOX
+//									|| item->type == MENUITEMTYPE_0A
+//									|| item->type == MENUITEMTYPE_SLIDER
+//									|| item->type == MENUITEMTYPE_DROPDOWN) {
+//#if VERSION >= VERSION_NTSC_1_0
+//								if (!(dialog->transitionfrac >= 0.0f && dialog->type2 == 0)
+//										&& !(dialog->transitionfrac < 0.0f && dialog->type == 0)) {
+//									func0f156024(1);
+//								}
+//#else
+//								func0f156024(1);
+//#endif
+//							}
+//
+//							// Render the horizontal line behind the focused item
+//							if (item->type == MENUITEMTYPE_SELECTABLE
+//									|| item->type == MENUITEMTYPE_CHECKBOX
+//									|| item->type == MENUITEMTYPE_0A
+//									|| item->type == MENUITEMTYPE_DROPDOWN) {
+//								s32 liney = context.y + context.height / 2 - 1;
+//								s32 x1 = context.x;
+//								s32 x3 = context.x + 8;
+//								s32 x4 = context.x + context.width / 3;
+//
+//								// Left side
+//								gdl = func0f0e2498(gdl);
+//								gdl = gfxDrawTri2(gdl, x1, liney - 1, x3 - 3, liney, sp120, sp120, 0);
+//								gdl = gfxDrawTri2(gdl, x3 - 3, liney - 1, x3, liney, sp120, 0xffffffff, 0);
+//								gdl = gfxDrawTri2(gdl, x1, liney + 1, x3 - 3, liney + 2, sp120, sp120, 0);
+//								gdl = gfxDrawTri2(gdl, x3 - 3, liney + 1, x3, liney + 2, sp120, 0xffffffff, 0);
+//								gdl = gfxDrawTri2(gdl, x3 - 2, liney, x4, liney + 1, (sp120 & 0xffffff00) | 0x2f, sp120 & 0xffffff00, 0);
+//
+//								if (item->flags & MENUITEMFLAG_00000020) {
+//									// Right side
+//									x1 = context.x + context.width;
+//									x3 = context.x + context.width - 8;
+//									x4 = context.x + context.width - context.width / 3;
+//
+//									gdl = gfxDrawTri2(gdl, x1 - 5, liney - 1, x1, liney, sp120, sp120, 0);
+//									gdl = gfxDrawTri2(gdl, x3, liney - 1, x3 + 3, liney, -1, sp120, 0);
+//									gdl = gfxDrawTri2(gdl, x3 + 3, liney + 1, x1, liney + 2, sp120, sp120, 0);
+//									gdl = gfxDrawTri2(gdl, x3, liney + 1, x3 + 3, liney + 2, -1, sp120, 0);
+//									gdl = gfxDrawTri2(gdl, x4, liney, x3 + 2, liney + 1, sp120 & 0xffffff00, (sp120 & 0xffffff00) | 0x2f, 0);
+//								}
+//							}
+//						}
+//
+//						gdl = menuitemRender(gdl, &context);
+//
+//						if (item->type == MENUITEMTYPE_LIST) {
+//							prevwaslist = true;
+//						}
+//
+//						if (focused) {
+//							func0f156024(0);
+//						}
+//					}
+//
+//					cury += menu->rows[rowindex].height;
+//				}
+//
+//				curx += menu->cols[colindex].width;
+//			}
+//
+//			// Render overlays, such as dropdown menus
+//			if (!lightweight) {
+//				gdl = gfxSetPrimColour(gdl, 0x00000000);
+//
+//				curx = dialogleft;
+//
+//				for (i = 0; i < dialog->numcols; i++) {
+//					s32 cury = dialogtop + 12 + dialog->scroll;
+//					colindex = dialog->colstart + i;
+//
+//					for (j = 0; j < menu->cols[colindex].numrows; j++) {
+//						union menuitemdata *itemdata;
+//						struct menuitem *item;
+//
+//						rowindex = menu->cols[colindex].rowstart + j;
+//						itemdata = NULL;
+//						item = &dialog->definition->items[menu->rows[rowindex].itemindex];
+//
+//						if (menu->rows[rowindex].blockindex != -1) {
+//							itemdata = (union menuitemdata *)&menu->blocks[menu->rows[rowindex].blockindex];
+//						}
+//
+//						gdl = menuitemOverlay(gdl, curx, cury, menu->cols[colindex].width, menu->rows[rowindex].height, item, dialog, itemdata);
+//
+//						cury += menu->rows[rowindex].height;
+//					}
+//
+//					curx += menu->cols[colindex].width;
+//				}
+//
+//				gdl = func0f153838(gdl);
+//			}
+//
+//			gDPSetScissor(gdl++, G_SC_NON_INTERLACE, viGetViewLeft(), viGetViewTop(),
+//					viGetViewLeft() + viGetViewWidth(), viGetViewTop() + viGetViewHeight());
+//		} else {
+//			gDPSetScissor(gdl++, G_SC_NON_INTERLACE, viGetViewLeft(), viGetViewTop(),
+//					viGetViewLeft() + viGetViewWidth(), viGetViewTop() + viGetViewHeight());
+//		}
+//
+//		// Render left/right chevrons and sibling dialog titles
+//		layer = &g_Menus[g_MpPlayerNum].layers[g_Menus[g_MpPlayerNum].depth - 1];
+//
+//		if ((dialog->type != 0 || dialog->transitionfrac >= 0.0f)
+//				&& layer->siblings[layer->cursibling] == dialog
+//				&& (layer->numsiblings >= 2)) {
+//			// Draw chevrons
+//			u32 colour1;
+//			u32 colour;
+//			u32 weight = func0f006b08(10) * 255.0f;
+//
+//			colour1 = GETCOLOUR(unk00);
+//			colour = colourBlend(0xffffffff, colour1, weight);
+//
+//			gdl = func0f0e3324(gdl, dialogleft - 5, (dialogtop + dialogbottom) / 2, 9, 1, colour, colour, func0f006b08(20));
+//			gdl = func0f0e3324(gdl, dialogleft + dialogwidth + 5, (dialogtop + dialogbottom) / 2, 9, 3, colour, colour, func0f006b08(20));
+//
+//			if (g_MenuData.root == MENUROOT_MAINMENU
+//					|| g_MenuData.root == MENUROOT_4MBFILEMGR
+//					|| g_MenuData.root == MENUROOT_TRAINING
+//					|| g_MenuData.root == MENUROOT_FILEMGR) {
+//				s32 previndex;
+//				s32 nextindex;
+//				s32 textheight; // b0
+//				s32 textwidth; // ac
+//				char *title;
+//
+//				func0f153e4c();
+//				textSetRotation90(true);
+//
+//				gdl = func0f153628(gdl);
+//
+//				// Left/previous title
+//				previndex = layer->cursibling - 1;
+//
+//				if (previndex < 0) {
+//					previndex = layer->numsiblings - 1;
+//				}
+//
+//				title = menuResolveDialogTitle(layer->siblings[previndex]->definition);
+//
+//				textMeasure(&textheight, &textwidth, title, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
+//
+//				x = dialogleft - 1;
+//				y = (dialogtop + dialogbottom) / 2 - textwidth - 3;
+//
+//				if (y < dialogtop) {
+//					y = (dialogtop + dialogbottom - textwidth) / 2;
+//					x -= 3;
+//				}
+//
+//				gdl = textRenderProjected(gdl, &y, &x, title, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffffff, dialogwidth, viGetHeight(), 0, 0);
+//
+//				// Right/next title
+//				nextindex = layer->cursibling + 1;
+//
+//				if (nextindex >= layer->numsiblings) {
+//					nextindex = 0;
+//				}
+//
+//				title = menuResolveDialogTitle(layer->siblings[nextindex]->definition);
+//
+//				textMeasure(&textheight, &textwidth, title, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
+//
+//				x = dialogleft + dialogwidth + 7;
+//				y = (dialogtop + dialogbottom) / 2 + 3;
+//
+//				if (y + textwidth > dialogbottom) {
+//					y = (dialogtop + dialogbottom - textwidth) / 2;
+//					x += 3;
+//				}
+//
+//				gdl = textRenderProjected(gdl, &y, &x, title, g_CharsHandelGothicXs, g_FontHandelGothicXs, -1, dialogwidth, viGetHeight(), 0, 0);
+//				gdl = func0f153780(gdl);
+//
+//				textSetRotation90(false);
+//			}
+//		}
+//	}
+//
+//	return gdl;
+//}
+
+const char var7f1b2668[] = "[]-[] Terminate Complete\n";
+const char var7f1b2684[] = "Enabling control %d\n";
+const char var7f1b269c[] = "NOT IN MODE MULTIINGAME!\n";
+const char var7f1b26b8[] = "Numactive now:%d\n";
+const char var7f1b26cc[] = "[]-[] SwitchMenuMode called, context %d\n";
 
 void menuGetContPads(s8 *contpadnum1, s8 *contpadnum2)
 {
@@ -13598,13 +14217,13 @@ void func0f0f85e0(struct menudialogdef *dialogdef, s32 root)
 
 u32 g_MenuCThresh = 120;
 
-Gfx *menuRenderDialog(Gfx *gdl, struct menudialog *dialog, struct menu *menu, s32 arg3)
+Gfx *menuRenderDialog(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool lightweight)
 {
 	mainOverrideVariable("cthresh", &g_MenuCThresh);
 
 	func0f153d50(dialog->unk54, dialog->unk58, g_MenuCThresh);
 
-	gdl = dialogRender(gdl, dialog, menu, arg3);
+	gdl = dialogRender(gdl, dialog, menu, lightweight);
 
 	func0f153e4c();
 

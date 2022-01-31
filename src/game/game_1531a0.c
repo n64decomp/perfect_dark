@@ -131,13 +131,21 @@ void func0f1531a8(s32 arg0)
 }
 
 GLOBAL_ASM(
-glabel func0f1531b8
+glabel textSetRotation90
 /*  f1531b8:	3c018008 */ 	lui	$at,%hi(var8007fac8)
 /*  f1531bc:	03e00008 */ 	jr	$ra
 /*  f1531c0:	ac24fac8 */ 	sw	$a0,%lo(var8007fac8)($at)
+);
+
+GLOBAL_ASM(
+glabel func0f1531c4
 /*  f1531c4:	3c018008 */ 	lui	$at,%hi(var8007facc)
 /*  f1531c8:	03e00008 */ 	jr	$ra
 /*  f1531cc:	ac24facc */ 	sw	$a0,%lo(var8007facc)($at)
+);
+
+GLOBAL_ASM(
+glabel func0f1531d0
 /*  f1531d0:	3c018008 */ 	lui	$at,%hi(var8007fad4)
 /*  f1531d4:	03e00008 */ 	jr	$ra
 /*  f1531d8:	ac24fad4 */ 	sw	$a0,%lo(var8007fad4)($at)
