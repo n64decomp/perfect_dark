@@ -34,7 +34,7 @@ void func0f153e38(u32 colour1, u32 colour2);
 void func0f153e4c(void);
 bool func0f153e58(void);
 u32 func0f153e94(s32 x, s32 y, u32 colour);
-u32 func0f1543ac(u32 arg0, u32 arg1, u32 colour);
+u32 func0f1543ac(s32 arg0, s32 arg1, u32 colour);
 Gfx *func0f154ecc(Gfx *gdl, u32 arg1, u32 arg2);
 u32 func0f154f38(void);
 u32 func0f1552d4(void);

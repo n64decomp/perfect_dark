@@ -9155,7 +9155,7 @@ glabel dialogRender
 /*  f0f5ac4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0f5ac8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f0f5acc:	02203825 */ 	or	$a3,$s1,$zero
-/*  f0f5ad0:	0fc38aa9 */ 	jal	func0f0e2aa4
+/*  f0f5ad0:	0fc38aa9 */ 	jal	menugfxDrawShimmer
 /*  f0f5ad4:	afa00020 */ 	sw	$zero,0x20($sp)
 /*  f0f5ad8:	8fae01bc */ 	lw	$t6,0x1bc($sp)
 /*  f0f5adc:	8fa601dc */ 	lw	$a2,0x1dc($sp)
@@ -9171,7 +9171,7 @@ glabel dialogRender
 /*  f0f5b04:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0f5b08:	afb50010 */ 	sw	$s5,0x10($sp)
 /*  f0f5b0c:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f0f5b10:	0fc38aa9 */ 	jal	func0f0e2aa4
+/*  f0f5b10:	0fc38aa9 */ 	jal	menugfxDrawShimmer
 /*  f0f5b14:	24c6000a */ 	addiu	$a2,$a2,0xa
 /*  f0f5b18:	8fb201e0 */ 	lw	$s2,0x1e0($sp)
 /*  f0f5b1c:	8fb001dc */ 	lw	$s0,0x1dc($sp)
@@ -11366,7 +11366,7 @@ glabel dialogRender
 /*  f0f246c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0f2470:	02002825 */ 	or	$a1,$s0,$zero
 /*  f0f2474:	02203825 */ 	or	$a3,$s1,$zero
-/*  f0f2478:	0fc37fce */ 	jal	func0f0e2aa4
+/*  f0f2478:	0fc37fce */ 	jal	menugfxDrawShimmer
 /*  f0f247c:	afa00020 */ 	sw	$zero,0x20($sp)
 /*  f0f2480:	8faf01bc */ 	lw	$t7,0x1bc($sp)
 /*  f0f2484:	8fa601dc */ 	lw	$a2,0x1dc($sp)
@@ -11382,7 +11382,7 @@ glabel dialogRender
 /*  f0f24ac:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0f24b0:	afb50010 */ 	sw	$s5,0x10($sp)
 /*  f0f24b4:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f0f24b8:	0fc37fce */ 	jal	func0f0e2aa4
+/*  f0f24b8:	0fc37fce */ 	jal	menugfxDrawShimmer
 /*  f0f24bc:	24c6000a */ 	addiu	$a2,$a2,0xa
 /*  f0f24c0:	8fb201e0 */ 	lw	$s2,0x1e0($sp)
 /*  f0f24c4:	8fb001dc */ 	lw	$s0,0x1dc($sp)
@@ -13260,8 +13260,8 @@ u32 var800714d4 = (u32)&var7f1b2664;
 //		}
 //
 //		gdl = menugfxRenderGradient(gdl, dialogleft - 2, dialogtop, dialogleft + dialogwidth + 2, dialogtop + 11, colour1, colour2, colour3);
-//		gdl = func0f0e2aa4(gdl, dialogleft - 2, dialogtop, dialogleft + dialogwidth + 2, dialogtop + 1, (colour1 & 0xff) >> 1, 1, 40, 0);
-//		gdl = func0f0e2aa4(gdl, dialogleft - 2, dialogtop + 10, dialogleft + dialogwidth + 2, dialogtop + 11, (colour1 & 0xff) >> 1, 0, 40, 1);
+//		gdl = menugfxDrawShimmer(gdl, dialogleft - 2, dialogtop, dialogleft + dialogwidth + 2, dialogtop + 1, (colour1 & 0xff) >> 1, 1, 40, 0);
+//		gdl = menugfxDrawShimmer(gdl, dialogleft - 2, dialogtop + 10, dialogleft + dialogwidth + 2, dialogtop + 11, (colour1 & 0xff) >> 1, 0, 40, 1);
 //
 //		x = dialogleft + 2;
 //		y = dialogtop + 2;
