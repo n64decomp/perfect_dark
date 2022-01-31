@@ -9496,7 +9496,7 @@ glabel dialogRender
 /*  f0f5fd4:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0f5fd8:	e7b20020 */ 	swc1	$f18,0x20($sp)
 /*  f0f5fdc:	afab0018 */ 	sw	$t3,0x18($sp)
-/*  f0f5fe0:	0fc3836b */ 	jal	func0f0e0dac
+/*  f0f5fe0:	0fc3836b */ 	jal	menugfxRenderDialogBackground
 /*  f0f5fe4:	afaf001c */ 	sw	$t7,0x1c($sp)
 /*  f0f5fe8:	10000027 */ 	b	.L0f0f6088
 /*  f0f5fec:	afa201e8 */ 	sw	$v0,0x1e8($sp)
@@ -9518,7 +9518,7 @@ glabel dialogRender
 /*  f0f6028:	02002825 */ 	or	$a1,$s0,$zero
 /*  f0f602c:	8fa401e8 */ 	lw	$a0,0x1e8($sp)
 /*  f0f6030:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f0f6034:	0fc3836b */ 	jal	func0f0e0dac
+/*  f0f6034:	0fc3836b */ 	jal	menugfxRenderDialogBackground
 /*  f0f6038:	e7a40020 */ 	swc1	$f4,0x20($sp)
 /*  f0f603c:	10000012 */ 	b	.L0f0f6088
 /*  f0f6040:	afa201e8 */ 	sw	$v0,0x1e8($sp)
@@ -9537,7 +9537,7 @@ glabel dialogRender
 /*  f0f6070:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f0f6074:	e7a60020 */ 	swc1	$f6,0x20($sp)
 /*  f0f6078:	afb90018 */ 	sw	$t9,0x18($sp)
-/*  f0f607c:	0fc3836b */ 	jal	func0f0e0dac
+/*  f0f607c:	0fc3836b */ 	jal	menugfxRenderDialogBackground
 /*  f0f6080:	afab001c */ 	sw	$t3,0x1c($sp)
 /*  f0f6084:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 .L0f0f6088:
@@ -9615,7 +9615,7 @@ glabel dialogRender
 /*  f0f6194:	02a03025 */ 	or	$a2,$s5,$zero
 /*  f0f6198:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0f619c:	afb20014 */ 	sw	$s2,0x14($sp)
-/*  f0f61a0:	0fc38bba */ 	jal	func0f0e2ee8
+/*  f0f61a0:	0fc38bba */ 	jal	menugfxRenderDialogBorderLine
 /*  f0f61a4:	afa80018 */ 	sw	$t0,0x18($sp)
 /*  f0f61a8:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 /*  f0f61ac:	8fa201ec */ 	lw	$v0,0x1ec($sp)
@@ -11709,7 +11709,7 @@ glabel dialogRender
 /*  f0f2984:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f0f2988:	e7aa0020 */ 	swc1	$f10,0x20($sp)
 /*  f0f298c:	afab0018 */ 	sw	$t3,0x18($sp)
-/*  f0f2990:	0fc3787b */ 	jal	func0f0e0dac
+/*  f0f2990:	0fc3787b */ 	jal	menugfxRenderDialogBackground
 /*  f0f2994:	afb9001c */ 	sw	$t9,0x1c($sp)
 /*  f0f2998:	10000027 */ 	beqz	$zero,.NB0f0f2a38
 /*  f0f299c:	afa201e8 */ 	sw	$v0,0x1e8($sp)
@@ -11731,7 +11731,7 @@ glabel dialogRender
 /*  f0f29d8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f0f29dc:	8fa401e8 */ 	lw	$a0,0x1e8($sp)
 /*  f0f29e0:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f0f29e4:	0fc3787b */ 	jal	func0f0e0dac
+/*  f0f29e4:	0fc3787b */ 	jal	menugfxRenderDialogBackground
 /*  f0f29e8:	e7b00020 */ 	swc1	$f16,0x20($sp)
 /*  f0f29ec:	10000012 */ 	beqz	$zero,.NB0f0f2a38
 /*  f0f29f0:	afa201e8 */ 	sw	$v0,0x1e8($sp)
@@ -11750,7 +11750,7 @@ glabel dialogRender
 /*  f0f2a20:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f0f2a24:	e7b20020 */ 	swc1	$f18,0x20($sp)
 /*  f0f2a28:	afae0018 */ 	sw	$t6,0x18($sp)
-/*  f0f2a2c:	0fc3787b */ 	jal	func0f0e0dac
+/*  f0f2a2c:	0fc3787b */ 	jal	menugfxRenderDialogBackground
 /*  f0f2a30:	afab001c */ 	sw	$t3,0x1c($sp)
 /*  f0f2a34:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 .NB0f0f2a38:
@@ -11828,7 +11828,7 @@ glabel dialogRender
 /*  f0f2b44:	02a03025 */ 	or	$a2,$s5,$zero
 /*  f0f2b48:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0f2b4c:	afb20014 */ 	sw	$s2,0x14($sp)
-/*  f0f2b50:	0fc380df */ 	jal	func0f0e2ee8
+/*  f0f2b50:	0fc380df */ 	jal	menugfxRenderDialogBorderLine
 /*  f0f2b54:	afa80018 */ 	sw	$t0,0x18($sp)
 /*  f0f2b58:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 /*  f0f2b5c:	8fa201ec */ 	lw	$v0,0x1ec($sp)
@@ -13345,16 +13345,16 @@ u32 var800714d4 = (u32)&var7f1b2664;
 //	// Draw the dialog's background and outer borders
 //	if (!lightweight) {
 //		if (dialog->state == MENUDIALOGSTATE_OPENING) {
-//			gdl = func0f0e0dac(gdl, dialogleft + 1, dialogtop + 11, dialogleft + dialogwidth - 1, dialogbottom, dialog, colour1, colour2, 1.0f);
+//			gdl = menugfxRenderDialogBackground(gdl, dialogleft + 1, dialogtop + 11, dialogleft + dialogwidth - 1, dialogbottom, dialog, colour1, colour2, 1.0f);
 //		} else if (dialog->state == MENUDIALOGSTATE_POPULATING) {
-//			gdl = func0f0e0dac(gdl, dialogleft + 1, dialogtop + 11, dialogleft + dialogwidth - 1, dialogbottom, dialog, colour1, colour2, dialog->statefrac);
+//			gdl = menugfxRenderDialogBackground(gdl, dialogleft + 1, dialogtop + 11, dialogleft + dialogwidth - 1, dialogbottom, dialog, colour1, colour2, dialog->statefrac);
 //		} else {
-//			gdl = func0f0e0dac(gdl, dialogleft + 1, dialogtop + 11, dialogleft + dialogwidth - 1, dialogbottom, dialog, colour1, colour2, -1.0f);
+//			gdl = menugfxRenderDialogBackground(gdl, dialogleft + 1, dialogtop + 11, dialogleft + dialogwidth - 1, dialogbottom, dialog, colour1, colour2, -1.0f);
 //		}
 //
 //		// No dialog has this flag, so this branch is unused
 //		if (dialog->definition->flags & MENUDIALOGFLAG_DISABLETITLEBAR) {
-//			gdl = func0f0e2ee8(gdl, dialogleft + 1, dialogtop + 11, dialogleft + dialogwidth - 1, dialogtop + 12, GETCOLOUR(unk00), GETCOLOUR(unk08));
+//			gdl = menugfxRenderDialogBorderLine(gdl, dialogleft + 1, dialogtop + 11, dialogleft + dialogwidth - 1, dialogtop + 12, GETCOLOUR(unk00), GETCOLOUR(unk08));
 //		}
 //	}
 //

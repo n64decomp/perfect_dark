@@ -5,6 +5,7 @@
 #include "game/game_0b3350.h"
 #include "game/savebuffer.h"
 #include "game/game_0e0770.h"
+#include "game/game_0f09f0.h"
 #include "game/game_1531a0.h"
 #include "game/gfxmemory.h"
 #include "game/file.h"
@@ -965,146 +966,38 @@ void func0f0e0cbc(s32 arg0, s32 arg1, s16 arg2, s16 arg3, struct gfxvtx *vertex,
 	vertex->unk0a = sp24.y * 32;
 }
 
-GLOBAL_ASM(
-glabel func0f0e0dac
-/*  f0e0dac:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0e0db0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0e0db4:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f0e0db8:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f0e0dbc:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f0e0dc0:	0fc54df7 */ 	jal	gfxSetPrimColour
-/*  f0e0dc4:	8fa50050 */ 	lw	$a1,0x50($sp)
-/*  f0e0dc8:	3c038008 */ 	lui	$v1,%hi(g_ScaleX)
-/*  f0e0dcc:	2463fac0 */ 	addiu	$v1,$v1,%lo(g_ScaleX)
-/*  f0e0dd0:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*  f0e0dd4:	8fae0044 */ 	lw	$t6,0x44($sp)
-/*  f0e0dd8:	8fab0048 */ 	lw	$t3,0x48($sp)
-/*  f0e0ddc:	3c01f600 */ 	lui	$at,0xf600
-/*  f0e0de0:	01cf0019 */ 	multu	$t6,$t7
-/*  f0e0de4:	316c03ff */ 	andi	$t4,$t3,0x3ff
-/*  f0e0de8:	000c6880 */ 	sll	$t5,$t4,0x2
-/*  f0e0dec:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f0e0df0:	0000c012 */ 	mflo	$t8
-/*  f0e0df4:	331903ff */ 	andi	$t9,$t8,0x3ff
-/*  f0e0df8:	00194b80 */ 	sll	$t1,$t9,0xe
-/*  f0e0dfc:	01215025 */ 	or	$t2,$t1,$at
-/*  f0e0e00:	014d7025 */ 	or	$t6,$t2,$t5
-/*  f0e0e04:	ac4e0000 */ 	sw	$t6,0x0($v0)
-/*  f0e0e08:	8c780000 */ 	lw	$t8,0x0($v1)
-/*  f0e0e0c:	8faf003c */ 	lw	$t7,0x3c($sp)
-/*  f0e0e10:	8fac0040 */ 	lw	$t4,0x40($sp)
-/*  f0e0e14:	01f80019 */ 	multu	$t7,$t8
-/*  f0e0e18:	318a03ff */ 	andi	$t2,$t4,0x3ff
-/*  f0e0e1c:	000a6880 */ 	sll	$t5,$t2,0x2
-/*  f0e0e20:	0000c812 */ 	mflo	$t9
-/*  f0e0e24:	332903ff */ 	andi	$t1,$t9,0x3ff
-/*  f0e0e28:	00095b80 */ 	sll	$t3,$t1,0xe
-/*  f0e0e2c:	016d7025 */ 	or	$t6,$t3,$t5
-/*  f0e0e30:	0fc54e0e */ 	jal	func0f153838
-/*  f0e0e34:	ac4e0004 */ 	sw	$t6,0x4($v0)
-/*  f0e0e38:	8fa3004c */ 	lw	$v1,0x4c($sp)
-/*  f0e0e3c:	afa20038 */ 	sw	$v0,0x38($sp)
-/*  f0e0e40:	44802000 */ 	mtc1	$zero,$f4
-/*  f0e0e44:	c4600040 */ 	lwc1	$f0,0x40($v1)
-/*  f0e0e48:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f0e0e4c:	00000000 */ 	nop
-/*  f0e0e50:	4502000b */ 	bc1fl	.L0f0e0e80
-/*  f0e0e54:	9069003d */ 	lbu	$t1,0x3d($v1)
-/*  f0e0e58:	906f003c */ 	lbu	$t7,0x3c($v1)
-/*  f0e0e5c:	3c197f1b */ 	lui	$t9,%hi(g_MenuColourPalettes)
-/*  f0e0e60:	27391fb0 */ 	addiu	$t9,$t9,%lo(g_MenuColourPalettes)
-/*  f0e0e64:	000fc100 */ 	sll	$t8,$t7,0x4
-/*  f0e0e68:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f0e0e6c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f0e0e70:	03193821 */ 	addu	$a3,$t8,$t9
-/*  f0e0e74:	1000001a */ 	b	.L0f0e0ee0
-/*  f0e0e78:	8ce80000 */ 	lw	$t0,0x0($a3)
-/*  f0e0e7c:	9069003d */ 	lbu	$t1,0x3d($v1)
-.L0f0e0e80:
-/*  f0e0e80:	2407003c */ 	addiu	$a3,$zero,0x3c
-/*  f0e0e84:	906b003c */ 	lbu	$t3,0x3c($v1)
-/*  f0e0e88:	01270019 */ 	multu	$t1,$a3
-/*  f0e0e8c:	3c027f1b */ 	lui	$v0,%hi(g_MenuColourPalettes)
-/*  f0e0e90:	24421fb0 */ 	addiu	$v0,$v0,%lo(g_MenuColourPalettes)
-/*  f0e0e94:	8c660044 */ 	lw	$a2,0x44($v1)
-/*  f0e0e98:	00006012 */ 	mflo	$t4
-/*  f0e0e9c:	004c5021 */ 	addu	$t2,$v0,$t4
-/*  f0e0ea0:	8d440000 */ 	lw	$a0,0x0($t2)
-/*  f0e0ea4:	01670019 */ 	multu	$t3,$a3
-/*  f0e0ea8:	00006812 */ 	mflo	$t5
-/*  f0e0eac:	004d7021 */ 	addu	$t6,$v0,$t5
-/*  f0e0eb0:	0fc01a40 */ 	jal	colourBlend
-/*  f0e0eb4:	8dc50000 */ 	lw	$a1,0x0($t6)
-/*  f0e0eb8:	8fa3004c */ 	lw	$v1,0x4c($sp)
-/*  f0e0ebc:	3c197f1b */ 	lui	$t9,%hi(g_MenuColourPalettes)
-/*  f0e0ec0:	27391fb0 */ 	addiu	$t9,$t9,%lo(g_MenuColourPalettes)
-/*  f0e0ec4:	906f003c */ 	lbu	$t7,0x3c($v1)
-/*  f0e0ec8:	00404025 */ 	or	$t0,$v0,$zero
-/*  f0e0ecc:	c4600040 */ 	lwc1	$f0,0x40($v1)
-/*  f0e0ed0:	000fc100 */ 	sll	$t8,$t7,0x4
-/*  f0e0ed4:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f0e0ed8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f0e0edc:	03193821 */ 	addu	$a3,$t8,$t9
-.L0f0e0ee0:
-/*  f0e0ee0:	44803000 */ 	mtc1	$zero,$f6
-/*  f0e0ee4:	3c047f1b */ 	lui	$a0,%hi(g_MenuColourPalettes+0x8)
-/*  f0e0ee8:	4606003c */ 	c.lt.s	$f0,$f6
-/*  f0e0eec:	00000000 */ 	nop
-/*  f0e0ef0:	45020004 */ 	bc1fl	.L0f0e0f04
-/*  f0e0ef4:	9069003d */ 	lbu	$t1,0x3d($v1)
-/*  f0e0ef8:	1000000d */ 	b	.L0f0e0f30
-/*  f0e0efc:	8ce30008 */ 	lw	$v1,0x8($a3)
-/*  f0e0f00:	9069003d */ 	lbu	$t1,0x3d($v1)
-.L0f0e0f04:
-/*  f0e0f04:	8c660044 */ 	lw	$a2,0x44($v1)
-/*  f0e0f08:	afa80030 */ 	sw	$t0,0x30($sp)
-/*  f0e0f0c:	00096100 */ 	sll	$t4,$t1,0x4
-/*  f0e0f10:	01896023 */ 	subu	$t4,$t4,$t1
-/*  f0e0f14:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f0e0f18:	008c2021 */ 	addu	$a0,$a0,$t4
-/*  f0e0f1c:	8c841fb8 */ 	lw	$a0,%lo(g_MenuColourPalettes+0x8)($a0)
-/*  f0e0f20:	0fc01a40 */ 	jal	colourBlend
-/*  f0e0f24:	8ce50008 */ 	lw	$a1,0x8($a3)
-/*  f0e0f28:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*  f0e0f2c:	00401825 */ 	or	$v1,$v0,$zero
-.L0f0e0f30:
-/*  f0e0f30:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f0e0f34:	8faa0048 */ 	lw	$t2,0x48($sp)
-/*  f0e0f38:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f0e0f3c:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f0e0f40:	afa30014 */ 	sw	$v1,0x14($sp)
-/*  f0e0f44:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f0e0f48:	afa3002c */ 	sw	$v1,0x2c($sp)
-/*  f0e0f4c:	afa80030 */ 	sw	$t0,0x30($sp)
-/*  f0e0f50:	24e5ffff */ 	addiu	$a1,$a3,-1
-/*  f0e0f54:	0fc38bba */ 	jal	func0f0e2ee8
-/*  f0e0f58:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f0e0f5c:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*  f0e0f60:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*  f0e0f64:	8fab0048 */ 	lw	$t3,0x48($sp)
-/*  f0e0f68:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0e0f6c:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f0e0f70:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f0e0f74:	afa80018 */ 	sw	$t0,0x18($sp)
-/*  f0e0f78:	24a70001 */ 	addiu	$a3,$a1,0x1
-/*  f0e0f7c:	0fc38bba */ 	jal	func0f0e2ee8
-/*  f0e0f80:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f0e0f84:	8fad0048 */ 	lw	$t5,0x48($sp)
-/*  f0e0f88:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*  f0e0f8c:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*  f0e0f90:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0e0f94:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*  f0e0f98:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f0e0f9c:	25a6ffff */ 	addiu	$a2,$t5,-1
-/*  f0e0fa0:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f0e0fa4:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f0e0fa8:	0fc38bba */ 	jal	func0f0e2ee8
-/*  f0e0fac:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f0e0fb0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0e0fb4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0e0fb8:	03e00008 */ 	jr	$ra
-/*  f0e0fbc:	00000000 */ 	nop
-);
+Gfx *menugfxRenderDialogBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, struct menudialog *dialog, u32 colour1, u32 colour2, f32 arg8)
+{
+	u32 stack[1];
+	u32 leftcolour;
+	u32 rightcolour;
+
+	// Render the dialog's background fill
+	gdl = gfxSetPrimColour(gdl, colour1);
+
+	gDPFillRectangleScaled(gdl++, x1, y1, x2, y2);
+
+	gdl = func0f153838(gdl);
+
+	if (dialog->transitionfrac < 0.0f) {
+		leftcolour = g_MenuColourPalettes[dialog->type].unk00;
+	} else {
+		leftcolour = colourBlend(g_MenuColourPalettes[dialog->type2].unk00, g_MenuColourPalettes[dialog->type].unk00, dialog->colourweight);
+	}
+
+	if (dialog->transitionfrac < 0.0f) {
+		rightcolour = g_MenuColourPalettes[dialog->type].unk08;
+	} else {
+		rightcolour = colourBlend(g_MenuColourPalettes[dialog->type2].unk08, g_MenuColourPalettes[dialog->type].unk08, dialog->colourweight);
+	}
+
+	// Right, left, bottom border
+	gdl = menugfxRenderDialogBorderLine(gdl, x2 - 1, y1, x2, y2, rightcolour, rightcolour);
+	gdl = menugfxRenderDialogBorderLine(gdl, x1, y1, x1 + 1, y2, leftcolour, leftcolour);
+	gdl = menugfxRenderDialogBorderLine(gdl, x1, y2 - 1, x2, y2, leftcolour, rightcolour);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f0e0fc0
@@ -3434,7 +3327,7 @@ glabel func0f0e2aa4
 /*  f0e2ee4:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-Gfx *func0f0e2ee8(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
+Gfx *menugfxRenderDialogBorderLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
 {
 	gdl = gfxDrawLine(gdl, x1, y1, x2, y2, colour1, colour2);
 	gdl = func0f0e2aa4(gdl, x1, y1, x2, y2, colour1, 0, 10, 0);
