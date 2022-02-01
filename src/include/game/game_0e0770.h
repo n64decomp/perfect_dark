@@ -25,8 +25,8 @@ Gfx *gfxDrawTessellatedRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour
 Gfx *menugfxDrawShimmer(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour, bool arg6, s32 arg7, bool lefttoright);
 Gfx *menugfxRenderDialogBorderLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2);
 Gfx *gfxDrawFilledRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2);
-Gfx *gfxDrawEquTri(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u32 colour1, u32 colour2);
-Gfx *func0f0e3324(Gfx *gdl, s32 x, s32 y, s32 arg2, s32 arg3, u32 colour1, u32 colour2, f32 arg7);
+Gfx *menugfxDrawCarouselChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u32 colour1, u32 colour2);
+Gfx *menugfxDrawDialogChevron(Gfx *gdl, s32 x, s32 y, s32 arg2, s32 arg3, u32 colour1, u32 colour2, f32 arg7);
 Gfx *gfxDrawSquare(Gfx *gdl, s32 x, s32 y, s32 size, bool fill, u32 bordercolour, u32 fillcolour);
 Gfx *menugfxRenderBgFailure(Gfx *gdl);
 Gfx *menugfxRenderBgCone(Gfx *gdl);

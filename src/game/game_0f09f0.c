@@ -10719,7 +10719,7 @@ glabel dialogRender
 /*  f0f71e8:	26a10001 */ 	addiu	$at,$s5,0x1
 /*  f0f71ec:	0001a043 */ 	sra	$s4,$at,0x1
 .L0f0f71f0:
-/*  f0f71f0:	0fc38cc9 */ 	jal	func0f0e3324
+/*  f0f71f0:	0fc38cc9 */ 	jal	menugfxDrawDialogChevron
 /*  f0f71f4:	02803025 */ 	or	$a2,$s4,$zero
 /*  f0f71f8:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 /*  f0f71fc:	0fc01ac2 */ 	jal	func0f006b08
@@ -10733,7 +10733,7 @@ glabel dialogRender
 /*  f0f721c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0f7220:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0f7224:	e7a0001c */ 	swc1	$f0,0x1c($sp)
-/*  f0f7228:	0fc38cc9 */ 	jal	func0f0e3324
+/*  f0f7228:	0fc38cc9 */ 	jal	menugfxDrawDialogChevron
 /*  f0f722c:	24a50005 */ 	addiu	$a1,$a1,0x5
 /*  f0f7230:	3c03800a */ 	lui	$v1,%hi(g_MenuData+0x4)
 /*  f0f7234:	8c6319c4 */ 	lw	$v1,%lo(g_MenuData+0x4)($v1)
@@ -12916,7 +12916,7 @@ glabel dialogRender
 /*  f0f3b60:	26a10001 */ 	addiu	$at,$s5,0x1
 /*  f0f3b64:	0001a043 */ 	sra	$s4,$at,0x1
 .NB0f0f3b68:
-/*  f0f3b68:	0fc381ee */ 	jal	func0f0e3324
+/*  f0f3b68:	0fc381ee */ 	jal	menugfxDrawDialogChevron
 /*  f0f3b6c:	02803025 */ 	or	$a2,$s4,$zero
 /*  f0f3b70:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 /*  f0f3b74:	0fc019eb */ 	jal	func0f006b08
@@ -12930,7 +12930,7 @@ glabel dialogRender
 /*  f0f3b94:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0f3b98:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0f3b9c:	e7a0001c */ 	swc1	$f0,0x1c($sp)
-/*  f0f3ba0:	0fc381ee */ 	jal	func0f0e3324
+/*  f0f3ba0:	0fc381ee */ 	jal	menugfxDrawDialogChevron
 /*  f0f3ba4:	24a50005 */ 	addiu	$a1,$a1,0x5
 /*  f0f3ba8:	3c03800a */ 	lui	$v1,0x800a
 /*  f0f3bac:	8c635eb4 */ 	lw	$v1,0x5eb4($v1)
@@ -13662,8 +13662,8 @@ u32 var800714d4 = (u32)&var7f1b2664;
 //			colour1 = GETCOLOUR(unk00);
 //			colour = colourBlend(0xffffffff, colour1, weight);
 //
-//			gdl = func0f0e3324(gdl, dialogleft - 5, (dialogtop + dialogbottom) / 2, 9, 1, colour, colour, func0f006b08(20));
-//			gdl = func0f0e3324(gdl, dialogleft + dialogwidth + 5, (dialogtop + dialogbottom) / 2, 9, 3, colour, colour, func0f006b08(20));
+//			gdl = menugfxDrawDialogChevron(gdl, dialogleft - 5, (dialogtop + dialogbottom) / 2, 9, 1, colour, colour, func0f006b08(20));
+//			gdl = menugfxDrawDialogChevron(gdl, dialogleft + dialogwidth + 5, (dialogtop + dialogbottom) / 2, 9, 3, colour, colour, func0f006b08(20));
 //
 //			if (g_MenuData.root == MENUROOT_MAINMENU
 //					|| g_MenuData.root == MENUROOT_4MBFILEMGR
