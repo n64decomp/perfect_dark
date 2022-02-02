@@ -7,6 +7,7 @@
 void menuCreateBlur(void);
 Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s32 arg2, s32 arg3);
 Gfx *menugfxRenderDialogBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, struct menudialog *dialog, u32 colour1, u32 colour2, f32 arg8);
+Gfx *menugfxRenderBgGreenHaze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2);
 u32 func0f0e1668(void);
 
 #if VERSION >= VERSION_NTSC_1_0

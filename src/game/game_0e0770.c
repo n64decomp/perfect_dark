@@ -961,7 +961,7 @@ Gfx *menugfxRenderDialogBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, str
 }
 
 GLOBAL_ASM(
-glabel func0f0e0fc0
+glabel menugfxRenderBgGreenHaze
 .late_rodata
 glabel var7f1adf08
 .word 0x40c907a9
@@ -1418,6 +1418,134 @@ glabel var7f1adf18
 /*  f0e1660:	03e00008 */ 	jr	$ra
 /*  f0e1664:	27bd0118 */ 	addiu	$sp,$sp,0x118
 );
+
+/**
+ * This unused function renders an experimental menu background.
+ *
+ * The background consists of two layers of a green hazy texture.
+ * Both layers spin slowly in opposite directions.
+ */
+// Mismatch: Regalloc, and a different approach is taken for the i == 1 checks.
+//Gfx *menugfxRenderBgGreenHaze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
+//{
+//	u32 *colours;
+//	struct gfxvtx *vertices;
+//	u32 alphas[2]; // 104
+//	s32 i;
+//	s16 t5;
+//	s16 s0;
+//	s16 s2;
+//	s16 s3;
+//	f32 f20;
+//	f32 f22;
+//	f32 f24;
+//	f32 f26;
+//	f32 f0;
+//	f32 f2;
+//	u32 stack[2];
+//	struct gfxvtx *iter;
+//
+//	colours = gfxAllocateColours(4);
+//	vertices = gfxAllocateVertices(8);
+//
+//	gDPPipeSync(gdl++);
+//	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//	gDPSetAlphaCompare(gdl++, G_AC_NONE);
+//	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
+//	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+//	gDPSetTextureFilter(gdl++, G_TF_BILERP);
+//
+//	func0f0b39c0(&gdl, &var800ab5a8[6], 2, 0, 2, 1, NULL);
+//
+//	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+//
+//	vertices[4].x = vertices[0].x = x1 * 10;
+//	vertices[4].y = vertices[0].y = y1 * 10;
+//	vertices[4].z = vertices[0].z = -10;
+//	vertices[5].x = vertices[1].x = x2 * 10;
+//	vertices[5].y = vertices[1].y = y1 * 10;
+//	vertices[5].z = vertices[1].z = -10;
+//	vertices[6].x = vertices[2].x = x2 * 10;
+//	vertices[6].y = vertices[2].y = y2 * 10;
+//	vertices[6].z = vertices[2].z = -10;
+//	vertices[7].x = vertices[3].x = x1 * 10;
+//	vertices[7].y = vertices[3].y = y2 * 10;
+//	vertices[7].z = vertices[3].z = -10;
+//
+//	for (i = 0; i < 2; i++) {
+//		f0 = var80061630;
+//		f26 = M_BADTAU * var80061630;
+//
+//		if (i == 1) {
+//			f26 = -f26;
+//		}
+//
+//		if (i == 1) {
+//			f0 += 0.5f;
+//		}
+//
+//		if (f0 > 1.0f) {
+//			f0 -= 1.0f;
+//		}
+//
+//		f2 = 1.0f - f0;
+//
+//		if (f0 < 0.2f) {
+//			alphas[i] = f0 / 0.2f * 127.0f;
+//		} else if (f0 > 0.9f) {
+//			alphas[i] = f2 / 0.1f * 127.0f;
+//		} else {
+//			alphas[i] = 0x7f;
+//		}
+//
+//		f20 = (f2 + 0.1f) * 15.0f;
+//		f22 = (x2 - x1) / 2 * f20;
+//		f24 = (y2 - y1) / 2 * f20;
+//
+//		s2 = sinf(f26) * f22;
+//		s3 = cosf(f26) * f24;
+//		s0 = cosf(f26) * f22;
+//		t5 = -sinf(f26) * f24;
+//
+//		if (1);
+//
+//		iter = &vertices[i * 4];
+//
+//		iter[0].unk08 = i * 256 - s2 - s0;
+//		iter[0].unk0a = i * 256 - s3 - t5;
+//		iter[1].unk08 = i * 256 + s2 - s0;
+//		iter[1].unk0a = i * 256 + s3 - t5;
+//		iter[2].unk08 = i * 256 + s2 + s0;
+//		iter[2].unk0a = i * 256 + s3 + t5;
+//		iter[3].unk08 = i * 256 - s2 + s0;
+//		iter[3].unk0a = i * 256 - s3 + t5;
+//	}
+//
+//	vertices[0].colour = 0;
+//	vertices[1].colour = 0;
+//	vertices[2].colour = 4;
+//	vertices[3].colour = 4;
+//	vertices[4].colour = 12;
+//	vertices[5].colour = 12;
+//	vertices[6].colour = 8;
+//	vertices[7].colour = 8;
+//
+//	colours[0] = 0x00af0000 | alphas[0];
+//	colours[1] = 0xffff0000 | alphas[0];
+//	colours[2] = 0x00af0000 | alphas[1];
+//	colours[3] = 0xffff0000 | alphas[1];
+//
+//	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 4);
+//	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 8);
+//
+//	if (var80061630 > 0.5f) {
+//		gDPTri4(gdl++, 4, 5, 6, 6, 7, 4, 0, 1, 2, 2, 3, 0);
+//	} else {
+//		gDPTri4(gdl++, 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4);
+//	}
+//
+//	return gdl;
+//}
 
 GLOBAL_ASM(
 glabel func0f0e1668
