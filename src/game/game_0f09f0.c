@@ -18781,6 +18781,8 @@ glabel var7f1b2ac8
 //	}
 //}
 
+Gfx *menugfxRenderBgFailureAlt(Gfx *gdl);
+
 /**
  * Render layer 1 of the menu background.
  *

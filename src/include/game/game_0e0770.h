@@ -31,6 +31,7 @@ Gfx *menugfxDrawDialogChevron(Gfx *gdl, s32 x, s32 y, s32 arg2, s32 arg3, u32 co
 Gfx *gfxDrawSquare(Gfx *gdl, s32 x, s32 y, s32 size, bool fill, u32 bordercolour, u32 fillcolour);
 Gfx *menugfxRenderBgFailure(Gfx *gdl);
 Gfx *menugfxRenderBgCone(Gfx *gdl);
+Gfx *menugfxRenderBgFailureAlt(Gfx *gdl);
 void func0f0e4fd4(void);
 u32 func0f0e4fe0(void);
 Gfx *menugfxRenderBgSuccess(Gfx *gdl);
