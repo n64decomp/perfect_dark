@@ -2395,129 +2395,53 @@ glabel func0f159f1c
 /*  f15a0f8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f15a0fc
-/*  f15a0fc:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f15a100:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f15a104:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f15a108:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f15a10c:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f15a110:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f15a114:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f15a118:	afa40060 */ 	sw	$a0,0x60($sp)
-/*  f15a11c:	10a00007 */ 	beqz	$a1,.L0f15a13c
-/*  f15a120:	8c460284 */ 	lw	$a2,0x284($v0)
-/*  f15a124:	8c4e02bc */ 	lw	$t6,0x2bc($v0)
-/*  f15a128:	001088c0 */ 	sll	$s1,$s0,0x3
-/*  f15a12c:	02308821 */ 	addu	$s1,$s1,$s0
-/*  f15a130:	00ae082a */ 	slt	$at,$a1,$t6
-/*  f15a134:	14200003 */ 	bnez	$at,.L0f15a144
-/*  f15a138:	00118880 */ 	sll	$s1,$s1,0x2
-.L0f15a13c:
-/*  f15a13c:	1000005c */ 	b	.L0f15a2b0
-/*  f15a140:	8fa20060 */ 	lw	$v0,0x60($sp)
-.L0f15a144:
-/*  f15a144:	3c0f800a */ 	lui	$t7,%hi(g_Rooms)
-/*  f15a148:	8def4928 */ 	lw	$t7,%lo(g_Rooms)($t7)
-/*  f15a14c:	02308823 */ 	subu	$s1,$s1,$s0
-/*  f15a150:	00118880 */ 	sll	$s1,$s1,0x2
-/*  f15a154:	01f11021 */ 	addu	$v0,$t7,$s1
-/*  f15a158:	84430002 */ 	lh	$v1,0x2($v0)
-/*  f15a15c:	3c078008 */ 	lui	$a3,%hi(var8007fc10)
-/*  f15a160:	24e7fc10 */ 	addiu	$a3,$a3,%lo(var8007fc10)
-/*  f15a164:	1460000d */ 	bnez	$v1,.L0f15a19c
-/*  f15a168:	00000000 */ 	nop
-/*  f15a16c:	84e50000 */ 	lh	$a1,0x0($a3)
-/*  f15a170:	02002025 */ 	or	$a0,$s0,$zero
-/*  f15a174:	18a00009 */ 	blez	$a1,.L0f15a19c
-/*  f15a178:	24b8ffff */ 	addiu	$t8,$a1,-1
-/*  f15a17c:	a4f80000 */ 	sh	$t8,0x0($a3)
-/*  f15a180:	0fc57716 */ 	jal	roomLoad
-/*  f15a184:	afa6003c */ 	sw	$a2,0x3c($sp)
-/*  f15a188:	3c19800a */ 	lui	$t9,%hi(g_Rooms)
-/*  f15a18c:	8f394928 */ 	lw	$t9,%lo(g_Rooms)($t9)
-/*  f15a190:	8fa6003c */ 	lw	$a2,0x3c($sp)
-/*  f15a194:	03311021 */ 	addu	$v0,$t9,$s1
-/*  f15a198:	84430002 */ 	lh	$v1,0x2($v0)
-.L0f15a19c:
-/*  f15a19c:	3c078008 */ 	lui	$a3,%hi(var8007fc10)
-/*  f15a1a0:	14600005 */ 	bnez	$v1,.L0f15a1b8
-/*  f15a1a4:	24e7fc10 */ 	addiu	$a3,$a3,%lo(var8007fc10)
-/*  f15a1a8:	84e80000 */ 	lh	$t0,0x0($a3)
-/*  f15a1ac:	2509ffff */ 	addiu	$t1,$t0,-1
-/*  f15a1b0:	a4e90000 */ 	sh	$t1,0x0($a3)
-/*  f15a1b4:	84430002 */ 	lh	$v1,0x2($v0)
-.L0f15a1b8:
-/*  f15a1b8:	14600003 */ 	bnez	$v1,.L0f15a1c8
-/*  f15a1bc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f15a1c0:	1000003b */ 	b	.L0f15a2b0
-/*  f15a1c4:	8fa20060 */ 	lw	$v0,0x60($sp)
-.L0f15a1c8:
-/*  f15a1c8:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*  f15a1cc:	0fc59b7c */ 	jal	func0f166df0
-/*  f15a1d0:	afa6003c */ 	sw	$a2,0x3c($sp)
-/*  f15a1d4:	8fa6003c */ 	lw	$a2,0x3c($sp)
-/*  f15a1d8:	c7a60048 */ 	lwc1	$f6,0x48($sp)
-/*  f15a1dc:	c7b0004c */ 	lwc1	$f16,0x4c($sp)
-/*  f15a1e0:	c4c40018 */ 	lwc1	$f4,0x18($a2)
-/*  f15a1e4:	8fa40060 */ 	lw	$a0,0x60($sp)
-/*  f15a1e8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f15a1ec:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f15a1f0:	c7a60050 */ 	lwc1	$f6,0x50($sp)
-/*  f15a1f4:	e7a80054 */ 	swc1	$f8,0x54($sp)
-/*  f15a1f8:	c4ca001c */ 	lwc1	$f10,0x1c($a2)
-/*  f15a1fc:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f15a200:	c7aa0054 */ 	lwc1	$f10,0x54($sp)
-/*  f15a204:	e7b20058 */ 	swc1	$f18,0x58($sp)
-/*  f15a208:	c4c40020 */ 	lwc1	$f4,0x20($a2)
-/*  f15a20c:	c7b20058 */ 	lwc1	$f18,0x58($sp)
-/*  f15a210:	4600540d */ 	trunc.w.s	$f16,$f10
-/*  f15a214:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f15a218:	440b8000 */ 	mfc1	$t3,$f16
-/*  f15a21c:	4600910d */ 	trunc.w.s	$f4,$f18
-/*  f15a220:	e7a8005c */ 	swc1	$f8,0x5c($sp)
-/*  f15a224:	c7a6005c */ 	lwc1	$f6,0x5c($sp)
-/*  f15a228:	a7ab0040 */ 	sh	$t3,0x40($sp)
-/*  f15a22c:	440d2000 */ 	mfc1	$t5,$f4
-/*  f15a230:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f15a234:	a7ad0042 */ 	sh	$t5,0x42($sp)
-/*  f15a238:	440f4000 */ 	mfc1	$t7,$f8
-/*  f15a23c:	0fc59b5f */ 	jal	func0f166d7c
-/*  f15a240:	a7af0044 */ 	sh	$t7,0x44($sp)
-/*  f15a244:	3c18800a */ 	lui	$t8,%hi(g_Rooms)
-/*  f15a248:	8f184928 */ 	lw	$t8,%lo(g_Rooms)($t8)
-/*  f15a24c:	27a90040 */ 	addiu	$t1,$sp,0x40
-/*  f15a250:	00402025 */ 	or	$a0,$v0,$zero
-/*  f15a254:	0311c821 */ 	addu	$t9,$t8,$s1
-/*  f15a258:	8f280014 */ 	lw	$t0,0x14($t9)
-/*  f15a25c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f15a260:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f15a264:	8d060008 */ 	lw	$a2,0x8($t0)
-/*  f15a268:	0fc567c7 */ 	jal	func0f159f1c
-/*  f15a26c:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f15a270:	3c0a800a */ 	lui	$t2,%hi(g_Rooms)
-/*  f15a274:	8d4a4928 */ 	lw	$t2,%lo(g_Rooms)($t2)
-/*  f15a278:	27ad0040 */ 	addiu	$t5,$sp,0x40
-/*  f15a27c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f15a280:	01515821 */ 	addu	$t3,$t2,$s1
-/*  f15a284:	8d6c0014 */ 	lw	$t4,0x14($t3)
-/*  f15a288:	02002825 */ 	or	$a1,$s0,$zero
-/*  f15a28c:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f15a290:	8d86000c */ 	lw	$a2,0xc($t4)
-/*  f15a294:	0fc567c7 */ 	jal	func0f159f1c
-/*  f15a298:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f15a29c:	3c0f800a */ 	lui	$t7,%hi(g_Rooms)
-/*  f15a2a0:	8def4928 */ 	lw	$t7,%lo(g_Rooms)($t7)
-/*  f15a2a4:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f15a2a8:	01f1c021 */ 	addu	$t8,$t7,$s1
-/*  f15a2ac:	a70e0002 */ 	sh	$t6,0x2($t8)
-.L0f15a2b0:
-/*  f15a2b0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f15a2b4:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f15a2b8:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f15a2bc:	03e00008 */ 	jr	$ra
-/*  f15a2c0:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
+/**
+ * Render the given room for the purpose of the FarSight or xray scanner.
+ */
+Gfx *roomRenderForEraser(Gfx *gdl, s32 roomnum)
+{
+	struct coord sp54;
+	struct coord globaldrawworldoffset;
+	s16 sp40[3];
+	struct player *player = g_Vars.currentplayer;
+
+	if (roomnum == 0 || roomnum >= g_Vars.roomcount) {
+		return gdl;
+	}
+
+	if (g_Rooms[roomnum].loaded240 == 0) {
+		if (var8007fc10 > 0) {
+			var8007fc10--;
+			roomLoad(roomnum);
+		}
+	}
+
+	if (g_Rooms[roomnum].loaded240 == 0) {
+		var8007fc10--;
+	}
+
+	if (g_Rooms[roomnum].loaded240 == 0) {
+		return gdl;
+	}
+
+	func0f166df0(roomnum, &globaldrawworldoffset);
+
+	sp54.x = player->eraserpos.x - globaldrawworldoffset.x;
+	sp54.y = player->eraserpos.y - globaldrawworldoffset.y;
+	sp54.z = player->eraserpos.z - globaldrawworldoffset.z;
+
+	sp40[0] = sp54.f[0];
+	sp40[1] = sp54.f[1];
+	sp40[2] = sp54.f[2];
+
+	gdl = func0f166d7c(gdl, roomnum);
+	gdl = func0f159f1c(gdl, roomnum, g_Rooms[roomnum].unk14->unk08, 1, sp40);
+	gdl = func0f159f1c(gdl, roomnum, g_Rooms[roomnum].unk14->unk0c, 1, sp40);
+
+	g_Rooms[roomnum].loaded240 = 1;
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f15a2c4
@@ -2674,7 +2598,7 @@ glabel func0f15a2c4
 /*  f15a4fc:	8fa40238 */ 	lw	$a0,0x238($sp)
 /*  f15a500:	566b0007 */ 	bnel	$s3,$t3,.L0f15a520
 /*  f15a504:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f15a508:	0fc5683f */ 	jal	func0f15a0fc
+/*  f15a508:	0fc5683f */ 	jal	roomRenderForEraser
 /*  f15a50c:	86050000 */ 	lh	$a1,0x0($s0)
 /*  f15a510:	3c038008 */ 	lui	$v1,%hi(var8007fc2c)
 /*  f15a514:	8c63fc2c */ 	lw	$v1,%lo(var8007fc2c)($v1)
