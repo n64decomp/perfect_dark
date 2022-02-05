@@ -43,9 +43,6 @@
 #if VERSION < VERSION_NTSC_1_0
 const char var7f1b1970nb[] = "NumLightsChecksum failed %s %d";
 const char var7f1b1990nb[] = "LightsOffsetChecksum failed %s %d";
-const char var7f1b19b4nb[] = "bg.c";
-const char var7f1b19bcnb[] = "bg.c";
-const char var7f1b19c4nb[] = "bg.c";
 #endif
 
 struct var800a4640 var800a4640;
@@ -8643,12 +8640,15 @@ void func0f15c920(void)
 #endif
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void bgTick(void)
 {
 	s32 tickmode;
 
 	g_NumActiveRooms = 0;
+
+#if VERSION < VERSION_NTSC_1_0
+	func7f155c10nb("bg.c", 5761);
+#endif
 
 	func0f15c920();
 
@@ -8661,7 +8661,12 @@ void bgTick(void)
 	if (tickmode == TICKMODE_NORMAL) {
 		var8007fc10 = 4;
 
-		if (IS8MB() && var8007fc0c) {
+#if VERSION >= VERSION_NTSC_1_0
+		if (IS8MB() && var8007fc0c)
+#else
+		if (var8007fc0c)
+#endif
+		{
 			var8007fc0c--;
 			var8007fc10 = 200;
 		}
@@ -8676,83 +8681,14 @@ void bgTick(void)
 
 	g_CamRoom = g_Vars.currentplayer->cam_room;
 
+#if VERSION >= VERSION_NTSC_1_0
 	bgTickPortals();
-}
 #else
-GLOBAL_ASM(
-glabel bgTick
-/*  f1570bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1570c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1570c4:	3c01800b */ 	lui	$at,0x800b
-/*  f1570c8:	3c047f1b */ 	lui	$a0,0x7f1b
-/*  f1570cc:	ac20936c */ 	sw	$zero,-0x6c94($at)
-/*  f1570d0:	248419b4 */ 	addiu	$a0,$a0,0x19b4
-/*  f1570d4:	0fc55704 */ 	jal	func7f155c10nb
-/*  f1570d8:	24051681 */ 	addiu	$a1,$zero,0x1681
-/*  f1570dc:	0fc55c1e */ 	jal	func0f15c920
-/*  f1570e0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1570e4:	3c03800a */ 	lui	$v1,0x800a
-/*  f1570e8:	2463e6c0 */ 	addiu	$v1,$v1,-6464
-/*  f1570ec:	8c6e0290 */ 	lw	$t6,0x290($v1)
-/*  f1570f0:	55c00006 */ 	bnezl	$t6,.NB0f15710c
-/*  f1570f4:	8c6202ac */ 	lw	$v0,0x2ac($v1)
-/*  f1570f8:	0fc563ca */ 	jal	bgTickRooms
-/*  f1570fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f157100:	3c03800a */ 	lui	$v1,0x800a
-/*  f157104:	2463e6c0 */ 	addiu	$v1,$v1,-6464
-/*  f157108:	8c6202ac */ 	lw	$v0,0x2ac($v1)
-.NB0f15710c:
-/*  f15710c:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f157110:	3c048008 */ 	lui	$a0,0x8008
-/*  f157114:	1446000e */ 	bne	$v0,$a2,.NB0f157150
-/*  f157118:	3c018008 */ 	lui	$at,0x8008
-/*  f15711c:	3c058008 */ 	lui	$a1,0x8008
-/*  f157120:	24a52470 */ 	addiu	$a1,$a1,0x2470
-/*  f157124:	84a20000 */ 	lh	$v0,0x0($a1)
-/*  f157128:	3c048008 */ 	lui	$a0,0x8008
-/*  f15712c:	24842474 */ 	addiu	$a0,$a0,0x2474
-/*  f157130:	240f0004 */ 	addiu	$t7,$zero,0x4
-/*  f157134:	1040000d */ 	beqz	$v0,.NB0f15716c
-/*  f157138:	a48f0000 */ 	sh	$t7,0x0($a0)
-/*  f15713c:	2458ffff */ 	addiu	$t8,$v0,-1
-/*  f157140:	241900c8 */ 	addiu	$t9,$zero,0xc8
-/*  f157144:	a4b80000 */ 	sh	$t8,0x0($a1)
-/*  f157148:	10000008 */ 	beqz	$zero,.NB0f15716c
-/*  f15714c:	a4990000 */ 	sh	$t9,0x0($a0)
-.NB0f157150:
-/*  f157150:	3c058008 */ 	lui	$a1,0x8008
-/*  f157154:	24a52470 */ 	addiu	$a1,$a1,0x2470
-/*  f157158:	24842474 */ 	addiu	$a0,$a0,0x2474
-/*  f15715c:	24080008 */ 	addiu	$t0,$zero,0x8
-/*  f157160:	240900c8 */ 	addiu	$t1,$zero,0xc8
-/*  f157164:	a4a80000 */ 	sh	$t0,0x0($a1)
-/*  f157168:	a4890000 */ 	sh	$t1,0x0($a0)
-.NB0f15716c:
-/*  f15716c:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f157170:	240b0064 */ 	addiu	$t3,$zero,0x64
-/*  f157174:	240516ca */ 	addiu	$a1,$zero,0x16ca
-/*  f157178:	944a0010 */ 	lhu	$t2,0x10($v0)
-/*  f15717c:	54ca0003 */ 	bnel	$a2,$t2,.NB0f15718c
-/*  f157180:	8c4c1ba0 */ 	lw	$t4,0x1ba0($v0)
-/*  f157184:	a48b0000 */ 	sh	$t3,0x0($a0)
-/*  f157188:	8c4c1ba0 */ 	lw	$t4,0x1ba0($v0)
-.NB0f15718c:
-/*  f15718c:	3c047f1b */ 	lui	$a0,0x7f1b
-/*  f157190:	248419bc */ 	addiu	$a0,$a0,0x19bc
-/*  f157194:	0fc55704 */ 	jal	func7f155c10nb
-/*  f157198:	ac2c2484 */ 	sw	$t4,0x2484($at)
-/*  f15719c:	0fc5798d */ 	jal	bgTickPortals
-/*  f1571a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1571a4:	3c047f1b */ 	lui	$a0,0x7f1b
-/*  f1571a8:	248419c4 */ 	addiu	$a0,$a0,0x19c4
-/*  f1571ac:	0fc55704 */ 	jal	func7f155c10nb
-/*  f1571b0:	240516d6 */ 	addiu	$a1,$zero,0x16d6
-/*  f1571b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1571b8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1571bc:	03e00008 */ 	jr	$ra
-/*  f1571c0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	func7f155c10nb("bg.c", 5834);
+	bgTickPortals();
+	func7f155c10nb("bg.c", 5846);
 #endif
+}
 
 Gfx *bgRender(Gfx *gdl)
 {
