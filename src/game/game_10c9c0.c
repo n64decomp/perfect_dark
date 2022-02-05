@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_0f09f0.h"
+#include "game/menu.h"
 #include "game/filemgr.h"
 #include "game/game_10c9c0.h"
 #include "game/mainmenu.h"

@@ -12,9 +12,9 @@
 #include "game/game_0b69d0.h"
 #include "game/game_1a7560.h"
 #include "game/savebuffer.h"
-#include "game/game_0e0770.h"
-#include "game/menu/items.h"
-#include "game/game_0f09f0.h"
+#include "game/menugfx.h"
+#include "game/menuitem.h"
+#include "game/menu.h"
 #include "game/filemgr.h"
 #include "game/credits.h"
 #include "game/game_1531a0.h"
@@ -4129,7 +4129,7 @@ glabel var7f1b3c40pf
 /*  f0f4e5c:	0c0055e4 */ 	jal	mtx4MultMtx4
 /*  f0f4e60:	27a50204 */ 	addiu	$a1,$sp,0x204
 .PF0f0f4e64:
-/*  f0f4e64:	0fc38a89 */ 	jal	func0f0e2348
+/*  f0f4e64:	0fc38a89 */ 	jal	menugfx0f0e2348
 /*  f0f4e68:	8fa40440 */ 	lw	$a0,0x440($sp)
 /*  f0f4e6c:	8fae0448 */ 	lw	$t6,0x448($sp)
 /*  f0f4e70:	afa20440 */ 	sw	$v0,0x440($sp)
@@ -5742,7 +5742,7 @@ glabel var7f1b2948
 /*  f0f472c:	0c005680 */ 	jal	mtx4MultMtx4
 /*  f0f4730:	27a50204 */ 	addiu	$a1,$sp,0x204
 .L0f0f4734:
-/*  f0f4734:	0fc388d2 */ 	jal	func0f0e2348
+/*  f0f4734:	0fc388d2 */ 	jal	menugfx0f0e2348
 /*  f0f4738:	8fa40440 */ 	lw	$a0,0x440($sp)
 /*  f0f473c:	8fad0448 */ 	lw	$t5,0x448($sp)
 /*  f0f4740:	afa20440 */ 	sw	$v0,0x440($sp)
@@ -7376,7 +7376,7 @@ glabel var7f1b2948
 /*  f0f12d0:	0c005a3c */ 	jal	mtx4MultMtx4
 /*  f0f12d4:	27a50208 */ 	addiu	$a1,$sp,0x208
 .NB0f0f12d8:
-/*  f0f12d8:	0fc37df7 */ 	jal	func0f0e2348
+/*  f0f12d8:	0fc37df7 */ 	jal	menugfx0f0e2348
 /*  f0f12dc:	8fa40468 */ 	lw	$a0,0x468($sp)
 /*  f0f12e0:	8faa0470 */ 	lw	$t2,0x470($sp)
 /*  f0f12e4:	afa20468 */ 	sw	$v0,0x468($sp)
@@ -8407,7 +8407,7 @@ glabel var7f1b2948
 //			mtx4MultMtx4(&sp244, &sp204, &thing->unk014);
 //		}
 //
-//		gdl = func0f0e2348(gdl);
+//		gdl = menugfx0f0e2348(gdl);
 //
 //		if (arg2 < 3) {
 //			if (arg2 != 0) {
@@ -9615,7 +9615,7 @@ glabel dialogRender
 /*  f0f6194:	02a03025 */ 	or	$a2,$s5,$zero
 /*  f0f6198:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0f619c:	afb20014 */ 	sw	$s2,0x14($sp)
-/*  f0f61a0:	0fc38bba */ 	jal	menugfxRenderDialogBorderLine
+/*  f0f61a0:	0fc38bba */ 	jal	menugfxDrawDialogBorderLine
 /*  f0f61a4:	afa80018 */ 	sw	$t0,0x18($sp)
 /*  f0f61a8:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 /*  f0f61ac:	8fa201ec */ 	lw	$v0,0x1ec($sp)
@@ -9894,7 +9894,7 @@ glabel dialogRender
 /*  f0f65a0:	8fab01d4 */ 	lw	$t3,0x1d4($sp)
 /*  f0f65a4:	afb80014 */ 	sw	$t8,0x14($sp)
 /*  f0f65a8:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f0f65ac:	0fc38bd7 */ 	jal	gfxDrawFilledRect
+/*  f0f65ac:	0fc38bd7 */ 	jal	menugfxDrawFilledRect
 /*  f0f65b0:	afab0010 */ 	sw	$t3,0x10($sp)
 /*  f0f65b4:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 .L0f0f65b8:
@@ -10021,7 +10021,7 @@ glabel dialogRender
 /*  f0f677c:	afa30014 */ 	sw	$v1,0x14($sp)
 /*  f0f6780:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f0f6784:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0f6788:	0fc38bd7 */ 	jal	gfxDrawFilledRect
+/*  f0f6788:	0fc38bd7 */ 	jal	menugfxDrawFilledRect
 /*  f0f678c:	020e3821 */ 	addu	$a3,$s0,$t6
 /*  f0f6790:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 .L0f0f6794:
@@ -10178,7 +10178,7 @@ glabel dialogRender
 /*  f0f69c4:	8fa401e8 */ 	lw	$a0,0x1e8($sp)
 /*  f0f69c8:	0040a025 */ 	or	$s4,$v0,$zero
 /*  f0f69cc:	24510008 */ 	addiu	$s1,$v0,0x8
-/*  f0f69d0:	0fc38926 */ 	jal	func0f0e2498
+/*  f0f69d0:	0fc38926 */ 	jal	menugfx0f0e2498
 /*  f0f69d4:	004ff021 */ 	addu	$s8,$v0,$t7
 /*  f0f69d8:	8fa30120 */ 	lw	$v1,0x120($sp)
 /*  f0f69dc:	2615ffff */ 	addiu	$s5,$s0,-1
@@ -10190,7 +10190,7 @@ glabel dialogRender
 /*  f0f69f4:	afb00010 */ 	sw	$s0,0x10($sp)
 /*  f0f69f8:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f0f69fc:	afa30014 */ 	sw	$v1,0x14($sp)
-/*  f0f6a00:	0fc38963 */ 	jal	gfxDrawTri2
+/*  f0f6a00:	0fc38963 */ 	jal	menugfxDrawTri2
 /*  f0f6a04:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f0f6a08:	8fac0120 */ 	lw	$t4,0x120($sp)
 /*  f0f6a0c:	240bffff */ 	addiu	$t3,$zero,-1
@@ -10201,7 +10201,7 @@ glabel dialogRender
 /*  f0f6a20:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0f6a24:	afb00010 */ 	sw	$s0,0x10($sp)
 /*  f0f6a28:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0f6a2c:	0fc38963 */ 	jal	gfxDrawTri2
+/*  f0f6a2c:	0fc38963 */ 	jal	menugfxDrawTri2
 /*  f0f6a30:	afac0014 */ 	sw	$t4,0x14($sp)
 /*  f0f6a34:	8fa30120 */ 	lw	$v1,0x120($sp)
 /*  f0f6a38:	26130001 */ 	addiu	$s3,$s0,0x1
@@ -10213,7 +10213,7 @@ glabel dialogRender
 /*  f0f6a50:	02403825 */ 	or	$a3,$s2,$zero
 /*  f0f6a54:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f0f6a58:	afa30014 */ 	sw	$v1,0x14($sp)
-/*  f0f6a5c:	0fc38963 */ 	jal	gfxDrawTri2
+/*  f0f6a5c:	0fc38963 */ 	jal	menugfxDrawTri2
 /*  f0f6a60:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f0f6a64:	8fb90120 */ 	lw	$t9,0x120($sp)
 /*  f0f6a68:	240dffff */ 	addiu	$t5,$zero,-1
@@ -10224,7 +10224,7 @@ glabel dialogRender
 /*  f0f6a7c:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0f6a80:	afb60010 */ 	sw	$s6,0x10($sp)
 /*  f0f6a84:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0f6a88:	0fc38963 */ 	jal	gfxDrawTri2
+/*  f0f6a88:	0fc38963 */ 	jal	menugfxDrawTri2
 /*  f0f6a8c:	afb90014 */ 	sw	$t9,0x14($sp)
 /*  f0f6a90:	8faf0078 */ 	lw	$t7,0x78($sp)
 /*  f0f6a94:	00402025 */ 	or	$a0,$v0,$zero
@@ -10234,7 +10234,7 @@ glabel dialogRender
 /*  f0f6aa4:	afb30010 */ 	sw	$s3,0x10($sp)
 /*  f0f6aa8:	afb70018 */ 	sw	$s7,0x18($sp)
 /*  f0f6aac:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0f6ab0:	0fc38963 */ 	jal	gfxDrawTri2
+/*  f0f6ab0:	0fc38963 */ 	jal	menugfxDrawTri2
 /*  f0f6ab4:	afaf0014 */ 	sw	$t7,0x14($sp)
 /*  f0f6ab8:	8fb80118 */ 	lw	$t8,0x118($sp)
 /*  f0f6abc:	afa201e8 */ 	sw	$v0,0x1e8($sp)
@@ -10257,7 +10257,7 @@ glabel dialogRender
 /*  f0f6b00:	afb00010 */ 	sw	$s0,0x10($sp)
 /*  f0f6b04:	afa80014 */ 	sw	$t0,0x14($sp)
 /*  f0f6b08:	afa80018 */ 	sw	$t0,0x18($sp)
-/*  f0f6b0c:	0fc38963 */ 	jal	gfxDrawTri2
+/*  f0f6b0c:	0fc38963 */ 	jal	menugfxDrawTri2
 /*  f0f6b10:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f0f6b14:	8fad0120 */ 	lw	$t5,0x120($sp)
 /*  f0f6b18:	26320003 */ 	addiu	$s2,$s1,0x3
@@ -10269,7 +10269,7 @@ glabel dialogRender
 /*  f0f6b30:	02a03025 */ 	or	$a2,$s5,$zero
 /*  f0f6b34:	afb00010 */ 	sw	$s0,0x10($sp)
 /*  f0f6b38:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0f6b3c:	0fc38963 */ 	jal	gfxDrawTri2
+/*  f0f6b3c:	0fc38963 */ 	jal	menugfxDrawTri2
 /*  f0f6b40:	afad0018 */ 	sw	$t5,0x18($sp)
 /*  f0f6b44:	8faf0120 */ 	lw	$t7,0x120($sp)
 /*  f0f6b48:	00402025 */ 	or	$a0,$v0,$zero
@@ -10279,7 +10279,7 @@ glabel dialogRender
 /*  f0f6b58:	afb60010 */ 	sw	$s6,0x10($sp)
 /*  f0f6b5c:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f0f6b60:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f0f6b64:	0fc38963 */ 	jal	gfxDrawTri2
+/*  f0f6b64:	0fc38963 */ 	jal	menugfxDrawTri2
 /*  f0f6b68:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f0f6b6c:	8fae0120 */ 	lw	$t6,0x120($sp)
 /*  f0f6b70:	2418ffff */ 	addiu	$t8,$zero,-1
@@ -10290,7 +10290,7 @@ glabel dialogRender
 /*  f0f6b84:	02403825 */ 	or	$a3,$s2,$zero
 /*  f0f6b88:	afb60010 */ 	sw	$s6,0x10($sp)
 /*  f0f6b8c:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0f6b90:	0fc38963 */ 	jal	gfxDrawTri2
+/*  f0f6b90:	0fc38963 */ 	jal	menugfxDrawTri2
 /*  f0f6b94:	afae0018 */ 	sw	$t6,0x18($sp)
 /*  f0f6b98:	8fac0078 */ 	lw	$t4,0x78($sp)
 /*  f0f6b9c:	00402025 */ 	or	$a0,$v0,$zero
@@ -10300,7 +10300,7 @@ glabel dialogRender
 /*  f0f6bac:	afb30010 */ 	sw	$s3,0x10($sp)
 /*  f0f6bb0:	afb70014 */ 	sw	$s7,0x14($sp)
 /*  f0f6bb4:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0f6bb8:	0fc38963 */ 	jal	gfxDrawTri2
+/*  f0f6bb8:	0fc38963 */ 	jal	menugfxDrawTri2
 /*  f0f6bbc:	afac0018 */ 	sw	$t4,0x18($sp)
 /*  f0f6bc0:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 .L0f0f6bc4:
@@ -11828,7 +11828,7 @@ glabel dialogRender
 /*  f0f2b44:	02a03025 */ 	or	$a2,$s5,$zero
 /*  f0f2b48:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0f2b4c:	afb20014 */ 	sw	$s2,0x14($sp)
-/*  f0f2b50:	0fc380df */ 	jal	menugfxRenderDialogBorderLine
+/*  f0f2b50:	0fc380df */ 	jal	menugfxDrawDialogBorderLine
 /*  f0f2b54:	afa80018 */ 	sw	$t0,0x18($sp)
 /*  f0f2b58:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 /*  f0f2b5c:	8fa201ec */ 	lw	$v0,0x1ec($sp)
@@ -12110,7 +12110,7 @@ glabel dialogRender
 /*  f0f2f5c:	8fab01d4 */ 	lw	$t3,0x1d4($sp)
 /*  f0f2f60:	afad0014 */ 	sw	$t5,0x14($sp)
 /*  f0f2f64:	afad0018 */ 	sw	$t5,0x18($sp)
-/*  f0f2f68:	0fc380fc */ 	jal	gfxDrawFilledRect
+/*  f0f2f68:	0fc380fc */ 	jal	menugfxDrawFilledRect
 /*  f0f2f6c:	afab0010 */ 	sw	$t3,0x10($sp)
 /*  f0f2f70:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 .NB0f0f2f74:
@@ -12236,7 +12236,7 @@ glabel dialogRender
 /*  f0f3134:	afa30014 */ 	sw	$v1,0x14($sp)
 /*  f0f3138:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f0f313c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0f3140:	0fc380fc */ 	jal	gfxDrawFilledRect
+/*  f0f3140:	0fc380fc */ 	jal	menugfxDrawFilledRect
 /*  f0f3144:	020f3821 */ 	addu	$a3,$s0,$t7
 /*  f0f3148:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 .NB0f0f314c:
@@ -12375,7 +12375,7 @@ glabel dialogRender
 /*  f0f333c:	8fa401e8 */ 	lw	$a0,0x1e8($sp)
 /*  f0f3340:	0040a025 */ 	or	$s4,$v0,$zero
 /*  f0f3344:	24510008 */ 	addiu	$s1,$v0,0x8
-/*  f0f3348:	0fc37e4b */ 	jal	func0f0e2498
+/*  f0f3348:	0fc37e4b */ 	jal	menugfx0f0e2498
 /*  f0f334c:	0059f021 */ 	addu	$s8,$v0,$t9
 /*  f0f3350:	8fa30120 */ 	lw	$v1,0x120($sp)
 /*  f0f3354:	2615ffff */ 	addiu	$s5,$s0,-1
@@ -12387,7 +12387,7 @@ glabel dialogRender
 /*  f0f336c:	afb00010 */ 	sw	$s0,0x10($sp)
 /*  f0f3370:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f0f3374:	afa30014 */ 	sw	$v1,0x14($sp)
-/*  f0f3378:	0fc37e88 */ 	jal	gfxDrawTri2
+/*  f0f3378:	0fc37e88 */ 	jal	menugfxDrawTri2
 /*  f0f337c:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f0f3380:	8fac0120 */ 	lw	$t4,0x120($sp)
 /*  f0f3384:	240effff */ 	addiu	$t6,$zero,-1
@@ -12398,7 +12398,7 @@ glabel dialogRender
 /*  f0f3398:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0f339c:	afb00010 */ 	sw	$s0,0x10($sp)
 /*  f0f33a0:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0f33a4:	0fc37e88 */ 	jal	gfxDrawTri2
+/*  f0f33a4:	0fc37e88 */ 	jal	menugfxDrawTri2
 /*  f0f33a8:	afac0014 */ 	sw	$t4,0x14($sp)
 /*  f0f33ac:	8fa30120 */ 	lw	$v1,0x120($sp)
 /*  f0f33b0:	26130001 */ 	addiu	$s3,$s0,0x1
@@ -12410,7 +12410,7 @@ glabel dialogRender
 /*  f0f33c8:	02403825 */ 	or	$a3,$s2,$zero
 /*  f0f33cc:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f0f33d0:	afa30014 */ 	sw	$v1,0x14($sp)
-/*  f0f33d4:	0fc37e88 */ 	jal	gfxDrawTri2
+/*  f0f33d4:	0fc37e88 */ 	jal	menugfxDrawTri2
 /*  f0f33d8:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f0f33dc:	8fab0120 */ 	lw	$t3,0x120($sp)
 /*  f0f33e0:	240fffff */ 	addiu	$t7,$zero,-1
@@ -12421,7 +12421,7 @@ glabel dialogRender
 /*  f0f33f4:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0f33f8:	afb60010 */ 	sw	$s6,0x10($sp)
 /*  f0f33fc:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0f3400:	0fc37e88 */ 	jal	gfxDrawTri2
+/*  f0f3400:	0fc37e88 */ 	jal	menugfxDrawTri2
 /*  f0f3404:	afab0014 */ 	sw	$t3,0x14($sp)
 /*  f0f3408:	8fb90078 */ 	lw	$t9,0x78($sp)
 /*  f0f340c:	00402025 */ 	or	$a0,$v0,$zero
@@ -12431,7 +12431,7 @@ glabel dialogRender
 /*  f0f341c:	afb30010 */ 	sw	$s3,0x10($sp)
 /*  f0f3420:	afb70018 */ 	sw	$s7,0x18($sp)
 /*  f0f3424:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0f3428:	0fc37e88 */ 	jal	gfxDrawTri2
+/*  f0f3428:	0fc37e88 */ 	jal	menugfxDrawTri2
 /*  f0f342c:	afb90014 */ 	sw	$t9,0x14($sp)
 /*  f0f3430:	8fad0118 */ 	lw	$t5,0x118($sp)
 /*  f0f3434:	afa201e8 */ 	sw	$v0,0x1e8($sp)
@@ -12454,7 +12454,7 @@ glabel dialogRender
 /*  f0f3478:	afb00010 */ 	sw	$s0,0x10($sp)
 /*  f0f347c:	afa80014 */ 	sw	$t0,0x14($sp)
 /*  f0f3480:	afa80018 */ 	sw	$t0,0x18($sp)
-/*  f0f3484:	0fc37e88 */ 	jal	gfxDrawTri2
+/*  f0f3484:	0fc37e88 */ 	jal	menugfxDrawTri2
 /*  f0f3488:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f0f348c:	8faf0120 */ 	lw	$t7,0x120($sp)
 /*  f0f3490:	26320003 */ 	addiu	$s2,$s1,0x3
@@ -12466,7 +12466,7 @@ glabel dialogRender
 /*  f0f34a8:	02a03025 */ 	or	$a2,$s5,$zero
 /*  f0f34ac:	afb00010 */ 	sw	$s0,0x10($sp)
 /*  f0f34b0:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0f34b4:	0fc37e88 */ 	jal	gfxDrawTri2
+/*  f0f34b4:	0fc37e88 */ 	jal	menugfxDrawTri2
 /*  f0f34b8:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f0f34bc:	8fb90120 */ 	lw	$t9,0x120($sp)
 /*  f0f34c0:	00402025 */ 	or	$a0,$v0,$zero
@@ -12476,7 +12476,7 @@ glabel dialogRender
 /*  f0f34d0:	afb60010 */ 	sw	$s6,0x10($sp)
 /*  f0f34d4:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f0f34d8:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f0f34dc:	0fc37e88 */ 	jal	gfxDrawTri2
+/*  f0f34dc:	0fc37e88 */ 	jal	menugfxDrawTri2
 /*  f0f34e0:	afb90018 */ 	sw	$t9,0x18($sp)
 /*  f0f34e4:	8fb80120 */ 	lw	$t8,0x120($sp)
 /*  f0f34e8:	240dffff */ 	addiu	$t5,$zero,-1
@@ -12487,7 +12487,7 @@ glabel dialogRender
 /*  f0f34fc:	02403825 */ 	or	$a3,$s2,$zero
 /*  f0f3500:	afb60010 */ 	sw	$s6,0x10($sp)
 /*  f0f3504:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0f3508:	0fc37e88 */ 	jal	gfxDrawTri2
+/*  f0f3508:	0fc37e88 */ 	jal	menugfxDrawTri2
 /*  f0f350c:	afb80018 */ 	sw	$t8,0x18($sp)
 /*  f0f3510:	8fac0078 */ 	lw	$t4,0x78($sp)
 /*  f0f3514:	00402025 */ 	or	$a0,$v0,$zero
@@ -12497,7 +12497,7 @@ glabel dialogRender
 /*  f0f3524:	afb30010 */ 	sw	$s3,0x10($sp)
 /*  f0f3528:	afb70014 */ 	sw	$s7,0x14($sp)
 /*  f0f352c:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0f3530:	0fc37e88 */ 	jal	gfxDrawTri2
+/*  f0f3530:	0fc37e88 */ 	jal	menugfxDrawTri2
 /*  f0f3534:	afac0018 */ 	sw	$t4,0x18($sp)
 /*  f0f3538:	afa201e8 */ 	sw	$v0,0x1e8($sp)
 .NB0f0f353c:
@@ -13354,7 +13354,7 @@ u32 var800714d4 = (u32)&var7f1b2664;
 //
 //		// No dialog has this flag, so this branch is unused
 //		if (dialog->definition->flags & MENUDIALOGFLAG_DISABLETITLEBAR) {
-//			gdl = menugfxRenderDialogBorderLine(gdl, dialogleft + 1, dialogtop + 11, dialogleft + dialogwidth - 1, dialogtop + 12, GETCOLOUR(unk00), GETCOLOUR(unk08));
+//			gdl = menugfxDrawDialogBorderLine(gdl, dialogleft + 1, dialogtop + 11, dialogleft + dialogwidth - 1, dialogtop + 12, GETCOLOUR(unk00), GETCOLOUR(unk08));
 //		}
 //	}
 //
@@ -13463,7 +13463,7 @@ u32 var800714d4 = (u32)&var7f1b2664;
 //				colindex = dialog->colstart + i;
 //
 //				if (i != 0 && (dialog->definition->flags & MENUDIALOGFLAG_0400) == 0) {
-//					gdl = gfxDrawFilledRect(gdl, curx - 1, dialogtop + 12, curx, dialogbottom, sp120, sp120);
+//					gdl = menugfxDrawFilledRect(gdl, curx - 1, dialogtop + 12, curx, dialogbottom, sp120, sp120);
 //				}
 //
 //				colwidth = menu->cols[colindex].width;
@@ -13520,7 +13520,7 @@ u32 var800714d4 = (u32)&var7f1b2664;
 //						context.dialog = dialog;
 //
 //						if (prevwaslist) {
-//							gdl = gfxDrawFilledRect(gdl, context.x, context.y - 1, context.x + context.width, context.y, sp120, sp120);
+//							gdl = menugfxDrawFilledRect(gdl, context.x, context.y - 1, context.x + context.width, context.y, sp120, sp120);
 //							prevwaslist = false;
 //						}
 //
@@ -13569,12 +13569,12 @@ u32 var800714d4 = (u32)&var7f1b2664;
 //								s32 x4 = context.x + context.width / 3;
 //
 //								// Left side
-//								gdl = func0f0e2498(gdl);
-//								gdl = gfxDrawTri2(gdl, x1, liney - 1, x3 - 3, liney, sp120, sp120, 0);
-//								gdl = gfxDrawTri2(gdl, x3 - 3, liney - 1, x3, liney, sp120, 0xffffffff, 0);
-//								gdl = gfxDrawTri2(gdl, x1, liney + 1, x3 - 3, liney + 2, sp120, sp120, 0);
-//								gdl = gfxDrawTri2(gdl, x3 - 3, liney + 1, x3, liney + 2, sp120, 0xffffffff, 0);
-//								gdl = gfxDrawTri2(gdl, x3 - 2, liney, x4, liney + 1, (sp120 & 0xffffff00) | 0x2f, sp120 & 0xffffff00, 0);
+//								gdl = menugfx0f0e2498(gdl);
+//								gdl = menugfxDrawTri2(gdl, x1, liney - 1, x3 - 3, liney, sp120, sp120, 0);
+//								gdl = menugfxDrawTri2(gdl, x3 - 3, liney - 1, x3, liney, sp120, 0xffffffff, 0);
+//								gdl = menugfxDrawTri2(gdl, x1, liney + 1, x3 - 3, liney + 2, sp120, sp120, 0);
+//								gdl = menugfxDrawTri2(gdl, x3 - 3, liney + 1, x3, liney + 2, sp120, 0xffffffff, 0);
+//								gdl = menugfxDrawTri2(gdl, x3 - 2, liney, x4, liney + 1, (sp120 & 0xffffff00) | 0x2f, sp120 & 0xffffff00, 0);
 //
 //								if (item->flags & MENUITEMFLAG_00000020) {
 //									// Right side
@@ -13582,11 +13582,11 @@ u32 var800714d4 = (u32)&var7f1b2664;
 //									x3 = context.x + context.width - 8;
 //									x4 = context.x + context.width - context.width / 3;
 //
-//									gdl = gfxDrawTri2(gdl, x1 - 5, liney - 1, x1, liney, sp120, sp120, 0);
-//									gdl = gfxDrawTri2(gdl, x3, liney - 1, x3 + 3, liney, -1, sp120, 0);
-//									gdl = gfxDrawTri2(gdl, x3 + 3, liney + 1, x1, liney + 2, sp120, sp120, 0);
-//									gdl = gfxDrawTri2(gdl, x3, liney + 1, x3 + 3, liney + 2, -1, sp120, 0);
-//									gdl = gfxDrawTri2(gdl, x4, liney, x3 + 2, liney + 1, sp120 & 0xffffff00, (sp120 & 0xffffff00) | 0x2f, 0);
+//									gdl = menugfxDrawTri2(gdl, x1 - 5, liney - 1, x1, liney, sp120, sp120, 0);
+//									gdl = menugfxDrawTri2(gdl, x3, liney - 1, x3 + 3, liney, -1, sp120, 0);
+//									gdl = menugfxDrawTri2(gdl, x3 + 3, liney + 1, x1, liney + 2, sp120, sp120, 0);
+//									gdl = menugfxDrawTri2(gdl, x3, liney + 1, x3 + 3, liney + 2, -1, sp120, 0);
+//									gdl = menugfxDrawTri2(gdl, x4, liney, x3 + 2, liney + 1, sp120 & 0xffffff00, (sp120 & 0xffffff00) | 0x2f, 0);
 //								}
 //							}
 //						}

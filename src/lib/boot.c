@@ -4,7 +4,7 @@
 #include "lib/reset.h"
 #include "lib/segments.h"
 #include "constants.h"
-#include "game/game_0e0770.h"
+#include "game/menugfx.h"
 #include "bss.h"
 #include "lib/args.h"
 #include "lib/rzip.h"

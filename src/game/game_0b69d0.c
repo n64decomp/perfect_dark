@@ -25,7 +25,7 @@
 #include "game/game_1a7560.h"
 #include "game/healthbar.h"
 #include "game/hudmsg.h"
-#include "game/game_0f09f0.h"
+#include "game/menu.h"
 #include "game/mainmenu.h"
 #include "game/filemgr.h"
 #include "game/inventory/inventory.h"

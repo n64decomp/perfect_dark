@@ -1,5 +1,5 @@
-#ifndef IN_GAME_MENU_ITEMS_H
-#define IN_GAME_MENU_ITEMS_H
+#ifndef IN_GAME_MENUITEM_H
+#define IN_GAME_MENUITEM_H
 #include <ultra64.h>
 #include "data.h"
 #include "types.h"

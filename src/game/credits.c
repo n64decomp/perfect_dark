@@ -5,8 +5,8 @@
 #include "game/game_0b3350.h"
 #include "game/game_0b69d0.h"
 #include "game/savebuffer.h"
-#include "game/game_0e0770.h"
-#include "game/game_0f09f0.h"
+#include "game/menugfx.h"
+#include "game/menu.h"
 #include "game/credits.h"
 #include "game/game_1531a0.h"
 #include "game/file.h"
@@ -197,7 +197,7 @@ Gfx *creditsRenderBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 
 	f32 c;
 	f32 d;
 
-	gdl = func0f0e2498(gdl);
+	gdl = menugfx0f0e2498(gdl);
 
 	gDPPipeSync(gdl++);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);

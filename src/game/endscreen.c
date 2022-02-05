@@ -9,8 +9,8 @@
 #include "game/game_0b0fd0.h"
 #include "game/game_0b69d0.h"
 #include "game/savebuffer.h"
-#include "game/game_0e0770.h"
-#include "game/game_0f09f0.h"
+#include "game/menugfx.h"
+#include "game/menu.h"
 #include "game/mainmenu.h"
 #include "game/filemgr.h"
 #include "game/endscreen.h"
@@ -411,17 +411,17 @@ glabel func0f10d730
 
 void func0f10d770(void)
 {
-	func0f0f8bb4(&g_Menus[0].unk840, bgunCalculateGunMemCapacity() - func0f0e4fe0(), 0);
-	g_Menus[0].unk840.unk004 = bgunGetGunMem() + func0f0e4fe0();
+	func0f0f8bb4(&g_Menus[0].unk840, bgunCalculateGunMemCapacity() - menugfx0f0e4fe0(), 0);
+	g_Menus[0].unk840.unk004 = bgunGetGunMem() + menugfx0f0e4fe0();
 
-	func0f0f8bb4(&g_Menus[1].unk840, bgunCalculateGunMemCapacity() - func0f0e4fe0(), 0);
-	g_Menus[1].unk840.unk004 = bgunGetGunMem() + func0f0e4fe0();
+	func0f0f8bb4(&g_Menus[1].unk840, bgunCalculateGunMemCapacity() - menugfx0f0e4fe0(), 0);
+	g_Menus[1].unk840.unk004 = bgunGetGunMem() + menugfx0f0e4fe0();
 
-	func0f0f8bb4(&g_Menus[2].unk840, bgunCalculateGunMemCapacity() - func0f0e4fe0(), 0);
-	g_Menus[2].unk840.unk004 = bgunGetGunMem() + func0f0e4fe0();
+	func0f0f8bb4(&g_Menus[2].unk840, bgunCalculateGunMemCapacity() - menugfx0f0e4fe0(), 0);
+	g_Menus[2].unk840.unk004 = bgunGetGunMem() + menugfx0f0e4fe0();
 
-	func0f0f8bb4(&g_Menus[3].unk840, bgunCalculateGunMemCapacity() - func0f0e4fe0(), 0);
-	g_Menus[3].unk840.unk004 = bgunGetGunMem() + func0f0e4fe0();
+	func0f0f8bb4(&g_Menus[3].unk840, bgunCalculateGunMemCapacity() - menugfx0f0e4fe0(), 0);
+	g_Menus[3].unk840.unk004 = bgunGetGunMem() + menugfx0f0e4fe0();
 }
 
 #if VERSION >= VERSION_NTSC_1_0

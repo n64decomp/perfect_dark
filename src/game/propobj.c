@@ -30,7 +30,7 @@
 #include "game/game_0b69d0.h"
 #include "game/game_0c33f0.h"
 #include "game/hudmsg.h"
-#include "game/game_0f09f0.h"
+#include "game/menu.h"
 #include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/game_1291b0.h"

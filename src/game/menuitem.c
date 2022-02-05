@@ -4,9 +4,9 @@
 #include "game/game_006900.h"
 #include "game/game_095320.h"
 #include "game/game_0b3350.h"
-#include "game/game_0e0770.h"
-#include "game/menu/items.h"
-#include "game/game_0f09f0.h"
+#include "game/menugfx.h"
+#include "game/menuitem.h"
+#include "game/menu.h"
 #include "game/mainmenu.h"
 #include "game/game_1531a0.h"
 #include "game/lv.h"
@@ -854,7 +854,7 @@ glabel menuitemListRender
 /*  f0e6694:	00ca6821 */ 	addu	$t5,$a2,$t2
 /*  f0e6698:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f0e669c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0e66a0:	0fc3859a */ 	jal	func0f0e1668
+/*  f0e66a0:	0fc3859a */ 	jal	menugfx0f0e1668
 /*  f0e66a4:	020b3821 */ 	addu	$a3,$s0,$t3
 /*  f0e66a8:	86300000 */ 	lh	$s0,0x0($s1)
 /*  f0e66ac:	86260002 */ 	lh	$a2,0x2($s1)
@@ -1750,7 +1750,7 @@ glabel menuitemListRender
 /*  f0e73a4:	afae0018 */ 	sw	$t6,0x18($sp)
 /*  f0e73a8:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e73ac:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f0e73b0:	0fc38dec */ 	jal	gfxDrawSquare
+/*  f0e73b0:	0fc38dec */ 	jal	menugfxDrawCheckbox
 /*  f0e73b4:	24070006 */ 	addiu	$a3,$zero,0x6
 /*  f0e73b8:	00409025 */ 	or	$s2,$v0,$zero
 .L0f0e73bc:
@@ -2047,7 +2047,7 @@ glabel menuitemListRender
 /*  f0e39f0:	00cfc021 */ 	addu	$t8,$a2,$t7
 /*  f0e39f4:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0e39f8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0e39fc:	0fc37aaa */ 	jal	func0f0e1668
+/*  f0e39fc:	0fc37aaa */ 	jal	menugfx0f0e1668
 /*  f0e3a00:	020e3821 */ 	addu	$a3,$s0,$t6
 /*  f0e3a04:	86300000 */ 	lh	$s0,0x0($s1)
 /*  f0e3a08:	86260002 */ 	lh	$a2,0x2($s1)
@@ -2817,7 +2817,7 @@ glabel menuitemListRender
 /*  f0e4538:	afac0018 */ 	sw	$t4,0x18($sp)
 /*  f0e453c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e4540:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f0e4544:	0fc38311 */ 	jal	gfxDrawSquare
+/*  f0e4544:	0fc38311 */ 	jal	menugfxDrawCheckbox
 /*  f0e4548:	24070006 */ 	addiu	$a3,$zero,0x6
 /*  f0e454c:	0040a025 */ 	or	$s4,$v0,$zero
 .NB0f0e4550:
@@ -4212,7 +4212,7 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 
 	// Render horizontal grid lines
 	for (row = 0; row < 6; row++) {
-		gdl = gfxDrawFilledRect(gdl, context->x + 4, context->y + row * 11 + 13,
+		gdl = menugfxDrawFilledRect(gdl, context->x + 4, context->y + row * 11 + 13,
 				context->x + 124, context->y + row * 11 + 14, 0x00ffff7f, 0x00ffff7f);
 	}
 
@@ -4224,7 +4224,7 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 			rowspan = 4;
 		}
 
-		gdl = gfxDrawFilledRect(gdl, context->x + col * 12 + 4, context->y + 13,
+		gdl = menugfxDrawFilledRect(gdl, context->x + col * 12 + 4, context->y + 13,
 				context->x + col * 12 + 5, context->y + rowspan * 11 + 14, 0x00ffff7f, 0x00ffff7f);
 	}
 
@@ -4380,10 +4380,10 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 			}
 		}
 
-		gdl = gfxDrawLine(gdl, x1, y1, x2, y1 + 1, -1, -1); // top
-		gdl = gfxDrawLine(gdl, x2, y1, x2 + 1, y2 + 1, -1, -1); // right
-		gdl = gfxDrawLine(gdl, x1, y2, x2, y2 + 1, -1, -1); // bottom
-		gdl = gfxDrawLine(gdl, x1, y1, x1 + 1, y2 + 1, -1, -1); // left
+		gdl = menugfxDrawLine(gdl, x1, y1, x2, y1 + 1, -1, -1); // top
+		gdl = menugfxDrawLine(gdl, x2, y1, x2 + 1, y2 + 1, -1, -1); // right
+		gdl = menugfxDrawLine(gdl, x1, y2, x2, y2 + 1, -1, -1); // bottom
+		gdl = menugfxDrawLine(gdl, x1, y1, x1 + 1, y2 + 1, -1, -1); // left
 	}
 
 	return gdl;
@@ -4639,7 +4639,7 @@ Gfx *menuitemSeparatorRender(Gfx *gdl, struct menurendercontext *context)
 
 	colour = (colour & 0xffffff00) | 0x3f;
 
-	return gfxDrawFilledRect(gdl,
+	return menugfxDrawFilledRect(gdl,
 			context->x, context->y + 2, context->x + context->width, context->y + 3,
 			colour, colour);
 }
@@ -5021,7 +5021,7 @@ glabel menuitemObjectiveRender
 /*  f0e9e3c:	0000c012 */ 	mflo	$t8
 /*  f0e9e40:	0158c821 */ 	addu	$t9,$t2,$t8
 /*  f0e9e44:	27290013 */ 	addiu	$t1,$t9,0x13
-/*  f0e9e48:	0fc38926 */ 	jal	func0f0e2498
+/*  f0e9e48:	0fc38926 */ 	jal	menugfx0f0e2498
 /*  f0e9e4c:	afa90098 */ 	sw	$t1,0x98($sp)
 /*  f0e9e50:	8fa3012c */ 	lw	$v1,0x12c($sp)
 /*  f0e9e54:	8fa600b0 */ 	lw	$a2,0xb0($sp)
@@ -5036,7 +5036,7 @@ glabel menuitemObjectiveRender
 /*  f0e9e78:	afac0054 */ 	sw	$t4,0x54($sp)
 /*  f0e9e7c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0e9e80:	87a50142 */ 	lh	$a1,0x142($sp)
-/*  f0e9e84:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9e84:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9e88:	8fa700b4 */ 	lw	$a3,0xb4($sp)
 /*  f0e9e8c:	8fa500b4 */ 	lw	$a1,0xb4($sp)
 /*  f0e9e90:	8fab00ac */ 	lw	$t3,0xac($sp)
@@ -5046,7 +5046,7 @@ glabel menuitemObjectiveRender
 /*  f0e9ea0:	8fa600b0 */ 	lw	$a2,0xb0($sp)
 /*  f0e9ea4:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e9ea8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e9eac:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9eac:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9eb0:	afab0010 */ 	sw	$t3,0x10($sp)
 /*  f0e9eb4:	8fa600ac */ 	lw	$a2,0xac($sp)
 /*  f0e9eb8:	8fa7005c */ 	lw	$a3,0x5c($sp)
@@ -5059,7 +5059,7 @@ glabel menuitemObjectiveRender
 /*  f0e9ed4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0e9ed8:	87a50142 */ 	lh	$a1,0x142($sp)
 /*  f0e9edc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e9ee0:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9ee0:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9ee4:	afa30014 */ 	sw	$v1,0x14($sp)
 /*  f0e9ee8:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*  f0e9eec:	8fa80048 */ 	lw	$t0,0x48($sp)
@@ -5070,7 +5070,7 @@ glabel menuitemObjectiveRender
 /*  f0e9f00:	8fa7004c */ 	lw	$a3,0x4c($sp)
 /*  f0e9f04:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e9f08:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e9f0c:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9f0c:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9f10:	afa80010 */ 	sw	$t0,0x10($sp)
 /*  f0e9f14:	8fa300a8 */ 	lw	$v1,0xa8($sp)
 /*  f0e9f18:	8fa50058 */ 	lw	$a1,0x58($sp)
@@ -5081,7 +5081,7 @@ glabel menuitemObjectiveRender
 /*  f0e9f2c:	8fa600ac */ 	lw	$a2,0xac($sp)
 /*  f0e9f30:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e9f34:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e9f38:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9f38:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9f3c:	24a70001 */ 	addiu	$a3,$a1,0x1
 /*  f0e9f40:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*  f0e9f44:	8fae00a8 */ 	lw	$t6,0xa8($sp)
@@ -5092,7 +5092,7 @@ glabel menuitemObjectiveRender
 /*  f0e9f58:	8fa70054 */ 	lw	$a3,0x54($sp)
 /*  f0e9f5c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e9f60:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e9f64:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9f64:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9f68:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f0e9f6c:	8fa600a8 */ 	lw	$a2,0xa8($sp)
 /*  f0e9f70:	8fa7005c */ 	lw	$a3,0x5c($sp)
@@ -5104,7 +5104,7 @@ glabel menuitemObjectiveRender
 /*  f0e9f88:	afa30048 */ 	sw	$v1,0x48($sp)
 /*  f0e9f8c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0e9f90:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0e9f94:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9f94:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9f98:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0e9f9c:	8fa300a8 */ 	lw	$v1,0xa8($sp)
 /*  f0e9fa0:	00402025 */ 	or	$a0,$v0,$zero
@@ -5115,7 +5115,7 @@ glabel menuitemObjectiveRender
 /*  f0e9fb4:	8fa6004c */ 	lw	$a2,0x4c($sp)
 /*  f0e9fb8:	8fa70054 */ 	lw	$a3,0x54($sp)
 /*  f0e9fbc:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0e9fc0:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9fc0:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9fc4:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0e9fc8:	8fad0048 */ 	lw	$t5,0x48($sp)
 /*  f0e9fcc:	00402025 */ 	or	$a0,$v0,$zero
@@ -5124,7 +5124,7 @@ glabel menuitemObjectiveRender
 /*  f0e9fd8:	8fa70098 */ 	lw	$a3,0x98($sp)
 /*  f0e9fdc:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e9fe0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e9fe4:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9fe4:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9fe8:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f0e9fec:	8faf0044 */ 	lw	$t7,0x44($sp)
 /*  f0e9ff0:	00402025 */ 	or	$a0,$v0,$zero
@@ -5133,7 +5133,7 @@ glabel menuitemObjectiveRender
 /*  f0e9ffc:	8fa70098 */ 	lw	$a3,0x98($sp)
 /*  f0ea000:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0ea004:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ea008:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea008:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea00c:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f0ea010:	8fa300c8 */ 	lw	$v1,0xc8($sp)
 /*  f0ea014:	8fa50098 */ 	lw	$a1,0x98($sp)
@@ -5149,7 +5149,7 @@ glabel menuitemObjectiveRender
 /*  f0ea03c:	afa9005c */ 	sw	$t1,0x5c($sp)
 /*  f0ea040:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0ea044:	8fa600a8 */ 	lw	$a2,0xa8($sp)
-/*  f0ea048:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea048:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea04c:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0ea050:	8fa7009c */ 	lw	$a3,0x9c($sp)
 /*  f0ea054:	8faa004c */ 	lw	$t2,0x4c($sp)
@@ -5160,7 +5160,7 @@ glabel menuitemObjectiveRender
 /*  f0ea068:	8fa60048 */ 	lw	$a2,0x48($sp)
 /*  f0ea06c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0ea070:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ea074:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea074:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea078:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*  f0ea07c:	8fab005c */ 	lw	$t3,0x5c($sp)
 /*  f0ea080:	8fac004c */ 	lw	$t4,0x4c($sp)
@@ -5171,7 +5171,7 @@ glabel menuitemObjectiveRender
 /*  f0ea094:	8fa60048 */ 	lw	$a2,0x48($sp)
 /*  f0ea098:	8fa7009c */ 	lw	$a3,0x9c($sp)
 /*  f0ea09c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0ea0a0:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea0a0:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea0a4:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f0ea0a8:	10000074 */ 	b	.L0f0ea27c
 /*  f0ea0ac:	afa20130 */ 	sw	$v0,0x130($sp)
@@ -5201,7 +5201,7 @@ glabel menuitemObjectiveRender
 /*  f0ea108:	25f90019 */ 	addiu	$t9,$t7,0x19
 /*  f0ea10c:	0fc54de0 */ 	jal	func0f153780
 /*  f0ea110:	afb9006c */ 	sw	$t9,0x6c($sp)
-/*  f0ea114:	0fc38926 */ 	jal	func0f0e2498
+/*  f0ea114:	0fc38926 */ 	jal	menugfx0f0e2498
 /*  f0ea118:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0ea11c:	8fa3012c */ 	lw	$v1,0x12c($sp)
 /*  f0ea120:	8fa6007c */ 	lw	$a2,0x7c($sp)
@@ -5216,7 +5216,7 @@ glabel menuitemObjectiveRender
 /*  f0ea144:	afa90054 */ 	sw	$t1,0x54($sp)
 /*  f0ea148:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0ea14c:	87a50142 */ 	lh	$a1,0x142($sp)
-/*  f0ea150:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea150:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea154:	8fa70080 */ 	lw	$a3,0x80($sp)
 /*  f0ea158:	8fa50080 */ 	lw	$a1,0x80($sp)
 /*  f0ea15c:	8fac0078 */ 	lw	$t4,0x78($sp)
@@ -5226,7 +5226,7 @@ glabel menuitemObjectiveRender
 /*  f0ea16c:	8fa6007c */ 	lw	$a2,0x7c($sp)
 /*  f0ea170:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0ea174:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ea178:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea178:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea17c:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f0ea180:	87ab0142 */ 	lh	$t3,0x142($sp)
 /*  f0ea184:	8fa60078 */ 	lw	$a2,0x78($sp)
@@ -5248,7 +5248,7 @@ glabel menuitemObjectiveRender
 .L0f0ea1c4:
 /*  f0ea1c4:	25a7ffff */ 	addiu	$a3,$t5,-1
 /*  f0ea1c8:	afa70058 */ 	sw	$a3,0x58($sp)
-/*  f0ea1cc:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea1cc:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea1d0:	afa30014 */ 	sw	$v1,0x14($sp)
 /*  f0ea1d4:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*  f0ea1d8:	8fa8004c */ 	lw	$t0,0x4c($sp)
@@ -5259,7 +5259,7 @@ glabel menuitemObjectiveRender
 /*  f0ea1ec:	8fa7005c */ 	lw	$a3,0x5c($sp)
 /*  f0ea1f0:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0ea1f4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ea1f8:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea1f8:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea1fc:	afa80010 */ 	sw	$t0,0x10($sp)
 /*  f0ea200:	8faf0074 */ 	lw	$t7,0x74($sp)
 /*  f0ea204:	8fa50058 */ 	lw	$a1,0x58($sp)
@@ -5269,7 +5269,7 @@ glabel menuitemObjectiveRender
 /*  f0ea214:	8fa60078 */ 	lw	$a2,0x78($sp)
 /*  f0ea218:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0ea21c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ea220:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea220:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea224:	24a70001 */ 	addiu	$a3,$a1,0x1
 /*  f0ea228:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*  f0ea22c:	8fb80074 */ 	lw	$t8,0x74($sp)
@@ -5280,7 +5280,7 @@ glabel menuitemObjectiveRender
 /*  f0ea240:	8fa70054 */ 	lw	$a3,0x54($sp)
 /*  f0ea244:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0ea248:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ea24c:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea24c:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea250:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0ea254:	8fa60074 */ 	lw	$a2,0x74($sp)
 /*  f0ea258:	8fa50044 */ 	lw	$a1,0x44($sp)
@@ -5289,7 +5289,7 @@ glabel menuitemObjectiveRender
 /*  f0ea264:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*  f0ea268:	8fa7006c */ 	lw	$a3,0x6c($sp)
 /*  f0ea26c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0ea270:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea270:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea274:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0ea278:	afa20130 */ 	sw	$v0,0x130($sp)
 .L0f0ea27c:
@@ -5674,7 +5674,7 @@ glabel menuitemObjectiveRender
 /*  f0e9e3c:	0000c012 */ 	mflo	$t8
 /*  f0e9e40:	0158c821 */ 	addu	$t9,$t2,$t8
 /*  f0e9e44:	27290013 */ 	addiu	$t1,$t9,0x13
-/*  f0e9e48:	0fc38926 */ 	jal	func0f0e2498
+/*  f0e9e48:	0fc38926 */ 	jal	menugfx0f0e2498
 /*  f0e9e4c:	afa90098 */ 	sw	$t1,0x98($sp)
 /*  f0e9e50:	8fa3012c */ 	lw	$v1,0x12c($sp)
 /*  f0e9e54:	8fa600b0 */ 	lw	$a2,0xb0($sp)
@@ -5689,7 +5689,7 @@ glabel menuitemObjectiveRender
 /*  f0e9e78:	afac0054 */ 	sw	$t4,0x54($sp)
 /*  f0e9e7c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0e9e80:	87a50142 */ 	lh	$a1,0x142($sp)
-/*  f0e9e84:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9e84:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9e88:	8fa700b4 */ 	lw	$a3,0xb4($sp)
 /*  f0e9e8c:	8fa500b4 */ 	lw	$a1,0xb4($sp)
 /*  f0e9e90:	8fab00ac */ 	lw	$t3,0xac($sp)
@@ -5699,7 +5699,7 @@ glabel menuitemObjectiveRender
 /*  f0e9ea0:	8fa600b0 */ 	lw	$a2,0xb0($sp)
 /*  f0e9ea4:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e9ea8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e9eac:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9eac:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9eb0:	afab0010 */ 	sw	$t3,0x10($sp)
 /*  f0e9eb4:	8fa600ac */ 	lw	$a2,0xac($sp)
 /*  f0e9eb8:	8fa7005c */ 	lw	$a3,0x5c($sp)
@@ -5712,7 +5712,7 @@ glabel menuitemObjectiveRender
 /*  f0e9ed4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0e9ed8:	87a50142 */ 	lh	$a1,0x142($sp)
 /*  f0e9edc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e9ee0:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9ee0:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9ee4:	afa30014 */ 	sw	$v1,0x14($sp)
 /*  f0e9ee8:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*  f0e9eec:	8fa80048 */ 	lw	$t0,0x48($sp)
@@ -5723,7 +5723,7 @@ glabel menuitemObjectiveRender
 /*  f0e9f00:	8fa7004c */ 	lw	$a3,0x4c($sp)
 /*  f0e9f04:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e9f08:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e9f0c:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9f0c:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9f10:	afa80010 */ 	sw	$t0,0x10($sp)
 /*  f0e9f14:	8fa300a8 */ 	lw	$v1,0xa8($sp)
 /*  f0e9f18:	8fa50058 */ 	lw	$a1,0x58($sp)
@@ -5734,7 +5734,7 @@ glabel menuitemObjectiveRender
 /*  f0e9f2c:	8fa600ac */ 	lw	$a2,0xac($sp)
 /*  f0e9f30:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e9f34:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e9f38:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9f38:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9f3c:	24a70001 */ 	addiu	$a3,$a1,0x1
 /*  f0e9f40:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*  f0e9f44:	8fae00a8 */ 	lw	$t6,0xa8($sp)
@@ -5745,7 +5745,7 @@ glabel menuitemObjectiveRender
 /*  f0e9f58:	8fa70054 */ 	lw	$a3,0x54($sp)
 /*  f0e9f5c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e9f60:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e9f64:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9f64:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9f68:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f0e9f6c:	8fa600a8 */ 	lw	$a2,0xa8($sp)
 /*  f0e9f70:	8fa7005c */ 	lw	$a3,0x5c($sp)
@@ -5757,7 +5757,7 @@ glabel menuitemObjectiveRender
 /*  f0e9f88:	afa30048 */ 	sw	$v1,0x48($sp)
 /*  f0e9f8c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0e9f90:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0e9f94:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9f94:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9f98:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0e9f9c:	8fa300a8 */ 	lw	$v1,0xa8($sp)
 /*  f0e9fa0:	00402025 */ 	or	$a0,$v0,$zero
@@ -5768,7 +5768,7 @@ glabel menuitemObjectiveRender
 /*  f0e9fb4:	8fa6004c */ 	lw	$a2,0x4c($sp)
 /*  f0e9fb8:	8fa70054 */ 	lw	$a3,0x54($sp)
 /*  f0e9fbc:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0e9fc0:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9fc0:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9fc4:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0e9fc8:	8fad0048 */ 	lw	$t5,0x48($sp)
 /*  f0e9fcc:	00402025 */ 	or	$a0,$v0,$zero
@@ -5777,7 +5777,7 @@ glabel menuitemObjectiveRender
 /*  f0e9fd8:	8fa70098 */ 	lw	$a3,0x98($sp)
 /*  f0e9fdc:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e9fe0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e9fe4:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0e9fe4:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e9fe8:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f0e9fec:	8faf0044 */ 	lw	$t7,0x44($sp)
 /*  f0e9ff0:	00402025 */ 	or	$a0,$v0,$zero
@@ -5786,7 +5786,7 @@ glabel menuitemObjectiveRender
 /*  f0e9ffc:	8fa70098 */ 	lw	$a3,0x98($sp)
 /*  f0ea000:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0ea004:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ea008:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea008:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea00c:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f0ea010:	8fa300c8 */ 	lw	$v1,0xc8($sp)
 /*  f0ea014:	8fa50098 */ 	lw	$a1,0x98($sp)
@@ -5802,7 +5802,7 @@ glabel menuitemObjectiveRender
 /*  f0ea03c:	afa9005c */ 	sw	$t1,0x5c($sp)
 /*  f0ea040:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0ea044:	8fa600a8 */ 	lw	$a2,0xa8($sp)
-/*  f0ea048:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea048:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea04c:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0ea050:	8fa7009c */ 	lw	$a3,0x9c($sp)
 /*  f0ea054:	8faa004c */ 	lw	$t2,0x4c($sp)
@@ -5813,7 +5813,7 @@ glabel menuitemObjectiveRender
 /*  f0ea068:	8fa60048 */ 	lw	$a2,0x48($sp)
 /*  f0ea06c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0ea070:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ea074:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea074:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea078:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*  f0ea07c:	8fab005c */ 	lw	$t3,0x5c($sp)
 /*  f0ea080:	8fac004c */ 	lw	$t4,0x4c($sp)
@@ -5824,7 +5824,7 @@ glabel menuitemObjectiveRender
 /*  f0ea094:	8fa60048 */ 	lw	$a2,0x48($sp)
 /*  f0ea098:	8fa7009c */ 	lw	$a3,0x9c($sp)
 /*  f0ea09c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0ea0a0:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea0a0:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea0a4:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f0ea0a8:	10000074 */ 	b	.L0f0ea27c
 /*  f0ea0ac:	afa20130 */ 	sw	$v0,0x130($sp)
@@ -5854,7 +5854,7 @@ glabel menuitemObjectiveRender
 /*  f0ea108:	25f90019 */ 	addiu	$t9,$t7,0x19
 /*  f0ea10c:	0fc54de0 */ 	jal	func0f153780
 /*  f0ea110:	afb9006c */ 	sw	$t9,0x6c($sp)
-/*  f0ea114:	0fc38926 */ 	jal	func0f0e2498
+/*  f0ea114:	0fc38926 */ 	jal	menugfx0f0e2498
 /*  f0ea118:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0ea11c:	8fa3012c */ 	lw	$v1,0x12c($sp)
 /*  f0ea120:	8fa6007c */ 	lw	$a2,0x7c($sp)
@@ -5869,7 +5869,7 @@ glabel menuitemObjectiveRender
 /*  f0ea144:	afa90054 */ 	sw	$t1,0x54($sp)
 /*  f0ea148:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0ea14c:	87a50142 */ 	lh	$a1,0x142($sp)
-/*  f0ea150:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea150:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea154:	8fa70080 */ 	lw	$a3,0x80($sp)
 /*  f0ea158:	8fa50080 */ 	lw	$a1,0x80($sp)
 /*  f0ea15c:	8fac0078 */ 	lw	$t4,0x78($sp)
@@ -5879,7 +5879,7 @@ glabel menuitemObjectiveRender
 /*  f0ea16c:	8fa6007c */ 	lw	$a2,0x7c($sp)
 /*  f0ea170:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0ea174:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ea178:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea178:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea17c:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f0ea180:	87ab0142 */ 	lh	$t3,0x142($sp)
 /*  f0ea184:	8fa60078 */ 	lw	$a2,0x78($sp)
@@ -5901,7 +5901,7 @@ glabel menuitemObjectiveRender
 .L0f0ea1c4:
 /*  f0ea1c4:	25a7ffff */ 	addiu	$a3,$t5,-1
 /*  f0ea1c8:	afa70058 */ 	sw	$a3,0x58($sp)
-/*  f0ea1cc:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea1cc:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea1d0:	afa30014 */ 	sw	$v1,0x14($sp)
 /*  f0ea1d4:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*  f0ea1d8:	8fa8004c */ 	lw	$t0,0x4c($sp)
@@ -5912,7 +5912,7 @@ glabel menuitemObjectiveRender
 /*  f0ea1ec:	8fa7005c */ 	lw	$a3,0x5c($sp)
 /*  f0ea1f0:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0ea1f4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ea1f8:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea1f8:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea1fc:	afa80010 */ 	sw	$t0,0x10($sp)
 /*  f0ea200:	8faf0074 */ 	lw	$t7,0x74($sp)
 /*  f0ea204:	8fa50058 */ 	lw	$a1,0x58($sp)
@@ -5922,7 +5922,7 @@ glabel menuitemObjectiveRender
 /*  f0ea214:	8fa60078 */ 	lw	$a2,0x78($sp)
 /*  f0ea218:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0ea21c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ea220:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea220:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea224:	24a70001 */ 	addiu	$a3,$a1,0x1
 /*  f0ea228:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*  f0ea22c:	8fb80074 */ 	lw	$t8,0x74($sp)
@@ -5933,7 +5933,7 @@ glabel menuitemObjectiveRender
 /*  f0ea240:	8fa70054 */ 	lw	$a3,0x54($sp)
 /*  f0ea244:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0ea248:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ea24c:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea24c:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea250:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0ea254:	8fa60074 */ 	lw	$a2,0x74($sp)
 /*  f0ea258:	8fa50044 */ 	lw	$a1,0x44($sp)
@@ -5942,7 +5942,7 @@ glabel menuitemObjectiveRender
 /*  f0ea264:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*  f0ea268:	8fa7006c */ 	lw	$a3,0x6c($sp)
 /*  f0ea26c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0ea270:	0fc389d1 */ 	jal	gfxDrawTessellatedRect
+/*  f0ea270:	0fc389d1 */ 	jal	menugfxDrawTessellatedRect
 /*  f0ea274:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0ea278:	afa20130 */ 	sw	$v0,0x130($sp)
 .L0f0ea27c:
@@ -6327,7 +6327,7 @@ glabel menuitemObjectiveRender
 /*  f0e6fb0:	0000c012 */ 	mflo	$t8
 /*  f0e6fb4:	0158c821 */ 	addu	$t9,$t2,$t8
 /*  f0e6fb8:	27290013 */ 	addiu	$t1,$t9,0x13
-/*  f0e6fbc:	0fc37e4b */ 	jal	func0f0e2498
+/*  f0e6fbc:	0fc37e4b */ 	jal	menugfx0f0e2498
 /*  f0e6fc0:	afa90098 */ 	sw	$t1,0x98($sp)
 /*  f0e6fc4:	8fa3012c */ 	lw	$v1,0x12c($sp)
 /*  f0e6fc8:	8fa600b0 */ 	lw	$a2,0xb0($sp)
@@ -6342,7 +6342,7 @@ glabel menuitemObjectiveRender
 /*  f0e6fec:	afac0054 */ 	sw	$t4,0x54($sp)
 /*  f0e6ff0:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0e6ff4:	87a50142 */ 	lh	$a1,0x142($sp)
-/*  f0e6ff8:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e6ff8:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e6ffc:	8fa700b4 */ 	lw	$a3,0xb4($sp)
 /*  f0e7000:	8fa500b4 */ 	lw	$a1,0xb4($sp)
 /*  f0e7004:	8fab00ac */ 	lw	$t3,0xac($sp)
@@ -6352,7 +6352,7 @@ glabel menuitemObjectiveRender
 /*  f0e7014:	8fa600b0 */ 	lw	$a2,0xb0($sp)
 /*  f0e7018:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e701c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e7020:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e7020:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e7024:	afab0010 */ 	sw	$t3,0x10($sp)
 /*  f0e7028:	8fa600ac */ 	lw	$a2,0xac($sp)
 /*  f0e702c:	8fa7005c */ 	lw	$a3,0x5c($sp)
@@ -6365,7 +6365,7 @@ glabel menuitemObjectiveRender
 /*  f0e7048:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0e704c:	87a50142 */ 	lh	$a1,0x142($sp)
 /*  f0e7050:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e7054:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e7054:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e7058:	afa30014 */ 	sw	$v1,0x14($sp)
 /*  f0e705c:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*  f0e7060:	8fa80048 */ 	lw	$t0,0x48($sp)
@@ -6376,7 +6376,7 @@ glabel menuitemObjectiveRender
 /*  f0e7074:	8fa7004c */ 	lw	$a3,0x4c($sp)
 /*  f0e7078:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e707c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e7080:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e7080:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e7084:	afa80010 */ 	sw	$t0,0x10($sp)
 /*  f0e7088:	8fa300a8 */ 	lw	$v1,0xa8($sp)
 /*  f0e708c:	8fa50058 */ 	lw	$a1,0x58($sp)
@@ -6387,7 +6387,7 @@ glabel menuitemObjectiveRender
 /*  f0e70a0:	8fa600ac */ 	lw	$a2,0xac($sp)
 /*  f0e70a4:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e70a8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e70ac:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e70ac:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e70b0:	24a70001 */ 	addiu	$a3,$a1,0x1
 /*  f0e70b4:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*  f0e70b8:	8fae00a8 */ 	lw	$t6,0xa8($sp)
@@ -6398,7 +6398,7 @@ glabel menuitemObjectiveRender
 /*  f0e70cc:	8fa70054 */ 	lw	$a3,0x54($sp)
 /*  f0e70d0:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e70d4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e70d8:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e70d8:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e70dc:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f0e70e0:	8fa600a8 */ 	lw	$a2,0xa8($sp)
 /*  f0e70e4:	8fa7005c */ 	lw	$a3,0x5c($sp)
@@ -6410,7 +6410,7 @@ glabel menuitemObjectiveRender
 /*  f0e70fc:	afa30048 */ 	sw	$v1,0x48($sp)
 /*  f0e7100:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0e7104:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0e7108:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e7108:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e710c:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0e7110:	8fa300a8 */ 	lw	$v1,0xa8($sp)
 /*  f0e7114:	00402025 */ 	or	$a0,$v0,$zero
@@ -6421,7 +6421,7 @@ glabel menuitemObjectiveRender
 /*  f0e7128:	8fa6004c */ 	lw	$a2,0x4c($sp)
 /*  f0e712c:	8fa70054 */ 	lw	$a3,0x54($sp)
 /*  f0e7130:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0e7134:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e7134:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e7138:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0e713c:	8fad0048 */ 	lw	$t5,0x48($sp)
 /*  f0e7140:	00402025 */ 	or	$a0,$v0,$zero
@@ -6430,7 +6430,7 @@ glabel menuitemObjectiveRender
 /*  f0e714c:	8fa70098 */ 	lw	$a3,0x98($sp)
 /*  f0e7150:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e7154:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e7158:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e7158:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e715c:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f0e7160:	8faf0044 */ 	lw	$t7,0x44($sp)
 /*  f0e7164:	00402025 */ 	or	$a0,$v0,$zero
@@ -6439,7 +6439,7 @@ glabel menuitemObjectiveRender
 /*  f0e7170:	8fa70098 */ 	lw	$a3,0x98($sp)
 /*  f0e7174:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e7178:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e717c:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e717c:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e7180:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f0e7184:	8fa300c8 */ 	lw	$v1,0xc8($sp)
 /*  f0e7188:	8fa50098 */ 	lw	$a1,0x98($sp)
@@ -6455,7 +6455,7 @@ glabel menuitemObjectiveRender
 /*  f0e71b0:	afa9005c */ 	sw	$t1,0x5c($sp)
 /*  f0e71b4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0e71b8:	8fa600a8 */ 	lw	$a2,0xa8($sp)
-/*  f0e71bc:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e71bc:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e71c0:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0e71c4:	8fa7009c */ 	lw	$a3,0x9c($sp)
 /*  f0e71c8:	8faa004c */ 	lw	$t2,0x4c($sp)
@@ -6466,7 +6466,7 @@ glabel menuitemObjectiveRender
 /*  f0e71dc:	8fa60048 */ 	lw	$a2,0x48($sp)
 /*  f0e71e0:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e71e4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e71e8:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e71e8:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e71ec:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*  f0e71f0:	8fab005c */ 	lw	$t3,0x5c($sp)
 /*  f0e71f4:	8fac004c */ 	lw	$t4,0x4c($sp)
@@ -6477,7 +6477,7 @@ glabel menuitemObjectiveRender
 /*  f0e7208:	8fa60048 */ 	lw	$a2,0x48($sp)
 /*  f0e720c:	8fa7009c */ 	lw	$a3,0x9c($sp)
 /*  f0e7210:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0e7214:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e7214:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e7218:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f0e721c:	10000074 */ 	beqz	$zero,.NB0f0e73f0
 /*  f0e7220:	afa20130 */ 	sw	$v0,0x130($sp)
@@ -6507,7 +6507,7 @@ glabel menuitemObjectiveRender
 /*  f0e727c:	25f90019 */ 	addiu	$t9,$t7,0x19
 /*  f0e7280:	0fc537a0 */ 	jal	func0f153780
 /*  f0e7284:	afb9006c */ 	sw	$t9,0x6c($sp)
-/*  f0e7288:	0fc37e4b */ 	jal	func0f0e2498
+/*  f0e7288:	0fc37e4b */ 	jal	menugfx0f0e2498
 /*  f0e728c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0e7290:	8fa3012c */ 	lw	$v1,0x12c($sp)
 /*  f0e7294:	8fa6007c */ 	lw	$a2,0x7c($sp)
@@ -6522,7 +6522,7 @@ glabel menuitemObjectiveRender
 /*  f0e72b8:	afa90054 */ 	sw	$t1,0x54($sp)
 /*  f0e72bc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0e72c0:	87a50142 */ 	lh	$a1,0x142($sp)
-/*  f0e72c4:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e72c4:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e72c8:	8fa70080 */ 	lw	$a3,0x80($sp)
 /*  f0e72cc:	8fa50080 */ 	lw	$a1,0x80($sp)
 /*  f0e72d0:	8fac0078 */ 	lw	$t4,0x78($sp)
@@ -6532,7 +6532,7 @@ glabel menuitemObjectiveRender
 /*  f0e72e0:	8fa6007c */ 	lw	$a2,0x7c($sp)
 /*  f0e72e4:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e72e8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e72ec:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e72ec:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e72f0:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f0e72f4:	87ab0142 */ 	lh	$t3,0x142($sp)
 /*  f0e72f8:	8fa60078 */ 	lw	$a2,0x78($sp)
@@ -6554,7 +6554,7 @@ glabel menuitemObjectiveRender
 .NB0f0e7338:
 /*  f0e7338:	25a7ffff */ 	addiu	$a3,$t5,-1
 /*  f0e733c:	afa70058 */ 	sw	$a3,0x58($sp)
-/*  f0e7340:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e7340:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e7344:	afa30014 */ 	sw	$v1,0x14($sp)
 /*  f0e7348:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*  f0e734c:	8fa8004c */ 	lw	$t0,0x4c($sp)
@@ -6565,7 +6565,7 @@ glabel menuitemObjectiveRender
 /*  f0e7360:	8fa7005c */ 	lw	$a3,0x5c($sp)
 /*  f0e7364:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e7368:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e736c:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e736c:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e7370:	afa80010 */ 	sw	$t0,0x10($sp)
 /*  f0e7374:	8faf0074 */ 	lw	$t7,0x74($sp)
 /*  f0e7378:	8fa50058 */ 	lw	$a1,0x58($sp)
@@ -6575,7 +6575,7 @@ glabel menuitemObjectiveRender
 /*  f0e7388:	8fa60078 */ 	lw	$a2,0x78($sp)
 /*  f0e738c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e7390:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e7394:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e7394:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e7398:	24a70001 */ 	addiu	$a3,$a1,0x1
 /*  f0e739c:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*  f0e73a0:	8fb80074 */ 	lw	$t8,0x74($sp)
@@ -6586,7 +6586,7 @@ glabel menuitemObjectiveRender
 /*  f0e73b4:	8fa70054 */ 	lw	$a3,0x54($sp)
 /*  f0e73b8:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e73bc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0e73c0:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e73c0:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e73c4:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0e73c8:	8fa60074 */ 	lw	$a2,0x74($sp)
 /*  f0e73cc:	8fa50044 */ 	lw	$a1,0x44($sp)
@@ -6595,7 +6595,7 @@ glabel menuitemObjectiveRender
 /*  f0e73d8:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*  f0e73dc:	8fa7006c */ 	lw	$a3,0x6c($sp)
 /*  f0e73e0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0e73e4:	0fc37ef6 */ 	jal	gfxDrawTessellatedRect
+/*  f0e73e4:	0fc37ef6 */ 	jal	menugfxDrawTessellatedRect
 /*  f0e73e8:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0e73ec:	afa20130 */ 	sw	$v0,0x130($sp)
 .NB0f0e73f0:
@@ -8695,7 +8695,7 @@ glabel menuitemCheckboxRender
 /*  f0ecb74:	24070006 */ 	addiu	$a3,$zero,0x6
 /*  f0ecb78:	24c60002 */ 	addiu	$a2,$a2,0x2
 /*  f0ecb7c:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f0ecb80:	0fc38dec */ 	jal	gfxDrawSquare
+/*  f0ecb80:	0fc38dec */ 	jal	menugfxDrawCheckbox
 /*  f0ecb84:	afa80018 */ 	sw	$t0,0x18($sp)
 /*  f0ecb88:	86290000 */ 	lh	$t1,0x0($s1)
 /*  f0ecb8c:	8fac0054 */ 	lw	$t4,0x54($sp)
@@ -8836,7 +8836,7 @@ glabel menuitemCheckboxRender
 //		fillcolour = 0x7f002faf;
 //	}
 //
-//	gdl = gfxDrawSquare(gdl, context->x + context->width - 16, context->y + 2, 6,
+//	gdl = menugfxDrawCheckbox(gdl, context->x + context->width - 16, context->y + 2, 6,
 //			checked, maincolour, fillcolour);
 //
 //	x = context->x + 10;
@@ -10118,7 +10118,7 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 	linecolour2 = func0f153e94(context->x + context->width, context->y + 2, -129) & 0xff | linecolour2 & 0xffffff00;
 
 	// Horizontal line between header and body
-	gdl = gfxDrawFilledRect(gdl,
+	gdl = menugfxDrawFilledRect(gdl,
 			context->x, context->y + 9,
 			context->x + context->width, context->y + 10,
 			linecolour1, linecolour1);
@@ -10506,7 +10506,7 @@ glabel menuitemRankingRender
 /*  f0eafb0:	afb20014 */ 	sw	$s2,0x14($sp)
 /*  f0eafb4:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
 /*  f0eafb8:	24660009 */ 	addiu	$a2,$v1,0x9
-/*  f0eafbc:	0fc380fc */ 	jal	gfxDrawFilledRect
+/*  f0eafbc:	0fc380fc */ 	jal	menugfxDrawFilledRect
 /*  f0eafc0:	00ac3821 */ 	addu	$a3,$a1,$t4
 /*  f0eafc4:	3c0de700 */ 	lui	$t5,0xe700
 /*  f0eafc8:	3c038008 */ 	lui	$v1,0x8008

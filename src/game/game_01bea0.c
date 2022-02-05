@@ -6,8 +6,8 @@
 #include "game/game_01bea0.h"
 #include "game/bondgun.h"
 #include "game/game_0b69d0.h"
-#include "game/game_0e0770.h"
-#include "game/game_0f09f0.h"
+#include "game/menugfx.h"
+#include "game/menu.h"
 #include "game/filelist.h"
 #include "game/mainmenu.h"
 #include "game/endscreen.h"
@@ -186,7 +186,7 @@ void menuTick(void)
 					}
 
 					if (g_MenuData.bg == MENUBG_6) {
-						func0f0e4fd4();
+						menugfx0f0e4fd4();
 						g_MenuData.bg = MENUBG_BLUR;
 						g_MenuData.nextbg = MENUBG_8;
 					}

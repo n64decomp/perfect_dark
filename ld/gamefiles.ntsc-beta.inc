@@ -118,9 +118,9 @@
 	build/ROMID/game/healthbar.o (section); \
 	build/ROMID/game/sight.o (section); \
 	build/ROMID/game/hudmsg.o (section); \
-	build/ROMID/game/game_0e0770.o (section); \
-	build/ROMID/game/menu/items.o (section); \
-	build/ROMID/game/game_0f09f0.o (section); \
+	build/ROMID/game/menugfx.o (section); \
+	build/ROMID/game/menuitem.o (section); \
+	build/ROMID/game/menu.o (section); \
 	build/ROMID/game/activemenu/activemenu.o (section); \
 	build/ROMID/game/stubs/game_102230.o (section); \
 	build/ROMID/game/mainmenu.o (section); \

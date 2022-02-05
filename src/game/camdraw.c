@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/camdraw.h"
 #include "game/game_0b3350.h"
-#include "game/game_0f09f0.h"
+#include "game/menu.h"
 #include "game/stubs/game_102230.h"
 #include "game/bg.h"
 #include "game/lang.h"

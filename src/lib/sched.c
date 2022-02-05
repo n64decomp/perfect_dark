@@ -2,7 +2,7 @@
 #include "lib/boot.h"
 #include "lib/sched.h"
 #include "constants.h"
-#include "game/game_0e0770.h"
+#include "game/menugfx.h"
 #include "bss.h"
 #include "lib/args.h"
 #include "lib/audiomgr.h"
@@ -833,7 +833,7 @@ void schedConsiderScreenshot(void)
 {
 	if (g_MenuData.screenshottimer == 1) {
 		if (IS8MB()) {
-			menuCreateBlur();
+			menugfxCreateBlur();
 		}
 
 		g_MenuData.screenshottimer = 0;

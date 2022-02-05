@@ -5,7 +5,7 @@
 #include "game/game_0b0fd0.h"
 #include "game/game_0b3350.h"
 #include "game/savebuffer.h"
-#include "game/game_0f09f0.h"
+#include "game/menu.h"
 #include "game/mainmenu.h"
 #include "game/filemgr.h"
 #include "game/lv.h"

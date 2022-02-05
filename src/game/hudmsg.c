@@ -6,7 +6,7 @@
 #include "game/game_0b69d0.h"
 #include "game/savebuffer.h"
 #include "game/hudmsg.h"
-#include "game/game_0e0770.h"
+#include "game/menugfx.h"
 #include "game/game_127910.h"
 #include "game/game_1531a0.h"
 #include "game/lv.h"
@@ -1232,10 +1232,10 @@ Gfx *hudmsgRenderBox(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, f32 bgopacity, u3
 
 	gdl = func0f0d479c(gdl);
 
-	gdl = gfxDrawFilledRect(gdl, x1, y1, x2, y1 + 1, bordercolour, bordercolour);
-	gdl = gfxDrawFilledRect(gdl, x1, y2, x2, y2 + 1, bordercolour, bordercolour);
-	gdl = gfxDrawFilledRect(gdl, x1, y1 + 1, x1 + 1, y2, bordercolour, bordercolour);
-	gdl = gfxDrawFilledRect(gdl, x2, y1, x2 + 1, y2 + 1, bordercolour, bordercolour);
+	gdl = menugfxDrawFilledRect(gdl, x1, y1, x2, y1 + 1, bordercolour, bordercolour);
+	gdl = menugfxDrawFilledRect(gdl, x1, y2, x2, y2 + 1, bordercolour, bordercolour);
+	gdl = menugfxDrawFilledRect(gdl, x1, y1 + 1, x1 + 1, y2, bordercolour, bordercolour);
+	gdl = menugfxDrawFilledRect(gdl, x2, y1, x2 + 1, y2 + 1, bordercolour, bordercolour);
 
 	gdl = func0f0d49c8(gdl);
 

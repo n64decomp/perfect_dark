@@ -4,8 +4,8 @@
 #include "game/bondgun.h"
 #include "game/game_0b3350.h"
 #include "game/savebuffer.h"
-#include "game/game_0e0770.h"
-#include "game/game_0f09f0.h"
+#include "game/menugfx.h"
+#include "game/menu.h"
 #include "game/game_1531a0.h"
 #include "game/gfxmemory.h"
 #include "game/file.h"
@@ -20,7 +20,7 @@
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel menuCreateBlur
+glabel menugfxCreateBlur
 /*  f0e0db0:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f0e0db4:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f0e0db8:	afbe0038 */ 	sw	$s8,0x38($sp)
@@ -191,7 +191,7 @@ glabel menuCreateBlur
 );
 #else
 GLOBAL_ASM(
-glabel menuCreateBlur
+glabel menugfxCreateBlur
 /*  f0e0770:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f0e0774:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f0e0778:	afbe0038 */ 	sw	$s8,0x38($sp)
@@ -366,7 +366,7 @@ u32 var80071180 = 1;
  * It's a simple fade between the source framebuffer and the blurred image.
  * Only one blurred image is made.
  */
-//void menuCreateBlur(void)
+//void menugfxCreateBlur(void)
 //{
 //#if VERSION >= VERSION_PAL_FINAL
 //	// Mismatch: Different codegen
@@ -953,9 +953,9 @@ Gfx *menugfxRenderDialogBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, str
 	}
 
 	// Right, left, bottom border
-	gdl = menugfxRenderDialogBorderLine(gdl, x2 - 1, y1, x2, y2, rightcolour, rightcolour);
-	gdl = menugfxRenderDialogBorderLine(gdl, x1, y1, x1 + 1, y2, leftcolour, leftcolour);
-	gdl = menugfxRenderDialogBorderLine(gdl, x1, y2 - 1, x2, y2, leftcolour, rightcolour);
+	gdl = menugfxDrawDialogBorderLine(gdl, x2 - 1, y1, x2, y2, rightcolour, rightcolour);
+	gdl = menugfxDrawDialogBorderLine(gdl, x1, y1, x1 + 1, y2, leftcolour, leftcolour);
+	gdl = menugfxDrawDialogBorderLine(gdl, x1, y2 - 1, x2, y2, leftcolour, rightcolour);
 
 	return gdl;
 }
@@ -1548,7 +1548,7 @@ glabel var7f1adf18
 //}
 
 GLOBAL_ASM(
-glabel func0f0e1668
+glabel menugfx0f0e1668
 /*  f0e1668:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f0e166c:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f0e1670:	afa40078 */ 	sw	$a0,0x78($sp)
@@ -2408,15 +2408,15 @@ Gfx *menugfxRenderSlider(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 markerx, 
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 
 	// Line to the left of the marker: blue -> white gradient
-	gdl = gfxDrawLine(gdl, x1, y2, markerx, y2 + 1, 0x0000ffff, 0xffffffff);
+	gdl = menugfxDrawLine(gdl, x1, y2, markerx, y2 + 1, 0x0000ffff, 0xffffffff);
 
 	// Line to the right of the marker: solid blue
-	gdl = gfxDrawLine(gdl, markerx, y2, x2, y2 + 1, 0x0000ffff, 0x0000ffff);
+	gdl = menugfxDrawLine(gdl, markerx, y2, x2, y2 + 1, 0x0000ffff, 0x0000ffff);
 
 	return gdl;
 }
 
-Gfx *func0f0e2348(Gfx *gdl)
+Gfx *menugfx0f0e2348(Gfx *gdl)
 {
 	gSPSetGeometryMode(gdl++, G_CULL_BACK);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -2437,7 +2437,7 @@ Gfx *func0f0e2348(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *func0f0e2498(Gfx *gdl)
+Gfx *menugfx0f0e2498(Gfx *gdl)
 {
 	gDPPipeSync(gdl++);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -2452,7 +2452,7 @@ Gfx *func0f0e2498(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *gfxDrawTri2(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2, bool arg7)
+Gfx *menugfxDrawTri2(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2, bool arg7)
 {
 	struct gfxvtx *vertices;
 	u32 *colours;
@@ -2498,16 +2498,16 @@ Gfx *gfxDrawTri2(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colo
 	return gdl;
 }
 
-Gfx *gfxDrawLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
+Gfx *menugfxDrawLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
 {
-	gdl = func0f0e2498(gdl);
-	gdl = gfxDrawTri2(gdl, x1, y1, x2, y2, colour1, colour2, false);
+	gdl = menugfx0f0e2498(gdl);
+	gdl = menugfxDrawTri2(gdl, x1, y1, x2, y2, colour1, colour2, false);
 
 	return gdl;
 }
 
 GLOBAL_ASM(
-glabel gfxDrawTessellatedRect
+glabel menugfxDrawTessellatedRect
 /*  f0e2744:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0e2748:	afbf004c */ 	sw	$ra,0x4c($sp)
 /*  f0e274c:	afbe0048 */ 	sw	$s8,0x48($sp)
@@ -2595,7 +2595,7 @@ glabel gfxDrawTessellatedRect
 /*  f0e2880:	afb20010 */ 	sw	$s2,0x10($sp)
 /*  f0e2884:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0e2888:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0e288c:	0fc38963 */ 	jal	gfxDrawTri2
+/*  f0e288c:	0fc38963 */ 	jal	menugfxDrawTri2
 /*  f0e2890:	afb90014 */ 	sw	$t9,0x14($sp)
 /*  f0e2894:	8fa80094 */ 	lw	$t0,0x94($sp)
 /*  f0e2898:	26940001 */ 	addiu	$s4,$s4,0x1
@@ -2618,7 +2618,7 @@ glabel gfxDrawTessellatedRect
 /*  f0e28d8:	afb70010 */ 	sw	$s7,0x10($sp)
 /*  f0e28dc:	afa20018 */ 	sw	$v0,0x18($sp)
 /*  f0e28e0:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0e28e4:	0fc38963 */ 	jal	gfxDrawTri2
+/*  f0e28e4:	0fc38963 */ 	jal	menugfxDrawTri2
 /*  f0e28e8:	afa90014 */ 	sw	$t1,0x14($sp)
 /*  f0e28ec:	10000060 */ 	b	.L0f0e2a70
 /*  f0e28f0:	afa20098 */ 	sw	$v0,0x98($sp)
@@ -2685,7 +2685,7 @@ glabel gfxDrawTessellatedRect
 /*  f0e29cc:	afb70010 */ 	sw	$s7,0x10($sp)
 /*  f0e29d0:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0e29d4:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0e29d8:	0fc38963 */ 	jal	gfxDrawTri2
+/*  f0e29d8:	0fc38963 */ 	jal	menugfxDrawTri2
 /*  f0e29dc:	afae0014 */ 	sw	$t6,0x14($sp)
 /*  f0e29e0:	8faf0074 */ 	lw	$t7,0x74($sp)
 /*  f0e29e4:	26940001 */ 	addiu	$s4,$s4,0x1
@@ -2708,7 +2708,7 @@ glabel gfxDrawTessellatedRect
 /*  f0e2a24:	afb70010 */ 	sw	$s7,0x10($sp)
 /*  f0e2a28:	afa20018 */ 	sw	$v0,0x18($sp)
 /*  f0e2a2c:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0e2a30:	0fc38963 */ 	jal	gfxDrawTri2
+/*  f0e2a30:	0fc38963 */ 	jal	menugfxDrawTri2
 /*  f0e2a34:	afb80014 */ 	sw	$t8,0x14($sp)
 /*  f0e2a38:	1000000d */ 	b	.L0f0e2a70
 /*  f0e2a3c:	afa20098 */ 	sw	$v0,0x98($sp)
@@ -2722,7 +2722,7 @@ glabel gfxDrawTessellatedRect
 /*  f0e2a58:	afb50018 */ 	sw	$s5,0x18($sp)
 /*  f0e2a5c:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f0e2a60:	afb70010 */ 	sw	$s7,0x10($sp)
-/*  f0e2a64:	0fc38963 */ 	jal	gfxDrawTri2
+/*  f0e2a64:	0fc38963 */ 	jal	menugfxDrawTri2
 /*  f0e2a68:	afb90014 */ 	sw	$t9,0x14($sp)
 /*  f0e2a6c:	afa20098 */ 	sw	$v0,0x98($sp)
 .L0f0e2a70:
@@ -2742,7 +2742,7 @@ glabel gfxDrawTessellatedRect
 );
 
 // Mismatch: Uses callee-save registers differently
-//Gfx *gfxDrawTessellatedRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
+//Gfx *menugfxDrawTessellatedRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
 //{
 //	if (func0f153e58()) {
 //		if (y2 - y1 > x2 - x1) {
@@ -2771,14 +2771,14 @@ glabel gfxDrawTessellatedRect
 //					nextcolour = func0f153e94(y1, thisy, nextcolour);
 //				}
 //
-//				gdl = gfxDrawTri2(gdl, x1, thisy, x2, nexty, thiscolour, nextcolour, false);
+//				gdl = menugfxDrawTri2(gdl, x1, thisy, x2, nexty, thiscolour, nextcolour, false);
 //
 //				thisy = nexty;
 //				thiscolour = nextcolour;
 //			}
 //
 //			nextcolour = func0f153e94(x2, y2, colour2);
-//			gdl = gfxDrawTri2(gdl, x1, thisy, x2, y2, thiscolour, nextcolour, false);
+//			gdl = menugfxDrawTri2(gdl, x1, thisy, x2, y2, thiscolour, nextcolour, false);
 //		} else {
 //			// Landscape
 //			// 8f4
@@ -2805,18 +2805,18 @@ glabel gfxDrawTessellatedRect
 //					nextcolour = func0f153e94(thisx, y1, nextcolour);
 //				}
 //
-//				gdl = gfxDrawTri2(gdl, thisx, y1, nextx, y2, thiscolour, nextcolour, false);
+//				gdl = menugfxDrawTri2(gdl, thisx, y1, nextx, y2, thiscolour, nextcolour, false);
 //
 //				thisx = nextx;
 //				thiscolour = nextcolour;
 //			}
 //
 //			nextcolour = func0f153e94(x2, y2, colour2);
-//			gdl = gfxDrawTri2(gdl, thisx, y1, x2, y2, thiscolour, nextcolour, false);
+//			gdl = menugfxDrawTri2(gdl, thisx, y1, x2, y2, thiscolour, nextcolour, false);
 //		}
 //	} else {
 //		// a40
-//		gdl = gfxDrawTri2(gdl, x1, y1, x2, y2, colour1, colour2, false);
+//		gdl = menugfxDrawTri2(gdl, x1, y1, x2, y2, colour1, colour2, false);
 //	}
 //
 //	return gdl;
@@ -2883,17 +2883,17 @@ Gfx *menugfxDrawShimmer(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour, bo
 
 		if (x1 <= shimmerright && x2 >= shimmerleft) {
 			if (arg6) {
-				gdl = func0f0e2498(gdl);
+				gdl = menugfx0f0e2498(gdl);
 			}
 
 			tailcolour = ((((colour & 0xff) * (0xff - alpha)) / 255) & 0xff) | 0xffffff00;
 
 			if (reverse) {
 				// Left to right
-				gdl = gfxDrawTri2(gdl, shimmerleft, y1, shimmerright, y2, 0xffffff00, tailcolour, 0);
+				gdl = menugfxDrawTri2(gdl, shimmerleft, y1, shimmerright, y2, 0xffffff00, tailcolour, 0);
 			} else {
 				// Right to left
-				gdl = gfxDrawTri2(gdl, shimmerleft, y1, shimmerright, y2, tailcolour, 0xffffff00, 0);
+				gdl = menugfxDrawTri2(gdl, shimmerleft, y1, shimmerright, y2, tailcolour, 0xffffff00, 0);
 			}
 		}
 	} else {
@@ -2925,17 +2925,17 @@ Gfx *menugfxDrawShimmer(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour, bo
 
 		if (y1 <= shimmerbottom && y2 >= shimmertop) {
 			if (arg6) {
-				gdl = func0f0e2498(gdl);
+				gdl = menugfx0f0e2498(gdl);
 			}
 
 			tailcolour = ((((colour & 0xff) * (0xff - alpha)) / 255) & 0xff) | 0xffffff00;
 
 			if (reverse) {
 				// Top to bottom
-				gdl = gfxDrawTri2(gdl, x1, shimmertop, x2, shimmerbottom, 0xffffff00, tailcolour, 1);
+				gdl = menugfxDrawTri2(gdl, x1, shimmertop, x2, shimmerbottom, 0xffffff00, tailcolour, 1);
 			} else {
 				// Bottom to top
-				gdl = gfxDrawTri2(gdl, x1, shimmertop, x2, shimmerbottom, tailcolour, 0xffffff00, 1);
+				gdl = menugfxDrawTri2(gdl, x1, shimmertop, x2, shimmerbottom, tailcolour, 0xffffff00, 1);
 			}
 		}
 	}
@@ -2943,18 +2943,18 @@ Gfx *menugfxDrawShimmer(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour, bo
 	return gdl;
 }
 
-Gfx *menugfxRenderDialogBorderLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
+Gfx *menugfxDrawDialogBorderLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
 {
-	gdl = gfxDrawLine(gdl, x1, y1, x2, y2, colour1, colour2);
+	gdl = menugfxDrawLine(gdl, x1, y1, x2, y2, colour1, colour2);
 	gdl = menugfxDrawShimmer(gdl, x1, y1, x2, y2, colour1, 0, 10, false);
 
 	return gdl;
 }
 
-Gfx *gfxDrawFilledRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
+Gfx *menugfxDrawFilledRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
 {
-	gdl = func0f0e2498(gdl);
-	gdl = gfxDrawTessellatedRect(gdl, x1, y1, x2, y2, colour1, colour2);
+	gdl = menugfx0f0e2498(gdl);
+	gdl = menugfxDrawTessellatedRect(gdl, x1, y1, x2, y2, colour1, colour2);
 	gdl = menugfxDrawShimmer(gdl, x1, y1, x2, y2, colour1, 0, 10, false);
 
 	return gdl;
@@ -3136,7 +3136,7 @@ Gfx *menugfxDrawDialogChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u
 	return gdl;
 }
 
-Gfx *gfxDrawSquare(Gfx *gdl, s32 x, s32 y, s32 size, bool fill, u32 bordercolour, u32 fillcolour)
+Gfx *menugfxDrawCheckbox(Gfx *gdl, s32 x, s32 y, s32 size, bool fill, u32 bordercolour, u32 fillcolour)
 {
 	if (fill) {
 		gdl = gfxSetPrimColour(gdl, fillcolour);
@@ -3866,12 +3866,12 @@ Gfx *menugfxRenderBgFailureCopy(Gfx *gdl)
 	return gdl;
 }
 
-void func0f0e4fd4(void)
+void menugfx0f0e4fd4(void)
 {
 	var80071184 = 0;
 }
 
-u32 func0f0e4fe0(void)
+u32 menugfx0f0e4fe0(void)
 {
 	return align16(0xd20);
 }

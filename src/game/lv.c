@@ -59,7 +59,7 @@
 #include "game/game_0b69d0.h"
 #include "game/savebuffer.h"
 #include "game/hudmsg.h"
-#include "game/game_0f09f0.h"
+#include "game/menu.h"
 #include "game/filemgr.h"
 #include "game/game_10c9c0.h"
 #include "game/game_11f000.h"
