@@ -4299,7 +4299,7 @@ glabel func0f15b274
 void func0f15b3e4(s32 portalnum, struct coord *a, struct coord *b, struct coord *c, struct coord *d)
 {
 	struct portalvertices *pvertices;
-	pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[portalnum].unk00);
+	pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
 
 	a->x = pvertices->vertices[0].x;
 	a->y = pvertices->vertices[0].y;
@@ -8156,19 +8156,19 @@ glabel var7f1b75d0
 //
 //		numportals = 0;
 //
-//		for (s4 = 0; g_BgPortals[s4].unk00 != 0; s4++) { // might not be s4
+//		for (s4 = 0; g_BgPortals[s4].verticesoffset != 0; s4++) { // might not be s4
 //			numportals++;
 //		}
 //
 //		g_NumPortalThings = numportals;
 //		g_PortalThings = mempAlloc(ALIGN16(g_NumPortalThings * sizeof(struct portalthing)), MEMPOOL_STAGE);
 //
-//		// Iterate the portals and update their unk00 value. In storage, the
-//		// g_BgPortals array is followed by vertice data, and each portal's
-//		// unk00 value is an index into the vertice data. Here, the unk00 value
-//		// is being converted to an offset relative to the start of the
-//		// g_BgPortals array. Start by initialising offset past the end of the
-//		// portal array, which is the start of the vertice data.
+//		// Iterate the portals and update their verticesoffset value. In
+//		// storage, the g_BgPortals array is followed by vertice data, and each
+//		// portal's verticesoffset value is an index into the vertice data.
+//		// Here, the unk00 value is being converted to an offset relative to the
+//		// start of the g_BgPortals array. Start by initialising offset past the
+//		// end of the portal array, which is the start of the vertice data.
 //		offset = numportals * sizeof(struct bgportal);
 //		offset += sizeof(struct bgportal);
 //
@@ -8179,8 +8179,8 @@ glabel var7f1b75d0
 //		// bd4
 //		for (s4 = 1; true; s4++) {
 //			for (s6 = 0; s6 < numportals; s6++) {
-//				if (g_BgPortals[s6].unk00 == s4) {
-//					g_BgPortals[s6].unk00 = offset;
+//				if (g_BgPortals[s6].verticesoffset == s4) {
+//					g_BgPortals[s6].verticesoffset = offset;
 //				}
 //			}
 //
@@ -8301,7 +8301,7 @@ glabel var7f1b75d0
 //
 //			coord.f[0] = coord.f[1] = coord.f[2] = 0;
 //
-//			pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[s4].unk00);
+//			pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[s4].verticesoffset);
 //
 //			// f64
 //			for (s6 = 0; s6 < pvertices->count; s6++) {
@@ -8469,7 +8469,7 @@ glabel var7f1b75d0
 //		}
 //
 //		// 734
-//		for (s4 = 0; g_BgPortals[s4].unk00; s4++) {
+//		for (s4 = 0; g_BgPortals[s4].verticesoffset; s4++) {
 //			func0f164ab8(s4);
 //		}
 //
@@ -8484,7 +8484,7 @@ glabel var7f1b75d0
 //		}
 //
 //		// 7d8
-//		for (s4 = 0; g_BgPortals[s4].unk00; s4++) { // might not be s4
+//		for (s4 = 0; g_BgPortals[s4].verticesoffset; s4++) { // might not be s4
 //			g_BgPortals[s4].flags &= 0xfe;
 //		}
 //	}
@@ -16822,7 +16822,7 @@ void bgTickPortals(void)
 		portalCommandsExecuteForCurrentPlayer(g_BgPortalCommands);
 
 		if (var800a65b8 == 0) {
-			if (g_BgPortals[0].unk00 == 0) {
+			if (g_BgPortals[0].verticesoffset == 0) {
 				for (room = 1; room < g_Vars.roomcount; room++) {
 					if (func0f15cd90(room, &box)
 							&& ((g_StageIndex != STAGEINDEX_INFILTRATION && g_StageIndex != STAGEINDEX_RESCUE && g_StageIndex != STAGEINDEX_ESCAPE) || room != 0xf)
@@ -17246,7 +17246,7 @@ void bgExpandRoomToPortals(s32 roomnum)
 
 	for (i = 0; i < g_Rooms[roomnum].numportals; i++) {
 		s32 portalnum = g_RoomPortals[g_Rooms[roomnum].roomportallistoffset + i];
-		struct portalvertices *pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[portalnum].unk00);
+		struct portalvertices *pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
 
 		for (j = 0; j < pvertices->count; j++) {
 			for (k = 0; k < 3; k++) {
@@ -17268,31 +17268,18 @@ void bgExpandRoomToPortals(s32 roomnum)
 	if (count);
 }
 
-GLOBAL_ASM(
-glabel func0f164a3c
-/*  f164a3c:	3c03800a */ 	lui	$v1,%hi(g_BgPortals)
-/*  f164a40:	8c634cc8 */ 	lw	$v1,%lo(g_BgPortals)($v1)
-/*  f164a44:	00001025 */ 	or	$v0,$zero,$zero
-/*  f164a48:	946e0000 */ 	lhu	$t6,0x0($v1)
-/*  f164a4c:	51c0000c */ 	beqzl	$t6,.L0f164a80
-/*  f164a50:	00001025 */ 	or	$v0,$zero,$zero
-.L0f164a54:
-/*  f164a54:	54440004 */ 	bnel	$v0,$a0,.L0f164a68
-/*  f164a58:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f164a5c:	03e00008 */ 	jr	$ra
-/*  f164a60:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f164a64:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f164a68:
-/*  f164a68:	000278c0 */ 	sll	$t7,$v0,0x3
-/*  f164a6c:	006fc021 */ 	addu	$t8,$v1,$t7
-/*  f164a70:	97190000 */ 	lhu	$t9,0x0($t8)
-/*  f164a74:	1720fff7 */ 	bnez	$t9,.L0f164a54
-/*  f164a78:	00000000 */ 	nop
-/*  f164a7c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f164a80:
-/*  f164a80:	03e00008 */ 	jr	$ra
-/*  f164a84:	00000000 */ 	nop
-);
+bool portalExists(s32 portalnum)
+{
+	s32 i;
+
+	for (i = 0; g_BgPortals[i].verticesoffset != 0; i++) {
+		if (i == portalnum) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 void portalSwapRooms(u32 portal)
 {
@@ -17653,7 +17640,7 @@ glabel var7f1b76c4
 //	f32 thisthing;
 //	s32 i;
 //
-//	for (i = 0; g_BgPortals[i].unk00; i++) {
+//	for (i = 0; g_BgPortals[i].verticesoffset; i++) {
 //		if (func00017e30(i, arg0, arg1)) {
 //			thisthing = var8007fcb4;
 //

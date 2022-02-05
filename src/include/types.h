@@ -4573,7 +4573,7 @@ struct scenariodata {
 };
 
 struct bgportal {
-	u16 unk00;
+	u16 verticesoffset;
 	s16 roomnum1;
 	s16 roomnum2;
 	u8 flags;
