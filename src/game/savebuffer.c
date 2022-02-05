@@ -13,12 +13,6 @@
 #include "data.h"
 #include "types.h"
 
-const char var7f1adba0[] = "txmul";
-const char var7f1adba8[] = "depthsub";
-const char var7f1adbb4[] = "rsub";
-const char var7f1adbbc[] = ":%02d";
-const char var7f1adbc4[] = "%d";
-
 #if VERSION >= VERSION_NTSC_1_0
 Vp *var80070f10 = NULL;
 #else
@@ -601,6 +595,201 @@ glabel func0f0d4d0c
 /*  f0d52f0:	03e00008 */ 	jr	$ra
 /*  f0d52f4:	00000000 */ 	nop
 );
+
+// Mismatch: Misordered instructions near calculation of tmp1 and tmp2.
+//Gfx *func0f0d4d0c(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2, s32 type)
+//{
+//	u32 *colours;
+//	struct gfxvtx *vertices;
+//	s32 tmp1;
+//	s16 a1;
+//	s16 t1;
+//	f32 sp34;
+//	f32 sp30;
+//	s16 sp2e;
+//	s16 sp2c;
+//	s16 sp2a;
+//	s16 sp28;
+//	s16 a1_2;
+//	s16 scale;
+//	s32 tmp2;
+//
+//	scale = 10;
+//
+//	colours = gfxAllocateColours(2);
+//	vertices = gfxAllocateVertices(4);
+//
+//	sp34 = 1.0f;
+//	sp30 = 1.0f;
+//
+//	mainOverrideVariable("txmul", &var80070f18);
+//
+//	if (y1 < var8009de90 && y2 < var8009de90) {
+//		return gdl;
+//	}
+//
+//	if (y1 > var8009de94 && y2 > var8009de94) {
+//		return gdl;
+//	}
+//
+//	if (y1 < var8009de90) {
+//		y1 = var8009de90;
+//	}
+//
+//	if (y2 < var8009de90) {
+//		y2 = var8009de90;
+//	}
+//
+//	if (y1 > var8009de94) {
+//		y1 = var8009de94;
+//	}
+//
+//	if (y2 > var8009de94) {
+//		y2 = var8009de94;
+//	}
+//
+//	sp2e = (x1 + y1) * var80070f18;
+//	sp2c = (x2 + y2) * var80070f18;
+//	sp2a = 0;
+//	sp28 = 16384;
+//
+//	if (type == 1) {
+//		sp30 = 2.0f;
+//	}
+//
+//	mainOverrideVariable("depthsub", &var80070f14);
+//
+//	a1 = 200;
+//
+//	if (type == 2 || type == 3) {
+//		if (type == 2) {
+//			sp2e = 0;
+//			sp2c = 1024;
+//		} else {
+//			sp2e = 1024;
+//			sp2c = 2048;
+//		}
+//
+//		sp34 = 4.0f;
+//		sp30 = 4.0f;
+//		a1 = 6000;
+//	}
+//
+//	if (type == 8 || type == 9 || type == 11) {
+//		sp2e = 0;
+//		sp2c = 2048;
+//		a1 = 2000;
+//		sp34 = 4.0f;
+//		sp30 = 4.0f;
+//
+//		if (type == 9) {
+//			sp30 = 2.0f;
+//		}
+//	}
+//
+//	if (type == 4) {
+//		a1 = 2000;
+//		sp34 = 1.0f;
+//		sp30 = 1.0f;
+//	}
+//
+//	if (type == 5 || type == 6 || type == 10) {
+//		a1 = 1000;
+//		sp2e = 0;
+//		sp2c = 4096;
+//		sp30 = 4.0f;
+//
+//		if (type == 6) {
+//			sp2e = 384;
+//			sp2c = 4480;
+//			sp30 = 8.0f;
+//		} else if (type == 10) {
+//			sp2e = 384;
+//			sp2c = 4480;
+//			sp30 = 8.0f;
+//		} else {
+//			sp34 = 2.0f;
+//		}
+//	}
+//
+//	if (type == 7) {
+//		mainOverrideVariable("rsub", &var80070f1c);
+//
+//		a1 = -var80070f1c;
+//
+//		sp30 = 8.0f;
+//		sp2a = 256;
+//		sp28 = 0;
+//	}
+//
+//	vertices[0].x = x1;
+//	vertices[0].y = y1;
+//	vertices[0].z = -10;
+//
+//	vertices[1].x = x2;
+//	vertices[1].y = y2;
+//	vertices[1].z = -10;
+//
+//	tmp1 = (f32)var8009de98 * a1 / scale;
+//	tmp2 = (f32)var8009de9c * a1 / scale;
+//
+//	vertices[2].x = vertices[0].x + tmp1;
+//	vertices[2].y = vertices[0].y + tmp2;
+//	vertices[2].z = -10 - a1;
+//
+//	vertices[3].x = vertices[1].x + tmp1;
+//	vertices[3].y = vertices[1].y + tmp2;
+//	vertices[3].z = -10 - a1;
+//
+//	if (type == 10) {
+//		t1 = var80061630 * sp34 * 64.0f * 32.0f;
+//	} else {
+//		t1 = (var80061630 - 0.5f) * sp34 * 64.0f * 32.0f;
+//	}
+//
+//	if (type == 10) {
+//		a1_2 = (var80061630 - 0.5f) * sp30 * 64.0f * 32.0f;
+//	} else {
+//		a1_2 = var80061630 * sp30 * 64.0f * 32.0f;
+//	}
+//
+//	vertices[0].unk08 = sp2e + t1;
+//	vertices[0].unk0a = sp2a + a1_2;
+//	vertices[1].unk08 = sp2c + t1;
+//	vertices[1].unk0a = sp2a + a1_2;
+//	vertices[3].unk08 = sp2c + t1;
+//	vertices[3].unk0a = sp28 + a1_2;
+//	vertices[2].unk08 = sp2e + t1;
+//	vertices[2].unk0a = sp28 + a1_2;
+//
+//	if (type == 7) {
+//		vertices[0].colour = 0;
+//		vertices[1].colour = 0;
+//		vertices[2].colour = 4;
+//		vertices[3].colour = 4;
+//	} else {
+//		vertices[0].colour = 0;
+//		vertices[1].colour = 4;
+//		vertices[2].colour = 0;
+//		vertices[3].colour = 4;
+//	}
+//
+//	colours[0] = colour1;
+//	colours[1] = colour2;
+//
+//	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
+//	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
+//	gDPTri2(gdl++, 0, 1, 3, 3, 2, 0);
+//
+//	return gdl;
+//}
+
+const char var7f1adba0[] = "txmul";
+const char var7f1adba8[] = "depthsub";
+const char var7f1adbb4[] = "rsub";
+
+const char var7f1adbbc[] = ":%02d";
+const char var7f1adbc4[] = "%d";
 
 /**
  * Write the specified amount of bits to the buffer, advancing the internal pointer.
