@@ -46,37 +46,7 @@ const char var7f1b1990nb[] = "LightsOffsetChecksum failed %s %d";
 const char var7f1b19b4nb[] = "bg.c";
 const char var7f1b19bcnb[] = "bg.c";
 const char var7f1b19c4nb[] = "bg.c";
-const char var7f1b19ccnb[] = "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x";
-const char var7f1b1a24nb[] = "bg.c";
-const char var7f1b1a2cnb[] = "bg.c";
-const char var7f1b1a34nb[] = "bg.c: roominf[room].allocsize > calculated!";
-const char var7f1b1a60nb[] = "bg.c";
 #endif
-
-const char var7f1b7420[] = "Checking Convex Room %d";
-const char var7f1b7438[] = " Portal %d %s%s%.1f < %.1f";
-const char var7f1b7454[] = "";
-const char var7f1b7458[] = "";
-const char var7f1b745c[] = " Convex Room Failed (1)";
-const char var7f1b7474[] = " Portal %d %s%s%.1f > %.1f";
-const char var7f1b7490[] = "";
-const char var7f1b7494[] = "";
-const char var7f1b7498[] = " Convex Room Failed (0)";
-const char var7f1b74b0[] = "Checking Concave Room %d";
-const char var7f1b74cc[] = " Checking Portal %d";
-const char var7f1b74e0[] = "Reject P:%d (%s%s%.1f %.1f n3=%.1f)";
-const char var7f1b7504[] = "";
-const char var7f1b7508[] = "";
-const char var7f1b750c[] = "Reject P:%d (%s%s%.1f %.1f n4=%.1f)";
-const char var7f1b7530[] = "";
-const char var7f1b7534[] = "";
-const char var7f1b7538[] = " Full %d%s%s %.1f %.1f (%.1f %.1f)";
-const char var7f1b755c[] = "";
-const char var7f1b7560[] = "";
-const char var7f1b7564[] = " Failed 2 - Crossed portal %d";
-const char var7f1b7584[] = " Failed 1 - Crossed portal %d";
-const char var7f1b75a4[] = " Passed";
-const char var7f1b75ac[] = "edist";
 
 struct var800a4640 var800a4640;
 u8 *g_BgPrimaryData;
@@ -4704,7 +4674,7 @@ void bgInit(s32 stagenum)
 	bgLoadFile((u8 *)scratch, section2start + 4, ((section2compsize - 1) | 0xf) + 1);
 
 	// Inflate section 2 to the start of the buffer
-	bgInflate((u8 *)scratch, section2, section2compsize);
+	bgInflate((u8 *)scratch, (u8 *)section2, section2compsize);
 
 	// Iterate texture IDs and ensure they're loaded
 	inflatedsize = (*(u16 *)&header[0] & 0x7fff) >> 1;
@@ -9370,14 +9340,30 @@ void roomsHandleStateDebugging(void)
 	}
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-u32 bgInflate(void *src, void *dst, u32 len)
+u32 bgInflate(u8 *src, u8 *dst, u32 len)
 {
 	u32 result;
-	char tmpbuffer[5120];
+	u8 scratch[5120];
+#if VERSION < VERSION_NTSC_1_0
+	char message[128];
+#endif
 
 	if (rzipIs1173(src)) {
-		result = rzipInflate(src, dst, tmpbuffer);
+		result = rzipInflate(src, dst, &scratch);
+
+#if VERSION < VERSION_NTSC_1_0
+		if (!result) {
+			sprintf(message, "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+					"bg.c", 6914,
+					src[0], src[1], src[2], src[3],
+					src[4], src[5], src[6], src[7],
+					src[8], src[9], src[10], src[11],
+					src[12], src[13], src[14], src[15]);
+
+			crashSetMessage(&message);
+			CRASH();
+		}
+#endif
 	} else {
 		result = len;
 		bcopy(src, dst, len);
@@ -9385,80 +9371,38 @@ u32 bgInflate(void *src, void *dst, u32 len)
 
 	return result;
 }
-#else
-GLOBAL_ASM(
-glabel bgInflate
-/*  f15808c:	27bdeb18 */ 	addiu	$sp,$sp,-5352
-/*  f158090:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*  f158094:	afb00058 */ 	sw	$s0,0x58($sp)
-/*  f158098:	00808025 */ 	or	$s0,$a0,$zero
-/*  f15809c:	afa514ec */ 	sw	$a1,0x14ec($sp)
-/*  f1580a0:	0c0022df */ 	jal	rzipIs1173
-/*  f1580a4:	afa614f0 */ 	sw	$a2,0x14f0($sp)
-/*  f1580a8:	8fa514ec */ 	lw	$a1,0x14ec($sp)
-/*  f1580ac:	10400032 */ 	beqz	$v0,.NB0f158178
-/*  f1580b0:	8fa614f0 */ 	lw	$a2,0x14f0($sp)
-/*  f1580b4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1580b8:	0c001da4 */ 	jal	rzipInflate
-/*  f1580bc:	27a600e4 */ 	addiu	$a2,$sp,0xe4
-/*  f1580c0:	14400030 */ 	bnez	$v0,.NB0f158184
-/*  f1580c4:	afa214e4 */ 	sw	$v0,0x14e4($sp)
-/*  f1580c8:	920e0000 */ 	lbu	$t6,0x0($s0)
-/*  f1580cc:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f1580d0:	3c067f1b */ 	lui	$a2,0x7f1b
-/*  f1580d4:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f1580d8:	920f0001 */ 	lbu	$t7,0x1($s0)
-/*  f1580dc:	24c61a24 */ 	addiu	$a2,$a2,0x1a24
-/*  f1580e0:	24a519cc */ 	addiu	$a1,$a1,0x19cc
-/*  f1580e4:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f1580e8:	92180002 */ 	lbu	$t8,0x2($s0)
-/*  f1580ec:	27a40064 */ 	addiu	$a0,$sp,0x64
-/*  f1580f0:	24071b02 */ 	addiu	$a3,$zero,0x1b02
-/*  f1580f4:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f1580f8:	92190003 */ 	lbu	$t9,0x3($s0)
-/*  f1580fc:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f158100:	92080004 */ 	lbu	$t0,0x4($s0)
-/*  f158104:	afa80020 */ 	sw	$t0,0x20($sp)
-/*  f158108:	92090005 */ 	lbu	$t1,0x5($s0)
-/*  f15810c:	afa90024 */ 	sw	$t1,0x24($sp)
-/*  f158110:	920a0006 */ 	lbu	$t2,0x6($s0)
-/*  f158114:	afaa0028 */ 	sw	$t2,0x28($sp)
-/*  f158118:	920b0007 */ 	lbu	$t3,0x7($s0)
-/*  f15811c:	afab002c */ 	sw	$t3,0x2c($sp)
-/*  f158120:	920c0008 */ 	lbu	$t4,0x8($s0)
-/*  f158124:	afac0030 */ 	sw	$t4,0x30($sp)
-/*  f158128:	920d0009 */ 	lbu	$t5,0x9($s0)
-/*  f15812c:	afad0034 */ 	sw	$t5,0x34($sp)
-/*  f158130:	920e000a */ 	lbu	$t6,0xa($s0)
-/*  f158134:	afae0038 */ 	sw	$t6,0x38($sp)
-/*  f158138:	920f000b */ 	lbu	$t7,0xb($s0)
-/*  f15813c:	afaf003c */ 	sw	$t7,0x3c($sp)
-/*  f158140:	9218000c */ 	lbu	$t8,0xc($s0)
-/*  f158144:	afb80040 */ 	sw	$t8,0x40($sp)
-/*  f158148:	9219000d */ 	lbu	$t9,0xd($s0)
-/*  f15814c:	afb90044 */ 	sw	$t9,0x44($sp)
-/*  f158150:	9208000e */ 	lbu	$t0,0xe($s0)
-/*  f158154:	afa80048 */ 	sw	$t0,0x48($sp)
-/*  f158158:	9209000f */ 	lbu	$t1,0xf($s0)
-/*  f15815c:	0c004fc1 */ 	jal	sprintf
-/*  f158160:	afa9004c */ 	sw	$t1,0x4c($sp)
-/*  f158164:	0c003074 */ 	jal	crashSetMessage
-/*  f158168:	27a40064 */ 	addiu	$a0,$sp,0x64
-/*  f15816c:	240a0045 */ 	addiu	$t2,$zero,0x45
-/*  f158170:	10000004 */ 	beqz	$zero,.NB0f158184
-/*  f158174:	a00a0000 */ 	sb	$t2,0x0($zero)
-.NB0f158178:
-/*  f158178:	afa614e4 */ 	sw	$a2,0x14e4($sp)
-/*  f15817c:	0c01303c */ 	jal	bcopy
-/*  f158180:	02002025 */ 	or	$a0,$s0,$zero
-.NB0f158184:
-/*  f158184:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*  f158188:	8fa214e4 */ 	lw	$v0,0x14e4($sp)
-/*  f15818c:	8fb00058 */ 	lw	$s0,0x58($sp)
-/*  f158190:	03e00008 */ 	jr	$ra
-/*  f158194:	27bd14e8 */ 	addiu	$sp,$sp,0x14e8
-);
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1b1a2cnb[] = "bg.c";
+const char var7f1b1a34nb[] = "bg.c: roominf[room].allocsize > calculated!";
+const char var7f1b1a60nb[] = "bg.c";
 #endif
+
+const char var7f1b7420[] = "Checking Convex Room %d";
+const char var7f1b7438[] = " Portal %d %s%s%.1f < %.1f";
+const char var7f1b7454[] = "";
+const char var7f1b7458[] = "";
+const char var7f1b745c[] = " Convex Room Failed (1)";
+const char var7f1b7474[] = " Portal %d %s%s%.1f > %.1f";
+const char var7f1b7490[] = "";
+const char var7f1b7494[] = "";
+const char var7f1b7498[] = " Convex Room Failed (0)";
+const char var7f1b74b0[] = "Checking Concave Room %d";
+const char var7f1b74cc[] = " Checking Portal %d";
+const char var7f1b74e0[] = "Reject P:%d (%s%s%.1f %.1f n3=%.1f)";
+const char var7f1b7504[] = "";
+const char var7f1b7508[] = "";
+const char var7f1b750c[] = "Reject P:%d (%s%s%.1f %.1f n4=%.1f)";
+const char var7f1b7530[] = "";
+const char var7f1b7534[] = "";
+const char var7f1b7538[] = " Full %d%s%s %.1f %.1f (%.1f %.1f)";
+const char var7f1b755c[] = "";
+const char var7f1b7560[] = "";
+const char var7f1b7564[] = " Failed 2 - Crossed portal %d";
+const char var7f1b7584[] = " Failed 1 - Crossed portal %d";
+const char var7f1b75a4[] = " Passed";
+const char var7f1b75ac[] = "edist";
+
 
 GLOBAL_ASM(
 glabel func0f15da00

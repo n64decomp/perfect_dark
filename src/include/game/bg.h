@@ -50,7 +50,7 @@ bool roomIsVisibleByAnyAibot(s32 room);
 bool roomIsVisibleByPlayer(s32 room, u32 playernum);
 bool roomIsVisibleByAibot(s32 room, u32 aibotindex);
 s32 func0f15d870(void *arg0);
-u32 bgInflate(void *src, void *dst, u32 len);
+u32 bgInflate(u8 *src, u8 *dst, u32 len);
 u32 func0f15da00(void);
 u32 func0f15dab4(void);
 u32 func0f15dbb4(void);
