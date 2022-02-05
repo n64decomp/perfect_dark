@@ -3705,7 +3705,7 @@ struct room14 {
 
 struct room {
 	/*0x00*/ u16 flags;
-	/*0x02*/ s16 unk02;
+	/*0x02*/ s16 loaded240; // 0 when unloaded, 1 when visible, ticks up to 120 when recently visible
 	/*0x04*/ u8 portalrecursioncount;
 	/*0x05*/ s8 numportals;
 	/*0x06*/ u8 unk06;

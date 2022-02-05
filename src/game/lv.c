@@ -2236,7 +2236,7 @@ glabel var7f1b8e7cpf
 /*  f16ad28:	02602025 */ 	move	$a0,$s3
 /*  f16ad2c:	0fc48121 */ 	jal	func0f11f984
 /*  f16ad30:	00402025 */ 	move	$a0,$v0
-/*  f16ad34:	0fc57660 */ 	jal	roomsTick
+/*  f16ad34:	0fc57660 */ 	jal	bgTick
 /*  f16ad38:	00409825 */ 	move	$s3,$v0
 /*  f16ad3c:	0fc010c5 */ 	jal	func0f004314
 /*  f16ad40:	00000000 */ 	nop
@@ -3652,7 +3652,7 @@ Gfx *lvRender(Gfx *gdl)
 
 				gdl = viRenderViewportEdges(gdl);
 				gdl = func0f11f984(gdl);
-				roomsTick();
+				bgTick();
 				func0f004314();
 				propsTick(islastplayer);
 				scenarioTickChr(NULL);
@@ -4819,7 +4819,7 @@ glabel var7f1b1fd4nb
 /*  f164a30:	02602025 */ 	or	$a0,$s3,$zero
 /*  f164a34:	0fc46971 */ 	jal	func0f11f984
 /*  f164a38:	00402025 */ 	or	$a0,$v0,$zero
-/*  f164a3c:	0fc55c2f */ 	jal	roomsTick
+/*  f164a3c:	0fc55c2f */ 	jal	bgTick
 /*  f164a40:	00409825 */ 	or	$s3,$v0,$zero
 /*  f164a44:	0fc01017 */ 	jal	func0f004314
 /*  f164a48:	00000000 */ 	sll	$zero,$zero,0x0
@@ -9479,7 +9479,7 @@ void lvReset(void)
 	hudmsgsReset();
 
 	if (g_Vars.stagenum < NUM_STAGES) {
-		func0f15c850();
+		bgReset();
 	}
 
 	func00033dd8();

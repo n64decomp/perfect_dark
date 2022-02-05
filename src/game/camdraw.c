@@ -308,7 +308,7 @@ void *func0f149d58(u32 size, u32 line, char *file)
 
 	size = align16(size);
 
-	func0f15e5b8(size, 1);
+	bgGarbageCollectRooms(size, 1);
 
 	var8007f9d0 += size;
 	allocation = memaAlloc(size);

@@ -86,8 +86,8 @@ struct room *g_Rooms;
 u8 *g_MpRoomVisibility;
 s16 g_ActiveRoomNums[350];
 s32 g_NumActiveRooms;
-u16 var800a4bf0;
-u16 var800a4bf2;
+u16 g_BgUnloadDelay240;
+u16 g_BgUnloadDelay240_2;
 u32 var800a4bf4;
 s16 var800a4bf8[100];
 u32 *g_BgPrimaryData2;
@@ -185,7 +185,7 @@ void func0f157e94(s32 roomnum, s32 arg1, struct screenbox *box)
 	g_Rooms[roomnum].flags |= ROOMFLAG_VISIBLEBYPLAYER;
 #endif
 
-	if ((g_Rooms[roomnum].flags & ROOMFLAG_DISABLED) == 0) {
+	if ((g_Rooms[roomnum].flags & ROOMFLAG_FORCEDISABLED) == 0) {
 #if VERSION >= VERSION_NTSC_1_0
 		g_Rooms[roomnum].flags |= ROOMFLAG_VISIBLEBYPLAYER;
 #endif
@@ -247,13 +247,11 @@ void func0f157e94(s32 roomnum, s32 arg1, struct screenbox *box)
 
 			roomUnpauseProps(roomnum, false);
 
-			if (g_Rooms[roomnum].unk02 == 0 && var8007fc10 > 0) {
+			if (g_Rooms[roomnum].loaded240 == 0 && var8007fc10 > 0) {
 				var8007fc10--;
-				func0f15dc58(roomnum);
-			} else {
-				if (g_Rooms[roomnum].unk02 == 0) {
-					var8007fc10--;
-				}
+				roomLoad(roomnum);
+			} else if (g_Rooms[roomnum].loaded240 == 0) {
+				var8007fc10--;
 			}
 		}
 	}
@@ -2467,7 +2465,7 @@ glabel func0f15a0fc
 /*  f15a174:	18a00009 */ 	blez	$a1,.L0f15a19c
 /*  f15a178:	24b8ffff */ 	addiu	$t8,$a1,-1
 /*  f15a17c:	a4f80000 */ 	sh	$t8,0x0($a3)
-/*  f15a180:	0fc57716 */ 	jal	func0f15dc58
+/*  f15a180:	0fc57716 */ 	jal	roomLoad
 /*  f15a184:	afa6003c */ 	sw	$a2,0x3c($sp)
 /*  f15a188:	3c19800a */ 	lui	$t9,%hi(g_Rooms)
 /*  f15a18c:	8f394928 */ 	lw	$t9,%lo(g_Rooms)($t9)
@@ -3151,7 +3149,7 @@ glabel func0f15a6f4
 /*  f15ab34:	872c0002 */ 	lh	$t4,0x2($t9)
 /*  f15ab38:	55800004 */ 	bnezl	$t4,.L0f15ab4c
 /*  f15ab3c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f15ab40:	0fc57716 */ 	jal	func0f15dc58
+/*  f15ab40:	0fc57716 */ 	jal	roomLoad
 /*  f15ab44:	02402025 */ 	or	$a0,$s2,$zero
 /*  f15ab48:	02202025 */ 	or	$a0,$s1,$zero
 .L0f15ab4c:
@@ -3861,7 +3859,7 @@ glabel func0f15a6f4
 /*  f155194:	872c0002 */ 	lh	$t4,0x2($t9)
 /*  f155198:	55800004 */ 	bnezl	$t4,.NB0f1551ac
 /*  f15519c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f1551a0:	0fc560fc */ 	jal	func0f15dc58
+/*  f1551a0:	0fc560fc */ 	jal	roomLoad
 /*  f1551a4:	02402025 */ 	or	$a0,$s2,$zero
 /*  f1551a8:	02202025 */ 	or	$a0,$s1,$zero
 .NB0f1551ac:
@@ -4638,11 +4636,11 @@ void bgInit(s32 stagenum)
 	var8007fc0c = 8;
 
 	if (IS4MB()) {
-		var800a4bf0 = 6;
-		var800a4bf2 = 6;
+		g_BgUnloadDelay240 = 6;
+		g_BgUnloadDelay240_2 = 6;
 	} else {
-		var800a4bf0 = 120;
-		var800a4bf2 = 120;
+		g_BgUnloadDelay240 = 120;
+		g_BgUnloadDelay240_2 = 120;
 	}
 
 	g_StageIndex = stageGetIndex2(stagenum);
@@ -8474,7 +8472,7 @@ glabel var7f1b75d0
 //			g_Rooms[s4].flags = 0;
 //			g_Rooms[s4].unk06 = 0;
 //			g_Rooms[s4].unk07 = 1;
-//			g_Rooms[s4].unk02 = 0;
+//			g_Rooms[s4].loaded240 = 0;
 //			g_Rooms[s4].unk14 = NULL;
 //			g_Rooms[s4].unk80 = -1;
 //			g_Rooms[s4].unk84 = 0;
@@ -8610,9 +8608,9 @@ glabel var7f1b75d0
 //	func0f001c0c();
 //}
 
-void func0f15c850(void)
+void bgReset(void)
 {
-	func0f15e538();
+	bgUnloadAllRooms();
 	mtx00016748(1);
 }
 
@@ -8676,7 +8674,7 @@ void func0f15c920(void)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void roomsTick(void)
+void bgTick(void)
 {
 	s32 tickmode;
 
@@ -8685,7 +8683,7 @@ void roomsTick(void)
 	func0f15c920();
 
 	if (g_Vars.currentplayerindex == 0) {
-		func0f15e728();
+		bgTickRooms();
 	}
 
 	tickmode = g_Vars.tickmode;
@@ -8708,11 +8706,11 @@ void roomsTick(void)
 
 	g_CamRoom = g_Vars.currentplayer->cam_room;
 
-	func0f163e34();
+	bgTickPortals();
 }
 #else
 GLOBAL_ASM(
-glabel roomsTick
+glabel bgTick
 /*  f1570bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1570c0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1570c4:	3c01800b */ 	lui	$at,0x800b
@@ -8728,7 +8726,7 @@ glabel roomsTick
 /*  f1570ec:	8c6e0290 */ 	lw	$t6,0x290($v1)
 /*  f1570f0:	55c00006 */ 	bnezl	$t6,.NB0f15710c
 /*  f1570f4:	8c6202ac */ 	lw	$v0,0x2ac($v1)
-/*  f1570f8:	0fc563ca */ 	jal	func0f15e728
+/*  f1570f8:	0fc563ca */ 	jal	bgTickRooms
 /*  f1570fc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f157100:	3c03800a */ 	lui	$v1,0x800a
 /*  f157104:	2463e6c0 */ 	addiu	$v1,$v1,-6464
@@ -8773,7 +8771,7 @@ glabel roomsTick
 /*  f157190:	248419bc */ 	addiu	$a0,$a0,0x19bc
 /*  f157194:	0fc55704 */ 	jal	func7f155c10nb
 /*  f157198:	ac2c2484 */ 	sw	$t4,0x2484($at)
-/*  f15719c:	0fc5798d */ 	jal	func0f163e34
+/*  f15719c:	0fc5798d */ 	jal	bgTickPortals
 /*  f1571a0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1571a4:	3c047f1b */ 	lui	$a0,0x7f1b
 /*  f1571a8:	248419c4 */ 	addiu	$a0,$a0,0x19c4
@@ -9359,7 +9357,7 @@ void roomsHandleStateDebugging(void)
 				}
 			}
 
-			if (g_Rooms[i].unk02) {
+			if (g_Rooms[i].loaded240) {
 				string[len] = 'L';
 			} else {
 				string[len] = '.';
@@ -9642,7 +9640,7 @@ glabel func0f15dbb4
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f15dc58
+glabel roomLoad
 /*  f15dc58:	27bdfd08 */ 	addiu	$sp,$sp,-760
 /*  f15dc5c:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f15dc60:	afb40030 */ 	sw	$s4,0x30($sp)
@@ -9684,7 +9682,7 @@ glabel func0f15dc58
 /*  f15dcec:	afa202f4 */ 	sw	$v0,0x2f4($sp)
 .L0f15dcf0:
 /*  f15dcf0:	8fa402f4 */ 	lw	$a0,0x2f4($sp)
-/*  f15dcf4:	0fc5796e */ 	jal	func0f15e5b8
+/*  f15dcf4:	0fc5796e */ 	jal	bgGarbageCollectRooms
 /*  f15dcf8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f15dcfc:	0c004aac */ 	jal	memaAlloc
 /*  f15dd00:	8fa402f4 */ 	lw	$a0,0x2f4($sp)
@@ -10206,7 +10204,7 @@ glabel func0f15dc58
 );
 #else
 GLOBAL_ASM(
-glabel func0f15dc58
+glabel roomLoad
 /*  f1583f0:	27bdfd08 */ 	addiu	$sp,$sp,-760
 /*  f1583f4:	afa402f8 */ 	sw	$a0,0x2f8($sp)
 /*  f1583f8:	afbf002c */ 	sw	$ra,0x2c($sp)
@@ -10253,7 +10251,7 @@ glabel func0f15dc58
 /*  f158498:	afa202f4 */ 	sw	$v0,0x2f4($sp)
 .NB0f15849c:
 /*  f15849c:	8fa402f4 */ 	lw	$a0,0x2f4($sp)
-/*  f1584a0:	0fc5636f */ 	jal	func0f15e5b8
+/*  f1584a0:	0fc5636f */ 	jal	bgGarbageCollectRooms
 /*  f1584a4:	00002825 */ 	or	$a1,$zero,$zero
 /*  f1584a8:	0c004cc9 */ 	jal	memaAlloc
 /*  f1584ac:	8fa402f4 */ 	lw	$a0,0x2f4($sp)
@@ -10798,7 +10796,7 @@ glabel func0f15dc58
 );
 #endif
 
-void func0f15e474(s32 roomnum)
+void roomUnload(s32 roomnum)
 {
 	u32 thing;
 
@@ -10814,60 +10812,70 @@ void func0f15e474(s32 roomnum)
 		g_Rooms[roomnum].unk14 = 0;
 	}
 
-	g_Rooms[roomnum].unk02 = 0;
+	g_Rooms[roomnum].loaded240 = 0;
 }
 
-void func0f15e538(void)
+void bgUnloadAllRooms(void)
 {
 	s32 i;
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
-		if (g_Rooms[i].unk02) {
-			func0f15e474(i);
+		if (g_Rooms[i].loaded240) {
+			roomUnload(i);
 		}
 	}
 }
 
-void func0f15e5b8(s32 size, u32 arg1)
+/**
+ * Find rooms which were recently visible and not yet unloaded, and unload them
+ * until the given bytesneeded amount is available in mema.
+ *
+ * Rooms are unloaded in order of least recently visible.
+ *
+ * If there's still not enough space after 30 unloads and the desparate argument
+ * is true, do a final iteration through all the rooms and free everything
+ * that's not visible.
+ */
+void bgGarbageCollectRooms(s32 bytesneeded, bool desparate)
 {
-	s32 limit = memaGetLongestFree();
-	s32 bestroom;
-	s32 bestvalue;
+	s32 bytesfree = memaGetLongestFree();
+	s32 oldestroom;
+	s32 oldesttimer;
 	s32 count = 0;
 	s32 i;
 
-	while (size > limit) {
-		bestroom = 0;
-		bestvalue = 0;
+	while (bytesfree < bytesneeded) {
+		oldestroom = 0;
+		oldesttimer = 0;
 
 		for (i = 1; i < g_Vars.roomcount; i++) {
-			if (bestvalue < g_Rooms[i].unk02) {
-				bestroom = i;
-				bestvalue = g_Rooms[i].unk02;
+			if (g_Rooms[i].loaded240 > oldesttimer) {
+				oldestroom = i;
+				oldesttimer = g_Rooms[i].loaded240;
 			}
 		}
 
-		if (bestroom != 0) {
-			func0f15e474(bestroom);
+		if (oldestroom != 0) {
+			roomUnload(oldestroom);
 			memaDefrag();
 		}
 
-		limit = memaGetLongestFree();
+		bytesfree = memaGetLongestFree();
 		count++;
 
 		if (count == 30) {
-			if (arg1 == 1) {
+			if (desparate == true) {
 				for (i = 1; i < g_Vars.roomcount; i++) {
 #if VERSION >= VERSION_NTSC_1_0
-					if (g_Rooms[i].unk02 > 8)
+					if (g_Rooms[i].loaded240 > 8)
 #else
-					if (g_Rooms[i].unk02)
+					if (g_Rooms[i].loaded240)
 #endif
 					{
-						func0f15e474(i);
+						roomUnload(i);
 						memaDefrag();
 
-						if (memaGetLongestFree() >= size) {
+						if (memaGetLongestFree() >= bytesneeded) {
 							return;
 						}
 					}
@@ -10879,33 +10887,38 @@ void func0f15e5b8(s32 size, u32 arg1)
 	}
 }
 
-void func0f15e728(void)
+/**
+ * Increase the loaded240 timers for rooms which are no longer visible.
+ * If any rooms have reached the timer limit then unload them, but don't unload
+ * more than 2 rooms per frame.
+ */
+void bgTickRooms(void)
 {
-	s32 count = 0;
+	s32 numunloaded = 0;
 	s32 i;
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
-		if (g_Rooms[i].unk02) {
+		if (g_Rooms[i].loaded240) {
 #if VERSION >= VERSION_NTSC_1_0
-			g_Rooms[i].unk02++;
+			g_Rooms[i].loaded240++;
 #else
-			g_Rooms[i].unk02 += g_Vars.lvupdate240;
+			g_Rooms[i].loaded240 += g_Vars.lvupdate240;
 #endif
 
-			if (g_Rooms[i].unk02 >= var800a4bf0) {
-				g_Rooms[i].unk02 = var800a4bf0;
+			if (g_Rooms[i].loaded240 >= g_BgUnloadDelay240) {
+				g_Rooms[i].loaded240 = g_BgUnloadDelay240;
 			}
 
 			if (g_Rooms[i].flags & ROOMFLAG_VISIBLEBYPLAYER) {
-				g_Rooms[i].unk02 = 1;
+				g_Rooms[i].loaded240 = 1;
 			}
 
-			if (count < 2 && var800a4bf2 == g_Rooms[i].unk02) {
-				func0f15e474(i);
+			if (numunloaded < 2 && g_Rooms[i].loaded240 == g_BgUnloadDelay240_2) {
+				roomUnload(i);
 #if VERSION >= VERSION_NTSC_1_0
 				memaDefrag();
 #endif
-				count++;
+				numunloaded++;
 			}
 		}
 	}
@@ -11104,11 +11117,11 @@ glabel func0f15e85c
 );
 
 /**
- * Renders the opaque layer of the room.
+ * Render the opaque layer of the room.
  */
 Gfx *func0f15eb28(Gfx *gdl, s32 roomnum)
 {
-	if (g_Rooms[roomnum].unk02 == 0) {
+	if (g_Rooms[roomnum].loaded240 == 0) {
 		return gdl;
 	}
 
@@ -11117,7 +11130,7 @@ Gfx *func0f15eb28(Gfx *gdl, s32 roomnum)
 	gdl = func0f15e85c(gdl, roomnum, g_Rooms[roomnum].unk14->unk08, true);
 	gdl = func0f001300(gdl);
 
-	g_Rooms[roomnum].unk02 = 1;
+	g_Rooms[roomnum].loaded240 = 1;
 
 	return gdl;
 }
@@ -11185,7 +11198,7 @@ glabel func0f15ebd4
 /*  f15ecb0:	10000004 */ 	b	.L0f15ecc4
 /*  f15ecb4:	a70e0002 */ 	sh	$t6,0x2($t8)
 .L0f15ecb8:
-/*  f15ecb8:	0fc57716 */ 	jal	func0f15dc58
+/*  f15ecb8:	0fc57716 */ 	jal	roomLoad
 /*  f15ecbc:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f15ecc0:	8fa60020 */ 	lw	$a2,0x20($sp)
 .L0f15ecc4:
@@ -11206,7 +11219,7 @@ glabel func0f15ebd4
 //		return gdl;
 //	}
 //
-//	if (g_Rooms[roomnum].unk02) {
+//	if (g_Rooms[roomnum].loaded240) {
 //		if (!g_Rooms[roomnum].unk14->unk0c) {
 //			return gdl;
 //		}
@@ -11220,9 +11233,9 @@ glabel func0f15ebd4
 //		gdl = func0f166d7c(gdl, roomnum);
 //		gdl = func0f15e85c(gdl, roomnum, g_Rooms[roomnum].unk14->unk0c, 1);
 //
-//		g_Rooms[roomnum].unk02 = 1;
+//		g_Rooms[roomnum].loaded240 = 1;
 //	} else {
-//		func0f15dc58(roomnum);
+//		roomLoad(roomnum);
 //	}
 //
 //	return gdl;
@@ -14470,9 +14483,9 @@ glabel func0f161520
 /*  f161ab0:	27bd00e8 */ 	addiu	$sp,$sp,0xe8
 );
 
-s32 func0f161ab4(s32 room)
+bool roomIsLoaded(s32 room)
 {
-	return g_Rooms[room].unk02;
+	return g_Rooms[room].loaded240;
 }
 
 bool roomContainsCoord(struct coord *pos, s16 roomnum)
@@ -15811,7 +15824,7 @@ glabel var7f1b76bc
 //			break;
 //		case PORTALCMD_DISABLEROOM: // 24 - f162a70
 //			if (execute) {
-//				g_Rooms[cmd[1].param].flags |= ROOMFLAG_DISABLED;
+//				g_Rooms[cmd[1].param].flags |= ROOMFLAG_FORCEDISABLED;
 //			}
 //			cmd += cmd->len;
 //			break;
@@ -15820,7 +15833,7 @@ glabel var7f1b76bc
 //				s32 i;
 //
 //				for (i = cmd[1].param; i <= cmd[2].param; i++) {
-//					g_Rooms[i].flags |= ROOMFLAG_DISABLED;
+//					g_Rooms[i].flags |= ROOMFLAG_FORCEDISABLED;
 //				}
 //			}
 //			cmd += cmd->len;
@@ -16270,7 +16283,7 @@ void func0f1632d4(s16 roomnum1, s16 roomnum2, s16 arg2, struct screenbox *box)
 	s32 i;
 	s32 j;
 
-	if (g_Rooms[roomnum2].flags & ROOMFLAG_DISABLED) {
+	if (g_Rooms[roomnum2].flags & ROOMFLAG_FORCEDISABLED) {
 		return;
 	}
 
@@ -16956,7 +16969,7 @@ glabel func0f16397c
 /*  f163e30:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
 
-void func0f163e34(void)
+void bgTickPortals(void)
 {
 	s32 i;
 	s32 room;
@@ -16974,7 +16987,7 @@ void func0f163e34(void)
 	var800a4cf0.zrange.far = var800a4cf0.zrange.far / g_Vars.currentplayerstats->scale_bg2gfx;
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
-		g_Rooms[i].flags &= ~(ROOMFLAG_DISABLED | ROOMFLAG_VISIBLEBYPLAYER | ROOMFLAG_VISIBLEBYAIBOT | ROOMFLAG_0020);
+		g_Rooms[i].flags &= ~(ROOMFLAG_FORCEDISABLED | ROOMFLAG_VISIBLEBYPLAYER | ROOMFLAG_VISIBLEBYAIBOT | ROOMFLAG_0020);
 		g_Rooms[i].portalrecursioncount = 0;
 		g_Rooms[i].unk06 = 0;
 		g_Rooms[i].unk07 = 1;
@@ -17278,7 +17291,7 @@ glabel var7f1b76c0
 .L0f1644e8:
 /*  f1644e8:	10e00008 */ 	beqz	$a3,.L0f16450c
 /*  f1644ec:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f1644f0:	0fc57716 */ 	jal	func0f15dc58
+/*  f1644f0:	0fc57716 */ 	jal	roomLoad
 /*  f1644f4:	afab00c8 */ 	sw	$t3,0xc8($sp)
 /*  f1644f8:	3c0a8008 */ 	lui	$t2,%hi(var8007fc28)
 /*  f1644fc:	254afc28 */ 	addiu	$t2,$t2,%lo(var8007fc28)
