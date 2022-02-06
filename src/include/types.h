@@ -3698,7 +3698,7 @@ struct screenbox {
 
 struct roomgfxdata18 {
 	u8 unk00;
-	void *unk04;
+	struct roomgfxdata18 *next;
 	Gfx *gdl;
 	struct gfxvtx *vertices;
 	u32 *colours;

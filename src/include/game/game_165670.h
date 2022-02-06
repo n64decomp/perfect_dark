@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0f165670(void);
+void func0f165670(Gfx *gdl, s32 arg1, s32 arg2);
 void func0f165728(struct roomgfxdata18 *arg0, s32 arg1);
 
 #endif

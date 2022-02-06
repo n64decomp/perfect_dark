@@ -301,46 +301,26 @@ glabel func0f165670
 /*  f165724:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f165728
-/*  f165728:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f16572c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f165730:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f165734:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f165738:	00808025 */ 	or	$s0,$a0,$zero
-/*  f16573c:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f165740:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f165744:	afbf0024 */ 	sw	$ra,0x24($sp)
-.L0f165748:
-/*  f165748:	52000015 */ 	beqzl	$s0,.L0f1657a0
-/*  f16574c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f165750:	92020000 */ 	lbu	$v0,0x0($s0)
-.L0f165754:
-/*  f165754:	02202825 */ 	or	$a1,$s1,$zero
-/*  f165758:	50400006 */ 	beqzl	$v0,.L0f165774
-/*  f16575c:	8e040008 */ 	lw	$a0,0x8($s0)
-/*  f165760:	10520009 */ 	beq	$v0,$s2,.L0f165788
-/*  f165764:	00000000 */ 	nop
-/*  f165768:	1000000d */ 	b	.L0f1657a0
-/*  f16576c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f165770:	8e040008 */ 	lw	$a0,0x8($s0)
-.L0f165774:
-/*  f165774:	00002825 */ 	or	$a1,$zero,$zero
-/*  f165778:	0fc5959c */ 	jal	func0f165670
-/*  f16577c:	02203025 */ 	or	$a2,$s1,$zero
-/*  f165780:	1000fff1 */ 	b	.L0f165748
-/*  f165784:	8e100004 */ 	lw	$s0,0x4($s0)
-.L0f165788:
-/*  f165788:	0fc595ca */ 	jal	func0f165728
-/*  f16578c:	8e040008 */ 	lw	$a0,0x8($s0)
-/*  f165790:	8e100004 */ 	lw	$s0,0x4($s0)
-/*  f165794:	5600ffef */ 	bnezl	$s0,.L0f165754
-/*  f165798:	92020000 */ 	lbu	$v0,0x0($s0)
-/*  f16579c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f1657a0:
-/*  f1657a0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1657a4:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f1657a8:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f1657ac:	03e00008 */ 	jr	$ra
-/*  f1657b0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f165728(struct roomgfxdata18 *arg0, s32 arg1)
+{
+	if (arg0->unk00 == 1);
+
+	while (true) {
+		if (!arg0) {
+			return;
+		}
+
+		switch (arg0->unk00) {
+		case 0:
+			func0f165670(arg0->gdl, 0, arg1);
+			arg0 = arg0->next;
+			break;
+		case 1:
+			func0f165728((struct roomgfxdata18 *)arg0->gdl, arg1);
+			arg0 = arg0->next;
+			break;
+		default:
+			return;
+		}
+	}
+}
