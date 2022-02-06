@@ -9907,7 +9907,7 @@ glabel roomLoad
 /*  f15e370:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f15e374:	01f95821 */ 	addu	$t3,$t7,$t9
 /*  f15e378:	8d6c0014 */ 	lw	$t4,0x14($t3)
-/*  f15e37c:	0fc595ca */ 	jal	func0f165728
+/*  f15e37c:	0fc595ca */ 	jal	gfxReplaceGbiCommandsRecursively
 /*  f15e380:	8d840008 */ 	lw	$a0,0x8($t4)
 /*  f15e384:	3c0d800a */ 	lui	$t5,%hi(g_Rooms)
 /*  f15e388:	8dad4928 */ 	lw	$t5,%lo(g_Rooms)($t5)
@@ -9915,7 +9915,7 @@ glabel roomLoad
 /*  f15e390:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f15e394:	01aec021 */ 	addu	$t8,$t5,$t6
 /*  f15e398:	8f0f0014 */ 	lw	$t7,0x14($t8)
-/*  f15e39c:	0fc595ca */ 	jal	func0f165728
+/*  f15e39c:	0fc595ca */ 	jal	gfxReplaceGbiCommandsRecursively
 /*  f15e3a0:	8de4000c */ 	lw	$a0,0xc($t7)
 /*  f15e3a4:	10000014 */ 	b	.L0f15e3f8
 /*  f15e3a8:	00000000 */ 	nop
@@ -9929,7 +9929,7 @@ glabel roomLoad
 /*  f15e3c4:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f15e3c8:	016c6821 */ 	addu	$t5,$t3,$t4
 /*  f15e3cc:	8dae0014 */ 	lw	$t6,0x14($t5)
-/*  f15e3d0:	0fc595ca */ 	jal	func0f165728
+/*  f15e3d0:	0fc595ca */ 	jal	gfxReplaceGbiCommandsRecursively
 /*  f15e3d4:	8dc40008 */ 	lw	$a0,0x8($t6)
 /*  f15e3d8:	3c18800a */ 	lui	$t8,%hi(g_Rooms)
 /*  f15e3dc:	8f184928 */ 	lw	$t8,%lo(g_Rooms)($t8)
@@ -9937,7 +9937,7 @@ glabel roomLoad
 /*  f15e3e4:	24050007 */ 	addiu	$a1,$zero,0x7
 /*  f15e3e8:	030fc821 */ 	addu	$t9,$t8,$t7
 /*  f15e3ec:	8f2b0014 */ 	lw	$t3,0x14($t9)
-/*  f15e3f0:	0fc595ca */ 	jal	func0f165728
+/*  f15e3f0:	0fc595ca */ 	jal	gfxReplaceGbiCommandsRecursively
 /*  f15e3f4:	8d64000c */ 	lw	$a0,0xc($t3)
 .L0f15e3f8:
 /*  f15e3f8:	0fc57be7 */ 	jal	func0f15ef9c
@@ -10496,7 +10496,7 @@ glabel roomLoad
 /*  f158b68:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f158b6c:	01aec021 */ 	addu	$t8,$t5,$t6
 /*  f158b70:	8f0f0014 */ 	lw	$t7,0x14($t8)
-/*  f158b74:	0fc57fca */ 	jal	func0f165728
+/*  f158b74:	0fc57fca */ 	jal	gfxReplaceGbiCommandsRecursively
 /*  f158b78:	8de40008 */ 	lw	$a0,0x8($t7)
 /*  f158b7c:	3c19800b */ 	lui	$t9,0x800b
 /*  f158b80:	8f3990a8 */ 	lw	$t9,-0x6f58($t9)
@@ -10504,7 +10504,7 @@ glabel roomLoad
 /*  f158b88:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f158b8c:	032b6021 */ 	addu	$t4,$t9,$t3
 /*  f158b90:	8d8d0014 */ 	lw	$t5,0x14($t4)
-/*  f158b94:	0fc57fca */ 	jal	func0f165728
+/*  f158b94:	0fc57fca */ 	jal	gfxReplaceGbiCommandsRecursively
 /*  f158b98:	8da4000c */ 	lw	$a0,0xc($t5)
 /*  f158b9c:	10000014 */ 	beqz	$zero,.NB0f158bf0
 /*  f158ba0:	00000000 */ 	sll	$zero,$zero,0x0
@@ -10518,7 +10518,7 @@ glabel roomLoad
 /*  f158bbc:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f158bc0:	030fc821 */ 	addu	$t9,$t8,$t7
 /*  f158bc4:	8f2b0014 */ 	lw	$t3,0x14($t9)
-/*  f158bc8:	0fc57fca */ 	jal	func0f165728
+/*  f158bc8:	0fc57fca */ 	jal	gfxReplaceGbiCommandsRecursively
 /*  f158bcc:	8d640008 */ 	lw	$a0,0x8($t3)
 /*  f158bd0:	3c0c800b */ 	lui	$t4,0x800b
 /*  f158bd4:	8d8c90a8 */ 	lw	$t4,-0x6f58($t4)
@@ -10526,7 +10526,7 @@ glabel roomLoad
 /*  f158bdc:	24050007 */ 	addiu	$a1,$zero,0x7
 /*  f158be0:	018d7021 */ 	addu	$t6,$t4,$t5
 /*  f158be4:	8dd80014 */ 	lw	$t8,0x14($t6)
-/*  f158be8:	0fc57fca */ 	jal	func0f165728
+/*  f158be8:	0fc57fca */ 	jal	gfxReplaceGbiCommandsRecursively
 /*  f158bec:	8f04000c */ 	lw	$a0,0xc($t8)
 .NB0f158bf0:
 /*  f158bf0:	0fc565e7 */ 	jal	func0f15ef9c
@@ -10775,11 +10775,11 @@ const char var7f1b1a60nb[] = "bg.c";
 //		}
 //
 //		if (g_FogDisabled) {
-//			func0f165728(g_Rooms[roomnum].gfxdata->unk08, 1);
-//			func0f165728(g_Rooms[roomnum].gfxdata->unk0c, 5);
+//			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk08, 1);
+//			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk0c, 5);
 //		} else if (var800a65e4 == 0) {
-//			func0f165728(g_Rooms[roomnum].gfxdata->unk08, 6);
-//			func0f165728(g_Rooms[roomnum].gfxdata->unk0c, 7);
+//			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk08, 6);
+//			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk0c, 7);
 //		}
 //
 //		func0f15ef9c(roomnum);

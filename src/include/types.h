@@ -3575,11 +3575,6 @@ struct menudialogdef {
 	struct menudialogdef *nextsibling;
 };
 
-struct twowords {
-	u32 unk00;
-	u32 unk04;
-};
-
 struct surfacetype {
 	u16 *sounds;
 	u8 *unk04;
