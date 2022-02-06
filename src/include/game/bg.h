@@ -53,7 +53,7 @@ s32 func0f15d870(void *arg0);
 u32 bgInflate(u8 *src, u8 *dst, u32 len);
 u32 func0f15da00(void);
 s32 func0f15dab4(s32 roomnum, s32 ref, s32 arg2);
-s32 func0f15dbb4(s32 roomnum, s32 ref);
+struct gfxvtx *room0f15dbb4(s32 roomnum, Gfx *gdl);
 void roomLoad(s32 roomnum);
 void roomUnload(s32 room);
 void bgUnloadAllRooms(void);

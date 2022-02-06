@@ -9360,55 +9360,30 @@ glabel func0f15dab4
 /*  f15dbb0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f15dbb4
-/*  f15dbb4:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f15dbb8:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f15dbbc:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f15dbc0:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f15dbc4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f15dbc8:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f15dbcc:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f15dbd0:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f15dbd4:	8f020014 */ 	lw	$v0,0x14($t8)
-/*  f15dbd8:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f15dbdc:	8c460000 */ 	lw	$a2,0x0($v0)
-/*  f15dbe0:	24430018 */ 	addiu	$v1,$v0,0x18
-/*  f15dbe4:	24670014 */ 	addiu	$a3,$v1,0x14
-/*  f15dbe8:	00c7082b */ 	sltu	$at,$a2,$a3
-/*  f15dbec:	54200018 */ 	bnezl	$at,.L0f15dc50
-/*  f15dbf0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f15dbf4:	90620000 */ 	lbu	$v0,0x0($v1)
-.L0f15dbf8:
-/*  f15dbf8:	50400006 */ 	beqzl	$v0,.L0f15dc14
-/*  f15dbfc:	8c790008 */ 	lw	$t9,0x8($v1)
-/*  f15dc00:	50440009 */ 	beql	$v0,$a0,.L0f15dc28
-/*  f15dc04:	8c62000c */ 	lw	$v0,0xc($v1)
-/*  f15dc08:	1000000c */ 	b	.L0f15dc3c
-/*  f15dc0c:	00e01825 */ 	or	$v1,$a3,$zero
-/*  f15dc10:	8c790008 */ 	lw	$t9,0x8($v1)
-.L0f15dc14:
-/*  f15dc14:	54b90009 */ 	bnel	$a1,$t9,.L0f15dc3c
-/*  f15dc18:	00e01825 */ 	or	$v1,$a3,$zero
-/*  f15dc1c:	03e00008 */ 	jr	$ra
-/*  f15dc20:	8c62000c */ 	lw	$v0,0xc($v1)
-/*  f15dc24:	8c62000c */ 	lw	$v0,0xc($v1)
-.L0f15dc28:
-/*  f15dc28:	0046082b */ 	sltu	$at,$v0,$a2
-/*  f15dc2c:	50200003 */ 	beqzl	$at,.L0f15dc3c
-/*  f15dc30:	00e01825 */ 	or	$v1,$a3,$zero
-/*  f15dc34:	00403025 */ 	or	$a2,$v0,$zero
-/*  f15dc38:	00e01825 */ 	or	$v1,$a3,$zero
-.L0f15dc3c:
-/*  f15dc3c:	24e70014 */ 	addiu	$a3,$a3,0x14
-/*  f15dc40:	00c7082b */ 	sltu	$at,$a2,$a3
-/*  f15dc44:	5020ffec */ 	beqzl	$at,.L0f15dbf8
-/*  f15dc48:	90620000 */ 	lbu	$v0,0x0($v1)
-/*  f15dc4c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f15dc50:
-/*  f15dc50:	03e00008 */ 	jr	$ra
-/*  f15dc54:	00000000 */ 	nop
-);
+struct gfxvtx *room0f15dbb4(s32 roomnum, Gfx *gdl)
+{
+	struct roomgfxdata18 *thing = g_Rooms[roomnum].gfxdata->unk18;
+	u32 end = (u32)g_Rooms[roomnum].gfxdata->vertices;
+
+	while ((u32)(thing + 1) <= end) {
+		switch (thing->unk00) {
+		case 0:
+			if (gdl == thing->gdl) {
+				return thing->vertices;
+			}
+			break;
+		case 1:
+			if ((u32)thing->vertices < end) {
+				end = (u32)thing->vertices;
+			}
+			break;
+		}
+
+		thing++;
+	}
+
+	return NULL;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -9731,7 +9706,7 @@ glabel roomLoad
 .L0f15e0ec:
 /*  f15e0ec:	ae700000 */ 	sw	$s0,0x0($s3)
 /*  f15e0f0:	8fa402f8 */ 	lw	$a0,0x2f8($sp)
-/*  f15e0f4:	0fc576ed */ 	jal	func0f15dbb4
+/*  f15e0f4:	0fc576ed */ 	jal	room0f15dbb4
 /*  f15e0f8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f15e0fc:	ae220000 */ 	sw	$v0,0x0($s1)
 /*  f15e100:	26520001 */ 	addiu	$s2,$s2,0x1
@@ -10301,7 +10276,7 @@ glabel roomLoad
 /*  f158898:	ae500000 */ 	sw	$s0,0x0($s2)
 /*  f15889c:	afa30044 */ 	sw	$v1,0x44($sp)
 /*  f1588a0:	8fa402f8 */ 	lw	$a0,0x2f8($sp)
-/*  f1588a4:	0fc560d3 */ 	jal	func0f15dbb4
+/*  f1588a4:	0fc560d3 */ 	jal	room0f15dbb4
 /*  f1588a8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1588ac:	8fa30044 */ 	lw	$v1,0x44($sp)
 /*  f1588b0:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -10707,7 +10682,7 @@ const char var7f1b1a60nb[] = "bg.c";
 //
 //		while (v0) {
 //			sp208[len] = v0;
-//			sp140[len] = func0f15dbb4(roomnum, v0);
+//			sp140[len] = room0f15dbb4(roomnum, v0);
 //			len++;
 //
 //			v0 = func0f15dab4(roomnum, v0, 3);
@@ -11578,7 +11553,7 @@ glabel func0f15ef9c
 /*  f15f11c:	af100044 */ 	sw	$s0,0x44($t8)
 .L0f15f120:
 /*  f15f120:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f15f124:	0fc576ed */ 	jal	func0f15dbb4
+/*  f15f124:	0fc576ed */ 	jal	room0f15dbb4
 /*  f15f128:	02802825 */ 	or	$a1,$s4,$zero
 /*  f15f12c:	24190001 */ 	addiu	$t9,$zero,0x1
 /*  f15f130:	afb90014 */ 	sw	$t9,0x14($sp)
@@ -11605,7 +11580,7 @@ glabel func0f15ef9c
 /*  f15f180:	0040a025 */ 	or	$s4,$v0,$zero
 .L0f15f184:
 /*  f15f184:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f15f188:	0fc576ed */ 	jal	func0f15dbb4
+/*  f15f188:	0fc576ed */ 	jal	room0f15dbb4
 /*  f15f18c:	02802825 */ 	or	$a1,$s4,$zero
 /*  f15f190:	24080002 */ 	addiu	$t0,$zero,0x2
 /*  f15f194:	afa80014 */ 	sw	$t0,0x14($sp)
@@ -13375,7 +13350,7 @@ glabel var7f1b75dc
 /*  f160a78:	00a0a825 */ 	or	$s5,$a1,$zero
 /*  f160a7c:	00e09025 */ 	or	$s2,$a3,$zero
 /*  f160a80:	02002025 */ 	or	$a0,$s0,$zero
-/*  f160a84:	0fc576ed */ 	jal	func0f15dbb4
+/*  f160a84:	0fc576ed */ 	jal	room0f15dbb4
 /*  f160a88:	02202825 */ 	or	$a1,$s1,$zero
 /*  f160a8c:	964e0000 */ 	lhu	$t6,0x0($s2)
 /*  f160a90:	3c0100ff */ 	lui	$at,0xff
