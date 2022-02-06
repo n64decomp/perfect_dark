@@ -4,6 +4,7 @@
 #include "game/dlights.h"
 #include "game/game_092610.h"
 #include "game/game_0b3350.h"
+#include "game/game_0b4950.h"
 #include "game/game_0b69d0.h"
 #include "game/smoke/smoke.h"
 #include "game/sparks/sparks.h"
@@ -97,13 +98,7 @@ s32 var80061458 = 0x00000000;
 u32 var8006145c = 0x00000000;
 #endif
 
-u32 var80061460 = 0x96969600;
-u32 var80061464 = 0x96969600;
-u32 var80061468 = 0xffffff00;
-u32 var8006146c = 0xffffff00;
-u32 var80061470 = 0x4d4d2e00;
-u32 var80061474 = 0x00000000;
-u32 var80061478 = 0x00000000;
+Lights1 var80061460 = gdSPDefLights1(0x96, 0x96, 0x96, 0xff, 0xff, 0xff, 0x4d, 0x4d, 0x2e);
 
 /**
  * These numbers are suspected to be portal indexes, based on the size of the
@@ -457,59 +452,14 @@ glabel var7f1a7d8c
 /*  f0012fc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f001300
-/*  f001300:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f001304:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f001308:	00801025 */ 	or	$v0,$a0,$zero
-/*  f00130c:	3c0ebc00 */ 	lui	$t6,0xbc00
-/*  f001310:	3c0f8000 */ 	lui	$t7,0x8000
-/*  f001314:	35ef0040 */ 	ori	$t7,$t7,0x40
-/*  f001318:	35ce0002 */ 	ori	$t6,$t6,0x2
-/*  f00131c:	24830008 */ 	addiu	$v1,$a0,0x8
-/*  f001320:	ac4e0000 */ 	sw	$t6,0x0($v0)
-/*  f001324:	ac4f0004 */ 	sw	$t7,0x4($v0)
-/*  f001328:	3c180386 */ 	lui	$t8,0x386
-/*  f00132c:	3c198006 */ 	lui	$t9,%hi(var80061468)
-/*  f001330:	27391468 */ 	addiu	$t9,$t9,%lo(var80061468)
-/*  f001334:	37180010 */ 	ori	$t8,$t8,0x10
-/*  f001338:	24650008 */ 	addiu	$a1,$v1,0x8
-/*  f00133c:	ac780000 */ 	sw	$t8,0x0($v1)
-/*  f001340:	ac790004 */ 	sw	$t9,0x4($v1)
-/*  f001344:	3c080388 */ 	lui	$t0,0x388
-/*  f001348:	3c098006 */ 	lui	$t1,%hi(var80061460)
-/*  f00134c:	25291460 */ 	addiu	$t1,$t1,%lo(var80061460)
-/*  f001350:	35080010 */ 	ori	$t0,$t0,0x10
-/*  f001354:	24a60008 */ 	addiu	$a2,$a1,0x8
-/*  f001358:	3c0a0384 */ 	lui	$t2,0x384
-/*  f00135c:	aca80000 */ 	sw	$t0,0x0($a1)
-/*  f001360:	aca90004 */ 	sw	$t1,0x4($a1)
-/*  f001364:	354a0010 */ 	ori	$t2,$t2,0x10
-/*  f001368:	acca0000 */ 	sw	$t2,0x0($a2)
-/*  f00136c:	24c40008 */ 	addiu	$a0,$a2,0x8
-/*  f001370:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f001374:	0fc2d5ea */ 	jal	currentPlayerGetUnk175c
-/*  f001378:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f00137c:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f001380:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f001384:	3c0b0382 */ 	lui	$t3,0x382
-/*  f001388:	356b0010 */ 	ori	$t3,$t3,0x10
-/*  f00138c:	acc20004 */ 	sw	$v0,0x4($a2)
-/*  f001390:	ac6b0000 */ 	sw	$t3,0x0($v1)
-/*  f001394:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f001398:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f00139c:	0fc2d5ea */ 	jal	currentPlayerGetUnk175c
-/*  f0013a0:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f0013a4:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f0013a8:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f0013ac:	244c0010 */ 	addiu	$t4,$v0,0x10
-/*  f0013b0:	ac6c0004 */ 	sw	$t4,0x4($v1)
-/*  f0013b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0013b8:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0013bc:	00801025 */ 	or	$v0,$a0,$zero
-/*  f0013c0:	03e00008 */ 	jr	$ra
-/*  f0013c4:	00000000 */ 	nop
-);
+Gfx *func0f001300(Gfx *gdl)
+{
+	gSPSetLights1(gdl++, var80061460);
+	gSPLookAtX(gdl++, currentPlayerGetUnk175c()->m[0]);
+	gSPLookAtY(gdl++, currentPlayerGetUnk175c()->m[1]);
+
+	return gdl;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 void roomInitLights(s32 roomnum)
