@@ -11,26 +11,26 @@
 #include "data.h"
 #include "types.h"
 
-u32 var8009dd20;
-u32 var8009dd24;
-u32 var8009dd28;
-u32 var8009dd2c;
-u32 var8009dd30;
-u32 var8009dd34;
-u32 var8009dd38;
-u32 var8009dd3c;
-u32 var8009dd40;
-u32 var8009dd44;
-u32 var8009dd48;
-u32 var8009dd4c;
-u32 var8009dd50;
-u32 var8009dd54;
-u32 var8009dd58;
-u32 var8009dd5c;
-u32 var8009dd60;
-u32 var8009dd64;
-u32 var8009dd68;
-u32 var8009dd6c;
+f32 var8009dd20;
+f32 var8009dd24;
+f32 var8009dd28;
+f32 var8009dd2c;
+f32 var8009dd30;
+f32 var8009dd34;
+f32 var8009dd38;
+f32 var8009dd3c;
+f32 var8009dd40;
+f32 var8009dd44;
+f32 var8009dd48;
+f32 var8009dd4c;
+f32 var8009dd50;
+f32 var8009dd54;
+f32 var8009dd58;
+f32 var8009dd5c;
+f32 var8009dd60;
+f32 var8009dd64;
+f32 var8009dd68;
+f32 var8009dd6c;
 
 void func0f0b4950(void)
 {

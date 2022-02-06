@@ -16,7 +16,7 @@ u32 func0f1598b4(void);
 Gfx *func0f159f1c(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, s32 arg3, s16 arg4[3]);
 Gfx *roomRenderForEraser(Gfx *gdl, s32 roomnum);
 u32 func0f15a2c4(void);
-u32 func0f15a6f4(void);
+Gfx *func0f15a6f4(Gfx *gdl);
 Gfx *func0f15b114(Gfx *gdl);
 void bgLoadFile(void *memaddr, u32 offset, u32 len);
 s32 stageGetIndex2(s32 stagenum);
