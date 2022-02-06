@@ -3696,11 +3696,24 @@ struct screenbox {
 	s16 ymax;
 };
 
-struct room14 {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
+struct roomgfxdata18 {
+	u8 unk00;
+	void *unk04;
+	Gfx *gdl;
+	struct gfxvtx *vertices;
+	u32 *colours;
+};
+
+struct roomgfxdata {
+	/*0x00*/ struct gfxvtx *vertices;
+	/*0x04*/ u32 *colours;
+	/*0x08*/ struct roomgfxdata18 *unk08;
+	/*0x0c*/ struct roomgfxdata18 *unk0c;
+	/*0x10*/ s16 unk10;
+	/*0x10*/ s16 unk12;
+	/*0x14*/ s16 numvertices;
+	/*0x16*/ s16 numcolours;
+	/*0x18*/ struct roomgfxdata18 unk18[1];
 };
 
 struct room {
@@ -3716,7 +3729,7 @@ struct room {
 	/*0x0c*/ u16 firstwaypoint; // offset into g_Vars.waypoints
 	/*0x0e*/ s16 roomportallistoffset;
 	/*0x10*/ s16 unk10;
-	/*0x14*/ struct room14 *unk14;
+	/*0x14*/ struct roomgfxdata *gfxdata;
 	/*0x18*/ f32 bbmin[3];
 	/*0x24*/ f32 bbmax[3];
 	/*0x30*/ struct coord centre;
@@ -3743,7 +3756,7 @@ struct room {
 	/*0x74*/ u32 unk74;
 	/*0x78*/ u32 unk78;
 	/*0x7c*/ u32 unk7c;
-	/*0x80*/ s32 unk80;
+	/*0x80*/ s32 gfxdatalen; // when inflated
 	/*0x84*/ u32 unk84;
 	/*0x88*/ u32 unk88;
 };

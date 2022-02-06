@@ -2435,8 +2435,8 @@ Gfx *roomRenderForEraser(Gfx *gdl, s32 roomnum)
 	sp40[2] = sp54.f[2];
 
 	gdl = func0f166d7c(gdl, roomnum);
-	gdl = func0f159f1c(gdl, roomnum, g_Rooms[roomnum].unk14->unk08, 1, sp40);
-	gdl = func0f159f1c(gdl, roomnum, g_Rooms[roomnum].unk14->unk0c, 1, sp40);
+	gdl = func0f159f1c(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk08, 1, sp40);
+	gdl = func0f159f1c(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk0c, 1, sp40);
 
 	g_Rooms[roomnum].loaded240 = 1;
 
@@ -8364,8 +8364,8 @@ glabel var7f1b75d0
 //			g_Rooms[s4].unk06 = 0;
 //			g_Rooms[s4].unk07 = 1;
 //			g_Rooms[s4].loaded240 = 0;
-//			g_Rooms[s4].unk14 = NULL;
-//			g_Rooms[s4].unk80 = -1;
+//			g_Rooms[s4].gfxdata = NULL;
+//			g_Rooms[s4].gfxdatalen = -1;
 //			g_Rooms[s4].unk84 = 0;
 //			g_Rooms[s4].unk88 = 0;
 //		}
@@ -8421,7 +8421,7 @@ glabel var7f1b75d0
 //
 //		// 574
 //		for (s4 = 1; s4 < (u32)g_Vars.roomcount; s4++) {
-//			g_Rooms[s4].unk80 = ALIGN16(*(u16 *)section3ptr * 0x10 + 0x100);
+//			g_Rooms[s4].gfxdatalen = ALIGN16(*(u16 *)section3ptr * 0x10 + 0x100);
 //			section3ptr += 2;
 //		}
 //
@@ -9232,38 +9232,6 @@ u32 bgInflate(u8 *src, u8 *dst, u32 len)
 	return result;
 }
 
-#if VERSION < VERSION_NTSC_1_0
-const char var7f1b1a2cnb[] = "bg.c";
-const char var7f1b1a34nb[] = "bg.c: roominf[room].allocsize > calculated!";
-const char var7f1b1a60nb[] = "bg.c";
-#endif
-
-const char var7f1b7420[] = "Checking Convex Room %d";
-const char var7f1b7438[] = " Portal %d %s%s%.1f < %.1f";
-const char var7f1b7454[] = "";
-const char var7f1b7458[] = "";
-const char var7f1b745c[] = " Convex Room Failed (1)";
-const char var7f1b7474[] = " Portal %d %s%s%.1f > %.1f";
-const char var7f1b7490[] = "";
-const char var7f1b7494[] = "";
-const char var7f1b7498[] = " Convex Room Failed (0)";
-const char var7f1b74b0[] = "Checking Concave Room %d";
-const char var7f1b74cc[] = " Checking Portal %d";
-const char var7f1b74e0[] = "Reject P:%d (%s%s%.1f %.1f n3=%.1f)";
-const char var7f1b7504[] = "";
-const char var7f1b7508[] = "";
-const char var7f1b750c[] = "Reject P:%d (%s%s%.1f %.1f n4=%.1f)";
-const char var7f1b7530[] = "";
-const char var7f1b7534[] = "";
-const char var7f1b7538[] = " Full %d%s%s %.1f %.1f (%.1f %.1f)";
-const char var7f1b755c[] = "";
-const char var7f1b7560[] = "";
-const char var7f1b7564[] = " Failed 2 - Crossed portal %d";
-const char var7f1b7584[] = " Failed 1 - Crossed portal %d";
-const char var7f1b75a4[] = " Passed";
-const char var7f1b75ac[] = "edist";
-
-
 GLOBAL_ASM(
 glabel func0f15da00
 /*  f15da00:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -10042,7 +10010,7 @@ glabel roomLoad
 /*  f158468:	8c620080 */ 	lw	$v0,0x80($v1)
 /*  f15846c:	18400008 */ 	blez	$v0,.NB0f158490
 /*  f158470:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f158474:	0fc46652 */ 	jal	debug0f119948nb
+/*  f158474:	0fc46652 */ 	jal	debug0f11edb0
 /*  f158478:	afa202f4 */ 	sw	$v0,0x2f4($sp)
 /*  f15847c:	10400007 */ 	beqz	$v0,.NB0f15849c
 /*  f158480:	8fac02f4 */ 	lw	$t4,0x2f4($sp)
@@ -10600,20 +10568,274 @@ glabel roomLoad
 );
 #endif
 
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1b1a2cnb[] = "bg.c";
+const char var7f1b1a34nb[] = "bg.c: roominf[room].allocsize > calculated!";
+const char var7f1b1a60nb[] = "bg.c";
+#endif
+
+// Mismatch: The below stores len * 4 into s1 which causes further codegen
+// differences.
+//void roomLoad(s32 roomnum)
+//{
+//	s32 size; // 2f4
+//	s32 inflatedlen; // 2f0
+//	u8 *allocation;
+//	s32 readlen;
+//	s32 fileoffset;
+//	u8 *memaddr;
+//	struct roomgfxdata18 *thing1;
+//	struct roomgfxdata18 *thing2;
+//	s32 v0;
+//	s32 len;
+//	u32 sp208[50];
+//	s32 sp140[50];
+//	u32 sp78[50];
+//	s32 allocationend;
+//	s32 a2;
+//	s32 i; // 6c
+//	u32 end1;
+//	u32 end2;
+//	s32 prev;
+//
+//#if VERSION < VERSION_NTSC_1_0
+//	func7f155c10nb("bg.c", 7076);
+//#endif
+//
+//	if (roomnum == 0 || roomnum >= g_Vars.roomcount || g_Rooms[roomnum].loaded240) {
+//		return;
+//	}
+//
+//	if (g_Rooms[roomnum].gfxdatalen > 0) {
+//		size = g_Rooms[roomnum].gfxdatalen;
+//
+//		if (debug0f11edb0()) {
+//			size += 1024;
+//		}
+//	} else {
+//		size = memaGetLongestFree();
+//	}
+//
+//	bgGarbageCollectRooms(size, false);
+//	allocation = memaAlloc(size);
+//
+//	if (allocation != NULL) {
+//		func0f13c370(roomnum);
+//
+//		readlen = ((g_BgRooms[roomnum + 1].unk00 - g_BgRooms[roomnum].unk00) + 0xf) & ~0xf;
+//		fileoffset = (g_BgPrimaryData + g_BgRooms[roomnum].unk00 - g_BgPrimaryData) + 0xf1000000;
+//		fileoffset -= var8007fc54;
+//
+//		if (size < readlen) {
+//			func0f13c370(-1);
+//			return;
+//		}
+//
+//		memaddr = size - readlen + allocation;
+//		bgLoadFile(memaddr, fileoffset, readlen);
+//
+//		if (rzipIs1173(memaddr) && size < readlen + 0x20) {
+//			func0f13c370(-1);
+//			return;
+//		}
+//
+//		inflatedlen = bgInflate(memaddr, allocation, g_BgRooms[roomnum + 1].unk00 - g_BgRooms[roomnum].unk00);
+//		g_Rooms[roomnum].gfxdata = (struct roomgfxdata *)allocation;
+//
+//		if (g_Rooms[roomnum].gfxdata->vertices) {
+//			g_Rooms[roomnum].gfxdata->vertices = (struct gfxvtx *)((u32)g_Rooms[roomnum].gfxdata->vertices - g_BgRooms[roomnum].unk00 + (u32)allocation);
+//		}
+//
+//		if (g_Rooms[roomnum].gfxdata->colours) {
+//			g_Rooms[roomnum].gfxdata->colours = (u32 *)((u32)g_Rooms[roomnum].gfxdata->colours - g_BgRooms[roomnum].unk00 + (u32)allocation);
+//		}
+//
+//		if (g_Rooms[roomnum].gfxdata->unk08) {
+//			g_Rooms[roomnum].gfxdata->unk08 = (struct roomgfxdata18 *)((u32)g_Rooms[roomnum].gfxdata->unk08 - g_BgRooms[roomnum].unk00 + (u32)allocation);
+//		}
+//
+//		if (g_Rooms[roomnum].gfxdata->unk0c) {
+//			g_Rooms[roomnum].gfxdata->unk0c = (struct roomgfxdata18 *)((u32)g_Rooms[roomnum].gfxdata->unk0c - g_BgRooms[roomnum].unk00 + (u32)allocation);
+//		}
+//
+//		thing1 = g_Rooms[roomnum].gfxdata->unk18;
+//		end1 = (u32)g_Rooms[roomnum].gfxdata->vertices;
+//
+//		while ((u32)(thing1 + 1) <= end1) {
+//			switch (thing1->unk00) {
+//			case 0:
+//				if (thing1->unk04 != 0) {
+//					thing1->unk04 = (void *)((u32)thing1->unk04 - g_BgRooms[roomnum].unk00 + (u32)allocation);
+//				}
+//				if (thing1->gdl != 0) {
+//					thing1->gdl = (Gfx *)((u32)thing1->gdl - g_BgRooms[roomnum].unk00 + (u32)allocation);
+//				}
+//				if (thing1->vertices != 0) {
+//					thing1->vertices = (struct gfxvtx *)((u32)thing1->vertices - g_BgRooms[roomnum].unk00 + (u32)allocation);
+//				}
+//				if (thing1->colours != 0) {
+//					thing1->colours = (u32 *)((u32)thing1->colours - g_BgRooms[roomnum].unk00 + (u32)allocation);
+//				}
+//				break;
+//			case 1:
+//				if (thing1->unk04 != 0) {
+//					thing1->unk04 = (void *)((u32)thing1->unk04 - g_BgRooms[roomnum].unk00 + (u32)allocation);
+//				}
+//				if (thing1->gdl != 0) {
+//					thing1->gdl = (Gfx *)((u32)thing1->gdl - g_BgRooms[roomnum].unk00 + (u32)allocation);
+//				}
+//				if (thing1->vertices != 0) {
+//					thing1->vertices = (struct gfxvtx *)((u32)thing1->vertices - g_BgRooms[roomnum].unk00 + (u32)allocation);
+//				}
+//				if (thing1->colours != 0) {
+//					thing1->colours = (u32 *)((u32)thing1->colours - g_BgRooms[roomnum].unk00 + (u32)allocation);
+//				}
+//				if ((u32)thing1->vertices < end1) {
+//					end1 = (u32)thing1->vertices;
+//				}
+//				break;
+//			}
+//
+//			thing1++;
+//		}
+//
+//		g_Rooms[roomnum].gfxdata->numvertices = ((u32)g_Rooms[roomnum].gfxdata->colours - (u32)g_Rooms[roomnum].gfxdata->vertices) / sizeof(struct gfxvtx);
+//		g_Rooms[roomnum].gfxdata->numcolours = ((u32)func0f15dab4(roomnum, 0, 3) - (u32)g_Rooms[roomnum].gfxdata->colours) / sizeof(u32);
+//
+//		len = 0;
+//		v0 = func0f15dab4(roomnum, NULL, 3);
+//
+//		while (v0) {
+//			sp208[len] = v0;
+//			sp140[len] = func0f15dbb4(roomnum, v0);
+//			len++;
+//
+//			v0 = func0f15dab4(roomnum, v0, 3);
+//		}
+//
+//		sp208[len] = (s32)allocation + inflatedlen;
+//		allocationend = (s32)allocation + size;
+//
+//		func0f175ef4(sp208[0], allocationend - (sp208[len] - sp208[0]), sp208[len] - sp208[0]);
+//
+//		for (i = 0; i < len + 1; i++) {
+//			sp78[i] = sp208[i] + (allocationend - sp208[len]);
+//		}
+//
+//		a2 = sp208[0];
+//
+//		for (i = 0; i < len; i++) {
+//			v0 = func0f1756c0(sp78[i], sp208[i + 1] - sp208[i], a2, 0, sp140[i]);
+//			sp78[i] = a2;
+//			a2 += v0;
+//			a2 = ALIGN8(a2);
+//		}
+//
+//		sp78[len] = a2;
+//
+//		prev = g_Rooms[roomnum].gfxdatalen;
+//		g_Rooms[roomnum].gfxdatalen = ALIGN16(a2 - (s32)allocation + 0x20);
+//
+//		if (g_Rooms[roomnum].gfxdatalen > prev) {
+//#if VERSION < VERSION_NTSC_1_0
+//			crashSetMessage("bg.c: roominf[room].allocsize > calculated!");
+//			CRASH();
+//#endif
+//		}
+//
+//		g_Rooms[roomnum].loaded240 = 1;
+//
+//		if (g_Rooms[roomnum].gfxdatalen != size) {
+//			bool result = memaRealloc((s32)allocation, size, g_Rooms[roomnum].gfxdatalen);
+//		}
+//
+//		thing2 = g_Rooms[roomnum].gfxdata->unk18;
+//		end2 = (u32)g_Rooms[roomnum].gfxdata->vertices;
+//
+//		while ((u32)(thing2 + 1) <= end2) {
+//			switch (thing2->unk00) {
+//			case 0:
+//				if (thing2->gdl) {
+//					for (i = 0; i < len; i++) {
+//						if (thing2->gdl == (Gfx *)sp208[i]) {
+//							thing2->gdl = (Gfx *)sp78[i];
+//							break;
+//						}
+//					}
+//				}
+//				break;
+//			case 1:
+//				if ((u32)thing2->vertices < end2) {
+//					end2 = (u32)thing2->vertices;
+//				}
+//				break;
+//			}
+//
+//			thing2++;
+//		}
+//
+//		if (g_FogDisabled) {
+//			func0f165728(g_Rooms[roomnum].gfxdata->unk08, 1);
+//			func0f165728(g_Rooms[roomnum].gfxdata->unk0c, 5);
+//		} else if (var800a65e4 == 0) {
+//			func0f165728(g_Rooms[roomnum].gfxdata->unk08, 6);
+//			func0f165728(g_Rooms[roomnum].gfxdata->unk0c, 7);
+//		}
+//
+//		func0f15ef9c(roomnum);
+//
+//		g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
+//		g_Rooms[roomnum].flags |= ROOMFLAG_0200;
+//		g_Rooms[roomnum].unk58 = 0;
+//
+//		func0f13c370(-1);
+//	}
+//
+//#if VERSION < VERSION_NTSC_1_0
+//	func7f155c10nb("bg.c", 7474);
+//#endif
+//}
+
+const char var7f1b7420[] = "Checking Convex Room %d";
+const char var7f1b7438[] = " Portal %d %s%s%.1f < %.1f";
+const char var7f1b7454[] = "";
+const char var7f1b7458[] = "";
+const char var7f1b745c[] = " Convex Room Failed (1)";
+const char var7f1b7474[] = " Portal %d %s%s%.1f > %.1f";
+const char var7f1b7490[] = "";
+const char var7f1b7494[] = "";
+const char var7f1b7498[] = " Convex Room Failed (0)";
+const char var7f1b74b0[] = "Checking Concave Room %d";
+const char var7f1b74cc[] = " Checking Portal %d";
+const char var7f1b74e0[] = "Reject P:%d (%s%s%.1f %.1f n3=%.1f)";
+const char var7f1b7504[] = "";
+const char var7f1b7508[] = "";
+const char var7f1b750c[] = "Reject P:%d (%s%s%.1f %.1f n4=%.1f)";
+const char var7f1b7530[] = "";
+const char var7f1b7534[] = "";
+const char var7f1b7538[] = " Full %d%s%s %.1f %.1f (%.1f %.1f)";
+const char var7f1b755c[] = "";
+const char var7f1b7560[] = "";
+const char var7f1b7564[] = " Failed 2 - Crossed portal %d";
+const char var7f1b7584[] = " Failed 1 - Crossed portal %d";
+const char var7f1b75a4[] = " Passed";
+const char var7f1b75ac[] = "edist";
+
+
 void roomUnload(s32 roomnum)
 {
-	u32 thing;
+	u32 size;
 
 	if (g_Rooms[roomnum].unk44) {
-		thing = ((g_Rooms[roomnum].unk40 << 5) + 0xf) & ~0xf;
-		memaFree(g_Rooms[roomnum].unk44, thing);
+		size = ((g_Rooms[roomnum].unk40 << 5) + 0xf) & ~0xf;
+		memaFree(g_Rooms[roomnum].unk44, size);
 		g_Rooms[roomnum].unk44 = NULL;
 	}
 
-	if (g_Rooms[roomnum].unk80 > 0) {
-		thing = g_Rooms[roomnum].unk80;
-		memaFree(g_Rooms[roomnum].unk14, thing);
-		g_Rooms[roomnum].unk14 = 0;
+	if (g_Rooms[roomnum].gfxdatalen > 0) {
+		size = g_Rooms[roomnum].gfxdatalen;
+		memaFree(g_Rooms[roomnum].gfxdata, size);
+		g_Rooms[roomnum].gfxdata = NULL;
 	}
 
 	g_Rooms[roomnum].loaded240 = 0;
@@ -10931,7 +11153,7 @@ Gfx *func0f15eb28(Gfx *gdl, s32 roomnum)
 
 	gdl = func0f166d7c(gdl, roomnum);
 	gdl = func0f001138(gdl, roomnum);
-	gdl = func0f15e85c(gdl, roomnum, g_Rooms[roomnum].unk14->unk08, true);
+	gdl = func0f15e85c(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk08, true);
 	gdl = func0f001300(gdl);
 
 	g_Rooms[roomnum].loaded240 = 1;
@@ -11024,18 +11246,18 @@ glabel func0f15ebd4
 //	}
 //
 //	if (g_Rooms[roomnum].loaded240) {
-//		if (!g_Rooms[roomnum].unk14->unk0c) {
+//		if (!g_Rooms[roomnum].gfxdata->unk0c) {
 //			return gdl;
 //		}
 //
 //		func0f004604(roomnum);
 //
-//		if (g_Rooms[roomnum].unk14->unk0c) {
+//		if (g_Rooms[roomnum].gfxdata->unk0c) {
 //			// empty
 //		}
 //
 //		gdl = func0f166d7c(gdl, roomnum);
-//		gdl = func0f15e85c(gdl, roomnum, g_Rooms[roomnum].unk14->unk0c, 1);
+//		gdl = func0f15e85c(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk0c, 1);
 //
 //		g_Rooms[roomnum].loaded240 = 1;
 //	} else {

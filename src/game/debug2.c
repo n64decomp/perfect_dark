@@ -652,7 +652,7 @@ bool debug0f11993cnb(void)
 	return var80078714nb;
 }
 
-bool debug0f119948nb(void)
+bool debug0f11edb0(void)
 {
 	return var80078718nb;
 }

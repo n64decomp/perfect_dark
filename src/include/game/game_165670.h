@@ -5,6 +5,6 @@
 #include "types.h"
 
 u32 func0f165670(void);
-u32 func0f165728(void);
+void func0f165728(struct roomgfxdata18 *arg0, s32 arg1);
 
 #endif
