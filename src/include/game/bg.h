@@ -14,7 +14,7 @@ u32 func0f158884(void);
 u32 func0f158d9c(void);
 u32 func0f1598b4(void);
 Gfx *func0f159f1c(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, s32 arg3, s16 arg4[3]);
-Gfx *roomRenderForEraser(Gfx *gdl, s32 roomnum);
+Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum);
 Gfx *bgRenderSceneInXray(Gfx *gdl);
 Gfx *bgRenderScene(Gfx *gdl);
 Gfx *func0f15b114(Gfx *gdl);
