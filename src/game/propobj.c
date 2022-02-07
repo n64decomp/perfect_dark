@@ -5032,12 +5032,12 @@ struct prop *objInit(struct defaultobj *obj, struct modelfiledata *filedata, str
 
 		objInitToggleNodes(obj);
 
-		if (obj->flags3 & OBJFLAG3_00040000) {
-			prop->flags |= PROPFLAG_01;
+		if (obj->flags3 & OBJFLAG3_RENDERPOSTBG) {
+			prop->flags |= PROPFLAG_RENDERPOSTBG;
 		}
 
-		if (obj->flags3 & OBJFLAG3_00080000) {
-			prop->flags |= PROPFLAG_20;
+		if (obj->flags3 & OBJFLAG3_DRAWONTOP) {
+			prop->flags |= PROPFLAG_DRAWONTOP;
 		}
 	} else {
 		if (model) {

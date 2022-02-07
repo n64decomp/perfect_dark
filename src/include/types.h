@@ -5252,9 +5252,9 @@ struct portalcmd {
 };
 
 struct var800a4640_00 {
-	s16 unk00;
+	s16 roomnum;
 	u8 unk02;
-	u8 unk03;
+	u8 draworder;
 	struct screenbox box;
 };
 

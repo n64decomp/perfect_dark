@@ -370,45 +370,63 @@ Gfx *propRender(Gfx *gdl, struct prop *prop, bool withalpha)
 	return gdl;
 }
 
-Gfx *propsRender(Gfx *gdl, s16 arg1, s32 arg2, s16 *arg3)
+/**
+ * Render one pass of all props in the given room number.
+ *
+ * The render order is:
+ * - Opaque components of props (pre-BG)
+ * - Opaque components of BG
+ * - Opaque components of props (post-BG)
+ * - Wall hits
+ * - Alpha components of BG
+ * - Alpha components of props
+ *
+ * Most props are rendered in the pre-bg pass for performance reasons, as there
+ * is less BG to draw if it's being obscured by props.
+ *
+ * Props can be rendered in multiple passes, such as terminals which render the
+ * terminal in the pre-bg pass and the screen in the post-bg pass, likely to
+ * avoid Z-fighting issues.
+ */
+Gfx *propsRender(Gfx *gdl, s16 renderroomnum, s32 renderpass, s16 *roomnumsbyprop)
 {
 	struct prop **ptr;
 	struct prop *prop;
-	s16 *tmp;
+	s16 *proprooms;
 
-	if (arg2 == 0 || arg2 == 2) {
+	if (renderpass == RENDERPASS_OPAQUE_PREBG || renderpass == RENDERPASS_OPAQUE_POSTBG) {
 		// Iterate onscreen props near to far
 		ptr = g_Vars.endonscreenprops - 1;
 
-		tmp = arg3 + (g_Vars.endonscreenprops - g_Vars.onscreenprops);
-		tmp--;
+		proprooms = roomnumsbyprop + (g_Vars.endonscreenprops - g_Vars.onscreenprops);
+		proprooms--;
 
 		while (ptr >= g_Vars.onscreenprops) {
-			if (arg1 == *tmp) {
+			if (renderroomnum == *proprooms) {
 				prop = *ptr;
 
 				if (prop) {
-					if ((arg2 == 0 && (prop->flags & (PROPFLAG_20 | PROPFLAG_01)) == 0)
-							|| (arg2 == 2 && (prop->flags & (PROPFLAG_20 | PROPFLAG_01)) == PROPFLAG_01)) {
+					if ((renderpass == RENDERPASS_OPAQUE_PREBG && (prop->flags & (PROPFLAG_DRAWONTOP | PROPFLAG_RENDERPOSTBG)) == 0)
+							|| (renderpass == RENDERPASS_OPAQUE_POSTBG && (prop->flags & (PROPFLAG_DRAWONTOP | PROPFLAG_RENDERPOSTBG)) == PROPFLAG_RENDERPOSTBG)) {
 						gdl = propRender(gdl, prop, false);
 					}
 				}
 			}
 
 			ptr--;
-			tmp--;
+			proprooms--;
 		}
 	} else {
 		// Iterate onscreen props far to near
 		ptr = g_Vars.onscreenprops;
-		tmp = arg3;
+		proprooms = roomnumsbyprop;
 
 		while (ptr < g_Vars.endonscreenprops) {
-			if (arg1 == *tmp) {
+			if (renderroomnum == *proprooms) {
 				prop = *ptr;
 
 				if (prop) {
-					if (prop->flags & PROPFLAG_20) {
+					if (prop->flags & PROPFLAG_DRAWONTOP) {
 						gdl = propRender(gdl, prop, false);
 					}
 
@@ -417,7 +435,7 @@ Gfx *propsRender(Gfx *gdl, s16 arg1, s32 arg2, s16 *arg3)
 			}
 
 			ptr++;
-			tmp++;
+			proprooms++;
 		}
 	}
 

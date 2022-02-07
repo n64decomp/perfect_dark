@@ -6728,7 +6728,7 @@ glabel func0f140e20
 #endif
 
 GLOBAL_ASM(
-glabel func0f1411b0
+glabel wallhitsRender
 /*  f1411b0:	000430c0 */ 	sll	$a2,$a0,0x3
 /*  f1411b4:	00c43021 */ 	addu	$a2,$a2,$a0
 /*  f1411b8:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)

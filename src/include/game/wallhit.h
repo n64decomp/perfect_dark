@@ -19,7 +19,7 @@ s32 func0f140750(struct coord *coord);
 u32 func0f1408a8(void);
 u32 func0f140b7c(void);
 Gfx *func0f140e20(Gfx *gdl, struct prop *prop, bool withalpha);
-u32 func0f1411b0(void);
+Gfx *wallhitsRender(s32 arg0, Gfx *gdl);
 void func0f141234(void);
 void func0f14159c(struct prop *prop);
 void func0f141704(struct prop *prop);

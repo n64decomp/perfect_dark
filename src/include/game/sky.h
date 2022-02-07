@@ -7,6 +7,6 @@
 void func0f135c70(void);
 u32 func0f135f08(void);
 void skyInit(void);
-u32 func0f13687c(void);
+Gfx *func0f13687c(Gfx *gdl);
 
 #endif

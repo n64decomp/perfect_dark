@@ -1627,8 +1627,8 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 		setupGenericObject(&monitor->base, cmdindex);
 	}
 
-	if (monitor->base.prop && (monitor->base.flags & OBJFLAG_MONITOR_40000000)) {
-		monitor->base.prop->flags |= PROPFLAG_01;
+	if (monitor->base.prop && (monitor->base.flags & OBJFLAG_MONITOR_RENDERPOSTBG)) {
+		monitor->base.prop->flags |= PROPFLAG_RENDERPOSTBG;
 	}
 }
 

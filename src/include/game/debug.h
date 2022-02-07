@@ -4,9 +4,10 @@
 #include "data.h"
 #include "types.h"
 
+void debug0f119a80nb(void);
 u32 dprint();
 s32 debug0f11ed70(void);
-bool debugEnableBgRendering(void);
+bool debugIsBgRenderingEnabled(void);
 bool debugIsPropRenderingEnabled(void);
 bool debug0f11edb0(void);
 bool debug0f11edb8(void);

@@ -5,7 +5,7 @@
 #include "types.h"
 
 void roomUnpauseProps(u32 roomnum, bool tintedglassonly);
-void func0f157e94(s32 room, s32 arg1, struct screenbox *arg2);
+void func0f157e94(s32 room, s32 draworder, struct screenbox *arg2);
 void func0f158108(s32 roomnum, u8 *arg1, u8 *arg2);
 struct var800a4640_00 *func0f158140(s32 roomnum);
 u32 func0f158184(void);
@@ -15,8 +15,8 @@ u32 func0f158d9c(void);
 u32 func0f1598b4(void);
 Gfx *func0f159f1c(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, s32 arg3, s16 arg4[3]);
 Gfx *roomRenderForEraser(Gfx *gdl, s32 roomnum);
-u32 func0f15a2c4(void);
-Gfx *func0f15a6f4(Gfx *gdl);
+Gfx *bgRenderSceneInXray(Gfx *gdl);
+Gfx *bgRenderScene(Gfx *gdl);
 Gfx *func0f15b114(Gfx *gdl);
 void bgLoadFile(void *memaddr, u32 offset, u32 len);
 s32 stageGetIndex2(s32 stagenum);
@@ -60,8 +60,8 @@ void bgUnloadAllRooms(void);
 void bgGarbageCollectRooms(s32 bytesneeded, bool desparate);
 void bgTickRooms(void);
 Gfx *func0f15e85c(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool arg3);
-Gfx *func0f15eb28(Gfx *gdl, s32 roomnum);
-Gfx *func0f15ebd4(Gfx *gdl, s32 roomnum);
+Gfx *bgRenderRoomOpaque(Gfx *gdl, s32 roomnum);
+Gfx *bgRenderRoomAlpha(Gfx *gdl, s32 roomnum);
 u32 func0f15ecd8(void);
 void func0f15ef9c(s32 roomnum);
 u32 func0f15f20c(void);

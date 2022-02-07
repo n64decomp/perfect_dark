@@ -117,7 +117,7 @@ s32 debug0f11ed70(void)
 	return 0;
 }
 
-bool debugEnableBgRendering(void)
+bool debugIsBgRenderingEnabled(void)
 {
 	return true;
 }

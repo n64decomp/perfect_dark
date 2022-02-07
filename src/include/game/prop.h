@@ -17,7 +17,7 @@ void propDelist(struct prop *prop);
 void propReparent(struct prop *mover, struct prop *adopter);
 void propDetach(struct prop *prop);
 Gfx *propRender(Gfx *gdl, struct prop *prop, bool withalpha);
-Gfx *propsRender(Gfx *gdl, s16 arg1, s32 arg2, s16 *arg3);
+Gfx *propsRender(Gfx *gdl, s16 renderroomnum, s32 renderpass, s16 *roomnumsbyprop);
 void weaponPlayWhooshSound(s32 weaponnum, struct prop *prop);
 void func0f060bac(s32 weaponnum, struct prop *prop);
 struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struct coord *arg3, struct coord *gunpos, struct coord *dir, u32 arg6, f32 arg7, bool arg8);
