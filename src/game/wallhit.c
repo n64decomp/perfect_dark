@@ -6727,44 +6727,18 @@ glabel func0f140e20
 );
 #endif
 
-GLOBAL_ASM(
-glabel wallhitsRender
-/*  f1411b0:	000430c0 */ 	sll	$a2,$a0,0x3
-/*  f1411b4:	00c43021 */ 	addu	$a2,$a2,$a0
-/*  f1411b8:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f1411bc:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f1411c0:	00063080 */ 	sll	$a2,$a2,0x2
-/*  f1411c4:	00c43023 */ 	subu	$a2,$a2,$a0
-/*  f1411c8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f1411cc:	00063080 */ 	sll	$a2,$a2,0x2
-/*  f1411d0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1411d4:	01c61821 */ 	addu	$v1,$t6,$a2
-/*  f1411d8:	8c6f0084 */ 	lw	$t7,0x84($v1)
-/*  f1411dc:	51e0000b */ 	beqzl	$t7,.L0f14120c
-/*  f1411e0:	8c790088 */ 	lw	$t9,0x88($v1)
-/*  f1411e4:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f1411e8:	0fc5022a */ 	jal	func0f1408a8
-/*  f1411ec:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f1411f0:	3c18800a */ 	lui	$t8,%hi(g_Rooms)
-/*  f1411f4:	8f184928 */ 	lw	$t8,%lo(g_Rooms)($t8)
-/*  f1411f8:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f1411fc:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f141200:	00402825 */ 	or	$a1,$v0,$zero
-/*  f141204:	03061821 */ 	addu	$v1,$t8,$a2
-/*  f141208:	8c790088 */ 	lw	$t9,0x88($v1)
-.L0f14120c:
-/*  f14120c:	53200005 */ 	beqzl	$t9,.L0f141224
-/*  f141210:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f141214:	0fc502df */ 	jal	func0f140b7c
-/*  f141218:	00000000 */ 	nop
-/*  f14121c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f141220:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f141224:
-/*  f141224:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f141228:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f14122c:	03e00008 */ 	jr	$ra
-/*  f141230:	00000000 */ 	nop
-);
+Gfx *wallhitsRender(s32 roomnum, Gfx *gdl)
+{
+	if (g_Rooms[roomnum].unk84 != 0) {
+		gdl = func0f1408a8(roomnum, gdl);
+	}
+
+	if (g_Rooms[roomnum].unk88 != 0) {
+		gdl = func0f140b7c(roomnum, gdl);
+	}
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f141234
