@@ -6127,7 +6127,7 @@ struct wallhit {
 	/*0x68*/ s16 unk68;
 	/*0x6a*/ u8 texturenum;
 	/*0x6b*/ u8 unk6b;
-	/*0x6c*/ u8 unk6c;
+	/*0x6c*/ u8 mtxindex;
 	/*0x6d*/ u8 unk6d;
 	/*0x6e*/ u8 unk6e;
 	/*0x6f*/ u8 unk6f_00 : 1;
