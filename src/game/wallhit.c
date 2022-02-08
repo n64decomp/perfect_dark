@@ -1460,84 +1460,18 @@ glabel var7f1b5d18
 /*  f13f3f0:	27bd0130 */ 	addiu	$sp,$sp,0x130
 );
 
-GLOBAL_ASM(
-glabel wallhitCreate
-.late_rodata
-glabel var7f1b5d1c
-.word 0x3dcccccd
-glabel var7f1b5d20
-.word 0x3f19999a
-.text
-/*  f13f3f4:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f13f3f8:	afbf0054 */ 	sw	$ra,0x54($sp)
-/*  f13f3fc:	afa40058 */ 	sw	$a0,0x58($sp)
-/*  f13f400:	afa5005c */ 	sw	$a1,0x5c($sp)
-/*  f13f404:	afa60060 */ 	sw	$a2,0x60($sp)
-/*  f13f408:	0c004b70 */ 	jal	random
-/*  f13f40c:	afa70064 */ 	sw	$a3,0x64($sp)
-/*  f13f410:	87a8006e */ 	lh	$t0,0x6e($sp)
-/*  f13f414:	44822000 */ 	mtc1	$v0,$f4
-/*  f13f418:	3c0f8008 */ 	lui	$t7,%hi(var8007f75c)
-/*  f13f41c:	00087080 */ 	sll	$t6,$t0,0x2
-/*  f13f420:	01c87023 */ 	subu	$t6,$t6,$t0
-/*  f13f424:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f13f428:	25eff75c */ 	addiu	$t7,$t7,%lo(var8007f75c)
-/*  f13f42c:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f13f430:	04410005 */ 	bgez	$v0,.L0f13f448
-/*  f13f434:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f13f438:	3c014f80 */ 	lui	$at,0x4f80
-/*  f13f43c:	44814000 */ 	mtc1	$at,$f8
-/*  f13f440:	00000000 */ 	nop
-/*  f13f444:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f13f448:
-/*  f13f448:	3c012f80 */ 	lui	$at,0x2f80
-/*  f13f44c:	44815000 */ 	mtc1	$at,$f10
-/*  f13f450:	3c017f1b */ 	lui	$at,%hi(var7f1b5d1c)
-/*  f13f454:	c4325d1c */ 	lwc1	$f18,%lo(var7f1b5d1c)($at)
-/*  f13f458:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f13f45c:	3c017f1b */ 	lui	$at,%hi(var7f1b5d20)
-/*  f13f460:	c4285d20 */ 	lwc1	$f8,%lo(var7f1b5d20)($at)
-/*  f13f464:	c4660000 */ 	lwc1	$f6,0x0($v1)
-/*  f13f468:	c46a0004 */ 	lwc1	$f10,0x4($v1)
-/*  f13f46c:	8fb80068 */ 	lw	$t8,0x68($sp)
-/*  f13f470:	87b90072 */ 	lh	$t9,0x72($sp)
-/*  f13f474:	46128102 */ 	mul.s	$f4,$f16,$f18
-/*  f13f478:	8fa90074 */ 	lw	$t1,0x74($sp)
-/*  f13f47c:	83aa007b */ 	lb	$t2,0x7b($sp)
-/*  f13f480:	83ab007f */ 	lb	$t3,0x7f($sp)
-/*  f13f484:	8fac0080 */ 	lw	$t4,0x80($sp)
-/*  f13f488:	8faf0084 */ 	lw	$t7,0x84($sp)
-/*  f13f48c:	240d00ff */ 	addiu	$t5,$zero,0xff
-/*  f13f490:	46082000 */ 	add.s	$f0,$f4,$f8
-/*  f13f494:	240e00ff */ 	addiu	$t6,$zero,0xff
-/*  f13f498:	afae003c */ 	sw	$t6,0x3c($sp)
-/*  f13f49c:	afad0038 */ 	sw	$t5,0x38($sp)
-/*  f13f4a0:	46003082 */ 	mul.s	$f2,$f6,$f0
-/*  f13f4a4:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f13f4a8:	8fa5005c */ 	lw	$a1,0x5c($sp)
-/*  f13f4ac:	46005302 */ 	mul.s	$f12,$f10,$f0
-/*  f13f4b0:	8fa60060 */ 	lw	$a2,0x60($sp)
-/*  f13f4b4:	8fa70064 */ 	lw	$a3,0x64($sp)
-/*  f13f4b8:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f13f4bc:	e7a20030 */ 	swc1	$f2,0x30($sp)
-/*  f13f4c0:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f13f4c4:	afa00040 */ 	sw	$zero,0x40($sp)
-/*  f13f4c8:	e7ac0034 */ 	swc1	$f12,0x34($sp)
-/*  f13f4cc:	afa00044 */ 	sw	$zero,0x44($sp)
-/*  f13f4d0:	afa00048 */ 	sw	$zero,0x48($sp)
-/*  f13f4d4:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f13f4d8:	afb90018 */ 	sw	$t9,0x18($sp)
-/*  f13f4dc:	afa9001c */ 	sw	$t1,0x1c($sp)
-/*  f13f4e0:	afaa0024 */ 	sw	$t2,0x24($sp)
-/*  f13f4e4:	afab0028 */ 	sw	$t3,0x28($sp)
-/*  f13f4e8:	afac002c */ 	sw	$t4,0x2c($sp)
-/*  f13f4ec:	0fc4fd41 */ 	jal	func0f13f504
-/*  f13f4f0:	afaf004c */ 	sw	$t7,0x4c($sp)
-/*  f13f4f4:	8fbf0054 */ 	lw	$ra,0x54($sp)
-/*  f13f4f8:	27bd0058 */ 	addiu	$sp,$sp,0x58
-/*  f13f4fc:	03e00008 */ 	jr	$ra
-/*  f13f500:	00000000 */ 	nop
-);
+void wallhitCreate(struct coord *arg0, struct coord *arg1, struct coord *arg2, u32 arg3, u32 arg4, s16 arg5, s16 room, struct prop *arg7, s8 arg8, s8 arg9, struct chrdata *chr, bool arg11)
+{
+	f32 f0 = random() * (1.0f / U32_MAX) * 0.1f + 0.6f;
+	f32 a = var8007f75c[arg5].unk00 * f0;
+	f32 b = var8007f75c[arg5].unk04 * f0;
+
+	func0f13f504(arg0, arg1, arg2, arg3,
+			arg4, arg5, room, arg7,
+			0, arg8, arg9, chr,
+			a, b, 0xff, 0xff,
+			0, 0, 0, arg11);
+}
 
 #if PAL
 GLOBAL_ASM(
