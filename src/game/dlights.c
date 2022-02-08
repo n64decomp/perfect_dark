@@ -100,6 +100,10 @@ u32 var8006145c = 0x00000000;
 
 Lights1 var80061460 = gdSPDefLights1(0x96, 0x96, 0x96, 0xff, 0xff, 0xff, 0x4d, 0x4d, 0x2e);
 
+#if VERSION < VERSION_NTSC_1_0
+u32 var80061478 = 0;
+#endif
+
 /**
  * These numbers are suspected to be portal indexes, based on the size of the
  * array and the number of portals in CI Training. No idea what the returned

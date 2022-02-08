@@ -6113,20 +6113,13 @@ struct stageheadlimit {
 	u8 maxheads;
 };
 
-struct fourcolours {
-	u32 colour1;
-	u32 colour2;
-	u32 colour3;
-	u32 colour4;
-};
-
 struct wallhit {
 	/*0x00*/ struct gfxvtx vertices[4];
 	/*0x30*/ u32 unk30;
 	/*0x34*/ u32 unk34;
 	/*0x38*/ u32 unk38;
 	/*0x3c*/ u32 unk3c;
-	/*0x40*/ u32 colours[4];
+	/*0x40*/ struct colour colours[4];
 	/*0x50*/ struct coord unk50;
 	/*0x5c*/ struct prop *prop;
 	/*0x60*/ u32 unk60;
