@@ -162,8 +162,8 @@ struct prop *propAllocate(void)
 		prop->lastupdateframe = 0xffff;
 		prop->propupdate240 = 0;
 		prop->propupdate60err = 2;
-		prop->unk40 = 0;
-		prop->unk44 = 0;
+		prop->wallhits1 = NULL;
+		prop->wallhits2 = NULL;
 		g_Vars.propstates[prop->propstateindex].propcount++;
 
 		g_Vars.allocstateindex++;
@@ -841,7 +841,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 					}
 
 					if (uVar6) {
-						func0f13f3f4(&sp694.unk00, &sp694.unk0c, &shotdata.gunpos, 0, 0, uVar6, room, 0, -1, 0, g_Vars.currentplayer->prop->chr, sp694.unk2c == 2);
+						wallhitCreate(&sp694.unk00, &sp694.unk0c, &shotdata.gunpos, 0, 0, uVar6, room, 0, -1, 0, g_Vars.currentplayer->prop->chr, sp694.unk2c == 2);
 					}
 				}
 

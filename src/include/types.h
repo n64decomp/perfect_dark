@@ -433,8 +433,8 @@ struct prop {
 	/*0x3f*/ u8 backgrounded : 1;
 	/*0x3f*/ u8 forcetick : 1;
 	/*0x3f*/ u8 active : 1;
-	/*0x40*/ struct var800a41b0 *unk40;
-	/*0x44*/ struct var800a41b0 *unk44;
+	/*0x40*/ struct wallhit *wallhits1;
+	/*0x44*/ struct wallhit *wallhits2;
 };
 
 struct packedpad {
@@ -3752,8 +3752,8 @@ struct room {
 	/*0x78*/ u32 unk78;
 	/*0x7c*/ u32 unk7c;
 	/*0x80*/ s32 gfxdatalen; // when inflated
-	/*0x84*/ u32 unk84;
-	/*0x88*/ u32 unk88;
+	/*0x84*/ struct wallhit *wallhits1;
+	/*0x88*/ struct wallhit *wallhits2;
 };
 
 struct fireslotthing {
@@ -6113,35 +6113,26 @@ struct stageheadlimit {
 	u8 maxheads;
 };
 
-struct var800a41b0 {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
+struct fourcolours {
+	u32 colour1;
+	u32 colour2;
+	u32 colour3;
+	u32 colour4;
+};
+
+struct wallhit {
+	/*0x00*/ struct gfxvtx vertices[4];
 	/*0x30*/ u32 unk30;
 	/*0x34*/ u32 unk34;
 	/*0x38*/ u32 unk38;
 	/*0x3c*/ u32 unk3c;
-	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
-	/*0x48*/ u32 unk48;
-	/*0x4c*/ u32 unk4c;
-	/*0x50*/ u32 unk50;
-	/*0x54*/ u32 unk54;
-	/*0x58*/ u32 unk58;
+	/*0x40*/ u32 colours[4];
+	/*0x50*/ struct coord unk50;
 	/*0x5c*/ struct prop *prop;
 	/*0x60*/ u32 unk60;
-	/*0x64*/ u32 unk64;
+	/*0x64*/ struct gfxvtx *verticesptr;
 	/*0x68*/ s16 unk68;
-	/*0x6a*/ u8 unk6a;
+	/*0x6a*/ u8 texturenum;
 	/*0x6b*/ u8 unk6b;
 	/*0x6c*/ u8 unk6c;
 	/*0x6d*/ u8 unk6d;
@@ -6150,10 +6141,12 @@ struct var800a41b0 {
 	/*0x6f*/ u8 unk6f_01 : 1;
 	/*0x6f*/ u8 unk6f_02 : 1;
 	/*0x6f*/ u8 unk6f_03 : 1;
+	/*0x6f*/ u8 unk6f_04 : 1;
+	/*0x6f*/ u8 unk6f_05 : 1;
 	/*0x70*/ u32 unk70_00 : 28;
 	/*0x70*/ u32 unk70_28 : 4;
-	/*0x74*/ struct var800a41b0 *prev;
-	/*0x78*/ u32 unk78;
+	/*0x74*/ struct wallhit *prev;
+	/*0x78*/ struct wallhit *next;
 };
 
 /**

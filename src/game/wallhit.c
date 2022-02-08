@@ -6,6 +6,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_127910.h"
 #include "game/game_1668e0.h"
+#include "game/gfxmemory.h"
 #include "game/file.h"
 #include "game/options.h"
 #include "game/utils.h"
@@ -59,8 +60,8 @@ const char var7f1b5cc8[] = "";
 const char var7f1b5ccc[] = "";
 const char var7f1b5cd0[] = "Wallhit colour %d not implemented, substituting black\n";
 
-struct var800a41b0 *var800a41b0;
-struct var800a41b0 *var800a41b4;
+struct wallhit *var800a41b0;
+struct wallhit *var800a41b4;
 u32 var800a41b8;
 
 u32 var8007f740 = 0x00000000;
@@ -122,7 +123,7 @@ s16 func0f13e0e0(f32 value)
 }
 
 GLOBAL_ASM(
-glabel func0f13e1b0
+glabel wallhitRemove
 /*  f13e1b0:	908e006f */ 	lbu	$t6,0x6f($a0)
 /*  f13e1b4:	3c03800a */ 	lui	$v1,%hi(var800a41b8)
 /*  f13e1b8:	246341b8 */ 	addiu	$v1,$v1,%lo(var800a41b8)
@@ -301,19 +302,19 @@ glabel func0f13e1b0
 /*  f13e408:	00000000 */ 	nop
 );
 
-void func0f13e40c(struct prop *prop, s8 arg1)
+void wallhitsRemoveByProp(struct prop *prop, s8 layer)
 {
 	struct prop *copy = prop;
 
-	if (arg1) {
-		while (copy->unk44) {
-			func0f13e640(copy->unk44, 1);
-			func0f13e1b0(copy->unk44);
+	if (layer) {
+		while (copy->wallhits2) {
+			func0f13e640(copy->wallhits2, 1);
+			wallhitRemove(copy->wallhits2);
 		}
 	} else {
-		while (copy->unk40) {
-			func0f13e640(copy->unk40, 1);
-			func0f13e1b0(copy->unk40);
+		while (copy->wallhits1) {
+			func0f13e640(copy->wallhits1, 1);
+			wallhitRemove(copy->wallhits1);
 		}
 	}
 }
@@ -348,32 +349,32 @@ void func0f13e5c8(struct prop *prop)
 	}
 }
 
-void func0f13e640(struct var800a41b0 *thing, u32 arg1)
+void func0f13e640(struct wallhit *hit, u32 arg1)
 {
-	if (thing->unk6f_02 == 0) {
-		if (thing->unk60) {
+	if (hit->unk6f_02 == 0) {
+		if (hit->unk60) {
 			var8009cc40[0]--;
 		} else {
-			var8009cc40[thing->unk68]--;
+			var8009cc40[hit->unk68]--;
 		}
 
-		if (thing->unk6d == 0) {
-			thing->unk6d = arg1;
-			thing->unk6e = arg1;
+		if (hit->unk6d == 0) {
+			hit->unk6d = arg1;
+			hit->unk6e = arg1;
 		}
 
-		thing->unk6f_02 = true;
+		hit->unk6f_02 = true;
 
 		var8009cc48--;
 		var8009cc50++;
 
-		if (var8007f75c[thing->unk6a].unk08 == 3) {
+		if (var8007f75c[hit->texturenum].unk08 == 3) {
 			var8009cc54--;
 		} else {
 			var8009cc58--;
 		}
 
-		thing->unk6f_03 = false;
+		hit->unk6f_03 = false;
 	}
 }
 
@@ -844,7 +845,7 @@ glabel func0f13e994
 );
 
 GLOBAL_ASM(
-glabel func0f13eb44
+glabel wallhitsTick
 .late_rodata
 glabel var7f1b5d08
 .word 0x3f19999a
@@ -1110,7 +1111,7 @@ glabel var7f1b5d18
 /*  f13eeec:	10000003 */ 	b	.L0f13eefc
 /*  f13eef0:	a22c006e */ 	sb	$t4,0x6e($s1)
 .L0f13eef4:
-/*  f13eef4:	0fc4f86c */ 	jal	func0f13e1b0
+/*  f13eef4:	0fc4f86c */ 	jal	wallhitRemove
 /*  f13eef8:	02202025 */ 	or	$a0,$s1,$zero
 .L0f13eefc:
 /*  f13eefc:	9222006d */ 	lbu	$v0,0x6d($s1)
@@ -1460,7 +1461,7 @@ glabel var7f1b5d18
 );
 
 GLOBAL_ASM(
-glabel func0f13f3f4
+glabel wallhitCreate
 .late_rodata
 glabel var7f1b5d1c
 .word 0x3dcccccd
@@ -5498,7 +5499,7 @@ s32 func0f140750(struct coord *coord)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f1408a8
+glabel wallhitRenderBgHitsLayer1
 /*  f1408a8:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f1408ac:	afa50054 */ 	sw	$a1,0x54($sp)
 /*  f1408b0:	24af0008 */ 	addiu	$t7,$a1,0x8
@@ -5693,7 +5694,7 @@ glabel func0f1408a8
 );
 #else
 GLOBAL_ASM(
-glabel func0f1408a8
+glabel wallhitRenderBgHitsLayer1
 /*  f13b3a4:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f13b3a8:	afa50054 */ 	sw	$a1,0x54($sp)
 /*  f13b3ac:	24af0008 */ 	addiu	$t7,$a1,0x8
@@ -5881,9 +5882,73 @@ glabel func0f1408a8
 );
 #endif
 
+// Mismatch: Target copies the colours using $at.
+//Gfx *wallhitRenderBgHitsLayer1(s32 roomnum, Gfx *gdl)
+//{
+//	struct wallhit *hit;
+//	u32 *colours;
+//	s32 prevtexturenum;
+//	s32 prev6b;
+//
+//	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+//	gSPSetGeometryMode(gdl++, G_CULL_BACK);
+//#if VERSION >= VERSION_NTSC_1_0
+//	gDPSetTextureDetail(gdl++, G_TD_CLAMP);
+//#endif
+//	gDPSetColorDither(gdl++, G_CD_NOISE);
+//	gDPSetTextureFilter(gdl++, G_TF_BILERP);
+//
+//	prevtexturenum = -1;
+//	prev6b = -1;
+//
+//	gdl = func0f166d7c(gdl, roomnum);
+//
+//	hit = g_Rooms[roomnum].wallhits1;
+//
+//	while (hit) {
+//		if (hit->unk6f_00 && hit->unk6f_05) {
+//			if (hit->unk6f_04) {
+//				hit->unk6b = 1;
+//			} else {
+//				hit->unk6b = func0f140750(&hit->unk50);
+//			}
+//
+//			if (hit->texturenum != prevtexturenum || hit->unk6b != prev6b) {
+//				func0f0b39c0(&gdl, &var800ab560[hit->texturenum], 2, hit->unk6b, 2, 1, NULL);
+//
+//				prevtexturenum = hit->texturenum;
+//				prev6b = hit->unk6b;
+//			}
+//
+//			colours = gfxAllocateColours(4);
+//			colours[0] = hit->colours[0];
+//			colours[1] = hit->colours[1];
+//			colours[2] = hit->colours[2];
+//			colours[3] = hit->colours[3];
+//
+//			gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 4);
+//
+//			if (hit->verticesptr != NULL) {
+//				gDPSetVerticeArray(gdl++, hit->verticesptr, 4);
+//			} else {
+//				gDPSetVerticeArray(gdl++, osVirtualToPhysical(&hit->vertices), 4);
+//			}
+//
+//			gDPTri2(gdl++, 0, 1, 2, 0, 2, 3);
+//		}
+//
+//		hit = hit->next;
+//	}
+//
+//	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+//	gDPSetColorDither(gdl++, G_CD_BAYER);
+//
+//	return gdl;
+//}
+
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f140b7c
+glabel wallhitRenderBgHitsLayer2
 /*  f140b7c:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f140b80:	afa50054 */ 	sw	$a1,0x54($sp)
 /*  f140b84:	24af0008 */ 	addiu	$t7,$a1,0x8
@@ -6063,7 +6128,7 @@ glabel func0f140b7c
 );
 #else
 GLOBAL_ASM(
-glabel func0f140b7c
+glabel wallhitRenderBgHitsLayer2
 /*  f13b65c:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f13b660:	afa50054 */ 	sw	$a1,0x54($sp)
 /*  f13b664:	24af0008 */ 	addiu	$t7,$a1,0x8
@@ -6238,7 +6303,7 @@ glabel func0f140b7c
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f140e20
+glabel wallhitRenderPropHits
 /*  f140e20:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*  f140e24:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
 /*  f140e28:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
@@ -6486,7 +6551,7 @@ glabel func0f140e20
 );
 #else
 GLOBAL_ASM(
-glabel func0f140e20
+glabel wallhitRenderPropHits
 /*  f13b8e4:	27bdff50 */ 	addiu	$sp,$sp,-176
 /*  f13b8e8:	3c0e800a */ 	lui	$t6,0x800a
 /*  f13b8ec:	8dcee944 */ 	lw	$t6,-0x16bc($t6)
@@ -6727,14 +6792,14 @@ glabel func0f140e20
 );
 #endif
 
-Gfx *wallhitsRender(s32 roomnum, Gfx *gdl)
+Gfx *wallhitRenderBgHits(s32 roomnum, Gfx *gdl)
 {
-	if (g_Rooms[roomnum].unk84 != 0) {
-		gdl = func0f1408a8(roomnum, gdl);
+	if (g_Rooms[roomnum].wallhits1 != NULL) {
+		gdl = wallhitRenderBgHitsLayer1(roomnum, gdl);
 	}
 
-	if (g_Rooms[roomnum].unk88 != 0) {
-		gdl = func0f140b7c(roomnum, gdl);
+	if (g_Rooms[roomnum].wallhits2 != NULL) {
+		gdl = wallhitRenderBgHitsLayer2(roomnum, gdl);
 	}
 
 	return gdl;
@@ -6990,16 +7055,16 @@ void func0f14159c(struct prop *prop)
 	s32 i;
 
 	for (i = 0; i < var8009cc44; i++) {
-		struct var800a41b0 *thing = &var800a41b0[i];
+		struct wallhit *hit = &var800a41b0[i];
 
-		if (thing->prop
-				&& thing->unk68 > 0
-				&& thing->prop == prop
-				&& var8007f75c[thing->unk6a].unk08 == 3) {
-			if ((thing->unk6a >= 0xc && thing->unk6a <= 0xc) || (random() % 100) < 35) {
-				func0f13e640(thing, (PAL ? 100 : 120));
+		if (hit->prop
+				&& hit->unk68 > 0
+				&& hit->prop == prop
+				&& var8007f75c[hit->texturenum].unk08 == 3) {
+			if ((hit->texturenum >= 12 && hit->texturenum <= 12) || (random() % 100) < 35) {
+				func0f13e640(hit, (PAL ? 100 : 120));
 			} else {
-				thing->unk70_00 = g_Vars.lvframenum;
+				hit->unk70_00 = g_Vars.lvframenum;
 			}
 		}
 	}
@@ -7015,17 +7080,17 @@ void func0f141704(struct prop *prop)
 	s32 i;
 
 	for (i = 0; i < var8009cc44; i++) {
-		struct var800a41b0 *thing = &var800a41b0[i];
+		struct wallhit *hit = &var800a41b0[i];
 
-		if (thing->prop
-				&& thing->unk68 > 0
-				&& thing->prop == prop
-				&& thing->unk6f_02 == 0
-				&& var8007f75c[thing->unk6a].unk08 == 3
-				&& thing->unk6a > 0xb
-				&& thing->unk6a < 0xd
-				&& thing->unk70_00 < bestvalue) {
-			bestvalue = thing->unk70_00;
+		if (hit->prop
+				&& hit->unk68 > 0
+				&& hit->prop == prop
+				&& hit->unk6f_02 == 0
+				&& var8007f75c[hit->texturenum].unk08 == 3
+				&& hit->texturenum >= 12
+				&& hit->texturenum <= 12
+				&& hit->unk70_00 < bestvalue) {
+			bestvalue = hit->unk70_00;
 			index = i;
 		}
 	}

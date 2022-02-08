@@ -533,8 +533,8 @@ void frInitDefaults(void)
 		g_FrData.targets[i].invincibletimer = 0;
 		g_FrData.targets[i].frpadnum = -1;
 
-		func0f13e40c(g_FrData.targets[i].prop, false);
-		func0f13e40c(g_FrData.targets[i].prop, true);
+		wallhitsRemoveByProp(g_FrData.targets[i].prop, 0);
+		wallhitsRemoveByProp(g_FrData.targets[i].prop, 1);
 	}
 
 	g_FrData.timetaken = PALDOWN(-240);

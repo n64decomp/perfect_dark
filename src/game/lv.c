@@ -7722,7 +7722,7 @@ glabel var7f1b8ed0pf
 /*  f16d7e0:	00000000 */ 	nop
 /*  f16d7e4:	0fc0785c */ 	jal	sparksTick
 /*  f16d7e8:	00000000 */ 	nop
-/*  f16d7ec:	0fc4fdad */ 	jal	func0f13eb44
+/*  f16d7ec:	0fc4fdad */ 	jal	wallhitsTick
 /*  f16d7f0:	00000000 */ 	nop
 /*  f16d7f4:	0fc52945 */ 	jal	func0f149864
 /*  f16d7f8:	00000000 */ 	nop
@@ -8118,7 +8118,7 @@ void lvTick(void)
 		casingsTick();
 		shardsTick();
 		sparksTick();
-		func0f13eb44();
+		wallhitsTick();
 		func0f149864();
 
 		if (g_WeatherActive) {
@@ -9324,7 +9324,7 @@ glabel lvTick
 /*  f16774c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f167750:	0fc0774c */ 	jal	sparksTick
 /*  f167754:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f167758:	0fc4e591 */ 	jal	func0f13eb44
+/*  f167758:	0fc4e591 */ 	jal	wallhitsTick
 /*  f16775c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f167760:	0fc5100d */ 	jal	func0f149864
 /*  f167764:	00000000 */ 	sll	$zero,$zero,0x0

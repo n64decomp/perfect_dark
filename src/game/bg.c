@@ -2742,7 +2742,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 	if (getVar80084040() && g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
 		for (i = 0; i < var8007fc2c; i++) {
 			roomnum = roomnums[i];
-			gdl = wallhitsRender(var800a4640.unk000[roomnum].roomnum, gdl);
+			gdl = wallhitRenderBgHits(var800a4640.unk000[roomnum].roomnum, gdl);
 		}
 	}
 
@@ -3359,7 +3359,7 @@ glabel bgRenderScene
 /*  f155548:	01926023 */ 	subu	$t4,$t4,$s2
 /*  f15554c:	000c6080 */ 	sll	$t4,$t4,0x2
 /*  f155550:	008c2021 */ 	addu	$a0,$a0,$t4
-/*  f155554:	0fc4ef16 */ 	jal	wallhitsRender
+/*  f155554:	0fc4ef16 */ 	jal	wallhitRenderBgHits
 /*  f155558:	84848dc0 */ 	lh	$a0,-0x7240($a0)
 /*  f15555c:	3c0d8008 */ 	lui	$t5,0x8008
 /*  f155560:	8dad2490 */ 	lw	$t5,0x2490($t5)

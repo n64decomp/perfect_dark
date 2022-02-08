@@ -8140,7 +8140,7 @@ void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderda
 		// Note: OBJH2FLAG_RENDEROPAQUE << 1 is OBJH2FLAG_RENDERALPHA
 		// so this is just checking if the appropriate flag is enabled
 		if (obj->hidden2 & OBJH2FLAG_RENDEROPAQUE << withalpha) {
-			renderdata->gdl = func0f140e20(renderdata->gdl, prop, withalpha);
+			renderdata->gdl = wallhitRenderPropHits(renderdata->gdl, prop, withalpha);
 		}
 
 		child = prop->child;
@@ -10172,7 +10172,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 					if (type->num04 > 0) {
 						index = random() % type->num04;
 
-						func0f13f3f4(
+						wallhitCreate(
 								&hit->hitthing.unk00,
 								&hit->hitthing.unk0c,
 								&shotdata->gunpos,
@@ -10208,7 +10208,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 
 				index = random() % type->num04;
 
-				func0f13f3f4(
+				wallhitCreate(
 						&hit->hitthing.unk00,
 						&hit->hitthing.unk0c,
 						&shotdata->gunpos,

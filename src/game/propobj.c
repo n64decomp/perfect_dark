@@ -6059,8 +6059,8 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 		chrClearReferences(obj->prop - g_Vars.props);
 		projectilesUnrefOwner(obj->prop);
 
-		func0f13e40c(obj->prop, 0);
-		func0f13e40c(obj->prop, 1);
+		wallhitsRemoveByProp(obj->prop, 0);
+		wallhitsRemoveByProp(obj->prop, 1);
 		func0f06ac90(obj->prop);
 
 		child = obj->prop->child;
@@ -52063,7 +52063,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool w
 		}
 
 		if (obj->hidden2 & (OBJH2FLAG_RENDEROPAQUE << withalpha)) {
-			gdl = func0f140e20(gdl, prop, withalpha);
+			gdl = wallhitRenderPropHits(gdl, prop, withalpha);
 		}
 
 		if (sp6c) {
@@ -53906,7 +53906,7 @@ glabel var7f1aa838
 /*  f081d70:	8fa800d0 */ 	lw	$t0,0xd0($sp)
 /*  f081d74:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f081d78:	8d040014 */ 	lw	$a0,0x14($t0)
-/*  f081d7c:	0fc4f903 */ 	jal	func0f13e40c
+/*  f081d7c:	0fc4f903 */ 	jal	wallhitsRemoveByProp
 /*  f081d80:	e7b000bc */ 	swc1	$f16,0xbc($sp)
 /*  f081d84:	24090001 */ 	addiu	$t1,$zero,0x1
 /*  f081d88:	c7b000bc */ 	lwc1	$f16,0xbc($sp)
@@ -54614,7 +54614,7 @@ glabel var7f1aa838
 /*  f0807dc:	8fa800d8 */ 	lw	$t0,0xd8($sp)
 .NB0f0807e0:
 /*  f0807e0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0807e4:	0fc4e3c3 */ 	jal	func0f13e40c
+/*  f0807e4:	0fc4e3c3 */ 	jal	wallhitsRemoveByProp
 /*  f0807e8:	8d040014 */ 	lw	$a0,0x14($t0)
 /*  f0807ec:	24090001 */ 	addiu	$t1,$zero,0x1
 /*  f0807f0:	afa00088 */ 	sw	$zero,0x88($sp)
@@ -58733,8 +58733,8 @@ void glassDestroy(struct defaultobj *obj)
 	struct prop *prop = obj->prop;
 	struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
 
-	func0f13e40c(prop, 0);
-	func0f13e40c(prop, 1);
+	wallhitsRemoveByProp(prop, 0);
+	wallhitsRemoveByProp(prop, 1);
 
 	if (obj->modelnum == MODEL_AIVILLABOT1
 			|| obj->modelnum == MODEL_AIVILLABOT2
@@ -58796,7 +58796,7 @@ void doorDestroyGlass(struct doorobj *door)
 	shardsCreate((struct coord *) &matrix.m[3][0], &matrix.m[0][0], &matrix.m[1][0], &matrix.m[2][0],
 			rodata->bbox.xmin, rodata->bbox.xmax, rodata->bbox.ymin, rodata->bbox.ymax,
 			SHARDTYPE_GLASS, prop);
-	func0f13e40c(prop, 1);
+	wallhitsRemoveByProp(prop, 1);
 
 	node = modelGetPart(model->filedata, 1);
 	rwdata = modelGetNodeRwData(model, node);
@@ -58822,7 +58822,7 @@ void func0f084f64(struct defaultobj *obj)
 				SHARDTYPE_GLASS, prop);
 	}
 
-	func0f13e40c(prop, 1);
+	wallhitsRemoveByProp(prop, 1);
 	rwdata = modelGetNodeRwData(model, modelGetPart(model->filedata, 3));
 	rwdata->toggle.visible = false;
 }
@@ -59655,7 +59655,7 @@ glabel objHit
 /*  f0863d0:	27240010 */ 	addiu	$a0,$t9,0x10
 /*  f0863d4:	2725001c */ 	addiu	$a1,$t9,0x1c
 /*  f0863d8:	24c6001c */ 	addiu	$a2,$a2,0x1c
-/*  f0863dc:	0fc4fcfd */ 	jal	func0f13f3f4
+/*  f0863dc:	0fc4fcfd */ 	jal	wallhitCreate
 /*  f0863e0:	afad0028 */ 	sw	$t5,0x28($sp)
 /*  f0863e4:	10000078 */ 	b	.L0f0865c8
 /*  f0863e8:	8fa80124 */ 	lw	$t0,0x124($sp)
@@ -59787,7 +59787,7 @@ glabel objHit
 /*  f0865b0:	2585001c */ 	addiu	$a1,$t4,0x1c
 /*  f0865b4:	afad002c */ 	sw	$t5,0x2c($sp)
 /*  f0865b8:	24c6001c */ 	addiu	$a2,$a2,0x1c
-/*  f0865bc:	0fc4fcfd */ 	jal	func0f13f3f4
+/*  f0865bc:	0fc4fcfd */ 	jal	wallhitCreate
 /*  f0865c0:	afb90028 */ 	sw	$t9,0x28($sp)
 /*  f0865c4:	8fa80124 */ 	lw	$t0,0x124($sp)
 .L0f0865c8:
@@ -60384,7 +60384,7 @@ glabel objHit
 /*  f084c2c:	25e40010 */ 	addiu	$a0,$t7,0x10
 /*  f084c30:	25e5001c */ 	addiu	$a1,$t7,0x1c
 /*  f084c34:	24c6001c */ 	addiu	$a2,$a2,0x1c
-/*  f084c38:	0fc4e7bd */ 	jal	func0f13f3f4
+/*  f084c38:	0fc4e7bd */ 	jal	wallhitCreate
 /*  f084c3c:	afad0028 */ 	sw	$t5,0x28($sp)
 /*  f084c40:	10000078 */ 	beqz	$zero,.NB0f084e24
 /*  f084c44:	8fa80124 */ 	lw	$t0,0x124($sp)
@@ -60516,7 +60516,7 @@ glabel objHit
 /*  f084e0c:	25c5001c */ 	addiu	$a1,$t6,0x1c
 /*  f084e10:	afad002c */ 	sw	$t5,0x2c($sp)
 /*  f084e14:	24c6001c */ 	addiu	$a2,$a2,0x1c
-/*  f084e18:	0fc4e7bd */ 	jal	func0f13f3f4
+/*  f084e18:	0fc4e7bd */ 	jal	wallhitCreate
 /*  f084e1c:	afaf0028 */ 	sw	$t7,0x28($sp)
 /*  f084e20:	8fa80124 */ 	lw	$t0,0x124($sp)
 .NB0f084e24:

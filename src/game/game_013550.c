@@ -100,7 +100,7 @@ void func0f013550(void)
 		u32 structssize;
 		void *ptr;
 
-		structssize = var8009cc44 * sizeof(struct var800a41b0);
+		structssize = var8009cc44 * sizeof(struct wallhit);
 		structssize += 0xf;
 		structssize &= ~0xf;
 
@@ -111,7 +111,7 @@ void func0f013550(void)
 		ptr = mempAlloc(structssize + numberssize, MEMPOOL_STAGE);
 
 		var8009cc40 = ptr;
-		var800a41b0 = (struct var800a41b0 *)((u32)ptr + numberssize);
+		var800a41b0 = (struct wallhit *)((u32)ptr + numberssize);
 		var800a41b4 = NULL;
 		var800a41b8 = 0;
 
