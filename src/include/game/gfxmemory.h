@@ -4,6 +4,8 @@
 #include "data.h"
 #include "types.h"
 
+extern u8 *g_GfxBuffers[3];
+
 void gfxInitMemory(void);
 Gfx *gfxGetMasterDisplayList(void);
 struct gfxvtx *gfxAllocateVertices(s32 count);

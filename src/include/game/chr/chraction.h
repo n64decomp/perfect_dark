@@ -340,6 +340,7 @@ s16 *teamGetChrIds(s32 team_id);
 s16 *squadronGetChrIds(s32 squadron_id);
 void audioMarkAsRecentlyPlayed(s16 audioid);
 bool audioWasNotPlayedRecently(s16 audioid);
+Gfx *chrsRenderChrStats(Gfx *gdl, s16 *rooms);
 void chrToggleModelPart(struct chrdata *chr, s32 partnum);
 bool chrIsAvoiding(struct chrdata *chr);
 void chrDrCarollEmitSparks(struct chrdata *chr);

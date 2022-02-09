@@ -315,7 +315,7 @@ extern struct var80075c00 var80075c00[];
 extern s32 var80075d60;
 extern s32 var80075d64;
 extern s32 var80075d68;
-extern s32 var80075d78;
+extern s32 g_DebugScreenshotRgb;
 extern u8 unregistered_function1[];
 extern u8 unregistered_function2[];
 extern u8 unregistered_function3[];
