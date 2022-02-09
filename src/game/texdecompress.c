@@ -6231,10 +6231,7 @@ glabel func0f1734e8
 /*  f17350c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f173510
-/*  f173510:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f173514:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f173518:	03e00008 */ 	jr	$ra
-/*  f17351c:	00801025 */ 	or	$v0,$a0,$zero
-);
+s32 func0f173510(s32 arg0, s32 arg1, s32 arg3)
+{
+	return arg0;
+}
