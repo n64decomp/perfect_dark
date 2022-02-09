@@ -19,7 +19,7 @@ u32 func0f1711b4(void);
 u32 func0f171558(void);
 u32 func0f171724(void);
 s32 func0f171828(s32 arg0);
-u32 func0f17184c(void);
+void func0f17184c(u8 *arg0, s32 arg1);
 u32 func0f1718a0(void);
 u32 func0f171ba8(void);
 u32 func0f17218c(void);

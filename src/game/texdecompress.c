@@ -4076,32 +4076,14 @@ s32 func0f171828(s32 arg0)
 	return count;
 }
 
-GLOBAL_ASM(
-glabel func0f17184c
-/*  f17184c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f171850:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f171854:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f171858:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f17185c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f171860:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f171864:	18a00008 */ 	blez	$a1,.L0f171888
-/*  f171868:	00008025 */ 	or	$s0,$zero,$zero
-/*  f17186c:	00808825 */ 	or	$s1,$a0,$zero
-.L0f171870:
-/*  f171870:	0fc5cd4f */ 	jal	func0f17353c
-/*  f171874:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f171878:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f17187c:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f171880:	1612fffb */ 	bne	$s0,$s2,.L0f171870
-/*  f171884:	a222ffff */ 	sb	$v0,-0x1($s1)
-.L0f171888:
-/*  f171888:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f17188c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f171890:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f171894:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f171898:	03e00008 */ 	jr	$ra
-/*  f17189c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f17184c(u8 *arg0, s32 arg1)
+{
+	s32 i;
+
+	for (i = 0; i < arg1; i++) {
+		arg0[i] = func0f17353c(1);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1718a0
