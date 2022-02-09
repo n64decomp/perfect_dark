@@ -12,7 +12,7 @@ u32 func0f16efa0(void);
 u32 func0f16f044(void);
 u32 func0f16f0f4(void);
 u32 func0f16fc8c(void);
-u32 func0f16fd50(void);
+s32 func0f16fd50(u16 *arg0, s32 arg1, s32 arg2, s32 arg3);
 u32 func0f16fde4(void);
 u32 func0f1706ec(void);
 u32 func0f1711b4(void);

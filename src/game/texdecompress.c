@@ -2111,49 +2111,26 @@ glabel func0f16fc8c
 /*  f16fd4c:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f16fd50
-/*  f16fd50:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*  f16fd54:	afb1000c */ 	sw	$s1,0xc($sp)
-/*  f16fd58:	afb00008 */ 	sw	$s0,0x8($sp)
-/*  f16fd5c:	3c0205f5 */ 	lui	$v0,0x5f5
-/*  f16fd60:	00c08025 */ 	or	$s0,$a2,$zero
-/*  f16fd64:	00e08825 */ 	or	$s1,$a3,$zero
-/*  f16fd68:	00001825 */ 	or	$v1,$zero,$zero
-/*  f16fd6c:	3442e0ff */ 	ori	$v0,$v0,0xe0ff
-/*  f16fd70:	18a00017 */ 	blez	$a1,.L0f16fdd0
-/*  f16fd74:	00004025 */ 	or	$t0,$zero,$zero
-/*  f16fd78:	00803025 */ 	or	$a2,$a0,$zero
-.L0f16fd7c:
-/*  f16fd7c:	94c40000 */ 	lhu	$a0,0x0($a2)
-/*  f16fd80:	00047203 */ 	sra	$t6,$a0,0x8
-/*  f16fd84:	31cf00ff */ 	andi	$t7,$t6,0xff
-/*  f16fd88:	01f03823 */ 	subu	$a3,$t7,$s0
-/*  f16fd8c:	00e70019 */ 	multu	$a3,$a3
-/*  f16fd90:	309800ff */ 	andi	$t8,$a0,0xff
-/*  f16fd94:	03114823 */ 	subu	$t1,$t8,$s1
-/*  f16fd98:	0000c812 */ 	mflo	$t9
-/*  f16fd9c:	00000000 */ 	nop
-/*  f16fda0:	00000000 */ 	nop
-/*  f16fda4:	01290019 */ 	multu	$t1,$t1
-/*  f16fda8:	00005812 */ 	mflo	$t3
-/*  f16fdac:	032b5021 */ 	addu	$t2,$t9,$t3
-/*  f16fdb0:	0142082a */ 	slt	$at,$t2,$v0
-/*  f16fdb4:	50200004 */ 	beqzl	$at,.L0f16fdc8
-/*  f16fdb8:	25080001 */ 	addiu	$t0,$t0,0x1
-/*  f16fdbc:	01001825 */ 	or	$v1,$t0,$zero
-/*  f16fdc0:	01401025 */ 	or	$v0,$t2,$zero
-/*  f16fdc4:	25080001 */ 	addiu	$t0,$t0,0x1
-.L0f16fdc8:
-/*  f16fdc8:	1505ffec */ 	bne	$t0,$a1,.L0f16fd7c
-/*  f16fdcc:	24c60002 */ 	addiu	$a2,$a2,0x2
-.L0f16fdd0:
-/*  f16fdd0:	8fb00008 */ 	lw	$s0,0x8($sp)
-/*  f16fdd4:	8fb1000c */ 	lw	$s1,0xc($sp)
-/*  f16fdd8:	27bd0010 */ 	addiu	$sp,$sp,0x10
-/*  f16fddc:	03e00008 */ 	jr	$ra
-/*  f16fde0:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 func0f16fd50(u16 *arg0, s32 arg1, s32 arg2, s32 arg3)
+{
+	s32 bestindex = 0;
+	s32 bestvalue = 99999999;
+	s32 i;
+
+	for (i = 0; i < arg1; i++) {
+		s32 value = arg0[i];
+		s32 a = ((value >> 8) & 0xff) - arg2;
+		s32 b = (value & 0xff) - arg3;
+		s32 sum = a * a + b * b;
+
+		if (sum < bestvalue) {
+			bestindex = i;
+			bestvalue = sum;
+		}
+	}
+
+	return bestindex;
+}
 
 GLOBAL_ASM(
 glabel func0f16fde4
