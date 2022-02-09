@@ -5193,7 +5193,7 @@ Gfx *currentPlayerRenderShield(Gfx *gdl)
 		}
 
 		f20 = 1 - g_Vars.currentplayer->shieldshowtime * (1.0f / 60.0f);
-		func0f0b39c0(&gdl, &var800ab58c[0], 4, 1, 2, 1, NULL);
+		func0f0b39c0(&gdl, &g_TexShieldConfigs[0], 4, 1, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_2CYCLE);
 		gDPSetRenderMode(gdl++, G_RM_PASS, G_RM_CLD_SURF2);
@@ -5201,7 +5201,7 @@ Gfx *currentPlayerRenderShield(Gfx *gdl)
 		gDPSetPrimColor(gdl++, 0, 0, 0xff, 0xff, 0xff, (s32)(175 * f20 * f20));
 		gDPSetCombineLERP(gdl++, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0, 0, 0, 0, COMBINED, 1, COMBINED, PRIMITIVE, COMBINED);
 
-		func0f0b2740(&gdl, sp90, sp88, var800ab58c->width, var800ab58c->height,
+		func0f0b2740(&gdl, sp90, sp88, g_TexShieldConfigs->width, g_TexShieldConfigs->height,
 				(g_Vars.currentplayer->shieldshowrnd & 1) != 0,
 				(g_Vars.currentplayer->shieldshowrnd & 2) != 0,
 				(g_Vars.currentplayer->shieldshowrnd & 4) != 0,

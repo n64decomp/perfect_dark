@@ -11871,7 +11871,7 @@ Gfx *menuitemControllerRenderTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32
 	gDPSetTextureLOD(gdl++, G_TL_TILE);
 	gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-	func0f0b39c0(&gdl, &var800ab5a8[texturenum], 2, 0, 2, 1, NULL);
+	func0f0b39c0(&gdl, &g_TexGeneralConfigs[texturenum], 2, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetTextureFilter(gdl++, G_TF_POINT);
@@ -11930,7 +11930,7 @@ glabel menuitemControllerRenderLines
 /*  f0ef7d8:	3c19ba00 */ 	lui	$t9,0xba00
 /*  f0ef7dc:	37391301 */ 	ori	$t9,$t9,0x1301
 /*  f0ef7e0:	00a0b025 */ 	or	$s6,$a1,$zero
-/*  f0ef7e4:	3c05800b */ 	lui	$a1,%hi(var800ab5a8)
+/*  f0ef7e4:	3c05800b */ 	lui	$a1,%hi(g_TexGeneralConfigs)
 /*  f0ef7e8:	00c09025 */ 	or	$s2,$a2,$zero
 /*  f0ef7ec:	00e09825 */ 	or	$s3,$a3,$zero
 /*  f0ef7f0:	06a10004 */ 	bgez	$s5,.L0f0ef804
@@ -11969,7 +11969,7 @@ glabel menuitemControllerRenderLines
 /*  f0ef870:	24190c00 */ 	addiu	$t9,$zero,0xc00
 /*  f0ef874:	add90004 */ 	sw	$t9,0x4($t6)
 /*  f0ef878:	add80000 */ 	sw	$t8,0x0($t6)
-/*  f0ef87c:	8ca5b5a8 */ 	lw	$a1,%lo(var800ab5a8)($a1)
+/*  f0ef87c:	8ca5b5a8 */ 	lw	$a1,%lo(g_TexGeneralConfigs)($a1)
 /*  f0ef880:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f0ef884:	240d0002 */ 	addiu	$t5,$zero,0x2
 /*  f0ef888:	afad0010 */ 	sw	$t5,0x10($sp)

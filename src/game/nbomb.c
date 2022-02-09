@@ -628,8 +628,8 @@ glabel var7f1a7ee8
 /*  f007484:	0c012d20 */ 	jal	osVirtualToPhysical
 /*  f007488:	ae0f0000 */ 	sw	$t7,0x0($s0)
 /*  f00748c:	ae020004 */ 	sw	$v0,0x4($s0)
-/*  f007490:	3c05800b */ 	lui	$a1,%hi(var800ab5a8)
-/*  f007494:	8ca5b5a8 */ 	lw	$a1,%lo(var800ab5a8)($a1)
+/*  f007490:	3c05800b */ 	lui	$a1,%hi(g_TexGeneralConfigs)
+/*  f007494:	8ca5b5a8 */ 	lw	$a1,%lo(g_TexGeneralConfigs)($a1)
 /*  f007498:	240e0002 */ 	addiu	$t6,$zero,0x2
 /*  f00749c:	24180001 */ 	addiu	$t8,$zero,0x1
 /*  f0074a0:	afb80014 */ 	sw	$t8,0x14($sp)
@@ -2806,7 +2806,7 @@ Gfx *nbombCreateGdl(void)
 
 	gdl = gdlstart = gfxAllocate(gdlsizes[index]);
 
-	func0f0b39c0(&gdl, &var800ab5a8[0x0a], 2, 1, 2, 1, NULL);
+	func0f0b39c0(&gdl, &g_TexGeneralConfigs[0x0a], 2, 1, 2, 1, NULL);
 
 	gDPPipeSync(gdl++);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -4080,10 +4080,10 @@ glabel func0f00a490
 /*  f00a6b8:	016fc821 */ 	addu	$t9,$t3,$t7
 /*  f00a6bc:	0fc351e7 */ 	jal	func0f0d479c
 /*  f00a6c0:	a7b9005e */ 	sh	$t9,0x5e($sp)
-/*  f00a6c4:	3c05800b */ 	lui	$a1,%hi(var800ab5a8)
+/*  f00a6c4:	3c05800b */ 	lui	$a1,%hi(g_TexGeneralConfigs)
 /*  f00a6c8:	87a8005e */ 	lh	$t0,0x5e($sp)
 /*  f00a6cc:	87a9003c */ 	lh	$t1,0x3c($sp)
-/*  f00a6d0:	8ca5b5a8 */ 	lw	$a1,%lo(var800ab5a8)($a1)
+/*  f00a6d0:	8ca5b5a8 */ 	lw	$a1,%lo(g_TexGeneralConfigs)($a1)
 /*  f00a6d4:	240c0002 */ 	addiu	$t4,$zero,0x2
 /*  f00a6d8:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*  f00a6dc:	afa20080 */ 	sw	$v0,0x80($sp)
@@ -4391,10 +4391,10 @@ glabel func0f00a490
 /*  f00a6b8:	016fc821 */ 	addu	$t9,$t3,$t7
 /*  f00a6bc:	0fc351e7 */ 	jal	func0f0d479c
 /*  f00a6c0:	a7b9005e */ 	sh	$t9,0x5e($sp)
-/*  f00a6c4:	3c05800b */ 	lui	$a1,%hi(var800ab5a8)
+/*  f00a6c4:	3c05800b */ 	lui	$a1,%hi(g_TexGeneralConfigs)
 /*  f00a6c8:	87a8005e */ 	lh	$t0,0x5e($sp)
 /*  f00a6cc:	87a9003c */ 	lh	$t1,0x3c($sp)
-/*  f00a6d0:	8ca5b5a8 */ 	lw	$a1,%lo(var800ab5a8)($a1)
+/*  f00a6d0:	8ca5b5a8 */ 	lw	$a1,%lo(g_TexGeneralConfigs)($a1)
 /*  f00a6d4:	240c0002 */ 	addiu	$t4,$zero,0x2
 /*  f00a6d8:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*  f00a6dc:	afa20080 */ 	sw	$v0,0x80($sp)
@@ -4884,10 +4884,10 @@ glabel var7f1a7f5c
 /*  f00ade0:	004f5821 */ 	addu	$t3,$v0,$t7
 /*  f00ade4:	0fc351e7 */ 	jal	func0f0d479c
 /*  f00ade8:	a7ab0072 */ 	sh	$t3,0x72($sp)
-/*  f00adec:	3c05800b */ 	lui	$a1,%hi(var800ab5a8)
+/*  f00adec:	3c05800b */ 	lui	$a1,%hi(g_TexGeneralConfigs)
 /*  f00adf0:	87a80072 */ 	lh	$t0,0x72($sp)
 /*  f00adf4:	87a900fa */ 	lh	$t1,0xfa($sp)
-/*  f00adf8:	8ca5b5a8 */ 	lw	$a1,%lo(var800ab5a8)($a1)
+/*  f00adf8:	8ca5b5a8 */ 	lw	$a1,%lo(g_TexGeneralConfigs)($a1)
 /*  f00adfc:	240d0002 */ 	addiu	$t5,$zero,0x2
 /*  f00ae00:	24190001 */ 	addiu	$t9,$zero,0x1
 /*  f00ae04:	afa20110 */ 	sw	$v0,0x110($sp)
@@ -5259,7 +5259,7 @@ const u32 var7f1a7eac[] = {0x00000090};
 //
 //			gdl = func0f0d479c(gdl);
 //
-//			func0f0b39c0(&gdl, &var800ab5a8[6], 4, 1, 2, 1, NULL);
+//			func0f0b39c0(&gdl, &g_TexGeneralConfigs[6], 4, 1, 2, 1, NULL);
 //
 //			gDPPipeSync(gdl++);
 //			gDPSetCycleType(gdl++, G_CYC_1CYCLE);

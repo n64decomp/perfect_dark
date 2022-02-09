@@ -2112,7 +2112,7 @@ Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool withalpha)
 			gSPMatrix(gdl++, osVirtualToPhysical(&var800a3488), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 		}
 
-		gSPDisplayList(gdl++, var800ab564);
+		gSPDisplayList(gdl++, g_TexGdl1);
 		gDPSetColorDither(gdl++, G_CD_NOISE);
 
 		if (near) {

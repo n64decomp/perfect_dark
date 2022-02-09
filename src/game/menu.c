@@ -14382,26 +14382,26 @@ void menuInit(void)
 
 	g_MenuData.unk5d5_01 = false;
 
-	func0f0b3988(&var800ab5a8[1]);
-	func0f0b3988(&var800ab5a8[6]);
-	func0f0b3988(&var800ab5a8[51]);
-	func0f0b3988(&var800ab5a8[52]);
-	func0f0b3988(&var800ab5a8[53]);
-	func0f0b3988(&var800ab5a8[54]);
-	func0f0b3988(&var800ab5a8[55]);
+	func0f0b3988(&g_TexGeneralConfigs[1]);
+	func0f0b3988(&g_TexGeneralConfigs[6]);
+	func0f0b3988(&g_TexGeneralConfigs[51]);
+	func0f0b3988(&g_TexGeneralConfigs[52]);
+	func0f0b3988(&g_TexGeneralConfigs[53]);
+	func0f0b3988(&g_TexGeneralConfigs[54]);
+	func0f0b3988(&g_TexGeneralConfigs[55]);
 
 	if (g_Vars.stagenum == STAGE_CITRAINING) {
 		for (i = 12; i < 34; i++) {
-			func0f0b3988(&var800ab5a8[i]);
+			func0f0b3988(&g_TexGeneralConfigs[i]);
 		}
 
-		func0f0b3988(&var800ab5a8[34]);
-		func0f0b3988(&var800ab5a8[36]);
-		func0f0b3988(&var800ab5a8[35]);
+		func0f0b3988(&g_TexGeneralConfigs[34]);
+		func0f0b3988(&g_TexGeneralConfigs[36]);
+		func0f0b3988(&g_TexGeneralConfigs[35]);
 	}
 
 	if (g_Vars.mplayerisrunning) {
-		func0f0b3988(&var800ab5a8[35]);
+		func0f0b3988(&g_TexGeneralConfigs[35]);
 	}
 
 	for (i = 0; i < 4; i++) {

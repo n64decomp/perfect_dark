@@ -2278,7 +2278,7 @@ glabel var7f1b50c8
 /*  f120f98:	3c0ee700 */ 	lui	$t6,0xe700
 /*  f120f9c:	918b0028 */ 	lbu	$t3,0x28($t4)
 /*  f120fa0:	27a406b0 */ 	addiu	$a0,$sp,0x6b0
-/*  f120fa4:	3c19800b */ 	lui	$t9,%hi(var800ab598)
+/*  f120fa4:	3c19800b */ 	lui	$t9,%hi(g_TexWaterConfigs)
 /*  f120fa8:	1560006b */ 	bnez	$t3,.L0f121158
 /*  f120fac:	270a0008 */ 	addiu	$t2,$t8,0x8
 /*  f120fb0:	3c017f1b */ 	lui	$at,%hi(var7f1b5080)
@@ -2398,7 +2398,7 @@ glabel var7f1b50c8
 /*  f12115c:	af000004 */ 	sw	$zero,0x4($t8)
 /*  f121160:	af0e0000 */ 	sw	$t6,0x0($t8)
 /*  f121164:	8fa9042c */ 	lw	$t1,0x42c($sp)
-/*  f121168:	8f39b598 */ 	lw	$t9,%lo(var800ab598)($t9)
+/*  f121168:	8f39b598 */ 	lw	$t9,%lo(g_TexWaterConfigs)($t9)
 /*  f12116c:	240d0002 */ 	addiu	$t5,$zero,0x2
 /*  f121170:	852c0030 */ 	lh	$t4,0x30($t1)
 /*  f121174:	240f0001 */ 	addiu	$t7,$zero,0x1
@@ -3565,13 +3565,13 @@ glabel var7f1b50c8
 /*  f122380:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
 .L0f122384:
 /*  f122384:	3c0be700 */ 	lui	$t3,0xe700
-/*  f122388:	3c18800b */ 	lui	$t8,%hi(var800ab598)
+/*  f122388:	3c18800b */ 	lui	$t8,%hi(g_TexWaterConfigs)
 /*  f12238c:	252c0008 */ 	addiu	$t4,$t1,0x8
 /*  f122390:	afac06b0 */ 	sw	$t4,0x6b0($sp)
 /*  f122394:	ad200004 */ 	sw	$zero,0x4($t1)
 /*  f122398:	ad2b0000 */ 	sw	$t3,0x0($t1)
 /*  f12239c:	8fb9042c */ 	lw	$t9,0x42c($sp)
-/*  f1223a0:	8f18b598 */ 	lw	$t8,%lo(var800ab598)($t8)
+/*  f1223a0:	8f18b598 */ 	lw	$t8,%lo(g_TexWaterConfigs)($t8)
 /*  f1223a4:	240a0002 */ 	addiu	$t2,$zero,0x2
 /*  f1223a8:	872d0018 */ 	lh	$t5,0x18($t9)
 /*  f1223ac:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -8244,11 +8244,11 @@ glabel var7f1b5108
 /*  f125ffc:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x34)
 /*  f126000:	8dce9ff4 */ 	lw	$t6,%lo(g_Vars+0x34)($t6)
 /*  f126004:	8c4d0000 */ 	lw	$t5,0x0($v0)
-/*  f126008:	3c05800b */ 	lui	$a1,%hi(var800ab5a0)
+/*  f126008:	3c05800b */ 	lui	$a1,%hi(g_TexLightGlareConfigs)
 /*  f12600c:	24180002 */ 	addiu	$t8,$zero,0x2
 /*  f126010:	01ae7821 */ 	addu	$t7,$t5,$t6
 /*  f126014:	ac4f0000 */ 	sw	$t7,0x0($v0)
-/*  f126018:	8ca5b5a0 */ 	lw	$a1,%lo(var800ab5a0)($a1)
+/*  f126018:	8ca5b5a0 */ 	lw	$a1,%lo(g_TexLightGlareConfigs)($a1)
 /*  f12601c:	24190001 */ 	addiu	$t9,$zero,0x1
 /*  f126020:	afb90014 */ 	sw	$t9,0x14($sp)
 /*  f126024:	afb80010 */ 	sw	$t8,0x10($sp)
@@ -8354,7 +8354,7 @@ glabel var7f1b5108
 /*  f1261b4:	4612c002 */ 	mul.s	$f0,$f24,$f18
 /*  f1261b8:	000fc400 */ 	sll	$t8,$t7,0x10
 /*  f1261bc:	000a5a00 */ 	sll	$t3,$t2,0x8
-/*  f1261c0:	3c02800b */ 	lui	$v0,%hi(var800ab5a0)
+/*  f1261c0:	3c02800b */ 	lui	$v0,%hi(g_TexLightGlareConfigs)
 /*  f1261c4:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f1261c8:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f1261cc:	4600418d */ 	trunc.w.s	$f6,$f8
@@ -8370,7 +8370,7 @@ glabel var7f1b5108
 /*  f1261f4:	ac690004 */ 	sw	$t1,0x4($v1)
 /*  f1261f8:	c62a0000 */ 	lwc1	$f10,0x0($s1)
 /*  f1261fc:	c6500000 */ 	lwc1	$f16,0x0($s2)
-/*  f126200:	8c42b5a0 */ 	lw	$v0,%lo(var800ab5a0)($v0)
+/*  f126200:	8c42b5a0 */ 	lw	$v0,%lo(g_TexLightGlareConfigs)($v0)
 /*  f126204:	e7a4012c */ 	swc1	$f4,0x12c($sp)
 /*  f126208:	e7a00130 */ 	swc1	$f0,0x130($sp)
 /*  f12620c:	e7aa0134 */ 	swc1	$f10,0x134($sp)
@@ -9156,8 +9156,8 @@ glabel var7f1b511c
 /*  f1264d0:	0c002f26 */ 	jal	viGetViewHeight
 /*  f1264d4:	e7a40128 */ 	swc1	$f4,0x128($sp)
 /*  f1264d8:	44823000 */ 	mtc1	$v0,$f6
-/*  f1264dc:	3c16800b */ 	lui	$s6,%hi(var800ab5a0)
-/*  f1264e0:	26d6b5a0 */ 	addiu	$s6,$s6,%lo(var800ab5a0)
+/*  f1264dc:	3c16800b */ 	lui	$s6,%hi(g_TexLightGlareConfigs)
+/*  f1264e0:	26d6b5a0 */ 	addiu	$s6,$s6,%lo(g_TexLightGlareConfigs)
 /*  f1264e4:	46803220 */ 	cvt.s.w	$f8,$f6
 /*  f1264e8:	8ec50000 */ 	lw	$a1,0x0($s6)
 /*  f1264ec:	27b50190 */ 	addiu	$s5,$sp,0x190
@@ -9682,7 +9682,7 @@ glabel var7f1b511c
 //	sp124 = (y - viGetViewHeight() * 0.5f) * 0.01f;
 //
 //	// Render the sun
-//	func0f0b39c0(&gdl, &var800ab5a0[6], 4, 0, 2, 1, NULL);
+//	func0f0b39c0(&gdl, &g_TexLightGlareConfigs[6], 4, 0, 2, 1, NULL);
 //
 //	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 //	gDPSetColorDither(gdl++, G_CD_BAYER);
@@ -9707,10 +9707,10 @@ glabel var7f1b511c
 //	sp174[1] = fa;
 //	sp174[0] = fa * scale;
 //
-//	func0f0b2150(&gdl, sp17c, sp174, var800ab5a0[6].width, var800ab5a0[6].height, 0, 1, 1, 1, 0, 1);
+//	func0f0b2150(&gdl, sp17c, sp174, g_TexLightGlareConfigs[6].width, g_TexLightGlareConfigs[6].height, 0, 1, 1, 1, 0, 1);
 //
 //	// Render the artifacts
-//	func0f0b39c0(&gdl, &var800ab5a0[1], 4, 0, 2, 1, NULL);
+//	func0f0b39c0(&gdl, &g_TexLightGlareConfigs[1], 4, 0, 2, 1, NULL);
 //
 //	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 //	gDPSetColorDither(gdl++, G_CD_BAYER);
@@ -9757,7 +9757,7 @@ glabel var7f1b511c
 //		sp174[1] = fa;
 //		sp174[0] = fa * scale;
 //
-//		func0f0b2150(&gdl, sp17c, sp174, var800ab5a0[1].width, var800ab5a0[1].height, 0, 0, 0, 0, 0, 1);
+//		func0f0b2150(&gdl, sp17c, sp174, g_TexLightGlareConfigs[1].width, g_TexLightGlareConfigs[1].height, 0, 0, 0, 0, 0, 1);
 //	}
 //
 //	f20 = viGetViewWidth() * .5f - x;

@@ -512,7 +512,7 @@ Gfx *titleRenderLegal(Gfx *gdl)
 				gDPSetTextureLOD(gdl++, G_TL_TILE);
 				gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-				func0f0b39c0(&gdl, &var800ab5a8[47], 1, 0, 2, 1, 0);
+				func0f0b39c0(&gdl, &g_TexGeneralConfigs[47], 1, 0, 2, 1, 0);
 
 				gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 				gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -535,7 +535,7 @@ Gfx *titleRenderLegal(Gfx *gdl)
 				gDPSetTextureLOD(gdl++, G_TL_TILE);
 				gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-				func0f0b39c0(&gdl, &var800ab5a8[49], 1, 0, 2, 1, 0);
+				func0f0b39c0(&gdl, &g_TexGeneralConfigs[49], 1, 0, 2, 1, 0);
 
 				gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 				gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);

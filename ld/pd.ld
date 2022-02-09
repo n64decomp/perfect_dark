@@ -408,7 +408,7 @@ SECTIONS
 
 	BEGIN_SEG(textureconfig)
 	{
-		build/ROMID/assets/textures/config.o (.data);
+		build/ROMID/textureconfig.o (.data);
 	}
 	END_SEG(textureconfig)
 

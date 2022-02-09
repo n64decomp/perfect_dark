@@ -146,9 +146,9 @@ Gfx *func0f0d4a3c(Gfx *gdl, s32 arg1)
 	gDPPipeSync(gdl++);
 
 	if (arg1 == 0) {
-		func0f0b39c0(&gdl, &var800ab5a8[6], 2, 0, 2, 1, NULL);
+		func0f0b39c0(&gdl, &g_TexGeneralConfigs[6], 2, 0, 2, 1, NULL);
 	} else if (arg1 == 1) {
-		func0f0b39c0(&gdl, &var800ab5a8[11], 2, 0, 2, 1, NULL);
+		func0f0b39c0(&gdl, &g_TexGeneralConfigs[11], 2, 0, 2, 1, NULL);
 	}
 
 	gDPPipeSync(gdl++);

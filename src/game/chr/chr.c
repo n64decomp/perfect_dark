@@ -13650,12 +13650,12 @@ glabel var7f1a8980
 /*  f029cac:	100006c0 */ 	b	.L0f02b7b0
 /*  f029cb0:	8fbf003c */ 	lw	$ra,0x3c($sp)
 .L0f029cb4:
-/*  f029cb4:	3c05800b */ 	lui	$a1,%hi(var800ab58c)
+/*  f029cb4:	3c05800b */ 	lui	$a1,%hi(g_TexShieldConfigs)
 /*  f029cb8:	24180002 */ 	addiu	$t8,$zero,0x2
 /*  f029cbc:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f029cc0:	afae0014 */ 	sw	$t6,0x14($sp)
 /*  f029cc4:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f029cc8:	8ca5b58c */ 	lw	$a1,%lo(var800ab58c)($a1)
+/*  f029cc8:	8ca5b58c */ 	lw	$a1,%lo(g_TexShieldConfigs)($a1)
 /*  f029ccc:	27a401f0 */ 	addiu	$a0,$sp,0x1f0
 /*  f029cd0:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f029cd4:	24070001 */ 	addiu	$a3,$zero,0x1

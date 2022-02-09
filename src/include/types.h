@@ -6177,9 +6177,9 @@ struct var8009dd78 {
 	f32 unk04;
 };
 
-struct var800ab570 {
-	u32 unk00;
-	u32 unk04;
+struct texturepair {
+	s32 texturenum1;
+	s32 texturenum2;
 };
 
 struct collisionthing {

@@ -813,7 +813,7 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 		if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 			func0f0b39c0(&gdl, NULL, 2, 1, 2, 1, NULL);
 		} else {
-			func0f0b39c0(&gdl, &var800ab590[1], 2, 1, 2, 1, NULL);
+			func0f0b39c0(&gdl, &g_TexShardConfigs[1], 2, 1, 2, 1, NULL);
 		}
 
 		gSPTexture(gdl++, 0x0d80, 0x0d80, 2, G_TX_RENDERTILE, G_ON);

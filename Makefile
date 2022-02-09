@@ -258,11 +258,9 @@ O_FILES := \
 	$(LANG_O_FILES) \
 	$(PADS_O_FILES) \
 	$(TILES_O_FILES) \
-	$(B_DIR)/bootloader.o \
 	$(B_DIR)/assets/animations.o \
 	$(B_DIR)/assets/copyrightZ.o \
 	$(B_DIR)/assets/files/list.o \
-	$(B_DIR)/firingrange.o \
 	$(B_DIR)/assets/fonts/bankgothic.o \
 	$(B_DIR)/assets/fonts/handelgothiclg.o \
 	$(B_DIR)/assets/fonts/handelgothicmd.o \
@@ -273,9 +271,6 @@ O_FILES := \
 	$(B_DIR)/assets/fonts/ocramd.o \
 	$(B_DIR)/assets/fonts/tahoma.o \
 	$(B_DIR)/assets/fonts/zurich.o \
-	$(B_DIR)/garbage.o \
-	$(B_DIR)/getitle.o \
-	$(B_DIR)/mpconfigs.o \
 	$(B_DIR)/assets/mpstrings/mpstringsE.o \
 	$(B_DIR)/assets/mpstrings/mpstringsF.o \
 	$(B_DIR)/assets/mpstrings/mpstringsG.o \
@@ -283,19 +278,24 @@ O_FILES := \
 	$(B_DIR)/assets/mpstrings/mpstringsJ.o \
 	$(B_DIR)/assets/mpstrings/mpstringsP.o \
 	$(B_DIR)/assets/mpstrings/mpstringsS.o \
-	$(B_DIR)/rsp/rspboot.text.o \
-	$(B_DIR)/rsp/asp.data.o \
-	$(B_DIR)/rsp/asp.text.o \
-	$(B_DIR)/rsp/gsp.data.o \
-	$(B_DIR)/rsp/gsp.text.o \
 	$(B_DIR)/assets/seq.ctl.o \
 	$(B_DIR)/assets/seq.tbl.o \
 	$(B_DIR)/assets/sequences.o \
 	$(B_DIR)/assets/sfx.ctl.o \
 	$(B_DIR)/assets/sfx.tbl.o \
 	$(B_DIR)/assets/textureslist.o \
-	$(B_DIR)/assets/textures/config.o \
-	$(B_DIR)/romheader.o
+	$(B_DIR)/bootloader.o \
+	$(B_DIR)/firingrange.o \
+	$(B_DIR)/garbage.o \
+	$(B_DIR)/getitle.o \
+	$(B_DIR)/mpconfigs.o \
+	$(B_DIR)/romheader.o \
+	$(B_DIR)/rsp/asp.data.o \
+	$(B_DIR)/rsp/asp.text.o \
+	$(B_DIR)/rsp/gsp.data.o \
+	$(B_DIR)/rsp/gsp.text.o \
+	$(B_DIR)/rsp/rspboot.text.o \
+	$(B_DIR)/textureconfig.o
 
 # ntsc-beta doesn't have this segment
 ifneq ($(ROMID), ntsc-beta)

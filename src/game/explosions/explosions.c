@@ -5152,7 +5152,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool withalpha)
 
 		gdl = func0f166d7c(gdl, roomnum);
 
-		gSPDisplayList(gdl++, var800ab568);
+		gSPDisplayList(gdl++, g_TexGdl2);
 
 		colour = gfxAllocateColours(1);
 
@@ -5192,11 +5192,11 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		gDPSetColorArray(gdl++, osVirtualToPhysical(colour), 1);
 
 		for (i = 14; i >= 0; i--) {
-			gDPSetTextureImage(gdl++, G_IM_FMT_IA, G_IM_SIZ_16b, 1, var800ab570[i].unk00);
+			gDPSetTextureImage(gdl++, G_IM_FMT_IA, G_IM_SIZ_16b, 1, g_ExplosionTexturePairs[i].texturenum1);
 			gDPLoadSync(gdl++);
 			gDPLoadBlock(gdl++, G_TX_LOADTILE, 0, 0, 1567, 0);
 
-			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, var800ab570[i].unk04);
+			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, g_ExplosionTexturePairs[i].texturenum2);
 			gDPLoadSync(gdl++);
 			gDPLoadBlock(gdl++, 5, 0, 0, 223, 0);
 

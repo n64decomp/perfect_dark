@@ -1219,10 +1219,10 @@ glabel var7f1accf4
 /*  f0acc24:	8d8b0004 */ 	lw	$t3,0x4($t4)
 /*  f0acc28:	af210000 */ 	sw	$at,0x0($t9)
 /*  f0acc2c:	8d810008 */ 	lw	$at,0x8($t4)
-/*  f0acc30:	3c0f800b */ 	lui	$t7,%hi(var800ab574)
+/*  f0acc30:	3c0f800b */ 	lui	$t7,%hi(g_TexBeamConfigs)
 /*  f0acc34:	af2b0004 */ 	sw	$t3,0x4($t9)
 /*  f0acc38:	af210008 */ 	sw	$at,0x8($t9)
-/*  f0acc3c:	8defb574 */ 	lw	$t7,%lo(var800ab574)($t7)
+/*  f0acc3c:	8defb574 */ 	lw	$t7,%lo(g_TexBeamConfigs)($t7)
 /*  f0acc40:	00107080 */ 	sll	$t6,$s0,0x2
 /*  f0acc44:	3c017f1b */ 	lui	$at,%hi(var7f1acc6c)
 /*  f0acc48:	01d07023 */ 	subu	$t6,$t6,$s0
@@ -1235,8 +1235,8 @@ glabel var7f1accf4
 /*  f0acc64:	e7aa00f0 */ 	swc1	$f10,0xf0($sp)
 /*  f0acc68:	afa200e4 */ 	sw	$v0,0xe4($sp)
 /*  f0acc6c:	82230001 */ 	lb	$v1,0x1($s1)
-/*  f0acc70:	3c10800b */ 	lui	$s0,%hi(var800ab574)
-/*  f0acc74:	2610b574 */ 	addiu	$s0,$s0,%lo(var800ab574)
+/*  f0acc70:	3c10800b */ 	lui	$s0,%hi(g_TexBeamConfigs)
+/*  f0acc74:	2610b574 */ 	addiu	$s0,$s0,%lo(g_TexBeamConfigs)
 /*  f0acc78:	246afffa */ 	addiu	$t2,$v1,-6
 /*  f0acc7c:	2d410017 */ 	sltiu	$at,$t2,0x17
 /*  f0acc80:	10200012 */ 	beqz	$at,.L0f0acccc
@@ -1275,10 +1275,10 @@ glabel var7f1accf4
 .L0f0accf8:
 /*  f0accf8:	82230001 */ 	lb	$v1,0x1($s1)
 /*  f0accfc:	2401001d */ 	addiu	$at,$zero,0x1d
-/*  f0acd00:	3c09800b */ 	lui	$t1,%hi(var800ab578)
+/*  f0acd00:	3c09800b */ 	lui	$t1,%hi(g_TexLaserConfigs)
 /*  f0acd04:	54610008 */ 	bnel	$v1,$at,.L0f0acd28
 /*  f0acd08:	2401fffe */ 	addiu	$at,$zero,-2
-/*  f0acd0c:	8d29b578 */ 	lw	$t1,%lo(var800ab578)($t1)
+/*  f0acd0c:	8d29b578 */ 	lw	$t1,%lo(g_TexLaserConfigs)($t1)
 /*  f0acd10:	3c014248 */ 	lui	$at,0x4248
 /*  f0acd14:	44819000 */ 	mtc1	$at,$f18
 /*  f0acd18:	afa900ec */ 	sw	$t1,0xec($sp)
@@ -1287,10 +1287,10 @@ glabel var7f1accf4
 /*  f0acd24:	2401fffe */ 	addiu	$at,$zero,-2
 .L0f0acd28:
 /*  f0acd28:	14610022 */ 	bne	$v1,$at,.L0f0acdb4
-/*  f0acd2c:	3c19800b */ 	lui	$t9,%hi(var800ab578)
+/*  f0acd2c:	3c19800b */ 	lui	$t9,%hi(g_TexLaserConfigs)
 /*  f0acd30:	3c014120 */ 	lui	$at,0x4120
 /*  f0acd34:	44813000 */ 	mtc1	$at,$f6
-/*  f0acd38:	8f39b578 */ 	lw	$t9,%lo(var800ab578)($t9)
+/*  f0acd38:	8f39b578 */ 	lw	$t9,%lo(g_TexLaserConfigs)($t9)
 /*  f0acd3c:	e7a20124 */ 	swc1	$f2,0x124($sp)
 /*  f0acd40:	e7a60130 */ 	swc1	$f6,0x130($sp)
 /*  f0acd44:	0c004b70 */ 	jal	random
@@ -1953,9 +1953,9 @@ glabel var7f1accf4
 /*  f0ad720:	c7a000f0 */ 	lwc1	$f0,0xf0($sp)
 /*  f0ad724:	c7a80118 */ 	lwc1	$f8,0x118($sp)
 /*  f0ad728:	c7a400f4 */ 	lwc1	$f4,0xf4($sp)
-/*  f0ad72c:	3c03800b */ 	lui	$v1,%hi(var800ab57c)
+/*  f0ad72c:	3c03800b */ 	lui	$v1,%hi(g_TexGroup03Configs)
 /*  f0ad730:	46004282 */ 	mul.s	$f10,$f8,$f0
-/*  f0ad734:	2463b57c */ 	addiu	$v1,$v1,%lo(var800ab57c)
+/*  f0ad734:	2463b57c */ 	addiu	$v1,$v1,%lo(g_TexGroup03Configs)
 /*  f0ad738:	46045180 */ 	add.s	$f6,$f10,$f4
 /*  f0ad73c:	4600320d */ 	trunc.w.s	$f8,$f6
 /*  f0ad740:	44194000 */ 	mfc1	$t9,$f8
@@ -2166,12 +2166,12 @@ glabel var7f1accf4
 /*  f0ada70:	17010033 */ 	bne	$t8,$at,.L0f0adb40
 /*  f0ada74:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f0ada78:	27b10190 */ 	addiu	$s1,$sp,0x190
-/*  f0ada7c:	3c05800b */ 	lui	$a1,%hi(var800ab57c)
+/*  f0ada7c:	3c05800b */ 	lui	$a1,%hi(g_TexGroup03Configs)
 /*  f0ada80:	24090002 */ 	addiu	$t1,$zero,0x2
 /*  f0ada84:	24190001 */ 	addiu	$t9,$zero,0x1
 /*  f0ada88:	afb90014 */ 	sw	$t9,0x14($sp)
 /*  f0ada8c:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f0ada90:	8ca5b57c */ 	lw	$a1,%lo(var800ab57c)($a1)
+/*  f0ada90:	8ca5b57c */ 	lw	$a1,%lo(g_TexGroup03Configs)($a1)
 /*  f0ada94:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0ada98:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f0ada9c:	8fa70198 */ 	lw	$a3,0x198($sp)
@@ -4375,7 +4375,7 @@ Gfx *func0f0aeed8(Gfx *gdl)
 
 	for (i = 0; i < ARRAYCOUNT(var8009da60); i++) {
 		if (var8009da60[i].unk00 != -1) {
-			gdl = func0f0ac4b8(gdl, var800ab578, 1, &var8009da60[i].unk14, 0xafafff00, 2, &var8009da60[i].unk20, 0xafafff7f);
+			gdl = func0f0ac4b8(gdl, g_TexLaserConfigs, 1, &var8009da60[i].unk14, 0xafafff00, 2, &var8009da60[i].unk20, 0xafafff7f);
 		}
 	}
 
@@ -4747,7 +4747,7 @@ glabel var7f1acd8c
 /*  f0af5c0:	3c0a8007 */ 	lui	$t2,%hi(var80070574)
 /*  f0af5c4:	8d4a0574 */ 	lw	$t2,%lo(var80070574)($t2)
 /*  f0af5c8:	27a40200 */ 	addiu	$a0,$sp,0x200
-/*  f0af5cc:	3c05800b */ 	lui	$a1,%hi(var800ab5a8)
+/*  f0af5cc:	3c05800b */ 	lui	$a1,%hi(g_TexGeneralConfigs)
 /*  f0af5d0:	448a3000 */ 	mtc1	$t2,$f6
 /*  f0af5d4:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f0af5d8:	05410005 */ 	bgez	$t2,.L0f0af5f0
@@ -4830,7 +4830,7 @@ glabel var7f1acd8c
 /*  f0af6ec:	46083102 */ 	mul.s	$f4,$f6,$f8
 /*  f0af6f0:	46142500 */ 	add.s	$f20,$f4,$f20
 .L0f0af6f4:
-/*  f0af6f4:	8ca5b5a8 */ 	lw	$a1,%lo(var800ab5a8)($a1)
+/*  f0af6f4:	8ca5b5a8 */ 	lw	$a1,%lo(g_TexGeneralConfigs)($a1)
 /*  f0af6f8:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f0af6fc:	afb80014 */ 	sw	$t8,0x14($sp)
 /*  f0af700:	afa00018 */ 	sw	$zero,0x18($sp)
@@ -5189,7 +5189,7 @@ glabel var7f1acd8c
 //						}
 //					}
 //
-//					func0f0b39c0(&gdl, &var800ab5a8[4], 4, 0, 2, 1, NULL);
+//					func0f0b39c0(&gdl, &g_TexGeneralConfigs[4], 4, 0, 2, 1, NULL);
 //
 //					// 724
 //					if (rot.f[0] == 0 && rot.f[2] == 0) {
@@ -5365,10 +5365,10 @@ glabel var7f1acd90
 /*  f0afbd8:	3c0cb600 */ 	lui	$t4,0xb600
 /*  f0afbdc:	254b0008 */ 	addiu	$t3,$t2,0x8
 /*  f0afbe0:	afab01e8 */ 	sw	$t3,0x1e8($sp)
-/*  f0afbe4:	3c05800b */ 	lui	$a1,%hi(var800ab5a8)
+/*  f0afbe4:	3c05800b */ 	lui	$a1,%hi(g_TexGeneralConfigs)
 /*  f0afbe8:	ad4d0004 */ 	sw	$t5,0x4($t2)
 /*  f0afbec:	ad4c0000 */ 	sw	$t4,0x0($t2)
-/*  f0afbf0:	8ca5b5a8 */ 	lw	$a1,%lo(var800ab5a8)($a1)
+/*  f0afbf0:	8ca5b5a8 */ 	lw	$a1,%lo(g_TexGeneralConfigs)($a1)
 /*  f0afbf4:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f0afbf8:	240e0002 */ 	addiu	$t6,$zero,0x2
 /*  f0afbfc:	afae0010 */ 	sw	$t6,0x10($sp)
@@ -5812,7 +5812,7 @@ glabel var7f1acd90
 //	gDPSetCombineMode(gdl++, G_CC_BLENDIA, G_CC_BLENDIA);
 //	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 //
-//	func0f0b39c0(&gdl, &var800ab5a8[3], 4, 0, 2, 1, NULL);
+//	func0f0b39c0(&gdl, &g_TexGeneralConfigs[3], 4, 0, 2, 1, NULL);
 //	mtx4LoadIdentity(&sp14c);
 //
 //	mtx00015be0(currentPlayerGetMatrix1740(), &sp14c);

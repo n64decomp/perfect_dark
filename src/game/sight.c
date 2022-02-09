@@ -3980,11 +3980,11 @@ glabel sightRenderClassic
 /*  f0d9560:	c4481664 */ 	lwc1	$f8,0x1664($v0)
 /*  f0d9564:	8fb800d0 */ 	lw	$t8,0xd0($sp)
 /*  f0d9568:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f0d956c:	3c10800b */ 	lui	$s0,%hi(var800ab580)
+/*  f0d956c:	3c10800b */ 	lui	$s0,%hi(g_TexGeCrosshairConfigs)
 /*  f0d9570:	3c0dba00 */ 	lui	$t5,0xba00
 /*  f0d9574:	4600428d */ 	trunc.w.s	$f10,$f8
 /*  f0d9578:	44083000 */ 	mfc1	$t0,$f6
-/*  f0d957c:	8e10b580 */ 	lw	$s0,%lo(var800ab580)($s0)
+/*  f0d957c:	8e10b580 */ 	lw	$s0,%lo(g_TexGeCrosshairConfigs)($s0)
 /*  f0d9580:	35ad0602 */ 	ori	$t5,$t5,0x602
 /*  f0d9584:	44095000 */ 	mfc1	$t1,$f10
 /*  f0d9588:	14a00003 */ 	bnez	$a1,.L0f0d9598
@@ -4226,7 +4226,7 @@ glabel sightRenderClassic
 // Mismatch: Arguments for gDPFillRectangle are calculated differently
 //Gfx *sightRenderClassic(Gfx *gdl, bool sighton)
 //{
-//	struct textureconfig *tconfig = &var800ab580[0];
+//	struct textureconfig *tconfig = &g_TexGeCrosshairConfigs[0];
 //
 //	s32 x = g_Vars.currentplayer->crosspos[0];
 //	s32 y = g_Vars.currentplayer->crosspos[1];

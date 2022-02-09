@@ -205,7 +205,7 @@ Gfx *creditsRenderBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 
 	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 
-	func0f0b39c0(&gdl, &var800ab5a8[g_CreditsBgTypes[type].texturenum], 1, 1, 2, 1, NULL);
+	func0f0b39c0(&gdl, &g_TexGeneralConfigs[g_CreditsBgTypes[type].texturenum], 1, 1, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 
@@ -2323,11 +2323,11 @@ glabel var7f1b5850
 /*  f1394a0:	0c012d20 */ 	jal	osVirtualToPhysical
 /*  f1394a4:	ae0d0000 */ 	sw	$t5,0x0($s0)
 /*  f1394a8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1394ac:	3c1e800b */ 	lui	$s8,%hi(var800ab5a8)
+/*  f1394ac:	3c1e800b */ 	lui	$s8,%hi(g_TexGeneralConfigs)
 /*  f1394b0:	4481e000 */ 	mtc1	$at,$f28
 /*  f1394b4:	4480f000 */ 	mtc1	$zero,$f30
 /*  f1394b8:	ae020004 */ 	sw	$v0,0x4($s0)
-/*  f1394bc:	27deb5a8 */ 	addiu	$s8,$s8,%lo(var800ab5a8)
+/*  f1394bc:	27deb5a8 */ 	addiu	$s8,$s8,%lo(g_TexGeneralConfigs)
 /*  f1394c0:	0000a825 */ 	or	$s5,$zero,$zero
 /*  f1394c4:	2417000c */ 	addiu	$s7,$zero,0xc
 /*  f1394c8:	27b60118 */ 	addiu	$s6,$sp,0x118

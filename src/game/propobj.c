@@ -51332,7 +51332,7 @@ glabel var7f1aa824
 /*  f0804e0:	b8780013 */ 	swr	$t8,0x13($v1)
 /*  f0804e4:	89c10014 */ 	lwl	$at,0x14($t6)
 /*  f0804e8:	99c10017 */ 	lwr	$at,0x17($t6)
-/*  f0804ec:	3c0e800b */ 	lui	$t6,%hi(var800ab594)
+/*  f0804ec:	3c0e800b */ 	lui	$t6,%hi(g_TexScreenConfigs)
 /*  f0804f0:	a8610014 */ 	swl	$at,0x14($v1)
 /*  f0804f4:	b8610017 */ 	swr	$at,0x17($v1)
 /*  f0804f8:	8c99000c */ 	lw	$t9,0xc($a0)
@@ -51366,7 +51366,7 @@ glabel var7f1aa824
 /*  f080568:	10200007 */ 	beqz	$at,.L0f080588
 /*  f08056c:	00408825 */ 	or	$s1,$v0,$zero
 /*  f080570:	00027880 */ 	sll	$t7,$v0,0x2
-/*  f080574:	8dceb594 */ 	lw	$t6,%lo(var800ab594)($t6)
+/*  f080574:	8dceb594 */ 	lw	$t6,%lo(g_TexScreenConfigs)($t6)
 /*  f080578:	01e27823 */ 	subu	$t7,$t7,$v0
 /*  f08057c:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f080580:	10000001 */ 	b	.L0f080588
@@ -51887,7 +51887,7 @@ glabel var7f1aa824
 //		vertices[3] = rodata->dl.vertices[3];
 //
 //		if ((u32)screen->tconfig < 100) {
-//			tconfig = &var800ab594[(u32)screen->tconfig];
+//			tconfig = &g_TexScreenConfigs[(u32)screen->tconfig];
 //		} else {
 //			tconfig = screen->tconfig;
 //		}
@@ -52111,9 +52111,9 @@ glabel gfxRenderRadialShadow
 /*  f080fb8:	0fc59e73 */ 	jal	gfxAllocateColours
 /*  f080fbc:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f080fc0:	8fae0118 */ 	lw	$t6,0x118($sp)
-/*  f080fc4:	3c11800b */ 	lui	$s1,%hi(var800ab588)
+/*  f080fc4:	3c11800b */ 	lui	$s1,%hi(g_TexGroup06Configs)
 /*  f080fc8:	afa20074 */ 	sw	$v0,0x74($sp)
-/*  f080fcc:	8e31b588 */ 	lw	$s1,%lo(var800ab588)($s1)
+/*  f080fcc:	8e31b588 */ 	lw	$s1,%lo(g_TexGroup06Configs)($s1)
 /*  f080fd0:	3c014000 */ 	lui	$at,0x4000
 /*  f080fd4:	ac4e0000 */ 	sw	$t6,0x0($v0)
 /*  f080fd8:	c7a60108 */ 	lwc1	$f6,0x108($sp)

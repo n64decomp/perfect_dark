@@ -1041,10 +1041,10 @@ glabel var7f1adf18
 /*  f0e10c0:	25ae0008 */ 	addiu	$t6,$t5,0x8
 /*  f0e10c4:	afae0118 */ 	sw	$t6,0x118($sp)
 /*  f0e10c8:	24182000 */ 	addiu	$t8,$zero,0x2000
-/*  f0e10cc:	3c05800b */ 	lui	$a1,%hi(var800ab5a8)
+/*  f0e10cc:	3c05800b */ 	lui	$a1,%hi(g_TexGeneralConfigs)
 /*  f0e10d0:	adb80004 */ 	sw	$t8,0x4($t5)
 /*  f0e10d4:	adaf0000 */ 	sw	$t7,0x0($t5)
-/*  f0e10d8:	8ca5b5a8 */ 	lw	$a1,%lo(var800ab5a8)($a1)
+/*  f0e10d8:	8ca5b5a8 */ 	lw	$a1,%lo(g_TexGeneralConfigs)($a1)
 /*  f0e10dc:	24090001 */ 	addiu	$t1,$zero,0x1
 /*  f0e10e0:	24190002 */ 	addiu	$t9,$zero,0x2
 /*  f0e10e4:	0040b825 */ 	or	$s7,$v0,$zero
@@ -1455,7 +1455,7 @@ glabel var7f1adf18
 //	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 //	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 //
-//	func0f0b39c0(&gdl, &var800ab5a8[6], 2, 0, 2, 1, NULL);
+//	func0f0b39c0(&gdl, &g_TexGeneralConfigs[6], 2, 0, 2, 1, NULL);
 //
 //	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 //
@@ -4256,8 +4256,8 @@ glabel var7f1adf90
 /*  f0e5544:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0e5548:	0fc35272 */ 	jal	func0f0d49c8
 /*  f0e554c:	afa20150 */ 	sw	$v0,0x150($sp)
-/*  f0e5550:	3c05800b */ 	lui	$a1,%hi(var800ab5a8)
-/*  f0e5554:	8ca5b5a8 */ 	lw	$a1,%lo(var800ab5a8)($a1)
+/*  f0e5550:	3c05800b */ 	lui	$a1,%hi(g_TexGeneralConfigs)
+/*  f0e5554:	8ca5b5a8 */ 	lw	$a1,%lo(g_TexGeneralConfigs)($a1)
 /*  f0e5558:	240e0002 */ 	addiu	$t6,$zero,0x2
 /*  f0e555c:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f0e5560:	afaf0014 */ 	sw	$t7,0x14($sp)
@@ -5141,8 +5141,8 @@ glabel var7f1adf90
 /*  f0e5544:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0e5548:	0fc35272 */ 	jal	func0f0d49c8
 /*  f0e554c:	afa20150 */ 	sw	$v0,0x150($sp)
-/*  f0e5550:	3c05800b */ 	lui	$a1,%hi(var800ab5a8)
-/*  f0e5554:	8ca5b5a8 */ 	lw	$a1,%lo(var800ab5a8)($a1)
+/*  f0e5550:	3c05800b */ 	lui	$a1,%hi(g_TexGeneralConfigs)
+/*  f0e5554:	8ca5b5a8 */ 	lw	$a1,%lo(g_TexGeneralConfigs)($a1)
 /*  f0e5558:	240e0002 */ 	addiu	$t6,$zero,0x2
 /*  f0e555c:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f0e5560:	afaf0014 */ 	sw	$t7,0x14($sp)

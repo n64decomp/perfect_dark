@@ -25,30 +25,30 @@ u8 *var800ab540;
 u32 var800ab544;
 s32 var800ab548;
 u32 var800ab54c;
-u32 var800ab550;
+u32 g_TexBase;
 u8 *g_TextureConfigSegment;
-u32 var800ab558;
-struct textureconfig *var800ab55c;
-struct textureconfig *var800ab560;
-Gfx *var800ab564;
-Gfx *var800ab568;
-Gfx *var800ab56c;
-struct var800ab570 *var800ab570;
-struct textureconfig *var800ab574;
-struct textureconfig *var800ab578;
-struct textureconfig *var800ab57c;
-struct textureconfig *var800ab580;
-struct textureconfig *var800ab584;
-struct textureconfig *var800ab588;
-struct textureconfig *var800ab58c;
-struct textureconfig *var800ab590;
-struct textureconfig *var800ab594;
-struct textureconfig *var800ab598;
-struct textureconfig *var800ab59c;
-struct textureconfig *var800ab5a0;
-struct textureconfig *var800ab5a4;
-struct textureconfig *var800ab5a8;
-struct textureconfig *var800ab5ac;
+s32 g_TexNumConfigs;
+u32 *g_TexWords;
+struct textureconfig *g_TexWallhitConfigs;
+Gfx *g_TexGdl1;
+Gfx *g_TexGdl2;
+Gfx *g_TexGdl3;
+struct texturepair *g_ExplosionTexturePairs;
+struct textureconfig *g_TexBeamConfigs;
+struct textureconfig *g_TexLaserConfigs;
+struct textureconfig *g_TexGroup03Configs;
+struct textureconfig *g_TexGeCrosshairConfigs;
+struct textureconfig *g_TexRedLinesConfigs;
+struct textureconfig *g_TexGroup06Configs;
+struct textureconfig *g_TexShieldConfigs;
+struct textureconfig *g_TexShardConfigs;
+struct textureconfig *g_TexScreenConfigs;
+struct textureconfig *g_TexWaterConfigs;
+struct textureconfig *g_TexSkyConfigs;
+struct textureconfig *g_TexLightGlareConfigs;
+struct textureconfig *g_TexSparkConfigs;
+struct textureconfig *g_TexGeneralConfigs;
+struct textureconfig *g_TexRadarConfigs;
 
 u32 var800841b0 = 0x0006ddd0;
 u32 var800841b4 = 0x00000000;
@@ -5910,7 +5910,7 @@ void func0f172f5c(Gfx *gdl, s32 arg1, s32 arg2)
 	while (bytes[0] != (u8)G_ENDDL) {
 		// Look for GBI sequence: fd...... abcd....
 		if (bytes[0] == G_SETTIMG && bytes[4] == 0xab && bytes[5] == 0xcd) {
-			func0f173010((u32 *)((u32)bytes + 4), arg1, arg2);
+			func0f173010((s32 *)((u32)bytes + 4), arg1, arg2);
 		}
 
 		bytes += 8;

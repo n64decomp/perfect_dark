@@ -972,7 +972,7 @@ glabel sparksRender
 /*  f13009c:	4480a000 */ 	mtc1	$zero,$f20
 /*  f1300a0:	27a40170 */ 	addiu	$a0,$sp,0x170
 /*  f1300a4:	c6021bc0 */ 	lwc1	$f2,0x1bc0($s0)
-/*  f1300a8:	3c05800b */ 	lui	$a1,%hi(var800ab5a4)
+/*  f1300a8:	3c05800b */ 	lui	$a1,%hi(g_TexSparkConfigs)
 /*  f1300ac:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f1300b0:	4602a03c */ 	c.lt.s	$f20,$f2
 /*  f1300b4:	00003825 */ 	or	$a3,$zero,$zero
@@ -1049,7 +1049,7 @@ glabel sparksRender
 /*  f1301b0:	10000001 */ 	b	.L0f1301b8
 /*  f1301b4:	24170002 */ 	addiu	$s7,$zero,0x2
 .L0f1301b8:
-/*  f1301b8:	8ca5b5a4 */ 	lw	$a1,%lo(var800ab5a4)($a1)
+/*  f1301b8:	8ca5b5a4 */ 	lw	$a1,%lo(g_TexSparkConfigs)($a1)
 /*  f1301bc:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f1301c0:	afb80014 */ 	sw	$t8,0x14($sp)
 /*  f1301c4:	0fc2ce70 */ 	jal	func0f0b39c0

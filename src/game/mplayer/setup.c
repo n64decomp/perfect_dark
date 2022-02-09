@@ -695,7 +695,7 @@ s32 mpChallengesListHandler(s32 operation, struct menuitem *item, union handlerd
 		gDPSetTextureLOD(gdl++, G_TL_TILE);
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-		func0f0b39c0(&gdl, &var800ab5a8[35], 2, 0, 2, 1, NULL);
+		func0f0b39c0(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
@@ -928,7 +928,7 @@ s32 mpMedalMenuHandler(s32 operation, struct menuitem *item, union handlerdata *
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 
-		func0f0b39c0(&gdl, &var800ab5a8[35], 2, 0, 2, 1, NULL);
+		func0f0b39c0(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -3244,7 +3244,7 @@ s32 mpChallengesListMenuHandler(s32 operation, struct menuitem *item, union hand
 		gDPSetTextureLOD(gdl++, G_TL_TILE);
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-		func0f0b39c0(&gdl, &var800ab5a8[35], 2, 0, 2, 1, NULL);
+		func0f0b39c0(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);

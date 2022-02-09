@@ -2761,7 +2761,7 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 		gDPSetTextureLOD(gdl++, G_TL_TILE);
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-		func0f0b39c0(&gdl, &var800ab5a8[texturenum], 2, 0, 2, 1, NULL);
+		func0f0b39c0(&gdl, &g_TexGeneralConfigs[texturenum], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);

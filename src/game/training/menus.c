@@ -161,7 +161,7 @@ s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerd
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 
-		func0f0b39c0(&gdl, &var800ab5a8[35], 2, 0, 2, 1, NULL);
+		func0f0b39c0(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -574,7 +574,7 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		s32 y;
 		s32 textheight;
 		s32 textwidth;
-		struct textureconfig *tconfig = &var800ab5a8[50];
+		struct textureconfig *tconfig = &g_TexGeneralConfigs[50];
 		struct frdata *frdata = frGetData();
 		char text[128];
 		bool failed = frdata->menutype == FRMENUTYPE_FAILED;
@@ -1798,7 +1798,7 @@ s32 ciHangarTitleMenuHandler(s32 operation, struct menuitem *item, union handler
 			gDPSetTextureLOD(gdl++, G_TL_TILE);
 			gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-			func0f0b39c0(&gdl, &var800ab5a8[texturenum], 1, 0, 2, 1, NULL);
+			func0f0b39c0(&gdl, &g_TexGeneralConfigs[texturenum], 1, 0, 2, 1, NULL);
 
 			gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 			gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);

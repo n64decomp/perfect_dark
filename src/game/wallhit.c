@@ -2368,9 +2368,9 @@ glabel var7f1b5d6c
 /*  f14018c:	2484000c */ 	addiu	$a0,$a0,0xc
 /*  f140190:	1650ffe1 */ 	bne	$s2,$s0,.L0f140118
 /*  f140194:	a469fff6 */ 	sh	$t1,-0xa($v1)
-/*  f140198:	3c02800b */ 	lui	$v0,%hi(var800ab560)
+/*  f140198:	3c02800b */ 	lui	$v0,%hi(g_TexWallhitConfigs)
 /*  f14019c:	a6600008 */ 	sh	$zero,0x8($s3)
-/*  f1401a0:	2442b560 */ 	addiu	$v0,$v0,%lo(var800ab560)
+/*  f1401a0:	2442b560 */ 	addiu	$v0,$v0,%lo(g_TexWallhitConfigs)
 /*  f1401a4:	8c4c0000 */ 	lw	$t4,0x0($v0)
 /*  f1401a8:	8fad0034 */ 	lw	$t5,0x34($sp)
 /*  f1401ac:	8e640060 */ 	lw	$a0,0x60($s3)
@@ -3667,9 +3667,9 @@ glabel var7f1b5d6c
 /*  f14018c:	2484000c */ 	addiu	$a0,$a0,0xc
 /*  f140190:	1650ffe1 */ 	bne	$s2,$s0,.L0f140118
 /*  f140194:	a469fff6 */ 	sh	$t1,-0xa($v1)
-/*  f140198:	3c02800b */ 	lui	$v0,%hi(var800ab560)
+/*  f140198:	3c02800b */ 	lui	$v0,%hi(g_TexWallhitConfigs)
 /*  f14019c:	a6600008 */ 	sh	$zero,0x8($s3)
-/*  f1401a0:	2442b560 */ 	addiu	$v0,$v0,%lo(var800ab560)
+/*  f1401a0:	2442b560 */ 	addiu	$v0,$v0,%lo(g_TexWallhitConfigs)
 /*  f1401a4:	8c4c0000 */ 	lw	$t4,0x0($v0)
 /*  f1401a8:	8fad0034 */ 	lw	$t5,0x34($sp)
 /*  f1401ac:	8e640060 */ 	lw	$a0,0x60($s3)
@@ -5462,7 +5462,7 @@ Gfx *wallhitRenderBgHitsLayer1(s32 roomnum, Gfx *gdl)
 			}
 
 			if (hit->texturenum != prevtexturenum || hit->unk6b != prev6b) {
-				func0f0b39c0(&gdl, &var800ab560[hit->texturenum], 2, hit->unk6b, 2, 1, NULL);
+				func0f0b39c0(&gdl, &g_TexWallhitConfigs[hit->texturenum], 2, hit->unk6b, 2, 1, NULL);
 
 				prevtexturenum = hit->texturenum;
 				prev6b = hit->unk6b;
@@ -5520,7 +5520,7 @@ Gfx *wallhitRenderBgHitsLayer2(s32 roomnum, Gfx *gdl)
 			hit->unk6b = 1;
 
 			if (hit->texturenum != prevtexturenum || hit->unk6b != prev6b) {
-				func0f0b39c0(&gdl, &var800ab560[hit->texturenum], 2, hit->unk6b, 2, 1, NULL);
+				func0f0b39c0(&gdl, &g_TexWallhitConfigs[hit->texturenum], 2, hit->unk6b, 2, 1, NULL);
 
 				prevtexturenum = hit->texturenum;
 				prev6b = hit->unk6b;
@@ -5607,7 +5607,7 @@ Gfx *wallhitRenderPropHits(Gfx *gdl, struct prop *prop, bool withalpha)
 			}
 
 			if (prevtexturenum != hit->texturenum || prev6b != hit->unk6b) {
-				func0f0b39c0(&gdl, &var800ab560[hit->texturenum], 2, hit->unk6b, 2, 1, NULL);
+				func0f0b39c0(&gdl, &g_TexWallhitConfigs[hit->texturenum], 2, hit->unk6b, 2, 1, NULL);
 
 				prevtexturenum = hit->texturenum;
 				prev6b = hit->unk6b;
