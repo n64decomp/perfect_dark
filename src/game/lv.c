@@ -179,14 +179,18 @@ s32 lvGetMiscSfxIndex(u32 type)
 	return -1;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void lvSetMiscSfxState(u32 type, bool play)
 {
 	if (play) {
 		if (lvGetMiscSfxIndex(type) == -1) {
 			s32 index = lvGetMiscSfxIndex(-1);
 
-			if (index != -1 && g_MiscSfxAudioHandles[index] == NULL) {
+#if VERSION >= VERSION_NTSC_1_0
+			if (index != -1 && g_MiscSfxAudioHandles[index] == NULL)
+#else
+			if (index != -1)
+#endif
+			{
 				sndStart(var80095200, g_MiscSfxSounds[type], &g_MiscSfxAudioHandles[index], -1, -1, -1, -1, -1);
 				g_MiscSfxActiveTypes[index] = type;
 			}
@@ -197,82 +201,13 @@ void lvSetMiscSfxState(u32 type, bool play)
 
 		if (index != -1) {
 			audioStop(g_MiscSfxAudioHandles[index]);
+#if VERSION < VERSION_NTSC_1_0
+			g_MiscSfxAudioHandles[index] = 0;
+#endif
 			g_MiscSfxActiveTypes[index] = -1;
 		}
 	}
 }
-#else
-GLOBAL_ASM(
-glabel lvSetMiscSfxState
-/*  f1624c4:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f1624c8:	10a00027 */ 	beqz	$a1,.NB0f162568
-/*  f1624cc:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1624d0:	0fc58922 */ 	jal	lvGetMiscSfxIndex
-/*  f1624d4:	afa40040 */ 	sw	$a0,0x40($sp)
-/*  f1624d8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f1624dc:	54410036 */ 	bnel	$v0,$at,.NB0f1625b8
-/*  f1624e0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1624e4:	0fc58922 */ 	jal	lvGetMiscSfxIndex
-/*  f1624e8:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f1624ec:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f1624f0:	10410030 */ 	beq	$v0,$at,.NB0f1625b4
-/*  f1624f4:	3c04800a */ 	lui	$a0,0x800a
-/*  f1624f8:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*  f1624fc:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f162500:	44812000 */ 	mtc1	$at,$f4
-/*  f162504:	3c058008 */ 	lui	$a1,0x8008
-/*  f162508:	3c18800b */ 	lui	$t8,0x800b
-/*  f16250c:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f162510:	00af2821 */ 	addu	$a1,$a1,$t7
-/*  f162514:	2718ee60 */ 	addiu	$t8,$t8,-4512
-/*  f162518:	00021880 */ 	sll	$v1,$v0,0x2
-/*  f16251c:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f162520:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f162524:	240affff */ 	addiu	$t2,$zero,-1
-/*  f162528:	afaa001c */ 	sw	$t2,0x1c($sp)
-/*  f16252c:	afa90018 */ 	sw	$t1,0x18($sp)
-/*  f162530:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f162534:	00783021 */ 	addu	$a2,$v1,$t8
-/*  f162538:	afa30030 */ 	sw	$v1,0x30($sp)
-/*  f16253c:	84a568a6 */ 	lh	$a1,0x68a6($a1)
-/*  f162540:	8c848180 */ 	lw	$a0,-0x7e80($a0)
-/*  f162544:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f162548:	0c004338 */ 	jal	sndStart
-/*  f16254c:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f162550:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f162554:	8fab0040 */ 	lw	$t3,0x40($sp)
-/*  f162558:	3c01800b */ 	lui	$at,0x800b
-/*  f16255c:	00230821 */ 	addu	$at,$at,$v1
-/*  f162560:	10000014 */ 	beqz	$zero,.NB0f1625b4
-/*  f162564:	ac2bee70 */ 	sw	$t3,-0x1190($at)
-.NB0f162568:
-/*  f162568:	0fc58922 */ 	jal	lvGetMiscSfxIndex
-/*  f16256c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f162570:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f162574:	1041000f */ 	beq	$v0,$at,.NB0f1625b4
-/*  f162578:	3c0c800b */ 	lui	$t4,0x800b
-/*  f16257c:	00021080 */ 	sll	$v0,$v0,0x2
-/*  f162580:	258cee60 */ 	addiu	$t4,$t4,-4512
-/*  f162584:	004c1821 */ 	addu	$v1,$v0,$t4
-/*  f162588:	8c640000 */ 	lw	$a0,0x0($v1)
-/*  f16258c:	afa3002c */ 	sw	$v1,0x2c($sp)
-/*  f162590:	0c00d428 */ 	jal	audioStop
-/*  f162594:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f162598:	8fa20030 */ 	lw	$v0,0x30($sp)
-/*  f16259c:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*  f1625a0:	3c01800b */ 	lui	$at,0x800b
-/*  f1625a4:	240dffff */ 	addiu	$t5,$zero,-1
-/*  f1625a8:	00220821 */ 	addu	$at,$at,$v0
-/*  f1625ac:	ac600000 */ 	sw	$zero,0x0($v1)
-/*  f1625b0:	ac2dee70 */ 	sw	$t5,-0x1190($at)
-.NB0f1625b4:
-/*  f1625b4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.NB0f1625b8:
-/*  f1625b8:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f1625bc:	03e00008 */ 	jr	$ra
-/*  f1625c0:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
 
 void lvUpdateMiscSfx(void)
 {
