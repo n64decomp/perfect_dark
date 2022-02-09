@@ -472,7 +472,7 @@ glabel func0f0b35b8
 
 void func0f0b3988(struct textureconfig *config)
 {
-	if (config->texturenum < 0xdaf) {
+	if ((u32)config->texturenum < 0xdaf) {
 		func0f173434(config, 1, 0, 0);
 	}
 }

@@ -6178,8 +6178,8 @@ struct var8009dd78 {
 };
 
 struct texturepair {
-	s32 texturenum1;
-	s32 texturenum2;
+	u32 texturenum1;
+	u32 texturenum2;
 };
 
 struct collisionthing {

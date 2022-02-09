@@ -5910,7 +5910,7 @@ void func0f172f5c(Gfx *gdl, s32 arg1, s32 arg2)
 	while (bytes[0] != (u8)G_ENDDL) {
 		// Look for GBI sequence: fd...... abcd....
 		if (bytes[0] == G_SETTIMG && bytes[4] == 0xab && bytes[5] == 0xcd) {
-			func0f173010((s32 *)((u32)bytes + 4), arg1, arg2);
+			func0f173010((u32 *)((s32)bytes + 4), arg1, arg2);
 		}
 
 		bytes += 8;
@@ -6207,58 +6207,19 @@ glabel func0f173010
 /*  f173430:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f173434
-/*  f173434:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f173438:	afb70030 */ 	sw	$s7,0x30($sp)
-/*  f17343c:	afb6002c */ 	sw	$s6,0x2c($sp)
-/*  f173440:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f173444:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f173448:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f17344c:	00a0a025 */ 	or	$s4,$a1,$zero
-/*  f173450:	0080a825 */ 	or	$s5,$a0,$zero
-/*  f173454:	00c0b025 */ 	or	$s6,$a2,$zero
-/*  f173458:	00e0b825 */ 	or	$s7,$a3,$zero
-/*  f17345c:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f173460:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f173464:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f173468:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f17346c:	18a00013 */ 	blez	$a1,.L0f1734bc
-/*  f173470:	00008825 */ 	or	$s1,$zero,$zero
-/*  f173474:	00009025 */ 	or	$s2,$zero,$zero
-/*  f173478:	00808025 */ 	or	$s0,$a0,$zero
-/*  f17347c:	24130001 */ 	addiu	$s3,$zero,0x1
-.L0f173480:
-/*  f173480:	8e020000 */ 	lw	$v0,0x0($s0)
-/*  f173484:	02552021 */ 	addu	$a0,$s2,$s5
-/*  f173488:	02c02825 */ 	or	$a1,$s6,$zero
-/*  f17348c:	28410daf */ 	slti	$at,$v0,0xdaf
-/*  f173490:	10200005 */ 	beqz	$at,.L0f1734a8
-/*  f173494:	00577021 */ 	addu	$t6,$v0,$s7
-/*  f173498:	0fc5cc04 */ 	jal	func0f173010
-/*  f17349c:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f1734a0:	10000002 */ 	b	.L0f1734ac
-/*  f1734a4:	a213000b */ 	sb	$s3,0xb($s0)
-.L0f1734a8:
-/*  f1734a8:	ae0e0000 */ 	sw	$t6,0x0($s0)
-.L0f1734ac:
-/*  f1734ac:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f1734b0:	2652000c */ 	addiu	$s2,$s2,0xc
-/*  f1734b4:	1634fff2 */ 	bne	$s1,$s4,.L0f173480
-/*  f1734b8:	2610000c */ 	addiu	$s0,$s0,0xc
-.L0f1734bc:
-/*  f1734bc:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f1734c0:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f1734c4:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f1734c8:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f1734cc:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f1734d0:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f1734d4:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f1734d8:	8fb6002c */ 	lw	$s6,0x2c($sp)
-/*  f1734dc:	8fb70030 */ 	lw	$s7,0x30($sp)
-/*  f1734e0:	03e00008 */ 	jr	$ra
-/*  f1734e4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void func0f173434(struct textureconfig *configs, s32 arg1, s32 arg2, s32 arg3)
+{
+	s32 i;
+
+	for (i = 0; i < arg1; i++) {
+		if ((s32)configs[i].texturenum < 0xdaf) {
+			func0f173010(&configs[i].texturenum, arg2, 1);
+			configs[i].unk0b = 1;
+		} else {
+			configs[i].texturenum += arg3;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1734e8
