@@ -6217,19 +6217,12 @@ void func0f173434(struct textureconfig *configs, s32 arg1, s32 arg2, s32 arg3)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f1734e8
-/*  f1734e8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f1734ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1734f0:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*  f1734f4:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f1734f8:	0fc5cc04 */ 	jal	func0f173010
-/*  f1734fc:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f173500:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f173504:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f173508:	03e00008 */ 	jr	$ra
-/*  f17350c:	00000000 */ 	nop
-);
+void func0f1734e8(u32 arg0, void *arg1)
+{
+	u32 sp1c = arg0;
+
+	func0f173010(&sp1c, (s32)arg1, 1);
+}
 
 s32 func0f173510(s32 arg0, s32 arg1, s32 arg3)
 {
