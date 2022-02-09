@@ -11,16 +11,12 @@
 #include "textureconfig.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f173520
-/*  f173520:	3c01800b */ 	lui	$at,%hi(var800ab540)
-/*  f173524:	ac24b540 */ 	sw	$a0,%lo(var800ab540)($at)
-/*  f173528:	3c01800b */ 	lui	$at,%hi(var800ab544)
-/*  f17352c:	ac20b544 */ 	sw	$zero,%lo(var800ab544)($at)
-/*  f173530:	3c01800b */ 	lui	$at,%hi(var800ab548)
-/*  f173534:	03e00008 */ 	jr	$ra
-/*  f173538:	ac20b548 */ 	sw	$zero,%lo(var800ab548)($at)
-);
+void func0f173520(u8 *arg0)
+{
+	var800ab540 = arg0;
+	var800ab544 = 0;
+	var800ab548 = 0;
+}
 
 s32 func0f17353c(s32 arg0)
 {
