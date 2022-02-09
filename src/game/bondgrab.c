@@ -8,7 +8,7 @@
 #include "game/prop.h"
 #include "game/game_095320.h"
 #include "game/bondgun.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/bondhead.h"
 #include "game/propobj.h"
 #include "bss.h"
@@ -804,7 +804,7 @@ bool bgrabTryMoveUpwards(f32 y)
 	newpos.y = g_Vars.currentplayer->prop->pos.y + y;
 	newpos.z = g_Vars.currentplayer->prop->pos.z;
 
-	propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+	playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &newpos, rooms);
 	bmove0f0cb79c(g_Vars.currentplayer, &newpos, rooms);
 	propSetPerimEnabled(g_Vars.currentplayer->prop, false);
@@ -874,7 +874,7 @@ glabel var7f1ad9c4
 /*  f0cd1e4:	27a600c4 */ 	addiu	$a2,$sp,0xc4
 /*  f0cd1e8:	27a500bc */ 	addiu	$a1,$sp,0xbc
 /*  f0cd1ec:	27a700c0 */ 	addiu	$a3,$sp,0xc0
-/*  f0cd1f0:	0fc3082e */ 	jal	propPlayerGetBbox
+/*  f0cd1f0:	0fc3082e */ 	jal	playerGetBbox
 /*  f0cd1f4:	8de400bc */ 	lw	$a0,0xbc($t7)
 /*  f0cd1f8:	8e180284 */ 	lw	$t8,0x284($s0)
 /*  f0cd1fc:	00002825 */ 	or	$a1,$zero,$zero
@@ -1432,7 +1432,7 @@ glabel var7f1ad9c4
 /*  f0cd1e4:	27a600c4 */ 	addiu	$a2,$sp,0xc4
 /*  f0cd1e8:	27a500bc */ 	addiu	$a1,$sp,0xbc
 /*  f0cd1ec:	27a700c0 */ 	addiu	$a3,$sp,0xc0
-/*  f0cd1f0:	0fc3082e */ 	jal	propPlayerGetBbox
+/*  f0cd1f0:	0fc3082e */ 	jal	playerGetBbox
 /*  f0cd1f4:	8de400bc */ 	lw	$a0,0xbc($t7)
 /*  f0cd1f8:	8e180284 */ 	lw	$t8,0x284($s0)
 /*  f0cd1fc:	00002825 */ 	or	$a1,$zero,$zero
@@ -1989,7 +1989,7 @@ glabel var7f1ad9c4
 /*  f0caa10:	27a600bc */ 	addiu	$a2,$sp,0xbc
 /*  f0caa14:	27a500b4 */ 	addiu	$a1,$sp,0xb4
 /*  f0caa18:	27a700b8 */ 	addiu	$a3,$sp,0xb8
-/*  f0caa1c:	0fc2ff20 */ 	jal	propPlayerGetBbox
+/*  f0caa1c:	0fc2ff20 */ 	jal	playerGetBbox
 /*  f0caa20:	8de400bc */ 	lw	$a0,0xbc($t7)
 /*  f0caa24:	8e180284 */ 	lw	$t8,0x284($s0)
 /*  f0caa28:	00002825 */ 	or	$a1,$zero,$zero
@@ -3258,7 +3258,7 @@ void bgrabUpdateVertical(void)
 
 	if ((g_Vars.currentplayer->floorflags & TILEFLAG_DIE) &&
 			g_Vars.currentplayer->vv_manground - 20.0f < g_Vars.currentplayer->vv_ground) {
-		currentPlayerDie(true);
+		playerDie(true);
 	}
 }
 
@@ -4217,7 +4217,7 @@ void bgrabTick(void)
 		bmove0f0cb8c4(g_Vars.currentplayer);
 		objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);
 		bmove0f0cc19c(&g_Vars.currentplayer->prop->pos);
-		currentPlayerUpdatePerimInfo();
+		playerUpdatePerimInfo();
 		doorsCheckAutomatic();
 
 		if (g_Vars.currentplayer->grabbedprop) {

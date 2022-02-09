@@ -5,7 +5,7 @@
 #include "game/game_01b0a0.h"
 #include "game/game_01bea0.h"
 #include "game/bondgun.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/menugfx.h"
 #include "game/menu.h"
 #include "game/filelist.h"
@@ -206,7 +206,7 @@ void menuTick(void)
 			}
 
 			if (var8009dfc0 && g_Vars.currentplayer->gunmem2) {
-				func0f0b9538();
+				player0f0b9538();
 
 				if (g_Vars.currentplayer->gunmem2);
 			}
@@ -257,7 +257,7 @@ void menuTick(void)
 				if (g_MpSetup.chrslots & 0xf) {
 					sndStart(var80095200, SFX_EXPLOSION_8098, 0, -1, -1, -1, -1, -1);
 
-					currentPlayerPause(IS4MB() ? MENUROOT_4MBMAINMENU : MENUROOT_MPSETUP);
+					playerPause(IS4MB() ? MENUROOT_4MBMAINMENU : MENUROOT_MPSETUP);
 				}
 			}
 
@@ -279,7 +279,7 @@ void menuTick(void)
 			g_Menus[2].openinhibit = 0;
 			g_Menus[3].openinhibit = 0;
 			g_Vars.currentplayer->pausemode = PAUSEMODE_UNPAUSED;
-			currentPlayerPause(MENUROOT_FILEMGR);
+			playerPause(MENUROOT_FILEMGR);
 			g_FileState = FILESTATE_SELECTED;
 		}
 	}

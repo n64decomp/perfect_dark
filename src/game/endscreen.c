@@ -7,7 +7,7 @@
 #include "game/game_095320.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/savebuffer.h"
 #include "game/menugfx.h"
 #include "game/menu.h"
@@ -347,7 +347,7 @@ char *menuTitleStageFailed(struct menuitem *item)
 
 char *soloMenuTextMissionTime(struct menuitem *item)
 {
-	formatTime(g_StringPointer, getMissionTime(), 3);
+	formatTime(g_StringPointer, playerGetMissionTime(), 3);
 	strcat(g_StringPointer, "\n");
 
 	return g_StringPointer;
@@ -1239,7 +1239,7 @@ void endscreenPrepare(void)
 			}
 
 			// Update total mission time
-			secs = getMissionTime() / 60;
+			secs = playerGetMissionTime() / 60;
 
 			if (secs != 0) {
 				if (secs >= S32_MAX || S32_MAX - secs <= g_GameFile.totaltime) {
@@ -1258,7 +1258,7 @@ void endscreenPrepare(void)
 					&& g_Vars.currentplayer->isdead == false
 					&& g_Vars.currentplayer->aborted == false
 					&& objectiveIsAllComplete()) {
-				secs = getMissionTime() / 60;
+				secs = playerGetMissionTime() / 60;
 
 				// The save file allows 12 bits per time, which is up to
 				// 1h 8m 16s. If the timer is higher than this, reduce it.
@@ -1404,9 +1404,9 @@ glabel endscreenPrepare
 /*  f108ff0:	000c7640 */ 	sll	$t6,$t4,0x19
 /*  f108ff4:	05c00074 */ 	bltz	$t6,.NB0f1091c8
 /*  f108ff8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f108ffc:	0fc2ff91 */ 	jal	getMissionTime
+/*  f108ffc:	0fc2ff91 */ 	jal	playerGetMissionTime
 /*  f109000:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f109004:	0fc2ff91 */ 	jal	getMissionTime
+/*  f109004:	0fc2ff91 */ 	jal	playerGetMissionTime
 /*  f109008:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10900c:	2401003c */ 	addiu	$at,$zero,0x3c
 /*  f109010:	0041001a */ 	div	$zero,$v0,$at
@@ -1464,7 +1464,7 @@ glabel endscreenPrepare
 /*  f1090d4:	8d0866c4 */ 	lw	$t0,0x66c4($t0)
 /*  f1090d8:	1500003b */ 	bnez	$t0,.NB0f1091c8
 /*  f1090dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1090e0:	0fc2ff91 */ 	jal	getMissionTime
+/*  f1090e0:	0fc2ff91 */ 	jal	playerGetMissionTime
 /*  f1090e4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1090e8:	2401003c */ 	addiu	$at,$zero,0x3c
 /*  f1090ec:	0041001a */ 	div	$zero,$v0,$at

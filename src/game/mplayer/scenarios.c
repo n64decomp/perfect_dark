@@ -8,7 +8,7 @@
 #include "game/game_092610.h"
 #include "game/atan2f.h"
 #include "game/bondgun.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/savebuffer.h"
 #include "game/hudmsg.h"
 #include "game/menu.h"

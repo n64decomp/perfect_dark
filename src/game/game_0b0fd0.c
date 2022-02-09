@@ -4,7 +4,7 @@
 #include "game/inventory/items.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/hudmsg.h"
 #include "game/game_127910.h"
 #include "game/mplayer/setup.h"

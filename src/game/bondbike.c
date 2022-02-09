@@ -10,7 +10,7 @@
 #include "game/game_096ca0.h"
 #include "game/bondgun.h"
 #include "game/game_0b3350.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/bondhead.h"
 #include "game/lv.h"
 #include "game/objectives.h"
@@ -115,7 +115,7 @@ void bbikeTryDismountAngle(f32 relativeangle, f32 distance)
 		bike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
 		angle = hoverpropGetTurnAngle(&bike->base);
 
-		propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+		playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 
 		distance += width + 10;
 
@@ -1278,7 +1278,7 @@ void bbikeUpdateVertical(struct coord *arg0)
 	g_Vars.currentplayer->vv_manground = g_Vars.currentplayer->prop->pos.y - g_Vars.currentplayer->vv_height;
 
 	if (g_Vars.currentplayer->floorflags & TILEFLAG_DIE) {
-		currentPlayerDie(true);
+		playerDie(true);
 	}
 
 	bmoveUpdateVerta();
@@ -1766,7 +1766,7 @@ void bbikeTick(void)
 
 	bgun0f09d8dc(breathing, 0, sp70, 0.0f, g_Vars.currentplayer->speedsideways);
 	bgunSetAdjustPos(g_Vars.currentplayer->vv_verta360 * 0.017450513318181f);
-	currentPlayerUpdatePerimInfo();
+	playerUpdatePerimInfo();
 	bmove0f0cb8c4(g_Vars.currentplayer);
 	objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);
 	doorsCheckAutomatic();

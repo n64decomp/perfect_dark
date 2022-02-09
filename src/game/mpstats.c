@@ -4,7 +4,7 @@
 #include "game/inventory/items.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/hudmsg.h"
 #include "game/game_127910.h"
 #include "game/mplayer/setup.h"
@@ -89,7 +89,7 @@ void mpstatsRecordPlayerKill(void)
 	g_Vars.currentplayer->killsthislife++;
 
 	if (g_Vars.normmplayerisrunning) {
-		time = getMissionTime();
+		time = playerGetMissionTime();
 
 		// Show HUD message
 		// "Kill count: %d"
@@ -175,7 +175,7 @@ void mpstatsRecordPlayerSuicide(void)
 	struct mpchrconfig *mpchr;
 
 	if (g_Vars.normmplayerisrunning) {
-		time = getMissionTime();
+		time = playerGetMissionTime();
 		mpindex = g_Vars.currentplayerstats->mpindex;
 
 		mpchr = MPCHR(mpindex);

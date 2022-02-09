@@ -21,7 +21,7 @@
 #include "game/game_0b2150.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b4950.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/game_1a7560.h"
 #include "game/healthbar.h"
 #include "game/hudmsg.h"
@@ -165,7 +165,7 @@ u32 var80070734 = 0xffffffff;
 u32 var80070738 = 0;
 u32 var8007073c = 0;
 struct gecreditsdata *g_CurrentGeCreditsData = NULL;
-u32 var80070744 = 0;
+bool g_PlayerTriggerGeFadeIn = false;
 u32 var80070748 = 0;
 u32 var8007074c = 0;
 
@@ -472,7 +472,7 @@ f32 playerChooseGeneralSpawnLocation(f32 chrwidth, struct coord *pos, s16 *rooms
 	return playerChooseSpawnLocation(chrwidth, pos, rooms, prop, g_SpawnPoints, g_NumSpawnPoints);
 }
 
-void currentPlayerStartNewLife(void)
+void playerStartNewLife(void)
 {
 	struct coord pos = {0, 0, 0};
 	s16 rooms[8];
@@ -500,7 +500,7 @@ void currentPlayerStartNewLife(void)
 	}
 
 	chrInitSplats(g_Vars.currentplayer->prop->chr);
-	currentPlayerResetToDefault();
+	playerLoadDefaults();
 	g_Vars.currentplayer->isdead = false;
 	g_Vars.currentplayer->healthdamagetype = DAMAGETYPE_7;
 	g_Vars.currentplayer->damagetype = DAMAGETYPE_7;
@@ -524,7 +524,7 @@ void currentPlayerStartNewLife(void)
 	g_Vars.currentplayer->vv_theta = angle * 360.0f / M_BADTAU;
 	g_Vars.currentplayer->vv_ground = groundy;
 
-	func0f0b85a0(&g_Vars.currentplayer->bond2, &pos);
+	playerResetBond(&g_Vars.currentplayer->bond2, &pos);
 
 	g_Vars.currentplayer->bond2.unk00.x = -sinf(angle);
 	g_Vars.currentplayer->bond2.unk00.y = 0;
@@ -539,7 +539,7 @@ void currentPlayerStartNewLife(void)
 	g_Vars.currentplayer->prop->rooms[0] = rooms[0];
 	g_Vars.currentplayer->prop->rooms[1] = -1;
 
-	currentPlayerSetCamPropertiesWithRoom(&pos, &g_Vars.currentplayer->bond2.unk28,
+	playerSetCamPropertiesWithRoom(&pos, &g_Vars.currentplayer->bond2.unk28,
 			&g_Vars.currentplayer->bond2.unk1c, rooms[0]);
 
 	if (g_Vars.coopplayernum >= 0) {
@@ -642,12 +642,12 @@ void currentPlayerStartNewLife(void)
 	}
 
 	bmove0f0cb8c4(g_Vars.currentplayer);
-	currentPlayerSpawn();
+	playerSpawn();
 
 	if (g_Vars.normmplayerisrunning) {
-		currentPlayerStartChrFade(120, 1);
+		playerStartChrFade(120, 1);
 	} else {
-		currentPlayerStartChrFade(0, 1);
+		playerStartChrFade(0, 1);
 	}
 
 	if (g_Vars.currentplayer->prop->chr) {
@@ -655,7 +655,7 @@ void currentPlayerStartNewLife(void)
 	}
 }
 
-void currentPlayerResetToDefault(void)
+void playerLoadDefaults(void)
 {
 	if (!g_Vars.mplayerisrunning || g_Vars.currentplayer->model00d4 == NULL) {
 		g_Vars.currentplayer->vv_eyeheight = 159;
@@ -799,7 +799,7 @@ void currentPlayerResetToDefault(void)
 	g_Vars.currentplayer->unk1c3c = 0;
 }
 
-bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
+bool playerSpawnAnti(struct chrdata *hostchr, bool force)
 {
 	struct prop *hostprop;
 	union modelrwdata *chrrootrwdata;
@@ -916,7 +916,7 @@ bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
 	return false;
 }
 
-void currentPlayerSpawn(void)
+void playerSpawn(void)
 {
 	f32 xdiff;
 	f32 ydiff;
@@ -940,18 +940,18 @@ void currentPlayerSpawn(void)
 	g_Vars.currentplayer->startnewbonddie = true;
 	g_Vars.currentplayer->killsthislife = 0;
 
-	g_Vars.currentplayer->lifestarttime60 = getMissionTime();
+	g_Vars.currentplayer->lifestarttime60 = playerGetMissionTime();
 	g_Vars.currentplayer->healthdisplaytime60 = 0;
 
 	invGiveSingleWeapon(WEAPON_UNARMED);
-	currentPlayerSetShieldFrac(0);
+	playerSetShieldFrac(0);
 
 	if (cheatIsActive(CHEAT_JOSHIELD)) {
-		currentPlayerSetShieldFrac(1);
+		playerSetShieldFrac(1);
 	}
 
 	if (cheatIsActive(CHEAT_SUPERSHIELD)) {
-		currentPlayerSetShieldFrac(1);
+		playerSetShieldFrac(1);
 		g_Vars.currentplayer->armourscale = 2;
 	}
 
@@ -1060,7 +1060,7 @@ void currentPlayerSpawn(void)
 			// If no chrs can be spawned into, iterate the list again but this
 			// time allowing the spawn to happen on-screen (force = true).
 			for (i = 0; i < numsqdists; i++) {
-				if (currentPlayerAssumeChrForAnti(sortedchrs[i], force)) {
+				if (playerSpawnAnti(sortedchrs[i], force)) {
 					break;
 				}
 
@@ -1096,10 +1096,10 @@ void currentPlayerSpawn(void)
 		}
 	}
 
-	currentPlayerUpdatePerimInfo();
+	playerUpdatePerimInfo();
 }
 
-void func0f0b85a0(struct playerbond *pb, struct coord *pos)
+void playerResetBond(struct playerbond *pb, struct coord *pos)
 {
 	pb->unk10.x = pos->x;
 	pb->unk10.y = pos->y;
@@ -1133,7 +1133,7 @@ void playersTickAllChrBodies(void)
 	setCurrentPlayerNum(prevplayernum);
 }
 
-void currentPlayerChooseBodyAndHead(s32 *bodynum, s32 *headnum, s32 *arg2)
+void playerChooseBodyAndHead(s32 *bodynum, s32 *headnum, s32 *arg2)
 {
 	s32 outfit;
 	bool solo;
@@ -1323,7 +1323,7 @@ void playerTickChrBody(void)
 		u32 stack3[2];
 
 		g_Vars.currentplayer->haschrbody = true;
-		currentPlayerChooseBodyAndHead(&bodynum, &headnum, &sp60);
+		playerChooseBodyAndHead(&bodynum, &headnum, &sp60);
 
 		if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
 			weaponnum = g_DefaultWeapons[0];
@@ -1520,7 +1520,7 @@ void playerTickChrBody(void)
 	}
 }
 
-void func0f0b9538(void)
+void player0f0b9538(void)
 {
 	if (g_Vars.currentplayer->haschrbody) {
 		if (!g_Vars.mplayerisrunning || (IS4MB() && PLAYERCOUNT() == 1)) {
@@ -1534,22 +1534,22 @@ void func0f0b9538(void)
 	}
 }
 
-void setTickMode(s32 tickmode)
+void playerSetTickMode(s32 tickmode)
 {
 	g_Vars.tickmode = tickmode;
 	g_Vars.in_cutscene = false;
 }
 
-void func0f0b9650(void)
+void playerBeginGeFadeIn(void)
 {
-	setTickMode(TICKMODE_0);
-	var80070744 = 0;
+	playerSetTickMode(TICKMODE_GE_FADEIN);
+	g_PlayerTriggerGeFadeIn = false;
 }
 
 void playersBeginMpSwirl(void)
 {
-	setTickMode(TICKMODE_MPSWIRL);
-	var80070744 = 0;
+	playerSetTickMode(TICKMODE_MPSWIRL);
+	g_PlayerTriggerGeFadeIn = false;
 	bmoveSetMode(MOVEMODE_WALK);
 
 	g_MpSwirlRotateSpeed = 0;
@@ -1560,7 +1560,7 @@ void playersBeginMpSwirl(void)
 	skyChooseAndApply(mainGetStageNum(), false);
 }
 
-void currentPlayerTickMpSwirl(void)
+void playerTickMpSwirl(void)
 {
 	f32 angle;
 	struct coord pos = {0, 0, 0};
@@ -1568,7 +1568,7 @@ void currentPlayerTickMpSwirl(void)
 	struct coord up = {0, 1, 0};
 	s32 i;
 
-	currentPlayerSetCameraMode(CAMERAMODE_THIRDPERSON);
+	playerSetCameraMode(CAMERAMODE_THIRDPERSON);
 
 	// This function is called once for each player per frame,
 	// but the swirl position should only be updated once per frame,
@@ -1619,25 +1619,25 @@ void currentPlayerTickMpSwirl(void)
 	look.y = g_Vars.currentplayer->bond2.unk10.y - pos.y;
 	look.z = g_Vars.currentplayer->bond2.unk10.z - pos.z;
 
-	func0f0c1840(&pos, &up, &look, &g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms);
+	player0f0c1840(&pos, &up, &look, &g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms);
 
 	if (g_MpSwirlDistance < 5.0f) {
-		currentPlayerEndCutscene();
+		playerEndCutscene();
 	}
 }
 
-void func0f0b9a20(void)
+void player0f0b9a20(void)
 {
-	setTickMode(TICKMODE_NORMAL);
-	var80070744 = 0;
+	playerSetTickMode(TICKMODE_NORMAL);
+	g_PlayerTriggerGeFadeIn = false;
 	bmoveSetMode(MOVEMODE_WALK);
 
 	if (mainGetStageNum() == STAGE_TEST_LEN) {
-		currentPlayerSetFadeColour(0, 0, 0, 1);
-		currentPlayerSetFadeFrac(0, 1);
+		playerSetFadeColour(0, 0, 0, 1);
+		playerSetFadeFrac(0, 1);
 	} else if (var80070748 != 0) {
-		currentPlayerSetFadeColour(0, 0, 0, 1);
-		currentPlayerSetFadeFrac(60, 0);
+		playerSetFadeColour(0, 0, 0, 1);
+		playerSetFadeFrac(60, 0);
 	}
 
 	skyChooseAndApply(mainGetStageNum(), false);
@@ -1646,46 +1646,46 @@ void func0f0b9a20(void)
 	var8007074c = 0;
 }
 
-void currentPlayerEndCutscene(void)
+void playerEndCutscene(void)
 {
 	if (g_IsTitleDemo) {
 		mainChangeToStage(STAGE_TITLE);
 	} else if (g_Vars.autocutplaying) {
 		g_Vars.autocutfinished = true;
 	} else {
-		setTickMode(TICKMODE_NORMAL);
-		var80070744 = 0;
+		playerSetTickMode(TICKMODE_NORMAL);
+		g_PlayerTriggerGeFadeIn = false;
 		bmoveSetModeForAllPlayers(MOVEMODE_WALK);
 	}
 }
 
-void currentPlayerPrepareWarpToPad(s16 pad)
+void playerPrepareWarpToPad(s16 pad)
 {
-	setTickMode(TICKMODE_WARP);
-	var80070744 = 0;
+	playerSetTickMode(TICKMODE_WARP);
+	g_PlayerTriggerGeFadeIn = false;
 	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
-	allPlayersClearMemCamRoom();
+	playersClearMemCamRoom();
 	g_WarpPadId = pad;
 }
 
-void currentPlayerPrepareWarpType2(struct var8009ddec *cmd, s32 arg1, s32 arg2)
+void playerPrepareWarpType2(struct var8009ddec *cmd, s32 arg1, s32 arg2)
 {
-	setTickMode(TICKMODE_WARP);
-	var80070744 = 0;
+	playerSetTickMode(TICKMODE_WARP);
+	g_PlayerTriggerGeFadeIn = false;
 	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
-	allPlayersClearMemCamRoom();
+	playersClearMemCamRoom();
 	g_WarpPadId = -1;
 	var8009ddec = cmd;
 	var8009de08 = arg1;
 	var8009de0c = arg2;
 }
 
-void currentPlayerPrepareWarpType3(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5)
+void playerPrepareWarpType3(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5)
 {
-	setTickMode(TICKMODE_WARP);
-	var80070744 = 0;
+	playerSetTickMode(TICKMODE_WARP);
+	g_PlayerTriggerGeFadeIn = false;
 	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
-	allPlayersClearMemCamRoom();
+	playersClearMemCamRoom();
 	g_WarpPadId = -1;
 	var8009ddec = NULL;
 	var8009ddf0 = arg0;
@@ -1709,7 +1709,7 @@ u32 var8007083c = 0x00000000;
 u32 g_GlobalMenuRoot = 0;
 
 GLOBAL_ASM(
-glabel currentPlayerExecutePreparedWarp
+glabel playerExecutePreparedWarp
 .late_rodata
 glabel var7f1ad5cc
 .word 0x40c907a9
@@ -1744,7 +1744,7 @@ glabel var7f1ad5cc
 /*  f0b9d28:	8f010008 */ 	lw	$at,0x8($t8)
 /*  f0b9d2c:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0b9d30:	af280004 */ 	sw	$t0,0x4($t9)
-/*  f0b9d34:	0fc3060c */ 	jal	currentPlayerSetCameraMode
+/*  f0b9d34:	0fc3060c */ 	jal	playerSetCameraMode
 /*  f0b9d38:	af210008 */ 	sw	$at,0x8($t9)
 /*  f0b9d3c:	3c04800a */ 	lui	$a0,%hi(g_WarpPadId)
 /*  f0b9d40:	8484dde8 */ 	lh	$a0,%lo(g_WarpPadId)($a0)
@@ -1927,7 +1927,7 @@ glabel var7f1ad5cc
 /*  f0b9fe8:	27a50040 */ 	addiu	$a1,$sp,0x40
 /*  f0b9fec:	27a6004c */ 	addiu	$a2,$sp,0x4c
 /*  f0b9ff0:	27a70030 */ 	addiu	$a3,$sp,0x30
-/*  f0b9ff4:	0fc306e9 */ 	jal	func0f0c1ba4
+/*  f0b9ff4:	0fc306e9 */ 	jal	player0f0c1ba4
 /*  f0b9ff8:	afa80010 */ 	sw	$t0,0x10($sp)
 /*  f0b9ffc:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*  f0ba000:	8fb00020 */ 	lw	$s0,0x20($sp)
@@ -1937,7 +1937,7 @@ glabel var7f1ad5cc
 );
 
 // Mismatch: Can't match the last section's pos
-//void currentPlayerExecutePreparedWarp(void)
+//void playerExecutePreparedWarp(void)
 //{
 //	struct pad pad; // 64
 //	struct coord pos = {0, 0, 0}; // 58
@@ -1946,7 +1946,7 @@ glabel var7f1ad5cc
 //	s32 room; // 3c
 //	struct coord memcampos; // 30
 //
-//	currentPlayerSetCameraMode(CAMERAMODE_THIRDPERSON);
+//	playerSetCameraMode(CAMERAMODE_THIRDPERSON);
 //
 //	// d4c
 //	if (g_WarpPadId >= 0) {
@@ -2015,15 +2015,15 @@ glabel var7f1ad5cc
 //		}
 //	}
 //
-//	func0f0c1ba4(&pos, &up, &look, &memcampos, room);
+//	player0f0c1ba4(&pos, &up, &look, &memcampos, room);
 //}
 
-void func0f0ba010(void)
+void playerStartCutscene2(void)
 {
-	setTickMode(TICKMODE_CUTSCENE);
-	var80070744 = 0;
+	playerSetTickMode(TICKMODE_CUTSCENE);
+	g_PlayerTriggerGeFadeIn = false;
 	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
-	allPlayersClearMemCamRoom();
+	playersClearMemCamRoom();
 
 #if VERSION >= VERSION_PAL_FINAL
 	g_CutsceneCurAnimFrame240 = var8009e388pf;
@@ -2042,7 +2042,7 @@ void func0f0ba010(void)
 	g_Vars.cutsceneskip60ths = 0;
 }
 
-void cameraDoAnimation(s16 animnum)
+void playerStartCutscene(s16 animnum)
 {
 	if ((!g_IsTitleDemo && !g_Vars.autocutplaying)
 			|| !g_Vars.in_cutscene
@@ -2061,12 +2061,12 @@ void cameraDoAnimation(s16 animnum)
 		g_CutsceneAnimNum = animnum;
 
 		if (g_Vars.currentplayer->haschrbody) {
-			func0f0ba010();
+			playerStartCutscene2();
 		}
 	}
 }
 
-void func0f0ba190(u32 arg0)
+void playerReorientForCutsceneStop(u32 arg0)
 {
 	struct coord sp94;
 	struct coord sp88;
@@ -2092,7 +2092,7 @@ void func0f0ba190(u32 arg0)
 	chrSetLookAngle(g_Vars.bond->prop->chr, (360 - theta) * 0.017450513318181f);
 }
 
-void func0f0ba29c(bool arg0)
+void playerTickCutscene(bool arg0)
 {
 	struct coord pos;
 	struct coord up;
@@ -2227,8 +2227,8 @@ void func0f0ba29c(bool arg0)
 		fovy += barfrac * (60 - fovy);
 	}
 
-	currentPlayerSetCameraMode(CAMERAMODE_THIRDPERSON);
-	func0f0c1bd8(&pos, &up, &look);
+	playerSetCameraMode(CAMERAMODE_THIRDPERSON);
+	player0f0c1bd8(&pos, &up, &look);
 	currentPlayerSetFovY(fovy);
 	viSetFovY(fovy);
 
@@ -2261,12 +2261,12 @@ void func0f0ba29c(bool arg0)
 #endif
 }
 
-f32 cutsceneGetBlurFrac(void)
+f32 playerGetCutsceneBlurFrac(void)
 {
 	return g_CutsceneBlurFrac;
 }
 
-void currentPlayerSetZoomFovY(f32 fovy, f32 timemax)
+void playerSetZoomFovY(f32 fovy, f32 timemax)
 {
 	g_Vars.currentplayer->zoomintime = 0;
 	g_Vars.currentplayer->zoomintimemax = timemax;
@@ -2274,7 +2274,7 @@ void currentPlayerSetZoomFovY(f32 fovy, f32 timemax)
 	g_Vars.currentplayer->zoominfovynew = fovy;
 }
 
-f32 currentPlayerGetZoomFovY(void)
+f32 playerGetZoomFovY(void)
 {
 	if (g_Vars.currentplayer->zoomintimemax > g_Vars.currentplayer->zoomintime) {
 		return g_Vars.currentplayer->zoominfovynew;
@@ -2283,18 +2283,18 @@ f32 currentPlayerGetZoomFovY(void)
 	return g_Vars.currentplayer->zoominfovy;
 }
 
-void func0f0ba8b0(f32 fovy)
+void playerTweenFovY(f32 targetfovy)
 {
-	if (currentPlayerGetZoomFovY() != fovy) {
-		if (fovy < g_Vars.currentplayer->zoominfovy) {
-			currentPlayerSetZoomFovY(fovy, (g_Vars.currentplayer->zoominfovy - fovy) * 15.0f / 30.0f);
+	if (playerGetZoomFovY() != targetfovy) {
+		if (g_Vars.currentplayer->zoominfovy > targetfovy) {
+			playerSetZoomFovY(targetfovy, (g_Vars.currentplayer->zoominfovy - targetfovy) * 15.0f / 30.0f);
 		} else {
-			currentPlayerSetZoomFovY(fovy, (fovy - g_Vars.currentplayer->zoominfovy) * 15.0f / 30.0f);
+			playerSetZoomFovY(targetfovy, (targetfovy - g_Vars.currentplayer->zoominfovy) * 15.0f / 30.0f);
 		}
 	}
 }
 
-f32 currentPlayerGetTeleportFovY(void)
+f32 playerGetTeleportFovY(void)
 {
 	f32 time;
 	u32 fovyoffset;
@@ -2316,7 +2316,7 @@ f32 currentPlayerGetTeleportFovY(void)
 	return fovyoffset + 60.0f;
 }
 
-void currentPlayerUpdateZoom(void)
+void playerUpdateZoom(void)
 {
 	f32 scale;
 	f32 fovy;
@@ -2342,7 +2342,7 @@ void currentPlayerUpdateZoom(void)
 	viSetFovY(g_Vars.currentplayer->zoominfovy);
 
 	if (g_Vars.currentplayer->teleportstate != TELEPORTSTATE_INACTIVE) {
-		fovy = currentPlayerGetTeleportFovY();
+		fovy = playerGetTeleportFovY();
 		currentPlayerSetFovY(fovy);
 		viSetFovY(fovy);
 	}
@@ -2363,7 +2363,7 @@ void currentPlayerUpdateZoom(void)
 	currentPlayerSetScaleBg2Gfx((1 - (1 - stage->unk34) * (1 - scale) * (10.f / 9.0f)) * scale);
 }
 
-void func0f0bace0(void)
+void playerStopAudioForPause(void)
 {
 	struct hand *hand;
 	s32 i;
@@ -2380,7 +2380,7 @@ void func0f0bace0(void)
 	}
 }
 
-void currentPlayerTickPauseMenu(void)
+void playerTickPauseMenu(void)
 {
 	bool opened = false;
 
@@ -2439,7 +2439,7 @@ void currentPlayerTickPauseMenu(void)
 	}
 }
 
-void currentPlayerPause(s32 root)
+void playerPause(s32 root)
 {
 	g_GlobalMenuRoot = root;
 
@@ -2448,7 +2448,7 @@ void currentPlayerPause(s32 root)
 	}
 }
 
-void currentPlayerUnpause(void)
+void playerUnpause(void)
 {
 	if (g_Vars.currentplayer->pausemode == PAUSEMODE_PAUSED) {
 		lvSetPaused(false);
@@ -2457,7 +2457,7 @@ void currentPlayerUnpause(void)
 	}
 }
 
-Gfx *func0f0baf84(Gfx *gdl)
+Gfx *player0f0baf84(Gfx *gdl)
 {
 	if (g_Vars.currentplayer->pausemode != PAUSEMODE_UNPAUSED) {
 		Mtx *a = gfxAllocateMatrix();
@@ -2473,7 +2473,7 @@ Gfx *func0f0baf84(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *fadeDraw(Gfx *gdl, u32 r, u32 g, u32 b, f32 frac)
+Gfx *playerDrawFade(Gfx *gdl, u32 r, u32 g, u32 b, f32 frac)
 {
 	if (frac > 0) {
 		gDPPipeSync(gdl++);
@@ -2499,16 +2499,16 @@ Gfx *fadeDraw(Gfx *gdl, u32 r, u32 g, u32 b, f32 frac)
 	return gdl;
 }
 
-Gfx *currentPlayerDrawFade(Gfx *gdl)
+Gfx *playerDrawStoredFade(Gfx *gdl)
 {
-	return fadeDraw(gdl,
+	return playerDrawFade(gdl,
 			g_Vars.currentplayer->colourscreenred,
 			g_Vars.currentplayer->colourscreengreen,
 			g_Vars.currentplayer->colourscreenblue,
 			g_Vars.currentplayer->colourscreenfrac);
 }
 
-void currentPlayerSetFadeColour(s32 r, s32 g, s32 b, f32 frac)
+void playerSetFadeColour(s32 r, s32 g, s32 b, f32 frac)
 {
 	g_Vars.currentplayer->colourscreenred = r;
 	g_Vars.currentplayer->colourscreengreen = g;
@@ -2516,7 +2516,7 @@ void currentPlayerSetFadeColour(s32 r, s32 g, s32 b, f32 frac)
 	g_Vars.currentplayer->colourscreenfrac = frac;
 }
 
-void currentPlayerAdjustFade(f32 maxfadetime, s32 r, s32 g, s32 b, f32 frac)
+void playerAdjustFade(f32 maxfadetime, s32 r, s32 g, s32 b, f32 frac)
 {
 	g_Vars.currentplayer->colourfadetime60 = 0;
 	g_Vars.currentplayer->colourfadetimemax60 = maxfadetime;
@@ -2530,21 +2530,21 @@ void currentPlayerAdjustFade(f32 maxfadetime, s32 r, s32 g, s32 b, f32 frac)
 	g_Vars.currentplayer->colourfadefracnew = frac;
 }
 
-void currentPlayerSetFadeFrac(f32 maxfadetime, f32 frac)
+void playerSetFadeFrac(f32 maxfadetime, f32 frac)
 {
-	currentPlayerAdjustFade(maxfadetime,
+	playerAdjustFade(maxfadetime,
 			g_Vars.currentplayer->colourscreenred,
 			g_Vars.currentplayer->colourscreengreen,
 			g_Vars.currentplayer->colourscreenblue,
 			frac);
 }
 
-bool currentPlayerIsFadeComplete(void)
+bool playerIsFadeComplete(void)
 {
 	return g_Vars.currentplayer->colourfadetimemax60 < 0;
 }
 
-void currentPlayerUpdateColourScreenProperties(void)
+void playerUpdateColourScreenProperties(void)
 {
 	if (g_Vars.currentplayer->colourfadetimemax60 >= 0) {
 		g_Vars.currentplayer->colourfadetime60 += g_Vars.lvupdate240freal;
@@ -2566,7 +2566,7 @@ void currentPlayerUpdateColourScreenProperties(void)
 	}
 }
 
-void currentPlayerStartChrFade(f32 duration60, f32 targetfrac)
+void playerStartChrFade(f32 duration60, f32 targetfrac)
 {
 	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 
@@ -2578,7 +2578,7 @@ void currentPlayerStartChrFade(f32 duration60, f32 targetfrac)
 	}
 }
 
-void currentPlayerTickChrFade(void)
+void playerTickChrFade(void)
 {
 	if (g_Vars.currentplayer->bondfadetimemax60 >= 0) {
 		struct chrdata *chr = g_Vars.currentplayer->prop->chr;
@@ -2642,12 +2642,12 @@ struct healthdamagetype g_HealthDamageTypes[] = {
  * Make the health bar appear. If called while the health bar is already open,
  * the health displayed will be updated and the show timer will be reset.
  */
-void currentPlayerDisplayHealth(void)
+void playerDisplayHealth(void)
 {
 	switch (g_Vars.currentplayer->healthshowmode) {
 	case HEALTHSHOWMODE_HIDDEN:
 		g_Vars.currentplayer->oldhealth = g_Vars.currentplayer->bondhealth;
-		g_Vars.currentplayer->oldarmour = currentPlayerGetShieldFrac();
+		g_Vars.currentplayer->oldarmour = playerGetShieldFrac();
 		break;
 	case HEALTHSHOWMODE_OPENING:
 	case HEALTHSHOWMODE_PREVIOUS:
@@ -2659,7 +2659,7 @@ void currentPlayerDisplayHealth(void)
 		break;
 	case HEALTHSHOWMODE_CLOSING:
 		g_Vars.currentplayer->oldhealth = g_Vars.currentplayer->bondhealth;
-		g_Vars.currentplayer->oldarmour = currentPlayerGetShieldFrac();
+		g_Vars.currentplayer->oldarmour = playerGetShieldFrac();
 		break;
 	}
 
@@ -2677,7 +2677,7 @@ void currentPlayerDisplayHealth(void)
 		g_Vars.currentplayer->healthshowmode = HEALTHSHOWMODE_UPDATING;
 		break;
 	case HEALTHSHOWMODE_CLOSING:
-		g_Vars.currentplayer->healthshowtime = g_HealthDamageTypes[g_Vars.currentplayer->healthdamagetype].openendframe * currentPlayerGetHealthBarHeightFrac();
+		g_Vars.currentplayer->healthshowtime = g_HealthDamageTypes[g_Vars.currentplayer->healthdamagetype].openendframe * playerGetHealthBarHeightFrac();
 		g_Vars.currentplayer->healthshowmode = HEALTHSHOWMODE_OPENING;
 		break;
 	}
@@ -2686,7 +2686,7 @@ void currentPlayerDisplayHealth(void)
 /**
  * Update properties relating to the damage flash and health bar updating.
  */
-void currentPlayerTickDamageAndHealth(void)
+void playerTickDamageAndHealth(void)
 {
 	/**
 	 * Handle flash of red when the player is damaged.
@@ -2703,7 +2703,7 @@ void currentPlayerTickDamageAndHealth(void)
 		if (g_Vars.currentplayer->damageshowtime == 0) {
 			// This is the first frame of damage
 			bgunSetSightVisible(GUNSIGHTREASON_DAMAGE, false);
-			g_Vars.currentplayer->damagetype = (s32)(currentPlayerGetHealthFrac() * 8.0f);
+			g_Vars.currentplayer->damagetype = (s32)(playerGetHealthFrac() * 8.0f);
 
 			if (g_Vars.currentplayer->damagetype > DAMAGETYPE_7) {
 				g_Vars.currentplayer->damagetype = DAMAGETYPE_7;
@@ -2743,14 +2743,14 @@ void currentPlayerTickDamageAndHealth(void)
 					alpha = g_DamageTypes[g_Vars.currentplayer->damagetype].maxalpha * (totalframes - flashdoneframes) / (totalframes - flashfullframe);
 				}
 
-				currentPlayerSetFadeColour(
+				playerSetFadeColour(
 						g_DamageTypes[g_Vars.currentplayer->damagetype].red,
 						g_DamageTypes[g_Vars.currentplayer->damagetype].green,
 						g_DamageTypes[g_Vars.currentplayer->damagetype].blue, alpha);
 			}
 		} else {
 			g_Vars.currentplayer->damageshowtime = -1;
-			currentPlayerSetFadeColour(0xff, 0xff, 0xff, 0);
+			playerSetFadeColour(0xff, 0xff, 0xff, 0);
 
 			if (!g_Vars.currentplayer->isdead) {
 				bgunSetSightVisible(GUNSIGHTREASON_DAMAGE, true);
@@ -2764,9 +2764,9 @@ void currentPlayerTickDamageAndHealth(void)
 	 * This works similarly to the damage code above, in that the health bar is
 	 * split into 8 parts and the current part is used to look up settings.
 	 */
-	if (currentPlayerIsHealthVisible()) {
+	if (playerIsHealthVisible()) {
 		if (g_Vars.currentplayer->healthshowmode == HEALTHSHOWMODE_OPENING) {
-			g_Vars.currentplayer->healthdamagetype = (s32)((currentPlayerGetHealthFrac() + currentPlayerGetShieldFrac()) * 8.0f);
+			g_Vars.currentplayer->healthdamagetype = (s32)((playerGetHealthFrac() + playerGetShieldFrac()) * 8.0f);
 
 			if (g_Vars.currentplayer->healthdamagetype > DAMAGETYPE_7) {
 				g_Vars.currentplayer->healthdamagetype = DAMAGETYPE_7;
@@ -2827,7 +2827,7 @@ void currentPlayerTickDamageAndHealth(void)
 				}
 
 				healthdiff = g_Vars.currentplayer->oldhealth - g_Vars.currentplayer->bondhealth;
-				armourdiff = g_Vars.currentplayer->oldarmour - currentPlayerGetShieldFrac();
+				armourdiff = g_Vars.currentplayer->oldarmour - playerGetShieldFrac();
 
 				g_Vars.currentplayer->apparenthealth = g_Vars.currentplayer->oldhealth - frac * healthdiff;
 				g_Vars.currentplayer->apparentarmour = g_Vars.currentplayer->oldarmour - frac * armourdiff;
@@ -2838,7 +2838,7 @@ void currentPlayerTickDamageAndHealth(void)
 				break;
 			case HEALTHSHOWMODE_CURRENT:
 				g_Vars.currentplayer->apparenthealth = g_Vars.currentplayer->bondhealth;
-				g_Vars.currentplayer->apparentarmour = currentPlayerGetShieldFrac();
+				g_Vars.currentplayer->apparentarmour = playerGetShieldFrac();
 				g_Vars.currentplayer->healthshowtime += g_Vars.diffframe60freal;
 
 				if (currentPlayerIsMenuOpenInSoloOrMp()) {
@@ -2867,7 +2867,7 @@ void currentPlayerTickDamageAndHealth(void)
 	}
 }
 
-bool currentPlayerIsDamageVisible(void)
+bool playerIsDamageVisible(void)
 {
 	return g_Vars.currentplayer->damageshowtime >= 0;
 }
@@ -2878,7 +2878,7 @@ bool currentPlayerIsDamageVisible(void)
  * May be called while the red flash is already happening, which may result in
  * the fade being reset to the full alpha point.
  */
-void currentPlayerDisplayDamage(void)
+void playerDisplayDamage(void)
 {
 	/**
 	 * @bug: This should be using damagetype (not healthdamagetype) as the array
@@ -2919,14 +2919,14 @@ Gfx *playerRenderHealthBar(Gfx *gdl)
 	return gdl;
 }
 
-void currentPlayerSurroundWithExplosions(s32 arg0)
+void playerSurroundWithExplosions(s32 arg0)
 {
 	g_Vars.currentplayer->bondexploding = true;
 	g_Vars.currentplayer->bondnextexplode = arg0 + g_Vars.lvframe60;
 	g_Vars.currentplayer->bondcurexplode = 0;
 }
 
-void currentPlayerTickExplode(void)
+void playerTickExplode(void)
 {
 	g_Vars.currentplayer->bondcurexplode++;
 
@@ -2953,7 +2953,7 @@ void currentPlayerTickExplode(void)
 	}
 }
 
-void viResetLoResIf4Mb(void)
+void playerResetLoResIf4Mb(void)
 {
 	if (IS4MB()) {
 #if PAL
@@ -2977,18 +2977,18 @@ void viResetLoResIf4Mb(void)
 	}
 }
 
-void optionsSetHiRes(bool enable)
+void playerSetHiResEnabled(bool enable)
 {
 	g_HiResEnabled = enable;
 }
 
-s16 viGetFbWidth(void)
+s16 playerGetFbWidth(void)
 {
 	s16 width = g_ViModes[g_ViRes].fbwidth;
 	return width;
 }
 
-s16 viGetFbHeight(void)
+s16 playerGetFbHeight(void)
 {
 	s16 height = g_ViModes[g_ViRes].fbheight;
 
@@ -3000,7 +3000,7 @@ s16 viGetFbHeight(void)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-bool is2PSharedViewport(void)
+bool playerHasSharedViewport(void)
 {
 	if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
 			&& menuGetRoot() == MENUROOT_MPENDSCREEN
@@ -3012,12 +3012,12 @@ bool is2PSharedViewport(void)
 }
 #endif
 
-s16 currentPlayerGetViewportWidth(void)
+s16 playerGetViewportWidth(void)
 {
 	s16 width;
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (!is2PSharedViewport())
+	if (!playerHasSharedViewport())
 #else
 	if ((!g_InCutscene || g_MainIsEndscreen) && menuGetRoot() != MENUROOT_COOPCONTINUE)
 #endif
@@ -3053,10 +3053,10 @@ s16 currentPlayerGetViewportWidth(void)
 	return width;
 }
 
-s16 currentPlayerGetViewportLeft(void)
+s16 playerGetViewportLeft(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	s32 something = !is2PSharedViewport();
+	s32 something = !playerHasSharedViewport();
 #else
 	s32 something = !((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE);
 #endif
@@ -3091,13 +3091,13 @@ s16 currentPlayerGetViewportLeft(void)
 	return left;
 }
 
-s16 currentPlayerGetViewportHeight(void)
+s16 playerGetViewportHeight(void)
 {
 	s16 height;
 
 	if (PLAYERCOUNT() >= 2
 #if VERSION >= VERSION_NTSC_1_0
-			&& !is2PSharedViewport()
+			&& !playerHasSharedViewport()
 #else
 			&& !((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE)
 #endif
@@ -3143,13 +3143,13 @@ s16 currentPlayerGetViewportHeight(void)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-s16 currentPlayerGetViewportTop(void)
+s16 playerGetViewportTop(void)
 {
 	s16 top;
 
 	if (PLAYERCOUNT() >= 2
 #if VERSION >= VERSION_NTSC_1_0
-			&& !is2PSharedViewport()
+			&& !playerHasSharedViewport()
 #else
 			&& !((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE)
 #endif
@@ -3207,7 +3207,7 @@ s16 currentPlayerGetViewportTop(void)
 }
 #else
 GLOBAL_ASM(
-glabel currentPlayerGetViewportTop
+glabel playerGetViewportTop
 /*  f0baad4:	3c07800a */ 	lui	$a3,0x800a
 /*  f0baad8:	24e7e6c0 */ 	addiu	$a3,$a3,-6464
 /*  f0baadc:	8cee006c */ 	lw	$t6,0x6c($a3)
@@ -3550,12 +3550,12 @@ glabel currentPlayerGetViewportTop
 );
 #endif
 
-f32 func0f0bd358(void)
+f32 player0f0bd358(void)
 {
 	f32 result;
 	s16 stack;
-	s16 height = currentPlayerGetViewportHeight();
-	s16 width = currentPlayerGetViewportWidth();
+	s16 height = playerGetViewportHeight();
+	s16 width = playerGetViewportWidth();
 
 	result = (f32)width / (f32)height;
 	result = g_ViModes[g_ViRes].yscale * result;
@@ -3563,7 +3563,7 @@ f32 func0f0bd358(void)
 	return result;
 }
 
-void func0f0bd3c4(void)
+void playerUpdateShake(void)
 {
 	struct coord coord = {0, 0, 0};
 
@@ -3574,9 +3574,10 @@ void func0f0bd3c4(void)
 	}
 }
 
-void currentPlayerAutoWalk(s16 aimpad, u8 walkspeed, u8 turnspeed, u8 lookup, u8 dist)
+void playerAutoWalk(s16 aimpad, u8 walkspeed, u8 turnspeed, u8 lookup, u8 dist)
 {
-	setTickMode(TICKMODE_AUTOWALK);
+	playerSetTickMode(TICKMODE_AUTOWALK);
+
 	g_Vars.currentplayer->autocontrol_aimpad = aimpad;
 	g_Vars.currentplayer->autocontrol_walkspeed = walkspeed;
 	g_Vars.currentplayer->autocontrol_turnspeed = turnspeed;
@@ -3584,7 +3585,7 @@ void currentPlayerAutoWalk(s16 aimpad, u8 walkspeed, u8 turnspeed, u8 lookup, u8
 	g_Vars.currentplayer->autocontrol_dist = dist;
 }
 
-void currentPlayerLaunchSlayerRocket(struct weaponobj *rocket)
+void playerLaunchSlayerRocket(struct weaponobj *rocket)
 {
 	g_Vars.currentplayer->slayerrocket = rocket;
 	g_Vars.currentplayer->visionmode = VISIONMODE_SLAYERROCKET;
@@ -3599,7 +3600,7 @@ void currentPlayerLaunchSlayerRocket(struct weaponobj *rocket)
 	g_Vars.currentplayer->badrockettime = 0;
 }
 
-void currentPlayerTickTeleport(f32 *aspectratio)
+void playerTickTeleport(f32 *aspectratio)
 {
 	if (g_Vars.currentplayer->teleportstate) {
 		// empty
@@ -3659,31 +3660,31 @@ void currentPlayerTickTeleport(f32 *aspectratio)
 	}
 
 	if (g_Vars.currentplayer->teleportstate != TELEPORTSTATE_INACTIVE) {
-		f32 fovy = currentPlayerGetTeleportFovY();
+		f32 fovy = playerGetTeleportFovY();
 		currentPlayerSetFovY(fovy);
 		viSetFovY(fovy);
 	}
 }
 
-void currentPlayerConfigureVi(void)
+void playerConfigureVi(void)
 {
-	f32 ratio = func0f0bd358();
+	f32 ratio = player0f0bd358();
 	g_ViRes = VIRES_LO;
 
 	func0f1531dc(false);
 
 	currentPlayerSetFovY(60);
 	currentPlayerSetAspectRatio(ratio);
-	currentPlayerSetViewSize(currentPlayerGetViewportWidth(), currentPlayerGetViewportHeight());
-	currentPlayerSetViewPosition(currentPlayerGetViewportLeft(), currentPlayerGetViewportTop());
+	currentPlayerSetViewSize(playerGetViewportWidth(), playerGetViewportHeight());
+	currentPlayerSetViewPosition(playerGetViewportLeft(), playerGetViewportTop());
 
 	viSetMode(g_ViModes[g_ViRes].xscale);
 
-	viSetFovAspectAndSize(60, ratio, currentPlayerGetViewportWidth(), currentPlayerGetViewportHeight());
+	viSetFovAspectAndSize(60, ratio, playerGetViewportWidth(), playerGetViewportHeight());
 
-	viSetViewPosition(currentPlayerGetViewportLeft(), currentPlayerGetViewportTop());
-	viSetSize(viGetFbWidth(), viGetFbHeight());
-	viSetBufSize(viGetFbWidth(), viGetFbHeight());
+	viSetViewPosition(playerGetViewportLeft(), playerGetViewportTop());
+	viSetSize(playerGetFbWidth(), playerGetFbHeight());
+	viSetBufSize(playerGetFbWidth(), playerGetFbHeight());
 }
 
 void playerTick(bool arg0)
@@ -3708,9 +3709,9 @@ void playerTick(bool arg0)
 #endif
 
 	if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
-		aspectratio = func0f0bd358() * 1.33333333f;
+		aspectratio = player0f0bd358() * 1.33333333f;
 	} else {
-		aspectratio = func0f0bd358();
+		aspectratio = player0f0bd358();
 	}
 
 #if PAL
@@ -3726,7 +3727,7 @@ void playerTick(bool arg0)
 	}
 
 	if (g_Vars.currentplayer->teleportstate != TELEPORTSTATE_INACTIVE) {
-		currentPlayerTickTeleport(&aspectratio);
+		playerTickTeleport(&aspectratio);
 	}
 
 	if (g_Vars.stagenum == STAGE_TEST_OLD && func0f01ad5c()) {
@@ -3736,17 +3737,17 @@ void playerTick(bool arg0)
 
 	currentPlayerSetFovY(60);
 	currentPlayerSetAspectRatio(aspectratio);
-	currentPlayerSetViewSize(currentPlayerGetViewportWidth(), currentPlayerGetViewportHeight());
-	currentPlayerSetViewPosition(currentPlayerGetViewportLeft(), currentPlayerGetViewportTop());
+	currentPlayerSetViewSize(playerGetViewportWidth(), playerGetViewportHeight());
+	currentPlayerSetViewPosition(playerGetViewportLeft(), playerGetViewportTop());
 
 	viSetMode(g_ViModes[g_ViRes].xscale);
-	viSetFovAspectAndSize(60, aspectratio, currentPlayerGetViewportWidth(), currentPlayerGetViewportHeight());
-	viSetViewPosition(currentPlayerGetViewportLeft(), currentPlayerGetViewportTop());
-	viSetSize(viGetFbWidth(), viGetFbHeight());
-	viSetBufSize(viGetFbWidth(), viGetFbHeight());
+	viSetFovAspectAndSize(60, aspectratio, playerGetViewportWidth(), playerGetViewportHeight());
+	viSetViewPosition(playerGetViewportLeft(), playerGetViewportTop());
+	viSetSize(playerGetFbWidth(), playerGetFbHeight());
+	viSetBufSize(playerGetFbWidth(), playerGetFbHeight());
 
-	currentPlayerUpdateColourScreenProperties();
-	currentPlayerTickChrFade();
+	playerUpdateColourScreenProperties();
+	playerTickChrFade();
 
 	bmoveSetAutoAimY(optionsGetAutoAim(g_Vars.currentplayerstats->mpindex));
 	bmoveSetAutoAimX(optionsGetAutoAim(g_Vars.currentplayerstats->mpindex));
@@ -3754,16 +3755,16 @@ void playerTick(bool arg0)
 	bgunSetGunAmmoVisible(GUNAMMOREASON_OPTION, optionsGetAmmoOnScreen(g_Vars.currentplayerstats->mpindex));
 	bgunSetSightVisible(GUNSIGHTREASON_1, true);
 
-	if ((g_Vars.tickmode == TICKMODE_0 || g_Vars.tickmode == TICKMODE_NORMAL) && !g_InCutscene && !g_MainIsEndscreen) {
+	if ((g_Vars.tickmode == TICKMODE_GE_FADEIN || g_Vars.tickmode == TICKMODE_NORMAL) && !g_InCutscene && !g_MainIsEndscreen) {
 		g_Vars.currentplayer->bondviewlevtime60 += g_Vars.lvupdate240_60;
 	}
 
 	if (g_Vars.currentplayer->devicesactive & DEVICE_SUICIDEPILL) {
-		currentPlayerDieByShooter(g_Vars.currentplayernum, true);
+		playerDieByShooter(g_Vars.currentplayernum, true);
 	}
 
-	currentPlayerTickDamageAndHealth();
-	currentPlayerTickExplode();
+	playerTickDamageAndHealth();
+	playerTickExplode();
 
 	if (g_Vars.currentplayer->eyespy) {
 		// The stage uses an eyespy
@@ -3793,7 +3794,7 @@ void playerTick(bool arg0)
 							&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED
 							&& (buttons & START_BUTTON)) {
 						if (g_Vars.mplayerisrunning == false) {
-							currentPlayerPause(MENUROOT_MAINMENU);
+							playerPause(MENUROOT_MAINMENU);
 						} else {
 							mpPushPauseDialog();
 						}
@@ -3837,11 +3838,11 @@ void playerTick(bool arg0)
 	}
 
 	if (lvIsPaused()) {
-		func0f0bace0();
+		playerStopAudioForPause();
 	}
 
 	if (g_Vars.currentplayer->pausemode != PAUSEMODE_UNPAUSED) {
-		currentPlayerTickPauseMenu();
+		playerTickPauseMenu();
 	}
 
 	if (g_Vars.currentplayer->visionmode == VISIONMODE_SLAYERROCKET) {
@@ -3868,7 +3869,7 @@ void playerTick(bool arg0)
 		if (g_Vars.currentplayer->haschrbody) {
 			g_Vars.currentplayer->invdowntime = PALDOWN(-40);
 			bmoveTick(0, 0, 0, 1);
-			func0f0ba29c(arg0);
+			playerTickCutscene(arg0);
 			g_Vars.currentplayer->invdowntime = PALDOWN(-40);
 		}
 
@@ -3887,14 +3888,14 @@ void playerTick(bool arg0)
 		sp308.z = g_Vars.currentplayer->eyespy->prop->pos.z;
 		playerTickChrBody();
 		bmoveTick(0, 0, 0, 1);
-		currentPlayerSetCameraMode(CAMERAMODE_EYESPY);
-		func0f0c1bd8(&sp308, &g_Vars.currentplayer->eyespy->up, &g_Vars.currentplayer->eyespy->look);
+		playerSetCameraMode(CAMERAMODE_EYESPY);
+		player0f0c1bd8(&sp308, &g_Vars.currentplayer->eyespy->up, &g_Vars.currentplayer->eyespy->look);
 	} else if (g_Vars.currentplayer->teleportstate == TELEPORTSTATE_WHITE) {
 		// Deep Sea teleport
 		playerTickChrBody();
 		g_WarpPadId = g_Vars.currentplayer->teleportcamerapad;
 		bmoveTick(0, 0, 0, 1);
-		currentPlayerExecutePreparedWarp();
+		playerExecutePreparedWarp();
 	} else if (g_Vars.currentplayer->visionmode == (u32)VISIONMODE_SLAYERROCKET) {
 		// Controlling a Slayer rocket
 		struct coord sp2fc = {0, 0, 0};
@@ -3904,10 +3905,10 @@ void playerTick(bool arg0)
 		bool rocketok = false;
 		struct weaponobj *rocket = g_Vars.currentplayer->slayerrocket;
 
-		currentPlayerSetCameraMode(CAMERAMODE_THIRDPERSON);
+		playerSetCameraMode(CAMERAMODE_THIRDPERSON);
 		playerTickChrBody();
 		bmoveTick(0, 0, 0, 1);
-		func0f0bd3c4();
+		playerUpdateShake();
 
 		if (rocket && rocket->base.prop) {
 			f32 sp2b8[3][3];
@@ -4059,7 +4060,7 @@ void playerTick(bool arg0)
 
 				if (pause) {
 					if (g_Vars.mplayerisrunning == false) {
-						currentPlayerPause(MENUROOT_MAINMENU);
+						playerPause(MENUROOT_MAINMENU);
 					} else {
 						mpPushPauseDialog();
 					}
@@ -4183,9 +4184,9 @@ void playerTick(bool arg0)
 		g_Vars.currentplayer->waitforzrelease = true;
 
 		if (rocket && rocket->base.prop) {
-			func0f0c1840(&sp2fc, &sp2e4, &sp2f0, &rocket->base.prop->pos, rocket->base.prop->rooms);
+			player0f0c1840(&sp2fc, &sp2e4, &sp2f0, &rocket->base.prop->pos, rocket->base.prop->rooms);
 		} else {
-			func0f0c1840(&sp2fc, &sp2e4, &sp2f0, NULL, NULL);
+			player0f0c1840(&sp2fc, &sp2e4, &sp2f0, NULL, NULL);
 		}
 	} else if (g_Vars.tickmode == TICKMODE_NORMAL) {
 		// Normal movement
@@ -4197,7 +4198,7 @@ void playerTick(bool arg0)
 		struct chrdata *chr;
 		s32 i;
 
-		func0f0b9538();
+		player0f0b9538();
 
 		if (g_PlayersWithControl[g_Vars.currentplayernum]) {
 			bmoveTick(1, 1, arg0, 0);
@@ -4205,8 +4206,8 @@ void playerTick(bool arg0)
 			bmoveTick(0, 0, 0, 1);
 		}
 
-		func0f0bd3c4();
-		currentPlayerSetCameraMode(CAMERAMODE_DEFAULT);
+		playerUpdateShake();
+		playerSetCameraMode(CAMERAMODE_DEFAULT);
 
 		spf4.x = g_Vars.currentplayer->bond2.unk10.x;
 		spf4.y = g_Vars.currentplayer->bond2.unk10.y;
@@ -4216,7 +4217,7 @@ void playerTick(bool arg0)
 		spf4.y = b + spf4.y;
 		spf4.z = c + spf4.z;
 
-		func0f0c1840(&spf4,
+		player0f0c1840(&spf4,
 				&g_Vars.currentplayer->bond2.unk28,
 				&g_Vars.currentplayer->bond2.unk1c,
 				&g_Vars.currentplayer->prop->pos,
@@ -4478,13 +4479,12 @@ void playerTick(bool arg0)
 				g_Vars.aibuddies[i] = prop;
 			}
 		}
-	} else if (g_Vars.tickmode == TICKMODE_0 || g_Vars.tickmode == TICKMODE_5) {
-		// Unused? Suspect this is GE level fade in and GE level fade out
-		func0f0b9538();
+	} else if (g_Vars.tickmode == TICKMODE_GE_FADEIN || g_Vars.tickmode == TICKMODE_GE_FADEOUT) {
+		player0f0b9538();
 		bmoveTick(1, 1, arg0, 0);
-		func0f0bd3c4();
-		currentPlayerSetCameraMode(CAMERAMODE_DEFAULT);
-		func0f0c1840(&g_Vars.currentplayer->bond2.unk10,
+		playerUpdateShake();
+		playerSetCameraMode(CAMERAMODE_DEFAULT);
+		player0f0c1840(&g_Vars.currentplayer->bond2.unk10,
 				&g_Vars.currentplayer->bond2.unk28,
 				&g_Vars.currentplayer->bond2.unk1c,
 				&g_Vars.currentplayer->prop->pos,
@@ -4493,13 +4493,13 @@ void playerTick(bool arg0)
 		// Start of an MP match where the camera circles around the player
 		playerTickChrBody();
 		bmoveTick(0, 0, 0, 1);
-		currentPlayerTickMpSwirl();
+		playerTickMpSwirl();
 	} else if (g_Vars.tickmode == TICKMODE_WARP) {
 		// Eg. In CI training, warping from device hallways
 		// to device room at the end of a training session
 		playerTickChrBody();
 		bmoveTick(0, 0, 0, 1);
-		currentPlayerExecutePreparedWarp();
+		playerExecutePreparedWarp();
 	} else if (g_Vars.tickmode == TICKMODE_AUTOWALK) {
 		// Extraction bodyguard room and Duel
 		f32 targetangle;
@@ -4512,7 +4512,7 @@ void playerTick(bool arg0)
 		struct pad pad;
 		f32 speedfrac;
 
-		func0f0b9538();
+		player0f0b9538();
 		padUnpack(g_Vars.currentplayer->autocontrol_aimpad, PADFIELD_POS, &pad);
 
 		if (mainGetStageNum() == g_Stages[STAGEINDEX_EXTRACTION].id
@@ -4573,11 +4573,11 @@ void playerTick(bool arg0)
 			xdist = sqrtf(xdist * xdist + zdist * zdist);
 
 			if (xdist < g_Vars.currentplayer->autocontrol_dist) {
-				setTickMode(TICKMODE_NORMAL);
+				playerSetTickMode(TICKMODE_NORMAL);
 			}
 		} else {
 			if (diffangle >= -0.2f && diffangle <= 0.2f) {
-				setTickMode(TICKMODE_NORMAL);
+				playerSetTickMode(TICKMODE_NORMAL);
 			}
 		}
 
@@ -4595,9 +4595,9 @@ void playerTick(bool arg0)
 
 		g_Vars.currentplayer->autocontrol_y = g_Vars.currentplayer->autocontrol_walkspeed * speedfrac;
 		bmoveTick(1, 1, 0, 1);
-		func0f0bd3c4();
-		currentPlayerSetCameraMode(CAMERAMODE_DEFAULT);
-		func0f0c1840(&g_Vars.currentplayer->bond2.unk10,
+		playerUpdateShake();
+		playerSetCameraMode(CAMERAMODE_DEFAULT);
+		player0f0c1840(&g_Vars.currentplayer->bond2.unk10,
 				&g_Vars.currentplayer->bond2.unk28,
 				&g_Vars.currentplayer->bond2.unk1c,
 				&g_Vars.currentplayer->prop->pos,
@@ -4622,27 +4622,27 @@ void playerTick(bool arg0)
 				&& joyGetButtonsPressedThisFrame(contpad1, A_BUTTON | B_BUTTON | Z_TRIG | START_BUTTON | L_TRIG | R_TRIG)) {
 			var8007074c = 2;
 
-			if (currentPlayerIsFadeComplete()) {
+			if (playerIsFadeComplete()) {
 				if (g_Vars.currentplayer->colourscreenfrac == 0) {
-					currentPlayerSetFadeColour(0, 0, 0, 0);
-					currentPlayerSetFadeFrac(60, 1);
+					playerSetFadeColour(0, 0, 0, 0);
+					playerSetFadeFrac(60, 1);
 				}
 			} else {
 				if (g_Vars.currentplayer->colourfadefracnew == 0) {
-					currentPlayerSetFadeFrac(g_Vars.currentplayer->colourfadetime60, 1);
+					playerSetFadeFrac(g_Vars.currentplayer->colourfadetime60, 1);
 				}
 			}
 		}
 
 		if (var8007074c == 2
-				&& currentPlayerIsFadeComplete()
+				&& playerIsFadeComplete()
 				&& g_Vars.currentplayer->colourscreenfrac == 1) {
 			func0000e990();
 		}
 	}
 
-	if (var80070744) {
-		func0f0b9650();
+	if (g_PlayerTriggerGeFadeIn) {
+		playerBeginGeFadeIn();
 	}
 
 	// Handle mission exit on death
@@ -4669,7 +4669,7 @@ void playerTick(bool arg0)
 		}
 	}
 
-	if (g_Vars.tickmode == TICKMODE_5 && currentPlayerIsFadeComplete()) {
+	if (g_Vars.tickmode == TICKMODE_GE_FADEOUT && playerIsFadeComplete()) {
 		mainEndStage();
 	}
 }
@@ -4739,7 +4739,7 @@ struct var80070ba4 var80070ba4[4][7] = { // [wieldmode][turnmode]
 	},
 };
 
-void currentPlayerSetGlobalDrawWorldOffset(s32 room)
+void playerSetGlobalDrawWorldOffset(s32 room)
 {
 	func0f166df0(room, &g_Vars.currentplayer->globaldrawworldoffset);
 
@@ -4750,7 +4750,7 @@ void currentPlayerSetGlobalDrawWorldOffset(s32 room)
 	currentPlayerSetLastRoomForOffset(room);
 }
 
-void currentPlayerSetGlobalDrawCameraOffset(void)
+void playerSetGlobalDrawCameraOffset(void)
 {
 	g_Vars.currentplayer->globaldrawcameraoffset.x = g_Vars.currentplayer->globaldrawworldoffset.x;
 	g_Vars.currentplayer->globaldrawcameraoffset.y = g_Vars.currentplayer->globaldrawworldoffset.y;
@@ -4760,7 +4760,7 @@ void currentPlayerSetGlobalDrawCameraOffset(void)
 }
 
 GLOBAL_ASM(
-glabel func0f0bfc7c
+glabel player0f0bfc7c
 /*  f0bfc7c:	27bdfef0 */ 	addiu	$sp,$sp,-272
 /*  f0bfc80:	afbf0044 */ 	sw	$ra,0x44($sp)
 /*  f0bfc84:	afb1003c */ 	sw	$s1,0x3c($sp)
@@ -4774,7 +4774,7 @@ glabel func0f0bfc7c
 /*  f0bfca4:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
 /*  f0bfca8:	8e4e0284 */ 	lw	$t6,0x284($s2)
 /*  f0bfcac:	e7a00070 */ 	swc1	$f0,0x70($sp)
-/*  f0bfcb0:	0fc2feee */ 	jal	currentPlayerSetGlobalDrawWorldOffset
+/*  f0bfcb0:	0fc2feee */ 	jal	playerSetGlobalDrawWorldOffset
 /*  f0bfcb4:	8dc41ba0 */ 	lw	$a0,0x1ba0($t6)
 /*  f0bfcb8:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f0bfcbc:	00000000 */ 	nop
@@ -4969,7 +4969,7 @@ glabel func0f0bfc7c
 /*  f0bffa0:	8fa400cc */ 	lw	$a0,0xcc($sp)
 /*  f0bffa4:	0fc2d60e */ 	jal	func0f0b5838
 /*  f0bffa8:	00000000 */ 	nop
-/*  f0bffac:	0fc2ff07 */ 	jal	currentPlayerSetGlobalDrawCameraOffset
+/*  f0bffac:	0fc2ff07 */ 	jal	playerSetGlobalDrawCameraOffset
 /*  f0bffb0:	00000000 */ 	nop
 /*  f0bffb4:	8fbf0044 */ 	lw	$ra,0x44($sp)
 /*  f0bffb8:	8fb00038 */ 	lw	$s0,0x38($sp)
@@ -4983,7 +4983,7 @@ glabel func0f0bfc7c
 // - Goal seems to have less float registers available which causes it to
 // reload cam_look properties for the function call
 // - Because it has to reload, it then stores cam_look in a callee-save register
-//void func0f0bfc7c(struct coord *cam_pos, struct coord *cam_look, struct coord *cam_up)
+//void player0f0bfc7c(struct coord *cam_pos, struct coord *cam_look, struct coord *cam_up)
 //{
 //	f32 spd0[16];
 //	void *spcc;
@@ -4997,7 +4997,7 @@ glabel func0f0bfc7c
 //	s32 j;
 //
 //	scale = currentPlayerGetScaleBg2Gfx();
-//	currentPlayerSetGlobalDrawWorldOffset(g_Vars.currentplayer->cam_room);
+//	playerSetGlobalDrawWorldOffset(g_Vars.currentplayer->cam_room);
 //
 //	g_Vars.currentplayer->matrix5c = gfxAllocateMatrix();
 //	g_Vars.currentplayer->matrix60 = gfxAllocateMatrix();
@@ -5060,10 +5060,10 @@ glabel func0f0bfc7c
 //	currentPlayerSetUnk174c(g_Vars.currentplayer->matrix68);
 //	currentPlayerSetUnk175c(spcc);
 //	func0f0b5838();
-//	currentPlayerSetGlobalDrawCameraOffset();
+//	playerSetGlobalDrawCameraOffset();
 //}
 
-Gfx *currentPlayerUpdateShootRot(Gfx *gdl)
+Gfx *playerUpdateShootRot(Gfx *gdl)
 {
 	struct coord sp3c;
 	struct coord sp30;
@@ -5072,7 +5072,7 @@ Gfx *currentPlayerUpdateShootRot(Gfx *gdl)
 	f32 rotx;
 	f32 roty;
 
-	func0f0bfc7c(&g_Vars.currentplayer->cam_pos,
+	player0f0bfc7c(&g_Vars.currentplayer->cam_pos,
 			&g_Vars.currentplayer->cam_look,
 			&g_Vars.currentplayer->cam_up);
 	bgun0f0a0c08(&sp30, &sp3c);
@@ -5106,7 +5106,7 @@ Gfx *currentPlayerUpdateShootRot(Gfx *gdl)
  * May be called while the shield is already being displayed, in which case the
  * effect is restarted.
  */
-void currentPlayerDisplayShield(void)
+void playerDisplayShield(void)
 {
 	if (g_Vars.currentplayer->shieldshowtime < 0) {
 		s32 rand = ((g_Vars.currentplayer->shieldshowrnd >> 16) % 200) * 4 + 800;
@@ -5121,7 +5121,7 @@ void currentPlayerDisplayShield(void)
 /**
  * Render the current player's shield from the first person perspective.
  */
-Gfx *currentPlayerRenderShield(Gfx *gdl)
+Gfx *playerRenderShield(Gfx *gdl)
 {
 	f32 sp90[2];
 	f32 sp88[2];
@@ -5135,7 +5135,7 @@ Gfx *currentPlayerRenderShield(Gfx *gdl)
 	s32 add;
 
 	if (g_Vars.currentplayer->shieldshowtime >= 0) {
-		shield = currentPlayerGetShieldFrac() * 8;
+		shield = playerGetShieldFrac() * 8;
 		maxrot = ((g_Vars.currentplayer->shieldshowrnd >> 16) % 200) * 4 + 800;
 		maxrotf = maxrot;
 		f20 = (60 - g_Vars.currentplayer->shieldshowtime) * (1.0f / 60.0f);
@@ -5216,7 +5216,7 @@ Gfx *currentPlayerRenderShield(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *currentPlayerRenderHud(Gfx *gdl)
+Gfx *playerRenderHud(Gfx *gdl)
 {
 	if (g_Vars.currentplayer->cameramode == CAMERAMODE_THIRDPERSON) {
 		gdl = func0f0aeed8(gdl);
@@ -5224,7 +5224,7 @@ Gfx *currentPlayerRenderHud(Gfx *gdl)
 		gdl = hudmsgsRender(gdl);
 
 		if (g_Vars.currentplayer->isdead == false) {
-			gdl = currentPlayerDrawFade(gdl);
+			gdl = playerDrawStoredFade(gdl);
 		}
 
 		if (g_Vars.stagenum == STAGE_ESCAPE) {
@@ -5244,7 +5244,7 @@ Gfx *currentPlayerRenderHud(Gfx *gdl)
 			gdl = func0f15b114(gdl);
 		}
 
-		if (g_NbombsActive != 0) {
+		if (g_NbombsActive) {
 			gdl = func0f00a490(gdl);
 		}
 
@@ -5252,7 +5252,7 @@ Gfx *currentPlayerRenderHud(Gfx *gdl)
 			gdl = gasRender(gdl);
 		}
 
-		gdl = currentPlayerRenderShield(gdl);
+		gdl = playerRenderShield(gdl);
 
 		// Adjust eyes shutting
 		if (g_Vars.currentplayer->eyesshut) {
@@ -5288,11 +5288,11 @@ Gfx *currentPlayerRenderHud(Gfx *gdl)
 		}
 
 		if (g_Vars.currentplayer->eyesshutfrac > 0) {
-			gdl = fadeDraw(gdl, 0, 0, 0, g_Vars.currentplayer->eyesshutfrac);
+			gdl = playerDrawFade(gdl, 0, 0, 0, g_Vars.currentplayer->eyesshutfrac);
 		}
 	}
 
-	gdl = func0f0baf84(gdl);
+	gdl = player0f0baf84(gdl);
 
 	// Draw menu
 	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY && g_Vars.currentplayer->mpmenuon) {
@@ -5307,7 +5307,7 @@ Gfx *currentPlayerRenderHud(Gfx *gdl)
 	}
 
 	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY
-			&& currentPlayerIsHealthVisible()
+			&& playerIsHealthVisible()
 			&& func0f0f0c68()) {
 		gdl = playerRenderHealthBar(gdl);
 	}
@@ -5336,7 +5336,7 @@ Gfx *currentPlayerRenderHud(Gfx *gdl)
 				}
 			} else {
 				if (g_Vars.currentplayer->redbloodfinished) {
-					currentPlayerSetFadeColour(0x96, 0, 0, 0.70588237f);
+					playerSetFadeColour(0x96, 0, 0, 0.70588237f);
 				} else {
 					g_Vars.currentplayer->redbloodfinished = true;
 				}
@@ -5347,11 +5347,11 @@ Gfx *currentPlayerRenderHud(Gfx *gdl)
 				&& g_Vars.currentplayer->redbloodfinished) {
 			if (g_Vars.currentplayer->deathanimfinished == false) {
 				g_Vars.currentplayer->deathanimfinished = true;
-				currentPlayerAdjustFade(60, 0, 0, 0, 1);
-				currentPlayerStartChrFade(120, 0);
+				playerAdjustFade(60, 0, 0, 0, 1);
+				playerStartChrFade(120, 0);
 			}
 
-			if (currentPlayerIsFadeComplete()) {
+			if (playerIsFadeComplete()) {
 				bool canrestart = false;
 
 				if (g_Vars.mplayerisrunning) {
@@ -5397,7 +5397,7 @@ Gfx *currentPlayerRenderHud(Gfx *gdl)
 								if (totalhealth > 0.125f
 										&& !(mainGetStageNum() == STAGE_DEEPSEA && chrHasStageFlag(NULL, 0x00000200))) {
 									if (canrestart) {
-										currentPlayerDisplayHealth();
+										playerDisplayHealth();
 
 										stealhealth = totalhealth * 0.5f;
 
@@ -5427,7 +5427,7 @@ Gfx *currentPlayerRenderHud(Gfx *gdl)
 								}
 #else
 								if (totalhealth > 0.125f && canrestart) {
-									currentPlayerDisplayHealth();
+									playerDisplayHealth();
 
 									stealhealth = totalhealth * 0.5f;
 
@@ -5519,7 +5519,7 @@ Gfx *currentPlayerRenderHud(Gfx *gdl)
 		gdl = radarRender(gdl);
 #endif
 
-		gdl = currentPlayerDrawFade(gdl);
+		gdl = playerDrawStoredFade(gdl);
 	} else {
 		gdl = func0f15b114(gdl);
 
@@ -5557,13 +5557,13 @@ Gfx *currentPlayerRenderHud(Gfx *gdl)
 		}
 
 		gdl = hudmsgsRender(gdl);
-		gdl = currentPlayerDrawFade(gdl);
+		gdl = playerDrawStoredFade(gdl);
 	}
 
 	return gdl;
 }
 
-void currentPlayerDie(bool force)
+void playerDie(bool force)
 {
 	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 	s32 shooter;
@@ -5574,10 +5574,10 @@ void currentPlayerDie(bool force)
 		shooter = g_Vars.currentplayernum;
 	}
 
-	currentPlayerDieByShooter(shooter, force);
+	playerDieByShooter(shooter, force);
 }
 
-void currentPlayerDieByShooter(u32 shooter, bool force)
+void playerDieByShooter(u32 shooter, bool force)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	if (!g_Vars.currentplayer->isdead && (force || !g_Vars.currentplayer->invincible))
@@ -5624,15 +5624,15 @@ void currentPlayerDieByShooter(u32 shooter, bool force)
 		bmoveSetMode(MOVEMODE_WALK);
 		bgun0f0a29c8();
 
-		if (getMissionTime() - g_Vars.currentplayer->lifestarttime60 < g_Vars.currentplayerstats->shortestlife) {
-			g_Vars.currentplayerstats->shortestlife = getMissionTime() - g_Vars.currentplayer->lifestarttime60;
+		if (playerGetMissionTime() - g_Vars.currentplayer->lifestarttime60 < g_Vars.currentplayerstats->shortestlife) {
+			g_Vars.currentplayerstats->shortestlife = playerGetMissionTime() - g_Vars.currentplayer->lifestarttime60;
 		}
 
-		g_Vars.currentplayer->lifestarttime60 = getMissionTime();
+		g_Vars.currentplayer->lifestarttime60 = playerGetMissionTime();
 	}
 }
 
-void currentPlayerCheckIfShotInBack(s32 attackerplayernum, f32 x, f32 z)
+void playerCheckIfShotInBack(s32 attackerplayernum, f32 x, f32 z)
 {
 	if (g_Vars.normmplayerisrunning) {
 		s32 victimplayernum = g_Vars.currentplayernum;
@@ -5655,7 +5655,7 @@ void currentPlayerCheckIfShotInBack(s32 attackerplayernum, f32 x, f32 z)
  *
  * A return value of 0 means zero height, while 1 means full expanded height.
  */
-f32 currentPlayerGetHealthBarHeightFrac(void)
+f32 playerGetHealthBarHeightFrac(void)
 {
 	f32 done;
 	f32 total;
@@ -5676,13 +5676,13 @@ f32 currentPlayerGetHealthBarHeightFrac(void)
 	return 1;
 }
 
-bool currentPlayerIsHealthVisible(void)
+bool playerIsHealthVisible(void)
 {
 	return g_Vars.currentplayer->healthshowmode != HEALTHSHOWMODE_HIDDEN;
 }
 
 // Never called
-void setInvincible(bool enable)
+void playerSetInvincible(bool enable)
 {
 	if (enable) {
 		cheatActivate(CHEAT_INVINCIBLE);
@@ -5691,22 +5691,22 @@ void setInvincible(bool enable)
 	}
 }
 
-void setBondVisible(bool visible)
+void playerSetBondVisible(bool visible)
 {
 	g_Vars.bondvisible = visible;
 }
 
-void setBondCollisions(bool enabled)
+void playerSetBondCollisionsEnabled(bool enabled)
 {
 	g_Vars.bondcollisions = enabled;
 }
 
-void currentPlayerSetCameraMode(s32 mode)
+void playerSetCameraMode(s32 mode)
 {
 	g_Vars.currentplayer->cameramode = mode;
 }
 
-void func0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struct coord *pos2, s16 *rooms2)
+void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struct coord *pos2, s16 *rooms2)
 {
 	bool done = false;
 	s32 room;
@@ -5746,7 +5746,7 @@ void func0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struc
 		}
 
 		if (sp54[0] != -1 && sp54[1] == -1) {
-			currentPlayerSetCamPropertiesWithRoom(pos, up, look, sp54[0]);
+			playerSetCamPropertiesWithRoom(pos, up, look, sp54[0]);
 			done = true;
 		}
 
@@ -5754,7 +5754,7 @@ void func0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struc
 			for (i = 0; sp54[i] != -1; i++) {
 				if ((g_Rooms[sp54[i]].flags & ROOMFLAG_0010) == 0) {
 					if (func0f162128(pos, sp54[i])) {
-						currentPlayerSetCamPropertiesWithRoom(pos, up, look, sp54[i]);
+						playerSetCamPropertiesWithRoom(pos, up, look, sp54[i]);
 						done = true;
 						break;
 					}
@@ -5767,7 +5767,7 @@ void func0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struc
 			for (i = 0; sp54[i] != -1; i++) {
 				if (g_Rooms[sp54[i]].flags & ROOMFLAG_0010) {
 					if (func0f162128(pos, sp54[i])) {
-						currentPlayerSetCamPropertiesWithRoom(pos, up, look, sp54[i]);
+						playerSetCamPropertiesWithRoom(pos, up, look, sp54[i]);
 						done = true;
 						break;
 					}
@@ -5783,64 +5783,66 @@ void func0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struc
 			tmp = room = cd0002a400(pos, sp90);
 
 			if (room > 0) {
-				currentPlayerSetCamPropertiesWithRoom(pos, up, look, tmp);
+				playerSetCamPropertiesWithRoom(pos, up, look, tmp);
 			} else {
-				currentPlayerSetCamPropertiesWithRoom(pos, up, look, sp90[0]);
+				playerSetCamPropertiesWithRoom(pos, up, look, sp90[0]);
 			}
 		} else if (sp64[0] != -1) {
 			tmp = room = cd0002a400(pos, sp64);
 
 			if (room > 0) {
-				currentPlayerSetCamPropertiesWithoutRoom(pos, up, look, tmp);
+				playerSetCamPropertiesWithoutRoom(pos, up, look, tmp);
 			} else {
-				currentPlayerSetCamPropertiesWithoutRoom(pos, up, look, sp64[0]);
+				playerSetCamPropertiesWithoutRoom(pos, up, look, sp64[0]);
 			}
 		} else {
 			if (sp52 != -1) {
-				currentPlayerSetCamPropertiesWithoutRoom(pos, up, look, sp52);
+				playerSetCamPropertiesWithoutRoom(pos, up, look, sp52);
 			} else {
-				currentPlayerSetCamPropertiesWithoutRoom(pos, up, look, 1);
+				playerSetCamPropertiesWithoutRoom(pos, up, look, 1);
 			}
 		}
 	}
 }
 
-void func0f0c1ba4(struct coord *pos, struct coord *up, struct coord *look, struct coord *memcampos, s32 memcamroom)
+void player0f0c1ba4(struct coord *pos, struct coord *up, struct coord *look, struct coord *memcampos, s32 memcamroom)
 {
 	s16 rooms[2];
 	rooms[0] = memcamroom;
 	rooms[1] = -1;
 
-	func0f0c1840(pos, up, look, memcampos, rooms);
+	player0f0c1840(pos, up, look, memcampos, rooms);
 }
 
-void func0f0c1bd8(struct coord *pos, struct coord *up, struct coord *look)
+void player0f0c1bd8(struct coord *pos, struct coord *up, struct coord *look)
 {
 	if (g_Vars.currentplayer->memcamroom >= 0) {
-		func0f0c1ba4(pos, up, look, &g_Vars.currentplayer->memcampos, g_Vars.currentplayer->memcamroom);
+		player0f0c1ba4(pos, up, look, &g_Vars.currentplayer->memcampos, g_Vars.currentplayer->memcamroom);
 	} else {
-		func0f0c1840(pos, up, look, NULL, NULL);
+		player0f0c1840(pos, up, look, NULL, NULL);
 	}
 }
 
-void currentPlayerSetCamPropertiesWithRoom(struct coord *pos, struct coord *up, struct coord *look, s32 room)
+void playerSetCamPropertiesWithRoom(struct coord *pos, struct coord *up, struct coord *look, s32 room)
 {
 	g_Vars.currentplayer->memcampos.x = pos->x;
 	g_Vars.currentplayer->memcampos.y = pos->y;
 	g_Vars.currentplayer->memcampos.z = pos->z;
 	g_Vars.currentplayer->memcamroom = room;
-	currentPlayerSetCamProperties(pos, up, look, room);
+
+	playerSetCamProperties(pos, up, look, room);
 }
 
-void currentPlayerSetCamPropertiesWithoutRoom(struct coord *pos, struct coord *up, struct coord *look, s32 room)
+void playerSetCamPropertiesWithoutRoom(struct coord *pos, struct coord *up, struct coord *look, s32 room)
 {
-	currentPlayerClearMemCamRoom();
-	currentPlayerSetCamProperties(pos, up, look, room);
+	playerClearMemCamRoom();
+	playerSetCamProperties(pos, up, look, room);
 }
 
-void currentPlayerSetCamProperties(struct coord *pos, struct coord *up, struct coord *look, s32 room)
+void playerSetCamProperties(struct coord *pos, struct coord *up, struct coord *look, s32 room)
 {
 	struct player *player = g_Vars.currentplayer;
+
 	player->cam_pos.x = pos->x;
 	player->cam_pos.y = pos->y;
 	player->cam_pos.z = pos->z;
@@ -5853,19 +5855,19 @@ void currentPlayerSetCamProperties(struct coord *pos, struct coord *up, struct c
 	player->cam_room = room;
 }
 
-void currentPlayerClearMemCamRoom(void)
+void playerClearMemCamRoom(void)
 {
 	g_Vars.currentplayer->memcamroom = -1;
 }
 
-void allPlayersClearMemCamRoom(void)
+void playersClearMemCamRoom(void)
 {
 	s32 prevplayernum = g_Vars.currentplayernum;
 	s32 i;
 
 	for (i = 0; i < PLAYERCOUNT(); i++) {
 		setCurrentPlayerNum(i);
-		currentPlayerClearMemCamRoom();
+		playerClearMemCamRoom();
 	}
 
 	setCurrentPlayerNum(prevplayernum);
@@ -5916,7 +5918,7 @@ bool playerUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 	return false;
 }
 
-void currentPlayerUpdatePerimInfo(void)
+void playerUpdatePerimInfo(void)
 {
 	g_Vars.currentplayer->periminfo.header.type = TILETYPE_03;
 	g_Vars.currentplayer->periminfo.header.flags = TILEFLAG_0004 | TILEFLAG_0010;
@@ -5949,7 +5951,7 @@ void currentPlayerUpdatePerimInfo(void)
  * ymax is the top of the head, minus some if crouching, and always at least 80
  * units above the feet.
  */
-void propPlayerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
+void playerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 {
 	s32 playernum = propGetPlayerNum(prop);
 
@@ -5969,12 +5971,12 @@ void propPlayerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 	}
 }
 
-f32 currentPlayerGetHealthFrac(void)
+f32 playerGetHealthFrac(void)
 {
 	return g_Vars.currentplayer->bondhealth;
 }
 
-f32 currentPlayerGetShieldFrac(void)
+f32 playerGetShieldFrac(void)
 {
 	f32 frac = chrGetShield(g_Vars.currentplayer->prop->chr) * 0.125f;
 
@@ -5989,7 +5991,7 @@ f32 currentPlayerGetShieldFrac(void)
 	return frac;
 }
 
-void currentPlayerSetShieldFrac(f32 frac)
+void playerSetShieldFrac(f32 frac)
 {
 	if (frac < 0) {
 		frac = 0;
@@ -6002,7 +6004,7 @@ void currentPlayerSetShieldFrac(f32 frac)
 	chrSetShield(g_Vars.currentplayer->prop->chr, frac * 8);
 }
 
-s32 getMissionTime(void)
+s32 playerGetMissionTime(void)
 {
 #if PAL
 	return g_Vars.currentplayer->bondviewlevtime60 * 60 / 50;
@@ -6473,14 +6475,14 @@ Gfx *playerRender(struct prop *prop, Gfx *gdl, bool withalpha)
 	return gdl;
 }
 
-Gfx *currentPlayerLoadMatrix(Gfx *gdl)
+Gfx *playerLoadMatrix(Gfx *gdl)
 {
 	gSPMatrix(gdl++, g_Vars.currentplayer->matrix5c, G_MTX_LOAD);
 	return gdl;
 }
 
 GLOBAL_ASM(
-glabel func0f0c3320
+glabel player0f0c3320
 /*  f0c3320:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f0c3324:	afb50028 */ 	sw	$s5,0x28($sp)
 /*  f0c3328:	afb40024 */ 	sw	$s4,0x24($sp)
@@ -6540,7 +6542,7 @@ glabel func0f0c3320
 // &matrices[i], and calculates s5 + i * 0x40 for the second &matrices[i].
 // The below stores matrices in s5, calculates s5 + i * 0x40 for the first
 // &matrices[i], then puts that value in s0 for the second &matrices[i].
-//void func0f0c3320(Mtxf *matrices, s32 count)
+//void player0f0c3320(Mtxf *matrices, s32 count)
 //{
 //	Mtxf sp40;
 //	s32 i;

@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/cheats.h"
 #include "game/bondgun.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/game_127910.h"
 #include "game/propobj.h"
 #include "bss.h"
@@ -72,12 +72,12 @@ void playersAllocate(s32 count)
 		setCurrentPlayerNum(0);
 
 		if (g_Vars.fourmeg2player) {
-			s16 a = viGetFbWidth();
-			s16 b = viGetFbHeight();
+			s16 a = playerGetFbWidth();
+			s16 b = playerGetFbHeight();
 			currentPlayerSetViewSize(a, b << 1);
 		} else {
-			s16 a = viGetFbWidth();
-			s16 b = viGetFbHeight();
+			s16 a = playerGetFbWidth();
+			s16 b = playerGetFbHeight();
 			currentPlayerSetViewSize(a, b);
 		}
 

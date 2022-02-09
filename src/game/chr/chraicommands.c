@@ -19,7 +19,7 @@
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b28d0.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/hudmsg.h"
 #include "game/inventory/inventory.h"
 #include "game/game_127910.h"
@@ -5269,7 +5269,7 @@ bool aiEndLevel(void)
  */
 bool ai00dd(void)
 {
-	currentPlayerEndCutscene();
+	playerEndCutscene();
 	g_Vars.aioffset += 2;
 	return false;
 }
@@ -5281,7 +5281,7 @@ bool aiWarpJoToPad(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
-	currentPlayerPrepareWarpToPad(pad_id);
+	playerPrepareWarpToPad(pad_id);
 
 	g_Vars.aioffset += 4;
 
@@ -5305,7 +5305,7 @@ bool aiSetCameraAnimation(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 anim_id = cmd[3] | (cmd[2] << 8);
 
-	cameraDoAnimation(anim_id);
+	playerStartCutscene(anim_id);
 
 	if (g_Vars.currentplayer->haschrbody == false) {
 		return true;
@@ -5355,7 +5355,7 @@ bool aiIfCutsceneButtonPressed(void)
 bool ai0175(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	func0f0ba190(cmd[2]);
+	playerReorientForCutsceneStop(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -5541,7 +5541,7 @@ bool ai00df(void)
 
 		if (cmdindex >= 0) {
 			void *ptr = setupGetPtrToCommandByIndex(cmdindex + tag->cmdoffset);
-			currentPlayerPrepareWarpType2(ptr, cmd[4] | (cmd[3] << 8), cmd[6] | (cmd[5] << 8));
+			playerPrepareWarpType2(ptr, cmd[4] | (cmd[3] << 8), cmd[6] | (cmd[5] << 8));
 		}
 	}
 
@@ -5736,8 +5736,8 @@ bool ai00e3(void)
 		setCurrentPlayerNum(playernum);
 
 		if (var8007074c != 2) {
-			currentPlayerSetFadeColour(0, 0, 0, 0);
-			currentPlayerSetFadeFrac(60, 1);
+			playerSetFadeColour(0, 0, 0, 0);
+			playerSetFadeFrac(60, 1);
 		}
 
 		setCurrentPlayerNum(prevplayernum);
@@ -5760,8 +5760,8 @@ bool ai00e4(void)
 		setCurrentPlayerNum(playernum);
 
 		if (var8007074c != 2) {
-			currentPlayerSetFadeColour(0, 0, 0, 1);
-			currentPlayerSetFadeFrac(60, 0);
+			playerSetFadeColour(0, 0, 0, 1);
+			playerSetFadeFrac(60, 0);
 		}
 	}
 
@@ -6017,7 +6017,7 @@ bool ai00f4(void)
 	s16 e = cmd[11] | (cmd[10] << 8);
 	s32 f = cmd[13] | (cmd[12] << 8);
 
-	currentPlayerPrepareWarpType3(f * M_BADTAU / 65536, c * M_BADTAU / 65536, a, b, e, d);
+	playerPrepareWarpType3(f * M_BADTAU / 65536, c * M_BADTAU / 65536, a, b, e, d);
 
 	g_Vars.aioffset += 14;
 
@@ -6206,7 +6206,7 @@ bool aiChrExplosions(void)
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
-		currentPlayerSurroundWithExplosions(0);
+		playerSurroundWithExplosions(0);
 		setCurrentPlayerNum(prevplayernum);
 	}
 
@@ -10929,7 +10929,7 @@ bool aiPlayerAutoWalk(void)
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
-		currentPlayerAutoWalk(pad_id, cmd[5], cmd[6], cmd[7], cmd[8]);
+		playerAutoWalk(pad_id, cmd[5], cmd[6], cmd[7], cmd[8]);
 		setCurrentPlayerNum(prevplayernum);
 	}
 

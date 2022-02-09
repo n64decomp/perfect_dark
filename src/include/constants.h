@@ -3900,13 +3900,13 @@
 #define THREADPRI_FAULT 40
 #define THREADPRI_RMON  250
 
-#define TICKMODE_0        0
-#define TICKMODE_NORMAL   1
-#define TICKMODE_WARP     3
-#define TICKMODE_MPSWIRL  4
-#define TICKMODE_5        5
-#define TICKMODE_CUTSCENE 6
-#define TICKMODE_AUTOWALK 7
+#define TICKMODE_GE_FADEIN  0
+#define TICKMODE_NORMAL     1
+#define TICKMODE_WARP       3
+#define TICKMODE_MPSWIRL    4
+#define TICKMODE_GE_FADEOUT 5
+#define TICKMODE_CUTSCENE   6
+#define TICKMODE_AUTOWALK   7
 
 #define TICKOP_NONE         0
 #define TICKOP_FREE         1

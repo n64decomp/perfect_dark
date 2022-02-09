@@ -14,7 +14,7 @@
 #include "game/game_0b0fd0.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b4950.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/game_127910.h"
 #include "game/explosions/explosions.h"
 #include "game/smoke/smoke.h"
@@ -6188,7 +6188,7 @@ void propGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 	if (prop->type == PROPTYPE_CHR) {
 		chrGetBbox(prop, width, ymax, ymin);
 	} else if (prop->type == PROPTYPE_PLAYER) {
-		propPlayerGetBbox(prop, width, ymax, ymin);
+		playerGetBbox(prop, width, ymax, ymin);
 	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR) {
 		propObjGetBbox(prop, width, ymax, ymin);
 	} else {

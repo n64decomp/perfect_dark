@@ -9,7 +9,7 @@
 #include "game/bondgun.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b4950.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/game_1a7560.h"
 #include "game/savebuffer.h"
 #include "game/menugfx.h"
@@ -14200,7 +14200,7 @@ void menuPushRootDialog(struct menudialogdef *dialogdef, s32 root)
 	}
 
 	if (menuIsSoloMissionOrMp()) {
-		currentPlayerDisplayHealth();
+		playerDisplayHealth();
 	}
 }
 
@@ -15133,7 +15133,7 @@ void func0f0fa6ac(void)
 	case MENUROOT_FILEMGR:
 	case MENUROOT_4MBMAINMENU:
 	case MENUROOT_TRAINING:
-		currentPlayerUnpause();
+		playerUnpause();
 		g_PlayersWithControl[0] = true;
 	}
 }

@@ -19,7 +19,7 @@
 #include "game/game_0b28d0.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b4950.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/explosions/explosions.h"
@@ -4074,7 +4074,7 @@ void chrSetShield(struct chrdata *chr, f32 amount)
 		if (playernum >= 0) {
 			s32 prevplayernum = g_Vars.currentplayernum;
 			setCurrentPlayerNum(playernum);
-			currentPlayerDisplayHealth();
+			playerDisplayHealth();
 			g_Vars.currentplayerstats->armourcount += amount * 0.125f;
 			setCurrentPlayerNum(prevplayernum);
 		}
@@ -4789,7 +4789,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 					}
 
 					playerUpdateDamageStats(aprop, vprop, statsamount);
-					currentPlayerDisplayHealth();
+					playerDisplayHealth();
 
 					if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_ONEHITKILLS)) {
 						g_Vars.currentplayer->bondhealth = 0;
@@ -4803,7 +4803,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 
 					if (g_Vars.currentplayer->training == false
 							&& g_Vars.currentplayer->bondhealth <= 0) {
-						currentPlayerDieByShooter(aplayernum, false);
+						playerDieByShooter(aplayernum, false);
 						chr->blurnumtimesdied++;
 					}
 
@@ -4827,15 +4827,15 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 				g_Vars.currentplayer->bondshotspeed[2] += vector->z * boostscale;
 
 				if (showdamage) {
-					currentPlayerDisplayDamage();
+					playerDisplayDamage();
 				}
 
 				if (showshield) {
-					currentPlayerDisplayShield();
+					playerDisplayShield();
 				}
 
 				if (g_Vars.normmplayerisrunning && aprop && aprop->type == PROPTYPE_PLAYER) {
-					currentPlayerCheckIfShotInBack(prevplayernum, vector->x, vector->z);
+					playerCheckIfShotInBack(prevplayernum, vector->x, vector->z);
 				}
 			}
 

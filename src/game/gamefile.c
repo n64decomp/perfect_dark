@@ -3,7 +3,7 @@
 #include "constants.h"
 #include "game/camdraw.h"
 #include "game/cheats.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/savebuffer.h"
 #include "game/bg.h"
 #include "game/game_19aa80.h"
@@ -255,17 +255,17 @@ glabel gamefileApplyOptions
 /*  f10fea0:	24010001 */ 	li	$at,0x1
 /*  f10fea4:	15210005 */ 	bne	$t1,$at,.PF0f10febc
 /*  f10fea8:	00000000 */ 	nop
-/*  f10feac:	0fc2f26f */ 	jal	optionsSetHiRes
+/*  f10feac:	0fc2f26f */ 	jal	playerSetHiResEnabled
 /*  f10feb0:	00002025 */ 	move	$a0,$zero
 /*  f10feb4:	10000007 */ 	b	.PF0f10fed4
 /*  f10feb8:	00000000 */ 	nop
 .PF0f10febc:
-/*  f10febc:	0fc2f26f */ 	jal	optionsSetHiRes
+/*  f10febc:	0fc2f26f */ 	jal	playerSetHiResEnabled
 /*  f10fec0:	24040001 */ 	li	$a0,0x1
 /*  f10fec4:	10000003 */ 	b	.PF0f10fed4
 /*  f10fec8:	00000000 */ 	nop
 .PF0f10fecc:
-/*  f10fecc:	0fc2f26f */ 	jal	optionsSetHiRes
+/*  f10fecc:	0fc2f26f */ 	jal	playerSetHiResEnabled
 /*  f10fed0:	00002025 */ 	move	$a0,$zero
 .PF0f10fed4:
 /*  f10fed4:	3c0a8009 */ 	lui	$t2,0x8009
@@ -445,12 +445,12 @@ void gamefileApplyOptions(struct gamefile *file)
 
 	if (pakHasBitflag(GAMEFILEFLAG_HIRES, file->flags)) {
 		if (IS4MB()) {
-			optionsSetHiRes(false);
+			playerSetHiResEnabled(false);
 		} else {
-			optionsSetHiRes(true);
+			playerSetHiResEnabled(true);
 		}
 	} else {
-		optionsSetHiRes(false);
+		playerSetHiResEnabled(false);
 	}
 
 	if (IS4MB()) {

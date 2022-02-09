@@ -262,7 +262,7 @@ extern s32 var8007072c;
 extern u32 var80070738;
 extern u32 var8007073c;
 extern struct gecreditsdata *g_CurrentGeCreditsData;
-extern u32 var80070744;
+extern bool g_PlayerTriggerGeFadeIn;
 extern u32 var80070748;
 extern u32 var8007074c;
 extern bool g_PlayersWithControl[];

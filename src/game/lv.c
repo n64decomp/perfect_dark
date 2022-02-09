@@ -56,7 +56,7 @@
 #include "game/game_0b0fd0.h"
 #include "game/game_0b28d0.h"
 #include "game/game_0b63b0.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/savebuffer.h"
 #include "game/hudmsg.h"
 #include "game/menu.h"
@@ -485,9 +485,9 @@ void lvInit(s32 stagenum)
 			amInit();
 			invInitGunsHeld();
 			func0f010bb0();
-			currentPlayerResetToDefault();
+			playerLoadDefaults();
 			currentPlayerInit();
-			currentPlayerSpawn();
+			playerSpawn();
 			currentPlayerInitAnimation();
 
 			if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_TEAMSENABLED)) {
@@ -957,11 +957,11 @@ glabel var7f1b1f44nc
 /*  f162ca0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f162ca4:	0fc0423c */ 	jal	func0f010bb0
 /*  f162ca8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f162cac:	0fc2d548 */ 	jal	currentPlayerResetToDefault
+/*  f162cac:	0fc2d548 */ 	jal	playerLoadDefaults
 /*  f162cb0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f162cb4:	0fc0458d */ 	jal	currentPlayerInit
 /*  f162cb8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f162cbc:	0fc2d75f */ 	jal	currentPlayerSpawn
+/*  f162cbc:	0fc2d75f */ 	jal	playerSpawn
 /*  f162cc0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f162cc4:	0fc048e9 */ 	jal	currentPlayerInitAnimation
 /*  f162cc8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1791,27 +1791,27 @@ glabel var7f1b8e7cpf
 /*  f16a69c:	86040634 */ 	lh	$a0,0x634($s0)
 /*  f16a6a0:	0c002e7b */ 	jal	viSetViewPosition
 /*  f16a6a4:	86050636 */ 	lh	$a1,0x636($s0)
-/*  f16a6a8:	0fc2f272 */ 	jal	viGetFbWidth
+/*  f16a6a8:	0fc2f272 */ 	jal	playerGetFbWidth
 /*  f16a6ac:	00000000 */ 	nop
-/*  f16a6b0:	0fc2f27d */ 	jal	viGetFbHeight
+/*  f16a6b0:	0fc2f27d */ 	jal	playerGetFbHeight
 /*  f16a6b4:	a7a20090 */ 	sh	$v0,0x90($sp)
 /*  f16a6b8:	00022c00 */ 	sll	$a1,$v0,0x10
 /*  f16a6bc:	00055403 */ 	sra	$t2,$a1,0x10
 /*  f16a6c0:	01402825 */ 	move	$a1,$t2
 /*  f16a6c4:	0c002e4a */ 	jal	viSetSize
 /*  f16a6c8:	87a40090 */ 	lh	$a0,0x90($sp)
-/*  f16a6cc:	0fc2f272 */ 	jal	viGetFbWidth
+/*  f16a6cc:	0fc2f272 */ 	jal	playerGetFbWidth
 /*  f16a6d0:	00000000 */ 	nop
-/*  f16a6d4:	0fc2f27d */ 	jal	viGetFbHeight
+/*  f16a6d4:	0fc2f27d */ 	jal	playerGetFbHeight
 /*  f16a6d8:	a7a20090 */ 	sh	$v0,0x90($sp)
 /*  f16a6dc:	00022c00 */ 	sll	$a1,$v0,0x10
 /*  f16a6e0:	00055c03 */ 	sra	$t3,$a1,0x10
 /*  f16a6e4:	01602825 */ 	move	$a1,$t3
 /*  f16a6e8:	0c002e39 */ 	jal	viSetBufSize
 /*  f16a6ec:	87a40090 */ 	lh	$a0,0x90($sp)
-/*  f16a6f0:	0fc2f272 */ 	jal	viGetFbWidth
+/*  f16a6f0:	0fc2f272 */ 	jal	playerGetFbWidth
 /*  f16a6f4:	00000000 */ 	nop
-/*  f16a6f8:	0fc2f27d */ 	jal	viGetFbHeight
+/*  f16a6f8:	0fc2f27d */ 	jal	playerGetFbHeight
 /*  f16a6fc:	a7a20090 */ 	sh	$v0,0x90($sp)
 /*  f16a700:	00022c00 */ 	sll	$a1,$v0,0x10
 /*  f16a704:	00057403 */ 	sra	$t6,$a1,0x10
@@ -1839,7 +1839,7 @@ glabel var7f1b8e7cpf
 /*  f16a75c:	8d991a24 */ 	lw	$t9,0x1a24($t4)
 /*  f16a760:	53200544 */ 	beqzl	$t9,.PF0f16bc74
 /*  f16a764:	824b04d3 */ 	lb	$t3,0x4d3($s2)
-/*  f16a768:	0fc2ecb3 */ 	jal	currentPlayerTickPauseMenu
+/*  f16a768:	0fc2ecb3 */ 	jal	playerTickPauseMenu
 /*  f16a76c:	00000000 */ 	nop
 /*  f16a770:	10000540 */ 	b	.PF0f16bc74
 /*  f16a774:	824b04d3 */ 	lb	$t3,0x4d3($s2)
@@ -1921,7 +1921,7 @@ glabel var7f1b8e7cpf
 /*  f16a89c:	12000004 */ 	beqz	$s0,.PF0f16a8b0
 /*  f16a8a0:	00000000 */ 	nop
 .PF0f16a8a4:
-/*  f16a8a4:	0fc2f28f */ 	jal	is2PSharedViewport
+/*  f16a8a4:	0fc2f28f */ 	jal	playerHasSharedViewport
 /*  f16a8a8:	00000000 */ 	nop
 /*  f16a8ac:	0002802b */ 	sltu	$s0,$zero,$v0
 .PF0f16a8b0:
@@ -2228,7 +2228,7 @@ glabel var7f1b8e7cpf
 /*  f16ad0c:	24010002 */ 	li	$at,0x2
 /*  f16ad10:	15c10004 */ 	bne	$t6,$at,.PF0f16ad24
 /*  f16ad14:	00000000 */ 	nop
-/*  f16ad18:	0fc3014e */ 	jal	currentPlayerUpdateShootRot
+/*  f16ad18:	0fc3014e */ 	jal	playerUpdateShootRot
 /*  f16ad1c:	02602025 */ 	move	$a0,$s3
 /*  f16ad20:	00409825 */ 	move	$s3,$v0
 .PF0f16ad24:
@@ -2640,7 +2640,7 @@ glabel var7f1b8e7cpf
 /*  f16b2f4:	24010002 */ 	li	$at,0x2
 /*  f16b2f8:	17210005 */ 	bne	$t9,$at,.PF0f16b310
 /*  f16b2fc:	00000000 */ 	nop
-/*  f16b300:	0fc3034d */ 	jal	currentPlayerRenderHud
+/*  f16b300:	0fc3034d */ 	jal	playerRenderHud
 /*  f16b304:	02602025 */ 	move	$a0,$s3
 /*  f16b308:	1000000b */ 	b	.PF0f16b338
 /*  f16b30c:	00409825 */ 	move	$s3,$v0
@@ -2954,7 +2954,7 @@ glabel var7f1b8e7cpf
 /*  f16b784:	240600ff */ 	li	$a2,0xff
 /*  f16b788:	240700ff */ 	li	$a3,0xff
 /*  f16b78c:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f16b790:	0fc2ed6b */ 	jal	fadeDraw
+/*  f16b790:	0fc2ed6b */ 	jal	playerDrawFade
 /*  f16b794:	e7aa0010 */ 	swc1	$f10,0x10($sp)
 /*  f16b798:	10000029 */ 	b	.PF0f16b840
 /*  f16b79c:	00409825 */ 	move	$s3,$v0
@@ -2996,7 +2996,7 @@ glabel var7f1b8e7cpf
 /*  f16b828:	240700ff */ 	li	$a3,0xff
 /*  f16b82c:	46125101 */ 	sub.s	$f4,$f10,$f18
 /*  f16b830:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f16b834:	0fc2ed6b */ 	jal	fadeDraw
+/*  f16b834:	0fc2ed6b */ 	jal	playerDrawFade
 /*  f16b838:	e7a80010 */ 	swc1	$f8,0x10($sp)
 /*  f16b83c:	00409825 */ 	move	$s3,$v0
 .PF0f16b840:
@@ -3051,7 +3051,7 @@ glabel var7f1b8e7cpf
 /*  f16b8e0:	24010006 */ 	li	$at,0x6
 /*  f16b8e4:	15c10031 */ 	bne	$t6,$at,.PF0f16b9ac
 /*  f16b8e8:	00000000 */ 	nop
-/*  f16b8ec:	0fc2eb66 */ 	jal	cutsceneGetBlurFrac
+/*  f16b8ec:	0fc2eb66 */ 	jal	playerGetCutsceneBlurFrac
 /*  f16b8f0:	00000000 */ 	nop
 /*  f16b8f4:	44808000 */ 	mtc1	$zero,$f16
 /*  f16b8f8:	3c01437f */ 	lui	$at,0x437f
@@ -3270,7 +3270,7 @@ glabel var7f1b8e7cpf
 /*  f16bc0c:	932e19b3 */ 	lbu	$t6,0x19b3($t9)
 /*  f16bc10:	11c00003 */ 	beqz	$t6,.PF0f16bc20
 /*  f16bc14:	00000000 */ 	nop
-/*  f16bc18:	0fc2ddff */ 	jal	currentPlayerStartNewLife
+/*  f16bc18:	0fc2ddff */ 	jal	playerStartNewLife
 /*  f16bc1c:	00000000 */ 	nop
 .PF0f16bc20:
 /*  f16bc20:	0fc4f42f */ 	jal	func0f13c54c
@@ -3282,7 +3282,7 @@ glabel var7f1b8e7cpf
 /*  f16bc38:	0542000a */ 	bltzl	$t2,.PF0f16bc64
 /*  f16bc3c:	8fb00064 */ 	lw	$s0,0x64($sp)
 .PF0f16bc40:
-/*  f16bc40:	0fc2f28f */ 	jal	is2PSharedViewport
+/*  f16bc40:	0fc2f28f */ 	jal	playerHasSharedViewport
 /*  f16bc44:	00000000 */ 	nop
 /*  f16bc48:	50400006 */ 	beqzl	$v0,.PF0f16bc64
 /*  f16bc4c:	8fb00064 */ 	lw	$s0,0x64($sp)
@@ -3522,7 +3522,7 @@ Gfx *lvRender(Gfx *gdl)
 		gdl = menuRender(gdl);
 
 		if (g_Vars.currentplayer->pausemode != PAUSEMODE_UNPAUSED) {
-			currentPlayerTickPauseMenu();
+			playerTickPauseMenu();
 		}
 	} else if (g_Vars.stagenum == STAGE_CREDITS) {
 		gSPClipRatio(gdl++, FRUSTRATIO_2);
@@ -3545,7 +3545,7 @@ Gfx *lvRender(Gfx *gdl)
 		s32 playercount;
 		Gfx *savedgdl;
 		bool forcesingleplayer = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-			&& is2PSharedViewport();
+			&& playerHasSharedViewport();
 		struct player *player;
 		struct chrdata *chr;
 
@@ -3647,7 +3647,7 @@ Gfx *lvRender(Gfx *gdl)
 				}
 			} else {
 				if (var80075d60 == 2) {
-					gdl = currentPlayerUpdateShootRot(gdl);
+					gdl = playerUpdateShootRot(gdl);
 				}
 
 				gdl = viRenderViewportEdges(gdl);
@@ -3777,7 +3777,7 @@ Gfx *lvRender(Gfx *gdl)
 				}
 
 				if (var80075d60 == 2) {
-					gdl = currentPlayerRenderHud(gdl);
+					gdl = playerRenderHud(gdl);
 				} else {
 					gdl = func0f0aeed8(gdl);
 
@@ -3938,14 +3938,14 @@ Gfx *lvRender(Gfx *gdl)
 									g_Vars.speedpillchange * 180 / 15,
 									(f32)g_Vars.speedpillchange * 0.02000000141561f + 1.1f,
 									(f32)g_Vars.speedpillchange * 0.02000000141561f + 1.1f);
-							gdl = fadeDraw(gdl, 0xff, 0xff, 0xff,
+							gdl = playerDrawFade(gdl, 0xff, 0xff, 0xff,
 									g_Vars.speedpillchange * 0.0066666668280959f);
 						} else {
 							gdl = bviewRenderZoomBlur(gdl, 0xffffffff,
 									(30 - g_Vars.speedpillchange) * 180 / 15,
 									(f32)(30 - g_Vars.speedpillchange) * 0.02000000141561f + 1.1f,
 									(f32)(30 - g_Vars.speedpillchange) * 0.02000000141561f + 1.1f);
-							gdl = fadeDraw(gdl, 0xff, 0xff, 0xff,
+							gdl = playerDrawFade(gdl, 0xff, 0xff, 0xff,
 									(30.0f - g_Vars.speedpillchange) * 0.0066666668280959f);
 						}
 
@@ -3981,7 +3981,7 @@ Gfx *lvRender(Gfx *gdl)
 
 					// Handle blur effect in cutscenes (Extraction intro?)
 					if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-						f32 cutsceneblurfrac = cutsceneGetBlurFrac();
+						f32 cutsceneblurfrac = playerGetCutsceneBlurFrac();
 
 						if (cutsceneblurfrac > 0) {
 							u32 bluramount = cutsceneblurfrac * 255;
@@ -4065,14 +4065,14 @@ Gfx *lvRender(Gfx *gdl)
 				}
 
 				if (g_Vars.currentplayer->dostartnewlife) {
-					currentPlayerStartNewLife();
+					playerStartNewLife();
 				}
 			}
 
 			func0f13c54c();
 
 			if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-					&& is2PSharedViewport()
+					&& playerHasSharedViewport()
 					&& g_Vars.currentplayernum != 0) {
 				gdl = savedgdl;
 			}
@@ -4410,7 +4410,7 @@ glabel var7f1b1fd4nb
 /*  f164438:	8d591a24 */ 	lw	$t9,0x1a24($t2)
 /*  f16443c:	53200615 */ 	beqzl	$t9,.NB0f165c94
 /*  f164440:	825904d3 */ 	lb	$t9,0x4d3($s2)
-/*  f164444:	0fc2e290 */ 	jal	currentPlayerTickPauseMenu
+/*  f164444:	0fc2e290 */ 	jal	playerTickPauseMenu
 /*  f164448:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16444c:	10000611 */ 	beqz	$zero,.NB0f165c94
 /*  f164450:	825904d3 */ 	lb	$t9,0x4d3($s2)
@@ -4811,7 +4811,7 @@ glabel var7f1b1fd4nb
 /*  f164a14:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f164a18:	15610004 */ 	bne	$t3,$at,.NB0f164a2c
 /*  f164a1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f164a20:	0fc2f6ee */ 	jal	currentPlayerUpdateShootRot
+/*  f164a20:	0fc2f6ee */ 	jal	playerUpdateShootRot
 /*  f164a24:	02602025 */ 	or	$a0,$s3,$zero
 /*  f164a28:	00409825 */ 	or	$s3,$v0,$zero
 .NB0f164a2c:
@@ -5227,7 +5227,7 @@ glabel var7f1b1fd4nb
 /*  f16500c:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f165010:	15e10007 */ 	bne	$t7,$at,.NB0f165030
 /*  f165014:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f165018:	0fc2f8ed */ 	jal	currentPlayerRenderHud
+/*  f165018:	0fc2f8ed */ 	jal	playerRenderHud
 /*  f16501c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f165020:	0fc58d05 */ 	jal	lvRenderManPosIfEnabled
 /*  f165024:	00402025 */ 	or	$a0,$v0,$zero
@@ -5687,7 +5687,7 @@ glabel var7f1b1fd4nb
 /*  f1656cc:	240600ff */ 	addiu	$a2,$zero,0xff
 /*  f1656d0:	240700ff */ 	addiu	$a3,$zero,0xff
 /*  f1656d4:	46109102 */ 	mul.s	$f4,$f18,$f16
-/*  f1656d8:	0fc2e348 */ 	jal	fadeDraw
+/*  f1656d8:	0fc2e348 */ 	jal	playerDrawFade
 /*  f1656dc:	e7a40010 */ 	swc1	$f4,0x10($sp)
 /*  f1656e0:	10000029 */ 	beqz	$zero,.NB0f165788
 /*  f1656e4:	00409825 */ 	or	$s3,$v0,$zero
@@ -5729,7 +5729,7 @@ glabel var7f1b1fd4nb
 /*  f165770:	240700ff */ 	addiu	$a3,$zero,0xff
 /*  f165774:	46082281 */ 	sub.s	$f10,$f4,$f8
 /*  f165778:	46125402 */ 	mul.s	$f16,$f10,$f18
-/*  f16577c:	0fc2e348 */ 	jal	fadeDraw
+/*  f16577c:	0fc2e348 */ 	jal	playerDrawFade
 /*  f165780:	e7b00010 */ 	swc1	$f16,0x10($sp)
 /*  f165784:	00409825 */ 	or	$s3,$v0,$zero
 .NB0f165788:
@@ -5785,7 +5785,7 @@ glabel var7f1b1fd4nb
 /*  f165828:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f16582c:	15e10031 */ 	bne	$t7,$at,.NB0f1658f4
 /*  f165830:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f165834:	0fc2e143 */ 	jal	cutsceneGetBlurFrac
+/*  f165834:	0fc2e143 */ 	jal	playerGetCutsceneBlurFrac
 /*  f165838:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16583c:	44803000 */ 	mtc1	$zero,$f6
 /*  f165840:	3c01437f */ 	lui	$at,0x437f
@@ -6054,7 +6054,7 @@ glabel var7f1b1fd4nb
 /*  f165c08:	932e19b3 */ 	lbu	$t6,0x19b3($t9)
 /*  f165c0c:	11c00003 */ 	beqz	$t6,.NB0f165c1c
 /*  f165c10:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f165c14:	0fc2d40c */ 	jal	currentPlayerStartNewLife
+/*  f165c14:	0fc2d40c */ 	jal	playerStartNewLife
 /*  f165c18:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f165c1c:
 /*  f165c1c:	0fc4dc13 */ 	jal	func0f13c54c
@@ -6381,7 +6381,7 @@ void lvUpdateSoloHandicaps(void)
 			f32 frac = 1;
 
 			if (g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
-				totalhealth = currentPlayerGetHealthFrac() + currentPlayerGetShieldFrac();
+				totalhealth = playerGetHealthFrac() + playerGetShieldFrac();
 
 				if (totalhealth <= 0.125f) {
 					frac = 0.5f;
@@ -7669,7 +7669,7 @@ glabel var7f1b8ed0pf
 /*  f16d718:	2401005d */ 	li	$at,0x5d
 /*  f16d71c:	0fc4a4ff */ 	jal	setCurrentPlayerNum
 /*  f16d720:	00002025 */ 	move	$a0,$zero
-/*  f16d724:	0fc2f738 */ 	jal	currentPlayerConfigureVi
+/*  f16d724:	0fc2f738 */ 	jal	playerConfigureVi
 /*  f16d728:	00000000 */ 	nop
 /*  f16d72c:	0fc07006 */ 	jal	menuTick
 /*  f16d730:	00000000 */ 	nop

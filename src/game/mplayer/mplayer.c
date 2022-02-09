@@ -5,7 +5,7 @@
 #include "game/game_01b0a0.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/savebuffer.h"
 #include "game/menu.h"
 #include "game/game_127910.h"
@@ -2162,7 +2162,7 @@ void mpCalculateAwards(void)
 
 	playercount = PLAYERCOUNT();
 
-	duration60 = getMissionTime();
+	duration60 = playerGetMissionTime();
 
 	func00033dd8();
 
@@ -2626,7 +2626,7 @@ glabel var7f1b8db0
 /*  f1849a8:	0258c821 */ 	addu	$t9,$s2,$t8
 /*  f1849ac:	032d7021 */ 	addu	$t6,$t9,$t5
 /*  f1849b0:	01cf8021 */ 	addu	$s0,$t6,$t7
-/*  f1849b4:	0fc2ff91 */ 	jal	getMissionTime
+/*  f1849b4:	0fc2ff91 */ 	jal	playerGetMissionTime
 /*  f1849b8:	afb0020c */ 	sw	$s0,0x20c($sp)
 /*  f1849bc:	0c00d474 */ 	jal	func00033dd8
 /*  f1849c0:	afa201fc */ 	sw	$v0,0x1fc($sp)

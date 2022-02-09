@@ -3,7 +3,7 @@
 #include "game/game_006900.h"
 #include "game/title.h"
 #include "game/game_0b3350.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/savebuffer.h"
 #include "game/menugfx.h"
 #include "game/menu.h"
@@ -6133,7 +6133,7 @@ void creditsInit(void)
 		g_CreditsData->unk4204 = PALDOWN(1140);
 	}
 
-	currentPlayerConfigureVi();
+	playerConfigureVi();
 }
 
 void creditsRequestAltTitle(void)

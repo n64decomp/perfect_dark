@@ -11,7 +11,7 @@
 #include "game/game_092610.h"
 #include "game/game_095320.h"
 #include "game/bondgun.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/inventory/inventory.h"
 #include "game/bondhead.h"
 #include "game/game_127910.h"
@@ -401,7 +401,7 @@ s32 bwalkTryMoveUpwards(f32 amount)
 
 	types = g_Vars.bondcollisions ? CDTYPE_ALL : CDTYPE_BG;
 
-	propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+	playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &newpos, rooms);
 	bmove0f0cb79c(g_Vars.currentplayer, &newpos, rooms);
 	propSetPerimEnabled(g_Vars.currentplayer->prop, false);
@@ -465,7 +465,7 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 
 		types = g_Vars.bondcollisions ? checktypes : CDTYPE_BG;
 
-		propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+		playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 		width += extrawidth;
 
 		func0f065dfc(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
@@ -629,7 +629,7 @@ glabel var7f1a7ad8nb
 .NB0f0c1b0c:
 /*  f0c1b0c:	8e0d0284 */ 	lw	$t5,0x284($s0)
 /*  f0c1b10:	27a70058 */ 	addiu	$a3,$sp,0x58
-/*  f0c1b14:	0fc2ff20 */ 	jal	propPlayerGetBbox
+/*  f0c1b14:	0fc2ff20 */ 	jal	playerGetBbox
 /*  f0c1b18:	8da400bc */ 	lw	$a0,0xbc($t5)
 /*  f0c1b1c:	c7a40054 */ 	lwc1	$f4,0x54($sp)
 /*  f0c1b20:	c7a600c4 */ 	lwc1	$f6,0xc4($sp)
@@ -2118,7 +2118,7 @@ s32 bwalk0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s3
 	f32 tmp;
 	f32 width;
 
-	propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+	playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 
 	sp34.x = arg1->x - (g_Vars.currentplayer->prop->pos.x + arg0->f[0]);
 	sp34.z = arg1->z - (g_Vars.currentplayer->prop->pos.z + arg0->f[2]);
@@ -2260,7 +2260,7 @@ void bwalkUpdateVertical(void)
 	f32 newfallspeed;
 	struct prop *prop;
 
-	propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+	playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 
 	// Maybe reset counter-op's width - not sure why
 	// Maybe it gets set to 0 when they die?
@@ -2432,7 +2432,7 @@ void bwalkUpdateVertical(void)
 				&& g_Vars.currentplayer->vv_manground - 20.0f < g_Vars.currentplayer->vv_ground
 				&& g_Vars.currentplayer->onladder == false
 				&& onladder2 == false) {
-			currentPlayerDie(true);
+			playerDie(true);
 		}
 	}
 
@@ -2475,7 +2475,7 @@ void bwalkUpdateVertical(void)
 			} else {
 				if (g_Vars.lvframe60 - g_Vars.currentplayer->fallstart > PALDOWN(240)) {
 					// Have been falling for 4 seconds
-					currentPlayerDie(true);
+					playerDie(true);
 				}
 			}
 		} else {
@@ -2498,7 +2498,7 @@ void bwalkUpdateVertical(void)
 						setCurrentPlayerNum(propGetPlayerNum(prop));
 
 						if (g_Vars.currentplayer->inlift) {
-							currentPlayerDieByShooter(prevplayernum, true);
+							playerDieByShooter(prevplayernum, true);
 						}
 
 						setCurrentPlayerNum(prevplayernum);
@@ -2513,7 +2513,7 @@ void bwalkUpdateVertical(void)
 			}
 
 			if (g_Vars.currentplayer->vv_manground <= -30000) {
-				currentPlayerDie(true);
+				playerDie(true);
 			}
 		}
 	} else {
@@ -2523,7 +2523,7 @@ void bwalkUpdateVertical(void)
 		}
 
 		if (g_Vars.currentplayer->vv_manground <= -30000) {
-			currentPlayerDie(true);
+			playerDie(true);
 		}
 	}
 
@@ -2706,7 +2706,7 @@ glabel var7f1a7b20nb
 /*  f0c2bf8:	27a500e4 */ 	addiu	$a1,$sp,0xe4
 /*  f0c2bfc:	27a600e0 */ 	addiu	$a2,$sp,0xe0
 /*  f0c2c00:	27a700dc */ 	addiu	$a3,$sp,0xdc
-/*  f0c2c04:	0fc2ff20 */ 	jal	propPlayerGetBbox
+/*  f0c2c04:	0fc2ff20 */ 	jal	playerGetBbox
 /*  f0c2c08:	8dc400bc */ 	lw	$a0,0xbc($t6)
 /*  f0c2c0c:	3c017f1a */ 	lui	$at,0x7f1a
 /*  f0c2c10:	c4267adc */ 	lwc1	$f6,0x7adc($at)
@@ -3087,7 +3087,7 @@ glabel var7f1a7b20nb
 /*  f0c3194:	4602003c */ 	c.lt.s	$f0,$f2
 /*  f0c3198:	57000007 */ 	bnezl	$t8,.NB0f0c31b8
 /*  f0c319c:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f0c31a0:	0fc2fbde */ 	jal	currentPlayerDie
+/*  f0c31a0:	0fc2fbde */ 	jal	playerDie
 /*  f0c31a4:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0c31a8:	8e020284 */ 	lw	$v0,0x284($s0)
 /*  f0c31ac:	c4420074 */ 	lwc1	$f2,0x74($v0)
@@ -3201,7 +3201,7 @@ glabel var7f1a7b20nb
 /*  f0c3348:	2b0100f1 */ 	slti	$at,$t8,0xf1
 /*  f0c334c:	5420002c */ 	bnezl	$at,.NB0f0c3400
 /*  f0c3350:	c44e0080 */ 	lwc1	$f14,0x80($v0)
-/*  f0c3354:	0fc2fbde */ 	jal	currentPlayerDie
+/*  f0c3354:	0fc2fbde */ 	jal	playerDie
 /*  f0c3358:	afa300ec */ 	sw	$v1,0xec($sp)
 /*  f0c335c:	8fa300ec */ 	lw	$v1,0xec($sp)
 /*  f0c3360:	10000026 */ 	beqz	$zero,.NB0f0c33fc
@@ -3224,7 +3224,7 @@ glabel var7f1a7b20nb
 /*  f0c339c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c33a0:	45020017 */ 	bc1fl	.NB0f0c3400
 /*  f0c33a4:	c44e0080 */ 	lwc1	$f14,0x80($v0)
-/*  f0c33a8:	0fc2fbde */ 	jal	currentPlayerDie
+/*  f0c33a8:	0fc2fbde */ 	jal	playerDie
 /*  f0c33ac:	afa300ec */ 	sw	$v1,0xec($sp)
 /*  f0c33b0:	8fa300ec */ 	lw	$v1,0xec($sp)
 /*  f0c33b4:	10000011 */ 	beqz	$zero,.NB0f0c33fc
@@ -3243,7 +3243,7 @@ glabel var7f1a7b20nb
 /*  f0c33e0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c33e4:	45020006 */ 	bc1fl	.NB0f0c3400
 /*  f0c33e8:	c44e0080 */ 	lwc1	$f14,0x80($v0)
-/*  f0c33ec:	0fc2fbde */ 	jal	currentPlayerDie
+/*  f0c33ec:	0fc2fbde */ 	jal	playerDie
 /*  f0c33f0:	afa300ec */ 	sw	$v1,0xec($sp)
 /*  f0c33f4:	8fa300ec */ 	lw	$v1,0xec($sp)
 /*  f0c33f8:	8e020284 */ 	lw	$v0,0x284($s0)
@@ -4461,7 +4461,7 @@ glabel var7f1ad854
 /*  f0c77a8:	e46a029c */ 	swc1	$f10,0x29c($v1)
 /*  f0c77ac:	8c6400bc */ 	lw	$a0,0xbc($v1)
 .PF0f0c77b0:
-/*  f0c77b0:	0fc30989 */ 	jal	propPlayerGetBbox
+/*  f0c77b0:	0fc30989 */ 	jal	playerGetBbox
 /*  f0c77b4:	e7a00074 */ 	swc1	$f0,0x74($sp)
 /*  f0c77b8:	3c08800a */ 	lui	$t0,0x800a
 /*  f0c77bc:	3c017f1b */ 	lui	$at,0x7f1b
@@ -5512,7 +5512,7 @@ glabel var7f1ad854
 /*  f0c7210:	e466029c */ 	swc1	$f6,0x29c($v1)
 /*  f0c7214:	8c6400bc */ 	lw	$a0,0xbc($v1)
 .L0f0c7218:
-/*  f0c7218:	0fc3082e */ 	jal	propPlayerGetBbox
+/*  f0c7218:	0fc3082e */ 	jal	playerGetBbox
 /*  f0c721c:	e7a00074 */ 	swc1	$f0,0x74($sp)
 /*  f0c7220:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0c7224:	3c017f1b */ 	lui	$at,%hi(var7f1ad840)
@@ -6515,7 +6515,7 @@ glabel var7f1ad854
 /*  f0c4adc:	e466029c */ 	swc1	$f6,0x29c($v1)
 /*  f0c4ae0:	8c6400bc */ 	lw	$a0,0xbc($v1)
 .NB0f0c4ae4:
-/*  f0c4ae4:	0fc2ff20 */ 	jal	propPlayerGetBbox
+/*  f0c4ae4:	0fc2ff20 */ 	jal	playerGetBbox
 /*  f0c4ae8:	e7a00074 */ 	swc1	$f0,0x74($sp)
 /*  f0c4aec:	3c08800a */ 	lui	$t0,0x800a
 /*  f0c4af0:	3c017f1a */ 	lui	$at,0x7f1a
@@ -7187,7 +7187,7 @@ u32 var80070e70 = 0x00000000;
 //					spcc.z += sp74 * g_Vars.currentplayer->laddernormal.z;
 //					g_Vars.currentplayer->ladderupdown = sp74 * 0.3f;
 //				} else {
-//					propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+//					playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 //
 //					lVar2 = cd0002a13c(&g_Vars.currentplayer->prop->pos,
 //							width * 1.1f, ymax - g_Vars.currentplayer->prop->pos.y,
@@ -7381,6 +7381,6 @@ void bwalkTick(void)
 		bmove0f0cc19c(&g_Vars.currentplayer->prop->pos);
 	}
 
-	currentPlayerUpdatePerimInfo();
+	playerUpdatePerimInfo();
 	doorsCheckAutomatic();
 }

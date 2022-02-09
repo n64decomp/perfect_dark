@@ -16,7 +16,7 @@
 #include "game/game_0b28d0.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b4950.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/game_0c33f0.h"
 #include "game/game_127910.h"
 #include "game/game_1291b0.h"

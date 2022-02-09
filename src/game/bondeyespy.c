@@ -6,7 +6,7 @@
 #include "game/prop.h"
 #include "game/game_092610.h"
 #include "game/bondgun.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/hudmsg.h"
 #include "game/inventory/inventory.h"
 #include "game/mplayer/ingame.h"
@@ -4529,7 +4529,7 @@ glabel var7f1adb00
 /*  f0ce8a0:	8d380314 */ 	lw	$t8,0x314($t1)
 /*  f0ce8a4:	17000008 */ 	bnez	$t8,.NB0f0ce8c8
 /*  f0ce8a8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ce8ac:	0fc2e2f8 */ 	jal	currentPlayerPause
+/*  f0ce8ac:	0fc2e2f8 */ 	jal	playerPause
 /*  f0ce8b0:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f0ce8b4:	3c09800a */ 	lui	$t1,0x800a
 /*  f0ce8b8:	2529e6c0 */ 	addiu	$t1,$t1,-6464
@@ -5777,7 +5777,7 @@ glabel var7f1adb00
 //				&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED
 //				&& (c1buttons & START_BUTTON)) {
 //			if (!g_Vars.normmplayerisrunning) {
-//				currentPlayerPause(MENUROOT_MAINMENU);
+//				playerPause(MENUROOT_MAINMENU);
 //			} else {
 //				mpPushPauseDialog();
 //			}

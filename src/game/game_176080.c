@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "lib/sched.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/game_176080.h"
 #include "game/mplayer/mplayer.h"
 #include "game/options.h"
@@ -103,7 +103,7 @@ Gfx *func0f1762ac(Gfx *gdl)
 
 	if (g_Vars.normmplayerisrunning
 			&& (g_Vars.currentplayernum >= 2 || (PLAYERCOUNT() == 2 && g_Vars.currentplayernum == 1))) {
-		subamount = viGetFbWidth() * viGetFbHeight();
+		subamount = playerGetFbWidth() * playerGetFbHeight();
 
 		if (IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 			subamount = 0;
@@ -131,20 +131,20 @@ Gfx *func0f1763f4(Gfx *gdl)
 	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetWidth(), OS_PHYSICAL_TO_K0(var800844f4));
 	gDPSetCycleType(gdl++, G_CYC_FILL);
 	gDPSetFillColor(gdl++, 0xfffcfffc);
-	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetFbWidth() * 4.0f, viGetFbHeight() * 4.0f);
+	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 0, playerGetFbWidth() * 4.0f, playerGetFbHeight() * 4.0f);
 
 	if (PLAYERCOUNT() <= 2) {
 		left = 0;
-		right = viGetFbWidth() - 1;
+		right = playerGetFbWidth() - 1;
 	} else if (g_Vars.currentplayernum == 0 || g_Vars.currentplayernum == 2) {
 		left = 0;
-		right = viGetFbWidth() / 2 - 1;
+		right = playerGetFbWidth() / 2 - 1;
 	} else {
-		left = viGetFbWidth() / 2;
-		right = viGetFbWidth() - 1;
+		left = playerGetFbWidth() / 2;
+		right = playerGetFbWidth() - 1;
 	}
 
-	gDPFillRectangle(gdl++, left, 0, right, viGetFbHeight() - 1);
+	gDPFillRectangle(gdl++, left, 0, right, playerGetFbHeight() - 1);
 	gDPPipeSync(gdl++);
 
 	return gdl;

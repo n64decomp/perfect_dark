@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b4950.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/file.h"
 #include "game/game_176080.h"
 #include "game/gfxmemory.h"
@@ -158,7 +158,7 @@ void viConfigureForLegal(void)
 	g_Vars.fourmeg2player = false;
 
 #if VERSION >= VERSION_PAL_FINAL
-	viResetLoResIf4Mb();
+	playerResetLoResIf4Mb();
 #endif
 }
 
@@ -1949,7 +1949,7 @@ Gfx *viRenderViewportEdges(Gfx *gdl)
 #if VERSION >= VERSION_NTSC_1_0
 	if (PLAYERCOUNT() == 1
 			|| ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-				&& is2PSharedViewport() && g_Vars.currentplayernum == 0))
+				&& playerHasSharedViewport() && g_Vars.currentplayernum == 0))
 #else
 	if (PLAYERCOUNT() == 1
 			|| ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)

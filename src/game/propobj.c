@@ -27,7 +27,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_0b4950.h"
 #include "game/game_0b63b0.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/game_0c33f0.h"
 #include "game/hudmsg.h"
 #include "game/menu.h"
@@ -33920,7 +33920,7 @@ glabel var7f1aa454
 /*  f077a14:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f077a18:	0fc318ef */ 	jal	bwalk0f0c63bc
 /*  f077a1c:	24060020 */ 	addiu	$a2,$zero,0x20
-/*  f077a20:	0fc307fd */ 	jal	currentPlayerUpdatePerimInfo
+/*  f077a20:	0fc307fd */ 	jal	playerUpdatePerimInfo
 /*  f077a24:	00000000 */ 	nop
 /*  f077a28:	0fc32e31 */ 	jal	bmove0f0cb8c4
 /*  f077a2c:	8e440064 */ 	lw	$a0,0x64($s2)
@@ -34014,7 +34014,7 @@ glabel var7f1aa454
 /*  f077b80:	46188203 */ 	div.s	$f8,$f16,$f24
 /*  f077b84:	e6080070 */ 	swc1	$f8,0x70($s0)
 .L0f077b88:
-/*  f077b88:	0fc307fd */ 	jal	currentPlayerUpdatePerimInfo
+/*  f077b88:	0fc307fd */ 	jal	playerUpdatePerimInfo
 /*  f077b8c:	00000000 */ 	nop
 /*  f077b90:	0fc32e31 */ 	jal	bmove0f0cb8c4
 /*  f077b94:	8e440064 */ 	lw	$a0,0x64($s2)
@@ -34306,7 +34306,7 @@ glabel var7f1aa454
 /*  f077a14:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f077a18:	0fc318ef */ 	jal	bwalk0f0c63bc
 /*  f077a1c:	24060020 */ 	addiu	$a2,$zero,0x20
-/*  f077a20:	0fc307fd */ 	jal	currentPlayerUpdatePerimInfo
+/*  f077a20:	0fc307fd */ 	jal	playerUpdatePerimInfo
 /*  f077a24:	00000000 */ 	nop
 /*  f077a28:	0fc32e31 */ 	jal	bmove0f0cb8c4
 /*  f077a2c:	8e440064 */ 	lw	$a0,0x64($s2)
@@ -34400,7 +34400,7 @@ glabel var7f1aa454
 /*  f077b80:	46188203 */ 	div.s	$f8,$f16,$f24
 /*  f077b84:	e6080070 */ 	swc1	$f8,0x70($s0)
 .L0f077b88:
-/*  f077b88:	0fc307fd */ 	jal	currentPlayerUpdatePerimInfo
+/*  f077b88:	0fc307fd */ 	jal	playerUpdatePerimInfo
 /*  f077b8c:	00000000 */ 	nop
 /*  f077b90:	0fc32e31 */ 	jal	bmove0f0cb8c4
 /*  f077b94:	8e440064 */ 	lw	$a0,0x64($s2)
@@ -34718,7 +34718,7 @@ glabel var7f1aa454
 /*  f076680:	c4284774 */ 	lwc1	$f8,0x4774($at)
 /*  f076684:	c4500074 */ 	lwc1	$f16,0x74($v0)
 /*  f076688:	46088283 */ 	div.s	$f10,$f16,$f8
-/*  f07668c:	0fc2feef */ 	jal	currentPlayerUpdatePerimInfo
+/*  f07668c:	0fc2feef */ 	jal	playerUpdatePerimInfo
 /*  f076690:	e44a0070 */ 	swc1	$f10,0x70($v0)
 /*  f076694:	0fc3243d */ 	jal	bmove0f0cb8c4
 /*  f076698:	8e040064 */ 	lw	$a0,0x64($s0)
@@ -52081,7 +52081,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool w
 
 		if (withalpha) {
 			if (sp6c) {
-				func0f0c3320(model->matrices, model->filedata->nummatrices);
+				player0f0c3320(model->matrices, model->filedata->nummatrices);
 			} else {
 				func0f0c33f0(model->matrices, model->filedata->nummatrices);
 			}
@@ -62950,7 +62950,7 @@ glabel var7f1aae70
 .L0f088dc8:
 /*  f088dc8:	10000076 */ 	b	.L0f088fa4
 /*  f088dcc:	8fa20098 */ 	lw	$v0,0x98($sp)
-/*  f088dd0:	0fc30884 */ 	jal	currentPlayerSetShieldFrac
+/*  f088dd0:	0fc30884 */ 	jal	playerSetShieldFrac
 /*  f088dd4:	c4cc0060 */ 	lwc1	$f12,0x60($a2)
 /*  f088dd8:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x4cc)
 /*  f088ddc:	8d6ba48c */ 	lw	$t3,%lo(g_Vars+0x4cc)($t3)
@@ -63597,7 +63597,7 @@ glabel var7f1aae70
 .L0f088dc8:
 /*  f088dc8:	10000076 */ 	b	.L0f088fa4
 /*  f088dcc:	8fa20098 */ 	lw	$v0,0x98($sp)
-/*  f088dd0:	0fc30884 */ 	jal	currentPlayerSetShieldFrac
+/*  f088dd0:	0fc30884 */ 	jal	playerSetShieldFrac
 /*  f088dd4:	c4cc0060 */ 	lwc1	$f12,0x60($a2)
 /*  f088dd8:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x4cc)
 /*  f088ddc:	8d6ba48c */ 	lw	$t3,%lo(g_Vars+0x4cc)($t3)
@@ -64244,7 +64244,7 @@ glabel var7f1aae70
 .L0f088dc8:
 /*  f088dc8:	10000076 */ 	b	.L0f088fa4
 /*  f088dcc:	8fa20098 */ 	lw	$v0,0x98($sp)
-/*  f088dd0:	0fc30884 */ 	jal	currentPlayerSetShieldFrac
+/*  f088dd0:	0fc30884 */ 	jal	playerSetShieldFrac
 /*  f088dd4:	c4cc0060 */ 	lwc1	$f12,0x60($a2)
 /*  f088dd8:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x4cc)
 /*  f088ddc:	8d6ba48c */ 	lw	$t3,%lo(g_Vars+0x4cc)($t3)
@@ -64616,7 +64616,7 @@ glabel var7f1aae70
 //	case OBJTYPE_SHIELD: // f088dd0 - shield
 //		{
 //			struct shieldobj *shield = (struct shieldobj *)obj;
-//			currentPlayerSetShieldFrac(shield->amount);
+//			playerSetShieldFrac(shield->amount);
 //
 //			if (g_Vars.in_cutscene == false) {
 //				sndStart(var80095200, SFX_PICKUP_SHIELD, NULL, -1, -1, -1, -1, -1);
@@ -64895,7 +64895,7 @@ s32 objTestForPickup(struct prop *prop)
 		struct shieldobj *shield = (struct shieldobj *) prop->obj;
 		bool ignore = false;
 
-		if (shield->amount <= currentPlayerGetShieldFrac()) {
+		if (shield->amount <= playerGetShieldFrac()) {
 			ignore = true;
 		} else if (g_Vars.normmplayerisrunning
 				&& g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE

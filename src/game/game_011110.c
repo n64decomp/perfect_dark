@@ -10,7 +10,7 @@
 #include "game/prop.h"
 #include "game/game_091e10.h"
 #include "game/bondgun.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/inventory/inventory.h"
 #include "game/game_1655c0.h"
 #include "game/mplayer/scenarios.h"
@@ -513,7 +513,7 @@ glabel var7f1a827c
 /*  f011950:	afa00080 */ 	sw	$zero,0x80($sp)
 /*  f011954:	8e10d59c */ 	lw	$s0,-0x2a64($s0)
 /*  f011958:	a3a0007b */ 	sb	$zero,0x7b($sp)
-/*  f01195c:	0fc2f254 */ 	jal	viResetLoResIf4Mb
+/*  f01195c:	0fc2f254 */ 	jal	playerResetLoResIf4Mb
 /*  f011960:	e7a40088 */ 	swc1	$f4,0x88($sp)
 /*  f011964:	0fc63d8b */ 	jal	func0f18e558
 /*  f011968:	00000000 */ 	nop
@@ -549,7 +549,7 @@ glabel var7f1a827c
 /*  f0119e0:	ac430004 */ 	sw	$v1,0x4($v0)
 /*  f0119e4:	ac430008 */ 	sw	$v1,0x8($v0)
 /*  f0119e8:	ac43000c */ 	sw	$v1,0xc($v0)
-/*  f0119ec:	0fc2e6d7 */ 	jal	setTickMode
+/*  f0119ec:	0fc2e6d7 */ 	jal	playerSetTickMode
 /*  f0119f0:	ac200a40 */ 	sw	$zero,0xa40($at)
 /*  f0119f4:	3c018007 */ 	lui	$at,0x8007
 /*  f0119f8:	ac200a24 */ 	sw	$zero,0xa24($at)
@@ -1120,7 +1120,7 @@ glabel var7f1a827c
 /*  f012210:	46109103 */ 	div.s	$f4,$f18,$f16
 /*  f012214:	e7240144 */ 	swc1	$f4,0x144($t9)
 /*  f012218:	8e240284 */ 	lw	$a0,0x284($s1)
-/*  f01221c:	0fc2e2b0 */ 	jal	func0f0b85a0
+/*  f01221c:	0fc2e2b0 */ 	jal	playerResetBond
 /*  f012220:	2484036c */ 	addiu	$a0,$a0,0x36c
 /*  f012224:	0c00685b */ 	jal	sinf
 /*  f012228:	c7ac0088 */ 	lwc1	$f12,0x88($sp)
@@ -1167,7 +1167,7 @@ glabel var7f1a827c
 /*  f0122cc:	8e220284 */ 	lw	$v0,0x284($s1)
 /*  f0122d0:	87a7008c */ 	lh	$a3,0x8c($sp)
 /*  f0122d4:	24450394 */ 	addiu	$a1,$v0,0x394
-/*  f0122d8:	0fc30864 */ 	jal	currentPlayerSetCamPropertiesWithRoom
+/*  f0122d8:	0fc30864 */ 	jal	playerSetCamPropertiesWithRoom
 /*  f0122dc:	24460388 */ 	addiu	$a2,$v0,0x388
 /*  f0122e0:	0fc0797c */ 	jal	chrsGetNumSlots
 /*  f0122e4:	00000000 */ 	nop
@@ -1225,7 +1225,7 @@ glabel var7f1a827c
 /*  f0123a0:	10000003 */ 	b	.PF0f0123b0
 /*  f0123a4:	00000000 */ 	nop
 .PF0f0123a8:
-/*  f0123a8:	0fc2e7d0 */ 	jal	func0f0b9a20
+/*  f0123a8:	0fc2e7d0 */ 	jal	player0f0b9a20
 /*  f0123ac:	00000000 */ 	nop
 .PF0f0123b0:
 /*  f0123b0:	3c048007 */ 	lui	$a0,0x8007
@@ -1262,7 +1262,7 @@ glabel var7f1a827c
 /*  f012420:	ac4004b4 */ 	sw	$zero,0x4b4($v0)
 /*  f012424:	27a40048 */ 	addiu	$a0,$sp,0x48
 /*  f012428:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f01242c:	0fc2e313 */ 	jal	currentPlayerChooseBodyAndHead
+/*  f01242c:	0fc2e313 */ 	jal	playerChooseBodyAndHead
 /*  f012430:	00003025 */ 	move	$a2,$zero
 /*  f012434:	8e2a0284 */ 	lw	$t2,0x284($s1)
 /*  f012438:	8faf0048 */ 	lw	$t7,0x48($sp)
@@ -1335,7 +1335,7 @@ glabel var7f1a827c
 /*  f011930:	afa00080 */ 	sw	$zero,0x80($sp)
 /*  f011934:	8e10d03c */ 	lw	$s0,%lo(g_StageSetup+0xc)($s0)
 /*  f011938:	a3a0007b */ 	sb	$zero,0x7b($sp)
-/*  f01193c:	0fc2f0fc */ 	jal	viResetLoResIf4Mb
+/*  f01193c:	0fc2f0fc */ 	jal	playerResetLoResIf4Mb
 /*  f011940:	e7a40088 */ 	swc1	$f4,0x88($sp)
 /*  f011944:	0fc63956 */ 	jal	func0f18e558
 /*  f011948:	00000000 */ 	nop
@@ -1370,10 +1370,10 @@ glabel var7f1a827c
 /*  f0119bc:	ac430004 */ 	sw	$v1,0x4($v0)
 /*  f0119c0:	ac430008 */ 	sw	$v1,0x8($v0)
 /*  f0119c4:	ac43000c */ 	sw	$v1,0xc($v0)
-/*  f0119c8:	0fc2e58f */ 	jal	setTickMode
+/*  f0119c8:	0fc2e58f */ 	jal	playerSetTickMode
 /*  f0119cc:	ac200760 */ 	sw	$zero,%lo(g_PlayerInvincible)($at)
-/*  f0119d0:	3c018007 */ 	lui	$at,%hi(var80070744)
-/*  f0119d4:	ac200744 */ 	sw	$zero,%lo(var80070744)($at)
+/*  f0119d0:	3c018007 */ 	lui	$at,%hi(g_PlayerTriggerGeFadeIn)
+/*  f0119d4:	ac200744 */ 	sw	$zero,%lo(g_PlayerTriggerGeFadeIn)($at)
 /*  f0119d8:	3c018007 */ 	lui	$at,%hi(var80070748)
 /*  f0119dc:	ac200748 */ 	sw	$zero,%lo(var80070748)($at)
 /*  f0119e0:	3c018007 */ 	lui	$at,%hi(var8007074c)
@@ -1941,7 +1941,7 @@ glabel var7f1a827c
 /*  f0121ec:	460a8483 */ 	div.s	$f18,$f16,$f10
 /*  f0121f0:	e7320144 */ 	swc1	$f18,0x144($t9)
 /*  f0121f4:	8e240284 */ 	lw	$a0,0x284($s1)
-/*  f0121f8:	0fc2e168 */ 	jal	func0f0b85a0
+/*  f0121f8:	0fc2e168 */ 	jal	playerResetBond
 /*  f0121fc:	2484036c */ 	addiu	$a0,$a0,0x36c
 /*  f012200:	0c0068f7 */ 	jal	sinf
 /*  f012204:	c7ac0088 */ 	lwc1	$f12,0x88($sp)
@@ -1988,7 +1988,7 @@ glabel var7f1a827c
 /*  f0122a8:	8e220284 */ 	lw	$v0,0x284($s1)
 /*  f0122ac:	87a7008c */ 	lh	$a3,0x8c($sp)
 /*  f0122b0:	24450394 */ 	addiu	$a1,$v0,0x394
-/*  f0122b4:	0fc30709 */ 	jal	currentPlayerSetCamPropertiesWithRoom
+/*  f0122b4:	0fc30709 */ 	jal	playerSetCamPropertiesWithRoom
 /*  f0122b8:	24460388 */ 	addiu	$a2,$v0,0x388
 /*  f0122bc:	0fc07934 */ 	jal	chrsGetNumSlots
 /*  f0122c0:	00000000 */ 	nop
@@ -2046,7 +2046,7 @@ glabel var7f1a827c
 /*  f01237c:	10000003 */ 	b	.L0f01238c
 /*  f012380:	00000000 */ 	nop
 .L0f012384:
-/*  f012384:	0fc2e688 */ 	jal	func0f0b9a20
+/*  f012384:	0fc2e688 */ 	jal	player0f0b9a20
 /*  f012388:	00000000 */ 	nop
 .L0f01238c:
 /*  f01238c:	3c048007 */ 	lui	$a0,%hi(g_DeathAnimations)
@@ -2083,7 +2083,7 @@ glabel var7f1a827c
 /*  f0123fc:	ac4004b4 */ 	sw	$zero,0x4b4($v0)
 /*  f012400:	27a40048 */ 	addiu	$a0,$sp,0x48
 /*  f012404:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f012408:	0fc2e1cb */ 	jal	currentPlayerChooseBodyAndHead
+/*  f012408:	0fc2e1cb */ 	jal	playerChooseBodyAndHead
 /*  f01240c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f012410:	8e2a0284 */ 	lw	$t2,0x284($s1)
 /*  f012414:	8faf0048 */ 	lw	$t7,0x48($sp)
@@ -2156,7 +2156,7 @@ glabel var7f1a827c
 /*  f011670:	afa00080 */ 	sw	$zero,0x80($sp)
 /*  f011674:	8e10176c */ 	lw	$s0,0x176c($s0)
 /*  f011678:	a3a0007b */ 	sb	$zero,0x7b($sp)
-/*  f01167c:	0fc2e831 */ 	jal	viResetLoResIf4Mb
+/*  f01167c:	0fc2e831 */ 	jal	playerResetLoResIf4Mb
 /*  f011680:	e7a40088 */ 	swc1	$f4,0x88($sp)
 /*  f011684:	0fc621c6 */ 	jal	func0f18e558
 /*  f011688:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2191,7 +2191,7 @@ glabel var7f1a827c
 /*  f0116fc:	ac430004 */ 	sw	$v1,0x4($v0)
 /*  f011700:	ac430008 */ 	sw	$v1,0x8($v0)
 /*  f011704:	ac43000c */ 	sw	$v1,0xc($v0)
-/*  f011708:	0fc2dcc6 */ 	jal	setTickMode
+/*  f011708:	0fc2dcc6 */ 	jal	playerSetTickMode
 /*  f01170c:	ac202e20 */ 	sw	$zero,0x2e20($at)
 /*  f011710:	3c018007 */ 	lui	$at,0x8007
 /*  f011714:	ac202e04 */ 	sw	$zero,0x2e04($at)
@@ -2754,7 +2754,7 @@ glabel var7f1a827c
 /*  f011f10:	460a8483 */ 	div.s	$f18,$f16,$f10
 /*  f011f14:	e7320144 */ 	swc1	$f18,0x144($t9)
 /*  f011f18:	8e240284 */ 	lw	$a0,0x284($s1)
-/*  f011f1c:	0fc2d8ae */ 	jal	func0f0b85a0
+/*  f011f1c:	0fc2d8ae */ 	jal	playerResetBond
 /*  f011f20:	2484036c */ 	addiu	$a0,$a0,0x36c
 /*  f011f24:	0c006d55 */ 	jal	sinf
 /*  f011f28:	c7ac0088 */ 	lwc1	$f12,0x88($sp)
@@ -2801,7 +2801,7 @@ glabel var7f1a827c
 /*  f011fcc:	8e220284 */ 	lw	$v0,0x284($s1)
 /*  f011fd0:	87a7008c */ 	lh	$a3,0x8c($sp)
 /*  f011fd4:	24450394 */ 	addiu	$a1,$v0,0x394
-/*  f011fd8:	0fc2fdfb */ 	jal	currentPlayerSetCamPropertiesWithRoom
+/*  f011fd8:	0fc2fdfb */ 	jal	playerSetCamPropertiesWithRoom
 /*  f011fdc:	24460388 */ 	addiu	$a2,$v0,0x388
 /*  f011fe0:	0fc0786c */ 	jal	chrsGetNumSlots
 /*  f011fe4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2859,7 +2859,7 @@ glabel var7f1a827c
 /*  f0120a0:	10000003 */ 	beqz	$zero,.NB0f0120b0
 /*  f0120a4:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f0120a8:
-/*  f0120a8:	0fc2ddbf */ 	jal	func0f0b9a20
+/*  f0120a8:	0fc2ddbf */ 	jal	player0f0b9a20
 /*  f0120ac:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f0120b0:
 /*  f0120b0:	3c048007 */ 	lui	$a0,0x8007
@@ -2896,7 +2896,7 @@ glabel var7f1a827c
 /*  f012120:	ac4004b4 */ 	sw	$zero,0x4b4($v0)
 /*  f012124:	27a40048 */ 	addiu	$a0,$sp,0x48
 /*  f012128:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f01212c:	0fc2d911 */ 	jal	currentPlayerChooseBodyAndHead
+/*  f01212c:	0fc2d911 */ 	jal	playerChooseBodyAndHead
 /*  f012130:	00003025 */ 	or	$a2,$zero,$zero
 /*  f012134:	8e2a0284 */ 	lw	$t2,0x284($s1)
 /*  f012138:	8faf0048 */ 	lw	$t7,0x48($sp)
@@ -2934,7 +2934,7 @@ glabel var7f1a827c
 //	s32 bodynum;
 //	s32 headnum;
 //
-//	viResetLoResIf4Mb();
+//	playerResetLoResIf4Mb();
 //	func0f18e558();
 //
 //	g_InCutscene = false;
@@ -2954,9 +2954,9 @@ glabel var7f1a827c
 //	g_PlayersWithControl[3] = true;
 //	g_PlayerInvincible = false;
 //
-//	setTickMode(TICKMODE_0);
+//	playerSetTickMode(TICKMODE_GE_FADEIN);
 //
-//	var80070744 = 0;
+//	g_PlayerTriggerGeFadeIn = 0;
 //	var80070748 = 0;
 //	var8007074c = 0;
 //
@@ -3214,7 +3214,7 @@ glabel var7f1a827c
 //	g_Vars.currentplayer->vv_ground = groundy;
 //	g_Vars.currentplayer->vv_theta = (turnanglerad * 360.0f) / M_BADTAU;
 //
-//	func0f0b85a0(&g_Vars.currentplayer->bond2, &pos);
+//	playerResetBond(&g_Vars.currentplayer->bond2, &pos);
 //
 //	g_Vars.currentplayer->bond2.unk00.x = -sinf(turnanglerad);
 //	g_Vars.currentplayer->bond2.unk00.y = 0;
@@ -3232,7 +3232,7 @@ glabel var7f1a827c
 //	g_Vars.currentplayer->prop->rooms[0] = rooms[0];
 //	g_Vars.currentplayer->prop->rooms[1] = -1;
 //
-//	currentPlayerSetCamPropertiesWithRoom(&pos,
+//	playerSetCamPropertiesWithRoom(&pos,
 //			&g_Vars.currentplayer->bond2.unk28,
 //			&g_Vars.currentplayer->bond2.unk1c, rooms[0]);
 //
@@ -3249,7 +3249,7 @@ glabel var7f1a827c
 //	if (g_Vars.normmplayerisrunning) {
 //		playersBeginMpSwirl();
 //	} else {
-//		func0f0b9a20();
+//		player0f0b9a20();
 //	}
 //
 //	g_NumDeathAnimations = 0;
@@ -3265,7 +3265,7 @@ glabel var7f1a827c
 //		g_Vars.aibuddies[i] = 0;
 //	}
 //
-//	currentPlayerChooseBodyAndHead(&bodynum, &headnum, 0);
+//	playerChooseBodyAndHead(&bodynum, &headnum, 0);
 //	g_Vars.currentplayer->prop->chr->bodynum = bodynum;
 //	g_Vars.currentplayer->prop->chr->headnum = headnum;
 //}

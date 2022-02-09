@@ -15,7 +15,7 @@
 #include "game/game_0b0fd0.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b4950.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/bondcutscene.h"
 #include "game/bondhead.h"
 #include "game/game_127910.h"
@@ -412,7 +412,7 @@ f32 bmoveCalculateLookahead(void)
 		return result;
 	}
 
-	propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+	playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 
 	sp100.x = g_Vars.currentplayer->bond2.unk00.x;
 	sp100.y = g_Vars.currentplayer->bond2.unk00.y;
@@ -688,7 +688,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 		if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED && (c1buttonsthisframe & START_BUTTON)) {
 			if (g_Vars.mplayerisrunning == false) {
 				if (g_Vars.lvframenum > 15) {
-					currentPlayerPause(MENUROOT_MAINMENU);
+					playerPause(MENUROOT_MAINMENU);
 				}
 			} else {
 				mpPushPauseDialog();
@@ -1530,8 +1530,8 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 			zoomfov = 60;
 		}
 
-		func0f0ba8b0(zoomfov);
-		currentPlayerUpdateZoom();
+		playerTweenFovY(zoomfov);
+		playerUpdateZoom();
 	}
 
 	bmoveApplyMoveData(&movedata);

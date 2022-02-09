@@ -3,7 +3,7 @@
 #include "constants.h"
 #include "game/game_092610.h"
 #include "game/game_0b0fd0.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/savebuffer.h"
 #include "game/hudmsg.h"
 #include "game/menugfx.h"
@@ -308,7 +308,7 @@ glabel hudmsgRenderMissionTimer
 /*  f0dd1fc:	00007012 */ 	mflo	$t6
 /*  f0dd200:	3c0100ff */ 	lui	$at,0xff
 /*  f0dd204:	01c17825 */ 	or	$t7,$t6,$at
-/*  f0dd208:	0fc3089f */ 	jal	getMissionTime
+/*  f0dd208:	0fc3089f */ 	jal	playerGetMissionTime
 /*  f0dd20c:	afaf0064 */ 	sw	$t7,0x64($sp)
 /*  f0dd210:	27a40068 */ 	addiu	$a0,$sp,0x68
 /*  f0dd214:	00402825 */ 	or	$a1,$v0,$zero
@@ -426,7 +426,7 @@ glabel hudmsgRenderMissionTimer
 //	textcolour = alpha | 0x00ff0000;
 //
 //	// 208
-//	formatTime(buffer, getMissionTime(), 4);
+//	formatTime(buffer, playerGetMissionTime(), 4);
 //
 //	return textRender(gdl, &sp8c, &sp88, buffer, g_CharsNumeric, g_FontNumeric, textcolour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 //}
@@ -4176,11 +4176,11 @@ glabel var7f1af1e0
 /*  f0e03c0:	8e0e01b4 */ 	lw	$t6,0x1b4($s0)
 /*  f0e03c4:	55c10011 */ 	bnel	$t6,$at,.PF0f0e040c
 /*  f0e03c8:	8e0901b4 */ 	lw	$t1,0x1b4($s0)
-/*  f0e03cc:	0fc3074e */ 	jal	currentPlayerIsHealthVisible
+/*  f0e03cc:	0fc3074e */ 	jal	playerIsHealthVisible
 /*  f0e03d0:	00000000 */ 	nop
 /*  f0e03d4:	5040000d */ 	beqzl	$v0,.PF0f0e040c
 /*  f0e03d8:	8e0901b4 */ 	lw	$t1,0x1b4($s0)
-/*  f0e03dc:	0fc30718 */ 	jal	currentPlayerGetHealthBarHeightFrac
+/*  f0e03dc:	0fc30718 */ 	jal	playerGetHealthBarHeightFrac
 /*  f0e03e0:	00000000 */ 	nop
 /*  f0e03e4:	3c014180 */ 	lui	$at,0x4180
 /*  f0e03e8:	44818000 */ 	mtc1	$at,$f16
@@ -5034,11 +5034,11 @@ glabel var7f1adef4
 /*  f0dfd84:	8e0e01b4 */ 	lw	$t6,0x1b4($s0)
 /*  f0dfd88:	55c10011 */ 	bnel	$t6,$at,.L0f0dfdd0
 /*  f0dfd8c:	8e0901b4 */ 	lw	$t1,0x1b4($s0)
-/*  f0dfd90:	0fc305f3 */ 	jal	currentPlayerIsHealthVisible
+/*  f0dfd90:	0fc305f3 */ 	jal	playerIsHealthVisible
 /*  f0dfd94:	00000000 */ 	nop
 /*  f0dfd98:	5040000d */ 	beqzl	$v0,.L0f0dfdd0
 /*  f0dfd9c:	8e0901b4 */ 	lw	$t1,0x1b4($s0)
-/*  f0dfda0:	0fc305bd */ 	jal	currentPlayerGetHealthBarHeightFrac
+/*  f0dfda0:	0fc305bd */ 	jal	playerGetHealthBarHeightFrac
 /*  f0dfda4:	00000000 */ 	nop
 /*  f0dfda8:	3c014180 */ 	lui	$at,0x4180
 /*  f0dfdac:	44818000 */ 	mtc1	$at,$f16
@@ -5892,11 +5892,11 @@ glabel var7f1adef4
 /*  f0dd164:	8e0e01b4 */ 	lw	$t6,0x1b4($s0)
 /*  f0dd168:	55c10011 */ 	bnel	$t6,$at,.NB0f0dd1b0
 /*  f0dd16c:	8e0901b4 */ 	lw	$t1,0x1b4($s0)
-/*  f0dd170:	0fc2fcea */ 	jal	currentPlayerIsHealthVisible
+/*  f0dd170:	0fc2fcea */ 	jal	playerIsHealthVisible
 /*  f0dd174:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0dd178:	5040000d */ 	beqzl	$v0,.NB0f0dd1b0
 /*  f0dd17c:	8e0901b4 */ 	lw	$t1,0x1b4($s0)
-/*  f0dd180:	0fc2fcb4 */ 	jal	currentPlayerGetHealthBarHeightFrac
+/*  f0dd180:	0fc2fcb4 */ 	jal	playerGetHealthBarHeightFrac
 /*  f0dd184:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0dd188:	3c014180 */ 	lui	$at,0x4180
 /*  f0dd18c:	44818000 */ 	mtc1	$at,$f16
@@ -6631,8 +6631,8 @@ glabel var7f1adef4
 //		x = msg->x;
 //		y = msg->y;
 //
-//		if (msg->type == HUDMSGTYPE_INGAMESUBTITLE && currentPlayerIsHealthVisible()) {
-//			y += (s32)(16.0f * currentPlayerGetHealthBarHeightFrac());
+//		if (msg->type == HUDMSGTYPE_INGAMESUBTITLE && playerIsHealthVisible()) {
+//			y += (s32)(16.0f * playerGetHealthBarHeightFrac());
 //		}
 //
 //		// dd0

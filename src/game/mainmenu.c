@@ -9,7 +9,7 @@
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b3350.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/menu.h"
 #include "game/mainmenu.h"
 #include "game/filemgr.h"
@@ -475,7 +475,7 @@ s32 menuhandlerHiRes(s32 operation, struct menuitem *item, union handlerdata *da
 	case MENUOP_GET:
 		return g_HiResEnabled == true;
 	case MENUOP_SET:
-		optionsSetHiRes(data->checkbox.value ? 1 : 0);
+		playerSetHiResEnabled(data->checkbox.value ? 1 : 0);
 		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 

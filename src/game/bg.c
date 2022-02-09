@@ -11,7 +11,7 @@
 #include "game/bondgun.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b4950.h"
-#include "game/game_0b69d0.h"
+#include "game/player.h"
 #include "game/game_11f000.h"
 #include "game/sky.h"
 #include "game/game_13b670.h"
@@ -2641,7 +2641,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 
 			gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-			gdl = currentPlayerLoadMatrix(gdl);
+			gdl = playerLoadMatrix(gdl);
 			gdl = gfxConsiderDisableFog(gdl);
 			gdl = func0f13687c(gdl);
 			gdl = func0f153780(gdl);
@@ -3079,7 +3079,7 @@ glabel bgRenderScene
 /*  f15513c:	0c013100 */ 	jal	osVirtualToPhysical
 /*  f155140:	00402025 */ 	or	$a0,$v0,$zero
 /*  f155144:	ae020004 */ 	sw	$v0,0x4($s0)
-/*  f155148:	0fc303b1 */ 	jal	currentPlayerLoadMatrix
+/*  f155148:	0fc303b1 */ 	jal	playerLoadMatrix
 /*  f15514c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f155150:	0fc583b2 */ 	jal	gfxConsiderDisableFog
 /*  f155154:	00402025 */ 	or	$a0,$v0,$zero
@@ -7980,7 +7980,7 @@ Gfx *bgRender(Gfx *gdl)
 
 	gSPMatrix(gdl++, var80092870, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-	gdl = currentPlayerLoadMatrix(gdl);
+	gdl = playerLoadMatrix(gdl);
 
 	return gdl;
 }
