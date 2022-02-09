@@ -1268,8 +1268,7 @@ void playerTickChrBody(void)
 
 	if (g_Vars.currentplayer->haschrbody == false) {
 		struct chrdata *chr;
-		u32 stack[3];
-		s32 sp100;
+		s32 sp100[4];
 		struct modelfiledata *bodyfiledata;
 		struct modelfiledata *headfiledata = NULL;
 		struct modelfiledata *weaponfiledata;
@@ -1391,12 +1390,12 @@ void playerTickChrBody(void)
 			offset2 += 0x4000;
 			bgunCalculateGunMemCapacity();
 			spe8 = g_Vars.currentplayer->gunmem2 + offset2;
-			func0f172e70(&sp100, spe8, bgunCalculateGunMemCapacity() - offset2);
-			bodyfiledata = func0f1a7794(g_HeadsAndBodies[bodynum].filenum, allocation + offset1, offset2 - offset1, &sp100);
+			func0f172e70(sp100, spe8, bgunCalculateGunMemCapacity() - offset2);
+			bodyfiledata = func0f1a7794(g_HeadsAndBodies[bodynum].filenum, allocation + offset1, offset2 - offset1, sp100);
 			offset1 = ALIGN64(fileGetSize(g_HeadsAndBodies[bodynum].filenum) + offset1);
 
 			if (headnum >= 0) {
-				headfiledata = func0f1a7794(g_HeadsAndBodies[headnum].filenum, allocation + offset1, offset2 - offset1, &sp100);
+				headfiledata = func0f1a7794(g_HeadsAndBodies[headnum].filenum, allocation + offset1, offset2 - offset1, sp100);
 				offset1 = ALIGN64(fileGetSize(g_HeadsAndBodies[headnum].filenum) + offset1);
 			}
 
@@ -1411,7 +1410,7 @@ void playerTickChrBody(void)
 
 			model->unk02 = 256;
 
-			func0f172f54(&sp100);
+			func0f172f54(sp100);
 
 			// @TODO: Figure out these arguments
 			osSyncPrintf("Jo using %d bytes gunmem (gunmemsize %d)\n");
@@ -1419,7 +1418,7 @@ void playerTickChrBody(void)
 			osSyncPrintf("Gunmem: tex block free 0x%08x\n");
 			osSyncPrintf("Gunmem: Free at end %d\n");
 
-			func0f172f54(&sp100);
+			func0f172f54(sp100);
 		} else {
 			// 2-4 players
 			if (g_HeadsAndBodies[bodynum].filedata == NULL) {
@@ -1494,7 +1493,7 @@ void playerTickChrBody(void)
 
 		if (weaponmodelnum >= 0) {
 			if (g_Vars.mplayerisrunning == false) {
-				weaponfiledata = func0f1a7794(g_ModelStates[weaponmodelnum].fileid, allocation + offset1, offset2 - offset1, &sp100);
+				weaponfiledata = func0f1a7794(g_ModelStates[weaponmodelnum].fileid, allocation + offset1, offset2 - offset1, sp100);
 				fileGetSize(g_ModelStates[weaponmodelnum].fileid);
 				modelCalculateRwDataLen(weaponfiledata);
 			} else {

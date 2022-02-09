@@ -29,7 +29,7 @@ u32 func0f172b5c(void);
 void func0f172e70(s32 *arg0, void *arg1, s32 arg2);
 u32 func0f172e8c(void);
 u32 func0f172f44(void);
-void func0f172f54(s32 *arg0);
+s32 func0f172f54(s32 *arg0);
 void func0f172f5c(Gfx *gdl, s32 arg1, s32 arg2);
 void func0f173010(u32 *texturenum, s32 arg1, s32 arg2);
 void func0f173434(struct textureconfig *config, s32 arg1, s32 arg2, s32 arg3);

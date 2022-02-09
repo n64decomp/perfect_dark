@@ -5897,11 +5897,10 @@ glabel func0f172f44
 /*  f172f50:	01cf1023 */ 	subu	$v0,$t6,$t7
 );
 
-GLOBAL_ASM(
-glabel func0f172f54
-/*  f172f54:	03e00008 */ 	jr	$ra
-/*  f172f58:	8c820008 */ 	lw	$v0,0x8($a0)
-);
+s32 func0f172f54(s32 *arg0)
+{
+	return arg0[2];
+}
 
 void func0f172f5c(Gfx *gdl, s32 arg1, s32 arg2)
 {
