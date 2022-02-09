@@ -470,24 +470,12 @@ glabel func0f0b35b8
 /*  f0b3984:	ac820000 */ 	sw	$v0,0x0($a0)
 );
 
-GLOBAL_ASM(
-glabel func0f0b3988
-/*  f0b3988:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b398c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b3990:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*  f0b3994:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0b3998:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0b399c:	2dc10daf */ 	sltiu	$at,$t6,0xdaf
-/*  f0b39a0:	50200004 */ 	beqzl	$at,.L0f0b39b4
-/*  f0b39a4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b39a8:	0fc5cd0d */ 	jal	func0f173434
-/*  f0b39ac:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0b39b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0b39b4:
-/*  f0b39b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b39b8:	03e00008 */ 	jr	$ra
-/*  f0b39bc:	00000000 */ 	nop
-);
+void func0f0b3988(struct textureconfig *config)
+{
+	if (config->texturenum < 0xdaf) {
+		func0f173434(config, 1, 0, 0);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0b39c0
