@@ -5119,130 +5119,35 @@ f32 func0f06a620(struct defaultobj *obj)
 	return 4;
 }
 
+void func0f06a650(struct defaultobj *obj, struct coord *pos, Mtxf *arg2, s16 *rooms)
+{
+	struct modelrodata_bbox *bbox;
+	s16 room;
+	f32 sp3c;
+	struct coord newpos;
+	s16 newrooms[2];
+
+	bbox = modelFindBboxRodata(obj->model);
+
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f06a650
-/*  f06a650:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f06a654:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f06a658:	00808025 */ 	or	$s0,$a0,$zero
-/*  f06a65c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f06a660:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*  f06a664:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f06a668:	afa70054 */ 	sw	$a3,0x54($sp)
-/*  f06a66c:	0fc1a2aa */ 	jal	modelFindBboxRodata
-/*  f06a670:	8c840018 */ 	lw	$a0,0x18($a0)
-/*  f06a674:	afa20044 */ 	sw	$v0,0x44($sp)
-/*  f06a678:	8fa4004c */ 	lw	$a0,0x4c($sp)
-/*  f06a67c:	8fa50054 */ 	lw	$a1,0x54($sp)
-/*  f06a680:	27a6003c */ 	addiu	$a2,$sp,0x3c
-/*  f06a684:	26070058 */ 	addiu	$a3,$s0,0x58
-/*  f06a688:	0c00a910 */ 	jal	cd0002a440
-/*  f06a68c:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f06a690:	1840001d */ 	blez	$v0,.L0f06a708
-/*  f06a694:	a7a20042 */ 	sh	$v0,0x42($sp)
-/*  f06a698:	8fae004c */ 	lw	$t6,0x4c($sp)
-/*  f06a69c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f06a6a0:	c5c40000 */ 	lwc1	$f4,0x0($t6)
-/*  f06a6a4:	0fc1a988 */ 	jal	func0f06a620
-/*  f06a6a8:	e7a40030 */ 	swc1	$f4,0x30($sp)
-/*  f06a6ac:	e7a00028 */ 	swc1	$f0,0x28($sp)
-/*  f06a6b0:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f06a6b4:	0fc19a0f */ 	jal	func0f06683c
-/*  f06a6b8:	8fa50050 */ 	lw	$a1,0x50($sp)
-/*  f06a6bc:	c7a6003c */ 	lwc1	$f6,0x3c($sp)
-/*  f06a6c0:	c7a80028 */ 	lwc1	$f8,0x28($sp)
-/*  f06a6c4:	8faf004c */ 	lw	$t7,0x4c($sp)
-/*  f06a6c8:	87b80042 */ 	lh	$t8,0x42($sp)
-/*  f06a6cc:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f06a6d0:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f06a6d4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f06a6d8:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*  f06a6dc:	46005401 */ 	sub.s	$f16,$f10,$f0
-/*  f06a6e0:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f06a6e4:	27a7002c */ 	addiu	$a3,$sp,0x2c
-/*  f06a6e8:	e7b00034 */ 	swc1	$f16,0x34($sp)
-/*  f06a6ec:	c5f20008 */ 	lwc1	$f18,0x8($t7)
-/*  f06a6f0:	a7b9002e */ 	sh	$t9,0x2e($sp)
-/*  f06a6f4:	a7b8002c */ 	sh	$t8,0x2c($sp)
-/*  f06a6f8:	0fc1a960 */ 	jal	func0f06a580
-/*  f06a6fc:	e7b20038 */ 	swc1	$f18,0x38($sp)
-/*  f06a700:	10000007 */ 	b	.L0f06a720
-/*  f06a704:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f06a708:
-/*  f06a708:	02002025 */ 	or	$a0,$s0,$zero
-/*  f06a70c:	8fa5004c */ 	lw	$a1,0x4c($sp)
-/*  f06a710:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f06a714:	0fc1a960 */ 	jal	func0f06a580
-/*  f06a718:	8fa70054 */ 	lw	$a3,0x54($sp)
-/*  f06a71c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f06a720:
-/*  f06a720:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f06a724:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f06a728:	03e00008 */ 	jr	$ra
-/*  f06a72c:	00000000 */ 	nop
-);
+	room = cd0002a440(pos, rooms, &sp3c, &obj->floorcol, NULL);
 #else
-GLOBAL_ASM(
-glabel func0f06a650
-/*  f0698bc:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0698c0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0698c4:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0698c8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0698cc:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f0698d0:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f0698d4:	afa7004c */ 	sw	$a3,0x4c($sp)
-/*  f0698d8:	0fc19f4a */ 	jal	modelFindBboxRodata
-/*  f0698dc:	8c840018 */ 	lw	$a0,0x18($a0)
-/*  f0698e0:	afa2003c */ 	sw	$v0,0x3c($sp)
-/*  f0698e4:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0698e8:	8fa5004c */ 	lw	$a1,0x4c($sp)
-/*  f0698ec:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*  f0698f0:	0c00ae22 */ 	jal	cd0002a440
-/*  f0698f4:	26070058 */ 	addiu	$a3,$s0,0x58
-/*  f0698f8:	1840001d */ 	blez	$v0,.NB0f069970
-/*  f0698fc:	a7a2003a */ 	sh	$v0,0x3a($sp)
-/*  f069900:	8fae0044 */ 	lw	$t6,0x44($sp)
-/*  f069904:	02002025 */ 	or	$a0,$s0,$zero
-/*  f069908:	c5c40000 */ 	lwc1	$f4,0x0($t6)
-/*  f06990c:	0fc1a623 */ 	jal	func0f06a620
-/*  f069910:	e7a40028 */ 	swc1	$f4,0x28($sp)
-/*  f069914:	e7a00020 */ 	swc1	$f0,0x20($sp)
-/*  f069918:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f06991c:	0fc196af */ 	jal	func0f06683c
-/*  f069920:	8fa50048 */ 	lw	$a1,0x48($sp)
-/*  f069924:	c7a60034 */ 	lwc1	$f6,0x34($sp)
-/*  f069928:	c7a80020 */ 	lwc1	$f8,0x20($sp)
-/*  f06992c:	8faf0044 */ 	lw	$t7,0x44($sp)
-/*  f069930:	87b8003a */ 	lh	$t8,0x3a($sp)
-/*  f069934:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f069938:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f06993c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f069940:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*  f069944:	46005401 */ 	sub.s	$f16,$f10,$f0
-/*  f069948:	8fa60048 */ 	lw	$a2,0x48($sp)
-/*  f06994c:	27a70024 */ 	addiu	$a3,$sp,0x24
-/*  f069950:	e7b0002c */ 	swc1	$f16,0x2c($sp)
-/*  f069954:	c5f20008 */ 	lwc1	$f18,0x8($t7)
-/*  f069958:	a7b90026 */ 	sh	$t9,0x26($sp)
-/*  f06995c:	a7b80024 */ 	sh	$t8,0x24($sp)
-/*  f069960:	0fc1a5fb */ 	jal	func0f06a580
-/*  f069964:	e7b20030 */ 	swc1	$f18,0x30($sp)
-/*  f069968:	10000007 */ 	beqz	$zero,.NB0f069988
-/*  f06996c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.NB0f069970:
-/*  f069970:	02002025 */ 	or	$a0,$s0,$zero
-/*  f069974:	8fa50044 */ 	lw	$a1,0x44($sp)
-/*  f069978:	8fa60048 */ 	lw	$a2,0x48($sp)
-/*  f06997c:	0fc1a5fb */ 	jal	func0f06a580
-/*  f069980:	8fa7004c */ 	lw	$a3,0x4c($sp)
-/*  f069984:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.NB0f069988:
-/*  f069988:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f06998c:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f069990:	03e00008 */ 	jr	$ra
-/*  f069994:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	room = cd0002a440(pos, rooms, &sp3c, &obj->floorcol);
 #endif
+
+	if (room > 0) {
+		newpos.x = pos->x;
+		newpos.y = (sp3c + func0f06a620(obj)) - func0f06683c(bbox, arg2);
+		newpos.z = pos->z;
+
+		newrooms[0] = room;
+		newrooms[1] = -1;
+
+		func0f06a580(obj, &newpos, arg2, newrooms);
+	} else {
+		func0f06a580(obj, pos, arg2, rooms);
+	}
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(

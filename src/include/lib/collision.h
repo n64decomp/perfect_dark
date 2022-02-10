@@ -41,7 +41,7 @@ bool cdIs2dPointInTileType3(struct tiletype3 *tile, f32 x, f32 z);
 bool func000266a4(f32 x, f32 z, struct tile *tile);
 void cdGetPropsOnPlatform(struct prop *platform, s16 *propnums, s32 len);
 bool cd00026a04(struct coord *pos, u8 *start, u8 *end, u16 flags, s32 room, struct tile **tileptr, s32 *roomptr, f32 *groundptr, bool arg8);
-void cd00026e7c(struct coord *pos, s16 *rooms, u16 arg2, struct tile **tileptr, s16 *arg4, f32 *arg5, struct prop **arg6, s32 arg7);
+void cd00026e7c(struct coord *pos, s16 *rooms, u16 arg2, struct tile **tileptr, s16 *room, f32 *arg5, struct prop **arg6, s32 arg7);
 bool cd0002709c(struct tiletype0 *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collisionthing *thing);
 bool cd000272f8(struct tiletype1 *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collisionthing *thing);
 s32 cd000274e0(struct tiletype2 *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collisionthing *thing);

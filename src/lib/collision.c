@@ -4450,10 +4450,10 @@ s16 cd0002a440(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr)
 #endif
 {
 	struct tile *tile;
-	s16 sp32;
+	s16 room;
 	f32 sp2c;
 
-	cd00026e7c(pos, rooms, 3, &tile, &sp32, &sp2c, NULL, 0);
+	cd00026e7c(pos, rooms, 3, &tile, &room, &sp2c, NULL, 0);
 
 	if (tile != NULL) {
 		*arg2 = sp2c;
@@ -4469,7 +4469,7 @@ s16 cd0002a440(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr)
 	}
 #endif
 
-	return sp32;
+	return room;
 }
 
 s16 cd0002a4d0(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr, u16 *flagsptr)
