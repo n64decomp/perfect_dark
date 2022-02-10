@@ -10,7 +10,7 @@
 
 extern u32 var800700ac;
 
-void func0f010bb0(void)
+void bgunInit(void)
 {
 	s32 i;
 
@@ -262,5 +262,5 @@ void func0f010bb0(void)
 		g_Weapons[WEAPON_EYESPY]->flags |= (WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN);
 	}
 
-	bgun0f09ceac();
+	bgunInitHandAnims();
 }

@@ -29,8 +29,8 @@
 	build/ROMID/game/game_0108d0.o (section); \
 	build/ROMID/game/objectives/setup.o (section); \
 	build/ROMID/game/casing/reset.o (section); \
-	build/ROMID/game/game_010b20.o (section); \
-	build/ROMID/game/game_011110.o (section); \
+	build/ROMID/game/bondguninit.o (section); \
+	build/ROMID/game/playerinit.o (section); \
 	build/ROMID/game/inventory/init.o (section); \
 	build/ROMID/game/game_0125a0.o (section); \
 	build/ROMID/game/game_012aa0.o (section); \

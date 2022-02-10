@@ -4,7 +4,7 @@
 #include "game/bondmove.h"
 #include "game/cheats.h"
 #include "game/inventory/items.h"
-#include "game/game_011110.h"
+#include "game/playerinit.h"
 #include "game/chr/chr.h"
 #include "game/game_02cde0.h"
 #include "game/prop.h"

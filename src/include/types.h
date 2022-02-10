@@ -2401,7 +2401,7 @@ struct hand {
 	/*0x0cec*/ ubool unk0cec;
 	/*0x0cf0*/ struct coord unk0cf0;
 	/*0x0cfc*/ struct coord unk0cfc;
-	/*0x0d08*/ f32 ganstarot;
+	/*0x0d08*/ f32 gangstarot;
 	/*0x0d0c*/ s16 primetimer;
 	/*0x0d0e*/ u8 unk0d0e_00 : 4;
 	/*0x0d0e*/ u8 unk0d0e_04 : 3;

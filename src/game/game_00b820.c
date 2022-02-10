@@ -3,7 +3,7 @@
 #include "game/cheats.h"
 #include "game/chr/chrai.h"
 #include "game/game_00b820.h"
-#include "game/game_011110.h"
+#include "game/playerinit.h"
 #include "game/game_02cde0.h"
 #include "game/game_091e10.h"
 #include "bss.h"

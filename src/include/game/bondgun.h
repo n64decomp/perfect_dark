@@ -50,7 +50,7 @@ s32 bgunTickInc(struct handweaponinfo *info, s32 handnum, s32 lvupdate);
 bool bgunSetState(s32 handnum, s32 state);
 void bgunTick(s32 handnum);
 void bgun0f09ce8c(void);
-void bgun0f09ceac(void);
+void bgunInitHandAnims(void);
 f32 bgunGetNoiseRadius(s32 handnum);
 void bgunDecreaseNoiseRadius(void);
 void bgunCalculateBlend(s32 hand);

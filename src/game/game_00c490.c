@@ -5,7 +5,7 @@
 #include "game/game_00b820.h"
 #include "game/game_00c490.h"
 #include "game/objectives.h"
-#include "game/game_011110.h"
+#include "game/playerinit.h"
 #include "game/inventory/init.h"
 #include "game/game_0125a0.h"
 #include "game/game_012d50.h"

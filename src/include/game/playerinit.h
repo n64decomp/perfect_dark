@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_011110_H
-#define IN_GAME_GAME_011110_H
+#ifndef IN_GAME_PLAYERINIT_H
+#define IN_GAME_PLAYERINIT_H
 #include <ultra64.h>
 #include "data.h"
 #include "types.h"

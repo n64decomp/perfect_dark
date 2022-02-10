@@ -18,7 +18,7 @@
 #include "game/game_0108d0.h"
 #include "game/objectives.h"
 #include "game/casing.h"
-#include "game/game_011110.h"
+#include "game/playerinit.h"
 #include "game/inventory/init.h"
 #include "game/game_0125a0.h"
 #include "game/explosions/init.h"
@@ -434,7 +434,7 @@ void lvInit(s32 stagenum)
 			menuInit();
 			amInit();
 			invInitGunsHeld();
-			func0f010bb0();
+			bgunInit();
 			playerLoadDefaults();
 			playerInit();
 			playerSpawn();

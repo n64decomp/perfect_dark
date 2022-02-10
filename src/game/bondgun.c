@@ -8499,7 +8499,7 @@ void bgun0f09ce8c(void)
 	bgun0f0a1528();
 }
 
-void bgun0f09ceac(void)
+void bgunInitHandAnims(void)
 {
 	struct hand *hand;
 	s32 i;
@@ -8511,7 +8511,7 @@ void bgun0f09ceac(void)
 			hand = &g_Vars.currentplayer->hands[0];
 		}
 
-		hand->ganstarot = 0;
+		hand->gangstarot = 0;
 		hand->state = HANDSTATE_IDLE;
 		hand->animload = -1;
 		hand->animmode = HANDANIMMODE_IDLE;
@@ -15379,7 +15379,7 @@ void bgun0f0a1528(void)
 				player->hands[i].gset.weaponnum = ctrl->weaponnum;
 
 				player->hands[i].gset.unk0639 = (ctrl->upgradewant >> (i * 4)) & 0xf;
-				player->hands[i].ganstarot = 0.0f;
+				player->hands[i].gangstarot = 0.0f;
 
 				bgun0f0abd30(i);
 
