@@ -5827,71 +5827,30 @@ glabel var7f1aa200
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f06ab60
-.late_rodata
-glabel var7f1aa204
-.word 0x4096c5bf
-glabel var7f1aa208
-.word 0x404907a9
-.text
-/*  f06ab60:	27bdff40 */ 	addiu	$sp,$sp,-192
-/*  f06ab64:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f06ab68:	afa400c0 */ 	sw	$a0,0xc0($sp)
-/*  f06ab6c:	afa500c4 */ 	sw	$a1,0xc4($sp)
-/*  f06ab70:	afa600c8 */ 	sw	$a2,0xc8($sp)
-/*  f06ab74:	afa700cc */ 	sw	$a3,0xcc($sp)
-/*  f06ab78:	0fc1a2aa */ 	jal	modelFindBboxRodata
-/*  f06ab7c:	8c840018 */ 	lw	$a0,0x18($a0)
-/*  f06ab80:	0fc199f3 */ 	jal	func0f0667cc
-/*  f06ab84:	00402025 */ 	or	$a0,$v0,$zero
-/*  f06ab88:	3c017f1b */ 	lui	$at,%hi(var7f1aa204)
-/*  f06ab8c:	e7a000b8 */ 	swc1	$f0,0xb8($sp)
-/*  f06ab90:	c42ca204 */ 	lwc1	$f12,%lo(var7f1aa204)($at)
-/*  f06ab94:	0c0058ba */ 	jal	mtx4LoadXRotation
-/*  f06ab98:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f06ab9c:	3c017f1b */ 	lui	$at,%hi(var7f1aa208)
-/*  f06aba0:	c42ca208 */ 	lwc1	$f12,%lo(var7f1aa208)($at)
-/*  f06aba4:	0c0058dd */ 	jal	mtx4LoadYRotation
-/*  f06aba8:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*  f06abac:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f06abb0:	0c00567f */ 	jal	mtx4MultMtx4InPlace
-/*  f06abb4:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f06abb8:	8fa400c8 */ 	lw	$a0,0xc8($sp)
-/*  f06abbc:	0c00567f */ 	jal	mtx4MultMtx4InPlace
-/*  f06abc0:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f06abc4:	c7a000b8 */ 	lwc1	$f0,0xb8($sp)
-/*  f06abc8:	c7a6007c */ 	lwc1	$f6,0x7c($sp)
-/*  f06abcc:	8fa200d0 */ 	lw	$v0,0xd0($sp)
-/*  f06abd0:	c7b20080 */ 	lwc1	$f18,0x80($sp)
-/*  f06abd4:	46003202 */ 	mul.s	$f8,$f6,$f0
-/*  f06abd8:	c4440000 */ 	lwc1	$f4,0x0($v0)
-/*  f06abdc:	8fa400c4 */ 	lw	$a0,0xc4($sp)
-/*  f06abe0:	46009182 */ 	mul.s	$f6,$f18,$f0
-/*  f06abe4:	8fa500cc */ 	lw	$a1,0xcc($sp)
-/*  f06abe8:	27a600ac */ 	addiu	$a2,$sp,0xac
-/*  f06abec:	27a7009c */ 	addiu	$a3,$sp,0x9c
-/*  f06abf0:	46082281 */ 	sub.s	$f10,$f4,$f8
-/*  f06abf4:	e7aa00ac */ 	swc1	$f10,0xac($sp)
-/*  f06abf8:	c4500004 */ 	lwc1	$f16,0x4($v0)
-/*  f06abfc:	c7aa0084 */ 	lwc1	$f10,0x84($sp)
-/*  f06ac00:	46068101 */ 	sub.s	$f4,$f16,$f6
-/*  f06ac04:	46005482 */ 	mul.s	$f18,$f10,$f0
-/*  f06ac08:	e7a400b0 */ 	swc1	$f4,0xb0($sp)
-/*  f06ac0c:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*  f06ac10:	46124401 */ 	sub.s	$f16,$f8,$f18
-/*  f06ac14:	0fc1979d */ 	jal	func0f065e74
-/*  f06ac18:	e7b000b4 */ 	swc1	$f16,0xb4($sp)
-/*  f06ac1c:	8fa400c0 */ 	lw	$a0,0xc0($sp)
-/*  f06ac20:	27a500ac */ 	addiu	$a1,$sp,0xac
-/*  f06ac24:	27a6005c */ 	addiu	$a2,$sp,0x5c
-/*  f06ac28:	0fc1a960 */ 	jal	func0f06a580
-/*  f06ac2c:	27a7009c */ 	addiu	$a3,$sp,0x9c
-/*  f06ac30:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f06ac34:	27bd00c0 */ 	addiu	$sp,$sp,0xc0
-/*  f06ac38:	03e00008 */ 	jr	$ra
-/*  f06ac3c:	00000000 */ 	nop
-);
+void func0f06ab60(struct defaultobj *obj, struct coord *arg1, Mtxf *arg2, s16 *rooms, struct coord *arg4)
+{
+	struct modelrodata_bbox *bbox;
+	f32 mult;
+	struct coord newpos;
+	s16 newrooms[8];
+	Mtxf sp5c;
+	Mtxf sp1c;
+
+	bbox = modelFindBboxRodata(obj->model);
+	mult = func0f0667cc(bbox);
+
+	mtx4LoadXRotation(4.7116389274597f, &sp5c);
+	mtx4LoadYRotation(M_BADPI, &sp1c);
+	mtx4MultMtx4InPlace(&sp1c, &sp5c);
+	mtx4MultMtx4InPlace(arg2, &sp5c);
+
+	newpos.x = arg4->x - sp5c.m[2][0] * mult;
+	newpos.y = arg4->y - sp5c.m[2][1] * mult;
+	newpos.z = arg4->z - sp5c.m[2][2] * mult;
+
+	func0f065e74(arg1, rooms, &newpos, newrooms);
+	func0f06a580(obj, &newpos, &sp5c, newrooms);
+}
 
 void objEndFlight(struct defaultobj *obj)
 {
