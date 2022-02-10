@@ -62945,7 +62945,7 @@ glabel var7f1aae70
 /*  f088db4:	8d2a0480 */ 	lw	$t2,0x480($t1)
 /*  f088db8:	15400003 */ 	bnez	$t2,.L0f088dc8
 /*  f088dbc:	00000000 */ 	nop
-/*  f088dc0:	0fc0458c */ 	jal	currentPlayerInitEyespy
+/*  f088dc0:	0fc0458c */ 	jal	playerInitEyespy
 /*  f088dc4:	00000000 */ 	nop
 .L0f088dc8:
 /*  f088dc8:	10000076 */ 	b	.L0f088fa4
@@ -63592,7 +63592,7 @@ glabel var7f1aae70
 /*  f088db4:	8d2a0480 */ 	lw	$t2,0x480($t1)
 /*  f088db8:	15400003 */ 	bnez	$t2,.L0f088dc8
 /*  f088dbc:	00000000 */ 	nop
-/*  f088dc0:	0fc0458c */ 	jal	currentPlayerInitEyespy
+/*  f088dc0:	0fc0458c */ 	jal	playerInitEyespy
 /*  f088dc4:	00000000 */ 	nop
 .L0f088dc8:
 /*  f088dc8:	10000076 */ 	b	.L0f088fa4
@@ -64239,7 +64239,7 @@ glabel var7f1aae70
 /*  f088db4:	8d2a0480 */ 	lw	$t2,0x480($t1)
 /*  f088db8:	15400003 */ 	bnez	$t2,.L0f088dc8
 /*  f088dbc:	00000000 */ 	nop
-/*  f088dc0:	0fc0458c */ 	jal	currentPlayerInitEyespy
+/*  f088dc0:	0fc0458c */ 	jal	playerInitEyespy
 /*  f088dc4:	00000000 */ 	nop
 .L0f088dc8:
 /*  f088dc8:	10000076 */ 	b	.L0f088fa4
@@ -64607,7 +64607,7 @@ glabel var7f1aae70
 //			}
 //
 //			if (weapon->weaponnum == WEAPON_EYESPY && g_Vars.currentplayer->eyespy == NULL) {
-//				currentPlayerInitEyespy();
+//				playerInitEyespy();
 //			}
 //
 //			result = sp94[1];

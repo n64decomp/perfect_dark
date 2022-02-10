@@ -8,7 +8,7 @@ void func0f011110(void);
 void func0f011124(bool value);
 void func0f011130(s32 arg0, s32 numchrs);
 bool weaponLoadProjectileModels(s32 weaponnum);
-void currentPlayerInitEyespy(void);
-void currentPlayerInit(void);
+void playerInitEyespy(void);
+void playerInit(void);
 
 #endif

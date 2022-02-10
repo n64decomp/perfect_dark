@@ -5479,7 +5479,7 @@ bool aiEnableObj(void)
 			struct weaponobj *weapon = (struct weaponobj *) obj;
 
 			if (weapon->weaponnum == WEAPON_EYESPY) {
-				currentPlayerInitEyespy();
+				playerInitEyespy();
 			}
 		}
 	}

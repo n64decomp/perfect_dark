@@ -436,7 +436,7 @@ void lvInit(s32 stagenum)
 			invInitGunsHeld();
 			func0f010bb0();
 			playerLoadDefaults();
-			currentPlayerInit();
+			playerInit();
 			playerSpawn();
 			currentPlayerInitAnimation();
 
