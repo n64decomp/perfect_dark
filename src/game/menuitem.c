@@ -7562,512 +7562,123 @@ bool menuitemCarouselTick(struct menuitem *item, struct menuinputs *inputs, u32 
 	return true;
 }
 
-GLOBAL_ASM(
-glabel menuitemCheckboxRender
-/*  f0ec64c:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f0ec650:	3c0eff00 */ 	lui	$t6,0xff00
-/*  f0ec654:	35ce2faf */ 	ori	$t6,$t6,0x2faf
-/*  f0ec658:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f0ec65c:	afb10038 */ 	sw	$s1,0x38($sp)
-/*  f0ec660:	afb00034 */ 	sw	$s0,0x34($sp)
-/*  f0ec664:	afa40078 */ 	sw	$a0,0x78($sp)
-/*  f0ec668:	afa00060 */ 	sw	$zero,0x60($sp)
-/*  f0ec66c:	afae005c */ 	sw	$t6,0x5c($sp)
-/*  f0ec670:	8caf0008 */ 	lw	$t7,0x8($a1)
-/*  f0ec674:	3c028008 */ 	lui	$v0,%hi(g_FontHandelGothicSm)
-/*  f0ec678:	3c038008 */ 	lui	$v1,%hi(g_CharsHandelGothicSm)
-/*  f0ec67c:	8df80004 */ 	lw	$t8,0x4($t7)
-/*  f0ec680:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f0ec684:	8c42fb0c */ 	lw	$v0,%lo(g_FontHandelGothicSm)($v0)
-/*  f0ec688:	33190200 */ 	andi	$t9,$t8,0x200
-/*  f0ec68c:	13200005 */ 	beqz	$t9,.L0f0ec6a4
-/*  f0ec690:	8c63fb10 */ 	lw	$v1,%lo(g_CharsHandelGothicSm)($v1)
-/*  f0ec694:	3c028008 */ 	lui	$v0,%hi(g_FontHandelGothicXs)
-/*  f0ec698:	3c038008 */ 	lui	$v1,%hi(g_CharsHandelGothicXs)
-/*  f0ec69c:	8c42fb04 */ 	lw	$v0,%lo(g_FontHandelGothicXs)($v0)
-/*  f0ec6a0:	8c63fb08 */ 	lw	$v1,%lo(g_CharsHandelGothicXs)($v1)
-.L0f0ec6a4:
-/*  f0ec6a4:	86280000 */ 	lh	$t0,0x0($s1)
-/*  f0ec6a8:	afa8006c */ 	sw	$t0,0x6c($sp)
-/*  f0ec6ac:	86290002 */ 	lh	$t1,0x2($s1)
-/*  f0ec6b0:	afa90068 */ 	sw	$t1,0x68($sp)
-/*  f0ec6b4:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f0ec6b8:	afa30054 */ 	sw	$v1,0x54($sp)
-/*  f0ec6bc:	0fc3c557 */ 	jal	menuResolveParam2Text
-/*  f0ec6c0:	afa20058 */ 	sw	$v0,0x58($sp)
-/*  f0ec6c4:	afa20070 */ 	sw	$v0,0x70($sp)
-/*  f0ec6c8:	a3a00064 */ 	sb	$zero,0x64($sp)
-/*  f0ec6cc:	8e250008 */ 	lw	$a1,0x8($s1)
-/*  f0ec6d0:	24040008 */ 	addiu	$a0,$zero,0x8
-/*  f0ec6d4:	8ca30010 */ 	lw	$v1,0x10($a1)
-/*  f0ec6d8:	50600042 */ 	beqzl	$v1,.L0f0ec7e4
-/*  f0ec6dc:	8e270010 */ 	lw	$a3,0x10($s1)
-/*  f0ec6e0:	0060f809 */ 	jalr	$v1
-/*  f0ec6e4:	27a60064 */ 	addiu	$a2,$sp,0x64
-/*  f0ec6e8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0ec6ec:	1441003c */ 	bne	$v0,$at,.L0f0ec7e0
-/*  f0ec6f0:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f0ec6f4:	afaa0060 */ 	sw	$t2,0x60($sp)
-/*  f0ec6f8:	8e270010 */ 	lw	$a3,0x10($s1)
-/*  f0ec6fc:	44803000 */ 	mtc1	$zero,$f6
-/*  f0ec700:	3c0f7f1b */ 	lui	$t7,%hi(g_MenuColourPalettes)
-/*  f0ec704:	c4e40040 */ 	lwc1	$f4,0x40($a3)
-/*  f0ec708:	25ef1fb0 */ 	addiu	$t7,$t7,%lo(g_MenuColourPalettes)
-/*  f0ec70c:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f0ec710:	00000000 */ 	nop
-/*  f0ec714:	4502000a */ 	bc1fl	.L0f0ec740
-/*  f0ec718:	90ed003d */ 	lbu	$t5,0x3d($a3)
-/*  f0ec71c:	90eb003c */ 	lbu	$t3,0x3c($a3)
-/*  f0ec720:	3c107f1b */ 	lui	$s0,%hi(g_MenuColourPalettes+0x24)
-/*  f0ec724:	000b6100 */ 	sll	$t4,$t3,0x4
-/*  f0ec728:	018b6023 */ 	subu	$t4,$t4,$t3
-/*  f0ec72c:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f0ec730:	020c8021 */ 	addu	$s0,$s0,$t4
-/*  f0ec734:	10000011 */ 	b	.L0f0ec77c
-/*  f0ec738:	8e101fd4 */ 	lw	$s0,%lo(g_MenuColourPalettes+0x24)($s0)
-/*  f0ec73c:	90ed003d */ 	lbu	$t5,0x3d($a3)
-.L0f0ec740:
-/*  f0ec740:	90f9003c */ 	lbu	$t9,0x3c($a3)
-/*  f0ec744:	8ce60044 */ 	lw	$a2,0x44($a3)
-/*  f0ec748:	000d7100 */ 	sll	$t6,$t5,0x4
-/*  f0ec74c:	00194100 */ 	sll	$t0,$t9,0x4
-/*  f0ec750:	01cd7023 */ 	subu	$t6,$t6,$t5
-/*  f0ec754:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f0ec758:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f0ec75c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f0ec760:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f0ec764:	010f4821 */ 	addu	$t1,$t0,$t7
-/*  f0ec768:	8d250024 */ 	lw	$a1,0x24($t1)
-/*  f0ec76c:	0fc01a40 */ 	jal	colourBlend
-/*  f0ec770:	8f040024 */ 	lw	$a0,0x24($t8)
-/*  f0ec774:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0ec778:	8e270010 */ 	lw	$a3,0x10($s1)
-.L0f0ec77c:
-/*  f0ec77c:	8cea000c */ 	lw	$t2,0xc($a3)
-/*  f0ec780:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0ec784:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0ec788:	51400009 */ 	beqzl	$t2,.L0f0ec7b0
-/*  f0ec78c:	90e3003c */ 	lbu	$v1,0x3c($a3)
-/*  f0ec790:	0fc01a40 */ 	jal	colourBlend
-/*  f0ec794:	2406007f */ 	addiu	$a2,$zero,0x7f
-/*  f0ec798:	2401ff00 */ 	addiu	$at,$zero,-256
-/*  f0ec79c:	00415824 */ 	and	$t3,$v0,$at
-/*  f0ec7a0:	320c00ff */ 	andi	$t4,$s0,0xff
-/*  f0ec7a4:	016c8025 */ 	or	$s0,$t3,$t4
-/*  f0ec7a8:	8e270010 */ 	lw	$a3,0x10($s1)
-/*  f0ec7ac:	90e3003c */ 	lbu	$v1,0x3c($a3)
-.L0f0ec7b0:
-/*  f0ec7b0:	3c047f1b */ 	lui	$a0,%hi(g_MenuColourPalettes3+0x24)
-/*  f0ec7b4:	3c057f1b */ 	lui	$a1,%hi(g_MenuColourPalettes2+0x24)
-/*  f0ec7b8:	00036900 */ 	sll	$t5,$v1,0x4
-/*  f0ec7bc:	01a36823 */ 	subu	$t5,$t5,$v1
-/*  f0ec7c0:	000d1880 */ 	sll	$v1,$t5,0x2
-/*  f0ec7c4:	00832021 */ 	addu	$a0,$a0,$v1
-/*  f0ec7c8:	00a32821 */ 	addu	$a1,$a1,$v1
-/*  f0ec7cc:	8ca5213c */ 	lw	$a1,%lo(g_MenuColourPalettes2+0x24)($a1)
-/*  f0ec7d0:	0fc54f8e */ 	jal	func0f153e38
-/*  f0ec7d4:	8c8422a4 */ 	lw	$a0,%lo(g_MenuColourPalettes3+0x24)($a0)
-/*  f0ec7d8:	10000039 */ 	b	.L0f0ec8c0
-/*  f0ec7dc:	00000000 */ 	nop
-.L0f0ec7e0:
-/*  f0ec7e0:	8e270010 */ 	lw	$a3,0x10($s1)
-.L0f0ec7e4:
-/*  f0ec7e4:	44805000 */ 	mtc1	$zero,$f10
-/*  f0ec7e8:	3c0f7f1b */ 	lui	$t7,%hi(g_MenuColourPalettes)
-/*  f0ec7ec:	c4e80040 */ 	lwc1	$f8,0x40($a3)
-/*  f0ec7f0:	25ef1fb0 */ 	addiu	$t7,$t7,%lo(g_MenuColourPalettes)
-/*  f0ec7f4:	460a403c */ 	c.lt.s	$f8,$f10
-/*  f0ec7f8:	00000000 */ 	nop
-/*  f0ec7fc:	4502000a */ 	bc1fl	.L0f0ec828
-/*  f0ec800:	90f9003d */ 	lbu	$t9,0x3d($a3)
-/*  f0ec804:	90ee003c */ 	lbu	$t6,0x3c($a3)
-/*  f0ec808:	3c107f1b */ 	lui	$s0,%hi(g_MenuColourPalettes+0x18)
-/*  f0ec80c:	000ec100 */ 	sll	$t8,$t6,0x4
-/*  f0ec810:	030ec023 */ 	subu	$t8,$t8,$t6
-/*  f0ec814:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f0ec818:	02188021 */ 	addu	$s0,$s0,$t8
-/*  f0ec81c:	10000011 */ 	b	.L0f0ec864
-/*  f0ec820:	8e101fc8 */ 	lw	$s0,%lo(g_MenuColourPalettes+0x18)($s0)
-/*  f0ec824:	90f9003d */ 	lbu	$t9,0x3d($a3)
-.L0f0ec828:
-/*  f0ec828:	90ea003c */ 	lbu	$t2,0x3c($a3)
-/*  f0ec82c:	8ce60044 */ 	lw	$a2,0x44($a3)
-/*  f0ec830:	00194100 */ 	sll	$t0,$t9,0x4
-/*  f0ec834:	000a5900 */ 	sll	$t3,$t2,0x4
-/*  f0ec838:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f0ec83c:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f0ec840:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f0ec844:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f0ec848:	010f4821 */ 	addu	$t1,$t0,$t7
-/*  f0ec84c:	016f6021 */ 	addu	$t4,$t3,$t7
-/*  f0ec850:	8d850018 */ 	lw	$a1,0x18($t4)
-/*  f0ec854:	0fc01a40 */ 	jal	colourBlend
-/*  f0ec858:	8d240018 */ 	lw	$a0,0x18($t1)
-/*  f0ec85c:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0ec860:	8e270010 */ 	lw	$a3,0x10($s1)
-.L0f0ec864:
-/*  f0ec864:	8ced000c */ 	lw	$t5,0xc($a3)
-/*  f0ec868:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0ec86c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0ec870:	51a00009 */ 	beqzl	$t5,.L0f0ec898
-/*  f0ec874:	90e3003c */ 	lbu	$v1,0x3c($a3)
-/*  f0ec878:	0fc01a40 */ 	jal	colourBlend
-/*  f0ec87c:	2406007f */ 	addiu	$a2,$zero,0x7f
-/*  f0ec880:	2401ff00 */ 	addiu	$at,$zero,-256
-/*  f0ec884:	00417024 */ 	and	$t6,$v0,$at
-/*  f0ec888:	321800ff */ 	andi	$t8,$s0,0xff
-/*  f0ec88c:	01d88025 */ 	or	$s0,$t6,$t8
-/*  f0ec890:	8e270010 */ 	lw	$a3,0x10($s1)
-/*  f0ec894:	90e3003c */ 	lbu	$v1,0x3c($a3)
-.L0f0ec898:
-/*  f0ec898:	3c047f1b */ 	lui	$a0,%hi(g_MenuColourPalettes3+0x18)
-/*  f0ec89c:	3c057f1b */ 	lui	$a1,%hi(g_MenuColourPalettes2+0x18)
-/*  f0ec8a0:	0003c900 */ 	sll	$t9,$v1,0x4
-/*  f0ec8a4:	0323c823 */ 	subu	$t9,$t9,$v1
-/*  f0ec8a8:	00191880 */ 	sll	$v1,$t9,0x2
-/*  f0ec8ac:	00832021 */ 	addu	$a0,$a0,$v1
-/*  f0ec8b0:	00a32821 */ 	addu	$a1,$a1,$v1
-/*  f0ec8b4:	8ca52130 */ 	lw	$a1,%lo(g_MenuColourPalettes2+0x18)($a1)
-/*  f0ec8b8:	0fc54f8e */ 	jal	func0f153e38
-/*  f0ec8bc:	8c842298 */ 	lw	$a0,%lo(g_MenuColourPalettes3+0x18)($a0)
-.L0f0ec8c0:
-/*  f0ec8c0:	0fc54d8a */ 	jal	func0f153628
-/*  f0ec8c4:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f0ec8c8:	afa20078 */ 	sw	$v0,0x78($sp)
-/*  f0ec8cc:	8e28000c */ 	lw	$t0,0xc($s1)
-/*  f0ec8d0:	3c014220 */ 	lui	$at,0x4220
-/*  f0ec8d4:	51000060 */ 	beqzl	$t0,.L0f0eca58
-/*  f0ec8d8:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f0ec8dc:	44816000 */ 	mtc1	$at,$f12
-/*  f0ec8e0:	0fc01ac2 */ 	jal	func0f006b08
-/*  f0ec8e4:	00000000 */ 	nop
-/*  f0ec8e8:	3c01437f */ 	lui	$at,0x437f
-/*  f0ec8ec:	44818000 */ 	mtc1	$at,$f16
-/*  f0ec8f0:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f0ec8f4:	3c027f1b */ 	lui	$v0,%hi(g_MenuColourPalettes)
-/*  f0ec8f8:	46100482 */ 	mul.s	$f18,$f0,$f16
-/*  f0ec8fc:	24421fb0 */ 	addiu	$v0,$v0,%lo(g_MenuColourPalettes)
-/*  f0ec900:	3c014f00 */ 	lui	$at,0x4f00
-/*  f0ec904:	4449f800 */ 	cfc1	$t1,$31
-/*  f0ec908:	44caf800 */ 	ctc1	$t2,$31
-/*  f0ec90c:	00000000 */ 	nop
-/*  f0ec910:	46009124 */ 	cvt.w.s	$f4,$f18
-/*  f0ec914:	444af800 */ 	cfc1	$t2,$31
-/*  f0ec918:	00000000 */ 	nop
-/*  f0ec91c:	314a0078 */ 	andi	$t2,$t2,0x78
-/*  f0ec920:	51400013 */ 	beqzl	$t2,.L0f0ec970
-/*  f0ec924:	440a2000 */ 	mfc1	$t2,$f4
-/*  f0ec928:	44812000 */ 	mtc1	$at,$f4
-/*  f0ec92c:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f0ec930:	46049101 */ 	sub.s	$f4,$f18,$f4
-/*  f0ec934:	44caf800 */ 	ctc1	$t2,$31
-/*  f0ec938:	00000000 */ 	nop
-/*  f0ec93c:	46002124 */ 	cvt.w.s	$f4,$f4
-/*  f0ec940:	444af800 */ 	cfc1	$t2,$31
-/*  f0ec944:	00000000 */ 	nop
-/*  f0ec948:	314a0078 */ 	andi	$t2,$t2,0x78
-/*  f0ec94c:	15400005 */ 	bnez	$t2,.L0f0ec964
-/*  f0ec950:	00000000 */ 	nop
-/*  f0ec954:	440a2000 */ 	mfc1	$t2,$f4
-/*  f0ec958:	3c018000 */ 	lui	$at,0x8000
-/*  f0ec95c:	10000007 */ 	b	.L0f0ec97c
-/*  f0ec960:	01415025 */ 	or	$t2,$t2,$at
-.L0f0ec964:
-/*  f0ec964:	10000005 */ 	b	.L0f0ec97c
-/*  f0ec968:	240affff */ 	addiu	$t2,$zero,-1
-/*  f0ec96c:	440a2000 */ 	mfc1	$t2,$f4
-.L0f0ec970:
-/*  f0ec970:	00000000 */ 	nop
-/*  f0ec974:	0540fffb */ 	bltz	$t2,.L0f0ec964
-/*  f0ec978:	00000000 */ 	nop
-.L0f0ec97c:
-/*  f0ec97c:	afaa004c */ 	sw	$t2,0x4c($sp)
-/*  f0ec980:	8e270010 */ 	lw	$a3,0x10($s1)
-/*  f0ec984:	44c9f800 */ 	ctc1	$t1,$31
-/*  f0ec988:	44804000 */ 	mtc1	$zero,$f8
-/*  f0ec98c:	c4e60040 */ 	lwc1	$f6,0x40($a3)
-/*  f0ec990:	4608303c */ 	c.lt.s	$f6,$f8
-/*  f0ec994:	00000000 */ 	nop
-/*  f0ec998:	4502000b */ 	bc1fl	.L0f0ec9c8
-/*  f0ec99c:	90ed003d */ 	lbu	$t5,0x3d($a3)
-/*  f0ec9a0:	90eb003c */ 	lbu	$t3,0x3c($a3)
-/*  f0ec9a4:	3c0c7f1b */ 	lui	$t4,%hi(g_MenuColourPalettes+0x20)
-/*  f0ec9a8:	000b7900 */ 	sll	$t7,$t3,0x4
-/*  f0ec9ac:	01eb7823 */ 	subu	$t7,$t7,$t3
-/*  f0ec9b0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0ec9b4:	018f6021 */ 	addu	$t4,$t4,$t7
-/*  f0ec9b8:	8d8c1fd0 */ 	lw	$t4,%lo(g_MenuColourPalettes+0x20)($t4)
-/*  f0ec9bc:	10000010 */ 	b	.L0f0eca00
-/*  f0ec9c0:	afac0050 */ 	sw	$t4,0x50($sp)
-/*  f0ec9c4:	90ed003d */ 	lbu	$t5,0x3d($a3)
-.L0f0ec9c8:
-/*  f0ec9c8:	90f9003c */ 	lbu	$t9,0x3c($a3)
-/*  f0ec9cc:	8ce60044 */ 	lw	$a2,0x44($a3)
-/*  f0ec9d0:	000d7100 */ 	sll	$t6,$t5,0x4
-/*  f0ec9d4:	00194100 */ 	sll	$t0,$t9,0x4
-/*  f0ec9d8:	01cd7023 */ 	subu	$t6,$t6,$t5
-/*  f0ec9dc:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f0ec9e0:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f0ec9e4:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f0ec9e8:	004ec021 */ 	addu	$t8,$v0,$t6
-/*  f0ec9ec:	00484821 */ 	addu	$t1,$v0,$t0
-/*  f0ec9f0:	8d250020 */ 	lw	$a1,0x20($t1)
-/*  f0ec9f4:	0fc01a40 */ 	jal	colourBlend
-/*  f0ec9f8:	8f040020 */ 	lw	$a0,0x20($t8)
-/*  f0ec9fc:	afa20050 */ 	sw	$v0,0x50($sp)
-.L0f0eca00:
-/*  f0eca00:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0eca04:	320500ff */ 	andi	$a1,$s0,0xff
-/*  f0eca08:	0fc01a40 */ 	jal	colourBlend
-/*  f0eca0c:	2406007f */ 	addiu	$a2,$zero,0x7f
-/*  f0eca10:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0eca14:	8fa50050 */ 	lw	$a1,0x50($sp)
-/*  f0eca18:	0fc01a40 */ 	jal	colourBlend
-/*  f0eca1c:	8fa6004c */ 	lw	$a2,0x4c($sp)
-/*  f0eca20:	8e2a0010 */ 	lw	$t2,0x10($s1)
-/*  f0eca24:	3c047f1b */ 	lui	$a0,%hi(g_MenuColourPalettes3+0x20)
-/*  f0eca28:	3c057f1b */ 	lui	$a1,%hi(g_MenuColourPalettes2+0x20)
-/*  f0eca2c:	9143003c */ 	lbu	$v1,0x3c($t2)
-/*  f0eca30:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0eca34:	00035900 */ 	sll	$t3,$v1,0x4
-/*  f0eca38:	01635823 */ 	subu	$t3,$t3,$v1
-/*  f0eca3c:	000b1880 */ 	sll	$v1,$t3,0x2
-/*  f0eca40:	00832021 */ 	addu	$a0,$a0,$v1
-/*  f0eca44:	00a32821 */ 	addu	$a1,$a1,$v1
-/*  f0eca48:	8ca52138 */ 	lw	$a1,%lo(g_MenuColourPalettes2+0x20)($a1)
-/*  f0eca4c:	0fc54f8e */ 	jal	func0f153e38
-/*  f0eca50:	8c8422a0 */ 	lw	$a0,%lo(g_MenuColourPalettes3+0x20)($a0)
-/*  f0eca54:	8e240008 */ 	lw	$a0,0x8($s1)
-.L0f0eca58:
-/*  f0eca58:	0fc3c962 */ 	jal	menuIsItemDisabled
-/*  f0eca5c:	8e250010 */ 	lw	$a1,0x10($s1)
-/*  f0eca60:	5040003c */ 	beqzl	$v0,.L0f0ecb54
-/*  f0eca64:	862e0000 */ 	lh	$t6,0x0($s1)
-/*  f0eca68:	8e270010 */ 	lw	$a3,0x10($s1)
-/*  f0eca6c:	44808000 */ 	mtc1	$zero,$f16
-/*  f0eca70:	c4ea0040 */ 	lwc1	$f10,0x40($a3)
-/*  f0eca74:	4610503c */ 	c.lt.s	$f10,$f16
-/*  f0eca78:	00000000 */ 	nop
-/*  f0eca7c:	4502000a */ 	bc1fl	.L0f0ecaa8
-/*  f0eca80:	90ed003d */ 	lbu	$t5,0x3d($a3)
-/*  f0eca84:	90ef003c */ 	lbu	$t7,0x3c($a3)
-/*  f0eca88:	3c107f1b */ 	lui	$s0,%hi(g_MenuColourPalettes+0x1c)
-/*  f0eca8c:	000f6100 */ 	sll	$t4,$t7,0x4
-/*  f0eca90:	018f6023 */ 	subu	$t4,$t4,$t7
-/*  f0eca94:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f0eca98:	020c8021 */ 	addu	$s0,$s0,$t4
-/*  f0eca9c:	10000012 */ 	b	.L0f0ecae8
-/*  f0ecaa0:	8e101fcc */ 	lw	$s0,%lo(g_MenuColourPalettes+0x1c)($s0)
-/*  f0ecaa4:	90ed003d */ 	lbu	$t5,0x3d($a3)
-.L0f0ecaa8:
-/*  f0ecaa8:	2403003c */ 	addiu	$v1,$zero,0x3c
-/*  f0ecaac:	90f9003c */ 	lbu	$t9,0x3c($a3)
-/*  f0ecab0:	01a30019 */ 	multu	$t5,$v1
-/*  f0ecab4:	3c027f1b */ 	lui	$v0,%hi(g_MenuColourPalettes)
-/*  f0ecab8:	24421fb0 */ 	addiu	$v0,$v0,%lo(g_MenuColourPalettes)
-/*  f0ecabc:	8ce60044 */ 	lw	$a2,0x44($a3)
-/*  f0ecac0:	00007012 */ 	mflo	$t6
-/*  f0ecac4:	004ec021 */ 	addu	$t8,$v0,$t6
-/*  f0ecac8:	8f04001c */ 	lw	$a0,0x1c($t8)
-/*  f0ecacc:	03230019 */ 	multu	$t9,$v1
-/*  f0ecad0:	00004012 */ 	mflo	$t0
-/*  f0ecad4:	00484821 */ 	addu	$t1,$v0,$t0
-/*  f0ecad8:	0fc01a40 */ 	jal	colourBlend
-/*  f0ecadc:	8d25001c */ 	lw	$a1,0x1c($t1)
-/*  f0ecae0:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0ecae4:	8e270010 */ 	lw	$a3,0x10($s1)
-.L0f0ecae8:
-/*  f0ecae8:	8cea000c */ 	lw	$t2,0xc($a3)
-/*  f0ecaec:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0ecaf0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0ecaf4:	51400009 */ 	beqzl	$t2,.L0f0ecb1c
-/*  f0ecaf8:	90e3003c */ 	lbu	$v1,0x3c($a3)
-/*  f0ecafc:	0fc01a40 */ 	jal	colourBlend
-/*  f0ecb00:	2406007f */ 	addiu	$a2,$zero,0x7f
-/*  f0ecb04:	2401ff00 */ 	addiu	$at,$zero,-256
-/*  f0ecb08:	00415824 */ 	and	$t3,$v0,$at
-/*  f0ecb0c:	320f00ff */ 	andi	$t7,$s0,0xff
-/*  f0ecb10:	016f8025 */ 	or	$s0,$t3,$t7
-/*  f0ecb14:	8e270010 */ 	lw	$a3,0x10($s1)
-/*  f0ecb18:	90e3003c */ 	lbu	$v1,0x3c($a3)
-.L0f0ecb1c:
-/*  f0ecb1c:	3c047f1b */ 	lui	$a0,%hi(g_MenuColourPalettes3+0x1c)
-/*  f0ecb20:	3c057f1b */ 	lui	$a1,%hi(g_MenuColourPalettes2+0x1c)
-/*  f0ecb24:	00036100 */ 	sll	$t4,$v1,0x4
-/*  f0ecb28:	01836023 */ 	subu	$t4,$t4,$v1
-/*  f0ecb2c:	000c1880 */ 	sll	$v1,$t4,0x2
-/*  f0ecb30:	00832021 */ 	addu	$a0,$a0,$v1
-/*  f0ecb34:	00a32821 */ 	addu	$a1,$a1,$v1
-/*  f0ecb38:	8ca52134 */ 	lw	$a1,%lo(g_MenuColourPalettes2+0x1c)($a1)
-/*  f0ecb3c:	0fc54f8e */ 	jal	func0f153e38
-/*  f0ecb40:	8c84229c */ 	lw	$a0,%lo(g_MenuColourPalettes3+0x1c)($a0)
-/*  f0ecb44:	3c0d7f00 */ 	lui	$t5,0x7f00
-/*  f0ecb48:	35ad2faf */ 	ori	$t5,$t5,0x2faf
-/*  f0ecb4c:	afad005c */ 	sw	$t5,0x5c($sp)
-/*  f0ecb50:	862e0000 */ 	lh	$t6,0x0($s1)
-.L0f0ecb54:
-/*  f0ecb54:	86380004 */ 	lh	$t8,0x4($s1)
-/*  f0ecb58:	86260002 */ 	lh	$a2,0x2($s1)
-/*  f0ecb5c:	8fb90060 */ 	lw	$t9,0x60($sp)
-/*  f0ecb60:	8fa8005c */ 	lw	$t0,0x5c($sp)
-/*  f0ecb64:	01d82821 */ 	addu	$a1,$t6,$t8
-/*  f0ecb68:	24a5fff0 */ 	addiu	$a1,$a1,-16
-/*  f0ecb6c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0ecb70:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f0ecb74:	24070006 */ 	addiu	$a3,$zero,0x6
-/*  f0ecb78:	24c60002 */ 	addiu	$a2,$a2,0x2
-/*  f0ecb7c:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f0ecb80:	0fc38dec */ 	jal	menugfxDrawCheckbox
-/*  f0ecb84:	afa80018 */ 	sw	$t0,0x18($sp)
-/*  f0ecb88:	86290000 */ 	lh	$t1,0x0($s1)
-/*  f0ecb8c:	8fac0054 */ 	lw	$t4,0x54($sp)
-/*  f0ecb90:	8fad0058 */ 	lw	$t5,0x58($sp)
-/*  f0ecb94:	252a000a */ 	addiu	$t2,$t1,0xa
-/*  f0ecb98:	afaa006c */ 	sw	$t2,0x6c($sp)
-/*  f0ecb9c:	862b0002 */ 	lh	$t3,0x2($s1)
-/*  f0ecba0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ecba4:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f0ecba8:	256f0002 */ 	addiu	$t7,$t3,0x2
-/*  f0ecbac:	afaf0068 */ 	sw	$t7,0x68($sp)
-/*  f0ecbb0:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f0ecbb4:	862e0004 */ 	lh	$t6,0x4($s1)
-/*  f0ecbb8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0ecbbc:	27a5006c */ 	addiu	$a1,$sp,0x6c
-/*  f0ecbc0:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f0ecbc4:	86380006 */ 	lh	$t8,0x6($s1)
-/*  f0ecbc8:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0ecbcc:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f0ecbd0:	27a60068 */ 	addiu	$a2,$sp,0x68
-/*  f0ecbd4:	8fa70070 */ 	lw	$a3,0x70($sp)
-/*  f0ecbd8:	0fc5580f */ 	jal	textRenderProjected
-/*  f0ecbdc:	afb80020 */ 	sw	$t8,0x20($sp)
-/*  f0ecbe0:	0fc54de0 */ 	jal	func0f153780
-/*  f0ecbe4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0ecbe8:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f0ecbec:	8fb00034 */ 	lw	$s0,0x34($sp)
-/*  f0ecbf0:	8fb10038 */ 	lw	$s1,0x38($sp)
-/*  f0ecbf4:	03e00008 */ 	jr	$ra
-/*  f0ecbf8:	27bd0078 */ 	addiu	$sp,$sp,0x78
-);
+Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
+{
+	u32 maincolour = 0x00000000;
+	char *text;
+	s32 x;
+	s32 y;
+	u8 data[3];
+	bool checked = false;
+	u32 fillcolour = 0xff002faf;
+	struct font *font2 = g_FontHandelGothicSm;
+	struct fontchar *font1 = g_CharsHandelGothicSm;
 
-//Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
-//{
-//	u32 maincolour = 0x00000000;
-//	char *text;
-//	s32 x;
-//	s32 y;
-//	u8 data[3];
-//	bool checked = false;
-//	u32 fillcolour = 0xff002faf;
-//	struct font *font2 = g_FontHandelGothicSm;
-//	struct fontchar *font1 = g_CharsHandelGothicSm;
-//
-//	if (context->item->flags & MENUITEMFLAG_00000200) {
-//		font2 = g_FontHandelGothicXs;
-//		font1 = g_CharsHandelGothicXs;
-//	}
-//
-//	x = context->x;
-//	y = context->y;
-//	text = menuResolveParam2Text(context->item);
-//	data[0] = 0;
-//
-//	if (context->item->handler
-//			&& context->item->handler(MENUOP_GET, context->item, (union handlerdata *)data) == true) {
-//		checked = true;
-//
-//		if (context->dialog->transitionfrac < 0) {
-//			maincolour = g_MenuColourPalettes[context->dialog->type].checkedunfocused;
-//		} else {
-//			maincolour = colourBlend(
-//					g_MenuColourPalettes[context->dialog->type2].checkedunfocused,
-//					g_MenuColourPalettes[context->dialog->type].checkedunfocused,
-//					context->dialog->colourweight);
-//		}
-//
-//		if (context->dialog->dimmed) {
-//			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
-//		}
-//
-//		func0f153e38(
-//				g_MenuColourPalettes3[context->dialog->type].checkedunfocused,
-//				g_MenuColourPalettes2[context->dialog->type].checkedunfocused);
-//	} else {
-//		if (context->dialog->transitionfrac < 0) {
-//			maincolour = g_MenuColourPalettes[context->dialog->type].unfocused;
-//		} else {
-//			maincolour = colourBlend(
-//					g_MenuColourPalettes[context->dialog->type2].unfocused,
-//					g_MenuColourPalettes[context->dialog->type].unfocused,
-//					context->dialog->colourweight);
-//		}
-//
-//		if (context->dialog->dimmed) {
-//			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
-//		}
-//
-//		func0f153e38(
-//				g_MenuColourPalettes3[context->dialog->type].unfocused,
-//				g_MenuColourPalettes2[context->dialog->type].unfocused);
-//	}
-//
-//	gdl = func0f153628(gdl);
-//
-//	if (context->focused) {
-//		// Mismatch: The addiu and lui at ec8fc and ec900 are swapped. The addiu
-//		// is adding the lower half of the address of g_MenuColourPalettes for
-//		// use in the else branch. The lui is loading a value into $at for the
-//		// float to u32 conversion for weight.
-//		u32 focuscolour;
-//		u32 weight = func0f006b08(40) * 255;
-//
-//		if (context->dialog->transitionfrac < 0) {
-//			focuscolour = g_MenuColourPalettes[context->dialog->type].focused;
-//		} else {
-//			focuscolour = colourBlend(
-//					g_MenuColourPalettes[context->dialog->type2].focused,
-//					g_MenuColourPalettes[context->dialog->type].focused,
-//					context->dialog->colourweight);
-//		}
-//
-//		maincolour = colourBlend(colourBlend(maincolour, maincolour & 0xff, 127), focuscolour, weight);
-//
-//		func0f153e38(
-//				g_MenuColourPalettes3[context->dialog->type].focused,
-//				g_MenuColourPalettes2[context->dialog->type].focused);
-//	}
-//
-//	if (menuIsItemDisabled(context->item, context->dialog)) {
-//		if (context->dialog->transitionfrac < 0) {
-//			maincolour = g_MenuColourPalettes[context->dialog->type].disabled;
-//		} else {
-//			maincolour = colourBlend(
-//					g_MenuColourPalettes[context->dialog->type2].disabled,
-//					g_MenuColourPalettes[context->dialog->type].disabled,
-//					context->dialog->colourweight);
-//		}
-//
-//		if (context->dialog->dimmed) {
-//			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
-//		}
-//
-//		func0f153e38(
-//				g_MenuColourPalettes3[context->dialog->type].disabled,
-//				g_MenuColourPalettes2[context->dialog->type].disabled);
-//
-//		fillcolour = 0x7f002faf;
-//	}
-//
-//	gdl = menugfxDrawCheckbox(gdl, context->x + context->width - 16, context->y + 2, 6,
-//			checked, maincolour, fillcolour);
-//
-//	x = context->x + 10;
-//	y = context->y + 2;
-//	gdl = textRenderProjected(gdl, &x, &y, text, font1, font2,
-//			maincolour, context->width, context->height, 0, 0);
-//
-//	return func0f153780(gdl);
-//}
+	if (context->item->flags & MENUITEMFLAG_00000200) {
+		font2 = g_FontHandelGothicXs;
+		font1 = g_CharsHandelGothicXs;
+	}
+
+	x = context->x;
+	y = context->y;
+	text = menuResolveParam2Text(context->item);
+	data[0] = 0;
+
+	if (context->item->handler
+			&& context->item->handler(MENUOP_GET, context->item, (union handlerdata *)data) == true) {
+		checked = true;
+
+		if (context->dialog->transitionfrac < 0) {
+			maincolour = g_MenuColourPalettes[context->dialog->type].checkedunfocused;
+		} else {
+			maincolour = colourBlend(
+					g_MenuColourPalettes[context->dialog->type2].checkedunfocused,
+					g_MenuColourPalettes[context->dialog->type].checkedunfocused,
+					context->dialog->colourweight);
+		}
+
+		if (context->dialog->dimmed) {
+			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
+		}
+
+		func0f153e38(
+				g_MenuColourPalettes3[context->dialog->type].checkedunfocused,
+				g_MenuColourPalettes2[context->dialog->type].checkedunfocused);
+	} else {
+		if (context->dialog->transitionfrac < 0) {
+			maincolour = g_MenuColourPalettes[context->dialog->type].unfocused;
+		} else {
+			maincolour = colourBlend(
+					g_MenuColourPalettes[context->dialog->type2].unfocused,
+					g_MenuColourPalettes[context->dialog->type].unfocused,
+					context->dialog->colourweight);
+		}
+
+		if (context->dialog->dimmed) {
+			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
+		}
+
+		func0f153e38(
+				g_MenuColourPalettes3[context->dialog->type].unfocused,
+				g_MenuColourPalettes2[context->dialog->type].unfocused);
+	}
+
+	gdl = func0f153628(gdl);
+
+	if (context->focused) {
+		// Mismatch: The addiu and lui at ec8fc and ec900 are swapped. The addiu
+		// is adding the lower half of the address of g_MenuColourPalettes for
+		// use in the else branch. The lui is loading a value into $at for the
+		// float to u32 conversion for weight.
+		u32 focuscolour;
+		u32 weight = func0f006b08(40) * 255; \
+		if (context->dialog->transitionfrac < 0) { \
+			focuscolour = g_MenuColourPalettes[context->dialog->type].focused;
+		} else {
+			focuscolour = colourBlend(
+					g_MenuColourPalettes[context->dialog->type2].focused,
+					g_MenuColourPalettes[context->dialog->type].focused,
+					context->dialog->colourweight);
+		}
+
+		maincolour = colourBlend(colourBlend(maincolour, maincolour & 0xff, 127), focuscolour, weight);
+
+		func0f153e38(
+				g_MenuColourPalettes3[context->dialog->type].focused,
+				g_MenuColourPalettes2[context->dialog->type].focused);
+	}
+
+	if (menuIsItemDisabled(context->item, context->dialog)) {
+		if (context->dialog->transitionfrac < 0) {
+			maincolour = g_MenuColourPalettes[context->dialog->type].disabled;
+		} else {
+			maincolour = colourBlend(
+					g_MenuColourPalettes[context->dialog->type2].disabled,
+					g_MenuColourPalettes[context->dialog->type].disabled,
+					context->dialog->colourweight);
+		}
+
+		if (context->dialog->dimmed) {
+			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
+		}
+
+		func0f153e38(
+				g_MenuColourPalettes3[context->dialog->type].disabled,
+				g_MenuColourPalettes2[context->dialog->type].disabled);
+
+		fillcolour = 0x7f002faf;
+	}
+
+	gdl = menugfxDrawCheckbox(gdl, context->x + context->width - 16, context->y + 2, 6,
+			checked, maincolour, fillcolour);
+
+	x = context->x + 10;
+	y = context->y + 2;
+	gdl = textRenderProjected(gdl, &x, &y, text, font1, font2,
+			maincolour, context->width, context->height, 0, 0);
+
+	return func0f153780(gdl);
+}
 
 bool menuitemCheckboxTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
 {
