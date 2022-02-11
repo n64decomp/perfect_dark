@@ -10945,7 +10945,6 @@ u16 menuitemControllerGetButtonAction(s32 mode, s32 buttonnum)
  * Note that the valuecolour argument is mostly unused - only the alpha channel
  * is used because the rest is bitwise or'ed to white.
  */
-#if VERSION >= VERSION_NTSC_1_0
 Gfx *menuitemControllerTextRender(Gfx *gdl, s32 curmode, struct menurendercontext *context, s32 x, s32 y, u32 valuecolour, u32 labelcolour, s8 prevmode)
 {
 	s32 rx;
@@ -10972,7 +10971,7 @@ Gfx *menuitemControllerTextRender(Gfx *gdl, s32 curmode, struct menurendercontex
 	for (i = 0; i < ARRAYCOUNT(labels); i++) {
 #if VERSION >= VERSION_PAL_FINAL
 		ry = i * 8 + context->y + y - 4;
-#else
+#elif VERSION >= VERSION_NTSC_1_0
 		ry = i * 7 + context->y + y;
 #endif
 
@@ -10980,6 +10979,9 @@ Gfx *menuitemControllerTextRender(Gfx *gdl, s32 curmode, struct menurendercontex
 		if (curmode < CONTROLMODE_21 || (i >= 4 && i <= 7)) {
 			// Rendering a label such as "L/R BUTTONS:"
 			rx = context->x + x + 76;
+#if VERSION < VERSION_NTSC_1_0
+			ry = i * 7 + context->y + y;
+#endif
 			gdl = textRenderProjected(gdl, &rx, &ry, langGet(labels[i]),
 					g_CharsHandelGothicXs, g_FontHandelGothicXs, labelcolour, viGetWidth(), viGetHeight(), 0, 0);
 		}
@@ -11021,188 +11023,6 @@ Gfx *menuitemControllerTextRender(Gfx *gdl, s32 curmode, struct menurendercontex
 
 	return func0f153780(gdl);
 }
-#else
-u16 labels[] = {
-	/*0*/ L_MPWEAPONS_185, // "L/R BUTTONS:"
-	/*1*/ L_MPWEAPONS_186, // "UP C BUTTON:"
-	/*2*/ L_MPWEAPONS_187, // "LEFT/RIGHT C BUTTONS:"
-	/*3*/ L_MPWEAPONS_188, // "DOWN C BUTTON:"
-	/*4*/ L_MPWEAPONS_189, // "A BUTTON:"
-	/*5*/ L_MPWEAPONS_190, // "B BUTTON:"
-	/*6*/ L_MPWEAPONS_191, // "CONTROL STICK:"
-	/*7*/ L_MPWEAPONS_192, // "Z BUTTON:"
-	/*8*/ L_MPWEAPONS_193, // "+ CONTROL PAD:"
-};
-
-GLOBAL_ASM(
-glabel menuitemControllerTextRender
-/*  f0ec8f0:	27bdff68 */ 	addiu	$sp,$sp,-152
-/*  f0ec8f4:	3c0f8007 */ 	lui	$t7,0x8007
-/*  f0ec8f8:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*  f0ec8fc:	afbe0058 */ 	sw	$s8,0x58($sp)
-/*  f0ec900:	afb70054 */ 	sw	$s7,0x54($sp)
-/*  f0ec904:	afb60050 */ 	sw	$s6,0x50($sp)
-/*  f0ec908:	afb5004c */ 	sw	$s5,0x4c($sp)
-/*  f0ec90c:	afb40048 */ 	sw	$s4,0x48($sp)
-/*  f0ec910:	afb30044 */ 	sw	$s3,0x44($sp)
-/*  f0ec914:	afb20040 */ 	sw	$s2,0x40($sp)
-/*  f0ec918:	afb1003c */ 	sw	$s1,0x3c($sp)
-/*  f0ec91c:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f0ec920:	afa700a4 */ 	sw	$a3,0xa4($sp)
-/*  f0ec924:	25ef3adc */ 	addiu	$t7,$t7,0x3adc
-/*  f0ec928:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f0ec92c:	27ae0074 */ 	addiu	$t6,$sp,0x74
-/*  f0ec930:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f0ec934:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f0ec938:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f0ec93c:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f0ec940:	8de8000c */ 	lw	$t0,0xc($t7)
-/*  f0ec944:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f0ec948:	95e10010 */ 	lhu	$at,0x10($t7)
-/*  f0ec94c:	00a0b025 */ 	or	$s6,$a1,$zero
-/*  f0ec950:	00c0f025 */ 	or	$s8,$a2,$zero
-/*  f0ec954:	adc8000c */ 	sw	$t0,0xc($t6)
-/*  f0ec958:	0fc5374a */ 	jal	func0f153628
-/*  f0ec95c:	a5c10010 */ 	sh	$at,0x10($t6)
-/*  f0ec960:	0040a825 */ 	or	$s5,$v0,$zero
-/*  f0ec964:	00009025 */ 	or	$s2,$zero,$zero
-/*  f0ec968:	83b700b7 */ 	lb	$s7,0xb7($sp)
-/*  f0ec96c:	8fb400b0 */ 	lw	$s4,0xb0($sp)
-.NB0f0ec970:
-/*  f0ec970:	2ac10004 */ 	slti	$at,$s6,0x4
-/*  f0ec974:	14200006 */ 	bnez	$at,.NB0f0ec990
-/*  f0ec978:	8faa00a4 */ 	lw	$t2,0xa4($sp)
-/*  f0ec97c:	2a410004 */ 	slti	$at,$s2,0x4
-/*  f0ec980:	14200029 */ 	bnez	$at,.NB0f0eca28
-/*  f0ec984:	2a410008 */ 	slti	$at,$s2,0x8
-/*  f0ec988:	50200028 */ 	beqzl	$at,.NB0f0eca2c
-/*  f0ec98c:	02c02025 */ 	or	$a0,$s6,$zero
-.NB0f0ec990:
-/*  f0ec990:	87c90000 */ 	lh	$t1,0x0($s8)
-/*  f0ec994:	8fae00a8 */ 	lw	$t6,0xa8($sp)
-/*  f0ec998:	001268c0 */ 	sll	$t5,$s2,0x3
-/*  f0ec99c:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f0ec9a0:	256c004c */ 	addiu	$t4,$t3,0x4c
-/*  f0ec9a4:	afac0094 */ 	sw	$t4,0x94($sp)
-/*  f0ec9a8:	87d90002 */ 	lh	$t9,0x2($s8)
-/*  f0ec9ac:	01b26823 */ 	subu	$t5,$t5,$s2
-/*  f0ec9b0:	00124040 */ 	sll	$t0,$s2,0x1
-/*  f0ec9b4:	01b9c021 */ 	addu	$t8,$t5,$t9
-/*  f0ec9b8:	030e7821 */ 	addu	$t7,$t8,$t6
-/*  f0ec9bc:	afaf0090 */ 	sw	$t7,0x90($sp)
-/*  f0ec9c0:	03a82021 */ 	addu	$a0,$sp,$t0
-/*  f0ec9c4:	0fc5a4dd */ 	jal	langGet
-/*  f0ec9c8:	94840074 */ 	lhu	$a0,0x74($a0)
-/*  f0ec9cc:	0c002f77 */ 	jal	viGetWidth
-/*  f0ec9d0:	00409825 */ 	or	$s3,$v0,$zero
-/*  f0ec9d4:	00028400 */ 	sll	$s0,$v0,0x10
-/*  f0ec9d8:	00104c03 */ 	sra	$t1,$s0,0x10
-/*  f0ec9dc:	0c002f7b */ 	jal	viGetHeight
-/*  f0ec9e0:	01208025 */ 	or	$s0,$t1,$zero
-/*  f0ec9e4:	3c0a8008 */ 	lui	$t2,0x8008
-/*  f0ec9e8:	3c0b8008 */ 	lui	$t3,0x8008
-/*  f0ec9ec:	8d6b2364 */ 	lw	$t3,0x2364($t3)
-/*  f0ec9f0:	8d4a2368 */ 	lw	$t2,0x2368($t2)
-/*  f0ec9f4:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f0ec9f8:	27a50094 */ 	addiu	$a1,$sp,0x94
-/*  f0ec9fc:	27a60090 */ 	addiu	$a2,$sp,0x90
-/*  f0eca00:	02603825 */ 	or	$a3,$s3,$zero
-/*  f0eca04:	afb40018 */ 	sw	$s4,0x18($sp)
-/*  f0eca08:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f0eca0c:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f0eca10:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f0eca14:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0eca18:	afab0014 */ 	sw	$t3,0x14($sp)
-/*  f0eca1c:	0fc541a6 */ 	jal	textRenderProjected
-/*  f0eca20:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f0eca24:	0040a825 */ 	or	$s5,$v0,$zero
-.NB0f0eca28:
-/*  f0eca28:	02c02025 */ 	or	$a0,$s6,$zero
-.NB0f0eca2c:
-/*  f0eca2c:	0fc3b1f3 */ 	jal	menuitemControllerGetButtonAction
-/*  f0eca30:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0eca34:	3050ffff */ 	andi	$s0,$v0,0xffff
-/*  f0eca38:	06e00010 */ 	bltz	$s7,.NB0f0eca7c
-/*  f0eca3c:	8fb100ac */ 	lw	$s1,0xac($sp)
-/*  f0eca40:	2ac10008 */ 	slti	$at,$s6,0x8
-/*  f0eca44:	14200008 */ 	bnez	$at,.NB0f0eca68
-/*  f0eca48:	02e02025 */ 	or	$a0,$s7,$zero
-/*  f0eca4c:	26e40004 */ 	addiu	$a0,$s7,0x4
-/*  f0eca50:	0fc3b1f3 */ 	jal	menuitemControllerGetButtonAction
-/*  f0eca54:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0eca58:	56020009 */ 	bnel	$s0,$v0,.NB0f0eca80
-/*  f0eca5c:	2ac10004 */ 	slti	$at,$s6,0x4
-/*  f0eca60:	10000006 */ 	beqz	$zero,.NB0f0eca7c
-/*  f0eca64:	02808825 */ 	or	$s1,$s4,$zero
-.NB0f0eca68:
-/*  f0eca68:	0fc3b1f3 */ 	jal	menuitemControllerGetButtonAction
-/*  f0eca6c:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0eca70:	56020003 */ 	bnel	$s0,$v0,.NB0f0eca80
-/*  f0eca74:	2ac10004 */ 	slti	$at,$s6,0x4
-/*  f0eca78:	02808825 */ 	or	$s1,$s4,$zero
-.NB0f0eca7c:
-/*  f0eca7c:	2ac10004 */ 	slti	$at,$s6,0x4
-.NB0f0eca80:
-/*  f0eca80:	1420000a */ 	bnez	$at,.NB0f0ecaac
-/*  f0eca84:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0eca88:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0eca8c:	16410007 */ 	bne	$s2,$at,.NB0f0ecaac
-/*  f0eca90:	8fad00a4 */ 	lw	$t5,0xa4($sp)
-/*  f0eca94:	87cc0000 */ 	lh	$t4,0x0($s8)
-/*  f0eca98:	02808825 */ 	or	$s1,$s4,$zero
-/*  f0eca9c:	018dc821 */ 	addu	$t9,$t4,$t5
-/*  f0ecaa0:	2738003f */ 	addiu	$t8,$t9,0x3f
-/*  f0ecaa4:	10000004 */ 	beqz	$zero,.NB0f0ecab8
-/*  f0ecaa8:	afb80094 */ 	sw	$t8,0x94($sp)
-.NB0f0ecaac:
-/*  f0ecaac:	2401ff00 */ 	addiu	$at,$zero,-256
-/*  f0ecab0:	02217025 */ 	or	$t6,$s1,$at
-/*  f0ecab4:	01c08825 */ 	or	$s1,$t6,$zero
-.NB0f0ecab8:
-/*  f0ecab8:	0fc5a4dd */ 	jal	langGet
-/*  f0ecabc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ecac0:	0c002f77 */ 	jal	viGetWidth
-/*  f0ecac4:	00409825 */ 	or	$s3,$v0,$zero
-/*  f0ecac8:	00028400 */ 	sll	$s0,$v0,0x10
-/*  f0ecacc:	00107c03 */ 	sra	$t7,$s0,0x10
-/*  f0ecad0:	0c002f7b */ 	jal	viGetHeight
-/*  f0ecad4:	01e08025 */ 	or	$s0,$t7,$zero
-/*  f0ecad8:	3c088008 */ 	lui	$t0,0x8008
-/*  f0ecadc:	3c098008 */ 	lui	$t1,0x8008
-/*  f0ecae0:	8d292364 */ 	lw	$t1,0x2364($t1)
-/*  f0ecae4:	8d082368 */ 	lw	$t0,0x2368($t0)
-/*  f0ecae8:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f0ecaec:	27a50094 */ 	addiu	$a1,$sp,0x94
-/*  f0ecaf0:	27a60090 */ 	addiu	$a2,$sp,0x90
-/*  f0ecaf4:	02603825 */ 	or	$a3,$s3,$zero
-/*  f0ecaf8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0ecafc:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f0ecb00:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f0ecb04:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f0ecb08:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0ecb0c:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f0ecb10:	0fc541a6 */ 	jal	textRenderProjected
-/*  f0ecb14:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f0ecb18:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f0ecb1c:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f0ecb20:	1641ff93 */ 	bne	$s2,$at,.NB0f0ec970
-/*  f0ecb24:	0040a825 */ 	or	$s5,$v0,$zero
-/*  f0ecb28:	0fc537a0 */ 	jal	func0f153780
-/*  f0ecb2c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0ecb30:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*  f0ecb34:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f0ecb38:	8fb1003c */ 	lw	$s1,0x3c($sp)
-/*  f0ecb3c:	8fb20040 */ 	lw	$s2,0x40($sp)
-/*  f0ecb40:	8fb30044 */ 	lw	$s3,0x44($sp)
-/*  f0ecb44:	8fb40048 */ 	lw	$s4,0x48($sp)
-/*  f0ecb48:	8fb5004c */ 	lw	$s5,0x4c($sp)
-/*  f0ecb4c:	8fb60050 */ 	lw	$s6,0x50($sp)
-/*  f0ecb50:	8fb70054 */ 	lw	$s7,0x54($sp)
-/*  f0ecb54:	8fbe0058 */ 	lw	$s8,0x58($sp)
-/*  f0ecb58:	03e00008 */ 	jr	$ra
-/*  f0ecb5c:	27bd0098 */ 	addiu	$sp,$sp,0x98
-);
-#endif
 
 Gfx *menuitemControllerInfoRender(Gfx *gdl, struct menurendercontext *context, s32 x, s32 y, s32 curmode, u32 alpha, u32 colour1, u32 colour2, s8 prevmode)
 {
