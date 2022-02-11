@@ -13161,15 +13161,7 @@ u32 var800714d4 = (u32)&var7f1b2664;
 //	}
 //#endif
 //
-//	// Colours are stored in an array of palette structures that's indexed by
-//	// the dialog type. Usually this is a direct lookup, but if the dialog is
-//	// transitioning between two types it has to blend the two colours together.
-//	// This is done several times throughout the function, so a macro is used.
-//#define GETCOLOUR(property) (dialog->transitionfrac < 0.0f \
-//	? g_MenuColourPalettes[dialog->type].property \
-//	: colourBlend(g_MenuColourPalettes[dialog->type2].property, g_MenuColourPalettes[dialog->type].property, dialog->colourweight))
-//
-//	colour1 = GETCOLOUR(unk28);
+//	colour1 = MIXCOLOUR(dialog, unk28);
 //
 //	func0f156030(colour1);
 //
@@ -13213,9 +13205,9 @@ u32 var800714d4 = (u32)&var7f1b2664;
 //
 //	title = menuResolveDialogTitle(dialog->definition);
 //
-//	colour1 = GETCOLOUR(unk00);
-//	colour2 = GETCOLOUR(unk04);
-//	colour3 = GETCOLOUR(unk08);
+//	colour1 = MIXCOLOUR(dialog, unk00);
+//	colour2 = MIXCOLOUR(dialog, unk04);
+//	colour3 = MIXCOLOUR(dialog, unk08);
 //
 //	gSPClearGeometryMode(gdl++, G_ZBUFFER);
 //
@@ -13284,7 +13276,7 @@ u32 var800714d4 = (u32)&var7f1b2664;
 //
 //			u32 stack;
 //
-//			colour1 = GETCOLOUR(unk0c);
+//			colour1 = MIXCOLOUR(dialog, unk0c);
 //
 //			func0f153e38(g_MenuColourPalettes3[dialog->type].unk0c, g_MenuColourPalettes2[dialog->type].unk0c);
 //
@@ -13334,13 +13326,13 @@ u32 var800714d4 = (u32)&var7f1b2664;
 //		dialogbottom = dialogtop + 11;
 //	}
 //
-//	colour1 = GETCOLOUR(unk10);
+//	colour1 = MIXCOLOUR(dialog, unk10);
 //
 //	if (dialog->dimmed) {
 //		colour1 = (colourBlend(colour1, 0x00000000, 44) & 0xffffff00) | (colour1 & 0xff);
 //	}
 //
-//	colour2 = GETCOLOUR(unk14);
+//	colour2 = MIXCOLOUR(dialog, unk14);
 //
 //	// Draw the dialog's background and outer borders
 //	if (!lightweight) {
@@ -13354,7 +13346,7 @@ u32 var800714d4 = (u32)&var7f1b2664;
 //
 //		// No dialog has this flag, so this branch is unused
 //		if (dialog->definition->flags & MENUDIALOGFLAG_DISABLETITLEBAR) {
-//			gdl = menugfxDrawDialogBorderLine(gdl, dialogleft + 1, dialogtop + 11, dialogleft + dialogwidth - 1, dialogtop + 12, GETCOLOUR(unk00), GETCOLOUR(unk08));
+//			gdl = menugfxDrawDialogBorderLine(gdl, dialogleft + 1, dialogtop + 11, dialogleft + dialogwidth - 1, dialogtop + 12, MIXCOLOUR(dialog, unk00), MIXCOLOUR(dialog, unk08));
 //		}
 //	}
 //
@@ -13457,7 +13449,7 @@ u32 var800714d4 = (u32)&var7f1b2664;
 //				cury = dialogtop + 12 + dialog->scroll;
 //				prevwaslist = false;
 //
-//				sp120 = GETCOLOUR(unfocused);
+//				sp120 = MIXCOLOUR(dialog, unfocused);
 //				sp120 = (sp120 & 0xffffff00) | 0x3f;
 //
 //				colindex = dialog->colstart + i;
@@ -13533,7 +13525,7 @@ u32 var800714d4 = (u32)&var7f1b2664;
 //							u32 colour;
 //							u32 colour2;
 //
-//							colour2 = GETCOLOUR(unk28);
+//							colour2 = MIXCOLOUR(dialog, unk28);
 //							colour = colourBlend(colour2, colour2 & 0xffffff00, 127);
 //
 //							gdl = gfxSetPrimColour(gdl, colour);
@@ -13659,7 +13651,7 @@ u32 var800714d4 = (u32)&var7f1b2664;
 //			u32 colour;
 //			u32 weight = func0f006b08(10) * 255.0f;
 //
-//			colour1 = GETCOLOUR(unk00);
+//			colour1 = MIXCOLOUR(dialog, unk00);
 //			colour = colourBlend(0xffffffff, colour1, weight);
 //
 //			gdl = menugfxDrawDialogChevron(gdl, dialogleft - 5, (dialogtop + dialogbottom) / 2, 9, 1, colour, colour, func0f006b08(20));

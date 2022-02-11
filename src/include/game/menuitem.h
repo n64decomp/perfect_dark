@@ -12,7 +12,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context);
 bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data);
 
 void menuitemDropdownInit(struct menuitem *item, union menuitemdata *data);
-Gfx *menuitemDropdownRender(Gfx *gdl);
+Gfx *menuitemDropdownRender(Gfx *gdl, struct menurendercontext *context);
 bool menuitemDropdownTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data);
 
 Gfx *menuitemDropdownOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menudialog *dialog, union menuitemdata *data);

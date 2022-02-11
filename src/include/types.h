@@ -3497,7 +3497,10 @@ struct handlerdata_label {
 };
 
 struct handlerdata_list {
-	s32 value;
+	union {
+		u32 value;
+		s32 values32;
+	};
 	s32 unk04;
 	s32 groupstartindex;
 	s32 unk0c;
@@ -3880,7 +3883,7 @@ struct menudata_filemgr {
 		u32 isdeletingforsave;
 		u32 noteindex;
 	};
-	/*0xe2c*/ u32 unke2c;
+	/*0xe2c*/ s32 unke2c;
 	/*0xe30*/ u32 unke30;
 	/*0xe34*/ u16 errno;
 	/*0xe38*/ struct filelistfile *filetodelete;
