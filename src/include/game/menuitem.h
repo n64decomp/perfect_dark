@@ -65,12 +65,12 @@ bool menuitemPlayerStatsTick(struct menuitem *item, struct menudialog *dialog, s
 Gfx *menuitemPlayerStatsOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menudialog *dialog, union menuitemdata *data);
 void menuitemPlayerStatsInit(struct menuitem *item, union menuitemdata *data);
 
-u32 menuitem0f0ef394(void);
+Gfx *menuitemControllerRenderLine(Gfx *gdl, s32 speed, s32 x1, s32 y1, s32 x2, s32 y2);
 Gfx *menuitemControllerRenderTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32 alpha);
-Gfx *menuitemControllerRenderLines(Gfx *gdl, struct menurendercontext *context, s32 arg2, s32 arg3, s32 x, s32 y, u32 alpha);
+Gfx *menuitemControllerRenderLines(Gfx *gdl, struct menurendercontext *context, s32 firstindex, s32 lastindex, s32 padx, s32 pady, u32 alpha);
 u16 menuitemControllerGetButtonAction(s32 mode, s32 buttonnum);
-Gfx *menuitemControllerTextRender(Gfx *gdl, s32 curmode, struct menurendercontext *context, s32 x, s32 y, u32 valuecolour, u32 labelcolour, s8 prevmode);
-Gfx *menuitemControllerInfoRender(Gfx *gdl, struct menurendercontext *context, s32 x, s32 y, s32 curmode, u32 alpha, u32 colour1, u32 colour2, s8 prevmode);
+Gfx *menuitemControllerRenderText(Gfx *gdl, s32 curmode, struct menurendercontext *context, s32 padx, s32 pady, u32 valuecolour, u32 labelcolour, s8 prevmode);
+Gfx *menuitemControllerRenderPad(Gfx *gdl, struct menurendercontext *context, s32 padx, s32 pady, s32 curmode, u32 alpha, u32 colour1, u32 colour2, s8 prevmode);
 Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context);
 void menuitemControllerInit(union menuitemdata *data);
 

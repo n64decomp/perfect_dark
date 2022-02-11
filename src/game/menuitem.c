@@ -8648,94 +8648,6 @@ u32 var800711ec = 0x20000000;
 //}
 
 u32 var800711f0 = 0x00000002;
-u32 var800711f4 = 0x0000000c;
-u32 var800711f8 = PAL ? -1 : 10;
-u32 var800711fc = 0xffffffff;
-u32 var80071200 = PAL ? 10 : 3;
-u32 var80071204 = 0x00000033;
-u32 var80071208 = PAL ? -1 : 10;
-u32 var8007120c = 0xffffffff;
-u32 var80071210 = PAL ? 10 : 3;
-u32 var80071214 = 0x0000000c;
-u32 var80071218 = PAL ? -1 : 3;
-u32 var8007121c = 0x0000004b;
-u32 var80071220 = 0xffffffff;
-u32 var80071224 = 0x00000037;
-u32 var80071228 = 0x00000013;
-u32 var8007122c = 0x00000040;
-u32 var80071230 = 0xffffffff;
-u32 var80071234 = 0x0000003f;
-u32 var80071238 = 0x00000013;
-u32 var8007123c = 0xffffffff;
-u32 var80071240 = PAL ? 7 : 10;
-u32 var80071244 = 0x0000003f;
-u32 var80071248 = PAL ? 7 : 10;
-u32 var8007124c = 0x0000004b;
-u32 var80071250 = 0xffffffff;
-u32 var80071254 = 0x00000033;
-u32 var80071258 = 0x00000017;
-u32 var8007125c = 0x00000037;
-u32 var80071260 = 0xffffffff;
-u32 var80071264 = 0x0000003b;
-u32 var80071268 = 0x00000017;
-u32 var8007126c = 0x00000044;
-u32 var80071270 = 0xffffffff;
-u32 var80071274 = 0x00000043;
-u32 var80071278 = 0x00000017;
-u32 var8007127c = 0xffffffff;
-u32 var80071280 = PAL ? 15 : 17;
-u32 var80071284 = 0x00000043;
-u32 var80071288 = PAL ? 15 : 17;
-u32 var8007128c = 0x0000004b;
-u32 var80071290 = 0xffffffff;
-u32 var80071294 = 0x00000037;
-u32 var80071298 = 0x0000001b;
-u32 var8007129c = 0x00000048;
-u32 var800712a0 = 0xffffffff;
-u32 var800712a4 = 0x00000047;
-u32 var800712a8 = 0x0000001b;
-u32 var800712ac = 0xffffffff;
-u32 var800712b0 = PAL ? 23 : 24;
-u32 var800712b4 = 0x00000047;
-u32 var800712b8 = PAL ? 23 : 24;
-u32 var800712bc = 0x0000004b;
-u32 var800712c0 = 0xffffffff;
-u32 var800712c4 = 0x00000031;
-u32 var800712c8 = 0x0000001f;
-u32 var800712cc = 0x0000004b;
-u32 var800712d0 = 0xffffffff;
-u32 var800712d4 = 0x0000002b;
-u32 var800712d8 = 0x0000001c;
-u32 var800712dc = 0xffffffff;
-u32 var800712e0 = PAL ? 39 : 38;
-u32 var800712e4 = 0x0000002b;
-u32 var800712e8 = PAL ? 39 : 38;
-u32 var800712ec = 0x0000004b;
-u32 var800712f0 = 0xffffffff;
-u32 var800712f4 = 0x0000001e;
-u32 var800712f8 = 0x00000023;
-u32 var800712fc = 0x00000025;
-u32 var80071300 = 0xffffffff;
-u32 var80071304 = 0x00000025;
-u32 var80071308 = 0x00000023;
-u32 var8007130c = 0xffffffff;
-u32 var80071310 = PAL ? 47 : 45;
-u32 var80071314 = 0x00000025;
-u32 var80071318 = PAL ? 47 : 45;
-u32 var8007131c = 0x0000004b;
-u32 var80071320 = 0xffffffff;
-u32 var80071324 = 0x00000022;
-u32 var80071328 = PAL ? 55 : 52;
-u32 var8007132c = 0x0000004b;
-u32 var80071330 = 0xffffffff;
-u32 var80071334 = 0x0000000c;
-u32 var80071338 = 0x0000001e;
-u32 var8007133c = 0xffffffff;
-u32 var80071340 = PAL ? 63 : 59;
-u32 var80071344 = 0x0000000c;
-u32 var80071348 = PAL ? 63 : 59;
-u32 var8007134c = 0x0000004b;
-u32 var80071350 = 0xffffffff;
 
 bool menuitemMarqueeTick(struct menuitem *item, union menuitemdata *data)
 {
@@ -10566,7 +10478,7 @@ void menuitemPlayerStatsInit(struct menuitem *item, union menuitemdata *data)
 }
 
 GLOBAL_ASM(
-glabel menuitem0f0ef394
+glabel menuitemControllerRenderLine
 /*  f0ef394:	3c098008 */ 	lui	$t1,%hi(g_ScaleX)
 /*  f0ef398:	8faf0010 */ 	lw	$t7,0x10($sp)
 /*  f0ef39c:	2529fac0 */ 	addiu	$t1,$t1,%lo(g_ScaleX)
@@ -10677,226 +10589,133 @@ Gfx *menuitemControllerRenderTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel menuitemControllerRenderLines
-/*  f0ef758:	3c018006 */ 	lui	$at,%hi(var80061630)
-/*  f0ef75c:	c4241630 */ 	lwc1	$f4,%lo(var80061630)($at)
-/*  f0ef760:	3c014080 */ 	lui	$at,0x4080
-/*  f0ef764:	44814000 */ 	mtc1	$at,$f8
-/*  f0ef768:	46002187 */ 	neg.s	$f6,$f4
-/*  f0ef76c:	3c014248 */ 	lui	$at,0x4248
-/*  f0ef770:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f0ef774:	44818000 */ 	mtc1	$at,$f16
-/*  f0ef778:	27bdff60 */ 	addiu	$sp,$sp,-160
-/*  f0ef77c:	afb5003c */ 	sw	$s5,0x3c($sp)
-/*  f0ef780:	afa400a0 */ 	sw	$a0,0xa0($sp)
-/*  f0ef784:	8fb900a0 */ 	lw	$t9,0xa0($sp)
-/*  f0ef788:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f0ef78c:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f0ef790:	8fb000b8 */ 	lw	$s0,0xb8($sp)
-/*  f0ef794:	272d0008 */ 	addiu	$t5,$t9,0x8
-/*  f0ef798:	afbf004c */ 	sw	$ra,0x4c($sp)
-/*  f0ef79c:	afbe0048 */ 	sw	$s8,0x48($sp)
-/*  f0ef7a0:	afb70044 */ 	sw	$s7,0x44($sp)
-/*  f0ef7a4:	afb60040 */ 	sw	$s6,0x40($sp)
-/*  f0ef7a8:	4600910d */ 	trunc.w.s	$f4,$f18
-/*  f0ef7ac:	afb40038 */ 	sw	$s4,0x38($sp)
-/*  f0ef7b0:	afb30034 */ 	sw	$s3,0x34($sp)
-/*  f0ef7b4:	afb20030 */ 	sw	$s2,0x30($sp)
-/*  f0ef7b8:	44152000 */ 	mfc1	$s5,$f4
-/*  f0ef7bc:	afb1002c */ 	sw	$s1,0x2c($sp)
-/*  f0ef7c0:	afad00a0 */ 	sw	$t5,0xa0($sp)
-/*  f0ef7c4:	3c0ee700 */ 	lui	$t6,0xe700
-/*  f0ef7c8:	af2e0000 */ 	sw	$t6,0x0($t9)
-/*  f0ef7cc:	af200004 */ 	sw	$zero,0x4($t9)
-/*  f0ef7d0:	0010c042 */ 	srl	$t8,$s0,0x1
-/*  f0ef7d4:	03008025 */ 	or	$s0,$t8,$zero
-/*  f0ef7d8:	3c19ba00 */ 	lui	$t9,0xba00
-/*  f0ef7dc:	37391301 */ 	ori	$t9,$t9,0x1301
-/*  f0ef7e0:	00a0b025 */ 	or	$s6,$a1,$zero
-/*  f0ef7e4:	3c05800b */ 	lui	$a1,%hi(g_TexGeneralConfigs)
-/*  f0ef7e8:	00c09025 */ 	or	$s2,$a2,$zero
-/*  f0ef7ec:	00e09825 */ 	or	$s3,$a3,$zero
-/*  f0ef7f0:	06a10004 */ 	bgez	$s5,.L0f0ef804
-/*  f0ef7f4:	32af0003 */ 	andi	$t7,$s5,0x3
-/*  f0ef7f8:	11e00002 */ 	beqz	$t7,.L0f0ef804
-/*  f0ef7fc:	00000000 */ 	nop
-/*  f0ef800:	25effffc */ 	addiu	$t7,$t7,-4
-.L0f0ef804:
-/*  f0ef804:	01e0a825 */ 	or	$s5,$t7,$zero
-/*  f0ef808:	8faf00a0 */ 	lw	$t7,0xa0($sp)
-/*  f0ef80c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0ef810:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f0ef814:	25f80008 */ 	addiu	$t8,$t7,0x8
-/*  f0ef818:	afb800a0 */ 	sw	$t8,0xa0($sp)
-/*  f0ef81c:	ade00004 */ 	sw	$zero,0x4($t7)
-/*  f0ef820:	adf90000 */ 	sw	$t9,0x0($t7)
-/*  f0ef824:	8fad00a0 */ 	lw	$t5,0xa0($sp)
-/*  f0ef828:	3c0fb900 */ 	lui	$t7,0xb900
-/*  f0ef82c:	35ef0002 */ 	ori	$t7,$t7,0x2
-/*  f0ef830:	25ae0008 */ 	addiu	$t6,$t5,0x8
-/*  f0ef834:	afae00a0 */ 	sw	$t6,0xa0($sp)
-/*  f0ef838:	ada00004 */ 	sw	$zero,0x4($t5)
-/*  f0ef83c:	adaf0000 */ 	sw	$t7,0x0($t5)
-/*  f0ef840:	8fb800a0 */ 	lw	$t8,0xa0($sp)
-/*  f0ef844:	3c0dba00 */ 	lui	$t5,0xba00
-/*  f0ef848:	35ad1001 */ 	ori	$t5,$t5,0x1001
-/*  f0ef84c:	27190008 */ 	addiu	$t9,$t8,0x8
-/*  f0ef850:	afb900a0 */ 	sw	$t9,0xa0($sp)
-/*  f0ef854:	af000004 */ 	sw	$zero,0x4($t8)
-/*  f0ef858:	af0d0000 */ 	sw	$t5,0x0($t8)
-/*  f0ef85c:	8fae00a0 */ 	lw	$t6,0xa0($sp)
-/*  f0ef860:	3c18ba00 */ 	lui	$t8,0xba00
-/*  f0ef864:	37180903 */ 	ori	$t8,$t8,0x903
-/*  f0ef868:	25cf0008 */ 	addiu	$t7,$t6,0x8
-/*  f0ef86c:	afaf00a0 */ 	sw	$t7,0xa0($sp)
-/*  f0ef870:	24190c00 */ 	addiu	$t9,$zero,0xc00
-/*  f0ef874:	add90004 */ 	sw	$t9,0x4($t6)
-/*  f0ef878:	add80000 */ 	sw	$t8,0x0($t6)
-/*  f0ef87c:	8ca5b5a8 */ 	lw	$a1,%lo(g_TexGeneralConfigs)($a1)
-/*  f0ef880:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0ef884:	240d0002 */ 	addiu	$t5,$zero,0x2
-/*  f0ef888:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f0ef88c:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f0ef890:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f0ef894:	27a400a0 */ 	addiu	$a0,$sp,0xa0
-/*  f0ef898:	0fc2ce70 */ 	jal	func0f0b39c0
-/*  f0ef89c:	24a50294 */ 	addiu	$a1,$a1,0x0294
-/*  f0ef8a0:	8faf00a0 */ 	lw	$t7,0xa0($sp)
-/*  f0ef8a4:	3c19ba00 */ 	lui	$t9,0xba00
-/*  f0ef8a8:	37391402 */ 	ori	$t9,$t9,0x1402
-/*  f0ef8ac:	25f80008 */ 	addiu	$t8,$t7,0x8
-/*  f0ef8b0:	afb800a0 */ 	sw	$t8,0xa0($sp)
-/*  f0ef8b4:	ade00004 */ 	sw	$zero,0x4($t7)
-/*  f0ef8b8:	adf90000 */ 	sw	$t9,0x0($t7)
-/*  f0ef8bc:	8fad00a0 */ 	lw	$t5,0xa0($sp)
-/*  f0ef8c0:	3c0fba00 */ 	lui	$t7,0xba00
-/*  f0ef8c4:	35ef0c02 */ 	ori	$t7,$t7,0xc02
-/*  f0ef8c8:	25ae0008 */ 	addiu	$t6,$t5,0x8
-/*  f0ef8cc:	afae00a0 */ 	sw	$t6,0xa0($sp)
-/*  f0ef8d0:	ada00004 */ 	sw	$zero,0x4($t5)
-/*  f0ef8d4:	adaf0000 */ 	sw	$t7,0x0($t5)
-/*  f0ef8d8:	8fb800a0 */ 	lw	$t8,0xa0($sp)
-/*  f0ef8dc:	3c0dfc12 */ 	lui	$t5,0xfc12
-/*  f0ef8e0:	3c0eff37 */ 	lui	$t6,0xff37
-/*  f0ef8e4:	27190008 */ 	addiu	$t9,$t8,0x8
-/*  f0ef8e8:	afb900a0 */ 	sw	$t9,0xa0($sp)
-/*  f0ef8ec:	35ceffff */ 	ori	$t6,$t6,0xffff
-/*  f0ef8f0:	35ad9a25 */ 	ori	$t5,$t5,0x9a25
-/*  f0ef8f4:	af0d0000 */ 	sw	$t5,0x0($t8)
-/*  f0ef8f8:	af0e0004 */ 	sw	$t6,0x4($t8)
-/*  f0ef8fc:	8faf00a0 */ 	lw	$t7,0xa0($sp)
-/*  f0ef900:	2401ff00 */ 	addiu	$at,$zero,-256
-/*  f0ef904:	02016825 */ 	or	$t5,$s0,$at
-/*  f0ef908:	25f80008 */ 	addiu	$t8,$t7,0x8
-/*  f0ef90c:	afb800a0 */ 	sw	$t8,0xa0($sp)
-/*  f0ef910:	3c19fb00 */ 	lui	$t9,0xfb00
-/*  f0ef914:	0272082a */ 	slt	$at,$s3,$s2
-/*  f0ef918:	02408825 */ 	or	$s1,$s2,$zero
-/*  f0ef91c:	adf90000 */ 	sw	$t9,0x0($t7)
-/*  f0ef920:	1420004e */ 	bnez	$at,.L0f0efa5c
-/*  f0ef924:	aded0004 */ 	sw	$t5,0x4($t7)
-/*  f0ef928:	00127100 */ 	sll	$t6,$s2,0x4
-/*  f0ef92c:	3c0f8007 */ 	lui	$t7,%hi(var800711f4)
-/*  f0ef930:	25ef11f4 */ 	addiu	$t7,$t7,%lo(var800711f4)
-/*  f0ef934:	266c0001 */ 	addiu	$t4,$s3,0x1
-/*  f0ef938:	8fb300b4 */ 	lw	$s3,0xb4($sp)
-/*  f0ef93c:	01cf8021 */ 	addu	$s0,$t6,$t7
-/*  f0ef940:	8fb200b0 */ 	lw	$s2,0xb0($sp)
-/*  f0ef944:	241e0011 */ 	addiu	$s8,$zero,0x11
-/*  f0ef948:	2417000e */ 	addiu	$s7,$zero,0xe
-/*  f0ef94c:	2414ffff */ 	addiu	$s4,$zero,-1
-.L0f0ef950:
-/*  f0ef950:	8e18000c */ 	lw	$t8,0xc($s0)
-/*  f0ef954:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f0ef958:	56980005 */ 	bnel	$s4,$t8,.L0f0ef970
-/*  f0ef95c:	8e080008 */ 	lw	$t0,0x8($s0)
-/*  f0ef960:	8e190004 */ 	lw	$t9,0x4($s0)
-/*  f0ef964:	272d0001 */ 	addiu	$t5,$t9,0x1
-/*  f0ef968:	ae0d000c */ 	sw	$t5,0xc($s0)
-/*  f0ef96c:	8e080008 */ 	lw	$t0,0x8($s0)
-.L0f0ef970:
-/*  f0ef970:	56880005 */ 	bnel	$s4,$t0,.L0f0ef988
-/*  f0ef974:	8e0a0000 */ 	lw	$t2,0x0($s0)
-/*  f0ef978:	8e0e0000 */ 	lw	$t6,0x0($s0)
-/*  f0ef97c:	25c80001 */ 	addiu	$t0,$t6,0x1
-/*  f0ef980:	ae080008 */ 	sw	$t0,0x8($s0)
-/*  f0ef984:	8e0a0000 */ 	lw	$t2,0x0($s0)
-.L0f0ef988:
-/*  f0ef988:	150a0002 */ 	bne	$t0,$t2,.L0f0ef994
-/*  f0ef98c:	25580001 */ 	addiu	$t8,$t2,0x1
-/*  f0ef990:	ae180008 */ 	sw	$t8,0x8($s0)
-.L0f0ef994:
-/*  f0ef994:	8e090004 */ 	lw	$t1,0x4($s0)
-/*  f0ef998:	8e19000c */ 	lw	$t9,0xc($s0)
-/*  f0ef99c:	252d0001 */ 	addiu	$t5,$t1,0x1
-/*  f0ef9a0:	57290004 */ 	bnel	$t9,$t1,.L0f0ef9b4
-/*  f0ef9a4:	8e080008 */ 	lw	$t0,0x8($s0)
-/*  f0ef9a8:	ae0d000c */ 	sw	$t5,0xc($s0)
-/*  f0ef9ac:	8e0a0000 */ 	lw	$t2,0x0($s0)
-/*  f0ef9b0:	8e080008 */ 	lw	$t0,0x8($s0)
-.L0f0ef9b4:
-/*  f0ef9b4:	010a082a */ 	slt	$at,$t0,$t2
-/*  f0ef9b8:	50200005 */ 	beqzl	$at,.L0f0ef9d0
-/*  f0ef9bc:	8e0b000c */ 	lw	$t3,0xc($s0)
-/*  f0ef9c0:	ae080000 */ 	sw	$t0,0x0($s0)
-/*  f0ef9c4:	ae0a0008 */ 	sw	$t2,0x8($s0)
-/*  f0ef9c8:	8e090004 */ 	lw	$t1,0x4($s0)
-/*  f0ef9cc:	8e0b000c */ 	lw	$t3,0xc($s0)
-.L0f0ef9d0:
-/*  f0ef9d0:	0169082a */ 	slt	$at,$t3,$t1
-/*  f0ef9d4:	50200006 */ 	beqzl	$at,.L0f0ef9f0
-/*  f0ef9d8:	8e080008 */ 	lw	$t0,0x8($s0)
-/*  f0ef9dc:	ae0b0004 */ 	sw	$t3,0x4($s0)
-/*  f0ef9e0:	01205825 */ 	or	$t3,$t1,$zero
-/*  f0ef9e4:	ae09000c */ 	sw	$t1,0xc($s0)
-/*  f0ef9e8:	8e090004 */ 	lw	$t1,0x4($s0)
-/*  f0ef9ec:	8e080008 */ 	lw	$t0,0x8($s0)
-.L0f0ef9f0:
-/*  f0ef9f0:	12370005 */ 	beq	$s1,$s7,.L0f0efa08
-/*  f0ef9f4:	8e0a0000 */ 	lw	$t2,0x0($s0)
-/*  f0ef9f8:	123e0003 */ 	beq	$s1,$s8,.L0f0efa08
-/*  f0ef9fc:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f0efa00:	56210003 */ 	bnel	$s1,$at,.L0f0efa10
-/*  f0efa04:	86c20000 */ 	lh	$v0,0x0($s6)
-.L0f0efa08:
-/*  f0efa08:	00152823 */ 	negu	$a1,$s5
-/*  f0efa0c:	86c20000 */ 	lh	$v0,0x0($s6)
-.L0f0efa10:
-/*  f0efa10:	86c30002 */ 	lh	$v1,0x2($s6)
-/*  f0efa14:	afac0050 */ 	sw	$t4,0x50($sp)
-/*  f0efa18:	01427021 */ 	addu	$t6,$t2,$v0
-/*  f0efa1c:	01d23021 */ 	addu	$a2,$t6,$s2
-/*  f0efa20:	0102c021 */ 	addu	$t8,$t0,$v0
-/*  f0efa24:	01636821 */ 	addu	$t5,$t3,$v1
-/*  f0efa28:	01b37021 */ 	addu	$t6,$t5,$s3
-/*  f0efa2c:	0312c821 */ 	addu	$t9,$t8,$s2
-/*  f0efa30:	01237821 */ 	addu	$t7,$t1,$v1
-/*  f0efa34:	01f33821 */ 	addu	$a3,$t7,$s3
-/*  f0efa38:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f0efa3c:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f0efa40:	0fc3bce5 */ 	jal	menuitem0f0ef394
-/*  f0efa44:	8fa400a0 */ 	lw	$a0,0xa0($sp)
-/*  f0efa48:	8fac0050 */ 	lw	$t4,0x50($sp)
-/*  f0efa4c:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0efa50:	26100010 */ 	addiu	$s0,$s0,0x10
-/*  f0efa54:	1591ffbe */ 	bne	$t4,$s1,.L0f0ef950
-/*  f0efa58:	afa200a0 */ 	sw	$v0,0xa0($sp)
-.L0f0efa5c:
-/*  f0efa5c:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*  f0efa60:	8fa200a0 */ 	lw	$v0,0xa0($sp)
-/*  f0efa64:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f0efa68:	8fb1002c */ 	lw	$s1,0x2c($sp)
-/*  f0efa6c:	8fb20030 */ 	lw	$s2,0x30($sp)
-/*  f0efa70:	8fb30034 */ 	lw	$s3,0x34($sp)
-/*  f0efa74:	8fb40038 */ 	lw	$s4,0x38($sp)
-/*  f0efa78:	8fb5003c */ 	lw	$s5,0x3c($sp)
-/*  f0efa7c:	8fb60040 */ 	lw	$s6,0x40($sp)
-/*  f0efa80:	8fb70044 */ 	lw	$s7,0x44($sp)
-/*  f0efa84:	8fbe0048 */ 	lw	$s8,0x48($sp)
-/*  f0efa88:	03e00008 */ 	jr	$ra
-/*  f0efa8c:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
-);
+struct lineconfig {
+	s32 x1;
+	s32 y1;
+	s32 x2;
+	s32 y2;
+};
+
+Gfx *menuitemControllerRenderLines(Gfx *gdl, struct menurendercontext *context, s32 firstindex, s32 lastindex, s32 padx, s32 pady, u32 alpha)
+{
+	s32 speed;
+	s32 i;
+
+	static struct lineconfig linecfgs[] = {
+#if PAL
+		/* 0*/ { 12, -1, -1, 10 },
+		/* 1*/ { 51, -1, -1, 10 },
+		/* 2*/ { 12, -1, 75, -1 },
+		/* 3*/ { 55, 19, 64, -1 },
+		/* 4*/ { 63, 19, -1, 7  },
+		/* 5*/ { 63, 7,  75, -1 },
+		/* 6*/ { 51, 23, 55, -1 },
+		/* 7*/ { 59, 23, 68, -1 },
+		/* 8*/ { 67, 23, -1, 15 },
+		/* 9*/ { 67, 15, 75, -1 },
+		/*10*/ { 55, 27, 72, -1 },
+		/*11*/ { 71, 27, -1, 23 },
+		/*12*/ { 71, 23, 75, -1 },
+		/*13*/ { 49, 31, 75, -1 },
+		/*14*/ { 43, 28, -1, 39 },
+		/*15*/ { 43, 39, 75, -1 },
+		/*16*/ { 30, 35, 37, -1 },
+		/*17*/ { 37, 35, -1, 47 },
+		/*18*/ { 37, 47, 75, -1 },
+		/*19*/ { 34, 55, 75, -1 },
+		/*20*/ { 12, 30, -1, 63 },
+		/*21*/ { 12, 63, 75, -1 },
+#else
+		/* 0*/ { 12, 10, -1, 3  },
+		/* 1*/ { 51, 10, -1, 3  },
+		/* 2*/ { 12, 3,  75, -1 },
+		/* 3*/ { 55, 19, 64, -1 },
+		/* 4*/ { 63, 19, -1, 10 },
+		/* 5*/ { 63, 10, 75, -1 },
+		/* 6*/ { 51, 23, 55, -1 },
+		/* 7*/ { 59, 23, 68, -1 },
+		/* 8*/ { 67, 23, -1, 17 },
+		/* 9*/ { 67, 17, 75, -1 },
+		/*10*/ { 55, 27, 72, -1 },
+		/*11*/ { 71, 27, -1, 24 },
+		/*12*/ { 71, 24, 75, -1 },
+		/*13*/ { 49, 31, 75, -1 },
+		/*14*/ { 43, 28, -1, 38 },
+		/*15*/ { 43, 38, 75, -1 },
+		/*16*/ { 30, 35, 37, -1 },
+		/*17*/ { 37, 35, -1, 45 },
+		/*18*/ { 37, 45, 75, -1 },
+		/*19*/ { 34, 52, 75, -1 },
+		/*20*/ { 12, 30, -1, 59 },
+		/*21*/ { 12, 59, 75, -1 },
+#endif
+	};
+
+	speed = (s32)(-var80061630 * 4.0f * 50.0f) % 4;
+	alpha = alpha >> 1;
+
+	gDPPipeSync(gdl++);
+	gDPSetTexturePersp(gdl++, G_TP_NONE);
+	gDPSetAlphaCompare(gdl++, G_AC_NONE);
+	gDPSetTextureLOD(gdl++, G_TL_TILE);
+	gDPSetTextureConvert(gdl++, G_TC_FILT);
+
+	func0f0b39c0(&gdl, &g_TexGeneralConfigs[55], 2, 0, 2, 1, NULL);
+
+	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+	gDPSetTextureFilter(gdl++, G_TF_POINT);
+	gDPSetCombineLERP(gdl++,
+			TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0,
+			TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0);
+	gDPSetEnvColorViaWord(gdl++, 0xffffff00 | alpha);
+
+	for (i = firstindex; i <= lastindex; i++) {
+		s32 thisspeed = speed;
+		s32 tmp;
+
+		if (linecfgs[i].y2 == -1) {
+			linecfgs[i].y2 = linecfgs[i].y1 + 1;
+		}
+
+		if (linecfgs[i].x2 == -1) {
+			linecfgs[i].x2 = linecfgs[i].x1 + 1;
+		}
+
+		if (linecfgs[i].x2 == linecfgs[i].x1) {
+			linecfgs[i].x2 = linecfgs[i].x1 + 1;
+		}
+
+		if (linecfgs[i].y2 == linecfgs[i].y1) {
+			linecfgs[i].y2 = linecfgs[i].y1 + 1;
+		}
+
+		if (linecfgs[i].x2 < linecfgs[i].x1) {
+			tmp = linecfgs[i].x1;
+			linecfgs[i].x1 = linecfgs[i].x2;
+			linecfgs[i].x2 = tmp;
+		}
+
+		if (linecfgs[i].y2 < linecfgs[i].y1) {
+			tmp = linecfgs[i].y1;
+			linecfgs[i].y1 = linecfgs[i].y2;
+			linecfgs[i].y2 = tmp;
+		}
+
+		switch (i) {
+		case 14:
+		case 17:
+		case 20:
+			thisspeed = -thisspeed;
+			break;
+		}
+
+		gdl = menuitemControllerRenderLine(gdl, thisspeed,
+				linecfgs[i].x1 + context->x + padx, linecfgs[i].y1 + context->y + pady,
+				linecfgs[i].x2 + context->x + padx, linecfgs[i].y2 + context->y + pady);
+	}
+
+	return gdl;
+}
 
 // These are the action names, like "AIM", and "LOOK UP"
 u16 var80071354[][9] = {
@@ -10945,7 +10764,7 @@ u16 menuitemControllerGetButtonAction(s32 mode, s32 buttonnum)
  * Note that the valuecolour argument is mostly unused - only the alpha channel
  * is used because the rest is bitwise or'ed to white.
  */
-Gfx *menuitemControllerTextRender(Gfx *gdl, s32 curmode, struct menurendercontext *context, s32 x, s32 y, u32 valuecolour, u32 labelcolour, s8 prevmode)
+Gfx *menuitemControllerRenderText(Gfx *gdl, s32 curmode, struct menurendercontext *context, s32 padx, s32 pady, u32 valuecolour, u32 labelcolour, s8 prevmode)
 {
 	s32 rx;
 	s32 ry;
@@ -10970,17 +10789,17 @@ Gfx *menuitemControllerTextRender(Gfx *gdl, s32 curmode, struct menurendercontex
 
 	for (i = 0; i < ARRAYCOUNT(labels); i++) {
 #if VERSION >= VERSION_PAL_FINAL
-		ry = i * 8 + context->y + y - 4;
+		ry = i * 8 + context->y + pady - 4;
 #elif VERSION >= VERSION_NTSC_1_0
-		ry = i * 7 + context->y + y;
+		ry = i * 7 + context->y + pady;
 #endif
 
 		// For the 2.x styles, only labels 4-7 are shown
 		if (curmode < CONTROLMODE_21 || (i >= 4 && i <= 7)) {
 			// Rendering a label such as "L/R BUTTONS:"
-			rx = context->x + x + 76;
+			rx = context->x + padx + 76;
 #if VERSION < VERSION_NTSC_1_0
-			ry = i * 7 + context->y + y;
+			ry = i * 7 + context->y + pady;
 #endif
 			gdl = textRenderProjected(gdl, &rx, &ry, langGet(labels[i]),
 					g_CharsHandelGothicXs, g_FontHandelGothicXs, labelcolour, viGetWidth(), viGetHeight(), 0, 0);
@@ -11009,7 +10828,7 @@ Gfx *menuitemControllerTextRender(Gfx *gdl, s32 curmode, struct menurendercontex
 
 		if (curmode >= CONTROLMODE_21 && i == 2) {
 			// Rendering a "CONTROLLER 1" or "CONTROLLER 2" heading
-			rx = context->x + x + 63;
+			rx = context->x + padx + 63;
 			colour = labelcolour;
 		} else {
 			// Rendering a value such as "WALK/TURN"
@@ -11024,10 +10843,10 @@ Gfx *menuitemControllerTextRender(Gfx *gdl, s32 curmode, struct menurendercontex
 	return func0f153780(gdl);
 }
 
-Gfx *menuitemControllerInfoRender(Gfx *gdl, struct menurendercontext *context, s32 x, s32 y, s32 curmode, u32 alpha, u32 colour1, u32 colour2, s8 prevmode)
+Gfx *menuitemControllerRenderPad(Gfx *gdl, struct menurendercontext *context, s32 padx, s32 pady, s32 curmode, u32 alpha, u32 colour1, u32 colour2, s8 prevmode)
 {
-	s32 rx = context->x + x;
-	s32 ry = context->y + y + 4;
+	s32 rx = context->x + padx;
+	s32 ry = context->y + pady + 4;
 
 	// The controller graphic is split into 4 textures
 	gdl = menuitemControllerRenderTexture(gdl, rx, ry, 0x33, alpha);
@@ -11036,12 +10855,12 @@ Gfx *menuitemControllerInfoRender(Gfx *gdl, struct menurendercontext *context, s
 	gdl = menuitemControllerRenderTexture(gdl, rx + 32, ry + 32, 0x36, alpha);
 
 	if (curmode >= CONTROLMODE_21) {
-		gdl = menuitemControllerRenderLines(gdl, context, 13, 19, x, y, alpha);
+		gdl = menuitemControllerRenderLines(gdl, context, 13, 19, padx, pady, alpha);
 	} else {
-		gdl = menuitemControllerRenderLines(gdl, context, 0, 21, x, y, alpha);
+		gdl = menuitemControllerRenderLines(gdl, context, 0, 21, padx, pady, alpha);
 	}
 
-	return menuitemControllerTextRender(gdl, curmode, context, x, y, colour1, colour2, prevmode);
+	return menuitemControllerRenderText(gdl, curmode, context, padx, pady, colour1, colour2, prevmode);
 }
 
 Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
@@ -11143,14 +10962,14 @@ Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
 	colour = colourBlend(colour, colour & 0xffffff00, contalpha);
 
 	if (g_Menus[g_MpPlayerNum].main.controlmode >= CONTROLMODE_21) {
-		gdl = menuitemControllerInfoRender(gdl, context, 0, 12,
+		gdl = menuitemControllerRenderPad(gdl, context, 0, 12,
 				g_Menus[g_MpPlayerNum].main.controlmode,
 				contalpha, textcolour, colour, data->prevmode);
-		gdl = menuitemControllerInfoRender(gdl, context, 0, 80,
+		gdl = menuitemControllerRenderPad(gdl, context, 0, 80,
 				g_Menus[g_MpPlayerNum].main.controlmode + 4,
 				contalpha, textcolour, colour, data->prevmode);
 	} else {
-		gdl = menuitemControllerInfoRender(gdl, context, 0, PAL ? 19 : 15,
+		gdl = menuitemControllerRenderPad(gdl, context, 0, PAL ? 19 : 15,
 				g_Menus[g_MpPlayerNum].main.controlmode,
 				contalpha, textcolour, colour, data->prevmode);
 
