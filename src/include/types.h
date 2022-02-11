@@ -3497,10 +3497,10 @@ struct handlerdata_label {
 };
 
 struct handlerdata_list {
-	u32 value;
-	u32 unk04;
-	u32 groupstartindex;
-	u32 unk0c;
+	s32 value;
+	s32 unk04;
+	s32 groupstartindex;
+	s32 unk0c;
 };
 
 struct handlerdata_list2 {

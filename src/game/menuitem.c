@@ -195,96 +195,47 @@ glabel menuitem0f0e5d2c
 /*  f0e5ef4:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-GLOBAL_ASM(
-glabel menuitem0f0e5ef8
-/*  f0e5ef8:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f0e5efc:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0e5f00:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f0e5f04:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f0e5f08:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0e5f0c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0e5f10:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0e5f14:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0e5f18:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f0e5f1c:	8caf0010 */ 	lw	$t7,0x10($a1)
-/*  f0e5f20:	0004a400 */ 	sll	$s4,$a0,0x10
-/*  f0e5f24:	00147403 */ 	sra	$t6,$s4,0x10
-/*  f0e5f28:	01c0a025 */ 	or	$s4,$t6,$zero
-/*  f0e5f2c:	15e00003 */ 	bnez	$t7,.L0f0e5f3c
-/*  f0e5f30:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f0e5f34:	10000037 */ 	b	.L0f0e6014
-/*  f0e5f38:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0e5f3c:
-/*  f0e5f3c:	06810002 */ 	bgez	$s4,.L0f0e5f48
-/*  f0e5f40:	27b50040 */ 	addiu	$s5,$sp,0x40
-/*  f0e5f44:	0000a025 */ 	or	$s4,$zero,$zero
-.L0f0e5f48:
-/*  f0e5f48:	afa00040 */ 	sw	$zero,0x40($sp)
-/*  f0e5f4c:	afa0004c */ 	sw	$zero,0x4c($sp)
-/*  f0e5f50:	8e590010 */ 	lw	$t9,0x10($s2)
-/*  f0e5f54:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f0e5f58:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0e5f5c:	0320f809 */ 	jalr	$t9
-/*  f0e5f60:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f0e5f64:	8fa20040 */ 	lw	$v0,0x40($sp)
-/*  f0e5f68:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0e5f6c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0e5f70:	14400008 */ 	bnez	$v0,.L0f0e5f94
-/*  f0e5f74:	00409825 */ 	or	$s3,$v0,$zero
-/*  f0e5f78:	3c188007 */ 	lui	$t8,%hi(g_LineHeight)
-/*  f0e5f7c:	8f1811a8 */ 	lw	$t8,%lo(g_LineHeight)($t8)
-/*  f0e5f80:	02980019 */ 	multu	$s4,$t8
-/*  f0e5f84:	00001012 */ 	mflo	$v0
-/*  f0e5f88:	00024400 */ 	sll	$t0,$v0,0x10
-/*  f0e5f8c:	10000021 */ 	b	.L0f0e6014
-/*  f0e5f90:	00081403 */ 	sra	$v0,$t0,0x10
-.L0f0e5f94:
-/*  f0e5f94:	afa00044 */ 	sw	$zero,0x44($sp)
-/*  f0e5f98:	1a600013 */ 	blez	$s3,.L0f0e5fe8
-/*  f0e5f9c:	afa00040 */ 	sw	$zero,0x40($sp)
-.L0f0e5fa0:
-/*  f0e5fa0:	8e590010 */ 	lw	$t9,0x10($s2)
-/*  f0e5fa4:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f0e5fa8:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0e5fac:	0320f809 */ 	jalr	$t9
-/*  f0e5fb0:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f0e5fb4:	8faa0048 */ 	lw	$t2,0x48($sp)
-/*  f0e5fb8:	8fa20040 */ 	lw	$v0,0x40($sp)
-/*  f0e5fbc:	028a082a */ 	slt	$at,$s4,$t2
-/*  f0e5fc0:	54200004 */ 	bnezl	$at,.L0f0e5fd4
-/*  f0e5fc4:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f0e5fc8:	10000002 */ 	b	.L0f0e5fd4
-/*  f0e5fcc:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0e5fd0:	24100001 */ 	addiu	$s0,$zero,0x1
-.L0f0e5fd4:
-/*  f0e5fd4:	16000004 */ 	bnez	$s0,.L0f0e5fe8
-/*  f0e5fd8:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0e5fdc:	0053082a */ 	slt	$at,$v0,$s3
-/*  f0e5fe0:	1420ffef */ 	bnez	$at,.L0f0e5fa0
-/*  f0e5fe4:	afa20040 */ 	sw	$v0,0x40($sp)
-.L0f0e5fe8:
-/*  f0e5fe8:	3c0b8007 */ 	lui	$t3,%hi(g_LineHeight)
-/*  f0e5fec:	8d6b11a8 */ 	lw	$t3,%lo(g_LineHeight)($t3)
-/*  f0e5ff0:	00116880 */ 	sll	$t5,$s1,0x2
-/*  f0e5ff4:	01b16823 */ 	subu	$t5,$t5,$s1
-/*  f0e5ff8:	028b0019 */ 	multu	$s4,$t3
-/*  f0e5ffc:	000d6880 */ 	sll	$t5,$t5,0x2
-/*  f0e6000:	01b16823 */ 	subu	$t5,$t5,$s1
-/*  f0e6004:	00006012 */ 	mflo	$t4
-/*  f0e6008:	018d1021 */ 	addu	$v0,$t4,$t5
-/*  f0e600c:	00027400 */ 	sll	$t6,$v0,0x10
-/*  f0e6010:	000e1403 */ 	sra	$v0,$t6,0x10
-.L0f0e6014:
-/*  f0e6014:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0e6018:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0e601c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0e6020:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0e6024:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0e6028:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f0e602c:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f0e6030:	03e00008 */ 	jr	$ra
-/*  f0e6034:	27bd0050 */ 	addiu	$sp,$sp,0x50
-);
+s16 menuitem0f0e5ef8(s16 arg0, struct menuitem *item)
+{
+	union handlerdata data;
+	bool done;
+	s32 numlines;
+	s32 numgroups;
+
+	if (item->handler == NULL) {
+		return 0;
+	}
+
+	if (arg0 < 0) {
+		arg0 = 0;
+	}
+
+	data.list.value = 0;
+	data.list.unk0c = 0;
+	item->handler(MENUOP_GETOPTGROUPCOUNT, item, &data);
+
+	if (data.list.value == 0) {
+		return arg0 * g_LineHeight;
+	}
+
+	done = false;
+	numlines = 0;
+
+	numgroups = data.list.value;
+	data.list.unk04 = 0;
+
+	for (data.list.value = 0; !done && data.list.value < numgroups; data.list.value++) {
+		item->handler(MENUOP_GETGROUPSTARTINDEX, item, &data);
+
+		if (arg0 >= data.list.groupstartindex) {
+			numlines++;
+		} else {
+			done = true;
+		}
+	}
+
+	return arg0 * g_LineHeight + numlines * 11;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
