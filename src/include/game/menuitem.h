@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 menuitem0f0e5d2c(void);
+s32 menuitem0f0e5d2c(s32 arg0, struct menuitem *item);
 s16 menuitem0f0e5ef8(s16 arg0, struct menuitem *item);
 Gfx *menuitemListRenderHeader(Gfx *gdl, s16 x1, s16 y1, s16 width, s16 arg4, s16 height, char *text, struct menudialog *dialog);
 Gfx *menuitemListOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2);

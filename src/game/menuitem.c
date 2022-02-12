@@ -61,139 +61,60 @@ s32 func0f0e5ce0(s32 value)
 	return var800711a0;
 }
 
-GLOBAL_ASM(
-glabel menuitem0f0e5d2c
-/*  f0e5d2c:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f0e5d30:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0e5d34:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f0e5d38:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f0e5d3c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0e5d40:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0e5d44:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0e5d48:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0e5d4c:	8cae0010 */ 	lw	$t6,0x10($a1)
-/*  f0e5d50:	00a09825 */ 	or	$s3,$a1,$zero
-/*  f0e5d54:	00803825 */ 	or	$a3,$a0,$zero
-/*  f0e5d58:	15c00003 */ 	bnez	$t6,.L0f0e5d68
-/*  f0e5d5c:	27b50050 */ 	addiu	$s5,$sp,0x50
-/*  f0e5d60:	1000005c */ 	b	.L0f0e5ed4
-/*  f0e5d64:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0e5d68:
-/*  f0e5d68:	afa00050 */ 	sw	$zero,0x50($sp)
-/*  f0e5d6c:	afa0005c */ 	sw	$zero,0x5c($sp)
-/*  f0e5d70:	afa70060 */ 	sw	$a3,0x60($sp)
-/*  f0e5d74:	8e790010 */ 	lw	$t9,0x10($s3)
-/*  f0e5d78:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f0e5d7c:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0e5d80:	0320f809 */ 	jalr	$t9
-/*  f0e5d84:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f0e5d88:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f0e5d8c:	8fa70060 */ 	lw	$a3,0x60($sp)
-/*  f0e5d90:	54c00011 */ 	bnezl	$a2,.L0f0e5dd8
-/*  f0e5d94:	00c0a025 */ 	or	$s4,$a2,$zero
-/*  f0e5d98:	3c0f8007 */ 	lui	$t7,%hi(g_LineHeight)
-/*  f0e5d9c:	8def11a8 */ 	lw	$t7,%lo(g_LineHeight)($t7)
-/*  f0e5da0:	00ef001a */ 	div	$zero,$a3,$t7
-/*  f0e5da4:	00008812 */ 	mflo	$s1
-/*  f0e5da8:	15e00002 */ 	bnez	$t7,.L0f0e5db4
-/*  f0e5dac:	00000000 */ 	nop
-/*  f0e5db0:	0007000d */ 	break	0x7
-.L0f0e5db4:
-/*  f0e5db4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0e5db8:	15e10004 */ 	bne	$t7,$at,.L0f0e5dcc
-/*  f0e5dbc:	3c018000 */ 	lui	$at,0x8000
-/*  f0e5dc0:	14e10002 */ 	bne	$a3,$at,.L0f0e5dcc
-/*  f0e5dc4:	00000000 */ 	nop
-/*  f0e5dc8:	0006000d */ 	break	0x6
-.L0f0e5dcc:
-/*  f0e5dcc:	1000003d */ 	b	.L0f0e5ec4
-/*  f0e5dd0:	00000000 */ 	nop
-/*  f0e5dd4:	00c0a025 */ 	or	$s4,$a2,$zero
-.L0f0e5dd8:
-/*  f0e5dd8:	00e08025 */ 	or	$s0,$a3,$zero
-/*  f0e5ddc:	00009025 */ 	or	$s2,$zero,$zero
-/*  f0e5de0:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0e5de4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0e5de8:	afa00054 */ 	sw	$zero,0x54($sp)
-/*  f0e5dec:	00d4082a */ 	slt	$at,$a2,$s4
-.L0f0e5df0:
-/*  f0e5df0:	10200018 */ 	beqz	$at,.L0f0e5e54
-/*  f0e5df4:	3c038007 */ 	lui	$v1,%hi(g_LineHeight)
-/*  f0e5df8:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f0e5dfc:	8e790010 */ 	lw	$t9,0x10($s3)
-/*  f0e5e00:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f0e5e04:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f0e5e08:	0320f809 */ 	jalr	$t9
-/*  f0e5e0c:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0e5e10:	3c038007 */ 	lui	$v1,%hi(g_LineHeight)
-/*  f0e5e14:	8c6311a8 */ 	lw	$v1,%lo(g_LineHeight)($v1)
-/*  f0e5e18:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f0e5e1c:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f0e5e20:	0203001a */ 	div	$zero,$s0,$v1
-/*  f0e5e24:	00001012 */ 	mflo	$v0
-/*  f0e5e28:	14600002 */ 	bnez	$v1,.L0f0e5e34
-/*  f0e5e2c:	00000000 */ 	nop
-/*  f0e5e30:	0007000d */ 	break	0x7
-.L0f0e5e34:
-/*  f0e5e34:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0e5e38:	14610004 */ 	bne	$v1,$at,.L0f0e5e4c
-/*  f0e5e3c:	3c018000 */ 	lui	$at,0x8000
-/*  f0e5e40:	16010002 */ 	bne	$s0,$at,.L0f0e5e4c
-/*  f0e5e44:	00000000 */ 	nop
-/*  f0e5e48:	0006000d */ 	break	0x6
-.L0f0e5e4c:
-/*  f0e5e4c:	1000000f */ 	b	.L0f0e5e8c
-/*  f0e5e50:	00512821 */ 	addu	$a1,$v0,$s1
-.L0f0e5e54:
-/*  f0e5e54:	8c6311a8 */ 	lw	$v1,%lo(g_LineHeight)($v1)
-/*  f0e5e58:	2404270f */ 	addiu	$a0,$zero,0x270f
-/*  f0e5e5c:	0203001a */ 	div	$zero,$s0,$v1
-/*  f0e5e60:	00001012 */ 	mflo	$v0
-/*  f0e5e64:	14600002 */ 	bnez	$v1,.L0f0e5e70
-/*  f0e5e68:	00000000 */ 	nop
-/*  f0e5e6c:	0007000d */ 	break	0x7
-.L0f0e5e70:
-/*  f0e5e70:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0e5e74:	14610004 */ 	bne	$v1,$at,.L0f0e5e88
-/*  f0e5e78:	3c018000 */ 	lui	$at,0x8000
-/*  f0e5e7c:	16010002 */ 	bne	$s0,$at,.L0f0e5e88
-/*  f0e5e80:	00000000 */ 	nop
-/*  f0e5e84:	0006000d */ 	break	0x6
-.L0f0e5e88:
-/*  f0e5e88:	00512821 */ 	addu	$a1,$v0,$s1
-.L0f0e5e8c:
-/*  f0e5e8c:	00a4082a */ 	slt	$at,$a1,$a0
-/*  f0e5e90:	14200008 */ 	bnez	$at,.L0f0e5eb4
-/*  f0e5e94:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f0e5e98:	00911023 */ 	subu	$v0,$a0,$s1
-/*  f0e5e9c:	00430019 */ 	multu	$v0,$v1
-/*  f0e5ea0:	02228821 */ 	addu	$s1,$s1,$v0
-/*  f0e5ea4:	0000c012 */ 	mflo	$t8
-/*  f0e5ea8:	02188023 */ 	subu	$s0,$s0,$t8
-/*  f0e5eac:	10000003 */ 	b	.L0f0e5ebc
-/*  f0e5eb0:	2610fff5 */ 	addiu	$s0,$s0,-11
-.L0f0e5eb4:
-/*  f0e5eb4:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f0e5eb8:	24120001 */ 	addiu	$s2,$zero,0x1
-.L0f0e5ebc:
-/*  f0e5ebc:	5240ffcc */ 	beqzl	$s2,.L0f0e5df0
-/*  f0e5ec0:	00d4082a */ 	slt	$at,$a2,$s4
-.L0f0e5ec4:
-/*  f0e5ec4:	06230003 */ 	bgezl	$s1,.L0f0e5ed4
-/*  f0e5ec8:	02201025 */ 	or	$v0,$s1,$zero
-/*  f0e5ecc:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0e5ed0:	02201025 */ 	or	$v0,$s1,$zero
-.L0f0e5ed4:
-/*  f0e5ed4:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0e5ed8:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0e5edc:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0e5ee0:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0e5ee4:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0e5ee8:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f0e5eec:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f0e5ef0:	03e00008 */ 	jr	$ra
-/*  f0e5ef4:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
+s32 menuitem0f0e5d2c(s32 arg0, struct menuitem *item)
+{
+	union handlerdata data;
+	s32 s0;
+	s32 s1;
+	s32 a0;
+	bool done;
+	s32 numgroups;
+
+	if (item->handler == NULL) {
+		return 0;
+	}
+
+	data.list.value = 0;
+	data.list.unk0c = 0;
+
+	item->handler(MENUOP_GETOPTGROUPCOUNT, item, &data);
+
+	if (data.list.value == 0) {
+		s1 = arg0 / (s32)g_LineHeight;
+	} else {
+		numgroups = data.list.value;
+		s0 = arg0;
+		done = false;
+		s1 = 0;
+		data.list.values32 = 0;
+		data.list.unk04 = 0;
+
+		while (!done) {
+			if (data.list.values32 < numgroups) {
+				item->handler(MENUOP_GETGROUPSTARTINDEX, item, &data);
+				a0 = data.list.groupstartindex;
+			} else {
+				a0 = 9999;
+			}
+
+			data.list.value++;
+
+			if (s1 + s0 / (s32)g_LineHeight >= a0) {
+				s0 = s0 - (a0 - s1) * (s32)g_LineHeight - 11;
+				s1 += a0 - s1;
+			} else {
+				s1 += s0 / (s32)g_LineHeight;
+				done = true;
+			}
+		}
+	}
+
+	if (s1 < 0) {
+		s1 = 0;
+	}
+
+	return s1;
+}
 
 s16 menuitem0f0e5ef8(s16 arg0, struct menuitem *item)
 {
