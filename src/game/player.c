@@ -1557,7 +1557,7 @@ void playersBeginMpSwirl(void)
 	g_MpSwirlForwardSpeed = 0;
 	g_MpSwirlDistance = 80;
 
-	skyChooseAndApply(mainGetStageNum(), false);
+	envChooseAndApply(mainGetStageNum(), false);
 }
 
 void playerTickMpSwirl(void)
@@ -1640,7 +1640,7 @@ void player0f0b9a20(void)
 		playerSetFadeFrac(60, 0);
 	}
 
-	skyChooseAndApply(mainGetStageNum(), false);
+	envChooseAndApply(mainGetStageNum(), false);
 	bgunEquipWeapon2(HAND_LEFT, g_DefaultWeapons[HAND_LEFT]);
 	bgunEquipWeapon2(HAND_RIGHT, g_DefaultWeapons[HAND_RIGHT]);
 	var8007074c = 0;

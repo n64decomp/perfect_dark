@@ -3303,7 +3303,7 @@ struct var800a6600 {
 	f32 unk14;
 };
 
-struct sky {
+struct environment {
 	/*0x00*/ s32 fogmin;
 	/*0x04*/ s32 fogmax;
 	/*0x08*/ u8 sky_r;
@@ -3341,7 +3341,7 @@ struct sun {
 	s16 orb_size;
 };
 
-struct skytype1 {
+struct envtype1 {
 	/*0x00*/ s16 stage;
 	/*0x02*/ s16 near;
 	/*0x04*/ s16 far;
@@ -3371,7 +3371,7 @@ struct skytype1 {
 	/*0x28*/ u8 unk28;
 };
 
-struct skytype2 {
+struct envtype2 {
 	/*0x00*/ s32 stage;
 	/*0x04*/ s16 near;
 	/*0x06*/ s16 far;

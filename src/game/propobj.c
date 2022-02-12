@@ -52205,7 +52205,7 @@ glabel var7f1aa82c
 /*  f081364:	27a500e8 */ 	addiu	$a1,$sp,0xe8
 /*  f081368:	adc10000 */ 	sw	$at,0x0($t6)
 /*  f08136c:	afa8007c */ 	sw	$t0,0x7c($sp)
-/*  f081370:	0fc599fd */ 	jal	func0f1667f4
+/*  f081370:	0fc599fd */ 	jal	env0f1667f4
 /*  f081374:	afa400f8 */ 	sw	$a0,0xf8($sp)
 /*  f081378:	8fa8007c */ 	lw	$t0,0x7c($sp)
 /*  f08137c:	14400003 */ 	bnez	$v0,.L0f08138c
@@ -52840,7 +52840,7 @@ glabel var7f1aa82c
 /*  f081364:	27a500e8 */ 	addiu	$a1,$sp,0xe8
 /*  f081368:	adc10000 */ 	sw	$at,0x0($t6)
 /*  f08136c:	afa8007c */ 	sw	$t0,0x7c($sp)
-/*  f081370:	0fc599fd */ 	jal	func0f1667f4
+/*  f081370:	0fc599fd */ 	jal	env0f1667f4
 /*  f081374:	afa400f8 */ 	sw	$a0,0xf8($sp)
 /*  f081378:	8fa8007c */ 	lw	$t0,0x7c($sp)
 /*  f08137c:	14400003 */ 	bnez	$v0,.L0f08138c
@@ -53472,7 +53472,7 @@ glabel var7f1aa82c
 //	struct colour *newcolours;
 //	f32 objdist;
 //
-//	spe4 = func0f1667f4(prop, &spe8);
+//	spe4 = env0f1667f4(prop, &spe8);
 //
 //	if (spe4 == 0) {
 //		return gdl;
@@ -68263,7 +68263,7 @@ s32 func0f08e5a8(s16 *rooms2, struct screenbox *box)
 f32 func0f08e6bc(struct prop *prop, f32 arg1)
 {
 	f32 result = 1;
-	struct coord *coord = func0f1667e8();
+	struct coord *coord = env0f1667e8();
 
 	if (coord != NULL && coord->z < prop->z) {
 		f32 scalez = currentPlayerGetLodScaleZ();
@@ -68282,7 +68282,7 @@ f32 func0f08e6bc(struct prop *prop, f32 arg1)
 bool func0f08e794(struct coord *coord, f32 arg1)
 {
 	bool result = true;
-	struct coord *ptr = func0f1667e8();
+	struct coord *ptr = env0f1667e8();
 	struct coord tmp;
 	f32 sp20;
 
@@ -68321,7 +68321,7 @@ u32 func0f08e8ac(struct prop *prop, struct coord *coord, f32 arg2, bool arg3)
 
 	while (roomnum != -1) {
 		if (g_Rooms[roomnum].flags & ROOMFLAG_VISIBLEBYPLAYER) {
-			if (func0f1666f8(coord, arg2) && (!arg3 || func0f08e794(coord, arg2))) {
+			if (env0f1666f8(coord, arg2) && (!arg3 || func0f08e794(coord, arg2))) {
 				result = func0f0b6260(prop->rooms, coord, arg2);
 
 				if (result) {
@@ -69409,7 +69409,7 @@ void gasTick(void)
 	}
 
 	if (g_GasReleaseTimer240 > 0 && !g_PlayerInvincible) {
-		skySetTransitionFrac(g_GasReleaseTimer240 / g_GasReleaseTimerMax240);
+		envApplyTransitionFrac(g_GasReleaseTimer240 / g_GasReleaseTimerMax240);
 
 		if (g_GasEnableDamage) {
 			if (g_GasLastCough60 < g_Vars.lvframe60 - PALDOWN(225)) {

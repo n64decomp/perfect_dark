@@ -2476,7 +2476,7 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 		roomnumptr++;
 	}
 
-	gdl = gfxConsiderDisableFog(gdl);
+	gdl = envStopFog(gdl);
 
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 	gSPSetGeometryMode(gdl++, G_SHADE | G_SHADING_SMOOTH);
@@ -2607,7 +2607,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 				|| stagenum == g_Stages[STAGEINDEX_MBR].id
 				|| stagenum == g_Stages[STAGEINDEX_TEST_OLD].id
 				|| stagenum == g_Stages[STAGEINDEX_ATTACKSHIP].id)) {
-		gdl = gfxConsiderDisableFog(gdl);
+		gdl = envStopFog(gdl);
 		gdl = vi0000ab78(gdl);
 
 		roomnum = -1;
@@ -2642,7 +2642,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 			gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 			gdl = playerLoadMatrix(gdl);
-			gdl = gfxConsiderDisableFog(gdl);
+			gdl = envStopFog(gdl);
 			gdl = func0f13687c(gdl);
 			gdl = func0f153780(gdl);
 			gdl = vi0000ab78(gdl);
@@ -2697,7 +2697,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 
 		// Render prop opaque components - pre BG pass
 		gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-		gdl = gfxConsiderDisableFog(gdl);
+		gdl = envStopFog(gdl);
 
 		if (debugIsPropRenderingEnabled() && getVar80084040()) {
 			if (firstroomnum == thing->roomnum) {
@@ -2711,7 +2711,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 		gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		gdl = currentPlayerScissorWithinViewportF(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
-		gdl = func0f1664a0(gdl, false);
+		gdl = envStartFog(gdl, false);
 
 		if (debugIsBgRenderingEnabled() && getVar80084040()) {
 			if (g_StageIndex != STAGEINDEX_TEST_OLD) {
@@ -2722,7 +2722,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 		// Render prop opaque components - post BG pass
 		gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-		gdl = gfxConsiderDisableFog(gdl);
+		gdl = envStopFog(gdl);
 
 		if (debugIsPropRenderingEnabled() && getVar80084040()) {
 			if (firstroomnum == thing->roomnum) {
@@ -2733,7 +2733,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 		}
 	}
 
-	gdl = gfxConsiderDisableFog(gdl);
+	gdl = envStopFog(gdl);
 	gdl = currentPlayerScissorToViewport(gdl);
 
 	// Render wall hits
@@ -2762,7 +2762,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 
 		// Render BG alpha components
 		gdl = currentPlayerScissorWithinViewportF(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
-		gdl = func0f1664a0(gdl, true);
+		gdl = envStartFog(gdl, true);
 
 		if (debugIsBgRenderingEnabled() && getVar80084040()) {
 			gdl = bgRenderRoomAlpha(gdl, thing->roomnum);
@@ -2770,7 +2770,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 
 		gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-		gdl = gfxConsiderDisableFog(gdl);
+		gdl = envStopFog(gdl);
 
 		// Render prop alpha components
 		if (debugIsPropRenderingEnabled() && getVar80084040()) {
@@ -2963,7 +2963,7 @@ glabel bgRenderScene
 /*  f154fa8:	566b008b */ 	bnel	$s3,$t3,.NB0f1551d8
 /*  f154fac:	02202025 */ 	or	$a0,$s1,$zero
 .NB0f154fb0:
-/*  f154fb0:	0fc583b2 */ 	jal	gfxConsiderDisableFog
+/*  f154fb0:	0fc583b2 */ 	jal	envStopFog
 /*  f154fb4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f154fb8:	0c002b3e */ 	jal	vi0000ab78
 /*  f154fbc:	00402025 */ 	or	$a0,$v0,$zero
@@ -3081,7 +3081,7 @@ glabel bgRenderScene
 /*  f155144:	ae020004 */ 	sw	$v0,0x4($s0)
 /*  f155148:	0fc303b1 */ 	jal	playerLoadMatrix
 /*  f15514c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f155150:	0fc583b2 */ 	jal	gfxConsiderDisableFog
+/*  f155150:	0fc583b2 */ 	jal	envStopFog
 /*  f155154:	00402025 */ 	or	$a0,$v0,$zero
 /*  f155158:	0fc4c503 */ 	jal	func0f13687c
 /*  f15515c:	00402025 */ 	or	$a0,$v0,$zero
@@ -3203,7 +3203,7 @@ glabel bgRenderScene
 /*  f1552f8:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1552fc:	8fb90084 */ 	lw	$t9,0x84($sp)
 /*  f155300:	02202025 */ 	or	$a0,$s1,$zero
-/*  f155304:	0fc583b2 */ 	jal	gfxConsiderDisableFog
+/*  f155304:	0fc583b2 */ 	jal	envStopFog
 /*  f155308:	af220004 */ 	sw	$v0,0x4($t9)
 /*  f15530c:	0fc46640 */ 	jal	debugIsPropRenderingEnabled
 /*  f155310:	00408825 */ 	or	$s1,$v0,$zero
@@ -3259,7 +3259,7 @@ glabel bgRenderScene
 /*  f1553d0:	0fc55ca6 */ 	jal	currentPlayerScissorWithinViewportF
 /*  f1553d4:	e7b00010 */ 	swc1	$f16,0x10($sp)
 /*  f1553d8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1553dc:	0fc58328 */ 	jal	func0f1664a0
+/*  f1553dc:	0fc58328 */ 	jal	envStartFog
 /*  f1553e0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f1553e4:	0fc4663d */ 	jal	debugIsBgRenderingEnabled
 /*  f1553e8:	00408825 */ 	or	$s1,$v0,$zero
@@ -3290,7 +3290,7 @@ glabel bgRenderScene
 /*  f155444:	00402025 */ 	or	$a0,$v0,$zero
 /*  f155448:	8fad007c */ 	lw	$t5,0x7c($sp)
 /*  f15544c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f155450:	0fc583b2 */ 	jal	gfxConsiderDisableFog
+/*  f155450:	0fc583b2 */ 	jal	envStopFog
 /*  f155454:	ada20004 */ 	sw	$v0,0x4($t5)
 /*  f155458:	0fc46640 */ 	jal	debugIsPropRenderingEnabled
 /*  f15545c:	00408825 */ 	or	$s1,$v0,$zero
@@ -3324,7 +3324,7 @@ glabel bgRenderScene
 /*  f1554c4:	1420ff76 */ 	bnez	$at,.NB0f1552a0
 /*  f1554c8:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f1554cc:
-/*  f1554cc:	0fc583b2 */ 	jal	gfxConsiderDisableFog
+/*  f1554cc:	0fc583b2 */ 	jal	envStopFog
 /*  f1554d0:	02202025 */ 	or	$a0,$s1,$zero
 /*  f1554d4:	0fc55c96 */ 	jal	currentPlayerScissorToViewport
 /*  f1554d8:	00402025 */ 	or	$a0,$v0,$zero
@@ -3416,7 +3416,7 @@ glabel bgRenderScene
 /*  f155624:	0fc55ca6 */ 	jal	currentPlayerScissorWithinViewportF
 /*  f155628:	e7aa0010 */ 	swc1	$f10,0x10($sp)
 /*  f15562c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f155630:	0fc58328 */ 	jal	func0f1664a0
+/*  f155630:	0fc58328 */ 	jal	envStartFog
 /*  f155634:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f155638:	0fc4663d */ 	jal	debugIsBgRenderingEnabled
 /*  f15563c:	00408825 */ 	or	$s1,$v0,$zero
@@ -3442,7 +3442,7 @@ glabel bgRenderScene
 /*  f155684:	00402025 */ 	or	$a0,$v0,$zero
 /*  f155688:	8fb90070 */ 	lw	$t9,0x70($sp)
 /*  f15568c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f155690:	0fc583b2 */ 	jal	gfxConsiderDisableFog
+/*  f155690:	0fc583b2 */ 	jal	envStopFog
 /*  f155694:	af220004 */ 	sw	$v0,0x4($t9)
 /*  f155698:	0fc46640 */ 	jal	debugIsPropRenderingEnabled
 /*  f15569c:	00408825 */ 	or	$s1,$v0,$zero
@@ -5285,7 +5285,7 @@ glabel var7f1b75d0
 /*  f15c7f0:	55c0fff9 */ 	bnezl	$t6,.L0f15c7d8
 /*  f15c7f4:	90590006 */ 	lbu	$t9,0x6($v0)
 .L0f15c7f8:
-/*  f15c7f8:	0fc597b9 */ 	jal	skySetStageNum
+/*  f15c7f8:	0fc597b9 */ 	jal	envSetStageNum
 /*  f15c7fc:	8fa40148 */ 	lw	$a0,0x148($sp)
 /*  f15c800:	241900c8 */ 	addiu	$t9,$zero,0xc8
 /*  f15c804:	3c018008 */ 	lui	$at,%hi(var8007fc10)
@@ -6347,7 +6347,7 @@ glabel var7f1b75d0
 /*  f15c5ac:	55c0fff9 */ 	bnezl	$t6,.L0f15c594
 /*  f15c5b0:	90590006 */ 	lbu	$t9,0x6($v0)
 .L0f15c5b4:
-/*  f15c5b4:	0fc59729 */ 	jal	skySetStageNum
+/*  f15c5b4:	0fc59729 */ 	jal	envSetStageNum
 /*  f15c5b8:	8fa40148 */ 	lw	$a0,0x148($sp)
 /*  f15c5bc:	241900c8 */ 	addiu	$t9,$zero,0xc8
 /*  f15c5c0:	3c018008 */ 	lui	$at,%hi(var8007fc10)
@@ -7409,7 +7409,7 @@ glabel var7f1b75d0
 /*  f156f40:	55c0fff9 */ 	bnezl	$t6,.NB0f156f28
 /*  f156f44:	90590006 */ 	lbu	$t9,0x6($v0)
 .NB0f156f48:
-/*  f156f48:	0fc581b9 */ 	jal	skySetStageNum
+/*  f156f48:	0fc581b9 */ 	jal	envSetStageNum
 /*  f156f4c:	8fa40148 */ 	lw	$a0,0x148($sp)
 /*  f156f50:	241900c8 */ 	addiu	$t9,$zero,0xc8
 /*  f156f54:	3c018008 */ 	lui	$at,0x8008
@@ -7843,7 +7843,7 @@ glabel var7f1b75d0
 //	}
 //
 //	// 7f8
-//	skySetStageNum(stagenum);
+//	envSetStageNum(stagenum);
 //
 //	var8007fc10 = 200;
 //
@@ -7973,10 +7973,10 @@ Gfx *bgRender(Gfx *gdl)
 
 	gSPSegment(gdl++, 0x0f, g_BgPrimaryData);
 
-	gdl = func0f1664a0(gdl, 0);
+	gdl = envStartFog(gdl, false);
 	gdl = func0f164150(gdl);
 	gdl = currentPlayerScissorToViewport(gdl);
-	gdl = gfxConsiderDisableFog(gdl);
+	gdl = envStopFog(gdl);
 
 	gSPMatrix(gdl++, var80092870, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
@@ -9174,7 +9174,7 @@ glabel roomLoad
 /*  f15e2a0:	032b1821 */ 	addu	$v1,$t9,$t3
 /*  f15e2a4:	8c730014 */ 	lw	$s3,0x14($v1)
 .L0f15e2a8:
-/*  f15e2a8:	3c18800a */ 	lui	$t8,%hi(g_FogDisabled)
+/*  f15e2a8:	3c18800a */ 	lui	$t8,%hi(g_FogEnabled)
 /*  f15e2ac:	3c0f800a */ 	lui	$t7,%hi(g_Rooms)
 /*  f15e2b0:	8e670000 */ 	lw	$a3,0x0($s3)
 /*  f15e2b4:	26650018 */ 	addiu	$a1,$s3,0x18
@@ -9227,7 +9227,7 @@ glabel roomLoad
 /*  f15e354:	5020ffdd */ 	beqzl	$at,.L0f15e2cc
 /*  f15e358:	90a20000 */ 	lbu	$v0,0x0($a1)
 .L0f15e35c:
-/*  f15e35c:	8f1865e0 */ 	lw	$t8,%lo(g_FogDisabled)($t8)
+/*  f15e35c:	8f1865e0 */ 	lw	$t8,%lo(g_FogEnabled)($t8)
 /*  f15e360:	13000012 */ 	beqz	$t8,.L0f15e3ac
 /*  f15e364:	00000000 */ 	nop
 /*  f15e368:	8def4928 */ 	lw	$t7,%lo(g_Rooms)($t7)
@@ -10102,7 +10102,7 @@ const char var7f1b1a60nb[] = "bg.c";
 //			thing2++;
 //		}
 //
-//		if (g_FogDisabled) {
+//		if (g_FogEnabled) {
 //			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk08, 1);
 //			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk0c, 5);
 //		} else if (var800a65e4 == 0) {

@@ -1154,7 +1154,7 @@ Gfx *lvRender(Gfx *gdl)
 			viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
 					g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 			mtx00016748(g_Vars.currentplayerstats->scale_bg2gfx);
-			func0f1657f8();
+			env0f1657f8();
 			func0f176298();
 			gdl = vi0000b280(gdl);
 			gdl = vi0000b1d0(gdl);

@@ -85,7 +85,7 @@ void func0f11f000(f32 left, f32 top, struct coord *arg2)
 	f32 pos[2];
 
 	pos[0] = left + currentPlayerGetScreenLeft();
-	pos[1] = top + currentPlayerGetScreenTop() + skyGetCurrent()->unk40;
+	pos[1] = top + currentPlayerGetScreenTop() + envGetCurrent()->unk40;
 
 	func0f0b4c3c(pos, arg2, 100);
 	mtx4RotateVecInPlace(mtx, arg2);
@@ -150,7 +150,7 @@ glabel var7f1b4fe8
 /*  f11f12c:	00000000 */ 	nop
 /*  f11f130:	4500002d */ 	bc1f	.L0f11f1e8
 /*  f11f134:	00000000 */ 	nop
-/*  f11f138:	0fc595f3 */ 	jal	skyGetCurrent
+/*  f11f138:	0fc595f3 */ 	jal	envGetCurrent
 /*  f11f13c:	e7b00024 */ 	swc1	$f16,0x24($sp)
 /*  f11f140:	c4480014 */ 	lwc1	$f8,0x14($v0)
 /*  f11f144:	c62a0004 */ 	lwc1	$f10,0x4($s1)
@@ -264,7 +264,7 @@ glabel var7f1b4ff4
 /*  f11f2b4:	00000000 */ 	nop
 /*  f11f2b8:	4500002d */ 	bc1f	.L0f11f370
 /*  f11f2bc:	00000000 */ 	nop
-/*  f11f2c0:	0fc595f3 */ 	jal	skyGetCurrent
+/*  f11f2c0:	0fc595f3 */ 	jal	envGetCurrent
 /*  f11f2c4:	e7b00024 */ 	swc1	$f16,0x24($sp)
 /*  f11f2c8:	c444002c */ 	lwc1	$f4,0x2c($v0)
 /*  f11f2cc:	c6260004 */ 	lwc1	$f6,0x4($s1)
@@ -363,7 +363,7 @@ glabel var7f1b4ff8
 /*  f11f438:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f11f43c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f11f440:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f11f444:	0fc595f3 */ 	jal	skyGetCurrent
+/*  f11f444:	0fc595f3 */ 	jal	envGetCurrent
 /*  f11f448:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f11f44c:	904e0008 */ 	lbu	$t6,0x8($v0)
 /*  f11f450:	3c013f80 */ 	lui	$at,0x3f80
@@ -557,7 +557,7 @@ glabel var7f1b4ffc
 /*  f11f6ec:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f11f6f0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f11f6f4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f11f6f8:	0fc595f3 */ 	jal	skyGetCurrent
+/*  f11f6f8:	0fc595f3 */ 	jal	envGetCurrent
 /*  f11f6fc:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f11f700:	904e0008 */ 	lbu	$t6,0x8($v0)
 /*  f11f704:	3c013f80 */ 	lui	$at,0x3f80
@@ -850,7 +850,7 @@ glabel var7f1b50c8
 /*  f11f9a0:	f7b60028 */ 	sdc1	$f22,0x28($sp)
 /*  f11f9a4:	f7b40020 */ 	sdc1	$f20,0x20($sp)
 /*  f11f9a8:	afa406b0 */ 	sw	$a0,0x6b0($sp)
-/*  f11f9ac:	0fc595f3 */ 	jal	skyGetCurrent
+/*  f11f9ac:	0fc595f3 */ 	jal	envGetCurrent
 /*  f11f9b0:	afa00430 */ 	sw	$zero,0x430($sp)
 /*  f11f9b4:	904e0010 */ 	lbu	$t6,0x10($v0)
 /*  f11f9b8:	3c11800a */ 	lui	$s1,%hi(g_Vars)
@@ -4140,7 +4140,7 @@ glabel var7f1b50dc
 /*  f122c00:	c7a60064 */ 	lwc1	$f6,0x64($sp)
 /*  f122c04:	e4660024 */ 	swc1	$f6,0x24($v1)
 /*  f122c08:	c7aa0038 */ 	lwc1	$f10,0x38($sp)
-/*  f122c0c:	0fc595f3 */ 	jal	skyGetCurrent
+/*  f122c0c:	0fc595f3 */ 	jal	envGetCurrent
 /*  f122c10:	e46a0028 */ 	swc1	$f10,0x28($v1)
 /*  f122c14:	3c014080 */ 	lui	$at,0x4080
 /*  f122c18:	44819000 */ 	mtc1	$at,$f18
@@ -7290,7 +7290,7 @@ glabel var7f1b5108
 /*  f1265b8:	afa50174 */ 	sw	$a1,0x174($sp)
 /*  f1265bc:	0fc2d70e */ 	jal	currentPlayerGetUnk1754
 /*  f1265c0:	afa2016c */ 	sw	$v0,0x16c($sp)
-/*  f1265c4:	0fc599d3 */ 	jal	skyGetCurrent
+/*  f1265c4:	0fc599d3 */ 	jal	envGetCurrent
 /*  f1265c8:	afa20168 */ 	sw	$v0,0x168($sp)
 /*  f1265cc:	afa20144 */ 	sw	$v0,0x144($sp)
 /*  f1265d0:	904e000b */ 	lbu	$t6,0xb($v0)
@@ -7892,7 +7892,7 @@ glabel var7f1b5108
 /*  f125ab8:	afa50174 */ 	sw	$a1,0x174($sp)
 /*  f125abc:	0fc2d5c6 */ 	jal	currentPlayerGetUnk1754
 /*  f125ac0:	afa2016c */ 	sw	$v0,0x16c($sp)
-/*  f125ac4:	0fc595f3 */ 	jal	skyGetCurrent
+/*  f125ac4:	0fc595f3 */ 	jal	envGetCurrent
 /*  f125ac8:	afa20168 */ 	sw	$v0,0x168($sp)
 /*  f125acc:	afa20144 */ 	sw	$v0,0x144($sp)
 /*  f125ad0:	904e000b */ 	lbu	$t6,0xb($v0)
@@ -9912,7 +9912,7 @@ Gfx *func0f126de8(Gfx *gdl)
  */
 Gfx *func0f12715c(Gfx *gdl)
 {
-	struct sky *sky = skyGetCurrent();
+	struct environment *env = envGetCurrent();
 	struct sun *sun;
 	s32 i;
 
@@ -9921,13 +9921,13 @@ Gfx *func0f12715c(Gfx *gdl)
 		gdl = func0f126de8(gdl);
 	}
 
-	if (sky->numsuns <= 0 || !var800844f0 || g_Vars.mplayerisrunning) {
+	if (env->numsuns <= 0 || !var800844f0 || g_Vars.mplayerisrunning) {
 		return gdl;
 	}
 
-	sun = sky->suns;
+	sun = env->suns;
 
-	for (i = 0; i < sky->numsuns; i++) {
+	for (i = 0; i < env->numsuns; i++) {
 		if (sun->lens_flare && var800a33e8[i][2] > 1) {
 			struct bootbufferthing *thing = bbufGetIndex1Buffer();
 			f32 value = func0f125a1c(thing->unk00[i]);

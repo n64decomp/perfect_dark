@@ -15,13 +15,13 @@ u32 var800a65fc;
 struct var800a6600 var800a6600;
 u32 var800a6618;
 u32 var800a661c;
-struct skytype1 *var800a6620;
-struct skytype1 *g_SkyTransitionFrom;
-struct skytype1 *g_SkyTransitionTo;
+struct envtype1 *var800a6620;
+struct envtype1 *g_EnvTransitionFrom;
+struct envtype1 *g_EnvTransitionTo;
 
 f32 var80081050 = MAXFLOAT;
 f32 var80081054 = 0;
-struct sky var80081058 = {900, 1000};
+struct environment g_Env = {900, 1000};
 u32 var800810a8 = 0;
 u32 var800810ac = 0;
 
@@ -36,7 +36,7 @@ struct sun sun_06        = { 1, 0xff, 0xff, 0xff,   400000,  600000,  1000000, 1
 struct sun sun_crashsite = { 1, 0xff, 0xd7, 0xf2,  1900000,  300000, -1400000, 22, 48 };
 struct sun sun_airbase   = { 1, 0xff, 0xd7, 0xf2, -1200000,  200000,   150000, 30, 60 };
 
-struct skytype1 g_SkiesType1[] = {
+struct envtype1 g_EnvironmentsType1[] = {
 	//                                                    |--- fog ----|  |---- sky -----|                     |----------- clouds -----------| |--------------- water ---------------|
 	// stage                near    far    06    08   0a     min     max     r     g     b     sun             e  scale    1c     r     g     b 20 21  scale type   r     g     b    28
 	{ STAGE_CRASHSITE,        15, 10000,    0,    0,   0, 0x03e2, 0x03e8, 0x9b, 0x2d, 0x1e, 1, &sun_crashsite, 1,  1500, 0x00, 0xfa, 0xfa, 0x00, 0, 0, -5000, 0, 0x00, 0x00, 0x00, 0x00 },
@@ -55,7 +55,7 @@ struct skytype1 g_SkiesType1[] = {
 	{ 0,                       0,     0,    0,    0,   0, 0x0000, 0x0000, 0x00, 0x00, 0x00, 0, NULL,           0,     0, 0x00, 0x00, 0x00, 0x00, 0, 0,     0, 0, 0x00, 0x00, 0x00, 0x00 },
 };
 
-struct skytype2 g_SkiesType2[] = {
+struct envtype2 g_EnvironmentsType2[] = {
 	//                                                                            |-------- clouds --------|     |------------ water ------------|
 	// stage             near    far 08 0a 0c     r     g     b     sun           e     r     g     b  scale 20  e     r     g     b   scale  type 30 34
 	{ -1,                  15, 10000, 0, 0, 0, 0x00, 0x10, 0x40, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 0 },
@@ -117,36 +117,36 @@ struct skytype2 g_SkiesType2[] = {
 	{ 0 },
 };
 
-void func0f1657c0(s32 arg0, s32 arg1)
+void env0f1657c0(s32 arg0, s32 arg1)
 {
 	// empty
 }
 
-struct sky *skyGetCurrent(void)
+struct environment *envGetCurrent(void)
 {
-	return &var80081058;
+	return &g_Env;
 }
 
-f32 func0f1657d8(void)
+f32 env0f1657d8(void)
 {
 	return var80081050;
 }
 
-f32 func0f1657e4(void)
+f32 env0f1657e4(void)
 {
 	return var80081050 * var80081050;
 }
 
 GLOBAL_ASM(
-glabel func0f1657f8
+glabel env0f1657f8
 .late_rodata
 glabel var7f1b76e0
 .word 0x3a83126f
 glabel var7f1b76e4
 .word 0x3a83126f
 .text
-/*  f1657f8:	3c0e800a */ 	lui	$t6,%hi(g_FogDisabled)
-/*  f1657fc:	8dce65e0 */ 	lw	$t6,%lo(g_FogDisabled)($t6)
+/*  f1657f8:	3c0e800a */ 	lui	$t6,%hi(g_FogEnabled)
+/*  f1657fc:	8dce65e0 */ 	lw	$t6,%lo(g_FogEnabled)($t6)
 /*  f165800:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f165804:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f165808:	51c0005d */ 	beqzl	$t6,.L0f165980
@@ -155,8 +155,8 @@ glabel var7f1b76e4
 /*  f165814:	27a40038 */ 	addiu	$a0,$sp,0x38
 /*  f165818:	0fc5722e */ 	jal	currentPlayerGetScaleBg2Gfx
 /*  f16581c:	00000000 */ 	nop
-/*  f165820:	3c048008 */ 	lui	$a0,%hi(var80081058)
-/*  f165824:	24841058 */ 	addiu	$a0,$a0,%lo(var80081058)
+/*  f165820:	3c048008 */ 	lui	$a0,%hi(g_Env)
+/*  f165824:	24841058 */ 	addiu	$a0,$a0,%lo(g_Env)
 /*  f165828:	8c8f0000 */ 	lw	$t7,0x0($a0)
 /*  f16582c:	c7a20038 */ 	lwc1	$f2,0x38($sp)
 /*  f165830:	c7b0003c */ 	lwc1	$f16,0x3c($sp)
@@ -249,200 +249,200 @@ glabel var7f1b76e4
 /*  f165988:	00000000 */ 	nop
 );
 
-void skyApplyType1(struct skytype1 *sky)
+void envApplyType1(struct envtype1 *env)
 {
-	g_FogDisabled = true;
+	g_FogEnabled = true;
 	var800a65e4 = 0;
 
-	viSetZRange(sky->near, sky->far);
+	viSetZRange(env->near, env->far);
 
-	var80081058.fogmin = sky->fogmin;
-	var80081058.fogmax = sky->fogmax;
+	g_Env.fogmin = env->fogmin;
+	g_Env.fogmax = env->fogmax;
 
-	var80081058.sky_r = sky->sky_r;
-	var80081058.sky_g = sky->sky_g;
-	var80081058.sky_b = sky->sky_b;
-	var80081058.skyredfrac = var80081058.sky_r / 255.0f;
-	var80081058.skygreenfrac = var80081058.sky_g / 255.0f;
-	var80081058.skybluefrac = var80081058.sky_b / 255.0f;
+	g_Env.sky_r = env->sky_r;
+	g_Env.sky_g = env->sky_g;
+	g_Env.sky_b = env->sky_b;
+	g_Env.skyredfrac = g_Env.sky_r / 255.0f;
+	g_Env.skygreenfrac = g_Env.sky_g / 255.0f;
+	g_Env.skybluefrac = g_Env.sky_b / 255.0f;
 
-	var80081058.numsuns = sky->numsuns;
-	var80081058.suns = sky->suns;
+	g_Env.numsuns = env->numsuns;
+	g_Env.suns = env->suns;
 
-	var80081058.clouds_enabled = sky->clouds_enabled;
-	var80081058.clouds_scale = sky->clouds_scale;
-	var80081058.unk18 = sky->unk1c;
-	var80081058.clouds_r = sky->clouds_r;
-	var80081058.clouds_g = sky->clouds_g;
-	var80081058.clouds_b = sky->clouds_b;
+	g_Env.clouds_enabled = env->clouds_enabled;
+	g_Env.clouds_scale = env->clouds_scale;
+	g_Env.unk18 = env->unk1c;
+	g_Env.clouds_r = env->clouds_r;
+	g_Env.clouds_g = env->clouds_g;
+	g_Env.clouds_b = env->clouds_b;
 
-	var80081058.water_enabled = sky->water_enabled;
-	var80081058.water_scale = sky->water_scale;
-	var80081058.water_type = sky->water_type;
-	var80081058.water_r = sky->water_r;
-	var80081058.water_g = sky->water_g;
-	var80081058.water_b = sky->water_b;
-	var80081058.unk40 = sky->unk28;
+	g_Env.water_enabled = env->water_enabled;
+	g_Env.water_scale = env->water_scale;
+	g_Env.water_type = env->water_type;
+	g_Env.water_r = env->water_r;
+	g_Env.water_g = env->water_g;
+	g_Env.water_b = env->water_b;
+	g_Env.unk40 = env->unk28;
 
-	if (!sky->unk06) {
+	if (!env->unk06) {
 		var800a65e8 = NULL;
 	} else {
-		var800a65f0.x = sky->unk06;
-		var800a65f0.y = sky->unk08;
-		var800a65f0.z = sky->unk0a;
+		var800a65f0.x = env->unk06;
+		var800a65f0.y = env->unk08;
+		var800a65f0.z = env->unk0a;
 		var800a65e8 = &var800a65f0;
 	}
 
-	func0f1657f8();
+	env0f1657f8();
 }
 
-void skyApplyType2(struct skytype2 *sky)
+void envApplyType2(struct envtype2 *env)
 {
 	struct zrange zrange;
 
-	viSetZRange(sky->near, sky->far);
+	viSetZRange(env->near, env->far);
 
-	var80081058.sky_r = sky->sky_r;
-	var80081058.sky_g = sky->sky_g;
-	var80081058.sky_b = sky->sky_b;
+	g_Env.sky_r = env->sky_r;
+	g_Env.sky_g = env->sky_g;
+	g_Env.sky_b = env->sky_b;
 
-	var80081058.skyredfrac = var80081058.sky_r / 255.0f;
-	var80081058.skygreenfrac = var80081058.sky_g / 255.0f;
-	var80081058.skybluefrac = var80081058.sky_b / 255.0f;
+	g_Env.skyredfrac = g_Env.sky_r / 255.0f;
+	g_Env.skygreenfrac = g_Env.sky_g / 255.0f;
+	g_Env.skybluefrac = g_Env.sky_b / 255.0f;
 
-	var80081058.numsuns = sky->numsuns;
-	var80081058.suns = sky->suns;
-	var80081058.clouds_enabled = sky->clouds_enabled;
-	var80081058.clouds_scale = sky->clouds_scale;
-	var80081058.unk18 = sky->unk20;
+	g_Env.numsuns = env->numsuns;
+	g_Env.suns = env->suns;
+	g_Env.clouds_enabled = env->clouds_enabled;
+	g_Env.clouds_scale = env->clouds_scale;
+	g_Env.unk18 = env->unk20;
 
-	var80081058.clouds_r = sky->clouds_r;
-	var80081058.clouds_g = sky->clouds_g;
-	var80081058.clouds_b = sky->clouds_b;
+	g_Env.clouds_r = env->clouds_r;
+	g_Env.clouds_g = env->clouds_g;
+	g_Env.clouds_b = env->clouds_b;
 
-	var80081058.water_enabled = sky->water_enabled;
-	var80081058.water_scale = sky->water_scale;
-	var80081058.water_type = sky->water_type;
+	g_Env.water_enabled = env->water_enabled;
+	g_Env.water_scale = env->water_scale;
+	g_Env.water_type = env->water_type;
 
-	var80081058.water_r = sky->water_r;
-	var80081058.water_g = sky->water_g;
-	var80081058.water_b = sky->water_b;
-	var80081058.unk40 = sky->unk30;
+	g_Env.water_r = env->water_r;
+	g_Env.water_g = env->water_g;
+	g_Env.water_b = env->water_b;
+	g_Env.unk40 = env->unk30;
 
-	if (!sky->unk08) {
+	if (!env->unk08) {
 		var800a65e8 = NULL;
 	} else {
-		var800a65f0.x = sky->unk08;
-		var800a65f0.y = sky->unk0a;
-		var800a65f0.z = sky->unk0c;
+		var800a65f0.x = env->unk08;
+		var800a65f0.y = env->unk0a;
+		var800a65f0.z = env->unk0c;
 		var800a65e8 = &var800a65f0;
 	}
 
-	g_FogDisabled = false;
+	g_FogEnabled = false;
 
-	var800a65e4 = sky->unk34;
+	var800a65e4 = env->unk34;
 }
 
-void skyDisable(void)
+void envDisableSky(void)
 {
-	var80081058.sky_r = 0;
-	var80081058.sky_g = 0;
-	var80081058.sky_b = 0;
+	g_Env.sky_r = 0;
+	g_Env.sky_g = 0;
+	g_Env.sky_b = 0;
 
-	var80081058.skyredfrac = 0;
-	var80081058.skygreenfrac = 0;
-	var80081058.skybluefrac = 0;
+	g_Env.skyredfrac = 0;
+	g_Env.skygreenfrac = 0;
+	g_Env.skybluefrac = 0;
 }
 
-void skySetStageNum(s32 stagenum)
+void envSetStageNum(s32 stagenum)
 {
 	// empty
 }
 
-void skyChooseAndApply(s32 stagenum, bool arg1)
+void envChooseAndApply(s32 stagenum, bool allowoverride)
 {
-	struct skytype2 *finalsky = NULL;
-	struct skytype2 *sky2;
-	struct skytype1 *sky1;
+	struct envtype2 *finalenv = NULL;
+	struct envtype2 *env2;
+	struct envtype1 *env1;
 
 	if (PLAYERCOUNT());
 
 	var80081050 = MAXFLOAT;
 	var80081054 = 0;
 
-	if (arg1) {
-		for (sky1 = &g_SkiesType1[0]; sky1->stage != 0; sky1++) {
-			if (sky1->stage == stagenum + 900) {
-				var800a6620 = sky1;
-				g_SkyTransitionFrom = sky1;
-				g_SkyTransitionTo = sky1 + 1;
-				skyApplyType1(var800a6620);
+	if (allowoverride) {
+		for (env1 = &g_EnvironmentsType1[0]; env1->stage != 0; env1++) {
+			if (env1->stage == stagenum + 900) {
+				var800a6620 = env1;
+				g_EnvTransitionFrom = env1;
+				g_EnvTransitionTo = env1 + 1;
+				envApplyType1(var800a6620);
 				return;
 			}
 		}
 	}
 
-	for (sky1 = &g_SkiesType1[0]; sky1->stage != 0; sky1++) {
-		if (sky1->stage == stagenum) {
-			var800a6620 = sky1;
-			g_SkyTransitionFrom = sky1;
-			g_SkyTransitionTo = sky1 + 1;
-			skyApplyType1(var800a6620);
+	for (env1 = &g_EnvironmentsType1[0]; env1->stage != 0; env1++) {
+		if (env1->stage == stagenum) {
+			var800a6620 = env1;
+			g_EnvTransitionFrom = env1;
+			g_EnvTransitionTo = env1 + 1;
+			envApplyType1(var800a6620);
 			return;
 		}
 	}
 
-	for (sky2 = &g_SkiesType2[0]; sky2->stage != 0; sky2++) {
-		if (sky2->stage == stagenum) {
-			finalsky = sky2;
+	for (env2 = &g_EnvironmentsType2[0]; env2->stage != 0; env2++) {
+		if (env2->stage == stagenum) {
+			finalenv = env2;
 		}
 	}
 
-	if (sky2);
+	if (env2);
 
-	if (finalsky == NULL) {
-		finalsky = &g_SkiesType2[0];
+	if (finalenv == NULL) {
+		finalenv = &g_EnvironmentsType2[0];
 	}
 
-	skyApplyType2(finalsky);
+	envApplyType2(finalenv);
 
 	var800a6620 = NULL;
 }
 
-void skySetTransitionFrac(f32 frac)
+void envApplyTransitionFrac(f32 frac)
 {
-	static struct skytype1 tmp;
+	static struct envtype1 tmp;
 
-	tmp = *g_SkyTransitionFrom;
+	tmp = *g_EnvTransitionFrom;
 
-	tmp.near = g_SkyTransitionFrom->near + frac * ((f32)g_SkyTransitionTo->near - (f32)g_SkyTransitionFrom->near);
-	tmp.far = g_SkyTransitionFrom->far + frac * ((f32)g_SkyTransitionTo->far - (f32)g_SkyTransitionFrom->far);
-	tmp.fogmin = g_SkyTransitionFrom->fogmin + frac * ((f32)g_SkyTransitionTo->fogmin - (f32)g_SkyTransitionFrom->fogmin);
-	tmp.fogmax = g_SkyTransitionFrom->fogmax + frac * ((f32)g_SkyTransitionTo->fogmax - (f32)g_SkyTransitionFrom->fogmax);
+	tmp.near = g_EnvTransitionFrom->near + frac * ((f32)g_EnvTransitionTo->near - (f32)g_EnvTransitionFrom->near);
+	tmp.far = g_EnvTransitionFrom->far + frac * ((f32)g_EnvTransitionTo->far - (f32)g_EnvTransitionFrom->far);
+	tmp.fogmin = g_EnvTransitionFrom->fogmin + frac * ((f32)g_EnvTransitionTo->fogmin - (f32)g_EnvTransitionFrom->fogmin);
+	tmp.fogmax = g_EnvTransitionFrom->fogmax + frac * ((f32)g_EnvTransitionTo->fogmax - (f32)g_EnvTransitionFrom->fogmax);
 
-	tmp.sky_r = g_SkyTransitionFrom->sky_r + frac * ((f32)g_SkyTransitionTo->sky_r - (f32)g_SkyTransitionFrom->sky_r);
-	tmp.sky_g = g_SkyTransitionFrom->sky_g + frac * ((f32)g_SkyTransitionTo->sky_g - (f32)g_SkyTransitionFrom->sky_g);
-	tmp.sky_b = g_SkyTransitionFrom->sky_b + frac * ((f32)g_SkyTransitionTo->sky_b - (f32)g_SkyTransitionFrom->sky_b);
+	tmp.sky_r = g_EnvTransitionFrom->sky_r + frac * ((f32)g_EnvTransitionTo->sky_r - (f32)g_EnvTransitionFrom->sky_r);
+	tmp.sky_g = g_EnvTransitionFrom->sky_g + frac * ((f32)g_EnvTransitionTo->sky_g - (f32)g_EnvTransitionFrom->sky_g);
+	tmp.sky_b = g_EnvTransitionFrom->sky_b + frac * ((f32)g_EnvTransitionTo->sky_b - (f32)g_EnvTransitionFrom->sky_b);
 
 	tmp.sky_r &= 0xf8;
 	tmp.sky_g &= 0xf8;
 	tmp.sky_b &= 0xf8;
 
-	skyApplyType1(&tmp);
+	envApplyType1(&tmp);
 }
 
-Gfx *func0f1664a0(Gfx *gdl, bool arg1)
+Gfx *envStartFog(Gfx *gdl, bool withalpha)
 {
-	if (!g_FogDisabled) {
+	if (!g_FogEnabled) {
 		return gdl;
 	}
 
-	if (arg1) {
-		gDPSetFogColor(gdl++, var80081058.sky_r, var80081058.sky_g, var80081058.sky_b, 0xff);
-		gSPFogPosition(gdl++, var80081058.fogmin, var80081058.fogmax);
+	if (withalpha) {
+		gDPSetFogColor(gdl++, g_Env.sky_r, g_Env.sky_g, g_Env.sky_b, 0xff);
+		gSPFogPosition(gdl++, g_Env.fogmin, g_Env.fogmax);
 	} else {
-		gDPSetFogColor(gdl++, var80081058.sky_r, var80081058.sky_g, var80081058.sky_b, 0xff);
-		gSPFogPosition(gdl++, var80081058.fogmin, var80081058.fogmax);
+		gDPSetFogColor(gdl++, g_Env.sky_r, g_Env.sky_g, g_Env.sky_b, 0xff);
+		gSPFogPosition(gdl++, g_Env.fogmin, g_Env.fogmax);
 	}
 
 	gSPSetGeometryMode(gdl++, G_FOG);
@@ -451,9 +451,9 @@ Gfx *func0f1664a0(Gfx *gdl, bool arg1)
 	return gdl;
 }
 
-Gfx *gfxConsiderDisableFog(Gfx *gdl)
+Gfx *envStopFog(Gfx *gdl)
 {
-	if (!g_FogDisabled) {
+	if (!g_FogEnabled) {
 		return gdl;
 	}
 
@@ -462,14 +462,14 @@ Gfx *gfxConsiderDisableFog(Gfx *gdl)
 	return gdl;
 }
 
-bool func0f1666f8(struct coord *pos, f32 arg1)
+bool env0f1666f8(struct coord *pos, f32 arg1)
 {
 	struct coord sp24;
 	Mtxf *mtx;
 	struct coord *campos;
 	f32 tmp;
 
-	if (!g_FogDisabled) {
+	if (!g_FogEnabled) {
 		return true;
 	}
 
@@ -494,14 +494,14 @@ bool func0f1666f8(struct coord *pos, f32 arg1)
 	return true;
 }
 
-struct coord *func0f1667e8(void)
+struct coord *env0f1667e8(void)
 {
 	return var800a65e8;
 }
 
-s32 func0f1667f4(struct prop *prop, f32 *arg1)
+s32 env0f1667f4(struct prop *prop, f32 *arg1)
 {
-	if (!g_FogDisabled) {
+	if (!g_FogEnabled) {
 		return 2;
 	}
 
@@ -513,9 +513,9 @@ s32 func0f1667f4(struct prop *prop, f32 *arg1)
 		return 2;
 	}
 
-	arg1[0] = var80081058.skyredfrac;
-	arg1[1] = var80081058.skygreenfrac;
-	arg1[2] = var80081058.skybluefrac;
+	arg1[0] = g_Env.skyredfrac;
+	arg1[1] = g_Env.skygreenfrac;
+	arg1[2] = g_Env.skybluefrac;
 	arg1[3] = var800a6600.unk14 + var800a6600.unk10 / prop->z;
 
 	if (arg1[3] < 0.0f) {

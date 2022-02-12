@@ -8300,7 +8300,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		}
 	}
 
-	sp104 = func0f1667f4(prop, sp108);
+	sp104 = env0f1667f4(prop, sp108);
 
 	if (chr->unk32c_18) {
 		func0f069144(chr->prop, chr->nextcol, chr->floorcol);

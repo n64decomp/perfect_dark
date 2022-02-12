@@ -99,6 +99,6 @@ u32 g_PortalDisableParentExec;
 u32 var800a65d4;
 u32 var800a65d8;
 u32 var800a65dc;
-u32 g_FogDisabled;
+u32 g_FogEnabled;
 u32 var800a65e4;
 struct coord *var800a65e8;
