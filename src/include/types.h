@@ -3295,8 +3295,8 @@ struct mission {
 };
 
 struct var800a6600 {
-	u32 unk00;
-	u32 unk04;
+	f32 znear;
+	f32 zfar;
 	u32 unk08;
 	u32 unk0c;
 	f32 unk10;
@@ -5267,8 +5267,13 @@ struct var800a4640 {
 };
 
 struct zrange {
-	f32 near;
-	f32 far;
+	union {
+		struct {
+			f32 near;
+			f32 far;
+		};
+		f32 f[2];
+	};
 };
 
 struct var800a4d00 {

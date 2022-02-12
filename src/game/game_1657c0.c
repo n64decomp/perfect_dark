@@ -13,8 +13,8 @@ struct coord var800a65f0;
 u32 var800a65fc;
 
 struct var800a6600 var800a6600;
-u32 var800a6618;
-u32 var800a661c;
+f32 var800a6618;
+f32 var800a661c;
 struct envtype1 *var800a6620;
 struct envtype1 *g_EnvTransitionFrom;
 struct envtype1 *g_EnvTransitionTo;
@@ -137,117 +137,43 @@ f32 env0f1657e4(void)
 	return var80081050 * var80081050;
 }
 
-GLOBAL_ASM(
-glabel env0f1657f8
-.late_rodata
-glabel var7f1b76e0
-.word 0x3a83126f
-glabel var7f1b76e4
-.word 0x3a83126f
-.text
-/*  f1657f8:	3c0e800a */ 	lui	$t6,%hi(g_FogEnabled)
-/*  f1657fc:	8dce65e0 */ 	lw	$t6,%lo(g_FogEnabled)($t6)
-/*  f165800:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f165804:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f165808:	51c0005d */ 	beqzl	$t6,.L0f165980
-/*  f16580c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f165810:	0c002fb8 */ 	jal	viGetZRange
-/*  f165814:	27a40038 */ 	addiu	$a0,$sp,0x38
-/*  f165818:	0fc5722e */ 	jal	currentPlayerGetScaleBg2Gfx
-/*  f16581c:	00000000 */ 	nop
-/*  f165820:	3c048008 */ 	lui	$a0,%hi(g_Env)
-/*  f165824:	24841058 */ 	addiu	$a0,$a0,%lo(g_Env)
-/*  f165828:	8c8f0000 */ 	lw	$t7,0x0($a0)
-/*  f16582c:	c7a20038 */ 	lwc1	$f2,0x38($sp)
-/*  f165830:	c7b0003c */ 	lwc1	$f16,0x3c($sp)
-/*  f165834:	448f2000 */ 	mtc1	$t7,$f4
-/*  f165838:	3c017f1b */ 	lui	$at,%hi(var7f1b76e0)
-/*  f16583c:	c42876e0 */ 	lwc1	$f8,%lo(var7f1b76e0)($at)
-/*  f165840:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f165844:	8c980004 */ 	lw	$t8,0x4($a0)
-/*  f165848:	3c03800a */ 	lui	$v1,%hi(var800a661c)
-/*  f16584c:	2463661c */ 	addiu	$v1,$v1,%lo(var800a661c)
-/*  f165850:	44982000 */ 	mtc1	$t8,$f4
-/*  f165854:	46001083 */ 	div.s	$f2,$f2,$f0
-/*  f165858:	3c017f1b */ 	lui	$at,%hi(var7f1b76e4)
-/*  f16585c:	3c05800a */ 	lui	$a1,%hi(var800a6618)
-/*  f165860:	24a56618 */ 	addiu	$a1,$a1,%lo(var800a6618)
-/*  f165864:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f165868:	3c02800a */ 	lui	$v0,%hi(var800a6600)
-/*  f16586c:	24426600 */ 	addiu	$v0,$v0,%lo(var800a6600)
-/*  f165870:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f165874:	e46a0000 */ 	swc1	$f10,0x0($v1)
-/*  f165878:	c42876e4 */ 	lwc1	$f8,%lo(var7f1b76e4)($at)
-/*  f16587c:	3c018008 */ 	lui	$at,%hi(var80081050)
-/*  f165880:	46008403 */ 	div.s	$f16,$f16,$f0
-/*  f165884:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f165888:	e4aa0000 */ 	swc1	$f10,0x0($a1)
-/*  f16588c:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f165890:	e7a4001c */ 	swc1	$f4,0x1c($sp)
-/*  f165894:	c7a6001c */ 	lwc1	$f6,0x1c($sp)
-/*  f165898:	46028481 */ 	sub.s	$f18,$f16,$f2
-/*  f16589c:	46069202 */ 	mul.s	$f8,$f18,$f6
-/*  f1658a0:	46081280 */ 	add.s	$f10,$f2,$f8
-/*  f1658a4:	e42a1050 */ 	swc1	$f10,%lo(var80081050)($at)
-/*  f1658a8:	c46c0000 */ 	lwc1	$f12,0x0($v1)
-/*  f1658ac:	3c018008 */ 	lui	$at,%hi(var80081054)
-/*  f1658b0:	c7aa001c */ 	lwc1	$f10,0x1c($sp)
-/*  f1658b4:	460c9102 */ 	mul.s	$f4,$f18,$f12
-/*  f1658b8:	46041180 */ 	add.s	$f6,$f2,$f4
-/*  f1658bc:	460c5101 */ 	sub.s	$f4,$f10,$f12
-/*  f1658c0:	e4261054 */ 	swc1	$f6,%lo(var80081054)($at)
-/*  f1658c4:	e4420000 */ 	swc1	$f2,0x0($v0)
-/*  f1658c8:	3c014300 */ 	lui	$at,0x4300
-/*  f1658cc:	c4480000 */ 	lwc1	$f8,0x0($v0)
-/*  f1658d0:	44813000 */ 	mtc1	$at,$f6
-/*  f1658d4:	3c013f00 */ 	lui	$at,0x3f00
-/*  f1658d8:	44815000 */ 	mtc1	$at,$f10
-/*  f1658dc:	e7a8002c */ 	swc1	$f8,0x2c($sp)
-/*  f1658e0:	46043203 */ 	div.s	$f8,$f6,$f4
-/*  f1658e4:	3c014380 */ 	lui	$at,0x4380
-/*  f1658e8:	e4500004 */ 	swc1	$f16,0x4($v0)
-/*  f1658ec:	c44e0004 */ 	lwc1	$f14,0x4($v0)
-/*  f1658f0:	460c5181 */ 	sub.s	$f6,$f10,$f12
-/*  f1658f4:	44815000 */ 	mtc1	$at,$f10
-/*  f1658f8:	e7a40020 */ 	swc1	$f4,0x20($sp)
-/*  f1658fc:	3c013f80 */ 	lui	$at,0x3f80
-/*  f165900:	460a3182 */ 	mul.s	$f6,$f6,$f10
-/*  f165904:	46043283 */ 	div.s	$f10,$f6,$f4
-/*  f165908:	c7a6002c */ 	lwc1	$f6,0x2c($sp)
-/*  f16590c:	e7a80028 */ 	swc1	$f8,0x28($sp)
-/*  f165910:	46067101 */ 	sub.s	$f4,$f14,$f6
-/*  f165914:	e7a40020 */ 	swc1	$f4,0x20($sp)
-/*  f165918:	e7aa0024 */ 	swc1	$f10,0x24($sp)
-/*  f16591c:	46004287 */ 	neg.s	$f10,$f8
-/*  f165920:	44814000 */ 	mtc1	$at,$f8
-/*  f165924:	460e5102 */ 	mul.s	$f4,$f10,$f14
-/*  f165928:	3c01437f */ 	lui	$at,0x437f
-/*  f16592c:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f165930:	c7a80020 */ 	lwc1	$f8,0x20($sp)
-/*  f165934:	460a2182 */ 	mul.s	$f6,$f4,$f10
-/*  f165938:	44815000 */ 	mtc1	$at,$f10
-/*  f16593c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f165940:	46083103 */ 	div.s	$f4,$f6,$f8
-/*  f165944:	44814000 */ 	mtc1	$at,$f8
-/*  f165948:	3c01437f */ 	lui	$at,0x437f
-/*  f16594c:	460a2183 */ 	div.s	$f6,$f4,$f10
-/*  f165950:	c7aa0028 */ 	lwc1	$f10,0x28($sp)
-/*  f165954:	46087100 */ 	add.s	$f4,$f14,$f8
-/*  f165958:	c7a80020 */ 	lwc1	$f8,0x20($sp)
-/*  f16595c:	e4460010 */ 	swc1	$f6,0x10($v0)
-/*  f165960:	460a2182 */ 	mul.s	$f6,$f4,$f10
-/*  f165964:	c7aa0024 */ 	lwc1	$f10,0x24($sp)
-/*  f165968:	46083103 */ 	div.s	$f4,$f6,$f8
-/*  f16596c:	44814000 */ 	mtc1	$at,$f8
-/*  f165970:	460a2180 */ 	add.s	$f6,$f4,$f10
-/*  f165974:	46083103 */ 	div.s	$f4,$f6,$f8
-/*  f165978:	e4440014 */ 	swc1	$f4,0x14($v0)
-/*  f16597c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f165980:
-/*  f165980:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f165984:	03e00008 */ 	jr	$ra
-/*  f165988:	00000000 */ 	nop
-);
+void env0f1657f8(void)
+{
+	struct zrange zrange;
+	f32 scale;
+	f32 zfar;
+	f32 znear;
+	f32 sp28;
+	f32 sp24;
+
+	if (!g_FogEnabled) {
+		return;
+	}
+
+	viGetZRange(&zrange);
+
+	scale = currentPlayerGetScaleBg2Gfx();
+
+	zrange.near /= scale;
+	zrange.far /= scale;
+
+	var800a661c = g_Env.fogmin * 0.001f;
+	var800a6618 = g_Env.fogmax * 0.001f;
+
+	var80081050 = (zrange.far - zrange.near) * var800a6618 + zrange.f[0];
+	var80081054 = (zrange.far - zrange.near) * var800a661c + zrange.f[0];
+
+	var800a6600.znear = zrange.near;
+	var800a6600.zfar = zrange.far;
+
+	zfar = var800a6600.zfar;
+	znear = var800a6600.znear;
+	sp28 = 128.0f / (var800a6618 - var800a661c);
+	sp24 = (0.5f - var800a661c) * 256.0f / (var800a6618 - var800a661c);
+
+	var800a6600.unk10 = -sp28 * zfar * (znear + 1.0f) / (zfar - znear) / 255.0f;
+	var800a6600.unk14 = ((zfar + 1.0f) * sp28 / (zfar - znear) + sp24) / 255.0f;
+}
 
 void envApplyType1(struct envtype1 *env)
 {
