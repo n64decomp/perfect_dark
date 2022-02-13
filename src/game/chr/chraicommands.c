@@ -4120,85 +4120,24 @@ bool aiIfCountdownTimerGreaterThan(void)
 /**
  * @cmd 00c6
  */
-GLOBAL_ASM(
-glabel aiSpawnChrAtPad
-/*  f05565c:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f055660:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f055664:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f055668:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f05566c:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f055670:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f055674:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f055678:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f05567c:	90780004 */ 	lbu	$t8,0x4($v1)
-/*  f055680:	906a0005 */ 	lbu	$t2,0x5($v1)
-/*  f055684:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f055688:	032a5825 */ 	or	$t3,$t9,$t2
-/*  f05568c:	a7ab0032 */ 	sh	$t3,0x32($sp)
-/*  f055690:	906e0009 */ 	lbu	$t6,0x9($v1)
-/*  f055694:	906c0008 */ 	lbu	$t4,0x8($v1)
-/*  f055698:	9079000a */ 	lbu	$t9,0xa($v1)
-/*  f05569c:	000e7c00 */ 	sll	$t7,$t6,0x10
-/*  f0556a0:	000c6e00 */ 	sll	$t5,$t4,0x18
-/*  f0556a4:	906e0006 */ 	lbu	$t6,0x6($v1)
-/*  f0556a8:	01afc025 */ 	or	$t8,$t5,$t7
-/*  f0556ac:	906c000b */ 	lbu	$t4,0xb($v1)
-/*  f0556b0:	906f0007 */ 	lbu	$t7,0x7($v1)
-/*  f0556b4:	00195200 */ 	sll	$t2,$t9,0x8
-/*  f0556b8:	030a5825 */ 	or	$t3,$t8,$t2
-/*  f0556bc:	000e6a00 */ 	sll	$t5,$t6,0x8
-/*  f0556c0:	016c4025 */ 	or	$t0,$t3,$t4
-/*  f0556c4:	01af1025 */ 	or	$v0,$t5,$t7
-/*  f0556c8:	3044ffff */ 	andi	$a0,$v0,0xffff
-/*  f0556cc:	afa8002c */ 	sw	$t0,0x2c($sp)
-/*  f0556d0:	0c006134 */ 	jal	ailistFindById
-/*  f0556d4:	afa30034 */ 	sw	$v1,0x34($sp)
-/*  f0556d8:	8fa30034 */ 	lw	$v1,0x34($sp)
-/*  f0556dc:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*  f0556e0:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f0556e4:	90650002 */ 	lbu	$a1,0x2($v1)
-/*  f0556e8:	80660003 */ 	lb	$a2,0x3($v1)
-/*  f0556ec:	afa20010 */ 	sw	$v0,0x10($sp)
-/*  f0556f0:	97a70032 */ 	lhu	$a3,0x32($sp)
-/*  f0556f4:	afa30034 */ 	sw	$v1,0x34($sp)
-/*  f0556f8:	0fc12d5e */ 	jal	chrSpawnAtPad
-/*  f0556fc:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f055700:	10400007 */ 	beqz	$v0,.L0f055720
-/*  f055704:	8fa30034 */ 	lw	$v1,0x34($sp)
-/*  f055708:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f05570c:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f055710:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f055714:	9066000c */ 	lbu	$a2,0xc($v1)
-/*  f055718:	10000004 */ 	b	.L0f05572c
-/*  f05571c:	ae020438 */ 	sw	$v0,0x438($s0)
-.L0f055720:
-/*  f055720:	8e180438 */ 	lw	$t8,0x438($s0)
-/*  f055724:	270a000d */ 	addiu	$t2,$t8,0xd
-/*  f055728:	ae0a0438 */ 	sw	$t2,0x438($s0)
-.L0f05572c:
-/*  f05572c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f055730:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f055734:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f055738:	03e00008 */ 	jr	$ra
-/*  f05573c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSpawnChrAtPad(void)
+{
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
+	u16 pad = cmd->b4 << 8 | cmd->b5;
+	u32 spawnflags = cmd->b8 << 24 | cmd->b9 << 16 | cmd->b10 << 8 | cmd->b11;
+	u16 ailistid = cmd->b6 << 8 | cmd->b7;
+	u8 *ailist = ailistFindById(ailistid);
 
-//bool aiSpawnChrAtPad(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	u16 pad = cmd[5] | (cmd[4] << 8);
-//	u32 spawnflags = (cmd[9] << 16) | (cmd[10] << 8) | cmd[11] | (cmd[8] << 24);
-//	s32 ailistid = cmd[7] | (cmd[6] << 8);
-//	u8 *ailist = ailistFindById(ailistid & 0xffff);
-//
-//	if (chrSpawnAtPad(g_Vars.chrdata, cmd[2], (s8)cmd[3], pad, ailist, spawnflags)) {
-//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[12]);
-//	} else {
-//		g_Vars.aioffset += 13;
-//	}
-//
-//	return false;
-//}
+	if (spawnflags);
+
+	if (chrSpawnAtPad(g_Vars.chrdata, cmd->b2, (s8)cmd->b3, pad, ailist, spawnflags)) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b12);
+	} else {
+		g_Vars.aioffset += 13;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 00c7

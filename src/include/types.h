@@ -5976,6 +5976,9 @@ struct bytelist {
 	u8 b7;
 	u8 b8;
 	u8 b9;
+	u8 b10;
+	u8 b11;
+	u8 b12;
 };
 
 struct stageallocation {
