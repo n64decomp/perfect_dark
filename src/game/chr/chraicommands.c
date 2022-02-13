@@ -4161,7 +4161,6 @@ bool aiSpawnChrAtChr(void)
 /**
  * @cmd 00c8
  */
-#if VERSION >= VERSION_NTSC_1_0
 bool aiTryEquipWeapon(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
@@ -4170,19 +4169,42 @@ bool aiTryEquipWeapon(void)
 	struct prop *prop = NULL;
 
 	if (g_Vars.chrdata && g_Vars.chrdata->prop && g_Vars.chrdata->model) {
+		// If the Marqis cheat is active, don't give guns to chrs,
+		// except where required for objectives.
+#if VERSION < VERSION_NTSC_1_0
+		// On NTSC beta, Marquis is disabled entirely on MBR, and the K7 guard
+		// on Investigation PA is excluded here (ie. is given his weapon).
+		if (cheatIsActive(CHEAT_MARQUIS) && g_Vars.stagenum != STAGE_MBR) {
+			if (g_Vars.stagenum == STAGE_INVESTIGATION
+					&& lvGetDifficulty() == DIFF_PA
+					&& cmd[4] == WEAPON_K7AVENGER) {
+				prop = chrGiveWeapon(g_Vars.chrdata, model, cmd[4], flags);
+			}
+		}
+#elif VERSION < VERSION_PAL_FINAL
+		// NTSC final enables Marquis for MBR, but fails to realise why it was
+		// disabled in the first place (Cass needs to equip her Falcon).
+		// Additionally, NTSC Final changes the logic so the chrs are given
+		// their weapon but they cannot equip them. This means the K7 guard
+		// no longer needs to be handled.
 		if (cheatIsActive(CHEAT_MARQUIS)) {
-			// On MBR, allow Cass to draw her gun.
-			// Otherwise the mission can't progress.
-#if VERSION >= VERSION_PAL_FINAL
-			if (g_Vars.chrdata->bodynum != BODY_CASSANDRA || mainGetStageNum() != STAGE_MBR)
-#endif
-			{
+			flags &= ~OBJFLAG_WEAPON_LEFTHANDED;
+			flags |= OBJFLAG_WEAPON_AICANNOTUSE;
+
+			prop = chrGiveWeapon(g_Vars.chrdata, model, cmd[4], flags);
+		}
+#else
+		// PAL fixes Cass on MBR by allowing her to equip her weapon
+		if (cheatIsActive(CHEAT_MARQUIS)) {
+			if (g_Vars.chrdata->bodynum != BODY_CASSANDRA || mainGetStageNum() != STAGE_MBR) {
 				flags &= ~OBJFLAG_WEAPON_LEFTHANDED;
-				flags |= OBJFLAG_20000000;
+				flags |= OBJFLAG_WEAPON_AICANNOTUSE;
 			}
 
 			prop = chrGiveWeapon(g_Vars.chrdata, model, cmd[4], flags);
-		} else if (cheatIsActive(CHEAT_ENEMYROCKETS)) {
+		}
+#endif
+		else if (cheatIsActive(CHEAT_ENEMYROCKETS)) {
 			switch (cmd[4]) {
 			case WEAPON_FALCON2:
 			case WEAPON_FALCON2_SILENCER:
@@ -4241,239 +4263,6 @@ bool aiTryEquipWeapon(void)
 
 	return false;
 }
-#else
-GLOBAL_ASM(
-glabel aiTryEquipWeapon
-.late_rodata
-glabel var7f1a3f70nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3f74nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3f78nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3f7cnb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3f80nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3f84nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3f88nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3f8cnb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3f90nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3f94nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3f98nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3f9cnb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fa0nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fa4nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fa8nb
-.word aiTryEquipWeapon+0x164
-glabel var7f1a3facnb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fb0nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fb4nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fb8nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fbcnb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fc0nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fc4nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fc8nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fccnb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fd0nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fd4nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fd8nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fdcnb
-.word aiTryEquipWeapon+0x1c8
-glabel var7f1a3fe0nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fe4nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fe8nb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3fecnb
-.word aiTryEquipWeapon+0x148
-glabel var7f1a3ff0nb
-.word aiTryEquipWeapon+0x148
-.text
-/*  f054cb0:	3c07800a */ 	lui	$a3,0x800a
-/*  f054cb4:	24e7e6c0 */ 	addiu	$a3,$a3,-6464
-/*  f054cb8:	8ce50438 */ 	lw	$a1,0x438($a3)
-/*  f054cbc:	8cee0434 */ 	lw	$t6,0x434($a3)
-/*  f054cc0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f054cc4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f054cc8:	01c54021 */ 	addu	$t0,$t6,$a1
-/*  f054ccc:	910f0005 */ 	lbu	$t7,0x5($t0)
-/*  f054cd0:	91190006 */ 	lbu	$t9,0x6($t0)
-/*  f054cd4:	910b0007 */ 	lbu	$t3,0x7($t0)
-/*  f054cd8:	910e0008 */ 	lbu	$t6,0x8($t0)
-/*  f054cdc:	000fc600 */ 	sll	$t8,$t7,0x18
-/*  f054ce0:	00194c00 */ 	sll	$t1,$t9,0x10
-/*  f054ce4:	03095025 */ 	or	$t2,$t8,$t1
-/*  f054ce8:	000b6200 */ 	sll	$t4,$t3,0x8
-/*  f054cec:	014c6825 */ 	or	$t5,$t2,$t4
-/*  f054cf0:	01ae7825 */ 	or	$t7,$t5,$t6
-/*  f054cf4:	afaf0020 */ 	sw	$t7,0x20($sp)
-/*  f054cf8:	91190002 */ 	lbu	$t9,0x2($t0)
-/*  f054cfc:	91090003 */ 	lbu	$t1,0x3($t0)
-/*  f054d00:	8ce20424 */ 	lw	$v0,0x424($a3)
-/*  f054d04:	0019c200 */ 	sll	$t8,$t9,0x8
-/*  f054d08:	03095825 */ 	or	$t3,$t8,$t1
-/*  f054d0c:	afab001c */ 	sw	$t3,0x1c($sp)
-/*  f054d10:	10400070 */ 	beqz	$v0,.NB0f054ed4
-/*  f054d14:	00001825 */ 	or	$v1,$zero,$zero
-/*  f054d18:	8c4a001c */ 	lw	$t2,0x1c($v0)
-/*  f054d1c:	1140006d */ 	beqz	$t2,.NB0f054ed4
-/*  f054d20:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f054d24:	8c4c0020 */ 	lw	$t4,0x20($v0)
-/*  f054d28:	24040014 */ 	addiu	$a0,$zero,0x14
-/*  f054d2c:	11800069 */ 	beqz	$t4,.NB0f054ed4
-/*  f054d30:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f054d34:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f054d38:	0fc40ab9 */ 	jal	cheatIsActive
-/*  f054d3c:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f054d40:	1040001e */ 	beqz	$v0,.NB0f054dbc
-/*  f054d44:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f054d48:	3c02800a */ 	lui	$v0,0x800a
-/*  f054d4c:	8c42eb74 */ 	lw	$v0,-0x148c($v0)
-/*  f054d50:	24010037 */ 	addiu	$at,$zero,0x37
-/*  f054d54:	10410019 */ 	beq	$v0,$at,.NB0f054dbc
-/*  f054d58:	24010033 */ 	addiu	$at,$zero,0x33
-/*  f054d5c:	14410011 */ 	bne	$v0,$at,.NB0f054da4
-/*  f054d60:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f054d64:	0fc59ed3 */ 	jal	lvGetDifficulty
-/*  f054d68:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f054d6c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f054d70:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f054d74:	1441000b */ 	bne	$v0,$at,.NB0f054da4
-/*  f054d78:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f054d7c:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*  f054d80:	24010010 */ 	addiu	$at,$zero,0x10
-/*  f054d84:	3c04800a */ 	lui	$a0,0x800a
-/*  f054d88:	91a60004 */ 	lbu	$a2,0x4($t5)
-/*  f054d8c:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f054d90:	14c10004 */ 	bne	$a2,$at,.NB0f054da4
-/*  f054d94:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f054d98:	0fc228be */ 	jal	chrGiveWeapon
-/*  f054d9c:	8c84eae4 */ 	lw	$a0,-0x151c($a0)
-/*  f054da0:	00401825 */ 	or	$v1,$v0,$zero
-.NB0f054da4:
-/*  f054da4:	3c05800a */ 	lui	$a1,0x800a
-/*  f054da8:	3c07800a */ 	lui	$a3,0x800a
-/*  f054dac:	24e7e6c0 */ 	addiu	$a3,$a3,-6464
-/*  f054db0:	8ca5eaf8 */ 	lw	$a1,-0x1508($a1)
-/*  f054db4:	10000047 */ 	beqz	$zero,.NB0f054ed4
-/*  f054db8:	8fa80024 */ 	lw	$t0,0x24($sp)
-.NB0f054dbc:
-/*  f054dbc:	0fc40ab9 */ 	jal	cheatIsActive
-/*  f054dc0:	24040012 */ 	addiu	$a0,$zero,0x12
-/*  f054dc4:	10400037 */ 	beqz	$v0,.NB0f054ea4
-/*  f054dc8:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f054dcc:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*  f054dd0:	91c60004 */ 	lbu	$a2,0x4($t6)
-/*  f054dd4:	24cffffe */ 	addiu	$t7,$a2,-2
-/*  f054dd8:	2de10021 */ 	sltiu	$at,$t7,0x21
-/*  f054ddc:	10200026 */ 	beqz	$at,.NB0f054e78
-/*  f054de0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f054de4:	3c017f1a */ 	lui	$at,0x7f1a
-/*  f054de8:	002f0821 */ 	addu	$at,$at,$t7
-/*  f054dec:	8c2f3f74 */ 	lw	$t7,0x3f74($at)
-/*  f054df0:	01e00008 */ 	jr	$t7
-/*  f054df4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f054df8:	3c04800a */ 	lui	$a0,0x800a
-/*  f054dfc:	8c84eae4 */ 	lw	$a0,-0x151c($a0)
-/*  f054e00:	24050108 */ 	addiu	$a1,$zero,0x108
-/*  f054e04:	0fc228be */ 	jal	chrGiveWeapon
-/*  f054e08:	24060018 */ 	addiu	$a2,$zero,0x18
-/*  f054e0c:	1000001f */ 	beqz	$zero,.NB0f054e8c
-/*  f054e10:	00401825 */ 	or	$v1,$v0,$zero
-/*  f054e14:	3c19800a */ 	lui	$t9,0x800a
-/*  f054e18:	8f39eb74 */ 	lw	$t9,-0x148c($t9)
-/*  f054e1c:	24010033 */ 	addiu	$at,$zero,0x33
-/*  f054e20:	1721000e */ 	bne	$t9,$at,.NB0f054e5c
-/*  f054e24:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f054e28:	0fc59ed3 */ 	jal	lvGetDifficulty
-/*  f054e2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f054e30:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f054e34:	14410009 */ 	bne	$v0,$at,.NB0f054e5c
-/*  f054e38:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f054e3c:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*  f054e40:	3c04800a */ 	lui	$a0,0x800a
-/*  f054e44:	8c84eae4 */ 	lw	$a0,-0x151c($a0)
-/*  f054e48:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f054e4c:	0fc228be */ 	jal	chrGiveWeapon
-/*  f054e50:	93060004 */ 	lbu	$a2,0x4($t8)
-/*  f054e54:	1000000d */ 	beqz	$zero,.NB0f054e8c
-/*  f054e58:	00401825 */ 	or	$v1,$v0,$zero
-.NB0f054e5c:
-/*  f054e5c:	3c04800a */ 	lui	$a0,0x800a
-/*  f054e60:	8c84eae4 */ 	lw	$a0,-0x151c($a0)
-/*  f054e64:	24050108 */ 	addiu	$a1,$zero,0x108
-/*  f054e68:	0fc228be */ 	jal	chrGiveWeapon
-/*  f054e6c:	24060018 */ 	addiu	$a2,$zero,0x18
-/*  f054e70:	10000006 */ 	beqz	$zero,.NB0f054e8c
-/*  f054e74:	00401825 */ 	or	$v1,$v0,$zero
-.NB0f054e78:
-/*  f054e78:	3c04800a */ 	lui	$a0,0x800a
-/*  f054e7c:	8c84eae4 */ 	lw	$a0,-0x151c($a0)
-/*  f054e80:	0fc228be */ 	jal	chrGiveWeapon
-/*  f054e84:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f054e88:	00401825 */ 	or	$v1,$v0,$zero
-.NB0f054e8c:
-/*  f054e8c:	3c05800a */ 	lui	$a1,0x800a
-/*  f054e90:	3c07800a */ 	lui	$a3,0x800a
-/*  f054e94:	24e7e6c0 */ 	addiu	$a3,$a3,-6464
-/*  f054e98:	8ca5eaf8 */ 	lw	$a1,-0x1508($a1)
-/*  f054e9c:	1000000d */ 	beqz	$zero,.NB0f054ed4
-/*  f054ea0:	8fa80024 */ 	lw	$t0,0x24($sp)
-.NB0f054ea4:
-/*  f054ea4:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*  f054ea8:	3c04800a */ 	lui	$a0,0x800a
-/*  f054eac:	8c84eae4 */ 	lw	$a0,-0x151c($a0)
-/*  f054eb0:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f054eb4:	0fc228be */ 	jal	chrGiveWeapon
-/*  f054eb8:	91260004 */ 	lbu	$a2,0x4($t1)
-/*  f054ebc:	3c05800a */ 	lui	$a1,0x800a
-/*  f054ec0:	3c07800a */ 	lui	$a3,0x800a
-/*  f054ec4:	24e7e6c0 */ 	addiu	$a3,$a3,-6464
-/*  f054ec8:	8ca5eaf8 */ 	lw	$a1,-0x1508($a1)
-/*  f054ecc:	00401825 */ 	or	$v1,$v0,$zero
-/*  f054ed0:	8fa80024 */ 	lw	$t0,0x24($sp)
-.NB0f054ed4:
-/*  f054ed4:	10600007 */ 	beqz	$v1,.NB0f054ef4
-/*  f054ed8:	24ab000a */ 	addiu	$t3,$a1,0xa
-/*  f054edc:	8ce40434 */ 	lw	$a0,0x434($a3)
-/*  f054ee0:	0fc132f7 */ 	jal	chraiGoToLabel
-/*  f054ee4:	91060009 */ 	lbu	$a2,0x9($t0)
-/*  f054ee8:	3c01800a */ 	lui	$at,0x800a
-/*  f054eec:	10000002 */ 	beqz	$zero,.NB0f054ef8
-/*  f054ef0:	ac22eaf8 */ 	sw	$v0,-0x1508($at)
-.NB0f054ef4:
-/*  f054ef4:	aceb0438 */ 	sw	$t3,0x438($a3)
-.NB0f054ef8:
-/*  f054ef8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f054efc:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f054f00:	00001025 */ 	or	$v0,$zero,$zero
-/*  f054f04:	03e00008 */ 	jr	$ra
-/*  f054f08:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
 
 /**
  * @cmd 00c9
