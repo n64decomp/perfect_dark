@@ -3515,7 +3515,13 @@ struct handlerdata_list2 {
 };
 
 struct handlerdata_slider {
-	u32 value;
+	union {
+		u32 value;
+		struct {
+			u16 unk00;
+			s16 unk02;
+		};
+	};
 	char *label;
 };
 

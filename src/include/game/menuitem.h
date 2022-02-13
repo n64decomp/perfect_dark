@@ -35,7 +35,7 @@ Gfx *menuitemMeterRender(Gfx *gdl, struct menurendercontext *context);
 Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context);
 bool menuitemSelectableTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags);
 
-Gfx *menuitemSliderRender(Gfx *gdl);
+Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context);
 bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data);
 void menuitemSliderInit(union menuitemdata *data);
 
