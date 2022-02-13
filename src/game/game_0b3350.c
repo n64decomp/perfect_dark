@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/atan2f.h"
 #include "game/game_0b3350.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/bg.h"
 #include "game/texdecompress.h"
 #include "game/game_173a00.h"

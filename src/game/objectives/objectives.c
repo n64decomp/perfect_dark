@@ -9,7 +9,7 @@
 #include "game/game_0b4950.h"
 #include "game/hudmsg.h"
 #include "game/inventory/inventory.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/lv.h"
 #include "game/training/training.h"
 #include "game/lang.h"

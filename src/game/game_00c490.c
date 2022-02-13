@@ -16,7 +16,7 @@
 #include "game/game_091e10.h"
 #include "game/atan2f.h"
 #include "game/inventory/inventory.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/bg.h"
 #include "game/game_1655c0.h"
 #include "game/file.h"

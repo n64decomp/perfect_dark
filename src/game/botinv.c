@@ -5,7 +5,7 @@
 #include "game/chr/chr.h"
 #include "game/ceil.h"
 #include "game/game_0b0fd0.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/mplayer/setup.h"
 #include "game/bot.h"
 #include "game/botact.h"
@@ -1082,10 +1082,10 @@ bool botinvSwitchToWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
 	}
 
 	if (!changinggun) {
-		modelnum = weaponGetModel(weaponnum);
+		modelnum = playermgrGetModelOfWeapon(weaponnum);
 
 		// @dangerous: item is uninitialised if weaponnum is WEAPON_UNARMED.
-		// This function assumes weaponGetModel returns a negative value for
+		// This function assumes playermgrGetModelOfWeapon returns a negative value for
 		// WEAPON_UNARMED which is a dangerous assumption to make, but correct.
 		if (modelnum >= 0 && item && item->type == INVITEMTYPE_DUAL && chr->weapons_held[HAND_LEFT] == NULL) {
 			chrGiveWeapon(chr, modelnum, weaponnum, OBJFLAG_WEAPON_LEFTHANDED);
@@ -1133,7 +1133,7 @@ void botinvDrop(struct chrdata *chr, s32 weaponnum, u8 dropall)
 					|| (g_Vars.normmplayerisrunning
 						&& g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL
 						&& item->type_weap.weapon1 == WEAPON_DATAUPLINK)) {
-				s32 modelnum = weaponGetModel(item->type_weap.weapon1);
+				s32 modelnum = playermgrGetModelOfWeapon(item->type_weap.weapon1);
 
 				if (modelnum > 0) {
 					struct prop *prop = weaponCreateForChr(chr, modelnum, item->type_weap.weapon1, OBJFLAG_WEAPON_AICANNOTUSE, NULL, NULL);

@@ -10,7 +10,7 @@
 #include "game/hudmsg.h"
 #include "game/inventory/inventory.h"
 #include "game/mplayer/ingame.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/game_1655c0.h"
 #include "game/lang.h"
 #include "game/options.h"
@@ -191,7 +191,7 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 			if (prop && prop->type == PROPTYPE_PLAYER) {
 				playernum = g_Vars.currentplayernum;
 
-				if (playernum == propGetPlayerNum(prop)) {
+				if (playernum == playermgrGetPlayerNumByProp(prop)) {
 					g_EyespyPickup = true;
 				}
 			}

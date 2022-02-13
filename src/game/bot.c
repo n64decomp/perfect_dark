@@ -9,7 +9,7 @@
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/player.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/bg.h"
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
@@ -2615,7 +2615,7 @@ s32 botGetWeaponNum(struct chrdata *chr)
 		return chr->aibot->weaponnum;
 	}
 
-	return g_Vars.players[propGetPlayerNum(chr->prop)]->hands[HAND_RIGHT].gset.weaponnum;
+	return g_Vars.players[playermgrGetPlayerNumByProp(chr->prop)]->hands[HAND_RIGHT].gset.weaponnum;
 }
 
 u8 botGetTargetsWeaponNum(struct chrdata *chr)
@@ -4130,7 +4130,7 @@ void botLoseGun(struct chrdata *chr, struct prop *attackerprop)
 			weaponSetGunfireVisible(prop, false, -1);
 			chr->weapons_held[HAND_RIGHT] = NULL;
 		} else {
-			s32 modelnum = weaponGetModel(chr->aibot->weaponnum);
+			s32 modelnum = playermgrGetModelOfWeapon(chr->aibot->weaponnum);
 
 			if (modelnum >= 0) {
 				prop = weaponCreateForChr(chr, modelnum, chr->aibot->weaponnum, OBJFLAG_WEAPON_AICANNOTUSE, NULL, NULL);
@@ -7550,7 +7550,7 @@ glabel var7f1b8fc8
 /*  f195de0:	0fc6637c */ 	jal	botinvGetItem
 /*  f195de4:	8e450020 */ 	lw	$a1,0x20($s2)
 /*  f195de8:	00408025 */ 	move	$s0,$v0
-/*  f195dec:	0fc4a571 */ 	jal	weaponGetModel
+/*  f195dec:	0fc4a571 */ 	jal	playermgrGetModelOfWeapon
 /*  f195df0:	8e440020 */ 	lw	$a0,0x20($s2)
 /*  f195df4:	12000019 */ 	beqz	$s0,.PF0f195e5c
 /*  f195df8:	00408825 */ 	move	$s1,$v0
@@ -9058,7 +9058,7 @@ glabel var7f1b8fc8
 /*  f197380:	1000000b */ 	b	.PF0f1973b0
 /*  f197384:	46049001 */ 	sub.s	$f0,$f18,$f4
 .PF0f197388:
-/*  f197388:	0fc4a513 */ 	jal	propGetPlayerNum
+/*  f197388:	0fc4a513 */ 	jal	playermgrGetPlayerNumByProp
 /*  f19738c:	8ca4001c */ 	lw	$a0,0x1c($a1)
 /*  f197390:	00027080 */ 	sll	$t6,$v0,0x2
 /*  f197394:	02ce6021 */ 	addu	$t4,$s6,$t6
@@ -10431,7 +10431,7 @@ void botTickUnpaused(struct chrdata *chr)
 
 			if (aibot->changeguntimer60 <= 0) {
 				struct invitem *item = botinvGetItem(chr, aibot->weaponnum);
-				s32 modelnum = weaponGetModel(aibot->weaponnum);
+				s32 modelnum = playermgrGetModelOfWeapon(aibot->weaponnum);
 				s32 i;
 
 				if (item && modelnum >= 0) {
@@ -11038,7 +11038,7 @@ void botTickUnpaused(struct chrdata *chr)
 							if (otherchr->aibot) {
 								health = otherchr->maxdamage - otherchr->damage;
 							} else {
-								health = g_Vars.players[propGetPlayerNum(otherchr->prop)]->bondhealth * 8;
+								health = g_Vars.players[playermgrGetPlayerNumByProp(otherchr->prop)]->bondhealth * 8;
 							}
 
 							if (weakestplayernum < 0 || health < minhealth) {

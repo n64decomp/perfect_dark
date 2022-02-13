@@ -4,7 +4,7 @@
 #include "game/chr/chraicommands.h"
 #include "game/prop.h"
 #include "game/atan2f.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/mplayer/setup.h"
 #include "game/bot.h"
 #include "game/game_19aa80.h"

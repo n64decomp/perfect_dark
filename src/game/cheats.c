@@ -4,7 +4,7 @@
 #include "game/camdraw.h"
 #include "game/cheats.h"
 #include "game/inventory/inventory.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/training/training.h"
 #include "game/gamefile.h"
 #include "game/lang.h"

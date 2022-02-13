@@ -287,7 +287,7 @@ void func0f08b25c(struct weaponobj *weapon, struct chrdata *chr);
 struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata *chr);
 struct weaponobj *func0f08b658(s32 modelnum, struct gset *gset, struct chrdata *chr);
 struct weaponobj *func0f08b880(s32 modelnum, s32 weaponnum, struct chrdata *chr);
-void chrSetWeaponReapable(struct chrdata *chr, s32 hand);
+void weaponDeleteFromChr(struct chrdata *chr, s32 hand);
 struct prop *weaponCreateForChr(struct chrdata *chr, s32 modelnum, s32 weaponnum, u32 flags, struct weaponobj *obj, struct modelfiledata *filedata);
 struct prop *chrGiveWeapon(struct chrdata *chr, s32 model, s32 weaponnum, u32 flags);
 s32 weaponTestForPickup(struct prop *prop);

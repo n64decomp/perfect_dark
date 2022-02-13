@@ -4,7 +4,7 @@
 #include "game/chr/chr.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b3350.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/game_1668e0.h"
 #include "game/gfxmemory.h"
 #include "game/file.h"
@@ -325,7 +325,7 @@ bool chrIsUsingPaintball(struct chrdata *chr)
 	bool paintball;
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
-		setCurrentPlayerNum(propGetPlayerNum(chr->prop));
+		setCurrentPlayerNum(playermgrGetPlayerNumByProp(chr->prop));
 	} else {
 		setCurrentPlayerNum(random() % PLAYERCOUNT());
 	}

@@ -26,7 +26,7 @@
 #include "game/game_01b0a0.h"
 #include "game/objectives.h"
 #include "game/endscreen.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/game_1531a0.h"
 #include "game/gfxmemory.h"
 #include "game/lv.h"
@@ -632,7 +632,7 @@ glabel mainInit
 /*     d740:	00000000 */ 	nop
 /*     d744:	0c004d48 */ 	jal	dhudInit
 /*     d748:	00000000 */ 	nop
-/*     d74c:	0fc4a0f8 */ 	jal	func0f127910
+/*     d74c:	0fc4a0f8 */ 	jal	playermgrInit
 /*     d750:	00000000 */ 	nop
 /*     d754:	0fc5b718 */ 	jal	frametimeInit
 /*     d758:	00000000 */ 	nop
@@ -1035,7 +1035,7 @@ glabel mainInit
 /*     da04:	00000000 */ 	nop
 /*     da08:	0c004de4 */ 	jal	dhudInit
 /*     da0c:	00000000 */ 	nop
-/*     da10:	0fc49e44 */ 	jal	func0f127910
+/*     da10:	0fc49e44 */ 	jal	playermgrInit
 /*     da14:	00000000 */ 	nop
 /*     da18:	0fc5b384 */ 	jal	frametimeInit
 /*     da1c:	00000000 */ 	nop
@@ -1408,7 +1408,7 @@ glabel mainInit
 /*     df14:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df18:	0c005002 */ 	jal	dhudInit
 /*     df1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df20:	0fc48954 */ 	jal	func0f127910
+/*     df20:	0fc48954 */ 	jal	playermgrInit
 /*     df24:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df28:	0fc59ef0 */ 	jal	frametimeInit
 /*     df2c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1651,7 +1651,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	func0000e9c0();
 //	func0f1531a0();
 //	dhudInit();
-//	func0f127910();
+//	playermgrInit();
 //	frametimeInit();
 //	stub0f00b200();
 //	profileInit();
@@ -1876,7 +1876,7 @@ void mainLoop(void)
 
 		memaHeapInit(mempAlloc(g_MainMemaHeapSize, MEMPOOL_STAGE), g_MainMemaHeapSize);
 		stageLoadCommonLang(g_StageNum);
-		playersUnrefAll();
+		playermgrReset();
 
 		if (g_StageNum >= STAGE_TITLE) {
 			numplayers = 0;
@@ -1906,7 +1906,7 @@ void mainLoop(void)
 			g_Vars.antiplayernum = 1;
 		}
 
-		playersAllocate(numplayers);
+		playermgrAllocatePlayers(numplayers);
 
 		if (argFindByPrefix(1, "-mpbots")) {
 			g_Vars.lvmpbotlevel = 1;
@@ -2329,7 +2329,7 @@ glabel mainLoop
 /*     e500:	3c048006 */ 	lui	$a0,0x8006
 /*     e504:	0fc02bf4 */ 	jal	stageLoadCommonLang
 /*     e508:	8c84f2d4 */ 	lw	$a0,-0xd2c($a0)
-/*     e50c:	0fc48964 */ 	jal	playersUnrefAll
+/*     e50c:	0fc48964 */ 	jal	playermgrReset
 /*     e510:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e514:	3c098006 */ 	lui	$t1,0x8006
 /*     e518:	8d29f2d4 */ 	lw	$t1,-0xd2c($t1)
@@ -2393,7 +2393,7 @@ glabel mainLoop
 /*     e5e8:	ae560298 */ 	sw	$s6,0x298($s2)
 /*     e5ec:	ae57029c */ 	sw	$s7,0x29c($s2)
 .NB0000e5f0:
-/*     e5f0:	0fc48979 */ 	jal	playersAllocate
+/*     e5f0:	0fc48979 */ 	jal	playermgrAllocatePlayers
 /*     e5f4:	02202025 */ 	or	$a0,$s1,$zero
 /*     e5f8:	3c057005 */ 	lui	$a1,0x7005
 /*     e5fc:	24a5515c */ 	addiu	$a1,$a1,0x515c
@@ -2630,11 +2630,11 @@ void mainTick(void)
 			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_4b, 0, 0x0100, 6, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
 			lvTick();
-			randomisePlayerOrder();
+			playermgrShuffle();
 
 			if (g_StageNum < STAGE_TITLE) {
 				for (i = 0; i < PLAYERCOUNT(); i++) {
-					setCurrentPlayerNum(getPlayerByOrderNum(i));
+					setCurrentPlayerNum(playermgrGetPlayerAtOrder(i));
 
 					if (g_StageNum != STAGE_TEST_OLD || !titleIsKeepingMode()) {
 						viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
@@ -2812,7 +2812,7 @@ glabel mainTick
 .NB0000eb00:
 /*     eb00:	0fc599c9 */ 	jal	lvTick
 /*     eb04:	00000000 */ 	sll	$zero,$zero,0x0
-/*     eb08:	0fc48e7f */ 	jal	randomisePlayerOrder
+/*     eb08:	0fc48e7f */ 	jal	playermgrShuffle
 /*     eb0c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     eb10:	3c198006 */ 	lui	$t9,0x8006
 /*     eb14:	8f39f2d4 */ 	lw	$t9,-0xd2c($t9)
@@ -2855,7 +2855,7 @@ glabel mainTick
 /*     eb98:	19600038 */ 	blez	$t3,.NB0000ec7c
 /*     eb9c:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0000eba0:
-/*     eba0:	0fc48ec2 */ 	jal	getPlayerByOrderNum
+/*     eba0:	0fc48ec2 */ 	jal	playermgrGetPlayerAtOrder
 /*     eba4:	02202025 */ 	or	$a0,$s1,$zero
 /*     eba8:	0fc48d5b */ 	jal	setCurrentPlayerNum
 /*     ebac:	00402025 */ 	or	$a0,$v0,$zero
@@ -3109,11 +3109,11 @@ u32 var8005f690nb[] = {
 //			}
 //
 //			lvTick();
-//			randomisePlayerOrder();
+//			playermgrShuffle();
 //
 //			if (g_StageNum < STAGE_TITLE) {
 //				for (i = 0; i < PLAYERCOUNT(); i++) {
-//					setCurrentPlayerNum(getPlayerByOrderNum(i));
+//					setCurrentPlayerNum(playermgrGetPlayerAtOrder(i));
 //
 //					if (g_StageNum != STAGE_TEST_OLD || !titleIsKeepingMode()) {
 //						viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);

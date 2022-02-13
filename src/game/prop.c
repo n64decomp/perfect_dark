@@ -15,7 +15,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_0b4950.h"
 #include "game/player.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/explosions/explosions.h"
 #include "game/smoke/smoke.h"
 #include "game/sparks/sparks.h"
@@ -730,7 +730,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 
 		if (prop) {
 			if (prop->type == PROPTYPE_CHR
-					|| (prop->type == PROPTYPE_PLAYER && prop->chr && propGetPlayerNum(prop) != g_Vars.currentplayernum)) {
+					|| (prop->type == PROPTYPE_PLAYER && prop->chr && playermgrGetPlayerNumByProp(prop) != g_Vars.currentplayernum)) {
 				if (!shortrange) {
 					chr0f027994(prop, &shotdata, arg1, arg8);
 				}
@@ -1155,7 +1155,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 			}
 
 			if (prop->type == PROPTYPE_CHR
-					|| (prop->type == PROPTYPE_PLAYER && prop->chr && propGetPlayerNum(prop) != g_Vars.currentplayernum)
+					|| (prop->type == PROPTYPE_PLAYER && prop->chr && playermgrGetPlayerNumByProp(prop) != g_Vars.currentplayernum)
 					|| isbreakableobj) {
 				f32 rangelimit = 60;
 				f32 distance;
@@ -5431,7 +5431,7 @@ void farsightChooseTarget(void)
 
 			if (prop && prop->chr) {
 				if (prop->type == PROPTYPE_CHR && (prop->flags & PROPFLAG_ENABLED)
-						|| (prop->type == PROPTYPE_PLAYER && propGetPlayerNum(prop) != g_Vars.currentplayernum)) {
+						|| (prop->type == PROPTYPE_PLAYER && playermgrGetPlayerNumByProp(prop) != g_Vars.currentplayernum)) {
 					struct chrdata *chr = prop->chr;
 
 					if ((chr->chrflags & CHRCFLAG_UNEXPLODABLE) == 0
@@ -5441,7 +5441,7 @@ void farsightChooseTarget(void)
 							&& chr->actiontype != ACT_DRUGGEDKO
 							&& chr->actiontype != ACT_DEAD
 							&& (chr->hidden & CHRHFLAG_CLOAKED) == 0
-							&& (prop->type != PROPTYPE_PLAYER || !g_Vars.players[propGetPlayerNum(prop)]->isdead)) {
+							&& (prop->type != PROPTYPE_PLAYER || !g_Vars.players[playermgrGetPlayerNumByProp(prop)]->isdead)) {
 						f32 xdist = g_Vars.currentplayer->bond2.unk10.x - prop->pos.x;
 						f32 ydist = g_Vars.currentplayer->bond2.unk10.y - prop->pos.y;
 						f32 zdist = g_Vars.currentplayer->bond2.unk10.z - prop->pos.z;
@@ -5603,7 +5603,7 @@ void autoaimTick(void)
 
 			if (prop && prop->chr) {
 				if (prop->type == PROPTYPE_CHR
-						|| (prop->type == PROPTYPE_PLAYER && propGetPlayerNum(prop) != g_Vars.currentplayernum)) {
+						|| (prop->type == PROPTYPE_PLAYER && playermgrGetPlayerNumByProp(prop) != g_Vars.currentplayernum)) {
 					chr = prop->chr;
 
 					if (!chrCompareTeams(g_Vars.currentplayer->prop->chr, chr, COMPARE_FRIENDS)
@@ -5714,7 +5714,7 @@ bool propIsOfCdType(struct prop *prop, u32 types)
 		if ((types & CDTYPE_PLAYERS) == 0) {
 			result = false;
 		} else {
-			struct player *player = g_Vars.players[propGetPlayerNum(prop)];
+			struct player *player = g_Vars.players[playermgrGetPlayerNumByProp(prop)];
 
 			if (!player->bondperimenabled || (g_Vars.mplayerisrunning && player->isdead)) {
 				result = false;

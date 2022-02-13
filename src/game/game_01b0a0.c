@@ -4,7 +4,7 @@
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/inventory/inventory.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/options.h"
 #include "bss.h"
 #include "data.h"

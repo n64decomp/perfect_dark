@@ -6,7 +6,7 @@
 #include "game/game_0b28d0.h"
 #include "game/game_0b3350.h"
 #include "game/inventory/inventory.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/gfxmemory.h"
 #include "game/credits.h"
 #include "game/bondview.h"
@@ -5242,7 +5242,7 @@ void titleInitSkip(void)
 		viSetAspect(PAL ? 1.7316017150879f : 1.4545454978943f);
 		viSetSize(320, 220);
 		viSetBufSize(320, 220);
-		currentPlayerSetViewSize(320, 220);
+		playermgrSetViewSize(320, 220);
 		viSetViewSize(320, 220);
 	}
 
@@ -5547,9 +5547,9 @@ void titleTick(void)
 #endif
 	viSetSize(576, g_TitleViewHeight);
 	viSetBufSize(576, g_TitleViewHeight);
-	currentPlayerSetViewSize(576, g_TitleViewHeight);
+	playermgrSetViewSize(576, g_TitleViewHeight);
 	viSetViewSize(576, g_TitleViewHeight);
-	currentPlayerSetViewPosition(0, 0);
+	playermgrSetViewPosition(0, 0);
 	viSetViewPosition(0, 0);
 
 	// If there's a new mode to transition to, schedule it to apply in 3 ticks
@@ -5761,9 +5761,9 @@ void func0f01adb8(void)
 	viSetMode(VIMODE_HI);
 	viSetSize(576, g_TitleViewHeight);
 	viSetBufSize(576, g_TitleViewHeight);
-	currentPlayerSetViewSize(576, g_TitleViewHeight);
+	playermgrSetViewSize(576, g_TitleViewHeight);
 	viSetViewSize(576, g_TitleViewHeight);
-	currentPlayerSetViewPosition(0, 0);
+	playermgrSetViewPosition(0, 0);
 	viSetViewPosition(0, 0);
 }
 

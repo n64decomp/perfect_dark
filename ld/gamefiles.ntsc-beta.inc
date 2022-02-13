@@ -157,7 +157,7 @@
 	build/ROMID/game/modeldata/skedar.o (section); \
 	build/ROMID/game/modeldata/robot.o (section); \
 	build/ROMID/game/game_11f000.o (section); \
-	build/ROMID/game/game_127910.o (section); \
+	build/ROMID/game/playermgr.o (section); \
 	build/ROMID/game/crc.o (section); \
 	build/ROMID/game/rng2.o (section); \
 	build/ROMID/game/game_129210.o (section); \

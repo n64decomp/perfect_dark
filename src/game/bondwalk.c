@@ -14,7 +14,7 @@
 #include "game/player.h"
 #include "game/inventory/inventory.h"
 #include "game/bondhead.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/propobj.h"
 #include "bss.h"
 #include "lib/snd.h"
@@ -2495,7 +2495,7 @@ void bwalkUpdateVertical(void)
 					} else if (prop->type == PROPTYPE_PLAYER) {
 						// Landed on top of a player
 						u32 prevplayernum = g_Vars.currentplayernum;
-						setCurrentPlayerNum(propGetPlayerNum(prop));
+						setCurrentPlayerNum(playermgrGetPlayerNumByProp(prop));
 
 						if (g_Vars.currentplayer->inlift) {
 							playerDieByShooter(prevplayernum, true);

@@ -6,7 +6,7 @@
 #include "game/game_092610.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/botact.h"
 #include "game/pad.h"
 #include "game/padhalllv.h"
@@ -241,7 +241,7 @@ bool botactShootFarsight(struct chrdata *chr, s32 arg1, struct coord *vector, st
 				oppprop = g_MpAllChrPtrs[i]->prop;
 
 				if (oppprop->type == PROPTYPE_PLAYER) {
-					struct player *player = g_Vars.players[propGetPlayerNum(oppprop)];
+					struct player *player = g_Vars.players[playermgrGetPlayerNumByProp(oppprop)];
 					speed = player->speedforwards * player->speedforwards
 							+ player->speedsideways * player->speedsideways;
 
@@ -282,7 +282,7 @@ bool botactShootFarsight(struct chrdata *chr, s32 arg1, struct coord *vector, st
 
 s32 botactGetWeaponModel(s32 weapon)
 {
-	return weaponGetModel(weapon);
+	return playermgrGetModelOfWeapon(weapon);
 }
 
 bool botactIsWeaponThrowable(s32 weaponnum, bool is_secondary)

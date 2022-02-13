@@ -3,7 +3,7 @@
 #include "game/cheats.h"
 #include "game/bondgun.h"
 #include "game/player.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/propobj.h"
 #include "bss.h"
 #include "lib/memp.h"
@@ -11,7 +11,7 @@
 #include "data.h"
 #include "types.h"
 
-void func0f127910(void)
+void playermgrInit(void)
 {
 	s32 i;
 
@@ -24,7 +24,7 @@ void func0f127910(void)
 	g_Vars.antiplayernum = -1;
 }
 
-void playersUnrefAll(void)
+void playermgrReset(void)
 {
 	g_Vars.players[0] = NULL;
 	g_Vars.players[1] = NULL;
@@ -43,7 +43,7 @@ void playersUnrefAll(void)
 	g_Vars.anti = NULL;
 }
 
-void playersAllocate(s32 count)
+void playermgrAllocatePlayers(s32 count)
 {
 	g_Vars.players[0] = NULL;
 	g_Vars.players[1] = NULL;
@@ -54,7 +54,7 @@ void playersAllocate(s32 count)
 		s32 i;
 
 		for (i = 0; i < count; i++) {
-			playerAllocate(i);
+			playermgrAllocatePlayer(i);
 		}
 
 		setCurrentPlayerNum(0);
@@ -68,17 +68,13 @@ void playersAllocate(s32 count)
 			g_Vars.anti = g_Vars.players[g_Vars.antiplayernum];
 		}
 	} else {
-		playerAllocate(0);
+		playermgrAllocatePlayer(0);
 		setCurrentPlayerNum(0);
 
 		if (g_Vars.fourmeg2player) {
-			s16 a = playerGetFbWidth();
-			s16 b = playerGetFbHeight();
-			currentPlayerSetViewSize(a, b << 1);
+			playermgrSetViewSize(playerGetFbWidth(), playerGetFbHeight() * 2);
 		} else {
-			s16 a = playerGetFbWidth();
-			s16 b = playerGetFbHeight();
-			currentPlayerSetViewSize(a, b);
+			playermgrSetViewSize(playerGetFbWidth(), playerGetFbHeight());
 		}
 
 		g_Vars.coop = NULL;
@@ -87,7 +83,7 @@ void playersAllocate(s32 count)
 	}
 }
 
-void playerAllocate(s32 index)
+void playermgrAllocatePlayer(s32 index)
 {
 	struct hand hand = {
 		{0},
@@ -644,7 +640,7 @@ void playerAllocate(s32 index)
 	g_Vars.bondcollisions = true;
 }
 
-void currentPlayerCalculateAiBuddyNums(void)
+void playermgrCalculateAiBuddyNums(void)
 {
 	s32 i;
 	s32 playernum = g_Vars.currentplayernum;
@@ -663,10 +659,10 @@ void setCurrentPlayerNum(s32 playernum)
 	g_Vars.currentplayernum = playernum;
 	g_Vars.currentplayer = g_Vars.players[playernum];
 	g_Vars.currentplayerstats = &g_Vars.playerstats[playernum];
-	g_Vars.currentplayerindex = calculatePlayerIndex(playernum);
+	g_Vars.currentplayerindex = playermgrGetOrderOfPlayer(playernum);
 }
 
-s32 propGetPlayerNum(struct prop *prop)
+s32 playermgrGetPlayerNumByProp(struct prop *prop)
 {
 	s32 i;
 
@@ -679,132 +675,132 @@ s32 propGetPlayerNum(struct prop *prop)
 	return -1;
 }
 
-void currentPlayerSetViewSize(s32 width, s32 height)
+void playermgrSetViewSize(s32 width, s32 height)
 {
 	g_Vars.currentplayer->viewwidth = width;
 	g_Vars.currentplayer->viewheight = height;
 }
 
-void currentPlayerSetViewPosition(s32 viewleft, s32 viewtop)
+void playermgrSetViewPosition(s32 viewleft, s32 viewtop)
 {
 	g_Vars.currentplayer->viewleft = viewleft;
 	g_Vars.currentplayer->viewtop = viewtop;
 }
 
-void currentPlayerSetFovY(f32 fovy)
+void playermgrSetFovY(f32 fovy)
 {
 	g_Vars.currentplayer->fovy = fovy;
 }
 
-void currentPlayerSetAspectRatio(f32 aspect)
+void playermgrSetAspectRatio(f32 aspect)
 {
 	g_Vars.currentplayer->aspect = aspect;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel weaponGetModel
+glabel playermgrGetModelOfWeapon
 .late_rodata
 glabel var7f1b5168
-.word weaponGetModel+0x60 # f128b54
+.word playermgrGetModelOfWeapon+0x60 # f128b54
 glabel var7f1b516c
-.word weaponGetModel+0x60 # f128b54
+.word playermgrGetModelOfWeapon+0x60 # f128b54
 glabel var7f1b5170
-.word weaponGetModel+0x68 # f128b5c
+.word playermgrGetModelOfWeapon+0x68 # f128b5c
 glabel var7f1b5174
-.word weaponGetModel+0x98 # f128b8c
+.word playermgrGetModelOfWeapon+0x98 # f128b8c
 glabel var7f1b5178
-.word weaponGetModel+0xa0 # f128b94
+.word playermgrGetModelOfWeapon+0xa0 # f128b94
 glabel var7f1b517c
-.word weaponGetModel+0x70 # f128b64
+.word playermgrGetModelOfWeapon+0x70 # f128b64
 glabel var7f1b5180
-.word weaponGetModel+0x78 # f128b6c
+.word playermgrGetModelOfWeapon+0x78 # f128b6c
 glabel var7f1b5184
-.word weaponGetModel+0x90 # f128b84
+.word playermgrGetModelOfWeapon+0x90 # f128b84
 glabel var7f1b5188
-.word weaponGetModel+0x80 # f128b74
+.word playermgrGetModelOfWeapon+0x80 # f128b74
 glabel var7f1b518c
-.word weaponGetModel+0x88 # f128b7c
+.word playermgrGetModelOfWeapon+0x88 # f128b7c
 glabel var7f1b5190
-.word weaponGetModel+0xa8 # f128b9c
+.word playermgrGetModelOfWeapon+0xa8 # f128b9c
 glabel var7f1b5194
-.word weaponGetModel+0xd0 # f128bc4
+.word playermgrGetModelOfWeapon+0xd0 # f128bc4
 glabel var7f1b5198
-.word weaponGetModel+0xd8 # f128bcc
+.word playermgrGetModelOfWeapon+0xd8 # f128bcc
 glabel var7f1b519c
-.word weaponGetModel+0xe0 # f128bd4
+.word playermgrGetModelOfWeapon+0xe0 # f128bd4
 glabel var7f1b51a0
-.word weaponGetModel+0xe8 # f128bdc
+.word playermgrGetModelOfWeapon+0xe8 # f128bdc
 glabel var7f1b51a4
-.word weaponGetModel+0xb8 # f128bac
+.word playermgrGetModelOfWeapon+0xb8 # f128bac
 glabel var7f1b51a8
-.word weaponGetModel+0xc8 # f128bbc
+.word playermgrGetModelOfWeapon+0xc8 # f128bbc
 glabel var7f1b51ac
-.word weaponGetModel+0xb0 # f128ba4
+.word playermgrGetModelOfWeapon+0xb0 # f128ba4
 glabel var7f1b51b0
-.word weaponGetModel+0xc0 # f128bb4
+.word playermgrGetModelOfWeapon+0xc0 # f128bb4
 glabel var7f1b51b4
-.word weaponGetModel+0xf0 # f128be4
+.word playermgrGetModelOfWeapon+0xf0 # f128be4
 glabel var7f1b51b8
-.word weaponGetModel+0xf8 # f128bec
+.word playermgrGetModelOfWeapon+0xf8 # f128bec
 glabel var7f1b51bc
-.word weaponGetModel+0x120 # f128c14
+.word playermgrGetModelOfWeapon+0x120 # f128c14
 glabel var7f1b51c0
-.word weaponGetModel+0x118 # f128c0c
+.word playermgrGetModelOfWeapon+0x118 # f128c0c
 glabel var7f1b51c4
-.word weaponGetModel+0x108 # f128bfc
+.word playermgrGetModelOfWeapon+0x108 # f128bfc
 glabel var7f1b51c8
-.word weaponGetModel+0x100 # f128bf4
+.word playermgrGetModelOfWeapon+0x100 # f128bf4
 glabel var7f1b51cc
-.word weaponGetModel+0x110 # f128c04
+.word playermgrGetModelOfWeapon+0x110 # f128c04
 glabel var7f1b51d0
-.word weaponGetModel+0x138 # f128c2c
+.word playermgrGetModelOfWeapon+0x138 # f128c2c
 glabel var7f1b51d4
-.word weaponGetModel+0x128 # f128c1c
+.word playermgrGetModelOfWeapon+0x128 # f128c1c
 glabel var7f1b51d8
-.word weaponGetModel+0x140 # f128c34
+.word playermgrGetModelOfWeapon+0x140 # f128c34
 glabel var7f1b51dc
-.word weaponGetModel+0x130 # f128c24
+.word playermgrGetModelOfWeapon+0x130 # f128c24
 glabel var7f1b51e0
-.word weaponGetModel+0x158 # f128c4c
+.word playermgrGetModelOfWeapon+0x158 # f128c4c
 glabel var7f1b51e4
-.word weaponGetModel+0x150 # f128c44
+.word playermgrGetModelOfWeapon+0x150 # f128c44
 glabel var7f1b51e8
-.word weaponGetModel+0x170 # f128c64
+.word playermgrGetModelOfWeapon+0x170 # f128c64
 glabel var7f1b51ec
-.word weaponGetModel+0x168 # f128c5c
+.word playermgrGetModelOfWeapon+0x168 # f128c5c
 glabel var7f1b51f0
-.word weaponGetModel+0x160 # f128c54
+.word playermgrGetModelOfWeapon+0x160 # f128c54
 glabel var7f1b51f4
-.word weaponGetModel+0x1c8 # f128cbc
+.word playermgrGetModelOfWeapon+0x1c8 # f128cbc
 glabel var7f1b51f8
-.word weaponGetModel+0x188 # f128c7c
+.word playermgrGetModelOfWeapon+0x188 # f128c7c
 glabel var7f1b51fc
-.word weaponGetModel+0x190 # f128c84
+.word playermgrGetModelOfWeapon+0x190 # f128c84
 glabel var7f1b5200
-.word weaponGetModel+0x198 # f128c8c
+.word playermgrGetModelOfWeapon+0x198 # f128c8c
 glabel var7f1b5204
-.word weaponGetModel+0x1a0 # f128c94
+.word playermgrGetModelOfWeapon+0x1a0 # f128c94
 glabel var7f1b5208
-.word weaponGetModel+0x1a8 # f128c9c
+.word playermgrGetModelOfWeapon+0x1a8 # f128c9c
 glabel var7f1b520c
-.word weaponGetModel+0x1b0 # f128ca4
+.word playermgrGetModelOfWeapon+0x1b0 # f128ca4
 glabel var7f1b5210
-.word weaponGetModel+0x1b8 # f128cac
+.word playermgrGetModelOfWeapon+0x1b8 # f128cac
 glabel var7f1b5214
-.word weaponGetModel+0x1c0 # f128cb4
+.word playermgrGetModelOfWeapon+0x1c0 # f128cb4
 glabel var7f1b5218
-.word weaponGetModel+0x148 # f128c3c
+.word playermgrGetModelOfWeapon+0x148 # f128c3c
 glabel var7f1b521c
-.word weaponGetModel+0x1e0 # f128cd4
+.word playermgrGetModelOfWeapon+0x1e0 # f128cd4
 glabel var7f1b5220
-.word weaponGetModel+0x1e0 # f128cd4
+.word playermgrGetModelOfWeapon+0x1e0 # f128cd4
 glabel var7f1b5224
-.word weaponGetModel+0x1e0 # f128cd4
+.word playermgrGetModelOfWeapon+0x1e0 # f128cd4
 glabel var7f1b5228
-.word weaponGetModel+0x1e0 # f128cd4
+.word playermgrGetModelOfWeapon+0x1e0 # f128cd4
 glabel var7f1b522c
-.word weaponGetModel+0x180 # f128c74
+.word playermgrGetModelOfWeapon+0x180 # f128c74
 .text
 /*  f128af4:	28810052 */ 	slti	$at,$a0,0x52
 /*  f128af8:	14200007 */ 	bnez	$at,.L0f128b18
@@ -944,108 +940,108 @@ glabel var7f1b522c
 );
 #else
 GLOBAL_ASM(
-glabel weaponGetModel
+glabel playermgrGetModelOfWeapon
 .late_rodata
 glabel var7f1b5168
-.word weaponGetModel+0x60 # f128b54
+.word playermgrGetModelOfWeapon+0x60 # f128b54
 glabel var7f1b516c
-.word weaponGetModel+0x60 # f128b54
+.word playermgrGetModelOfWeapon+0x60 # f128b54
 glabel var7f1b5170
-.word weaponGetModel+0x68 # f128b5c
+.word playermgrGetModelOfWeapon+0x68 # f128b5c
 glabel var7f1b5174
-.word weaponGetModel+0x98 # f128b8c
+.word playermgrGetModelOfWeapon+0x98 # f128b8c
 glabel var7f1b5178
-.word weaponGetModel+0xa0 # f128b94
+.word playermgrGetModelOfWeapon+0xa0 # f128b94
 glabel var7f1b517c
-.word weaponGetModel+0x70 # f128b64
+.word playermgrGetModelOfWeapon+0x70 # f128b64
 glabel var7f1b5180
-.word weaponGetModel+0x78 # f128b6c
+.word playermgrGetModelOfWeapon+0x78 # f128b6c
 glabel var7f1b5184
-.word weaponGetModel+0x90 # f128b84
+.word playermgrGetModelOfWeapon+0x90 # f128b84
 glabel var7f1b5188
-.word weaponGetModel+0x80 # f128b74
+.word playermgrGetModelOfWeapon+0x80 # f128b74
 glabel var7f1b518c
-.word weaponGetModel+0x88 # f128b7c
+.word playermgrGetModelOfWeapon+0x88 # f128b7c
 glabel var7f1b5190
-.word weaponGetModel+0xa8 # f128b9c
+.word playermgrGetModelOfWeapon+0xa8 # f128b9c
 glabel var7f1b5194
-.word weaponGetModel+0xd0 # f128bc4
+.word playermgrGetModelOfWeapon+0xd0 # f128bc4
 glabel var7f1b5198
-.word weaponGetModel+0xd8 # f128bcc
+.word playermgrGetModelOfWeapon+0xd8 # f128bcc
 glabel var7f1b519c
-.word weaponGetModel+0xe0 # f128bd4
+.word playermgrGetModelOfWeapon+0xe0 # f128bd4
 glabel var7f1b51a0
-.word weaponGetModel+0xe8 # f128bdc
+.word playermgrGetModelOfWeapon+0xe8 # f128bdc
 glabel var7f1b51a4
-.word weaponGetModel+0xb8 # f128bac
+.word playermgrGetModelOfWeapon+0xb8 # f128bac
 glabel var7f1b51a8
-.word weaponGetModel+0xc8 # f128bbc
+.word playermgrGetModelOfWeapon+0xc8 # f128bbc
 glabel var7f1b51ac
-.word weaponGetModel+0xb0 # f128ba4
+.word playermgrGetModelOfWeapon+0xb0 # f128ba4
 glabel var7f1b51b0
-.word weaponGetModel+0xc0 # f128bb4
+.word playermgrGetModelOfWeapon+0xc0 # f128bb4
 glabel var7f1b51b4
-.word weaponGetModel+0xf0 # f128be4
+.word playermgrGetModelOfWeapon+0xf0 # f128be4
 glabel var7f1b51b8
-.word weaponGetModel+0xf8 # f128bec
+.word playermgrGetModelOfWeapon+0xf8 # f128bec
 glabel var7f1b51bc
-.word weaponGetModel+0x120 # f128c14
+.word playermgrGetModelOfWeapon+0x120 # f128c14
 glabel var7f1b51c0
-.word weaponGetModel+0x118 # f128c0c
+.word playermgrGetModelOfWeapon+0x118 # f128c0c
 glabel var7f1b51c4
-.word weaponGetModel+0x108 # f128bfc
+.word playermgrGetModelOfWeapon+0x108 # f128bfc
 glabel var7f1b51c8
-.word weaponGetModel+0x100 # f128bf4
+.word playermgrGetModelOfWeapon+0x100 # f128bf4
 glabel var7f1b51cc
-.word weaponGetModel+0x110 # f128c04
+.word playermgrGetModelOfWeapon+0x110 # f128c04
 glabel var7f1b51d0
-.word weaponGetModel+0x138 # f128c2c
+.word playermgrGetModelOfWeapon+0x138 # f128c2c
 glabel var7f1b51d4
-.word weaponGetModel+0x128 # f128c1c
+.word playermgrGetModelOfWeapon+0x128 # f128c1c
 glabel var7f1b51d8
-.word weaponGetModel+0x140 # f128c34
+.word playermgrGetModelOfWeapon+0x140 # f128c34
 glabel var7f1b51dc
-.word weaponGetModel+0x130 # f128c24
+.word playermgrGetModelOfWeapon+0x130 # f128c24
 glabel var7f1b51e0
-.word weaponGetModel+0x158 # f128c4c
+.word playermgrGetModelOfWeapon+0x158 # f128c4c
 glabel var7f1b51e4
-.word weaponGetModel+0x150 # f128c44
+.word playermgrGetModelOfWeapon+0x150 # f128c44
 glabel var7f1b51e8
-.word weaponGetModel+0x170 # f128c64
+.word playermgrGetModelOfWeapon+0x170 # f128c64
 glabel var7f1b51ec
-.word weaponGetModel+0x168 # f128c5c
+.word playermgrGetModelOfWeapon+0x168 # f128c5c
 glabel var7f1b51f0
-.word weaponGetModel+0x160 # f128c54
+.word playermgrGetModelOfWeapon+0x160 # f128c54
 glabel var7f1b51f4
-.word weaponGetModel+0x1c8 # f128cbc
+.word playermgrGetModelOfWeapon+0x1c8 # f128cbc
 glabel var7f1b51f8
-.word weaponGetModel+0x188 # f128c7c
+.word playermgrGetModelOfWeapon+0x188 # f128c7c
 glabel var7f1b51fc
-.word weaponGetModel+0x190 # f128c84
+.word playermgrGetModelOfWeapon+0x190 # f128c84
 glabel var7f1b5200
-.word weaponGetModel+0x198 # f128c8c
+.word playermgrGetModelOfWeapon+0x198 # f128c8c
 glabel var7f1b5204
-.word weaponGetModel+0x1a0 # f128c94
+.word playermgrGetModelOfWeapon+0x1a0 # f128c94
 glabel var7f1b5208
-.word weaponGetModel+0x1a8 # f128c9c
+.word playermgrGetModelOfWeapon+0x1a8 # f128c9c
 glabel var7f1b520c
-.word weaponGetModel+0x1b0 # f128ca4
+.word playermgrGetModelOfWeapon+0x1b0 # f128ca4
 glabel var7f1b5210
-.word weaponGetModel+0x1b8 # f128cac
+.word playermgrGetModelOfWeapon+0x1b8 # f128cac
 glabel var7f1b5214
-.word weaponGetModel+0x1c0 # f128cb4
+.word playermgrGetModelOfWeapon+0x1c0 # f128cb4
 glabel var7f1b5218
-.word weaponGetModel+0x148 # f128c3c
+.word playermgrGetModelOfWeapon+0x148 # f128c3c
 glabel var7f1b521c
-.word weaponGetModel+0x1e0 # f128cd4
+.word playermgrGetModelOfWeapon+0x1e0 # f128cd4
 glabel var7f1b5220
-.word weaponGetModel+0x1e0 # f128cd4
+.word playermgrGetModelOfWeapon+0x1e0 # f128cd4
 glabel var7f1b5224
-.word weaponGetModel+0x1e0 # f128cd4
+.word playermgrGetModelOfWeapon+0x1e0 # f128cd4
 glabel var7f1b5228
-.word weaponGetModel+0x1e0 # f128cd4
+.word playermgrGetModelOfWeapon+0x1e0 # f128cd4
 glabel var7f1b522c
-.word weaponGetModel+0x180 # f128c74
+.word playermgrGetModelOfWeapon+0x180 # f128c74
 .text
 /*  f128af4:	28810052 */ 	slti	$at,$a0,0x51
 /*  f128af8:	14200007 */ 	bnez	$at,.L0f128b18
@@ -1185,7 +1181,7 @@ glabel var7f1b522c
 );
 #endif
 
-//s32 weaponGetModel(s32 weapon)
+//s32 playermgrGetModelOfWeapon(s32 weapon)
 //{
 //	switch (weapon) {
 //	case WEAPON_NONE:
@@ -1246,18 +1242,18 @@ glabel var7f1b522c
 //	return -1;
 //}
 
-void currentPlayerSetWeaponReapable(s32 hand)
+void playermgrDeleteWeapon(s32 hand)
 {
-	chrSetWeaponReapable(g_Vars.currentplayer->prop->chr, hand);
+	weaponDeleteFromChr(g_Vars.currentplayer->prop->chr, hand);
 }
 
-void func0f128d20(s32 hand)
+void playermgrCreateWeapon(s32 hand)
 {
 	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 
 	if (chr->weapons_held[hand] == NULL) {
 		s32 weaponnum = bgunGetWeaponNum(hand);
-		s32 modelnum = weaponGetModel(weaponnum);
+		s32 modelnum = playermgrGetModelOfWeapon(weaponnum);
 
 		if (hand == HAND_LEFT && weaponnum == WEAPON_REMOTEMINE) {
 			modelnum = -1;
@@ -1269,7 +1265,7 @@ void func0f128d20(s32 hand)
 			if (hand == HAND_RIGHT) {
 				flags = 0;
 			} else {
-				flags = 0x10000000;
+				flags = OBJFLAG_WEAPON_LEFTHANDED;
 			}
 
 			weaponCreateForChr(chr, modelnum, weaponnum, flags, NULL, NULL);
@@ -1277,7 +1273,7 @@ void func0f128d20(s32 hand)
 	}
 }
 
-void randomisePlayerOrder(void)
+void playermgrShuffle(void)
 {
 	s32 i;
 
@@ -1296,37 +1292,37 @@ void randomisePlayerOrder(void)
 	}
 }
 
-u32 calculatePlayerIndex(u32 playernum)
+s32 playermgrGetOrderOfPlayer(s32 playernum)
 {
-	u32 count = 0;
-	u32 i;
+	s32 index = 0;
+	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		u32 thisnum = g_Vars.playerorder[i];
+		s32 thisnum = g_Vars.playerorder[i];
 
 		if (playernum == thisnum) {
 			break;
 		}
 
 		if (g_Vars.players[thisnum]) {
-			count++;
+			index++;
 		}
 	}
 
-	return count;
+	return index;
 }
 
-s32 getPlayerByOrderNum(s32 arg0)
+s32 playermgrGetPlayerAtOrder(s32 ordernum)
 {
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
 		if (g_Vars.players[g_Vars.playerorder[i]]) {
-			if (arg0 == 0) {
+			if (ordernum == 0) {
 				return g_Vars.playerorder[i];
 			}
 
-			arg0--;
+			ordernum--;
 		}
 	}
 

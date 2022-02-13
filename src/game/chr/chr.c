@@ -18,7 +18,7 @@
 #include "game/game_0b4950.h"
 #include "game/player.h"
 #include "game/game_0c33f0.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/game_1291b0.h"
 #include "game/game_129210.h"
 #include "game/gfxmemory.h"
@@ -1371,7 +1371,7 @@ glabel var7f1a992cpf
 /*  f01ff74:	c7aa00f8 */ 	lwc1	$f10,0xf8($sp)
 /*  f01ff78:	55810010 */ 	bnel	$t4,$at,.PF0f01ffbc
 /*  f01ff7c:	c6240004 */ 	lwc1	$f4,0x4($s1)
-/*  f01ff80:	0fc4a513 */ 	jal	propGetPlayerNum
+/*  f01ff80:	0fc4a513 */ 	jal	playermgrGetPlayerNumByProp
 /*  f01ff84:	01c02025 */ 	move	$a0,$t6
 /*  f01ff88:	3c08800a */ 	lui	$t0,0x800a
 /*  f01ff8c:	2508a510 */ 	addiu	$t0,$t0,-23280
@@ -2643,7 +2643,7 @@ glabel var7f1a8720
 /*  f01fe58:	c7a400f8 */ 	lwc1	$f4,0xf8($sp)
 /*  f01fe5c:	55810012 */ 	bnel	$t4,$at,.L0f01fea8
 /*  f01fe60:	c6280004 */ 	lwc1	$f8,0x4($s1)
-/*  f01fe64:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f01fe64:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f01fe68:	01c02025 */ 	or	$a0,$t6,$zero
 /*  f01fe6c:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f01fe70:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
@@ -3860,7 +3860,7 @@ glabel var7f1a8720
 /*  f01fb5c:	c7a400c8 */ 	lwc1	$f4,0xc8($sp)
 /*  f01fb60:	55e10012 */ 	bnel	$t7,$at,.NB0f01fbac
 /*  f01fb64:	c6260004 */ 	lwc1	$f6,0x4($s1)
-/*  f01fb68:	0fc48d6f */ 	jal	propGetPlayerNum
+/*  f01fb68:	0fc48d6f */ 	jal	playermgrGetPlayerNumByProp
 /*  f01fb6c:	01a02025 */ 	or	$a0,$t5,$zero
 /*  f01fb70:	3c08800a */ 	lui	$t0,0x800a
 /*  f01fb74:	2508e6c0 */ 	addiu	$t0,$t0,-6464
@@ -5077,7 +5077,7 @@ glabel var7f1a879c
 /*  f0218ec:	afa90144 */ 	sw	$t1,0x144($sp)
 /*  f0218f0:	afaa0148 */ 	sw	$t2,0x148($sp)
 /*  f0218f4:	e7ac00a0 */ 	swc1	$f12,0xa0($sp)
-/*  f0218f8:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f0218f8:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f0218fc:	e7ae00a4 */ 	swc1	$f14,0xa4($sp)
 /*  f021900:	00027880 */ 	sll	$t7,$v0,0x2
 /*  f021904:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x64)
@@ -5871,7 +5871,7 @@ glabel var7f1a879c
 /*  f0218ec:	afa90144 */ 	sw	$t1,0x144($sp)
 /*  f0218f0:	afaa0148 */ 	sw	$t2,0x148($sp)
 /*  f0218f4:	e7ac00a0 */ 	swc1	$f12,0xa0($sp)
-/*  f0218f8:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f0218f8:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f0218fc:	e7ae00a4 */ 	swc1	$f14,0xa4($sp)
 /*  f021900:	00027880 */ 	sll	$t7,$v0,0x2
 /*  f021904:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x64)
@@ -6819,7 +6819,7 @@ void chrUpdateCloak(struct chrdata *chr)
 		}
 	} else if (chr->prop->type == PROPTYPE_PLAYER) {
 		prevplayernum = g_Vars.currentplayernum;
-		setCurrentPlayerNum(propGetPlayerNum(chr->prop));
+		setCurrentPlayerNum(playermgrGetPlayerNumByProp(chr->prop));
 
 		if (g_Vars.currentplayer->devicesactive & DEVICE_CLOAKDEVICE) {
 			// Cloak is active - but may or may not be in effect due to recent shooting
@@ -6920,7 +6920,7 @@ void chrSetPoisoned(struct chrdata *chr, struct prop *poisonprop)
 			&& chr->actiontype != ACT_DIE
 			&& chr->prop->type == PROPTYPE_PLAYER) {
 		// This was probably used in a debug print
-		propGetPlayerNum(chr->prop);
+		playermgrGetPlayerNumByProp(chr->prop);
 	}
 
 	if (g_Vars.normmplayerisrunning) {
@@ -6953,7 +6953,7 @@ void chrTickPoisoned(struct chrdata *chr)
 				}
 			}
 		} else if (chr->prop->type == PROPTYPE_PLAYER
-				&& g_Vars.players[propGetPlayerNum(chr->prop)]->bondhealth < 0.001f) {
+				&& g_Vars.players[playermgrGetPlayerNumByProp(chr->prop)]->bondhealth < 0.001f) {
 			// Player who's alive but on almost zero health
 			if (g_Vars.normmplayerisrunning) {
 				if (chr->poisoncounter > PALDOWN(3600)) {
@@ -7151,7 +7151,7 @@ s32 chrTick(struct prop *prop)
 		onscreen = false;
 	} else if ((chr->chrflags & CHRCFLAG_UNPLAYABLE)
 			|| (prop->type == PROPTYPE_PLAYER
-				&& g_Vars.currentplayer == (player = g_Vars.players[propGetPlayerNum(prop)])
+				&& g_Vars.currentplayer == (player = g_Vars.players[playermgrGetPlayerNumByProp(prop)])
 				&& player->cameramode == CAMERAMODE_THIRDPERSON
 				&& player->visionmode != VISIONMODE_SLAYERROCKET)) {
 		// Cutscene chr?
@@ -7255,7 +7255,7 @@ s32 chrTick(struct prop *prop)
 		onscreen = func0f08e8ac(prop, &prop->pos, model0001af80(model), true);
 	} else if (prop->type == PROPTYPE_PLAYER
 			&& (g_Vars.mplayerisrunning
-				|| (player = g_Vars.players[propGetPlayerNum(prop)], player->cameramode == CAMERAMODE_EYESPY)
+				|| (player = g_Vars.players[playermgrGetPlayerNumByProp(prop)], player->cameramode == CAMERAMODE_EYESPY)
 				|| (player->cameramode == CAMERAMODE_THIRDPERSON && player->visionmode == VISIONMODE_SLAYERROCKET))) {
 		model->anim->average = false;
 		chr0f0220ec(chr, lvupdate240, 1);
@@ -7351,7 +7351,7 @@ s32 chrTick(struct prop *prop)
 		} else if (prop->type == PROPTYPE_PLAYER) {
 			u8 stack[0x14];
 			f32 sp130;
-			player = g_Vars.players[propGetPlayerNum(prop)];
+			player = g_Vars.players[playermgrGetPlayerNumByProp(prop)];
 
 			if (player->bondmovemode == MOVEMODE_BIKE) {
 				sp178 = chrGetInverseTheta(chr);
@@ -10499,7 +10499,7 @@ bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *
 			&& chr->actiontype != ACT_DEAD
 			&& (chr->chrflags & CHRCFLAG_NOAUTOAIM) == 0
 			&& ((chr->hidden & CHRHFLAG_CLOAKED) == 0 || USINGDEVICE(DEVICE_IRSCANNER))
-			&& !(prop->type == PROPTYPE_PLAYER && g_Vars.players[propGetPlayerNum(prop)]->isdead)
+			&& !(prop->type == PROPTYPE_PLAYER && g_Vars.players[playermgrGetPlayerNumByProp(prop)]->isdead)
 			&& !(g_Vars.coopplayernum >= 0 && (prop == g_Vars.bond->prop || prop == g_Vars.coop->prop))) {
 		struct model *model = chr->model;
 		Mtxf *mtx1;

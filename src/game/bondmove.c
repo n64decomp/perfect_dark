@@ -18,7 +18,7 @@
 #include "game/player.h"
 #include "game/bondcutscene.h"
 #include "game/bondhead.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/bg.h"
 #include "game/lv.h"
 #include "game/mplayer/ingame.h"
@@ -1807,8 +1807,8 @@ void bmove0f0cb79c(struct player *player, struct coord *mid, s16 *rooms)
 {
 	struct coord lower;
 	struct coord upper;
-	f32 eyeheight = g_Vars.players[propGetPlayerNum(player->prop)]->vv_eyeheight;
-	f32 headheight = g_Vars.players[propGetPlayerNum(player->prop)]->vv_headheight;
+	f32 eyeheight = g_Vars.players[playermgrGetPlayerNumByProp(player->prop)]->vv_eyeheight;
+	f32 headheight = g_Vars.players[playermgrGetPlayerNumByProp(player->prop)]->vv_headheight;
 
 	lower.x = mid->x - 50;
 	lower.y = mid->y - player->crouchheight - eyeheight - 10;

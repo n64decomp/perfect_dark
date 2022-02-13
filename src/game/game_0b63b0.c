@@ -26,7 +26,7 @@
 #include "game/mainmenu.h"
 #include "game/filemgr.h"
 #include "game/inventory/inventory.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/explosions/explosions.h"
 #include "game/bondview.h"
 #include "game/game_1531a0.h"

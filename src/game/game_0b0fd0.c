@@ -6,7 +6,7 @@
 #include "game/game_0b0fd0.h"
 #include "game/player.h"
 #include "game/hudmsg.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/mplayer/setup.h"
 #include "game/botcmd.h"
 #include "game/lang.h"

@@ -11,7 +11,7 @@
 #include "game/filelist.h"
 #include "game/mainmenu.h"
 #include "game/endscreen.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/lv.h"
 #include "game/music.h"
 #include "game/mplayer/ingame.h"

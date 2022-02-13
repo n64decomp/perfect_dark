@@ -8,7 +8,7 @@
 #include "game/player.h"
 #include "game/savebuffer.h"
 #include "game/menu.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/game_1531a0.h"
 #include "game/lv.h"
 #include "game/music.h"

@@ -64,7 +64,7 @@
 #include "game/filemgr.h"
 #include "game/game_10c9c0.h"
 #include "game/game_11f000.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/game_129210.h"
 #include "game/explosions/explosions.h"
 #include "game/sparks/sparks.h"
@@ -441,7 +441,7 @@ void lvInit(s32 stagenum)
 			currentPlayerInitAnimation();
 
 			if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_TEAMSENABLED)) {
-				currentPlayerCalculateAiBuddyNums();
+				playermgrCalculateAiBuddyNums();
 			}
 		}
 
@@ -597,7 +597,7 @@ bool lvCheckCmpFollowThreat(struct threat *threat, s32 index)
 	if (threat->prop && prop->chr) {
 		switch (threat->prop->type) {
 		case PROPTYPE_PLAYER:
-			if (propGetPlayerNum(prop) == g_Vars.currentplayernum) {
+			if (playermgrGetPlayerNumByProp(prop) == g_Vars.currentplayernum) {
 				return false;
 			}
 			// fall through
@@ -881,7 +881,7 @@ void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 
 			} else {
 				if (prop->type == PROPTYPE_CHR
 						|| (prop->type == PROPTYPE_PLAYER
-							&& propGetPlayerNum(prop) != g_Vars.currentplayernum)) {
+							&& playermgrGetPlayerNumByProp(prop) != g_Vars.currentplayernum)) {
 					model = g_Vars.currentplayer->cmpfollowprops[i].prop->chr->model;
 				}
 			}
@@ -1109,7 +1109,7 @@ Gfx *lvRender(Gfx *gdl)
 				islastplayer = true;
 			} else {
 				s32 nextplayernum = i + 1;
-				setCurrentPlayerNum(getPlayerByOrderNum(i));
+				setCurrentPlayerNum(playermgrGetPlayerAtOrder(i));
 				islastplayer = playercount == nextplayernum;
 			}
 

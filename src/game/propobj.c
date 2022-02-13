@@ -32,7 +32,7 @@
 #include "game/hudmsg.h"
 #include "game/menu.h"
 #include "game/inventory/inventory.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/game_1291b0.h"
 #include "game/game_129210.h"
 #include "game/explosions/explosions.h"
@@ -7813,7 +7813,7 @@ glabel func0f06c8ac
 /*  f06cb20:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f06cb24:	5441003a */ 	bnel	$v0,$at,.L0f06cc10
 /*  f06cb28:	92080000 */ 	lbu	$t0,0x0($s0)
-/*  f06cb2c:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f06cb2c:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f06cb30:	02002025 */ 	or	$a0,$s0,$zero
 /*  f06cb34:	00025080 */ 	sll	$t2,$v0,0x2
 /*  f06cb38:	026a5821 */ 	addu	$t3,$s3,$t2
@@ -7826,7 +7826,7 @@ glabel func0f06c8ac
 /*  f06cb50:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f06cb54:	1441000e */ 	bne	$v0,$at,.L0f06cb90
 /*  f06cb58:	8e110004 */ 	lw	$s1,0x4($s0)
-/*  f06cb5c:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f06cb5c:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f06cb60:	02002025 */ 	or	$a0,$s0,$zero
 /*  f06cb64:	00027080 */ 	sll	$t6,$v0,0x2
 /*  f06cb68:	026e7821 */ 	addu	$t7,$s3,$t6
@@ -7877,7 +7877,7 @@ glabel func0f06c8ac
 /*  f06cc10:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f06cc14:	55010015 */ 	bnel	$t0,$at,.L0f06cc6c
 /*  f06cc18:	86a20002 */ 	lh	$v0,0x2($s5)
-/*  f06cc1c:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f06cc1c:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f06cc20:	02002025 */ 	or	$a0,$s0,$zero
 /*  f06cc24:	00024880 */ 	sll	$t1,$v0,0x2
 /*  f06cc28:	02695021 */ 	addu	$t2,$s3,$t1
@@ -13206,7 +13206,7 @@ glabel var7f1aa2c4
 /*  f06fd30:	8c4400bc */ 	lw	$a0,0xbc($v0)
 /*  f06fd34:	5080000a */ 	beqzl	$a0,.L0f06fd60
 /*  f06fd38:	8da202a0 */ 	lw	$v0,0x2a0($t5)
-/*  f06fd3c:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f06fd3c:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f06fd40:	00000000 */ 	nop
 /*  f06fd44:	3c058007 */ 	lui	$a1,%hi(g_PlayersDetonatingMines)
 /*  f06fd48:	3c0d800a */ 	lui	$t5,%hi(g_Vars)
@@ -13221,7 +13221,7 @@ glabel var7f1aa2c4
 /*  f06fd68:	8c4400bc */ 	lw	$a0,0xbc($v0)
 /*  f06fd6c:	5080000a */ 	beqzl	$a0,.L0f06fd98
 /*  f06fd70:	8cb90000 */ 	lw	$t9,0x0($a1)
-/*  f06fd74:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f06fd74:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f06fd78:	afa30170 */ 	sw	$v1,0x170($sp)
 /*  f06fd7c:	8fa30170 */ 	lw	$v1,0x170($sp)
 /*  f06fd80:	24180001 */ 	addiu	$t8,$zero,0x1
@@ -14415,7 +14415,7 @@ glabel var7f1aa2c4
 /*  f06fd30:	8c4400bc */ 	lw	$a0,0xbc($v0)
 /*  f06fd34:	5080000a */ 	beqzl	$a0,.L0f06fd60
 /*  f06fd38:	8da202a0 */ 	lw	$v0,0x2a0($t5)
-/*  f06fd3c:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f06fd3c:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f06fd40:	00000000 */ 	nop
 /*  f06fd44:	3c058007 */ 	lui	$a1,%hi(g_PlayersDetonatingMines)
 /*  f06fd48:	3c0d800a */ 	lui	$t5,%hi(g_Vars)
@@ -14430,7 +14430,7 @@ glabel var7f1aa2c4
 /*  f06fd68:	8c4400bc */ 	lw	$a0,0xbc($v0)
 /*  f06fd6c:	5080000a */ 	beqzl	$a0,.L0f06fd98
 /*  f06fd70:	8cb90000 */ 	lw	$t9,0x0($a1)
-/*  f06fd74:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f06fd74:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f06fd78:	afa30170 */ 	sw	$v1,0x170($sp)
 /*  f06fd7c:	8fa30170 */ 	lw	$v1,0x170($sp)
 /*  f06fd80:	24180001 */ 	addiu	$t8,$zero,0x1
@@ -15410,7 +15410,7 @@ glabel var7f1aa2c4
 /*  f06ecc4:	8c4400bc */ 	lw	$a0,0xbc($v0)
 /*  f06ecc8:	10800008 */ 	beqz	$a0,.NB0f06ecec
 /*  f06eccc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f06ecd0:	0fc48d6f */ 	jal	propGetPlayerNum
+/*  f06ecd0:	0fc48d6f */ 	jal	playermgrGetPlayerNumByProp
 /*  f06ecd4:	afa70170 */ 	sw	$a3,0x170($sp)
 /*  f06ecd8:	3c058007 */ 	lui	$a1,0x8007
 /*  f06ecdc:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -15426,7 +15426,7 @@ glabel var7f1aa2c4
 /*  f06ed00:	5080000c */ 	beqzl	$a0,.NB0f06ed34
 /*  f06ed04:	8cad0000 */ 	lw	$t5,0x0($a1)
 /*  f06ed08:	afa30144 */ 	sw	$v1,0x144($sp)
-/*  f06ed0c:	0fc48d6f */ 	jal	propGetPlayerNum
+/*  f06ed0c:	0fc48d6f */ 	jal	playermgrGetPlayerNumByProp
 /*  f06ed10:	afa70170 */ 	sw	$a3,0x170($sp)
 /*  f06ed14:	8fa30144 */ 	lw	$v1,0x144($sp)
 /*  f06ed18:	240a0001 */ 	addiu	$t2,$zero,0x1
@@ -16093,11 +16093,11 @@ glabel var7f1aa2c4
 //						u32 mask = 0;
 //
 //						if (g_Vars.coop && g_Vars.coop->prop) {
-//							mask |= 1 << propGetPlayerNum(g_Vars.coop->prop);
+//							mask |= 1 << playermgrGetPlayerNumByProp(g_Vars.coop->prop);
 //						}
 //
 //						if (g_Vars.bond && g_Vars.bond->prop) {
-//							mask |= 1 << propGetPlayerNum(g_Vars.bond->prop);
+//							mask |= 1 << playermgrGetPlayerNumByProp(g_Vars.bond->prop);
 //						}
 //
 //						g_PlayersDetonatingMines &= mask;
@@ -24928,7 +24928,7 @@ glabel var7f1ab6dcpf
 /*  f075fb0:	2627005c */ 	addiu	$a3,$s1,0x5c
 /*  f075fb4:	8f18a79c */ 	lw	$t8,-0x5864($t8)
 /*  f075fb8:	afa70070 */ 	sw	$a3,0x70($sp)
-/*  f075fbc:	0fc4a513 */ 	jal	propGetPlayerNum
+/*  f075fbc:	0fc4a513 */ 	jal	playermgrGetPlayerNumByProp
 /*  f075fc0:	afb80164 */ 	sw	$t8,0x164($sp)
 /*  f075fc4:	0fc4a4ff */ 	jal	setCurrentPlayerNum
 /*  f075fc8:	00402025 */ 	move	$a0,$v0
@@ -24976,7 +24976,7 @@ glabel var7f1ab6dcpf
 /*  f076064:	1441000e */ 	bne	$v0,$at,.PF0f0760a0
 /*  f076068:	00000000 */ 	nop
 /*  f07606c:	afa6015c */ 	sw	$a2,0x15c($sp)
-/*  f076070:	0fc4a513 */ 	jal	propGetPlayerNum
+/*  f076070:	0fc4a513 */ 	jal	playermgrGetPlayerNumByProp
 /*  f076074:	afa70070 */ 	sw	$a3,0x70($sp)
 /*  f076078:	00025880 */ 	sll	$t3,$v0,0x2
 /*  f07607c:	3c0f800a */ 	lui	$t7,0x800a
@@ -28466,7 +28466,7 @@ glabel var7f1aa438
 /*  f075d2c:	2627005c */ 	addiu	$a3,$s1,0x5c
 /*  f075d30:	8f18a24c */ 	lw	$t8,%lo(g_Vars+0x28c)($t8)
 /*  f075d34:	afa70070 */ 	sw	$a3,0x70($sp)
-/*  f075d38:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f075d38:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f075d3c:	afb80164 */ 	sw	$t8,0x164($sp)
 /*  f075d40:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f075d44:	00402025 */ 	or	$a0,$v0,$zero
@@ -28514,7 +28514,7 @@ glabel var7f1aa438
 /*  f075de0:	1441000e */ 	bne	$v0,$at,.L0f075e1c
 /*  f075de4:	00000000 */ 	nop
 /*  f075de8:	afa6015c */ 	sw	$a2,0x15c($sp)
-/*  f075dec:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f075dec:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f075df0:	afa70070 */ 	sw	$a3,0x70($sp)
 /*  f075df4:	00025880 */ 	sll	$t3,$v0,0x2
 /*  f075df8:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x64)
@@ -31969,7 +31969,7 @@ glabel var7f1aa438
 /*  f074a5c:	2627005c */ 	addiu	$a3,$s1,0x5c
 /*  f074a60:	8f18e94c */ 	lw	$t8,-0x16b4($t8)
 /*  f074a64:	afa70060 */ 	sw	$a3,0x60($sp)
-/*  f074a68:	0fc48d6f */ 	jal	propGetPlayerNum
+/*  f074a68:	0fc48d6f */ 	jal	playermgrGetPlayerNumByProp
 /*  f074a6c:	afb80164 */ 	sw	$t8,0x164($sp)
 /*  f074a70:	0fc48d5b */ 	jal	setCurrentPlayerNum
 /*  f074a74:	00402025 */ 	or	$a0,$v0,$zero
@@ -32017,7 +32017,7 @@ glabel var7f1aa438
 /*  f074b10:	1441000e */ 	bne	$v0,$at,.NB0f074b4c
 /*  f074b14:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f074b18:	afa6015c */ 	sw	$a2,0x15c($sp)
-/*  f074b1c:	0fc48d6f */ 	jal	propGetPlayerNum
+/*  f074b1c:	0fc48d6f */ 	jal	playermgrGetPlayerNumByProp
 /*  f074b20:	afa70060 */ 	sw	$a3,0x60($sp)
 /*  f074b24:	00027880 */ 	sll	$t7,$v0,0x2
 /*  f074b28:	3c19800a */ 	lui	$t9,0x800a
@@ -33730,7 +33730,7 @@ glabel var7f1aa454
 .L0f077940:
 /*  f077940:	1441009e */ 	bne	$v0,$at,.L0f077bbc
 /*  f077944:	02202025 */ 	or	$a0,$s1,$zero
-/*  f077948:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f077948:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f07794c:	8fd40004 */ 	lw	$s4,0x4($s8)
 /*  f077950:	928e0003 */ 	lbu	$t6,0x3($s4)
 /*  f077954:	24010030 */ 	addiu	$at,$zero,0x30
@@ -34116,7 +34116,7 @@ glabel var7f1aa454
 .L0f077940:
 /*  f077940:	1441009e */ 	bne	$v0,$at,.L0f077bbc
 /*  f077944:	02202025 */ 	or	$a0,$s1,$zero
-/*  f077948:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f077948:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f07794c:	8fd40004 */ 	lw	$s4,0x4($s8)
 /*  f077950:	928e0003 */ 	lbu	$t6,0x3($s4)
 /*  f077954:	24010030 */ 	addiu	$at,$zero,0x30
@@ -34499,7 +34499,7 @@ glabel var7f1aa454
 .NB0f076538:
 /*  f076538:	1441005a */ 	bne	$v0,$at,.NB0f0766a4
 /*  f07653c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f076540:	0fc48d6f */ 	jal	propGetPlayerNum
+/*  f076540:	0fc48d6f */ 	jal	playermgrGetPlayerNumByProp
 /*  f076544:	8ef00004 */ 	lw	$s0,0x4($s7)
 /*  f076548:	920e0003 */ 	lbu	$t6,0x3($s0)
 /*  f07654c:	24010030 */ 	addiu	$at,$zero,0x30
@@ -35824,7 +35824,7 @@ glabel var7f1aa580
 /*  f079554:	afa30044 */ 	sw	$v1,0x44($sp)
 /*  f079558:	afa800ac */ 	sw	$t0,0xac($sp)
 /*  f07955c:	e7a00048 */ 	swc1	$f0,0x48($sp)
-/*  f079560:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f079560:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f079564:	e7b200a4 */ 	swc1	$f18,0xa4($sp)
 /*  f079568:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f07956c:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
@@ -37046,7 +37046,7 @@ glabel var7f1aa580
 /*  f079554:	afa30044 */ 	sw	$v1,0x44($sp)
 /*  f079558:	afa800ac */ 	sw	$t0,0xac($sp)
 /*  f07955c:	e7a00048 */ 	swc1	$f0,0x48($sp)
-/*  f079560:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f079560:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f079564:	e7b200a4 */ 	swc1	$f18,0xa4($sp)
 /*  f079568:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f07956c:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
@@ -49523,7 +49523,7 @@ s32 objTick(struct prop *prop)
 	if (obj->hidden & OBJHFLAG_AIRBORNE) {
 		struct projectile *projectile = obj->projectile;
 
-		if (projectile->ownerprop && propGetPlayerNum(projectile->ownerprop) >= 0) {
+		if (projectile->ownerprop && playermgrGetPlayerNumByProp(projectile->ownerprop) >= 0) {
 			fulltick = (projectile->ownerprop == g_Vars.currentplayer->prop);
 		}
 	}
@@ -49885,7 +49885,7 @@ Gfx *propsRenderBeams(Gfx *gdl)
 				gdl = func0f0acb90(gdl, chopper->fireslotthing->beam, true, true);
 			}
 		} else if (prop->type == PROPTYPE_PLAYER) {
-			if (prop->chr && propGetPlayerNum(prop) != g_Vars.currentplayernum) {
+			if (prop->chr && playermgrGetPlayerNumByProp(prop) != g_Vars.currentplayernum) {
 				struct chrdata *chr = prop->chr;
 
 				if (chr->fireslots[0] >= 0) {
@@ -65721,7 +65721,7 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 	if (g_Vars.normmplayerisrunning) {
 		index = mpPlayerGetIndex(chr);
 	} else {
-		index = propGetPlayerNum(chr->prop);
+		index = playermgrGetPlayerNumByProp(chr->prop);
 	}
 
 	if (index >= 0 && index < g_MaxThrownLaptops) {
@@ -65802,7 +65802,7 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 				s32 qty;
 				s32 prevplayernum = g_Vars.currentplayernum;
 
-				setCurrentPlayerNum(propGetPlayerNum(chr->prop));
+				setCurrentPlayerNum(playermgrGetPlayerNumByProp(chr->prop));
 				qty = bgunGetAmmoQtyForWeapon(WEAPON_LAPTOPGUN, FUNC_PRIMARY);
 
 				if (qty >= 200) {
@@ -66336,7 +66336,7 @@ struct weaponobj *func0f08b880(s32 modelnum, s32 weaponnum, struct chrdata *chr)
 	return func0f08b658(modelnum, &gset, chr);
 }
 
-void chrSetWeaponReapable(struct chrdata *chr, s32 hand)
+void weaponDeleteFromChr(struct chrdata *chr, s32 hand)
 {
 	if (chr && chr->weapons_held[hand]) {
 		struct defaultobj *obj = chr->weapons_held[hand]->obj;
@@ -66440,7 +66440,7 @@ struct prop *chrGiveWeapon(struct chrdata *chr, s32 model, s32 weaponnum, u32 fl
 
 struct prop *chrGiveWeaponWithAutoModel(struct chrdata *chr, s32 weaponnum, u32 flags)
 {
-	return weaponCreateForChr(chr, weaponGetModel(weaponnum), weaponnum, flags, NULL, NULL);
+	return weaponCreateForChr(chr, playermgrGetModelOfWeapon(weaponnum), weaponnum, flags, NULL, NULL);
 }
 
 s32 weaponTestForPickup(struct prop *prop)
@@ -69664,11 +69664,11 @@ void currentPlayerDropAllItems(void)
 	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 	s32 i;
 
-	chrSetWeaponReapable(chr, HAND_RIGHT);
-	chrSetWeaponReapable(chr, HAND_LEFT);
+	weaponDeleteFromChr(chr, HAND_RIGHT);
+	weaponDeleteFromChr(chr, HAND_LEFT);
 
 	for (i = WEAPON_UNARMED; i <= WEAPON_SUICIDEPILL; i++) {
-		if (weaponGetModel(i) >= 0 && invHasSingleWeaponExcAllGuns(i)) {
+		if (playermgrGetModelOfWeapon(i) >= 0 && invHasSingleWeaponExcAllGuns(i)) {
 			if (!weaponHasFlag(i, WEAPONFLAG_08000000)
 					|| (g_Vars.normmplayerisrunning
 						&& g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL
@@ -69743,7 +69743,7 @@ void weaponCreateForPlayerDrop(s32 weaponnum)
 	u32 stack2;
 
 	chr = g_Vars.currentplayer->prop->chr;
-	prop = weaponCreateForChr(chr, weaponGetModel(weaponnum), weaponnum, OBJFLAG_WEAPON_AICANNOTUSE, NULL, NULL);
+	prop = weaponCreateForChr(chr, playermgrGetModelOfWeapon(weaponnum), weaponnum, OBJFLAG_WEAPON_AICANNOTUSE, NULL, NULL);
 
 	if (prop) {
 		objSetDropped(prop, DROPTYPE_DEFAULT);

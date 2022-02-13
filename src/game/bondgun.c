@@ -24,7 +24,7 @@
 #include "game/gfxmemory.h"
 #include "game/sight.h"
 #include "game/inventory/inventory.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/smoke/smoke.h"
 #include "game/game_1531a0.h"
 #include "game/file.h"
@@ -3392,7 +3392,7 @@ s32 bgunTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 
 		if (bgunIsReadyToSwitch(handnum) && bgunSetState(handnum, HANDSTATE_CHANGEGUN)) {
 			if (g_Vars.mplayerisrunning && (IS8MB() || PLAYERCOUNT() != 1)) {
-				currentPlayerSetWeaponReapable(handnum);
+				playermgrDeleteWeapon(handnum);
 			}
 
 			bgun0f09fa20(handnum);
@@ -8045,7 +8045,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 		if (hand->stateframes >= delay) {
 			if (!somebool) {
 				if (g_Vars.mplayerisrunning && (IS8MB() || PLAYERCOUNT() != 1)) {
-					currentPlayerSetWeaponReapable(handnum);
+					playermgrDeleteWeapon(handnum);
 				}
 
 				bgun0f09fa20(handnum);
@@ -8114,7 +8114,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 
 		if (hand->count == 0) {
 			if (g_Vars.mplayerisrunning && (IS8MB() || PLAYERCOUNT() != 1)) {
-				func0f128d20(handnum);
+				playermgrCreateWeapon(handnum);
 			}
 
 			bgun0f098f8c(info, hand);
@@ -10860,7 +10860,7 @@ struct defaultobj *bgun0f09ee18(struct chrdata *chr, struct gset *gset, struct c
 		if (g_Vars.normmplayerisrunning) {
 			playernum = mpPlayerGetIndex(chr);
 		} else {
-			playernum = propGetPlayerNum(chr->prop);
+			playernum = playermgrGetPlayerNumByProp(chr->prop);
 		}
 
 		obj->hidden |= playernum << 28;
@@ -15271,7 +15271,7 @@ void bgun0f0a134c(s32 handnum)
 	}
 
 	if (g_Vars.mplayerisrunning && (IS8MB() || PLAYERCOUNT() != 1)) {
-		currentPlayerSetWeaponReapable(handnum);
+		playermgrDeleteWeapon(handnum);
 	}
 
 	bgun0f09fa20(handnum);
@@ -16639,11 +16639,11 @@ void bgunLoseGun(struct prop *attackerprop)
 			}
 		}
 
-		chrSetWeaponReapable(chr, HAND_RIGHT);
-		chrSetWeaponReapable(chr, HAND_LEFT);
+		weaponDeleteFromChr(chr, HAND_RIGHT);
+		weaponDeleteFromChr(chr, HAND_LEFT);
 
 		// Actually drop the weapon
-		modelnum = weaponGetModel(weaponnum);
+		modelnum = playermgrGetModelOfWeapon(weaponnum);
 
 		if (modelnum >= 0 && drop) {
 			struct prop *prop2 = weaponCreateForChr(chr, modelnum, weaponnum, OBJFLAG_WEAPON_AICANNOTUSE, NULL, NULL);

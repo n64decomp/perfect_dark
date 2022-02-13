@@ -21,7 +21,7 @@
 #include "game/game_0b4950.h"
 #include "game/player.h"
 #include "game/inventory/inventory.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/explosions/explosions.h"
 #include "game/sparks/sparks.h"
 #include "game/bg.h"
@@ -3821,7 +3821,7 @@ void chrChoke(struct chrdata *chr, s32 choketype)
 	}
 
 	if (chr->prop->type == PROPTYPE_PLAYER) {
-		playernum = propGetPlayerNum(chr->prop);
+		playernum = playermgrGetPlayerNumByProp(chr->prop);
 
 		if (g_Vars.players[playernum]->isdead) {
 			return;
@@ -4069,7 +4069,7 @@ void chrSetShield(struct chrdata *chr, f32 amount)
 	}
 
 	if (chr->prop->type == PROPTYPE_PLAYER) {
-		s32 playernum = propGetPlayerNum(chr->prop);
+		s32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 
 		if (playernum >= 0) {
 			s32 prevplayernum = g_Vars.currentplayernum;
@@ -4205,7 +4205,7 @@ void playerUpdateDamageStats(struct prop *attacker, struct prop *victim, f32 dam
 	s32 playernum;
 
 	if (attacker && attacker->type == PROPTYPE_PLAYER) {
-		playernum = propGetPlayerNum(attacker);
+		playernum = playermgrGetPlayerNumByProp(attacker);
 
 		if (playernum >= 0) {
 			g_Vars.playerstats[playernum].damtransmitted += damage;
@@ -4213,7 +4213,7 @@ void playerUpdateDamageStats(struct prop *attacker, struct prop *victim, f32 dam
 	}
 
 	if (victim && victim->type == PROPTYPE_PLAYER) {
-		playernum = propGetPlayerNum(victim);
+		playernum = playermgrGetPlayerNumByProp(victim);
 
 		if (playernum >= 0) {
 			g_Vars.playerstats[playernum].damreceived += damage;
@@ -4394,8 +4394,8 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		}
 
 		if (vprop->type == PROPTYPE_PLAYER) {
-			healthscale = g_Vars.players[propGetPlayerNum(vprop)]->healthscale;
-			armourscale = g_Vars.players[propGetPlayerNum(vprop)]->armourscale;
+			healthscale = g_Vars.players[playermgrGetPlayerNumByProp(vprop)]->healthscale;
+			armourscale = g_Vars.players[playermgrGetPlayerNumByProp(vprop)]->armourscale;
 		}
 	} else if (g_Vars.coopplayernum >= 0) {
 		// Co-op
@@ -4415,8 +4415,8 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		}
 
 		if (vprop->type == PROPTYPE_PLAYER) {
-			healthscale = g_Vars.players[propGetPlayerNum(vprop)]->healthscale;
-			armourscale = g_Vars.players[propGetPlayerNum(vprop)]->armourscale;
+			healthscale = g_Vars.players[playermgrGetPlayerNumByProp(vprop)]->healthscale;
+			armourscale = g_Vars.players[playermgrGetPlayerNumByProp(vprop)]->armourscale;
 		}
 	} else if (g_Vars.antiplayernum >= 0) {
 		// Anti
@@ -4436,8 +4436,8 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		}
 
 		if (vprop == g_Vars.bond->prop) {
-			healthscale = g_Vars.players[propGetPlayerNum(vprop)]->healthscale;
-			armourscale = g_Vars.players[propGetPlayerNum(vprop)]->armourscale;
+			healthscale = g_Vars.players[playermgrGetPlayerNumByProp(vprop)]->healthscale;
+			armourscale = g_Vars.players[playermgrGetPlayerNumByProp(vprop)]->armourscale;
 		}
 
 		// Anti shooting other enemies is lethal
@@ -4448,7 +4448,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		// Normal multiplayer
 		if (vprop->type == PROPTYPE_PLAYER) {
 			s32 prevplayernum = g_Vars.currentplayernum;
-			setCurrentPlayerNum(propGetPlayerNum(vprop));
+			setCurrentPlayerNum(playermgrGetPlayerNumByProp(vprop));
 			damage *= g_Vars.currentplayerstats->damagescale;
 			setCurrentPlayerNum(prevplayernum);
 		}
@@ -4462,7 +4462,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		s32 contpad1;
 		s32 contpad2;
 
-		setCurrentPlayerNum(propGetPlayerNum(vprop));
+		setCurrentPlayerNum(playermgrGetPlayerNumByProp(vprop));
 
 		joyGetContpadNumsForPlayer(g_Vars.currentplayernum, &contpad1, &contpad2);
 
@@ -4474,7 +4474,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 			pakRumble(contpad2, 0.25f, -1, -1);
 		}
 #else
-		setCurrentPlayerNum(propGetPlayerNum(vprop));
+		setCurrentPlayerNum(playermgrGetPlayerNumByProp(vprop));
 
 		pakRumble((s8)g_Vars.currentplayernum, 0.25f, -1, -1);
 
@@ -4494,7 +4494,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		}
 	} else {
 		if (aprop && aprop->type == PROPTYPE_PLAYER) {
-			aplayernum = propGetPlayerNum(aprop);
+			aplayernum = playermgrGetPlayerNumByProp(aprop);
 		}
 	}
 
@@ -4594,7 +4594,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 	if (aprop && aprop->type == PROPTYPE_PLAYER && !explosion) {
 		bool alreadydead = false;
 		s32 prevplayernum = g_Vars.currentplayernum;
-		setCurrentPlayerNum(propGetPlayerNum(aprop));
+		setCurrentPlayerNum(playermgrGetPlayerNumByProp(aprop));
 
 		// ACT_DIE is not checked here, so it would appear that shooting
 		// a chr as they're dying will increment the shots hit count
@@ -4602,7 +4602,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 			alreadydead = true;
 		}
 
-		if (vprop->type == PROPTYPE_PLAYER && g_Vars.players[propGetPlayerNum(vprop)]->isdead) {
+		if (vprop->type == PROPTYPE_PLAYER && g_Vars.players[playermgrGetPlayerNumByProp(vprop)]->isdead) {
 			alreadydead = true;
 		}
 
@@ -4739,7 +4739,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		// Handle situations where the player is the one being shot, then return
 		if (vprop->type == PROPTYPE_PLAYER) {
 			s32 prevplayernum = g_Vars.currentplayernum;
-			setCurrentPlayerNum(propGetPlayerNum(vprop));
+			setCurrentPlayerNum(playermgrGetPlayerNumByProp(vprop));
 
 			if (g_Vars.normmplayerisrunning) {
 				damage /= mpHandicapToDamageScale(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].handicap);
@@ -4990,7 +4990,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 							mpstatsRecordDeath(aplayernum, mpPlayerGetIndex(chr));
 						} else if (aprop && aprop->type == PROPTYPE_PLAYER) {
 							s32 prevplayernum = g_Vars.currentplayernum;
-							setCurrentPlayerNum(propGetPlayerNum(aprop));
+							setCurrentPlayerNum(playermgrGetPlayerNumByProp(aprop));
 							mpstatsRecordPlayerKill();
 							setCurrentPlayerNum(prevplayernum);
 						}
@@ -6973,7 +6973,7 @@ bool chrIsDead(struct chrdata *chr)
 	}
 
 	if (chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 
 		if (g_Vars.players[playernum]->isdead) {
 			return true;
@@ -9068,7 +9068,7 @@ f32 chrGetInverseTheta(struct chrdata *chr)
 	}
 
 	if (chr->model == NULL && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
-		struct player *player = g_Vars.players[propGetPlayerNum(chr->prop)];
+		struct player *player = g_Vars.players[playermgrGetPlayerNumByProp(chr->prop)];
 		f32 angle = (360.0f - player->vv_theta) * 0.017450513318181f;
 
 		if (angle >= M_BADTAU) {
@@ -9132,7 +9132,7 @@ f32 chrGetAimAngle(struct chrdata *chr)
 			|| chr->actiontype == ACT_BOT_ATTACKSTRAFE) {
 		offset = chr->act_attack.animcfg->unk0c;
 	} else if (chr->prop->type == PROPTYPE_PLAYER) {
-		offset += g_Vars.players[propGetPlayerNum(chr->prop)]->angleoffset;
+		offset += g_Vars.players[playermgrGetPlayerNumByProp(chr->prop)]->angleoffset;
 	}
 
 	if (offset) {
@@ -9423,7 +9423,7 @@ glabel var7f1a8fc8
 /*  f03eb90:	55410167 */ 	bnel	$t2,$at,.L0f03f130
 /*  f03eb94:	8cc40020 */ 	lw	$a0,0x20($a2)
 /*  f03eb98:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f03eb9c:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f03eb9c:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f03eba0:	e7b00188 */ 	swc1	$f16,0x188($sp)
 /*  f03eba4:	8fa40168 */ 	lw	$a0,0x168($sp)
 /*  f03eba8:	00025880 */ 	sll	$t3,$v0,0x2
@@ -21496,7 +21496,7 @@ f32 chrGetAngleToPos(struct chrdata *chr, struct coord *pos)
 	struct prop *prop;
 
 	if (chr->prop->type == PROPTYPE_PLAYER) {
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 		fVar3 = (360 - g_Vars.players[playernum]->vv_theta) * (M_BADTAU / 360);
 	} else {
 		fVar3 = chrGetInverseTheta(chr);
@@ -21689,7 +21689,7 @@ f32 chrGetAngleFromTargetsFov(struct chrdata *chr)
 		angletotarget = atan2f(xdiff, zdiff);
 
 		if (target->type == PROPTYPE_PLAYER) {
-			s32 playernum = propGetPlayerNum(target);
+			s32 playernum = playermgrGetPlayerNumByProp(target);
 			targetfacingangle = (360.0f - g_Vars.players[playernum]->vv_theta) * M_BADTAU / 360.0f;
 		} else if (target->type == PROPTYPE_CHR) {
 			targetfacingangle = chrGetInverseTheta(target->chr);
@@ -22568,7 +22568,7 @@ bool chrSetPadPresetToWaypointWithinTargetQuadrant(struct chrdata *chr, u8 quadr
 	prop = chrGetTargetProp(chr);
 
 	if (prop->type == PROPTYPE_PLAYER) {
-		angle = (360.0f - g_Vars.players[propGetPlayerNum(prop)]->vv_theta) * M_BADTAU / 360.0f;
+		angle = (360.0f - g_Vars.players[playermgrGetPlayerNumByProp(prop)]->vv_theta) * M_BADTAU / 360.0f;
 	} else if (prop->type == PROPTYPE_CHR) {
 		angle = chrGetInverseTheta(prop->chr);
 	}
@@ -23182,7 +23182,7 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 		chrSetLookAngle(chr, angle);
 
 		if (chr->prop->type == PROPTYPE_PLAYER) {
-			player = g_Vars.players[propGetPlayerNum(chr->prop)];
+			player = g_Vars.players[playermgrGetPlayerNumByProp(chr->prop)];
 			player->vv_manground = ground;
 			player->vv_ground = ground;
 			player->vv_theta = ((M_BADTAU - angle) * 360.0f) / M_BADTAU;
@@ -24186,7 +24186,7 @@ f32 func0f04c784(struct chrdata *chr)
 	if (target->type == PROPTYPE_CHR) {
 		targetfacingangle = chrGetInverseTheta(target->chr);
 	} else if (target->type == PROPTYPE_PLAYER) {
-		s32 playernum = propGetPlayerNum(target);
+		s32 playernum = playermgrGetPlayerNumByProp(target);
 		targetfacingangle = g_Vars.players[playernum]->vv_theta;
 	}
 

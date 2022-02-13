@@ -13,7 +13,7 @@
 #include "game/hudmsg.h"
 #include "game/menu.h"
 #include "game/inventory/inventory.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/game_1531a0.h"
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"

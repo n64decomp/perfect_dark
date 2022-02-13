@@ -22,7 +22,7 @@
 #include "game/player.h"
 #include "game/hudmsg.h"
 #include "game/inventory/inventory.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/explosions/explosions.h"
 #include "game/smoke/smoke.h"
 #include "game/weather/weather.h"
@@ -437,7 +437,7 @@ bool aiChrDoAnimation(void)
 			chr0f0220ec(chr, 1, 1);
 
 			if (chr->prop->type == PROPTYPE_PLAYER) {
-				u32 playernum = propGetPlayerNum(chr->prop);
+				u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 				struct player *player = g_Vars.players[playernum];
 				player->vv_ground = chr->ground;
 				player->vv_manground = chr->ground;
@@ -537,7 +537,7 @@ bool aiIfChrDeathAnimationFinished(void)
 		pass = true;
 	} else {
 		if (chr->prop->type == PROPTYPE_PLAYER) {
-			u32 playernum = propGetPlayerNum(chr->prop);
+			u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 			pass = g_Vars.players[playernum]->isdead;
 		} else {
 			pass = (chr->actiontype == ACT_DEAD);
@@ -2048,7 +2048,7 @@ bool aiIfChrHasObject(void)
 
 	if (obj && obj->prop && chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		s32 prevplayernum = g_Vars.currentplayernum;
-		setCurrentPlayerNum(propGetPlayerNum(chr->prop));
+		setCurrentPlayerNum(playermgrGetPlayerNumByProp(chr->prop));
 		hasprop = invHasProp(obj->prop);
 		setCurrentPlayerNum(prevplayernum);
 	}
@@ -2123,7 +2123,7 @@ bool aiIfChrHasWeaponEquipped(void)
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 		setCurrentPlayerNum(playernum);
 
 		if (bgunGetWeaponNum(HAND_RIGHT) == cmd[3]) {
@@ -2321,7 +2321,7 @@ bool aiChrDropWeapon(void)
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 		u32 weaponnum;
 		setCurrentPlayerNum(playernum);
 		weaponnum = bgunGetWeaponNum(HAND_RIGHT);
@@ -2359,7 +2359,7 @@ bool aiGiveObjectToChr(void)
 			u32 something;
 			u32 prevplayernum = g_Vars.currentplayernum;
 			struct defaultobj *obj2 = obj->prop->obj;
-			u32 playernum = propGetPlayerNum(chr->prop);
+			u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 			setCurrentPlayerNum(playernum);
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -2372,7 +2372,7 @@ bool aiGiveObjectToChr(void)
 
 			something = propPickupByPlayer(obj->prop, 0);
 			propExecuteTickOperation(obj->prop, something);
-			playernum = propGetPlayerNum(chr->prop);
+			playernum = playermgrGetPlayerNumByProp(chr->prop);
 			obj2->hidden = (playernum << 28) | (obj2->hidden & 0x0fffffff);
 			setCurrentPlayerNum(prevplayernum);
 		} else {
@@ -2727,7 +2727,7 @@ bool aiIfChrHealthGreaterThan(void)
 
 	if (chr && chr->prop) {
 		if (chr->prop->type == PROPTYPE_PLAYER) {
-			u32 playernum = propGetPlayerNum(chr->prop);
+			u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 
 			pass = (value > g_Vars.players[playernum]->bondhealth * 8.0f);
 		} else {
@@ -2756,7 +2756,7 @@ bool aiIfChrHealthLessThan(void)
 
 	if (chr && chr->prop) {
 		if (chr->prop->type == PROPTYPE_PLAYER) {
-			u32 playernum = propGetPlayerNum(chr->prop);
+			u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 
 			pass = (value < g_Vars.players[playernum]->bondhealth * 8.0f);
 		} else {
@@ -4397,7 +4397,7 @@ bool aiShowHudmsg(void)
 	u32 playernum = g_Vars.currentplayernum;
 
 	if (chr && chr->prop && (chr->prop->type & 0xff) == PROPTYPE_PLAYER) {
-		playernum = propGetPlayerNum(chr->prop);
+		playernum = playermgrGetPlayerNumByProp(chr->prop);
 	}
 
 	setCurrentPlayerNum(playernum);
@@ -4446,7 +4446,7 @@ bool aiShowHudmsgTopMiddle(void)
 	u32 playernum = g_Vars.currentplayernum;
 
 	if (chr && chr->prop && (chr->prop->type & 0xff) == PROPTYPE_PLAYER) {
-		playernum = propGetPlayerNum(chr->prop);
+		playernum = playermgrGetPlayerNumByProp(chr->prop);
 	}
 
 	setCurrentPlayerNum(playernum);
@@ -4510,7 +4510,7 @@ glabel aiSpeak
 /*  f0560e8:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f0560ec:	15e10004 */ 	bne	$t7,$at,.L0f056100
 /*  f0560f0:	00000000 */ 	nop
-/*  f0560f4:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f0560f4:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f0560f8:	00000000 */ 	nop
 /*  f0560fc:	00403025 */ 	or	$a2,$v0,$zero
 .L0f056100:
@@ -4595,7 +4595,7 @@ glabel aiSpeak
 //	char *text = text_id >= 0 ? langGet(text_id) : NULL;
 //
 //	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
-//		playernum = propGetPlayerNum(chr->prop);
+//		playernum = playermgrGetPlayerNumByProp(chr->prop);
 //	}
 //
 //	setCurrentPlayerNum(playernum);
@@ -5288,7 +5288,7 @@ bool aiRevokeControl(void)
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 		setCurrentPlayerNum(playernum);
 		bgunSetSightVisible(GUNSIGHTREASON_NOCONTROL, false);
 		bgunSetGunAmmoVisible(GUNAMMOREASON_NOCONTROL, false);
@@ -5320,7 +5320,7 @@ bool aiGrantControl(void)
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		setCurrentPlayerNum(propGetPlayerNum(chr->prop));
+		setCurrentPlayerNum(playermgrGetPlayerNumByProp(chr->prop));
 		bgunSetSightVisible(GUNSIGHTREASON_NOCONTROL, true);
 		bgunSetGunAmmoVisible(GUNAMMOREASON_NOCONTROL, true);
 		currentPlayerSetHudmsgsOn(HUDMSGREASON_NOCONTROL);
@@ -5403,7 +5403,7 @@ bool ai00e3(void)
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 		setCurrentPlayerNum(playernum);
 
 		if (var8007074c != 2) {
@@ -5452,7 +5452,7 @@ bool aiIfColourFadeComplete(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 
 		if (g_Vars.players[playernum]->colourfadetimemax60 < 0) {
 			pass = true;
@@ -5501,7 +5501,7 @@ bool ai00e9(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
-		chrSetWeaponReapable(chr, cmd[3]);
+		weaponDeleteFromChr(chr, cmd[3]);
 	}
 
 	g_Vars.aioffset += 4;
@@ -5536,7 +5536,7 @@ bool aiIfChrAmmoQuantityLessThan(void)
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 		setCurrentPlayerNum(playernum);
 
 		if (bgunGetAmmoCount((s8)cmd[3]) < (s8)cmd[4]) {
@@ -5565,7 +5565,7 @@ bool aiChrDrawWeapon(void)
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 		setCurrentPlayerNum(playernum);
 		bgunEquipWeapon2(0, (s8)cmd[3]);
 		bgunEquipWeapon2(1, 0);
@@ -5587,7 +5587,7 @@ bool aiChrDrawWeaponInCutscene(void)
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 		setCurrentPlayerNum(playernum);
 		bgunEquipWeapon((s8)cmd[3]);
 		setCurrentPlayerNum(prevplayernum);
@@ -5608,7 +5608,7 @@ bool ai00ee(void)
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 		setCurrentPlayerNum(playernum);
 
 		g_Vars.currentplayer->bondforcespeed.x = (s8)cmd[3];
@@ -5663,7 +5663,7 @@ bool aiChrSetInvincible(void)
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 		setCurrentPlayerNum(playernum);
 		g_PlayerInvincible = true;
 		setCurrentPlayerNum(prevplayernum);
@@ -5749,7 +5749,7 @@ bool aiIfPlayerIsInvincible(void)
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 		setCurrentPlayerNum(playernum);
 		pass = g_PlayerInvincible;
 		setCurrentPlayerNum(prevplayernum);
@@ -5875,7 +5875,7 @@ bool aiChrExplosions(void)
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 		setCurrentPlayerNum(playernum);
 		playerSurroundWithExplosions(0);
 		setCurrentPlayerNum(prevplayernum);
@@ -7371,7 +7371,7 @@ glabel var7f1a9d64
 /*  f05a634:	24010006 */ 	li	$at,0x6
 /*  f05a638:	55610015 */ 	bnel	$t3,$at,.PF0f05a690
 /*  f05a63c:	90e20126 */ 	lbu	$v0,0x126($a3)
-/*  f05a640:	0fc4a513 */ 	jal	propGetPlayerNum
+/*  f05a640:	0fc4a513 */ 	jal	playermgrGetPlayerNumByProp
 /*  f05a644:	00000000 */ 	nop
 /*  f05a648:	8e030298 */ 	lw	$v1,0x298($s0)
 /*  f05a64c:	00026080 */ 	sll	$t4,$v0,0x2
@@ -8034,7 +8034,7 @@ glabel var7f1a9d64
 /*  f05a438:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f05a43c:	55610015 */ 	bnel	$t3,$at,.L0f05a494
 /*  f05a440:	90e20126 */ 	lbu	$v0,0x126($a3)
-/*  f05a444:	0fc4a25f */ 	jal	propGetPlayerNum
+/*  f05a444:	0fc4a25f */ 	jal	playermgrGetPlayerNumByProp
 /*  f05a448:	00000000 */ 	nop
 /*  f05a44c:	8e030298 */ 	lw	$v1,0x298($s0)
 /*  f05a450:	00026080 */ 	sll	$t4,$v0,0x2
@@ -8695,7 +8695,7 @@ glabel var7f1a9d64
 /*  f0598a0:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f0598a4:	55610015 */ 	bnel	$t3,$at,.NB0f0598fc
 /*  f0598a8:	90e20126 */ 	lbu	$v0,0x126($a3)
-/*  f0598ac:	0fc48d6f */ 	jal	propGetPlayerNum
+/*  f0598ac:	0fc48d6f */ 	jal	playermgrGetPlayerNumByProp
 /*  f0598b0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0598b4:	8e030298 */ 	lw	$v1,0x298($s0)
 /*  f0598b8:	00026080 */ 	sll	$t4,$v0,0x2
@@ -9284,7 +9284,7 @@ glabel var7f1a9d64
 //	// 420
 //	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 //		// 444
-//		playernum = propGetPlayerNum(chr->prop);
+//		playernum = playermgrGetPlayerNumByProp(chr->prop);
 //
 //		if (g_Vars.coopplayernum >= 0 && g_Vars.players[playernum]->isdead) {
 //			// 470
@@ -10568,7 +10568,7 @@ bool aiPlayerAutoWalk(void)
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 		setCurrentPlayerNum(playernum);
 		playerAutoWalk(pad_id, cmd[5], cmd[6], cmd[7], cmd[8]);
 		setCurrentPlayerNum(prevplayernum);
@@ -10590,7 +10590,7 @@ bool aiIfPlayerAutoWalkFinished(void)
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 		setCurrentPlayerNum(playernum);
 
 		if (g_Vars.tickmode == TICKMODE_AUTOWALK) {
@@ -10621,7 +10621,7 @@ bool aiIfPlayerLookingAtObject(void)
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 		setCurrentPlayerNum(playernum);
 
 		if (g_Vars.currentplayer->lookingatprop.prop == obj->prop) {
@@ -11295,7 +11295,7 @@ bool aiChrGrabObject(void)
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER && obj && obj->prop) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 		setCurrentPlayerNum(playernum);
 
 		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK
@@ -11430,7 +11430,7 @@ bool aiChrSetP1P2(void)
 		struct chrdata *chr2 = chrFindById(g_Vars.chrdata, cmd[3]);
 
 		if (chr1 && chr2 && chr2->prop && chr2->prop->type == PROPTYPE_PLAYER) {
-			u32 playernum = propGetPlayerNum(chr2->prop);
+			u32 playernum = playermgrGetPlayerNumByProp(chr2->prop);
 
 			if (!g_Vars.players[playernum]->isdead) {
 				if (chr2->prop == g_Vars.coop->prop) {
@@ -11580,7 +11580,7 @@ bool aiIfPlayerUsingDevice(void)
 	u8 active = false;
 
 	if (prop && prop->type == PROPTYPE_PLAYER) {
-		u32 playernum = propGetPlayerNum(prop);
+		u32 playernum = playermgrGetPlayerNumByProp(prop);
 		u32 prevplayernum = g_Vars.currentplayernum;
 		setCurrentPlayerNum(playernum);
 
@@ -11623,7 +11623,7 @@ bool aiChrBeginOrEndTeleport(void)
 	prevplayernum = g_Vars.currentplayernum;
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
-		playernum = propGetPlayerNum(chr->prop);
+		playernum = playermgrGetPlayerNumByProp(chr->prop);
 		setCurrentPlayerNum(playernum);
 	}
 
@@ -11678,7 +11678,7 @@ bool aiIfChrTeleportFullWhite(void)
 	struct sndstate *handle;
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
-		u32 playernum = propGetPlayerNum(chr->prop);
+		u32 playernum = playermgrGetPlayerNumByProp(chr->prop);
 		setCurrentPlayerNum(playernum);
 	}
 
@@ -11759,8 +11759,8 @@ bool aiChrSetCutsceneWeapon(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-	s32 model_id = weaponGetModel(cmd[3]);
-	s32 fallback_model_id = weaponGetModel(cmd[4]);
+	s32 model_id = playermgrGetModelOfWeapon(cmd[3]);
+	s32 fallback_model_id = playermgrGetModelOfWeapon(cmd[4]);
 
 	if (chr) {
 		if (cmd[3] == 0xff) {
@@ -11783,8 +11783,8 @@ bool aiChrSetCutsceneWeapon(void)
 					}
 
 					if (valid) {
-						chrSetWeaponReapable(chr, HAND_LEFT);
-						chrSetWeaponReapable(chr, HAND_RIGHT);
+						weaponDeleteFromChr(chr, HAND_LEFT);
+						weaponDeleteFromChr(chr, HAND_RIGHT);
 					}
 				}
 			} else {
@@ -11793,8 +11793,8 @@ bool aiChrSetCutsceneWeapon(void)
 				}
 			}
 		} else {
-			chrSetWeaponReapable(chr, HAND_LEFT);
-			chrSetWeaponReapable(chr, HAND_RIGHT);
+			weaponDeleteFromChr(chr, HAND_LEFT);
+			weaponDeleteFromChr(chr, HAND_RIGHT);
 
 			if (model_id >= 0) {
 				weaponCreateForChr(chr, model_id, cmd[3], 0, NULL, NULL);

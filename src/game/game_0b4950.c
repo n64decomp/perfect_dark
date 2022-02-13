@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/atan2f.h"
 #include "game/game_0b3350.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/bg.h"
 #include "game/texdecompress.h"
 #include "game/game_173a00.h"
@@ -401,7 +401,7 @@ glabel func0f0b5050
 /*  f0b5128:	5b000096 */ 	blezl	$t8,.L0f0b5384
 /*  f0b512c:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f0b5130:
-/*  f0b5130:	0fc4a39e */ 	jal	calculatePlayerIndex
+/*  f0b5130:	0fc4a39e */ 	jal	playermgrGetOrderOfPlayer
 /*  f0b5134:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0b5138:	8e190290 */ 	lw	$t9,0x290($s0)
 /*  f0b513c:	00114080 */ 	sll	$t0,$s1,0x2
@@ -497,7 +497,7 @@ glabel func0f0b5050
 /*  f0b5278:	19e00041 */ 	blez	$t7,.L0f0b5380
 /*  f0b527c:	02202025 */ 	or	$a0,$s1,$zero
 .L0f0b5280:
-/*  f0b5280:	0fc4a39e */ 	jal	calculatePlayerIndex
+/*  f0b5280:	0fc4a39e */ 	jal	playermgrGetOrderOfPlayer
 /*  f0b5284:	afa50034 */ 	sw	$a1,0x34($sp)
 /*  f0b5288:	8e190290 */ 	lw	$t9,0x290($s0)
 /*  f0b528c:	00003025 */ 	or	$a2,$zero,$zero
@@ -644,7 +644,7 @@ glabel func0f0b53a4
 /*  f0b547c:	5b000096 */ 	blezl	$t8,.L0f0b56d8
 /*  f0b5480:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f0b5484:
-/*  f0b5484:	0fc4a39e */ 	jal	calculatePlayerIndex
+/*  f0b5484:	0fc4a39e */ 	jal	playermgrGetOrderOfPlayer
 /*  f0b5488:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0b548c:	8e190290 */ 	lw	$t9,0x290($s0)
 /*  f0b5490:	00114080 */ 	sll	$t0,$s1,0x2
@@ -740,7 +740,7 @@ glabel func0f0b53a4
 /*  f0b55cc:	19e00041 */ 	blez	$t7,.L0f0b56d4
 /*  f0b55d0:	02202025 */ 	or	$a0,$s1,$zero
 .L0f0b55d4:
-/*  f0b55d4:	0fc4a39e */ 	jal	calculatePlayerIndex
+/*  f0b55d4:	0fc4a39e */ 	jal	playermgrGetOrderOfPlayer
 /*  f0b55d8:	afa50034 */ 	sw	$a1,0x34($sp)
 /*  f0b55dc:	8e190290 */ 	lw	$t9,0x290($s0)
 /*  f0b55e0:	00003025 */ 	or	$a2,$zero,$zero

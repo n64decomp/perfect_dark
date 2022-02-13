@@ -29,7 +29,7 @@
 #include "game/mainmenu.h"
 #include "game/filemgr.h"
 #include "game/inventory/inventory.h"
-#include "game/game_127910.h"
+#include "game/playermgr.h"
 #include "game/explosions/explosions.h"
 #include "game/bondview.h"
 #include "game/game_1531a0.h"
@@ -1329,7 +1329,7 @@ void playerTickChrBody(void)
 			weaponnum = g_DefaultWeapons[0];
 		}
 
-		weaponmodelnum = weaponGetModel(weaponnum);
+		weaponmodelnum = playermgrGetModelOfWeapon(weaponnum);
 
 		if (IS4MB()) {
 			bodynum = BODY_DARK_COMBAT;
@@ -2229,7 +2229,7 @@ void playerTickCutscene(bool arg0)
 
 	playerSetCameraMode(CAMERAMODE_THIRDPERSON);
 	player0f0c1bd8(&pos, &up, &look);
-	currentPlayerSetFovY(fovy);
+	playermgrSetFovY(fovy);
 	viSetFovY(fovy);
 
 	if (g_Vars.currentplayerindex == 0) {
@@ -2338,12 +2338,12 @@ void playerUpdateZoom(void)
 		g_Vars.currentplayer->zoominfovy = g_Vars.currentplayer->zoominfovynew;
 	}
 
-	currentPlayerSetFovY(g_Vars.currentplayer->zoominfovy);
+	playermgrSetFovY(g_Vars.currentplayer->zoominfovy);
 	viSetFovY(g_Vars.currentplayer->zoominfovy);
 
 	if (g_Vars.currentplayer->teleportstate != TELEPORTSTATE_INACTIVE) {
 		fovy = playerGetTeleportFovY();
-		currentPlayerSetFovY(fovy);
+		playermgrSetFovY(fovy);
 		viSetFovY(fovy);
 	}
 
@@ -3661,7 +3661,7 @@ void playerTickTeleport(f32 *aspectratio)
 
 	if (g_Vars.currentplayer->teleportstate != TELEPORTSTATE_INACTIVE) {
 		f32 fovy = playerGetTeleportFovY();
-		currentPlayerSetFovY(fovy);
+		playermgrSetFovY(fovy);
 		viSetFovY(fovy);
 	}
 }
@@ -3673,10 +3673,10 @@ void playerConfigureVi(void)
 
 	func0f1531dc(false);
 
-	currentPlayerSetFovY(60);
-	currentPlayerSetAspectRatio(ratio);
-	currentPlayerSetViewSize(playerGetViewportWidth(), playerGetViewportHeight());
-	currentPlayerSetViewPosition(playerGetViewportLeft(), playerGetViewportTop());
+	playermgrSetFovY(60);
+	playermgrSetAspectRatio(ratio);
+	playermgrSetViewSize(playerGetViewportWidth(), playerGetViewportHeight());
+	playermgrSetViewPosition(playerGetViewportLeft(), playerGetViewportTop());
 
 	viSetMode(g_ViModes[g_ViRes].xscale);
 
@@ -3735,10 +3735,10 @@ void playerTick(bool arg0)
 		return;
 	}
 
-	currentPlayerSetFovY(60);
-	currentPlayerSetAspectRatio(aspectratio);
-	currentPlayerSetViewSize(playerGetViewportWidth(), playerGetViewportHeight());
-	currentPlayerSetViewPosition(playerGetViewportLeft(), playerGetViewportTop());
+	playermgrSetFovY(60);
+	playermgrSetAspectRatio(aspectratio);
+	playermgrSetViewSize(playerGetViewportWidth(), playerGetViewportHeight());
+	playermgrSetViewPosition(playerGetViewportLeft(), playerGetViewportTop());
 
 	viSetMode(g_ViModes[g_ViRes].xscale);
 	viSetFovAspectAndSize(60, aspectratio, playerGetViewportWidth(), playerGetViewportHeight());
@@ -3881,7 +3881,7 @@ void playerTick(bool arg0)
 			&& g_Vars.currentplayer->eyespy->active) {
 		// Controlling an eyespy
 		struct coord sp308;
-		currentPlayerSetFovY(120);
+		playermgrSetFovY(120);
 		viSetFovY(120);
 		sp308.x = g_Vars.currentplayer->eyespy->prop->pos.x;
 		sp308.y = g_Vars.currentplayer->eyespy->prop->pos.y;
@@ -5875,7 +5875,7 @@ void playersClearMemCamRoom(void)
 
 void playerSetPerimEnabled(struct prop *prop, bool enable)
 {
-	u32 playernum = propGetPlayerNum(prop);
+	u32 playernum = playermgrGetPlayerNumByProp(prop);
 
 	if (g_Vars.players[playernum]->haschrbody) {
 		chrSetPerimEnabled(prop->chr, enable);
@@ -5894,7 +5894,7 @@ void playerSetPerimEnabled(struct prop *prop, bool enable)
 
 bool playerUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 {
-	s32 playernum = propGetPlayerNum(prop);
+	s32 playernum = playermgrGetPlayerNumByProp(prop);
 
 	if (g_Vars.players[playernum]->bondperimenabled
 			&& (!g_Vars.mplayerisrunning || !g_Vars.players[playernum]->isdead)) {
@@ -5953,7 +5953,7 @@ void playerUpdatePerimInfo(void)
  */
 void playerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 {
-	s32 playernum = propGetPlayerNum(prop);
+	s32 playernum = playermgrGetPlayerNumByProp(prop);
 
 	*width = g_Vars.players[playernum]->bond2.width;
 	*ymin = g_Vars.currentplayer->vv_manground + 30;
@@ -6015,8 +6015,8 @@ s32 playerGetMissionTime(void)
 
 s32 playerTickBeams(struct prop *prop)
 {
-	beamTick(&g_Vars.players[propGetPlayerNum(prop)]->hands[0].beam);
-	beamTick(&g_Vars.players[propGetPlayerNum(prop)]->hands[1].beam);
+	beamTick(&g_Vars.players[playermgrGetPlayerNumByProp(prop)]->hands[0].beam);
+	beamTick(&g_Vars.players[playermgrGetPlayerNumByProp(prop)]->hands[1].beam);
 
 	if (prop->chr && g_Vars.mplayerisrunning) {
 		struct chrdata *chr = prop->chr;
@@ -6035,7 +6035,7 @@ s32 playerTickBeams(struct prop *prop)
 
 s32 playerTickThirdPerson(struct prop *prop)
 {
-	s32 playernum = propGetPlayerNum(prop);
+	s32 playernum = playermgrGetPlayerNumByProp(prop);
 	struct player *player = g_Vars.players[playernum];
 	struct chrdata *chr = prop->chr;
 	s32 i;
@@ -6285,7 +6285,7 @@ void playerChooseThirdPersonAnimation(struct chrdata *chr, s32 crouchpos, f32 sp
 		struct prop *chrprop = chr->prop;
 
 		if (chrprop->type == PROPTYPE_PLAYER
-				&& g_Vars.players[propGetPlayerNum(chrprop)]->bondmovemode == MOVEMODE_BIKE) {
+				&& g_Vars.players[playermgrGetPlayerNumByProp(chrprop)]->bondmovemode == MOVEMODE_BIKE) {
 			// Player on a hoverbike
 			if (leftprop && rightprop) {
 				wieldmode = WIELDMODE_DUALGUNS;
@@ -6374,7 +6374,7 @@ void playerChooseThirdPersonAnimation(struct chrdata *chr, s32 crouchpos, f32 sp
 					}
 				} else if (turnspeed < 0.4f
 						|| (chr->prop->type == PROPTYPE_PLAYER
-							&& g_Vars.players[propGetPlayerNum(chr->prop)]->headanim == 0)) {
+							&& g_Vars.players[playermgrGetPlayerNumByProp(chr->prop)]->headanim == 0)) {
 					turnmode = TURNMODE_STAND_SOFTTURN;
 					speed = 2.0f * turnspeed;
 
@@ -6468,7 +6468,7 @@ void playerChooseThirdPersonAnimation(struct chrdata *chr, s32 crouchpos, f32 sp
 
 Gfx *playerRender(struct prop *prop, Gfx *gdl, bool withalpha)
 {
-	if (g_Vars.players[propGetPlayerNum(prop)]->haschrbody) {
+	if (g_Vars.players[playermgrGetPlayerNumByProp(prop)]->haschrbody) {
 		gdl = chrRender(prop, gdl, withalpha);
 	}
 
