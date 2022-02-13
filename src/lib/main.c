@@ -1702,18 +1702,11 @@ void main000e000nb(void)
 {
 	var8005d9bc = true;
 }
-#endif
 
-#if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0000e010nb
-/*     e010:	3c028006 */ 	lui	$v0,0x8006
-/*     e014:	2442f2e0 */ 	addiu	$v0,$v0,-3360
-/*     e018:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*     e01c:	39cf0001 */ 	xori	$t7,$t6,0x1
-/*     e020:	03e00008 */ 	jr	$ra
-/*     e024:	ac4f0000 */ 	sw	$t7,0x0($v0)
-);
+void main000e010nb(void)
+{
+	var8005d9c0 ^= 1;
+}
 #endif
 
 void mainProc(void)
