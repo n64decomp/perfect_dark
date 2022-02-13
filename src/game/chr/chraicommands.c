@@ -6023,48 +6023,18 @@ bool ai0103(void)
 /**
  * @cmd 0104
  */
-GLOBAL_ASM(
-glabel aiRemoveObjectAtPropPreset
-/*  f058b08:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f058b0c:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f058b10:	8ca30424 */ 	lw	$v1,0x424($a1)
-/*  f058b14:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f058b18:	8462012c */ 	lh	$v0,0x12c($v1)
-/*  f058b1c:	0440000c */ 	bltz	$v0,.L0f058b50
-/*  f058b20:	000270c0 */ 	sll	$t6,$v0,0x3
-/*  f058b24:	8caf0338 */ 	lw	$t7,0x338($a1)
-/*  f058b28:	01c27021 */ 	addu	$t6,$t6,$v0
-/*  f058b2c:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f058b30:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f058b34:	8f040004 */ 	lw	$a0,0x4($t8)
-/*  f058b38:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f058b3c:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f058b40:	8c990040 */ 	lw	$t9,0x40($a0)
-/*  f058b44:	03214024 */ 	and	$t0,$t9,$at
-/*  f058b48:	ac880040 */ 	sw	$t0,0x40($a0)
-/*  f058b4c:	8ca30424 */ 	lw	$v1,0x424($a1)
-.L0f058b50:
-/*  f058b50:	a469012c */ 	sh	$t1,0x12c($v1)
-/*  f058b54:	8caa0438 */ 	lw	$t2,0x438($a1)
-/*  f058b58:	00001025 */ 	or	$v0,$zero,$zero
-/*  f058b5c:	254b0002 */ 	addiu	$t3,$t2,0x2
-/*  f058b60:	03e00008 */ 	jr	$ra
-/*  f058b64:	acab0438 */ 	sw	$t3,0x438($a1)
-);
+bool aiRemoveObjectAtPropPreset(void)
+{
+	if (g_Vars.chrdata->proppreset1 >= 0) {
+		struct defaultobj *obj = (g_Vars.props + g_Vars.chrdata->proppreset1)->obj;
+		obj->hidden &= ~OBJHFLAG_OCCUPIEDCHAIR;
+	}
 
-// Mismatch due to temporary registers
-//bool aiRemoveObjectAtPropPreset(void)
-//{
-//	if (g_Vars.chrdata->proppreset1 >= 0) {
-//		struct defaultobj *obj = g_Vars.props[g_Vars.chrdata->proppreset1].obj;
-//		obj->hidden &= ~OBJHFLAG_OCCUPIEDCHAIR;
-//	}
-//
-//	g_Vars.chrdata->proppreset1 = -1;
-//	g_Vars.aioffset += 2;
-//
-//	return false;
-//}
+	g_Vars.chrdata->proppreset1 = -1;
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 0105
