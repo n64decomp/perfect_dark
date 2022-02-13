@@ -5337,24 +5337,27 @@ bool aiGrantControl(void)
 /**
  * @cmd 00e2
  */
-#if VERSION >= VERSION_NTSC_1_0
 bool aiChrMoveToPad(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	struct chrdata *chr = chrFindById(g_Vars.chrdata,cmd[2]);
+#if VERSION < VERSION_NTSC_1_0
+	s32 padnum = cmd[4] | (cmd[3] << 8);
+#endif
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	bool pass = false;
-	f32 somefloat;
+	f32 theta;
 	struct pad pad;
 	s16 rooms[2];
 	struct chrdata *chr2;
 
 	if (chr && chr->prop) {
+#if VERSION >= VERSION_NTSC_1_0
 		if (cmd[5] == 88) {
 			chr2 = chrFindById(g_Vars.chrdata, cmd[4]);
 
 			if (chr2 && chr2->prop) {
-				somefloat = chrGetInverseTheta(chr2);
-				pass = chrMoveToPos(chr, &chr2->prop->pos, chr2->prop->rooms, somefloat, 0);
+				theta = chrGetInverseTheta(chr2);
+				pass = chrMoveToPos(chr, &chr2->prop->pos, chr2->prop->rooms, theta, 0);
 			}
 		} else {
 			s32 padnum = cmd[4] | (cmd[3] << 8);
@@ -5362,13 +5365,23 @@ bool aiChrMoveToPad(void)
 
 			if (padnum >= 0) {
 				padUnpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_ROOM, &pad);
-				somefloat = atan2f(pad.look.x, pad.look.z);
+				theta = atan2f(pad.look.x, pad.look.z);
 
 				rooms[0] = pad.room;
 				rooms[1] = -1;
-				pass = chrMoveToPos(chr, &pad.pos, rooms, somefloat, cmd[5]);
+				pass = chrMoveToPos(chr, &pad.pos, rooms, theta, cmd[5]);
 			}
 		}
+#else
+		padnum = chrResolvePadId(chr, padnum);
+
+		padUnpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_ROOM, &pad);
+		theta = atan2f(pad.look.x, pad.look.z);
+
+		rooms[0] = pad.room;
+		rooms[1] = -1;
+		pass = chrMoveToPos(chr, &pad.pos, rooms, theta, cmd[5]);
+#endif
 	}
 
 	if (pass) {
@@ -5379,76 +5392,6 @@ bool aiChrMoveToPad(void)
 
 	return false;
 }
-#else
-GLOBAL_ASM(
-glabel aiChrMoveToPad
-/*  f056b9c:	27bdff68 */ 	addiu	$sp,$sp,-152
-/*  f056ba0:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f056ba4:	3c10800a */ 	lui	$s0,0x800a
-/*  f056ba8:	2610e6c0 */ 	addiu	$s0,$s0,-6464
-/*  f056bac:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f056bb0:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f056bb4:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f056bb8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f056bbc:	01cf8821 */ 	addu	$s1,$t6,$t7
-/*  f056bc0:	92380003 */ 	lbu	$t8,0x3($s1)
-/*  f056bc4:	92280004 */ 	lbu	$t0,0x4($s1)
-/*  f056bc8:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f056bcc:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f056bd0:	03284825 */ 	or	$t1,$t9,$t0
-/*  f056bd4:	afa90090 */ 	sw	$t1,0x90($sp)
-/*  f056bd8:	0fc123d5 */ 	jal	chrFindById
-/*  f056bdc:	92250002 */ 	lbu	$a1,0x2($s1)
-/*  f056be0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f056be4:	1040001a */ 	beqz	$v0,.NB0f056c50
-/*  f056be8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f056bec:	8c4a001c */ 	lw	$t2,0x1c($v0)
-/*  f056bf0:	8fa50090 */ 	lw	$a1,0x90($sp)
-/*  f056bf4:	11400016 */ 	beqz	$t2,.NB0f056c50
-/*  f056bf8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f056bfc:	0fc1228f */ 	jal	chrResolvePadId
-/*  f056c00:	afa2008c */ 	sw	$v0,0x8c($sp)
-/*  f056c04:	00402025 */ 	or	$a0,$v0,$zero
-/*  f056c08:	24050046 */ 	addiu	$a1,$zero,0x46
-/*  f056c0c:	0fc43fc4 */ 	jal	padUnpack
-/*  f056c10:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f056c14:	c7ac003c */ 	lwc1	$f12,0x3c($sp)
-/*  f056c18:	0fc251b8 */ 	jal	atan2f
-/*  f056c1c:	c7ae0044 */ 	lwc1	$f14,0x44($sp)
-/*  f056c20:	8fab0078 */ 	lw	$t3,0x78($sp)
-/*  f056c24:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f056c28:	a7ac002e */ 	sh	$t4,0x2e($sp)
-/*  f056c2c:	a7ab002c */ 	sh	$t3,0x2c($sp)
-/*  f056c30:	922d0005 */ 	lbu	$t5,0x5($s1)
-/*  f056c34:	44070000 */ 	mfc1	$a3,$f0
-/*  f056c38:	8fa4008c */ 	lw	$a0,0x8c($sp)
-/*  f056c3c:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*  f056c40:	27a6002c */ 	addiu	$a2,$sp,0x2c
-/*  f056c44:	0fc12a6e */ 	jal	chrMoveToPos
-/*  f056c48:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f056c4c:	00401825 */ 	or	$v1,$v0,$zero
-.NB0f056c50:
-/*  f056c50:	50600008 */ 	beqzl	$v1,.NB0f056c74
-/*  f056c54:	8e0e0438 */ 	lw	$t6,0x438($s0)
-/*  f056c58:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f056c5c:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f056c60:	0fc132f7 */ 	jal	chraiGoToLabel
-/*  f056c64:	92260006 */ 	lbu	$a2,0x6($s1)
-/*  f056c68:	10000004 */ 	beqz	$zero,.NB0f056c7c
-/*  f056c6c:	ae020438 */ 	sw	$v0,0x438($s0)
-/*  f056c70:	8e0e0438 */ 	lw	$t6,0x438($s0)
-.NB0f056c74:
-/*  f056c74:	25cf0007 */ 	addiu	$t7,$t6,0x7
-/*  f056c78:	ae0f0438 */ 	sw	$t7,0x438($s0)
-.NB0f056c7c:
-/*  f056c7c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f056c80:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f056c84:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f056c88:	27bd0098 */ 	addiu	$sp,$sp,0x98
-/*  f056c8c:	03e00008 */ 	jr	$ra
-/*  f056c90:	00001025 */ 	or	$v0,$zero,$zero
-);
-#endif
 
 /**
  * @cmd 00e3
