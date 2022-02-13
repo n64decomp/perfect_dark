@@ -64,7 +64,7 @@
 s32 var8005d9b0 = 0;
 s32 g_StageNum = STAGE_TITLE;
 u32 g_MainMemaHeapSize = 1024 * 300;
-s32 var8005d9bc = 0;
+bool var8005d9bc = false;
 s32 var8005d9c0 = 0;
 s32 var8005d9c4 = 0;
 bool g_MainGameLogicEnabled = true;
@@ -1698,13 +1698,10 @@ s32 g_MainChangeToStageNum = -1;
 bool g_MainIsDebugMenuOpen = false;
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0000e000nb
-/*     e000:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*     e004:	3c018006 */ 	lui	$at,0x8006
-/*     e008:	03e00008 */ 	jr	$ra
-/*     e00c:	ac2ef2dc */ 	sw	$t6,-0xd24($at)
-);
+void main000e000nb(void)
+{
+	var8005d9bc = true;
+}
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
