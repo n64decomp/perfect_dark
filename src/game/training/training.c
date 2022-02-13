@@ -4,7 +4,7 @@
 #include "game/dlights.h"
 #include "game/prop.h"
 #include "game/game_092610.h"
-#include "game/game_095320.h"
+#include "game/objectives.h"
 #include "game/atan2f.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"

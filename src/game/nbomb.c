@@ -7,7 +7,7 @@
 #include "game/chr/chr.h"
 #include "game/chr/chraction.h"
 #include "game/prop.h"
-#include "game/game_095320.h"
+#include "game/objectives.h"
 #include "game/atan2f.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b4950.h"

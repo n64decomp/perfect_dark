@@ -2,12 +2,13 @@
 #include "constants.h"
 #include "game/camdraw.h"
 #include "game/game_006900.h"
-#include "game/game_095320.h"
+#include "game/objectives.h"
 #include "game/game_0b3350.h"
 #include "game/menugfx.h"
 #include "game/menuitem.h"
 #include "game/menu.h"
 #include "game/mainmenu.h"
+#include "game/objectives.h"
 #include "game/game_1531a0.h"
 #include "game/lv.h"
 #include "game/game_19aa80.h"
@@ -22,10 +23,6 @@
 #include "types.h"
 
 u8 g_MpSelectedPlayersForStats[4];
-
-const char var7f1adfa0[] = "brcol";
-const char var7f1adfa8[] = "%d: ";
-const char var7f1adfb0[] = "%s";
 
 #if VERSION >= VERSION_NTSC_1_0
 s32 g_ScissorX1 = 0;
@@ -3477,11 +3474,11 @@ Gfx *menuitemSeparatorRender(Gfx *gdl, struct menurendercontext *context)
 			colour, colour);
 }
 
-u32 var800711e8 = 0;
+u32 var800711e8 = 0x00000000;
 
 #if PAL
 GLOBAL_ASM(
-glabel menuitemObjectiveRender
+glabel menuitemObjectivesRenderOne
 /*  f0e98ac:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f0e98b0:	8fae0154 */ 	lw	$t6,0x154($sp)
 /*  f0e98b4:	afbf003c */ 	sw	$ra,0x3c($sp)
@@ -4134,7 +4131,7 @@ glabel menuitemObjectiveRender
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel menuitemObjectiveRender
+glabel menuitemObjectivesRenderOne
 /*  f0e98ac:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f0e98b0:	8fae0154 */ 	lw	$t6,0x154($sp)
 /*  f0e98b4:	afbf003c */ 	sw	$ra,0x3c($sp)
@@ -4787,7 +4784,7 @@ glabel menuitemObjectiveRender
 );
 #else
 GLOBAL_ASM(
-glabel menuitemObjectiveRender
+glabel menuitemObjectivesRenderOne
 /*  f0e6a20:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f0e6a24:	8fae0154 */ 	lw	$t6,0x154($sp)
 /*  f0e6a28:	afbf003c */ 	sw	$ra,0x3c($sp)
@@ -5440,6 +5437,176 @@ glabel menuitemObjectiveRender
 );
 #endif
 
+const char var7f1adfa0[] = "brcol";
+const char var7f1adfa8[] = "%d: ";
+const char var7f1adfb0[] = "%s";
+
+// Mismatch: Stack usage is different. Target appears to use compiler-managed
+// stack from 0x44 and below, which means the vars from 0x48 to 0x6c are real
+// variables, and many are optimised out.
+//Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index, s32 position, s16 objx, s16 objy, s16 width, s16 height, bool withstatus, s32 arg9)
+//{
+//	u32 sp12c;
+//	s32 x; // 128
+//	s32 y; // 124
+//	char *sp120;
+//	char buffer[80]; // d0
+//	char *spcc;
+//	u32 spc8;
+//	s32 textwidth; // c4
+//	s32 textheight; // c0
+//	s32 spbc;
+//	s32 tmp;
+//	s32 spb4;
+//	s32 spb0;
+//	s32 spac;
+//	s32 spa8;
+//	u32 stack3[2];
+//	s32 sp9c;
+//	s32 sp98;
+//	u32 s0;
+//	s32 stack[4];
+//	s32 sp80;
+//	s32 sp7c;
+//	s32 sp78;
+//	s32 sp74;
+//	s32 stack2;
+//	s32 sp6c;
+//	s32 sp58;
+//	s32 sp54;
+//
+//	spbc = 0;
+//
+//	if (arg9) {
+//		spbc = PAL ? 16 : 12;
+//	}
+//
+//	mainOverrideVariable("brcol", &var800711e8);
+//	sp120 = langGet(g_Briefing.objectivenames[index]);
+//	y = objy;
+//	sp12c = MIXCOLOUR(dialog, unfocused);
+//
+//	if (dialog->dimmed) {
+//		sp12c = (colourBlend(sp12c, 0, 0x2c) & 0xffffff00) | (sp12c & 0xff);
+//	}
+//
+//	func0f153e38(g_MenuColourPalettes3[dialog->type].unfocused, g_MenuColourPalettes2[dialog->type].unfocused);
+//	buffer[0] = '\0';
+//
+//	// Render objective number
+//	gdl = func0f153628(gdl);
+//	sprintf(buffer, "%d: ", position);
+//	textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+//	x = objx - textwidth + 25;
+//	gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, sp12c, width, height, 0, 0);
+//
+//	x = objx + 25;
+//
+//	if (arg9) {
+//		textWrap(85, sp120, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs);
+//		gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, sp12c, width, height, 0, 0);
+//	} else {
+//		sprintf(buffer, "%s", sp120);
+//		gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, sp12c, width, height, 0, 0);
+//	}
+//
+//	if (withstatus) {
+//		switch (objectiveCheck(index)) {
+//		case OBJECTIVE_INCOMPLETE:
+//			spcc = langGet(L_OPTIONS_001); // "Incomplete"
+//			spc8 = 0xffff00ff;
+//			break;
+//		case OBJECTIVE_COMPLETE:
+//			spcc = langGet(L_OPTIONS_000); // "Complete"
+//			spc8 = 0x00ff00ff;
+//			break;
+//		case OBJECTIVE_FAILED:
+//			spcc = langGet(L_OPTIONS_002); // "Failed"
+//			spc8 = 0xff4040ff;
+//			break;
+//		}
+//
+//		if (dialog != g_Menus[g_MpPlayerNum].curdialog) {
+//			spc8 = g_MenuColourPalettes[0].unfocused;
+//		}
+//
+//		textMeasure(&textheight, &textwidth, spcc, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
+//
+//		if (var800711e8 != 0) {
+//			spc8 = var800711e8;
+//		}
+//
+//		x = objx + width - textwidth - 10;
+//		y = objy + spbc + 9;
+//
+//		gdl = textRenderProjected(gdl, &x, &y, spcc, g_CharsHandelGothicXs, g_FontHandelGothicXs, spc8, width, height, 0, 0);
+//
+//		x = objx + width - textwidth - 10;
+//		y = objy + spbc + 9;
+//
+//		gdl = textRenderProjected(gdl, &x, &y, spcc, g_CharsHandelGothicXs, g_FontHandelGothicXs, spc8 & 0xffffff7f, width, height, 0, 0);
+//
+//		x = objx + width - textwidth - 13;
+//		y = objy + 9;
+//
+//		gdl = func0f153780(gdl);
+//
+//		spb4 = objx + 22;
+//		spb0 = objy - 2;
+//		spac = objy + 8;
+//		spa8 = y + spbc + 2;
+//		tmp = (objx * 3 + objx + 66) / 4;
+//		sp9c = x;
+//		sp98 = tmp + 19 + (sp9c - tmp - 24) * (position - 1) / 5;
+//
+//		sp58 = (objx * 3 + objx + 66) / 4 - 1;
+//		sp54 = (objx * 3 + objx + 66) / 4 + 14;
+//
+//		gdl = menugfx0f0e2498(gdl);
+//
+//		// Blue lines
+//		gdl = menugfxDrawTessellatedRect(gdl, objx, spb0, spb4, spb0 + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
+//		gdl = menugfxDrawTessellatedRect(gdl, spb4, spb0, spb4 + 1, spac, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+//		gdl = menugfxDrawTessellatedRect(gdl, objx, spac, sp58, spac + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
+//		gdl = menugfxDrawTessellatedRect(gdl, sp58 + 3, spac, spb4 + 1, spac + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+//		gdl = menugfxDrawTessellatedRect(gdl, sp58, spac, sp58 + 1, spa8 + 2, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+//		gdl = menugfxDrawTessellatedRect(gdl, sp58 + 2, spac, sp58 + 3, spa8, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+//		gdl = menugfxDrawTessellatedRect(gdl, sp58 + 2, spa8, sp54, spa8 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+//		gdl = menugfxDrawTessellatedRect(gdl, sp58, spa8 + 2, sp54, spa8 + 3, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+//		gdl = menugfxDrawTessellatedRect(gdl, sp54, spa8, sp98, spa8 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+//		gdl = menugfxDrawTessellatedRect(gdl, sp54, spa8 + 2, sp98, spa8 + 3, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+//
+//		// Coloured lines
+//		gdl = menugfxDrawTessellatedRect(gdl, sp98, spa8, sp98 + 1, spa8 + 3, (spc8 & 0xffffff00) | 0x3f, (spc8 & 0xffffff00) | 0x3f);
+//		gdl = menugfxDrawTessellatedRect(gdl, sp98 + 1, spa8 + 1, sp9c - 4, spa8 + 2, (spc8 & 0xffffff00) | 0x3f, (spc8 & 0xffffff00) | 0x3f);
+//		gdl = menugfxDrawTessellatedRect(gdl, sp9c - 4, spa8 + 1, sp9c, spa8 + 2, (spc8 & 0xffffff00) | 0x3f, spc8 & 0xffffff00 | 0xcf);
+//	} else {
+//		// Render lines without status
+//		sp80 = objx + 22;
+//		sp7c = objy - 2;
+//		sp78 = objy + 8;
+//		sp74 = y + 1;
+//
+//		textMeasure(&textheight, &textwidth, sp120, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+//
+//		sp6c = objx + textwidth + 25;
+//		sp58 = (objx * 3 + objx + 66) / 4 - 1;
+//
+//		gdl = func0f153780(gdl);
+//		gdl = menugfx0f0e2498(gdl);
+//
+//		gdl = menugfxDrawTessellatedRect(gdl, objx, sp7c, sp80, sp7c + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
+//		gdl = menugfxDrawTessellatedRect(gdl, sp80, sp7c, sp80 + 1, sp78, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+//		gdl = menugfxDrawTessellatedRect(gdl, objx, sp78, sp58, sp78 + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
+//		gdl = menugfxDrawTessellatedRect(gdl, sp58 + 3, sp78, sp80 + 1, sp78 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+//		gdl = menugfxDrawTessellatedRect(gdl, sp58, sp78, sp58 + 1, sp74 + 2, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+//		gdl = menugfxDrawTessellatedRect(gdl, sp58 + 2, sp78, sp58 + 3, sp74, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+//		gdl = menugfxDrawTessellatedRect(gdl, sp58 + 2, sp74, sp6c, sp74 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+//	}
+//
+//	return gdl;
+//}
+
 Gfx *menuitemObjectivesRender(Gfx *gdl, struct menurendercontext *context)
 {
 	s32 y = context->y + 5;
@@ -5447,9 +5614,8 @@ Gfx *menuitemObjectivesRender(Gfx *gdl, struct menurendercontext *context)
 	s32 i;
 
 	for (i = 0; i < 6; i++) {
-		if (g_Briefing.objectivenames[i]
-				&& g_Briefing.objectivedifficulties[i] & (1 << lvGetDifficulty())) {
-			gdl = menuitemObjectiveRender(gdl,
+		if (g_Briefing.objectivenames[i] && g_Briefing.objectivedifficulties[i] & (1 << lvGetDifficulty())) {
+			gdl = menuitemObjectivesRenderOne(gdl,
 					context->dialog,
 					i, position, context->x, y, context->width, context->height,
 					context->item->param != 1,

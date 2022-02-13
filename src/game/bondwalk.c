@@ -9,7 +9,7 @@
 #include "game/chr/chr.h"
 #include "game/prop.h"
 #include "game/game_092610.h"
-#include "game/game_095320.h"
+#include "game/objectives.h"
 #include "game/bondgun.h"
 #include "game/player.h"
 #include "game/inventory/inventory.h"
