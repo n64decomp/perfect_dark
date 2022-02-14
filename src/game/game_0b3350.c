@@ -473,7 +473,7 @@ glabel func0f0b35b8
 void func0f0b3988(struct textureconfig *config)
 {
 	if ((u32)config->texturenum < 0xdaf) {
-		func0f173434(config, 1, 0, 0);
+		texLoadFromConfigs(config, 1, 0, 0);
 	}
 }
 
@@ -542,7 +542,7 @@ glabel func0f0b39c0
 /*  f0b3aa4:	10200004 */ 	beqz	$at,.L0f0b3ab8
 /*  f0b3aa8:	03202025 */ 	or	$a0,$t9,$zero
 /*  f0b3aac:	8fa60188 */ 	lw	$a2,0x188($sp)
-/*  f0b3ab0:	0fc5cd0d */ 	jal	func0f173434
+/*  f0b3ab0:	0fc5cd0d */ 	jal	texLoadFromConfigs
 /*  f0b3ab4:	00003825 */ 	or	$a3,$zero,$zero
 .L0f0b3ab8:
 /*  f0b3ab8:	8fae0174 */ 	lw	$t6,0x174($sp)

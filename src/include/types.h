@@ -5237,10 +5237,9 @@ struct weatherparticledata {
 };
 
 struct texture {
-	u8 soundsurfacetype : 4;
-	u8 surfacetype : 4;
-	u8 unk01;
-	u16 dataoffset;
+	u32 soundsurfacetype : 4;
+	u32 surfacetype : 4;
+	u32 dataoffset : 24;
 	u32 unk04;
 };
 
@@ -6755,6 +6754,31 @@ struct awardmetrics {
 	/*0x30*/ s32 longestlife;
 	/*0x34*/ s32 shortestlife;
 	/*0x38*/ f32 accuracyfrac;
+};
+
+struct texturething {
+	struct texloadthing *unk00; // void * - same as unk0c
+	struct texloadthing *unk04;
+	struct texloadthing *unk08; // texturenum
+	struct texloadthing *unk0c; // void * - same as unk00
+};
+
+struct texloadthing {
+	u16 unk00_00 : 12;
+	u16 unk00_0c : 4;
+	void *unk04;
+	s16 unk08;
+	u16 unk0a;
+	union {
+		u32 unk0c;
+		struct {
+			u32 unk0c_00 : 1;
+			u32 unk0c_01 : 1;
+			u32 unk0c_02 : 1;
+			u32 unk0c_03 : 1;
+			u32 unk0c_04 : 24;
+		};
+	};
 };
 
 #endif

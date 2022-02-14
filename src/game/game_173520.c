@@ -80,12 +80,12 @@ void texturesLoadConfigs(void)
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_TcExplosionTexturePairs); i++) {
-		func0f173010(&g_ExplosionTexturePairs[i].texturenum1, 0, 0);
-		func0f173010(&g_ExplosionTexturePairs[i].texturenum2, 0, 0);
+		texLoad(&g_ExplosionTexturePairs[i].texturenum1, 0, 0);
+		texLoad(&g_ExplosionTexturePairs[i].texturenum2, 0, 0);
 	}
 
-	func0f172f5c(g_TexGdl1, 0, 0);
-	func0f172f5c(g_TexGdl3, 0, 0);
+	texLoadFromDisplayList(g_TexGdl1, 0, 0);
+	texLoadFromDisplayList(g_TexGdl3, 0, 0);
 
 	stage = mainGetStageNum();
 

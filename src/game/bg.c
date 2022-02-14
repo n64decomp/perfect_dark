@@ -3954,7 +3954,7 @@ void bgInit(s32 stagenum)
 	inflatedsize = (*(u16 *)&header[0] & 0x7fff) >> 1;
 
 	for (i = 0; i != inflatedsize; i++) {
-		func0f1734e8(section2[i], NULL);
+		texLoadFromTextureNum(section2[i], NULL);
 	}
 
 	if (i);
@@ -4147,7 +4147,7 @@ glabel bgInit
 /*  f155f04:	8fa4005c */ 	lw	$a0,0x5c($sp)
 .NB0f155f08:
 /*  f155f08:	96240000 */ 	lhu	$a0,0x0($s1)
-/*  f155f0c:	0fc5b860 */ 	jal	func0f1734e8
+/*  f155f0c:	0fc5b860 */ 	jal	texLoadFromTextureNum
 /*  f155f10:	00002825 */ 	or	$a1,$zero,$zero
 /*  f155f14:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f155f18:	1612fffb */ 	bne	$s0,$s2,.NB0f155f08

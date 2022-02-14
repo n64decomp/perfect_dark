@@ -17,10 +17,10 @@ const char var7f1b2388nb[] = "texdecompress.c";
 
 struct texture *g_Textures;
 u32 var800aabc4;
-u32 var800aabc8[4];
+struct texturething var800aabc8;
 u8 var800aabd8[2400];
 u32 var800ab538;
-u32 var800ab53c;
+s32 var800ab53c;
 u8 *var800ab540;
 u32 var800ab544;
 s32 var800ab548;
@@ -154,7 +154,7 @@ void func0f16e810(u32 arg0)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f16e818
+glabel texLoadZlib
 /*  f16e818:	27bde160 */ 	addiu	$sp,$sp,-7840
 /*  f16e81c:	afbf004c */ 	sw	$ra,0x4c($sp)
 /*  f16e820:	afb60040 */ 	sw	$s6,0x40($sp)
@@ -545,7 +545,7 @@ glabel func0f16e818
 );
 #else
 GLOBAL_ASM(
-glabel func0f16e818
+glabel texLoadZlib
 /*  f1693c8:	27bde0a8 */ 	addiu	$sp,$sp,-8024
 /*  f1693cc:	afbf007c */ 	sw	$ra,0x7c($sp)
 /*  f1693d0:	afb60070 */ 	sw	$s6,0x70($sp)
@@ -2133,28 +2133,28 @@ s32 func0f16fd50(u16 *arg0, s32 arg1, s32 arg2, s32 arg3)
 }
 
 GLOBAL_ASM(
-glabel func0f16fde4
+glabel texLoadNonZlib
 .late_rodata
 glabel var7f1b7a50
-.word func0f16fde4+0x268 # f17004c
+.word texLoadNonZlib+0x268 # f17004c
 glabel var7f1b7a54
-.word func0f16fde4+0x268 # f17004c
+.word texLoadNonZlib+0x268 # f17004c
 glabel var7f1b7a58
-.word func0f16fde4+0x28c # f170070
+.word texLoadNonZlib+0x28c # f170070
 glabel var7f1b7a5c
-.word func0f16fde4+0x324 # f170108
+.word texLoadNonZlib+0x324 # f170108
 glabel var7f1b7a60
-.word func0f16fde4+0x3d8 # f1701bc
+.word texLoadNonZlib+0x3d8 # f1701bc
 glabel var7f1b7a64
-.word func0f16fde4+0x464 # f170248
+.word texLoadNonZlib+0x464 # f170248
 glabel var7f1b7a68
-.word func0f16fde4+0x4b0 # f170294
+.word texLoadNonZlib+0x4b0 # f170294
 glabel var7f1b7a6c
-.word func0f16fde4+0x518 # f1702fc
+.word texLoadNonZlib+0x518 # f1702fc
 glabel var7f1b7a70
-.word func0f16fde4+0x57c # f170360
+.word texLoadNonZlib+0x57c # f170360
 glabel var7f1b7a74
-.word func0f16fde4+0x650 # f170434
+.word texLoadNonZlib+0x650 # f170434
 .text
 /*  f16fde4:	27bdcf58 */ 	addiu	$sp,$sp,-12456
 /*  f16fde8:	afbf004c */ 	sw	$ra,0x4c($sp)
@@ -5848,9 +5848,9 @@ glabel func0f172e8c
 /*  f172f40:	00000000 */ 	nop
 );
 
-s32 func0f172f44(s32 *arg0)
+s32 func0f172f44(struct texturething *arg0)
 {
-	return arg0[3] - arg0[2];
+	return (u32)arg0->unk0c - (u32)arg0->unk08;
 }
 
 s32 func0f172f54(s32 *arg0)
@@ -5858,14 +5858,14 @@ s32 func0f172f54(s32 *arg0)
 	return arg0[2];
 }
 
-void func0f172f5c(Gfx *gdl, s32 arg1, s32 arg2)
+void texLoadFromDisplayList(Gfx *gdl, struct texturething *arg1, s32 arg2)
 {
 	u8 *bytes = (u8 *)gdl;
 
 	while (bytes[0] != (u8)G_ENDDL) {
 		// Look for GBI sequence: fd...... abcd....
 		if (bytes[0] == G_SETTIMG && bytes[4] == 0xab && bytes[5] == 0xcd) {
-			func0f173010((u32 *)((s32)bytes + 4), arg1, arg2);
+			texLoad((u32 *)((s32)bytes + 4), arg1, arg2);
 		}
 
 		bytes += 8;
@@ -5873,7 +5873,7 @@ void func0f172f5c(Gfx *gdl, s32 arg1, s32 arg2)
 }
 
 GLOBAL_ASM(
-glabel func0f173010
+glabel texLoad
 /*  f173010:	27bddb10 */ 	addiu	$sp,$sp,-9456
 /*  f173014:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f173018:	00a08025 */ 	or	$s0,$a1,$zero
@@ -6063,7 +6063,7 @@ glabel func0f173010
 /*  f1732c4:	afb00010 */ 	sw	$s0,0x10($sp)
 /*  f1732c8:	8fa414ac */ 	lw	$a0,0x14ac($sp)
 /*  f1732cc:	8fa614a8 */ 	lw	$a2,0x14a8($sp)
-/*  f1732d0:	0fc5ba06 */ 	jal	func0f16e818
+/*  f1732d0:	0fc5ba06 */ 	jal	texLoadZlib
 /*  f1732d4:	afaa0014 */ 	sw	$t2,0x14($sp)
 /*  f1732d8:	8fa31490 */ 	lw	$v1,0x1490($sp)
 /*  f1732dc:	1000000c */ 	b	.L0f173310
@@ -6076,7 +6076,7 @@ glabel func0f173010
 /*  f1732f4:	afb00010 */ 	sw	$s0,0x10($sp)
 /*  f1732f8:	8fa414ac */ 	lw	$a0,0x14ac($sp)
 /*  f1732fc:	8fa614a8 */ 	lw	$a2,0x14a8($sp)
-/*  f173300:	0fc5bf79 */ 	jal	func0f16fde4
+/*  f173300:	0fc5bf79 */ 	jal	texLoadNonZlib
 /*  f173304:	afad0014 */ 	sw	$t5,0x14($sp)
 /*  f173308:	8fa31490 */ 	lw	$v1,0x1490($sp)
 /*  f17330c:	afa20038 */ 	sw	$v0,0x38($sp)
@@ -6162,13 +6162,167 @@ glabel func0f173010
 /*  f173430:	00000000 */ 	nop
 );
 
-void func0f173434(struct textureconfig *configs, s32 arg1, s32 arg2, s32 arg3)
+//extern u8 _texturesdataSegmentRomStart;
+
+/**
+ * Load and decompress a texture from ROM.
+ *
+ * The given pointer points to a word which determines what to load.
+ * The formats of the word are:
+ *
+ *     abcdxxxx -> load texture number xxxx
+ *     0000xxxx -> load texture number xxxx
+ *     (memory address) -> the texture is already loaded, so do nothing
+ *
+ * After loading and decompressing the texture, the value that's pointed to is
+ * changed to be a pointer to... something.
+ */
+// Mismatch: Reordered instructions and regalloc. Is functionally identical.
+//void texLoad(u32 *ptr, struct texturething *arg1, s32 arg2)
+//{
+//	s32 sp14b0[1040];
+//	u8 *sp14ac_ptr;
+//	s32 sp14a8;
+//	s32 sp14a4_iszlib;
+//	s32 sp14a0_lod;
+//	struct texloadthing *sp149c;
+//	u32 freebytes;
+//	u32 stack;
+//	struct texloadthing *sp1490;
+//	u32 stack2;
+//	u8 sp148b_usingsharedstruct;
+//	s8 sp48[5187];
+//	s32 sp44;
+//	s32 sp38;
+//	struct texloadthing *sp34;
+//	s32 sp30;
+//	u8 *sp2c;
+//
+//	sp148b_usingsharedstruct = 0;
+//
+//	if (arg1 == NULL) {
+//		arg1 = &var800aabc8;
+//	}
+//
+//	if (arg1 == &var800aabc8) {
+//		sp148b_usingsharedstruct = 1;
+//	}
+//
+//	if ((*ptr & 0xffff0000) == 0 || (*ptr & 0xffff0000) == 0xabcd0000) {
+//		var800ab53c = *ptr & 0xffff;
+//
+//		sp149c = func0f172e8c(var800ab53c, arg1);
+//
+//		if (sp149c == NULL && var800ab53c < 0xdaf) {
+//			sp2c = (void *)(((u32)sp14b0 + 0xf) >> 4 << 4);
+//
+//			if (sp2c);
+//
+//			osWritebackDCacheAll();
+//			osInvalDCache(sp2c, DCACHE_SIZE);
+//
+//			if (g_Textures[var800ab53c].dataoffset == g_Textures[var800ab53c + 1].dataoffset) {
+//				return;
+//			}
+//
+//			sp44 = g_Textures[var800ab53c].dataoffset;
+//
+//			dmaExec(sp2c,
+//					(u32)&_texturesdataSegmentRomStart + (sp44 & 0xfffffff8),
+//					(((g_Textures[var800ab53c + 1].dataoffset - sp44) + 0x1f) >> 4) * 0x10);
+//
+//			if (sp148b_usingsharedstruct);
+//			sp14ac_ptr = sp2c + (sp44 & 7);
+//			sp14a8 = (*sp14ac_ptr & 0x80) >> 7;
+//			sp14a4_iszlib = (*sp14ac_ptr & 0x40) >> 6;
+//			sp14a0_lod = *sp14ac_ptr & 0x3f;
+//
+//			if (sp14a0_lod > 5) {
+//				sp14a0_lod = 5;
+//			}
+//
+//			sp14ac_ptr++;
+//
+//			if (sp148b_usingsharedstruct) {
+//				freebytes = mempGetPoolFree(MEMPOOL_STAGE, MEMBANK_ONBOARD) + mempGetPoolFree(MEMPOOL_STAGE, MEMBANK_EXPANSION);
+//			} else {
+//				freebytes = func0f172f44(arg1);
+//			}
+//
+//			if ((sp14a4_iszlib == 0 && freebytes < 4300) || (sp14a4_iszlib != 0 && freebytes < 2600)) {
+//				*ptr = osVirtualToPhysical(arg1->unk00);
+//				return;
+//			}
+//
+//			if (sp148b_usingsharedstruct) {
+//				sp1490 = arg1->unk0c;
+//				arg1->unk0c = (struct texloadthing *)((((u32)sp48 + 0xf) >> 4 << 4) + 0x10);
+//				arg1->unk08 = arg1->unk0c + 1;
+//
+//				while (sp1490) {
+//					if (sp1490->unk0c_04 == 0) {
+//						break;
+//					}
+//
+//					sp1490 = (struct texloadthing *)PHYS_TO_K0(sp1490->unk0c_04);
+//				}
+//			}
+//
+//			*(s16 *)(arg1->unk08) = var800ab53c;
+//			arg1->unk08 = (void *)((u32)arg1->unk08 + 8);
+//			sp149c = (struct texloadthing *)(arg1->unk0c - 1);
+//			arg1->unk0c = sp149c;
+//			sp149c->unk00_00 = var800ab53c;
+//			sp149c->unk04 = arg1->unk08;
+//			sp149c->unk0c_03 = false;
+//
+//			if (sp14a4_iszlib) {
+//				sp38 = texLoadZlib(sp14ac_ptr, (u32 *)arg1->unk08, sp14a8, sp14a0_lod, arg1, arg2);
+//			} else {
+//				sp38 = texLoadNonZlib(sp14ac_ptr, (u32 *)arg1->unk08, sp14a8, sp14a0_lod, arg1, arg2);
+//			}
+//
+//			if (sp148b_usingsharedstruct) {
+//				sp34 = mempAllocFromRight(ALIGN16(sp38 + 0x20), MEMPOOL_STAGE);
+//				arg1->unk0c = sp34;
+//
+//				bcopy(sp149c, sp34, 0x10);
+//
+//				sp149c = sp34;
+//				sp34++;
+//
+//				bcopy((void *)((u32)arg1->unk08 - 8), sp34, sp38 + 8);
+//
+//				arg1->unk0c->unk04 = (void *)((u32)sp34 + 8);
+//				arg1->unk0c->unk0c_04 = 0;
+//
+//				if (sp1490 != NULL) {
+//					sp1490->unk0c_04 = (u32)arg1->unk0c & 0xffffff;
+//				} else {
+//					arg1->unk04 = arg1->unk0c;
+//				}
+//
+//				arg1->unk00 = arg1->unk0c;
+//			}
+//
+//			arg1->unk08 = (void *)((u32)arg1->unk08 + sp38);
+//
+//			if (!sp148b_usingsharedstruct) {
+//				func0f172f44(arg1);
+//			}
+//		}
+//	}
+//
+//	*ptr = osVirtualToPhysical(sp149c->unk04);
+//}
+
+void texLoadFromConfigs(struct textureconfig *configs, s32 numconfigs, struct texturething *arg2, s32 arg3)
 {
 	s32 i;
 
-	for (i = 0; i < arg1; i++) {
+	for (i = 0; i < numconfigs; i++) {
 		if ((s32)configs[i].texturenum < 0xdaf) {
-			func0f173010(&configs[i].texturenum, arg2, 1);
+			texLoad(&configs[i].texturenum, arg2, 1);
 			configs[i].unk0b = 1;
 		} else {
 			configs[i].texturenum += arg3;
@@ -6176,11 +6330,11 @@ void func0f173434(struct textureconfig *configs, s32 arg1, s32 arg2, s32 arg3)
 	}
 }
 
-void func0f1734e8(u32 arg0, void *arg1)
+void texLoadFromTextureNum(u32 arg0, struct texturething *arg1)
 {
 	u32 sp1c = arg0;
 
-	func0f173010(&sp1c, (s32)arg1, 1);
+	texLoad(&sp1c, arg1, 1);
 }
 
 s32 func0f173510(s32 arg0, s32 arg1, s32 arg3)

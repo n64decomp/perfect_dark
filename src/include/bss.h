@@ -254,7 +254,7 @@ extern u32 *g_LangBanks[69];
 extern void *var800aabb4;
 extern struct var800aabb8 *var800aabb8;
 extern struct texture *g_Textures;
-extern u32 var800aabc8[4];
+extern struct texturething var800aabc8;
 extern u8 var800aabd8[2400];
 extern u32 var800ab538;
 extern u8 *var800ab540;

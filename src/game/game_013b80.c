@@ -8,9 +8,9 @@
 void func0f013b80(void)
 {
 	var800ab538 = 0;
-	var800aabc8[0] = 0;
-	var800aabc8[1] = 0;
-	var800aabc8[3] = 0;
+	var800aabc8.unk00 = NULL;
+	var800aabc8.unk04 = NULL;
+	var800aabc8.unk0c = NULL;
 }
 
 void func0f013ba0(void)
