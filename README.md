@@ -15,21 +15,21 @@ For Arch Linux:
 
 For Debian and Ubuntu:
 
-* Install these packages: `binutils-mips-linux-gnu make`
+* Install these packages: `binutils-mips-linux-gnu build-essential libc6-dev-i386 libcapstone3 libcapstone-dev make`
 * Compile and install `armips`
 
 ## ROM Versions
 
 Perfect Dark has six known versions:
 
-| ROM ID     | Description                                                   |
-|------------|---------------------------------------------------------------|
-| ntsc-beta  | NTSC 6.4 beta - supported but mismatching                     |
-| ntsc-1.0   | NTSC 8.7 final (the initial, buggy release) - fully supported |
-| ntsc-final | NTSC 8.7 final - fully supported                              |
-| pal-beta   | PAL 28.7 beta - can extract assets only                       |
-| pal-final  | PAL 8.7 final - supported but mismatching                     |
-| jpn-final  | Japanese 8.7 final - can extract assets only                  |
+| ROM ID     | Description                                 | MD5 Checksum                     |
+|------------|---------------------------------------------|----------------------------------|
+| ntsc-beta  | NTSC 6.4 beta                               | aa93f4df16fceada399a749f5ad2f273 |
+| ntsc-1.0   | NTSC 8.7 final (the initial, buggy release) | 7f4171b0c8d17815be37913f535e4e93 |
+| ntsc-final | NTSC 8.7 final                              | e03b088b6ac9e0080440efed07c1e40f |
+| pal-beta   | PAL 28.7 beta                               | ad2de210a3455ba5ec541f0c78d91444 |
+| pal-final  | PAL 8.7 final                               | d9b5cd305d228424891ce38e71bc9213 |
+| jpn-final  | JPN 8.9 final                               | 538d2b75945eae069b29c46193e74790 |
 
 The project uses the `$ROMID` environment variable to know which version to work with. If not set, it defaults to `ntsc-final`. You can change it by running something like `export ROMID=ntsc-1.0`.
 
@@ -46,6 +46,7 @@ The extract command will also create an `extracted/ntsc-final` directory. This d
 
 ## Compiling
 
+* Run `git submodule update --init --recursive`. You only have to do this once.
 * Run `make -j` to build the ROM. The ROM will be written to `build/ntsc-final/pd.z64`.
 
 ## How do I know the built files are matching?

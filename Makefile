@@ -4,18 +4,14 @@ ROMID ?= ntsc-final
 PIRACYCHECKS ?= 1
 
 # In PD, some code is compiled with IDO 5.3 and some is IDO 7.1.
-# The project provides both versions of the IDO compiler so that the project can
-# be compiled out of the box by running these compilers using qemu-irix.
-# Recomp can be used for almost all files, but some must be compiled with qemu.
+# The project requires the ido-static-recomp project, which deconstructs the IDO
+# compiler and related binaries and recompiles them for your computer's
+# architecture. These recompiled compilers and binaries are then used to compile
+# the game's source.
 
-# These are the qemu-irix versions. These variables are constant.
-CCQEMU53 = tools/irix/qemu-irix -silent -L tools/irix/root53 tools/irix/root53/usr/bin/cc
-CCQEMU71 = tools/irix/qemu-irix -silent -L tools/irix/root71 tools/irix/root71/usr/bin/cc
-
-# The user can use recomp by setting $CC53 and $CC71 in their environment.
-# If not set, fall back to using the qemu-irix compilers.
-CC53 ?= $(CCQEMU53)
-CC71 ?= $(CCQEMU71)
+# These are paths to the recompiled compilers
+CC53 ?= build/recomp/5.3/cc
+CC71 ?= build/recomp/7.1/cc
 
 # By default we'll compile everything using 5.3,
 # as this is what most of the project uses.
@@ -235,12 +231,12 @@ $(GLOBALASM_O_FILES): CC := /usr/bin/env python3 tools/asm_processor/build.py $(
 # Create names such as $(B_DIR)/assets/files/PfooZ.
 # These names (with .o added) will be dependenices for ld.
 ASSET_FILES := \
-	$(patsubst $(A_DIR)/files/audio/%.mp3,  $(B_DIR)/assets/files/A%M,          $(shell find $(A_DIR)/files/audio -name '*.mp3')) \
-	$(patsubst $(A_DIR)/files/chrs/%.bin,   $(B_DIR)/assets/files/C%Z,          $(shell find $(A_DIR)/files/chrs -name '*.bin')) \
-	$(patsubst $(A_DIR)/files/guns/%.bin,   $(B_DIR)/assets/files/G%Z,          $(shell find $(A_DIR)/files/guns -name '*.bin')) \
-	$(patsubst $(A_DIR)/files/props/%.bin,  $(B_DIR)/assets/files/P%Z,          $(shell find $(A_DIR)/files/props -name '*.bin')) \
+	$(patsubst $(A_DIR)/files/audio/%.mp3,  $(B_DIR)/assets/files/A%M,          $(shell find $(A_DIR) -path '*/files/audio/*.mp3')) \
+	$(patsubst $(A_DIR)/files/chrs/%.bin,   $(B_DIR)/assets/files/C%Z,          $(shell find $(A_DIR) -path '*/files/chrs/*.bin')) \
+	$(patsubst $(A_DIR)/files/guns/%.bin,   $(B_DIR)/assets/files/G%Z,          $(shell find $(A_DIR) -path '*/files/guns/*.bin')) \
+	$(patsubst $(A_DIR)/files/props/%.bin,  $(B_DIR)/assets/files/P%Z,          $(shell find $(A_DIR) -path '*/files/props/*.bin')) \
 	$(patsubst src/files/setup/%.c,         $(B_DIR)/assets/files/U%Z,          $(shell find src/files/setup -name '*.c')) \
-	$(patsubst $(A_DIR)/files/bgdata/%.seg, $(B_DIR)/assets/files/bgdata/%.seg, $(shell find $(A_DIR)/files/bgdata -name '*.seg')) \
+	$(patsubst $(A_DIR)/files/bgdata/%.seg, $(B_DIR)/assets/files/bgdata/%.seg, $(shell find $(A_DIR) -path '*/files/bgdata/*.seg')) \
 	$(B_DIR)/assets/files/ob/ob_mid.seg.o
 
 LANG_JSON_FILES := $(shell find $(A_DIR) -path '*/lang/*.json')
@@ -324,6 +320,69 @@ $(B_DIR)/pd.z64: $(B_DIR)/stage1.bin tools/mkrom/mkrom
 
 tools/mkrom/mkrom:
 	$(MAKE) -C tools/mkrom
+
+################################################################################
+# Recomp
+# ---------------------
+# The ido-static-recomp project is installed as a git submodule at tools/recomp.
+# The IRIX binaries are taken from that project and they are recompiled to
+# build/recomp/<version>/
+
+RECOMP_FILES := \
+	build/recomp/5.3/as1 \
+	build/recomp/5.3/cc \
+	build/recomp/5.3/cfe \
+	build/recomp/5.3/err.english.cc \
+	build/recomp/5.3/ugen \
+	build/recomp/5.3/ujoin \
+	build/recomp/5.3/uld \
+	build/recomp/5.3/umerge \
+	build/recomp/5.3/uopt \
+	build/recomp/5.3/usplit \
+	build/recomp/7.1/as1 \
+	build/recomp/7.1/cc \
+	build/recomp/7.1/cfe \
+	build/recomp/7.1/err.english.cc \
+	build/recomp/7.1/ugen \
+	build/recomp/7.1/uopt
+
+tools/recomp/recomp.cpp:
+	@echo "Please install ido-static-recomp by running:"
+	@echo
+	@echo "    git submodule update --init --recursive"
+	@echo
+	@exit 1
+
+build/recomp/recomp: tools/recomp/recomp.cpp
+	@mkdir -p build/recomp/5.3
+	@mkdir -p build/recomp/7.1
+	g++ tools/recomp/recomp.cpp -o build/recomp/recomp -g -lcapstone
+
+build/recomp/5.3/ugen:
+	@mkdir -p build/recomp/5.3
+	g++ tools/recomp/recomp.cpp -o build/recomp/recomp-ugen53 -g -lcapstone -Dugen53
+	./build/recomp/recomp-ugen53 tools/recomp/ido/5.3/usr/lib/ugen > build/recomp/5.3/ugen.c
+	gcc tools/recomp/libc_impl.c build/recomp/5.3/ugen.c -Itools/recomp -o build/recomp/5.3/ugen -O2 -fno-strict-aliasing -lm -no-pie -DIDO53
+
+build/recomp/5.3/cc: build/recomp/recomp
+	./build/recomp/recomp tools/recomp/ido/5.3/usr/bin/cc > build/recomp/5.3/cc.c
+	gcc tools/recomp/libc_impl.c build/recomp/5.3/cc.c -Itools/recomp -o build/recomp/5.3/cc -O2 -fno-strict-aliasing -lm -no-pie -DIDO53
+
+build/recomp/5.3/%: build/recomp/recomp
+	./build/recomp/recomp tools/recomp/ido/5.3/usr/lib/$* > build/recomp/5.3/$*.c
+	gcc tools/recomp/libc_impl.c build/recomp/5.3/$*.c -Itools/recomp -o build/recomp/5.3/$* -O2 -fno-strict-aliasing -lm -no-pie -DIDO53
+
+build/recomp/7.1/cc: build/recomp/recomp
+	./build/recomp/recomp tools/recomp/ido/7.1/usr/bin/cc > build/recomp/7.1/cc.c
+	gcc tools/recomp/libc_impl.c build/recomp/7.1/cc.c -Itools/recomp -o build/recomp/7.1/cc -O2 -fno-strict-aliasing -lm -no-pie -DIDO71
+
+build/recomp/7.1/%: build/recomp/recomp
+	./build/recomp/recomp tools/recomp/ido/7.1/usr/lib/$* > build/recomp/7.1/$*.c
+	gcc tools/recomp/libc_impl.c build/recomp/7.1/$*.c -Itools/recomp -o build/recomp/7.1/$* -O2 -fno-strict-aliasing -lm -no-pie -DIDO71
+
+build/recomp/%/err.english.cc:
+	@mkdir -p build/recomp/$?
+	cp tools/err.english.cc build/recomp/$*
 
 ################################################################################
 # Testing Related
@@ -453,7 +512,7 @@ $(B_DIR)/assets/files/P%Z: $(A_DIR)/files/props/%.bin
 # -> B_DIR/assets/files/setup/foo.bin (done here)
 # -> B_DIR/assets/files/UsetupfooZ (done here)
 # -> B_DIR/assets/files/UsetupfooZ.o (done elsewhere)
-$(B_DIR)/assets/files/setup/%.o: src/files/setup/%.c $(ASSETMGR_O_FILES)
+$(B_DIR)/assets/files/setup/%.o: src/files/setup/%.c $(ASSETMGR_O_FILES) $(RECOMP_FILES)
 	@mkdir -p $(dir $@)
 	$(CC) -c $(CFLAGS) -o $@ $<
 
@@ -508,17 +567,17 @@ $(B_DIR)/rsp/%.bin: $(E_DIR)/rsp/%.bin
 $(B_DIR)/rsp/%.o: $(B_DIR)/rsp/%.bin
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
-$(B_DIR)/lib/ultra/libc/llcvt.o: src/lib/ultra/libc/llcvt.c $(ASSETMGR_O_FILES)
+$(B_DIR)/lib/ultra/libc/llcvt.o: src/lib/ultra/libc/llcvt.c $(ASSETMGR_O_FILES) $(RECOMP_FILES)
 	@mkdir -p $(dir $@)
 	$(CC) -c $(CFLAGS) -o $@ $<
 	tools/patchmips3 $@ || rm $@
 
-$(B_DIR)/lib/ultra/libc/ll.o: src/lib/ultra/libc/ll.c $(ASSETMGR_O_FILES)
+$(B_DIR)/lib/ultra/libc/ll.o: src/lib/ultra/libc/ll.c $(ASSETMGR_O_FILES) $(RECOMP_FILES)
 	@mkdir -p $(dir $@)
 	$(CC) -c $(CFLAGS) $< -o $@
 	tools/patchmips3 $@ || rm $@
 
-$(B_DIR)/%.o: src/%.c $(ASSETMGR_O_FILES)
+$(B_DIR)/%.o: src/%.c $(ASSETMGR_O_FILES) $(RECOMP_FILES)
 	@mkdir -p $(dir $@)
 	$(CC) -c $(CFLAGS) -o $@ $<
 
@@ -526,7 +585,7 @@ $(B_DIR)/%.o: src/%.s
 	@mkdir -p $(dir $@)
 	cpp -P -Wno-trigraphs -I include -I include/PR -I src/include $(C_DEFINES) -D_LANGUAGE_ASSEMBLY -D_MIPSEB $< | $(AS) $(ASFLAGS) -o $@
 
-$(B_DIR)/assets/%.o: $(A_DIR)/%.c
+$(B_DIR)/assets/%.o: $(A_DIR)/%.c $(RECOMP_FILES)
 	@mkdir -p $(dir $@)
 	$(CC) -c $(CFLAGS) -o $@ $<
 

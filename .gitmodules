@@ -1,0 +1,3 @@
+[submodule "tools/recomp"]
+	path = tools/recomp
+	url = https://github.com/Emill/ido-static-recomp.git
