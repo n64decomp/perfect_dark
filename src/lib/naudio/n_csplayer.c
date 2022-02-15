@@ -2,7 +2,6 @@
 #include <libaudio.h>
 #include <os_internal.h>
 #include <ultraerror.h>
-#include <assert.h>
 #include "n_libaudio.h"
 #include "n_seqp.h"
 #include "cseq.h"

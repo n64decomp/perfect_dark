@@ -1,7 +1,6 @@
 #include "n_synthInternals.h"
 #include <os.h>
 #include <math.h>
-#include <assert.h>
 
 #define N_EQPOWER_LENGTH 128
 

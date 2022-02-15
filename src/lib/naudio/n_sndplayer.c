@@ -1,6 +1,5 @@
 #include <os_internal.h>
 #include <ultraerror.h>
-#include <assert.h>
 #include <libaudio.h>
 #include "n_sndp.h"
 #include "lib/snd.h"
