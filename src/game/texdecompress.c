@@ -180,7 +180,7 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct textur
 #endif
 		}
 
-		imagebytesout = func0f16edac(scratch2, width, height, format, &dst[totalbytesout]);
+		imagebytesout = texAlignIndices(scratch2, width, height, format, &dst[totalbytesout]);
 		texSetBitstring(rzipGetSomething());
 
 		if (arg2 == 1) {
@@ -273,61 +273,37 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct textur
 	return totalbytesout;
 }
 
-GLOBAL_ASM(
-glabel func0f16edac
-/*  f16edac:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f16edb0:	afb1000c */ 	sw	$s1,0xc($sp)
-/*  f16edb4:	afb00008 */ 	sw	$s0,0x8($sp)
-/*  f16edb8:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f16edbc:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f16edc0:	00808825 */ 	or	$s1,$a0,$zero
-/*  f16edc4:	10e10003 */ 	beq	$a3,$at,.L0f16edd4
-/*  f16edc8:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f16edcc:	2401000b */ 	addiu	$at,$zero,0xb
-/*  f16edd0:	14e10003 */ 	bne	$a3,$at,.L0f16ede0
-.L0f16edd4:
-/*  f16edd4:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f16edd8:	10000008 */ 	b	.L0f16edfc
-/*  f16eddc:	afa20010 */ 	sw	$v0,0x10($sp)
-.L0f16ede0:
-/*  f16ede0:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f16ede4:	10e10004 */ 	beq	$a3,$at,.L0f16edf8
-/*  f16ede8:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f16edec:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f16edf0:	54e10003 */ 	bnel	$a3,$at,.L0f16ee00
-/*  f16edf4:	8fa20010 */ 	lw	$v0,0x10($sp)
-.L0f16edf8:
-/*  f16edf8:	afa20010 */ 	sw	$v0,0x10($sp)
-.L0f16edfc:
-/*  f16edfc:	8fa20010 */ 	lw	$v0,0x10($sp)
-.L0f16ee00:
-/*  f16ee00:	18c0000f */ 	blez	$a2,.L0f16ee40
-/*  f16ee04:	00002025 */ 	or	$a0,$zero,$zero
-/*  f16ee08:	2407fff8 */ 	addiu	$a3,$zero,-8
-.L0f16ee0c:
-/*  f16ee0c:	1a000008 */ 	blez	$s0,.L0f16ee30
-/*  f16ee10:	00002825 */ 	or	$a1,$zero,$zero
-.L0f16ee14:
-/*  f16ee14:	922e0000 */ 	lbu	$t6,0x0($s1)
-/*  f16ee18:	00a22821 */ 	addu	$a1,$a1,$v0
-/*  f16ee1c:	00b0082a */ 	slt	$at,$a1,$s0
-/*  f16ee20:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f16ee24:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f16ee28:	1420fffa */ 	bnez	$at,.L0f16ee14
-/*  f16ee2c:	a06effff */ 	sb	$t6,-0x1($v1)
-.L0f16ee30:
-/*  f16ee30:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f16ee34:	246f0007 */ 	addiu	$t7,$v1,0x7
-/*  f16ee38:	1486fff4 */ 	bne	$a0,$a2,.L0f16ee0c
-/*  f16ee3c:	01e71824 */ 	and	$v1,$t7,$a3
-.L0f16ee40:
-/*  f16ee40:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*  f16ee44:	8fb00008 */ 	lw	$s0,0x8($sp)
-/*  f16ee48:	8fb1000c */ 	lw	$s1,0xc($sp)
-/*  f16ee4c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f16ee50:	03e00008 */ 	jr	$ra
-/*  f16ee54:	00781023 */ 	subu	$v0,$v1,$t8
-);
+/**
+ * Copy a list of palette indices to the dst buffer, but ensure each row is
+ * aligned to an 8 byte boundary.
+ *
+ * Return the number of output bytes.
+ */
+s32 texAlignIndices(u8 *src, s32 width, s32 height, s32 format, u8 *dst)
+{
+	u8 *outptr = dst;
+	s32 x;
+	s32 y;
+	s32 indicesperbyte;
+
+	if (format == TEXFORMAT_RGBA16_CI8 || format == TEXFORMAT_IA16_CI8) {
+		indicesperbyte = 1;
+	} else if (format == TEXFORMAT_RGBA16_CI4 || format == TEXFORMAT_0C) {
+		indicesperbyte = 2;
+	}
+
+	for (y = 0; y < height; y++) {
+		for (x = 0; x < width; x += indicesperbyte) {
+			*outptr = *src;
+			outptr++;
+			src++;
+		}
+
+		outptr = (u8 *)(((u32)outptr + 7) & ~7);
+	}
+
+	return outptr - dst;
+}
 
 GLOBAL_ASM(
 glabel func0f16ee58
