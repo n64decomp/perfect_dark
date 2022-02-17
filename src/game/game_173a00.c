@@ -329,17 +329,17 @@ glabel func0f173c10
 /*  f173c1c:	00601025 */ 	or	$v0,$v1,$zero
 .L0f173c20:
 /*  f173c20:	8c8e000c */ 	lw	$t6,0xc($a0)
-/*  f173c24:	3c02800b */ 	lui	$v0,%hi(var800ab538)
+/*  f173c24:	3c02800b */ 	lui	$v0,%hi(g_TexCacheCount)
 /*  f173c28:	000ec080 */ 	sll	$t8,$t6,0x2
 /*  f173c2c:	07010018 */ 	bgez	$t8,.L0f173c90
 /*  f173c30:	00000000 */ 	nop
-/*  f173c34:	8c42b538 */ 	lw	$v0,%lo(var800ab538)($v0)
+/*  f173c34:	8c42b538 */ 	lw	$v0,%lo(g_TexCacheCount)($v0)
 /*  f173c38:	00003025 */ 	or	$a2,$zero,$zero
 /*  f173c3c:	18400012 */ 	blez	$v0,.L0f173c88
 /*  f173c40:	00000000 */ 	nop
 /*  f173c44:	8c830000 */ 	lw	$v1,0x0($a0)
-/*  f173c48:	3c07800b */ 	lui	$a3,%hi(var800aabd8)
-/*  f173c4c:	24e7abd8 */ 	addiu	$a3,$a3,%lo(var800aabd8)
+/*  f173c48:	3c07800b */ 	lui	$a3,%hi(g_TexCacheItems)
+/*  f173c4c:	24e7abd8 */ 	addiu	$a3,$a3,%lo(g_TexCacheItems)
 /*  f173c50:	0003cd02 */ 	srl	$t9,$v1,0x14
 /*  f173c54:	03201825 */ 	or	$v1,$t9,$zero
 .L0f173c58:
@@ -347,10 +347,10 @@ glabel func0f173c10
 /*  f173c5c:	14680006 */ 	bne	$v1,$t0,.L0f173c78
 /*  f173c60:	00064900 */ 	sll	$t1,$a2,0x4
 /*  f173c64:	01255021 */ 	addu	$t2,$t1,$a1
-/*  f173c68:	3c02800b */ 	lui	$v0,%hi(var800aabd8+0x1)
+/*  f173c68:	3c02800b */ 	lui	$v0,%hi(g_TexCacheItems+0x1)
 /*  f173c6c:	004a1021 */ 	addu	$v0,$v0,$t2
 /*  f173c70:	03e00008 */ 	jr	$ra
-/*  f173c74:	9042abd9 */ 	lbu	$v0,%lo(var800aabd8+0x1)($v0)
+/*  f173c74:	9042abd9 */ 	lbu	$v0,%lo(g_TexCacheItems+0x1)($v0)
 .L0f173c78:
 /*  f173c78:	24c60001 */ 	addiu	$a2,$a2,0x1
 /*  f173c7c:	00c2082a */ 	slt	$at,$a2,$v0
@@ -382,17 +382,17 @@ glabel func0f173cb8
 /*  f173cc4:	00601025 */ 	or	$v0,$v1,$zero
 .L0f173cc8:
 /*  f173cc8:	8c8e000c */ 	lw	$t6,0xc($a0)
-/*  f173ccc:	3c02800b */ 	lui	$v0,%hi(var800ab538)
+/*  f173ccc:	3c02800b */ 	lui	$v0,%hi(g_TexCacheCount)
 /*  f173cd0:	000ec080 */ 	sll	$t8,$t6,0x2
 /*  f173cd4:	07010018 */ 	bgez	$t8,.L0f173d38
 /*  f173cd8:	00000000 */ 	nop
-/*  f173cdc:	8c42b538 */ 	lw	$v0,%lo(var800ab538)($v0)
+/*  f173cdc:	8c42b538 */ 	lw	$v0,%lo(g_TexCacheCount)($v0)
 /*  f173ce0:	00003025 */ 	or	$a2,$zero,$zero
 /*  f173ce4:	18400012 */ 	blez	$v0,.L0f173d30
 /*  f173ce8:	00000000 */ 	nop
 /*  f173cec:	8c830000 */ 	lw	$v1,0x0($a0)
-/*  f173cf0:	3c07800b */ 	lui	$a3,%hi(var800aabd8)
-/*  f173cf4:	24e7abd8 */ 	addiu	$a3,$a3,%lo(var800aabd8)
+/*  f173cf0:	3c07800b */ 	lui	$a3,%hi(g_TexCacheItems)
+/*  f173cf4:	24e7abd8 */ 	addiu	$a3,$a3,%lo(g_TexCacheItems)
 /*  f173cf8:	0003cd02 */ 	srl	$t9,$v1,0x14
 /*  f173cfc:	03201825 */ 	or	$v1,$t9,$zero
 .L0f173d00:
@@ -400,10 +400,10 @@ glabel func0f173cb8
 /*  f173d04:	14680006 */ 	bne	$v1,$t0,.L0f173d20
 /*  f173d08:	00064900 */ 	sll	$t1,$a2,0x4
 /*  f173d0c:	01255021 */ 	addu	$t2,$t1,$a1
-/*  f173d10:	3c02800b */ 	lui	$v0,%hi(var800aabd8+0x8)
+/*  f173d10:	3c02800b */ 	lui	$v0,%hi(g_TexCacheItems+0x8)
 /*  f173d14:	004a1021 */ 	addu	$v0,$v0,$t2
 /*  f173d18:	03e00008 */ 	jr	$ra
-/*  f173d1c:	9042abe0 */ 	lbu	$v0,%lo(var800aabd8+0x8)($v0)
+/*  f173d1c:	9042abe0 */ 	lbu	$v0,%lo(g_TexCacheItems+0x8)($v0)
 .L0f173d20:
 /*  f173d20:	24c60001 */ 	addiu	$a2,$a2,0x1
 /*  f173d24:	00c2082a */ 	slt	$at,$a2,$v0

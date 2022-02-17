@@ -3886,6 +3886,31 @@
 #define TELEPORTSTATE_WHITE    3
 #define TELEPORTSTATE_EXITING  4
 
+#define TEXCOMPMETHOD_0                   0
+#define TEXCOMPMETHOD_1                   1
+#define TEXCOMPMETHOD_HUFFMAN2            2
+#define TEXCOMPMETHOD_HUFFMAN3            3
+#define TEXCOMPMETHOD_RLE                 4
+#define TEXCOMPMETHOD_LOOKUP              5
+#define TEXCOMPMETHOD_HUFFMANLOOKUP       6
+#define TEXCOMPMETHOD_RLELOOKUP           7
+#define TEXCOMPMETHOD_HUFFMANPREPROCESSED 8
+#define TEXCOMPMETHOD_9                   9
+
+#define TEXFORMAT_RGBA32     0x00 // 32-bit RGBA (8/8/8/8)
+#define TEXFORMAT_RGBA16     0x01 // 16-bit RGBA (5/5/5/1)
+#define TEXFORMAT_RGB24      0x02 // 24-bit RGB (8/8/8)
+#define TEXFORMAT_RGB15      0x03 // 15-bit RGB (5/5/5)
+#define TEXFORMAT_IA16       0x04 // 16-bit grayscale+alpha
+#define TEXFORMAT_IA8        0x05 // 8-bit grayscale+alpha (4/4)
+#define TEXFORMAT_IA4        0x06 // 4-bit grayscale+alpha (3/1)
+#define TEXFORMAT_I8         0x07 // 8-bit grayscale
+#define TEXFORMAT_I4         0x08 // 4-bit grayscale
+#define TEXFORMAT_RGBA16_CI8 0x09 // 16-bit 5551 paletted colour with 8-bit palette indexes
+#define TEXFORMAT_RGBA16_CI4 0x0a // 16-bit 5551 paletted colour with 4-bit palette indexes
+#define TEXFORMAT_IA16_CI8   0x0b // 16-bit 88 paletted greyscale+alpha with 8-bit palette indexes
+#define TEXFORMAT_0C         0x0c
+
 #define THREAD_RMON  0
 #define THREAD_IDLE  1
 #define THREAD_SCHED 2

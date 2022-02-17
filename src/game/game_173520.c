@@ -11,14 +11,14 @@
 #include "textureconfig.h"
 #include "types.h"
 
-void func0f173520(u8 *arg0)
+void texSetBitstring(u8 *arg0)
 {
 	var800ab540 = arg0;
 	var800ab544 = 0;
 	var800ab548 = 0;
 }
 
-s32 func0f17353c(s32 arg0)
+s32 texReadBits(s32 arg0)
 {
 	while (var800ab548 < arg0) {
 		var800ab544 = *var800ab540 | var800ab544 << 8;

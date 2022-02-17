@@ -6764,21 +6764,30 @@ struct texturething {
 };
 
 struct texloadthing {
-	u16 unk00_00 : 12;
+	u16 texturenum : 12;
 	u16 unk00_0c : 4;
 	void *unk04;
-	s16 unk08;
-	u16 unk0a;
+	u8 width;
+	u8 height;
+	u8 unk0a;
+	u8 unk0b_00 : 3;
+	u8 gbiformat : 3;
+	u8 unk0b_06 : 2;
 	union {
 		u32 unk0c;
 		struct {
-			u32 unk0c_00 : 1;
-			u32 unk0c_01 : 1;
+			u32 unk0c_00 : 2;
 			u32 unk0c_02 : 1;
 			u32 unk0c_03 : 1;
 			u32 unk0c_04 : 24;
 		};
 	};
+};
+
+struct texcacheitem {
+	s16 texturenum;
+	u8 widths[7];
+	u8 heights[7];
 };
 
 #endif
