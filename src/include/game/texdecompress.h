@@ -5,13 +5,13 @@
 #include "types.h"
 
 void func0f16e810(u32 arg0);
-s32 texInflateZlib(u8 *ptr, u32 *texturenum, s32 arg2, s32 lod, struct texturething *arg4, s32 arg5);
-u32 func0f16edac(void);
+s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texturething *arg4, s32 arg5);
+s32 func0f16edac(u8 *arg0, s32 width, s32 height, s32 format, u8 *dst);
 u32 func0f16ee58(void);
 u32 func0f16eefc(void);
 u32 func0f16efa0(void);
 u32 func0f16f044(void);
-u32 func0f16f0f4(void);
+s32 func0f16f0f4(u8 *start, u8 *end, s32 width, s32 height, s32 format, u16 *palette, s32 numcolours);
 u32 func0f16fc8c(void);
 s32 func0f16fd50(u16 *arg0, s32 arg1, s32 arg2, s32 arg3);
 s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texturething *arg4, s32 arg5);

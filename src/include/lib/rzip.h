@@ -7,6 +7,6 @@
 s32 rzipInflate(void *src, void *dst, void *scratch);
 u32 rzipInit(void);
 bool rzipIs1173(void *buffer);
-u32 rzipGetSomething(void);
+void *rzipGetSomething(void);
 
 #endif
