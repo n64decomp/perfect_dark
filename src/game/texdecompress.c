@@ -2677,136 +2677,97 @@ glabel func0f1711b4
 /*  f171554:	27bd3070 */ 	addiu	$sp,$sp,0x3070
 );
 
-GLOBAL_ASM(
-glabel texInflateRle
-/*  f171558:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f17155c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f171560:	00809025 */ 	or	$s2,$a0,$zero
-/*  f171564:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f171568:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f17156c:	00a0f025 */ 	or	$s8,$a1,$zero
-/*  f171570:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f171574:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f171578:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f17157c:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f171580:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f171584:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f171588:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f17158c:	0fc5cd4f */ 	jal	texReadBits
-/*  f171590:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f171594:	0040b025 */ 	or	$s6,$v0,$zero
-/*  f171598:	0fc5cd4f */ 	jal	texReadBits
-/*  f17159c:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f1715a0:	0040b825 */ 	or	$s7,$v0,$zero
-/*  f1715a4:	0fc5cd4f */ 	jal	texReadBits
-/*  f1715a8:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f1715ac:	02d77021 */ 	addu	$t6,$s6,$s7
-/*  f1715b0:	01c22021 */ 	addu	$a0,$t6,$v0
-/*  f1715b4:	24830001 */ 	addiu	$v1,$a0,0x1
-/*  f1715b8:	0040a025 */ 	or	$s4,$v0,$zero
-/*  f1715bc:	18600005 */ 	blez	$v1,.L0f1715d4
-/*  f1715c0:	0000a825 */ 	or	$s5,$zero,$zero
-.L0f1715c4:
-/*  f1715c4:	00621823 */ 	subu	$v1,$v1,$v0
-/*  f1715c8:	2463ffff */ 	addiu	$v1,$v1,-1
-/*  f1715cc:	1c60fffd */ 	bgtz	$v1,.L0f1715c4
-/*  f1715d0:	26b50001 */ 	addiu	$s5,$s5,0x1
-.L0f1715d4:
-/*  f1715d4:	1bc00047 */ 	blez	$s8,.L0f1716f4
-/*  f1715d8:	00008825 */ 	or	$s1,$zero,$zero
-.L0f1715dc:
-/*  f1715dc:	0fc5cd4f */ 	jal	texReadBits
-/*  f1715e0:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f1715e4:	1440000f */ 	bnez	$v0,.L0f171624
-/*  f1715e8:	2a810009 */ 	slti	$at,$s4,0x9
-/*  f1715ec:	10200007 */ 	beqz	$at,.L0f17160c
-/*  f1715f0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1715f4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1715f8:	0fc5cd4f */ 	jal	texReadBits
-/*  f1715fc:	02518021 */ 	addu	$s0,$s2,$s1
-/*  f171600:	a2020000 */ 	sb	$v0,0x0($s0)
-/*  f171604:	10000038 */ 	b	.L0f1716e8
-/*  f171608:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f17160c:
-/*  f17160c:	00117840 */ 	sll	$t7,$s1,0x1
-/*  f171610:	0fc5cd4f */ 	jal	texReadBits
-/*  f171614:	024f8021 */ 	addu	$s0,$s2,$t7
-/*  f171618:	a6020000 */ 	sh	$v0,0x0($s0)
-/*  f17161c:	10000032 */ 	b	.L0f1716e8
-/*  f171620:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f171624:
-/*  f171624:	0fc5cd4f */ 	jal	texReadBits
-/*  f171628:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f17162c:	02229823 */ 	subu	$s3,$s1,$v0
-/*  f171630:	2673ffff */ 	addiu	$s3,$s3,-1
-/*  f171634:	0fc5cd4f */ 	jal	texReadBits
-/*  f171638:	02e02025 */ 	or	$a0,$s7,$zero
-/*  f17163c:	00551821 */ 	addu	$v1,$v0,$s5
-/*  f171640:	2a810009 */ 	slti	$at,$s4,0x9
-/*  f171644:	10200014 */ 	beqz	$at,.L0f171698
-/*  f171648:	00602825 */ 	or	$a1,$v1,$zero
-/*  f17164c:	0263c021 */ 	addu	$t8,$s3,$v1
-/*  f171650:	0278082a */ 	slt	$at,$s3,$t8
-/*  f171654:	02601025 */ 	or	$v0,$s3,$zero
-/*  f171658:	1020000a */ 	beqz	$at,.L0f171684
-/*  f17165c:	02518021 */ 	addu	$s0,$s2,$s1
-/*  f171660:	02652021 */ 	addu	$a0,$s3,$a1
-/*  f171664:	02531821 */ 	addu	$v1,$s2,$s3
-.L0f171668:
-/*  f171668:	90790000 */ 	lbu	$t9,0x0($v1)
-/*  f17166c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f171670:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f171674:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f171678:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f17167c:	1444fffa */ 	bne	$v0,$a0,.L0f171668
-/*  f171680:	a219ffff */ 	sb	$t9,-0x1($s0)
-.L0f171684:
-/*  f171684:	0fc5cd4f */ 	jal	texReadBits
-/*  f171688:	02802025 */ 	or	$a0,$s4,$zero
-/*  f17168c:	a2020000 */ 	sb	$v0,0x0($s0)
-/*  f171690:	10000015 */ 	b	.L0f1716e8
-/*  f171694:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f171698:
-/*  f171698:	02634821 */ 	addu	$t1,$s3,$v1
-/*  f17169c:	0269082a */ 	slt	$at,$s3,$t1
-/*  f1716a0:	00114040 */ 	sll	$t0,$s1,0x1
-/*  f1716a4:	02488021 */ 	addu	$s0,$s2,$t0
-/*  f1716a8:	1020000b */ 	beqz	$at,.L0f1716d8
-/*  f1716ac:	02601025 */ 	or	$v0,$s3,$zero
-/*  f1716b0:	00135040 */ 	sll	$t2,$s3,0x1
-/*  f1716b4:	024a1821 */ 	addu	$v1,$s2,$t2
-/*  f1716b8:	02652021 */ 	addu	$a0,$s3,$a1
-.L0f1716bc:
-/*  f1716bc:	946b0000 */ 	lhu	$t3,0x0($v1)
-/*  f1716c0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f1716c4:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f1716c8:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f1716cc:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f1716d0:	1444fffa */ 	bne	$v0,$a0,.L0f1716bc
-/*  f1716d4:	a60bfffe */ 	sh	$t3,-0x2($s0)
-.L0f1716d8:
-/*  f1716d8:	0fc5cd4f */ 	jal	texReadBits
-/*  f1716dc:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1716e0:	a6020000 */ 	sh	$v0,0x0($s0)
-/*  f1716e4:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f1716e8:
-/*  f1716e8:	023e082a */ 	slt	$at,$s1,$s8
-/*  f1716ec:	1420ffbb */ 	bnez	$at,.L0f1715dc
-/*  f1716f0:	00000000 */ 	nop
-.L0f1716f4:
-/*  f1716f4:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f1716f8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1716fc:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f171700:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f171704:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f171708:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f17170c:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f171710:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f171714:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f171718:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f17171c:	03e00008 */ 	jr	$ra
-/*  f171720:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+/**
+ * Inflate runlength-encoded data.
+ *
+ * This data consists of a 10 bit header followed by a list of directives,
+ * where each directive can either be a literal block or a repeat (run) of
+ * blocks within a sliding window.
+ *
+ * The header format is:
+ *
+ * 3 bits btfieldsize: The size in bits of the backtrack distance fields
+ * 3 bits rlfieldsize: The size in bits of the runlen fields
+ * 4 bits blocksize: The size in bits of each block of data
+ *
+ * In the data, the first bit is 0 if it's a literal block or 1 if it's a run.
+ *
+ * For literal blocks, the next <blocksize> bits should be read and appended to
+ * the output stream.
+ *
+ * For runs, the next <btfieldsize> bits are the backtrack length (in blocks)
+ * plus one, and the next <rlfieldsize> bits are the run length (in blocks)
+ * minus a calculated fudge value.
+ *
+ * The fudge value is calculated based on the field sizes. For small runs it is
+ * more space efficient to use multiple literal directives rather than a run
+ * directive. Because of this, smaller runs are not used and the run lengths
+ * in the data can be offset accordingly - this offset is the fudge value.
+ *
+ * Every run must be followed by a literal block without the 1-bit marker.
+ * The algorithm does not support back to back runs.
+ */
+void texInflateRle(u8 *dst, s32 blockstotal)
+{
+	s32 btfieldsize = texReadBits(3);
+	s32 rlfieldsize = texReadBits(3);
+	s32 blocksize = texReadBits(4);
+	s32 cost;
+	s32 fudge;
+	s32 blocksdone;
+	s32 i;
+
+	// Calculate the fudge value
+	cost = btfieldsize + rlfieldsize + blocksize + 1;
+	fudge = 0;
+
+	while (cost > 0) {
+		cost = cost - blocksize - 1;
+		fudge++;
+	}
+
+	blocksdone = 0;
+
+	while (blocksdone < blockstotal) {
+		if (texReadBits(1) == 0) {
+			// Found a literal directive
+			if (blocksize <= 8) {
+				dst[blocksdone] = texReadBits(blocksize);
+				blocksdone++;
+			} else {
+				u16 *tmp = (u16 *)dst;
+				tmp[blocksdone] = texReadBits(blocksize);
+				blocksdone++;
+			}
+		} else {
+			// Found a run directive
+			s32 startblockindex = blocksdone - texReadBits(btfieldsize) - 1;
+			s32 runnumblocks = texReadBits(rlfieldsize) + fudge;
+
+			if (blocksize <= 8) {
+				for (i = startblockindex; i < startblockindex + runnumblocks; i++) {
+					dst[blocksdone] = dst[i];
+					blocksdone++;
+				}
+
+				// The next instruction must be a literal
+				dst[blocksdone] = texReadBits(blocksize);
+				blocksdone++;
+			} else {
+				u16 *tmp = (u16 *)dst;
+
+				for (i = startblockindex; i < startblockindex + runnumblocks; i++) {
+					tmp[blocksdone] = tmp[i];
+					blocksdone++;
+				}
+
+				// The next instruction must be a literal
+				tmp[blocksdone] = texReadBits(blocksize);
+				blocksdone++;
+			}
+		}
+	}
+}
 
 /**
  * Populate a lookup table by reading it out of the bit string.
