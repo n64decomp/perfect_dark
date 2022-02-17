@@ -2808,81 +2808,42 @@ glabel texInflateRle
 /*  f171720:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-GLOBAL_ASM(
-glabel texBuildLookup
-/*  f171724:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f171728:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f17172c:	00809825 */ 	or	$s3,$a0,$zero
-/*  f171730:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f171734:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f171738:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f17173c:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f171740:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f171744:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f171748:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f17174c:	0fc5cd4f */ 	jal	texReadBits
-/*  f171750:	2404000b */ 	addiu	$a0,$zero,0xb
-/*  f171754:	2a410011 */ 	slti	$at,$s2,0x11
-/*  f171758:	1020000c */ 	beqz	$at,.L0f17178c
-/*  f17175c:	0040a825 */ 	or	$s5,$v0,$zero
-/*  f171760:	18400027 */ 	blez	$v0,.L0f171800
-/*  f171764:	00008025 */ 	or	$s0,$zero,$zero
-/*  f171768:	02608825 */ 	or	$s1,$s3,$zero
-.L0f17176c:
-/*  f17176c:	0fc5cd4f */ 	jal	texReadBits
-/*  f171770:	02402025 */ 	or	$a0,$s2,$zero
-/*  f171774:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f171778:	26310002 */ 	addiu	$s1,$s1,0x2
-/*  f17177c:	1615fffb */ 	bne	$s0,$s5,.L0f17176c
-/*  f171780:	a622fffe */ 	sh	$v0,-0x2($s1)
-/*  f171784:	1000001f */ 	b	.L0f171804
-/*  f171788:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f17178c:
-/*  f17178c:	2a410019 */ 	slti	$at,$s2,0x19
-/*  f171790:	1020000c */ 	beqz	$at,.L0f1717c4
-/*  f171794:	00000000 */ 	nop
-/*  f171798:	18400019 */ 	blez	$v0,.L0f171800
-/*  f17179c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1717a0:	02608825 */ 	or	$s1,$s3,$zero
-.L0f1717a4:
-/*  f1717a4:	0fc5cd4f */ 	jal	texReadBits
-/*  f1717a8:	02402025 */ 	or	$a0,$s2,$zero
-/*  f1717ac:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1717b0:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f1717b4:	1615fffb */ 	bne	$s0,$s5,.L0f1717a4
-/*  f1717b8:	ae22fffc */ 	sw	$v0,-0x4($s1)
-/*  f1717bc:	10000011 */ 	b	.L0f171804
-/*  f1717c0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f1717c4:
-/*  f1717c4:	1840000e */ 	blez	$v0,.L0f171800
-/*  f1717c8:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1717cc:	2654ffe8 */ 	addiu	$s4,$s2,-24
-/*  f1717d0:	02608825 */ 	or	$s1,$s3,$zero
-.L0f1717d4:
-/*  f1717d4:	0fc5cd4f */ 	jal	texReadBits
-/*  f1717d8:	24040018 */ 	addiu	$a0,$zero,0x18
-/*  f1717dc:	00409025 */ 	or	$s2,$v0,$zero
-/*  f1717e0:	0fc5cd4f */ 	jal	texReadBits
-/*  f1717e4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1717e8:	00127200 */ 	sll	$t6,$s2,0x8
-/*  f1717ec:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1717f0:	004e7825 */ 	or	$t7,$v0,$t6
-/*  f1717f4:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f1717f8:	1615fff6 */ 	bne	$s0,$s5,.L0f1717d4
-/*  f1717fc:	ae2ffffc */ 	sw	$t7,-0x4($s1)
-.L0f171800:
-/*  f171800:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f171804:
-/*  f171804:	02a01025 */ 	or	$v0,$s5,$zero
-/*  f171808:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f17180c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f171810:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f171814:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f171818:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f17181c:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f171820:	03e00008 */ 	jr	$ra
-/*  f171824:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+/**
+ * Populate a lookup table by reading it out of the bit string.
+ *
+ * The first 11 bits denate the number of colours in the lookup table.
+ * The data following this is a list of colours, where each colour is sized
+ * according to the texture's format.
+ *
+ * This function does NOT work with pixel formats of 8 bits or less.
+ */
+s32 texBuildLookup(u8 *lookup, s32 bitsperpixel)
+{
+	s32 numcolours = texReadBits(11);
+	s32 i;
+
+	if (bitsperpixel <= 16) {
+		u16 *dst = (u16 *)lookup;
+
+		for (i = 0; i < numcolours; i++) {
+			dst[i] = texReadBits(bitsperpixel);
+		}
+	} else if (bitsperpixel <= 24) {
+		u32 *dst = (u32 *)lookup;
+
+		for (i = 0; i < numcolours; i++) {
+			dst[i] = texReadBits(bitsperpixel);
+		}
+	} else {
+		u32 *dst = (u32 *)lookup;
+
+		for (i = 0; i < numcolours; i++) {
+			dst[i] = texReadBits(24) << 8 | texReadBits(bitsperpixel - 24);
+		}
+	}
+
+	return numcolours;
+}
 
 s32 func0f171828(s32 arg0)
 {
