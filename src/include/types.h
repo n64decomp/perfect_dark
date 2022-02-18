@@ -6757,31 +6757,26 @@ struct awardmetrics {
 };
 
 struct texturething {
-	struct texloadthing *unk00; // void * - same as unk0c
+	struct texloadthing *unk00;
 	struct texloadthing *unk04;
-	struct texloadthing *unk08; // texturenum
-	struct texloadthing *unk0c; // void * - same as unk00
+	struct texloadthing *unk08;
+	struct texloadthing *unk0c;
 };
 
 struct texloadthing {
 	u16 texturenum : 12;
 	u16 unk00_0c : 4;
-	void *unk04;
+	u32 unk04;
 	u8 width;
 	u8 height;
 	u8 unk0a;
 	u8 unk0b_00 : 3;
 	u8 gbiformat : 3;
 	u8 unk0b_06 : 2;
-	union {
-		u32 unk0c;
-		struct {
-			u32 unk0c_00 : 2;
-			u32 unk0c_02 : 1;
-			u32 unk0c_03 : 1;
-			u32 unk0c_04 : 24;
-		};
-	};
+	u32 unk0c_00 : 2;
+	u32 unk0c_02 : 1;
+	u32 unk0c_03 : 1;
+	u32 unk0c_04 : 24;
 };
 
 struct texcacheitem {

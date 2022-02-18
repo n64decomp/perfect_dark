@@ -28,7 +28,7 @@ s32 func0f172554(u8 *arg0, s32 width, s32 height, u8 *arg3, u8 *arg4, s32 arg5, 
 void func0f1729f8(u8 *arg0, s32 width, s32 height, s32 format);
 void func0f172b5c(u8 *arg0, s32 width, s32 arg2, s32 arg3, s32 chansize);
 void func0f172e70(s32 *arg0, void *arg1, s32 arg2);
-struct texloadthing *func0f172e8c(s32 texturenum, struct texturething *arg1);
+struct texloadthing *tex0f172e8c(s32 texturenum, struct texturething *arg1);
 s32 func0f172f44(struct texturething *arg0);
 s32 func0f172f54(s32 *arg0);
 void texLoadFromDisplayList(Gfx *gdl, struct texturething *arg1, s32 arg2);

@@ -575,7 +575,7 @@ glabel func0f0b39c0
 .L0f0b3b24:
 /*  f0b3b24:	1680000f */ 	bnez	$s4,.L0f0b3b64
 /*  f0b3b28:	00602025 */ 	or	$a0,$v1,$zero
-/*  f0b3b2c:	0fc5cba3 */ 	jal	func0f172e8c
+/*  f0b3b2c:	0fc5cba3 */ 	jal	tex0f172e8c
 /*  f0b3b30:	8fa50188 */ 	lw	$a1,0x188($sp)
 /*  f0b3b34:	0600000b */ 	bltz	$s0,.L0f0b3b64
 /*  f0b3b38:	0040a025 */ 	or	$s4,$v0,$zero

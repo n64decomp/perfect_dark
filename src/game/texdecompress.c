@@ -4532,64 +4532,47 @@ glabel func0f172e70
 /*  f172e88:	ac8f000c */ 	sw	$t7,0xc($a0)
 );
 
-GLOBAL_ASM(
-glabel func0f172e8c
-/*  f172e8c:	14a00003 */ 	bnez	$a1,.L0f172e9c
-/*  f172e90:	3c0e800b */ 	lui	$t6,%hi(var800aabc8)
-/*  f172e94:	3c05800b */ 	lui	$a1,%hi(var800aabc8)
-/*  f172e98:	24a5abc8 */ 	addiu	$a1,$a1,%lo(var800aabc8)
-.L0f172e9c:
-/*  f172e9c:	25ceabc8 */ 	addiu	$t6,$t6,%lo(var800aabc8)
-/*  f172ea0:	54ae0017 */ 	bnel	$a1,$t6,.L0f172f00
-/*  f172ea4:	8ca20004 */ 	lw	$v0,0x4($a1)
-/*  f172ea8:	8ca30004 */ 	lw	$v1,0x4($a1)
-/*  f172eac:	3c058000 */ 	lui	$a1,0x8000
-/*  f172eb0:	10600010 */ 	beqz	$v1,.L0f172ef4
-/*  f172eb4:	00000000 */ 	nop
-/*  f172eb8:	8c6f0000 */ 	lw	$t7,0x0($v1)
-.L0f172ebc:
-/*  f172ebc:	000fc502 */ 	srl	$t8,$t7,0x14
-/*  f172ec0:	54980004 */ 	bnel	$a0,$t8,.L0f172ed4
-/*  f172ec4:	8c62000c */ 	lw	$v0,0xc($v1)
-/*  f172ec8:	03e00008 */ 	jr	$ra
-/*  f172ecc:	00601025 */ 	or	$v0,$v1,$zero
-/*  f172ed0:	8c62000c */ 	lw	$v0,0xc($v1)
-.L0f172ed4:
-/*  f172ed4:	0002c900 */ 	sll	$t9,$v0,0x4
-/*  f172ed8:	00191202 */ 	srl	$v0,$t9,0x8
-/*  f172edc:	14400003 */ 	bnez	$v0,.L0f172eec
-/*  f172ee0:	00451825 */ 	or	$v1,$v0,$a1
-/*  f172ee4:	03e00008 */ 	jr	$ra
-/*  f172ee8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f172eec:
-/*  f172eec:	5460fff3 */ 	bnezl	$v1,.L0f172ebc
-/*  f172ef0:	8c6f0000 */ 	lw	$t7,0x0($v1)
-.L0f172ef4:
-/*  f172ef4:	03e00008 */ 	jr	$ra
-/*  f172ef8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f172efc:	8ca20004 */ 	lw	$v0,0x4($a1)
-.L0f172f00:
-/*  f172f00:	8ca3000c */ 	lw	$v1,0xc($a1)
-/*  f172f04:	0062082b */ 	sltu	$at,$v1,$v0
-/*  f172f08:	5020000c */ 	beqzl	$at,.L0f172f3c
-/*  f172f0c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f172f10:	8c690000 */ 	lw	$t1,0x0($v1)
-.L0f172f14:
-/*  f172f14:	00095502 */ 	srl	$t2,$t1,0x14
-/*  f172f18:	548a0004 */ 	bnel	$a0,$t2,.L0f172f2c
-/*  f172f1c:	24630010 */ 	addiu	$v1,$v1,0x10
-/*  f172f20:	03e00008 */ 	jr	$ra
-/*  f172f24:	00601025 */ 	or	$v0,$v1,$zero
-/*  f172f28:	24630010 */ 	addiu	$v1,$v1,0x10
-.L0f172f2c:
-/*  f172f2c:	0062082b */ 	sltu	$at,$v1,$v0
-/*  f172f30:	5420fff8 */ 	bnezl	$at,.L0f172f14
-/*  f172f34:	8c690000 */ 	lw	$t1,0x0($v1)
-/*  f172f38:	00001025 */ 	or	$v0,$zero,$zero
-.L0f172f3c:
-/*  f172f3c:	03e00008 */ 	jr	$ra
-/*  f172f40:	00000000 */ 	nop
-);
+struct texloadthing *tex0f172e8c(s32 texturenum, struct texturething *arg1)
+{
+	struct texloadthing *end;
+	struct texloadthing *cur;
+	s32 i;
+
+	if (arg1 == NULL) {
+		arg1 = &var800aabc8;
+	}
+
+	if (arg1 == &var800aabc8) {
+		cur = arg1->unk04;
+
+		while (cur) {
+			if (cur->texturenum == texturenum) {
+				return cur;
+			}
+
+			if (!cur->unk0c_04) {
+				return NULL;
+			}
+
+			cur = (struct texloadthing *)PHYS_TO_K0(cur->unk0c_04);
+		}
+
+		return NULL;
+	}
+
+	end = arg1->unk04;
+	cur = arg1->unk0c;
+
+	while (cur < end) {
+		if (cur->texturenum == texturenum) {
+			return cur;
+		}
+
+		cur++;
+	}
+
+	return NULL;
+}
 
 s32 func0f172f44(struct texturething *arg0)
 {
@@ -4646,7 +4629,7 @@ glabel texLoad
 /*  f17306c:	2463b53c */ 	addiu	$v1,$v1,%lo(var800ab53c)
 /*  f173070:	3044ffff */ 	andi	$a0,$v0,0xffff
 /*  f173074:	ac640000 */ 	sw	$a0,0x0($v1)
-/*  f173078:	0fc5cba3 */ 	jal	func0f172e8c
+/*  f173078:	0fc5cba3 */ 	jal	tex0f172e8c
 /*  f17307c:	a3a7148b */ 	sb	$a3,0x148b($sp)
 /*  f173080:	144000e2 */ 	bnez	$v0,.L0f17340c
 /*  f173084:	afa2149c */ 	sw	$v0,0x149c($sp)
@@ -4976,7 +4959,7 @@ glabel texLoad
 //	if ((*ptr & 0xffff0000) == 0 || (*ptr & 0xffff0000) == 0xabcd0000) {
 //		var800ab53c = *ptr & 0xffff;
 //
-//		sp149c = func0f172e8c(var800ab53c, arg1);
+//		sp149c = tex0f172e8c(var800ab53c, arg1);
 //
 //		if (sp149c == NULL && var800ab53c < 0xdaf) {
 //			sp2c = (void *)(((u32)sp14b0 + 0xf) >> 4 << 4);
