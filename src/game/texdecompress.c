@@ -1458,7 +1458,7 @@ s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct tex
 		switch (compmethod) {
 		case TEXCOMPMETHOD_0:
 		case TEXCOMPMETHOD_1:
-			imagebytesout = texInflateMethod1(&dst[totalbytesout], width, height, format);
+			imagebytesout = texReadUncompressed(&dst[totalbytesout], width, height, format);
 			break;
 		case TEXCOMPMETHOD_HUFFMAN2:
 			func0f1711b4(scratch, g_TexFormatNumChannels[format] * width * height, g_TexFormatChannelSizes[format]);
@@ -2809,250 +2809,89 @@ void texReadAlphaBits(u8 *dst, s32 count)
 	}
 }
 
-GLOBAL_ASM(
-glabel texInflateMethod1
-.late_rodata
-glabel var7f1b7ac0
-.word texInflateMethod1+0x70 # f171910
-glabel var7f1b7ac4
-.word texInflateMethod1+0x150 # f1719f0
-glabel var7f1b7ac8
-.word texInflateMethod1+0xe8 # f171988
-glabel var7f1b7acc
-.word texInflateMethod1+0x1b0 # f171a50
-glabel var7f1b7ad0
-.word texInflateMethod1+0x150 # f1719f0
-glabel var7f1b7ad4
-.word texInflateMethod1+0x218 # f171ab8
-glabel var7f1b7ad8
-.word texInflateMethod1+0x274 # f171b14
-glabel var7f1b7adc
-.word texInflateMethod1+0x218 # f171ab8
-glabel var7f1b7ae0
-.word texInflateMethod1+0x274 # f171b14
-.text
-/*  f1718a0:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f1718a4:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f1718a8:	2495000f */ 	addiu	$s5,$a0,0xf
-/*  f1718ac:	2401fff0 */ 	addiu	$at,$zero,-16
-/*  f1718b0:	02a17024 */ 	and	$t6,$s5,$at
-/*  f1718b4:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f1718b8:	2401fff8 */ 	addiu	$at,$zero,-8
-/*  f1718bc:	24820007 */ 	addiu	$v0,$a0,0x7
-/*  f1718c0:	00419824 */ 	and	$s3,$v0,$at
-/*  f1718c4:	afb70030 */ 	sw	$s7,0x30($sp)
-/*  f1718c8:	afb6002c */ 	sw	$s6,0x2c($sp)
-/*  f1718cc:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f1718d0:	2ce10009 */ 	sltiu	$at,$a3,0x9
-/*  f1718d4:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f1718d8:	00c0b825 */ 	or	$s7,$a2,$zero
-/*  f1718dc:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f1718e0:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f1718e4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f1718e8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f1718ec:	01c0a825 */ 	or	$s5,$t6,$zero
-/*  f1718f0:	102000a1 */ 	beqz	$at,.L0f171b78
-/*  f1718f4:	0260b025 */ 	or	$s6,$s3,$zero
-/*  f1718f8:	0007c080 */ 	sll	$t8,$a3,0x2
-/*  f1718fc:	3c017f1b */ 	lui	$at,%hi(var7f1b7ac0)
-/*  f171900:	00380821 */ 	addu	$at,$at,$t8
-/*  f171904:	8c387ac0 */ 	lw	$t8,%lo(var7f1b7ac0)($at)
-/*  f171908:	03000008 */ 	jr	$t8
-/*  f17190c:	00000000 */ 	nop
-/*  f171910:	1ae00016 */ 	blez	$s7,.L0f17196c
-/*  f171914:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f171918:	26530003 */ 	addiu	$s3,$s2,0x3
-/*  f17191c:	32790ffc */ 	andi	$t9,$s3,0xffc
-/*  f171920:	00199880 */ 	sll	$s3,$t9,0x2
-.L0f171924:
-/*  f171924:	1a40000e */ 	blez	$s2,.L0f171960
-/*  f171928:	00008025 */ 	or	$s0,$zero,$zero
-/*  f17192c:	02a08825 */ 	or	$s1,$s5,$zero
-.L0f171930:
-/*  f171930:	0fc5cd4f */ 	jal	texReadBits
-/*  f171934:	24040010 */ 	addiu	$a0,$zero,0x10
-/*  f171938:	00024c00 */ 	sll	$t1,$v0,0x10
-/*  f17193c:	ae290000 */ 	sw	$t1,0x0($s1)
-/*  f171940:	0fc5cd4f */ 	jal	texReadBits
-/*  f171944:	24040010 */ 	addiu	$a0,$zero,0x10
-/*  f171948:	8e2a0000 */ 	lw	$t2,0x0($s1)
-/*  f17194c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f171950:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f171954:	01425825 */ 	or	$t3,$t2,$v0
-/*  f171958:	1612fff5 */ 	bne	$s0,$s2,.L0f171930
-/*  f17195c:	ae2bfffc */ 	sw	$t3,-0x4($s1)
-.L0f171960:
-/*  f171960:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f171964:	1697ffef */ 	bne	$s4,$s7,.L0f171924
-/*  f171968:	02b3a821 */ 	addu	$s5,$s5,$s3
-.L0f17196c:
-/*  f17196c:	264c0003 */ 	addiu	$t4,$s2,0x3
-/*  f171970:	318d0ffc */ 	andi	$t5,$t4,0xffc
-/*  f171974:	01b70019 */ 	multu	$t5,$s7
-/*  f171978:	00001012 */ 	mflo	$v0
-/*  f17197c:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f171980:	1000007e */ 	b	.L0f171b7c
-/*  f171984:	01c01025 */ 	or	$v0,$t6,$zero
-/*  f171988:	1ae00012 */ 	blez	$s7,.L0f1719d4
-/*  f17198c:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f171990:	26530003 */ 	addiu	$s3,$s2,0x3
-/*  f171994:	326f0ffc */ 	andi	$t7,$s3,0xffc
-/*  f171998:	000f9880 */ 	sll	$s3,$t7,0x2
-.L0f17199c:
-/*  f17199c:	1a40000a */ 	blez	$s2,.L0f1719c8
-/*  f1719a0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1719a4:	02a08825 */ 	or	$s1,$s5,$zero
-.L0f1719a8:
-/*  f1719a8:	0fc5cd4f */ 	jal	texReadBits
-/*  f1719ac:	24040018 */ 	addiu	$a0,$zero,0x18
-/*  f1719b0:	0002ca00 */ 	sll	$t9,$v0,0x8
-/*  f1719b4:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1719b8:	372800ff */ 	ori	$t0,$t9,0xff
-/*  f1719bc:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f1719c0:	1612fff9 */ 	bne	$s0,$s2,.L0f1719a8
-/*  f1719c4:	ae28fffc */ 	sw	$t0,-0x4($s1)
-.L0f1719c8:
-/*  f1719c8:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f1719cc:	1697fff3 */ 	bne	$s4,$s7,.L0f17199c
-/*  f1719d0:	02b3a821 */ 	addu	$s5,$s5,$s3
-.L0f1719d4:
-/*  f1719d4:	26490003 */ 	addiu	$t1,$s2,0x3
-/*  f1719d8:	312a0ffc */ 	andi	$t2,$t1,0xffc
-/*  f1719dc:	01570019 */ 	multu	$t2,$s7
-/*  f1719e0:	00001012 */ 	mflo	$v0
-/*  f1719e4:	00025880 */ 	sll	$t3,$v0,0x2
-/*  f1719e8:	10000064 */ 	b	.L0f171b7c
-/*  f1719ec:	01601025 */ 	or	$v0,$t3,$zero
-/*  f1719f0:	1ae00010 */ 	blez	$s7,.L0f171a34
-/*  f1719f4:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f1719f8:	26530003 */ 	addiu	$s3,$s2,0x3
-/*  f1719fc:	326c0ffc */ 	andi	$t4,$s3,0xffc
-/*  f171a00:	000c9840 */ 	sll	$s3,$t4,0x1
-.L0f171a04:
-/*  f171a04:	1a400008 */ 	blez	$s2,.L0f171a28
-/*  f171a08:	00008025 */ 	or	$s0,$zero,$zero
-/*  f171a0c:	02c08825 */ 	or	$s1,$s6,$zero
-.L0f171a10:
-/*  f171a10:	0fc5cd4f */ 	jal	texReadBits
-/*  f171a14:	24040010 */ 	addiu	$a0,$zero,0x10
-/*  f171a18:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f171a1c:	26310002 */ 	addiu	$s1,$s1,0x2
-/*  f171a20:	1612fffb */ 	bne	$s0,$s2,.L0f171a10
-/*  f171a24:	a622fffe */ 	sh	$v0,-0x2($s1)
-.L0f171a28:
-/*  f171a28:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f171a2c:	1697fff5 */ 	bne	$s4,$s7,.L0f171a04
-/*  f171a30:	02d3b021 */ 	addu	$s6,$s6,$s3
-.L0f171a34:
-/*  f171a34:	264e0003 */ 	addiu	$t6,$s2,0x3
-/*  f171a38:	31cf0ffc */ 	andi	$t7,$t6,0xffc
-/*  f171a3c:	01f70019 */ 	multu	$t7,$s7
-/*  f171a40:	00001012 */ 	mflo	$v0
-/*  f171a44:	0002c040 */ 	sll	$t8,$v0,0x1
-/*  f171a48:	1000004c */ 	b	.L0f171b7c
-/*  f171a4c:	03001025 */ 	or	$v0,$t8,$zero
-/*  f171a50:	1ae00012 */ 	blez	$s7,.L0f171a9c
-/*  f171a54:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f171a58:	26530003 */ 	addiu	$s3,$s2,0x3
-/*  f171a5c:	32790ffc */ 	andi	$t9,$s3,0xffc
-/*  f171a60:	00199840 */ 	sll	$s3,$t9,0x1
-.L0f171a64:
-/*  f171a64:	1a40000a */ 	blez	$s2,.L0f171a90
-/*  f171a68:	00008025 */ 	or	$s0,$zero,$zero
-/*  f171a6c:	02c08825 */ 	or	$s1,$s6,$zero
-.L0f171a70:
-/*  f171a70:	0fc5cd4f */ 	jal	texReadBits
-/*  f171a74:	2404000f */ 	addiu	$a0,$zero,0xf
-/*  f171a78:	00024840 */ 	sll	$t1,$v0,0x1
-/*  f171a7c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f171a80:	352a0001 */ 	ori	$t2,$t1,0x1
-/*  f171a84:	26310002 */ 	addiu	$s1,$s1,0x2
-/*  f171a88:	1612fff9 */ 	bne	$s0,$s2,.L0f171a70
-/*  f171a8c:	a62afffe */ 	sh	$t2,-0x2($s1)
-.L0f171a90:
-/*  f171a90:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f171a94:	1697fff3 */ 	bne	$s4,$s7,.L0f171a64
-/*  f171a98:	02d3b021 */ 	addu	$s6,$s6,$s3
-.L0f171a9c:
-/*  f171a9c:	264b0003 */ 	addiu	$t3,$s2,0x3
-/*  f171aa0:	316c0ffc */ 	andi	$t4,$t3,0xffc
-/*  f171aa4:	01970019 */ 	multu	$t4,$s7
-/*  f171aa8:	00001012 */ 	mflo	$v0
-/*  f171aac:	00026840 */ 	sll	$t5,$v0,0x1
-/*  f171ab0:	10000032 */ 	b	.L0f171b7c
-/*  f171ab4:	01a01025 */ 	or	$v0,$t5,$zero
-/*  f171ab8:	1ae00010 */ 	blez	$s7,.L0f171afc
-/*  f171abc:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f171ac0:	26550007 */ 	addiu	$s5,$s2,0x7
-/*  f171ac4:	32ae0ff8 */ 	andi	$t6,$s5,0xff8
-/*  f171ac8:	01c0a825 */ 	or	$s5,$t6,$zero
-.L0f171acc:
-/*  f171acc:	1a400008 */ 	blez	$s2,.L0f171af0
-/*  f171ad0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f171ad4:	02608825 */ 	or	$s1,$s3,$zero
-.L0f171ad8:
-/*  f171ad8:	0fc5cd4f */ 	jal	texReadBits
-/*  f171adc:	24040008 */ 	addiu	$a0,$zero,0x8
-/*  f171ae0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f171ae4:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f171ae8:	1612fffb */ 	bne	$s0,$s2,.L0f171ad8
-/*  f171aec:	a222ffff */ 	sb	$v0,-0x1($s1)
-.L0f171af0:
-/*  f171af0:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f171af4:	1697fff5 */ 	bne	$s4,$s7,.L0f171acc
-/*  f171af8:	02759821 */ 	addu	$s3,$s3,$s5
-.L0f171afc:
-/*  f171afc:	264f0007 */ 	addiu	$t7,$s2,0x7
-/*  f171b00:	31f80ff8 */ 	andi	$t8,$t7,0xff8
-/*  f171b04:	03170019 */ 	multu	$t8,$s7
-/*  f171b08:	00001012 */ 	mflo	$v0
-/*  f171b0c:	1000001c */ 	b	.L0f171b80
-/*  f171b10:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f171b14:	1ae00011 */ 	blez	$s7,.L0f171b5c
-/*  f171b18:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f171b1c:	2651000f */ 	addiu	$s1,$s2,0xf
-/*  f171b20:	32390ff0 */ 	andi	$t9,$s1,0xff0
-/*  f171b24:	00198843 */ 	sra	$s1,$t9,0x1
-.L0f171b28:
-/*  f171b28:	1a400009 */ 	blez	$s2,.L0f171b50
-/*  f171b2c:	00008025 */ 	or	$s0,$zero,$zero
-.L0f171b30:
-/*  f171b30:	0fc5cd4f */ 	jal	texReadBits
-/*  f171b34:	24040008 */ 	addiu	$a0,$zero,0x8
-/*  f171b38:	00104843 */ 	sra	$t1,$s0,0x1
-/*  f171b3c:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f171b40:	0212082a */ 	slt	$at,$s0,$s2
-/*  f171b44:	02695021 */ 	addu	$t2,$s3,$t1
-/*  f171b48:	1420fff9 */ 	bnez	$at,.L0f171b30
-/*  f171b4c:	a1420000 */ 	sb	$v0,0x0($t2)
-.L0f171b50:
-/*  f171b50:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f171b54:	1697fff4 */ 	bne	$s4,$s7,.L0f171b28
-/*  f171b58:	02719821 */ 	addu	$s3,$s3,$s1
-.L0f171b5c:
-/*  f171b5c:	264b000f */ 	addiu	$t3,$s2,0xf
-/*  f171b60:	316c0ff0 */ 	andi	$t4,$t3,0xff0
-/*  f171b64:	000c6843 */ 	sra	$t5,$t4,0x1
-/*  f171b68:	01b70019 */ 	multu	$t5,$s7
-/*  f171b6c:	00001012 */ 	mflo	$v0
-/*  f171b70:	10000003 */ 	b	.L0f171b80
-/*  f171b74:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f171b78:
-/*  f171b78:	00001025 */ 	or	$v0,$zero,$zero
-.L0f171b7c:
-/*  f171b7c:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f171b80:
-/*  f171b80:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f171b84:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f171b88:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f171b8c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f171b90:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f171b94:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f171b98:	8fb6002c */ 	lw	$s6,0x2c($sp)
-/*  f171b9c:	8fb70030 */ 	lw	$s7,0x30($sp)
-/*  f171ba0:	03e00008 */ 	jr	$ra
-/*  f171ba4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+/**
+ * Read pixel data from the bitstream and write to dst,
+ * ensuring each row is aligned according to the pixel format.
+ *
+ * Return the number of output bytes.
+ */
+s32 texReadUncompressed(u8 *dst, s32 width, s32 height, s32 format)
+{
+	u32 *dst32 = (u32 *)(((u32)dst + 0xf) & ~0xf);
+	u16 *dst16 = (u16 *)(((u32)dst + 7) & ~7);
+	u8 *dst8 = (u8 *)(((u32)dst + 7) & ~7);
+	s32 x;
+	s32 y;
+
+	switch (format) {
+	case TEXFORMAT_RGBA32:
+		for (y = 0; y < height; y++) {
+			for (x = 0; x < width; x++) {
+				dst32[x] = texReadBits(16) << 16;
+				dst32[x] |= texReadBits(16);
+			}
+
+			dst32 += (width + 3) & 0xffc;
+		}
+
+		return ((width + 3) & 0xffc) * height * 4;
+	case TEXFORMAT_RGB24:
+		for (y = 0; y < height; y++) {
+			for (x = 0; x < width; x++) {
+				dst32[x] = texReadBits(24) << 8 | 0xff;
+			}
+
+			dst32 += (width + 3) & 0xffc;
+		}
+
+		return ((width + 3) & 0xffc) * height * 4;
+	case TEXFORMAT_RGBA16:
+	case TEXFORMAT_IA16:
+		for (y = 0; y < height; y++) {
+			for (x = 0; x < width; x++) {
+				dst16[x] = texReadBits(16);
+			}
+
+			dst16 += (width + 3) & 0xffc;
+		}
+
+		return ((width + 3) & 0xffc) * height * 2;
+	case TEXFORMAT_RGB15:
+		for (y = 0; y < height; y++) {
+			for (x = 0; x < width; x++) {
+				dst16[x] = texReadBits(15) << 1 | 1;
+			}
+
+			dst16 += (width + 3) & 0xffc;
+		}
+
+		return ((width + 3) & 0xffc) * height * 2;
+	case TEXFORMAT_IA8:
+	case TEXFORMAT_I8:
+		for (y = 0; y < height; y++) {
+			for (x = 0; x < width; x++) {
+				dst8[x] = texReadBits(8);
+			}
+
+			dst8 += (width + 7) & 0xff8;
+		}
+
+		return ((width + 7) & 0xff8) * height;
+	case TEXFORMAT_IA4:
+	case TEXFORMAT_I4:
+		for (y = 0; y < height; y++) {
+			for (x = 0; x < width; x += 2) {
+				dst8[x >> 1] = texReadBits(8);
+			}
+
+			dst8 += ((width + 15) & 0xff0) >> 1;
+		}
+
+		return (((width + 15) & 0xff0) >> 1) * height;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f171ba8
