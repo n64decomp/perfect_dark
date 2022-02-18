@@ -195,7 +195,7 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct textur
 					foundthething = true;
 				}
 			} else {
-				func0f1729f8(&dst[totalbytesout], width, height, format);
+				texSwapAltRowBytes(&dst[totalbytesout], width, height, format);
 				totalbytesout += imagebytesout;
 			}
 		} else {
@@ -234,7 +234,7 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct textur
 					break;
 				}
 
-				func0f1729f8(start, tmpwidth, tmpheight, format);
+				texSwapAltRowBytes(start, tmpwidth, tmpheight, format);
 
 				totalbytesout += imagebytesout;
 
@@ -245,9 +245,9 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct textur
 				end += imagebytesout;
 			}
 
-			func0f1729f8(start, tmpwidth, tmpheight, format);
+			texSwapAltRowBytes(start, tmpwidth, tmpheight, format);
 		} else {
-			func0f1729f8(dst, width, height, format);
+			texSwapAltRowBytes(dst, width, height, format);
 		}
 	}
 
@@ -1528,7 +1528,7 @@ s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct tex
 		}
 
 		if (arg2 == 1) {
-			func0f1729f8(&dst[totalbytesout], width, height, format);
+			texSwapAltRowBytes(&dst[totalbytesout], width, height, format);
 		}
 
 		imagebytesout = (imagebytesout + 7) & ~7;
@@ -1569,17 +1569,21 @@ s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct tex
 
 			for (i = 1; i < forcenumimages; i++) {
 				imagebytesout = func0f1706ec(start, end, tmpwidth, tmpheight, format);
-				func0f1729f8(start, tmpwidth, tmpheight, format);
+
+				texSwapAltRowBytes(start, tmpwidth, tmpheight, format);
+
 				totalbytesout += imagebytesout;
+
 				tmpwidth = (tmpwidth + 1) >> 1;
 				tmpheight = (tmpheight + 1) >> 1;
+
 				start = end;
 				end += imagebytesout;
 			}
 
-			func0f1729f8(start, tmpwidth, tmpheight, format);
+			texSwapAltRowBytes(start, tmpwidth, tmpheight, format);
 		} else {
-			func0f1729f8(dst, width, height, format);
+			texSwapAltRowBytes(dst, width, height, format);
 		}
 	}
 
@@ -4147,136 +4151,72 @@ glabel var7f1b7b4c
 /*  f1729f4:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-GLOBAL_ASM(
-glabel func0f1729f8
-.late_rodata
-glabel var7f1b7b50
-.word func0f1729f8+0x2c # f172a24
-glabel var7f1b7b54
-.word func0f1729f8+0x40 # f172a38
-glabel var7f1b7b58
-.word func0f1729f8+0x2c # f172a24
-glabel var7f1b7b5c
-.word func0f1729f8+0x40 # f172a38
-glabel var7f1b7b60
-.word func0f1729f8+0x40 # f172a38
-glabel var7f1b7b64
-.word func0f1729f8+0x58 # f172a50
-glabel var7f1b7b68
-.word func0f1729f8+0x70 # f172a68
-glabel var7f1b7b6c
-.word func0f1729f8+0x58 # f172a50
-glabel var7f1b7b70
-.word func0f1729f8+0x70 # f172a68
-glabel var7f1b7b74
-.word func0f1729f8+0x58 # f172a50
-glabel var7f1b7b78
-.word func0f1729f8+0x70 # f172a68
-glabel var7f1b7b7c
-.word func0f1729f8+0x58 # f172a50
-glabel var7f1b7b80
-.word func0f1729f8+0x70 # f172a68
-.text
-/*  f1729f8:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*  f1729fc:	2ce1000d */ 	sltiu	$at,$a3,0xd
-/*  f172a00:	afa50014 */ 	sw	$a1,0x14($sp)
-/*  f172a04:	1020001d */ 	beqz	$at,.L0f172a7c
-/*  f172a08:	00e01825 */ 	or	$v1,$a3,$zero
-/*  f172a0c:	00077080 */ 	sll	$t6,$a3,0x2
-/*  f172a10:	3c017f1b */ 	lui	$at,%hi(var7f1b7b50)
-/*  f172a14:	002e0821 */ 	addu	$at,$at,$t6
-/*  f172a18:	8c2e7b50 */ 	lw	$t6,%lo(var7f1b7b50)($at)
-/*  f172a1c:	01c00008 */ 	jr	$t6
-/*  f172a20:	00000000 */ 	nop
-/*  f172a24:	8fa50014 */ 	lw	$a1,0x14($sp)
-/*  f172a28:	24a50003 */ 	addiu	$a1,$a1,0x3
-/*  f172a2c:	30af0ffc */ 	andi	$t7,$a1,0xffc
-/*  f172a30:	10000012 */ 	b	.L0f172a7c
-/*  f172a34:	afaf0004 */ 	sw	$t7,0x4($sp)
-/*  f172a38:	8fa50014 */ 	lw	$a1,0x14($sp)
-/*  f172a3c:	24a50003 */ 	addiu	$a1,$a1,0x3
-/*  f172a40:	30b80ffc */ 	andi	$t8,$a1,0xffc
-/*  f172a44:	0018c843 */ 	sra	$t9,$t8,0x1
-/*  f172a48:	1000000c */ 	b	.L0f172a7c
-/*  f172a4c:	afb90004 */ 	sw	$t9,0x4($sp)
-/*  f172a50:	8fa50014 */ 	lw	$a1,0x14($sp)
-/*  f172a54:	24a50007 */ 	addiu	$a1,$a1,0x7
-/*  f172a58:	30aa0ff8 */ 	andi	$t2,$a1,0xff8
-/*  f172a5c:	000a5883 */ 	sra	$t3,$t2,0x2
-/*  f172a60:	10000006 */ 	b	.L0f172a7c
-/*  f172a64:	afab0004 */ 	sw	$t3,0x4($sp)
-/*  f172a68:	8fa50014 */ 	lw	$a1,0x14($sp)
-/*  f172a6c:	24a5000f */ 	addiu	$a1,$a1,0xf
-/*  f172a70:	30ac0ff0 */ 	andi	$t4,$a1,0xff0
-/*  f172a74:	000c68c3 */ 	sra	$t5,$t4,0x3
-/*  f172a78:	afad0004 */ 	sw	$t5,0x4($sp)
-.L0f172a7c:
-/*  f172a7c:	8fa50004 */ 	lw	$a1,0x4($sp)
-/*  f172a80:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f172a84:	00057080 */ 	sll	$t6,$a1,0x2
-/*  f172a88:	10600002 */ 	beqz	$v1,.L0f172a94
-/*  f172a8c:	008e1021 */ 	addu	$v0,$a0,$t6
-/*  f172a90:	1461001b */ 	bne	$v1,$at,.L0f172b00
-.L0f172a94:
-/*  f172a94:	28c10002 */ 	slti	$at,$a2,0x2
-/*  f172a98:	1420002e */ 	bnez	$at,.L0f172b54
-/*  f172a9c:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f172aa0:	00a04825 */ 	or	$t1,$a1,$zero
-/*  f172aa4:	000978c0 */ 	sll	$t7,$t1,0x3
-/*  f172aa8:	01e04825 */ 	or	$t1,$t7,$zero
-.L0f172aac:
-/*  f172aac:	18a0000e */ 	blez	$a1,.L0f172ae8
-/*  f172ab0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f172ab4:	00404025 */ 	or	$t0,$v0,$zero
-.L0f172ab8:
-/*  f172ab8:	8d070000 */ 	lw	$a3,0x0($t0)
-/*  f172abc:	8d180008 */ 	lw	$t8,0x8($t0)
-/*  f172ac0:	8d19000c */ 	lw	$t9,0xc($t0)
-/*  f172ac4:	ad070008 */ 	sw	$a3,0x8($t0)
-/*  f172ac8:	8d070004 */ 	lw	$a3,0x4($t0)
-/*  f172acc:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f172ad0:	0085082a */ 	slt	$at,$a0,$a1
-/*  f172ad4:	25080010 */ 	addiu	$t0,$t0,0x10
-/*  f172ad8:	ad18fff0 */ 	sw	$t8,-0x10($t0)
-/*  f172adc:	ad19fff4 */ 	sw	$t9,-0xc($t0)
-/*  f172ae0:	1420fff5 */ 	bnez	$at,.L0f172ab8
-/*  f172ae4:	ad07fffc */ 	sw	$a3,-0x4($t0)
-.L0f172ae8:
-/*  f172ae8:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f172aec:	0066082a */ 	slt	$at,$v1,$a2
-/*  f172af0:	1420ffee */ 	bnez	$at,.L0f172aac
-/*  f172af4:	00491021 */ 	addu	$v0,$v0,$t1
-/*  f172af8:	10000016 */ 	b	.L0f172b54
-/*  f172afc:	00000000 */ 	nop
-.L0f172b00:
-/*  f172b00:	28c10002 */ 	slti	$at,$a2,0x2
-/*  f172b04:	14200013 */ 	bnez	$at,.L0f172b54
-/*  f172b08:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f172b0c:	00a04825 */ 	or	$t1,$a1,$zero
-/*  f172b10:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f172b14:	01404825 */ 	or	$t1,$t2,$zero
-.L0f172b18:
-/*  f172b18:	18a0000a */ 	blez	$a1,.L0f172b44
-/*  f172b1c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f172b20:	00404025 */ 	or	$t0,$v0,$zero
-.L0f172b24:
-/*  f172b24:	8d070000 */ 	lw	$a3,0x0($t0)
-/*  f172b28:	8d0b0004 */ 	lw	$t3,0x4($t0)
-/*  f172b2c:	24840002 */ 	addiu	$a0,$a0,0x2
-/*  f172b30:	0085082a */ 	slt	$at,$a0,$a1
-/*  f172b34:	25080008 */ 	addiu	$t0,$t0,0x8
-/*  f172b38:	ad07fffc */ 	sw	$a3,-0x4($t0)
-/*  f172b3c:	1420fff9 */ 	bnez	$at,.L0f172b24
-/*  f172b40:	ad0bfff8 */ 	sw	$t3,-0x8($t0)
-.L0f172b44:
-/*  f172b44:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f172b48:	0066082a */ 	slt	$at,$v1,$a2
-/*  f172b4c:	1420fff2 */ 	bnez	$at,.L0f172b18
-/*  f172b50:	00491021 */ 	addu	$v0,$v0,$t1
-.L0f172b54:
-/*  f172b54:	03e00008 */ 	jr	$ra
-/*  f172b58:	27bd0010 */ 	addiu	$sp,$sp,0x10
-);
+/**
+ * For every second row, swap the bytes within that row.
+ *
+ * For textures with 32-bit colour values (in GBI format), swap every pair
+ * within each word. For all other textures, swap every byte within each pair.
+ */
+void texSwapAltRowBytes(u8 *dst, s32 width, s32 height, s32 format)
+{
+	s32 x;
+	s32 y;
+	s32 alignedwidth;
+	u32 *row = (u32 *)dst;
+	s32 tmp;
+
+	switch (format) {
+	case TEXFORMAT_RGBA32:
+	case TEXFORMAT_RGB24:
+		alignedwidth = (width + 3) & 0xffc;
+		break;
+	case TEXFORMAT_RGBA16:
+	case TEXFORMAT_RGB15:
+	case TEXFORMAT_IA16:
+		alignedwidth = ((width + 3) & 0xffc) >> 1;
+		break;
+	case TEXFORMAT_IA8:
+	case TEXFORMAT_I8:
+	case TEXFORMAT_RGBA16_CI8:
+	case TEXFORMAT_IA16_CI8:
+		alignedwidth = ((width + 7) & 0xff8) >> 2;
+		break;
+	case TEXFORMAT_IA4:
+	case TEXFORMAT_I4:
+	case TEXFORMAT_RGBA16_CI4:
+	case TEXFORMAT_0C:
+		alignedwidth = ((width + 0xf) & 0xff0) >> 3;
+		break;
+	}
+
+	row += alignedwidth;
+
+	if (format == TEXFORMAT_RGBA32 || format == TEXFORMAT_RGB24) {
+		for (y = 1; y < height; y += 2) {
+			for (x = 0; x < alignedwidth; x += 4) {
+				tmp = row[x + 0];
+				row[x + 0] = row[x + 2];
+				row[x + 2] = tmp;
+
+				tmp = row[x + 1];
+				row[x + 1] = row[x + 3];
+				row[x + 3] = tmp;
+			}
+
+			row += alignedwidth * 2;
+		}
+	} else {
+		for (y = 1; y < height; y += 2) {
+			for (x = 0; x < alignedwidth; x += 2) {
+				tmp = row[x + 0];
+				row[x + 0] = row[x + 1];
+				row[x + 1] = tmp;
+			}
+
+			row += alignedwidth * 2;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f172b5c

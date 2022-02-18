@@ -25,7 +25,7 @@ s32 texInflateMethod1(u8 *arg0, s32 width, s32 height, s32 format);
 s32 func0f171ba8(u8 *arg0, s32 width, s32 height, u8 *arg3, s32 format);
 s32 func0f17218c(s32 width, s32 height, u8 *arg2, u8 *arg3, s32 arg4, s32 format);
 s32 func0f172554(u8 *arg0, s32 width, s32 height, u8 *arg3, u8 *arg4, s32 arg5, s32 format);
-void func0f1729f8(u8 *arg0, s32 width, s32 height, s32 format);
+void texSwapAltRowBytes(u8 *arg0, s32 width, s32 height, s32 format);
 void func0f172b5c(u8 *arg0, s32 width, s32 arg2, s32 arg3, s32 chansize);
 void func0f172e70(s32 *arg0, void *arg1, s32 arg2);
 struct texloadthing *tex0f172e8c(s32 texturenum, struct texturething *arg1);
