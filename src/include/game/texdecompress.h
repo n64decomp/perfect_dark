@@ -22,7 +22,7 @@ s32 texBuildLookup(u8 *arg0, s32 bpp);
 s32 texGetBitSize(s32 arg0);
 void texReadAlphaBits(u8 *dst, s32 count);
 s32 texReadUncompressed(u8 *dst, s32 width, s32 height, s32 format);
-s32 func0f171ba8(u8 *arg0, s32 width, s32 height, u8 *arg3, s32 format);
+s32 texChannelsToPixels(u8 *src, s32 width, s32 height, u8 *dst, s32 format);
 s32 texInflateLookup(s32 width, s32 height, u8 *dst, u8 *lookup, s32 numcolours, s32 format);
 s32 func0f172554(u8 *arg0, s32 width, s32 height, u8 *arg3, u8 *arg4, s32 arg5, s32 format);
 void texSwapAltRowBytes(u8 *arg0, s32 width, s32 height, s32 format);
