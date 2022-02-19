@@ -1456,12 +1456,12 @@ s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct tex
 		}
 
 		switch (compmethod) {
-		case TEXCOMPMETHOD_0:
-		case TEXCOMPMETHOD_1:
+		case TEXCOMPMETHOD_UNCOMPRESSED0:
+		case TEXCOMPMETHOD_UNCOMPRESSED1:
 			imagebytesout = texReadUncompressed(&dst[totalbytesout], width, height, format);
 			break;
-		case TEXCOMPMETHOD_HUFFMAN2:
-			func0f1711b4(scratch, g_TexFormatNumChannels[format] * width * height, g_TexFormatChannelSizes[format]);
+		case TEXCOMPMETHOD_HUFFMAN:
+			texInflateHuffman(scratch, g_TexFormatNumChannels[format] * width * height, g_TexFormatChannelSizes[format]);
 
 			if (g_TexFormatHas1BitAlpha[format]) {
 				texReadAlphaBits(&scratch[width * height * 3], width * height);
@@ -1469,9 +1469,9 @@ s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct tex
 
 			imagebytesout = texChannelsToPixels(scratch, width, height, &dst[totalbytesout], format);
 			break;
-		case TEXCOMPMETHOD_HUFFMAN3:
+		case TEXCOMPMETHOD_HUFFMANPERHCHANNEL:
 			for (j = 0; j < g_TexFormatNumChannels[format]; j++) {
-				func0f1711b4(&scratch[width * height * j], width * height, g_TexFormatChannelSizes[format]);
+				texInflateHuffman(&scratch[width * height * j], width * height, g_TexFormatChannelSizes[format]);
 			}
 
 			if (g_TexFormatHas1BitAlpha[format]) {
@@ -1495,7 +1495,7 @@ s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct tex
 			break;
 		case TEXCOMPMETHOD_HUFFMANLOOKUP:
 			value = texBuildLookup(lookup, g_TexFormatBitsPerPixel[format]);
-			func0f1711b4(scratch, width * height, value);
+			texInflateHuffman(scratch, width * height, value);
 			imagebytesout = func0f172554(scratch, width, height, &dst[totalbytesout], lookup, value, format);
 			break;
 		case TEXCOMPMETHOD_RLELOOKUP:
@@ -1503,9 +1503,9 @@ s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct tex
 			texInflateRle(scratch, width * height);
 			imagebytesout = func0f172554(scratch, width, height, &dst[totalbytesout], lookup, value, format);
 			break;
-		case TEXCOMPMETHOD_HUFFMANPREPROCESSED:
+		case TEXCOMPMETHOD_HUFFMANBLUR:
 			value = texReadBits(3);
-			func0f1711b4(scratch, g_TexFormatNumChannels[format] * width * height, g_TexFormatChannelSizes[format]);
+			texInflateHuffman(scratch, g_TexFormatNumChannels[format] * width * height, g_TexFormatChannelSizes[format]);
 			texBlur(scratch, width, g_TexFormatNumChannels[format] * height, value, g_TexFormatChannelSizes[format]);
 
 			if (g_TexFormatHas1BitAlpha[format]) {
@@ -1514,7 +1514,7 @@ s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct tex
 
 			imagebytesout = texChannelsToPixels(scratch, width, height, &dst[totalbytesout], format);
 			break;
-		case TEXCOMPMETHOD_9:
+		case TEXCOMPMETHOD_RLEBLUR:
 			value = texReadBits(3);
 			texInflateRle(scratch, g_TexFormatNumChannels[format] * width * height);
 			texBlur(scratch, width, g_TexFormatNumChannels[format] * height, value, g_TexFormatChannelSizes[format]);
@@ -2387,275 +2387,147 @@ glabel var7f1b7abc
 /*  f1711b0:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-GLOBAL_ASM(
-glabel func0f1711b4
-/*  f1711b4:	27bdcf90 */ 	addiu	$sp,$sp,-12400
-/*  f1711b8:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f1711bc:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f1711c0:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f1711c4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f1711c8:	00c0a025 */ 	or	$s4,$a2,$zero
-/*  f1711cc:	0080a825 */ 	or	$s5,$a0,$zero
-/*  f1711d0:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f1711d4:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f1711d8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f1711dc:	afa53074 */ 	sw	$a1,0x3074($sp)
-/*  f1711e0:	0000f825 */ 	or	$ra,$zero,$zero
-/*  f1711e4:	18c0000a */ 	blez	$a2,.L0f171210
-/*  f1711e8:	00008825 */ 	or	$s1,$zero,$zero
-/*  f1711ec:	27b02070 */ 	addiu	$s0,$sp,0x2070
-.L0f1711f0:
-/*  f1711f0:	afbf0054 */ 	sw	$ra,0x54($sp)
-/*  f1711f4:	0fc5cd4f */ 	jal	texReadBits
-/*  f1711f8:	24040008 */ 	addiu	$a0,$zero,0x8
-/*  f1711fc:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f171200:	8fbf0054 */ 	lw	$ra,0x54($sp)
-/*  f171204:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f171208:	1634fff9 */ 	bne	$s1,$s4,.L0f1711f0
-/*  f17120c:	a602fffe */ 	sh	$v0,-0x2($s0)
-.L0f171210:
-/*  f171210:	27a20070 */ 	addiu	$v0,$sp,0x70
-/*  f171214:	27a42070 */ 	addiu	$a0,$sp,0x2070
-/*  f171218:	2403ffff */ 	addiu	$v1,$zero,-1
-.L0f17121c:
-/*  f17121c:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f171220:	0044082b */ 	sltu	$at,$v0,$a0
-/*  f171224:	a443fffc */ 	sh	$v1,-0x4($v0)
-/*  f171228:	1420fffc */ 	bnez	$at,.L0f17121c
-/*  f17122c:	a443fffe */ 	sh	$v1,-0x2($v0)
-/*  f171230:	2408270f */ 	addiu	$t0,$zero,0x270f
-/*  f171234:	2406270f */ 	addiu	$a2,$zero,0x270f
-/*  f171238:	1a80001e */ 	blez	$s4,.L0f1712b4
-/*  f17123c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f171240:	27b02070 */ 	addiu	$s0,$sp,0x2070
-/*  f171244:	8fa9005c */ 	lw	$t1,0x5c($sp)
-/*  f171248:	8fa70058 */ 	lw	$a3,0x58($sp)
-.L0f17124c:
-/*  f17124c:	96040000 */ 	lhu	$a0,0x0($s0)
-/*  f171250:	01001825 */ 	or	$v1,$t0,$zero
-/*  f171254:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f171258:	0088082a */ 	slt	$at,$a0,$t0
-/*  f17125c:	1020000a */ 	beqz	$at,.L0f171288
-/*  f171260:	00801025 */ 	or	$v0,$a0,$zero
-/*  f171264:	00a3082a */ 	slt	$at,$a1,$v1
-/*  f171268:	50200005 */ 	beqzl	$at,.L0f171280
-/*  f17126c:	3086ffff */ 	andi	$a2,$a0,0xffff
-/*  f171270:	3088ffff */ 	andi	$t0,$a0,0xffff
-/*  f171274:	10000009 */ 	b	.L0f17129c
-/*  f171278:	02204825 */ 	or	$t1,$s1,$zero
-/*  f17127c:	3086ffff */ 	andi	$a2,$a0,0xffff
-.L0f171280:
-/*  f171280:	10000006 */ 	b	.L0f17129c
-/*  f171284:	02203825 */ 	or	$a3,$s1,$zero
-.L0f171288:
-/*  f171288:	0045082a */ 	slt	$at,$v0,$a1
-/*  f17128c:	50200004 */ 	beqzl	$at,.L0f1712a0
-/*  f171290:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f171294:	3086ffff */ 	andi	$a2,$a0,0xffff
-/*  f171298:	02203825 */ 	or	$a3,$s1,$zero
-.L0f17129c:
-/*  f17129c:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f1712a0:
-/*  f1712a0:	1634ffea */ 	bne	$s1,$s4,.L0f17124c
-/*  f1712a4:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f1712a8:	00008825 */ 	or	$s1,$zero,$zero
-/*  f1712ac:	afa70058 */ 	sw	$a3,0x58($sp)
-/*  f1712b0:	afa9005c */ 	sw	$t1,0x5c($sp)
-.L0f1712b4:
-/*  f1712b4:	8fa70058 */ 	lw	$a3,0x58($sp)
-/*  f1712b8:	8fa9005c */ 	lw	$t1,0x5c($sp)
-/*  f1712bc:	27b30070 */ 	addiu	$s3,$sp,0x70
-/*  f1712c0:	240d270f */ 	addiu	$t5,$zero,0x270f
-/*  f1712c4:	240c270f */ 	addiu	$t4,$zero,0x270f
-/*  f1712c8:	27ab2070 */ 	addiu	$t3,$sp,0x2070
-/*  f1712cc:	00077040 */ 	sll	$t6,$a3,0x1
-.L0f1712d0:
-/*  f1712d0:	00097840 */ 	sll	$t7,$t1,0x1
-/*  f1712d4:	016f1021 */ 	addu	$v0,$t3,$t7
-/*  f1712d8:	016e2821 */ 	addu	$a1,$t3,$t6
-/*  f1712dc:	94b80000 */ 	lhu	$t8,0x0($a1)
-/*  f1712e0:	94590000 */ 	lhu	$t9,0x0($v0)
-/*  f1712e4:	00097080 */ 	sll	$t6,$t1,0x2
-/*  f1712e8:	00077880 */ 	sll	$t7,$a3,0x2
-/*  f1712ec:	03195021 */ 	addu	$t2,$t8,$t9
-/*  f1712f0:	026f2021 */ 	addu	$a0,$s3,$t7
-/*  f1712f4:	026e1821 */ 	addu	$v1,$s3,$t6
-/*  f1712f8:	2408270f */ 	addiu	$t0,$zero,0x270f
-/*  f1712fc:	15400002 */ 	bnez	$t2,.L0f171308
-/*  f171300:	2406270f */ 	addiu	$a2,$zero,0x270f
-/*  f171304:	240a0001 */ 	addiu	$t2,$zero,0x1
-.L0f171308:
-/*  f171308:	84780000 */ 	lh	$t8,0x0($v1)
-/*  f17130c:	a44c0000 */ 	sh	$t4,0x0($v0)
-/*  f171310:	a4ac0000 */ 	sh	$t4,0x0($a1)
-/*  f171314:	07010013 */ 	bgez	$t8,.L0f171364
-/*  f171318:	27b02070 */ 	addiu	$s0,$sp,0x2070
-/*  f17131c:	84790002 */ 	lh	$t9,0x2($v1)
-/*  f171320:	252e2710 */ 	addiu	$t6,$t1,0x2710
-/*  f171324:	07230010 */ 	bgezl	$t9,.L0f171368
-/*  f171328:	848e0000 */ 	lh	$t6,0x0($a0)
-/*  f17132c:	a46e0000 */ 	sh	$t6,0x0($v1)
-/*  f171330:	848f0000 */ 	lh	$t7,0x0($a0)
-/*  f171334:	01209025 */ 	or	$s2,$t1,$zero
-/*  f171338:	a44a0000 */ 	sh	$t2,0x0($v0)
-/*  f17133c:	05e10007 */ 	bgez	$t7,.L0f17135c
-/*  f171340:	00000000 */ 	nop
-/*  f171344:	84980002 */ 	lh	$t8,0x2($a0)
-/*  f171348:	24f92710 */ 	addiu	$t9,$a3,0x2710
-/*  f17134c:	07010003 */ 	bgez	$t8,.L0f17135c
-/*  f171350:	00000000 */ 	nop
-/*  f171354:	10000037 */ 	b	.L0f171434
-/*  f171358:	a4790002 */ 	sh	$t9,0x2($v1)
-.L0f17135c:
-/*  f17135c:	10000035 */ 	b	.L0f171434
-/*  f171360:	a4670002 */ 	sh	$a3,0x2($v1)
-.L0f171364:
-/*  f171364:	848e0000 */ 	lh	$t6,0x0($a0)
-.L0f171368:
-/*  f171368:	87b80070 */ 	lh	$t8,0x70($sp)
-/*  f17136c:	05c10013 */ 	bgez	$t6,.L0f1713bc
-/*  f171370:	00000000 */ 	nop
-/*  f171374:	848f0002 */ 	lh	$t7,0x2($a0)
-/*  f171378:	05e10010 */ 	bgez	$t7,.L0f1713bc
-/*  f17137c:	00000000 */ 	nop
-/*  f171380:	24f82710 */ 	addiu	$t8,$a3,0x2710
-/*  f171384:	a4980000 */ 	sh	$t8,0x0($a0)
-/*  f171388:	84790000 */ 	lh	$t9,0x0($v1)
-/*  f17138c:	00e09025 */ 	or	$s2,$a3,$zero
-/*  f171390:	a4aa0000 */ 	sh	$t2,0x0($a1)
-/*  f171394:	07210007 */ 	bgez	$t9,.L0f1713b4
-/*  f171398:	00000000 */ 	nop
-/*  f17139c:	846e0002 */ 	lh	$t6,0x2($v1)
-/*  f1713a0:	252f2710 */ 	addiu	$t7,$t1,0x2710
-/*  f1713a4:	05c10003 */ 	bgez	$t6,.L0f1713b4
-/*  f1713a8:	00000000 */ 	nop
-/*  f1713ac:	10000021 */ 	b	.L0f171434
-/*  f1713b0:	a48f0002 */ 	sh	$t7,0x2($a0)
-.L0f1713b4:
-/*  f1713b4:	1000001f */ 	b	.L0f171434
-/*  f1713b8:	a4890002 */ 	sh	$t1,0x2($a0)
-.L0f1713bc:
-/*  f1713bc:	07010009 */ 	bgez	$t8,.L0f1713e4
-/*  f1713c0:	00009025 */ 	or	$s2,$zero,$zero
-/*  f1713c4:	0000c880 */ 	sll	$t9,$zero,0x2
-/*  f1713c8:	02791021 */ 	addu	$v0,$s3,$t9
-/*  f1713cc:	844e0002 */ 	lh	$t6,0x2($v0)
-/*  f1713d0:	97af2070 */ 	lhu	$t7,0x2070($sp)
-/*  f1713d4:	05c10003 */ 	bgez	$t6,.L0f1713e4
-/*  f1713d8:	29e1270f */ 	slti	$at,$t7,0x270f
-/*  f1713dc:	50200011 */ 	beqzl	$at,.L0f171424
-/*  f1713e0:	00127040 */ 	sll	$t6,$s2,0x1
-.L0f1713e4:
-/*  f1713e4:	26520001 */ 	addiu	$s2,$s2,0x1
-.L0f1713e8:
-/*  f1713e8:	0012c080 */ 	sll	$t8,$s2,0x2
-/*  f1713ec:	02781021 */ 	addu	$v0,$s3,$t8
-/*  f1713f0:	84590000 */ 	lh	$t9,0x0($v0)
-/*  f1713f4:	0723fffc */ 	bgezl	$t9,.L0f1713e8
-/*  f1713f8:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f1713fc:	844e0002 */ 	lh	$t6,0x2($v0)
-/*  f171400:	05c3fff9 */ 	bgezl	$t6,.L0f1713e8
-/*  f171404:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f171408:	00127840 */ 	sll	$t7,$s2,0x1
-/*  f17140c:	016fc021 */ 	addu	$t8,$t3,$t7
-/*  f171410:	97190000 */ 	lhu	$t9,0x0($t8)
-/*  f171414:	2b21270f */ 	slti	$at,$t9,0x270f
-/*  f171418:	5420fff3 */ 	bnezl	$at,.L0f1713e8
-/*  f17141c:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f171420:	00127040 */ 	sll	$t6,$s2,0x1
-.L0f171424:
-/*  f171424:	016e7821 */ 	addu	$t7,$t3,$t6
-/*  f171428:	a5ea0000 */ 	sh	$t2,0x0($t7)
-/*  f17142c:	a4490000 */ 	sh	$t1,0x0($v0)
-/*  f171430:	a4470002 */ 	sh	$a3,0x2($v0)
-.L0f171434:
-/*  f171434:	1a800019 */ 	blez	$s4,.L0f17149c
-/*  f171438:	00000000 */ 	nop
-.L0f17143c:
-/*  f17143c:	96040000 */ 	lhu	$a0,0x0($s0)
-/*  f171440:	01001825 */ 	or	$v1,$t0,$zero
-/*  f171444:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f171448:	0088082a */ 	slt	$at,$a0,$t0
-/*  f17144c:	1020000a */ 	beqz	$at,.L0f171478
-/*  f171450:	00801025 */ 	or	$v0,$a0,$zero
-/*  f171454:	00a3082a */ 	slt	$at,$a1,$v1
-/*  f171458:	50200005 */ 	beqzl	$at,.L0f171470
-/*  f17145c:	3086ffff */ 	andi	$a2,$a0,0xffff
-/*  f171460:	3088ffff */ 	andi	$t0,$a0,0xffff
-/*  f171464:	10000009 */ 	b	.L0f17148c
-/*  f171468:	02204825 */ 	or	$t1,$s1,$zero
-/*  f17146c:	3086ffff */ 	andi	$a2,$a0,0xffff
-.L0f171470:
-/*  f171470:	10000006 */ 	b	.L0f17148c
-/*  f171474:	02203825 */ 	or	$a3,$s1,$zero
-.L0f171478:
-/*  f171478:	0045082a */ 	slt	$at,$v0,$a1
-/*  f17147c:	50200004 */ 	beqzl	$at,.L0f171490
-/*  f171480:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f171484:	3086ffff */ 	andi	$a2,$a0,0xffff
-/*  f171488:	02203825 */ 	or	$a3,$s1,$zero
-.L0f17148c:
-/*  f17148c:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f171490:
-/*  f171490:	1634ffea */ 	bne	$s1,$s4,.L0f17143c
-/*  f171494:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f171498:	00008825 */ 	or	$s1,$zero,$zero
-.L0f17149c:
-/*  f17149c:	51a80004 */ 	beql	$t5,$t0,.L0f1714b0
-/*  f1714a0:	241f0001 */ 	addiu	$ra,$zero,0x1
-/*  f1714a4:	15a60002 */ 	bne	$t5,$a2,.L0f1714b0
-/*  f1714a8:	00000000 */ 	nop
-/*  f1714ac:	241f0001 */ 	addiu	$ra,$zero,0x1
-.L0f1714b0:
-/*  f1714b0:	53e0ff87 */ 	beqzl	$ra,.L0f1712d0
-/*  f1714b4:	00077040 */ 	sll	$t6,$a3,0x1
-/*  f1714b8:	8fb83074 */ 	lw	$t8,0x3074($sp)
-/*  f1714bc:	afb20068 */ 	sw	$s2,0x68($sp)
-/*  f1714c0:	27b30070 */ 	addiu	$s3,$sp,0x70
-/*  f1714c4:	1b00001b */ 	blez	$t8,.L0f171534
-/*  f1714c8:	2a412710 */ 	slti	$at,$s2,0x2710
-.L0f1714cc:
-/*  f1714cc:	1020000b */ 	beqz	$at,.L0f1714fc
-/*  f1714d0:	02408025 */ 	or	$s0,$s2,$zero
-.L0f1714d4:
-/*  f1714d4:	0fc5cd4f */ 	jal	texReadBits
-/*  f1714d8:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f1714dc:	0010c880 */ 	sll	$t9,$s0,0x2
-/*  f1714e0:	02797021 */ 	addu	$t6,$s3,$t9
-/*  f1714e4:	00027840 */ 	sll	$t7,$v0,0x1
-/*  f1714e8:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f1714ec:	87100000 */ 	lh	$s0,0x0($t8)
-/*  f1714f0:	2a012710 */ 	slti	$at,$s0,0x2710
-/*  f1714f4:	1420fff7 */ 	bnez	$at,.L0f1714d4
-/*  f1714f8:	00000000 */ 	nop
-.L0f1714fc:
-/*  f1714fc:	2a810101 */ 	slti	$at,$s4,0x101
-/*  f171500:	10200005 */ 	beqz	$at,.L0f171518
-/*  f171504:	260fd8f0 */ 	addiu	$t7,$s0,-10000
-/*  f171508:	2619d8f0 */ 	addiu	$t9,$s0,-10000
-/*  f17150c:	02b17021 */ 	addu	$t6,$s5,$s1
-/*  f171510:	10000004 */ 	b	.L0f171524
-/*  f171514:	a1d90000 */ 	sb	$t9,0x0($t6)
-.L0f171518:
-/*  f171518:	0011c040 */ 	sll	$t8,$s1,0x1
-/*  f17151c:	02b8c821 */ 	addu	$t9,$s5,$t8
-/*  f171520:	a72f0000 */ 	sh	$t7,0x0($t9)
-.L0f171524:
-/*  f171524:	8fae3074 */ 	lw	$t6,0x3074($sp)
-/*  f171528:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f17152c:	562effe7 */ 	bnel	$s1,$t6,.L0f1714cc
-/*  f171530:	2a412710 */ 	slti	$at,$s2,0x2710
-.L0f171534:
-/*  f171534:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f171538:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f17153c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f171540:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f171544:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f171548:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f17154c:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f171550:	03e00008 */ 	jr	$ra
-/*  f171554:	27bd3070 */ 	addiu	$sp,$sp,0x3070
-);
+/**
+ * Inflate Huffman data.
+ *
+ * This function operates on single channels rather than whole colours.
+ * For example, for an RGBA32 image this function may be called once for each
+ * channel with chansize = 256. This means the resulting data is in the format
+ * RRR...GGG...BBB...AAA..., and the caller must convert it into a proper pixel
+ * format.
+ *
+ * A typical Huffman implementation stores a tree, where each node contains
+ * the lookup value and its frequency (number of uses). However, Rare's
+ * implementation only stores a list of frequencies. It uses the chansize
+ * to know how many values there are.
+ */
+void texInflateHuffman(u8 *dst, s32 numiterations, s32 chansize)
+{
+	u16 frequencies[2048];
+	s16 nodes[2048][2];
+	s32 i;
+	s32 rootindex;
+	s32 sum;
+	u16 minfreq1;
+	u16 minfreq2;
+	s32 minindex1; // 5c
+	s32 minindex2; // 58
+	bool done = false;
+
+	// Read the frequencies list
+	for (i = 0; i < chansize; i++) {
+		frequencies[i] = texReadBits(8);
+	}
+
+	// Initialise the tree
+	for (i = 0; i < 2048; i++) {
+		nodes[i][0] = -1;
+		nodes[i][1] = -1;
+	}
+
+	// Find the two smallest frequencies
+	minfreq1 = 9999;
+	minfreq2 = 9999;
+
+	for (i = 0; i < chansize; i++) {
+		if (frequencies[i] < minfreq1) {
+			if (minfreq2 < minfreq1) {
+				minfreq1 = frequencies[i];
+				minindex1 = i;
+			} else {
+				minfreq2 = frequencies[i];
+				minindex2 = i;
+			}
+		} else if (frequencies[i] < minfreq2) {
+			minfreq2 = frequencies[i];
+			minindex2 = i;
+		}
+	}
+
+	// Build the tree.
+	// For each node in tree, a branch value < 10000 means this branch
+	// leads to another node, and the value is the target node's index.
+	// A branch value >= 10000 means the branch is a leaf node,
+	// and the value is the channel value + 10000.
+	while (!done) {
+		sum = frequencies[minindex1] + frequencies[minindex2];
+
+		if (sum == 0) {
+			sum = 1;
+		}
+
+		frequencies[minindex1] = 9999;
+		frequencies[minindex2] = 9999;
+
+		if (nodes[minindex1][0] < 0 && nodes[minindex1][1] < 0) {
+			nodes[minindex1][0] = minindex1 + 10000;
+			rootindex = minindex1;
+			frequencies[minindex1] = sum;
+
+			if (nodes[minindex2][0] < 0 && nodes[minindex2][1] < 0) {
+				nodes[minindex1][1] = minindex2 + 10000;
+			} else {
+				nodes[minindex1][1] = minindex2;
+			}
+		} else if (nodes[minindex2][0] < 0 && nodes[minindex2][1] < 0) {
+			nodes[minindex2][0] = minindex2 + 10000;
+			rootindex = minindex2;
+			frequencies[minindex2] = sum;
+
+			if (nodes[minindex1][0] < 0 && nodes[minindex1][1] < 0) {
+				nodes[minindex2][1] = minindex1 + 10000;
+			} else {
+				nodes[minindex2][1] = minindex1;
+			}
+		} else {
+			for (rootindex = 0; nodes[rootindex][0] >= 0 || nodes[rootindex][1] >= 0 || frequencies[rootindex] < 9999; rootindex++);
+
+			frequencies[rootindex] = sum;
+			nodes[rootindex][0] = minindex1;
+			nodes[rootindex][1] = minindex2;
+		}
+
+		// Find the two smallest frequencies again for the next iteration
+		minfreq1 = 9999;
+		minfreq2 = 9999;
+
+		for (i = 0; i < chansize; i++) {
+			if (frequencies[i] < minfreq1) {
+				if (minfreq1 > minfreq2) {
+					minfreq1 = frequencies[i];
+					minindex1 = i;
+				} else {
+					minfreq2 = frequencies[i];
+					minindex2 = i;
+				}
+			} else if (frequencies[i] < minfreq2) {
+				minfreq2 = frequencies[i];
+				minindex2 = i;
+			}
+		}
+
+		if (minfreq1 == 9999 || minfreq2 == 9999) {
+			done = true;
+		}
+	}
+
+	// Read bits off the bitstring, traverse the tree
+	// and write the channel values to dst
+	for (i = 0; i < numiterations; i++) {
+		s32 indexorvalue = rootindex;
+
+		while (indexorvalue < 10000) {
+			indexorvalue = nodes[indexorvalue][texReadBits(1)];
+		}
+
+		if (chansize <= 256) {
+			dst[i] = indexorvalue - 10000;
+		} else {
+			u16 *tmp = (u16 *)dst;
+			tmp[i] = indexorvalue - 10000;
+		}
+	}
+}
 
 /**
  * Inflate runlength-encoded data.

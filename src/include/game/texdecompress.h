@@ -16,7 +16,7 @@ u32 func0f16fc8c(void);
 s32 func0f16fd50(u16 *arg0, s32 arg1, s32 arg2, s32 arg3);
 s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texturething *arg4, s32 arg5);
 s32 func0f1706ec(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3, s32 format);
-void func0f1711b4(u8 *arg0, s32 arg1, s32 chansize);
+void texInflateHuffman(u8 *dst, s32 numiterations, s32 chansize);
 void texInflateRle(u8 *arg0, s32 arg1);
 s32 texBuildLookup(u8 *arg0, s32 bpp);
 s32 texGetBitSize(s32 arg0);
