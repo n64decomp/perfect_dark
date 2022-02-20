@@ -2254,93 +2254,40 @@ void beamTick(struct beam *beam)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0adcc8
-/*  f0adcc8:	3c0e800a */ 	lui	$t6,%hi(g_Casings+0x40)
-/*  f0adccc:	8dced550 */ 	lw	$t6,%lo(g_Casings+0x40)($t6)
-/*  f0adcd0:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f0adcd4:	3c08800a */ 	lui	$t0,%hi(g_Casings)
-/*  f0adcd8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0adcdc:	00803825 */ 	or	$a3,$a0,$zero
-/*  f0adce0:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f0adce4:	11c0000a */ 	beqz	$t6,.L0f0add10
-/*  f0adce8:	2508d510 */ 	addiu	$t0,$t0,%lo(g_Casings)
-/*  f0adcec:	3c02800a */ 	lui	$v0,%hi(var8009da60)
-/*  f0adcf0:	2442da60 */ 	addiu	$v0,$v0,%lo(var8009da60)
-/*  f0adcf4:	25080044 */ 	addiu	$t0,$t0,0x44
-.L0f0adcf8:
-/*  f0adcf8:	0102082b */ 	sltu	$at,$t0,$v0
-/*  f0adcfc:	10200004 */ 	beqz	$at,.L0f0add10
-/*  f0add00:	00000000 */ 	nop
-/*  f0add04:	8d0f0040 */ 	lw	$t7,0x40($t0)
-/*  f0add08:	55e0fffb */ 	bnezl	$t7,.L0f0adcf8
-/*  f0add0c:	25080044 */ 	addiu	$t0,$t0,0x44
-.L0f0add10:
-/*  f0add10:	3c02800a */ 	lui	$v0,%hi(var8009da60)
-/*  f0add14:	2442da60 */ 	addiu	$v0,$v0,%lo(var8009da60)
-/*  f0add18:	0102082b */ 	sltu	$at,$t0,$v0
-/*  f0add1c:	10200034 */ 	beqz	$at,.L0f0addf0
-/*  f0add20:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0add24:	ad070040 */ 	sw	$a3,0x40($t0)
-/*  f0add28:	c4c40030 */ 	lwc1	$f4,0x30($a2)
-/*  f0add2c:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0add30:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f0add34:	e5040004 */ 	swc1	$f4,0x4($t0)
-/*  f0add38:	c4c60034 */ 	lwc1	$f6,0x34($a2)
-/*  f0add3c:	e5060008 */ 	swc1	$f6,0x8($t0)
-/*  f0add40:	c4c80038 */ 	lwc1	$f8,0x38($a2)
-/*  f0add44:	e508000c */ 	swc1	$f8,0xc($t0)
-/*  f0add48:	0c005768 */ 	jal	mtx4ToMtx3
-/*  f0add4c:	afa80030 */ 	sw	$t0,0x30($sp)
-/*  f0add50:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*  f0add54:	3c014580 */ 	lui	$at,0x4580
-/*  f0add58:	44810000 */ 	mtc1	$at,$f0
-/*  f0add5c:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*  f0add60:	27a90058 */ 	addiu	$t1,$sp,0x58
-/*  f0add64:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f0add68:	01003825 */ 	or	$a3,$t0,$zero
-.L0f0add6c:
-/*  f0add6c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0add70:	00e01825 */ 	or	$v1,$a3,$zero
-/*  f0add74:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0add78:	c4900000 */ 	lwc1	$f16,0x0($a0)
-/*  f0add7c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0add80:	46008482 */ 	mul.s	$f18,$f16,$f0
-/*  f0add84:	5045000d */ 	beql	$v0,$a1,.L0f0addbc
-/*  f0add88:	4600940d */ 	trunc.w.s	$f16,$f18
-/*  f0add8c:	4600940d */ 	trunc.w.s	$f16,$f18
-.L0f0add90:
-/*  f0add90:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0add94:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f0add98:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f0add9c:	44198000 */ 	mfc1	$t9,$f16
-/*  f0adda0:	00000000 */ 	nop
-/*  f0adda4:	a479001a */ 	sh	$t9,0x1a($v1)
-/*  f0adda8:	c4900000 */ 	lwc1	$f16,0x0($a0)
-/*  f0addac:	46008482 */ 	mul.s	$f18,$f16,$f0
-/*  f0addb0:	5445fff7 */ 	bnel	$v0,$a1,.L0f0add90
-/*  f0addb4:	4600940d */ 	trunc.w.s	$f16,$f18
-/*  f0addb8:	4600940d */ 	trunc.w.s	$f16,$f18
-.L0f0addbc:
-/*  f0addbc:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f0addc0:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f0addc4:	44198000 */ 	mfc1	$t9,$f16
-/*  f0addc8:	00000000 */ 	nop
-/*  f0addcc:	a479001a */ 	sh	$t9,0x1a($v1)
-/*  f0addd0:	24c6000c */ 	addiu	$a2,$a2,0xc
-/*  f0addd4:	14c9ffe5 */ 	bne	$a2,$t1,.L0f0add6c
-/*  f0addd8:	24e70006 */ 	addiu	$a3,$a3,0x6
-/*  f0adddc:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f0adde0:	3c018007 */ 	lui	$at,%hi(g_CasingsActive)
-/*  f0adde4:	ac2a0524 */ 	sw	$t2,%lo(g_CasingsActive)($at)
-/*  f0adde8:	10000001 */ 	b	.L0f0addf0
-/*  f0addec:	01001025 */ 	or	$v0,$t0,$zero
-.L0f0addf0:
-/*  f0addf0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0addf4:	27bd0060 */ 	addiu	$sp,$sp,0x60
-/*  f0addf8:	03e00008 */ 	jr	$ra
-/*  f0addfc:	00000000 */ 	nop
-);
+struct casing *casingCreate(struct modelfiledata *modeldef, Mtxf *mtx)
+{
+	s32 i;
+	s32 j;
+	f32 rot[3][3];
+	struct casing *casing = g_Casings;
+	struct casing *end = g_Casings + ARRAYCOUNT(g_Casings);
+	u32 stack;
+
+	while (casing < end && casing->modeldef != NULL) {
+		casing++;
+	}
+
+	if (casing < end) {
+		casing->modeldef = modeldef;
+		casing->pos.x = mtx->m[3][0];
+		casing->pos.y = mtx->m[3][1];
+		casing->pos.z = mtx->m[3][2];
+
+		mtx4ToMtx3(mtx, rot);
+
+		for (i = 0; i < 3; i++) {
+			for (j = 0; j < 3; j++) {
+				casing->rot[i][j] = rot[i][j] * 4096.0f;
+			}
+		}
+
+		g_CasingsActive = true;
+
+		return casing;
+	}
+
+	return NULL;
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
@@ -2499,7 +2446,7 @@ glabel var7f1acd60
 /*  f0adf60:	00000000 */ 	nop
 /*  f0adf64:	10400004 */ 	beqz	$v0,.L0f0adf78
 /*  f0adf68:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0adf6c:	0fc2b732 */ 	jal	func0f0adcc8
+/*  f0adf6c:	0fc2b732 */ 	jal	casingCreate
 /*  f0adf70:	27a500ec */ 	addiu	$a1,$sp,0xec
 /*  f0adf74:	00408025 */ 	or	$s0,$v0,$zero
 .L0f0adf78:
@@ -3330,7 +3277,7 @@ glabel var7f1acd60
 /*  f0adf60:	00000000 */ 	nop
 /*  f0adf64:	10400004 */ 	beqz	$v0,.L0f0adf78
 /*  f0adf68:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0adf6c:	0fc2b732 */ 	jal	func0f0adcc8
+/*  f0adf6c:	0fc2b732 */ 	jal	casingCreate
 /*  f0adf70:	27a500ec */ 	addiu	$a1,$sp,0xec
 /*  f0adf74:	00408025 */ 	or	$s0,$v0,$zero
 .L0f0adf78:
@@ -4072,11 +4019,8 @@ void casingRender(struct casing *casing, Gfx **gdlptr)
 void casingsRender(Gfx **gdlptr)
 {
 	if (g_CasingsActive) {
-		struct casing *end;
-		struct casing *casing;
-
-		end = g_Casings + ARRAYCOUNT(g_Casings);
-		casing = g_Casings;
+		struct casing *end = g_Casings + ARRAYCOUNT(g_Casings);
+		struct casing *casing = g_Casings;
 
 		while (casing < end) {
 			if (casing->modeldef) {

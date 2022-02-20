@@ -9,7 +9,7 @@ u32 func0f0ac138(void);
 Gfx *func0f0ac4b8(Gfx *gdl, struct textureconfig *arg1, f32 arg2, struct coord *arg3, u32 colour1, f32 arg5, struct coord *arg6, u32 colour2);
 Gfx *func0f0acb90(Gfx *gdl, struct beam *beam, bool arg2, u32 arg3);
 void beamTick(struct beam *beam);
-u32 func0f0adcc8(void);
+struct casing *casingCreate(struct modelfiledata *modeldef, Mtxf *mtx);
 u32 func0f0ade00(void);
 void casingRender(struct casing *casing, Gfx **gdlptr);
 void casingsRender(Gfx **gdlptr);
