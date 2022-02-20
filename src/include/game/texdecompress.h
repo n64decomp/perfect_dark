@@ -8,7 +8,7 @@ void func0f16e810(u32 arg0);
 s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texturething *arg4, s32 arg5);
 s32 texAlignIndices(u8 *arg0, s32 width, s32 height, s32 format, u8 *dst);
 s32 texGetAverageRed(u16 colour1, u16 colour2, u16 colour3, u16 colour4);
-u32 func0f16eefc(void);
+s32 texGetAverageGreen(u16 colour1, u16 colour2, u16 colour3, u16 colour4);
 u32 func0f16efa0(void);
 u32 func0f16f044(void);
 s32 func0f16f0f4(u8 *start, u8 *end, s32 width, s32 height, s32 format, u16 *palette, s32 numcolours);
