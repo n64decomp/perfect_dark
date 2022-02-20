@@ -9296,11 +9296,11 @@ void bgun0f09df9c(void)
 	casing = g_Casings;
 
 	while (casing < end) {
-		casing->unk40 = 0;
+		casing->modeldef = NULL;
 		casing++;
 	}
 
-	g_CasingsActive = 0;
+	g_CasingsActive = false;
 }
 
 bool bgun0f09e004(s32 newowner)
@@ -25380,7 +25380,7 @@ glabel var7f1aca90
 /*  f0a7c04:	1681fe04 */ 	bne	$s4,$at,.L0f0a7418
 /*  f0a7c08:	261007a4 */ 	addiu	$s0,$s0,0x7a4
 /*  f0a7c0c:	afb500e4 */ 	sw	$s5,0xe4($sp)
-/*  f0a7c10:	0fc2baf8 */ 	jal	func0f0aebe0
+/*  f0a7c10:	0fc2baf8 */ 	jal	casingsRender
 /*  f0a7c14:	27a4014c */ 	addiu	$a0,$sp,0x14c
 /*  f0a7c18:	0fc5d8a6 */ 	jal	func0f176298
 /*  f0a7c1c:	00000000 */ 	nop
@@ -26221,7 +26221,7 @@ glabel var7f1aca90
 /*  f0a7c04:	1681fe04 */ 	bne	$s4,$at,.L0f0a7418
 /*  f0a7c08:	261007a4 */ 	addiu	$s0,$s0,0x7a4
 /*  f0a7c0c:	afb500e4 */ 	sw	$s5,0xe4($sp)
-/*  f0a7c10:	0fc2baf8 */ 	jal	func0f0aebe0
+/*  f0a7c10:	0fc2baf8 */ 	jal	casingsRender
 /*  f0a7c14:	27a4014c */ 	addiu	$a0,$sp,0x14c
 /*  f0a7c18:	0fc5d8a6 */ 	jal	func0f176298
 /*  f0a7c1c:	00000000 */ 	nop
@@ -27053,7 +27053,7 @@ glabel var7f1aca90
 /*  f0a5930:	1681fe0c */ 	bne	$s4,$at,.NB0f0a5164
 /*  f0a5934:	261007a4 */ 	addiu	$s0,$s0,0x7a4
 /*  f0a5938:	afb500dc */ 	sw	$s5,0xdc($sp)
-/*  f0a593c:	0fc2b250 */ 	jal	func0f0aebe0
+/*  f0a593c:	0fc2b250 */ 	jal	casingsRender
 /*  f0a5940:	27a40144 */ 	addiu	$a0,$sp,0x144
 /*  f0a5944:	0fc5c3ce */ 	jal	func0f176298
 /*  f0a5948:	00000000 */ 	sll	$zero,$zero,0x0

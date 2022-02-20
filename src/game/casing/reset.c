@@ -22,11 +22,11 @@ void casingsReset(void)
 	casing = g_Casings;
 
 	while (casing < end) {
-		casing->unk40 = 0;
+		casing->modeldef = NULL;
 		casing++;
 	}
 
-	g_CasingsActive = 0;
+	g_CasingsActive = false;
 
 	for (i = 0; i < ARRAYCOUNT(g_Fireslots); i++) {
 		g_Fireslots[i].endlvframe = -1;

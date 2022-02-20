@@ -21,10 +21,10 @@ void casingTick(struct casing *casing)
 	f32 sp58;
 
 	tmp2 = lvupdate * (1.0f / 3.6f);
-	tmp = casing->unk14 - tmp2;
-	casing->unk08 += lvupdate * 0.5f * (casing->unk14 + tmp);
+	tmp = casing->speed.y - tmp2;
+	casing->pos.y += lvupdate * 0.5f * (casing->speed.y + tmp);
 
-	if (casing->unk00 > casing->unk08) {
+	if (casing->pos.y < casing->ground) {
 		i = -1;
 
 		if (var8009d0d8 == 0) {
@@ -51,18 +51,18 @@ void casingTick(struct casing *casing)
 			}
 		}
 
-		casing->unk40 = 0;
+		casing->modeldef = NULL;
 		return;
 	}
 
-	casing->unk14 = tmp;
-	casing->unk04 += lvupdate * casing->unk10;
-	casing->unk0c += lvupdate * casing->unk18;
+	casing->speed.y = tmp;
+	casing->pos.x += lvupdate * casing->speed.x;
+	casing->pos.z += lvupdate * casing->speed.z;
 
 	for (i = 0; i < 3; i++) {
 		for (j = 0; j < 3; j++) {
-			sp8c[i][j] = casing->unk28[i][j] * (1.0f / 4096.0f);
-			sp68[i][j] = casing->unk1c[i][j] * (1.0f / 4096.0f);
+			sp8c[i][j] = casing->rotspeed[i][j] * (1.0f / 4096.0f);
+			sp68[i][j] = casing->rot[i][j] * (1.0f / 4096.0f);
 		}
 	}
 
@@ -72,7 +72,7 @@ void casingTick(struct casing *casing)
 
 	for (i = 0; i < 3; i++) {
 		for (j = 0; j < 3; j++) {
-			casing->unk1c[i][j] = sp68[i][j] * 4096.0f;
+			casing->rot[i][j] = sp68[i][j] * 4096.0f;
 		}
 	}
 }
@@ -98,7 +98,7 @@ void casingsTick(void)
 		casing = g_Casings;
 
 		while (casing < end) {
-			if (casing->unk40) {
+			if (casing->modeldef) {
 				casingTick(casing);
 
 				if (!g_CasingsActive) {

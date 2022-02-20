@@ -5,6 +5,7 @@
 #include "game/game_0abe70.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b3350.h"
+#include "game/game_0b4950.h"
 #include "game/game_0c33f0.h"
 #include "game/gfxmemory.h"
 #include "game/file.h"
@@ -21,9 +22,9 @@ const u32 var7f1acc18[] = {0x73703300};
 const u32 var7f1acc1c[] = {0x73706200};
 const u32 var7f1acc20[] = {0x73706900};
 
-struct casing g_Casings[20]; // da80 (correct)
-struct var8009da60 var8009da60[8]; // dfd0 (correct)
-struct lasersight g_LaserSights[4]; // correct
+struct casing g_Casings[20];
+struct var8009da60 var8009da60[8];
+struct lasersight g_LaserSights[4];
 
 u32 var80070500 = 0x00000000;
 u32 var80070504 = 0x00000000;
@@ -34,33 +35,10 @@ u32 var80070514 = 0x00000000;
 u32 var80070518 = 0x00000000;
 u32 var8007051c = 0x00000000;
 u32 var80070520 = 0x00000000;
-s32 g_CasingsActive = 0x00000000;
+bool g_CasingsActive = false;
 u32 var80070528 = 0x00000000;
 u32 var8007052c = 0x00000000;
 u32 var80070530 = 0x00000000;
-u32 var80070534 = 0x00000000;
-u32 var80070538 = 0x00000001;
-u32 var8007053c = 0x00000003;
-u32 var80070540 = 0x00000000;
-u32 var80070544 = 0x00000000;
-u32 var80070548 = 0x00000000;
-u32 var8007054c = 0x00000000;
-u32 var80070550 = 0x00000000;
-u32 var80070554 = 0x00000000;
-u32 var80070558 = 0x00000000;
-u32 var8007055c = 0x00000000;
-u32 var80070560 = 0x00000000;
-u32 var80070564 = 0x00000000;
-u32 var80070568 = 0x00000000;
-u32 var8007056c = 0x00000000;
-u32 var80070570 = 0x00000000;
-u32 var80070574 = 0x00000320;
-u32 var80070578 = 0x00001b58;
-u32 var8007057c = 0x00002328;
-u32 var80070580 = 0x00000018;
-u32 var80070584 = 0x00000006;
-u32 var80070588 = 0x00000000;
-u32 var8007058c = 0x00000000;
 
 void beamCreate(struct beam *beam, s32 weaponnum, struct coord *from, struct coord *to)
 {
@@ -4028,186 +4006,70 @@ glabel var7f1acd60
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f0ae964
-.late_rodata
-glabel var7f1acd64
-.word 0x3dccccce
-glabel var7f1acd68
-.word 0xc6ea6000
-glabel var7f1acd6c
-.word 0x46ea6000
-.text
-/*  f0ae964:	27bdff08 */ 	addiu	$sp,$sp,-248
-/*  f0ae968:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0ae96c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0ae970:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0ae974:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0ae978:	afa500fc */ 	sw	$a1,0xfc($sp)
-/*  f0ae97c:	8caf0000 */ 	lw	$t7,0x0($a1)
-/*  f0ae980:	00809025 */ 	or	$s2,$a0,$zero
-/*  f0ae984:	afaf00f4 */ 	sw	$t7,0xf4($sp)
-/*  f0ae988:	8c820040 */ 	lw	$v0,0x40($a0)
-/*  f0ae98c:	8444000e */ 	lh	$a0,0xe($v0)
-/*  f0ae990:	afa200f0 */ 	sw	$v0,0xf0($sp)
-/*  f0ae994:	0004c180 */ 	sll	$t8,$a0,0x6
-/*  f0ae998:	0fc59e7d */ 	jal	gfxAllocate
-/*  f0ae99c:	03002025 */ 	or	$a0,$t8,$zero
-/*  f0ae9a0:	3c098007 */ 	lui	$t1,%hi(var80070534)
-/*  f0ae9a4:	25290534 */ 	addiu	$t1,$t1,%lo(var80070534)
-/*  f0ae9a8:	afa200ec */ 	sw	$v0,0xec($sp)
-/*  f0ae9ac:	252c003c */ 	addiu	$t4,$t1,0x3c
-/*  f0ae9b0:	27b90088 */ 	addiu	$t9,$sp,0x88
-.L0f0ae9b4:
-/*  f0ae9b4:	8d210000 */ 	lw	$at,0x0($t1)
-/*  f0ae9b8:	2529000c */ 	addiu	$t1,$t1,0xc
-/*  f0ae9bc:	2739000c */ 	addiu	$t9,$t9,0xc
-/*  f0ae9c0:	af21fff4 */ 	sw	$at,-0xc($t9)
-/*  f0ae9c4:	8d21fff8 */ 	lw	$at,-0x8($t1)
-/*  f0ae9c8:	af21fff8 */ 	sw	$at,-0x8($t9)
-/*  f0ae9cc:	8d21fffc */ 	lw	$at,-0x4($t1)
-/*  f0ae9d0:	152cfff8 */ 	bne	$t1,$t4,.L0f0ae9b4
-/*  f0ae9d4:	af21fffc */ 	sw	$at,-0x4($t9)
-/*  f0ae9d8:	8d210000 */ 	lw	$at,0x0($t1)
-/*  f0ae9dc:	24110001 */ 	addiu	$s1,$zero,0x1
-/*  f0ae9e0:	af210000 */ 	sw	$at,0x0($t9)
-/*  f0ae9e4:	0c008b49 */ 	jal	modelCalculateRwDataLen
-/*  f0ae9e8:	8fa400f0 */ 	lw	$a0,0xf0($sp)
-/*  f0ae9ec:	27a400c8 */ 	addiu	$a0,$sp,0xc8
-/*  f0ae9f0:	8fa500f0 */ 	lw	$a1,0xf0($sp)
-/*  f0ae9f4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0ae9f8:	0c008be9 */ 	jal	modelInit
-/*  f0ae9fc:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f0aea00:	8fad00ec */ 	lw	$t5,0xec($sp)
-/*  f0aea04:	3c013980 */ 	lui	$at,0x3980
-/*  f0aea08:	44810000 */ 	mtc1	$at,$f0
-/*  f0aea0c:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f0aea10:	02403825 */ 	or	$a3,$s2,$zero
-/*  f0aea14:	27a80078 */ 	addiu	$t0,$sp,0x78
-/*  f0aea18:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f0aea1c:	afad00d4 */ 	sw	$t5,0xd4($sp)
-.L0f0aea20:
-/*  f0aea20:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0aea24:	00c01825 */ 	or	$v1,$a2,$zero
-/*  f0aea28:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f0aea2c:	848e001c */ 	lh	$t6,0x1c($a0)
-/*  f0aea30:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0aea34:	448e8000 */ 	mtc1	$t6,$f16
-/*  f0aea38:	00000000 */ 	nop
-/*  f0aea3c:	46808420 */ 	cvt.s.w	$f16,$f16
-/*  f0aea40:	46008482 */ 	mul.s	$f18,$f16,$f0
-/*  f0aea44:	5045000c */ 	beql	$v0,$a1,.L0f0aea78
-/*  f0aea48:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f0aea4c:	e4720000 */ 	swc1	$f18,0x0($v1)
-.L0f0aea50:
-/*  f0aea50:	848e001e */ 	lh	$t6,0x1e($a0)
-/*  f0aea54:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0aea58:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f0aea5c:	448e8000 */ 	mtc1	$t6,$f16
-/*  f0aea60:	24840002 */ 	addiu	$a0,$a0,0x2
-/*  f0aea64:	46808420 */ 	cvt.s.w	$f16,$f16
-/*  f0aea68:	46008482 */ 	mul.s	$f18,$f16,$f0
-/*  f0aea6c:	5445fff8 */ 	bnel	$v0,$a1,.L0f0aea50
-/*  f0aea70:	e4720000 */ 	swc1	$f18,0x0($v1)
-/*  f0aea74:	24630004 */ 	addiu	$v1,$v1,0x4
-.L0f0aea78:
-/*  f0aea78:	24840002 */ 	addiu	$a0,$a0,0x2
-/*  f0aea7c:	e472fffc */ 	swc1	$f18,-0x4($v1)
-/*  f0aea80:	24c60010 */ 	addiu	$a2,$a2,0x10
-/*  f0aea84:	00c8082b */ 	sltu	$at,$a2,$t0
-/*  f0aea88:	1420ffe5 */ 	bnez	$at,.L0f0aea20
-/*  f0aea8c:	24e70006 */ 	addiu	$a3,$a3,0x6
-/*  f0aea90:	44800000 */ 	mtc1	$zero,$f0
-/*  f0aea94:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0aea98:	44815000 */ 	mtc1	$at,$f10
-/*  f0aea9c:	27b00048 */ 	addiu	$s0,$sp,0x48
-/*  f0aeaa0:	3c017f1b */ 	lui	$at,%hi(var7f1acd64)
-/*  f0aeaa4:	c42ccd64 */ 	lwc1	$f12,%lo(var7f1acd64)($at)
-/*  f0aeaa8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0aeaac:	e7a00078 */ 	swc1	$f0,0x78($sp)
-/*  f0aeab0:	e7a0007c */ 	swc1	$f0,0x7c($sp)
-/*  f0aeab4:	e7a00080 */ 	swc1	$f0,0x80($sp)
-/*  f0aeab8:	e7a00054 */ 	swc1	$f0,0x54($sp)
-/*  f0aeabc:	e7a00064 */ 	swc1	$f0,0x64($sp)
-/*  f0aeac0:	e7a00074 */ 	swc1	$f0,0x74($sp)
-/*  f0aeac4:	0c0057c1 */ 	jal	mtx00015f04
-/*  f0aeac8:	e7aa0084 */ 	swc1	$f10,0x84($sp)
-/*  f0aeacc:	26440004 */ 	addiu	$a0,$s2,0x4
-/*  f0aead0:	0c005775 */ 	jal	mtx4SetTranslation
-/*  f0aead4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0aead8:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
-/*  f0aeadc:	00000000 */ 	nop
-/*  f0aeae0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0aeae4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0aeae8:	0c0056f9 */ 	jal	mtx00015be4
-/*  f0aeaec:	8fa600d4 */ 	lw	$a2,0xd4($sp)
-/*  f0aeaf0:	3c017f1b */ 	lui	$at,%hi(var7f1acd68)
-/*  f0aeaf4:	c42ccd68 */ 	lwc1	$f12,%lo(var7f1acd68)($at)
-/*  f0aeaf8:	3c017f1b */ 	lui	$at,%hi(var7f1acd6c)
-/*  f0aeafc:	c422cd6c */ 	lwc1	$f2,%lo(var7f1acd6c)($at)
-/*  f0aeb00:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0aeb04:	8fa300d4 */ 	lw	$v1,0xd4($sp)
-/*  f0aeb08:	2404000c */ 	addiu	$a0,$zero,0xc
-.L0f0aeb0c:
-/*  f0aeb0c:	c4600030 */ 	lwc1	$f0,0x30($v1)
-/*  f0aeb10:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f0aeb14:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0aeb18:	00000000 */ 	nop
-/*  f0aeb1c:	45020004 */ 	bc1fl	.L0f0aeb30
-/*  f0aeb20:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0aeb24:	10000006 */ 	b	.L0f0aeb40
-/*  f0aeb28:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0aeb2c:	460c003c */ 	c.lt.s	$f0,$f12
-.L0f0aeb30:
-/*  f0aeb30:	00000000 */ 	nop
-/*  f0aeb34:	45000002 */ 	bc1f	.L0f0aeb40
-/*  f0aeb38:	00000000 */ 	nop
-/*  f0aeb3c:	00008825 */ 	or	$s1,$zero,$zero
-.L0f0aeb40:
-/*  f0aeb40:	1444fff2 */ 	bne	$v0,$a0,.L0f0aeb0c
-/*  f0aeb44:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f0aeb48:	1220001f */ 	beqz	$s1,.L0f0aebc8
-/*  f0aeb4c:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f0aeb50:	8fb800f4 */ 	lw	$t8,0xf4($sp)
-/*  f0aeb54:	8fab00ec */ 	lw	$t3,0xec($sp)
-/*  f0aeb58:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0aeb5c:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0aeb60:	240a0004 */ 	addiu	$t2,$zero,0x4
-/*  f0aeb64:	afaf008c */ 	sw	$t7,0x8c($sp)
-/*  f0aeb68:	afaa00b8 */ 	sw	$t2,0xb8($sp)
-/*  f0aeb6c:	afb80094 */ 	sw	$t8,0x94($sp)
-/*  f0aeb70:	afab0098 */ 	sw	$t3,0x98($sp)
-/*  f0aeb74:	90491614 */ 	lbu	$t1,0x1614($v0)
-/*  f0aeb78:	904e1615 */ 	lbu	$t6,0x1615($v0)
-/*  f0aeb7c:	904c1617 */ 	lbu	$t4,0x1617($v0)
-/*  f0aeb80:	904b1616 */ 	lbu	$t3,0x1616($v0)
-/*  f0aeb84:	0009ce00 */ 	sll	$t9,$t1,0x18
-/*  f0aeb88:	000e7c00 */ 	sll	$t7,$t6,0x10
-/*  f0aeb8c:	01996825 */ 	or	$t5,$t4,$t9
-/*  f0aeb90:	01afc025 */ 	or	$t8,$t5,$t7
-/*  f0aeb94:	000b5200 */ 	sll	$t2,$t3,0x8
-/*  f0aeb98:	030a4825 */ 	or	$t1,$t8,$t2
-/*  f0aeb9c:	afa900bc */ 	sw	$t1,0xbc($sp)
-/*  f0aeba0:	27a40088 */ 	addiu	$a0,$sp,0x88
-/*  f0aeba4:	0c0087bd */ 	jal	modelRender
-/*  f0aeba8:	27a500c8 */ 	addiu	$a1,$sp,0xc8
-/*  f0aebac:	8fac0094 */ 	lw	$t4,0x94($sp)
-/*  f0aebb0:	8fb900fc */ 	lw	$t9,0xfc($sp)
-/*  f0aebb4:	af2c0000 */ 	sw	$t4,0x0($t9)
-/*  f0aebb8:	8fae00f0 */ 	lw	$t6,0xf0($sp)
-/*  f0aebbc:	8fa400ec */ 	lw	$a0,0xec($sp)
-/*  f0aebc0:	0fc30cfc */ 	jal	func0f0c33f0
-/*  f0aebc4:	85c5000e */ 	lh	$a1,0xe($t6)
-.L0f0aebc8:
-/*  f0aebc8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0aebcc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0aebd0:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0aebd4:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0aebd8:	03e00008 */ 	jr	$ra
-/*  f0aebdc:	27bd00f8 */ 	addiu	$sp,$sp,0xf8
-);
+void casingRender(struct casing *casing, Gfx **gdlptr)
+{
+	Gfx *gdl = *gdlptr;
+	struct modelfiledata *modeldef = casing->modeldef;
+	Mtxf *matrices = gfxAllocate(modeldef->nummatrices * sizeof(Mtxf));
+	struct model model;
+	struct modelrenderdata renderdata = { NULL, true, 3 };
+	Mtxf mtx;
+	s32 i;
+	s32 j;
+	bool render = true;
 
-void func0f0aebe0(s32 arg0)
+	modelCalculateRwDataLen(modeldef);
+	modelInit(&model, modeldef, NULL, true);
+
+	model.matrices = matrices;
+
+	for (i = 0; i < 3; i++) {
+		for (j = 0; j < 3; j++) {
+			mtx.m[i][j] = casing->rot[i][j] * (1.0f / 4096.0f);
+		}
+	}
+
+	mtx.m[3][0] = 0.0f;
+	mtx.m[3][1] = 0.0f;
+	mtx.m[3][2] = 0.0f;
+
+	mtx.m[0][3] = 0.0f;
+	mtx.m[1][3] = 0.0f;
+	mtx.m[2][3] = 0.0f;
+	mtx.m[3][3] = 1.0f;
+
+	mtx00015f04(0.1000000089407f, &mtx);
+	mtx4SetTranslation(&casing->pos, &mtx);
+	mtx00015be4(currentPlayerGetMatrix1740(), &mtx, model.matrices);
+
+	// Check if any coordinate is out of range
+	for (i = 0; i < 3; i++) {
+		if (model.matrices[0].m[3][i] > 30000) {
+			render = false;
+		} else if (model.matrices[0].m[3][i] < -30000) {
+			render = false;
+		}
+	}
+
+	if (render) {
+		renderdata.zbufferenabled = 1;
+		renderdata.gdl = gdl;
+		renderdata.unk10 = matrices;
+		renderdata.unk30 = 4;
+		renderdata.envcolour = g_Vars.currentplayer->gunshadecol[0] << 24
+			| g_Vars.currentplayer->gunshadecol[1] << 16
+			| g_Vars.currentplayer->gunshadecol[2] << 8
+			| g_Vars.currentplayer->gunshadecol[3];
+
+		modelRender(&renderdata, &model);
+
+		*gdlptr = renderdata.gdl;
+
+		func0f0c33f0(matrices, modeldef->nummatrices);
+	}
+}
+
+void casingsRender(Gfx **gdlptr)
 {
 	if (g_CasingsActive) {
 		struct casing *end;
@@ -4217,8 +4079,8 @@ void func0f0aebe0(s32 arg0)
 		casing = g_Casings;
 
 		while (casing < end) {
-			if (casing->unk40) {
-				func0f0ae964(casing, arg0);
+			if (casing->modeldef) {
+				casingRender(casing, gdlptr);
 			}
 
 			casing++;
@@ -4421,6 +4283,14 @@ bool lasersightExists(s32 id, s32 *index)
 	*index = exact;
 	return true;
 }
+
+u32 var80070574 = 0x00000320;
+u32 var80070578 = 0x00001b58;
+u32 var8007057c = 0x00002328;
+u32 var80070580 = 0x00000018;
+u32 var80070584 = 0x00000006;
+u32 var80070588 = 0x00000000;
+u32 var8007058c = 0x00000000;
 
 GLOBAL_ASM(
 glabel lasersightRenderDot

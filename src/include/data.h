@@ -247,7 +247,7 @@ extern struct noisesettings invnoisesettings_00010fd0;
 extern struct inventory_class invclass_default;
 extern struct weapon *g_Weapons[];
 extern u32 var800700ac;
-extern s32 g_CasingsActive;
+extern bool g_CasingsActive;
 extern u32 var800705a0;
 extern u32 var800705a4;
 extern bool var800705a8;

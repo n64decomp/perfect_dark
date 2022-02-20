@@ -5519,16 +5519,12 @@ struct musicevent {
 };
 
 struct casing {
-	/*0x00*/ f32 unk00;
-	/*0x04*/ f32 unk04;
-	/*0x08*/ f32 unk08;
-	/*0x0c*/ f32 unk0c;
-	/*0x10*/ f32 unk10;
-	/*0x14*/ f32 unk14;
-	/*0x18*/ f32 unk18;
-	/*0x1c*/ s16 unk1c[3][3];
-	/*0x28*/ s16 unk28[3][3];
-	/*0x40*/ u32 unk40;
+	/*0x00*/ f32 ground;
+	/*0x04*/ struct coord pos;
+	/*0x10*/ struct coord speed;
+	/*0x1c*/ s16 rot[3][3];
+	/*0x28*/ s16 rotspeed[3][3];
+	/*0x40*/ struct modelfiledata *modeldef;
 };
 
 struct mplockinfo {
