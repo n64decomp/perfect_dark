@@ -349,52 +349,27 @@ s32 texGetAverageGreen(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
 	return value;
 }
 
-GLOBAL_ASM(
-glabel func0f16efa0
-/*  f16efa0:	00046043 */ 	sra	$t4,$a0,0x1
-/*  f16efa4:	318d001f */ 	andi	$t5,$t4,0x1f
-/*  f16efa8:	000d70c0 */ 	sll	$t6,$t5,0x3
-/*  f16efac:	000478c3 */ 	sra	$t7,$a0,0x3
-/*  f16efb0:	31f80007 */ 	andi	$t8,$t7,0x7
-/*  f16efb4:	01d8c825 */ 	or	$t9,$t6,$t8
-/*  f16efb8:	00056043 */ 	sra	$t4,$a1,0x1
-/*  f16efbc:	318d001f */ 	andi	$t5,$t4,0x1f
-/*  f16efc0:	000570c3 */ 	sra	$t6,$a1,0x3
-/*  f16efc4:	31d80007 */ 	andi	$t8,$t6,0x7
-/*  f16efc8:	000d78c0 */ 	sll	$t7,$t5,0x3
-/*  f16efcc:	01f86025 */ 	or	$t4,$t7,$t8
-/*  f16efd0:	032c6821 */ 	addu	$t5,$t9,$t4
-/*  f16efd4:	00067043 */ 	sra	$t6,$a2,0x1
-/*  f16efd8:	31cf001f */ 	andi	$t7,$t6,0x1f
-/*  f16efdc:	0006c8c3 */ 	sra	$t9,$a2,0x3
-/*  f16efe0:	332c0007 */ 	andi	$t4,$t9,0x7
-/*  f16efe4:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f16efe8:	030c7025 */ 	or	$t6,$t8,$t4
-/*  f16efec:	01ae7821 */ 	addu	$t7,$t5,$t6
-/*  f16eff0:	0007c843 */ 	sra	$t9,$a3,0x1
-/*  f16eff4:	3338001f */ 	andi	$t8,$t9,0x1f
-/*  f16eff8:	000768c3 */ 	sra	$t5,$a3,0x3
-/*  f16effc:	31ae0007 */ 	andi	$t6,$t5,0x7
-/*  f16f000:	001860c0 */ 	sll	$t4,$t8,0x3
-/*  f16f004:	018ec825 */ 	or	$t9,$t4,$t6
-/*  f16f008:	01f95821 */ 	addu	$t3,$t7,$t9
-/*  f16f00c:	256b0002 */ 	addiu	$t3,$t3,0x2
-/*  f16f010:	000b1883 */ 	sra	$v1,$t3,0x2
-/*  f16f014:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f16f018:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f16f01c:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f16f020:	04610002 */ 	bgez	$v1,.L0f16f02c
-/*  f16f024:	afa7000c */ 	sw	$a3,0xc($sp)
-/*  f16f028:	00001825 */ 	or	$v1,$zero,$zero
-.L0f16f02c:
-/*  f16f02c:	28610100 */ 	slti	$at,$v1,0x100
-/*  f16f030:	14200002 */ 	bnez	$at,.L0f16f03c
-/*  f16f034:	00000000 */ 	nop
-/*  f16f038:	240300ff */ 	addiu	$v1,$zero,0xff
-.L0f16f03c:
-/*  f16f03c:	03e00008 */ 	jr	$ra
-/*  f16f040:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 texGetAverageBlue(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
+{
+	s32 value = 0;
+
+	value += ((colour1 >> 1) & 0x1f) << 3 | (colour1 >> 3) & 7;
+	value += ((colour2 >> 1) & 0x1f) << 3 | (colour2 >> 3) & 7;
+	value += ((colour3 >> 1) & 0x1f) << 3 | (colour3 >> 3) & 7;
+	value += ((colour4 >> 1) & 0x1f) << 3 | (colour4 >> 3) & 7;
+
+	value = (value + 2) >> 2;
+
+	if (value < 0) {
+		value = 0;
+	}
+
+	if (value > 0xff) {
+		value = 0xff;
+	}
+
+	return value;
+}
 
 GLOBAL_ASM(
 glabel func0f16f044
@@ -639,7 +614,7 @@ glabel func0f16f0f4
 /*  f16f384:	32a4ffff */ 	andi	$a0,$s5,0xffff
 /*  f16f388:	3225ffff */ 	andi	$a1,$s1,0xffff
 /*  f16f38c:	3246ffff */ 	andi	$a2,$s2,0xffff
-/*  f16f390:	0fc5bbe8 */ 	jal	func0f16efa0
+/*  f16f390:	0fc5bbe8 */ 	jal	texGetAverageBlue
 /*  f16f394:	3207ffff */ 	andi	$a3,$s0,0xffff
 /*  f16f398:	0040a025 */ 	or	$s4,$v0,$zero
 /*  f16f39c:	32a4ffff */ 	andi	$a0,$s5,0xffff
@@ -900,7 +875,7 @@ glabel func0f16f0f4
 /*  f16f748:	32a4ffff */ 	andi	$a0,$s5,0xffff
 /*  f16f74c:	3225ffff */ 	andi	$a1,$s1,0xffff
 /*  f16f750:	3246ffff */ 	andi	$a2,$s2,0xffff
-/*  f16f754:	0fc5bbe8 */ 	jal	func0f16efa0
+/*  f16f754:	0fc5bbe8 */ 	jal	texGetAverageBlue
 /*  f16f758:	3207ffff */ 	andi	$a3,$s0,0xffff
 /*  f16f75c:	0040a025 */ 	or	$s4,$v0,$zero
 /*  f16f760:	32a4ffff */ 	andi	$a0,$s5,0xffff
@@ -986,7 +961,7 @@ glabel func0f16f0f4
 /*  f16f894:	32a4ffff */ 	andi	$a0,$s5,0xffff
 /*  f16f898:	3225ffff */ 	andi	$a1,$s1,0xffff
 /*  f16f89c:	3246ffff */ 	andi	$a2,$s2,0xffff
-/*  f16f8a0:	0fc5bbe8 */ 	jal	func0f16efa0
+/*  f16f8a0:	0fc5bbe8 */ 	jal	texGetAverageBlue
 /*  f16f8a4:	3207ffff */ 	andi	$a3,$s0,0xffff
 /*  f16f8a8:	0040a025 */ 	or	$s4,$v0,$zero
 /*  f16f8ac:	32a4ffff */ 	andi	$a0,$s5,0xffff
