@@ -10,7 +10,7 @@ s32 texAlignIndices(u8 *arg0, s32 width, s32 height, s32 format, u8 *dst);
 s32 texGetAverageRed(u16 colour1, u16 colour2, u16 colour3, u16 colour4);
 s32 texGetAverageGreen(u16 colour1, u16 colour2, u16 colour3, u16 colour4);
 s32 texGetAverageBlue(u16 colour1, u16 colour2, u16 colour3, u16 colour4);
-u32 func0f16f044(void);
+s32 texGetAverageAlpha(u16 colour1, u16 colour2, u16 colour3, u16 colour4);
 s32 func0f16f0f4(u8 *start, u8 *end, s32 width, s32 height, s32 format, u16 *palette, s32 numcolours);
 u32 func0f16fc8c(void);
 s32 func0f16fd50(u16 *arg0, s32 arg1, s32 arg2, s32 arg3);
