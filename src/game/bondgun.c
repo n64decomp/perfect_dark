@@ -9279,54 +9279,29 @@ void bgun0f09df64(s32 arg0)
 	}
 }
 
-GLOBAL_ASM(
-glabel bgun0f09df9c
-/*  f09df9c:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f09dfa0:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f09dfa4:	8c8f0284 */ 	lw	$t7,0x284($a0)
-/*  f09dfa8:	340effff */ 	dli	$t6,0xffff
-/*  f09dfac:	3c02800a */ 	lui	$v0,%hi(var8009da60)
-/*  f09dfb0:	a5ee159c */ 	sh	$t6,0x159c($t7)
-/*  f09dfb4:	8c980284 */ 	lw	$t8,0x284($a0)
-/*  f09dfb8:	3c03800a */ 	lui	$v1,%hi(g_Casings)
-/*  f09dfbc:	2442da60 */ 	addiu	$v0,$v0,%lo(var8009da60)
-/*  f09dfc0:	af001594 */ 	sw	$zero,0x1594($t8)
-/*  f09dfc4:	8c990284 */ 	lw	$t9,0x284($a0)
-/*  f09dfc8:	2463d510 */ 	addiu	$v1,$v1,%lo(g_Casings)
-/*  f09dfcc:	af2015a0 */ 	sw	$zero,0x15a0($t9)
-/*  f09dfd0:	8c880284 */ 	lw	$t0,0x284($a0)
-/*  f09dfd4:	ad0015a4 */ 	sw	$zero,0x15a4($t0)
-/*  f09dfd8:	8c890284 */ 	lw	$t1,0x284($a0)
-/*  f09dfdc:	a12015b0 */ 	sb	$zero,0x15b0($t1)
-/*  f09dfe0:	8c8a0284 */ 	lw	$t2,0x284($a0)
-/*  f09dfe4:	a14015b1 */ 	sb	$zero,0x15b1($t2)
-.L0f09dfe8:
-/*  f09dfe8:	24630044 */ 	addiu	$v1,$v1,0x44
-/*  f09dfec:	0062082b */ 	sltu	$at,$v1,$v0
-/*  f09dff0:	1420fffd */ 	bnez	$at,.L0f09dfe8
-/*  f09dff4:	ac60fffc */ 	sw	$zero,-0x4($v1)
-/*  f09dff8:	3c018007 */ 	lui	$at,%hi(g_CasingsActive)
-/*  f09dffc:	03e00008 */ 	jr	$ra
-/*  f09e000:	ac200524 */ 	sw	$zero,%lo(g_CasingsActive)($at)
-);
+void bgun0f09df9c(void)
+{
+	s32 i;
+	struct casing *end;
+	struct casing *casing;
 
-//void bgun0f09df9c(void)
-//{
-//	s32 i;
-//
-//	g_Vars.currentplayer->unk159c = 0xffff;
-//	g_Vars.currentplayer->unk1594 = 0;
-//	g_Vars.currentplayer->unk15a0 = 0;
-//	g_Vars.currentplayer->unk15a4 = 0;
-//	g_Vars.currentplayer->unk15b0 = 0;
-//	g_Vars.currentplayer->unk15b1 = 0;
-//
-//	for (i = 0; i < 20; i++) {
-//		g_Casings[i].unk40 = 0;
-//	}
-//
-//	g_CasingsActive = 0;
-//}
+	g_Vars.currentplayer->gunctrl.handfilenum = 0xffff;
+	g_Vars.currentplayer->gunctrl.unk1594 = NULL;
+	g_Vars.currentplayer->gunctrl.unk15a0 = 0;
+	g_Vars.currentplayer->gunctrl.unk15a4 = 0;
+	g_Vars.currentplayer->gunctrl.unk15b0 = 0;
+	g_Vars.currentplayer->gunctrl.unk15b1 = 0;
+
+	end = g_Casings + ARRAYCOUNT(g_Casings);
+	casing = g_Casings;
+
+	while (casing < end) {
+		casing->unk40 = 0;
+		casing++;
+	}
+
+	g_CasingsActive = 0;
+}
 
 bool bgun0f09e004(s32 newowner)
 {
