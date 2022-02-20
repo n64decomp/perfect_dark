@@ -305,52 +305,27 @@ s32 texAlignIndices(u8 *src, s32 width, s32 height, s32 format, u8 *dst)
 	return outptr - dst;
 }
 
-GLOBAL_ASM(
-glabel func0f16ee58
-/*  f16ee58:	000462c3 */ 	sra	$t4,$a0,0xb
-/*  f16ee5c:	318d001f */ 	andi	$t5,$t4,0x1f
-/*  f16ee60:	000d70c0 */ 	sll	$t6,$t5,0x3
-/*  f16ee64:	00047b43 */ 	sra	$t7,$a0,0xd
-/*  f16ee68:	31f80007 */ 	andi	$t8,$t7,0x7
-/*  f16ee6c:	01d8c825 */ 	or	$t9,$t6,$t8
-/*  f16ee70:	000562c3 */ 	sra	$t4,$a1,0xb
-/*  f16ee74:	318d001f */ 	andi	$t5,$t4,0x1f
-/*  f16ee78:	00057343 */ 	sra	$t6,$a1,0xd
-/*  f16ee7c:	31d80007 */ 	andi	$t8,$t6,0x7
-/*  f16ee80:	000d78c0 */ 	sll	$t7,$t5,0x3
-/*  f16ee84:	01f86025 */ 	or	$t4,$t7,$t8
-/*  f16ee88:	032c6821 */ 	addu	$t5,$t9,$t4
-/*  f16ee8c:	000672c3 */ 	sra	$t6,$a2,0xb
-/*  f16ee90:	31cf001f */ 	andi	$t7,$t6,0x1f
-/*  f16ee94:	0006cb43 */ 	sra	$t9,$a2,0xd
-/*  f16ee98:	332c0007 */ 	andi	$t4,$t9,0x7
-/*  f16ee9c:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f16eea0:	030c7025 */ 	or	$t6,$t8,$t4
-/*  f16eea4:	01ae7821 */ 	addu	$t7,$t5,$t6
-/*  f16eea8:	0007cac3 */ 	sra	$t9,$a3,0xb
-/*  f16eeac:	3338001f */ 	andi	$t8,$t9,0x1f
-/*  f16eeb0:	00076b43 */ 	sra	$t5,$a3,0xd
-/*  f16eeb4:	31ae0007 */ 	andi	$t6,$t5,0x7
-/*  f16eeb8:	001860c0 */ 	sll	$t4,$t8,0x3
-/*  f16eebc:	018ec825 */ 	or	$t9,$t4,$t6
-/*  f16eec0:	01f95821 */ 	addu	$t3,$t7,$t9
-/*  f16eec4:	256b0002 */ 	addiu	$t3,$t3,0x2
-/*  f16eec8:	000b1883 */ 	sra	$v1,$t3,0x2
-/*  f16eecc:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f16eed0:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f16eed4:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f16eed8:	04610002 */ 	bgez	$v1,.L0f16eee4
-/*  f16eedc:	afa7000c */ 	sw	$a3,0xc($sp)
-/*  f16eee0:	00001825 */ 	or	$v1,$zero,$zero
-.L0f16eee4:
-/*  f16eee4:	28610100 */ 	slti	$at,$v1,0x100
-/*  f16eee8:	14200002 */ 	bnez	$at,.L0f16eef4
-/*  f16eeec:	00000000 */ 	nop
-/*  f16eef0:	240300ff */ 	addiu	$v1,$zero,0xff
-.L0f16eef4:
-/*  f16eef4:	03e00008 */ 	jr	$ra
-/*  f16eef8:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 texGetAverageRed(u16 colour1, u16 colour2, u16 colour3, u16 colour4)
+{
+	s32 value = 0;
+
+	value += ((colour1 >> 11) & 0x1f) << 3 | (colour1 >> 13) & 7;
+	value += ((colour2 >> 11) & 0x1f) << 3 | (colour2 >> 13) & 7;
+	value += ((colour3 >> 11) & 0x1f) << 3 | (colour3 >> 13) & 7;
+	value += ((colour4 >> 11) & 0x1f) << 3 | (colour4 >> 13) & 7;
+
+	value = (value + 2) >> 2;
+
+	if (value < 0) {
+		value = 0;
+	}
+
+	if (value > 0xff) {
+		value = 0xff;
+	}
+
+	return value;
+}
 
 GLOBAL_ASM(
 glabel func0f16eefc
@@ -677,7 +652,7 @@ glabel func0f16f0f4
 /*  f16f354:	01f86021 */ 	addu	$t4,$t7,$t8
 /*  f16f358:	95900000 */ 	lhu	$s0,0x0($t4)
 /*  f16f35c:	02403025 */ 	or	$a2,$s2,$zero
-/*  f16f360:	0fc5bb96 */ 	jal	func0f16ee58
+/*  f16f360:	0fc5bb96 */ 	jal	texGetAverageRed
 /*  f16f364:	02003825 */ 	or	$a3,$s0,$zero
 /*  f16f368:	0040b025 */ 	or	$s6,$v0,$zero
 /*  f16f36c:	32a4ffff */ 	andi	$a0,$s5,0xffff
@@ -938,7 +913,7 @@ glabel func0f16f0f4
 /*  f16f718:	000d5840 */ 	sll	$t3,$t5,0x1
 /*  f16f71c:	012b7821 */ 	addu	$t7,$t1,$t3
 /*  f16f720:	95f00000 */ 	lhu	$s0,0x0($t7)
-/*  f16f724:	0fc5bb96 */ 	jal	func0f16ee58
+/*  f16f724:	0fc5bb96 */ 	jal	texGetAverageRed
 /*  f16f728:	02003825 */ 	or	$a3,$s0,$zero
 /*  f16f72c:	0040b025 */ 	or	$s6,$v0,$zero
 /*  f16f730:	32a4ffff */ 	andi	$a0,$s5,0xffff
@@ -1024,7 +999,7 @@ glabel func0f16f0f4
 /*  f16f864:	97300000 */ 	lhu	$s0,0x0($t9)
 /*  f16f868:	3225ffff */ 	andi	$a1,$s1,0xffff
 /*  f16f86c:	3246ffff */ 	andi	$a2,$s2,0xffff
-/*  f16f870:	0fc5bb96 */ 	jal	func0f16ee58
+/*  f16f870:	0fc5bb96 */ 	jal	texGetAverageRed
 /*  f16f874:	02003825 */ 	or	$a3,$s0,$zero
 /*  f16f878:	0040b025 */ 	or	$s6,$v0,$zero
 /*  f16f87c:	32a4ffff */ 	andi	$a0,$s5,0xffff
@@ -2624,7 +2599,7 @@ void texInflateRle(u8 *dst, s32 blockstotal)
 /**
  * Populate a lookup table by reading it out of the bit string.
  *
- * The first 11 bits denate the number of colours in the lookup table.
+ * The first 11 bits denote the number of colours in the lookup table.
  * The data following this is a list of colours, where each colour is sized
  * according to the texture's format.
  *
