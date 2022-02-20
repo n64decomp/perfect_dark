@@ -4207,41 +4207,24 @@ glabel var7f1acd6c
 /*  f0aebdc:	27bd00f8 */ 	addiu	$sp,$sp,0xf8
 );
 
-GLOBAL_ASM(
-glabel func0f0aebe0
-/*  f0aebe0:	3c0e8007 */ 	lui	$t6,%hi(g_CasingsActive)
-/*  f0aebe4:	8dce0524 */ 	lw	$t6,%lo(g_CasingsActive)($t6)
-/*  f0aebe8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0aebec:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0aebf0:	00809025 */ 	or	$s2,$a0,$zero
-/*  f0aebf4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0aebf8:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0aebfc:	11c0000f */ 	beqz	$t6,.L0f0aec3c
-/*  f0aec00:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0aec04:	3c11800a */ 	lui	$s1,%hi(var8009da60)
-/*  f0aec08:	3c10800a */ 	lui	$s0,%hi(g_Casings)
-/*  f0aec0c:	2631da60 */ 	addiu	$s1,$s1,%lo(var8009da60)
-/*  f0aec10:	2610d510 */ 	addiu	$s0,$s0,%lo(g_Casings)
-/*  f0aec14:	8e0f0040 */ 	lw	$t7,0x40($s0)
-.L0f0aec18:
-/*  f0aec18:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0aec1c:	51e00004 */ 	beqzl	$t7,.L0f0aec30
-/*  f0aec20:	26100044 */ 	addiu	$s0,$s0,0x44
-/*  f0aec24:	0fc2ba59 */ 	jal	func0f0ae964
-/*  f0aec28:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0aec2c:	26100044 */ 	addiu	$s0,$s0,0x44
-.L0f0aec30:
-/*  f0aec30:	0211082b */ 	sltu	$at,$s0,$s1
-/*  f0aec34:	5420fff8 */ 	bnezl	$at,.L0f0aec18
-/*  f0aec38:	8e0f0040 */ 	lw	$t7,0x40($s0)
-.L0f0aec3c:
-/*  f0aec3c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0aec40:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0aec44:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0aec48:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0aec4c:	03e00008 */ 	jr	$ra
-/*  f0aec50:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f0aebe0(s32 arg0)
+{
+	if (g_CasingsActive) {
+		struct casing *end;
+		struct casing *casing;
+
+		end = g_Casings + ARRAYCOUNT(g_Casings);
+		casing = g_Casings;
+
+		while (casing < end) {
+			if (casing->unk40) {
+				func0f0ae964(casing, arg0);
+			}
+
+			casing++;
+		}
+	}
+}
 
 s32 func0f0aec54(struct prop *prop)
 {
