@@ -4094,7 +4094,7 @@ void playerTick(bool arg0)
 				sp15c[2] = sp2b8[1][1] >= 0 ? f20 : -f20;
 				sp15c[3] = 0;
 
-				func0f097738(sp15c, sp14c, sp13c);
+				quaternionMultQuaternion(sp15c, sp14c, sp13c);
 				quaternionToMtx(sp13c, &sp1fc);
 				mtx4RotateVecInPlace(&sp1fc, &projectile->speed);
 
@@ -4153,7 +4153,7 @@ void playerTick(bool arg0)
 
 				mtx3ToMtx4(sp2b8, &sp1bc);
 				func0f097044(&sp1bc, sp12c);
-				func0f097738(sp13c, sp12c, sp11c);
+				quaternionMultQuaternion(sp13c, sp12c, sp11c);
 				quaternionToMtx(sp11c, &sp17c);
 				mtx4ToMtx3(&sp17c, sp2b8);
 

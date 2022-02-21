@@ -11,6 +11,6 @@ void quaternionToTransformMtx(struct coord *pos, f32 rot[4], Mtxf *matrix);
 void func0f0972b8(f32 arg0[4], f32 arg1[4], f32 arg2, f32 *arg3);
 u32 func0f097518(void);
 void quaternion0f0976c0(f32 q1[4], f32 q2[4]);
-void func0f097738(f32 *arg0, f32 *arg1, f32 *arg2);
+void quaternionMultQuaternion(f32 a[4], f32 b[4], f32 result[4]);
 
 #endif
