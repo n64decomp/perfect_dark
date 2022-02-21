@@ -2312,16 +2312,8 @@ struct hand {
 	/*0x09bc*/ struct model unk09bc;
 	/*0x09e0*/ struct anim anim;
 	/*0x0a6c*/ u32 unk0a6c[32];
-	/*0x0aec*/ u32 handsavedata[32];
-	/*0x0b6c*/ u32 unk0b6c;
-	/*0x0b70*/ u32 unk0b70;
-	/*0x0b74*/ u32 unk0b74;
-	/*0x0b78*/ u32 unk0b78;
-	/*0x0b7c*/ u32 unk0b7c;
-	/*0x0b80*/ u32 unk0b80;
-	/*0x0b84*/ u32 unk0b84;
-	/*0x0b88*/ u32 unk0b88;
-	/*0x0b8c*/ struct anim *unk0b8c;
+	/*0x0aec*/ u32 handsavedata[32]; // should be 0a6c
+	/*0x0b6c*/ struct model unk0b6c;
 	/*0x0b90*/ s32 burstbullets;
 	/*0x0b94*/ struct coord hitpos;
 	/*0x0ba0*/ u32 unk0ba0;
@@ -2473,22 +2465,23 @@ struct gunctrl {
 	/*0x1583*/ u8 wantammo : 1;
 	/*0x1583*/ u8 unk1583_06 : 1;
 	/*0x1583*/ u8 passivemode : 1;
-	/*0x1584*/ s32 gunmemnew;
-	/*0x1588*/ s32 gunmemtype;
+	/*0x1584*/ s32 gunmemnew; // weapon number?
+	/*0x1588*/ s32 gunmemtype; // also a weapon number?
 	/*0x158c*/ u8 *gunmem;
-	/*0x1590*/ u32 unk1590;
+	/*0x1590*/ struct modelfiledata *unk1590;
 	/*0x1594*/ struct modelfiledata *unk1594;
-	/*0x1598*/ s32 unk1598;
+	/*0x1598*/ struct modelfiledata *unk1598;
 	/*0x159c*/ u16 handfilenum;
-	/*0x15a0*/ s32 unk15a0;
+	/*0x15a0*/ u8 *unk15a0;
 	/*0x15a4*/ s32 unk15a4;
-	/*0x15a8*/ u32 unk15a8;
-	/*0x15ac*/ u32 unk15ac;
+	/*0x15a8*/ s32 unk15a8;
+	/*0x15ac*/ s32 unk15ac;
 	/*0x15b0*/ u8 unk15b0;
 	/*0x15b1*/ u8 unk15b1;
-	/*0x15b4*/ u32 unk15b4;
-	/*0x15b8*/ u32 unk15b8;
-	/*0x15bc*/ u32 unk15bc;
+	/*0x15b2*/ u16 unk15b2;
+	/*0x15b4*/ struct modelfiledata **unk15b4;
+	/*0x15b8*/ void *unk15b8;
+	/*0x15bc*/ void *unk15bc;
 	/*0x15c0*/ u32 unk15c0;
 	/*0x15c4*/ u32 unk15c4;
 	/*0x15c8*/ u32 unk15c8;

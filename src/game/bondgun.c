@@ -130,8 +130,14 @@ u32 var800700a0 = 0xb24d2e00;
 u32 var800700a4 = 0x00000000;
 u32 var800700a8 = 0x00025800;
 u32 var800700ac = 0x0001e000;
-u32 var800700b0 = 0x0059005a;
-u32 var800700b4 = 0x0058005b;
+
+u16 var800700b0[] = {
+	FILE_GCARTRIDGE,
+	FILE_GCARTRIFLE,
+	FILE_GCARTBLUE,
+	FILE_GCARTSHELL,
+};
+
 u32 var800700b8 = 0x00000000;
 u32 var800700bc = 0x69646c65;
 u32 var800700c0 = 0x00000000;
@@ -8519,7 +8525,7 @@ void bgunInitHandAnims(void)
 		animInit(&hand->anim);
 
 		hand->unk09bc.anim = &hand->anim;
-		hand->unk0b8c = &hand->anim;
+		hand->unk0b6c.anim = &hand->anim;
 	}
 }
 
@@ -9230,7 +9236,7 @@ u32 bgunGetGunMemType(void)
 	return g_Vars.currentplayer->gunctrl.gunmemtype;
 }
 
-u32 bgun0f09dddc(void)
+struct modelfiledata *bgun0f09dddc(void)
 {
 	return g_Vars.currentplayer->gunctrl.unk1590;
 }
@@ -9832,7 +9838,7 @@ glabel bgun0f09e144
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel bgun0f09e4e0
+glabel bgunTickLoad
 /*  f09e4e0:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f09e4e4:	afb5002c */ 	sw	$s5,0x2c($sp)
 /*  f09e4e8:	3c15800a */ 	lui	$s5,%hi(g_Vars)
@@ -10239,7 +10245,7 @@ glabel bgun0f09e4e0
 );
 #else
 GLOBAL_ASM(
-glabel bgun0f09e4e0
+glabel bgunTickLoad
 /*  f09c38c:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f09c390:	afb5002c */ 	sw	$s5,0x2c($sp)
 /*  f09c394:	3c15800a */ 	lui	$s5,0x800a
@@ -10639,12 +10645,245 @@ glabel bgun0f09e4e0
 );
 #endif
 
+//void bgunTickLoad(void)
+//{
+//	s32 spa4;
+//	s32 bodynum;
+//	s32 headnum;
+//	u16 handfilenum;
+//	s32 sum;
+//	u16 gunfilenum;
+//	s32 i;
+//
+//	struct player *player = g_Vars.currentplayer;
+//
+//	if ((player->gunctrl.gunmemowner == GUNMEMOWNER_0 || bgun0f09e004(GUNMEMOWNER_0)) && player->gunctrl.gunmemnew >= 0) {
+//		if (player->gunctrl.gunlocktimer == 0) {
+//			spa4 = player->gunctrl.gunmemnew;
+//
+//			playerChooseBodyAndHead(&bodynum, &headnum, NULL);
+//
+//			handfilenum = g_HeadsAndBodies[bodynum].handfilenum;
+//
+//			if (IS4MB()) {
+//				handfilenum = FILE_GCOMBATHANDSLOD;
+//			}
+//
+//			gunfilenum = weaponGetModelNum(spa4);
+//
+//			if (player->gunctrl.unk15b0 != 4 || spa4 != player->gunctrl.gunmemtype) {
+//				if (gunfilenum) {
+//					bool hashands = false;
+//
+//					if (weaponHasFlag(spa4, WEAPONFLAG_HASHANDS)) {
+//						hashands = true;
+//					}
+//
+//					if (spa4 == WEAPON_UNARMED) {
+//						// For unarmed, the fists are implemented
+//						// as weapon models rather than hand models
+//						gunfilenum = handfilenum;
+//						handfilenum = 0;
+//						hashands = false;
+//					}
+//
+//					if (player->gunctrl.unk15b0 == 0) {
+//						struct casing *casing = g_Casings;
+//
+//						while (casing < &g_Casings[ARRAYCOUNT(g_Casings)]) {
+//							if (casing->modeldef == player->gunctrl.unk1598) {
+//								casing->modeldef = NULL;
+//							}
+//
+//							casing++;
+//						}
+//
+//						g_CasingsActive = false;
+//
+//						casing = g_Casings;
+//
+//						while (casing < &g_Casings[ARRAYCOUNT(g_Casings)]) {
+//							if (casing->modeldef != NULL) {
+//								g_CasingsActive = true;
+//							}
+//
+//							casing++;
+//						}
+//
+//						player->gunctrl.unk1598 = NULL;
+//						player->gunctrl.unk15b0 = 1;
+//					} else if (player->gunctrl.unk15b0 == 1) {
+//						if (hashands) {
+//							if (handfilenum != player->gunctrl.handfilenum) {
+//								if (player->gunctrl.unk15b1 == 0) {
+//									player->gunctrl.unk15a0 = bgunGetGunMem();
+//									player->gunctrl.unk15a4 = bgunCalculateGunMemCapacity();
+//									player->gunctrl.unk15b1 = 1;
+//									player->gunctrl.unk15b2 = handfilenum;
+//									player->gunctrl.unk15b4 = &player->gunctrl.unk1594;
+//									player->gunctrl.unk15b8 = &player->gunctrl.unk15a0;
+//									player->gunctrl.unk15bc = &player->gunctrl.unk15a4;
+//								}
+//
+//								bgun0f09e144();
+//
+//								if (player->gunctrl.unk15b1 == 4) {
+//									player->gunctrl.handfilenum = handfilenum;
+//								} else {
+//									return;
+//								}
+//							}
+//						} else {
+//							player->gunctrl.handfilenum = 0;
+//							player->gunctrl.unk1594 = NULL;
+//							player->gunctrl.unk15a0 = bgunGetGunMem();
+//							player->gunctrl.unk15a4 = bgunCalculateGunMemCapacity();
+//						}
+//
+//						player->gunctrl.unk15b0 = 2;
+//						player->gunctrl.unk15b1 = 0;
+//					} else if (player->gunctrl.unk15b0 == 2) {
+//						if (player->gunctrl.unk15b1 == 0) {
+//							player->gunctrl.unk15b1 = 1;
+//							player->gunctrl.unk15b2 = gunfilenum;
+//							player->gunctrl.unk15b4 = &player->gunctrl.unk1590;
+//							player->gunctrl.unk15b8 = &player->gunctrl.unk15a8;
+//							player->gunctrl.unk15bc = &player->gunctrl.unk15ac;
+//							player->gunctrl.unk15a8 = (u32)player->gunctrl.unk15a0;
+//							player->gunctrl.unk15ac = player->gunctrl.unk15a4;
+//						}
+//
+//						bgun0f09e144();
+//
+//						if (player->gunctrl.unk15b1 == 4) {
+//							player->gunctrl.unk15b0 = 3;
+//							player->gunctrl.unk15b1 = 0;
+//						}
+//					} else if (player->gunctrl.unk15b0 == 3) {
+//						struct hand *hand;
+//
+//						if (player->gunctrl.unk15b1 == 4) {
+//							player->gunctrl.unk15b1 = 0;
+//						}
+//
+//						if (player->gunctrl.unk15b1 == 0 && player->gunctrl.unk1598 == 0 && PLAYERCOUNT() == 1) {
+//							for (i = 0; i < 2; i++) {
+//								struct weaponfunc *func;
+//								struct weapon *weapondef;
+//								s32 casingindex = -1;
+//
+//								func = gsetGetWeaponFunction2(&player->hands[i].gset);
+//								weapondef = weaponFindById(player->gunctrl.weaponnum);
+//
+//								if (func != NULL) {
+//									struct weaponfunc *shootfunc = NULL;
+//
+//									if ((func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
+//										shootfunc = func;
+//									}
+//
+//									if (weapondef && shootfunc) {
+//										struct inventory_ammo *ammodef = func->ammoindex >= 0 ? weapondef->ammos[func->ammoindex] : NULL;
+//
+//										if (ammodef) {
+//											casingindex = ammodef->casingeject;
+//										}
+//									}
+//
+//									if (casingindex >= 0) {
+//										if (player->gunctrl.unk1598 == 0) {
+//											player->gunctrl.unk15b2 = var800700b0[casingindex];
+//											player->gunctrl.unk15b1 = 1;
+//											player->gunctrl.unk15b4 = &player->gunctrl.unk1598;
+//											player->gunctrl.unk15b8 = &player->gunctrl.unk15a8;
+//											player->gunctrl.unk15bc = &player->gunctrl.unk15ac;
+//											break;
+//										}
+//
+//										break;
+//									}
+//								}
+//							}
+//						}
+//
+//						if (player->gunctrl.unk15b1 != 0) {
+//							bgun0f09e144();
+//							return;
+//						}
+//
+//						sum = 0;
+//
+//						for (i = 0; i < 2; i++) {
+//							s32 value;
+//							hand = &player->hands[i];
+//
+//							modelInit(&hand->unk09bc, player->gunctrl.unk1590, (union modelrwdata **)hand->unk0a6c, 0);
+//
+//							if (player->gunctrl.unk1594 != 0) {
+//								modelInit(&hand->unk0b6c, player->gunctrl.unk1594, (union modelrwdata **)hand->handsavedata, false);
+//							}
+//
+//							hand->unk0dcc = player->gunctrl.unk15a8;
+//
+//							value = bgun0f0a2e94(&hand->unk09bc, player->gunctrl.unk1590->rootnode, player->gunctrl.unk15a8);
+//
+//							sum += value;
+//							player->gunctrl.unk15a8 += value;
+//							player->gunctrl.unk15ac -= value;
+//
+//							if (player->gunctrl.unk1594 != 0) {
+//								hand->unk0dd0 = player->gunctrl.unk15a8;
+//
+//								value = bgun0f0a2e94(&hand->unk0b6c, player->gunctrl.unk1594->rootnode, player->gunctrl.unk15a8);
+//
+//								sum += value;
+//								player->gunctrl.unk15a8 += value;
+//								player->gunctrl.unk15ac -= value;
+//							}
+//						}
+//
+//						hand = &player->hands[0];
+//						hand->unk0dd4 = -1;
+//
+//						if (player->gunctrl.unk15ac > 3200) {
+//							hand->unk0dd8 = player->gunctrl.unk15a8;
+//							player->gunctrl.unk15a8 += 3200;
+//							player->gunctrl.unk15ac -= 3200;
+//						} else {
+//							hand->unk0dd8 = 0;
+//						}
+//
+//						bgunCalculateGunMemCapacity();
+//
+//						player->gunctrl.unk15b0 = 4;
+//						player->gunctrl.gunmemtype = spa4;
+//						player->gunctrl.gunmemnew = -1;
+//					}
+//				}
+//#if VERSION >= VERSION_NTSC_1_0
+//				else {
+//					player->gunctrl.unk15b0 = 4;
+//					player->gunctrl.gunmemtype = spa4;
+//					player->gunctrl.gunmemnew = -1;
+//				}
+//#endif
+//			}
+//		} else {
+//			player->gunctrl.gunlocktimer--;
+//
+//			if (player->gunctrl.gunlocktimer < -2) {
+//				player->gunctrl.gunlocktimer = 0;
+//			}
+//		}
+//	}
+//}
+
 void bgun0f09ea90(void)
 {
 	s32 i;
 
 	for (i = 0; i < g_Vars.lvupdate240; i += 8) {
-		bgun0f09e4e0();
+		bgunTickLoad();
 	}
 }
 
@@ -10682,7 +10921,7 @@ bool bgun0f09eae4(void)
 	bgun0f09df9c();
 
 	do {
-		bgun0f09e4e0();
+		bgunTickLoad();
 	} while (!bgun0f09dd7c());
 
 	g_Vars.currentplayer->gunctrl.unk1583_06 = false;
@@ -10690,7 +10929,7 @@ bool bgun0f09eae4(void)
 	return false;
 }
 
-s32 bgun0f09ebbc(void)
+struct modelfiledata *bgun0f09ebbc(void)
 {
 	return g_Vars.currentplayer->gunctrl.unk1598;
 }
