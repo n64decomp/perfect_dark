@@ -237,44 +237,25 @@ bool func0f173a70(s32 index, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f173b8c
-/*  f173b8c:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f173b90:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f173b94:	3c0f800b */ 	lui	$t7,%hi(var800ab718)
-/*  f173b98:	25efb718 */ 	addiu	$t7,$t7,%lo(var800ab718)
-/*  f173b9c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f173ba0:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f173ba4:	8c580000 */ 	lw	$t8,0x0($v0)
-/*  f173ba8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f173bac:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f173bb0:	5300000f */ 	beqzl	$t8,.L0f173bf0
-/*  f173bb4:	8fad0010 */ 	lw	$t5,0x10($sp)
-/*  f173bb8:	8c590004 */ 	lw	$t9,0x4($v0)
-/*  f173bbc:	54b9000c */ 	bnel	$a1,$t9,.L0f173bf0
-/*  f173bc0:	8fad0010 */ 	lw	$t5,0x10($sp)
-/*  f173bc4:	8c480008 */ 	lw	$t0,0x8($v0)
-/*  f173bc8:	54c80009 */ 	bnel	$a2,$t0,.L0f173bf0
-/*  f173bcc:	8fad0010 */ 	lw	$t5,0x10($sp)
-/*  f173bd0:	8c49000c */ 	lw	$t1,0xc($v0)
-/*  f173bd4:	8faa0010 */ 	lw	$t2,0x10($sp)
-/*  f173bd8:	54e90005 */ 	bnel	$a3,$t1,.L0f173bf0
-/*  f173bdc:	8fad0010 */ 	lw	$t5,0x10($sp)
-/*  f173be0:	8c4b0010 */ 	lw	$t3,0x10($v0)
-/*  f173be4:	114b0008 */ 	beq	$t2,$t3,.L0f173c08
-/*  f173be8:	00000000 */ 	nop
-/*  f173bec:	8fad0010 */ 	lw	$t5,0x10($sp)
-.L0f173bf0:
-/*  f173bf0:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f173bf4:	ac4c0000 */ 	sw	$t4,0x0($v0)
-/*  f173bf8:	ac450004 */ 	sw	$a1,0x4($v0)
-/*  f173bfc:	ac460008 */ 	sw	$a2,0x8($v0)
-/*  f173c00:	ac47000c */ 	sw	$a3,0xc($v0)
-/*  f173c04:	ac4d0010 */ 	sw	$t5,0x10($v0)
-.L0f173c08:
-/*  f173c08:	03e00008 */ 	jr	$ra
-/*  f173c0c:	00601025 */ 	or	$v0,$v1,$zero
-);
+bool func0f173b8c(s32 index, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
+{
+	bool result = false;
+
+	if (var800ab718[index].unk00 == 0
+			|| arg1 != var800ab718[index].unk04
+			|| arg2 != var800ab718[index].unk08
+			|| arg3 != var800ab718[index].unk0c
+			|| arg4 != var800ab718[index].unk10) {
+		result = true;
+		var800ab718[index].unk00 = 1;
+		var800ab718[index].unk04 = arg1;
+		var800ab718[index].unk08 = arg2;
+		var800ab718[index].unk0c = arg3;
+		var800ab718[index].unk10 = arg4;
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f173c10
