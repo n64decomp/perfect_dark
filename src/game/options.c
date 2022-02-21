@@ -418,26 +418,12 @@ u16 optionsGetMusicVolume(void)
 #endif
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void optionsSetMusicVolume(u16 volume)
 {
+#if VERSION >= VERSION_NTSC_1_0
 	musicSetVolume(volume);
-}
 #else
-GLOBAL_ASM(
-glabel optionsSetMusicVolume
-/*  f14d668:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14d66c:	3c028008 */ 	lui	$v0,0x8008
-/*  f14d670:	2442231c */ 	addiu	$v0,$v0,0x231c
-/*  f14d674:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14d678:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f14d67c:	00802825 */ 	or	$a1,$a0,$zero
-/*  f14d680:	a4450000 */ 	sh	$a1,0x0($v0)
-/*  f14d684:	0fc59f5c */ 	jal	musicSetVolume
-/*  f14d688:	30a4ffff */ 	andi	$a0,$a1,0xffff
-/*  f14d68c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14d690:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14d694:	03e00008 */ 	jr	$ra
-/*  f14d698:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	var8008231cnb = volume;
+	musicSetVolume(var8008231cnb);
 #endif
+}
