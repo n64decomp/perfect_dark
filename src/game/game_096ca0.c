@@ -47,31 +47,13 @@ void quaternionSetRotationAroundX(f32 angle, f32 quat[4])
 	quat[3] = 0.0f;
 }
 
-GLOBAL_ASM(
-glabel func0f096e28
-/*  f096e28:	3c013f00 */ 	lui	$at,0x3f00
-/*  f096e2c:	44812000 */ 	mtc1	$at,$f4
-/*  f096e30:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f096e34:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f096e38:	46046302 */ 	mul.s	$f12,$f12,$f4
-/*  f096e3c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f096e40:	0c0068f4 */ 	jal	cosf
-/*  f096e44:	e7ac001c */ 	swc1	$f12,0x1c($sp)
-/*  f096e48:	8fa20024 */ 	lw	$v0,0x24($sp)
-/*  f096e4c:	44803000 */ 	mtc1	$zero,$f6
-/*  f096e50:	c7ac001c */ 	lwc1	$f12,0x1c($sp)
-/*  f096e54:	e4400000 */ 	swc1	$f0,0x0($v0)
-/*  f096e58:	0c0068f7 */ 	jal	sinf
-/*  f096e5c:	e4460004 */ 	swc1	$f6,0x4($v0)
-/*  f096e60:	8fa20024 */ 	lw	$v0,0x24($sp)
-/*  f096e64:	44804000 */ 	mtc1	$zero,$f8
-/*  f096e68:	e4400008 */ 	swc1	$f0,0x8($v0)
-/*  f096e6c:	e448000c */ 	swc1	$f8,0xc($v0)
-/*  f096e70:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f096e74:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f096e78:	03e00008 */ 	jr	$ra
-/*  f096e7c:	00000000 */ 	nop
-);
+void quaternionSetRotationAroundY(f32 angle, f32 quat[4])
+{
+	quat[0] = cosf(angle * 0.5f);
+	quat[1] = 0.0f;
+	quat[2] = sinf(angle * 0.5f);
+	quat[3] = 0.0f;
+}
 
 GLOBAL_ASM(
 glabel func0f096e80
