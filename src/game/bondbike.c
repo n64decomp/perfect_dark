@@ -1696,8 +1696,8 @@ void bbikeTick(void)
 	mtx3ToMtx4(obj->realrot, &sp124);
 	mtx00015f04(1.0f / obj->model->scale, &sp124);
 	mtx4LoadYRotation(hoverpropGetTurnAngle(obj), &spe4);
-	func0f097044(&spe4, spd4);
-	func0f097044(&sp124, spc4);
+	quaternion0f097044(&spe4, spd4);
+	quaternion0f097044(&sp124, spc4);
 	quaternion0f0976c0(spc4, spd4);
 	func0f0972b8(spd4, spc4, 0.8f, spb4);
 	quaternionToMtx(spb4, &sp124);
@@ -1727,8 +1727,8 @@ void bbikeTick(void)
 					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
 		}
 
-		func0f097044(&g_Vars.currentplayer->bondentermtx, spa4);
-		func0f097044(&sp164, sp94);
+		quaternion0f097044(&g_Vars.currentplayer->bondentermtx, spa4);
+		quaternion0f097044(&sp164, sp94);
 		quaternion0f0976c0(sp94, spa4);
 		func0f0972b8(spa4, sp94, 1.0f - g_Vars.currentplayer->bondentert2, sp84);
 		quaternionToMtx(sp84, &sp164);

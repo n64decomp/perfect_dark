@@ -728,7 +728,7 @@ void model0001b400(struct modelrenderdata *arg0, struct model *model, struct mod
 			mtx4LoadYRotation(rwdata->chrinfo.unk14, &sp78);
 			mtx4LoadRotation(&sp124, &sp38);
 			mtx00015be0(&sp78, &sp38);
-			func0f097044(&sp38, spec);
+			quaternion0f097044(&sp38, spec);
 		} else {
 			quaternion0f096ca0(&sp124, spec);
 		}

@@ -2207,8 +2207,8 @@ void playerTickCutscene(bool arg0)
 		mtx00016d58(&sp84, 0, 0, 0,
 				-g_Vars.bond->bond2.unk1c.x, -g_Vars.bond->bond2.unk1c.y, -g_Vars.bond->bond2.unk1c.z,
 				g_Vars.bond->bond2.unk28.x, g_Vars.bond->bond2.unk28.y, g_Vars.bond->bond2.unk28.z);
-		func0f097044(&spc4, sp74);
-		func0f097044(&sp84, sp64);
+		quaternion0f097044(&spc4, sp74);
+		quaternion0f097044(&sp84, sp64);
 		quaternion0f0976c0(sp64, sp74);
 		func0f0972b8(sp74, sp64, sp104, sp54);
 		quaternionToMtx(sp54, &sp11c);
@@ -4152,7 +4152,7 @@ void playerTick(bool arg0)
 				projectile->speed.z = (projectile->speed.z * newspeed) / prevspeed;
 
 				mtx3ToMtx4(sp2b8, &sp1bc);
-				func0f097044(&sp1bc, sp12c);
+				quaternion0f097044(&sp1bc, sp12c);
 				quaternionMultQuaternion(sp13c, sp12c, sp11c);
 				quaternionToMtx(sp11c, &sp17c);
 				mtx4ToMtx3(&sp17c, sp2b8);
