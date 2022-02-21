@@ -6,7 +6,7 @@
 
 void func0f173a08(void);
 bool func0f173a44(u32 value);
-u32 func0f173a70(void);
+bool func0f173a70(s32 index, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10);
 u32 func0f173b8c(void);
 u32 func0f173c10(void);
 u32 func0f173cb8(void);
