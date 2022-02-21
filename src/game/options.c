@@ -405,28 +405,18 @@ void optionsSetScreenSplit(u8 split)
 	g_ScreenSplit = split;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 u16 optionsGetMusicVolume(void)
 {
+#if VERSION >= VERSION_NTSC_1_0
 	return musicGetVolume();
-}
 #else
-GLOBAL_ASM(
-glabel optionsGetMusicVolume
-/*  f14d63c:	3c0e800a */ 	lui	$t6,0x800a
-/*  f14d640:	8dceeb74 */ 	lw	$t6,-0x148c($t6)
-/*  f14d644:	2401005c */ 	addiu	$at,$zero,0x5c
-/*  f14d648:	3c028008 */ 	lui	$v0,0x8008
-/*  f14d64c:	15c10003 */ 	bne	$t6,$at,.NB0f14d65c
-/*  f14d650:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f14d654:	03e00008 */ 	jr	$ra
-/*  f14d658:	24027fff */ 	addiu	$v0,$zero,0x7fff
-.NB0f14d65c:
-/*  f14d65c:	9442231c */ 	lhu	$v0,0x231c($v0)
-/*  f14d660:	03e00008 */ 	jr	$ra
-/*  f14d664:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	if (g_Vars.stagenum == STAGE_CREDITS) {
+		return 0x7fff;
+	}
+
+	return var8008231cnb;
 #endif
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 void optionsSetMusicVolume(u16 volume)
