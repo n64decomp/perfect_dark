@@ -19,85 +19,28 @@ const u32 var7f1ab88c[] = {0x00000000};
 u32 var8006afa0 = 0x00000001;
 u32 var8006afa4 = 0x00000002;
 
+void quaternion0f096ca0(struct coord *angle, f32 quat[4])
+{
+	f32 cosx = cosf(angle->f[0] * 0.5f);
+	f32 sinx = sinf(angle->f[0] * 0.5f);
+	f32 cosy = cosf(angle->f[1] * 0.5f);
+	f32 siny = sinf(angle->f[1] * 0.5f);
+	f32 cosz = cosf(angle->f[2] * 0.5f);
+	f32 sinz = sinf(angle->f[2] * 0.5f);
+
+	f32 cosx_cosy = cosx * cosy;
+	f32 cosx_siny = cosx * siny;
+	f32 sinx_cosy = sinx * cosy;
+	f32 sinx_siny = sinx * siny;
+
+	quat[0] = cosx_cosy * cosz + sinx_siny * sinz;
+	quat[1] = sinx_cosy * cosz - cosx_siny * sinz;
+	quat[2] = cosx_siny * cosz + sinx_cosy * sinz;
+	quat[3] = cosx_cosy * sinz - sinx_siny * cosz;
+}
+
 GLOBAL_ASM(
-glabel func0f096ca0
-/*  f096ca0:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f096ca4:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*  f096ca8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f096cac:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f096cb0:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f096cb4:	3c013f00 */ 	lui	$at,0x3f00
-/*  f096cb8:	4481a000 */ 	mtc1	$at,$f20
-/*  f096cbc:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f096cc0:	00808025 */ 	or	$s0,$a0,$zero
-/*  f096cc4:	46142302 */ 	mul.s	$f12,$f4,$f20
-/*  f096cc8:	0c0068f4 */ 	jal	cosf
-/*  f096ccc:	00000000 */ 	nop
-/*  f096cd0:	e7a0003c */ 	swc1	$f0,0x3c($sp)
-/*  f096cd4:	c6060000 */ 	lwc1	$f6,0x0($s0)
-/*  f096cd8:	46143302 */ 	mul.s	$f12,$f6,$f20
-/*  f096cdc:	0c0068f7 */ 	jal	sinf
-/*  f096ce0:	00000000 */ 	nop
-/*  f096ce4:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f096ce8:	c6080004 */ 	lwc1	$f8,0x4($s0)
-/*  f096cec:	46144302 */ 	mul.s	$f12,$f8,$f20
-/*  f096cf0:	0c0068f4 */ 	jal	cosf
-/*  f096cf4:	00000000 */ 	nop
-/*  f096cf8:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f096cfc:	c60a0004 */ 	lwc1	$f10,0x4($s0)
-/*  f096d00:	46145302 */ 	mul.s	$f12,$f10,$f20
-/*  f096d04:	0c0068f7 */ 	jal	sinf
-/*  f096d08:	00000000 */ 	nop
-/*  f096d0c:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f096d10:	c6040008 */ 	lwc1	$f4,0x8($s0)
-/*  f096d14:	46142302 */ 	mul.s	$f12,$f4,$f20
-/*  f096d18:	0c0068f4 */ 	jal	cosf
-/*  f096d1c:	00000000 */ 	nop
-/*  f096d20:	c6060008 */ 	lwc1	$f6,0x8($s0)
-/*  f096d24:	e7a0002c */ 	swc1	$f0,0x2c($sp)
-/*  f096d28:	46143302 */ 	mul.s	$f12,$f6,$f20
-/*  f096d2c:	0c0068f7 */ 	jal	sinf
-/*  f096d30:	00000000 */ 	nop
-/*  f096d34:	c7a8003c */ 	lwc1	$f8,0x3c($sp)
-/*  f096d38:	c7aa0034 */ 	lwc1	$f10,0x34($sp)
-/*  f096d3c:	c7b40038 */ 	lwc1	$f20,0x38($sp)
-/*  f096d40:	c7a40030 */ 	lwc1	$f4,0x30($sp)
-/*  f096d44:	460a4082 */ 	mul.s	$f2,$f8,$f10
-/*  f096d48:	c7b2002c */ 	lwc1	$f18,0x2c($sp)
-/*  f096d4c:	8fa20044 */ 	lw	$v0,0x44($sp)
-/*  f096d50:	4604a402 */ 	mul.s	$f16,$f20,$f4
-/*  f096d54:	00000000 */ 	nop
-/*  f096d58:	46121182 */ 	mul.s	$f6,$f2,$f18
-/*  f096d5c:	00000000 */ 	nop
-/*  f096d60:	46008202 */ 	mul.s	$f8,$f16,$f0
-/*  f096d64:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f096d68:	e44a0000 */ 	swc1	$f10,0x0($v0)
-/*  f096d6c:	c7a40034 */ 	lwc1	$f4,0x34($sp)
-/*  f096d70:	c7a80030 */ 	lwc1	$f8,0x30($sp)
-/*  f096d74:	c7a6003c */ 	lwc1	$f6,0x3c($sp)
-/*  f096d78:	4604a382 */ 	mul.s	$f14,$f20,$f4
-/*  f096d7c:	00000000 */ 	nop
-/*  f096d80:	46083302 */ 	mul.s	$f12,$f6,$f8
-/*  f096d84:	00000000 */ 	nop
-/*  f096d88:	46127282 */ 	mul.s	$f10,$f14,$f18
-/*  f096d8c:	00000000 */ 	nop
-/*  f096d90:	46006102 */ 	mul.s	$f4,$f12,$f0
-/*  f096d94:	46045181 */ 	sub.s	$f6,$f10,$f4
-/*  f096d98:	46126202 */ 	mul.s	$f8,$f12,$f18
-/*  f096d9c:	00000000 */ 	nop
-/*  f096da0:	46007282 */ 	mul.s	$f10,$f14,$f0
-/*  f096da4:	e4460004 */ 	swc1	$f6,0x4($v0)
-/*  f096da8:	46001182 */ 	mul.s	$f6,$f2,$f0
-/*  f096dac:	460a4100 */ 	add.s	$f4,$f8,$f10
-/*  f096db0:	46128202 */ 	mul.s	$f8,$f16,$f18
-/*  f096db4:	e4440008 */ 	swc1	$f4,0x8($v0)
-/*  f096db8:	46083281 */ 	sub.s	$f10,$f6,$f8
-/*  f096dbc:	e44a000c */ 	swc1	$f10,0xc($v0)
-/*  f096dc0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f096dc4:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f096dc8:	d7b40018 */ 	ldc1	$f20,0x18($sp)
-/*  f096dcc:	03e00008 */ 	jr	$ra
-/*  f096dd0:	27bd0040 */ 	addiu	$sp,$sp,0x40
+glabel func0f096dd4
 /*  f096dd4:	3c013f00 */ 	lui	$at,0x3f00
 /*  f096dd8:	44812000 */ 	mtc1	$at,$f4
 /*  f096ddc:	27bdffe0 */ 	addiu	$sp,$sp,-32

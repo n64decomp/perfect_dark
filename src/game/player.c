@@ -2114,10 +2114,8 @@ void playerTickCutscene(bool arg0)
 	f32 sp104;
 	Mtxf spc4;
 	Mtxf sp84;
-	u32 stack1;
-	struct coord sp74;
-	u32 stack2;
-	struct coord sp64;
+	f32 sp74[4];
+	f32 sp64[4];
 	f32 sp54[4];
 
 	if (arg0) {
@@ -2209,10 +2207,10 @@ void playerTickCutscene(bool arg0)
 		mtx00016d58(&sp84, 0, 0, 0,
 				-g_Vars.bond->bond2.unk1c.x, -g_Vars.bond->bond2.unk1c.y, -g_Vars.bond->bond2.unk1c.z,
 				g_Vars.bond->bond2.unk28.x, g_Vars.bond->bond2.unk28.y, g_Vars.bond->bond2.unk28.z);
-		func0f097044(&spc4, &sp74);
-		func0f097044(&sp84, &sp64);
-		func0f0976c0(&sp64, &sp74);
-		func0f0972b8(&sp74, &sp64, sp104, sp54);
+		func0f097044(&spc4, sp74);
+		func0f097044(&sp84, sp64);
+		func0f0976c0(sp64, sp74);
+		func0f0972b8(sp74, sp64, sp104, sp54);
 		func0f096ed4(sp54, &sp11c);
 
 		up.x = sp11c.m[1][0];
@@ -3977,13 +3975,12 @@ void playerTick(bool arg0)
 				Mtxf sp1fc;
 				Mtxf sp1bc;
 				Mtxf sp17c;
-				f32 fVar20;
+				f32 targetspeed;
 				f32 sp174;
 				f32 sp15c[6];
 				f32 sp14c[4];
 				f32 sp13c[4];
-				f32 targetspeed;
-				struct coord sp12c;
+				f32 sp12c[4];
 				f32 prevspeed;
 				f32 sp11c[3];
 				bool explode = false;
@@ -4078,10 +4075,10 @@ void playerTick(bool arg0)
 				sp174 = -stickx * g_Vars.lvupdate240f * 0.00025f;
 #endif
 
-				fVar20 = sqrtf(sp2ac.f[0] * sp2ac.f[0] + sp2ac.f[2] * sp2ac.f[2]);
+				f20 = sqrtf(sp2ac.f[0] * sp2ac.f[0] + sp2ac.f[2] * sp2ac.f[2]);
 
-				sp2ac.x /= fVar20;
-				sp2ac.z /= fVar20;
+				sp2ac.x /= f20;
+				sp2ac.z /= f20;
 
 				f20 = sinf(fVar22);
 
@@ -4155,8 +4152,8 @@ void playerTick(bool arg0)
 				projectile->speed.z = (projectile->speed.z * newspeed) / prevspeed;
 
 				mtx3ToMtx4(sp2b8, &sp1bc);
-				func0f097044(&sp1bc, &sp12c);
-				func0f097738(sp13c, sp12c.f, sp11c);
+				func0f097044(&sp1bc, sp12c);
+				func0f097738(sp13c, sp12c, sp11c);
 				func0f096ed4(sp11c, &sp17c);
 				mtx4ToMtx3(&sp17c, sp2b8);
 
@@ -4617,7 +4614,7 @@ void playerTick(bool arg0)
 	if (var8007074c) {
 		s8 contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
 
-		if (lvIsPaused() == false
+		if (!lvIsPaused()
 				&& arg0
 				&& joyGetButtonsPressedThisFrame(contpad1, A_BUTTON | B_BUTTON | Z_TRIG | START_BUTTON | L_TRIG | R_TRIG)) {
 			var8007074c = 2;

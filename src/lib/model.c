@@ -681,10 +681,8 @@ void model0001b400(struct modelrenderdata *arg0, struct model *model, struct mod
 	struct coord sp124;
 	struct coord sp118;
 	struct coord sp10c;
-	u8 stack2[0x4];
-	struct coord spfc;
-	u8 stack3[0x4];
-	struct coord spec;
+	f32 spfc[4];
+	f32 spec[4];
 	u8 stack4[0xc];
 	f32 spdc;
 	struct coord spd0;
@@ -730,14 +728,14 @@ void model0001b400(struct modelrenderdata *arg0, struct model *model, struct mod
 			mtx4LoadYRotation(rwdata->chrinfo.unk14, &sp78);
 			mtx4LoadRotation(&sp124, &sp38);
 			mtx00015be0(&sp78, &sp38);
-			func0f097044(&sp38, &spec);
+			func0f097044(&sp38, spec);
 		} else {
-			func0f096ca0(&sp124, &spec);
+			quaternion0f096ca0(&sp124, spec);
 		}
 
-		func0f096ca0(&sp230, &spfc);
-		func0f0976c0(&spfc, &spec);
-		func0f0972b8(&spfc, &spec, anim->fracmerge, &spdc);
+		quaternion0f096ca0(&sp230, spfc);
+		func0f0976c0(spfc, spec);
+		func0f0972b8(spfc, spec, anim->fracmerge, &spdc);
 		func0f096ed4(&spdc, &sp1d8);
 	} else {
 		mtx4LoadRotation(&sp230, &sp1d8);
@@ -943,7 +941,7 @@ glabel var70054308
 /*    1ba58:	310b0100 */ 	andi	$t3,$t0,0x100
 /*    1ba5c:	5160001d */ 	beqzl	$t3,.L0001bad4
 /*    1ba60:	8faa00b4 */ 	lw	$t2,0xb4($sp)
-/*    1ba64:	0fc25b28 */ 	jal	func0f096ca0
+/*    1ba64:	0fc25b28 */ 	jal	quaternion0f096ca0
 /*    1ba68:	27a5003c */ 	addiu	$a1,$sp,0x3c
 /*    1ba6c:	27a4003c */ 	addiu	$a0,$sp,0x3c
 /*    1ba70:	3c053f00 */ 	lui	$a1,0x3f00
@@ -1507,10 +1505,10 @@ glabel var70053fc0pf
 /*    1bfc8:	8e060034 */ 	lw	$a2,0x34($s0)
 /*    1bfcc:	27a40144 */ 	addiu	$a0,$sp,0x144
 .PF0001bfd0:
-/*    1bfd0:	0fc25af0 */ 	jal	func0f096ca0
+/*    1bfd0:	0fc25af0 */ 	jal	quaternion0f096ca0
 /*    1bfd4:	27a50088 */ 	addiu	$a1,$sp,0x88
 /*    1bfd8:	27a400b0 */ 	addiu	$a0,$sp,0xb0
-/*    1bfdc:	0fc25af0 */ 	jal	func0f096ca0
+/*    1bfdc:	0fc25af0 */ 	jal	quaternion0f096ca0
 /*    1bfe0:	27a50078 */ 	addiu	$a1,$sp,0x78
 /*    1bfe4:	27a40088 */ 	addiu	$a0,$sp,0x88
 /*    1bfe8:	0fc25d78 */ 	jal	func0f0976c0
@@ -1922,10 +1920,10 @@ glabel model0001bfa8
 /*    1c20c:	8e060034 */ 	lw	$a2,0x34($s0)
 /*    1c210:	27a40144 */ 	addiu	$a0,$sp,0x144
 .L0001c214:
-/*    1c214:	0fc25b28 */ 	jal	func0f096ca0
+/*    1c214:	0fc25b28 */ 	jal	quaternion0f096ca0
 /*    1c218:	27a50088 */ 	addiu	$a1,$sp,0x88
 /*    1c21c:	27a400b0 */ 	addiu	$a0,$sp,0xb0
-/*    1c220:	0fc25b28 */ 	jal	func0f096ca0
+/*    1c220:	0fc25b28 */ 	jal	quaternion0f096ca0
 /*    1c224:	27a50078 */ 	addiu	$a1,$sp,0x78
 /*    1c228:	27a40088 */ 	addiu	$a0,$sp,0x88
 /*    1c22c:	0fc25db0 */ 	jal	func0f0976c0

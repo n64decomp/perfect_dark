@@ -2067,10 +2067,8 @@ void bmoveUpdateHead(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)
 	f32 sp244 = 0;
 	Mtxf sp180;
 	Mtxf sp116;
-	u32 stack;
-	struct coord sp100;
-	u32 stack2;
-	struct coord sp84;
+	f32 sp100[4];
+	f32 sp84[4];
 	f32 sp68[4];
 
 	if (g_Vars.currentplayer->isdead == false) {
@@ -2106,10 +2104,10 @@ void bmoveUpdateHead(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)
 	mtx4MultMtx4InPlace(&sp116, &sp180);
 
 	if (arg3) {
-		func0f097044(&sp180, &sp100);
-		func0f097044(arg3, &sp84);
-		func0f0976c0(&sp100, &sp84);
-		func0f0972b8(&sp100, &sp84, arg4, sp68);
+		func0f097044(&sp180, sp100);
+		func0f097044(arg3, sp84);
+		func0f0976c0(sp100, sp84);
+		func0f0972b8(sp100, sp84, arg4, sp68);
 		func0f096ed4(sp68, &sp180);
 	}
 
