@@ -3,6 +3,7 @@
 #include "game/game_0b28d0.h"
 #include "bss.h"
 #include "lib/memp.h"
+#include "lib/model.h"
 #include "data.h"
 #include "types.h"
 
@@ -749,26 +750,11 @@ struct model *func0f0b3280(struct modelfiledata *modelfiledata)
 	return func0f0b2b64(modelfiledata, true);
 }
 
-GLOBAL_ASM(
-glabel func0f0b32a0
-/*  f0b32a0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b32a4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0b32a8:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f0b32ac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b32b0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0b32b4:	8c850008 */ 	lw	$a1,0x8($a0)
-/*  f0b32b8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0b32bc:	0c008c42 */ 	jal	model00023108
-/*  f0b32c0:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f0b32c4:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*  f0b32c8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0b32cc:	0c008b54 */ 	jal	modelInitRwData
-/*  f0b32d0:	8dc50000 */ 	lw	$a1,0x0($t6)
-/*  f0b32d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b32d8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b32dc:	03e00008 */ 	jr	$ra
-/*  f0b32e0:	00000000 */ 	nop
-);
+void func0f0b32a0(struct model *model, struct modelnode *node, struct modelfiledata *headmodeldef)
+{
+	model00023108(model, model->filedata, node, headmodeldef);
+	modelInitRwData(model, headmodeldef->rootnode);
+}
 
 GLOBAL_ASM(
 glabel func0f0b32e4
