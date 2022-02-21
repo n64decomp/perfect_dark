@@ -735,7 +735,7 @@ void model0001b400(struct modelrenderdata *arg0, struct model *model, struct mod
 
 		quaternion0f096ca0(&sp230, spfc);
 		quaternion0f0976c0(spfc, spec);
-		func0f0972b8(spfc, spec, anim->fracmerge, &spdc);
+		quaternionSlerp(spfc, spec, anim->fracmerge, &spdc);
 		quaternionToMtx(&spdc, &sp1d8);
 	} else {
 		mtx4LoadRotation(&sp230, &sp1d8);
@@ -1516,7 +1516,7 @@ glabel var70053fc0pf
 /*    1bff0:	27a70068 */ 	addiu	$a3,$sp,0x68
 /*    1bff4:	27a40088 */ 	addiu	$a0,$sp,0x88
 /*    1bff8:	27a50078 */ 	addiu	$a1,$sp,0x78
-/*    1bffc:	0fc25c76 */ 	jal	func0f0972b8
+/*    1bffc:	0fc25c76 */ 	jal	quaternionSlerp
 /*    1c000:	8e060054 */ 	lw	$a2,0x54($s0)
 /*    1c004:	44804000 */ 	mtc1	$zero,$f8
 /*    1c008:	c7aa0138 */ 	lwc1	$f10,0x138($sp)
@@ -1931,7 +1931,7 @@ glabel model0001bfa8
 /*    1c234:	27a70068 */ 	addiu	$a3,$sp,0x68
 /*    1c238:	27a40088 */ 	addiu	$a0,$sp,0x88
 /*    1c23c:	27a50078 */ 	addiu	$a1,$sp,0x78
-/*    1c240:	0fc25cae */ 	jal	func0f0972b8
+/*    1c240:	0fc25cae */ 	jal	quaternionSlerp
 /*    1c244:	8e060054 */ 	lw	$a2,0x54($s0)
 /*    1c248:	44802000 */ 	mtc1	$zero,$f4
 /*    1c24c:	c7a60138 */ 	lwc1	$f6,0x138($sp)

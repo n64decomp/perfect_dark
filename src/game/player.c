@@ -2210,7 +2210,7 @@ void playerTickCutscene(bool arg0)
 		quaternion0f097044(&spc4, sp74);
 		quaternion0f097044(&sp84, sp64);
 		quaternion0f0976c0(sp64, sp74);
-		func0f0972b8(sp74, sp64, sp104, sp54);
+		quaternionSlerp(sp74, sp64, sp104, sp54);
 		quaternionToMtx(sp54, &sp11c);
 
 		up.x = sp11c.m[1][0];

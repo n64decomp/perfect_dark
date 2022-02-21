@@ -2107,7 +2107,7 @@ void bmoveUpdateHead(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)
 		quaternion0f097044(&sp180, sp100);
 		quaternion0f097044(arg3, sp84);
 		quaternion0f0976c0(sp100, sp84);
-		func0f0972b8(sp100, sp84, arg4, sp68);
+		quaternionSlerp(sp100, sp84, arg4, sp68);
 		quaternionToMtx(sp68, &sp180);
 	}
 

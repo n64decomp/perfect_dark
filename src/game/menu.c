@@ -3882,7 +3882,7 @@ glabel var7f1b3c40pf
 /*  f0f4ac0:	02203825 */ 	move	$a3,$s1
 /*  f0f4ac4:	44067000 */ 	mfc1	$a2,$f14
 /*  f0f4ac8:	27a402bc */ 	addiu	$a0,$sp,0x2bc
-/*  f0f4acc:	0fc25c76 */ 	jal	func0f0972b8
+/*  f0f4acc:	0fc25c76 */ 	jal	quaternionSlerp
 /*  f0f4ad0:	27a502ac */ 	addiu	$a1,$sp,0x2ac
 /*  f0f4ad4:	02202025 */ 	move	$a0,$s1
 /*  f0f4ad8:	0fc25b7d */ 	jal	quaternionToMtx
@@ -5491,7 +5491,7 @@ glabel var7f1b2948
 /*  f0f4384:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0f4388:	44067000 */ 	mfc1	$a2,$f14
 /*  f0f438c:	27a402bc */ 	addiu	$a0,$sp,0x2bc
-/*  f0f4390:	0fc25cae */ 	jal	func0f0972b8
+/*  f0f4390:	0fc25cae */ 	jal	quaternionSlerp
 /*  f0f4394:	27a502ac */ 	addiu	$a1,$sp,0x2ac
 /*  f0f4398:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0f439c:	0fc25bb5 */ 	jal	quaternionToMtx
@@ -7100,7 +7100,7 @@ glabel var7f1b2948
 /*  f0f0ec8:	02003825 */ 	or	$a3,$s0,$zero
 /*  f0f0ecc:	44067000 */ 	mfc1	$a2,$f14
 /*  f0f0ed0:	27a402e4 */ 	addiu	$a0,$sp,0x2e4
-/*  f0f0ed4:	0fc25492 */ 	jal	func0f0972b8
+/*  f0f0ed4:	0fc25492 */ 	jal	quaternionSlerp
 /*  f0f0ed8:	27a502d4 */ 	addiu	$a1,$sp,0x2d4
 /*  f0f0edc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0f0ee0:	0fc25399 */ 	jal	quaternionToMtx
@@ -8287,7 +8287,7 @@ glabel var7f1b2948
 //						sp290.z = thing->unk550;
 //
 //						quaternion0f096ca0(&sp290, &sp2ac);
-//						func0f0972b8(sp2bc, &sp2ac, sp2d0, &sp29c);
+//						quaternionSlerp(sp2bc, &sp2ac, sp2d0, &sp29c);
 //						quaternionToMtx(&sp29c, &sp350);
 //					} else {
 //						sp398.x = thing->unk520 = thing->unk548;
