@@ -2209,7 +2209,7 @@ void playerTickCutscene(bool arg0)
 				g_Vars.bond->bond2.unk28.x, g_Vars.bond->bond2.unk28.y, g_Vars.bond->bond2.unk28.z);
 		func0f097044(&spc4, sp74);
 		func0f097044(&sp84, sp64);
-		func0f0976c0(sp64, sp74);
+		quaternion0f0976c0(sp64, sp74);
 		func0f0972b8(sp74, sp64, sp104, sp54);
 		quaternionToMtx(sp54, &sp11c);
 

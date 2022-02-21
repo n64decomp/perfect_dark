@@ -734,7 +734,7 @@ void model0001b400(struct modelrenderdata *arg0, struct model *model, struct mod
 		}
 
 		quaternion0f096ca0(&sp230, spfc);
-		func0f0976c0(spfc, spec);
+		quaternion0f0976c0(spfc, spec);
 		func0f0972b8(spfc, spec, anim->fracmerge, &spdc);
 		quaternionToMtx(&spdc, &sp1d8);
 	} else {
@@ -1511,7 +1511,7 @@ glabel var70053fc0pf
 /*    1bfdc:	0fc25af0 */ 	jal	quaternion0f096ca0
 /*    1bfe0:	27a50078 */ 	addiu	$a1,$sp,0x78
 /*    1bfe4:	27a40088 */ 	addiu	$a0,$sp,0x88
-/*    1bfe8:	0fc25d78 */ 	jal	func0f0976c0
+/*    1bfe8:	0fc25d78 */ 	jal	quaternion0f0976c0
 /*    1bfec:	27a50078 */ 	addiu	$a1,$sp,0x78
 /*    1bff0:	27a70068 */ 	addiu	$a3,$sp,0x68
 /*    1bff4:	27a40088 */ 	addiu	$a0,$sp,0x88
@@ -1926,7 +1926,7 @@ glabel model0001bfa8
 /*    1c220:	0fc25b28 */ 	jal	quaternion0f096ca0
 /*    1c224:	27a50078 */ 	addiu	$a1,$sp,0x78
 /*    1c228:	27a40088 */ 	addiu	$a0,$sp,0x88
-/*    1c22c:	0fc25db0 */ 	jal	func0f0976c0
+/*    1c22c:	0fc25db0 */ 	jal	quaternion0f0976c0
 /*    1c230:	27a50078 */ 	addiu	$a1,$sp,0x78
 /*    1c234:	27a70068 */ 	addiu	$a3,$sp,0x68
 /*    1c238:	27a40088 */ 	addiu	$a0,$sp,0x88
