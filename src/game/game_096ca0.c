@@ -548,24 +548,14 @@ void quaternionMultQuaternion(f32 a[4], f32 b[4], f32 result[4])
 	result[3] = a[0] * b[3] + b[0] * a[3] + a[1] * b[2] - a[2] * b[1];
 }
 
-GLOBAL_ASM(
-glabel func0f09783c
-/*  f09783c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f097840:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f097844:	27a60018 */ 	addiu	$a2,$sp,0x18
-/*  f097848:	0fc25dce */ 	jal	quaternionMultQuaternion
-/*  f09784c:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f097850:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f097854:	c7a40018 */ 	lwc1	$f4,0x18($sp)
-/*  f097858:	e4a40000 */ 	swc1	$f4,0x0($a1)
-/*  f09785c:	c7a6001c */ 	lwc1	$f6,0x1c($sp)
-/*  f097860:	e4a60004 */ 	swc1	$f6,0x4($a1)
-/*  f097864:	c7a80020 */ 	lwc1	$f8,0x20($sp)
-/*  f097868:	e4a80008 */ 	swc1	$f8,0x8($a1)
-/*  f09786c:	c7aa0024 */ 	lwc1	$f10,0x24($sp)
-/*  f097870:	e4aa000c */ 	swc1	$f10,0xc($a1)
-/*  f097874:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f097878:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f09787c:	03e00008 */ 	jr	$ra
-/*  f097880:	00000000 */ 	nop
-);
+void quaternionMultQuaternionInPlace(f32 a[4], f32 dst[4])
+{
+	f32 tmp[4];
+
+	quaternionMultQuaternion(a, dst, tmp);
+
+	dst[0] = tmp[0];
+	dst[1] = tmp[1];
+	dst[2] = tmp[2];
+	dst[3] = tmp[3];
+}
