@@ -246,30 +246,14 @@ glabel func0f097044
 /*  f097260:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f097264
-/*  f097264:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f097268:	00803825 */ 	or	$a3,$a0,$zero
-/*  f09726c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f097270:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f097274:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f097278:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f09727c:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f097280:	0fc25bb5 */ 	jal	quaternionToMtx
-/*  f097284:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f097288:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f09728c:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f097290:	c4e40000 */ 	lwc1	$f4,0x0($a3)
-/*  f097294:	e4c40030 */ 	swc1	$f4,0x30($a2)
-/*  f097298:	c4e60004 */ 	lwc1	$f6,0x4($a3)
-/*  f09729c:	e4c60034 */ 	swc1	$f6,0x34($a2)
-/*  f0972a0:	c4e80008 */ 	lwc1	$f8,0x8($a3)
-/*  f0972a4:	e4c80038 */ 	swc1	$f8,0x38($a2)
-/*  f0972a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0972ac:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0972b0:	03e00008 */ 	jr	$ra
-/*  f0972b4:	00000000 */ 	nop
-);
+void quaternionToTransformMtx(struct coord *pos, f32 rot[4], Mtxf *mtx)
+{
+	quaternionToMtx(rot, mtx);
+
+	mtx->m[3][0] = pos->x;
+	mtx->m[3][1] = pos->y;
+	mtx->m[3][2] = pos->z;
+}
 
 GLOBAL_ASM(
 glabel func0f0972b8
