@@ -2108,7 +2108,7 @@ void bmoveUpdateHead(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)
 		func0f097044(arg3, sp84);
 		func0f0976c0(sp100, sp84);
 		func0f0972b8(sp100, sp84, arg4, sp68);
-		func0f096ed4(sp68, &sp180);
+		quaternionToMtx(sp68, &sp180);
 	}
 
 	g_Vars.currentplayer->bond2.unk1c.x = sp180.m[2][0];

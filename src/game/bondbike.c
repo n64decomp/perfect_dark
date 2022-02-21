@@ -1700,7 +1700,7 @@ void bbikeTick(void)
 	func0f097044(&sp124, spc4);
 	func0f0976c0(spc4, spd4);
 	func0f0972b8(spd4, spc4, 0.8f, spb4);
-	func0f096ed4(spb4, &sp124);
+	quaternionToMtx(spb4, &sp124);
 	mtx4MultMtx4InPlace(&sp124, &sp164);
 
 	if (g_Vars.currentplayer->bondvehiclemode == VEHICLEMODE_OFF) {
@@ -1731,7 +1731,7 @@ void bbikeTick(void)
 		func0f097044(&sp164, sp94);
 		func0f0976c0(sp94, spa4);
 		func0f0972b8(spa4, sp94, 1.0f - g_Vars.currentplayer->bondentert2, sp84);
-		func0f096ed4(sp84, &sp164);
+		quaternionToMtx(sp84, &sp164);
 	}
 
 	g_Vars.currentplayer->bond2.unk1c.x = sp164.m[2][0];

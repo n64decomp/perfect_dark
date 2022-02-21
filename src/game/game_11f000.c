@@ -9894,7 +9894,7 @@ Gfx *func0f126de8(Gfx *gdl)
 		spd0[2] = g_TeleportToUp.f[1] * f20_2;
 		spd0[3] = g_TeleportToUp.f[2] * f20_2;
 
-		func0f096ed4(spd0, &mtx);
+		quaternionToMtx(spd0, &mtx);
 		mtx4RotateVecInPlace(&mtx, &spe0);
 
 		spe0.x += g_TeleportToPos.x;

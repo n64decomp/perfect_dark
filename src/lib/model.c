@@ -736,7 +736,7 @@ void model0001b400(struct modelrenderdata *arg0, struct model *model, struct mod
 		quaternion0f096ca0(&sp230, spfc);
 		func0f0976c0(spfc, spec);
 		func0f0972b8(spfc, spec, anim->fracmerge, &spdc);
-		func0f096ed4(&spdc, &sp1d8);
+		quaternionToMtx(&spdc, &sp1d8);
 	} else {
 		mtx4LoadRotation(&sp230, &sp1d8);
 	}

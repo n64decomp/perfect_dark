@@ -2211,7 +2211,7 @@ void playerTickCutscene(bool arg0)
 		func0f097044(&sp84, sp64);
 		func0f0976c0(sp64, sp74);
 		func0f0972b8(sp74, sp64, sp104, sp54);
-		func0f096ed4(sp54, &sp11c);
+		quaternionToMtx(sp54, &sp11c);
 
 		up.x = sp11c.m[1][0];
 		up.y = sp11c.m[1][1];
@@ -4095,7 +4095,7 @@ void playerTick(bool arg0)
 				sp15c[3] = 0;
 
 				func0f097738(sp15c, sp14c, sp13c);
-				func0f096ed4(sp13c, &sp1fc);
+				quaternionToMtx(sp13c, &sp1fc);
 				mtx4RotateVecInPlace(&sp1fc, &projectile->speed);
 
 				projectile->unk0b2 = 0xffff;
@@ -4154,7 +4154,7 @@ void playerTick(bool arg0)
 				mtx3ToMtx4(sp2b8, &sp1bc);
 				func0f097044(&sp1bc, sp12c);
 				func0f097738(sp13c, sp12c, sp11c);
-				func0f096ed4(sp11c, &sp17c);
+				quaternionToMtx(sp11c, &sp17c);
 				mtx4ToMtx3(&sp17c, sp2b8);
 
 				rocket->base.realrot[0][0] = sp2b8[0][0] * sp2a8;

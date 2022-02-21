@@ -63,101 +63,44 @@ void quaternionSetRotationAroundZ(f32 angle, f32 quat[4])
 	quat[3] = sinf(angle * 0.5f);
 }
 
-GLOBAL_ASM(
-glabel func0f096ed4
-/*  f096ed4:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f096ed8:	f7b40008 */ 	sdc1	$f20,0x8($sp)
-/*  f096edc:	c4940000 */ 	lwc1	$f20,0x0($a0)
-/*  f096ee0:	c4800004 */ 	lwc1	$f0,0x4($a0)
-/*  f096ee4:	c4820008 */ 	lwc1	$f2,0x8($a0)
-/*  f096ee8:	4614a102 */ 	mul.s	$f4,$f20,$f20
-/*  f096eec:	c48c000c */ 	lwc1	$f12,0xc($a0)
-/*  f096ef0:	3c014000 */ 	lui	$at,0x4000
-/*  f096ef4:	46000182 */ 	mul.s	$f6,$f0,$f0
-/*  f096ef8:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f096efc:	46021282 */ 	mul.s	$f10,$f2,$f2
-/*  f096f00:	460a4100 */ 	add.s	$f4,$f8,$f10
-/*  f096f04:	460c6182 */ 	mul.s	$f6,$f12,$f12
-/*  f096f08:	44815000 */ 	mtc1	$at,$f10
-/*  f096f0c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f096f10:	46043200 */ 	add.s	$f8,$f6,$f4
-/*  f096f14:	46085183 */ 	div.s	$f6,$f10,$f8
-/*  f096f18:	46060482 */ 	mul.s	$f18,$f0,$f6
-/*  f096f1c:	e7a60044 */ 	swc1	$f6,0x44($sp)
-/*  f096f20:	46061402 */ 	mul.s	$f16,$f2,$f6
-/*  f096f24:	00000000 */ 	nop
-/*  f096f28:	46066382 */ 	mul.s	$f14,$f12,$f6
-/*  f096f2c:	00000000 */ 	nop
-/*  f096f30:	4612a102 */ 	mul.s	$f4,$f20,$f18
-/*  f096f34:	00000000 */ 	nop
-/*  f096f38:	4610a282 */ 	mul.s	$f10,$f20,$f16
-/*  f096f3c:	00000000 */ 	nop
-/*  f096f40:	460ea202 */ 	mul.s	$f8,$f20,$f14
-/*  f096f44:	e7a40034 */ 	swc1	$f4,0x34($sp)
-/*  f096f48:	46120182 */ 	mul.s	$f6,$f0,$f18
-/*  f096f4c:	e7aa0030 */ 	swc1	$f10,0x30($sp)
-/*  f096f50:	46100102 */ 	mul.s	$f4,$f0,$f16
-/*  f096f54:	e7a8002c */ 	swc1	$f8,0x2c($sp)
-/*  f096f58:	460e0282 */ 	mul.s	$f10,$f0,$f14
-/*  f096f5c:	e7a60028 */ 	swc1	$f6,0x28($sp)
-/*  f096f60:	44800000 */ 	mtc1	$zero,$f0
-/*  f096f64:	46101202 */ 	mul.s	$f8,$f2,$f16
-/*  f096f68:	e7a40024 */ 	swc1	$f4,0x24($sp)
-/*  f096f6c:	44818000 */ 	mtc1	$at,$f16
-/*  f096f70:	460e1182 */ 	mul.s	$f6,$f2,$f14
-/*  f096f74:	e7aa0020 */ 	swc1	$f10,0x20($sp)
-/*  f096f78:	460e6102 */ 	mul.s	$f4,$f12,$f14
-/*  f096f7c:	e7a8001c */ 	swc1	$f8,0x1c($sp)
-/*  f096f80:	c7aa001c */ 	lwc1	$f10,0x1c($sp)
-/*  f096f84:	e7a60018 */ 	swc1	$f6,0x18($sp)
-/*  f096f88:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f096f8c:	c7a80014 */ 	lwc1	$f8,0x14($sp)
-/*  f096f90:	44812000 */ 	mtc1	$at,$f4
-/*  f096f94:	46085180 */ 	add.s	$f6,$f10,$f8
-/*  f096f98:	46062281 */ 	sub.s	$f10,$f4,$f6
-/*  f096f9c:	e4aa0000 */ 	swc1	$f10,0x0($a1)
-/*  f096fa0:	c7a4002c */ 	lwc1	$f4,0x2c($sp)
-/*  f096fa4:	c7a80024 */ 	lwc1	$f8,0x24($sp)
-/*  f096fa8:	46044180 */ 	add.s	$f6,$f8,$f4
-/*  f096fac:	e4a60004 */ 	swc1	$f6,0x4($a1)
-/*  f096fb0:	c7a80030 */ 	lwc1	$f8,0x30($sp)
-/*  f096fb4:	c7aa0020 */ 	lwc1	$f10,0x20($sp)
-/*  f096fb8:	46085101 */ 	sub.s	$f4,$f10,$f8
-/*  f096fbc:	e4a40008 */ 	swc1	$f4,0x8($a1)
-/*  f096fc0:	c7aa002c */ 	lwc1	$f10,0x2c($sp)
-/*  f096fc4:	c7a60024 */ 	lwc1	$f6,0x24($sp)
-/*  f096fc8:	c7ae0018 */ 	lwc1	$f14,0x18($sp)
-/*  f096fcc:	c7ac0028 */ 	lwc1	$f12,0x28($sp)
-/*  f096fd0:	460a3201 */ 	sub.s	$f8,$f6,$f10
-/*  f096fd4:	c7a20034 */ 	lwc1	$f2,0x34($sp)
-/*  f096fd8:	e4a80010 */ 	swc1	$f8,0x10($a1)
-/*  f096fdc:	c7a40014 */ 	lwc1	$f4,0x14($sp)
-/*  f096fe0:	46027200 */ 	add.s	$f8,$f14,$f2
-/*  f096fe4:	46046180 */ 	add.s	$f6,$f12,$f4
-/*  f096fe8:	e4a80018 */ 	swc1	$f8,0x18($a1)
-/*  f096fec:	46027201 */ 	sub.s	$f8,$f14,$f2
-/*  f096ff0:	46068281 */ 	sub.s	$f10,$f16,$f6
-/*  f096ff4:	e4aa0014 */ 	swc1	$f10,0x14($a1)
-/*  f096ff8:	c7a60030 */ 	lwc1	$f6,0x30($sp)
-/*  f096ffc:	c7a40020 */ 	lwc1	$f4,0x20($sp)
-/*  f097000:	e4a80024 */ 	swc1	$f8,0x24($a1)
-/*  f097004:	46062280 */ 	add.s	$f10,$f4,$f6
-/*  f097008:	e4aa0020 */ 	swc1	$f10,0x20($a1)
-/*  f09700c:	c7a4001c */ 	lwc1	$f4,0x1c($sp)
-/*  f097010:	e4a00030 */ 	swc1	$f0,0x30($a1)
-/*  f097014:	e4a00034 */ 	swc1	$f0,0x34($a1)
-/*  f097018:	46046180 */ 	add.s	$f6,$f12,$f4
-/*  f09701c:	e4a00038 */ 	swc1	$f0,0x38($a1)
-/*  f097020:	e4a0000c */ 	swc1	$f0,0xc($a1)
-/*  f097024:	e4a0001c */ 	swc1	$f0,0x1c($a1)
-/*  f097028:	46068281 */ 	sub.s	$f10,$f16,$f6
-/*  f09702c:	e4a0002c */ 	swc1	$f0,0x2c($a1)
-/*  f097030:	e4b0003c */ 	swc1	$f16,0x3c($a1)
-/*  f097034:	e4aa0028 */ 	swc1	$f10,0x28($a1)
-/*  f097038:	d7b40008 */ 	ldc1	$f20,0x8($sp)
-/*  f09703c:	03e00008 */ 	jr	$ra
-/*  f097040:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+void quaternionToMtx(f32 quat[4], Mtxf *mtx)
+{
+	f32 mult = 2.0f / (quat[0] * quat[0] + quat[1] * quat[1] + quat[2] * quat[2] + quat[3] * quat[3]);
+	f32 a = quat[1] * mult;
+	f32 b = quat[2] * mult;
+	f32 c = quat[3] * mult;
+
+	f32 sp34 = quat[0] * a;
+	f32 sp30 = quat[0] * b;
+	f32 sp2c = quat[0] * c;
+	f32 sp28 = quat[1] * a;
+	f32 sp24 = quat[1] * b;
+	f32 sp20 = quat[1] * c;
+	f32 sp1c = quat[2] * b;
+	f32 sp18 = quat[2] * c;
+	f32 sp14 = quat[3] * c;
+
+	mtx->m[0][0] = 1.0f - (sp1c + sp14);
+	mtx->m[0][1] = sp24 + sp2c;
+	mtx->m[0][2] = sp20 - sp30;
+
+	mtx->m[1][0] = sp24 - sp2c;
+	mtx->m[1][1] = 1.0f - (sp28 + sp14);
+	mtx->m[1][2] = sp18 + sp34;
+
+	mtx->m[2][0] = sp20 + sp30;
+	mtx->m[2][1] = sp18 - sp34;
+	mtx->m[2][2] = 1.0f - (sp28 + sp1c);
+
+	mtx->m[3][0] = 0.0f;
+	mtx->m[3][1] = 0.0f;
+	mtx->m[3][2] = 0.0f;
+
+	mtx->m[0][3] = 0.0f;
+	mtx->m[1][3] = 0.0f;
+	mtx->m[2][3] = 0.0f;
+	mtx->m[3][3] = 1.0f;
+}
 
 GLOBAL_ASM(
 glabel func0f097044
@@ -312,7 +255,7 @@ glabel func0f097264
 /*  f097274:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f097278:	00c02825 */ 	or	$a1,$a2,$zero
 /*  f09727c:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f097280:	0fc25bb5 */ 	jal	func0f096ed4
+/*  f097280:	0fc25bb5 */ 	jal	quaternionToMtx
 /*  f097284:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f097288:	8fa70018 */ 	lw	$a3,0x18($sp)
 /*  f09728c:	8fa60020 */ 	lw	$a2,0x20($sp)
