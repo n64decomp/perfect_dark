@@ -351,39 +351,38 @@ glabel hudmsgRenderMissionTimer
 /*  f0dd2a8:	00000000 */ 	nop
 );
 
-//Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 arg1)
+// Mismatch: Regalloc. Seems like something's optimised out before PLAYERCOUNT().
+//Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 alpha)
 //{
-//	s32 sp8c;
-//	s32 sp88;
-//	s32 sp84;
-//	s32 sp80;
-//	char buffer[24];
-//	u32 textcolour;
-//	u32 alpha;
-//	s32 viewy;
-//	s32 playernum;
-//	s16 top;
+//	s32 x; // 8c
+//	s32 y; // 88
+//	s32 viewleft; // 84
+//	s32 timery; // 80
+//	char buffer[24]; // 68
+//	u32 textcolour; // 64
+//	s32 viewheight;
 //	s32 playercount;
+//	s32 playernum; // 58
+//	s16 viewtop; // 56
 //
-//	sp84 = viGetViewLeft() / g_ScaleX;
-//	top = viGetViewTop();
-//	viewy = viGetViewHeight();
+//	textcolour = alpha;
+//
+//	viewleft = viGetViewLeft() / g_ScaleX;
+//	viewtop = viGetViewTop();
+//	viewheight = viGetViewHeight();
 //	playercount = PLAYERCOUNT();
 //	playernum = g_Vars.currentplayernum;
 //
-//	sp80 = (top + viewy) - g_HudPaddingY;
-//	sp80 -= 8;
+//	timery = viewtop + viewheight - g_HudPaddingY - 8;
 //
 //	// fe0
-//	if ((IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL)
-//			&& countdownTimerIsVisible()) {
-//		sp80 -= 8;
+//	if ((IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) && countdownTimerIsVisible()) {
+//		timery -= 8;
 //	}
 //
 //	// 054
-//	if ((IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || playercount >= 3)
-//			&& hudmsgIsZoomRangeVisible()) {
-//		sp80 -= 8;
+//	if ((IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || playercount >= 3) && hudmsgIsZoomRangeVisible()) {
+//		timery -= 8;
 //	}
 //
 //	// 0d8
@@ -391,21 +390,21 @@ glabel hudmsgRenderMissionTimer
 //		// 0e4
 //		if (IS4MB() || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && playernum == 0)) {
 //			// 118
-//			sp80 += 10;
+//			timery += 10;
 //		} else {
 //			// 120
-//			sp80 += 2;
+//			timery += 2;
 //		}
 //	} else /*128*/ if (playercount >= 3) {
 //		if (playernum < 2) {
-//			sp80 += 10;
+//			timery += 10;
 //		} else {
-//			sp80 += 2;
+//			timery += 2;
 //		}
 //	} else {
 //		// 150
 //		if (optionsGetEffectiveScreenSize() != SCREENSIZE_FULL) {
-//			sp80 += 8;
+//			timery += 8;
 //		}
 //	}
 //
@@ -414,21 +413,23 @@ glabel hudmsgRenderMissionTimer
 //	// screen, move the timer left a bit as the safe zone doesn't need to be
 //	// considered.
 //	if (playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()) && playernum == 1) {
-//		sp84 -= 14;
+//		viewleft -= 14;
 //	} else if (playercount >= 3 && (playernum & 1) == 1) {
-//		sp84 -= 14;
+//		viewleft -= 14;
 //	}
 //
 //	// 1e0
-//	sp8c = sp84 + g_HudPaddingX + 3;
-//
-//	alpha = (arg1 * 160) / 255;
-//	textcolour = alpha | 0x00ff0000;
+//	textcolour = (textcolour * 160 / 255) | 0x00ff0000;
 //
 //	// 208
 //	formatTime(buffer, playerGetMissionTime(), TIMEPRECISION_HUNDREDTHS);
 //
-//	return textRender(gdl, &sp8c, &sp88, buffer, g_CharsNumeric, g_FontNumeric, textcolour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+//	x = viewleft + g_HudPaddingX + 3;
+//	y = timery;
+//
+//	gdl = textRender(gdl, &x, &y, buffer, g_CharsNumeric, g_FontNumeric, textcolour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+//
+//	return gdl;
 //}
 
 const char var7f1ade80[] = "%s%s%4.2fX";
