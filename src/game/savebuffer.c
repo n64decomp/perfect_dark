@@ -788,9 +788,6 @@ const char var7f1adba0[] = "txmul";
 const char var7f1adba8[] = "depthsub";
 const char var7f1adbb4[] = "rsub";
 
-const char var7f1adbbc[] = ":%02d";
-const char var7f1adbc4[] = "%d";
-
 /**
  * Write the specified amount of bits to the buffer, advancing the internal pointer.
  *
@@ -1311,6 +1308,39 @@ glabel formatTime
 /*  f0d5a74:	03e00008 */ 	jr	$ra
 /*  f0d5a78:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
+
+const char var7f1adbbc[] = ":%02d";
+const char var7f1adbc4[] = "%d";
+
+//void formatTime(char *dst, s32 time60, s32 precision)
+//{
+//	s32 sp54[5];
+//	bool donefirst;
+//	s32 len;
+//	s32 i;
+//
+//	donefirst = false;
+//	len = 0;
+//
+//	sp54[4] = time60 % 60 * 100 / 60; // hundredths
+//	sp54[0] = time60 / 60 / 60 / 60 / 24; // days
+//
+//	time60 /= 60;
+//	sp54[3] = time60 % 60; // seconds
+//	time60 /= 60;
+//	sp54[2] = time60 % 60; // minutes
+//	time60 /= 60;
+//	sp54[1] = time60 % 24; // hours
+//
+//	for (i = 0; i <= precision; i++) {
+//		if (donefirst) {
+//			len += sprintf(&dst[len], ":%02d", sp54[i]);
+//		} else if (sp54[i] != 0 || i >= TIMEPRECISION_MINUTES) {
+//			len += sprintf(&dst[len], "%d", sp54[i]);
+//			donefirst = true;
+//		}
+//	}
+//}
 
 #if VERSION >= VERSION_NTSC_1_0
 void func0f0d5a7c(void)

@@ -426,7 +426,7 @@ glabel hudmsgRenderMissionTimer
 //	textcolour = alpha | 0x00ff0000;
 //
 //	// 208
-//	formatTime(buffer, playerGetMissionTime(), 4);
+//	formatTime(buffer, playerGetMissionTime(), TIMEPRECISION_HUNDREDTHS);
 //
 //	return textRender(gdl, &sp8c, &sp88, buffer, g_CharsNumeric, g_FontNumeric, textcolour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 //}

@@ -191,9 +191,9 @@ char *menutextPauseOrUnpause(s32 arg0)
 char *menutextMatchTime(s32 arg0)
 {
 #if PAL
-	formatTime(g_StringPointer, lvGetStageTime60() * 60 / 50, 3);
+	formatTime(g_StringPointer, lvGetStageTime60() * 60 / 50, TIMEPRECISION_SECONDS);
 #else
-	formatTime(g_StringPointer, lvGetStageTime60(), 3);
+	formatTime(g_StringPointer, lvGetStageTime60(), TIMEPRECISION_SECONDS);
 #endif
 
 	return g_StringPointer;

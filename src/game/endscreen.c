@@ -347,7 +347,7 @@ char *menuTitleStageFailed(struct menuitem *item)
 
 char *soloMenuTextMissionTime(struct menuitem *item)
 {
-	formatTime(g_StringPointer, playerGetMissionTime(), 3);
+	formatTime(g_StringPointer, playerGetMissionTime(), TIMEPRECISION_SECONDS);
 	strcat(g_StringPointer, "\n");
 
 	return g_StringPointer;
@@ -1134,7 +1134,7 @@ char *soloMenuTextTargetTime(struct menuitem *item)
 		return NULL;
 	}
 
-	formatTime(g_StringPointer, time * 60, 3);
+	formatTime(g_StringPointer, time * 60, TIMEPRECISION_SECONDS);
 	strcat(g_StringPointer, "\n");
 	return g_StringPointer;
 }
