@@ -1321,79 +1321,23 @@ void hudmsgsHideByChannel(s32 channelnum)
 	}
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void hudmsgsInit(void)
 {
 	s32 i;
 
 	g_NumHudMessages = g_Vars.mplayerisrunning ? 20 : 8;
-	g_HudMessages = mempAlloc((sizeof(struct hudmessage) * g_NumHudMessages + 0x3f | 0x3f) ^ 0x3f, MEMPOOL_STAGE);
+	g_HudMessages = mempAlloc(ALIGN64(sizeof(struct hudmessage) * g_NumHudMessages), MEMPOOL_STAGE);
 
 	for (i = 0; i < g_NumHudMessages; i++) {
 		g_HudMessages[i].state = HUDMSGSTATE_FREE;
 	}
 
 	g_NextHudMessageId = 0;
-}
-#else
-GLOBAL_ASM(
-glabel hudmsgsInit
-/*  f0db3b0:	3c0e800a */ 	lui	$t6,0x800a
-/*  f0db3b4:	8dcee9d4 */ 	lw	$t6,-0x162c($t6)
-/*  f0db3b8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0db3bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0db3c0:	11c00006 */ 	beqz	$t6,.NB0f0db3dc
-/*  f0db3c4:	3c068007 */ 	lui	$a2,0x8007
-/*  f0db3c8:	3c068007 */ 	lui	$a2,0x8007
-/*  f0db3cc:	24c636a8 */ 	addiu	$a2,$a2,0x36a8
-/*  f0db3d0:	240f0014 */ 	addiu	$t7,$zero,0x14
-/*  f0db3d4:	10000004 */ 	beqz	$zero,.NB0f0db3e8
-/*  f0db3d8:	accf0000 */ 	sw	$t7,0x0($a2)
-.NB0f0db3dc:
-/*  f0db3dc:	24c636a8 */ 	addiu	$a2,$a2,0x36a8
-/*  f0db3e0:	24180008 */ 	addiu	$t8,$zero,0x8
-/*  f0db3e4:	acd80000 */ 	sw	$t8,0x0($a2)
-.NB0f0db3e8:
-/*  f0db3e8:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f0db3ec:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f0db3f0:	0004c900 */ 	sll	$t9,$a0,0x4
-/*  f0db3f4:	0324c823 */ 	subu	$t9,$t9,$a0
-/*  f0db3f8:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f0db3fc:	0324c823 */ 	subu	$t9,$t9,$a0
-/*  f0db400:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0db404:	2724003f */ 	addiu	$a0,$t9,0x3f
-/*  f0db408:	3488003f */ 	ori	$t0,$a0,0x3f
-/*  f0db40c:	0c004a0e */ 	jal	mempAlloc
-/*  f0db410:	3904003f */ 	xori	$a0,$t0,0x3f
-/*  f0db414:	3c068007 */ 	lui	$a2,0x8007
-/*  f0db418:	24c636a8 */ 	addiu	$a2,$a2,0x36a8
-/*  f0db41c:	8cca0000 */ 	lw	$t2,0x0($a2)
-/*  f0db420:	3c048007 */ 	lui	$a0,0x8007
-/*  f0db424:	248436ac */ 	addiu	$a0,$a0,0x36ac
-/*  f0db428:	ac820000 */ 	sw	$v0,0x0($a0)
-/*  f0db42c:	1940000b */ 	blez	$t2,.NB0f0db45c
-/*  f0db430:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0db434:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0db438:	8c8b0000 */ 	lw	$t3,0x0($a0)
-.NB0f0db43c:
-/*  f0db43c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0db440:	01626021 */ 	addu	$t4,$t3,$v0
-/*  f0db444:	a1800000 */ 	sb	$zero,0x0($t4)
-/*  f0db448:	8ccd0000 */ 	lw	$t5,0x0($a2)
-/*  f0db44c:	244201dc */ 	addiu	$v0,$v0,0x1dc
-/*  f0db450:	006d082a */ 	slt	$at,$v1,$t5
-/*  f0db454:	5420fff9 */ 	bnezl	$at,.NB0f0db43c
-/*  f0db458:	8c8b0000 */ 	lw	$t3,0x0($a0)
-.NB0f0db45c:
-/*  f0db45c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0db460:	3c01800a */ 	lui	$at,0x800a
-/*  f0db464:	ac202690 */ 	sw	$zero,0x2690($at)
-/*  f0db468:	3c018007 */ 	lui	$at,0x8007
-/*  f0db46c:	ac2036b0 */ 	sw	$zero,0x36b0($at)
-/*  f0db470:	03e00008 */ 	jr	$ra
-/*  f0db474:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+
+#if VERSION < VERSION_NTSC_1_0
+	var800736b0nb = NULL;
 #endif
+}
 
 void hudmsgRemoveAll(void)
 {
