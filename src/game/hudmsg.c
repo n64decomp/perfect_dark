@@ -45,7 +45,7 @@ s32 g_NumHudMessages = 0;
 struct hudmessage *g_HudMessages = NULL;
 
 #if VERSION < VERSION_NTSC_1_0
-u32 var800736b0nb = 0;
+struct sndstate *var800736b0nb = NULL;
 #endif
 
 struct hudmsgtype g_HudmsgTypes[] = {
@@ -3463,7 +3463,7 @@ void hudmsgsTick(void)
 					sndStart(var80095200, SFX_HUDMSG, NULL, -1, -1, -1, -1, -1);
 #else
 					// Probable mismatch here for ntsc-beta
-					static struct sndstate *var800736b0nb = NULL;
+					var800736b0nb = NULL;
 					sndStart(var80095200, SFX_HUDMSG, &var800736b0nb, -1, -1, -1, -1, -1);
 #endif
 				}
@@ -6809,7 +6809,6 @@ glabel var7f1adef4
 //	return gdl;
 //}
 
-#if VERSION >= VERSION_NTSC_1_0
 void hudmsgsReset(void)
 {
 	s32 i;
@@ -6817,46 +6816,10 @@ void hudmsgsReset(void)
 	for (i = 0; i < g_NumHudMessages; i++) {
 		g_HudMessages[i].state = HUDMSGSTATE_FREE;
 	}
-}
-#else
-GLOBAL_ASM(
-glabel hudmsgsReset
-/*  f0ddb2c:	3c058007 */ 	lui	$a1,0x8007
-/*  f0ddb30:	24a536a8 */ 	addiu	$a1,$a1,0x36a8
-/*  f0ddb34:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*  f0ddb38:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0ddb3c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0ddb40:	19c0000d */ 	blez	$t6,.NB0f0ddb78
-/*  f0ddb44:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0ddb48:	3c048007 */ 	lui	$a0,0x8007
-/*  f0ddb4c:	248436ac */ 	addiu	$a0,$a0,0x36ac
-/*  f0ddb50:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0ddb54:	8c8f0000 */ 	lw	$t7,0x0($a0)
-.NB0f0ddb58:
-/*  f0ddb58:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0ddb5c:	01e3c021 */ 	addu	$t8,$t7,$v1
-/*  f0ddb60:	a3000000 */ 	sb	$zero,0x0($t8)
-/*  f0ddb64:	8cb90000 */ 	lw	$t9,0x0($a1)
-/*  f0ddb68:	246301dc */ 	addiu	$v1,$v1,0x1dc
-/*  f0ddb6c:	0059082a */ 	slt	$at,$v0,$t9
-/*  f0ddb70:	5420fff9 */ 	bnezl	$at,.NB0f0ddb58
-/*  f0ddb74:	8c8f0000 */ 	lw	$t7,0x0($a0)
-.NB0f0ddb78:
-/*  f0ddb78:	3c048007 */ 	lui	$a0,0x8007
-/*  f0ddb7c:	8c8436b0 */ 	lw	$a0,0x36b0($a0)
-/*  f0ddb80:	50800008 */ 	beqzl	$a0,.NB0f0ddba4
-/*  f0ddb84:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ddb88:	0c00d360 */ 	jal	sndGetState
-/*  f0ddb8c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ddb90:	10400003 */ 	beqz	$v0,.NB0f0ddba0
-/*  f0ddb94:	3c048007 */ 	lui	$a0,0x8007
-/*  f0ddb98:	0c00d428 */ 	jal	audioStop
-/*  f0ddb9c:	8c8436b0 */ 	lw	$a0,0x36b0($a0)
-.NB0f0ddba0:
-/*  f0ddba0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f0ddba4:
-/*  f0ddba4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0ddba8:	03e00008 */ 	jr	$ra
-/*  f0ddbac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+
+#if VERSION < VERSION_NTSC_1_0
+	if (var800736b0nb && sndGetState(var800736b0nb) != AL_STOPPED) {
+		audioStop(var800736b0nb);
+	}
 #endif
+}
