@@ -7,7 +7,7 @@
 u8 hudmsgsAreActive(void);
 s32 hudmsgIsZoomRangeVisible(void);
 Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 alpha);
-Gfx *hudmsgRenderZoomRange(Gfx *gdl, s32 arg1);
+Gfx *hudmsgRenderZoomRange(Gfx *gdl, u32 alpha);
 Gfx *hudmsgRenderBox(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, f32 bgopacity, u32 bordercolour, f32 textopacity);
 s32 func0f0ddb1c(s32 *arg0, s32 arg1);
 void hudmsgsHideByChannel(s32 value);
