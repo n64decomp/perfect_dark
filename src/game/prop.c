@@ -2622,7 +2622,7 @@ glabel var7f1ab190pf
 /*  f064014:	a5580378 */ 	sh	$t8,0x378($t2)
 /*  f064018:	0fc2432d */ 	jal	alarmTick
 /*  f06401c:	00000000 */ 	nop
-/*  f064020:	0fc24cfe */ 	jal	func0f093508
+/*  f064020:	0fc24cfe */ 	jal	propsndTick
 /*  f064024:	00000000 */ 	nop
 /*  f064028:	0fc198b9 */ 	jal	propsDefragRoomProps
 /*  f06402c:	00000000 */ 	nop
@@ -3599,7 +3599,7 @@ glabel propsTick
 /*  f063d84:	a5580378 */ 	sh	$t8,0x378($t2)
 /*  f063d88:	0fc2436d */ 	jal	alarmTick
 /*  f063d8c:	00000000 */ 	nop
-/*  f063d90:	0fc24d42 */ 	jal	func0f093508
+/*  f063d90:	0fc24d42 */ 	jal	propsndTick
 /*  f063d94:	00000000 */ 	nop
 /*  f063d98:	0fc19815 */ 	jal	propsDefragRoomProps
 /*  f063d9c:	00000000 */ 	nop
@@ -4572,7 +4572,7 @@ glabel propsTick
 /*  f062ff8:	a5580378 */ 	sh	$t8,0x378($t2)
 /*  f062ffc:	0fc23cf3 */ 	jal	alarmTick
 /*  f063000:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f063004:	0fc2468f */ 	jal	func0f093508
+/*  f063004:	0fc2468f */ 	jal	propsndTick
 /*  f063008:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f06300c:	0fc194af */ 	jal	propsDefragRoomProps
 /*  f063010:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5127,7 +5127,7 @@ glabel propsTick
 //
 //	if (islastplayer) {
 //		alarmTick();
-//		func0f093508();
+//		propsndTick();
 //		propsDefragRoomProps();
 //	}
 //
