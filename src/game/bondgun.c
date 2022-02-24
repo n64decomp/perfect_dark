@@ -27454,7 +27454,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 			}
 
 			if (soundnum != -1) {
-				func0f094ef4(&prop->pos, prop->rooms, soundnum, &spac, &spa8);
+				propsnd0f094ef4(&prop->pos, prop->rooms, soundnum, &spac, &spa8);
 
 				if (spac) {
 					sndStart(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
@@ -27505,7 +27505,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 			}
 
 			if (soundnum != -1) {
-				func0f094ef4(&prop->pos, prop->rooms, soundnum, &sp90, &sp8c);
+				propsnd0f094ef4(&prop->pos, prop->rooms, soundnum, &sp90, &sp8c);
 
 				if (sp90) {
 					sndStart(var80095200, soundnum, handle, -1, -1, -1, -1, -1);

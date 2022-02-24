@@ -4698,7 +4698,7 @@ glabel var7f1ab778
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f094ef4
+glabel propsnd0f094ef4
 .late_rodata
 glabel var7f1ab77c
 .word 0x451c4000
@@ -4801,6 +4801,50 @@ glabel var7f1ab784
 /*  f095054:	03e00008 */ 	jr	$ra
 /*  f095058:	00000000 */ 	nop
 );
+
+//void propsnd0f094ef4(struct coord *pos, s16 *rooms, s16 soundnum, s32 *arg3, s32 *arg4)
+//{
+//	f32 sp5c;
+//	f32 sp58;
+//	f32 sp54;
+//	struct audiorussmapping *russ;
+//	struct audioconfig *config;
+//	union soundnumhack sp48;
+//	union soundnumhack sp44;
+//	f32 sp40;
+//	bool sp3c;
+//	u32 stack[4];
+//
+//	sp5c = 400;
+//	sp58 = 2500;
+//	sp54 = 3000;
+//	sp44.packed = soundnum;
+//	sp40 = 9999999;
+//	sp3c = false;
+//
+//	if (sp44.hasconfig) {
+//		russ = &g_AudioRussMappings[sp44.confignum];
+//		config = &g_AudioConfigs[russ->audioconfig_index];
+//		sp5c = config->unk00;
+//		sp58 = config->unk00;
+//		sp54 = config->unk00;
+//		sp48.packed = russ->soundnum;
+//
+//		if (config->flags & AUDIOCONFIGFLAG_01) {
+//			sp3c = true;
+//		}
+//
+//		if (sp54 < sp40) {
+//			sp40 = sp54;
+//		}
+//
+//		sp48.hasconfig = false;
+//		soundnum = sp48.packed;
+//	}
+//
+//	*arg3 = func0f0946b0(pos, sp5c, sp58, sp54, rooms, soundnum, 0x7fff, &sp40);
+//	*arg4 = func0f094d78(pos, sp5c, sp58, sp54, sp40, sp3c, 0);
+//}
 #endif
 
 GLOBAL_ASM(
