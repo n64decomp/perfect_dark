@@ -4978,16 +4978,12 @@ struct ranking {
 	s32 score;
 };
 
-struct hudmessagething {
-	s32 unk00;
-};
-
 struct hudmsgtype {
 	/*0x00*/ u8 unk00;
 	/*0x01*/ u8 unk01;
 	/*0x02*/ u8 unk02;
-	/*0x04*/ struct hudmessagething *unk04;
-	/*0x08*/ struct hudmessagething *unk08;
+	/*0x04*/ struct fontchar **unk04;
+	/*0x08*/ struct font **unk08;
 	/*0x0c*/ u32 colour;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ u8 alignh;
@@ -5004,8 +5000,8 @@ struct hudmessage {
 	/*0x003*/ u8 flash;
 	/*0x004*/ u8 opacity;
 	/*0x006*/ u16 timer;
-	/*0x008*/ u32 font1;
-	/*0x00c*/ u32 font2;
+	/*0x008*/ struct fontchar *font1;
+	/*0x00c*/ struct font *font2;
 	/*0x010*/ u32 textcolour;
 	/*0x014*/ u32 glowcolour;
 	/*0x018*/ u16 x;

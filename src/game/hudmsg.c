@@ -49,21 +49,21 @@ struct sndstate *var800736b0nb = NULL;
 #endif
 
 struct hudmsgtype g_HudmsgTypes[] = {
-	/* 0*/ { 1, 1, 0, (void *) &g_CharsHandelGothicSm, (void *) &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_LEFT,    HUDMSGALIGN_BOTTOM,        0, 0, 80  },
-	/* 1*/ { 0, 1, 0, (void *) &g_CharsHandelGothicMd, (void *) &g_FontHandelGothicMd, 0x00ff0000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_YMIDDLE,       0, 0, 120 },
-	/* 2*/ { 0, 0, 1, (void *) &g_CharsHandelGothicMd, (void *) &g_FontHandelGothicMd, 0xff000000, 0xffffffa0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_YMIDDLE,       0, 0, 120 },
-	/* 3*/ { 0, 1, 0, (void *) &g_CharsHandelGothicMd, (void *) &g_FontHandelGothicMd, 0x00ff0000, 0x000000a0, HUDMSGALIGN_LEFT,    HUDMSGALIGN_BOTTOM,        0, 0, 120 },
-	/* 4*/ { 1, 1, 0, (void *) &g_CharsHandelGothicSm, (void *) &g_FontHandelGothicSm, 0x00ffc000, 0x000000a0, HUDMSGALIGN_LEFT,    HUDMSGALIGN_BOTTOM,        0, 0, 40  },
-	/* 5*/ { 0, 0, 0, (void *) &g_CharsHandelGothicMd, (void *) &g_FontHandelGothicMd, 0x00ff0000, 0x000000a0, HUDMSGALIGN_LEFT,    HUDMSGALIGN_TOP,           0, 0, 120 },
-	/* 6*/ { 1, 0, 0, (void *) &g_CharsHandelGothicSm, (void *) &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_TOP,           0, 0, 120 },
-	/* 7*/ { 1, 1, 0, (void *) &g_CharsHandelGothicSm, (void *) &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_TOP,           0, 0, -1  },
-	/* 8*/ { 1, 1, 0, (void *) &g_CharsHandelGothicSm, (void *) &g_FontHandelGothicSm, 0x00ffc000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_BOTTOM,        0, 0, 500 },
-	/* 9*/ { 1, 1, 0, (void *) &g_CharsHandelGothicXs, (void *) &g_FontHandelGothicXs, 0x00ff0000, 0x000000a0, HUDMSGALIGN_LEFT,    HUDMSGALIGN_BOTTOM,        0, 0, 120 },
-	/*10*/ { 1, 1, 0, (void *) &g_CharsHandelGothicSm, (void *) &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_LEFT,    HUDMSGALIGN_BOTTOM,        0, 0, 240 },
+	/* 0*/ { 1, 1, 0, &g_CharsHandelGothicSm, &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_LEFT,    HUDMSGALIGN_BOTTOM,        0, 0, 80  },
+	/* 1*/ { 0, 1, 0, &g_CharsHandelGothicMd, &g_FontHandelGothicMd, 0x00ff0000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_YMIDDLE,       0, 0, 120 },
+	/* 2*/ { 0, 0, 1, &g_CharsHandelGothicMd, &g_FontHandelGothicMd, 0xff000000, 0xffffffa0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_YMIDDLE,       0, 0, 120 },
+	/* 3*/ { 0, 1, 0, &g_CharsHandelGothicMd, &g_FontHandelGothicMd, 0x00ff0000, 0x000000a0, HUDMSGALIGN_LEFT,    HUDMSGALIGN_BOTTOM,        0, 0, 120 },
+	/* 4*/ { 1, 1, 0, &g_CharsHandelGothicSm, &g_FontHandelGothicSm, 0x00ffc000, 0x000000a0, HUDMSGALIGN_LEFT,    HUDMSGALIGN_BOTTOM,        0, 0, 40  },
+	/* 5*/ { 0, 0, 0, &g_CharsHandelGothicMd, &g_FontHandelGothicMd, 0x00ff0000, 0x000000a0, HUDMSGALIGN_LEFT,    HUDMSGALIGN_TOP,           0, 0, 120 },
+	/* 6*/ { 1, 0, 0, &g_CharsHandelGothicSm, &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_TOP,           0, 0, 120 },
+	/* 7*/ { 1, 1, 0, &g_CharsHandelGothicSm, &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_TOP,           0, 0, -1  },
+	/* 8*/ { 1, 1, 0, &g_CharsHandelGothicSm, &g_FontHandelGothicSm, 0x00ffc000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_BOTTOM,        0, 0, 500 },
+	/* 9*/ { 1, 1, 0, &g_CharsHandelGothicXs, &g_FontHandelGothicXs, 0x00ff0000, 0x000000a0, HUDMSGALIGN_LEFT,    HUDMSGALIGN_BOTTOM,        0, 0, 120 },
+	/*10*/ { 1, 1, 0, &g_CharsHandelGothicSm, &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_LEFT,    HUDMSGALIGN_BOTTOM,        0, 0, 240 },
 #if VERSION >= VERSION_NTSC_1_0
-	/*11*/ { 0, 0, 0, (void *) &g_CharsHandelGothicSm, (void *) &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_BELOWVIEWPORT, 0, 0, 120 },
+	/*11*/ { 0, 0, 0, &g_CharsHandelGothicSm, &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_BELOWVIEWPORT, 0, 0, 120 },
 #else
-	/*11*/ { 1, 0, 0, (void *) &g_CharsHandelGothicSm, (void *) &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_BELOWVIEWPORT, 0, 0, 120 },
+	/*11*/ { 1, 0, 0, &g_CharsHandelGothicSm, &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_BELOWVIEWPORT, 0, 0, 120 },
 #endif
 };
 
@@ -1005,7 +1005,7 @@ void hudmsgCreateAsSubtitle(char *srctext, s32 type, u8 colourindex, s32 audioch
 	}
 }
 
-void hudmsgCreateFromArgsWithoutFlags(char *text, s32 type, s32 conf00, s32 conf01, s32 conf02, struct hudmessagething *conf04, struct hudmessagething *conf08, u32 textcolour, u32 shadowcolour, u32 alignh, s32 conf16, u32 alignv, s32 conf18, s32 arg14)
+void hudmsgCreateFromArgsWithoutFlags(char *text, s32 type, s32 conf00, s32 conf01, s32 conf02, struct fontchar **conf04, struct font **conf08, u32 textcolour, u32 shadowcolour, u32 alignh, s32 conf16, u32 alignv, s32 conf18, s32 arg14)
 {
 	hudmsgCreateFromArgs(text, type,
 			conf00,
@@ -1144,816 +1144,149 @@ void hudmsgCalculatePosition(struct hudmessage *msg)
 	msg->y = y;
 }
 
-#if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel hudmsgCreateFromArgs
-/*  f0df510:	27bdfe08 */ 	addiu	$sp,$sp,-504
-/*  f0df514:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f0df518:	24110006 */ 	li	$s1,0x6
-/*  f0df51c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0df520:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f0df524:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0df528:	afa401f8 */ 	sw	$a0,0x1f8($sp)
-/*  f0df52c:	afa501fc */ 	sw	$a1,0x1fc($sp)
-/*  f0df530:	afa60200 */ 	sw	$a2,0x200($sp)
-/*  f0df534:	afa70204 */ 	sw	$a3,0x204($sp)
-/*  f0df538:	14b10005 */ 	bne	$a1,$s1,.PF0f0df550
-/*  f0df53c:	00004825 */ 	move	$t1,$zero
-/*  f0df540:	0fc54d6f */ 	jal	optionsGetInGameSubtitles
-/*  f0df544:	afa001ec */ 	sw	$zero,0x1ec($sp)
-/*  f0df548:	1040011e */ 	beqz	$v0,.PF0f0df9c4
-/*  f0df54c:	8fa901ec */ 	lw	$t1,0x1ec($sp)
-.PF0f0df550:
-/*  f0df550:	8faf01f8 */ 	lw	$t7,0x1f8($sp)
-/*  f0df554:	8fb90230 */ 	lw	$t9,0x230($sp)
-/*  f0df558:	3c07800a */ 	lui	$a3,0x800a
-/*  f0df55c:	91f80000 */ 	lbu	$t8,0x0($t7)
-/*  f0df560:	24e7a510 */ 	addiu	$a3,$a3,-23280
-/*  f0df564:	01e01025 */ 	move	$v0,$t7
-/*  f0df568:	13000007 */ 	beqz	$t8,.PF0f0df588
-/*  f0df56c:	332a0001 */ 	andi	$t2,$t9,0x1
-/*  f0df570:	91e30000 */ 	lbu	$v1,0x0($t7)
-/*  f0df574:	00694821 */ 	addu	$t1,$v1,$t1
-.PF0f0df578:
-/*  f0df578:	90430001 */ 	lbu	$v1,0x1($v0)
-/*  f0df57c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0df580:	5460fffd */ 	bnezl	$v1,.PF0f0df578
-/*  f0df584:	00694821 */ 	addu	$t1,$v1,$t1
-.PF0f0df588:
-/*  f0df588:	11400004 */ 	beqz	$t2,.PF0f0df59c
-/*  f0df58c:	8fad0230 */ 	lw	$t5,0x230($sp)
-/*  f0df590:	8ceb0284 */ 	lw	$t3,0x284($a3)
-/*  f0df594:	8d6c00d8 */ 	lw	$t4,0xd8($t3)
-/*  f0df598:	1580010a */ 	bnez	$t4,.PF0f0df9c4
-.PF0f0df59c:
-/*  f0df59c:	3c07800a */ 	lui	$a3,0x800a
-/*  f0df5a0:	31ae0008 */ 	andi	$t6,$t5,0x8
-/*  f0df5a4:	15c0001b */ 	bnez	$t6,.PF0f0df614
-/*  f0df5a8:	24e7a510 */ 	addiu	$a3,$a3,-23280
-/*  f0df5ac:	3c048007 */ 	lui	$a0,0x8007
-/*  f0df5b0:	8c8412c8 */ 	lw	$a0,0x12c8($a0)
-/*  f0df5b4:	2406ffff */ 	li	$a2,-1
-/*  f0df5b8:	00008025 */ 	move	$s0,$zero
-/*  f0df5bc:	18800014 */ 	blez	$a0,.PF0f0df610
-/*  f0df5c0:	3c028007 */ 	lui	$v0,0x8007
-/*  f0df5c4:	8c4212cc */ 	lw	$v0,0x12cc($v0)
-/*  f0df5c8:	24050005 */ 	li	$a1,0x5
-.PF0f0df5cc:
-/*  f0df5cc:	90430000 */ 	lbu	$v1,0x0($v0)
-/*  f0df5d0:	5060000c */ 	beqzl	$v1,.PF0f0df604
-/*  f0df5d4:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0df5d8:	50a3000a */ 	beql	$a1,$v1,.PF0f0df604
-/*  f0df5dc:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0df5e0:	8cf8028c */ 	lw	$t8,0x28c($a3)
-/*  f0df5e4:	8c4f01c0 */ 	lw	$t7,0x1c0($v0)
-/*  f0df5e8:	570f0006 */ 	bnel	$t8,$t7,.PF0f0df604
-/*  f0df5ec:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0df5f0:	8c5901d8 */ 	lw	$t9,0x1d8($v0)
-/*  f0df5f4:	55390003 */ 	bnel	$t1,$t9,.PF0f0df604
-/*  f0df5f8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0df5fc:	02003025 */ 	move	$a2,$s0
-/*  f0df600:	26100001 */ 	addiu	$s0,$s0,0x1
-.PF0f0df604:
-/*  f0df604:	0204082a */ 	slt	$at,$s0,$a0
-/*  f0df608:	1420fff0 */ 	bnez	$at,.PF0f0df5cc
-/*  f0df60c:	244201dc */ 	addiu	$v0,$v0,0x1dc
-.PF0f0df610:
-/*  f0df610:	04c100ec */ 	bgez	$a2,.PF0f0df9c4
-.PF0f0df614:
-/*  f0df614:	3c048007 */ 	lui	$a0,0x8007
-/*  f0df618:	8c8412c8 */ 	lw	$a0,0x12c8($a0)
-/*  f0df61c:	240a0001 */ 	li	$t2,0x1
-/*  f0df620:	3c018008 */ 	lui	$at,0x8008
-/*  f0df624:	ac2a0020 */ 	sw	$t2,0x20($at)
-/*  f0df628:	1880000a */ 	blez	$a0,.PF0f0df654
-/*  f0df62c:	00008025 */ 	move	$s0,$zero
-/*  f0df630:	3c028007 */ 	lui	$v0,0x8007
-/*  f0df634:	8c4212cc */ 	lw	$v0,0x12cc($v0)
-.PF0f0df638:
-/*  f0df638:	904b0000 */ 	lbu	$t3,0x0($v0)
-/*  f0df63c:	51600006 */ 	beqzl	$t3,.PF0f0df658
-/*  f0df640:	0204082a */ 	slt	$at,$s0,$a0
-/*  f0df644:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0df648:	0204082a */ 	slt	$at,$s0,$a0
-/*  f0df64c:	1420fffa */ 	bnez	$at,.PF0f0df638
-/*  f0df650:	244201dc */ 	addiu	$v0,$v0,0x1dc
-.PF0f0df654:
-/*  f0df654:	0204082a */ 	slt	$at,$s0,$a0
-.PF0f0df658:
-/*  f0df658:	1420002a */ 	bnez	$at,.PF0f0df704
-/*  f0df65c:	8fac01fc */ 	lw	$t4,0x1fc($sp)
-/*  f0df660:	24010001 */ 	li	$at,0x1
-/*  f0df664:	11810006 */ 	beq	$t4,$at,.PF0f0df680
-/*  f0df668:	2404ffff */ 	li	$a0,-1
-/*  f0df66c:	24010002 */ 	li	$at,0x2
-/*  f0df670:	11810003 */ 	beq	$t4,$at,.PF0f0df680
-/*  f0df674:	00000000 */ 	nop
-/*  f0df678:	15910022 */ 	bne	$t4,$s1,.PF0f0df704
-/*  f0df67c:	00000000 */ 	nop
-.PF0f0df680:
-/*  f0df680:	0fc37938 */ 	jal	hudmsgGetNext
-/*  f0df684:	afa901ec */ 	sw	$t1,0x1ec($sp)
-/*  f0df688:	8fa901ec */ 	lw	$t1,0x1ec($sp)
-/*  f0df68c:	0440001d */ 	bltz	$v0,.PF0f0df704
-/*  f0df690:	00408025 */ 	move	$s0,$v0
-/*  f0df694:	241201dc */ 	li	$s2,0x1dc
-/*  f0df698:	24110003 */ 	li	$s1,0x3
-.PF0f0df69c:
-/*  f0df69c:	00520019 */ 	multu	$v0,$s2
-/*  f0df6a0:	3c058007 */ 	lui	$a1,0x8007
-/*  f0df6a4:	8ca512cc */ 	lw	$a1,0x12cc($a1)
-/*  f0df6a8:	24010001 */ 	li	$at,0x1
-/*  f0df6ac:	00006812 */ 	mflo	$t5
-/*  f0df6b0:	00ad2021 */ 	addu	$a0,$a1,$t5
-/*  f0df6b4:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f0df6b8:	15c10009 */ 	bne	$t6,$at,.PF0f0df6e0
-/*  f0df6bc:	00000000 */ 	nop
-/*  f0df6c0:	8c8301b4 */ 	lw	$v1,0x1b4($a0)
-/*  f0df6c4:	24010004 */ 	li	$at,0x4
-/*  f0df6c8:	1060000e */ 	beqz	$v1,.PF0f0df704
-/*  f0df6cc:	00000000 */ 	nop
-/*  f0df6d0:	1223000c */ 	beq	$s1,$v1,.PF0f0df704
-/*  f0df6d4:	00000000 */ 	nop
-/*  f0df6d8:	1061000a */ 	beq	$v1,$at,.PF0f0df704
-/*  f0df6dc:	00000000 */ 	nop
-.PF0f0df6e0:
-/*  f0df6e0:	02120019 */ 	multu	$s0,$s2
-/*  f0df6e4:	0000c012 */ 	mflo	$t8
-/*  f0df6e8:	00b87821 */ 	addu	$t7,$a1,$t8
-/*  f0df6ec:	8de401b8 */ 	lw	$a0,0x1b8($t7)
-/*  f0df6f0:	0fc37938 */ 	jal	hudmsgGetNext
-/*  f0df6f4:	afa901ec */ 	sw	$t1,0x1ec($sp)
-/*  f0df6f8:	8fa901ec */ 	lw	$t1,0x1ec($sp)
-/*  f0df6fc:	0441ffe7 */ 	bgez	$v0,.PF0f0df69c
-/*  f0df700:	00408025 */ 	move	$s0,$v0
-.PF0f0df704:
-/*  f0df704:	060000ac */ 	bltz	$s0,.PF0f0df9b8
-/*  f0df708:	241201dc */ 	li	$s2,0x1dc
-/*  f0df70c:	3c198007 */ 	lui	$t9,0x8007
-/*  f0df710:	8f3912c8 */ 	lw	$t9,0x12c8($t9)
-/*  f0df714:	0219082a */ 	slt	$at,$s0,$t9
-/*  f0df718:	502000a8 */ 	beqzl	$at,.PF0f0df9bc
-/*  f0df71c:	240f0001 */ 	li	$t7,0x1
-/*  f0df720:	02120019 */ 	multu	$s0,$s2
-/*  f0df724:	3c0b8007 */ 	lui	$t3,0x8007
-/*  f0df728:	8d6b12cc */ 	lw	$t3,0x12cc($t3)
-/*  f0df72c:	afa001d8 */ 	sw	$zero,0x1d8($sp)
-/*  f0df730:	27a401d8 */ 	addiu	$a0,$sp,0x1d8
-/*  f0df734:	8fa50220 */ 	lw	$a1,0x220($sp)
-/*  f0df738:	afa901ec */ 	sw	$t1,0x1ec($sp)
-/*  f0df73c:	00005012 */ 	mflo	$t2
-/*  f0df740:	014b8821 */ 	addu	$s1,$t2,$t3
-/*  f0df744:	0fc3782b */ 	jal	func0f0ddb1c
-/*  f0df748:	00000000 */ 	nop
-/*  f0df74c:	8fad0210 */ 	lw	$t5,0x210($sp)
-/*  f0df750:	8fac020c */ 	lw	$t4,0x20c($sp)
-/*  f0df754:	afa201d4 */ 	sw	$v0,0x1d4($sp)
-/*  f0df758:	8dae0000 */ 	lw	$t6,0x0($t5)
-/*  f0df75c:	8d870000 */ 	lw	$a3,0x0($t4)
-/*  f0df760:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0df764:	27a401dc */ 	addiu	$a0,$sp,0x1dc
-/*  f0df768:	27a501e0 */ 	addiu	$a1,$sp,0x1e0
-/*  f0df76c:	8fa601f8 */ 	lw	$a2,0x1f8($sp)
-/*  f0df770:	0fc5609a */ 	jal	textMeasure
-/*  f0df774:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0df778:	8fb801d4 */ 	lw	$t8,0x1d4($sp)
-/*  f0df77c:	8faf01e0 */ 	lw	$t7,0x1e0($sp)
-/*  f0df780:	8fa901ec */ 	lw	$t1,0x1ec($sp)
-/*  f0df784:	26240020 */ 	addiu	$a0,$s1,0x20
-/*  f0df788:	030f082a */ 	slt	$at,$t8,$t7
-/*  f0df78c:	10200033 */ 	beqz	$at,.PF0f0df85c
-/*  f0df790:	8fa501f8 */ 	lw	$a1,0x1f8($sp)
-/*  f0df794:	8fb901f8 */ 	lw	$t9,0x1f8($sp)
-/*  f0df798:	00002825 */ 	move	$a1,$zero
-/*  f0df79c:	00004025 */ 	move	$t0,$zero
-/*  f0df7a0:	932a0000 */ 	lbu	$t2,0x0($t9)
-/*  f0df7a4:	240c000a */ 	li	$t4,0xa
-/*  f0df7a8:	26320020 */ 	addiu	$s2,$s1,0x20
-/*  f0df7ac:	11400010 */ 	beqz	$t2,.PF0f0df7f0
-/*  f0df7b0:	03201021 */ 	addu	$v0,$t9,$zero
-/*  f0df7b4:	93230000 */ 	lbu	$v1,0x0($t9)
-/*  f0df7b8:	27b00044 */ 	addiu	$s0,$sp,0x44
-/*  f0df7bc:	2406000a */ 	li	$a2,0xa
-/*  f0df7c0:	00602025 */ 	move	$a0,$v1
-.PF0f0df7c4:
-/*  f0df7c4:	10c40004 */ 	beq	$a2,$a0,.PF0f0df7d8
-/*  f0df7c8:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f0df7cc:	02085821 */ 	addu	$t3,$s0,$t0
-/*  f0df7d0:	a1630000 */ 	sb	$v1,0x0($t3)
-/*  f0df7d4:	25080001 */ 	addiu	$t0,$t0,0x1
-.PF0f0df7d8:
-/*  f0df7d8:	28a10190 */ 	slti	$at,$a1,0x190
-/*  f0df7dc:	10200004 */ 	beqz	$at,.PF0f0df7f0
-/*  f0df7e0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0df7e4:	90430000 */ 	lbu	$v1,0x0($v0)
-/*  f0df7e8:	1460fff6 */ 	bnez	$v1,.PF0f0df7c4
-/*  f0df7ec:	00602025 */ 	move	$a0,$v1
-.PF0f0df7f0:
-/*  f0df7f0:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f0df7f4:	00a86821 */ 	addu	$t5,$a1,$t0
-/*  f0df7f8:	25080001 */ 	addiu	$t0,$t0,0x1
-/*  f0df7fc:	a1ac0000 */ 	sb	$t4,0x0($t5)
-/*  f0df800:	00a87021 */ 	addu	$t6,$a1,$t0
-/*  f0df804:	a1c00000 */ 	sb	$zero,0x0($t6)
-/*  f0df808:	8faf0210 */ 	lw	$t7,0x210($sp)
-/*  f0df80c:	8fb8020c */ 	lw	$t8,0x20c($sp)
-/*  f0df810:	8fa401d4 */ 	lw	$a0,0x1d4($sp)
-/*  f0df814:	8dea0000 */ 	lw	$t2,0x0($t7)
-/*  f0df818:	8f070000 */ 	lw	$a3,0x0($t8)
-/*  f0df81c:	afa901ec */ 	sw	$t1,0x1ec($sp)
-/*  f0df820:	02403025 */ 	move	$a2,$s2
-/*  f0df824:	0fc56123 */ 	jal	textWrap
-/*  f0df828:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f0df82c:	8fab0210 */ 	lw	$t3,0x210($sp)
-/*  f0df830:	8fb9020c */ 	lw	$t9,0x20c($sp)
-/*  f0df834:	27a401dc */ 	addiu	$a0,$sp,0x1dc
-/*  f0df838:	8d6c0000 */ 	lw	$t4,0x0($t3)
-/*  f0df83c:	8f270000 */ 	lw	$a3,0x0($t9)
-/*  f0df840:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0df844:	27a501e0 */ 	addiu	$a1,$sp,0x1e0
-/*  f0df848:	02403025 */ 	move	$a2,$s2
-/*  f0df84c:	0fc5609a */ 	jal	textMeasure
-/*  f0df850:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f0df854:	10000006 */ 	b	.PF0f0df870
-/*  f0df858:	8fa901ec */ 	lw	$t1,0x1ec($sp)
-.PF0f0df85c:
-/*  f0df85c:	2406018f */ 	li	$a2,0x18f
-/*  f0df860:	0c004bd6 */ 	jal	strncpy
-/*  f0df864:	afa901ec */ 	sw	$t1,0x1ec($sp)
-/*  f0df868:	8fa901ec */ 	lw	$t1,0x1ec($sp)
-/*  f0df86c:	a22001af */ 	sb	$zero,0x1af($s1)
-.PF0f0df870:
-/*  f0df870:	8fad0230 */ 	lw	$t5,0x230($sp)
-/*  f0df874:	3c0e800a */ 	lui	$t6,0x800a
-/*  f0df878:	3c02800a */ 	lui	$v0,0x800a
-/*  f0df87c:	ae2d01c4 */ 	sw	$t5,0x1c4($s1)
-/*  f0df880:	8dcea79c */ 	lw	$t6,-0x5864($t6)
-/*  f0df884:	2442e410 */ 	addiu	$v0,$v0,-7152
-/*  f0df888:	240b0001 */ 	li	$t3,0x1
-/*  f0df88c:	ae2e01c0 */ 	sw	$t6,0x1c0($s1)
-/*  f0df890:	8fb801fc */ 	lw	$t8,0x1fc($sp)
-/*  f0df894:	02202025 */ 	move	$a0,$s1
-/*  f0df898:	ae3801b4 */ 	sw	$t8,0x1b4($s1)
-/*  f0df89c:	8c4f0000 */ 	lw	$t7,0x0($v0)
-/*  f0df8a0:	ae2f01b8 */ 	sw	$t7,0x1b8($s1)
-/*  f0df8a4:	8c4a0000 */ 	lw	$t2,0x0($v0)
-/*  f0df8a8:	25590001 */ 	addiu	$t9,$t2,0x1
-/*  f0df8ac:	ac590000 */ 	sw	$t9,0x0($v0)
-/*  f0df8b0:	a22b0000 */ 	sb	$t3,0x0($s1)
-/*  f0df8b4:	a6200006 */ 	sh	$zero,0x6($s1)
-/*  f0df8b8:	8fac0200 */ 	lw	$t4,0x200($sp)
-/*  f0df8bc:	a22c0001 */ 	sb	$t4,0x1($s1)
-/*  f0df8c0:	8fad0204 */ 	lw	$t5,0x204($sp)
-/*  f0df8c4:	a22d0002 */ 	sb	$t5,0x2($s1)
-/*  f0df8c8:	8fae0208 */ 	lw	$t6,0x208($sp)
-/*  f0df8cc:	a22e0003 */ 	sb	$t6,0x3($s1)
-/*  f0df8d0:	8fb8020c */ 	lw	$t8,0x20c($sp)
-/*  f0df8d4:	8f0f0000 */ 	lw	$t7,0x0($t8)
-/*  f0df8d8:	ae2f0008 */ 	sw	$t7,0x8($s1)
-/*  f0df8dc:	8faa0210 */ 	lw	$t2,0x210($sp)
-/*  f0df8e0:	8d590000 */ 	lw	$t9,0x0($t2)
-/*  f0df8e4:	ae39000c */ 	sw	$t9,0xc($s1)
-/*  f0df8e8:	8fab0214 */ 	lw	$t3,0x214($sp)
-/*  f0df8ec:	ae2b0010 */ 	sw	$t3,0x10($s1)
-/*  f0df8f0:	8fac0218 */ 	lw	$t4,0x218($sp)
-/*  f0df8f4:	ae2c0014 */ 	sw	$t4,0x14($s1)
-/*  f0df8f8:	8fad021c */ 	lw	$t5,0x21c($sp)
-/*  f0df8fc:	a22d01c8 */ 	sb	$t5,0x1c8($s1)
-/*  f0df900:	8fae0224 */ 	lw	$t6,0x224($sp)
-/*  f0df904:	a22e01c9 */ 	sb	$t6,0x1c9($s1)
-/*  f0df908:	8fb801e0 */ 	lw	$t8,0x1e0($sp)
-/*  f0df90c:	a638001c */ 	sh	$t8,0x1c($s1)
-/*  f0df910:	8faf01dc */ 	lw	$t7,0x1dc($sp)
-/*  f0df914:	a62f001e */ 	sh	$t7,0x1e($s1)
-/*  f0df918:	8faa01d8 */ 	lw	$t2,0x1d8($sp)
-/*  f0df91c:	ae2a01cc */ 	sw	$t2,0x1cc($s1)
-/*  f0df920:	8fb90220 */ 	lw	$t9,0x220($sp)
-/*  f0df924:	ae3901d0 */ 	sw	$t9,0x1d0($s1)
-/*  f0df928:	8fab0228 */ 	lw	$t3,0x228($sp)
-/*  f0df92c:	ae2901d8 */ 	sw	$t1,0x1d8($s1)
-/*  f0df930:	0fc37b8c */ 	jal	hudmsgCalculatePosition
-/*  f0df934:	ae2b01d4 */ 	sw	$t3,0x1d4($s1)
-/*  f0df938:	8fac0230 */ 	lw	$t4,0x230($sp)
-/*  f0df93c:	8fb901fc */ 	lw	$t9,0x1fc($sp)
-/*  f0df940:	8fae022c */ 	lw	$t6,0x22c($sp)
-/*  f0df944:	318d0004 */ 	andi	$t5,$t4,0x4
-/*  f0df948:	11a0000d */ 	beqz	$t5,.PF0f0df980
-/*  f0df94c:	00195940 */ 	sll	$t3,$t9,0x5
-/*  f0df950:	000ec080 */ 	sll	$t8,$t6,0x2
-/*  f0df954:	030ec023 */ 	subu	$t8,$t8,$t6
-/*  f0df958:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f0df95c:	030ec021 */ 	addu	$t8,$t8,$t6
-/*  f0df960:	0018c040 */ 	sll	$t8,$t8,0x1
-/*  f0df964:	2401003c */ 	li	$at,0x3c
-/*  f0df968:	0301001a */ 	div	$zero,$t8,$at
-/*  f0df96c:	00007812 */ 	mflo	$t7
-/*  f0df970:	240affff */ 	li	$t2,-1
-/*  f0df974:	ae2f01bc */ 	sw	$t7,0x1bc($s1)
-/*  f0df978:	1000000f */ 	b	.PF0f0df9b8
-/*  f0df97c:	ae2a01b0 */ 	sw	$t2,0x1b0($s1)
-.PF0f0df980:
-/*  f0df980:	3c0c8007 */ 	lui	$t4,0x8007
-/*  f0df984:	018b6021 */ 	addu	$t4,$t4,$t3
-/*  f0df988:	8d8c12ec */ 	lw	$t4,0x12ec($t4)
-/*  f0df98c:	2401003c */ 	li	$at,0x3c
-/*  f0df990:	000c6880 */ 	sll	$t5,$t4,0x2
-/*  f0df994:	01ac6823 */ 	subu	$t5,$t5,$t4
-/*  f0df998:	000d68c0 */ 	sll	$t5,$t5,0x3
-/*  f0df99c:	01ac6821 */ 	addu	$t5,$t5,$t4
-/*  f0df9a0:	000d6840 */ 	sll	$t5,$t5,0x1
-/*  f0df9a4:	01a1001a */ 	div	$zero,$t5,$at
-/*  f0df9a8:	00007012 */ 	mflo	$t6
-/*  f0df9ac:	ae2e01bc */ 	sw	$t6,0x1bc($s1)
-/*  f0df9b0:	8fb8022c */ 	lw	$t8,0x22c($sp)
-/*  f0df9b4:	ae3801b0 */ 	sw	$t8,0x1b0($s1)
-.PF0f0df9b8:
-/*  f0df9b8:	240f0001 */ 	li	$t7,0x1
-.PF0f0df9bc:
-/*  f0df9bc:	3c018008 */ 	lui	$at,0x8008
-/*  f0df9c0:	ac2f0020 */ 	sw	$t7,0x20($at)
-.PF0f0df9c4:
-/*  f0df9c4:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0df9c8:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0df9cc:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f0df9d0:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f0df9d4:	03e00008 */ 	jr	$ra
-/*  f0df9d8:	27bd01f8 */ 	addiu	$sp,$sp,0x1f8
-);
+void hudmsgCreateFromArgs(char *text, s32 type, s32 conf00, s32 conf01, s32 conf02,
+		struct fontchar **conf04, struct font **conf08,
+		u32 textcolour, u32 glowcolour,
+		u32 alignh, s32 conf16, u32 alignv, s32 conf18, s32 arg14, u32 flags)
+{
+	s32 j;
+	struct hudmessage *msg;
+	s32 hash = 0;
+	s32 i;
+	s32 index;
+	s32 textwidth;
+	s32 textheight;
+	s32 xmarginaextra;
+	s32 wrapwidth;
+	char stacktext[400];
+	s32 writeindex;
+
+	if (type == HUDMSGTYPE_INGAMESUBTITLE && !optionsGetInGameSubtitles()) {
+		return;
+	}
+
+	for (j = 0; text[j] != '\0'; j++) {
+		hash = hash + text[j];
+	}
+
+	if ((flags & HUDMSGFLAG_ONLYIFALIVE) == 0 || !g_Vars.currentplayer->isdead) {
+		if ((flags & HUDMSGFLAG_ALLOWDUPES) == 0) {
+			// Check for duplicate messages
+			s32 dupeofindex = -1;
+
+			for (index = 0; index < g_NumHudMessages; index++) {
+				if (g_HudMessages[index].state != HUDMSGSTATE_FREE
+						&& g_HudMessages[index].state != HUDMSGSTATE_FADINGOUT
+						&& g_HudMessages[index].playernum == g_Vars.currentplayernum
+						&& g_HudMessages[index].hash == hash) {
+					dupeofindex = index;
+				}
+			}
+
+			if (dupeofindex >= 0) {
+				return;
+			}
+		}
+
+#if PAL
+		g_ScaleX = 1;
 #else
-GLOBAL_ASM(
-glabel hudmsgCreateFromArgs
-/*  f0deebc:	27bdfe08 */ 	addiu	$sp,$sp,-504
-/*  f0deec0:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f0deec4:	24110006 */ 	addiu	$s1,$zero,0x6
-/*  f0deec8:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0deecc:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f0deed0:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0deed4:	afa401f8 */ 	sw	$a0,0x1f8($sp)
-/*  f0deed8:	afa501fc */ 	sw	$a1,0x1fc($sp)
-/*  f0deedc:	afa60200 */ 	sw	$a2,0x200($sp)
-/*  f0deee0:	afa70204 */ 	sw	$a3,0x204($sp)
-/*  f0deee4:	14b10005 */ 	bne	$a1,$s1,.L0f0deefc
-/*  f0deee8:	00004825 */ 	or	$t1,$zero,$zero
-/*  f0deeec:	0fc54a43 */ 	jal	optionsGetInGameSubtitles
-/*  f0deef0:	afa001ec */ 	sw	$zero,0x1ec($sp)
-/*  f0deef4:	10400115 */ 	beqz	$v0,.L0f0df34c
-/*  f0deef8:	8fa901ec */ 	lw	$t1,0x1ec($sp)
-.L0f0deefc:
-/*  f0deefc:	8faf01f8 */ 	lw	$t7,0x1f8($sp)
-/*  f0def00:	8fb90230 */ 	lw	$t9,0x230($sp)
-/*  f0def04:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f0def08:	91f80000 */ 	lbu	$t8,0x0($t7)
-/*  f0def0c:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f0def10:	01e01025 */ 	or	$v0,$t7,$zero
-/*  f0def14:	13000007 */ 	beqz	$t8,.L0f0def34
-/*  f0def18:	332a0001 */ 	andi	$t2,$t9,0x1
-/*  f0def1c:	91e30000 */ 	lbu	$v1,0x0($t7)
-/*  f0def20:	00694821 */ 	addu	$t1,$v1,$t1
-.L0f0def24:
-/*  f0def24:	90430001 */ 	lbu	$v1,0x1($v0)
-/*  f0def28:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0def2c:	5460fffd */ 	bnezl	$v1,.L0f0def24
-/*  f0def30:	00694821 */ 	addu	$t1,$v1,$t1
-.L0f0def34:
-/*  f0def34:	11400004 */ 	beqz	$t2,.L0f0def48
-/*  f0def38:	8fad0230 */ 	lw	$t5,0x230($sp)
-/*  f0def3c:	8ceb0284 */ 	lw	$t3,0x284($a3)
-/*  f0def40:	8d6c00d8 */ 	lw	$t4,0xd8($t3)
-/*  f0def44:	15800101 */ 	bnez	$t4,.L0f0df34c
-.L0f0def48:
-/*  f0def48:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f0def4c:	31ae0008 */ 	andi	$t6,$t5,0x8
-/*  f0def50:	15c0001b */ 	bnez	$t6,.L0f0defc0
-/*  f0def54:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f0def58:	3c048007 */ 	lui	$a0,%hi(g_NumHudMessages)
-/*  f0def5c:	8c840fe8 */ 	lw	$a0,%lo(g_NumHudMessages)($a0)
-/*  f0def60:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f0def64:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0def68:	18800014 */ 	blez	$a0,.L0f0defbc
-/*  f0def6c:	3c028007 */ 	lui	$v0,%hi(g_HudMessages)
-/*  f0def70:	8c420fec */ 	lw	$v0,%lo(g_HudMessages)($v0)
-/*  f0def74:	24050005 */ 	addiu	$a1,$zero,0x5
-.L0f0def78:
-/*  f0def78:	90430000 */ 	lbu	$v1,0x0($v0)
-/*  f0def7c:	5060000c */ 	beqzl	$v1,.L0f0defb0
-/*  f0def80:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0def84:	50a3000a */ 	beql	$a1,$v1,.L0f0defb0
-/*  f0def88:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0def8c:	8cf8028c */ 	lw	$t8,0x28c($a3)
-/*  f0def90:	8c4f01c0 */ 	lw	$t7,0x1c0($v0)
-/*  f0def94:	570f0006 */ 	bnel	$t8,$t7,.L0f0defb0
-/*  f0def98:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0def9c:	8c5901d8 */ 	lw	$t9,0x1d8($v0)
-/*  f0defa0:	55390003 */ 	bnel	$t1,$t9,.L0f0defb0
-/*  f0defa4:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0defa8:	02003025 */ 	or	$a2,$s0,$zero
-/*  f0defac:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f0defb0:
-/*  f0defb0:	0204082a */ 	slt	$at,$s0,$a0
-/*  f0defb4:	1420fff0 */ 	bnez	$at,.L0f0def78
-/*  f0defb8:	244201dc */ 	addiu	$v0,$v0,476
-.L0f0defbc:
-/*  f0defbc:	04c100e3 */ 	bgez	$a2,.L0f0df34c
-.L0f0defc0:
-/*  f0defc0:	3c0a8007 */ 	lui	$t2,%hi(g_ViRes)
-/*  f0defc4:	8d4a06c8 */ 	lw	$t2,%lo(g_ViRes)($t2)
-/*  f0defc8:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f0defcc:	3c048007 */ 	lui	$a0,%hi(g_NumHudMessages)
-/*  f0defd0:	8c840fe8 */ 	lw	$a0,%lo(g_NumHudMessages)($a0)
-/*  f0defd4:	146a0005 */ 	bne	$v1,$t2,.L0f0defec
-/*  f0defd8:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0defdc:	240b0002 */ 	addiu	$t3,$zero,0x2
-/*  f0defe0:	3c018008 */ 	lui	$at,%hi(g_ScaleX)
-/*  f0defe4:	10000003 */ 	b	.L0f0deff4
-/*  f0defe8:	ac2bfac0 */ 	sw	$t3,%lo(g_ScaleX)($at)
-.L0f0defec:
-/*  f0defec:	3c018008 */ 	lui	$at,%hi(g_ScaleX)
-/*  f0deff0:	ac23fac0 */ 	sw	$v1,%lo(g_ScaleX)($at)
-.L0f0deff4:
-/*  f0deff4:	18800009 */ 	blez	$a0,.L0f0df01c
-/*  f0deff8:	3c028007 */ 	lui	$v0,%hi(g_HudMessages)
-/*  f0deffc:	8c420fec */ 	lw	$v0,%lo(g_HudMessages)($v0)
-.L0f0df000:
-/*  f0df000:	904c0000 */ 	lbu	$t4,0x0($v0)
-/*  f0df004:	51800006 */ 	beqzl	$t4,.L0f0df020
-/*  f0df008:	0204082a */ 	slt	$at,$s0,$a0
-/*  f0df00c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0df010:	0204082a */ 	slt	$at,$s0,$a0
-/*  f0df014:	1420fffa */ 	bnez	$at,.L0f0df000
-/*  f0df018:	244201dc */ 	addiu	$v0,$v0,476
-.L0f0df01c:
-/*  f0df01c:	0204082a */ 	slt	$at,$s0,$a0
-.L0f0df020:
-/*  f0df020:	14200028 */ 	bnez	$at,.L0f0df0c4
-/*  f0df024:	8fad01fc */ 	lw	$t5,0x1fc($sp)
-/*  f0df028:	11a30004 */ 	beq	$t5,$v1,.L0f0df03c
-/*  f0df02c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0df030:	51a10003 */ 	beql	$t5,$at,.L0f0df040
-/*  f0df034:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f0df038:	15b10022 */ 	bne	$t5,$s1,.L0f0df0c4
-.L0f0df03c:
-/*  f0df03c:	2404ffff */ 	addiu	$a0,$zero,-1
-.L0f0df040:
-/*  f0df040:	0fc377ab */ 	jal	hudmsgGetNext
-/*  f0df044:	afa901ec */ 	sw	$t1,0x1ec($sp)
-/*  f0df048:	8fa901ec */ 	lw	$t1,0x1ec($sp)
-/*  f0df04c:	0440001d */ 	bltz	$v0,.L0f0df0c4
-/*  f0df050:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0df054:	241201dc */ 	addiu	$s2,$zero,0x1dc
-/*  f0df058:	24110003 */ 	addiu	$s1,$zero,0x3
-.L0f0df05c:
-/*  f0df05c:	00520019 */ 	multu	$v0,$s2
-/*  f0df060:	3c058007 */ 	lui	$a1,%hi(g_HudMessages)
-/*  f0df064:	8ca50fec */ 	lw	$a1,%lo(g_HudMessages)($a1)
-/*  f0df068:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0df06c:	00007012 */ 	mflo	$t6
-/*  f0df070:	00ae2021 */ 	addu	$a0,$a1,$t6
-/*  f0df074:	90980000 */ 	lbu	$t8,0x0($a0)
-/*  f0df078:	17010009 */ 	bne	$t8,$at,.L0f0df0a0
-/*  f0df07c:	00000000 */ 	nop
-/*  f0df080:	8c8301b4 */ 	lw	$v1,0x1b4($a0)
-/*  f0df084:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0df088:	5060000f */ 	beqzl	$v1,.L0f0df0c8
-/*  f0df08c:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f0df090:	5223000d */ 	beql	$s1,$v1,.L0f0df0c8
-/*  f0df094:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f0df098:	5061000b */ 	beql	$v1,$at,.L0f0df0c8
-/*  f0df09c:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0df0a0:
-/*  f0df0a0:	02120019 */ 	multu	$s0,$s2
-/*  f0df0a4:	00007812 */ 	mflo	$t7
-/*  f0df0a8:	00afc821 */ 	addu	$t9,$a1,$t7
-/*  f0df0ac:	8f2401b8 */ 	lw	$a0,0x1b8($t9)
-/*  f0df0b0:	0fc377ab */ 	jal	hudmsgGetNext
-/*  f0df0b4:	afa901ec */ 	sw	$t1,0x1ec($sp)
-/*  f0df0b8:	8fa901ec */ 	lw	$t1,0x1ec($sp)
-/*  f0df0bc:	0441ffe7 */ 	bgez	$v0,.L0f0df05c
-/*  f0df0c0:	00408025 */ 	or	$s0,$v0,$zero
-.L0f0df0c4:
-/*  f0df0c4:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0df0c8:
-/*  f0df0c8:	0600009e */ 	bltz	$s0,.L0f0df344
-/*  f0df0cc:	241201dc */ 	addiu	$s2,$zero,0x1dc
-/*  f0df0d0:	3c0a8007 */ 	lui	$t2,%hi(g_NumHudMessages)
-/*  f0df0d4:	8d4a0fe8 */ 	lw	$t2,%lo(g_NumHudMessages)($t2)
-/*  f0df0d8:	020a082a */ 	slt	$at,$s0,$t2
-/*  f0df0dc:	10200099 */ 	beqz	$at,.L0f0df344
-/*  f0df0e0:	00000000 */ 	nop
-/*  f0df0e4:	02120019 */ 	multu	$s0,$s2
-/*  f0df0e8:	3c0c8007 */ 	lui	$t4,%hi(g_HudMessages)
-/*  f0df0ec:	8d8c0fec */ 	lw	$t4,%lo(g_HudMessages)($t4)
-/*  f0df0f0:	afa001d8 */ 	sw	$zero,0x1d8($sp)
-/*  f0df0f4:	27a401d8 */ 	addiu	$a0,$sp,0x1d8
-/*  f0df0f8:	8fa50220 */ 	lw	$a1,0x220($sp)
-/*  f0df0fc:	afa901ec */ 	sw	$t1,0x1ec($sp)
-/*  f0df100:	00005812 */ 	mflo	$t3
-/*  f0df104:	016c8821 */ 	addu	$s1,$t3,$t4
-/*  f0df108:	0fc376c7 */ 	jal	func0f0ddb1c
-/*  f0df10c:	00000000 */ 	nop
-/*  f0df110:	8fae0210 */ 	lw	$t6,0x210($sp)
-/*  f0df114:	8fad020c */ 	lw	$t5,0x20c($sp)
-/*  f0df118:	afa201d4 */ 	sw	$v0,0x1d4($sp)
-/*  f0df11c:	8dd80000 */ 	lw	$t8,0x0($t6)
-/*  f0df120:	8da70000 */ 	lw	$a3,0x0($t5)
-/*  f0df124:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0df128:	27a401dc */ 	addiu	$a0,$sp,0x1dc
-/*  f0df12c:	27a501e0 */ 	addiu	$a1,$sp,0x1e0
-/*  f0df130:	8fa601f8 */ 	lw	$a2,0x1f8($sp)
-/*  f0df134:	0fc55cbe */ 	jal	textMeasure
-/*  f0df138:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f0df13c:	8faf01d4 */ 	lw	$t7,0x1d4($sp)
-/*  f0df140:	8fb901e0 */ 	lw	$t9,0x1e0($sp)
-/*  f0df144:	8fa901ec */ 	lw	$t1,0x1ec($sp)
-/*  f0df148:	26240020 */ 	addiu	$a0,$s1,0x20
-/*  f0df14c:	01f9082a */ 	slt	$at,$t7,$t9
-/*  f0df150:	10200033 */ 	beqz	$at,.L0f0df220
-/*  f0df154:	8fa501f8 */ 	lw	$a1,0x1f8($sp)
-/*  f0df158:	8faa01f8 */ 	lw	$t2,0x1f8($sp)
-/*  f0df15c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0df160:	00004025 */ 	or	$t0,$zero,$zero
-/*  f0df164:	914b0000 */ 	lbu	$t3,0x0($t2)
-/*  f0df168:	240d000a */ 	addiu	$t5,$zero,0xa
-/*  f0df16c:	26320020 */ 	addiu	$s2,$s1,0x20
-/*  f0df170:	11600010 */ 	beqz	$t3,.L0f0df1b4
-/*  f0df174:	01401021 */ 	addu	$v0,$t2,$zero
-/*  f0df178:	91430000 */ 	lbu	$v1,0x0($t2)
-/*  f0df17c:	27b00044 */ 	addiu	$s0,$sp,0x44
-/*  f0df180:	2406000a */ 	addiu	$a2,$zero,0xa
-/*  f0df184:	00602025 */ 	or	$a0,$v1,$zero
-.L0f0df188:
-/*  f0df188:	10c40004 */ 	beq	$a2,$a0,.L0f0df19c
-/*  f0df18c:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f0df190:	02086021 */ 	addu	$t4,$s0,$t0
-/*  f0df194:	a1830000 */ 	sb	$v1,0x0($t4)
-/*  f0df198:	25080001 */ 	addiu	$t0,$t0,0x1
-.L0f0df19c:
-/*  f0df19c:	28a10190 */ 	slti	$at,$a1,0x190
-/*  f0df1a0:	10200004 */ 	beqz	$at,.L0f0df1b4
-/*  f0df1a4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0df1a8:	90430000 */ 	lbu	$v1,0x0($v0)
-/*  f0df1ac:	1460fff6 */ 	bnez	$v1,.L0f0df188
-/*  f0df1b0:	00602025 */ 	or	$a0,$v1,$zero
-.L0f0df1b4:
-/*  f0df1b4:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f0df1b8:	00a87021 */ 	addu	$t6,$a1,$t0
-/*  f0df1bc:	25080001 */ 	addiu	$t0,$t0,0x1
-/*  f0df1c0:	a1cd0000 */ 	sb	$t5,0x0($t6)
-/*  f0df1c4:	00a8c021 */ 	addu	$t8,$a1,$t0
-/*  f0df1c8:	a3000000 */ 	sb	$zero,0x0($t8)
-/*  f0df1cc:	8fb90210 */ 	lw	$t9,0x210($sp)
-/*  f0df1d0:	8faf020c */ 	lw	$t7,0x20c($sp)
-/*  f0df1d4:	8fa401d4 */ 	lw	$a0,0x1d4($sp)
-/*  f0df1d8:	8f2b0000 */ 	lw	$t3,0x0($t9)
-/*  f0df1dc:	8de70000 */ 	lw	$a3,0x0($t7)
-/*  f0df1e0:	afa901ec */ 	sw	$t1,0x1ec($sp)
-/*  f0df1e4:	02403025 */ 	or	$a2,$s2,$zero
-/*  f0df1e8:	0fc55d48 */ 	jal	textWrap
-/*  f0df1ec:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f0df1f0:	8fac0210 */ 	lw	$t4,0x210($sp)
-/*  f0df1f4:	8faa020c */ 	lw	$t2,0x20c($sp)
-/*  f0df1f8:	27a401dc */ 	addiu	$a0,$sp,0x1dc
-/*  f0df1fc:	8d8d0000 */ 	lw	$t5,0x0($t4)
-/*  f0df200:	8d470000 */ 	lw	$a3,0x0($t2)
-/*  f0df204:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0df208:	27a501e0 */ 	addiu	$a1,$sp,0x1e0
-/*  f0df20c:	02403025 */ 	or	$a2,$s2,$zero
-/*  f0df210:	0fc55cbe */ 	jal	textMeasure
-/*  f0df214:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f0df218:	10000006 */ 	b	.L0f0df234
-/*  f0df21c:	8fa901ec */ 	lw	$t1,0x1ec($sp)
-.L0f0df220:
-/*  f0df220:	2406018f */ 	addiu	$a2,$zero,0x18f
-/*  f0df224:	0c004c72 */ 	jal	strncpy
-/*  f0df228:	afa901ec */ 	sw	$t1,0x1ec($sp)
-/*  f0df22c:	8fa901ec */ 	lw	$t1,0x1ec($sp)
-/*  f0df230:	a22001af */ 	sb	$zero,0x1af($s1)
-.L0f0df234:
-/*  f0df234:	8fae0230 */ 	lw	$t6,0x230($sp)
-/*  f0df238:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x28c)
-/*  f0df23c:	3c02800a */ 	lui	$v0,%hi(g_NextHudMessageId)
-/*  f0df240:	ae2e01c4 */ 	sw	$t6,0x1c4($s1)
-/*  f0df244:	8f18a24c */ 	lw	$t8,%lo(g_Vars+0x28c)($t8)
-/*  f0df248:	2442dea0 */ 	addiu	$v0,$v0,%lo(g_NextHudMessageId)
-/*  f0df24c:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f0df250:	ae3801c0 */ 	sw	$t8,0x1c0($s1)
-/*  f0df254:	8faf01fc */ 	lw	$t7,0x1fc($sp)
-/*  f0df258:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0df25c:	ae2f01b4 */ 	sw	$t7,0x1b4($s1)
-/*  f0df260:	8c590000 */ 	lw	$t9,0x0($v0)
-/*  f0df264:	ae3901b8 */ 	sw	$t9,0x1b8($s1)
-/*  f0df268:	8c4b0000 */ 	lw	$t3,0x0($v0)
-/*  f0df26c:	256a0001 */ 	addiu	$t2,$t3,0x1
-/*  f0df270:	ac4a0000 */ 	sw	$t2,0x0($v0)
-/*  f0df274:	a22c0000 */ 	sb	$t4,0x0($s1)
-/*  f0df278:	a6200006 */ 	sh	$zero,0x6($s1)
-/*  f0df27c:	8fad0200 */ 	lw	$t5,0x200($sp)
-/*  f0df280:	a22d0001 */ 	sb	$t5,0x1($s1)
-/*  f0df284:	8fae0204 */ 	lw	$t6,0x204($sp)
-/*  f0df288:	a22e0002 */ 	sb	$t6,0x2($s1)
-/*  f0df28c:	8fb80208 */ 	lw	$t8,0x208($sp)
-/*  f0df290:	a2380003 */ 	sb	$t8,0x3($s1)
-/*  f0df294:	8faf020c */ 	lw	$t7,0x20c($sp)
-/*  f0df298:	8df90000 */ 	lw	$t9,0x0($t7)
-/*  f0df29c:	ae390008 */ 	sw	$t9,0x8($s1)
-/*  f0df2a0:	8fab0210 */ 	lw	$t3,0x210($sp)
-/*  f0df2a4:	8d6a0000 */ 	lw	$t2,0x0($t3)
-/*  f0df2a8:	ae2a000c */ 	sw	$t2,0xc($s1)
-/*  f0df2ac:	8fac0214 */ 	lw	$t4,0x214($sp)
-/*  f0df2b0:	ae2c0010 */ 	sw	$t4,0x10($s1)
-/*  f0df2b4:	8fad0218 */ 	lw	$t5,0x218($sp)
-/*  f0df2b8:	ae2d0014 */ 	sw	$t5,0x14($s1)
-/*  f0df2bc:	8fae021c */ 	lw	$t6,0x21c($sp)
-/*  f0df2c0:	a22e01c8 */ 	sb	$t6,0x1c8($s1)
-/*  f0df2c4:	8fb80224 */ 	lw	$t8,0x224($sp)
-/*  f0df2c8:	a23801c9 */ 	sb	$t8,0x1c9($s1)
-/*  f0df2cc:	8faf01e0 */ 	lw	$t7,0x1e0($sp)
-/*  f0df2d0:	a62f001c */ 	sh	$t7,0x1c($s1)
-/*  f0df2d4:	8fb901dc */ 	lw	$t9,0x1dc($sp)
-/*  f0df2d8:	a639001e */ 	sh	$t9,0x1e($s1)
-/*  f0df2dc:	8fab01d8 */ 	lw	$t3,0x1d8($sp)
-/*  f0df2e0:	ae2b01cc */ 	sw	$t3,0x1cc($s1)
-/*  f0df2e4:	8faa0220 */ 	lw	$t2,0x220($sp)
-/*  f0df2e8:	ae2a01d0 */ 	sw	$t2,0x1d0($s1)
-/*  f0df2ec:	8fac0228 */ 	lw	$t4,0x228($sp)
-/*  f0df2f0:	ae2901d8 */ 	sw	$t1,0x1d8($s1)
-/*  f0df2f4:	0fc379ff */ 	jal	hudmsgCalculatePosition
-/*  f0df2f8:	ae2c01d4 */ 	sw	$t4,0x1d4($s1)
-/*  f0df2fc:	8fad0230 */ 	lw	$t5,0x230($sp)
-/*  f0df300:	8fb901fc */ 	lw	$t9,0x1fc($sp)
-/*  f0df304:	3c0a8007 */ 	lui	$t2,%hi(g_HudmsgTypes+0x1c)
-/*  f0df308:	31ae0004 */ 	andi	$t6,$t5,0x4
-/*  f0df30c:	11c00007 */ 	beqz	$t6,.L0f0df32c
-/*  f0df310:	00195940 */ 	sll	$t3,$t9,0x5
-/*  f0df314:	8fb8022c */ 	lw	$t8,0x22c($sp)
-/*  f0df318:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f0df31c:	ae2f01b0 */ 	sw	$t7,0x1b0($s1)
-/*  f0df320:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f0df324:	10000007 */ 	b	.L0f0df344
-/*  f0df328:	ae3801bc */ 	sw	$t8,0x1bc($s1)
-.L0f0df32c:
-/*  f0df32c:	014b5021 */ 	addu	$t2,$t2,$t3
-/*  f0df330:	8d4a100c */ 	lw	$t2,%lo(g_HudmsgTypes+0x1c)($t2)
-/*  f0df334:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f0df338:	ae2a01bc */ 	sw	$t2,0x1bc($s1)
-/*  f0df33c:	8fac022c */ 	lw	$t4,0x22c($sp)
-/*  f0df340:	ae2c01b0 */ 	sw	$t4,0x1b0($s1)
-.L0f0df344:
-/*  f0df344:	3c018008 */ 	lui	$at,%hi(g_ScaleX)
-/*  f0df348:	ac23fac0 */ 	sw	$v1,%lo(g_ScaleX)($at)
-.L0f0df34c:
-/*  f0df34c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0df350:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0df354:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f0df358:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f0df35c:	03e00008 */ 	jr	$ra
-/*  f0df360:	27bd01f8 */ 	addiu	$sp,$sp,0x1f8
-);
+		g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
 #endif
 
-// Mismatch due to regalloc in duplicate check near:
-// g_HudMessages[index].playernum == g_Vars.currentplayernum
-//void hudmsgCreateFromArgs(char *text, s32 type, s32 conf00, s32 conf01, s32 conf02,
-//		struct hudmessagething *conf04, struct hudmessagething *conf08,
-//		u32 textcolour, u32 glowcolour,
-//		u32 alignh, s32 conf16, u32 alignv, s32 conf18, s32 arg14, u32 flags)
-//{
-//	char *pos;
-//	struct hudmessage *msg;
-//	s32 hash = 0;
-//	s32 i;
-//	s32 index;
-//	s32 uStack24;
-//	u32 uStack28;
-//	u32 uStack32;
-//	s32 iStack36;
-//	char stacktext[400];
-//	s32 writeindex;
-//
-//	if (type == HUDMSGTYPE_INGAMESUBTITLE && !optionsGetInGameSubtitles()) {
-//		return;
-//	}
-//
-//	pos = text;
-//
-//	while (*pos) {
-//		hash = hash + *pos;
-//		pos++;
-//	}
-//
-//	if ((flags & HUDMSGFLAG_ONLYIFALIVE) == 0 || !g_Vars.currentplayer->isdead) {
-//		if ((flags & HUDMSGFLAG_ALLOWDUPES) == 0) {
-//			// Check for duplicate messages
-//			s32 dupeofindex = -1;
-//
-//			for (index = 0; index < g_NumHudMessages; index++) {
-//				if (g_HudMessages[index].state != HUDMSGSTATE_FREE
-//						&& g_HudMessages[index].state != HUDMSGSTATE_FADINGOUT
-//						&& g_HudMessages[index].playernum == g_Vars.currentplayernum
-//						&& g_HudMessages[index].hash == hash) {
-//					dupeofindex = index;
-//				}
-//			}
-//
-//			if (dupeofindex >= 0) {
-//				return;
-//			}
-//		}
-//
-//		g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
-//
-//		// Find an unused index for the new message
-//		for (index = 0; index < g_NumHudMessages; index++) {
-//			if (g_HudMessages[index].state == HUDMSGSTATE_FREE) {
-//				break;
-//			}
-//		}
-//
-//		if (index >= g_NumHudMessages
-//				&& (type == HUDMSGTYPE_OBJECTIVECOMPLETE
-//					|| type == HUDMSGTYPE_OBJECTIVEFAILED
-//					|| type == HUDMSGTYPE_INGAMESUBTITLE)) {
-//			// Out of space - Check if an existing message can be replaced
-//			index = hudmsgGetNext(-1);
-//
-//			while (index >= 0) {
-//				if (g_HudMessages[index].state == HUDMSGSTATE_QUEUED) {
-//					if (g_HudMessages[index].type == HUDMSGTYPE_DEFAULT
-//							|| g_HudMessages[index].type == HUDMSGTYPE_3
-//							|| g_HudMessages[index].type == HUDMSGTYPE_4) {
-//						// Good to replace this one
-//						break;
-//					}
-//				}
-//
-//				// Can't replace - try and find another
-//				index = hudmsgGetNext(g_HudMessages[index].id);
-//			}
-//		}
-//
-//		if (index >= 0 && index < g_NumHudMessages) {
-//			uStack32 = 0;
-//			msg = &g_HudMessages[index];
-//			iStack36 = func0f0ddb1c(&uStack32, conf16);
-//			textMeasure(&uStack28, &uStack24, text, conf04->unk00, conf08->unk00, 0);
-//
-//			if (iStack36 < uStack24) {
-//				i = 0;
-//				writeindex = 0;
-//
-//				while (i < 400 && text[i] != '\0') {
-//					if (text[i] != '\n') {
-//						stacktext[writeindex++] = text[i];
-//					}
-//
-//					i++;
-//				}
-//
-//				stacktext[writeindex++] = '\n';
-//				stacktext[writeindex++] = '\0';
-//
-//				textWrap(iStack36, stacktext, msg->text, conf04->unk00, conf08->unk00);
-//				textMeasure(&uStack28, &uStack24, msg->text, conf04->unk00, conf08->unk00, 0);
-//			} else {
-//				strncpy(msg->text, text, 399);
-//				msg->text[399] = '\0';
-//			}
-//
-//			msg->flags = flags;
-//			msg->playernum = g_Vars.currentplayernum;
-//			msg->type = type;
-//			msg->id = g_NextHudMessageId++;
-//			msg->state = HUDMSGSTATE_QUEUED;
-//			msg->timer = 0;
-//			msg->boxed = conf00;
-//			msg->allowfadein = conf01;
-//			msg->flash = conf02;
-//			msg->font1 = conf04->unk00;
-//			msg->font2 = conf08->unk00;
-//			msg->textcolour = textcolour;
-//			msg->glowcolour = glowcolour;
-//			msg->alignh = alignh;
-//			msg->alignv = alignv;
-//			msg->width = uStack24;
-//			msg->height = uStack28;
-//			msg->xmarginextra = uStack32;
-//			msg->xmargin = conf16;
-//			msg->ymargin = conf18;
-//			msg->hash = hash;
-//
-//			hudmsgCalculatePosition(msg);
-//
-//			if (flags & HUDMSGFLAG_NOCHANNEL) {
-//				msg->showduration = arg14;
-//				msg->channelnum = -1;
-//			} else {
-//				msg->showduration = g_HudmsgTypes[type].duration;
-//				msg->channelnum = arg14;
-//			}
-//		}
-//
-//		g_ScaleX = 1;
-//	}
-//}
+		// Find an unused index for the new message
+		for (index = 0; index < g_NumHudMessages; index++) {
+			if (g_HudMessages[index].state == HUDMSGSTATE_FREE) {
+				break;
+			}
+		}
+
+		if (index >= g_NumHudMessages
+				&& (type == HUDMSGTYPE_OBJECTIVECOMPLETE
+					|| type == HUDMSGTYPE_OBJECTIVEFAILED
+					|| type == HUDMSGTYPE_INGAMESUBTITLE)) {
+			// Out of space - Check if an existing message can be replaced
+			index = hudmsgGetNext(-1);
+
+			while (index >= 0) {
+				if (g_HudMessages[index].state == HUDMSGSTATE_QUEUED) {
+					if (g_HudMessages[index].type == HUDMSGTYPE_DEFAULT
+							|| g_HudMessages[index].type == HUDMSGTYPE_3
+							|| g_HudMessages[index].type == HUDMSGTYPE_4) {
+						// Good to replace this one
+						break;
+					}
+				}
+
+				// Can't replace - try and find another
+				index = hudmsgGetNext(g_HudMessages[index].id);
+			}
+		}
+
+		if (index >= 0 && index < g_NumHudMessages) {
+			xmarginaextra = 0;
+			msg = &g_HudMessages[index];
+			wrapwidth = func0f0ddb1c(&xmarginaextra, conf16);
+			textMeasure(&textheight, &textwidth, text, *conf04, *conf08, 0);
+
+			if (textwidth > wrapwidth) {
+				i = 0;
+				writeindex = 0;
+
+				while (i < 400 && text[i] != '\0') {
+					if (text[i] != '\n') {
+						stacktext[writeindex++] = text[i];
+					}
+
+					i++;
+				}
+
+				stacktext[writeindex++] = '\n';
+				stacktext[writeindex++] = '\0';
+
+				textWrap(wrapwidth, stacktext, msg->text, *conf04, *conf08);
+				textMeasure(&textheight, &textwidth, msg->text, *conf04, *conf08, 0);
+			} else {
+				strncpy(msg->text, text, 399);
+				msg->text[399] = '\0';
+			}
+
+			msg->flags = flags;
+			msg->playernum = g_Vars.currentplayernum;
+			msg->type = type;
+			msg->id = g_NextHudMessageId++;
+			msg->state = HUDMSGSTATE_QUEUED;
+			msg->timer = 0;
+			msg->boxed = conf00;
+			msg->allowfadein = conf01;
+			msg->flash = conf02;
+			msg->font1 = *conf04;
+			msg->font2 = *conf08;
+			msg->textcolour = textcolour;
+			msg->glowcolour = glowcolour;
+			msg->alignh = alignh;
+			msg->alignv = alignv;
+			msg->width = textwidth;
+			msg->height = textheight;
+			msg->xmarginextra = xmarginaextra;
+			msg->xmargin = conf16;
+			msg->ymargin = conf18;
+			msg->hash = hash;
+
+			hudmsgCalculatePosition(msg);
+
+			if (flags & HUDMSGFLAG_NOCHANNEL) {
+				msg->showduration = PALDOWN(arg14);
+				msg->channelnum = -1;
+			} else {
+				msg->showduration = PALDOWN(g_HudmsgTypes[type].duration);
+				msg->channelnum = arg14;
+			}
+		}
+
+		g_ScaleX = 1;
+	}
+}
 
 void hudmsgsTick(void)
 {
