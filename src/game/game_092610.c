@@ -5107,7 +5107,13 @@ void propsnd0f095270(void)
 	// empty
 }
 
-s32 func0f095278(s32 channelnum)
+/**
+ * Get the duration for an MP3 file by channel number.
+ *
+ * All MP3 files are 24 kilobits per second
+ * so this is just math based on the filesize.
+ */
+s32 propsndGetDuration60(s32 channelnum)
 {
 	struct audiochannel *channel = &g_AudioChannels[channelnum];
 
@@ -5115,7 +5121,7 @@ s32 func0f095278(s32 channelnum)
 			&& (channel->flags & AUDIOCHANNELFLAG_IDLE) == 0
 			&& (channel->flags & AUDIOCHANNELFLAG_0010)) {
 		s32 soundnum = channel->soundnum26;
-		return fileGetRomSizeByFileNum(soundnum & 0x7ff) * 60 / 3072;
+		return fileGetRomSizeByFileNum(soundnum & 0x7ff) * 60 / (1024 * 24 / 8);
 	}
 
 	return -1;

@@ -18,16 +18,16 @@ void hudmsgCreate(char *text, s32 type);
 void hudmsgCreateWithFlags(char *text, s32 type, u32 flags);
 void hudmsgCreateWithColour(char *text, s32 type, u8 colour);
 void hudmsgCreateWithDuration(char *text, s32 type, struct hudmsgtype *config, s32 duration60);
-u32 func0f0de160(void);
+void hudmsgCreateAsSubtitle(char *text, s32 type, u8 colourindex, s32 audiochannelnum);
 void hudmsgCalculatePosition(struct hudmessage *msg);
 void hudmsgCreateFromArgs(char *text, s32 type, s32 conf00, s32 conf01, s32 conf02,
 		struct hudmessagething *conf04, struct hudmessagething *conf08,
 		u32 textcolour, u32 shadowcolour,
 		u32 alignh, s32 conf16, u32 alignv, s32 conf18, s32 arg14, u32 flags);
 void hudmsgsTick(void);
-void currentPlayerSetHudmsgsOn(u32 reason);
-void currentPlayerSetHudmsgsOff(u32 reason);
-void hudmsgRemoveForDeadPlayer(s32 playernum);
+void hudmsgsSetOn(u32 reason);
+void hudmsgsSetOff(u32 reason);
+void hudmsgsRemoveForDeadPlayer(s32 playernum);
 Gfx *hudmsgsRender(Gfx *gdl);
 void hudmsgsReset(void);
 

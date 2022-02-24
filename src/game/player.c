@@ -507,7 +507,7 @@ void playerStartNewLife(void)
 	g_Vars.currentplayer->gunammooff = 0;
 	g_Vars.currentplayer->gunsightoff = 2;
 
-	currentPlayerSetHudmsgsOn(0xffffffff);
+	hudmsgsSetOn(0xffffffff);
 
 	angle = M_BADTAU - scenarioChooseSpawnLocation(30, &pos, rooms, g_Vars.currentplayer->prop); // var7f1ad534
 
@@ -5587,7 +5587,7 @@ void playerDieByShooter(u32 shooter, bool force)
 		func0f0f8120();
 		g_MpPlayerNum = prevplayernum;
 
-		hudmsgRemoveForDeadPlayer(g_Vars.currentplayernum);
+		hudmsgsRemoveForDeadPlayer(g_Vars.currentplayernum);
 
 		if (g_Vars.mplayerisrunning) {
 			mpstatsRecordDeath(shooter, g_Vars.currentplayernum);

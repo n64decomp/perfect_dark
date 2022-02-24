@@ -28,6 +28,6 @@ u32 func0f094d78(void);
 void func0f094ef4(struct coord *pos, s16 *rooms, s32 soundnum, s32 *arg3, s32 *arg4);
 void func0f09505c(struct sndstate *handle, struct coord *pos, f32 arg2, f32 arg3, f32 arg4, s16 *rooms, s16 soundnum, u16 arg7, u32 arg8);
 s32 propsndGetRandomSparkSound(void);
-s32 func0f095278(s32 channelnum);
+s32 propsndGetDuration60(s32 channelnum);
 
 #endif

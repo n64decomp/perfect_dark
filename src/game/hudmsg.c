@@ -25,7 +25,7 @@ u32 g_NextHudMessageId;
 
 u8 g_HudmsgsActive = 0;
 
-u32 g_Colours[] = {
+u32 g_HudmsgColours[] = {
 	/* 0*/ 0x00ff0000, // green
 	/* 1*/ 0x9999ff00, // pastel blue
 	/* 2*/ 0xffffff00, // white
@@ -66,9 +66,6 @@ struct hudmsgtype g_HudmsgTypes[] = {
 	/*11*/ { 1, 0, 0, (void *) &g_CharsHandelGothicSm, (void *) &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_BELOWVIEWPORT, 0, 0, 120 },
 #endif
 };
-
-u32 var80071170 = 0x2e3b213f;
-u32 var80071174 = 0x2c000000;
 
 u8 hudmsgsAreActive(void)
 {
@@ -733,7 +730,7 @@ void hudmsgCreateWithFlags(char *text, s32 type, u32 flags)
 
 void hudmsgCreateWithColour(char *text, s32 type, u8 colournum)
 {
-	g_HudmsgTypes[type].colour = g_Colours[colournum];
+	g_HudmsgTypes[type].colour = g_HudmsgColours[colournum];
 
 	hudmsgCreateFromArgs(text, type,
 			g_HudmsgTypes[type].unk00,
@@ -767,445 +764,246 @@ void hudmsgCreateWithDuration(char *text, s32 type, struct hudmsgtype *config, s
 			duration60, HUDMSGFLAG_NOCHANNEL);
 }
 
-GLOBAL_ASM(
-glabel func0f0de160
-/*  f0de160:	27bdfb40 */ 	addiu	$sp,$sp,-1216
-/*  f0de164:	afb1004c */ 	sw	$s1,0x4c($sp)
-/*  f0de168:	00808825 */ 	or	$s1,$a0,$zero
-/*  f0de16c:	afbf006c */ 	sw	$ra,0x6c($sp)
-/*  f0de170:	afb5005c */ 	sw	$s5,0x5c($sp)
-/*  f0de174:	afb40058 */ 	sw	$s4,0x58($sp)
-/*  f0de178:	00e0a025 */ 	or	$s4,$a3,$zero
-/*  f0de17c:	30d500ff */ 	andi	$s5,$a2,0xff
-/*  f0de180:	afbe0068 */ 	sw	$s8,0x68($sp)
-/*  f0de184:	afb70064 */ 	sw	$s7,0x64($sp)
-/*  f0de188:	afb60060 */ 	sw	$s6,0x60($sp)
-/*  f0de18c:	afb30054 */ 	sw	$s3,0x54($sp)
-/*  f0de190:	afb20050 */ 	sw	$s2,0x50($sp)
-/*  f0de194:	afb00048 */ 	sw	$s0,0x48($sp)
-/*  f0de198:	afa504c4 */ 	sw	$a1,0x4c4($sp)
-/*  f0de19c:	afa604c8 */ 	sw	$a2,0x4c8($sp)
-/*  f0de1a0:	0fc2549e */ 	jal	func0f095278
-/*  f0de1a4:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f0de1a8:	8fae04c4 */ 	lw	$t6,0x4c4($sp)
-/*  f0de1ac:	24130006 */ 	addiu	$s3,$zero,0x6
-/*  f0de1b0:	00409025 */ 	or	$s2,$v0,$zero
-/*  f0de1b4:	15d3000e */ 	bne	$t6,$s3,.L0f0de1f0
-/*  f0de1b8:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x2ac)
-/*  f0de1bc:	8defa26c */ 	lw	$t7,%lo(g_Vars+0x2ac)($t7)
-/*  f0de1c0:	166f0007 */ 	bne	$s3,$t7,.L0f0de1e0
-/*  f0de1c4:	00000000 */ 	nop
-/*  f0de1c8:	0fc54a46 */ 	jal	optionsGetCutsceneSubtitles
-/*  f0de1cc:	00000000 */ 	nop
-/*  f0de1d0:	10400162 */ 	beqz	$v0,.L0f0de75c
-/*  f0de1d4:	2418000b */ 	addiu	$t8,$zero,0xb
-/*  f0de1d8:	10000005 */ 	b	.L0f0de1f0
-/*  f0de1dc:	afb804c4 */ 	sw	$t8,0x4c4($sp)
-.L0f0de1e0:
-/*  f0de1e0:	0fc54a43 */ 	jal	optionsGetInGameSubtitles
-/*  f0de1e4:	00000000 */ 	nop
-/*  f0de1e8:	5040015d */ 	beqzl	$v0,.L0f0de760
-/*  f0de1ec:	8fbf006c */ 	lw	$ra,0x6c($sp)
-.L0f0de1f0:
-/*  f0de1f0:	8fb904c4 */ 	lw	$t9,0x4c4($sp)
-/*  f0de1f4:	0015c080 */ 	sll	$t8,$s5,0x2
-/*  f0de1f8:	3c0f8007 */ 	lui	$t7,%hi(g_HudmsgTypes)
-/*  f0de1fc:	00197140 */ 	sll	$t6,$t9,0x5
-/*  f0de200:	3c198007 */ 	lui	$t9,%hi(g_Colours)
-/*  f0de204:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f0de208:	8f390fb4 */ 	lw	$t9,%lo(g_Colours)($t9)
-/*  f0de20c:	25ef0ff0 */ 	addiu	$t7,$t7,%lo(g_HudmsgTypes)
-/*  f0de210:	01cf8021 */ 	addu	$s0,$t6,$t7
-/*  f0de214:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x2ac)
-/*  f0de218:	ae19000c */ 	sw	$t9,0xc($s0)
-/*  f0de21c:	8dcea26c */ 	lw	$t6,%lo(g_Vars+0x2ac)($t6)
-/*  f0de220:	566e0136 */ 	bnel	$s3,$t6,.L0f0de6fc
-/*  f0de224:	920f0002 */ 	lbu	$t7,0x2($s0)
-/*  f0de228:	06400133 */ 	bltz	$s2,.L0f0de6f8
-/*  f0de22c:	3c188007 */ 	lui	$t8,%hi(var80071170)
-/*  f0de230:	27181170 */ 	addiu	$t8,$t8,%lo(var80071170)
-/*  f0de234:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f0de238:	27af04b0 */ 	addiu	$t7,$sp,0x4b0
-/*  f0de23c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0de240:	ade10000 */ 	sw	$at,0x0($t7)
-/*  f0de244:	93010004 */ 	lbu	$at,0x4($t8)
-/*  f0de248:	0c012983 */ 	jal	strlen
-/*  f0de24c:	a1e10004 */ 	sb	$at,0x4($t7)
-/*  f0de250:	27a404a8 */ 	addiu	$a0,$sp,0x4a8
-/*  f0de254:	86050016 */ 	lh	$a1,0x16($s0)
-/*  f0de258:	0fc376c7 */ 	jal	func0f0ddb1c
-/*  f0de25c:	a7a204ae */ 	sh	$v0,0x4ae($sp)
-/*  f0de260:	97ad04ae */ 	lhu	$t5,0x4ae($sp)
-/*  f0de264:	44922000 */ 	mtc1	$s2,$f4
-/*  f0de268:	afa204a4 */ 	sw	$v0,0x4a4($sp)
-/*  f0de26c:	448d4000 */ 	mtc1	$t5,$f8
-/*  f0de270:	0000b825 */ 	or	$s7,$zero,$zero
-/*  f0de274:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f0de278:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f0de27c:	05a10005 */ 	bgez	$t5,.L0f0de294
-/*  f0de280:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f0de284:	3c014f80 */ 	lui	$at,0x4f80
-/*  f0de288:	44818000 */ 	mtc1	$at,$f16
-/*  f0de28c:	00000000 */ 	nop
-/*  f0de290:	46105280 */ 	add.s	$f10,$f10,$f16
-.L0f0de294:
-/*  f0de294:	460a3483 */ 	div.s	$f18,$f6,$f10
-/*  f0de298:	02209025 */ 	or	$s2,$s1,$zero
-/*  f0de29c:	27b600b4 */ 	addiu	$s6,$sp,0xb4
-/*  f0de2a0:	24140020 */ 	addiu	$s4,$zero,0x20
-/*  f0de2a4:	27b304b5 */ 	addiu	$s3,$sp,0x4b5
-/*  f0de2a8:	241f0044 */ 	addiu	$ra,$zero,0x44
-/*  f0de2ac:	240c0020 */ 	addiu	$t4,$zero,0x20
-/*  f0de2b0:	240b000a */ 	addiu	$t3,$zero,0xa
-/*  f0de2b4:	240a0052 */ 	addiu	$t2,$zero,0x52
-/*  f0de2b8:	24090072 */ 	addiu	$t1,$zero,0x72
-/*  f0de2bc:	e7b200a0 */ 	swc1	$f18,0xa0($sp)
-/*  f0de2c0:	92390000 */ 	lbu	$t9,0x0($s1)
-/*  f0de2c4:	132000f8 */ 	beqz	$t9,.L0f0de6a8
-/*  f0de2c8:	332400ff */ 	andi	$a0,$t9,0xff
-/*  f0de2cc:	afb00088 */ 	sw	$s0,0x88($sp)
-/*  f0de2d0:	241e002e */ 	addiu	$s8,$zero,0x2e
-/*  f0de2d4:	27af02ac */ 	addiu	$t7,$sp,0x2ac
-.L0f0de2d8:
-/*  f0de2d8:	02efc021 */ 	addu	$t8,$s7,$t7
-/*  f0de2dc:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0de2e0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0de2e4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0de2e8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0de2ec:	afae0094 */ 	sw	$t6,0x94($sp)
-/*  f0de2f0:	afb80074 */ 	sw	$t8,0x74($sp)
-/*  f0de2f4:	10800063 */ 	beqz	$a0,.L0f0de484
-/*  f0de2f8:	00004025 */ 	or	$t0,$zero,$zero
-/*  f0de2fc:	10000006 */ 	b	.L0f0de318
-/*  f0de300:	27a204b0 */ 	addiu	$v0,$sp,0x4b0
-/*  f0de304:	10000003 */ 	b	.L0f0de314
-/*  f0de308:	25b9fff6 */ 	addiu	$t9,$t5,-10
-/*  f0de30c:	0335082a */ 	slt	$at,$t9,$s5
-/*  f0de310:	1020005c */ 	beqz	$at,.L0f0de484
-.L0f0de314:
-/*  f0de314:	27a204b0 */ 	addiu	$v0,$sp,0x4b0
-.L0f0de318:
-/*  f0de318:	904f0000 */ 	lbu	$t7,0x0($v0)
-.L0f0de31c:
-/*  f0de31c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0de320:	15e40002 */ 	bne	$t7,$a0,.L0f0de32c
-/*  f0de324:	00000000 */ 	nop
-/*  f0de328:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0de32c:
-/*  f0de32c:	5453fffb */ 	bnel	$v0,$s3,.L0f0de31c
-/*  f0de330:	904f0000 */ 	lbu	$t7,0x0($v0)
-/*  f0de334:	50a00021 */ 	beqzl	$a1,.L0f0de3bc
-/*  f0de338:	2a0100f9 */ 	slti	$at,$s0,0xf9
-/*  f0de33c:	17c4001e */ 	bne	$s8,$a0,.L0f0de3b8
-/*  f0de340:	2aa10002 */ 	slti	$at,$s5,0x2
-/*  f0de344:	92580001 */ 	lbu	$t8,0x1($s2)
-/*  f0de348:	17d80002 */ 	bne	$s8,$t8,.L0f0de354
-/*  f0de34c:	00000000 */ 	nop
-/*  f0de350:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0de354:
-/*  f0de354:	54200019 */ 	bnezl	$at,.L0f0de3bc
-/*  f0de358:	2a0100f9 */ 	slti	$at,$s0,0xf9
-/*  f0de35c:	9243fffe */ 	lbu	$v1,-0x2($s2)
-/*  f0de360:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f0de364:	53e30004 */ 	beql	$ra,$v1,.L0f0de378
-/*  f0de368:	9242ffff */ 	lbu	$v0,-0x1($s2)
-/*  f0de36c:	54610008 */ 	bnel	$v1,$at,.L0f0de390
-/*  f0de370:	2401004d */ 	addiu	$at,$zero,0x4d
-/*  f0de374:	9242ffff */ 	lbu	$v0,-0x1($s2)
-.L0f0de378:
-/*  f0de378:	51220004 */ 	beql	$t1,$v0,.L0f0de38c
-/*  f0de37c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0de380:	55420003 */ 	bnel	$t2,$v0,.L0f0de390
-/*  f0de384:	2401004d */ 	addiu	$at,$zero,0x4d
-/*  f0de388:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0de38c:
-/*  f0de38c:	2401004d */ 	addiu	$at,$zero,0x4d
-.L0f0de390:
-/*  f0de390:	10610003 */ 	beq	$v1,$at,.L0f0de3a0
-/*  f0de394:	2401006d */ 	addiu	$at,$zero,0x6d
-/*  f0de398:	54610008 */ 	bnel	$v1,$at,.L0f0de3bc
-/*  f0de39c:	2a0100f9 */ 	slti	$at,$s0,0xf9
-.L0f0de3a0:
-/*  f0de3a0:	9242ffff */ 	lbu	$v0,-0x1($s2)
-/*  f0de3a4:	51220004 */ 	beql	$t1,$v0,.L0f0de3b8
-/*  f0de3a8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0de3ac:	55420003 */ 	bnel	$t2,$v0,.L0f0de3bc
-/*  f0de3b0:	2a0100f9 */ 	slti	$at,$s0,0xf9
-/*  f0de3b4:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0de3b8:
-/*  f0de3b8:	2a0100f9 */ 	slti	$at,$s0,0xf9
-.L0f0de3bc:
-/*  f0de3bc:	50200025 */ 	beqzl	$at,.L0f0de454
-/*  f0de3c0:	92440001 */ 	lbu	$a0,0x1($s2)
-/*  f0de3c4:	16840009 */ 	bne	$s4,$a0,.L0f0de3ec
-/*  f0de3c8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0de3cc:	16000003 */ 	bnez	$s0,.L0f0de3dc
-/*  f0de3d0:	02d07021 */ 	addu	$t6,$s6,$s0
-/*  f0de3d4:	10000005 */ 	b	.L0f0de3ec
-/*  f0de3d8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0de3dc:
-/*  f0de3dc:	91d9ffff */ 	lbu	$t9,-0x1($t6)
-/*  f0de3e0:	16990002 */ 	bne	$s4,$t9,.L0f0de3ec
-/*  f0de3e4:	00000000 */ 	nop
-/*  f0de3e8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0de3ec:
-/*  f0de3ec:	1564000c */ 	bne	$t3,$a0,.L0f0de420
-/*  f0de3f0:	00000000 */ 	nop
-/*  f0de3f4:	1200000a */ 	beqz	$s0,.L0f0de420
-/*  f0de3f8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0de3fc:	02d08821 */ 	addu	$s1,$s6,$s0
-/*  f0de400:	922fffff */ 	lbu	$t7,-0x1($s1)
-/*  f0de404:	128f0006 */ 	beq	$s4,$t7,.L0f0de420
-/*  f0de408:	00000000 */ 	nop
-/*  f0de40c:	92580001 */ 	lbu	$t8,0x1($s2)
-/*  f0de410:	12980003 */ 	beq	$s4,$t8,.L0f0de420
-/*  f0de414:	00000000 */ 	nop
-/*  f0de418:	a22c0000 */ 	sb	$t4,0x0($s1)
-/*  f0de41c:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f0de420:
-/*  f0de420:	10a00005 */ 	beqz	$a1,.L0f0de438
-/*  f0de424:	00000000 */ 	nop
-/*  f0de428:	924e0000 */ 	lbu	$t6,0x0($s2)
-/*  f0de42c:	168e0002 */ 	bne	$s4,$t6,.L0f0de438
-/*  f0de430:	00000000 */ 	nop
-/*  f0de434:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f0de438:
-/*  f0de438:	54400006 */ 	bnezl	$v0,.L0f0de454
-/*  f0de43c:	92440001 */ 	lbu	$a0,0x1($s2)
-/*  f0de440:	92590000 */ 	lbu	$t9,0x0($s2)
-/*  f0de444:	02d07821 */ 	addu	$t7,$s6,$s0
-/*  f0de448:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0de44c:	a1f90000 */ 	sb	$t9,0x0($t7)
-/*  f0de450:	92440001 */ 	lbu	$a0,0x1($s2)
-.L0f0de454:
-/*  f0de454:	26b50001 */ 	addiu	$s5,$s5,0x1
-/*  f0de458:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f0de45c:	5080000a */ 	beqzl	$a0,.L0f0de488
-/*  f0de460:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0de464:	50a0ffac */ 	beqzl	$a1,.L0f0de318
-/*  f0de468:	27a204b0 */ 	addiu	$v0,$sp,0x4b0
-/*  f0de46c:	50c0ffaa */ 	beqzl	$a2,.L0f0de318
-/*  f0de470:	27a204b0 */ 	addiu	$v0,$sp,0x4b0
-/*  f0de474:	25b8fff6 */ 	addiu	$t8,$t5,-10
-/*  f0de478:	0315082a */ 	slt	$at,$t8,$s5
-/*  f0de47c:	5420ffa6 */ 	bnezl	$at,.L0f0de318
-/*  f0de480:	27a204b0 */ 	addiu	$v0,$sp,0x4b0
-.L0f0de484:
-/*  f0de484:	00001825 */ 	or	$v1,$zero,$zero
-.L0f0de488:
-/*  f0de488:	1a000007 */ 	blez	$s0,.L0f0de4a8
-/*  f0de48c:	02d08821 */ 	addu	$s1,$s6,$s0
-/*  f0de490:	922effff */ 	lbu	$t6,-0x1($s1)
-/*  f0de494:	128e0004 */ 	beq	$s4,$t6,.L0f0de4a8
-/*  f0de498:	00000000 */ 	nop
-/*  f0de49c:	a22c0000 */ 	sb	$t4,0x0($s1)
-/*  f0de4a0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0de4a4:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f0de4a8:
-/*  f0de4a8:	1ae0000a */ 	blez	$s7,.L0f0de4d4
-/*  f0de4ac:	27a502ac */ 	addiu	$a1,$sp,0x2ac
-/*  f0de4b0:	27a202ac */ 	addiu	$v0,$sp,0x2ac
-/*  f0de4b4:	27a403a8 */ 	addiu	$a0,$sp,0x3a8
-.L0f0de4b8:
-/*  f0de4b8:	90990000 */ 	lbu	$t9,0x0($a0)
-/*  f0de4bc:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0de4c0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0de4c4:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f0de4c8:	1477fffb */ 	bne	$v1,$s7,.L0f0de4b8
-/*  f0de4cc:	a059ffff */ 	sb	$t9,-0x1($v0)
-/*  f0de4d0:	00001825 */ 	or	$v1,$zero,$zero
-.L0f0de4d4:
-/*  f0de4d4:	1a00000a */ 	blez	$s0,.L0f0de500
-/*  f0de4d8:	2419000a */ 	addiu	$t9,$zero,0xa
-/*  f0de4dc:	27af02ac */ 	addiu	$t7,$sp,0x2ac
-/*  f0de4e0:	02ef2021 */ 	addu	$a0,$s7,$t7
-/*  f0de4e4:	27a200b4 */ 	addiu	$v0,$sp,0xb4
-.L0f0de4e8:
-/*  f0de4e8:	90580000 */ 	lbu	$t8,0x0($v0)
-/*  f0de4ec:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0de4f0:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f0de4f4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0de4f8:	1470fffb */ 	bne	$v1,$s0,.L0f0de4e8
-/*  f0de4fc:	a098ffff */ 	sb	$t8,-0x1($a0)
-.L0f0de500:
-/*  f0de500:	8fae0074 */ 	lw	$t6,0x74($sp)
-/*  f0de504:	3c0f8008 */ 	lui	$t7,%hi(g_FontHandelGothicSm)
-/*  f0de508:	3c078008 */ 	lui	$a3,%hi(g_CharsHandelGothicSm)
-/*  f0de50c:	01d01021 */ 	addu	$v0,$t6,$s0
-/*  f0de510:	a0590000 */ 	sb	$t9,0x0($v0)
-/*  f0de514:	a0400001 */ 	sb	$zero,0x1($v0)
-/*  f0de518:	8deffb0c */ 	lw	$t7,%lo(g_FontHandelGothicSm)($t7)
-/*  f0de51c:	a7ad04ae */ 	sh	$t5,0x4ae($sp)
-/*  f0de520:	afa800a4 */ 	sw	$t0,0xa4($sp)
-/*  f0de524:	8ce7fb10 */ 	lw	$a3,%lo(g_CharsHandelGothicSm)($a3)
-/*  f0de528:	8fa404a4 */ 	lw	$a0,0x4a4($sp)
-/*  f0de52c:	27a601b0 */ 	addiu	$a2,$sp,0x1b0
-/*  f0de530:	0fc55d48 */ 	jal	textWrap
-/*  f0de534:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0de538:	93b801b0 */ 	lbu	$t8,0x1b0($sp)
-/*  f0de53c:	8fa800a4 */ 	lw	$t0,0xa4($sp)
-/*  f0de540:	24090072 */ 	addiu	$t1,$zero,0x72
-/*  f0de544:	240a0052 */ 	addiu	$t2,$zero,0x52
-/*  f0de548:	240b000a */ 	addiu	$t3,$zero,0xa
-/*  f0de54c:	240c0020 */ 	addiu	$t4,$zero,0x20
-/*  f0de550:	97ad04ae */ 	lhu	$t5,0x4ae($sp)
-/*  f0de554:	1300000a */ 	beqz	$t8,.L0f0de580
-/*  f0de558:	241f0044 */ 	addiu	$ra,$zero,0x44
-/*  f0de55c:	27a201b0 */ 	addiu	$v0,$sp,0x1b0
-/*  f0de560:	90430000 */ 	lbu	$v1,0x0($v0)
-.L0f0de564:
-/*  f0de564:	55630003 */ 	bnel	$t3,$v1,.L0f0de574
-/*  f0de568:	90430001 */ 	lbu	$v1,0x1($v0)
-/*  f0de56c:	25080001 */ 	addiu	$t0,$t0,0x1
-/*  f0de570:	90430001 */ 	lbu	$v1,0x1($v0)
-.L0f0de574:
-/*  f0de574:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0de578:	1460fffa */ 	bnez	$v1,.L0f0de564
-/*  f0de57c:	00000000 */ 	nop
-.L0f0de580:
-/*  f0de580:	29010003 */ 	slti	$at,$t0,0x3
-/*  f0de584:	54200035 */ 	bnezl	$at,.L0f0de65c
-/*  f0de588:	8fb80094 */ 	lw	$t8,0x94($sp)
-/*  f0de58c:	16e0001a */ 	bnez	$s7,.L0f0de5f8
-/*  f0de590:	27a403a8 */ 	addiu	$a0,$sp,0x3a8
-/*  f0de594:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0de598:	44902000 */ 	mtc1	$s0,$f4
-/*  f0de59c:	2419000a */ 	addiu	$t9,$zero,0xa
-/*  f0de5a0:	a2390000 */ 	sb	$t9,0x0($s1)
-/*  f0de5a4:	46802220 */ 	cvt.s.w	$f8,$f4
-/*  f0de5a8:	a2200001 */ 	sb	$zero,0x1($s1)
-/*  f0de5ac:	c7b000a0 */ 	lwc1	$f16,0xa0($sp)
-/*  f0de5b0:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0de5b4:	a7ad04ae */ 	sh	$t5,0x4ae($sp)
-/*  f0de5b8:	8fa60088 */ 	lw	$a2,0x88($sp)
-/*  f0de5bc:	46104182 */ 	mul.s	$f6,$f8,$f16
-/*  f0de5c0:	8fa504c4 */ 	lw	$a1,0x4c4($sp)
-/*  f0de5c4:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f0de5c8:	4600328d */ 	trunc.w.s	$f10,$f6
-/*  f0de5cc:	44075000 */ 	mfc1	$a3,$f10
-/*  f0de5d0:	0fc37835 */ 	jal	hudmsgCreateWithDuration
-/*  f0de5d4:	00000000 */ 	nop
-/*  f0de5d8:	24090072 */ 	addiu	$t1,$zero,0x72
-/*  f0de5dc:	240a0052 */ 	addiu	$t2,$zero,0x52
-/*  f0de5e0:	240b000a */ 	addiu	$t3,$zero,0xa
-/*  f0de5e4:	240c0020 */ 	addiu	$t4,$zero,0x20
-/*  f0de5e8:	97ad04ae */ 	lhu	$t5,0x4ae($sp)
-/*  f0de5ec:	241f0044 */ 	addiu	$ra,$zero,0x44
-/*  f0de5f0:	10000019 */ 	b	.L0f0de658
-/*  f0de5f4:	afa00094 */ 	sw	$zero,0x94($sp)
-.L0f0de5f8:
-/*  f0de5f8:	00977021 */ 	addu	$t6,$a0,$s7
-/*  f0de5fc:	26f70001 */ 	addiu	$s7,$s7,0x1
-/*  f0de600:	44979000 */ 	mtc1	$s7,$f18
-/*  f0de604:	2418000a */ 	addiu	$t8,$zero,0xa
-/*  f0de608:	a1d80000 */ 	sb	$t8,0x0($t6)
-/*  f0de60c:	46809120 */ 	cvt.s.w	$f4,$f18
-/*  f0de610:	0097c821 */ 	addu	$t9,$a0,$s7
-/*  f0de614:	a3200000 */ 	sb	$zero,0x0($t9)
-/*  f0de618:	c7a800a0 */ 	lwc1	$f8,0xa0($sp)
-/*  f0de61c:	a7ad04ae */ 	sh	$t5,0x4ae($sp)
-/*  f0de620:	8fa60088 */ 	lw	$a2,0x88($sp)
-/*  f0de624:	46082402 */ 	mul.s	$f16,$f4,$f8
-/*  f0de628:	8fa504c4 */ 	lw	$a1,0x4c4($sp)
-/*  f0de62c:	4600818d */ 	trunc.w.s	$f6,$f16
-/*  f0de630:	44073000 */ 	mfc1	$a3,$f6
-/*  f0de634:	0fc37835 */ 	jal	hudmsgCreateWithDuration
-/*  f0de638:	00000000 */ 	nop
-/*  f0de63c:	24090072 */ 	addiu	$t1,$zero,0x72
-/*  f0de640:	240a0052 */ 	addiu	$t2,$zero,0x52
-/*  f0de644:	240b000a */ 	addiu	$t3,$zero,0xa
-/*  f0de648:	240c0020 */ 	addiu	$t4,$zero,0x20
-/*  f0de64c:	97ad04ae */ 	lhu	$t5,0x4ae($sp)
-/*  f0de650:	241f0044 */ 	addiu	$ra,$zero,0x44
-/*  f0de654:	0000b825 */ 	or	$s7,$zero,$zero
-.L0f0de658:
-/*  f0de658:	8fb80094 */ 	lw	$t8,0x94($sp)
-.L0f0de65c:
-/*  f0de65c:	5300000e */ 	beqzl	$t8,.L0f0de698
-/*  f0de660:	a2200000 */ 	sb	$zero,0x0($s1)
-/*  f0de664:	1a00000a */ 	blez	$s0,.L0f0de690
-/*  f0de668:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0de66c:	27ae03a8 */ 	addiu	$t6,$sp,0x3a8
-/*  f0de670:	02ee2021 */ 	addu	$a0,$s7,$t6
-/*  f0de674:	27a200b4 */ 	addiu	$v0,$sp,0xb4
-.L0f0de678:
-/*  f0de678:	90590000 */ 	lbu	$t9,0x0($v0)
-/*  f0de67c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0de680:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0de684:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f0de688:	1470fffb */ 	bne	$v1,$s0,.L0f0de678
-/*  f0de68c:	a099ffff */ 	sb	$t9,-0x1($a0)
-.L0f0de690:
-/*  f0de690:	02f0b821 */ 	addu	$s7,$s7,$s0
-/*  f0de694:	a2200000 */ 	sb	$zero,0x0($s1)
-.L0f0de698:
-/*  f0de698:	92440000 */ 	lbu	$a0,0x0($s2)
-/*  f0de69c:	5480ff0e */ 	bnezl	$a0,.L0f0de2d8
-/*  f0de6a0:	27af02ac */ 	addiu	$t7,$sp,0x2ac
-/*  f0de6a4:	8fb00088 */ 	lw	$s0,0x88($sp)
-.L0f0de6a8:
-/*  f0de6a8:	12e0002c */ 	beqz	$s7,.L0f0de75c
-/*  f0de6ac:	27a403a8 */ 	addiu	$a0,$sp,0x3a8
-/*  f0de6b0:	0097c021 */ 	addu	$t8,$a0,$s7
-/*  f0de6b4:	26f70001 */ 	addiu	$s7,$s7,0x1
-/*  f0de6b8:	44975000 */ 	mtc1	$s7,$f10
-/*  f0de6bc:	240f000a */ 	addiu	$t7,$zero,0xa
-/*  f0de6c0:	a30f0000 */ 	sb	$t7,0x0($t8)
-/*  f0de6c4:	468054a0 */ 	cvt.s.w	$f18,$f10
-/*  f0de6c8:	00977021 */ 	addu	$t6,$a0,$s7
-/*  f0de6cc:	a1c00000 */ 	sb	$zero,0x0($t6)
-/*  f0de6d0:	c7a400a0 */ 	lwc1	$f4,0xa0($sp)
-/*  f0de6d4:	8fa504c4 */ 	lw	$a1,0x4c4($sp)
-/*  f0de6d8:	02003025 */ 	or	$a2,$s0,$zero
-/*  f0de6dc:	46049202 */ 	mul.s	$f8,$f18,$f4
-/*  f0de6e0:	4600440d */ 	trunc.w.s	$f16,$f8
-/*  f0de6e4:	44078000 */ 	mfc1	$a3,$f16
-/*  f0de6e8:	0fc37835 */ 	jal	hudmsgCreateWithDuration
-/*  f0de6ec:	00000000 */ 	nop
-/*  f0de6f0:	1000001b */ 	b	.L0f0de760
-/*  f0de6f4:	8fbf006c */ 	lw	$ra,0x6c($sp)
-.L0f0de6f8:
-/*  f0de6f8:	920f0002 */ 	lbu	$t7,0x2($s0)
-.L0f0de6fc:
-/*  f0de6fc:	92060000 */ 	lbu	$a2,0x0($s0)
-/*  f0de700:	92070001 */ 	lbu	$a3,0x1($s0)
-/*  f0de704:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0de708:	8e180004 */ 	lw	$t8,0x4($s0)
-/*  f0de70c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0de710:	8fa504c4 */ 	lw	$a1,0x4c4($sp)
-/*  f0de714:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f0de718:	8e0e0008 */ 	lw	$t6,0x8($s0)
-/*  f0de71c:	afae0018 */ 	sw	$t6,0x18($sp)
-/*  f0de720:	8e19000c */ 	lw	$t9,0xc($s0)
-/*  f0de724:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f0de728:	8e0f0010 */ 	lw	$t7,0x10($s0)
-/*  f0de72c:	afaf0020 */ 	sw	$t7,0x20($sp)
-/*  f0de730:	92180014 */ 	lbu	$t8,0x14($s0)
-/*  f0de734:	afb80024 */ 	sw	$t8,0x24($sp)
-/*  f0de738:	860e0016 */ 	lh	$t6,0x16($s0)
-/*  f0de73c:	afae0028 */ 	sw	$t6,0x28($sp)
-/*  f0de740:	92190015 */ 	lbu	$t9,0x15($s0)
-/*  f0de744:	afb9002c */ 	sw	$t9,0x2c($sp)
-/*  f0de748:	860f0018 */ 	lh	$t7,0x18($s0)
-/*  f0de74c:	afa00038 */ 	sw	$zero,0x38($sp)
-/*  f0de750:	afb40034 */ 	sw	$s4,0x34($sp)
-/*  f0de754:	0fc37baf */ 	jal	hudmsgCreateFromArgs
-/*  f0de758:	afaf0030 */ 	sw	$t7,0x30($sp)
-.L0f0de75c:
-/*  f0de75c:	8fbf006c */ 	lw	$ra,0x6c($sp)
-.L0f0de760:
-/*  f0de760:	8fb00048 */ 	lw	$s0,0x48($sp)
-/*  f0de764:	8fb1004c */ 	lw	$s1,0x4c($sp)
-/*  f0de768:	8fb20050 */ 	lw	$s2,0x50($sp)
-/*  f0de76c:	8fb30054 */ 	lw	$s3,0x54($sp)
-/*  f0de770:	8fb40058 */ 	lw	$s4,0x58($sp)
-/*  f0de774:	8fb5005c */ 	lw	$s5,0x5c($sp)
-/*  f0de778:	8fb60060 */ 	lw	$s6,0x60($sp)
-/*  f0de77c:	8fb70064 */ 	lw	$s7,0x64($sp)
-/*  f0de780:	8fbe0068 */ 	lw	$s8,0x68($sp)
-/*  f0de784:	03e00008 */ 	jr	$ra
-/*  f0de788:	27bd04c0 */ 	addiu	$sp,$sp,0x4c0
-);
+/**
+ * Create a hudmsg that is tied to the given audio channel. When the audio
+ * finishes the hudmsg is removed.
+ *
+ * This function is used for both in-game subtitles and cutscene subtitles.
+ * If a cutscene is in progress, the function forces the type to cutscene.
+ * This allows the caller to specify the type as in-game unconditionally
+ * and it will do the right thing.
+ *
+ * For cutscene subtitles, a dynamic width is used which means the source text
+ * has to be re-wrapped. There is also a limit of two lines at a time.
+ *
+ * The source text is split into individual messages. These splits are
+ * usually at the end of each sentence, but they also occur after commas and
+ * semi-colons.
+ *
+ * Each message is wrapped and appended to an accumulator. Every time the
+ * accumulator would exceed two lines, the accumulator is queued as a hudmsg
+ * and then cleared prior to appending the new message.
+ *
+ * Each hudmsg is assigned a duration according to its character length relative
+ * to the entire string and the audio duration.
+ */
+void hudmsgCreateAsSubtitle(char *srctext, s32 type, u8 colourindex, s32 audiochannelnum)
+{
+	s32 audioduration60;
+	struct hudmsgtype *config;
+
+	audioduration60 = propsndGetDuration60(audiochannelnum);
+
+	if (type == HUDMSGTYPE_INGAMESUBTITLE) {
+		if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
+			if (!optionsGetCutsceneSubtitles()) {
+				return;
+			}
+
+			type = HUDMSGTYPE_CUTSCENESUBTITLE;
+		} else if (!optionsGetInGameSubtitles()) {
+			return;
+		}
+	}
+
+	config = &g_HudmsgTypes[type];
+	config->colour = g_HudmsgColours[colourindex];
+
+	if (g_Vars.tickmode == TICKMODE_CUTSCENE && audioduration60 >= 0) {
+		char puncchars[] = { '.', ';', '!', '?', ',' };
+		u16 srclen;
+		s32 sp4a8;
+		s32 wrapwidth;
+		char accum[250];
+		char prewrap[250];
+		char postwrap[250];
+		char msg[250];
+		s32 msglen;
+		bool split;
+		s32 accumlen;
+		s32 linecount;
+		f32 time60perchar;
+		s32 i;
+		s32 j;
+		bool append;
+		bool foundpunctuation;
+
+		srclen = strlen(srctext);
+		wrapwidth = func0f0ddb1c(&sp4a8, config->unk16);
+
+		accumlen = 0;
+		i = 0;
+		time60perchar = (f32)audioduration60 / srclen;
+
+		// These two loops both work with the i iterator.
+		// The inner loop increments i and is looking for places to split the
+		// text, while the outer loop iterates once per split until the srctext
+		// has been completely scanned.
+		while (srctext[i] != '\0') {
+			msglen = 0;
+			foundpunctuation = false;
+			split = false;
+
+			while (srctext[i] != '\0' && (!foundpunctuation || !split || i > srclen - 10)) {
+				// Check if the current char is punctuation
+				for (j = 0; j < ARRAYCOUNT(puncchars); j++) {
+					if (puncchars[j] == srctext[i]) {
+						foundpunctuation = true;
+					}
+				}
+
+				// Avoid splitting in the middle of trailing dots,
+				// and also avoid splitting after "Dr." or "Mr."
+				if (foundpunctuation && srctext[i] == '.') {
+					if (srctext[i + 1] == '.') {
+						foundpunctuation = false;
+					}
+
+					if (i >= 2) {
+						if ((srctext[i - 2] == 'D' || srctext[i - 2] == 'd')
+								&& (srctext[i - 1] == 'r' || srctext[i - 1] == 'R')) {
+							foundpunctuation = false;
+						}
+
+						if ((srctext[i - 2] == 'M' || srctext[i - 2] == 'm')
+								&& (srctext[i - 1] == 'r' || srctext[i - 1] == 'R')) {
+							foundpunctuation = false;
+						}
+					}
+				}
+
+				// Copy the the character from srctext to msg, except:
+				// - if it's a space at the start of the string
+				// - if it's a consecutive space
+				// - if it's a line break (sometimes copy a space instead)
+				if (msglen < 249) {
+					bool ignore = false;
+
+					if (srctext[i] == ' ') {
+						if (msglen == 0) {
+							ignore = true;
+						} else if (msg[msglen - 1] == ' ') {
+							ignore = true;
+						}
+					}
+
+					if (srctext[i] == '\n') {
+						ignore = true;
+
+						if (msglen != 0 && msg[msglen - 1] != ' ' && srctext[i + 1] != ' ') {
+							msg[msglen] = ' ';
+							msglen++;
+						}
+					}
+
+					if (foundpunctuation && srctext[i] == ' ') {
+						split = true;
+					}
+
+					if (!ignore) {
+						msg[msglen] = srctext[i];
+						msglen++;
+					}
+				}
+
+				if (1);
+
+				i++;
+			} // end of inner loop
+
+			// At this point the string in msg is a single sentence,
+			// free of line breaks. It still needs to be wrapped.
+
+			// Make sure msg ends in a space
+			if (msglen > 0 && msg[msglen - 1] != ' ') {
+				msg[msglen] = ' ';
+				msglen++;
+			}
+
+			// Rebuild prewrap by concatenating the accumulator and msg.
+			// prewrap will be everything that's been read so far and has yet to
+			// be queued.
+			for (j = 0; j < accumlen; j++) {
+				prewrap[j] = accum[j];
+			}
+
+			for (j = 0; j < msglen; j++) {
+				prewrap[j + accumlen] = msg[j];
+			}
+
+			prewrap[accumlen + msglen] = '\n';
+			prewrap[accumlen + msglen + 1] = '\0';
+
+			// Apply text wrapping to prewrap
+			textWrap(wrapwidth, prewrap, postwrap, g_CharsHandelGothicSm, g_FontHandelGothicSm);
+
+			// Next, count the number of lines in the wrapped message.
+			// If it's more than two, send the accumulator out as a hudmsg and
+			// then put msg in the accumulator. Otherwise, just append msg to
+			// the accumulator.
+
+			// Note that these strings always end in a line break, so counting
+			// the line breaks is the same as counting visual lines
+			linecount = 0;
+
+			for (j = 0; postwrap[j] != '\0'; j++) {
+				if (postwrap[j] == '\n') {
+					linecount++;
+				}
+			}
+
+			append = true;
+
+			if (linecount >= 3) {
+				if (accumlen == 0) {
+					// Nothing is in the accumulator, so just queue the message
+					msg[msglen] = '\n';
+					msglen++;
+
+					msg[msglen] = '\0';
+
+					hudmsgCreateWithDuration(msg, type, config, msglen * time60perchar);
+					append = false;
+				} else {
+					// Queue the accumulator and then clear it.
+					// The current message will be copied into the accumulator
+					// for the next iteration.
+					accum[accumlen] = '\n';
+					accumlen++;
+
+					accum[accumlen] = '\0';
+
+					hudmsgCreateWithDuration(accum, type, config, accumlen * time60perchar);
+					accumlen = 0;
+				}
+			}
+
+			if (append) {
+				for (j = 0; j < msglen; j++) {
+					accum[accumlen + j] = msg[j];
+				}
+
+				accumlen += msglen;
+			}
+
+			msg[msglen] = '\0';
+		} // end of outer loop
+
+		// If there's anything remaining in the accumulator, queue it
+		if (accumlen != 0) {
+			accum[accumlen] = '\n';
+			accumlen++;
+
+			accum[accumlen] = '\0';
+
+			hudmsgCreateWithDuration(accum, type, config, accumlen * time60perchar);
+		}
+	} else {
+		hudmsgCreateFromArgs(srctext, type, config->unk00, config->unk01, config->unk02,
+				config->unk04, config->unk08, config->colour, config->unk10, config->alignh,
+				config->unk16, config->alignv, config->unk18, audiochannelnum, 0);
+	}
+}
 
 void hudmsgCreateFromArgsWithoutFlags(char *text, s32 type, s32 conf00, s32 conf01, s32 conf02, struct hudmessagething *conf04, struct hudmessagething *conf08, u32 textcolour, u32 shadowcolour, u32 alignh, s32 conf16, u32 alignv, s32 conf18, s32 arg14)
 {
@@ -2389,17 +2187,17 @@ void hudmsgsTick(void)
 	g_ScaleX = 1;
 }
 
-void currentPlayerSetHudmsgsOn(u32 reason)
+void hudmsgsSetOn(u32 reason)
 {
 	g_Vars.currentplayer->hudmessoff &= ~reason;
 }
 
-void currentPlayerSetHudmsgsOff(u32 reason)
+void hudmsgsSetOff(u32 reason)
 {
 	g_Vars.currentplayer->hudmessoff |= reason;
 }
 
-void hudmsgRemoveForDeadPlayer(s32 playernum)
+void hudmsgsRemoveForDeadPlayer(s32 playernum)
 {
 	s32 i;
 

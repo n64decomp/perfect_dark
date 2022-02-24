@@ -4566,7 +4566,7 @@ glabel aiSpeak
 /*  f0561b8:	8fa70030 */ 	lw	$a3,0x30($sp)
 /*  f0561bc:	8fa4002c */ 	lw	$a0,0x2c($sp)
 /*  f0561c0:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f0561c4:	0fc37858 */ 	jal	func0f0de160
+/*  f0561c4:	0fc37858 */ 	jal	hudmsgCreateAsSubtitle
 /*  f0561c8:	92060008 */ 	lbu	$a2,0x8($s0)
 .L0f0561cc:
 /*  f0561cc:	0fc4a24b */ 	jal	setCurrentPlayerNum
@@ -4611,7 +4611,7 @@ glabel aiSpeak
 //	}
 //
 //	if (text && !sndIsFiltered(audio_id)) {
-//		func0f0de160(text, 6, cmd[8], channelnum);
+//		hudmsgCreateAsSubtitle(text, HUDMSGTYPE_INGAMESUBTITLE, cmd[8], channelnum);
 //	}
 //
 //	setCurrentPlayerNum(prevplayernum);
@@ -5294,7 +5294,7 @@ bool aiRevokeControl(void)
 		bgunSetGunAmmoVisible(GUNAMMOREASON_NOCONTROL, false);
 
 		if ((cmd[3] & 2) == 0) {
-			currentPlayerSetHudmsgsOff(HUDMSGREASON_NOCONTROL);
+			hudmsgsSetOff(HUDMSGREASON_NOCONTROL);
 		}
 
 		if ((cmd[3] & 4) == 0) {
@@ -5323,7 +5323,7 @@ bool aiGrantControl(void)
 		setCurrentPlayerNum(playermgrGetPlayerNumByProp(chr->prop));
 		bgunSetSightVisible(GUNSIGHTREASON_NOCONTROL, true);
 		bgunSetGunAmmoVisible(GUNAMMOREASON_NOCONTROL, true);
-		currentPlayerSetHudmsgsOn(HUDMSGREASON_NOCONTROL);
+		hudmsgsSetOn(HUDMSGREASON_NOCONTROL);
 		countdownTimerSetVisible(COUNTDOWNTIMERREASON_NOCONTROL, true);
 		g_PlayersWithControl[g_Vars.currentplayernum] = true;
 		setCurrentPlayerNum(prevplayernum);
