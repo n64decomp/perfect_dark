@@ -2230,14 +2230,17 @@ void sndTick(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0001034c
-/*    1034c:	309907ff */ 	andi	$t9,$a0,0x7ff
-/*    10350:	00194400 */ 	sll	$t0,$t9,0x10
-/*    10354:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    10358:	03e00008 */ 	jr	$ra
-/*    1035c:	00081403 */ 	sra	$v0,$t0,0x10
-);
+s16 snd0001034c(s16 sfxnum)
+{
+	union soundnumhack sfxref;
+
+	sfxref.packed = sfxnum;
+	sfxnum = sfxref.id;
+
+	if (sfxref.id);
+
+	return sfxnum;
+}
 
 bool sndIsDisabled(void)
 {
