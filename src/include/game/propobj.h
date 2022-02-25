@@ -34,7 +34,7 @@ u32 func0f0667ac(void);
 u32 func0f0667b4(void);
 f32 modelBboxGetYMin(struct modelrodata_bbox *bbox);
 u32 func0f0667c4(void);
-f32 func0f0667cc(struct modelrodata_bbox *bbox);
+f32 modelBboxGetZMin(struct modelrodata_bbox *bbox);
 f32 modelBboxGetZMax(struct modelrodata_bbox *bbox);
 u32 func0f0667dc(void);
 u32 func0f06680c(void);

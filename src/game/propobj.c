@@ -549,11 +549,10 @@ glabel func0f0667c4
 /*  f0667c8:	c4800010 */ 	lwc1	$f0,0x10($a0)
 );
 
-GLOBAL_ASM(
-glabel func0f0667cc
-/*  f0667cc:	03e00008 */ 	jr	$ra
-/*  f0667d0:	c4800014 */ 	lwc1	$f0,0x14($a0)
-);
+f32 modelBboxGetZMin(struct modelrodata_bbox *bbox)
+{
+	return bbox->zmin;
+}
 
 f32 modelBboxGetZMax(struct modelrodata_bbox *bbox)
 {
@@ -5302,7 +5301,7 @@ glabel var7f1aa200
 .L0f06a948:
 /*  f06a948:	15010008 */ 	bne	$t0,$at,.L0f06a96c
 /*  f06a94c:	8fa400c4 */ 	lw	$a0,0xc4($sp)
-/*  f06a950:	0fc199f3 */ 	jal	func0f0667cc
+/*  f06a950:	0fc199f3 */ 	jal	modelBboxGetZMin
 /*  f06a954:	afa80050 */ 	sw	$t0,0x50($sp)
 /*  f06a958:	46000506 */ 	mov.s	$f20,$f0
 /*  f06a95c:	0fc199f5 */ 	jal	modelBboxGetZMax
@@ -5593,7 +5592,7 @@ glabel var7f1aa200
 .NB0f069bb0:
 /*  f069bb0:	15010008 */ 	bne	$t0,$at,.NB0f069bd4
 /*  f069bb4:	8fa400bc */ 	lw	$a0,0xbc($sp)
-/*  f069bb8:	0fc19693 */ 	jal	func0f0667cc
+/*  f069bb8:	0fc19693 */ 	jal	modelBboxGetZMin
 /*  f069bbc:	afa80048 */ 	sw	$t0,0x48($sp)
 /*  f069bc0:	46000506 */ 	mov.s	$f20,$f0
 /*  f069bc4:	0fc19695 */ 	jal	modelBboxGetZMax
@@ -5742,7 +5741,7 @@ void func0f06ab60(struct defaultobj *obj, struct coord *arg1, Mtxf *arg2, s16 *r
 	Mtxf sp1c;
 
 	bbox = modelFindBboxRodata(obj->model);
-	mult = func0f0667cc(bbox);
+	mult = modelBboxGetZMin(bbox);
 
 	mtx4LoadXRotation(4.7116389274597f, &sp5c);
 	mtx4LoadYRotation(M_BADPI, &sp1c);
@@ -12006,7 +12005,7 @@ glabel var7f1aa2bc
 /*  f06ed80:	8faf0110 */ 	lw	$t7,0x110($sp)
 /*  f06ed84:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06ed88:	8df80014 */ 	lw	$t8,0x14($t7)
-/*  f06ed8c:	0fc199f3 */ 	jal	func0f0667cc
+/*  f06ed8c:	0fc199f3 */ 	jal	modelBboxGetZMin
 /*  f06ed90:	afb80038 */ 	sw	$t8,0x38($sp)
 /*  f06ed94:	0c004b70 */ 	jal	random
 /*  f06ed98:	00000000 */ 	nop
@@ -53855,7 +53854,7 @@ glabel var7f1aa838
 .L0f081eb4:
 /*  f081eb4:	55810009 */ 	bnel	$t4,$at,.L0f081edc
 /*  f081eb8:	8fad0084 */ 	lw	$t5,0x84($sp)
-/*  f081ebc:	0fc199f3 */ 	jal	func0f0667cc
+/*  f081ebc:	0fc199f3 */ 	jal	modelBboxGetZMin
 /*  f081ec0:	8fa400a4 */ 	lw	$a0,0xa4($sp)
 /*  f081ec4:	8fa400a4 */ 	lw	$a0,0xa4($sp)
 /*  f081ec8:	0fc199f5 */ 	jal	modelBboxGetZMax
@@ -54560,7 +54559,7 @@ glabel var7f1aa838
 .NB0f080910:
 /*  f080910:	55810009 */ 	bnel	$t4,$at,.NB0f080938
 /*  f080914:	8fad0088 */ 	lw	$t5,0x88($sp)
-/*  f080918:	0fc19693 */ 	jal	func0f0667cc
+/*  f080918:	0fc19693 */ 	jal	modelBboxGetZMin
 /*  f08091c:	8fa400ac */ 	lw	$a0,0xac($sp)
 /*  f080920:	8fa400ac */ 	lw	$a0,0xac($sp)
 /*  f080924:	0fc19695 */ 	jal	modelBboxGetZMax
