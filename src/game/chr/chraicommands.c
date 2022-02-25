@@ -1785,10 +1785,10 @@ bool aiIfChrDistanceToPadLessThan(void)
 	return false;
 }
 
+#if VERSION >= VERSION_NTSC_1_0
 /**
  * @cmd 01df
  */
-#if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel aiIfChrSameFloorDistanceToPadLessThan
 /*  f050c54:	27bdffd0 */ 	addiu	$sp,$sp,-48
@@ -1854,6 +1854,26 @@ glabel aiIfChrSameFloorDistanceToPadLessThan
 /*  f050d38:	03e00008 */ 	jr	$ra
 /*  f050d3c:	00001025 */ 	or	$v0,$zero,$zero
 );
+
+//bool aiIfChrSameFloorDistanceToPadLessThan(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+//	u16 padnum = cmd[6] | (cmd[5] << 8);
+//	f32 distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
+//
+//	if (padnum == 9000) {
+//		padnum = g_Vars.chrdata->padpreset1;
+//	}
+//
+//	if (chr && chrGetSameFloorDistanceToPad(chr, padnum) < distance) {
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
+//	} else {
+//		g_Vars.aioffset += 8;
+//	}
+//
+//	return false;
+//}
 #endif
 
 /**
