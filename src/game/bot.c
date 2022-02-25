@@ -818,8 +818,8 @@ glabel botReset
 //			aibot->rcp120cloakenabled = false;
 //			aibot->unk064 = 0;
 //			aibot->unk04c_00 = false;
-//			aibot->unk048 = -1;
-//			aibot->unk04a = -1;
+//			aibot->hillpadnum = -1;
+//			aibot->hillcovernum = -1;
 //			aibot->lastknownhill = -1;
 //			aibot->cyclonedischarging[1] = 0;
 //			aibot->cyclonedischarging[0] = 0;
@@ -8515,7 +8515,7 @@ glabel var7f1b8fc8
 /*  f196b6c:	8484c6be */ 	lh	$a0,-0x3942($a0)
 /*  f196b70:	27a5026c */ 	addiu	$a1,$sp,0x26c
 /*  f196b74:	27a60268 */ 	addiu	$a2,$sp,0x268
-/*  f196b78:	0fc66f1c */ 	jal	func0f19ab70
+/*  f196b78:	0fc66f1c */ 	jal	botroomFindPos
 /*  f196b7c:	27a70264 */ 	addiu	$a3,$sp,0x264
 /*  f196b80:	10400101 */ 	beqz	$v0,.PF0f196f88
 /*  f196b84:	c7b2026c */ 	lwc1	$f18,0x26c($sp)
@@ -8562,7 +8562,7 @@ glabel var7f1b8fc8
 /*  f196c24:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f196c28:	8484c6be */ 	lh	$a0,-0x3942($a0)
 /*  f196c2c:	27a60250 */ 	addiu	$a2,$sp,0x250
-/*  f196c30:	0fc66f1c */ 	jal	func0f19ab70
+/*  f196c30:	0fc66f1c */ 	jal	botroomFindPos
 /*  f196c34:	27a7024c */ 	addiu	$a3,$sp,0x24c
 /*  f196c38:	104000d3 */ 	beqz	$v0,.PF0f196f88
 /*  f196c3c:	c7a60254 */ 	lwc1	$f6,0x254($sp)
@@ -10786,20 +10786,20 @@ void botTickUnpaused(struct chrdata *chr)
 						} else {
 							// Go to the hill if not there already
 							u32 stack;
-							struct coord sp26c;
-							s32 sp268;
-							s32 sp264;
-							s32 sp260;
+							struct coord posinhill;
+							f32 angle;
+							s32 padnuminhill;
+							s32 covernuminhill;
 
-							if (func0f19ab70(g_ScenarioData.koh.hillrooms[0], &sp26c, &sp268, &sp264, &sp260)) {
+							if (botroomFindPos(g_ScenarioData.koh.hillrooms[0], &posinhill, &angle, &padnuminhill, &covernuminhill)) {
 								newaction = MA_AIBOTGOTOPOS;
-								aibot->gotopos.x = sp26c.x;
-								aibot->gotopos.y = sp26c.y;
-								aibot->gotopos.z = sp26c.z;
+								aibot->gotopos.x = posinhill.x;
+								aibot->gotopos.y = posinhill.y;
+								aibot->gotopos.z = posinhill.z;
 								roomsCopy(g_ScenarioData.koh.hillrooms, aibot->gotorooms);
 								aibot->unk04c_00 = (chr->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) != 0;
-								aibot->unk048 = sp264;
-								aibot->unk04a = sp260;
+								aibot->hillpadnum = padnuminhill;
+								aibot->hillcovernum = covernuminhill;
 								aibot->lastknownhill = g_ScenarioData.koh.hillrooms[0];
 							}
 						}
@@ -10807,21 +10807,21 @@ void botTickUnpaused(struct chrdata *chr)
 				} else if (aibot->command == AIBOTCMD_HOLDHILL) {
 					// King of the hill - hold the hill (don't wander out)
 					if (g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL) {
-						struct coord uStack164;
-						s32 a;
-						s32 b;
-						s32 c;
+						struct coord posinhill;
+						f32 angle;
+						s32 padnuminhill;
+						s32 covernuminhill;
 
 						// Go to the hill if not there already
-						if (func0f19ab70(g_ScenarioData.koh.hillrooms[0], &uStack164, &a, &b, &c)) {
+						if (botroomFindPos(g_ScenarioData.koh.hillrooms[0], &posinhill, &angle, &padnuminhill, &covernuminhill)) {
 							newaction = MA_AIBOTGOTOPOS;
-							aibot->gotopos.x = uStack164.x;
-							aibot->gotopos.y = uStack164.y;
-							aibot->gotopos.z = uStack164.z;
+							aibot->gotopos.x = posinhill.x;
+							aibot->gotopos.y = posinhill.y;
+							aibot->gotopos.z = posinhill.z;
 							roomsCopy(g_ScenarioData.koh.hillrooms, aibot->gotorooms);
 							aibot->unk04c_00 = (chr->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) != 0;
-							aibot->unk048 = b;
-							aibot->unk04a = c;
+							aibot->hillpadnum = padnuminhill;
+							aibot->hillcovernum = covernuminhill;
 							aibot->lastknownhill = g_ScenarioData.koh.hillrooms[0];
 						}
 					}
@@ -11262,10 +11262,10 @@ void botTickUnpaused(struct chrdata *chr)
 					aibot->unk04c_00 = false;
 				} else if (chr->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) {
 					// empty
-				} else if (aibot->unk048 >= 0) {
-					padSetFlag(aibot->unk048, PADFLAG_20000);
-				} else if (aibot->unk04a >= 0) {
-					coverSetFlag(aibot->unk04a, COVERFLAG_0100);
+				} else if (aibot->hillpadnum >= 0) {
+					padSetFlag(aibot->hillpadnum, PADFLAG_20000);
+				} else if (aibot->hillcovernum >= 0) {
+					coverSetFlag(aibot->hillcovernum, COVERFLAG_0100);
 				}
 			}
 

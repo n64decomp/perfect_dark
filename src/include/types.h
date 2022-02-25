@@ -850,8 +850,8 @@ struct aibot {
 	/*0x03c*/ s16 punchtimer60[2];
 	/*0x040*/ f32 unk040;
 	/*0x044*/ struct prop *skrocket;
-	/*0x048*/ s16 unk048;
-	/*0x04a*/ s16 unk04a;
+	/*0x048*/ s16 hillpadnum;
+	/*0x04a*/ s16 hillcovernum;
 	/*0x04c*/ u8 unk04c_00 : 1;
 	/*0x04c*/ u8 iscloserangeweapon : 1;
 	/*0x04c*/ u8 gunfunc : 1;

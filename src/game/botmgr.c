@@ -186,8 +186,8 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->hasuplink = false;
 					aibot->unk04c_00 = false;
 
-					aibot->unk048 = -1;
-					aibot->unk04a = -1;
+					aibot->hillpadnum = -1;
+					aibot->hillcovernum = -1;
 
 					aibot->lastknownhill = -1;
 					aibot->cyclonedischarging[HAND_LEFT] = false;

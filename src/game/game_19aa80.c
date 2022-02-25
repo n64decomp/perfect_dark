@@ -25,7 +25,6 @@ u8 g_MpFeaturesUnlocked[80];
 u32 g_MpChallengeIndex = 0;
 struct mpconfigfull *g_MpCurrentChallengeConfig = NULL;
 
-// 2e4d8
 struct challenge g_MpChallenges[NUM_CHALLENGES] = {
 	{ L_OPTIONS_406, MPCONFIG_CHALLENGE01 }, // "Challenge 1"
 	{ L_OPTIONS_407, MPCONFIG_CHALLENGE02 }, // "Challenge 2"
@@ -59,261 +58,149 @@ struct challenge g_MpChallenges[NUM_CHALLENGES] = {
 	{ L_OPTIONS_435, MPCONFIG_CHALLENGE30 }, // "Challenge 30"
 };
 
-GLOBAL_ASM(
-glabel func0f19ab70
-/*  f19ab70:	27bdfde8 */ 	addiu	$sp,$sp,-536
-/*  f19ab74:	afa40218 */ 	sw	$a0,0x218($sp)
-/*  f19ab78:	87ae021a */ 	lh	$t6,0x21a($sp)
-/*  f19ab7c:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f19ab80:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f19ab84:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f19ab88:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f19ab8c:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f19ab90:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f19ab94:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f19ab98:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f19ab9c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f19aba0:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f19aba4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f19aba8:	afa5021c */ 	sw	$a1,0x21c($sp)
-/*  f19abac:	afa60220 */ 	sw	$a2,0x220($sp)
-/*  f19abb0:	afa70224 */ 	sw	$a3,0x224($sp)
-/*  f19abb4:	0000b025 */ 	or	$s6,$zero,$zero
-/*  f19abb8:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f19abbc:	afa00050 */ 	sw	$zero,0x50($sp)
-/*  f19abc0:	a7af0156 */ 	sh	$t7,0x156($sp)
-/*  f19abc4:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f19abc8:	a7ae0154 */ 	sh	$t6,0x154($sp)
-/*  f19abcc:	afa00054 */ 	sw	$zero,0x54($sp)
-.L0f19abd0:
-/*  f19abd0:	0fc458b4 */ 	jal	coverGetCount
-/*  f19abd4:	00009025 */ 	or	$s2,$zero,$zero
-/*  f19abd8:	1840002f */ 	blez	$v0,.L0f19ac98
-/*  f19abdc:	0040f025 */ 	or	$s8,$v0,$zero
-/*  f19abe0:	02402025 */ 	or	$a0,$s2,$zero
-.L0f19abe4:
-/*  f19abe4:	0fc458b8 */ 	jal	coverUnpack
-/*  f19abe8:	27a50158 */ 	addiu	$a1,$sp,0x158
-/*  f19abec:	50400027 */ 	beqzl	$v0,.L0f19ac8c
-/*  f19abf0:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f19abf4:	0fc4596c */ 	jal	coverIsSpecial
-/*  f19abf8:	27a40158 */ 	addiu	$a0,$sp,0x158
-/*  f19abfc:	14400022 */ 	bnez	$v0,.L0f19ac88
-/*  f19ac00:	27a40160 */ 	addiu	$a0,$sp,0x160
-/*  f19ac04:	0fc19620 */ 	jal	arrayIntersects
-/*  f19ac08:	27a50154 */ 	addiu	$a1,$sp,0x154
-/*  f19ac0c:	1040001e */ 	beqz	$v0,.L0f19ac88
-/*  f19ac10:	8fb80050 */ 	lw	$t8,0x50($sp)
-/*  f19ac14:	1300000e */ 	beqz	$t8,.L0f19ac50
-/*  f19ac18:	97b90164 */ 	lhu	$t9,0x164($sp)
-/*  f19ac1c:	33280100 */ 	andi	$t0,$t9,0x100
-/*  f19ac20:	1100000b */ 	beqz	$t0,.L0f19ac50
-/*  f19ac24:	02402025 */ 	or	$a0,$s2,$zero
-/*  f19ac28:	00164880 */ 	sll	$t1,$s6,0x2
-/*  f19ac2c:	27aa016c */ 	addiu	$t2,$sp,0x16c
-/*  f19ac30:	012a8021 */ 	addu	$s0,$t1,$t2
-/*  f19ac34:	0fc4594a */ 	jal	coverUnsetFlag
-/*  f19ac38:	24050100 */ 	addiu	$a1,$zero,0x100
-/*  f19ac3c:	ae120000 */ 	sw	$s2,0x0($s0)
-/*  f19ac40:	26d60001 */ 	addiu	$s6,$s6,0x1
-/*  f19ac44:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f19ac48:	1000000c */ 	b	.L0f19ac7c
-/*  f19ac4c:	26940001 */ 	addiu	$s4,$s4,0x1
-.L0f19ac50:
-/*  f19ac50:	97ab0164 */ 	lhu	$t3,0x164($sp)
-/*  f19ac54:	316c0100 */ 	andi	$t4,$t3,0x100
-/*  f19ac58:	15800006 */ 	bnez	$t4,.L0f19ac74
-/*  f19ac5c:	00166880 */ 	sll	$t5,$s6,0x2
-/*  f19ac60:	03ad7021 */ 	addu	$t6,$sp,$t5
-/*  f19ac64:	add2016c */ 	sw	$s2,0x16c($t6)
-/*  f19ac68:	26d60001 */ 	addiu	$s6,$s6,0x1
-/*  f19ac6c:	10000003 */ 	b	.L0f19ac7c
-/*  f19ac70:	26940001 */ 	addiu	$s4,$s4,0x1
-.L0f19ac74:
-/*  f19ac74:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f19ac78:	afaf0054 */ 	sw	$t7,0x54($sp)
-.L0f19ac7c:
-/*  f19ac7c:	2ac10028 */ 	slti	$at,$s6,0x28
-/*  f19ac80:	10200005 */ 	beqz	$at,.L0f19ac98
-/*  f19ac84:	00000000 */ 	nop
-.L0f19ac88:
-/*  f19ac88:	26520001 */ 	addiu	$s2,$s2,0x1
-.L0f19ac8c:
-/*  f19ac8c:	025e082a */ 	slt	$at,$s2,$s8
-/*  f19ac90:	5420ffd4 */ 	bnezl	$at,.L0f19abe4
-/*  f19ac94:	02402025 */ 	or	$a0,$s2,$zero
-.L0f19ac98:
-/*  f19ac98:	3c18800a */ 	lui	$t8,%hi(g_StageSetup)
-/*  f19ac9c:	8f18d030 */ 	lw	$t8,%lo(g_StageSetup)($t8)
-/*  f19aca0:	53000047 */ 	beqzl	$t8,.L0f19adc0
-/*  f19aca4:	8fac0054 */ 	lw	$t4,0x54($sp)
-/*  f19aca8:	87b7021a */ 	lh	$s7,0x21a($sp)
-/*  f19acac:	3c08800a */ 	lui	$t0,%hi(g_Rooms)
-/*  f19acb0:	8d084928 */ 	lw	$t0,%lo(g_Rooms)($t0)
-/*  f19acb4:	0017c8c0 */ 	sll	$t9,$s7,0x3
-/*  f19acb8:	0337c821 */ 	addu	$t9,$t9,$s7
-/*  f19acbc:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f19acc0:	0337c823 */ 	subu	$t9,$t9,$s7
-/*  f19acc4:	0019b880 */ 	sll	$s7,$t9,0x2
-/*  f19acc8:	01174821 */ 	addu	$t1,$t0,$s7
-/*  f19accc:	913e0009 */ 	lbu	$s8,0x9($t1)
-/*  f19acd0:	00009025 */ 	or	$s2,$zero,$zero
-/*  f19acd4:	5bc0003a */ 	blezl	$s8,.L0f19adc0
-/*  f19acd8:	8fac0054 */ 	lw	$t4,0x54($sp)
-/*  f19acdc:	00009825 */ 	or	$s3,$zero,$zero
-.L0f19ace0:
-/*  f19ace0:	3c0b800a */ 	lui	$t3,%hi(g_Rooms)
-/*  f19ace4:	8d6b4928 */ 	lw	$t3,%lo(g_Rooms)($t3)
-/*  f19ace8:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x60)
-/*  f19acec:	8d4aa020 */ 	lw	$t2,%lo(g_Vars+0x60)($t2)
-/*  f19acf0:	01776021 */ 	addu	$t4,$t3,$s7
-/*  f19acf4:	958d000c */ 	lhu	$t5,0xc($t4)
-/*  f19acf8:	3c08800a */ 	lui	$t0,%hi(g_StageSetup)
-/*  f19acfc:	8d08d030 */ 	lw	$t0,%lo(g_StageSetup)($t0)
-/*  f19ad00:	000d7040 */ 	sll	$t6,$t5,0x1
-/*  f19ad04:	014e7821 */ 	addu	$t7,$t2,$t6
-/*  f19ad08:	01f3c021 */ 	addu	$t8,$t7,$s3
-/*  f19ad0c:	87020000 */ 	lh	$v0,0x0($t8)
-/*  f19ad10:	24050080 */ 	addiu	$a1,$zero,0x80
-/*  f19ad14:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f19ad18:	0002c900 */ 	sll	$t9,$v0,0x4
-/*  f19ad1c:	03288821 */ 	addu	$s1,$t9,$t0
-/*  f19ad20:	0fc456ac */ 	jal	padUnpack
-/*  f19ad24:	8e240000 */ 	lw	$a0,0x0($s1)
-/*  f19ad28:	8fa90050 */ 	lw	$t1,0x50($sp)
-/*  f19ad2c:	51200011 */ 	beqzl	$t1,.L0f19ad74
-/*  f19ad30:	8faf00a4 */ 	lw	$t7,0xa4($sp)
-/*  f19ad34:	8fab00a4 */ 	lw	$t3,0xa4($sp)
-/*  f19ad38:	3c050002 */ 	lui	$a1,0x2
-/*  f19ad3c:	00156880 */ 	sll	$t5,$s5,0x2
-/*  f19ad40:	000b6380 */ 	sll	$t4,$t3,0xe
-/*  f19ad44:	0581000a */ 	bgez	$t4,.L0f19ad70
-/*  f19ad48:	27aa00b4 */ 	addiu	$t2,$sp,0xb4
-/*  f19ad4c:	8e240000 */ 	lw	$a0,0x0($s1)
-/*  f19ad50:	0fc458a0 */ 	jal	padUnsetFlag
-/*  f19ad54:	01aa8021 */ 	addu	$s0,$t5,$t2
-/*  f19ad58:	8e2e0000 */ 	lw	$t6,0x0($s1)
-/*  f19ad5c:	26b50001 */ 	addiu	$s5,$s5,0x1
-/*  f19ad60:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f19ad64:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f19ad68:	1000000e */ 	b	.L0f19ada4
-/*  f19ad6c:	ae0efffc */ 	sw	$t6,-0x4($s0)
-.L0f19ad70:
-/*  f19ad70:	8faf00a4 */ 	lw	$t7,0xa4($sp)
-.L0f19ad74:
-/*  f19ad74:	000fc380 */ 	sll	$t8,$t7,0xe
-/*  f19ad78:	07020009 */ 	bltzl	$t8,.L0f19ada0
-/*  f19ad7c:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f19ad80:	8e390000 */ 	lw	$t9,0x0($s1)
-/*  f19ad84:	00154080 */ 	sll	$t0,$s5,0x2
-/*  f19ad88:	03a84821 */ 	addu	$t1,$sp,$t0
-/*  f19ad8c:	26b50001 */ 	addiu	$s5,$s5,0x1
-/*  f19ad90:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f19ad94:	10000003 */ 	b	.L0f19ada4
-/*  f19ad98:	ad3900b4 */ 	sw	$t9,0xb4($t1)
-/*  f19ad9c:	240b0001 */ 	addiu	$t3,$zero,0x1
-.L0f19ada0:
-/*  f19ada0:	afab0054 */ 	sw	$t3,0x54($sp)
-.L0f19ada4:
-/*  f19ada4:	2aa10028 */ 	slti	$at,$s5,0x28
-/*  f19ada8:	50200005 */ 	beqzl	$at,.L0f19adc0
-/*  f19adac:	8fac0054 */ 	lw	$t4,0x54($sp)
-/*  f19adb0:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f19adb4:	165effca */ 	bne	$s2,$s8,.L0f19ace0
-/*  f19adb8:	26730002 */ 	addiu	$s3,$s3,0x2
-/*  f19adbc:	8fac0054 */ 	lw	$t4,0x54($sp)
-.L0f19adc0:
-/*  f19adc0:	11800003 */ 	beqz	$t4,.L0f19add0
-/*  f19adc4:	afac0050 */ 	sw	$t4,0x50($sp)
-/*  f19adc8:	5280ff81 */ 	beqzl	$s4,.L0f19abd0
-/*  f19adcc:	afa00054 */ 	sw	$zero,0x54($sp)
-.L0f19add0:
-/*  f19add0:	16800003 */ 	bnez	$s4,.L0f19ade0
-/*  f19add4:	00000000 */ 	nop
-/*  f19add8:	10000041 */ 	b	.L0f19aee0
-/*  f19addc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f19ade0:
-/*  f19ade0:	0c004b70 */ 	jal	random
-/*  f19ade4:	00000000 */ 	nop
-/*  f19ade8:	0054001b */ 	divu	$zero,$v0,$s4
-/*  f19adec:	00001810 */ 	mfhi	$v1
-/*  f19adf0:	0076082a */ 	slt	$at,$v1,$s6
-/*  f19adf4:	16800002 */ 	bnez	$s4,.L0f19ae00
-/*  f19adf8:	00000000 */ 	nop
-/*  f19adfc:	0007000d */ 	break	0x7
-.L0f19ae00:
-/*  f19ae00:	00609025 */ 	or	$s2,$v1,$zero
-/*  f19ae04:	1020001b */ 	beqz	$at,.L0f19ae74
-/*  f19ae08:	00036880 */ 	sll	$t5,$v1,0x2
-/*  f19ae0c:	27aa016c */ 	addiu	$t2,$sp,0x16c
-/*  f19ae10:	01aa8021 */ 	addu	$s0,$t5,$t2
-/*  f19ae14:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f19ae18:	0fc458b8 */ 	jal	coverUnpack
-/*  f19ae1c:	27a50158 */ 	addiu	$a1,$sp,0x158
-/*  f19ae20:	8fae0158 */ 	lw	$t6,0x158($sp)
-/*  f19ae24:	8faf021c */ 	lw	$t7,0x21c($sp)
-/*  f19ae28:	c5c40000 */ 	lwc1	$f4,0x0($t6)
-/*  f19ae2c:	e5e40000 */ 	swc1	$f4,0x0($t7)
-/*  f19ae30:	c5c60004 */ 	lwc1	$f6,0x4($t6)
-/*  f19ae34:	e5e60004 */ 	swc1	$f6,0x4($t7)
-/*  f19ae38:	c5c80008 */ 	lwc1	$f8,0x8($t6)
-/*  f19ae3c:	e5e80008 */ 	swc1	$f8,0x8($t7)
-/*  f19ae40:	8fb8015c */ 	lw	$t8,0x15c($sp)
-/*  f19ae44:	c70c0008 */ 	lwc1	$f12,0x8($t8)
-/*  f19ae48:	0fc259d4 */ 	jal	atan2f
-/*  f19ae4c:	c70e0000 */ 	lwc1	$f14,0x0($t8)
-/*  f19ae50:	8fb90220 */ 	lw	$t9,0x220($sp)
-/*  f19ae54:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f19ae58:	e7200000 */ 	swc1	$f0,0x0($t9)
-/*  f19ae5c:	8fa90224 */ 	lw	$t1,0x224($sp)
-/*  f19ae60:	ad280000 */ 	sw	$t0,0x0($t1)
-/*  f19ae64:	8fac0228 */ 	lw	$t4,0x228($sp)
-/*  f19ae68:	8e0b0000 */ 	lw	$t3,0x0($s0)
-/*  f19ae6c:	1000001b */ 	b	.L0f19aedc
-/*  f19ae70:	ad8b0000 */ 	sw	$t3,0x0($t4)
-.L0f19ae74:
-/*  f19ae74:	02569023 */ 	subu	$s2,$s2,$s6
-/*  f19ae78:	00126880 */ 	sll	$t5,$s2,0x2
-/*  f19ae7c:	27aa00b4 */ 	addiu	$t2,$sp,0xb4
-/*  f19ae80:	01aa8021 */ 	addu	$s0,$t5,$t2
-/*  f19ae84:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f19ae88:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f19ae8c:	0fc456ac */ 	jal	padUnpack
-/*  f19ae90:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f19ae94:	c7aa0058 */ 	lwc1	$f10,0x58($sp)
-/*  f19ae98:	8fae021c */ 	lw	$t6,0x21c($sp)
-/*  f19ae9c:	e5ca0000 */ 	swc1	$f10,0x0($t6)
-/*  f19aea0:	c7b0005c */ 	lwc1	$f16,0x5c($sp)
-/*  f19aea4:	e5d00004 */ 	swc1	$f16,0x4($t6)
-/*  f19aea8:	c7b20060 */ 	lwc1	$f18,0x60($sp)
-/*  f19aeac:	e5d20008 */ 	swc1	$f18,0x8($t6)
-/*  f19aeb0:	c7ae0064 */ 	lwc1	$f14,0x64($sp)
-/*  f19aeb4:	0fc259d4 */ 	jal	atan2f
-/*  f19aeb8:	c7ac006c */ 	lwc1	$f12,0x6c($sp)
-/*  f19aebc:	8faf0220 */ 	lw	$t7,0x220($sp)
-/*  f19aec0:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f19aec4:	e5e00000 */ 	swc1	$f0,0x0($t7)
-/*  f19aec8:	8fb90224 */ 	lw	$t9,0x224($sp)
-/*  f19aecc:	8e180000 */ 	lw	$t8,0x0($s0)
-/*  f19aed0:	af380000 */ 	sw	$t8,0x0($t9)
-/*  f19aed4:	8fa90228 */ 	lw	$t1,0x228($sp)
-/*  f19aed8:	ad280000 */ 	sw	$t0,0x0($t1)
-.L0f19aedc:
-/*  f19aedc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f19aee0:
-/*  f19aee0:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f19aee4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f19aee8:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f19aeec:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f19aef0:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f19aef4:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f19aef8:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f19aefc:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f19af00:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f19af04:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f19af08:	03e00008 */ 	jr	$ra
-/*  f19af0c:	27bd0218 */ 	addiu	$sp,$sp,0x218
-);
+/**
+ * Find a position inside the given room and populate the pointer arguments with
+ * information about the position.
+ *
+ * Used by bots in King of the Hill scenarios only. The room argument is always
+ * a hill room.
+ *
+ * @bug: There is a possible array overflow in both the covernums and padnums
+ * arrays. The for loops stop when the array is full, but the outer loop makes
+ * them iterate again, and the check is only at the end of each for loop rather
+ * than at the start.
+ *
+ * For covernums, the three variables declared above it are never written to the
+ * stack, so the outer loop would need to iterate three times while covernums is
+ * full in order to write into the caller's stack space. The only caller is
+ * botTickUnpaused, and its first stack usage is 0x20 where it backs up s0.
+ * So the outer loop would need to iterate 11 times before any damage could be
+ * done.
+ *
+ * For padnums, any overflow will write into the rooms array, likely clearing
+ * the -1 terminator in rooms[1] and affecting cover selection. Further
+ * iterations of the outer loop would write into the cover struct, but this is
+ * written before it's read so there's no issue there.
+ *
+ * It's likely that these don't ever overflow, or they overflow minimally which
+ * has no serious effect, but this should be investigated further.
+ */
+bool botroomFindPos(s16 room, struct coord *pos, f32 *angleptr, s32 *padnumptr, s32 *covernumptr)
+{
+	s32 i;
+	struct waypoint *waypoint;
+	s32 waypointnum;
+	s32 covernums[40]; /// written to stack
+	s32 covercount;
+	struct cover cover; // written to stack
+	s16 rooms[2]; // written to stack
+	s32 padnums[40]; // written to stack
+	s32 padcount;
+	s32 totalcount;
+	struct pad pad;
+	bool sp54;
+	bool sp50;
+	s32 count;
+
+	covercount = 0;
+	padcount = 0;
+
+	sp50 = 0;
+
+	rooms[0] = room;
+	rooms[1] = -1;
+
+	totalcount = 0;
+
+	do {
+		sp54 = false;
+		count = coverGetCount();
+
+		for (i = 0; i < count; i++) {
+			if (coverUnpack(i, &cover) && !coverIsSpecial(&cover) && arrayIntersects(cover.rooms, rooms)) {
+				if (sp50 && (cover.flags & COVERFLAG_0100)) {
+					coverUnsetFlag(i, COVERFLAG_0100);
+					covernums[covercount] = i;
+					covercount++;
+					totalcount++;
+				} else if ((cover.flags & COVERFLAG_0100) == 0) {
+					covernums[covercount] = i;
+					covercount++;
+					totalcount++;
+				} else {
+					sp54 = true;
+				}
+
+				if (covercount >= ARRAYCOUNT(covernums)) {
+					break;
+				}
+			}
+		}
+
+		if (g_StageSetup.waypoints != NULL) {
+			count = g_Rooms[room].numwaypoints;
+
+			for (i = 0; i < count; i++) {
+				waypointnum = g_Vars.waypointnums[g_Rooms[room].firstwaypoint + i];
+				waypoint = &g_StageSetup.waypoints[waypointnum];
+
+				padUnpack(waypoint->padnum, PADFIELD_FLAGS, &pad);
+
+				if (sp50 && (pad.flags & PADFLAG_20000)) {
+					padUnsetFlag(waypoint->padnum, PADFLAG_20000);
+					padnums[padcount] = waypoint->padnum;
+					padcount++;
+					totalcount++;
+				} else if ((pad.flags & PADFLAG_20000) == 0) {
+					padnums[padcount] = waypoint->padnum;
+					padcount++;
+					totalcount++;
+				} else {
+					sp54 = true;
+				}
+
+				if (padcount >= ARRAYCOUNT(padnums)) {
+					break;
+				}
+			}
+		}
+
+		if (1);
+
+		sp50 = sp54;
+	} while (sp54 && !totalcount);
+
+	if (!totalcount) {
+		return false;
+	}
+
+	i = random() % totalcount;
+
+	if (i < covercount) {
+		coverUnpack(covernums[i], &cover);
+
+		pos->x = cover.pos->x;
+		pos->y = cover.pos->y;
+		pos->z = cover.pos->z;
+
+		*angleptr = atan2f(cover.look->z, cover.look->x);
+		*padnumptr = -1;
+		*covernumptr = covernums[i];
+	} else {
+		i -= covercount;
+		padUnpack(padnums[i], PADFIELD_POS | PADFIELD_LOOK, &pad);
+
+		pos->x = pad.pos.x;
+		pos->y = pad.pos.y;
+		pos->z = pad.pos.z;
+
+		*angleptr = atan2f(pad.look.z, pad.look.x);
+		*padnumptr = padnums[i];
+		*covernumptr = -1;
+	}
+
+	return true;
+}
 
 bool func0f19af10(s32 challengeindex)
 {
