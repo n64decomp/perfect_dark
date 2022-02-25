@@ -800,7 +800,7 @@ s32 menudialog00103608(s32 operation, struct menudialogdef *dialogdef, union han
 	case MENUOP_OPEN:
 		g_Menus[g_MpPlayerNum].unk840.unk010 = 0;
 
-		func0f00e980(g_MissionConfig.stagenum,
+		setupLoadBriefing(g_MissionConfig.stagenum,
 				g_Menus[g_MpPlayerNum].unk840.unk004,
 				g_Menus[g_MpPlayerNum].unk840.unk008, &g_Briefing);
 		break;

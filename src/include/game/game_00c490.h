@@ -27,7 +27,7 @@ s32 func0f00e1f8(s32 padnum);
 s32 func0f00e2b0(s32 padnum);
 void setupDoor(struct doorobj *door, s32 cmdindex);
 void setupHov(struct defaultobj *obj, struct hov *hov);
-void func0f00e980(s32 stagenum, u8 *arg0, s32 arg1, struct briefing *briefing);
+void setupLoadBriefing(s32 stagenum, u8 *buffer, s32 bufferlen, struct briefing *briefing);
 void setupLoadFiles(s32 stagenum);
 void setupParseObjects(s32 stagenum);
 

@@ -1337,6 +1337,7 @@
 #define LOADTYPE_NONE  0
 #define LOADTYPE_BG    1
 #define LOADTYPE_TILES 2
+#define LOADTYPE_LANG  3
 #define LOADTYPE_SETUP 4
 #define LOADTYPE_PADS  5
 #define LOADTYPE_MODEL 6

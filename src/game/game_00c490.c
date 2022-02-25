@@ -2664,7 +2664,7 @@ void setupHov(struct defaultobj *obj, struct hov *hov)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f00e980
+glabel setupLoadBriefing
 /*  f00e980:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f00e984:	afb5002c */ 	sw	$s5,0x2c($sp)
 /*  f00e988:	afb30024 */ 	sw	$s3,0x24($sp)
@@ -2799,7 +2799,7 @@ glabel func0f00e980
 );
 #else
 GLOBAL_ASM(
-glabel func0f00e980
+glabel setupLoadBriefing
 /*  f00e980:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f00e984:	afb5002c */ 	sw	$s5,0x2c($sp)
 /*  f00e988:	afb30024 */ 	sw	$s3,0x24($sp)
@@ -2933,6 +2933,89 @@ glabel func0f00e980
 /*  f00eb60:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 #endif
+
+// Mismatch: for loop is handled differently, as is obj->type
+//void setupLoadBriefing(s32 stagenum, u8 *buffer, s32 bufferlen, struct briefing *briefing)
+//{
+//	if (stagenum < STAGE_TITLE) {
+//		s32 stageindex = stageGetIndex(stagenum);
+//		struct defaultobj *obj;
+//		s32 setupfilenum;
+//		s32 setupfilesize;
+//		struct objective *objective;
+//		struct briefingobj *briefingobj;
+//		s32 i;
+//		u8 *langbuffer;
+//		s32 langbufferlen;
+//		struct stagesetup *setup;
+//
+//		if (stageindex < 0) {
+//			stageindex = 0;
+//		}
+//
+//		setupfilenum = g_Stages[stageindex].setupfileid;
+//		g_LoadType = LOADTYPE_LANG;
+//
+//		if (g_Stages[stageindex].setupfileid);
+//
+//		func0f167200(setupfilenum, 0x22, buffer, bufferlen);
+//
+//		setup = (struct stagesetup *)buffer;
+//		setupfilesize = fileGetSize(setupfilenum);
+//		langbuffer = &buffer[setupfilesize];
+//		langbufferlen = bufferlen - setupfilesize;
+//
+//		briefing->langbank = langGetLangBankIndexFromStagenum(stagenum);
+//
+//		langSetBank(briefing->langbank, langbuffer, langbufferlen);
+//
+//		obj = (struct defaultobj *)((u32)setup + (u32)setup->props);
+//
+//		if (obj != NULL) {
+//			s32 wanttype = BRIEFINGTYPE_TEXT_PA;
+//
+//			if (lvGetDifficulty() == DIFF_A) {
+//				wanttype = BRIEFINGTYPE_TEXT_A;
+//			}
+//
+//			if (lvGetDifficulty() == DIFF_SA) {
+//				wanttype = BRIEFINGTYPE_TEXT_SA;
+//			}
+//
+//			for (i = 0; i < 6; i++) {
+//				briefing->objectivenames[i] = 0;
+//			}
+//
+//			briefing->briefingtextnum = L_MISC_042; // "No briefing for this mission"
+//
+//			while (obj->type != OBJTYPE_END) {
+//				switch (obj->type) {
+//				case OBJTYPE_BRIEFING:
+//					briefingobj = (struct briefingobj *)obj;
+//
+//					if (briefingobj->type == BRIEFINGTYPE_TEXT_PA) {
+//						briefing->briefingtextnum = briefingobj->text;
+//					}
+//
+//					if (briefingobj->type == wanttype) {
+//						briefing->briefingtextnum = briefingobj->text;
+//					}
+//					break;
+//				case OBJTYPE_BEGINOBJECTIVE:
+//					objective = (struct objective *)obj;
+//
+//					if (objective->index < 7U) {
+//						briefing->objectivenames[objective->index] = objective->text;
+//						briefing->objectivedifficulties[objective->index] = objective->difficulties;
+//					}
+//					break;
+//				}
+//
+//				obj = (struct defaultobj *)((u32 *)obj + setupGetCommandLength((u32 *)obj));
+//			}
+//		}
+//	}
+//}
 
 void setupLoadFiles(s32 stagenum)
 {
