@@ -412,27 +412,12 @@ glabel func0f0b2150
 /*  f0b26e4:	27bd0050 */ 	addiu	$sp,$sp,0x50
 /*  f0b26e8:	03e00008 */ 	jr	$ra
 /*  f0b26ec:	00000000 */ 	nop
-/*  f0b26f0:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0b26f4:	8fae0048 */ 	lw	$t6,0x48($sp)
-/*  f0b26f8:	8faf004c */ 	lw	$t7,0x4c($sp)
-/*  f0b26fc:	8fb80050 */ 	lw	$t8,0x50($sp)
-/*  f0b2700:	8fb90054 */ 	lw	$t9,0x54($sp)
-/*  f0b2704:	8fa80058 */ 	lw	$t0,0x58($sp)
-/*  f0b2708:	8fa9005c */ 	lw	$t1,0x5c($sp)
-/*  f0b270c:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0b2710:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0b2714:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0b2718:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f0b271c:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f0b2720:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f0b2724:	afa80020 */ 	sw	$t0,0x20($sp)
-/*  f0b2728:	0fc2c854 */ 	jal	func0f0b2150
-/*  f0b272c:	afa90024 */ 	sw	$t1,0x24($sp)
-/*  f0b2730:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0b2734:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0b2738:	03e00008 */ 	jr	$ra
-/*  f0b273c:	00000000 */ 	nop
 );
+
+void func0f0b26f0(Gfx **gdl, f32 *arg1, f32 *arg2, s32 width, s32 height, bool arg5, bool arg6, bool arg7, bool arg8, bool arg9)
+{
+	func0f0b2150(gdl, arg1, arg2, width, height, arg5, arg6, arg7, arg8, arg9, false);
+}
 
 void func0f0b2740(Gfx **gdl, f32 *arg1, f32 *arg2, s32 width, s32 height, bool arg5, bool arg6, bool arg7, u32 arg8)
 {
