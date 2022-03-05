@@ -5152,8 +5152,7 @@ struct weatherdata {
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
 	/*0x20*/ s32 type;
-	/*0x24*/ struct weatherparticledata *particledata;
-	/*0x28*/ u32 unk28;
+	/*0x24*/ struct weatherparticledata *particledata[2];
 	/*0x2c*/ u32 unk2c;
 	/*0x30*/ u32 unk30;
 	/*0x34*/ struct sndstate *audiohandles[4];
@@ -5204,9 +5203,7 @@ struct weatherparticle {
 
 struct weatherparticledata {
 	struct weatherparticle particles[500];
-	/*0x3e80*/ f32 unk3e80;
-	/*0x3e84*/ f32 unk3e84;
-	/*0x3e88*/ f32 unk3e88;
+	/*0x3e80*/ struct coord unk3e80;
 	/*0x3e8c*/ struct coord boundarymax;
 	/*0x3e98*/ struct coord boundarymin;
 	/*0x3ea4*/ struct coord boundaryrange;

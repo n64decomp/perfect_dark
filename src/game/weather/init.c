@@ -22,7 +22,7 @@ void weatherInit(void)
 				|| g_StageIndex == STAGEINDEX_CRASHSITE)
 			&& PLAYERCOUNT() < 2) {
 		g_WeatherData = mempAlloc(sizeof(struct weatherdata), MEMPOOL_STAGE);
-		g_WeatherData->particledata = weatherAllocateParticles();
+		g_WeatherData->particledata[0] = weatherAllocateParticles();
 		g_WeatherData->type = -1;
 		g_WeatherData->windanglerad = 0;
 		g_WeatherData->unk0c = 0;
