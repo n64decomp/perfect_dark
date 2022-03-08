@@ -15,7 +15,7 @@
 #include "types.h"
 
 u32 var800a33a0;
-u32 var800a33a4;
+s32 var800a33a4;
 u32 var800a33a8;
 u32 var800a33ac;
 u32 var800a33b0;

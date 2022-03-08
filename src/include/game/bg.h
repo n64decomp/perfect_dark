@@ -64,7 +64,7 @@ Gfx *bgRenderRoomOpaque(Gfx *gdl, s32 roomnum);
 Gfx *bgRenderRoomAlpha(Gfx *gdl, s32 roomnum);
 u32 func0f15ecd8(void);
 void func0f15ef9c(s32 roomnum);
-u32 func0f15f20c(void);
+bool func0f15f20c(struct coord *arg0, struct coord *arg1, s32 *arg2, s32 *arg3);
 u32 func0f15f2b0(void);
 u32 func0f15f560(void);
 u32 func0f15ffdc(void);

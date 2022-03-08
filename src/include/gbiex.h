@@ -85,6 +85,9 @@
 			| _SHIFTL(x1, 0, 4));        \
 }
 
+#define gDPTri3(pkt, x1, y1, z1, x2, y2, z2, x3, y3, z3) \
+	gDPTri4(pkt, x1, y1, z1, x2, y2, z2, x3, y3, z3, 0, 0, 0)
+
 #define gDPTri2(pkt, x1, y1, z1, x2, y2, z2) \
 	gDPTri4(pkt, x1, y1, z1, x2, y2, z2, 0, 0, 0, 0, 0, 0)
 

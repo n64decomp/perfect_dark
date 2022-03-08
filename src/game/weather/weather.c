@@ -33,15 +33,6 @@ s32 var8007f0c4[4] = {
 u32 g_RainSpeedExtra = 20;
 u32 g_SnowSpeed = 15;
 u32 g_SnowSpeedExtra = 10;
-u32 var8007f0e0 = 0x00000001;
-u32 var8007f0e4 = 0xaaaaaa1f;
-u32 var8007f0e8 = 0x11111844;
-u32 var8007f0ec = 0x00000032;
-u32 var8007f0f0 = 0x000009c4;
-u32 var8007f0f4 = 0x00000001;
-u32 var8007f0f8 = 0x00000001;
-u32 var8007f0fc = 0x000055f0;
-u32 var8007f100 = 0x00000032;
 
 Gfx *weatherRender(Gfx *gdl)
 {
@@ -617,15 +608,6 @@ void weatherTickSnow(struct weatherdata *weather)
 		}
 	}
 }
-
-const char var7f1b564c[] = "raincol1";
-const char var7f1b5658[] = "raincol2";
-const char var7f1b5664[] = "rainwidth";
-const char var7f1b5670[] = "rainout";
-const char var7f1b5678[] = "cddiv";
-const char var7f1b5680[] = "wetclip";
-const char var7f1b5688[] = "bounder";
-const char var7f1b5690[] = "trypitch";
 
 void weatherConfigureRain(u32 intensity)
 {
@@ -2496,6 +2478,631 @@ glabel var7f1b5780
 /*  f1346ac:	27bd0de8 */ 	addiu	$sp,$sp,0xde8
 );
 
+const char var7f1b564c[] = "raincol1";
+const char var7f1b5658[] = "raincol2";
+const char var7f1b5664[] = "rainwidth";
+const char var7f1b5670[] = "rainout";
+const char var7f1b5678[] = "cddiv";
+const char var7f1b5680[] = "wetclip";
+const char var7f1b5688[] = "bounder";
+const char var7f1b5690[] = "trypitch";
+
+u32 var8007f0e0 = 0x00000001;
+u32 var8007f0e4 = 0xaaaaaa1f;
+u32 var8007f0e8 = 0x11111844;
+u32 var8007f0ec = 50;
+u32 var8007f0f0 = 2500;
+u32 var8007f0f4 = 1;
+u32 var8007f0f8 = 1;
+u32 var8007f0fc = 22000;
+
+//Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
+//{
+//	u8 stack[0x10];
+//	s32 spdb0[10];
+//	Mtxf *mtx;
+//	s32 i;
+//	s32 s0;
+//	s32 spd84[8];
+//	s32 spd80;
+//	s32 spcb8[50];
+//	struct coord spca8;
+//	struct coord spc9c;
+//	struct coord spc90;
+//	s32 s1;
+//	s32 s1_2;
+//	s32 s2;
+//
+//	f32 spc84;
+//	s32 spbbc[50];
+//	struct coord sp964[50];
+//	struct coord sp70c[50];
+//	s32 sp708;
+//	s32 sp258[50][6];
+//	bool s3;
+//	struct gfxvtx *s3_2;
+//	s32 s4;
+//	struct weatherparticledata *particledata;
+//	struct weatherparticle *particle;
+//	f32 temp_f2_7;
+//	s32 a2;
+//	struct coord sp230;
+//	struct coord sp224;
+//	f32 f0;
+//	f32 sp218[2];
+//	f32 sp214;
+//	struct gfxvtx *vertices; // 210
+//	f32 frac;
+//	s32 a0;
+//	Mtxf sp1c8;
+//	struct coord sp198[4];
+//	s32 sp194;
+//
+//	s32 j2;
+//	s32 k;
+//	u32 *colours;
+//	struct gfxvtx *v0_2;
+//	f32 sp174;
+//	s32 numneighbours;
+//	s32 j;
+//	s32 p;
+//	f32 tmp1;
+//	f32 tmp2;
+//	f32 tmp3;
+//	struct coord sp15c;
+//	struct coord sp150;
+//	s16 sp128[20];
+//	struct coord sp108;
+//	struct coord spfc;
+//	struct coord spe4;
+//	struct coord spd4;
+//
+//	static u32 var8007f0e4 = 0xaaaaaa1f;
+//	static u32 var8007f0e8 = 0x11111844;
+//	static u32 var8007f0ec = 50;
+//	static u32 var8007f0f0 = 2500;
+//	static u32 var8007f0f4 = 1;
+//	static u32 var8007f0f8 = 1;
+//	static u32 var8007f0fc = 22000;
+//
+//	spd80 = 1;
+//	s4 = 0;
+//	sp708 = 0;
+//
+//	mainOverrideVariable("raincol1", &var8007f0e4);
+//	mainOverrideVariable("raincol2", &var8007f0e8);
+//	mainOverrideVariable("rainwidth", &var8007f0e0);
+//	mainOverrideVariable("rainout", &var8007f0ec);
+//	mainOverrideVariable("cddiv", &var8007f0f0);
+//	mainOverrideVariable("wetclip", &var8007f0f4);
+//	mainOverrideVariable("bounder", &var8007f0f8);
+//	mainOverrideVariable("trypitch", &var8007f0fc);
+//
+//	if (g_Vars.lvupdate240 <= 0) {
+//		spd80 = 0;
+//	}
+//
+//	osGetCount();
+//
+//	for (i = 0; i != 10; i++) {
+//		spdb0[i] = 0;
+//	}
+//
+//	func0f0b39c0(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, 1, NULL);
+//
+//	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//	gDPSetColorDither(gdl++, G_CD_DISABLE);
+//	gDPSetRenderMode(gdl++, G_RM_AA_ZB_XLU_SURF, G_RM_NOOP2);
+//	gDPSetAlphaCompare(gdl++, G_AC_NONE);
+//	gDPSetTextureLOD(gdl++, G_TL_TILE);
+//	gDPSetTextureConvert(gdl++, G_TC_FILT);
+//	gDPSetCombineLERP(gdl++,
+//			0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0,
+//			0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0);
+//
+//	particledata = weather->particledata[arg2];
+//	sp194 = 0;
+//
+//	mtx4LoadIdentity(&sp1c8);
+//	mtx00015be0(currentPlayerGetMatrix1740(), &sp1c8);
+//
+//	sp1c8.m[3][0] = 0.0f;
+//	sp1c8.m[3][1] = 0.0f;
+//	sp1c8.m[3][2] = 0.0f;
+//
+//	mtx = gfxAllocateMatrix();
+//
+//	mtx00016054(&sp1c8, mtx);
+//
+//	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+//
+//	sp230.f[0] = g_Vars.currentplayer->cam_pos.f[0];
+//	sp230.f[1] = g_Vars.currentplayer->cam_pos.f[1];
+//	sp230.f[2] = g_Vars.currentplayer->cam_pos.f[2];
+//
+//	sp224.f[0] = sp230.f[0] - particledata->unk3e80.f[0];
+//	sp224.f[1] = sp230.f[1] - particledata->unk3e80.f[1];
+//	sp224.f[2] = sp230.f[2] - particledata->unk3e80.f[2];
+//
+//	if (ABSF(sp224.f[0]) > ABSF(particledata->boundarymin.f[0]) + ABSF(particledata->boundarymax.f[0])
+//			|| ABSF(sp224.f[1]) > ABSF(particledata->boundarymin.f[1]) + ABSF(particledata->boundarymax.f[1])
+//			|| ABSF(sp224.f[2]) > ABSF(particledata->boundarymin.f[2]) + ABSF(particledata->boundarymax.f[2])) {
+//		sp224.f[0] = particledata->boundaryrange.f[0] * 0.5f;
+//		sp224.f[1] = particledata->boundaryrange.f[1] * 0.5f;
+//		sp224.f[2] = particledata->boundaryrange.f[2] * 0.5f;
+//	}
+//
+//	// 32b0
+//	for (p = 0; p < 500; p++) {
+//		particle = &particledata->particles[p];
+//
+//		// x
+//		f0 = particle->pos.f[0] - particledata->boundarymin.f[0] - sp224.f[0];
+//
+//		if (f0 < 0.0f) {
+//			f0 += particledata->boundaryrange.f[0];
+//		}
+//
+//		if (f0 > particledata->boundaryrange.f[0]) {
+//			f0 -= particledata->boundaryrange.f[0];
+//		}
+//
+//		particle->pos.f[0] = particledata->boundarymin.f[0] + f0;
+//
+//		// y
+//		f0 = particle->pos.f[1] - particledata->boundarymin.f[1] - sp224.f[1];
+//
+//		if (f0 < 0.0f) {
+//			f0 += particledata->boundaryrange.f[1];
+//		}
+//
+//		if (f0 > particledata->boundaryrange.f[1]) {
+//			f0 -= particledata->boundaryrange.f[1];
+//		}
+//
+//		particle->pos.f[1] = particledata->boundarymin.f[1] + f0;
+//
+//		// z
+//		f0 = particle->pos.f[2] - particledata->boundarymin.f[2] - sp224.f[2];
+//
+//		if (f0 < 0.0f) {
+//			f0 += particledata->boundaryrange.f[2];
+//		}
+//
+//		if (f0 > particledata->boundaryrange.f[2]) {
+//			f0 -= particledata->boundaryrange.f[2];
+//		}
+//
+//		particle->pos.f[2] = particledata->boundarymin.f[2] + f0;
+//	}
+//
+//	// 33a4
+//	particledata->unk3e80.f[0] = sp230.f[0];
+//	particledata->unk3e80.f[1] = sp230.f[1];
+//	particledata->unk3e80.f[2] = sp230.f[2];
+//
+//	if (weatherIsRoomWeatherProof(g_Vars.currentplayer->cam_room)) {
+//		if (weather->unk88 > 0.99f) {
+//			weather->unk8c = 0.65f;
+//			weather->unk90 = 9;
+//		}
+//	} else if (weather->unk88 < 0.66f) {
+//		weather->unk8c = 1.0f;
+//		weather->unk90 = 7;
+//	}
+//
+//	// 3444
+//	if (g_Vars.lvupdate240 > 0) {
+//		var800a33a4 = 0;
+//
+//		if (weather->unk94 < 0) {
+//			if (random() * (1.0f / U32_MAX) < weather->unkc4) {
+//				func0f131610(weather);
+//			}
+//		} else {
+//			// 34bc
+//			if (weather->unk98 - 1 == weather->unk94
+//					|| weather->unk9c - 1 == weather->unk94
+//					|| weather->unka0 - 1 == weather->unk94) {
+//				var800a33a4 = 1;
+//			}
+//
+//			if (weather->unk98 == weather->unk94
+//					|| weather->unk9c == weather->unk94
+//					|| weather->unka0 == weather->unk94) {
+//				s1 = 150;
+//
+//				if (weather->unk9c == weather->unk94) {
+//					s1 = 200;
+//				}
+//
+//				// 3534
+//				for (s0 = 1; s0 < g_Vars.roomcount; s0++) {
+//					if (!weatherIsRoomWeatherProof(s0)) {
+//						roomSetUnk52(s0, s1);
+//					}
+//				}
+//			}
+//
+//			// 3574
+//			if (weather->unka4 == weather->unk94) {
+//				s1_2 = 0x80ba;
+//				sp174 = random() * (1.0f / U32_MAX) * 1.5f + 0.4f;
+//				frac = random() * (1.0f / U32_MAX);
+//
+//				if (frac);
+//
+//				// 608
+//				if (frac <= 0.2f && frac > .1f) {
+//					s1_2 = 0x80bb;
+//				}
+//
+//				// 63c
+//				if (frac <= 0.3f && frac > .2f) {
+//					s1_2 = 0x80bc;
+//				}
+//
+//				if (frac <= 0.4f && frac > .3f) {
+//					s1_2 = 0x80bd;
+//				}
+//
+//				if (frac <= 0.5f && frac > .4f) {
+//					s1_2 = 0x80be;
+//				}
+//
+//				if (frac <= 0.6f && frac > .5f) {
+//					s1_2 = 0x80bf;
+//				}
+//
+//				if (frac <= 0.7f && frac > .6f) {
+//					s1_2 = 0x80c0;
+//				}
+//
+//				if (frac <= 0.8f && frac > .7f) {
+//					s1_2 = 0x80c1;
+//				}
+//
+//				if (frac <= 0.9f && frac > .8f) {
+//					s1_2 = 0x80c2;
+//				}
+//
+//				if (frac <= 1.0f && frac > .9f) {
+//					s1_2 = 0x80c3;
+//				}
+//
+//				if (weather->audiohandles[3] == NULL) {
+//					weather->unkf8 = s1_2;
+//					sndStart(var80095200, s1_2, &weather->audiohandles[3], -1, -1, -1.0f, -1, -1);
+//					weather->unk58[3].unk00 = 1.f;
+//
+//					if (weather->audiohandles[3] != NULL) {
+//						a2 = weather->unk88;
+//
+//						if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
+//							a2 /= 2;
+//						}
+//
+//						sndAdjust(&weather->audiohandles[3], 0, a2, -1, weather->unkf8, 1, 1, -1, 1);
+//						audioPostEvent(weather->audiohandles[3], 0x10, *(s32 *)&sp174);
+//					}
+//				}
+//			}
+//
+//			weather->unk94++;
+//
+//			if (weather->unk94 > 150) {
+//				weather->unk94 = -1;
+//			}
+//		}
+//	}
+//
+//	// 38c4
+//	if (var8007f0f4) {
+//		sp150.f[0] = particledata->boundarymin.f[0] + g_Vars.currentplayer->cam_pos.f[0];
+//		sp15c.f[0] = particledata->boundarymax.f[0] + g_Vars.currentplayer->cam_pos.f[0];
+//		sp150.f[1] = particledata->boundarymin.f[1] + g_Vars.currentplayer->cam_pos.f[1];
+//		sp15c.f[1] = particledata->boundarymax.f[1] + g_Vars.currentplayer->cam_pos.f[1];
+//		sp150.f[2] = particledata->boundarymin.f[2] + g_Vars.currentplayer->cam_pos.f[2];
+//		sp15c.f[2] = particledata->boundarymax.f[2] + g_Vars.currentplayer->cam_pos.f[2];
+//
+//		if (s4 < 50) {
+//			spcb8[s4] = g_Vars.currentplayer->cam_room;
+//			s4++;
+//		}
+//
+//		spc84 = 1.0f;
+//
+//		// 3950
+//		for (s2 = 0; s2 < s4; s2++) {
+//			numneighbours = roomGetNeighbours(spcb8[s2], sp128, ARRAYCOUNT(sp128));
+//
+//			// 396c
+//			for (j2 = 0; j2 < numneighbours; j2++) {
+//				a0 = true;
+//
+//				if (g_Rooms[sp128[j2]].flags & ROOMFLAG_VISIBLEBYPLAYER) {
+//					for (k = 0; k < s4; k++) {
+//						if (spcb8[k] == sp128[j2]) {
+//							a0 = false;
+//						}
+//					}
+//
+//					if (a0) {
+//						if (sp15c.f[0] < g_Rooms[sp128[j2]].bbmin[0] || g_Rooms[sp128[j2]].bbmax[0] < sp150.f[0]) {
+//							a0 = false;
+//						}
+//
+//						if (sp15c.f[1] < g_Rooms[sp128[j2]].bbmin[1] || g_Rooms[sp128[j2]].bbmax[1] < sp150.f[1]) {
+//							a0 = false;
+//						}
+//
+//						if (sp15c.f[2] < g_Rooms[sp128[j2]].bbmin[2] || g_Rooms[sp128[j2]].bbmax[2] < sp150.f[2]) {
+//							a0 = false;
+//						}
+//					}
+//
+//					if (a0 && s4 < 50) {
+//						spcb8[s4] = sp128[j2];
+//						s4++;
+//					}
+//				}
+//			}
+//		}
+//
+//		// 3a98
+//		for (s2 = 0; s2 < s4; s2++) {
+//			if (weatherIsRoomWeatherProof(spcb8[s2])) {
+//				sp964[sp708].f[0] = g_Rooms[spcb8[s2]].bbmin[0] / 1.0f;
+//				sp964[sp708].f[1] = g_Rooms[spcb8[s2]].bbmin[1] / 1.0f;
+//				sp964[sp708].f[2] = g_Rooms[spcb8[s2]].bbmin[2] / 1.0f;
+//
+//				sp70c[sp708].f[0] = g_Rooms[spcb8[s2]].bbmax[0] / 1.0f;
+//				sp70c[sp708].f[1] = g_Rooms[spcb8[s2]].bbmax[1] / 1.0f;
+//				sp70c[sp708].f[2] = g_Rooms[spcb8[s2]].bbmax[2] / 1.0f;
+//
+//				if (sp708 < 50) {
+//					spbbc[sp708] = spcb8[s2];
+//					sp708++;
+//				}
+//			}
+//		}
+//
+//		// 3b70
+//		for (s0 = 0; s0 < sp708; s0++) {
+//			if (spbbc[s0]);
+//			sp258[s0][0] = g_Rooms[spbbc[s0]].bbmin[0];
+//			sp258[s0][1] = g_Rooms[spbbc[s0]].bbmin[1];
+//			sp258[s0][2] = g_Rooms[spbbc[s0]].bbmin[2];
+//			sp258[s0][3] = g_Rooms[spbbc[s0]].bbmax[0];
+//			sp258[s0][4] = g_Rooms[spbbc[s0]].bbmax[1];
+//			sp258[s0][5] = g_Rooms[spbbc[s0]].bbmax[2];
+//		}
+//	}
+//
+//	colours = gfxAllocateColours(2);
+//	colours[0] = var8007f0e4;
+//	colours[1] = var8007f0e8;
+//
+//	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
+//
+//	spd84[0] = osGetCount();
+//
+//	// 3ca4
+//	for (p = 0; p < 500; p++) {
+//		s3 = 1;
+//
+//		if (particledata->particles[p].active & 3) {
+//			spd84[7] = osGetCount();
+//
+//			sp108.f[0] = particledata->unk3e80.f[0] + particledata->particles[p].pos.f[0];
+//			sp108.f[1] = particledata->unk3e80.f[1] + particledata->particles[p].pos.f[1];
+//			sp108.f[2] = particledata->unk3e80.f[2] + particledata->particles[p].pos.f[2];
+//
+//			if (func0f0b5b9c(&sp108, 150)) {
+//				spdb0[7] = spdb0[7] + osGetCount() - spd84[7];
+//
+//				sp218[0] = particledata->particles[p].pos.f[0];
+//				sp218[1] = particledata->particles[p].pos.f[2];
+//
+//				sp214 = sqrtf(sp218[0] * sp218[0] + sp218[1] * sp218[1]);
+//
+//				if (sp214 < 0.0001f) {
+//					// empty
+//				} else {
+//					s32 tmp = sp194 * 3;
+//
+//					if (sp194 == 0) {
+//						vertices = gfxAllocateVertices(12);
+//					}
+//
+//					sp218[0] /= sp214;
+//					sp218[1] /= sp214;
+//
+//					v0_2 = &vertices[tmp];
+//
+//					for (j = 0; j < 4; j++) {
+//						v0_2[j].unk08 = 0;
+//						v0_2[j].unk0a = 0;
+//
+//						sp198[j].f[0] = particledata->particles[p].pos.f[0];
+//						sp198[j].f[1] = particledata->particles[p].pos.f[1];
+//						sp198[j].f[2] = particledata->particles[p].pos.f[2];
+//					}
+//
+//					spd84[1] = osGetCount();
+//					spd84[2] = osGetCount();
+//
+//					// 3e0c
+//					if (var8007f0f4 && sp708 > 0) {
+//						spca8.f[0] = spc90.f[0] = (particledata->unk3e80.f[0] + particledata->particles[p].pos.f[0]) * spc84;
+//						spca8.f[1] = spc90.f[1] = (particledata->unk3e80.f[0] + particledata->particles[p].pos.f[1]) * spc84;
+//						spca8.f[2] = spc90.f[2] = (particledata->unk3e80.f[0] + particledata->particles[p].pos.f[2]) * spc84;
+//
+//						spc9c.f[0] = (particledata->unk3e80.f[0] + (particledata->particles[p].pos.f[0] - (weather->windspeedx * (var8007f0ec / 10.0f)))) * spc84;
+//						spc9c.f[1] = (particledata->unk3e80.f[0] + (particledata->particles[p].pos.f[1] + weather->unkb8)) * spc84;
+//						spc9c.f[2] = (particledata->unk3e80.f[0] + (particledata->particles[p].pos.f[2] - (weather->windspeedz * (var8007f0ec / 10.0f)))) * spc84;
+//
+//						spfc.f[0] = spc9c.f[0] - spc90.f[0];
+//						spfc.f[1] = spc9c.f[1] - spc90.f[1];
+//						spfc.f[2] = spc9c.f[2] - spc90.f[2];
+//
+//						// 3f24
+//						if (spca8.f[0] < spc9c.f[0]) {
+//							tmp1 = spc9c.f[0];
+//							spc9c.f[0] = spca8.f[0];
+//							spca8.f[0] = tmp1;
+//						}
+//
+//						if (spca8.f[1] < spc9c.f[1]) {
+//							tmp2 = spca8.f[1];
+//							spca8.f[1] = spc9c.f[1];
+//							spc9c.f[1] = tmp2;
+//						}
+//
+//						if (spca8.f[2] < spc9c.f[2]) {
+//							tmp3 = spca8.f[2];
+//							spca8.f[2] = spc9c.f[2];
+//							spc9c.f[2] = tmp3;
+//						}
+//
+//						spd84[3] = osGetCount();
+//
+//						// 3f84
+//						for (s0 = 0; s0 < sp708; s0++) {
+//							if (spc9c.f[0] <= g_Rooms[spbbc[s0]].bbmax[0]
+//									&& spca8.f[0] >= g_Rooms[spbbc[s0]].bbmin[0]
+//									&& spc9c.f[2] <= g_Rooms[spbbc[s0]].bbmax[2]
+//									&& spca8.f[2] >= g_Rooms[spbbc[s0]].bbmin[2]
+//									&& spc9c.f[1] <= g_Rooms[spbbc[s0]].bbmax[1]
+//									&& spca8.f[1] >= g_Rooms[spbbc[s0]].bbmin[1]
+//									&& var8007f0f8
+//									&& func0f15f20c(&spc90, &spfc, &sp258[s0][0], &sp258[s0][3])) {
+//								s3 = 0;
+//							}
+//						}
+//
+//						spdb0[3] = spdb0[3] + osGetCount() - spd84[3];
+//					}
+//
+//					spdb0[2] = spdb0[2] + osGetCount() - spd84[2];
+//
+//					// 40b8
+//					if (s3) {
+//						spd84[4] = osGetCount();
+//
+//						temp_f2_7 = var8007f0e0 * (1.0f + sp214 / (var8007f0f0 / 10.0f));
+//
+//						sp198[0].f[0] += -sp218[1] * -temp_f2_7;
+//						sp198[0].f[2] += sp218[0] * -temp_f2_7;
+//
+//						sp198[1].f[0] += -sp218[1] * temp_f2_7;
+//						sp198[1].f[2] += sp218[0] * temp_f2_7;
+//
+//						sp198[3].f[0] -= weather->windspeedx * (var8007f0ec / 10.0f) + -sp218[1] * temp_f2_7;
+//						sp198[3].f[1] += weather->unkb8;
+//						sp198[3].f[2] -= weather->windspeedz * (var8007f0ec / 10.0f) + sp218[0] * temp_f2_7;
+//
+//						sp198[2].f[0] -= weather->windspeedx * (var8007f0ec / 10.0f) + -sp218[1] * -temp_f2_7;
+//						sp198[2].f[1] += weather->unkb8;
+//						sp198[2].f[2] -= weather->windspeedz * (var8007f0ec / 10.0f) + sp218[0] * -temp_f2_7;
+//
+//						v0_2[0].colour = 0;
+//						v0_2[1].colour = 0;
+//						v0_2[2].colour = 4;
+//						v0_2[3].colour = 4;
+//
+//						if (spd80 > 0) {
+//							spe4.f[0] = (particledata->unk3e80.f[0] + particledata->particles[p].pos.f[0]) * spc84;
+//							spe4.f[1] = (particledata->unk3e80.f[1] + particledata->particles[p].pos.f[1]) * spc84;
+//							spe4.f[2] = (particledata->unk3e80.f[2] + particledata->particles[p].pos.f[2]) * spc84;
+//
+//							for (s0 = 0; s0 < s4; s0++) {
+//								if (spe4.f[0] <= g_Rooms[spcb8[s0]].bbmax[0]
+//										&& spe4.f[0] >= g_Rooms[spcb8[s0]].bbmin[0]
+//										&& spe4.f[2] <= g_Rooms[spcb8[s0]].bbmax[2]
+//										&& spe4.f[2] >= g_Rooms[spcb8[s0]].bbmin[2]
+//										&& spe4.f[1] <= g_Rooms[spcb8[s0]].bbmax[1]
+//										&& spe4.f[1] >= g_Rooms[spcb8[s0]].bbmin[1]
+//										&& spe4.f[1] + spc84 * (particledata->particles[p].inc.f[1] * 1) < g_Rooms[spcb8[s0]].bbmin[1]) {
+//									spd4.f[0] = particledata->unk3e80.f[0] + particledata->particles[p].pos.f[0];
+//									spd4.f[1] = g_Rooms[spcb8[s0]].bbmin[1] / spc84;
+//									spd4.f[2] = particledata->unk3e80.f[2] + particledata->particles[p].pos.f[2];
+//
+//									sparksCreate(spcb8[s0], NULL, &spd4, &particledata->particles[p].inc, NULL, SPARKTYPE_0F);
+//
+//									spd80--;
+//								}
+//							}
+//						}
+//
+//						spdb0[4] = spdb0[4] + osGetCount() - spd84[4];
+//						spd84[5] = osGetCount();
+//
+//						v0_2[0].unk08 = 0;
+//						v0_2[0].unk0a = 256;
+//
+//						v0_2[1].unk08 = 256;
+//						v0_2[1].unk0a = 256;
+//
+//						v0_2[2].unk08 = 256;
+//						v0_2[2].unk0a = 0;
+//
+//						v0_2[3].unk08 = 0;
+//						v0_2[3].unk0a = 0;
+//
+//						spdb0[5] = spdb0[5] + osGetCount() - spd84[5];
+//						spd84[6] = osGetCount();
+//
+//						v0_2[0].x = sp198[0].f[0];
+//						v0_2[0].y = sp198[0].f[1];
+//						v0_2[0].z = sp198[0].f[2];
+//
+//						v0_2[1].x = sp198[1].f[0];
+//						v0_2[1].y = sp198[1].f[1];
+//						v0_2[1].z = sp198[1].f[2];
+//
+//						v0_2[2].x = sp198[2].f[0];
+//						v0_2[2].y = sp198[2].f[1];
+//						v0_2[2].z = sp198[2].f[2];
+//
+//						if (sp194 == 3) {
+//							gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 12);
+//							gDPTri4(gdl++, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+//							sp194 = 0;
+//
+//						} else {
+//							sp194++;
+//						}
+//
+//						spdb0[6] = spdb0[6] + osGetCount() - spd84[6];
+//						spdb0[1] = spdb0[1] + osGetCount() - spd84[1];
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	if (sp194 > 0) {
+//		gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 12);
+//
+//		if (sp194 == 1) {
+//			gDPTri1(gdl++, 0, 1, 2);
+//		}
+//
+//		if (sp194 == 2) {
+//			gDPTri2(gdl++, 0, 1, 2, 3, 4, 5);
+//		}
+//
+//		if (sp194 == 3) {
+//			gDPTri3(gdl++, 0, 1, 2, 3, 4, 5, 6, 7, 8);
+//		}
+//	}
+//
+//	osGetCount();
+//
+//	return gdl;
+//}
+
 GLOBAL_ASM(
 glabel weatherRenderSnow
 .late_rodata
@@ -3953,6 +4560,7 @@ const char var7f1b56a8[] = "snowheight";
 const char var7f1b56b4[] = "snowcol1";
 const char var7f1b56c0[] = "snowcol2";
 
+u32 var8007f100 = 50;
 u32 var8007f104 = 5;
 u32 var8007f108 = 10;
 u32 var8007f10c = 0x8888aaff;

@@ -199,7 +199,7 @@ extern u16 *g_SpecialCoverNums;
 extern struct pak g_Paks[5];
 extern OSPfs g_Pfses[4];
 extern u32 var800a33a0;
-extern u32 var800a33a4;
+extern s32 var800a33a4;
 extern struct explosion *g_Explosions;
 extern s32 g_MaxExplosions;
 extern struct smoke *g_Smokes;
