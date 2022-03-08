@@ -1094,7 +1094,7 @@
 #define GOPOSFLAG_FORPATHSTART 0x08
 #define GOPOSFLAG_20           0x20
 #define GOPOSFLAG_DUCK         0x40
-#define GOPOSFLAG_80           0x80
+#define GOPOSFLAG_WALKDIRECT   0x80
 
 #define GUNCMD_END               0
 #define GUNCMD_SHOWPART          1

@@ -6163,7 +6163,7 @@ bool chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 flags)
 #endif
 		chr->sleep = 0;
 		chr->liftaction = 0;
-		chr->act_gopos.flags &= ~(GOPOSFLAG_80 | GOPOSFLAG_DUCK | GOPOSFLAG_20);
+		chr->act_gopos.flags &= ~(GOPOSFLAG_WALKDIRECT | GOPOSFLAG_DUCK | GOPOSFLAG_20);
 		chrGoPosGetCurWaypointInfo(chr, &curwppos, curwprooms);
 
 		if ((!isgopos || ismagic)
@@ -19341,7 +19341,7 @@ void chrTickGoPos(struct chrdata *chr)
 	s16 curwprooms[8];
 	u32 curwpflags;
 
-	chr->act_gopos.flags &= ~(GOPOSFLAG_DUCK | GOPOSFLAG_80);
+	chr->act_gopos.flags &= ~(GOPOSFLAG_DUCK | GOPOSFLAG_WALKDIRECT);
 
 	if (chr->hidden & CHRHFLAG_NEEDANIM) {
 		if (modelIsAnimMerging(chr->model)) {
@@ -19456,7 +19456,7 @@ void chrTickGoPos(struct chrdata *chr)
 			if (pad.flags & PADFLAG_AIDUCK) {
 				chr->act_gopos.flags |= GOPOSFLAG_DUCK;
 			} else if (pad.flags & PADFLAG_10000) {
-				chr->act_gopos.flags |= GOPOSFLAG_80;
+				chr->act_gopos.flags |= GOPOSFLAG_WALKDIRECT;
 			}
 
 			if ((pad.flags & PADFLAG_AIWAITLIFT) || (pad.flags & PADFLAG_AIONLIFT)) {

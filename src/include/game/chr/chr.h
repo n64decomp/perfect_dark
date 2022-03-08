@@ -8,8 +8,14 @@ void propsTick2(void);
 void chrSetChrnum(struct chrdata *chr, s16 chrnum);
 void chrDeregister(s32 chrnum);
 void chrCalculatePushPos(struct chrdata *chr, struct coord *pos, s16 *rooms, bool arg3);
-bool chr0f01f264(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3, bool arg4);
-void chr0f01f378(void);
+
+#if VERSION >= VERSION_NTSC_1_0
+bool chr0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, bool arg4);
+#else
+bool chr0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3);
+#endif
+
+bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f32 *mangroundptr);
 s32 chrsGetNumFree(void);
 s16 chrsGetNextUnusedChrnum(void);
 struct prop *chr0f020b14(struct prop *prop, struct model *model, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist);
