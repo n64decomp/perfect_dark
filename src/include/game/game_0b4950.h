@@ -12,7 +12,7 @@ void currentPlayerSetCameraScale(void);
 void func0f0b4c3c(f32 *crosspos, struct coord *arg1, f32 arg2);
 void func0f0b4d04(struct coord *in, f32 *out);
 void func0f0b4d68(struct coord *in, f32 out[2]);
-void func0f0b4dec(struct coord *in, struct coord *out);
+void func0f0b4dec(struct coord *in, f32 out[2]);
 void func0f0b4e68(struct coord *in, f32 divisor, struct coord *out);
 void func0f0b4eb8(struct coord *arg0, f32 arg1[2], f32 zoom, f32 aspect);
 void currentPlayerSetUnk1738(void *matrix);

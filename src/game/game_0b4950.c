@@ -199,7 +199,7 @@ void func0f0b4d68(struct coord *in, struct coord *out)
 		in->x * value * player->c_recipscalex;
 }
 
-void func0f0b4dec(struct coord *in, struct coord *out)
+void func0f0b4dec(struct coord *in, f32 out[2])
 {
 	struct player *player = g_Vars.currentplayer;
 	f32 value = 1.0f / in->z;
@@ -208,10 +208,10 @@ void func0f0b4dec(struct coord *in, struct coord *out)
 		value = -value;
 	}
 
-	out->y = in->y * value * player->c_recipscaley +
+	out[1] = in->y * value * player->c_recipscaley +
 		(player->c_screentop + player->c_halfheight);
 
-	out->x = (player->c_screenleft + player->c_halfwidth)
+	out[0] = (player->c_screenleft + player->c_halfwidth)
 		- in->x * value * player->c_recipscalex;
 }
 
