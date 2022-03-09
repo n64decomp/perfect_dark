@@ -6253,363 +6253,121 @@ void chrPatrolChooseAnimation(struct chrdata *chr)
 	}
 }
 
-GLOBAL_ASM(
-glabel chrStartPatrol
-.late_rodata
-glabel var7f1a8dd0
-.word 0x3f99999a
-.text
-/*  f038b9c:	27bdfef0 */ 	addiu	$sp,$sp,-272
-/*  f038ba0:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f038ba4:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f038ba8:	afb40040 */ 	sw	$s4,0x40($sp)
-/*  f038bac:	afb3003c */ 	sw	$s3,0x3c($sp)
-/*  f038bb0:	afb20038 */ 	sw	$s2,0x38($sp)
-/*  f038bb4:	afb10034 */ 	sw	$s1,0x34($sp)
-/*  f038bb8:	afb00030 */ 	sw	$s0,0x30($sp)
-/*  f038bbc:	4480a000 */ 	mtc1	$zero,$f20
-/*  f038bc0:	00809825 */ 	or	$s3,$a0,$zero
-/*  f038bc4:	00a0a025 */ 	or	$s4,$a1,$zero
-/*  f038bc8:	2412ffff */ 	addiu	$s2,$zero,-1
-/*  f038bcc:	10800003 */ 	beqz	$a0,.L0f038bdc
-/*  f038bd0:	8c91001c */ 	lw	$s1,0x1c($a0)
-/*  f038bd4:	10000002 */ 	b	.L0f038be0
-/*  f038bd8:	908202fe */ 	lbu	$v0,0x2fe($a0)
-.L0f038bdc:
-/*  f038bdc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f038be0:
-/*  f038be0:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f038be4:	504100ca */ 	beql	$v0,$at,.L0f038f10
-/*  f038be8:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f038bec:	82620333 */ 	lb	$v0,0x333($s3)
-/*  f038bf0:	0442002e */ 	bltzl	$v0,.L0f038cac
-/*  f038bf4:	262b0008 */ 	addiu	$t3,$s1,0x8
-/*  f038bf8:	968e0006 */ 	lhu	$t6,0x6($s4)
-/*  f038bfc:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f038c00:	004e082a */ 	slt	$at,$v0,$t6
-/*  f038c04:	50200029 */ 	beqzl	$at,.L0f038cac
-/*  f038c08:	262b0008 */ 	addiu	$t3,$s1,0x8
-/*  f038c0c:	8e8f0000 */ 	lw	$t7,0x0($s4)
-/*  f038c10:	24050042 */ 	addiu	$a1,$zero,0x42
-/*  f038c14:	27a600a8 */ 	addiu	$a2,$sp,0xa8
-/*  f038c18:	01f81821 */ 	addu	$v1,$t7,$t8
-/*  f038c1c:	0fc456ac */ 	jal	padUnpack
-/*  f038c20:	8c640000 */ 	lw	$a0,0x0($v1)
-/*  f038c24:	8fb900f0 */ 	lw	$t9,0xf0($sp)
-/*  f038c28:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f038c2c:	a7a8007e */ 	sh	$t0,0x7e($sp)
-/*  f038c30:	02202025 */ 	or	$a0,$s1,$zero
-/*  f038c34:	27a50070 */ 	addiu	$a1,$sp,0x70
-/*  f038c38:	27a60078 */ 	addiu	$a2,$sp,0x78
-/*  f038c3c:	27a70074 */ 	addiu	$a3,$sp,0x74
-/*  f038c40:	0fc0a277 */ 	jal	chrGetBbox
-/*  f038c44:	a7b9007c */ 	sh	$t9,0x7c($sp)
-/*  f038c48:	02602025 */ 	or	$a0,$s3,$zero
-/*  f038c4c:	0fc079ef */ 	jal	chrSetPerimEnabled
-/*  f038c50:	00002825 */ 	or	$a1,$zero,$zero
-/*  f038c54:	24090020 */ 	addiu	$t1,$zero,0x20
-/*  f038c58:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f038c5c:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*  f038c60:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f038c64:	c620000c */ 	lwc1	$f0,0xc($s1)
-/*  f038c68:	c7a40078 */ 	lwc1	$f4,0x78($sp)
-/*  f038c6c:	c7a80074 */ 	lwc1	$f8,0x74($sp)
-/*  f038c70:	26240008 */ 	addiu	$a0,$s1,0x8
-/*  f038c74:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f038c78:	26250028 */ 	addiu	$a1,$s1,0x28
-/*  f038c7c:	27a600a8 */ 	addiu	$a2,$sp,0xa8
-/*  f038c80:	46004281 */ 	sub.s	$f10,$f8,$f0
-/*  f038c84:	e7a60018 */ 	swc1	$f6,0x18($sp)
-/*  f038c88:	27a7007c */ 	addiu	$a3,$sp,0x7c
-/*  f038c8c:	0c00b610 */ 	jal	cd0002d840
-/*  f038c90:	e7aa001c */ 	swc1	$f10,0x1c($sp)
-/*  f038c94:	10400002 */ 	beqz	$v0,.L0f038ca0
-/*  f038c98:	02602025 */ 	or	$a0,$s3,$zero
-/*  f038c9c:	82720333 */ 	lb	$s2,0x333($s3)
-.L0f038ca0:
-/*  f038ca0:	0fc079ef */ 	jal	chrSetPerimEnabled
-/*  f038ca4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f038ca8:	262b0008 */ 	addiu	$t3,$s1,0x8
-.L0f038cac:
-/*  f038cac:	262c0028 */ 	addiu	$t4,$s1,0x28
-/*  f038cb0:	afac0050 */ 	sw	$t4,0x50($sp)
-/*  f038cb4:	06410028 */ 	bgez	$s2,.L0f038d58
-/*  f038cb8:	afab0054 */ 	sw	$t3,0x54($sp)
-/*  f038cbc:	8e820000 */ 	lw	$v0,0x0($s4)
-/*  f038cc0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f038cc4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f038cc8:	8c4d0000 */ 	lw	$t5,0x0($v0)
-/*  f038ccc:	05a00022 */ 	bltz	$t5,.L0f038d58
-/*  f038cd0:	00107080 */ 	sll	$t6,$s0,0x2
-.L0f038cd4:
-/*  f038cd4:	004e1821 */ 	addu	$v1,$v0,$t6
-/*  f038cd8:	8c640000 */ 	lw	$a0,0x0($v1)
-/*  f038cdc:	afa7004c */ 	sw	$a3,0x4c($sp)
-/*  f038ce0:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f038ce4:	0fc456ac */ 	jal	padUnpack
-/*  f038ce8:	27a600a8 */ 	addiu	$a2,$sp,0xa8
-/*  f038cec:	c7b200a8 */ 	lwc1	$f18,0xa8($sp)
-/*  f038cf0:	c6300008 */ 	lwc1	$f16,0x8($s1)
-/*  f038cf4:	c7ae00b0 */ 	lwc1	$f14,0xb0($sp)
-/*  f038cf8:	c62c0010 */ 	lwc1	$f12,0x10($s1)
-/*  f038cfc:	46109001 */ 	sub.s	$f0,$f18,$f16
-/*  f038d00:	8fa7004c */ 	lw	$a3,0x4c($sp)
-/*  f038d04:	06400009 */ 	bltz	$s2,.L0f038d2c
-/*  f038d08:	460c7081 */ 	sub.s	$f2,$f14,$f12
-/*  f038d0c:	46000202 */ 	mul.s	$f8,$f0,$f0
-/*  f038d10:	00000000 */ 	nop
-/*  f038d14:	46021282 */ 	mul.s	$f10,$f2,$f2
-/*  f038d18:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f038d1c:	4614803c */ 	c.lt.s	$f16,$f20
-/*  f038d20:	00000000 */ 	nop
-/*  f038d24:	45000005 */ 	bc1f	.L0f038d3c
-/*  f038d28:	00000000 */ 	nop
-.L0f038d2c:
-/*  f038d2c:	46000482 */ 	mul.s	$f18,$f0,$f0
-/*  f038d30:	02009025 */ 	or	$s2,$s0,$zero
-/*  f038d34:	46021102 */ 	mul.s	$f4,$f2,$f2
-/*  f038d38:	46049500 */ 	add.s	$f20,$f18,$f4
-.L0f038d3c:
-/*  f038d3c:	8e820000 */ 	lw	$v0,0x0($s4)
-/*  f038d40:	24e70004 */ 	addiu	$a3,$a3,0x4
-/*  f038d44:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f038d48:	00477821 */ 	addu	$t7,$v0,$a3
-/*  f038d4c:	8df80000 */ 	lw	$t8,0x0($t7)
-/*  f038d50:	0703ffe0 */ 	bgezl	$t8,.L0f038cd4
-/*  f038d54:	00107080 */ 	sll	$t6,$s0,0x2
-.L0f038d58:
-/*  f038d58:	8e990000 */ 	lw	$t9,0x0($s4)
-/*  f038d5c:	00124080 */ 	sll	$t0,$s2,0x2
-/*  f038d60:	24050042 */ 	addiu	$a1,$zero,0x42
-/*  f038d64:	03281821 */ 	addu	$v1,$t9,$t0
-/*  f038d68:	8c640000 */ 	lw	$a0,0x0($v1)
-/*  f038d6c:	0fc456ac */ 	jal	padUnpack
-/*  f038d70:	27a600a8 */ 	addiu	$a2,$sp,0xa8
-/*  f038d74:	8fa900f0 */ 	lw	$t1,0xf0($sp)
-/*  f038d78:	240affff */ 	addiu	$t2,$zero,-1
-/*  f038d7c:	27ab007c */ 	addiu	$t3,$sp,0x7c
-/*  f038d80:	a7aa007e */ 	sh	$t2,0x7e($sp)
-/*  f038d84:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f038d88:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f038d8c:	3c017f1b */ 	lui	$at,%hi(var7f1a8dd0)
-/*  f038d90:	a7a9007c */ 	sh	$t1,0x7c($sp)
-/*  f038d94:	c6660024 */ 	lwc1	$f6,0x24($s3)
-/*  f038d98:	c4288dd0 */ 	lwc1	$f8,%lo(var7f1a8dd0)($at)
-/*  f038d9c:	240c0030 */ 	addiu	$t4,$zero,0x30
-/*  f038da0:	afac001c */ 	sw	$t4,0x1c($sp)
-/*  f038da4:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f038da8:	02602025 */ 	or	$a0,$s3,$zero
-/*  f038dac:	8fa50054 */ 	lw	$a1,0x54($sp)
-/*  f038db0:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f038db4:	27a700a8 */ 	addiu	$a3,$sp,0xa8
-/*  f038db8:	0fc0d953 */ 	jal	func0f03654c
-/*  f038dbc:	e7aa0018 */ 	swc1	$f10,0x18($sp)
-/*  f038dc0:	1040004a */ 	beqz	$v0,.L0f038eec
-/*  f038dc4:	8fa900f0 */ 	lw	$t1,0xf0($sp)
-/*  f038dc8:	0fc0fe3d */ 	jal	chrStopFiring
-/*  f038dcc:	02602025 */ 	or	$a0,$s3,$zero
-/*  f038dd0:	240d000e */ 	addiu	$t5,$zero,0xe
-/*  f038dd4:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f038dd8:	a26d0007 */ 	sb	$t5,0x7($s3)
-/*  f038ddc:	ae74002c */ 	sw	$s4,0x2c($s3)
-/*  f038de0:	ae720030 */ 	sw	$s2,0x30($s3)
-/*  f038de4:	0c004b70 */ 	jal	random
-/*  f038de8:	ae6e0034 */ 	sw	$t6,0x34($s3)
-/*  f038dec:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f038df0:	0041001b */ 	divu	$zero,$v0,$at
-/*  f038df4:	44808000 */ 	mtc1	$zero,$f16
-/*  f038df8:	00007810 */ 	mfhi	$t7
-/*  f038dfc:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f038e00:	ae6f0060 */ 	sw	$t7,0x60($s3)
-/*  f038e04:	a260003b */ 	sb	$zero,0x3b($s3)
-/*  f038e08:	ae780078 */ 	sw	$t8,0x78($s3)
-/*  f038e0c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f038e10:	0fc0dd60 */ 	jal	func0f037580
-/*  f038e14:	e670007c */ 	swc1	$f16,0x7c($s3)
-/*  f038e18:	8e790030 */ 	lw	$t9,0x30($s3)
-/*  f038e1c:	27b0009c */ 	addiu	$s0,$sp,0x9c
-/*  f038e20:	27b1008c */ 	addiu	$s1,$sp,0x8c
-/*  f038e24:	a2600008 */ 	sb	$zero,0x8($s3)
-/*  f038e28:	a260032c */ 	sb	$zero,0x32c($s3)
-/*  f038e2c:	02203025 */ 	or	$a2,$s1,$zero
-/*  f038e30:	02002825 */ 	or	$a1,$s0,$zero
-/*  f038e34:	02602025 */ 	or	$a0,$s3,$zero
-/*  f038e38:	0fc0dd58 */ 	jal	chrPatrolGetCurWaypointInfo
-/*  f038e3c:	a2790333 */ 	sb	$t9,0x333($s3)
-/*  f038e40:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x318)
-/*  f038e44:	8d08a2d8 */ 	lw	$t0,%lo(g_Vars+0x318)($t0)
-/*  f038e48:	55000014 */ 	bnezl	$t0,.L0f038e9c
-/*  f038e4c:	826e0068 */ 	lb	$t6,0x68($s3)
-/*  f038e50:	8e69001c */ 	lw	$t1,0x1c($s3)
-/*  f038e54:	02602025 */ 	or	$a0,$s3,$zero
-/*  f038e58:	02002825 */ 	or	$a1,$s0,$zero
-/*  f038e5c:	912a0001 */ 	lbu	$t2,0x1($t1)
-/*  f038e60:	314b00c2 */ 	andi	$t3,$t2,0xc2
-/*  f038e64:	5560000d */ 	bnezl	$t3,.L0f038e9c
-/*  f038e68:	826e0068 */ 	lb	$t6,0x68($s3)
-/*  f038e6c:	0fc0db02 */ 	jal	chrIsRoomOffScreen
-/*  f038e70:	02203025 */ 	or	$a2,$s1,$zero
-/*  f038e74:	50400009 */ 	beqzl	$v0,.L0f038e9c
-/*  f038e78:	826e0068 */ 	lb	$t6,0x68($s3)
-/*  f038e7c:	826d032d */ 	lb	$t5,0x32d($s3)
-/*  f038e80:	02602025 */ 	or	$a0,$s3,$zero
-/*  f038e84:	26650038 */ 	addiu	$a1,$s3,0x38
-/*  f038e88:	05a00003 */ 	bltz	$t5,.L0f038e98
-/*  f038e8c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f038e90:	0fc0dbb9 */ 	jal	chrGoPosInitMagic
-/*  f038e94:	8fa70054 */ 	lw	$a3,0x54($sp)
-.L0f038e98:
-/*  f038e98:	826e0068 */ 	lb	$t6,0x68($s3)
-.L0f038e9c:
-/*  f038e9c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f038ea0:	11c1000a */ 	beq	$t6,$at,.L0f038ecc
-/*  f038ea4:	00000000 */ 	nop
-/*  f038ea8:	0c0076e5 */ 	jal	modelIsAnimMerging
-/*  f038eac:	8e640020 */ 	lw	$a0,0x20($s3)
-/*  f038eb0:	10400006 */ 	beqz	$v0,.L0f038ecc
-/*  f038eb4:	00000000 */ 	nop
-/*  f038eb8:	8e6f0014 */ 	lw	$t7,0x14($s3)
-/*  f038ebc:	3c010020 */ 	lui	$at,0x20
-/*  f038ec0:	01e1c025 */ 	or	$t8,$t7,$at
-/*  f038ec4:	10000011 */ 	b	.L0f038f0c
-/*  f038ec8:	ae780014 */ 	sw	$t8,0x14($s3)
-.L0f038ecc:
-/*  f038ecc:	0fc0e21a */ 	jal	chrPatrolChooseAnimation
-/*  f038ed0:	02602025 */ 	or	$a0,$s3,$zero
-/*  f038ed4:	8e790014 */ 	lw	$t9,0x14($s3)
-/*  f038ed8:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f038edc:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f038ee0:	03214024 */ 	and	$t0,$t9,$at
-/*  f038ee4:	10000009 */ 	b	.L0f038f0c
-/*  f038ee8:	ae680014 */ 	sw	$t0,0x14($s3)
-.L0f038eec:
-/*  f038eec:	240affff */ 	addiu	$t2,$zero,-1
-/*  f038ef0:	a7a90060 */ 	sh	$t1,0x60($sp)
-/*  f038ef4:	a7aa0062 */ 	sh	$t2,0x62($sp)
-/*  f038ef8:	02602025 */ 	or	$a0,$s3,$zero
-/*  f038efc:	27a500a8 */ 	addiu	$a1,$sp,0xa8
-/*  f038f00:	27a60060 */ 	addiu	$a2,$sp,0x60
-/*  f038f04:	0fc0e10f */ 	jal	chrGoToPos
-/*  f038f08:	24070008 */ 	addiu	$a3,$zero,0x8
-.L0f038f0c:
-/*  f038f0c:	8fbf0044 */ 	lw	$ra,0x44($sp)
-.L0f038f10:
-/*  f038f10:	d7b40028 */ 	ldc1	$f20,0x28($sp)
-/*  f038f14:	8fb00030 */ 	lw	$s0,0x30($sp)
-/*  f038f18:	8fb10034 */ 	lw	$s1,0x34($sp)
-/*  f038f1c:	8fb20038 */ 	lw	$s2,0x38($sp)
-/*  f038f20:	8fb3003c */ 	lw	$s3,0x3c($sp)
-/*  f038f24:	8fb40040 */ 	lw	$s4,0x40($sp)
-/*  f038f28:	03e00008 */ 	jr	$ra
-/*  f038f2c:	27bd0110 */ 	addiu	$sp,$sp,0x110
-);
+void chrStartPatrol(struct chrdata *chr, struct path *path)
+{
+	s32 i;
+	f32 dist;
+	f32 xdiff;
+	f32 zdiff;
+	s32 *padnumptr;
+	struct pad pad;
+	struct coord nextpos;
+	s16 nextrooms[8];
+	s16 rooms[8];
+	f32 ymax;
+	f32 ymin;
+	f32 width;
+	f32 bestdistance = 0;
+	s32 nextstep = -1;
+	struct prop *prop = chr->prop;
+	s16 sp60[2];
 
-//void chrStartPatrol(struct chrdata *chr, struct path *path)
-//{
-//	f32 bestdistance = 0;
-//	s32 nextstep = -1;
-//	f32 xdiff;
-//	f32 zdiff;
-//	s32 i;
-//	struct pad pad; // a8
-//	struct coord nextpos; // 9c
-//	s16 nextrooms[8]; // 8c
-//	s16 rooms[8]; // 7c
-//	f32 ymax; // 78
-//	f32 ymin; // 74
-//	f32 width; // 70
-//	s16 sp60[8]; // 60
-//	struct prop *prop = chr->prop;
-//
-//	if (CHRRACE(chr) != RACE_EYESPY) {
-//		// Do some kind of collision test with the pad to resume from...
-//		// maybe a line of sight check?
-//		if (chr->patrolnextstep >= 0 && chr->patrolnextstep < path->len) {
-//			padUnpack(path->pads[chr->patrolnextstep], PADFIELD_POS | PADFIELD_ROOM, &pad);
-//
-//			rooms[0] = pad.room;
-//			rooms[1] = -1;
-//
-//			chrGetBbox(prop, &width, &ymax, &ymin);
-//
-//			chrSetPerimEnabled(chr, false);
-//
-//			if (cd0002d840(&prop->pos, prop->rooms, &pad.pos, rooms, CDTYPE_BG, 1,
-//						ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
-//				nextstep = chr->patrolnextstep;
-//			}
-//
-//			chrSetPerimEnabled(chr, true);
-//		}
-//
-//		// If the pad to resume from is not in sight, find the closest pad
-//		// to the chr's current position and start from there.
-//		if (nextstep < 0) {
-//			for (i = 0; path->pads[i] >= 0; i++) {
-//				f32 dist;
-//				padUnpack(path->pads[i], PADFIELD_POS, &pad);
-//
-//				xdiff = pad.pos.x - prop->pos.x;
-//				zdiff = pad.pos.z - prop->pos.z;
-//				dist = xdiff * xdiff + zdiff * zdiff;
-//
-//				if (nextstep < 0 || dist < bestdistance) {
-//					bestdistance = dist;
-//					nextstep = i;
-//				}
-//			}
-//		}
-//
-//		padUnpack(path->pads[nextstep], PADFIELD_POS | PADFIELD_ROOM, &pad);
-//
-//		rooms[0] = pad.room;
-//		rooms[1] = -1;
-//
-//		// If chr has line of sight to the pad then begin the patrol,
-//		// otherwise use gopos to get to the starting pad
-//		if (func0f03654c(chr, &prop->pos, prop->rooms, &pad.pos, rooms, NULL, chr->chrwidth * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG) != CDRESULT_COLLISION) {
-//			chrStopFiring(chr);
-//
-//			chr->actiontype = ACT_PATROL;
-//			chr->act_patrol.path = path;
-//			chr->act_patrol.nextstep = nextstep;
-//			chr->act_patrol.forward = true;
-//
-//			chr->act_patrol.waydata.age = random() % 100;
-//			chr->act_patrol.waydata.gotaimposobj = 0;
-//
-//			chr->act_patrol.unk78 = -1;
-//			chr->act_patrol.unk7c = 0;
-//
-//			func0f037580(chr);
-//
-//			chr->sleep = 0;
-//			chr->liftaction = LIFTACTION_NOTUSINGLIFT;
-//			chr->patrolnextstep = chr->act_patrol.nextstep;
-//
-//			chrPatrolGetCurWaypointInfo(chr, &nextpos, nextrooms);
-//
-//			if (!g_Vars.normmplayerisrunning
-//					&& (chr->prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0
-//					&& chrIsRoomOffScreen(chr, &nextpos, nextrooms)
-//					&& !chr->inlift) {
-//				chrGoPosInitMagic(chr, &chr->act_patrol.waydata, &nextpos, &prop->pos);
-//			}
-//
-//			if (chr->act_patrol.waydata.unk30 != 6 && modelIsAnimMerging(chr->model)) {
-//				chr->hidden |= CHRHFLAG_NEEDANIM;
-//			} else {
-//				chrPatrolChooseAnimation(chr);
-//				chr->hidden &= ~CHRHFLAG_NEEDANIM;
-//			}
-//		} else {
-//			sp60[0] = pad.room;
-//			sp60[1] = -1;
-//
-//			chrGoToPos(chr, &pad.pos, sp60, GOPOSFLAG_FORPATHSTART);
-//		}
-//	}
-//}
+	if (CHRRACE(chr) != RACE_EYESPY) {
+		// Do some kind of collision test with the pad to resume from...
+		// maybe a line of sight check?
+		if (chr->patrolnextstep >= 0 && chr->patrolnextstep < path->len) {
+			padnumptr = &path->pads[chr->patrolnextstep];
+			padUnpack(*padnumptr, PADFIELD_POS | PADFIELD_ROOM, &pad);
+
+			rooms[0] = pad.room;
+			rooms[1] = -1;
+
+			chrGetBbox(prop, &width, &ymax, &ymin);
+
+			chrSetPerimEnabled(chr, false);
+
+			if (cd0002d840(&prop->pos, prop->rooms, &pad.pos, rooms, CDTYPE_BG, 1,
+						ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
+				nextstep = chr->patrolnextstep;
+			}
+
+			chrSetPerimEnabled(chr, true);
+		}
+
+		// If the pad to resume from is not in sight, find the closest pad
+		// to the chr's current position and start from there.
+		if (nextstep < 0) {
+			for (i = 0; path->pads[i] >= 0; i++) {
+				padnumptr = &path->pads[i];
+				padUnpack(*padnumptr, PADFIELD_POS, &pad);
+
+				xdiff = pad.pos.x - prop->pos.x;
+				zdiff = pad.pos.z - prop->pos.z;
+				dist = xdiff * xdiff + zdiff * zdiff;
+
+				if (nextstep < 0 || dist < bestdistance) {
+					bestdistance = dist;
+					nextstep = i;
+				}
+			}
+		}
+
+		padnumptr = &path->pads[nextstep];
+		padUnpack(*padnumptr, PADFIELD_POS | PADFIELD_ROOM, &pad);
+
+		rooms[0] = pad.room;
+		rooms[1] = -1;
+
+		// If chr has line of sight to the pad then begin the patrol,
+		// otherwise use gopos to get to the starting pad
+		if (func0f03654c(chr, &prop->pos, prop->rooms, &pad.pos, rooms, NULL,
+					chr->chrwidth * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG) != CDRESULT_COLLISION) {
+			chrStopFiring(chr);
+
+			chr->actiontype = ACT_PATROL;
+			chr->act_patrol.path = path;
+			chr->act_patrol.nextstep = nextstep;
+			chr->act_patrol.forward = true;
+
+			chr->act_patrol.waydata.age = random() % 100;
+			chr->act_patrol.waydata.gotaimposobj = 0;
+			chr->act_patrol.waydata.lastvisible60 = -1;
+
+			chr->act_patrol.turnspeed = 0;
+
+			func0f037580(chr);
+
+			chr->sleep = 0;
+			chr->liftaction = LIFTACTION_NOTUSINGLIFT;
+			chr->patrolnextstep = chr->act_patrol.nextstep;
+
+			chrPatrolGetCurWaypointInfo(chr, &nextpos, nextrooms);
+
+			if (!g_Vars.normmplayerisrunning
+					&& (chr->prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0
+					&& chrIsRoomOffScreen(chr, &nextpos, nextrooms)
+					&& !chr->inlift) {
+				chrGoPosInitMagic(chr, &chr->act_patrol.waydata, &nextpos, &prop->pos);
+			}
+
+			// @bug: This should be act_patrol rather than act_gopos.
+			// It's actually reading act_patrol.waydata.aimposobj.y which is a
+			// float, so it's taking its binary representation and comparing it
+			// with integer 6.
+			if (chr->act_gopos.waydata.mode != WAYMODE_MAGIC && modelIsAnimMerging(chr->model)) {
+				chr->hidden |= CHRHFLAG_NEEDANIM;
+			} else {
+				chrPatrolChooseAnimation(chr);
+				chr->hidden &= ~CHRHFLAG_NEEDANIM;
+			}
+		} else {
+			sp60[0] = pad.room;
+			sp60[1] = -1;
+
+			chrGoToPos(chr, &pad.pos, sp60, GOPOSFLAG_FORPATHSTART);
+		}
+	}
+}
 
 void chrRecordLastVisibleTargetTime(struct chrdata *chr)
 {
