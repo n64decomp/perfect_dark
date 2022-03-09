@@ -22989,559 +22989,139 @@ bool chrCheckCoverOutOfSight(struct chrdata *chr, s32 covernum, bool soft)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel chrAssignCoverByCriteria
-/*  f04ba34:	27bdff48 */ 	addiu	$sp,$sp,-184
-/*  f04ba38:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f04ba3c:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f04ba40:	afa500bc */ 	sw	$a1,0xbc($sp)
-/*  f04ba44:	0080a025 */ 	or	$s4,$a0,$zero
-/*  f04ba48:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f04ba4c:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f04ba50:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f04ba54:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f04ba58:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f04ba5c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f04ba60:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f04ba64:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f04ba68:	afa600c0 */ 	sw	$a2,0xc0($sp)
-/*  f04ba6c:	0fc458b4 */ 	jal	coverGetCount
-/*  f04ba70:	a7a500be */ 	sh	$a1,0xbe($sp)
-/*  f04ba74:	afa20078 */ 	sw	$v0,0x78($sp)
-/*  f04ba78:	0000f025 */ 	or	$s8,$zero,$zero
-/*  f04ba7c:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f04ba80:	02802025 */ 	or	$a0,$s4,$zero
-/*  f04ba84:	8e8f001c */ 	lw	$t7,0x1c($s4)
-/*  f04ba88:	3c01432a */ 	lui	$at,0x432a
-/*  f04ba8c:	44813000 */ 	mtc1	$at,$f6
-/*  f04ba90:	c5e4000c */ 	lwc1	$f4,0xc($t7)
-/*  f04ba94:	97b100be */ 	lhu	$s1,0xbe($sp)
-/*  f04ba98:	8fa400c0 */ 	lw	$a0,0xc0($sp)
-/*  f04ba9c:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f04baa0:	32384000 */ 	andi	$t8,$s1,0x4000
-/*  f04baa4:	0040b025 */ 	or	$s6,$v0,$zero
-/*  f04baa8:	00009825 */ 	or	$s3,$zero,$zero
-/*  f04baac:	e7a80060 */ 	swc1	$f8,0x60($sp)
-/*  f04bab0:	1300000a */ 	beqz	$t8,.L0f04badc
-/*  f04bab4:	0080b825 */ 	or	$s7,$a0,$zero
-/*  f04bab8:	8e8202d4 */ 	lw	$v0,0x2d4($s4)
-/*  f04babc:	10400004 */ 	beqz	$v0,.L0f04bad0
-/*  f04bac0:	00000000 */ 	nop
-/*  f04bac4:	8c430010 */ 	lw	$v1,0x10($v0)
-/*  f04bac8:	54600004 */ 	bnezl	$v1,.L0f04badc
-/*  f04bacc:	afa30058 */ 	sw	$v1,0x58($sp)
-.L0f04bad0:
-/*  f04bad0:	1000013e */ 	b	.L0f04bfcc
-/*  f04bad4:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f04bad8:	afa30058 */ 	sw	$v1,0x58($sp)
-.L0f04badc:
-/*  f04badc:	16800003 */ 	bnez	$s4,.L0f04baec
-/*  f04bae0:	00000000 */ 	nop
-/*  f04bae4:	10000139 */ 	b	.L0f04bfcc
-/*  f04bae8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04baec:
-/*  f04baec:	00840019 */ 	multu	$a0,$a0
-/*  f04baf0:	8fa80078 */ 	lw	$t0,0x78($sp)
-/*  f04baf4:	86990292 */ 	lh	$t9,0x292($s4)
-/*  f04baf8:	3c12800a */ 	lui	$s2,%hi(g_CoverCandidates)
-/*  f04bafc:	26522368 */ 	addiu	$s2,$s2,%lo(g_CoverCandidates)
-/*  f04bb00:	00008025 */ 	or	$s0,$zero,$zero
-/*  f04bb04:	27b500a0 */ 	addiu	$s5,$sp,0xa0
-/*  f04bb08:	afb90084 */ 	sw	$t9,0x84($sp)
-/*  f04bb0c:	00002012 */ 	mflo	$a0
-/*  f04bb10:	190000ba */ 	blez	$t0,.L0f04bdfc
-/*  f04bb14:	00000000 */ 	nop
-/*  f04bb18:	afa400c0 */ 	sw	$a0,0xc0($sp)
-/*  f04bb1c:	02002025 */ 	or	$a0,$s0,$zero
-.L0f04bb20:
-/*  f04bb20:	0fc458b8 */ 	jal	coverUnpack
-/*  f04bb24:	27a50098 */ 	addiu	$a1,$sp,0x98
-/*  f04bb28:	504000b0 */ 	beqzl	$v0,.L0f04bdec
-/*  f04bb2c:	8fae0078 */ 	lw	$t6,0x78($sp)
-/*  f04bb30:	0fc4596c */ 	jal	coverIsSpecial
-/*  f04bb34:	27a40098 */ 	addiu	$a0,$sp,0x98
-/*  f04bb38:	144000ab */ 	bnez	$v0,.L0f04bde8
-/*  f04bb3c:	32292000 */ 	andi	$t1,$s1,0x2000
-/*  f04bb40:	11200003 */ 	beqz	$t1,.L0f04bb50
-/*  f04bb44:	97aa00a4 */ 	lhu	$t2,0xa4($sp)
-/*  f04bb48:	314b0010 */ 	andi	$t3,$t2,0x10
-/*  f04bb4c:	116000a6 */ 	beqz	$t3,.L0f04bde8
-.L0f04bb50:
-/*  f04bb50:	322c1000 */ 	andi	$t4,$s1,0x1000
-/*  f04bb54:	15800007 */ 	bnez	$t4,.L0f04bb74
-/*  f04bb58:	97ad00a4 */ 	lhu	$t5,0xa4($sp)
-/*  f04bb5c:	31ae0008 */ 	andi	$t6,$t5,0x8
-/*  f04bb60:	11c00004 */ 	beqz	$t6,.L0f04bb74
-/*  f04bb64:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f04bb68:	0fc19620 */ 	jal	arrayIntersects
-/*  f04bb6c:	26c50028 */ 	addiu	$a1,$s6,0x28
-/*  f04bb70:	1440009d */ 	bnez	$v0,.L0f04bde8
-.L0f04bb74:
-/*  f04bb74:	322f0001 */ 	andi	$t7,$s1,0x1
-/*  f04bb78:	11e00006 */ 	beqz	$t7,.L0f04bb94
-/*  f04bb7c:	00009825 */ 	or	$s3,$zero,$zero
-/*  f04bb80:	32380002 */ 	andi	$t8,$s1,0x2
-/*  f04bb84:	13000003 */ 	beqz	$t8,.L0f04bb94
-/*  f04bb88:	02202825 */ 	or	$a1,$s1,$zero
-/*  f04bb8c:	24130001 */ 	addiu	$s3,$zero,0x1
-/*  f04bb90:	30b1fffc */ 	andi	$s1,$a1,0xfffc
-.L0f04bb94:
-/*  f04bb94:	32280010 */ 	andi	$t0,$s1,0x10
-/*  f04bb98:	11000002 */ 	beqz	$t0,.L0f04bba4
-/*  f04bb9c:	8fa90084 */ 	lw	$t1,0x84($sp)
-/*  f04bba0:	12090091 */ 	beq	$s0,$t1,.L0f04bde8
-.L0f04bba4:
-/*  f04bba4:	322a2000 */ 	andi	$t2,$s1,0x2000
-/*  f04bba8:	5540000b */ 	bnezl	$t2,.L0f04bbd8
-/*  f04bbac:	322c0040 */ 	andi	$t4,$s1,0x40
-/*  f04bbb0:	0fc45917 */ 	jal	coverIsInUse
-/*  f04bbb4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04bbb8:	1440008b */ 	bnez	$v0,.L0f04bde8
-/*  f04bbbc:	8fab0098 */ 	lw	$t3,0x98($sp)
-/*  f04bbc0:	c7aa0060 */ 	lwc1	$f10,0x60($sp)
-/*  f04bbc4:	c5700004 */ 	lwc1	$f16,0x4($t3)
-/*  f04bbc8:	4610503c */ 	c.lt.s	$f10,$f16
-/*  f04bbcc:	00000000 */ 	nop
-/*  f04bbd0:	45010085 */ 	bc1t	.L0f04bde8
-/*  f04bbd4:	322c0040 */ 	andi	$t4,$s1,0x40
-.L0f04bbd8:
-/*  f04bbd8:	322d0800 */ 	andi	$t5,$s1,0x800
-/*  f04bbdc:	afac004c */ 	sw	$t4,0x4c($sp)
-/*  f04bbe0:	11a00003 */ 	beqz	$t5,.L0f04bbf0
-/*  f04bbe4:	32230080 */ 	andi	$v1,$s1,0x80
-/*  f04bbe8:	1000000b */ 	b	.L0f04bc18
-/*  f04bbec:	8e82001c */ 	lw	$v0,0x1c($s4)
-.L0f04bbf0:
-/*  f04bbf0:	322e0400 */ 	andi	$t6,$s1,0x400
-/*  f04bbf4:	11c00003 */ 	beqz	$t6,.L0f04bc04
-/*  f04bbf8:	322f0008 */ 	andi	$t7,$s1,0x8
-/*  f04bbfc:	10000006 */ 	b	.L0f04bc18
-/*  f04bc00:	02c01025 */ 	or	$v0,$s6,$zero
-.L0f04bc04:
-/*  f04bc04:	51e00004 */ 	beqzl	$t7,.L0f04bc18
-/*  f04bc08:	8e82001c */ 	lw	$v0,0x1c($s4)
-/*  f04bc0c:	10000002 */ 	b	.L0f04bc18
-/*  f04bc10:	02c01025 */ 	or	$v0,$s6,$zero
-/*  f04bc14:	8e82001c */ 	lw	$v0,0x1c($s4)
-.L0f04bc18:
-/*  f04bc18:	84580028 */ 	lh	$t8,0x28($v0)
-/*  f04bc1c:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f04bc20:	a7b900aa */ 	sh	$t9,0xaa($sp)
-/*  f04bc24:	10600007 */ 	beqz	$v1,.L0f04bc44
-/*  f04bc28:	a7b800a8 */ 	sh	$t8,0xa8($sp)
-/*  f04bc2c:	84440028 */ 	lh	$a0,0x28($v0)
-/*  f04bc30:	27a500aa */ 	addiu	$a1,$sp,0xaa
-/*  f04bc34:	0fc5916a */ 	jal	roomGetNeighbours
-/*  f04bc38:	24060006 */ 	addiu	$a2,$zero,0x6
-/*  f04bc3c:	10000008 */ 	b	.L0f04bc60
-/*  f04bc40:	8fa9004c */ 	lw	$t1,0x4c($sp)
-.L0f04bc44:
-/*  f04bc44:	32280100 */ 	andi	$t0,$s1,0x100
-/*  f04bc48:	11000004 */ 	beqz	$t0,.L0f04bc5c
-/*  f04bc4c:	27a500a8 */ 	addiu	$a1,$sp,0xa8
-/*  f04bc50:	84440028 */ 	lh	$a0,0x28($v0)
-/*  f04bc54:	0fc5916a */ 	jal	roomGetNeighbours
-/*  f04bc58:	24060007 */ 	addiu	$a2,$zero,0x7
-.L0f04bc5c:
-/*  f04bc5c:	8fa9004c */ 	lw	$t1,0x4c($sp)
-.L0f04bc60:
-/*  f04bc60:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f04bc64:	51200005 */ 	beqzl	$t1,.L0f04bc7c
-/*  f04bc68:	322a0020 */ 	andi	$t2,$s1,0x20
-/*  f04bc6c:	0fc19620 */ 	jal	arrayIntersects
-/*  f04bc70:	27a500a8 */ 	addiu	$a1,$sp,0xa8
-/*  f04bc74:	1440005c */ 	bnez	$v0,.L0f04bde8
-/*  f04bc78:	322a0020 */ 	andi	$t2,$s1,0x20
-.L0f04bc7c:
-/*  f04bc7c:	11400005 */ 	beqz	$t2,.L0f04bc94
-/*  f04bc80:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f04bc84:	0fc19620 */ 	jal	arrayIntersects
-/*  f04bc88:	27a500a8 */ 	addiu	$a1,$sp,0xa8
-/*  f04bc8c:	50400057 */ 	beqzl	$v0,.L0f04bdec
-/*  f04bc90:	8fae0078 */ 	lw	$t6,0x78($sp)
-.L0f04bc94:
-/*  f04bc94:	87ab00aa */ 	lh	$t3,0xaa($sp)
-/*  f04bc98:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f04bc9c:	5161000c */ 	beql	$t3,$at,.L0f04bcd0
-/*  f04bca0:	322e0004 */ 	andi	$t6,$s1,0x4
-/*  f04bca4:	868c02b8 */ 	lh	$t4,0x2b8($s4)
-/*  f04bca8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f04bcac:	322d0200 */ 	andi	$t5,$s1,0x200
-/*  f04bcb0:	51810007 */ 	beql	$t4,$at,.L0f04bcd0
-/*  f04bcb4:	322e0004 */ 	andi	$t6,$s1,0x4
-/*  f04bcb8:	11a00004 */ 	beqz	$t5,.L0f04bccc
-/*  f04bcbc:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f04bcc0:	0fc19620 */ 	jal	arrayIntersects
-/*  f04bcc4:	268502b8 */ 	addiu	$a1,$s4,0x2b8
-/*  f04bcc8:	14400047 */ 	bnez	$v0,.L0f04bde8
-.L0f04bccc:
-/*  f04bccc:	322e0004 */ 	andi	$t6,$s1,0x4
-.L0f04bcd0:
-/*  f04bcd0:	11c00006 */ 	beqz	$t6,.L0f04bcec
-/*  f04bcd4:	322f0008 */ 	andi	$t7,$s1,0x8
-/*  f04bcd8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f04bcdc:	0fc12555 */ 	jal	chrGetSquaredDistanceToCoord
-/*  f04bce0:	8fa50098 */ 	lw	$a1,0x98($sp)
-/*  f04bce4:	10000021 */ 	b	.L0f04bd6c
-/*  f04bce8:	46000306 */ 	mov.s	$f12,$f0
-.L0f04bcec:
-/*  f04bcec:	11e00006 */ 	beqz	$t7,.L0f04bd08
-/*  f04bcf0:	32384000 */ 	andi	$t8,$s1,0x4000
-/*  f04bcf4:	26c40008 */ 	addiu	$a0,$s6,0x8
-/*  f04bcf8:	0fc12565 */ 	jal	coordGetSquaredDistanceToCoord
-/*  f04bcfc:	8fa50098 */ 	lw	$a1,0x98($sp)
-/*  f04bd00:	1000001a */ 	b	.L0f04bd6c
-/*  f04bd04:	46000306 */ 	mov.s	$f12,$f0
-.L0f04bd08:
-/*  f04bd08:	13000006 */ 	beqz	$t8,.L0f04bd24
-/*  f04bd0c:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f04bd10:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f04bd14:	0fc12565 */ 	jal	coordGetSquaredDistanceToCoord
-/*  f04bd18:	8fa50098 */ 	lw	$a1,0x98($sp)
-/*  f04bd1c:	10000013 */ 	b	.L0f04bd6c
-/*  f04bd20:	46000306 */ 	mov.s	$f12,$f0
-.L0f04bd24:
-/*  f04bd24:	52600010 */ 	beqzl	$s3,.L0f04bd68
-/*  f04bd28:	44806000 */ 	mtc1	$zero,$f12
-/*  f04bd2c:	0c004b70 */ 	jal	random
-/*  f04bd30:	00000000 */ 	nop
-/*  f04bd34:	3401f000 */ 	dli	$at,0xf000
-/*  f04bd38:	0041001b */ 	divu	$zero,$v0,$at
-/*  f04bd3c:	0000c810 */ 	mfhi	$t9
-/*  f04bd40:	44999000 */ 	mtc1	$t9,$f18
-/*  f04bd44:	3c014f80 */ 	lui	$at,0x4f80
-/*  f04bd48:	07210008 */ 	bgez	$t9,.L0f04bd6c
-/*  f04bd4c:	46809320 */ 	cvt.s.w	$f12,$f18
-/*  f04bd50:	44812000 */ 	mtc1	$at,$f4
-/*  f04bd54:	00000000 */ 	nop
-/*  f04bd58:	46046300 */ 	add.s	$f12,$f12,$f4
-/*  f04bd5c:	10000003 */ 	b	.L0f04bd6c
-/*  f04bd60:	00000000 */ 	nop
-/*  f04bd64:	44806000 */ 	mtc1	$zero,$f12
-.L0f04bd68:
-/*  f04bd68:	0000b825 */ 	or	$s7,$zero,$zero
-.L0f04bd6c:
-/*  f04bd6c:	12e00013 */ 	beqz	$s7,.L0f04bdbc
-/*  f04bd70:	001e2100 */ 	sll	$a0,$s8,0x4
-/*  f04bd74:	06e10008 */ 	bgez	$s7,.L0f04bd98
-/*  f04bd78:	8fa800c0 */ 	lw	$t0,0xc0($sp)
-/*  f04bd7c:	44883000 */ 	mtc1	$t0,$f6
-/*  f04bd80:	00000000 */ 	nop
-/*  f04bd84:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f04bd88:	460c403c */ 	c.lt.s	$f8,$f12
-/*  f04bd8c:	00000000 */ 	nop
-/*  f04bd90:	4501000a */ 	bc1t	.L0f04bdbc
-/*  f04bd94:	00000000 */ 	nop
-.L0f04bd98:
-/*  f04bd98:	1ae00013 */ 	blez	$s7,.L0f04bde8
-/*  f04bd9c:	8fa900c0 */ 	lw	$t1,0xc0($sp)
-/*  f04bda0:	44895000 */ 	mtc1	$t1,$f10
-/*  f04bda4:	00000000 */ 	nop
-/*  f04bda8:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f04bdac:	4610603c */ 	c.lt.s	$f12,$f16
-/*  f04bdb0:	00000000 */ 	nop
-/*  f04bdb4:	4502000d */ 	bc1fl	.L0f04bdec
-/*  f04bdb8:	8fae0078 */ 	lw	$t6,0x78($sp)
-.L0f04bdbc:
-/*  f04bdbc:	0c00169f */ 	jal	__f_to_ull
-/*  f04bdc0:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f04bdc4:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f04bdc8:	8e4a0000 */ 	lw	$t2,0x0($s2)
-/*  f04bdcc:	27de0001 */ 	addiu	$s8,$s8,0x1
-/*  f04bdd0:	01445821 */ 	addu	$t3,$t2,$a0
-/*  f04bdd4:	ad620000 */ 	sw	$v0,0x0($t3)
-/*  f04bdd8:	ad630004 */ 	sw	$v1,0x4($t3)
-/*  f04bddc:	8e4c0000 */ 	lw	$t4,0x0($s2)
-/*  f04bde0:	01846821 */ 	addu	$t5,$t4,$a0
-/*  f04bde4:	adb00008 */ 	sw	$s0,0x8($t5)
-.L0f04bde8:
-/*  f04bde8:	8fae0078 */ 	lw	$t6,0x78($sp)
-.L0f04bdec:
-/*  f04bdec:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f04bdf0:	560eff4b */ 	bnel	$s0,$t6,.L0f04bb20
-/*  f04bdf4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04bdf8:	00008025 */ 	or	$s0,$zero,$zero
-.L0f04bdfc:
-/*  f04bdfc:	3c12800a */ 	lui	$s2,%hi(g_CoverCandidates)
-/*  f04be00:	2bc10002 */ 	slti	$at,$s8,0x2
-/*  f04be04:	1420004b */ 	bnez	$at,.L0f04bf34
-/*  f04be08:	26522368 */ 	addiu	$s2,$s2,%lo(g_CoverCandidates)
-/*  f04be0c:	27c6ffff */ 	addiu	$a2,$s8,-1
-/*  f04be10:	27a30088 */ 	addiu	$v1,$sp,0x88
-.L0f04be14:
-/*  f04be14:	18c00045 */ 	blez	$a2,.L0f04bf2c
-/*  f04be18:	00002825 */ 	or	$a1,$zero,$zero
-/*  f04be1c:	32240001 */ 	andi	$a0,$s1,0x1
-.L0f04be20:
-/*  f04be20:	14800005 */ 	bnez	$a0,.L0f04be38
-/*  f04be24:	322f4000 */ 	andi	$t7,$s1,0x4000
-/*  f04be28:	55e00004 */ 	bnezl	$t7,.L0f04be3c
-/*  f04be2c:	8e580000 */ 	lw	$t8,0x0($s2)
-/*  f04be30:	5260000f */ 	beqzl	$s3,.L0f04be70
-/*  f04be34:	32390002 */ 	andi	$t9,$s1,0x2
-.L0f04be38:
-/*  f04be38:	8e580000 */ 	lw	$t8,0x0($s2)
-.L0f04be3c:
-/*  f04be3c:	00103900 */ 	sll	$a3,$s0,0x4
-/*  f04be40:	03071021 */ 	addu	$v0,$t8,$a3
-/*  f04be44:	8c480010 */ 	lw	$t0,0x10($v0)
-/*  f04be48:	8c4a0000 */ 	lw	$t2,0x0($v0)
-/*  f04be4c:	8c490014 */ 	lw	$t1,0x14($v0)
-/*  f04be50:	8c4b0004 */ 	lw	$t3,0x4($v0)
-/*  f04be54:	010a082b */ 	sltu	$at,$t0,$t2
-/*  f04be58:	14200015 */ 	bnez	$at,.L0f04beb0
-/*  f04be5c:	0148082b */ 	sltu	$at,$t2,$t0
-/*  f04be60:	14200002 */ 	bnez	$at,.L0f04be6c
-/*  f04be64:	012b082b */ 	sltu	$at,$t1,$t3
-/*  f04be68:	14200011 */ 	bnez	$at,.L0f04beb0
-.L0f04be6c:
-/*  f04be6c:	32390002 */ 	andi	$t9,$s1,0x2
-.L0f04be70:
-/*  f04be70:	5320002b */ 	beqzl	$t9,.L0f04bf20
-/*  f04be74:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f04be78:	8e4c0000 */ 	lw	$t4,0x0($s2)
-/*  f04be7c:	00103900 */ 	sll	$a3,$s0,0x4
-/*  f04be80:	01871021 */ 	addu	$v0,$t4,$a3
-/*  f04be84:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f04be88:	8c580010 */ 	lw	$t8,0x10($v0)
-/*  f04be8c:	8c4f0004 */ 	lw	$t7,0x4($v0)
-/*  f04be90:	8c590014 */ 	lw	$t9,0x14($v0)
-/*  f04be94:	030e082b */ 	sltu	$at,$t8,$t6
-/*  f04be98:	14200020 */ 	bnez	$at,.L0f04bf1c
-/*  f04be9c:	01d8082b */ 	sltu	$at,$t6,$t8
-/*  f04bea0:	14200003 */ 	bnez	$at,.L0f04beb0
-/*  f04bea4:	01f9082b */ 	sltu	$at,$t7,$t9
-/*  f04bea8:	5020001d */ 	beqzl	$at,.L0f04bf20
-/*  f04beac:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f04beb0:
-/*  f04beb0:	8c410000 */ 	lw	$at,0x0($v0)
-/*  f04beb4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f04beb8:	ac610000 */ 	sw	$at,0x0($v1)
-/*  f04bebc:	8c480004 */ 	lw	$t0,0x4($v0)
-/*  f04bec0:	ac680004 */ 	sw	$t0,0x4($v1)
-/*  f04bec4:	8c410008 */ 	lw	$at,0x8($v0)
-/*  f04bec8:	ac610008 */ 	sw	$at,0x8($v1)
-/*  f04becc:	8c48000c */ 	lw	$t0,0xc($v0)
-/*  f04bed0:	ac68000c */ 	sw	$t0,0xc($v1)
-/*  f04bed4:	8c4a0014 */ 	lw	$t2,0x14($v0)
-/*  f04bed8:	8c410010 */ 	lw	$at,0x10($v0)
-/*  f04bedc:	ac4a0004 */ 	sw	$t2,0x4($v0)
-/*  f04bee0:	ac410000 */ 	sw	$at,0x0($v0)
-/*  f04bee4:	8c410018 */ 	lw	$at,0x18($v0)
-/*  f04bee8:	8c4a001c */ 	lw	$t2,0x1c($v0)
-/*  f04beec:	ac410008 */ 	sw	$at,0x8($v0)
-/*  f04bef0:	ac4a000c */ 	sw	$t2,0xc($v0)
-/*  f04bef4:	8e4b0000 */ 	lw	$t3,0x0($s2)
-/*  f04bef8:	8c610000 */ 	lw	$at,0x0($v1)
-/*  f04befc:	01676021 */ 	addu	$t4,$t3,$a3
-/*  f04bf00:	ad810010 */ 	sw	$at,0x10($t4)
-/*  f04bf04:	8c6f0004 */ 	lw	$t7,0x4($v1)
-/*  f04bf08:	ad8f0014 */ 	sw	$t7,0x14($t4)
-/*  f04bf0c:	8c610008 */ 	lw	$at,0x8($v1)
-/*  f04bf10:	ad810018 */ 	sw	$at,0x18($t4)
-/*  f04bf14:	8c6f000c */ 	lw	$t7,0xc($v1)
-/*  f04bf18:	ad8f001c */ 	sw	$t7,0x1c($t4)
-.L0f04bf1c:
-/*  f04bf1c:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f04bf20:
-/*  f04bf20:	1606ffbf */ 	bne	$s0,$a2,.L0f04be20
-/*  f04bf24:	00000000 */ 	nop
-/*  f04bf28:	00008025 */ 	or	$s0,$zero,$zero
-.L0f04bf2c:
-/*  f04bf2c:	14a0ffb9 */ 	bnez	$a1,.L0f04be14
-/*  f04bf30:	00000000 */ 	nop
-.L0f04bf34:
-/*  f04bf34:	1bc00024 */ 	blez	$s8,.L0f04bfc8
-/*  f04bf38:	00003825 */ 	or	$a3,$zero,$zero
-/*  f04bf3c:	32388000 */ 	andi	$t8,$s1,0x8000
-/*  f04bf40:	afb80050 */ 	sw	$t8,0x50($sp)
-.L0f04bf44:
-/*  f04bf44:	8e420000 */ 	lw	$v0,0x0($s2)
-/*  f04bf48:	02802025 */ 	or	$a0,$s4,$zero
-/*  f04bf4c:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f04bf50:	0047c821 */ 	addu	$t9,$v0,$a3
-/*  f04bf54:	8f250008 */ 	lw	$a1,0x8($t9)
-/*  f04bf58:	0fc12e54 */ 	jal	chrCheckCoverOutOfSight
-/*  f04bf5c:	afa70048 */ 	sw	$a3,0x48($sp)
-/*  f04bf60:	10400016 */ 	beqz	$v0,.L0f04bfbc
-/*  f04bf64:	8fa70048 */ 	lw	$a3,0x48($sp)
-/*  f04bf68:	8e4d0000 */ 	lw	$t5,0x0($s2)
-/*  f04bf6c:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f04bf70:	00002825 */ 	or	$a1,$zero,$zero
-/*  f04bf74:	01a74021 */ 	addu	$t0,$t5,$a3
-/*  f04bf78:	8d090008 */ 	lw	$t1,0x8($t0)
-/*  f04bf7c:	a6890292 */ 	sh	$t1,0x292($s4)
-/*  f04bf80:	8faa0084 */ 	lw	$t2,0x84($sp)
-/*  f04bf84:	11410004 */ 	beq	$t2,$at,.L0f04bf98
-/*  f04bf88:	01402025 */ 	or	$a0,$t2,$zero
-/*  f04bf8c:	0fc45929 */ 	jal	coverSetInUse
-/*  f04bf90:	afa70048 */ 	sw	$a3,0x48($sp)
-/*  f04bf94:	8fa70048 */ 	lw	$a3,0x48($sp)
-.L0f04bf98:
-/*  f04bf98:	86840292 */ 	lh	$a0,0x292($s4)
-/*  f04bf9c:	afa70048 */ 	sw	$a3,0x48($sp)
-/*  f04bfa0:	0fc45929 */ 	jal	coverSetInUse
-/*  f04bfa4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f04bfa8:	8fa70048 */ 	lw	$a3,0x48($sp)
-/*  f04bfac:	8e4b0000 */ 	lw	$t3,0x0($s2)
-/*  f04bfb0:	01677021 */ 	addu	$t6,$t3,$a3
-/*  f04bfb4:	10000005 */ 	b	.L0f04bfcc
-/*  f04bfb8:	8dc20008 */ 	lw	$v0,0x8($t6)
-.L0f04bfbc:
-/*  f04bfbc:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f04bfc0:	161effe0 */ 	bne	$s0,$s8,.L0f04bf44
-/*  f04bfc4:	24e70010 */ 	addiu	$a3,$a3,0x10
-.L0f04bfc8:
-/*  f04bfc8:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f04bfcc:
-/*  f04bfcc:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f04bfd0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f04bfd4:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f04bfd8:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f04bfdc:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f04bfe0:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f04bfe4:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f04bfe8:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f04bfec:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f04bff0:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f04bff4:	03e00008 */ 	jr	$ra
-/*  f04bff8:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
-);
+s32 chrAssignCoverByCriteria(struct chrdata *chr, u16 criteria, s32 refdist)
+{
+	s16 rooms[8];
+	struct cover cover;
+	struct covercandidate tmp;
+	s32 oldcover;
+	s32 i;
+	struct prop *roomprop;
+	s32 numcovers = coverGetCount();
+	s32 numcandidates = 0;
+	struct prop *target = chrGetTargetProp(chr);
+	bool userandomdist = false;
+	bool changed;
+	f32 sqdist;
+	f32 y = chr->prop->pos.y + 170;
+	s32 currefdist = refdist;
+	struct prop *gotoprop;
 
-// Mismatch: regalloc
-//s32 chrAssignCoverByCriteria(struct chrdata *chr, u16 criteria, s32 refdist)
-//{
-//	s16 rooms[8];
-//	struct cover cover;
-//	struct covercandidate tmp;
-//	s32 oldcover;
-//	s32 i;
-//	struct prop *roomprop;
-//	s32 numcovers = coverGetCount();
-//	s32 numcandidates = 0;
-//	struct prop *target = chrGetTargetProp(chr);
-//	bool userandomdist = false;
-//	bool changed;
-//	f32 sqdist;
-//	f32 y = chr->prop->pos.y + 170;
-//	s32 currefdist = refdist;
-//	struct prop *gotoprop;
-//
-//	if (criteria & COVERCRITERIA_DISTTOFETCHPROP) {
-//		if (!chr->aibot || !chr->aibot->gotoprop) {
-//			return -1;
-//		}
-//
-//		gotoprop = chr->aibot->gotoprop;
-//	}
-//
-//	if (chr == NULL) {
-//		return 0;
-//	}
-//
-//	oldcover = chr->cover;
-//	refdist *= refdist;
-//
-//	// Iterate all cover, filter them by criteria and store them in g_CoverCandidates
-//	for (i = 0; i < numcovers; i++) {
-//		if (coverUnpack(i, &cover)
-//				&& !coverIsSpecial(&cover)
-//				&& ((criteria & COVERCRITERIA_2000) == 0 || (cover.flags & COVERFLAG_OMNIDIRECTIONAL))
-//				&& ((criteria & COVERCRITERIA_1000) || (cover.flags & COVERFLAG_AIMDIFFROOM) == 0 || !arrayIntersects(cover.rooms, target->rooms))) {
-//			userandomdist = false;
-//
-//			if ((criteria & COVERCRITERIA_0001) && (criteria & COVERCRITERIA_FURTHEREST)) {
-//				userandomdist = true;
-//				criteria &= ~(COVERCRITERIA_0001 | COVERCRITERIA_FURTHEREST);
-//			}
-//
-//			if (((criteria & COVERCRITERIA_FORCENEWCOVER) == 0 || i != oldcover)
-//					&& ((criteria & COVERCRITERIA_2000) || !(coverIsInUse(i) || cover.pos->y > y))) {
-//				if (criteria & COVERCRITERIA_ROOMSFROMME) {
-//					roomprop = chr->prop;
-//				} else if (criteria & COVERCRITERIA_ROOMSFROMTARGET) {
-//					roomprop = target;
-//				} else if (criteria & COVERCRITERIA_DISTTOTARGET) {
-//					roomprop = target;
-//				} else {
-//					roomprop = chr->prop;
-//				}
-//
-//				rooms[0] = roomprop->rooms[0];
-//				rooms[1] = -1;
-//
-//				if (criteria & COVERCRITERIA_ALLOWNEIGHBOURINGROOMS) {
-//					roomGetNeighbours(roomprop->rooms[0], &rooms[1], 6);
-//				} else if (criteria & COVERCRITERIA_ONLYNEIGHBOURINGROOMS) {
-//					roomGetNeighbours(roomprop->rooms[0], &rooms[0], 7);
-//				}
-//
-//				if (((criteria & COVERCRITERIA_0040) == 0 || !arrayIntersects(cover.rooms, rooms))
-//						&& ((criteria & COVERCRITERIA_0020) == 0 || arrayIntersects(cover.rooms, rooms))
-//						&& (rooms[1] == -1
-//							|| chr->oldrooms[0] == -1
-//							|| (criteria & COVERCRITERIA_0200) == 0
-//							|| !arrayIntersects(cover.rooms, chr->oldrooms))) {
-//					if (criteria & COVERCRITERIA_DISTTOME) {
-//						sqdist = chrGetSquaredDistanceToCoord(chr, cover.pos);
-//					} else if (criteria & COVERCRITERIA_DISTTOTARGET) {
-//						sqdist = coordGetSquaredDistanceToCoord(&target->pos, cover.pos);
-//					} else if (criteria & COVERCRITERIA_DISTTOFETCHPROP) {
-//						sqdist = coordGetSquaredDistanceToCoord(&gotoprop->pos, cover.pos);
-//					} else if (userandomdist) {
-//						sqdist = random() % 0xf000;
-//					} else {
-//						sqdist = 0;
-//						currefdist = 0;
-//					}
-//
-//					if (!currefdist
-//							|| (currefdist < 0 && sqdist > refdist)
-//							|| (currefdist > 0 && sqdist < refdist)) {
-//						g_CoverCandidates[numcandidates].sqdist = sqdist;
-//						g_CoverCandidates[numcandidates].covernum = i;
-//						numcandidates++;
-//					}
-//				}
-//			}
-//		}
-//	}
-//
-//	// Sort candidates by distance ascending, or descending if using COVERCRITERIA_FURTHEREST
-//	if (numcandidates >= 2) {
-//		do {
-//			changed = false;
-//
-//			for (i = 0; i < numcandidates - 1; i++) {
-//				if ((((criteria & COVERCRITERIA_0001) || (criteria & COVERCRITERIA_DISTTOFETCHPROP) || userandomdist) && (g_CoverCandidates[i].sqdist > g_CoverCandidates[i + 1].sqdist))
-//						|| ((criteria & COVERCRITERIA_FURTHEREST) && g_CoverCandidates[i].sqdist < g_CoverCandidates[i + 1].sqdist)) {
-//					changed = true;
-//
-//					tmp = g_CoverCandidates[i];
-//					g_CoverCandidates[i] = g_CoverCandidates[i + 1];
-//					g_CoverCandidates[i + 1] = tmp;
-//				}
-//			}
-//		} while (changed);
-//	}
-//
-//	// Assign the first out of sight cover
-//	for (i = 0; i < numcandidates; i++) {
-//		if (chrCheckCoverOutOfSight(chr, g_CoverCandidates[i].covernum, criteria & COVERCRITERIA_ALLOWSOFT)) {
-//			chr->cover = g_CoverCandidates[i].covernum;
-//
-//			if (oldcover != -1) {
-//				coverSetInUse(oldcover, false);
-//			}
-//
-//			coverSetInUse(chr->cover, true);
-//
-//			return g_CoverCandidates[i].covernum;
-//		}
-//	}
-//
-//	return -1;
-//}
+	if (criteria & COVERCRITERIA_DISTTOFETCHPROP) {
+		if (!chr->aibot || !chr->aibot->gotoprop) {
+			return -1;
+		}
+
+		gotoprop = chr->aibot->gotoprop;
+	}
+
+	if (chr == NULL) {
+		return 0;
+	}
+
+	oldcover = chr->cover;
+	refdist *= refdist;
+
+	// Iterate all cover, filter them by criteria and store them in g_CoverCandidates
+	for (i = 0; i < numcovers; i++) {
+		if (coverUnpack(i, &cover)
+				&& !coverIsSpecial(&cover)
+				&& ((criteria & COVERCRITERIA_2000) == 0 || (cover.flags & COVERFLAG_OMNIDIRECTIONAL))
+				&& ((criteria & COVERCRITERIA_1000) || (cover.flags & COVERFLAG_AIMDIFFROOM) == 0 || !arrayIntersects(cover.rooms, target->rooms))) {
+			userandomdist = false;
+
+			if ((criteria & COVERCRITERIA_0001) && (criteria & COVERCRITERIA_FURTHEREST)) {
+				userandomdist = true;
+				criteria &= ~(COVERCRITERIA_0001 | COVERCRITERIA_FURTHEREST);
+			}
+
+			if (((criteria & COVERCRITERIA_FORCENEWCOVER) == 0 || i != oldcover)
+					&& ((criteria & COVERCRITERIA_2000) || !(coverIsInUse(i) || cover.pos->y > y))) {
+				if (criteria & COVERCRITERIA_ROOMSFROMME) {
+					roomprop = chr->prop;
+				} else if (criteria & COVERCRITERIA_ROOMSFROMTARGET) {
+					roomprop = target;
+				} else if (criteria & COVERCRITERIA_DISTTOTARGET) {
+					roomprop = target;
+				} else {
+					roomprop = chr->prop;
+				}
+
+				rooms[0] = roomprop->rooms[0];
+				rooms[1] = -1;
+
+				if (criteria & COVERCRITERIA_ALLOWNEIGHBOURINGROOMS) {
+					roomGetNeighbours(roomprop->rooms[0], &rooms[1], 6);
+				} else if (criteria & COVERCRITERIA_ONLYNEIGHBOURINGROOMS) {
+					roomGetNeighbours(roomprop->rooms[0], &rooms[0], 7);
+				}
+
+				if (((criteria & COVERCRITERIA_0040) == 0 || !arrayIntersects(cover.rooms, rooms))
+						&& ((criteria & COVERCRITERIA_0020) == 0 || arrayIntersects(cover.rooms, rooms))
+						&& (rooms[1] == -1
+							|| chr->oldrooms[0] == -1
+							|| (criteria & COVERCRITERIA_0200) == 0
+							|| !arrayIntersects(cover.rooms, chr->oldrooms))) {
+					if (criteria & COVERCRITERIA_DISTTOME) {
+						sqdist = chrGetSquaredDistanceToCoord(chr, cover.pos);
+					} else if (criteria & COVERCRITERIA_DISTTOTARGET) {
+						sqdist = coordGetSquaredDistanceToCoord(&target->pos, cover.pos);
+					} else if (criteria & COVERCRITERIA_DISTTOFETCHPROP) {
+						sqdist = coordGetSquaredDistanceToCoord(&gotoprop->pos, cover.pos);
+					} else if (userandomdist) {
+						sqdist = random() % 0xf000;
+					} else {
+						sqdist = 0;
+						currefdist = 0;
+					}
+
+					if (!currefdist
+							|| (currefdist < 0 && sqdist > refdist)
+							|| (currefdist > 0 && sqdist < refdist)) {
+						g_CoverCandidates[numcandidates].sqdist = sqdist;
+						g_CoverCandidates[numcandidates].covernum = i;
+						numcandidates++;
+					}
+				}
+			}
+		}
+	}
+
+	// Sort candidates by distance ascending, or descending if using COVERCRITERIA_FURTHEREST
+	if (numcandidates >= 2) {
+		do {
+			changed = false;
+
+			for (i = 0; i < numcandidates - 1; i++) {
+				if ((((criteria & COVERCRITERIA_0001) || (criteria & COVERCRITERIA_DISTTOFETCHPROP) || userandomdist) && (g_CoverCandidates[i].sqdist > g_CoverCandidates[i + 1].sqdist))
+						|| ((criteria & COVERCRITERIA_FURTHEREST) && g_CoverCandidates[i].sqdist < g_CoverCandidates[i + 1].sqdist)) {
+					changed = true;
+
+					tmp = g_CoverCandidates[i];
+					g_CoverCandidates[i] = g_CoverCandidates[i + 1];
+					g_CoverCandidates[i + 1] = tmp;
+				}
+			}
+		} while (changed);
+	}
+
+	// Assign the first out of sight cover
+	for (i = 0; i < numcandidates; i++) {
+		if (1 && chrCheckCoverOutOfSight(chr, g_CoverCandidates[i].covernum, criteria & COVERCRITERIA_ALLOWSOFT)) {
+			chr->cover = g_CoverCandidates[i].covernum;
+
+			if (oldcover != -1) {
+				coverSetInUse(oldcover, false);
+			}
+
+			coverSetInUse(chr->cover, true);
+
+			return g_CoverCandidates[i].covernum;
+		}
+	}
+
+	return -1;
+}
 
 GLOBAL_ASM(
 glabel chrAssignCoverAwayFromDanger
