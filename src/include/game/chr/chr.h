@@ -23,7 +23,7 @@ void chr0f020d44(struct prop *prop, bool removechr);
 void chrUpdateAimProperties(struct chrdata *chr);
 void chrFlinchBody(struct chrdata *chr);
 void chrFlinchHead(struct chrdata *chr, f32 arg1);
-f32 chr0f02143c(struct chrdata *chr);
+f32 chrGetFlinchAmount(struct chrdata *chr);
 void chr0f021fa8(struct chrdata *chr, struct coord *pos, s16 *rooms);
 void chr0f0220ec(struct chrdata *chr, s32 lvupdate240, s32 arg2);
 void chr0f022214(struct chrdata *chr, struct prop *child, bool fulltick);
