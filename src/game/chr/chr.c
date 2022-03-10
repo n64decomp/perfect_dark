@@ -3735,9 +3735,9 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 
 		// Configure colours for night vision if in use
 		if (USINGDEVICE(DEVICE_NIGHTVISION)) {
-			colour[0] = var8009caec[3];
-			colour[1] = var8009caec[3];
-			colour[2] = var8009caec[3];
+			colour[0] = var8009caef;
+			colour[1] = var8009caef;
+			colour[2] = var8009caef;
 			colour[3] = var8009caf0;
 		}
 

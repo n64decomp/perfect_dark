@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include <n_libaudio.h>
 #include "naudio/n_abi.h"
-#include "bss.h"
 #include "lib/mp3.h"
 #include "mp3/mp3.h"
 #include "types.h"
@@ -29,6 +28,11 @@ struct asistream *g_AsiStream;
 
 s16 _getRate(f32 vol, f32 tgt, s32 count, u16 *ratel);
 s32 func00038ba8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
+
+extern f32 *var8009c6d8;
+extern f32 *var8009c6dc;
+extern struct mp3decfourbytes *var8009c640;
+extern f32 *var8009c644;
 
 void mp3Init(ALHeap *heap)
 {

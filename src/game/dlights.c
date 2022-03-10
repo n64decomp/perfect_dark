@@ -75,7 +75,10 @@ u32 var8009cadc;
 u32 var8009cae0;
 u32 var8009cae4;
 u32 var8009cae8;
-u8 var8009caec[4];
+u8 var8009caec;
+u8 var8009caed;
+u8 var8009caee;
+u8 var8009caef;
 u8 var8009caf0;
 
 struct var80061420 *var80061420 = NULL;
@@ -146,7 +149,7 @@ u8 func0f000a10(s32 roomnum)
 	s32 value = g_Rooms[roomnum].unk52;
 
 	if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
-		value += var8009caec[0];
+		value += var8009caec;
 	} else {
 		value += g_Rooms[roomnum].unk4b;
 	}
@@ -172,7 +175,7 @@ u8 func0f000b24(s32 roomnum)
 	u32 value;
 
 	if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
-		return var8009caec[0];
+		return var8009caec;
 	}
 
 	if (g_Rooms[roomnum].flags & ROOMFLAG_0040) {
