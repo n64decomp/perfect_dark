@@ -156,7 +156,11 @@ s32 menuhandlerAimControl(s32 operation, struct menuitem *item, union handlerdat
 
 	u16 options[2][2] = {
 		{ L_OPTIONS_201,   L_OPTIONS_202   }, // "Hold", "Toggle"
+#if VERSION >= VERSION_PAL_FINAL
 		{ L_MPWEAPONS_276, L_MPWEAPONS_277 }, // "Hold", "Toggle"
+#else
+		{ 0, 0 }, // TODO
+#endif
 	};
 
 	if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && PLAYERCOUNT() >= 2) {
@@ -265,7 +269,7 @@ s32 menuhandlerScreenRatio(s32 operation, struct menuitem *item, union handlerda
 	return 0;
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 u16 var80071ce0pf[] = { 0x5507, 0x5508, 0x5509, 0x550a, 0x550b };
 
 GLOBAL_ASM(
@@ -4539,12 +4543,21 @@ struct menudialogdef g_MissionControlOptionsMenuDialog = {
 
 #if PAL
 struct menuitem g_CiControlOptionsMenuItems2[] = {
+#if VERSION >= VERSION_PAL_FINAL
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS_270, (u32)&func0f105664, menuhandlerControlStyle }, // "Control Style"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPWEAPONS_271, 0x00000004, menuhandlerReversePitch }, // "Reverse Pitch"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPWEAPONS_272, 0x00000004, menuhandlerLookAhead }, // "Look Ahead"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPWEAPONS_273, 0x00000004, menuhandlerHeadRoll }, // "Head Roll"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPWEAPONS_274, 0x00000004, menuhandlerAutoAim }, // "Auto-Aim"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_MPWEAPONS_275, 0x00000004, menuhandlerAimControl }, // "Aim Control"
+#else
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0, (u32)&func0f105664, menuhandlerControlStyle }, // "Control Style"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0, 0x00000004, menuhandlerReversePitch }, // "Reverse Pitch"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0, 0x00000004, menuhandlerLookAhead }, // "Look Ahead"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0, 0x00000004, menuhandlerHeadRoll }, // "Head Roll"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0, 0x00000004, menuhandlerAutoAim }, // "Auto-Aim"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0, 0x00000004, menuhandlerAimControl }, // "Aim Control"
+#endif
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_OPTIONS_200, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },

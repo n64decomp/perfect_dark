@@ -2553,7 +2553,7 @@ char *frGetWeaponDescription(void)
 	u32 weapon = frGetWeaponBySlot(g_FrData.slot);
 
 	switch (weapon) {
-#if PAL
+#if VERSION >= VERSION_PAL_BETA
 	case WEAPON_FALCON2:          return langGet(L_DISH_283);
 	case WEAPON_FALCON2_SCOPE:    return langGet(L_DISH_284);
 	case WEAPON_FALCON2_SILENCER: return langGet(L_DISH_285);
@@ -7054,7 +7054,7 @@ struct chrbio *ciGetChrBioByBodynum(u32 bodynum)
 {
 	struct chrbio bios[] = {
 		// name, race, age, profile
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		/*0*/ { L_DISH_125, L_DISH_126, L_DISH_127, L_DISH_128 }, // Joanna Dark
 		/*1*/ { L_DISH_129, L_DISH_130, L_DISH_131, L_DISH_132 }, // Jonathan
 		/*2*/ { L_DISH_133, L_DISH_134, L_DISH_135, L_DISH_136 }, // Daniel Carrington
@@ -7148,7 +7148,7 @@ struct miscbio *ciGetMiscBio(s32 index)
 {
 	struct miscbio bios[] = {
 		// name, description
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		{ L_DISH_165, L_DISH_166 },
 		{ L_DISH_167, L_DISH_168 },
 		{ L_DISH_169, L_DISH_170 },
@@ -7237,7 +7237,7 @@ struct hangarbio *ciGetHangarBio(s32 index)
 {
 	struct hangarbio bios[] = {
 		// name, description
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		{ L_DISH_196, L_DISH_219 }, // Carrington Institute
 		{ L_DISH_197, L_DISH_220 }, // Lucerne Tower
 		{ L_DISH_198, L_DISH_221 }, // Laboratory Basement
@@ -7663,7 +7663,7 @@ u32 ciGetStageFlagByDeviceIndex(u32 deviceindex)
 char *dtGetDescription(void)
 {
 	u32 texts[] = {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		/*0*/ L_DISH_186, // Data uplink
 		/*1*/ L_DISH_185, // ECM mine
 		/*2*/ L_DISH_177, // CamSpy
@@ -7694,7 +7694,7 @@ char *dtGetDescription(void)
 char *dtGetTip1(void)
 {
 	u32 texts[] = {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		/*0*/ L_DISH_263,
 		/*1*/ L_DISH_264,
 		/*2*/ L_DISH_265,
@@ -7725,7 +7725,7 @@ char *dtGetTip1(void)
 char *dtGetTip2(void)
 {
 	u32 texts[] = {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		/*0*/ L_DISH_273,
 		/*1*/ L_DISH_274,
 		/*2*/ L_DISH_275,
@@ -7933,7 +7933,7 @@ s32 htGetIndexBySlot(s32 slot)
 char *htGetName(s32 index)
 {
 	u32 texts[] = {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		L_DISH_316, // "Holo 1 - Looking Around"
 		L_DISH_317, // "Holo 2 - Movement 1"
 		L_DISH_318, // "Holo 3 - Movement 2"
@@ -7974,7 +7974,7 @@ u32 func0f1a25c0(s32 index)
 char *htGetDescription(void)
 {
 	u32 texts[] = {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		L_DISH_242,
 		L_DISH_243,
 		L_DISH_244,
@@ -7999,7 +7999,7 @@ char *htGetDescription(void)
 char *htGetTip1(void)
 {
 	u32 texts[] = {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		L_DISH_249, // "For greater precision..."
 		L_DISH_250, // "Think about where you want to go..."
 		L_DISH_251, // "Ducking enables you to..."
@@ -8024,7 +8024,7 @@ char *htGetTip1(void)
 char *htGetTip2(void)
 {
 	u32 texts[] = {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		L_DISH_256, // "For greater precision..."
 		L_DISH_257, // "Sidestepping and strafing..."
 		L_DISH_258, // "Ducking enables you to..."

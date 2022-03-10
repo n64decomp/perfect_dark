@@ -61,7 +61,7 @@ void osInitialize(void)
 		bzero(&osAppNMIBuffer, 0x40);
 	}
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	// empty
 #elif VERSION >= VERSION_NTSC_1_0
 	if (osTvType == OS_TV_PAL) {

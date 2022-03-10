@@ -11,7 +11,7 @@
  * NTSC appears to use a boolean for Japanese support.
  * PAL ignores this mostly and introduces g_LanguageId.
  */
-#if VERSION >= VERSION_PAL_FINAL
+#if PAL
 bool g_Jpn = false;
 u32 var80084664pf = 0;
 u32 var80084668pf = 0;

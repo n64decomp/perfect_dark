@@ -1172,7 +1172,7 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 
 				g_ScenarioData.ctc.tokens[weapon->team] = chr->prop;
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 				// "%shas the %s Briefcase"
 				sprintf(text1, langGet(L_MPWEAPONS_000_3), mpchr->name, g_BossFile.teamnames[weapon->team]);
 

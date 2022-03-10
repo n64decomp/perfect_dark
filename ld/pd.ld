@@ -5,15 +5,15 @@
 #define VERSION_PAL_FINAL  4
 #define VERSION_JPN_FINAL  5
 
-#if VERSION == VERSION_NTSC_BETA
-#include "gamefiles.ntsc-beta.inc"
-#include "libfiles.ntsc-beta.inc"
-#elif VERSION == VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 #include "gamefiles.pal-final.inc"
 #include "libfiles.pal-final.inc"
-#else
+#elif VERSION >= VERSION_NTSC_1_0
 #include "gamefiles.ntsc-final.inc"
 #include "libfiles.ntsc-final.inc"
+#else
+#include "gamefiles.ntsc-beta.inc"
+#include "libfiles.ntsc-beta.inc"
 #endif
 
 #define BEGIN_SEG(name) \
@@ -73,7 +73,7 @@
  * increased.
  */
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 #define ROMALLOCATION_LIB   0x038800
 #define ROMALLOCATION_DATA  0x015000
 #define ROMALLOCATION_GAME  0x1306f0
@@ -91,7 +91,7 @@ OUTPUT_ARCH (mips)
 
 SECTIONS
 {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	_gamecode = 0x4450;
 	_jpndata1 = 0x17fc40;
 	_jpndata2 = 0x18b340;
@@ -105,24 +105,15 @@ SECTIONS
 	_jpndata2 = 0x154340;
 #endif
 
-#if VERSION >= VERSION_PAL_FINAL
-	_val7f116f34 = 0x0339;
-	_val7f1183f8 = 0x070a;
-	_val7f118a44 = 0x0801;
+#if VERSION >= VERSION_PAL_BETA
 	_val7f11aa14 = 0x0e4d;
 	_val7f11aae4 = 0x0e5b;
 	_val7f11c1d0 = 0x128d;
 #elif VERSION >= VERSION_NTSC_FINAL
-	_val7f116f34 = 0x0339;
-	_val7f1183f8 = 0x070a;
-	_val7f118a44 = 0x0801;
 	_val7f11aa14 = 0x0e46;
 	_val7f11aae4 = 0x0e54;
 	_val7f11c1d0 = 0x1286;
 #else
-	_val7f116f34 = 0x0336;
-	_val7f1183f8 = 0x06fc;
-	_val7f118a44 = 0x07e0;
 	_val7f11aa14 = 0x0d83;
 	_val7f11aae4 = 0x0d91;
 	_val7f11c1d0 = 0x11c3;

@@ -454,7 +454,7 @@ extern s32 g_MusicAge60;
 extern s32 g_MusicLife60;
 extern s32 g_MusicSilenceTimer60;
 extern bool g_Jpn;
-#if VERSION >= VERSION_PAL_FINAL
+#if PAL
 extern s32 g_LanguageId;
 #endif
 extern struct surfacetype *g_SurfaceTypes[15];

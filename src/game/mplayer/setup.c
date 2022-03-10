@@ -330,7 +330,7 @@ s32 menuhandlerMpControlCheckbox(s32 operation, struct menuitem *item, union han
 s32 menuhandlerMpAimControl(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	u16 labels[] = {
-#if PAL
+#if VERSION >= VERSION_PAL_FINAL
 		L_MPWEAPONS_276, // "Hold"
 		L_MPWEAPONS_277, // "Toggle"
 #else

@@ -519,7 +519,7 @@ void mpSetDefaultSetup(void)
 	g_MpSetup.chrslots = 0;
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 void mpGetTeamsWithDefaultName(u8 *mask)
 {
 	s32 i;
@@ -534,7 +534,7 @@ void mpGetTeamsWithDefaultName(u8 *mask)
 }
 #endif
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 void mpSetTeamNamesToDefault(u8 mask)
 {
 	s32 i;
