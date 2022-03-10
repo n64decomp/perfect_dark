@@ -131,7 +131,7 @@ f32 explosionGetHorizontalRangeAtFrame(struct explosion *exp, s32 frame)
 	f32 changerate = PALUPF(type->changerateh);
 	f32 result;
 
-	if (exp->type == EXPLOSIONTYPE_14 && frame > PALDOWN(32)) {
+	if (exp->type == EXPLOSIONTYPE_14 && frame > TICKS(32)) {
 		result = frame * PALUPF(3.0f) + 40.0f;
 
 		if (result > 300) {
@@ -150,7 +150,7 @@ f32 explosionGetVerticalRangeAtFrame(struct explosion *exp, s32 frame)
 	f32 changerate = PALUPF(type->changeratev);
 	f32 result;
 
-	if (exp->type == EXPLOSIONTYPE_14 && frame > PALDOWN(32)) {
+	if (exp->type == EXPLOSIONTYPE_14 && frame > TICKS(32)) {
 		result = 20;
 	} else {
 		result = type->rangev + changerate * frame;

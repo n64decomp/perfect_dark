@@ -602,7 +602,7 @@ u8 gsetGetFireslotDuration(struct gset *gset)
 	}
 
 	if (result >= 4) {
-		result = PALDOWN(result);
+		result = TICKS(result);
 	}
 
 	return result;
@@ -655,7 +655,7 @@ s8 weaponGetNumTicksPerShot(u32 weaponnum, u32 funcindex)
 	}
 
 	if (result > 3) {
-		result = PALDOWN(result);
+		result = TICKS(result);
 	}
 
 	return result;

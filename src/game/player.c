@@ -856,8 +856,8 @@ bool playerSpawnAnti(struct chrdata *hostchr, bool force)
 			bgunEquipWeapon2(HAND_RIGHT, WEAPON_UNARMED);
 		}
 
-		g_Vars.currentplayer->invdowntime = PALDOWN(-40);
-		g_Vars.currentplayer->usedowntime = PALDOWN(-40);
+		g_Vars.currentplayer->invdowntime = TICKS(-40);
+		g_Vars.currentplayer->usedowntime = TICKS(-40);
 
 		bgunGiveMaxAmmo(true);
 
@@ -2947,7 +2947,7 @@ void playerTickExplode(void)
 
 		explosionCreateSimple(NULL, &pos, g_Vars.currentplayer->prop->rooms, EXPLOSIONTYPE_18, g_Vars.currentplayernum);
 
-		g_Vars.currentplayer->bondnextexplode = g_Vars.lvframe60 + PALDOWN(15) + (random() % PALDOWN(15));
+		g_Vars.currentplayer->bondnextexplode = g_Vars.lvframe60 + TICKS(15) + (random() % TICKS(15));
 	}
 }
 
@@ -3826,11 +3826,11 @@ void playerTick(bool arg0)
 					eyespy->buttonheld = eyespy->camerabuttonheld = false;
 					eyespy->camerashuttertime = 0;
 					eyespy->startuptimer60 = 0;
-					eyespy->prop->chr->soundtimer = PALDOWN(10);
+					eyespy->prop->chr->soundtimer = TICKS(10);
 					sndStart(var80095200, SFX_DETONATE, NULL, -1, -1, -1, -1, -1);
 				}
 
-				g_Vars.currentplayer->invdowntime = PALDOWN(-40);
+				g_Vars.currentplayer->invdowntime = TICKS(-40);
 			}
 		}
 	}
@@ -3865,10 +3865,10 @@ void playerTick(bool arg0)
 		playerTickChrBody();
 
 		if (g_Vars.currentplayer->haschrbody) {
-			g_Vars.currentplayer->invdowntime = PALDOWN(-40);
+			g_Vars.currentplayer->invdowntime = TICKS(-40);
 			bmoveTick(0, 0, 0, 1);
 			playerTickCutscene(arg0);
-			g_Vars.currentplayer->invdowntime = PALDOWN(-40);
+			g_Vars.currentplayer->invdowntime = TICKS(-40);
 		}
 
 		for (i = 0; i < PLAYERCOUNT(); i++) {
@@ -3945,7 +3945,7 @@ void playerTick(bool arg0)
 				// Allow 2 seconds of this, then blow up rocket
 				g_Vars.currentplayer->badrockettime += g_Vars.lvupdate240_60;
 
-				if (g_Vars.currentplayer->badrockettime > PALDOWN(120)) {
+				if (g_Vars.currentplayer->badrockettime > TICKS(120)) {
 #if VERSION >= VERSION_NTSC_1_0
 					g_Vars.currentplayer->visionmode = VISIONMODE_SLAYERROCKETSTATIC;
 #else
@@ -5470,7 +5470,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 
 						if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
 							if (g_Vars.currentplayer->deadtimer < 0) {
-								g_Vars.currentplayer->deadtimer = PALDOWN(600);
+								g_Vars.currentplayer->deadtimer = TICKS(600);
 							}
 
 							if (g_Vars.currentplayer->deadtimer >= 0) {
@@ -5521,21 +5521,21 @@ Gfx *playerRenderHud(Gfx *gdl)
 		gdl = func0f15b114(gdl);
 
 		if (g_Vars.currentplayer->eyespy) {
-			if (g_Vars.currentplayer->eyespy->startuptimer60 < PALDOWN(50)) {
+			if (g_Vars.currentplayer->eyespy->startuptimer60 < TICKS(50)) {
 				gdl = bviewRenderFisheye(gdl, -1, 255, 0, g_Vars.currentplayer->eyespy->startuptimer60, g_Vars.currentplayer->eyespy->hit);
 			} else {
 				s32 time = g_Vars.currentplayer->eyespy->camerashuttertime;
 
 				if (time > 0) {
 					if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
-						gdl = bviewRenderFisheye(gdl, -1, 255, time, PALDOWN(50), g_Vars.currentplayer->eyespy->hit);
+						gdl = bviewRenderFisheye(gdl, -1, 255, time, TICKS(50), g_Vars.currentplayer->eyespy->hit);
 					} else {
-						gdl = bviewRenderFisheye(gdl, -1, 255, 0, PALDOWN(50), g_Vars.currentplayer->eyespy->hit);
+						gdl = bviewRenderFisheye(gdl, -1, 255, 0, TICKS(50), g_Vars.currentplayer->eyespy->hit);
 					}
 
 					g_Vars.currentplayer->eyespy->camerashuttertime -= g_Vars.lvupdate240_60;
 				} else {
-					gdl = bviewRenderFisheye(gdl, -1, 255, 0, PALDOWN(50), g_Vars.currentplayer->eyespy->hit);
+					gdl = bviewRenderFisheye(gdl, -1, 255, 0, TICKS(50), g_Vars.currentplayer->eyespy->hit);
 				}
 			}
 

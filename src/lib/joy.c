@@ -344,7 +344,7 @@ void joyDisableTemporarily(void)
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		g_JoyDisableCooldown[i] = PALDOWN(60);
+		g_JoyDisableCooldown[i] = TICKS(60);
 	}
 }
 

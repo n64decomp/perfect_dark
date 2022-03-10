@@ -1049,7 +1049,7 @@ void musicTick(void)
 			// then start a 2 second time before starting the new one.
 			g_MusicAge60 = 0;
 			musicQueueFadeEvent(TRACKTYPE_PRIMARY, 2, 1);
-			g_MusicSilenceTimer60 = PALDOWN(120);
+			g_MusicSilenceTimer60 = TICKS(120);
 		}
 
 		if (g_MpEnableMusicSwitching && g_Vars.normmplayerisrunning) {
@@ -1126,7 +1126,7 @@ void musicTick(void)
 		// Check if the player is in an ambient room every 0.25 seconds
 		if (g_Vars.lvupdate240 > g_MusicNextAmbientTick240) {
 			musicTickAmbient();
-			g_MusicNextAmbientTick240 = PALDOWN(60);
+			g_MusicNextAmbientTick240 = TICKS(60);
 		} else {
 			g_MusicNextAmbientTick240 -= g_Vars.lvupdate240;
 		}

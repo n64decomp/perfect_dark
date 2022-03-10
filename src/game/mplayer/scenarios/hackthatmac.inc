@@ -259,7 +259,7 @@ void htmTick(void)
 		if (g_ScenarioData.htm.uplink == NULL || g_ScenarioData.htm.uplink->type != PROPTYPE_WEAPON) {
 			var800869ec = NULL;
 		} else {
-			var800869ec->prop->timetoregen = PALDOWN(1200);
+			var800869ec->prop->timetoregen = TICKS(1200);
 		}
 	}
 
@@ -442,7 +442,7 @@ void htmTickChr(struct chrdata *chr)
 		} else {
 			*time += g_Vars.lvupdate240;
 
-			if (*time > 20 * PALDOWN(240)) {
+			if (*time > 20 * TICKS(240)) {
 				data->numpoints[playernum]++;
 				data->playernuminrange = playernum;
 
@@ -490,7 +490,7 @@ Gfx *htmRenderHud(Gfx *gdl)
 		a1 = viGetViewWidth() / 3;
 		barleft = t6 - a1 / 2;
 		barright = t6 + a1 / 2;
-		s1 = barleft + (s32) (a1 * (dltime / PALDOWN(4800.0f)));
+		s1 = barleft + (s32) (a1 * (dltime / TICKS(4800.0f)));
 
 		gdl = func0f153628(gdl);
 		gdl = gfxSetPrimColour(gdl, 0x60000060);

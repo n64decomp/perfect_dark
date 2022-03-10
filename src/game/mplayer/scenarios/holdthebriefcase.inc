@@ -198,7 +198,7 @@ void htbTick(void)
 		if (g_ScenarioData.htb.token == NULL || g_ScenarioData.htb.token->type != PROPTYPE_WEAPON) {
 			var800869ec = NULL;
 		} else {
-			var800869ec->prop->timetoregen = PALDOWN(1200);
+			var800869ec->prop->timetoregen = TICKS(1200);
 		}
 	}
 
@@ -270,7 +270,7 @@ void htbTickChr(struct chrdata *chr)
 		if (chr->aibot->hasbriefcase) {
 			chr->aibot->unk0a0 += g_Vars.lvupdate240;
 
-			if (chr->aibot->unk0a0 >= PALDOWN(7200)) {
+			if (chr->aibot->unk0a0 >= TICKS(7200)) {
 				sndStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
 				g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)]->numpoints++;
 				chr->aibot->unk0a0 = 0;
@@ -282,7 +282,7 @@ void htbTickChr(struct chrdata *chr)
 		if (invHasBriefcase()) {
 			g_Vars.currentplayerstats->tokenheldtime += g_Vars.lvupdate240;
 
-			if (g_Vars.currentplayerstats->tokenheldtime >= PALDOWN(7200)) {
+			if (g_Vars.currentplayerstats->tokenheldtime >= TICKS(7200)) {
 				sndStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
 				g_MpAllChrConfigPtrs[g_Vars.currentplayernum]->numpoints++;
 				hudmsgCreateWithFlags(langGet(L_MPWEAPONS_024), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE); // "1 Point!"

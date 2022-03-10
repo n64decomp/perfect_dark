@@ -2473,7 +2473,7 @@ void bwalkUpdateVertical(void)
 				g_Vars.currentplayer->isfalling = true;
 				g_Vars.currentplayer->fallstart = g_Vars.lvframe60;
 			} else {
-				if (g_Vars.lvframe60 - g_Vars.currentplayer->fallstart > PALDOWN(240)) {
+				if (g_Vars.lvframe60 - g_Vars.currentplayer->fallstart > TICKS(240)) {
 					// Have been falling for 4 seconds
 					playerDie(true);
 				}
@@ -2538,10 +2538,10 @@ void bwalkUpdateVertical(void)
 		// landing. Eg. The faster the fall speed, the longer Jo will take to
 		// stand back to full height again.
 		if (g_Vars.currentplayer->bdeltapos.y < -13.333333f) {
-			g_Vars.currentplayer->crouchtime240 = PALDOWN(60);
+			g_Vars.currentplayer->crouchtime240 = TICKS(60);
 			g_Vars.currentplayer->crouchfall = -90;
 		} else if (g_Vars.currentplayer->bdeltapos.y < -5.0f) {
-			g_Vars.currentplayer->crouchtime240 = PALDOWN(60);
+			g_Vars.currentplayer->crouchtime240 = TICKS(60);
 			g_Vars.currentplayer->crouchfall =
 				(-5.0f - g_Vars.currentplayer->bdeltapos.y) * -90.0f / 8.333333f;
 		}
@@ -2572,7 +2572,7 @@ void bwalkUpdateVertical(void)
 
 			if (g_Vars.mplayerisrunning == false
 					&& (chr->headnum == HEAD_DARK_COMBAT || chr->headnum == HEAD_DARK_FROCK)
-					&& g_Vars.lvframe60 - g_Vars.currentplayer->fallstart > PALDOWN(40)) {
+					&& g_Vars.lvframe60 - g_Vars.currentplayer->fallstart > TICKS(40)) {
 				// Play Jo landing grunt
 				s32 sounds[] = {
 					SFX_JO_LANDING_046F,

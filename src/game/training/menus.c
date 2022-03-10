@@ -1108,7 +1108,7 @@ s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialogdef *dialogdef,
 			scale = 1.0f;
 		}
 
-		g_Menus[g_MpPlayerNum].unk840.unk574 = PALDOWN(120);
+		g_Menus[g_MpPlayerNum].unk840.unk574 = TICKS(120);
 		g_Menus[g_MpPlayerNum].unk840.unk580 = 0;
 
 #if VERSION >= VERSION_PAL_FINAL
@@ -1150,7 +1150,7 @@ s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialogdef *dialogdef,
 		g_Menus[g_MpPlayerNum].unk840.unk51c = 0.00393f;
 		g_Menus[g_MpPlayerNum].unk840.unk524 = 0;
 		g_Menus[g_MpPlayerNum].unk840.unk54c = 0;
-		g_Menus[g_MpPlayerNum].unk840.unk578 = PALDOWN(60);
+		g_Menus[g_MpPlayerNum].unk840.unk578 = TICKS(60);
 		break;
 	case MENUOP_CLOSE:
 		break;
@@ -1397,8 +1397,8 @@ s32 dtTrainingDetailsMenuDialog(s32 operation, struct menudialogdef *dialogdef, 
 
 			if (weaponnum == WEAPON_DISGUISE41) {
 				g_Menus[g_MpPlayerNum].unk840.unk05c = ANIM_006A;
-				g_Menus[g_MpPlayerNum].unk840.unk578 = PALDOWN(60);
-				g_Menus[g_MpPlayerNum].unk840.unk574 = PALDOWN(120);
+				g_Menus[g_MpPlayerNum].unk840.unk578 = TICKS(60);
+				g_Menus[g_MpPlayerNum].unk840.unk574 = TICKS(120);
 			}
 
 			g_Menus[g_MpPlayerNum].unk840.unk54c = 18.849555969238f * var80061630;

@@ -283,7 +283,7 @@ Gfx *shardsRenderWood(Gfx *gdl)
 						if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 							u8 (*colours)[4] = gfxAllocateColours(3);
 
-							if (g_Shards[i].age60 >= PALDOWN(100)) {
+							if (g_Shards[i].age60 >= TICKS(100)) {
 								f32 frac = g_Shards[i].age60 / (PAL ? 41.666664123535f : 50.0f);
 
 								if (frac > 1) {
@@ -877,7 +877,7 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 						if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 							u8 (*colours)[4] = gfxAllocateColours(3);
 
-							if (g_Shards[i].age60 >= PALDOWN(100)) {
+							if (g_Shards[i].age60 >= TICKS(100)) {
 								f32 frac = g_Shards[i].age60 / (PAL ? 41.666664123535f : 50.0f);
 
 								if (frac > 1) {

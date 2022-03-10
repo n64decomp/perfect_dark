@@ -51,12 +51,12 @@ struct botdifficulty g_BotDifficulties[] = {
 	//           |            |                  |                  |             |   |                 unk18
 	//           |            |                  |                  |             |   |                 |                  dizzyamount
 	//           |            |                  |                  |             |   |                 |                  |
-	/* meat */ { PALDOWN(90), 0.26175770163536,  0.52351540327072,  PALDOWN(600), 10, 0.69802051782608, 0.34901025891304,  PALDOWN(1000) },
-	/* easy */ { PALDOWN(60), 0.12215359508991,  0.24430719017982,  PALDOWN(360), 10, 0.49733963608742, 0.13960410654545,  PALDOWN(1000) },
-	/* norm */ { PALDOWN(30), 0.069802053272724, 0.13960410654545,  PALDOWN(180), 4,  0.34901025891304, 0.08725256472826,  PALDOWN(1500) },
-	/* hard */ { PALDOWN(15), 0.026175770908594, 0.069802053272724, PALDOWN(90),  2,  0.24430719017982, 0.034901026636362, PALDOWN(2500) },
-	/* perf */ { PALDOWN(0),  0,                 0.034901026636362, PALDOWN(45),  1,  0.17450512945652, 0,                 PALDOWN(4000) },
-	/* dark */ { PALDOWN(0),  0,                 0,                 PALDOWN(0),   0,  0.13960410654545, 0,                 PALDOWN(4000) },
+	/* meat */ { TICKS(90), 0.26175770163536,  0.52351540327072,  TICKS(600), 10, 0.69802051782608, 0.34901025891304,  TICKS(1000) },
+	/* easy */ { TICKS(60), 0.12215359508991,  0.24430719017982,  TICKS(360), 10, 0.49733963608742, 0.13960410654545,  TICKS(1000) },
+	/* norm */ { TICKS(30), 0.069802053272724, 0.13960410654545,  TICKS(180), 4,  0.34901025891304, 0.08725256472826,  TICKS(1500) },
+	/* hard */ { TICKS(15), 0.026175770908594, 0.069802053272724, TICKS(90),  2,  0.24430719017982, 0.034901026636362, TICKS(2500) },
+	/* perf */ { TICKS(0),  0,                 0.034901026636362, TICKS(45),  1,  0.17450512945652, 0,                 TICKS(4000) },
+	/* dark */ { TICKS(0),  0,                 0,                 TICKS(0),   0,  0.13960410654545, 0,                 TICKS(4000) },
 	{ 0 },
 };
 
@@ -2647,7 +2647,7 @@ bool botIsAboutToAttack(struct chrdata *chr, bool arg1)
 		}
 
 		if (chr->aibot->config->difficulty > BOTDIFF_MEAT) {
-			if (chr->aibot->chrslastseen60[mpindex] >= g_Vars.lvframe60 - PALDOWN(240)
+			if (chr->aibot->chrslastseen60[mpindex] >= g_Vars.lvframe60 - TICKS(240)
 					|| (arrayIntersects(chr->prop->rooms, target->rooms))) {
 				result = true;
 			}
@@ -3758,8 +3758,8 @@ glabel var7f1b8ef0
 //
 //			// Dampen blur
 //			if (chr->blurdrugamount > 0) {
-//				if (chr->blurdrugamount > PALDOWN(5000)) {
-//					chr->blurdrugamount = PALDOWN(5000);
+//				if (chr->blurdrugamount > TICKS(5000)) {
+//					chr->blurdrugamount = TICKS(5000);
 //				}
 //
 //				chr->blurdrugamount -= g_Vars.lvupdate240_60 * (chr->blurnumtimesdied + 1);
@@ -3787,11 +3787,11 @@ glabel var7f1b8ef0
 //			} else if (chr->myaction == MA_AIBOTFOLLOW
 //					&& aibot->followingplayernum >= 0
 //					&& aibot->chrdistances[aibot->followingplayernum] < 300
-//					&& aibot->unk1e4 >= g_Vars.lvframe60 - PALDOWN(60)
+//					&& aibot->unk1e4 >= g_Vars.lvframe60 - TICKS(60)
 //					&& aibot->config->difficulty != BOTDIFF_MEAT) {
 //				targetangle = chrGetInverseTheta(g_MpAllChrPtrs[aibot->followingplayernum]);
 //			} else if (chr->myaction == MA_AIBOTDEFEND
-//					&& aibot->unk1e4 >= g_Vars.lvframe60 - PALDOWN(60)
+//					&& aibot->unk1e4 >= g_Vars.lvframe60 - TICKS(60)
 //					&& aibot->config->difficulty != BOTDIFF_MEAT) {
 //				targetangle = aibot->unk098;
 //			} else {
@@ -3807,7 +3807,7 @@ glabel var7f1b8ef0
 //			}
 //
 //			if (chr->blurdrugamount > 0 && !chrIsDead(chr) && aibot->skrocket == NULL) {
-//				targetangle += chr->blurdrugamount * 0.00031410926021636f * sinf((g_Vars.lvframe60 % PALDOWN(120)) * 0.052351541817188f);
+//				targetangle += chr->blurdrugamount * 0.00031410926021636f * sinf((g_Vars.lvframe60 % TICKS(120)) * 0.052351541817188f);
 //
 //				if (targetangle >= M_BADTAU) {
 //					targetangle -= M_BADTAU;
@@ -4143,7 +4143,7 @@ void botLoseGun(struct chrdata *chr, struct prop *attackerprop)
 			chr->hidden |= CHRHFLAG_00000001;
 
 			if (obj->hidden & OBJHFLAG_AIRBORNE) {
-				obj->projectile->unk0b4 = PALDOWN(240);
+				obj->projectile->unk0b4 = TICKS(240);
 				obj->projectile->unk108 = attackerprop;
 			}
 		}
@@ -4191,7 +4191,7 @@ void botSetTarget(struct chrdata *botchr, s32 propnum)
 		botchr->aibot->unk208 = 0;
 
 		if (botchr->aibot->targetinsight && otherchr) {
-			botchr->aibot->targetcloaktimer60 = PALDOWN(120);
+			botchr->aibot->targetcloaktimer60 = TICKS(120);
 		} else {
 			botchr->aibot->targetcloaktimer60 = 0;
 		}
@@ -4213,7 +4213,7 @@ void botSetTarget(struct chrdata *botchr, s32 propnum)
 
 	if (botchr->aibot->targetinsight && otherchr) {
 		if ((otherchr->hidden & CHRHFLAG_CLOAKED) == 0) {
-			botchr->aibot->targetcloaktimer60 = PALDOWN(120);
+			botchr->aibot->targetcloaktimer60 = TICKS(120);
 		} else {
 			if (botchr->aibot->targetcloaktimer60 > 0) {
 				botchr->aibot->targetcloaktimer60 -= g_Vars.lvupdate240_60;
@@ -4271,7 +4271,7 @@ void bot0f192a74(struct chrdata *chr)
 
 	if (aibot->unk1cc <= 0) {
 		aibot->unk1d0 = random();
-		aibot->unk1cc = PALDOWN(20) + random() % PALDOWN(20);
+		aibot->unk1cc = TICKS(20) + random() % TICKS(20);
 	}
 
 	if (g_Vars.lvupdate240 > 0) {
@@ -4412,7 +4412,7 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 		// However, the usage of canseecloaked appears to be botched.
 		// It is implemented in botIsTargetInvisible, but that function is not
 		// called here while canseecloaked is true.
-		if (random() % PALDOWN(4 * 60 * 60) < g_MpNumChrs * g_Vars.lvupdate240_60) {
+		if (random() % TICKS(4 * 60 * 60) < g_MpNumChrs * g_Vars.lvupdate240_60) {
 			aibot->canseecloaked = true;
 		}
 

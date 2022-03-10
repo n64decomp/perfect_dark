@@ -33162,7 +33162,7 @@ void doorTick(struct prop *doorprop)
 	if (door->lastopen60 > 0
 			&& door->mode == DOORMODE_IDLE
 			&& (door->base.flags & OBJFLAG_DOOR_KEEPOPEN) == 0
-			&& door->lastopen60 < g_Vars.lvframe60 - PALDOWN(door->autoclosetime)) {
+			&& door->lastopen60 < g_Vars.lvframe60 - TICKS(door->autoclosetime)) {
 		// Check if any sibling is automatic
 		struct doorobj *loopdoor = door->sibling;
 		bool pass = door->doorflags & DOORFLAG_AUTOMATIC;
@@ -34943,7 +34943,7 @@ void cctvTick(struct prop *camprop)
 			camera->seebondtime60 += g_Vars.lvupdate240_60;
 		}
 
-		if (camera->seebondtime60 >= (s32)(PALDOWN(300) * g_CameraWaitMultiplier)) {
+		if (camera->seebondtime60 >= (s32)(TICKS(300) * g_CameraWaitMultiplier)) {
 			alarmActivate();
 			camera->seebondtime60 = 0;
 		}
@@ -40627,7 +40627,7 @@ bool chopperAttack(struct chopperobj *obj)
 
 	if (chopper) {
 		chopper->attackmode = CHOPPERMODE_COMBAT;
-		chopper->patroltimer60 = PALDOWN(240);
+		chopper->patroltimer60 = TICKS(240);
 
 		return true;
 	}
@@ -40641,7 +40641,7 @@ bool chopperStop(struct chopperobj *obj)
 
 	if (chopper) {
 		chopper->attackmode = CHOPPERMODE_PATROL;
-		chopper->patroltimer60 = PALDOWN(120);
+		chopper->patroltimer60 = TICKS(120);
 		chopper->power = 0;
 
 		return true;
@@ -49366,7 +49366,7 @@ u32 func0f07e474(struct prop *prop)
 		// Prop is taken/unavailable
 		regenning = true;
 
-		if (prop->timetoregen >= PALDOWN(60)) {
+		if (prop->timetoregen >= TICKS(60)) {
 			regenning = false;
 		}
 
@@ -49375,8 +49375,8 @@ u32 func0f07e474(struct prop *prop)
 		// If ready to start fading in but propCanRegen returns false, wait
 		// another second and try again. In practice propCanRegen will always
 		// return true so this condition will never pass.
-		if (prop->timetoregen < PALDOWN(60) && !regenning && !propCanRegen(prop)) {
-			prop->timetoregen += PALDOWN(60);
+		if (prop->timetoregen < TICKS(60) && !regenning && !propCanRegen(prop)) {
+			prop->timetoregen += TICKS(60);
 		}
 
 		if (prop->timetoregen <= 0) {
@@ -49388,7 +49388,7 @@ u32 func0f07e474(struct prop *prop)
 			} else {
 				obj->hidden &= ~OBJHFLAG_00001000;
 			}
-		} else if (prop->timetoregen < PALDOWN(60) && !regenning) {
+		} else if (prop->timetoregen < TICKS(60) && !regenning) {
 			// 1 second left - time to start fading in
 			if (obj->damage == 0 && (obj->hidden2 & OBJH2FLAG_DESTROYED) == 0) {
 				if (obj->flags & OBJFLAG_INSIDEANOTHEROBJ) {
@@ -52188,8 +52188,8 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool withalpha)
 	if (obj->type != OBJTYPE_TINTEDGLASS) {
 		frac = func0f08e6bc(prop, model0001af80(obj->model));
 
-		if (prop->timetoregen > 0 && prop->timetoregen < PALDOWN(60)) {
-			frac *= (PALDOWN(60.0f) - prop->timetoregen) * (PAL ? 0.019999999552965f : 0.016666667535901f);
+		if (prop->timetoregen > 0 && prop->timetoregen < TICKS(60)) {
+			frac *= (TICKS(60.0f) - prop->timetoregen) * (PAL ? 0.019999999552965f : 0.016666667535901f);
 		}
 
 		alpha = frac * 255.0f;
@@ -59432,7 +59432,7 @@ bool currentPlayerTryMountHoverbike(struct prop *prop)
 	u32 stack[2];
 
 	if (obj->type == OBJTYPE_HOVERBIKE
-			&& g_Vars.lvframe60 - g_Vars.currentplayer->activatetimelast < PALDOWN(30)
+			&& g_Vars.lvframe60 - g_Vars.currentplayer->activatetimelast < TICKS(30)
 			&& (obj->hidden & OBJHFLAG_MOUNTED) == 0) {
 		if (obj->hidden & OBJHFLAG_GRABBED) {
 			if (bmoveGetGrabbedProp() == prop) {
@@ -60856,7 +60856,7 @@ s32 ammocrateGetPickupAmmoQty(struct ammocrateobj *crate)
 	case AMMOTYPE_MAGNUM   : qty = 5;             break;
 	case AMMOTYPE_REAPER   : qty = 200;           break;
 	case AMMOTYPE_DART     : qty = 4;             break;
-	case AMMOTYPE_CLOAK    : qty = PALDOWN(1200); break;
+	case AMMOTYPE_CLOAK    : qty = TICKS(1200); break;
 	case AMMOTYPE_SEDATIVE : qty = 16;            break;
 	case AMMOTYPE_BOOST    : qty = 1;             break;
 	}
@@ -60899,7 +60899,7 @@ s32 weaponGetPickupAmmoQty(struct weaponobj *weapon)
 		case AMMOTYPE_DEVASTATOR:   qty = 3;             break;
 		case AMMOTYPE_REAPER:       qty = 200;           break;
 		case AMMOTYPE_DART:         qty = 10;            break;
-		case AMMOTYPE_CLOAK:        qty = PALDOWN(1200); break;
+		case AMMOTYPE_CLOAK:        qty = TICKS(1200); break;
 		case AMMOTYPE_SEDATIVE:     qty = 16;            break;
 		case AMMOTYPE_BOOST:        qty = 1;             break;
 		}
@@ -60915,7 +60915,7 @@ s32 weaponGetPickupAmmoQty(struct weaponobj *weapon)
 		case AMMOTYPE_DEVASTATOR: qty = 3;             break;
 		case AMMOTYPE_REAPER:     qty = 100;           break;
 		case AMMOTYPE_DART:       qty = 4;             break;
-		case AMMOTYPE_CLOAK:      qty = PALDOWN(1200); break;
+		case AMMOTYPE_CLOAK:      qty = TICKS(1200); break;
 		case AMMOTYPE_BOOST:      qty = 2;             break;
 		case AMMOTYPE_SEDATIVE:   qty = 16;            break;
 		}
@@ -66759,7 +66759,7 @@ void doorStartOpen(struct doorobj *door)
 		}
 	}
 
-	door->fadetime60 = door->doortype == DOORTYPE_LASER ? PALDOWN(60) : 0;
+	door->fadetime60 = door->doortype == DOORTYPE_LASER ? TICKS(60) : 0;
 
 	if (door->doortype == DOORTYPE_LASER) {
 		door->laserfade = 255;
@@ -66776,7 +66776,7 @@ void doorStartClose(struct doorobj *door)
 
 	doorPlayClosingSound(door->soundtype, door->base.prop);
 
-	door->fadetime60 = door->doortype == DOORTYPE_LASER ? PALDOWN(60) : 0;
+	door->fadetime60 = door->doortype == DOORTYPE_LASER ? TICKS(60) : 0;
 
 	if (door->doortype == DOORTYPE_LASER) {
 		door->laserfade = 0;
@@ -67139,11 +67139,11 @@ bool doorCalcIntendedFrac(struct doorobj *door)
 		}
 
 		if (door->mode == DOORMODE_OPENING) {
-			door->laserfade = (u32)((door->fadetime60 * 255.0f) / PALDOWN(60.0f));
+			door->laserfade = (u32)((door->fadetime60 * 255.0f) / TICKS(60.0f));
 			return false;
 		}
 
-		door->laserfade = (u32)(((PALDOWN(60.0f) - door->fadetime60) * 255.0f) / PALDOWN(60.0f));
+		door->laserfade = (u32)(((TICKS(60.0f) - door->fadetime60) * 255.0f) / TICKS(60.0f));
 	}
 
 	if (door->mode == DOORMODE_OPENING || door->mode == DOORMODE_CLOSING) {
@@ -67303,11 +67303,11 @@ void doorsCalcFrac(struct doorobj *door)
 									struct prop *target = chrGetTargetProp(chr);
 
 									if (chrGoToPos(chr, &target->pos, target->rooms, 0)) {
-										chr->goposforce = PALDOWN(600);
+										chr->goposforce = TICKS(600);
 									}
 								} else if (chr->actiontype == ACT_GOPOS) {
-									if (chr->goposforce >= 0 || chr->lastmoveok60 < g_Vars.lvframe60 - PALDOWN(60)) {
-										chr->goposforce = PALDOWN(600);
+									if (chr->goposforce >= 0 || chr->lastmoveok60 < g_Vars.lvframe60 - TICKS(60)) {
+										chr->goposforce = TICKS(600);
 									}
 								}
 							}
@@ -68120,7 +68120,7 @@ void gasTick(void)
 		envApplyTransitionFrac(g_GasReleaseTimer240 / g_GasReleaseTimerMax240);
 
 		if (g_GasEnableDamage) {
-			if (g_GasLastCough60 < g_Vars.lvframe60 - PALDOWN(225)) {
+			if (g_GasLastCough60 < g_Vars.lvframe60 - TICKS(225)) {
 				g_GasLastCough60 = g_Vars.lvframe60;
 
 				if (g_GasReleaseTimer240 >= 600) {
@@ -68338,8 +68338,8 @@ void alarmTick(void)
 
 	// For G5, stop alarm after 55 seconds.
 	// For all other levels, stop alarm after 30 seconds.
-	if ((g_AlarmTimer > PALDOWN(1800) && mainGetStageNum() != STAGE_G5BUILDING)
-			|| (g_AlarmTimer > PALDOWN(3300) && mainGetStageNum() == STAGE_G5BUILDING)) {
+	if ((g_AlarmTimer > TICKS(1800) && mainGetStageNum() != STAGE_G5BUILDING)
+			|| (g_AlarmTimer > TICKS(3300) && mainGetStageNum() == STAGE_G5BUILDING)) {
 		alarmDeactivate();
 	}
 

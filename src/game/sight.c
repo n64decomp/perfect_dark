@@ -175,17 +175,17 @@ void sightTick(bool sighton)
 	g_Vars.currentplayer->sighttimer240 += g_Vars.lvupdate240;
 
 	for (i = 0; i < 4; i++) {
-		if (g_Vars.currentplayer->targetset[i] > PALDOWN(512)) {
+		if (g_Vars.currentplayer->targetset[i] > TICKS(512)) {
 			if (g_Vars.currentplayer->targetset[i] < (PAL ? 850 : 1024) - g_Vars.lvupdate240) {
 				g_Vars.currentplayer->targetset[i] += g_Vars.lvupdate240;
 			} else {
-				g_Vars.currentplayer->targetset[i] = PALDOWN(1020);
+				g_Vars.currentplayer->targetset[i] = TICKS(1020);
 			}
 		} else {
 			if (g_Vars.currentplayer->targetset[i] < (PAL ? 426 : 516) - g_Vars.lvupdate240) {
 				g_Vars.currentplayer->targetset[i] += g_Vars.lvupdate240;
 			} else {
-				g_Vars.currentplayer->targetset[i] = PALDOWN(512);
+				g_Vars.currentplayer->targetset[i] = TICKS(512);
 			}
 		}
 	}

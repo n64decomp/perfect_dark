@@ -1264,7 +1264,7 @@ Gfx *mpRenderModalText(Gfx *gdl)
 			s32 countdowny = viGetViewTop() + viGetViewHeight() / 2 + textheight + 2;
 			s32 coutndownx = viGetViewLeft() + viGetViewWidth() / 2;
 
-			sprintf(text, "%d\n", (g_Vars.currentplayer->deadtimer + PALDOWN(60) - 1) / PALDOWN(60));
+			sprintf(text, "%d\n", (g_Vars.currentplayer->deadtimer + TICKS(60) - 1) / TICKS(60));
 
 			textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 			x = coutndownx - textwidth / 2;
@@ -4825,7 +4825,7 @@ glabel mpChooseTrack
 //
 //			// 568
 //			g_MpLockInfo.unk04 = tracknum;
-//			g_MusicLife60 = g_MpTracks[tracknum].duration * PALDOWN(60);
+//			g_MusicLife60 = g_MpTracks[tracknum].duration * TICKS(60);
 //
 //			return g_MpTracks[tracknum].musicnum;
 //		}
@@ -4849,7 +4849,7 @@ glabel mpChooseTrack
 //
 //			// 608
 //			if (tracknum == -1) {
-//				g_MusicLife60 = g_MpTracks[0].duration * PALDOWN(60);
+//				g_MusicLife60 = g_MpTracks[0].duration * TICKS(60);
 //				return g_MpTracks[0].musicnum;
 //			}
 //
@@ -4859,7 +4859,7 @@ glabel mpChooseTrack
 //
 //		// 654
 //		g_MpLockInfo.unk04 = tracknum;
-//		g_MusicLife60 = g_MpTracks[tracknum].duration * PALDOWN(60);
+//		g_MusicLife60 = g_MpTracks[tracknum].duration * TICKS(60);
 //
 //		return g_MpTracks[tracknum].musicnum;
 //	}
@@ -4875,13 +4875,13 @@ glabel mpChooseTrack
 //		} while (tracknum == g_MpLockInfo.unk04);
 //
 //		g_MpLockInfo.unk04 = tracknum;
-//		g_MusicLife60 = g_MpTracks[tracknum].duration * PALDOWN(60);
+//		g_MusicLife60 = g_MpTracks[tracknum].duration * TICKS(60);
 //		return g_MpTracks[tracknum].musicnum;
 //	}
 //
 //	tracknum = mpGetTrackNumAtSlotIndex(tracknum);
 //	g_MpLockInfo.unk04 = tracknum;
-//	g_MusicLife60 = g_MpTracks[g_MpLockInfo.unk04].duration * PALDOWN(60);
+//	g_MusicLife60 = g_MpTracks[g_MpLockInfo.unk04].duration * TICKS(60);
 //
 //	return g_MpTracks[tracknum].musicnum;
 //}

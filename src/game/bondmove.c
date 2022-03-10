@@ -99,7 +99,7 @@ void bmoveUpdateAutoAimYProp(struct prop *prop, f32 autoaimy)
 
 	if (prop != g_Vars.currentplayer->autoyaimprop) {
 		if (g_Vars.currentplayer->autoyaimtime60 < 0) {
-			g_Vars.currentplayer->autoyaimtime60 = PALDOWN(30);
+			g_Vars.currentplayer->autoyaimtime60 = TICKS(30);
 			g_Vars.currentplayer->autoyaimprop = prop;
 		} else {
 			return;
@@ -152,7 +152,7 @@ void bmoveUpdateAutoAimXProp(struct prop *prop, f32 autoaimx)
 
 	if (prop != g_Vars.currentplayer->autoxaimprop) {
 		if (g_Vars.currentplayer->autoxaimtime60 < 0) {
-			g_Vars.currentplayer->autoxaimtime60 = PALDOWN(30);
+			g_Vars.currentplayer->autoxaimtime60 = TICKS(30);
 			g_Vars.currentplayer->autoxaimprop = prop;
 		} else {
 			return;
@@ -889,7 +889,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 
 										if (g_Vars.currentplayer->invdowntime > -1
 												&& joyGetButtonsOnSample(i, shootpad, shootallowedbuttons & Z_TRIG) == 0) {
-											if (g_Vars.currentplayer->invdowntime > PALDOWN(15)) {
+											if (g_Vars.currentplayer->invdowntime > TICKS(15)) {
 												amOpen();
 												g_Vars.currentplayer->invdowntime = -1;
 											} else {
@@ -922,7 +922,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 									}
 
 									if (g_Vars.currentplayer->usedowntime > -1) {
-										if (g_Vars.currentplayer->usedowntime > PALDOWN(25)) {
+										if (g_Vars.currentplayer->usedowntime > TICKS(25)) {
 											result = bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 0, 0);
 
 											if (result == 1) {
@@ -1006,7 +1006,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 									}
 								} else {
 									if (g_Vars.currentplayer->aimtaptime > 0
-											&& g_Vars.currentplayer->aimtaptime < PALDOWN(15)) {
+											&& g_Vars.currentplayer->aimtaptime < TICKS(15)) {
 										if (movedata.crouchdown) {
 											movedata.crouchdown--;
 										} else {
@@ -1247,7 +1247,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 
 										if (g_Vars.currentplayer->invdowntime >= 0 && joyGetButtonsOnSample(i, contpad1, shootbuttons & c1allowedbuttons) == 0) {
 											// Holding A and haven't pressed Z
-											if (g_Vars.currentplayer->invdowntime > PALDOWN(15)) {
+											if (g_Vars.currentplayer->invdowntime > TICKS(15)) {
 												amOpen();
 												g_Vars.currentplayer->invdowntime = -1;
 											} else {
@@ -1281,7 +1281,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 									}
 
 									if (g_Vars.currentplayer->usedowntime >= 0) {
-										if (g_Vars.currentplayer->usedowntime > PALDOWN(25)) {
+										if (g_Vars.currentplayer->usedowntime > TICKS(25)) {
 											s32 result = bgunConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 0, 0);
 
 											if (result == 1) {
@@ -1364,7 +1364,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 									}
 								} else {
 									// Released aim
-									if (g_Vars.currentplayer->aimtaptime > 0 && g_Vars.currentplayer->aimtaptime < PALDOWN(15)) {
+									if (g_Vars.currentplayer->aimtaptime > 0 && g_Vars.currentplayer->aimtaptime < TICKS(15)) {
 										// Was only a tap, so uncrouch
 										if (movedata.crouchdown) {
 											movedata.crouchdown--;
@@ -1539,7 +1539,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 	// Speed boost
 	// After 3 seconds of holding forward at max speed, apply boost multiplier.
 	// The multiplier starts at 1 and reaches 1.25 after about 0.1 seconds.
-	if (g_Vars.currentplayer->speedmaxtime60 >= PALDOWN(180)) {
+	if (g_Vars.currentplayer->speedmaxtime60 >= TICKS(180)) {
 		if (g_Vars.currentplayer->speedboost < 1.25f) {
 			g_Vars.currentplayer->speedboost += 0.01f * g_Vars.lvupdate240freal;
 		}

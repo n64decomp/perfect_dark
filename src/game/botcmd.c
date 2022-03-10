@@ -138,7 +138,7 @@ void botcmdTickDistMode(struct chrdata *chr)
 		if (!insight) {
 			newmode = BOTDISTMODE_ADVANCE;
 			aibot->unk050 = targetprop;
-			aibot->unk09d = PALDOWN(20) + (random() % PALDOWN(120));
+			aibot->unk09d = TICKS(20) + (random() % TICKS(120));
 		} else if (aibot->unk050) {
 			if (aibot->unk09d > g_Vars.lvupdate240_60) {
 				aibot->unk09d -= g_Vars.lvupdate240_60;
@@ -178,7 +178,7 @@ void botcmdTickDistMode(struct chrdata *chr)
 			break;
 		}
 
-		aibot->distmodettl60 = PALDOWN(60);
+		aibot->distmodettl60 = TICKS(60);
 	}
 }
 

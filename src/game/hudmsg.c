@@ -1276,10 +1276,10 @@ void hudmsgCreateFromArgs(char *text, s32 type, s32 conf00, s32 conf01, s32 conf
 			hudmsgCalculatePosition(msg);
 
 			if (flags & HUDMSGFLAG_NOCHANNEL) {
-				msg->showduration = PALDOWN(arg14);
+				msg->showduration = TICKS(arg14);
 				msg->channelnum = -1;
 			} else {
-				msg->showduration = PALDOWN(g_HudmsgTypes[type].duration);
+				msg->showduration = TICKS(g_HudmsgTypes[type].duration);
 				msg->channelnum = arg14;
 			}
 		}

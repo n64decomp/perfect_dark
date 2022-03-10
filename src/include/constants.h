@@ -56,13 +56,13 @@
 		(p[2] - g_Vars.currentplayer->eraserpos.f[2]) * (p[2] - g_Vars.currentplayer->eraserpos.f[2]))
 
 #if PAL
-#define PALDOWN(val)  ((val) * 50 / 60)
+#define TICKS(val)    ((val) * 50 / 60)
 #define PALUP(val)    ((val) * 60 / 50)
 #define PALUPF(val)   ((val) * 1.2f)
 #define FRAMEDURATION (1 / 50.0f)
 #else
+#define TICKS(val)    (val)
 #define PALUP(val)    (val)
-#define PALDOWN(val)  (val)
 #define PALUPF(val)   (val)
 #define FRAMEDURATION (1 / 60.0f)
 #endif

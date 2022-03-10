@@ -607,8 +607,8 @@ bool lvCheckCmpFollowThreat(struct threat *threat, s32 index)
 			if (chrIsDead(threat->prop->chr)) {
 				if (index >= 0) {
 					// Existing threat
-					if (g_Vars.currentplayer->targetset[index] < PALDOWN(129)) {
-						g_Vars.currentplayer->targetset[index] = PALDOWN(129);
+					if (g_Vars.currentplayer->targetset[index] < TICKS(129)) {
+						g_Vars.currentplayer->targetset[index] = TICKS(129);
 					}
 
 					if (g_Vars.currentplayer->targetset[index] >= (PAL ? 146 : 175)) {
@@ -1121,14 +1121,14 @@ Gfx *lvRender(Gfx *gdl)
 				if (chr->blurdrugamount > 0
 						&& !g_Vars.currentplayer->invincible
 						&& !g_Vars.currentplayer->training) {
-					bluramount = (chr->blurdrugamount * 130) / PALDOWN(5000) + 100;
+					bluramount = (chr->blurdrugamount * 130) / TICKS(5000) + 100;
 
 					if (bluramount > 230) {
 						bluramount = 230;
 					}
 
-					if (chr->blurdrugamount > PALDOWN(5000)) {
-						chr->blurdrugamount = PALDOWN(5000);
+					if (chr->blurdrugamount > TICKS(5000)) {
+						chr->blurdrugamount = TICKS(5000);
 					}
 
 					chr->blurdrugamount -= g_Vars.lvupdate240_60 * (chr->blurnumtimesdied + 1);
@@ -1409,13 +1409,13 @@ Gfx *lvRender(Gfx *gdl)
 								g_CutsceneStaticTimer -= g_Vars.diffframe60;
 
 								if (g_CutsceneStaticTimer < 0) {
-									g_CutsceneStaticTimer = random() % PALDOWN(200) + PALDOWN(40);
+									g_CutsceneStaticTimer = random() % TICKS(200) + TICKS(40);
 									g_CutsceneStaticActive = false;
 								}
 
 								gdl = bviewRenderFilmLens(gdl, 0xffffffff, 0xffffffff);
 
-								if (g_CutsceneStaticTimer < PALDOWN(15)) {
+								if (g_CutsceneStaticTimer < TICKS(15)) {
 									if (g_CutsceneStaticActive == false) {
 										g_CutsceneStaticActive = true;
 										sndStart(var80095200, SFX_INFIL_STATIC_MEDIUM, NULL, -1, -1, -1, -1, -1);
@@ -1449,7 +1449,7 @@ Gfx *lvRender(Gfx *gdl)
 						gdl = bviewRenderSlayerRocketLens(gdl, 0xffffffff, 0xffffffff);
 
 						if (g_Vars.currentplayer->badrockettime > 0) {
-							u32 slayerstatic = g_Vars.currentplayer->badrockettime * 255 / PALDOWN(90);
+							u32 slayerstatic = g_Vars.currentplayer->badrockettime * 255 / TICKS(90);
 
 							if (slayerstatic > 255) {
 								slayerstatic = 255;
@@ -1470,7 +1470,7 @@ Gfx *lvRender(Gfx *gdl)
 							&& g_Vars.tickmode != TICKMODE_CUTSCENE) {
 						s32 xraything = 99;
 
-						if (g_Vars.currentplayer->erasertime < PALDOWN(200)) {
+						if (g_Vars.currentplayer->erasertime < TICKS(200)) {
 #if PAL
 							xraything = 249 - ((g_Vars.currentplayer->erasertime * 180 / 50) >> 2);
 #else
@@ -2183,7 +2183,7 @@ void lvTick(void)
 		if (g_MpTimeLimit60 > 0) {
 			s32 elapsed = g_StageTimeElapsed60;
 			s32 nexttime = g_Vars.lvupdate240_60 + g_StageTimeElapsed60;
-			s32 warntime = PALDOWN(g_MpTimeLimit60) - PALDOWN(3600);
+			s32 warntime = TICKS(g_MpTimeLimit60) - TICKS(3600);
 
 			// Show HUD message at one minute remaining
 			if (elapsed < warntime && nexttime >= warntime) {
@@ -2195,16 +2195,16 @@ void lvTick(void)
 				}
 			}
 
-			if (elapsed < PALDOWN(g_MpTimeLimit60) && nexttime >= PALDOWN(g_MpTimeLimit60)) {
+			if (elapsed < TICKS(g_MpTimeLimit60) && nexttime >= TICKS(g_MpTimeLimit60)) {
 				// Match is ending due to time limit reached
 				mainEndStage();
 			}
 
 			// Sound alarm at 10 seconds remaining
-			if (nexttime >= PALDOWN(g_MpTimeLimit60) - PALDOWN(600)
+			if (nexttime >= TICKS(g_MpTimeLimit60) - TICKS(600)
 					&& g_MiscAudioHandle == NULL
 					&& !lvIsPaused()
-					&& nexttime < PALDOWN(g_MpTimeLimit60)) {
+					&& nexttime < TICKS(g_MpTimeLimit60)) {
 				snd00010718(&g_MiscAudioHandle, 0, 0x7fff, 0x40, 163, 1, 1, -1, 1);
 			}
 		}
@@ -2257,7 +2257,7 @@ void lvTick(void)
 	}
 
 	g_StageTimeElapsed60 += g_Vars.lvupdate240_60;
-	g_StageTimeElapsed1f = g_StageTimeElapsed60 / PALDOWN(60.0f);
+	g_StageTimeElapsed1f = g_StageTimeElapsed60 / TICKS(60.0f);
 
 	viSetUseZBuf(true);
 

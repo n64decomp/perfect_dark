@@ -2468,10 +2468,10 @@ void chrAttackWalk(struct chrdata *chr, bool run)
 
 	chr->act_attackwalk.frame60count = 0;
 #if PAL
-	// This is really PALDOWN(400.0f), but off by one bit :(
-	chr->act_attackwalk.frame60max = random() % (s32)(333.33331298828f * var80062cac) + PALDOWN(120);
+	// This is really TICKS(400.0f), but off by one bit :(
+	chr->act_attackwalk.frame60max = random() % (s32)(333.33331298828f * var80062cac) + TICKS(120);
 #else
-	chr->act_attackwalk.frame60max = random() % (s32)(400 * var80062cac) + PALDOWN(120);
+	chr->act_attackwalk.frame60max = random() % (s32)(400 * var80062cac) + TICKS(120);
 #endif
 	chr->act_attackwalk.facedtarget = false;
 	chr->act_attackwalk.animcfg = animcfg;
@@ -3118,7 +3118,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 
 	chr->act_die.notifychrindex = 0;
 	chr->act_die.timeextra = 0;
-	chr->act_die.drcarollimagedelay = PALDOWN(45);
+	chr->act_die.drcarollimagedelay = TICKS(45);
 	chr->act_die.thudframe1 = -1;
 	chr->act_die.thudframe2 = -1;
 
@@ -3675,7 +3675,7 @@ void chrYeetFromPos(struct chrdata *chr, struct coord *exppos, f32 force)
 		chr->act_die.thudframe1 = row->thudframe;
 		chr->act_die.thudframe2 = -1;
 		chr->act_die.timeextra = 0;
-		chr->act_die.drcarollimagedelay = PALDOWN(45);
+		chr->act_die.drcarollimagedelay = TICKS(45);
 
 		if (chr->race == RACE_DRCAROLL) {
 			chr->drcarollimage_left = 1 + (s32)((random() % 400) * 0.01f);
@@ -3693,22 +3693,22 @@ void chrYeetFromPos(struct chrdata *chr, struct coord *exppos, f32 force)
 
 s32 gsetGetBlurAmount(struct gset *gset)
 {
-	s32 amount = PALDOWN(1000);
+	s32 amount = TICKS(1000);
 
 	if (g_Vars.normmplayerisrunning == false) {
-		amount = PALDOWN(250);
+		amount = TICKS(250);
 	}
 
 	if (gset->weaponnum == WEAPON_TRANQUILIZER) {
-		amount = PALDOWN(2000);
+		amount = TICKS(2000);
 	}
 
 	if (gset->weaponnum == WEAPON_BOLT) {
-		amount = PALDOWN(5000);
+		amount = TICKS(5000);
 	}
 
 	if (gset->weaponnum == WEAPON_NBOMB) {
-		amount = PALDOWN(100);
+		amount = TICKS(100);
 	}
 
 	return amount;
@@ -3842,7 +3842,7 @@ void chrChoke(struct chrdata *chr, s32 choketype)
 			SFX_ARGH_DRCAROLL_025A,
 		};
 
-		if (g_DrCarollDyingTimer > PALDOWN(10)) {
+		if (g_DrCarollDyingTimer > TICKS(10)) {
 			g_DrCarollDyingTimer = 0;
 
 			soundnum = sounds[nextindexdrcaroll];
@@ -4769,7 +4769,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 					if (!achr
 							|| !achr->aibot
 							|| !gsetHasFunctionFlags(gset, FUNCFLAG_00400000)
-							|| chr->blurdrugamount < PALDOWN(4500)) {
+							|| chr->blurdrugamount < TICKS(4500)) {
 						chr->blurdrugamount += gsetGetBlurAmount(gset) * blurscale;
 					}
 
@@ -4890,7 +4890,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 					chr->blurdrugamount += gsetGetBlurAmount(gset);
 					chr->blurnumtimesdied = 0;
 
-					if (!chr->aibot && chr->blurdrugamount >= PALDOWN(5000)) {
+					if (!chr->aibot && chr->blurdrugamount >= TICKS(5000)) {
 						onehitko = true;
 					}
 				}
@@ -6821,7 +6821,7 @@ bool chrTryRunSideways(struct chrdata *chr)
 
 	if ((race == RACE_HUMAN || race == RACE_SKEDAR)
 			&& chrIsReadyForOrders(chr)
-			&& g_Vars.lvframe60 - chr->lastwalk60 > PALDOWN(180)) {
+			&& g_Vars.lvframe60 - chr->lastwalk60 > TICKS(180)) {
 		struct prop *prop = chr->prop;
 		f32 distance = 200.0f + random() * (1.0f / U32_MAX) * 200.0f;
 		struct coord vector;
@@ -6867,7 +6867,7 @@ bool chrTryAttackWalk(struct chrdata *chr)
 
 		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, false)
 				&& (chrGetHeldUsableProp(chr, 0) || chrGetHeldUsableProp(chr, 1))
-				&& g_Vars.lvframe60 - chr->lastwalk60 > PALDOWN(120)) {
+				&& g_Vars.lvframe60 - chr->lastwalk60 > TICKS(120)) {
 			struct prop *target = chrGetTargetProp(chr);
 			f32 x = target->pos.x - prop->pos.x;
 			f32 y = target->pos.y - prop->pos.y;
@@ -6896,7 +6896,7 @@ bool chrTryAttackRun(struct chrdata *chr)
 
 		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, false)
 				&& (chrGetHeldUsableProp(chr, 0) || chrGetHeldUsableProp(chr, 1))
-				&& g_Vars.lvframe60 - chr->lastwalk60 > PALDOWN(180)) {
+				&& g_Vars.lvframe60 - chr->lastwalk60 > TICKS(180)) {
 			struct prop *target = chrGetTargetProp(chr);
 			f32 x = target->pos.x - prop->pos.x;
 			f32 y = target->pos.y - prop->pos.y;
@@ -7671,7 +7671,7 @@ bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum)
 	if (weapon && weapon->base.prop) {
 		modelSetScale(weapon->base.model, weapon->base.model->scale);
 		propReparent(weapon->base.prop, chr->prop);
-		weapon->timer240 = PALDOWN(720);
+		weapon->timer240 = TICKS(720);
 		objSetDropped(weapon->base.prop, DROPTYPE_DEFAULT);
 		chr->hidden |= CHRHFLAG_00000001;
 
@@ -8183,7 +8183,7 @@ void chrTickDead(struct chrdata *chr)
 	if (chr->act_dead.fadetimer60 >= 0) {
 		chr->act_dead.fadetimer60 += g_Vars.lvupdate240_60;
 
-		if (chr->act_dead.fadetimer60 >= PALDOWN(90)) {
+		if (chr->act_dead.fadetimer60 >= TICKS(90)) {
 			// Fade finished
 			chr->fadealpha = 0;
 
@@ -8194,7 +8194,7 @@ void chrTickDead(struct chrdata *chr)
 			}
 		} else {
 			// Still fading
-			chr->fadealpha = (PALDOWN(90) - chr->act_dead.fadetimer60) * 255 / PALDOWN(90);
+			chr->fadealpha = (TICKS(90) - chr->act_dead.fadetimer60) * 255 / TICKS(90);
 		}
 	} else {
 		// If fade has been triggered (this can happen when the corpse is on
@@ -8211,7 +8211,7 @@ void chrTickDead(struct chrdata *chr)
 			chr->act_dead.invistimer60 += g_Vars.lvupdate240_60;
 		}
 
-		if (chr->act_dead.fadewheninvis && chr->act_dead.invistimer60 >= PALDOWN(120)) {
+		if (chr->act_dead.fadewheninvis && chr->act_dead.invistimer60 >= TICKS(120)) {
 			// Remove corpse (off-screen)
 			if (aibot == NULL) {
 				chr->hidden |= CHRHFLAG_REAPED;
@@ -8346,7 +8346,7 @@ void chrTickDie(struct chrdata *chr)
 	if (race == RACE_DRCAROLL) {
 		struct prop *prop = chr->prop;
 
-		if (g_DrCarollDyingTimer > PALDOWN(120) && chr->voicebox) {
+		if (g_DrCarollDyingTimer > TICKS(120) && chr->voicebox) {
 			// Play speech
 			u16 phrases[] = {
 				SFX_DRCAROLL_SYSTEMS_FAILURE,
@@ -8366,12 +8366,12 @@ void chrTickDie(struct chrdata *chr)
 		if (chr->act_die.drcarollimagedelay > 0) {
 			chr->act_die.drcarollimagedelay -= g_Vars.lvupdate240_60;
 		} else {
-			chr->act_die.drcarollimagedelay = (random() % PALDOWN(1000)) * 0.01f + 5.0f;
+			chr->act_die.drcarollimagedelay = (random() % TICKS(1000)) * 0.01f + 5.0f;
 			chr->drcarollimage_left = 1 + (s32)((random() % 400) * 0.01f);
 			chr->drcarollimage_right = 1 + (s32)((random() % 400) * 0.01f);
 		}
 
-		if (g_DrCarollDyingTimer > PALDOWN(310)) {
+		if (g_DrCarollDyingTimer > TICKS(310)) {
 			// Explode
 			func0f0926bc(prop, 1, 0xffff);
 			explosionCreateSimple(prop, &prop->pos, prop->rooms, EXPLOSIONTYPE_8, g_Vars.currentplayernum);
@@ -8587,10 +8587,10 @@ void chrTickDruggedKo(struct chrdata *chr)
 	if (chr->act_dead.fadetimer60 >= 0) {
 		chr->act_dead.fadetimer60 += g_Vars.lvupdate240_60;
 
-		if (chr->act_dead.fadetimer60 >= PALDOWN(90)) {
+		if (chr->act_dead.fadetimer60 >= TICKS(90)) {
 			reap = true;
 		} else {
-			chr->fadealpha = (PALDOWN(90) - chr->act_dead.fadetimer60) * 255 / PALDOWN(90);
+			chr->fadealpha = (TICKS(90) - chr->act_dead.fadetimer60) * 255 / TICKS(90);
 		}
 	} else if ((chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0) {
 		if (chr->act_dead.fadenow) {
@@ -8603,7 +8603,7 @@ void chrTickDruggedKo(struct chrdata *chr)
 			chr->act_dead.invistimer60 += g_Vars.lvupdate240_60;
 		}
 
-		if (chr->act_dead.fadewheninvis && chr->act_dead.invistimer60 >= PALDOWN(120)) {
+		if (chr->act_dead.fadewheninvis && chr->act_dead.invistimer60 >= TICKS(120)) {
 			reap = true;
 		}
 	}
@@ -15393,7 +15393,7 @@ glabel var7f1a9184
 //			if (chr->aibot
 //					&& chr->aibot->weaponnum == WEAPON_REAPER
 //					&& chr->aibot->gunfunc == FUNC_PRIMARY) {
-//				sp208 = (PALDOWN(90) - chr->aibot->reaperspeed[handnum]);
+//				sp208 = (TICKS(90) - chr->aibot->reaperspeed[handnum]);
 //				sp208 *= 1.0f / 1.8f;
 //				tickspershot *= sp208 + 1;
 //			}
@@ -16054,7 +16054,7 @@ void chrTickFire(struct chrdata *chr)
 		return;
 	}
 
-	if (chr->act_attack.lastontarget60 < chr->act_attack.lastfire60 - PALDOWN(30)
+	if (chr->act_attack.lastontarget60 < chr->act_attack.lastfire60 - TICKS(30)
 			&& model->anim->animnum2 == 0
 			&& curframe > chr->act_attack.animcfg->unk18 + 10
 			&& curframe < chr->act_attack.animcfg->unk1c
@@ -16175,7 +16175,7 @@ void chrTickFire(struct chrdata *chr)
 						f32 f12 = chr->act_attack.animcfg->unk1c - chr->act_attack.animcfg->unk18;
 
 						if (f12 < 30) {
-							if (chr->act_attack.pausecount >= PALDOWN(60) - (s32)(PAL ? f12 * (50.0f / 60.0f) : f12) * 2) {
+							if (chr->act_attack.pausecount >= TICKS(60) - (s32)(PAL ? f12 * (50.0f / 60.0f) : f12) * 2) {
 								modelSetAnimSpeed(model, 0.5f, 0);
 							} else {
 								modelSetAnimSpeed(model, 0.1f, 0);
@@ -17211,7 +17211,7 @@ void chrTickThrowGrenade(struct chrdata *chr)
 		weapon = weaponprop->weapon;
 		objSetDropped(weaponprop, DROPTYPE_THROWGRENADE);
 		chr->hidden |= CHRHFLAG_00000001;
-		weapon->timer240 = PALDOWN(240);
+		weapon->timer240 = TICKS(240);
 	}
 
 	frame2 = modelGetCurAnimFrame(model);
@@ -17239,7 +17239,7 @@ bool chrDetectDangerousObject(struct chrdata *chr, u8 flags)
 		if (prop) {
 			if ((flags & 1) && prop->weapon &&
 					prop->weapon->weaponnum == WEAPON_GRENADE &&
-					prop->weapon->timer240 < PALDOWN(480)) {
+					prop->weapon->timer240 < TICKS(480)) {
 				pass = true;
 			}
 
@@ -17300,7 +17300,7 @@ bool func0f043f2c(struct chrdata *chr, struct coord *runpos, u32 arg2, f32 *turn
 
 	if (chr->aibot) {
 		if (chr->blurdrugamount > 0) {
-			angle1 += chr->blurdrugamount * PALUPF(0.00031410926021636f) * sinf((g_Vars.lvframe60 % PALDOWN(1200)) * PALUPF(0.0052351541817188f));
+			angle1 += chr->blurdrugamount * PALUPF(0.00031410926021636f) * sinf((g_Vars.lvframe60 % TICKS(1200)) * PALUPF(0.0052351541817188f));
 
 			if (angle1 >= M_BADTAU) {
 				angle1 -= M_BADTAU;
@@ -17384,7 +17384,7 @@ void chrTickAttackWalk(struct chrdata *chr)
 
 	// If stuck or time exceeded, stop
 	if (chr->invalidmove == 1
-			|| chr->lastmoveok60 < g_Vars.lvframe60 - PALDOWN(60)
+			|| chr->lastmoveok60 < g_Vars.lvframe60 - TICKS(60)
 			|| chr->act_attackwalk.frame60count > chr->act_attackwalk.frame60max) {
 		if (modelGetCurAnimFrame(model) > modelGetNumAnimFrames(model) * 0.5f) {
 			modelSetAnimSpeedAuto(model, 0, 16);
@@ -17411,7 +17411,7 @@ void chrTickAttackWalk(struct chrdata *chr)
 		chr->act_attackwalk.facedtarget = true;
 	}
 
-	if (chr->act_attackwalk.frame60count > PALDOWN(20)) {
+	if (chr->act_attackwalk.frame60count > TICKS(20)) {
 		func0f03e9f4(chr, chr->act_attackwalk.animcfg,
 				chr->act_attackwalk.firegun[HAND_LEFT],
 				chr->act_attackwalk.firegun[HAND_RIGHT], 1);
@@ -17419,7 +17419,7 @@ void chrTickAttackWalk(struct chrdata *chr)
 		chrResetAimEndProperties(chr);
 	}
 
-	if (chr->act_attackwalk.facedtarget && chr->act_attackwalk.frame60count > PALDOWN(30)) {
+	if (chr->act_attackwalk.facedtarget && chr->act_attackwalk.frame60count > TICKS(30)) {
 		for (i = 0; i < 2; i++) {
 			if (chr->act_attackwalk.firegun[i]) {
 				if (!chr->act_attackwalk.everytick[i]) {
@@ -17430,15 +17430,15 @@ void chrTickAttackWalk(struct chrdata *chr)
 
 					if (chr->act_attackwalk.everytick[1 - i]) {
 						if (chr->act_attackwalk.singleshot[i]) {
-							chr->act_attackwalk.nextshot60 += PALDOWN(90);
+							chr->act_attackwalk.nextshot60 += TICKS(90);
 						} else {
-							chr->act_attackwalk.nextshot60 += PALDOWN(20);
+							chr->act_attackwalk.nextshot60 += TICKS(20);
 						}
 					} else {
 						if (chr->act_attackwalk.singleshot[i]) {
-							chr->act_attackwalk.nextshot60 += PALDOWN(180);
+							chr->act_attackwalk.nextshot60 += TICKS(180);
 						} else {
-							chr->act_attackwalk.nextshot60 += PALDOWN(40);
+							chr->act_attackwalk.nextshot60 += TICKS(40);
 						}
 					}
 
@@ -17567,7 +17567,7 @@ void chrTickRunPos(struct chrdata *chr)
 	chr->lastwalk60 = g_Vars.lvframe60;
 
 	if (chr->invalidmove == 1
-			|| g_Vars.lvframe60 - PALDOWN(60) > chr->lastmoveok60
+			|| g_Vars.lvframe60 - TICKS(60) > chr->lastmoveok60
 			|| posIsArrivingLaterallyAtPos(&chr->prevpos, &prop->pos, &chr->act_runpos.pos, chr->act_runpos.neardist)) {
 		if (race == RACE_HUMAN) {
 			modelGetAnimNum(model);
@@ -19114,7 +19114,7 @@ void chrTickGoPos(struct chrdata *chr)
 	chr->act_gopos.waydata.age++;
 
 	// If stuck for 1 second
-	if (chr->lastmoveok60 < g_Vars.lvframe60 - PALDOWN(60)) {
+	if (chr->lastmoveok60 < g_Vars.lvframe60 - TICKS(60)) {
 #if VERSION >= VERSION_NTSC_1_0
 		if (chr->goposforce >= 0) {
 			// Try and warp the chr past whatever obstacle is blocking them?
@@ -19138,7 +19138,7 @@ void chrTickGoPos(struct chrdata *chr)
 	// eyespy, pad is nothing special and not in lift, then enter the magic move
 	// mode.
 	if (chr->act_gopos.waydata.mode != WAYMODE_MAGIC
-			&& chr->act_gopos.waydata.lastvisible60 + PALDOWN(180) < g_Vars.lvframe60
+			&& chr->act_gopos.waydata.lastvisible60 + TICKS(180) < g_Vars.lvframe60
 			&& g_Vars.normmplayerisrunning == false
 			&& chrIsRoomOffScreen(chr, &curwppos, curwprooms) // related to eyespy
 			&& (curwpflags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT)) == 0
@@ -19412,7 +19412,7 @@ void chrTickPatrol(struct chrdata *chr)
 
 	// Consider starting magic
 	if (chr->act_patrol.waydata.mode != WAYMODE_MAGIC
-			&& g_Vars.lvframe60 > chr->act_patrol.waydata.lastvisible60 + PALDOWN(180)
+			&& g_Vars.lvframe60 > chr->act_patrol.waydata.lastvisible60 + TICKS(180)
 			&& !g_Vars.normmplayerisrunning
 			&& chrIsRoomOffScreen(chr, &sp58, sp48)
 			&& (flags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT)) == 0
@@ -19499,8 +19499,8 @@ bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 		thing = sqrtf(diffs[0] * diffs[0] + diffs[1] * diffs[1]) * 2.5f / PALUPF(21.0f);
 		time60 = thing;
 
-		if (time60 < PALDOWN(10)) {
-			time60 = PALDOWN(10);
+		if (time60 < TICKS(10)) {
+			time60 = TICKS(10);
 		}
 
 		chr->act_skjump.vel[0] = diffs[0] / time60;
@@ -19649,7 +19649,7 @@ void chraTick(struct chrdata *chr)
 		// Consider setting shootingatmelist
 		if (chr->prop) {
 			if (chr->aimtesttimer60 < 1) {
-				chr->aimtesttimer60 = PALDOWN(30);
+				chr->aimtesttimer60 = TICKS(30);
 
 				if (chr->aishootingatmelist >= 0
 						&& ailistFindById(chr->aishootingatmelist) != chr->ailist
@@ -21230,7 +21230,7 @@ glabel func0f048398
 
 bool chrSawTargetRecently(struct chrdata *chr)
 {
-	if (chr->lastseetarget60 > 0 && g_Vars.lvframe60 - chr->lastseetarget60 < PALDOWN(600)) {
+	if (chr->lastseetarget60 > 0 && g_Vars.lvframe60 - chr->lastseetarget60 < TICKS(600)) {
 		return true;
 	}
 
@@ -21239,7 +21239,7 @@ bool chrSawTargetRecently(struct chrdata *chr)
 
 bool chrHeardTargetRecently(struct chrdata *chr)
 {
-	if (chr->lastheartarget60 > 0 && g_Vars.lvframe60 - chr->lastheartarget60 < PALDOWN(600)) {
+	if (chr->lastheartarget60 > 0 && g_Vars.lvframe60 - chr->lastheartarget60 < TICKS(600)) {
 		return true;
 	}
 
@@ -22808,7 +22808,7 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 						) {
 					// If we've found a chr that's ready to be reaped, great.
 					// Bail out of the loop.
-					if (g_ChrSlots[index].act_dead.invistimer60 >= PALDOWN(120)) {
+					if (g_ChrSlots[index].act_dead.invistimer60 >= TICKS(120)) {
 						replacechr = &g_ChrSlots[index];
 						break;
 					}

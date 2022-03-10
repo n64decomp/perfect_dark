@@ -322,7 +322,7 @@ void titleTickLegal(void)
 
 	g_TitleTimer += g_Vars.lvupdate240_60;
 
-	if (g_TitleTimer > PALDOWN(180)) {
+	if (g_TitleTimer > TICKS(180)) {
 		titleSetNextMode(TITLEMODE_CHECKCONTROLLERS);
 	}
 }
@@ -941,14 +941,14 @@ void titleTickPdLogo(void)
 		}
 	}
 
-	if (g_TitleButtonPressed && g_TitleTimer > PALDOWN(666)) {
+	if (g_TitleButtonPressed && g_TitleTimer > TICKS(666)) {
 		titleSetNextMode(TITLEMODE_SKIP);
 	}
 
 	if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
 		g_TitleButtonPressed = g_TitleFastForward = true;
 
-		if (g_TitleTimer < PALDOWN(549)) {
+		if (g_TitleTimer < TICKS(549)) {
 			titleSetNextMode(TITLEMODE_PDLOGO);
 		}
 	}
@@ -1536,7 +1536,7 @@ void titleSkipToPdTitle(void)
 	var80062804 = 1;
 	g_PdLogoUnusedRotEnabled = true;
 	g_PdLogoLightMoving = true;
-	g_TitleTimer = PALDOWN(549);
+	g_TitleTimer = TICKS(549);
 	g_PdLogoIsFirstTick = false;
 
 	musicStartTemporaryPrimary(MUSIC_TITLE2);
@@ -4686,7 +4686,7 @@ void titleTickRarePresents(void)
 
 	g_TitleTimer += g_Vars.lvupdate240_60;
 
-	if (g_TitleTimer > PALDOWN(300)) {
+	if (g_TitleTimer > TICKS(300)) {
 		titleSetNextMode(TITLEMODE_PDLOGO);
 	} else if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
 		titleSetNextMode(TITLEMODE_SKIP);
@@ -4778,8 +4778,8 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 
 	gdl = bviewRenderRarePresents(gdl);
 
-	if (g_TitleTimer > PALDOWN(222)) {
-		f32 alpha = ((g_TitleTimer - PALDOWN(222.0f)) / PALDOWN(78.0f));
+	if (g_TitleTimer > TICKS(222)) {
+		f32 alpha = ((g_TitleTimer - TICKS(222.0f)) / TICKS(78.0f));
 		u32 stack;
 
 		gdl = func0f153a34(gdl, viGetViewLeft(), viGetViewTop(),
@@ -4851,7 +4851,7 @@ void titleTickNintendoLogo(void)
 		}
 	}
 
-	if (g_TitleFastForward && !g_TitleButtonPressed && g_TitleTimer > PALDOWN(140)) {
+	if (g_TitleFastForward && !g_TitleButtonPressed && g_TitleTimer > TICKS(140)) {
 		g_TitleButtonPressed = true;
 		g_TitleFastForward = false;
 		titleSetNextMode(TITLEMODE_PDLOGO);
@@ -5015,11 +5015,11 @@ void titleTickRareLogo(void)
 				g_TitleButtonPressed = true;
 				titleSetNextMode(TITLEMODE_PDLOGO);
 			} else if (!g_TitleButtonPressed) {
-				if (g_TitleTimer < PALDOWN(60)) {
+				if (g_TitleTimer < TICKS(60)) {
 					g_TitleButtonPressed = true;
 
-					if (g_TitleTimer < PALDOWN(100)) {
-						g_TitleTimer = PALDOWN(100);
+					if (g_TitleTimer < TICKS(100)) {
+						g_TitleTimer = TICKS(100);
 					}
 				} else {
 					g_TitleFastForward = true;
@@ -5028,9 +5028,9 @@ void titleTickRareLogo(void)
 			}
 		}
 
-		if (g_TitleTimer > PALDOWN(240)
+		if (g_TitleTimer > TICKS(240)
 				|| g_TitleFastForward
-				|| (g_TitleButtonPressed && g_TitleTimer > PALDOWN(140))) {
+				|| (g_TitleButtonPressed && g_TitleTimer > TICKS(140))) {
 			titleSetNextMode(TITLEMODE_NINTENDOLOGO);
 		}
 	}
@@ -5045,7 +5045,7 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 {
 	struct modelrenderdata renderdata = { NULL, true, 3 };
 	s32 i;
-	f32 fracdone = g_TitleTimer / PALDOWN(240.0f);
+	f32 fracdone = g_TitleTimer / TICKS(240.0f);
 	Mtxf sp118;
 	s32 j;
 	s32 s0;

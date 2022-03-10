@@ -4855,7 +4855,7 @@ void creditsTick(void)
 	var800a4168 = var800a4164;
 	var800a4164 += g_Vars.diffframe240;
 	var800a416c += g_Vars.diffframe240;
-	var800a4160 = (var800a416c % PALDOWN(4800)) / PALDOWN(4800.0f);
+	var800a4160 = (var800a416c % TICKS(4800)) / TICKS(4800.0f);
 
 	func0f13899c();
 
@@ -5062,10 +5062,10 @@ Gfx *creditsRender(Gfx *gdl)
 
 	creditsTick();
 
-	if (g_CreditsData->slidesenabled || g_CreditsData->unk4204 < PALDOWN(60) || g_CreditsData->unk4204 > PALDOWN(1200)) {
+	if (g_CreditsData->slidesenabled || g_CreditsData->unk4204 < TICKS(60) || g_CreditsData->unk4204 > TICKS(1200)) {
 		u32 stack;
 
-		if (!g_CreditsData->slidesenabled && g_CreditsData->unk4204 > PALDOWN(1200)) {
+		if (!g_CreditsData->slidesenabled && g_CreditsData->unk4204 > TICKS(1200)) {
 			if (!var8007f130) {
 				var8007f130 = true;
 				var8007f6dc = 0;
@@ -5075,7 +5075,7 @@ Gfx *creditsRender(Gfx *gdl)
 
 			var8007f6dc += g_Vars.diffframe240;
 
-			if (var8007f6dc > PALDOWN(14400)) {
+			if (var8007f6dc > TICKS(14400)) {
 				var8007f6dc = 0;
 			}
 
@@ -5083,7 +5083,7 @@ Gfx *creditsRender(Gfx *gdl)
 			g_CreditsData->unk2ef0.unk524 = 0;
 			g_CreditsData->unk2ef0.unk520 = g_CreditsData->unk2ef0.unk548 = -0.26175770163536;
 			g_CreditsData->unk2ef0.unk528 = g_CreditsData->unk2ef0.unk550 = 0;
-			g_CreditsData->unk2ef0.unk538 = 833.0f - (var8007f6dc / PALDOWN(14400.0f)) * 2413.0f;
+			g_CreditsData->unk2ef0.unk538 = 833.0f - (var8007f6dc / TICKS(14400.0f)) * 2413.0f;
 			g_CreditsData->unk2ef0.unk53c = PAL ? 65.86 : 70.86;
 			g_CreditsData->unk2ef0.unk540 = -2050;
 			g_CreditsData->unk2ef0.unk544 = 1.467;
@@ -5123,12 +5123,12 @@ Gfx *creditsRender(Gfx *gdl)
 		if (!g_CreditsData->slidesenabled) {
 			u32 alpha = 0;
 
-			if (g_CreditsData->unk4204 < PALDOWN(60)) {
-				alpha = g_CreditsData->unk4204 * 0xff / PALDOWN(60);
+			if (g_CreditsData->unk4204 < TICKS(60)) {
+				alpha = g_CreditsData->unk4204 * 0xff / TICKS(60);
 			}
 
-			if (g_CreditsData->unk4204 > PALDOWN(1200) && g_CreditsData->unk4204 < PALDOWN(1260)) {
-				alpha = 0xff - (g_CreditsData->unk4204 - PALDOWN(1200)) * 0xff / PALDOWN(60);
+			if (g_CreditsData->unk4204 > TICKS(1200) && g_CreditsData->unk4204 < TICKS(1260)) {
+				alpha = 0xff - (g_CreditsData->unk4204 - TICKS(1200)) * 0xff / TICKS(60);
 			}
 
 			if (alpha) {
@@ -5201,7 +5201,7 @@ void creditsInit(void)
 		g_CreditsAltTitleRequested = false;
 
 		g_CreditsData->slidesenabled = false;
-		g_CreditsData->unk4204 = PALDOWN(1140);
+		g_CreditsData->unk4204 = TICKS(1140);
 	}
 
 	playerConfigureVi();

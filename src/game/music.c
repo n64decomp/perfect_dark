@@ -43,7 +43,7 @@ u16 g_MusicVolume = 0x5000;
 
 s32 g_MusicDeathTimer240 = 0;     // Counts down 5 seconds while death music plays
 s32 g_MusicAge60 = 0;             // The current age of the MP track being played
-s32 g_MusicLife60 = PALDOWN(120); // The max age of any MP track (this value is changed in MP code)
+s32 g_MusicLife60 = TICKS(120); // The max age of any MP track (this value is changed in MP code)
 s32 g_MusicSilenceTimer60 = 0;    // Counts down the 2 second silence between MP track changes
 
 #if VERSION < VERSION_NTSC_1_0
@@ -633,7 +633,7 @@ void musicStartMpDeath(void)
 
 	_musicStartMpDeath(0);
 
-	g_MusicDeathTimer240 = PALDOWN(1200);
+	g_MusicDeathTimer240 = TICKS(1200);
 	g_MusicMpDeathIsPlaying = true;
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -769,8 +769,8 @@ void musicSetXReason(s32 reason, u32 minsecs, u32 maxsecs)
 {
 	if (g_AudioXReasonsActive[reason] == false) {
 		g_AudioXReasonsActive[reason] = true;
-		g_MusicXReasonMinDurations[reason] = minsecs * PALDOWN(240);
-		g_MusicXReasonMaxDurations[reason] = maxsecs * PALDOWN(240);
+		g_MusicXReasonMinDurations[reason] = minsecs * TICKS(240);
+		g_MusicXReasonMaxDurations[reason] = maxsecs * TICKS(240);
 	}
 }
 

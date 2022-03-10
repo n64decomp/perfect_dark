@@ -307,10 +307,10 @@ u32 botactGetProjectileThrowInterval(u32 weapon)
 {
 	switch (weapon) {
 	case WEAPON_COMBATKNIFE:
-		return PALDOWN(120);
+		return TICKS(120);
 	case WEAPON_GRENADE:
 	case WEAPON_NBOMB:
-		return PALDOWN(90);
+		return TICKS(90);
 	case WEAPON_CROSSBOW:
 	case WEAPON_TRANQUILIZER:
 	case WEAPON_LASER:
@@ -318,7 +318,7 @@ u32 botactGetProjectileThrowInterval(u32 weapon)
 	case WEAPON_PROXIMITYMINE:
 	case WEAPON_REMOTEMINE:
 	default:
-		return PALDOWN(60);
+		return TICKS(60);
 	}
 }
 

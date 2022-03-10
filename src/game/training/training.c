@@ -397,10 +397,10 @@ void frInitLighting(void)
 		s32 roomnum;
 
 		for (roomnum = 7; roomnum < 10; roomnum++) {
-			roomSetLighting(roomnum, LIGHTOP_3, 50, 100, PALDOWN(32));
+			roomSetLighting(roomnum, LIGHTOP_3, 50, 100, TICKS(32));
 		}
 
-		roomSetLighting(ROOM_DISH_FIRINGRANGE, LIGHTOP_3, 25, 100, PALDOWN(32));
+		roomSetLighting(ROOM_DISH_FIRINGRANGE, LIGHTOP_3, 25, 100, TICKS(32));
 
 		g_FrData.donelighting = true;
 
@@ -416,10 +416,10 @@ void frRestoreLighting(void)
 		s32 roomnum;
 
 		for (roomnum = 7; roomnum < 10; roomnum++) {
-			roomSetLighting(roomnum, LIGHTOP_3, 100, 50, PALDOWN(8));
+			roomSetLighting(roomnum, LIGHTOP_3, 100, 50, TICKS(8));
 		}
 
-		roomSetLighting(ROOM_DISH_FIRINGRANGE, LIGHTOP_3, 100, 25, PALDOWN(8));
+		roomSetLighting(ROOM_DISH_FIRINGRANGE, LIGHTOP_3, 100, 25, TICKS(8));
 
 		g_FrData.donelighting = false;
 
@@ -537,7 +537,7 @@ void frInitDefaults(void)
 		wallhitsRemoveByProp(g_FrData.targets[i].prop, 1);
 	}
 
-	g_FrData.timetaken = PALDOWN(-240);
+	g_FrData.timetaken = TICKS(-240);
 	g_FrData.score = 0;
 	g_FrData.numtargets = 0;
 	g_FrData.targetsdestroyed = 0;
@@ -2761,7 +2761,7 @@ void frSetFailReason(s32 failreason)
 
 	g_FrData.failreason = frWasTooInaccurate() ? FRFAILREASON_INACCURATE : failreason;
 	g_FrData.menutype = FRMENUTYPE_FAILED;
-	g_FrData.menucountdown = PALDOWN(60);
+	g_FrData.menucountdown = TICKS(60);
 }
 
 void frSetCompleted(void)
@@ -2777,7 +2777,7 @@ void frSetCompleted(void)
 		g_FrData.menutype = FRMENUTYPE_COMPLETED;
 	}
 
-	g_FrData.menucountdown = PALDOWN(60);
+	g_FrData.menucountdown = TICKS(60);
 }
 
 bool frIsTargetOneHitExplodable(struct prop *prop)
@@ -2987,7 +2987,7 @@ bool frIsAmmoWasted(void)
 							hand = &g_Vars.currentplayer->hands[HAND_RIGHT];
 
 							if (bgunGetReservedAmmoCount(ammotype) + hand->loadedammo[0] == 0) {
-								g_FrData.proxyendtimer = PALDOWN(300);
+								g_FrData.proxyendtimer = TICKS(300);
 							}
 
 							return false;
@@ -6993,7 +6993,7 @@ void frCalculateHit(struct defaultobj *obj, struct coord *hitpos, f32 maulerchar
 			} else if (frGetWeaponBySlot(g_FrData.slot) == WEAPON_MAULER) {
 				g_FrData.targets[i].damage += (f32)((s32)(maulercharge * 0.1f) + 1);
 			} else if ((g_FrData.targets[i].flags & FRTARGETFLAG_TMPINVINCIBLE) == 0
-					|| g_FrData.targets[i].invincibletimer >= PALDOWN(300)) {
+					|| g_FrData.targets[i].invincibletimer >= TICKS(300)) {
 				g_FrData.targets[i].damage++;
 			}
 
@@ -7011,7 +7011,7 @@ void frCalculateHit(struct defaultobj *obj, struct coord *hitpos, f32 maulerchar
 				g_FrData.numhitsring3++;
 			}
 
-			g_FrData.feedbackttl = PALDOWN(60);
+			g_FrData.feedbackttl = TICKS(60);
 			g_FrData.score += g_FrData.feedbackzone;
 		}
 	}
@@ -8115,7 +8115,7 @@ bool frFormatTime(char *buffer)
 {
 	s32 mins = 0;
 	s32 mult = 1;
-	f32 secs = g_FrData.timetaken / PALDOWN(60.0f);
+	f32 secs = g_FrData.timetaken / TICKS(60.0f);
 	u8 failed = false;
 
 	if (g_FrData.timelimit != 255 && secs >= g_FrData.timelimit) {
@@ -8147,7 +8147,7 @@ bool frGetHudMiddleSubtext(char *buffer)
 	s32 secs;
 	s32 mins;
 
-	if (g_FrData.timetaken < PALDOWN(-180)) {
+	if (g_FrData.timetaken < TICKS(-180)) {
 		sprintf(buffer, "%s", langGet(L_MISC_420)); // "FIRE TO START"
 		return false;
 	}
@@ -8278,7 +8278,7 @@ Gfx *frRenderHud(Gfx *gdl)
 	}
 
 	if (g_FrData.menucountdown != 0) {
-		alpha = (f32)(g_FrData.menucountdown * 160) / PALDOWN(60.0f);
+		alpha = (f32)(g_FrData.menucountdown * 160) / TICKS(60.0f);
 	}
 
 	gdl = func0f153628(gdl);

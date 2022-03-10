@@ -2774,9 +2774,9 @@ s32 nbombCalculateAlpha(struct nbomb *nbomb)
 {
 	s32 alpha = 127;
 
-	if (nbomb->age240 > PALDOWN(310)) {
-		if (nbomb->age240 < PALDOWN(350)) {
-			alpha = (PALDOWN(350) * 127 - nbomb->age240 * 127) / PALDOWN(40);
+	if (nbomb->age240 > TICKS(310)) {
+		if (nbomb->age240 < TICKS(350)) {
+			alpha = (TICKS(350) * 127 - nbomb->age240 * 127) / TICKS(40);
 		} else {
 			alpha = 0;
 		}
@@ -3684,17 +3684,17 @@ void nbombTick(struct nbomb *nbomb)
 
 		nbomb->age240 += increment;
 
-		if (nbomb->age240 < PALDOWN(80)) {
+		if (nbomb->age240 < TICKS(80)) {
 			nbomb->radius = nbomb->age240 / (PAL ? 66.0f : 80.0f);
 			nbomb->radius = sqrtf(sqrtf(nbomb->radius));
 			nbomb->unk18 = 0;
 		} else {
-			nbomb->radius = sinf((nbomb->age240 - PALDOWN(80)) * (PAL ? 0.062800005078316f : 0.0523333363235f)) * 0.05f + 1.0f;
+			nbomb->radius = sinf((nbomb->age240 - TICKS(80)) * (PAL ? 0.062800005078316f : 0.0523333363235f)) * 0.05f + 1.0f;
 
 			// Return value is not used - could have been printed
-			sinf((nbomb->age240 - PALDOWN(80)) * (PAL ? 0.062800005078316f : 0.0523333363235f));
+			sinf((nbomb->age240 - TICKS(80)) * (PAL ? 0.062800005078316f : 0.0523333363235f));
 
-			nbomb->unk18 = ((nbomb->age240 - PALDOWN(80)) / (PAL ? 225.0f : 270.0f)) * 3.0f;
+			nbomb->unk18 = ((nbomb->age240 - TICKS(80)) / (PAL ? 225.0f : 270.0f)) * 3.0f;
 		}
 
 		nbomb->radius *= 500.0f;
@@ -3745,7 +3745,7 @@ void nbombsTick(void)
 
 	somevalue = 0;
 
-	if (youngest240 < PALDOWN(350)) {
+	if (youngest240 < TICKS(350)) {
 		if (g_Vars.lvupdate240 != 0) {
 			if (g_NbombAudioHandle == 0) {
 				sndStart(var80095200, SFX_SHIP_HUM, &g_NbombAudioHandle, -1, -1, -1, -1, -1);
@@ -3756,11 +3756,11 @@ void nbombsTick(void)
 			if (g_NbombAudioHandle) {
 				f32 speed = func0f006b08(20) * 0.02f + 0.4f;
 
-				if (youngest240 > PALDOWN(300)) {
-					somevalue = (1.0f - (f32)(youngest240 - PALDOWN(300)) / (PAL ? 41.0f : 50.0f)) * 32767.0f;
+				if (youngest240 > TICKS(300)) {
+					somevalue = (1.0f - (f32)(youngest240 - TICKS(300)) / (PAL ? 41.0f : 50.0f)) * 32767.0f;
 				}
 
-				if (youngest240 >= PALDOWN(350)) {
+				if (youngest240 >= TICKS(350)) {
 					somevalue = 0;
 				}
 

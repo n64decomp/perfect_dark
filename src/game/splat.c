@@ -60,13 +60,13 @@ void splatTick(struct prop *prop)
 
 			if (thudframe != -1.0f && modelGetCurAnimFrame(chr->model) < thudframe) {
 				osSyncPrintf("SPLAT : Not Dead Enough %s%s%f", "", "", modelGetCurAnimFrame(chr->model));
-			} else if (chr->tickssincesplat > PALDOWN(30) && chr->deaddropsplatsadded < 6) {
-				chr->deaddropsplatsadded += splatsCreate(1, 1.1f, prop, NULL, 0, 0, isskedar, 1, PALDOWN(150), attacker, random() & 8);
+			} else if (chr->tickssincesplat > TICKS(30) && chr->deaddropsplatsadded < 6) {
+				chr->deaddropsplatsadded += splatsCreate(1, 1.1f, prop, NULL, 0, 0, isskedar, 1, TICKS(150), attacker, random() & 8);
 			}
 		} else {
 			u32 value = chr->bulletstaken * chr->tickssincesplat;
 
-			if (value > PALDOWN(240)) {
+			if (value > TICKS(240)) {
 				f32 dist = coordsGetDistance(&chr->lastdroppos, &prop->pos);
 				s32 addmore = false;
 
@@ -79,7 +79,7 @@ void splatTick(struct prop *prop)
 				}
 
 				if (addmore) {
-					chr->woundedsplatsadded += splatsCreate(1, 0.3f, prop, NULL, 0, 0, isskedar, 2, PALDOWN(80), attacker, 0);
+					chr->woundedsplatsadded += splatsCreate(1, 0.3f, prop, NULL, 0, 0, isskedar, 2, TICKS(80), attacker, 0);
 				}
 			}
 
@@ -107,7 +107,7 @@ void splatsCreateForChrHit(struct prop *prop, struct splat *arg1, struct coord *
 		u32 rand = random() % 3;
 
 		if (rand) {
-			chr->stdsplatsadded += splatsCreate(rand, 0.8f, prop, arg1, arg2, arg3, arg4, arg5, PALDOWN(50), arg6, 0);
+			chr->stdsplatsadded += splatsCreate(rand, 0.8f, prop, arg1, arg2, arg3, arg4, arg5, TICKS(50), arg6, 0);
 		}
 	}
 }

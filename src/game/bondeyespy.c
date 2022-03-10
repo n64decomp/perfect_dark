@@ -567,7 +567,7 @@ bool eyespyTryLaunch(void)
 	playerpos.y = g_Vars.currentplayer->prop->pos.y;
 	playerpos.z = g_Vars.currentplayer->prop->pos.z;
 
-	chr->soundtimer = PALDOWN(10);
+	chr->soundtimer = TICKS(10);
 
 	g_Vars.currentplayer->eyespy->held = false;
 	g_Vars.currentplayer->eyespy->up.x = 0;

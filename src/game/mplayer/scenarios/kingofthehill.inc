@@ -347,7 +347,7 @@ void kohTick(void)
 				if (!dualoccupancy) {
 					g_ScenarioData.koh.elapsed240 += g_Vars.lvupdate240;
 
-					if (g_ScenarioData.koh.elapsed240 >= g_Vars.mphilltime * PALDOWN(240) + PALDOWN(2400)) {
+					if (g_ScenarioData.koh.elapsed240 >= g_Vars.mphilltime * TICKS(240) + TICKS(2400)) {
 						// Scored a point
 						sndStart(var80095200, SFX_MP_SCOREPOINT, 0, -1, -1, -1, -1, -1);
 
@@ -455,15 +455,15 @@ Gfx *kohRenderHud(Gfx *gdl)
 		x = viGetViewLeft() + viGetViewWidth() / 2;
 		y = viGetViewTop() + 10;
 
-		time240 = g_Vars.mphilltime * PALDOWN(240) - g_ScenarioData.koh.elapsed240;
+		time240 = g_Vars.mphilltime * TICKS(240) - g_ScenarioData.koh.elapsed240;
 		time240 += PAL ? 2199 : 2400;
-		mins = time240 / PALDOWN(60 * 240);
-		time240 -= PALDOWN(60 * 240) * mins;
+		mins = time240 / TICKS(60 * 240);
+		time240 -= TICKS(60 * 240) * mins;
 
 #if PAL
-		secs = time240 / PALDOWN(240);
+		secs = time240 / TICKS(240);
 #else
-		secs = (time240 + (PALDOWN(240) - 1)) / PALDOWN(240);
+		secs = (time240 + (TICKS(240) - 1)) / TICKS(240);
 #endif
 
 		if ((g_Vars.mphilltime * 60 + 600) / 3600) {

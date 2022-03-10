@@ -179,7 +179,7 @@ void pacTick(void)
 		{
 			data->age240 += g_Vars.lvupdate240;
 
-			if (data->age240 > (u32)PALDOWN(240 * 60)) {
+			if (data->age240 > (u32)TICKS(240 * 60)) {
 				data->age240 = 0;
 				data->survivalcounts[data->victims[data->victimindex]]++;
 				scenarioCreateHudmsg(data->victims[data->victimindex], langGet(L_MPWEAPONS_007)); // "Have a point for living!"
@@ -206,7 +206,7 @@ Gfx *pacRenderHud(Gfx *gdl)
 	if (g_Vars.currentplayernum == data->victims[data->victimindex])
 #endif
 	{
-		time240 = PALDOWN(60 * 240) - data->age240;
+		time240 = TICKS(60 * 240) - data->age240;
 		x = viGetViewLeft() + viGetViewWidth() / 2;
 		y = viGetViewTop() + 10;
 
@@ -214,9 +214,9 @@ Gfx *pacRenderHud(Gfx *gdl)
 			time240 = 0;
 		}
 
-		mins = time240 / PALDOWN(60 * 240);
-		time240 -= PALDOWN(60 * 240) * mins;
-		secs = (time240 + (PALDOWN(240) - 1)) / PALDOWN(240);
+		mins = time240 / TICKS(60 * 240);
+		time240 -= TICKS(60 * 240) * mins;
+		secs = (time240 + (TICKS(240) - 1)) / TICKS(240);
 		sprintf(text, "%d:%02d", mins, secs);
 
 		gdl = func0f153628(gdl);

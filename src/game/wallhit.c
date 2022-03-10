@@ -5947,7 +5947,7 @@ void func0f141704(struct prop *prop)
 	}
 
 	if (index != -1) {
-		func0f13e640(&var800a41b0[index], PALDOWN(120));
+		func0f13e640(&var800a41b0[index], TICKS(120));
 	}
 }
 

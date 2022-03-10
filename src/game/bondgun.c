@@ -2283,7 +2283,7 @@ void bgun0f098df8(s32 weaponfunc, struct handweaponinfo *info, struct hand *hand
 
 			if (checkunequipped && reloadindex >= 0) {
 #if VERSION >= VERSION_PAL_FINAL
-				amount -= hand->gunroundsspent[reloadindex] / PALDOWN(256);
+				amount -= hand->gunroundsspent[reloadindex] / TICKS(256);
 #else
 				amount -= hand->gunroundsspent[reloadindex] >> 8;
 #endif
@@ -3376,10 +3376,10 @@ s32 bgunTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 	}
 
 	if (hand->stateminor == 0) {
-		s32 delay = PALDOWN(16);
+		s32 delay = TICKS(16);
 
 		if (g_Vars.normmplayerisrunning) {
-			delay = PALDOWN(12);
+			delay = TICKS(12);
 		}
 
 		if (hand->stateframes >= delay) {
@@ -3460,7 +3460,7 @@ s32 bgunTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 					if (bgunSetState(handnum, HANDSTATE_RELOAD)) {
 						if (info->weaponnum == WEAPON_COMBATKNIFE) {
 							hand->mode = HANDMODE_11;
-							hand->pausetime60 = PALDOWN(17);
+							hand->pausetime60 = TICKS(17);
 							hand->count60 = 0;
 							hand->count = -1;
 							hand->stateminor = 2;
@@ -5494,7 +5494,7 @@ glabel var7f1ac31c
 //		hand->gs_int1 = -1;
 //		hand->gs_int2 = 0;
 //
-//		if (hand2->state == HANDSTATE_RELOAD && hand2->stateframes < PALDOWN(20)) {
+//		if (hand2->state == HANDSTATE_RELOAD && hand2->stateframes < TICKS(20)) {
 //			hand->stateminor = 9;
 //		}
 //	}
@@ -5502,7 +5502,7 @@ glabel var7f1ac31c
 //	if (hand->stateminor == 9) {
 //		struct hand *hand2 = &g_Vars.currentplayer->hands[1 - handnum];
 //
-//		if (hand2->state == HANDSTATE_RELOAD && hand2->stateframes < PALDOWN(20)) {
+//		if (hand2->state == HANDSTATE_RELOAD && hand2->stateframes < TICKS(20)) {
 //			return 0;
 //		}
 //
@@ -5585,14 +5585,14 @@ glabel var7f1ac31c
 //	if (1);
 //
 //	if (hand->stateminor == 1) {
-//		if (hand->count60 > PALDOWN(15) || !hand->visible) {
+//		if (hand->count60 > TICKS(15) || !hand->visible) {
 //			hand->mode = HANDMODE_11;
 //			hand->stateminor++;
-//			hand->pausetime60 = PALDOWN(17);
+//			hand->pausetime60 = TICKS(17);
 //			hand->count60 = 0;
 //			hand->count = 0;
 //		} else {
-//			bgun0f099780(hand, (hand->count60 * 0.87252569198608f) / PALDOWN(16));
+//			bgun0f099780(hand, (hand->count60 * 0.87252569198608f) / TICKS(16));
 //		}
 //	}
 //
@@ -5655,7 +5655,7 @@ glabel var7f1ac31c
 //			g_Vars.currentplayer->doautoselect = false;
 //		}
 //
-//		if (hand->count60 >= PALDOWN(23)
+//		if (hand->count60 >= TICKS(23)
 //				|| !weaponGetModelNum2(info->weaponnum)
 //				|| !weaponHasFlag(info->weaponnum, WEAPONFLAG_00000040)
 //				|| weaponHasFlag(info->weaponnum, WEAPONFLAG_00000080)) {
@@ -5667,7 +5667,7 @@ glabel var7f1ac31c
 //				return lvupdate;
 //			}
 //		} else {
-//			bgun0f099780(hand, (PALDOWN(23) - hand->count60) * 0.87252569198608f / PALDOWN(23));
+//			bgun0f099780(hand, (TICKS(23) - hand->count60) * 0.87252569198608f / TICKS(23));
 //		}
 //	}
 //
@@ -5776,7 +5776,7 @@ s32 bgun0f09a3f8(struct hand *hand, struct weaponfunc *func)
 				s32 delay = 3;
 
 				if (hand->gset.weaponnum == WEAPON_SHOTGUN) {
-					delay = PALDOWN(13);
+					delay = TICKS(13);
 				}
 
 				if (hand->stateframes < delay) {
@@ -6991,23 +6991,23 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 	weapondef = info->definition;
 
 	if (unk24 >= 4) {
-		unk24 = PALDOWN(unk24);
+		unk24 = TICKS(unk24);
 	}
 
 	if (unk25 >= 4) {
-		unk25 = PALDOWN(unk25);
+		unk25 = TICKS(unk25);
 	}
 
 	if (unk26 >= 4) {
-		unk26 = PALDOWN(unk26);
+		unk26 = TICKS(unk26);
 	}
 
 	if (unk27 >= 4) {
-		unk27 = PALDOWN(unk27);
+		unk27 = TICKS(unk27);
 	}
 
 	if (unk18 >= 4) {
-		unk18 = PALDOWN(unk18);
+		unk18 = TICKS(unk18);
 	}
 
 	sum = unk24 + unk25;
@@ -7267,7 +7267,7 @@ bool bgunTickIncAttackingThrow(s32 handnum, struct hand *hand)
 	}
 
 	if (hand->stateminor == 2) {
-		if (hand->stateframes > PALDOWN(func->recoverytime60)) {
+		if (hand->stateframes > TICKS(func->recoverytime60)) {
 			return true;
 		}
 
@@ -7287,7 +7287,7 @@ bool bgunTickIncAttackingThrow(s32 handnum, struct hand *hand)
 	if (hand->stateminor == 55) {
 		bgunResetAnim(hand);
 
-		if (hand->stateframes > PALDOWN(func->activatetime60 + 240)) {
+		if (hand->stateframes > TICKS(func->activatetime60 + 240)) {
 			return true;
 		}
 
@@ -7299,7 +7299,7 @@ bool bgunTickIncAttackingThrow(s32 handnum, struct hand *hand)
 	// If held a grenade too long, force throw it and enter the wait state
 	if (hand->gset.weaponnum == WEAPON_GRENADE
 			&& hand->gset.weaponfunc == FUNC_PRIMARY
-			&& hand->primetimer > PALDOWN(func->activatetime60)) {
+			&& hand->primetimer > TICKS(func->activatetime60)) {
 		hand->firing = true;
 		hand->attacktype = HANDATTACKTYPE_THROWPROJECTILE;
 		hand->loadedammo[func->base.ammoindex]--;
@@ -7625,7 +7625,7 @@ bool bgunTickIncAttackingClose(s32 handnum, struct hand *hand)
 			return true;
 		}
 
-		if (hand->stateframes > PALDOWN(60)) {
+		if (hand->stateframes > TICKS(60)) {
 			return true;
 		}
 
@@ -7660,7 +7660,7 @@ bool bgunTickIncAttackingSpecial(struct hand *hand)
 	}
 
 	if (hand->stateminor == 2) {
-		if (hand->stateframes > PALDOWN(func->unk18)) {
+		if (hand->stateframes > TICKS(func->unk18)) {
 			return true;
 		}
 
@@ -7694,8 +7694,8 @@ s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 	case WEAPON_PP9I:
 	case WEAPON_CC13:
 		// These weapons are weapons with visible finger trigger animations
-		if (hand->stateframes > PALDOWN(25)) {
-			hand->stateframes -= PALDOWN(25);
+		if (hand->stateframes > TICKS(25)) {
+			hand->stateframes -= TICKS(25);
 			hand->stateflags = 0;
 
 			bgunResetAnim(hand);
@@ -7717,7 +7717,7 @@ s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 				}
 			}
 
-			if (!restartedanim && hand->stateframes > PALDOWN(25)) {
+			if (!restartedanim && hand->stateframes > TICKS(25)) {
 				playsound = true;
 			}
 		} else if (bgun0f098a44(hand, 5)) {
@@ -7727,10 +7727,10 @@ s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 	default:
 		// Weapons without visible trigger animations must
 		// still play the click sound every 25 frames
-		if (hand->stateframes > PALDOWN(25)) {
+		if (hand->stateframes > TICKS(25)) {
 			playsound = true;
 
-			hand->stateframes -= PALDOWN(25);
+			hand->stateframes -= TICKS(25);
 			hand->stateflags = 0;
 
 			bgunResetAnim(hand);
@@ -8022,14 +8022,14 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 	// Handle possible delay between gun disappearing and new one equipping,
 	// as well as throwing the gun if that's what we're doing
 	if (hand->stateminor == 1) {
-		s32 delay = PALDOWN(16);
+		s32 delay = TICKS(16);
 		bool somebool = false;
 		u32 stack2;
 
 		hand->count = 0;
 
 		if (g_Vars.normmplayerisrunning) {
-			delay = PALDOWN(12);
+			delay = TICKS(12);
 		}
 
 		if (weapon->unequip_animation && (hand->stateflags & HANDSTATEFLAG_00000001) == 0) {
@@ -8106,10 +8106,10 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 
 	// Handle delay if new weapon has no equip animation, and play sound
 	if (hand->stateminor == 3) {
-		s32 delay = PALDOWN(23);
+		s32 delay = TICKS(23);
 
 		if (g_Vars.normmplayerisrunning) {
-			delay = PALDOWN(12);
+			delay = TICKS(12);
 		}
 
 		if (weaponHasFlag(hand->gset.weaponnum, WEAPONFLAG_00004000)) {
@@ -11050,7 +11050,7 @@ struct defaultobj *bgun0f09ee18(struct chrdata *chr, struct gset *gset, struct c
 			weaponobj->timer240 = func->activatetime60;
 
 			if (weaponobj->timer240 >= 2) {
-				weaponobj->timer240 = PALDOWN(weaponobj->timer240 * 4);
+				weaponobj->timer240 = TICKS(weaponobj->timer240 * 4);
 			}
 
 			if (weaponobj->weaponnum == WEAPON_GRENADE || weaponobj->weaponnum == WEAPON_NBOMB) {
@@ -11082,7 +11082,7 @@ struct defaultobj *bgun0f09ee18(struct chrdata *chr, struct gset *gset, struct c
 		if (obj->hidden & OBJHFLAG_AIRBORNE) {
 			obj->projectile->flags |= PROJECTILEFLAG_00000002;
 			obj->projectile->unk08c = 0.1f;
-			obj->projectile->unk0b4 = PALDOWN(240);
+			obj->projectile->unk0b4 = TICKS(240);
 
 			func0f0939f8(NULL, obj->prop, SFX_THROW, -1,
 					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
@@ -16867,7 +16867,7 @@ void bgunLoseGun(struct prop *attackerprop)
 				objSetDropped(prop2, DROPTYPE_DEFAULT);
 
 				if (obj->hidden & OBJHFLAG_AIRBORNE) {
-					obj->projectile->unk0b4 = PALDOWN(240);
+					obj->projectile->unk0b4 = TICKS(240);
 					obj->projectile->unk108 = attackerprop;
 				}
 
@@ -28909,7 +28909,7 @@ void bgunsTick(bool triggeron)
 		if (player->hands[HAND_LEFT].inuse
 				&& player->hands[HAND_RIGHT].inuse
 				&& player->gunctrl.weaponnum != WEAPON_REMOTEMINE) {
-			if (player->playertrigtime240 > PALDOWN(80)) {
+			if (player->playertrigtime240 > TICKS(80)) {
 				gunsfiring[player->curguntofire] = 1;
 
 				if (bgun0f099008(1 - player->curguntofire)
@@ -29392,8 +29392,8 @@ void bgun0f0a9da8(struct abmag *mag, s32 remaining, s32 capacity, s32 height)
 	}
 
 	if (mag->change < 0 && mag->change > newchange) {
-		if (mag->timer60 > -mag->change * PALDOWN(64)) {
-			mag->timer60 = -mag->change * PALDOWN(64);
+		if (mag->timer60 > -mag->change * TICKS(64)) {
+			mag->timer60 = -mag->change * TICKS(64);
 		}
 	}
 
@@ -29416,18 +29416,18 @@ void bgun0f0a9da8(struct abmag *mag, s32 remaining, s32 capacity, s32 height)
 	if (mag->change != 0) {
 		mag->timer60 += (s16)g_Vars.lvupdate240_60 * height;
 
-		if (mag->timer60 > PALDOWN(255)) {
+		if (mag->timer60 > TICKS(255)) {
 			if (mag->change > 0) {
-				while (mag->timer60 > PALDOWN(255) && mag->change > 0) {
+				while (mag->timer60 > TICKS(255) && mag->change > 0) {
 					mag->change--;
 					mag->ref++;
-					mag->timer60 -= PALDOWN(64);
+					mag->timer60 -= TICKS(64);
 				}
 			} else {
-				while (mag->timer60 > PALDOWN(255) && mag->change < 0) {
+				while (mag->timer60 > TICKS(255) && mag->change < 0) {
 					mag->change++;
 					mag->ref--;
-					mag->timer60 -= PALDOWN(64);
+					mag->timer60 -= TICKS(64);
 				}
 			}
 		}
@@ -35150,8 +35150,8 @@ void bgunAddBoostc(s32 amount)
 {
 	g_Vars.speedpilltime += amount;
 
-	if (g_Vars.speedpilltime > 5 * 60 * PALDOWN(60)) { // 5 minutes
-		g_Vars.speedpilltime = 5 * 60 * PALDOWN(60);
+	if (g_Vars.speedpilltime > 5 * 60 * TICKS(60)) { // 5 minutes
+		g_Vars.speedpilltime = 5 * 60 * TICKS(60);
 	}
 
 	if (!g_Vars.speedpillwant) {
@@ -35176,18 +35176,18 @@ void bgunSubtractBoost(s32 amount)
 void bgunApplyBoost(void)
 {
 	if (lvGetSlowMotionType() != SLOWMOTION_OFF) {
-		bgunSubtractBoost(PALDOWN(1200));
+		bgunSubtractBoost(TICKS(1200));
 	} else {
-		bgunAddBoostc(PALDOWN(600));
+		bgunAddBoostc(TICKS(600));
 	}
 }
 
 void bgunRevertBoost(void)
 {
 	if (lvGetSlowMotionType() != SLOWMOTION_OFF) {
-		bgunAddBoostc(PALDOWN(1200));
+		bgunAddBoostc(TICKS(1200));
 	} else {
-		bgunSubtractBoost(PALDOWN(600));
+		bgunSubtractBoost(TICKS(600));
 	}
 }
 

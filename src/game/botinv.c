@@ -79,7 +79,7 @@ struct aibotweaponpreference g_AibotWeaponPreferences[] = {
 	/*0x2e*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_EYESPY
 	/*0x2f*/ { 4,   4,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_XRAYSCANNER
 	/*0x30*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_IRSCANNER
-	/*0x31*/ { 218, 218, 0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        PALDOWN(1200), 0,   0,  0,  1, 0 }, // WEAPON_CLOAKINGDEVICE
+	/*0x31*/ { 218, 218, 0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        TICKS(1200), 0,   0,  0,  1, 0 }, // WEAPON_CLOAKINGDEVICE
 	/*0x32*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_HORIZONSCANNER
 	/*0x33*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_TESTER
 	/*0x34*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_ROCKETLAUNCHER_34
@@ -684,7 +684,7 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3
 				score2 = 0;
 			}
 		} else {
-			if (comparewithtarget && chr->target != -1 && chrGetTargetProp(chr)->chr->blurdrugamount > PALDOWN(3500)) {
+			if (comparewithtarget && chr->target != -1 && chrGetTargetProp(chr)->chr->blurdrugamount > TICKS(3500)) {
 				score1 = 0;
 				score2 = 0;
 			} else {
@@ -705,7 +705,7 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3
 				if (chr->aibot->config->difficulty <= BOTDIFF_MEAT) {
 					score1 = 0;
 					score2 = 0;
-				} else if (bluramount > PALDOWN(3500) && (chr->aibot->random1 % 2) == 0) {
+				} else if (bluramount > TICKS(3500) && (chr->aibot->random1 % 2) == 0) {
 					score1 = chr->aibot->random1 % 140 + 48;
 					score2 = 188;
 				} else if (chr->aibot->random1 % 10 == 0) {
@@ -716,15 +716,15 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3
 					score2 = 0;
 				}
 			} else {
-				if (bluramount >= PALDOWN(5000)) {
+				if (bluramount >= TICKS(5000)) {
 					score2 = 48;
 
 					if (chr->aibot->random1 % 2) {
 						score1 = 0;
 						score2 = 0;
 					}
-				} else if (bluramount > PALDOWN(3500)) {
-					u32 value = (-bluramount * 16 + (PAL ? 66656 : 80000)) / PALDOWN(1500);
+				} else if (bluramount > TICKS(3500)) {
+					u32 value = (-bluramount * 16 + (PAL ? 66656 : 80000)) / TICKS(1500);
 
 					if (value > 15) {
 						value = 15;
@@ -761,7 +761,7 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3
 		f32 float2;
 
 		if (g_Vars.lvframe60 > 0) {
-			killrate = g_Vars.totalkills * PALDOWN(3600.0f) / (f32)(g_Vars.lvframe60 * g_MpNumChrs);
+			killrate = g_Vars.totalkills * TICKS(3600.0f) / (f32)(g_Vars.lvframe60 * g_MpNumChrs);
 
 			if (killrate < 1) {
 				killrate = 1;
@@ -771,7 +771,7 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3
 		weaponindex = mpGetWeaponSlotByWeaponNum(weaponnum);
 
 		if (weaponindex >= 0) {
-			float2 = ceilf(chr->aibot->equipdurations60[weaponindex][funcnum] * (1.0f / PALDOWN(3600.0f)));
+			float2 = ceilf(chr->aibot->equipdurations60[weaponindex][funcnum] * (1.0f / TICKS(3600.0f)));
 
 			if (float2 > 0) {
 				float1 = chr->aibot->killsbygunfunc[weaponindex][funcnum];
@@ -885,7 +885,7 @@ void botinvTick(struct chrdata *chr)
 	aibot->dampensuicidesttl60 -= g_Vars.lvupdate240_60;
 
 	if (aibot->dampensuicidesttl60 < 0) {
-		aibot->dampensuicidesttl60 = PALDOWN(3600) + random() % PALDOWN(60);
+		aibot->dampensuicidesttl60 = TICKS(3600) + random() % TICKS(60);
 
 		for (i = 0; i < 6; i++) {
 			aibot->suicidesbygunfunc[i][0] *= 0.9f;
@@ -897,7 +897,7 @@ void botinvTick(struct chrdata *chr)
 	aibot->unk2a4 -= g_Vars.lvupdate240_60;
 
 	if (aibot->unk2a4 < 0) {
-		aibot->unk2a4 = PALDOWN(600) + random() % PALDOWN(3000);
+		aibot->unk2a4 = TICKS(600) + random() % TICKS(3000);
 
 		for (i = 0; i < 6; i++) {
 			if (aibot->config->difficulty == BOTDIFF_MEAT) {
@@ -915,7 +915,7 @@ void botinvTick(struct chrdata *chr)
 	aibot->random1ttl60 -= g_Vars.lvupdate240_60;
 
 	if (aibot->random1ttl60 < 0) {
-		aibot->random1ttl60 = PALDOWN(120) + random() % PALDOWN(600);
+		aibot->random1ttl60 = TICKS(120) + random() % TICKS(600);
 		aibot->random1 = random();
 	}
 
@@ -1044,7 +1044,7 @@ bool botinvSwitchToWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
 	changingfunc = funcnum != aibot->gunfunc;
 
 	if (changinggun) {
-		aibot->changeguntimer60 = PALDOWN(60);
+		aibot->changeguntimer60 = TICKS(60);
 
 		for (i = 0; i < 2; i++) {
 			aibot->cyclonedischarging[i] = false;

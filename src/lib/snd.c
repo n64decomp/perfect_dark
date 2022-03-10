@@ -2167,7 +2167,7 @@ void sndTick(void)
 			switch (g_SndCurMp3.responsetype) {
 			case MP3RESPONSETYPE_ACKNOWLEDGE:
 			case MP3RESPONSETYPE_WHISPER:
-				g_SndCurMp3.responsetimer240 = PALDOWN(60);
+				g_SndCurMp3.responsetimer240 = TICKS(60);
 				break;
 			case MP3RESPONSETYPE_GREETING:
 				g_SndCurMp3.responsetimer240 = 1;
@@ -2573,7 +2573,7 @@ void sndStartMp3(s16 soundnum, s32 arg1, s32 arg2, s32 arg3)
 
 void sndPlayNosedive(s32 seconds)
 {
-	g_SndNosediveDuration240 = seconds * PALDOWN(240);
+	g_SndNosediveDuration240 = seconds * TICKS(240);
 	g_SndNosediveAge240 = 0;
 	g_SndNosediveVolume = 0;
 	g_SndNosediveHandle = NULL;
@@ -2653,7 +2653,7 @@ void sndTickNosedive(void)
 
 void sndPlayUfo(s32 seconds)
 {
-	g_SndUfoDuration240 = seconds * PALDOWN(240);
+	g_SndUfoDuration240 = seconds * TICKS(240);
 	g_SndUfoAge240 = 0;
 	g_SndUfoVolume = 0;
 	g_SndUfoHandle = NULL;

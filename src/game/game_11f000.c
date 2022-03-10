@@ -9818,7 +9818,7 @@ Gfx *func0f126c3c(Gfx *gdl, f32 x, f32 y, f32 z, f32 arg4, f32 arg5)
 
 		if (xpos >= viewleft && xpos < viewleft + viewwidth
 				&& ypos >= viewtop && ypos < viewtop + viewheight) {
-			gdl = func0f126384(gdl, xpos, ypos, arg5, arg4, PALDOWN(90), 1.0f);
+			gdl = func0f126384(gdl, xpos, ypos, arg5, arg4, TICKS(90), 1.0f);
 		}
 	}
 

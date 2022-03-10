@@ -1283,7 +1283,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 		chr->bdlist[i++] = 0;
 	}
 
-	chr->talktimer = PALDOWN(3600);
+	chr->talktimer = TICKS(3600);
 	chr->cloakfadefrac = 0;
 	chr->cloakfadefinished = false;
 	chr->inlift = false;
@@ -1335,7 +1335,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->p1p2 = g_Vars.bondplayernum;
 	chr->lastattacker = NULL;
 	chr->race = RACE_HUMAN;
-	chr->aimtesttimer60 = random() % PALDOWN(30);
+	chr->aimtesttimer60 = random() % TICKS(30);
 	chr->lastfootsample = 0;
 	chr->poisoncounter = 0;
 	chr->poisonprop = NULL;
@@ -1614,10 +1614,10 @@ f32 chrGetFlinchAmount(struct chrdata *chr)
 			value = 1 - sinf((value - 4) * (PAL ? 0.07478791475296f : 0.060405626893044f));
 		}
 	} else {
-		if (value < PALDOWN(10)) {
-			value = sinf(value * 1.5705462694168f / PALDOWN(10));
+		if (value < TICKS(10)) {
+			value = sinf(value * 1.5705462694168f / TICKS(10));
 		} else {
-			value = 1 - sinf((value - PALDOWN(10)) * (PAL ? 0.098159141838551f : 0.078527316451073f));
+			value = 1 - sinf((value - TICKS(10)) * (PAL ? 0.098159141838551f : 0.078527316451073f));
 		}
 	}
 
@@ -1795,7 +1795,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 				}
 
 				// Apply head bobbing when dizzy
-				if (g_CurModelChr->blurdrugamount > PALDOWN(1000)
+				if (g_CurModelChr->blurdrugamount > TICKS(1000)
 						&& g_Vars.tickmode != TICKMODE_CUTSCENE
 						&& g_CurModelChr->actiontype != ACT_DEAD
 						&& g_CurModelChr->actiontype != ACT_DIE) {
@@ -2319,7 +2319,7 @@ void chrUncloak(struct chrdata *chr, bool value)
 void chrUncloakTemporarily(struct chrdata *chr)
 {
 	chrUncloak(chr, true);
-	chr->cloakpause = PALDOWN(120);
+	chr->cloakpause = TICKS(120);
 }
 
 void chrUpdateCloak(struct chrdata *chr)
@@ -2509,9 +2509,9 @@ void chrSetPoisoned(struct chrdata *chr, struct prop *poisonprop)
 
 	if (g_Vars.normmplayerisrunning) {
 		chr->poisonprop = poisonprop;
-		chr->poisoncounter += PALDOWN(3360);
+		chr->poisoncounter += TICKS(3360);
 	} else if (chr->poisoncounter == 0) {
-		chr->poisoncounter = PALDOWN(1680);
+		chr->poisoncounter = TICKS(1680);
 		chr->poisonprop = poisonprop;
 	}
 }
@@ -2528,8 +2528,8 @@ void chrTickPoisoned(struct chrdata *chr)
 			if (!g_Vars.normmplayerisrunning) {
 				chr->poisoncounter = 0;
 			} else {
-				if (chr->poisoncounter > PALDOWN(3600)) {
-					chr->poisoncounter = PALDOWN(3600);
+				if (chr->poisoncounter > TICKS(3600)) {
+					chr->poisoncounter = TICKS(3600);
 				}
 
 				if (g_MpSetup.options & MPOPTION_ONEHITKILLS) {
@@ -2540,8 +2540,8 @@ void chrTickPoisoned(struct chrdata *chr)
 				&& g_Vars.players[playermgrGetPlayerNumByProp(chr->prop)]->bondhealth < 0.001f) {
 			// Player who's alive but on almost zero health
 			if (g_Vars.normmplayerisrunning) {
-				if (chr->poisoncounter > PALDOWN(3600)) {
-					chr->poisoncounter = PALDOWN(3600);
+				if (chr->poisoncounter > TICKS(3600)) {
+					chr->poisoncounter = TICKS(3600);
 				}
 
 				if (g_MpSetup.options & MPOPTION_ONEHITKILLS) {
@@ -2559,12 +2559,12 @@ void chrTickPoisoned(struct chrdata *chr)
 				}
 
 				chr->poisoncounter = 0;
-			} else if (chr->poisoncounter < PALDOWN(1680)) {
+			} else if (chr->poisoncounter < TICKS(1680)) {
 				chr->blurdrugamount += g_Vars.lvupdate240 * 10;
 			}
 
 			if (g_Vars.normmplayerisrunning) {
-				if (chr->poisoncounter / PALDOWN(720) != (chr->poisoncounter + g_Vars.lvupdate240) / PALDOWN(720)) {
+				if (chr->poisoncounter / TICKS(720) != (chr->poisoncounter + g_Vars.lvupdate240) / TICKS(720)) {
 					chrDamageByMisc(chr, 1.3f, &coord, &gset, chr->poisonprop);
 				}
 			}
@@ -2649,7 +2649,7 @@ s32 chrTick(struct prop *prop)
 		if (g_Vars.in_cutscene) {
 			chr->drugheadcount = 0;
 			chr->drugheadsway = 0;
-		} else if (chr->blurdrugamount > PALDOWN(1000) && chr->actiontype != ACT_DRUGGEDKO) {
+		} else if (chr->blurdrugamount > TICKS(1000) && chr->actiontype != ACT_DRUGGEDKO) {
 			chr->drugheadcount += g_Vars.lvupdate240 >> 1;
 			chr->drugheadsway = cosf(chr->drugheadcount / 255.0f * M_BADTAU) * 20.0f;
 		} else if (chr->drugheadsway != 0.0f) {
@@ -3628,7 +3628,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 	}
 
 	if (chr->aibot && chr->aibot->unk058 > 0) {
-		alpha = (f32)alpha * (PALDOWN(120) - chr->aibot->unk058) * (PAL ? 0.01f : 0.0083333337679505f);
+		alpha = (f32)alpha * (TICKS(120) - chr->aibot->unk058) * (PAL ? 0.01f : 0.0083333337679505f);
 	}
 
 	chrGetBloodColour(chr->bodynum, spec, NULL);
@@ -11170,7 +11170,7 @@ void shieldhitsTick(void)
 	if (g_ShieldHitActive) {
 		for (i = 0; i < 20; i++) {
 			if (g_ShieldHits[i].prop) {
-				if (g_ShieldHits[i].lvframe60 >= g_Vars.lvframe60 - PALDOWN(80)) {
+				if (g_ShieldHits[i].lvframe60 >= g_Vars.lvframe60 - TICKS(80)) {
 					changed = true;
 					g_ShieldHits[i].shield += (propGetShieldThing(&g_ShieldHits[i].prop) - g_ShieldHits[i].shield) * g_Vars.lvupdate240f * (PAL ? 0.0151515156f : 0.0125f);
 				}
@@ -11204,7 +11204,7 @@ void shieldhitsTick(void)
 							}
 						}
 
-						if (time60 < PALDOWN(30)) {
+						if (time60 < TICKS(30)) {
 							g_ShieldHits[i].unk018[j] = time60;
 						} else {
 							g_ShieldHits[i].unk018[j] = -2;

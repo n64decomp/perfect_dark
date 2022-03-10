@@ -4872,8 +4872,8 @@ void func0f105948(s32 weaponnum)
 
 			func0f0f372c(&g_Menus[g_MpPlayerNum].unk840, 0, 0, 0, 0, 0, 0, 1, 1);
 
-			g_Menus[g_MpPlayerNum].unk840.unk578 = PALDOWN(60);
-			g_Menus[g_MpPlayerNum].unk840.unk574 = PALDOWN(120);
+			g_Menus[g_MpPlayerNum].unk840.unk578 = TICKS(60);
+			g_Menus[g_MpPlayerNum].unk840.unk574 = TICKS(120);
 			g_Menus[g_MpPlayerNum].unk840.unk54c = -0.2f;
 			g_Menus[g_MpPlayerNum].unk840.unk524 = -0.2f;
 		}
@@ -4901,8 +4901,8 @@ s32 inventoryMenuDialog(s32 operation, struct menudialogdef *dialogdef, union ha
 
 			if (g_InventoryWeapon == WEAPON_DISGUISE40 || g_InventoryWeapon == WEAPON_DISGUISE41) {
 				g_Menus[g_MpPlayerNum].unk840.unk05c = ANIM_006A;
-				g_Menus[g_MpPlayerNum].unk840.unk578 = PALDOWN(60);
-				g_Menus[g_MpPlayerNum].unk840.unk574 = PALDOWN(120);
+				g_Menus[g_MpPlayerNum].unk840.unk578 = TICKS(60);
+				g_Menus[g_MpPlayerNum].unk840.unk574 = TICKS(120);
 			}
 		} else {
 			var80072d88 = 255;

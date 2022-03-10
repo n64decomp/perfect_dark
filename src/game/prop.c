@@ -1371,7 +1371,7 @@ void propExecuteTickOperation(struct prop *prop, s32 op)
 				&& prop->obj && (prop->obj->hidden2 & OBJH2FLAG_CANREGEN)) {
 			struct defaultobj *obj = prop->obj;
 
-			prop->timetoregen = PALDOWN(1200);
+			prop->timetoregen = TICKS(1200);
 
 			obj->damage = 0;
 			obj->hidden |= OBJHFLAG_00000800;

@@ -18459,7 +18459,7 @@ glabel var7f1b2ac8
 //			if (item) {
 //				if (item->type == MENUITEMTYPE_SLIDER || item->type == MENUITEMTYPE_10) {
 //					if (g_Menus[g_MpPlayerNum].curdialog->dimmed) {
-//						digitalrepeatinterval = PALDOWN(5);
+//						digitalrepeatinterval = TICKS(5);
 //						xdeadzone = 20;
 //						stickintervalbase = 30;
 //						xstickintervalmult = 10;
@@ -18468,7 +18468,7 @@ glabel var7f1b2ac8
 //
 //				if (item->type == MENUITEMTYPE_KEYBOARD) {
 //					allowdiagonal = true;
-//					digitalrepeatinterval = PALDOWN(5);
+//					digitalrepeatinterval = TICKS(5);
 //					xdeadzone = 20;
 //					xstickintervalmult = 10;
 //					ystickintervalmult = 10;
@@ -18502,7 +18502,7 @@ glabel var7f1b2ac8
 //			}
 //
 //			// If held for 1 second, repeat faster
-//			if (menu->xrepeattimer60 > PALDOWN(60)) {
+//			if (menu->xrepeattimer60 > TICKS(60)) {
 //				menu->xrepeatmode = MENUREPEATMODE_FAST;
 //			}
 //
@@ -18552,7 +18552,7 @@ glabel var7f1b2ac8
 //				if (interval > 0) {
 //#if PAL
 //					if (interval > 3) {
-//						interval = PALDOWN(interval);
+//						interval = TICKS(interval);
 //					}
 //#endif
 //					oldslot = menu->xrepeattimer60 / interval;
@@ -18605,7 +18605,7 @@ glabel var7f1b2ac8
 //			}
 //
 //			// If held for 1 second, repeat faster
-//			if (menu->yrepeattimer60 > PALDOWN(60)) {
+//			if (menu->yrepeattimer60 > TICKS(60)) {
 //				menu->yrepeatmode = MENUREPEATMODE_FAST;
 //			}
 //
@@ -18655,7 +18655,7 @@ glabel var7f1b2ac8
 //				if (interval > 0) {
 //#if PAL
 //					if (interval > 3) {
-//						interval = PALDOWN(interval);
+//						interval = TICKS(interval);
 //					}
 //#endif
 //

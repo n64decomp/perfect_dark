@@ -538,8 +538,8 @@ s32 mpCharacterBodyMenuHandler(s32 operation, struct menuitem *item, union handl
 		g_Menus[g_MpPlayerNum].unk840.unk00c = mpbodynum << 16 | 0xffff | mpheadnum << 24;
 		g_Menus[g_MpPlayerNum].unk840.unk574 += g_Vars.diffframe60;
 
-		if (g_Menus[g_MpPlayerNum].unk840.unk574 > PALDOWN(480)) {
-			g_Menus[g_MpPlayerNum].unk840.unk574 -= PALDOWN(480);
+		if (g_Menus[g_MpPlayerNum].unk840.unk574 > TICKS(480)) {
+			g_Menus[g_MpPlayerNum].unk840.unk574 -= TICKS(480);
 		}
 
 		if (g_Menus[g_MpPlayerNum].unk840.unk578 > 0) {
@@ -585,8 +585,8 @@ s32 mpCharacterBodyMenuHandler(s32 operation, struct menuitem *item, union handl
 		g_Menus[g_MpPlayerNum].unk840.unk524 = -0.2f;
 		g_Menus[g_MpPlayerNum].unk840.unk54c = -0.2f;
 
-		g_Menus[g_MpPlayerNum].unk840.unk578 = PALDOWN(60);
-		g_Menus[g_MpPlayerNum].unk840.unk574 = PALDOWN(120);
+		g_Menus[g_MpPlayerNum].unk840.unk578 = TICKS(60);
+		g_Menus[g_MpPlayerNum].unk840.unk574 = TICKS(120);
 		g_Menus[g_MpPlayerNum].unk840.unk000 = 8;
 
 #if VERSION >= VERSION_NTSC_1_0
