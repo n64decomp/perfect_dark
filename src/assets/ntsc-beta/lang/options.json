@@ -1,0 +1,4962 @@
+[
+    {
+        "id": "L_OPTIONS_000",
+        "en": "Complete\n",
+        "gb": "Complete\n",
+        "jp": "Complete\n",
+        "it": "Complete\n",
+        "fr": "Complete\n",
+        "de": "Complete\n",
+        "es": "Complete\n"
+    },
+    {
+        "id": "L_OPTIONS_001",
+        "en": "Incomplete\n",
+        "gb": "Incomplete\n",
+        "jp": "Incomplete\n",
+        "it": "Incomplete\n",
+        "fr": "Incomplete\n",
+        "de": "Incomplete\n",
+        "es": "Incomplete\n"
+    },
+    {
+        "id": "L_OPTIONS_002",
+        "en": "Failed\n",
+        "gb": "Failed\n",
+        "jp": "Failed\n",
+        "it": "Failed\n",
+        "fr": "Failed\n",
+        "de": "Failed\n",
+        "es": "Failed\n"
+    },
+    {
+        "id": "L_OPTIONS_003",
+        "en": "\n",
+        "gb": "\n",
+        "jp": "\n",
+        "it": "\n",
+        "fr": "\n",
+        "de": "\n",
+        "es": "\n"
+    },
+    {
+        "id": "L_OPTIONS_004",
+        "en": "",
+        "gb": "",
+        "jp": "",
+        "it": "",
+        "fr": "",
+        "de": "",
+        "es": ""
+    },
+    {
+        "id": "L_OPTIONS_005",
+        "en": "earth:",
+        "gb": "earth:",
+        "jp": "earth:",
+        "it": "earth:",
+        "fr": "earth:",
+        "de": "earth:",
+        "es": "earth:"
+    },
+    {
+        "id": "L_OPTIONS_006",
+        "en": "   prehistory",
+        "gb": "   prehistory",
+        "jp": "   pre-history",
+        "it": "   prehistory",
+        "fr": "   prehistory",
+        "de": "   prehistory",
+        "es": "   prehistory"
+    },
+    {
+        "id": "L_OPTIONS_007",
+        "en": "rare presents",
+        "gb": "rare presents",
+        "jp": "rare presents",
+        "it": "rare presents",
+        "fr": "rare presents",
+        "de": "rare presents",
+        "es": "rare presents"
+    },
+    {
+        "id": "L_OPTIONS_008",
+        "en": "Red\n",
+        "gb": "Red\n",
+        "jp": "Red\n",
+        "it": "Red\n",
+        "fr": "Red\n",
+        "de": "Red\n",
+        "es": "Red\n"
+    },
+    {
+        "id": "L_OPTIONS_009",
+        "en": "Yellow\n",
+        "gb": "Yellow\n",
+        "jp": "Yellow\n",
+        "it": "Yellow\n",
+        "fr": "Yellow\n",
+        "de": "Yellow\n",
+        "es": "Yellow\n"
+    },
+    {
+        "id": "L_OPTIONS_010",
+        "en": "Blue\n",
+        "gb": "Blue\n",
+        "jp": "Blue\n",
+        "it": "Blue\n",
+        "fr": "Blue\n",
+        "de": "Blue\n",
+        "es": "Blue\n"
+    },
+    {
+        "id": "L_OPTIONS_011",
+        "en": "Magenta\n",
+        "gb": "Magenta\n",
+        "jp": "Magenta\n",
+        "it": "Magenta\n",
+        "fr": "Magenta\n",
+        "de": "Magenta\n",
+        "es": "Magenta\n"
+    },
+    {
+        "id": "L_OPTIONS_012",
+        "en": "Cyan\n",
+        "gb": "Cyan\n",
+        "jp": "Cyan\n",
+        "it": "Cyan\n",
+        "fr": "Cyan\n",
+        "de": "Cyan\n",
+        "es": "Cyan\n"
+    },
+    {
+        "id": "L_OPTIONS_013",
+        "en": "Orange\n",
+        "gb": "Orange\n",
+        "jp": "Orange\n",
+        "it": "Orange\n",
+        "fr": "Orange\n",
+        "de": "Orange\n",
+        "es": "Orange\n"
+    },
+    {
+        "id": "L_OPTIONS_014",
+        "en": "Pink\n",
+        "gb": "Pink\n",
+        "jp": "Purple\n",
+        "it": "Pink\n",
+        "fr": "Pink\n",
+        "de": "Pink\n",
+        "es": "Pink\n"
+    },
+    {
+        "id": "L_OPTIONS_015",
+        "en": "Brown\n",
+        "gb": "Brown\n",
+        "jp": "Brown\n",
+        "it": "Brown\n",
+        "fr": "Brown\n",
+        "de": "Brown\n",
+        "es": "Brown\n"
+    },
+    {
+        "id": "L_OPTIONS_016",
+        "en": "Joanna Combat\n",
+        "gb": "Joanna Combat\n",
+        "jp": "Joanna Combat\n",
+        "it": "Joanna Combat\n",
+        "fr": "Joanna Combat\n",
+        "de": "Joanna Combat\n",
+        "es": "Joanna Combat\n"
+    },
+    {
+        "id": "L_OPTIONS_017",
+        "en": "Joanna Trench Coat\n",
+        "gb": "Joanna Trench Coat\n",
+        "jp": "Joanna Trenchcoat\n",
+        "it": "Joanna Trench Coat\n",
+        "fr": "Joanna Trench Coat\n",
+        "de": "Joanna Trench Coat\n",
+        "es": "Joanna Trench Coat\n"
+    },
+    {
+        "id": "L_OPTIONS_018",
+        "en": "Joanna Party Frock\n",
+        "gb": "Joanna Party Frock\n",
+        "jp": "Joanna Party Frock\n",
+        "it": "Joanna Party Frock\n",
+        "fr": "Joanna Party Frock\n",
+        "de": "Joanna Party Frock\n",
+        "es": "Joanna Party Frock\n"
+    },
+    {
+        "id": "L_OPTIONS_019",
+        "en": "Joanna Frock (Ripped)\n",
+        "gb": "Joanna Frock (Ripped)\n",
+        "jp": "Joanna Frock (Ripped)\n",
+        "it": "Joanna Frock (Ripped)\n",
+        "fr": "Joanna Frock (Ripped)\n",
+        "de": "Joanna Frock (Ripped)\n",
+        "es": "Joanna Frock (Ripped)\n"
+    },
+    {
+        "id": "L_OPTIONS_020",
+        "en": "Joanna Stewardess\n",
+        "gb": "Joanna Stewardess\n",
+        "jp": "Joanna Stewardess\n",
+        "it": "Joanna Stewardess\n",
+        "fr": "Joanna Stewardess\n",
+        "de": "Joanna Stewardess\n",
+        "es": "Joanna Stewardess\n"
+    },
+    {
+        "id": "L_OPTIONS_021",
+        "en": "Joanna Wet Suit\n",
+        "gb": "Joanna Wet Suit\n",
+        "jp": "Joanna Wetsuit\n",
+        "it": "Joanna Wet Suit\n",
+        "fr": "Joanna Wet Suit\n",
+        "de": "Joanna Wet Suit\n",
+        "es": "Joanna Wet Suit\n"
+    },
+    {
+        "id": "L_OPTIONS_022",
+        "en": "Joanna Aqualung\n",
+        "gb": "Joanna Aqualung\n",
+        "jp": "Joanna Aqualung\n",
+        "it": "Joanna Aqualung\n",
+        "fr": "Joanna Aqualung\n",
+        "de": "Joanna Aqualung\n",
+        "es": "Joanna Aqualung\n"
+    },
+    {
+        "id": "L_OPTIONS_023",
+        "en": "Joanna Arctic\n",
+        "gb": "Joanna Arctic\n",
+        "jp": "Joanna Arctic\n",
+        "it": "Joanna Arctic\n",
+        "fr": "Joanna Arctic\n",
+        "de": "Joanna Arctic\n",
+        "es": "Joanna Arctic\n"
+    },
+    {
+        "id": "L_OPTIONS_024",
+        "en": "Joanna Lab Tech.\n",
+        "gb": "Joanna Lab Tech.\n",
+        "jp": "Joanna Lab Tech.\n",
+        "it": "Joanna Lab Tech.\n",
+        "fr": "Joanna Lab Tech.\n",
+        "de": "Joanna Lab Tech.\n",
+        "es": "Joanna Lab Tech.\n"
+    },
+    {
+        "id": "L_OPTIONS_025",
+        "en": "Elvis\n",
+        "gb": "Elvis\n",
+        "jp": "Elvis\n",
+        "it": "Elvis\n",
+        "fr": "Elvis\n",
+        "de": "Elvis\n",
+        "es": "Elvis\n"
+    },
+    {
+        "id": "L_OPTIONS_026",
+        "en": "Maian\n",
+        "gb": "Maian\n",
+        "jp": "Maian\n",
+        "it": "Maian\n",
+        "fr": "Maian\n",
+        "de": "Maian\n",
+        "es": "Maian\n"
+    },
+    {
+        "id": "L_OPTIONS_027",
+        "en": "Daniel Carrington\n",
+        "gb": "Daniel Carrington\n",
+        "jp": "Daniel Carrington\n",
+        "it": "Daniel Carrington\n",
+        "fr": "Daniel Carrington\n",
+        "de": "Daniel Carrington\n",
+        "es": "Daniel Carrington\n"
+    },
+    {
+        "id": "L_OPTIONS_028",
+        "en": "Carrington Evening Wear\n",
+        "gb": "Carrington Evening Wear\n",
+        "jp": "Carrington Evening Wear\n",
+        "it": "Carrington Evening Wear\n",
+        "fr": "Carrington Evening Wear\n",
+        "de": "Carrington Evening Wear\n",
+        "es": "Carrington Evening Wear\n"
+    },
+    {
+        "id": "L_OPTIONS_029",
+        "en": "Mr. Blonde\n",
+        "gb": "Mr. Blonde\n",
+        "jp": "Mr. Blonde\n",
+        "it": "Mr. Blonde\n",
+        "fr": "Mr. Blonde\n",
+        "de": "Mr. Blonde\n",
+        "es": "Mr. Blonde\n"
+    },
+    {
+        "id": "L_OPTIONS_030",
+        "en": "Cassandra De Vries\n",
+        "gb": "Cassandra De Vries\n",
+        "jp": "Cassandra De Vries\n",
+        "it": "Cassandra De Vries\n",
+        "fr": "Cassandra De Vries\n",
+        "de": "Cassandra De Vries\n",
+        "es": "Cassandra De Vries\n"
+    },
+    {
+        "id": "L_OPTIONS_031",
+        "en": "Trent Easton\n",
+        "gb": "Trent Easton\n",
+        "jp": "Trent Easton\n",
+        "it": "Trent Easton\n",
+        "fr": "Trent Easton\n",
+        "de": "Trent Easton\n",
+        "es": "Trent Easton\n"
+    },
+    {
+        "id": "L_OPTIONS_032",
+        "en": "Jonathan\n",
+        "gb": "Jonathan\n",
+        "jp": "Jonathan\n",
+        "it": "Jonathan\n",
+        "fr": "Jonathan\n",
+        "de": "Jonathan\n",
+        "es": "Jonathan\n"
+    },
+    {
+        "id": "L_OPTIONS_033",
+        "en": "CI Male Lab Technician\n",
+        "gb": "CI Male Lab Technician\n",
+        "jp": "CI Male Lab Technician\n",
+        "it": "CI Male Lab Technician\n",
+        "fr": "CI Male Lab Technician\n",
+        "de": "CI Male Lab Technician\n",
+        "es": "CI Male Lab Technician\n"
+    },
+    {
+        "id": "L_OPTIONS_034",
+        "en": "CI Female Lab Technician\n",
+        "gb": "CI Female Lab Technician\n",
+        "jp": "CI Female Lab Technician\n",
+        "it": "CI Female Lab Technician\n",
+        "fr": "CI Female Lab Technician\n",
+        "de": "CI Female Lab Technician\n",
+        "es": "CI Female Lab Technician\n"
+    },
+    {
+        "id": "L_OPTIONS_035",
+        "en": "CI Soldier\n",
+        "gb": "CI Soldier\n",
+        "jp": "CI Soldier\n",
+        "it": "CI Soldier\n",
+        "fr": "CI Soldier\n",
+        "de": "CI Soldier\n",
+        "es": "CI Soldier\n"
+    },
+    {
+        "id": "L_OPTIONS_036",
+        "en": "dataDyne Shock Trooper\n",
+        "gb": "dataDyne Shock Trooper\n",
+        "jp": "DataDyne Shock Trooper\n",
+        "it": "dataDyne Shock Trooper\n",
+        "fr": "dataDyne Shock Trooper\n",
+        "de": "dataDyne Shock Trooper\n",
+        "es": "dataDyne Shock Trooper\n"
+    },
+    {
+        "id": "L_OPTIONS_037",
+        "en": "dataDyne Female Guard\n",
+        "gb": "dataDyne Female Guard\n",
+        "jp": "DataDyne Female Guard\n",
+        "it": "dataDyne Female Guard\n",
+        "fr": "dataDyne Female Guard\n",
+        "de": "dataDyne Female Guard\n",
+        "es": "dataDyne Female Guard\n"
+    },
+    {
+        "id": "L_OPTIONS_038",
+        "en": "dataDyne Security\n",
+        "gb": "dataDyne Security\n",
+        "jp": "DataDyne Security\n",
+        "it": "dataDyne Security\n",
+        "fr": "dataDyne Security\n",
+        "de": "dataDyne Security\n",
+        "es": "dataDyne Security\n"
+    },
+    {
+        "id": "L_OPTIONS_039",
+        "en": "dataDyne Infantry\n",
+        "gb": "dataDyne Infantry\n",
+        "jp": "DataDyne Guard\n",
+        "it": "dataDyne Infantry\n",
+        "fr": "dataDyne Infantry\n",
+        "de": "dataDyne Infantry\n",
+        "es": "dataDyne Infantry\n"
+    },
+    {
+        "id": "L_OPTIONS_040",
+        "en": "dataDyne Trooper\n",
+        "gb": "dataDyne Trooper\n",
+        "jp": "DataDyne Guard 2\n",
+        "it": "dataDyne Trooper\n",
+        "fr": "dataDyne Trooper\n",
+        "de": "dataDyne Trooper\n",
+        "es": "dataDyne Trooper\n"
+    },
+    {
+        "id": "L_OPTIONS_041",
+        "en": "Secretary\n",
+        "gb": "Secretary\n",
+        "jp": "Secretary\n",
+        "it": "Secretary\n",
+        "fr": "Secretary\n",
+        "de": "Secretary\n",
+        "es": "Secretary\n"
+    },
+    {
+        "id": "L_OPTIONS_042",
+        "en": "Office Suit\n",
+        "gb": "Office Suit\n",
+        "jp": "Office Suit\n",
+        "it": "Office Suit\n",
+        "fr": "Office Suit\n",
+        "de": "Office Suit\n",
+        "es": "Office Suit\n"
+    },
+    {
+        "id": "L_OPTIONS_043",
+        "en": "Office Casual\n",
+        "gb": "Office Casual\n",
+        "jp": "Office Casual\n",
+        "it": "Office Casual\n",
+        "fr": "Office Casual\n",
+        "de": "Office Casual\n",
+        "es": "Office Casual\n"
+    },
+    {
+        "id": "L_OPTIONS_044",
+        "en": "Negotiator\n",
+        "gb": "Negotiator\n",
+        "jp": "Negotiator\n",
+        "it": "Negotiator\n",
+        "fr": "Negotiator\n",
+        "de": "Negotiator\n",
+        "es": "Negotiator\n"
+    },
+    {
+        "id": "L_OPTIONS_045",
+        "en": "dataDyne Sniper\n",
+        "gb": "dataDyne Sniper\n",
+        "jp": "DataDyne Sniper\n",
+        "it": "dataDyne Sniper\n",
+        "fr": "dataDyne Sniper\n",
+        "de": "dataDyne Sniper\n",
+        "es": "dataDyne Sniper\n"
+    },
+    {
+        "id": "L_OPTIONS_046",
+        "en": "G5 Guard\n",
+        "gb": "G5 Guard\n",
+        "jp": "G5 Guard\n",
+        "it": "G5 Guard\n",
+        "fr": "G5 Guard\n",
+        "de": "G5 Guard\n",
+        "es": "G5 Guard\n"
+    },
+    {
+        "id": "L_OPTIONS_047",
+        "en": "G5 SWAT Guard\n",
+        "gb": "G5 SWAT Guard\n",
+        "jp": "G5 SWAT Guard\n",
+        "it": "G5 SWAT Guard\n",
+        "fr": "G5 SWAT Guard\n",
+        "de": "G5 SWAT Guard\n",
+        "es": "G5 SWAT Guard\n"
+    },
+    {
+        "id": "L_OPTIONS_048",
+        "en": "CIA Agent\n",
+        "gb": "CIA Agent\n",
+        "jp": "CIA Agent\n",
+        "it": "CIA Agent\n",
+        "fr": "CIA Agent\n",
+        "de": "CIA Agent\n",
+        "es": "CIA Agent\n"
+    },
+    {
+        "id": "L_OPTIONS_049",
+        "en": "FBI Agent\n",
+        "gb": "FBI Agent\n",
+        "jp": "FBI Agent\n",
+        "it": "FBI Agent\n",
+        "fr": "FBI Agent\n",
+        "de": "FBI Agent\n",
+        "es": "FBI Agent\n"
+    },
+    {
+        "id": "L_OPTIONS_050",
+        "en": "Area 51 Guard\n",
+        "gb": "Area 51 Guard\n",
+        "jp": "Area 51 Guard\n",
+        "it": "Area 51 Guard\n",
+        "fr": "Area 51 Guard\n",
+        "de": "Area 51 Guard\n",
+        "es": "Area 51 Guard\n"
+    },
+    {
+        "id": "L_OPTIONS_051",
+        "en": "Area 51 Trooper\n",
+        "gb": "Area 51 Trooper\n",
+        "jp": "Area 51 Trooper\n",
+        "it": "Area 51 Trooper\n",
+        "fr": "Area 51 Trooper\n",
+        "de": "Area 51 Trooper\n",
+        "es": "Area 51 Trooper\n"
+    },
+    {
+        "id": "L_OPTIONS_052",
+        "en": "Pilot\n",
+        "gb": "Pilot\n",
+        "jp": "Pilot\n",
+        "it": "Pilot\n",
+        "fr": "Pilot\n",
+        "de": "Pilot\n",
+        "es": "Pilot\n"
+    },
+    {
+        "id": "L_OPTIONS_053",
+        "en": "Overalls\n",
+        "gb": "Overalls\n",
+        "jp": "Overalls\n",
+        "it": "Overalls\n",
+        "fr": "Overalls\n",
+        "de": "Overalls\n",
+        "es": "Overalls\n"
+    },
+    {
+        "id": "L_OPTIONS_054",
+        "en": "NSA Bodyguard\n",
+        "gb": "NSA Bodyguard\n",
+        "jp": "Stripes\n",
+        "it": "NSA Bodyguard\n",
+        "fr": "NSA Bodyguard\n",
+        "de": "NSA Bodyguard\n",
+        "es": "NSA Bodyguard\n"
+    },
+    {
+        "id": "L_OPTIONS_055",
+        "en": "Male Lab Technician\n",
+        "gb": "Male Lab Technician\n",
+        "jp": "Male Lab Technician\n",
+        "it": "Male Lab Technician\n",
+        "fr": "Male Lab Technician\n",
+        "de": "Male Lab Technician\n",
+        "es": "Male Lab Technician\n"
+    },
+    {
+        "id": "L_OPTIONS_056",
+        "en": "Female Lab Technician\n",
+        "gb": "Female Lab Technician\n",
+        "jp": "Female Lab Technician\n",
+        "it": "Female Lab Technician\n",
+        "fr": "Female Lab Technician\n",
+        "de": "Female Lab Technician\n",
+        "es": "Female Lab Technician\n"
+    },
+    {
+        "id": "L_OPTIONS_057",
+        "en": "dataDyne Lab Technician\n",
+        "gb": "dataDyne Lab Technician\n",
+        "jp": "DataDyne Lab Technician\n",
+        "it": "dataDyne Lab Technician\n",
+        "fr": "dataDyne Lab Technician\n",
+        "de": "dataDyne Lab Technician\n",
+        "es": "dataDyne Lab Technician\n"
+    },
+    {
+        "id": "L_OPTIONS_058",
+        "en": "Biotechnician\n",
+        "gb": "Biotechnician\n",
+        "jp": "Biotechnician\n",
+        "it": "Biotechnician\n",
+        "fr": "Biotechnician\n",
+        "de": "Biotechnician\n",
+        "es": "Biotechnician\n"
+    },
+    {
+        "id": "L_OPTIONS_059",
+        "en": "Alaskan Guard\n",
+        "gb": "Alaskan Guard\n",
+        "jp": "Alaskan Guard\n",
+        "it": "Alaskan Guard\n",
+        "fr": "Alaskan Guard\n",
+        "de": "Alaskan Guard\n",
+        "es": "Alaskan Guard\n"
+    },
+    {
+        "id": "L_OPTIONS_060",
+        "en": "Air Force One Pilot\n",
+        "gb": "Air Force One Pilot\n",
+        "jp": "Air Force One Pilot\n",
+        "it": "Air Force One Pilot\n",
+        "fr": "Air Force One Pilot\n",
+        "de": "Air Force One Pilot\n",
+        "es": "Air Force One Pilot\n"
+    },
+    {
+        "id": "L_OPTIONS_061",
+        "en": "Steward\n",
+        "gb": "Steward\n",
+        "jp": "Steward\n",
+        "it": "Steward\n",
+        "fr": "Steward\n",
+        "de": "Steward\n",
+        "es": "Steward\n"
+    },
+    {
+        "id": "L_OPTIONS_062",
+        "en": "Stewardess\n",
+        "gb": "Stewardess\n",
+        "jp": "Stewardess\n",
+        "it": "Stewardess\n",
+        "fr": "Stewardess\n",
+        "de": "Stewardess\n",
+        "es": "Stewardess\n"
+    },
+    {
+        "id": "L_OPTIONS_063",
+        "en": "Head Stewardess\n",
+        "gb": "Head Stewardess\n",
+        "jp": "Head Stewardess\n",
+        "it": "Head Stewardess\n",
+        "fr": "Head Stewardess\n",
+        "de": "Head Stewardess\n",
+        "es": "Head Stewardess\n"
+    },
+    {
+        "id": "L_OPTIONS_064",
+        "en": "The President\n",
+        "gb": "The President\n",
+        "jp": "The President\n",
+        "it": "The President\n",
+        "fr": "The President\n",
+        "de": "The President\n",
+        "es": "The President\n"
+    },
+    {
+        "id": "L_OPTIONS_065",
+        "en": "NSA Lackey\n",
+        "gb": "NSA Lackey\n",
+        "jp": "NSA Lackey\n",
+        "it": "NSA Lackey\n",
+        "fr": "NSA Lackey\n",
+        "de": "NSA Lackey\n",
+        "es": "NSA Lackey\n"
+    },
+    {
+        "id": "L_OPTIONS_066",
+        "en": "Presidential Security\n",
+        "gb": "Presidential Security\n",
+        "jp": "Presidential Security\n",
+        "it": "Presidential Security\n",
+        "fr": "Presidential Security\n",
+        "de": "Presidential Security\n",
+        "es": "Presidential Security\n"
+    },
+    {
+        "id": "L_OPTIONS_067",
+        "en": "President\"s Clone\n",
+        "gb": "President\"s Clone\n",
+        "jp": "President\"s Clone\n",
+        "it": "President\"s Clone\n",
+        "fr": "President\"s Clone\n",
+        "de": "President\"s Clone\n",
+        "es": "President\"s Clone\n"
+    },
+    {
+        "id": "L_OPTIONS_068",
+        "en": "Pelagic II Guard\n",
+        "gb": "Pelagic II Guard\n",
+        "jp": "Pelagic Guard\n",
+        "it": "Pelagic II Guard\n",
+        "fr": "Pelagic II Guard\n",
+        "de": "Pelagic II Guard\n",
+        "es": "Pelagic II Guard\n"
+    },
+    {
+        "id": "L_OPTIONS_069",
+        "en": "Maian Soldier\n",
+        "gb": "Maian Soldier\n",
+        "jp": "Maian Soldier\n",
+        "it": "Maian Soldier\n",
+        "fr": "Maian Soldier\n",
+        "de": "Maian Soldier\n",
+        "es": "Maian Soldier\n"
+    },
+    {
+        "id": "L_OPTIONS_070",
+        "en": "Dinner Jacket\n",
+        "gb": "Dinner Jacket\n",
+        "jp": "Dinner Jacket\n",
+        "it": "Dinner Jacket\n",
+        "fr": "Dinner Jacket\n",
+        "de": "Dinner Jacket\n",
+        "es": "Dinner Jacket\n"
+    },
+    {
+        "id": "L_OPTIONS_071",
+        "en": "- no controller in controller socket 1 -",
+        "gb": "No controller in controller socket 1",
+        "jp": "No controller in controller socket 1",
+        "it": "No controller in controller socket 1",
+        "fr": "No controller in controller socket 1",
+        "de": "No controller in controller socket 1",
+        "es": "No controller in controller socket 1"
+    },
+    {
+        "id": "L_OPTIONS_072",
+        "en": "please power off and attach a controller",
+        "gb": "Please power off and attach a controller",
+        "jp": "Please power off and attach a controller",
+        "it": "Please power off and attach a controller",
+        "fr": "Please power off and attach a controller",
+        "de": "Please power off and attach a controller",
+        "es": "Please power off and attach a controller"
+    },
+    {
+        "id": "L_OPTIONS_073",
+        "en": "DETECTED",
+        "gb": "DETECTED",
+        "jp": "DETECTED\n",
+        "it": "DETECTED",
+        "fr": "DETECTED",
+        "de": "DETECTED",
+        "es": "DETECTED"
+    },
+    {
+        "id": "L_OPTIONS_074",
+        "en": "NOT DETECTED",
+        "gb": "NOT DETECTED",
+        "jp": "NOT DETECTED\n",
+        "it": "NOT DETECTED",
+        "fr": "NOT DETECTED",
+        "de": "NOT DETECTED",
+        "es": "NOT DETECTED"
+    },
+    {
+        "id": "L_OPTIONS_075",
+        "en": "tm",
+        "gb": "tm",
+        "jp": "tm\n",
+        "it": "tm",
+        "fr": "tm",
+        "de": "tm",
+        "es": "tm"
+    },
+    {
+        "id": "L_OPTIONS_076",
+        "en": "N64 EXPANSION PAK",
+        "gb": "N64 EXPANSION PAK",
+        "jp": "N64 EXPANSION PAK\nNintendo 64 Product Identification\n",
+        "it": "N64 EXPANSION PAK",
+        "fr": "N64 EXPANSION PAK",
+        "de": "N64 EXPANSION PAK",
+        "es": "N64 EXPANSION PAK"
+    },
+    {
+        "id": "L_OPTIONS_077",
+        "en": "Nintendo 64 Product Identification\n",
+        "gb": "Nintendo 64 Product Identification\n",
+        "jp": "Product ID:\n",
+        "it": "Nintendo 64 Product Identification\n",
+        "fr": "Nintendo 64 Product Identification\n",
+        "de": "Nintendo 64 Product Identification\n",
+        "es": "Nintendo 64 Product Identification\n"
+    },
+    {
+        "id": "L_OPTIONS_078",
+        "en": "Product ID:\n",
+        "gb": "Product ID:\n",
+        "jp": "Product Code:\n",
+        "it": "Product ID:\n",
+        "fr": "Product ID:\n",
+        "de": "Product ID:\n",
+        "es": "Product ID:\n"
+    },
+    {
+        "id": "L_OPTIONS_079",
+        "en": "Product Code:\n",
+        "gb": "Product Code:\n",
+        "jp": "Variant:\n",
+        "it": "Product Code:\n",
+        "fr": "Product Code:\n",
+        "de": "Product Code:\n",
+        "es": "Product Code:\n"
+    },
+    {
+        "id": "L_OPTIONS_080",
+        "en": "Variant:\n",
+        "gb": "Variant:\n",
+        "jp": "Developer:\n",
+        "it": "Variant:\n",
+        "fr": "Variant:\n",
+        "de": "Variant:\n",
+        "es": "Variant:\n"
+    },
+    {
+        "id": "L_OPTIONS_081",
+        "en": "Developer:\n",
+        "gb": "Developer:\n",
+        "jp": "Perfect Dark\n",
+        "it": "Developer:\n",
+        "fr": "Developer:\n",
+        "de": "Developer:\n",
+        "es": "Developer:\n"
+    },
+    {
+        "id": "L_OPTIONS_082",
+        "en": "Perfect Dark\n",
+        "gb": "Perfect Dark\n",
+        "jp": "NUS-NPDE-USA\n",
+        "it": "Perfect Dark\n",
+        "fr": "Perfect Dark\n",
+        "de": "Perfect Dark\n",
+        "es": "Perfect Dark\n"
+    },
+    {
+        "id": "L_OPTIONS_083",
+        "en": "NUS-NPDE-USA\n",
+        "gb": "NUS-NPDE-USA\n",
+        "jp": "NTSC version 4.4 beta\n",
+        "it": "NUS-NPDE-USA\n",
+        "fr": "NUS-NPDE-USA\n",
+        "de": "NUS-NPDE-USA\n",
+        "es": "NUS-NPDE-USA\n"
+    },
+    {
+        "id": "L_OPTIONS_084",
+        "en": "NTSC version 6.4 beta\n",
+        "gb": "NTSC version 5.3 beta\n",
+        "jp": "Rare Ltd. (twycross)\n",
+        "it": "NTSC version 5.3 beta\n",
+        "fr": "NTSC version 5.3 beta\n",
+        "de": "NTSC version 5.3 beta\n",
+        "es": "NTSC version 5.3 beta\n"
+    },
+    {
+        "id": "L_OPTIONS_085",
+        "en": "Rare Ltd. (twycross)\n",
+        "gb": "Rare Ltd. (twycross)\n",
+        "jp": "Copyright Rare Ltd. 2000\n",
+        "it": "Rare Ltd. (twycross)\n",
+        "fr": "Rare Ltd. (twycross)\n",
+        "de": "Rare Ltd. (twycross)\n",
+        "es": "Rare Ltd. (twycross)\n"
+    },
+    {
+        "id": "L_OPTIONS_086",
+        "en": "Copyright Rare Ltd. 2000\n",
+        "gb": "Copyright Rare Ltd. 2000\n",
+        "jp": "Perfect Dark and PerfectHead are trademarks of Rare Ltd.\n",
+        "it": "Copyright Rare Ltd. 2000\n",
+        "fr": "Copyright Rare Ltd. 2000\n",
+        "de": "Copyright Rare Ltd. 2000\n",
+        "es": "Copyright Rare Ltd. 2000\n"
+    },
+    {
+        "id": "L_OPTIONS_087",
+        "en": "The Rareware Logo and Perfect Dark are trademarks of Rare Ltd.\n",
+        "gb": "The Rareware Logo and Perfect Dark are trademarks of Rare Ltd.\n",
+        "jp": "Presented in\nDolby Surround\n",
+        "it": "The Rareware Logo and Perfect Dark are trademarks of Rare Ltd.\n",
+        "fr": "The Rareware Logo and Perfect Dark are trademarks of Rare Ltd.\n",
+        "de": "The Rareware Logo and Perfect Dark are trademarks of Rare Ltd.\n",
+        "es": "The Rareware Logo and Perfect Dark are trademarks of Rare Ltd.\n"
+    },
+    {
+        "id": "L_OPTIONS_088",
+        "en": "Presented in Dolby Surround.  Dolby and the double-D\nsymbol are trademarks of Dolby Laboratories.",
+        "gb": "Presented in Dolby Surround.  Dolby and the double-D\nsymbol are trademarks of Dolby Laboratories.",
+        "jp": "Uses Miles Sound System Copyright 1991-1999 RAD Game Tools Inc.\n",
+        "it": "Presented in Dolby Surround.  Dolby and the double-D\nsymbol are trademarks of Dolby Laboratories.",
+        "fr": "Presented in Dolby Surround.  Dolby and the double-D\nsymbol are trademarks of Dolby Laboratories.",
+        "de": "Presented in Dolby Surround.  Dolby and the double-D\nsymbol are trademarks of Dolby Laboratories.",
+        "es": "Presented in Dolby Surround.  Dolby and the double-D\nsymbol are trademarks of Dolby Laboratories."
+    },
+    {
+        "id": "L_OPTIONS_089",
+        "en": "Uses Miles Sound System Copyright 1991-1999 RAD Game Tools Inc.\nMPEG Layer-3 playback supplied with the Miles Sound System from\nRAD Game Tools, Inc. MPEG Layer-3 audio compression technology\nlicensed by Fraunhofer IIS and THOMSON multimedia\n",
+        "gb": "Uses Miles Sound System Copyright 1991-1999 RAD Game Tools Inc.\nMPEG Layer-3 playback supplied with the Miles Sound System from\nRAD Game Tools, Inc. MPEG Layer-3 audio compression technology\nlicensed by Fraunhofer IIS and THOMSON multimedia\n",
+        "jp": "MPEG Layer-3 playback supplied with the Miles Sound System from\n",
+        "it": "Uses Miles Sound System Copyright 1991-1999 RAD Game Tools Inc.\nMPEG Layer-3 playback supplied with the Miles Sound System from\nRAD Game Tools, Inc. MPEG Layer-3 audio compression technology\nlicensed by Fraunhofer IIS and THOMSON multimedia\n",
+        "fr": "Uses Miles Sound System Copyright 1991-1999 RAD Game Tools Inc.\nMPEG Layer-3 playback supplied with the Miles Sound System from\nRAD Game Tools, Inc. MPEG Layer-3 audio compression technology\nlicensed by Fraunhofer IIS and THOMSON multimedia\n",
+        "de": "Uses Miles Sound System Copyright 1991-1999 RAD Game Tools Inc.\nMPEG Layer-3 playback supplied with the Miles Sound System from\nRAD Game Tools, Inc. MPEG Layer-3 audio compression technology\nlicensed by Fraunhofer IIS and THOMSON multimedia\n",
+        "es": "Uses Miles Sound System Copyright 1991-1999 RAD Game Tools Inc.\nMPEG Layer-3 playback supplied with the Miles Sound System from\nRAD Game Tools, Inc. MPEG Layer-3 audio compression technology\nlicensed by Fraunhofer IIS and THOMSON multimedia\n"
+    },
+    {
+        "id": "L_OPTIONS_090",
+        "en": "",
+        "gb": "",
+        "jp": "RAD Game Tools, Inc. MPEG Layer-3 audio compression technology\n",
+        "it": "",
+        "fr": "",
+        "de": "",
+        "es": ""
+    },
+    {
+        "id": "L_OPTIONS_091",
+        "en": "",
+        "gb": "",
+        "jp": "licensed by Fraunhofer IIS and THOMSON multimedia\n",
+        "it": "",
+        "fr": "",
+        "de": "",
+        "es": ""
+    },
+    {
+        "id": "L_OPTIONS_092",
+        "en": "",
+        "gb": "",
+        "jp": "rare designs on the future <<<\n",
+        "it": "",
+        "fr": "",
+        "de": "",
+        "es": ""
+    },
+    {
+        "id": "L_OPTIONS_093",
+        "en": "rare designs on the future <<<\n",
+        "gb": "rare designs on the future <<<\n",
+        "jp": "Perfect Dark\n",
+        "it": "rare designs on the future <<<\n",
+        "fr": "rare designs on the future <<<\n",
+        "de": "rare designs on the future <<<\n",
+        "es": "rare designs on the future <<<\n"
+    },
+    {
+        "id": "L_OPTIONS_094",
+        "en": "Published by Rareware.\n",
+        "gb": "Published by Rareware.\n",
+        "jp": "Choose Your Reality\n",
+        "it": "Published by Rareware.\n",
+        "fr": "Published by Rareware.\n",
+        "de": "Published by Rareware.\n",
+        "es": "Published by Rareware.\n"
+    },
+    {
+        "id": "L_OPTIONS_095",
+        "en": "Perfect Dark\n",
+        "gb": "Perfect Dark\n",
+        "jp": "New...\n",
+        "it": "Perfect Dark\n",
+        "fr": "Perfect Dark\n",
+        "de": "Perfect Dark\n",
+        "es": "Perfect Dark\n"
+    },
+    {
+        "id": "L_OPTIONS_096",
+        "en": "Choose Your Reality\n",
+        "gb": "Choose Your Reality\n",
+        "jp": "New Agent...\n",
+        "it": "Choose Your Reality\n",
+        "fr": "Choose Your Reality\n",
+        "de": "Choose Your Reality\n",
+        "es": "Choose Your Reality\n"
+    },
+    {
+        "id": "L_OPTIONS_097",
+        "en": "New...\n",
+        "gb": "New...\n",
+        "jp": "Game Files\n",
+        "it": "New...\n",
+        "fr": "New...\n",
+        "de": "New...\n",
+        "es": "New...\n"
+    },
+    {
+        "id": "L_OPTIONS_098",
+        "en": "New Agent...\n",
+        "gb": "New Agent...\n",
+        "jp": "Copy:\n",
+        "it": "New Agent...\n",
+        "fr": "New Agent...\n",
+        "de": "New Agent...\n",
+        "es": "New Agent...\n"
+    },
+    {
+        "id": "L_OPTIONS_099",
+        "en": "Game Files\n",
+        "gb": "Game Files\n",
+        "jp": "Delete:\n",
+        "it": "Game Files\n",
+        "fr": "Game Files\n",
+        "de": "Game Files\n",
+        "es": "Game Files\n"
+    },
+    {
+        "id": "L_OPTIONS_100",
+        "en": "Copy:\n",
+        "gb": "Copy:\n",
+        "jp": "Delete Game Notes...\n",
+        "it": "Copy:\n",
+        "fr": "Copy:\n",
+        "de": "Copy:\n",
+        "es": "Copy:\n"
+    },
+    {
+        "id": "L_OPTIONS_101",
+        "en": "Delete:\n",
+        "gb": "Delete:\n",
+        "jp": "Single Player Files\n",
+        "it": "Delete:\n",
+        "fr": "Delete:\n",
+        "de": "Delete:\n",
+        "es": "Delete:\n"
+    },
+    {
+        "id": "L_OPTIONS_102",
+        "en": "Delete Game Notes...\n",
+        "gb": "Delete Game Notes...\n",
+        "jp": "MultiPlayer Game Files\n",
+        "it": "Delete Game Notes...\n",
+        "fr": "Delete Game Notes...\n",
+        "de": "Delete Game Notes...\n",
+        "es": "Delete Game Notes...\n"
+    },
+    {
+        "id": "L_OPTIONS_103",
+        "en": "Single Player Files\n",
+        "gb": "Single Player Files\n",
+        "jp": "MultiPlayer Player Files\n",
+        "it": "Single Player Files\n",
+        "fr": "Single Player Files\n",
+        "de": "Single Player Files\n",
+        "es": "Single Player Files\n"
+    },
+    {
+        "id": "L_OPTIONS_104",
+        "en": "MultiPlayer Game Files\n",
+        "gb": "MultiPlayer Game Files\n",
+        "jp": "PerfectHead Files\n",
+        "it": "MultiPlayer Game Files\n",
+        "fr": "MultiPlayer Game Files\n",
+        "de": "MultiPlayer Game Files\n",
+        "es": "MultiPlayer Game Files\n"
+    },
+    {
+        "id": "L_OPTIONS_105",
+        "en": "MultiPlayer Player Files\n",
+        "gb": "MultiPlayer Player Files\n",
+        "jp": "Controller Pak Game Notes Editor\n",
+        "it": "MultiPlayer Player Files\n",
+        "fr": "MultiPlayer Player Files\n",
+        "de": "MultiPlayer Player Files\n",
+        "es": "MultiPlayer Player Files\n"
+    },
+    {
+        "id": "L_OPTIONS_106",
+        "en": "PerfectHead Files\n",
+        "gb": "PerfectHead Files\n",
+        "jp": "Use this editor to delete game notes\nfrom your controller paks.\n",
+        "it": "PerfectHead Files\n",
+        "fr": "PerfectHead Files\n",
+        "de": "PerfectHead Files\n",
+        "es": "PerfectHead Files\n"
+    },
+    {
+        "id": "L_OPTIONS_107",
+        "en": "Controller Pak Menu\n",
+        "gb": "Controller Pak Game Notes Editor\n",
+        "jp": "Choose Controller Pak to Edit:\n",
+        "it": "Controller Pak Game Notes Editor\n",
+        "fr": "Controller Pak Game Notes Editor\n",
+        "de": "Controller Pak Game Notes Editor\n",
+        "es": "Controller Pak Game Notes Editor\n"
+    },
+    {
+        "id": "L_OPTIONS_108",
+        "en": "Use this menu to delete game notes\nfrom your Controller Paks.\n",
+        "gb": "Use this editor to delete game notes\nfrom your Controller Paks.\n",
+        "jp": "Exit\n",
+        "it": "Use this editor to delete game notes\nfrom your Controller Paks.\n",
+        "fr": "Use this editor to delete game notes\nfrom your Controller Paks.\n",
+        "de": "Use this editor to delete game notes\nfrom your Controller Paks.\n",
+        "es": "Use this editor to delete game notes\nfrom your Controller Paks.\n"
+    },
+    {
+        "id": "L_OPTIONS_109",
+        "en": "Choose Controller Pak to Edit:\n",
+        "gb": "Choose Controller Pak to Edit:\n",
+        "jp": "Game Pak\n",
+        "it": "Choose Controller Pak to Edit:\n",
+        "fr": "Choose Controller Pak to Edit:\n",
+        "de": "Choose Controller Pak to Edit:\n",
+        "es": "Choose Controller Pak to Edit:\n"
+    },
+    {
+        "id": "L_OPTIONS_110",
+        "en": "Exit\n",
+        "gb": "Exit\n",
+        "jp": "Controller Pak 1\n",
+        "it": "Exit\n",
+        "fr": "Exit\n",
+        "de": "Exit\n",
+        "es": "Exit\n"
+    },
+    {
+        "id": "L_OPTIONS_111",
+        "en": "Game Pak\n",
+        "gb": "Game Pak\n",
+        "jp": "Controller Pak 2\n",
+        "it": "Game Pak\n",
+        "fr": "Game Pak\n",
+        "de": "Game Pak\n",
+        "es": "Game Pak\n"
+    },
+    {
+        "id": "L_OPTIONS_112",
+        "en": "Controller Pak 1\n",
+        "gb": "Controller Pak 1\n",
+        "jp": "Controller Pak 3\n",
+        "it": "Controller Pak 1\n",
+        "fr": "Controller Pak 1\n",
+        "de": "Controller Pak 1\n",
+        "es": "Controller Pak 1\n"
+    },
+    {
+        "id": "L_OPTIONS_113",
+        "en": "Controller Pak 2\n",
+        "gb": "Controller Pak 2\n",
+        "jp": "Controller Pak 4\n",
+        "it": "Controller Pak 2\n",
+        "fr": "Controller Pak 2\n",
+        "de": "Controller Pak 2\n",
+        "es": "Controller Pak 2\n"
+    },
+    {
+        "id": "L_OPTIONS_114",
+        "en": "Controller Pak 3\n",
+        "gb": "Controller Pak 3\n",
+        "jp": "Perfect Menu\n",
+        "it": "Controller Pak 3\n",
+        "fr": "Controller Pak 3\n",
+        "de": "Controller Pak 3\n",
+        "es": "Controller Pak 3\n"
+    },
+    {
+        "id": "L_OPTIONS_115",
+        "en": "Controller Pak 4\n",
+        "gb": "Controller Pak 4\n",
+        "jp": "Solo Missions\n",
+        "it": "Controller Pak 4\n",
+        "fr": "Controller Pak 4\n",
+        "de": "Controller Pak 4\n",
+        "es": "Controller Pak 4\n"
+    },
+    {
+        "id": "L_OPTIONS_116",
+        "en": "Perfect Menu\n",
+        "gb": "Perfect Menu\n",
+        "jp": "Combat Simulator\n",
+        "it": "Perfect Menu\n",
+        "fr": "Perfect Menu\n",
+        "de": "Perfect Menu\n",
+        "es": "Perfect Menu\n"
+    },
+    {
+        "id": "L_OPTIONS_117",
+        "en": "Solo Missions\n",
+        "gb": "Solo Missions\n",
+        "jp": "Co-Operative\n",
+        "it": "Solo Missions\n",
+        "fr": "Solo Missions\n",
+        "de": "Solo Missions\n",
+        "es": "Solo Missions\n"
+    },
+    {
+        "id": "L_OPTIONS_118",
+        "en": "Combat Simulator\n",
+        "gb": "Combat Simulator\n",
+        "jp": "Counter-Operative\n",
+        "it": "Combat Simulator\n",
+        "fr": "Combat Simulator\n",
+        "de": "Combat Simulator\n",
+        "es": "Combat Simulator\n"
+    },
+    {
+        "id": "L_OPTIONS_119",
+        "en": "Co-Operative\n",
+        "gb": "Co-Operative\n",
+        "jp": "Cinema\n",
+        "it": "Co-Operative\n",
+        "fr": "Co-Operative\n",
+        "de": "Co-Operative\n",
+        "es": "Co-Operative\n"
+    },
+    {
+        "id": "L_OPTIONS_120",
+        "en": "Counter-Operative\n",
+        "gb": "Counter-Operative\n",
+        "jp": "Mission Select\n",
+        "it": "Counter-Operative\n",
+        "fr": "Counter-Operative\n",
+        "de": "Counter-Operative\n",
+        "es": "Counter-Operative\n"
+    },
+    {
+        "id": "L_OPTIONS_121",
+        "en": "Cinema\n",
+        "gb": "Cinema\n",
+        "jp": "Mission 1\n",
+        "it": "Cinema\n",
+        "fr": "Cinema\n",
+        "de": "Cinema\n",
+        "es": "Cinema\n"
+    },
+    {
+        "id": "L_OPTIONS_122",
+        "en": "Mission Select\n",
+        "gb": "Mission Select\n",
+        "jp": "Mission 2\n",
+        "it": "Mission Select\n",
+        "fr": "Mission Select\n",
+        "de": "Mission Select\n",
+        "es": "Mission Select\n"
+    },
+    {
+        "id": "L_OPTIONS_123",
+        "en": "Mission 1\n",
+        "gb": "Mission 1\n",
+        "jp": "Mission 3\n",
+        "it": "Mission 1\n",
+        "fr": "Mission 1\n",
+        "de": "Mission 1\n",
+        "es": "Mission 1\n"
+    },
+    {
+        "id": "L_OPTIONS_124",
+        "en": "Mission 2\n",
+        "gb": "Mission 2\n",
+        "jp": "Mission 4\n",
+        "it": "Mission 2\n",
+        "fr": "Mission 2\n",
+        "de": "Mission 2\n",
+        "es": "Mission 2\n"
+    },
+    {
+        "id": "L_OPTIONS_125",
+        "en": "Mission 3\n",
+        "gb": "Mission 3\n",
+        "jp": "Mission 5\n",
+        "it": "Mission 3\n",
+        "fr": "Mission 3\n",
+        "de": "Mission 3\n",
+        "es": "Mission 3\n"
+    },
+    {
+        "id": "L_OPTIONS_126",
+        "en": "Mission 4\n",
+        "gb": "Mission 4\n",
+        "jp": "Mission 6\n",
+        "it": "Mission 4\n",
+        "fr": "Mission 4\n",
+        "de": "Mission 4\n",
+        "es": "Mission 4\n"
+    },
+    {
+        "id": "L_OPTIONS_127",
+        "en": "Mission 5\n",
+        "gb": "Mission 5\n",
+        "jp": "Mission 7\n",
+        "it": "Mission 5\n",
+        "fr": "Mission 5\n",
+        "de": "Mission 5\n",
+        "es": "Mission 5\n"
+    },
+    {
+        "id": "L_OPTIONS_128",
+        "en": "Mission 6\n",
+        "gb": "Mission 6\n",
+        "jp": "Mission 8\n",
+        "it": "Mission 6\n",
+        "fr": "Mission 6\n",
+        "de": "Mission 6\n",
+        "es": "Mission 6\n"
+    },
+    {
+        "id": "L_OPTIONS_129",
+        "en": "Mission 7\n",
+        "gb": "Mission 7\n",
+        "jp": "Mission 9\n",
+        "it": "Mission 7\n",
+        "fr": "Mission 7\n",
+        "de": "Mission 7\n",
+        "es": "Mission 7\n"
+    },
+    {
+        "id": "L_OPTIONS_130",
+        "en": "Mission 8\n",
+        "gb": "Mission 8\n",
+        "jp": "Special Assignments\n",
+        "it": "Mission 8\n",
+        "fr": "Mission 8\n",
+        "de": "Mission 8\n",
+        "es": "Mission 8\n"
+    },
+    {
+        "id": "L_OPTIONS_131",
+        "en": "Mission 9\n",
+        "gb": "Mission 9\n",
+        "jp": "dataDyne Central",
+        "it": "Mission 9\n",
+        "fr": "Mission 9\n",
+        "de": "Mission 9\n",
+        "es": "Mission 9\n"
+    },
+    {
+        "id": "L_OPTIONS_132",
+        "en": "Special Assignments\n",
+        "gb": "Special Assignments\n",
+        "jp": "- Defection",
+        "it": "Special Assignments\n",
+        "fr": "Special Assignments\n",
+        "de": "Special Assignments\n",
+        "es": "Special Assignments\n"
+    },
+    {
+        "id": "L_OPTIONS_133",
+        "en": "dataDyne Central",
+        "gb": "dataDyne Central",
+        "jp": "dataDyne Research",
+        "it": "dataDyne Central",
+        "fr": "dataDyne Central",
+        "de": "dataDyne Central",
+        "es": "dataDyne Central"
+    },
+    {
+        "id": "L_OPTIONS_134",
+        "en": "- Defection",
+        "gb": "- Defection",
+        "jp": "- Investigation",
+        "it": "- Defection",
+        "fr": "- Defection",
+        "de": "- Defection",
+        "es": "- Defection"
+    },
+    {
+        "id": "L_OPTIONS_135",
+        "en": "dataDyne Research",
+        "gb": "dataDyne Research",
+        "jp": "dataDyne Central",
+        "it": "dataDyne Research",
+        "fr": "dataDyne Research",
+        "de": "dataDyne Research",
+        "es": "dataDyne Research"
+    },
+    {
+        "id": "L_OPTIONS_136",
+        "en": "- Investigation",
+        "gb": "- Investigation",
+        "jp": "- Extraction",
+        "it": "- Investigation",
+        "fr": "- Investigation",
+        "de": "- Investigation",
+        "es": "- Investigation"
+    },
+    {
+        "id": "L_OPTIONS_137",
+        "en": "dataDyne Central",
+        "gb": "dataDyne Central",
+        "jp": "Carrington Villa",
+        "it": "dataDyne Central",
+        "fr": "dataDyne Central",
+        "de": "dataDyne Central",
+        "es": "dataDyne Central"
+    },
+    {
+        "id": "L_OPTIONS_138",
+        "en": "- Extraction",
+        "gb": "- Extraction",
+        "jp": "- Hostage One",
+        "it": "- Extraction",
+        "fr": "- Extraction",
+        "de": "- Extraction",
+        "es": "- Extraction"
+    },
+    {
+        "id": "L_OPTIONS_139",
+        "en": "Carrington Villa",
+        "gb": "Carrington Villa",
+        "jp": "Chicago",
+        "it": "Carrington Villa",
+        "fr": "Carrington Villa",
+        "de": "Carrington Villa",
+        "es": "Carrington Villa"
+    },
+    {
+        "id": "L_OPTIONS_140",
+        "en": "- Hostage One",
+        "gb": "- Hostage One",
+        "jp": "- Stealth",
+        "it": "- Hostage One",
+        "fr": "- Hostage One",
+        "de": "- Hostage One",
+        "es": "- Hostage One"
+    },
+    {
+        "id": "L_OPTIONS_141",
+        "en": "Chicago",
+        "gb": "Chicago",
+        "jp": "G5 Building",
+        "it": "Chicago",
+        "fr": "Chicago",
+        "de": "Chicago",
+        "es": "Chicago"
+    },
+    {
+        "id": "L_OPTIONS_142",
+        "en": "- Stealth",
+        "gb": "- Stealth",
+        "jp": "- Reconnaissance",
+        "it": "- Stealth",
+        "fr": "- Stealth",
+        "de": "- Stealth",
+        "es": "- Stealth"
+    },
+    {
+        "id": "L_OPTIONS_143",
+        "en": "G5 Building",
+        "gb": "G5 Building",
+        "jp": "Area 51",
+        "it": "G5 Building",
+        "fr": "G5 Building",
+        "de": "G5 Building",
+        "es": "G5 Building"
+    },
+    {
+        "id": "L_OPTIONS_144",
+        "en": "- Reconnaissance",
+        "gb": "- Reconnaissance",
+        "jp": "- Infiltration",
+        "it": "- Reconnaissance",
+        "fr": "- Reconnaissance",
+        "de": "- Reconnaissance",
+        "es": "- Reconnaissance"
+    },
+    {
+        "id": "L_OPTIONS_145",
+        "en": "Area 51",
+        "gb": "Area 51",
+        "jp": "Area 51",
+        "it": "Area 51",
+        "fr": "Area 51",
+        "de": "Area 51",
+        "es": "Area 51"
+    },
+    {
+        "id": "L_OPTIONS_146",
+        "en": "- Infiltration",
+        "gb": "- Infiltration",
+        "jp": "- Rescue",
+        "it": "- Infiltration",
+        "fr": "- Infiltration",
+        "de": "- Infiltration",
+        "es": "- Infiltration"
+    },
+    {
+        "id": "L_OPTIONS_147",
+        "en": "Area 51",
+        "gb": "Area 51",
+        "jp": "Area 51",
+        "it": "Area 51",
+        "fr": "Area 51",
+        "de": "Area 51",
+        "es": "Area 51"
+    },
+    {
+        "id": "L_OPTIONS_148",
+        "en": "- Rescue",
+        "gb": "- Rescue",
+        "jp": "- Escape",
+        "it": "- Rescue",
+        "fr": "- Rescue",
+        "de": "- Rescue",
+        "es": "- Rescue"
+    },
+    {
+        "id": "L_OPTIONS_149",
+        "en": "Area 51",
+        "gb": "Area 51",
+        "jp": "Air Base",
+        "it": "Area 51",
+        "fr": "Area 51",
+        "de": "Area 51",
+        "es": "Area 51"
+    },
+    {
+        "id": "L_OPTIONS_150",
+        "en": "- Escape",
+        "gb": "- Escape",
+        "jp": "- Espionage",
+        "it": "- Escape",
+        "fr": "- Escape",
+        "de": "- Escape",
+        "es": "- Escape"
+    },
+    {
+        "id": "L_OPTIONS_151",
+        "en": "Air Base",
+        "gb": "Air Base",
+        "jp": "Air Force One",
+        "it": "Air Base",
+        "fr": "Air Base",
+        "de": "Air Base",
+        "es": "Air Base"
+    },
+    {
+        "id": "L_OPTIONS_152",
+        "en": "- Espionage",
+        "gb": "- Espionage",
+        "jp": "- Anti-Terrorism",
+        "it": "- Espionage",
+        "fr": "- Espionage",
+        "de": "- Espionage",
+        "es": "- Espionage"
+    },
+    {
+        "id": "L_OPTIONS_153",
+        "en": "Air Force One",
+        "gb": "Air Force One",
+        "jp": "Crash Site",
+        "it": "Air Force One",
+        "fr": "Air Force One",
+        "de": "Air Force One",
+        "es": "Air Force One"
+    },
+    {
+        "id": "L_OPTIONS_154",
+        "en": "- Antiterrorism",
+        "gb": "- Antiterrorism",
+        "jp": "- Confrontation",
+        "it": "- Antiterrorism",
+        "fr": "- Antiterrorism",
+        "de": "- Antiterrorism",
+        "es": "- Antiterrorism"
+    },
+    {
+        "id": "L_OPTIONS_155",
+        "en": "Crash Site",
+        "gb": "Crash Site",
+        "jp": "Pelagic II",
+        "it": "Crash Site",
+        "fr": "Crash Site",
+        "de": "Crash Site",
+        "es": "Crash Site"
+    },
+    {
+        "id": "L_OPTIONS_156",
+        "en": "- Confrontation",
+        "gb": "- Confrontation",
+        "jp": "- Exploration",
+        "it": "- Confrontation",
+        "fr": "- Confrontation",
+        "de": "- Confrontation",
+        "es": "- Confrontation"
+    },
+    {
+        "id": "L_OPTIONS_157",
+        "en": "Pelagic II",
+        "gb": "Pelagic II",
+        "jp": "Deep Sea",
+        "it": "Pelagic II",
+        "fr": "Pelagic II",
+        "de": "Pelagic II",
+        "es": "Pelagic II"
+    },
+    {
+        "id": "L_OPTIONS_158",
+        "en": "- Exploration",
+        "gb": "- Exploration",
+        "jp": "- Nullify Threat",
+        "it": "- Exploration",
+        "fr": "- Exploration",
+        "de": "- Exploration",
+        "es": "- Exploration"
+    },
+    {
+        "id": "L_OPTIONS_159",
+        "en": "Deep Sea",
+        "gb": "Deep Sea",
+        "jp": "Carrington Institute",
+        "it": "Deep Sea",
+        "fr": "Deep Sea",
+        "de": "Deep Sea",
+        "es": "Deep Sea"
+    },
+    {
+        "id": "L_OPTIONS_160",
+        "en": "- Nullify Threat",
+        "gb": "- Nullify Threat",
+        "jp": "- Defense",
+        "it": "- Nullify Threat",
+        "fr": "- Nullify Threat",
+        "de": "- Nullify Threat",
+        "es": "- Nullify Threat"
+    },
+    {
+        "id": "L_OPTIONS_161",
+        "en": "Carrington Institute",
+        "gb": "Carrington Institute",
+        "jp": "Attack Ship",
+        "it": "Carrington Institute",
+        "fr": "Carrington Institute",
+        "de": "Carrington Institute",
+        "es": "Carrington Institute"
+    },
+    {
+        "id": "L_OPTIONS_162",
+        "en": "- Defense",
+        "gb": "- Defense",
+        "jp": "- Covert Assault",
+        "it": "- Defense",
+        "fr": "- Defense",
+        "de": "- Defense",
+        "es": "- Defense"
+    },
+    {
+        "id": "L_OPTIONS_163",
+        "en": "Attack Ship",
+        "gb": "Attack Ship",
+        "jp": "Skedar Ruins",
+        "it": "Attack Ship",
+        "fr": "Attack Ship",
+        "de": "Attack Ship",
+        "es": "Attack Ship"
+    },
+    {
+        "id": "L_OPTIONS_164",
+        "en": "- Covert Assault",
+        "gb": "- Covert Assault",
+        "jp": "- Battle Shrine",
+        "it": "- Covert Assault",
+        "fr": "- Covert Assault",
+        "de": "- Covert Assault",
+        "es": "- Covert Assault"
+    },
+    {
+        "id": "L_OPTIONS_165",
+        "en": "Skedar Ruins",
+        "gb": "Skedar Ruins",
+        "jp": "Mr. Blonde's Revenge",
+        "it": "Skedar Ruins",
+        "fr": "Skedar Ruins",
+        "de": "Skedar Ruins",
+        "es": "Skedar Ruins"
+    },
+    {
+        "id": "L_OPTIONS_166",
+        "en": "- Battle Shrine",
+        "gb": "- Battle Shrine",
+        "jp": "Maian SOS",
+        "it": "- Battle Shrine",
+        "fr": "- Battle Shrine",
+        "de": "- Battle Shrine",
+        "es": "- Battle Shrine"
+    },
+    {
+        "id": "L_OPTIONS_167",
+        "en": "Mr. Blonde's Revenge",
+        "gb": "Mr. Blonde's Revenge",
+        "jp": "Retaking the Institute",
+        "it": "Mr. Blonde's Revenge",
+        "fr": "Mr. Blonde's Revenge",
+        "de": "Mr. Blonde's Revenge",
+        "es": "Mr. Blonde's Revenge"
+    },
+    {
+        "id": "L_OPTIONS_168",
+        "en": "Maian SOS",
+        "gb": "Maian SOS",
+        "jp": "WAR!",
+        "it": "Maian SOS",
+        "fr": "Maian SOS",
+        "de": "Maian SOS",
+        "es": "Maian SOS"
+    },
+    {
+        "id": "L_OPTIONS_169",
+        "en": "Retaking the Institute",
+        "gb": "Retaking the Institute",
+        "jp": "The Duel",
+        "it": "Retaking the Institute",
+        "fr": "Retaking the Institute",
+        "de": "Retaking the Institute",
+        "es": "Retaking the Institute"
+    },
+    {
+        "id": "L_OPTIONS_170",
+        "en": "WAR!",
+        "gb": "WAR!",
+        "jp": "Mission Status\n",
+        "it": "WAR!",
+        "fr": "WAR!",
+        "de": "WAR!",
+        "es": "WAR!"
+    },
+    {
+        "id": "L_OPTIONS_171",
+        "en": "The Duel",
+        "gb": "The Duel",
+        "jp": "Abort!\n",
+        "it": "The Duel",
+        "fr": "The Duel",
+        "de": "The Duel",
+        "es": "The Duel"
+    },
+    {
+        "id": "L_OPTIONS_172",
+        "en": "Status\n",
+        "gb": "Status\n",
+        "jp": "Warning\n",
+        "it": "Status\n",
+        "fr": "Status\n",
+        "de": "Status\n",
+        "es": "Status\n"
+    },
+    {
+        "id": "L_OPTIONS_173",
+        "en": "Abort!\n",
+        "gb": "Abort!\n",
+        "jp": "Do you want to abort the mission?\n",
+        "it": "Abort!\n",
+        "fr": "Abort!\n",
+        "de": "Abort!\n",
+        "es": "Abort!\n"
+    },
+    {
+        "id": "L_OPTIONS_174",
+        "en": "Warning\n",
+        "gb": "Warning\n",
+        "jp": "Cancel\n",
+        "it": "Warning\n",
+        "fr": "Warning\n",
+        "de": "Warning\n",
+        "es": "Warning\n"
+    },
+    {
+        "id": "L_OPTIONS_175",
+        "en": "Do you want to abort the mission?\n",
+        "gb": "Do you want to abort the mission?\n",
+        "jp": "Abort\n",
+        "it": "Do you want to abort the mission?\n",
+        "fr": "Do you want to abort the mission?\n",
+        "de": "Do you want to abort the mission?\n",
+        "es": "Do you want to abort the mission?\n"
+    },
+    {
+        "id": "L_OPTIONS_176",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Inventory\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_OPTIONS_177",
+        "en": "Abort\n",
+        "gb": "Abort\n",
+        "jp": "Weapons Available\n",
+        "it": "Abort\n",
+        "fr": "Abort\n",
+        "de": "Abort\n",
+        "es": "Abort\n"
+    },
+    {
+        "id": "L_OPTIONS_178",
+        "en": "Inventory\n",
+        "gb": "Inventory\n",
+        "jp": "Options\n",
+        "it": "Inventory\n",
+        "fr": "Inventory\n",
+        "de": "Inventory\n",
+        "es": "Inventory\n"
+    },
+    {
+        "id": "L_OPTIONS_179",
+        "en": "Weapons Available\n",
+        "gb": "Weapons Available\n",
+        "jp": "Audio\n",
+        "it": "Weapons Available\n",
+        "fr": "Weapons Available\n",
+        "de": "Weapons Available\n",
+        "es": "Weapons Available\n"
+    },
+    {
+        "id": "L_OPTIONS_180",
+        "en": "Options\n",
+        "gb": "Options\n",
+        "jp": "Video\n",
+        "it": "Options\n",
+        "fr": "Options\n",
+        "de": "Options\n",
+        "es": "Options\n"
+    },
+    {
+        "id": "L_OPTIONS_181",
+        "en": "Audio\n",
+        "gb": "Audio\n",
+        "jp": "Control\n",
+        "it": "Audio\n",
+        "fr": "Audio\n",
+        "de": "Audio\n",
+        "es": "Audio\n"
+    },
+    {
+        "id": "L_OPTIONS_182",
+        "en": "Video\n",
+        "gb": "Video\n",
+        "jp": "Display\n",
+        "it": "Video\n",
+        "fr": "Video\n",
+        "de": "Video\n",
+        "es": "Video\n"
+    },
+    {
+        "id": "L_OPTIONS_183",
+        "en": "Control\n",
+        "gb": "Control\n",
+        "jp": "Cheats\n",
+        "it": "Control\n",
+        "fr": "Control\n",
+        "de": "Control\n",
+        "es": "Control\n"
+    },
+    {
+        "id": "L_OPTIONS_184",
+        "en": "Display\n",
+        "gb": "Display\n",
+        "jp": "Save Game\n",
+        "it": "Display\n",
+        "fr": "Display\n",
+        "de": "Display\n",
+        "es": "Display\n"
+    },
+    {
+        "id": "L_OPTIONS_185",
+        "en": "Cheats\n",
+        "gb": "Cheats\n",
+        "jp": "Change Agent...\n",
+        "it": "Cheats\n",
+        "fr": "Cheats\n",
+        "de": "Cheats\n",
+        "es": "Cheats\n"
+    },
+    {
+        "id": "L_OPTIONS_186",
+        "en": "Save Game\n",
+        "gb": "Save Game\n",
+        "jp": "Warning\n",
+        "it": "Save Game\n",
+        "fr": "Save Game\n",
+        "de": "Save Game\n",
+        "es": "Save Game\n"
+    },
+    {
+        "id": "L_OPTIONS_187",
+        "en": "Change Agent...\n",
+        "gb": "Change Agent...\n",
+        "jp": "Do you want to load another agent?\n",
+        "it": "Change Agent...\n",
+        "fr": "Change Agent...\n",
+        "de": "Change Agent...\n",
+        "es": "Change Agent...\n"
+    },
+    {
+        "id": "L_OPTIONS_188",
+        "en": "Warning\n",
+        "gb": "Warning\n",
+        "jp": "Yes\n",
+        "it": "Warning\n",
+        "fr": "Warning\n",
+        "de": "Warning\n",
+        "es": "Warning\n"
+    },
+    {
+        "id": "L_OPTIONS_189",
+        "en": "Do you want to load another agent?\n",
+        "gb": "Do you want to load another agent?\n",
+        "jp": "No\n",
+        "it": "Do you want to load another agent?\n",
+        "fr": "Do you want to load another agent?\n",
+        "de": "Do you want to load another agent?\n",
+        "es": "Do you want to load another agent?\n"
+    },
+    {
+        "id": "L_OPTIONS_190",
+        "en": "Yes\n",
+        "gb": "Yes\n",
+        "jp": "Control Options\n",
+        "it": "Yes\n",
+        "fr": "Yes\n",
+        "de": "Yes\n",
+        "es": "Yes\n"
+    },
+    {
+        "id": "L_OPTIONS_191",
+        "en": "No\n",
+        "gb": "No\n",
+        "jp": "Control Player 2\n",
+        "it": "No\n",
+        "fr": "No\n",
+        "de": "No\n",
+        "es": "No\n"
+    },
+    {
+        "id": "L_OPTIONS_192",
+        "en": "Control Options\n",
+        "gb": "Control Options\n",
+        "jp": "Control Style\n",
+        "it": "Control Options\n",
+        "fr": "Control Options\n",
+        "de": "Control Options\n",
+        "es": "Control Options\n"
+    },
+    {
+        "id": "L_OPTIONS_193",
+        "en": "Control Player 2\n",
+        "gb": "Control Player 2\n",
+        "jp": "Reverse Pitch\n",
+        "it": "Control Player 2\n",
+        "fr": "Control Player 2\n",
+        "de": "Control Player 2\n",
+        "es": "Control Player 2\n"
+    },
+    {
+        "id": "L_OPTIONS_194",
+        "en": "Control Style\n",
+        "gb": "Control Style\n",
+        "jp": "Look Ahead\n",
+        "it": "Control Style\n",
+        "fr": "Control Style\n",
+        "de": "Control Style\n",
+        "es": "Control Style\n"
+    },
+    {
+        "id": "L_OPTIONS_195",
+        "en": "Reverse Pitch\n",
+        "gb": "Reverse Pitch\n",
+        "jp": "Head Roll\n",
+        "it": "Reverse Pitch\n",
+        "fr": "Reverse Pitch\n",
+        "de": "Reverse Pitch\n",
+        "es": "Reverse Pitch\n"
+    },
+    {
+        "id": "L_OPTIONS_196",
+        "en": "Look Ahead\n",
+        "gb": "Look Ahead\n",
+        "jp": "Auto-Aim\n",
+        "it": "Look Ahead\n",
+        "fr": "Look Ahead\n",
+        "de": "Look Ahead\n",
+        "es": "Look Ahead\n"
+    },
+    {
+        "id": "L_OPTIONS_197",
+        "en": "Head Roll\n",
+        "gb": "Head Roll\n",
+        "jp": "Aim Control\n",
+        "it": "Head Roll\n",
+        "fr": "Head Roll\n",
+        "de": "Head Roll\n",
+        "es": "Head Roll\n"
+    },
+    {
+        "id": "L_OPTIONS_198",
+        "en": "Auto-Aim\n",
+        "gb": "Auto-Aim\n",
+        "jp": "Back\n",
+        "it": "Auto-Aim\n",
+        "fr": "Auto-Aim\n",
+        "de": "Auto-Aim\n",
+        "es": "Auto-Aim\n"
+    },
+    {
+        "id": "L_OPTIONS_199",
+        "en": "Aim Control\n",
+        "gb": "Aim Control\n",
+        "jp": "Hold\n",
+        "it": "Aim Control\n",
+        "fr": "Aim Control\n",
+        "de": "Aim Control\n",
+        "es": "Aim Control\n"
+    },
+    {
+        "id": "L_OPTIONS_200",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "Toggle\n",
+        "it": "Back\n",
+        "fr": "Back\n",
+        "de": "Back\n",
+        "es": "Back\n"
+    },
+    {
+        "id": "L_OPTIONS_201",
+        "en": "Hold\n",
+        "gb": "Hold\n",
+        "jp": "Display Options\n",
+        "it": "Hold\n",
+        "fr": "Hold\n",
+        "de": "Hold\n",
+        "es": "Hold\n"
+    },
+    {
+        "id": "L_OPTIONS_202",
+        "en": "Toggle\n",
+        "gb": "Toggle\n",
+        "jp": "Display Player 2\n",
+        "it": "Toggle\n",
+        "fr": "Toggle\n",
+        "de": "Toggle\n",
+        "es": "Toggle\n"
+    },
+    {
+        "id": "L_OPTIONS_203",
+        "en": "Display Options\n",
+        "gb": "Display Options\n",
+        "jp": "Sight On Screen\n",
+        "it": "Display Options\n",
+        "fr": "Display Options\n",
+        "de": "Display Options\n",
+        "es": "Display Options\n"
+    },
+    {
+        "id": "L_OPTIONS_204",
+        "en": "Display Player 2\n",
+        "gb": "Display Player 2\n",
+        "jp": "Always Show Target\n",
+        "it": "Display Player 2\n",
+        "fr": "Display Player 2\n",
+        "de": "Display Player 2\n",
+        "es": "Display Player 2\n"
+    },
+    {
+        "id": "L_OPTIONS_205",
+        "en": "Sight on Screen\n",
+        "gb": "Sight on Screen\n",
+        "jp": "Show Zoom Range\n",
+        "it": "Sight on Screen\n",
+        "fr": "Sight on Screen\n",
+        "de": "Sight on Screen\n",
+        "es": "Sight on Screen\n"
+    },
+    {
+        "id": "L_OPTIONS_206",
+        "en": "Always Show Target\n",
+        "gb": "Always Show Target\n",
+        "jp": "Ammo On Screen\n",
+        "it": "Always Show Target\n",
+        "fr": "Always Show Target\n",
+        "de": "Always Show Target\n",
+        "es": "Always Show Target\n"
+    },
+    {
+        "id": "L_OPTIONS_207",
+        "en": "Show Zoom Range\n",
+        "gb": "Show Zoom Range\n",
+        "jp": "Show Gun Function\n",
+        "it": "Show Zoom Range\n",
+        "fr": "Show Zoom Range\n",
+        "de": "Show Zoom Range\n",
+        "es": "Show Zoom Range\n"
+    },
+    {
+        "id": "L_OPTIONS_208",
+        "en": "Ammo on Screen\n",
+        "gb": "Ammo on Screen\n",
+        "jp": "Paintball\n",
+        "it": "Ammo on Screen\n",
+        "fr": "Ammo on Screen\n",
+        "de": "Ammo on Screen\n",
+        "es": "Ammo on Screen\n"
+    },
+    {
+        "id": "L_OPTIONS_209",
+        "en": "Show Gun Function\n",
+        "gb": "Show Gun Function\n",
+        "jp": "Subtitles\n",
+        "it": "Show Gun Function\n",
+        "fr": "Show Gun Function\n",
+        "de": "Show Gun Function\n",
+        "es": "Show Gun Function\n"
+    },
+    {
+        "id": "L_OPTIONS_210",
+        "en": "Paintball\n",
+        "gb": "Paintball\n",
+        "jp": "Show Mission Time\n",
+        "it": "Paintball\n",
+        "fr": "Paintball\n",
+        "de": "Paintball\n",
+        "es": "Paintball\n"
+    },
+    {
+        "id": "L_OPTIONS_211",
+        "en": "Subtitles\n",
+        "gb": "Subtitles\n",
+        "jp": "Back\n",
+        "it": "Subtitles\n",
+        "fr": "Subtitles\n",
+        "de": "Subtitles\n",
+        "es": "Subtitles\n"
+    },
+    {
+        "id": "L_OPTIONS_212",
+        "en": "Show Mission Time\n",
+        "gb": "Show Mission Time\n",
+        "jp": "Video Options\n",
+        "it": "Show Mission Time\n",
+        "fr": "Show Mission Time\n",
+        "de": "Show Mission Time\n",
+        "es": "Show Mission Time\n"
+    },
+    {
+        "id": "L_OPTIONS_213",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "Screen Size\n",
+        "it": "Back\n",
+        "fr": "Back\n",
+        "de": "Back\n",
+        "es": "Back\n"
+    },
+    {
+        "id": "L_OPTIONS_214",
+        "en": "Video Options\n",
+        "gb": "Video Options\n",
+        "jp": "Ratio\n",
+        "it": "Video Options\n",
+        "fr": "Video Options\n",
+        "de": "Video Options\n",
+        "es": "Video Options\n"
+    },
+    {
+        "id": "L_OPTIONS_215",
+        "en": "Screen Size\n",
+        "gb": "Screen Size\n",
+        "jp": "Hi Res\n",
+        "it": "Screen Size\n",
+        "fr": "Screen Size\n",
+        "de": "Screen Size\n",
+        "es": "Screen Size\n"
+    },
+    {
+        "id": "L_OPTIONS_216",
+        "en": "Ratio\n",
+        "gb": "Ratio\n",
+        "jp": "2-Player Screen Split\n",
+        "it": "Ratio\n",
+        "fr": "Ratio\n",
+        "de": "Ratio\n",
+        "es": "Ratio\n"
+    },
+    {
+        "id": "L_OPTIONS_217",
+        "en": "Hi-Res\n",
+        "gb": "Hi-Res\n",
+        "jp": "Back\n",
+        "it": "Hi-Res\n",
+        "fr": "Hi-Res\n",
+        "de": "Hi-Res\n",
+        "es": "Hi-Res\n"
+    },
+    {
+        "id": "L_OPTIONS_218",
+        "en": "2-Player Screen Split\n",
+        "gb": "2-Player Screen Split\n",
+        "jp": "Full\n",
+        "it": "2-Player Screen Split\n",
+        "fr": "2-Player Screen Split\n",
+        "de": "2-Player Screen Split\n",
+        "es": "2-Player Screen Split\n"
+    },
+    {
+        "id": "L_OPTIONS_219",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "Wide\n",
+        "it": "Back\n",
+        "fr": "Back\n",
+        "de": "Back\n",
+        "es": "Back\n"
+    },
+    {
+        "id": "L_OPTIONS_220",
+        "en": "Full\n",
+        "gb": "Full\n",
+        "jp": "Cinema\n",
+        "it": "Full\n",
+        "fr": "Full\n",
+        "de": "Full\n",
+        "es": "Full\n"
+    },
+    {
+        "id": "L_OPTIONS_221",
+        "en": "Wide\n",
+        "gb": "Wide\n",
+        "jp": "Normal\n",
+        "it": "Wide\n",
+        "fr": "Wide\n",
+        "de": "Wide\n",
+        "es": "Wide\n"
+    },
+    {
+        "id": "L_OPTIONS_222",
+        "en": "Cinema\n",
+        "gb": "Cinema\n",
+        "jp": "16:9\n",
+        "it": "Cinema\n",
+        "fr": "Cinema\n",
+        "de": "Cinema\n",
+        "es": "Cinema\n"
+    },
+    {
+        "id": "L_OPTIONS_223",
+        "en": "Normal\n",
+        "gb": "Normal\n",
+        "jp": "Horizontal\n",
+        "it": "Normal\n",
+        "fr": "Normal\n",
+        "de": "Normal\n",
+        "es": "Normal\n"
+    },
+    {
+        "id": "L_OPTIONS_224",
+        "en": "16:9\n",
+        "gb": "16:9\n",
+        "jp": "Vertical\n",
+        "it": "16:9\n",
+        "fr": "16:9\n",
+        "de": "16:9\n",
+        "es": "16:9\n"
+    },
+    {
+        "id": "L_OPTIONS_225",
+        "en": "Horizontal\n",
+        "gb": "Horizontal\n",
+        "jp": "Audio Options\n",
+        "it": "Horizontal\n",
+        "fr": "Horizontal\n",
+        "de": "Horizontal\n",
+        "es": "Horizontal\n"
+    },
+    {
+        "id": "L_OPTIONS_226",
+        "en": "Vertical\n",
+        "gb": "Vertical\n",
+        "jp": "Sound\n",
+        "it": "Vertical\n",
+        "fr": "Vertical\n",
+        "de": "Vertical\n",
+        "es": "Vertical\n"
+    },
+    {
+        "id": "L_OPTIONS_227",
+        "en": "Audio Options\n",
+        "gb": "Audio Options\n",
+        "jp": "Music\n",
+        "it": "Audio Options\n",
+        "fr": "Audio Options\n",
+        "de": "Audio Options\n",
+        "es": "Audio Options\n"
+    },
+    {
+        "id": "L_OPTIONS_228",
+        "en": "Sound\n",
+        "gb": "Sound\n",
+        "jp": "Sound Mode\n",
+        "it": "Sound\n",
+        "fr": "Sound\n",
+        "de": "Sound\n",
+        "es": "Sound\n"
+    },
+    {
+        "id": "L_OPTIONS_229",
+        "en": "Music\n",
+        "gb": "Music\n",
+        "jp": "Back\n",
+        "it": "Music\n",
+        "fr": "Music\n",
+        "de": "Music\n",
+        "es": "Music\n"
+    },
+    {
+        "id": "L_OPTIONS_230",
+        "en": "Sound Mode\n",
+        "gb": "Sound Mode\n",
+        "jp": "Mono",
+        "it": "Sound Mode\n",
+        "fr": "Sound Mode\n",
+        "de": "Sound Mode\n",
+        "es": "Sound Mode\n"
+    },
+    {
+        "id": "L_OPTIONS_231",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "Stereo",
+        "it": "Back\n",
+        "fr": "Back\n",
+        "de": "Back\n",
+        "es": "Back\n"
+    },
+    {
+        "id": "L_OPTIONS_232",
+        "en": "Mono",
+        "gb": "Mono",
+        "jp": "Headphone",
+        "it": "Mono",
+        "fr": "Mono",
+        "de": "Mono",
+        "es": "Mono"
+    },
+    {
+        "id": "L_OPTIONS_233",
+        "en": "Stereo",
+        "gb": "Stereo",
+        "jp": "Surround",
+        "it": "Stereo",
+        "fr": "Stereo",
+        "de": "Stereo",
+        "es": "Stereo"
+    },
+    {
+        "id": "L_OPTIONS_234",
+        "en": "Headphone",
+        "gb": "Headphone",
+        "jp": "Control\n",
+        "it": "Headphone",
+        "fr": "Headphone",
+        "de": "Headphone",
+        "es": "Headphone"
+    },
+    {
+        "id": "L_OPTIONS_235",
+        "en": "Surround",
+        "gb": "Surround",
+        "jp": "Single\n",
+        "it": "Surround",
+        "fr": "Surround",
+        "de": "Surround",
+        "es": "Surround"
+    },
+    {
+        "id": "L_OPTIONS_236",
+        "en": "Control\n",
+        "gb": "Control\n",
+        "jp": "Double\n",
+        "it": "Control\n",
+        "fr": "Control\n",
+        "de": "Control\n",
+        "es": "Control\n"
+    },
+    {
+        "id": "L_OPTIONS_237",
+        "en": "Single\n",
+        "gb": "Single\n",
+        "jp": "1.1\n",
+        "it": "Single\n",
+        "fr": "Single\n",
+        "de": "Single\n",
+        "es": "Single\n"
+    },
+    {
+        "id": "L_OPTIONS_238",
+        "en": "Double\n",
+        "gb": "Double\n",
+        "jp": "1.2\n",
+        "it": "Double\n",
+        "fr": "Double\n",
+        "de": "Double\n",
+        "es": "Double\n"
+    },
+    {
+        "id": "L_OPTIONS_239",
+        "en": "1.1",
+        "gb": "1.1\n",
+        "jp": "1.3\n",
+        "it": "1.1\n",
+        "fr": "1.1\n",
+        "de": "1.1\n",
+        "es": "1.1\n"
+    },
+    {
+        "id": "L_OPTIONS_240",
+        "en": "1.2",
+        "gb": "1.2\n",
+        "jp": "1.4\n",
+        "it": "1.2\n",
+        "fr": "1.2\n",
+        "de": "1.2\n",
+        "es": "1.2\n"
+    },
+    {
+        "id": "L_OPTIONS_241",
+        "en": "1.3",
+        "gb": "1.3\n",
+        "jp": "2.1\n",
+        "it": "1.3\n",
+        "fr": "1.3\n",
+        "de": "1.3\n",
+        "es": "1.3\n"
+    },
+    {
+        "id": "L_OPTIONS_242",
+        "en": "1.4",
+        "gb": "1.4\n",
+        "jp": "2.2\n",
+        "it": "1.4\n",
+        "fr": "1.4\n",
+        "de": "1.4\n",
+        "es": "1.4\n"
+    },
+    {
+        "id": "L_OPTIONS_243",
+        "en": "2.1",
+        "gb": "2.1\n",
+        "jp": "2.3\n",
+        "it": "2.1\n",
+        "fr": "2.1\n",
+        "de": "2.1\n",
+        "es": "2.1\n"
+    },
+    {
+        "id": "L_OPTIONS_244",
+        "en": "2.2",
+        "gb": "2.2\n",
+        "jp": "2.4\n",
+        "it": "2.2\n",
+        "fr": "2.2\n",
+        "de": "2.2\n",
+        "es": "2.2\n"
+    },
+    {
+        "id": "L_OPTIONS_245",
+        "en": "2.3",
+        "gb": "2.3\n",
+        "jp": "Briefing\n",
+        "it": "2.3\n",
+        "fr": "2.3\n",
+        "de": "2.3\n",
+        "es": "2.3\n"
+    },
+    {
+        "id": "L_OPTIONS_246",
+        "en": "2.4",
+        "gb": "2.4\n",
+        "jp": "Select Difficulty\n",
+        "it": "2.4\n",
+        "fr": "2.4\n",
+        "de": "2.4\n",
+        "es": "2.4\n"
+    },
+    {
+        "id": "L_OPTIONS_247",
+        "en": "Briefing\n",
+        "gb": "Briefing\n",
+        "jp": "Difficulty\n",
+        "it": "Briefing\n",
+        "fr": "Briefing\n",
+        "de": "Briefing\n",
+        "es": "Briefing\n"
+    },
+    {
+        "id": "L_OPTIONS_248",
+        "en": "Select Difficulty\n",
+        "gb": "Select Difficulty\n",
+        "jp": "Best Time\n",
+        "it": "Select Difficulty\n",
+        "fr": "Select Difficulty\n",
+        "de": "Select Difficulty\n",
+        "es": "Select Difficulty\n"
+    },
+    {
+        "id": "L_OPTIONS_249",
+        "en": "Difficulty\n",
+        "gb": "Difficulty\n",
+        "jp": "Agent\n",
+        "it": "Difficulty\n",
+        "fr": "Difficulty\n",
+        "de": "Difficulty\n",
+        "es": "Difficulty\n"
+    },
+    {
+        "id": "L_OPTIONS_250",
+        "en": "Best Time\n",
+        "gb": "Best Time\n",
+        "jp": "Special Agent\n",
+        "it": "Best Time\n",
+        "fr": "Best Time\n",
+        "de": "Best Time\n",
+        "es": "Best Time\n"
+    },
+    {
+        "id": "L_OPTIONS_251",
+        "en": "Agent\n",
+        "gb": "Agent\n",
+        "jp": "Perfect Agent\n",
+        "it": "Agent\n",
+        "fr": "Agent\n",
+        "de": "Agent\n",
+        "es": "Agent\n"
+    },
+    {
+        "id": "L_OPTIONS_252",
+        "en": "Special Agent\n",
+        "gb": "Special Agent\n",
+        "jp": "Cancel\n",
+        "it": "Special Agent\n",
+        "fr": "Special Agent\n",
+        "de": "Special Agent\n",
+        "es": "Special Agent\n"
+    },
+    {
+        "id": "L_OPTIONS_253",
+        "en": "Perfect Agent\n",
+        "gb": "Perfect Agent\n",
+        "jp": "Co-Operative Options\n",
+        "it": "Perfect Agent\n",
+        "fr": "Perfect Agent\n",
+        "de": "Perfect Agent\n",
+        "es": "Perfect Agent\n"
+    },
+    {
+        "id": "L_OPTIONS_254",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Radar On\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_OPTIONS_255",
+        "en": "Co-Operative Options\n",
+        "gb": "Co-Operative Options\n",
+        "jp": "Friendly Fire\n",
+        "it": "Co-Operative Options\n",
+        "fr": "Co-Operative Options\n",
+        "de": "Co-Operative Options\n",
+        "es": "Co-Operative Options\n"
+    },
+    {
+        "id": "L_OPTIONS_256",
+        "en": "Radar On\n",
+        "gb": "Radar On\n",
+        "jp": "Perfect Buddy\n",
+        "it": "Radar On\n",
+        "fr": "Radar On\n",
+        "de": "Radar On\n",
+        "es": "Radar On\n"
+    },
+    {
+        "id": "L_OPTIONS_257",
+        "en": "Friendly Fire\n",
+        "gb": "Friendly Fire\n",
+        "jp": "Continue\n",
+        "it": "Friendly Fire\n",
+        "fr": "Friendly Fire\n",
+        "de": "Friendly Fire\n",
+        "es": "Friendly Fire\n"
+    },
+    {
+        "id": "L_OPTIONS_258",
+        "en": "Perfect Buddy\n",
+        "gb": "Perfect Buddy\n",
+        "jp": "Cancel\n",
+        "it": "Perfect Buddy\n",
+        "fr": "Perfect Buddy\n",
+        "de": "Perfect Buddy\n",
+        "es": "Perfect Buddy\n"
+    },
+    {
+        "id": "L_OPTIONS_259",
+        "en": "Continue\n",
+        "gb": "Continue\n",
+        "jp": "Human",
+        "it": "Continue\n",
+        "fr": "Continue\n",
+        "de": "Continue\n",
+        "es": "Continue\n"
+    },
+    {
+        "id": "L_OPTIONS_260",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "1 Sim",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_OPTIONS_261",
+        "en": "Human",
+        "gb": "Human",
+        "jp": "2 Sims",
+        "it": "Human",
+        "fr": "Human",
+        "de": "Human",
+        "es": "Human"
+    },
+    {
+        "id": "L_OPTIONS_262",
+        "en": "1 Simulant",
+        "gb": "1 Simulant",
+        "jp": "3 Sims",
+        "it": "1 Simulant",
+        "fr": "1 Simulant",
+        "de": "1 Simulant",
+        "es": "1 Simulant"
+    },
+    {
+        "id": "L_OPTIONS_263",
+        "en": "2 Simulants",
+        "gb": "2 Simulants",
+        "jp": "4 Sims",
+        "it": "2 Simulants",
+        "fr": "2 Simulants",
+        "de": "2 Simulants",
+        "es": "2 Simulants"
+    },
+    {
+        "id": "L_OPTIONS_264",
+        "en": "3 Simulants",
+        "gb": "3 Simulants",
+        "jp": "Counter-Operative Options\n",
+        "it": "3 Simulants",
+        "fr": "3 Simulants",
+        "de": "3 Simulants",
+        "es": "3 Simulants"
+    },
+    {
+        "id": "L_OPTIONS_265",
+        "en": "4 Simulants",
+        "gb": "4 Simulants",
+        "jp": "Radar On\n",
+        "it": "4 Simulants",
+        "fr": "4 Simulants",
+        "de": "4 Simulants",
+        "es": "4 Simulants"
+    },
+    {
+        "id": "L_OPTIONS_266",
+        "en": "Counter-Operative Options\n",
+        "gb": "Counter-Operative Options\n",
+        "jp": "Counter-Operative\n",
+        "it": "Counter-Operative Options\n",
+        "fr": "Counter-Operative Options\n",
+        "de": "Counter-Operative Options\n",
+        "es": "Counter-Operative Options\n"
+    },
+    {
+        "id": "L_OPTIONS_267",
+        "en": "Radar On\n",
+        "gb": "Radar On\n",
+        "jp": "Continue\n",
+        "it": "Radar On\n",
+        "fr": "Radar On\n",
+        "de": "Radar On\n",
+        "es": "Radar On\n"
+    },
+    {
+        "id": "L_OPTIONS_268",
+        "en": "Counter-Operative\n",
+        "gb": "Counter-Operative\n",
+        "jp": "Cancel\n",
+        "it": "Counter-Operative\n",
+        "fr": "Counter-Operative\n",
+        "de": "Counter-Operative\n",
+        "es": "Counter-Operative\n"
+    },
+    {
+        "id": "L_OPTIONS_269",
+        "en": "Continue\n",
+        "gb": "Continue\n",
+        "jp": "Player 1",
+        "it": "Continue\n",
+        "fr": "Continue\n",
+        "de": "Continue\n",
+        "es": "Continue\n"
+    },
+    {
+        "id": "L_OPTIONS_270",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Player 2",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_OPTIONS_271",
+        "en": "Player 1",
+        "gb": "Player 1",
+        "jp": "Mission Overview\n",
+        "it": "Player 1",
+        "fr": "Player 1",
+        "de": "Player 1",
+        "es": "Player 1"
+    },
+    {
+        "id": "L_OPTIONS_272",
+        "en": "Player 2",
+        "gb": "Player 2",
+        "jp": "Accept\n",
+        "it": "Player 2",
+        "fr": "Player 2",
+        "de": "Player 2",
+        "es": "Player 2"
+    },
+    {
+        "id": "L_OPTIONS_273",
+        "en": "Overview\n",
+        "gb": "Overview\n",
+        "jp": "Decline\n",
+        "it": "Overview\n",
+        "fr": "Overview\n",
+        "de": "Overview\n",
+        "es": "Overview\n"
+    },
+    {
+        "id": "L_OPTIONS_274",
+        "en": "Accept\n",
+        "gb": "Accept\n",
+        "jp": "Mission Completed\n",
+        "it": "Accept\n",
+        "fr": "Accept\n",
+        "de": "Accept\n",
+        "es": "Accept\n"
+    },
+    {
+        "id": "L_OPTIONS_275",
+        "en": "Decline\n",
+        "gb": "Decline\n",
+        "jp": "Mission Failed\n",
+        "it": "Decline\n",
+        "fr": "Decline\n",
+        "de": "Decline\n",
+        "es": "Decline\n"
+    },
+    {
+        "id": "L_OPTIONS_276",
+        "en": "Completed\n",
+        "gb": "Completed\n",
+        "jp": "Mission Status:\n",
+        "it": "Completed\n",
+        "fr": "Completed\n",
+        "de": "Completed\n",
+        "es": "Completed\n"
+    },
+    {
+        "id": "L_OPTIONS_277",
+        "en": "Failed\n",
+        "gb": "Failed\n",
+        "jp": "Agent Status:\n",
+        "it": "Failed\n",
+        "fr": "Failed\n",
+        "de": "Failed\n",
+        "es": "Failed\n"
+    },
+    {
+        "id": "L_OPTIONS_278",
+        "en": "Mission Status:\n",
+        "gb": "Mission Status:\n",
+        "jp": "Mission Time:\n",
+        "it": "Mission Status:\n",
+        "fr": "Mission Status:\n",
+        "de": "Mission Status:\n",
+        "es": "Mission Status:\n"
+    },
+    {
+        "id": "L_OPTIONS_279",
+        "en": "Agent Status:\n",
+        "gb": "Agent Status:\n",
+        "jp": "Weapon of Choice:\n",
+        "it": "Agent Status:\n",
+        "fr": "Agent Status:\n",
+        "de": "Agent Status:\n",
+        "es": "Agent Status:\n"
+    },
+    {
+        "id": "L_OPTIONS_280",
+        "en": "Mission Time:\n",
+        "gb": "Mission Time:\n",
+        "jp": "Kills:\n",
+        "it": "Mission Time:\n",
+        "fr": "Mission Time:\n",
+        "de": "Mission Time:\n",
+        "es": "Mission Time:\n"
+    },
+    {
+        "id": "L_OPTIONS_281",
+        "en": "Weapon of Choice:\n",
+        "gb": "Weapon of Choice:\n",
+        "jp": "Accuracy:\n",
+        "it": "Weapon of Choice:\n",
+        "fr": "Weapon of Choice:\n",
+        "de": "Weapon of Choice:\n",
+        "es": "Weapon of Choice:\n"
+    },
+    {
+        "id": "L_OPTIONS_282",
+        "en": "Kills:\n",
+        "gb": "Kills:\n",
+        "jp": "Shot Total:\n",
+        "it": "Kills:\n",
+        "fr": "Kills:\n",
+        "de": "Kills:\n",
+        "es": "Kills:\n"
+    },
+    {
+        "id": "L_OPTIONS_283",
+        "en": "Accuracy:\n",
+        "gb": "Accuracy:\n",
+        "jp": "    Head Shots:\n",
+        "it": "Accuracy:\n",
+        "fr": "Accuracy:\n",
+        "de": "Accuracy:\n",
+        "es": "Accuracy:\n"
+    },
+    {
+        "id": "L_OPTIONS_284",
+        "en": "Shot Total:\n",
+        "gb": "Shot Total:\n",
+        "jp": "    Body Shots:\n",
+        "it": "Shot Total:\n",
+        "fr": "Shot Total:\n",
+        "de": "Shot Total:\n",
+        "es": "Shot Total:\n"
+    },
+    {
+        "id": "L_OPTIONS_285",
+        "en": "    Head Shots:\n",
+        "gb": "    Head Shots:\n",
+        "jp": "    Limb Shots:\n",
+        "it": "    Head Shots:\n",
+        "fr": "    Head Shots:\n",
+        "de": "    Head Shots:\n",
+        "es": "    Head Shots:\n"
+    },
+    {
+        "id": "L_OPTIONS_286",
+        "en": "    Body Shots:\n",
+        "gb": "    Body Shots:\n",
+        "jp": "    Others:\n",
+        "it": "    Body Shots:\n",
+        "fr": "    Body Shots:\n",
+        "de": "    Body Shots:\n",
+        "es": "    Body Shots:\n"
+    },
+    {
+        "id": "L_OPTIONS_287",
+        "en": "    Limb Shots:\n",
+        "gb": "    Limb Shots:\n",
+        "jp": "Press Start\n",
+        "it": "    Limb Shots:\n",
+        "fr": "    Limb Shots:\n",
+        "de": "    Limb Shots:\n",
+        "es": "    Limb Shots:\n"
+    },
+    {
+        "id": "L_OPTIONS_288",
+        "en": "    Others:\n",
+        "gb": "    Others:\n",
+        "jp": "Deceased\n",
+        "it": "    Others:\n",
+        "fr": "    Others:\n",
+        "de": "    Others:\n",
+        "es": "    Others:\n"
+    },
+    {
+        "id": "L_OPTIONS_289",
+        "en": "Press START\n",
+        "gb": "Press START\n",
+        "jp": "Active\n",
+        "it": "Press START\n",
+        "fr": "Press START\n",
+        "de": "Press START\n",
+        "es": "Press START\n"
+    },
+    {
+        "id": "L_OPTIONS_290",
+        "en": "Deceased\n",
+        "gb": "Deceased\n",
+        "jp": "Disavowed\n",
+        "it": "Deceased\n",
+        "fr": "Deceased\n",
+        "de": "Deceased\n",
+        "es": "Deceased\n"
+    },
+    {
+        "id": "L_OPTIONS_291",
+        "en": "Active\n",
+        "gb": "Active\n",
+        "jp": "Failed\n",
+        "it": "Active\n",
+        "fr": "Active\n",
+        "de": "Active\n",
+        "es": "Active\n"
+    },
+    {
+        "id": "L_OPTIONS_292",
+        "en": "Disavowed\n",
+        "gb": "Disavowed\n",
+        "jp": "Completed\n",
+        "it": "Disavowed\n",
+        "fr": "Disavowed\n",
+        "de": "Disavowed\n",
+        "es": "Disavowed\n"
+    },
+    {
+        "id": "L_OPTIONS_293",
+        "en": "Failed\n",
+        "gb": "Failed\n",
+        "jp": "Aborted\n",
+        "it": "Failed\n",
+        "fr": "Failed\n",
+        "de": "Failed\n",
+        "es": "Failed\n"
+    },
+    {
+        "id": "L_OPTIONS_294",
+        "en": "Completed\n",
+        "gb": "Completed\n",
+        "jp": "Retry Mission\n",
+        "it": "Completed\n",
+        "fr": "Completed\n",
+        "de": "Completed\n",
+        "es": "Completed\n"
+    },
+    {
+        "id": "L_OPTIONS_295",
+        "en": "Aborted\n",
+        "gb": "Aborted\n",
+        "jp": "Next Mission\n",
+        "it": "Aborted\n",
+        "fr": "Aborted\n",
+        "de": "Aborted\n",
+        "es": "Aborted\n"
+    },
+    {
+        "id": "L_OPTIONS_296",
+        "en": "Retry",
+        "gb": "Retry",
+        "jp": "Accept\n",
+        "it": "Retry",
+        "fr": "Retry",
+        "de": "Retry",
+        "es": "Retry"
+    },
+    {
+        "id": "L_OPTIONS_297",
+        "en": "Next Mission",
+        "gb": "Next Mission",
+        "jp": "Decline\n",
+        "it": "Next Mission",
+        "fr": "Next Mission",
+        "de": "Next Mission",
+        "es": "Next Mission"
+    },
+    {
+        "id": "L_OPTIONS_298",
+        "en": "Accept\n",
+        "gb": "Accept\n",
+        "jp": "Objectives\n",
+        "it": "Accept\n",
+        "fr": "Accept\n",
+        "de": "Accept\n",
+        "es": "Accept\n"
+    },
+    {
+        "id": "L_OPTIONS_299",
+        "en": "Decline\n",
+        "gb": "Decline\n",
+        "jp": "Press Start\n",
+        "it": "Decline\n",
+        "fr": "Decline\n",
+        "de": "Decline\n",
+        "es": "Decline\n"
+    },
+    {
+        "id": "L_OPTIONS_300",
+        "en": "Objectives\n",
+        "gb": "Objectives\n",
+        "jp": "Small but Perfect Menu\n",
+        "it": "Objectives\n",
+        "fr": "Objectives\n",
+        "de": "Objectives\n",
+        "es": "Objectives\n"
+    },
+    {
+        "id": "L_OPTIONS_301",
+        "en": "Press START\n",
+        "gb": "Press START\n",
+        "jp": "Combat Simulator\n",
+        "it": "Press START\n",
+        "fr": "Press START\n",
+        "de": "Press START\n",
+        "es": "Press START\n"
+    },
+    {
+        "id": "L_OPTIONS_302",
+        "en": "Small but Perfect Menu\n",
+        "gb": "Small but Perfect Menu\n",
+        "jp": "Training\n",
+        "it": "Small but Perfect Menu\n",
+        "fr": "Small but Perfect Menu\n",
+        "de": "Small but Perfect Menu\n",
+        "es": "Small but Perfect Menu\n"
+    },
+    {
+        "id": "L_OPTIONS_303",
+        "en": "Combat Simulator\n",
+        "gb": "Combat Simulator\n",
+        "jp": "Audio\/Video\n",
+        "it": "Combat Simulator\n",
+        "fr": "Combat Simulator\n",
+        "de": "Combat Simulator\n",
+        "es": "Combat Simulator\n"
+    },
+    {
+        "id": "L_OPTIONS_304",
+        "en": "Training\n",
+        "gb": "Training\n",
+        "jp": "Change Agent\n",
+        "it": "Training\n",
+        "fr": "Training\n",
+        "de": "Training\n",
+        "es": "Training\n"
+    },
+    {
+        "id": "L_OPTIONS_305",
+        "en": "Audio\/Video\n",
+        "gb": "Audio\/Video\n",
+        "jp": "Audio\/Visual\n",
+        "it": "Audio\/Video\n",
+        "fr": "Audio\/Video\n",
+        "de": "Audio\/Video\n",
+        "es": "Audio\/Video\n"
+    },
+    {
+        "id": "L_OPTIONS_306",
+        "en": "Change Agent\n",
+        "gb": "Change Agent\n",
+        "jp": "Sound\n",
+        "it": "Change Agent\n",
+        "fr": "Change Agent\n",
+        "de": "Change Agent\n",
+        "es": "Change Agent\n"
+    },
+    {
+        "id": "L_OPTIONS_307",
+        "en": "Audio\/Visual\n",
+        "gb": "Audio\/Visual\n",
+        "jp": "Music\n",
+        "it": "Audio\/Visual\n",
+        "fr": "Audio\/Visual\n",
+        "de": "Audio\/Visual\n",
+        "es": "Audio\/Visual\n"
+    },
+    {
+        "id": "L_OPTIONS_308",
+        "en": "Sound\n",
+        "gb": "Sound\n",
+        "jp": "Sound Mode\n",
+        "it": "Sound\n",
+        "fr": "Sound\n",
+        "de": "Sound\n",
+        "es": "Sound\n"
+    },
+    {
+        "id": "L_OPTIONS_309",
+        "en": "Music\n",
+        "gb": "Music\n",
+        "jp": "Ratio\n",
+        "it": "Music\n",
+        "fr": "Music\n",
+        "de": "Music\n",
+        "es": "Music\n"
+    },
+    {
+        "id": "L_OPTIONS_310",
+        "en": "Sound Mode\n",
+        "gb": "Sound Mode\n",
+        "jp": "Back\n",
+        "it": "Sound Mode\n",
+        "fr": "Sound Mode\n",
+        "de": "Sound Mode\n",
+        "es": "Sound Mode\n"
+    },
+    {
+        "id": "L_OPTIONS_311",
+        "en": "Ratio\n",
+        "gb": "Ratio\n",
+        "jp": "< Empty >\n",
+        "it": "Ratio\n",
+        "fr": "Ratio\n",
+        "de": "Ratio\n",
+        "es": "Ratio\n"
+    },
+    {
+        "id": "L_OPTIONS_312",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "DEL",
+        "it": "Back\n",
+        "fr": "Back\n",
+        "de": "Back\n",
+        "es": "Back\n"
+    },
+    {
+        "id": "L_OPTIONS_313",
+        "en": "< Empty >\n",
+        "gb": "< Empty >\n",
+        "jp": "CAPS",
+        "it": "< Empty >\n",
+        "fr": "< Empty >\n",
+        "de": "< Empty >\n",
+        "es": "< Empty >\n"
+    },
+    {
+        "id": "L_OPTIONS_314",
+        "en": "DEL",
+        "gb": "DEL",
+        "jp": "CANCEL",
+        "it": "DEL",
+        "fr": "DEL",
+        "de": "DEL",
+        "es": "DEL"
+    },
+    {
+        "id": "L_OPTIONS_315",
+        "en": "CAPS",
+        "gb": "CAPS",
+        "jp": "OK",
+        "it": "CAPS",
+        "fr": "CAPS",
+        "de": "CAPS",
+        "es": "CAPS"
+    },
+    {
+        "id": "L_OPTIONS_316",
+        "en": "CANCEL",
+        "gb": "CANCEL",
+        "jp": "Combat Simulator Heads\n",
+        "it": "CANCEL",
+        "fr": "CANCEL",
+        "de": "CANCEL",
+        "es": "CANCEL"
+    },
+    {
+        "id": "L_OPTIONS_317",
+        "en": "OK",
+        "gb": "OK",
+        "jp": "Mission Heads\n",
+        "it": "OK",
+        "fr": "OK",
+        "de": "OK",
+        "es": "OK"
+    },
+    {
+        "id": "L_OPTIONS_318",
+        "en": "Combat Simulator Heads\n",
+        "gb": "Combat Simulator Heads\n",
+        "jp": "Error\n",
+        "it": "Combat Simulator Heads\n",
+        "fr": "Combat Simulator Heads\n",
+        "de": "Combat Simulator Heads\n",
+        "es": "Combat Simulator Heads\n"
+    },
+    {
+        "id": "L_OPTIONS_319",
+        "en": "Mission Heads\n",
+        "gb": "Mission Heads\n",
+        "jp": "Cancel\n",
+        "it": "Mission Heads\n",
+        "fr": "Mission Heads\n",
+        "de": "Mission Heads\n",
+        "es": "Mission Heads\n"
+    },
+    {
+        "id": "L_OPTIONS_320",
+        "en": "Error\n",
+        "gb": "Error\n",
+        "jp": "The pak was not found.\n",
+        "it": "Error\n",
+        "fr": "Error\n",
+        "de": "Error\n",
+        "es": "Error\n"
+    },
+    {
+        "id": "L_OPTIONS_321",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "File was not saved.\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_OPTIONS_322",
+        "en": "The Controller Pak\nwas not found\nin any controller.\n",
+        "gb": "The Controller Pak was not found.\n",
+        "jp": "File would not load.\n",
+        "it": "The Controller Pak was not found.\n",
+        "fr": "The Controller Pak was not found.\n",
+        "de": "The Controller Pak was not found.\n",
+        "es": "The Controller Pak was not found.\n"
+    },
+    {
+        "id": "L_OPTIONS_323",
+        "en": "File was not saved.\n",
+        "gb": "File was not saved.\n",
+        "jp": "Could not delete the file.\n",
+        "it": "File was not saved.\n",
+        "fr": "File was not saved.\n",
+        "de": "File was not saved.\n",
+        "es": "File was not saved.\n"
+    },
+    {
+        "id": "L_OPTIONS_324",
+        "en": "File would not load.\n",
+        "gb": "File would not load.\n",
+        "jp": "Out of Memory.\n",
+        "it": "File would not load.\n",
+        "fr": "File would not load.\n",
+        "de": "File would not load.\n",
+        "es": "File would not load.\n"
+    },
+    {
+        "id": "L_OPTIONS_325",
+        "en": "Could not delete the file.\n",
+        "gb": "Could not delete the file.\n",
+        "jp": "This player is already\nloaded for this game.\n",
+        "it": "Could not delete the file.\n",
+        "fr": "Could not delete the file.\n",
+        "de": "Could not delete the file.\n",
+        "es": "Could not delete the file.\n"
+    },
+    {
+        "id": "L_OPTIONS_326",
+        "en": "Out of memory.\n",
+        "gb": "Out of memory.\n",
+        "jp": "Pak has been removed\n",
+        "it": "Out of memory.\n",
+        "fr": "Out of memory.\n",
+        "de": "Out of memory.\n",
+        "es": "Out of memory.\n"
+    },
+    {
+        "id": "L_OPTIONS_327",
+        "en": "This player is already\nloaded for this game.\n",
+        "gb": "This player is already\nloaded for this game.\n",
+        "jp": "Pak is damaged or incorrectly inserted\n",
+        "it": "This player is already\nloaded for this game.\n",
+        "fr": "This player is already\nloaded for this game.\n",
+        "de": "This player is already\nloaded for this game.\n",
+        "es": "This player is already\nloaded for this game.\n"
+    },
+    {
+        "id": "L_OPTIONS_328",
+        "en": "has been removed.\n",
+        "gb": "Controller Pak has been removed.\n",
+        "jp": "Game Note Delete Failed\n",
+        "it": "Controller Pak has been removed.\n",
+        "fr": "Controller Pak has been removed.\n",
+        "de": "Controller Pak has been removed.\n",
+        "es": "Controller Pak has been removed.\n"
+    },
+    {
+        "id": "L_OPTIONS_329",
+        "en": "Controller Pak is damaged or incorrectly inserted.\n",
+        "gb": "Controller Pak is damaged or incorrectly inserted.\n",
+        "jp": "Error Loading Game\n",
+        "it": "Controller Pak is damaged or incorrectly inserted.\n",
+        "fr": "Controller Pak is damaged or incorrectly inserted.\n",
+        "de": "Controller Pak is damaged or incorrectly inserted.\n",
+        "es": "Controller Pak is damaged or incorrectly inserted.\n"
+    },
+    {
+        "id": "L_OPTIONS_330",
+        "en": "Game note delete failed.\n",
+        "gb": "Game note delete failed.\n",
+        "jp": "Error Saving Game\n",
+        "it": "Game note delete failed.\n",
+        "fr": "Game note delete failed.\n",
+        "de": "Game note delete failed.\n",
+        "es": "Game note delete failed.\n"
+    },
+    {
+        "id": "L_OPTIONS_331",
+        "en": "Error Loading Game\n",
+        "gb": "Error Loading Game\n",
+        "jp": "Error Loading Player\n",
+        "it": "Error Loading Game\n",
+        "fr": "Error Loading Game\n",
+        "de": "Error Loading Game\n",
+        "es": "Error Loading Game\n"
+    },
+    {
+        "id": "L_OPTIONS_332",
+        "en": "Error Saving Game\n",
+        "gb": "Error Saving Game\n",
+        "jp": "Error Saving Player\n",
+        "it": "Error Saving Game\n",
+        "fr": "Error Saving Game\n",
+        "de": "Error Saving Game\n",
+        "es": "Error Saving Game\n"
+    },
+    {
+        "id": "L_OPTIONS_333",
+        "en": "Error Loading Player\n",
+        "gb": "Error Loading Player\n",
+        "jp": "Error Loading PerfectHead\n",
+        "it": "Error Loading Player\n",
+        "fr": "Error Loading Player\n",
+        "de": "Error Loading Player\n",
+        "es": "Error Loading Player\n"
+    },
+    {
+        "id": "L_OPTIONS_334",
+        "en": "Error Saving Player\n",
+        "gb": "Error Saving Player\n",
+        "jp": "Error Saving PerfectHead\n",
+        "it": "Error Saving Player\n",
+        "fr": "Error Saving Player\n",
+        "de": "Error Saving Player\n",
+        "es": "Error Saving Player\n"
+    },
+    {
+        "id": "L_OPTIONS_335",
+        "en": "Error Loading PerfectHead\n",
+        "gb": "Error Loading PerfectHead\n",
+        "jp": "Error Reading File\n",
+        "it": "Error Loading PerfectHead\n",
+        "fr": "Error Loading PerfectHead\n",
+        "de": "Error Loading PerfectHead\n",
+        "es": "Error Loading PerfectHead\n"
+    },
+    {
+        "id": "L_OPTIONS_336",
+        "en": "Error Saving PerfectHead\n",
+        "gb": "Error Saving PerfectHead\n",
+        "jp": "Error Writing File\n",
+        "it": "Error Saving PerfectHead\n",
+        "fr": "Error Saving PerfectHead\n",
+        "de": "Error Saving PerfectHead\n",
+        "es": "Error Saving PerfectHead\n"
+    },
+    {
+        "id": "L_OPTIONS_337",
+        "en": "Error Reading File\n",
+        "gb": "Error Reading File\n",
+        "jp": "Error\n",
+        "it": "Error Reading File\n",
+        "fr": "Error Reading File\n",
+        "de": "Error Reading File\n",
+        "es": "Error Reading File\n"
+    },
+    {
+        "id": "L_OPTIONS_338",
+        "en": "Error Writing File\n",
+        "gb": "Error Writing File\n",
+        "jp": "Delete Failed\n",
+        "it": "Error Writing File\n",
+        "fr": "Error Writing File\n",
+        "de": "Error Writing File\n",
+        "es": "Error Writing File\n"
+    },
+    {
+        "id": "L_OPTIONS_339",
+        "en": "Error\n",
+        "gb": "Error\n",
+        "jp": "Could not delete the file.\n",
+        "it": "Error\n",
+        "fr": "Error\n",
+        "de": "Error\n",
+        "es": "Error\n"
+    },
+    {
+        "id": "L_OPTIONS_340",
+        "en": "Delete Failed\n",
+        "gb": "Delete Failed\n",
+        "jp": "- Check that the Controller Pak is\ninserted correctly.\n",
+        "it": "Delete Failed\n",
+        "fr": "Delete Failed\n",
+        "de": "Delete Failed\n",
+        "es": "Delete Failed\n"
+    },
+    {
+        "id": "L_OPTIONS_341",
+        "en": "Could not delete the file.\n",
+        "gb": "Could not delete the file.\n",
+        "jp": "Cancel\n",
+        "it": "Could not delete the file.\n",
+        "fr": "Could not delete the file.\n",
+        "de": "Could not delete the file.\n",
+        "es": "Could not delete the file.\n"
+    },
+    {
+        "id": "L_OPTIONS_342",
+        "en": "- Check that the Controller Pak is\ninserted correctly.\n",
+        "gb": "- Check that the Controller Pak is\ninserted correctly.\n",
+        "jp": "There is no space.\n",
+        "it": "- Check that the Controller Pak is\ninserted correctly.\n",
+        "fr": "- Check that the Controller Pak is\ninserted correctly.\n",
+        "de": "- Check that the Controller Pak is\ninserted correctly.\n",
+        "es": "- Check that the Controller Pak is\ninserted correctly.\n"
+    },
+    {
+        "id": "L_OPTIONS_343",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Cool!\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_OPTIONS_344",
+        "en": "There is no space.\n",
+        "gb": "There is no space.\n",
+        "jp": "File Saved.\n",
+        "it": "There is no space.\n",
+        "fr": "There is no space.\n",
+        "de": "There is no space.\n",
+        "es": "There is no space.\n"
+    },
+    {
+        "id": "L_OPTIONS_345",
+        "en": "Cool!\n",
+        "gb": "Cool!\n",
+        "jp": "OK\n",
+        "it": "Cool!\n",
+        "fr": "Cool!\n",
+        "de": "Cool!\n",
+        "es": "Cool!\n"
+    },
+    {
+        "id": "L_OPTIONS_346",
+        "en": "File Saved.\n",
+        "gb": "File Saved.\n",
+        "jp": "An error occured while\ntrying to save.\n",
+        "it": "File Saved.\n",
+        "fr": "File Saved.\n",
+        "de": "File Saved.\n",
+        "es": "File Saved.\n"
+    },
+    {
+        "id": "L_OPTIONS_347",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "Try Again\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "OK\n"
+    },
+    {
+        "id": "L_OPTIONS_348",
+        "en": "An error occurred while\ntrying to save.\n",
+        "gb": "An error occurred while\ntrying to save.\n",
+        "jp": "Save Elsewhere\n",
+        "it": "An error occurred while\ntrying to save.\n",
+        "fr": "An error occurred while\ntrying to save.\n",
+        "de": "An error occurred while\ntrying to save.\n",
+        "es": "An error occurred while\ntrying to save.\n"
+    },
+    {
+        "id": "L_OPTIONS_349",
+        "en": "Try Again\n",
+        "gb": "Try Again\n",
+        "jp": "Cancel\n",
+        "it": "Try Again\n",
+        "fr": "Try Again\n",
+        "de": "Try Again\n",
+        "es": "Try Again\n"
+    },
+    {
+        "id": "L_OPTIONS_350",
+        "en": "Save Elsewhere\n",
+        "gb": "Save Elsewhere\n",
+        "jp": "An error occured while\ntrying to load.\n",
+        "it": "Save Elsewhere\n",
+        "fr": "Save Elsewhere\n",
+        "de": "Save Elsewhere\n",
+        "es": "Save Elsewhere\n"
+    },
+    {
+        "id": "L_OPTIONS_351",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Try Again\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_OPTIONS_352",
+        "en": "An error occurred while\ntrying to load.\n",
+        "gb": "An error occurred while\ntrying to load.\n",
+        "jp": "Cancel\n",
+        "it": "An error occurred while\ntrying to load.\n",
+        "fr": "An error occurred while\ntrying to load.\n",
+        "de": "An error occurred while\ntrying to load.\n",
+        "es": "An error occurred while\ntrying to load.\n"
+    },
+    {
+        "id": "L_OPTIONS_353",
+        "en": "Try Again\n",
+        "gb": "Try Again\n",
+        "jp": "Need Space For Head\n",
+        "it": "Try Again\n",
+        "fr": "Try Again\n",
+        "de": "Try Again\n",
+        "es": "Try Again\n"
+    },
+    {
+        "id": "L_OPTIONS_354",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Choose a head to load over:\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_OPTIONS_355",
+        "en": "Need Space For Head\n",
+        "gb": "Need Space For Head\n",
+        "jp": "OK\n",
+        "it": "Need Space For Head\n",
+        "fr": "Need Space For Head\n",
+        "de": "Need Space For Head\n",
+        "es": "Need Space For Head\n"
+    },
+    {
+        "id": "L_OPTIONS_356",
+        "en": "Choose a head to load over:\n",
+        "gb": "Choose a head to load over:\n",
+        "jp": "Cancel\n",
+        "it": "Choose a head to load over:\n",
+        "fr": "Choose a head to load over:\n",
+        "de": "Choose a head to load over:\n",
+        "es": "Choose a head to load over:\n"
+    },
+    {
+        "id": "L_OPTIONS_357",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "Save\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "OK\n"
+    },
+    {
+        "id": "L_OPTIONS_358",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Would you like to save\nyour file elsewhere?\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_OPTIONS_359",
+        "en": "Save\n",
+        "gb": "Save\n",
+        "jp": "Yes\n",
+        "it": "Save\n",
+        "fr": "Save\n",
+        "de": "Save\n",
+        "es": "Save\n"
+    },
+    {
+        "id": "L_OPTIONS_360",
+        "en": "Would you like to save\nyour file elsewhere?\n",
+        "gb": "Would you like to save\nyour file elsewhere?\n",
+        "jp": "No\n",
+        "it": "Would you like to save\nyour file elsewhere?\n",
+        "fr": "Would you like to save\nyour file elsewhere?\n",
+        "de": "Would you like to save\nyour file elsewhere?\n",
+        "es": "Would you like to save\nyour file elsewhere?\n"
+    },
+    {
+        "id": "L_OPTIONS_361",
+        "en": "Yes\n",
+        "gb": "Yes\n",
+        "jp": "Please insert the pak\ncontaining your file\n",
+        "it": "Yes\n",
+        "fr": "Yes\n",
+        "de": "Yes\n",
+        "es": "Yes\n"
+    },
+    {
+        "id": "L_OPTIONS_362",
+        "en": "No\n",
+        "gb": "No\n",
+        "jp": "Please insert the pak\nyou are saving to\n",
+        "it": "No\n",
+        "fr": "No\n",
+        "de": "No\n",
+        "es": "No\n"
+    },
+    {
+        "id": "L_OPTIONS_363",
+        "en": "Please insert the\nController Pak\ncontaining your file\ninto any controller.\n",
+        "gb": "Please insert the\nController Pak\ncontaining your file.\n",
+        "jp": "OK\n",
+        "it": "Please insert the\nController Pak\ncontaining your file.\n",
+        "fr": "Please insert the\nController Pak\ncontaining your file.\n",
+        "de": "Please insert the\nController Pak\ncontaining your file.\n",
+        "es": "Please insert the\nController Pak\ncontaining your file.\n"
+    },
+    {
+        "id": "L_OPTIONS_364",
+        "en": "Please insert the\nController Pak\nyou are saving to\ninto any controller.\n",
+        "gb": "Please insert the\nController Pak\nyou are saving to.\n",
+        "jp": "Cancel\n",
+        "it": "Please insert the\nController Pak\nyou are saving to.\n",
+        "fr": "Please insert the\nController Pak\nyou are saving to.\n",
+        "de": "Please insert the\nController Pak\nyou are saving to.\n",
+        "es": "Please insert the\nController Pak\nyou are saving to.\n"
+    },
+    {
+        "id": "L_OPTIONS_365",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "Select Location\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "OK\n"
+    },
+    {
+        "id": "L_OPTIONS_366",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Where\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_OPTIONS_367",
+        "en": "Select Location\n",
+        "gb": "Select Location\n",
+        "jp": "Spaces\n",
+        "it": "Select Location\n",
+        "fr": "Select Location\n",
+        "de": "Select Location\n",
+        "es": "Select Location\n"
+    },
+    {
+        "id": "L_OPTIONS_368",
+        "en": "Where\n",
+        "gb": "Where\n",
+        "jp": "Delete Files...\n",
+        "it": "Where\n",
+        "fr": "Where\n",
+        "de": "Where\n",
+        "es": "Where\n"
+    },
+    {
+        "id": "L_OPTIONS_369",
+        "en": "Spaces\n",
+        "gb": "Spaces\n",
+        "jp": "Cancel\n",
+        "it": "Spaces\n",
+        "fr": "Spaces\n",
+        "de": "Spaces\n",
+        "es": "Spaces\n"
+    },
+    {
+        "id": "L_OPTIONS_370",
+        "en": "Delete Files...\n",
+        "gb": "Delete Files...\n",
+        "jp": "Full",
+        "it": "Delete Files...\n",
+        "fr": "Delete Files...\n",
+        "de": "Delete Files...\n",
+        "es": "Delete Files...\n"
+    },
+    {
+        "id": "L_OPTIONS_371",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Copy File\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_OPTIONS_372",
+        "en": "Full",
+        "gb": "Full",
+        "jp": "Select a file to copy:\n",
+        "it": "Full",
+        "fr": "Full",
+        "de": "Full",
+        "es": "Full"
+    },
+    {
+        "id": "L_OPTIONS_373",
+        "en": "Copy File\n",
+        "gb": "Copy File\n",
+        "jp": "Push <B> to Exit\n",
+        "it": "Copy File\n",
+        "fr": "Copy File\n",
+        "de": "Copy File\n",
+        "es": "Copy File\n"
+    },
+    {
+        "id": "L_OPTIONS_374",
+        "en": "Select a file to copy:\n",
+        "gb": "Select a file to copy:\n",
+        "jp": "Delete File\n",
+        "it": "Select a file to copy:\n",
+        "fr": "Select a file to copy:\n",
+        "de": "Select a file to copy:\n",
+        "es": "Select a file to copy:\n"
+    },
+    {
+        "id": "L_OPTIONS_375",
+        "en": "Press the B Button to exit.\n",
+        "gb": "Press the B Button to exit.\n",
+        "jp": "Select a file to delete:\n",
+        "it": "Press the B Button to exit.\n",
+        "fr": "Press the B Button to exit.\n",
+        "de": "Press the B Button to exit.\n",
+        "es": "Press the B Button to exit.\n"
+    },
+    {
+        "id": "L_OPTIONS_376",
+        "en": "Delete File\n",
+        "gb": "Delete File\n",
+        "jp": "Push <B> to Exit\n",
+        "it": "Delete File\n",
+        "fr": "Delete File\n",
+        "de": "Delete File\n",
+        "es": "Delete File\n"
+    },
+    {
+        "id": "L_OPTIONS_377",
+        "en": "Select a file to delete:\n",
+        "gb": "Select a file to delete:\n",
+        "jp": "Warning\n",
+        "it": "Select a file to delete:\n",
+        "fr": "Select a file to delete:\n",
+        "de": "Select a file to delete:\n",
+        "es": "Select a file to delete:\n"
+    },
+    {
+        "id": "L_OPTIONS_378",
+        "en": "Press the B Button to exit.\n",
+        "gb": "Press the B Button to exit.\n",
+        "jp": "Are you sure you want\nto delete this file?\n",
+        "it": "Press the B Button to exit.\n",
+        "fr": "Press the B Button to exit.\n",
+        "de": "Press the B Button to exit.\n",
+        "es": "Press the B Button to exit.\n"
+    },
+    {
+        "id": "L_OPTIONS_379",
+        "en": "Warning\n",
+        "gb": "Warning\n",
+        "jp": "Cancel\n",
+        "it": "Warning\n",
+        "fr": "Warning\n",
+        "de": "Warning\n",
+        "es": "Warning\n"
+    },
+    {
+        "id": "L_OPTIONS_380",
+        "en": "Are you sure you want\nto delete this file?\n",
+        "gb": "Are you sure you want\nto delete this file?\n",
+        "jp": "OK\n",
+        "it": "Are you sure you want\nto delete this file?\n",
+        "fr": "Are you sure you want\nto delete this file?\n",
+        "de": "Are you sure you want\nto delete this file?\n",
+        "es": "Are you sure you want\nto delete this file?\n"
+    },
+    {
+        "id": "L_OPTIONS_381",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Delete Game Note\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_OPTIONS_382",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "Are you sure you\nwant to delete\nthis game note?\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "OK\n"
+    },
+    {
+        "id": "L_OPTIONS_383",
+        "en": "Delete Game Note\n",
+        "gb": "Delete Game Note\n",
+        "jp": "No\n",
+        "it": "Delete Game Note\n",
+        "fr": "Delete Game Note\n",
+        "de": "Delete Game Note\n",
+        "es": "Delete Game Note\n"
+    },
+    {
+        "id": "L_OPTIONS_384",
+        "en": "Are you sure you\nwant to delete\nthis game note?\n",
+        "gb": "Are you sure you\nwant to delete\nthis game note?\n",
+        "jp": "Yes\n",
+        "it": "Are you sure you\nwant to delete\nthis game note?\n",
+        "fr": "Are you sure you\nwant to delete\nthis game note?\n",
+        "de": "Are you sure you\nwant to delete\nthis game note?\n",
+        "es": "Are you sure you\nwant to delete\nthis game note?\n"
+    },
+    {
+        "id": "L_OPTIONS_385",
+        "en": "No\n",
+        "gb": "No\n",
+        "jp": "Game Notes\n",
+        "it": "No\n",
+        "fr": "No\n",
+        "de": "No\n",
+        "es": "No\n"
+    },
+    {
+        "id": "L_OPTIONS_386",
+        "en": "Yes\n",
+        "gb": "Yes\n",
+        "jp": "Delete Game Notes:\n",
+        "it": "Yes\n",
+        "fr": "Yes\n",
+        "de": "Yes\n",
+        "es": "Yes\n"
+    },
+    {
+        "id": "L_OPTIONS_387",
+        "en": "Game Notes\n",
+        "gb": "Game Notes\n",
+        "jp": "Note\n",
+        "it": "Game Notes\n",
+        "fr": "Game Notes\n",
+        "de": "Game Notes\n",
+        "es": "Game Notes\n"
+    },
+    {
+        "id": "L_OPTIONS_388",
+        "en": "Delete Game Notes:\n",
+        "gb": "Delete Game Notes:\n",
+        "jp": "Pages\n",
+        "it": "Delete Game Notes:\n",
+        "fr": "Delete Game Notes:\n",
+        "de": "Delete Game Notes:\n",
+        "es": "Delete Game Notes:\n"
+    },
+    {
+        "id": "L_OPTIONS_389",
+        "en": "Note\n",
+        "gb": "Note\n",
+        "jp": "Push <B> to Exit\n",
+        "it": "Note\n",
+        "fr": "Note\n",
+        "de": "Note\n",
+        "es": "Note\n"
+    },
+    {
+        "id": "L_OPTIONS_390",
+        "en": "Pages\n",
+        "gb": "Pages\n",
+        "jp": "Empty\n",
+        "it": "Pages\n",
+        "fr": "Pages\n",
+        "de": "Pages\n",
+        "es": "Pages\n"
+    },
+    {
+        "id": "L_OPTIONS_391",
+        "en": "Press the B Button to exit.\n",
+        "gb": "Press the B Button to exit.\n",
+        "jp": "--\n",
+        "it": "Press the B Button to exit.\n",
+        "fr": "Press the B Button to exit.\n",
+        "de": "Press the B Button to exit.\n",
+        "es": "Press the B Button to exit.\n"
+    },
+    {
+        "id": "L_OPTIONS_392",
+        "en": "Empty\n",
+        "gb": "Empty\n",
+        "jp": "Pages Free: \n",
+        "it": "Empty\n",
+        "fr": "Empty\n",
+        "de": "Empty\n",
+        "es": "Empty\n"
+    },
+    {
+        "id": "L_OPTIONS_393",
+        "en": "--\n",
+        "gb": "--\n",
+        "jp": "Pages Free: %d\n",
+        "it": "--\n",
+        "fr": "--\n",
+        "de": "--\n",
+        "es": "--\n"
+    },
+    {
+        "id": "L_OPTIONS_394",
+        "en": "Pages Free: \n",
+        "gb": "Pages Free: \n",
+        "jp": "Pages Used: \n",
+        "it": "Pages Free: \n",
+        "fr": "Pages Free: \n",
+        "de": "Pages Free: \n",
+        "es": "Pages Free: \n"
+    },
+    {
+        "id": "L_OPTIONS_395",
+        "en": "Pages Free: %d\n",
+        "gb": "Pages Free: %d\n",
+        "jp": "Pages Used: %d\n",
+        "it": "Pages Free: %d\n",
+        "fr": "Pages Free: %d\n",
+        "de": "Pages Free: %d\n",
+        "es": "Pages Free: %d\n"
+    },
+    {
+        "id": "L_OPTIONS_396",
+        "en": "Pages Used: \n",
+        "gb": "Pages Used: \n",
+        "jp": "Perfect Dark Save already exists on this pak\n",
+        "it": "Pages Used: \n",
+        "fr": "Pages Used: \n",
+        "de": "Pages Used: \n",
+        "es": "Pages Used: \n"
+    },
+    {
+        "id": "L_OPTIONS_397",
+        "en": "Pages Used: %d\n",
+        "gb": "Pages Used: %d\n",
+        "jp": "There is enough space for perfect dark saves\n",
+        "it": "Pages Used: %d\n",
+        "fr": "Pages Used: %d\n",
+        "de": "Pages Used: %d\n",
+        "es": "Pages Used: %d\n"
+    },
+    {
+        "id": "L_OPTIONS_398",
+        "en": "Perfect Dark note already exists\non this Controller Pak.\n",
+        "gb": "Perfect Dark save already exists\non this Controller Pak.\n",
+        "jp": "Perfect Dark Requires %d More Notes\n",
+        "it": "Perfect Dark save already exists\non this Controller Pak.\n",
+        "fr": "Perfect Dark save already exists\non this Controller Pak.\n",
+        "de": "Perfect Dark save already exists\non this Controller Pak.\n",
+        "es": "Perfect Dark save already exists\non this Controller Pak.\n"
+    },
+    {
+        "id": "L_OPTIONS_399",
+        "en": "There is enough space for\nPerfect Dark note.\n",
+        "gb": "There is enough space for\nPerfect Dark saves.\n",
+        "jp": "Enter Agent Name\n",
+        "it": "There is enough space for\nPerfect Dark saves.\n",
+        "fr": "There is enough space for\nPerfect Dark saves.\n",
+        "de": "There is enough space for\nPerfect Dark saves.\n",
+        "es": "There is enough space for\nPerfect Dark saves.\n"
+    },
+    {
+        "id": "L_OPTIONS_400",
+        "en": "Controller Pak is too full to save note- 1 note\nand 28 pages required to save to Controller Pak.\n",
+        "gb": "Perfect Dark requires space\nfor %d more notes.\n",
+        "jp": "New...\n",
+        "it": "Perfect Dark requires space\nfor %d more notes.\n",
+        "fr": "Perfect Dark requires space\nfor %d more notes.\n",
+        "de": "Perfect Dark requires space\nfor %d more notes.\n",
+        "es": "Perfect Dark requires space\nfor %d more notes.\n"
+    },
+    {
+        "id": "L_OPTIONS_401",
+        "en": "Enter Agent Name\n",
+        "gb": "Enter Agent Name\n",
+        "jp": "New Agent...\n",
+        "it": "Enter Agent Name\n",
+        "fr": "Enter Agent Name\n",
+        "de": "Enter Agent Name\n",
+        "es": "Enter Agent Name\n"
+    },
+    {
+        "id": "L_OPTIONS_402",
+        "en": "New...\n",
+        "gb": "New...\n",
+        "jp": "New Recruit",
+        "it": "New...\n",
+        "fr": "New...\n",
+        "de": "New...\n",
+        "es": "New...\n"
+    },
+    {
+        "id": "L_OPTIONS_403",
+        "en": "New Agent...\n",
+        "gb": "New Agent...\n",
+        "jp": "Mission Time:",
+        "it": "New Agent...\n",
+        "fr": "New Agent...\n",
+        "de": "New Agent...\n",
+        "es": "New Agent...\n"
+    },
+    {
+        "id": "L_OPTIONS_404",
+        "en": "New Recruit",
+        "gb": "New Recruit",
+        "jp": "Challenge 1",
+        "it": "New Recruit",
+        "fr": "New Recruit",
+        "de": "New Recruit",
+        "es": "New Recruit"
+    },
+    {
+        "id": "L_OPTIONS_405",
+        "en": "Mission Time:",
+        "gb": "Mission Time:",
+        "jp": "Challenge 2",
+        "it": "Mission Time:",
+        "fr": "Mission Time:",
+        "de": "Mission Time:",
+        "es": "Mission Time:"
+    },
+    {
+        "id": "L_OPTIONS_406",
+        "en": "Challenge 1",
+        "gb": "Challenge 1",
+        "jp": "Challenge 3",
+        "it": "Challenge 1",
+        "fr": "Challenge 1",
+        "de": "Challenge 1",
+        "es": "Challenge 1"
+    },
+    {
+        "id": "L_OPTIONS_407",
+        "en": "Challenge 2",
+        "gb": "Challenge 2",
+        "jp": "Challenge 4",
+        "it": "Challenge 2",
+        "fr": "Challenge 2",
+        "de": "Challenge 2",
+        "es": "Challenge 2"
+    },
+    {
+        "id": "L_OPTIONS_408",
+        "en": "Challenge 3",
+        "gb": "Challenge 3",
+        "jp": "Challenge 5",
+        "it": "Challenge 3",
+        "fr": "Challenge 3",
+        "de": "Challenge 3",
+        "es": "Challenge 3"
+    },
+    {
+        "id": "L_OPTIONS_409",
+        "en": "Challenge 4",
+        "gb": "Challenge 4",
+        "jp": "Challenge 6",
+        "it": "Challenge 4",
+        "fr": "Challenge 4",
+        "de": "Challenge 4",
+        "es": "Challenge 4"
+    },
+    {
+        "id": "L_OPTIONS_410",
+        "en": "Challenge 5",
+        "gb": "Challenge 5",
+        "jp": "Challenge 7",
+        "it": "Challenge 5",
+        "fr": "Challenge 5",
+        "de": "Challenge 5",
+        "es": "Challenge 5"
+    },
+    {
+        "id": "L_OPTIONS_411",
+        "en": "Challenge 6",
+        "gb": "Challenge 6",
+        "jp": "Challenge 8",
+        "it": "Challenge 6",
+        "fr": "Challenge 6",
+        "de": "Challenge 6",
+        "es": "Challenge 6"
+    },
+    {
+        "id": "L_OPTIONS_412",
+        "en": "Challenge 7",
+        "gb": "Challenge 7",
+        "jp": "Challenge 9",
+        "it": "Challenge 7",
+        "fr": "Challenge 7",
+        "de": "Challenge 7",
+        "es": "Challenge 7"
+    },
+    {
+        "id": "L_OPTIONS_413",
+        "en": "Challenge 8",
+        "gb": "Challenge 8",
+        "jp": "Challenge 10",
+        "it": "Challenge 8",
+        "fr": "Challenge 8",
+        "de": "Challenge 8",
+        "es": "Challenge 8"
+    },
+    {
+        "id": "L_OPTIONS_414",
+        "en": "Challenge 9",
+        "gb": "Challenge 9",
+        "jp": "Challenge 11",
+        "it": "Challenge 9",
+        "fr": "Challenge 9",
+        "de": "Challenge 9",
+        "es": "Challenge 9"
+    },
+    {
+        "id": "L_OPTIONS_415",
+        "en": "Challenge 10",
+        "gb": "Challenge 10",
+        "jp": "Challenge 12",
+        "it": "Challenge 10",
+        "fr": "Challenge 10",
+        "de": "Challenge 10",
+        "es": "Challenge 10"
+    },
+    {
+        "id": "L_OPTIONS_416",
+        "en": "Challenge 11",
+        "gb": "Challenge 11",
+        "jp": "Challenge 13",
+        "it": "Challenge 11",
+        "fr": "Challenge 11",
+        "de": "Challenge 11",
+        "es": "Challenge 11"
+    },
+    {
+        "id": "L_OPTIONS_417",
+        "en": "Challenge 12",
+        "gb": "Challenge 12",
+        "jp": "Challenge 14",
+        "it": "Challenge 12",
+        "fr": "Challenge 12",
+        "de": "Challenge 12",
+        "es": "Challenge 12"
+    },
+    {
+        "id": "L_OPTIONS_418",
+        "en": "Challenge 13",
+        "gb": "Challenge 13",
+        "jp": "Challenge 15",
+        "it": "Challenge 13",
+        "fr": "Challenge 13",
+        "de": "Challenge 13",
+        "es": "Challenge 13"
+    },
+    {
+        "id": "L_OPTIONS_419",
+        "en": "Challenge 14",
+        "gb": "Challenge 14",
+        "jp": "Challenge 16",
+        "it": "Challenge 14",
+        "fr": "Challenge 14",
+        "de": "Challenge 14",
+        "es": "Challenge 14"
+    },
+    {
+        "id": "L_OPTIONS_420",
+        "en": "Challenge 15",
+        "gb": "Challenge 15",
+        "jp": "Challenge 17",
+        "it": "Challenge 15",
+        "fr": "Challenge 15",
+        "de": "Challenge 15",
+        "es": "Challenge 15"
+    },
+    {
+        "id": "L_OPTIONS_421",
+        "en": "Challenge 16",
+        "gb": "Challenge 16",
+        "jp": "Challenge 18",
+        "it": "Challenge 16",
+        "fr": "Challenge 16",
+        "de": "Challenge 16",
+        "es": "Challenge 16"
+    },
+    {
+        "id": "L_OPTIONS_422",
+        "en": "Challenge 17",
+        "gb": "Challenge 17",
+        "jp": "Challenge 19",
+        "it": "Challenge 17",
+        "fr": "Challenge 17",
+        "de": "Challenge 17",
+        "es": "Challenge 17"
+    },
+    {
+        "id": "L_OPTIONS_423",
+        "en": "Challenge 18",
+        "gb": "Challenge 18",
+        "jp": "Challenge 20",
+        "it": "Challenge 18",
+        "fr": "Challenge 18",
+        "de": "Challenge 18",
+        "es": "Challenge 18"
+    },
+    {
+        "id": "L_OPTIONS_424",
+        "en": "Challenge 19",
+        "gb": "Challenge 19",
+        "jp": "Challenge 21",
+        "it": "Challenge 19",
+        "fr": "Challenge 19",
+        "de": "Challenge 19",
+        "es": "Challenge 19"
+    },
+    {
+        "id": "L_OPTIONS_425",
+        "en": "Challenge 20",
+        "gb": "Challenge 20",
+        "jp": "Challenge 22",
+        "it": "Challenge 20",
+        "fr": "Challenge 20",
+        "de": "Challenge 20",
+        "es": "Challenge 20"
+    },
+    {
+        "id": "L_OPTIONS_426",
+        "en": "Challenge 21",
+        "gb": "Challenge 21",
+        "jp": "Challenge 23",
+        "it": "Challenge 21",
+        "fr": "Challenge 21",
+        "de": "Challenge 21",
+        "es": "Challenge 21"
+    },
+    {
+        "id": "L_OPTIONS_427",
+        "en": "Challenge 22",
+        "gb": "Challenge 22",
+        "jp": "Challenge 24",
+        "it": "Challenge 22",
+        "fr": "Challenge 22",
+        "de": "Challenge 22",
+        "es": "Challenge 22"
+    },
+    {
+        "id": "L_OPTIONS_428",
+        "en": "Challenge 23",
+        "gb": "Challenge 23",
+        "jp": "Challenge 25",
+        "it": "Challenge 23",
+        "fr": "Challenge 23",
+        "de": "Challenge 23",
+        "es": "Challenge 23"
+    },
+    {
+        "id": "L_OPTIONS_429",
+        "en": "Challenge 24",
+        "gb": "Challenge 24",
+        "jp": "Challenge 26",
+        "it": "Challenge 24",
+        "fr": "Challenge 24",
+        "de": "Challenge 24",
+        "es": "Challenge 24"
+    },
+    {
+        "id": "L_OPTIONS_430",
+        "en": "Challenge 25",
+        "gb": "Challenge 25",
+        "jp": "Challenge 27",
+        "it": "Challenge 25",
+        "fr": "Challenge 25",
+        "de": "Challenge 25",
+        "es": "Challenge 25"
+    },
+    {
+        "id": "L_OPTIONS_431",
+        "en": "Challenge 26",
+        "gb": "Challenge 26",
+        "jp": "Challenge 28",
+        "it": "Challenge 26",
+        "fr": "Challenge 26",
+        "de": "Challenge 26",
+        "es": "Challenge 26"
+    },
+    {
+        "id": "L_OPTIONS_432",
+        "en": "Challenge 27",
+        "gb": "Challenge 27",
+        "jp": "Challenge 29",
+        "it": "Challenge 27",
+        "fr": "Challenge 27",
+        "de": "Challenge 27",
+        "es": "Challenge 27"
+    },
+    {
+        "id": "L_OPTIONS_433",
+        "en": "Challenge 28",
+        "gb": "Challenge 28",
+        "jp": "Challenge 30",
+        "it": "Challenge 28",
+        "fr": "Challenge 28",
+        "de": "Challenge 28",
+        "es": "Challenge 28"
+    },
+    {
+        "id": "L_OPTIONS_434",
+        "en": "Challenge 29",
+        "gb": "Challenge 29",
+        "jp": "Special\n",
+        "it": "Challenge 29",
+        "fr": "Challenge 29",
+        "de": "Challenge 29",
+        "es": "Challenge 29"
+    },
+    {
+        "id": "L_OPTIONS_435",
+        "en": "Challenge 30",
+        "gb": "Challenge 30",
+        "jp": "Intro\n",
+        "it": "Challenge 30",
+        "fr": "Challenge 30",
+        "de": "Challenge 30",
+        "es": "Challenge 30"
+    },
+    {
+        "id": "L_OPTIONS_436",
+        "en": "Special\n",
+        "gb": "Special\n",
+        "jp": "Mission 1\n",
+        "it": "Special\n",
+        "fr": "Special\n",
+        "de": "Special\n",
+        "es": "Special\n"
+    },
+    {
+        "id": "L_OPTIONS_437",
+        "en": "Intro\n",
+        "gb": "Intro\n",
+        "jp": "Mission 2\n",
+        "it": "Intro\n",
+        "fr": "Intro\n",
+        "de": "Intro\n",
+        "es": "Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_438",
+        "en": "Mission 1 - dataDyne Central\n",
+        "gb": "Mission 1\n",
+        "jp": "Mission 3\n",
+        "it": "Mission 1\n",
+        "fr": "Mission 1\n",
+        "de": "Mission 1\n",
+        "es": "Mission 1\n"
+    },
+    {
+        "id": "L_OPTIONS_439",
+        "en": "Mission 2 - Carrington Villa\n",
+        "gb": "Mission 2\n",
+        "jp": "Mission 4\n",
+        "it": "Mission 2\n",
+        "fr": "Mission 2\n",
+        "de": "Mission 2\n",
+        "es": "Mission 2\n"
+    },
+    {
+        "id": "L_OPTIONS_440",
+        "en": "Mission 3 - G5 Building\n",
+        "gb": "Mission 3\n",
+        "jp": "Mission 5\n",
+        "it": "Mission 3\n",
+        "fr": "Mission 3\n",
+        "de": "Mission 3\n",
+        "es": "Mission 3\n"
+    },
+    {
+        "id": "L_OPTIONS_441",
+        "en": "Mission 4 - Area 51\n",
+        "gb": "Mission 4\n",
+        "jp": "Mission 6\n",
+        "it": "Mission 4\n",
+        "fr": "Mission 4\n",
+        "de": "Mission 4\n",
+        "es": "Mission 4\n"
+    },
+    {
+        "id": "L_OPTIONS_442",
+        "en": "Mission 5 - Air Force One\n",
+        "gb": "Mission 5\n",
+        "jp": "Mission 7\n",
+        "it": "Mission 5\n",
+        "fr": "Mission 5\n",
+        "de": "Mission 5\n",
+        "es": "Mission 5\n"
+    },
+    {
+        "id": "L_OPTIONS_443",
+        "en": "Mission 6 - Pelagic II\n",
+        "gb": "Mission 6\n",
+        "jp": "Mission 8\n",
+        "it": "Mission 6\n",
+        "fr": "Mission 6\n",
+        "de": "Mission 6\n",
+        "es": "Mission 6\n"
+    },
+    {
+        "id": "L_OPTIONS_444",
+        "en": "Mission 7 - Carrington Institute\n",
+        "gb": "Mission 7\n",
+        "jp": "Mission 9\n",
+        "it": "Mission 7\n",
+        "fr": "Mission 7\n",
+        "de": "Mission 7\n",
+        "es": "Mission 7\n"
+    },
+    {
+        "id": "L_OPTIONS_445",
+        "en": "Mission 8 - Skedar Attack Ship\n",
+        "gb": "Mission 8\n",
+        "jp": "Finale\n",
+        "it": "Mission 8\n",
+        "fr": "Mission 8\n",
+        "de": "Mission 8\n",
+        "es": "Mission 8\n"
+    },
+    {
+        "id": "L_OPTIONS_446",
+        "en": "Mission 9 - Skedar Ruins\n",
+        "gb": "Mission 9\n",
+        "jp": "Play All\n",
+        "it": "Mission 9\n",
+        "fr": "Mission 9\n",
+        "de": "Mission 9\n",
+        "es": "Mission 9\n"
+    },
+    {
+        "id": "L_OPTIONS_447",
+        "en": "Finale\n",
+        "gb": "Finale\n",
+        "jp": "Intro\n",
+        "it": "Finale\n",
+        "fr": "Finale\n",
+        "de": "Finale\n",
+        "es": "Finale\n"
+    },
+    {
+        "id": "L_OPTIONS_448",
+        "en": "Play All\n",
+        "gb": "Play All\n",
+        "jp": "1:1 Intro\n",
+        "it": "Play All\n",
+        "fr": "Play All\n",
+        "de": "Play All\n",
+        "es": "Play All\n"
+    },
+    {
+        "id": "L_OPTIONS_449",
+        "en": "Intro\n",
+        "gb": "Intro\n",
+        "jp": "1:1 Outro\n",
+        "it": "Intro\n",
+        "fr": "Intro\n",
+        "de": "Intro\n",
+        "es": "Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_450",
+        "en": "1:1 Intro - Enter The Dark\n",
+        "gb": "1:1 Intro\n",
+        "jp": "1:2 Intro\n",
+        "it": "1:1 Intro\n",
+        "fr": "1:1 Intro\n",
+        "de": "1:1 Intro\n",
+        "es": "1:1 Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_451",
+        "en": "1:1 Outro - Quick Descent\n",
+        "gb": "1:1 Outro\n",
+        "jp": "1:2 Outro\n",
+        "it": "1:1 Outro\n",
+        "fr": "1:1 Outro\n",
+        "de": "1:1 Outro\n",
+        "es": "1:1 Outro\n"
+    },
+    {
+        "id": "L_OPTIONS_452",
+        "en": "1:2 Intro - Going Down\n",
+        "gb": "1:2 Intro\n",
+        "jp": "1:3 Intro\n",
+        "it": "1:2 Intro\n",
+        "fr": "1:2 Intro\n",
+        "de": "1:2 Intro\n",
+        "es": "1:2 Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_453",
+        "en": "1:2 Outro - Meet The Doctor\n",
+        "gb": "1:2 Outro\n",
+        "jp": "1:3 Outro\n",
+        "it": "1:2 Outro\n",
+        "fr": "1:2 Outro\n",
+        "de": "1:2 Outro\n",
+        "es": "1:2 Outro\n"
+    },
+    {
+        "id": "L_OPTIONS_454",
+        "en": "1:3 Intro - Lights Out\n",
+        "gb": "1:3 Intro\n",
+        "jp": "2:1 Intro\n",
+        "it": "1:3 Intro\n",
+        "fr": "1:3 Intro\n",
+        "de": "1:3 Intro\n",
+        "es": "1:3 Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_455",
+        "en": "1:3 Outro - Going Somewhere?\n",
+        "gb": "1:3 Outro\n",
+        "jp": "2:1 Intro 2\n",
+        "it": "1:3 Outro\n",
+        "fr": "1:3 Outro\n",
+        "de": "1:3 Outro\n",
+        "es": "1:3 Outro\n"
+    },
+    {
+        "id": "L_OPTIONS_456",
+        "en": "2:1 Intro - Negotiate This!\n",
+        "gb": "2:1 Intro\n",
+        "jp": "2:1 Outro\n",
+        "it": "2:1 Intro\n",
+        "fr": "2:1 Intro\n",
+        "de": "2:1 Intro\n",
+        "es": "2:1 Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_457",
+        "en": "2:1 Intro 2 - Life On The Line\n",
+        "gb": "2:1 Intro 2\n",
+        "jp": "3:1 Intro\n",
+        "it": "2:1 Intro 2\n",
+        "fr": "2:1 Intro 2\n",
+        "de": "2:1 Intro 2\n",
+        "es": "2:1 Intro 2\n"
+    },
+    {
+        "id": "L_OPTIONS_458",
+        "en": "2:1 Outro - Carrington Rescued\n",
+        "gb": "2:1 Outro\n",
+        "jp": "3:1 Outro\n",
+        "it": "2:1 Outro\n",
+        "fr": "2:1 Outro\n",
+        "de": "2:1 Outro\n",
+        "es": "2:1 Outro\n"
+    },
+    {
+        "id": "L_OPTIONS_459",
+        "en": "3:1 Intro - Dark Alley\n",
+        "gb": "3:1 Intro\n",
+        "jp": "3:2 Intro\n",
+        "it": "3:1 Intro\n",
+        "fr": "3:1 Intro\n",
+        "de": "3:1 Intro\n",
+        "es": "3:1 Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_460",
+        "en": "3:1 Outro - G5 Penetrated\n",
+        "gb": "3:1 Outro\n",
+        "jp": "3:2 Special\n",
+        "it": "3:1 Outro\n",
+        "fr": "3:1 Outro\n",
+        "de": "3:1 Outro\n",
+        "es": "3:1 Outro\n"
+    },
+    {
+        "id": "L_OPTIONS_461",
+        "en": "3:2 Intro - Guns 'n' Poses\n",
+        "gb": "3:2 Intro\n",
+        "jp": "3:2 Outro\n",
+        "it": "3:2 Intro\n",
+        "fr": "3:2 Intro\n",
+        "de": "3:2 Intro\n",
+        "es": "3:2 Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_462",
+        "en": "3:2 Special - Conspiracy\n",
+        "gb": "3:2 Special\n",
+        "jp": "4:1 Intro\n",
+        "it": "3:2 Special\n",
+        "fr": "3:2 Special\n",
+        "de": "3:2 Special\n",
+        "es": "3:2 Special\n"
+    },
+    {
+        "id": "L_OPTIONS_463",
+        "en": "3:2 Outro - Fire Escape\n",
+        "gb": "3:2 Outro\n",
+        "jp": "4:1 Outro\n",
+        "it": "3:2 Outro\n",
+        "fr": "3:2 Outro\n",
+        "de": "3:2 Outro\n",
+        "es": "3:2 Outro\n"
+    },
+    {
+        "id": "L_OPTIONS_464",
+        "en": "4:1 Intro - Video Nasty\n",
+        "gb": "4:1 Intro\n",
+        "jp": "4:2 Intro\n",
+        "it": "4:1 Intro\n",
+        "fr": "4:1 Intro\n",
+        "de": "4:1 Intro\n",
+        "es": "4:1 Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_465",
+        "en": "4:1 Outro - Loose Ends\n",
+        "gb": "4:1 Outro\n",
+        "jp": "4:2 Outro\n",
+        "it": "4:1 Outro\n",
+        "fr": "4:1 Outro\n",
+        "de": "4:1 Outro\n",
+        "es": "4:1 Outro\n"
+    },
+    {
+        "id": "L_OPTIONS_466",
+        "en": "4:2 Intro - Pearls Of Wisdom\n",
+        "gb": "4:2 Intro\n",
+        "jp": "4:3 Intro\n",
+        "it": "4:2 Intro\n",
+        "fr": "4:2 Intro\n",
+        "de": "4:2 Intro\n",
+        "es": "4:2 Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_467",
+        "en": "4:2 Outro - Under The Knife\n",
+        "gb": "4:2 Outro\n",
+        "jp": "4:3 Special\n",
+        "it": "4:2 Outro\n",
+        "fr": "4:2 Outro\n",
+        "de": "4:2 Outro\n",
+        "es": "4:2 Outro\n"
+    },
+    {
+        "id": "L_OPTIONS_468",
+        "en": "4:3 Intro - Gas!\n",
+        "gb": "4:3 Intro\n",
+        "jp": "4:3 Outro\n",
+        "it": "4:3 Intro\n",
+        "fr": "4:3 Intro\n",
+        "de": "4:3 Intro\n",
+        "es": "4:3 Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_469",
+        "en": "4:3 Special - Elvis Wakes Up\n",
+        "gb": "4:3 Special\n",
+        "jp": "5:1 Intro\n",
+        "it": "4:3 Special\n",
+        "fr": "4:3 Special\n",
+        "de": "4:3 Special\n",
+        "es": "4:3 Special\n"
+    },
+    {
+        "id": "L_OPTIONS_470",
+        "en": "4:3 Outro - Escape\n",
+        "gb": "4:3 Outro\n",
+        "jp": "5:1 Outro\n",
+        "it": "4:3 Outro\n",
+        "fr": "4:3 Outro\n",
+        "de": "4:3 Outro\n",
+        "es": "4:3 Outro\n"
+    },
+    {
+        "id": "L_OPTIONS_471",
+        "en": "5:1 Intro - High Altitude\n",
+        "gb": "5:1 Intro\n",
+        "jp": "5:2 Intro\n",
+        "it": "5:1 Intro\n",
+        "fr": "5:1 Intro\n",
+        "de": "5:1 Intro\n",
+        "es": "5:1 Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_472",
+        "en": "5:1 Outro - Take Off\n",
+        "gb": "5:1 Outro\n",
+        "jp": "5:2 Special\n",
+        "it": "5:1 Outro\n",
+        "fr": "5:1 Outro\n",
+        "de": "5:1 Outro\n",
+        "es": "5:1 Outro\n"
+    },
+    {
+        "id": "L_OPTIONS_473",
+        "en": "5:2 Intro - Last Chance\n",
+        "gb": "5:2 Intro\n",
+        "jp": "5:2 Outro\n",
+        "it": "5:2 Intro\n",
+        "fr": "5:2 Intro\n",
+        "de": "5:2 Intro\n",
+        "es": "5:2 Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_474",
+        "en": "5:2 Special - Docking\n",
+        "gb": "5:2 Special\n",
+        "jp": "5:3 Intro\n",
+        "it": "5:2 Special\n",
+        "fr": "5:2 Special\n",
+        "de": "5:2 Special\n",
+        "es": "5:2 Special\n"
+    },
+    {
+        "id": "L_OPTIONS_475",
+        "en": "5:2 Outro - Out Of Options\n",
+        "gb": "5:2 Outro\n",
+        "jp": "5:3 Outro\n",
+        "it": "5:2 Outro\n",
+        "fr": "5:2 Outro\n",
+        "de": "5:2 Outro\n",
+        "es": "5:2 Outro\n"
+    },
+    {
+        "id": "L_OPTIONS_476",
+        "en": "5:3 Intro - Red Horizons\n",
+        "gb": "5:3 Intro\n",
+        "jp": "6:1 Intro\n",
+        "it": "5:3 Intro\n",
+        "fr": "5:3 Intro\n",
+        "de": "5:3 Intro\n",
+        "es": "5:3 Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_477",
+        "en": "5:3 Outro - Blonde Freak\n",
+        "gb": "5:3 Outro\n",
+        "jp": "6:1 Outro\n",
+        "it": "5:3 Outro\n",
+        "fr": "5:3 Outro\n",
+        "de": "5:3 Outro\n",
+        "es": "5:3 Outro\n"
+    },
+    {
+        "id": "L_OPTIONS_478",
+        "en": "6:1 Intro - Sneak Onboard\n",
+        "gb": "6:1 Intro\n",
+        "jp": "6:2 Intro\n",
+        "it": "6:1 Intro\n",
+        "fr": "6:1 Intro\n",
+        "de": "6:1 Intro\n",
+        "es": "6:1 Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_479",
+        "en": "6:1 Outro - Descent Into The Depths\n",
+        "gb": "6:1 Outro\n",
+        "jp": "6:2 Special\n",
+        "it": "6:1 Outro\n",
+        "fr": "6:1 Outro\n",
+        "de": "6:1 Outro\n",
+        "es": "6:1 Outro\n"
+    },
+    {
+        "id": "L_OPTIONS_480",
+        "en": "6:2 Intro - Deeper Inside\n",
+        "gb": "6:2 Intro\n",
+        "jp": "6:2 Outro\n",
+        "it": "6:2 Intro\n",
+        "fr": "6:2 Intro\n",
+        "de": "6:2 Intro\n",
+        "es": "6:2 Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_481",
+        "en": "6:2 Special - Virus!\n",
+        "gb": "6:2 Special\n",
+        "jp": "7:1 Intro\n",
+        "it": "6:2 Special\n",
+        "fr": "6:2 Special\n",
+        "de": "6:2 Special\n",
+        "es": "6:2 Special\n"
+    },
+    {
+        "id": "L_OPTIONS_482",
+        "en": "6:2 Outro - Pulling Out\n",
+        "gb": "6:2 Outro\n",
+        "jp": "7:1 Outro\n",
+        "it": "6:2 Outro\n",
+        "fr": "6:2 Outro\n",
+        "de": "6:2 Outro\n",
+        "es": "6:2 Outro\n"
+    },
+    {
+        "id": "L_OPTIONS_483",
+        "en": "7:1 Intro - Victory Salute\n",
+        "gb": "7:1 Intro\n",
+        "jp": "8:1 Intro\n",
+        "it": "7:1 Intro\n",
+        "fr": "7:1 Intro\n",
+        "de": "7:1 Intro\n",
+        "es": "7:1 Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_484",
+        "en": "7:1 Outro - Dash For Freedom\n",
+        "gb": "7:1 Outro\n",
+        "jp": "8:1 Outro\n",
+        "it": "7:1 Outro\n",
+        "fr": "7:1 Outro\n",
+        "de": "7:1 Outro\n",
+        "es": "7:1 Outro\n"
+    },
+    {
+        "id": "L_OPTIONS_485",
+        "en": "8:1 Intro - Snatched!\n",
+        "gb": "8:1 Intro\n",
+        "jp": "9:1 Intro\n",
+        "it": "8:1 Intro\n",
+        "fr": "8:1 Intro\n",
+        "de": "8:1 Intro\n",
+        "es": "8:1 Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_486",
+        "en": "8:1 Outro - Heading For Trouble\n",
+        "gb": "8:1 Outro\n",
+        "jp": "9:1 Outro\n",
+        "it": "8:1 Outro\n",
+        "fr": "8:1 Outro\n",
+        "de": "8:1 Outro\n",
+        "es": "8:1 Outro\n"
+    },
+    {
+        "id": "L_OPTIONS_487",
+        "en": "9:1 Intro - Air Of Calm\n",
+        "gb": "9:1 Intro\n",
+        "jp": "End Sequence\n",
+        "it": "9:1 Intro\n",
+        "fr": "9:1 Intro\n",
+        "de": "9:1 Intro\n",
+        "es": "9:1 Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_488",
+        "en": "9:1 Outro - Gotcha!\n",
+        "gb": "9:1 Outro\n",
+        "jp": "Cinema\n",
+        "it": "9:1 Outro\n",
+        "fr": "9:1 Outro\n",
+        "de": "9:1 Outro\n",
+        "es": "9:1 Outro\n"
+    },
+    {
+        "id": "L_OPTIONS_489",
+        "en": "End Sequence\n",
+        "gb": "End Sequence\n",
+        "jp": "cloak %d",
+        "it": "End Sequence\n",
+        "fr": "End Sequence\n",
+        "de": "End Sequence\n",
+        "es": "End Sequence\n"
+    },
+    {
+        "id": "L_OPTIONS_490",
+        "en": "Cinema\n",
+        "gb": "Cinema\n",
+        "jp": "Pick Target\n",
+        "it": "Cinema\n",
+        "fr": "Cinema\n",
+        "de": "Cinema\n",
+        "es": "Cinema\n"
+    },
+    {
+        "id": "L_OPTIONS_491",
+        "en": "cloak %d",
+        "gb": "cloak %d",
+        "jp": "Kills Score\n",
+        "it": "cloak %d",
+        "fr": "cloak %d",
+        "de": "cloak %d",
+        "es": "cloak %d"
+    },
+    {
+        "id": "L_OPTIONS_492",
+        "en": "Pick Target\n",
+        "gb": "Pick Target\n",
+        "jp": null,
+        "it": "Pick Target\n",
+        "fr": "Pick Target\n",
+        "de": "Pick Target\n",
+        "es": "Pick Target\n"
+    },
+    {
+        "id": "L_OPTIONS_493",
+        "en": "Kills Score\n",
+        "gb": "Kills Score\n",
+        "jp": null,
+        "it": "Kills Score\n",
+        "fr": "Kills Score\n",
+        "de": "Kills Score\n",
+        "es": "Kills Score\n"
+    },
+    {
+        "id": "L_OPTIONS_494",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_OPTIONS_495",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    }
+]

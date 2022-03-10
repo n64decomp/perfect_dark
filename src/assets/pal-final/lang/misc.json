@@ -1,0 +1,2202 @@
+[
+    {
+        "id": "L_MISC_041",
+        "en": "E R R O R\n",
+        "gb": "E R R O R\n",
+        "jp": "E R R O R\n",
+        "it": "E R R O R E\n",
+        "fr": "E R R E U R\n",
+        "de": "E R R O R\n",
+        "es": "E R R O R\n"
+    },
+    {
+        "id": "L_MISC_042",
+        "en": "No briefing for this mission\n",
+        "gb": "No briefing for this mission\n",
+        "jp": "No briefing for this mission\n",
+        "it": "Nessuna informazione per questa missione\n",
+        "fr": "Pas de briefing pour cette mission\n",
+        "de": "Für diese Mission gibt es kein Briefing.\n",
+        "es": "No hay información para esta misión\n"
+    },
+    {
+        "id": "L_MISC_043",
+        "en": "\n",
+        "gb": "\n",
+        "jp": "\n",
+        "it": "\n",
+        "fr": "\n",
+        "de": "\n",
+        "es": "\n"
+    },
+    {
+        "id": "L_MISC_044",
+        "en": "Objective",
+        "gb": "Objective",
+        "jp": "Objective",
+        "it": "Obiettivo",
+        "fr": "Objectif",
+        "de": "Ziel",
+        "es": "Objetivo"
+    },
+    {
+        "id": "L_MISC_045",
+        "en": "Completed\n",
+        "gb": "Completed\n",
+        "jp": "Completed\n",
+        "it": "Completato\n",
+        "fr": "Succès\n",
+        "de": "erreicht\n",
+        "es": "Completado\n"
+    },
+    {
+        "id": "L_MISC_046",
+        "en": "Incomplete\n",
+        "gb": "Incomplete\n",
+        "jp": "Incomplete\n",
+        "it": "Incompleto\n",
+        "fr": "Incomplet\n",
+        "de": "nicht erreicht\n",
+        "es": "Incompleto\n"
+    },
+    {
+        "id": "L_MISC_047",
+        "en": "Failed\n",
+        "gb": "Failed\n",
+        "jp": "Failed\n",
+        "it": "Fallito\n",
+        "fr": "Echec\n",
+        "de": "versagt\n",
+        "es": "Fallado\n"
+    },
+    {
+        "id": "L_MISC_068",
+        "en": "One minute left.\n",
+        "gb": "One minute left.\n",
+        "jp": "One minute left.\n",
+        "it": "Ancora un minuto.\n",
+        "fr": "Plus qu'une minute.\n",
+        "de": "Noch eine Minute.\n",
+        "es": "Queda un minuto.\n"
+    },
+    {
+        "id": "L_MISC_069",
+        "en": "OBJECTIVES FAILED - abort mission.\n",
+        "gb": "OBJECTIVES FAILED - abort mission.\n",
+        "jp": "OBJECTIVES FAILED - abort mission.\n",
+        "it": "OBIETTIVI FALLITI: interrompi missione!\n",
+        "fr": "OBJECTIFS NON ATTEINTS - abandonner mission.\n",
+        "de": "ZIELERREICHUNG UNGENÜGEND - Mission abbrechen.\n",
+        "es": "OBJETIVOS FALLADOS - abortar misión.\n"
+    },
+    {
+        "id": "L_MISC_070",
+        "en": "Guard Greeting\n",
+        "gb": "Guard Greeting\n",
+        "jp": "Guard Greeting\n",
+        "it": "Saluto guardia\n",
+        "fr": "Salutations Garde\n",
+        "de": "Wachgruß.\n",
+        "es": "Saludos del Guarda\n"
+    },
+    {
+        "id": "L_MISC_071",
+        "en": "What's that gun?\n",
+        "gb": "What's that gun?\n",
+        "jp": "What's that gun?\n",
+        "it": "Cos'è quella pistola?\n",
+        "fr": "C'est quoi ce flingue?\n",
+        "de": "Was soll die Waffe?\n",
+        "es": "¿Qué arma es ésa?\n"
+    },
+    {
+        "id": "L_MISC_072",
+        "en": "Don't point that gun at me.\n",
+        "gb": "Don't point that gun at me.\n",
+        "jp": "Don't point that gun at me.\n",
+        "it": "Non puntarla a me.\n",
+        "fr": "Ne pointe pas ça sur moi.\n",
+        "de": "Zielen Sie nicht auf mich!\n",
+        "es": "No me apuntes con ese arma.\n"
+    },
+    {
+        "id": "L_MISC_073",
+        "en": "S\/MPS",
+        "gb": "S\/MPS",
+        "jp": "S\/MPS",
+        "it": "v\/ms",
+        "fr": "Vit\/MPS",
+        "de": "S\/MPS",
+        "es": "v\/mps"
+    },
+    {
+        "id": "L_MISC_074",
+        "en": "H\/M",
+        "gb": "H\/M",
+        "jp": "H\/M",
+        "it": "h\/m",
+        "fr": "Hau\/M",
+        "de": "H\/M",
+        "es": "a\/m"
+    },
+    {
+        "id": "L_MISC_075",
+        "en": "Y\/D",
+        "gb": "Y\/D",
+        "jp": "Y\/D",
+        "it": "i\/g",
+        "fr": "Dev\/D",
+        "de": "Y\/D",
+        "es": "x\/°"
+    },
+    {
+        "id": "L_MISC_076",
+        "en": "P\/D",
+        "gb": "P\/D",
+        "jp": "P\/D",
+        "it": "t\/g",
+        "fr": "Ang\/D",
+        "de": "P\/D",
+        "es": "y\/°"
+    },
+    {
+        "id": "L_MISC_077",
+        "en": "CI 2023",
+        "gb": "CI 2023",
+        "jp": "CI 2023",
+        "it": "CI 2023",
+        "fr": "IC 2023",
+        "de": "CI 2023",
+        "es": "IC 2023"
+    },
+    {
+        "id": "L_MISC_078",
+        "en": "YKK: 95935",
+        "gb": "YKK: 95935",
+        "jp": "YKK: 95935",
+        "it": "YKK: 95935",
+        "fr": "YKK: 95935",
+        "de": "YKK: 95935",
+        "es": "YKK: 95935"
+    },
+    {
+        "id": "L_MISC_079",
+        "en": "CAMSPY",
+        "gb": "CAMSPY",
+        "jp": "CAMSPY",
+        "it": "TELESPIA",
+        "fr": "CAMSPY",
+        "de": "CAMSPY",
+        "es": "CAMSPY"
+    },
+    {
+        "id": "L_MISC_080",
+        "en": "MODEL 1.2",
+        "gb": "MODEL 1.2",
+        "jp": "MODEL 1.2",
+        "it": "MODELLO 1.2",
+        "fr": "MODELE 1.2",
+        "de": "MODEL 1.2",
+        "es": "MODELO 1.2"
+    },
+    {
+        "id": "L_MISC_081",
+        "en": "GYROSTAT",
+        "gb": "GYROSTAT",
+        "jp": "GYROSTAT",
+        "it": "GYROSTAT",
+        "fr": "GYROSTAT",
+        "de": "GYROSTAT",
+        "es": "GIROSTATO"
+    },
+    {
+        "id": "L_MISC_082",
+        "en": "Meat",
+        "gb": "Meat",
+        "jp": "Meat",
+        "it": "Pappa",
+        "fr": "Cool",
+        "de": "Opfer",
+        "es": "Muy Fácil"
+    },
+    {
+        "id": "L_MISC_083",
+        "en": "Easy",
+        "gb": "Easy",
+        "jp": "Easy",
+        "it": "Facile",
+        "fr": "Facile",
+        "de": "Leicht",
+        "es": "Fácil"
+    },
+    {
+        "id": "L_MISC_084",
+        "en": "Normal",
+        "gb": "Normal",
+        "jp": "Normal",
+        "it": "Normal",
+        "fr": "Normal",
+        "de": "Normal",
+        "es": "Normal"
+    },
+    {
+        "id": "L_MISC_085",
+        "en": "Hard",
+        "gb": "Hard",
+        "jp": "Hard",
+        "it": "Tosto",
+        "fr": "Difficile",
+        "de": "Schwer",
+        "es": "Difícil"
+    },
+    {
+        "id": "L_MISC_086",
+        "en": "Perfect",
+        "gb": "Perfect",
+        "jp": "Perfect",
+        "it": "Perfect",
+        "fr": "Perfect",
+        "de": "Perfekt",
+        "es": "Perfecto"
+    },
+    {
+        "id": "L_MISC_087",
+        "en": "Dark",
+        "gb": "Dark",
+        "jp": "Dark",
+        "it": "Dark",
+        "fr": "Dark",
+        "de": "Dark",
+        "es": "Oscuro"
+    },
+    {
+        "id": "L_MISC_088",
+        "en": "MeatSim",
+        "gb": "MeatSim",
+        "jp": "MeatSim",
+        "it": "RepPappa",
+        "fr": "Cool-Sim",
+        "de": "OpferSim",
+        "es": "SimMFácil"
+    },
+    {
+        "id": "L_MISC_089",
+        "en": "EasySim",
+        "gb": "EasySim",
+        "jp": "EasySim",
+        "it": "RepFacile",
+        "fr": "Facile-Sim",
+        "de": "LeichtSim",
+        "es": "SimFácil"
+    },
+    {
+        "id": "L_MISC_090",
+        "en": "NormalSim",
+        "gb": "NormalSim",
+        "jp": "NormalSim",
+        "it": "RepNormal",
+        "fr": "Normal-Sim",
+        "de": "NormalSim",
+        "es": "SimNormal"
+    },
+    {
+        "id": "L_MISC_091",
+        "en": "HardSim",
+        "gb": "HardSim",
+        "jp": "HardSim",
+        "it": "RepTosto",
+        "fr": "Difficile-Sim",
+        "de": "SchwerSim",
+        "es": "SimDifíci"
+    },
+    {
+        "id": "L_MISC_092",
+        "en": "PerfectSim",
+        "gb": "PerfectSim",
+        "jp": "PerfectSim",
+        "it": "RepPerfect",
+        "fr": "Perfect-Sim",
+        "de": "PerfektSim",
+        "es": "SimPerfec"
+    },
+    {
+        "id": "L_MISC_093",
+        "en": "DarkSim",
+        "gb": "DarkSim",
+        "jp": "DarkSim",
+        "it": "RepDark",
+        "fr": "Dark-Sim",
+        "de": "DarkSim",
+        "es": "SimOscuro"
+    },
+    {
+        "id": "L_MISC_094",
+        "en": "PeaceSim",
+        "gb": "PeaceSim",
+        "jp": "PeaceSim",
+        "it": "RepPace",
+        "fr": "Peace-Sim",
+        "de": "PazifistSim",
+        "es": "SimPaz"
+    },
+    {
+        "id": "L_MISC_095",
+        "en": "ShieldSim",
+        "gb": "ShieldSim",
+        "jp": "ShieldSim",
+        "it": "RepScudo",
+        "fr": "Armu-Sim",
+        "de": "SchildSim",
+        "es": "SimEscudo"
+    },
+    {
+        "id": "L_MISC_096",
+        "en": "RocketSim",
+        "gb": "RocketSim",
+        "jp": "RocketSim",
+        "it": "RepMissile",
+        "fr": "Roket-Sim",
+        "de": "RaketenSim",
+        "es": "SimCohete"
+    },
+    {
+        "id": "L_MISC_097",
+        "en": "KazeSim",
+        "gb": "KazeSim",
+        "jp": "KazeSim",
+        "it": "RepKaze",
+        "fr": "Kaze-Sim",
+        "de": "SuizidSim",
+        "es": "SimKamika"
+    },
+    {
+        "id": "L_MISC_098",
+        "en": "FistSim",
+        "gb": "FistSim",
+        "jp": "FistSim",
+        "it": "RepPugno",
+        "fr": "Poing-Sim",
+        "de": "FaustSim",
+        "es": "SimLucha"
+    },
+    {
+        "id": "L_MISC_099",
+        "en": "PreySim",
+        "gb": "PreySim",
+        "jp": "PreySim",
+        "it": "RepPreda",
+        "fr": "Proie-Sim",
+        "de": "JägerSim",
+        "es": "SimPresa"
+    },
+    {
+        "id": "L_MISC_100",
+        "en": "CowardSim",
+        "gb": "CowardSim",
+        "jp": "CowardSim",
+        "it": "RepCodar",
+        "fr": "Lâche-Sim",
+        "de": "FeiglingSim",
+        "es": "SimCobard"
+    },
+    {
+        "id": "L_MISC_101",
+        "en": "JudgeSim",
+        "gb": "JudgeSim",
+        "jp": "JudgeSim",
+        "it": "RegGiusto",
+        "fr": "Juge-Sim",
+        "de": "JustizSim",
+        "es": "SimJuez"
+    },
+    {
+        "id": "L_MISC_102",
+        "en": "FeudSim",
+        "gb": "FeudSim",
+        "jp": "FeudSim",
+        "it": "RepLite",
+        "fr": "Fixe-Sim",
+        "de": "VendetSim",
+        "es": "SimPelea"
+    },
+    {
+        "id": "L_MISC_103",
+        "en": "SpeedSim",
+        "gb": "SpeedSim",
+        "jp": "SpeedSim",
+        "it": "RepAgile",
+        "fr": "Speed-Sim",
+        "de": "SpeedSim",
+        "es": "SimVeloz"
+    },
+    {
+        "id": "L_MISC_104",
+        "en": "TurtleSim",
+        "gb": "TurtleSim",
+        "jp": "TurtleSim",
+        "it": "RepTarta",
+        "fr": "Tortue-Sim",
+        "de": "TurtleSim",
+        "es": "SimTortug"
+    },
+    {
+        "id": "L_MISC_105",
+        "en": "VengeSim",
+        "gb": "VengeSim",
+        "jp": "VengeSim",
+        "it": "RepVendi",
+        "fr": "Venge-Sim",
+        "de": "RacheSim",
+        "es": "SimVengan"
+    },
+    {
+        "id": "L_MISC_106",
+        "en": "MeatSim:  This is the easiest of all the simulants to defeat and is, therefore, the best choice for the beginner.  It is not very intelligent, and its shooting skills are very poor.\n",
+        "gb": "MeatSim:  This is the easiest of all the simulants to defeat and is, therefore, the best choice for the beginner.  It is not very intelligent, and its shooting skills are very poor.\n",
+        "jp": "MeatSim:  This is the easiest of all the simulants to defeat and is, therefore, the best choice for the beginner.  It is not very intelligent, and its shooting skills are very poor.\n",
+        "it": "RepPappa:  È il replicante più facile da battere, un vero pappamolle e quindi il migliore per i principianti.  Non è molto intelligente e quasi incapace di sparare.\n",
+        "fr": "Cool-Sim:  c'est le plus facile des simulants. Un excellent choix pour un débutant.  Il n'est pas très malin et vise très mal.\n",
+        "de": "OpferSim:  Der am leichtesten zu besiegende Simulant. Eignet sich daher hervorragend für Einsteiger.  Der Simulant ist nicht sonderlich intelligent und ist zudem ein mäßiger Schütze.\n",
+        "es": "SimMFácil:  Éste es el simulante más fácil de derrotar, y por lo tanto, la mejor elección para los principiantes.  No es muy inteligente, y su tiro es bastante pobre.\n"
+    },
+    {
+        "id": "L_MISC_107",
+        "en": "EasySim:  This simulant has basic skills and intelligence, but it can still be dangerous.\n",
+        "gb": "EasySim:  This simulant has basic skills and intelligence, but it can still be dangerous.\n",
+        "jp": "EasySim:  This simulant has basic skills and intelligence, but it can still be dangerous.\n",
+        "it": "RepFacile:  È dotato di abilità e intelligenza elementari, ma può rivelarsi pericoloso.\n",
+        "fr": "Facile-Sim:  Ce simulant a des capacités de base mais il peut être dangereux.\n",
+        "de": "LeichtSim:  Der Simulant verfügt zwar nur über Basis-Intelligenz und -Fähigkeiten, ist aber trotzdem nicht ungefährlich.\n",
+        "es": "SimFácil:  Este simulante tiene inteligencia y habilidades básicas; aún así puede ser peligroso.\n"
+    },
+    {
+        "id": "L_MISC_108",
+        "en": "NormalSim:  This simulant is as skilled as the average human player.\n",
+        "gb": "NormalSim:  This simulant is as skilled as the average human player.\n",
+        "jp": "NormalSim:  This simulant is as skilled as the average human player.\n",
+        "it": "RepNormal:  Le sue abilità sono come quelle di un giocatore umano medio.\n",
+        "fr": "Normal-Sim:  Ce simulant a les mêmes capacités que le joueur humain moyen.\n",
+        "de": "NormalSim:  Der Simulant verfügt über das Geschick eines menschlichen Spielers.\n",
+        "es": "SimNormal:  Este simulante es tan habilidoso como un jugador humano normal y corriente.\n"
+    },
+    {
+        "id": "L_MISC_109",
+        "en": "HardSim:  This simulant is as skilled as a good human player.\n",
+        "gb": "HardSim:  This simulant is as skilled as a good human player.\n",
+        "jp": "HardSim:  This simulant is as skilled as a good human player.\n",
+        "it": "RepTosto: Le sue abilità sono come quelle di un giocatore umano bravo.\n",
+        "fr": "Difficile-Sim:  Ce simulant a les mêmes capacités qu'un bon joueur humain.\n",
+        "de": "SchwerSim:  Der Simulant verfügt über das Geschick eines guten menschlichen Spielers.\n",
+        "es": "SimDifíci:  Este simulante es tan habilidoso como un buen jugador humano.\n"
+    },
+    {
+        "id": "L_MISC_110",
+        "en": "PerfectSim: The ultimate adversary, the most intelligent and skilled simulant.  Most players will eventually want to use PerfectSim all the time as their skills improve.\n",
+        "gb": "PerfectSim: The ultimate adversary, the most intelligent and skilled simulant.  Most players will eventually want to use PerfectSim all the time as their skills improve.\n",
+        "jp": "PerfectSim: The ultimate adversary, the most intelligent and skilled simulant.  Most players will eventually want to use PerfectSim all the time as their skills improve.\n",
+        "it": "RepPerfect: L'avversario ultimo: il più intelligente e abile. Da usarsi per un miglioramento continuo delle proprie capacità.\n",
+        "fr": "Perfect-Sim: L'adversaire ultime, le plus intelligent et habile des simulants.  Les joueurs choisissent souvent le Perfect-Sim pour améliorer leurs capacités.\n",
+        "de": "PerfektSim: Der ultimative Gegner. Äußerst intelligent und unberechenbar. Viele Spieler werden bevorzugt gegen ihn antreten, da sich ihre eigenen Fähigkeiten dadurch ständig verbessern.\n",
+        "es": "SimPerfec: El adversario definitivo. El simulante más inteligente y habilidoso.  La mayoría de jugadores querrán usar a SimPerfecto todo el tiempo para mejorar sus habilidades.\n"
+    },
+    {
+        "id": "L_MISC_111",
+        "en": "DarkSim: Prototype cyborg developed by dataDyne to counteract Carrington operatives.  Remember that this simulant, unlike all the others, is not human.  This means that it may be able to do things which a human cannot.\n",
+        "gb": "DarkSim: Prototype cyborg developed by dataDyne to counteract Carrington operatives.  Remember that this simulant, unlike all the others, is not human.  This means that it may be able to do things which a human cannot.\n",
+        "jp": "DarkSim: Prototype cyborg developed by dataDyne to counteract Carrington operatives.  Remember that this simulant, unlike all the others, is not human.  This means that it may be able to do things which a human cannot.\n",
+        "it": "RepDark: Prototipo cibernetico sviluppato dalla dataDyne per contrastare gli agenti di Carrington. Ricorda che questo replicante al contrario degli altri non è umano, quindi potrebbe avere abilità sovrumane!\n",
+        "fr": "Dark-Sim: Prototype de cyborg développé par la dataDyne pour affronter les agents Carrington. Attention: ce simulant n'est pas humain. Il peut donc faire ce qui est humainement impossible.\n",
+        "de": "DarkSim: Ein Cyborg-Prototyp, der von dataDyne entwickelt wurde, um gegen das Institut vorzugehen. Beachten Sie, dass dieser Simulant, im Gegensatz zu den anderen, nicht menschlich ist. Daher kann er Dinge tun, die Menschen nicht tun können.\n",
+        "es": "SimOscuro: Prototipo cibernético desarrollado por dataDyne para contrarrestar las acciones de Carrington.  Recuerda que este simulante no es humano.  Esto significa que es capaz de hacer cosas que un humano no puede.\n"
+    },
+    {
+        "id": "L_MISC_112",
+        "en": "PeaceSim:  These simulants are scientists who protest the use of weapons.  They will go around the level hunting for guns that are lying around and hoard them so that players cannot use them.  Of course, if you were to shoot them, they might just drop a few!\n",
+        "gb": "PeaceSim:  These simulants are scientists who protest the use of weapons.  They will go around the level hunting for guns that are lying around and hoard them so that players cannot use them.  Of course, if you were to shoot them, they might just drop a few!\n",
+        "jp": "PeaceSim:  These simulants are scientists who protest the use of weapons.  They will go around the level hunting for guns that are lying around and hoard them so that players cannot use them.  Of course, if you were to shoot them, they might just drop a few!\n",
+        "it": "RepPace:  È un replicante-scienziato che protesta contro l'uso delle armi. Va in giro per i piani allaricerca di armi per nasconderle in modo che il giocatore non possa usarle. Sparandogli è probabile che glienecadano alcune!\n",
+        "fr": "Peace-Sim:  Un scientifique refusant d'utiliser une arme.  Il recherche et récupère les armes dans le niveau pour que les joueurs ne les utilisent pas. Vous pouvez bien sûr lui tirer dessus et il en fera peut-être tomber!\n",
+        "de": "PazifistSim:  Diese Simulanten sind Wissenschaftler, die keine Waffen einsetzen. Sie gehen durch die Level, um herumliegende Waffen einzusammeln, sodass der Spieler sie nicht finden kann. Wenn Sie aber auf sie schießen, lassen sie vielleicht die Waffen fallen.\n",
+        "es": "SimPaz:  Estos simulantes son científicos que protestan contra el uso de armas.  Recorren el nivel buscando armas y las recogen para que el jugador no pueda usarlas.  Por supuesto, si les disparas un poco... ¡no les importará soltarlas!\n"
+    },
+    {
+        "id": "L_MISC_113",
+        "en": "ShieldSim:  Always goes for maximum shield protection.  If this simulant loses any shield energy, it will go and search for a new shield.  Not much use if there are no shields on the level!\n",
+        "gb": "ShieldSim:  Always goes for maximum shield protection.  If this simulant loses any shield energy, it will go and search for a new shield.  Not much use if there are no shields on the level!\n",
+        "jp": "ShieldSim:  Always goes for maximum shield protection.  If this simulant loses any shield energy, it will go and search for a new shield.  Not much use if there are no shields on the level!\n",
+        "it": "RepScudo:  È sempre alla ricerca del massimo scudo protettivo. Se perde energia, andrà alla ricerca di unnuovo scudo. Peggio per lui se su quel piano non ci sono scudi!\n",
+        "fr": "Armu-Sim:  Il cherche toujours la meilleure protection. Si ce simulant perd de l'énergie, Il ira chercher un nouveau bouclier. Cela n'a aucun intérêt s'il n'y a pas de bouclier dans le niveau!\n",
+        "de": "SchildSim:  Achtet immer auf maximalen Schild-Schutz. Verliert dieser Simulant seinen Schild, zieht er los,  um einen neuen zu suchen. Das hat natürlich wenig Sinn, wenn keine Schilde vorhanden sind!\n",
+        "es": "SimEscudo:  Siempre busca la máxima protección de escudo.  Si este simulante pierde algo de energía de su escudo, irá en busca de uno nuevo.  ¡No tiene mucha utilidad si no hay escudos en el nivel!\n"
+    },
+    {
+        "id": "L_MISC_114",
+        "en": "RocketSim:  This simulant loves to see things blow up.  It prefers weapons which make big explosions over conventional handguns or automatics.  This also extends to weapons which have explosive secondary functions!\n",
+        "gb": "RocketSim:  This simulant loves to see things blow up.  It prefers weapons which make big explosions over conventional handguns or automatics.  This also extends to weapons which have explosive secondary functions!\n",
+        "jp": "RocketSim:  This simulant loves to see things blow up.  It prefers weapons which make big explosions over conventional handguns or automatics.  This also extends to weapons which have explosive secondary functions!\n",
+        "it": "RepMissile:  Adora le esplosioni: preferisce le armi che provocano violente deflagrazioni alle pistole convenzionali e alle mitragliatrici. Questo vale anche per le armi con funzioni esplosive secondarie!\n",
+        "fr": "Roket-Sim:  Ce simulant adore tout faire sauter. Il préfère l'armement explosif plutôt que des pistolets ou des automatiques. C'est aussi vrai pour les armes au tir secondaire explosif!\n",
+        "de": "RaketenSim:  Dieser Simulant liebt es, Dinge in die Luft zu jagen. Er zieht Explosions-Waffen gegenüber Pistolen und Automatik-Gewehren vor. Zu ersteren gehören auch Waffen, die eine 'explosive' Sekundär-Funktion haben.\n",
+        "es": "SimCohete:  A este simulante le encanta ver cosas explotar.  Prefiere armas explosivas antes que las convencionales pistolas o automáticas.  ¡Esto también se extiende a las armas que tienen funciones secundarias explosivas!\n"
+    },
+    {
+        "id": "L_MISC_115",
+        "en": "KazeSim:  This simulant will stop at nothing to destroy its target.  It is very aggressive and never keeps its distance - even if it's holding a grenade!  Be very careful of an adversary who is not afraid to die.\n",
+        "gb": "KazeSim:  This simulant will stop at nothing to destroy its target.  It is very aggressive and never keeps its distance - even if it's holding a grenade!  Be very careful of an adversary who is not afraid to die.\n",
+        "jp": "KazeSim:  This simulant will stop at nothing to destroy its target.  It is very aggressive and never keeps its distance - even if it's holding a grenade!  Be very careful of an adversary who is not afraid to die.\n",
+        "it": "RepKaze:  Il suo scopo è distruggere l'avversario ad ogni costo. È molto aggressivo e non prende maile distanze... neanche da una granata! Non ha paura di morire e perciò è molto pericoloso.\n",
+        "fr": "Kaze-Sim:  Ce simulant ne recule devant rien pour détruire sa cible. Il est très aggressif et ne garde jamais ses distances - même s'il tient une grenade! Faites attention à quelqu'un qui n'a pas peur de mourir.\n",
+        "de": "SuizidSim:  Dieser Simulant lässt sich durch nichts aufhalten. Er ist sehr aggressiv und hält keine Distanz zum Gegner. Auch nicht, wenn er eine Granate hält!  Seien Sie äußerst vorsichtig, denn dieser Gegner kennt keine Angst.\n",
+        "es": "SimKamika:  Este simulante no se detendrá ante nada para destruir a su blanco.  Es muy agresivo y nunca cuida las distancias: ¡Incluso cuando lleva una granada!  Sé muy cuidadoso de este adversario que no tiene miedo a morir.\n"
+    },
+    {
+        "id": "L_MISC_116",
+        "en": "FistSim:  This simulant protests the use of weapons in a similar way to the PeaceSims.  However, it has no such reservations when it comes to unarmed combat.  It will always try to use its fists to attack or disarm its opponent.\n",
+        "gb": "FistSim:  This simulant protests the use of weapons in a similar way to the PeaceSims.  However, it has no such reservations when it comes to unarmed combat.  It will always try to use its fists to attack or disarm its opponent.\n",
+        "jp": "FistSim:  This simulant protests the use of weapons in a similar way to the PeaceSims.  However, it has no such reservations when it comes to unarmed combat.  It will always try to use its fists to attack or disarm its opponent.\n",
+        "it": "RepPugno:  Come il RepPace anche questo replicante è contro l'uso delle armi. Tuttavia non è contro la lotta a mani nude:usa i pugni per cercare di stendere o disarmare l'avversario.\n",
+        "fr": "Poing-Sim:  Tout comme le Peace-Sim, ce simulant déteste les armes mais il est en revanche un adversaire teigneux. Il tentera sans arrêt d'assommer ou de désarmer ses adversaires à mains nues.\n",
+        "de": "FaustSim:  Dieser Simulant verwendet, ähnlich wie der PazifistSim, keine Waffen.  Kommt es aber zum Kampf, wird er seine Fäuste einsetzen.  Er wird ständig versuchen, seinen Gegner zu entwaffnen.\n",
+        "es": "SimLucha:  Este simulante protesta por el uso de armas al igual que hacen los SimPaz.  Aún así, no tiene reservas a la hora de combatir desarmado.  Siempre intentará usar sus puños para atacar o desarmar a su oponente.\n"
+    },
+    {
+        "id": "L_MISC_117",
+        "en": "PreySim:  This simulant prefers to prey on the weak in order to get easier kills.  It will look for players who have just respawned, have an inferior weapon, or are low on health.\n",
+        "gb": "PreySim:  This simulant prefers to prey on the weak in order to get easier kills.  It will look for players who have just respawned, have an inferior weapon, or are low on health.\n",
+        "jp": "PreySim:  This simulant prefers to prey on the weak in order to get easier kills.  It will look for players who have just respawned, have an inferior weapon, or are low on health.\n",
+        "it": "RepPreda:  Preferisce scagliarsi su avversari deboli per vincere facilmente. Cerca avversariprincipianti, muniti di arma meno potente o in cattiva salute.\n",
+        "fr": "Proie-Sim:  Ce simulant préfère attaquer les faibles pour tuer plus de monde. Il recherche les joueurs neufs et désarmés ou encore ceux affaiblis par un combat.\n",
+        "de": "JägerSim:  Dieser Simulant jagt bevorzugt schwächere Gegner.  Er sucht nach Spielern, die die gerade erst erschienen sind, über schwache Bewaffnung verfügen oder wenig Energie haben.\n",
+        "es": "SimPresa:  Este simulante prefiere cebarse en los débiles para conseguir muertes fáciles.  Buscará jugadores que acaben de salir, tengan un arma inferior, o tengan poca salud.\n"
+    },
+    {
+        "id": "L_MISC_118",
+        "en": "CowardSim:  This simulant does not really want to fight and will try to survive by running away.  It may sometimes attack, but only if the opponent has an inferior weapon.  Draw out a better gun or shoot it, and it will run away!\n",
+        "gb": "CowardSim:  This simulant does not really want to fight and will try to survive by running away.  It may sometimes attack, but only if the opponent has an inferior weapon.  Draw out a better gun or shoot it, and it will run away!\n",
+        "jp": "CowardSim:  This simulant does not really want to fight and will try to survive by running away.  It may sometimes attack, but only if the opponent has an inferior weapon.  Draw out a better gun or shoot it, and it will run away!\n",
+        "it": "RepCodar:  Piuttosto che combattere preferisce cercare scampo nella fuga. Attacca raramente e solo se l'avversario ha un'arma meno potente. Sfoderando un'arma migliore o sparando, scapperà!\n",
+        "fr": "Lâche-Sim:  Ce simulant ne veut pas combattre et préfère fuir pour survivre. Il peut attaquer de temps en temps mais seulement si l'adversaire a un armement inférieur au sien. Utilisez une arme puissante ou tirez-lui dessus et il s'enfuira!\n",
+        "de": "FeiglingSim:  Dieser Simulant wird eher sein Heil in der Flucht suchen, als zu kämpfen.  Er kann zwar hin und wieder attackieren, aber nur, wenn sein Gegner über eine schwache Waffe verfügt.  Ziehen Sie eine stärkere Waffe, und er wird flüchten!\n",
+        "es": "SimCobard:  Este simulante no quiere luchar, así que huirá para intentar sobrevivir.  A veces atacará, pero sólo si el oponente tiene un arma inferior.  ¡Saca un arma mayor o dispárale, y saldrá corriendo!\n"
+    },
+    {
+        "id": "L_MISC_119",
+        "en": "JudgeSim:  This simulant has a strong sense of justice and despises the tactics of the PreySim.  It will always try to kill the winning player in order to even up the score.\n",
+        "gb": "JudgeSim:  This simulant has a strong sense of justice and despises the tactics of the PreySim.  It will always try to kill the winning player in order to even up the score.\n",
+        "jp": "JudgeSim:  This simulant has a strong sense of justice and despises the tactics of the PreySim.  It will always try to kill the winning player in order to even up the score.\n",
+        "it": "RepGiusto:  Ha un forte senso della giustizia e disprezza la strategia del RepPreda. Cerca sempre di colpireil giocatore in vantaggio per pareggiare il risultato.\n",
+        "fr": "Juge-Sim:  Ce simulant est loyal et il déteste les méthodes du Proie-Sim. Il essaiera de tuer le joueur en tête pour arrondir les scores.\n",
+        "de": "JustizSim:  Dieser Simulant hat einen starken Gerechtigkeitssinn. Daher verurteilt er die Taktiken des JägerSim.  Er wird immer den stärksten Spieler verfolgen, um für einen gleichmäßigen Score zu sorgen.\n",
+        "es": "SimJuez:  Este simulante tiene un gran sentido de la justicia y desprecia las tácticas del SimPresa.  Siempre intentará matar al jugador que vaya ganando para así igualar los marcadores.\n"
+    },
+    {
+        "id": "L_MISC_120",
+        "en": "FeudSim:  Once this simulant picks a target, that player had better watch out!  A FeudSim will pursue the player until the game is over!  Even if it is killed, it will bear its grudge.\n",
+        "gb": "FeudSim:  Once this simulant picks a target, that player had better watch out!  A FeudSim will pursue the player until the game is over!  Even if it is killed, it will bear its grudge.\n",
+        "jp": "FeudSim:  Once this simulant picks a target, that player had better watch out!  A FeudSim will pursue the player until the game is over!  Even if it is killed, it will bear its grudge.\n",
+        "it": "RepLite:  Una volta che ha identificato un bersaglio, meglio tenere gli occhi aperti!  Un RepLiteinseguirà quel giocatore fino alla fine! Serba rancore anche dopo la morte.\n",
+        "fr": "Fixe-Sim:  Si ce simulant choisit une cible, celle-ci doit faire attention! Un Fixe-Sim poursuit un joueur jusqu'à la fin de la partie! Même tué, il reviendra à la charge.\n",
+        "de": "VendetSim:  Hat sich dieser Simulant ein Opfer ausgesucht, sollte der Spieler sehr vorsichtig sein!  Ein VendetSim verfolgt diesen Spieler, bis das Spiel vorüber ist!  Er schreckt eventuell auch nicht vor einem Kamikaze-Angriff zurück.\n",
+        "es": "SimPelea:  ¡Cuando este simulante escoge objetivo, el jugador debe tener mucho cuidado!  ¡Un SimPelea perseguirá al jugador hasta que se acabe el juego!  Aunque muera, seguirá guardándote rencor.\n"
+    },
+    {
+        "id": "L_MISC_121",
+        "en": "SpeedSim:  These simulants have been trained for speed.  They can easily outrun a human player, so it's no use  running away from a SpeedSim unless you know some good shortcuts!\n",
+        "gb": "SpeedSim:  These simulants have been trained for speed.  They can easily outrun a human player, so it's no use  running away from a SpeedSim unless you know some good shortcuts!\n",
+        "jp": "SpeedSim:  These simulants have been trained for speed.  They can easily outrun a human player, so it's no use  running away from a SpeedSim unless you know some good shortcuts!\n",
+        "it": "RepAgile:  È agilissimo e velocissimo: corre molto più veloce del giocatore umano, quindi è inutile cercare di sfuggirgli a meno che si conosca una scorciatoia!\n",
+        "fr": "Speed-Sim:  Ce simulant est un as de la vitesse. Il est plus rapide qu'un joueur humain, il est alors inutile, à moins de connaître un raccourci, d'essayer de le semer!\n",
+        "de": "SpeedSim:  Diese Simulanten sind unglaublich schnell.  In Punkto Geschwindigkeit sind sie jedem Menschen überlegen, daher hat  es keinen Sinn, vor ihnen zu flüchten. (Es sei denn, Sie kennen eine Abkürzung.)\n",
+        "es": "SimVeloz:  Estos simulantes han sido entrenados para ser muy veloces.  ¡Pueden atrapar fácilmente a un humano, así que no huyas de un SimVeloz a menos que conozcas algún buen atajo!\n"
+    },
+    {
+        "id": "L_MISC_122",
+        "en": "TurtleSim:  This simulant wears a prototype shield generator developed by dataDyne scientists.  The generator projects a protective shield around its host which has twice the strength of a normal shield.  Unfortunately, this restricts the host's movement, so it can only move at a slow pace.  TurtleSims carry this shield as standard even if there are no shields on the level.\n",
+        "gb": "TurtleSim:  This simulant wears a prototype shield generator developed by dataDyne scientists.  The generator projects a protective shield around its host which has twice the strength of a normal shield.  Unfortunately, this restricts the host's movement, so it can only move at a slow pace.  TurtleSims carry this shield as standard even if there are no shields on the level.\n",
+        "jp": "TurtleSim:  This simulant wears a prototype shield generator developed by dataDyne scientists.  The generator projects a protective shield around its host which has twice the strength of a normal shield.  Unfortunately, this restricts the host's movement, so it can only move at a slow pace.  TurtleSims carry this shield as standard even if there are no shields on the level.\n",
+        "it": "RepTarta:  Indossa il prototipo del generatore scudo creato dagli scienziati dataDyne. Il generatore proietta attorno al suo corpo uno scudo protettivo due volte più potente di uno scudo normale. Questo però lo impedisce nei movimenti, per cui è molto lento. Il RepTarta è dotato di questo scudo anche se non ci sono scudi su quel piano.\n",
+        "fr": "Tortue-Sim:  Ce simulant porte un générateur de bouclier développé par les scientifiques de la dataDyne. Le générateur projète un bouclier deux fois plus résistant qu'un bouclier normal. Malheureusement, il réduit les mouvements de l'utilisateur. Le Tortue-Sim porte cet appareil même s'il n'y a aucun bouclier dans le niveau.\n",
+        "de": "TurtleSim:  Dieser Simulant verfügt über eine von dataDyne entwickelte Schildtechnologie.  Der Generator projiziert ein Schutzschild um seinen Träger, der doppelt so stark ist, wie ein normaler Schild.  Leider wird dadurch auch die Bewegungsfreiheit eingeschränkt, und er kann sich nur langsam bewegen.  TurtleSims tragen diesen Schild als  Standard-Ausrüstung, sogar, wenn es im aktuellen Level keine Schilde gibt.\n",
+        "es": "SimTortug:  Este simulante lleva un prototipo de generador de escudo creado por científicos de dataDyne.  El generador crea un escudo protector que posee el doble de fuerza que un escudo normal.  Desgraciadamente, restringe el movimiento del portador, así que se moverá muy despacio.  Los SimTortug llevan este escudo siempre, incluso si no hay escudos en el nivel.\n"
+    },
+    {
+        "id": "L_MISC_123",
+        "en": "VengeSim:  Be careful if you shoot or kill a VengeSim because it always attacks the player who last killed it.",
+        "gb": "VengeSim:  Be careful if you shoot or kill a VengeSim because it always attacks the player who last killed it.",
+        "jp": "VengeSim:  Be careful if you shoot or kill a VengeSim because it always attacks the player who last killed it.",
+        "it": "RepVendi:  Sparando o uccidendo un RepVendi, gli altri attaccheranno l'ultimo giocatore che l'ha attaccato o ucciso.",
+        "fr": "Venge-Sim:  Ce simulant attaquera toujours le dernier joueur à l'avoir attaqué ou tué. Réfléchissez avant de tirer.",
+        "de": "RacheSim:  Seien Sie vorsichtig, wenn Sie auf einen RacheSim schießen, da er danach nur seinen Bezwinger angreift.",
+        "es": "SimVengan:  Ten cuidado de no disparar o matar a un SimVengan, ya que siempre atacará al último jugador que le haya matado."
+    },
+    {
+        "id": "L_MISC_124",
+        "en": "Dark Combat",
+        "gb": "Dark Combat",
+        "jp": "Dark Combat",
+        "it": "Lotta Dark",
+        "fr": "Combat Dark",
+        "de": "Dark Combat",
+        "es": "Combate Oscuro"
+    },
+    {
+        "id": "L_MISC_125",
+        "en": "Skedar Mystery",
+        "gb": "Skedar Mystery",
+        "jp": "Skedar Mystery",
+        "it": "Mistero Skedar",
+        "fr": "Mystère skedar",
+        "de": "Skedar-Mysterium",
+        "es": "Misterio Skedar"
+    },
+    {
+        "id": "L_MISC_126",
+        "en": "CI Operative",
+        "gb": "CI Operative",
+        "jp": "CI Operative",
+        "it": "Funzionario CI",
+        "fr": "Agent IC",
+        "de": "CI-Operator",
+        "es": "Operativo IC"
+    },
+    {
+        "id": "L_MISC_127",
+        "en": "dataDyne Action",
+        "gb": "dataDyne Action",
+        "jp": "dataDyne Action",
+        "it": "Azione dataDyne",
+        "fr": "Action dataDyne",
+        "de": "dataDyne Action",
+        "es": "Acción dataDyne"
+    },
+    {
+        "id": "L_MISC_128",
+        "en": "Maian Tears",
+        "gb": "Maian Tears",
+        "jp": "Maian Tears",
+        "it": "Lacrime Maian",
+        "fr": "Pleurs maians",
+        "de": "Maianische Tränen",
+        "es": "Lágrimas Maian"
+    },
+    {
+        "id": "L_MISC_129",
+        "en": "Alien Conflict",
+        "gb": "Alien Conflict",
+        "jp": "Alien Conflict",
+        "it": "Conflitto Alieno",
+        "fr": "Conflit extrater.",
+        "de": "Alien-Konflikt",
+        "es": "Conflicto Alien"
+    },
+    {
+        "id": "L_MISC_130",
+        "en": "Carrington Institute",
+        "gb": "Carrington Institute",
+        "jp": "Carrington Institute",
+        "it": "Carrington Institute",
+        "fr": "Institut Carrington",
+        "de": "Carrington Institut",
+        "es": "Instituto Carrington"
+    },
+    {
+        "id": "L_MISC_131",
+        "en": "dD Central",
+        "gb": "dD Central",
+        "jp": "dD Central",
+        "it": "QG dataDyne",
+        "fr": "Centre dD",
+        "de": "dD Zentrale",
+        "es": "Central dD"
+    },
+    {
+        "id": "L_MISC_132",
+        "en": "dD Central X",
+        "gb": "dD Central X",
+        "jp": "dD Central X",
+        "it": "QG dataDyne X",
+        "fr": "Centre dD X",
+        "de": "dD Zentrale X",
+        "es": "Central dD X"
+    },
+    {
+        "id": "L_MISC_133",
+        "en": "dD Research",
+        "gb": "dD Research",
+        "jp": "dD Research",
+        "it": "Ricerca dD",
+        "fr": "Recherche dD",
+        "de": "dD Forschung",
+        "es": "Investigación dD"
+    },
+    {
+        "id": "L_MISC_134",
+        "en": "dD Research X",
+        "gb": "dD Research X",
+        "jp": "dD Research X",
+        "it": "Ricerca dD X",
+        "fr": "Recherche dD X",
+        "de": "dD Forschung X",
+        "es": "Investigación dD X"
+    },
+    {
+        "id": "L_MISC_135",
+        "en": "dD Extraction",
+        "gb": "dD Extraction",
+        "jp": "dD Extraction",
+        "it": "Estrazione dD",
+        "fr": "Extraction dD",
+        "de": "dD Extraktion",
+        "es": "Extracción dD"
+    },
+    {
+        "id": "L_MISC_136",
+        "en": "dD Extraction X",
+        "gb": "dD Extraction X",
+        "jp": "dD Extraction X",
+        "it": "Estrazione dD X",
+        "fr": "Extraction dD X",
+        "de": "dD Extraktion X",
+        "es": "Extracción dD X"
+    },
+    {
+        "id": "L_MISC_137",
+        "en": "Carrington Villa",
+        "gb": "Carrington Villa",
+        "jp": "Carrington Villa",
+        "it": "Villa Carrington",
+        "fr": "Villa Carrington",
+        "de": "Carrington Villa",
+        "es": "Villa Carrington"
+    },
+    {
+        "id": "L_MISC_138",
+        "en": "Carrington Villa X",
+        "gb": "Carrington Villa X",
+        "jp": "Carrington Villa X",
+        "it": "Villa Carrington X",
+        "fr": "Villa Carrington X",
+        "de": "Carrington Villa X",
+        "es": "Villa Carrington X"
+    },
+    {
+        "id": "L_MISC_139",
+        "en": "Chicago",
+        "gb": "Chicago",
+        "jp": "Chicago",
+        "it": "Chicago",
+        "fr": "Chicago",
+        "de": "Chicago",
+        "es": "Chicago"
+    },
+    {
+        "id": "L_MISC_140",
+        "en": "Chicago X",
+        "gb": "Chicago X",
+        "jp": "Chicago X",
+        "it": "Chicago X",
+        "fr": "Chicago X",
+        "de": "Chicago X",
+        "es": "Chicago X"
+    },
+    {
+        "id": "L_MISC_141",
+        "en": "G5 Building",
+        "gb": "G5 Building",
+        "jp": "G5 Building",
+        "it": "Edificio G5",
+        "fr": "Immeuble G5",
+        "de": "G5-Building",
+        "es": "Edificio G5"
+    },
+    {
+        "id": "L_MISC_142",
+        "en": "G5 Building X",
+        "gb": "G5 Building X",
+        "jp": "G5 Building X",
+        "it": "Edificio G5 X",
+        "fr": "Immeuble G5 X",
+        "de": "G5-Building X",
+        "es": "Edificio G5 X"
+    },
+    {
+        "id": "L_MISC_143",
+        "en": "A51 Infiltration",
+        "gb": "A51 Infiltration",
+        "jp": "A51 Infiltration",
+        "it": "Infiltrazione A51",
+        "fr": "Infiltration S-51",
+        "de": "A-51 Infiltration",
+        "es": "Infiltración A51"
+    },
+    {
+        "id": "L_MISC_144",
+        "en": "A51 Infiltration X",
+        "gb": "A51 Infiltration X",
+        "jp": "A51 Infiltration X",
+        "it": "Infiltrazione A51 X",
+        "fr": "Infiltration S-51 X",
+        "de": "A-51 Infiltration X",
+        "es": "Infiltración A51 X"
+    },
+    {
+        "id": "L_MISC_145",
+        "en": "A51 Rescue",
+        "gb": "A51 Rescue",
+        "jp": "A51 Rescue",
+        "it": "Salvataggio A51",
+        "fr": "Sauvetage S-51",
+        "de": "A-51 Rettung",
+        "es": "Rescate A51"
+    },
+    {
+        "id": "L_MISC_146",
+        "en": "A51 Rescue X",
+        "gb": "A51 Rescue X",
+        "jp": "A51 Rescue X",
+        "it": "Salvataggio A51 X",
+        "fr": "Sauvetage S-51 X",
+        "de": "A-51 Rettung X",
+        "es": "Rescate A51 X"
+    },
+    {
+        "id": "L_MISC_147",
+        "en": "A51 Escape",
+        "gb": "A51 Escape",
+        "jp": "A51 Escape",
+        "it": "Fuga A51",
+        "fr": "Fuite S-51",
+        "de": "A-51 Flucht",
+        "es": "Escape A51"
+    },
+    {
+        "id": "L_MISC_148",
+        "en": "A51 Escape X",
+        "gb": "A51 Escape X",
+        "jp": "A51 Escape X",
+        "it": "Fuga A51 X",
+        "fr": "Fuite S-51 X",
+        "de": "A-51 Flucht X",
+        "es": "Escape A51 X"
+    },
+    {
+        "id": "L_MISC_149",
+        "en": "Air Base",
+        "gb": "Air Base",
+        "jp": "Air Base",
+        "it": "Base aerea",
+        "fr": "Base aérienne",
+        "de": "Stützpunkt",
+        "es": "Base Aérea"
+    },
+    {
+        "id": "L_MISC_150",
+        "en": "Air Base X",
+        "gb": "Air Base X",
+        "jp": "Air Base X",
+        "it": "Base aerea X",
+        "fr": "Base aérienne X",
+        "de": "Stützpunkt X",
+        "es": "Base Aérea X"
+    },
+    {
+        "id": "L_MISC_151",
+        "en": "Air Force One",
+        "gb": "Air Force One",
+        "jp": "Air Force One",
+        "it": "Air Force One",
+        "fr": "Air Force One",
+        "de": "Air Force One",
+        "es": "Air Force One"
+    },
+    {
+        "id": "L_MISC_152",
+        "en": "Air Force One X",
+        "gb": "Air Force One X",
+        "jp": "Air Force One X",
+        "it": "Air Force One X",
+        "fr": "Air Force One X",
+        "de": "Air Force One X",
+        "es": "Air Force One X"
+    },
+    {
+        "id": "L_MISC_153",
+        "en": "Crash Site",
+        "gb": "Crash Site",
+        "jp": "Crash Site",
+        "it": "Luogo del disastro",
+        "fr": "Site du crash",
+        "de": "Absturzstelle",
+        "es": "Impacto"
+    },
+    {
+        "id": "L_MISC_154",
+        "en": "Crash Site X",
+        "gb": "Crash Site X",
+        "jp": "Crash Site X",
+        "it": "Luogo del disastro X",
+        "fr": "Site du crash X",
+        "de": "Absturzstelle X",
+        "es": "Impacto X"
+    },
+    {
+        "id": "L_MISC_155",
+        "en": "Pelagic II",
+        "gb": "Pelagic II",
+        "jp": "Pelagic II",
+        "it": "Pelagic II",
+        "fr": "Pelagic II",
+        "de": "Pelagic II",
+        "es": "Pelagic II"
+    },
+    {
+        "id": "L_MISC_156",
+        "en": "Pelagic II X",
+        "gb": "Pelagic II X",
+        "jp": "Pelagic II X",
+        "it": "Pelagic II X",
+        "fr": "Pelagic II X",
+        "de": "Pelagic II X",
+        "es": "Pelagic II X"
+    },
+    {
+        "id": "L_MISC_157",
+        "en": "Deep Sea",
+        "gb": "Deep Sea",
+        "jp": "Deep Sea",
+        "it": "Abissi oceanici",
+        "fr": "Sous-marin",
+        "de": "Tiefsee",
+        "es": "Mar Profundo"
+    },
+    {
+        "id": "L_MISC_158",
+        "en": "Deep Sea X",
+        "gb": "Deep Sea X",
+        "jp": "Deep Sea X",
+        "it": "Abissi oceanici X",
+        "fr": "Sous-marin X",
+        "de": "Tiefsee X",
+        "es": "Mar Profundo X"
+    },
+    {
+        "id": "L_MISC_159",
+        "en": "Institute Defense",
+        "gb": "Institute Defense",
+        "jp": "Institute Defense",
+        "it": "Difesa dell'istituto",
+        "fr": "Défense Institut",
+        "de": "Verteidigung",
+        "es": "Defensa Instituto"
+    },
+    {
+        "id": "L_MISC_160",
+        "en": "Institute Defense X",
+        "gb": "Institute Defense X",
+        "jp": "Institute Defense X",
+        "it": "Difesa dell'istituto X",
+        "fr": "Défense Institut X",
+        "de": "Verteidigung X",
+        "es": "Defensa Instituto X"
+    },
+    {
+        "id": "L_MISC_161",
+        "en": "Attack Ship",
+        "gb": "Attack Ship",
+        "jp": "Attack Ship",
+        "it": "Astronave Skedar",
+        "fr": "Croiseur",
+        "de": "Feindliches Schiff",
+        "es": "Acorazado"
+    },
+    {
+        "id": "L_MISC_162",
+        "en": "Attack Ship X",
+        "gb": "Attack Ship X",
+        "jp": "Attack Ship X",
+        "it": "Astronave Skedar X",
+        "fr": "Croiseur X",
+        "de": "Feindliches Schiff X",
+        "es": "Acorazado X"
+    },
+    {
+        "id": "L_MISC_163",
+        "en": "Skedar Ruins",
+        "gb": "Skedar Ruins",
+        "jp": "Skedar Ruins",
+        "it": "Rovine Skedar",
+        "fr": "Ruines Skedars",
+        "de": "Skedar Ruinen",
+        "es": "Ruinas Skedar"
+    },
+    {
+        "id": "L_MISC_164",
+        "en": "Skedar Ruins X",
+        "gb": "Skedar Ruins X",
+        "jp": "Skedar Ruins X",
+        "it": "Rovine Skedar X",
+        "fr": "Ruines Skedars X",
+        "de": "Skedar Ruinen X",
+        "es": "Ruinas Skedar X"
+    },
+    {
+        "id": "L_MISC_165",
+        "en": "End Credits",
+        "gb": "End Credits",
+        "jp": "End Credits",
+        "it": "Titoli di coda",
+        "fr": "Générique de fin",
+        "de": "End Credits",
+        "es": "Créditos "
+    },
+    {
+        "id": "L_MISC_166",
+        "en": "Random\n",
+        "gb": "Random\n",
+        "jp": "Random\n",
+        "it": "A caso\n",
+        "fr": "Hasard\n",
+        "de": "Zufällig\n",
+        "es": "Aleatorio\n"
+    },
+    {
+        "id": "L_MISC_167",
+        "en": "Select All\n",
+        "gb": "Select All\n",
+        "jp": "Select All\n",
+        "it": "Seleziona tutto\n",
+        "fr": "Choisir: tout\n",
+        "de": "Alle\n",
+        "es": "Seleccionar Todo\n"
+    },
+    {
+        "id": "L_MISC_168",
+        "en": "Select None\n",
+        "gb": "Select None\n",
+        "jp": "Select None\n",
+        "it": "Nessuna selezione\n",
+        "fr": "Choisir: rien\n",
+        "de": "Keine\n",
+        "es": "Deseleccionar Todo\n"
+    },
+    {
+        "id": "L_MISC_169",
+        "en": "Randomize\n",
+        "gb": "Randomize\n",
+        "jp": "Randomize\n",
+        "it": "Non in sequenza\n",
+        "fr": "Au hasard\n",
+        "de": "Zufallsgenerator\n",
+        "es": "Al azar\n"
+    },
+    {
+        "id": "L_MISC_170",
+        "en": "Weapon\n",
+        "gb": "Weapon\n",
+        "jp": "Weapon\n",
+        "it": "Inventario\n",
+        "fr": "Armes\n",
+        "de": "Waffe\n",
+        "es": "Inventario\n"
+    },
+    {
+        "id": "L_MISC_171",
+        "en": "Function\n",
+        "gb": "Function\n",
+        "jp": "Function\n",
+        "it": "Funzione\n",
+        "fr": "Fonctions\n",
+        "de": "Funktion\n",
+        "es": "Función\n"
+    },
+    {
+        "id": "L_MISC_172",
+        "en": "Orders\n",
+        "gb": "Orders\n",
+        "jp": "Orders\n",
+        "it": "Ordini\n",
+        "fr": "Ordres\n",
+        "de": "Befehle\n",
+        "es": "Órdenes\n"
+    },
+    {
+        "id": "L_MISC_173",
+        "en": "No Weapon\n",
+        "gb": "No Weapon\n",
+        "jp": "No Weapon\n",
+        "it": "No armi\n",
+        "fr": "Pas d'arme\n",
+        "de": "Keine Waffe\n",
+        "es": "Sin Arma\n"
+    },
+    {
+        "id": "L_MISC_174",
+        "en": "Pick Target\n",
+        "gb": "Pick Target\n",
+        "jp": "Pick Target\n",
+        "it": "Scegli obiettivo\n",
+        "fr": "Choix cible\n",
+        "de": "Zielauswahl\n",
+        "es": "Elige Objetivo\n"
+    },
+    {
+        "id": "L_MISC_175",
+        "en": "Follow\n",
+        "gb": "Follow\n",
+        "jp": "Follow\n",
+        "it": "Segui\n",
+        "fr": "Suivre\n",
+        "de": "Folgen\n",
+        "es": "Seguir\n"
+    },
+    {
+        "id": "L_MISC_176",
+        "en": "Attack\n",
+        "gb": "Attack\n",
+        "jp": "Attack\n",
+        "it": "Attacca\n",
+        "fr": "Attaquer\n",
+        "de": "Attackieren\n",
+        "es": "Atacar\n"
+    },
+    {
+        "id": "L_MISC_177",
+        "en": "Defend\n",
+        "gb": "Defend\n",
+        "jp": "Defend\n",
+        "it": "Difendi\n",
+        "fr": "Défendre\n",
+        "de": "Verteidigen\n",
+        "es": "Defender\n"
+    },
+    {
+        "id": "L_MISC_178",
+        "en": "Hold\n",
+        "gb": "Hold\n",
+        "jp": "Hold\n",
+        "it": "Fisso\n",
+        "fr": "Tenir\n",
+        "de": "Halten\n",
+        "es": "Mantener\n"
+    },
+    {
+        "id": "L_MISC_179",
+        "en": "Normal\n",
+        "gb": "Normal\n",
+        "jp": "Normal\n",
+        "it": "Normale\n",
+        "fr": "Normal\n",
+        "de": "Normal\n",
+        "es": "Normal\n"
+    },
+    {
+        "id": "L_MISC_180",
+        "en": "Download\n",
+        "gb": "Download\n",
+        "jp": "Download\n",
+        "it": "Scarica\n",
+        "fr": "Télécharger\n",
+        "de": "Download\n",
+        "es": "Bajar\n"
+    },
+    {
+        "id": "L_MISC_181",
+        "en": "Get Case\n",
+        "gb": "Get Case\n",
+        "jp": "Get Case\n",
+        "it": "Prendi cassa\n",
+        "fr": "Obtenir mallette\n",
+        "de": "Schnapp den Koffer\n",
+        "es": "Obtener\n"
+    },
+    {
+        "id": "L_MISC_182",
+        "en": "Tag Box\n",
+        "gb": "Tag Box\n",
+        "jp": "Tag Box\n",
+        "it": "Box\n",
+        "fr": "Marquer PC\n",
+        "de": "Tag Box\n",
+        "es": "Marcar\n"
+    },
+    {
+        "id": "L_MISC_183",
+        "en": "Killed by",
+        "gb": "Killed by",
+        "jp": "Killed by",
+        "it": "Eliminato da",
+        "fr": "Tué(e) par",
+        "de": "Besiegt von:",
+        "es": "Te mató"
+    },
+    {
+        "id": "L_MISC_184",
+        "en": "Killed",
+        "gb": "Killed",
+        "jp": "Killed",
+        "it": "Eliminato",
+        "fr": "Tué",
+        "de": "Besiegt wurde:",
+        "es": "Mataste a"
+    },
+    {
+        "id": "L_MISC_185",
+        "en": "Beginner:21\n",
+        "gb": "Beginner:21\n",
+        "jp": "Beginner:21\n",
+        "it": "Princip.:21\n",
+        "fr": "Débutant:21\n",
+        "de": "Anfänger:21\n",
+        "es": "Iniciado:21\n"
+    },
+    {
+        "id": "L_MISC_186",
+        "en": "Trainee:20\n",
+        "gb": "Trainee:20\n",
+        "jp": "Trainee:20\n",
+        "it": "Addestr.:20\n",
+        "fr": "Stagiaire:20\n",
+        "de": "Azubi:20\n",
+        "es": "Aprendiz:20\n"
+    },
+    {
+        "id": "L_MISC_187",
+        "en": "Amateur:19\n",
+        "gb": "Amateur:19\n",
+        "jp": "Amateur:19\n",
+        "it": "Amatore:19\n",
+        "fr": "Amateur:19\n",
+        "de": "Amateur:19\n",
+        "es": "Amateur:19\n"
+    },
+    {
+        "id": "L_MISC_188",
+        "en": "Rookie:18\n",
+        "gb": "Rookie:18\n",
+        "jp": "Rookie:18\n",
+        "it": "Recluta:18\n",
+        "fr": "Bleu:18\n",
+        "de": "Normal:18\n",
+        "es": "Recluta:18\n"
+    },
+    {
+        "id": "L_MISC_189",
+        "en": "Novice:17\n",
+        "gb": "Novice:17\n",
+        "jp": "Novice:17\n",
+        "it": "Novello:17\n",
+        "fr": "Novice:17\n",
+        "de": "Neuling:17\n",
+        "es": "Novato:17\n"
+    },
+    {
+        "id": "L_MISC_190",
+        "en": "Trooper:16\n",
+        "gb": "Trooper:16\n",
+        "jp": "Trooper:16\n",
+        "it": "Truppa:16\n",
+        "fr": "2e classe:16\n",
+        "de": "Soldat:16\n",
+        "es": "Soldado:16\n"
+    },
+    {
+        "id": "L_MISC_191",
+        "en": "Agent:15\n",
+        "gb": "Agent:15\n",
+        "jp": "Agent:15\n",
+        "it": "Agente:15\n",
+        "fr": "Agent:15\n",
+        "de": "Agent:15\n",
+        "es": "Agente:15\n"
+    },
+    {
+        "id": "L_MISC_192",
+        "en": "Star Agent:14\n",
+        "gb": "Star Agent:14\n",
+        "jp": "Star Agent:14\n",
+        "it": "Ag.Grado:14\n",
+        "fr": "Agent chef:14\n",
+        "de": "Star-Agent:14\n",
+        "es": "Estrella:14\n"
+    },
+    {
+        "id": "L_MISC_193",
+        "en": "Special Agent:13\n",
+        "gb": "Special Agent:13\n",
+        "jp": "Special Agent:13\n",
+        "it": "Ag.Spec:13\n",
+        "fr": "Agent spé.:13\n",
+        "de": "Spec-Agent:13\n",
+        "es": "Especial:13\n"
+    },
+    {
+        "id": "L_MISC_194",
+        "en": "Expert:12\n",
+        "gb": "Expert:12\n",
+        "jp": "Expert:12\n",
+        "it": "Esperto:12\n",
+        "fr": "Expert:12\n",
+        "de": "Experte:12\n",
+        "es": "Experto:12\n"
+    },
+    {
+        "id": "L_MISC_195",
+        "en": "Veteran:11\n",
+        "gb": "Veteran:11\n",
+        "jp": "Veteran:11\n",
+        "it": "Veterano:11\n",
+        "fr": "Vétéran:11\n",
+        "de": "Veteran:11\n",
+        "es": "Veterano:11\n"
+    },
+    {
+        "id": "L_MISC_196",
+        "en": "Professional:10\n",
+        "gb": "Professional:10\n",
+        "jp": "Professional:10\n",
+        "it": "Profess.:10\n",
+        "fr": "Pro:10\n",
+        "de": "Profi:10\n",
+        "es": "Pro:10\n"
+    },
+    {
+        "id": "L_MISC_197",
+        "en": "Dangerous:9\n",
+        "gb": "Dangerous:9\n",
+        "jp": "Dangerous:9\n",
+        "it": "Pericoloso:9\n",
+        "fr": "Dangereux:9\n",
+        "de": "Gefährlich:9\n",
+        "es": "Peligroso:9\n"
+    },
+    {
+        "id": "L_MISC_198",
+        "en": "Deadly:8\n",
+        "gb": "Deadly:8\n",
+        "jp": "Deadly:8\n",
+        "it": "Micidiale:8\n",
+        "fr": "Mortel:8\n",
+        "de": "Letal:8\n",
+        "es": "Mortal:8\n"
+    },
+    {
+        "id": "L_MISC_199",
+        "en": "Killer:7\n",
+        "gb": "Killer:7\n",
+        "jp": "Killer:7\n",
+        "it": "Killer:7\n",
+        "fr": "Tueur:7\n",
+        "de": "Tödlich:7\n",
+        "es": "Ejecutor:7\n"
+    },
+    {
+        "id": "L_MISC_200",
+        "en": "Assassin:6\n",
+        "gb": "Assassin:6\n",
+        "jp": "Assassin:6\n",
+        "it": "Assassino:6\n",
+        "fr": "Assassin:6\n",
+        "de": "Verheerend:6\n",
+        "es": "Asesino:6\n"
+    },
+    {
+        "id": "L_MISC_201",
+        "en": "Lethal:5\n",
+        "gb": "Lethal:5\n",
+        "jp": "Lethal:5\n",
+        "it": "Letale:5\n",
+        "fr": "Fatal:5\n",
+        "de": "Zerstörer:5\n",
+        "es": "Letal:5\n"
+    },
+    {
+        "id": "L_MISC_202",
+        "en": "Elite:4\n",
+        "gb": "Elite:4\n",
+        "jp": "Elite:4\n",
+        "it": "Elite:4\n",
+        "fr": "Elite:4\n",
+        "de": "Elite:4\n",
+        "es": "Élite:4\n"
+    },
+    {
+        "id": "L_MISC_203",
+        "en": "Invincible:3\n",
+        "gb": "Invincible:3\n",
+        "jp": "Invincible:3\n",
+        "it": "Invulner.:3\n",
+        "fr": "Invincible:3\n",
+        "de": "Berserker:3\n",
+        "es": "Invencible:3\n"
+    },
+    {
+        "id": "L_MISC_204",
+        "en": "Near Perfect:2\n",
+        "gb": "Near Perfect:2\n",
+        "jp": "Near Perfect:2\n",
+        "it": "SemiPerf:2\n",
+        "fr": "QuasiPerf.:2\n",
+        "de": "Fast Perfekt:2\n",
+        "es": "Completo:2\n"
+    },
+    {
+        "id": "L_MISC_205",
+        "en": "Perfect:1\n",
+        "gb": "Perfect:1\n",
+        "jp": "Perfect:1\n",
+        "it": "Perfect:1\n",
+        "fr": "Perfect:1\n",
+        "de": "Perfekt:1\n",
+        "es": "Perfecto:1\n"
+    },
+    {
+        "id": "L_MISC_206",
+        "en": "DARTAMMO",
+        "gb": "DARTAMMO",
+        "jp": "DARTAMMO",
+        "it": "FRECCE",
+        "fr": "MUNI.FLECHETTE",
+        "de": "DARTMUNI",
+        "es": "DARDOS"
+    },
+    {
+        "id": "L_MISC_207",
+        "en": "MODEL 1.4",
+        "gb": "MODEL 1.4",
+        "jp": "MODEL 1.4",
+        "it": "MODELLO 1.4",
+        "fr": "MODELE 1.4",
+        "de": "MODEL 1.4",
+        "es": "MODELO 1.4"
+    },
+    {
+        "id": "L_MISC_208",
+        "en": "JM: 201172",
+        "gb": "JM: 201172",
+        "jp": "JM: 201172",
+        "it": "JM: 201172",
+        "fr": "JM: 201172",
+        "de": "JM: 201172",
+        "es": "JM: 201172"
+    },
+    {
+        "id": "L_MISC_209",
+        "en": "Save Case\n",
+        "gb": "Save Case\n",
+        "jp": "Save Case\n",
+        "it": "Salva cassa\n",
+        "fr": "Sauv. mallette\n",
+        "de": "Vert. Koffer\n",
+        "es": "Salvar Caja\n"
+    },
+    {
+        "id": "L_MISC_210",
+        "en": "Def Hill\n",
+        "gb": "Def Hill\n",
+        "jp": "Def Hill\n",
+        "it": "Difendi colle\n",
+        "fr": "Déf. zone\n",
+        "de": "Vert. Hügel\n",
+        "es": "Defender Colina\n"
+    },
+    {
+        "id": "L_MISC_211",
+        "en": "Hold Hill\n",
+        "gb": "Hold Hill\n",
+        "jp": "Hold Hill\n",
+        "it": "Tieni colle\n",
+        "fr": "Tenir zone\n",
+        "de": "Halte Hügel\n",
+        "es": "Mantener Colina\n"
+    },
+    {
+        "id": "L_MISC_212",
+        "en": "Get Case\n",
+        "gb": "Get Case\n",
+        "jp": "Get Case\n",
+        "it": "Prendi cassa\n",
+        "fr": "Prendre mallette\n",
+        "de": "Erl. Koffer\n",
+        "es": "Coger Maletín\n"
+    },
+    {
+        "id": "L_MISC_213",
+        "en": "Pop Cap\n",
+        "gb": "Pop Cap\n",
+        "jp": "Pop Cap\n",
+        "it": "Tutti contro 1\n",
+        "fr": "Décapsuleur\n",
+        "de": "Pop Cap\n",
+        "es": "Llevarla\n"
+    },
+    {
+        "id": "L_MISC_214",
+        "en": "Protect\n",
+        "gb": "Protect\n",
+        "jp": "Protect\n",
+        "it": "Proteggi\n",
+        "fr": "Protéger\n",
+        "de": "Beschütze\n",
+        "es": "Proteger\n"
+    },
+    {
+        "id": "L_MISC_215",
+        "en": "All Simulants\n",
+        "gb": "All Simulants\n",
+        "jp": "All Simulants\n",
+        "it": "Tutti replic.\n",
+        "fr": "Tous simulants\n",
+        "de": "Alle Simulanten\n",
+        "es": "Todo Simulante\n"
+    },
+    {
+        "id": "L_MISC_216",
+        "en": "MODEL 1.3",
+        "gb": "MODEL 1.3",
+        "jp": "MODEL 1.3",
+        "it": "MODELLO 1.3",
+        "fr": "MODELE 1.3",
+        "de": "MODEL 1.3",
+        "es": "MODELO 1.3"
+    },
+    {
+        "id": "L_MISC_217",
+        "en": "BNC: 15877",
+        "gb": "BNC: 15877",
+        "jp": "BNC: 15877",
+        "it": "BNC: 15877",
+        "fr": "BNC: 15877",
+        "de": "BNC: 15877",
+        "es": "BNC: 15877"
+    },
+    {
+        "id": "L_MISC_218",
+        "en": "Not enough room to launch ",
+        "gb": "Not enough room to launch ",
+        "jp": "Not enough room to launch ",
+        "it": "Spazio insufficiente per il lancio",
+        "fr": "Espace insuffisant pour lancer ",
+        "de": "Nicht genügend Platz für den ",
+        "es": "Sin suficiente espacio para activar "
+    },
+    {
+        "id": "L_MISC_417",
+        "en": "GOAL TARGETS:",
+        "gb": "GOAL TARGETS:",
+        "jp": "GOAL TARGETS:",
+        "it": "OBIETTIVI:",
+        "fr": "OBJECTIF:",
+        "de": "ZIELE:",
+        "es": "ACIERTOS NEC.:"
+    },
+    {
+        "id": "L_MISC_418",
+        "en": "GOAL SCORE:",
+        "gb": "GOAL SCORE:",
+        "jp": "GOAL SCORE:",
+        "it": "PUNTEGGIO:",
+        "fr": "SCORE LIMITE:",
+        "de": "SCORE:",
+        "es": "PUNTUACIÓN NEC.:"
+    },
+    {
+        "id": "L_MISC_419",
+        "en": "MIN ACCURACY:",
+        "gb": "MIN ACCURACY:",
+        "jp": "MIN ACCURACY:",
+        "it": "PRECISIONE IN MIN:",
+        "fr": "PRECISION MIN:",
+        "de": "MIN GENAUIGKEIT:",
+        "es": "PRECISIÓN MIN.:"
+    },
+    {
+        "id": "L_MISC_420",
+        "en": "FIRE TO START\n",
+        "gb": "FIRE TO START\n",
+        "jp": "FIRE TO START\n",
+        "it": "SPARA PER INIZIARE\n",
+        "fr": "TIREZ POUR COMMENCER\n",
+        "de": "FEUER, UM LOSZULEGEN\n",
+        "es": "DISPARA PARA EMPEZAR\n"
+    },
+    {
+        "id": "L_MISC_421",
+        "en": "GET READY!\n",
+        "gb": "GET READY!\n",
+        "jp": "GET READY!\n",
+        "it": "PRONTI!\n",
+        "fr": "PRET!\n",
+        "de": "FERTIG!\n",
+        "es": "¡PREPARADO!\n"
+    },
+    {
+        "id": "L_MISC_422",
+        "en": "LIMIT:",
+        "gb": "LIMIT:",
+        "jp": "LIMIT:",
+        "it": "LIMITE:",
+        "fr": "LIMITE:",
+        "de": "LIMIT:",
+        "es": "LÍMITE:"
+    },
+    {
+        "id": "L_MISC_423",
+        "en": "ZONE 3\n",
+        "gb": "ZONE 3\n",
+        "jp": "ZONE 3\n",
+        "it": "ZONA 3\n",
+        "fr": "ZONE 3\n",
+        "de": "ZONE 3\n",
+        "es": "ZONA 3\n"
+    },
+    {
+        "id": "L_MISC_424",
+        "en": "ZONE 2\n",
+        "gb": "ZONE 2\n",
+        "jp": "ZONE 2\n",
+        "it": "ZONA 2\n",
+        "fr": "ZONE 2\n",
+        "de": "ZONE 2\n",
+        "es": "ZONA 2\n"
+    },
+    {
+        "id": "L_MISC_425",
+        "en": "ZONE 1\n",
+        "gb": "ZONE 1\n",
+        "jp": "ZONE 1\n",
+        "it": "ZONA 1\n",
+        "fr": "ZONE 1\n",
+        "de": "ZONE 1\n",
+        "es": "ZONA 1\n"
+    },
+    {
+        "id": "L_MISC_426",
+        "en": "BULL'S-EYE\n",
+        "gb": "BULL'S-EYE\n",
+        "jp": "BULL'S-EYE\n",
+        "it": "CENTRO\n",
+        "fr": "CENTRE\n",
+        "de": "BULL'S-EYE\n",
+        "es": "DIANA\n"
+    },
+    {
+        "id": "L_MISC_427",
+        "en": "EXPLODED\n",
+        "gb": "EXPLODED\n",
+        "jp": "EXPLODED\n",
+        "it": "ESPLOSO\n",
+        "fr": "EXPLOSé\n",
+        "de": "EXPLODIERT\n",
+        "es": "EXPLOTADOS\n"
+    },
+    {
+        "id": "L_MISC_428",
+        "en": "Elvis is dead.\n",
+        "gb": "Elvis is dead.\n",
+        "jp": "Elvis is dead.\n",
+        "it": "Elvis è morto.\n",
+        "fr": "Elvis est mort.\n",
+        "de": "Elvis wurde eliminiert.\n",
+        "es": "Elvis ha muerto.\n"
+    },
+    {
+        "id": "L_MISC_429",
+        "en": "Style 1",
+        "gb": "Style 1",
+        "jp": "Style 1",
+        "it": "Modalità 1",
+        "fr": "Style 1",
+        "de": "Style 1",
+        "es": "Estilo 1"
+    },
+    {
+        "id": "L_MISC_430",
+        "en": "Style 2",
+        "gb": "Style 2",
+        "jp": "Style 2",
+        "it": "Modalità 2",
+        "fr": "Style 2",
+        "de": "Style 2",
+        "es": "Estilo 2"
+    },
+    {
+        "id": "L_MISC_431",
+        "en": "Style 3",
+        "gb": "Style 3",
+        "jp": "Style 3",
+        "it": "Modalità 3",
+        "fr": "Style 3",
+        "de": "Style 3",
+        "es": "Estilo 3"
+    },
+    {
+        "id": "L_MISC_432",
+        "en": "Style 4",
+        "gb": "Style 4",
+        "jp": "Style 4",
+        "it": "Modalità 4",
+        "fr": "Style 4",
+        "de": "Style 4",
+        "es": "Estilo 4"
+    },
+    {
+        "id": "L_MISC_433",
+        "en": "Blonde",
+        "gb": "Blonde",
+        "jp": "Blonde",
+        "it": "Biondo",
+        "fr": "Blonds",
+        "de": "Blonde",
+        "es": "Rubio"
+    },
+    {
+        "id": "L_MISC_434",
+        "en": "Black",
+        "gb": "Black",
+        "jp": "Black",
+        "it": "Nero",
+        "fr": "Noirs",
+        "de": "Black",
+        "es": "Moreno"
+    },
+    {
+        "id": "L_MISC_435",
+        "en": "Auburn",
+        "gb": "Auburn",
+        "jp": "Auburn",
+        "it": "Castano",
+        "fr": "Auburn",
+        "de": "Auburn",
+        "es": "Castaño"
+    },
+    {
+        "id": "L_MISC_436",
+        "en": "Blue Rinse",
+        "gb": "Blue Rinse",
+        "jp": "Blue Rinse",
+        "it": "Cachet blu",
+        "fr": "Rinçage bleu",
+        "de": "Blue Rinse",
+        "es": "Azulado"
+    },
+    {
+        "id": "L_MISC_437",
+        "en": "Player",
+        "gb": "Player",
+        "jp": "Player",
+        "it": "Giocat.",
+        "fr": "Joueur",
+        "de": "Spieler",
+        "es": "Jugador"
+    },
+    {
+        "id": "L_MISC_438",
+        "en": "",
+        "gb": "",
+        "jp": "",
+        "it": "",
+        "fr": "",
+        "de": "",
+        "es": ""
+    },
+    {
+        "id": "L_MISC_439",
+        "en": "Identify\n",
+        "gb": "Identify\n",
+        "jp": "Identify\n",
+        "it": "Identifica\n",
+        "fr": "Identifier\n",
+        "de": "Identifizieren\n",
+        "es": "Identificado\n"
+    },
+    {
+        "id": "L_MISC_440",
+        "en": "unused",
+        "gb": "unused",
+        "jp": "unused",
+        "it": "non in uso",
+        "fr": "Inutilisé",
+        "de": "nicht verwendet",
+        "es": "unused"
+    },
+    {
+        "id": "L_MISC_441",
+        "en": "Challenges\n",
+        "gb": "Challenges\n",
+        "jp": "Challenges\n",
+        "it": "Sfide\n",
+        "fr": "Challenges\n",
+        "de": "Challenges\n",
+        "es": "Desafíos\n"
+    },
+    {
+        "id": "L_MISC_442",
+        "en": "Load\/Preset Games\n",
+        "gb": "Load\/Preset Games\n",
+        "jp": "Load\/Preset Games\n",
+        "it": "Carica\/Imposta giochi\n",
+        "fr": "Charger jeu prédéfini\n",
+        "de": "Laden\/Voreinstellung\n",
+        "es": "Cargar Juegos\n"
+    },
+    {
+        "id": "L_MISC_443",
+        "en": "Quick Start\n",
+        "gb": "Quick Start\n",
+        "jp": "Quick Start\n",
+        "it": "Avvio rapido\n",
+        "fr": "Démarrage rapide\n",
+        "de": "Schnellstart\n",
+        "es": "Comienzo Rápido\n"
+    },
+    {
+        "id": "L_MISC_444",
+        "en": "Advanced Setup\n",
+        "gb": "Advanced Setup\n",
+        "jp": "Advanced Setup\n",
+        "it": "Impostaz. avanzate\n",
+        "fr": "Réglages avancés\n",
+        "de": "Erweitertes Setup\n",
+        "es": "Conf. Avanzada\n"
+    },
+    {
+        "id": "L_MISC_445",
+        "en": "Combat Simulator\n",
+        "gb": "Combat Simulator\n",
+        "jp": "Combat Simulator\n",
+        "it": "Simulatore lotta\n",
+        "fr": "Simulateur de combat\n",
+        "de": "Kampf-Simulator\n",
+        "es": "Simulador de Combate\n"
+    },
+    {
+        "id": "L_MISC_446",
+        "en": "Carrington Institute\n",
+        "gb": "Carrington Institute\n",
+        "jp": "Carrington Institute\n",
+        "it": "Carrington Institute\n",
+        "fr": "Institut Carrington\n",
+        "de": "Carrington Institut\n",
+        "es": "Instituto Carrington\n"
+    },
+    {
+        "id": "L_MISC_447",
+        "en": "Team Score\n",
+        "gb": "Team Score\n",
+        "jp": "Team Score\n",
+        "it": "Punti squadra\n",
+        "fr": "S. équipe\n",
+        "de": "Team-Score\n",
+        "es": "P. Equipo\n"
+    },
+    {
+        "id": "L_MISC_448",
+        "en": "Finished Setup\n",
+        "gb": "Finished Setup\n",
+        "jp": "Finished Setup\n",
+        "it": "Fine impostazioni\n",
+        "fr": "Réglages terminés\n",
+        "de": "Setup abgeschlossen\n",
+        "es": "Conf. Finalizada\n"
+    },
+    {
+        "id": "L_MISC_449",
+        "en": "Player 1 Team\n",
+        "gb": "Player 1 Team\n",
+        "jp": "Player 1 Team\n",
+        "it": "Squadra 1 giocatore\n",
+        "fr": "Equipe Joueur 1\n",
+        "de": "Spieler 1 Team\n",
+        "es": "Equipo Jugador 1\n"
+    },
+    {
+        "id": "L_MISC_450",
+        "en": "Player 2 Team\n",
+        "gb": "Player 2 Team\n",
+        "jp": "Player 2 Team\n",
+        "it": "Squadra 2 giocatori\n",
+        "fr": "Equipe Joueur 2\n",
+        "de": "Spieler 2 Team\n",
+        "es": "Equipo Jugador 2\n"
+    },
+    {
+        "id": "L_MISC_451",
+        "en": "Player 3 Team\n",
+        "gb": "Player 3 Team\n",
+        "jp": "Player 3 Team\n",
+        "it": "Squadra 3 giocatori\n",
+        "fr": "Equipe Joueur 3\n",
+        "de": "Spieler 3 Team\n",
+        "es": "Equipo Jugador 3\n"
+    },
+    {
+        "id": "L_MISC_452",
+        "en": "Player 4 Team\n",
+        "gb": "Player 4 Team\n",
+        "jp": "Player 4 Team\n",
+        "it": "Squadra 4 giocatori\n",
+        "fr": "Equipe Joueur 4\n",
+        "de": "Spieler 4 Team\n",
+        "es": "Equipo Jugador 4\n"
+    },
+    {
+        "id": "L_MISC_453",
+        "en": "Number Of Simulants\n",
+        "gb": "Number Of Simulants\n",
+        "jp": "Number Of Simulants\n",
+        "it": "Numero di replicanti\n",
+        "fr": "Nombre de Simulants\n",
+        "de": "Anzahl der Simulanten\n",
+        "es": "Número de Simulantes\n"
+    },
+    {
+        "id": "L_MISC_454",
+        "en": "Simulants Per Team\n",
+        "gb": "Simulants Per Team\n",
+        "jp": "Simulants Per Team\n",
+        "it": "Replicanti per squadra\n",
+        "fr": "Simulants par équipe\n",
+        "de": "Simulanten pro Team\n",
+        "es": "Simulantes por Equipo\n"
+    },
+    {
+        "id": "L_MISC_455",
+        "en": "Simulant Difficulty\n",
+        "gb": "Simulant Difficulty\n",
+        "jp": "Simulant Difficulty\n",
+        "it": "Difficoltà replicanti\n",
+        "fr": "Difficulté des Simulants\n",
+        "de": "Sim-Schwierigkeit\n",
+        "es": "Nivel de Simulantes\n"
+    },
+    {
+        "id": "L_MISC_456",
+        "en": "Start Game\n",
+        "gb": "Start Game\n",
+        "jp": "Start Game\n",
+        "it": "Avvia gioco\n",
+        "fr": "Commencer partie\n",
+        "de": "Start\n",
+        "es": "Empezar Juego\n"
+    },
+    {
+        "id": "L_MISC_457",
+        "en": "Drop Out\n",
+        "gb": "Drop Out\n",
+        "jp": "Drop Out\n",
+        "it": "Esci\n",
+        "fr": "Quitter\n",
+        "de": "Abbrechen\n",
+        "es": "Abandonar\n"
+    },
+    {
+        "id": "L_MISC_458",
+        "en": "Player Settings\n",
+        "gb": "Player Settings\n",
+        "jp": "Player Settings\n",
+        "it": "Impostaz. giocatori\n",
+        "fr": "Réglages joueur\n",
+        "de": "Spieler-Einstellungen\n",
+        "es": "Opciones de Jugador\n"
+    },
+    {
+        "id": "L_MISC_459",
+        "en": "Game Settings\n",
+        "gb": "Game Settings\n",
+        "jp": "Game Settings\n",
+        "it": "Impostazioni gioco\n",
+        "fr": "Réglages jeu\n",
+        "de": "Spiel-Einstellungen\n",
+        "es": "Opciones de Juego\n"
+    },
+    {
+        "id": "L_MISC_460",
+        "en": "Quick Go\n",
+        "gb": "Quick Go\n",
+        "jp": "Quick Go\n",
+        "it": "Scelta rapida\n",
+        "fr": "Lancer\n",
+        "de": "Quick Go\n",
+        "es": "Salida Rápida\n"
+    },
+    {
+        "id": "L_MISC_461",
+        "en": "Ready!\n",
+        "gb": "Ready!\n",
+        "jp": "Ready!\n",
+        "it": "Pronti!\n",
+        "fr": "Prêt!\n",
+        "de": "Fertig!\n",
+        "es": "¡Preparado!\n"
+    },
+    {
+        "id": "L_MISC_462",
+        "en": "Quick Team\n",
+        "gb": "Quick Team\n",
+        "jp": "Quick Team\n",
+        "it": "Avvio rapido\n",
+        "fr": "Equipe rapide\n",
+        "de": "Quick-Team\n",
+        "es": "Equipo Rápido\n"
+    },
+    {
+        "id": "L_MISC_463",
+        "en": "Players Only\n",
+        "gb": "Players Only\n",
+        "jp": "Players Only\n",
+        "it": "Solo giocatori\n",
+        "fr": "Joueurs seulement\n",
+        "de": "Nur Spieler\n",
+        "es": "Sólo Jugadores\n"
+    },
+    {
+        "id": "L_MISC_464",
+        "en": "Players and Simulants\n",
+        "gb": "Players and Simulants\n",
+        "jp": "Players and Simulants\n",
+        "it": "Giocatori e replicanti\n",
+        "fr": "Joueurs et simulants\n",
+        "de": "Spieler und Simulanten\n",
+        "es": "Jugadores y Simulantes\n"
+    },
+    {
+        "id": "L_MISC_465",
+        "en": "Player Teams\n",
+        "gb": "Player Teams\n",
+        "jp": "Player Teams\n",
+        "it": "Squadre di giocatori\n",
+        "fr": "Equipes de joueurs\n",
+        "de": "Spieler-Teams\n",
+        "es": "Equipos de Jugadores\n"
+    },
+    {
+        "id": "L_MISC_466",
+        "en": "Players vs. Simulants\n",
+        "gb": "Players vs. Simulants\n",
+        "jp": "Players vs. Simulants\n",
+        "it": "Giocatori contro replicanti\n",
+        "fr": "Joueurs contre simulants\n",
+        "de": "Spieler vs. Simulanten\n",
+        "es": "Jugadores contra Simulantes\n"
+    },
+    {
+        "id": "L_MISC_467",
+        "en": "Player-Simulant Teams\n",
+        "gb": "Player-Simulant Teams\n",
+        "jp": "Player-Simulant Teams\n",
+        "it": "Squadre giocatori-replicanti\n",
+        "fr": "Equipes joueurs-simulants\n",
+        "de": "Spieler-Simulanten-Teams\n",
+        "es": "Equipos de Jugador-Simulante\n"
+    },
+    {
+        "id": "L_MISC_468",
+        "en": "DRUGSPY",
+        "gb": "DRUGSPY",
+        "jp": "DRUGSPY",
+        "it": "CAPSUSPIA",
+        "fr": "DRUGSPY",
+        "de": "DRUGSPY",
+        "es": "DRUGSPY"
+    },
+    {
+        "id": "L_MISC_469",
+        "en": "BOMBSPY",
+        "gb": "BOMBSPY",
+        "jp": "BOMBSPY",
+        "it": "BOMBASPIA",
+        "fr": "BOMBSPY",
+        "de": "BOMBSPY",
+        "es": "BOMBSPY"
+    },
+    {
+        "id": "L_MISC_470",
+        "en": "Replay Previous Mission\n",
+        "gb": "Replay Previous Mission\n",
+        "jp": "Replay Previous Mission\n",
+        "it": "Ripeti missione precedente\n",
+        "fr": "Rejouer mission précédente\n",
+        "de": "Mission wiederholen\n",
+        "es": "Repetir Misión Previa\n"
+    },
+    {
+        "id": "L_MISC_471",
+        "en": "Holograph\n",
+        "gb": "Holograph\n",
+        "jp": "Holograph\n",
+        "it": "Olografia\n",
+        "fr": "Holographe\n",
+        "de": "Holografie\n",
+        "es": "Holografía\n"
+    },
+    {
+        "id": "L_MISC_472",
+        "en": "Aggressive\n",
+        "gb": "Aggressive\n",
+        "jp": "Aggressive\n",
+        "it": "Aggressivo\n",
+        "fr": "Agressif\n",
+        "de": "Aggressiv\n",
+        "es": "Agresivos\n"
+    },
+    {
+        "id": "L_MISC_473",
+        "en": "Passive\n",
+        "gb": "Passive\n",
+        "jp": "Passive\n",
+        "it": "Passivo\n",
+        "fr": "Passif\n",
+        "de": "Passiv\n",
+        "es": "Pasivos\n"
+    },
+    {
+        "id": "L_MISC_474",
+        "en": "Perfect Buddies\n",
+        "gb": "Perfect Buddies\n",
+        "jp": "Perfect Buddies\n",
+        "it": "Amici Perfect\n",
+        "fr": "Perfect Pote\n",
+        "de": "Perfekte Kumpels\n",
+        "es": "Camaradas\n"
+    },
+    {
+        "id": "L_MISC_475",
+        "en": "Stealth\n",
+        "gb": "Stealth\n",
+        "jp": "Stealth\n",
+        "it": "In incognito\n",
+        "fr": "Furtif\n",
+        "de": "Tarnung\n",
+        "es": "Sigilosos\n"
+    },
+    {
+        "id": "L_MISC_476",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MISC_477",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MISC_478",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    }
+]

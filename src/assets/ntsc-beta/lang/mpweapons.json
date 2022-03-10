@@ -1,0 +1,2322 @@
+[
+    {
+        "id": "L_MPWEAPONS_000",
+        "en": "%shas the\n%s",
+        "gb": "%shas the\n%s",
+        "jp": "%shas the\n%s",
+        "it": "%shas the\n%s",
+        "fr": "%shas the\n%s",
+        "de": "%shas the\n%s",
+        "es": "%shas the\n%s"
+    },
+    {
+        "id": "L_MPWEAPONS_001",
+        "en": "%shas the %s%s",
+        "gb": "%shas the %s%s",
+        "jp": "%shas the %s%s",
+        "it": "%shas the %s%s",
+        "fr": "%shas the %s%s",
+        "de": "%shas the %s%s",
+        "es": "%shas the %s%s"
+    },
+    {
+        "id": "L_MPWEAPONS_002",
+        "en": "%shas our\n%s",
+        "gb": "%shas our\n%s",
+        "jp": "%shas our\n%s",
+        "it": "%shas our\n%s",
+        "fr": "%shas our\n%s",
+        "de": "%shas our\n%s",
+        "es": "%shas our\n%s"
+    },
+    {
+        "id": "L_MPWEAPONS_003",
+        "en": "Got the %s%s",
+        "gb": "Got the %s%s",
+        "jp": "Got the %s%s",
+        "it": "Got the %s%s",
+        "fr": "Got the %s%s",
+        "de": "Got the %s%s",
+        "es": "Got the %s%s"
+    },
+    {
+        "id": "L_MPWEAPONS_004",
+        "en": "You captured\nthe %s%s",
+        "gb": "You captured\nthe %s%s",
+        "jp": "You captured\nthe %s%s",
+        "it": "You captured\nthe %s%s",
+        "fr": "You captured\nthe %s%s",
+        "de": "You captured\nthe %s%s",
+        "es": "You captured\nthe %s%s"
+    },
+    {
+        "id": "L_MPWEAPONS_005",
+        "en": "%scaptured our\n%s",
+        "gb": "%scaptured our\n%s",
+        "jp": "%scaptured our\n%s",
+        "it": "%scaptured our\n%s",
+        "fr": "%scaptured our\n%s",
+        "de": "%scaptured our\n%s",
+        "es": "%scaptured our\n%s"
+    },
+    {
+        "id": "L_MPWEAPONS_006",
+        "en": "%scaptured\nthe %s%s",
+        "gb": "%scaptured\nthe %s%s",
+        "jp": "%scaptured\nthe %s%s",
+        "it": "%scaptured\nthe %s%s",
+        "fr": "%scaptured\nthe %s%s",
+        "de": "%scaptured\nthe %s%s",
+        "es": "%scaptured\nthe %s%s"
+    },
+    {
+        "id": "L_MPWEAPONS_007",
+        "en": "Have a point for living!\n",
+        "gb": "Have a point for living!\n",
+        "jp": "Have a point for living!\n",
+        "it": "Have a point for living!\n",
+        "fr": "Have a point for living!\n",
+        "de": "Have a point for living!\n",
+        "es": "Have a point for living!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_008",
+        "en": "You're supposed to look\n",
+        "gb": "You're supposed to look\n",
+        "jp": "You're supposed to look\n",
+        "it": "You're supposed to look\n",
+        "fr": "You're supposed to look\n",
+        "de": "You're supposed to look\n",
+        "es": "You're supposed to look\n"
+    },
+    {
+        "id": "L_MPWEAPONS_009",
+        "en": "after your friends!\n",
+        "gb": "after your friends!\n",
+        "jp": "after your friends!\n",
+        "it": "after your friends!\n",
+        "fr": "after your friends!\n",
+        "de": "after your friends!\n",
+        "es": "after your friends!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_010",
+        "en": "Well done!\n",
+        "gb": "Well done!\n",
+        "jp": "Well done!\n",
+        "it": "Well done!\n",
+        "fr": "Well done!\n",
+        "de": "Well done!\n",
+        "es": "Well done!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_011",
+        "en": "You popped a cap!\n",
+        "gb": "You popped a cap!\n",
+        "jp": "You popped a cap!\n",
+        "it": "You popped a cap!\n",
+        "fr": "You popped a cap!\n",
+        "de": "You popped a cap!\n",
+        "es": "You popped a cap!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_012",
+        "en": "Have 2 Points...\n",
+        "gb": "Have 2 Points...\n",
+        "jp": "Have 2 Points...\n",
+        "it": "Have 2 Points...\n",
+        "fr": "Have 2 Points...\n",
+        "de": "Have 2 Points...\n",
+        "es": "Have 2 Points...\n"
+    },
+    {
+        "id": "L_MPWEAPONS_013",
+        "en": "You are the victim!\n",
+        "gb": "You are the victim!\n",
+        "jp": "You are the victim!\n",
+        "it": "You are the victim!\n",
+        "fr": "You are the victim!\n",
+        "de": "You are the victim!\n",
+        "es": "You are the victim!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_014",
+        "en": "Protect %s!\n",
+        "gb": "Protect %s!\n",
+        "jp": "Protect %s!\n",
+        "it": "Protect %s!\n",
+        "fr": "Protect %s!\n",
+        "de": "Protect %s!\n",
+        "es": "Protect %s!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_015",
+        "en": "Get %s!\n",
+        "gb": "Get %s!\n",
+        "jp": "Get %s!\n",
+        "it": "Get %s!\n",
+        "fr": "Get %s!\n",
+        "de": "Get %s!\n",
+        "es": "Get %s!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_016",
+        "en": "Download successful.\n",
+        "gb": "Download successful.\n",
+        "jp": "Download successful.\n",
+        "it": "Download successful.\n",
+        "fr": "Download successful.\n",
+        "de": "Download successful.\n",
+        "es": "Download successful.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_017",
+        "en": "Connection broken.\n",
+        "gb": "Connection broken.\n",
+        "jp": "Connection broken.\n",
+        "it": "Connection broken.\n",
+        "fr": "Connection broken.\n",
+        "de": "Connection broken.\n",
+        "es": "Connection broken.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_018",
+        "en": "Starting download.\n",
+        "gb": "Starting download.\n",
+        "jp": "Starting download.\n",
+        "it": "Starting download.\n",
+        "fr": "Starting download.\n",
+        "de": "Starting download.\n",
+        "es": "Starting download.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_019",
+        "en": "You need to use the Data Uplink.\n",
+        "gb": "You need to use the Data Uplink.\n",
+        "jp": "You need to use the Data Uplink.\n",
+        "it": "You need to use the Data Uplink.\n",
+        "fr": "You need to use the Data Uplink.\n",
+        "de": "You need to use the Data Uplink.\n",
+        "es": "You need to use the Data Uplink.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_020",
+        "en": "King of\nthe Hill!\n",
+        "gb": "King of\nthe Hill!\n",
+        "jp": "King of\nthe Hill!\n",
+        "it": "King of\nthe Hill!\n",
+        "fr": "King of\nthe Hill!\n",
+        "de": "King of\nthe Hill!\n",
+        "es": "King of\nthe Hill!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_021",
+        "en": "We have\nthe Hill!\n",
+        "gb": "We have\nthe Hill!\n",
+        "jp": "We have\nthe Hill!\n",
+        "it": "We have\nthe Hill!\n",
+        "fr": "We have\nthe Hill!\n",
+        "de": "We have\nthe Hill!\n",
+        "es": "We have\nthe Hill!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_022",
+        "en": "%shas captured\nthe Hill!\n",
+        "gb": "%shas captured\nthe Hill!\n",
+        "jp": "%shas captured\nthe Hill!\n",
+        "it": "%shas captured\nthe Hill!\n",
+        "fr": "%shas captured\nthe Hill!\n",
+        "de": "%shas captured\nthe Hill!\n",
+        "es": "%shas captured\nthe Hill!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_023",
+        "en": "%ds\/Point\n",
+        "gb": "%ds\/Point\n",
+        "jp": "%ds\/Point\n",
+        "it": "%ds\/Point\n",
+        "fr": "%ds\/Point\n",
+        "de": "%ds\/Point\n",
+        "es": "%ds\/Point\n"
+    },
+    {
+        "id": "L_MPWEAPONS_024",
+        "en": "1 Point!\n",
+        "gb": "1 Point!\n",
+        "jp": "1 Point!\n",
+        "it": "1 Point!\n",
+        "fr": "1 Point!\n",
+        "de": "1 Point!\n",
+        "es": "1 Point!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_025",
+        "en": "No Shield\n",
+        "gb": "No Shield\n",
+        "jp": "No Shield\n",
+        "it": "No Shield\n",
+        "fr": "No Shield\n",
+        "de": "No Shield\n",
+        "es": "No Shield\n"
+    },
+    {
+        "id": "L_MPWEAPONS_026",
+        "en": "Automatics\n",
+        "gb": "Automatics\n",
+        "jp": "Automatics\n",
+        "it": "Automatics\n",
+        "fr": "Automatics\n",
+        "de": "Automatics\n",
+        "es": "Automatics\n"
+    },
+    {
+        "id": "L_MPWEAPONS_027",
+        "en": "Rocket Launcher\n",
+        "gb": "Rocket Launcher\n",
+        "jp": "Rocket Launcher\n",
+        "it": "Rocket Launcher\n",
+        "fr": "Rocket Launcher\n",
+        "de": "Rocket Launcher\n",
+        "es": "Rocket Launcher\n"
+    },
+    {
+        "id": "L_MPWEAPONS_028",
+        "en": "Simulants\n",
+        "gb": "Simulants\n",
+        "jp": "Simulants\n",
+        "it": "Simulants\n",
+        "fr": "Simulants\n",
+        "de": "Simulants\n",
+        "es": "Simulants\n"
+    },
+    {
+        "id": "L_MPWEAPONS_029",
+        "en": "King of the Hill\n",
+        "gb": "King of the Hill\n",
+        "jp": "King of the Hill\n",
+        "it": "King of the Hill\n",
+        "fr": "King of the Hill\n",
+        "de": "King of the Hill\n",
+        "es": "King of the Hill\n"
+    },
+    {
+        "id": "L_MPWEAPONS_030",
+        "en": "Complex FarSight\n",
+        "gb": "Complex FarSight\n",
+        "jp": "Complex FarSight\n",
+        "it": "Complex FarSight\n",
+        "fr": "Complex FarSight\n",
+        "de": "Complex FarSight\n",
+        "es": "Complex FarSight\n"
+    },
+    {
+        "id": "L_MPWEAPONS_031",
+        "en": "Hold the Briefcase\n",
+        "gb": "Hold the Briefcase\n",
+        "jp": "Capture the Briefcase\n",
+        "it": "Hold the Briefcase\n",
+        "fr": "Hold the Briefcase\n",
+        "de": "Hold the Briefcase\n",
+        "es": "Hold the Briefcase\n"
+    },
+    {
+        "id": "L_MPWEAPONS_032",
+        "en": "Pistol One-Hit Kills\n",
+        "gb": "Pistol One-Hit Kills\n",
+        "jp": "Pistol One-Hit Kills\n",
+        "it": "Pistol One-Hit Kills\n",
+        "fr": "Pistol One-Hit Kills\n",
+        "de": "Pistol One-Hit Kills\n",
+        "es": "Pistol One-Hit Kills\n"
+    },
+    {
+        "id": "L_MPWEAPONS_033",
+        "en": "Capture the Case\n",
+        "gb": "Capture the Case\n",
+        "jp": "Capture the Flag\n",
+        "it": "Capture the Case\n",
+        "fr": "Capture the Case\n",
+        "de": "Capture the Case\n",
+        "es": "Capture the Case\n"
+    },
+    {
+        "id": "L_MPWEAPONS_034",
+        "en": "Cloaking\n",
+        "gb": "Cloaking\n",
+        "jp": "Cloaking\n",
+        "it": "Cloaking\n",
+        "fr": "Cloaking\n",
+        "de": "Cloaking\n",
+        "es": "Cloaking\n"
+    },
+    {
+        "id": "L_MPWEAPONS_035",
+        "en": "Temple Explosives\n",
+        "gb": "Temple Explosives\n",
+        "jp": "Temple Explosives\n",
+        "it": "Temple Explosives\n",
+        "fr": "Temple Explosives\n",
+        "de": "Temple Explosives\n",
+        "es": "Temple Explosives\n"
+    },
+    {
+        "id": "L_MPWEAPONS_036",
+        "en": "Slayer\n",
+        "gb": "Slayer\n",
+        "jp": "Slayer\n",
+        "it": "Slayer\n",
+        "fr": "Slayer\n",
+        "de": "Slayer\n",
+        "es": "Slayer\n"
+    },
+    {
+        "id": "L_MPWEAPONS_037",
+        "en": "Tranquilizer\n",
+        "gb": "Tranquilizer\n",
+        "jp": "Tranquilizer\n",
+        "it": "Tranquilizer\n",
+        "fr": "Tranquilizer\n",
+        "de": "Tranquilizer\n",
+        "es": "Tranquilizer\n"
+    },
+    {
+        "id": "L_MPWEAPONS_038",
+        "en": "Slow Motion\n",
+        "gb": "Slow Motion\n",
+        "jp": "Slow Motion\n",
+        "it": "Slow Motion\n",
+        "fr": "Slow Motion\n",
+        "de": "Slow Motion\n",
+        "es": "Slow Motion\n"
+    },
+    {
+        "id": "L_MPWEAPONS_039",
+        "en": "Press START\n",
+        "gb": "Press START\n",
+        "jp": "Press START\n",
+        "it": "Press START\n",
+        "fr": "Press START\n",
+        "de": "Press START\n",
+        "es": "Press START\n"
+    },
+    {
+        "id": "L_MPWEAPONS_040",
+        "en": "Paused\n",
+        "gb": "Paused\n",
+        "jp": "Paused\n",
+        "it": "Paused\n",
+        "fr": "Paused\n",
+        "de": "Paused\n",
+        "es": "Paused\n"
+    },
+    {
+        "id": "L_MPWEAPONS_041",
+        "en": "Custom\n",
+        "gb": "Custom\n",
+        "jp": "Custom\n",
+        "it": "Custom\n",
+        "fr": "Custom\n",
+        "de": "Custom\n",
+        "es": "Custom\n"
+    },
+    {
+        "id": "L_MPWEAPONS_042",
+        "en": "Random\n",
+        "gb": "Random\n",
+        "jp": "Random\n",
+        "it": "Random\n",
+        "fr": "Random\n",
+        "de": "Random\n",
+        "es": "Random\n"
+    },
+    {
+        "id": "L_MPWEAPONS_043",
+        "en": "Random Five\n",
+        "gb": "Random Five\n",
+        "jp": "Random Five\n",
+        "it": "Random Five\n",
+        "fr": "Random Five\n",
+        "de": "Random Five\n",
+        "es": "Random Five\n"
+    },
+    {
+        "id": "L_MPWEAPONS_044",
+        "en": "Close Combat\n",
+        "gb": "Close Combat\n",
+        "jp": "Close Combat\n",
+        "it": "Close Combat\n",
+        "fr": "Close Combat\n",
+        "de": "Close Combat\n",
+        "es": "Close Combat\n"
+    },
+    {
+        "id": "L_MPWEAPONS_045",
+        "en": "Proximity Mine\n",
+        "gb": "Proximity Mine\n",
+        "jp": "Proximity Mine\n",
+        "it": "Proximity Mine\n",
+        "fr": "Proximity Mine\n",
+        "de": "Proximity Mine\n",
+        "es": "Proximity Mine\n"
+    },
+    {
+        "id": "L_MPWEAPONS_046",
+        "en": "Rocket Launcher\n",
+        "gb": "Rocket Launcher\n",
+        "jp": "Rocket Launcher\n",
+        "it": "Rocket Launcher\n",
+        "fr": "Rocket Launcher\n",
+        "de": "Rocket Launcher\n",
+        "es": "Rocket Launcher\n"
+    },
+    {
+        "id": "L_MPWEAPONS_047",
+        "en": "Grenade Launcher\n",
+        "gb": "Grenade Launcher\n",
+        "jp": "Grenade Launcher\n",
+        "it": "Grenade Launcher\n",
+        "fr": "Grenade Launcher\n",
+        "de": "Grenade Launcher\n",
+        "es": "Grenade Launcher\n"
+    },
+    {
+        "id": "L_MPWEAPONS_048",
+        "en": "Explosive\n",
+        "gb": "Explosive\n",
+        "jp": "Explosive\n",
+        "it": "Explosive\n",
+        "fr": "Explosive\n",
+        "de": "Explosive\n",
+        "es": "Explosive\n"
+    },
+    {
+        "id": "L_MPWEAPONS_049",
+        "en": "Golden Magnum\n",
+        "gb": "Golden Magnum\n",
+        "jp": "Golden Magnum\n",
+        "it": "Golden Magnum\n",
+        "fr": "Golden Magnum\n",
+        "de": "Golden Magnum\n",
+        "es": "Golden Magnum\n"
+    },
+    {
+        "id": "L_MPWEAPONS_050",
+        "en": "Heavy\n",
+        "gb": "Heavy\n",
+        "jp": "Heavy\n",
+        "it": "Heavy\n",
+        "fr": "Heavy\n",
+        "de": "Heavy\n",
+        "es": "Heavy\n"
+    },
+    {
+        "id": "L_MPWEAPONS_051",
+        "en": "Tranquilizer\n",
+        "gb": "Tranquilizer\n",
+        "jp": "Tranquilizer\n",
+        "it": "Tranquilizer\n",
+        "fr": "Tranquilizer\n",
+        "de": "Tranquilizer\n",
+        "es": "Tranquilizer\n"
+    },
+    {
+        "id": "L_MPWEAPONS_052",
+        "en": "FarSight\n",
+        "gb": "FarSight\n",
+        "jp": "FarSight\n",
+        "it": "FarSight\n",
+        "fr": "FarSight\n",
+        "de": "FarSight\n",
+        "es": "FarSight\n"
+    },
+    {
+        "id": "L_MPWEAPONS_053",
+        "en": "Power\n",
+        "gb": "Power\n",
+        "jp": "Power\n",
+        "it": "Power\n",
+        "fr": "Power\n",
+        "de": "Power\n",
+        "es": "Power\n"
+    },
+    {
+        "id": "L_MPWEAPONS_054",
+        "en": "Automatics\n",
+        "gb": "Automatics\n",
+        "jp": "Automatics\n",
+        "it": "Automatics\n",
+        "fr": "Automatics\n",
+        "de": "Automatics\n",
+        "es": "Automatics\n"
+    },
+    {
+        "id": "L_MPWEAPONS_055",
+        "en": "Pistols\n",
+        "gb": "Pistols\n",
+        "jp": "Pistols\n",
+        "it": "Pistols\n",
+        "fr": "Pistols\n",
+        "de": "Pistols\n",
+        "es": "Pistols\n"
+    },
+    {
+        "id": "L_MPWEAPONS_056",
+        "en": "Test\n",
+        "gb": "Test\n",
+        "jp": "Test\n",
+        "it": "Test\n",
+        "fr": "Test\n",
+        "de": "Test\n",
+        "es": "Test\n"
+    },
+    {
+        "id": "L_MPWEAPONS_057",
+        "en": "4mb Test\n",
+        "gb": "4mb Test\n",
+        "jp": "4mb Test\n",
+        "it": "4mb Test\n",
+        "fr": "4mb Test\n",
+        "de": "4mb Test\n",
+        "es": "4mb Test\n"
+    },
+    {
+        "id": "L_MPWEAPONS_058",
+        "en": "Nothing\n",
+        "gb": "Nothing\n",
+        "jp": "Nothing\n",
+        "it": "Nothing\n",
+        "fr": "Nothing\n",
+        "de": "Nothing\n",
+        "es": "Nothing\n"
+    },
+    {
+        "id": "L_MPWEAPONS_059",
+        "en": "Shield\n",
+        "gb": "Shield\n",
+        "jp": "Shield\n",
+        "it": "Shield\n",
+        "fr": "Shield\n",
+        "de": "Shield\n",
+        "es": "Shield\n"
+    },
+    {
+        "id": "L_MPWEAPONS_060",
+        "en": "Disabled\n",
+        "gb": "Disabled\n",
+        "jp": "Disabled\n",
+        "it": "Disabled\n",
+        "fr": "Disabled\n",
+        "de": "Disabled\n",
+        "es": "Disabled\n"
+    },
+    {
+        "id": "L_MPWEAPONS_061",
+        "en": "Objectives Complete\n",
+        "gb": "Objectives Complete\n",
+        "jp": "Objectives Complete\n",
+        "it": "Objectives Complete\n",
+        "fr": "Objectives Complete\n",
+        "de": "Objectives Complete\n",
+        "es": "Objectives Complete\n"
+    },
+    {
+        "id": "L_MPWEAPONS_062",
+        "en": "Unknown\n",
+        "gb": "Unknown\n",
+        "jp": "Unknown\n",
+        "it": "Unknown\n",
+        "fr": "Unknown\n",
+        "de": "Unknown\n",
+        "es": "Unknown\n"
+    },
+    {
+        "id": "L_MPWEAPONS_063",
+        "en": "Missing\n",
+        "gb": "Missing\n",
+        "jp": "Missing\n",
+        "it": "Missing\n",
+        "fr": "Missing\n",
+        "de": "Missing\n",
+        "es": "Missing\n"
+    },
+    {
+        "id": "L_MPWEAPONS_064",
+        "en": "Damaged Controller Pak\n",
+        "gb": "Damaged Controller Pak Inserted\n",
+        "jp": "Damaged Controller Pak Inserted\n",
+        "it": "Damaged Controller Pak Inserted\n",
+        "fr": "Damaged Controller Pak Inserted\n",
+        "de": "Damaged Controller Pak Inserted\n",
+        "es": "Damaged Controller Pak Inserted\n"
+    },
+    {
+        "id": "L_MPWEAPONS_065",
+        "en": "is damaged or\n",
+        "gb": "is damaged or inserted\n",
+        "jp": "is damaged or inserted\n",
+        "it": "is damaged or inserted\n",
+        "fr": "is damaged or inserted\n",
+        "de": "is damaged or inserted\n",
+        "es": "is damaged or inserted\n"
+    },
+    {
+        "id": "L_MPWEAPONS_066",
+        "en": "inserted incorrectly.\n",
+        "gb": "incorrectly.\n",
+        "jp": "incorrectly.\n",
+        "it": "incorrectly.\n",
+        "fr": "incorrectly.\n",
+        "de": "incorrectly.\n",
+        "es": "incorrectly.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_067",
+        "en": "Attempt Repair\n",
+        "gb": "Please remove and try again.\n",
+        "jp": "Please remove and try again.\n",
+        "it": "Please remove and try again.\n",
+        "fr": "Please remove and try again.\n",
+        "de": "Please remove and try again.\n",
+        "es": "Please remove and try again.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_068",
+        "en": "Retry\n",
+        "gb": "Full Controller Pak Inserted\n",
+        "jp": "Full Controller Pak Inserted\n",
+        "it": "Full Controller Pak Inserted\n",
+        "fr": "Full Controller Pak Inserted\n",
+        "de": "Full Controller Pak Inserted\n",
+        "es": "Full Controller Pak Inserted\n"
+    },
+    {
+        "id": "L_MPWEAPONS_069",
+        "en": "Continue without using\nthe controller pak\n",
+        "gb": "is too full to save files.\n",
+        "jp": "is too full to save files.\n",
+        "it": "is too full to save files.\n",
+        "fr": "is too full to save files.\n",
+        "de": "is too full to save files.\n",
+        "es": "is too full to save files.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_070",
+        "en": "Full Controller Pak\n",
+        "gb": "Use the Game Notes Editor to\n",
+        "jp": "Use the Game Notes Editor to\n",
+        "it": "Use the Game Notes Editor to\n",
+        "fr": "Use the Game Notes Editor to\n",
+        "de": "Use the Game Notes Editor to\n",
+        "es": "Use the Game Notes Editor to\n"
+    },
+    {
+        "id": "L_MPWEAPONS_071",
+        "en": "is too full to save\nnote - 1 note and 28\npages required to save.\n",
+        "gb": "free some space (hold START\n",
+        "jp": "free some space (hold START\n",
+        "it": "free some space (hold START\n",
+        "fr": "free some space (hold START\n",
+        "de": "free some space (hold START\n",
+        "es": "free some space (hold START\n"
+    },
+    {
+        "id": "L_MPWEAPONS_072",
+        "en": "Enter the Controller\nPak Menu to free some\nspace (hold START\nwhile powering up.)\n",
+        "gb": "while powering up.)\n",
+        "jp": "while powering up.\n",
+        "it": "while powering up.)\n",
+        "fr": "while powering up.)\n",
+        "de": "while powering up.)\n",
+        "es": "while powering up.)\n"
+    },
+    {
+        "id": "L_MPWEAPONS_073",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "OK\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "OK\n"
+    },
+    {
+        "id": "L_MPWEAPONS_074",
+        "en": "----------\n",
+        "gb": "----------\n",
+        "jp": "----------\n",
+        "it": "----------\n",
+        "fr": "----------\n",
+        "de": "----------\n",
+        "es": "----------\n"
+    },
+    {
+        "id": "L_MPWEAPONS_075",
+        "en": "Hurricane Fists\n",
+        "gb": "Hurricane Fists\n",
+        "jp": "Hurricane Fists\n",
+        "it": "Hurricane Fists\n",
+        "fr": "Hurricane Fists\n",
+        "de": "Hurricane Fists\n",
+        "es": "Hurricane Fists\n"
+    },
+    {
+        "id": "L_MPWEAPONS_076",
+        "en": "Cloaking Device\n",
+        "gb": "Cloaking Device\n",
+        "jp": "Cloaking Device\n",
+        "it": "Cloaking Device\n",
+        "fr": "Cloaking Device\n",
+        "de": "Cloaking Device\n",
+        "es": "Cloaking Device\n"
+    },
+    {
+        "id": "L_MPWEAPONS_077",
+        "en": "Invincible\n",
+        "gb": "Invincible\n",
+        "jp": "Invincible\n",
+        "it": "Invincible\n",
+        "fr": "Invincible\n",
+        "de": "Invincible\n",
+        "es": "Invincible\n"
+    },
+    {
+        "id": "L_MPWEAPONS_078",
+        "en": "All Guns in Solo\n",
+        "gb": "All Guns in Solo\n",
+        "jp": "All Guns in Solo\n",
+        "it": "All Guns in Solo\n",
+        "fr": "All Guns in Solo\n",
+        "de": "All Guns in Solo\n",
+        "es": "All Guns in Solo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_079",
+        "en": "Unlimited Ammo\n",
+        "gb": "Unlimited Ammo\n",
+        "jp": "Unlimited Ammo\n",
+        "it": "Unlimited Ammo\n",
+        "fr": "Unlimited Ammo\n",
+        "de": "Unlimited Ammo\n",
+        "es": "Unlimited Ammo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_080",
+        "en": "Unlimited Ammo, No Reloads\n",
+        "gb": "Unlimited Ammo, No Reloads\n",
+        "jp": "Unlimited Ammo, No Reloads\n",
+        "it": "Unlimited Ammo, No Reloads\n",
+        "fr": "Unlimited Ammo, No Reloads\n",
+        "de": "Unlimited Ammo, No Reloads\n",
+        "es": "Unlimited Ammo, No Reloads\n"
+    },
+    {
+        "id": "L_MPWEAPONS_081",
+        "en": "Slo-mo Single Player\n",
+        "gb": "Slo-mo Single Player\n",
+        "jp": "Slo-mo Single Player\n",
+        "it": "Slo-mo Single Player\n",
+        "fr": "Slo-mo Single Player\n",
+        "de": "Slo-mo Single Player\n",
+        "es": "Slo-mo Single Player\n"
+    },
+    {
+        "id": "L_MPWEAPONS_082",
+        "en": "DK Mode\n",
+        "gb": "DK Mode\n",
+        "jp": "DK Mode\n",
+        "it": "DK Mode\n",
+        "fr": "DK Mode\n",
+        "de": "DK Mode\n",
+        "es": "DK Mode\n"
+    },
+    {
+        "id": "L_MPWEAPONS_083",
+        "en": "Trent's Magnum\n",
+        "gb": "Trent's Magnum\n",
+        "jp": "Trent's Magnum\n",
+        "it": "Trent's Magnum\n",
+        "fr": "Trent's Magnum\n",
+        "de": "Trent's Magnum\n",
+        "es": "Trent's Magnum\n"
+    },
+    {
+        "id": "L_MPWEAPONS_084",
+        "en": "FarSight\n",
+        "gb": "FarSight\n",
+        "jp": "FarSight\n",
+        "it": "FarSight\n",
+        "fr": "FarSight\n",
+        "de": "FarSight\n",
+        "es": "FarSight\n"
+    },
+    {
+        "id": "L_MPWEAPONS_085",
+        "en": "Small Jo\n",
+        "gb": "Small Jo\n",
+        "jp": "Small Jo\n",
+        "it": "Small Jo\n",
+        "fr": "Small Jo\n",
+        "de": "Small Jo\n",
+        "es": "Small Jo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_086",
+        "en": "Small Characters\n",
+        "gb": "Small Characters\n",
+        "jp": "Small Characters\n",
+        "it": "Small Characters\n",
+        "fr": "Small Characters\n",
+        "de": "Small Characters\n",
+        "es": "Small Characters\n"
+    },
+    {
+        "id": "L_MPWEAPONS_087",
+        "en": "Enemy Shields\n",
+        "gb": "Enemy Shields\n",
+        "jp": "Enemy Shields\n",
+        "it": "Enemy Shields\n",
+        "fr": "Enemy Shields\n",
+        "de": "Enemy Shields\n",
+        "es": "Enemy Shields\n"
+    },
+    {
+        "id": "L_MPWEAPONS_088",
+        "en": "Jo Shield\n",
+        "gb": "Jo Shield\n",
+        "jp": "Jo Shield\n",
+        "it": "Jo Shield\n",
+        "fr": "Jo Shield\n",
+        "de": "Jo Shield\n",
+        "es": "Jo Shield\n"
+    },
+    {
+        "id": "L_MPWEAPONS_089",
+        "en": "Super Shield\n",
+        "gb": "Super Shield\n",
+        "jp": "Super Shield\n",
+        "it": "Super Shield\n",
+        "fr": "Super Shield\n",
+        "de": "Super Shield\n",
+        "es": "Super Shield\n"
+    },
+    {
+        "id": "L_MPWEAPONS_090",
+        "en": "Classic Sight\n",
+        "gb": "Classic Sight\n",
+        "jp": "Classic Sight\n",
+        "it": "Classic Sight\n",
+        "fr": "Classic Sight\n",
+        "de": "Classic Sight\n",
+        "es": "Classic Sight\n"
+    },
+    {
+        "id": "L_MPWEAPONS_091",
+        "en": "Team Heads Only\n",
+        "gb": "Team Heads Only\n",
+        "jp": "Team Heads Only\n",
+        "it": "Team Heads Only\n",
+        "fr": "Team Heads Only\n",
+        "de": "Team Heads Only\n",
+        "es": "Team Heads Only\n"
+    },
+    {
+        "id": "L_MPWEAPONS_092",
+        "en": "Play as Elvis\n",
+        "gb": "Play as Elvis\n",
+        "jp": "Play as Elvis\n",
+        "it": "Play as Elvis\n",
+        "fr": "Play as Elvis\n",
+        "de": "Play as Elvis\n",
+        "es": "Play as Elvis\n"
+    },
+    {
+        "id": "L_MPWEAPONS_093",
+        "en": "Enemy Rockets\n",
+        "gb": "Enemy Rockets\n",
+        "jp": "Enemy Rockets\n",
+        "it": "Enemy Rockets\n",
+        "fr": "Enemy Rockets\n",
+        "de": "Enemy Rockets\n",
+        "es": "Enemy Rockets\n"
+    },
+    {
+        "id": "L_MPWEAPONS_094",
+        "en": "Unlimited Ammo - Laptop Sentry Gun\n",
+        "gb": "Unlimited Ammo - Laptop Sentry Gun\n",
+        "jp": "Unlimited Ammo - Laptop Sentry Gun\n",
+        "it": "Unlimited Ammo - Laptop Sentry Gun\n",
+        "fr": "Unlimited Ammo - Laptop Sentry Gun\n",
+        "de": "Unlimited Ammo - Laptop Sentry Gun\n",
+        "es": "Unlimited Ammo - Laptop Sentry Gun\n"
+    },
+    {
+        "id": "L_MPWEAPONS_095",
+        "en": "Marquis of Queensbury Rules\n",
+        "gb": "Marquis of Queensbury Rules\n",
+        "jp": "Marquis of Queensbury Rules\n",
+        "it": "Marquis of Queensbury Rules\n",
+        "fr": "Marquis of Queensbury Rules\n",
+        "de": "Marquis of Queensbury Rules\n",
+        "es": "Marquis of Queensbury Rules\n"
+    },
+    {
+        "id": "L_MPWEAPONS_096",
+        "en": "Perfect Darkness\n",
+        "gb": "Perfect Darkness\n",
+        "jp": "Perfect Darkness\n",
+        "it": "Perfect Darkness\n",
+        "fr": "Perfect Darkness\n",
+        "de": "Perfect Darkness\n",
+        "es": "Perfect Darkness\n"
+    },
+    {
+        "id": "L_MPWEAPONS_097",
+        "en": "Pugilist\n",
+        "gb": "Pugilist\n",
+        "jp": "Pugilist\n",
+        "it": "Pugilist\n",
+        "fr": "Pugilist\n",
+        "de": "Pugilist\n",
+        "es": "Pugilist\n"
+    },
+    {
+        "id": "L_MPWEAPONS_098",
+        "en": "Hotshot\n",
+        "gb": "Hotshot\n",
+        "jp": "Hotshot\n",
+        "it": "Hotshot\n",
+        "fr": "Hotshot\n",
+        "de": "Hotshot\n",
+        "es": "Hotshot\n"
+    },
+    {
+        "id": "L_MPWEAPONS_099",
+        "en": "Hit and Run\n",
+        "gb": "Hit and Run\n",
+        "jp": "Hit and Run\n",
+        "it": "Hit and Run\n",
+        "fr": "Hit and Run\n",
+        "de": "Hit and Run\n",
+        "es": "Hit and Run\n"
+    },
+    {
+        "id": "L_MPWEAPONS_100",
+        "en": "Alien\n",
+        "gb": "Alien\n",
+        "jp": "Alien\n",
+        "it": "Alien\n",
+        "fr": "Alien\n",
+        "de": "Alien\n",
+        "es": "Alien\n"
+    },
+    {
+        "id": "L_MPWEAPONS_101",
+        "en": "R-Tracker \/ Weapon Cache Locations\n",
+        "gb": "R-Tracker \/ Weapon Cache Locations\n",
+        "jp": "R-Tracker \/ Weapon Cache Locations\n",
+        "it": "R-Tracker \/ Weapon Cache Locations\n",
+        "fr": "R-Tracker \/ Weapon Cache Locations\n",
+        "de": "R-Tracker \/ Weapon Cache Locations\n",
+        "es": "R-Tracker \/ Weapon Cache Locations\n"
+    },
+    {
+        "id": "L_MPWEAPONS_102",
+        "en": "Rocket Launcher\n",
+        "gb": "Rocket Launcher\n",
+        "jp": "Rocket Launcher\n",
+        "it": "Rocket Launcher\n",
+        "fr": "Rocket Launcher\n",
+        "de": "Rocket Launcher\n",
+        "es": "Rocket Launcher\n"
+    },
+    {
+        "id": "L_MPWEAPONS_103",
+        "en": "Sniper Rifle\n",
+        "gb": "Sniper Rifle\n",
+        "jp": "Sniper Rifle\n",
+        "it": "Sniper Rifle\n",
+        "fr": "Sniper Rifle\n",
+        "de": "Sniper Rifle\n",
+        "es": "Sniper Rifle\n"
+    },
+    {
+        "id": "L_MPWEAPONS_104",
+        "en": "X-Ray Scanner\n",
+        "gb": "X-Ray Scanner\n",
+        "jp": "X-Ray Scanner\n",
+        "it": "X-Ray Scanner\n",
+        "fr": "X-Ray Scanner\n",
+        "de": "X-Ray Scanner\n",
+        "es": "X-Ray Scanner\n"
+    },
+    {
+        "id": "L_MPWEAPONS_105",
+        "en": "Superdragon\n",
+        "gb": "Superdragon\n",
+        "jp": "Superdragon\n",
+        "it": "Superdragon\n",
+        "fr": "Superdragon\n",
+        "de": "Superdragon\n",
+        "es": "Superdragon\n"
+    },
+    {
+        "id": "L_MPWEAPONS_106",
+        "en": "Laptop Gun\n",
+        "gb": "Laptop Gun\n",
+        "jp": "Laptop Gun\n",
+        "it": "Laptop Gun\n",
+        "fr": "Laptop Gun\n",
+        "de": "Laptop Gun\n",
+        "es": "Laptop Gun\n"
+    },
+    {
+        "id": "L_MPWEAPONS_107",
+        "en": "Phoenix\n",
+        "gb": "Phoenix\n",
+        "jp": "Phoenix\n",
+        "it": "Phoenix\n",
+        "fr": "Phoenix\n",
+        "de": "Phoenix\n",
+        "es": "Phoenix\n"
+    },
+    {
+        "id": "L_MPWEAPONS_108",
+        "en": "Psychosis Gun\n",
+        "gb": "Psychosis Gun\n",
+        "jp": "Psychosis Gun\n",
+        "it": "Psychosis Gun\n",
+        "fr": "Psychosis Gun\n",
+        "de": "Psychosis Gun\n",
+        "es": "Psychosis Gun\n"
+    },
+    {
+        "id": "L_MPWEAPONS_109",
+        "en": "PP9i\n",
+        "gb": "PP9i\n",
+        "jp": "PP7\n",
+        "it": "PP7\n",
+        "fr": "PP7\n",
+        "de": "PP7\n",
+        "es": "PP7\n"
+    },
+    {
+        "id": "L_MPWEAPONS_110",
+        "en": "CC13\n",
+        "gb": "CC13\n",
+        "jp": "DD44\n",
+        "it": "DD44\n",
+        "fr": "DD44\n",
+        "de": "DD44\n",
+        "es": "DD44\n"
+    },
+    {
+        "id": "L_MPWEAPONS_111",
+        "en": "KL01313\n",
+        "gb": "KL01313\n",
+        "jp": "Klobb\n",
+        "it": "Klobb\n",
+        "fr": "Klobb\n",
+        "de": "Klobb\n",
+        "es": "Klobb\n"
+    },
+    {
+        "id": "L_MPWEAPONS_112",
+        "en": "KF7 Special\n",
+        "gb": "KF7 Special\n",
+        "jp": "KF7 Soviet\n",
+        "it": "KF7 Soviet\n",
+        "fr": "KF7 Soviet\n",
+        "de": "KF7 Soviet\n",
+        "es": "KF7 Soviet\n"
+    },
+    {
+        "id": "L_MPWEAPONS_113",
+        "en": "ZZT (9mm)\n",
+        "gb": "ZZT (9mm)\n",
+        "jp": "ZMG (9mm)\n",
+        "it": "ZMG (9mm)\n",
+        "fr": "ZMG (9mm)\n",
+        "de": "ZMG (9mm)\n",
+        "es": "ZMG (9mm)\n"
+    },
+    {
+        "id": "L_MPWEAPONS_114",
+        "en": "DMC\n",
+        "gb": "DMC\n",
+        "jp": "D5K\n",
+        "it": "D5K\n",
+        "fr": "D5K\n",
+        "de": "D5K\n",
+        "es": "D5K\n"
+    },
+    {
+        "id": "L_MPWEAPONS_115",
+        "en": "AR53\n",
+        "gb": "AR53\n",
+        "jp": "AR33\n",
+        "it": "AR33\n",
+        "fr": "AR33\n",
+        "de": "AR33\n",
+        "es": "AR33\n"
+    },
+    {
+        "id": "L_MPWEAPONS_116",
+        "en": "RC-P45\n",
+        "gb": "RC-P45\n",
+        "jp": "RC-P90\n",
+        "it": "RC-P90\n",
+        "fr": "RC-P90\n",
+        "de": "RC-P90\n",
+        "es": "RC-P90\n"
+    },
+    {
+        "id": "L_MPWEAPONS_117",
+        "en": "Velvet Dark\n",
+        "gb": "Velvet Dark\n",
+        "jp": "Velvet Dark\n",
+        "it": "Velvet Dark\n",
+        "fr": "Velvet Dark\n",
+        "de": "Velvet Dark\n",
+        "es": "Velvet Dark\n"
+    },
+    {
+        "id": "L_MPWEAPONS_118",
+        "en": "Fun\n",
+        "gb": "Fun\n",
+        "jp": "Fun\n",
+        "it": "Fun\n",
+        "fr": "Fun\n",
+        "de": "Fun\n",
+        "es": "Fun\n"
+    },
+    {
+        "id": "L_MPWEAPONS_119",
+        "en": "Gameplay\n",
+        "gb": "Gameplay\n",
+        "jp": "Gameplay\n",
+        "it": "Gameplay\n",
+        "fr": "Gameplay\n",
+        "de": "Gameplay\n",
+        "es": "Gameplay\n"
+    },
+    {
+        "id": "L_MPWEAPONS_120",
+        "en": "Weapons\n",
+        "gb": "Weapons\n",
+        "jp": "Weapons\n",
+        "it": "Weapons\n",
+        "fr": "Weapons\n",
+        "de": "Weapons\n",
+        "es": "Weapons\n"
+    },
+    {
+        "id": "L_MPWEAPONS_121",
+        "en": "Buddies\n",
+        "gb": "Buddies\n",
+        "jp": "Buddies\n",
+        "it": "Buddies\n",
+        "fr": "Buddies\n",
+        "de": "Buddies\n",
+        "es": "Buddies\n"
+    },
+    {
+        "id": "L_MPWEAPONS_122",
+        "en": "Weapons for Jo in Solo\n",
+        "gb": "Weapons for Jo in Solo\n",
+        "jp": "Weapons for Jo in Solo\n",
+        "it": "Weapons for Jo in Solo\n",
+        "fr": "Weapons for Jo in Solo\n",
+        "de": "Weapons for Jo in Solo\n",
+        "es": "Weapons for Jo in Solo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_123",
+        "en": "Classic Weapons for Jo in Solo\n",
+        "gb": "Classic Weapons for Jo in Solo\n",
+        "jp": "Classic Weapons for Jo in Solo\n",
+        "it": "Classic Weapons for Jo in Solo\n",
+        "fr": "Classic Weapons for Jo in Solo\n",
+        "de": "Classic Weapons for Jo in Solo\n",
+        "es": "Classic Weapons for Jo in Solo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_124",
+        "en": "dataDyne Defection",
+        "gb": "dataDyne Defection",
+        "jp": "dataDyne Defection",
+        "it": "dataDyne Defection",
+        "fr": "dataDyne Defection",
+        "de": "dataDyne Defection",
+        "es": "dataDyne Defection"
+    },
+    {
+        "id": "L_MPWEAPONS_125",
+        "en": "dataDyne Extraction",
+        "gb": "dataDyne Extraction",
+        "jp": "dataDyne Extraction",
+        "it": "dataDyne Extraction",
+        "fr": "dataDyne Extraction",
+        "de": "dataDyne Extraction",
+        "es": "dataDyne Extraction"
+    },
+    {
+        "id": "L_MPWEAPONS_126",
+        "en": "A51 Infiltration",
+        "gb": "A51 Infiltration",
+        "jp": "A51 Infiltration",
+        "it": "A51 Infiltration",
+        "fr": "A51 Infiltration",
+        "de": "A51 Infiltration",
+        "es": "A51 Infiltration"
+    },
+    {
+        "id": "L_MPWEAPONS_127",
+        "en": "A51 Rescue",
+        "gb": "A51 Rescue",
+        "jp": "A51 Rescue",
+        "it": "A51 Rescue",
+        "fr": "A51 Rescue",
+        "de": "A51 Rescue",
+        "es": "A51 Rescue"
+    },
+    {
+        "id": "L_MPWEAPONS_128",
+        "en": "A51 Escape",
+        "gb": "A51 Escape",
+        "jp": "A51 Escape",
+        "it": "A51 Escape",
+        "fr": "A51 Escape",
+        "de": "A51 Escape",
+        "es": "A51 Escape"
+    },
+    {
+        "id": "L_MPWEAPONS_129",
+        "en": "Difficulty:\n",
+        "gb": "Difficulty:\n",
+        "jp": "Difficulty:\n",
+        "it": "Difficulty:\n",
+        "fr": "Difficulty:\n",
+        "de": "Difficulty:\n",
+        "es": "Difficulty:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_130",
+        "en": "Cheat Solo Missions\n",
+        "gb": "Cheat Solo Missions\n",
+        "jp": "Cheat Solo Missions\n",
+        "it": "Cheat Solo Missions\n",
+        "fr": "Cheat Solo Missions\n",
+        "de": "Cheat Solo Missions\n",
+        "es": "Cheat Solo Missions\n"
+    },
+    {
+        "id": "L_MPWEAPONS_131",
+        "en": "Cheat Combat Simulator\n",
+        "gb": "Cheat Combat Simulator\n",
+        "jp": "Cheat Combat Simulator\n",
+        "it": "Cheat Combat Simulator\n",
+        "fr": "Cheat Combat Simulator\n",
+        "de": "Cheat Combat Simulator\n",
+        "es": "Cheat Combat Simulator\n"
+    },
+    {
+        "id": "L_MPWEAPONS_132",
+        "en": "Cheat Co-Operative\n",
+        "gb": "Cheat Co-Operative\n",
+        "jp": "Cheat Co-Operative\n",
+        "it": "Cheat Co-Operative\n",
+        "fr": "Cheat Co-Operative\n",
+        "de": "Cheat Co-Operative\n",
+        "es": "Cheat Co-Operative\n"
+    },
+    {
+        "id": "L_MPWEAPONS_133",
+        "en": "Cheat Counter-Operative\n",
+        "gb": "Cheat Counter-Operative\n",
+        "jp": "Cheat Counter-Operative\n",
+        "it": "Cheat Counter-Operative\n",
+        "fr": "Cheat Counter-Operative\n",
+        "de": "Cheat Counter-Operative\n",
+        "es": "Cheat Counter-Operative\n"
+    },
+    {
+        "id": "L_MPWEAPONS_134",
+        "en": "Dishonored\n",
+        "gb": "Dishonored\n",
+        "jp": "Dishonored\n",
+        "it": "Dishonored\n",
+        "fr": "Dishonored\n",
+        "de": "Dishonored\n",
+        "es": "Dishonored\n"
+    },
+    {
+        "id": "L_MPWEAPONS_135",
+        "en": "Cheated\n",
+        "gb": "Cheated\n",
+        "jp": "Cheated\n",
+        "it": "Cheated\n",
+        "fr": "Cheated\n",
+        "de": "Cheated\n",
+        "es": "Cheated\n"
+    },
+    {
+        "id": "L_MPWEAPONS_136",
+        "en": "Cheat available",
+        "gb": "Cheat available",
+        "jp": "Cheat available",
+        "it": "Cheat available",
+        "fr": "Cheat available",
+        "de": "Cheat available",
+        "es": "Cheat available"
+    },
+    {
+        "id": "L_MPWEAPONS_137",
+        "en": "Complete",
+        "gb": "Complete",
+        "jp": "Complete",
+        "it": "Complete",
+        "fr": "Complete",
+        "de": "Complete",
+        "es": "Complete"
+    },
+    {
+        "id": "L_MPWEAPONS_138",
+        "en": "for cheat:",
+        "gb": "for cheat:",
+        "jp": "for cheat:",
+        "it": "for cheat:",
+        "fr": "for cheat:",
+        "de": "for cheat:",
+        "es": "for cheat:"
+    },
+    {
+        "id": "L_MPWEAPONS_139",
+        "en": "on",
+        "gb": "on",
+        "jp": "on",
+        "it": "on",
+        "fr": "on",
+        "de": "on",
+        "es": "on"
+    },
+    {
+        "id": "L_MPWEAPONS_140",
+        "en": "in under",
+        "gb": "in under",
+        "jp": "in under",
+        "it": "in under",
+        "fr": "in under",
+        "de": "in under",
+        "es": "in under"
+    },
+    {
+        "id": "L_MPWEAPONS_141",
+        "en": " or insert Perfect Dark Game Boy",
+        "gb": " or insert Perfect Dark Game Boy",
+        "jp": " or insert Perfect Dark Game Boy",
+        "it": " or insert Perfect Dark Game Boy",
+        "fr": " or insert Perfect Dark Game Boy",
+        "de": " or insert Perfect Dark Game Boy",
+        "es": " or insert Perfect Dark Game Boy"
+    },
+    {
+        "id": "L_MPWEAPONS_142",
+        "en": "Select cheat for information\n",
+        "gb": "Select cheat for information\n",
+        "jp": "Select cheat for information\n",
+        "it": "Select cheat for information\n",
+        "fr": "Select cheat for information\n",
+        "de": "Select cheat for information\n",
+        "es": "Select cheat for information\n"
+    },
+    {
+        "id": "L_MPWEAPONS_143",
+        "en": "Buddy Available",
+        "gb": "Buddy Available",
+        "jp": "Buddy Available",
+        "it": "Buddy Available",
+        "fr": "Buddy Available",
+        "de": "Buddy Available",
+        "es": "Buddy Available"
+    },
+    {
+        "id": "L_MPWEAPONS_144",
+        "en": "Win Golds on the firing range to enable classic guns.\n",
+        "gb": "Win Golds on the firing range to enable classic guns.\n",
+        "jp": "Win Golds on the firing range to enable classic guns.\n",
+        "it": "Win Golds on the firing range to enable classic guns.\n",
+        "fr": "Win Golds on the firing range to enable classic guns.\n",
+        "de": "Win Golds on the firing range to enable classic guns.\n",
+        "es": "Win Golds on the firing range to enable classic guns.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_145",
+        "en": "Sight on Screen\n",
+        "gb": "Sight on Screen\n",
+        "jp": "Sight on Screen\n",
+        "it": "Sight on Screen\n",
+        "fr": "Sight on Screen\n",
+        "de": "Sight on Screen\n",
+        "es": "Sight on Screen\n"
+    },
+    {
+        "id": "L_MPWEAPONS_146",
+        "en": "Target\n",
+        "gb": "Target\n",
+        "jp": "Target\n",
+        "it": "Target\n",
+        "fr": "Target\n",
+        "de": "Target\n",
+        "es": "Target\n"
+    },
+    {
+        "id": "L_MPWEAPONS_147",
+        "en": "Zoom Range\n",
+        "gb": "Zoom Range\n",
+        "jp": "Zoom Range\n",
+        "it": "Zoom Range\n",
+        "fr": "Zoom Range\n",
+        "de": "Zoom Range\n",
+        "es": "Zoom Range\n"
+    },
+    {
+        "id": "L_MPWEAPONS_148",
+        "en": "Show Ammo\n",
+        "gb": "Show Ammo\n",
+        "jp": "Show Ammo\n",
+        "it": "Show Ammo\n",
+        "fr": "Show Ammo\n",
+        "de": "Show Ammo\n",
+        "es": "Show Ammo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_149",
+        "en": "Gun Function\n",
+        "gb": "Gun Function\n",
+        "jp": "Gun Function\n",
+        "it": "Gun Function\n",
+        "fr": "Gun Function\n",
+        "de": "Gun Function\n",
+        "es": "Gun Function\n"
+    },
+    {
+        "id": "L_MPWEAPONS_150",
+        "en": "Paintball\n",
+        "gb": "Paintball\n",
+        "jp": "Paintball\n",
+        "it": "Paintball\n",
+        "fr": "Paintball\n",
+        "de": "Paintball\n",
+        "es": "Paintball\n"
+    },
+    {
+        "id": "L_MPWEAPONS_151",
+        "en": "Subtitles\n",
+        "gb": "Subtitles\n",
+        "jp": "Subtitles\n",
+        "it": "Subtitles\n",
+        "fr": "Subtitles\n",
+        "de": "Subtitles\n",
+        "es": "Subtitles\n"
+    },
+    {
+        "id": "L_MPWEAPONS_152",
+        "en": "Mission Time\n",
+        "gb": "Mission Time\n",
+        "jp": "Mission Time\n",
+        "it": "Mission Time\n",
+        "fr": "Mission Time\n",
+        "de": "Mission Time\n",
+        "es": "Mission Time\n"
+    },
+    {
+        "id": "L_MPWEAPONS_153",
+        "en": "Mode\n",
+        "gb": "Mode\n",
+        "jp": "Mode\n",
+        "it": "Mode\n",
+        "fr": "Mode\n",
+        "de": "Mode\n",
+        "es": "Mode\n"
+    },
+    {
+        "id": "L_MPWEAPONS_154",
+        "en": "Split\n",
+        "gb": "Split\n",
+        "jp": "Split\n",
+        "it": "Split\n",
+        "fr": "Split\n",
+        "de": "Split\n",
+        "es": "Split\n"
+    },
+    {
+        "id": "L_MPWEAPONS_155",
+        "en": "Do you want to abort\nthe mission?\n",
+        "gb": "Do you want to abort\nthe mission?\n",
+        "jp": "Do you want to abort\nthe mission?\n",
+        "it": "Do you want to abort\nthe mission?\n",
+        "fr": "Do you want to abort\nthe mission?\n",
+        "de": "Do you want to abort\nthe mission?\n",
+        "es": "Do you want to abort\nthe mission?\n"
+    },
+    {
+        "id": "L_MPWEAPONS_156",
+        "en": "Joanna Leather\n",
+        "gb": "Joanna Leather\n",
+        "jp": "Joanna Leather\n",
+        "it": "Joanna Leather\n",
+        "fr": "Joanna Leather\n",
+        "de": "Joanna Leather\n",
+        "es": "Joanna Leather\n"
+    },
+    {
+        "id": "L_MPWEAPONS_157",
+        "en": "Joanna Negotiator\n",
+        "gb": "Joanna Negotiator\n",
+        "jp": "Joanna Negotiator\n",
+        "it": "Joanna Negotiator\n",
+        "fr": "Joanna Negotiator\n",
+        "de": "Joanna Negotiator\n",
+        "es": "Joanna Negotiator\n"
+    },
+    {
+        "id": "L_MPWEAPONS_158",
+        "en": "Elvis (Waistcoat)\n",
+        "gb": "Elvis (Waistcoat)\n",
+        "jp": "Elvis (Waistcoat)\n",
+        "it": "Elvis (Waistcoat)\n",
+        "fr": "Elvis (Waistcoat)\n",
+        "de": "Elvis (Waistcoat)\n",
+        "es": "Elvis (Waistcoat)\n"
+    },
+    {
+        "id": "L_MPWEAPONS_159",
+        "en": "Error\n",
+        "gb": "Error\n",
+        "jp": "Error\n",
+        "it": "Error\n",
+        "fr": "Error\n",
+        "de": "Error\n",
+        "es": "Error\n"
+    },
+    {
+        "id": "L_MPWEAPONS_160",
+        "en": "Cannot delete file as\nit is being used.\n",
+        "gb": "Cannot delete file as\nit is being used.\n",
+        "jp": "Cannot delete file as\nit is being used.\n",
+        "it": "Cannot delete file as\nit is being used.\n",
+        "fr": "Cannot delete file as\nit is being used.\n",
+        "de": "Cannot delete file as\nit is being used.\n",
+        "es": "Cannot delete file as\nit is being used.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_161",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Cancel\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPWEAPONS_162",
+        "en": "Time Limit:\n",
+        "gb": "Time Limit:\n",
+        "jp": "Time Limit:\n",
+        "it": "Time Limit:\n",
+        "fr": "Time Limit:\n",
+        "de": "Time Limit:\n",
+        "es": "Time Limit:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_163",
+        "en": "Score Limit:\n",
+        "gb": "Score Limit:\n",
+        "jp": "Score Limit:\n",
+        "it": "Score Limit:\n",
+        "fr": "Score Limit:\n",
+        "de": "Score Limit:\n",
+        "es": "Score Limit:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_164",
+        "en": "Team Score Limit:\n",
+        "gb": "Team Score Limit:\n",
+        "jp": "Team Score Limit:\n",
+        "it": "Team Score Limit:\n",
+        "fr": "Team Score Limit:\n",
+        "de": "Team Score Limit:\n",
+        "es": "Team Score Limit:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_165",
+        "en": "Challenge Completed!\n",
+        "gb": "Challenge Completed!\n",
+        "jp": "Challenge Completed!\n",
+        "it": "Challenge Completed!\n",
+        "fr": "Challenge Completed!\n",
+        "de": "Challenge Completed!\n",
+        "es": "Challenge Completed!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_166",
+        "en": "Challenge Failed!\n",
+        "gb": "Challenge Failed!\n",
+        "jp": "Challenge Failed!\n",
+        "it": "Challenge Failed!\n",
+        "fr": "Challenge Failed!\n",
+        "de": "Challenge Failed!\n",
+        "es": "Challenge Failed!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_167",
+        "en": "Challenge Cheated!\n",
+        "gb": "Challenge Cheated!\n",
+        "jp": "Challenge Cheated!\n",
+        "it": "Challenge Cheated!\n",
+        "fr": "Challenge Cheated!\n",
+        "de": "Challenge Cheated!\n",
+        "es": "Challenge Cheated!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_168",
+        "en": "Cutscene Subtitles\n",
+        "gb": "Cutscene Subtitles\n",
+        "jp": "Cutscene Subtitles\n",
+        "it": "Cutscene Subtitles\n",
+        "fr": "Cutscene Subtitles\n",
+        "de": "Cutscene Subtitles\n",
+        "es": "Cutscene Subtitles\n"
+    },
+    {
+        "id": "L_MPWEAPONS_169",
+        "en": "In-Game Subtitles\n",
+        "gb": "In-Game Subtitles\n",
+        "jp": "In-Game Subtitles\n",
+        "it": "In-Game Subtitles\n",
+        "fr": "In-Game Subtitles\n",
+        "de": "In-Game Subtitles\n",
+        "es": "In-Game Subtitles\n"
+    },
+    {
+        "id": "L_MPWEAPONS_170",
+        "en": "Alternative Title Screen\n",
+        "gb": "Alternative Title Screen\n",
+        "jp": "Alternative Title Screen\n",
+        "it": "Alternative Title Screen\n",
+        "fr": "Alternative Title Screen\n",
+        "de": "Alternative Title Screen\n",
+        "es": "Alternative Title Screen\n"
+    },
+    {
+        "id": "L_MPWEAPONS_171",
+        "en": "Start Challenge\n",
+        "gb": "Start Challenge\n",
+        "jp": "Start Challenge\n",
+        "it": "Start Challenge\n",
+        "fr": "Start Challenge\n",
+        "de": "Start Challenge\n",
+        "es": "Start Challenge\n"
+    },
+    {
+        "id": "L_MPWEAPONS_172",
+        "en": "dataDyne Investigation",
+        "gb": "dataDyne Investigation",
+        "jp": "dataDyne Investigation",
+        "it": "dataDyne Investigation",
+        "fr": "dataDyne Investigation",
+        "de": "dataDyne Investigation",
+        "es": "dataDyne Investigation"
+    },
+    {
+        "id": "L_MPWEAPONS_173",
+        "en": "Error\n",
+        "gb": "Error\n",
+        "jp": "Error\n",
+        "it": "Error\n",
+        "fr": "Error\n",
+        "de": "Error\n",
+        "es": "Error\n"
+    },
+    {
+        "id": "L_MPWEAPONS_174",
+        "en": "The Controller Pak\nhas been removed.\n",
+        "gb": "The Controller Pak\nhas been removed.\n",
+        "jp": "The Controller Pak\nhas been removed.\n",
+        "it": "The Controller Pak\nhas been removed.\n",
+        "fr": "The Controller Pak\nhas been removed.\n",
+        "de": "The Controller Pak\nhas been removed.\n",
+        "es": "The Controller Pak\nhas been removed.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_175",
+        "en": "Attempt Repair\n",
+        "gb": "Attempt Repair\n",
+        "jp": "Attempt Repair\n",
+        "it": "Attempt Repair\n",
+        "fr": "Attempt Repair\n",
+        "de": "Attempt Repair\n",
+        "es": "Attempt Repair\n"
+    },
+    {
+        "id": "L_MPWEAPONS_176",
+        "en": "Are you sure you want\nto attempt repair of\nthis Controller Pak?\n",
+        "gb": "Are you sure you want\nto attempt repair of\nthis Controller Pak?\n",
+        "jp": "Are you sure you want\nto attempt repair of\nthis Controller Pak?\n",
+        "it": "Are you sure you want\nto attempt repair of\nthis Controller Pak?\n",
+        "fr": "Are you sure you want\nto attempt repair of\nthis Controller Pak?\n",
+        "de": "Are you sure you want\nto attempt repair of\nthis Controller Pak?\n",
+        "es": "Are you sure you want\nto attempt repair of\nthis Controller Pak?\n"
+    },
+    {
+        "id": "L_MPWEAPONS_177",
+        "en": "Data may be lost!\n",
+        "gb": "Data may be lost!\n",
+        "jp": "Data may be lost!\n",
+        "it": "Data may be lost!\n",
+        "fr": "Data may be lost!\n",
+        "de": "Data may be lost!\n",
+        "es": "Data may be lost!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_178",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Cancel\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPWEAPONS_179",
+        "en": "Repair\n",
+        "gb": "Repair\n",
+        "jp": "Repair\n",
+        "it": "Repair\n",
+        "fr": "Repair\n",
+        "de": "Repair\n",
+        "es": "Repair\n"
+    },
+    {
+        "id": "L_MPWEAPONS_180",
+        "en": "Repair Successful\n",
+        "gb": "Repair Successful\n",
+        "jp": "Repair Successful\n",
+        "it": "Repair Successful\n",
+        "fr": "Repair Successful\n",
+        "de": "Repair Successful\n",
+        "es": "Repair Successful\n"
+    },
+    {
+        "id": "L_MPWEAPONS_181",
+        "en": "The Controller Pak has\nbeen repaired.\n",
+        "gb": "The Controller Pak has\nbeen repaired.\n",
+        "jp": "The Controller Pak has\nbeen repaired.\n",
+        "it": "The Controller Pak has\nbeen repaired.\n",
+        "fr": "The Controller Pak has\nbeen repaired.\n",
+        "de": "The Controller Pak has\nbeen repaired.\n",
+        "es": "The Controller Pak has\nbeen repaired.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_182",
+        "en": "Repair Failed\n",
+        "gb": "Repair Failed\n",
+        "jp": "Repair Failed\n",
+        "it": "Repair Failed\n",
+        "fr": "Repair Failed\n",
+        "de": "Repair Failed\n",
+        "es": "Repair Failed\n"
+    },
+    {
+        "id": "L_MPWEAPONS_183",
+        "en": "The Controller Pak can\nnot be repaired.\nYou will not be able to\nload from or save to\nthis Controller Pak.\n",
+        "gb": "The Controller Pak could\nnot be repaired.\n",
+        "jp": "The Controller Pak could\nnot be repaired.\n",
+        "it": "The Controller Pak could\nnot be repaired.\n",
+        "fr": "The Controller Pak could\nnot be repaired.\n",
+        "de": "The Controller Pak could\nnot be repaired.\n",
+        "es": "The Controller Pak could\nnot be repaired.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_184",
+        "en": "Player Handicaps\n",
+        "gb": "L\/R: ",
+        "jp": "L\/R: ",
+        "it": "L\/R: ",
+        "fr": "L\/R: ",
+        "de": "L\/R: ",
+        "es": "L\/R: "
+    },
+    {
+        "id": "L_MPWEAPONS_185",
+        "en": "L\/R BUTTONS: ",
+        "gb": "C-UP: ",
+        "jp": "C-UP: ",
+        "it": "C-UP: ",
+        "fr": "C-UP: ",
+        "de": "C-UP: ",
+        "es": "C-UP: "
+    },
+    {
+        "id": "L_MPWEAPONS_186",
+        "en": "UP C BUTTON: ",
+        "gb": "C-L\/R: ",
+        "jp": "C-L\/R: ",
+        "it": "C-L\/R: ",
+        "fr": "C-L\/R: ",
+        "de": "C-L\/R: ",
+        "es": "C-L\/R: "
+    },
+    {
+        "id": "L_MPWEAPONS_187",
+        "en": "LEFT\/RIGHT C BUTTONS: ",
+        "gb": "C-DOWN: ",
+        "jp": "C-DOWN: ",
+        "it": "C-DOWN: ",
+        "fr": "C-DOWN: ",
+        "de": "C-DOWN: ",
+        "es": "C-DOWN: "
+    },
+    {
+        "id": "L_MPWEAPONS_188",
+        "en": "DOWN C BUTTON: ",
+        "gb": "A: ",
+        "jp": "A: ",
+        "it": "A: ",
+        "fr": "A: ",
+        "de": "A: ",
+        "es": "A: "
+    },
+    {
+        "id": "L_MPWEAPONS_189",
+        "en": "A BUTTON: ",
+        "gb": "B: ",
+        "jp": "B: ",
+        "it": "B: ",
+        "fr": "B: ",
+        "de": "B: ",
+        "es": "B: "
+    },
+    {
+        "id": "L_MPWEAPONS_190",
+        "en": "B BUTTON: ",
+        "gb": "STICK: ",
+        "jp": "STICK: ",
+        "it": "STICK: ",
+        "fr": "STICK: ",
+        "de": "STICK: ",
+        "es": "STICK: "
+    },
+    {
+        "id": "L_MPWEAPONS_191",
+        "en": "CONTROL STICK: ",
+        "gb": "Z: ",
+        "jp": "Z: ",
+        "it": "Z: ",
+        "fr": "Z: ",
+        "de": "Z: ",
+        "es": "Z: "
+    },
+    {
+        "id": "L_MPWEAPONS_192",
+        "en": "Z BUTTON: ",
+        "gb": "D-PAD: ",
+        "jp": "D-PAD: ",
+        "it": "D-PAD: ",
+        "fr": "D-PAD: ",
+        "de": "D-PAD: ",
+        "es": "D-PAD: "
+    },
+    {
+        "id": "L_MPWEAPONS_193",
+        "en": "+ CONTROL PAD: ",
+        "gb": "AIM TOGGLE",
+        "jp": "AIM TOGGLE",
+        "it": "AIM TOGGLE",
+        "fr": "AIM TOGGLE",
+        "de": "AIM TOGGLE",
+        "es": "AIM TOGGLE"
+    },
+    {
+        "id": "L_MPWEAPONS_194",
+        "en": "AIM",
+        "gb": "LOOK UP \/ GET UP",
+        "jp": "LOOK UP \/ GET UP",
+        "it": "LOOK UP \/ GET UP",
+        "fr": "LOOK UP \/ GET UP",
+        "de": "LOOK UP \/ GET UP",
+        "es": "LOOK UP \/ GET UP"
+    },
+    {
+        "id": "L_MPWEAPONS_195",
+        "en": "AIM TOGGLE",
+        "gb": "STRAFE",
+        "jp": "STRAFE",
+        "it": "STRAFE",
+        "fr": "STRAFE",
+        "de": "STRAFE",
+        "es": "STRAFE"
+    },
+    {
+        "id": "L_MPWEAPONS_196",
+        "en": "LOOK UP",
+        "gb": "LOOK DOWN \/ CROUCH",
+        "jp": "LOOK DOWN \/ CROUCH",
+        "it": "LOOK DOWN \/ CROUCH",
+        "fr": "LOOK DOWN \/ CROUCH",
+        "de": "LOOK DOWN \/ CROUCH",
+        "es": "LOOK DOWN \/ CROUCH"
+    },
+    {
+        "id": "L_MPWEAPONS_197",
+        "en": "LOOK DOWN",
+        "gb": "CHANGE GUN \/ ACTIVEMENU",
+        "jp": "CHANGE GUN \/ ACTIVEMENU",
+        "it": "CHANGE GUN \/ ACTIVEMENU",
+        "fr": "CHANGE GUN \/ ACTIVEMENU",
+        "de": "CHANGE GUN \/ ACTIVEMENU",
+        "es": "CHANGE GUN \/ ACTIVEMENU"
+    },
+    {
+        "id": "L_MPWEAPONS_198",
+        "en": "LOOK DOWN",
+        "gb": "RELOAD \/ ACTION \/ SECONDARY FIRE",
+        "jp": "RELOAD \/ ACTION \/ SECONDARY FIRE",
+        "it": "RELOAD \/ ACTION \/ SECONDARY FIRE",
+        "fr": "RELOAD \/ ACTION \/ SECONDARY FIRE",
+        "de": "RELOAD \/ ACTION \/ SECONDARY FIRE",
+        "es": "RELOAD \/ ACTION \/ SECONDARY FIRE"
+    },
+    {
+        "id": "L_MPWEAPONS_199",
+        "en": "LOOK UP",
+        "gb": "WALK AND TURN",
+        "jp": "WALK AND TURN",
+        "it": "WALK AND TURN",
+        "fr": "WALK AND TURN",
+        "de": "WALK AND TURN",
+        "es": "WALK AND TURN"
+    },
+    {
+        "id": "L_MPWEAPONS_200",
+        "en": "FORWARDS",
+        "gb": "FIRE",
+        "jp": "FIRE",
+        "it": "FIRE",
+        "fr": "FIRE",
+        "de": "FIRE",
+        "es": "FIRE"
+    },
+    {
+        "id": "L_MPWEAPONS_201",
+        "en": "BACKWARDS",
+        "gb": "AS C-BUTTONS",
+        "jp": "AS C-BUTTONS",
+        "it": "AS C-BUTTONS",
+        "fr": "AS C-BUTTONS",
+        "de": "AS C-BUTTONS",
+        "es": "AS C-BUTTONS"
+    },
+    {
+        "id": "L_MPWEAPONS_202",
+        "en": "STRAFE",
+        "gb": "Turn off all Cheats\n",
+        "jp": "Turn off all Cheats\n",
+        "it": "Turn off all Cheats\n",
+        "fr": "Turn off all Cheats\n",
+        "de": "Turn off all Cheats\n",
+        "es": "Turn off all Cheats\n"
+    },
+    {
+        "id": "L_MPWEAPONS_203",
+        "en": "WEAPON",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_204",
+        "en": "ACTION\/RELOAD",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_205",
+        "en": "FIRE",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_206",
+        "en": "WALK\/TURN",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_207",
+        "en": "LOOK",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_208",
+        "en": "WALK\/STRAFE",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_209",
+        "en": "LOOK\/STRAFE",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_210",
+        "en": "AS C BUTTONS",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_211",
+        "en": "Left Hand:",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_212",
+        "en": "Right Hand:",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_213",
+        "en": "Control Style %s %s\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_214",
+        "en": "(One-Handed)",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_215",
+        "en": "(Two-Handed)",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_216",
+        "en": "Hold Weapon button for quick-menu.\nHold Action button to toggle function.\nAction+Fire temporarily changes function.\nAim allows you to target accurately.\nAim + Down C Button crouches.\nAim + Up C Button gets up.\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_217",
+        "en": "Turn off all Cheats\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_218",
+        "en": "Language Filter\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_219",
+        "en": "USERNAME:\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_220",
+        "en": "PASSWORD:\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_221",
+        "en": "Perfect Dark\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_222",
+        "en": "Choose Settings:\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_223",
+        "en": "Enemy Reaction Speed:\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_224",
+        "en": "Enemy Health:\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_225",
+        "en": "Enemy Damage:\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_226",
+        "en": "Enemy Accuracy:\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_227",
+        "en": "OK\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_228",
+        "en": "Cancel\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_229",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_230",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_231",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    }
+]

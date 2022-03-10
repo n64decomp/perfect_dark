@@ -1,0 +1,842 @@
+[
+    {
+        "id": "L_DEPO_000",
+        "en": "|Background - \n\nOnce inside G5 Headquarters, proceed into the heart of the building where the meeting should be taking place. Obtain a visual record of the meeting and get out as quickly as possible.\n\n|Carrington - \n\nThe G5 Building has an integrated alarm system. Watch out for any guards who see you, as they're sure to try and activate it. This will alert the conspirators, who will almost certainly not go ahead with the meeting under such circumstances. Softly, softly, Joanna.\n\n|Objective One: - Disable Damping Field Generator\n\nA device in the car garage section of the building is preventing the transmission of any information recorded by the CamSpy. Once shut down, the CamSpy can relay any captured recordings back to HQ.\n\n|Objective Two: - Deactivate Laser Grid Systems\n\nAn examination of the power grid of the G5 Building indicates a network of laser grids. These grids are placed specifically to deny a route into the meeting room, but if you can turn them off, the way is clear.\n\n|Objective Three: - Holograph Meeting Conspirators\n\nThe CamSpy device is an excellent way to record the meeting without alerting De Vries and the other conspirators.\n\n|Objective Four: - Retrieve Backup From Safe\n\nDr. Caroll informed Daniel of a backup personality that is stored in a safe in the G5 Building. If we can obtain it, it would mean that we could restore the personality to Dr. Caroll at a later date.\n\n|Objective Five: - Exit Building\n\nDestroy the blocked-up door to create your exit. If you remember which level of the fire escape is outside, you may save yourself some time.\n\nEND\n",
+        "gb": "|Background - \n\nOnce inside G5 Headquarters, proceed into the heart of the building where the meeting should be taking place. Obtain a visual record of the meeting and get out as quickly as possible.\n\n|Carrington - \n\nThe G5 Building has an integrated alarm system. Watch out for any guards who see you, as they're sure to try and activate it. This will alert the conspirators, who will almost certainly not go ahead with the meeting under such circumstances. Softly, softly, Joanna.\n\n|Objective One: - Disable Damping Field Generator\n\nA device in the car garage section of the building is preventing the transmission of any information recorded by the CamSpy. Once shut down, the CamSpy can relay any captured recordings back to HQ.\n\n|Objective Two: - Deactivate Laser Grid Systems\n\nAn examination of the power grid of the G5 Building indicates a network of laser grids. These grids are placed specifically to deny a route into the meeting room, but if you can turn them off, the way is clear.\n\n|Objective Three: - Holograph Meeting Conspirators\n\nThe CamSpy device is an excellent way to record the meeting without alerting De Vries and the other conspirators.\n\n|Objective Four: - Retrieve Backup From Safe\n\nDr. Caroll informed Daniel of a backup personality that is stored in a safe in the G5 Building. If we can obtain it, it would mean that we could restore the personality to Dr. Caroll at a later date.\n\n|Objective Five: - Exit Building\n\nDestroy the blocked-up door to create your exit. If you remember which level of the fire escape is outside, you may save yourself some time.\n\nEND\n",
+        "jp": "|Background - \n\nOnce inside G5 Headquarters, proceed into the heart of the building where the meeting should be taking place. Obtain a visual record of the meeting and get out as quickly as possible.\n\n|Carrington - \n\nThe G5 building has an integrated alarm system. Watch out for any guards who see you, as they're sure to try and activate it. This will alert the conspirators, who will almost certainly not go ahead with the meeting under such circumstances. Softly softly, Joanna.\n\n|Objective One: - Disable Damping Field Generator\n\nA device in the car garage section of the building is preventing the operation of any recording equipment. Locate it and shut it down.\n\n|Objective Two: - De-activate Laser Grid Systems\n\nAn examination of the power grid of the G5 building indicates a network of laser grids. These grids are placed specifically to deny a route into the meeting room, but if you can turn them off, the way is clear.\n\n|Objective Three: - Record Meeting\n\nThe Eye-Spy device is an excellent way to record the meeting without alerting the De Vries and the other conspirators.\n\n|Objective Four: - Retrieve Backup From Safe\n\nDr. Caroll informed Daniel of a backup personality that is stored in a safe in the G5 building. If we can obtain it it would mean that we could restore the personality to Dr. Caroll at a later date.\n\n|Objective Five: - Exit Building\n\nDestroy the blocked-up door to create your exit. If you remember which level of the fire escape is outside and you may save yourself some time.\n\nEND\n",
+        "it": "|Situazione:\n\nUna volta raggiunto il complesso G5 procedi verso il cuore dell'edificio dove dovrebbe aver luogo la riunione. Procurati la videoregistrazione dell'incontro e poi esci di lì il più in fretta possibile.\n\n|Carrington:\n\nL'edificio G5 ha un sistema d'allarme integrato. Fa attenzione alle guardie che ti vedono, poiché cercheranno certamente di attivarlo. Se ci riescono, i cospiratori interromperanno quasi sicuramente la riunione. Vacci piano, Joanna, molto, molto piano!\n\n|Obiettivo 1: - Disattiva generatore segnali di disturbo\n\nNel garage dell'edificio è collocato un dispositivo che impedisce la trasmissione di qualsiasi informazione registrata dalla TeleSpia. Una volta disattivato, la TeleSpia potrà trasmettere i dati al Quartier Generale!\n\n|Obiettivo 2: - Disattiva il sistema delle griglie laser\n\nL'analisi dell'impianto elettrico dell'Edificio G5 evidenzia una fitta rete di griglie laser collocate in modo da impedire l'accesso ai passaggi che portano alla sala riunioni. Se riesci a disattivarlo avrai via libera.\n\n|Obiettivo 3: - Olografa i cospiratori in riunione\n\nLa TeleSpia è uno strumento eccellente per registrare indisturbata la riunione, senza attirare l'attenzione di Cassandra De Vries e degli altri cospiratori.\n\n|Obiettivo 4: - Prendi copia backup dalla cassaforte\n\nIl Dr. Caroll ha comunicato a Daniel che nella cassaforte dell'Edificio G5 si troverebbe una copia di backup del suo cervello. Se riuscissimo ad impadronircene, potremmo ridare al Dr. Caroll il suo cervello originario in un secondo momento.\n\n|Obiettivo 5: - Esci dall'edificio\n\nDistruggi le porte bloccate per crearti una via di fuga. Se riesci a ricordare dove l'uscita antincendio dà sull'esterno, te la caverai più in fretta.\n\nFINE\n",
+        "fr": "|Briefing - \n\nUne fois dans le QG du G5, rendez-vous au centre du bâtiment où la rencontre devrait avoir lieu. Obtenez une preuve visuelle de cette rencontre et partez le plus vite possible.\n\n|Carrington - \n\nL'immeuble G5 est protégé par un système d'alarme. Prenez garde à ne pas être repérée par les vigiles ou ils l'activeront, ce qui inciterait les conspirateurs à annuler leur rencontre. Procédez donc avec la plus grande prudence, Joanna.\n\n|Objectif 1: - Désactiver le champ d'isolement\n\nUn appareil dans la zone du garage de l'immeuble empêche tout système d'enregistrement de fonctionner. Une fois coupée, la Camspy pourra transmettre les données au QG.\n\n|Objectif 2: - Désactiver les systèmes de grilles laser\n\nUn examen du tableau énergétique du bâtiment G5 indique la présence d'un réseau de grilles laser. Celles-ci sont placées pour barrer la route vers la salle de réunion. Désactivez-les pour ouvrir la voie.\n\n|Objectif 3: - Holographier les conspirateurs\n\nL'appareil CamSpy est un excellent moyen d'enregistrer la rencontre sans alerter De Vries ou les autres conspirateurs.\n\n|Objectif 4: - Récupérer la sauvegarde dans le coffre\n\nLe Dr. Caroll a informé Daniel de la présence d'une sauvegarde de sa personnalité gardée dans un coffre de l'immeuble G5. Si nous obtenons cette sauvegarde, la personnalité du Dr. Caroll pourra être restaurée ultérieurement.\n\n|Objectif 5: - Sortir de l'immeuble\n\nDétruisez la porte condamnée pour créer une sortie. Souvenez-vous du niveau extérieur de la sortie de secours pour gagner du temps.\n\nFIN\n",
+        "de": "|Hintergrund - \n\nSobald Sie in das G5-Hauptquartier eingedrungen sind, müssen Sie ins Herz des Gebäudes vordringen. Dort sollte das Meeting stattfinden. Erstellen Sie eine visuelle Aufzeichnung des Meetings, und verlassen Sie anschließend sofort das Gebäude!\n\n|Carrington - \n\nDas G5-Building verfügt über ein integriertes Alarmsystem. Achten Sie auf Patrouillen. Wenn Sie gesehen werden, wird der Alarm sofort ausgelöst. In diesem Fall würden die Verschwörer das Meeting sofort abbrechen. Also, Joanna, gehen Sie sanft vor! Es ist ja nicht Ihr erstes Mal...\n\n|1. Ziel: - Setzen Sie den Generator außer Kraft!\n\nAuf dem Garagen-Deck des Gebäudes befindet sich eine Vorrichtung, die den Einsatz jeglicher Rekorder verhindert. Finden Sie das Gerät und schalten Sie es ab! Anschließend sollte der CamSpy die Daten ohne Probleme übermitteln können.\n\n|2. Ziel: - Deaktivieren Sie das Laser-Netz!\n\nEine Untersuchung der Spannungsfelder im G5-Building hat ergeben, dass sich ein System von Laser-Netzen durch das ganze Gebäude zieht. Diese Netze wurden so platziert, dass ein direkter Zugang zum Meeting-Raum verhindert wird. Wenn Sie das System abschalten können, ist der Weg frei.\n\n|3. Ziel: - Holografieren Sie die Verschwörer!\n\nDer CamSpy ist die perfekte Lösung, De Vries und die anderen Verschwörer bei der 'Arbeit' zu ertappen, ohne viel Aufsehen zu erregen.\n\n|4. Ziel: - Stehlen Sie die Sicherheitskopie aus dem Safe!\n\nDr. Caroll hat Daniel informiert, dass in einem Safe eine Kopie seiner Persönlichkeit aufbewahrt wird. Bringen Sie uns diese Kopie, damit wir Dr. Carolls Persönlichkeit zu einem späteren Zeitpunkt wiederherstellen können.\n\n|5. Ziel: - Verlassen Sie das Gebäude!\n\nZerstören Sie die blockierte Tür, um einen Fluchtweg zu schaffen. Sie sollten sich daran erinnern, wo sich die Feuerleiter befindet. Dadurch erhalten Sie einen nicht zu unterschätzenden Zeitvorteil.\n\nENDE\n",
+        "es": "|Antecedentes - \n\nUna vez dentro del Cuartel General de G5, procede hasta el corazón del edificio donde una reunión tendrá lugar. Obtén una grabación visual de la reunión y sal tan pronto como te sea posible.\n\n|Carrington - \n\nEl Edificio G5 tiene un sistema integrado de alarmas. Cuidado con cualquier guarda que te vea, ya que seguro que intentarán activarlas. Esto alertará a los conspiradores, que casi seguro que no tendrán la reunión bajo esas circunstancias. Suavemente, Joanna, suavemente...\n\n|Objetivo Uno: - Desactivar el Generador de Campo Húmedo\n\nSe trata de un dispositivo en el garaje del edificio evita la transmisión de cualquier información grabada por la Cámara Espía. Una vez apagado, la Cámara Espía puede enviar cualquier grabación al Cuartel General.\n\n|Objetivo Dos: - Desactivar los Sistemas de la Rejilla Láser\n\nUn examen del suministro energético del Edificio G5 indica una red de rejillas láser. Estas rejillas están colocadas específicamente para evitar una posible ruta hacia la sala de reuniones, pero si puedes apagarlas, el camino estará limpio.\n\n|Objetivo Tres: - Holografiar la Reunión de los Conspiradores\n\nEl dispositivo de la Cámara Espía es un excelente modo de grabar la reunión sin alertar a De Vries y los otros conspiradores.\n\n|Objetivo Cuatro: - Recuperar Copia de Seguridad de la Caja Fuerte\n\nEl Dr. Caroll informó a Daniel de una copia de su personalidad que está guardada en una caja fuerte en el Edificio G5. Si nos hacemos con ella, podremos restaurar la personalidad del Dr. Caroll posteriormente.\n\n|Objetivo Cinco: - Salir del Edificio\n\nDestruye la puerta bloqueada para crear una salida. Si recuerdas en qué nivel estaba fuera la salida de incendios, te ahorrarás bastante tiempo.\n\nFIN\n"
+    },
+    {
+        "id": "L_DEPO_001",
+        "en": "G5 BUILDING\n",
+        "gb": "G5 BUILDING\n",
+        "jp": "G5 BUILDING\n",
+        "it": "EDIFICIO G5\n",
+        "fr": "IMMEUBLE G5\n",
+        "de": "G5-BUILDING\n",
+        "es": "EDIFICIO G5\n"
+    },
+    {
+        "id": "L_DEPO_002",
+        "en": "|Background - \n\nOnce inside G5 Headquarters, proceed into the heart of the building where the meeting should be taking place. Obtain a visual record of the meeting and get out as quickly as possible.\n\n|Carrington - \n\nThe G5 Building has an integrated alarm system. Watch out for any guards who see you, as they're sure to try and activate it. This will alert the conspirators, who will almost certainly not go ahead with the meeting under such circumstances. Softly, softly, Joanna.\n\n|Objective One: - Deactivate Laser Grid Systems\n\nAn examination of the power grid of the G5 Building indicates a network of laser grids. These grids are placed specifically to deny a route into the meeting room, but if you can turn them off, the way is clear.\n\n|Objective Two: - Holograph Meeting Conspirators\n\nThe CamSpy device is an excellent way to record the meeting without alerting De Vries and the other conspirators.\n\n|Objective Three: - Retrieve Backup From Safe\n\nDr. Caroll informed Daniel of a backup personality that is stored in a safe in the G5 Building. If we can obtain it, it would mean that we could restore the personality to Dr. Caroll at a later date.\n\n|Objective Four: - Exit Building\n\nDestroy the blocked-up door to create your exit. If you remember which level of the fire escape is outside, you may save yourself some time.\n\nEND\n",
+        "gb": "|Background - \n\nOnce inside G5 Headquarters, proceed into the heart of the building where the meeting should be taking place. Obtain a visual record of the meeting and get out as quickly as possible.\n\n|Carrington - \n\nThe G5 Building has an integrated alarm system. Watch out for any guards who see you, as they're sure to try and activate it. This will alert the conspirators, who will almost certainly not go ahead with the meeting under such circumstances. Softly, softly, Joanna.\n\n|Objective One: - Deactivate Laser Grid Systems\n\nAn examination of the power grid of the G5 Building indicates a network of laser grids. These grids are placed specifically to deny a route into the meeting room, but if you can turn them off, the way is clear.\n\n|Objective Two: - Holograph Meeting Conspirators\n\nThe CamSpy device is an excellent way to record the meeting without alerting De Vries and the other conspirators.\n\n|Objective Three: - Retrieve Backup From Safe\n\nDr. Caroll informed Daniel of a backup personality that is stored in a safe in the G5 Building. If we can obtain it, it would mean that we could restore the personality to Dr. Caroll at a later date.\n\n|Objective Four: - Exit Building\n\nDestroy the blocked-up door to create your exit. If you remember which level of the fire escape is outside, you may save yourself some time.\n\nEND\n",
+        "jp": "|Background - \n\nOnce inside G5 Headquarters, proceed into the heart of the building where the meeting should be taking place. Obtain a visual record of the meeting and get out as quickly as possible.\n\n|Carrington - \n\nThe G5 building has an integrated alarm system. Watch out for any guards who see you, as they're sure to try and activate it. This will alert the conspirators, who will almost certainly not go ahead with the meeting under such circumstances. Softly softly, Joanna.\n\n|Objective One: - De-activate Laser Grid Systems\n\nAn examination of the power grid of the G5 building indicates a network of laser grids. These grids are placed specifically to deny a route into the meeting room, but if you can turn them off, the way is clear.\n\n|Objective Two: - Record Meeting\n\nThe Eye-Spy device is an excellent way to record the meeting without alerting the De Vries and the other conspirators.\n\n|Objective Three: - Retrieve Backup From Safe\n\nDr. Caroll informed Daniel of a backup personality that is stored in a safe in the G5 building. If we can obtain it it would mean that we could restore the personality to Dr. Caroll at a later date.\n\n|Objective Four: - Exit Building\n\nDestroy the blocked-up door to create your exit. If you remember which level of the fire escape is outside and you may save yourself some time.\n\nEND\n",
+        "it": "|Situazione:\n\nUna volta raggiunto il complesso G5 procedi verso il cuore dell'edificio dove dovrebbe aver luogo la riunione. Procurati la videoregistrazione dell'incontro e poi esci di lì il più in fretta possibile.\n\n|Carrington:\n\nL'edificio G5 ha un sistema d'allarme integrato. Fa attenzione alle guardie che ti vedono, poiché cercheranno certamente di attivarlo. Se ci riescono, i cospiratori interromperanno quasi sicuramente la riunione. Vacci piano, Joanna, molto, molto piano!\n\n|Obiettivo 1: - Disattiva il sistema delle griglie laser\n\nL'analisi dell'impianto elettrico dell'Edificio G5 evidenzia una fitta rete di griglie laser collocate in modo da impedire l'accesso ai passaggi che portano alla sala riunioni. Se riesci a disattivarlo avrai via libera.\n\n|Obiettivo 2: - Olografa i cospiratori in riunione\n\nLa TeleSpia è uno strumento eccellente per registrare indisturbata la riunione, senza attirare l'attenzione di Cassandra De Vries e degli altri cospiratori.\n\n|Obiettivo 3: - Prendi copia backup dalla cassaforte\n\nIl Dr. Caroll ha comunicato a Daniel che nella cassaforte dell'Edificio G5 si troverebbe una copia di backup del suo cervello. Se riuscissimo ad impadronircene, potremmo ridare al Dr. Caroll il suo cervello originario in un secondo momento.\n\n|Obiettivo 4: - Esci dall'edificio\n\nDistruggi le porte bloccate per crearti una via di fuga. Se riesci a ricordare dove l'uscita antincendio dà sull'esterno, te la caverai più in fretta.\n\nFINE\n",
+        "fr": "|Briefing - \n\nUne fois dans le QG du G5, rendez-vous au centre du bâtiment où la rencontre devrait avoir lieu. Obtenez une preuve visuelle de cette rencontre et partez le plus vite possible.\n\n|Carrington - \n\nL'immeuble G5 est protégé par un système d'alarme. Prenez garde à ne pas être repérée par les vigiles ou ils l'activeront, ce qui inciterait les conspirateurs à annuler leur rencontre. Procédez donc avec la plus grande prudence, Joanna.\n\n|Objectif 1: - Désactiver les systèmes de grille laser\n\nUn examen du tableau énergétique du bâtiment G5 indique la présence d'un réseau de grilles laser. Celles-ci sont placées pour barrer la route vers la salle de réunion. Désactivez-les pour ouvrir la voie.\n\n|Objectif 2: - Holographier les conspirateurs\n\nL'appareil CamSpy est un excellent moyen d'enregistrer la rencontre sans alerter De Vries ou les autres conspirateurs.\n\n|Objectif 3: - Récupérer la sauvegarde dans le coffre\n\nLe Dr. Caroll a informé Daniel de la présence d'une sauvegarde de sa personnalité gardée dans un coffre de l'immeuble G5. Si nous obtenons cette sauvegarde, la personnalité du Dr. Caroll pourra être restaurée ultérieurement.\n\n|Objectif 4: - Sortir de l'immeuble\n\nDétruisez la porte condamnée pour créer une sortie. Souvenez-vous du niveau extérieur de la sortie de secours pour gagner du temps.\n\nFIN\n",
+        "de": "|Hintergrund - \n\nSobald Sie in das G5-Hauptquartier eingedrungen sind, müssen Sie ins Herz des Gebäudes vordringen. Dort sollte das Meeting stattfinden. Erstellen Sie eine visuelle Aufzeichnung des Meetings, und verlassen Sie anschließend sofort das Gebäude!\n\n|Carrington - \n\nDas G5-Building verfügt über ein integriertes Alarmsystem. Achten Sie auf Patrouillen. Wenn Sie gesehen werden, wird der Alarm sofort ausgelöst. In diesem Fall würden die Verschwörer das Meeting sofort abbrechen. Also, Joanna, gehen Sie sanft vor! Es ist ja nicht Ihr erstes Mal...\n\n|1. Ziel: - Deaktivieren Sie das Laser-Netz!\n\nEine Untersuchung der Spannungsfelder im G5-Building hat ergeben, dass sich ein System von Laser-Netzen durch das ganze Gebäude zieht. Diese Netze wurden so platziert, dass ein direkter Zugang zum Meeting-Raum verhindert wird. Wenn Sie das System abschalten können, ist der Weg frei.\n\n|2. Ziel: - Holografieren Sie die Verschwörer!\n\nDer CamSpy ist die perfekte Lösung, De Vries und die anderen Verschwörer bei der 'Arbeit' zu ertappen, ohne viel Aufsehen zu erregen.\n\n|3. Ziel: - Stehlen Sie die Sicherheitskopie aus dem Safe!\n\nDr. Caroll hat Daniel informiert, dass in einem Safe eine Kopie seiner Persönlichkeit aufbewahrt wird. Bringen Sie uns diese Kopie, damit wir Dr. Carolls Persönlichkeit zu einem späteren Zeitpunkt wiederherstellen können.\n\n|4. Ziel: - Verlassen Sie das Gebäude!\n\nZerstören Sie die blockierte Tür, um einen Fluchtweg zu schaffen. Sie sollten sich daran erinnern, wo sich die Feuerleiter befindet. Dadurch erhalten Sie einen nicht zu unterschätzenden Zeitvorteil.\n\nENDE\n",
+        "es": "|Antecedentes - \n\nUna vez dentro del Cuartel General de G5, procede hasta el corazón del edificio donde una reunión tendrá lugar. Obtén una grabación visual de la reunión y sal tan pronto como te sea posible.\n\n|Carrington - \n\nEl Edificio G5 tiene un sistema integrado de alarmas. Cuidado con cualquier guarda que te vea, ya que seguro que intentarán activarlas. Esto alertará a los conspiradores, que casi seguro que no tendrán la reunión bajo esas circunstancias. Suavemente, Joanna, suavemente...\n\n|Objetivo Uno: - Desactivar los Sistemas de la Parrilla Láser\n\nUn examen del suministro energético del Edificio G5 indica una red de rejillas láser. Estas rejillas están colocadas específicamente para evitar una posible ruta hacia la sala de reuniones, pero si puedes apagarlas, el camino estará limpio.\n\n|Objetivo Dos- Holografiar la Reunión de los Conspiradores\n\nEl dispositivo de la Cámara Espía es un excelente modo de grabar la reunión sin alertar a De Vries y los otros conspiradores.\n\n|Objetivo Tres: - Recuperar Copia de Seguridad de la Caja Fuerte\n\nEl Dr. Caroll informó a Daniel de una copia de su personalidad que está guardada en una caja fuerte en el Edificio G5. Si nos hacemos con ella, podremos restaurar la personalidad del Dr. Caroll posteriormente.\n\n|Objetivo Cuatro: - Salir del Edificio\n\nDestruye la puerta bloqueada para crear una salida. Si recuerdas en qué nivel estaba fuera la salida de incendios, te ahorrarás bastante tiempo.\n\nFIN\n"
+    },
+    {
+        "id": "L_DEPO_003",
+        "en": "|Background - \n\nOnce inside G5 Headquarters, proceed into the heart of the building where the meeting should be taking place. Obtain a visual record of the meeting and get out as quickly as possible.\n\n|Carrington - \n\nThe G5 Building has an integrated alarm system. Watch out for any guards who see you, as they're sure to try and activate it. This will alert the conspirators, who will almost certainly not go ahead with the meeting under such circumstances. Softly, softly, Joanna.\n\n|Objective One: - Holograph Meeting Conspirators\n\nThe CamSpy device is an excellent way to record the meeting without alerting De Vries and the other conspirators.\n\n|Objective Two: - Retrieve Backup From Safe\n\nDr. Caroll informed Daniel of a backup personality that is stored in a safe in the G5 Building. If we can obtain it, it would mean that we could restore the personality to Dr. Caroll at a later date.\n\n|Objective Three: - Exit Building\n\nDestroy the blocked-up door to create your exit. If you remember which level of the fire escape is outside, you may save yourself some time.\n\nEND\n",
+        "gb": "|Background - \n\nOnce inside G5 Headquarters, proceed into the heart of the building where the meeting should be taking place. Obtain a visual record of the meeting and get out as quickly as possible.\n\n|Carrington - \n\nThe G5 Building has an integrated alarm system. Watch out for any guards who see you, as they're sure to try and activate it. This will alert the conspirators, who will almost certainly not go ahead with the meeting under such circumstances. Softly, softly, Joanna.\n\n|Objective One: - Holograph Meeting Conspirators\n\nThe CamSpy device is an excellent way to record the meeting without alerting De Vries and the other conspirators.\n\n|Objective Two: - Retrieve Backup From Safe\n\nDr. Caroll informed Daniel of a backup personality that is stored in a safe in the G5 Building. If we can obtain it, it would mean that we could restore the personality to Dr. Caroll at a later date.\n\n|Objective Three: - Exit Building\n\nDestroy the blocked-up door to create your exit. If you remember which level of the fire escape is outside, you may save yourself some time.\n\nEND\n",
+        "jp": "|Background - \n\nOnce inside G5 Headquarters, proceed into the heart of the building where the meeting should be taking place. Obtain a visual record of the meeting and get out as quickly as possible.\n\n|Carrington - \n\nThe G5 building has an integrated alarm system. Watch out for any guards who see you, as they're sure to try and activate it. This will alert the conspirators, who will almost certainly not go ahead with the meeting under such circumstances. Softly softly, Joanna.\n\n|Objective One: - Record Meeting\n\nThe Eye-Spy device is an excellent way to record the meeting without alerting the De Vries and the other conspirators.\n\n|Objective Two: - Retrieve Backup From Safe\n\nDr. Caroll informed Daniel of a backup personality that is stored in a safe in the G5 building. If we can obtain it it would mean that we could restore the personality to Dr. Caroll at a later date.\n\n|Objective Three: - Exit Building\n\nDestroy the blocked-up door to create your exit. If you remember which level of the fire escape is outside and you may save yourself some time.\n\nEND\n",
+        "it": "|Situazione:\n\nUna volta raggiunto il complesso G5 procedi verso il cuore dell'edificio dove dovrebbe aver luogo la riunione. Procurati la videoregistrazione dell'incontro e poi esci di lì il più in fretta possibile.\n\n|Carrington:\n\nL'edificio G5 ha un sistema d'allarme integrato. Fa attenzione alle guardie che ti vedono, poiché cercheranno certamente di attivarlo. Se ci riescono, i cospiratori interromperanno quasi sicuramente la riunione. Vacci piano, Joanna, molto, molto piano!\n\n|Obiettivo 1: - Olografa i cospiratori in riunione\n\nLa TeleSpia è uno strumento eccellente per registrare indisturbata la riunione, senza attirare l'attenzione di Cassandra De Vries e degli altri cospiratori.\n\n|Obiettivo 2: - Prendi copia dalla cassaforte\n\nIl Dr. Caroll ha comunicato a Daniel che nella cassaforte dell'Edificio G5 si troverebbe una copia di backup del suo cervello. Se riuscissimo ad impadronircene, potremmo ridare al Dr. Caroll il suo cervello originario in un secondo momento.\n\n|Obiettivo 3: - Esci dall'edificio\n\nDistruggi le porte bloccate per crearti una via di fuga. Se riesci a ricordare dove l'uscita antincendio dà sull'esterno, te la caverai più in fretta.\n\nFINE\n",
+        "fr": "|Briefing - \n\nUne fois dans le QG du G5, rendez-vous au centre du bâtiment où la rencontre devrait avoir lieu. Obtenez une preuve visuelle de cette rencontre et partez le plus vite possible.\n\n|Carrington - \n\nL'immeuble G5 est protégé par un système d'alarme. Prenez garde à ne pas être repérée par les vigiles ou ils l'activeront, ce qui inciterait les conspirateurs à annuler leur rencontre. Procédez donc avec la plus grande prudence, Joanna.\n\n|Objectif 1: - Holographier les conspirateurs\n\nL'appareil CamSpy est un excellent moyen d'enregistrer la rencontre sans alerter De Vries ou les autres conspirateurs.\n\n|Objectif 2: - Récupérer la sauvegarde dans le coffre\n\nLe Dr. Caroll a informé Daniel de la présence d'une sauvegarde de sa personnalité gardée dans un coffre de l'immeuble G5. Si nous obtenons cette sauvegarde, la personnalité du Dr. Caroll pourra être restaurée ultérieurement.\n\n|Objectif 3: - Sortir de l'immeuble\n\nDétruisez la porte condamnée pour créer une sortie. Souvenez-vous du niveau extérieur de la sortie de secours pour gagner du temps.\n\nFIN\n",
+        "de": "|Hintergrund - \n\nSobald Sie in das G5-Hauptquartier eingedrungen sind, müssen Sie ins Herz des Gebäudes vordringen. Dort sollte das Meeting stattfinden. Erstellen Sie eine visuelle Aufzeichnung des Meetings, und verlassen Sie anschließend sofort das Gebäude!\n\n|Carrington - \n\nDas G5-Building verfügt über ein integriertes Alarmsystem. Achten Sie auf Patrouillen. Wenn Sie gesehen werden, wird der Alarm sofort ausgelöst. In diesem Fall würden die Verschwörer das Meeting sofort abbrechen. Also, Joanna, gehen Sie sanft vor! Es ist ja nicht Ihr erstes Mal...\n\n|1. Ziel: - Holografieren Sie die Verschwörer!\n\nDer CamSpy ist die perfekte Lösung, De Vries und die anderen Verschwörer bei der 'Arbeit' zu ertappen, ohne viel Aufsehen zu erregen.\n\n|2. Ziel: - Stehlen Sie die Sicherheitskopie aus dem Safe!\n\nDr. Caroll hat Daniel informiert, dass in einem Safe eine Kopie seiner Persönlichkeit aufbewahrt wird. Bringen Sie uns diese Kopie, damit wir Dr. Carolls Persönlichkeit zu einem späteren Zeitpunkt wiederherstellen können.\n\n|3. Ziel: - Verlassen Sie das Gebäude!\n\nZerstören Sie die blockierte Tür, um einen Fluchtweg zu schaffen. Sie sollten sich daran erinnern, wo sich die Feuerleiter befindet. Dadurch erhalten Sie einen nicht zu unterschätzenden Zeitvorteil.\n\nENDE\n",
+        "es": "|Antecedentes - \n\nUna vez dentro del Cuartel General de G5, procede hasta el corazón del edificio donde una reunión tendrá lugar. Obtén una grabación visual de la reunión y sal tan pronto como te sea posible.\n\n|Carrington - \n\nEl Edificio G5 tiene un sistema integrado de alarmas. Cuidado con cualquier guarda que te vea, ya que seguro que intentarán activarlas. Esto alertará a los conspiradores, que casi seguro que no tendrán la reunión bajo esas circunstancias. Suavemente, Joanna, suavemente...\n\n|Objetivo Uno: - Holografiar la Reunión de los Conspiradores\n\nEl dispositivo de la Cámara Espía es un excelente modo de grabar la reunión sin alertar a De Vries y los otros conspiradores.\n\n|Objetivo Dos: - Recuperar Copia de Seguridad de la Caja Fuerte\n\nEl Dr. Caroll informó a Daniel de una copia de su personalidad que está guardada en una caja fuerte en el Edificio G5. Si nos hacemos con ella, podremos restaurar la personalidad del Dr. Caroll posteriormente.\n\n|Objetivo Tres: - Salir del Edificio\n\nDestruye la puerta bloqueada para crear una salida. Si recuerdas en qué nivel estaba fuera la salida de incendios, te ahorrarás bastante tiempo.\n\nFIN\n"
+    },
+    {
+        "id": "L_DEPO_004",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_DEPO_005",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_DEPO_006",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_DEPO_007",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_DEPO_008",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_DEPO_009",
+        "en": "Disable damping field generator\n",
+        "gb": "Disable damping field generator\n",
+        "jp": "Disable Damping Field Generator\n",
+        "it": "Disattiva generatore segnali\n",
+        "fr": "Désactiver le champ d'isolement\n",
+        "de": "Setzen Sie den Generator außer Kraft!\n",
+        "es": "Desactivar generador de campo húmedo\n"
+    },
+    {
+        "id": "L_DEPO_010",
+        "en": "Deactivate laser grid systems\n",
+        "gb": "Deactivate laser grid systems\n",
+        "jp": "De-activate Laser Grid Systems\n",
+        "it": "Disattiva il sistema delle griglie laser\n",
+        "fr": "Désactiver les systèmes de grilles laser\n",
+        "de": "Deaktivieren Sie das Laser-Netz!\n",
+        "es": "Desactivar sistemas de rejilla láser\n"
+    },
+    {
+        "id": "L_DEPO_011",
+        "en": "Holograph meeting conspirators\n",
+        "gb": "Holograph meeting conspirators\n",
+        "jp": "Photograph Meeting Conspirators\n",
+        "it": "Olografa i cospiratori in riunione\n",
+        "fr": "Holographier les conspirateurs\n",
+        "de": "Holografieren Sie die Verschwörer!\n",
+        "es": "Holografiar reunión de conspiradores\n"
+    },
+    {
+        "id": "L_DEPO_012",
+        "en": "Retrieve Dr. Caroll backup from safe\n",
+        "gb": "Retrieve Dr. Caroll backup from safe\n",
+        "jp": "Retrieve Dr Caroll Backup From Safe\n",
+        "it": "Prendi copia backup dalla cassaforte\n",
+        "fr": "Récupérer la sauvegarde dans le coffre\n",
+        "de": "Stehlen Sie die Sicherheitskopie!\n",
+        "es": "Recuperar copia del Dr. Caroll\n"
+    },
+    {
+        "id": "L_DEPO_013",
+        "en": "Exit building\n",
+        "gb": "Exit building\n",
+        "jp": "Exit Building\n",
+        "it": "Esci dall'edificio\n",
+        "fr": "Sortir de l'immeuble\n",
+        "de": "Verlassen Sie das Gebäude!\n",
+        "es": "Salir del edificio\n"
+    },
+    {
+        "id": "L_DEPO_014",
+        "en": "Obtain alpha key card.\n",
+        "gb": "Obtain alpha key card.\n",
+        "jp": "Obtain Alpha Keycard\n",
+        "it": "Procurati chiave alfa\n",
+        "fr": "Obtenir carte alpha.\n",
+        "de": "Erlangen Sie die Alpha-Schlüsselkarte!\n",
+        "es": "Obtén la llave magnética alfa.\n"
+    },
+    {
+        "id": "L_DEPO_015",
+        "en": "Guard's\n",
+        "gb": "Guard's\n",
+        "jp": "Guards\n",
+        "it": "Guardia:\n",
+        "fr": "Garde: \n",
+        "de": "Level 1 Schlüsselkarte\n",
+        "es": "Guarda:\n"
+    },
+    {
+        "id": "L_DEPO_016",
+        "en": "Level 1 key card\n",
+        "gb": "Level 1 key card\n",
+        "jp": "Level 1 Keycard\n",
+        "it": "Chiave 1° piano\n",
+        "fr": "Carte Niveau 1\n",
+        "de": "der Wache\n",
+        "es": "Llave de Nivel 1\n"
+    },
+    {
+        "id": "L_DEPO_017",
+        "en": "Guard's key card\n",
+        "gb": "Guard's key card\n",
+        "jp": "Guards Keycard\n",
+        "it": "Chiave della guardia\n",
+        "fr": "Carte du garde\n",
+        "de": "Schlüsselkarte der Wache\n",
+        "es": "Llave Magnética del Guarda\n"
+    },
+    {
+        "id": "L_DEPO_018",
+        "en": "Picked up guard's key card.\n",
+        "gb": "Picked up guard's key card.\n",
+        "jp": "Picked up Guards Keycard.\n",
+        "it": "Presa chiave della guardia\n",
+        "fr": "Carte du garde obtenue.\n",
+        "de": "Schlüsselkarte der Wache aufgenommen\n",
+        "es": "Llave Magnética del Guarda obtenida\n"
+    },
+    {
+        "id": "L_DEPO_019",
+        "en": "Obtain alpha key card.\n",
+        "gb": "Obtain alpha key card.\n",
+        "jp": "Obtain Alpha Keycard\n",
+        "it": "Procurati chiave alfa\n",
+        "fr": "Obtenir carte alpha.\n",
+        "de": "Erlangen Sie die Alpha-Schlüsselkarte!\n",
+        "es": "Obtén la llave magnética alfa.\n"
+    },
+    {
+        "id": "L_DEPO_020",
+        "en": "Guard's\n",
+        "gb": "Guard's\n",
+        "jp": "Guards\n",
+        "it": "Guardia:\n",
+        "fr": "Garde: \n",
+        "de": "Level 2 Schlüsselkarte\n",
+        "es": "Guarda:\n"
+    },
+    {
+        "id": "L_DEPO_021",
+        "en": "Level 2 key card\n",
+        "gb": "Level 2 key card\n",
+        "jp": "Level 2 Keycard\n",
+        "it": "Chiave 2° piano\n",
+        "fr": "Carte Niveau 2\n",
+        "de": "der Wache\n",
+        "es": "Llave de Nivel 2\n"
+    },
+    {
+        "id": "L_DEPO_022",
+        "en": "Guard's key card\n",
+        "gb": "Guard's key card\n",
+        "jp": "Guards Keycard\n",
+        "it": "Chiave della guardia\n",
+        "fr": "Carte du garde\n",
+        "de": "Schlüsselkarte der Wache\n",
+        "es": "Llave Magnética del Guarda\n"
+    },
+    {
+        "id": "L_DEPO_023",
+        "en": "Picked up guard's key card.\n",
+        "gb": "Picked up guard's key card.\n",
+        "jp": "Picked up Guards Keycard.\n",
+        "it": "Presa chiave della guardia\n",
+        "fr": "Carte du garde obtenue.\n",
+        "de": "Schlüsselkarte der Wache aufgenommen\n",
+        "es": "Llave Magnética del Guarda obtenida\n"
+    },
+    {
+        "id": "L_DEPO_024",
+        "en": "Mission critical object destroyed.\n",
+        "gb": "Mission critical object destroyed.\n",
+        "jp": "Mission Critical Object Destroyed\n",
+        "it": "Distrutto strumento essenziale alla missione\n",
+        "fr": "Objet crucial détruit.\n",
+        "de": "Wichtiges Objekt wurde zerstört.\n",
+        "es": "Objeto crítico de la misión destruido.\n"
+    },
+    {
+        "id": "L_DEPO_025",
+        "en": "Damping field generator shut down.\n",
+        "gb": "Damping field generator shut down.\n",
+        "jp": "Damping Field Generator Shut Down\n",
+        "it": "Disattivato generatore segnali di disturbo\n",
+        "fr": "Générateur champ d'isolement coupé.\n",
+        "de": "Generator wurde abgeschaltet.\n",
+        "es": "Generador de campo húmedo apagado.\n"
+    },
+    {
+        "id": "L_DEPO_026",
+        "en": "Generator cannot be restarted.\n",
+        "gb": "Generator cannot be restarted.\n",
+        "jp": "Generator Cannot Be Restarted\n",
+        "it": "Impossibile riaccendere il generatore\n",
+        "fr": "Générateur ne peut être rallumé.\n",
+        "de": "Der Generator kann nicht wieder gestartet werden.\n",
+        "es": "El generador no puede reiniciarse.\n"
+    },
+    {
+        "id": "L_DEPO_027",
+        "en": "Laser grid unit shut down.\n",
+        "gb": "Laser grid unit shut down.\n",
+        "jp": "Laser Grid Unit Shut Down\n",
+        "it": "Disattivata unità griglie laser\n",
+        "fr": "Unité grilles laser coupée.\n",
+        "de": "Laser-Netz wurde deaktiviert.\n",
+        "es": "Unidad de rejilla láser apagada.\n"
+    },
+    {
+        "id": "L_DEPO_028",
+        "en": "Laser grid unit activated.\n",
+        "gb": "Laser grid unit activated.\n",
+        "jp": "Laser Grid Unit Activated\n",
+        "it": "Attivata unità griglie laser\n",
+        "fr": "Unité grilles laser activée.\n",
+        "de": "Laser-Netz wurde aktiviert.\n",
+        "es": "Unidad de rejilla láser activada.\n"
+    },
+    {
+        "id": "L_DEPO_029",
+        "en": "All laser grid systems shut down.\n",
+        "gb": "All laser grid systems shut down.\n",
+        "jp": "All Laser Grid Systems Shut Down\n",
+        "it": "Disattivati tutti i sistemi griglie laser\n",
+        "fr": "Tous systèmes grilles laser coupés.\n",
+        "de": "Das gesamte Laser-Netz wurde deaktiviert.\n",
+        "es": "Todos los sistemas de rejilla láser apagados.\n"
+    },
+    {
+        "id": "L_DEPO_030",
+        "en": "Obtain DAT tape.\n",
+        "gb": "Obtain DAT tape.\n",
+        "jp": "Obtain Dat Tape\n",
+        "it": "Procurati nastro DAT\n",
+        "fr": "Obtenir cassette DAT.\n",
+        "de": "Erlangen Sie das DAT-Tape.\n",
+        "es": "Obtén la cinta de Datos.\n"
+    },
+    {
+        "id": "L_DEPO_031",
+        "en": "Dr. Caroll's\n",
+        "gb": "Dr. Caroll's\n",
+        "jp": "Dr Carolls\n",
+        "it": "Dr. Caroll:\n",
+        "fr": "Dr. Caroll: \n",
+        "de": "Dr. Carolls\n",
+        "es": "Dr. Caroll:\n"
+    },
+    {
+        "id": "L_DEPO_032",
+        "en": "Backup disk\n",
+        "gb": "Backup disk\n",
+        "jp": "Backup Disk\n",
+        "it": "Disco di backup \n",
+        "fr": "Disque sauvegarde\n",
+        "de": "Sicherheitskopie\n",
+        "es": "Disco de seguridad\n"
+    },
+    {
+        "id": "L_DEPO_033",
+        "en": "Backup disk\n",
+        "gb": "Backup disk\n",
+        "jp": "Backup Disk\n",
+        "it": "Disco di backup\n",
+        "fr": "Disque sauvegarde\n",
+        "de": "Sicherheitskopie\n",
+        "es": "Disco de seguridad\n"
+    },
+    {
+        "id": "L_DEPO_034",
+        "en": "Picked up backup disk.\n",
+        "gb": "Picked up backup disk.\n",
+        "jp": "Picked up Backup Disc\n",
+        "it": "Preso disco di backup.\n",
+        "fr": "Disque sauvegarde obtenu.\n",
+        "de": "Sicherheitskopie aufgenommen\n",
+        "es": "Disco de seguridad obtenido.\n"
+    },
+    {
+        "id": "L_DEPO_035",
+        "en": "Door Decoder attached to access pad.\n",
+        "gb": "Door Decoder attached to access pad.\n",
+        "jp": "Door Decoder Attached To Access Pad\n",
+        "it": "Decodificatore porta in azione\n",
+        "fr": "Décodeur porte fixé sur panneau d'accès.\n",
+        "de": "Tür-Decoder wurde an der Konsole angebracht.\n",
+        "es": "Decodificador de puertas colocado en el acceso.\n"
+    },
+    {
+        "id": "L_DEPO_036",
+        "en": "Initiating cracking routines.\n",
+        "gb": "Initiating cracking routines.\n",
+        "jp": "Initiating Cracking Routines\n",
+        "it": "Decodifica in corso...\n",
+        "fr": "Commandes piratages lancées.\n",
+        "de": "Crack-Routine wurde initiiert.\n",
+        "es": "Iniciando rutinas de apertura.\n"
+    },
+    {
+        "id": "L_DEPO_037",
+        "en": "Door Decoder finished - door unlocked.\n",
+        "gb": "Door Decoder finished - door unlocked.\n",
+        "jp": "Door Decoder Finished - Door Unlocked\n",
+        "it": "Decodificatore ha finito: porta aperta.\n",
+        "fr": "Décodage porte achevé - porte déverrouillée.\n",
+        "de": "Crack-Vorgang abgeschlossen - Tür wurde entriegelt.\n",
+        "es": "El decodificador de puertas terminó: puerta abierta.\n"
+    },
+    {
+        "id": "L_DEPO_038",
+        "en": "INTRUDER ALERT - all security to the vault.\n",
+        "gb": "INTRUDER ALERT - all security to the vault.\n",
+        "jp": "INTRUDER ALERT - all security to the safe\n",
+        "it": "ALLARME INTRUSIONE - Sicurezza all'erta\n",
+        "fr": "ALERTE INTRUSION - sécurité dans l'abri.\n",
+        "de": "ZUTRITTSVERLETZUNG - Alle Sicherheitskräfte sofort ins Kellergeschoß!\n",
+        "es": "ALERTA DE INTRUSOS: toda la seguridad a la caja.\n"
+    },
+    {
+        "id": "L_DEPO_039",
+        "en": "Door Decoder placed correctly.\n",
+        "gb": "Door Decoder placed correctly.\n",
+        "jp": "Door Decoder Placed Correctly\n",
+        "it": "Decodificatore piazzato correttamente\n",
+        "fr": "Décodeur porte placé correctement.\n",
+        "de": "Tür-Decoder wurde korrekt platziert.\n",
+        "es": "Decodificador de puertas colocado correctamente.\n"
+    },
+    {
+        "id": "L_DEPO_040",
+        "en": "Door Decoder incorrectly positioned.\n",
+        "gb": "Door Decoder incorrectly positioned.\n",
+        "jp": "Door Decoder Incorrectly Positioned\n",
+        "it": "Decodificatore in posizione errata\n",
+        "fr": "Décodeur porte mal placé.\n",
+        "de": "Tür-Decoder wurde nicht korrekt platziert.\n",
+        "es": "Decodificador de puertas colocado incorrectamente.\n"
+    },
+    {
+        "id": "L_DEPO_041",
+        "en": "Conspirators have been alerted.\n",
+        "gb": "Conspirators have been alerted.\n",
+        "jp": "Conspirators Have Been Alerted\n",
+        "it": "Allertati i cospiratori\n",
+        "fr": "Conspirateurs alertés.\n",
+        "de": "Die Verschwörer wurden alarmiert.\n",
+        "es": "Los conspiradores han sido alertados.\n"
+    },
+    {
+        "id": "L_DEPO_042",
+        "en": "Alarm activated.\n",
+        "gb": "Alarm activated.\n",
+        "jp": "Alarm Activated\n",
+        "it": "Attivato l'allarme\n",
+        "fr": "Alarme activée.\n",
+        "de": "Alarm wurde aktiviert.\n",
+        "es": "Alarma activada.\n"
+    },
+    {
+        "id": "L_DEPO_043",
+        "en": "Alarm deactivated.\n",
+        "gb": "Alarm deactivated.\n",
+        "jp": "Alarm Deactivated\n",
+        "it": "Disattivato l'allarme\n",
+        "fr": "Alarme désactivée.\n",
+        "de": "Alarm wurde deaktiviert.\n",
+        "es": "Alarma desactivada.\n"
+    },
+    {
+        "id": "L_DEPO_044",
+        "en": "Safe door is locked.\n",
+        "gb": "Safe door is locked.\n",
+        "jp": "Safe Door Is Locked\n",
+        "it": "Bloccata porta di sicurezza \n",
+        "fr": "Porte du coffre fermée.\n",
+        "de": "Die Safetür ist versperrt.\n",
+        "es": "La puerta de la caja fuerte está cerrada.\n"
+    },
+    {
+        "id": "L_DEPO_045",
+        "en": "Door Decoder attached.\n",
+        "gb": "Door Decoder attached.\n",
+        "jp": "Door Decoder attached\n",
+        "it": "Decodificatore in azione\n",
+        "fr": "Décodeur porte fixé.\n",
+        "de": "Tür-Decoder wurde angebracht.\n",
+        "es": "Decodificador de puertas colocado.\n"
+    },
+    {
+        "id": "L_DEPO_046",
+        "en": "Obtain Door Exploder.\n",
+        "gb": "Obtain Door Exploder.\n",
+        "jp": "Obtain Door Exploder\n",
+        "it": "Procurati Esplodiporta\n",
+        "fr": "Obtenir explosif porte.\n",
+        "de": "Erlangen Sie den Sprengsatz.\n",
+        "es": "Obtén el Revienta-puertas.\n"
+    },
+    {
+        "id": "L_DEPO_047",
+        "en": "Dr. Caroll's\n",
+        "gb": "Dr. Caroll's\n",
+        "jp": "Dr Carolls\n",
+        "it": "Dr. Caroll:\n",
+        "fr": "Dr. Caroll: \n",
+        "de": "Dr. Carolls\n",
+        "es": "Dr. Caroll:\n"
+    },
+    {
+        "id": "L_DEPO_048",
+        "en": "Door Exploder\n",
+        "gb": "Door Exploder\n",
+        "jp": "Door Exploder\n",
+        "it": "Esplodiporta\n",
+        "fr": "Explosif porte\n",
+        "de": "Sprengsatz\n",
+        "es": "Revienta-puertas\n"
+    },
+    {
+        "id": "L_DEPO_049",
+        "en": "Door Exploder\n",
+        "gb": "Door Exploder\n",
+        "jp": "Door Exploder\n",
+        "it": "Esplodiporta\n",
+        "fr": "Explosif porte\n",
+        "de": "Sprengsatz\n",
+        "es": "Revienta-puertas\n"
+    },
+    {
+        "id": "L_DEPO_050",
+        "en": "Picked up Door Exploder.\n",
+        "gb": "Picked up Door Exploder.\n",
+        "jp": "Picked up Door Exploder\n",
+        "it": "Preso Esplodiporta\n",
+        "fr": "Explosif porte obtenu.\n",
+        "de": "Sprengsatz aufgenommen\n",
+        "es": "Revienta-puertas obtenido.\n"
+    },
+    {
+        "id": "L_DEPO_051",
+        "en": "Objectives incomplete - MISSION FAILED.\n",
+        "gb": "Objectives incomplete - MISSION FAILED.\n",
+        "jp": "Objectives Incomplete - MISSION FAILED\n",
+        "it": "MISSIONE FALLITA - Obiettivi incompleti\n",
+        "fr": "Objectifs incomplets - MISSION ECHOUEE.\n",
+        "de": "Zielerreichung unvollständig - MISSION FEHLGESCHLAGEN!\n",
+        "es": "Objetivos incompletos: MISIÓN FALLADA.\n"
+    },
+    {
+        "id": "L_DEPO_052",
+        "en": "MISSION SUCCESSFUL\n",
+        "gb": "MISSION SUCCESSFUL\n",
+        "jp": "MISSION SUCCESSFUL\n",
+        "it": "MISSIONE COMPIUTA\n",
+        "fr": "MISSION ACCOMPLIE\n",
+        "de": "MISSION ERFOLGREICH\n",
+        "es": "MISIÓN CONSEGUIDA\n"
+    },
+    {
+        "id": "L_DEPO_053",
+        "en": "Communications bug placed correctly.\n",
+        "gb": "Communications bug placed correctly.\n",
+        "jp": "Communications Bug Placed Correctly\n",
+        "it": "Cimice piazzata correttamente\n",
+        "fr": "Mouchard placé correctement.\n",
+        "de": "Sender wurde korrekt platziert.\n",
+        "es": "'Bicho' de comunicaciones colocado correctamente.\n"
+    },
+    {
+        "id": "L_DEPO_054",
+        "en": "Communications bug placed incorrectly.\n",
+        "gb": "Communications bug placed incorrectly.\n",
+        "jp": "Communications Bug Placed Incorrectly\n",
+        "it": "Cimice in posizione errata\n",
+        "fr": "Mouchard mal placé.\n",
+        "de": "Sender wurde nicht korrekt platziert.\n",
+        "es": "'Bicho' de comunicaciones colocado incorrectamente.\n"
+    },
+    {
+        "id": "L_DEPO_055",
+        "en": "Obtain CamSpy.\n",
+        "gb": "Obtain CamSpy.\n",
+        "jp": "Obtain Eye Spy\n",
+        "it": "Procurati TeleSpia\n",
+        "fr": "Obtenir CamSpy.\n",
+        "de": "Erlangen Sie den CamSpy.\n",
+        "es": "Obtén la Cámara Espía.\n"
+    },
+    {
+        "id": "L_DEPO_056",
+        "en": "Dr. Caroll's\n",
+        "gb": "Dr. Caroll's\n",
+        "jp": "Dr Carolls\n",
+        "it": "Dr. Caroll:\n",
+        "fr": "Dr. Caroll: \n",
+        "de": "Dr. Carolls\n",
+        "es": "Dr. Caroll:\n"
+    },
+    {
+        "id": "L_DEPO_057",
+        "en": "CamSpy\n",
+        "gb": "CamSpy\n",
+        "jp": "Eye Spy\n",
+        "it": "TeleSpia\n",
+        "fr": "CamSpy\n",
+        "de": "CamSpy\n",
+        "es": "Cámara Espía\n"
+    },
+    {
+        "id": "L_DEPO_058",
+        "en": "A CamSpy\n",
+        "gb": "A CamSpy\n",
+        "jp": "An Eye Spy\n",
+        "it": "TeleSpia\n",
+        "fr": "Une CamSpy\n",
+        "de": "Ein CamSpy\n",
+        "es": "Una Camára Espía\n"
+    },
+    {
+        "id": "L_DEPO_059",
+        "en": "Picked up a CamSpy.\n",
+        "gb": "Picked up a CamSpy.\n",
+        "jp": "Picked up an Eye Spy\n",
+        "it": "Presa TeleSpia\n",
+        "fr": "CamSpy obtenue.\n",
+        "de": "CamSpy aufgenommen\n",
+        "es": "Cámara Espía obtenida.\n"
+    },
+    {
+        "id": "L_DEPO_060",
+        "en": "There's no way through while those \nlasers are active.\n",
+        "gb": "There's no way through while those \nlasers are active.\n",
+        "jp": "There's no way through while those \nlasers are active.\n",
+        "it": "È impossibile passare finché sono \nattivi quei laser.\n",
+        "fr": "C'est impossible de passer avec tous \nces lasers activés.\n",
+        "de": "Es gibt hier kein Weiterkommen, solange die \nLaser aktiv sind.\n",
+        "es": "No hay ningún camino posible mientras \nesos láseres estén activos.\n"
+    },
+    {
+        "id": "L_DEPO_061",
+        "en": "That must be the meeting room up ahead. \nTime to use the CamSpy.\n",
+        "gb": "That must be the meeting room up ahead. \nTime to use the CamSpy.\n",
+        "jp": "I can't go any further, but the Eye-Spy can.\n",
+        "it": "Quella dev'essere la sala riunioni. \nÈ ora di usare la TeleSpia.\n",
+        "fr": "La salle de réunion doit être droit devant. \nIl est temps d'utiliser la CamSpy.\n",
+        "de": "Weiter vorne muss der Meeting-Raum sein.\nZeit für den CamSpy.\n",
+        "es": "Eso de ahí delante debe ser la sala de reuniones. \nHora de usar la Cámara Espía.\n"
+    },
+    {
+        "id": "L_DEPO_062",
+        "en": "The safe's heavily encrypted. \nThe decoder's gonna take a little longer.\n",
+        "gb": "The safe's heavily encrypted. \nThe decoder's gonna take a little longer.\n",
+        "jp": "A safe that big will be heavily encrypted.\nThe decoder will take longer than usual.\n",
+        "it": "La cassaforte è criptata. \nIl decodificatore ci metterà un po'.\n",
+        "fr": "La combinaison du coffre est très complexe. \nLe décodeur va mettre plus de temps.\n",
+        "de": "Der Safe-Code ist sehr ausgeklügelt.\nDer Decoder wird etwas mehr Zeit benötigen.\n",
+        "es": "La caja fuerte está fuertemente encriptada. \nEl decodificador va a tomarse su tiempo.\n"
+    },
+    {
+        "id": "L_DEPO_063",
+        "en": "Time to leave! Let's get to the door I set \nup earlier.\n",
+        "gb": "Time to leave! Let's get to the door I set \nup earlier.\n",
+        "jp": "Time to leave! Let's get to the door I set \nup earlier.\n",
+        "it": "È ora di andare! Passiamo per la porta che ho \npredisposto!\n",
+        "fr": "Il faut partir maintenant! Je retourne vite à \nla porte de tout à l'heure.\n",
+        "de": "Zeit zu gehen! Ich muss zu der Tür, die ich \nvorhin 'präpariert' habe.\n",
+        "es": "¡Hora de irse! Vamos a la puerta que creé \nantes.\n"
+    },
+    {
+        "id": "L_DEPO_064",
+        "en": "Mission critical object destroyed.\n",
+        "gb": "Mission critical object destroyed.\n",
+        "jp": "Mission Critical Object Destroyed\n",
+        "it": "Distrutto strumento essenziale alla missione.\n",
+        "fr": "Objet crucial détruit.\n",
+        "de": "Wichtiges Objekt wurde zerstört.\n",
+        "es": "Objeto crítico de la misión destruido.\n"
+    },
+    {
+        "id": "L_DEPO_065",
+        "en": "Stand back, Joanna. We'll create your escape \nroute.\n",
+        "gb": "Stand back, Joanna. We'll create your escape \nroute.\n",
+        "jp": "Stand back Joanna, we'll create your escape\nroute.\n",
+        "it": "Sta indietro, Joanna! Apriremo un varco \ndi fuga!\n",
+        "fr": "Reculez, Joanna. Nous allons vous ouvrir \nun passage.\n",
+        "de": "Halten Sie Abstand, Joanna. Wir schaffen Ihnen einen\nFluchtweg.\n",
+        "es": "Aparta, Joanna. Crearemos tu ruta \nde escape.\n"
+    },
+    {
+        "id": "L_DEPO_066",
+        "en": "\n",
+        "gb": "\n",
+        "jp": "\n",
+        "it": "\n",
+        "fr": "\n",
+        "de": "\n",
+        "es": "\n"
+    },
+    {
+        "id": "L_DEPO_067",
+        "en": "\n",
+        "gb": "\n",
+        "jp": "\n",
+        "it": "\n",
+        "fr": "\n",
+        "de": "\n",
+        "es": "\n"
+    },
+    {
+        "id": "L_DEPO_068",
+        "en": "Detonator\n",
+        "gb": "Detonator\n",
+        "jp": "Detonator\n",
+        "it": "Detonatore\n",
+        "fr": "Détonateur\n",
+        "de": "Detonator\n",
+        "es": "Detonador\n"
+    },
+    {
+        "id": "L_DEPO_069",
+        "en": "Detonator\n",
+        "gb": "Detonator\n",
+        "jp": "Detonator\n",
+        "it": "Detonatore\n",
+        "fr": "Détonateur\n",
+        "de": "Detonator\n",
+        "es": "Detonador\n"
+    },
+    {
+        "id": "L_DEPO_070",
+        "en": "Picked up Detonator.\n",
+        "gb": "Picked up Detonator.\n",
+        "jp": "Picked up Detonator\n",
+        "it": "Preso detonatore.\n",
+        "fr": "Détonateur obtenue.\n",
+        "de": "Detonator aufgenommen\n",
+        "es": "Detonador obtenido.\n"
+    },
+    {
+        "id": "L_DEPO_071",
+        "en": "CamSpy has been destroyed - abort mission.\n",
+        "gb": "CamSpy has been destroyed - abort mission.\n",
+        "jp": "EyeSpy Has Been Destroyed - Abort Mission\n",
+        "it": "Distrutta la TeleSpia - Missione fallita\n",
+        "fr": "CamSpy détruite - abandonner la mission.\n",
+        "de": "Der CamSpy wurde zerstört - Brechen Sie die Mission ab!\n",
+        "es": "La Cámara Espía ha sido destruida: abortar misión.\n"
+    },
+    {
+        "id": "L_DEPO_072",
+        "en": "We've recovered the sapient from Carrington \nand altered its programming. It no longer \nhas a personality, so there will be no \nfurther incidents.\n",
+        "gb": "We've recovered the sapient from Carrington \nand altered its programming. It no longer \nhas a personality, so there will be no \nfurther incidents.\n",
+        "jp": "We've recovered the sapient from Carrington and altered its programming. It no longer has a personality, so there will be no further incidents.",
+        "it": "Abbiamo recuperato il Sapiente da Carrington \ne ne abbiamo alterato la programmazione. Ora \nha perso la sua personalità, così non \navremo più spiacevoli sorprese.\n",
+        "fr": "Nous avons récupéré le Sapiens chez Carrington \net changé son programme. Il n'a plus de \npersonnalité. Cela évitera de futurs \nincidents.\n",
+        "de": "Wir haben uns den Sapienten von Carrington zurückgeholt \nund sein Programm verändert. Es hat nun keine \nPersönlichkeit mehr. Daher sind auch keine \nweiteren Zwischenfälle mehr zu befürchten.\n",
+        "es": "Hemos recuperado la IA de manos de Carrington \ny alterado su programación. Nunca más tendrá \npersonalidad, así no podrá haber posibles \nfuturos incidentes.\n"
+    },
+    {
+        "id": "L_DEPO_073",
+        "en": "This will reduce its efficiency. My team will \nhave to take it to the core themselves. This \nwill endanger them. You should have \nanticipated that the sapient might develop \na troublesome moral code.\n",
+        "gb": "This will reduce its efficiency. My team will \nhave to take it to the core themselves. This \nwill endanger them. You should have \nanticipated that the sapient might develop \na troublesome moral code.\n",
+        "jp": "This will reduce its efficency. My team will have to take it to the core themselves. This will endanger them. You should have anticipated that the sapient might develop a troublesome moral code.",
+        "it": "Questo ridurrà la sua efficienza. La mia \nsquadra dovrà portarlo subito al centro, \nma ciò li metterà in pericolo. Avrebbe \ndovuto comunicarci che il Sapiente avrebbe \nsviluppato un codice morale problematico!\n",
+        "fr": "Cela réduira son efficacité. Mon équipe le \nmènera au centre. Ils prendront donc \ndes risques inutiles. Vous auriez dû \nprévoir ce développement de conscience chez \nle Sapiens.\n",
+        "de": "Aber dadurch wird seine Effizienz reduziert. Mein Team muss \nnun selbst ins Zentrum vordringen. Sie \ngeraten dadurch in Gefahr! Sie hätten \nvoraussehen müssen, dass der Sapient \nin der Lage ist, Moral zu entwickeln.\n",
+        "es": "Esto reducirá su eficiencia. Mi equipo tendrá \nque llevarlo al núcleo por sí mismo. Esto les \npondrá en peligro. Debías haber anticipado \nque la IA podría desarrollar un problemático \ncódigo moral.\n"
+    },
+    {
+        "id": "L_DEPO_074",
+        "en": "No one could have predicted that! And I \nresent being singled out for blame! \nWhat about him?\n",
+        "gb": "No one could have predicted that! And I \nresent being singled out for blame! \nWhat about him?\n",
+        "jp": "No-one could have predicted that! And I resent being singled out for blame! What about him?",
+        "it": "Nessuno poteva prevedere una cosa simile! \nE non ammetto che mi vengano mossi dei \nrimproveri. E lui allora?\n",
+        "fr": "Comment prévoir une chose pareille?! \nEt pourquoi suis-je la seule à porter \nle chapeau? Et lui alors?\n",
+        "de": "Niemand hätte das voraussehen können! Und ich \nlehne es ab, dafür verantwortlich gemacht zu \nwerden! Was ist mit ihm?\n",
+        "es": "¡Nadie podría haber predecido eso! ¡Y me \nmolesta que me echen la culpa de ello! \n¿Qué pasa con él?\n"
+    },
+    {
+        "id": "L_DEPO_075",
+        "en": "The President turned down your request for \nthe loan of the Pelagic II?\n",
+        "gb": "The President turned down your request for \nthe loan of the Pelagic II?\n",
+        "jp": "The President turned down your request for the loan of the Pelagic 2?",
+        "it": "Il Presidente ha rifiutato la sua richiesta \ndi finanziamento per il Pelagic II?\n",
+        "fr": "Le Président a-t-il refusé votre demande \nde prêt du Pelagic II?\n",
+        "de": "Der Präsident hat die Anfrage nach der Pelagic II \nstrikt abgelehnt?\n",
+        "es": "¿El Presidente no ha admitido tu petición \nde préstamo del Pelagic II?\n"
+    },
+    {
+        "id": "L_DEPO_076",
+        "en": "Could it be you overestimated your \ninfluence over him?\n",
+        "gb": "Could it be you overestimated your \ninfluence over him?\n",
+        "jp": "Could it be you over-estimated your influence over him?",
+        "it": "Forse ha sopravvalutato la sua \ninfluenza su di lui!\n",
+        "fr": "Pensiez-vous avoir tant d'influence \nsur lui?\n",
+        "de": "Kann es sein, dass Sie Ihren Einfluss auf ihn \nein wenig überschätzt haben?\n",
+        "es": "¿No podría ser que hayas sobreestimado \ntu influencia sobre él?\n"
+    },
+    {
+        "id": "L_DEPO_077",
+        "en": "No! Perhaps I underestimated his resolve. \nWe have a contingency plan ready to go, \nand we will move as soon as the Presidential \nentourage arrives at the air base. All I \nneed from the President is a tissue sample.\n",
+        "gb": "No! Perhaps I underestimated his resolve. \nWe have a contingency plan ready to go, \nand we will move as soon as the Presidential \nentourage arrives at the air base. All I \nneed from the President is a tissue sample.\n",
+        "jp": "No! Perhaps I underestimated his resolve. We have a contingency plan ready to go, and will move as soon as the presidential entourage arrives at the airbase. All I need from the President is a tissue sample.",
+        "it": "No! Avrò sottovalutato la sua determinazione, \npiuttosto! Abbiamo un piano contingente pronto \na partire non appena l'entourage del Presidente \narriva alla base aerea. Tutto ciò che mi serve \ndal Presidente è un campione di tessuto.\n",
+        "fr": "Non! J'ai peut-être sous-estimé son côté \nintègre. Mais nous avons un plan de \nsecours. Nous agirons dès que l'équipe \nprésidentielle arrivera à la base aérienne. \nJe n'ai besoin que d'un échantillon de la \npeau du Président.\n",
+        "de": "Nein! Ich habe nur seine Entschlossenheit unterschätzt. \nWir haben einen Notfallplan parat, der in Kraft tritt, \nsobald die Air Force One am Stützpunkt landet. \nAlles, was ich brauche, ist eine Gewebeprobe des \nPräsidenten.\n",
+        "es": "¡No! Quizá haya menospreciado su resolución. \nTenemos un plan de contigencia preparado, \ny comenzará tan pronto como el séquito presidencial\nllegue a la base aérea. Todo lo que necesito del \nPresidente es una muestra de tejido cutáneo.\n"
+    },
+    {
+        "id": "L_DEPO_078",
+        "en": "Ha! Assuming you don't get any interference. \nIf Carrington has pieced together enough of \nthis, he will have called for reinforcements.\n",
+        "gb": "Ha! Assuming you don't get any interference. \nIf Carrington has pieced together enough of \nthis, he will have called for reinforcements.\n",
+        "jp": "Ha! Assuming you don't get any interference. If Carrington has pieced together enough of this he will have called for reinforcements.",
+        "it": "Sì... salvo imprevisti! Se Carrington \nha raccolto elementi sufficienti, a \nquest'ora avrà già chiamato i rinforzi!\n",
+        "fr": "Pff! En admettant que vous ne fassiez pas \ntout foirer. Si Carrington en apprend \nsuffisamment, il appellera des renforts.\n",
+        "de": "Ha! Vorausgesetzt, es gibt keine Störmaßnahmen. \nWenn Carrington eins und eins zusammengezählt hat, \ndann ist Verstärkung schon unterwegs.\n",
+        "es": "¡Ja! Eso asumiendo que no sufras interferencias. \nSi Carrington ha recabado suficientes piezas de \nesto, seguro que avisará a los refuerzos.\n"
+    },
+    {
+        "id": "L_DEPO_079",
+        "en": "There will be no outside help for \nMr. Carrington. The technology you gave us \nis installed in Nevada and fully operational. \nWe can intercept any craft they use.\n",
+        "gb": "There will be no outside help for \nMr. Carrington. The technology you gave us \nis installed in Nevada and fully operational. \nWe can intercept any craft they use.\n",
+        "jp": "There will be no outside help for Mr. Carrington. The technology you gave us is installed in Nevada and fully operational. We can intercept any craft they use.",
+        "it": "Non ci saranno aiuti esterni per Carrington. \nLa tecnologia che ci ha dato è stata \ninstallata in Nevada ed è già operativa: \nsiamo in grado di intercettare qualsiasi \nmezzo utilizzino.\n",
+        "fr": "Mr. Carrington ne bénéficiera d'aucune aide \nextérieure. L'équipement que vous nous \navez offert est installé au Nevada et est \nopérationnel. Nous pourrons ainsi intercepter \nleurs appareils.\n",
+        "de": "Carrington wird keine Hilfe von außen erhalten. \nDie Technologie, die Sie uns zur Verfügung gestellt \nhaben, wurde in Nevada installiert und ist einsatzbereit. \nDamit können wir jedes Flugzeug vom Himmel holen.\n",
+        "es": "No habrá ayuda exterior para el Sr. Carrington. \nLa tecnología que nos diste está instalada en \nNevada y es totalmente operativa. \nPodemos interceptar cualquier nave que usen.\n"
+    },
+    {
+        "id": "L_DEPO_080",
+        "en": "Then the devices we gave you are working \ncorrectly? Good. Because we believe \nanything which does not work correctly \nshould be destroyed. Consider that as you \nfollow your 'backup plans.'\n",
+        "gb": "Then the devices we gave you are working \ncorrectly? Good. Because we believe \nanything which does not work correctly \nshould be destroyed. Consider that as you \nfollow your 'backup plans.'\n",
+        "jp": "Then the devices we gave you are working correctly? Good. Because we believe that anything which does not work correctly should be destroyed. Consider that as you follow your 'back-up plans'.",
+        "it": "Ciò significa che il dispositivo che vi \nabbiamo fornito funziona? Bene! Perfetto! \nRiteniamo infatti che tutto ciò che non \nfunziona correttamente debba essere eliminato. \nLo tenga bene a mente durante l'attuazione \ndel suo 'piano di emergenza'!\n",
+        "fr": "Notre dispositif fonctionne donc \ncorrectement? Bien. Notre philosophie \nest de détruire tout ce qui ne veut pas \nfonctionner. Souvenez-vous-en pendant \nl'exécution de votre 'plan de secours.'\n",
+        "de": "Die Vorrichtung arbeitet also einwandfrei? Gut. Wir \nsind der Meinung, dass alles, was nicht korrekt arbeitet, \nzerstört werden muss. Ziehen Sie das in Betracht, \nwenn Sie daran gehen, Ihren 'Plan B' in die Tat \numzusetzen.\n",
+        "es": "¿Entonces los dispositivos que os dimos funcionan \ncorrectamente? Bien. Porque nosotros creemos que \ncualquier cosa que no funcione correctamente debe \nser destruida. Tenlo en cuenta para tus 'planes \nalternativos'.\n"
+    },
+    {
+        "id": "L_DEPO_081",
+        "en": "Agent Dark reporting in! Prepare to \nreceive a download of the meeting data. \nPriority request for an Institute Support \nTeam to protect the President before he \ngoes to Alaska.\n",
+        "gb": "Agent Dark reporting in! Prepare to \nreceive a download of the meeting data. \nPriority request for an Institute Support \nTeam to protect the President before he \ngoes to Alaska.\n",
+        "jp": "Agent Dark reporting in! Prepare to receive a download of the meeting data. Priority request for an Institute Support Team to protect the President before he goes to Alaska.",
+        "it": "Agente Dark a rapporto! Preparatevi a \nricevere e scaricare i dati della riunione. \nRichiesta prioritaria di una squadra di \nsupporto dell'istituto che protegga il \nPresidente prima del suo viaggio in Alaska.\n",
+        "fr": "Agent Dark au rapport! Préparez-vous à \nrecevoir les données de la réunion. \nDemande prioritaire d'une équipe de \nl'Institut pour protéger le Président \navant son départ pour l'Alaska.\n",
+        "de": "Hier ist Agent Dark! Bereiten Sie sich auf die \nÜbertragung der Aufzeichnung vor. Ich beantrage ein \nUnterstützungsteam des Instituts zum Schutz des \nPräsidenten, noch bevor er nach Alaska abreist. \nDiese Anfrage hat die Priorität Eins.\n",
+        "es": "¡Agente Dark informando! Preparaos para \nrecibir los datos de la reunión. \nPetición prioritaria de un Equipo de Soporte \ndel Instituto para proteger al Presidente \nantes de que vaya a Alaska.\n"
+    },
+    {
+        "id": "L_DEPO_082",
+        "en": "No time for that now, Agent Dark. There's \nbeen a development during radio silence. \nThe craft carrying those 'friends' I was \ntalking about was shot down over Nevada. \nThe weapon responsible was fired from \nArea 51... that's where the survivors and \ndebris will have been taken. You're to \nprep for immediate dispatch when you \nreturn here. Carrington out.\n",
+        "gb": "No time for that now, Agent Dark. There's \nbeen a development during radio silence. \nThe craft carrying those 'friends' I was \ntalking about was shot down over Nevada. \nThe weapon responsible was fired from \nArea 51... that's where the survivors and \ndebris will have been taken. You're to \nprep for immediate dispatch when you \nreturn here. Carrington out.\n",
+        "jp": "No time for that now, Agent Dark. There's been a development during radio silence. The craft carrying those 'friends' I was talking about was shot down over Nevada. The weapon responsible was fired from Area 51; that's where the survivors and debris will have been taken. You're to prep for immediate despatch when you return here. Carrington out.",
+        "it": "Ora non c'è tempo per questo, Agent Dark! \nCi sono stati degli sviluppi durante il \nsilenzio radio. Il mezzo con a bordo quegli \n'amici' di cui ti parlavo è stato abbattuto \nin Nevada. Il colpo è stato sparato dall'\nArea 51, dove saranno stati portati anche i \nsopravvissuti e i resti del velivolo. Dovrai \nprepararti a partire immediatamente appena \nrientri. Passo e chiudo! \n",
+        "fr": "Nous n'avons pas le temps, Agent Dark. \nIl y a du nouveau depuis le silence \nradio. L'appareil transportant les \n'amis' dont je parlais plus tôt a été \nabattu au-dessus du Nevada. Le tir \nprovenait du Secteur 51, là où les \nrescapés et les débris ont dû être amenés. \nRevenez au poste et préparez-vous \npour un départ imminent. \nCarrington, terminé.\n",
+        "de": "Dafür ist nun keine Zeit, Agent Dark. Während \nder Funkstille haben wir neue Informationen erhalten. \nDas Flugzeug mit unseren 'Freunden', von denen ich \ngesprochen habe, wurde über Nevada abgeschossen. \nDie dafür verantwortliche Waffe wurde von der \nArea 51 abgefeuert; dorthin wurden vermutlich auch \nÜberlebende und die Wrackteile gebracht. Bereiten \nSie sich für die sofortige Abreise vor, wenn Sie \nwieder hier sind. Carrington over und out.\n",
+        "es": "No hay tiempo para eso ahora, Agente Dark. Se \nha progresado durante el silencio de radio. \nLa nave que llevaba a esos 'amigos' de los \nque te hablaba, fue derribada sobre Nevada. \nEl arma responsable fue disparada desde el\nÁrea 51... Allí es donde los supervivientes \ny los restos del siniestro han sido llevados. \nDebes prepararte para ser enviada de inmediato \nen cuanto regreses aquí. Carrington fuera.\n"
+    },
+    {
+        "id": "L_DEPO_083",
+        "en": "Area 51? But what about the President?\n",
+        "gb": "Area 51? But what about the President?\n",
+        "jp": "Area 51? But what about the President?",
+        "it": "L'Area 51? E che ne sarà del Presidente?\n",
+        "fr": "Secteur 51? Et le Président alors?\n",
+        "de": "Area 51? Aber was geschieht mit dem Präsidenten?\n",
+        "es": "¿Al Área 51? ¿Pero qué pasa con el Presidente?\n"
+    }
+]

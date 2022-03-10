@@ -1,0 +1,1282 @@
+[
+    {
+        "id": "L_DISH_000",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_DISH_001",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_DISH_002",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_DISH_003",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_DISH_004",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_DISH_005",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_DISH_006",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_DISH_007",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_DISH_008",
+        "en": "Collect Night Vision from table to begin.\n",
+        "gb": "Collect Night Sight from table to begin.\n",
+        "jp": "Collect Night Sight From Table To Begin\n",
+        "it": "Collect Night Sight from table to begin.\n",
+        "fr": "Collect Night Sight from table to begin.\n",
+        "de": "Collect Night Sight from table to begin.\n",
+        "es": "Collect Night Sight from table to begin.\n"
+    },
+    {
+        "id": "L_DISH_009",
+        "en": "Activate the Night Vision.\nLocate the light switch.\nTurn the lights back on.\n",
+        "gb": "Activate the Night Sight.\nLocate the light switch.\nTurn the lights back on.\n",
+        "jp": "Activate The Night Sight\nLocate The Light Switch\nTurn The Lights Back On\n",
+        "it": "Activate the Night Sight.\nLocate the light switch.\nTurn the lights back on.\n",
+        "fr": "Activate the Night Sight.\nLocate the light switch.\nTurn the lights back on.\n",
+        "de": "Activate the Night Sight.\nLocate the light switch.\nTurn the lights back on.\n",
+        "es": "Activate the Night Sight.\nLocate the light switch.\nTurn the lights back on.\n"
+    },
+    {
+        "id": "L_DISH_010",
+        "en": "Collect Data Uplink from table to begin.\n",
+        "gb": "Collect Data Uplink from table to begin.\n",
+        "jp": "Collect Data Uplink From Table To Begin\n",
+        "it": "Collect Data Uplink from table to begin.\n",
+        "fr": "Collect Data Uplink from table to begin.\n",
+        "de": "Collect Data Uplink from table to begin.\n",
+        "es": "Collect Data Uplink from table to begin.\n"
+    },
+    {
+        "id": "L_DISH_011",
+        "en": "Stand next to the terminal and use the Uplink.\n",
+        "gb": "Stand next to the terminal and use the Uplink.\n",
+        "jp": "Stand next to the terminal and use the uplink\n",
+        "it": "Stand next to the terminal and use the Uplink.\n",
+        "fr": "Stand next to the terminal and use the Uplink.\n",
+        "de": "Stand next to the terminal and use the Uplink.\n",
+        "es": "Stand next to the terminal and use the Uplink.\n"
+    },
+    {
+        "id": "L_DISH_012",
+        "en": "You need to be holding the Data Uplink.\n",
+        "gb": "You need to be holding the Data Uplink.\n",
+        "jp": "You Need To Be Holding The Data Uplink\n",
+        "it": "You need to be holding the Data Uplink.\n",
+        "fr": "You need to be holding the Data Uplink.\n",
+        "de": "You need to be holding the Data Uplink.\n",
+        "es": "You need to be holding the Data Uplink.\n"
+    },
+    {
+        "id": "L_DISH_013",
+        "en": "Connection established...\n",
+        "gb": "Connection established...\n",
+        "jp": "Connection Established...\n",
+        "it": "Connection established...\n",
+        "fr": "Connection established...\n",
+        "de": "Connection established...\n",
+        "es": "Connection established...\n"
+    },
+    {
+        "id": "L_DISH_014",
+        "en": "Terminal has been successfully hacked.\n",
+        "gb": "Terminal has been successfully hacked.\n",
+        "jp": "Terminal Has Been Successfully Hacked\n",
+        "it": "Terminal has been successfully hacked.\n",
+        "fr": "Terminal has been successfully hacked.\n",
+        "de": "Terminal has been successfully hacked.\n",
+        "es": "Terminal has been successfully hacked.\n"
+    },
+    {
+        "id": "L_DISH_015",
+        "en": "Connection broken - too far from PC.\n",
+        "gb": "Connection broken - too far from PC.\n",
+        "jp": "Connection Broken - Too Far From PC\n",
+        "it": "Connection broken - too far from PC.\n",
+        "fr": "Connection broken - too far from PC.\n",
+        "de": "Connection broken - too far from PC.\n",
+        "es": "Connection broken - too far from PC.\n"
+    },
+    {
+        "id": "L_DISH_016",
+        "en": "Collect ECM Mine from table to begin.\n",
+        "gb": "Collect ECM Mine from table to begin.\n",
+        "jp": "Collect ECM Mine From Table To Begin\n",
+        "it": "Collect ECM Mine from table to begin.\n",
+        "fr": "Collect ECM Mine from table to begin.\n",
+        "de": "Collect ECM Mine from table to begin.\n",
+        "es": "Collect ECM Mine from table to begin.\n"
+    },
+    {
+        "id": "L_DISH_017",
+        "en": "Locate Hub and throw ECM Mine onto Hub.\n",
+        "gb": "Locate Hub and throw ECM Mine onto Hub.\n",
+        "jp": "Locate Hub And Throw ECM Mine Onto Hub\n",
+        "it": "Locate Hub and throw ECM Mine onto Hub.\n",
+        "fr": "Locate Hub and throw ECM Mine onto Hub.\n",
+        "de": "Locate Hub and throw ECM Mine onto Hub.\n",
+        "es": "Locate Hub and throw ECM Mine onto Hub.\n"
+    },
+    {
+        "id": "L_DISH_018",
+        "en": "ECM Mine has been placed incorrectly.\n",
+        "gb": "ECM Mine has been placed incorrectly.\n",
+        "jp": "ECM Mine Has Been Placed Incorrectly\n",
+        "it": "ECM Mine has been placed incorrectly.\n",
+        "fr": "ECM Mine has been placed incorrectly.\n",
+        "de": "ECM Mine has been placed incorrectly.\n",
+        "es": "ECM Mine has been placed incorrectly.\n"
+    },
+    {
+        "id": "L_DISH_019",
+        "en": "ECM Mine has been placed correctly.\n",
+        "gb": "ECM Mine has been placed correctly.\n",
+        "jp": "ECM Mine Has Been Placed Correctly\n",
+        "it": "ECM Mine has been placed correctly.\n",
+        "fr": "ECM Mine has been placed correctly.\n",
+        "de": "ECM Mine has been placed correctly.\n",
+        "es": "ECM Mine has been placed correctly.\n"
+    },
+    {
+        "id": "L_DISH_020",
+        "en": "Collect CamSpy from table to begin.\n",
+        "gb": "Collect CamSpy from table to begin.\n",
+        "jp": "Collect Eye-Spy From Table To Begin\n",
+        "it": "Collect CamSpy from table to begin.\n",
+        "fr": "Collect CamSpy from table to begin.\n",
+        "de": "Collect CamSpy from table to begin.\n",
+        "es": "Collect CamSpy from table to begin.\n"
+    },
+    {
+        "id": "L_DISH_021",
+        "en": "Locate Info Room PC and holograph it.\n",
+        "gb": "Locate Info Room PC and holograph it.\n",
+        "jp": "Locate Info Room PC and Holograph It\n",
+        "it": "Locate Info Room PC and holograph it.\n",
+        "fr": "Locate Info Room PC and holograph it.\n",
+        "de": "Locate Info Room PC and holograph it.\n",
+        "es": "Locate Info Room PC and holograph it.\n"
+    },
+    {
+        "id": "L_DISH_022",
+        "en": "Info Room PC successfully holographed.\n",
+        "gb": "Info Room PC successfully holographed.\n",
+        "jp": "Info Room PC Successfully Holographed\n",
+        "it": "Info Room PC successfully holographed.\n",
+        "fr": "Info Room PC successfully holographed.\n",
+        "de": "Info Room PC successfully holographed.\n",
+        "es": "Info Room PC successfully holographed.\n"
+    },
+    {
+        "id": "L_DISH_023",
+        "en": "Lights have been reactivated.\n",
+        "gb": "Lights have been reactivated.\n",
+        "jp": "Lights Have Been Re-activated\n",
+        "it": "Lights have been reactivated.\n",
+        "fr": "Lights have been reactivated.\n",
+        "de": "Lights have been reactivated.\n",
+        "es": "Lights have been reactivated.\n"
+    },
+    {
+        "id": "L_DISH_024",
+        "en": "Collect Door Decoder from table to begin.\n",
+        "gb": "Collect Door Decoder from table to begin.\n",
+        "jp": "Collect Door Decoder From Table To Begin\n",
+        "it": "Collect Door Decoder from table to begin.\n",
+        "fr": "Collect Door Decoder from table to begin.\n",
+        "de": "Collect Door Decoder from table to begin.\n",
+        "es": "Collect Door Decoder from table to begin.\n"
+    },
+    {
+        "id": "L_DISH_025",
+        "en": "Use Decoder on door pad to unlock it.\n",
+        "gb": "Use Decoder on door pad to unlock it.\n",
+        "jp": "Use Decoder On Door Pad To Unlock It\n",
+        "it": "Use Decoder on door pad to unlock it.\n",
+        "fr": "Use Decoder on door pad to unlock it.\n",
+        "de": "Use Decoder on door pad to unlock it.\n",
+        "es": "Use Decoder on door pad to unlock it.\n"
+    },
+    {
+        "id": "L_DISH_026",
+        "en": "You need to be holding the Door Decoder.\n",
+        "gb": "You need to be holding the Door Decoder.\n",
+        "jp": "You Need To Be Holding The Door Decoder\n",
+        "it": "You need to be holding the Door Decoder.\n",
+        "fr": "You need to be holding the Door Decoder.\n",
+        "de": "You need to be holding the Door Decoder.\n",
+        "es": "You need to be holding the Door Decoder.\n"
+    },
+    {
+        "id": "L_DISH_027",
+        "en": "Decoder attached. Initiating cracking routines...\n",
+        "gb": "Decoder attached. Initiating cracking routines...\n",
+        "jp": "Decoder Attached. Initiating Cracking Routines..\n",
+        "it": "Decoder attached. Initiating cracking routines...\n",
+        "fr": "Decoder attached. Initiating cracking routines...\n",
+        "de": "Decoder attached. Initiating cracking routines...\n",
+        "es": "Decoder attached. Initiating cracking routines...\n"
+    },
+    {
+        "id": "L_DISH_028",
+        "en": "Decoding complete. Door has been unlocked.\n",
+        "gb": "Decoding complete. Door has been unlocked.\n",
+        "jp": "Decoding Complete. Door Has Been Unlocked.\n",
+        "it": "Decoding complete. Door has been unlocked.\n",
+        "fr": "Decoding complete. Door has been unlocked.\n",
+        "de": "Decoding complete. Door has been unlocked.\n",
+        "es": "Decoding complete. Door has been unlocked.\n"
+    },
+    {
+        "id": "L_DISH_029",
+        "en": "Collect Tracker from table to begin.\n",
+        "gb": "Collect Tracker from table to begin.\n",
+        "jp": "Collect Tracker From Table To Begin\n",
+        "it": "Collect Tracker from table to begin.\n",
+        "fr": "Collect Tracker from table to begin.\n",
+        "de": "Collect Tracker from table to begin.\n",
+        "es": "Collect Tracker from table to begin.\n"
+    },
+    {
+        "id": "L_DISH_030",
+        "en": "Locate IR Scanner using Tracker.\n",
+        "gb": "Locate IR Scanner using Tracker.\n",
+        "jp": "Locate IR Scanner Using Tracker\n",
+        "it": "Locate IR Scanner using Tracker.\n",
+        "fr": "Locate IR Scanner using Tracker.\n",
+        "de": "Locate IR Scanner using Tracker.\n",
+        "es": "Locate IR Scanner using Tracker.\n"
+    },
+    {
+        "id": "L_DISH_031",
+        "en": "IR Scanner has been successfully located.\n",
+        "gb": "IR Scanner has been successfully located.\n",
+        "jp": "IR Scanner Has Been Successfully Located\n",
+        "it": "IR Scanner has been successfully located.\n",
+        "fr": "IR Scanner has been successfully located.\n",
+        "de": "IR Scanner has been successfully located.\n",
+        "es": "IR Scanner has been successfully located.\n"
+    },
+    {
+        "id": "L_DISH_032",
+        "en": "Collect IR Scanner from table to begin.\n",
+        "gb": "Collect IR Scanner from table to begin.\n",
+        "jp": "Collect IR Scanner From Table To Begin\n",
+        "it": "Collect IR Scanner from table to begin.\n",
+        "fr": "Collect IR Scanner from table to begin.\n",
+        "de": "Collect IR Scanner from table to begin.\n",
+        "es": "Collect IR Scanner from table to begin.\n"
+    },
+    {
+        "id": "L_DISH_033",
+        "en": "Locate secret door using IR Scanner.\n",
+        "gb": "Locate secret door using IR Scanner.\n",
+        "jp": "Locate Secret Door Using IR Scanner\n",
+        "it": "Locate secret door using IR Scanner.\n",
+        "fr": "Locate secret door using IR Scanner.\n",
+        "de": "Locate secret door using IR Scanner.\n",
+        "es": "Locate secret door using IR Scanner.\n"
+    },
+    {
+        "id": "L_DISH_034",
+        "en": "Secret door has been successfully located.\n",
+        "gb": "Secret door has been successfully located.\n",
+        "jp": "Secret Door Has Been Successfully Located\n",
+        "it": "Secret door has been successfully located.\n",
+        "fr": "Secret door has been successfully located.\n",
+        "de": "Secret door has been successfully located.\n",
+        "es": "Secret door has been successfully located.\n"
+    },
+    {
+        "id": "L_DISH_035",
+        "en": "Collect X-Ray Scanner from table to begin.\n",
+        "gb": "Collect X-Ray Scanner from table to begin.\n",
+        "jp": "Collect XRay Scanner From Table To Begin\n",
+        "it": "Collect X-Ray Scanner from table to begin.\n",
+        "fr": "Collect X-Ray Scanner from table to begin.\n",
+        "de": "Collect X-Ray Scanner from table to begin.\n",
+        "es": "Collect X-Ray Scanner from table to begin.\n"
+    },
+    {
+        "id": "L_DISH_036",
+        "en": "Find hidden switches to shut down laser grid.\n",
+        "gb": "Find hidden switches to shut down laser grid.\n",
+        "jp": "Find Hidden Switches To Shutdown Laser Grid\n",
+        "it": "Find hidden switches to shut down laser grid.\n",
+        "fr": "Find hidden switches to shut down laser grid.\n",
+        "de": "Find hidden switches to shut down laser grid.\n",
+        "es": "Find hidden switches to shut down laser grid.\n"
+    },
+    {
+        "id": "L_DISH_037",
+        "en": "All laser grids have been deactivated.\n",
+        "gb": "All laser grids have been deactivated.\n",
+        "jp": "All Laser Grids Have Been Deactivated\n",
+        "it": "All laser grids have been deactivated.\n",
+        "fr": "All laser grids have been deactivated.\n",
+        "de": "All laser grids have been deactivated.\n",
+        "es": "All laser grids have been deactivated.\n"
+    },
+    {
+        "id": "L_DISH_038",
+        "en": "Collect Disguise from table to begin.\n",
+        "gb": "Collect Disguise from table to begin.\n",
+        "jp": "Collect Disguise From Table To Begin\n",
+        "it": "Collect Disguise from table to begin.\n",
+        "fr": "Collect Disguise from table to begin.\n",
+        "de": "Collect Disguise from table to begin.\n",
+        "es": "Collect Disguise from table to begin.\n"
+    },
+    {
+        "id": "L_DISH_039",
+        "en": "Fool someone into giving you Cloaking Device.\n",
+        "gb": "Fool someone into giving you Cloaking Device.\n",
+        "jp": "Fool Someone Into Giving You Cloaking Device\n",
+        "it": "Fool someone into giving you Cloaking Device.\n",
+        "fr": "Fool someone into giving you Cloaking Device.\n",
+        "de": "Fool someone into giving you Cloaking Device.\n",
+        "es": "Fool someone into giving you Cloaking Device.\n"
+    },
+    {
+        "id": "L_DISH_040",
+        "en": "Cloaking Device successfully retrieved.\n",
+        "gb": "Cloaking Device successfully retrieved.\n",
+        "jp": "Cloaking Device Successfully Retrieved\n",
+        "it": "Cloaking Device successfully retrieved.\n",
+        "fr": "Cloaking Device successfully retrieved.\n",
+        "de": "Cloaking Device successfully retrieved.\n",
+        "es": "Cloaking Device successfully retrieved.\n"
+    },
+    {
+        "id": "L_DISH_041",
+        "en": "Laser Grid 1 has been deactivated.\n",
+        "gb": "Laser Grid 1 has been deactivated.\n",
+        "jp": "Laser Grid 1 Has Been Deactivated\n",
+        "it": "Laser Grid 1 has been deactivated.\n",
+        "fr": "Laser Grid 1 has been deactivated.\n",
+        "de": "Laser Grid 1 has been deactivated.\n",
+        "es": "Laser Grid 1 has been deactivated.\n"
+    },
+    {
+        "id": "L_DISH_042",
+        "en": "Laser Grid 2 has been deactivated.\n",
+        "gb": "Laser Grid 2 has been deactivated.\n",
+        "jp": "Laser Grid 2 Has Been Deactivated\n",
+        "it": "Laser Grid 2 has been deactivated.\n",
+        "fr": "Laser Grid 2 has been deactivated.\n",
+        "de": "Laser Grid 2 has been deactivated.\n",
+        "es": "Laser Grid 2 has been deactivated.\n"
+    },
+    {
+        "id": "L_DISH_043",
+        "en": "I'm here to pick up the equipment.\n",
+        "gb": "I'm here to pick up the equipment.\n",
+        "jp": "I'm Here To Pick The Equipment\n",
+        "it": "I'm here to pick up the equipment.\n",
+        "fr": "I'm here to pick up the equipment.\n",
+        "de": "I'm here to pick up the equipment.\n",
+        "es": "I'm here to pick up the equipment.\n"
+    },
+    {
+        "id": "L_DISH_044",
+        "en": "Go away, Joanna. You're not fooling anybody!\n",
+        "gb": "Go away, Joanna. You're not fooling anybody!\n",
+        "jp": "Go away Joanna, you don't fool me!\n",
+        "it": "Go away, Joanna. You're not fooling anybody!\n",
+        "fr": "Go away, Joanna. You're not fooling anybody!\n",
+        "de": "Go away, Joanna. You're not fooling anybody!\n",
+        "es": "Go away, Joanna. You're not fooling anybody!\n"
+    },
+    {
+        "id": "L_DISH_045",
+        "en": "Here you go. Don't drop it now.\n",
+        "gb": "Here you go. Don't drop it now.\n",
+        "jp": "Here you go. Don't drop it now.\n",
+        "it": "Here you go. Don't drop it now.\n",
+        "fr": "Here you go. Don't drop it now.\n",
+        "de": "Here you go. Don't drop it now.\n",
+        "es": "Here you go. Don't drop it now.\n"
+    },
+    {
+        "id": "L_DISH_046",
+        "en": "Cloaking Device has been secured successfully.\n",
+        "gb": "Cloaking Device has been secured successfully.\n",
+        "jp": "Cloaking Device Has Been Secured Successfully\n",
+        "it": "Cloaking Device has been secured successfully.\n",
+        "fr": "Cloaking Device has been secured successfully.\n",
+        "de": "Cloaking Device has been secured successfully.\n",
+        "es": "Cloaking Device has been secured successfully.\n"
+    },
+    {
+        "id": "L_DISH_047",
+        "en": "You're meant to use the Disguise, remember?\n",
+        "gb": "You're meant to use the Disguise, remember?\n",
+        "jp": "You're Meant To Use The Disguise, remember?\n",
+        "it": "You're meant to use the Disguise, remember?\n",
+        "fr": "You're meant to use the Disguise, remember?\n",
+        "de": "You're meant to use the Disguise, remember?\n",
+        "es": "You're meant to use the Disguise, remember?\n"
+    },
+    {
+        "id": "L_DISH_048",
+        "en": "You'll have to do better than that, Joanna.\n",
+        "gb": "You'll have to do better than that, Joanna.\n",
+        "jp": "You'll Have To Try Harder Than That Joanna\n",
+        "it": "You'll have to do better than that, Joanna.\n",
+        "fr": "You'll have to do better than that, Joanna.\n",
+        "de": "You'll have to do better than that, Joanna.\n",
+        "es": "You'll have to do better than that, Joanna.\n"
+    },
+    {
+        "id": "L_DISH_049",
+        "en": "Joanna, where did you spring from?\n",
+        "gb": "Joanna, where did you spring from?\n",
+        "jp": "Joanna - Where Did You Spring From?\n",
+        "it": "Joanna, where did you spring from?\n",
+        "fr": "Joanna, where did you spring from?\n",
+        "de": "Joanna, where did you spring from?\n",
+        "es": "Joanna, where did you spring from?\n"
+    },
+    {
+        "id": "L_DISH_050",
+        "en": "You have been detected by the camera.\n",
+        "gb": "You have been detected by the camera.\n",
+        "jp": "You Have Been Detected By The Camera\n",
+        "it": "You have been detected by the camera.\n",
+        "fr": "You have been detected by the camera.\n",
+        "de": "You have been detected by the camera.\n",
+        "es": "You have been detected by the camera.\n"
+    },
+    {
+        "id": "L_DISH_051",
+        "en": "Collect Cloaking Device from table to begin.\n",
+        "gb": "Collect Cloaking Device from table to begin.\n",
+        "jp": "Collect Cloaking Device From Table To Begin\n",
+        "it": "Collect Cloaking Device from table to begin.\n",
+        "fr": "Collect Cloaking Device from table to begin.\n",
+        "de": "Collect Cloaking Device from table to begin.\n",
+        "es": "Collect Cloaking Device from table to begin.\n"
+    },
+    {
+        "id": "L_DISH_052",
+        "en": "Use Cloaking Device and locate Carrington.\n",
+        "gb": "Use Cloaking Device and locate Carrington.\n",
+        "jp": "Use Cloaking Device And Locate Carrington\n",
+        "it": "Use Cloaking Device and locate Carrington.\n",
+        "fr": "Use Cloaking Device and locate Carrington.\n",
+        "de": "Use Cloaking Device and locate Carrington.\n",
+        "es": "Use Cloaking Device and locate Carrington.\n"
+    },
+    {
+        "id": "L_DISH_053",
+        "en": "I think we can safely say your training\nis now complete!\n",
+        "gb": "I think we can safely say your training\nis now complete!\n",
+        "jp": "I think we can safely say you're training\nis now complete!\n",
+        "it": "I think we can safely say your training\nis now complete!\n",
+        "fr": "I think we can safely say your training\nis now complete!\n",
+        "de": "I think we can safely say your training\nis now complete!\n",
+        "es": "I think we can safely say your training\nis now complete!\n"
+    },
+    {
+        "id": "L_DISH_054",
+        "en": "Mission complete - Device Training passed!\n",
+        "gb": "Mission complete - Device Training passed!\n",
+        "jp": "Mission Accomplished - Device Training Complete!\n",
+        "it": "Mission complete - Device Training passed!\n",
+        "fr": "Mission complete - Device Training passed!\n",
+        "de": "Mission complete - Device Training passed!\n",
+        "es": "Mission complete - Device Training passed!\n"
+    },
+    {
+        "id": "L_DISH_055",
+        "en": "Mission failed - you have been detected.\n",
+        "gb": "Mission failed - you have been detected.\n",
+        "jp": "Mission Failed - You Have Been Detected\n",
+        "it": "Mission failed - you have been detected.\n",
+        "fr": "Mission failed - you have been detected.\n",
+        "de": "Mission failed - you have been detected.\n",
+        "es": "Mission failed - you have been detected.\n"
+    },
+    {
+        "id": "L_DISH_056",
+        "en": "Select the Uplink.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Data Uplink and release A Button.\n",
+        "gb": "Select the Uplink.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Data Uplink and release A Button.\n",
+        "jp": "Select The Uplink\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight Data Uplink And Release A\n",
+        "it": "Select the Uplink.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Data Uplink and release A Button.\n",
+        "fr": "Select the Uplink.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Data Uplink and release A Button.\n",
+        "de": "Select the Uplink.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Data Uplink and release A Button.\n",
+        "es": "Select the Uplink.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Data Uplink and release A Button.\n"
+    },
+    {
+        "id": "L_DISH_057",
+        "en": "Select the CamSpy.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight CamSpy and release A Button.\n",
+        "gb": "Select the CamSpy.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight CamSpy and release A Button.\n",
+        "jp": "Select The EyeSpy\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight Eye-Spy And Release A\n",
+        "it": "Select the CamSpy.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight CamSpy and release A Button.\n",
+        "fr": "Select the CamSpy.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight CamSpy and release A Button.\n",
+        "de": "Select the CamSpy.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight CamSpy and release A Button.\n",
+        "es": "Select the CamSpy.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight CamSpy and release A Button.\n"
+    },
+    {
+        "id": "L_DISH_058",
+        "en": "Select the Night Vision.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Night Vision and release A Button.\n",
+        "gb": "Select the Night Vision.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Night Vision and release A Button.\n",
+        "jp": "Select The Night Vision\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight Night Vision And Release A\n",
+        "it": "Select the Night Vision.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Night Vision and release A Button.\n",
+        "fr": "Select the Night Vision.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Night Vision and release A Button.\n",
+        "de": "Select the Night Vision.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Night Vision and release A Button.\n",
+        "es": "Select the Night Vision.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Night Vision and release A Button.\n"
+    },
+    {
+        "id": "L_DISH_059",
+        "en": "Select the Door Decoder.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Door Decoder and release A Button.\n",
+        "gb": "Select the Door Decoder.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Door Decoder and release A Button.\n",
+        "jp": "Select The Door Decoder\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight DoorDecoder And Release A\n",
+        "it": "Select the Door Decoder.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Door Decoder and release A Button.\n",
+        "fr": "Select the Door Decoder.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Door Decoder and release A Button.\n",
+        "de": "Select the Door Decoder.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Door Decoder and release A Button.\n",
+        "es": "Select the Door Decoder.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Door Decoder and release A Button.\n"
+    },
+    {
+        "id": "L_DISH_060",
+        "en": "Select the X-Ray Scanner.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight X-Ray Scanner and release A Button.\n",
+        "gb": "Select the X-Ray Scanner.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight X-Ray Scanner and release A Button.\n",
+        "jp": "Select The X-Ray Scanner\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight X-Ray Scanner And Release A\n",
+        "it": "Select the X-Ray Scanner.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight X-Ray Scanner and release A Button.\n",
+        "fr": "Select the X-Ray Scanner.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight X-Ray Scanner and release A Button.\n",
+        "de": "Select the X-Ray Scanner.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight X-Ray Scanner and release A Button.\n",
+        "es": "Select the X-Ray Scanner.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight X-Ray Scanner and release A Button.\n"
+    },
+    {
+        "id": "L_DISH_061",
+        "en": "Select the Disguise.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Disguise and release A Button.\n",
+        "gb": "Select the Disguise.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Disguise and release A Button.\n",
+        "jp": "Select The Disguise\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight Disguise And Release A\n",
+        "it": "Select the Disguise.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Disguise and release A Button.\n",
+        "fr": "Select the Disguise.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Disguise and release A Button.\n",
+        "de": "Select the Disguise.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Disguise and release A Button.\n",
+        "es": "Select the Disguise.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Disguise and release A Button.\n"
+    },
+    {
+        "id": "L_DISH_062",
+        "en": "Select the IR Scanner.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight IR Scanner and release A Button.\n",
+        "gb": "Select the IR Scanner.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight IR Scanner and release A Button.\n",
+        "jp": "Select The IR Scanner\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight IR Scanner And Release A\n",
+        "it": "Select the IR Scanner.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight IR Scanner and release A Button.\n",
+        "fr": "Select the IR Scanner.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight IR Scanner and release A Button.\n",
+        "de": "Select the IR Scanner.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight IR Scanner and release A Button.\n",
+        "es": "Select the IR Scanner.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight IR Scanner and release A Button.\n"
+    },
+    {
+        "id": "L_DISH_063",
+        "en": "Select the Tracker.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Tracker and release A Button.\n",
+        "gb": "Select the Tracker.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Tracker and release A Button.\n",
+        "jp": "Select The Tracker\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight Tracker And Release A\n",
+        "it": "Select the Tracker.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Tracker and release A Button.\n",
+        "fr": "Select the Tracker.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Tracker and release A Button.\n",
+        "de": "Select the Tracker.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Tracker and release A Button.\n",
+        "es": "Select the Tracker.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Tracker and release A Button.\n"
+    },
+    {
+        "id": "L_DISH_064",
+        "en": "Select the Cloaking Device.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Device and release A Button.\n",
+        "gb": "Select the Cloaking Device.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Device and release A Button.\n",
+        "jp": "Select The Cloaking Device\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight Device And Release A\n",
+        "it": "Select the Cloaking Device.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Device and release A Button.\n",
+        "fr": "Select the Cloaking Device.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Device and release A Button.\n",
+        "de": "Select the Cloaking Device.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Device and release A Button.\n",
+        "es": "Select the Cloaking Device.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight Device and release A Button.\n"
+    },
+    {
+        "id": "L_DISH_065",
+        "en": "Select the ECM Mine.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight ECM Mine and release A Button.\n",
+        "gb": "Select the ECM Mine.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight ECM Mine and release A Button.\n",
+        "jp": "Select The ECM Mine\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight ECM Mine And Release A\n",
+        "it": "Select the ECM Mine.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight ECM Mine and release A Button.\n",
+        "fr": "Select the ECM Mine.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight ECM Mine and release A Button.\n",
+        "de": "Select the ECM Mine.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight ECM Mine and release A Button.\n",
+        "es": "Select the ECM Mine.\n- Hold A Button.\n- Use Control Stick to change selection.\n- Highlight ECM Mine and release A Button.\n"
+    },
+    {
+        "id": "L_DISH_066",
+        "en": "Joanna, it's good to see you.\n",
+        "gb": "Joanna, it's good to see you.\n",
+        "jp": "Joanna, It's good to see you.\n",
+        "it": "Joanna, it's good to see you.\n",
+        "fr": "Joanna, it's good to see you.\n",
+        "de": "Joanna, it's good to see you.\n",
+        "es": "Joanna, it's good to see you.\n"
+    },
+    {
+        "id": "L_DISH_067",
+        "en": "Come with me.\nI'll walk you round the training rooms.\n",
+        "gb": "Come with me.\nI'll walk you round the training rooms.\n",
+        "jp": "Come with me Joanna.\nI'll walk you to the training room.\n",
+        "it": "Come with me.\nI'll walk you round the training rooms.\n",
+        "fr": "Come with me.\nI'll walk you round the training rooms.\n",
+        "de": "Come with me.\nI'll walk you round the training rooms.\n",
+        "es": "Come with me.\nI'll walk you round the training rooms.\n"
+    },
+    {
+        "id": "L_DISH_068",
+        "en": "The information center is through this door.\n",
+        "gb": "The information center is through this door.\n",
+        "jp": "The information centre is through this door.\n",
+        "it": "The information center is through this door.\n",
+        "fr": "The information center is through this door.\n",
+        "de": "The information center is through this door.\n",
+        "es": "The information center is through this door.\n"
+    },
+    {
+        "id": "L_DISH_069",
+        "en": "In here we have the device lab.\n",
+        "gb": "In here we have the device lab.\n",
+        "jp": "In here we have the device lab.\n",
+        "it": "In here we have the device lab.\n",
+        "fr": "In here we have the device lab.\n",
+        "de": "In here we have the device lab.\n",
+        "es": "In here we have the device lab.\n"
+    },
+    {
+        "id": "L_DISH_070",
+        "en": "This leads to the simulant training room.\n",
+        "gb": "This leads to the simulant training room.\n",
+        "jp": "This leads to the simulant training room.\n",
+        "it": "This leads to the simulant training room.\n",
+        "fr": "This leads to the simulant training room.\n",
+        "de": "This leads to the simulant training room.\n",
+        "es": "This leads to the simulant training room.\n"
+    },
+    {
+        "id": "L_DISH_071",
+        "en": "This is the firing range, Jo.\n",
+        "gb": "This is the firing range, Jo.\n",
+        "jp": "This is the firing range Jo.\n",
+        "it": "This is the firing range, Jo.\n",
+        "fr": "This is the firing range, Jo.\n",
+        "de": "This is the firing range, Jo.\n",
+        "es": "This is the firing range, Jo.\n"
+    },
+    {
+        "id": "L_DISH_072",
+        "en": "This corridor leads down to the hangar.\n",
+        "gb": "This corridor leads down to the hangar.\n",
+        "jp": "This corridor leads down to the hangar.\n",
+        "it": "This corridor leads down to the hangar.\n",
+        "fr": "This corridor leads down to the hangar.\n",
+        "de": "This corridor leads down to the hangar.\n",
+        "es": "This corridor leads down to the hangar.\n"
+    },
+    {
+        "id": "L_DISH_073",
+        "en": "HOVERCRATE\nPress B Button next to Hovcrate to grab it...\n",
+        "gb": "HOVERCRATE\nPress B Button next to Hovcrate to grab it...\n",
+        "jp": "HOVERCRATE\nPress B next to Hovcrate to grab it...\n",
+        "it": "HOVERCRATE\nPress B Button next to Hovcrate to grab it...\n",
+        "fr": "HOVERCRATE\nPress B Button next to Hovcrate to grab it...\n",
+        "de": "HOVERCRATE\nPress B Button next to Hovcrate to grab it...\n",
+        "es": "HOVERCRATE\nPress B Button next to Hovcrate to grab it...\n"
+    },
+    {
+        "id": "L_DISH_074",
+        "en": "Press B Button when crate grabbed to release it.\n",
+        "gb": "Press B Button when crate grabbed to release it.\n",
+        "jp": "Press B when crate grabbed to release it.\n",
+        "it": "Press B Button when crate grabbed to release it.\n",
+        "fr": "Press B Button when crate grabbed to release it.\n",
+        "de": "Press B Button when crate grabbed to release it.\n",
+        "es": "Press B Button when crate grabbed to release it.\n"
+    },
+    {
+        "id": "L_DISH_075",
+        "en": "HOVERBIKE\nDouble tap B Button next to Hovbike to ride it...\n",
+        "gb": "HOVERBIKE\nDouble tap B Button next to Hovbike to ride it...\n",
+        "jp": "HOVERBIKE\nDouble Tap B next to Hovbike to ride it...\n",
+        "it": "HOVERBIKE\nDouble tap B Button next to Hovbike to ride it...\n",
+        "fr": "HOVERBIKE\nDouble tap B Button next to Hovbike to ride it...\n",
+        "de": "HOVERBIKE\nDouble tap B Button next to Hovbike to ride it...\n",
+        "es": "HOVERBIKE\nDouble tap B Button next to Hovbike to ride it...\n"
+    },
+    {
+        "id": "L_DISH_076",
+        "en": "Double tap B Button when on Hovbike to dismount.\n",
+        "gb": "Double tap B Button when on Hovbike to dismount.\n",
+        "jp": "Double Tap B when on Hovbike to dismount.\n",
+        "it": "Double tap B Button when on Hovbike to dismount.\n",
+        "fr": "Double tap B Button when on Hovbike to dismount.\n",
+        "de": "Double tap B Button when on Hovbike to dismount.\n",
+        "es": "Double tap B Button when on Hovbike to dismount.\n"
+    },
+    {
+        "id": "L_DISH_077",
+        "en": "OPENING DOORS\nPress B Button next to door to open it.\n",
+        "gb": "OPENING DOORS\nPress B Button next to door to open it.\n",
+        "jp": "OPENING DOORS\nPress B next to door to open it.\n",
+        "it": "OPENING DOORS\nPress B Button next to door to open it.\n",
+        "fr": "OPENING DOORS\nPress B Button next to door to open it.\n",
+        "de": "OPENING DOORS\nPress B Button next to door to open it.\n",
+        "es": "OPENING DOORS\nPress B Button next to door to open it.\n"
+    },
+    {
+        "id": "L_DISH_078",
+        "en": "B Button will also activate any object nearby.\n",
+        "gb": "B Button will also activate any object nearby.\n",
+        "jp": "B will also activate any object nearby.\n",
+        "it": "B Button will also activate any object nearby.\n",
+        "fr": "B Button will also activate any object nearby.\n",
+        "de": "B Button will also activate any object nearby.\n",
+        "es": "B Button will also activate any object nearby.\n"
+    },
+    {
+        "id": "L_DISH_079",
+        "en": "ELEVATORS\nPress B Button next to door to call elevator.\n",
+        "gb": "ELEVATORS\nPress B Button next to door to call elevator.\n",
+        "jp": "ELEVATORS\nPress B next to door to call elevator.\n",
+        "it": "ELEVATORS\nPress B Button next to door to call elevator.\n",
+        "fr": "ELEVATORS\nPress B Button next to door to call elevator.\n",
+        "de": "ELEVATORS\nPress B Button next to door to call elevator.\n",
+        "es": "ELEVATORS\nPress B Button next to door to call elevator.\n"
+    },
+    {
+        "id": "L_DISH_080",
+        "en": "Cannot exit while training is in progress.\n",
+        "gb": "Cannot exit while training is in progress.\n",
+        "jp": "Cannot Exit While Training Is In Progress\n",
+        "it": "Cannot exit while training is in progress.\n",
+        "fr": "Cannot exit while training is in progress.\n",
+        "de": "Cannot exit while training is in progress.\n",
+        "es": "Cannot exit while training is in progress.\n"
+    },
+    {
+        "id": "L_DISH_081",
+        "en": "Switch Code 1 has been obtained.\n",
+        "gb": "Switch Code 1 has been obtained.\n",
+        "jp": "Switch Code 1 Has Been Obtained.\n",
+        "it": "Switch Code 1 has been obtained.\n",
+        "fr": "Switch Code 1 has been obtained.\n",
+        "de": "Switch Code 1 has been obtained.\n",
+        "es": "Switch Code 1 has been obtained.\n"
+    },
+    {
+        "id": "L_DISH_082",
+        "en": "Switch Code 2 has been obtained.\n",
+        "gb": "Switch Code 2 has been obtained.\n",
+        "jp": "Switch Code 2 Has Been Obtained.\n",
+        "it": "Switch Code 2 has been obtained.\n",
+        "fr": "Switch Code 2 has been obtained.\n",
+        "de": "Switch Code 2 has been obtained.\n",
+        "es": "Switch Code 2 has been obtained.\n"
+    },
+    {
+        "id": "L_DISH_083",
+        "en": "Switch Code 3 has been obtained.\n",
+        "gb": "Switch Code 3 has been obtained.\n",
+        "jp": "Switch Code 3 Has Been Obtained.\n",
+        "it": "Switch Code 3 has been obtained.\n",
+        "fr": "Switch Code 3 has been obtained.\n",
+        "de": "Switch Code 3 has been obtained.\n",
+        "es": "Switch Code 3 has been obtained.\n"
+    },
+    {
+        "id": "L_DISH_084",
+        "en": "Switch Code 4 has been obtained.\n",
+        "gb": "Switch Code 4 has been obtained.\n",
+        "jp": "Switch Code 4 Has Been Obtained.\n",
+        "it": "Switch Code 4 has been obtained.\n",
+        "fr": "Switch Code 4 has been obtained.\n",
+        "de": "Switch Code 4 has been obtained.\n",
+        "es": "Switch Code 4 has been obtained.\n"
+    },
+    {
+        "id": "L_DISH_085",
+        "en": "LOOK UP\n- Press Down C Button to look up at the target.\n",
+        "gb": "LOOK UP\n- Press Down C Button to look up at the target.\n",
+        "jp": "LOOK UP\n- Press Down C To Look Up At The Target.\n",
+        "it": "LOOK UP\n- Press Down C Button to look up at the target.\n",
+        "fr": "LOOK UP\n- Press Down C Button to look up at the target.\n",
+        "de": "LOOK UP\n- Press Down C Button to look up at the target.\n",
+        "es": "LOOK UP\n- Press Down C Button to look up at the target.\n"
+    },
+    {
+        "id": "L_DISH_086",
+        "en": "LOOK DOWN\n- Press Up C Button to look down at the target.\n",
+        "gb": "LOOK DOWN\n- Press Up C Button to look down at the target.\n",
+        "jp": "LOOK DOWN\n- Press Up C To Look Down At The Target.\n",
+        "it": "LOOK DOWN\n- Press Up C Button to look down at the target.\n",
+        "fr": "LOOK DOWN\n- Press Up C Button to look down at the target.\n",
+        "de": "LOOK DOWN\n- Press Up C Button to look down at the target.\n",
+        "es": "LOOK DOWN\n- Press Up C Button to look down at the target.\n"
+    },
+    {
+        "id": "L_DISH_087",
+        "en": "Holoprogram 2 has been completed successfully.\n",
+        "gb": "Holoprogram 2 has been completed successfully.\n",
+        "jp": "Holoprogram 2 Has Been Completed Successfully.\n",
+        "it": "Holoprogram 2 has been completed successfully.\n",
+        "fr": "Holoprogram 2 has been completed successfully.\n",
+        "de": "Holoprogram 2 has been completed successfully.\n",
+        "es": "Holoprogram 2 has been completed successfully.\n"
+    },
+    {
+        "id": "L_DISH_088",
+        "en": "Holoprogram 4 has been completed successfully.\n",
+        "gb": "Holoprogram 4 has been completed successfully.\n",
+        "jp": "Holoprogram 4 Has Been Completed Successfully.\n",
+        "it": "Holoprogram 4 has been completed successfully.\n",
+        "fr": "Holoprogram 4 has been completed successfully.\n",
+        "de": "Holoprogram 4 has been completed successfully.\n",
+        "es": "Holoprogram 4 has been completed successfully.\n"
+    },
+    {
+        "id": "L_DISH_089",
+        "en": "Holoprogram 5 has been completed successfully.\n",
+        "gb": "Holoprogram 5 has been completed successfully.\n",
+        "jp": "Holoprogram 5 Has Been Completed Successfully.\n",
+        "it": "Holoprogram 5 has been completed successfully.\n",
+        "fr": "Holoprogram 5 has been completed successfully.\n",
+        "de": "Holoprogram 5 has been completed successfully.\n",
+        "es": "Holoprogram 5 has been completed successfully.\n"
+    },
+    {
+        "id": "L_DISH_090",
+        "en": "Guard has been successfully disarmed.\n",
+        "gb": "Guard has been successfully disarmed.\n",
+        "jp": "Guard Has Been Successfully Disarmed.\n",
+        "it": "Guard has been successfully disarmed.\n",
+        "fr": "Guard has been successfully disarmed.\n",
+        "de": "Guard has been successfully disarmed.\n",
+        "es": "Guard has been successfully disarmed.\n"
+    },
+    {
+        "id": "L_DISH_091",
+        "en": "Guard has been successfully knocked out.\n",
+        "gb": "Guard has been successfully knocked out.\n",
+        "jp": "Guard Has Been Successfully Knocked Out.\n",
+        "it": "Guard has been successfully knocked out.\n",
+        "fr": "Guard has been successfully knocked out.\n",
+        "de": "Guard has been successfully knocked out.\n",
+        "es": "Guard has been successfully knocked out.\n"
+    },
+    {
+        "id": "L_DISH_092",
+        "en": "Disarm this live target if you can.\n",
+        "gb": "Disarm this live target if you can.\n",
+        "jp": "Disarm This Live Target If You Can.\n",
+        "it": "Disarm this live target if you can.\n",
+        "fr": "Disarm this live target if you can.\n",
+        "de": "Disarm this live target if you can.\n",
+        "es": "Disarm this live target if you can.\n"
+    },
+    {
+        "id": "L_DISH_093",
+        "en": "Knock out this target - stealth is the key.\n",
+        "gb": "Knock out this target - stealth is the key.\n",
+        "jp": "Knock Out This Target - Stealth Is The Key.\n",
+        "it": "Knock out this target - stealth is the key.\n",
+        "fr": "Knock out this target - stealth is the key.\n",
+        "de": "Knock out this target - stealth is the key.\n",
+        "es": "Knock out this target - stealth is the key.\n"
+    },
+    {
+        "id": "L_DISH_094",
+        "en": "And the final guard...\n",
+        "gb": "And the final guard...\n",
+        "jp": "and the final guard....\n",
+        "it": "And the final guard...\n",
+        "fr": "And the final guard...\n",
+        "de": "And the final guard...\n",
+        "es": "And the final guard...\n"
+    },
+    {
+        "id": "L_DISH_095",
+        "en": "DUCK\n- Hold R Button, then press Down C Button to duck.\n",
+        "gb": "DUCK\n- Hold R Button, then press Down C Button to duck.\n",
+        "jp": "DUCK\n- Hold R Then Press Down C To Duck.\n",
+        "it": "DUCK\n- Hold R Button, then press Down C Button to duck.\n",
+        "fr": "DUCK\n- Hold R Button, then press Down C Button to duck.\n",
+        "de": "DUCK\n- Hold R Button, then press Down C Button to duck.\n",
+        "es": "DUCK\n- Hold R Button, then press Down C Button to duck.\n"
+    },
+    {
+        "id": "L_DISH_096",
+        "en": "CROUCH\n- When ducking, hold R Button, then press Down C Button to duck.\n",
+        "gb": "CROUCH\n- When ducking, hold R Button, then press Down C Button to duck.\n",
+        "jp": "CROUCH\n- When Ducking, Hold R Then Press Down C To Duck.\n",
+        "it": "CROUCH\n- When ducking, hold R Button, then press Down C Button to duck.\n",
+        "fr": "CROUCH\n- When ducking, hold R Button, then press Down C Button to duck.\n",
+        "de": "CROUCH\n- When ducking, hold R Button, then press Down C Button to duck.\n",
+        "es": "CROUCH\n- When ducking, hold R Button, then press Down C Button to duck.\n"
+    },
+    {
+        "id": "L_DISH_097",
+        "en": "Holoprogram 3 has been completed successfully.\n",
+        "gb": "Holoprogram 3 has been completed successfully.\n",
+        "jp": "Holoprogram 3 Has Been Completed Successfully.\n",
+        "it": "Holoprogram 3 has been completed successfully.\n",
+        "fr": "Holoprogram 3 has been completed successfully.\n",
+        "de": "Holoprogram 3 has been completed successfully.\n",
+        "es": "Holoprogram 3 has been completed successfully.\n"
+    },
+    {
+        "id": "L_DISH_098",
+        "en": "Activate all the switches.\n",
+        "gb": "Activate all the switches.\n",
+        "jp": "Activate All The Switches.\n",
+        "it": "Activate all the switches.\n",
+        "fr": "Activate all the switches.\n",
+        "de": "Activate all the switches.\n",
+        "es": "Activate all the switches.\n"
+    },
+    {
+        "id": "L_DISH_099",
+        "en": "Activate all of the wall switches.\n- Be quick, as they will quickly reset.\n",
+        "gb": "Activate all of the wall switches.\n- Be quick, as they will quickly reset.\n",
+        "jp": "Activate All Of The Wall Switches.\n- Be Quick, As They Will Quickly Reset.\n",
+        "it": "Activate all of the wall switches.\n- Be quick, as they will quickly reset.\n",
+        "fr": "Activate all of the wall switches.\n- Be quick, as they will quickly reset.\n",
+        "de": "Activate all of the wall switches.\n- Be quick, as they will quickly reset.\n",
+        "es": "Activate all of the wall switches.\n- Be quick, as they will quickly reset.\n"
+    },
+    {
+        "id": "L_DISH_100",
+        "en": "Get the access codes by examining terminals.\n- Use the codes on the wall terminals.\n",
+        "gb": "Get the access codes by examining terminals.\n- Use the codes on the wall terminals.\n",
+        "jp": "Get The Access Codes By Examining Terminals.\n- Use The Codes On The Wall Terminals.\n",
+        "it": "Get the access codes by examining terminals.\n- Use the codes on the wall terminals.\n",
+        "fr": "Get the access codes by examining terminals.\n- Use the codes on the wall terminals.\n",
+        "de": "Get the access codes by examining terminals.\n- Use the codes on the wall terminals.\n",
+        "es": "Get the access codes by examining terminals.\n- Use the codes on the wall terminals.\n"
+    },
+    {
+        "id": "L_DISH_101",
+        "en": "Code 1 has been obtained.\n",
+        "gb": "Code 1 has been obtained.\n",
+        "jp": "Code 1 Has Been Obtained.\n",
+        "it": "Code 1 has been obtained.\n",
+        "fr": "Code 1 has been obtained.\n",
+        "de": "Code 1 has been obtained.\n",
+        "es": "Code 1 has been obtained.\n"
+    },
+    {
+        "id": "L_DISH_102",
+        "en": "Code 2 has been obtained.\n",
+        "gb": "Code 2 has been obtained.\n",
+        "jp": "Code 2 Has Been Obtained.\n",
+        "it": "Code 2 has been obtained.\n",
+        "fr": "Code 2 has been obtained.\n",
+        "de": "Code 2 has been obtained.\n",
+        "es": "Code 2 has been obtained.\n"
+    },
+    {
+        "id": "L_DISH_103",
+        "en": "Code 3 has been obtained.\n",
+        "gb": "Code 3 has been obtained.\n",
+        "jp": "Code 3 Has Been Obtained.\n",
+        "it": "Code 3 has been obtained.\n",
+        "fr": "Code 3 has been obtained.\n",
+        "de": "Code 3 has been obtained.\n",
+        "es": "Code 3 has been obtained.\n"
+    },
+    {
+        "id": "L_DISH_104",
+        "en": "Code 4 has been obtained.\n",
+        "gb": "Code 4 has been obtained.\n",
+        "jp": "Code 4 Has Been Obtained.\n",
+        "it": "Code 4 has been obtained.\n",
+        "fr": "Code 4 has been obtained.\n",
+        "de": "Code 4 has been obtained.\n",
+        "es": "Code 4 has been obtained.\n"
+    },
+    {
+        "id": "L_DISH_105",
+        "en": "Training failed - you must face forward.\n",
+        "gb": "Training failed - you must face forward.\n",
+        "jp": "Training Failed - You Must Face Forward.\n",
+        "it": "Training failed - you must face forward.\n",
+        "fr": "Training failed - you must face forward.\n",
+        "de": "Training failed - you must face forward.\n",
+        "es": "Training failed - you must face forward.\n"
+    },
+    {
+        "id": "L_DISH_106",
+        "en": "Holoprogram 1 has been completed successfully.\n",
+        "gb": "Holoprogram 1 has been completed successfully.\n",
+        "jp": "Holoprogram 1 Has Been Completed Successfully.\n",
+        "it": "Holoprogram 1 has been completed successfully.\n",
+        "fr": "Holoprogram 1 has been completed successfully.\n",
+        "de": "Holoprogram 1 has been completed successfully.\n",
+        "es": "Holoprogram 1 has been completed successfully.\n"
+    },
+    {
+        "id": "L_DISH_107",
+        "en": "Unarmed combat - knock out the target.\n- Press Z Button repeatedly to punch.\n",
+        "gb": "Unarmed combat - knock out the target.\n- Press Z Button repeatedly to punch.\n",
+        "jp": "Unarmed Combat - Knock Out The Target.\n- Press Z repeatedly to punch.\n",
+        "it": "Unarmed combat - knock out the target.\n- Press Z Button repeatedly to punch.\n",
+        "fr": "Unarmed combat - knock out the target.\n- Press Z Button repeatedly to punch.\n",
+        "de": "Unarmed combat - knock out the target.\n- Press Z Button repeatedly to punch.\n",
+        "es": "Unarmed combat - knock out the target.\n- Press Z Button repeatedly to punch.\n"
+    },
+    {
+        "id": "L_DISH_108",
+        "en": "Now try against a moving target...\n",
+        "gb": "Now try against a moving target...\n",
+        "jp": "Now Try Against A Moving Target...\n",
+        "it": "Now try against a moving target...\n",
+        "fr": "Now try against a moving target...\n",
+        "de": "Now try against a moving target...\n",
+        "es": "Now try against a moving target...\n"
+    },
+    {
+        "id": "L_DISH_109",
+        "en": "And finally against a target that fights back.\n",
+        "gb": "And finally against a target that fights back.\n",
+        "jp": "And Finally Against A Target That Fights Back.\n",
+        "it": "And finally against a target that fights back.\n",
+        "fr": "And finally against a target that fights back.\n",
+        "de": "And finally against a target that fights back.\n",
+        "es": "And finally against a target that fights back.\n"
+    },
+    {
+        "id": "L_DISH_110",
+        "en": "Defeat all enemies without getting hit.\n",
+        "gb": "Defeat all enemies without getting hit.\n",
+        "jp": "Defeat All Enemies Without Getting Hit.\n",
+        "it": "Defeat all enemies without getting hit.\n",
+        "fr": "Defeat all enemies without getting hit.\n",
+        "de": "Defeat all enemies without getting hit.\n",
+        "es": "Defeat all enemies without getting hit.\n"
+    },
+    {
+        "id": "L_DISH_111",
+        "en": "Training failed - you have been hit.\n",
+        "gb": "Training failed - you have been hit.\n",
+        "jp": "Training Failed - You Have Been Hit.\n",
+        "it": "Training failed - you have been hit.\n",
+        "fr": "Training failed - you have been hit.\n",
+        "de": "Training failed - you have been hit.\n",
+        "es": "Training failed - you have been hit.\n"
+    },
+    {
+        "id": "L_DISH_112",
+        "en": "Holoprogram 6 has been completed successfully.\n",
+        "gb": "Holoprogram 6 has been completed successfully.\n",
+        "jp": "Holoprogram 6 Has Been Completed Successfully.\n",
+        "it": "Holoprogram 6 has been completed successfully.\n",
+        "fr": "Holoprogram 6 has been completed successfully.\n",
+        "de": "Holoprogram 6 has been completed successfully.\n",
+        "es": "Holoprogram 6 has been completed successfully.\n"
+    },
+    {
+        "id": "L_DISH_113",
+        "en": "Holoprogram 7 has been completed successfully.\n",
+        "gb": "Holoprogram 7 has been completed successfully.\n",
+        "jp": "Holoprogram 7 Has Been Completed Successfully.\n",
+        "it": "Holoprogram 7 has been completed successfully.\n",
+        "fr": "Holoprogram 7 has been completed successfully.\n",
+        "de": "Holoprogram 7 has been completed successfully.\n",
+        "es": "Holoprogram 7 has been completed successfully.\n"
+    },
+    {
+        "id": "L_DISH_114",
+        "en": "TERMINALS\n- Press B Button next to terminal to use it.\n",
+        "gb": "TERMINALS\n- Press B Button next to terminal to use it.\n",
+        "jp": "TERMINALS\n- Press B next to terminal to use it.\n",
+        "it": "TERMINALS\n- Press B Button next to terminal to use it.\n",
+        "fr": "TERMINALS\n- Press B Button next to terminal to use it.\n",
+        "de": "TERMINALS\n- Press B Button next to terminal to use it.\n",
+        "es": "TERMINALS\n- Press B Button next to terminal to use it.\n"
+    },
+    {
+        "id": "L_DISH_115",
+        "en": "Now activate the red terminals on the wall.\n",
+        "gb": "Now activate the red terminals on the wall.\n",
+        "jp": "Now Activate The Red Terminals On The Wall.\n",
+        "it": "Now activate the red terminals on the wall.\n",
+        "fr": "Now activate the red terminals on the wall.\n",
+        "de": "Now activate the red terminals on the wall.\n",
+        "es": "Now activate the red terminals on the wall.\n"
+    },
+    {
+        "id": "L_DISH_116",
+        "en": "PP7\n",
+        "gb": "PP7\n",
+        "jp": null,
+        "it": "PP7\n",
+        "fr": "PP7\n",
+        "de": "PP7\n",
+        "es": "PP7\n"
+    },
+    {
+        "id": "L_DISH_117",
+        "en": "TT33\n",
+        "gb": "TT33\n",
+        "jp": null,
+        "it": "TT33\n",
+        "fr": "TT33\n",
+        "de": "TT33\n",
+        "es": "TT33\n"
+    },
+    {
+        "id": "L_DISH_118",
+        "en": "Skorpion\n",
+        "gb": "Skorpion\n",
+        "jp": null,
+        "it": "Skorpion\n",
+        "fr": "Skorpion\n",
+        "de": "Skorpion\n",
+        "es": "Skorpion\n"
+    },
+    {
+        "id": "L_DISH_119",
+        "en": "AK47\n",
+        "gb": "AK47\n",
+        "jp": null,
+        "it": "AK47\n",
+        "fr": "AK47\n",
+        "de": "AK47\n",
+        "es": "AK47\n"
+    },
+    {
+        "id": "L_DISH_120",
+        "en": "Uzi 9mm\n",
+        "gb": "Uzi 9mm\n",
+        "jp": null,
+        "it": "Uzi 9mm\n",
+        "fr": "Uzi 9mm\n",
+        "de": "Uzi 9mm\n",
+        "es": "Uzi 9mm\n"
+    },
+    {
+        "id": "L_DISH_121",
+        "en": "MP5K\n",
+        "gb": "MP5K\n",
+        "jp": null,
+        "it": "MP5K\n",
+        "fr": "MP5K\n",
+        "de": "MP5K\n",
+        "es": "MP5K\n"
+    },
+    {
+        "id": "L_DISH_122",
+        "en": "M-16\n",
+        "gb": "M-16\n",
+        "jp": null,
+        "it": "M-16\n",
+        "fr": "M-16\n",
+        "de": "M-16\n",
+        "es": "M-16\n"
+    },
+    {
+        "id": "L_DISH_123",
+        "en": "FNP90\n",
+        "gb": "FNP90\n",
+        "jp": null,
+        "it": "FNP90\n",
+        "fr": "FNP90\n",
+        "de": "FNP90\n",
+        "es": "FNP90\n"
+    },
+    {
+        "id": "L_DISH_124",
+        "en": "Okay Jo, I'll leave you to prepare for the mission.\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_DISH_125",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_DISH_126",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_DISH_127",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    }
+]

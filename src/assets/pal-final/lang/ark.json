@@ -1,0 +1,762 @@
+[
+    {
+        "id": "L_ARK_000",
+        "en": "|Background - \n\nThe alarm has been given, and there are dataDyne shock troops ready for you throughout the building. Exit via the foyer is impossible due to the number of ground troops present. The transport will collect you and Dr. Caroll from the helipad.\n\n|Carrington - \n\nI don't have to remind you to protect Dr. Caroll at all costs, Joanna. Cassandra and dataDyne are going to be throwing all the obstacles they can in your path to prevent you from getting Dr. Caroll out. Good luck.\n\n|Objective One: - Gain Access to Upper Floors\n\nFight your way around the foyer until you can get access to one of the lifts that will take you and Dr. Caroll to the upper floors of the building.\n\n|Objective Two: - Reactivate Elevator\n\nWe traced an order to shut down the only accessible elevator to a PC on the lowest floor of offices. You have to find that PC and change the order to get the elevator going again.\n\n|Objective Three: - Destroy dataDyne Gunship\n\nThere is a dataDyne security gunship circling the building which outguns your jumpship and will shoot you out of the sky. Terminate it with extreme prejudice, since it will be trying to do the same thing to you.\n\n|Objective Four: - Defeat Cassandra's Bodyguards\n\nWe suspect that Cassandra has deployed her bodyguards to block the route to the helipad. It is almost certain that you'll be unable to avoid them, so expect serious resistance when you encounter them.\n\n|Objective Five: - Return to Helipad for Evacuation\n\nGet to the helipad where your dropship will be waiting. And don't forget Dr. Caroll.\n\nEND\n",
+        "gb": "|Background - \n\nThe alarm has been given, and there are dataDyne shock troops ready for you throughout the building. Exit via the foyer is impossible due to the number of ground troops present. The transport will collect you and Dr. Caroll from the helipad.\n\n|Carrington - \n\nI don't have to remind you to protect Dr. Caroll at all costs, Joanna. Cassandra and dataDyne are going to be throwing all the obstacles they can in your path to prevent you from getting Dr. Caroll out. Good luck.\n\n|Objective One: - Gain Access to Upper Floors\n\nFight your way around the foyer until you can get access to one of the lifts that will take you and Dr. Caroll to the upper floors of the building.\n\n|Objective Two: - Reactivate Elevator\n\nWe traced an order to shut down the only accessible elevator to a PC on the lowest floor of offices. You have to find that PC and change the order to get the elevator going again.\n\n|Objective Three: - Destroy dataDyne Gunship\n\nThere is a dataDyne security gunship circling the building which outguns your jumpship and will shoot you out of the sky. Terminate it with extreme prejudice, since it will be trying to do the same thing to you.\n\n|Objective Four: - Defeat Cassandra's Bodyguards\n\nWe suspect that Cassandra has deployed her bodyguards to block the route to the helipad. It is almost certain that you'll be unable to avoid them, so expect serious resistance when you encounter them.\n\n|Objective Five: - Return to Helipad for Evacuation\n\nGet to the helipad where your dropship will be waiting. And don't forget Dr. Caroll.\n\nEND\n",
+        "jp": "|Background - \n\nThe alarm has been given and there are dataDyne shock troops ready for you throughout the building. Exit via the foyer is impossible due to the number of ground troops present. The transport will collect you and Dr. Caroll from the helipad.\n\n|Carrington - \n\nI don't have to remind you to protect Dr. Caroll at all costs, Joanna. Cassandra and dataDyne are going to be throwing all the obstacles they can in your path to prevent you from getting Dr. Caroll out. Good luck.\n\n|Objective One: - Gain Access to Upper Floors\n\nFight your way around the foyer until you can get access to one of the lifts that will take you and Dr. Caroll to the upper floors of the building.\n\n|Objective Two: - Reactivate Elevator\n\nWe traced an order to shut down the only accessible elevator to a PC on the lowest floor of offices. You have to find that PC and change the order to get the elevator going again.\n\n|Objective Three: - Destroy dataDyne Gunship\n\nThere is a dataDyne security gunship circling the building which outguns your jumpship and will shoot you out of the sky. Terminate it with extreme prejudice, since it will be trying to do the same thing to you.\n\n|Objective Four: - Defeat Cassandra's Bodyguards\n\nWe suspect that Cassandra has deployed her bodyguards to block the route to the helipad. It is almost certain that you'll be unable to avoid them, so expect serious resistance when you encounter them.\n\n|Objective Five: - Return To Helipad For Evac\n\nGet to the Helipad where your dropship will be waiting. And don't forget Dr. Caroll.\n\nEND\n",
+        "it": "|Situazione:\n\nÈ stato dato l'allarme e l'edificio è pieno di soldati pronti a darti il benvenuto! La fuga dall'atrio è impossibile a causa del numero di soldati presenti. Tu e il Dr. Caroll sarete prelevati da un mezzo di salvataggio dall'eliporto sul tetto.\n\n|Carrington:\n\nNon penso sia necessario ricordarti di proteggere il Dr. Caroll ad ogni costo, vero Joanna? Cassandra e la dataDyne faranno di tutto per impedirti di salvarlo. Fa attenzione!\n\n|Obiettivo 1: - Raggiungi i piani superiori\n\nFatti strada nell'atrio fino a raggiungere uno degli ascensori che porteranno te e il Dr. Caroll ai piani superiori dell'edificio.\n\n|Obiettivo 2: - Riattiva l'ascensore\n\nIn un PC del piano inferiore degli uffici abbiamo rintracciato l'ordine di bloccare l'unico ascensore accessibile. Devi trovare quel PC e cambiare l'ordine per rimettere in funzione l'ascensore.\n\n|Obiettivo 3: - Distruggi la cannoniera della dataDyne\n\nL'edificio dataDyne è sorvegliato da una potente cannoniera di difesa pronta a farti fuori in ogni momento per impedirti di procedere. Distruggila con estrema determinazione, o abbatterà la navetta e annienterà anche te.\n\n|Obiettivo 4: - Elimina guardie del corpo di Cassandra\n\nAbbiamo ragione di sospettare che Cassandra abbia sguinzagliato le sue guardie del corpo per bloccare l'accesso all'eliporto. Non riuscirai ad evitarle, quindi aspettati una lotta all'ultimo sangue quando le incontri.\n\n|Obiettivo 5: - Torna sul tetto per l'evacuamento\n\nRaggiungi l'eliporto dove ti attenderà il mezzo di salvataggio. Non dimenticarti del Dr. Caroll!\n\nFINE\n",
+        "fr": "|Briefing - \n\nL'alarme a été donnée et les troupes d'intervention de la dataDyne sont à vos trousses dans l'immeuble. Une éventuelle fuite par le hall est impossible à cause du nombre de gardes présents. Rejoignez l'héliport avec le Dr. Caroll pour vous enfuir.\n\n|Carrington - \n\nJe n'ai pas besoin de vous rappeler de protéger le Dr. Caroll à tout prix. Cassandra et la dataDyne feront tout pour vous barrer la route et garder le Dr. Caroll. Bonne chance.\n\n|Objectif 1: - Accéder aux niveaux supérieurs\n\nFrayez-vous un chemin autour du hall jusqu'à accéder à l'un des ascenseurs vous menant vous et le Dr. Caroll aux niveaux supérieurs du bâtiment.\n\n|Objectif 2: - Réactiver l'ascenseur\n\nNous avons détecté la commande d'arrêt de fonctionnement de l'ascenseur donnée par un PC des bureaux inférieurs. Trouvez ce terminal et modifiez la commande pour réactiver l'ascenseur.\n\n|Objectif 3: - Détruire l'hélico de combat dataDyne\n\nUn hélico de combat de la dataDyne fait sa ronde autour de l'immeuble et risque de descendre votre transport. Abattez-le sans les coups de semonce d'usage. C'est lui ou vous.\n\n|Objectif 4: - Abattre la garde de Cassandra\n\nNous suspectons Cassandra d'avoir déployé ses gardes du corps pour vous interdire l'accès à l'héliport. Vous ne pourrez les semer, alors préparez-vous à un combat acharné.\n\n|Objectif 5: - Retour à l'héliport pour évacuation\n\nAccédez à l'héliport où votre appareil attendra. N'oubliez pas le Dr. Caroll.\n\nFIN\n",
+        "de": "|Hintergrund - \n\nDer Alarm wurde ausgelöst, und dataDyne Einsatztruppen sind im gesamten Gebäude verteilt. Aufgrund der Konzentration im Bereich des Foyers ist es unmöglich, das Gebäude durch den Haupteingang zu verlassen. Der Transporter wird Sie und Dr. Caroll vom Helipad abholen.\n\n|Carrington - \n\nIch muss Sie wohl nicht daran erinnern, Dr. Caroll unter allen Umständen zu beschützen. Cassandra und dataDyne werden alle ihnen zur Verfügung stehenden Mittel einsetzen, um zu verhindern, dass Sie und Dr. Caroll entkommen. Viel Glück.\n\n|1. Ziel: - Erreichen Sie die oberen Stockwerke!\n\nKämpfen Sie sich am Foyer vorbei, bis Sie einen der Aufzüge erreichen, die Sie und Dr. Caroll zu den oberen Stockwerken des Gebäudes bringen.\n\n|2. Ziel: - Reaktivieren Sie den Aufzug!\n\nWir konnten herausfinden, dass der einzige erreichbare Aufzug von einem PC aus blockiert wird. Dieser PC befindet sich im tiefstgelegenen Bürotrakt. Sie müssen diesen PC finden, um den Aufzug wieder in Gang zu setzen.\n\n|3. Ziel: - Vernichten Sie das dataDyne-Gunship!\n\nEin dataDyne-Gunship umkreist das Gebäude. Es besteht die Gefahr, dass diese Einheit Ihr Fluchtfahrzeug angreift und vom Himmel holt. Bei der Terminierung dieser Einheit müssen Sie mit äußerster Vorsicht vorgehen, da das Gunship auch das gleiche mit Ihnen versuchen wird.\n\n|4. Ziel: - Neutralisieren Sie Cassandras Bodyguards!\n\nWir vermuten, dass Cassandra ihre Bodyguards ausgesandt hat, um den Weg zum Helipad zu blockieren. Es steht so gut wie fest, dass Sie den Kontakt mit ihnen nicht vermeiden können. Bereiten Sie sich auf ernstzunehmenden Widerstand vor!\n\n|5. Ziel: - Erreichen Sie das Helipad, um zu evakuieren!\n\nKämpfen Sie sich zum Helipad vor, wo Ihr Fluchtschiff auf Sie wartet, und vergessen Sie bloß nicht Dr. Caroll!\n\nENDE\n",
+        "es": "|Antecedentes - \n\nLa alarma ha sido activada, y hay tropas de choque de dataDyne preparadas por todo el edificio. Salir por el vestíbulo es imposible debido al gran número de tropas presentes. El transporte os recogerá a ti y al Dr. Caroll en el helipuerto.\n\n|Carrington - \n\nNo creo que necesite recordarte que debes proteger al Dr. Caroll a toda costa, Joanna. Cassandra y dataDyne pondrán todos los obstáculos que puedan en tu camino para impedir que saques al Dr. Caroll de allí. Buena suerte.\n\n|Objetivo Uno: - Acceder a los Pisos Superiores\n\nAvanza por el vestíbulo hasta que tengas acceso a uno de los ascensores que os llevarán a ti y al Dr. Caroll a los pisos superiores del edificio.\n\n|Objetivo Dos: - Reactivar Ascensor\n\nHemos interceptado una orden de cerrar el único ascensor accesible enviada a un PC situado en el piso de oficinas más bajo. Tienes que encontrar ese PC y cambiar la orden para hacer que el ascensor funcione de nuevo.\n\n|Objetivo Tres: - Destruir Helicóptero Gunship de dataDyne\n\nHay un helicóptero de seguridad de dataDyne dando vueltas alrededor del edificio que os supera en armamento y no dudará en derribaros. Acaba con el helicóptero sin prejuicios, ya que él intentará hacer lo mismo contigo.\n\n|Objetivo Cuatro: - Derrotar a las Guardaespaldas de Cassandra\n\nSospechamos que Cassandra ha desplegado a sus guardaespaldas para bloquear la ruta al helipuerto. Es casi seguro que no serás capaz de evitarlas, así que espera fiera resistencia cuando las encuentres.\n\n|Objetivo Cinco: - Volver al Helipuerto para Evacuación\n\nVe al helipuerto donde tu nave de recogida te aguarda. Y no te olvides del Dr. Caroll.\n\nFIN\n"
+    },
+    {
+        "id": "L_ARK_001",
+        "en": "LUCERNE TOWER\n",
+        "gb": "LUCERNE TOWER\n",
+        "jp": "LUCERNE TOWER\n",
+        "it": "LUCERNE TOWER\n",
+        "fr": "TOUR LUCERNE\n",
+        "de": "LUCERNE TOWER\n",
+        "es": "EDIFICIO LUCERNE\n"
+    },
+    {
+        "id": "L_ARK_002",
+        "en": "|Background - \n\nThe alarm has been given, and there are dataDyne shock troops ready for you throughout the building. Exit via the foyer is impossible due to the number of ground troops present. The transport will collect you and Dr. Caroll from the helipad.\n\n|Carrington - \n\nI don't have to remind you to protect Dr. Caroll at all costs, Joanna. Cassandra and dataDyne are going to be throwing all the obstacles they can in your path to prevent you from getting Dr. Caroll out. Good luck.\n\n|Objective One: - Gain Access to Upper Floors\n\nFight your way around the foyer until you can get access to one of the lifts that will take you and Dr. Caroll to the upper floors of the building.\n\n|Objective Two: - Destroy dataDyne Gunship\n\nThere is a dataDyne security gunship circling the building which outguns your jumpship and will shoot you out of the sky. Terminate it with extreme prejudice, since it will be trying to do the same thing to you.\n\n|Objective Three: - Defeat Cassandra's Bodyguards\n\nWe suspect that Cassandra has deployed her bodyguards to block the route to the helipad. It is almost certain that you'll be unable to avoid them, so expect serious resistance when you encounter them.\n\n|Objective Four: - Return to Helipad for Evacuation\n\nGet to the helipad where your dropship will be waiting. And don't forget Dr. Caroll.\n\nEND\n",
+        "gb": "|Background - \n\nThe alarm has been given, and there are dataDyne shock troops ready for you throughout the building. Exit via the foyer is impossible due to the number of ground troops present. The transport will collect you and Dr. Caroll from the helipad.\n\n|Carrington - \n\nI don't have to remind you to protect Dr. Caroll at all costs, Joanna. Cassandra and dataDyne are going to be throwing all the obstacles they can in your path to prevent you from getting Dr. Caroll out. Good luck.\n\n|Objective One: - Gain Access to Upper Floors\n\nFight your way around the foyer until you can get access to one of the lifts that will take you and Dr. Caroll to the upper floors of the building.\n\n|Objective Two: - Destroy dataDyne Gunship\n\nThere is a dataDyne security gunship circling the building which outguns your jumpship and will shoot you out of the sky. Terminate it with extreme prejudice, since it will be trying to do the same thing to you.\n\n|Objective Three: - Defeat Cassandra's Bodyguards\n\nWe suspect that Cassandra has deployed her bodyguards to block the route to the helipad. It is almost certain that you'll be unable to avoid them, so expect serious resistance when you encounter them.\n\n|Objective Four: - Return to Helipad for Evacuation\n\nGet to the helipad where your dropship will be waiting. And don't forget Dr. Caroll.\n\nEND\n",
+        "jp": "|Background - \n\nThe alarm has been given and there are dataDyne shock troops ready for you throughout the building. Exit via the foyer is impossible due to the number of ground troops present. The transport will collect you and Dr. Caroll from the helipad.\n\n|Carrington - \n\nI don't have to remind you to protect Dr. Caroll at all costs, Joanna. Cassandra and dataDyne are going to be throwing all the obstacles they can in your path to prevent you from getting Dr. Caroll out. Good luck.\n\n|Objective One: - Gain Access to Upper Floors\n\nFight your way around the foyer until you can get access to one of the lifts that will take you and Dr. Caroll to the upper floors of the building.\n\n|Objective Two: - Destroy dataDyne Gunship\n\nThere is a dataDyne security gunship circling the building which outguns your jumpship and will shoot you out of the sky. Terminate it with extreme prejudice, since it will be trying to do the same thing to you.\n\n|Objective Three: - Defeat Cassandra's Bodyguards\n\nWe suspect that Cassandra has deployed her bodyguards to block the route to the helipad. It is almost certain that you'll be unable to avoid them, so expect serious resistance when you encounter them.\n\n|Objective Four: - Return To Helipad For Evac\n\nGet to the Helipad where your dropship will be waiting. And don't forget Dr. Caroll.\n\nEND\n",
+        "it": "|Situazione:\n\nÈ stato dato l'allarme e l'edificio è pieno di soldati pronti a darti il benvenuto! La fuga dall'atrio è impossibile a causa del numero di soldati presenti. Tu e il Dr. Caroll sarete prelevati da un mezzo di salvataggio dall'eliporto sul tetto.\n\n|Carrington:\n\nNon penso sia necessario ricordarti di proteggere il Dr. Caroll ad ogni costo, vero Joanna? Cassandra e la dataDyne faranno di tutto per impedirti di salvarlo. Fa attenzione!\n\n|Obiettivo 1: - Raggiungi i piani superiori\n\nFatti strada nell'atrio fino a raggiungere uno degli ascensori che porteranno te e il Dr. Caroll ai piani superiori dell'edificio.\n\n|Obiettivo 2: - Distruggi la cannoniera della dataDyne\n\nL'edificio dataDyne è sorvegliato da una potente cannoniera di difesa pronta a farti fuori in ogni momento per impedirti di procedere. Distruggila con estrema determinazione, o abbatterà la navetta e annienterà anche te.\n\n|Obiettivo 3: - Elimina guardie del corpo di Cassandra\n\nAbbiamo ragione di sospettare che Cassandra abbia sguinzagliato le sue guardie del corpo per bloccare l'accesso all'eliporto. Non riuscirai ad evitarle, quindi aspettati una lotta all'ultimo sangue quando le incontri.\n\n|Obiettivo 4: - Torna sul tetto per l'evacuamento\n\nRaggiungi l'eliporto dove ti attenderà il mezzo di salvataggio. Non dimenticarti del Dr. Caroll!\n\nFINE\n",
+        "fr": "|Briefing - \n\nL'alarme a été donnée et les troupes d'intervention de la dataDyne sont à vos trousses dans l'immeuble. Une éventuelle fuite par le hall est impossible à cause du nombre de gardes présents. Rejoignez l'héliport avec le Dr. Caroll pour vous enfuir.\n\n|Carrington - \n\nJe n'ai pas besoin de vous rappeler de protéger le Dr. Caroll à tout prix. Cassandra et la dataDyne feront tout pour vous barrer la route et garder le Dr. Caroll. Bonne Chance.\n\n|Objectif 1: - Accéder aux niveaux supérieurs\n\nFrayez-vous un chemin autour du hall jusqu'à accéder à l'un des ascenseurs vous menant vous et le Dr. Caroll aux niveaux supérieurs du bâtiment.\n\n|Objectif 2: - Détruire l'hélico de combat dataDyne\n\nUn hélico de combat de la dataDyne fait sa ronde autour de l'immeuble et risque de descendre votre transport. Abattez-le sans les coups de semonce d'usage. C'est lui ou vous.\n\n|Objectif 3: - Abattre la garde de Cassandra\n\nNous suspectons Cassandra d'avoir déployé ses gardes du corps pour vous barrer l'accès à l'héliport. Vous ne pourrez les semer, alors préparez-vous à un combat acharné.\n\n|Objectif 4: - Retour à l'héliport pour évacuation\n\nAccédez à l'héliport où votre appareil attendra. N'oubliez pas le Dr. Caroll.\n\nFIN\n",
+        "de": "|Hintergrund - \n\nDer Alarm wurde ausgelöst, und dataDyne Einsatztruppen sind im gesamten Gebäude verteilt. Aufgrund der Konzentration im Bereich des Foyers ist es unmöglich, das Gebäude durch den Haupteingang zu verlassen. Der Transporter wird Sie und Dr. Caroll vom Helipad abholen.\n\n|Carrington - \n\nIch muss Sie wohl nicht daran erinnern, Dr. Caroll unter allen Umständen zu beschützen. Cassandra und dataDyne werden alle ihnen zur Verfügung stehenden Mittel einsetzen, um zu verhindern, dass Sie und Dr. Caroll entkommen. Viel Glück.\n\n|1. Ziel: - Erreichen Sie die oberen Stockwerke!\n\nKämpfen Sie sich am Foyer vorbei, bis Sie einen der Aufzüge erreichen, die Sie und Dr. Caroll zu den oberen Stockwerken des Gebäudes bringen.\n\n|2. Ziel: - Vernichten Sie das dataDyne-Gunship!\n\nEin dataDyne-Gunship umkreist das Gebäude. Es besteht die Gefahr, dass diese Einheit Ihr Fluchtfahrzeug angreift und vom Himmel holt. Bei der Terminierung dieser Einheit müssen Sie mit äußerster Vorsicht vorgehen, da das Gunship auch das gleiche mit Ihnen versuchen wird.\n\n|3. Ziel: - Neutralisieren Sie Cassandras Bodyguards!\n\nWir vermuten, dass Cassandra ihre Bodyguards ausgesandt hat, um den Weg zum Helipad zu blockieren. Es steht so gut wie fest, dass Sie den Kontakt mit ihnen nicht vermeiden können. Bereiten Sie sich auf ernstzunehmenden Widerstand vor!\n\n|4. Ziel: - Erreichen Sie das Helipad, um zu evakuieren!\n\nKämpfen Sie sich zum Helipad vor, wo Ihr Fluchtschiff auf Sie wartet, und vergessen Sie bloß nicht Dr. Caroll!\n\nENDE\n",
+        "es": "|Antecedentes - \n\nLa alarma ha sido activada, y hay tropas de choque de dataDyne preparadas por todo el edificio. Salir por el vestíbulo es imposible debido al gran número de tropas presentes. El transporte os recogerá a ti y al Dr. Caroll en el helipuerto.\n\n|Carrington - \n\nNo creo que necesite recordarte que debes proteger al Dr. Caroll a toda costa, Joanna. Cassandra y dataDyne pondrán todos los obstáculos que puedan en tu camino para impedir que saques al Dr. Caroll de allí. Buena suerte.\n\n|Objetivo Uno: - Acceder a los Pisos Superiores\n\nAvanza por el vestíbulo hasta que tengas acceso a uno de los ascensores que os llevarán a ti y al Dr. Caroll a los pisos superiores del edificio.\n\n|Objetivo Dos: - Destruir Helicóptero Gunship de dataDyne\n\nHay un helicóptero de seguridad de dataDyne dando vueltas alrededor del edificio que os supera en armamento y no dudará en derribaros. Acaba con el helicóptero sin prejuicios, ya que él intentará hacer lo mismo contigo.\n\n|Objetivo Tres: - Derrotar a las Guardaespaldas de Cassandra\n\nSospechamos que Cassandra ha desplegado a sus guardaespaldas para bloquear la ruta al helipuerto. Es casi seguro que no serás capaz de evitarlas, así que espera fiera resistencia cuando las encuentres.\n\n|Objetivo Cuatro: - Volver al Helipuerto para Evacuación\n\nVe al helipuerto donde tu nave de recogida te aguarda. Y no te olvides del Dr. Caroll.\n\nFIN\n"
+    },
+    {
+        "id": "L_ARK_003",
+        "en": "|Background - \n\nThe alarm has been given, and there are dataDyne shock troops ready for you throughout the building. Exit via the foyer is impossible due to the number of ground troops present. The transport will collect you and Dr. Caroll from the helipad.\n\n|Carrington - \n\nI don't have to remind you to protect Dr. Caroll at all costs, Joanna. Cassandra and dataDyne are going to be throwing all the obstacles they can in your path to prevent you from getting Dr. Caroll out. Good luck.\n\n|Objective One: - Gain Access to Upper Floors\n\nFight your way around the foyer until you can get access to one of the lifts that will take you and Dr. Caroll to the upper floors of the building.\n\n|Objective Two: - Defeat Cassandra's Bodyguards\n\nWe suspect that Cassandra has deployed her bodyguards to block the route to the helipad. It is almost certain that you'll be unable to avoid them, so expect serious resistance when you encounter them.\n\n|Objective Three: - Return to Helipad for Evacuation\n\nGet to the helipad where your dropship will be waiting. And don't forget Dr. Caroll.\n\nEND\n",
+        "gb": "|Background - \n\nThe alarm has been given, and there are dataDyne shock troops ready for you throughout the building. Exit via the foyer is impossible due to the number of ground troops present. The transport will collect you and Dr. Caroll from the helipad.\n\n|Carrington - \n\nI don't have to remind you to protect Dr. Caroll at all costs, Joanna. Cassandra and dataDyne are going to be throwing all the obstacles they can in your path to prevent you from getting Dr. Caroll out. Good luck.\n\n|Objective One: - Gain Access to Upper Floors\n\nFight your way around the foyer until you can get access to one of the lifts that will take you and Dr. Caroll to the upper floors of the building.\n\n|Objective Two: - Defeat Cassandra's Bodyguards\n\nWe suspect that Cassandra has deployed her bodyguards to block the route to the helipad. It is almost certain that you'll be unable to avoid them, so expect serious resistance when you encounter them.\n\n|Objective Three: - Return to Helipad for Evacuation\n\nGet to the helipad where your dropship will be waiting. And don't forget Dr. Caroll.\n\nEND\n",
+        "jp": "|Background - \n\nThe alarm has been given and there are dataDyne shock troops ready for you throughout the building. Exit via the foyer is impossible due to the number of ground troops present. The transport will collect you and Dr. Caroll from the helipad.\n\n|Carrington - \n\nI don't have to remind you to protect Dr. Caroll at all costs, Joanna. Cassandra and dataDyne are going to be throwing all the obstacles they can in your path to prevent you from getting Dr. Caroll out. Good luck.\n\n|Objective One: - Gain Access to Upper Floors\n\nFight your way around the foyer until you can get access to one of the lifts that will take you and Dr. Caroll to the upper floors of the building.\n\n|Objective Two: - Defeat Cassandra's Bodyguards\n\nWe suspect that Cassandra has deployed her bodyguards to block the route to the helipad. It is almost certain that you'll be unable to avoid them, so expect serious resistance when you encounter them.\n\n|Objective Three: - Return To Helipad For Evac\n\nGet to the Helipad where your dropship will be waiting. And don't forget Dr. Caroll.\n\nEND\n",
+        "it": "|Situazione:\n\nÈ stato dato l'allarme e l'edificio è pieno di soldati pronti a darti il benvenuto! La fuga dall'atrio è impossibile a causa del numero di soldati presenti. Tu e il Dr. Caroll sarete prelevati da un mezzo di salvataggio dall'eliporto sul tetto.\n\n|Carrington:\n\nNon penso sia necessario ricordarti di proteggere il Dr. Caroll ad ogni costo, vero Joanna? Cassandra e la dataDyne faranno di tutto per impedirti di salvarlo. Fa attenzione!\n\n|Obiettivo 1: - Raggiungi i piani superiori\n\nFatti strada nell'atrio fino a raggiungere uno degli ascensori che porteranno te e il Dr. Caroll ai piani superiori dell'edificio.\n\n|Obiettivo 2: - Elimina guardie del corpo di Cassandra\n\nAbbiamo ragione di sospettare che Cassandra abbia sguinzagliato le sue guardie del corpo per bloccare l'accesso all'eliporto. Non riuscirai ad evitarle, quindi aspettati una lotta all'ultimo sangue quando le incontri.\n\n|Obiettivo 3: - Torna sul tetto per l'evacuamento\n\nRaggiungi l'eliporto dove ti attenderà il mezzo di salvataggio. Non dimenticarti del Dr. Caroll!\n\nFINE\n",
+        "fr": "|Briefing - \n\nL'alarme a été donnée et les troupes d'intervention de la dataDyne sont à vos trousses dans l'immeuble. Une éventuelle fuite par le hall est impossible à cause du nombre de gardes présents. Rejoignez l'héliport avec le Dr. Caroll pour vous enfuir.\n\n|Carrington - \n\nJe n'ai pas besoin de vous rappeler de protéger le Dr. Caroll à tout prix. Cassandra et la dataDyne feront tout pour vous barrer la route et garder le Dr. Caroll. Bonne Chance.\n\n|Objectif 1: - Accéder aux niveaux supérieurs\n\nFrayez-vous un chemin autour du hall jusqu'à accéder à l'un des ascenseurs vous menant vous et le Dr. Caroll aux niveaux supérieurs du bâtiment.\n\n|Objectif 2: - Abattre la garde de Cassandra\n\nNous suspectons Cassandra d'avoir déployé ses gardes du corps pour vous barrer l'accès à l'héliport. Vous ne pourrez les semer, alors préparez-vous à un combat acharné.\n\n|Objectif 3: - Retour à l'héliport pour évacuation\n\nAccédez à l'héliport où votre appareil attendra. N'oubliez pas le Dr. Caroll.\n\nFIN\n",
+        "de": "|Hintergrund - \n\nDer Alarm wurde ausgelöst, und dataDyne Einsatztruppen sind im gesamten Gebäude verteilt. Aufgrund der Konzentration im Bereich des Foyers ist es unmöglich, das Gebäude durch den Haupteingang zu verlassen. Der Transporter wird Sie und Dr. Caroll vom Helipad abholen.\n\n|Carrington - \n\nIch muss Sie wohl nicht daran erinnern, Dr. Caroll unter allen Umständen zu beschützen. Cassandra und dataDyne werden alle ihnen zur Verfügung stehenden Mittel einsetzen, um zu verhindern, dass Sie und Dr. Caroll entkommen. Viel Glück.\n\n|1. Ziel: - Erreichen Sie die oberen Stockwerke!\n\nKämpfen Sie sich am Foyer vorbei, bis Sie einen der Aufzüge erreichen, die Sie und Dr. Caroll zu den oberen Stockwerken des Gebäudes bringen.\n\n|2. Ziel: - Neutralisieren Sie Cassandras Bodyguards!\n\nWir vermuten, dass Cassandra ihre Bodyguards ausgesandt hat, um den Weg zum Helipad zu blockieren. Es steht so gut wie fest, dass Sie den Kontakt mit ihnen nicht vermeiden können. Bereiten Sie sich auf ernstzunehmenden Widerstand vor!\n\n|3. Ziel: - Erreichen Sie das Helipad, um zu evakuieren!\n\nKämpfen Sie sich zum Helipad vor, wo Ihr Fluchtschiff auf Sie wartet, und vergessen Sie bloß nicht Dr. Caroll!\n\nENDE\n",
+        "es": "|Antecedentes - \n\nLa alarma ha sido activada, y hay tropas de choque de dataDyne preparadas por todo el edificio. Salir por el vestíbulo es imposible debido al gran número de tropas presentes. El transporte os recogerá a ti y al Dr. Caroll en el helipuerto.\n\n|Carrington - \n\nNo creo que necesite recordarte que debes proteger al Dr. Caroll a toda costa, Joanna. Cassandra y dataDyne pondrán todos los obstáculos que puedan en tu camino para impedir que saques al Dr. Caroll de allí. Buena suerte.\n\n|Objetivo Uno: - Acceder a los Pisos Superiores\n\nAvanza por el vestíbulo hasta que tengas acceso a uno de los ascensores que os llevarán a ti y al Dr. Caroll a los pisos superiores del edificio.\n\n|Objetivo Dos: - Derrotar a las Guardaespaldas de Cassandra\n\nSospechamos que Cassandra ha desplegado a sus guardaespaldas para bloquear la ruta al helipuerto. Es casi seguro que no serás capaz de evitarlas, así que espera fiera resistencia cuando las encuentres.\n\n|Objetivo Tres: - Volver al Helipuerto para Evacuación\n\nVe al helipuerto donde tu nave de recogida te aguarda. Y no te olvides del Dr. Caroll.\n\nFIN\n"
+    },
+    {
+        "id": "L_ARK_004",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_ARK_005",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_ARK_006",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_ARK_007",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_ARK_008",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_ARK_009",
+        "en": "Access foyer elevator\n",
+        "gb": "Access foyer elevator\n",
+        "jp": "Access Foyer Elevator\n",
+        "it": "Usa l'ascensore dell'atrio\n",
+        "fr": "Accéder à l'ascenseur du hall\n",
+        "de": "Erlangen Sie Zugang zum Foyer-Aufzug!\n",
+        "es": "Acceder al ascensor del vestíbulo\n"
+    },
+    {
+        "id": "L_ARK_010",
+        "en": "Reactivate office elevator\n",
+        "gb": "Reactivate office elevator\n",
+        "jp": "Reactivate Office Elevator\n",
+        "it": "Riattiva l'ascensore degli uffici\n",
+        "fr": "Réactiver l'ascenseur du bureau\n",
+        "de": "Reaktivieren Sie den Büro-Aufzug!\n",
+        "es": "Reactivar ascensor de las oficinas\n"
+    },
+    {
+        "id": "L_ARK_011",
+        "en": "Destroy dataDyne hovercopter\n",
+        "gb": "Destroy dataDyne hovercopter\n",
+        "jp": "Destroy Datadyne Hovercopter\n",
+        "it": "Distruggi la cannoniera dataDyne\n",
+        "fr": "Détruire l'hovercopter dataDyne\n",
+        "de": "Zerstören Sie das dataDyne-Gunship!\n",
+        "es": "Destruir helicóptero de dataDyne\n"
+    },
+    {
+        "id": "L_ARK_012",
+        "en": "Defeat Cassandra's bodyguards\n",
+        "gb": "Defeat Cassandra's bodyguards\n",
+        "jp": "Defeat Cassandras Bodyguards\n",
+        "it": "Elimina guardie del corpo di Cassandra\n",
+        "fr": "Battre les gardes de Cassandra\n",
+        "de": "Neutralisieren Sie De Vries' Bodyguards!\n",
+        "es": "Derrotar a las guard. de Cassandra\n"
+    },
+    {
+        "id": "L_ARK_013",
+        "en": "Rendezvous at helipad\n",
+        "gb": "Rendezvous at helipad\n",
+        "jp": "Rendezvous at Helipad\n",
+        "it": "Appuntamento all'eliporto\n",
+        "fr": "Retour à l'héliport avec Dr. Caroll\n",
+        "de": "Erreichen Sie das Helipad!\n",
+        "es": "Encuentro en el helipuerto\n"
+    },
+    {
+        "id": "L_ARK_014",
+        "en": "Accessing elevator controls...\n",
+        "gb": "Accessing elevator controls...\n",
+        "jp": "Accessing elevator controls....\n",
+        "it": "I comandi dell'ascensore...\n",
+        "fr": "Accès paramètres ascenseur...\n",
+        "de": "Zugriff auf die Aufzüge erfolgt...\n",
+        "es": "Accediendo a los controles del ascensor...\n"
+    },
+    {
+        "id": "L_ARK_015",
+        "en": "LIGHTS ARE NOW ON!\n",
+        "gb": "LIGHTS ARE NOW ON!\n",
+        "jp": "LIGHTS ARE NOW ON !\n",
+        "it": "LE LUCI SONO ACCESE!\n",
+        "fr": "LUMIERES ON\n",
+        "de": "BELEUCHTUNG AKTIVIERT!\n",
+        "es": "¡LUCES ENCENDIDAS!\n"
+    },
+    {
+        "id": "L_ARK_016",
+        "en": "Dr. Caroll has been killed!\n",
+        "gb": "Dr. Caroll has been killed!\n",
+        "jp": "Dr Caroll has been killed\n",
+        "it": "Il Dr. Caroll è stato ucciso!\n",
+        "fr": "Dr. Caroll abattu!\n",
+        "de": "Dr. Caroll wurde zerstört!\n",
+        "es": "¡El Dr. Caroll ha muerto!\n"
+    },
+    {
+        "id": "L_ARK_017",
+        "en": "Dr. Caroll is under attack!\n",
+        "gb": "Dr. Caroll is under attack!\n",
+        "jp": "Dr Caroll is under attack!\n",
+        "it": "Attaccano il Dr. Caroll!\n",
+        "fr": "Dr. Caroll sous feu ennemi!\n",
+        "de": "Dr. Caroll wird angegriffen!\n",
+        "es": "¡Están atacando al Dr. Caroll!\n"
+    },
+    {
+        "id": "L_ARK_018",
+        "en": "Dr. Caroll has been damaged!\n",
+        "gb": "Dr. Caroll has been damaged!\n",
+        "jp": "Dr Caroll has been damaged\n",
+        "it": "Il Dr. Caroll è ferito!\n",
+        "fr": "Dr. Caroll endommagé!\n",
+        "de": "Dr. Caroll wurde beschädigt!\n",
+        "es": "¡El Dr. Caroll ha sido dañado!\n"
+    },
+    {
+        "id": "L_ARK_019",
+        "en": "Too late! She's here...\n",
+        "gb": "Too late! She's here...\n",
+        "jp": "Too late! She's here...\n",
+        "it": "Troppo tardi! È già qui!\n",
+        "fr": "Trop tard! La voici...\n",
+        "de": "Zu spät! Sie ist hier...\n",
+        "es": "¡Demasiado tarde! Ella está aquí...\n"
+    },
+    {
+        "id": "L_ARK_020",
+        "en": "You've become quite an annoyance...\n",
+        "gb": "You've become quite an annoyance...\n",
+        "jp": "You've become quite an annoyance..\n",
+        "it": "Sei una vera scocciatura!\n",
+        "fr": "Vous êtes une sacrée peste, vous...\n",
+        "de": "Du wirst langsam richtig lästig...\n",
+        "es": "Estás empezando a ser un fastidio...\n"
+    },
+    {
+        "id": "L_ARK_021",
+        "en": "Good night, Ms. Dark.\n",
+        "gb": "Good night, Ms. Dark.\n",
+        "jp": "Goodnight Ms Dark\n",
+        "it": "Buona notte, Perfect Dark!\n",
+        "fr": "Bonne nuit, Miss Dark.\n",
+        "de": "Gute Nacht, Ms. Dark.\n",
+        "es": "Buenas noches, Srta. Dark.\n"
+    },
+    {
+        "id": "L_ARK_022",
+        "en": "LIGHTS NOW ON\n",
+        "gb": "LIGHTS NOW ON\n",
+        "jp": "LIGHTS NOW ON\n",
+        "it": "LUCI ACCESE ORA\n",
+        "fr": "LUMIERES ON\n",
+        "de": "BELEUCHTUNG AKTIVIERT\n",
+        "es": "LUCES ENCENDIDAS\n"
+    },
+    {
+        "id": "L_ARK_023",
+        "en": "LIGHTS NOW OFF\n",
+        "gb": "LIGHTS NOW OFF\n",
+        "jp": "LIGHTS NOW OFF\n",
+        "it": "LUCI SPENTE ORA\n",
+        "fr": "LUMIERES OFF\n",
+        "de": "BELEUCHTUNG DEAKTIVIERT\n",
+        "es": "LUCES APAGADAS\n"
+    },
+    {
+        "id": "L_ARK_024",
+        "en": "MISSION FAILED\n",
+        "gb": "MISSION FAILED\n",
+        "jp": "MISSION FAILED\n",
+        "it": "MISSIONE FALLITA\n",
+        "fr": "MISSION ECHOUEE\n",
+        "de": "MISSION FEHLGESCHLAGEN\n",
+        "es": "MISIÓN FALLADA\n"
+    },
+    {
+        "id": "L_ARK_025",
+        "en": "MISSION SUCCESSFUL\n",
+        "gb": "MISSION SUCCESSFUL\n",
+        "jp": "MISSION SUCCESSFUL\n",
+        "it": "MISSIONE COMPIUTA\n",
+        "fr": "MISSION ACCOMPLIE\n",
+        "de": "MISSION ERFOLGREICH\n",
+        "es": "MISIÓN CUMPLIDA\n"
+    },
+    {
+        "id": "L_ARK_026",
+        "en": "Helichopper warning goes here.\n",
+        "gb": "Helichopper warning goes here.\n",
+        "jp": "Helichopper warning goes here\n",
+        "it": "Allarme cannoniera!\n",
+        "fr": "Emplacement pour warning hélico.\n",
+        "de": "Gunship-Warnung!!!\n",
+        "es": "Aviso del Helicóptero va aquí.\n"
+    },
+    {
+        "id": "L_ARK_027",
+        "en": "Obtain Night Vision.\n",
+        "gb": "Obtain Night Vision.\n",
+        "jp": "Obtain Night Sight\n",
+        "it": "Procurati Vista Notturna\n",
+        "fr": "Obtenir Vue nocturne.\n",
+        "de": "Erlangen Sie das Nachtsichtgerät!\n",
+        "es": "Obtén Visión Nocturna.\n"
+    },
+    {
+        "id": "L_ARK_028",
+        "en": "Cassandra De Vries'\n",
+        "gb": "Cassandra De Vries'\n",
+        "jp": "Cassandra De Vries'\n",
+        "it": "Cassandra De Vries:\n",
+        "fr": "Cassandra De Vries: \n",
+        "de": "Cassandra De Vries\n",
+        "es": "Cassandra De Vries:\n"
+    },
+    {
+        "id": "L_ARK_029",
+        "en": "Night Vision\n",
+        "gb": "Night Vision\n",
+        "jp": "Night Sight\n",
+        "it": "Vista Notturna\n",
+        "fr": "Vue nocturne\n",
+        "de": "Nachtsichtgerät\n",
+        "es": "V. Nocturna\n"
+    },
+    {
+        "id": "L_ARK_030",
+        "en": "Night Vision\n",
+        "gb": "Night Vision\n",
+        "jp": "Night Sight\n",
+        "it": "Vista Notturna\n",
+        "fr": "Vue nocturne\n",
+        "de": "Nachtsichtgerät\n",
+        "es": "Visión Nocturna\n"
+    },
+    {
+        "id": "L_ARK_031",
+        "en": "Picked up Night Vision.\n",
+        "gb": "Picked up Night Vision.\n",
+        "jp": "Picked up Night Sight\n",
+        "it": "Presa Vista Notturna\n",
+        "fr": "Vue nocturne obtenue.\n",
+        "de": "Nachtsichtgerät aufgenommen\n",
+        "es": "Visión Nocturna obtenida.\n"
+    },
+    {
+        "id": "L_ARK_032",
+        "en": "We meet again, girl!\n",
+        "gb": "We meet again, girl!\n",
+        "jp": "We meet again girl!\n",
+        "it": "Chi non muore si rivede!\n",
+        "fr": "Re-bonjour, jeune fille!\n",
+        "de": "So trifft man sich wieder, Kleine!\n",
+        "es": "¡Nos vemos de nuevo, chica!\n"
+    },
+    {
+        "id": "L_ARK_033",
+        "en": "Foyer elevator accessed.\n",
+        "gb": "Foyer elevator accessed.\n",
+        "jp": "Foyer Elevator Accessed\n",
+        "it": "Raggiunto l'ascensore nell'atrio.\n",
+        "fr": "Ascenseur hall atteint.\n",
+        "de": "Foyer-Aufzug betreten\n",
+        "es": "Accediste al ascensor del vestíbulo.\n"
+    },
+    {
+        "id": "L_ARK_034",
+        "en": "Office elevator door has been unlocked.\n",
+        "gb": "Office elevator door has been unlocked.\n",
+        "jp": "Office Elevator Door Has Been Unlocked\n",
+        "it": "Aperta la porta ascensore uffici.\n",
+        "fr": "Porte ascenseur bureau ouverte.\n",
+        "de": "Tür zum Büro-Aufzug entriegelt\n",
+        "es": "La puerta del ascensor a las oficinas ha sido abierta.\n"
+    },
+    {
+        "id": "L_ARK_035",
+        "en": "DataDyne Hovercopter eliminated.\n",
+        "gb": "DataDyne Hovercopter eliminated.\n",
+        "jp": "Datadyne Hovercopter Eliminated\n",
+        "it": "Eliminata la cannoniera dataDyne.\n",
+        "fr": "Hovercopter dataDyne éliminé.\n",
+        "de": "dataDyne-Gunship eliminiert\n",
+        "es": "Helicóptero de dataDyne eliminado.\n"
+    },
+    {
+        "id": "L_ARK_036",
+        "en": "Cassandra's bodyguards have been defeated.\n",
+        "gb": "Cassandra's bodyguards have been defeated.\n",
+        "jp": "Cassandras Bodyguards Have Been Defeated\n",
+        "it": "Sconfitte le guardie del corpo di Cassandra.\n",
+        "fr": "Gardes de Cassandra vaincus.\n",
+        "de": "Cassandras Bodyguards wurden neutralisiert.\n",
+        "es": "Las guardaespaldas de Cassandra han sido derrotadas.\n"
+    },
+    {
+        "id": "L_ARK_037",
+        "en": "That's not how it goes.\n",
+        "gb": "That's not how it goes.\n",
+        "jp": "That's not how it goes\n",
+        "it": "Non si fa così, idiota!\n",
+        "fr": "Mais...pas comme ça!\n",
+        "de": "So funktioniert das nicht.\n",
+        "es": "Así no es como va.\n"
+    },
+    {
+        "id": "L_ARK_038",
+        "en": "Yes, it is.\n",
+        "gb": "Yes, it is.\n",
+        "jp": "Yes it is\n",
+        "it": "Sì, invece!\n",
+        "fr": "Mais si.\n",
+        "de": "Doch, tut es.\n",
+        "es": "Sí, así es.\n"
+    },
+    {
+        "id": "L_ARK_039",
+        "en": "Give it to me - you're doing it wrong.\n",
+        "gb": "Give it to me - you're doing it wrong.\n",
+        "jp": "Give it to me, you're doing it wrong\n",
+        "it": "Dammi qua! Faccio io!\n",
+        "fr": "Vous faites n'importe quoi!\n",
+        "de": "Gib das her - du machst das falsch!\n",
+        "es": "Dámelo. Lo estás haciendo mal.\n"
+    },
+    {
+        "id": "L_ARK_040",
+        "en": "Stop annoying me.\n",
+        "gb": "Stop annoying me.\n",
+        "jp": "Stop annoying me\n",
+        "it": "Non scocciarmi!\n",
+        "fr": "Silence.\n",
+        "de": "Hör auf mich zu nerven.\n",
+        "es": "Deja de molestarme.\n"
+    },
+    {
+        "id": "L_ARK_041",
+        "en": "Will you just hurry up!\n",
+        "gb": "Will you just hurry up!\n",
+        "jp": "Will you just hurry up\n",
+        "it": "Ti vuoi dare una mossa?!\n",
+        "fr": "Mais dépêchez-vous!\n",
+        "de": "Würdest du dich bitte beeilen?\n",
+        "es": "¡Debemos darnos prisa!\n"
+    },
+    {
+        "id": "L_ARK_042",
+        "en": "Oh, no...too late.\n",
+        "gb": "Oh, no...too late.\n",
+        "jp": "Oh No....Too Late\n",
+        "it": "Oh, no! Troppo tardi.\n",
+        "fr": "Oh, non...trop tard.\n",
+        "de": "Oh nein, ...zu spät!\n",
+        "es": "Oh, no... demasiado tarde.\n"
+    },
+    {
+        "id": "L_ARK_043",
+        "en": "She's here...\n",
+        "gb": "She's here...\n",
+        "jp": "She's Here...\n",
+        "it": "Ci ha raggiunti...\n",
+        "fr": "La voilà...\n",
+        "de": "Sie ist hier...\n",
+        "es": "Ella está aquí...\n"
+    },
+    {
+        "id": "L_ARK_044",
+        "en": "Get her!\n",
+        "gb": "Get her!\n",
+        "jp": "Get Her\n",
+        "it": "Prendila!\n",
+        "fr": "Attrapez-la!\n",
+        "de": "Schnappt sie!\n",
+        "es": "¡Cogedla!\n"
+    },
+    {
+        "id": "L_ARK_045",
+        "en": "Critical mission object destroyed. \n",
+        "gb": "Critical mission object destroyed. \n",
+        "jp": "Critical Mission Object Destroyed \n",
+        "it": "Distrutto strumento essenziale alla missione\n",
+        "fr": "Objet crucial détruit. \n",
+        "de": "Wichtiges Objekt zerstört\n",
+        "es": "Objeto crítico de la misión destruido. \n"
+    },
+    {
+        "id": "L_ARK_046",
+        "en": "Obtain CamSpy.\n",
+        "gb": "Obtain CamSpy.\n",
+        "jp": "Obtain Eye Spy\n",
+        "it": "Procurati TeleSpia.\n",
+        "fr": "Obtenir CamSpy.\n",
+        "de": "Erlangen Sie den CamSpy.\n",
+        "es": "Obtén la Cámara Espía.\n"
+    },
+    {
+        "id": "L_ARK_047",
+        "en": "Dr. Caroll's\n",
+        "gb": "Dr. Caroll's\n",
+        "jp": "Dr Carolls\n",
+        "it": "Dr. Caroll:\n",
+        "fr": "Dr. Caroll: \n",
+        "de": "Dr. Carolls\n",
+        "es": "Dr. Caroll:\n"
+    },
+    {
+        "id": "L_ARK_048",
+        "en": "CamSpy\n",
+        "gb": "CamSpy\n",
+        "jp": "Eye Spy\n",
+        "it": "TeleSpia\n",
+        "fr": "CamSpy\n",
+        "de": "CamSpy\n",
+        "es": "Cámara Espía\n"
+    },
+    {
+        "id": "L_ARK_049",
+        "en": "A CamSpy\n",
+        "gb": "A CamSpy\n",
+        "jp": "An Eye Spy\n",
+        "it": "TeleSpia\n",
+        "fr": "Une CamSpy\n",
+        "de": "Ein CamSpy\n",
+        "es": "Una Cámara Espía\n"
+    },
+    {
+        "id": "L_ARK_050",
+        "en": "Picked up a CamSpy.\n",
+        "gb": "Picked up a CamSpy.\n",
+        "jp": "Picked up an Eye Spy\n",
+        "it": "Presa la TeleSpia.\n",
+        "fr": "CamSpy obtenue.\n",
+        "de": "CamSpy aufgenommen\n",
+        "es": "Cámara Espía obtenida.\n"
+    },
+    {
+        "id": "L_ARK_051",
+        "en": "They've locked down the ground floor - \nget to the elevator!\n",
+        "gb": "They've locked down the ground floor - \nget to the elevator!\n",
+        "jp": "They've locked down the ground floor - \nget to the elevator!\n",
+        "it": "Hanno chiuso il pianterreno! \nVa all'ascensore!\n",
+        "fr": "Ils ont verrouillé le rez-de-chaussée - \nallez à l'ascenseur!\n",
+        "de": "Der Zugang zum Parterre wurde verriegelt. - \nRasch zum Aufzug!\n",
+        "es": "Han cerrado la planta baja. \n¡Ve al ascensor!\n"
+    },
+    {
+        "id": "L_ARK_052",
+        "en": "That copter needs to be taken out, or \nthe jumpship'll get shot down!\n",
+        "gb": "That copter needs to be taken out, or \nthe jumpship'll get shot down!\n",
+        "jp": "That copter needs to be taken out, or \nthe jumpship'll get shot down!\n",
+        "it": "Bisogna tirar giù quella cannoniera \no abbatterà la navetta!\n",
+        "fr": "Il faut détruire cet hélico ou le \ntransport sera descendu!\n",
+        "de": "Dieses Gunship muss vernichtet werden, sonst \nwird das Fluchtfahrzeug angegriffen!\n",
+        "es": "¡Necesitamos acabar con ese helicóptero, \no derribará la nave de escape!\n"
+    },
+    {
+        "id": "L_ARK_053",
+        "en": "I can't leave any bodyguards standing.\n",
+        "gb": "I can't leave any bodyguards standing.\n",
+        "jp": "I can't leave any bodyguards standing.\n",
+        "it": "Non posso lasciar vive le guardie!\n",
+        "fr": "Je ne peux laisser un garde du corps vivant.\n",
+        "de": "Ich muss mich noch um die Bodyguards kümmern.\n",
+        "es": "No puedo dejar ninguna guardaespaldas en pie.\n"
+    },
+    {
+        "id": "L_ARK_054",
+        "en": "Don't keep the jumpship waiting - \nget back to the landing pad.\n",
+        "gb": "Don't keep the jumpship waiting - \nget back to the landing pad.\n",
+        "jp": "Don't keep the Jumpship waiting - \nget back to the landing pad.\n",
+        "it": "Fai presto: vai alla navetta! \nTorna all'eliporto!\n",
+        "fr": "Ne faites attendre le transport - \nretournez à l'héliport.\n",
+        "de": "Lassen Sie das Fluchtfahrzeug nicht warten! - \nZurück zum Helipad!\n",
+        "es": "No hagas esperar a la nave de escape: \nvuelve a la zona de aterrizaje.\n"
+    },
+    {
+        "id": "L_ARK_055",
+        "en": "Obtain alpha key card.\n",
+        "gb": "Obtain alpha key card.\n",
+        "jp": "Obtain Alpha Keycard\n",
+        "it": "Procurati la chiave alfa\n",
+        "fr": "Obtenir la carte alpha.\n",
+        "de": "Erlangen Sie die Alpha-Schlüsselkarte!\n",
+        "es": "Obtén la llave magnética alfa.\n"
+    },
+    {
+        "id": "L_ARK_056",
+        "en": "Guard's\n",
+        "gb": "Guard's\n",
+        "jp": "Guards\n",
+        "it": "Guardia:\n",
+        "fr": "Garde: \n",
+        "de": "Wachen\n",
+        "es": "Guarda:\n"
+    },
+    {
+        "id": "L_ARK_057",
+        "en": "Office key card\n",
+        "gb": "Office key card\n",
+        "jp": "Office Keycard\n",
+        "it": "Chiave dell'ufficio\n",
+        "fr": "Carte de bureau\n",
+        "de": "Büro-Schlüsselkarte\n",
+        "es": "Llave de la oficina\n"
+    },
+    {
+        "id": "L_ARK_058",
+        "en": "Office key card\n",
+        "gb": "Office key card\n",
+        "jp": "Office Keycard\n",
+        "it": "Chiave dell'ufficio\n",
+        "fr": "Carte du bureau\n",
+        "de": "Büro-Schlüsselkarte\n",
+        "es": "Llave magnética de la oficina\n"
+    },
+    {
+        "id": "L_ARK_059",
+        "en": "Picked up Cassandra's office key card.\n",
+        "gb": "Picked up Cassandra's office key card.\n",
+        "jp": "Picked up Cassandra's Office Keycard.\n",
+        "it": "Presa chiave ufficio di Cassandra\n",
+        "fr": "Carte de bureau de Cassandra obtenue.\n",
+        "de": "Cassandras Büro-Schlüsselkarte aufgenommen\n",
+        "es": "Llave magnética de la oficina de Cassandra obtenida.\n"
+    },
+    {
+        "id": "L_ARK_060",
+        "en": "Sound the alarm - she's here!\n",
+        "gb": "Sound the alarm - she's here!\n",
+        "jp": "Sound the alarm, she's here!",
+        "it": "Date l'allarme: è qui!\n",
+        "fr": "Alerte! Elle est ici!\n",
+        "de": "Gebt Alarm - sie ist hier!\n",
+        "es": "Activa la alarma: ¡ella está aquí!\n"
+    },
+    {
+        "id": "L_ARK_061",
+        "en": "Lights out!\n",
+        "gb": "Lights out!\n",
+        "jp": "Lights out!",
+        "it": "Ma chiudi il becco!\n",
+        "fr": "Bonne nuit!\n",
+        "de": "Licht AUS!\n",
+        "es": "¡Luces fuera!\n"
+    },
+    {
+        "id": "L_ARK_062",
+        "en": "What the...?\n",
+        "gb": "What the...?\n",
+        "jp": "What the...?",
+        "it": "Ma cosa...?\n",
+        "fr": "Qu'est-ce qu...?\n",
+        "de": "Was zum...?\n",
+        "es": "¿Qué dem...?\n"
+    },
+    {
+        "id": "L_ARK_063",
+        "en": "Going somewhere?\n",
+        "gb": "Going somewhere?\n",
+        "jp": "Going somewhere?",
+        "it": "Dove credi di andare?\n",
+        "fr": "On se balade?\n",
+        "de": "Na, wohin willst du denn?\n",
+        "es": "¿Vas a alguna parte?\n"
+    },
+    {
+        "id": "L_ARK_064",
+        "en": "Something I can do for you, old woman?\n",
+        "gb": "Something I can do for you, old woman?\n",
+        "jp": "Something I can do for you, old woman?",
+        "it": "Posso aiutarla, madama?\n",
+        "fr": "Qu'est-ce qu'elle veut mère-grand?\n",
+        "de": "Kann ich etwas für dich tun, alte Frau?\n",
+        "es": "¿Puedo hacer algo por ti, anciana?\n"
+    },
+    {
+        "id": "L_ARK_065",
+        "en": "Return our sapient immediately! You don't \nknow what you're doing.\n",
+        "gb": "Return our sapient immediately! You don't \nknow what you're doing.\n",
+        "jp": "Return our sapient immediately! You don't know what you're doing.",
+        "it": "Ridacci immediatamente il Sapiente! \nNon sai quel che fai!\n",
+        "fr": "Remettez-moi le sapiens immédiatement! Vous ne \nsavez pas ce que vous faites...\n",
+        "de": "Geben Sie uns den Sapienten sofort zurück! Sie wissen \nnicht, was Sie da tun!\n",
+        "es": "¡Devuelve nuestra IA inmediatamente! No sabes \nlo que estás haciendo.\n"
+    },
+    {
+        "id": "L_ARK_066",
+        "en": "Yes I do. I'm leaving.\n",
+        "gb": "Yes I do. I'm leaving.\n",
+        "jp": "Yes I do, I'm leaving.",
+        "it": "Certo che lo so: me ne vado!\n",
+        "fr": "Oh que si. Je rentre chez moi.\n",
+        "de": "Doch, das tue ich. Ich verschwinde.\n",
+        "es": "Sí lo sé. Me largo.\n"
+    },
+    {
+        "id": "L_ARK_067",
+        "en": "One more chance! Give it back, and you \ncould come and work for me.\n",
+        "gb": "One more chance! Give it back, and you \ncould come and work for me.\n",
+        "jp": "One more chance! Give it back, and you could come and work for me.",
+        "it": "Te lo ripeto! Restituiscilo e \npotrai venire a lavorare per me.\n",
+        "fr": "Pour la dernière fois: rendez ce qui \nm'appartient et je vous offre un poste.\n",
+        "de": "Letzte Chance: Geben Sie ihn zurück, und Sie\nkönnten vielleicht in Zukunft für mich arbeiten.\n",
+        "es": "¡Otra oportunidad! Devuélvelo, y podrás \ntrabajar para mí.\n"
+    },
+    {
+        "id": "L_ARK_068",
+        "en": "Sorry! Gotta shoot.\n",
+        "gb": "Sorry! Gotta shoot.\n",
+        "jp": "Sorry! Gotta shoot.",
+        "it": "Spiacente! Ho da fare!\n",
+        "fr": "Désolée! Je me tire.\n",
+        "de": "Tut mir leid, ich bin in Eile.\n",
+        "es": "¡Lo siento! ¿Lo pillas?\n"
+    },
+    {
+        "id": "L_ARK_069",
+        "en": "You must get the sapient back. We cannot \nproceed without it.\n",
+        "gb": "You must get the sapient back. We cannot \nproceed without it.\n",
+        "jp": "You must get the sapient back. We cannot proceed without it.",
+        "it": "Devi recuperare il Sapiente: senza \nnon è possibile andare avanti.\n",
+        "fr": "Il nous faut le sapiens. Le reste de \nl'opération en dépend.\n",
+        "de": "Sie müssen uns das Ding zurückbringen. Wir können \nsonst nicht fortfahren.\n",
+        "es": "Debes traer de vuelta la IA. No podemos \navanzar sin ella.\n"
+    },
+    {
+        "id": "L_ARK_070",
+        "en": "I know that!\n",
+        "gb": "I know that!\n",
+        "jp": "I know that!",
+        "it": "Lo so benissimo!\n",
+        "fr": "J'en suis consciente!\n",
+        "de": "Das weiß ich!\n",
+        "es": "¡Ya lo sé!\n"
+    },
+    {
+        "id": "L_ARK_071",
+        "en": "I also know who to talk to... \nMr. Carrington.\n",
+        "gb": "I also know who to talk to... \nMr. Carrington.\n",
+        "jp": "I also know who to talk to... Mr. Carrington.",
+        "it": "So anche con chi parlare... \ncon Carrington!\n",
+        "fr": "Je sais aussi à qui m'adresser...\nMr. Carrington.\n",
+        "de": "Ich weiß auch, mit wem ich sprechen muss... \nMr. Carrington.\n",
+        "es": "También sé con quién hablar... \ncon el Sr. Carrington.\n"
+    },
+    {
+        "id": "L_ARK_072",
+        "en": "Elevator door is inactive on this floor.\n",
+        "gb": "Elevator door is inactive on this floor.\n",
+        "jp": null,
+        "it": "La porta dell'ascensore è fuori servizio.\n",
+        "fr": "Porte d'ascenseur inutilisable à cet étage.\n",
+        "de": "Die Aufzugstüren sind auf diesem Stockwerk inaktiv.\n",
+        "es": "La puerta del ascensor no funciona en este piso.\n"
+    },
+    {
+        "id": "L_ARK_073",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_ARK_074",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_ARK_075",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    }
+]

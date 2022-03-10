@@ -1,0 +1,522 @@
+[
+    {
+        "id": "L_PROPOBJ_000",
+        "en": "Picked up ",
+        "gb": "Picked up ",
+        "jp": "Picked up ",
+        "it": "Picked up ",
+        "fr": "Picked up ",
+        "de": "Picked up ",
+        "es": "Picked up "
+    },
+    {
+        "id": "L_PROPOBJ_001",
+        "en": "Double ",
+        "gb": "Double ",
+        "jp": "Double ",
+        "it": "Double ",
+        "fr": "Double ",
+        "de": "Double ",
+        "es": "Double "
+    },
+    {
+        "id": "L_PROPOBJ_002",
+        "en": "some ",
+        "gb": "some ",
+        "jp": "some ",
+        "it": "some ",
+        "fr": "some ",
+        "de": "some ",
+        "es": "some "
+    },
+    {
+        "id": "L_PROPOBJ_003",
+        "en": "Some ",
+        "gb": "Some ",
+        "jp": "Some ",
+        "it": "Some ",
+        "fr": "Some ",
+        "de": "Some ",
+        "es": "Some "
+    },
+    {
+        "id": "L_PROPOBJ_004",
+        "en": "a ",
+        "gb": "a ",
+        "jp": "a ",
+        "it": "a ",
+        "fr": "a ",
+        "de": "a ",
+        "es": "a "
+    },
+    {
+        "id": "L_PROPOBJ_005",
+        "en": "A ",
+        "gb": "A ",
+        "jp": "A ",
+        "it": "A ",
+        "fr": "A ",
+        "de": "A ",
+        "es": "A "
+    },
+    {
+        "id": "L_PROPOBJ_006",
+        "en": "an ",
+        "gb": "an ",
+        "jp": "an ",
+        "it": "an ",
+        "fr": "an ",
+        "de": "an ",
+        "es": "an "
+    },
+    {
+        "id": "L_PROPOBJ_007",
+        "en": "An ",
+        "gb": "An ",
+        "jp": "An ",
+        "it": "An ",
+        "fr": "An ",
+        "de": "An ",
+        "es": "An "
+    },
+    {
+        "id": "L_PROPOBJ_008",
+        "en": "the ",
+        "gb": "the ",
+        "jp": "the ",
+        "it": "the ",
+        "fr": "the ",
+        "de": "the ",
+        "es": "the "
+    },
+    {
+        "id": "L_PROPOBJ_009",
+        "en": "The ",
+        "gb": "The ",
+        "jp": "The ",
+        "it": "The ",
+        "fr": "The ",
+        "de": "The ",
+        "es": "The "
+    },
+    {
+        "id": "L_PROPOBJ_010",
+        "en": "ammo",
+        "gb": "ammo",
+        "jp": "ammo",
+        "it": "ammo",
+        "fr": "ammo",
+        "de": "ammo",
+        "es": "ammo"
+    },
+    {
+        "id": "L_PROPOBJ_011",
+        "en": "cartridge",
+        "gb": "cartridge",
+        "jp": "cartridge",
+        "it": "cartridge",
+        "fr": "cartridge",
+        "de": "cartridge",
+        "es": "cartridge"
+    },
+    {
+        "id": "L_PROPOBJ_012",
+        "en": "magnum bullet",
+        "gb": "magnum bullet",
+        "jp": "magnum bullet",
+        "it": "magnum bullet",
+        "fr": "magnum bullet",
+        "de": "magnum bullet",
+        "es": "magnum bullet"
+    },
+    {
+        "id": "L_PROPOBJ_013",
+        "en": "golden bullet",
+        "gb": "golden bullet",
+        "jp": "golden bullet",
+        "it": "golden bullet",
+        "fr": "golden bullet",
+        "de": "golden bullet",
+        "es": "golden bullet"
+    },
+    {
+        "id": "L_PROPOBJ_014",
+        "en": "grenade",
+        "gb": "grenade",
+        "jp": "hand grenade",
+        "it": "grenade",
+        "fr": "grenade",
+        "de": "grenade",
+        "es": "grenade"
+    },
+    {
+        "id": "L_PROPOBJ_015",
+        "en": "grenade round",
+        "gb": "grenade round",
+        "jp": "grenade round",
+        "it": "grenade round",
+        "fr": "grenade round",
+        "de": "grenade round",
+        "es": "grenade round"
+    },
+    {
+        "id": "L_PROPOBJ_016",
+        "en": "rocket",
+        "gb": "rocket",
+        "jp": "rocket",
+        "it": "rocket",
+        "fr": "rocket",
+        "de": "rocket",
+        "es": "rocket"
+    },
+    {
+        "id": "L_PROPOBJ_017",
+        "en": "homing rocket",
+        "gb": "homing rocket",
+        "jp": "homing rocket",
+        "it": "homing rocket",
+        "fr": "homing rocket",
+        "de": "homing rocket",
+        "es": "homing rocket"
+    },
+    {
+        "id": "L_PROPOBJ_018",
+        "en": "remote mine",
+        "gb": "remote mine",
+        "jp": "remote mine",
+        "it": "remote mine",
+        "fr": "remote mine",
+        "de": "remote mine",
+        "es": "remote mine"
+    },
+    {
+        "id": "L_PROPOBJ_019",
+        "en": "proximity mine",
+        "gb": "proximity mine",
+        "jp": "proximity mine",
+        "it": "proximity mine",
+        "fr": "proximity mine",
+        "de": "proximity mine",
+        "es": "proximity mine"
+    },
+    {
+        "id": "L_PROPOBJ_020",
+        "en": "timed mine",
+        "gb": "timed mine",
+        "jp": "timed mine",
+        "it": "timed mine",
+        "fr": "timed mine",
+        "de": "timed mine",
+        "es": "timed mine"
+    },
+    {
+        "id": "L_PROPOBJ_021",
+        "en": "combat ",
+        "gb": "combat ",
+        "jp": "combat ",
+        "it": "combat ",
+        "fr": "combat ",
+        "de": "combat ",
+        "es": "combat "
+    },
+    {
+        "id": "L_PROPOBJ_022",
+        "en": "knife",
+        "gb": "knife",
+        "jp": "knife",
+        "it": "knife",
+        "fr": "knife",
+        "de": "knife",
+        "es": "knife"
+    },
+    {
+        "id": "L_PROPOBJ_023",
+        "en": "knives",
+        "gb": "knives",
+        "jp": "knives",
+        "it": "knives",
+        "fr": "knives",
+        "de": "knives",
+        "es": "knives"
+    },
+    {
+        "id": "L_PROPOBJ_024",
+        "en": "s",
+        "gb": "s",
+        "jp": "s",
+        "it": "s",
+        "fr": "s",
+        "de": "s",
+        "es": "s"
+    },
+    {
+        "id": "L_PROPOBJ_025",
+        "en": "dart",
+        "gb": "dart",
+        "jp": "dart",
+        "it": "dart",
+        "fr": "dart",
+        "de": "dart",
+        "es": "dart"
+    },
+    {
+        "id": "L_PROPOBJ_026",
+        "en": "n-bomb",
+        "gb": "n-bomb",
+        "jp": "n-bomb",
+        "it": "n-bomb",
+        "fr": "n-bomb",
+        "de": "n-bomb",
+        "es": "n-bomb"
+    },
+    {
+        "id": "L_PROPOBJ_027",
+        "en": "sedatives",
+        "gb": "sedatives",
+        "jp": "drugs",
+        "it": "sedatives",
+        "fr": "sedatives",
+        "de": "sedatives",
+        "es": "sedatives"
+    },
+    {
+        "id": "L_PROPOBJ_028",
+        "en": "explosive pen",
+        "gb": "explosive pen",
+        "jp": "explosive pen",
+        "it": "explosive pen",
+        "fr": "explosive pen",
+        "de": "explosive pen",
+        "es": "explosive pen"
+    },
+    {
+        "id": "L_PROPOBJ_029",
+        "en": "explosive case",
+        "gb": "explosive case",
+        "jp": "explosive case",
+        "it": "explosive case",
+        "fr": "explosive case",
+        "de": "explosive case",
+        "es": "explosive case"
+    },
+    {
+        "id": "L_PROPOBJ_030",
+        "en": "flare",
+        "gb": "flare",
+        "jp": "flare",
+        "it": "flare",
+        "fr": "flare",
+        "de": "flare",
+        "es": "flare"
+    },
+    {
+        "id": "L_PROPOBJ_031",
+        "en": "piton",
+        "gb": "piton",
+        "jp": "piton",
+        "it": "piton",
+        "fr": "piton",
+        "de": "piton",
+        "es": "piton"
+    },
+    {
+        "id": "L_PROPOBJ_032",
+        "en": "of dynamite",
+        "gb": "of dynamite",
+        "jp": "of dynamite",
+        "it": "of dynamite",
+        "fr": "of dynamite",
+        "de": "of dynamite",
+        "es": "of dynamite"
+    },
+    {
+        "id": "L_PROPOBJ_033",
+        "en": "stick ",
+        "gb": "stick ",
+        "jp": "stick ",
+        "it": "stick ",
+        "fr": "stick ",
+        "de": "stick ",
+        "es": "stick "
+    },
+    {
+        "id": "L_PROPOBJ_034",
+        "en": "sticks ",
+        "gb": "sticks ",
+        "jp": "sticks ",
+        "it": "sticks ",
+        "fr": "sticks ",
+        "de": "sticks ",
+        "es": "sticks "
+    },
+    {
+        "id": "L_PROPOBJ_035",
+        "en": "bug",
+        "gb": "bug",
+        "jp": "bug",
+        "it": "bug",
+        "fr": "bug",
+        "de": "bug",
+        "es": "bug"
+    },
+    {
+        "id": "L_PROPOBJ_036",
+        "en": "micro camera",
+        "gb": "micro camera",
+        "jp": "micro camera",
+        "it": "micro camera",
+        "fr": "micro camera",
+        "de": "micro camera",
+        "es": "micro camera"
+    },
+    {
+        "id": "L_PROPOBJ_037",
+        "en": "GoldenEye key",
+        "gb": "GoldenEye key",
+        "jp": "GoldenEye key",
+        "it": "GoldenEye key",
+        "fr": "GoldenEye key",
+        "de": "GoldenEye key",
+        "es": "GoldenEye key"
+    },
+    {
+        "id": "L_PROPOBJ_038",
+        "en": "token",
+        "gb": "token",
+        "jp": "token",
+        "it": "token",
+        "fr": "token",
+        "de": "token",
+        "es": "token"
+    },
+    {
+        "id": "L_PROPOBJ_039",
+        "en": "plastique",
+        "gb": "plastique",
+        "jp": "plastique",
+        "it": "plastique",
+        "fr": "plastique",
+        "de": "plastique",
+        "es": "plastique"
+    },
+    {
+        "id": "L_PROPOBJ_040",
+        "en": "Picked up a key.\n",
+        "gb": "Picked up a key.\n",
+        "jp": "Picked up a key.\n",
+        "it": "Picked up a key.\n",
+        "fr": "Picked up a key.\n",
+        "de": "Picked up a key.\n",
+        "es": "Picked up a key.\n"
+    },
+    {
+        "id": "L_PROPOBJ_041",
+        "en": "Picked up a shield.\n",
+        "gb": "Picked up a shield.\n",
+        "jp": "Picked up a shield.\n",
+        "it": "Picked up a shield.\n",
+        "fr": "Picked up a shield.\n",
+        "de": "Picked up a shield.\n",
+        "es": "Picked up a shield.\n"
+    },
+    {
+        "id": "L_PROPOBJ_042",
+        "en": "A shield.\n",
+        "gb": "A shield.\n",
+        "jp": "A shield.\n",
+        "it": "A shield.\n",
+        "fr": "A shield.\n",
+        "de": "A shield.\n",
+        "es": "A shield.\n"
+    },
+    {
+        "id": "L_PROPOBJ_043",
+        "en": "Picked up something.\n",
+        "gb": "Picked up something.\n",
+        "jp": "Picked up something.\n",
+        "it": "Picked up something.\n",
+        "fr": "Picked up something.\n",
+        "de": "Picked up something.\n",
+        "es": "Picked up something.\n"
+    },
+    {
+        "id": "L_PROPOBJ_044",
+        "en": "This door is locked.\n",
+        "gb": "This door is locked.\n",
+        "jp": "This door is locked.\n",
+        "it": "This door is locked.\n",
+        "fr": "This door is locked.\n",
+        "de": "This door is locked.\n",
+        "es": "This door is locked.\n"
+    },
+    {
+        "id": "L_PROPOBJ_045",
+        "en": "bolt",
+        "gb": "bolt",
+        "jp": "bolt",
+        "it": "bolt",
+        "fr": "bolt",
+        "de": "bolt",
+        "es": "bolt"
+    },
+    {
+        "id": "L_PROPOBJ_046",
+        "en": "orb",
+        "gb": "orb",
+        "jp": "orb",
+        "it": "orb",
+        "fr": "orb",
+        "de": "orb",
+        "es": "orb"
+    },
+    {
+        "id": "L_PROPOBJ_047",
+        "en": "Reaper ammo",
+        "gb": "Reaper ammo",
+        "jp": "Reaper ammo",
+        "it": "Reaper ammo",
+        "fr": "Reaper ammo",
+        "de": "Reaper ammo",
+        "es": "Reaper ammo"
+    },
+    {
+        "id": "L_PROPOBJ_048",
+        "en": "cloaking device",
+        "gb": "cloaking device",
+        "jp": "cloaking device",
+        "it": "cloaking device",
+        "fr": "cloaking device",
+        "de": "cloaking device",
+        "es": "cloaking device"
+    },
+    {
+        "id": "L_PROPOBJ_049",
+        "en": "boost pill",
+        "gb": "boost pill",
+        "jp": "speed pill",
+        "it": "boost pill",
+        "fr": "boost pill",
+        "de": "boost pill",
+        "es": "boost pill"
+    },
+    {
+        "id": "L_PROPOBJ_050",
+        "en": "your ",
+        "gb": "your ",
+        "jp": "your ",
+        "it": "your ",
+        "fr": "your ",
+        "de": "your ",
+        "es": "your "
+    },
+    {
+        "id": "L_PROPOBJ_051",
+        "en": "YOUR ",
+        "gb": "YOUR ",
+        "jp": "YOUR ",
+        "it": "YOUR ",
+        "fr": "YOUR ",
+        "de": "YOUR ",
+        "es": "YOUR "
+    }
+]

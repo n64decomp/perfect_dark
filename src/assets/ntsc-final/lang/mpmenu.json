@@ -1,0 +1,4962 @@
+[
+    {
+        "id": "L_MPMENU_000",
+        "en": "Most Suicidal\n",
+        "gb": "Most Suicidal\n",
+        "jp": "Most Suicidal\n",
+        "it": "Most Suicidal\n",
+        "fr": "Most Suicidal\n",
+        "de": "Most Suicidal\n",
+        "es": "Most Suicidal\n"
+    },
+    {
+        "id": "L_MPMENU_001",
+        "en": "Who Needs Ammo?\n",
+        "gb": "Who Needs Ammo?\n",
+        "jp": "Who Needs Ammo?\n",
+        "it": "Who Needs Ammo?\n",
+        "fr": "Who Needs Ammo?\n",
+        "de": "Who Needs Ammo?\n",
+        "es": "Who Needs Ammo?\n"
+    },
+    {
+        "id": "L_MPMENU_002",
+        "en": "Least Shielded\n",
+        "gb": "Least Shielded\n",
+        "jp": "Who Needs Armor?\n",
+        "it": "Least Shielded\n",
+        "fr": "Least Shielded\n",
+        "de": "Least Shielded\n",
+        "es": "Least Shielded\n"
+    },
+    {
+        "id": "L_MPMENU_003",
+        "en": "Best Protected\n",
+        "gb": "Best Protected\n",
+        "jp": "Best Protected\n",
+        "it": "Best Protected\n",
+        "fr": "Best Protected\n",
+        "de": "Best Protected\n",
+        "es": "Best Protected\n"
+    },
+    {
+        "id": "L_MPMENU_004",
+        "en": "Marksmanship\n",
+        "gb": "Marksmanship\n",
+        "jp": "Marksmanship\n",
+        "it": "Marksmanship\n",
+        "fr": "Marksmanship\n",
+        "de": "Marksmanship\n",
+        "es": "Marksmanship\n"
+    },
+    {
+        "id": "L_MPMENU_005",
+        "en": "Most Professional\n",
+        "gb": "Most Professional\n",
+        "jp": "Most Professional\n",
+        "it": "Most Professional\n",
+        "fr": "Most Professional\n",
+        "de": "Most Professional\n",
+        "es": "Most Professional\n"
+    },
+    {
+        "id": "L_MPMENU_006",
+        "en": "Most Deadly\n",
+        "gb": "Most Deadly\n",
+        "jp": "Most Deadly\n",
+        "it": "Most Deadly\n",
+        "fr": "Most Deadly\n",
+        "de": "Most Deadly\n",
+        "es": "Most Deadly\n"
+    },
+    {
+        "id": "L_MPMENU_007",
+        "en": "Most Harmless\n",
+        "gb": "Most Harmless\n",
+        "jp": "Most Harmless\n",
+        "it": "Most Harmless\n",
+        "fr": "Most Harmless\n",
+        "de": "Most Harmless\n",
+        "es": "Most Harmless\n"
+    },
+    {
+        "id": "L_MPMENU_008",
+        "en": "Most Cowardly\n",
+        "gb": "Most Cowardly\n",
+        "jp": "Most Cowardly\n",
+        "it": "Most Cowardly\n",
+        "fr": "Most Cowardly\n",
+        "de": "Most Cowardly\n",
+        "es": "Most Cowardly\n"
+    },
+    {
+        "id": "L_MPMENU_009",
+        "en": "Most Frantic\n",
+        "gb": "Most Frantic\n",
+        "jp": "Most Frantic\n",
+        "it": "Most Frantic\n",
+        "fr": "Most Frantic\n",
+        "de": "Most Frantic\n",
+        "es": "Most Frantic\n"
+    },
+    {
+        "id": "L_MPMENU_010",
+        "en": "Most Honorable\n",
+        "gb": "Most Honorable\n",
+        "jp": "Most Honorable\n",
+        "it": "Most Honorable\n",
+        "fr": "Most Honorable\n",
+        "de": "Most Honorable\n",
+        "es": "Most Honorable\n"
+    },
+    {
+        "id": "L_MPMENU_011",
+        "en": "Most Dishonorable\n",
+        "gb": "Most Dishonorable\n",
+        "jp": "Most Dishonorable\n",
+        "it": "Most Dishonorable\n",
+        "fr": "Most Dishonorable\n",
+        "de": "Most Dishonorable\n",
+        "es": "Most Dishonorable\n"
+    },
+    {
+        "id": "L_MPMENU_012",
+        "en": "Shortest Life\n",
+        "gb": "Shortest Life\n",
+        "jp": "Shortest Life\n",
+        "it": "Shortest Life\n",
+        "fr": "Shortest Life\n",
+        "de": "Shortest Life\n",
+        "es": "Shortest Life\n"
+    },
+    {
+        "id": "L_MPMENU_013",
+        "en": "Longest Life\n",
+        "gb": "Longest Life\n",
+        "jp": "Longest Life\n",
+        "it": "Longest Life\n",
+        "fr": "Longest Life\n",
+        "de": "Longest Life\n",
+        "es": "Longest Life\n"
+    },
+    {
+        "id": "L_MPMENU_014",
+        "en": "Double Kill\n",
+        "gb": "Double Kill\n",
+        "jp": "Double Kill\n",
+        "it": "Double Kill\n",
+        "fr": "Double Kill\n",
+        "de": "Double Kill\n",
+        "es": "Double Kill\n"
+    },
+    {
+        "id": "L_MPMENU_015",
+        "en": "Triple Kill\n",
+        "gb": "Triple Kill\n",
+        "jp": "Triple Kill\n",
+        "it": "Triple Kill\n",
+        "fr": "Triple Kill\n",
+        "de": "Triple Kill\n",
+        "es": "Triple Kill\n"
+    },
+    {
+        "id": "L_MPMENU_016",
+        "en": "Quad Kill\n",
+        "gb": "Quad Kill\n",
+        "jp": "Quad Kill\n",
+        "it": "Quad Kill\n",
+        "fr": "Quad Kill\n",
+        "de": "Quad Kill\n",
+        "es": "Quad Kill\n"
+    },
+    {
+        "id": "L_MPMENU_017",
+        "en": "Game Setup\n",
+        "gb": "Game Setup\n",
+        "jp": "Game Setup\n",
+        "it": "Game Setup\n",
+        "fr": "Game Setup\n",
+        "de": "Game Setup\n",
+        "es": "Game Setup\n"
+    },
+    {
+        "id": "L_MPMENU_018",
+        "en": "Load Settings\n",
+        "gb": "Load Settings\n",
+        "jp": "Load Settings\n",
+        "it": "Load Settings\n",
+        "fr": "Load Settings\n",
+        "de": "Load Settings\n",
+        "es": "Load Settings\n"
+    },
+    {
+        "id": "L_MPMENU_019",
+        "en": "Scenario\n",
+        "gb": "Scenario\n",
+        "jp": "Scenario\n",
+        "it": "Scenario\n",
+        "fr": "Scenario\n",
+        "de": "Scenario\n",
+        "es": "Scenario\n"
+    },
+    {
+        "id": "L_MPMENU_020",
+        "en": "Arena\n",
+        "gb": "Arena\n",
+        "jp": "Arena\n",
+        "it": "Arena\n",
+        "fr": "Arena\n",
+        "de": "Arena\n",
+        "es": "Arena\n"
+    },
+    {
+        "id": "L_MPMENU_021",
+        "en": "Options\n",
+        "gb": "Options\n",
+        "jp": "Options\n",
+        "it": "Options\n",
+        "fr": "Options\n",
+        "de": "Options\n",
+        "es": "Options\n"
+    },
+    {
+        "id": "L_MPMENU_022",
+        "en": "Teams\n",
+        "gb": "Teams\n",
+        "jp": "Teams\n",
+        "it": "Teams\n",
+        "fr": "Teams\n",
+        "de": "Teams\n",
+        "es": "Teams\n"
+    },
+    {
+        "id": "L_MPMENU_023",
+        "en": "Weapons\n",
+        "gb": "Weapons\n",
+        "jp": "Weapons\n",
+        "it": "Weapons\n",
+        "fr": "Weapons\n",
+        "de": "Weapons\n",
+        "es": "Weapons\n"
+    },
+    {
+        "id": "L_MPMENU_024",
+        "en": "Limits\n",
+        "gb": "Limits\n",
+        "jp": "Limits\n",
+        "it": "Limits\n",
+        "fr": "Limits\n",
+        "de": "Limits\n",
+        "es": "Limits\n"
+    },
+    {
+        "id": "L_MPMENU_025",
+        "en": "Simulants\n",
+        "gb": "Simulants\n",
+        "jp": "Simulants\n",
+        "it": "Simulants\n",
+        "fr": "Simulants\n",
+        "de": "Simulants\n",
+        "es": "Simulants\n"
+    },
+    {
+        "id": "L_MPMENU_026",
+        "en": "Save Settings\n",
+        "gb": "Save Settings\n",
+        "jp": "Save Settings\n",
+        "it": "Save Settings\n",
+        "fr": "Save Settings\n",
+        "de": "Save Settings\n",
+        "es": "Save Settings\n"
+    },
+    {
+        "id": "L_MPMENU_027",
+        "en": "Abort Game\n",
+        "gb": "Abort Game\n",
+        "jp": "Abort Game\n",
+        "it": "Abort Game\n",
+        "fr": "Abort Game\n",
+        "de": "Abort Game\n",
+        "es": "Abort Game\n"
+    },
+    {
+        "id": "L_MPMENU_028",
+        "en": "Player Setup\n",
+        "gb": "Player Setup\n",
+        "jp": "Player Setup\n",
+        "it": "Player Setup\n",
+        "fr": "Player Setup\n",
+        "de": "Player Setup\n",
+        "es": "Player Setup\n"
+    },
+    {
+        "id": "L_MPMENU_029",
+        "en": "Load Player\n",
+        "gb": "Load Player\n",
+        "jp": "Load Player\n",
+        "it": "Load Player\n",
+        "fr": "Load Player\n",
+        "de": "Load Player\n",
+        "es": "Load Player\n"
+    },
+    {
+        "id": "L_MPMENU_030",
+        "en": "Name\n",
+        "gb": "Name\n",
+        "jp": "Name\n",
+        "it": "Name\n",
+        "fr": "Name\n",
+        "de": "Name\n",
+        "es": "Name\n"
+    },
+    {
+        "id": "L_MPMENU_031",
+        "en": "Character\n",
+        "gb": "Character\n",
+        "jp": "Character\n",
+        "it": "Character\n",
+        "fr": "Character\n",
+        "de": "Character\n",
+        "es": "Character\n"
+    },
+    {
+        "id": "L_MPMENU_032",
+        "en": "Handicap\n",
+        "gb": "Handicap\n",
+        "jp": "Handicap\n",
+        "it": "Handicap\n",
+        "fr": "Handicap\n",
+        "de": "Handicap\n",
+        "es": "Handicap\n"
+    },
+    {
+        "id": "L_MPMENU_033",
+        "en": "Control\n",
+        "gb": "Control\n",
+        "jp": "Control\n",
+        "it": "Control\n",
+        "fr": "Control\n",
+        "de": "Control\n",
+        "es": "Control\n"
+    },
+    {
+        "id": "L_MPMENU_034",
+        "en": "Player Options\n",
+        "gb": "Player Options\n",
+        "jp": "Player Options\n",
+        "it": "Player Options\n",
+        "fr": "Player Options\n",
+        "de": "Player Options\n",
+        "es": "Player Options\n"
+    },
+    {
+        "id": "L_MPMENU_035",
+        "en": "Statistics\n",
+        "gb": "Statistics\n",
+        "jp": "Statistics\n",
+        "it": "Statistics\n",
+        "fr": "Statistics\n",
+        "de": "Statistics\n",
+        "es": "Statistics\n"
+    },
+    {
+        "id": "L_MPMENU_036",
+        "en": "Start Game\n",
+        "gb": "Start Game\n",
+        "jp": "Start Game\n",
+        "it": "Start Game\n",
+        "fr": "Start Game\n",
+        "de": "Start Game\n",
+        "es": "Start Game\n"
+    },
+    {
+        "id": "L_MPMENU_037",
+        "en": "Drop Out\n",
+        "gb": "Drop Out\n",
+        "jp": "Drop Out\n",
+        "it": "Drop Out\n",
+        "fr": "Drop Out\n",
+        "de": "Drop Out\n",
+        "es": "Drop Out\n"
+    },
+    {
+        "id": "L_MPMENU_038",
+        "en": "Save Player\n",
+        "gb": "Save Player\n",
+        "jp": "Save Player\n",
+        "it": "Save Player\n",
+        "fr": "Save Player\n",
+        "de": "Save Player\n",
+        "es": "Save Player\n"
+    },
+    {
+        "id": "L_MPMENU_039",
+        "en": "Save Copy of Player\n",
+        "gb": "Save Copy of Player\n",
+        "jp": "Save Copy Of Player\n",
+        "it": "Save Copy of Player\n",
+        "fr": "Save Copy of Player\n",
+        "de": "Save Copy of Player\n",
+        "es": "Save Copy of Player\n"
+    },
+    {
+        "id": "L_MPMENU_040",
+        "en": "Stuff\n",
+        "gb": "Stuff\n",
+        "jp": "Stuff\n",
+        "it": "Stuff\n",
+        "fr": "Stuff\n",
+        "de": "Stuff\n",
+        "es": "Stuff\n"
+    },
+    {
+        "id": "L_MPMENU_041",
+        "en": "Soundtrack\n",
+        "gb": "Soundtrack\n",
+        "jp": "Soundtrack\n",
+        "it": "Soundtrack\n",
+        "fr": "Soundtrack\n",
+        "de": "Soundtrack\n",
+        "es": "Soundtrack\n"
+    },
+    {
+        "id": "L_MPMENU_042",
+        "en": "Team Names\n",
+        "gb": "Team Names\n",
+        "jp": "Team Names\n",
+        "it": "Team Names\n",
+        "fr": "Team Names\n",
+        "de": "Team Names\n",
+        "es": "Team Names\n"
+    },
+    {
+        "id": "L_MPMENU_043",
+        "en": "Ratio\n",
+        "gb": "Ratio\n",
+        "jp": "Ratio\n",
+        "it": "Ratio\n",
+        "fr": "Ratio\n",
+        "de": "Ratio\n",
+        "es": "Ratio\n"
+    },
+    {
+        "id": "L_MPMENU_044",
+        "en": "Lock\n",
+        "gb": "Lock\n",
+        "jp": "Lock\n",
+        "it": "Lock\n",
+        "fr": "Lock\n",
+        "de": "Lock\n",
+        "es": "Lock\n"
+    },
+    {
+        "id": "L_MPMENU_045",
+        "en": "None\n",
+        "gb": "None\n",
+        "jp": "None\n",
+        "it": "None\n",
+        "fr": "None\n",
+        "de": "None\n",
+        "es": "None\n"
+    },
+    {
+        "id": "L_MPMENU_046",
+        "en": "Last Winner\n",
+        "gb": "Last Winner\n",
+        "jp": "Last Winner\n",
+        "it": "Last Winner\n",
+        "fr": "Last Winner\n",
+        "de": "Last Winner\n",
+        "es": "Last Winner\n"
+    },
+    {
+        "id": "L_MPMENU_047",
+        "en": "Last Loser\n",
+        "gb": "Last Loser\n",
+        "jp": "Last Loser\n",
+        "it": "Last Loser\n",
+        "fr": "Last Loser\n",
+        "de": "Last Loser\n",
+        "es": "Last Loser\n"
+    },
+    {
+        "id": "L_MPMENU_048",
+        "en": "Random\n",
+        "gb": "Random\n",
+        "jp": "Random\n",
+        "it": "Random\n",
+        "fr": "Random\n",
+        "de": "Random\n",
+        "es": "Random\n"
+    },
+    {
+        "id": "L_MPMENU_049",
+        "en": "Challenge\n",
+        "gb": "Challenge\n",
+        "jp": "Challenge\n",
+        "it": "Challenge\n",
+        "fr": "Challenge\n",
+        "de": "Challenge\n",
+        "es": "Challenge\n"
+    },
+    {
+        "id": "L_MPMENU_050",
+        "en": "Combat Challenges\n",
+        "gb": "Combat Challenges\n",
+        "jp": "Combat Challenges\n",
+        "it": "Combat Challenges\n",
+        "fr": "Combat Challenges\n",
+        "de": "Combat Challenges\n",
+        "es": "Combat Challenges\n"
+    },
+    {
+        "id": "L_MPMENU_051",
+        "en": "Abort Challenge\n",
+        "gb": "Abort Challenge\n",
+        "jp": "Abort Challenge\n",
+        "it": "Abort Challenge\n",
+        "fr": "Abort Challenge\n",
+        "de": "Abort Challenge\n",
+        "es": "Abort Challenge\n"
+    },
+    {
+        "id": "L_MPMENU_052",
+        "en": "Abort\n",
+        "gb": "Abort\n",
+        "jp": "Abort\n",
+        "it": "Abort\n",
+        "fr": "Abort\n",
+        "de": "Abort\n",
+        "es": "Abort\n"
+    },
+    {
+        "id": "L_MPMENU_053",
+        "en": "Are you sure you want\nto abort the game?\n",
+        "gb": "Are you sure you want\nto abort the game?\n",
+        "jp": "Are you sure you want\nto abort the game?\n",
+        "it": "Are you sure you want\nto abort the game?\n",
+        "fr": "Are you sure you want\nto abort the game?\n",
+        "de": "Are you sure you want\nto abort the game?\n",
+        "es": "Are you sure you want\nto abort the game?\n"
+    },
+    {
+        "id": "L_MPMENU_054",
+        "en": "Abort\n",
+        "gb": "Abort\n",
+        "jp": "Abort\n",
+        "it": "Abort\n",
+        "fr": "Abort\n",
+        "de": "Abort\n",
+        "es": "Abort\n"
+    },
+    {
+        "id": "L_MPMENU_055",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Cancel\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_056",
+        "en": "%s\n",
+        "gb": "%s\n",
+        "jp": "%s Overview\n",
+        "it": "%s\n",
+        "fr": "%s\n",
+        "de": "%s\n",
+        "es": "%s\n"
+    },
+    {
+        "id": "L_MPMENU_057",
+        "en": "Accept\n",
+        "gb": "Accept\n",
+        "jp": "Accept\n",
+        "it": "Accept\n",
+        "fr": "Accept\n",
+        "de": "Accept\n",
+        "es": "Accept\n"
+    },
+    {
+        "id": "L_MPMENU_058",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Cancel\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_059",
+        "en": "Team Names\n",
+        "gb": "Team Names\n",
+        "jp": "Team Names\n",
+        "it": "Team Names\n",
+        "fr": "Team Names\n",
+        "de": "Team Names\n",
+        "es": "Team Names\n"
+    },
+    {
+        "id": "L_MPMENU_060",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "Back\n",
+        "it": "Back\n",
+        "fr": "Back\n",
+        "de": "Back\n",
+        "es": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_061",
+        "en": "Change Team Name\n",
+        "gb": "Change Team Name\n",
+        "jp": "Change Team Name\n",
+        "it": "Change Team Name\n",
+        "fr": "Change Team Name\n",
+        "de": "Change Team Name\n",
+        "es": "Change Team Name\n"
+    },
+    {
+        "id": "L_MPMENU_062",
+        "en": "Soundtrack\n",
+        "gb": "Soundtrack\n",
+        "jp": "Soundtrack\n",
+        "it": "Soundtrack\n",
+        "fr": "Soundtrack\n",
+        "de": "Soundtrack\n",
+        "es": "Soundtrack\n"
+    },
+    {
+        "id": "L_MPMENU_063",
+        "en": "Current:\n",
+        "gb": "Current:\n",
+        "jp": "Current:\n",
+        "it": "Current:\n",
+        "fr": "Current:\n",
+        "de": "Current:\n",
+        "es": "Current:\n"
+    },
+    {
+        "id": "L_MPMENU_064",
+        "en": "Multiple Tunes\n",
+        "gb": "Multiple Tunes\n",
+        "jp": "Multiple Tunes\n",
+        "it": "Multiple Tunes\n",
+        "fr": "Multiple Tunes\n",
+        "de": "Multiple Tunes\n",
+        "es": "Multiple Tunes\n"
+    },
+    {
+        "id": "L_MPMENU_065",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "Back\n",
+        "it": "Back\n",
+        "fr": "Back\n",
+        "de": "Back\n",
+        "es": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_066",
+        "en": "Multiple Tunes\n",
+        "gb": "Multiple Tunes\n",
+        "jp": "Multiple Tunes\n",
+        "it": "Multiple Tunes\n",
+        "fr": "Multiple Tunes\n",
+        "de": "Multiple Tunes\n",
+        "es": "Multiple Tunes\n"
+    },
+    {
+        "id": "L_MPMENU_067",
+        "en": "Random\n",
+        "gb": "Random\n",
+        "jp": "Random\n",
+        "it": "Random\n",
+        "fr": "Random\n",
+        "de": "Random\n",
+        "es": "Random\n"
+    },
+    {
+        "id": "L_MPMENU_068",
+        "en": "Select Tunes\n",
+        "gb": "Select Tunes\n",
+        "jp": "Select Tunes\n",
+        "it": "Select Tunes\n",
+        "fr": "Select Tunes\n",
+        "de": "Select Tunes\n",
+        "es": "Select Tunes\n"
+    },
+    {
+        "id": "L_MPMENU_069",
+        "en": "Select Tune\n",
+        "gb": "Select Tune\n",
+        "jp": "Select Tune\n",
+        "it": "Select Tune\n",
+        "fr": "Select Tune\n",
+        "de": "Select Tune\n",
+        "es": "Select Tune\n"
+    },
+    {
+        "id": "L_MPMENU_070",
+        "en": "Team Control\n",
+        "gb": "Team Control\n",
+        "jp": "Team Control\n",
+        "it": "Team Control\n",
+        "fr": "Team Control\n",
+        "de": "Team Control\n",
+        "es": "Team Control\n"
+    },
+    {
+        "id": "L_MPMENU_071",
+        "en": "Teams Enabled\n",
+        "gb": "Teams Enabled\n",
+        "jp": "Teams Enabled\n",
+        "it": "Teams Enabled\n",
+        "fr": "Teams Enabled\n",
+        "de": "Teams Enabled\n",
+        "es": "Teams Enabled\n"
+    },
+    {
+        "id": "L_MPMENU_072",
+        "en": "Teams:\n",
+        "gb": "Teams:\n",
+        "jp": "Teams:\n",
+        "it": "Teams:\n",
+        "fr": "Teams:\n",
+        "de": "Teams:\n",
+        "es": "Teams:\n"
+    },
+    {
+        "id": "L_MPMENU_073",
+        "en": "Auto Team...\n",
+        "gb": "Auto Team...\n",
+        "jp": "Auto Team...\n",
+        "it": "Auto Team...\n",
+        "fr": "Auto Team...\n",
+        "de": "Auto Team...\n",
+        "es": "Auto Team...\n"
+    },
+    {
+        "id": "L_MPMENU_074",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "Back\n",
+        "it": "Back\n",
+        "fr": "Back\n",
+        "de": "Back\n",
+        "es": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_075",
+        "en": "Auto Team\n",
+        "gb": "Auto Team\n",
+        "jp": "Auto Team\n",
+        "it": "Auto Team\n",
+        "fr": "Auto Team\n",
+        "de": "Auto Team\n",
+        "es": "Auto Team\n"
+    },
+    {
+        "id": "L_MPMENU_076",
+        "en": "Two Teams\n",
+        "gb": "Two Teams\n",
+        "jp": "Two Teams\n",
+        "it": "Two Teams\n",
+        "fr": "Two Teams\n",
+        "de": "Two Teams\n",
+        "es": "Two Teams\n"
+    },
+    {
+        "id": "L_MPMENU_077",
+        "en": "Three Teams\n",
+        "gb": "Three Teams\n",
+        "jp": "Three Teams\n",
+        "it": "Three Teams\n",
+        "fr": "Three Teams\n",
+        "de": "Three Teams\n",
+        "es": "Three Teams\n"
+    },
+    {
+        "id": "L_MPMENU_078",
+        "en": "Four Teams\n",
+        "gb": "Four Teams\n",
+        "jp": "Four Teams\n",
+        "it": "Four Teams\n",
+        "fr": "Four Teams\n",
+        "de": "Four Teams\n",
+        "es": "Four Teams\n"
+    },
+    {
+        "id": "L_MPMENU_079",
+        "en": "Maximum Teams\n",
+        "gb": "Maximum Teams\n",
+        "jp": "Maximum Teams\n",
+        "it": "Maximum Teams\n",
+        "fr": "Maximum Teams\n",
+        "de": "Maximum Teams\n",
+        "es": "Maximum Teams\n"
+    },
+    {
+        "id": "L_MPMENU_080",
+        "en": "Humans vs. Simulants\n",
+        "gb": "Humans vs. Simulants\n",
+        "jp": "Humans vs Simulants\n",
+        "it": "Humans vs. Simulants\n",
+        "fr": "Humans vs. Simulants\n",
+        "de": "Humans vs. Simulants\n",
+        "es": "Humans vs. Simulants\n"
+    },
+    {
+        "id": "L_MPMENU_081",
+        "en": "Human-Simulant Pairs\n",
+        "gb": "Human-Simulant Pairs\n",
+        "jp": "Human-Simulant Pairs\n",
+        "it": "Human-Simulant Pairs\n",
+        "fr": "Human-Simulant Pairs\n",
+        "de": "Human-Simulant Pairs\n",
+        "es": "Human-Simulant Pairs\n"
+    },
+    {
+        "id": "L_MPMENU_082",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Cancel\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_083",
+        "en": "Simulants\n",
+        "gb": "Simulants\n",
+        "jp": "Simulants\n",
+        "it": "Simulants\n",
+        "fr": "Simulants\n",
+        "de": "Simulants\n",
+        "es": "Simulants\n"
+    },
+    {
+        "id": "L_MPMENU_084",
+        "en": "Add Simulant...\n",
+        "gb": "Add Simulant...\n",
+        "jp": "Add Simulant...\n",
+        "it": "Add Simulant...\n",
+        "fr": "Add Simulant...\n",
+        "de": "Add Simulant...\n",
+        "es": "Add Simulant...\n"
+    },
+    {
+        "id": "L_MPMENU_085",
+        "en": "1:\n",
+        "gb": "1:\n",
+        "jp": "1:\n",
+        "it": "1:\n",
+        "fr": "1:\n",
+        "de": "1:\n",
+        "es": "1:\n"
+    },
+    {
+        "id": "L_MPMENU_086",
+        "en": "2:\n",
+        "gb": "2:\n",
+        "jp": "2:\n",
+        "it": "2:\n",
+        "fr": "2:\n",
+        "de": "2:\n",
+        "es": "2:\n"
+    },
+    {
+        "id": "L_MPMENU_087",
+        "en": "3:\n",
+        "gb": "3:\n",
+        "jp": "3:\n",
+        "it": "3:\n",
+        "fr": "3:\n",
+        "de": "3:\n",
+        "es": "3:\n"
+    },
+    {
+        "id": "L_MPMENU_088",
+        "en": "4:\n",
+        "gb": "4:\n",
+        "jp": "4:\n",
+        "it": "4:\n",
+        "fr": "4:\n",
+        "de": "4:\n",
+        "es": "4:\n"
+    },
+    {
+        "id": "L_MPMENU_089",
+        "en": "5:\n",
+        "gb": "5:\n",
+        "jp": "5:\n",
+        "it": "5:\n",
+        "fr": "5:\n",
+        "de": "5:\n",
+        "es": "5:\n"
+    },
+    {
+        "id": "L_MPMENU_090",
+        "en": "6:\n",
+        "gb": "6:\n",
+        "jp": "6:\n",
+        "it": "6:\n",
+        "fr": "6:\n",
+        "de": "6:\n",
+        "es": "6:\n"
+    },
+    {
+        "id": "L_MPMENU_091",
+        "en": "7:\n",
+        "gb": "7:\n",
+        "jp": "7:\n",
+        "it": "7:\n",
+        "fr": "7:\n",
+        "de": "7:\n",
+        "es": "7:\n"
+    },
+    {
+        "id": "L_MPMENU_092",
+        "en": "8:\n",
+        "gb": "8:\n",
+        "jp": "8:\n",
+        "it": "8:\n",
+        "fr": "8:\n",
+        "de": "8:\n",
+        "es": "8:\n"
+    },
+    {
+        "id": "L_MPMENU_093",
+        "en": "Clear All\n",
+        "gb": "Clear All\n",
+        "jp": "Clear All\n",
+        "it": "Clear All\n",
+        "fr": "Clear All\n",
+        "de": "Clear All\n",
+        "es": "Clear All\n"
+    },
+    {
+        "id": "L_MPMENU_094",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "Back\n",
+        "it": "Back\n",
+        "fr": "Back\n",
+        "de": "Back\n",
+        "es": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_095",
+        "en": "Difficulty:\n",
+        "gb": "Difficulty:\n",
+        "jp": "Difficulty:\n",
+        "it": "Difficulty:\n",
+        "fr": "Difficulty:\n",
+        "de": "Difficulty:\n",
+        "es": "Difficulty:\n"
+    },
+    {
+        "id": "L_MPMENU_096",
+        "en": "Change Type...\n",
+        "gb": "Change Type...\n",
+        "jp": "Change Type...\n",
+        "it": "Change Type...\n",
+        "fr": "Change Type...\n",
+        "de": "Change Type...\n",
+        "es": "Change Type...\n"
+    },
+    {
+        "id": "L_MPMENU_097",
+        "en": "Character...\n",
+        "gb": "Character...\n",
+        "jp": "Character...\n",
+        "it": "Character...\n",
+        "fr": "Character...\n",
+        "de": "Character...\n",
+        "es": "Character...\n"
+    },
+    {
+        "id": "L_MPMENU_098",
+        "en": "Delete Simulant\n",
+        "gb": "Delete Simulant\n",
+        "jp": "Delete Simulant\n",
+        "it": "Delete Simulant\n",
+        "fr": "Delete Simulant\n",
+        "de": "Delete Simulant\n",
+        "es": "Delete Simulant\n"
+    },
+    {
+        "id": "L_MPMENU_099",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "Back\n",
+        "it": "Back\n",
+        "fr": "Back\n",
+        "de": "Back\n",
+        "es": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_100",
+        "en": "Simulant Character\n",
+        "gb": "Simulant Character\n",
+        "jp": "Simulant Character\n",
+        "it": "Simulant Character\n",
+        "fr": "Simulant Character\n",
+        "de": "Simulant Character\n",
+        "es": "Simulant Character\n"
+    },
+    {
+        "id": "L_MPMENU_101",
+        "en": "Add Simulant\n",
+        "gb": "Add Simulant\n",
+        "jp": "Add Simulant\n",
+        "it": "Add Simulant\n",
+        "fr": "Add Simulant\n",
+        "de": "Add Simulant\n",
+        "es": "Add Simulant\n"
+    },
+    {
+        "id": "L_MPMENU_102",
+        "en": "Change Simulant\n",
+        "gb": "Change Simulant\n",
+        "jp": "Change Simulant\n",
+        "it": "Change Simulant\n",
+        "fr": "Change Simulant\n",
+        "de": "Change Simulant\n",
+        "es": "Change Simulant\n"
+    },
+    {
+        "id": "L_MPMENU_103",
+        "en": "Normal Simulants\n",
+        "gb": "Normal Simulants\n",
+        "jp": "Normal Simulants\n",
+        "it": "Normal Simulants\n",
+        "fr": "Normal Simulants\n",
+        "de": "Normal Simulants\n",
+        "es": "Normal Simulants\n"
+    },
+    {
+        "id": "L_MPMENU_104",
+        "en": "Special Simulants\n",
+        "gb": "Special Simulants\n",
+        "jp": "Special Simulants\n",
+        "it": "Special Simulants\n",
+        "fr": "Special Simulants\n",
+        "de": "Special Simulants\n",
+        "es": "Special Simulants\n"
+    },
+    {
+        "id": "L_MPMENU_105",
+        "en": "Ready!\n",
+        "gb": "Ready!\n",
+        "jp": "Ready!\n",
+        "it": "Ready!\n",
+        "fr": "Ready!\n",
+        "de": "Ready!\n",
+        "es": "Ready!\n"
+    },
+    {
+        "id": "L_MPMENU_106",
+        "en": "...and waiting\n",
+        "gb": "...and waiting\n",
+        "jp": "...and waiting\n",
+        "it": "...and waiting\n",
+        "fr": "...and waiting\n",
+        "de": "...and waiting\n",
+        "es": "...and waiting\n"
+    },
+    {
+        "id": "L_MPMENU_107",
+        "en": "Limits\n",
+        "gb": "Limits\n",
+        "jp": "Limits\n",
+        "it": "Limits\n",
+        "fr": "Limits\n",
+        "de": "Limits\n",
+        "es": "Limits\n"
+    },
+    {
+        "id": "L_MPMENU_108",
+        "en": "Time\n",
+        "gb": "Time\n",
+        "jp": "Time\n",
+        "it": "Time\n",
+        "fr": "Time\n",
+        "de": "Time\n",
+        "es": "Time\n"
+    },
+    {
+        "id": "L_MPMENU_109",
+        "en": "Score\n",
+        "gb": "Score\n",
+        "jp": "Score\n",
+        "it": "Score\n",
+        "fr": "Score\n",
+        "de": "Score\n",
+        "es": "Score\n"
+    },
+    {
+        "id": "L_MPMENU_110",
+        "en": "Restore Defaults\n",
+        "gb": "Restore Defaults\n",
+        "jp": "Restore Defaults\n",
+        "it": "Restore Defaults\n",
+        "fr": "Restore Defaults\n",
+        "de": "Restore Defaults\n",
+        "es": "Restore Defaults\n"
+    },
+    {
+        "id": "L_MPMENU_111",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "Back\n",
+        "it": "Back\n",
+        "fr": "Back\n",
+        "de": "Back\n",
+        "es": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_112",
+        "en": "No Limit\n",
+        "gb": "No Limit\n",
+        "jp": "No Limit\n",
+        "it": "No Limit\n",
+        "fr": "No Limit\n",
+        "de": "No Limit\n",
+        "es": "No Limit\n"
+    },
+    {
+        "id": "L_MPMENU_113",
+        "en": "%d\n",
+        "gb": "%d\n",
+        "jp": "%d\n",
+        "it": "%d\n",
+        "fr": "%d\n",
+        "de": "%d\n",
+        "es": "%d\n"
+    },
+    {
+        "id": "L_MPMENU_114",
+        "en": "%d Min\n",
+        "gb": "%d Min\n",
+        "jp": "%d Min\n",
+        "it": "%d Min\n",
+        "fr": "%d Min\n",
+        "de": "%d Min\n",
+        "es": "%d Min\n"
+    },
+    {
+        "id": "L_MPMENU_115",
+        "en": "Arena\n",
+        "gb": "Arena\n",
+        "jp": "Arena\n",
+        "it": "Arena\n",
+        "fr": "Arena\n",
+        "de": "Arena\n",
+        "es": "Arena\n"
+    },
+    {
+        "id": "L_MPMENU_116",
+        "en": "Dark\n",
+        "gb": "Dark\n",
+        "jp": "Dark\n",
+        "it": "Dark\n",
+        "fr": "Dark\n",
+        "de": "Dark\n",
+        "es": "Dark\n"
+    },
+    {
+        "id": "L_MPMENU_117",
+        "en": "Classic\n",
+        "gb": "Classic\n",
+        "jp": "Golden\n",
+        "it": "Classic\n",
+        "fr": "Classic\n",
+        "de": "Classic\n",
+        "es": "Classic\n"
+    },
+    {
+        "id": "L_MPMENU_118",
+        "en": "Random\n",
+        "gb": "Random\n",
+        "jp": "Random\n",
+        "it": "Random\n",
+        "fr": "Random\n",
+        "de": "Random\n",
+        "es": "Random\n"
+    },
+    {
+        "id": "L_MPMENU_119",
+        "en": "Skedar",
+        "gb": "Skedar",
+        "jp": "Skedar",
+        "it": "Skedar",
+        "fr": "Skedar",
+        "de": "Skedar",
+        "es": "Skedar"
+    },
+    {
+        "id": "L_MPMENU_120",
+        "en": "Pipes",
+        "gb": "Pipes",
+        "jp": "Pipes",
+        "it": "Pipes",
+        "fr": "Pipes",
+        "de": "Pipes",
+        "es": "Pipes"
+    },
+    {
+        "id": "L_MPMENU_121",
+        "en": "Ravine",
+        "gb": "Ravine",
+        "jp": "Ravine",
+        "it": "Ravine",
+        "fr": "Ravine",
+        "de": "Ravine",
+        "es": "Ravine"
+    },
+    {
+        "id": "L_MPMENU_122",
+        "en": "G5 Building",
+        "gb": "G5 Building",
+        "jp": "G5 Building",
+        "it": "G5 Building",
+        "fr": "G5 Building",
+        "de": "G5 Building",
+        "es": "G5 Building"
+    },
+    {
+        "id": "L_MPMENU_123",
+        "en": "Sewers",
+        "gb": "Sewers",
+        "jp": "Sewers",
+        "it": "Sewers",
+        "fr": "Sewers",
+        "de": "Sewers",
+        "es": "Sewers"
+    },
+    {
+        "id": "L_MPMENU_124",
+        "en": "Warehouse",
+        "gb": "Warehouse",
+        "jp": "Warehouse",
+        "it": "Warehouse",
+        "fr": "Warehouse",
+        "de": "Warehouse",
+        "es": "Warehouse"
+    },
+    {
+        "id": "L_MPMENU_125",
+        "en": "Grid",
+        "gb": "Grid",
+        "jp": "Matrix",
+        "it": "Grid",
+        "fr": "Grid",
+        "de": "Grid",
+        "es": "Grid"
+    },
+    {
+        "id": "L_MPMENU_126",
+        "en": "Ruins",
+        "gb": "Ruins",
+        "jp": "Ruins",
+        "it": "Ruins",
+        "fr": "Ruins",
+        "de": "Ruins",
+        "es": "Ruins"
+    },
+    {
+        "id": "L_MPMENU_127",
+        "en": "Area 52",
+        "gb": "Area 52",
+        "jp": "Area 52",
+        "it": "Area 52",
+        "fr": "Area 52",
+        "de": "Area 52",
+        "es": "Area 52"
+    },
+    {
+        "id": "L_MPMENU_128",
+        "en": "Base",
+        "gb": "Base",
+        "jp": "Base",
+        "it": "Base",
+        "fr": "Base",
+        "de": "Base",
+        "es": "Base"
+    },
+    {
+        "id": "L_MPMENU_129",
+        "en": "Rooftop",
+        "gb": "Rooftop",
+        "jp": "Rooftop",
+        "it": "Rooftop",
+        "fr": "Rooftop",
+        "de": "Rooftop",
+        "es": "Rooftop"
+    },
+    {
+        "id": "L_MPMENU_130",
+        "en": "Fortress",
+        "gb": "Fortress",
+        "jp": "Fortress",
+        "it": "Fortress",
+        "fr": "Fortress",
+        "de": "Fortress",
+        "es": "Fortress"
+    },
+    {
+        "id": "L_MPMENU_131",
+        "en": "Villa",
+        "gb": "Villa",
+        "jp": "Villa",
+        "it": "Villa",
+        "fr": "Villa",
+        "de": "Villa",
+        "es": "Villa"
+    },
+    {
+        "id": "L_MPMENU_132",
+        "en": "Car Park",
+        "gb": "Car Parking Lot",
+        "jp": "Car Parking Lot",
+        "it": "Car Parking Lot",
+        "fr": "Car Parking Lot",
+        "de": "Car Parking Lot",
+        "es": "Car Parking Lot"
+    },
+    {
+        "id": "L_MPMENU_133",
+        "en": "Temple",
+        "gb": "Temple",
+        "jp": "Temple",
+        "it": "Temple",
+        "fr": "Temple",
+        "de": "Temple",
+        "es": "Temple"
+    },
+    {
+        "id": "L_MPMENU_134",
+        "en": "Complex",
+        "gb": "Complex",
+        "jp": "Complex",
+        "it": "Complex",
+        "fr": "Complex",
+        "de": "Complex",
+        "es": "Complex"
+    },
+    {
+        "id": "L_MPMENU_135",
+        "en": "Felicity",
+        "gb": "Felicity",
+        "jp": "Felicity",
+        "it": "Felicity",
+        "fr": "Felicity",
+        "de": "Felicity",
+        "es": "Felicity"
+    },
+    {
+        "id": "L_MPMENU_136",
+        "en": "Random",
+        "gb": "Random",
+        "jp": "Random",
+        "it": "Random",
+        "fr": "Random",
+        "de": "Random",
+        "es": "Random"
+    },
+    {
+        "id": "L_MPMENU_137",
+        "en": "Load Player\n",
+        "gb": "Load Player\n",
+        "jp": "Load Player\n",
+        "it": "Load Player\n",
+        "fr": "Load Player\n",
+        "de": "Load Player\n",
+        "es": "Load Player\n"
+    },
+    {
+        "id": "L_MPMENU_138",
+        "en": "B Button to cancel\n",
+        "gb": "B Button to cancel\n",
+        "jp": "<B> to cancel\n",
+        "it": "B Button to cancel\n",
+        "fr": "B Button to cancel\n",
+        "de": "B Button to cancel\n",
+        "es": "B Button to cancel\n"
+    },
+    {
+        "id": "L_MPMENU_139",
+        "en": "Load Game Settings\n",
+        "gb": "Load Game Settings\n",
+        "jp": "Load Game Settings\n",
+        "it": "Load Game Settings\n",
+        "fr": "Load Game Settings\n",
+        "de": "Load Game Settings\n",
+        "es": "Load Game Settings\n"
+    },
+    {
+        "id": "L_MPMENU_140",
+        "en": "%s:  Scenario: %s   Arena: %s    Simulants: %d",
+        "gb": "%s:  Scenario: %s   Arena: %s    Simulants: %d",
+        "jp": "%s:  Scenario: %s   Arena: %s    Simulants: %d",
+        "it": "%s:  Scenario: %s   Arena: %s    Simulants: %d",
+        "fr": "%s:  Scenario: %s   Arena: %s    Simulants: %d",
+        "de": "%s:  Scenario: %s   Arena: %s    Simulants: %d",
+        "es": "%s:  Scenario: %s   Arena: %s    Simulants: %d"
+    },
+    {
+        "id": "L_MPMENU_141",
+        "en": "Presets\n",
+        "gb": "Presets\n",
+        "jp": "Presets\n",
+        "it": "Presets\n",
+        "fr": "Presets\n",
+        "de": "Presets\n",
+        "es": "Presets\n"
+    },
+    {
+        "id": "L_MPMENU_142",
+        "en": "Player Name\n",
+        "gb": "Player Name\n",
+        "jp": "Player Name\n",
+        "it": "Player Name\n",
+        "fr": "Player Name\n",
+        "de": "Player Name\n",
+        "es": "Player Name\n"
+    },
+    {
+        "id": "L_MPMENU_143",
+        "en": "Character\n",
+        "gb": "Character\n",
+        "jp": "Character\n",
+        "it": "Character\n",
+        "fr": "Character\n",
+        "de": "Character\n",
+        "es": "Character\n"
+    },
+    {
+        "id": "L_MPMENU_144",
+        "en": "Load Head...\n",
+        "gb": "Load Head...\n",
+        "jp": "Load Head...\n",
+        "it": "Load Head...\n",
+        "fr": "Load Head...\n",
+        "de": "Load Head...\n",
+        "es": "Load Head...\n"
+    },
+    {
+        "id": "L_MPMENU_145",
+        "en": "Stats for %s\n",
+        "gb": "Statistics\n",
+        "jp": "Statistics\n",
+        "it": "Statistics\n",
+        "fr": "Statistics\n",
+        "de": "Statistics\n",
+        "es": "Statistics\n"
+    },
+    {
+        "id": "L_MPMENU_146",
+        "en": "Kills:\n",
+        "gb": "Kills:\n",
+        "jp": "Kills:\n",
+        "it": "Kills:\n",
+        "fr": "Kills:\n",
+        "de": "Kills:\n",
+        "es": "Kills:\n"
+    },
+    {
+        "id": "L_MPMENU_147",
+        "en": "Deaths:\n",
+        "gb": "Deaths:\n",
+        "jp": "Deaths:\n",
+        "it": "Deaths:\n",
+        "fr": "Deaths:\n",
+        "de": "Deaths:\n",
+        "es": "Deaths:\n"
+    },
+    {
+        "id": "L_MPMENU_148",
+        "en": "Accuracy:\n",
+        "gb": "Accuracy:\n",
+        "jp": "Accuracy:\n",
+        "it": "Accuracy:\n",
+        "fr": "Accuracy:\n",
+        "de": "Accuracy:\n",
+        "es": "Accuracy:\n"
+    },
+    {
+        "id": "L_MPMENU_149",
+        "en": "Head Shots:\n",
+        "gb": "Head Shots:\n",
+        "jp": "Head Shots:\n",
+        "it": "Head Shots:\n",
+        "fr": "Head Shots:\n",
+        "de": "Head Shots:\n",
+        "es": "Head Shots:\n"
+    },
+    {
+        "id": "L_MPMENU_150",
+        "en": "Ammo Used:\n",
+        "gb": "Ammo Used:\n",
+        "jp": "Ammo Used:\n",
+        "it": "Ammo Used:\n",
+        "fr": "Ammo Used:\n",
+        "de": "Ammo Used:\n",
+        "es": "Ammo Used:\n"
+    },
+    {
+        "id": "L_MPMENU_151",
+        "en": "Damage Dealt:\n",
+        "gb": "Damage Dealt:\n",
+        "jp": "Damage Dealt:\n",
+        "it": "Damage Dealt:\n",
+        "fr": "Damage Dealt:\n",
+        "de": "Damage Dealt:\n",
+        "es": "Damage Dealt:\n"
+    },
+    {
+        "id": "L_MPMENU_152",
+        "en": "Pain Received:\n",
+        "gb": "Pain Received:\n",
+        "jp": "Pain Received:\n",
+        "it": "Pain Received:\n",
+        "fr": "Pain Received:\n",
+        "de": "Pain Received:\n",
+        "es": "Pain Received:\n"
+    },
+    {
+        "id": "L_MPMENU_153",
+        "en": "Games Played:\n",
+        "gb": "Games Played:\n",
+        "jp": "Games Played:\n",
+        "it": "Games Played:\n",
+        "fr": "Games Played:\n",
+        "de": "Games Played:\n",
+        "es": "Games Played:\n"
+    },
+    {
+        "id": "L_MPMENU_154",
+        "en": "Games Won:\n",
+        "gb": "Games Won:\n",
+        "jp": "Games Won:\n",
+        "it": "Games Won:\n",
+        "fr": "Games Won:\n",
+        "de": "Games Won:\n",
+        "es": "Games Won:\n"
+    },
+    {
+        "id": "L_MPMENU_155",
+        "en": "Games Lost:\n",
+        "gb": "Games Lost:\n",
+        "jp": "Games Lost:\n",
+        "it": "Games Lost:\n",
+        "fr": "Games Lost:\n",
+        "de": "Games Lost:\n",
+        "es": "Games Lost:\n"
+    },
+    {
+        "id": "L_MPMENU_156",
+        "en": "Time:\n",
+        "gb": "Time Spent:\n",
+        "jp": "Time Spent:\n",
+        "it": "Time Spent:\n",
+        "fr": "Time Spent:\n",
+        "de": "Time Spent:\n",
+        "es": "Time Spent:\n"
+    },
+    {
+        "id": "L_MPMENU_157",
+        "en": "Distance:\n",
+        "gb": "Distance:\n",
+        "jp": "Distance:\n",
+        "it": "Distance:\n",
+        "fr": "Distance:\n",
+        "de": "Distance:\n",
+        "es": "Distance:\n"
+    },
+    {
+        "id": "L_MPMENU_158",
+        "en": "Medals Won:\n",
+        "gb": "Medals Won:\n",
+        "jp": "Medals Won:\n",
+        "it": "Medals Won:\n",
+        "fr": "Medals Won:\n",
+        "de": "Medals Won:\n",
+        "es": "Medals Won:\n"
+    },
+    {
+        "id": "L_MPMENU_159",
+        "en": "   Accuracy:\n",
+        "gb": "   Accuracy:\n",
+        "jp": "   Accuracy:\n",
+        "it": "   Accuracy:\n",
+        "fr": "   Accuracy:\n",
+        "de": "   Accuracy:\n",
+        "es": "   Accuracy:\n"
+    },
+    {
+        "id": "L_MPMENU_160",
+        "en": "   Head Shot:\n",
+        "gb": "   Head Shot:\n",
+        "jp": "   Head Shot:\n",
+        "it": "   Head Shot:\n",
+        "fr": "   Head Shot:\n",
+        "de": "   Head Shot:\n",
+        "es": "   Head Shot:\n"
+    },
+    {
+        "id": "L_MPMENU_161",
+        "en": "   KillMaster:\n",
+        "gb": "   KillMaster:\n",
+        "jp": "   KillMaster:\n",
+        "it": "   KillMaster:\n",
+        "fr": "   KillMaster:\n",
+        "de": "   KillMaster:\n",
+        "es": "   KillMaster:\n"
+    },
+    {
+        "id": "L_MPMENU_162",
+        "en": "   Survivor:\n",
+        "gb": "   Survivor:\n",
+        "jp": "   Survivor:\n",
+        "it": "   Survivor:\n",
+        "fr": "   Survivor:\n",
+        "de": "   Survivor:\n",
+        "es": "   Survivor:\n"
+    },
+    {
+        "id": "L_MPMENU_163",
+        "en": "Your Title:\n",
+        "gb": "Your Title:\n",
+        "jp": "Your Title:\n",
+        "it": "Your Title:\n",
+        "fr": "Your Title:\n",
+        "de": "Your Title:\n",
+        "es": "Your Title:\n"
+    },
+    {
+        "id": "L_MPMENU_164",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "Back\n",
+        "it": "Back\n",
+        "fr": "Back\n",
+        "de": "Back\n",
+        "es": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_165",
+        "en": "Completed Challenges\n",
+        "gb": "Completed Challenges\n",
+        "jp": "Completed Challenges\n",
+        "it": "Completed Challenges\n",
+        "fr": "Completed Challenges\n",
+        "de": "Completed Challenges\n",
+        "es": "Completed Challenges\n"
+    },
+    {
+        "id": "L_MPMENU_166",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "Back\n",
+        "it": "Back\n",
+        "fr": "Back\n",
+        "de": "Back\n",
+        "es": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_167",
+        "en": "Options\n",
+        "gb": "Options\n",
+        "jp": "Options\n",
+        "it": "Options\n",
+        "fr": "Options\n",
+        "de": "Options\n",
+        "es": "Options\n"
+    },
+    {
+        "id": "L_MPMENU_168",
+        "en": "Highlight Pickups\n",
+        "gb": "Highlight Pickups\n",
+        "jp": "Highlight Pickups\n",
+        "it": "Highlight Pickups\n",
+        "fr": "Highlight Pickups\n",
+        "de": "Highlight Pickups\n",
+        "es": "Highlight Pickups\n"
+    },
+    {
+        "id": "L_MPMENU_169",
+        "en": "Highlight Players\n",
+        "gb": "Highlight Players\n",
+        "jp": "Highlight Players\n",
+        "it": "Highlight Players\n",
+        "fr": "Highlight Players\n",
+        "de": "Highlight Players\n",
+        "es": "Highlight Players\n"
+    },
+    {
+        "id": "L_MPMENU_170",
+        "en": "Highlight Teams\n",
+        "gb": "Highlight Teams\n",
+        "jp": "Highlight Teams\n",
+        "it": "Highlight Teams\n",
+        "fr": "Highlight Teams\n",
+        "de": "Highlight Teams\n",
+        "es": "Highlight Teams\n"
+    },
+    {
+        "id": "L_MPMENU_171",
+        "en": "Radar\n",
+        "gb": "Radar\n",
+        "jp": "Radar\n",
+        "it": "Radar\n",
+        "fr": "Radar\n",
+        "de": "Radar\n",
+        "es": "Radar\n"
+    },
+    {
+        "id": "L_MPMENU_172",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "Back\n",
+        "it": "Back\n",
+        "fr": "Back\n",
+        "de": "Back\n",
+        "es": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_173",
+        "en": "Weapons\n",
+        "gb": "Weapons\n",
+        "jp": "Weapons\n",
+        "it": "Weapons\n",
+        "fr": "Weapons\n",
+        "de": "Weapons\n",
+        "es": "Weapons\n"
+    },
+    {
+        "id": "L_MPMENU_174",
+        "en": "Set:\n",
+        "gb": "Set:\n",
+        "jp": "Set:\n",
+        "it": "Set:\n",
+        "fr": "Set:\n",
+        "de": "Set:\n",
+        "es": "Set:\n"
+    },
+    {
+        "id": "L_MPMENU_175",
+        "en": "Current Weapon Setup:\n",
+        "gb": "Current Weapon Setup:\n",
+        "jp": "Current Weapon Setup:\n",
+        "it": "Current Weapon Setup:\n",
+        "fr": "Current Weapon Setup:\n",
+        "de": "Current Weapon Setup:\n",
+        "es": "Current Weapon Setup:\n"
+    },
+    {
+        "id": "L_MPMENU_176",
+        "en": "1:\n",
+        "gb": "1:\n",
+        "jp": "1:\n",
+        "it": "1:\n",
+        "fr": "1:\n",
+        "de": "1:\n",
+        "es": "1:\n"
+    },
+    {
+        "id": "L_MPMENU_177",
+        "en": "2:\n",
+        "gb": "2:\n",
+        "jp": "2:\n",
+        "it": "2:\n",
+        "fr": "2:\n",
+        "de": "2:\n",
+        "es": "2:\n"
+    },
+    {
+        "id": "L_MPMENU_178",
+        "en": "3:\n",
+        "gb": "3:\n",
+        "jp": "3:\n",
+        "it": "3:\n",
+        "fr": "3:\n",
+        "de": "3:\n",
+        "es": "3:\n"
+    },
+    {
+        "id": "L_MPMENU_179",
+        "en": "4:\n",
+        "gb": "4:\n",
+        "jp": "4:\n",
+        "it": "4:\n",
+        "fr": "4:\n",
+        "de": "4:\n",
+        "es": "4:\n"
+    },
+    {
+        "id": "L_MPMENU_180",
+        "en": "5:\n",
+        "gb": "5:\n",
+        "jp": "5:\n",
+        "it": "5:\n",
+        "fr": "5:\n",
+        "de": "5:\n",
+        "es": "5:\n"
+    },
+    {
+        "id": "L_MPMENU_181",
+        "en": "6:\n",
+        "gb": "6:\n",
+        "jp": "6:\n",
+        "it": "6:\n",
+        "fr": "6:\n",
+        "de": "6:\n",
+        "es": "6:\n"
+    },
+    {
+        "id": "L_MPMENU_182",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "Back\n",
+        "it": "Back\n",
+        "fr": "Back\n",
+        "de": "Back\n",
+        "es": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_183",
+        "en": "Save Game Setup\n",
+        "gb": "Save Game Setup\n",
+        "jp": "Save Game Setup\n",
+        "it": "Save Game Setup\n",
+        "fr": "Save Game Setup\n",
+        "de": "Save Game Setup\n",
+        "es": "Save Game Setup\n"
+    },
+    {
+        "id": "L_MPMENU_184",
+        "en": "Do you want to save\nover your original\ngame file?\n",
+        "gb": "Do you want to save over\nyour original game file?\n",
+        "jp": "Do you want to save over\nyour original game file?\n",
+        "it": "Do you want to save over\nyour original game file?\n",
+        "fr": "Do you want to save over\nyour original game file?\n",
+        "de": "Do you want to save over\nyour original game file?\n",
+        "es": "Do you want to save over\nyour original game file?\n"
+    },
+    {
+        "id": "L_MPMENU_185",
+        "en": "Save Over Original\n",
+        "gb": "Save Over Original\n",
+        "jp": "Save Over Original\n",
+        "it": "Save Over Original\n",
+        "fr": "Save Over Original\n",
+        "de": "Save Over Original\n",
+        "es": "Save Over Original\n"
+    },
+    {
+        "id": "L_MPMENU_186",
+        "en": "Save Copy\n",
+        "gb": "Save Copy\n",
+        "jp": "Save Copy\n",
+        "it": "Save Copy\n",
+        "fr": "Save Copy\n",
+        "de": "Save Copy\n",
+        "es": "Save Copy\n"
+    },
+    {
+        "id": "L_MPMENU_187",
+        "en": "Do Not Save\n",
+        "gb": "Do Not Save\n",
+        "jp": "Do Not Save\n",
+        "it": "Do Not Save\n",
+        "fr": "Do Not Save\n",
+        "de": "Do Not Save\n",
+        "es": "Do Not Save\n"
+    },
+    {
+        "id": "L_MPMENU_188",
+        "en": "Game File Name\n",
+        "gb": "Game File Name\n",
+        "jp": "Game File Name\n",
+        "it": "Game File Name\n",
+        "fr": "Game File Name\n",
+        "de": "Game File Name\n",
+        "es": "Game File Name\n"
+    },
+    {
+        "id": "L_MPMENU_189",
+        "en": "Enter a name for your\ngame setup file:\n",
+        "gb": "Enter a name for your\ngame setup file:\n",
+        "jp": "Enter a name for your\ngame setup file:\n",
+        "it": "Enter a name for your\ngame setup file:\n",
+        "fr": "Enter a name for your\ngame setup file:\n",
+        "de": "Enter a name for your\ngame setup file:\n",
+        "es": "Enter a name for your\ngame setup file:\n"
+    },
+    {
+        "id": "L_MPMENU_190",
+        "en": "Confirm\n",
+        "gb": "Confirm\n",
+        "jp": "Confirm\n",
+        "it": "Confirm\n",
+        "fr": "Confirm\n",
+        "de": "Confirm\n",
+        "es": "Confirm\n"
+    },
+    {
+        "id": "L_MPMENU_191",
+        "en": "Your player file is\nalways saved\nautomatically.\n",
+        "gb": "Your player file is\nalways saved\nautomatically.\n",
+        "jp": "Your player file is\nalways saved\nautomatically.\n",
+        "it": "Your player file is\nalways saved\nautomatically.\n",
+        "fr": "Your player file is\nalways saved\nautomatically.\n",
+        "de": "Your player file is\nalways saved\nautomatically.\n",
+        "es": "Your player file is\nalways saved\nautomatically.\n"
+    },
+    {
+        "id": "L_MPMENU_192",
+        "en": "Save a copy now?\n",
+        "gb": "Save a copy now?\n",
+        "jp": "Save a copy now?\n",
+        "it": "Save a copy now?\n",
+        "fr": "Save a copy now?\n",
+        "de": "Save a copy now?\n",
+        "es": "Save a copy now?\n"
+    },
+    {
+        "id": "L_MPMENU_193",
+        "en": "No\n",
+        "gb": "No\n",
+        "jp": "No\n",
+        "it": "No\n",
+        "fr": "No\n",
+        "de": "No\n",
+        "es": "No\n"
+    },
+    {
+        "id": "L_MPMENU_194",
+        "en": "Yes\n",
+        "gb": "Yes\n",
+        "jp": "Yes\n",
+        "it": "Yes\n",
+        "fr": "Yes\n",
+        "de": "Yes\n",
+        "es": "Yes\n"
+    },
+    {
+        "id": "L_MPMENU_195",
+        "en": "Drop Out\n",
+        "gb": "Drop Out\n",
+        "jp": "Drop out\n",
+        "it": "Drop Out\n",
+        "fr": "Drop Out\n",
+        "de": "Drop Out\n",
+        "es": "Drop Out\n"
+    },
+    {
+        "id": "L_MPMENU_196",
+        "en": "Are you sure you\nwant to drop out?\n",
+        "gb": "Are you sure you\nwant to drop out?\n",
+        "jp": "Are you sure you\nwant to drop out?\n",
+        "it": "Are you sure you\nwant to drop out?\n",
+        "fr": "Are you sure you\nwant to drop out?\n",
+        "de": "Are you sure you\nwant to drop out?\n",
+        "es": "Are you sure you\nwant to drop out?\n"
+    },
+    {
+        "id": "L_MPMENU_197",
+        "en": "Drop Out\n",
+        "gb": "Drop Out\n",
+        "jp": "Drop Out\n",
+        "it": "Drop Out\n",
+        "fr": "Drop Out\n",
+        "de": "Drop Out\n",
+        "es": "Drop Out\n"
+    },
+    {
+        "id": "L_MPMENU_198",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Cancel\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_199",
+        "en": "Control\n",
+        "gb": "Control\n",
+        "jp": "Control\n",
+        "it": "Control\n",
+        "fr": "Control\n",
+        "de": "Control\n",
+        "es": "Control\n"
+    },
+    {
+        "id": "L_MPMENU_200",
+        "en": "Control Style\n",
+        "gb": "Control Style\n",
+        "jp": "Control Style\n",
+        "it": "Control Style\n",
+        "fr": "Control Style\n",
+        "de": "Control Style\n",
+        "es": "Control Style\n"
+    },
+    {
+        "id": "L_MPMENU_201",
+        "en": "Reverse Pitch\n",
+        "gb": "Reverse Pitch\n",
+        "jp": "Reverse Pitch\n",
+        "it": "Reverse Pitch\n",
+        "fr": "Reverse Pitch\n",
+        "de": "Reverse Pitch\n",
+        "es": "Reverse Pitch\n"
+    },
+    {
+        "id": "L_MPMENU_202",
+        "en": "Look Ahead\n",
+        "gb": "Look Ahead\n",
+        "jp": "Look Ahead\n",
+        "it": "Look Ahead\n",
+        "fr": "Look Ahead\n",
+        "de": "Look Ahead\n",
+        "es": "Look Ahead\n"
+    },
+    {
+        "id": "L_MPMENU_203",
+        "en": "Head Roll\n",
+        "gb": "Head Roll\n",
+        "jp": "Head Roll\n",
+        "it": "Head Roll\n",
+        "fr": "Head Roll\n",
+        "de": "Head Roll\n",
+        "es": "Head Roll\n"
+    },
+    {
+        "id": "L_MPMENU_204",
+        "en": "Auto-Aim\n",
+        "gb": "Auto-Aim\n",
+        "jp": "Auto-Aim\n",
+        "it": "Auto-Aim\n",
+        "fr": "Auto-Aim\n",
+        "de": "Auto-Aim\n",
+        "es": "Auto-Aim\n"
+    },
+    {
+        "id": "L_MPMENU_205",
+        "en": "Aim Control\n",
+        "gb": "Aim Control\n",
+        "jp": "Aim Control\n",
+        "it": "Aim Control\n",
+        "fr": "Aim Control\n",
+        "de": "Aim Control\n",
+        "es": "Aim Control\n"
+    },
+    {
+        "id": "L_MPMENU_206",
+        "en": "Sight on Screen\n",
+        "gb": "Sight on Screen\n",
+        "jp": "Sight On Screen\n",
+        "it": "Sight on Screen\n",
+        "fr": "Sight on Screen\n",
+        "de": "Sight on Screen\n",
+        "es": "Sight on Screen\n"
+    },
+    {
+        "id": "L_MPMENU_207",
+        "en": "Show Target\n",
+        "gb": "Show Target\n",
+        "jp": "Show Target\n",
+        "it": "Show Target\n",
+        "fr": "Show Target\n",
+        "de": "Show Target\n",
+        "es": "Show Target\n"
+    },
+    {
+        "id": "L_MPMENU_208",
+        "en": "Zoom Range\n",
+        "gb": "Zoom Range\n",
+        "jp": "Zoom Range\n",
+        "it": "Zoom Range\n",
+        "fr": "Zoom Range\n",
+        "de": "Zoom Range\n",
+        "es": "Zoom Range\n"
+    },
+    {
+        "id": "L_MPMENU_209",
+        "en": "Ammo on Screen\n",
+        "gb": "Ammo on Screen\n",
+        "jp": "Ammo On Screen\n",
+        "it": "Ammo on Screen\n",
+        "fr": "Ammo on Screen\n",
+        "de": "Ammo on Screen\n",
+        "es": "Ammo on Screen\n"
+    },
+    {
+        "id": "L_MPMENU_210",
+        "en": "Gun Function\n",
+        "gb": "Gun Function\n",
+        "jp": "Gun Function\n",
+        "it": "Gun Function\n",
+        "fr": "Gun Function\n",
+        "de": "Gun Function\n",
+        "es": "Gun Function\n"
+    },
+    {
+        "id": "L_MPMENU_211",
+        "en": "Paintball\n",
+        "gb": "Paintball\n",
+        "jp": "Paintball\n",
+        "it": "Paintball\n",
+        "fr": "Paintball\n",
+        "de": "Paintball\n",
+        "es": "Paintball\n"
+    },
+    {
+        "id": "L_MPMENU_212",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "Back\n",
+        "it": "Back\n",
+        "fr": "Back\n",
+        "de": "Back\n",
+        "es": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_213",
+        "en": "Hold\n",
+        "gb": "Hold\n",
+        "jp": "Hold\n",
+        "it": "Hold\n",
+        "fr": "Hold\n",
+        "de": "Hold\n",
+        "es": "Hold\n"
+    },
+    {
+        "id": "L_MPMENU_214",
+        "en": "Toggle\n",
+        "gb": "Toggle\n",
+        "jp": "Toggle\n",
+        "it": "Toggle\n",
+        "fr": "Toggle\n",
+        "de": "Toggle\n",
+        "es": "Toggle\n"
+    },
+    {
+        "id": "L_MPMENU_215",
+        "en": "Combat Options\n",
+        "gb": "Combat Options\n",
+        "jp": "Combat Options\n",
+        "it": "Combat Options\n",
+        "fr": "Combat Options\n",
+        "de": "Combat Options\n",
+        "es": "Combat Options\n"
+    },
+    {
+        "id": "L_MPMENU_216",
+        "en": "Briefcase Options\n",
+        "gb": "Briefcase Options\n",
+        "jp": "Briefcase Options\n",
+        "it": "Briefcase Options\n",
+        "fr": "Briefcase Options\n",
+        "de": "Briefcase Options\n",
+        "es": "Briefcase Options\n"
+    },
+    {
+        "id": "L_MPMENU_217",
+        "en": "Hacker Options\n",
+        "gb": "Hacker Options\n",
+        "jp": "Hacking Options\n",
+        "it": "Hacker Options\n",
+        "fr": "Hacker Options\n",
+        "de": "Hacker Options\n",
+        "es": "Hacker Options\n"
+    },
+    {
+        "id": "L_MPMENU_218",
+        "en": "Pop a Cap Options\n",
+        "gb": "Pop a Cap Options\n",
+        "jp": "Pop A Cap Options\n",
+        "it": "Pop a Cap Options\n",
+        "fr": "Pop a Cap Options\n",
+        "de": "Pop a Cap Options\n",
+        "es": "Pop a Cap Options\n"
+    },
+    {
+        "id": "L_MPMENU_219",
+        "en": "Hill Options\n",
+        "gb": "Hill Options\n",
+        "jp": "Hill Options\n",
+        "it": "Hill Options\n",
+        "fr": "Hill Options\n",
+        "de": "Hill Options\n",
+        "es": "Hill Options\n"
+    },
+    {
+        "id": "L_MPMENU_220",
+        "en": "Capture Options\n",
+        "gb": "Capture Options\n",
+        "jp": "Flags Options\n",
+        "it": "Capture Options\n",
+        "fr": "Capture Options\n",
+        "de": "Capture Options\n",
+        "es": "Capture Options\n"
+    },
+    {
+        "id": "L_MPMENU_221",
+        "en": "Boxes Options\n",
+        "gb": "Boxes Options\n",
+        "jp": "Boxes Options\n",
+        "it": "Boxes Options\n",
+        "fr": "Boxes Options\n",
+        "de": "Boxes Options\n",
+        "es": "Boxes Options\n"
+    },
+    {
+        "id": "L_MPMENU_222",
+        "en": "One-Hit Kills\n",
+        "gb": "One-Hit Kills\n",
+        "jp": "One-Hit Kills\n",
+        "it": "One-Hit Kills\n",
+        "fr": "One-Hit Kills\n",
+        "de": "One-Hit Kills\n",
+        "es": "One-Hit Kills\n"
+    },
+    {
+        "id": "L_MPMENU_223",
+        "en": "Slow Motion\n",
+        "gb": "Slow Motion\n",
+        "jp": "Slow Motion\n",
+        "it": "Slow Motion\n",
+        "fr": "Slow Motion\n",
+        "de": "Slow Motion\n",
+        "es": "Slow Motion\n"
+    },
+    {
+        "id": "L_MPMENU_224",
+        "en": "Fast Movement\n",
+        "gb": "Fast Movement\n",
+        "jp": "Fast Movement\n",
+        "it": "Fast Movement\n",
+        "fr": "Fast Movement\n",
+        "de": "Fast Movement\n",
+        "es": "Fast Movement\n"
+    },
+    {
+        "id": "L_MPMENU_225",
+        "en": "Display Team\n",
+        "gb": "Display Team\n",
+        "jp": "Display Team\n",
+        "it": "Display Team\n",
+        "fr": "Display Team\n",
+        "de": "Display Team\n",
+        "es": "Display Team\n"
+    },
+    {
+        "id": "L_MPMENU_226",
+        "en": "No Radar\n",
+        "gb": "No Radar\n",
+        "jp": "No Radar\n",
+        "it": "No Radar\n",
+        "fr": "No Radar\n",
+        "de": "No Radar\n",
+        "es": "No Radar\n"
+    },
+    {
+        "id": "L_MPMENU_227",
+        "en": "No Auto-Aim\n",
+        "gb": "No Auto-Aim\n",
+        "jp": "No Auto-Aim\n",
+        "it": "No Auto-Aim\n",
+        "fr": "No Auto-Aim\n",
+        "de": "No Auto-Aim\n",
+        "es": "No Auto-Aim\n"
+    },
+    {
+        "id": "L_MPMENU_228",
+        "en": "No Player Highlight\n",
+        "gb": "No Player Highlight\n",
+        "jp": "No Player Highlight\n",
+        "it": "No Player Highlight\n",
+        "fr": "No Player Highlight\n",
+        "de": "No Player Highlight\n",
+        "es": "No Player Highlight\n"
+    },
+    {
+        "id": "L_MPMENU_229",
+        "en": "No Pickup Highlight\n",
+        "gb": "No Pickup Highlight\n",
+        "jp": "No Pickup Highlight\n",
+        "it": "No Pickup Highlight\n",
+        "fr": "No Pickup Highlight\n",
+        "de": "No Pickup Highlight\n",
+        "es": "No Pickup Highlight\n"
+    },
+    {
+        "id": "L_MPMENU_230",
+        "en": "Highlight Target\n",
+        "gb": "Highlight Target\n",
+        "jp": "Highlight Target\n",
+        "it": "Highlight Target\n",
+        "fr": "Highlight Target\n",
+        "de": "Highlight Target\n",
+        "es": "Highlight Target\n"
+    },
+    {
+        "id": "L_MPMENU_231",
+        "en": "Highlight Terminal\n",
+        "gb": "Highlight Terminal\n",
+        "jp": "Highlight Mac\n",
+        "it": "Highlight Terminal\n",
+        "fr": "Highlight Terminal\n",
+        "de": "Highlight Terminal\n",
+        "es": "Highlight Terminal\n"
+    },
+    {
+        "id": "L_MPMENU_232",
+        "en": "Boxes on Radar\n",
+        "gb": "Boxes on Radar\n",
+        "jp": "Boxes on Radar\n",
+        "it": "Boxes on Radar\n",
+        "fr": "Boxes on Radar\n",
+        "de": "Boxes on Radar\n",
+        "es": "Boxes on Radar\n"
+    },
+    {
+        "id": "L_MPMENU_233",
+        "en": "Hill on Radar\n",
+        "gb": "Hill on Radar\n",
+        "jp": "Hill on Radar\n",
+        "it": "Hill on Radar\n",
+        "fr": "Hill on Radar\n",
+        "de": "Hill on Radar\n",
+        "es": "Hill on Radar\n"
+    },
+    {
+        "id": "L_MPMENU_234",
+        "en": "Mobile Hill\n",
+        "gb": "Mobile Hill\n",
+        "jp": "Mobile Hill\n",
+        "it": "Mobile Hill\n",
+        "fr": "Mobile Hill\n",
+        "de": "Mobile Hill\n",
+        "es": "Mobile Hill\n"
+    },
+    {
+        "id": "L_MPMENU_235",
+        "en": "Time\n",
+        "gb": "Time\n",
+        "jp": "Time\n",
+        "it": "Time\n",
+        "fr": "Time\n",
+        "de": "Time\n",
+        "es": "Time\n"
+    },
+    {
+        "id": "L_MPMENU_236",
+        "en": "Show on Radar\n",
+        "gb": "Show on Radar\n",
+        "jp": "Flags on Radar\n",
+        "it": "Show on Radar\n",
+        "fr": "Show on Radar\n",
+        "de": "Show on Radar\n",
+        "es": "Show on Radar\n"
+    },
+    {
+        "id": "L_MPMENU_237",
+        "en": "Highlight Briefcase\n",
+        "gb": "Highlight Briefcase\n",
+        "jp": "Highlight Briefcase\n",
+        "it": "Highlight Briefcase\n",
+        "fr": "Highlight Briefcase\n",
+        "de": "Highlight Briefcase\n",
+        "es": "Highlight Briefcase\n"
+    },
+    {
+        "id": "L_MPMENU_238",
+        "en": "Show on Radar\n",
+        "gb": "Show on Radar\n",
+        "jp": "Show on Radar\n",
+        "it": "Show on Radar\n",
+        "fr": "Show on Radar\n",
+        "de": "Show on Radar\n",
+        "es": "Show on Radar\n"
+    },
+    {
+        "id": "L_MPMENU_239",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "Back\n",
+        "it": "Back\n",
+        "fr": "Back\n",
+        "de": "Back\n",
+        "es": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_240",
+        "en": "Off\n",
+        "gb": "Off\n",
+        "jp": "Off\n",
+        "it": "Off\n",
+        "fr": "Off\n",
+        "de": "Off\n",
+        "es": "Off\n"
+    },
+    {
+        "id": "L_MPMENU_241",
+        "en": "On\n",
+        "gb": "On\n",
+        "jp": "On\n",
+        "it": "On\n",
+        "fr": "On\n",
+        "de": "On\n",
+        "es": "On\n"
+    },
+    {
+        "id": "L_MPMENU_242",
+        "en": "Smart\n",
+        "gb": "Smart\n",
+        "jp": "Smart\n",
+        "it": "Smart\n",
+        "fr": "Smart\n",
+        "de": "Smart\n",
+        "es": "Smart\n"
+    },
+    {
+        "id": "L_MPMENU_243",
+        "en": "Scenario\n",
+        "gb": "Scenario\n",
+        "jp": "Scenario\n",
+        "it": "Scenario\n",
+        "fr": "Scenario\n",
+        "de": "Scenario\n",
+        "es": "Scenario\n"
+    },
+    {
+        "id": "L_MPMENU_244",
+        "en": "Free for All!\n",
+        "gb": "Free for All!\n",
+        "jp": "Free for All!\n",
+        "it": "Free for All!\n",
+        "fr": "Free for All!\n",
+        "de": "Free for All!\n",
+        "es": "Free for All!\n"
+    },
+    {
+        "id": "L_MPMENU_245",
+        "en": "-Teamwork-\n",
+        "gb": "-Teamwork-\n",
+        "jp": "-Teamwork-\n",
+        "it": "-Teamwork-\n",
+        "fr": "-Teamwork-\n",
+        "de": "-Teamwork-\n",
+        "es": "-Teamwork-\n"
+    },
+    {
+        "id": "L_MPMENU_246",
+        "en": "Combat",
+        "gb": "Combat",
+        "jp": "Combat",
+        "it": "Combat",
+        "fr": "Combat",
+        "de": "Combat",
+        "es": "Combat"
+    },
+    {
+        "id": "L_MPMENU_247",
+        "en": "Hold the Briefcase",
+        "gb": "Hold the Briefcase",
+        "jp": "Capture The Briefcase",
+        "it": "Hold the Briefcase",
+        "fr": "Hold the Briefcase",
+        "de": "Hold the Briefcase",
+        "es": "Hold the Briefcase"
+    },
+    {
+        "id": "L_MPMENU_248",
+        "en": "Hacker Central",
+        "gb": "Hacker Central",
+        "jp": "Hack That Mac",
+        "it": "Hacker Central",
+        "fr": "Hacker Central",
+        "de": "Hacker Central",
+        "es": "Hacker Central"
+    },
+    {
+        "id": "L_MPMENU_249",
+        "en": "Pop a Cap",
+        "gb": "Pop a Cap",
+        "jp": "Pop A Cap",
+        "it": "Pop a Cap",
+        "fr": "Pop a Cap",
+        "de": "Pop a Cap",
+        "es": "Pop a Cap"
+    },
+    {
+        "id": "L_MPMENU_250",
+        "en": "King of the Hill",
+        "gb": "King of the Hill",
+        "jp": "King Of The Hill",
+        "it": "King of the Hill",
+        "fr": "King of the Hill",
+        "de": "King of the Hill",
+        "es": "King of the Hill"
+    },
+    {
+        "id": "L_MPMENU_251",
+        "en": "Capture the Case",
+        "gb": "Capture the Case",
+        "jp": "Capture The Flag",
+        "it": "Capture the Case",
+        "fr": "Capture the Case",
+        "de": "Capture the Case",
+        "es": "Capture the Case"
+    },
+    {
+        "id": "L_MPMENU_252",
+        "en": "Touch That Box",
+        "gb": "Touch That Box",
+        "jp": "Touch That Box",
+        "it": "Touch That Box",
+        "fr": "Touch That Box",
+        "de": "Touch That Box",
+        "es": "Touch That Box"
+    },
+    {
+        "id": "L_MPMENU_253",
+        "en": "Combat",
+        "gb": "Combat",
+        "jp": "Combat",
+        "it": "Combat",
+        "fr": "Combat",
+        "de": "Combat",
+        "es": "Combat"
+    },
+    {
+        "id": "L_MPMENU_254",
+        "en": "Briefcase",
+        "gb": "Briefcase",
+        "jp": "Briefcase",
+        "it": "Briefcase",
+        "fr": "Briefcase",
+        "de": "Briefcase",
+        "es": "Briefcase"
+    },
+    {
+        "id": "L_MPMENU_255",
+        "en": "Hacker",
+        "gb": "Hacker",
+        "jp": "Hack",
+        "it": "Hacker",
+        "fr": "Hacker",
+        "de": "Hacker",
+        "es": "Hacker"
+    },
+    {
+        "id": "L_MPMENU_256",
+        "en": "Pop",
+        "gb": "Pop",
+        "jp": "Pop",
+        "it": "Pop",
+        "fr": "Pop",
+        "de": "Pop",
+        "es": "Pop"
+    },
+    {
+        "id": "L_MPMENU_257",
+        "en": "Hill",
+        "gb": "Hill",
+        "jp": "Hill",
+        "it": "Hill",
+        "fr": "Hill",
+        "de": "Hill",
+        "es": "Hill"
+    },
+    {
+        "id": "L_MPMENU_258",
+        "en": "Capture",
+        "gb": "Capture",
+        "jp": "Flags",
+        "it": "Capture",
+        "fr": "Capture",
+        "de": "Capture",
+        "es": "Capture"
+    },
+    {
+        "id": "L_MPMENU_259",
+        "en": "Boxes",
+        "gb": "Boxes",
+        "jp": "Boxes",
+        "it": "Boxes",
+        "fr": "Boxes",
+        "de": "Boxes",
+        "es": "Boxes"
+    },
+    {
+        "id": "L_MPMENU_260",
+        "en": "Game Over\n",
+        "gb": "Game Over\n",
+        "jp": "Game Over\n",
+        "it": "Game Over\n",
+        "fr": "Game Over\n",
+        "de": "Game Over\n",
+        "es": "Game Over\n"
+    },
+    {
+        "id": "L_MPMENU_261",
+        "en": "Title:\n",
+        "gb": "Title:\n",
+        "jp": "Title:\n",
+        "it": "Title:\n",
+        "fr": "Title:\n",
+        "de": "Title:\n",
+        "es": "Title:\n"
+    },
+    {
+        "id": "L_MPMENU_262",
+        "en": "Weapon of Choice:\n",
+        "gb": "Weapon of Choice:\n",
+        "jp": "Weapon of Choice:\n",
+        "it": "Weapon of Choice:\n",
+        "fr": "Weapon of Choice:\n",
+        "de": "Weapon of Choice:\n",
+        "es": "Weapon of Choice:\n"
+    },
+    {
+        "id": "L_MPMENU_263",
+        "en": "Awards:\n",
+        "gb": "Awards:\n",
+        "jp": "Awards:\n",
+        "it": "Awards:\n",
+        "fr": "Awards:\n",
+        "de": "Awards:\n",
+        "es": "Awards:\n"
+    },
+    {
+        "id": "L_MPMENU_264",
+        "en": "1st\n",
+        "gb": "1st\n",
+        "jp": "1st\n",
+        "it": "1st\n",
+        "fr": "1st\n",
+        "de": "1st\n",
+        "es": "1st\n"
+    },
+    {
+        "id": "L_MPMENU_265",
+        "en": "2nd\n",
+        "gb": "2nd\n",
+        "jp": "2nd\n",
+        "it": "2nd\n",
+        "fr": "2nd\n",
+        "de": "2nd\n",
+        "es": "2nd\n"
+    },
+    {
+        "id": "L_MPMENU_266",
+        "en": "3rd\n",
+        "gb": "3rd\n",
+        "jp": "3rd\n",
+        "it": "3rd\n",
+        "fr": "3rd\n",
+        "de": "3rd\n",
+        "es": "3rd\n"
+    },
+    {
+        "id": "L_MPMENU_267",
+        "en": "4th\n",
+        "gb": "4th\n",
+        "jp": "4th\n",
+        "it": "4th\n",
+        "fr": "4th\n",
+        "de": "4th\n",
+        "es": "4th\n"
+    },
+    {
+        "id": "L_MPMENU_268",
+        "en": "5th\n",
+        "gb": "5th\n",
+        "jp": "5th\n",
+        "it": "5th\n",
+        "fr": "5th\n",
+        "de": "5th\n",
+        "es": "5th\n"
+    },
+    {
+        "id": "L_MPMENU_269",
+        "en": "6th\n",
+        "gb": "6th\n",
+        "jp": "6th\n",
+        "it": "6th\n",
+        "fr": "6th\n",
+        "de": "6th\n",
+        "es": "6th\n"
+    },
+    {
+        "id": "L_MPMENU_270",
+        "en": "7th\n",
+        "gb": "7th\n",
+        "jp": "7th\n",
+        "it": "7th\n",
+        "fr": "7th\n",
+        "de": "7th\n",
+        "es": "7th\n"
+    },
+    {
+        "id": "L_MPMENU_271",
+        "en": "8th\n",
+        "gb": "8th\n",
+        "jp": "8th\n",
+        "it": "8th\n",
+        "fr": "8th\n",
+        "de": "8th\n",
+        "es": "8th\n"
+    },
+    {
+        "id": "L_MPMENU_272",
+        "en": "9th\n",
+        "gb": "9th\n",
+        "jp": "9th\n",
+        "it": "9th\n",
+        "fr": "9th\n",
+        "de": "9th\n",
+        "es": "9th\n"
+    },
+    {
+        "id": "L_MPMENU_273",
+        "en": "10th\n",
+        "gb": "10th\n",
+        "jp": "10th\n",
+        "it": "10th\n",
+        "fr": "10th\n",
+        "de": "10th\n",
+        "es": "10th\n"
+    },
+    {
+        "id": "L_MPMENU_274",
+        "en": "11th\n",
+        "gb": "11th\n",
+        "jp": "11th\n",
+        "it": "11th\n",
+        "fr": "11th\n",
+        "de": "11th\n",
+        "es": "11th\n"
+    },
+    {
+        "id": "L_MPMENU_275",
+        "en": "12th\n",
+        "gb": "12th\n",
+        "jp": "12th\n",
+        "it": "12th\n",
+        "fr": "12th\n",
+        "de": "12th\n",
+        "es": "12th\n"
+    },
+    {
+        "id": "L_MPMENU_276",
+        "en": "Player Ranking\n",
+        "gb": "Player Ranking\n",
+        "jp": "Player Ranking\n",
+        "it": "Player Ranking\n",
+        "fr": "Player Ranking\n",
+        "de": "Player Ranking\n",
+        "es": "Player Ranking\n"
+    },
+    {
+        "id": "L_MPMENU_277",
+        "en": "Deaths\n",
+        "gb": "Deaths\n",
+        "jp": "Deaths\n",
+        "it": "Deaths\n",
+        "fr": "Deaths\n",
+        "de": "Deaths\n",
+        "es": "Deaths\n"
+    },
+    {
+        "id": "L_MPMENU_278",
+        "en": "Score\n",
+        "gb": "Score\n",
+        "jp": "Score\n",
+        "it": "Score\n",
+        "fr": "Score\n",
+        "de": "Score\n",
+        "es": "Score\n"
+    },
+    {
+        "id": "L_MPMENU_279",
+        "en": "Team Ranking\n",
+        "gb": "Team Ranking\n",
+        "jp": "Team Ranking\n",
+        "it": "Team Ranking\n",
+        "fr": "Team Ranking\n",
+        "de": "Team Ranking\n",
+        "es": "Team Ranking\n"
+    },
+    {
+        "id": "L_MPMENU_280",
+        "en": "Stats for %s",
+        "gb": "Stats for %s",
+        "jp": "Stats for %s",
+        "it": "Stats for %s",
+        "fr": "Stats for %s",
+        "de": "Stats for %s",
+        "es": "Stats for %s"
+    },
+    {
+        "id": "L_MPMENU_281",
+        "en": "Suicides\n",
+        "gb": "Suicides\n",
+        "jp": "Deaths\n",
+        "it": "Suicides\n",
+        "fr": "Suicides\n",
+        "de": "Suicides\n",
+        "es": "Suicides\n"
+    },
+    {
+        "id": "L_MPMENU_282",
+        "en": "Deaths\n",
+        "gb": "Deaths\n",
+        "jp": "Kills\n",
+        "it": "Deaths\n",
+        "fr": "Deaths\n",
+        "de": "Deaths\n",
+        "es": "Deaths\n"
+    },
+    {
+        "id": "L_MPMENU_283",
+        "en": "Kills\n",
+        "gb": "Kills\n",
+        "jp": "Inventory\n",
+        "it": "Kills\n",
+        "fr": "Kills\n",
+        "de": "Kills\n",
+        "es": "Kills\n"
+    },
+    {
+        "id": "L_MPMENU_284",
+        "en": "Inventory\n",
+        "gb": "Inventory\n",
+        "jp": "Control\n",
+        "it": "Inventory\n",
+        "fr": "Inventory\n",
+        "de": "Inventory\n",
+        "es": "Inventory\n"
+    },
+    {
+        "id": "L_MPMENU_285",
+        "en": "Control\n",
+        "gb": "Control\n",
+        "jp": "Game Time:\n",
+        "it": "Control\n",
+        "fr": "Control\n",
+        "de": "Control\n",
+        "es": "Control\n"
+    },
+    {
+        "id": "L_MPMENU_286",
+        "en": "Game Time:\n",
+        "gb": "Game Time:\n",
+        "jp": "End Game\n",
+        "it": "Game Time:\n",
+        "fr": "Game Time:\n",
+        "de": "Game Time:\n",
+        "es": "Game Time:\n"
+    },
+    {
+        "id": "L_MPMENU_287",
+        "en": "End Game\n",
+        "gb": "End Game\n",
+        "jp": "Pause\n",
+        "it": "End Game\n",
+        "fr": "End Game\n",
+        "de": "End Game\n",
+        "es": "End Game\n"
+    },
+    {
+        "id": "L_MPMENU_288",
+        "en": "Pause\n",
+        "gb": "Pause\n",
+        "jp": "Unpause\n",
+        "it": "Pause\n",
+        "fr": "Pause\n",
+        "de": "Pause\n",
+        "es": "Pause\n"
+    },
+    {
+        "id": "L_MPMENU_289",
+        "en": "Unpause\n",
+        "gb": "Unpause\n",
+        "jp": "End Game\n",
+        "it": "Unpause\n",
+        "fr": "Unpause\n",
+        "de": "Unpause\n",
+        "es": "Unpause\n"
+    },
+    {
+        "id": "L_MPMENU_290",
+        "en": "End Game\n",
+        "gb": "End Game\n",
+        "jp": "Are you sure?\n",
+        "it": "End Game\n",
+        "fr": "End Game\n",
+        "de": "End Game\n",
+        "es": "End Game\n"
+    },
+    {
+        "id": "L_MPMENU_291",
+        "en": "Are you sure?\n",
+        "gb": "Are you sure?\n",
+        "jp": "Cancel\n",
+        "it": "Are you sure?\n",
+        "fr": "Are you sure?\n",
+        "de": "Are you sure?\n",
+        "es": "Are you sure?\n"
+    },
+    {
+        "id": "L_MPMENU_292",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "End Game\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_293",
+        "en": "End Game\n",
+        "gb": "End Game\n",
+        "jp": "PerfectHead\n",
+        "it": "End Game\n",
+        "fr": "End Game\n",
+        "de": "End Game\n",
+        "es": "End Game\n"
+    },
+    {
+        "id": "L_MPMENU_294",
+        "en": "PerfectHead\n",
+        "gb": "PerfectHead\n",
+        "jp": "Load A Saved Head\n",
+        "it": "PerfectHead\n",
+        "fr": "PerfectHead\n",
+        "de": "PerfectHead\n",
+        "es": "PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_295",
+        "en": "Load A Saved Head\n",
+        "gb": "Load A Saved Head\n",
+        "jp": "Make A New Head\n",
+        "it": "Load A Saved Head\n",
+        "fr": "Load A Saved Head\n",
+        "de": "Load A Saved Head\n",
+        "es": "Load A Saved Head\n"
+    },
+    {
+        "id": "L_MPMENU_296",
+        "en": "Make A New Head\n",
+        "gb": "Make A New Head\n",
+        "jp": "Edit A Loaded Head\n",
+        "it": "Make A New Head\n",
+        "fr": "Make A New Head\n",
+        "de": "Make A New Head\n",
+        "es": "Make A New Head\n"
+    },
+    {
+        "id": "L_MPMENU_297",
+        "en": "Edit A Loaded Head\n",
+        "gb": "Edit A Loaded Head\n",
+        "jp": "Edit A PerfectHead\n",
+        "it": "Edit A Loaded Head\n",
+        "fr": "Edit A Loaded Head\n",
+        "de": "Edit A Loaded Head\n",
+        "es": "Edit A Loaded Head\n"
+    },
+    {
+        "id": "L_MPMENU_298",
+        "en": "Edit A PerfectHead\n",
+        "gb": "Edit A PerfectHead\n",
+        "jp": "Choose slot to edit:\n",
+        "it": "Edit A PerfectHead\n",
+        "fr": "Edit A PerfectHead\n",
+        "de": "Edit A PerfectHead\n",
+        "es": "Edit A PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_299",
+        "en": "Choose slot to edit:\n",
+        "gb": "Choose slot to edit:\n",
+        "jp": "Cancel\n",
+        "it": "Choose slot to edit:\n",
+        "fr": "Choose slot to edit:\n",
+        "de": "Choose slot to edit:\n",
+        "es": "Choose slot to edit:\n"
+    },
+    {
+        "id": "L_MPMENU_300",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Make A New Head\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_301",
+        "en": "Make A New Head\n",
+        "gb": "Make A New Head\n",
+        "jp": "Load A Saved Head\n",
+        "it": "Make A New Head\n",
+        "fr": "Make A New Head\n",
+        "de": "Make A New Head\n",
+        "es": "Make A New Head\n"
+    },
+    {
+        "id": "L_MPMENU_302",
+        "en": "Load A Saved Head\n",
+        "gb": "Load A Saved Head\n",
+        "jp": "Where do you want to be able\n",
+        "it": "Load A Saved Head\n",
+        "fr": "Load A Saved Head\n",
+        "de": "Load A Saved Head\n",
+        "es": "Load A Saved Head\n"
+    },
+    {
+        "id": "L_MPMENU_303",
+        "en": "Where do you want to be able\n",
+        "gb": "Where do you want to be able\n",
+        "jp": "to use this head?\n",
+        "it": "Where do you want to be able\n",
+        "fr": "Where do you want to be able\n",
+        "de": "Where do you want to be able\n",
+        "es": "Where do you want to be able\n"
+    },
+    {
+        "id": "L_MPMENU_304",
+        "en": "to use this head?\n",
+        "gb": "to use this head?\n",
+        "jp": "Combat Simulator\n",
+        "it": "to use this head?\n",
+        "fr": "to use this head?\n",
+        "de": "to use this head?\n",
+        "es": "to use this head?\n"
+    },
+    {
+        "id": "L_MPMENU_305",
+        "en": "Combat Simulator\n",
+        "gb": "Combat Simulator\n",
+        "jp": "All Missions\n",
+        "it": "Combat Simulator\n",
+        "fr": "Combat Simulator\n",
+        "de": "Combat Simulator\n",
+        "es": "Combat Simulator\n"
+    },
+    {
+        "id": "L_MPMENU_306",
+        "en": "All Missions\n",
+        "gb": "All Missions\n",
+        "jp": "Both\n",
+        "it": "All Missions\n",
+        "fr": "All Missions\n",
+        "de": "All Missions\n",
+        "es": "All Missions\n"
+    },
+    {
+        "id": "L_MPMENU_307",
+        "en": "Both\n",
+        "gb": "Both\n",
+        "jp": "Cancel\n",
+        "it": "Both\n",
+        "fr": "Both\n",
+        "de": "Both\n",
+        "es": "Both\n"
+    },
+    {
+        "id": "L_MPMENU_308",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Camera Set-Up\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_309",
+        "en": "Camera Setup\n",
+        "gb": "Camera Setup\n",
+        "jp": "Insert your camera into your\n",
+        "it": "Camera Setup\n",
+        "fr": "Camera Setup\n",
+        "de": "Camera Setup\n",
+        "es": "Camera Setup\n"
+    },
+    {
+        "id": "L_MPMENU_310",
+        "en": "Insert your camera into your\n",
+        "gb": "Insert your camera into your\n",
+        "jp": "Game Boy Pak.\n",
+        "it": "Insert your camera into your\n",
+        "fr": "Insert your camera into your\n",
+        "de": "Insert your camera into your\n",
+        "es": "Insert your camera into your\n"
+    },
+    {
+        "id": "L_MPMENU_311",
+        "en": "Game Boy Pak.\n",
+        "gb": "Game Boy Pak.\n",
+        "jp": "Then, Insert your Game Boy Pak\n",
+        "it": "Game Boy Pak.\n",
+        "fr": "Game Boy Pak.\n",
+        "de": "Game Boy Pak.\n",
+        "es": "Game Boy Pak.\n"
+    },
+    {
+        "id": "L_MPMENU_312",
+        "en": "Then, insert your Game Boy Pak\n",
+        "gb": "Then, insert your Game Boy Pak\n",
+        "jp": "into any controller.\n",
+        "it": "Then, insert your Game Boy Pak\n",
+        "fr": "Then, insert your Game Boy Pak\n",
+        "de": "Then, insert your Game Boy Pak\n",
+        "es": "Then, insert your Game Boy Pak\n"
+    },
+    {
+        "id": "L_MPMENU_313",
+        "en": "into any controller.\n",
+        "gb": "into any controller.\n",
+        "jp": "OK\n",
+        "it": "into any controller.\n",
+        "fr": "into any controller.\n",
+        "de": "into any controller.\n",
+        "es": "into any controller.\n"
+    },
+    {
+        "id": "L_MPMENU_314",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "Cancel\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_315",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Error\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_316",
+        "en": "Error\n",
+        "gb": "Error\n",
+        "jp": "Game Boy Camera Not Detected!\n",
+        "it": "Error\n",
+        "fr": "Error\n",
+        "de": "Error\n",
+        "es": "Error\n"
+    },
+    {
+        "id": "L_MPMENU_317",
+        "en": "Game Boy Camera Not Detected!\n",
+        "gb": "Game Boy Camera Not Detected!\n",
+        "jp": "Please check all connections\n",
+        "it": "Game Boy Camera Not Detected!\n",
+        "fr": "Game Boy Camera Not Detected!\n",
+        "de": "Game Boy Camera Not Detected!\n",
+        "es": "Game Boy Camera Not Detected!\n"
+    },
+    {
+        "id": "L_MPMENU_318",
+        "en": "Please check all connections\n",
+        "gb": "Please check all connections\n",
+        "jp": "and try again.\n",
+        "it": "Please check all connections\n",
+        "fr": "Please check all connections\n",
+        "de": "Please check all connections\n",
+        "es": "Please check all connections\n"
+    },
+    {
+        "id": "L_MPMENU_319",
+        "en": "and try again.\n",
+        "gb": "and try again.\n",
+        "jp": "Cancel\n",
+        "it": "and try again.\n",
+        "fr": "and try again.\n",
+        "de": "and try again.\n",
+        "es": "and try again.\n"
+    },
+    {
+        "id": "L_MPMENU_320",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Choose Camera\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_321",
+        "en": "Choose Camera\n",
+        "gb": "Choose Camera\n",
+        "jp": "More than one camera detected.\n",
+        "it": "Choose Camera\n",
+        "fr": "Choose Camera\n",
+        "de": "Choose Camera\n",
+        "es": "Choose Camera\n"
+    },
+    {
+        "id": "L_MPMENU_322",
+        "en": "More than one camera detected.\n",
+        "gb": "More than one camera detected.\n",
+        "jp": "Please select which camera you\nwant to use\n",
+        "it": "More than one camera detected.\n",
+        "fr": "More than one camera detected.\n",
+        "de": "More than one camera detected.\n",
+        "es": "More than one camera detected.\n"
+    },
+    {
+        "id": "L_MPMENU_323",
+        "en": "Please select which camera you\nwant to use\n",
+        "gb": "Please select which camera you\nwant to use\n",
+        "jp": "OK\n",
+        "it": "Please select which camera you\nwant to use\n",
+        "fr": "Please select which camera you\nwant to use\n",
+        "de": "Please select which camera you\nwant to use\n",
+        "es": "Please select which camera you\nwant to use\n"
+    },
+    {
+        "id": "L_MPMENU_324",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "Cancel\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_325",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "PerfectHead\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_326",
+        "en": "PerfectHead\n",
+        "gb": "PerfectHead\n",
+        "jp": "Take A Picture Now\n",
+        "it": "PerfectHead\n",
+        "fr": "PerfectHead\n",
+        "de": "PerfectHead\n",
+        "es": "PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_327",
+        "en": "Take A Picture Now\n",
+        "gb": "Take A Picture Now\n",
+        "jp": "Load Picture From Camera\n",
+        "it": "Take A Picture Now\n",
+        "fr": "Take A Picture Now\n",
+        "de": "Take A Picture Now\n",
+        "es": "Take A Picture Now\n"
+    },
+    {
+        "id": "L_MPMENU_328",
+        "en": "Load Picture From Camera\n",
+        "gb": "Load Picture From Camera\n",
+        "jp": "Cancel\n",
+        "it": "Load Picture From Camera\n",
+        "fr": "Load Picture From Camera\n",
+        "de": "Load Picture From Camera\n",
+        "es": "Load Picture From Camera\n"
+    },
+    {
+        "id": "L_MPMENU_329",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Load From Camera\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_330",
+        "en": "Load From Camera\n",
+        "gb": "Load From Camera\n",
+        "jp": "Choose picture to read from camera:\n",
+        "it": "Load From Camera\n",
+        "fr": "Load From Camera\n",
+        "de": "Load From Camera\n",
+        "es": "Load From Camera\n"
+    },
+    {
+        "id": "L_MPMENU_331",
+        "en": "Choose picture to read from camera:\n",
+        "gb": "Choose picture to read from camera:\n",
+        "jp": "Cancel\n",
+        "it": "Choose picture to read from camera:\n",
+        "fr": "Choose picture to read from camera:\n",
+        "de": "Choose picture to read from camera:\n",
+        "es": "Choose picture to read from camera:\n"
+    },
+    {
+        "id": "L_MPMENU_332",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Take Picture\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_333",
+        "en": "Take Picture\n",
+        "gb": "Take Picture\n",
+        "jp": "Shoot!\n",
+        "it": "Take Picture\n",
+        "fr": "Take Picture\n",
+        "de": "Take Picture\n",
+        "es": "Take Picture\n"
+    },
+    {
+        "id": "L_MPMENU_334",
+        "en": "Shoot!\n",
+        "gb": "Shoot!\n",
+        "jp": "Cancel\n",
+        "it": "Shoot!\n",
+        "fr": "Shoot!\n",
+        "de": "Shoot!\n",
+        "es": "Shoot!\n"
+    },
+    {
+        "id": "L_MPMENU_335",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Keep Picture\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_336",
+        "en": "Keep Picture\n",
+        "gb": "Keep Picture\n",
+        "jp": "Try Again\n",
+        "it": "Keep Picture\n",
+        "fr": "Keep Picture\n",
+        "de": "Keep Picture\n",
+        "es": "Keep Picture\n"
+    },
+    {
+        "id": "L_MPMENU_337",
+        "en": "Try Again\n",
+        "gb": "Try Again\n",
+        "jp": "Load PerfectHead\n",
+        "it": "Try Again\n",
+        "fr": "Try Again\n",
+        "de": "Try Again\n",
+        "es": "Try Again\n"
+    },
+    {
+        "id": "L_MPMENU_338",
+        "en": "Load PerfectHead\n",
+        "gb": "Load PerfectHead\n",
+        "jp": "Insert the Controller Pak\n",
+        "it": "Load PerfectHead\n",
+        "fr": "Load PerfectHead\n",
+        "de": "Load PerfectHead\n",
+        "es": "Load PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_339",
+        "en": "Insert the Controller Pak\n",
+        "gb": "Insert the Controller Pak\n",
+        "jp": "containing the head you\n",
+        "it": "Insert the Controller Pak\n",
+        "fr": "Insert the Controller Pak\n",
+        "de": "Insert the Controller Pak\n",
+        "es": "Insert the Controller Pak\n"
+    },
+    {
+        "id": "L_MPMENU_340",
+        "en": "containing the head you\n",
+        "gb": "containing the head you\n",
+        "jp": "wish to load into any\n",
+        "it": "containing the head you\n",
+        "fr": "containing the head you\n",
+        "de": "containing the head you\n",
+        "es": "containing the head you\n"
+    },
+    {
+        "id": "L_MPMENU_341",
+        "en": "wish to load into any\n",
+        "gb": "wish to load into any\n",
+        "jp": "controller.\n",
+        "it": "wish to load into any\n",
+        "fr": "wish to load into any\n",
+        "de": "wish to load into any\n",
+        "es": "wish to load into any\n"
+    },
+    {
+        "id": "L_MPMENU_342",
+        "en": "controller.\n",
+        "gb": "controller.\n",
+        "jp": "Controller Pak:\n",
+        "it": "controller.\n",
+        "fr": "controller.\n",
+        "de": "controller.\n",
+        "es": "controller.\n"
+    },
+    {
+        "id": "L_MPMENU_343",
+        "en": "Controller Pak:\n",
+        "gb": "Controller Pak:\n",
+        "jp": "Cancel\n",
+        "it": "Controller Pak:\n",
+        "fr": "Controller Pak:\n",
+        "de": "Controller Pak:\n",
+        "es": "Controller Pak:\n"
+    },
+    {
+        "id": "L_MPMENU_344",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Source:\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_345",
+        "en": "Source:\n",
+        "gb": "Source:\n",
+        "jp": "Pak 1",
+        "it": "Source:\n",
+        "fr": "Source:\n",
+        "de": "Source:\n",
+        "es": "Source:\n"
+    },
+    {
+        "id": "L_MPMENU_346",
+        "en": "Pak 1",
+        "gb": "Pak 1",
+        "jp": "Pak 2",
+        "it": "Pak 1",
+        "fr": "Pak 1",
+        "de": "Pak 1",
+        "es": "Pak 1"
+    },
+    {
+        "id": "L_MPMENU_347",
+        "en": "Pak 2",
+        "gb": "Pak 2",
+        "jp": "Pak 3",
+        "it": "Pak 2",
+        "fr": "Pak 2",
+        "de": "Pak 2",
+        "es": "Pak 2"
+    },
+    {
+        "id": "L_MPMENU_348",
+        "en": "Pak 3",
+        "gb": "Pak 3",
+        "jp": "Pak 4",
+        "it": "Pak 3",
+        "fr": "Pak 3",
+        "de": "Pak 3",
+        "es": "Pak 3"
+    },
+    {
+        "id": "L_MPMENU_349",
+        "en": "Pak 4",
+        "gb": "Pak 4",
+        "jp": "<none>",
+        "it": "Pak 4",
+        "fr": "Pak 4",
+        "de": "Pak 4",
+        "es": "Pak 4"
+    },
+    {
+        "id": "L_MPMENU_350",
+        "en": "<none>",
+        "gb": "<none>",
+        "jp": "PerfectHead Editor\n",
+        "it": "<none>",
+        "fr": "<none>",
+        "de": "<none>",
+        "es": "<none>"
+    },
+    {
+        "id": "L_MPMENU_351",
+        "en": "PerfectHead Editor\n",
+        "gb": "PerfectHead Editor\n",
+        "jp": "Take Another Picture\n",
+        "it": "PerfectHead Editor\n",
+        "fr": "PerfectHead Editor\n",
+        "de": "PerfectHead Editor\n",
+        "es": "PerfectHead Editor\n"
+    },
+    {
+        "id": "L_MPMENU_352",
+        "en": "Take Another Picture\n",
+        "gb": "Take Another Picture\n",
+        "jp": "Change Head\n",
+        "it": "Take Another Picture\n",
+        "fr": "Take Another Picture\n",
+        "de": "Take Another Picture\n",
+        "es": "Take Another Picture\n"
+    },
+    {
+        "id": "L_MPMENU_353",
+        "en": "Change Head\n",
+        "gb": "Change Head\n",
+        "jp": "Position Picture\n",
+        "it": "Change Head\n",
+        "fr": "Change Head\n",
+        "de": "Change Head\n",
+        "es": "Change Head\n"
+    },
+    {
+        "id": "L_MPMENU_354",
+        "en": "Position Picture\n",
+        "gb": "Position Picture\n",
+        "jp": "Color Face & Hair\n",
+        "it": "Position Picture\n",
+        "fr": "Position Picture\n",
+        "de": "Position Picture\n",
+        "es": "Position Picture\n"
+    },
+    {
+        "id": "L_MPMENU_355",
+        "en": "Color Face & Hair\n",
+        "gb": "Color Face & Hair\n",
+        "jp": "Shape Head\n",
+        "it": "Color Face & Hair\n",
+        "fr": "Color Face & Hair\n",
+        "de": "Color Face & Hair\n",
+        "es": "Color Face & Hair\n"
+    },
+    {
+        "id": "L_MPMENU_356",
+        "en": "Shape Head\n",
+        "gb": "Shape Head\n",
+        "jp": "Remove Head\n",
+        "it": "Shape Head\n",
+        "fr": "Shape Head\n",
+        "de": "Shape Head\n",
+        "es": "Shape Head\n"
+    },
+    {
+        "id": "L_MPMENU_357",
+        "en": "Remove Head\n",
+        "gb": "Remove Head\n",
+        "jp": "Cancel Changes\n",
+        "it": "Remove Head\n",
+        "fr": "Remove Head\n",
+        "de": "Remove Head\n",
+        "es": "Remove Head\n"
+    },
+    {
+        "id": "L_MPMENU_358",
+        "en": "Cancel Changes\n",
+        "gb": "Cancel Changes\n",
+        "jp": "Keep Changes\n",
+        "it": "Cancel Changes\n",
+        "fr": "Cancel Changes\n",
+        "de": "Cancel Changes\n",
+        "es": "Cancel Changes\n"
+    },
+    {
+        "id": "L_MPMENU_359",
+        "en": "Keep Changes\n",
+        "gb": "Keep Changes\n",
+        "jp": "Shape Head\n",
+        "it": "Keep Changes\n",
+        "fr": "Keep Changes\n",
+        "de": "Keep Changes\n",
+        "es": "Keep Changes\n"
+    },
+    {
+        "id": "L_MPMENU_360",
+        "en": "Shape Head\n",
+        "gb": "Shape Head\n",
+        "jp": "Depth\n",
+        "it": "Shape Head\n",
+        "fr": "Shape Head\n",
+        "de": "Shape Head\n",
+        "es": "Shape Head\n"
+    },
+    {
+        "id": "L_MPMENU_361",
+        "en": "Depth\n",
+        "gb": "Depth\n",
+        "jp": "OK\n",
+        "it": "Depth\n",
+        "fr": "Depth\n",
+        "de": "Depth\n",
+        "es": "Depth\n"
+    },
+    {
+        "id": "L_MPMENU_362",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "Cancel\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_363",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Position Image\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_364",
+        "en": "Position Image\n",
+        "gb": "Position Image\n",
+        "jp": "Brightness\n",
+        "it": "Position Image\n",
+        "fr": "Position Image\n",
+        "de": "Position Image\n",
+        "es": "Position Image\n"
+    },
+    {
+        "id": "L_MPMENU_365",
+        "en": "Brightness\n",
+        "gb": "Brightness\n",
+        "jp": "OK\n",
+        "it": "Brightness\n",
+        "fr": "Brightness\n",
+        "de": "Brightness\n",
+        "es": "Brightness\n"
+    },
+    {
+        "id": "L_MPMENU_366",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "Cancel\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_367",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Choose Head\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_368",
+        "en": "Choose Head\n",
+        "gb": "Choose Head\n",
+        "jp": "OK\n",
+        "it": "Choose Head\n",
+        "fr": "Choose Head\n",
+        "de": "Choose Head\n",
+        "es": "Choose Head\n"
+    },
+    {
+        "id": "L_MPMENU_369",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "Cancel\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_370",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Remove PerfectHead\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_371",
+        "en": "Remove PerfectHead\n",
+        "gb": "Remove PerfectHead\n",
+        "jp": "Are you sure you want to\n",
+        "it": "Remove PerfectHead\n",
+        "fr": "Remove PerfectHead\n",
+        "de": "Remove PerfectHead\n",
+        "es": "Remove PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_372",
+        "en": "Are you sure you want to\n",
+        "gb": "Are you sure you want to\n",
+        "jp": "remove this head from memory?\n",
+        "it": "Are you sure you want to\n",
+        "fr": "Are you sure you want to\n",
+        "de": "Are you sure you want to\n",
+        "es": "Are you sure you want to\n"
+    },
+    {
+        "id": "L_MPMENU_373",
+        "en": "remove this head from memory?\n",
+        "gb": "remove this head from memory?\n",
+        "jp": "Delete\n",
+        "it": "remove this head from memory?\n",
+        "fr": "remove this head from memory?\n",
+        "de": "remove this head from memory?\n",
+        "es": "remove this head from memory?\n"
+    },
+    {
+        "id": "L_MPMENU_374",
+        "en": "Delete\n",
+        "gb": "Delete\n",
+        "jp": "Cancel\n",
+        "it": "Delete\n",
+        "fr": "Delete\n",
+        "de": "Delete\n",
+        "es": "Delete\n"
+    },
+    {
+        "id": "L_MPMENU_375",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Cancel Changes\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_376",
+        "en": "Cancel Changes\n",
+        "gb": "Cancel Changes\n",
+        "jp": "Are you sure you want to\n",
+        "it": "Cancel Changes\n",
+        "fr": "Cancel Changes\n",
+        "de": "Cancel Changes\n",
+        "es": "Cancel Changes\n"
+    },
+    {
+        "id": "L_MPMENU_377",
+        "en": "Are you sure you want to\n",
+        "gb": "Are you sure you want to\n",
+        "jp": "throw away your changes?\n",
+        "it": "Are you sure you want to\n",
+        "fr": "Are you sure you want to\n",
+        "de": "Are you sure you want to\n",
+        "es": "Are you sure you want to\n"
+    },
+    {
+        "id": "L_MPMENU_378",
+        "en": "throw away your changes?\n",
+        "gb": "throw away your changes?\n",
+        "jp": "Throw Away\n",
+        "it": "throw away your changes?\n",
+        "fr": "throw away your changes?\n",
+        "de": "throw away your changes?\n",
+        "es": "throw away your changes?\n"
+    },
+    {
+        "id": "L_MPMENU_379",
+        "en": "Throw Away\n",
+        "gb": "Throw Away\n",
+        "jp": "Go Back To Editor\n",
+        "it": "Throw Away\n",
+        "fr": "Throw Away\n",
+        "de": "Throw Away\n",
+        "es": "Throw Away\n"
+    },
+    {
+        "id": "L_MPMENU_380",
+        "en": "Go Back To Editor\n",
+        "gb": "Go Back To Editor\n",
+        "jp": "Save PerfectHead\n",
+        "it": "Go Back To Editor\n",
+        "fr": "Go Back To Editor\n",
+        "de": "Go Back To Editor\n",
+        "es": "Go Back To Editor\n"
+    },
+    {
+        "id": "L_MPMENU_381",
+        "en": "Save PerfectHead\n",
+        "gb": "Save PerfectHead\n",
+        "jp": "You have edited this head.\n",
+        "it": "Save PerfectHead\n",
+        "fr": "Save PerfectHead\n",
+        "de": "Save PerfectHead\n",
+        "es": "Save PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_382",
+        "en": "You have edited this head.\n",
+        "gb": "You have edited this head.\n",
+        "jp": "Do you want to keep your changes?\n",
+        "it": "You have edited this head.\n",
+        "fr": "You have edited this head.\n",
+        "de": "You have edited this head.\n",
+        "es": "You have edited this head.\n"
+    },
+    {
+        "id": "L_MPMENU_383",
+        "en": "Do you want to keep your changes?\n",
+        "gb": "Do you want to keep your changes?\n",
+        "jp": "Keep\n",
+        "it": "Do you want to keep your changes?\n",
+        "fr": "Do you want to keep your changes?\n",
+        "de": "Do you want to keep your changes?\n",
+        "es": "Do you want to keep your changes?\n"
+    },
+    {
+        "id": "L_MPMENU_384",
+        "en": "Keep\n",
+        "gb": "Keep\n",
+        "jp": "Revert\n",
+        "it": "Keep\n",
+        "fr": "Keep\n",
+        "de": "Keep\n",
+        "es": "Keep\n"
+    },
+    {
+        "id": "L_MPMENU_385",
+        "en": "Revert\n",
+        "gb": "Revert\n",
+        "jp": "Save PerfectHead\n",
+        "it": "Revert\n",
+        "fr": "Revert\n",
+        "de": "Revert\n",
+        "es": "Revert\n"
+    },
+    {
+        "id": "L_MPMENU_386",
+        "en": "Save PerfectHead\n",
+        "gb": "Save PerfectHead\n",
+        "jp": "Your changes will be kept in memory.\n",
+        "it": "Save PerfectHead\n",
+        "fr": "Save PerfectHead\n",
+        "de": "Save PerfectHead\n",
+        "es": "Save PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_387",
+        "en": "Your changes will be kept in memory.\n",
+        "gb": "Your changes will be kept in memory.\n",
+        "jp": "Would you like to save your changes\n",
+        "it": "Your changes will be kept in memory.\n",
+        "fr": "Your changes will be kept in memory.\n",
+        "de": "Your changes will be kept in memory.\n",
+        "es": "Your changes will be kept in memory.\n"
+    },
+    {
+        "id": "L_MPMENU_388",
+        "en": "Would you like to save your changes\n",
+        "gb": "Would you like to save your changes\n",
+        "jp": "to the controller pak?\n",
+        "it": "Would you like to save your changes\n",
+        "fr": "Would you like to save your changes\n",
+        "de": "Would you like to save your changes\n",
+        "es": "Would you like to save your changes\n"
+    },
+    {
+        "id": "L_MPMENU_389",
+        "en": "to the Controller Pak?\n",
+        "gb": "to the controller pak?\n",
+        "jp": "Save\n",
+        "it": "to the controller pak?\n",
+        "fr": "to the controller pak?\n",
+        "de": "to the controller pak?\n",
+        "es": "to the controller pak?\n"
+    },
+    {
+        "id": "L_MPMENU_390",
+        "en": "Save\n",
+        "gb": "Save\n",
+        "jp": "Don't Save\n",
+        "it": "Save\n",
+        "fr": "Save\n",
+        "de": "Save\n",
+        "es": "Save\n"
+    },
+    {
+        "id": "L_MPMENU_391",
+        "en": "Don't Save\n",
+        "gb": "Don't Save\n",
+        "jp": "Save PerfectHead\n",
+        "it": "Don't Save\n",
+        "fr": "Don't Save\n",
+        "de": "Don't Save\n",
+        "es": "Don't Save\n"
+    },
+    {
+        "id": "L_MPMENU_392",
+        "en": "Save PerfectHead\n",
+        "gb": "Save PerfectHead\n",
+        "jp": "You can now save your head on to\n",
+        "it": "Save PerfectHead\n",
+        "fr": "Save PerfectHead\n",
+        "de": "Save PerfectHead\n",
+        "es": "Save PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_393",
+        "en": "You can now save your head on to\n",
+        "gb": "You can now save your head on to\n",
+        "jp": "a controller pak if you wish.\n",
+        "it": "You can now save your head on to\n",
+        "fr": "You can now save your head on to\n",
+        "de": "You can now save your head on to\n",
+        "es": "You can now save your head on to\n"
+    },
+    {
+        "id": "L_MPMENU_394",
+        "en": "a Controller Pak if you wish.\n",
+        "gb": "a controller pak if you wish.\n",
+        "jp": "If you want to do this, please\n",
+        "it": "a controller pak if you wish.\n",
+        "fr": "a controller pak if you wish.\n",
+        "de": "a controller pak if you wish.\n",
+        "es": "a controller pak if you wish.\n"
+    },
+    {
+        "id": "L_MPMENU_395",
+        "en": "If you want to do this, please\n",
+        "gb": "If you want to do this, please\n",
+        "jp": "ensure a controller pak is inserted\n",
+        "it": "If you want to do this, please\n",
+        "fr": "If you want to do this, please\n",
+        "de": "If you want to do this, please\n",
+        "es": "If you want to do this, please\n"
+    },
+    {
+        "id": "L_MPMENU_396",
+        "en": "ensure a Controller Pak is inserted\n",
+        "gb": "ensure a controller pak is inserted\n",
+        "jp": "and choose \"Save\".\n",
+        "it": "ensure a controller pak is inserted\n",
+        "fr": "ensure a controller pak is inserted\n",
+        "de": "ensure a controller pak is inserted\n",
+        "es": "ensure a controller pak is inserted\n"
+    },
+    {
+        "id": "L_MPMENU_397",
+        "en": "and choose \"Save\".\n",
+        "gb": "and choose \"Save\".\n",
+        "jp": "Save\n",
+        "it": "and choose \"Save\".\n",
+        "fr": "and choose \"Save\".\n",
+        "de": "and choose \"Save\".\n",
+        "es": "and choose \"Save\".\n"
+    },
+    {
+        "id": "L_MPMENU_398",
+        "en": "Save\n",
+        "gb": "Save\n",
+        "jp": "Don't Save\n",
+        "it": "Save\n",
+        "fr": "Save\n",
+        "de": "Save\n",
+        "es": "Save\n"
+    },
+    {
+        "id": "L_MPMENU_399",
+        "en": "Don't Save\n",
+        "gb": "Don't Save\n",
+        "jp": "Head Complete!\n",
+        "it": "Don't Save\n",
+        "fr": "Don't Save\n",
+        "de": "Don't Save\n",
+        "es": "Don't Save\n"
+    },
+    {
+        "id": "L_MPMENU_400",
+        "en": "Head Complete!\n",
+        "gb": "Head Complete!\n",
+        "jp": "To use your head in the combat simulator,\n",
+        "it": "Head Complete!\n",
+        "fr": "Head Complete!\n",
+        "de": "Head Complete!\n",
+        "es": "Head Complete!\n"
+    },
+    {
+        "id": "L_MPMENU_401",
+        "en": "To use your head in the combat simulator,\n",
+        "gb": "To use your head in the combat simulator,\n",
+        "jp": "select the head from the character menu\n",
+        "it": "To use your head in the combat simulator,\n",
+        "fr": "To use your head in the combat simulator,\n",
+        "de": "To use your head in the combat simulator,\n",
+        "es": "To use your head in the combat simulator,\n"
+    },
+    {
+        "id": "L_MPMENU_402",
+        "en": "select the head from the character menu\n",
+        "gb": "select the head from the character menu\n",
+        "jp": "of the player\/simulant settings menu.\n",
+        "it": "select the head from the character menu\n",
+        "fr": "select the head from the character menu\n",
+        "de": "select the head from the character menu\n",
+        "es": "select the head from the character menu\n"
+    },
+    {
+        "id": "L_MPMENU_403",
+        "en": "of the player\/simulant settings menu.\n",
+        "gb": "of the player\/simulant settings menu.\n",
+        "jp": "Your Mission heads will now appear\n",
+        "it": "of the player\/simulant settings menu.\n",
+        "fr": "of the player\/simulant settings menu.\n",
+        "de": "of the player\/simulant settings menu.\n",
+        "es": "of the player\/simulant settings menu.\n"
+    },
+    {
+        "id": "L_MPMENU_404",
+        "en": "Your Mission heads will now appear\n",
+        "gb": "Your Mission heads will now appear\n",
+        "jp": "in any of the missions you play.\n",
+        "it": "Your Mission heads will now appear\n",
+        "fr": "Your Mission heads will now appear\n",
+        "de": "Your Mission heads will now appear\n",
+        "es": "Your Mission heads will now appear\n"
+    },
+    {
+        "id": "L_MPMENU_405",
+        "en": "in any of the missions you play.\n",
+        "gb": "in any of the missions you play.\n",
+        "jp": "You can now edit your head further if you wish.\n",
+        "it": "in any of the missions you play.\n",
+        "fr": "in any of the missions you play.\n",
+        "de": "in any of the missions you play.\n",
+        "es": "in any of the missions you play.\n"
+    },
+    {
+        "id": "L_MPMENU_406",
+        "en": "You can now edit your head further if you wish.\n",
+        "gb": "You can now edit your head further if you wish.\n",
+        "jp": "Finish\n",
+        "it": "You can now edit your head further if you wish.\n",
+        "fr": "You can now edit your head further if you wish.\n",
+        "de": "You can now edit your head further if you wish.\n",
+        "es": "You can now edit your head further if you wish.\n"
+    },
+    {
+        "id": "L_MPMENU_407",
+        "en": "Finish\n",
+        "gb": "Finish\n",
+        "jp": "Edit Head\n",
+        "it": "Finish\n",
+        "fr": "Finish\n",
+        "de": "Finish\n",
+        "es": "Finish\n"
+    },
+    {
+        "id": "L_MPMENU_408",
+        "en": "Edit Head\n",
+        "gb": "Edit Head\n",
+        "jp": "Head Color\n",
+        "it": "Edit Head\n",
+        "fr": "Edit Head\n",
+        "de": "Edit Head\n",
+        "es": "Edit Head\n"
+    },
+    {
+        "id": "L_MPMENU_409",
+        "en": "Head Color\n",
+        "gb": "Head Color\n",
+        "jp": "Face:\n",
+        "it": "Head Color\n",
+        "fr": "Head Color\n",
+        "de": "Head Color\n",
+        "es": "Head Color\n"
+    },
+    {
+        "id": "L_MPMENU_410",
+        "en": "Face:\n",
+        "gb": "Face:\n",
+        "jp": "Hairstyle:\n",
+        "it": "Face:\n",
+        "fr": "Face:\n",
+        "de": "Face:\n",
+        "es": "Face:\n"
+    },
+    {
+        "id": "L_MPMENU_411",
+        "en": "Hairstyle:\n",
+        "gb": "Hairstyle:\n",
+        "jp": "OK\n",
+        "it": "Hairstyle:\n",
+        "fr": "Hairstyle:\n",
+        "de": "Hairstyle:\n",
+        "es": "Hairstyle:\n"
+    },
+    {
+        "id": "L_MPMENU_412",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "Cancel\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_413",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Press B to Go Back\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_414",
+        "en": "Press the B Button to go back.\n",
+        "gb": "Press the B Button to go back.\n",
+        "jp": "Hangar Information\n",
+        "it": "Press the B Button to go back.\n",
+        "fr": "Press the B Button to go back.\n",
+        "de": "Press the B Button to go back.\n",
+        "es": "Press the B Button to go back.\n"
+    },
+    {
+        "id": "L_MPMENU_415",
+        "en": "Hangar Information\n",
+        "gb": "Hangar Information\n",
+        "jp": "Hologram Training Programs\n",
+        "it": "Hangar Information\n",
+        "fr": "Hangar Information\n",
+        "de": "Hangar Information\n",
+        "es": "Hangar Information\n"
+    },
+    {
+        "id": "L_MPMENU_416",
+        "en": "Holotraining\n",
+        "gb": "Holotraining\n",
+        "jp": "Device List\n",
+        "it": "Holotraining\n",
+        "fr": "Holotraining\n",
+        "de": "Holotraining\n",
+        "es": "Holotraining\n"
+    },
+    {
+        "id": "L_MPMENU_417",
+        "en": "Device List\n",
+        "gb": "Device List\n",
+        "jp": "Information\n",
+        "it": "Device List\n",
+        "fr": "Device List\n",
+        "de": "Device List\n",
+        "es": "Device List\n"
+    },
+    {
+        "id": "L_MPMENU_418",
+        "en": "Information\n",
+        "gb": "Information\n",
+        "jp": "Locations\n",
+        "it": "Information\n",
+        "fr": "Information\n",
+        "de": "Information\n",
+        "es": "Information\n"
+    },
+    {
+        "id": "L_MPMENU_419",
+        "en": "Locations\n",
+        "gb": "Locations\n",
+        "jp": "Vehicles\n",
+        "it": "Locations\n",
+        "fr": "Locations\n",
+        "de": "Locations\n",
+        "es": "Locations\n"
+    },
+    {
+        "id": "L_MPMENU_420",
+        "en": "Vehicles\n",
+        "gb": "Vehicles\n",
+        "jp": "Character Profiles\n",
+        "it": "Vehicles\n",
+        "fr": "Vehicles\n",
+        "de": "Vehicles\n",
+        "es": "Vehicles\n"
+    },
+    {
+        "id": "L_MPMENU_421",
+        "en": "Character Profiles\n",
+        "gb": "Character Profiles\n",
+        "jp": "Other Information\n",
+        "it": "Character Profiles\n",
+        "fr": "Character Profiles\n",
+        "de": "Character Profiles\n",
+        "es": "Character Profiles\n"
+    },
+    {
+        "id": "L_MPMENU_422",
+        "en": "Other Information\n",
+        "gb": "Other Information\n",
+        "jp": "Training Stats\n",
+        "it": "Other Information\n",
+        "fr": "Other Information\n",
+        "de": "Other Information\n",
+        "es": "Other Information\n"
+    },
+    {
+        "id": "L_MPMENU_423",
+        "en": "Training Stats\n",
+        "gb": "Training Stats\n",
+        "jp": "Time Taken:\n",
+        "it": "Training Stats\n",
+        "fr": "Training Stats\n",
+        "de": "Training Stats\n",
+        "es": "Training Stats\n"
+    },
+    {
+        "id": "L_MPMENU_424",
+        "en": "Time Taken:\n",
+        "gb": "Time Taken:\n",
+        "jp": "Completed!\n",
+        "it": "Time Taken:\n",
+        "fr": "Time Taken:\n",
+        "de": "Time Taken:\n",
+        "es": "Time Taken:\n"
+    },
+    {
+        "id": "L_MPMENU_425",
+        "en": "Completed!\n",
+        "gb": "Completed!\n",
+        "jp": "Failed!\n",
+        "it": "Completed!\n",
+        "fr": "Completed!\n",
+        "de": "Completed!\n",
+        "es": "Completed!\n"
+    },
+    {
+        "id": "L_MPMENU_426",
+        "en": "Failed!\n",
+        "gb": "Failed!\n",
+        "jp": "Ok\n",
+        "it": "Failed!\n",
+        "fr": "Failed!\n",
+        "de": "Failed!\n",
+        "es": "Failed!\n"
+    },
+    {
+        "id": "L_MPMENU_427",
+        "en": "Ok\n",
+        "gb": "Ok\n",
+        "jp": "Resume\n",
+        "it": "Ok\n",
+        "fr": "Ok\n",
+        "de": "Ok\n",
+        "es": "Ok\n"
+    },
+    {
+        "id": "L_MPMENU_428",
+        "en": "Resume\n",
+        "gb": "Resume\n",
+        "jp": "Cancel\n",
+        "it": "Resume\n",
+        "fr": "Resume\n",
+        "de": "Resume\n",
+        "es": "Resume\n"
+    },
+    {
+        "id": "L_MPMENU_429",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Abort\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_430",
+        "en": "Abort\n",
+        "gb": "Abort\n",
+        "jp": "Character Profile\n",
+        "it": "Abort\n",
+        "fr": "Abort\n",
+        "de": "Abort\n",
+        "es": "Abort\n"
+    },
+    {
+        "id": "L_MPMENU_431",
+        "en": "Character Profile\n",
+        "gb": "Character Profile\n",
+        "jp": "Name:\n",
+        "it": "Character Profile\n",
+        "fr": "Character Profile\n",
+        "de": "Character Profile\n",
+        "es": "Character Profile\n"
+    },
+    {
+        "id": "L_MPMENU_432",
+        "en": "Name:\n",
+        "gb": "Name:\n",
+        "jp": "Age:\n",
+        "it": "Name:\n",
+        "fr": "Name:\n",
+        "de": "Name:\n",
+        "es": "Name:\n"
+    },
+    {
+        "id": "L_MPMENU_433",
+        "en": "Age:\n",
+        "gb": "Age:\n",
+        "jp": "Race:\n",
+        "it": "Age:\n",
+        "fr": "Age:\n",
+        "de": "Age:\n",
+        "es": "Age:\n"
+    },
+    {
+        "id": "L_MPMENU_434",
+        "en": "Race:\n",
+        "gb": "Race:\n",
+        "jp": "Press B to Go Back\n",
+        "it": "Race:\n",
+        "fr": "Race:\n",
+        "de": "Race:\n",
+        "es": "Race:\n"
+    },
+    {
+        "id": "L_MPMENU_435",
+        "en": "Press the B Button to go back.\n",
+        "gb": "Press the B Button to go back.\n",
+        "jp": "Cheats\n",
+        "it": "Press the B Button to go back.\n",
+        "fr": "Press the B Button to go back.\n",
+        "de": "Press the B Button to go back.\n",
+        "es": "Press the B Button to go back.\n"
+    },
+    {
+        "id": "L_MPMENU_436",
+        "en": "Cheats\n",
+        "gb": "Cheats\n",
+        "jp": "It is now safe to turn off your computer\n",
+        "it": "Cheats\n",
+        "fr": "Cheats\n",
+        "de": "Cheats\n",
+        "es": "Cheats\n"
+    },
+    {
+        "id": "L_MPMENU_437",
+        "en": "It is now safe to turn off your computer.\n",
+        "gb": "It is now safe to turn off your computer.\n",
+        "jp": "Cancel\n",
+        "it": "It is now safe to turn off your computer.\n",
+        "fr": "It is now safe to turn off your computer.\n",
+        "de": "It is now safe to turn off your computer.\n",
+        "es": "It is now safe to turn off your computer.\n"
+    },
+    {
+        "id": "L_MPMENU_438",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Bronze\n",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_439",
+        "en": "Bronze\n",
+        "gb": "Bronze\n",
+        "jp": "Silver\n",
+        "it": "Bronze\n",
+        "fr": "Bronze\n",
+        "de": "Bronze\n",
+        "es": "Bronze\n"
+    },
+    {
+        "id": "L_MPMENU_440",
+        "en": "Silver\n",
+        "gb": "Silver\n",
+        "jp": "Gold\n",
+        "it": "Silver\n",
+        "fr": "Silver\n",
+        "de": "Silver\n",
+        "es": "Silver\n"
+    },
+    {
+        "id": "L_MPMENU_441",
+        "en": "Gold\n",
+        "gb": "Gold\n",
+        "jp": "Difficulty\n",
+        "it": "Gold\n",
+        "fr": "Gold\n",
+        "de": "Gold\n",
+        "es": "Gold\n"
+    },
+    {
+        "id": "L_MPMENU_442",
+        "en": "Difficulty\n",
+        "gb": "Difficulty\n",
+        "jp": "Difficulty:\n",
+        "it": "Difficulty\n",
+        "fr": "Difficulty\n",
+        "de": "Difficulty\n",
+        "es": "Difficulty\n"
+    },
+    {
+        "id": "L_MPMENU_443",
+        "en": "Difficulty:\n",
+        "gb": "Difficulty:\n",
+        "jp": "Select Difficulty:\n",
+        "it": "Difficulty:\n",
+        "fr": "Difficulty:\n",
+        "de": "Difficulty:\n",
+        "es": "Difficulty:\n"
+    },
+    {
+        "id": "L_MPMENU_444",
+        "en": "Select Difficulty:\n",
+        "gb": "Select Difficulty:\n",
+        "jp": "   \n",
+        "it": "Select Difficulty:\n",
+        "fr": "Select Difficulty:\n",
+        "de": "Select Difficulty:\n",
+        "es": "Select Difficulty:\n"
+    },
+    {
+        "id": "L_MPMENU_445",
+        "en": "   \n",
+        "gb": "   \n",
+        "jp": "Weapon\n",
+        "it": "   \n",
+        "fr": "   \n",
+        "de": "   \n",
+        "es": "   \n"
+    },
+    {
+        "id": "L_MPMENU_446",
+        "en": "Weapon\n",
+        "gb": "Weapon\n",
+        "jp": "Training Info\n",
+        "it": "Weapon\n",
+        "fr": "Weapon\n",
+        "de": "Weapon\n",
+        "es": "Weapon\n"
+    },
+    {
+        "id": "L_MPMENU_447",
+        "en": "Training Info\n",
+        "gb": "Training Info\n",
+        "jp": "Training Stats\n",
+        "it": "Training Info\n",
+        "fr": "Training Info\n",
+        "de": "Training Info\n",
+        "es": "Training Info\n"
+    },
+    {
+        "id": "L_MPMENU_448",
+        "en": "Training Stats\n",
+        "gb": "Training Stats\n",
+        "jp": "Completed!\n",
+        "it": "Training Stats\n",
+        "fr": "Training Stats\n",
+        "de": "Training Stats\n",
+        "es": "Training Stats\n"
+    },
+    {
+        "id": "L_MPMENU_449",
+        "en": "Completed!\n",
+        "gb": "Completed!\n",
+        "jp": "Score:\n",
+        "it": "Completed!\n",
+        "fr": "Completed!\n",
+        "de": "Completed!\n",
+        "es": "Completed!\n"
+    },
+    {
+        "id": "L_MPMENU_450",
+        "en": "Score:\n",
+        "gb": "Score:\n",
+        "jp": "Targets Destroyed:\n",
+        "it": "Score:\n",
+        "fr": "Score:\n",
+        "de": "Score:\n",
+        "es": "Score:\n"
+    },
+    {
+        "id": "L_MPMENU_451",
+        "en": "Targets Destroyed:\n",
+        "gb": "Targets Destroyed:\n",
+        "jp": "Difficulty:\n",
+        "it": "Targets Destroyed:\n",
+        "fr": "Targets Destroyed:\n",
+        "de": "Targets Destroyed:\n",
+        "es": "Targets Destroyed:\n"
+    },
+    {
+        "id": "L_MPMENU_452",
+        "en": "Difficulty:\n",
+        "gb": "Difficulty:\n",
+        "jp": "Time Taken:\n",
+        "it": "Difficulty:\n",
+        "fr": "Difficulty:\n",
+        "de": "Difficulty:\n",
+        "es": "Difficulty:\n"
+    },
+    {
+        "id": "L_MPMENU_453",
+        "en": "Time Taken:\n",
+        "gb": "Time Taken:\n",
+        "jp": "Weapon:\n",
+        "it": "Time Taken:\n",
+        "fr": "Time Taken:\n",
+        "de": "Time Taken:\n",
+        "es": "Time Taken:\n"
+    },
+    {
+        "id": "L_MPMENU_454",
+        "en": "Weapon:\n",
+        "gb": "Weapon:\n",
+        "jp": "Accuracy:\n",
+        "it": "Weapon:\n",
+        "fr": "Weapon:\n",
+        "de": "Weapon:\n",
+        "es": "Weapon:\n"
+    },
+    {
+        "id": "L_MPMENU_455",
+        "en": "Accuracy:\n",
+        "gb": "Accuracy:\n",
+        "jp": "Not Failed\n",
+        "it": "Accuracy:\n",
+        "fr": "Accuracy:\n",
+        "de": "Accuracy:\n",
+        "es": "Accuracy:\n"
+    },
+    {
+        "id": "L_MPMENU_456",
+        "en": "Not Failed\n",
+        "gb": "Not Failed\n",
+        "jp": "Out of Ammo\n",
+        "it": "Not Failed\n",
+        "fr": "Not Failed\n",
+        "de": "Not Failed\n",
+        "es": "Not Failed\n"
+    },
+    {
+        "id": "L_MPMENU_457",
+        "en": "Out of Ammo\n",
+        "gb": "Out of Ammo\n",
+        "jp": "Time Over\n",
+        "it": "Out of Ammo\n",
+        "fr": "Out of Ammo\n",
+        "de": "Out of Ammo\n",
+        "es": "Out of Ammo\n"
+    },
+    {
+        "id": "L_MPMENU_458",
+        "en": "Time Over\n",
+        "gb": "Time Over\n",
+        "jp": "Score Unattainable\n",
+        "it": "Time Over\n",
+        "fr": "Time Over\n",
+        "de": "Time Over\n",
+        "es": "Time Over\n"
+    },
+    {
+        "id": "L_MPMENU_459",
+        "en": "Score Unattainable\n",
+        "gb": "Score Unattainable\n",
+        "jp": "Too Inaccurate\n",
+        "it": "Score Unattainable\n",
+        "fr": "Score Unattainable\n",
+        "de": "Score Unattainable\n",
+        "es": "Score Unattainable\n"
+    },
+    {
+        "id": "L_MPMENU_460",
+        "en": "Too Inaccurate\n",
+        "gb": "Too Inaccurate\n",
+        "jp": "Bullseye\n",
+        "it": "Too Inaccurate\n",
+        "fr": "Too Inaccurate\n",
+        "de": "Too Inaccurate\n",
+        "es": "Too Inaccurate\n"
+    },
+    {
+        "id": "L_MPMENU_461",
+        "en": "Bull's-eye\n",
+        "gb": "Bull's-eye\n",
+        "jp": "Zone 1\n",
+        "it": "Bull's-eye\n",
+        "fr": "Bull's-eye\n",
+        "de": "Bull's-eye\n",
+        "es": "Bull's-eye\n"
+    },
+    {
+        "id": "L_MPMENU_462",
+        "en": "Zone 1\n",
+        "gb": "Zone 1\n",
+        "jp": "Zone 2\n",
+        "it": "Zone 1\n",
+        "fr": "Zone 1\n",
+        "de": "Zone 1\n",
+        "es": "Zone 1\n"
+    },
+    {
+        "id": "L_MPMENU_463",
+        "en": "Zone 2\n",
+        "gb": "Zone 2\n",
+        "jp": "Zone 3\n",
+        "it": "Zone 2\n",
+        "fr": "Zone 2\n",
+        "de": "Zone 2\n",
+        "es": "Zone 2\n"
+    },
+    {
+        "id": "L_MPMENU_464",
+        "en": "Zone 3\n",
+        "gb": "Zone 3\n",
+        "jp": "Hit total\n",
+        "it": "Zone 3\n",
+        "fr": "Zone 3\n",
+        "de": "Zone 3\n",
+        "es": "Zone 3\n"
+    },
+    {
+        "id": "L_MPMENU_465",
+        "en": "Hit total\n",
+        "gb": "Hit total\n",
+        "jp": "Scoring\n",
+        "it": "Hit total\n",
+        "fr": "Hit total\n",
+        "de": "Hit total\n",
+        "es": "Hit total\n"
+    },
+    {
+        "id": "L_MPMENU_466",
+        "en": "Scoring\n",
+        "gb": "Scoring\n",
+        "jp": "10\n",
+        "it": "Scoring\n",
+        "fr": "Scoring\n",
+        "de": "Scoring\n",
+        "es": "Scoring\n"
+    },
+    {
+        "id": "L_MPMENU_467",
+        "en": "10\n",
+        "gb": "10\n",
+        "jp": "5\n",
+        "it": "10\n",
+        "fr": "10\n",
+        "de": "10\n",
+        "es": "10\n"
+    },
+    {
+        "id": "L_MPMENU_468",
+        "en": "5\n",
+        "gb": "5\n",
+        "jp": "2\n",
+        "it": "5\n",
+        "fr": "5\n",
+        "de": "5\n",
+        "es": "5\n"
+    },
+    {
+        "id": "L_MPMENU_469",
+        "en": "2\n",
+        "gb": "2\n",
+        "jp": "1\n",
+        "it": "2\n",
+        "fr": "2\n",
+        "de": "2\n",
+        "es": "2\n"
+    },
+    {
+        "id": "L_MPMENU_470",
+        "en": "1\n",
+        "gb": "1\n",
+        "jp": "Ammo Limit:\n",
+        "it": "1\n",
+        "fr": "1\n",
+        "de": "1\n",
+        "es": "1\n"
+    },
+    {
+        "id": "L_MPMENU_471",
+        "en": "Ammo Limit:\n",
+        "gb": "Ammo Limit:\n",
+        "jp": "Time Limit:\n",
+        "it": "Ammo Limit:\n",
+        "fr": "Ammo Limit:\n",
+        "de": "Ammo Limit:\n",
+        "es": "Ammo Limit:\n"
+    },
+    {
+        "id": "L_MPMENU_472",
+        "en": "Time Limit:\n",
+        "gb": "Time Limit:\n",
+        "jp": "Min Accuracy:\n",
+        "it": "Time Limit:\n",
+        "fr": "Time Limit:\n",
+        "de": "Time Limit:\n",
+        "es": "Time Limit:\n"
+    },
+    {
+        "id": "L_MPMENU_473",
+        "en": "Min Accuracy:\n",
+        "gb": "Min Accuracy:\n",
+        "jp": "Goal Targets:\n",
+        "it": "Min Accuracy:\n",
+        "fr": "Min Accuracy:\n",
+        "de": "Min Accuracy:\n",
+        "es": "Min Accuracy:\n"
+    },
+    {
+        "id": "L_MPMENU_474",
+        "en": "Goal Targets:\n",
+        "gb": "Goal Targets:\n",
+        "jp": "Goal Score:\n",
+        "it": "Goal Targets:\n",
+        "fr": "Goal Targets:\n",
+        "de": "Goal Targets:\n",
+        "es": "Goal Targets:\n"
+    },
+    {
+        "id": "L_MPMENU_475",
+        "en": "Goal Score:\n",
+        "gb": "Goal Score:\n",
+        "jp": "Cheats\n",
+        "it": "Goal Score:\n",
+        "fr": "Goal Score:\n",
+        "de": "Goal Score:\n",
+        "es": "Goal Score:\n"
+    },
+    {
+        "id": "L_MPMENU_476",
+        "en": "Cheats\n",
+        "gb": "Cheats\n",
+        "jp": "Done\n",
+        "it": "Cheats\n",
+        "fr": "Cheats\n",
+        "de": "Cheats\n",
+        "es": "Cheats\n"
+    },
+    {
+        "id": "L_MPMENU_477",
+        "en": "Done\n",
+        "gb": "Done\n",
+        "jp": "Warning\n",
+        "it": "Done\n",
+        "fr": "Done\n",
+        "de": "Done\n",
+        "es": "Done\n"
+    },
+    {
+        "id": "L_MPMENU_478",
+        "en": "Warning\n",
+        "gb": "Warning\n",
+        "jp": "If you activate any cheats, then you\nwill be unable to progress further in the game\nwhile those cheats are active.\n",
+        "it": "Warning\n",
+        "fr": "Warning\n",
+        "de": "Warning\n",
+        "es": "Warning\n"
+    },
+    {
+        "id": "L_MPMENU_479",
+        "en": "If you activate any cheats, then you\nwill be unable to progress further in the game\nwhile those cheats are active.\n",
+        "gb": "If you activate any cheats, then you\nwill be unable to progress further in the game\nwhile those cheats are active.\n",
+        "jp": "OK\n",
+        "it": "If you activate any cheats, then you\nwill be unable to progress further in the game\nwhile those cheats are active.\n",
+        "fr": "If you activate any cheats, then you\nwill be unable to progress further in the game\nwhile those cheats are active.\n",
+        "de": "If you activate any cheats, then you\nwill be unable to progress further in the game\nwhile those cheats are active.\n",
+        "es": "If you activate any cheats, then you\nwill be unable to progress further in the game\nwhile those cheats are active.\n"
+    },
+    {
+        "id": "L_MPMENU_480",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "Cancel\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_481",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "Player %d: ",
+        "it": "Cancel\n",
+        "fr": "Cancel\n",
+        "de": "Cancel\n",
+        "es": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_482",
+        "en": "Player %d: ",
+        "gb": "Player %d: ",
+        "jp": "Press Start!\n",
+        "it": "Player %d: ",
+        "fr": "Player %d: ",
+        "de": "Player %d: ",
+        "es": "Player %d: "
+    },
+    {
+        "id": "L_MPMENU_483",
+        "en": "Press START!\n",
+        "gb": "Press START!\n",
+        "jp": "Searching for Camera!\n",
+        "it": "Press START!\n",
+        "fr": "Press START!\n",
+        "de": "Press START!\n",
+        "es": "Press START!\n"
+    },
+    {
+        "id": "L_MPMENU_484",
+        "en": "Searching for Camera!\n",
+        "gb": "Searching for Camera!\n",
+        "jp": "Calibrating Camera\n",
+        "it": "Searching for Camera!\n",
+        "fr": "Searching for Camera!\n",
+        "de": "Searching for Camera!\n",
+        "es": "Searching for Camera!\n"
+    },
+    {
+        "id": "L_MPMENU_485",
+        "en": "Calibrating Camera\n",
+        "gb": "Calibrating Camera\n",
+        "jp": "Downloading Image\n",
+        "it": "Calibrating Camera\n",
+        "fr": "Calibrating Camera\n",
+        "de": "Calibrating Camera\n",
+        "es": "Calibrating Camera\n"
+    },
+    {
+        "id": "L_MPMENU_486",
+        "en": "Downloading Image\n",
+        "gb": "Downloading Image\n",
+        "jp": "Loading Image\n",
+        "it": "Downloading Image\n",
+        "fr": "Downloading Image\n",
+        "de": "Downloading Image\n",
+        "es": "Downloading Image\n"
+    },
+    {
+        "id": "L_MPMENU_487",
+        "en": "Loading Image\n",
+        "gb": "Loading Image\n",
+        "jp": "Saving Image\n",
+        "it": "Loading Image\n",
+        "fr": "Loading Image\n",
+        "de": "Loading Image\n",
+        "es": "Loading Image\n"
+    },
+    {
+        "id": "L_MPMENU_488",
+        "en": "Saving Image\n",
+        "gb": "Saving Image\n",
+        "jp": "Transfering Image\n",
+        "it": "Saving Image\n",
+        "fr": "Saving Image\n",
+        "de": "Saving Image\n",
+        "es": "Saving Image\n"
+    },
+    {
+        "id": "L_MPMENU_489",
+        "en": "Transfering Image\n",
+        "gb": "Transfering Image\n",
+        "jp": "Uploading Segment\n",
+        "it": "Transfering Image\n",
+        "fr": "Transfering Image\n",
+        "de": "Transfering Image\n",
+        "es": "Transfering Image\n"
+    },
+    {
+        "id": "L_MPMENU_490",
+        "en": "Uploading Segment\n",
+        "gb": "Uploading Segment\n",
+        "jp": "Initialising Pak\n",
+        "it": "Uploading Segment\n",
+        "fr": "Uploading Segment\n",
+        "de": "Uploading Segment\n",
+        "es": "Uploading Segment\n"
+    },
+    {
+        "id": "L_MPMENU_491",
+        "en": "Checking Controller Pak\n",
+        "gb": "Initializing Controller Pak\n",
+        "jp": "Getting PerfectHead\n",
+        "it": "Initializing Controller Pak\n",
+        "fr": "Initializing Controller Pak\n",
+        "de": "Initializing Controller Pak\n",
+        "es": "Initializing Controller Pak\n"
+    },
+    {
+        "id": "L_MPMENU_492",
+        "en": "Getting PerfectHead\n",
+        "gb": "Getting PerfectHead\n",
+        "jp": "Saving PerfectHead\n",
+        "it": "Getting PerfectHead\n",
+        "fr": "Getting PerfectHead\n",
+        "de": "Getting PerfectHead\n",
+        "es": "Getting PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_493",
+        "en": "Saving PerfectHead\n",
+        "gb": "Saving PerfectHead\n",
+        "jp": "Auto Camera Adjustment\n",
+        "it": "Saving PerfectHead\n",
+        "fr": "Saving PerfectHead\n",
+        "de": "Saving PerfectHead\n",
+        "es": "Saving PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_494",
+        "en": "Auto Camera Adjustment\n",
+        "gb": "Auto Camera Adjustment\n",
+        "jp": "Please Wait...\n",
+        "it": "Auto Camera Adjustment\n",
+        "fr": "Auto Camera Adjustment\n",
+        "de": "Auto Camera Adjustment\n",
+        "es": "Auto Camera Adjustment\n"
+    },
+    {
+        "id": "L_MPMENU_495",
+        "en": "Please Wait...\n",
+        "gb": "Please Wait...\n",
+        "jp": null,
+        "it": "Please Wait...\n",
+        "fr": "Please Wait...\n",
+        "de": "Please Wait...\n",
+        "es": "Please Wait...\n"
+    }
+]

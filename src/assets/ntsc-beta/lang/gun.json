@@ -1,0 +1,2402 @@
+[
+    {
+        "id": "L_GUN_000",
+        "en": "\n",
+        "gb": "\n",
+        "jp": "\n",
+        "it": "\n",
+        "fr": "\n",
+        "de": "\n",
+        "es": "\n"
+    },
+    {
+        "id": "L_GUN_001",
+        "en": "Kill count",
+        "gb": "Kill count",
+        "jp": "Kill count",
+        "it": "Kill count",
+        "fr": "Kill count",
+        "de": "Kill count",
+        "es": "Kill count"
+    },
+    {
+        "id": "L_GUN_002",
+        "en": "Died once\n",
+        "gb": "Died once\n",
+        "jp": "Died once\n",
+        "it": "Died once\n",
+        "fr": "Died once\n",
+        "de": "Died once\n",
+        "es": "Died once\n"
+    },
+    {
+        "id": "L_GUN_003",
+        "en": "Died",
+        "gb": "Died",
+        "jp": "Died",
+        "it": "Died",
+        "fr": "Died",
+        "de": "Died",
+        "es": "Died"
+    },
+    {
+        "id": "L_GUN_004",
+        "en": "times",
+        "gb": "times",
+        "jp": "times",
+        "it": "times",
+        "fr": "times",
+        "de": "times",
+        "es": "times"
+    },
+    {
+        "id": "L_GUN_005",
+        "en": "Suicide count",
+        "gb": "Suicide count",
+        "jp": "Suicide count",
+        "it": "Suicide count",
+        "fr": "Suicide count",
+        "de": "Suicide count",
+        "es": "Suicide count"
+    },
+    {
+        "id": "L_GUN_006",
+        "en": "Unarmed\n",
+        "gb": "Unarmed\n",
+        "jp": "Unarmed\n",
+        "it": "Unarmed\n",
+        "fr": "Unarmed\n",
+        "de": "Unarmed\n",
+        "es": "Unarmed\n"
+    },
+    {
+        "id": "L_GUN_007",
+        "en": "Falcon 2\n",
+        "gb": "Falcon 2\n",
+        "jp": "Falcon 2\n",
+        "it": "Falcon 2\n",
+        "fr": "Falcon 2\n",
+        "de": "Falcon 2\n",
+        "es": "Falcon 2\n"
+    },
+    {
+        "id": "L_GUN_008",
+        "en": "Falcon 2 (silencer)\n",
+        "gb": "Falcon 2 (silencer)\n",
+        "jp": "Falcon 2 (silencer)\n",
+        "it": "Falcon 2 (silencer)\n",
+        "fr": "Falcon 2 (silencer)\n",
+        "de": "Falcon 2 (silencer)\n",
+        "es": "Falcon 2 (silencer)\n"
+    },
+    {
+        "id": "L_GUN_009",
+        "en": "Falcon 2 (scope)\n",
+        "gb": "Falcon 2 (scope)\n",
+        "jp": "Falcon 2 (scope)\n",
+        "it": "Falcon 2 (scope)\n",
+        "fr": "Falcon 2 (scope)\n",
+        "de": "Falcon 2 (scope)\n",
+        "es": "Falcon 2 (scope)\n"
+    },
+    {
+        "id": "L_GUN_010",
+        "en": "MagSec 4\n",
+        "gb": "MagSec 4\n",
+        "jp": "MagSec 4\n",
+        "it": "MagSec 4\n",
+        "fr": "MagSec 4\n",
+        "de": "MagSec 4\n",
+        "es": "MagSec 4\n"
+    },
+    {
+        "id": "L_GUN_011",
+        "en": "Mauler\n",
+        "gb": "Mauler\n",
+        "jp": "Mauler\n",
+        "it": "Mauler\n",
+        "fr": "Mauler\n",
+        "de": "Mauler\n",
+        "es": "Mauler\n"
+    },
+    {
+        "id": "L_GUN_012",
+        "en": "DY357 Magnum\n",
+        "gb": "DY357 Magnum\n",
+        "jp": "DY357 Magnum\n",
+        "it": "DY357 Magnum\n",
+        "fr": "DY357 Magnum\n",
+        "de": "DY357 Magnum\n",
+        "es": "DY357 Magnum\n"
+    },
+    {
+        "id": "L_GUN_013",
+        "en": "DY357-LX\n",
+        "gb": "DY357-LX\n",
+        "jp": "DY357-LX\n",
+        "it": "DY357-LX\n",
+        "fr": "DY357-LX\n",
+        "de": "DY357-LX\n",
+        "es": "DY357-LX\n"
+    },
+    {
+        "id": "L_GUN_014",
+        "en": "Phoenix\n",
+        "gb": "Phoenix\n",
+        "jp": "Phoenix\n",
+        "it": "Phoenix\n",
+        "fr": "Phoenix\n",
+        "de": "Phoenix\n",
+        "es": "Phoenix\n"
+    },
+    {
+        "id": "L_GUN_015",
+        "en": "CMP150\n",
+        "gb": "CMP150\n",
+        "jp": "CMP150\n",
+        "it": "CMP150\n",
+        "fr": "CMP150\n",
+        "de": "CMP150\n",
+        "es": "CMP150\n"
+    },
+    {
+        "id": "L_GUN_016",
+        "en": "AR34\n",
+        "gb": "AR34\n",
+        "jp": "AR34\n",
+        "it": "AR34\n",
+        "fr": "AR34\n",
+        "de": "AR34\n",
+        "es": "AR34\n"
+    },
+    {
+        "id": "L_GUN_017",
+        "en": "Dragon\n",
+        "gb": "Dragon\n",
+        "jp": "Dragon\n",
+        "it": "Dragon\n",
+        "fr": "Dragon\n",
+        "de": "Dragon\n",
+        "es": "Dragon\n"
+    },
+    {
+        "id": "L_GUN_018",
+        "en": "SuperDragon\n",
+        "gb": "SuperDragon\n",
+        "jp": "SuperDragon\n",
+        "it": "SuperDragon\n",
+        "fr": "SuperDragon\n",
+        "de": "SuperDragon\n",
+        "es": "SuperDragon\n"
+    },
+    {
+        "id": "L_GUN_019",
+        "en": "K7 Avenger\n",
+        "gb": "K7 Avenger\n",
+        "jp": "Avenger\n",
+        "it": "K7 Avenger\n",
+        "fr": "K7 Avenger\n",
+        "de": "K7 Avenger\n",
+        "es": "K7 Avenger\n"
+    },
+    {
+        "id": "L_GUN_020",
+        "en": "Cyclone\n",
+        "gb": "Cyclone\n",
+        "jp": "Cyclone\n",
+        "it": "Cyclone\n",
+        "fr": "Cyclone\n",
+        "de": "Cyclone\n",
+        "es": "Cyclone\n"
+    },
+    {
+        "id": "L_GUN_021",
+        "en": "MagSec SMG\n",
+        "gb": "MagSec SMG\n",
+        "jp": "MagSec SMG\n",
+        "it": "MagSec SMG\n",
+        "fr": "MagSec SMG\n",
+        "de": "MagSec SMG\n",
+        "es": "MagSec SMG\n"
+    },
+    {
+        "id": "L_GUN_022",
+        "en": "RC-P120\n",
+        "gb": "RC-P120\n",
+        "jp": "RC-P120\n",
+        "it": "RC-P120\n",
+        "fr": "RC-P120\n",
+        "de": "RC-P120\n",
+        "es": "RC-P120\n"
+    },
+    {
+        "id": "L_GUN_023",
+        "en": "Callisto NTG\n",
+        "gb": "Callisto NTG\n",
+        "jp": "Callisto NTG\n",
+        "it": "Callisto NTG\n",
+        "fr": "Callisto NTG\n",
+        "de": "Callisto NTG\n",
+        "es": "Callisto NTG\n"
+    },
+    {
+        "id": "L_GUN_024",
+        "en": "Laptop Gun\n",
+        "gb": "Laptop Gun\n",
+        "jp": "Laptop Gun\n",
+        "it": "Laptop Gun\n",
+        "fr": "Laptop Gun\n",
+        "de": "Laptop Gun\n",
+        "es": "Laptop Gun\n"
+    },
+    {
+        "id": "L_GUN_025",
+        "en": "Shotgun\n",
+        "gb": "Shotgun\n",
+        "jp": "Shotgun\n",
+        "it": "Shotgun\n",
+        "fr": "Shotgun\n",
+        "de": "Shotgun\n",
+        "es": "Shotgun\n"
+    },
+    {
+        "id": "L_GUN_026",
+        "en": "Reaper\n",
+        "gb": "Reaper\n",
+        "jp": "Reaper\n",
+        "it": "Reaper\n",
+        "fr": "Reaper\n",
+        "de": "Reaper\n",
+        "es": "Reaper\n"
+    },
+    {
+        "id": "L_GUN_027",
+        "en": "Rocket Launcher\n",
+        "gb": "Rocket Launcher\n",
+        "jp": "Rocket Launcher\n",
+        "it": "Rocket Launcher\n",
+        "fr": "Rocket Launcher\n",
+        "de": "Rocket Launcher\n",
+        "es": "Rocket Launcher\n"
+    },
+    {
+        "id": "L_GUN_028",
+        "en": "Devastator\n",
+        "gb": "Devastator\n",
+        "jp": "Devastator\n",
+        "it": "Devastator\n",
+        "fr": "Devastator\n",
+        "de": "Devastator\n",
+        "es": "Devastator\n"
+    },
+    {
+        "id": "L_GUN_029",
+        "en": "Slayer\n",
+        "gb": "Slayer\n",
+        "jp": "Slayer\n",
+        "it": "Slayer\n",
+        "fr": "Slayer\n",
+        "de": "Slayer\n",
+        "es": "Slayer\n"
+    },
+    {
+        "id": "L_GUN_030",
+        "en": "MaianGrenade\n",
+        "gb": "MaianGrenade\n",
+        "jp": "MaianGrenade\n",
+        "it": "MaianGrenade\n",
+        "fr": "MaianGrenade\n",
+        "de": "MaianGrenade\n",
+        "es": "MaianGrenade\n"
+    },
+    {
+        "id": "L_GUN_031",
+        "en": "FarSight XR-20\n",
+        "gb": "FarSight XR-20\n",
+        "jp": "FarSight XR-20\n",
+        "it": "FarSight XR-20\n",
+        "fr": "FarSight XR-20\n",
+        "de": "FarSight XR-20\n",
+        "es": "FarSight XR-20\n"
+    },
+    {
+        "id": "L_GUN_032",
+        "en": "Sniper Rifle\n",
+        "gb": "Sniper Rifle\n",
+        "jp": "Sniper Rifle\n",
+        "it": "Sniper Rifle\n",
+        "fr": "Sniper Rifle\n",
+        "de": "Sniper Rifle\n",
+        "es": "Sniper Rifle\n"
+    },
+    {
+        "id": "L_GUN_033",
+        "en": "Crossbow\n",
+        "gb": "Crossbow\n",
+        "jp": "Crossbow\n",
+        "it": "Crossbow\n",
+        "fr": "Crossbow\n",
+        "de": "Crossbow\n",
+        "es": "Crossbow\n"
+    },
+    {
+        "id": "L_GUN_034",
+        "en": "Tranquilizer\n",
+        "gb": "Tranquilizer\n",
+        "jp": "Tranquilizer\n",
+        "it": "Tranquilizer\n",
+        "fr": "Tranquilizer\n",
+        "de": "Tranquilizer\n",
+        "es": "Tranquilizer\n"
+    },
+    {
+        "id": "L_GUN_035",
+        "en": "Combat Knife\n",
+        "gb": "Combat Knife\n",
+        "jp": "Combat Knife\n",
+        "it": "Combat Knife\n",
+        "fr": "Combat Knife\n",
+        "de": "Combat Knife\n",
+        "es": "Combat Knife\n"
+    },
+    {
+        "id": "L_GUN_036",
+        "en": "Grenade\n",
+        "gb": "Grenade\n",
+        "jp": "Grenade\n",
+        "it": "Grenade\n",
+        "fr": "Grenade\n",
+        "de": "Grenade\n",
+        "es": "Grenade\n"
+    },
+    {
+        "id": "L_GUN_037",
+        "en": "N-Bomb\n",
+        "gb": "N-Bomb\n",
+        "jp": "N-Bomb\n",
+        "it": "N-Bomb\n",
+        "fr": "N-Bomb\n",
+        "de": "N-Bomb\n",
+        "es": "N-Bomb\n"
+    },
+    {
+        "id": "L_GUN_038",
+        "en": "Timed Mine\n",
+        "gb": "Timed Mine\n",
+        "jp": "Timed Mine\n",
+        "it": "Timed Mine\n",
+        "fr": "Timed Mine\n",
+        "de": "Timed Mine\n",
+        "es": "Timed Mine\n"
+    },
+    {
+        "id": "L_GUN_039",
+        "en": "Proximity Mine\n",
+        "gb": "Proximity Mine\n",
+        "jp": "Proximity Mine\n",
+        "it": "Proximity Mine\n",
+        "fr": "Proximity Mine\n",
+        "de": "Proximity Mine\n",
+        "es": "Proximity Mine\n"
+    },
+    {
+        "id": "L_GUN_040",
+        "en": "Remote Mine\n",
+        "gb": "Remote Mine\n",
+        "jp": "Remote Mine\n",
+        "it": "Remote Mine\n",
+        "fr": "Remote Mine\n",
+        "de": "Remote Mine\n",
+        "es": "Remote Mine\n"
+    },
+    {
+        "id": "L_GUN_041",
+        "en": "ECM Mine\n",
+        "gb": "ECM Mine\n",
+        "jp": "ECM Mine\n",
+        "it": "ECM Mine\n",
+        "fr": "ECM Mine\n",
+        "de": "ECM Mine\n",
+        "es": "ECM Mine\n"
+    },
+    {
+        "id": "L_GUN_042",
+        "en": "FlashBang\n",
+        "gb": "FlashBang\n",
+        "jp": "FlashBang\n",
+        "it": "FlashBang\n",
+        "fr": "FlashBang\n",
+        "de": "FlashBang\n",
+        "es": "FlashBang\n"
+    },
+    {
+        "id": "L_GUN_043",
+        "en": "Disguise\n",
+        "gb": "Disguise\n",
+        "jp": "Disguise\n",
+        "it": "Disguise\n",
+        "fr": "Disguise\n",
+        "de": "Disguise\n",
+        "es": "Disguise\n"
+    },
+    {
+        "id": "L_GUN_044",
+        "en": "Rocket\n",
+        "gb": "Rocket\n",
+        "jp": "Rocket\n",
+        "it": "Rocket\n",
+        "fr": "Rocket\n",
+        "de": "Rocket\n",
+        "es": "Rocket\n"
+    },
+    {
+        "id": "L_GUN_045",
+        "en": "Homing Rocket\n",
+        "gb": "Homing Rocket\n",
+        "jp": "Homing Rocket\n",
+        "it": "Homing Rocket\n",
+        "fr": "Homing Rocket\n",
+        "de": "Homing Rocket\n",
+        "es": "Homing Rocket\n"
+    },
+    {
+        "id": "L_GUN_046",
+        "en": "Grenade Round\n",
+        "gb": "Grenade Round\n",
+        "jp": "Grenade Round\n",
+        "it": "Grenade Round\n",
+        "fr": "Grenade Round\n",
+        "de": "Grenade Round\n",
+        "es": "Grenade Round\n"
+    },
+    {
+        "id": "L_GUN_047",
+        "en": "Laser\n",
+        "gb": "Laser\n",
+        "jp": "Laser\n",
+        "it": "Laser\n",
+        "fr": "Laser\n",
+        "de": "Laser\n",
+        "es": "Laser\n"
+    },
+    {
+        "id": "L_GUN_048",
+        "en": "Bolt\n",
+        "gb": "Bolt\n",
+        "jp": "Bolt\n",
+        "it": "Bolt\n",
+        "fr": "Bolt\n",
+        "de": "Bolt\n",
+        "es": "Bolt\n"
+    },
+    {
+        "id": "L_GUN_049",
+        "en": "Psychosis Gun\n",
+        "gb": "Psychosis Gun\n",
+        "jp": "Psychosis Gun\n",
+        "it": "Psychosis Gun\n",
+        "fr": "Psychosis Gun\n",
+        "de": "Psychosis Gun\n",
+        "es": "Psychosis Gun\n"
+    },
+    {
+        "id": "L_GUN_050",
+        "en": "PP9i\n",
+        "gb": "PP9i\n",
+        "jp": "PP7\n",
+        "it": "PP9i\n",
+        "fr": "PP9i\n",
+        "de": "PP9i\n",
+        "es": "PP9i\n"
+    },
+    {
+        "id": "L_GUN_051",
+        "en": "CC13\n",
+        "gb": "CC13\n",
+        "jp": "DD44\n",
+        "it": "CC13\n",
+        "fr": "CC13\n",
+        "de": "CC13\n",
+        "es": "CC13\n"
+    },
+    {
+        "id": "L_GUN_052",
+        "en": "KL01313\n",
+        "gb": "Klobb\n",
+        "jp": "Klobb\n",
+        "it": "Klobb\n",
+        "fr": "Klobb\n",
+        "de": "Klobb\n",
+        "es": "Klobb\n"
+    },
+    {
+        "id": "L_GUN_053",
+        "en": "KF7 Special\n",
+        "gb": "KF7 Special\n",
+        "jp": "KF7 Soviet\n",
+        "it": "KF7 Special\n",
+        "fr": "KF7 Special\n",
+        "de": "KF7 Special\n",
+        "es": "KF7 Special\n"
+    },
+    {
+        "id": "L_GUN_054",
+        "en": "ZZT (9mm)\n",
+        "gb": "ZZT (9mm)\n",
+        "jp": "ZMG (9mm)\n",
+        "it": "ZZT (9mm)\n",
+        "fr": "ZZT (9mm)\n",
+        "de": "ZZT (9mm)\n",
+        "es": "ZZT (9mm)\n"
+    },
+    {
+        "id": "L_GUN_055",
+        "en": "DMC\n",
+        "gb": "D5K\n",
+        "jp": "D5K\n",
+        "it": "D5K\n",
+        "fr": "D5K\n",
+        "de": "D5K\n",
+        "es": "D5K\n"
+    },
+    {
+        "id": "L_GUN_056",
+        "en": "AR53\n",
+        "gb": "AR53\n",
+        "jp": "AR33\n",
+        "it": "AR53\n",
+        "fr": "AR53\n",
+        "de": "AR53\n",
+        "es": "AR53\n"
+    },
+    {
+        "id": "L_GUN_057",
+        "en": "RC-P45\n",
+        "gb": "RC-P45\n",
+        "jp": "RC-P90\n",
+        "it": "RC-P45\n",
+        "fr": "RC-P45\n",
+        "de": "RC-P45\n",
+        "es": "RC-P45\n"
+    },
+    {
+        "id": "L_GUN_058",
+        "en": "Tester\n",
+        "gb": "Tester\n",
+        "jp": "Tester\n",
+        "it": "Tester\n",
+        "fr": "Tester\n",
+        "de": "Tester\n",
+        "es": "Tester\n"
+    },
+    {
+        "id": "L_GUN_059",
+        "en": "Night Vision\n",
+        "gb": "Night Sight\n",
+        "jp": "Night Sight\n",
+        "it": "Night Sight\n",
+        "fr": "Night Sight\n",
+        "de": "Night Sight\n",
+        "es": "Night Sight\n"
+    },
+    {
+        "id": "L_GUN_060",
+        "en": "CamSpy\n",
+        "gb": "CamSpy\n",
+        "jp": "CamSpy\n",
+        "it": "CamSpy\n",
+        "fr": "CamSpy\n",
+        "de": "CamSpy\n",
+        "es": "CamSpy\n"
+    },
+    {
+        "id": "L_GUN_061",
+        "en": "DrugSpy\n",
+        "gb": "DrugSpy\n",
+        "jp": "DrugSpy\n",
+        "it": "DrugSpy\n",
+        "fr": "DrugSpy\n",
+        "de": "DrugSpy\n",
+        "es": "DrugSpy\n"
+    },
+    {
+        "id": "L_GUN_062",
+        "en": "BombSpy\n",
+        "gb": "BombSpy\n",
+        "jp": "BombSpy\n",
+        "it": "BombSpy\n",
+        "fr": "BombSpy\n",
+        "de": "BombSpy\n",
+        "es": "BombSpy\n"
+    },
+    {
+        "id": "L_GUN_063",
+        "en": "Door Decoder\n",
+        "gb": "Door Decoder\n",
+        "jp": "Door Decoder\n",
+        "it": "Door Decoder\n",
+        "fr": "Door Decoder\n",
+        "de": "Door Decoder\n",
+        "es": "Door Decoder\n"
+    },
+    {
+        "id": "L_GUN_064",
+        "en": "Explosives\n",
+        "gb": "Explosives\n",
+        "jp": "Explosives\n",
+        "it": "Explosives\n",
+        "fr": "Explosives\n",
+        "de": "Explosives\n",
+        "es": "Explosives\n"
+    },
+    {
+        "id": "L_GUN_065",
+        "en": "X-Ray Scanner\n",
+        "gb": "X-Ray Scanner\n",
+        "jp": "X-Ray Scanner\n",
+        "it": "X-Ray Scanner\n",
+        "fr": "X-Ray Scanner\n",
+        "de": "X-Ray Scanner\n",
+        "es": "X-Ray Scanner\n"
+    },
+    {
+        "id": "L_GUN_066",
+        "en": "Alien Medpack\n",
+        "gb": "Alien Medpack\n",
+        "jp": "Alien Medpack\n",
+        "it": "Alien Medpack\n",
+        "fr": "Alien Medpack\n",
+        "de": "Alien Medpack\n",
+        "es": "Alien Medpack\n"
+    },
+    {
+        "id": "L_GUN_067",
+        "en": "Suitcase\n",
+        "gb": "Suitcase\n",
+        "jp": "Suitcase\n",
+        "it": "Suitcase\n",
+        "fr": "Suitcase\n",
+        "de": "Suitcase\n",
+        "es": "Suitcase\n"
+    },
+    {
+        "id": "L_GUN_068",
+        "en": "Disguise\n",
+        "gb": "Disguise\n",
+        "jp": "Disguise\n",
+        "it": "Disguise\n",
+        "fr": "Disguise\n",
+        "de": "Disguise\n",
+        "es": "Disguise\n"
+    },
+    {
+        "id": "L_GUN_069",
+        "en": "IR Scanner\n",
+        "gb": "IR Scanner\n",
+        "jp": "I-R Scanner\n",
+        "it": "IR Scanner\n",
+        "fr": "IR Scanner\n",
+        "de": "IR Scanner\n",
+        "es": "IR Scanner\n"
+    },
+    {
+        "id": "L_GUN_070",
+        "en": "R-Tracker\n",
+        "gb": "R-Tracker\n",
+        "jp": "R-Tracker\n",
+        "it": "R-Tracker\n",
+        "fr": "R-Tracker\n",
+        "de": "R-Tracker\n",
+        "es": "R-Tracker\n"
+    },
+    {
+        "id": "L_GUN_071",
+        "en": "Briefcase\n",
+        "gb": "Briefcase\n",
+        "jp": "Briefcase\n",
+        "it": "Briefcase\n",
+        "fr": "Briefcase\n",
+        "de": "Briefcase\n",
+        "es": "Briefcase\n"
+    },
+    {
+        "id": "L_GUN_072",
+        "en": "Suicide Pill\n",
+        "gb": "Suicide Pill\n",
+        "jp": "Suicide Pill\n",
+        "it": "Suicide Pill\n",
+        "fr": "Suicide Pill\n",
+        "de": "Suicide Pill\n",
+        "es": "Suicide Pill\n"
+    },
+    {
+        "id": "L_GUN_073",
+        "en": "Cloaking Device\n",
+        "gb": "Cloaking Device\n",
+        "jp": "Cloaking Device\n",
+        "it": "Cloaking Device\n",
+        "fr": "Cloaking Device\n",
+        "de": "Cloaking Device\n",
+        "es": "Cloaking Device\n"
+    },
+    {
+        "id": "L_GUN_074",
+        "en": "Combat Boost\n",
+        "gb": "Combat Boost\n",
+        "jp": "Combat Boost\n",
+        "it": "Combat Boost\n",
+        "fr": "Combat Boost\n",
+        "de": "Combat Boost\n",
+        "es": "Combat Boost\n"
+    },
+    {
+        "id": "L_GUN_075",
+        "en": "Data Uplink\n",
+        "gb": "Data Uplink\n",
+        "jp": "Data Uplink\n",
+        "it": "Data Uplink\n",
+        "fr": "Data Uplink\n",
+        "de": "Data Uplink\n",
+        "es": "Data Uplink\n"
+    },
+    {
+        "id": "L_GUN_076",
+        "en": "Horizon Scanner\n",
+        "gb": "Horizon Scanner\n",
+        "jp": "Horizon Scanner\n",
+        "it": "Horizon Scanner\n",
+        "fr": "Horizon Scanner\n",
+        "de": "Horizon Scanner\n",
+        "es": "Horizon Scanner\n"
+    },
+    {
+        "id": "L_GUN_077",
+        "en": "Falcon 2 (s)\n",
+        "gb": "Falcon 2 (s)\n",
+        "jp": "Falcon 2 (s)\n",
+        "it": "Falcon 2 (s)\n",
+        "fr": "Falcon 2 (s)\n",
+        "de": "Falcon 2 (s)\n",
+        "es": "Falcon 2 (s)\n"
+    },
+    {
+        "id": "L_GUN_078",
+        "en": "Falcon 2 (+)\n",
+        "gb": "Falcon 2 (+)\n",
+        "jp": "Falcon 2 (+)\n",
+        "it": "Falcon 2 (+)\n",
+        "fr": "Falcon 2 (+)\n",
+        "de": "Falcon 2 (+)\n",
+        "es": "Falcon 2 (+)\n"
+    },
+    {
+        "id": "L_GUN_079",
+        "en": "FarSight\n",
+        "gb": "FarSight\n",
+        "jp": "FarSight\n",
+        "it": "FarSight\n",
+        "fr": "FarSight\n",
+        "de": "FarSight\n",
+        "es": "FarSight\n"
+    },
+    {
+        "id": "L_GUN_080",
+        "en": "R-Launcher\n",
+        "gb": "R-Launcher\n",
+        "jp": "R-Launcher\n",
+        "it": "R-Launcher\n",
+        "fr": "R-Launcher\n",
+        "de": "R-Launcher\n",
+        "es": "R-Launcher\n"
+    },
+    {
+        "id": "L_GUN_081",
+        "en": "Proxy Mine\n",
+        "gb": "Proxy Mine\n",
+        "jp": "Proxy Mine\n",
+        "it": "Proxy Mine\n",
+        "fr": "Proxy Mine\n",
+        "de": "Proxy Mine\n",
+        "es": "Proxy Mine\n"
+    },
+    {
+        "id": "L_GUN_082",
+        "en": "Psychosis\n",
+        "gb": "Psychosis\n",
+        "jp": "Psychosis\n",
+        "it": "Psychosis\n",
+        "fr": "Psychosis\n",
+        "de": "Psychosis\n",
+        "es": "Psychosis\n"
+    },
+    {
+        "id": "L_GUN_083",
+        "en": "Knife\n",
+        "gb": "Knife\n",
+        "jp": "Knife\n",
+        "it": "Knife\n",
+        "fr": "Knife\n",
+        "de": "Knife\n",
+        "es": "Knife\n"
+    },
+    {
+        "id": "L_GUN_084",
+        "en": "DY357\n",
+        "gb": "DY357\n",
+        "jp": "DY357\n",
+        "it": "DY357\n",
+        "fr": "DY357\n",
+        "de": "DY357\n",
+        "es": "DY357\n"
+    },
+    {
+        "id": "L_GUN_085",
+        "en": "Single Shot\n",
+        "gb": "Single Shot\n",
+        "jp": "Single Shot\n",
+        "it": "Single Shot\n",
+        "fr": "Single Shot\n",
+        "de": "Single Shot\n",
+        "es": "Single Shot\n"
+    },
+    {
+        "id": "L_GUN_086",
+        "en": "Rapid Fire\n",
+        "gb": "Rapid Fire\n",
+        "jp": "Rapid Fire\n",
+        "it": "Rapid Fire\n",
+        "fr": "Rapid Fire\n",
+        "de": "Rapid Fire\n",
+        "es": "Rapid Fire\n"
+    },
+    {
+        "id": "L_GUN_087",
+        "en": "Burst Fire\n",
+        "gb": "Burst Fire\n",
+        "jp": "Burst Fire\n",
+        "it": "Burst Fire\n",
+        "fr": "Burst Fire\n",
+        "de": "Burst Fire\n",
+        "es": "Burst Fire\n"
+    },
+    {
+        "id": "L_GUN_088",
+        "en": "Reapage\n",
+        "gb": "Reapage\n",
+        "jp": "Reapage\n",
+        "it": "Reapage\n",
+        "fr": "Reapage\n",
+        "de": "Reapage\n",
+        "es": "Reapage\n"
+    },
+    {
+        "id": "L_GUN_089",
+        "en": "Shotgun Fire\n",
+        "gb": "Shotgun Fire\n",
+        "jp": "Shotgun Fire\n",
+        "it": "Shotgun Fire\n",
+        "fr": "Shotgun Fire\n",
+        "de": "Shotgun Fire\n",
+        "es": "Shotgun Fire\n"
+    },
+    {
+        "id": "L_GUN_090",
+        "en": "Rail-gun effect\n",
+        "gb": "Rail-gun effect\n",
+        "jp": "Rail-gun effect\n",
+        "it": "Rail-gun effect\n",
+        "fr": "Rail-gun effect\n",
+        "de": "Rail-gun effect\n",
+        "es": "Rail-gun effect\n"
+    },
+    {
+        "id": "L_GUN_091",
+        "en": "Rocket Launch\n",
+        "gb": "Rocket Launch\n",
+        "jp": "Rocket Launch\n",
+        "it": "Rocket Launch\n",
+        "fr": "Rocket Launch\n",
+        "de": "Rocket Launch\n",
+        "es": "Rocket Launch\n"
+    },
+    {
+        "id": "L_GUN_092",
+        "en": "Targetted Rocket\n",
+        "gb": "Targetted Rocket\n",
+        "jp": "Targetted Rocket\n",
+        "it": "Targetted Rocket\n",
+        "fr": "Targetted Rocket\n",
+        "de": "Targetted Rocket\n",
+        "es": "Targetted Rocket\n"
+    },
+    {
+        "id": "L_GUN_093",
+        "en": "Fly-By-Wire Rocket\n",
+        "gb": "Fly-By-Wire Rocket\n",
+        "jp": "Fly By Wire Rocket\n",
+        "it": "Fly-By-Wire Rocket\n",
+        "fr": "Fly-By-Wire Rocket\n",
+        "de": "Fly-By-Wire Rocket\n",
+        "es": "Fly-By-Wire Rocket\n"
+    },
+    {
+        "id": "L_GUN_094",
+        "en": "Pistol Whip\n",
+        "gb": "Pistol Whip\n",
+        "jp": "Pistol Whip\n",
+        "it": "Pistol Whip\n",
+        "fr": "Pistol Whip\n",
+        "de": "Pistol Whip\n",
+        "es": "Pistol Whip\n"
+    },
+    {
+        "id": "L_GUN_095",
+        "en": "Explosive Shells\n",
+        "gb": "Explosive Shells\n",
+        "jp": "Explosive Shells\n",
+        "it": "Explosive Shells\n",
+        "fr": "Explosive Shells\n",
+        "de": "Explosive Shells\n",
+        "es": "Explosive Shells\n"
+    },
+    {
+        "id": "L_GUN_096",
+        "en": "Guided Shots\n",
+        "gb": "Guided Shots\n",
+        "jp": "Guided Shots\n",
+        "it": "Guided Shots\n",
+        "fr": "Guided Shots\n",
+        "de": "Guided Shots\n",
+        "es": "Guided Shots\n"
+    },
+    {
+        "id": "L_GUN_097",
+        "en": "Magazine Discharge\n",
+        "gb": "Magazine Discharge\n",
+        "jp": "Magazine Discharge\n",
+        "it": "Magazine Discharge\n",
+        "fr": "Magazine Discharge\n",
+        "de": "Magazine Discharge\n",
+        "es": "Magazine Discharge\n"
+    },
+    {
+        "id": "L_GUN_098",
+        "en": "Grenade Launcher\n",
+        "gb": "Grenade Launcher\n",
+        "jp": "Grenade Launcher\n",
+        "it": "Grenade Launcher\n",
+        "fr": "Grenade Launcher\n",
+        "de": "Grenade Launcher\n",
+        "es": "Grenade Launcher\n"
+    },
+    {
+        "id": "L_GUN_099",
+        "en": "Wall Hugger\n",
+        "gb": "Wall Hugger\n",
+        "jp": "Wall Hugger\n",
+        "it": "Wall Hugger\n",
+        "fr": "Wall Hugger\n",
+        "de": "Wall Hugger\n",
+        "es": "Wall Hugger\n"
+    },
+    {
+        "id": "L_GUN_100",
+        "en": "Punch\n",
+        "gb": "Punch\n",
+        "jp": "Punch\n",
+        "it": "Punch\n",
+        "fr": "Punch\n",
+        "de": "Punch\n",
+        "es": "Punch\n"
+    },
+    {
+        "id": "L_GUN_101",
+        "en": "Disarm\n",
+        "gb": "Disarm\n",
+        "jp": "Disarm\n",
+        "it": "Disarm\n",
+        "fr": "Disarm\n",
+        "de": "Disarm\n",
+        "es": "Disarm\n"
+    },
+    {
+        "id": "L_GUN_102",
+        "en": "Follow Lock-On\n",
+        "gb": "Follow Lock-On\n",
+        "jp": "Follow Lock-On\n",
+        "it": "Follow Lock-On\n",
+        "fr": "Follow Lock-On\n",
+        "de": "Follow Lock-On\n",
+        "es": "Follow Lock-On\n"
+    },
+    {
+        "id": "L_GUN_103",
+        "en": "Use Scope\n",
+        "gb": "Use Scope\n",
+        "jp": "Use Scope\n",
+        "it": "Use Scope\n",
+        "fr": "Use Scope\n",
+        "de": "Use Scope\n",
+        "es": "Use Scope\n"
+    },
+    {
+        "id": "L_GUN_104",
+        "en": "Half Magazine Discharge\n",
+        "gb": "Half Magazine Discharge\n",
+        "jp": "Half Magazine Discharge\n",
+        "it": "Half Magazine Discharge\n",
+        "fr": "Half Magazine Discharge\n",
+        "de": "Half Magazine Discharge\n",
+        "es": "Half Magazine Discharge\n"
+    },
+    {
+        "id": "L_GUN_105",
+        "en": "Double Blast\n",
+        "gb": "Double Blast\n",
+        "jp": "Double Blast\n",
+        "it": "Double Blast\n",
+        "fr": "Double Blast\n",
+        "de": "Double Blast\n",
+        "es": "Double Blast\n"
+    },
+    {
+        "id": "L_GUN_106",
+        "en": "Grinder\n",
+        "gb": "Grinder\n",
+        "jp": "Grinder\n",
+        "it": "Grinder\n",
+        "fr": "Grinder\n",
+        "de": "Grinder\n",
+        "es": "Grinder\n"
+    },
+    {
+        "id": "L_GUN_107",
+        "en": "Sedate\n",
+        "gb": "Sedate\n",
+        "jp": "Drug\n",
+        "it": "Sedate\n",
+        "fr": "Sedate\n",
+        "de": "Sedate\n",
+        "es": "Sedate\n"
+    },
+    {
+        "id": "L_GUN_108",
+        "en": "Lethal Injection\n",
+        "gb": "Lethal Injection\n",
+        "jp": "Lethal Injection\n",
+        "it": "Lethal Injection\n",
+        "fr": "Lethal Injection\n",
+        "de": "Lethal Injection\n",
+        "es": "Lethal Injection\n"
+    },
+    {
+        "id": "L_GUN_109",
+        "en": "Knife Slash\n",
+        "gb": "Knife Slash\n",
+        "jp": "Knife Slash\n",
+        "it": "Knife Slash\n",
+        "fr": "Knife Slash\n",
+        "de": "Knife Slash\n",
+        "es": "Knife Slash\n"
+    },
+    {
+        "id": "L_GUN_110",
+        "en": "Throw Poison Knife\n",
+        "gb": "Throw Poison Knife\n",
+        "jp": "Throw Poison Knife\n",
+        "it": "Throw Poison Knife\n",
+        "fr": "Throw Poison Knife\n",
+        "de": "Throw Poison Knife\n",
+        "es": "Throw Poison Knife\n"
+    },
+    {
+        "id": "L_GUN_111",
+        "en": "Target Locator\n",
+        "gb": "Target Locator\n",
+        "jp": "Target Locator\n",
+        "it": "Target Locator\n",
+        "fr": "Target Locator\n",
+        "de": "Target Locator\n",
+        "es": "Target Locator\n"
+    },
+    {
+        "id": "L_GUN_112",
+        "en": "Instant Kill\n",
+        "gb": "Instant Kill\n",
+        "jp": "Instant Kill\n",
+        "it": "Instant Kill\n",
+        "fr": "Instant Kill\n",
+        "de": "Instant Kill\n",
+        "es": "Instant Kill\n"
+    },
+    {
+        "id": "L_GUN_113",
+        "en": "Boost\n",
+        "gb": "Boost\n",
+        "jp": "Boost\n",
+        "it": "Boost\n",
+        "fr": "Boost\n",
+        "de": "Boost\n",
+        "es": "Boost\n"
+    },
+    {
+        "id": "L_GUN_114",
+        "en": "Revert\n",
+        "gb": "Revert\n",
+        "jp": "Revert\n",
+        "it": "Revert\n",
+        "fr": "Revert\n",
+        "de": "Revert\n",
+        "es": "Revert\n"
+    },
+    {
+        "id": "L_GUN_115",
+        "en": "High Impact Shells\n",
+        "gb": "High Impact Shells\n",
+        "jp": "High Impact Shells\n",
+        "it": "High Impact Shells\n",
+        "fr": "High Impact Shells\n",
+        "de": "High Impact Shells\n",
+        "es": "High Impact Shells\n"
+    },
+    {
+        "id": "L_GUN_116",
+        "en": "Cloak\n",
+        "gb": "Cloak\n",
+        "jp": "Cloak\n",
+        "it": "Cloak\n",
+        "fr": "Cloak\n",
+        "de": "Cloak\n",
+        "es": "Cloak\n"
+    },
+    {
+        "id": "L_GUN_117",
+        "en": "Deploy as Sentry Gun\n",
+        "gb": "Deploy as Sentry Gun\n",
+        "jp": "Deploy as Sentry Gun\n",
+        "it": "Deploy as Sentry Gun\n",
+        "fr": "Deploy as Sentry Gun\n",
+        "de": "Deploy as Sentry Gun\n",
+        "es": "Deploy as Sentry Gun\n"
+    },
+    {
+        "id": "L_GUN_118",
+        "en": "Proximity Self Destruct\n",
+        "gb": "Proximity Self Destruct\n",
+        "jp": "Proximity Self Destruct\n",
+        "it": "Proximity Self Destruct\n",
+        "fr": "Proximity Self Destruct\n",
+        "de": "Proximity Self Destruct\n",
+        "es": "Proximity Self Destruct\n"
+    },
+    {
+        "id": "L_GUN_119",
+        "en": "Threat Detector\n",
+        "gb": "Threat Detector\n",
+        "jp": "Threat Detector\n",
+        "it": "Threat Detector\n",
+        "fr": "Threat Detector\n",
+        "de": "Threat Detector\n",
+        "es": "Threat Detector\n"
+    },
+    {
+        "id": "L_GUN_120",
+        "en": "Timed Explosive\n",
+        "gb": "Timed Explosive\n",
+        "jp": "Timed Explosive\n",
+        "it": "Timed Explosive\n",
+        "fr": "Timed Explosive\n",
+        "de": "Timed Explosive\n",
+        "es": "Timed Explosive\n"
+    },
+    {
+        "id": "L_GUN_121",
+        "en": "Proximity Explosive\n",
+        "gb": "Proximity Explosive\n",
+        "jp": "Proximity Explosive\n",
+        "it": "Proximity Explosive\n",
+        "fr": "Proximity Explosive\n",
+        "de": "Proximity Explosive\n",
+        "es": "Proximity Explosive\n"
+    },
+    {
+        "id": "L_GUN_122",
+        "en": "Remote Explosive\n",
+        "gb": "Remote Explosive\n",
+        "jp": "Remote Explosive\n",
+        "it": "Remote Explosive\n",
+        "fr": "Remote Explosive\n",
+        "de": "Remote Explosive\n",
+        "es": "Remote Explosive\n"
+    },
+    {
+        "id": "L_GUN_123",
+        "en": "Detonate\n",
+        "gb": "Detonate\n",
+        "jp": "Detonate\n",
+        "it": "Detonate\n",
+        "fr": "Detonate\n",
+        "de": "Detonate\n",
+        "es": "Detonate\n"
+    },
+    {
+        "id": "L_GUN_124",
+        "en": "4-Second Fuse\n",
+        "gb": "4-Second Fuse\n",
+        "jp": "4-Second Fuse\n",
+        "it": "4-Second Fuse\n",
+        "fr": "4-Second Fuse\n",
+        "de": "4-Second Fuse\n",
+        "es": "4-Second Fuse\n"
+    },
+    {
+        "id": "L_GUN_125",
+        "en": "Proximity Pinball\n",
+        "gb": "Proximity Pinball\n",
+        "jp": "Proximity Pinball\n",
+        "it": "Proximity Pinball\n",
+        "fr": "Proximity Pinball\n",
+        "de": "Proximity Pinball\n",
+        "es": "Proximity Pinball\n"
+    },
+    {
+        "id": "L_GUN_126",
+        "en": "Timed Detonation\n",
+        "gb": "Timed Detonation\n",
+        "jp": "Timed Detonation\n",
+        "it": "Timed Detonation\n",
+        "fr": "Timed Detonation\n",
+        "de": "Timed Detonation\n",
+        "es": "Timed Detonation\n"
+    },
+    {
+        "id": "L_GUN_127",
+        "en": "Proximity Detonation\n",
+        "gb": "Proximity Detonation\n",
+        "jp": "Proximity Detonation\n",
+        "it": "Proximity Detonation\n",
+        "fr": "Proximity Detonation\n",
+        "de": "Proximity Detonation\n",
+        "es": "Proximity Detonation\n"
+    },
+    {
+        "id": "L_GUN_128",
+        "en": "3-Round Burst\n",
+        "gb": "3-Round Burst\n",
+        "jp": "3-Round Burst\n",
+        "it": "3-Round Burst\n",
+        "fr": "3-Round Burst\n",
+        "de": "3-Round Burst\n",
+        "es": "3-Round Burst\n"
+    },
+    {
+        "id": "L_GUN_129",
+        "en": "Charge-Up Shot\n",
+        "gb": "Charge-Up Shot\n",
+        "jp": "Charge-Up Shot\n",
+        "it": "Charge-Up Shot\n",
+        "fr": "Charge-Up Shot\n",
+        "de": "Charge-Up Shot\n",
+        "es": "Charge-Up Shot\n"
+    },
+    {
+        "id": "L_GUN_130",
+        "en": "Crouch\n",
+        "gb": "Crouch\n",
+        "jp": "Crouch\n",
+        "it": "Crouch\n",
+        "fr": "Crouch\n",
+        "de": "Crouch\n",
+        "es": "Crouch\n"
+    },
+    {
+        "id": "L_GUN_131",
+        "en": "Infect\n",
+        "gb": "Infect\n",
+        "jp": "Infect\n",
+        "it": "Infect\n",
+        "fr": "Infect\n",
+        "de": "Infect\n",
+        "es": "Infect\n"
+    },
+    {
+        "id": "L_GUN_132",
+        "en": "Pulse Fire\n",
+        "gb": "Pulse Fire\n",
+        "jp": "Pulse Fire\n",
+        "it": "Pulse Fire\n",
+        "fr": "Pulse Fire\n",
+        "de": "Pulse Fire\n",
+        "es": "Pulse Fire\n"
+    },
+    {
+        "id": "L_GUN_133",
+        "en": "Short Range Stream\n",
+        "gb": "Short Range Stream\n",
+        "jp": "Short Range Stream\n",
+        "it": "Short Range Stream\n",
+        "fr": "Short Range Stream\n",
+        "de": "Short Range Stream\n",
+        "es": "Short Range Stream\n"
+    },
+    {
+        "id": "L_GUN_134",
+        "en": "Impact Detonation\n",
+        "gb": "Impact Detonation\n",
+        "jp": "Impact Detonation\n",
+        "it": "Impact Detonation\n",
+        "fr": "Impact Detonation\n",
+        "de": "Impact Detonation\n",
+        "es": "Impact Detonation\n"
+    },
+    {
+        "id": "L_GUN_135",
+        "en": "Light Amplifier\n",
+        "gb": "Light Amplifier\n",
+        "jp": "Light Amplifier\n",
+        "it": "Light Amplifier\n",
+        "fr": "Light Amplifier\n",
+        "de": "Light Amplifier\n",
+        "es": "Light Amplifier\n"
+    },
+    {
+        "id": "L_GUN_136",
+        "en": "Mobile Camera\n",
+        "gb": "Mobile Camera\n",
+        "jp": "Mobile Camera\n",
+        "it": "Mobile Camera\n",
+        "fr": "Mobile Camera\n",
+        "de": "Mobile Camera\n",
+        "es": "Mobile Camera\n"
+    },
+    {
+        "id": "L_GUN_137",
+        "en": "X-Ray Vision\n",
+        "gb": "X-Ray Vision\n",
+        "jp": "X-Ray Vision\n",
+        "it": "X-Ray Vision\n",
+        "fr": "X-Ray Vision\n",
+        "de": "X-Ray Vision\n",
+        "es": "X-Ray Vision\n"
+    },
+    {
+        "id": "L_GUN_138",
+        "en": "Thermal Imager\n",
+        "gb": "Thermal Imager\n",
+        "jp": "Thermal Imager\n",
+        "it": "Thermal Imager\n",
+        "fr": "Thermal Imager\n",
+        "de": "Thermal Imager\n",
+        "es": "Thermal Imager\n"
+    },
+    {
+        "id": "L_GUN_139",
+        "en": "Zoom\n",
+        "gb": "Zoom\n",
+        "jp": "Zoom\n",
+        "it": "Zoom\n",
+        "fr": "Zoom\n",
+        "de": "Zoom\n",
+        "es": "Zoom\n"
+    },
+    {
+        "id": "L_GUN_140",
+        "en": "Jamming Device\n",
+        "gb": "Jamming Device\n",
+        "jp": "Jamming Device\n",
+        "it": "Jamming Device\n",
+        "fr": "Jamming Device\n",
+        "de": "Jamming Device\n",
+        "es": "Jamming Device\n"
+    },
+    {
+        "id": "L_GUN_141",
+        "en": "Connect\n",
+        "gb": "Connect\n",
+        "jp": "Connect\n",
+        "it": "Connect\n",
+        "fr": "Connect\n",
+        "de": "Connect\n",
+        "es": "Connect\n"
+    },
+    {
+        "id": "L_GUN_142",
+        "en": "Identify Targets\n",
+        "gb": "Identify Targets\n",
+        "jp": "Identify Targets\n",
+        "it": "Identify Targets\n",
+        "fr": "Identify Targets\n",
+        "de": "Identify Targets\n",
+        "es": "Identify Targets\n"
+    },
+    {
+        "id": "L_GUN_143",
+        "en": "Wear Disguise\n",
+        "gb": "Wear Disguise\n",
+        "jp": "Wear Disguise\n",
+        "it": "Wear Disguise\n",
+        "fr": "Wear Disguise\n",
+        "de": "Wear Disguise\n",
+        "es": "Wear Disguise\n"
+    },
+    {
+        "id": "L_GUN_144",
+        "en": "Place Explosives\n",
+        "gb": "Place Explosives\n",
+        "jp": "Place Explosives\n",
+        "it": "Place Explosives\n",
+        "fr": "Place Explosives\n",
+        "de": "Place Explosives\n",
+        "es": "Place Explosives\n"
+    },
+    {
+        "id": "L_GUN_145",
+        "en": "Telescopic Sight\n",
+        "gb": "Telescopic Sight\n",
+        "jp": "Telescopic Sight\n",
+        "it": "Telescopic Sight\n",
+        "fr": "Telescopic Sight\n",
+        "de": "Telescopic Sight\n",
+        "es": "Telescopic Sight\n"
+    },
+    {
+        "id": "L_GUN_146",
+        "en": "Silencer\n",
+        "gb": "Silencer\n",
+        "jp": "Silencer\n",
+        "it": "Silencer\n",
+        "fr": "Silencer\n",
+        "de": "Silencer\n",
+        "es": "Silencer\n"
+    },
+    {
+        "id": "L_GUN_147",
+        "en": "Magazine Extension\n",
+        "gb": "Magazine Extension\n",
+        "jp": "Magazine Extension\n",
+        "it": "Magazine Extension\n",
+        "fr": "Magazine Extension\n",
+        "de": "Magazine Extension\n",
+        "es": "Magazine Extension\n"
+    },
+    {
+        "id": "L_GUN_148",
+        "en": "Laser Sight\n",
+        "gb": "Laser Sight\n",
+        "jp": "Laser Sight\n",
+        "it": "Laser Sight\n",
+        "fr": "Laser Sight\n",
+        "de": "Laser Sight\n",
+        "es": "Laser Sight\n"
+    },
+    {
+        "id": "L_GUN_149",
+        "en": "dataDyne\n",
+        "gb": "dataDyne\n",
+        "jp": "dataDyne\n",
+        "it": "dataDyne\n",
+        "fr": "dataDyne\n",
+        "de": "dataDyne\n",
+        "es": "dataDyne\n"
+    },
+    {
+        "id": "L_GUN_150",
+        "en": "Carrington\n",
+        "gb": "Carrington\n",
+        "jp": "Carrington\n",
+        "it": "Carrington\n",
+        "fr": "Carrington\n",
+        "de": "Carrington\n",
+        "es": "Carrington\n"
+    },
+    {
+        "id": "L_GUN_151",
+        "en": "Chesluk Industries\n",
+        "gb": "Chesluk Industries\n",
+        "jp": "Chesluk Industries\n",
+        "it": "Chesluk Industries\n",
+        "fr": "Chesluk Industries\n",
+        "de": "Chesluk Industries\n",
+        "es": "Chesluk Industries\n"
+    },
+    {
+        "id": "L_GUN_152",
+        "en": "Skedar\n",
+        "gb": "Skedar\n",
+        "jp": "Skedar\n",
+        "it": "Skedar\n",
+        "fr": "Skedar\n",
+        "de": "Skedar\n",
+        "es": "Skedar\n"
+    },
+    {
+        "id": "L_GUN_153",
+        "en": "Maian\n",
+        "gb": "Maian\n",
+        "jp": "Maian\n",
+        "it": "Maian\n",
+        "fr": "Maian\n",
+        "de": "Maian\n",
+        "es": "Maian\n"
+    },
+    {
+        "id": "L_GUN_154",
+        "en": "JonesCorp\n",
+        "gb": "JonesCorp\n",
+        "jp": "JonesCorp\n",
+        "it": "JonesCorp\n",
+        "fr": "JonesCorp\n",
+        "de": "JonesCorp\n",
+        "es": "JonesCorp\n"
+    },
+    {
+        "id": "L_GUN_155",
+        "en": "Even without a weapon, you are still a worthy adversary. Use your fists to knock your opponents out or disarm them and use their weapons against them.\n",
+        "gb": "Even without a weapon, you are still a worthy adversary. Use your fists to knock your opponents out or disarm them and use their weapons against them.\n",
+        "jp": "Even without a weapon you are still a worthy adversary. Use your fists to knock your opponents out or disarm them and use their weapon against them.\n",
+        "it": "Even without a weapon, you are still a worthy adversary. Use your fists to knock your opponents out or disarm them and use their weapons against them.\n",
+        "fr": "Even without a weapon, you are still a worthy adversary. Use your fists to knock your opponents out or disarm them and use their weapons against them.\n",
+        "de": "Even without a weapon, you are still a worthy adversary. Use your fists to knock your opponents out or disarm them and use their weapons against them.\n",
+        "es": "Even without a weapon, you are still a worthy adversary. Use your fists to knock your opponents out or disarm them and use their weapons against them.\n"
+    },
+    {
+        "id": "L_GUN_156",
+        "en": "Accurate and trustworthy, this gun is the workhorse of the Institute's operations. Use the laser sight to place bullets with deadly effect, or pistol-whip adversaries to knock them out.\n",
+        "gb": "Accurate and trustworthy, this gun is the workhorse of the Institute's operations. Use the laser sight to place bullets with deadly effect, or pistol-whip adversaries to knock them out.\n",
+        "jp": "Accurate and trustworthy, This gun is the workhorse of the Institute's operations. Use the laser sight to place bullets with deadly effect, or pistol-whip adversaries to knock them out.\n",
+        "it": "Accurate and trustworthy, this gun is the workhorse of the Institute's operations. Use the laser sight to place bullets with deadly effect, or pistol-whip adversaries to knock them out.\n",
+        "fr": "Accurate and trustworthy, this gun is the workhorse of the Institute's operations. Use the laser sight to place bullets with deadly effect, or pistol-whip adversaries to knock them out.\n",
+        "de": "Accurate and trustworthy, this gun is the workhorse of the Institute's operations. Use the laser sight to place bullets with deadly effect, or pistol-whip adversaries to knock them out.\n",
+        "es": "Accurate and trustworthy, this gun is the workhorse of the Institute's operations. Use the laser sight to place bullets with deadly effect, or pistol-whip adversaries to knock them out.\n"
+    },
+    {
+        "id": "L_GUN_157",
+        "en": "An upgraded Falcon 2, which has the added benefit of being silent, but deadly.\n",
+        "gb": "An upgraded Falcon 2, which has the added benefit of being silent, but deadly.\n",
+        "jp": "An upgraded Falcon 2, which has the added benefit of being silent, but deadly.\n",
+        "it": "An upgraded Falcon 2, which has the added benefit of being silent, but deadly.\n",
+        "fr": "An upgraded Falcon 2, which has the added benefit of being silent, but deadly.\n",
+        "de": "An upgraded Falcon 2, which has the added benefit of being silent, but deadly.\n",
+        "es": "An upgraded Falcon 2, which has the added benefit of being silent, but deadly.\n"
+    },
+    {
+        "id": "L_GUN_158",
+        "en": "An upgraded Falcon 2, featuring a 2x magnification scope which allows you to take advantage of the Falcon's superior accuracy.\n",
+        "gb": "An upgraded Falcon 2, featuring a 2x magnification scope which allows you to take advantage of the Falcon's superior accuracy.\n",
+        "jp": "An upgraded Falcon 2, featuring a 2x magnification scope which allows you to take advantage of the Falcon's superior accuracy.\n",
+        "it": "An upgraded Falcon 2, featuring a 2x magnification scope which allows you to take advantage of the Falcon's superior accuracy.\n",
+        "fr": "An upgraded Falcon 2, featuring a 2x magnification scope which allows you to take advantage of the Falcon's superior accuracy.\n",
+        "de": "An upgraded Falcon 2, featuring a 2x magnification scope which allows you to take advantage of the Falcon's superior accuracy.\n",
+        "es": "An upgraded Falcon 2, featuring a 2x magnification scope which allows you to take advantage of the Falcon's superior accuracy.\n"
+    },
+    {
+        "id": "L_GUN_159",
+        "en": "A state-of-the-art military pistol, largely used by peacekeeping forces. It has a slight zoom capability, and boasts a 3-round burst secondary fire mode.\n",
+        "gb": "A state-of-the-art military pistol, largely used by peacekeeping forces. It has a slight zoom capability, and boasts a 3-round burst secondary fire mode.\n",
+        "jp": "A state-of-the-art military pistol, largely used by peacekeeping forces. It has a slight zoom capability, and boasts a 3-round burst secondary fire mode.\n",
+        "it": "A state-of-the-art military pistol, largely used by peacekeeping forces. It has a slight zoom capability, and boasts a 3-round burst secondary fire mode.\n",
+        "fr": "A state-of-the-art military pistol, largely used by peacekeeping forces. It has a slight zoom capability, and boasts a 3-round burst secondary fire mode.\n",
+        "de": "A state-of-the-art military pistol, largely used by peacekeeping forces. It has a slight zoom capability, and boasts a 3-round burst secondary fire mode.\n",
+        "es": "A state-of-the-art military pistol, largely used by peacekeeping forces. It has a slight zoom capability, and boasts a 3-round burst secondary fire mode.\n"
+    },
+    {
+        "id": "L_GUN_160",
+        "en": "If you see a Skedar coming at you, the chances are it's carrying one of these. A large magazine and a bladed barrel make the pistol a formidable handgun, but the killer blow comes from the secondary function - charge the shot up for extra power at the cost of a few rounds of ammo.\n",
+        "gb": "If you see a Skedar coming at you, the chances are it's carrying one of these. A large magazine and a bladed barrel make the pistol a formidable handgun, but the killer blow comes from the secondary function - charge the shot up for extra power at the cost of a few rounds of ammo.\n",
+        "jp": "If you see a Skedar coming at you, the chances are it's carrying one of these. A large magazine and a bladed barrel make the pistol a formidable handgun, but the killer blow comes from the secondary function - charge the shot up for extra power at the cost of a few rounds of ammo.\n",
+        "it": "If you see a Skedar coming at you, the chances are it's carrying one of these. A large magazine and a bladed barrel make the pistol a formidable handgun, but the killer blow comes from the secondary function - charge the shot up for extra power at the cost of a few rounds of ammo.\n",
+        "fr": "If you see a Skedar coming at you, the chances are it's carrying one of these. A large magazine and a bladed barrel make the pistol a formidable handgun, but the killer blow comes from the secondary function - charge the shot up for extra power at the cost of a few rounds of ammo.\n",
+        "de": "If you see a Skedar coming at you, the chances are it's carrying one of these. A large magazine and a bladed barrel make the pistol a formidable handgun, but the killer blow comes from the secondary function - charge the shot up for extra power at the cost of a few rounds of ammo.\n",
+        "es": "If you see a Skedar coming at you, the chances are it's carrying one of these. A large magazine and a bladed barrel make the pistol a formidable handgun, but the killer blow comes from the secondary function - charge the shot up for extra power at the cost of a few rounds of ammo.\n"
+    },
+    {
+        "id": "L_GUN_161",
+        "en": "The dataDyne DY357 is the most powerful handgun in the world. Each round has an impressive penetration factor and knocks the target back with the weight and power of the shot. Custom models are made for valued clients; NSA director Trent Easton is rumored to have a gold plated variant.\n",
+        "gb": "The dataDyne DY357 is the most powerful handgun in the world. Each round has an impressive penetration factor and knocks the target back with the weight and power of the shot. Custom models are made for valued clients; NSA director Trent Easton is rumored to have a gold plated variant.\n",
+        "jp": "The dataDyne DY357 is the most powerful handgun in the world. Each round has an impressive penetration factor and knocks the target back with the weight and power of the shot. Custom models are made for valued clients; NSA director Trent Easton is rumored to have a gold plated variant.\n",
+        "it": "The dataDyne DY357 is the most powerful handgun in the world. Each round has an impressive penetration factor and knocks the target back with the weight and power of the shot. Custom models are made for valued clients; NSA director Trent Easton is rumored to have a gold plated variant.\n",
+        "fr": "The dataDyne DY357 is the most powerful handgun in the world. Each round has an impressive penetration factor and knocks the target back with the weight and power of the shot. Custom models are made for valued clients; NSA director Trent Easton is rumored to have a gold plated variant.\n",
+        "de": "The dataDyne DY357 is the most powerful handgun in the world. Each round has an impressive penetration factor and knocks the target back with the weight and power of the shot. Custom models are made for valued clients; NSA director Trent Easton is rumored to have a gold plated variant.\n",
+        "es": "The dataDyne DY357 is the most powerful handgun in the world. Each round has an impressive penetration factor and knocks the target back with the weight and power of the shot. Custom models are made for valued clients; NSA director Trent Easton is rumored to have a gold plated variant.\n"
+    },
+    {
+        "id": "L_GUN_162",
+        "en": "The DY357-LX was custom built for NSA director Trent Easton. Besides boasting an attractive genuine tiger skin grip, this golden gun features a velocity optimized barrel, meaning that each bullet always meets its target with fatal force.\n",
+        "gb": "The DY357-LX was custom built for NSA director Trent Easton. Besides boasting an attractive genuine tiger skin grip, this golden gun features a velocity optimized barrel, meaning that each bullet always meets its target with fatal force.\n",
+        "jp": "The DY357-LX was custom built for NSA director Trent Easton. Besides boasting an attractive genuine tiger skin grip, this golden gun features a velocity optimized barrel, meaning that each bullet always meets its target with fatal force.\n",
+        "it": "The DY357-LX was custom built for NSA director Trent Easton. Besides boasting an attractive genuine tiger skin grip, this golden gun features a velocity optimized barrel, meaning that each bullet always meets its target with fatal force.\n",
+        "fr": "The DY357-LX was custom built for NSA director Trent Easton. Besides boasting an attractive genuine tiger skin grip, this golden gun features a velocity optimized barrel, meaning that each bullet always meets its target with fatal force.\n",
+        "de": "The DY357-LX was custom built for NSA director Trent Easton. Besides boasting an attractive genuine tiger skin grip, this golden gun features a velocity optimized barrel, meaning that each bullet always meets its target with fatal force.\n",
+        "es": "The DY357-LX was custom built for NSA director Trent Easton. Besides boasting an attractive genuine tiger skin grip, this golden gun features a velocity optimized barrel, meaning that each bullet always meets its target with fatal force.\n"
+    },
+    {
+        "id": "L_GUN_163",
+        "en": "The Maian standard issue sidearm. A flexible gun, the pistol fires standard shots, or explosive shots at no cost to the rest of the magazine.\n",
+        "gb": "The Maian standard issue sidearm. A flexible gun, the pistol fires standard shots, or explosive shots at no cost to the rest of the magazine.\n",
+        "jp": "The Maian standard issue sidearm. A flexible gun, the pistol fires standard shots, or explosive shots at no cost to the rest of the magazine.\n",
+        "it": "The Maian standard issue sidearm. A flexible gun, the pistol fires standard shots, or explosive shots at no cost to the rest of the magazine.\n",
+        "fr": "The Maian standard issue sidearm. A flexible gun, the pistol fires standard shots, or explosive shots at no cost to the rest of the magazine.\n",
+        "de": "The Maian standard issue sidearm. A flexible gun, the pistol fires standard shots, or explosive shots at no cost to the rest of the magazine.\n",
+        "es": "The Maian standard issue sidearm. A flexible gun, the pistol fires standard shots, or explosive shots at no cost to the rest of the magazine.\n"
+    },
+    {
+        "id": "L_GUN_164",
+        "en": "A dataDyne classic, and a bestseller, this submachine gun boasts a 32 rnd mag and a special feature - the ability to designate and lock on to targets in the line of sight. It turns an average marksman into an excellent one, provided he or she is clever enough to operate the gun. Average fire rate: 900 rpm.\n",
+        "gb": "A dataDyne classic, and a bestseller, this submachine gun boasts a 32 rnd mag and a special feature - the ability to designate and lock on to targets in the line of sight. It turns an average marksman into an excellent one, provided he or she is clever enough to operate the gun. Average fire rate: 900 rpm.\n",
+        "jp": "A dataDyne classic, and a bestseller, this sub-machinegun boasts a 32 rnd mag and a special feature - the ability to designate and lock-on to targets in the line of sight. It turns an average marksman into an excellent one, provided they are clever enough to operate the gun. Average fire rate: 900rpm.\n",
+        "it": "A dataDyne classic, and a bestseller, this submachine gun boasts a 32 rnd mag and a special feature - the ability to designate and lock on to targets in the line of sight. It turns an average marksman into an excellent one, provided he or she is clever enough to operate the gun. Average fire rate: 900 rpm.\n",
+        "fr": "A dataDyne classic, and a bestseller, this submachine gun boasts a 32 rnd mag and a special feature - the ability to designate and lock on to targets in the line of sight. It turns an average marksman into an excellent one, provided he or she is clever enough to operate the gun. Average fire rate: 900 rpm.\n",
+        "de": "A dataDyne classic, and a bestseller, this submachine gun boasts a 32 rnd mag and a special feature - the ability to designate and lock on to targets in the line of sight. It turns an average marksman into an excellent one, provided he or she is clever enough to operate the gun. Average fire rate: 900 rpm.\n",
+        "es": "A dataDyne classic, and a bestseller, this submachine gun boasts a 32 rnd mag and a special feature - the ability to designate and lock on to targets in the line of sight. It turns an average marksman into an excellent one, provided he or she is clever enough to operate the gun. Average fire rate: 900 rpm.\n"
+    },
+    {
+        "id": "L_GUN_165",
+        "en": "The Carrington Institute's main assault rifle. A good range and magazine size make it a useful weapon; the secondary mode enables the user to move while zoomed in on a target. Average fire rate: 750 rpm.\n",
+        "gb": "The Carrington Institute's main assault rifle. A good range and magazine size make it a useful weapon; the secondary mode enables the user to move while zoomed in on a target. Average fire rate: 750 rpm.\n",
+        "jp": "The Carrington Institute's main assault rifle. A good range and magazine size make it a useful weapon; the secondary mode enables the user to move while zoomed in on a target. Average fire rate: 750rpm.\n",
+        "it": "The Carrington Institute's main assault rifle. A good range and magazine size make it a useful weapon; the secondary mode enables the user to move while zoomed in on a target. Average fire rate: 750 rpm.\n",
+        "fr": "The Carrington Institute's main assault rifle. A good range and magazine size make it a useful weapon; the secondary mode enables the user to move while zoomed in on a target. Average fire rate: 750 rpm.\n",
+        "de": "The Carrington Institute's main assault rifle. A good range and magazine size make it a useful weapon; the secondary mode enables the user to move while zoomed in on a target. Average fire rate: 750 rpm.\n",
+        "es": "The Carrington Institute's main assault rifle. A good range and magazine size make it a useful weapon; the secondary mode enables the user to move while zoomed in on a target. Average fire rate: 750 rpm.\n"
+    },
+    {
+        "id": "L_GUN_166",
+        "en": "A standard assault rifle with an evil twist - when the secondary mode is activated, it becomes a proximity-activated mine that looks like a gun. Average fire rate: 700 rpm.\n",
+        "gb": "A standard assault rifle with an evil twist - when the secondary mode is activated, it becomes a proximity-activated mine that looks like a gun. Average fire rate: 700 rpm.\n",
+        "jp": "A standard assault rifle with an evil twist - when the secondary mode is activated, it becomes a proximity-activated mine that looks like a gun. Average fire rate: 700rpm.\n",
+        "it": "A standard assault rifle with an evil twist - when the secondary mode is activated, it becomes a proximity-activated mine that looks like a gun. Average fire rate: 700 rpm.\n",
+        "fr": "A standard assault rifle with an evil twist - when the secondary mode is activated, it becomes a proximity-activated mine that looks like a gun. Average fire rate: 700 rpm.\n",
+        "de": "A standard assault rifle with an evil twist - when the secondary mode is activated, it becomes a proximity-activated mine that looks like a gun. Average fire rate: 700 rpm.\n",
+        "es": "A standard assault rifle with an evil twist - when the secondary mode is activated, it becomes a proximity-activated mine that looks like a gun. Average fire rate: 700 rpm.\n"
+    },
+    {
+        "id": "L_GUN_167",
+        "en": "A variant of the Dragon assault rifle - instead of a proximity explosive, it has a small grenade launcher. Excellent support weapon. Average fire rate: 700 rpm.\n",
+        "gb": "A variant of the Dragon assault rifle - instead of a proximity explosive, it has a small grenade launcher. Excellent support weapon. Average fire rate: 700 rpm.\n",
+        "jp": "A variant of the Dragon assault rifle, instead of a proximity explosive it has a small grenade launcher. Excellent support weapon. Average fire rate: 700rpm.\n",
+        "it": "A variant of the Dragon assault rifle - instead of a proximity explosive, it has a small grenade launcher. Excellent support weapon. Average fire rate: 700 rpm.\n",
+        "fr": "A variant of the Dragon assault rifle - instead of a proximity explosive, it has a small grenade launcher. Excellent support weapon. Average fire rate: 700 rpm.\n",
+        "de": "A variant of the Dragon assault rifle - instead of a proximity explosive, it has a small grenade launcher. Excellent support weapon. Average fire rate: 700 rpm.\n",
+        "es": "A variant of the Dragon assault rifle - instead of a proximity explosive, it has a small grenade launcher. Excellent support weapon. Average fire rate: 700 rpm.\n"
+    },
+    {
+        "id": "L_GUN_168",
+        "en": "Another piece of high-tech kit from dataDyne. Ordinarily an assault rifle with a smallish magazine and a powerful punch, it has a threat detection mode that highlights explosives, wallguns, and similar hazards. Average fire rate: 950 rpm.\n",
+        "gb": "Another piece of high-tech kit from dataDyne. Ordinarily an assault rifle with a smallish magazine and a powerful punch, it has a threat detection mode that highlights explosives, wallguns, and similar hazards. Average fire rate: 950 rpm.\n",
+        "jp": "Another piece of high-tech kit from dataDyne. Ordinarily an assault rifle with a smallish magazine and a powerful punch, it has a threat detection mode that highlights explosives, wallguns and similar hazards. Average fire rate: 950rpm.\n",
+        "it": "Another piece of high-tech kit from dataDyne. Ordinarily an assault rifle with a smallish magazine and a powerful punch, it has a threat detection mode that highlights explosives, wallguns, and similar hazards. Average fire rate: 950 rpm.\n",
+        "fr": "Another piece of high-tech kit from dataDyne. Ordinarily an assault rifle with a smallish magazine and a powerful punch, it has a threat detection mode that highlights explosives, wallguns, and similar hazards. Average fire rate: 950 rpm.\n",
+        "de": "Another piece of high-tech kit from dataDyne. Ordinarily an assault rifle with a smallish magazine and a powerful punch, it has a threat detection mode that highlights explosives, wallguns, and similar hazards. Average fire rate: 950 rpm.\n",
+        "es": "Another piece of high-tech kit from dataDyne. Ordinarily an assault rifle with a smallish magazine and a powerful punch, it has a threat detection mode that highlights explosives, wallguns, and similar hazards. Average fire rate: 950 rpm.\n"
+    },
+    {
+        "id": "L_GUN_169",
+        "en": "Designed for use by bodyguards, the Cyclone has been adopted by Presidential Security due to its excellent capability when used for suppression. In extreme circumstances, it can more than double the fire rate, discharging the magazine in a second. Average fire rate: 900 rpm. Unloads at 2000 rpm.\n",
+        "gb": "Designed for use by bodyguards, the Cyclone has been adopted by Presidential Security due to its excellent capability when used for suppression. In extreme circumstances, it can more than double the fire rate, discharging the magazine in a second. Average fire rate: 900 rpm. Unloads at 2000 rpm.\n",
+        "jp": "Designed for use by bodyguards, the Cyclone has been adopted by Presidential Security due to its excellent capability when used for suppression. In extreme circumstances it can more than double the fire rate, discharging the magazine in a second. Average fire rate: 900rpm. unloads at 2000rpm\n",
+        "it": "Designed for use by bodyguards, the Cyclone has been adopted by Presidential Security due to its excellent capability when used for suppression. In extreme circumstances, it can more than double the fire rate, discharging the magazine in a second. Average fire rate: 900 rpm. Unloads at 2000 rpm.\n",
+        "fr": "Designed for use by bodyguards, the Cyclone has been adopted by Presidential Security due to its excellent capability when used for suppression. In extreme circumstances, it can more than double the fire rate, discharging the magazine in a second. Average fire rate: 900 rpm. Unloads at 2000 rpm.\n",
+        "de": "Designed for use by bodyguards, the Cyclone has been adopted by Presidential Security due to its excellent capability when used for suppression. In extreme circumstances, it can more than double the fire rate, discharging the magazine in a second. Average fire rate: 900 rpm. Unloads at 2000 rpm.\n",
+        "es": "Designed for use by bodyguards, the Cyclone has been adopted by Presidential Security due to its excellent capability when used for suppression. In extreme circumstances, it can more than double the fire rate, discharging the magazine in a second. Average fire rate: 900 rpm. Unloads at 2000 rpm.\n"
+    },
+    {
+        "id": "L_GUN_170",
+        "en": "The Carrington Institute secret weapon. It fires at a phenomenal rate and has a huge magazine capacity. The secondary mode is a cloaking device that runs off the ammunition in the magazine. A devastating weapon. Average fire rate: 1100 rpm.\n",
+        "gb": "The Carrington Institute secret weapon. It fires at a phenomenal rate and has a huge magazine capacity. The secondary mode is a cloaking device that runs off the ammunition in the magazine. A devastating weapon. Average fire rate: 1100 rpm.\n",
+        "jp": "The Carrington Institute secret weapon. It fires at a phenomenal rate, and has a huge magazine capacity. The secondary mode is a cloaking device that runs off the ammunition in the magazine. A devastating weapon. Average fire rate: 1100rpm.\n",
+        "it": "The Carrington Institute secret weapon. It fires at a phenomenal rate and has a huge magazine capacity. The secondary mode is a cloaking device that runs off the ammunition in the magazine. A devastating weapon. Average fire rate: 1100 rpm.\n",
+        "fr": "The Carrington Institute secret weapon. It fires at a phenomenal rate and has a huge magazine capacity. The secondary mode is a cloaking device that runs off the ammunition in the magazine. A devastating weapon. Average fire rate: 1100 rpm.\n",
+        "de": "The Carrington Institute secret weapon. It fires at a phenomenal rate and has a huge magazine capacity. The secondary mode is a cloaking device that runs off the ammunition in the magazine. A devastating weapon. Average fire rate: 1100 rpm.\n",
+        "es": "The Carrington Institute secret weapon. It fires at a phenomenal rate and has a huge magazine capacity. The secondary mode is a cloaking device that runs off the ammunition in the magazine. A devastating weapon. Average fire rate: 1100 rpm.\n"
+    },
+    {
+        "id": "L_GUN_171",
+        "en": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s\/f:300 rpm).\n",
+        "gb": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s\/f:300 rpm).\n",
+        "jp": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other smg, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900rpm. s\/f:300rpm\n",
+        "it": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s\/f:300 rpm).\n",
+        "fr": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s\/f:300 rpm).\n",
+        "de": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s\/f:300 rpm).\n",
+        "es": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s\/f:300 rpm).\n"
+    },
+    {
+        "id": "L_GUN_172",
+        "en": "A submachine gun made to look like a laptop PC. In disguised form, the gun cannot fire, but when activated, it unfolds into shape. The PC gun will not bear close inspection; it will boot up, but the memory is a quarter of what it is supposed to be. Average fire rate: 1000 rpm.\n",
+        "gb": "A submachine gun made to look like a laptop PC. In disguised form, the gun cannot fire, but when activated, it unfolds into shape. The PC gun will not bear close inspection; it will boot up, but the memory is a quarter of what it is supposed to be. Average fire rate: 1000 rpm.\n",
+        "jp": "A submachine gun made to look like a laptop PC. In disguised form, the gun cannot fire, but when activated, it unfolds into shape. The PC gun will not bear close inspection; it will boot up, but the memory is a quarter of what it is supposed to be. Average fire rate: 1000rpm.\n",
+        "it": "A submachine gun made to look like a laptop PC. In disguised form, the gun cannot fire, but when activated, it unfolds into shape. The PC gun will not bear close inspection; it will boot up, but the memory is a quarter of what it is supposed to be. Average fire rate: 1000 rpm.\n",
+        "fr": "A submachine gun made to look like a laptop PC. In disguised form, the gun cannot fire, but when activated, it unfolds into shape. The PC gun will not bear close inspection; it will boot up, but the memory is a quarter of what it is supposed to be. Average fire rate: 1000 rpm.\n",
+        "de": "A submachine gun made to look like a laptop PC. In disguised form, the gun cannot fire, but when activated, it unfolds into shape. The PC gun will not bear close inspection; it will boot up, but the memory is a quarter of what it is supposed to be. Average fire rate: 1000 rpm.\n",
+        "es": "A submachine gun made to look like a laptop PC. In disguised form, the gun cannot fire, but when activated, it unfolds into shape. The PC gun will not bear close inspection; it will boot up, but the memory is a quarter of what it is supposed to be. Average fire rate: 1000 rpm.\n"
+    },
+    {
+        "id": "L_GUN_173",
+        "en": "A dataDyne weapon manufactured for security forces. A nine-cartridge magazine combined with single or double fire modes make it a dangerous close-quarters weapon.\n",
+        "gb": "A dataDyne weapon manufactured for security forces. A nine-cartridge magazine combined with single or double fire modes make it a dangerous close-quarters weapon.\n",
+        "jp": "A dataDyne weapon manufactured for security forces. A nine cartridge magazine combined with single or double fire modes make it a dangerous close-quarters weapon.\n",
+        "it": "A dataDyne weapon manufactured for security forces. A nine-cartridge magazine combined with single or double fire modes make it a dangerous close-quarters weapon.\n",
+        "fr": "A dataDyne weapon manufactured for security forces. A nine-cartridge magazine combined with single or double fire modes make it a dangerous close-quarters weapon.\n",
+        "de": "A dataDyne weapon manufactured for security forces. A nine-cartridge magazine combined with single or double fire modes make it a dangerous close-quarters weapon.\n",
+        "es": "A dataDyne weapon manufactured for security forces. A nine-cartridge magazine combined with single or double fire modes make it a dangerous close-quarters weapon.\n"
+    },
+    {
+        "id": "L_GUN_174",
+        "en": "A truly terrifying weapon in the hands of someone strong enough to control the massive recoil; for anyone else, a highly unwieldy but effective corridor clearance weapon. Maximum fire rate: 1800 rpm.\n",
+        "gb": "A truly terrifying weapon in the hands of someone strong enough to control the massive recoil; for anyone else, a highly unwieldy but effective corridor clearance weapon. Maximum fire rate: 1800 rpm.\n",
+        "jp": "A truly terrifying weapon in the hands of someone strong enough to control the massive recoil; for anyone else, a highly unwieldy but effective corridor clearance weapon. Maximum fire rate: 1800rpm.\n",
+        "it": "A truly terrifying weapon in the hands of someone strong enough to control the massive recoil; for anyone else, a highly unwieldy but effective corridor clearance weapon. Maximum fire rate: 1800 rpm.\n",
+        "fr": "A truly terrifying weapon in the hands of someone strong enough to control the massive recoil; for anyone else, a highly unwieldy but effective corridor clearance weapon. Maximum fire rate: 1800 rpm.\n",
+        "de": "A truly terrifying weapon in the hands of someone strong enough to control the massive recoil; for anyone else, a highly unwieldy but effective corridor clearance weapon. Maximum fire rate: 1800 rpm.\n",
+        "es": "A truly terrifying weapon in the hands of someone strong enough to control the massive recoil; for anyone else, a highly unwieldy but effective corridor clearance weapon. Maximum fire rate: 1800 rpm.\n"
+    },
+    {
+        "id": "L_GUN_175",
+        "en": "A cumbersome weapon. Fires either a standard rocket or a slower, homing rocket when locked on to the unfortunate target.\n",
+        "gb": "A cumbersome weapon. Fires either a standard rocket or a slower, homing rocket when locked on to the unfortunate target.\n",
+        "jp": "A cumbersome weapon. Fires either a standard rocket or a slower, homing rocket when locked-on to the unfortunate target.\n",
+        "it": "A cumbersome weapon. Fires either a standard rocket or a slower, homing rocket when locked on to the unfortunate target.\n",
+        "fr": "A cumbersome weapon. Fires either a standard rocket or a slower, homing rocket when locked on to the unfortunate target.\n",
+        "de": "A cumbersome weapon. Fires either a standard rocket or a slower, homing rocket when locked on to the unfortunate target.\n",
+        "es": "A cumbersome weapon. Fires either a standard rocket or a slower, homing rocket when locked on to the unfortunate target.\n"
+    },
+    {
+        "id": "L_GUN_176",
+        "en": "A long range grenade delivery system manufactured by dataDyne. The secondary fire mode coats the grenades with a sticky substance; when fired, the bomb attaches itself to wall or ceiling. After a few seconds, it detaches to fall to the ground, where it detonates.\n",
+        "gb": "A long range grenade delivery system manufactured by dataDyne. The secondary fire mode coats the grenades with a sticky substance; when fired, the bomb attaches itself to wall or ceiling. After a few seconds, it detaches to fall to the ground, where it detonates.\n",
+        "jp": "A long range grenade delivery system manufactured by dataDyne. The secondary fire mode coats the grenades in a sticky substance; when fired, the bomb attaches itself to wall or ceiling, then after a few seconds it detaches to fall to the ground, where it detonates.\n",
+        "it": "A long range grenade delivery system manufactured by dataDyne. The secondary fire mode coats the grenades with a sticky substance; when fired, the bomb attaches itself to wall or ceiling. After a few seconds, it detaches to fall to the ground, where it detonates.\n",
+        "fr": "A long range grenade delivery system manufactured by dataDyne. The secondary fire mode coats the grenades with a sticky substance; when fired, the bomb attaches itself to wall or ceiling. After a few seconds, it detaches to fall to the ground, where it detonates.\n",
+        "de": "A long range grenade delivery system manufactured by dataDyne. The secondary fire mode coats the grenades with a sticky substance; when fired, the bomb attaches itself to wall or ceiling. After a few seconds, it detaches to fall to the ground, where it detonates.\n",
+        "es": "A long range grenade delivery system manufactured by dataDyne. The secondary fire mode coats the grenades with a sticky substance; when fired, the bomb attaches itself to wall or ceiling. After a few seconds, it detaches to fall to the ground, where it detonates.\n"
+    },
+    {
+        "id": "L_GUN_177",
+        "en": "The Skedar enjoy seeing the terror of their enemies. It seems natural that they should have a remote-controlled rocket as a secondary fire mode on their basic rocket launcher, so that they can take pleasure from the prey's vain attempts to escape the closing projectile.\n",
+        "gb": "The Skedar enjoy seeing the terror of their enemies. It seems natural that they should have a remote-controlled rocket as a secondary fire mode on their basic rocket launcher, so that they can take pleasure from the prey's vain attempts to escape the closing projectile.\n",
+        "jp": "The Skedar enjoy seeing the terror of their enemies. It seems natural that they should have a remote-controlled rocket as a secondary fire mode on their basic rocket launcher, so that they can take pleasure from the prey's vain attempts to escape the closing projectile.\n",
+        "it": "The Skedar enjoy seeing the terror of their enemies. It seems natural that they should have a remote-controlled rocket as a secondary fire mode on their basic rocket launcher, so that they can take pleasure from the prey's vain attempts to escape the closing projectile.\n",
+        "fr": "The Skedar enjoy seeing the terror of their enemies. It seems natural that they should have a remote-controlled rocket as a secondary fire mode on their basic rocket launcher, so that they can take pleasure from the prey's vain attempts to escape the closing projectile.\n",
+        "de": "The Skedar enjoy seeing the terror of their enemies. It seems natural that they should have a remote-controlled rocket as a secondary fire mode on their basic rocket launcher, so that they can take pleasure from the prey's vain attempts to escape the closing projectile.\n",
+        "es": "The Skedar enjoy seeing the terror of their enemies. It seems natural that they should have a remote-controlled rocket as a secondary fire mode on their basic rocket launcher, so that they can take pleasure from the prey's vain attempts to escape the closing projectile.\n"
+    },
+    {
+        "id": "L_GUN_178",
+        "en": "The FarSight rifle is a Maian hybrid of an X-ray scanning device coupled with a rifle that can shoot through solid objects. The scope can lock onto and track life sources, though the device does not pan as fast as a running enemy can move.\n",
+        "gb": "The FarSight rifle is a Maian hybrid of an X-ray scanning device coupled with a rifle that can shoot through solid objects. The scope can lock onto and track life sources, though the device does not pan as fast as a running enemy can move.\n",
+        "jp": "The FarSight rifle is a Maian hybrid of an X-ray scanning device coupled with a rifle that can shoot through solid objects. The scope can lock onto and track lifesources, though the device does not pan as fast as a running enemy can move.\n",
+        "it": "The FarSight rifle is a Maian hybrid of an X-ray scanning device coupled with a rifle that can shoot through solid objects. The scope can lock onto and track life sources, though the device does not pan as fast as a running enemy can move.\n",
+        "fr": "The FarSight rifle is a Maian hybrid of an X-ray scanning device coupled with a rifle that can shoot through solid objects. The scope can lock onto and track life sources, though the device does not pan as fast as a running enemy can move.\n",
+        "de": "The FarSight rifle is a Maian hybrid of an X-ray scanning device coupled with a rifle that can shoot through solid objects. The scope can lock onto and track life sources, though the device does not pan as fast as a running enemy can move.\n",
+        "es": "The FarSight rifle is a Maian hybrid of an X-ray scanning device coupled with a rifle that can shoot through solid objects. The scope can lock onto and track life sources, though the device does not pan as fast as a running enemy can move.\n"
+    },
+    {
+        "id": "L_GUN_179",
+        "en": "With a powerful zoom and a high velocity bullet, this Carrington Institute weapon is one of the best sniper rifles ever made. Crouch down for perfectaccuracy.\n",
+        "gb": "With a powerful zoom and a high velocity bullet, this Carrington Institute weapon is one of the best sniper rifles ever made. Crouch down for perfectaccuracy.\n",
+        "jp": "With a powerful zoom and a high velocity bullet, this Carrington Institute weapon is one of the best sniper rifles ever made. Crouch down for perfectaccuracy.\n",
+        "it": "With a powerful zoom and a high velocity bullet, this Carrington Institute weapon is one of the best sniper rifles ever made. Crouch down for perfectaccuracy.\n",
+        "fr": "With a powerful zoom and a high velocity bullet, this Carrington Institute weapon is one of the best sniper rifles ever made. Crouch down for perfectaccuracy.\n",
+        "de": "With a powerful zoom and a high velocity bullet, this Carrington Institute weapon is one of the best sniper rifles ever made. Crouch down for perfectaccuracy.\n",
+        "es": "With a powerful zoom and a high velocity bullet, this Carrington Institute weapon is one of the best sniper rifles ever made. Crouch down for perfectaccuracy.\n"
+    },
+    {
+        "id": "L_GUN_180",
+        "en": "This crossbow is a short-range 'pistol' sized example, mounted on a Carrington Institute agent's wrist. It folds up to aid concealment and can fire up to five bolts, either the more usual drugged shots, or a lethal bolt.\n",
+        "gb": "This crossbow is a short-range 'pistol' sized example, mounted on a Carrington Institute agent's wrist. It folds up to aid concealment and can fire up to five bolts, either the more usual drugged shots, or a lethal bolt.\n",
+        "jp": "This crossbow is a short-range 'pistol' sized example, mounted on a Carrington Institute Agent's wrist. It folds up to aid concealment, and can fire up to five bolts, either the more usual drugged shots, or a lethal bolt.\n",
+        "it": "This crossbow is a short-range 'pistol' sized example, mounted on a Carrington Institute agent's wrist. It folds up to aid concealment and can fire up to five bolts, either the more usual drugged shots, or a lethal bolt.\n",
+        "fr": "This crossbow is a short-range 'pistol' sized example, mounted on a Carrington Institute agent's wrist. It folds up to aid concealment and can fire up to five bolts, either the more usual drugged shots, or a lethal bolt.\n",
+        "de": "This crossbow is a short-range 'pistol' sized example, mounted on a Carrington Institute agent's wrist. It folds up to aid concealment and can fire up to five bolts, either the more usual drugged shots, or a lethal bolt.\n",
+        "es": "This crossbow is a short-range 'pistol' sized example, mounted on a Carrington Institute agent's wrist. It folds up to aid concealment and can fire up to five bolts, either the more usual drugged shots, or a lethal bolt.\n"
+    },
+    {
+        "id": "L_GUN_181",
+        "en": "A rapid-fire device, it can be used as a weapon in an emergency, but it is designed primarily as a dermal spray injector for sedative drugs. Users are advised that a full discharge of the drug reservoir can be fatal.\n",
+        "gb": "A rapid-fire device, it can be used as a weapon in an emergency, but it is designed primarily as a dermal spray injector for sedative drugs. Users are advised that a full discharge of the drug reservoir can be fatal.\n",
+        "jp": "A rapid-fire device, it can be used as a weapon in an emergency, but it is designed primarily as a dermal spray injector for sedative drugs. Users are advised that a full discharge of the drug reservoir can be fatal.\n",
+        "it": "A rapid-fire device, it can be used as a weapon in an emergency, but it is designed primarily as a dermal spray injector for sedative drugs. Users are advised that a full discharge of the drug reservoir can be fatal.\n",
+        "fr": "A rapid-fire device, it can be used as a weapon in an emergency, but it is designed primarily as a dermal spray injector for sedative drugs. Users are advised that a full discharge of the drug reservoir can be fatal.\n",
+        "de": "A rapid-fire device, it can be used as a weapon in an emergency, but it is designed primarily as a dermal spray injector for sedative drugs. Users are advised that a full discharge of the drug reservoir can be fatal.\n",
+        "es": "A rapid-fire device, it can be used as a weapon in an emergency, but it is designed primarily as a dermal spray injector for sedative drugs. Users are advised that a full discharge of the drug reservoir can be fatal.\n"
+    },
+    {
+        "id": "L_GUN_182",
+        "en": "A large and vicious combat knife. It contains a vial of poison that shatters when thrown, giving a wounded enemy at most 6 seconds to live. A dataDyne weapon through and through.\n",
+        "gb": "A large and vicious combat knife. It contains a vial of poison that shatters when thrown, usually killing the target in approximately six seconds. A dataDyne weapon through and through.\n",
+        "jp": "A large and vicious combat knife. It contains a phial of poison that shatters when thrown, usually killing the target in approximately 6 seconds. A dataDyne weapon through and through.\n",
+        "it": "A large and vicious combat knife. It contains a vial of poison that shatters when thrown, usually killing the target in approximately six seconds. A dataDyne weapon through and through.\n",
+        "fr": "A large and vicious combat knife. It contains a vial of poison that shatters when thrown, usually killing the target in approximately six seconds. A dataDyne weapon through and through.\n",
+        "de": "A large and vicious combat knife. It contains a vial of poison that shatters when thrown, usually killing the target in approximately six seconds. A dataDyne weapon through and through.\n",
+        "es": "A large and vicious combat knife. It contains a vial of poison that shatters when thrown, usually killing the target in approximately six seconds. A dataDyne weapon through and through.\n"
+    },
+    {
+        "id": "L_GUN_183",
+        "en": "An updated version of the trusty grenade. Can be thrown with a four-second fuse or used as a bouncing proximity bomb.\n",
+        "gb": "An updated version of the trusty grenade. Can be thrown with a four-second fuse or used as a bouncing proximity bomb.\n",
+        "jp": "An updated version of the trusty grenade. Can be thrown with a four-second fuse or used as a bouncing proximity bomb.\n",
+        "it": "An updated version of the trusty grenade. Can be thrown with a four-second fuse or used as a bouncing proximity bomb.\n",
+        "fr": "An updated version of the trusty grenade. Can be thrown with a four-second fuse or used as a bouncing proximity bomb.\n",
+        "de": "An updated version of the trusty grenade. Can be thrown with a four-second fuse or used as a bouncing proximity bomb.\n",
+        "es": "An updated version of the trusty grenade. Can be thrown with a four-second fuse or used as a bouncing proximity bomb.\n"
+    },
+    {
+        "id": "L_GUN_184",
+        "en": "A hand-held, small area effect neutron bomb. It can either detonate on impact or be set to proximity detonation.\n",
+        "gb": "A hand-held, small area effect neutron bomb. It can either detonate on impact or be set to proximity detonation.\n",
+        "jp": "A hand-held, small area effect neutron bomb. It can either detonate on impact, or be set to proximity detonation.\n",
+        "it": "A hand-held, small area effect neutron bomb. It can either detonate on impact or be set to proximity detonation.\n",
+        "fr": "A hand-held, small area effect neutron bomb. It can either detonate on impact or be set to proximity detonation.\n",
+        "de": "A hand-held, small area effect neutron bomb. It can either detonate on impact or be set to proximity detonation.\n",
+        "es": "A hand-held, small area effect neutron bomb. It can either detonate on impact or be set to proximity detonation.\n"
+    },
+    {
+        "id": "L_GUN_185",
+        "en": "A mine with a short timed fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
+        "gb": "A mine with a short timed fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
+        "jp": "A mine with a short timed fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
+        "it": "A mine with a short timed fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
+        "fr": "A mine with a short timed fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
+        "de": "A mine with a short timed fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
+        "es": "A mine with a short timed fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n"
+    },
+    {
+        "id": "L_GUN_186",
+        "en": "A mine with a proximity fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
+        "gb": "A mine with a proximity fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
+        "jp": "A mine with a proximity fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
+        "it": "A mine with a proximity fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
+        "fr": "A mine with a proximity fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
+        "de": "A mine with a proximity fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
+        "es": "A mine with a proximity fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n"
+    },
+    {
+        "id": "L_GUN_187",
+        "en": "A mine that can be triggered remotely. The activate command is the secondary mode.\n",
+        "gb": "A mine that can be triggered remotely. The activate command is the secondary mode.\n",
+        "jp": "A mine that can be triggered remotely. The activate command is the secondary mode.\n",
+        "it": "A mine that can be triggered remotely. The activate command is the secondary mode.\n",
+        "fr": "A mine that can be triggered remotely. The activate command is the secondary mode.\n",
+        "de": "A mine that can be triggered remotely. The activate command is the secondary mode.\n",
+        "es": "A mine that can be triggered remotely. The activate command is the secondary mode.\n"
+    },
+    {
+        "id": "L_GUN_188",
+        "en": "A focused white-noise jamming device, capable of simulating one of many common electrical faults in any system to which it is directly attached.\n",
+        "gb": "A focused white-noise jamming device, capable of simulating one of many common electrical faults in any system to which it is directly attached.\n",
+        "jp": "A focussed white-noise jamming device, capable of simulating one of many common electrical faults in any system to which it is directly attached.\n",
+        "it": "A focused white-noise jamming device, capable of simulating one of many common electrical faults in any system to which it is directly attached.\n",
+        "fr": "A focused white-noise jamming device, capable of simulating one of many common electrical faults in any system to which it is directly attached.\n",
+        "de": "A focused white-noise jamming device, capable of simulating one of many common electrical faults in any system to which it is directly attached.\n",
+        "es": "A focused white-noise jamming device, capable of simulating one of many common electrical faults in any system to which it is directly attached.\n"
+    },
+    {
+        "id": "L_GUN_189",
+        "en": "The laser is wrist-mounted and deadly accurate. It can either fire long-range pulses, or it can sustain a constant, concentrated stream of energy at short range.\n",
+        "gb": "The laser is wrist-mounted and deadly accurate. It can either fire long-range pulses, or it can sustain a constant, concentrated stream of energy at short range.\n",
+        "jp": "The laser is wrist-mounted and deadly accurate. It can either fire long-range pulses, or it can sustain a constant, concentrated stream of energy at short range.\n",
+        "it": "The laser is wrist-mounted and deadly accurate. It can either fire long-range pulses, or it can sustain a constant, concentrated stream of energy at short range.\n",
+        "fr": "The laser is wrist-mounted and deadly accurate. It can either fire long-range pulses, or it can sustain a constant, concentrated stream of energy at short range.\n",
+        "de": "The laser is wrist-mounted and deadly accurate. It can either fire long-range pulses, or it can sustain a constant, concentrated stream of energy at short range.\n",
+        "es": "The laser is wrist-mounted and deadly accurate. It can either fire long-range pulses, or it can sustain a constant, concentrated stream of energy at short range.\n"
+    },
+    {
+        "id": "L_GUN_190",
+        "en": "Geneered stimulants designed for combat applications. When administered, they seem to slow down the passage of time to give a reaction window.\n",
+        "gb": "Geneered stimulants designed for combat applications. When administered, they seem to slow down the passage of time to give a reaction window.\n",
+        "jp": "Geneered stimulants designed for combat applications. When administered they seem to slow down the passage of time to give a reaction window.\n",
+        "it": "Geneered stimulants designed for combat applications. When administered, they seem to slow down the passage of time to give a reaction window.\n",
+        "fr": "Geneered stimulants designed for combat applications. When administered, they seem to slow down the passage of time to give a reaction window.\n",
+        "de": "Geneered stimulants designed for combat applications. When administered, they seem to slow down the passage of time to give a reaction window.\n",
+        "es": "Geneered stimulants designed for combat applications. When administered, they seem to slow down the passage of time to give a reaction window.\n"
+    },
+    {
+        "id": "L_GUN_191",
+        "en": "The latest of a line of 'starlight' scopes that enhance visible light to produce a clearer picture of the surrounding environment. Uses a target-movement algorithm to highlight possible threats.\n",
+        "gb": "The latest of a line of 'starlight' scopes that enhance visible light to produce a clearer picture of the surrounding environment. Uses a target-movement algorithm to highlight possible threats.\n",
+        "jp": "The latest of a line of so-called 'starlight' scopes that enhance visible light to produce a clearer picture of the surrounding environment. Uses a target-movement algorithm to highlight possible threats.\n",
+        "it": "The latest of a line of 'starlight' scopes that enhance visible light to produce a clearer picture of the surrounding environment. Uses a target-movement algorithm to highlight possible threats.\n",
+        "fr": "The latest of a line of 'starlight' scopes that enhance visible light to produce a clearer picture of the surrounding environment. Uses a target-movement algorithm to highlight possible threats.\n",
+        "de": "The latest of a line of 'starlight' scopes that enhance visible light to produce a clearer picture of the surrounding environment. Uses a target-movement algorithm to highlight possible threats.\n",
+        "es": "The latest of a line of 'starlight' scopes that enhance visible light to produce a clearer picture of the surrounding environment. Uses a target-movement algorithm to highlight possible threats.\n"
+    },
+    {
+        "id": "L_GUN_192",
+        "en": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. It has a video\/audio link with a recording function and an onboard facility for spectroscopic holography.\n",
+        "gb": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video\/audio link with a recording function and an onboard facility for spectroscopic holography.\n",
+        "jp": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video\/audio link with a recording function, and an onboard facility for spectroscopic holography.\n",
+        "it": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video\/audio link with a recording function and an onboard facility for spectroscopic holography.\n",
+        "fr": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video\/audio link with a recording function and an onboard facility for spectroscopic holography.\n",
+        "de": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video\/audio link with a recording function and an onboard facility for spectroscopic holography.\n",
+        "es": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video\/audio link with a recording function and an onboard facility for spectroscopic holography.\n"
+    },
+    {
+        "id": "L_GUN_193",
+        "en": "A short-range scope that can see through any material - even lead - producing a simplified chromatic representation of the environment.\n",
+        "gb": "A short-range scope that can see through any material - even lead - producing a simplified chromatic representation of the environment.\n",
+        "jp": "A short-range scope that can see through any material - even lead - producing a simplified chromatic representation of the environment.\n",
+        "it": "A short-range scope that can see through any material - even lead - producing a simplified chromatic representation of the environment.\n",
+        "fr": "A short-range scope that can see through any material - even lead - producing a simplified chromatic representation of the environment.\n",
+        "de": "A short-range scope that can see through any material - even lead - producing a simplified chromatic representation of the environment.\n",
+        "es": "A short-range scope that can see through any material - even lead - producing a simplified chromatic representation of the environment.\n"
+    },
+    {
+        "id": "L_GUN_194",
+        "en": "This scope uses infra-red scanning modulated with ultrasonic data to provide not only a clearer picture of the surrounding area, but also a location of any structural irregularities. It can also locate enemies using cloaking technology or other optical baffles.\n",
+        "gb": "This scope uses infra-red scanning modulated with ultrasonic data to provide not only a clearer picture of the surrounding area, but also a location of any structural irregularities. It can also locate enemies using cloaking technology or other optical baffles.\n",
+        "jp": "This scope uses infra-red scanning modulated with ultrasonic data to provide not only a clearer picture of the surrounding area, but also a location of any structural irregularities. It can also locate enemies using cloaking technology or other optical baffles.\n",
+        "it": "This scope uses infra-red scanning modulated with ultrasonic data to provide not only a clearer picture of the surrounding area, but also a location of any structural irregularities. It can also locate enemies using cloaking technology or other optical baffles.\n",
+        "fr": "This scope uses infra-red scanning modulated with ultrasonic data to provide not only a clearer picture of the surrounding area, but also a location of any structural irregularities. It can also locate enemies using cloaking technology or other optical baffles.\n",
+        "de": "This scope uses infra-red scanning modulated with ultrasonic data to provide not only a clearer picture of the surrounding area, but also a location of any structural irregularities. It can also locate enemies using cloaking technology or other optical baffles.\n",
+        "es": "This scope uses infra-red scanning modulated with ultrasonic data to provide not only a clearer picture of the surrounding area, but also a location of any structural irregularities. It can also locate enemies using cloaking technology or other optical baffles.\n"
+    },
+    {
+        "id": "L_GUN_195",
+        "en": "Uses the light-warping qualities of an alien crystal to create a refractive field around the wearer. Functions as long as there is little kinetic disturbance within the field boundary; the act of firing a gun is enough to cause a return to visibility.\n",
+        "gb": "Uses the light-warping qualities of an alien crystal to create a refractive field around the wearer. Functions as long as there is little kinetic disturbance within the field boundary; the act of firing a gun is enough to cause a return to visibility.\n",
+        "jp": "Uses the light-warping qualities of an alien crystal to create a refractive field around the wearer. Functions as long as there is little kinetic disturbance within the field boundary; the act of firing a gun is enough to cause a return to visibility.\n",
+        "it": "Uses the light-warping qualities of an alien crystal to create a refractive field around the wearer. Functions as long as there is little kinetic disturbance within the field boundary; the act of firing a gun is enough to cause a return to visibility.\n",
+        "fr": "Uses the light-warping qualities of an alien crystal to create a refractive field around the wearer. Functions as long as there is little kinetic disturbance within the field boundary; the act of firing a gun is enough to cause a return to visibility.\n",
+        "de": "Uses the light-warping qualities of an alien crystal to create a refractive field around the wearer. Functions as long as there is little kinetic disturbance within the field boundary; the act of firing a gun is enough to cause a return to visibility.\n",
+        "es": "Uses the light-warping qualities of an alien crystal to create a refractive field around the wearer. Functions as long as there is little kinetic disturbance within the field boundary; the act of firing a gun is enough to cause a return to visibility.\n"
+    },
+    {
+        "id": "L_GUN_196",
+        "en": "A binocular-input long range visual scanner. The visor shows a composite image of the two input sources. Also has a zoom function.\n",
+        "gb": "A binocular-input long range visual scanner. The visor shows a composite image of the two input sources. Also has a zoom function.\n",
+        "jp": "A binocular-input long range visual scanner. The visor shows a composite image of the two input sources. Also has a zoom function.\n",
+        "it": "A binocular-input long range visual scanner. The visor shows a composite image of the two input sources. Also has a zoom function.\n",
+        "fr": "A binocular-input long range visual scanner. The visor shows a composite image of the two input sources. Also has a zoom function.\n",
+        "de": "A binocular-input long range visual scanner. The visor shows a composite image of the two input sources. Also has a zoom function.\n",
+        "es": "A binocular-input long range visual scanner. The visor shows a composite image of the two input sources. Also has a zoom function.\n"
+    },
+    {
+        "id": "L_GUN_197",
+        "en": "Capable of remote interrogation of almost any type of stored data, which is sent directly back to the Institute computer hackers. A variant of this device provides the hackers with a direct link into the local system.\n",
+        "gb": "Capable of remote interrogation of almost any type of stored data, which is sent directly back to the Institute computer hackers. A variant of this device provides the hackers with a direct link into the local system.\n",
+        "jp": "Capable of remote interrogation of almost any type of stored data, which is sent directly back to the Institute computer hackers. A variant of this device provides the hackers with a direct link into the local system.\n",
+        "it": "Capable of remote interrogation of almost any type of stored data, which is sent directly back to the Institute computer hackers. A variant of this device provides the hackers with a direct link into the local system.\n",
+        "fr": "Capable of remote interrogation of almost any type of stored data, which is sent directly back to the Institute computer hackers. A variant of this device provides the hackers with a direct link into the local system.\n",
+        "de": "Capable of remote interrogation of almost any type of stored data, which is sent directly back to the Institute computer hackers. A variant of this device provides the hackers with a direct link into the local system.\n",
+        "es": "Capable of remote interrogation of almost any type of stored data, which is sent directly back to the Institute computer hackers. A variant of this device provides the hackers with a direct link into the local system.\n"
+    },
+    {
+        "id": "L_GUN_198",
+        "en": "A powerful tracking device that can be customized to fit any set of parameters: people, weapons, objects, and locations are some of the possibilities.\n",
+        "gb": "A powerful tracking device that can be customized to fit any set of parameters: people, weapons, objects, and locations are some of the possibilities.\n",
+        "jp": "A powerful tracking device that can be customised to fit any set of parameters: people, weapons, objects, and locations are some of the possibilities.\n",
+        "it": "A powerful tracking device that can be customized to fit any set of parameters: people, weapons, objects, and locations are some of the possibilities.\n",
+        "fr": "A powerful tracking device that can be customized to fit any set of parameters: people, weapons, objects, and locations are some of the possibilities.\n",
+        "de": "A powerful tracking device that can be customized to fit any set of parameters: people, weapons, objects, and locations are some of the possibilities.\n",
+        "es": "A powerful tracking device that can be customized to fit any set of parameters: people, weapons, objects, and locations are some of the possibilities.\n"
+    },
+    {
+        "id": "L_GUN_199",
+        "en": "A modified medical scanner that contains the most up-to-date record of the President's state of health and a library of past conditions and treatments. It can detect the vital functions of the President from a distance, even when the target is in the middle of a crowd.\n",
+        "gb": "A modified medical scanner that contains the most up-to-date record of the President's state of health and a library of past conditions and treatments. It can detect the vital functions of the President from a distance, even when the target is in the middle of a crowd.\n",
+        "jp": "A modified medical scanner that contains the most up-to-date record of the President's state of health, and a library of past conditions and treatments. It can detect the vital functions of the President from a distance, even when the target is in the middle of a crowd.\n",
+        "it": "A modified medical scanner that contains the most up-to-date record of the President's state of health and a library of past conditions and treatments. It can detect the vital functions of the President from a distance, even when the target is in the middle of a crowd.\n",
+        "fr": "A modified medical scanner that contains the most up-to-date record of the President's state of health and a library of past conditions and treatments. It can detect the vital functions of the President from a distance, even when the target is in the middle of a crowd.\n",
+        "de": "A modified medical scanner that contains the most up-to-date record of the President's state of health and a library of past conditions and treatments. It can detect the vital functions of the President from a distance, even when the target is in the middle of a crowd.\n",
+        "es": "A modified medical scanner that contains the most up-to-date record of the President's state of health and a library of past conditions and treatments. It can detect the vital functions of the President from a distance, even when the target is in the middle of a crowd.\n"
+    },
+    {
+        "id": "L_GUN_200",
+        "en": "A safecracker, pure and simple. Breaks electronic encoded locks, usually in a matter of seconds, though this, of course, depends on the individual lock.\n",
+        "gb": "A safecracker, pure and simple. Breaks electronic encoded locks, usually in a matter of seconds, though this, of course, depends on the individual lock.\n",
+        "jp": "A safe-cracker, pure and simple. Breaks electronic encoded locks, usually in a matter of seconds, though this of course depends on the individual lock.\n",
+        "it": "A safecracker, pure and simple. Breaks electronic encoded locks, usually in a matter of seconds, though this, of course, depends on the individual lock.\n",
+        "fr": "A safecracker, pure and simple. Breaks electronic encoded locks, usually in a matter of seconds, though this, of course, depends on the individual lock.\n",
+        "de": "A safecracker, pure and simple. Breaks electronic encoded locks, usually in a matter of seconds, though this, of course, depends on the individual lock.\n",
+        "es": "A safecracker, pure and simple. Breaks electronic encoded locks, usually in a matter of seconds, though this, of course, depends on the individual lock.\n"
+    },
+    {
+        "id": "L_GUN_201",
+        "en": "Maian medical marvel, can auto-diagnose and perform surgical procedures without the need of incisions. One drawback is that it only works on Maians; the other drawback is the lack of a bedside manner.\n",
+        "gb": "Maian medical marvel, can auto-diagnose and perform surgical procedures without the need of incisions. One drawback is that it only works on Maians; the other drawback is the lack of a bedside manner.\n",
+        "jp": "Maian medical marvel, can auto-diagnose and perform surgical proceedures without the need of incisions. Only drawback is that it only works on Maians. The other only drawback is the lack of a bedside manner.\n",
+        "it": "Maian medical marvel, can auto-diagnose and perform surgical procedures without the need of incisions. One drawback is that it only works on Maians; the other drawback is the lack of a bedside manner.\n",
+        "fr": "Maian medical marvel, can auto-diagnose and perform surgical procedures without the need of incisions. One drawback is that it only works on Maians; the other drawback is the lack of a bedside manner.\n",
+        "de": "Maian medical marvel, can auto-diagnose and perform surgical procedures without the need of incisions. One drawback is that it only works on Maians; the other drawback is the lack of a bedside manner.\n",
+        "es": "Maian medical marvel, can auto-diagnose and perform surgical procedures without the need of incisions. One drawback is that it only works on Maians; the other drawback is the lack of a bedside manner.\n"
+    },
+    {
+        "id": "L_GUN_202",
+        "en": "A small plastic explosive charge, complete with sealed tamper-proof timer, and embedded with teflon-coated shrapnel. Nasty.\n",
+        "gb": "A small plastic explosive charge, complete with sealed tamper-proof timer, and embedded with teflon-coated shrapnel. Nasty.\n",
+        "jp": "A small plastic explosive charge, complete with sealed tamper-proof timer, and embedded with teflon-coated shrapnel. Nasty.\n",
+        "it": "A small plastic explosive charge, complete with sealed tamper-proof timer, and embedded with teflon-coated shrapnel. Nasty.\n",
+        "fr": "A small plastic explosive charge, complete with sealed tamper-proof timer, and embedded with teflon-coated shrapnel. Nasty.\n",
+        "de": "A small plastic explosive charge, complete with sealed tamper-proof timer, and embedded with teflon-coated shrapnel. Nasty.\n",
+        "es": "A small plastic explosive charge, complete with sealed tamper-proof timer, and embedded with teflon-coated shrapnel. Nasty.\n"
+    },
+    {
+        "id": "L_GUN_203",
+        "en": "As you are aware, this is a directional fusion bomb, to be placed so that the charge is directed downwards. This will obliterate the dataDyne research labs and cause the rest of the building to collapse into the hole.\n",
+        "gb": "As you are aware, this is a directional fusion bomb, to be placed so that the charge is directed downwards. This will obliterate the dataDyne research labs and cause the rest of the building to collapse into the hole.\n",
+        "jp": "As you are aware, this is a directional fusion bomb, to be placed so that the charge is directed downwards. This will obliterate the dataDyne research labs and cause the rest of the building to collapse into the hole.\n",
+        "it": "As you are aware, this is a directional fusion bomb, to be placed so that the charge is directed downwards. This will obliterate the dataDyne research labs and cause the rest of the building to collapse into the hole.\n",
+        "fr": "As you are aware, this is a directional fusion bomb, to be placed so that the charge is directed downwards. This will obliterate the dataDyne research labs and cause the rest of the building to collapse into the hole.\n",
+        "de": "As you are aware, this is a directional fusion bomb, to be placed so that the charge is directed downwards. This will obliterate the dataDyne research labs and cause the rest of the building to collapse into the hole.\n",
+        "es": "As you are aware, this is a directional fusion bomb, to be placed so that the charge is directed downwards. This will obliterate the dataDyne research labs and cause the rest of the building to collapse into the hole.\n"
+    },
+    {
+        "id": "L_GUN_204",
+        "en": "A small bug that is attached to any part of a communication relay. It 'piggybacks' the official signal, enabling the link between Institute and agent to be maintained through intensive local countermeasures; to all intents and purposes, it is part of the target location's comms setup.\n",
+        "gb": "A small bug that is attached to any part of a communication relay. It 'piggybacks' the official signal, enabling the link between Institute and agent to be maintained through intensive local countermeasures; to all intents and purposes, it is part of the target location's comms setup.\n",
+        "jp": "A small bug that is attached to any part of a communication relay. It 'piggybacks' the official signal, enabling the link between Institute and agent to be maintained through intensive local countermeasures; to all intents and purposes, it is part of the target location's comms setup.\n",
+        "it": "A small bug that is attached to any part of a communication relay. It 'piggybacks' the official signal, enabling the link between Institute and agent to be maintained through intensive local countermeasures; to all intents and purposes, it is part of the target location's comms setup.\n",
+        "fr": "A small bug that is attached to any part of a communication relay. It 'piggybacks' the official signal, enabling the link between Institute and agent to be maintained through intensive local countermeasures; to all intents and purposes, it is part of the target location's comms setup.\n",
+        "de": "A small bug that is attached to any part of a communication relay. It 'piggybacks' the official signal, enabling the link between Institute and agent to be maintained through intensive local countermeasures; to all intents and purposes, it is part of the target location's comms setup.\n",
+        "es": "A small bug that is attached to any part of a communication relay. It 'piggybacks' the official signal, enabling the link between Institute and agent to be maintained through intensive local countermeasures; to all intents and purposes, it is part of the target location's comms setup.\n"
+    },
+    {
+        "id": "L_GUN_205",
+        "en": "The inner workings of this bug are a closely guarded secret - the self-destruct mechanism forms a large part of the device. It is speculated that this is an example of quantum molecular communication, which explains the phenomenal reliability of the device in field use.\n",
+        "gb": "The inner workings of this bug are a closely guarded secret - the self-destruct mechanism forms a large part of the device. It is speculated that this is an example of quantum molecular communication, which explains the phenomenal reliability of the device in field use.\n",
+        "jp": "The inner workings of this bug are a closely guarded secret - the self-destruct mechanism forms a large part of the device. It is speculated that this is an example of quantum molecular communication, which explains the phenomenal reliability of the device in field use.\n",
+        "it": "The inner workings of this bug are a closely guarded secret - the self-destruct mechanism forms a large part of the device. It is speculated that this is an example of quantum molecular communication, which explains the phenomenal reliability of the device in field use.\n",
+        "fr": "The inner workings of this bug are a closely guarded secret - the self-destruct mechanism forms a large part of the device. It is speculated that this is an example of quantum molecular communication, which explains the phenomenal reliability of the device in field use.\n",
+        "de": "The inner workings of this bug are a closely guarded secret - the self-destruct mechanism forms a large part of the device. It is speculated that this is an example of quantum molecular communication, which explains the phenomenal reliability of the device in field use.\n",
+        "es": "The inner workings of this bug are a closely guarded secret - the self-destruct mechanism forms a large part of the device. It is speculated that this is an example of quantum molecular communication, which explains the phenomenal reliability of the device in field use.\n"
+    },
+    {
+        "id": "L_GUN_206",
+        "en": "Uses quantum communication technology to provide supremely accurate targetting infomation to orbital weapons, helping to minimize collateral damage. The same technology is used in the Carrington Institute tracker bugs.\n",
+        "gb": "Uses quantum communication technology to provide supremely accurate targetting infomation to orbital weapons, helping to minimize collateral damage. The same technology is used in the Carrington Institute tracker bugs.\n",
+        "jp": "Uses quantum communication technology to provide supremely accurate targetting infomation to orbital weapons, helping to minimise collateral damage. The same technology is used in the Carrington Institute tracker bugs.\n",
+        "it": "Uses quantum communication technology to provide supremely accurate targetting infomation to orbital weapons, helping to minimize collateral damage. The same technology is used in the Carrington Institute tracker bugs.\n",
+        "fr": "Uses quantum communication technology to provide supremely accurate targetting infomation to orbital weapons, helping to minimize collateral damage. The same technology is used in the Carrington Institute tracker bugs.\n",
+        "de": "Uses quantum communication technology to provide supremely accurate targetting infomation to orbital weapons, helping to minimize collateral damage. The same technology is used in the Carrington Institute tracker bugs.\n",
+        "es": "Uses quantum communication technology to provide supremely accurate targetting infomation to orbital weapons, helping to minimize collateral damage. The same technology is used in the Carrington Institute tracker bugs.\n"
+    },
+    {
+        "id": "L_GUN_207",
+        "en": "Details of the flight path and communication codes and frequencies for Air Force One - also current encryption keys.\n",
+        "gb": "Details of the flight path and communication codes and frequencies for Air Force One - also current encryption keys.\n",
+        "jp": "Details of the flight path and communication codes and frequencies for Air Force One, also current encryption keys.\n",
+        "it": "Details of the flight path and communication codes and frequencies for Air Force One - also current encryption keys.\n",
+        "fr": "Details of the flight path and communication codes and frequencies for Air Force One - also current encryption keys.\n",
+        "de": "Details of the flight path and communication codes and frequencies for Air Force One - also current encryption keys.\n",
+        "es": "Details of the flight path and communication codes and frequencies for Air Force One - also current encryption keys.\n"
+    },
+    {
+        "id": "L_GUN_208",
+        "en": "All data pertaining to ocean floor research carried out by dataDyne on the pirated deep sea diving operations vessel Pelagic II. Contents  sonar mapping, geological data, alien artifact data, hull samples, etc.\n",
+        "gb": "All data pertaining to ocean floor research carried out by dataDyne on the pirated deep sea diving operations vessel Pelagic II. Contents  sonar mapping, geological data, alien artifact data, hull samples, etc.\n",
+        "jp": "All data pertaining to ocean floor research carried out by dataDyne on the pirated deep sea diving operations vessel Pelagic 2. Contents  sonar mapping, geological data, alien artifact data, hull samples, etc.\n",
+        "it": "All data pertaining to ocean floor research carried out by dataDyne on the pirated deep sea diving operations vessel Pelagic II. Contents  sonar mapping, geological data, alien artifact data, hull samples, etc.\n",
+        "fr": "All data pertaining to ocean floor research carried out by dataDyne on the pirated deep sea diving operations vessel Pelagic II. Contents  sonar mapping, geological data, alien artifact data, hull samples, etc.\n",
+        "de": "All data pertaining to ocean floor research carried out by dataDyne on the pirated deep sea diving operations vessel Pelagic II. Contents  sonar mapping, geological data, alien artifact data, hull samples, etc.\n",
+        "es": "All data pertaining to ocean floor research carried out by dataDyne on the pirated deep sea diving operations vessel Pelagic II. Contents  sonar mapping, geological data, alien artifact data, hull samples, etc.\n"
+    },
+    {
+        "id": "L_GUN_209",
+        "en": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23\/6\/23\n",
+        "gb": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23\/6\/23\n",
+        "jp": "The last personality-state recording of the Artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for Case Study, Theoretical Projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23\/6\/23\n",
+        "it": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23\/6\/23\n",
+        "fr": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23\/6\/23\n",
+        "de": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23\/6\/23\n",
+        "es": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23\/6\/23\n"
+    },
+    {
+        "id": "L_GUN_210",
+        "en": "A chemical cocktail that warps the perceived reality of the target. Good becomes bad, bad becomes good; enemies and friends change places. Another one of the darker research projects from Trent Easton's Area 51.\n",
+        "gb": "A chemical cocktail that warps the perceived reality of the target. Good becomes bad, bad becomes good; enemies and friends change places. Another one of the darker research projects from Trent Easton's Area 51.\n",
+        "jp": "A chemical cocktail that warps the perceived reality of the target. Good becomes bad, bad becomes good; enemies and friends change places. Another one of the darker research projects from Trent Easton's Area 51.\n",
+        "it": "A chemical cocktail that warps the perceived reality of the target. Good becomes bad, bad becomes good; enemies and friends change places. Another one of the darker research projects from Trent Easton's Area 51.\n",
+        "fr": "A chemical cocktail that warps the perceived reality of the target. Good becomes bad, bad becomes good; enemies and friends change places. Another one of the darker research projects from Trent Easton's Area 51.\n",
+        "de": "A chemical cocktail that warps the perceived reality of the target. Good becomes bad, bad becomes good; enemies and friends change places. Another one of the darker research projects from Trent Easton's Area 51.\n",
+        "es": "A chemical cocktail that warps the perceived reality of the target. Good becomes bad, bad becomes good; enemies and friends change places. Another one of the darker research projects from Trent Easton's Area 51.\n"
+    },
+    {
+        "id": "L_GUN_211",
+        "en": "Not your normal outfit. Wear it to pretend not to be you.\n",
+        "gb": "Not your normal outfit. Wear it to pretend not to be you.\n",
+        "jp": "Not your normal outfit. Wear it to pretend not to be you.\n",
+        "it": "Not your normal outfit. Wear it to pretend not to be you.\n",
+        "fr": "Not your normal outfit. Wear it to pretend not to be you.\n",
+        "de": "Not your normal outfit. Wear it to pretend not to be you.\n",
+        "es": "Not your normal outfit. Wear it to pretend not to be you.\n"
+    },
+    {
+        "id": "L_GUN_212",
+        "en": "PROXY\n",
+        "gb": "PROXY\n",
+        "jp": "PROXY\n",
+        "it": "PROXY\n",
+        "fr": "PROXY\n",
+        "de": "PROXY\n",
+        "es": "PROXY\n"
+    },
+    {
+        "id": "L_GUN_213",
+        "en": "TIMED\n",
+        "gb": "TIMED\n",
+        "jp": "TIMED\n",
+        "it": "TIMED\n",
+        "fr": "TIMED\n",
+        "de": "TIMED\n",
+        "es": "TIMED\n"
+    },
+    {
+        "id": "L_GUN_214",
+        "en": "REMOTE\n",
+        "gb": "REMOTE\n",
+        "jp": "REMOTE\n",
+        "it": "REMOTE\n",
+        "fr": "REMOTE\n",
+        "de": "REMOTE\n",
+        "es": "REMOTE\n"
+    },
+    {
+        "id": "L_GUN_215",
+        "en": "AUTOGUN\n",
+        "gb": "AUTOGUN\n",
+        "jp": "AUTOGUN\n",
+        "it": "AUTOGUN\n",
+        "fr": "AUTOGUN\n",
+        "de": "AUTOGUN\n",
+        "es": "AUTOGUN\n"
+    },
+    {
+        "id": "L_GUN_216",
+        "en": "IMPACT\n",
+        "gb": "IMPACT\n",
+        "jp": "IMPACT\n",
+        "it": "IMPACT\n",
+        "fr": "IMPACT\n",
+        "de": "IMPACT\n",
+        "es": "IMPACT\n"
+    },
+    {
+        "id": "L_GUN_217",
+        "en": "Big King Rocket\n",
+        "gb": "Big King Rocket\n",
+        "jp": "Big King Rocket\n",
+        "it": "Big King Rocket\n",
+        "fr": "Big King Rocket\n",
+        "de": "Big King Rocket\n",
+        "es": "Big King Rocket\n"
+    },
+    {
+        "id": "L_GUN_218",
+        "en": "Data Uplink\n",
+        "gb": "Data Uplink\n",
+        "jp": "Data Uplink\n",
+        "it": "Data Uplink\n",
+        "fr": "Data Uplink\n",
+        "de": "Data Uplink\n",
+        "es": "Data Uplink\n"
+    },
+    {
+        "id": "L_GUN_219",
+        "en": "President Scanner\n",
+        "gb": "President Scanner\n",
+        "jp": "President Scanner\n",
+        "it": "President Scanner\n",
+        "fr": "President Scanner\n",
+        "de": "President Scanner\n",
+        "es": "President Scanner\n"
+    },
+    {
+        "id": "L_GUN_220",
+        "en": "AutoSurgeon\n",
+        "gb": "AutoSurgeon\n",
+        "jp": "AutoSurgeon\n",
+        "it": "AutoSurgeon\n",
+        "fr": "AutoSurgeon\n",
+        "de": "AutoSurgeon\n",
+        "es": "AutoSurgeon\n"
+    },
+    {
+        "id": "L_GUN_221",
+        "en": "Skedar Bomb\n",
+        "gb": "Skedar Bomb\n",
+        "jp": "Skedar Bomb\n",
+        "it": "Skedar Bomb\n",
+        "fr": "Skedar Bomb\n",
+        "de": "Skedar Bomb\n",
+        "es": "Skedar Bomb\n"
+    },
+    {
+        "id": "L_GUN_222",
+        "en": "Comms Rider\n",
+        "gb": "Comms Rider\n",
+        "jp": "Comms Rider\n",
+        "it": "Comms Rider\n",
+        "fr": "Comms Rider\n",
+        "de": "Comms Rider\n",
+        "es": "Comms Rider\n"
+    },
+    {
+        "id": "L_GUN_223",
+        "en": "Tracer Bug\n",
+        "gb": "Tracer Bug\n",
+        "jp": "Tracer Bug\n",
+        "it": "Tracer Bug\n",
+        "fr": "Tracer Bug\n",
+        "de": "Tracer Bug\n",
+        "es": "Tracer Bug\n"
+    },
+    {
+        "id": "L_GUN_224",
+        "en": "Target Amplifier\n",
+        "gb": "Target Amplifier\n",
+        "jp": "Target Amplifier\n",
+        "it": "Target Amplifier\n",
+        "fr": "Target Amplifier\n",
+        "de": "Target Amplifier\n",
+        "es": "Target Amplifier\n"
+    },
+    {
+        "id": "L_GUN_225",
+        "en": "Flight Plans\n",
+        "gb": "Flight Plans\n",
+        "jp": "Safe Item\n",
+        "it": "Flight Plans\n",
+        "fr": "Flight Plans\n",
+        "de": "Flight Plans\n",
+        "es": "Flight Plans\n"
+    },
+    {
+        "id": "L_GUN_226",
+        "en": "Research Tape\n",
+        "gb": "Research Tape\n",
+        "jp": "Research Tape\n",
+        "it": "Research Tape\n",
+        "fr": "Research Tape\n",
+        "de": "Research Tape\n",
+        "es": "Research Tape\n"
+    },
+    {
+        "id": "L_GUN_227",
+        "en": "Backup Disk\n",
+        "gb": "Backup Disk\n",
+        "jp": "Backup Tape\n",
+        "it": "Backup Disk\n",
+        "fr": "Backup Disk\n",
+        "de": "Backup Disk\n",
+        "es": "Backup Disk\n"
+    },
+    {
+        "id": "L_GUN_228",
+        "en": "Key Card\n",
+        "gb": "Key Card\n",
+        "jp": "Keycard\n",
+        "it": "Key Card\n",
+        "fr": "Key Card\n",
+        "de": "Key Card\n",
+        "es": "Key Card\n"
+    },
+    {
+        "id": "L_GUN_229",
+        "en": "Briefcase\n",
+        "gb": "Briefcase\n",
+        "jp": "Briefcase\n",
+        "it": "Briefcase\n",
+        "fr": "Briefcase\n",
+        "de": "Briefcase\n",
+        "es": "Briefcase\n"
+    },
+    {
+        "id": "L_GUN_230",
+        "en": "Necklace\n",
+        "gb": "Necklace\n",
+        "jp": "Necklace\n",
+        "it": "Necklace\n",
+        "fr": "Necklace\n",
+        "de": "Necklace\n",
+        "es": "Necklace\n"
+    },
+    {
+        "id": "L_GUN_231",
+        "en": "PresidentScan\n",
+        "gb": "PresidentScan\n",
+        "jp": "PresidentScan\n",
+        "it": "PresidentScan\n",
+        "fr": "PresidentScan\n",
+        "de": "PresidentScan\n",
+        "es": "PresidentScan\n"
+    },
+    {
+        "id": "L_GUN_232",
+        "en": "Boost\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_GUN_233",
+        "en": "XRayScan\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_GUN_234",
+        "en": "HorizonScan\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_GUN_235",
+        "en": "Target Amp\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_GUN_236",
+        "en": "In this version of the CamSpy the recording device has been replaced by a highly powerful plastic explosive.\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_GUN_237",
+        "en": "This version of the CamSpy Uses a paralysing nerve toxin to induce near-instant catatonia in targets.\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_GUN_238",
+        "en": "Cassandra De Vries' necklace. fitted with a proximity key tag to allow access to restricted areas. mk3 model only functions while owner is alive. security class AA-1 (gamma).",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_GUN_239",
+        "en": "Cassandra De Vries' replacement necklace.  Username: CDV780322  Password: I8MOZYM8NDI85\n",
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    }
+]

@@ -16,14 +16,10 @@ def main():
 
     rows = json.loads(data)
 
-    if os.environ['ROMID'].startswith('ntsc') and basename.endswith('E'):
-        make_header(rows, shortname)
-    elif os.environ['ROMID'].startswith('pal') and basename.endswith('P'):
-        make_header(rows, shortname)
-    elif os.environ['ROMID'].startswith('jpn') and basename.endswith('J'):
+    if sys.argv[2] == 'en':
         make_header(rows, shortname)
 
-    make_object(rows, basename)
+    make_object(rows, basename, sys.argv[2])
 
 def get_shortname(basename):
     return re.match(r'^[a-z0-9]+', basename)[0]
@@ -36,8 +32,8 @@ def make_header(rows, shortname):
     start = banks.index(shortname) * 512
     assetmgr.write_enums(typename, enums, filename, terminator, start=start)
 
-def make_object(rows, basename):
-    binary = make_binary(rows)
+def make_object(rows, basename, key):
+    binary = make_binary(rows, key)
     zipped = assetmgr.zip(binary)
 
     # Write the zipped file, purely so `make test` can verify it
@@ -48,10 +44,20 @@ def make_object(rows, basename):
 
     assetmgr.writefile('build/%s/assets/files/L%s' % (os.environ['ROMID'], tmpfilename), zipped)
 
-    filename = 'files/L%s.o' % basename
+    suffix = {
+        'en': 'E',
+        'gb': 'P',
+        'jp': 'J',
+        'fr': '_str_f',
+        'de': '_str_g',
+        'it': '_str_i',
+        'es': '_str_s',
+    }[key]
+
+    filename = 'files/L%s%s.o' % (basename, suffix)
     assetmgr.write_object(zipped, filename)
 
-def make_binary(rows):
+def make_binary(rows, key):
     if len(rows) == 0:
         return (0).to_bytes(16, 'big')
 
@@ -59,16 +65,16 @@ def make_binary(rows):
     pos = len(rows) * 4
 
     for index, row in enumerate(rows):
-        if row['text'] is None:
+        if row[key] is None:
             output += (0).to_bytes(4, 'big')
         else:
             output += pos.to_bytes(4, 'big')
-            pos += assetmgr.align4(len(row['text']) + 1)
+            pos += assetmgr.align4(len(row[key]) + 1)
 
     for index, row in enumerate(rows):
-        if row['text'] is not None:
-            output += row['text'].encode('latin_1')
-            amount = 4 - (len(row['text']) % 4)
+        if row[key] is not None:
+            output += row[key].encode('latin_1')
+            amount = 4 - (len(row[key]) % 4)
             output += (0).to_bytes(amount, 'big')
 
     if len(output) % 16:

@@ -243,7 +243,15 @@ LANG_JSON_FILES := $(shell find $(A_DIR) -path '*/lang/*.json')
 PADS_JSON_FILES := $(shell find $(A_DIR) -path '*/pads/*.json')
 TILES_JSON_FILES := $(shell find $(A_DIR) -path '*/tiles/*.json')
 
-LANG_O_FILES := $(patsubst $(A_DIR)/lang/%.json, $(B_DIR)/assets/files/L%.o, $(LANG_JSON_FILES))
+LANG_O_FILES := \
+	$(patsubst $(A_DIR)/lang/%.json, $(B_DIR)/assets/files/L%E.o, $(LANG_JSON_FILES)) \
+	$(patsubst $(A_DIR)/lang/%.json, $(B_DIR)/assets/files/L%J.o, $(LANG_JSON_FILES)) \
+	$(patsubst $(A_DIR)/lang/%.json, $(B_DIR)/assets/files/L%P.o, $(LANG_JSON_FILES)) \
+	$(patsubst $(A_DIR)/lang/%.json, $(B_DIR)/assets/files/L%_str_f.o, $(LANG_JSON_FILES)) \
+	$(patsubst $(A_DIR)/lang/%.json, $(B_DIR)/assets/files/L%_str_g.o, $(LANG_JSON_FILES)) \
+	$(patsubst $(A_DIR)/lang/%.json, $(B_DIR)/assets/files/L%_str_i.o, $(LANG_JSON_FILES)) \
+	$(patsubst $(A_DIR)/lang/%.json, $(B_DIR)/assets/files/L%_str_s.o, $(LANG_JSON_FILES))
+
 PADS_O_FILES := $(patsubst $(A_DIR)/pads/%.json, $(B_DIR)/assets/files/bgdata/bg_%_padsZ.o, $(PADS_JSON_FILES))
 TILES_O_FILES := $(patsubst $(A_DIR)/tiles/%.json, $(B_DIR)/assets/files/bgdata/bg_%_tilesZ.o, $(TILES_JSON_FILES))
 
@@ -439,12 +447,26 @@ $(B_DIR)/assets/animations.o: $(A_DIR)/animations.json
 	tools/assetmgr/mkanims
 
 # Lang
-$(B_DIR)/assets/files/L%.o: $(A_DIR)/lang/%.json
-	tools/assetmgr/mklang $<
+$(B_DIR)/assets/files/L%E.o: $(A_DIR)/lang/%.json
+	tools/assetmgr/mklang $< en
 
-# Lang - but this is the zipped non-obj, for make test
-$(B_DIR)/assets/files/L%: $(A_DIR)/lang/%.json
-	tools/assetmgr/mklang $<
+$(B_DIR)/assets/files/L%J.o: $(A_DIR)/lang/%.json
+	tools/assetmgr/mklang $< jp
+
+$(B_DIR)/assets/files/L%P.o: $(A_DIR)/lang/%.json
+	tools/assetmgr/mklang $< gb
+
+$(B_DIR)/assets/files/L%_str_f.o: $(A_DIR)/lang/%.json
+	tools/assetmgr/mklang $< fr
+
+$(B_DIR)/assets/files/L%_str_g.o: $(A_DIR)/lang/%.json
+	tools/assetmgr/mklang $< de
+
+$(B_DIR)/assets/files/L%_str_i.o: $(A_DIR)/lang/%.json
+	tools/assetmgr/mklang $< it
+
+$(B_DIR)/assets/files/L%_str_s.o: $(A_DIR)/lang/%.json
+	tools/assetmgr/mklang $< es
 
 # Pads
 $(B_DIR)/assets/files/bgdata/bg_%_padsZ.o: $(A_DIR)/pads/%.json
