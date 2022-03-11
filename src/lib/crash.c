@@ -128,7 +128,7 @@ struct crashdescription g_CrashFpcsrDescriptions[] = {
 
 char (*g_CrashCharBuffer)[71] = NULL;
 
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 u32 var8005f138nb = 0;
 
 u32 var8005f13cnb[] = {

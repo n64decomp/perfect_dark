@@ -74,9 +74,11 @@ u32 g_VmMarker;
 u32 g_VmRamEnd;
 u32 g_VmStateTableEnd;
 
-#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+#if VERSION == VERSION_NTSC_BETA
 u8 g_VmShowStats = false;
 u32 fillnb[2] = {0};
+#elif VERSION == VERSION_PAL_BETA
+u8 g_VmShowStats = false;
 #endif
 
 u32 var8005cf80 = 0;

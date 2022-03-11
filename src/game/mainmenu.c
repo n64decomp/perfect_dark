@@ -4380,7 +4380,11 @@ struct menuitem g_AudioOptionsMenuItems[] = {
 #endif
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_OPTIONS_230, 0x00000000, menuhandlerSoundMode }, // "Sound Mode"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPWEAPONS_218, 0x00000000, menuhandlerLangFilter }, // "Language Filter"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, PAL ? 0xc8 : 0, 0x00000000, NULL },
+#if VERSION >= VERSION_PAL_FINAL
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 200, 0x00000000, NULL },
+#else
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0, 0x00000000, NULL },
+#endif
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_OPTIONS_231, 0x00000000, NULL }, // ""
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -4586,23 +4590,14 @@ struct menudialogdef g_MissionControlOptionsMenuDialog = {
 	NULL,
 };
 
-#if PAL
+#if VERSINO >= VERSION_PAL_FINAL
 struct menuitem g_CiControlOptionsMenuItems2[] = {
-#if VERSION >= VERSION_PAL_FINAL
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS_270, (u32)&func0f105664, menuhandlerControlStyle }, // "Control Style"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPWEAPONS_271, 0x00000004, menuhandlerReversePitch }, // "Reverse Pitch"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPWEAPONS_272, 0x00000004, menuhandlerLookAhead }, // "Look Ahead"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPWEAPONS_273, 0x00000004, menuhandlerHeadRoll }, // "Head Roll"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPWEAPONS_274, 0x00000004, menuhandlerAutoAim }, // "Auto-Aim"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_MPWEAPONS_275, 0x00000004, menuhandlerAimControl }, // "Aim Control"
-#else
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0, (u32)&func0f105664, menuhandlerControlStyle }, // "Control Style"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0, 0x00000004, menuhandlerReversePitch }, // "Reverse Pitch"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0, 0x00000004, menuhandlerLookAhead }, // "Look Ahead"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0, 0x00000004, menuhandlerHeadRoll }, // "Head Roll"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0, 0x00000004, menuhandlerAutoAim }, // "Auto-Aim"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0, 0x00000004, menuhandlerAimControl }, // "Aim Control"
-#endif
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_OPTIONS_200, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -4697,7 +4692,7 @@ struct menuitem g_2PMissionOptionsHMenuItems[] = {
 struct menuitem g_2PMissionOptionsVMenuItems[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS_181, 0x00000000, (void *)&g_2PMissionAudioOptionsVMenuDialog }, // "Audio"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS_182, 0x00000000, (void *)&g_2PMissionVideoOptionsMenuDialog }, // "Video"
-#if PAL
+#if VERSION >= VERSION_PAL_FINAL
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS_183, 0x00000000, (void *)&g_CiControlOptionsMenuDialog2 }, // "Control"
 #else
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS_183, 0x00000000, (void *)&g_MissionControlOptionsMenuDialog }, // "Control"

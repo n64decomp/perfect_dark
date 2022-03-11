@@ -121,9 +121,12 @@ struct vimode g_ViModes[] = {
 	//  |    |    |  |                 |    |  |     |  |     cinemaheight
 	//  |    |    |  |                 |    |  |     |  |     |  cinematop
 	//  |    |    |  |                 |    |  |     |  |     |  |
-#if PAL
+#if VERSION >= VERSION_PAL_FINAL
 	{ 320, 266, 320, 1,                1, 266, 0,  212, 20, 168, 42 }, // default
 	{ 448, 266, 448, 0.71428567171097, 1, 266, 0,  212, 20, 168, 42 }, // hi-res
+#elif VERSION >= VERSION_PAL_BETA
+	{ 320, 252, 320, 1,                1, 252, 0,  212, 20, 168, 42 }, // default
+	{ 448, 252, 448, 0.71428567171097, 1, 252, 0,  212, 20, 168, 42 }, // hi-res
 #else
 	{ 320, 220, 320, 1,                1, 220, 0,  180, 20, 136, 42  }, // default
 	{ 640, 220, 640, 0.5,              1, 220, 0,  180, 20, 136, 42  }, // hi-res
@@ -3687,6 +3690,9 @@ void playerConfigureVi(void)
 
 #if VERSION == VERSION_PAL_BETA
 const char var7f1af224pb[] = "tps";
+struct coord var800726acpb = {0, 0, 0};
+struct coord var800726b8pb = {0, 0, 1};
+struct coord var800726c4pb = {0, 1, 0};
 
 GLOBAL_ASM(
 glabel playerTick

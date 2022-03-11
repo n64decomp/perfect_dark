@@ -460,7 +460,7 @@ struct legalelement g_LegalElements[] = {
 	{ 249, 267, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_085 }, // "Rare Ltd. (twycross)"
 	{ 69,  290, 1, 1, LEGALELEMENTTYPE_LINE,        0             },
 	{ 69,  299, 0, 1, LEGALELEMENTTYPE_WHITETEXTLG, L_OPTIONS_076 }, // "N64 EXPANSION PAK"
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	{ -1,  296, 0, 1, LEGALELEMENTTYPE_WHITETEXTSM, L_OPTIONS_075 }, // "tm"
 	{ -1,  299, 0, 1, LEGALELEMENTTYPE_WHITETEXTLG, L_OPTIONS_074 }, // "NOT DETECTED"
 #else
@@ -477,6 +477,8 @@ struct legalelement g_LegalElements[] = {
 };
 
 #if VERSION == VERSION_PAL_BETA
+struct modelrenderdata var80063dacpb = { NULL, true, 3 };
+
 GLOBAL_ASM(
 glabel titleRenderLegal
 .late_rodata

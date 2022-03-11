@@ -361,7 +361,11 @@ struct menudialogdef g_MpQuickGo4MbMenuDialog = {
 };
 
 struct menuitem g_MpConfirmChallenge4MbMenuItems[] = {
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MPCONFIG, 0x00000000, 0x0000007c,   PAL ? 65 : 55, NULL                },
+#if VERSION >= VERSION_PAL_FINAL
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MPCONFIG, 0x00000000, 0x0000007c,   65,         NULL                },
+#else
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MPCONFIG, 0x00000000, 0x0000007c,   55,         NULL                },
+#endif
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,   0x00000000, NULL                },
 	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000000, L_MPMENU_057, 0x00000000, menuhandler0010cabc }, // "Accept"
 	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000008, L_MPMENU_058, 0x00000000, NULL                }, // "Cancel"

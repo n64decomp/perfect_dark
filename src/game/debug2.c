@@ -25,6 +25,13 @@
 #define DEBUGOPT_ALLBUDDIES    94
 #define DEBUGOPT_MANPOS        101
 
+#if VERSION == VERSION_PAL_BETA
+s32 var80075d60 = 2;
+s32 var80075d64 = 2;
+s32 var80075d68 = 2;
+s32 var800786f4nb = 2;
+#endif
+
 s32 g_DebugMenuOffsets[] = {
 	15,
 	30,
@@ -32,8 +39,13 @@ s32 g_DebugMenuOffsets[] = {
 	59,
 	72,
 	84,
+#if VERSION == VERSION_PAL_BETA
+	96,
+	109,
+#else
 	95,
 	108,
+#endif
 	-1,
 };
 
@@ -139,6 +151,9 @@ s32 g_DebugMenuPositions[][2] = {
 	{ 40, 26 },
 	{ 40, 27 },
 	{ 40, 28 },
+#if VERSION == VERSION_PAL_BETA
+	{ 40, 29 },
+#endif
 
 	{ 57, 18 },
 	{ 57, 19 },
@@ -313,10 +328,14 @@ u32 var800a7950nb;
 
 s32 g_DebugCurMenu = DEBUGMENU_MAIN;
 s32 g_DebugSelectedOptionsByMenu[2] = {0, 0};
+
+#if VERSION == VERSION_NTSC_BETA
 s32 var80075d60 = 2;
 s32 var80075d64 = 2;
 s32 var80075d68 = 2;
 s32 var800786f4nb = 2;
+#endif
+
 s32 var800786f8nb = 0;
 bool g_DebugRenderBg = true;
 bool g_DebugRenderProps = true;
@@ -368,6 +387,9 @@ s32 var800787b4nb = 0;
 s32 var800787b8nb = 0;
 s32 var800787bcnb = 0;
 s32 var800787c0nb = 0;
+#if VERSION == VERSION_PAL_BETA
+s32 var800781f0pb = 0;
+#endif
 s32 var800787c4nb = 1;
 s32 var800787c8nb = 0;
 s32 var800787ccnb = 0;

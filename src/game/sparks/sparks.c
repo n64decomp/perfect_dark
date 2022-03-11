@@ -41,7 +41,7 @@ struct sparktype g_SparkTypes[] = {
 	//                                     |     max age
 	//                                     |     |                                        decel
 	//                                     |     |                                        |
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	/*0x00*/ { 100, 28,  100,  1,   0,  0, 2.4,              50,  50,  15, 1, 0xffff80ff, 0xffffffff, 0.024 },
 	/*0x00*/ { 100, 28,  100,  1,   0,  0, 2.4,              50,  50,  15, 1, 0x80ffffff, 0xffffffff, 0.024 },
 	/*0x00*/ { 40,  -1,  30,   30,  0,  0, 2.4,              29,  29,  5,  1, 0x301010ff, 0x401010ff, 0.024 },

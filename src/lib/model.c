@@ -3539,6 +3539,10 @@ void model0001e14c(struct model *model, f32 arg1, f32 arg2)
 	}
 }
 
+#if VERSION == VERSION_PAL_BETA
+u32 var80060670pb = 0;
+#endif
+
 bool var8005efdc = true;
 u32 var8005efe0 = 0x00000000;
 u32 var8005efe4 = 0x00000000;

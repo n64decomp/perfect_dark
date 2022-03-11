@@ -101,7 +101,7 @@ u32 var8007fbc0 = 0x44444400;
 u32 var8007fbc4 = 0xffffff00;
 u32 var8007fbc8 = 0xffffff00;
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 u32 var8007fbd8 = 0x00000000;
 u32 var80080130pf[4] = {0};
 #else

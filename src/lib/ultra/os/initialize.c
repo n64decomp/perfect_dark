@@ -25,7 +25,7 @@ s32 osViClock = VI_NTSC_CLOCK;
 u32 _osShutdown = 0;
 u32 __osGlobalIntMask = OS_IM_ALL;
 
-#if VERSION >= VERSION_NTSC_1_0 && VERSION < VERSION_PAL_FINAL
+#if VERSION >= VERSION_NTSC_1_0 && VERSION < VERSION_PAL_BETA
 u32 var8005cf74 = 0;
 u32 var8005cf78 = 0;
 u32 var8005cf7c = 0;

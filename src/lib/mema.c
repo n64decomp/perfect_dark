@@ -58,6 +58,10 @@ s32 g_MemaHeapStart;
 s32 g_MemaHeapSize;
 struct memaheap g_MemaHeap;
 
+#if VERSION == VERSION_PAL_BETA
+u32 var8005f910pb = 1000000;
+#endif
+
 void memaSwap(struct memaspace *a, struct memaspace *b)
 {
 	u32 tempaddr = a->addr;

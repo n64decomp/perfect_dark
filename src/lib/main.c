@@ -3022,6 +3022,11 @@ glabel mainLoop
 #endif
 
 #if VERSION == VERSION_PAL_BETA
+u32 var8005f690nb[] = {
+	0x00020000, 0x00000000, 0x00000000, 0x00000000,
+	0x00000000, 0x00000000, 0x00000000, 0x00000000,
+};
+
 GLOBAL_ASM(
 glabel mainTick
 /*  e114:	27bdff68 */ 	addiu	$sp,$sp,-152
