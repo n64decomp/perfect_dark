@@ -44,7 +44,6 @@ endif
 ifeq ($(ROMID),pal-beta)
 	PAL=1
 	VERSION=3
-	PIRACYCHECKS=0
 	ZIPMAGIC=0x0c00
 endif
 ifeq ($(ROMID),pal-final)

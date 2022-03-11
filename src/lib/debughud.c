@@ -22,7 +22,7 @@ struct dhudchar {
 	u8 paletteindex;
 };
 
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 struct dhudchar g_DHudCharBuffer[NUM_COLS][NUM_ROWS];
 Gfx g_DHudFgGbi[MAX_COLOURS];
 Gfx g_DHudBgGbi[MAX_COLOURS];
@@ -90,21 +90,21 @@ Gfx g_DHudFgColour = gsDPSetPrimColor(0, 0, 0xff, 0xff, 0xff, 0);
 Gfx g_DHudBgColour = gsDPSetEnvColor(0, 0, 0, 0);
 #endif
 
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 s32 dhud00013fe0nb(s32 arg0, s32 arg1)
 {
 	return 0;
 }
 #endif
 
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 s32 dhud00013ff0nb(s32 arg0, s32 arg1)
 {
 	return 0;
 }
 #endif
 
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 void dhud00014000nb(void)
 {
 	// empty
@@ -113,7 +113,7 @@ void dhud00014000nb(void)
 
 void dhudInit(void)
 {
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 	s32 i;
 	s32 x;
 	s32 y;
@@ -143,14 +143,14 @@ void dhudInit(void)
 
 void dhudTryReset(void)
 {
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 	if (g_DHudInitialised) {
 		dhudReset();
 	}
 #endif
 }
 
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 void dhudPutCharAt(s32 x, s32 y, char c)
 {
 	s32 i;
@@ -181,7 +181,7 @@ havepalette:
 
 void dhudResetPos(void)
 {
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 	if (g_DHudInitialised) {
 		g_DHudPosX = g_DHudBaseX;
 		g_DHudPosY = g_DHudBaseY;
@@ -191,7 +191,7 @@ void dhudResetPos(void)
 
 void dhudReset(void)
 {
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 	s32 x;
 	s32 y;
 
@@ -214,7 +214,7 @@ void dhudReset(void)
 
 void dhudSetPos(s32 x, s32 y)
 {
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 	if (g_DHudInitialised) {
 		x += g_DHudBaseX;
 		y += g_DHudBaseY;
@@ -231,7 +231,7 @@ void dhudSetPos(s32 x, s32 y)
 
 void dhudSetFgColour(s32 r, s32 g, s32 b, s32 a)
 {
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 	if (g_DHudInitialised) {
 		g_DHudFgColour.words.w1 = r << 24 | g << 16 | b << 8 | (255 - a);
 	}
@@ -240,7 +240,7 @@ void dhudSetFgColour(s32 r, s32 g, s32 b, s32 a)
 
 void dhudSetBgColour(s32 r, s32 g, s32 b, s32 a)
 {
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 	if (g_DHudInitialised) {
 		g_DHudBgColour.words.w1 = r << 24 | g << 16 | b << 8 | (255 - a);
 	}
@@ -249,7 +249,7 @@ void dhudSetBgColour(s32 r, s32 g, s32 b, s32 a)
 
 void dhudPrintChar(u8 c)
 {
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 	s32 maxwidth = (viGetWidth() - 13) / CHAR_W;
 	s32 maxheight = (viGetHeight() - 10) / CHAR_H;
 
@@ -272,19 +272,21 @@ void dhudPrintChar(u8 c)
 #endif
 }
 
+#if VERSION != VERSION_PAL_BETA
 void dhudPrintCharAt(s32 x, s32 y, char c)
 {
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA
 	if (g_DHudInitialised) {
 		dhudSetPos(x, y);
 		dhudPrintChar(c);
 	}
 #endif
 }
+#endif
 
 void dhudPrintString(char *str)
 {
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 	if (g_DHudInitialised) {
 		while (*str != '\0') {
 			dhudPrintChar(*str++);
@@ -293,9 +295,10 @@ void dhudPrintString(char *str)
 #endif
 }
 
+#if VERSION != VERSION_PAL_BETA
 void dhudPrintStringAt(s32 x, s32 y, char *str)
 {
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 	if (g_DHudInitialised) {
 		dhudSetPos(x, y);
 
@@ -305,10 +308,11 @@ void dhudPrintStringAt(s32 x, s32 y, char *str)
 	}
 #endif
 }
+#endif
 
 Gfx *dhudRender(Gfx *gdl)
 {
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 	if (!g_DHudInitialised) {
 		return gdl;
 	}

@@ -50,7 +50,7 @@ void amgrAllocateStack(void)
 	g_AudioSp = bootAllocateStack(THREAD_AUDIO, STACKSIZE_AUDIO);
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 void amgrCreate(ALSynConfig *config, u32 *settings)
 #else
 void amgrCreate(ALSynConfig *config)
@@ -62,7 +62,7 @@ void amgrCreate(ALSynConfig *config)
 	config->outputRate = osAiSetFrequency(22020);
 	config->dmaproc = admaNew;
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	freqpertick = settings[1] * (f32)config->outputRate / 25.0f;
 #else
 	freqpertick = config->outputRate / 30.0f;
@@ -90,7 +90,7 @@ void amgrCreate(ALSynConfig *config)
 
 	var800918ec = 2000;
 
-#if VERSION < VERSION_PAL_FINAL
+#if VERSION < VERSION_PAL_BETA
 	if (IS4MB()) {
 		var800918ec >>= 1;
 	}
@@ -174,7 +174,7 @@ void amgrMain(void *arg)
 
 	static u32 var8005d514 = 1;
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	osScAddClient(&g_Sched, &var800918d0, &g_AudioManager.audioFrameMsgQ, true);
 #else
 	osScAddClient(&g_Sched, &var800918d0, &g_AudioManager.audioFrameMsgQ, !IS4MB());

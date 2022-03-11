@@ -1668,7 +1668,7 @@ void sndInit(void)
 {
 	ALSndpConfig sndpconfig;
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	u32 heaplen = 1024 * 446;
 #elif VERSION >= VERSION_NTSC_1_0
 	u32 heaplen = 1024 * 441;
@@ -1681,7 +1681,7 @@ void sndInit(void)
 	if (IS4MB()) {
 		g_SndMaxFxBusses = 1;
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		heaplen -= 1024 * 6;
 #else
 		heaplen -= 1024 * 38;
@@ -1704,7 +1704,7 @@ void sndInit(void)
 		// Allocate memory for the audio heap,
 		// clear it and give it to the audio library
 		ALSynConfig synconfig;
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		u32 settings[3];
 #endif
 		u8 *ptr = mempAlloc(heaplen, MEMPOOL_PERMANENT);
@@ -1772,7 +1772,7 @@ void sndInit(void)
 		sndpconfig.unk10 = 9;
 		sndpconfig.heap = &g_SndHeap;
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		settings[0] = 22020;
 		settings[1] = 1;
 		settings[2] = 2000;

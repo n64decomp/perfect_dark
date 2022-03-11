@@ -266,7 +266,7 @@ u32 mempGetPoolFree(u8 poolnum, u32 bank)
 	return pool->rightpos - pool->leftpos;
 }
 
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 u32 mempGetPoolSize(u8 poolnum, u32 bank)
 {
 	struct memorypool *pool;
@@ -281,7 +281,7 @@ u32 mempGetPoolSize(u8 poolnum, u32 bank)
 }
 #endif
 
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION <= VERSION_NTSC_1_0
 void *mempAllocFromPackedWord(u32 word)
 {
 	return mempAlloc(word >> 4, word & 0x0f);

@@ -129,7 +129,7 @@ s32 admaExec(s32 offset, s32 len, void *state)
  */
 void *admaNew(struct admastate **state)
 {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	s32 max = ADMA_MAX_ITEMS;
 #else
 	s32 max = IS4MB() ? ADMA_MAX_ITEMS - 20 : ADMA_MAX_ITEMS;

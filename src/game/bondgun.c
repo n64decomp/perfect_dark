@@ -557,7 +557,7 @@ f32 bgun0f09815c(struct hand *hand)
 	return 0;
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel bgun0f0981e8
 .late_rodata

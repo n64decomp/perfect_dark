@@ -183,35 +183,75 @@ void crashCreateThread(void)
 	osStartThread(&g_FaultThread);
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-void faultproc(void *arg0)
-{
-	OSMesg msg = 0;
-	OSIntMask mask;
-	u32 callstack[10];
-	s32 tracelen;
-	static OSThread *curr;
-	static OSThread *last;
-
-	osSetEventMesg(OS_EVENT_FAULT, &g_FaultMesgQueue, (OSMesg) MSG_FAULT);
-	last = NULL;
-
-	while (true) {
-		do {
-			osRecvMesg(&g_FaultMesgQueue, &msg, OS_MESG_BLOCK);
-			mask = osSetIntMask(1);
-			curr = __osGetCurrFaultedThread();
-		} while (!curr);
-
-		osSetIntMask(mask);
-
-#if VERSION < VERSION_NTSC_1_0
-		crashGenerate(curr, callstack, &tracelen);
-		schedSetCrashedUnexpectedly(true);
-#endif
-	}
-}
-#else
+#if VERSION == VERSION_PAL_BETA
+GLOBAL_ASM(
+glabel faultproc
+/*  bd9c:	27bdff98 */ 	addiu	$sp,$sp,-104
+/*  bda0:	afb10018 */ 	sw	$s1,0x18($sp)
+/*  bda4:	3c118009 */ 	lui	$s1,0x8009
+/*  bda8:	26316f90 */ 	addiu	$s1,$s1,0x6f90
+/*  bdac:	afbf002c */ 	sw	$ra,0x2c($sp)
+/*  bdb0:	afa40068 */ 	sw	$a0,0x68($sp)
+/*  bdb4:	afb50028 */ 	sw	$s5,0x28($sp)
+/*  bdb8:	afb40024 */ 	sw	$s4,0x24($sp)
+/*  bdbc:	afb30020 */ 	sw	$s3,0x20($sp)
+/*  bdc0:	afb2001c */ 	sw	$s2,0x1c($sp)
+/*  bdc4:	afb00014 */ 	sw	$s0,0x14($sp)
+/*  bdc8:	afa00064 */ 	sw	$zero,0x64($sp)
+/*  bdcc:	2404000c */ 	li	$a0,0xc
+/*  bdd0:	02202825 */ 	move	$a1,$s1
+/*  bdd4:	0c0122b8 */ 	jal	0x48ae0
+/*  bdd8:	24060010 */ 	li	$a2,0x10
+/*  bddc:	3c018009 */ 	lui	$at,0x8009
+/*  bde0:	3c138006 */ 	lui	$s3,0x8006
+/*  bde4:	ac206fb0 */ 	sw	$zero,0x6fb0($at)
+/*  bde8:	2673df40 */ 	addiu	$s3,$s3,-8384
+/*  bdec:	27b50034 */ 	addiu	$s5,$sp,0x34
+/*  bdf0:	27b40038 */ 	addiu	$s4,$sp,0x38
+/*  bdf4:	27b20064 */ 	addiu	$s2,$sp,0x64
+.PB0000bdf8:
+/*  bdf8:	02202025 */ 	move	$a0,$s1
+.PB0000bdfc:
+/*  bdfc:	02402825 */ 	move	$a1,$s2
+/*  be00:	0c01232c */ 	jal	0x48cb0
+/*  be04:	24060001 */ 	li	$a2,0x1
+/*  be08:	0c012304 */ 	jal	0x48c10
+/*  be0c:	24040001 */ 	li	$a0,0x1
+/*  be10:	0c013b00 */ 	jal	0x4ec00
+/*  be14:	00408025 */ 	move	$s0,$v0
+/*  be18:	3c018009 */ 	lui	$at,0x8009
+/*  be1c:	1040fff6 */ 	beqz	$v0,.PB0000bdf8
+/*  be20:	ac226fac */ 	sw	$v0,0x6fac($at)
+/*  be24:	0c012304 */ 	jal	0x48c10
+/*  be28:	02002025 */ 	move	$a0,$s0
+/*  be2c:	8e6e0000 */ 	lw	$t6,0x0($s3)
+/*  be30:	51c0fff2 */ 	beqzl	$t6,.PB0000bdfc
+/*  be34:	02202025 */ 	move	$a0,$s1
+/*  be38:	3c048009 */ 	lui	$a0,0x8009
+/*  be3c:	8c846fac */ 	lw	$a0,0x6fac($a0)
+/*  be40:	02802825 */ 	move	$a1,$s4
+/*  be44:	0c0030b1 */ 	jal	0xc2c4
+/*  be48:	02a03025 */ 	move	$a2,$s5
+/*  be4c:	0c0006c7 */ 	jal	0x1b1c
+/*  be50:	24040001 */ 	li	$a0,0x1
+/*  be54:	1000ffe9 */ 	b	.PB0000bdfc
+/*  be58:	02202025 */ 	move	$a0,$s1
+/*  be5c:	00000000 */ 	nop
+/*  be60:	00000000 */ 	nop
+/*  be64:	00000000 */ 	nop
+/*  be68:	00000000 */ 	nop
+/*  be6c:	00000000 */ 	nop
+/*  be70:	8fbf002c */ 	lw	$ra,0x2c($sp)
+/*  be74:	8fb00014 */ 	lw	$s0,0x14($sp)
+/*  be78:	8fb10018 */ 	lw	$s1,0x18($sp)
+/*  be7c:	8fb2001c */ 	lw	$s2,0x1c($sp)
+/*  be80:	8fb30020 */ 	lw	$s3,0x20($sp)
+/*  be84:	8fb40024 */ 	lw	$s4,0x24($sp)
+/*  be88:	8fb50028 */ 	lw	$s5,0x28($sp)
+/*  be8c:	03e00008 */ 	jr	$ra
+/*  be90:	27bd0068 */ 	addiu	$sp,$sp,0x68
+);
+#elif VERSION == VERSION_NTSC_BETA
 GLOBAL_ASM(
 glabel faultproc
 /*     c270:	27bdff98 */ 	addiu	$sp,$sp,-104
@@ -273,6 +313,34 @@ glabel faultproc
 /*     c348:	03e00008 */ 	jr	$ra
 /*     c34c:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
+#else
+void faultproc(void *arg0)
+{
+	OSMesg msg = 0;
+	OSIntMask mask;
+	u32 callstack[10];
+	s32 tracelen;
+	static OSThread *curr;
+	static OSThread *last;
+
+	osSetEventMesg(OS_EVENT_FAULT, &g_FaultMesgQueue, (OSMesg) MSG_FAULT);
+	last = NULL;
+
+	while (true) {
+		do {
+			osRecvMesg(&g_FaultMesgQueue, &msg, OS_MESG_BLOCK);
+			mask = osSetIntMask(1);
+			curr = __osGetCurrFaultedThread();
+		} while (!curr);
+
+		osSetIntMask(mask);
+
+#if VERSION == VERSION_NTSC_BETA
+		crashGenerate(curr, callstack, &tracelen);
+		schedSetCrashedUnexpectedly(true);
+#endif
+	}
+}
 #endif
 
 /**
@@ -1409,81 +1477,101 @@ void crashScroll(s32 numlines)
 	}
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-/**
- * Render a character to the crash buffer.
- *
- * It looks like the character rendering code has been removed however,
- * so it's just borders that remain.
- */
-void crashRenderChar(s32 x, s32 y, char c)
-{
-	s32 i;
-	s32 j;
-	s32 width;
-	u16 *fbpos;
-	bool hires;
-	s32 tmp;
-	u32 a2;
-
-	width = viGetWidth();
-
-	if (c == '\0') {
-		c = ' ';
-	}
-
-	if (c < ' ' || c > '~') {
-		return;
-	}
-
-	hires = (width == 640);
-
-	if (hires) {
-		fbpos = g_CrashFrameBuffer + x * 2 + y * width;
-	} else {
-		fbpos = g_CrashFrameBuffer + x + y * width;
-	}
-
-	a2 = 0;
-
-	for (i = 0; i < 7; i++) {
-		for (j = 0; j < 4; j++) {
-			// gray occurs every 32nd pixel
-			u32 gray = a2 & 0x80000000;
-
-			if (gray) {
-				fbpos[0] = GPACK_RGBA5551(120, 120, 120, 1);
-			} else {
-				fbpos[0] = GPACK_RGBA5551(0, 0, 0, 1);
-			}
-
-			if (hires) {
-				if (gray) {
-					fbpos[1] = GPACK_RGBA5551(120, 120, 120, 1);
-				} else {
-					fbpos[1] = GPACK_RGBA5551(0, 0, 0, 1);
-				}
-			}
-
-			fbpos++;
-
-			if (hires) {
-				fbpos++;
-			}
-
-			a2 *= 2;
-		}
-
-		if (hires) {
-			fbpos += width;
-			fbpos -= 8;
-		} else {
-			fbpos += width;
-			fbpos -= 4;
-		}
-	}
-}
-#else
+#if VERSION == VERSION_PAL_BETA
+GLOBAL_ASM(
+glabel crashRenderChar
+/*  cb44:	27bdffe8 */ 	addiu	$sp,$sp,-24
+/*  cb48:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  cb4c:	afa40018 */ 	sw	$a0,0x18($sp)
+/*  cb50:	afa5001c */ 	sw	$a1,0x1c($sp)
+/*  cb54:	0c002e4d */ 	jal	0xb934
+/*  cb58:	afa60020 */ 	sw	$a2,0x20($sp)
+/*  cb5c:	93a30023 */ 	lbu	$v1,0x23($sp)
+/*  cb60:	8fa50018 */ 	lw	$a1,0x18($sp)
+/*  cb64:	8fa6001c */ 	lw	$a2,0x1c($sp)
+/*  cb68:	54600003 */ 	bnezl	$v1,.PB0000cb78
+/*  cb6c:	28610020 */ 	slti	$at,$v1,0x20
+/*  cb70:	24030020 */ 	li	$v1,0x20
+/*  cb74:	28610020 */ 	slti	$at,$v1,0x20
+.PB0000cb78:
+/*  cb78:	1420003d */ 	bnez	$at,.PB0000cc70
+/*  cb7c:	2861007f */ 	slti	$at,$v1,0x7f
+/*  cb80:	1020003b */ 	beqz	$at,.PB0000cc70
+/*  cb84:	38490280 */ 	xori	$t1,$v0,0x280
+/*  cb88:	2d290001 */ 	sltiu	$t1,$t1,0x1
+/*  cb8c:	1120000a */ 	beqz	$t1,.PB0000cbb8
+/*  cb90:	00006025 */ 	move	$t4,$zero
+/*  cb94:	00c20019 */ 	multu	$a2,$v0
+/*  cb98:	3c188006 */ 	lui	$t8,0x8006
+/*  cb9c:	8f18e4a4 */ 	lw	$t8,-0x1b5c($t8)
+/*  cba0:	00057880 */ 	sll	$t7,$a1,0x2
+/*  cba4:	01f8c821 */ 	addu	$t9,$t7,$t8
+/*  cba8:	00007012 */ 	mflo	$t6
+/*  cbac:	000e7840 */ 	sll	$t7,$t6,0x1
+/*  cbb0:	10000009 */ 	b	.PB0000cbd8
+/*  cbb4:	032f2021 */ 	addu	$a0,$t9,$t7
+.PB0000cbb8:
+/*  cbb8:	00c20019 */ 	multu	$a2,$v0
+/*  cbbc:	3c0e8006 */ 	lui	$t6,0x8006
+/*  cbc0:	8dcee4a4 */ 	lw	$t6,-0x1b5c($t6)
+/*  cbc4:	0005c040 */ 	sll	$t8,$a1,0x1
+/*  cbc8:	030ec821 */ 	addu	$t9,$t8,$t6
+/*  cbcc:	00007812 */ 	mflo	$t7
+/*  cbd0:	000fc040 */ 	sll	$t8,$t7,0x1
+/*  cbd4:	03382021 */ 	addu	$a0,$t9,$t8
+.PB0000cbd8:
+/*  cbd8:	00037080 */ 	sll	$t6,$v1,0x2
+/*  cbdc:	3c068006 */ 	lui	$a2,0x8006
+/*  cbe0:	00ce3021 */ 	addu	$a2,$a2,$t6
+/*  cbe4:	8cc6e2a8 */ 	lw	$a2,-0x1d58($a2)
+/*  cbe8:	00026840 */ 	sll	$t5,$v0,0x1
+/*  cbec:	241f0007 */ 	li	$ra,0x7
+/*  cbf0:	240b0004 */ 	li	$t3,0x4
+/*  cbf4:	3c0a8000 */ 	lui	$t2,0x8000
+/*  cbf8:	24080001 */ 	li	$t0,0x1
+/*  cbfc:	24077bdf */ 	li	$a3,0x7bdf
+/*  cc00:	00002825 */ 	move	$a1,$zero
+.PB0000cc04:
+/*  cc04:	00ca1824 */ 	and	$v1,$a2,$t2
+/*  cc08:	10600003 */ 	beqz	$v1,.PB0000cc18
+/*  cc0c:	00067840 */ 	sll	$t7,$a2,0x1
+/*  cc10:	10000002 */ 	b	.PB0000cc1c
+/*  cc14:	a4870000 */ 	sh	$a3,0x0($a0)
+.PB0000cc18:
+/*  cc18:	a4880000 */ 	sh	$t0,0x0($a0)
+.PB0000cc1c:
+/*  cc1c:	11200006 */ 	beqz	$t1,.PB0000cc38
+/*  cc20:	24a50001 */ 	addiu	$a1,$a1,0x1
+/*  cc24:	50600004 */ 	beqzl	$v1,.PB0000cc38
+/*  cc28:	a4880002 */ 	sh	$t0,0x2($a0)
+/*  cc2c:	10000002 */ 	b	.PB0000cc38
+/*  cc30:	a4870002 */ 	sh	$a3,0x2($a0)
+/*  cc34:	a4880002 */ 	sh	$t0,0x2($a0)
+.PB0000cc38:
+/*  cc38:	11200002 */ 	beqz	$t1,.PB0000cc44
+/*  cc3c:	24840002 */ 	addiu	$a0,$a0,0x2
+/*  cc40:	24840002 */ 	addiu	$a0,$a0,0x2
+.PB0000cc44:
+/*  cc44:	14abffef */ 	bne	$a1,$t3,.PB0000cc04
+/*  cc48:	01e03025 */ 	move	$a2,$t7
+/*  cc4c:	11200004 */ 	beqz	$t1,.PB0000cc60
+/*  cc50:	258c0001 */ 	addiu	$t4,$t4,0x1
+/*  cc54:	008d2021 */ 	addu	$a0,$a0,$t5
+/*  cc58:	10000003 */ 	b	.PB0000cc68
+/*  cc5c:	2484fff0 */ 	addiu	$a0,$a0,-16
+.PB0000cc60:
+/*  cc60:	008d2021 */ 	addu	$a0,$a0,$t5
+/*  cc64:	2484fff8 */ 	addiu	$a0,$a0,-8
+.PB0000cc68:
+/*  cc68:	559fffe6 */ 	bnel	$t4,$ra,.PB0000cc04
+/*  cc6c:	00002825 */ 	move	$a1,$zero
+.PB0000cc70:
+/*  cc70:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*  cc74:	27bd0018 */ 	addiu	$sp,$sp,0x18
+/*  cc78:	03e00008 */ 	jr	$ra
+/*  cc7c:	00000000 */ 	nop
+);
+#elif VERSION == VERSION_NTSC_BETA
 GLOBAL_ASM(
 glabel crashRenderChar
 /*     d398:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -1577,26 +1665,114 @@ glabel crashRenderChar
 /*     d4cc:	03e00008 */ 	jr	$ra
 /*     d4d0:	00000000 */ 	sll	$zero,$zero,0x0
 );
-#endif
-
-#if VERSION >= VERSION_NTSC_1_0
-void crashReset(void)
+#else
+/**
+ * Render a character to the crash buffer.
+ *
+ * It looks like the character rendering code has been removed however,
+ * so it's just borders that remain.
+ */
+void crashRenderChar(s32 x, s32 y, char c)
 {
-	g_CrashCharBuffer = NULL;
+	s32 i;
+	s32 j;
+	s32 width;
+	u16 *fbpos;
+	bool hires;
+	s32 tmp;
+	u32 a2;
 
-	if (g_CrashCharBuffer) {
-		// Unreachable
-		s32 x;
-		s32 y;
+	width = viGetWidth();
 
-		for (y = 0; y < 30; y++) {
-			for (x = 0; x < 71; x++) {
-				g_CrashCharBuffer[y][x] = '\0';
+	if (c == '\0') {
+		c = ' ';
+	}
+
+	if (c < ' ' || c > '~') {
+		return;
+	}
+
+	hires = (width == 640);
+
+	if (hires) {
+		fbpos = g_CrashFrameBuffer + x * 2 + y * width;
+	} else {
+		fbpos = g_CrashFrameBuffer + x + y * width;
+	}
+
+	a2 = 0;
+
+	for (i = 0; i < 7; i++) {
+		for (j = 0; j < 4; j++) {
+			// gray occurs every 32nd pixel
+			u32 gray = a2 & 0x80000000;
+
+			if (gray) {
+				fbpos[0] = GPACK_RGBA5551(120, 120, 120, 1);
+			} else {
+				fbpos[0] = GPACK_RGBA5551(0, 0, 0, 1);
 			}
+
+			if (hires) {
+				if (gray) {
+					fbpos[1] = GPACK_RGBA5551(120, 120, 120, 1);
+				} else {
+					fbpos[1] = GPACK_RGBA5551(0, 0, 0, 1);
+				}
+			}
+
+			fbpos++;
+
+			if (hires) {
+				fbpos++;
+			}
+
+			a2 *= 2;
+		}
+
+		if (hires) {
+			fbpos += width;
+			fbpos -= 8;
+		} else {
+			fbpos += width;
+			fbpos -= 4;
 		}
 	}
 }
-#else
+#endif
+
+#if VERSION == VERSION_PAL_BETA
+GLOBAL_ASM(
+glabel crashReset
+/*  cc80:	3c048006 */ 	lui	$a0,0x8006
+/*  cc84:	3c0e8009 */ 	lui	$t6,0x8009
+/*  cc88:	2484e324 */ 	addiu	$a0,$a0,-7388
+/*  cc8c:	25ce6fb8 */ 	addiu	$t6,$t6,0x6fb8
+/*  cc90:	11c00012 */ 	beqz	$t6,.PB0000ccdc
+/*  cc94:	ac8e0000 */ 	sw	$t6,0x0($a0)
+/*  cc98:	00001025 */ 	move	$v0,$zero
+/*  cc9c:	2406001e */ 	li	$a2,0x1e
+/*  cca0:	24050047 */ 	li	$a1,0x47
+/*  cca4:	00001825 */ 	move	$v1,$zero
+.PB0000cca8:
+/*  cca8:	0002c8c0 */ 	sll	$t9,$v0,0x3
+/*  ccac:	8c980000 */ 	lw	$t8,0x0($a0)
+/*  ccb0:	0322c821 */ 	addu	$t9,$t9,$v0
+/*  ccb4:	0019c8c0 */ 	sll	$t9,$t9,0x3
+/*  ccb8:	0322c823 */ 	subu	$t9,$t9,$v0
+/*  ccbc:	03194021 */ 	addu	$t0,$t8,$t9
+/*  ccc0:	01034821 */ 	addu	$t1,$t0,$v1
+/*  ccc4:	24630001 */ 	addiu	$v1,$v1,0x1
+/*  ccc8:	1465fff7 */ 	bne	$v1,$a1,.PB0000cca8
+/*  cccc:	a1200000 */ 	sb	$zero,0x0($t1)
+/*  ccd0:	24420001 */ 	addiu	$v0,$v0,0x1
+/*  ccd4:	5446fff4 */ 	bnel	$v0,$a2,.PB0000cca8
+/*  ccd8:	00001825 */ 	move	$v1,$zero
+.PB0000ccdc:
+/*  ccdc:	03e00008 */ 	jr	$ra
+/*  cce0:	00000000 */ 	nop
+);
+#elif VERSION == VERSION_NTSC_BETA
 GLOBAL_ASM(
 glabel crashReset
 /*     d4d4:	3c048006 */ 	lui	$a0,0x8006
@@ -1627,6 +1803,23 @@ glabel crashReset
 /*     d530:	03e00008 */ 	jr	$ra
 /*     d534:	00000000 */ 	sll	$zero,$zero,0x0
 );
+#else
+void crashReset(void)
+{
+	g_CrashCharBuffer = NULL;
+
+	if (g_CrashCharBuffer) {
+		// Unreachable
+		s32 x;
+		s32 y;
+
+		for (y = 0; y < 30; y++) {
+			for (x = 0; x < 71; x++) {
+				g_CrashCharBuffer[y][x] = '\0';
+			}
+		}
+	}
+}
 #endif
 
 void crashRenderFrame(u8 *fb)

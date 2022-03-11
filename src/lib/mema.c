@@ -210,11 +210,50 @@ void memaInit(void)
 	// empty
 }
 
+#if VERSION == VERSION_PAL_BETA
+GLOBAL_ASM(
+glabel memaHeapInit
+/*  12ac4:	3c03800a */ 	lui	$v1,0x800a
+/*  12ac8:	2463c1a8 */ 	addiu	$v1,$v1,-15960
+/*  12acc:	2406ffff */ 	li	$a2,-1
+/*  12ad0:	ac6603ec */ 	sw	$a2,0x3ec($v1)
+/*  12ad4:	ac6603f4 */ 	sw	$a2,0x3f4($v1)
+/*  12ad8:	240effff */ 	li	$t6,-1
+/*  12adc:	3c06800a */ 	lui	$a2,0x800a
+/*  12ae0:	3c02800a */ 	lui	$v0,0x800a
+/*  12ae4:	ac600000 */ 	sw	$zero,0x0($v1)
+/*  12ae8:	ac600004 */ 	sw	$zero,0x4($v1)
+/*  12aec:	ac600008 */ 	sw	$zero,0x8($v1)
+/*  12af0:	ac6003f0 */ 	sw	$zero,0x3f0($v1)
+/*  12af4:	ac6e03f8 */ 	sw	$t6,0x3f8($v1)
+/*  12af8:	2442c1b4 */ 	addiu	$v0,$v0,-15948
+/*  12afc:	24c6c58c */ 	addiu	$a2,$a2,-14964
+.PB00012b00:
+/*  12b00:	24420008 */ 	addiu	$v0,$v0,0x8
+/*  12b04:	00c2082b */ 	sltu	$at,$a2,$v0
+/*  12b08:	ac40fff8 */ 	sw	$zero,-0x8($v0)
+/*  12b0c:	1020fffc */ 	beqz	$at,.PB00012b00
+/*  12b10:	ac40fffc */ 	sw	$zero,-0x4($v0)
+/*  12b14:	3c02800a */ 	lui	$v0,0x800a
+/*  12b18:	3c06800a */ 	lui	$a2,0x800a
+/*  12b1c:	24c6c1a4 */ 	addiu	$a2,$a2,-15964
+/*  12b20:	2442c1a0 */ 	addiu	$v0,$v0,-15968
+/*  12b24:	3c19000f */ 	lui	$t9,0xf
+/*  12b28:	ac440000 */ 	sw	$a0,0x0($v0)
+/*  12b2c:	ac64000c */ 	sw	$a0,0xc($v1)
+/*  12b30:	acc50000 */ 	sw	$a1,0x0($a2)
+/*  12b34:	ac650010 */ 	sw	$a1,0x10($v1)
+/*  12b38:	37394240 */ 	ori	$t9,$t9,0x4240
+/*  12b3c:	3c018006 */ 	lui	$at,0x8006
+/*  12b40:	03e00008 */ 	jr	$ra
+/*  12b44:	ac39f910 */ 	sw	$t9,-0x6f0($at)
+);
+#else
 void memaHeapInit(void *heapaddr, u32 heapsize)
 {
 	struct memaspace *space;
 
-#if VERSION >= VERSION_NTSC_1_0
+#if VERSION != VERSION_NTSC_BETA && VERSION != VERSION_PAL_BETA
 	// Adding an amount to the heap size here means that mema can allocate past
 	// the end of its heap. This would overflow into the gun names language
 	// file. Maybe this code was intended to be temporary while a developer
@@ -241,7 +280,96 @@ void memaHeapInit(void *heapaddr, u32 heapsize)
 	g_MemaHeap.spaces[0].addr = g_MemaHeapStart = (u32)heapaddr;
 	g_MemaHeap.spaces[0].size = g_MemaHeapSize = heapsize;
 }
+#endif
 
+#if VERSION == VERSION_PAL_BETA
+const char var70054900pb[] = "Lev0: %d";
+const char var7005490cpb[] = "Lev1: %d";
+const char var70054918pb[] = "mema: %d (%d)";
+
+GLOBAL_ASM(
+glabel memaPrint
+/*  12b48:	27bdff58 */ 	addiu	$sp,$sp,-168
+/*  12b4c:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  12b50:	3c04800a */ 	lui	$a0,0x800a
+/*  12b54:	0c0049e8 */ 	jal	0x127a0
+/*  12b58:	2484c1a8 */ 	addiu	$a0,$a0,-15960
+/*  12b5c:	0fc48118 */ 	jal	0xf120460
+/*  12b60:	00000000 */ 	nop
+/*  12b64:	10400041 */ 	beqz	$v0,.PB00012c6c
+/*  12b68:	240400ff */ 	li	$a0,0xff
+/*  12b6c:	240500ff */ 	li	$a1,0xff
+/*  12b70:	240600ff */ 	li	$a2,0xff
+/*  12b74:	0c004f62 */ 	jal	0x13d88
+/*  12b78:	240700ff */ 	li	$a3,0xff
+/*  12b7c:	00002025 */ 	move	$a0,$zero
+/*  12b80:	00002825 */ 	move	$a1,$zero
+/*  12b84:	00003025 */ 	move	$a2,$zero
+/*  12b88:	0c004f71 */ 	jal	0x13dc4
+/*  12b8c:	240700ff */ 	li	$a3,0xff
+/*  12b90:	24040004 */ 	li	$a0,0x4
+/*  12b94:	0c00494d */ 	jal	0x12534
+/*  12b98:	00002825 */ 	move	$a1,$zero
+/*  12b9c:	3c057005 */ 	lui	$a1,0x7005
+/*  12ba0:	24a54950 */ 	addiu	$a1,$a1,0x4950
+/*  12ba4:	27a4001c */ 	addiu	$a0,$sp,0x1c
+/*  12ba8:	0c004e1d */ 	jal	0x13874
+/*  12bac:	00403025 */ 	move	$a2,$v0
+/*  12bb0:	2404001f */ 	li	$a0,0x1f
+/*  12bb4:	0c004f3b */ 	jal	0x13cec
+/*  12bb8:	24050001 */ 	li	$a1,0x1
+/*  12bbc:	0c004fc3 */ 	jal	0x13f0c
+/*  12bc0:	27a4001c */ 	addiu	$a0,$sp,0x1c
+/*  12bc4:	240e0002 */ 	li	$t6,0x2
+/*  12bc8:	afae009c */ 	sw	$t6,0x9c($sp)
+/*  12bcc:	24040004 */ 	li	$a0,0x4
+/*  12bd0:	0c00494d */ 	jal	0x12534
+/*  12bd4:	24050001 */ 	li	$a1,0x1
+/*  12bd8:	3c057005 */ 	lui	$a1,0x7005
+/*  12bdc:	24a5495c */ 	addiu	$a1,$a1,0x495c
+/*  12be0:	27a4001c */ 	addiu	$a0,$sp,0x1c
+/*  12be4:	0c004e1d */ 	jal	0x13874
+/*  12be8:	00403025 */ 	move	$a2,$v0
+/*  12bec:	2404001f */ 	li	$a0,0x1f
+/*  12bf0:	0c004f3b */ 	jal	0x13cec
+/*  12bf4:	8fa5009c */ 	lw	$a1,0x9c($sp)
+/*  12bf8:	0c004fc3 */ 	jal	0x13f0c
+/*  12bfc:	27a4001c */ 	addiu	$a0,$sp,0x1c
+/*  12c00:	8faf009c */ 	lw	$t7,0x9c($sp)
+/*  12c04:	25f80001 */ 	addiu	$t8,$t7,0x1
+/*  12c08:	0c004baa */ 	jal	0x12ea8
+/*  12c0c:	afb8009c */ 	sw	$t8,0x9c($sp)
+/*  12c10:	3c198006 */ 	lui	$t9,0x8006
+/*  12c14:	8f39f910 */ 	lw	$t9,-0x6f0($t9)
+/*  12c18:	0059082b */ 	sltu	$at,$v0,$t9
+/*  12c1c:	10200005 */ 	beqz	$at,.PB00012c34
+/*  12c20:	00000000 */ 	nop
+/*  12c24:	0c004baa */ 	jal	0x12ea8
+/*  12c28:	00000000 */ 	nop
+/*  12c2c:	3c018006 */ 	lui	$at,0x8006
+/*  12c30:	ac22f910 */ 	sw	$v0,-0x6f0($at)
+.PB00012c34:
+/*  12c34:	0c004baa */ 	jal	0x12ea8
+/*  12c38:	00000000 */ 	nop
+/*  12c3c:	3c057005 */ 	lui	$a1,0x7005
+/*  12c40:	3c078006 */ 	lui	$a3,0x8006
+/*  12c44:	8ce7f910 */ 	lw	$a3,-0x6f0($a3)
+/*  12c48:	24a54968 */ 	addiu	$a1,$a1,0x4968
+/*  12c4c:	27a4001c */ 	addiu	$a0,$sp,0x1c
+/*  12c50:	0c004e1d */ 	jal	0x13874
+/*  12c54:	00403025 */ 	move	$a2,$v0
+/*  12c58:	2404001f */ 	li	$a0,0x1f
+/*  12c5c:	0c004f3b */ 	jal	0x13cec
+/*  12c60:	8fa5009c */ 	lw	$a1,0x9c($sp)
+/*  12c64:	0c004fc3 */ 	jal	0x13f0c
+/*  12c68:	27a4001c */ 	addiu	$a0,$sp,0x1c
+.PB00012c6c:
+/*  12c6c:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*  12c70:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
+/*  12c74:	03e00008 */ 	jr	$ra
+/*  12c78:	00000000 */ 	nop
+);
+#else
 /**
  * Example printout of figures:
  *
@@ -355,6 +483,7 @@ void memaPrint(void)
 	}
 #endif
 }
+#endif
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(

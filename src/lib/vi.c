@@ -157,7 +157,7 @@ void viConfigureForLegal(void)
 
 	g_Vars.fourmeg2player = false;
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	playerResetLoResIf4Mb();
 #endif
 }
@@ -213,8 +213,10 @@ void viAllocateFbs(s32 stagenum)
 #endif
 			g_Vars.fourmeg2player = true;
 		} else if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() == 2) {
-#if PAL
+#if VERSION >= VERSION_PAL_FINAL
 			fbsize = 320 * 266 * 2;
+#elif VERSION >= VERSION_PAL_BETA
+			fbsize = 320 * 252 * 2;
 #else
 			fbsize = 320 * 220 * 2;
 #endif
@@ -293,7 +295,7 @@ void vi00009ed4(void)
 	osViSetSpecialFeatures(OS_VI_GAMMA_OFF | OS_VI_DITHER_FILTER_ON);
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel viUpdateMode
 /*     9f64:	3c098006 */ 	lui	$t1,0x8006
