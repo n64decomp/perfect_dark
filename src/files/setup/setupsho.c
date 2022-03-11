@@ -1076,7 +1076,7 @@ u8 func1005_5e0c[] = {
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		if_object_distance_to_pad_lt(OBJ_PUZZLEROCK, 50, PAD_SHO_00D4, /*goto*/ 0x41)
 #else
 		if_object_distance_to_pad_lt(OBJ_PUZZLEROCK, 50, PAD_SHO_00D4, /*goto*/ 0x2d)
@@ -1092,7 +1092,7 @@ u8 func1005_5e0c[] = {
 	set_stage_flag(STAGEFLAG_CROSSED_RAVINE_WITHOUT_BRIDGE)
 	set_stage_flag(STAGEFLAG_TRIGGER_BRIDGE)
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	label(0x41)
 	if_num_human_players_lt(2, /*goto*/ 0x2d)
 	unset_object_flag3(OBJ_PUZZLEROCK, OBJFLAG3_PUSHABLE)

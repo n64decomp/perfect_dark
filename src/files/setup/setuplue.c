@@ -1251,7 +1251,7 @@ u8 func1006_lift_switches[] = {
 		label(0x0a)
 		assign_sound(SFX_043F, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, OBJ_LIFT2_SWITCH, 0x012c, 0x0190, 0x00)
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		if_chr_has_object(CHR_P1P2, OBJ_KEYCARD, /*goto*/ 0x2e)
 #else
 		if_chr_has_object(CHR_BOND, OBJ_KEYCARD, /*goto*/ 0x2e)

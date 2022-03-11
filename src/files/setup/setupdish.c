@@ -3366,7 +3366,7 @@ u8 func042e_devicegirl_reply_to_carrington[] = {
 };
 
 u8 func1013_msg_hovercrate[] = {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	beginloop(0x8f)
 		if_savefile_flag_is_unset(GAMEFILEFLAG_HOWTO_HOVERCRATE, /*goto*/ 0x04)
 	endloop(0x8f)
@@ -3389,7 +3389,7 @@ u8 func1013_msg_hovercrate[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x2f)
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	set_savefile_flag(GAMEFILEFLAG_HOWTO_HOVERCRATE)
 #endif
 	remove_hudmsgs
@@ -3408,7 +3408,7 @@ u8 func1013_msg_hovercrate[] = {
 };
 
 u8 func1014_msg_hoverbike[] = {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	beginloop(0x8f)
 		if_savefile_flag_is_unset(GAMEFILEFLAG_HOWTO_HOVERBIKE, /*goto*/ 0x04)
 	endloop(0x8f)
@@ -3431,7 +3431,7 @@ u8 func1014_msg_hoverbike[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x2f)
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	set_savefile_flag(GAMEFILEFLAG_HOWTO_HOVERBIKE)
 #endif
 	remove_hudmsgs
@@ -3450,7 +3450,7 @@ u8 func1014_msg_hoverbike[] = {
 };
 
 u8 func1015_msg_doors[] = {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	beginloop(0x8f)
 		if_savefile_flag_is_unset(GAMEFILEFLAG_HOWTO_DOORS, /*goto*/ 0x04)
 	endloop(0x8f)
@@ -3471,7 +3471,7 @@ u8 func1015_msg_doors[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x2f)
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	set_savefile_flag(GAMEFILEFLAG_HOWTO_DOORS)
 #endif
 	remove_hudmsgs
@@ -3490,7 +3490,7 @@ u8 func1015_msg_doors[] = {
 };
 
 u8 func1016_msg_elevators[] = {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	beginloop(0x8f)
 		if_savefile_flag_is_unset(GAMEFILEFLAG_HOWTO_ELEVATORS, /*goto*/ 0x04)
 	endloop(0x8f)
@@ -3512,7 +3512,7 @@ u8 func1016_msg_elevators[] = {
 #endif
 
 	label(0x2f)
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	set_savefile_flag(GAMEFILEFLAG_HOWTO_ELEVATORS)
 #endif
 	remove_hudmsgs
@@ -3523,7 +3523,7 @@ u8 func1016_msg_elevators[] = {
 };
 
 u8 func1017_msg_terminals[] = {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	beginloop(0x8f)
 		if_savefile_flag_is_unset(GAMEFILEFLAG_HOWTO_TERMINALS, /*goto*/ 0x04)
 	endloop(0x8f)
@@ -3555,7 +3555,7 @@ u8 func1017_msg_terminals[] = {
 #endif
 
 	label(0x2f)
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	set_savefile_flag(GAMEFILEFLAG_HOWTO_TERMINALS)
 #endif
 	remove_hudmsgs
