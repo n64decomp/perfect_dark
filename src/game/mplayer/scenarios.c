@@ -1059,7 +1059,7 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 			weaponPlayPickupSound(WEAPON_BRIEFCASE2);
 		}
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		// "%shas the Briefcase"
 		sprintf(text1, langGet(L_MPWEAPONS_000_2), mpchr->name, bgunGetShortName(WEAPON_BRIEFCASE2));
 #else
@@ -1117,7 +1117,7 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 					invRemoveItemByNum(WEAPON_BRIEFCASE2);
 				}
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 				// "You captured the %s Briefcase"
 				sprintf(text1, langGet(L_MPWEAPONS_004), g_BossFile.teamnames[i]);
 

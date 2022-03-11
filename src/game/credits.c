@@ -131,7 +131,7 @@ struct creditthing var8007f13c[] = {
 
 void func0f137874(struct gfxvtx *vertices, u32 *colours, s32 arg2, s32 alpha, s32 arg4)
 {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	s32 iVar1 = (s32)(var8007f13c[arg2].unk00 * var800a416c / (10.0f / 3.0f) + arg4) % 180;
 #else
 	s32 iVar1 = (s32)(var8007f13c[arg2].unk00 * var800a416c * 0.25f + arg4) % 180;
@@ -3158,7 +3158,7 @@ void creditsTickSlide(void)
 	f32 seconds;
 
 	g_CreditsData->slidelifetime = durations[credit->durationindex] + 1.0f;
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	seconds = g_Vars.diffframe240freal / 240.0f;
 #else
 	seconds = g_Vars.diffframe240f / 240.0f;
@@ -5084,7 +5084,7 @@ Gfx *creditsRender(Gfx *gdl)
 			g_CreditsData->unk2ef0.unk520 = g_CreditsData->unk2ef0.unk548 = -0.26175770163536;
 			g_CreditsData->unk2ef0.unk528 = g_CreditsData->unk2ef0.unk550 = 0;
 			g_CreditsData->unk2ef0.unk538 = 833.0f - (var8007f6dc / TICKS(14400.0f)) * 2413.0f;
-			g_CreditsData->unk2ef0.unk53c = PAL ? 65.86 : 70.86;
+			g_CreditsData->unk2ef0.unk53c = VERSION >= VERSION_PAL_FINAL ? 65.86 : 70.86;
 			g_CreditsData->unk2ef0.unk540 = -2050;
 			g_CreditsData->unk2ef0.unk544 = 1.467;
 			g_CreditsData->unk2ef0.unk00c = 1200;

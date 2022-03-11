@@ -654,9 +654,12 @@ s8 weaponGetNumTicksPerShot(u32 weaponnum, u32 funcindex)
 		result = 3600.0f / autofunc->maxfirerate;
 	}
 
+#if VERSION != VERSION_PAL_BETA
+	// PAL beta removes this check, only for it to be added back in PAL final
 	if (result > 3) {
 		result = TICKS(result);
 	}
+#endif
 
 	return result;
 }

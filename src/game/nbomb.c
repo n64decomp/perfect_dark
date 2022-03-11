@@ -2760,7 +2760,7 @@ glabel var7f1a7f18
 void nbombReset(struct nbomb *nbomb)
 {
 	nbomb->age240 = 0;
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	nbomb->radius = 0;
 #endif
 }
@@ -2906,7 +2906,7 @@ void func0f0099a4(void)
 	}
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel nbombInflictDamage
 .late_rodata

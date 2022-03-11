@@ -486,7 +486,7 @@ void playerInit(void)
 
 	g_InCutscene = false;
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	var8009e388pf = 0;
 #else
 	g_CutsceneFrameOverrun240 = 0;

@@ -58,6 +58,59 @@ glabel func0f01d860
 /*  f01d9d4:	03e00008 */ 	jr	$ra
 /*  f01d9d8:	00000000 */ 	nop
 );
+#elif VERSION >= VERSION_PAL_BETA
+const char var7f1aa330[] = "language";
+
+GLOBAL_ASM(
+glabel func0f01d860
+/*  f01d8d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
+/*  f01d8d4:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  f01d8d8:	3c047f1b */ 	lui	$a0,0x7f1b
+/*  f01d8dc:	3c058006 */ 	lui	$a1,0x8006
+/*  f01d8e0:	24a54020 */ 	addiu	$a1,$a1,0x4020
+/*  f01d8e4:	0c003648 */ 	jal	0xd920
+/*  f01d8e8:	2484a330 */ 	addiu	$a0,$a0,-23760
+/*  f01d8ec:	3c048006 */ 	lui	$a0,0x8006
+/*  f01d8f0:	8c844020 */ 	lw	$a0,0x4020($a0)
+/*  f01d8f4:	2c810005 */ 	sltiu	$at,$a0,0x5
+/*  f01d8f8:	10200006 */ 	beqz	$at,.PB0f01d914
+/*  f01d8fc:	00000000 */ 	nop
+/*  f01d900:	0fc5c097 */ 	jal	0xf17025c
+/*  f01d904:	00000000 */ 	nop
+/*  f01d908:	240e0063 */ 	li	$t6,0x63
+/*  f01d90c:	3c018006 */ 	lui	$at,0x8006
+/*  f01d910:	ac2e4020 */ 	sw	$t6,0x4020($at)
+.PB0f01d914:
+/*  f01d914:	3c0f8008 */ 	lui	$t7,0x8008
+/*  f01d918:	8def65f0 */ 	lw	$t7,0x65f0($t7)
+/*  f01d91c:	00001025 */ 	move	$v0,$zero
+/*  f01d920:	240600f8 */ 	li	$a2,0xf8
+/*  f01d924:	11e00011 */ 	beqz	$t7,.PB0f01d96c
+/*  f01d928:	3c05800b */ 	lui	$a1,0x800b
+/*  f01d92c:	24a5f1d8 */ 	addiu	$a1,$a1,-3624
+/*  f01d930:	8cb80000 */ 	lw	$t8,0x0($a1)
+.PB0f01d934:
+/*  f01d934:	03021821 */ 	addu	$v1,$t8,$v0
+/*  f01d938:	94640000 */ 	lhu	$a0,0x0($v1)
+/*  f01d93c:	24420002 */ 	addiu	$v0,$v0,0x2
+/*  f01d940:	0004cb82 */ 	srl	$t9,$a0,0xe
+/*  f01d944:	13200007 */ 	beqz	$t9,.PB0f01d964
+/*  f01d948:	00000000 */ 	nop
+/*  f01d94c:	906b0000 */ 	lbu	$t3,0x0($v1)
+/*  f01d950:	2728ffff */ 	addiu	$t0,$t9,-1
+/*  f01d954:	00085180 */ 	sll	$t2,$t0,0x6
+/*  f01d958:	316cff3f */ 	andi	$t4,$t3,0xff3f
+/*  f01d95c:	014c6825 */ 	or	$t5,$t2,$t4
+/*  f01d960:	a06d0000 */ 	sb	$t5,0x0($v1)
+.PB0f01d964:
+/*  f01d964:	5446fff3 */ 	bnel	$v0,$a2,.PB0f01d934
+/*  f01d968:	8cb80000 */ 	lw	$t8,0x0($a1)
+.PB0f01d96c:
+/*  f01d96c:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*  f01d970:	27bd0018 */ 	addiu	$sp,$sp,0x18
+/*  f01d974:	03e00008 */ 	jr	$ra
+/*  f01d978:	00000000 */ 	nop
+);
 #else
 void func0f01d860(void)
 {

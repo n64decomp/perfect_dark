@@ -2253,7 +2253,7 @@ struct hand {
 	/*0x066c*/ u32 typechange;
 	/*0x0670*/ s32 pausetime60;
 	/*0x0674*/ u32 pausechange;
-	/*0x0678*/ u32 nextprevchange; // "
+	/*0x0678*/ u32 nextprevchange;
 	/*0x067c*/ struct coord posstart;
 	/*0x0688*/ f32 rotxstart;
 	/*0x068c*/ struct coord posend;
@@ -2369,7 +2369,7 @@ struct hand {
 	/*0x0cb4*/ s32 gs_int4;
 	/*0x0cb8*/ s32 animload;
 	/*0x0cbc*/ s32 animframeinc;
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	/*0x0cc0*/ f32 animframeincfreal;
 #else
 	/*0x0cc0*/ u32 animframeincfreal;

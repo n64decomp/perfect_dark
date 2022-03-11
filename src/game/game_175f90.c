@@ -29,6 +29,8 @@ char *func0f175ff0(void)
 {
 #if VERSION >= VERSION_PAL_FINAL
 	return "Apr 28 2000 14:40:49";
+#elif VERSION >= VERSION_PAL_BETA
+	return "Apr 26 2000 16:36:48";
 #elif VERSION >= VERSION_NTSC_1_0
 	return "Apr  6 2000 15:05:01";
 #else

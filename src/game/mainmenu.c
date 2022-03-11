@@ -151,16 +151,12 @@ s32 menuhandlerAimControl(s32 operation, struct menuitem *item, union handlerdat
 	u32 playernum = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
 		? g_Vars.currentplayerstats->mpindex : item->param3;
 
-#if PAL
+#if VERSION >= VERSION_PAL_FINAL
 	s32 index = 0;
 
 	u16 options[2][2] = {
 		{ L_OPTIONS_201,   L_OPTIONS_202   }, // "Hold", "Toggle"
-#if VERSION >= VERSION_PAL_FINAL
 		{ L_MPWEAPONS_276, L_MPWEAPONS_277 }, // "Hold", "Toggle"
-#else
-		{ 0, 0 }, // TODO
-#endif
 	};
 
 	if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && PLAYERCOUNT() >= 2) {
@@ -178,7 +174,7 @@ s32 menuhandlerAimControl(s32 operation, struct menuitem *item, union handlerdat
 		data->dropdown.value = 2;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-#if PAL
+#if VERSION >= VERSION_PAL_FINAL
 		return (s32) langGet(options[index][data->dropdown.value]);
 #else
 		return (s32) langGet(options[data->dropdown.value]);
@@ -1607,7 +1603,56 @@ s32 menuhandlerBuddyOptionsContinue(s32 operation, struct menuitem *item, union 
 	return 0;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
+#if VERSION == VERSION_PAL_BETA
+GLOBAL_ASM(
+glabel getMaxAiBuddies
+/*  f1046ec:	3c0e800a */ 	lui	$t6,0x800a
+/*  f1046f0:	8dce2518 */ 	lw	$t6,0x2518($t6)
+/*  f1046f4:	27bdffd8 */ 	addiu	$sp,$sp,-40
+/*  f1046f8:	24180001 */ 	li	$t8,0x1
+/*  f1046fc:	3c03800a */ 	lui	$v1,0x800a
+/*  f104700:	000e7e42 */ 	srl	$t7,$t6,0x19
+/*  f104704:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  f104708:	00003825 */ 	move	$a3,$zero
+/*  f10470c:	030f4023 */ 	subu	$t0,$t8,$t7
+/*  f104710:	24636730 */ 	addiu	$v1,$v1,0x6730
+/*  f104714:	00001025 */ 	move	$v0,$zero
+/*  f104718:	24060003 */ 	li	$a2,0x3
+/*  f10471c:	3c05fffe */ 	lui	$a1,0xfffe
+/*  f104720:	2404ffff */ 	li	$a0,-1
+.PB0f104724:
+/*  f104724:	8c7900a0 */ 	lw	$t9,0xa0($v1)
+/*  f104728:	03254825 */ 	or	$t1,$t9,$a1
+/*  f10472c:	54890003 */ 	bnel	$a0,$t1,.PB0f10473c
+/*  f104730:	24420001 */ 	addiu	$v0,$v0,0x1
+/*  f104734:	24470001 */ 	addiu	$a3,$v0,0x1
+/*  f104738:	24420001 */ 	addiu	$v0,$v0,0x1
+.PB0f10473c:
+/*  f10473c:	1446fff9 */ 	bne	$v0,$a2,.PB0f104724
+/*  f104740:	24630004 */ 	addiu	$v1,$v1,0x4
+/*  f104744:	01074021 */ 	addu	$t0,$t0,$a3
+/*  f104748:	29010005 */ 	slti	$at,$t0,0x5
+/*  f10474c:	14200002 */ 	bnez	$at,.PB0f104758
+/*  f104750:	00000000 */ 	nop
+/*  f104754:	24080004 */ 	li	$t0,0x4
+.PB0f104758:
+/*  f104758:	1d000002 */ 	bgtz	$t0,.PB0f104764
+/*  f10475c:	00000000 */ 	nop
+/*  f104760:	24080001 */ 	li	$t0,0x1
+.PB0f104764:
+/*  f104764:	0fc48109 */ 	jal	0xf120424
+/*  f104768:	afa8001c */ 	sw	$t0,0x1c($sp)
+/*  f10476c:	10400002 */ 	beqz	$v0,.PB0f104778
+/*  f104770:	8fa8001c */ 	lw	$t0,0x1c($sp)
+/*  f104774:	24080004 */ 	li	$t0,0x4
+.PB0f104778:
+/*  f104778:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*  f10477c:	27bd0028 */ 	addiu	$sp,$sp,0x28
+/*  f104780:	01001025 */ 	move	$v0,$t0
+/*  f104784:	03e00008 */ 	jr	$ra
+/*  f104788:	00000000 */ 	nop
+);
+#elif VERSION >= VERSION_NTSC_1_0
 s32 getMaxAiBuddies(void)
 {
 	s32 extra = 0;

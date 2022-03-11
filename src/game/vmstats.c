@@ -11,7 +11,7 @@ void vmPrintStatsIfEnabled(void)
 	char buffer[80];
 
 	if (g_Is4Mb) {
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 		if (g_VmShowStats) {
 			dhudSetFgColour(0xff, 0xff, 0xff, 0xff);
 			dhudSetBgColour(0, 0, 0, 0xff);

@@ -6212,7 +6212,7 @@ bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct
 			} else {
 				f0 = data->slider.unk00 / 1000.0f;
 				f0 = (f0 * 100.0f) / item->param3;
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 				f0 = f0 + inputs->leftrightheld * g_Vars.diffframe60freal;
 #else
 				f0 = f0 + inputs->leftrightheld * g_Vars.diffframe60;
@@ -6250,7 +6250,7 @@ bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct
 
 				if (f2 > 20) {
 					f2 = (f2 - 20) * 0.0625f;
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 					f2 *= g_Vars.diffframe60freal;
 #else
 					f2 *= g_Vars.diffframe60f;
@@ -6757,7 +6757,7 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 
 		if (floatval > 20) {
 			floatval = (floatval - 20) / 5;
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 			floatval *= g_Vars.diffframe60freal;
 #else
 			floatval *= g_Vars.diffframe60f;
@@ -6770,7 +6770,7 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 			}
 		}
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		intval = intval + (s32)(((f32)inputs->updownheld + (f32)inputs->updownheld) * g_Vars.diffframe60freal);
 #else
 		intval += inputs->updownheld * 2 * g_Vars.diffframe60;
@@ -7831,7 +7831,7 @@ bool menuitemRankingTick(struct menuinputs *inputs, u32 tickflags, union menuite
 
 		if (floatval > 20) {
 			floatval = (floatval - 20) / 5;
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 			floatval *= g_Vars.diffframe60freal;
 #else
 			floatval *= g_Vars.diffframe60f;
@@ -7840,7 +7840,7 @@ bool menuitemRankingTick(struct menuinputs *inputs, u32 tickflags, union menuite
 			intval = inputs->yaxis < 0 ? (s32)floatval : -(s32)floatval;
 		}
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		intval = intval + (s32)(((f32)inputs->updownheld + (f32)inputs->updownheld) * g_Vars.diffframe60freal);
 #else
 		intval += inputs->updownheld * 2 * g_Vars.diffframe60;
@@ -8093,7 +8093,7 @@ bool menuitemPlayerStatsTick(struct menuitem *item, struct menudialog *dialog, s
 
 		if (floatval > 20) {
 			floatval = (floatval - 20) / 5;
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 			floatval *= g_Vars.diffframe60freal;
 #else
 			floatval *= g_Vars.diffframe60f;
@@ -8102,7 +8102,7 @@ bool menuitemPlayerStatsTick(struct menuitem *item, struct menudialog *dialog, s
 			intval = inputs->yaxis < 0 ? (s32)floatval : -(s32)floatval;
 		}
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		intval = intval + (s32)(((f32)inputs->updownheld + (f32)inputs->updownheld) * g_Vars.diffframe60freal);
 #else
 		intval += inputs->updownheld * 2 * g_Vars.diffframe60;
@@ -8445,7 +8445,7 @@ Gfx *menuitemControllerRenderText(Gfx *gdl, s32 curmode, struct menurendercontex
 	gdl = func0f153628(gdl);
 
 	for (i = 0; i < ARRAYCOUNT(labels); i++) {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		ry = i * 8 + context->y + pady - 4;
 #elif VERSION >= VERSION_NTSC_1_0
 		ry = i * 7 + context->y + pady;

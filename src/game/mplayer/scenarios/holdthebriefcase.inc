@@ -316,7 +316,7 @@ Gfx *htbRenderHud(Gfx *gdl)
 		x = viGetViewLeft() + viGetViewWidth() / 2;
 		y = viGetViewTop() + 10;
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		time240 = (30 * 200) - g_Vars.currentplayerstats->tokenheldtime;
 		secs = (time240 + 199) / 200;
 		sprintf(text, "%d:%02d", 0, secs);

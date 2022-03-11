@@ -669,7 +669,7 @@ bool lvCheckCmpFollowThreat(struct threat *threat, s32 index)
 	return true;
 }
 
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 Gfx *lvRenderManPosIfEnabled(Gfx *gdl)
 {
 	char bufroom[16];
@@ -1323,7 +1323,7 @@ Gfx *lvRender(Gfx *gdl)
 				if (var80075d60 == 2) {
 					gdl = playerRenderHud(gdl);
 
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 					gdl = lvRenderManPosIfEnabled(gdl);
 #endif
 				} else {
@@ -1344,7 +1344,7 @@ Gfx *lvRender(Gfx *gdl)
 					if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
 						// This chunk of code is unreachable
 						// (STAGE_TEST_OLD is not used)
-#if VERSION < VERSION_PAL_FINAL
+#if VERSION < VERSION_PAL_BETA
 						if (g_Vars.stagenum == STAGE_TEST_OLD) {
 							f32 frac = 0;
 							u32 colour;
@@ -1471,7 +1471,7 @@ Gfx *lvRender(Gfx *gdl)
 						s32 xraything = 99;
 
 						if (g_Vars.currentplayer->erasertime < TICKS(200)) {
-#if PAL
+#if VERSION >= VERSION_PAL_BETA
 							xraything = 249 - ((g_Vars.currentplayer->erasertime * 180 / 50) >> 2);
 #else
 							xraything = 249 - (g_Vars.currentplayer->erasertime * 3 >> 2);
@@ -1917,7 +1917,7 @@ void lvUpdateSoloHandicaps(void)
 
 #if PIRACYCHECKS
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 #define SUBAMOUNT 6661
 #else
 #define SUBAMOUNT 54321
@@ -1942,7 +1942,7 @@ void lvUpdateCutsceneTime(void)
 s32 lvGetSlowMotionType(void)
 {
 #if PIRACYCHECKS
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	u32 addr = sub54321(0xb0000340 + SUBAMOUNT);
 	u32 actual;
 	u32 expected = sub54321(0x0330c820 + SUBAMOUNT);
@@ -2272,7 +2272,7 @@ void lvTick(void)
 		musicTick();
 	} else if (g_Vars.stagenum == STAGE_BOOTPAKMENU) {
 		setCurrentPlayerNum(0);
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		playerConfigureVi();
 #endif
 		menuTick();

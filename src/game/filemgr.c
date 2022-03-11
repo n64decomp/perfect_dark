@@ -51,9 +51,10 @@ struct menudialogdef g_FilemgrDuplicateNameMenuDialog;
 struct menudialogdef g_FilemgrRenameMenuDialog;
 #endif
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 s32 func0f1088d0pf(s32 operation, struct menuitem *item, union handlerdata *data);
 
+#if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f1088d0pf
 /*  f1088d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -76,6 +77,30 @@ glabel func0f1088d0pf
 /*  f108910:	03e00008 */ 	jr	$ra
 /*  f108914:	00000000 */ 	nop
 );
+#else
+GLOBAL_ASM(
+glabel func0f1088d0pf
+/*  f108630:	27bdffe8 */ 	addiu	$sp,$sp,-24
+/*  f108634:	24010006 */ 	li	$at,0x6
+/*  f108638:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  f10863c:	14810009 */ 	bne	$a0,$at,.PB0f108664
+/*  f108640:	afa60020 */ 	sw	$a2,0x20($sp)
+/*  f108644:	90ae0001 */ 	lbu	$t6,0x1($a1)
+/*  f108648:	3c02800a */ 	lui	$v0,0x800a
+/*  f10864c:	2442e4d0 */ 	addiu	$v0,$v0,-6960
+/*  f108650:	a44e0482 */ 	sh	$t6,0x482($v0)
+/*  f108654:	0fc5c097 */ 	jal	0xf17025c
+/*  f108658:	31c4ffff */ 	andi	$a0,$t6,0xffff
+/*  f10865c:	0fc3cf12 */ 	jal	0xf0f3c48
+/*  f108660:	00000000 */ 	nop
+.PB0f108664:
+/*  f108664:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*  f108668:	27bd0018 */ 	addiu	$sp,$sp,0x18
+/*  f10866c:	00001025 */ 	move	$v0,$zero
+/*  f108670:	03e00008 */ 	jr	$ra
+/*  f108674:	00000000 */ 	nop
+);
+#endif
 
 struct menuitem g_ChooseLanguageMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,      0,               0x00004010, L_MPWEAPONS_261, 0x00000000, 0x00000000     }, // "Choose your language:"
@@ -2945,6 +2970,49 @@ glabel filemgrConsiderPushingFileSelectDialog
 /*  f10d2ec:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f10d2f0:	03e00008 */ 	jr	$ra
 /*  f10d2f4:	00000000 */ 	nop
+);
+#elif VERSION >= VERSION_PAL_BETA
+GLOBAL_ASM(
+glabel filemgrConsiderPushingFileSelectDialog
+/*  f10cfc8:	3c0e8007 */ 	lui	$t6,0x8007
+/*  f10cfcc:	8dce3118 */ 	lw	$t6,0x3118($t6)
+/*  f10cfd0:	3c18800a */ 	lui	$t8,0x800a
+/*  f10cfd4:	27182530 */ 	addiu	$t8,$t8,0x2530
+/*  f10cfd8:	000e78c0 */ 	sll	$t7,$t6,0x3
+/*  f10cfdc:	01ee7823 */ 	subu	$t7,$t7,$t6
+/*  f10cfe0:	000f7880 */ 	sll	$t7,$t7,0x2
+/*  f10cfe4:	01ee7821 */ 	addu	$t7,$t7,$t6
+/*  f10cfe8:	000f78c0 */ 	sll	$t7,$t7,0x3
+/*  f10cfec:	01ee7823 */ 	subu	$t7,$t7,$t6
+/*  f10cff0:	000f7900 */ 	sll	$t7,$t7,0x4
+/*  f10cff4:	01f81021 */ 	addu	$v0,$t7,$t8
+/*  f10cff8:	9059083c */ 	lbu	$t9,0x83c($v0)
+/*  f10cffc:	27bdffe8 */ 	addiu	$sp,$sp,-24
+/*  f10d000:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  f10d004:	1720000f */ 	bnez	$t9,.PB0f10d044
+/*  f10d008:	3c048007 */ 	lui	$a0,0x8007
+/*  f10d00c:	a040083b */ 	sb	$zero,0x83b($v0)
+/*  f10d010:	24846b8c */ 	addiu	$a0,$a0,0x6b8c
+/*  f10d014:	0fc3e223 */ 	jal	0xf0f888c
+/*  f10d018:	24050006 */ 	li	$a1,0x6
+/*  f10d01c:	3c08800a */ 	lui	$t0,0x800a
+/*  f10d020:	9508e952 */ 	lhu	$t0,-0x16ae($t0)
+/*  f10d024:	3c048007 */ 	lui	$a0,0x8007
+/*  f10d028:	29010006 */ 	slti	$at,$t0,0x6
+/*  f10d02c:	14200003 */ 	bnez	$at,.PB0f10d03c
+/*  f10d030:	00000000 */ 	nop
+/*  f10d034:	0fc3cd2e */ 	jal	0xf0f34b8
+/*  f10d038:	24846120 */ 	addiu	$a0,$a0,0x6120
+.PB0f10d03c:
+/*  f10d03c:	10000002 */ 	b	.PB0f10d048
+/*  f10d040:	24020001 */ 	li	$v0,0x1
+.PB0f10d044:
+/*  f10d044:	00001025 */ 	move	$v0,$zero
+.PB0f10d048:
+/*  f10d048:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*  f10d04c:	27bd0018 */ 	addiu	$sp,$sp,0x18
+/*  f10d050:	03e00008 */ 	jr	$ra
+/*  f10d054:	00000000 */ 	nop
 );
 #else
 bool filemgrConsiderPushingFileSelectDialog(void)
