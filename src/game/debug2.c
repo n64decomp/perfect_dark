@@ -383,13 +383,19 @@ s32 var800787a4nb = 0;
 s32 var800787a8nb = 0;
 bool g_DebugMemInfo = false;
 s32 var800787b0nb = 0;
+
+#if VERSION == VERSION_PAL_BETA
+s32 var800787bcnb = 0;
+s32 var800781e4pb = 0;
+s32 var800787b8nb = 0;
+s32 var800787b4nb = 0;
+#else
 s32 var800787b4nb = 0;
 s32 var800787b8nb = 0;
 s32 var800787bcnb = 0;
-s32 var800787c0nb = 0;
-#if VERSION == VERSION_PAL_BETA
-s32 var800781f0pb = 0;
 #endif
+
+s32 var800787c0nb = 0;
 s32 var800787c4nb = 1;
 s32 var800787c8nb = 0;
 s32 var800787ccnb = 0;
@@ -1277,6 +1283,15 @@ bool debug0f119ba8nb(void)
 	return var800787bcnb;
 }
 
+#if VERSION == VERSION_PAL_BETA
+GLOBAL_ASM(
+glabel func0f120478nb
+/*  f120478:	3c028008 */ 	lui	$v0,0x8008
+/*  f12047c:	03e00008 */ 	jr	$ra
+/*  f120480:	8c4281ec */ 	lw	$v0,-0x7e14($v0)
+);
+#endif
+
 bool debugIsChrStatsEnabled(void)
 {
 	return g_DebugChrStats;
@@ -1296,12 +1311,3 @@ bool debug0f119bd8nb(void)
 {
 	return var800787f0nb;
 }
-
-#if VERSION == VERSION_PAL_BETA
-GLOBAL_ASM(
-glabel func0f1204a8nb
-/*  f1204a8:	3c028008 */ 	lui	$v0,0x8008
-/*  f1204ac:	03e00008 */ 	jr	$ra
-/*  f1204b0:	8c428220 */ 	lw	$v0,-0x7de0($v0)
-);
-#endif

@@ -158,7 +158,7 @@ void menuTick(void)
 			}
 
 			if (g_MenuData.screenshottimer == 0 || g_MenuData.bg != 0) {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 				f32 diffframe = g_Vars.diffframe60freal;
 #else
 				f32 diffframe = g_Vars.diffframe60f;

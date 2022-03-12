@@ -854,7 +854,7 @@ glabel var7f1a7ad8nb
 
 const char var7f1ad75c[] = "bondwalk.c";
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel bwalkCalculateNewPositionWithPush
 /*  f0c4250:	27bdff58 */ 	addiu	$sp,$sp,-168

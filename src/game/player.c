@@ -2110,7 +2110,7 @@ void playerTickCutscene(bool arg0)
 	s32 endframe;
 	s8 contpadnum = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
 	u16 buttons;
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 	u8 stack3[0x2c];
 #endif
 	f32 barfrac;

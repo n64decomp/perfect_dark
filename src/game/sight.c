@@ -3387,7 +3387,7 @@ glabel var7f1adde8
 );
 #endif
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel sightRenderDefault
 .late_rodata

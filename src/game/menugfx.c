@@ -4269,7 +4269,7 @@ u32 menugfx0f0e4fe0(void)
 	return align16(0xd20);
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel menugfxRenderBgSuccess
 .late_rodata

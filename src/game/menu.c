@@ -112,7 +112,7 @@ const struct menucolourpalette g_MenuColourPalettes3[] = {
 
 #if VERSION >= VERSION_NTSC_1_0
 char *g_StringPointer = g_CheatMarqueeString;
-char *g_StringPointer2 = &g_CheatMarqueeString[PAL ? 150 : 125];
+char *g_StringPointer2 = &g_CheatMarqueeString[VERSION >= VERSION_PAL_FINAL ? 150 : 125];
 #endif
 
 s32 g_MpPlayerNum = 0;
@@ -2060,7 +2060,7 @@ void func0f0f1418(void)
 
 	for (i = 0; i < 4; i++) {
 		if (g_Menus[g_MpPlayerNum].unkdfc[i].item) {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 			g_Menus[g_MpPlayerNum].unkdfc[i].unk04 += g_Vars.diffframe60freal / 60.0f;
 #else
 			g_Menus[g_MpPlayerNum].unkdfc[i].unk04 += g_Vars.diffframe60f / 60.0f;

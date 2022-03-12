@@ -9610,7 +9610,7 @@ Gfx *frRenderHud(Gfx *gdl)
 	f32 mult;
 
 	if (viGetViewWidth() > (VERSION >= VERSION_PAL_FINAL ? 330 : 400)) {
-		mult = PAL ? 1.5f : 2;
+		mult = VERSION >= VERSION_PAL_FINAL ? 1.5f : 2;
 	} else {
 		mult = 1;
 	}

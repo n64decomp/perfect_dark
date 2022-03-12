@@ -545,7 +545,7 @@ s32 mpCharacterBodyMenuHandler(s32 operation, struct menuitem *item, union handl
 		if (g_Menus[g_MpPlayerNum].unk840.unk578 > 0) {
 			g_Menus[g_MpPlayerNum].unk840.unk578 -= g_Vars.diffframe60;
 		} else {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 			f32 value = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60freal;
 #else
 			f32 value = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60f;
@@ -1271,7 +1271,7 @@ s32 mpCharacterHeadMenuHandler(s32 operation, struct menuitem *item, union handl
 		data->carousel.value = mpGetNumHeads2();
 		break;
 	case MENUOP_11:
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 		diffframe = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60freal;
 #else
 		diffframe = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60f;

@@ -1125,6 +1125,12 @@ s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialogdef *dialogdef,
 				x = -127;
 			}
 		}
+#elif VERSION >= VERSION_PAL_BETA
+		x = -117;
+
+		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+			x = -87;
+		}
 #else
 		x = -130;
 
@@ -1192,7 +1198,7 @@ s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialogdef *dialogdef,
 		if (g_Menus[g_MpPlayerNum].unk840.unk578 > 0) {
 			g_Menus[g_MpPlayerNum].unk840.unk578 -= g_Vars.diffframe60;
 		} else {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 			f32 tmp = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60freal;
 #else
 			f32 tmp = g_Menus[g_MpPlayerNum].unk840.unk524 + 0.01f * g_Vars.diffframe60f;
@@ -1375,6 +1381,14 @@ s32 dtTrainingDetailsMenuDialog(s32 operation, struct menudialogdef *dialogdef, 
 				g_Menus[g_MpPlayerNum].unk840.unk538 = 84;
 				g_Menus[g_MpPlayerNum].unk840.unk510 = 84;
 			}
+		}
+#elif VERSION >= VERSION_PAL_BETA
+		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+			g_Menus[g_MpPlayerNum].unk840.unk538 = 64;
+			g_Menus[g_MpPlayerNum].unk840.unk510 = 64;
+		} else {
+			g_Menus[g_MpPlayerNum].unk840.unk538 = 84;
+			g_Menus[g_MpPlayerNum].unk840.unk510 = 84;
 		}
 #else
 		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
@@ -1855,7 +1869,7 @@ s32 ciHangarTitleMenuHandler(s32 operation, struct menuitem *item, union handler
 	return 0;
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel ciHangarHolographMenuDialog
 .late_rodata

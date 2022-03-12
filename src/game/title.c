@@ -6611,7 +6611,7 @@ void titleInitNintendoLogo(void)
 	g_TitleFastForward = false;
 
 	if (g_TitleButtonPressed) {
-		g_TitleTimer = PAL ? 133 : 180;
+		g_TitleTimer = VERSION >= VERSION_PAL_FINAL ? TICKS(160) : TICKS(180);
 	} else {
 		g_TitleTimer = 0;
 	}
@@ -6686,7 +6686,7 @@ Gfx *titleRenderNintendoLogo(Gfx *gdl)
 	s32 i;
 	s32 j;
 	Mtxf sp108;
-	f32 fracdone = g_TitleTimer / (PAL ? 183.0f : 240.0f);
+	f32 fracdone = g_TitleTimer / (VERSION >= VERSION_PAL_FINAL ? 183.0f : TICKS(240.0f));
 	struct coord spf8 = {0, 0, 0};
 	s32 v0;
 

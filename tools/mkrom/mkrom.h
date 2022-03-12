@@ -29,6 +29,11 @@ struct state {
 	unsigned short zipmagic;
 
 	/**
+	 * Number of bytes to copy after building gamezips.
+	 */
+	unsigned char copylen;
+
+	/**
 	 * File descriptor for the linker map.
 	 */
 	FILE *mapfd;

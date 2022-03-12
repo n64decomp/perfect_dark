@@ -620,7 +620,11 @@ void playerInit(void)
 
 	if (cheatIsActive(CHEAT_CLOAKINGDEVICE)) {
 		invGiveSingleWeapon(WEAPON_CLOAKINGDEVICE);
+#if VERSION >= VERSION_PAL_FINAL
 		bgunSetAmmoQuantity(AMMOTYPE_CLOAK, TICKS(7200));
+#else
+		bgunSetAmmoQuantity(AMMOTYPE_CLOAK, 7200);
+#endif
 	}
 
 	if (cheatIsActive(CHEAT_PERFECTDARKNESS)) {

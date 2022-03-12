@@ -5,8 +5,10 @@
 #include "data.h"
 #include "types.h"
 
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_NTSC_BETA
 u8 var80097110nb[0x950];
+#elif VERSION == VERSION_PAL_BETA
+u8 var80097110nb[0x860];
 #endif
 
 volatile u32 g_DmaNumSlotsBusy;

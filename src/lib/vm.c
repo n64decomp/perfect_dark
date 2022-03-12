@@ -74,15 +74,22 @@ u32 g_VmMarker;
 u32 g_VmRamEnd;
 u32 g_VmStateTableEnd;
 
-#if VERSION == VERSION_NTSC_BETA
-u8 g_VmShowStats = false;
-u32 fillnb[2] = {0};
-#elif VERSION == VERSION_PAL_BETA
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 u8 g_VmShowStats = false;
 #endif
 
+#if VERSION == VERSION_NTSC_BETA
+u32 fillnb[2] = {0};
+#endif
+
+#if VERSION == VERSION_PAL_BETA
+s32 g_VmNumPages = 0;
+u32 var8005cf80 = 0;
+#else
 u32 var8005cf80 = 0;
 s32 g_VmNumPages = 0;
+#endif
+
 u32 var8005cf88 = 0;
 
 extern u8 _gameSegmentStart;

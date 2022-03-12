@@ -103,7 +103,7 @@
 
 #define MAX_HEADERCACHE_ENTRIES 50
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 #define LINE_825  825
 #define LINE_1058 1058
 #define LINE_1551 1551
@@ -215,7 +215,7 @@ u32 var800a337c;
 u32 var800a3380;
 u32 var800a3384;
 
-#if VERSION >= VERSION_NTSC_1_0
+#if VERSION != VERSION_NTSC_BETA && VERSION != VERSION_PAL_BETA
 // This is likely g_DebugCutsceneLabelPtrs and/or g_DebugCutsceneLabelBuffers
 // but with reduced lengths
 u32 var800a3388;

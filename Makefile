@@ -25,6 +25,7 @@ NTSC=0
 PAL=0
 JPN=0
 ZIPMAGIC=0x0000
+COPYLEN=2
 
 ifeq ($(ROMID),ntsc-beta)
 	NTSC=1
@@ -45,6 +46,7 @@ ifeq ($(ROMID),pal-beta)
 	PAL=1
 	VERSION=3
 	ZIPMAGIC=0x0c00
+	COPYLEN=6
 endif
 ifeq ($(ROMID),pal-final)
 	PAL=1
@@ -55,6 +57,7 @@ ifeq ($(ROMID),jpn-final)
 	JPN=1
 	VERSION=5
 	ZIPMAGIC=0x0002
+	COPYLEN=4
 endif
 
 DEFINES := VERSION=$(VERSION) NTSC=$(NTSC) PAL=$(PAL) JPN=$(JPN) PIRACYCHECKS=$(PIRACYCHECKS) _FINALROM=1
@@ -324,7 +327,7 @@ $(B_DIR)/stage1.bin: $(B_DIR)/stage1.elf
 # mkrom handles calculating the piracy checksums, zipping segments and
 # calculating the ROM checksum.
 $(B_DIR)/pd.z64: $(B_DIR)/stage1.bin tools/mkrom/mkrom
-	tools/mkrom/mkrom $(B_DIR)/stage1.bin $(B_DIR)/pd.map $(PIRACYCHECKS) $(ZIPMAGIC) $@
+	tools/mkrom/mkrom $(B_DIR)/stage1.bin $(B_DIR)/pd.map $(PIRACYCHECKS) $(ZIPMAGIC) $(COPYLEN) $@
 
 tools/mkrom/mkrom:
 	$(MAKE) -C tools/mkrom

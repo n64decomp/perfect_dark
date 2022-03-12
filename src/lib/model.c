@@ -30,7 +30,7 @@ bool var8005efbc = false;
 f32 var8005efc0 = 0;
 bool (*var8005efc4)(struct model *model, struct modelnode *node) = NULL;
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 u32 var8005efd8_2 = 0;
 #endif
 
@@ -3538,10 +3538,6 @@ void model0001e14c(struct model *model, f32 arg1, f32 arg2)
 		}
 	}
 }
-
-#if VERSION == VERSION_PAL_BETA
-u32 var80060670pb = 0;
-#endif
 
 bool var8005efdc = true;
 u32 var8005efe0 = 0x00000000;

@@ -3178,7 +3178,7 @@ void setupHov(struct defaultobj *obj, struct hov *hov)
 	hov->groundprev60 = -1;
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel setupLoadBriefing
 /*  f00e980:	27bdffc8 */ 	addiu	$sp,$sp,-56

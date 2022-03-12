@@ -83,9 +83,10 @@ void pack_game(void)
 		memcpy(&state.rom[gamezipstart + state.gamezipslen], state.gamezips, truncatedlen);
 
 		// The final two bytes from the real segment are duplicated into
-		// the first two bytes of the second segment's offset table
-		state.rom[gamezipstart + state.gamezipslen + 0] = state.rom[gamezipstart + state.gamezipslen - 2];
-		state.rom[gamezipstart + state.gamezipslen + 1] = state.rom[gamezipstart + state.gamezipslen - 1];
+		// the first two bytes of the second segment's offset table...
+		// though for some versions the copy length can vary for unknown reasons
+		// so we take the copy length as an argument to mkrom.
+		memcpy(&state.rom[gamezipstart + state.gamezipslen], &state.rom[gamezipstart + state.gamezipslen - state.copylen], state.copylen);
 	}
 }
 

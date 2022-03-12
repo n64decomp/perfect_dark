@@ -533,7 +533,7 @@ Gfx *lvRenderFade(Gfx *gdl)
 		if (g_FadeDelay > 0) {
 			g_FadeDelay--;
 		} else {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 			g_FadeFrac += g_Vars.diffframe60freal / g_FadeNumFrames;
 #else
 			g_FadeFrac += g_Vars.diffframe60f / g_FadeNumFrames;
@@ -1536,7 +1536,7 @@ Gfx *lvRender(Gfx *gdl)
 						f32 cutsceneblurfrac = playerGetCutsceneBlurFrac();
 
 						if (cutsceneblurfrac > 0) {
-#if VERSION < VERSION_PAL_FINAL
+#if VERSION < VERSION_PAL_BETA
 							u32 stack;
 #endif
 							gdl = bviewRenderMotionBlur(gdl, 0xffffff00, cutsceneblurfrac * 255);

@@ -28,19 +28,25 @@ struct state state;
  * piracy checks.
  *
  * <zipmagic>
- * This is a two byte value which is used when zipping the game segments.
+ * This is a two byte hex value which is used when zipping the game segments.
  * The original code was influenced by uninitialised data. These two bytes are
  * just setting that uninitialised data.
+ *
+ * <copylen>
+ * This is used for copying some redundant data at the end of the gamezips
+ * segment. The value is the number of bytes to copy. Copying this data makes
+ * no functional difference but is required for a match. This parameter can be
+ * removed if a formula is found for calculating the copy amount.
  *
  * <outfile>
  * The file to write the final ROM file to.
  *
- * eg. mkrom stage1.bin pd.map 1 0x1234 pd.z64
+ * eg. mkrom stage1.bin pd.map 1 0x1234 2 pd.z64
  */
 int main(int argc, char **argv)
 {
-	if (argc < 6) {
-		fprintf(stderr, "Usage: mkrom <romfile> <mapfile> <piracychecks> <zipmagic> <outfile>\n");
+	if (argc < 7) {
+		fprintf(stderr, "Usage: mkrom <romfile> <mapfile> <piracychecks> <zipmagic> <copylen> <outfile>\n");
 		exit(1);
 	}
 
@@ -49,6 +55,7 @@ int main(int argc, char **argv)
 
 	state.piracychecks = atoi(argv[3]);
 	state.zipmagic = strtol(argv[4], NULL, 16);
+	state.copylen = atoi(argv[5]);
 
 	// Compute piracy checksums if requested
 	if (state.piracychecks) {
@@ -66,7 +73,7 @@ int main(int argc, char **argv)
 
 	rom_update_crc();
 
-	rom_write(argv[5]);
+	rom_write(argv[6]);
 
 	return 0;
 }

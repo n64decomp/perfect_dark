@@ -786,7 +786,7 @@ void func0f13870c(void)
 	}
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel func0f13899c
 .late_rodata

@@ -4182,7 +4182,7 @@ void func0f0aefb8(void)
 					(var8009da60[i].unk20.f[1] - var8009da60[i].unk14.f[1]) * (var8009da60[i].unk20.f[1] - var8009da60[i].unk14.f[1]) +
 					(var8009da60[i].unk20.f[2] - var8009da60[i].unk14.f[2]) * (var8009da60[i].unk20.f[2] - var8009da60[i].unk14.f[2]));
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 			value -= var8009da60[i].unk2c * g_Vars.lvupdate240freal / 60.0f;
 #else
 			value -= var8009da60[i].unk2c * g_Vars.lvupdate240f / 60.0f;

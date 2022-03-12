@@ -3476,7 +3476,7 @@ Gfx *menuitemSeparatorRender(Gfx *gdl, struct menurendercontext *context)
 
 u32 var800711e8 = 0x00000000;
 
-#if PAL
+#if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel menuitemObjectivesRenderOne
 /*  f0e98ac:	27bdfed0 */ 	addiu	$sp,$sp,-304
@@ -5626,7 +5626,7 @@ Gfx *menuitemObjectivesRender(Gfx *gdl, struct menurendercontext *context)
 			if (context->item->param == 0) {
 				y += 18;
 			} else if (context->item->param == 2) {
-				y += PAL ? 34 : 30;
+				y += VERSION >= VERSION_PAL_FINAL ? 34 : 30;
 			} else {
 				y += 14;
 			}

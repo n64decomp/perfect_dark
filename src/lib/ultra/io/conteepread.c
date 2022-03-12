@@ -5,7 +5,7 @@
 
 OSPifRam __osEepPifRam;
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_PAL_BETA
 u32 var8009d010pf[4];
 #endif
 
