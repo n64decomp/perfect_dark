@@ -1656,71 +1656,7 @@ void soloPushCoopModeEndscreen(void)
 	g_MpPlayerNum = prevplayernum;
 }
 
-#if VERSION == VERSION_PAL_BETA
-GLOBAL_ASM(
-glabel soloPushSoloModeEndscreen
-/*  f10f560:	0000c0c0 */ 	sll	$t8,$zero,0x3
-/*  f10f564:	0300c023 */ 	subu	$t8,$t8,$zero
-/*  f10f568:	3c048007 */ 	lui	$a0,0x8007
-/*  f10f56c:	0018c140 */ 	sll	$t8,$t8,0x5
-/*  f10f570:	24843118 */ 	addiu	$a0,$a0,0x3118
-/*  f10f574:	0300c023 */ 	subu	$t8,$t8,$zero
-/*  f10f578:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*  f10f57c:	0018c100 */ 	sll	$t8,$t8,0x4
-/*  f10f580:	3c01800a */ 	lui	$at,0x800a
-/*  f10f584:	3c03800a */ 	lui	$v1,0x800a
-/*  f10f588:	ac800000 */ 	sw	$zero,0x0($a0)
-/*  f10f58c:	00380821 */ 	addu	$at,$at,$t8
-/*  f10f590:	2463e4d0 */ 	addiu	$v1,$v1,-6960
-/*  f10f594:	a0202d6b */ 	sb	$zero,0x2d6b($at)
-/*  f10f598:	8c6202a0 */ 	lw	$v0,0x2a0($v1)
-/*  f10f59c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f10f5a0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10f5a4:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f10f5a8:	8c5900d8 */ 	lw	$t9,0xd8($v0)
-/*  f10f5ac:	53200006 */ 	beqzl	$t9,.PB0f10f5c8
-/*  f10f5b0:	8c4a048c */ 	lw	$t2,0x48c($v0)
-/*  f10f5b4:	8c6802a4 */ 	lw	$t0,0x2a4($v1)
-/*  f10f5b8:	8d0900d8 */ 	lw	$t1,0xd8($t0)
-/*  f10f5bc:	1520000c */ 	bnez	$t1,.PB0f10f5f0
-/*  f10f5c0:	00000000 */ 	nop
-/*  f10f5c4:	8c4a048c */ 	lw	$t2,0x48c($v0)
-.PB0f10f5c8:
-/*  f10f5c8:	15400009 */ 	bnez	$t2,.PB0f10f5f0
-/*  f10f5cc:	00000000 */ 	nop
-/*  f10f5d0:	8c6b02a4 */ 	lw	$t3,0x2a4($v1)
-/*  f10f5d4:	8d6c048c */ 	lw	$t4,0x48c($t3)
-/*  f10f5d8:	15800005 */ 	bnez	$t4,.PB0f10f5f0
-/*  f10f5dc:	00000000 */ 	nop
-/*  f10f5e0:	0fc25675 */ 	jal	objectiveIsAllComplete
-/*  f10f5e4:	00000000 */ 	nop
-/*  f10f5e8:	1440000d */ 	bnez	$v0,.PB0f10f620
-/*  f10f5ec:	00000000 */ 	nop
-.PB0f10f5f0:
-/*  f10f5f0:	0fc4810c */ 	jal	debugIsSetCompleteEnabled
-/*  f10f5f4:	00000000 */ 	nop
-/*  f10f5f8:	14400009 */ 	bnez	$v0,.PB0f10f620
-/*  f10f5fc:	00000000 */ 	nop
-/*  f10f600:	0fc43798 */ 	jal	func0f10d770
-/*  f10f604:	00000000 */ 	nop
-/*  f10f608:	3c048007 */ 	lui	$a0,0x8007
-/*  f10f60c:	24847380 */ 	addiu	$a0,$a0,0x7380
-/*  f10f610:	0fc3e223 */ 	jal	menuPushRootDialog
-/*  f10f614:	24050009 */ 	li	$a1,0x9
-/*  f10f618:	10000004 */ 	b	.PB0f10f62c
-/*  f10f61c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.PB0f10f620:
-/*  f10f620:	0fc43800 */ 	jal	endscreenHandleContinue
-/*  f10f624:	24040001 */ 	li	$a0,0x1
-/*  f10f628:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.PB0f10f62c:
-/*  f10f62c:	8fad001c */ 	lw	$t5,0x1c($sp)
-/*  f10f630:	3c018007 */ 	lui	$at,0x8007
-/*  f10f634:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f10f638:	03e00008 */ 	jr	$ra
-/*  f10f63c:	ac2d3118 */ 	sw	$t5,0x3118($at)
-);
-#elif VERSION >= VERSION_NTSC_1_0
+#if VERSION >= VERSION_NTSC_1_0
 /**
  * This function is misnamed. It pushes the menu after the endscreen
  * (ie. retry, next mission or continue), and it looks like it might be for coop
@@ -1735,10 +1671,18 @@ void soloPushSoloModeEndscreen(void)
 	g_MpPlayerNum = 0;
 	g_Menus[g_MpPlayerNum].playernum = 0;
 
+#if VERSION == VERSION_PAL_BETA
+	if (((g_Vars.bond->isdead && g_Vars.coop->isdead)
+			|| g_Vars.bond->aborted
+			|| g_Vars.coop->aborted
+			|| !objectiveIsAllComplete()) && !debugIsSetCompleteEnabled())
+#else
 	if ((g_Vars.bond->isdead && g_Vars.coop->isdead)
 			|| g_Vars.bond->aborted
 			|| g_Vars.coop->aborted
-			|| !objectiveIsAllComplete()) {
+			|| !objectiveIsAllComplete())
+#endif
+	{
 		// Failed or aborted
 		func0f10d770();
 		menuPushRootDialog(&g_RetryMissionMenuDialog, MENUROOT_COOPCONTINUE);
