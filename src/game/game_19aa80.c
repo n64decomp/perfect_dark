@@ -1089,7 +1089,7 @@ glabel mpConsiderMarkingCurrentChallengeComplete
 /*  f19e384:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*  f19e388:	14400004 */ 	bnez	$v0,.PB0f19e39c
 /*  f19e38c:	00000000 */ 	nop
-/*  f19e390:	0fc4810c */ 	jal	debugIsAllTrainingEnabled
+/*  f19e390:	0fc4810c */ 	jal	debugIsSetCompleteEnabled
 /*  f19e394:	00000000 */ 	nop
 /*  f19e398:	10400082 */ 	beqz	$v0,.PB0f19e5a4
 .PB0f19e39c:

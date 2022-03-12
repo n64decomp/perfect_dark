@@ -1270,7 +1270,7 @@ glabel endscreenPrepare
 /*  f10ee7c:	1440000d */ 	bnez	$v0,.PB0f10eeb4
 /*  f10ee80:	00000000 */ 	nop
 .PB0f10ee84:
-/*  f10ee84:	0fc4810c */ 	jal	debugIsAllTrainingEnabled
+/*  f10ee84:	0fc4810c */ 	jal	debugIsSetCompleteEnabled
 /*  f10ee88:	00000000 */ 	nop
 /*  f10ee8c:	14400009 */ 	bnez	$v0,.PB0f10eeb4
 /*  f10ee90:	3c048007 */ 	lui	$a0,0x8007
@@ -1426,7 +1426,7 @@ glabel endscreenPrepare
 /*  f10f0cc:	14400005 */ 	bnez	$v0,.PB0f10f0e4
 /*  f10f0d0:	00000000 */ 	nop
 .PB0f10f0d4:
-/*  f10f0d4:	0fc4810c */ 	jal	debugIsAllTrainingEnabled
+/*  f10f0d4:	0fc4810c */ 	jal	debugIsSetCompleteEnabled
 /*  f10f0d8:	00000000 */ 	nop
 /*  f10f0dc:	104000a5 */ 	beqz	$v0,.PB0f10f374
 /*  f10f0e0:	00000000 */ 	nop
@@ -2107,7 +2107,7 @@ glabel soloPushCoopModeEndscreen
 /*  f10f488:	14400015 */ 	bnez	$v0,.PB0f10f4e0
 /*  f10f48c:	00000000 */ 	nop
 .PB0f10f490:
-/*  f10f490:	0fc4810c */ 	jal	debugIsAllTrainingEnabled
+/*  f10f490:	0fc4810c */ 	jal	debugIsSetCompleteEnabled
 /*  f10f494:	00000000 */ 	nop
 /*  f10f498:	14400011 */ 	bnez	$v0,.PB0f10f4e0
 /*  f10f49c:	00000000 */ 	nop
@@ -2253,7 +2253,7 @@ glabel soloPushSoloModeEndscreen
 /*  f10f5e8:	1440000d */ 	bnez	$v0,.PB0f10f620
 /*  f10f5ec:	00000000 */ 	nop
 .PB0f10f5f0:
-/*  f10f5f0:	0fc4810c */ 	jal	debugIsAllTrainingEnabled
+/*  f10f5f0:	0fc4810c */ 	jal	debugIsSetCompleteEnabled
 /*  f10f5f4:	00000000 */ 	nop
 /*  f10f5f8:	14400009 */ 	bnez	$v0,.PB0f10f620
 /*  f10f5fc:	00000000 */ 	nop
@@ -2429,7 +2429,7 @@ glabel soloPushAntiModeEndscreen
 /*  f10f6fc:	14400015 */ 	bnez	$v0,.PB0f10f754
 /*  f10f700:	00000000 */ 	nop
 .PB0f10f704:
-/*  f10f704:	0fc4810c */ 	jal	debugIsAllTrainingEnabled
+/*  f10f704:	0fc4810c */ 	jal	debugIsSetCompleteEnabled
 /*  f10f708:	00000000 */ 	nop
 /*  f10f70c:	14400011 */ 	bnez	$v0,.PB0f10f754
 /*  f10f710:	00000000 */ 	nop
@@ -2490,7 +2490,7 @@ glabel soloPushAntiModeEndscreen
 /*  f10f7d8:	14400015 */ 	bnez	$v0,.PB0f10f830
 /*  f10f7dc:	00000000 */ 	nop
 .PB0f10f7e0:
-/*  f10f7e0:	0fc4810c */ 	jal	debugIsAllTrainingEnabled
+/*  f10f7e0:	0fc4810c */ 	jal	debugIsSetCompleteEnabled
 /*  f10f7e4:	00000000 */ 	nop
 /*  f10f7e8:	14400011 */ 	bnez	$v0,.PB0f10f830
 /*  f10f7ec:	00000000 */ 	nop

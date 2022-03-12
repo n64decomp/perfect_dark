@@ -298,7 +298,7 @@ glabel memaPrint
 /*  12b50:	3c04800a */ 	lui	$a0,0x800a
 /*  12b54:	0c0049e8 */ 	jal	memaDefragPass
 /*  12b58:	2484c1a8 */ 	addiu	$a0,$a0,-15960
-/*  12b5c:	0fc48118 */ 	jal	debug0f119b9cnb
+/*  12b5c:	0fc48118 */ 	jal	debugIsMemInfoEnabled
 /*  12b60:	00000000 */ 	nop
 /*  12b64:	10400041 */ 	beqz	$v0,.PB00012c6c
 /*  12b68:	240400ff */ 	li	$a0,0xff
