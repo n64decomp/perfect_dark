@@ -1764,166 +1764,6 @@ glabel soloPushSoloModeEndscreen
 );
 #endif
 
-#if VERSION == VERSION_PAL_BETA
-GLOBAL_ASM(
-glabel soloPushAntiModeEndscreen
-/*  f10f640:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f10f644:	8dce3118 */ 	lw	$t6,0x3118($t6)
-/*  f10f648:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f10f64c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10f650:	24040001 */ 	li	$a0,0x1
-/*  f10f654:	0fc5b9a4 */ 	jal	lvSetPaused
-/*  f10f658:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f10f65c:	3c03800a */ 	lui	$v1,0x800a
-/*  f10f660:	2463e4d0 */ 	addiu	$v1,$v1,-6960
-/*  f10f664:	8c6f0288 */ 	lw	$t7,0x288($v1)
-/*  f10f668:	3c018007 */ 	lui	$at,0x8007
-/*  f10f66c:	3c198007 */ 	lui	$t9,0x8007
-/*  f10f670:	8df80070 */ 	lw	$t8,0x70($t7)
-/*  f10f674:	3c09800a */ 	lui	$t1,0x800a
-/*  f10f678:	25292530 */ 	addiu	$t1,$t1,0x2530
-/*  f10f67c:	ac383118 */ 	sw	$t8,0x3118($at)
-/*  f10f680:	8f393118 */ 	lw	$t9,0x3118($t9)
-/*  f10f684:	8c6c0284 */ 	lw	$t4,0x284($v1)
-/*  f10f688:	8c6402a0 */ 	lw	$a0,0x2a0($v1)
-/*  f10f68c:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f10f690:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f10f694:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f10f698:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f10f69c:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f10f6a0:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f10f6a4:	00084100 */ 	sll	$t0,$t0,0x4
-/*  f10f6a8:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f10f6ac:	ac400e20 */ 	sw	$zero,0xe20($v0)
-/*  f10f6b0:	ac400e24 */ 	sw	$zero,0xe24($v0)
-/*  f10f6b4:	3c0a800a */ 	lui	$t2,0x800a
-/*  f10f6b8:	914a251a */ 	lbu	$t2,0x251a($t2)
-/*  f10f6bc:	8c6b028c */ 	lw	$t3,0x28c($v1)
-/*  f10f6c0:	ac4a0e2c */ 	sw	$t2,0xe2c($v0)
-/*  f10f6c4:	148c0038 */ 	bne	$a0,$t4,.PB0f10f7a8
-/*  f10f6c8:	a04b083b */ 	sb	$t3,0x83b($v0)
-/*  f10f6cc:	8c6d02a8 */ 	lw	$t5,0x2a8($v1)
-/*  f10f6d0:	8dae048c */ 	lw	$t6,0x48c($t5)
-/*  f10f6d4:	15c0001f */ 	bnez	$t6,.PB0f10f754
-/*  f10f6d8:	00000000 */ 	nop
-/*  f10f6dc:	8c8f00d8 */ 	lw	$t7,0xd8($a0)
-/*  f10f6e0:	15e00008 */ 	bnez	$t7,.PB0f10f704
-/*  f10f6e4:	00000000 */ 	nop
-/*  f10f6e8:	8c98048c */ 	lw	$t8,0x48c($a0)
-/*  f10f6ec:	17000005 */ 	bnez	$t8,.PB0f10f704
-/*  f10f6f0:	00000000 */ 	nop
-/*  f10f6f4:	0fc25675 */ 	jal	objectiveIsAllComplete
-/*  f10f6f8:	00000000 */ 	nop
-/*  f10f6fc:	14400015 */ 	bnez	$v0,.PB0f10f754
-/*  f10f700:	00000000 */ 	nop
-.PB0f10f704:
-/*  f10f704:	0fc4810c */ 	jal	debugIsSetCompleteEnabled
-/*  f10f708:	00000000 */ 	nop
-/*  f10f70c:	14400011 */ 	bnez	$v0,.PB0f10f754
-/*  f10f710:	00000000 */ 	nop
-/*  f10f714:	0fc550b9 */ 	jal	optionsGetScreenSplit
-/*  f10f718:	00000000 */ 	nop
-/*  f10f71c:	24010001 */ 	li	$at,0x1
-/*  f10f720:	14410007 */ 	bne	$v0,$at,.PB0f10f740
-/*  f10f724:	3c048007 */ 	lui	$a0,0x8007
-/*  f10f728:	3c048007 */ 	lui	$a0,0x8007
-/*  f10f72c:	2484797c */ 	addiu	$a0,$a0,0x797c
-/*  f10f730:	0fc3e223 */ 	jal	menuPushRootDialog
-/*  f10f734:	24050005 */ 	li	$a1,0x5
-/*  f10f738:	10000014 */ 	b	.PB0f10f78c
-/*  f10f73c:	00000000 */ 	nop
-.PB0f10f740:
-/*  f10f740:	2484794c */ 	addiu	$a0,$a0,0x794c
-/*  f10f744:	0fc3e223 */ 	jal	menuPushRootDialog
-/*  f10f748:	24050005 */ 	li	$a1,0x5
-/*  f10f74c:	1000000f */ 	b	.PB0f10f78c
-/*  f10f750:	00000000 */ 	nop
-.PB0f10f754:
-/*  f10f754:	0fc550b9 */ 	jal	optionsGetScreenSplit
-/*  f10f758:	00000000 */ 	nop
-/*  f10f75c:	24010001 */ 	li	$at,0x1
-/*  f10f760:	14410007 */ 	bne	$v0,$at,.PB0f10f780
-/*  f10f764:	3c048007 */ 	lui	$a0,0x8007
-/*  f10f768:	3c048007 */ 	lui	$a0,0x8007
-/*  f10f76c:	24847964 */ 	addiu	$a0,$a0,0x7964
-/*  f10f770:	0fc3e223 */ 	jal	menuPushRootDialog
-/*  f10f774:	24050005 */ 	li	$a1,0x5
-/*  f10f778:	10000004 */ 	b	.PB0f10f78c
-/*  f10f77c:	00000000 */ 	nop
-.PB0f10f780:
-/*  f10f780:	24847934 */ 	addiu	$a0,$a0,0x7934
-/*  f10f784:	0fc3e223 */ 	jal	menuPushRootDialog
-/*  f10f788:	24050005 */ 	li	$a1,0x5
-.PB0f10f78c:
-/*  f10f78c:	3c04800a */ 	lui	$a0,0x800a
-/*  f10f790:	248467f0 */ 	addiu	$a0,$a0,0x67f0
-/*  f10f794:	00002825 */ 	move	$a1,$zero
-/*  f10f798:	0fc426eb */ 	jal	filemgrSaveOrLoad
-/*  f10f79c:	00003025 */ 	move	$a2,$zero
-/*  f10f7a0:	10000032 */ 	b	.PB0f10f86c
-/*  f10f7a4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.PB0f10f7a8:
-/*  f10f7a8:	8c7902a8 */ 	lw	$t9,0x2a8($v1)
-/*  f10f7ac:	8f28048c */ 	lw	$t0,0x48c($t9)
-/*  f10f7b0:	1500001f */ 	bnez	$t0,.PB0f10f830
-/*  f10f7b4:	00000000 */ 	nop
-/*  f10f7b8:	8c8900d8 */ 	lw	$t1,0xd8($a0)
-/*  f10f7bc:	15200008 */ 	bnez	$t1,.PB0f10f7e0
-/*  f10f7c0:	00000000 */ 	nop
-/*  f10f7c4:	8c8a048c */ 	lw	$t2,0x48c($a0)
-/*  f10f7c8:	15400005 */ 	bnez	$t2,.PB0f10f7e0
-/*  f10f7cc:	00000000 */ 	nop
-/*  f10f7d0:	0fc25675 */ 	jal	objectiveIsAllComplete
-/*  f10f7d4:	00000000 */ 	nop
-/*  f10f7d8:	14400015 */ 	bnez	$v0,.PB0f10f830
-/*  f10f7dc:	00000000 */ 	nop
-.PB0f10f7e0:
-/*  f10f7e0:	0fc4810c */ 	jal	debugIsSetCompleteEnabled
-/*  f10f7e4:	00000000 */ 	nop
-/*  f10f7e8:	14400011 */ 	bnez	$v0,.PB0f10f830
-/*  f10f7ec:	00000000 */ 	nop
-/*  f10f7f0:	0fc550b9 */ 	jal	optionsGetScreenSplit
-/*  f10f7f4:	00000000 */ 	nop
-/*  f10f7f8:	24010001 */ 	li	$at,0x1
-/*  f10f7fc:	14410007 */ 	bne	$v0,$at,.PB0f10f81c
-/*  f10f800:	3c048007 */ 	lui	$a0,0x8007
-/*  f10f804:	3c048007 */ 	lui	$a0,0x8007
-/*  f10f808:	24847964 */ 	addiu	$a0,$a0,0x7964
-/*  f10f80c:	0fc3e223 */ 	jal	menuPushRootDialog
-/*  f10f810:	24050005 */ 	li	$a1,0x5
-/*  f10f814:	10000015 */ 	b	.PB0f10f86c
-/*  f10f818:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.PB0f10f81c:
-/*  f10f81c:	24847934 */ 	addiu	$a0,$a0,0x7934
-/*  f10f820:	0fc3e223 */ 	jal	menuPushRootDialog
-/*  f10f824:	24050005 */ 	li	$a1,0x5
-/*  f10f828:	10000010 */ 	b	.PB0f10f86c
-/*  f10f82c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.PB0f10f830:
-/*  f10f830:	0fc550b9 */ 	jal	optionsGetScreenSplit
-/*  f10f834:	00000000 */ 	nop
-/*  f10f838:	24010001 */ 	li	$at,0x1
-/*  f10f83c:	14410007 */ 	bne	$v0,$at,.PB0f10f85c
-/*  f10f840:	3c048007 */ 	lui	$a0,0x8007
-/*  f10f844:	3c048007 */ 	lui	$a0,0x8007
-/*  f10f848:	2484797c */ 	addiu	$a0,$a0,0x797c
-/*  f10f84c:	0fc3e223 */ 	jal	menuPushRootDialog
-/*  f10f850:	24050005 */ 	li	$a1,0x5
-/*  f10f854:	10000005 */ 	b	.PB0f10f86c
-/*  f10f858:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.PB0f10f85c:
-/*  f10f85c:	2484794c */ 	addiu	$a0,$a0,0x794c
-/*  f10f860:	0fc3e223 */ 	jal	menuPushRootDialog
-/*  f10f864:	24050005 */ 	li	$a1,0x5
-/*  f10f868:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.PB0f10f86c:
-/*  f10f86c:	8fab001c */ 	lw	$t3,0x1c($sp)
-/*  f10f870:	3c018007 */ 	lui	$at,0x8007
-/*  f10f874:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f10f878:	03e00008 */ 	jr	$ra
-/*  f10f87c:	ac2b3118 */ 	sw	$t3,0x3118($at)
-);
-#else
 void soloPushAntiModeEndscreen(void)
 {
 	u32 prevplayernum = g_MpPlayerNum;
@@ -1941,8 +1781,12 @@ void soloPushAntiModeEndscreen(void)
 	g_Menus[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
 
 	if (g_Vars.currentplayer == g_Vars.bond) {
-		if (g_Vars.anti->aborted == 0 &&
-				(g_Vars.bond->isdead || g_Vars.bond->aborted || objectiveIsAllComplete() == false)) {
+#if VERSION == VERSION_PAL_BETA
+		if (!g_Vars.anti->aborted && (g_Vars.bond->isdead || g_Vars.bond->aborted || !objectiveIsAllComplete()) && !debugIsSetCompleteEnabled())
+#else
+		if (!g_Vars.anti->aborted && (g_Vars.bond->isdead || g_Vars.bond->aborted || !objectiveIsAllComplete()))
+#endif
+		{
 			// Bond - failed or aborted
 			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 				menuPushRootDialog(&g_2PMissionEndscreenFailedVMenuDialog, MENUROOT_MPENDSCREEN);
@@ -1960,8 +1804,12 @@ void soloPushAntiModeEndscreen(void)
 
 		filemgrSaveOrLoad(&g_GameFileGuid, FILEOP_SAVE_GAME_000, 0);
 	} else {
-		if (g_Vars.anti->aborted == 0 &&
-				(g_Vars.bond->isdead || g_Vars.bond->aborted || objectiveIsAllComplete() == false)) {
+#if VERSION == VERSION_PAL_BETA
+		if (!g_Vars.anti->aborted && (g_Vars.bond->isdead || g_Vars.bond->aborted || !objectiveIsAllComplete()) && !debugIsSetCompleteEnabled())
+#else
+		if (!g_Vars.anti->aborted && (g_Vars.bond->isdead || g_Vars.bond->aborted || !objectiveIsAllComplete()))
+#endif
+		{
 			// Anti - completed
 			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 				menuPushRootDialog(&g_2PMissionEndscreenCompletedVMenuDialog, MENUROOT_MPENDSCREEN);
@@ -1980,4 +1828,3 @@ void soloPushAntiModeEndscreen(void)
 
 	g_MpPlayerNum = prevplayernum;
 }
-#endif
