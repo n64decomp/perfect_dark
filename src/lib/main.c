@@ -700,30 +700,30 @@ GLOBAL_ASM(
 glabel mainInit
 /*  d2b0:	27bdeb20 */ 	addiu	$sp,$sp,-5344
 /*  d2b4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  d2b8:	0c002f38 */ 	jal	0xbce0
+/*  d2b8:	0c002f38 */ 	jal	faultCreateThread
 /*  d2bc:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  d2c0:	0c00338c */ 	jal	0xce30
+/*  d2c0:	0c00338c */ 	jal	dmaInit
 /*  d2c4:	00000000 */ 	nop
-/*  d2c8:	0c002258 */ 	jal	0x8960
+/*  d2c8:	0c002258 */ 	jal	amgrAllocateStack
 /*  d2cc:	00000000 */ 	nop
-/*  d2d0:	0c0058ac */ 	jal	0x162b0
+/*  d2d0:	0c0058ac */ 	jal	gvarsInit
 /*  d2d4:	00000000 */ 	nop
-/*  d2d8:	0c004890 */ 	jal	0x12240
+/*  d2d8:	0c004890 */ 	jal	memp000121e0
 /*  d2dc:	00000000 */ 	nop
-/*  d2e0:	0c004aaf */ 	jal	0x12abc
+/*  d2e0:	0c004aaf */ 	jal	memaInit
 /*  d2e4:	00000000 */ 	nop
-/*  d2e8:	0c004e46 */ 	jal	0x13918
+/*  d2e8:	0c004e46 */ 	jal	videbugCreateMesgQueue
 /*  d2ec:	00000000 */ 	nop
-/*  d2f0:	0c002668 */ 	jal	0x99a0
+/*  d2f0:	0c002668 */ 	jal	viConfigureForLogos
 /*  d2f4:	00000000 */ 	nop
-/*  d2f8:	0c00bff2 */ 	jal	0x2ffc8
+/*  d2f8:	0c00bff2 */ 	jal	rmonIsDisabled
 /*  d2fc:	00000000 */ 	nop
 /*  d300:	3c018006 */ 	lui	$at,0x8006
-/*  d304:	0c0051b7 */ 	jal	0x146dc
+/*  d304:	0c0051b7 */ 	jal	joySystemInit
 /*  d308:	ac22e4c0 */ 	sw	$v0,-0x1b40($at)
 /*  d30c:	27a41498 */ 	addiu	$a0,$sp,0x1498
 /*  d310:	27a514d4 */ 	addiu	$a1,$sp,0x14d4
-/*  d314:	0c012240 */ 	jal	0x48900
+/*  d314:	0c012240 */ 	jal	osCreateMesgQueue
 /*  d318:	24060001 */ 	li	$a2,0x1
 /*  d31c:	00008025 */ 	move	$s0,$zero
 /*  d320:	3c070047 */ 	lui	$a3,0x47
@@ -738,16 +738,16 @@ glabel mainInit
 /*  d340:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  d344:	34e7868c */ 	ori	$a3,$a3,0x868c
 /*  d348:	27a414b0 */ 	addiu	$a0,$sp,0x14b0
-/*  d34c:	0c012438 */ 	jal	0x490e0
+/*  d34c:	0c012438 */ 	jal	osSetTimer
 /*  d350:	24060000 */ 	li	$a2,0x0
 /*  d354:	27a41498 */ 	addiu	$a0,$sp,0x1498
 /*  d358:	27a514d4 */ 	addiu	$a1,$sp,0x14d4
-/*  d35c:	0c01232c */ 	jal	0x48cb0
+/*  d35c:	0c01232c */ 	jal	osRecvMesg
 /*  d360:	24060001 */ 	li	$a2,0x1
 /*  d364:	24010001 */ 	li	$at,0x1
 /*  d368:	56010006 */ 	bnel	$s0,$at,.PB0000d384
 /*  d36c:	2a010002 */ 	slti	$at,$s0,0x2
-/*  d370:	0c005211 */ 	jal	0x14844
+/*  d370:	0c005211 */ 	jal	joy00013dfc
 /*  d374:	00000000 */ 	nop
 /*  d378:	10000007 */ 	b	.PB0000d398
 /*  d37c:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -755,7 +755,7 @@ glabel mainInit
 .PB0000d384:
 /*  d384:	54200004 */ 	bnezl	$at,.PB0000d398
 /*  d388:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  d38c:	0c00534e */ 	jal	0x14d38
+/*  d38c:	0c00534e */ 	jal	joyDebugJoy
 /*  d390:	00000000 */ 	nop
 /*  d394:	26100001 */ 	addiu	$s0,$s0,0x1
 .PB0000d398:
@@ -764,7 +764,7 @@ glabel mainInit
 /*  d3a0:	3c070047 */ 	lui	$a3,0x47
 /*  d3a4:	3c057005 */ 	lui	$a1,0x7005
 /*  d3a8:	24a543f8 */ 	addiu	$a1,$a1,0x43f8
-/*  d3ac:	0c004c74 */ 	jal	0x131d0
+/*  d3ac:	0c004c74 */ 	jal	argFindByPrefix
 /*  d3b0:	24040001 */ 	li	$a0,0x1
 /*  d3b4:	14400004 */ 	bnez	$v0,.PB0000d3c8
 /*  d3b8:	00002025 */ 	move	$a0,$zero
@@ -772,19 +772,19 @@ glabel mainInit
 /*  d3c0:	3c018006 */ 	lui	$at,0x8006
 /*  d3c4:	ac2be4c0 */ 	sw	$t3,-0x1b40($at)
 .PB0000d3c8:
-/*  d3c8:	0c00566a */ 	jal	0x159a8
+/*  d3c8:	0c00566a */ 	jal	joyGetButtons
 /*  d3cc:	24051000 */ 	li	$a1,0x1000
 /*  d3d0:	1440000f */ 	bnez	$v0,.PB0000d410
 /*  d3d4:	24040001 */ 	li	$a0,0x1
-/*  d3d8:	0c00566a */ 	jal	0x159a8
+/*  d3d8:	0c00566a */ 	jal	joyGetButtons
 /*  d3dc:	24051000 */ 	li	$a1,0x1000
 /*  d3e0:	1440000b */ 	bnez	$v0,.PB0000d410
 /*  d3e4:	24040002 */ 	li	$a0,0x2
-/*  d3e8:	0c00566a */ 	jal	0x159a8
+/*  d3e8:	0c00566a */ 	jal	joyGetButtons
 /*  d3ec:	24051000 */ 	li	$a1,0x1000
 /*  d3f0:	14400007 */ 	bnez	$v0,.PB0000d410
 /*  d3f4:	24040003 */ 	li	$a0,0x3
-/*  d3f8:	0c00566a */ 	jal	0x159a8
+/*  d3f8:	0c00566a */ 	jal	joyGetButtons
 /*  d3fc:	24051000 */ 	li	$a1,0x1000
 /*  d400:	14400003 */ 	bnez	$v0,.PB0000d410
 /*  d404:	3c018006 */ 	lui	$at,0x8006
@@ -796,20 +796,20 @@ glabel mainInit
 /*  d418:	ac2ce4e4 */ 	sw	$t4,-0x1b1c($at)
 .PB0000d41c:
 /*  d41c:	00002025 */ 	move	$a0,$zero
-/*  d420:	0c00566a */ 	jal	0x159a8
+/*  d420:	0c00566a */ 	jal	joyGetButtons
 /*  d424:	2405000f */ 	li	$a1,0xf
 /*  d428:	2410000f */ 	li	$s0,0xf
 /*  d42c:	1202000c */ 	beq	$s0,$v0,.PB0000d460
 /*  d430:	24040001 */ 	li	$a0,0x1
-/*  d434:	0c00566a */ 	jal	0x159a8
+/*  d434:	0c00566a */ 	jal	joyGetButtons
 /*  d438:	2405000f */ 	li	$a1,0xf
 /*  d43c:	12020008 */ 	beq	$s0,$v0,.PB0000d460
 /*  d440:	24040002 */ 	li	$a0,0x2
-/*  d444:	0c00566a */ 	jal	0x159a8
+/*  d444:	0c00566a */ 	jal	joyGetButtons
 /*  d448:	2405000f */ 	li	$a1,0xf
 /*  d44c:	12020004 */ 	beq	$s0,$v0,.PB0000d460
 /*  d450:	24040003 */ 	li	$a0,0x3
-/*  d454:	0c00566a */ 	jal	0x159a8
+/*  d454:	0c00566a */ 	jal	joyGetButtons
 /*  d458:	2405000f */ 	li	$a1,0xf
 /*  d45c:	16020003 */ 	bne	$s0,$v0,.PB0000d46c
 .PB0000d460:
@@ -836,7 +836,7 @@ glabel mainInit
 /*  d4ac:	8deb001c */ 	lw	$t3,0x1c($t7)
 /*  d4b0:	8de10018 */ 	lw	$at,0x18($t7)
 /*  d4b4:	adcb001c */ 	sw	$t3,0x1c($t6)
-/*  d4b8:	0c0005b0 */ 	jal	0x16c0
+/*  d4b8:	0c0005b0 */ 	jal	bootGetMemSize
 /*  d4bc:	adc10018 */ 	sw	$at,0x18($t6)
 /*  d4c0:	3c010040 */ 	lui	$at,0x40
 /*  d4c4:	34210001 */ 	ori	$at,$at,0x1
@@ -875,7 +875,7 @@ glabel mainInit
 /*  d540:	258c5a10 */ 	addiu	$t4,$t4,0x5a10
 /*  d544:	39e4003f */ 	xori	$a0,$t7,0x3f
 /*  d548:	00808025 */ 	move	$s0,$a0
-/*  d54c:	0c003468 */ 	jal	0xd1a0
+/*  d54c:	0c003468 */ 	jal	dmaExec
 /*  d550:	01853023 */ 	subu	$a2,$t4,$a1
 /*  d554:	1000000e */ 	b	.PB0000d590
 /*  d558:	3c01ffff */ 	lui	$at,0xffff
@@ -890,7 +890,7 @@ glabel mainInit
 /*  d578:	27185160 */ 	addiu	$t8,$t8,0x5160
 /*  d57c:	3b24003f */ 	xori	$a0,$t9,0x3f
 /*  d580:	00808025 */ 	move	$s0,$a0
-/*  d584:	0c003468 */ 	jal	0xd1a0
+/*  d584:	0c003468 */ 	jal	dmaExec
 /*  d588:	03053023 */ 	subu	$a2,$t8,$a1
 /*  d58c:	3c01ffff */ 	lui	$at,0xffff
 .PB0000d590:
@@ -898,7 +898,7 @@ glabel mainInit
 /*  d594:	02012821 */ 	addu	$a1,$s0,$at
 /*  d598:	afa50048 */ 	sw	$a1,0x48($sp)
 /*  d59c:	02002025 */ 	move	$a0,$s0
-/*  d5a0:	0c001d0c */ 	jal	0x7430
+/*  d5a0:	0c001d0c */ 	jal	rzipInflate
 /*  d5a4:	27a60058 */ 	addiu	$a2,$sp,0x58
 /*  d5a8:	3c050004 */ 	lui	$a1,0x4
 /*  d5ac:	8faa0048 */ 	lw	$t2,0x48($sp)
@@ -942,9 +942,9 @@ glabel mainInit
 /*  d634:	14c9fff3 */ 	bne	$a2,$t1,.PB0000d604
 /*  d638:	24e70240 */ 	addiu	$a3,$a3,0x240
 .PB0000d63c:
-/*  d63c:	0c0029f7 */ 	jal	0xa7dc
+/*  d63c:	0c0029f7 */ 	jal	viSetMode
 /*  d640:	24040002 */ 	li	$a0,0x2
-/*  d644:	0c002690 */ 	jal	0x9a40
+/*  d644:	0c002690 */ 	jal	viConfigureForBanner
 /*  d648:	02002025 */ 	move	$a0,$s0
 /*  d64c:	8faa0048 */ 	lw	$t2,0x48($sp)
 /*  d650:	3c018006 */ 	lui	$at,0x8006
@@ -955,14 +955,14 @@ glabel mainInit
 /*  d664:	ac2f06e0 */ 	sw	$t7,0x6e0($at)
 /*  d668:	24840010 */ 	addiu	$a0,$a0,0x10
 /*  d66c:	27a51478 */ 	addiu	$a1,$sp,0x1478
-/*  d670:	0c01232c */ 	jal	0x48cb0
+/*  d670:	0c01232c */ 	jal	osRecvMesg
 /*  d674:	00003025 */ 	move	$a2,$zero
 /*  d678:	14400007 */ 	bnez	$v0,.PB0000d698
 .PB0000d67c:
 /*  d67c:	3c048009 */ 	lui	$a0,0x8009
 /*  d680:	24840010 */ 	addiu	$a0,$a0,0x10
 /*  d684:	27a51478 */ 	addiu	$a1,$sp,0x1478
-/*  d688:	0c01232c */ 	jal	0x48cb0
+/*  d688:	0c01232c */ 	jal	osRecvMesg
 /*  d68c:	00003025 */ 	move	$a2,$zero
 /*  d690:	1040fffa */ 	beqz	$v0,.PB0000d67c
 /*  d694:	00000000 */ 	nop
@@ -973,7 +973,7 @@ glabel mainInit
 /*  d6a0:	24840010 */ 	addiu	$a0,$a0,0x10
 /*  d6a4:	27a51478 */ 	addiu	$a1,$sp,0x1478
 /*  d6a8:	24060001 */ 	li	$a2,0x1
-/*  d6ac:	0c01232c */ 	jal	0x48cb0
+/*  d6ac:	0c01232c */ 	jal	osRecvMesg
 /*  d6b0:	afa31490 */ 	sw	$v1,0x1490($sp)
 /*  d6b4:	8fab1478 */ 	lw	$t3,0x1478($sp)
 /*  d6b8:	24010001 */ 	li	$at,0x1
@@ -982,14 +982,14 @@ glabel mainInit
 /*  d6c4:	27b01458 */ 	addiu	$s0,$sp,0x1458
 /*  d6c8:	5581000d */ 	bnel	$t4,$at,.PB0000d700
 /*  d6cc:	28610006 */ 	slti	$at,$v1,0x6
-/*  d6d0:	0c0027d3 */ 	jal	0x9f4c
+/*  d6d0:	0c0027d3 */ 	jal	viUpdateMode
 /*  d6d4:	afa31490 */ 	sw	$v1,0x1490($sp)
 /*  d6d8:	3c048006 */ 	lui	$a0,0x8006
 /*  d6dc:	3c058006 */ 	lui	$a1,0x8006
 /*  d6e0:	24a5e800 */ 	addiu	$a1,$a1,-6144
 /*  d6e4:	2484e7d8 */ 	addiu	$a0,$a0,-6184
 /*  d6e8:	00003025 */ 	move	$a2,$zero
-/*  d6ec:	0c00bfad */ 	jal	0x2feb4
+/*  d6ec:	0c00bfad */ 	jal	rdpCreateTask
 /*  d6f0:	02003825 */ 	move	$a3,$s0
 /*  d6f4:	8fa31490 */ 	lw	$v1,0x1490($sp)
 /*  d6f8:	24630001 */ 	addiu	$v1,$v1,0x1
@@ -1005,105 +1005,105 @@ glabel mainInit
 /*  d718:	1000ffff */ 	b	.PB0000d718
 /*  d71c:	00000000 */ 	nop
 .PB0000d720:
-/*  d720:	0c001c04 */ 	jal	0x7010
+/*  d720:	0c001c04 */ 	jal	vmInit
 /*  d724:	00000000 */ 	nop
-/*  d728:	0fc6a558 */ 	jal	0xf1a9560
+/*  d728:	0fc6a558 */ 	jal	func0f1a78b0
 /*  d72c:	00000000 */ 	nop
-/*  d730:	0fc5a179 */ 	jal	0xf1685e4
+/*  d730:	0fc5a179 */ 	jal	func0f166f74
 /*  d734:	00000000 */ 	nop
-/*  d738:	0fc5dea0 */ 	jal	0xf177a80
+/*  d738:	0fc5dea0 */ 	jal	stub0f175f50
 /*  d73c:	00000000 */ 	nop
-/*  d740:	0fc5deb0 */ 	jal	0xf177ac0
+/*  d740:	0fc5deb0 */ 	jal	func0f175f90
 /*  d744:	00000000 */ 	nop
 /*  d748:	3c0d8006 */ 	lui	$t5,0x8006
 /*  d74c:	8dade4c0 */ 	lw	$t5,-0x1b40($t5)
 /*  d750:	11a00003 */ 	beqz	$t5,.PB0000d760
 /*  d754:	3c047005 */ 	lui	$a0,0x7005
-/*  d758:	0c004c2f */ 	jal	0x130bc
+/*  d758:	0c004c2f */ 	jal	argSetString
 /*  d75c:	24844400 */ 	addiu	$a0,$a0,0x4400
 .PB0000d760:
 /*  d760:	3c04800b */ 	lui	$a0,0x800b
-/*  d764:	0c012de0 */ 	jal	0x4b780
+/*  d764:	0c012de0 */ 	jal	osVirtualToPhysical
 /*  d768:	248417e0 */ 	addiu	$a0,$a0,0x17e0
 /*  d76c:	3c038009 */ 	lui	$v1,0x8009
 /*  d770:	8c632fe0 */ 	lw	$v1,0x2fe0($v1)
 /*  d774:	3c018000 */ 	lui	$at,0x8000
 /*  d778:	00412025 */ 	or	$a0,$v0,$at
-/*  d77c:	0c004892 */ 	jal	0x12248
+/*  d77c:	0c004892 */ 	jal	mempInit
 /*  d780:	00642823 */ 	subu	$a1,$v1,$a0
-/*  d784:	0c004977 */ 	jal	0x125dc
+/*  d784:	0c004977 */ 	jal	mempResetPool
 /*  d788:	24040008 */ 	li	$a0,0x8
-/*  d78c:	0c004977 */ 	jal	0x125dc
+/*  d78c:	0c004977 */ 	jal	mempResetPool
 /*  d790:	24040006 */ 	li	$a0,0x6
-/*  d794:	0c003320 */ 	jal	0xcc80
+/*  d794:	0c003320 */ 	jal	crashReset
 /*  d798:	00000000 */ 	nop
-/*  d79c:	0fc02c88 */ 	jal	0xf00b220
+/*  d79c:	0fc02c88 */ 	jal	mpInitPresetFeatures
 /*  d7a0:	00000000 */ 	nop
-/*  d7a4:	0fc5e243 */ 	jal	0xf17890c
+/*  d7a4:	0fc5e243 */ 	jal	func0f176ddc
 /*  d7a8:	00000000 */ 	nop
-/*  d7ac:	0c000d28 */ 	jal	0x34a0
+/*  d7ac:	0c000d28 */ 	jal	func000034d0
 /*  d7b0:	00000000 */ 	nop
-/*  d7b4:	0fc02c68 */ 	jal	0xf00b1a0
+/*  d7b4:	0fc02c68 */ 	jal	loadTextureList
 /*  d7b8:	00000000 */ 	nop
-/*  d7bc:	0fc00000 */ 	jal	0xf000000
+/*  d7bc:	0fc00000 */ 	jal	func0f000000
 /*  d7c0:	00000000 */ 	nop
-/*  d7c4:	0fc5a45a */ 	jal	0xf169168
+/*  d7c4:	0fc5a45a */ 	jal	lv0f167af8
 /*  d7c8:	00000000 */ 	nop
-/*  d7cc:	0fc41edb */ 	jal	0xf107b6c
+/*  d7cc:	0fc41edb */ 	jal	cheatsDisableAll
 /*  d7d0:	00000000 */ 	nop
-/*  d7d4:	0c003a7d */ 	jal	0xe9f4
+/*  d7d4:	0c003a7d */ 	jal	func0000e9c0
 /*  d7d8:	00000000 */ 	nop
-/*  d7dc:	0fc55154 */ 	jal	0xf154550
+/*  d7dc:	0fc55154 */ 	jal	func0f1531a0
 /*  d7e0:	00000000 */ 	nop
-/*  d7e4:	0c004e5e */ 	jal	0x13978
+/*  d7e4:	0c004e5e */ 	jal	dhudInit
 /*  d7e8:	00000000 */ 	nop
-/*  d7ec:	0fc4a37c */ 	jal	0xf128df0
+/*  d7ec:	0fc4a37c */ 	jal	playermgrInit
 /*  d7f0:	00000000 */ 	nop
-/*  d7f4:	0fc5b9d8 */ 	jal	0xf16e760
+/*  d7f4:	0fc5b9d8 */ 	jal	frametimeInit
 /*  d7f8:	00000000 */ 	nop
-/*  d7fc:	0fc02c84 */ 	jal	0xf00b210
+/*  d7fc:	0fc02c84 */ 	jal	stub0f00b200
 /*  d800:	00000000 */ 	nop
-/*  d804:	0c00265c */ 	jal	0x9970
+/*  d804:	0c00265c */ 	jal	profileInit
 /*  d808:	00000000 */ 	nop
-/*  d80c:	0fc0021c */ 	jal	0xf000870
+/*  d80c:	0fc0021c */ 	jal	stub0f000870
 /*  d810:	00000000 */ 	nop
-/*  d814:	0fc00220 */ 	jal	0xf000880
+/*  d814:	0fc00220 */ 	jal	func0f000880
 /*  d818:	00000000 */ 	nop
-/*  d81c:	0fc00238 */ 	jal	0xf0008e0
+/*  d81c:	0fc00238 */ 	jal	stub0f0008e0
 /*  d820:	00000000 */ 	nop
-/*  d824:	0fc0023c */ 	jal	0xf0008f0
+/*  d824:	0fc0023c */ 	jal	stub0f0008f0
 /*  d828:	00000000 */ 	nop
-/*  d82c:	0fc00240 */ 	jal	0xf000900
+/*  d82c:	0fc00240 */ 	jal	stub0f000900
 /*  d830:	00000000 */ 	nop
-/*  d834:	0fc02c64 */ 	jal	0xf00b190
+/*  d834:	0fc02c64 */ 	jal	stub0f00b180
 /*  d838:	00000000 */ 	nop
-/*  d83c:	0fc00244 */ 	jal	0xf000910
+/*  d83c:	0fc00244 */ 	jal	stub0f000910
 /*  d840:	00000000 */ 	nop
-/*  d844:	0fc00210 */ 	jal	0xf000840
+/*  d844:	0fc00210 */ 	jal	stub0f000840
 /*  d848:	00000000 */ 	nop
-/*  d84c:	0fc62728 */ 	jal	0xf189ca0
+/*  d84c:	0fc62728 */ 	jal	mpSetDefaultSetup
 /*  d850:	00000000 */ 	nop
-/*  d854:	0fc52db6 */ 	jal	0xf14b6d8
+/*  d854:	0fc52db6 */ 	jal	phAllocate
 /*  d858:	00000000 */ 	nop
-/*  d85c:	0fc4649e */ 	jal	0xf119278
+/*  d85c:	0fc4649e */ 	jal	pakInitAll
 /*  d860:	00000000 */ 	nop
-/*  d864:	0fc52ddb */ 	jal	0xf14b76c
+/*  d864:	0fc52ddb */ 	jal	func0f14a3bc
 /*  d868:	00000000 */ 	nop
-/*  d86c:	0c008e60 */ 	jal	0x23980
+/*  d86c:	0c008e60 */ 	jal	animsInit
 /*  d870:	00000000 */ 	nop
-/*  d874:	0fc00040 */ 	jal	0xf000100
+/*  d874:	0fc00040 */ 	jal	func0f000100
 /*  d878:	00000000 */ 	nop
-/*  d87c:	0fc0004c */ 	jal	0xf000130
+/*  d87c:	0fc0004c */ 	jal	func0f000130
 /*  d880:	00000000 */ 	nop
-/*  d884:	0fc00214 */ 	jal	0xf000850
+/*  d884:	0fc00214 */ 	jal	stub0f000850
 /*  d888:	00000000 */ 	nop
-/*  d88c:	0fc00218 */ 	jal	0xf000860
+/*  d88c:	0fc00218 */ 	jal	stub0f000860
 /*  d890:	00000000 */ 	nop
-/*  d894:	0fc00024 */ 	jal	0xf000090
+/*  d894:	0fc00024 */ 	jal	func0f000090
 /*  d898:	00000000 */ 	nop
-/*  d89c:	0c0026ba */ 	jal	0x9ae8
+/*  d89c:	0c0026ba */ 	jal	viConfigureForLegal
 /*  d8a0:	00000000 */ 	nop
-/*  d8a4:	0c002773 */ 	jal	0x9dcc
+/*  d8a4:	0c002773 */ 	jal	viBlack
 /*  d8a8:	24040001 */ 	li	$a0,0x1
 /*  d8ac:	3c188006 */ 	lui	$t8,0x8006
 /*  d8b0:	8f18e4e4 */ 	lw	$t8,-0x1b1c($t8)
@@ -1111,7 +1111,7 @@ glabel mainInit
 /*  d8b8:	ac20e828 */ 	sw	$zero,-0x17d8($at)
 /*  d8bc:	53000004 */ 	beqzl	$t8,.PB0000d8d0
 /*  d8c0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  d8c4:	0c0122b4 */ 	jal	0x48ad0
+/*  d8c4:	0c0122b4 */ 	jal	osGetCount
 /*  d8c8:	00000000 */ 	nop
 /*  d8cc:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .PB0000d8d0:
@@ -3061,25 +3061,25 @@ glabel mainTick
 /*  e188:	2d410002 */ 	sltiu	$at,$t2,0x2
 /*  e18c:	50200146 */ 	beqzl	$at,.PB0000e6a8
 /*  e190:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  e194:	0fc5b9fd */ 	jal	0xf16e7f4
+/*  e194:	0fc5b9fd */ 	jal	frametimeCalculate
 /*  e198:	00000000 */ 	nop
-/*  e19c:	0c002662 */ 	jal	0x9988
+/*  e19c:	0c002662 */ 	jal	profile00009a98
 /*  e1a0:	00000000 */ 	nop
-/*  e1a4:	0c002660 */ 	jal	0x9980
+/*  e1a4:	0c002660 */ 	jal	profile00009a90
 /*  e1a8:	00000000 */ 	nop
-/*  e1ac:	0c002664 */ 	jal	0x9990
+/*  e1ac:	0c002664 */ 	jal	profileSetMarker
 /*  e1b0:	3c040002 */ 	lui	$a0,0x2
-/*  e1b4:	0c000d2a */ 	jal	0x34a8
+/*  e1b4:	0c000d2a */ 	jal	func000034d8
 /*  e1b8:	00000000 */ 	nop
-/*  e1bc:	0c00534e */ 	jal	0x14d38
+/*  e1bc:	0c00534e */ 	jal	joyDebugJoy
 /*  e1c0:	00000000 */ 	nop
-/*  e1c4:	0c0006ca */ 	jal	0x1b28
+/*  e1c4:	0c0006ca */ 	jal	schedSetCrashEnable2
 /*  e1c8:	00002025 */ 	move	$a0,$zero
 /*  e1cc:	3c048006 */ 	lui	$a0,0x8006
 /*  e1d0:	8c84e4d8 */ 	lw	$a0,-0x1b28($a0)
 /*  e1d4:	1080011c */ 	beqz	$a0,.PB0000e648
 /*  e1d8:	00000000 */ 	nop
-/*  e1dc:	0fc5a3eb */ 	jal	0xf168fac
+/*  e1dc:	0fc5a3eb */ 	jal	gfxGetMasterDisplayList
 /*  e1e0:	00000000 */ 	nop
 /*  e1e4:	244b0008 */ 	addiu	$t3,$v0,0x8
 /*  e1e8:	afa20090 */ 	sw	$v0,0x90($sp)
@@ -3100,39 +3100,39 @@ glabel mainTick
 /*  e224:	8d08e868 */ 	lw	$t0,-0x1798($t0)
 /*  e228:	15000006 */ 	bnez	$t0,.PB0000e244
 /*  e22c:	00002025 */ 	move	$a0,$zero
-/*  e230:	0c00566a */ 	jal	0x159a8
+/*  e230:	0c00566a */ 	jal	joyGetButtons
 /*  e234:	2405000c */ 	li	$a1,0xc
 /*  e238:	2401000c */ 	li	$at,0xc
 /*  e23c:	1441001a */ 	bne	$v0,$at,.PB0000e2a8
 /*  e240:	00002025 */ 	move	$a0,$zero
 .PB0000e244:
-/*  e244:	0c005616 */ 	jal	0x15858
+/*  e244:	0c005616 */ 	jal	joyGetStickX
 /*  e248:	00002025 */ 	move	$a0,$zero
 /*  e24c:	00028e00 */ 	sll	$s1,$v0,0x18
 /*  e250:	00114e03 */ 	sra	$t1,$s1,0x18
 /*  e254:	01208825 */ 	move	$s1,$t1
-/*  e258:	0c005640 */ 	jal	0x15900
+/*  e258:	0c005640 */ 	jal	joyGetStickY
 /*  e25c:	00002025 */ 	move	$a0,$zero
 /*  e260:	a3a2003b */ 	sb	$v0,0x3b($sp)
 /*  e264:	00002025 */ 	move	$a0,$zero
-/*  e268:	0c00566a */ 	jal	0x159a8
+/*  e268:	0c00566a */ 	jal	joyGetButtons
 /*  e26c:	3405ffff */ 	li	$a1,0xffff
 /*  e270:	3050ffff */ 	andi	$s0,$v0,0xffff
 /*  e274:	00002025 */ 	move	$a0,$zero
-/*  e278:	0c00569a */ 	jal	0x15a68
+/*  e278:	0c00569a */ 	jal	joyGetButtonsPressedThisFrame
 /*  e27c:	3405ffff */ 	li	$a1,0xffff
 /*  e280:	00112600 */ 	sll	$a0,$s1,0x18
 /*  e284:	00045603 */ 	sra	$t2,$a0,0x18
 /*  e288:	01402025 */ 	move	$a0,$t2
 /*  e28c:	83a5003b */ 	lb	$a1,0x3b($sp)
 /*  e290:	3206ffff */ 	andi	$a2,$s0,0xffff
-/*  e294:	0fc47f67 */ 	jal	0xf11fd9c
+/*  e294:	0fc47f67 */ 	jal	debugProcessInput
 /*  e298:	3047ffff */ 	andi	$a3,$v0,0xffff
 /*  e29c:	3c018006 */ 	lui	$at,0x8006
 /*  e2a0:	10000021 */ 	b	.PB0000e328
 /*  e2a4:	ac22e868 */ 	sw	$v0,-0x1798($at)
 .PB0000e2a8:
-/*  e2a8:	0c00566a */ 	jal	0x159a8
+/*  e2a8:	0c00566a */ 	jal	joyGetButtons
 /*  e2ac:	24051000 */ 	li	$a1,0x1000
 /*  e2b0:	14400005 */ 	bnez	$v0,.PB0000e2c8
 /*  e2b4:	3c0b8007 */ 	lui	$t3,0x8007
@@ -3141,34 +3141,34 @@ glabel mainTick
 /*  e2c0:	10000019 */ 	b	.PB0000e328
 /*  e2c4:	ac2b7b78 */ 	sw	$t3,0x7b78($at)
 .PB0000e2c8:
-/*  e2c8:	0c005616 */ 	jal	0x15858
+/*  e2c8:	0c005616 */ 	jal	joyGetStickX
 /*  e2cc:	00002025 */ 	move	$a0,$zero
 /*  e2d0:	00028e00 */ 	sll	$s1,$v0,0x18
 /*  e2d4:	00116603 */ 	sra	$t4,$s1,0x18
 /*  e2d8:	01808825 */ 	move	$s1,$t4
-/*  e2dc:	0c005640 */ 	jal	0x15900
+/*  e2dc:	0c005640 */ 	jal	joyGetStickY
 /*  e2e0:	00002025 */ 	move	$a0,$zero
 /*  e2e4:	a3a2003b */ 	sb	$v0,0x3b($sp)
 /*  e2e8:	00002025 */ 	move	$a0,$zero
-/*  e2ec:	0c00566a */ 	jal	0x159a8
+/*  e2ec:	0c00566a */ 	jal	joyGetButtons
 /*  e2f0:	3405ffff */ 	li	$a1,0xffff
 /*  e2f4:	3050ffff */ 	andi	$s0,$v0,0xffff
 /*  e2f8:	00002025 */ 	move	$a0,$zero
-/*  e2fc:	0c00569a */ 	jal	0x15a68
+/*  e2fc:	0c00569a */ 	jal	joyGetButtonsPressedThisFrame
 /*  e300:	3405ffff */ 	li	$a1,0xffff
 /*  e304:	00112600 */ 	sll	$a0,$s1,0x18
 /*  e308:	00046e03 */ 	sra	$t5,$a0,0x18
 /*  e30c:	01a02025 */ 	move	$a0,$t5
 /*  e310:	83a5003b */ 	lb	$a1,0x3b($sp)
 /*  e314:	3206ffff */ 	andi	$a2,$s0,0xffff
-/*  e318:	0fc47f67 */ 	jal	0xf11fd9c
+/*  e318:	0fc47f67 */ 	jal	debugProcessInput
 /*  e31c:	3047ffff */ 	andi	$a3,$v0,0xffff
 /*  e320:	3c018006 */ 	lui	$at,0x8006
 /*  e324:	ac22e868 */ 	sw	$v0,-0x1798($at)
 .PB0000e328:
-/*  e328:	0fc5b487 */ 	jal	0xf16d21c
+/*  e328:	0fc5b487 */ 	jal	lvTick
 /*  e32c:	00000000 */ 	nop
-/*  e330:	0fc4a8a7 */ 	jal	0xf12a29c
+/*  e330:	0fc4a8a7 */ 	jal	playermgrShuffle
 /*  e334:	00000000 */ 	nop
 /*  e338:	3c198006 */ 	lui	$t9,0x8006
 /*  e33c:	8f39e4c4 */ 	lw	$t9,-0x1b3c($t9)
@@ -3211,32 +3211,32 @@ glabel mainTick
 /*  e3c0:	19600038 */ 	blez	$t3,.PB0000e4a4
 /*  e3c4:	00000000 */ 	nop
 .PB0000e3c8:
-/*  e3c8:	0fc4a8ea */ 	jal	0xf12a3a8
+/*  e3c8:	0fc4a8ea */ 	jal	playermgrGetPlayerAtOrder
 /*  e3cc:	02202025 */ 	move	$a0,$s1
-/*  e3d0:	0fc4a783 */ 	jal	0xf129e0c
+/*  e3d0:	0fc4a783 */ 	jal	setCurrentPlayerNum
 /*  e3d4:	00402025 */ 	move	$a0,$v0
 /*  e3d8:	3c0c8006 */ 	lui	$t4,0x8006
 /*  e3dc:	8d8ce4c4 */ 	lw	$t4,-0x1b3c($t4)
 /*  e3e0:	2401004e */ 	li	$at,0x4e
 /*  e3e4:	55810006 */ 	bnel	$t4,$at,.PB0000e400
 /*  e3e8:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  e3ec:	0fc06b11 */ 	jal	0xf01ac44
+/*  e3ec:	0fc06b11 */ 	jal	titleIsKeepingMode
 /*  e3f0:	00000000 */ 	nop
 /*  e3f4:	1440000b */ 	bnez	$v0,.PB0000e424
 /*  e3f8:	00000000 */ 	nop
 /*  e3fc:	8e020284 */ 	lw	$v0,0x284($s0)
 .PB0000e400:
 /*  e400:	84440634 */ 	lh	$a0,0x634($v0)
-/*  e404:	0c002e75 */ 	jal	0xb9d4
+/*  e404:	0c002e75 */ 	jal	viSetViewPosition
 /*  e408:	84450636 */ 	lh	$a1,0x636($v0)
 /*  e40c:	8e020284 */ 	lw	$v0,0x284($s0)
 /*  e410:	c44c1854 */ 	lwc1	$f12,0x1854($v0)
 /*  e414:	c44e1858 */ 	lwc1	$f14,0x1858($v0)
 /*  e418:	84460630 */ 	lh	$a2,0x630($v0)
-/*  e41c:	0c002ec1 */ 	jal	0xbb04
+/*  e41c:	0c002ec1 */ 	jal	viSetFovAspectAndSize
 /*  e420:	84470632 */ 	lh	$a3,0x632($v0)
 .PB0000e424:
-/*  e424:	0fc5b915 */ 	jal	0xf16e454
+/*  e424:	0fc5b915 */ 	jal	lvTickPlayer
 /*  e428:	00000000 */ 	nop
 /*  e42c:	8e0d006c */ 	lw	$t5,0x6c($s0)
 /*  e430:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -3273,12 +3273,12 @@ glabel mainTick
 /*  e49c:	1420ffca */ 	bnez	$at,.PB0000e3c8
 /*  e4a0:	00000000 */ 	nop
 .PB0000e4a4:
-/*  e4a4:	0fc5ab7d */ 	jal	0xf16adf4
+/*  e4a4:	0fc5ab7d */ 	jal	lvRender
 /*  e4a8:	8fa40094 */ 	lw	$a0,0x94($sp)
 /*  e4ac:	afa20094 */ 	sw	$v0,0x94($sp)
-/*  e4b0:	0c000d2c */ 	jal	0x34b0
+/*  e4b0:	0c000d2c */ 	jal	func000034e0
 /*  e4b4:	27a40094 */ 	addiu	$a0,$sp,0x94
-/*  e4b8:	0fc4808c */ 	jal	0xf120230
+/*  e4b8:	0fc4808c */ 	jal	debugIsLineModeEnabled
 /*  e4bc:	00000000 */ 	nop
 /*  e4c0:	1040003e */ 	beqz	$v0,.PB0000e5bc
 /*  e4c4:	2407ffff */ 	li	$a3,-1
@@ -3326,11 +3326,11 @@ glabel mainTick
 /*  e56c:	adc80000 */ 	sw	$t0,0x0($t6)
 /*  e570:	8fb00094 */ 	lw	$s0,0x94($sp)
 /*  e574:	260b0008 */ 	addiu	$t3,$s0,0x8
-/*  e578:	0c002e4d */ 	jal	0xb934
+/*  e578:	0c002e4d */ 	jal	viGetWidth
 /*  e57c:	afab0094 */ 	sw	$t3,0x94($sp)
 /*  e580:	00028c00 */ 	sll	$s1,$v0,0x10
 /*  e584:	00116403 */ 	sra	$t4,$s1,0x10
-/*  e588:	0c002e51 */ 	jal	0xb944
+/*  e588:	0c002e51 */ 	jal	viGetHeight
 /*  e58c:	01808825 */ 	move	$s1,$t4
 /*  e590:	244dffff */ 	addiu	$t5,$v0,-1
 /*  e594:	31b903ff */ 	andi	$t9,$t5,0x3ff
@@ -3344,16 +3344,16 @@ glabel mainTick
 /*  e5b4:	ae0a0000 */ 	sw	$t2,0x0($s0)
 /*  e5b8:	ae000004 */ 	sw	$zero,0x4($s0)
 .PB0000e5bc:
-/*  e5bc:	0c004fd8 */ 	jal	0x13f60
+/*  e5bc:	0c004fd8 */ 	jal	dhudRender
 /*  e5c0:	8fa40094 */ 	lw	$a0,0x94($sp)
-/*  e5c4:	0c004f11 */ 	jal	0x13c44
+/*  e5c4:	0c004f11 */ 	jal	dhudReset
 /*  e5c8:	afa20094 */ 	sw	$v0,0x94($sp)
-/*  e5cc:	0fc4806b */ 	jal	0xf1201ac
+/*  e5cc:	0fc4806b */ 	jal	debug0f11ed70
 /*  e5d0:	00000000 */ 	nop
 /*  e5d4:	28410002 */ 	slti	$at,$v0,0x2
 /*  e5d8:	14200004 */ 	bnez	$at,.PB0000e5ec
 /*  e5dc:	00000000 */ 	nop
-/*  e5e0:	0c002666 */ 	jal	0x9998
+/*  e5e0:	0c002666 */ 	jal	profileRender
 /*  e5e4:	8fa40094 */ 	lw	$a0,0x94($sp)
 /*  e5e8:	afa20094 */ 	sw	$v0,0x94($sp)
 .PB0000e5ec:
@@ -3361,9 +3361,9 @@ glabel mainTick
 /*  e5f0:	8d6be868 */ 	lw	$t3,-0x1798($t3)
 /*  e5f4:	51600007 */ 	beqzl	$t3,.PB0000e614
 /*  e5f8:	8fac0094 */ 	lw	$t4,0x94($sp)
-/*  e5fc:	0fc47ee8 */ 	jal	0xf11fba0
+/*  e5fc:	0fc47ee8 */ 	jal	debugUpdateMenu
 /*  e600:	00000000 */ 	nop
-/*  e604:	0fc47d89 */ 	jal	0xf11f624
+/*  e604:	0fc47d89 */ 	jal	dmenuRender
 /*  e608:	8fa40094 */ 	lw	$a0,0x94($sp)
 /*  e60c:	afa20094 */ 	sw	$v0,0x94($sp)
 /*  e610:	8fac0094 */ 	lw	$t4,0x94($sp)
@@ -3384,27 +3384,27 @@ glabel mainTick
 .PB0000e648:
 /*  e648:	50800006 */ 	beqzl	$a0,.PB0000e664
 /*  e64c:	8fa40090 */ 	lw	$a0,0x90($sp)
-/*  e650:	0fc5a422 */ 	jal	0xf169088
+/*  e650:	0fc5a422 */ 	jal	gfxSwapBuffers
 /*  e654:	00000000 */ 	nop
-/*  e658:	0c0027d3 */ 	jal	0x9f4c
+/*  e658:	0c0027d3 */ 	jal	viUpdateMode
 /*  e65c:	00000000 */ 	nop
 /*  e660:	8fa40090 */ 	lw	$a0,0x90($sp)
 .PB0000e664:
 /*  e664:	8fa50094 */ 	lw	$a1,0x94($sp)
 /*  e668:	00003025 */ 	move	$a2,$zero
-/*  e66c:	0c00bfad */ 	jal	0x2feb4
+/*  e66c:	0c00bfad */ 	jal	rdpCreateTask
 /*  e670:	27a70070 */ 	addiu	$a3,$sp,0x70
 /*  e674:	3c028006 */ 	lui	$v0,0x8006
 /*  e678:	2442e4dc */ 	addiu	$v0,$v0,-6948
 /*  e67c:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*  e680:	25c90001 */ 	addiu	$t1,$t6,0x1
-/*  e684:	0c004ad2 */ 	jal	0x12b48
+/*  e684:	0c004ad2 */ 	jal	memaPrint
 /*  e688:	ac490000 */ 	sw	$t1,0x0($v0)
-/*  e68c:	0fc5ba3d */ 	jal	0xf16e8f4
+/*  e68c:	0fc5ba3d */ 	jal	func0f16cf94
 /*  e690:	00000000 */ 	nop
-/*  e694:	0c002664 */ 	jal	0x9990
+/*  e694:	0c002664 */ 	jal	profileSetMarker
 /*  e698:	3c040001 */ 	lui	$a0,0x1
-/*  e69c:	0fc480d1 */ 	jal	0xf120344
+/*  e69c:	0fc480d1 */ 	jal	debug0f119a80nb
 /*  e6a0:	00000000 */ 	nop
 /*  e6a4:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .PB0000e6a8:

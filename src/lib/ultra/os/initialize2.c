@@ -219,25 +219,25 @@ glabel osInitialize2
 /*  5248c:	3c018009 */ 	lui	$at,0x8009
 /*  52490:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  52494:	afa00030 */ 	sw	$zero,0x30($sp)
-/*  52498:	0c012ca4 */ 	jal	0x4b290
+/*  52498:	0c012ca4 */ 	jal	__osGetSR
 /*  5249c:	ac2e2f40 */ 	sw	$t6,0x2f40($at)
 /*  524a0:	00408025 */ 	move	$s0,$v0
 /*  524a4:	3c012000 */ 	lui	$at,0x2000
-/*  524a8:	0c012ca0 */ 	jal	0x4b280
+/*  524a8:	0c012ca0 */ 	jal	__osSetSR
 /*  524ac:	02012025 */ 	or	$a0,$s0,$at
 /*  524b0:	3c040100 */ 	lui	$a0,0x100
-/*  524b4:	0c0121e8 */ 	jal	0x487a0
+/*  524b4:	0c0121e8 */ 	jal	__osSetFpcCsr
 /*  524b8:	34840800 */ 	ori	$a0,$a0,0x800
 /*  524bc:	3c041fc0 */ 	lui	$a0,0x1fc0
 /*  524c0:	348407fc */ 	ori	$a0,$a0,0x7fc
-/*  524c4:	0c012ca8 */ 	jal	0x4b2a0
+/*  524c4:	0c012ca8 */ 	jal	__osSiRawReadIo
 /*  524c8:	27a50034 */ 	addiu	$a1,$sp,0x34
 /*  524cc:	10400007 */ 	beqz	$v0,.PB000524ec
 /*  524d0:	00000000 */ 	nop
 .PB000524d4:
 /*  524d4:	3c041fc0 */ 	lui	$a0,0x1fc0
 /*  524d8:	348407fc */ 	ori	$a0,$a0,0x7fc
-/*  524dc:	0c012ca8 */ 	jal	0x4b2a0
+/*  524dc:	0c012ca8 */ 	jal	__osSiRawReadIo
 /*  524e0:	27a50034 */ 	addiu	$a1,$sp,0x34
 /*  524e4:	1440fffb */ 	bnez	$v0,.PB000524d4
 /*  524e8:	00000000 */ 	nop
@@ -246,7 +246,7 @@ glabel osInitialize2
 /*  524f0:	3c041fc0 */ 	lui	$a0,0x1fc0
 /*  524f4:	348407fc */ 	ori	$a0,$a0,0x7fc
 /*  524f8:	34af0008 */ 	ori	$t7,$a1,0x8
-/*  524fc:	0c012cbc */ 	jal	0x4b2f0
+/*  524fc:	0c012cbc */ 	jal	__osSiRawWriteIo
 /*  52500:	01e02825 */ 	move	$a1,$t7
 /*  52504:	10400009 */ 	beqz	$v0,.PB0005252c
 /*  52508:	00000000 */ 	nop
@@ -255,7 +255,7 @@ glabel osInitialize2
 /*  52510:	3c041fc0 */ 	lui	$a0,0x1fc0
 /*  52514:	348407fc */ 	ori	$a0,$a0,0x7fc
 /*  52518:	34b80008 */ 	ori	$t8,$a1,0x8
-/*  5251c:	0c012cbc */ 	jal	0x4b2f0
+/*  5251c:	0c012cbc */ 	jal	__osSiRawWriteIo
 /*  52520:	03002825 */ 	move	$a1,$t8
 /*  52524:	1440fff9 */ 	bnez	$v0,.PB0005250c
 /*  52528:	00000000 */ 	nop
@@ -308,30 +308,30 @@ glabel osInitialize2
 /*  525e0:	8dc10008 */ 	lw	$at,0x8($t6)
 /*  525e4:	ade10008 */ 	sw	$at,0x8($t7)
 /*  525e8:	8dd8000c */ 	lw	$t8,0xc($t6)
-/*  525ec:	0c012cd0 */ 	jal	0x4b340
+/*  525ec:	0c012cd0 */ 	jal	osWritebackDCache
 /*  525f0:	adf8000c */ 	sw	$t8,0xc($t7)
 /*  525f4:	3c048000 */ 	lui	$a0,0x8000
-/*  525f8:	0c0121c4 */ 	jal	0x48710
+/*  525f8:	0c0121c4 */ 	jal	osInvalICache
 /*  525fc:	24050190 */ 	li	$a1,0x190
-/*  52600:	0c0149ca */ 	jal	0x52728
+/*  52600:	0c0149ca */ 	jal	osCartRomInit2
 /*  52604:	00000000 */ 	nop
-/*  52608:	0c014b50 */ 	jal	0x52d40
+/*  52608:	0c014b50 */ 	jal	osUnmapTLBAll
 /*  5260c:	00000000 */ 	nop
-/*  52610:	0c000bf0 */ 	jal	0x2fc0
+/*  52610:	0c000bf0 */ 	jal	osMapTLBRdb
 /*  52614:	00000000 */ 	nop
 /*  52618:	3c048006 */ 	lui	$a0,0x8006
 /*  5261c:	3c058006 */ 	lui	$a1,0x8006
 /*  52620:	8ca5d904 */ 	lw	$a1,-0x26fc($a1)
 /*  52624:	8c84d900 */ 	lw	$a0,-0x2700($a0)
 /*  52628:	24060000 */ 	li	$a2,0x0
-/*  5262c:	0c013a0a */ 	jal	0x4e828
+/*  5262c:	0c013a0a */ 	jal	__ll_mul
 /*  52630:	24070003 */ 	li	$a3,0x3
 /*  52634:	afa20020 */ 	sw	$v0,0x20($sp)
 /*  52638:	afa30024 */ 	sw	$v1,0x24($sp)
 /*  5263c:	8fa50024 */ 	lw	$a1,0x24($sp)
 /*  52640:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  52644:	24060000 */ 	li	$a2,0x0
-/*  52648:	0c0139ca */ 	jal	0x4e728
+/*  52648:	0c0139ca */ 	jal	__ull_div
 /*  5264c:	24070004 */ 	li	$a3,0x4
 /*  52650:	3c088000 */ 	lui	$t0,0x8000
 /*  52654:	8d08030c */ 	lw	$t0,0x30c($t0)
@@ -341,7 +341,7 @@ glabel osInitialize2
 /*  52664:	ac23d904 */ 	sw	$v1,-0x26fc($at)
 /*  52668:	3c048000 */ 	lui	$a0,0x8000
 /*  5266c:	2484031c */ 	addiu	$a0,$a0,0x31c
-/*  52670:	0c012cf0 */ 	jal	0x4b3c0
+/*  52670:	0c012cf0 */ 	jal	bzero
 /*  52674:	24050040 */ 	li	$a1,0x40
 .PB00052678:
 /*  52678:	3c198000 */ 	lui	$t9,0x8000
@@ -370,7 +370,7 @@ glabel osInitialize2
 /*  526cc:	3c018006 */ 	lui	$at,0x8006
 /*  526d0:	ac2d29d8 */ 	sw	$t5,0x29d8($at)
 .PB000526d4:
-/*  526d4:	0c012d18 */ 	jal	0x4b460
+/*  526d4:	0c012d18 */ 	jal	__osGetCause
 /*  526d8:	00000000 */ 	nop
 /*  526dc:	304c1000 */ 	andi	$t4,$v0,0x1000
 /*  526e0:	11800003 */ 	beqz	$t4,.PB000526f0

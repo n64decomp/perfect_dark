@@ -895,9 +895,9 @@ glabel viUpdateMode
 .PB00009f98:
 /*  9f98:	3c013f80 */ 	lui	$at,0x3f80
 /*  9f9c:	44816000 */ 	mtc1	$at,$f12
-/*  9fa0:	0c01252c */ 	jal	0x494b0
+/*  9fa0:	0c01252c */ 	jal	osViSetYScale
 /*  9fa4:	00000000 */ 	nop
-/*  9fa8:	0c0124a8 */ 	jal	0x492a0
+/*  9fa8:	0c0124a8 */ 	jal	osViBlack
 /*  9fac:	24040001 */ 	li	$a0,0x1
 /*  9fb0:	3c098006 */ 	lui	$t1,0x8006
 /*  9fb4:	8d29df24 */ 	lw	$t1,-0x20dc($t1)
@@ -1419,7 +1419,7 @@ glabel viUpdateMode
 /*  a710:	00007812 */ 	mflo	$t7
 /*  a714:	00ef7021 */ 	addu	$t6,$a3,$t7
 /*  a718:	ac2edf24 */ 	sw	$t6,-0x20dc($at)
-/*  a71c:	0c012d1c */ 	jal	0x4b470
+/*  a71c:	0c012d1c */ 	jal	bcopy
 /*  a720:	8ca5df24 */ 	lw	$a1,-0x20dc($a1)
 /*  a724:	3c038009 */ 	lui	$v1,0x8009
 /*  a728:	24634d57 */ 	addiu	$v1,$v1,0x4d57
@@ -1437,7 +1437,7 @@ glabel viUpdateMode
 /*  a758:	53000005 */ 	beqzl	$t8,.PB0000a770
 /*  a75c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  a760:	ac400000 */ 	sw	$zero,0x0($v0)
-/*  a764:	0c002773 */ 	jal	0x9dcc
+/*  a764:	0c002773 */ 	jal	viBlack
 /*  a768:	00002025 */ 	move	$a0,$zero
 /*  a76c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .PB0000a770:

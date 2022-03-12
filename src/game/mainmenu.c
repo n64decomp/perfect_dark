@@ -370,7 +370,7 @@ glabel func0f1030e4pf
 /*  f102eb4:	8cc90000 */ 	lw	$t1,0x0($a2)
 /*  f102eb8:	00095040 */ 	sll	$t2,$t1,0x1
 /*  f102ebc:	004a5821 */ 	addu	$t3,$v0,$t2
-/*  f102ec0:	0fc5c06a */ 	jal	0xf1701a8
+/*  f102ec0:	0fc5c06a */ 	jal	langGet
 /*  f102ec4:	95640000 */ 	lhu	$a0,0x0($t3)
 /*  f102ec8:	10000015 */ 	b	.PB0f102f20
 /*  f102ecc:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -379,7 +379,7 @@ glabel func0f1030e4pf
 /*  f102ed4:	3c02800a */ 	lui	$v0,0x800a
 /*  f102ed8:	2442e4d0 */ 	addiu	$v0,$v0,-6960
 /*  f102edc:	a44c0482 */ 	sh	$t4,0x482($v0)
-/*  f102ee0:	0fc5c097 */ 	jal	0xf17025c
+/*  f102ee0:	0fc5c097 */ 	jal	func0f16f75c
 /*  f102ee4:	3184ffff */ 	andi	$a0,$t4,0xffff
 /*  f102ee8:	3c02800a */ 	lui	$v0,0x800a
 /*  f102eec:	2442e4d0 */ 	addiu	$v0,$v0,-6960
@@ -1709,7 +1709,7 @@ glabel getMaxAiBuddies
 /*  f10475c:	00000000 */ 	nop
 /*  f104760:	24080001 */ 	li	$t0,0x1
 .PB0f104764:
-/*  f104764:	0fc48109 */ 	jal	0xf120424
+/*  f104764:	0fc48109 */ 	jal	debugIsAllBuddiesEnabled
 /*  f104768:	afa8001c */ 	sw	$t0,0x1c($sp)
 /*  f10476c:	10400002 */ 	beqz	$v0,.PB0f104778
 /*  f104770:	8fa8001c */ 	lw	$t0,0x1c($sp)

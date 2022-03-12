@@ -1214,11 +1214,11 @@ glabel endscreenPrepare
 /*  f10eda4:	31ae0001 */ 	andi	$t6,$t5,0x1
 /*  f10eda8:	15c0002a */ 	bnez	$t6,.PB0f10ee54
 /*  f10edac:	00000000 */ 	nop
-/*  f10edb0:	0fc4214e */ 	jal	0xf108538
+/*  f10edb0:	0fc4214e */ 	jal	cheatGetByTimedStageIndex
 /*  f10edb4:	00022e42 */ 	srl	$a1,$v0,0x19
 /*  f10edb8:	3c04800a */ 	lui	$a0,0x800a
 /*  f10edbc:	9084251a */ 	lbu	$a0,0x251a($a0)
-/*  f10edc0:	0fc42166 */ 	jal	0xf108598
+/*  f10edc0:	0fc42166 */ 	jal	cheatGetByCompletedStageIndex
 /*  f10edc4:	afa20034 */ 	sw	$v0,0x34($sp)
 /*  f10edc8:	8fa30034 */ 	lw	$v1,0x34($sp)
 /*  f10edcc:	3c188007 */ 	lui	$t8,0x8007
@@ -1265,17 +1265,17 @@ glabel endscreenPrepare
 /*  f10ee68:	8c59048c */ 	lw	$t9,0x48c($v0)
 /*  f10ee6c:	17200005 */ 	bnez	$t9,.PB0f10ee84
 /*  f10ee70:	00000000 */ 	nop
-/*  f10ee74:	0fc25675 */ 	jal	0xf0959d4
+/*  f10ee74:	0fc25675 */ 	jal	objectiveIsAllComplete
 /*  f10ee78:	00000000 */ 	nop
 /*  f10ee7c:	1440000d */ 	bnez	$v0,.PB0f10eeb4
 /*  f10ee80:	00000000 */ 	nop
 .PB0f10ee84:
-/*  f10ee84:	0fc4810c */ 	jal	0xf120430
+/*  f10ee84:	0fc4810c */ 	jal	debugIsAllTrainingEnabled
 /*  f10ee88:	00000000 */ 	nop
 /*  f10ee8c:	14400009 */ 	bnez	$v0,.PB0f10eeb4
 /*  f10ee90:	3c048007 */ 	lui	$a0,0x8007
 /*  f10ee94:	2484791c */ 	addiu	$a0,$a0,0x791c
-/*  f10ee98:	0fc3e223 */ 	jal	0xf0f888c
+/*  f10ee98:	0fc3e223 */ 	jal	menuPushRootDialog
 /*  f10ee9c:	24050001 */ 	li	$a1,0x1
 /*  f10eea0:	3c02800a */ 	lui	$v0,0x800a
 /*  f10eea4:	9042251b */ 	lbu	$v0,0x251b($v0)
@@ -1285,14 +1285,14 @@ glabel endscreenPrepare
 .PB0f10eeb4:
 /*  f10eeb4:	3c048007 */ 	lui	$a0,0x8007
 /*  f10eeb8:	24847904 */ 	addiu	$a0,$a0,0x7904
-/*  f10eebc:	0fc3e223 */ 	jal	0xf0f888c
+/*  f10eebc:	0fc3e223 */ 	jal	menuPushRootDialog
 /*  f10eec0:	24050001 */ 	li	$a1,0x1
 /*  f10eec4:	3c02800a */ 	lui	$v0,0x800a
 /*  f10eec8:	9042251b */ 	lbu	$v0,0x251b($v0)
 /*  f10eecc:	000251c2 */ 	srl	$t2,$v0,0x7
 /*  f10eed0:	11400007 */ 	beqz	$t2,.PB0f10eef0
 /*  f10eed4:	01401025 */ 	move	$v0,$t2
-/*  f10eed8:	0fc43b1e */ 	jal	0xf10ec78
+/*  f10eed8:	0fc43b1e */ 	jal	endscreenSetCoopCompleted
 /*  f10eedc:	00000000 */ 	nop
 /*  f10eee0:	3c02800a */ 	lui	$v0,0x800a
 /*  f10eee4:	9042251b */ 	lbu	$v0,0x251b($v0)
@@ -1322,7 +1322,7 @@ glabel endscreenPrepare
 /*  f10ef40:	30590100 */ 	andi	$t9,$v0,0x100
 /*  f10ef44:	13200014 */ 	beqz	$t9,.PB0f10ef98
 /*  f10ef48:	00000000 */ 	nop
-/*  f10ef4c:	0fc41cf0 */ 	jal	0xf1073c0
+/*  f10ef4c:	0fc41cf0 */ 	jal	cheatIsUnlocked
 /*  f10ef50:	304400ff */ 	andi	$a0,$v0,0xff
 /*  f10ef54:	10400010 */ 	beqz	$v0,.PB0f10ef98
 /*  f10ef58:	afa20020 */ 	sw	$v0,0x20($sp)
@@ -1358,11 +1358,11 @@ glabel endscreenPrepare
 /*  f10efcc:	11e00005 */ 	beqz	$t7,.PB0f10efe4
 /*  f10efd0:	00022402 */ 	srl	$a0,$v0,0x10
 /*  f10efd4:	309900ff */ 	andi	$t9,$a0,0xff
-/*  f10efd8:	0fc41cf0 */ 	jal	0xf1073c0
+/*  f10efd8:	0fc41cf0 */ 	jal	cheatIsUnlocked
 /*  f10efdc:	03202025 */ 	move	$a0,$t9
 /*  f10efe0:	afa2001c */ 	sw	$v0,0x1c($sp)
 .PB0f10efe4:
-/*  f10efe4:	0fc309bd */ 	jal	0xf0c26f4
+/*  f10efe4:	0fc309bd */ 	jal	playerGetMissionTime
 /*  f10efe8:	00000000 */ 	nop
 /*  f10efec:	2401003c */ 	li	$at,0x3c
 /*  f10eff0:	0041001a */ 	div	$zero,$v0,$at
@@ -1421,17 +1421,17 @@ glabel endscreenPrepare
 /*  f10f0b8:	8c4f048c */ 	lw	$t7,0x48c($v0)
 /*  f10f0bc:	15e00005 */ 	bnez	$t7,.PB0f10f0d4
 /*  f10f0c0:	00000000 */ 	nop
-/*  f10f0c4:	0fc25675 */ 	jal	0xf0959d4
+/*  f10f0c4:	0fc25675 */ 	jal	objectiveIsAllComplete
 /*  f10f0c8:	00000000 */ 	nop
 /*  f10f0cc:	14400005 */ 	bnez	$v0,.PB0f10f0e4
 /*  f10f0d0:	00000000 */ 	nop
 .PB0f10f0d4:
-/*  f10f0d4:	0fc4810c */ 	jal	0xf120430
+/*  f10f0d4:	0fc4810c */ 	jal	debugIsAllTrainingEnabled
 /*  f10f0d8:	00000000 */ 	nop
 /*  f10f0dc:	104000a5 */ 	beqz	$v0,.PB0f10f374
 /*  f10f0e0:	00000000 */ 	nop
 .PB0f10f0e4:
-/*  f10f0e4:	0fc309bd */ 	jal	0xf0c26f4
+/*  f10f0e4:	0fc309bd */ 	jal	playerGetMissionTime
 /*  f10f0e8:	00000000 */ 	nop
 /*  f10f0ec:	2401003c */ 	li	$at,0x3c
 /*  f10f0f0:	0041001a */ 	div	$zero,$v0,$at
@@ -1531,7 +1531,7 @@ glabel endscreenPrepare
 /*  f10f240:	304c0100 */ 	andi	$t4,$v0,0x100
 /*  f10f244:	11800016 */ 	beqz	$t4,.PB0f10f2a0
 /*  f10f248:	00000000 */ 	nop
-/*  f10f24c:	0fc41cf0 */ 	jal	0xf1073c0
+/*  f10f24c:	0fc41cf0 */ 	jal	cheatIsUnlocked
 /*  f10f250:	304400ff */ 	andi	$a0,$v0,0xff
 /*  f10f254:	8fad0020 */ 	lw	$t5,0x20($sp)
 /*  f10f258:	15a00011 */ 	bnez	$t5,.PB0f10f2a0
@@ -1569,7 +1569,7 @@ glabel endscreenPrepare
 /*  f10f2d4:	11800017 */ 	beqz	$t4,.PB0f10f334
 /*  f10f2d8:	00022402 */ 	srl	$a0,$v0,0x10
 /*  f10f2dc:	308d00ff */ 	andi	$t5,$a0,0xff
-/*  f10f2e0:	0fc41cf0 */ 	jal	0xf1073c0
+/*  f10f2e0:	0fc41cf0 */ 	jal	cheatIsUnlocked
 /*  f10f2e4:	01a02025 */ 	move	$a0,$t5
 /*  f10f2e8:	8fae001c */ 	lw	$t6,0x1c($sp)
 /*  f10f2ec:	15c00011 */ 	bnez	$t6,.PB0f10f334
@@ -1591,7 +1591,7 @@ glabel endscreenPrepare
 /*  f10f32c:	35390800 */ 	ori	$t9,$t1,0x800
 /*  f10f330:	ad190e20 */ 	sw	$t9,0xe20($t0)
 .PB0f10f334:
-/*  f10f334:	0fc67317 */ 	jal	0xf19cc5c
+/*  f10f334:	0fc67317 */ 	jal	mpDetermineUnlockedFeatures
 /*  f10f338:	00000000 */ 	nop
 /*  f10f33c:	3c0b800a */ 	lui	$t3,0x800a
 /*  f10f340:	916b2519 */ 	lbu	$t3,0x2519($t3)
@@ -1605,13 +1605,13 @@ glabel endscreenPrepare
 /*  f10f360:	15800004 */ 	bnez	$t4,.PB0f10f374
 /*  f10f364:	3c01800a */ 	lui	$at,0x800a
 /*  f10f368:	a04d0000 */ 	sb	$t5,0x0($v0)
-/*  f10f36c:	0fc44497 */ 	jal	0xf11125c
+/*  f10f36c:	0fc44497 */ 	jal	bossfileSave
 /*  f10f370:	a02e685c */ 	sb	$t6,0x685c($at)
 .PB0f10f374:
 /*  f10f374:	3c04800a */ 	lui	$a0,0x800a
 /*  f10f378:	248467f0 */ 	addiu	$a0,$a0,0x67f0
 /*  f10f37c:	00002825 */ 	move	$a1,$zero
-/*  f10f380:	0fc426eb */ 	jal	0xf109bac
+/*  f10f380:	0fc426eb */ 	jal	filemgrSaveOrLoad
 /*  f10f384:	00003025 */ 	move	$a2,$zero
 /*  f10f388:	3c03800a */ 	lui	$v1,0x800a
 /*  f10f38c:	8c635ef4 */ 	lw	$v1,0x5ef4($v1)
@@ -1620,7 +1620,7 @@ glabel endscreenPrepare
 .PB0f10f394:
 /*  f10f394:	54610008 */ 	bnel	$v1,$at,.PB0f10f3b8
 /*  f10f398:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10f39c:	0fc5b9a4 */ 	jal	0xf16e690
+/*  f10f39c:	0fc5b9a4 */ 	jal	lvSetPaused
 /*  f10f3a0:	24040001 */ 	li	$a0,0x1
 /*  f10f3a4:	3c18800a */ 	lui	$t8,0x800a
 /*  f10f3a8:	8f18e754 */ 	lw	$t8,-0x18ac($t8)
@@ -2059,7 +2059,7 @@ glabel soloPushCoopModeEndscreen
 /*  f10f3cc:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f10f3d0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f10f3d4:	24040001 */ 	li	$a0,0x1
-/*  f10f3d8:	0fc5b9a4 */ 	jal	0xf16e690
+/*  f10f3d8:	0fc5b9a4 */ 	jal	lvSetPaused
 /*  f10f3dc:	afae001c */ 	sw	$t6,0x1c($sp)
 /*  f10f3e0:	3c04800a */ 	lui	$a0,0x800a
 /*  f10f3e4:	2484e4d0 */ 	addiu	$a0,$a0,-6960
@@ -2102,50 +2102,50 @@ glabel soloPushCoopModeEndscreen
 /*  f10f474:	8f19048c */ 	lw	$t9,0x48c($t8)
 /*  f10f478:	17200005 */ 	bnez	$t9,.PB0f10f490
 /*  f10f47c:	00000000 */ 	nop
-/*  f10f480:	0fc25675 */ 	jal	0xf0959d4
+/*  f10f480:	0fc25675 */ 	jal	objectiveIsAllComplete
 /*  f10f484:	00000000 */ 	nop
 /*  f10f488:	14400015 */ 	bnez	$v0,.PB0f10f4e0
 /*  f10f48c:	00000000 */ 	nop
 .PB0f10f490:
-/*  f10f490:	0fc4810c */ 	jal	0xf120430
+/*  f10f490:	0fc4810c */ 	jal	debugIsAllTrainingEnabled
 /*  f10f494:	00000000 */ 	nop
 /*  f10f498:	14400011 */ 	bnez	$v0,.PB0f10f4e0
 /*  f10f49c:	00000000 */ 	nop
-/*  f10f4a0:	0fc550b9 */ 	jal	0xf1542e4
+/*  f10f4a0:	0fc550b9 */ 	jal	optionsGetScreenSplit
 /*  f10f4a4:	00000000 */ 	nop
 /*  f10f4a8:	24010001 */ 	li	$at,0x1
 /*  f10f4ac:	14410007 */ 	bne	$v0,$at,.PB0f10f4cc
 /*  f10f4b0:	3c048007 */ 	lui	$a0,0x8007
 /*  f10f4b4:	3c048007 */ 	lui	$a0,0x8007
 /*  f10f4b8:	2484797c */ 	addiu	$a0,$a0,0x797c
-/*  f10f4bc:	0fc3e223 */ 	jal	0xf0f888c
+/*  f10f4bc:	0fc3e223 */ 	jal	menuPushRootDialog
 /*  f10f4c0:	24050005 */ 	li	$a1,0x5
 /*  f10f4c4:	10000016 */ 	b	.PB0f10f520
 /*  f10f4c8:	00000000 */ 	nop
 .PB0f10f4cc:
 /*  f10f4cc:	2484794c */ 	addiu	$a0,$a0,0x794c
-/*  f10f4d0:	0fc3e223 */ 	jal	0xf0f888c
+/*  f10f4d0:	0fc3e223 */ 	jal	menuPushRootDialog
 /*  f10f4d4:	24050005 */ 	li	$a1,0x5
 /*  f10f4d8:	10000011 */ 	b	.PB0f10f520
 /*  f10f4dc:	00000000 */ 	nop
 .PB0f10f4e0:
-/*  f10f4e0:	0fc550b9 */ 	jal	0xf1542e4
+/*  f10f4e0:	0fc550b9 */ 	jal	optionsGetScreenSplit
 /*  f10f4e4:	00000000 */ 	nop
 /*  f10f4e8:	24010001 */ 	li	$at,0x1
 /*  f10f4ec:	14410007 */ 	bne	$v0,$at,.PB0f10f50c
 /*  f10f4f0:	3c048007 */ 	lui	$a0,0x8007
 /*  f10f4f4:	3c048007 */ 	lui	$a0,0x8007
 /*  f10f4f8:	24847964 */ 	addiu	$a0,$a0,0x7964
-/*  f10f4fc:	0fc3e223 */ 	jal	0xf0f888c
+/*  f10f4fc:	0fc3e223 */ 	jal	menuPushRootDialog
 /*  f10f500:	24050005 */ 	li	$a1,0x5
 /*  f10f504:	10000004 */ 	b	.PB0f10f518
 /*  f10f508:	00000000 */ 	nop
 .PB0f10f50c:
 /*  f10f50c:	24847934 */ 	addiu	$a0,$a0,0x7934
-/*  f10f510:	0fc3e223 */ 	jal	0xf0f888c
+/*  f10f510:	0fc3e223 */ 	jal	menuPushRootDialog
 /*  f10f514:	24050005 */ 	li	$a1,0x5
 .PB0f10f518:
-/*  f10f518:	0fc43b1e */ 	jal	0xf10ec78
+/*  f10f518:	0fc43b1e */ 	jal	endscreenSetCoopCompleted
 /*  f10f51c:	00000000 */ 	nop
 .PB0f10f520:
 /*  f10f520:	3c08800a */ 	lui	$t0,0x800a
@@ -2156,7 +2156,7 @@ glabel soloPushCoopModeEndscreen
 /*  f10f534:	248467f0 */ 	addiu	$a0,$a0,0x67f0
 /*  f10f538:	15090003 */ 	bne	$t0,$t1,.PB0f10f548
 /*  f10f53c:	00002825 */ 	move	$a1,$zero
-/*  f10f540:	0fc426eb */ 	jal	0xf109bac
+/*  f10f540:	0fc426eb */ 	jal	filemgrSaveOrLoad
 /*  f10f544:	00003025 */ 	move	$a2,$zero
 .PB0f10f548:
 /*  f10f548:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -2248,25 +2248,25 @@ glabel soloPushSoloModeEndscreen
 /*  f10f5d4:	8d6c048c */ 	lw	$t4,0x48c($t3)
 /*  f10f5d8:	15800005 */ 	bnez	$t4,.PB0f10f5f0
 /*  f10f5dc:	00000000 */ 	nop
-/*  f10f5e0:	0fc25675 */ 	jal	0xf0959d4
+/*  f10f5e0:	0fc25675 */ 	jal	objectiveIsAllComplete
 /*  f10f5e4:	00000000 */ 	nop
 /*  f10f5e8:	1440000d */ 	bnez	$v0,.PB0f10f620
 /*  f10f5ec:	00000000 */ 	nop
 .PB0f10f5f0:
-/*  f10f5f0:	0fc4810c */ 	jal	0xf120430
+/*  f10f5f0:	0fc4810c */ 	jal	debugIsAllTrainingEnabled
 /*  f10f5f4:	00000000 */ 	nop
 /*  f10f5f8:	14400009 */ 	bnez	$v0,.PB0f10f620
 /*  f10f5fc:	00000000 */ 	nop
-/*  f10f600:	0fc43798 */ 	jal	0xf10de60
+/*  f10f600:	0fc43798 */ 	jal	func0f10d770
 /*  f10f604:	00000000 */ 	nop
 /*  f10f608:	3c048007 */ 	lui	$a0,0x8007
 /*  f10f60c:	24847380 */ 	addiu	$a0,$a0,0x7380
-/*  f10f610:	0fc3e223 */ 	jal	0xf0f888c
+/*  f10f610:	0fc3e223 */ 	jal	menuPushRootDialog
 /*  f10f614:	24050009 */ 	li	$a1,0x9
 /*  f10f618:	10000004 */ 	b	.PB0f10f62c
 /*  f10f61c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .PB0f10f620:
-/*  f10f620:	0fc43800 */ 	jal	0xf10e000
+/*  f10f620:	0fc43800 */ 	jal	endscreenHandleContinue
 /*  f10f624:	24040001 */ 	li	$a0,0x1
 /*  f10f628:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .PB0f10f62c:
@@ -2384,7 +2384,7 @@ glabel soloPushAntiModeEndscreen
 /*  f10f648:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f10f64c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f10f650:	24040001 */ 	li	$a0,0x1
-/*  f10f654:	0fc5b9a4 */ 	jal	0xf16e690
+/*  f10f654:	0fc5b9a4 */ 	jal	lvSetPaused
 /*  f10f658:	afae001c */ 	sw	$t6,0x1c($sp)
 /*  f10f65c:	3c03800a */ 	lui	$v1,0x800a
 /*  f10f660:	2463e4d0 */ 	addiu	$v1,$v1,-6960
@@ -2424,53 +2424,53 @@ glabel soloPushAntiModeEndscreen
 /*  f10f6e8:	8c98048c */ 	lw	$t8,0x48c($a0)
 /*  f10f6ec:	17000005 */ 	bnez	$t8,.PB0f10f704
 /*  f10f6f0:	00000000 */ 	nop
-/*  f10f6f4:	0fc25675 */ 	jal	0xf0959d4
+/*  f10f6f4:	0fc25675 */ 	jal	objectiveIsAllComplete
 /*  f10f6f8:	00000000 */ 	nop
 /*  f10f6fc:	14400015 */ 	bnez	$v0,.PB0f10f754
 /*  f10f700:	00000000 */ 	nop
 .PB0f10f704:
-/*  f10f704:	0fc4810c */ 	jal	0xf120430
+/*  f10f704:	0fc4810c */ 	jal	debugIsAllTrainingEnabled
 /*  f10f708:	00000000 */ 	nop
 /*  f10f70c:	14400011 */ 	bnez	$v0,.PB0f10f754
 /*  f10f710:	00000000 */ 	nop
-/*  f10f714:	0fc550b9 */ 	jal	0xf1542e4
+/*  f10f714:	0fc550b9 */ 	jal	optionsGetScreenSplit
 /*  f10f718:	00000000 */ 	nop
 /*  f10f71c:	24010001 */ 	li	$at,0x1
 /*  f10f720:	14410007 */ 	bne	$v0,$at,.PB0f10f740
 /*  f10f724:	3c048007 */ 	lui	$a0,0x8007
 /*  f10f728:	3c048007 */ 	lui	$a0,0x8007
 /*  f10f72c:	2484797c */ 	addiu	$a0,$a0,0x797c
-/*  f10f730:	0fc3e223 */ 	jal	0xf0f888c
+/*  f10f730:	0fc3e223 */ 	jal	menuPushRootDialog
 /*  f10f734:	24050005 */ 	li	$a1,0x5
 /*  f10f738:	10000014 */ 	b	.PB0f10f78c
 /*  f10f73c:	00000000 */ 	nop
 .PB0f10f740:
 /*  f10f740:	2484794c */ 	addiu	$a0,$a0,0x794c
-/*  f10f744:	0fc3e223 */ 	jal	0xf0f888c
+/*  f10f744:	0fc3e223 */ 	jal	menuPushRootDialog
 /*  f10f748:	24050005 */ 	li	$a1,0x5
 /*  f10f74c:	1000000f */ 	b	.PB0f10f78c
 /*  f10f750:	00000000 */ 	nop
 .PB0f10f754:
-/*  f10f754:	0fc550b9 */ 	jal	0xf1542e4
+/*  f10f754:	0fc550b9 */ 	jal	optionsGetScreenSplit
 /*  f10f758:	00000000 */ 	nop
 /*  f10f75c:	24010001 */ 	li	$at,0x1
 /*  f10f760:	14410007 */ 	bne	$v0,$at,.PB0f10f780
 /*  f10f764:	3c048007 */ 	lui	$a0,0x8007
 /*  f10f768:	3c048007 */ 	lui	$a0,0x8007
 /*  f10f76c:	24847964 */ 	addiu	$a0,$a0,0x7964
-/*  f10f770:	0fc3e223 */ 	jal	0xf0f888c
+/*  f10f770:	0fc3e223 */ 	jal	menuPushRootDialog
 /*  f10f774:	24050005 */ 	li	$a1,0x5
 /*  f10f778:	10000004 */ 	b	.PB0f10f78c
 /*  f10f77c:	00000000 */ 	nop
 .PB0f10f780:
 /*  f10f780:	24847934 */ 	addiu	$a0,$a0,0x7934
-/*  f10f784:	0fc3e223 */ 	jal	0xf0f888c
+/*  f10f784:	0fc3e223 */ 	jal	menuPushRootDialog
 /*  f10f788:	24050005 */ 	li	$a1,0x5
 .PB0f10f78c:
 /*  f10f78c:	3c04800a */ 	lui	$a0,0x800a
 /*  f10f790:	248467f0 */ 	addiu	$a0,$a0,0x67f0
 /*  f10f794:	00002825 */ 	move	$a1,$zero
-/*  f10f798:	0fc426eb */ 	jal	0xf109bac
+/*  f10f798:	0fc426eb */ 	jal	filemgrSaveOrLoad
 /*  f10f79c:	00003025 */ 	move	$a2,$zero
 /*  f10f7a0:	10000032 */ 	b	.PB0f10f86c
 /*  f10f7a4:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -2485,47 +2485,47 @@ glabel soloPushAntiModeEndscreen
 /*  f10f7c4:	8c8a048c */ 	lw	$t2,0x48c($a0)
 /*  f10f7c8:	15400005 */ 	bnez	$t2,.PB0f10f7e0
 /*  f10f7cc:	00000000 */ 	nop
-/*  f10f7d0:	0fc25675 */ 	jal	0xf0959d4
+/*  f10f7d0:	0fc25675 */ 	jal	objectiveIsAllComplete
 /*  f10f7d4:	00000000 */ 	nop
 /*  f10f7d8:	14400015 */ 	bnez	$v0,.PB0f10f830
 /*  f10f7dc:	00000000 */ 	nop
 .PB0f10f7e0:
-/*  f10f7e0:	0fc4810c */ 	jal	0xf120430
+/*  f10f7e0:	0fc4810c */ 	jal	debugIsAllTrainingEnabled
 /*  f10f7e4:	00000000 */ 	nop
 /*  f10f7e8:	14400011 */ 	bnez	$v0,.PB0f10f830
 /*  f10f7ec:	00000000 */ 	nop
-/*  f10f7f0:	0fc550b9 */ 	jal	0xf1542e4
+/*  f10f7f0:	0fc550b9 */ 	jal	optionsGetScreenSplit
 /*  f10f7f4:	00000000 */ 	nop
 /*  f10f7f8:	24010001 */ 	li	$at,0x1
 /*  f10f7fc:	14410007 */ 	bne	$v0,$at,.PB0f10f81c
 /*  f10f800:	3c048007 */ 	lui	$a0,0x8007
 /*  f10f804:	3c048007 */ 	lui	$a0,0x8007
 /*  f10f808:	24847964 */ 	addiu	$a0,$a0,0x7964
-/*  f10f80c:	0fc3e223 */ 	jal	0xf0f888c
+/*  f10f80c:	0fc3e223 */ 	jal	menuPushRootDialog
 /*  f10f810:	24050005 */ 	li	$a1,0x5
 /*  f10f814:	10000015 */ 	b	.PB0f10f86c
 /*  f10f818:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .PB0f10f81c:
 /*  f10f81c:	24847934 */ 	addiu	$a0,$a0,0x7934
-/*  f10f820:	0fc3e223 */ 	jal	0xf0f888c
+/*  f10f820:	0fc3e223 */ 	jal	menuPushRootDialog
 /*  f10f824:	24050005 */ 	li	$a1,0x5
 /*  f10f828:	10000010 */ 	b	.PB0f10f86c
 /*  f10f82c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .PB0f10f830:
-/*  f10f830:	0fc550b9 */ 	jal	0xf1542e4
+/*  f10f830:	0fc550b9 */ 	jal	optionsGetScreenSplit
 /*  f10f834:	00000000 */ 	nop
 /*  f10f838:	24010001 */ 	li	$at,0x1
 /*  f10f83c:	14410007 */ 	bne	$v0,$at,.PB0f10f85c
 /*  f10f840:	3c048007 */ 	lui	$a0,0x8007
 /*  f10f844:	3c048007 */ 	lui	$a0,0x8007
 /*  f10f848:	2484797c */ 	addiu	$a0,$a0,0x797c
-/*  f10f84c:	0fc3e223 */ 	jal	0xf0f888c
+/*  f10f84c:	0fc3e223 */ 	jal	menuPushRootDialog
 /*  f10f850:	24050005 */ 	li	$a1,0x5
 /*  f10f854:	10000005 */ 	b	.PB0f10f86c
 /*  f10f858:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .PB0f10f85c:
 /*  f10f85c:	2484794c */ 	addiu	$a0,$a0,0x794c
-/*  f10f860:	0fc3e223 */ 	jal	0xf0f888c
+/*  f10f860:	0fc3e223 */ 	jal	menuPushRootDialog
 /*  f10f864:	24050005 */ 	li	$a1,0x5
 /*  f10f868:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .PB0f10f86c:

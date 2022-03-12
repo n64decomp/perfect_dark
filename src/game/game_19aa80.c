@@ -1077,7 +1077,7 @@ glabel mpConsiderMarkingCurrentChallengeComplete
 /*  f19e354:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f19e358:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f19e35c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f19e360:	0fc67875 */ 	jal	0xf19e1d4
+/*  f19e360:	0fc67875 */ 	jal	mpIsChallengeCompleteForEndscreen
 /*  f19e364:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f19e368:	3c0e800a */ 	lui	$t6,0x800a
 /*  f19e36c:	8dce6700 */ 	lw	$t6,0x6700($t6)
@@ -1089,7 +1089,7 @@ glabel mpConsiderMarkingCurrentChallengeComplete
 /*  f19e384:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*  f19e388:	14400004 */ 	bnez	$v0,.PB0f19e39c
 /*  f19e38c:	00000000 */ 	nop
-/*  f19e390:	0fc4810c */ 	jal	0xf120430
+/*  f19e390:	0fc4810c */ 	jal	debugIsAllTrainingEnabled
 /*  f19e394:	00000000 */ 	nop
 /*  f19e398:	10400082 */ 	beqz	$v0,.PB0f19e5a4
 .PB0f19e39c:
@@ -1128,7 +1128,7 @@ glabel mpConsiderMarkingCurrentChallengeComplete
 /*  f19e40c:	00436021 */ 	addu	$t4,$v0,$v1
 /*  f19e410:	01886821 */ 	addu	$t5,$t4,$t0
 /*  f19e414:	01a92821 */ 	addu	$a1,$t5,$t1
-/*  f19e418:	0fc67829 */ 	jal	0xf19e0a4
+/*  f19e418:	0fc67829 */ 	jal	mpSetChallengeCompletedByAnyPlayerWithNumPlayers
 /*  f19e41c:	8c84a990 */ 	lw	$a0,-0x5670($a0)
 /*  f19e420:	8e0f006c */ 	lw	$t7,0x6c($s0)
 /*  f19e424:	8e0e028c */ 	lw	$t6,0x28c($s0)
@@ -1166,7 +1166,7 @@ glabel mpConsiderMarkingCurrentChallengeComplete
 /*  f19e490:	19a00040 */ 	blez	$t5,.PB0f19e594
 /*  f19e494:	00000000 */ 	nop
 .PB0f19e498:
-/*  f19e498:	0fc4a783 */ 	jal	0xf129e0c
+/*  f19e498:	0fc4a783 */ 	jal	setCurrentPlayerNum
 /*  f19e49c:	02202025 */ 	move	$a0,$s1
 /*  f19e4a0:	8e0e006c */ 	lw	$t6,0x6c($s0)
 /*  f19e4a4:	3c058009 */ 	lui	$a1,0x8009
@@ -1201,7 +1201,7 @@ glabel mpConsiderMarkingCurrentChallengeComplete
 /*  f19e508:	01686021 */ 	addu	$t4,$t3,$t0
 /*  f19e50c:	01893021 */ 	addu	$a2,$t4,$t1
 /*  f19e510:	8ca5a990 */ 	lw	$a1,-0x5670($a1)
-/*  f19e514:	0fc67854 */ 	jal	0xf19e150
+/*  f19e514:	0fc67854 */ 	jal	mpSetChallengeCompletedByPlayerWithNumPlayers
 /*  f19e518:	8d440070 */ 	lw	$a0,0x70($t2)
 /*  f19e51c:	8e0d006c */ 	lw	$t5,0x6c($s0)
 /*  f19e520:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -1238,9 +1238,9 @@ glabel mpConsiderMarkingCurrentChallengeComplete
 /*  f19e58c:	1420ffc2 */ 	bnez	$at,.PB0f19e498
 /*  f19e590:	00000000 */ 	nop
 .PB0f19e594:
-/*  f19e594:	0fc4a783 */ 	jal	0xf129e0c
+/*  f19e594:	0fc4a783 */ 	jal	setCurrentPlayerNum
 /*  f19e598:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f19e59c:	0fc67317 */ 	jal	0xf19cc5c
+/*  f19e59c:	0fc67317 */ 	jal	mpDetermineUnlockedFeatures
 /*  f19e5a0:	00000000 */ 	nop
 .PB0f19e5a4:
 /*  f19e5a4:	8fbf001c */ 	lw	$ra,0x1c($sp)

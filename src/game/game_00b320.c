@@ -112,13 +112,13 @@ glabel stageLoadCommonLang
 .PB0f00b3c0:
 /*  f00b3c0:	348f000f */ 	ori	$t7,$a0,0xf
 /*  f00b3c4:	39e4000f */ 	xori	$a0,$t7,0xf
-/*  f00b3c8:	0c00490a */ 	jal	0x12428
+/*  f00b3c8:	0c00490a */ 	jal	mempAlloc
 /*  f00b3cc:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f00b3d0:	3c018008 */ 	lui	$at,0x8008
 /*  f00b3d4:	8fa30018 */ 	lw	$v1,0x18($sp)
 /*  f00b3d8:	ac2265f4 */ 	sw	$v0,0x65f4($at)
 /*  f00b3dc:	3c018008 */ 	lui	$at,0x8008
-/*  f00b3e0:	0fc5c07b */ 	jal	0xf1701ec
+/*  f00b3e0:	0fc5c07b */ 	jal	func0f16f6ecpf
 /*  f00b3e4:	ac2365fc */ 	sw	$v1,0x65fc($at)
 /*  f00b3e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f00b3ec:	27bd0020 */ 	addiu	$sp,$sp,0x20

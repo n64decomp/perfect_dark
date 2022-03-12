@@ -68,14 +68,14 @@ glabel func0f01d860
 /*  f01d8d8:	3c047f1b */ 	lui	$a0,0x7f1b
 /*  f01d8dc:	3c058006 */ 	lui	$a1,0x8006
 /*  f01d8e0:	24a54020 */ 	addiu	$a1,$a1,0x4020
-/*  f01d8e4:	0c003648 */ 	jal	0xd920
+/*  f01d8e4:	0c003648 */ 	jal	mainOverrideVariable
 /*  f01d8e8:	2484a330 */ 	addiu	$a0,$a0,-23760
 /*  f01d8ec:	3c048006 */ 	lui	$a0,0x8006
 /*  f01d8f0:	8c844020 */ 	lw	$a0,0x4020($a0)
 /*  f01d8f4:	2c810005 */ 	sltiu	$at,$a0,0x5
 /*  f01d8f8:	10200006 */ 	beqz	$at,.PB0f01d914
 /*  f01d8fc:	00000000 */ 	nop
-/*  f01d900:	0fc5c097 */ 	jal	0xf17025c
+/*  f01d900:	0fc5c097 */ 	jal	func0f16f75c
 /*  f01d904:	00000000 */ 	nop
 /*  f01d908:	240e0063 */ 	li	$t6,0x63
 /*  f01d90c:	3c018006 */ 	lui	$at,0x8006

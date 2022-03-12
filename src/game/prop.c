@@ -2982,7 +2982,7 @@ glabel var7f1ab190pf
 /*  f063670:	920f003d */ 	lbu	$t7,0x3d($s0)
 /*  f063674:	8e020004 */ 	lw	$v0,0x4($s0)
 /*  f063678:	02002025 */ 	move	$a0,$s0
-/*  f06367c:	0fc527cc */ 	jal	0xf149f30
+/*  f06367c:	0fc527cc */ 	jal	splatTick
 /*  f063680:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f063684:	8fa20048 */ 	lw	$v0,0x48($sp)
 /*  f063688:	10400008 */ 	beqz	$v0,.PB0f0636ac
@@ -2990,12 +2990,12 @@ glabel var7f1ab190pf
 /*  f063690:	8c4f02d4 */ 	lw	$t7,0x2d4($v0)
 /*  f063694:	11e00005 */ 	beqz	$t7,.PB0f0636ac
 /*  f063698:	00000000 */ 	nop
-/*  f06369c:	0fc64d1e */ 	jal	0xf193478
+/*  f06369c:	0fc64d1e */ 	jal	botTick
 /*  f0636a0:	02002025 */ 	move	$a0,$s0
 /*  f0636a4:	10000004 */ 	b	.PB0f0636b8
 /*  f0636a8:	00403025 */ 	move	$a2,$v0
 .PB0f0636ac:
-/*  f0636ac:	0fc08c5d */ 	jal	0xf023174
+/*  f0636ac:	0fc08c5d */ 	jal	chrTick
 /*  f0636b0:	02002025 */ 	move	$a0,$s0
 /*  f0636b4:	00403025 */ 	move	$a2,$v0
 .PB0f0636b8:
@@ -3026,7 +3026,7 @@ glabel var7f1ab190pf
 /*  f063714:	54610006 */ 	bnel	$v1,$at,.PB0f063730
 /*  f063718:	24010007 */ 	li	$at,0x7
 .PB0f06371c:
-/*  f06371c:	0fc1fa3e */ 	jal	0xf07e8f8
+/*  f06371c:	0fc1fa3e */ 	jal	objTick
 /*  f063720:	02002025 */ 	move	$a0,$s0
 /*  f063724:	10000017 */ 	b	.PB0f063784
 /*  f063728:	00403025 */ 	move	$a2,$v0
@@ -3034,7 +3034,7 @@ glabel var7f1ab190pf
 .PB0f063730:
 /*  f063730:	54610006 */ 	bnel	$v1,$at,.PB0f06374c
 /*  f063734:	24010008 */ 	li	$at,0x8
-/*  f063738:	0fc4b6ba */ 	jal	0xf12dae8
+/*  f063738:	0fc4b6ba */ 	jal	explosionTick
 /*  f06373c:	02002025 */ 	move	$a0,$s0
 /*  f063740:	10000010 */ 	b	.PB0f063784
 /*  f063744:	00403025 */ 	move	$a2,$v0
@@ -3042,7 +3042,7 @@ glabel var7f1ab190pf
 .PB0f06374c:
 /*  f06374c:	54610006 */ 	bnel	$v1,$at,.PB0f063768
 /*  f063750:	24010006 */ 	li	$at,0x6
-/*  f063754:	0fc4c1b5 */ 	jal	0xf1306d4
+/*  f063754:	0fc4c1b5 */ 	jal	smokeTick
 /*  f063758:	02002025 */ 	move	$a0,$s0
 /*  f06375c:	10000009 */ 	b	.PB0f063784
 /*  f063760:	00403025 */ 	move	$a2,$v0
@@ -3050,9 +3050,9 @@ glabel var7f1ab190pf
 .PB0f063768:
 /*  f063768:	54610007 */ 	bnel	$v1,$at,.PB0f063788
 /*  f06376c:	962e035e */ 	lhu	$t6,0x35e($s1)
-/*  f063770:	0fc527cc */ 	jal	0xf149f30
+/*  f063770:	0fc527cc */ 	jal	splatTick
 /*  f063774:	02002025 */ 	move	$a0,$s0
-/*  f063778:	0fc309fe */ 	jal	0xf0c27f8
+/*  f063778:	0fc309fe */ 	jal	playerTickThirdPerson
 /*  f06377c:	02002025 */ 	move	$a0,$s0
 /*  f063780:	00403025 */ 	move	$a2,$v0
 .PB0f063784:
@@ -3152,7 +3152,7 @@ glabel var7f1ab190pf
 /*  f0638dc:	00000000 */ 	nop
 /*  f0638e0:	8e020004 */ 	lw	$v0,0x4($s0)
 /*  f0638e4:	02002025 */ 	move	$a0,$s0
-/*  f0638e8:	0fc527cc */ 	jal	0xf149f30
+/*  f0638e8:	0fc527cc */ 	jal	splatTick
 /*  f0638ec:	afa20044 */ 	sw	$v0,0x44($sp)
 /*  f0638f0:	8fa20044 */ 	lw	$v0,0x44($sp)
 /*  f0638f4:	10400008 */ 	beqz	$v0,.PB0f063918
@@ -3160,12 +3160,12 @@ glabel var7f1ab190pf
 /*  f0638fc:	8c4f02d4 */ 	lw	$t7,0x2d4($v0)
 /*  f063900:	11e00005 */ 	beqz	$t7,.PB0f063918
 /*  f063904:	00000000 */ 	nop
-/*  f063908:	0fc64d1e */ 	jal	0xf193478
+/*  f063908:	0fc64d1e */ 	jal	botTick
 /*  f06390c:	02002025 */ 	move	$a0,$s0
 /*  f063910:	1000003c */ 	b	.PB0f063a04
 /*  f063914:	00403025 */ 	move	$a2,$v0
 .PB0f063918:
-/*  f063918:	0fc08c5d */ 	jal	0xf023174
+/*  f063918:	0fc08c5d */ 	jal	chrTick
 /*  f06391c:	02002025 */ 	move	$a0,$s0
 /*  f063920:	10000038 */ 	b	.PB0f063a04
 /*  f063924:	00403025 */ 	move	$a2,$v0
@@ -3184,7 +3184,7 @@ glabel var7f1ab190pf
 /*  f063950:	9318af54 */ 	lbu	$t8,-0x50ac($t8)
 /*  f063954:	57000006 */ 	bnezl	$t8,.PB0f063970
 /*  f063958:	860d0002 */ 	lh	$t5,0x2($s0)
-/*  f06395c:	0fc1fa3e */ 	jal	0xf07e8f8
+/*  f06395c:	0fc1fa3e */ 	jal	objTick
 /*  f063960:	02002025 */ 	move	$a0,$s0
 /*  f063964:	10000027 */ 	b	.PB0f063a04
 /*  f063968:	00403025 */ 	move	$a2,$v0
@@ -3201,7 +3201,7 @@ glabel var7f1ab190pf
 /*  f063990:	01b9082a */ 	slt	$at,$t5,$t9
 /*  f063994:	5020001c */ 	beqzl	$at,.PB0f063a08
 /*  f063998:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*  f06399c:	0fc18c2a */ 	jal	0xf0630a8
+/*  f06399c:	0fc18c2a */ 	jal	propPause
 /*  f0639a0:	02002025 */ 	move	$a0,$s0
 /*  f0639a4:	10000017 */ 	b	.PB0f063a04
 /*  f0639a8:	24060005 */ 	li	$a2,0x5
@@ -3209,7 +3209,7 @@ glabel var7f1ab190pf
 .PB0f0639b0:
 /*  f0639b0:	54610006 */ 	bnel	$v1,$at,.PB0f0639cc
 /*  f0639b4:	24010008 */ 	li	$at,0x8
-/*  f0639b8:	0fc4b6ba */ 	jal	0xf12dae8
+/*  f0639b8:	0fc4b6ba */ 	jal	explosionTick
 /*  f0639bc:	02002025 */ 	move	$a0,$s0
 /*  f0639c0:	10000010 */ 	b	.PB0f063a04
 /*  f0639c4:	00403025 */ 	move	$a2,$v0
@@ -3217,7 +3217,7 @@ glabel var7f1ab190pf
 .PB0f0639cc:
 /*  f0639cc:	54610006 */ 	bnel	$v1,$at,.PB0f0639e8
 /*  f0639d0:	24010006 */ 	li	$at,0x6
-/*  f0639d4:	0fc4c1b5 */ 	jal	0xf1306d4
+/*  f0639d4:	0fc4c1b5 */ 	jal	smokeTick
 /*  f0639d8:	02002025 */ 	move	$a0,$s0
 /*  f0639dc:	10000009 */ 	b	.PB0f063a04
 /*  f0639e0:	00403025 */ 	move	$a2,$v0
@@ -3225,9 +3225,9 @@ glabel var7f1ab190pf
 .PB0f0639e8:
 /*  f0639e8:	54610007 */ 	bnel	$v1,$at,.PB0f063a08
 /*  f0639ec:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*  f0639f0:	0fc527cc */ 	jal	0xf149f30
+/*  f0639f0:	0fc527cc */ 	jal	splatTick
 /*  f0639f4:	02002025 */ 	move	$a0,$s0
-/*  f0639f8:	0fc309fe */ 	jal	0xf0c27f8
+/*  f0639f8:	0fc309fe */ 	jal	playerTickThirdPerson
 /*  f0639fc:	02002025 */ 	move	$a0,$s0
 /*  f063a00:	00403025 */ 	move	$a2,$v0
 .PB0f063a04:
@@ -3285,9 +3285,9 @@ glabel var7f1ab190pf
 /*  f063abc:	35ee0080 */ 	ori	$t6,$t7,0x80
 /*  f063ac0:	a20e003f */ 	sb	$t6,0x3f($s0)
 /*  f063ac4:	afa20060 */ 	sw	$v0,0x60($sp)
-/*  f063ac8:	0fc181dd */ 	jal	0xf060774
+/*  f063ac8:	0fc181dd */ 	jal	propDelist
 /*  f063acc:	02002025 */ 	move	$a0,$s0
-/*  f063ad0:	0fc181ba */ 	jal	0xf0606e8
+/*  f063ad0:	0fc181ba */ 	jal	propActivateThisFrame
 /*  f063ad4:	02002025 */ 	move	$a0,$s0
 /*  f063ad8:	8fb8004c */ 	lw	$t8,0x4c($sp)
 /*  f063adc:	8fa20060 */ 	lw	$v0,0x60($sp)
@@ -3297,7 +3297,7 @@ glabel var7f1ab190pf
 /*  f063aec:	10000004 */ 	b	.PB0f063b00
 /*  f063af0:	afa0004c */ 	sw	$zero,0x4c($sp)
 .PB0f063af4:
-/*  f063af4:	0fc18b45 */ 	jal	0xf062d14
+/*  f063af4:	0fc18b45 */ 	jal	propExecuteTickOperation
 /*  f063af8:	afa20060 */ 	sw	$v0,0x60($sp)
 /*  f063afc:	8fa20060 */ 	lw	$v0,0x60($sp)
 .PB0f063b00:
@@ -3619,14 +3619,14 @@ glabel var7f1ab190pf
 /*  f063f5c:	9638035c */ 	lhu	$t8,0x35c($s1)
 /*  f063f60:	11a00007 */ 	beqz	$t5,.PB0f063f80
 /*  f063f64:	a5580378 */ 	sh	$t8,0x378($t2)
-/*  f063f68:	0fc24301 */ 	jal	0xf090c04
+/*  f063f68:	0fc24301 */ 	jal	alarmTick
 /*  f063f6c:	00000000 */ 	nop
-/*  f063f70:	0fc24cd2 */ 	jal	0xf093348
+/*  f063f70:	0fc24cd2 */ 	jal	propsndTick
 /*  f063f74:	00000000 */ 	nop
-/*  f063f78:	0fc1988d */ 	jal	0xf066234
+/*  f063f78:	0fc1988d */ 	jal	propsDefragRoomProps
 /*  f063f7c:	00000000 */ 	nop
 .PB0f063f80:
-/*  f063f80:	0fc091ff */ 	jal	0xf0247fc
+/*  f063f80:	0fc091ff */ 	jal	chr0f02472c
 /*  f063f84:	00000000 */ 	nop
 /*  f063f88:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*  f063f8c:	8fb00014 */ 	lw	$s0,0x14($sp)

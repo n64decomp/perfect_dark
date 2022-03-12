@@ -4604,18 +4604,18 @@ glabel mpChooseTrack
 /*  f18e078:	afb30024 */ 	sw	$s3,0x24($sp)
 /*  f18e07c:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f18e080:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f18e084:	0fc63792 */ 	jal	0xf18de48
+/*  f18e084:	0fc63792 */ 	jal	mpGetUsingMultipleTunes
 /*  f18e088:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f18e08c:	1040006f */ 	beqz	$v0,.PB0f18e24c
 /*  f18e090:	00000000 */ 	nop
-/*  f18e094:	0fc63769 */ 	jal	0xf18dda4
+/*  f18e094:	0fc63769 */ 	jal	mpGetNumUnlockedTracks
 /*  f18e098:	00000000 */ 	nop
 /*  f18e09c:	0040a025 */ 	move	$s4,$v0
 /*  f18e0a0:	0000a825 */ 	move	$s5,$zero
 /*  f18e0a4:	18400009 */ 	blez	$v0,.PB0f18e0cc
 /*  f18e0a8:	00008025 */ 	move	$s0,$zero
 .PB0f18e0ac:
-/*  f18e0ac:	0fc63795 */ 	jal	0xf18de54
+/*  f18e0ac:	0fc63795 */ 	jal	mpIsMultiTrackSlotEnabled
 /*  f18e0b0:	02002025 */ 	move	$a0,$s0
 /*  f18e0b4:	10400002 */ 	beqz	$v0,.PB0f18e0c0
 /*  f18e0b8:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -4629,7 +4629,7 @@ glabel mpChooseTrack
 /*  f18e0d0:	3c16800b */ 	lui	$s6,0x800b
 /*  f18e0d4:	26d61240 */ 	addiu	$s6,$s6,0x1240
 .PB0f18e0d8:
-/*  f18e0d8:	0c004be0 */ 	jal	0x12f80
+/*  f18e0d8:	0c004be0 */ 	jal	random
 /*  f18e0dc:	00000000 */ 	nop
 /*  f18e0e0:	0054001b */ 	divu	$zero,$v0,$s4
 /*  f18e0e4:	00002010 */ 	mfhi	$a0
@@ -4637,7 +4637,7 @@ glabel mpChooseTrack
 /*  f18e0ec:	00000000 */ 	nop
 /*  f18e0f0:	0007000d */ 	break	0x7
 .PB0f18e0f4:
-/*  f18e0f4:	0fc6374e */ 	jal	0xf18dd38
+/*  f18e0f4:	0fc6374e */ 	jal	mpGetTrackNumAtSlotIndex
 /*  f18e0f8:	00000000 */ 	nop
 /*  f18e0fc:	8ece0004 */ 	lw	$t6,0x4($s6)
 /*  f18e100:	00409825 */ 	move	$s3,$v0
@@ -4665,7 +4665,7 @@ glabel mpChooseTrack
 /*  f18e154:	26d61240 */ 	addiu	$s6,$s6,0x1240
 /*  f18e158:	00008025 */ 	move	$s0,$zero
 .PB0f18e15c:
-/*  f18e15c:	0c004be0 */ 	jal	0x12f80
+/*  f18e15c:	0c004be0 */ 	jal	random
 /*  f18e160:	00008825 */ 	move	$s1,$zero
 /*  f18e164:	0055001b */ 	divu	$zero,$v0,$s5
 /*  f18e168:	00009010 */ 	mfhi	$s2
@@ -4677,7 +4677,7 @@ glabel mpChooseTrack
 /*  f18e17c:	5a80000d */ 	blezl	$s4,.PB0f18e1b4
 /*  f18e180:	2401ffff */ 	li	$at,-1
 .PB0f18e184:
-/*  f18e184:	0fc63795 */ 	jal	0xf18de54
+/*  f18e184:	0fc63795 */ 	jal	mpIsMultiTrackSlotEnabled
 /*  f18e188:	02002025 */ 	move	$a0,$s0
 /*  f18e18c:	50400006 */ 	beqzl	$v0,.PB0f18e1a8
 /*  f18e190:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -4706,7 +4706,7 @@ glabel mpChooseTrack
 /*  f18e1e0:	10000055 */ 	b	.PB0f18e338
 /*  f18e1e4:	00031242 */ 	srl	$v0,$v1,0x9
 .PB0f18e1e8:
-/*  f18e1e8:	0fc6374e */ 	jal	0xf18dd38
+/*  f18e1e8:	0fc6374e */ 	jal	mpGetTrackNumAtSlotIndex
 /*  f18e1ec:	02602025 */ 	move	$a0,$s3
 /*  f18e1f0:	2aa10002 */ 	slti	$at,$s5,0x2
 /*  f18e1f4:	14200004 */ 	bnez	$at,.PB0f18e208
@@ -4733,17 +4733,17 @@ glabel mpChooseTrack
 /*  f18e244:	1000003c */ 	b	.PB0f18e338
 /*  f18e248:	00031242 */ 	srl	$v0,$v1,0x9
 .PB0f18e24c:
-/*  f18e24c:	0fc6380b */ 	jal	0xf18e02c
+/*  f18e24c:	0fc6380b */ 	jal	mpGetCurrentTrackSlotNum
 /*  f18e250:	00000000 */ 	nop
 /*  f18e254:	04410024 */ 	bgez	$v0,.PB0f18e2e8
 /*  f18e258:	00409825 */ 	move	$s3,$v0
-/*  f18e25c:	0fc63769 */ 	jal	0xf18dda4
+/*  f18e25c:	0fc63769 */ 	jal	mpGetNumUnlockedTracks
 /*  f18e260:	00000000 */ 	nop
 /*  f18e264:	3c16800b */ 	lui	$s6,0x800b
 /*  f18e268:	00408025 */ 	move	$s0,$v0
 /*  f18e26c:	26d61240 */ 	addiu	$s6,$s6,0x1240
 .PB0f18e270:
-/*  f18e270:	0c004be0 */ 	jal	0x12f80
+/*  f18e270:	0c004be0 */ 	jal	random
 /*  f18e274:	00000000 */ 	nop
 /*  f18e278:	0050001b */ 	divu	$zero,$v0,$s0
 /*  f18e27c:	00002010 */ 	mfhi	$a0
@@ -4751,7 +4751,7 @@ glabel mpChooseTrack
 /*  f18e284:	00000000 */ 	nop
 /*  f18e288:	0007000d */ 	break	0x7
 .PB0f18e28c:
-/*  f18e28c:	0fc6374e */ 	jal	0xf18dd38
+/*  f18e28c:	0fc6374e */ 	jal	mpGetTrackNumAtSlotIndex
 /*  f18e290:	00000000 */ 	nop
 /*  f18e294:	8ece0004 */ 	lw	$t6,0x4($s6)
 /*  f18e298:	00409825 */ 	move	$s3,$v0
@@ -4775,7 +4775,7 @@ glabel mpChooseTrack
 /*  f18e2e0:	10000015 */ 	b	.PB0f18e338
 /*  f18e2e4:	00031242 */ 	srl	$v0,$v1,0x9
 .PB0f18e2e8:
-/*  f18e2e8:	0fc6374e */ 	jal	0xf18dd38
+/*  f18e2e8:	0fc6374e */ 	jal	mpGetTrackNumAtSlotIndex
 /*  f18e2ec:	02602025 */ 	move	$a0,$s3
 /*  f18e2f0:	00024080 */ 	sll	$t0,$v0,0x2
 /*  f18e2f4:	3c16800b */ 	lui	$s6,0x800b
