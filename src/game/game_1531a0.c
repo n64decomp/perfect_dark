@@ -2636,7 +2636,7 @@ glabel var7f1b88a8pf
 );
 #endif
 
-#if VERSION >= VERSION_PAL_BETA
+#if VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel func0f15642cpb
 /*  f15642c:	3c0e8008 */ 	lui	$t6,0x8008
