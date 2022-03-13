@@ -21,7 +21,7 @@
 #include "types.h"
 
 u8 var800a22d0[0x5b];
-s8 g_AltTitleUnlocked;
+u8 g_AltTitleUnlocked;
 u8 g_AltTitleEnabled;
 
 void bossfileSetDefaults2(void)
@@ -181,7 +181,7 @@ void bossfileSave(void)
 	}
 
 	savebufferOr(&buffer, g_BossFile.usingmultipletunes, 1);
-	savebufferOr(&buffer, (u8)g_AltTitleUnlocked, 1);
+	savebufferOr(&buffer, g_AltTitleUnlocked, 1);
 	savebufferOr(&buffer, g_AltTitleEnabled, 1);
 
 	func0f0d54c4(&buffer);

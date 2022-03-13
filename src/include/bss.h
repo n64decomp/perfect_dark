@@ -190,7 +190,7 @@ extern u32 g_CheatsEnabledBank1;
 extern s32 g_FilemgrLastPakError;
 extern struct gamefile g_GameFile;
 extern struct fileguid g_GameFileGuid;
-extern s8 g_AltTitleUnlocked;
+extern u8 g_AltTitleUnlocked;
 extern u8 g_AltTitleEnabled;
 extern struct padsfileheader *g_PadsFile;
 extern u16 *g_PadOffsets;

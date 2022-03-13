@@ -1135,7 +1135,13 @@ struct menudialogdef g_SoloMissionEndscreenFailedMenuDialog = {
 	&g_SoloEndscreenObjectivesFailedMenuDialog,
 };
 
-#if VERSION >= VERSION_NTSC_1_0
+/**
+ * Prepare the endscreen by calculating unlocked cheats, setting the new best
+ * time, choosing the default stage and difficulty and saving the game file.
+ *
+ * NTSC beta doesn't have cheats implemented, and has a different autostageindex
+ * and thumbnail calculation.
+ */
 void endscreenPrepare(void)
 {
 	s32 timedcheatid;
@@ -1148,9 +1154,12 @@ void endscreenPrepare(void)
 	u16 prevbest;
 	bool nowunlocked;
 
+#if VERSION >= VERSION_NTSC_1_0
 	g_Menus[g_MpPlayerNum].endscreen.stageindex = g_MissionConfig.stageindex;
+#endif
 
 	if (g_MenuData.root != MENUROOT_ENDSCREEN && g_Vars.mplayerisrunning == false) {
+#if VERSION >= VERSION_NTSC_1_0
 		g_Menus[g_MpPlayerNum].endscreen.cheatinfo = 0;
 		g_Menus[g_MpPlayerNum].endscreen.isfirstcompletion = false;
 		g_Menus[g_MpPlayerNum].playernum = 0;
@@ -1170,6 +1179,9 @@ void endscreenPrepare(void)
 				g_Menus[g_MpPlayerNum].endscreen.cheatinfo |= 0x1000 | (complcheatid << 16);
 			}
 		}
+#else
+		g_Menus[g_MpPlayerNum].playernum = 0;
+#endif
 
 		// Push the endscreen
 #if VERSION == VERSION_PAL_BETA
@@ -1188,6 +1200,7 @@ void endscreenPrepare(void)
 		}
 
 		if (g_MissionConfig.iscoop == false && g_MissionConfig.isanti == false) {
+#if VERSION >= VERSION_NTSC_1_0
 			timedalreadyunlocked = false;
 			complalreadyunlocked = false;
 
@@ -1204,6 +1217,9 @@ void endscreenPrepare(void)
 			if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x1000) {
 				complalreadyunlocked = cheatIsUnlocked((g_Menus[g_MpPlayerNum].endscreen.cheatinfo >> 16) & 0xff);
 			}
+#else
+			playerGetMissionTime();
+#endif
 
 			// Update total mission time
 			secs = playerGetMissionTime() / 60;
@@ -1227,13 +1243,19 @@ void endscreenPrepare(void)
 							&& g_Vars.currentplayer->aborted == false
 							&& objectiveIsAllComplete())
 						|| debugIsSetCompleteEnabled()))
-#else
+#elif VERSION >= VERSION_NTSC_1_0
 			if (g_CheatsActiveBank0 == 0
 					&& g_CheatsActiveBank1 == 0
 					&& g_MissionConfig.pdmode == false
 					&& g_Vars.currentplayer->isdead == false
 					&& g_Vars.currentplayer->aborted == false
 					&& objectiveIsAllComplete())
+#else
+			if (g_Vars.currentplayer->isdead == false
+					&& g_Vars.currentplayer->aborted == false
+					&& objectiveIsAllComplete()
+					&& g_CheatsActiveBank0 == 0
+					&& g_CheatsActiveBank1 == 0)
 #endif
 			{
 				secs = playerGetMissionTime() / 60;
@@ -1244,6 +1266,7 @@ void endscreenPrepare(void)
 					secs = 0xfff;
 				}
 
+#if VERSION >= VERSION_NTSC_1_0
 				// Zero is used as an indicator that the stage is not completed,
 				// so if the player managed to legitly complete a stage in 0:00
 				// adjust it to 0:01.
@@ -1261,7 +1284,15 @@ void endscreenPrepare(void)
 				if (secs < prevbest || prevbest == 0) {
 					g_GameFile.besttimes[g_MissionConfig.stageindex][g_MissionConfig.difficulty] = secs;
 				}
+#else
+				prevbest = g_GameFile.besttimes[g_MissionConfig.stageindex][g_MissionConfig.difficulty];
 
+				if (secs < prevbest || prevbest == 0) {
+					g_GameFile.besttimes[g_MissionConfig.stageindex][g_MissionConfig.difficulty] = secs;
+				}
+#endif
+
+#if VERSION >= VERSION_NTSC_1_0
 				// Recalculate thumbnail for file select screen
 				if (g_MissionConfig.stageindex <= SOLOSTAGEINDEX_SKEDARRUINS) {
 					g_GameFile.autostageindex = g_MissionConfig.stageindex + 1;
@@ -1294,12 +1325,28 @@ void endscreenPrepare(void)
 						g_Menus[g_MpPlayerNum].endscreen.cheatinfo |= 0x0800;
 					}
 				}
+#else
+				// 154
+				if (g_MissionConfig.stageindex <= SOLOSTAGEINDEX_SKEDARRUINS) {
+					g_GameFile.autostageindex = g_MissionConfig.stageindex + 1;
+
+					if (g_GameFile.autostageindex > SOLOSTAGEINDEX_SKEDARRUINS) {
+						g_GameFile.autostageindex = SOLOSTAGEINDEX_SKEDARRUINS;
+					}
+
+					g_GameFile.thumbnail = g_MissionConfig.stageindex + 1;
+				}
+#endif
 
 				mpDetermineUnlockedFeatures();
 
-				if (g_MissionConfig.stagenum == STAGE_SKEDARRUINS && (u8)g_AltTitleUnlocked == false) {
+				if (g_MissionConfig.stagenum == STAGE_SKEDARRUINS && g_AltTitleUnlocked == false) {
 					g_AltTitleUnlocked = true;
+#if VERSION >= VERSION_NTSC_1_0
+					*(s8 *)&g_AltTitleEnabled = true;
+#else
 					g_AltTitleEnabled = true;
+#endif
 					bossfileSave();
 				}
 			}
@@ -1313,224 +1360,6 @@ void endscreenPrepare(void)
 		g_Vars.currentplayer->pausemode = PAUSEMODE_PAUSED;
 	}
 }
-#else
-GLOBAL_ASM(
-glabel endscreenPrepare
-/*  f108f00:	3c03800a */ 	lui	$v1,0x800a
-/*  f108f04:	8c635eb4 */ 	lw	$v1,0x5eb4($v1)
-/*  f108f08:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f108f0c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f108f10:	106100b4 */ 	beq	$v1,$at,.NB0f1091e4
-/*  f108f14:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f108f18:	3c0e800a */ 	lui	$t6,0x800a
-/*  f108f1c:	8dcee9d4 */ 	lw	$t6,-0x162c($t6)
-/*  f108f20:	3c0f8007 */ 	lui	$t7,0x8007
-/*  f108f24:	3c01800a */ 	lui	$at,0x800a
-/*  f108f28:	55c000af */ 	bnezl	$t6,.NB0f1091e8
-/*  f108f2c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f108f30:	8def3af0 */ 	lw	$t7,0x3af0($t7)
-/*  f108f34:	3c02800a */ 	lui	$v0,0x800a
-/*  f108f38:	8c42e944 */ 	lw	$v0,-0x16bc($v0)
-/*  f108f3c:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f108f40:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f108f44:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f108f48:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f108f4c:	0018c100 */ 	sll	$t8,$t8,0x4
-/*  f108f50:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f108f54:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f108f58:	00380821 */ 	addu	$at,$at,$t8
-/*  f108f5c:	a0202f57 */ 	sb	$zero,0x2f57($at)
-/*  f108f60:	8c5900d8 */ 	lw	$t9,0xd8($v0)
-/*  f108f64:	17200008 */ 	bnez	$t9,.NB0f108f88
-/*  f108f68:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f108f6c:	8c48048c */ 	lw	$t0,0x48c($v0)
-/*  f108f70:	15000005 */ 	bnez	$t0,.NB0f108f88
-/*  f108f74:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f108f78:	0fc24f11 */ 	jal	objectiveIsAllComplete
-/*  f108f7c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f108f80:	1440000a */ 	bnez	$v0,.NB0f108fac
-/*  f108f84:	3c048007 */ 	lui	$a0,0x8007
-.NB0f108f88:
-/*  f108f88:	3c048007 */ 	lui	$a0,0x8007
-/*  f108f8c:	24847ee0 */ 	addiu	$a0,$a0,0x7ee0
-/*  f108f90:	0fc3d326 */ 	jal	menuPushRootDialog
-/*  f108f94:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f108f98:	3c02800a */ 	lui	$v0,0x800a
-/*  f108f9c:	904227ab */ 	lbu	$v0,0x27ab($v0)
-/*  f108fa0:	000249c2 */ 	srl	$t1,$v0,0x7
-/*  f108fa4:	1000000f */ 	beqz	$zero,.NB0f108fe4
-/*  f108fa8:	01201025 */ 	or	$v0,$t1,$zero
-.NB0f108fac:
-/*  f108fac:	24847ec8 */ 	addiu	$a0,$a0,0x7ec8
-/*  f108fb0:	0fc3d326 */ 	jal	menuPushRootDialog
-/*  f108fb4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f108fb8:	3c02800a */ 	lui	$v0,0x800a
-/*  f108fbc:	904227ab */ 	lbu	$v0,0x27ab($v0)
-/*  f108fc0:	000251c2 */ 	srl	$t2,$v0,0x7
-/*  f108fc4:	11400007 */ 	beqz	$t2,.NB0f108fe4
-/*  f108fc8:	01401025 */ 	or	$v0,$t2,$zero
-/*  f108fcc:	0fc423a9 */ 	jal	endscreenSetCoopCompleted
-/*  f108fd0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f108fd4:	3c02800a */ 	lui	$v0,0x800a
-/*  f108fd8:	904227ab */ 	lbu	$v0,0x27ab($v0)
-/*  f108fdc:	000259c2 */ 	srl	$t3,$v0,0x7
-/*  f108fe0:	01601025 */ 	or	$v0,$t3,$zero
-.NB0f108fe4:
-/*  f108fe4:	14400078 */ 	bnez	$v0,.NB0f1091c8
-/*  f108fe8:	3c0c800a */ 	lui	$t4,0x800a
-/*  f108fec:	8d8c27a8 */ 	lw	$t4,0x27a8($t4)
-/*  f108ff0:	000c7640 */ 	sll	$t6,$t4,0x19
-/*  f108ff4:	05c00074 */ 	bltz	$t6,.NB0f1091c8
-/*  f108ff8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f108ffc:	0fc2ff91 */ 	jal	playerGetMissionTime
-/*  f109000:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f109004:	0fc2ff91 */ 	jal	playerGetMissionTime
-/*  f109008:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10900c:	2401003c */ 	addiu	$at,$zero,0x3c
-/*  f109010:	0041001a */ 	div	$zero,$v0,$at
-/*  f109014:	00001812 */ 	mflo	$v1
-/*  f109018:	3c047fff */ 	lui	$a0,0x7fff
-/*  f10901c:	10600010 */ 	beqz	$v1,.NB0f109060
-/*  f109020:	3484ffff */ 	ori	$a0,$a0,0xffff
-/*  f109024:	0064082b */ 	sltu	$at,$v1,$a0
-/*  f109028:	10200007 */ 	beqz	$at,.NB0f109048
-/*  f10902c:	3c07800a */ 	lui	$a3,0x800a
-/*  f109030:	24e766f0 */ 	addiu	$a3,$a3,0x66f0
-/*  f109034:	8ce20010 */ 	lw	$v0,0x10($a3)
-/*  f109038:	00837823 */ 	subu	$t7,$a0,$v1
-/*  f10903c:	004f082b */ 	sltu	$at,$v0,$t7
-/*  f109040:	14200005 */ 	bnez	$at,.NB0f109058
-/*  f109044:	0043c021 */ 	addu	$t8,$v0,$v1
-.NB0f109048:
-/*  f109048:	3c07800a */ 	lui	$a3,0x800a
-/*  f10904c:	24e766f0 */ 	addiu	$a3,$a3,0x66f0
-/*  f109050:	10000003 */ 	beqz	$zero,.NB0f109060
-/*  f109054:	ace40010 */ 	sw	$a0,0x10($a3)
-.NB0f109058:
-/*  f109058:	3c01800a */ 	lui	$at,0x800a
-/*  f10905c:	ac386700 */ 	sw	$t8,0x6700($at)
-.NB0f109060:
-/*  f109060:	3c03800a */ 	lui	$v1,0x800a
-/*  f109064:	246327a8 */ 	addiu	$v1,$v1,0x27a8
-/*  f109068:	3c07800a */ 	lui	$a3,0x800a
-/*  f10906c:	8c680000 */ 	lw	$t0,0x0($v1)
-/*  f109070:	24e766f0 */ 	addiu	$a3,$a3,0x66f0
-/*  f109074:	90ec000b */ 	lbu	$t4,0xb($a3)
-/*  f109078:	90790002 */ 	lbu	$t9,0x2($v1)
-/*  f10907c:	00085642 */ 	srl	$t2,$t0,0x19
-/*  f109080:	314b0007 */ 	andi	$t3,$t2,0x7
-/*  f109084:	318dfff8 */ 	andi	$t5,$t4,0xfff8
-/*  f109088:	016d7025 */ 	or	$t6,$t3,$t5
-/*  f10908c:	a0ee000b */ 	sb	$t6,0xb($a3)
-/*  f109090:	3c02800a */ 	lui	$v0,0x800a
-/*  f109094:	a0f9000c */ 	sb	$t9,0xc($a3)
-/*  f109098:	8c42e944 */ 	lw	$v0,-0x16bc($v0)
-/*  f10909c:	8c4f00d8 */ 	lw	$t7,0xd8($v0)
-/*  f1090a0:	15e00049 */ 	bnez	$t7,.NB0f1091c8
-/*  f1090a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1090a8:	8c58048c */ 	lw	$t8,0x48c($v0)
-/*  f1090ac:	17000046 */ 	bnez	$t8,.NB0f1091c8
-/*  f1090b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1090b4:	0fc24f11 */ 	jal	objectiveIsAllComplete
-/*  f1090b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1090bc:	10400042 */ 	beqz	$v0,.NB0f1091c8
-/*  f1090c0:	3c19800a */ 	lui	$t9,0x800a
-/*  f1090c4:	8f3966c0 */ 	lw	$t9,0x66c0($t9)
-/*  f1090c8:	3c08800a */ 	lui	$t0,0x800a
-/*  f1090cc:	1720003e */ 	bnez	$t9,.NB0f1091c8
-/*  f1090d0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1090d4:	8d0866c4 */ 	lw	$t0,0x66c4($t0)
-/*  f1090d8:	1500003b */ 	bnez	$t0,.NB0f1091c8
-/*  f1090dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1090e0:	0fc2ff91 */ 	jal	playerGetMissionTime
-/*  f1090e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1090e8:	2401003c */ 	addiu	$at,$zero,0x3c
-/*  f1090ec:	0041001a */ 	div	$zero,$v0,$at
-/*  f1090f0:	00003012 */ 	mflo	$a2
-/*  f1090f4:	3c07800a */ 	lui	$a3,0x800a
-/*  f1090f8:	2cc11000 */ 	sltiu	$at,$a2,0x1000
-/*  f1090fc:	14200002 */ 	bnez	$at,.NB0f109108
-/*  f109100:	24e766f0 */ 	addiu	$a3,$a3,0x66f0
-/*  f109104:	24060fff */ 	addiu	$a2,$zero,0xfff
-.NB0f109108:
-/*  f109108:	3c03800a */ 	lui	$v1,0x800a
-/*  f10910c:	906327aa */ 	lbu	$v1,0x27aa($v1)
-/*  f109110:	3c0c800a */ 	lui	$t4,0x800a
-/*  f109114:	8d8c27a8 */ 	lw	$t4,0x27a8($t4)
-/*  f109118:	00034880 */ 	sll	$t1,$v1,0x2
-/*  f10911c:	01234823 */ 	subu	$t1,$t1,$v1
-/*  f109120:	00094840 */ 	sll	$t1,$t1,0x1
-/*  f109124:	000c5e42 */ 	srl	$t3,$t4,0x19
-/*  f109128:	000b6840 */ 	sll	$t5,$t3,0x1
-/*  f10912c:	00e95021 */ 	addu	$t2,$a3,$t1
-/*  f109130:	014d2021 */ 	addu	$a0,$t2,$t5
-/*  f109134:	94820020 */ 	lhu	$v0,0x20($a0)
-/*  f109138:	00c2082b */ 	sltu	$at,$a2,$v0
-/*  f10913c:	54200004 */ 	bnezl	$at,.NB0f109150
-/*  f109140:	a4860020 */ 	sh	$a2,0x20($a0)
-/*  f109144:	54400003 */ 	bnezl	$v0,.NB0f109154
-/*  f109148:	28610011 */ 	slti	$at,$v1,0x11
-/*  f10914c:	a4860020 */ 	sh	$a2,0x20($a0)
-.NB0f109150:
-/*  f109150:	28610011 */ 	slti	$at,$v1,0x11
-.NB0f109154:
-/*  f109154:	1020000c */ 	beqz	$at,.NB0f109188
-/*  f109158:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f10915c:	306e00ff */ 	andi	$t6,$v1,0xff
-/*  f109160:	29c10011 */ 	slti	$at,$t6,0x11
-/*  f109164:	14200003 */ 	bnez	$at,.NB0f109174
-/*  f109168:	a0e3000c */ 	sb	$v1,0xc($a3)
-/*  f10916c:	240f0010 */ 	addiu	$t7,$zero,0x10
-/*  f109170:	a0ef000c */ 	sb	$t7,0xc($a3)
-.NB0f109174:
-/*  f109174:	90e9000b */ 	lbu	$t1,0xb($a3)
-/*  f109178:	000340c0 */ 	sll	$t0,$v1,0x3
-/*  f10917c:	312cff07 */ 	andi	$t4,$t1,0xff07
-/*  f109180:	010c5825 */ 	or	$t3,$t0,$t4
-/*  f109184:	a0eb000b */ 	sb	$t3,0xb($a3)
-.NB0f109188:
-/*  f109188:	0fc65417 */ 	jal	mpDetermineUnlockedFeatures
-/*  f10918c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f109190:	3c0a800a */ 	lui	$t2,0x800a
-/*  f109194:	914a27a9 */ 	lbu	$t2,0x27a9($t2)
-/*  f109198:	2401002a */ 	addiu	$at,$zero,0x2a
-/*  f10919c:	3c03800a */ 	lui	$v1,0x800a
-/*  f1091a0:	15410009 */ 	bne	$t2,$at,.NB0f1091c8
-/*  f1091a4:	2463681b */ 	addiu	$v1,$v1,0x681b
-/*  f1091a8:	906d0000 */ 	lbu	$t5,0x0($v1)
-/*  f1091ac:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1091b0:	3c01800a */ 	lui	$at,0x800a
-/*  f1091b4:	15a00004 */ 	bnez	$t5,.NB0f1091c8
-/*  f1091b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1091bc:	a0620000 */ 	sb	$v0,0x0($v1)
-/*  f1091c0:	0fc42b8c */ 	jal	bossfileSave
-/*  f1091c4:	a022681c */ 	sb	$v0,0x681c($at)
-.NB0f1091c8:
-/*  f1091c8:	3c04800a */ 	lui	$a0,0x800a
-/*  f1091cc:	248467b0 */ 	addiu	$a0,$a0,0x67b0
-/*  f1091d0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f1091d4:	0fc41358 */ 	jal	filemgrSaveOrLoad
-/*  f1091d8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1091dc:	3c03800a */ 	lui	$v1,0x800a
-/*  f1091e0:	8c635eb4 */ 	lw	$v1,0x5eb4($v1)
-.NB0f1091e4:
-/*  f1091e4:	24010001 */ 	addiu	$at,$zero,0x1
-.NB0f1091e8:
-/*  f1091e8:	54610008 */ 	bnel	$v1,$at,.NB0f10920c
-/*  f1091ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1091f0:	0fc59ebc */ 	jal	lvSetPaused
-/*  f1091f4:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f1091f8:	3c0f800a */ 	lui	$t7,0x800a
-/*  f1091fc:	8defe944 */ 	lw	$t7,-0x16bc($t7)
-/*  f109200:	240e0003 */ 	addiu	$t6,$zero,0x3
-/*  f109204:	adee1a24 */ 	sw	$t6,0x1a24($t7)
-/*  f109208:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f10920c:
-/*  f10920c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f109210:	03e00008 */ 	jr	$ra
-/*  f109214:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
 
 struct menudialogdef g_2PMissionEndscreenCompletedHMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
