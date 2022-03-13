@@ -353,61 +353,25 @@ char *soloMenuTextMissionTime(struct menuitem *item)
 	return g_StringPointer;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-struct menudialogdef *func0f10d730(void)
+struct menudialogdef *endscreen0f10d730(void)
 {
+#if VERSION < VERSION_NTSC_1_0
+	if (g_MissionConfig.stagenum == STAGE_SKEDARRUINS) {
+		g_MissionConfig.stagenum = STAGE_CREDITS;
+		titleSetNextStage(g_MissionConfig.stagenum);
+		lvSetDifficulty(g_MissionConfig.difficulty);
+		titleSetNextMode(TITLEMODE_SKIP);
+		mainChangeToStage(g_MissionConfig.stagenum);
+
+		return NULL;
+	}
+#endif
+
 	g_MissionConfig.stageindex++;
 	g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
 
 	return &g_NextMissionMenuDialog;
 }
-#else
-GLOBAL_ASM(
-glabel func0f10d730
-/*  f10876c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f108770:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f108774:	3c10800a */ 	lui	$s0,0x800a
-/*  f108778:	261027a8 */ 	addiu	$s0,$s0,0x27a8
-/*  f10877c:	920e0001 */ 	lbu	$t6,0x1($s0)
-/*  f108780:	2401002a */ 	addiu	$at,$zero,0x2a
-/*  f108784:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f108788:	15c1000e */ 	bne	$t6,$at,.NB0f1087c4
-/*  f10878c:	240f005c */ 	addiu	$t7,$zero,0x5c
-/*  f108790:	a20f0001 */ 	sb	$t7,0x1($s0)
-/*  f108794:	0fc06ba1 */ 	jal	titleSetNextStage
-/*  f108798:	31e400ff */ 	andi	$a0,$t7,0xff
-/*  f10879c:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f1087a0:	0004c642 */ 	srl	$t8,$a0,0x19
-/*  f1087a4:	0fc59ed6 */ 	jal	lvSetDifficulty
-/*  f1087a8:	03002025 */ 	or	$a0,$t8,$zero
-/*  f1087ac:	0fc06945 */ 	jal	titleSetNextMode
-/*  f1087b0:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f1087b4:	0c003c56 */ 	jal	mainChangeToStage
-/*  f1087b8:	92040001 */ 	lbu	$a0,0x1($s0)
-/*  f1087bc:	1000000e */ 	beqz	$zero,.NB0f1087f8
-/*  f1087c0:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f1087c4:
-/*  f1087c4:	92190002 */ 	lbu	$t9,0x2($s0)
-/*  f1087c8:	3c0b8007 */ 	lui	$t3,0x8007
-/*  f1087cc:	3c028007 */ 	lui	$v0,0x8007
-/*  f1087d0:	27280001 */ 	addiu	$t0,$t9,0x1
-/*  f1087d4:	310900ff */ 	andi	$t1,$t0,0xff
-/*  f1087d8:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f1087dc:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f1087e0:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f1087e4:	a2080002 */ 	sb	$t0,0x2($s0)
-/*  f1087e8:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f1087ec:	8d6b43fc */ 	lw	$t3,0x43fc($t3)
-/*  f1087f0:	24427a90 */ 	addiu	$v0,$v0,0x7a90
-/*  f1087f4:	a20b0001 */ 	sb	$t3,0x1($s0)
-.NB0f1087f8:
-/*  f1087f8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1087fc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f108800:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f108804:	03e00008 */ 	jr	$ra
-/*  f108808:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
 
 void func0f10d770(void)
 {
@@ -611,9 +575,9 @@ void endscreenHandleContinue(s32 context)
 				func0f10d770();
 
 				if (context == 1) {
-					menuPushRootDialog(func0f10d730(), MENUROOT_COOPCONTINUE);
+					menuPushRootDialog(endscreen0f10d730(), MENUROOT_COOPCONTINUE);
 				} else {
-					menuPushDialog(func0f10d730());
+					menuPushDialog(endscreen0f10d730());
 				}
 			}
 		}
@@ -889,7 +853,7 @@ glabel menudialogSolo2PEndscreenCompleted
 .NB0f108c5c:
 /*  f108c5c:	0fc42203 */ 	jal	func0f10d770
 /*  f108c60:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f108c64:	0fc421db */ 	jal	func0f10d730
+/*  f108c64:	0fc421db */ 	jal	endscreen0f10d730
 /*  f108c68:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f108c6c:	0fc3beda */ 	jal	menuPushDialog
 /*  f108c70:	00402025 */ 	or	$a0,$v0,$zero
@@ -1745,7 +1709,7 @@ glabel soloPushSoloModeEndscreen
 /*  f10943c:	1000000b */ 	beqz	$zero,.NB0f10946c
 /*  f109440:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .NB0f109444:
-/*  f109444:	0fc421db */ 	jal	func0f10d730
+/*  f109444:	0fc421db */ 	jal	endscreen0f10d730
 /*  f109448:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10944c:	50400007 */ 	beqzl	$v0,.NB0f10946c
 /*  f109450:	8fbf0014 */ 	lw	$ra,0x14($sp)

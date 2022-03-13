@@ -27,7 +27,7 @@ char *menuTitleStageCompleted(struct menuitem *item);
 char *menuTextCurrentStageName3(struct menuitem *item);
 char *menuTitleStageFailed(struct menuitem *item);
 char *soloMenuTextMissionTime(struct menuitem *item);
-struct menudialogdef *func0f10d730(void);
+struct menudialogdef *endscreen0f10d730(void);
 void func0f10d770(void);
 void endscreenHandleContinue(s32 context);
 char *soloMenuTextTimedCheatName(struct menuitem *item);
