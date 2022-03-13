@@ -449,12 +449,12 @@ void menuTick(void)
 							if (g_Vars.coopplayernum >= 0) {
 								s32 prevplayernum = g_Vars.currentplayernum;
 								setCurrentPlayerNum(playernum);
-								soloPushCoopModeEndscreen();
+								endscreenPushCoop();
 								setCurrentPlayerNum(prevplayernum);
 							} else if (g_Vars.antiplayernum >= 0) {
 								s32 prevplayernum = g_Vars.currentplayernum;
 								setCurrentPlayerNum(playernum);
-								soloPushAntiModeEndscreen();
+								endscreenPushAnti();
 								setCurrentPlayerNum(prevplayernum);
 							} else {
 								mpPushEndscreenDialog(playernum, i);
@@ -545,14 +545,14 @@ void menuTick(void)
 							} else {
 								s32 prevplayernum = g_Vars.currentplayernum;
 								setCurrentPlayerNum(playernum);
-								soloPushCoopModeEndscreen();
+								endscreenPushCoop();
 								setCurrentPlayerNum(prevplayernum);
 								sp344 = true;
 							}
 						} else if (g_Vars.antiplayernum >= 0) {
 							s32 prevplayernum = g_Vars.currentplayernum;
 							setCurrentPlayerNum(playernum);
-							soloPushAntiModeEndscreen();
+							endscreenPushAnti();
 							setCurrentPlayerNum(prevplayernum);
 							sp344 = true;
 						} else {
@@ -634,7 +634,7 @@ void menuTick(void)
 				if (g_Vars.coopplayernum >= 0
 						&& g_MissionConfig.stageindex <= SOLOSTAGEINDEX_SKEDARRUINS
 						&& ((!g_CheatsActiveBank0 && !g_CheatsActiveBank1) || isStageDifficultyUnlocked(g_MissionConfig.stageindex + 1, g_MissionConfig.difficulty))) {
-					soloPushSoloModeEndscreen();
+					endscreenPushSolo();
 				} else if (g_Vars.restartlevel) {
 					mainChangeToStage(mainGetStageNum());
 				} else {

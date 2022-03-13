@@ -3992,7 +3992,7 @@ void mainEndStage(void)
 
 			for (i = 0; i < PLAYERCOUNT(); i++) {
 				setCurrentPlayerNum(i);
-				soloPushCoopModeEndscreen();
+				endscreenPushCoop();
 			}
 
 			setCurrentPlayerNum(prevplayernum);
@@ -4003,7 +4003,7 @@ void mainEndStage(void)
 
 			for (i = 0; i < PLAYERCOUNT(); i++) {
 				setCurrentPlayerNum(i);
-				soloPushAntiModeEndscreen();
+				endscreenPushAnti();
 			}
 
 			setCurrentPlayerNum(prevplayernum);
