@@ -121,43 +121,43 @@
     },
     {
         "id": "L_MISC_073",
-        "en": "S\/MPS",
-        "gb": "S\/MPS",
-        "jp": "S\/MPS",
-        "it": "v\/ms",
-        "fr": "Vit\/MPS",
-        "de": "S\/MPS",
-        "es": "v\/mps"
+        "en": "S/MPS",
+        "gb": "S/MPS",
+        "jp": "S/MPS",
+        "it": "v/ms",
+        "fr": "Vit/MPS",
+        "de": "S/MPS",
+        "es": "v/mps"
     },
     {
         "id": "L_MISC_074",
-        "en": "H\/M",
-        "gb": "H\/M",
-        "jp": "H\/M",
-        "it": "h\/m",
-        "fr": "Hau\/M",
-        "de": "H\/M",
-        "es": "a\/m"
+        "en": "H/M",
+        "gb": "H/M",
+        "jp": "H/M",
+        "it": "h/m",
+        "fr": "Hau/M",
+        "de": "H/M",
+        "es": "a/m"
     },
     {
         "id": "L_MISC_075",
-        "en": "Y\/D",
-        "gb": "Y\/D",
-        "jp": "Y\/D",
-        "it": "i\/g",
-        "fr": "Dev\/D",
-        "de": "Y\/D",
-        "es": "x\/°"
+        "en": "Y/D",
+        "gb": "Y/D",
+        "jp": "Y/D",
+        "it": "i/g",
+        "fr": "Dev/D",
+        "de": "Y/D",
+        "es": "x/°"
     },
     {
         "id": "L_MISC_076",
-        "en": "P\/D",
-        "gb": "P\/D",
-        "jp": "P\/D",
-        "it": "t\/g",
-        "fr": "Ang\/D",
-        "de": "P\/D",
-        "es": "y\/°"
+        "en": "P/D",
+        "gb": "P/D",
+        "jp": "P/D",
+        "it": "t/g",
+        "fr": "Ang/D",
+        "de": "P/D",
+        "es": "y/°"
     },
     {
         "id": "L_MISC_077",
@@ -1831,12 +1831,12 @@
     },
     {
         "id": "L_MISC_442",
-        "en": "Load\/Preset Games\n",
-        "gb": "Load\/Preset Games\n",
-        "jp": "Load\/Preset Games\n",
-        "it": "Carica\/Imposta giochi\n",
+        "en": "Load/Preset Games\n",
+        "gb": "Load/Preset Games\n",
+        "jp": "Load/Preset Games\n",
+        "it": "Carica/Imposta giochi\n",
         "fr": "Charger jeu prédéfini\n",
-        "de": "Laden\/Voreinstellung\n",
+        "de": "Laden/Voreinstellung\n",
         "es": "Cargar Juegos\n"
     },
     {

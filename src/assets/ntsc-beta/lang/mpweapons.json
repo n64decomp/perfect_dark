@@ -231,13 +231,13 @@
     },
     {
         "id": "L_MPWEAPONS_023",
-        "en": "%ds\/Point\n",
-        "gb": "%ds\/Point\n",
-        "jp": "%ds\/Point\n",
-        "it": "%ds\/Point\n",
-        "fr": "%ds\/Point\n",
-        "de": "%ds\/Point\n",
-        "es": "%ds\/Point\n"
+        "en": "%ds/Point\n",
+        "gb": "%ds/Point\n",
+        "jp": "%ds/Point\n",
+        "it": "%ds/Point\n",
+        "fr": "%ds/Point\n",
+        "de": "%ds/Point\n",
+        "es": "%ds/Point\n"
     },
     {
         "id": "L_MPWEAPONS_024",
@@ -1011,13 +1011,13 @@
     },
     {
         "id": "L_MPWEAPONS_101",
-        "en": "R-Tracker \/ Weapon Cache Locations\n",
-        "gb": "R-Tracker \/ Weapon Cache Locations\n",
-        "jp": "R-Tracker \/ Weapon Cache Locations\n",
-        "it": "R-Tracker \/ Weapon Cache Locations\n",
-        "fr": "R-Tracker \/ Weapon Cache Locations\n",
-        "de": "R-Tracker \/ Weapon Cache Locations\n",
-        "es": "R-Tracker \/ Weapon Cache Locations\n"
+        "en": "R-Tracker / Weapon Cache Locations\n",
+        "gb": "R-Tracker / Weapon Cache Locations\n",
+        "jp": "R-Tracker / Weapon Cache Locations\n",
+        "it": "R-Tracker / Weapon Cache Locations\n",
+        "fr": "R-Tracker / Weapon Cache Locations\n",
+        "de": "R-Tracker / Weapon Cache Locations\n",
+        "es": "R-Tracker / Weapon Cache Locations\n"
     },
     {
         "id": "L_MPWEAPONS_102",
@@ -1842,16 +1842,16 @@
     {
         "id": "L_MPWEAPONS_184",
         "en": "Player Handicaps\n",
-        "gb": "L\/R: ",
-        "jp": "L\/R: ",
-        "it": "L\/R: ",
-        "fr": "L\/R: ",
-        "de": "L\/R: ",
-        "es": "L\/R: "
+        "gb": "L/R: ",
+        "jp": "L/R: ",
+        "it": "L/R: ",
+        "fr": "L/R: ",
+        "de": "L/R: ",
+        "es": "L/R: "
     },
     {
         "id": "L_MPWEAPONS_185",
-        "en": "L\/R BUTTONS: ",
+        "en": "L/R BUTTONS: ",
         "gb": "C-UP: ",
         "jp": "C-UP: ",
         "it": "C-UP: ",
@@ -1862,16 +1862,16 @@
     {
         "id": "L_MPWEAPONS_186",
         "en": "UP C BUTTON: ",
-        "gb": "C-L\/R: ",
-        "jp": "C-L\/R: ",
-        "it": "C-L\/R: ",
-        "fr": "C-L\/R: ",
-        "de": "C-L\/R: ",
-        "es": "C-L\/R: "
+        "gb": "C-L/R: ",
+        "jp": "C-L/R: ",
+        "it": "C-L/R: ",
+        "fr": "C-L/R: ",
+        "de": "C-L/R: ",
+        "es": "C-L/R: "
     },
     {
         "id": "L_MPWEAPONS_187",
-        "en": "LEFT\/RIGHT C BUTTONS: ",
+        "en": "LEFT/RIGHT C BUTTONS: ",
         "gb": "C-DOWN: ",
         "jp": "C-DOWN: ",
         "it": "C-DOWN: ",
@@ -1942,12 +1942,12 @@
     {
         "id": "L_MPWEAPONS_194",
         "en": "AIM",
-        "gb": "LOOK UP \/ GET UP",
-        "jp": "LOOK UP \/ GET UP",
-        "it": "LOOK UP \/ GET UP",
-        "fr": "LOOK UP \/ GET UP",
-        "de": "LOOK UP \/ GET UP",
-        "es": "LOOK UP \/ GET UP"
+        "gb": "LOOK UP / GET UP",
+        "jp": "LOOK UP / GET UP",
+        "it": "LOOK UP / GET UP",
+        "fr": "LOOK UP / GET UP",
+        "de": "LOOK UP / GET UP",
+        "es": "LOOK UP / GET UP"
     },
     {
         "id": "L_MPWEAPONS_195",
@@ -1962,32 +1962,32 @@
     {
         "id": "L_MPWEAPONS_196",
         "en": "LOOK UP",
-        "gb": "LOOK DOWN \/ CROUCH",
-        "jp": "LOOK DOWN \/ CROUCH",
-        "it": "LOOK DOWN \/ CROUCH",
-        "fr": "LOOK DOWN \/ CROUCH",
-        "de": "LOOK DOWN \/ CROUCH",
-        "es": "LOOK DOWN \/ CROUCH"
+        "gb": "LOOK DOWN / CROUCH",
+        "jp": "LOOK DOWN / CROUCH",
+        "it": "LOOK DOWN / CROUCH",
+        "fr": "LOOK DOWN / CROUCH",
+        "de": "LOOK DOWN / CROUCH",
+        "es": "LOOK DOWN / CROUCH"
     },
     {
         "id": "L_MPWEAPONS_197",
         "en": "LOOK DOWN",
-        "gb": "CHANGE GUN \/ ACTIVEMENU",
-        "jp": "CHANGE GUN \/ ACTIVEMENU",
-        "it": "CHANGE GUN \/ ACTIVEMENU",
-        "fr": "CHANGE GUN \/ ACTIVEMENU",
-        "de": "CHANGE GUN \/ ACTIVEMENU",
-        "es": "CHANGE GUN \/ ACTIVEMENU"
+        "gb": "CHANGE GUN / ACTIVEMENU",
+        "jp": "CHANGE GUN / ACTIVEMENU",
+        "it": "CHANGE GUN / ACTIVEMENU",
+        "fr": "CHANGE GUN / ACTIVEMENU",
+        "de": "CHANGE GUN / ACTIVEMENU",
+        "es": "CHANGE GUN / ACTIVEMENU"
     },
     {
         "id": "L_MPWEAPONS_198",
         "en": "LOOK DOWN",
-        "gb": "RELOAD \/ ACTION \/ SECONDARY FIRE",
-        "jp": "RELOAD \/ ACTION \/ SECONDARY FIRE",
-        "it": "RELOAD \/ ACTION \/ SECONDARY FIRE",
-        "fr": "RELOAD \/ ACTION \/ SECONDARY FIRE",
-        "de": "RELOAD \/ ACTION \/ SECONDARY FIRE",
-        "es": "RELOAD \/ ACTION \/ SECONDARY FIRE"
+        "gb": "RELOAD / ACTION / SECONDARY FIRE",
+        "jp": "RELOAD / ACTION / SECONDARY FIRE",
+        "it": "RELOAD / ACTION / SECONDARY FIRE",
+        "fr": "RELOAD / ACTION / SECONDARY FIRE",
+        "de": "RELOAD / ACTION / SECONDARY FIRE",
+        "es": "RELOAD / ACTION / SECONDARY FIRE"
     },
     {
         "id": "L_MPWEAPONS_199",
@@ -2041,7 +2041,7 @@
     },
     {
         "id": "L_MPWEAPONS_204",
-        "en": "ACTION\/RELOAD",
+        "en": "ACTION/RELOAD",
         "gb": null,
         "jp": null,
         "it": null,
@@ -2061,7 +2061,7 @@
     },
     {
         "id": "L_MPWEAPONS_206",
-        "en": "WALK\/TURN",
+        "en": "WALK/TURN",
         "gb": null,
         "jp": null,
         "it": null,
@@ -2081,7 +2081,7 @@
     },
     {
         "id": "L_MPWEAPONS_208",
-        "en": "WALK\/STRAFE",
+        "en": "WALK/STRAFE",
         "gb": null,
         "jp": null,
         "it": null,
@@ -2091,7 +2091,7 @@
     },
     {
         "id": "L_MPWEAPONS_209",
-        "en": "LOOK\/STRAFE",
+        "en": "LOOK/STRAFE",
         "gb": null,
         "jp": null,
         "it": null,

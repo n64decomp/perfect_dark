@@ -1711,13 +1711,13 @@
     },
     {
         "id": "L_GUN_171",
-        "en": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s\/f:300 rpm).\n",
-        "gb": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s\/f:300 rpm).\n",
-        "jp": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other smg, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900rpm. s\/f:300rpm\n",
-        "it": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s\/f:300 rpm).\n",
-        "fr": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s\/f:300 rpm).\n",
-        "de": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s\/f:300 rpm).\n",
-        "es": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s\/f:300 rpm).\n"
+        "en": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s/f:300 rpm).\n",
+        "gb": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s/f:300 rpm).\n",
+        "jp": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other smg, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900rpm. s/f:300rpm\n",
+        "it": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s/f:300 rpm).\n",
+        "fr": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s/f:300 rpm).\n",
+        "de": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s/f:300 rpm).\n",
+        "es": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s/f:300 rpm).\n"
     },
     {
         "id": "L_GUN_172",
@@ -1851,23 +1851,23 @@
     },
     {
         "id": "L_GUN_185",
-        "en": "A mine with a short timed fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
-        "gb": "A mine with a short timed fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
-        "jp": "A mine with a short timed fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
-        "it": "A mine with a short timed fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
-        "fr": "A mine with a short timed fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
-        "de": "A mine with a short timed fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
-        "es": "A mine with a short timed fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n"
+        "en": "A mine with a short timed fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n",
+        "gb": "A mine with a short timed fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n",
+        "jp": "A mine with a short timed fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n",
+        "it": "A mine with a short timed fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n",
+        "fr": "A mine with a short timed fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n",
+        "de": "A mine with a short timed fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n",
+        "es": "A mine with a short timed fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n"
     },
     {
         "id": "L_GUN_186",
-        "en": "A mine with a proximity fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
-        "gb": "A mine with a proximity fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
-        "jp": "A mine with a proximity fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
-        "it": "A mine with a proximity fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
-        "fr": "A mine with a proximity fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
-        "de": "A mine with a proximity fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n",
-        "es": "A mine with a proximity fuse. It has a threat detection\/evaluation sensor that can be activated as a secondary mode.\n"
+        "en": "A mine with a proximity fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n",
+        "gb": "A mine with a proximity fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n",
+        "jp": "A mine with a proximity fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n",
+        "it": "A mine with a proximity fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n",
+        "fr": "A mine with a proximity fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n",
+        "de": "A mine with a proximity fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n",
+        "es": "A mine with a proximity fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n"
     },
     {
         "id": "L_GUN_187",
@@ -1921,13 +1921,13 @@
     },
     {
         "id": "L_GUN_192",
-        "en": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. It has a video\/audio link with a recording function and an onboard facility for spectroscopic holography.\n",
-        "gb": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video\/audio link with a recording function and an onboard facility for spectroscopic holography.\n",
-        "jp": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video\/audio link with a recording function, and an onboard facility for spectroscopic holography.\n",
-        "it": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video\/audio link with a recording function and an onboard facility for spectroscopic holography.\n",
-        "fr": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video\/audio link with a recording function and an onboard facility for spectroscopic holography.\n",
-        "de": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video\/audio link with a recording function and an onboard facility for spectroscopic holography.\n",
-        "es": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video\/audio link with a recording function and an onboard facility for spectroscopic holography.\n"
+        "en": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. It has a video/audio link with a recording function and an onboard facility for spectroscopic holography.\n",
+        "gb": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video/audio link with a recording function and an onboard facility for spectroscopic holography.\n",
+        "jp": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video/audio link with a recording function, and an onboard facility for spectroscopic holography.\n",
+        "it": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video/audio link with a recording function and an onboard facility for spectroscopic holography.\n",
+        "fr": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video/audio link with a recording function and an onboard facility for spectroscopic holography.\n",
+        "de": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video/audio link with a recording function and an onboard facility for spectroscopic holography.\n",
+        "es": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video/audio link with a recording function and an onboard facility for spectroscopic holography.\n"
     },
     {
         "id": "L_GUN_193",
@@ -2091,13 +2091,13 @@
     },
     {
         "id": "L_GUN_209",
-        "en": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23\/6\/23\n",
-        "gb": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23\/6\/23\n",
-        "jp": "The last personality-state recording of the Artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for Case Study, Theoretical Projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23\/6\/23\n",
-        "it": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23\/6\/23\n",
-        "fr": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23\/6\/23\n",
-        "de": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23\/6\/23\n",
-        "es": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23\/6\/23\n"
+        "en": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23/6/23\n",
+        "gb": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23/6/23\n",
+        "jp": "The last personality-state recording of the Artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for Case Study, Theoretical Projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23/6/23\n",
+        "it": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23/6/23\n",
+        "fr": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23/6/23\n",
+        "de": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23/6/23\n",
+        "es": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23/6/23\n"
     },
     {
         "id": "L_GUN_210",

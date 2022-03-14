@@ -1956,7 +1956,7 @@
         "jp": "Head Roll\n",
         "it": "Invers. punto di vista\n",
         "fr": "Visée inversée\n",
-        "de": "Blick nach oben\/unten vertauschen\n",
+        "de": "Blick nach oben/unten vertauschen\n",
         "es": "Control Opuesto\n"
     },
     {
@@ -2024,7 +2024,7 @@
         "en": "Toggle\n",
         "gb": "Toggle\n",
         "jp": "Display Player 2\n",
-        "it": "Attiva\/Disattiva\n",
+        "it": "Attiva/Disattiva\n",
         "fr": "Alterné\n",
         "de": "Umschalten\n",
         "es": "Cambiar\n"
@@ -3033,7 +3033,7 @@
         "id": "L_OPTIONS_303",
         "en": "Combat Simulator\n",
         "gb": "Combat Simulator\n",
-        "jp": "Audio\/Video\n",
+        "jp": "Audio/Video\n",
         "it": "Simulatore\n",
         "fr": "Simulateur de Combat\n",
         "de": "Kampfsimulator\n",
@@ -3051,13 +3051,13 @@
     },
     {
         "id": "L_OPTIONS_305",
-        "en": "Audio\/Video\n",
-        "gb": "Audio\/Video\n",
-        "jp": "Audio\/Visual\n",
-        "it": "Audio\/Video\n",
-        "fr": "Audio \/ Vidéo\n",
-        "de": "Audio\/Video\n",
-        "es": "Audio\/Vídeo\n"
+        "en": "Audio/Video\n",
+        "gb": "Audio/Video\n",
+        "jp": "Audio/Visual\n",
+        "it": "Audio/Video\n",
+        "fr": "Audio / Vidéo\n",
+        "de": "Audio/Video\n",
+        "es": "Audio/Vídeo\n"
     },
     {
         "id": "L_OPTIONS_306",
@@ -3071,13 +3071,13 @@
     },
     {
         "id": "L_OPTIONS_307",
-        "en": "Audio\/Visual\n",
-        "gb": "Audio\/Visual\n",
+        "en": "Audio/Visual\n",
+        "gb": "Audio/Visual\n",
         "jp": "Music\n",
-        "it": "Audio\/Video\n",
-        "fr": "Audio \/ Visuel\n",
-        "de": "Audio\/Video\n",
-        "es": "Audio\/Visual\n"
+        "it": "Audio/Video\n",
+        "fr": "Audio / Visuel\n",
+        "de": "Audio/Video\n",
+        "es": "Audio/Visual\n"
     },
     {
         "id": "L_OPTIONS_308",

@@ -3033,7 +3033,7 @@
         "id": "L_OPTIONS_303",
         "en": "Combat Simulator\n",
         "gb": "Combat Simulator\n",
-        "jp": "Audio\/Video\n",
+        "jp": "Audio/Video\n",
         "it": "Combat Simulator\n",
         "fr": "Combat Simulator\n",
         "de": "Combat Simulator\n",
@@ -3051,13 +3051,13 @@
     },
     {
         "id": "L_OPTIONS_305",
-        "en": "Audio\/Video\n",
-        "gb": "Audio\/Video\n",
-        "jp": "Audio\/Visual\n",
-        "it": "Audio\/Video\n",
-        "fr": "Audio\/Video\n",
-        "de": "Audio\/Video\n",
-        "es": "Audio\/Video\n"
+        "en": "Audio/Video\n",
+        "gb": "Audio/Video\n",
+        "jp": "Audio/Visual\n",
+        "it": "Audio/Video\n",
+        "fr": "Audio/Video\n",
+        "de": "Audio/Video\n",
+        "es": "Audio/Video\n"
     },
     {
         "id": "L_OPTIONS_306",
@@ -3071,13 +3071,13 @@
     },
     {
         "id": "L_OPTIONS_307",
-        "en": "Audio\/Visual\n",
-        "gb": "Audio\/Visual\n",
+        "en": "Audio/Visual\n",
+        "gb": "Audio/Visual\n",
         "jp": "Music\n",
-        "it": "Audio\/Visual\n",
-        "fr": "Audio\/Visual\n",
-        "de": "Audio\/Visual\n",
-        "es": "Audio\/Visual\n"
+        "it": "Audio/Visual\n",
+        "fr": "Audio/Visual\n",
+        "de": "Audio/Visual\n",
+        "es": "Audio/Visual\n"
     },
     {
         "id": "L_OPTIONS_308",

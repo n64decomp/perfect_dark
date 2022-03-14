@@ -7,7 +7,7 @@
         "it": "%sha il\nConnettore Dati\n",
         "fr": "%sobtient:\nRécepteur\n",
         "de": "%shat den\nData Uplink\n",
-        "es": "%stiene el\/la\nConector de Datos\n"
+        "es": "%stiene el/la\nConector de Datos\n"
     },
     {
         "id": "L_MPWEAPONS_000_2",
@@ -17,7 +17,7 @@
         "it": "%sha il\nCartella\n",
         "fr": "%sobtient:\nMallette\n",
         "de": "%shat den\nAktenkoffer\n",
-        "es": "%stiene el\/la\nMaletín\n"
+        "es": "%stiene el/la\nMaletín\n"
     },
     {
         "id": "L_MPWEAPONS_000_3",
@@ -27,7 +27,7 @@
         "it": "%sha la Cartella di %s\n",
         "fr": "%sobtient: %s Mallette\n",
         "de": "%shat die %s Aktenkoffer\n",
-        "es": "%stiene el\/la %s Maletín\n"
+        "es": "%stiene el/la %s Maletín\n"
     },
     {
         "id": "L_MPWEAPONS_002",
@@ -47,7 +47,7 @@
         "it": "Presa la Cartella di %s\n",
         "fr": "%s Mallette obtenu(e)",
         "de": "Hat die %s Aktenkoffer\n",
-        "es": "Atrapó el\/la %s Maletín\n"
+        "es": "Atrapó el/la %s Maletín\n"
     },
     {
         "id": "L_MPWEAPONS_004",
@@ -57,7 +57,7 @@
         "it": "Hai preso la\nCartella di %s\n",
         "fr": "Vous capturez:\n %sMallette\n",
         "de": "Sie haben die\n%s Aktenkoffer geschnappt.\n",
-        "es": "Has capturado\nel\/la %s Maletín\n"
+        "es": "Has capturado\nel/la %s Maletín\n"
     },
     {
         "id": "L_MPWEAPONS_005",
@@ -77,7 +77,7 @@
         "it": "%s ha preso la\nCartella di %s\n",
         "fr": "%scapture:\n%s Mallette\n",
         "de": "%shat unsere\n%s Aktenkoffer geschnappt.\n",
-        "es": "%scapturado\nel\/la %s Maletín\n"
+        "es": "%scapturado\nel/la %s Maletín\n"
     },
     {
         "id": "L_MPWEAPONS_007",
@@ -241,13 +241,13 @@
     },
     {
         "id": "L_MPWEAPONS_023",
-        "en": "%ds\/Point\n",
-        "gb": "%ds\/Point\n",
-        "jp": "%ds\/Point\n",
-        "it": "%ds\/punto\n",
-        "fr": "%ds\/Point\n",
-        "de": "%ds\/Punkt\n",
-        "es": "%ds\/Punto\n"
+        "en": "%ds/Point\n",
+        "gb": "%ds/Point\n",
+        "jp": "%ds/Point\n",
+        "it": "%ds/punto\n",
+        "fr": "%ds/Point\n",
+        "de": "%ds/Punkt\n",
+        "es": "%ds/Punto\n"
     },
     {
         "id": "L_MPWEAPONS_024",
@@ -1021,13 +1021,13 @@
     },
     {
         "id": "L_MPWEAPONS_101",
-        "en": "R-Tracker\/Weapon Cache Locations\n",
-        "gb": "R-Tracker\/Weapon Cache Locations\n",
-        "jp": "R-Tracker \/ Weapon Cache Locations\n",
-        "it": "Puntatore R\/Disposizione armi nascoste\n",
-        "fr": "Pisteur-R \/ Emplacements cache armes\n",
-        "de": "R-Tracker \/ Munitions-Fundorte\n",
-        "es": "Rastreador\/Localización de armas\n"
+        "en": "R-Tracker/Weapon Cache Locations\n",
+        "gb": "R-Tracker/Weapon Cache Locations\n",
+        "jp": "R-Tracker / Weapon Cache Locations\n",
+        "it": "Puntatore R/Disposizione armi nascoste\n",
+        "fr": "Pisteur-R / Emplacements cache armes\n",
+        "de": "R-Tracker / Munitions-Fundorte\n",
+        "es": "Rastreador/Localización de armas\n"
     },
     {
         "id": "L_MPWEAPONS_102",
@@ -1853,7 +1853,7 @@
         "id": "L_MPWEAPONS_184",
         "en": "Player Handicaps\n",
         "gb": "Player Handicaps\n",
-        "jp": "L\/R: ",
+        "jp": "L/R: ",
         "it": "Svantaggio giocatore\n",
         "fr": "Handicap joueur\n",
         "de": "Spieler-Handicaps\n",
@@ -1861,19 +1861,19 @@
     },
     {
         "id": "L_MPWEAPONS_185",
-        "en": "L\/R BUTTONS: ",
-        "gb": "L\/R BUTTONS: ",
+        "en": "L/R BUTTONS: ",
+        "gb": "L/R BUTTONS: ",
         "jp": "C-UP: ",
-        "it": "PULSANTI L\/R: ",
-        "fr": "BOUTONS L\/R: ",
-        "de": "L\/R-TASTEN: ",
-        "es": "BOTONES L\/R: "
+        "it": "PULSANTI L/R: ",
+        "fr": "BOUTONS L/R: ",
+        "de": "L/R-TASTEN: ",
+        "es": "BOTONES L/R: "
     },
     {
         "id": "L_MPWEAPONS_186",
         "en": "UP C BUTTON: ",
         "gb": "UP C BUTTON: ",
-        "jp": "C-L\/R: ",
+        "jp": "C-L/R: ",
         "it": "PULSANTE C SU: ",
         "fr": "BOUTON C HAUT: ",
         "de": "C-KNOPF OBEN: ",
@@ -1881,13 +1881,13 @@
     },
     {
         "id": "L_MPWEAPONS_187",
-        "en": "LEFT\/RIGHT C BUTTONS: ",
-        "gb": "LEFT\/RIGHT C BUTTONS: ",
+        "en": "LEFT/RIGHT C BUTTONS: ",
+        "gb": "LEFT/RIGHT C BUTTONS: ",
         "jp": "C-DOWN: ",
-        "it": "PULSANTI C DX\/SX: ",
-        "fr": "BOUTONS C G\/D: ",
-        "de": "C-KNÖPFE LINKS\/RECHTS: ",
-        "es": "BOTONES C I.\/D.: "
+        "it": "PULSANTI C DX/SX: ",
+        "fr": "BOUTONS C G/D: ",
+        "de": "C-KNÖPFE LINKS/RECHTS: ",
+        "es": "BOTONES C I./D.: "
     },
     {
         "id": "L_MPWEAPONS_188",
@@ -1953,7 +1953,7 @@
         "id": "L_MPWEAPONS_194",
         "en": "AIM",
         "gb": "AIM",
-        "jp": "LOOK UP \/ GET UP",
+        "jp": "LOOK UP / GET UP",
         "it": "MIRA",
         "fr": "VISER",
         "de": "ZIELEN",
@@ -1964,7 +1964,7 @@
         "en": "AIM TOGGLE",
         "gb": "AIM TOGGLE",
         "jp": "STRAFE",
-        "it": "DIS\/ATTIVA MIRA",
+        "it": "DIS/ATTIVA MIRA",
         "fr": "ALT. VISER",
         "de": "ZIELFUNKTION",
         "es": "CAMBIAR A PUNTAR"
@@ -1973,7 +1973,7 @@
         "id": "L_MPWEAPONS_196",
         "en": "LOOK UP",
         "gb": "LOOK UP",
-        "jp": "LOOK DOWN \/ CROUCH",
+        "jp": "LOOK DOWN / CROUCH",
         "it": "GUARDA SU",
         "fr": "REGARDER HAUT",
         "de": "NACH OBEN SCHAUEN",
@@ -1983,7 +1983,7 @@
         "id": "L_MPWEAPONS_197",
         "en": "LOOK DOWN",
         "gb": "LOOK DOWN",
-        "jp": "CHANGE GUN \/ ACTIVEMENU",
+        "jp": "CHANGE GUN / ACTIVEMENU",
         "it": "GUARDA GIÙ",
         "fr": "REGARDER BAS",
         "de": "NACH UNTEN SCHAUEN",
@@ -1993,7 +1993,7 @@
         "id": "L_MPWEAPONS_198",
         "en": "LOOK DOWN",
         "gb": "LOOK DOWN",
-        "jp": "RELOAD \/ ACTION \/ SECONDARY FIRE",
+        "jp": "RELOAD / ACTION / SECONDARY FIRE",
         "it": "GUARDA GIÙ",
         "fr": "REGARDER BAS",
         "de": "NACH UNTEN SCHAUEN",
@@ -2051,13 +2051,13 @@
     },
     {
         "id": "L_MPWEAPONS_204",
-        "en": "ACTION\/RELOAD",
-        "gb": "ACTION\/RELOAD",
+        "en": "ACTION/RELOAD",
+        "gb": "ACTION/RELOAD",
         "jp": null,
-        "it": "AZIONE\/RICARICA",
-        "fr": "ACTION\/RECHARGER",
-        "de": "AKTION\/NACHLADEN",
-        "es": "ACCIÓN\/RECARGA"
+        "it": "AZIONE/RICARICA",
+        "fr": "ACTION/RECHARGER",
+        "de": "AKTION/NACHLADEN",
+        "es": "ACCIÓN/RECARGA"
     },
     {
         "id": "L_MPWEAPONS_205",
@@ -2071,13 +2071,13 @@
     },
     {
         "id": "L_MPWEAPONS_206",
-        "en": "WALK\/TURN",
-        "gb": "WALK\/TURN",
+        "en": "WALK/TURN",
+        "gb": "WALK/TURN",
         "jp": null,
-        "it": "VAI\/GIRA",
-        "fr": "MARCHER\/TOURNER",
-        "de": "GEHEN\/DREHEN",
-        "es": "CAMINAR\/VOLVER"
+        "it": "VAI/GIRA",
+        "fr": "MARCHER/TOURNER",
+        "de": "GEHEN/DREHEN",
+        "es": "CAMINAR/VOLVER"
     },
     {
         "id": "L_MPWEAPONS_207",
@@ -2091,23 +2091,23 @@
     },
     {
         "id": "L_MPWEAPONS_208",
-        "en": "WALK\/STRAFE",
-        "gb": "WALK\/STRAFE",
+        "en": "WALK/STRAFE",
+        "gb": "WALK/STRAFE",
         "jp": null,
-        "it": "VAI\/SPOSTATI",
-        "fr": "MARCHER\/LATERAL",
-        "de": "GEHEN\/AUSWEICHEN",
-        "es": "CAMINAR\/DESP."
+        "it": "VAI/SPOSTATI",
+        "fr": "MARCHER/LATERAL",
+        "de": "GEHEN/AUSWEICHEN",
+        "es": "CAMINAR/DESP."
     },
     {
         "id": "L_MPWEAPONS_209",
-        "en": "LOOK\/STRAFE",
-        "gb": "LOOK\/STRAFE",
+        "en": "LOOK/STRAFE",
+        "gb": "LOOK/STRAFE",
         "jp": null,
-        "it": "VAI\/SPOSTATI",
-        "fr": "REGARDER\/LATERAL",
-        "de": "UMSCHAUEN\/AUSWEICHEN",
-        "es": "MIRAR\/DESP."
+        "it": "VAI/SPOSTATI",
+        "fr": "REGARDER/LATERAL",
+        "de": "UMSCHAUEN/AUSWEICHEN",
+        "es": "MIRAR/DESP."
     },
     {
         "id": "L_MPWEAPONS_210",
@@ -2174,7 +2174,7 @@
         "en": "Hold Weapon button for quick-menu.\nHold Action button to toggle function.\nAction+Fire temporarily changes function.\nAim allows you to target accurately.\nAim + Down C Button crouches.\nAim + Up C Button gets up.\n",
         "gb": "Hold Weapon button for quick-menu.\nHold Action button to toggle function.\nAction+Fire temporarily changes function.\nAim allows you to target accurately.\nAim + Down C Button crouches.\nAim + Up C Button gets up.\n",
         "jp": null,
-        "it": "Tieni premuto ARMA per menu rapido.\nTieni premuto AZIONE per dis\/attivare funzioni.\nAZIONE+FUOCO per cambiare funzioni.\nCon MIRA puoi mirare accuratamente.\nMIRA + C GIÙ per accucciarti.\nMIRA + C SU per alzarti.\n",
+        "it": "Tieni premuto ARMA per menu rapido.\nTieni premuto AZIONE per dis/attivare funzioni.\nAZIONE+FUOCO per cambiare funzioni.\nCon MIRA puoi mirare accuratamente.\nMIRA + C GIÙ per accucciarti.\nMIRA + C SU per alzarti.\n",
         "fr": "Maintenir bouton d'arme pour menu rapide.\nMaintenir action pour autre fonction.\nAction+Feu pour changer de fonction.\nViser pour plus de précision.\nViser + Bouton C Bas pour s'accroupir.\nViser + Bouton C Haut pour se lever.\n",
         "de": "Halten Sie den Waffen-Knopf gedrückt, um das Quick-Menü aufzurufen.\nHalten Sie den Aktions-Knopf gedrückt, um die Funktion zu ändern.\nAktion+Feuer ändert die Funktion kurzzeitig.\nMit der Zielfunktion können Sie genauer zielen.\nZielen + C-Knopf unten = kriechen.\nZielen + C-Knopf oben = aufstehen.\n",
         "es": "Mantén Arma para el menú rápido.\nMantén Acción para cambiar función.\nAcción+Disparo cambia temp. la función.\nApuntar aporta una mayor precisión.\nApuntar + Botón C Abajo te agacha.\nApuntar + Botón C Arriba te levanta.\n"
