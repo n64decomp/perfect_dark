@@ -18,7 +18,7 @@ u32 __osFinalRom;
 
 OSTime osClockRate = 62500000;
 
-#if !PAL
+#if VERSION < VERSION_PAL_BETA
 s32 osViClock = VI_NTSC_CLOCK;
 #endif
 
