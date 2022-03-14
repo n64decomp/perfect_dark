@@ -1,0 +1,2642 @@
+[
+    {
+        "id": "L_GUN_000",
+        "en": "\n",
+        "gb": "\n",
+        "jp": "\n",
+        "it": "\n",
+        "fr": "\n",
+        "de": "\n",
+        "es": "\n"
+    },
+    {
+        "id": "L_GUN_001",
+        "en": "Kill count",
+        "gb": "Kill count",
+        "jp": "\\h82d9した\\h86c7",
+        "it": "Vittime",
+        "fr": "Frags",
+        "de": "Hits",
+        "es": "Cuenta de muertes"
+    },
+    {
+        "id": "L_GUN_002",
+        "en": "Died once\n",
+        "gb": "Died once\n",
+        "jp": "\\h82d9れた\\h86c7 1\n",
+        "it": "Morto una volta\n",
+        "fr": "Mort(e) 1 fois\n",
+        "de": "Ein Fehlversuch\n",
+        "es": "Muerto una vez\n"
+    },
+    {
+        "id": "L_GUN_003",
+        "en": "Died",
+        "gb": "Died",
+        "jp": "\\h82d9れた\\h86c7",
+        "it": "Morto",
+        "fr": "Mort(e)",
+        "de": "Versagt",
+        "es": "Muerto"
+    },
+    {
+        "id": "L_GUN_004",
+        "en": "times",
+        "gb": "times",
+        "jp": " \\h82d2",
+        "it": "volte",
+        "fr": "fois",
+        "de": "Fehlversuche",
+        "es": "veces"
+    },
+    {
+        "id": "L_GUN_005",
+        "en": "Suicide count",
+        "gb": "Suicide count",
+        "jp": "\\h8397\\h8591\\h86c7",
+        "it": "Suicidi",
+        "fr": "Suicides",
+        "de": "Selber schuld!",
+        "es": "Cuenta de suicidios"
+    },
+    {
+        "id": "L_GUN_006",
+        "en": "Unarmed\n",
+        "gb": "Unarmed\n",
+        "jp": "\\h8384\\h82dd\n",
+        "it": "A mani nude\n",
+        "fr": "Mains nues\n",
+        "de": "unbewaffnet\n",
+        "es": "Desarmado\n"
+    },
+    {
+        "id": "L_GUN_007",
+        "en": "Falcon 2\n",
+        "gb": "Falcon 2\n",
+        "jp": "ファルコン２\n",
+        "it": "Falcon 2\n",
+        "fr": "Falcon 2\n",
+        "de": "Falcon 2\n",
+        "es": "Falcon 2\n"
+    },
+    {
+        "id": "L_GUN_008",
+        "en": "Falcon 2 (silencer)\n",
+        "gb": "Falcon 2 (silencer)\n",
+        "jp": "ファルコン２\\h8391\\h85cf\n",
+        "it": "Falcon 2 (silenz.)\n",
+        "fr": "Falcon 2 (silenc.)\n",
+        "de": "Falcon 2 (Schalld.)\n",
+        "es": "Falcon 2 (silenc.)\n"
+    },
+    {
+        "id": "L_GUN_009",
+        "en": "Falcon 2 (scope)\n",
+        "gb": "Falcon 2 (scope)\n",
+        "jp": "ファルコン２\\h84af\\h858c\n",
+        "it": "Falcon 2 (cannoc.)\n",
+        "fr": "Falcon 2 (scope)\n",
+        "de": "Falcon 2 (Zielf.)\n",
+        "es": "Falcon 2 (mirilla)\n"
+    },
+    {
+        "id": "L_GUN_010",
+        "en": "MagSec 4\n",
+        "gb": "MagSec 4\n",
+        "jp": "MagSec4\n",
+        "it": "MagSec 4\n",
+        "fr": "MagSec 4\n",
+        "de": "MagSec 4\n",
+        "es": "MagSec 4\n"
+    },
+    {
+        "id": "L_GUN_011",
+        "en": "Mauler\n",
+        "gb": "Mauler\n",
+        "jp": "Mauler\n",
+        "it": "Mauler\n",
+        "fr": "Mauler\n",
+        "de": "Mauler\n",
+        "es": "Mauler\n"
+    },
+    {
+        "id": "L_GUN_012",
+        "en": "DY357 Magnum\n",
+        "gb": "DY357 Magnum\n",
+        "jp": "DY357マグナム\n",
+        "it": "DY357 Magnum\n",
+        "fr": "DY357 Magnum\n",
+        "de": "DY357 Magnum\n",
+        "es": "DY357 Magnum\n"
+    },
+    {
+        "id": "L_GUN_013",
+        "en": "DY357-LX\n",
+        "gb": "DY357-LX\n",
+        "jp": "DY357-LX\n",
+        "it": "DY357-LX\n",
+        "fr": "DY357-LX\n",
+        "de": "DY357-LX\n",
+        "es": "DY357-LX\n"
+    },
+    {
+        "id": "L_GUN_014",
+        "en": "Phoenix\n",
+        "gb": "Phoenix\n",
+        "jp": "フェニクス\n",
+        "it": "Phoenix\n",
+        "fr": "Phoenix\n",
+        "de": "Phoenix\n",
+        "es": "Phoenix\n"
+    },
+    {
+        "id": "L_GUN_015",
+        "en": "CMP150\n",
+        "gb": "CMP150\n",
+        "jp": "CMP150\n",
+        "it": "CMP150\n",
+        "fr": "CMP150\n",
+        "de": "CMP150\n",
+        "es": "CMP150\n"
+    },
+    {
+        "id": "L_GUN_016",
+        "en": "AR34\n",
+        "gb": "AR34\n",
+        "jp": "AR34\n",
+        "it": "AR34\n",
+        "fr": "AR34\n",
+        "de": "AR34\n",
+        "es": "AR34\n"
+    },
+    {
+        "id": "L_GUN_017",
+        "en": "Dragon\n",
+        "gb": "Dragon\n",
+        "jp": "ドラゴン\n",
+        "it": "Dragon\n",
+        "fr": "Dragon\n",
+        "de": "Dragon\n",
+        "es": "Dragón\n"
+    },
+    {
+        "id": "L_GUN_018",
+        "en": "SuperDragon\n",
+        "gb": "SuperDragon\n",
+        "jp": "Ｓドラゴン\n",
+        "it": "SuperDragon\n",
+        "fr": "SuperDragon\n",
+        "de": "SuperDragon\n",
+        "es": "SuperDragón\n"
+    },
+    {
+        "id": "L_GUN_019",
+        "en": "K7 Avenger\n",
+        "gb": "K7 Avenger\n",
+        "jp": "K7 Avenger\n",
+        "it": "K7 Vendetta\n",
+        "fr": "K7 Avenger\n",
+        "de": "K7 Avenger\n",
+        "es": "Vengador K7\n"
+    },
+    {
+        "id": "L_GUN_020",
+        "en": "Cyclone\n",
+        "gb": "Cyclone\n",
+        "jp": "サイクロン\n",
+        "it": "Ciclone\n",
+        "fr": "Cyclone\n",
+        "de": "Cyclone\n",
+        "es": "Ciclón\n"
+    },
+    {
+        "id": "L_GUN_021",
+        "en": "MagSec SMG\n",
+        "gb": "MagSec SMG\n",
+        "jp": "MagSec SMG\n",
+        "it": "MagSec SMG\n",
+        "fr": "MagSec SMG\n",
+        "de": "MagSec SMG\n",
+        "es": "MagSec SMG\n"
+    },
+    {
+        "id": "L_GUN_022",
+        "en": "RC-P120\n",
+        "gb": "RC-P120\n",
+        "jp": "RC-P120\n",
+        "it": "RC-P120\n",
+        "fr": "RC-P120\n",
+        "de": "RC-P120\n",
+        "es": "RC-P120\n"
+    },
+    {
+        "id": "L_GUN_023",
+        "en": "Callisto NTG\n",
+        "gb": "Callisto NTG\n",
+        "jp": "カリストＮ\n",
+        "it": "Callisto NTG\n",
+        "fr": "Callisto NTG\n",
+        "de": "Callisto NTG\n",
+        "es": "Calisto NTG\n"
+    },
+    {
+        "id": "L_GUN_024",
+        "en": "Laptop Gun\n",
+        "gb": "Laptop Gun\n",
+        "jp": "ラップトップガン\n",
+        "it": "Pistola Laptop\n",
+        "fr": "Laptop Gun\n",
+        "de": "Laptop-Gewehr\n",
+        "es": "Arma PC\n"
+    },
+    {
+        "id": "L_GUN_025",
+        "en": "Shotgun\n",
+        "gb": "Shotgun\n",
+        "jp": "ショットガン\n",
+        "it": "Fucile a pompa\n",
+        "fr": "Fusil pompe\n",
+        "de": "Schrotflinte\n",
+        "es": "Escopeta\n"
+    },
+    {
+        "id": "L_GUN_026",
+        "en": "Reaper\n",
+        "gb": "Reaper\n",
+        "jp": "リ\\h8284パ\\h8284\n",
+        "it": "Falciatore\n",
+        "fr": "Reaper\n",
+        "de": "Reaper\n",
+        "es": "Segadora\n"
+    },
+    {
+        "id": "L_GUN_027",
+        "en": "Rocket Launcher\n",
+        "gb": "Rocket Launcher\n",
+        "jp": "Ｒランチャ\n",
+        "it": "Lanciamissili\n",
+        "fr": "L-roquettes\n",
+        "de": "Raketenwerfer\n",
+        "es": "Lanzacohetes\n"
+    },
+    {
+        "id": "L_GUN_028",
+        "en": "Devastator\n",
+        "gb": "Devastator\n",
+        "jp": "デバスタ\\h8284\n",
+        "it": "Devastatore\n",
+        "fr": "Devastator\n",
+        "de": "Devastator\n",
+        "es": "Devastador\n"
+    },
+    {
+        "id": "L_GUN_029",
+        "en": "Slayer\n",
+        "gb": "Slayer\n",
+        "jp": "スレイヤ\\h8284\n",
+        "it": "Killer\n",
+        "fr": "Slayer\n",
+        "de": "Slayer\n",
+        "es": "Slayer\n"
+    },
+    {
+        "id": "L_GUN_030",
+        "en": "MaianGrenade\n",
+        "gb": "MaianGrenade\n",
+        "jp": "マイアン\\h82ddりゅう\\h85a4\n",
+        "it": "Granata Maian\n",
+        "fr": "Grenade maian\n",
+        "de": "Maianische Granate\n",
+        "es": "Granada Maian\n"
+    },
+    {
+        "id": "L_GUN_031",
+        "en": "FarSight XR-20\n",
+        "gb": "FarSight XR-20\n",
+        "jp": "ファ\\h8284サイト\n",
+        "it": "TeleVista XR-20\n",
+        "fr": "FarSight XR-20\n",
+        "de": "FS XR-20\n",
+        "es": "FarSight XR-20\n"
+    },
+    {
+        "id": "L_GUN_032",
+        "en": "Sniper Rifle\n",
+        "gb": "Sniper Rifle\n",
+        "jp": "Ｓライフル\n",
+        "it": "Fucile cecchino\n",
+        "fr": "Fusil sniper\n",
+        "de": "Sniper-Gewehr\n",
+        "es": "Rifle Fr\n"
+    },
+    {
+        "id": "L_GUN_033",
+        "en": "Crossbow\n",
+        "gb": "Crossbow\n",
+        "jp": "クロスボウ\n",
+        "it": "Balestra\n",
+        "fr": "Arbalète\n",
+        "de": "Armbrust\n",
+        "es": "Ballesta\n"
+    },
+    {
+        "id": "L_GUN_034",
+        "en": "Tranquilizer\n",
+        "gb": "Tranquilizer\n",
+        "jp": "トランキライザ\n",
+        "it": "Sedativo\n",
+        "fr": "Tranquil.\n",
+        "de": "Betäubungs-Gewehr\n",
+        "es": "Tranquilizador\n"
+    },
+    {
+        "id": "L_GUN_035",
+        "en": "Combat Knife\n",
+        "gb": "Combat Knife\n",
+        "jp": "コンバットナイフ\n",
+        "it": "Pugnale da lotta\n",
+        "fr": "Couteau combat\n",
+        "de": "Kampfmesser\n",
+        "es": "Cuchillo Combate\n"
+    },
+    {
+        "id": "L_GUN_036",
+        "en": "Grenade\n",
+        "gb": "Grenade\n",
+        "jp": "\\h82ddりゅう\\h85a4\n",
+        "it": "Granata\n",
+        "fr": "Grenade\n",
+        "de": "Granate\n",
+        "es": "Granada\n"
+    },
+    {
+        "id": "L_GUN_037",
+        "en": "N-Bomb\n",
+        "gb": "N-Bomb\n",
+        "jp": "Ｎボム\n",
+        "it": "Bomba-N\n",
+        "fr": "Bombe-N\n",
+        "de": "N-Bombe\n",
+        "es": "Bomba-N\n"
+    },
+    {
+        "id": "L_GUN_038",
+        "en": "Timed Mine\n",
+        "gb": "Timed Mine\n",
+        "jp": "\\h8393\\h84f9\\h85a3\\h85a4\n",
+        "it": "Mina orologeria\n",
+        "fr": "Mine retard.\n",
+        "de": "Zeitzünder-Mine\n",
+        "es": "Mina Tiempo\n"
+    },
+    {
+        "id": "L_GUN_039",
+        "en": "Proximity Mine\n",
+        "gb": "Proximity Mine\n",
+        "jp": "センサ\\h8284\\h85a3\\h85a4\n",
+        "it": "Mina prossimità\n",
+        "fr": "Mine prox.\n",
+        "de": "Annäherungs-Mine\n",
+        "es": "Mina de Proximidad\n"
+    },
+    {
+        "id": "L_GUN_040",
+        "en": "Remote Mine\n",
+        "gb": "Remote Mine\n",
+        "jp": "リモ\\h8284ト\\h85a3\\h85a4\n",
+        "it": "Mina distanza\n",
+        "fr": "Mine télécom.\n",
+        "de": "Fernzünder-Mine\n",
+        "es": "Mina Remota\n"
+    },
+    {
+        "id": "L_GUN_041",
+        "en": "ECM Mine\n",
+        "gb": "ECM Mine\n",
+        "jp": "ＥＣＭマイン\n",
+        "it": "Mina ECM\n",
+        "fr": "Mine CME\n",
+        "de": "ECM-Mine\n",
+        "es": "Mina ECM\n"
+    },
+    {
+        "id": "L_GUN_042",
+        "en": "FlashBang\n",
+        "gb": "FlashBang\n",
+        "jp": "フラッシュバン\n",
+        "it": "FlashBang\n",
+        "fr": "FlashBang\n",
+        "de": "FlashBang\n",
+        "es": "FlashBang\n"
+    },
+    {
+        "id": "L_GUN_043",
+        "en": "Disguise\n",
+        "gb": "Disguise\n",
+        "jp": "ユニフォ\\h8284ム\n",
+        "it": "Travestimento\n",
+        "fr": "Costume\n",
+        "de": "Verkleidung\n",
+        "es": "Disfraz\n"
+    },
+    {
+        "id": "L_GUN_044",
+        "en": "Rocket\n",
+        "gb": "Rocket\n",
+        "jp": "ロケット\n",
+        "it": "Missile\n",
+        "fr": "Roquette\n",
+        "de": "Rakete\n",
+        "es": "Cohete\n"
+    },
+    {
+        "id": "L_GUN_045",
+        "en": "Homing Rocket\n",
+        "gb": "Homing Rocket\n",
+        "jp": "ホ\\h8284ミングロケット\n",
+        "it": "Missile ritorno\n",
+        "fr": "Tête cherch.\n",
+        "de": "Zielsuch-Rakete\n",
+        "es": "Cohete Buscador\n"
+    },
+    {
+        "id": "L_GUN_046",
+        "en": "Grenade Round\n",
+        "gb": "Grenade Round\n",
+        "jp": "Ｇランチャの\\h85a4\n",
+        "it": "Granata a giro\n",
+        "fr": "Munit. grenade\n",
+        "de": "Granaten\n",
+        "es": "Cinto de Granadas\n"
+    },
+    {
+        "id": "L_GUN_047",
+        "en": "Laser\n",
+        "gb": "Laser\n",
+        "jp": "レ\\h8284ザ\\h8284\n",
+        "it": "Laser\n",
+        "fr": "Laser\n",
+        "de": "Laser\n",
+        "es": "Láser\n"
+    },
+    {
+        "id": "L_GUN_048",
+        "en": "Bolt\n",
+        "gb": "Bolt\n",
+        "jp": "\\h878d\n",
+        "it": "Dardo\n",
+        "fr": "Carreau\n",
+        "de": "Bolzen\n",
+        "es": "Rayo\n"
+    },
+    {
+        "id": "L_GUN_049",
+        "en": "Psychosis Gun\n",
+        "gb": "Psychosis Gun\n",
+        "jp": "サイキックガン\n",
+        "it": "PsicoArma\n",
+        "fr": "Psychosis Gun\n",
+        "de": "Psychosis-Gewehr\n",
+        "es": "Psicosis\n"
+    },
+    {
+        "id": "L_GUN_050",
+        "en": "PP9i\n",
+        "gb": "PP9i\n",
+        "jp": "PP9i\n",
+        "it": "PP9i\n",
+        "fr": "PP9i\n",
+        "de": "PP9i\n",
+        "es": "PP9i\n"
+    },
+    {
+        "id": "L_GUN_051",
+        "en": "CC13\n",
+        "gb": "CC13\n",
+        "jp": "CC13\n",
+        "it": "CC13\n",
+        "fr": "CC13\n",
+        "de": "CC13\n",
+        "es": "CC13\n"
+    },
+    {
+        "id": "L_GUN_052",
+        "en": "KL01313\n",
+        "gb": "KL01313\n",
+        "jp": "KLO1313\n",
+        "it": "KL01313\n",
+        "fr": "KL01313\n",
+        "de": "KLO1313\n",
+        "es": "KL01313\n"
+    },
+    {
+        "id": "L_GUN_053",
+        "en": "KF7 Special\n",
+        "gb": "KF7 Special\n",
+        "jp": "KF7 Special\n",
+        "it": "KF7 Special\n",
+        "fr": "KF7 Spécial\n",
+        "de": "KF7 Spezial\n",
+        "es": "KF7 Especial\n"
+    },
+    {
+        "id": "L_GUN_054",
+        "en": "ZZT (9mm)\n",
+        "gb": "ZZT (9mm)\n",
+        "jp": "ZZT(9mm)\n",
+        "it": "ZZT (9mm)\n",
+        "fr": "ZZT (9mm)\n",
+        "de": "ZZT (9mm)\n",
+        "es": "ZZT (9mm)\n"
+    },
+    {
+        "id": "L_GUN_055",
+        "en": "DMC\n",
+        "gb": "DMC\n",
+        "jp": "DMC\n",
+        "it": "DMC\n",
+        "fr": "DMC\n",
+        "de": "DMC\n",
+        "es": "DMC\n"
+    },
+    {
+        "id": "L_GUN_056",
+        "en": "AR53\n",
+        "gb": "AR53\n",
+        "jp": "AR53\n",
+        "it": "AR53\n",
+        "fr": "AR53\n",
+        "de": "AR53\n",
+        "es": "AR53\n"
+    },
+    {
+        "id": "L_GUN_057",
+        "en": "RC-P45\n",
+        "gb": "RC-P45\n",
+        "jp": "RC-P45\n",
+        "it": "RC-P45\n",
+        "fr": "RC-P45\n",
+        "de": "RC-P45\n",
+        "es": "RC-P45\n"
+    },
+    {
+        "id": "L_GUN_058",
+        "en": "Tester\n",
+        "gb": "Tester\n",
+        "jp": "テスタ\\h8284\n",
+        "it": "Tester\n",
+        "fr": "Test\n",
+        "de": "Test\n",
+        "es": "Testeador\n"
+    },
+    {
+        "id": "L_GUN_059",
+        "en": "Night Vision\n",
+        "gb": "Night Vision\n",
+        "jp": "ナイトアイ\n",
+        "it": "Vista Notturna\n",
+        "fr": "Vue nocturne\n",
+        "de": "Nachtsicht-Gerät\n",
+        "es": "Visión Nocturna\n"
+    },
+    {
+        "id": "L_GUN_060",
+        "en": "CamSpy\n",
+        "gb": "CamSpy\n",
+        "jp": "カムスパイ\n",
+        "it": "TeleSpia\n",
+        "fr": "CamSpy\n",
+        "de": "CamSpy\n",
+        "es": "CamSpy\n"
+    },
+    {
+        "id": "L_GUN_061",
+        "en": "DrugSpy\n",
+        "gb": "DrugSpy\n",
+        "jp": "Ｄｒ.スパイ\n",
+        "it": "CapsuSpia\n",
+        "fr": "DrugSpy\n",
+        "de": "DrugSpy\n",
+        "es": "DrugSpy\n"
+    },
+    {
+        "id": "L_GUN_062",
+        "en": "BombSpy\n",
+        "gb": "BombSpy\n",
+        "jp": "ボムスパイ\n",
+        "it": "BombaSpia\n",
+        "fr": "BombSpy\n",
+        "de": "BombSpy\n",
+        "es": "BombSpy\n"
+    },
+    {
+        "id": "L_GUN_063",
+        "en": "Door Decoder\n",
+        "gb": "Door Decoder\n",
+        "jp": "ドアコ\\h8284ダ\n",
+        "it": "Decodificatore\n",
+        "fr": "Décodeur\n",
+        "de": "Tür-Decoder\n",
+        "es": "Decodificador\n"
+    },
+    {
+        "id": "L_GUN_064",
+        "en": "Explosives\n",
+        "gb": "Explosives\n",
+        "jp": "\\h85a3\\h86a8\n",
+        "it": "Esplosivo\n",
+        "fr": "Explosifs\n",
+        "de": "Sprengsatz\n",
+        "es": "Explosivos\n"
+    },
+    {
+        "id": "L_GUN_065",
+        "en": "X-Ray Scanner\n",
+        "gb": "X-Ray Scanner\n",
+        "jp": "Ｘスキャン\n",
+        "it": "Scanner a raggi X\n",
+        "fr": "Scanner X\n",
+        "de": "Röntgen-Scanner\n",
+        "es": "Escáner Rayos-X\n"
+    },
+    {
+        "id": "L_GUN_066",
+        "en": "Alien Medpack\n",
+        "gb": "Alien Medpack\n",
+        "jp": "オ\\h8284トオペ\n",
+        "it": "AutoChirurgo alieno\n",
+        "fr": "Medkit\n",
+        "de": "extraterrestrisches Medipack\n",
+        "es": "Paquete Médico\n"
+    },
+    {
+        "id": "L_GUN_067",
+        "en": "Suitcase\n",
+        "gb": "Suitcase\n",
+        "jp": "アタッシュ\n",
+        "it": "Valigia\n",
+        "fr": "Mallette\n",
+        "de": "Koffer\n",
+        "es": "Maleta\n"
+    },
+    {
+        "id": "L_GUN_068",
+        "en": "Disguise\n",
+        "gb": "Disguise\n",
+        "jp": "ユニフォ\\h8284ム\n",
+        "it": "Travestimento\n",
+        "fr": "Costume\n",
+        "de": "Verkleidung\n",
+        "es": "Disfraz\n"
+    },
+    {
+        "id": "L_GUN_069",
+        "en": "IR Scanner\n",
+        "gb": "IR Scanner\n",
+        "jp": "IRスキャン\n",
+        "it": "Scanner IR\n",
+        "fr": "Scanner IR\n",
+        "de": "IR-Scanner\n",
+        "es": "Escáner IR\n"
+    },
+    {
+        "id": "L_GUN_070",
+        "en": "R-Tracker\n",
+        "gb": "R-Tracker\n",
+        "jp": "Ｒトラッカ\n",
+        "it": "Puntatore-R\n",
+        "fr": "Pisteur R\n",
+        "de": "R-Tracker\n",
+        "es": "Rastreador-R\n"
+    },
+    {
+        "id": "L_GUN_071",
+        "en": "Briefcase\n",
+        "gb": "Briefcase\n",
+        "jp": "アタッシュケ\\h8284ス\n",
+        "it": "Cartella\n",
+        "fr": "Mallette\n",
+        "de": "Aktenkoffer\n",
+        "es": "Maletín\n"
+    },
+    {
+        "id": "L_GUN_072",
+        "en": "Suicide Pill\n",
+        "gb": "Suicide Pill\n",
+        "jp": "\\h8397\\h8591\\h86a8\n",
+        "it": "Compressa suicidio\n",
+        "fr": "Pilule suicide\n",
+        "de": "Suizid-Kapsel\n",
+        "es": "Píldora Suicidio\n"
+    },
+    {
+        "id": "L_GUN_073",
+        "en": "Cloaking Device\n",
+        "gb": "Cloaking Device\n",
+        "jp": "スパイクロ\\h8284ク\n",
+        "it": "Dispos. mimetico\n",
+        "fr": "Occulteur\n",
+        "de": "Tarnkappe\n",
+        "es": "Disp. Ocultación\n"
+    },
+    {
+        "id": "L_GUN_074",
+        "en": "Combat Boost\n",
+        "gb": "Combat Boost\n",
+        "jp": "ブ\\h8284ストピル\n",
+        "it": "Booster lotta\n",
+        "fr": "Boost combat\n",
+        "de": "Adrenalin\n",
+        "es": "Reforzador\n"
+    },
+    {
+        "id": "L_GUN_075",
+        "en": "Data Uplink\n",
+        "gb": "Data Uplink\n",
+        "jp": "デ\\h8284タリンカ\n",
+        "it": "Connettore Dati\n",
+        "fr": "Récepteur\n",
+        "de": "Data Uplink\n",
+        "es": "Conector de Datos\n"
+    },
+    {
+        "id": "L_GUN_076",
+        "en": "Horizon Scanner\n",
+        "gb": "Horizon Scanner\n",
+        "jp": "HRスコ\\h8284プ\n",
+        "it": "TeleScanner\n",
+        "fr": "Scanner Horizon\n",
+        "de": "Horizont-Scanner\n",
+        "es": "Esc. Horizonte\n"
+    },
+    {
+        "id": "L_GUN_077",
+        "en": "Falcon 2 (s)\n",
+        "gb": "Falcon 2 (s)\n",
+        "jp": "Ｆ２\\h84af\\h858c\n",
+        "it": "Falcon 2 (s)\n",
+        "fr": "Falcon 2 (s)\n",
+        "de": "Falcon 2 (s)\n",
+        "es": "Falcon 2 (+)\n"
+    },
+    {
+        "id": "L_GUN_078",
+        "en": "Falcon 2 (+)\n",
+        "gb": "Falcon 2 (+)\n",
+        "jp": "Ｆ２\\h8391\\h85cf\n",
+        "it": "Falcon 2 (+)\n",
+        "fr": "Falcon 2 (+)\n",
+        "de": "Falcon 2 (+)\n",
+        "es": "Falcon 2 (s)\n"
+    },
+    {
+        "id": "L_GUN_079",
+        "en": "FarSight\n",
+        "gb": "FarSight\n",
+        "jp": "Ｆサイト\n",
+        "it": "TeleVista\n",
+        "fr": "FarSight\n",
+        "de": "FS XR-20\n",
+        "es": "FarSight\n"
+    },
+    {
+        "id": "L_GUN_080",
+        "en": "R-Launcher\n",
+        "gb": "R-Launcher\n",
+        "jp": "Ｒランチャ\n",
+        "it": "Lanciamissili\n",
+        "fr": "L-roquettes\n",
+        "de": "R-Werfer\n",
+        "es": "L.Cohetes\n"
+    },
+    {
+        "id": "L_GUN_081",
+        "en": "Proxy Mine\n",
+        "gb": "Proxy Mine\n",
+        "jp": "センサ\\h8284Ｂ\n",
+        "it": "Mina pross\n",
+        "fr": "Mine prox.\n",
+        "de": "A-Mine\n",
+        "es": "Mina Prox.\n"
+    },
+    {
+        "id": "L_GUN_082",
+        "en": "Psychosis\n",
+        "gb": "Psychosis\n",
+        "jp": "サイキック\n",
+        "it": "PsicoArma\n",
+        "fr": "Psychosis\n",
+        "de": "Psychosis\n",
+        "es": "Psicosis\n"
+    },
+    {
+        "id": "L_GUN_083",
+        "en": "Knife\n",
+        "gb": "Knife\n",
+        "jp": "ナイフ\n",
+        "it": "Pugnale\n",
+        "fr": "Couteau\n",
+        "de": "Messer\n",
+        "es": "Cuchillo\n"
+    },
+    {
+        "id": "L_GUN_084",
+        "en": "DY357\n",
+        "gb": "DY357\n",
+        "jp": "DY357\n",
+        "it": "DY357\n",
+        "fr": "DY357\n",
+        "de": "DY357\n",
+        "es": "DY357\n"
+    },
+    {
+        "id": "L_GUN_085",
+        "en": "Single Shot\n",
+        "gb": "Single Shot\n",
+        "jp": "シングルショット\n",
+        "it": "Colpo singolo\n",
+        "fr": "Tir simple\n",
+        "de": "Einzelfeuer\n",
+        "es": "Disparo único\n"
+    },
+    {
+        "id": "L_GUN_086",
+        "en": "Rapid Fire\n",
+        "gb": "Rapid Fire\n",
+        "jp": "\\h84e3\\h85b7\n",
+        "it": "Fuoco rapido\n",
+        "fr": "Tir rapide\n",
+        "de": "Schnellfeuer\n",
+        "es": "Fuego rápido\n"
+    },
+    {
+        "id": "L_GUN_087",
+        "en": "Burst Fire\n",
+        "gb": "Burst Fire\n",
+        "jp": "\\h83de\\h82ff\\h84e3\\h85b7\n",
+        "it": "Fuoco a raffica\n",
+        "fr": "Tir explosif\n",
+        "de": "Feuerstoß\n",
+        "es": "Fuego en ráfaga\n"
+    },
+    {
+        "id": "L_GUN_088",
+        "en": "Reapage\n",
+        "gb": "Reapage\n",
+        "jp": "\\h82d2\\h85b3\\h84e3\\h85b7\n",
+        "it": "Falciata\n",
+        "fr": "Etripage\n",
+        "de": "Streufeuer\n",
+        "es": "Cosechar\n"
+    },
+    {
+        "id": "L_GUN_089",
+        "en": "Shotgun Fire\n",
+        "gb": "Shotgun Fire\n",
+        "jp": "シングルショット\n",
+        "it": "Fuoco a scoppio\n",
+        "fr": "Tir simple\n",
+        "de": "Schrotflintenfeuer\n",
+        "es": "Fuego de escopeta\n"
+    },
+    {
+        "id": "L_GUN_090",
+        "en": "Rail-gun effect\n",
+        "gb": "Rail-gun effect\n",
+        "jp": "レ\\h8284ルガン\n",
+        "it": "Effetto rail-gun\n",
+        "fr": "Effet Rail-gun\n",
+        "de": "Rail-gun-Effekt\n",
+        "es": "Efecto carrete\n"
+    },
+    {
+        "id": "L_GUN_091",
+        "en": "Rocket Launch\n",
+        "gb": "Rocket Launch\n",
+        "jp": "ロケット\\h85a4\n",
+        "it": "Lancio missili\n",
+        "fr": "Roquette\n",
+        "de": "Raketenabschuss\n",
+        "es": "Lanzacohetes\n"
+    },
+    {
+        "id": "L_GUN_092",
+        "en": "Targeted Rocket\n",
+        "gb": "Targeted Rocket\n",
+        "jp": "ホ\\h8284ミングロケット\n",
+        "it": "Missile guidato\n",
+        "fr": "Roquette ciblée\n",
+        "de": "kalibrierte Rakete\n",
+        "es": "Cohete Dirigido\n"
+    },
+    {
+        "id": "L_GUN_093",
+        "en": "Fly-By-Wire Rocket\n",
+        "gb": "Fly-By-Wire Rocket\n",
+        "jp": "ロケットカメラ\n",
+        "it": "Missile filoguidato\n",
+        "fr": "Radioguidage\n",
+        "de": "Fly-By-Wire-Rakete\n",
+        "es": "Cohete Teledirigido\n"
+    },
+    {
+        "id": "L_GUN_094",
+        "en": "Pistol Whip\n",
+        "gb": "Pistol Whip\n",
+        "jp": "グリップアタック\n",
+        "it": "Botta col calcio\n",
+        "fr": "Coup de crosse\n",
+        "de": "Schlag \n",
+        "es": "Culatazo\n"
+    },
+    {
+        "id": "L_GUN_095",
+        "en": "Explosive Shells\n",
+        "gb": "Explosive Shells\n",
+        "jp": "\\h85a3\\h85a4シェル\n",
+        "it": "Capsule esplosive\n",
+        "fr": "Balles explosives\n",
+        "de": "Explosiv-Munition\n",
+        "es": "Cartuchos Explosivos\n"
+    },
+    {
+        "id": "L_GUN_096",
+        "en": "Guided Shots\n",
+        "gb": "Guided Shots\n",
+        "jp": "ガイドショット\n",
+        "it": "Spari guidati\n",
+        "fr": "Tirs guidés\n",
+        "de": "gezielte Schüsse\n",
+        "es": "Disparos Guiados\n"
+    },
+    {
+        "id": "L_GUN_097",
+        "en": "Magazine Discharge\n",
+        "gb": "Magazine Discharge\n",
+        "jp": "マガジン\\h8385\\h85b7\n",
+        "it": "Scarica del caricatore\n",
+        "fr": "Vider chargeur\n",
+        "de": "Magazin-Entleerung\n",
+        "es": "Descarga de Cartuchos\n"
+    },
+    {
+        "id": "L_GUN_098",
+        "en": "Grenade Launcher\n",
+        "gb": "Grenade Launcher\n",
+        "jp": "Ｇランチャ\n",
+        "it": "Lanciagranate\n",
+        "fr": "Lance-grenades\n",
+        "de": "Granat-Werfer\n",
+        "es": "Lanzagranadas\n"
+    },
+    {
+        "id": "L_GUN_099",
+        "en": "Wall Hugger\n",
+        "gb": "Wall Hugger\n",
+        "jp": "ウォ\\h8284ルショット\n",
+        "it": "Arpione\n",
+        "fr": "Attache-mur\n",
+        "de": "Wandhaftung\n",
+        "es": "Mina Lapa\n"
+    },
+    {
+        "id": "L_GUN_100",
+        "en": "Punch\n",
+        "gb": "Punch\n",
+        "jp": "パンチ\n",
+        "it": "Pugno\n",
+        "fr": "Coup de poing\n",
+        "de": "Schlag\n",
+        "es": "Puñetazo\n"
+    },
+    {
+        "id": "L_GUN_101",
+        "en": "Disarm\n",
+        "gb": "Disarm\n",
+        "jp": "\\h82cc\\h82cd\\h8286\\h82f8\n",
+        "it": "Disarma\n",
+        "fr": "Désarmer\n",
+        "de": "entwaffnen\n",
+        "es": "Desarmar\n"
+    },
+    {
+        "id": "L_GUN_102",
+        "en": "Follow Lock-On\n",
+        "gb": "Follow Lock-On\n",
+        "jp": "ロックオン\n",
+        "it": "Segui l'obiettivo\n",
+        "fr": "Verr. cible\n",
+        "de": "Zielaufschaltung\n",
+        "es": "Seguir Objetivo\n"
+    },
+    {
+        "id": "L_GUN_103",
+        "en": "Use Scope\n",
+        "gb": "Use Scope\n",
+        "jp": "\\h83b9\\h8393スコ\\h8284プ\n",
+        "it": "Usa cannocchiale\n",
+        "fr": "Utiliser Scope\n",
+        "de": "Zielfernrohr kompatibel\n",
+        "es": "Usar Mirilla\n"
+    },
+    {
+        "id": "L_GUN_104",
+        "en": "Half Magazine Discharge\n",
+        "gb": "Half Magazine Discharge\n",
+        "jp": "ハ\\h8284フ・マガジン\n",
+        "it": "Mezza scarica caricatore\n",
+        "fr": "Moitié chargeur\n",
+        "de": "halbes Magazin wird entleert\n",
+        "es": "Dispara Medio Cargador\n"
+    },
+    {
+        "id": "L_GUN_105",
+        "en": "Double Blast\n",
+        "gb": "Double Blast\n",
+        "jp": "ダブルショット\n",
+        "it": "Doppio scoppio\n",
+        "fr": "Double tir\n",
+        "de": "Doppelschuss\n",
+        "es": "Disparo Doble\n"
+    },
+    {
+        "id": "L_GUN_106",
+        "en": "Grinder\n",
+        "gb": "Grinder\n",
+        "jp": "グラインダ\\h8284\n",
+        "it": "Macinatore\n",
+        "fr": "Hachoir\n",
+        "de": "Schleifer\n",
+        "es": "Trituradora\n"
+    },
+    {
+        "id": "L_GUN_107",
+        "en": "Sedate\n",
+        "gb": "Sedate\n",
+        "jp": "\\h878b\\h86a9\\h878c\n",
+        "it": "Sedativo\n",
+        "fr": "Endormir\n",
+        "de": "Sedativ\n",
+        "es": "Sedante\n"
+    },
+    {
+        "id": "L_GUN_108",
+        "en": "Lethal Injection\n",
+        "gb": "Lethal Injection\n",
+        "jp": "リ\\h8284サル\\h84ae\\h82f6\n",
+        "it": "Iniezione letale\n",
+        "fr": "Injection mortelle\n",
+        "de": "letale Injektion\n",
+        "es": "Inyección Letal\n"
+    },
+    {
+        "id": "L_GUN_109",
+        "en": "Knife Slash\n",
+        "gb": "Knife Slash\n",
+        "jp": "スラッシュ\n",
+        "it": "Pugnalata\n",
+        "fr": "Coup de couteau\n",
+        "de": "Messerstich\n",
+        "es": "Cuchillada\n"
+    },
+    {
+        "id": "L_GUN_110",
+        "en": "Throw Poison Knife\n",
+        "gb": "Throw Poison Knife\n",
+        "jp": "\\h82dd\\h86b0げナイフ\n",
+        "it": "Lancia lama avvelenata\n",
+        "fr": "Lancer empoisonné\n",
+        "de": "vergiftetes Wurfmesser\n",
+        "es": "Cuchillo Envenenado\n"
+    },
+    {
+        "id": "L_GUN_111",
+        "en": "Target Locator\n",
+        "gb": "Target Locator\n",
+        "jp": "サ\\h8284チ\n",
+        "it": "Localizza-Obiettivo\n",
+        "fr": "Localisateur cible\n",
+        "de": "Zielsucher\n",
+        "es": "Localizador Objetivos\n"
+    },
+    {
+        "id": "L_GUN_112",
+        "en": "Instant Kill\n",
+        "gb": "Instant Kill\n",
+        "jp": "キル\n",
+        "it": "Morte istantanea\n",
+        "fr": "Mort instantanée\n",
+        "de": "sofortige Eliminierung\n",
+        "es": "Muerte Instantánea\n"
+    },
+    {
+        "id": "L_GUN_113",
+        "en": "Boost\n",
+        "gb": "Boost\n",
+        "jp": "スロ\\h8284\n",
+        "it": "Booster\n",
+        "fr": "Boost\n",
+        "de": "Verstärkung\n",
+        "es": "Reforzador\n"
+    },
+    {
+        "id": "L_GUN_114",
+        "en": "Revert\n",
+        "gb": "Revert\n",
+        "jp": "ノ\\h8284マル\n",
+        "it": "Invertitore\n",
+        "fr": "Retour\n",
+        "de": "Umkehr\n",
+        "es": "Revertir\n"
+    },
+    {
+        "id": "L_GUN_115",
+        "en": "High Impact Shells\n",
+        "gb": "High Impact Shells\n",
+        "jp": "ハイ・インパクト\n",
+        "it": "Capsule a impatto\n",
+        "fr": "Perce-blindage\n",
+        "de": "High Impact-Munition\n",
+        "es": "Cartuchos Alto-Impacto\n"
+    },
+    {
+        "id": "L_GUN_116",
+        "en": "Cloak\n",
+        "gb": "Cloak\n",
+        "jp": "スパイクロ\\h8284ク\n",
+        "it": "Mimesi\n",
+        "fr": "Occulter\n",
+        "de": "Tarnung\n",
+        "es": "Ocultación\n"
+    },
+    {
+        "id": "L_GUN_117",
+        "en": "Deploy as Sentry Gun\n",
+        "gb": "Deploy as Sentry Gun\n",
+        "jp": "\\h8397\\h82c4\\h83c2\\h82e0\n",
+        "it": "Pistola sentinella\n",
+        "fr": "Déployer sentinelle\n",
+        "de": "Selbstschussanlage\n",
+        "es": "Dejar como Centinela\n"
+    },
+    {
+        "id": "L_GUN_118",
+        "en": "Proximity Self Destruct\n",
+        "gb": "Proximity Self Destruct\n",
+        "jp": "センサ\\h8284\\h85a3\\h85a4\n",
+        "it": "Autodistr. di pross.\n",
+        "fr": "Autodestruct. prox.\n",
+        "de": "Annäherungsfunktion\n",
+        "es": "Autodestrucción Prox.\n"
+    },
+    {
+        "id": "L_GUN_119",
+        "en": "Threat Detector\n",
+        "gb": "Threat Detector\n",
+        "jp": "\\h83f4\\h83f5\\h83b0\\h82c8\\h82c9\n",
+        "it": "Rilevatore minaccia\n",
+        "fr": "Détecteur danger\n",
+        "de": "Gefahrenmelder\n",
+        "es": "Detector de Trampas\n"
+    },
+    {
+        "id": "L_GUN_120",
+        "en": "Timed Explosive\n",
+        "gb": "Timed Explosive\n",
+        "jp": "\\h8393\\h84f9\\h85a3\\h85a4\n",
+        "it": "Esplosivo a orol.\n",
+        "fr": "Explosif retard.\n",
+        "de": "verzögerte Explosion\n",
+        "es": "Explosivo de Tiempo\n"
+    },
+    {
+        "id": "L_GUN_121",
+        "en": "Proximity Explosive\n",
+        "gb": "Proximity Explosive\n",
+        "jp": "センサ\\h8284\\h85a3\\h85a4\n",
+        "it": "Esplosivo di pross.\n",
+        "fr": "Explosif prox.\n",
+        "de": "Expl. bei Näherung\n",
+        "es": "Explosivo de Proximidad\n"
+    },
+    {
+        "id": "L_GUN_122",
+        "en": "Remote Explosive\n",
+        "gb": "Remote Explosive\n",
+        "jp": "リモ\\h8284ト\\h85a3\\h85a4\n",
+        "it": "Esplosivo a distanza\n",
+        "fr": "Explosif télécom.\n",
+        "de": "ferngez. Explosion\n",
+        "es": "Explosivo Remoto\n"
+    },
+    {
+        "id": "L_GUN_123",
+        "en": "Detonate\n",
+        "gb": "Detonate\n",
+        "jp": "\\h82c3\\h85a3\n",
+        "it": "Detonazione\n",
+        "fr": "Détonation\n",
+        "de": "Detonator\n",
+        "es": "Detonación\n"
+    },
+    {
+        "id": "L_GUN_124",
+        "en": "4-Second Fuse\n",
+        "gb": "4-Second Fuse\n",
+        "jp": "４\\h86dbヒュ\\h8284ズ\n",
+        "it": "Miccia a 4 secondi\n",
+        "fr": "Fusible 4 secs\n",
+        "de": "Vier-Sekunden-Zündung\n",
+        "es": "Fusible 4 segundos\n"
+    },
+    {
+        "id": "L_GUN_125",
+        "en": "Proximity Pinball\n",
+        "gb": "Proximity Pinball\n",
+        "jp": "センサ\\h8284ピンボ\\h8284ル\n",
+        "it": "Ping-pong di pross.\n",
+        "fr": "Pinball prox.\n",
+        "de": "Annäherungs-Pinball\n",
+        "es": "Pinball Proximidad\n"
+    },
+    {
+        "id": "L_GUN_126",
+        "en": "Timed Detonation\n",
+        "gb": "Timed Detonation\n",
+        "jp": "\\h8393\\h84f9\\h85a3\\h82c8\n",
+        "it": "Detonazione a orol.\n",
+        "fr": "Détonation retard.\n",
+        "de": "Verzögerte Detonation\n",
+        "es": "Detonación temporal\n"
+    },
+    {
+        "id": "L_GUN_127",
+        "en": "Proximity Detonation\n",
+        "gb": "Proximity Detonation\n",
+        "jp": "センサ\\h8284\\h85a3\\h82c8\n",
+        "it": "Detonazione di pross.\n",
+        "fr": "Détonation prox.\n",
+        "de": "Expl. bei Näherung\n",
+        "es": "Detonación Proximidad\n"
+    },
+    {
+        "id": "L_GUN_128",
+        "en": "3-Round Burst\n",
+        "gb": "3-Round Burst\n",
+        "jp": "３\\h84e3\\h85b7\n",
+        "it": "Triplice esplosione\n",
+        "fr": "Tir 3 balles\n",
+        "de": "dreifacher Schuss\n",
+        "es": "Ráfaga 3 Cartuchos\n"
+    },
+    {
+        "id": "L_GUN_129",
+        "en": "Charge-Up Shot\n",
+        "gb": "Charge-Up Shot\n",
+        "jp": "チャ\\h8284ジアップ\n",
+        "it": "Sparo a ricarica\n",
+        "fr": "Tir chargé\n",
+        "de": "aufgeladener Schuss\n",
+        "es": "Disparo Cargado\n"
+    },
+    {
+        "id": "L_GUN_130",
+        "en": "Crouch\n",
+        "gb": "Crouch\n",
+        "jp": "しゃがみ\n",
+        "it": "Accucciarsi\n",
+        "fr": "S'accroupir\n",
+        "de": "Hocken\n",
+        "es": "Agacharse\n"
+    },
+    {
+        "id": "L_GUN_131",
+        "en": "Infect\n",
+        "gb": "Infect\n",
+        "jp": "\\h85c1\\h879d\n",
+        "it": "Infettare\n",
+        "fr": "Infecter\n",
+        "de": "infizieren\n",
+        "es": "Infectar\n"
+    },
+    {
+        "id": "L_GUN_132",
+        "en": "Pulse Fire\n",
+        "gb": "Pulse Fire\n",
+        "jp": "レ\\h8284ザ\\h8284パルス\n",
+        "it": "Fuoco a impulsi\n",
+        "fr": "Impulsion\n",
+        "de": "Feuerstöße\n",
+        "es": "Disparo con Ritmo\n"
+    },
+    {
+        "id": "L_GUN_133",
+        "en": "Short Range Stream\n",
+        "gb": "Short Range Stream\n",
+        "jp": "ショ\\h8284トレンジ\n",
+        "it": "Laser a breve raggio\n",
+        "fr": "Courte portée\n",
+        "de": "Kurzstrecken-Strahl\n",
+        "es": "Rayo Bajo-Alcance\n"
+    },
+    {
+        "id": "L_GUN_134",
+        "en": "Impact Detonation\n",
+        "gb": "Impact Detonation\n",
+        "jp": "インパクト\\h85a3\\h82c8\n",
+        "it": "Detonazione a impatto\n",
+        "fr": "Détonation impact\n",
+        "de": "Kontakt-Detonation\n",
+        "es": "Detonación por Impacto\n"
+    },
+    {
+        "id": "L_GUN_135",
+        "en": "Light Amplifier\n",
+        "gb": "Light Amplifier\n",
+        "jp": "\\h859d\\h86d1モ\\h8284ド\n",
+        "it": "Illuminatore\n",
+        "fr": "Ampli lumière\n",
+        "de": "Restlichtverstärker\n",
+        "es": "Amplificador de Luz\n"
+    },
+    {
+        "id": "L_GUN_136",
+        "en": "Mobile Camera\n",
+        "gb": "Mobile Camera\n",
+        "jp": "リモ\\h8284トアイ\n",
+        "it": "Telecamera mobile\n",
+        "fr": "Caméra mobile\n",
+        "de": "Mobile Kamera\n",
+        "es": "Cámara Móvil\n"
+    },
+    {
+        "id": "L_GUN_137",
+        "en": "X-Ray Vision\n",
+        "gb": "X-Ray Vision\n",
+        "jp": "Ｘ\\h85b2モ\\h8284ド\n",
+        "it": "Vista a raggi X\n",
+        "fr": "Vision rayons X\n",
+        "de": "Röntgen-Sicht\n",
+        "es": "Visión de Rayos-X\n"
+    },
+    {
+        "id": "L_GUN_138",
+        "en": "Thermal Imager\n",
+        "gb": "Thermal Imager\n",
+        "jp": "\\h87c9\\h8296\\h85b2モ\\h8284ド\n",
+        "it": "Immagine termica\n",
+        "fr": "Image thermique\n",
+        "de": "Infrarot-Scanning\n",
+        "es": "Imagen Termal\n"
+    },
+    {
+        "id": "L_GUN_139",
+        "en": "Zoom\n",
+        "gb": "Zoom\n",
+        "jp": "ズ\\h8284ム\n",
+        "it": "Zoom\n",
+        "fr": "Zoom\n",
+        "de": "Zoom\n",
+        "es": "Zoom\n"
+    },
+    {
+        "id": "L_GUN_140",
+        "en": "Jamming Device\n",
+        "gb": "Jamming Device\n",
+        "jp": "\\h82b1\\h82b2モ\\h8284ド\n",
+        "it": "Dispositivo disturbo\n",
+        "fr": "App. brouillage\n",
+        "de": "Störsender\n",
+        "es": "Dispositivo de Bloqueo\n"
+    },
+    {
+        "id": "L_GUN_141",
+        "en": "Connect\n",
+        "gb": "Connect\n",
+        "jp": "コネクション\n",
+        "it": "Connetti\n",
+        "fr": "Connecter\n",
+        "de": "Verbindung\n",
+        "es": "Conectar\n"
+    },
+    {
+        "id": "L_GUN_142",
+        "en": "Identify Targets\n",
+        "gb": "Identify Targets\n",
+        "jp": "タ\\h8284ゲットスキャン\n",
+        "it": "Identifica obiettivi\n",
+        "fr": "Identifier cibles\n",
+        "de": "Zielidentifizierung\n",
+        "es": "Identificar Objetivos\n"
+    },
+    {
+        "id": "L_GUN_143",
+        "en": "Wear Disguise\n",
+        "gb": "Wear Disguise\n",
+        "jp": "ユニフォ\\h8284ム\\h82cd\\h83f3\n",
+        "it": "Travestiti\n",
+        "fr": "Porter costume\n",
+        "de": "Kann angelegt werden\n",
+        "es": "Llevar Disfraz\n"
+    },
+    {
+        "id": "L_GUN_144",
+        "en": "Place Explosives\n",
+        "gb": "Place Explosives\n",
+        "jp": "\\h85a3\\h85a4\\h8688\\h8295\n",
+        "it": "Piazza esplosivo\n",
+        "fr": "Placer explosifs\n",
+        "de": "Sprengsätze müssen platziert werden\n",
+        "es": "Colocar Explosivos\n"
+    },
+    {
+        "id": "L_GUN_145",
+        "en": "Telescopic Sight\n",
+        "gb": "Telescopic Sight\n",
+        "jp": "\\h84af\\h858cスコ\\h8284プ\n",
+        "it": "Vista telescopica\n",
+        "fr": "Vue télescopique\n",
+        "de": "Teleskop-Sicht\n",
+        "es": "Mira Telescópica\n"
+    },
+    {
+        "id": "L_GUN_146",
+        "en": "Silencer\n",
+        "gb": "Silencer\n",
+        "jp": "サイレンサ\\h8284\n",
+        "it": "Silenziatore\n",
+        "fr": "Silencieux\n",
+        "de": "Schalldämpfer\n",
+        "es": "Silenciador\n"
+    },
+    {
+        "id": "L_GUN_147",
+        "en": "Magazine Extension\n",
+        "gb": "Magazine Extension\n",
+        "jp": "\\h86e6\\h8598マガジン\n",
+        "it": "Estensione caricatore\n",
+        "fr": "Rallonge chargeur\n",
+        "de": "Magazin-Erweiterung\n",
+        "es": "Extensión de Cartucho\n"
+    },
+    {
+        "id": "L_GUN_148",
+        "en": "Laser Sight\n",
+        "gb": "Laser Sight\n",
+        "jp": "レ\\h8284ザ\\h8284\\h82eb\\h84a5\n",
+        "it": "Vista Laser\n",
+        "fr": "Vue laser\n",
+        "de": "Ziel-Laser\n",
+        "es": "Mira Láser\n"
+    },
+    {
+        "id": "L_GUN_149",
+        "en": "dataDyne\n",
+        "gb": "dataDyne\n",
+        "jp": "by デ\\h8284タダイン\\h8493\n",
+        "it": "dataDyne\n",
+        "fr": "dataDyne\n",
+        "de": "dataDyne\n",
+        "es": "dataDyne\n"
+    },
+    {
+        "id": "L_GUN_150",
+        "en": "Carrington\n",
+        "gb": "Carrington\n",
+        "jp": "by キャリントン\\h82a3\\h82a4\n",
+        "it": "Carrington\n",
+        "fr": "Carrington\n",
+        "de": "Carrington\n",
+        "es": "Carrington\n"
+    },
+    {
+        "id": "L_GUN_151",
+        "en": "Chesluk Industries\n",
+        "gb": "Chesluk Industries\n",
+        "jp": "by チェスラック\\h8281\\h848f\n",
+        "it": "Chesluk Industries\n",
+        "fr": "Chesluk Industries\n",
+        "de": "Chesluk Industries\n",
+        "es": "Industrias Chesluk\n"
+    },
+    {
+        "id": "L_GUN_152",
+        "en": "Skedar\n",
+        "gb": "Skedar\n",
+        "jp": "by スケダ\\h8284\n",
+        "it": "Skedar\n",
+        "fr": "Skedar\n",
+        "de": "Skedar\n",
+        "es": "Skedar\n"
+    },
+    {
+        "id": "L_GUN_153",
+        "en": "Maian\n",
+        "gb": "Maian\n",
+        "jp": "by マイアン\n",
+        "it": "Maian\n",
+        "fr": "Maian\n",
+        "de": "Maianisch\n",
+        "es": "Maian\n"
+    },
+    {
+        "id": "L_GUN_154",
+        "en": "JonesCorp\n",
+        "gb": "JonesCorp\n",
+        "jp": "by ジョ\\h8284ンズ\\h8493\n",
+        "it": "JonesCorp\n",
+        "fr": "JonesCorp\n",
+        "de": "JonesCorp\n",
+        "es": "JonesCorp\n"
+    },
+    {
+        "id": "L_GUN_155",
+        "en": "Even without a weapon, you are still a worthy adversary. Use your fists to knock your opponents out or disarm them and use their weapons against them.\n",
+        "gb": "Even without a weapon, you are still a worthy adversary. Use your fists to knock your opponents out or disarm them and use their weapons against them.\n",
+        "jp": "ウェポンがないときでも、\\h82a7はタフなファイタ\\h8284になり\\h83a5る。パンチを\\h82f9って\\h83b3\\h82ddをノックアウト、もしくは\\h82cc\\h82cd\\h8286\\h82f8して\\h83b3\\h82ddのウェポンで\\h82ed\\h82d7をするのだ。\n",
+        "it": "Anche disarmato sei ancora un temibile avversario. Usa il pugno per mandare KO o per disarmare i tuoi avversari e raccogli le loro armi.\n",
+        "fr": "Même sans arme, vous demeurez une menace pour vos ennemis. Vos poings peuvent assommer ou désarmer un ennemi pour lui voler son arme.\n",
+        "de": "Auch ohne Waffen sind Sie ein würdiger Gegner. Setzen Sie Ihre Fäuste ein, um Gegner niederzuschlagen oder zu entwaffnen. Anschließend können Sie deren Waffen aufsammeln.\n",
+        "es": "Incluso desarmado, eres un adversario respetable. Usa tus puños para noquear a tus oponentes o desarmarles para usar sus armas contra ellos.\n"
+    },
+    {
+        "id": "L_GUN_156",
+        "en": "Accurate and trustworthy, this gun is the workhorse of the Institute's operations. Use the laser sight to place bullets with deadly effect, or pistol-whip adversaries to knock them out.\n",
+        "gb": "Accurate and trustworthy, this gun is the workhorse of the Institute's operations. Use the laser sight to place bullets with deadly effect, or pistol-whip adversaries to knock them out.\n",
+        "jp": "\\h85a0\\h82b9で\\h83a4\\h85bbの\\h8295ける、\\h82a3\\h82a4で\\h82adもよく\\h82f9われている\\h82e0だ。レ\\h8284ザ\\h8284\\h82eb\\h84a5を\\h82f9って\\h83ba\\h8282な\\h85a4\\h878fを\\h82d7ちこむか、グリップアタックで\\h8297をノックダウンさせるのだ。\n",
+        "it": "Precisa e affidabile, questa è l'arma comunemente usata nelle operazioni dell'istituto. Usa la vista laser per sparare pallottole letali o colpisci i nemici con il calcio della pistola.\n",
+        "fr": "Précis et fiable, c'est l'arme de base des opérations de l'Institut. La visée laser sert à localiser les tirs. Utiliser aussi la crosse pour assommer les ennemis.\n",
+        "de": "Diese zielgenaue und treffsichere Waffe wird von den Mitarbeitern des Instituts bevorzugt eingesetzt. Verwenden Sie die Laser-Zieleinheit, um Schüsse punktgenau zu platzieren. Im Gefecht empfiehlt es sich, von der Pistolen-Funktion Gebrauch zu machen.\n",
+        "es": "Precisa y digna de confianza, esta arma es el caballo de batalla de las operaciones del Instituto. Usa la mira láser para situar las balas con un efecto mortal, o golpea a los adversarios para noquearles.\n"
+    },
+    {
+        "id": "L_GUN_157",
+        "en": "An upgraded Falcon 2, which has the added benefit of being silent, but deadly.\n",
+        "gb": "An upgraded Falcon 2, which has the added benefit of being silent, but deadly.\n",
+        "jp": "ファルコン２の\\h82b7\\h85a6モデルで、サイレンサ\\h8284\\h83c2\\h82a2と\\h83ba\\h8282な\\h82ce\\h82cf\\h8282を\\h86d5\\h82d4\\h838eえている。\n",
+        "it": "Una Falcon 2 potenziata, dotata di silenziatore e comunque letale.\n",
+        "fr": "Un Falcon 2 amélioré, bénéficiant d'un silencieux très utile.\n",
+        "de": "Eine verbesserte Falcon 2, die noch zusätzlich über einen Schalldämpfer verfügt.\n",
+        "es": "Una Falcon 2 mejorada, con la ventaja añadida de que es silenciosa, pero mortal.\n"
+    },
+    {
+        "id": "L_GUN_158",
+        "en": "An upgraded Falcon 2, featuring a 2x magnification scope which allows you to take advantage of the Falcon's superior accuracy.\n",
+        "gb": "An upgraded Falcon 2, featuring a 2x magnification scope which allows you to take advantage of the Falcon's superior accuracy.\n",
+        "jp": "ファルコン２の\\h82b7\\h85a6モデルで、２\\h879fズ\\h8284ムのスナイパ\\h8284スコ\\h8284プを\\h84cb\\h84c0し、ファルコンの\\h85a0\\h82b9な\\h85b7\\h82d7を\\h85c6\\h8398に\\h82c8民できる。\n",
+        "it": "Una Falcon 2 potenziata, dotata di cannocchiale a due ingrandimenti per il massimo della precisione.\n",
+        "fr": "Un Falcon 2 amélioré, bénéficiant d'un scope d'agrandissement x2 pour profiter d'une grande précision.\n",
+        "de": "Eine verbesserte Falcon 2, die durch ein Präzisions-Fernrohr noch zusätzlich an Genauigkeit gewinnt.\n",
+        "es": "Una Falcon 2 mejorada, que cuenta con una mirilla duplicadora que te permite beneficiarte de la superior precisión de la Falcon.\n"
+    },
+    {
+        "id": "L_GUN_159",
+        "en": "A state-of-the-art military pistol, largely used by peacekeeping forces. It has a slight zoom capability, and boasts a 3-round burst secondary fire mode.\n",
+        "gb": "A state-of-the-art military pistol, largely used by peacekeeping forces. It has a slight zoom capability, and boasts a 3-round burst secondary fire mode.\n",
+        "jp": "\\h84a6\\h8481\\h8388のピストルの\\h85bc\\h83dbで、\\h84f5\\h86b6\\h87a1\\h82d5\\h84a6によって\\h85e3に\\h82f9われている。シンプルなズ\\h8284ム\\h83c2\\h82a2を\\h82d5っており、\\h83e4２\\h82cc\\h84bdモ\\h8284ドにおいては３\\h84e3\\h85b7ができる。\n",
+        "it": "Una pistola militare all'avanguardia comunemente usata dalle forze di pace. È dotata di zoom e di modalità secondaria di sparo a triplice esplosione.\n",
+        "fr": "Un pistolet de l'armée dernier cri utilisé par les forces de l'ordre. Il possède un léger zoom et lance trois balles en mode de tir secondaire.\n",
+        "de": "Eine state-of-the-art Militär-Pistole, die hauptsächlich von Friedenstruppen eingesetzt wird. Die Waffe verfügt über eine leichte Zoom-Funktion und feuert drei Kugeln gleichzeitig ab (Sekundär).\n",
+        "es": "Una pistola de tecnología militar punta, usada en gran parte por fuerzas de paz. Cuenta con una ligera capacidad de zoom, y tiene un modo secundario de disparo de ráfaga de tres cartuchos.\n"
+    },
+    {
+        "id": "L_GUN_160",
+        "en": "If you see a Skedar coming at you, the chances are it's carrying one of these. A large magazine and a bladed barrel make the pistol a formidable handgun, but the killer blow comes from the secondary function - charge the shot up for extra power at the cost of a few rounds of ammo.\n",
+        "gb": "If you see a Skedar coming at you, the chances are it's carrying one of these. A large magazine and a bladed barrel make the pistol a formidable handgun, but the killer blow comes from the secondary function - charge the shot up for extra power at the cost of a few rounds of ammo.\n",
+        "jp": "スケダ\\h8284におそわれた\\h8393は、これを\\h82ddに\\h82f6れるチャンスかもしれない。\\h83c6きなマガジンと\\h87a2のついた\\h82e0\\h82abを\\h82d5った\\h83bbるべきハンドガンだ。\\h83e4２\\h82cc\\h84bdモ\\h8284ドのチャ\\h8284ジアップを\\h82f9うと\\h84e3\\h85b7\\h83dfは\\h87ccがるが、\\h83ba\\h8282なパワ\\h8284で\\h8297に\\h83c6\\h86cc\\h82d7を\\h8494えるであろう。\n",
+        "it": "Di solito queste armi sono tipiche degli Skedar. Il capiente caricatore e la canna affilata rendono questa pistola un'arma formidabile, sebbene il colpo letale sia dovuto alla sua funzione secondaria: ricaricala per maggiore potenza a costo di qualche giro di munizioni.\n",
+        "fr": "C'est l'arme de prédilection de tout Skedar qui se respecte. Un grand chargeur et un canon rayé font de ce pistolet une arme de poing formidable, surtout grâce à son tir secondaire: charger le tir pour plus de puissance en utilisant plusieurs munitions.\n",
+        "de": "Wenn Sie auf einen Skedar treffen, ist er vermutlich mit dieser Waffe ausgestattet. Ein großes Magazin macht diese Pistole zu einer formidablen Handfeuerwaffe. Aber die Sekundär-Funktion ist noch bemerkenswerter. Die Feuerkraft kann durch Aufladen verstärkt werden, kostet aber Munition.\n",
+        "es": "Si ves a un Skedar viniendo hacia ti, es más que posible que lleve una de éstas. Un amplio cargador y su cañón rayado hacen de esta pistola una formidable arma de mano, pero la descarga asesina viene del modo secundario: carga el disparo para fuerza extra al coste de unos cuantos cartuchos.\n"
+    },
+    {
+        "id": "L_GUN_161",
+        "en": "The dataDyne DY357 is the most powerful handgun in the world. Each round has an impressive penetration factor and knocks the target back with the weight and power of the shot. Custom models are made for valued clients; NSA director Trent Easton is rumored to have a gold plated variant.\n",
+        "gb": "The dataDyne DY357 is the most powerful handgun in the world. Each round has an impressive penetration factor and knocks the target back with the weight and power of the shot. Custom models are made for valued clients; NSA director Trent Easton is rumored to have a gold plated variant.\n",
+        "jp": "デ\\h8284タダインのＤＹ３５７は、\\h8490\\h8491で\\h82adもパワフルなハンドガンだ。\\h83ba\\h8282な\\h82ce\\h82cf\\h8282で\\h85ab\\h8285の\\h83b0は\\h87ae\\h83cfし、\\h8297を\\h85e5\\h85e6にふっとばしてくれるだろう。お\\h83a5\\h83b4\\h8594\\h8388にカスタムモデルも\\h83dbられており、\\h849d\\h849e\\h849fのトレント・イ\\h8284ストンはゴ\\h8284ルドモデルを\\h82d5っているというウワサである。\n",
+        "it": "La DY357 dataDyne è la pistola più potente che esista. Ogni colpo ha un impressionante fattore di penetrazione e colpisce l'obiettivo con tutto il peso e la potenza dello sparo. Se ne producono modelli personalizzati su commissione. Pare che Trent Easton ne abbia una placcata d'oro.\n",
+        "fr": "Le dataDyne DY357 est la plus puissante des armes de poing. Ses balles possèdent un facteur de pénétration élevé et repoussent la cible de leur poids et leur puissance. Des modèles customisés sont fabriqués pour des clients importants. On raconte que Trent Easton, le directeur de la NSA en possède un plaqué or.\n",
+        "de": "Die dataDyne DY357 ist die stärkste Handfeuerwaffe der Welt. Jede Kugel verfügt über einen hohen Penetrations-Faktor und schleudert das Ziel zurück. Modifizierte Modelle werden nur für spezielle Kunden angefertigt. NSA-Chef Trent Easton verfügt angeblich über eine vergoldete Variante.\n",
+        "es": "La DY357 de dataDyne es la más poderosa arma de mano del mundo. Cada cartucho tiene un factor de penetración increíble y noquea al objetivo con el peso y fuerza del disparo. Se han hecho modelos de encargo para clientes importantes; se rumorea que el director de ANS, Trent Easton, tiene una variante bañada en oro.\n"
+    },
+    {
+        "id": "L_GUN_162",
+        "en": "The DY357-LX was custom built for NSA director Trent Easton. Besides boasting an attractive genuine tiger skin grip, this golden gun features a velocity optimized barrel, meaning that each bullet always meets its target with fatal force.\n",
+        "gb": "The DY357-LX was custom built for NSA director Trent Easton. Besides boasting an attractive genuine tiger skin grip, this golden gun features a velocity optimized barrel, meaning that each bullet always meets its target with fatal force.\n",
+        "jp": "DY357-LXは\\h849d\\h849e\\h849fの\\h84a0\\h84a1\\h84a2、トレント・イ\\h8284ストン\\h8388のカスタムモデルである。\\h87a0しいタイガ\\h8284スキンのグリップに\\h84e5えて、このゴ\\h8284ルドガンは\\h85a4のスピ\\h8284ドが\\h82ad\\h82ffになるよう\\h82e0\\h82abに\\h85c9\\h85caが\\h84e5えてあり、\\h8283\\h82d7千\\h8591で\\h83b3\\h82ddを\\h82d9すことができる。\n",
+        "it": "La DY357-LX è stata creata per il direttore della NSA, Trent Easton. Oltre al calcio ricoperto in pelle di tigre, quest'arma dorata vanta anche una canna speciale che conferisce al proiettile incredibile velocità e forza.\n",
+        "fr": "Le DY357-LX a été conçu à la demande du directeur de la NSA, Trent Easton. En plus de posséder une crosse en peau de tigre, ce pistolet d'or possède un canon rayé et utilise des balles à haute vélocité. C'est une arme meurtrière.\n",
+        "de": "Die DY357-LX wurde speziell für Trent Easton angefertigt. Neben einem mit Tigerleder überzogenen Griff verfügt diese Pistole über einen integrierten Beschleuniger, der jeder Kugel noch mehr Kraft verleiht.\n",
+        "es": "La DY357-LX fue diseñada especialmente para el director de la ANS, Trent Easton. Además de tener una atractiva empuñadura de genuina piel de tigre, este arma dorada incluye un cañón optimizado, lo que significa que cada bala siempre encuentra su objetivo con una fuerza mortífera.\n"
+    },
+    {
+        "id": "L_GUN_163",
+        "en": "The Maian standard issue sidearm. A flexible gun, the pistol fires standard shots, or explosive shots at no cost to the rest of the magazine.\n",
+        "gb": "The Maian standard issue sidearm. A flexible gun, the pistol fires standard shots, or explosive shots at no cost to the rest of the magazine.\n",
+        "jp": "マイアンのスタンダ\\h8284ドなウェポンだ。このピストルは、シングルショットと\\h85a3\\h85a4シェルを、\\h84f7じエネルギ\\h8284\\h82f9\\h8388\\h87aaで\\h82c8\\h85b7できる。\n",
+        "it": "È la dotazione Maian standard: una pistola versatile per colpi normali o esplosivi senza ripercussioni sul resto del caricatore.\n",
+        "fr": "L'arme standard Maian. Elle peut au choix tirer des balles normales ou des balles explosives, sans modifier la consommation de munitions.\n",
+        "de": "Die Maianische Standard-Waffe. Eine flexible Waffe, die in der Lage ist, sowohl normale als auch Explosiv-Geschosse abzufeuern. Bei letzterer Variante wird nicht mehr Munition als sonst verbraucht.\n",
+        "es": "El arma Maian estándar. Se trata de un arma flexible, una pistola que dispara proyectiles estándar o proyectiles explosivos sin que afecte a la capacidad del cargador.\n"
+    },
+    {
+        "id": "L_GUN_164",
+        "en": "A dataDyne classic, and a bestseller, this submachine gun boasts a 32 rnd mag and a special feature - the ability to designate and lock on to targets in the line of sight. It turns an average marksman into an excellent one, provided he or she is clever enough to operate the gun. Average fire rate: 900 rpm.\n",
+        "gb": "A dataDyne classic, and a bestseller, this submachine gun boasts a 32 rnd mag and a special feature - the ability to designate and lock on to targets in the line of sight. It turns an average marksman into an excellent one, provided he or she is clever enough to operate the gun. Average fire rate: 900 rpm.\n",
+        "jp": "デ\\h8284タダインのベストセラ\\h8284となったサブマシンガン。３２\\h84e3\\h82c8のマガジンに\\h84ad\\h83ff\\h83c2\\h82a2を\\h84cb\\h84c0。\\h8497の\\h839dのタ\\h8284ゲットを\\h87a3\\h84c7し、ロックオンすることができるのだ。この\\h83c2\\h82a2は\\h87a4\\h83cfの\\h85b7\\h82d7\\h82ddを、プロのスナイパ\\h8284に\\h82caえてしまった。\\h84f5\\h87a5\\h84e3\\h85b7\\h82ff\\h83ac：９００ｒｐｍ\n",
+        "it": "Questo classico prodotto dataDyne è il fucile mitragliatore più venduto: vanta un caricatore a 32 colpi e la speciale caratteristica di identificare e mirare sul bersaglio nell'intero campo visivo. Trasforma un tiratore scelto medio in uno eccellente, sempre che sia in grado di manovrare l'arma. Velocità media di fuoco: 900 giri/min.\n",
+        "fr": "Un classique de la dataDyne très répandu. Cette arme automatique tire des rafales de calibre 32 et possède une capacité spéciale: verrouiller une cible. Elle fait du profane un tireur d'élite. Cadence de tir moyenne: 900 cpm.\n",
+        "de": "Ein dataDyne-Klassiker und Bestseller! Dieses Maschinengewehr verfügt über ein 32er Magazin und eine Sonderfunktion. Jedes sichtbare Ziel kann fixiert werden. Dieses Feature macht jeden durchschnittlichen Schützen zu einem Profi. Vorausgesetzt natürlich, er oder sie ist intelligent genug, die Waffe zu bedienen. Durchschnittliche Feuerrate: 900 rpm.\n",
+        "es": "Un clásico de dataDyne, y excelentemente vendida, esta metralleta cuenta con un cargador de 32 cartuchos y una característica especial: la habilidad de designar y fijar objetivos en la línea de fuego. Convierte a un tirador medio en uno excelente, siempre que sea inteligente para manejar el arma. Ratio de disparo normal: 900 dpm.\n"
+    },
+    {
+        "id": "L_GUN_165",
+        "en": "The Carrington Institute's main assault rifle. A good range and magazine size make it a useful weapon; the secondary mode enables the user to move while zoomed in on a target. Average fire rate: 750 rpm.\n",
+        "gb": "The Carrington Institute's main assault rifle. A good range and magazine size make it a useful weapon; the secondary mode enables the user to move while zoomed in on a target. Average fire rate: 750 rpm.\n",
+        "jp": "キャリントン\\h82a3\\h82a4で\\h82adもよく\\h82f9\\h8388されているライフル。\\h84b5い\\h85b7\\h83abと\\h83c6きなマガジンサイズで、\\h83c6\\h82ca\\h82f9い\\h83be\\h82ddのよいウェポンである。\\h83e4２\\h82cc\\h84bdモ\\h8284ドでは、ズ\\h8284ムアップしたままで\\h82c4きまわることを手\\h82a2にしている。\\h84f5\\h87a5\\h84e3\\h85b7\\h82ff\\h83ac：７５０ｒｐｍ\n",
+        "it": "Il principale fucile d'assalto del Carrington Institute, dotato di gittata e caricatore ottimi. La modalità secondaria permette a chi lo usa di spostarsi mentre zooma sul bersaglio. Velocità media di fuoco: 750 giri/min.\n",
+        "fr": "Le fusil d'assaut principal de l'Institut Carrington. Une portée et un grand chargeur font de cette arme un excellent choix. Le tir secondaire permet de se déplacer tout en ciblant un ennemi. Cadence de tir moyenne: 750 cpm.\n",
+        "de": "Das Sturmgewehr des Carrington Instituts. Diese Waffe zeichnet sich durch hohe Reichweite und Magazin-Kapazität aus. Die Sekundär-Funktion ermöglicht es dem Schützen, sich zu bewegen, während er auf ein Ziel zoomt. Durchschnittliche Feuerrate: 750 rpm.\n",
+        "es": "El principal rifle de asalto del Instituto Carrington. Su gran alcance y el tamaño de su cargador hacen de ella un arma muy útil; el modo secundario permite al usuario moverse mientras hace zoom sobre un adversario. Ratio de disparo normal: 750 dpm.\n"
+    },
+    {
+        "id": "L_GUN_166",
+        "en": "A standard assault rifle with an evil twist - when the secondary mode is activated, it becomes a proximity-activated mine that looks like a gun. Average fire rate: 700 rpm.\n",
+        "gb": "A standard assault rifle with an evil twist - when the secondary mode is activated, it becomes a proximity-activated mine that looks like a gun. Average fire rate: 700 rpm.\n",
+        "jp": "ちょっと\\h82c9たところ、スタンダ\\h8284ドなライフルであるが、\\h83e4２\\h82cc\\h84bdモ\\h8284ドが\\h82c3\\h82c4されると、\\h82e0によくにたセンサ\\h8284\\h85a3\\h85a4へと\\h82ca\\h82abする。\\h84f5\\h87a5\\h84e3\\h85b7\\h82ff\\h83ac：７００ｒｐｍ\n",
+        "it": "Un fucile d'assalto standard con un'innovazione micidiale: nella modalità secondaria diventa una mina di prossimità molto simile ad una pistola. Velocità media di fuoco: 700 giri/min.\n",
+        "fr": "Un fusil d'assaut standard avec un côté vicieux: lorsque le mode secondaire est activé, il devient une mine de proximité aux apparences d'un fusil. Cadence de tir moyenne: 700 cpm.\n",
+        "de": "Ein Standard-Gewehr mit Überraschungseffekt. Die Sekundär-Funktion verwandelt es in eine Mine, die auf Bewegungen reagiert, aber nach wie vor wie ein herumliegendes Gewehr aussieht. Durchschnittliche Feuerrate: 700 rpm.\n",
+        "es": "Un rifle de asalto estándar con un giro diabólico: cuando se activa el modo secundario, se convierte en una mina activada por proximidad que parece un arma. Ratio de disparo normal: 700 dpm.\n"
+    },
+    {
+        "id": "L_GUN_167",
+        "en": "A variant of the Dragon assault rifle - instead of a proximity explosive, it has a small grenade launcher. Excellent support weapon. Average fire rate: 700 rpm.\n",
+        "gb": "A variant of the Dragon assault rifle - instead of a proximity explosive, it has a small grenade launcher. Excellent support weapon. Average fire rate: 700 rpm.\n",
+        "jp": "ドラゴンの\\h82ca\\h86ffモデル。センサ\\h8284\\h85a3\\h85a4のかわりに、\\h84e0さなＧランチャを\\h84cb\\h84c0している\\h83b8\\h83b9に\\h83fb\\h83fcつ\\h82e0だ。\\h84f5\\h87a5\\h84e3\\h85b7\\h82ff\\h83ac：７００ｒｐｍ\n",
+        "it": "Una variante del fucile d'assalto Dragon: invece dell'esplosivo di prossimità è dotato un piccolo lanciagranate. Eccellente arma d'appoggio. Velocità media di fuoco: 700 giri/min.\n",
+        "fr": "Une variante du fusil d'assaut Dragon: plutôt qu'un explosif de proximité, il possède un mini lance-grenades. Une arme excellente. Cadence de tir moyenne: 700 cpm.\n",
+        "de": "Eine Variante des Dragon. Anstatt der Minen-Funktion verfügt die Waffe über einen kleinen Granat-Werfer. Hervorragend als Unterstützung. Durchschnittliche Feuerrate: 700 rpm.\n",
+        "es": "Es una variante del rifle de asalto Dragón: en vez de un explosivo de proximidad, es un pequeño lanzagranadas. Es una excelente arma de apoyo. Ratio de disparo normal: 700 dpm.\n"
+    },
+    {
+        "id": "L_GUN_168",
+        "en": "Another piece of high-tech kit from dataDyne. Ordinarily an assault rifle with a smallish magazine and a powerful punch, it has a threat detection mode that highlights explosives, wallguns, and similar hazards. Average fire rate: 950 rpm.\n",
+        "gb": "Another piece of high-tech kit from dataDyne. Ordinarily an assault rifle with a smallish magazine and a powerful punch, it has a threat detection mode that highlights explosives, wallguns, and similar hazards. Average fire rate: 950 rpm.\n",
+        "jp": "またしてもデ\\h8284タダインのハイテク・ウェポンだ。\\h84e0さ\\h8497のマガジンを\\h82d5つ\\h8283\\h82c9\\h87a4\\h83cfのライフルだが、パワフルな\\h82ce\\h82cf\\h8282のほかに、\\h83f4\\h83f5\\h83b0\\h82c8\\h82c9モ\\h8284ドを\\h82cd\\h838eしている。このモ\\h8284ドにすると、\\h85a3\\h85a4や\\h83c2\\h82e0などの\\h83f4\\h83f5\\h83b0を\\h8480\\h84c5してくれる。\n",
+        "it": "Altro esempio di alta tecnologia della dataDyne. Solitamente un fucile d'assalto con un caricatore ridotto e perforazione potente, dotato di rilevatore di minaccia per identificare esplosivi, pistole a muro e altro.Velocità media di fuoco: 950 giri/min.\n",
+        "fr": "Une autre arme high-tech de la dataDyne. Un fusil d'assaut possédant un chargeur plus petit et un impact puissant, qui peut détecter les explosifs, les armes sentinelles et autres pièges du même ordre. Cadence de tir moyenne: 950 cpm.\n",
+        "de": "High-tech pur von dataDyne. Der Avenger wird als Sturmgewehr eingesetzt. Die wichtigste Funktion ist ein Gefahren-Melder, der auf die Anwesenheit von Sprengkörpern, Selbstschußanlagen und Ähnlichem reagiert. Durchschnittliche Feuerrate: 950 rpm.\n",
+        "es": "Es otra pieza de alta tecnología de dataDyne. Ordinariamente es un rifle de asalto con un cargador más bien pequeño y una descarga poderosa, cuenta con un modo detector de trampas que muestra explosivos, armas de pared y peligros similares. Ratio de disparo normal: 950 dpm.\n"
+    },
+    {
+        "id": "L_GUN_169",
+        "en": "Designed for use by bodyguards, the Cyclone has been adopted by Presidential Security due to its excellent capability when used for suppression. In extreme circumstances, it can more than double the fire rate, discharging the magazine in a second. Average fire rate: 900 rpm. Unloads at 2000 rpm.\n",
+        "gb": "Designed for use by bodyguards, the Cyclone has been adopted by Presidential Security due to its excellent capability when used for suppression. In extreme circumstances, it can more than double the fire rate, discharging the magazine in a second. Average fire rate: 900 rpm. Unloads at 2000 rpm.\n",
+        "jp": "\\h83c6\\h83c7\\h83c8のボディガ\\h8284ド\\h8388に\\h84d7\\h82c8されたサイクロンは、テロなどを\\h85a4\\h8495する\\h85f8に\\h82aeれた\\h82a2\\h8282を\\h82c8民する。\\h83b8\\h83b9\\h8393には\\h84e3\\h85b7\\h82ff\\h83acを２\\h879f\\h838b\\h87cbにし、マガジンを１\\h86db\\h86daらずで\\h82f9い\\h83ddたすということもできる。\\h84f5\\h87a5\\h84e3\\h85b7\\h82ff\\h83ac：９００ｒｐｍ、\\h82ad\\h83c6２０００ｒｐｍ\n",
+        "it": "Progettata per le guardie del corpo, la Ciclone è stata adottata dalle Forze di Sicurezza del Presidente per gli eccezionali risultati in caso di soppressione. In estreme circostanze, la velocità di fuoco può essere raddoppiata, scaricando il caricatore in un secondo. Velocità media di fuoco: 900 giri/min. Scarica a 2000 giri/min.\n",
+        "fr": "Conçu pour les gardes du corps, le Cyclone a été choisi par le service de sécurité du Président grâce à son efficacité en matière de répression. En cas d'urgence, il peut doubler sa cadence de tir, vidant son chargeur en moins d'une seconde. Cadence de tir moyenne: 900 cpm. Se vide à 2000 cpm.\n",
+        "de": "Speziell für Bodyguards. Die Cyclone wird auch von der Leibwache des Präsidenten eingesetzt. In Extremsituationen kann die Feuerrate um mehr als das Doppelte erhöht werden. Allerdings wird durch diese Aktion das Magazin in sekundenschnelle geleert. Durchschnittliche Feuerrate: 900 rpm bzw. 2000 rpm.\n",
+        "es": "Diseñado para ser usado por guardaespaldas, el Ciclón ha sido adoptado por la Seguridad Presidencial debido a su excelente capacidad cuando es usado para 'suprimir'. En circunstancias extremas, puede más que doblar el ritmo de disparo, descargando el cargador completo en un segundo. Ratio de disparo normal: 900 dpm. Descarga a 2000 dpm.\n"
+    },
+    {
+        "id": "L_GUN_170",
+        "en": "The Carrington Institute secret weapon. It fires at a phenomenal rate and has a huge magazine capacity. The secondary mode is a cloaking device that runs off the ammunition in the magazine. A devastating weapon. Average fire rate: 1100 rpm.\n",
+        "gb": "The Carrington Institute secret weapon. It fires at a phenomenal rate and has a huge magazine capacity. The secondary mode is a cloaking device that runs off the ammunition in the magazine. A devastating weapon. Average fire rate: 1100 rpm.\n",
+        "jp": "キャリントン\\h82a3\\h82a4の\\h85b5\\h85b6ウェポン。おどろくべき\\h84e3\\h85b7\\h82ff\\h83acと\\h83c6きなマガジンを\\h82d5っている。\\h83e4２\\h82cc\\h84bdモ\\h8284ドはスパイクロ\\h8284クで、マガジン\\h828eの\\h85a4\\h86a8をエネルギ\\h8284として\\h82f9\\h8388する。\\h84f5\\h87a5\\h84e3\\h85b7\\h82ff\\h83ac：１１００ｒｐｍ\n",
+        "it": "L'arma segreta del Carrington Institute. Velocità di fuoco fenomenale e straordinaria capacità del caricatore. La modalità secondaria è una funzione nascosta che esaurisce le munizioni nel caricatore. Un'arma distruttiva. Velocità media di fuoco: 1100 giri/min.\n",
+        "fr": "L'arme secrète de l'Institut Carrington. Elle tire à une cadence phénoménale et contient énormément de munitions. Le mode secondaire est un occulteur qui consomme les munitions. Une arme dévastatrice. Cadence de tir moyenne: 1100 cpm.\n",
+        "de": "Die geheime Waffe des Carrington Instituts. Verfügt über eine hohe Feuerrate und ein großes Magazin. Die Sekundär-Funktion aktiviert eine Tarnfunktion, allerdings auf Kosten der Munition. Daher sollte diese Funktion mit größter Vorsicht gehandhabt werden. Durchschnittliche Feuerrate: 1100 rpm.\n",
+        "es": "El arma secreta del Instituto Carrington. Dispara a un ritmo fenomenal y cuenta con una capacidad de cargador gigantesca. El modo secundario es un dispositivo de ocultación que funciona con la munición del cargador. Es un arma devastadora. Ratio de disparo normal: 1100 dpm.\n"
+    },
+    {
+        "id": "L_GUN_171",
+        "en": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s/f:300 rpm).\n",
+        "gb": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s/f:300 rpm).\n",
+        "jp": "これもマイアン\\h8688\\h82f0のウェポン。スタンダ\\h8284ドな\\h84e3\\h85b7モ\\h8284ドの\\h8698に、ハイ・インパクト\\h85a4が\\h82f9えるモ\\h8284ドがある。これは\\h83baい\\h82ce\\h82cf\\h8282で、\\h85ab\\h8285の\\h83b0なら\\h87ae\\h83cfする。このモ\\h8284ドの\\h85fe\\h83ceは\\h84e3\\h85b7\\h82ff\\h83acが\\h87ccがることと、ショットのパワ\\h8284の\\h83ea\\h82c4で、\\h83e9\\h828d\\h85a5が\\h87ccがることだ。\\h84f5\\h87a5\\h84e3\\h85b7\\h82ff\\h83ac：９００ｒｐｍ（\\h83e4２\\h82cc\\h84bdモ\\h8284ド：３００ｒｐｍ）\n",
+        "it": "Un altro eccellente esempio di arma Maian. Può sparare colpi ordinari alla velocità degli altri fucili mitragliatori, ma anche scariche ad alta velocità in grado di perforare oggetti e trovare obiettivi nascosti. Gli unici svantaggi della modalità secondaria sono la ridotta velocità di fuoco e la mancanza di precisione a causa della potenza dello sparo. Velocità media di fuoco: 900 giri/min. (m/s:300 giri/min.).\n",
+        "fr": "Un autre exemple du génie maian. Il peut tirer des balles normales aussi vite qu'un autre pistolet-mitrailleur, ou tirer des projectiles rapides pénétrant facilement les obstacles vous séparant d'une cible. Seul désavantage du mode secondaire: la cadence de tir est plus lente et la précision est diminuée par la puissance du coup. Cadence de tir moyenne: 900 cpm (tir sec. 300 cpm).\n",
+        "de": "Ein weiteres Beispiel Maianischer Waffentechnik. Diese Waffe feuert normale Munition mit der gleichen Geschwindigkeit ab, wie jedes andere Gewehr. Es sind aber auch Hochgeschwindigkeits-Schüsse möglich, die Deckungen durchbrechen können. Der Nachteil dabei ist, dass die Feuerrate sinkt und aufgrund des Rückstoßes die Genauigkeit leidet. Durchschnittliche Feuerrate: 900 rpm bzw. 300 rpm.\n",
+        "es": "Se trata de otro ejemplo del excelente diseño de armas de fuego Maian. Puede disparar tiros estándar tan rápido como cualquier otro SMG, o puede disparar cartuchos de alta velocidad que pueden penetrar fácilmente en objetos para encontrar al objetivo al otro lado. La única desventaja con el modo de disparo secundario es que el ritmo de disparo es lento y la precisión sufre con la potencia del disparo. Ratio de disparo normal: 950 dpm., (f/s: 300 dpm).\n"
+    },
+    {
+        "id": "L_GUN_172",
+        "en": "A submachine gun made to look like a laptop PC. In disguised form, the gun cannot fire, but when activated, it unfolds into shape. The PC gun will not bear close inspection; it will boot up, but the memory is a quarter of what it is supposed to be. Average fire rate: 1000 rpm.\n",
+        "gb": "A submachine gun made to look like a laptop PC. In disguised form, the gun cannot fire, but when activated, it unfolds into shape. The PC gun will not bear close inspection; it will boot up, but the memory is a quarter of what it is supposed to be. Average fire rate: 1000 rpm.\n",
+        "jp": "ラップトップＰＣに\\h82c9えるように\\h8688\\h82f0されたサブマシンガン。ＰＣの\\h86ffをしているときは\\h82c8\\h85b7ができない。\\h83e4２\\h82cc\\h84bdモ\\h8284ドでは\\h8397\\h82c4\\h83c2\\h82e0として\\h8294\\h838eすることができる。\\h84f5\\h87a5\\h84e3\\h85b7\\h82ff\\h83ac：１０００ｒｐｍ\n",
+        "it": "Un fucile mitragliatore dalle sembianze di un computer portatile. Quando è chiuso, non può sparare, ma attivandolo assume la sua forma micidiale. Se ispezionato a fondo può essere scoperto: il PC si avvia, ma la sua memoria è solo un quarto del normale.Velocità media di fuoco: 1000 giri/min.\n",
+        "fr": "Un PC portable qui peut tirer une fois transformé en mitrailleuse. Il peut être utilisé comme PC mais un contrôle minutieux révélera la supercherie. Cadence de tir moyenne: 1000 cpm.\n",
+        "de": "Ein Maschinengewehr, das in der Form eines Laptops designt wurde. In Tarnform kann nicht gefeuert werden. Diese Waffe hält auch einer genaueren Untersuchung stand. Sie wird wie jeder PC gebootet, verfügt aber nur über ein Viertel des Speichers. Durschnittliche Feuerrate: 1000 rpm.\n",
+        "es": "Una ametralladora diseñada para parecer un PC portátil. Disimulada, el arma no puede disparar, pero una vez activada, se despliega. El Arma PC no permite inspecciones detalladas; puede arrancar, pero la memoria es un cuarto de lo que se supone que es. Ratio de disparo normal: 1000 dpm.\n"
+    },
+    {
+        "id": "L_GUN_173",
+        "en": "A dataDyne weapon manufactured for security forces. A nine-cartridge magazine combined with single or double fire modes make it a dangerous close-quarters weapon.\n",
+        "gb": "A dataDyne weapon manufactured for security forces. A nine-cartridge magazine combined with single or double fire modes make it a dangerous close-quarters weapon.\n",
+        "jp": "デ\\h8284タダインの\\h8289\\h838e\\h838f\\h8388に\\h84d7\\h82c8されたウェポン。９\\h82c8\\h82f6りのマガジンを\\h82d5ち、シングルショットとダブルショットを\\h82c8\\h85b7することが\\h829f\\h8390る。\\h85d1\\h82bc\\h8291\\h8386き。\n",
+        "it": "Un'arma dataDyne realizzata per le forze di sicurezza. Il caricatore a nove cartucce assieme alla modalità di sparo semplice o doppia ne fanno un'arma pericolosa a distanze ravvicinate.\n",
+        "fr": "Une arme de la dataDyne fabriquée par les services de sécurité. Un chargeur de 9 balles est couplé à un mode de tir simple ou double, faisant de cette arme un atout en combat rapproché.\n",
+        "de": "Eine dataDyne-Waffe für die hausinterne Security. Ein neunfaches Magazin in Kombination mit Einfach- oder Doppelfeuer macht diese Waffe zu einem gefährlichen Nahkampf-Instrument.\n",
+        "es": "Es un arma de dataDyne fabricada para fuerzas de seguridad. Su cargador de nueve cartuchos combinado con modos de disparo simple o doble hacen que se trate de una peligrosa arma de cerca.\n"
+    },
+    {
+        "id": "L_GUN_174",
+        "en": "A truly terrifying weapon in the hands of someone strong enough to control the massive recoil; for anyone else, a highly unwieldy but effective corridor clearance weapon. Maximum fire rate: 1800 rpm.\n",
+        "gb": "A truly terrifying weapon in the hands of someone strong enough to control the massive recoil; for anyone else, a highly unwieldy but effective corridor clearance weapon. Maximum fire rate: 1800 rpm.\n",
+        "jp": "\\h82f9いこなせる\\h84b1にとっては\\h83b8\\h83b9に\\h83ba\\h8282なウェポンだが、\\h8283\\h8782\\h83d1には\\h82f9いにくい。しかし\\h83cf\\h82b8にあふれる\\h8297を\\h8283\\h85cbするにはぴったりのウェポン。\\h82ad\\h83c6の\\h84e3\\h85b7\\h82ff\\h83acは１８００ｒｐｍにもなる。\n",
+        "it": "Un'arma terrificante se nelle mani di qualcuno abbastanza robusto da resistere al forte contraccolpo; altrimenti molto difficile da controllare ma comunque capace di aprire utili corridoi. Velocità massima di fuoco: 1800 giri/min.\n",
+        "fr": "Conçu pour être manié par un utilisateur plus fort qu'un humain. Sa cadence de tir ultra rapide en fait une véritable machine à déchiqueter, très efficace dans les couloirs. \nCadence de tir maximum: 1800 cpm.\n",
+        "de": "In den Händen von jemandem, der den starken Rückstoß ausgleichen kann, ist dies wohl die schrecklichste aller Waffen. Auf jeden Fall eignet sie sich hervorragend für Gefechte in engen Korridoren. Maximale Feuerrate: 1800 rpm.\n",
+        "es": "Es un arma realmente aterradora en manos de alguien lo suficientemente fuerte para controlar su gran retroceso; para el resto, un arma difícil de manejar pero efectiva para despejar pasillos. Ratio de disparo normal: 1800 dpm.\n"
+    },
+    {
+        "id": "L_GUN_175",
+        "en": "A cumbersome weapon. Fires either a standard rocket or a slower, homing rocket when locked on to the unfortunate target.\n",
+        "gb": "A cumbersome weapon. Fires either a standard rocket or a slower, homing rocket when locked on to the unfortunate target.\n",
+        "jp": "とてもヘビ\\h8284なウェポン。\\h83cf\\h83b9のロケットに\\h84e5えて、タ\\h8284ゲットをロックオンしてホ\\h8284ミングロケットを\\h82c8\\h85b7することもできる。\n",
+        "it": "Un'arma ingombrante capace di sparare un missile standard o uno più lento che rientra alla base dopo aver seguito lo sfortunato obiettivo.\n",
+        "fr": "Une arme encombrante. Elle tire soit une roquette normale soit un missile plus lent mais à tête chercheuse, pouvant verrouiller un ennemi.\n",
+        "de": "An und für sich eine sehr unhandliche Waffe. Sie feuert eine Standard-Rakete oder eine langsamere Zielsuch-Rakete auf das Ziel ab.\n",
+        "es": "Es un arma incómoda. Dispara tanto un cohete estándar como un cohete más lento dirigido cuando se centra en el desafortunado objetivo.\n"
+    },
+    {
+        "id": "L_GUN_176",
+        "en": "A long range grenade delivery system manufactured by dataDyne. The secondary fire mode coats the grenades with a sticky substance; when fired, the bomb attaches itself to wall or ceiling. After a few seconds, it detaches to fall to the ground, where it detonates.\n",
+        "gb": "A long range grenade delivery system manufactured by dataDyne. The secondary fire mode coats the grenades with a sticky substance; when fired, the bomb attaches itself to wall or ceiling. After a few seconds, it detaches to fall to the ground, where it detonates.\n",
+        "jp": "デ\\h8284タダインによって\\h8688\\h82f0された、\\h858cくまで\\h85a3\\h85a4を\\h82c8\\h85b7するシステム。\\h83e4２\\h82cc\\h84bdモ\\h8284ドにはトリッキ\\h8284な\\h83c2\\h82a2が\\h82cd\\h838eされている。\\h82c8\\h85b7されると\\h85a4は\\h86a7などにくっついて、\\h86c7\\h86db\\h83a0に\\h8298\\h83faに\\h82d8ちて\\h85a3\\h82c8するのだ。\n",
+        "it": "Un sistema a lunga gittata per il lancio di granate realizzato dalla dataDyne. La modalità secondaria ricopre gli ordigni di una sostanza collosa: quando viene sparata, la granata si attacca alle pareti e ai soffitti. Dopo pochi secondi si stacca e cade a terra, esplodendo.\n",
+        "fr": "Un lance-grenades de longue portée fabriqué par la dataDyne. Le tir secondaire recouvre les grenades d'une substance collante. Une fois projetée, la bombe se fixe sur un mur ou un plafond. Après quelques secondes, elle se détache et tombe au sol pour exploser.\n",
+        "de": "Ein von dataDyne entworfener Granatwerfer. Die Sekundärfunktion umhüllt die Granate mit einer klebrigen Substanz, welche die Haftung an Wänden und Decken ermöglicht. Einige Sekunden später fällt die Granate zu Boden, wo sie detoniert.\n",
+        "es": "Se trata de un sistema lanzador de granadas de largo alcance fabricado por dataDyne. El modo de disparo secundario recubre las granadas con una sustancia pegajosa; cuando se dispara la bomba, ésta se pega en las paredes o el techo. Tras unos cuantos segundos, se suelta para caer al suelo, donde detona.\n"
+    },
+    {
+        "id": "L_GUN_177",
+        "en": "The Skedar enjoy seeing the terror of their enemies. It seems natural that they should have a remote-controlled rocket as a secondary fire mode on their basic rocket launcher, so that they can take pleasure from the prey's vain attempts to escape the closing projectile.\n",
+        "gb": "The Skedar enjoy seeing the terror of their enemies. It seems natural that they should have a remote-controlled rocket as a secondary fire mode on their basic rocket launcher, so that they can take pleasure from the prey's vain attempts to escape the closing projectile.\n",
+        "jp": "スケダ\\h8284は、\\h8297が\\h83bbれおののいているのを\\h82c9るのが\\h83c6\\h86b1きである。それを\\h84d0えるとスレイヤ\\h8284の\\h83e4２\\h82cc\\h84bdモ\\h8284ドに、ロケットカメラ\\h83c2\\h82a2がついているのには\\h84c1\\h83a5がいく。「えじき」がロケットから千\\h82b0で\\h8389げようとするのを\\h82c9るのは、\\h82dbらにとって\\h82ad\\h83deのひとときなのだ。\n",
+        "it": "Gli Skedar godono nel vedere i nemici tremare di terrore. È dunque ovvio che sul loro lanciamissili standard abbiano un missile telecomandato nella modalità secondaria, in modo che possano divertirsi guardando la preda che cerca inutilmente di scappare al proiettile che si avvicina.\n",
+        "fr": "Les Skedars aiment inspirer la terreur chez leurs ennemis. Il est donc naturel pour eux de disposer d'une roquette commandée à distance comme tir secondaire de leur lance-roquettes. Ils ont ainsi le plaisir de voir leur proie tenter de s'enfuir devant un projectile mortel.\n",
+        "de": "Die Skedar lieben es, die Angst in den Augen ihrer Gegner zu sehen. Daher ist es beinahe selbstverständlich, dass sie mit der Sekundär-Funktion ihres Raketenwerfers ein Geschoss fernsteuern können. So können sie sich an den vergeblichen Fluchtversuchen ihrer Opfer weiden.\n",
+        "es": "Los Skedar disfrutan viendo a sus enemigos aterrorizados. Parece natural que cuenten con un cohete a control remoto como modo secundario de fuego en su lanzacohetes básico, así pueden tener el placer de sentir los vanos intentos de escapar de su presa del proyectil que se acerca.\n"
+    },
+    {
+        "id": "L_GUN_178",
+        "en": "The FarSight rifle is a Maian hybrid of an X-ray scanning device coupled with a rifle that can shoot through solid objects. The scope can lock onto and track life sources, though the device does not pan as fast as a running enemy can move.\n",
+        "gb": "The FarSight rifle is a Maian hybrid of an X-ray scanning device coupled with a rifle that can shoot through solid objects. The scope can lock onto and track life sources, though the device does not pan as fast as a running enemy can move.\n",
+        "jp": "ファ\\h8284サイトはマイアンのＸスキャンと、ほとんど\\h82aaでも\\h87ae\\h83cfするライフルの\\h8587\\h8588が\\h84ceわさったハイブリッド・ウェポンだ。このスコ\\h8284プは\\h83a8\\h83e9\\h83ea\\h83ebをサ\\h8284チしてロックオンできるが、そのサ\\h8284チスピ\\h8284ドは\\h8380く、\\h82c4く\\h8297にはついていけない。\n",
+        "it": "Il fucile TeleVista è un'arma Maian risultante dall'unione di un sistema di scansione a raggi X e un fucile capace di perforare oggetti solidi. Il dispositivo può puntare e seguire le forme di vita, sebbene non raggiunga la stessa velocità del nemico in corsa.\n",
+        "fr": "Le fusil FarSight est un appareil maian combinant un scanner rayons X et un lance-projectiles traversant les éléments solides. Le traceur peut repérer et verrouiller une forme de vie mais ne peut compenser les déplacements rapides d'un ennemi en pleine course.\n",
+        "de": "Das Fernsicht-Gewehr ist ein Maianischer Hybrid zwischen einem Röntgen-Scanner und einem Gewehr, das durch feste Objekte schießen kann. Das Fernrohr ist in der Lage, langsame lebende Objekte zu erfassen und als festgelegten Zielpunkt zu speichern.\n",
+        "es": "El rifle FarSight es un híbrido Maian de un dispositivo de escáner de Rayos-X emparejado con un rifle que puede disparar a través de objetos. La mira puede centrarse en formas de vida, aunque el dispositivo no puede centrar tan rápido como se mueve el enemigo.\n"
+    },
+    {
+        "id": "L_GUN_179",
+        "en": "With a powerful zoom and a high velocity bullet, this Carrington Institute weapon is one of the best sniper rifles ever made. Crouch down for perfect accuracy.\n",
+        "gb": "With a powerful zoom and a high velocity bullet, this Carrington Institute weapon is one of the best sniper rifles ever made. Crouch down for perfect accuracy.\n",
+        "jp": "キャリントン\\h82a3\\h82a4が\\h83dbったこの\\h879e\\h84bbは、\\h83de\\h83df\\h82a2なズ\\h8284ムと\\h83de\\h82ffな\\h85a4\\h878fで、\\h82ad\\h83deのスナイパ\\h8284ライフルと\\h84d5ばれるようになった。しゃがむと\\h82d6いが\\h83d3\\h84c7する。\n",
+        "it": "Grazie al potente zoom e alla pallottola ad elevata velocità, quest'arma del Carrington Institute è uno dei migliori fucili cecchino mai prodotti. Accucciandosi si ottiene la massima precisione.\n",
+        "fr": "Bénéficiant d'un puissant zoom et de balles haute vélocité, cette arme de l'Institut Carrington est l'un des meilleurs fusils de sniper. S'accroupir permet une meilleure précision.\n",
+        "de": "Ausgestattet mit hervorragender Zoom-Fähigkeit und Hochgeschwindigkeits-Kugeln ist dies wohl eines der besten Sniper-Gewehre aller Zeiten. In geduckter Haltung erzielen Sie die bestmögliche Genauigkeit.\n",
+        "es": "Con su poderoso zoom y sus balas de alta velocidad, este arma del Instituto Carrington es uno de los mejores rifles de francotirador jamás hechos. Agáchate para una mayor precisión.\n"
+    },
+    {
+        "id": "L_GUN_180",
+        "en": "This crossbow is a short-range 'pistol' sized example, mounted on a Carrington Institute agent's wrist. It folds up to aid concealment and can fire up to five bolts, either the more usual drugged shots, or a lethal bolt.\n",
+        "gb": "This crossbow is a short-range 'pistol' sized example, mounted on a Carrington Institute agent's wrist. It folds up to aid concealment and can fire up to five bolts, either the more usual drugged shots, or a lethal bolt.\n",
+        "jp": "このクロスボウは、\\h86beい\\h85b7\\h83abのピストルサイズのモデルで、キャリントン\\h82a3\\h82a4のエ\\h8284ジェントのリストに\\h82cd\\h838eされる。\\h8296から\\h82c9てもわからないように\\h858e\\h84c1でき、５\\h84b7の\\h878dと\\h878b\\h86a9\\h878c、そして\\h8283\\h82d7千\\h8591ショットの「キル」を\\h85c7つことができる。\n",
+        "it": "Questa balestra è un esempio di 'pistola' di piccole dimensioni, portata al polso di un agente del Carrington Institute. Si può ripiegare per nasconderla e può sparare fino a cinque colpi dall'effetto narcotico o letale.\n",
+        "fr": "Cette arbalète est une arme de courte portée montée sur le poignet de l'agent de l'Institut Carrington. Elle se plie pour mieux se dissimuler et peut tirer jusqu'à 5 carreaux anesthésiants ou mortels.\n",
+        "de": "Die Armbrust ist nicht größer als eine Pistole, und wird am Handgelenk des Agenten befestigt. Die Spannweite der Waffe kann aus Gründen der Geheimhaltung verringert werden. Die Munition umfasst bis zu fünf entweder vergiftete oder regelrecht letale Bolzen.\n",
+        "es": "Esta ballesta es un ejemplo de 'pistola' de corto alcance, montada en la muñeca de un agente del Instituto Carrington. Se pliega para ocultarla y puede disparar hasta cinco flechas, entre los más usuales tiros sedantes o los dardos mortales.\n"
+    },
+    {
+        "id": "L_GUN_181",
+        "en": "A rapid-fire device, it can be used as a weapon in an emergency, but it is designed primarily as a dermal spray injector for sedative drugs. Users are advised that a full discharge of the drug reservoir can be fatal.\n",
+        "gb": "A rapid-fire device, it can be used as a weapon in an emergency, but it is designed primarily as a dermal spray injector for sedative drugs. Users are advised that a full discharge of the drug reservoir can be fatal.\n",
+        "jp": "\\h84e3\\h85b7手\\h82a2なデバイスで、\\h8690\\h838d\\h8393にはウェポンとしても\\h83e2\\h8388できるが、\\h84b7\\h8390は\\h878b\\h86a9\\h878c\\h84ae\\h85b7\\h8388のスプレ\\h8284として\\h8688\\h82f0されたものだ。\\h83e4２\\h82cc\\h84bdモ\\h8284ドでは、\\h878b\\h86a9\\h878cをフルで\\h84ae\\h82f6し\\h83e9を\\h83f4\\h83f5な\\h83d8\\h83d9にするが、\\h85d1\\h82bc\\h8291でしか\\h82f9えない。\n",
+        "it": "Un dispositivo per attacchi serrati che in casi di emergenza può essere usato anche come arma benché progettato come spray dermico per la somministrazione di sedativi. È bene ricordare che scaricare l'intero serbatoio può avere conseguenze fatali.\n",
+        "fr": "Un appareil à tir rapide utilisé en cas d'urgence mais plus souvent en seringue hypodermique pour injecter un sédatif. Les utilisateurs sont informés qu'une dose trop importante peut entraîner la mort.\n",
+        "de": "Eine Vorrichtung, die im Notfall auch als Waffe benutzt werden kann. Der eigentliche Verwendungszweck dient aber der Verabreichung von Sedativen. Eine volle Entladung des Reservoirs kann durchaus fatale Folgen haben.\n",
+        "es": "Es un dispositivo de fuego rápido, que puede ser usado como arma en un caso de emergencia, pero que está diseñado en principio como un inyector dérmico de sedantes. Los usuarios son advertidos que una descarga completa de la reserva de droga puede ser fatal.\n"
+    },
+    {
+        "id": "L_GUN_182",
+        "en": "A large and vicious combat knife. It contains a vial of poison that shatters when thrown, giving a wounded enemy at most 6 seconds to live. A dataDyne weapon through and through.\n",
+        "gb": "A large and vicious combat knife. It contains a vial of poison that shatters when thrown, giving a wounded enemy at most 6 seconds to live. A dataDyne weapon through and through.\n",
+        "jp": "\\h83c6きくて\\h83f4\\h83f5なコンバットナイフ。\\h86b0げたナイフがヒットすれば、\\h8297は６\\h86dbと\\h83fcっていられないはずだ。デ\\h8284タダインに\\h84b5く\\h82eeけつがれてきたウェポンである。\n",
+        "it": "Un pugnale da combattimento dalle grandi dimensioni contenente una fiala di veleno che si frantuma al lancio, eliminando la vittima in sei secondi al massimo. Una tipica arma dataDyne.\n",
+        "fr": "Un très long couteau de combat. Il contient un réservoir de poison se brisant à l'impact et tuant la cible en moins de 6 secondes. Une arme signée dataDyne.\n",
+        "de": "Ein sehr großes Kampfmesser. Es enthält eine Giftkapsel, die beim Aufprall nach einem Wurf zerbricht. Das Gift entfaltet im Normalfall nach ca. sechs Sekunden seine Wirkung. Eine typische dataDyne-Waffe.\n",
+        "es": "Es una versión ampliada del cuchillo de combate. Contiene una ampolla de veneno que se hace añicos cuando se lanza, dando al enemigo unos seis segundos de vida. Un arma que sólo podía haber sido creada por dataDyne.\n"
+    },
+    {
+        "id": "L_GUN_183",
+        "en": "An updated version of the trusty grenade. Can be thrown with a four-second fuse or used as a bouncing proximity bomb.\n",
+        "gb": "An updated version of the trusty grenade. Can be thrown with a four-second fuse or used as a bouncing proximity bomb.\n",
+        "jp": "\\h82ad\\h84d9の\\h82ddりゅう\\h85a4で、４\\h86dbヒュ\\h8284ズ、もしくはバウンドして\\h85a3\\h82c8するセンサ\\h8284ピンボ\\h8284ルの２つのモ\\h8284ドを\\h82f9って\\h86b0げることができる。\n",
+        "it": "Una versione aggiornata della tradizionale granata. Può essere lanciata con una miccia a quattro secondi o usata quale bomba di prossimità.\n",
+        "fr": "Une version améliorée de la grenade. Elle peut être utilisée avec un détonateur de 4 secondes ou en tant que bombe à effet de ricochet.\n",
+        "de": "Eine verbesserte Version der Granate. Kann sowohl mit verzögerter Detonation als auch mit Annäherungs-Sensor eingesetzt werden. \n",
+        "es": "Es una versión mejorada de la fiel granada. Puede ser lanzada con un fusible de cuatro segundos, o ser usada como una bomba de proximidad que rebota.\n"
+    },
+    {
+        "id": "L_GUN_184",
+        "en": "A hand-held, small area effect neutron bomb. It can either detonate on impact or be set to proximity detonation.\n",
+        "gb": "A hand-held, small area effect neutron bomb. It can either detonate on impact or be set to proximity detonation.\n",
+        "jp": "ポ\\h8284タブルタイプの\\h828d\\h83df\\h8483\\h85a3\\h85a4。ヒットした\\h8393\\h83ceで\\h85a3\\h82c8させてもいいし、センサ\\h8284\\h85a3\\h85a4として\\h8388いることもできる。\n",
+        "it": "Una bomba a mano al neutrone dal raggio d'azione limitato. Può essere fatta esplodere al momento dell'impatto o con esplosione di prossimità.\n",
+        "fr": "Une bombe à neutrons à faible zone d'effet. Elle peut se déclencher à l'impact ou être réglée en mode de proximité.\n",
+        "de": "Eine kleine Neutronenbombe mit reduziertem Wirkungsradius. Die Detonation kann, je nach Wunsch, beim Aufprall oder bei Annäherung erfolgen.\n",
+        "es": "Es una bomba de neutrones de mano que afecta a un área muy pequeña. Puede detonar por impacto o ser fijada en detonación por proximidad.\n"
+    },
+    {
+        "id": "L_GUN_185",
+        "en": "A mine with a short timed fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n",
+        "gb": "A mine with a short timed fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n",
+        "jp": "\\h86beい\\h8393\\h84f9ヒュ\\h8284ズのついた\\h85a3\\h85a4。\\h83e4２\\h82cc\\h84bdモ\\h8284ドには\\h83f4\\h83f5\\h83b0\\h82c8\\h82c9\\h83c2\\h82a2も\\h82cd\\h838eしている。\n",
+        "it": "Una mina con miccia a breve tempo. Dotata di sensore di rilevamento e valutazione di minaccia attivabile quale modalità secondaria.\n",
+        "fr": "Une mine dotée d'un détonateur de courte durée. Elle possède un détecteur et évaluateur à activer en mode secondaire.\n",
+        "de": "Eine Mine mit verzögerter Detonation. Diese Waffe verfügt über einen Gefahren-Sensor, der als Sekundär-Funktion aktiviert werden kann.\n",
+        "es": "Es una mina con un corto fusible de tiempo. Tiene un sensor de detección/evaluación que puede ser activado como modo secundario.\n"
+    },
+    {
+        "id": "L_GUN_186",
+        "en": "A mine with a proximity fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n",
+        "gb": "A mine with a proximity fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n",
+        "jp": "\\h82c4きを\\h85c1\\h84c5して\\h82c3\\h85a3される\\h85a3\\h85a4。\\h83e4２\\h82cc\\h84bdモ\\h8284ドには\\h83f4\\h83f5\\h83b0\\h82c8\\h82c9\\h83c2\\h82a2も\\h82cd\\h838eしている。\n",
+        "it": "Una mina con miccia di prossimità. Dotata di sensore di rilevamento e valutazione di minaccia attivabile quale modalità secondaria.\n",
+        "fr": "Une mine dotée d'un détonateur de proximité. Elle possède un détecteur de menace activé en mode secondaire.\n",
+        "de": "Eine Mine, die auf Bewegung reagiert. Diese Waffe verfügt über einen Gefahren-Sensor, der als Sekundär-Funktion aktiviert werden kann.\n",
+        "es": "Es una mina con un sensor de proximidad. Tiene un sensor de detección/evaluación que puede ser activado como modo secundario.\n"
+    },
+    {
+        "id": "L_GUN_187",
+        "en": "A mine that can be triggered remotely. The activate command is the secondary mode.\n",
+        "gb": "A mine that can be triggered remotely. The activate command is the secondary mode.\n",
+        "jp": "リモコンで\\h82c3\\h85a3できる\\h85a3\\h85a4。リモコンは\\h83e4２\\h82cc\\h84bdモ\\h8284ドで\\h82c3\\h82c4する。\n",
+        "it": "Una mina da fare esplodere a distanza. Il comando di attivazione è la sua modalità secondaria.\n",
+        "fr": "Une mine à déclencher à distance. La commande d'activation est la fonction secondaire.\n",
+        "de": "Diese Mine kann ferngezündet werden. Die Sekundär-Funktion stellt quasi die Aktivierung dar.\n",
+        "es": "Es una mina que puede ser activada remotamente. El comando de activación es el modo secundario.\n"
+    },
+    {
+        "id": "L_GUN_188",
+        "en": "A focused white-noise jamming device, capable of simulating one of many common electrical faults in any system to which it is directly attached.\n",
+        "gb": "A focused white-noise jamming device, capable of simulating one of many common electrical faults in any system to which it is directly attached.\n",
+        "jp": "\\h83c9\\h8483\\h83c2\\h84bdを\\h82b1\\h82b2するデバイス。\\h839bりつけられたシステムにエラ\\h8284を\\h82a6りこむ。\n",
+        "it": "Un dispositivo di disturbo intenzionale di alta precisione, capace di simulare un comune guasto elettrico nel sistema a cui è applicato.\n",
+        "fr": "Un appareil électronique de brouillage, capable d'engendrer une panne électrique sur n'importe quel système sur lequel il est fixé.\n",
+        "de": "Diese Störsender-Vorrichtung ist in der Lage, in jedem System, mit dem sie verbunden ist, eine fokusierte elektrische Störung zu simulieren. Voraussetzung ist ein unmittelbarer Kontakt mit dem System.\n",
+        "es": "Se trata de un dispositivo de bloqueo de 'ruido-blanco', capaz de simular alguno de los fallos eléctricos más comunes en cualquier sistema donde sea directamente colocado.\n"
+    },
+    {
+        "id": "L_GUN_189",
+        "en": "The laser is wrist-mounted and deadly accurate. It can either fire long-range pulses, or it can sustain a constant, concentrated stream of energy at short range.\n",
+        "gb": "The laser is wrist-mounted and deadly accurate. It can either fire long-range pulses, or it can sustain a constant, concentrated stream of energy at short range.\n",
+        "jp": "レ\\h8284ザ\\h8284はリストに\\h82cd\\h838eされ、そのショットは\\h83b8\\h83b9に\\h85a0\\h82b9である。\\h84b5須\\h84cc\\h8388のレ\\h8284ザ\\h8284パルス、もしくは\\h8283\\h84c7須\\h84ccにエネルギ\\h8284を\\h8583\\h828dさせるショ\\h8284トレンジを\\h82c8\\h85b7することができる。\n",
+        "it": "Il laser viene portato al polso ed è estremamente preciso. Può emettere impulsi a lunga gittata o un fascio di energia costante e concentrata per breve gittata.\n",
+        "fr": "Un laser de poignet meurtrier et ultra précis. Il peut lancer des impulsions de longue distance ou maintenir un flux continu et concentré à courte distance.\n",
+        "de": "Der Laser wird am Handgelenk getragen und verfügt über perfekte Präzision. Man kann mit ihm entweder Langstrecken-Energiestöße oder einen konstanten, hochkonzentrierten Kurstrecken-Energiestrom entladen.\n",
+        "es": "El láser está montado en la muñeca y su precisión es mortal. Puede disparar 'pulsos' de larga distancia, o puede mantener una constante y concentrada corriente de energía en corto alcance.\n"
+    },
+    {
+        "id": "L_GUN_190",
+        "en": "Geneered stimulants designed for combat applications. When administered, they seem to slow down the passage of time to give a reaction window.\n",
+        "gb": "Geneered stimulants designed for combat applications. When administered, they seem to slow down the passage of time to give a reaction window.\n",
+        "jp": "コンバット\\h8388に\\h84d7\\h82c8された\\h86a8で、\\h8680\\h84e4\\h8483に\\h87a6\\h82dfを\\h8494えることにより、\\h8393\\h82fdの\\h83e0れが\\h8380く\\h85c1じられるようになる。\n",
+        "it": "Stimolanti genetici realizzati per il combattimento. Quando vengono somministrati, sembrano rallentare lo scorrere del tempo per consentire una finestra di reazione.\n",
+        "fr": "Une drogue de combat chimique. Une fois absorbée, elle permet des réactions plus rapides.\n",
+        "de": "Genetische Stimulation für die Anwendung im Kampf. Nach der Anwendung erscheint der zeitliche Ablauf verlangsamt, was eine wesentlich höhere Reaktionsfähigkeit zur Folge hat.\n",
+        "es": "Son estimulantes genéticos diseñados para aplicar en combate. Cuando son administrados, parecen frenar el paso del tiempo para abrir una 'ventana de reacción'.\n"
+    },
+    {
+        "id": "L_GUN_191",
+        "en": "The latest of a line of 'starlight' scopes that enhance visible light to produce a clearer picture of the surrounding environment. Uses a target-movement algorithm to highlight possible threats.\n",
+        "gb": "The latest of a line of 'starlight' scopes that enhance visible light to produce a clearer picture of the surrounding environment. Uses a target-movement algorithm to highlight possible threats.\n",
+        "jp": "ナイトスコ\\h8284プ\\h8684の\\h879e\\h84bbの\\h82ad\\h84d9バ\\h8284ジョンで、\\h859d\\h8689でもはっきり\\h82d0りが\\h82c9える。\\h83a8\\h83e9\\h83ea\\h83ebのあるものは\\h8480\\h84c5される。\n",
+        "it": "La versione più recente di una serie di sonde a 'luce lunare' che migliora l'illuminazione per produrre un'immagine più chiara dell'ambiente circostante. Utilizza un algoritmo basato sullo spostamento dell'obiettivo per rilevare le possibili minacce.\n",
+        "fr": "Le dernier de la ligne de scopes 'starlight' amplifiant la lumière ambiante pour une image plus claire des environs. Cet appareil utilise un algorithme de mouvement pour identifier les menaces possibles.\n",
+        "de": "Das neueste Produkt in einer Reihe von Geräten, das nicht nur Restlicht verstärkt, um eine klarere Wahrnehmung der Umgebung zu ermöglichen, sondern auch mit Hilfe eines Ziel-Algorithmus mögliche Gefahren erkennt und entsprechend hervorhebt.\n",
+        "es": "Lo último en la línea de miras 'starlight' que mejoran la luz visible para producir una imagen clara del ambiente que la rodea. Usa un algoritmo de movimiento de objetivo para mostrar posibles trampas.\n"
+    },
+    {
+        "id": "L_GUN_192",
+        "en": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. It has a video/audio link with a recording function and an onboard facility for spectroscopic holography.\n",
+        "gb": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. It has a video/audio link with a recording function and an onboard facility for spectroscopic holography.\n",
+        "jp": "\\h83ea\\h83d4\\h8282テクノロジ\\h8284を\\h82f9った\\h82adも\\h84e0さい\\h879e\\h84bbで、\\h8580\\h869bの\\h848d\\h82daデバイス。モバイルカメラを\\h82d5っており、ホログラム\\h83a1\\h83a2の\\h8595\\h8596ができる。\n",
+        "it": "Pur utilizzando la minima applicazione della tecnologia antigravitazionale, questo è il più avanzato dispositivo di spionaggio. Dotato di collegamento audio/video con funzione di registrazione e strumentazione di bordo per l'olografia spettroscopica.\n",
+        "fr": "Cet appareil utilise la meilleure des applications en matière d'anti-gravité. Il possède un lien audio/vidéo avec une fonction d'enregistrement et d'holographie spectroscopique.\n",
+        "de": "Dieses Gerät beinhaltet die kleinstmögliche Antigravitations-Technologie. Als ultimative Spionage-Einheit bietet der CamSpy Video- und Audio-Links, Aufzeichnungsfunktion und eine integrierte Vorrichtung für spektroskopische Holografie.\n",
+        "es": "Usando la aplicación más pequeña de la tecnología anti-gravedad, esto es lo último en dispositivos para fisgar. Tiene una conexión de audio/vídeo con función de grabación y la posibilidad interna de holografiar espectroscópicamente.\n"
+    },
+    {
+        "id": "L_GUN_193",
+        "en": "A short-range scope that can see through any material - even lead - producing a simplified chromatic representation of the environment.\n",
+        "gb": "A short-range scope that can see through any material - even lead - producing a simplified chromatic representation of the environment.\n",
+        "jp": "どんな\\h83b0でも\\h87a7\\h86d1できる\\h86be須\\h84ccスコ\\h8284プ。\\h82d0りの\\h879a\\h879bをシンプルなイメ\\h8284ジにして\\h86d3\\h83cdする。\n",
+        "it": "Una sonda a breve raggio d'azione capace di vedere attraverso ogni materiale, persino il piombo, che produce una raffigurazione cromatica semplificata dell'ambiente.\n",
+        "fr": "Un scope de courte portée pouvant voir à travers toute matière - même le plomb - et produisant une représentation chromatique simplifiée des environs.\n",
+        "de": "Dieser Scanner kann auf kurze Strecken jegliches Material durchleuchten. Blei bildet hier keine Ausnahme! Der Anwender nimmt eine vereinfachte, chromatisierte Darstellung der Umgebung wahr.\n",
+        "es": "Una mira de corto alcance que puede ver a través de algunos materiales, incluso el acero, produciendo una representación cromática simplificada del entorno.\n"
+    },
+    {
+        "id": "L_GUN_194",
+        "en": "This scope uses infra-red scanning modulated with ultrasonic data to provide not only a clearer picture of the surrounding area, but also a location of any structural irregularities. It can also locate enemies using cloaking technology or other optical baffles.\n",
+        "gb": "This scope uses infra-red scanning modulated with ultrasonic data to provide not only a clearer picture of the surrounding area, but also a location of any structural irregularities. It can also locate enemies using cloaking technology or other optical baffles.\n",
+        "jp": "\\h86ac\\h85cf\\h83caデ\\h8284タと\\h87c9\\h8296\\h85b2スキャニングを\\h8388いたスコ\\h8284プ。\\h82d0りの\\h879a\\h879bをクリアに\\h82c9せると\\h84f7\\h8393に、イレギュラ\\h8284な\\h83b0を\\h84c2\\h829fすることができる。また、スパイクロ\\h8284クなどを\\h82f9って\\h85deれている\\h8297を、\\h82c8\\h82c9することもできる。\n",
+        "it": "Questa sonda utilizza la tecnica di scansione a raggi rossi modulati con dati ultrasonici per fornire un'immagine più chiara dell'area circostante e identificare qualsiasi irregolarità strutturale. Inoltre può localizzare i nemici grazie alla tecnologia di mimetizzazione o altre illusioni ottiche.\n",
+        "fr": "Ce scope utilise un scanner infrarouge modulé par ultrason pour donner une image claire des environs et la position des irrégularités de structure. Il peut aussi localiser les ennemis occultés ou utilisant un appareil de brouillage optique.\n",
+        "de": "Der IR-Scanner setzt mit Ultraschall modulierte Infrarot-Strahlung ein, um die Umgebung auf strukturelle Irregularitäten zu untersuchen. Der Anwender erhält ein erstaunlich detailliertes Bild der Gegebenheiten. Außerdem durchdringt der Scanner auch jegliche Art von Tarnkappen-Technologie und andere optische Täuschungen.\n",
+        "es": "Esta mira usa escaneo de infrarrojos modulados con datos ultrasónicos para ofrecer no sólo una imagen clara del área colindante, sino también la ubicación de irregularidades estructurales. También puede localizar enemigos que empleen tecnología de ocultación u otros desconciertos ópticos.\n"
+    },
+    {
+        "id": "L_GUN_195",
+        "en": "Uses the light-warping qualities of an alien crystal to create a refractive field around the wearer. Functions as long as there is little kinetic disturbance within the field boundary; the act of firing a gun is enough to cause a return to visibility.\n",
+        "gb": "Uses the light-warping qualities of an alien crystal to create a refractive field around the wearer. Functions as long as there is little kinetic disturbance within the field boundary; the act of firing a gun is enough to cause a return to visibility.\n",
+        "jp": "エイリアンのクリスタルが\\h82d5つ、\\h87acを\\h86c1げる\\h84ad\\h83dfを\\h82f9ったデバイス。\\h83f3ている\\h83b3\\h82ddのまわりにクロ\\h8284キング・フィ\\h8284ルドをつくりだし、\\h82d0りから\\h82c9えなくする。このフィ\\h8284ルドは\\h82c4\\h83d1エネルギ\\h8284を\\h82eeけると\\h85feくなるので、\\h82e0を\\h82d7ったりすると、しばらく\\h83dc\\h83ddが\\h8391えてしまう。\n",
+        "it": "Utilizza le qualità di distorsione della luce di un cristallo alieno per creare un campo di riflesso attorno a chi lo indossa. Funziona solo se i disturbi cinetici entro il campo delimitato sono ridotti: basta sparare con una pistola per ristabilire la piena visibilità.\n",
+        "fr": "Il utilise les capacités d'un cristal extraterrestre pour créer une champs de réfraction de la lumière autour de l'utilisateur. Il ne peut fonctionner si une turbulence cinétique pénètre dans le champ. Ouvrir le feu annule les effets du champ.\n",
+        "de": "Diese Maschine nutzt die lichtbrechenden Eigenschaften einer kristallinen extraterrestrischen Substanz, um den Träger unsichtbar erscheinen zu lassen. Solange es zu keinen kybernetischen Störungen kommt, bleibt das Feld intakt. Aber schon der Einsatz einer Waffe unterbricht diese Funktion.\n",
+        "es": "Usa las cualidades de 'salto de luz' de cristales alienígenas para crear un campo refractivo alrededor del portador. Funciona mientras sólo existan pequeñas perturbaciones kinéticas en el campo límite; el acto de disparar un arma es suficiente para causar que vuelva la visibilidad.\n"
+    },
+    {
+        "id": "L_GUN_196",
+        "en": "A binocular-input long range visual scanner. The visor shows a composite image of the two input sources. Also has a zoom function.\n",
+        "gb": "A binocular-input long range visual scanner. The visor shows a composite image of the two input sources. Also has a zoom function.\n",
+        "jp": "\\h84b5須\\h84cc\\h8388のビジュアルスキャナ\\h8284。\\h86d5\\h8497の\\h82f6\\h8282ソ\\h8284スからの\\h84ec\\h84edを\\h84ce\\h83b1したイメ\\h8284ジがバイザ\\h8284に\\h86d3\\h8697される。ズ\\h8284ム\\h83c2\\h82a2\\h82bbき。\n",
+        "it": "Un dispositivo di scansione visiva binoculare a lungo raggio. Viene mostrata un'immagine composita delle due fonti visive. Dotato di zoom.\n",
+        "fr": "Un scanner optique binoculaire de longue portée. Le viseur affiche une image composite de deux sources d'entrée. Il possède aussi un zoom.\n",
+        "de": "Ein binokularer Langstrecken-Scanner. Im Sichtfenster erscheint ein Bild, welches aus den beiden optischen Eingaben zusammengestellt wird. Zoom vorhanden.\n",
+        "es": "Es un escáner binocular de largo alcance. El visor muestra una imagen compuesta por las dos fuentes recibidas. También cuenta con función zoom.\n"
+    },
+    {
+        "id": "L_GUN_197",
+        "en": "Capable of remote interrogation of almost any type of stored data, which is sent directly back to the Institute computer hackers. A variant of this device provides the hackers with a direct link into the local system.\n",
+        "gb": "Capable of remote interrogation of almost any type of stored data, which is sent directly back to the Institute computer hackers. A variant of this device provides the hackers with a direct link into the local system.\n",
+        "jp": "ほとんど\\h8385タイプの\\h83c9\\h8483デ\\h8284タを\\h859eみ\\h839bることができ、キャリントン\\h82a3\\h82a4のハッカ\\h8284へとデ\\h8284タを\\h83c9\\h82a6できる。これを\\h82f9って\\h82a3\\h82a4のハッカ\\h8284がロ\\h8284カルシステムへと\\h83e5\\h85d1アクセスすることもできる。\n",
+        "it": "Capace di eseguire l'interrogazione a distanza dei dati memorizzati, rispediti direttamente agli hacker dei computer dell'istituto. Una variante di questo dispositivo fornisce agli hacker un collegamento diretto al sistema locale.\n",
+        "fr": "Il peut enregistrer n'importe quelles données et les envoyer au service informatique de l'Institut. Une variante de cet appareil permet aux pirates d'établir un lien direct entre eux et le terminal connecté.\n",
+        "de": "Mit Hilfe dieses Geräts können nahezu alle Arten von gespeicherten Daten abgerufen und direkt an die Hacker des Instituts gesandt werden. Eine Variante dieser Maschine erlaubt den Hackern durch einen direkten Link den Zutritt zum lokalen System.\n",
+        "es": "Es capaz de consultar remotamente casi cualquier tipo de datos guardados, los cuales son directamente enviados a los 'hackers' del Instituto. Una variante de este dispositivo provee a los 'hackers' de conexión directa con los sistemas locales.\n"
+    },
+    {
+        "id": "L_GUN_198",
+        "en": "A powerful tracking device that can be customized to fit any set of parameters: people, weapons, objects, and locations are some of the possibilities.\n",
+        "gb": "A powerful tracking device that can be customized to fit any set of parameters: people, weapons, objects, and locations are some of the possibilities.\n",
+        "jp": "パワフルなレ\\h8284ダ\\h8284デバイス。どんなものもタ\\h8284ゲットにできる。\\h84b1\\h82fd、ウェポン、アイテム、\\h838a\\h83e7などが\\h84d0えられるところだろうか。\n",
+        "it": "Un potente sistema in grado di puntare qualsiasi cosa sia impostata nei parametri: persone, armi, oggetti e luoghi sono solo alcune delle innumerevoli possibilità.\n",
+        "fr": "Un pisteur puissant à paramétrer sur les humains, les armes, les objets, ou encore les emplacements géographiques.\n",
+        "de": "Ein ausgezeichnetes Suchgerät, das auf jegliche Parameter konfiguriert werden kann: Personen, Waffen, Gegenstände und Orte sind nur ein Bruchteil der Optionen, welche der Tracker anbietet.\n",
+        "es": "Es un poderoso sistema de rastreo que puede ser preparado para encajar con cualquier tipo de parámetros: gente, armas, objetos y lugares son algunas de las posibilidades.\n"
+    },
+    {
+        "id": "L_GUN_199",
+        "en": "A modified medical scanner that contains the most up-to-date record of the President's state of health and a library of past conditions and treatments. It can detect the vital functions of the President from a distance, even when the target is in the middle of a crowd.\n",
+        "gb": "A modified medical scanner that contains the most up-to-date record of the President's state of health and a library of past conditions and treatments. It can detect the vital functions of the President from a distance, even when the target is in the middle of a crowd.\n",
+        "jp": "\\h83c6\\h83c7\\h83c8の\\h83cd\\h85d8の\\h83d6\\h83d7\\h83d8\\h83d9、\\h85aa\\h83f6の\\h86a0\\h8796\\h8595\\h8596などの\\h84ec\\h84edがリアルタイムに\\h85f0\\h85f1される。\\h83c6\\h83c7\\h83c8が\\h858cくの\\h84b1ごみのなかにいても、千\\h8383な\\h84ec\\h84edを\\h84c2\\h829fできる。\n",
+        "it": "Un apparecchio di scansione medica modificato che contiene i record più aggiornati relativo allo stato di salute del Presidente, l'anamnesi e le terapie precedenti. È in grado di rilevare a distanza le funzioni vitali del Presidente, anche quando questi è in mezzo alla folla.\n",
+        "fr": "Un scanner médical modifié contenant les dernières données de l'état de santé du Président ainsi qu'un résumé de tous les traitements administrés. Il peut monitorer les fonctions vitales du Président à distance même s'il se trouve au milieu d'une foule.\n",
+        "de": "Ein modifizierter medizinischer Scanner, der die aktuellen Vital-Werte des Präsidenten anzeigt. Es werden auch ältere Daten und verschiedene Behandlungen archiviert. Der Scanner ist in der Lage, die entsprechenden Werte auch über größere Entfernungen zu erfassen. Dies ist auch möglich, wenn sich das Ziel inmitten einer Menschenmenge befindet.\n",
+        "es": "Se trata de un escáner médico modificado que contiene la más moderna información acerca del estado de salud del Presidente y una biblioteca de pasadas condiciones y tratamientos. Puede detectar las funciones vitales del Presidente a gran distancia, incluso cuando el objetivo esté en medio de una multitud.\n"
+    },
+    {
+        "id": "L_GUN_200",
+        "en": "A safecracker, pure and simple. Breaks electronic encoded locks, usually in a matter of seconds, though this, of course, depends on the individual lock.\n",
+        "gb": "A safecracker, pure and simple. Breaks electronic encoded locks, usually in a matter of seconds, though this, of course, depends on the individual lock.\n",
+        "jp": "シンプルな\\h859d\\h83da\\h8286\\h859eシステム。\\h87a4\\h83cfの\\h83c9\\h8483ロックなら\\h86c7\\h86dbで\\h82ceる。もちろんカギのタイプにもよるのだが～\n",
+        "it": "Un puro e semplice scassinatore di casseforti. Apre le chiusure a codice elettronico generalmente in pochi secondi, sebbene la velocità vari da serratura a serratura.\n",
+        "fr": "Un passe-partout électronique. Il ouvre les serrures codées en quelques secondes mais un système très élaboré lui prendra plus de temps.\n",
+        "de": "Ein einfacher, aber wirkungsvoller Safeknacker, der elektronisch codierte Schlösser normalerweise innerhalb von Sekunden knackt. Selbstverständlich hängt dies auch vom jeweiligen Schloss ab.\n",
+        "es": "Abre cajas fuertes, simple y llanamente. Rompe cierres codificados electrónicamente, habitualmente en cuestión de segundos, aunque esto, por supuesto, depende de cada cerradura.\n"
+    },
+    {
+        "id": "L_GUN_201",
+        "en": "Maian medical marvel, can auto-diagnose and perform surgical procedures without the need of incisions. One drawback is that it only works on Maians; the other drawback is the lack of a bedside manner.\n",
+        "gb": "Maian medical marvel, can auto-diagnose and perform surgical procedures without the need of incisions. One drawback is that it only works on Maians; the other drawback is the lack of a bedside manner.\n",
+        "jp": "マイアンの\\h82b7んだ\\h86a0\\h8796テクノロジ\\h8284による、\\h8397\\h82c4\\h82dd\\h8588システム。\\h8492\\h8283の\\h84a4\\h85fa\\h83ceは、マイアン\\h83b3\\h82ddにしか\\h82f9えないということである。\n",
+        "it": "Meraviglia della medicina Maian, capace di effettuare autodiagnosi e operazioni chirurgiche senza dover incidere. Uno svantaggio è che funziona solo sui Maian; l'altro è la mancanza di assistenza postoperatoria.\n",
+        "fr": "Une merveille médicale maian pouvant effectuer un diagnostique automatique et une intervention chirurgicale sans aucune incision. Un seul défaut: il ne reconnaît et donc ne fonctionne que sur des organismes maians.\n",
+        "de": "Ein Wunder Maianischer Technologie. Dieses Instrument erstellt eine automatische Diagnose und führt die entsprechenden chirurgischen Eingriffe OHNE Einschnitte durch. Der Nachteil ist, dass es nur bei Maianern funktioniert.\n",
+        "es": "Esta maravilla médica Maian puede auto-diagnosticar y realizar operaciones quirúrgicas sin necesidad de cortes. Una desventaja es que sólo funciona en Maian; la otra desventaja es que no tiene habilidad en el trato a los pacientes.\n"
+    },
+    {
+        "id": "L_GUN_202",
+        "en": "A small plastic explosive charge, complete with sealed tamper-proof timer, and embedded with teflon-coated shrapnel. Nasty.\n",
+        "gb": "A small plastic explosive charge, complete with sealed tamper-proof timer, and embedded with teflon-coated shrapnel. Nasty.\n",
+        "jp": "\\h84e0\\h87a8のプラスチック\\h85a3\\h85a4。\\h82ca\\h82cb\\h82a0\\h82a2なタイマ\\h8284が\\h82cd\\h838eされており、テフロン・コ\\h8284ティングされた\\h85a3\\h85a4がはめ\\h82c1まれている。\n",
+        "it": "Una piccola carica di esplosivo al plastico, completa di temporizzatore sigillato a prova di manomissione e schegge rivestite di teflon. Molto pericoloso.\n",
+        "fr": "Une petite charge de plastique explosive couplée à une horloge scellée et impossible à désamorcer, le tout revêtu de shrapnel en téflon.\n",
+        "de": "Ein kleiner Plastik-Sprengsatz, dessen Timer durch ein Siegel vor Missbrauch geschützt wird. Die Schrapnelle sind mit Teflon ummantelt. Sehr böse!\n",
+        "es": "Se trata de una pequeña carga de explosivo plástico, completada con un temporizador sellado, e incrustada dentro de una capa de teflón con metralla. Muy desagradable.\n"
+    },
+    {
+        "id": "L_GUN_203",
+        "en": "As you are aware, this is a directional fusion bomb, to be placed so that the charge is directed downwards. This will obliterate the dataDyne research labs and cause the rest of the building to collapse into the hole.\n",
+        "gb": "As you are aware, this is a directional fusion bomb, to be placed so that the charge is directed downwards. This will obliterate the dataDyne research labs and cause the rest of the building to collapse into the hole.\n",
+        "jp": "\\h82a7も\\h83b5づいている\\h83cfり、これは\\h8789\\h8283\\h87a3\\h8386\\h83dfのフュ\\h8284ジョン\\h85a3\\h85a4だ。\\h85a3\\h82c8が\\h87ccに\\h8386いて\\h82c3こるようにセットしてくれ。そうすれば、デ\\h8284タダインの\\h8298\\h87cc\\h84ff\\h8580\\h8581が\\h82ce\\h82cfされ、ビル\\h8385\\h828bがくずれることであろう。\n",
+        "it": "Come noto, si tratta di una bomba direzionale a fusione da piazzare in modo che la carica sia diretta verso il basso e possa sventrare i laboratori di ricerca della dataDyne. L'intero edificio sarà inghiottito dalla voragine. \n",
+        "fr": "Une bombe à fusion directionnelle à placer de telle façon que la charge est pointée vers le bas. Ceci interrompra les recherches des labos de la dataDyne et fera s'effondrer l'immeuble tout entier.\n",
+        "de": "Hierbei handelt es sich um eine direktionale Fusionsbombe, die so platziert wird, dass die Entladung nach unten geht. Dadurch werden die dataDyne-Labors verwüstet, und der Rest des Gebäudes stürzt in das so entstandene Loch.\n",
+        "es": "Como ya eres consciente, se trata de una bomba de fusión direccional, que se coloca para que la carga se dirija hacia abajo. Esto arrasará los laboratorios de investigación de dataDyne y causará que el resto del edificio se colapse y caiga al agujero.\n"
+    },
+    {
+        "id": "L_GUN_204",
+        "en": "A small bug that is attached to any part of a communication relay. It 'piggybacks' the official signal, enabling the link between Institute and agent to be maintained through intensive local countermeasures; to all intents and purposes, it is part of the target location's comms setup.\n",
+        "gb": "A small bug that is attached to any part of a communication relay. It 'piggybacks' the official signal, enabling the link between Institute and agent to be maintained through intensive local countermeasures; to all intents and purposes, it is part of the target location's comms setup.\n",
+        "jp": "\\h83cf\\h83a4のリレ\\h8284ポイントとして\\h839bり\\h82bbけられる\\h84e0さな\\h82cd\\h8295。\\h8283\\h8782の\\h83c9\\h83caに\\h87a9\\h82c0して、\\h858cくにいるエ\\h8284ジェントと\\h82a3\\h82a4の\\h85b5\\h85b6リンクを\\h82b9\\h83fcできる。\n",
+        "it": "Una piccola cimice applicata al sistema di comunicazione. Trasporta il segnale ufficiale, permettendo il mantenimento del collegamento tra l'istituto e l'agente grazie a intense contromisure locali; è parte integrante del sistema di comunicazione per la localizzazione dell'obiettivo.\n",
+        "fr": "Un petit mouchard à fixer sur tout relais de communication qui permet d'imiter le signal officiel, établissant ainsi le lien entre l'Institut et l'agent même dans une zone de brouillage. Il fait partie intégrante du système de communication local ciblé.\n",
+        "de": "Eine kleine Wanze, die an jedem Kommunikations-Gerät angebracht werden kann. Diese Vorrichtung benutzt das Fremdsignal, um eine Verbindung zwischen dem Agenten und dem Institut herzustellen. Das Signal kann auch zurückverfolgt werden, um den Standort des Agenten zu bestimmen. Vor allem in Situationen höchster Bedrängnis hat sich der Einsatz hervorragend bewährt. Ein unverzichtbares Zubehör für jeden Agenten.\n",
+        "es": "Es un pequeño 'bicho' que se coloca en cualquier parte de un transmisor de comunicaciones. Se oculta en la señal oficial, permitiendo la conexión entre el Instituto y el agente aunque haya importantes contramedidas locales; para todas las posibilidades y propósitos, es parte de la localización de las comunicaciones de los objetivos.\n"
+    },
+    {
+        "id": "L_GUN_205",
+        "en": "The inner workings of this bug are a closely guarded secret - the self-destruct mechanism forms a large part of the device. It is speculated that this is an example of quantum molecular communication, which explains the phenomenal reliability of the device in field use.\n",
+        "gb": "The inner workings of this bug are a closely guarded secret - the self-destruct mechanism forms a large part of the device. It is speculated that this is an example of quantum molecular communication, which explains the phenomenal reliability of the device in field use.\n",
+        "jp": "この\\h82cd\\h8295の\\h828e\\h828fには\\h85b5\\h85b6が\\h85deされている～\\h8397\\h85a3システムが\\h83a9みこまれているのだ。またこの\\h82cd\\h8295には\\h87aa\\h8483\\h83cf\\h83a4の\\h8587\\h8588が\\h82f9われており、\\h83cf\\h83a4の\\h83a4\\h85bb\\h83dfは\\h83b8\\h83b9に\\h83deい。\n",
+        "it": "Il funzionamento interno di questa cimice è di estrema segretezza: il meccanismo di autodistruzione costituisce gran parte del dispositivo. Si dice che sia un esempio di comunicazione quantica molecolare, che spiega la fenomenale affidabilità del dispositivo usato sul campo.\n",
+        "fr": "Le fonctionnement de ce mouchard spécial est tenu secret. Le mécanisme d'auto-destruction couvre la majeure partie de l'appareil. Il est très probable qu'il soit un exemple de communication moléculaire quantique, ceci expliquant son efficacité.\n",
+        "de": "Das Innenleben dieser Wanze ist ein gut gehütetes Geheimnis. Fest steht, dass der Selbstzerstörungsmechanismus ein wichtiger Bestandteil ist. Man vermutet, das die Wanze auf quantenmolekularer Kommunikation aufbaut, welche die phänomenale Verlässlichkeit des Geräts erklären würde.\n",
+        "es": "El funcionamiento interno de este 'bicho' es alto secreto: gran parte del dispositivo pertenece al mecanismo de autodestrucción. Se especula que esto es un ejemplo de comunicación molecular cuántica, lo cual explica la fenomenal fiabilidad del dispositivo cuando se usa.\n"
+    },
+    {
+        "id": "L_GUN_206",
+        "en": "Uses quantum communication technology to provide supremely accurate targeting information to orbital weapons, helping to minimize collateral damage. The same technology is used in the Carrington Institute tracker bugs.\n",
+        "gb": "Uses quantum communication technology to provide supremely accurate targeting information to orbital weapons, helping to minimize collateral damage. The same technology is used in the Carrington Institute tracker bugs.\n",
+        "jp": "\\h87aa\\h8483\\h83cf\\h83a4の\\h8587\\h8588を\\h83e2\\h8388し、\\h839bりつけたタ\\h8284ゲットの\\h85a0\\h82b9な\\h85c8\\h8295\\h84ec\\h84edを\\h85f0\\h85f1する。\\h84f7じ\\h8587\\h8588はキャリントン\\h82a3\\h82a4の\\h82c8\\h83a4\\h84bdにも\\h82f9われている。\n",
+        "it": "Usa la tecnologia di comunicazione quantica per fornire informazioni accurate sugli obiettivi delle armi orbitanti, minimizzando così i danni collaterali. La stessa tecnologia è usata dalle cimici del Carrington Institute.\n",
+        "fr": "Il utilise la technologie de communication quantique pour fournir des informations ultra précises à l'armement en orbite, ceci minimisant les risques de dommages collatéraux. La même technologie est utilisée pour les mouchards pisteurs de l'Institut Carrington.\n",
+        "de": "Quantenmolekulare Technologie ermöglicht außerordentlich akkurate Zielerfassung für Orbitalwaffen. Dadurch wird der Schadensradius auf den nötigen Umfang beschränkt. \n",
+        "es": "Usa tecnología de comunicación cuántica para proveer información precisa de los objetivos a las armas orbitales, ayudándolas a minimizar los daños colaterales. La misma tecnología es usada en los rastreadores del Instituto Carrington.\n"
+    },
+    {
+        "id": "L_GUN_207",
+        "en": "Details of the flight path and communication codes and frequencies for Air Force One - also current encryption keys.\n",
+        "gb": "Details of the flight path and communication codes and frequencies for Air Force One - also current encryption keys.\n",
+        "jp": "\\h83c6\\h83c7\\h83c8\\h84b9\\h8388\\h83c2のフライトプランと\\h83cf\\h83a4\\h8595\\h8596、および\\h859d\\h83daキ\\h8284。\n",
+        "it": "Dettagli della traiettoria di volo e dei codici di comunicazione e frequenze per l'Air Force One: anche la chiave attuale di decodifica.\n",
+        "fr": "Ils détaillent les points de navigation et les codes de communication ainsi que les codes et fréquences de l'Air Force One. Les codes de cryptage y sont aussi donnés.\n",
+        "de": "Detaillierte Flugpläne, Kommunikationscodes und Frequenzen für die Air Force One. Beinhaltet auch Dechiffrier-Codes.\n",
+        "es": "Son detalles de la trayectoria de vuelo y los códigos de comunicación y frecuencias del Air Force One: incluso las claves actuales de encriptación.\n"
+    },
+    {
+        "id": "L_GUN_208",
+        "en": "All data pertaining to ocean floor research carried out by dataDyne on the pirated deep sea diving operations vessel Pelagic II. Contents  sonar mapping, geological data, alien artifact data, hull samples, etc.\n",
+        "gb": "All data pertaining to ocean floor research carried out by dataDyne on the pirated deep sea diving operations vessel Pelagic II. Contents  sonar mapping, geological data, alien artifact data, hull samples, etc.\n",
+        "jp": "デ\\h8284タダインたちがペラジック２を\\h82f9って\\h82daった\\h8489\\h848a\\h8480\\h848bの\\h8385\\h8595\\h8596。ソナ\\h8284マッピング、\\h8298\\h85daデ\\h8284タ、エイリアンに\\h829dするデ\\h8284タ、\\h83f9\\h828bサンプルなど。\n",
+        "it": "Tutti i dati pertinenti alla ricerca sul fondo oceanico condotta da dataDyne sulle operazioni del vascello Pelagic II. I contenuti comprendono mappatura sonar, dati geologici, dati sui prodotti alieni, campioni da scafo, ecc.\n",
+        "fr": "Toutes les données se rattachant aux recherches océaniques conduites par la dataDyne sur le navire détourné Pelagic II y figurent. Il contient le relevé sonar, les données géologiques, les données sur les artefacts extraterrestres, les échantillons de coque, etc.\n",
+        "de": "Betrifft alle Daten der Forschungsarbeit, die durch dataDyne von der gekaperten Pelagic II am Meeresgrund durchgeführt wurden. Der Inhalt besteht aus Sonar-Karten, geologischen Daten, Gewebeproben etc.\n",
+        "es": "Todos los datos relacionados con la investigación en el fondo oceánico desarrollada por dataDyne con el navío de operaciones submarinas Pelagic II. El contenido incluye mapeados de sónar, datos geológicos, datos del artefacto alienígena, muestras del casco, etc.\n"
+    },
+    {
+        "id": "L_GUN_209",
+        "en": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23/6/23\n",
+        "gb": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23/6/23\n",
+        "jp": "ＡＩ（ドクタ\\h8284・キャロル）の、\\h838b\\h839dの「\\h84b1\\h858e」コ\\h8284ドのバックアップ。メモリ\\h8284\\h8391\\h83f6・アルゴリズム\\h85c9\\h85ca\\h839dの\\h83d8\\h83d9。\\h84ff\\h8580\\h8497\\h83d1のみ\\h82f9\\h8388を\\h85a9手。モラルが\\h83deい\\h84aa\\h84d0を\\h82d5つコ\\h8284ドにつき\\h83f4\\h83f5。デ\\h8284タダインＩ．Ｓ．Ｃ．Ｅ．Ｏ．　２３／６／２３\n",
+        "it": "L'ultima registrazione della personalità dell'intelligenza artificiale, autodefinita Dr. Caroll, prima della cancellazione della memoria e della ristrutturazione cerebrale. Uso per studi casistici e teorici. Moralmente incorrotto e dunque pericoloso. dataDyne I.S.C.E.O. 23/6/23\n",
+        "fr": "Le dernier enregistrement en date de la personnalité de l'IA Dr. Caroll avant conditionnement cérébral. A utiliser pour étude seulement ou projections théoriques. Mental corrompu et dangereux. dataDyne I.S.C.E.O. 23/6/23\n",
+        "de": "Die letzte Aufzeichnung der Persönlichkeit der künstlichen Intelligenz, die sich selbst Dr. Caroll nennt. Die Aufzeichnung wurde vor der Löschung und cerebralen Restrukturierung durchgeführt. Kann zu Studienzwecken herangezogen worden. dataDyne I.S.C.E.O. 23/6/23\n",
+        "es": "Es la última grabación del estado de personalidad de la inteligencia artificial, que se llama a sí misma Dr. Caroll, antes de su lavado de cerebro y reestructura cerebral. Usada para el estudio del caso, contiene sólo proyecciones teóricas. Moralmente incorrupta, y por lo tanto peligrosa. dataDyne I.S.C.E.O. 23/6/23\n"
+    },
+    {
+        "id": "L_GUN_210",
+        "en": "A chemical cocktail that warps the perceived reality of the target. Good becomes bad, bad becomes good; enemies and friends change places. Another one of the darker research projects from Trent Easton's Area 51.\n",
+        "gb": "A chemical cocktail that warps the perceived reality of the target. Good becomes bad, bad becomes good; enemies and friends change places. Another one of the darker research projects from Trent Easton's Area 51.\n",
+        "jp": "エリア５１でトレントが\\h84ff\\h8580していた\\h83bbろしい\\h85a6\\h8586\\h82e0で、タ\\h8284ゲットに\\h829dする\\h85c1\\h82e1を\\h86d2\\h85b3させてしまう。\\h85f2\\h84b8の\\h84b3\\h82d4は\\h8395\\h84b8の\\h8297～\n",
+        "it": "Un cocktail chimico che distorce la realtà percepita dall'obiettivo. Il bene diventa male e viceversa; i nemici si confondono con gli amici. Un altro oscuro progetto di ricerca dell'Area 51 di Trent Easton.\n",
+        "fr": "Un mélange chimique altérant la perception de la cible. Le bien devient le mal, les méchants les gentils, les ennemis et les amis s'intervertissent. Un des nombreux projets du Secteur 51 signé Trent Easton.\n",
+        "de": "Ein chemischer Cocktail, der die Realitätswahrnehmung der Zielperson umkehrt. Gut wird zu Böse, Böse wird zu gut, Freund und Feind tauschen die Plätze. Ein weiteres Forschungsergebnis, entwickelt von Trent Easton in der Area 51.\n",
+        "es": "Se trata de un cóctel químico que cambia la realidad que el objetivo percibe. Lo bueno es malo, lo malo es bueno; enemigos y amigos intercambian sus papeles. Se trata de otra de las investigaciones 'oscuras' del Área 51 de Trent Easton.\n"
+    },
+    {
+        "id": "L_GUN_211",
+        "en": "Not your normal outfit. Wear it to pretend not to be you.\n",
+        "gb": "Not your normal outfit. Wear it to pretend not to be you.\n",
+        "jp": "\\h82a7の\\h87a4\\h83d0の\\h849bではないぞ。\\h82ca\\h82cdしたいときに\\h82f9ってくれ。\n",
+        "it": "Non è il tuo normale abbigliamento. Indossalo per camuffarti.\n",
+        "fr": "Un uniforme différent du vôtre. Portez-le et jouez la comédie.\n",
+        "de": "Tragen Sie diese Verkleidung, um unerkannt zu bleiben.\n",
+        "es": "No es tu vestimenta habitual. Llévalo para pretender no ser tú.\n"
+    },
+    {
+        "id": "L_GUN_212",
+        "en": "PROXY\n",
+        "gb": "PROXY\n",
+        "jp": "センサ\\h8284\n",
+        "it": "PROSSIM.\n",
+        "fr": "PROX.\n",
+        "de": "BEWEG\n",
+        "es": "PROX.\n"
+    },
+    {
+        "id": "L_GUN_213",
+        "en": "TIMED\n",
+        "gb": "TIMED\n",
+        "jp": "\\h8393\\h84f9\n",
+        "it": "A OROLOG.\n",
+        "fr": "RETARD.\n",
+        "de": "ZEIT\n",
+        "es": "TIEMPO\n"
+    },
+    {
+        "id": "L_GUN_214",
+        "en": "REMOTE\n",
+        "gb": "REMOTE\n",
+        "jp": "リモ\\h8284ト\n",
+        "it": "TELECOM.\n",
+        "fr": "TELECOM.\n",
+        "de": "FERN\n",
+        "es": "REMOTO\n"
+    },
+    {
+        "id": "L_GUN_215",
+        "en": "AUTOGUN\n",
+        "gb": "AUTOGUN\n",
+        "jp": "\\h83c2\\h82e0\n",
+        "it": "AUTOMATIC\n",
+        "fr": "SENTINELLE\n",
+        "de": "AUTO\n",
+        "es": "AUTOARMA\n"
+    },
+    {
+        "id": "L_GUN_216",
+        "en": "IMPACT\n",
+        "gb": "IMPACT\n",
+        "jp": "\\h85a3\\h85a4\n",
+        "it": "IMPATTO\n",
+        "fr": "IMPACT\n",
+        "de": "SCHLAG\n",
+        "es": "IMPACTO\n"
+    },
+    {
+        "id": "L_GUN_217",
+        "en": "Big King Rocket\n",
+        "gb": "Big King Rocket\n",
+        "jp": "キングロケット\n",
+        "it": "Missile Big King\n",
+        "fr": "Méga Roquette\n",
+        "de": "Big King-Rakete\n",
+        "es": "Cohete Big King\n"
+    },
+    {
+        "id": "L_GUN_218",
+        "en": "Data Uplink\n",
+        "gb": "Data Uplink\n",
+        "jp": "デ\\h8284タリンカ\n",
+        "it": "Connettore Dati\n",
+        "fr": "Récepteur\n",
+        "de": "Data Uplink\n",
+        "es": "Conector de Datos\n"
+    },
+    {
+        "id": "L_GUN_219",
+        "en": "President Scanner\n",
+        "gb": "President Scanner\n",
+        "jp": "\\h83c6\\h83c7\\h83c8モニタ\\h8284\n",
+        "it": "Scanner Presidente\n",
+        "fr": "Scan Prés.\n",
+        "de": "Präsidenten-Scanner\n",
+        "es": "Esc. Presidencial\n"
+    },
+    {
+        "id": "L_GUN_220",
+        "en": "AutoSurgeon\n",
+        "gb": "AutoSurgeon\n",
+        "jp": "オ\\h8284トオペ\n",
+        "it": "AutoChirurgo\n",
+        "fr": "Autochirur.\n",
+        "de": "Auto-Chirurg\n",
+        "es": "AutoCirujano\n"
+    },
+    {
+        "id": "L_GUN_221",
+        "en": "Skedar Bomb\n",
+        "gb": "Skedar Bomb\n",
+        "jp": "スケダ\\h8284ボム\n",
+        "it": "Bomba Skedar\n",
+        "fr": "Bombe skedar\n",
+        "de": "Skedar-Bombe\n",
+        "es": "Bomba Skedar\n"
+    },
+    {
+        "id": "L_GUN_222",
+        "en": "Comms Rider\n",
+        "gb": "Comms Rider\n",
+        "jp": "\\h83cf\\h83a4リンカ\n",
+        "it": "Ponte Com.\n",
+        "fr": "DérouteComms\n",
+        "de": "Komm-Wanze\n",
+        "es": "Controlador\n"
+    },
+    {
+        "id": "L_GUN_223",
+        "en": "Tracer Bug\n",
+        "gb": "Tracer Bug\n",
+        "jp": "\\h82c8\\h83a4\\h84bd\n",
+        "it": "Microspia\n",
+        "fr": "Pisteur\n",
+        "de": "Wanze\n",
+        "es": "'Bicho' R.\n"
+    },
+    {
+        "id": "L_GUN_224",
+        "en": "Target Amplifier\n",
+        "gb": "Target Amplifier\n",
+        "jp": "\\h83c9\\h8483マ\\h8284カ\n",
+        "it": "Bersaglio\n",
+        "fr": "Ampli cible\n",
+        "de": "Peilgerät\n",
+        "es": "Amplificador\n"
+    },
+    {
+        "id": "L_GUN_225",
+        "en": "Flight Plans\n",
+        "gb": "Flight Plans\n",
+        "jp": "フライトプラン\n",
+        "it": "Piani Volo\n",
+        "fr": "Plans de vol\n",
+        "de": "Flugpläne\n",
+        "es": "Planes de Vuelo\n"
+    },
+    {
+        "id": "L_GUN_226",
+        "en": "Research Tape\n",
+        "gb": "Research Tape\n",
+        "jp": "\\h84ff\\h8580デ\\h8284タ\n",
+        "it": "Nastro Ricerca\n",
+        "fr": "Cassette\n",
+        "de": "Forschungsdaten\n",
+        "es": "Cinta Investigación\n"
+    },
+    {
+        "id": "L_GUN_227",
+        "en": "Backup Disk\n",
+        "gb": "Backup Disk\n",
+        "jp": "バックアップデ\\h8284タ\n",
+        "it": "Disco Backup\n",
+        "fr": "Disque sauv.\n",
+        "de": "Sicherungsdiskette\n",
+        "es": "Copia de Seguridad\n"
+    },
+    {
+        "id": "L_GUN_228",
+        "en": "Key Card\n",
+        "gb": "Key Card\n",
+        "jp": "カ\\h8284ドキ\\h8284\n",
+        "it": "Tessera Magnetica\n",
+        "fr": "Carte\n",
+        "de": "Schlüsselkarte\n",
+        "es": "Llave Magnética\n"
+    },
+    {
+        "id": "L_GUN_229",
+        "en": "Briefcase\n",
+        "gb": "Briefcase\n",
+        "jp": "アタッシュケ\\h8284ス\n",
+        "it": "Cartella\n",
+        "fr": "Mallette\n",
+        "de": "Aktentasche\n",
+        "es": "Maletín\n"
+    },
+    {
+        "id": "L_GUN_230",
+        "en": "Necklace\n",
+        "gb": "Necklace\n",
+        "jp": "ネックレス\n",
+        "it": "Collana\n",
+        "fr": "Collier\n",
+        "de": "Halskette\n",
+        "es": "Collar\n"
+    },
+    {
+        "id": "L_GUN_231",
+        "en": "PresidentScan\n",
+        "gb": "PresidentScan\n",
+        "jp": "Ｐモニタ\\h8284\n",
+        "it": "ScannerPres\n",
+        "fr": "ScanPresident\n",
+        "de": "PräsidentScan\n",
+        "es": "Esc. Pres.\n"
+    },
+    {
+        "id": "L_GUN_232",
+        "en": "Boost\n",
+        "gb": "Boost\n",
+        "jp": "ブ\\h8284スト\n",
+        "it": "Booster\n",
+        "fr": "Boost\n",
+        "de": "Adrenalin\n",
+        "es": "Reforzador\n"
+    },
+    {
+        "id": "L_GUN_233",
+        "en": "XRayScan\n",
+        "gb": "XRayScan\n",
+        "jp": "Ｘスキャン\n",
+        "it": "Scanner-X\n",
+        "fr": "Scan X\n",
+        "de": "R-Scanner\n",
+        "es": "Esc. R-X\n"
+    },
+    {
+        "id": "L_GUN_234",
+        "en": "HorizonScan\n",
+        "gb": "HorizonScan\n",
+        "jp": "HRスコ\\h8284プ\n",
+        "it": "Telescanner\n",
+        "fr": "ScanHorizon\n",
+        "de": "H-Scanner\n",
+        "es": "Esc. Horiz.\n"
+    },
+    {
+        "id": "L_GUN_235",
+        "en": "Target Amp\n",
+        "gb": "Target Amp\n",
+        "jp": "\\h83c9\\h8483マ\\h8284カ\n",
+        "it": "AmplObiett\n",
+        "fr": "Ampli cible\n",
+        "de": "Ziel-Verst.\n",
+        "es": "Amplific.\n"
+    },
+    {
+        "id": "L_GUN_236",
+        "en": "In this version of the CamSpy the recording device has been replaced by a highly powerful plastic explosive.\n",
+        "gb": "In this version of the CamSpy the recording device has been replaced by a highly powerful plastic explosive.\n",
+        "jp": "カムスパイの\\h82ca\\h86ffバ\\h8284ジョンで、カメラ\\h83c2\\h82a2のかわりに\\h83de\\h83df\\h82a2なプラスチック\\h85a3\\h85a4を\\h82cd\\h838eしている。\n",
+        "it": "In questa versione della TeleSpia il dispositivo di registrazione è stato sostituito da un potente esplosivo plastico.\n",
+        "fr": "Dans cette variante de la Camspy, le module d'enregistrement a été remplacé par du plastic hautement explosif.\n",
+        "de": "Bei dieser Version des CamSpy wurde die Aufzeichnungs-Funktion durch einen starken Plastik-Sprengsatz ersetzt.\n",
+        "es": "En este modelo de la Cámara Espía el dispositivo de grabación ha sido reemplazado por un poderoso explosivo plástico.\n"
+    },
+    {
+        "id": "L_GUN_237",
+        "en": "This version of the CamSpy uses a paralysing nerve toxin to induce near-instant catatonia in targets.\n",
+        "gb": "This version of the CamSpy uses a paralysing nerve toxin to induce near-instant catatonia in targets.\n",
+        "jp": "カムスパイの\\h82ca\\h86ffバ\\h8284ジョンで、\\h8685\\h83a6をマヒさせる\\h86a8をタ\\h8284ゲットに\\h82c8\\h85b7する。\n",
+        "it": "Questa versione della TeleSpia utilizza una tossina paralizzante del sistema nervoso per provocare una catatonia quasi istantanea.\n",
+        "fr": "Cette variante de la Camspy utilise une toxine neuro-active qui provoque un coma presque instantané chez la victime.\n",
+        "de": "Diese Version des CamSpy verfügt über ein paralysierendes Nervengift, das die Zielperson fast augenblicklich in Katatonie versetzt.\n",
+        "es": "Este modelo de la Cámara Espía usa una toxina nerviosa paralizadora para que los blancos queden en estado catatónico.\n"
+    },
+    {
+        "id": "L_GUN_238",
+        "en": "Cassandra De Vries' necklace. Fitted with a proximity key tag to allow access to restricted areas. Mk3 model only functions while owner is alive. Security class AA-1 (gamma).",
+        "gb": "Cassandra De Vries' necklace. Fitted with a proximity key tag to allow access to restricted areas. Mk3 model only functions while owner is alive. Security class AA-1 (gamma).",
+        "jp": "カサンドラ・デブリ\\h8284ズのネックレス。ビル\\h828eの\\h828c\\h84f9エリアにアクセスできるセンサ\\h8284がついている。そのセンサ\\h8284はネックレスの\\h83e7\\h83e1\\h83eeが\\h83a8きている\\h82fdのみ\\h83c2\\h82a2する。",
+        "it": "La collana di Cassandra De Vries. Dotata di una chiave magnetica per accedere ad aree riservate. Il modello Mk3 funziona solo se Cassandra è ancora viva. Classe di sicurezza AA-1 (gamma).",
+        "fr": "Collier de Cassandra De Vries. Pourvu d'une clé-émetteur ouvrant les portes à courte portée, qui permet l'accès aux zones non-autorisées. Le modèle Mk3 ne fonctionne que si son propriétaire est en vie. Niveau de sécurité AA-1 (gamma).",
+        "de": "Cassandra De Vries Halskette. Beinhaltet eine Annäherungs-Schlüsselkarte, um Sperrzonen betreten zu können. Das MK3 Modell funktioniert nur, solange der Besitzer am Leben ist. Sicherheitsklasse AA-1 (gamma).",
+        "es": "Es el collar de Cassandra De Vries. Está equipado con una llave de proximidad que permite el acceso a áreas restringidas. El modelo Mk3 sólo funciona si el propietario está vivo. Clase de Seguridad AA-1 (gamma)."
+    },
+    {
+        "id": "L_GUN_239",
+        "en": "Cassandra De Vries' replacement necklace.  Username: %s  Password: %s\n",
+        "gb": "Cassandra De Vries' replacement necklace.  Username: %s  Password: %s\n",
+        "jp": "カサンドラ・デブリ\\h8284ズのもう１つのネックレス。ユ\\h8284ザ\\h8284ＩＤ：　%s　パスワ\\h8284ド：　%s\n",
+        "it": "Collana sostitutiva di Cassandra De Vries.  Utente: %s  Password: %s\n",
+        "fr": "Collier de remplacement de Cassandra De Vries'.  Nom d'utilisateur: %s  Mot de passe: %s\n",
+        "de": "Cassandra De Vries Ersatzhalskette. Benuzername: %s  Passwort: %s\n",
+        "es": "Collar de repuesto de Cassandra De Vries.  Usuario: %s  Clave: %s\n"
+    },
+    {
+        "id": "L_GUN_240",
+        "en": "Shield\n",
+        "gb": "Shield\n",
+        "jp": "\\h85e4\\h83dbシ\\h8284ルド\n",
+        "it": "Scudo\n",
+        "fr": "Bouclier\n",
+        "de": "Schild\n",
+        "es": "Escudo\n"
+    },
+    {
+        "id": "L_GUN_241",
+        "en": "The shield protects the user by detecting an attack and momentarily generating a concentrated forcefield to repel the attack. The shield has a limited reservoir of energy, so it can only protect the user to a certain extent. Shields are usually activated whenever the user is carrying them, although this particular shield appears to be a non-functional, near-complete prototype.\n",
+        "gb": "The shield protects the user by detecting an attack and momentarily generating a concentrated forcefield to repel the attack. The shield has a limited reservoir of energy, so it can only protect the user to a certain extent. Shields are usually activated whenever the user is carrying them, although this particular shield appears to be a non-functional, near-complete prototype.\n",
+        "jp": "シ\\h8284ルドは\\h8296からの\\h82ed\\h82d7を\\h85c1\\h84c5し、\\h8283\\h8393\\h83d1なパワ\\h8284フィ\\h8284ルドを\\h83dbり\\h829fすことによって、ユ\\h8284ザ\\h8284を\\h82acるアイテムである。シ\\h8284ルドのエネルギ\\h8284には\\h84f9りがあり、\\h8283\\h84c7のダメ\\h8284ジを\\h82eeけると\\h82ce\\h85e8する。シ\\h8284ルドは\\h82d5っていさえすれば\\h8397\\h82c4\\h83d1に\\h82cd\\h83f3されるが、この\\h85e4\\h83db\\h84bbは、まだ\\h83c2\\h82a2していない。\n",
+        "it": "Lo scudo protegge chi lo usa riconoscendo l'attacco e creando temporaneamente un campo magnetico concentrato per respingerlo. È dotato di riserva energetica limitata, quindi può proteggere solo fino ad un certo punto. Normalmente gli scudi sono sempre attivi, sebbene questo scudo in particolare sembri un prototipo non funzionale semifinito.\n",
+        "fr": "Le bouclier protège son utilisateur en détectant les attaques et en générant momentanément un champ de force concentré pour repousser l'attaque. Le bouclier possède une quantité d'énergie limitée. Il ne protège pas l'utilisateur indéfiniment. Les boucliers sont généralement activés lorsqu'ils sont portés, bien que celui-ci soit un prototype inachevé.\n",
+        "de": "Der Schild schützt den Träger, indem er automatisch Gefahren erkennt und ein temporäres Kraftfeld errichtet. Dadurch wird die Attacke neutralisiert. Der Schild verfügt über einen begrenzten Energievorrat. Die Schutzfunktion kann also nur über eine bestimmte Zeitspanne gewährleistet werden. Im Normalfall werden Schilde aktiv, sobald sie von jemandem getragen werden, auch wenn es so aussieht, als wäre dieser spezielle Schild ein nicht-funktionabler Prototyp.\n",
+        "es": "El escudo protege al usuario detectando un ataque y generando momentáneamente un campo de fuerza concentrado para repeler el ataque. El escudo tiene una reserva de energía limitada, así que sólo puede proteger al usuario hasta cierto punto. Los escudos suelen permanecer activos cuando el usuario los lleva, aunque este escudo en particular parece no ser funcional, como un prototipo no finalizado.\n"
+    },
+    {
+        "id": "L_GUN_242",
+        "en": "Combat Boosts\n",
+        "gb": "Combat Boosts\n",
+        "jp": "ブ\\h8284ストピル\n",
+        "it": "Booster lotta\n",
+        "fr": "Boosts combat\n",
+        "de": "Adrenalin\n",
+        "es": "Reforzadores\n"
+    },
+    {
+        "id": "L_GUN_243",
+        "en": "Data Uplink\n",
+        "gb": "Data Uplink\n",
+        "jp": "デ-タリンカ\n",
+        "it": "C. Dati\n",
+        "fr": "Récepteur\n",
+        "de": "Data Uplink\n",
+        "es": "C. Datos\n"
+    },
+    {
+        "id": "L_GUN_244",
+        "en": "Night Vision\n",
+        "gb": "Night Vision\n",
+        "jp": "ナイトアイ\n",
+        "it": "Vista Nott.\n",
+        "fr": "Vue nocturne\n",
+        "de": "Nachtsicht\n",
+        "es": "V. Nocturna\n"
+    },
+    {
+        "id": "L_GUN_245",
+        "en": "Door Decoder\n",
+        "gb": "Door Decoder\n",
+        "jp": "ドアコ\\h8284ダ\n",
+        "it": "Decodif.\n",
+        "fr": "Décodeur\n",
+        "de": "Decoder\n",
+        "es": "Decodif.\n"
+    },
+    {
+        "id": "L_GUN_246",
+        "en": "Suicide Pill\n",
+        "gb": "Suicide Pill\n",
+        "jp": "\\h8397\\h8591\\h86a8\n",
+        "it": "Compressa suicidio\n",
+        "fr": "Pilule\n",
+        "de": "Suizid-Pille\n",
+        "es": "P. Suicidio\n"
+    },
+    {
+        "id": "L_GUN_247",
+        "en": "Tranquilizer\n",
+        "gb": "Tranquilizer\n",
+        "jp": "\\h878b\\h86a9\\h878c\n",
+        "it": "Sedativo\n",
+        "fr": "Tranquil.\n",
+        "de": "B-Gewehr\n",
+        "es": "Tranquiliz.\n"
+    },
+    {
+        "id": "L_GUN_248",
+        "en": "AutoSurgeon\n",
+        "gb": "AutoSurgeon\n",
+        "jp": "オ\\h8284トオペ\n",
+        "it": "AutoChirurgo\n",
+        "fr": "Autochirur.\n",
+        "de": "Medipack\n",
+        "es": "AutoCirujano\n"
+    },
+    {
+        "id": "L_GUN_249",
+        "en": "Backup Disk\n",
+        "gb": "Backup Disk\n",
+        "jp": "Backup Disk\n",
+        "it": "Disco Backup\n",
+        "fr": "Disque sauv.\n",
+        "de": "Backup\n",
+        "es": "Disco S.\n"
+    },
+    {
+        "id": "L_GUN_250",
+        "en": "Disguise\n",
+        "gb": "Disguise\n",
+        "jp": "\\h828c\\h849b\n",
+        "it": "Travest.\n",
+        "fr": "Costume\n",
+        "de": "Verkl.\n",
+        "es": "Disfraz\n"
+    },
+    {
+        "id": "L_GUN_251",
+        "en": "Laptop Gun\n",
+        "gb": "Laptop Gun\n",
+        "jp": "ＰＣガン\n",
+        "it": "PistLaptop\n",
+        "fr": "Laptop Gun\n",
+        "de": "Laptop\n",
+        "es": "Arma PC\n"
+    },
+    {
+        "id": "L_GUN_252",
+        "en": "Remote Mine\n",
+        "gb": "Remote Mine\n",
+        "jp": "リモ\\h8284トＢ\n",
+        "it": "Mina distanza\n",
+        "fr": "Mine télécom.\n",
+        "de": "F-Mine\n",
+        "es": "Mina Remota\n"
+    },
+    {
+        "id": "L_GUN_253",
+        "en": "Shotgun\n",
+        "gb": "Shotgun\n",
+        "jp": "ショット\\h82e0\n",
+        "it": "Fuc.Pompa\n",
+        "fr": "Fusil pompe\n",
+        "de": "Schrotfl.\n",
+        "es": "Escopeta\n"
+    },
+    {
+        "id": "L_GUN_254",
+        "en": "Sniper Rifle\n",
+        "gb": "Sniper Rifle\n",
+        "jp": "Ｓライフル\n",
+        "it": "Fuc.Cecch.\n",
+        "fr": "Fusil sniper\n",
+        "de": "Sniper\n",
+        "es": "Rifle Fr\n"
+    },
+    {
+        "id": "L_GUN_255",
+        "en": "Timed Mine\n",
+        "gb": "Timed Mine\n",
+        "jp": "\\h8393\\h84f9\\h85a3\\h85a4\n",
+        "it": "Mina Orol.\n",
+        "fr": "Mine retard.\n",
+        "de": "Z-Mine\n",
+        "es": "Mina Tiempo\n"
+    },
+    {
+        "id": "L_GUN_256",
+        "en": "ECM Mine\n",
+        "gb": null,
+        "jp": "ＥＣＭ\n",
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_GUN_257",
+        "en": "Falcon 2\n",
+        "gb": null,
+        "jp": "Ｆ２\n",
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_GUN_258",
+        "en": "Suitcase\n",
+        "gb": null,
+        "jp": "アタッシュ\n",
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_GUN_259",
+        "en": "Skedar Bomb\n",
+        "gb": null,
+        "jp": "スケダ\\h8284Ｂ\n",
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_GUN_260",
+        "en": "Reprogrammer\n",
+        "gb": null,
+        "jp": "デ-タリンカ\n",
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_GUN_261",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_GUN_262",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_GUN_263",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    }
+]

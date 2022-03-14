@@ -1,0 +1,4962 @@
+[
+    {
+        "id": "L_OPTIONS_000",
+        "en": "Complete\n",
+        "gb": "Complete\n",
+        "jp": "\\h82f3\\h82f4\n",
+        "it": "Compiuto\n",
+        "fr": "Succès\n",
+        "de": "Komplettiert\n",
+        "es": "Completado\n"
+    },
+    {
+        "id": "L_OPTIONS_001",
+        "en": "Incomplete\n",
+        "gb": "Incomplete\n",
+        "jp": "\\h86b5\\h82f3\\h82f4\n",
+        "it": "Incompleto\n",
+        "fr": "Inachevé\n",
+        "de": "Nicht komplettiert\n",
+        "es": "No completado\n"
+    },
+    {
+        "id": "L_OPTIONS_002",
+        "en": "Failed\n",
+        "gb": "Failed\n",
+        "jp": "\\h82b5\\h82b6\\h82f1\\h82f2\n",
+        "it": "Fallito\n",
+        "fr": "Echec\n",
+        "de": "Fehlgeschlagen\n",
+        "es": "Fallado\n"
+    },
+    {
+        "id": "L_OPTIONS_003",
+        "en": "\n",
+        "gb": "\n",
+        "jp": "\n",
+        "it": "\n",
+        "fr": "\n",
+        "de": "\n",
+        "es": "\n"
+    },
+    {
+        "id": "L_OPTIONS_004",
+        "en": "",
+        "gb": "",
+        "jp": "",
+        "it": "",
+        "fr": "",
+        "de": "",
+        "es": ""
+    },
+    {
+        "id": "L_OPTIONS_005",
+        "en": "earth:",
+        "gb": "earth:",
+        "jp": "\\h8298\\h86e4：",
+        "it": "Terra:",
+        "fr": "Terre:",
+        "de": "Die Erde:",
+        "es": "tierra:"
+    },
+    {
+        "id": "L_OPTIONS_006",
+        "en": "   prehistory",
+        "gb": "   prehistory",
+        "jp": "　プレヒストリ\\h8284",
+        "it": "   nella preistoria",
+        "fr": "   préhistoire",
+        "de": "   ...in prähistorischer Zeit",
+        "es": "   prehistoria"
+    },
+    {
+        "id": "L_OPTIONS_007",
+        "en": "rare presents",
+        "gb": "rare presents",
+        "jp": "Ｒａｒｅ\\h86e5\\h85f0",
+        "it": "Rare presenta",
+        "fr": "rare présente",
+        "de": "Rare präsentiert",
+        "es": "rare presenta"
+    },
+    {
+        "id": "L_OPTIONS_008",
+        "en": "Red\n",
+        "gb": "Red\n",
+        "jp": "Red\n",
+        "it": "Rosso\n",
+        "fr": "Rouge\n",
+        "de": "Rot\n",
+        "es": "Rojo\n"
+    },
+    {
+        "id": "L_OPTIONS_009",
+        "en": "Yellow\n",
+        "gb": "Yellow\n",
+        "jp": "Yellow\n",
+        "it": "Giallo\n",
+        "fr": "Jaune\n",
+        "de": "Gelb\n",
+        "es": "Amarillo\n"
+    },
+    {
+        "id": "L_OPTIONS_010",
+        "en": "Blue\n",
+        "gb": "Blue\n",
+        "jp": "Blue\n",
+        "it": "Blu\n",
+        "fr": "Bleu\n",
+        "de": "Blau\n",
+        "es": "Azul\n"
+    },
+    {
+        "id": "L_OPTIONS_011",
+        "en": "Magenta\n",
+        "gb": "Magenta\n",
+        "jp": "Magenta\n",
+        "it": "Magenta\n",
+        "fr": "Magenta\n",
+        "de": "Magenta\n",
+        "es": "Magenta\n"
+    },
+    {
+        "id": "L_OPTIONS_012",
+        "en": "Cyan\n",
+        "gb": "Cyan\n",
+        "jp": "Cyan\n",
+        "it": "Azzurro\n",
+        "fr": "Cyan\n",
+        "de": "Cyan\n",
+        "es": "Az. Claro\n"
+    },
+    {
+        "id": "L_OPTIONS_013",
+        "en": "Orange\n",
+        "gb": "Orange\n",
+        "jp": "Orange\n",
+        "it": "Arancio\n",
+        "fr": "Orange\n",
+        "de": "Orange\n",
+        "es": "Naranja\n"
+    },
+    {
+        "id": "L_OPTIONS_014",
+        "en": "Pink\n",
+        "gb": "Pink\n",
+        "jp": "Pink\n",
+        "it": "Rosa\n",
+        "fr": "Rose\n",
+        "de": "Pink\n",
+        "es": "Rosa\n"
+    },
+    {
+        "id": "L_OPTIONS_015",
+        "en": "Brown\n",
+        "gb": "Brown\n",
+        "jp": "Brown\n",
+        "it": "Marrone\n",
+        "fr": "Marron\n",
+        "de": "Braun\n",
+        "es": "Marrón\n"
+    },
+    {
+        "id": "L_OPTIONS_016",
+        "en": "Joanna Combat\n",
+        "gb": "Joanna Combat\n",
+        "jp": "ＪＤコンバットス\\h8284ツ\n",
+        "it": "Jo in tuta da lotta\n",
+        "fr": "Joanna Combat\n",
+        "de": "Joanna im Kampfanzug\n",
+        "es": "Joanna de Combate\n"
+    },
+    {
+        "id": "L_OPTIONS_017",
+        "en": "Joanna Trench Coat\n",
+        "gb": "Joanna Trench Coat\n",
+        "jp": "ＪＤトレンチコ\\h8284ト\n",
+        "it": "Jo in impermeabile\n",
+        "fr": "Joanna imper\n",
+        "de": "Joanna im Trenchcoat\n",
+        "es": "Joanna con Gabardina\n"
+    },
+    {
+        "id": "L_OPTIONS_018",
+        "en": "Joanna Party Frock\n",
+        "gb": "Joanna Party Frock\n",
+        "jp": "ＪＤチャイナドレス\n",
+        "it": "Jo in abito da sera\n",
+        "fr": "Joanna Robe\n",
+        "de": "Joanna im Partykleid\n",
+        "es": "Joanna de Gala\n"
+    },
+    {
+        "id": "L_OPTIONS_019",
+        "en": "Joanna Frock (Ripped)\n",
+        "gb": "Joanna Frock (Ripped)\n",
+        "jp": "ＪＤ\\h82ceれたドレス\n",
+        "it": "Jo in abito strappato\n",
+        "fr": "Joanna Robe courte\n",
+        "de": "Joanna im Kleid (zerrissen)\n",
+        "es": "Joanna de Fiesta\n"
+    },
+    {
+        "id": "L_OPTIONS_020",
+        "en": "Joanna Stewardess\n",
+        "gb": "Joanna Stewardess\n",
+        "jp": "ＪＤスチュワ\\h8284デス\n",
+        "it": "Jo come hostess\n",
+        "fr": "Joanna Hôtesse\n",
+        "de": "Joanna als Stewardess\n",
+        "es": "Joanna Azafata\n"
+    },
+    {
+        "id": "L_OPTIONS_021",
+        "en": "Joanna Wet Suit\n",
+        "gb": "Joanna Wet Suit\n",
+        "jp": "ＪＤウェットス\\h8284ツ\n",
+        "it": "Jo in muta da sub\n",
+        "fr": "Joanna Plongée\n",
+        "de": "Joanna im Neoprenanzug\n",
+        "es": "Joanna Traje Isotérmico\n"
+    },
+    {
+        "id": "L_OPTIONS_022",
+        "en": "Joanna Aqualung\n",
+        "gb": "Joanna Aqualung\n",
+        "jp": "ＪＤアクアラング\n",
+        "it": "Jo con bombole da sub\n",
+        "fr": "Joanna Scaphandre\n",
+        "de": "Joanna - Tauchgerät\n",
+        "es": "Joanna con Escafandra\n"
+    },
+    {
+        "id": "L_OPTIONS_023",
+        "en": "Joanna Arctic\n",
+        "gb": "Joanna Arctic\n",
+        "jp": "ＪＤ\\h86f3\\h8498\n",
+        "it": "Jo in tenuta polare\n",
+        "fr": "Joanna Arctique\n",
+        "de": "Joanna im Polar-Outfit\n",
+        "es": "Joanna con Traje Polar\n"
+    },
+    {
+        "id": "L_OPTIONS_024",
+        "en": "Joanna Lab Tech.\n",
+        "gb": "Joanna Lab Tech.\n",
+        "jp": "ＪＤ\\h84ff\\h8580\\h8293\n",
+        "it": "Jo in camice\n",
+        "fr": "Joanna Laborantin\n",
+        "de": "Joanna als Labortechniker\n",
+        "es": "Joanna Científica\n"
+    },
+    {
+        "id": "L_OPTIONS_025",
+        "en": "Elvis\n",
+        "gb": "Elvis\n",
+        "jp": "エルビス\n",
+        "it": "Elvis\n",
+        "fr": "Elvis\n",
+        "de": "Elvis\n",
+        "es": "Elvis\n"
+    },
+    {
+        "id": "L_OPTIONS_026",
+        "en": "Maian\n",
+        "gb": "Maian\n",
+        "jp": "マイアン\n",
+        "it": "Maian\n",
+        "fr": "Maian\n",
+        "de": "Maianer\n",
+        "es": "Maian\n"
+    },
+    {
+        "id": "L_OPTIONS_027",
+        "en": "Daniel Carrington\n",
+        "gb": "Daniel Carrington\n",
+        "jp": "キャリントン\n",
+        "it": "Daniel Carrington\n",
+        "fr": "Daniel Carrington\n",
+        "de": "Daniel Carrington\n",
+        "es": "Daniel Carrington\n"
+    },
+    {
+        "id": "L_OPTIONS_028",
+        "en": "Carrington Evening Wear\n",
+        "gb": "Carrington Evening Wear\n",
+        "jp": "ＤＣタキシ\\h8284ド\n",
+        "it": "Carrington in smoking\n",
+        "fr": "Carrington smoking\n",
+        "de": "Carrington im Anzug\n",
+        "es": "Carrington de Gala\n"
+    },
+    {
+        "id": "L_OPTIONS_029",
+        "en": "Mr. Blonde\n",
+        "gb": "Mr. Blonde\n",
+        "jp": "ミスタ\\h8284・ブロンド\n",
+        "it": "Mr Blonde\n",
+        "fr": "Mr. Blonde\n",
+        "de": "Mr. Blond\n",
+        "es": "Mr. Blonde\n"
+    },
+    {
+        "id": "L_OPTIONS_030",
+        "en": "Cassandra De Vries\n",
+        "gb": "Cassandra De Vries\n",
+        "jp": "カサンドラ\n",
+        "it": "Cassandra De Vries\n",
+        "fr": "Cassandra De Vries\n",
+        "de": "Cassandra De Vries\n",
+        "es": "Cassandra De Vries\n"
+    },
+    {
+        "id": "L_OPTIONS_031",
+        "en": "Trent Easton\n",
+        "gb": "Trent Easton\n",
+        "jp": "トレント・イ\\h8284ストン\n",
+        "it": "Trent Easton\n",
+        "fr": "Trent Easton\n",
+        "de": "Trent Easton\n",
+        "es": "Trent Easton\n"
+    },
+    {
+        "id": "L_OPTIONS_032",
+        "en": "Jonathan\n",
+        "gb": "Jonathan\n",
+        "jp": "ジョナサン\n",
+        "it": "Jonathan\n",
+        "fr": "Jonathan\n",
+        "de": "Jonathan\n",
+        "es": "Jonathan\n"
+    },
+    {
+        "id": "L_OPTIONS_033",
+        "en": "CI Male Lab Technician\n",
+        "gb": "CI Male Lab Technician\n",
+        "jp": "\\h82a3\\h82a4　\\h84ff\\h8580\\h8293　\\h849c\n",
+        "it": "Tecnico di lab. CI (uomo)\n",
+        "fr": "Technicien IC H\n",
+        "de": "CI-Labortechniker m.\n",
+        "es": "Técnico Masculino del IC\n"
+    },
+    {
+        "id": "L_OPTIONS_034",
+        "en": "CI Female Lab Technician\n",
+        "gb": "CI Female Lab Technician\n",
+        "jp": "\\h82a3\\h82a4　\\h84ff\\h8580\\h8293　\\h82dc\n",
+        "it": "Tecnico di lab. CI (donna)\n",
+        "fr": "Technicien IC F\n",
+        "de": "CI-Labortechniker w.\n",
+        "es": "Técnico Femenino del IC\n"
+    },
+    {
+        "id": "L_OPTIONS_035",
+        "en": "CI Soldier\n",
+        "gb": "CI Soldier\n",
+        "jp": "\\h82a3\\h82a4　\\h8291\\h8292\\h8293\n",
+        "it": "Soldato CI\n",
+        "fr": "Soldat IC\n",
+        "de": "CI-Soldat\n",
+        "es": "Soldado del IC\n"
+    },
+    {
+        "id": "L_OPTIONS_036",
+        "en": "dataDyne Shock Trooper\n",
+        "gb": "dataDyne Shock Trooper\n",
+        "jp": "ｄＤ\\h87cb\\h8290\\h8291\\h8292\\h8293\n",
+        "it": "Soldato d'assalto dD\n",
+        "fr": "Commando dataDyne\n",
+        "de": "dataDyne Elitesoldat\n",
+        "es": "Tropa Asalto dataDyne\n"
+    },
+    {
+        "id": "L_OPTIONS_037",
+        "en": "dataDyne Female Guard\n",
+        "gb": "dataDyne Female Guard\n",
+        "jp": "ｄＤ\\h82dcガ\\h8284ド\n",
+        "it": "Guardia (donna) dD\n",
+        "fr": "Femme Garde dataDyne\n",
+        "de": "Weibliche dataDyne Wache\n",
+        "es": "Guarda de dataDyne\n"
+    },
+    {
+        "id": "L_OPTIONS_038",
+        "en": "dataDyne Security\n",
+        "gb": "dataDyne Security\n",
+        "jp": "ｄＤ\\h8289\\h838e\\h8293\n",
+        "it": "Sicurezza dataDyne\n",
+        "fr": "Sécurité dataDyne\n",
+        "de": "dataDyne Security-Mann\n",
+        "es": "Seguridad de dataDyne\n"
+    },
+    {
+        "id": "L_OPTIONS_039",
+        "en": "dataDyne Infantry\n",
+        "gb": "dataDyne Infantry\n",
+        "jp": "ｄＤ\\h838f\\h85fd\n",
+        "it": "Fanteria dataDyne\n",
+        "fr": "Infanterie dataDyne\n",
+        "de": "dataDyne Infanterist\n",
+        "es": "Infantería de dataDyne\n"
+    },
+    {
+        "id": "L_OPTIONS_040",
+        "en": "dataDyne Trooper\n",
+        "gb": "dataDyne Trooper\n",
+        "jp": "ｄＤ\\h8291\\h8292\\h8293\n",
+        "it": "Soldato dataDyne\n",
+        "fr": "Troupes dataDyne\n",
+        "de": "dataDyne Soldat\n",
+        "es": "Soldado de dataDyne\n"
+    },
+    {
+        "id": "L_OPTIONS_041",
+        "en": "Secretary\n",
+        "gb": "Secretary\n",
+        "jp": "\\h85b5\\h86d0\n",
+        "it": "Segretaria\n",
+        "fr": "Secrétaire\n",
+        "de": "Sekretärin\n",
+        "es": "Secretaria\n"
+    },
+    {
+        "id": "L_OPTIONS_042",
+        "en": "Office Suit\n",
+        "gb": "Office Suit\n",
+        "jp": "ビジネスマン１\n",
+        "it": "Vestito da ufficio\n",
+        "fr": "Tenue de Bureau\n",
+        "de": "Bürokleidung\n",
+        "es": "Ropa de Oficina\n"
+    },
+    {
+        "id": "L_OPTIONS_043",
+        "en": "Office Casual\n",
+        "gb": "Office Casual\n",
+        "jp": "ビジネスマン２\n",
+        "it": "Vestito casual\n",
+        "fr": "Tenue de Bureau\n",
+        "de": "lockere Bürokleidung\n",
+        "es": "Ropa Normal\n"
+    },
+    {
+        "id": "L_OPTIONS_044",
+        "en": "Negotiator\n",
+        "gb": "Negotiator\n",
+        "jp": "ＯＬ\n",
+        "it": "Negoziatore\n",
+        "fr": "Négociateur\n",
+        "de": "Unterhändlerin\n",
+        "es": "Negociadora\n"
+    },
+    {
+        "id": "L_OPTIONS_045",
+        "en": "dataDyne Sniper\n",
+        "gb": "dataDyne Sniper\n",
+        "jp": "ｄＤスナイパ\\h8284\n",
+        "it": "Cecchino dataDyne\n",
+        "fr": "Sniper dataDyne\n",
+        "de": "dataDyne Scharfschütze\n",
+        "es": "Francotirador dataDyne\n"
+    },
+    {
+        "id": "L_OPTIONS_046",
+        "en": "G5 Guard\n",
+        "gb": "G5 Guard\n",
+        "jp": "Ｇ５　ガ\\h8284ド\n",
+        "it": "Guardia G5\n",
+        "fr": "Garde G5\n",
+        "de": "G5-Wache\n",
+        "es": "Guarda del G5\n"
+    },
+    {
+        "id": "L_OPTIONS_047",
+        "en": "G5 SWAT Guard\n",
+        "gb": "G5 SWAT Guard\n",
+        "jp": "Ｇ５　スワット\n",
+        "it": "Guardia SWAT G5\n",
+        "fr": "Garde SWAT G5\n",
+        "de": "G5-SWAT-Wache\n",
+        "es": "Guarda SWAT del G5\n"
+    },
+    {
+        "id": "L_OPTIONS_048",
+        "en": "CIA Agent\n",
+        "gb": "CIA Agent\n",
+        "jp": "ＣＩＡ　スパイ\n",
+        "it": "Agente CIA\n",
+        "fr": "Agent CIA\n",
+        "de": "CIA Agent\n",
+        "es": "Agente de la CIA\n"
+    },
+    {
+        "id": "L_OPTIONS_049",
+        "en": "FBI Agent\n",
+        "gb": "FBI Agent\n",
+        "jp": "ＦＢＩ　スパイ\n",
+        "it": "Agente FBI\n",
+        "fr": "Agent FBI\n",
+        "de": "FBI Agent\n",
+        "es": "Agente del FBI\n"
+    },
+    {
+        "id": "L_OPTIONS_050",
+        "en": "Area 51 Guard\n",
+        "gb": "Area 51 Guard\n",
+        "jp": "エリア５１　ガ\\h8284ド\n",
+        "it": "Guardia Area 51\n",
+        "fr": "Garde Secteur 51\n",
+        "de": "Area 51 Wache\n",
+        "es": "Guarda del Área 51\n"
+    },
+    {
+        "id": "L_OPTIONS_051",
+        "en": "Area 51 Trooper\n",
+        "gb": "Area 51 Trooper\n",
+        "jp": "エリア５１　\\h8291\\h8292\\h8293\n",
+        "it": "Soldato Area 51\n",
+        "fr": "Soldat Secteur 51\n",
+        "de": "Area 51 Soldat\n",
+        "es": "Soldado del Área 51\n"
+    },
+    {
+        "id": "L_OPTIONS_052",
+        "en": "Pilot\n",
+        "gb": "Pilot\n",
+        "jp": "パイロット\n",
+        "it": "Pilota\n",
+        "fr": "Pilote\n",
+        "de": "Pilot\n",
+        "es": "Piloto\n"
+    },
+    {
+        "id": "L_OPTIONS_053",
+        "en": "Overalls\n",
+        "gb": "Overalls\n",
+        "jp": "\\h83db\\h848fツナギ\n",
+        "it": "Tute\n",
+        "fr": "Ensemble\n",
+        "de": "Overalls\n",
+        "es": "Mono de Trabajo\n"
+    },
+    {
+        "id": "L_OPTIONS_054",
+        "en": "NSA Bodyguard\n",
+        "gb": "NSA Bodyguard\n",
+        "jp": "\\h849d\\h849e\\h849fボディ\\h8284ガ\\h8284ド\n",
+        "it": "Guardia del corpo NSA\n",
+        "fr": "Garde du Corps NSA\n",
+        "de": "NSA Bodyguard\n",
+        "es": "Guardaespaldas de la ANS\n"
+    },
+    {
+        "id": "L_OPTIONS_055",
+        "en": "Male Lab Technician\n",
+        "gb": "Male Lab Technician\n",
+        "jp": "\\h84ff\\h8580\\h8293　\\h849c\n",
+        "it": "Tecnico di lab. (uomo)\n",
+        "fr": "Technicien Homme\n",
+        "de": "Männlicher Labortechniker\n",
+        "es": "Técnico Masculino Lab.\n"
+    },
+    {
+        "id": "L_OPTIONS_056",
+        "en": "Female Lab Technician\n",
+        "gb": "Female Lab Technician\n",
+        "jp": "\\h84ff\\h8580\\h8293　\\h82dc\n",
+        "it": "Tecnico di lab. (donna)\n",
+        "fr": "Technicien Femme\n",
+        "de": "Weiblicher Labortechniker\n",
+        "es": "Técnico Femenino Lab.\n"
+    },
+    {
+        "id": "L_OPTIONS_057",
+        "en": "dataDyne Lab Technician\n",
+        "gb": "dataDyne Lab Technician\n",
+        "jp": "ｄＤ\\h84ff\\h8580\\h8293\n",
+        "it": "Tecnico di lab. dD\n",
+        "fr": "Technicien dataDyne\n",
+        "de": "dataDyne Labortechniker\n",
+        "es": "Técnico del Lab. dataDyne\n"
+    },
+    {
+        "id": "L_OPTIONS_058",
+        "en": "Biotechnician\n",
+        "gb": "Biotechnician\n",
+        "jp": "バイオ\\h84ff\\h8580\\h8293\n",
+        "it": "Tecnico biologico\n",
+        "fr": "Bio technicien\n",
+        "de": "Biotechniker\n",
+        "es": "Biotécnico\n"
+    },
+    {
+        "id": "L_OPTIONS_059",
+        "en": "Alaskan Guard\n",
+        "gb": "Alaskan Guard\n",
+        "jp": "アラスカ　ガ\\h8284ド\n",
+        "it": "Guardia dell'Alaska\n",
+        "fr": "Garde Alaska\n",
+        "de": "Alaska-Wache\n",
+        "es": "Guarda de Alaska\n"
+    },
+    {
+        "id": "L_OPTIONS_060",
+        "en": "Air Force One Pilot\n",
+        "gb": "Air Force One Pilot\n",
+        "jp": "\\h84b9\\h8388\\h83c2　パイロット\n",
+        "it": "Pilota Air Force One\n",
+        "fr": "Pilote AF One\n",
+        "de": "Air Force One Pilot\n",
+        "es": "Piloto del Air Force One\n"
+    },
+    {
+        "id": "L_OPTIONS_061",
+        "en": "Steward\n",
+        "gb": "Steward\n",
+        "jp": "パ\\h8284サ\\h8284\n",
+        "it": "Steward\n",
+        "fr": "Steward\n",
+        "de": "Steward\n",
+        "es": "Auxiliar\n"
+    },
+    {
+        "id": "L_OPTIONS_062",
+        "en": "Stewardess\n",
+        "gb": "Stewardess\n",
+        "jp": "スチュワ\\h8284デス１\n",
+        "it": "Hostess\n",
+        "fr": "Hôtesse\n",
+        "de": "Stewardess\n",
+        "es": "Azafata\n"
+    },
+    {
+        "id": "L_OPTIONS_063",
+        "en": "Head Stewardess\n",
+        "gb": "Head Stewardess\n",
+        "jp": "スチュワ\\h8284デス２\n",
+        "it": "Hostess capo\n",
+        "fr": "Chef Hôtesse\n",
+        "de": "Chef-Stewardess\n",
+        "es": "Azafata Jefe\n"
+    },
+    {
+        "id": "L_OPTIONS_064",
+        "en": "The President\n",
+        "gb": "The President\n",
+        "jp": "\\h83c6\\h83c7\\h83c8\n",
+        "it": "Presidente\n",
+        "fr": "Le président\n",
+        "de": "Der Präsident\n",
+        "es": "El Presidente\n"
+    },
+    {
+        "id": "L_OPTIONS_065",
+        "en": "NSA Lackey\n",
+        "gb": "NSA Lackey\n",
+        "jp": "\\h849d\\h849e\\h849f　\\h83fb\\h84b1\n",
+        "it": "Lacchè NSA\n",
+        "fr": "Groom NSA\n",
+        "de": "NSA Lakai\n",
+        "es": "Lacayo de la ANS\n"
+    },
+    {
+        "id": "L_OPTIONS_066",
+        "en": "Presidential Security\n",
+        "gb": "Presidential Security\n",
+        "jp": "\\h83c6\\h83c7\\h83c8ＳＰ\n",
+        "it": "Sicurezza presidenziale\n",
+        "fr": "Sécurité Président\n",
+        "de": "Präsidentenwache\n",
+        "es": "Seguridad Presidencial\n"
+    },
+    {
+        "id": "L_OPTIONS_067",
+        "en": "President\"s Clone\n",
+        "gb": "President\"s Clone\n",
+        "jp": "\\h83c6\\h83c7\\h83c8クロ\\h8284ン\n",
+        "it": "Clone del Presidente\n",
+        "fr": "Clone Président\n",
+        "de": "Präsident\"en Klon\n",
+        "es": "Clon del Presidente\n"
+    },
+    {
+        "id": "L_OPTIONS_068",
+        "en": "Pelagic II Guard\n",
+        "gb": "Pelagic II Guard\n",
+        "jp": "ペラジック２　ガ\\h8284ド\n",
+        "it": "Guardia Pelagic II\n",
+        "fr": "Garde Pelagic II\n",
+        "de": "Pelagic II Wache\n",
+        "es": "Guarda del Pelagic II\n"
+    },
+    {
+        "id": "L_OPTIONS_069",
+        "en": "Maian Soldier\n",
+        "gb": "Maian Soldier\n",
+        "jp": "マイアン\\h8291\\h85fd\n",
+        "it": "Soldato Maian\n",
+        "fr": "Soldat Maian\n",
+        "de": "Maianischer Soldat\n",
+        "es": "Soldado Maian\n"
+    },
+    {
+        "id": "L_OPTIONS_070",
+        "en": "Dinner Jacket\n",
+        "gb": "Dinner Jacket\n",
+        "jp": "ディナ\\h8284ジャケット\n",
+        "it": "Giacca elegante\n",
+        "fr": "Smoking\n",
+        "de": "Dinner Jacket\n",
+        "es": "Esmoquin\n"
+    },
+    {
+        "id": "L_OPTIONS_071",
+        "en": "- no controller in controller socket 1 -",
+        "gb": "- no controller in controller socket 1 -",
+        "jp": "コントロ\\h8284ラコネクタ１にコントロ\\h8284ラが\\h85d1\\h82beされていません。",
+        "it": "nessun Controller nella presa 1",
+        "fr": "- Pas de Manette branchée dans le port 1 -",
+        "de": "- Kein Controller in Controller-Port 1 -",
+        "es": "- no hay mando conectado a la ranura 1 -"
+    },
+    {
+        "id": "L_OPTIONS_072",
+        "en": "please power off and attach a controller",
+        "gb": "please power off and attach a controller",
+        "jp": "\\h84b7\\h828bの\\h83c9\\h83d2を\\h8496ってから、コントロ\\h8284ラを\\h85d1\\h82beして\\h87ccさい。",
+        "it": "spegni la console e collega un Controller",
+        "fr": "Eteindre et brancher une manette",
+        "de": "Schalten Sie aus und schließen Sie einen Controller an.",
+        "es": "por favor, apaga la consola y conecta un mando"
+    },
+    {
+        "id": "L_OPTIONS_073",
+        "en": "DETECTED",
+        "gb": "DETECTED",
+        "jp": "\\h84c2\\h829f",
+        "it": "PRESENTE",
+        "fr": "DETECTE",
+        "de": "GEFUNDEN",
+        "es": "DETECTADO"
+    },
+    {
+        "id": "L_OPTIONS_074",
+        "en": "NOT DETECTED",
+        "gb": "NOT DETECTED",
+        "jp": "\\h83bcし",
+        "it": "ASSENTE",
+        "fr": "NON DETECTE",
+        "de": "NICHT GEFUNDEN",
+        "es": "NO DETECTADO"
+    },
+    {
+        "id": "L_OPTIONS_075",
+        "en": "tm",
+        "gb": "tm",
+        "jp": "",
+        "it": "tm",
+        "fr": "tm",
+        "de": "tm",
+        "es": "tm"
+    },
+    {
+        "id": "L_OPTIONS_076",
+        "en": "N64 EXPANSION PAK",
+        "gb": "N64 EXPANSION PAK",
+        "jp": "メモリ\\h8284\\h86e6\\h8598パック",
+        "it": "EXPANSION PAK N64",
+        "fr": "N64 EXPANSION PAK",
+        "de": "N64 EXPANSION PAK",
+        "es": "N64 EXPANSION PAK"
+    },
+    {
+        "id": "L_OPTIONS_077",
+        "en": "Nintendo 64 Product Identification\n",
+        "gb": "Nintendo 64 Product Identification\n",
+        "jp": "Nintendo 64 Product Identification\n",
+        "it": "Identificazione prodotto Nintendo 64\n",
+        "fr": "Identification Produit Nintendo 64\n",
+        "de": "Nintendo 64 Product Identification\n",
+        "es": "Nintendo 64 Product Identification\n"
+    },
+    {
+        "id": "L_OPTIONS_078",
+        "en": "Product ID:\n",
+        "gb": "Product ID:\n",
+        "jp": "Product ID:\n",
+        "it": "ID prodotto:\n",
+        "fr": "ID Produit:\n",
+        "de": "Product ID:\n",
+        "es": "Product ID:\n"
+    },
+    {
+        "id": "L_OPTIONS_079",
+        "en": "Product Code:\n",
+        "gb": "Product Code:\n",
+        "jp": "Product Code:\n",
+        "it": "Codice prodotto:\n",
+        "fr": "Code Produit:\n",
+        "de": "Product Code:\n",
+        "es": "Product Code:\n"
+    },
+    {
+        "id": "L_OPTIONS_080",
+        "en": "Variant:\n",
+        "gb": "Variant:\n",
+        "jp": "Variant:\n",
+        "it": "Variante:\n",
+        "fr": "Variante:\n",
+        "de": "Variant:\n",
+        "es": "Variant:\n"
+    },
+    {
+        "id": "L_OPTIONS_081",
+        "en": "Developer:\n",
+        "gb": "Developer:\n",
+        "jp": "Developer:\n",
+        "it": "Ideatore:\n",
+        "fr": "Développeur:\n",
+        "de": "Developer:\n",
+        "es": "Developer:\n"
+    },
+    {
+        "id": "L_OPTIONS_082",
+        "en": "Perfect Dark\n",
+        "gb": "Perfect Dark\n",
+        "jp": "Perfect Dark\n",
+        "it": "Perfect Dark\n",
+        "fr": "Perfect Dark\n",
+        "de": "Perfect Dark\n",
+        "es": "Perfect Dark\n"
+    },
+    {
+        "id": "L_OPTIONS_083",
+        "en": "NUS-NPDE-USA\n",
+        "gb": "NUS-NPDE-USA\n",
+        "jp": "NUS-NPDJ-JPN\n",
+        "it": "NUS-NPDE-USA\n",
+        "fr": "NUS-NPDE-USA\n",
+        "de": "NUS-NPDE-USA\n",
+        "es": "NUS-NPDE-USA\n"
+    },
+    {
+        "id": "L_OPTIONS_084",
+        "en": "Japanese version 8.7 final\n",
+        "gb": "PAL version 8.7 final\n",
+        "jp": "JPN version 8.9 final\n",
+        "it": "Versione PAL 8.7 finale\n",
+        "fr": "NTSC version 8.7 final\n",
+        "de": "PAL version 8.7 final\n",
+        "es": "PAL version 8.7 final\n"
+    },
+    {
+        "id": "L_OPTIONS_085",
+        "en": "Rare Ltd. (twycross)\n",
+        "gb": "Rare Ltd. (twycross)\n",
+        "jp": "Rare Ltd. (twycross)\n",
+        "it": "Rare Ltd. (twycross)\n",
+        "fr": "Rare Ltd. (twycross)\n",
+        "de": "Rare Ltd. (twycross)\n",
+        "es": "Rare Ltd. (twycross)\n"
+    },
+    {
+        "id": "L_OPTIONS_086",
+        "en": "Copyright Rare Ltd. 2000\n",
+        "gb": "Copyright Rare Ltd. 2000\n",
+        "jp": "Copyright Rare Ltd. 2000\n",
+        "it": "Copyright Rare Ltd. 2000\n",
+        "fr": "Copyright Rare Ltd. 2000\n",
+        "de": "Copyright Rare Ltd. 2000\n",
+        "es": "Copyright Rare Ltd. 2000\n"
+    },
+    {
+        "id": "L_OPTIONS_087",
+        "en": "The Rareware Logo and Perfect Dark are trademarks of Rare Ltd.\n",
+        "gb": "The Rareware Logo and Perfect Dark are trademarks of Rare Ltd.\n",
+        "jp": "The Rareware Logo and Perfect Dark are trademarks of Rare Ltd.\n",
+        "it": "I logo Rareware e Perfect Dark sono trademark di Rare Ltd.\n",
+        "fr": "Le Logo Rareware et Perfect Dark sont des trademarks Rare Ltd.\n",
+        "de": "The Rareware Logo and Perfect Dark are trademarks of Rare Ltd.\n",
+        "es": "The Rareware Logo and Perfect Dark are trademarks of Rare Ltd.\n"
+    },
+    {
+        "id": "L_OPTIONS_088",
+        "en": "Presented in Dolby Surround.  Dolby and the double-D\nsymbol are trademarks of Dolby Laboratories.",
+        "gb": "Presented in Dolby Surround.  Dolby and the double-D\nsymbol are trademarks of Dolby Laboratories.",
+        "jp": "Presented in Dolby Surround.  Dolby and the double-D\nsymbol are trademarks of Dolby Laboratories.",
+        "it": "Presentato in Dolby Surround.  Dolby e il simbolo\ndoppia D sono trademark di Dolby Laboratories.",
+        "fr": "Présenté en Dolby Surround.  Dolby et le double-D\nsont des trademarks des laboratoires Dolby.",
+        "de": "Presented in Dolby Surround.  Dolby and the double-D\nsymbol are trademarks of Dolby Laboratories.",
+        "es": "Presented in Dolby Surround.  Dolby and the double-D\nsymbol are trademarks of Dolby Laboratories."
+    },
+    {
+        "id": "L_OPTIONS_089",
+        "en": "Uses Miles Sound System Copyright 1991-1999 RAD Game Tools Inc.\nMPEG Layer-3 playback supplied with the Miles Sound System from\nRAD Game Tools, Inc. MPEG Layer-3 audio compression technology\nlicensed by Fraunhofer IIS and THOMSON multimedia\n",
+        "gb": "Uses Miles Sound System Copyright 1991-1999 RAD Game Tools Inc.\nMPEG Layer-3 playback supplied with the Miles Sound System from\nRAD Game Tools, Inc. MPEG Layer-3 audio compression technology\nlicensed by Fraunhofer IIS and THOMSON multimedia\n",
+        "jp": "Uses Miles Sound System Copyright 1991-1999 RAD Game Tools Inc.\nMPEG Layer-3 playback supplied with the Miles Sound System from\nRAD Game Tools, Inc. MPEG Layer-3 audio compression technology\nlicensed by Fraunhofer IIS and THOMSON multimedia\n",
+        "it": "Usa Miles Sound System Copyright 1991-1999 RAD Game Tools Inc.\nMPEG Layer-3 playback fornito con Miles Sound System da\nRAD Game Tools, Inc. tecnologia di compressione audio MPEG Layer-3\nsu licenza di Fraunhofer IIS e THOMSON multimedia\n",
+        "fr": "Uses Miles Sound System Copyright 1991-1999 RAD Game Tools Inc.\nMPEG Layer-3 playback supplied with the Miles Sound System from\nRAD Game Tools, Inc. MPEG Layer-3 audio compression technology\nlicensed by Fraunhofer IIS and THOMSON multimedia\n",
+        "de": "Uses Miles Sound System Copyright 1991-1999 RAD Game Tools Inc.\nMPEG Layer-3 playback supplied with the Miles Sound System from\nRAD Game Tools, Inc. MPEG Layer-3 audio compression technology\nlicensed by Fraunhofer IIS and THOMSON multimedia\n",
+        "es": "Uses Miles Sound System Copyright 1991-1999 RAD Game Tools Inc.\nMPEG Layer-3 playback supplied with the Miles Sound System from\nRAD Game Tools, Inc. MPEG Layer-3 audio compression technology\nlicensed by Fraunhofer IIS and THOMSON multimedia\n"
+    },
+    {
+        "id": "L_OPTIONS_090",
+        "en": "",
+        "gb": "",
+        "jp": "",
+        "it": "",
+        "fr": "",
+        "de": "",
+        "es": ""
+    },
+    {
+        "id": "L_OPTIONS_091",
+        "en": "",
+        "gb": "",
+        "jp": "",
+        "it": "",
+        "fr": "",
+        "de": "",
+        "es": ""
+    },
+    {
+        "id": "L_OPTIONS_092",
+        "en": "",
+        "gb": "",
+        "jp": "",
+        "it": "",
+        "fr": "",
+        "de": "",
+        "es": ""
+    },
+    {
+        "id": "L_OPTIONS_093",
+        "en": "rare designs on the future <<<\n",
+        "gb": "rare designs on the future <<<\n",
+        "jp": "rare designs on the future <<<\n",
+        "it": "Design Rare nel futuro <<<\n",
+        "fr": "rare designs on the future <<<\n",
+        "de": "rare designs on the future <<<\n",
+        "es": "rare designs on the future <<<\n"
+    },
+    {
+        "id": "L_OPTIONS_094",
+        "en": "Published by Rareware.\n",
+        "gb": "Published by Rareware.\n",
+        "jp": "Published by Rareware.\n",
+        "it": "Edito da Rareware.\n",
+        "fr": "Published by Rareware.\n",
+        "de": "Published by Rareware.\n",
+        "es": "Published by Rareware.\n"
+    },
+    {
+        "id": "L_OPTIONS_095",
+        "en": "Perfect Dark\n",
+        "gb": "Perfect Dark\n",
+        "jp": "ファイル\\h86c2\\h86c3\n",
+        "it": "Perfect Dark\n",
+        "fr": "Perfect Dark\n",
+        "de": "Perfect Dark\n",
+        "es": "Perfect Dark\n"
+    },
+    {
+        "id": "L_OPTIONS_096",
+        "en": "Choose Your Reality\n",
+        "gb": "Choose Your Reality\n",
+        "jp": "ゲ\\h8284ムファイルを\\h86c2\\h86c3して\\h87ccさい\n",
+        "it": "Scegli la tua realtà\n",
+        "fr": "Choisissez votre réalité\n",
+        "de": "Wähle deine Wahrheit\n",
+        "es": "Elige Tu Realidad\n"
+    },
+    {
+        "id": "L_OPTIONS_097",
+        "en": "New...\n",
+        "gb": "New...\n",
+        "jp": "ニュ\\h8284ファイル～\n",
+        "it": "Nuovo...\n",
+        "fr": "Nouveau...\n",
+        "de": "Neu...\n",
+        "es": "Nuevo...\n"
+    },
+    {
+        "id": "L_OPTIONS_098",
+        "en": "New Agent...\n",
+        "gb": "New Agent...\n",
+        "jp": "ニュ\\h8284エ\\h8284ジェント～\n",
+        "it": "Nuovo agente...\n",
+        "fr": "Nouvel Agent...\n",
+        "de": "Neuer Agent...\n",
+        "es": "Nuevo Agente...\n"
+    },
+    {
+        "id": "L_OPTIONS_099",
+        "en": "Game Files\n",
+        "gb": "Game Files\n",
+        "jp": "ファイルメニュ\\h8284\n",
+        "it": "File di gioco\n",
+        "fr": "Fichier\n",
+        "de": "Speicher\n",
+        "es": "Ficheros de Juego\n"
+    },
+    {
+        "id": "L_OPTIONS_100",
+        "en": "Copy:\n",
+        "gb": "Copy:\n",
+        "jp": "コピ\\h8284：\n",
+        "it": "Copia:\n",
+        "fr": "Copier:\n",
+        "de": "Kopieren:\n",
+        "es": "Copiar:\n"
+    },
+    {
+        "id": "L_OPTIONS_101",
+        "en": "Delete:\n",
+        "gb": "Delete:\n",
+        "jp": "\\h8391\\h83f6：\n",
+        "it": "Cancella:\n",
+        "fr": "Effacer:\n",
+        "de": "Löschen:\n",
+        "es": "Borrar:\n"
+    },
+    {
+        "id": "L_OPTIONS_102",
+        "en": "Delete Game Notes...\n",
+        "gb": "Delete Game Notes...\n",
+        "jp": "コントロ\\h8284ラパックのメニュ\\h8284へ\n",
+        "it": "Cancella dati gioco...\n",
+        "fr": "Effacer notes de jeu...\n",
+        "de": "Spielstand wird gelöscht...\n",
+        "es": "Borrar Notas de Juego...\n"
+    },
+    {
+        "id": "L_OPTIONS_103",
+        "en": "Single Player Agent File\n",
+        "gb": "Single Player Agent File\n",
+        "jp": "１\\h84b1\\h8388ゲ\\h8284ムファイル\n",
+        "it": "File missioni individuali\n",
+        "fr": "Fichier un joueur agent\n",
+        "de": "Solo-Missionen Speicherstände\n",
+        "es": "Fichero de Agente Un Jugador\n"
+    },
+    {
+        "id": "L_OPTIONS_104",
+        "en": "Combat Simulator Settings File\n",
+        "gb": "Combat Simulator Settings File\n",
+        "jp": "コンバットシミュレ\\h8284タ・ゲ\\h8284ム\\h8688\\h84c7\n",
+        "it": "File impostaz. simulatore lotta\n",
+        "fr": "Fichier paramètres simulateur combat\n",
+        "de": "Kampfsimulator Einstellung Speicherstände\n",
+        "es": "Fichero de Opciones del Simulador\n"
+    },
+    {
+        "id": "L_OPTIONS_105",
+        "en": "Combat Simulator Player File\n",
+        "gb": "Combat Simulator Player File\n",
+        "jp": "コンバットシミュレ\\h8284タ・\\h86bf\\h84b1\\h8688\\h84c7\n",
+        "it": "File giocatore simulatore lotta\n",
+        "fr": "Fichier joueur simulateur combat\n",
+        "de": "Kampfsimulator Spielerdaten\n",
+        "es": "Ficheros de Jugador del Simulador\n"
+    },
+    {
+        "id": "L_OPTIONS_106",
+        "en": "PerfectHead Files\n",
+        "gb": "PerfectHead Files\n",
+        "jp": "パ\\h8284フェクトヘッドファイル\n",
+        "it": "File testaPerfect\n",
+        "fr": "Fichier PerfcetHead\n",
+        "de": "PerfectHead-Speicherstände\n",
+        "es": "Ficheros PerfectHead\n"
+    },
+    {
+        "id": "L_OPTIONS_107",
+        "en": "Controller Pak Menu\n",
+        "gb": "Controller Pak Menu\n",
+        "jp": "コントロ\\h8284ラパックメニュ\\h8284\n",
+        "it": "Menu Controller Pak\n",
+        "fr": "Controller Pak\n",
+        "de": "Controller Pak Menü\n",
+        "es": "Menú Controller Pak\n"
+    },
+    {
+        "id": "L_OPTIONS_108",
+        "en": "Use this menu to delete game notes\nfrom your Controller Paks.\n",
+        "gb": "Use this menu to delete game notes\nfrom your Controller Paks.\n",
+        "jp": "コントロ\\h8284ラパックのゲ\\h8284ムノ\\h8284トを\n\\h8391\\h83f6することが\\h829f\\h8390ます。\n",
+        "it": "Usalo per cancellare i dati di gioco\ndai Controller Pak.\n",
+        "fr": "Utiliser cet éditeur pour effacer les notes de jeu\nde votre Controller Pak.\n",
+        "de": "Dieses Menü dient dazu, Speicherstände von den\n Controller Paks zu löschen.\n",
+        "es": "Usa este menú para borrar notas de juego\nde tus Controller Pak.\n"
+    },
+    {
+        "id": "L_OPTIONS_109",
+        "en": "Choose Controller Pak to Edit:\n",
+        "gb": "Choose Controller Pak to Edit:\n",
+        "jp": "コントロ\\h8284ラパックの\\h86c2\\h86c3：\n",
+        "it": "Scegli Controller Pak:\n",
+        "fr": "Choisir le Controller Pak à éditer:\n",
+        "de": "Wählen Sie das Controller Pak:\n",
+        "es": "Elige Controller Pak a Editar:\n"
+    },
+    {
+        "id": "L_OPTIONS_110",
+        "en": "Exit\n",
+        "gb": "Exit\n",
+        "jp": "\\h82e3る\n",
+        "it": "Esci\n",
+        "fr": "Sortie\n",
+        "de": "Abbruch\n",
+        "es": "Salir\n"
+    },
+    {
+        "id": "L_OPTIONS_111",
+        "en": "Game Pak\n",
+        "gb": "Game Pak\n",
+        "jp": "ゲ\\h8284ムカセット\n",
+        "it": "Cassetta gioco\n",
+        "fr": "Cartouche\n",
+        "de": "Spielmodul\n",
+        "es": "Cartucho\n"
+    },
+    {
+        "id": "L_OPTIONS_112",
+        "en": "Controller Pak 1\n",
+        "gb": "Controller Pak 1\n",
+        "jp": "Controller PAK 1\n",
+        "it": "Controller Pak 1\n",
+        "fr": "Controller Pak 1\n",
+        "de": "Controller Pak 1\n",
+        "es": "Controller Pak 1\n"
+    },
+    {
+        "id": "L_OPTIONS_113",
+        "en": "Controller Pak 2\n",
+        "gb": "Controller Pak 2\n",
+        "jp": "Controller PAK 2\n",
+        "it": "Controller Pak 2\n",
+        "fr": "Controller Pak 2\n",
+        "de": "Controller Pak 2\n",
+        "es": "Controller Pak 2\n"
+    },
+    {
+        "id": "L_OPTIONS_114",
+        "en": "Controller Pak 3\n",
+        "gb": "Controller Pak 3\n",
+        "jp": "Controller PAK 3\n",
+        "it": "Controller Pak 3\n",
+        "fr": "Controller Pak 3\n",
+        "de": "Controller Pak 3\n",
+        "es": "Controller Pak 3\n"
+    },
+    {
+        "id": "L_OPTIONS_115",
+        "en": "Controller Pak 4\n",
+        "gb": "Controller Pak 4\n",
+        "jp": "Controller PAK 4\n",
+        "it": "Controller Pak 4\n",
+        "fr": "Controller Pak 4\n",
+        "de": "Controller Pak 4\n",
+        "es": "Controller Pak 4\n"
+    },
+    {
+        "id": "L_OPTIONS_116",
+        "en": "Perfect Menu\n",
+        "gb": "Perfect Menu\n",
+        "jp": "メインメニュ\\h8284\n",
+        "it": "Menu Perfect\n",
+        "fr": "Menu Perfect\n",
+        "de": "Perfect Menü\n",
+        "es": "Menú Perfecto\n"
+    },
+    {
+        "id": "L_OPTIONS_117",
+        "en": "Solo Missions\n",
+        "gb": "Solo Missions\n",
+        "jp": "ソロ・ミッション\n",
+        "it": "Missioni individuali\n",
+        "fr": "Missions Solo\n",
+        "de": "Solo-Missionen\n",
+        "es": "Misiones Solo\n"
+    },
+    {
+        "id": "L_OPTIONS_118",
+        "en": "Combat Simulator\n",
+        "gb": "Combat Simulator\n",
+        "jp": "コンバット・シミュレ\\h8284タ\n",
+        "it": "Simulatore lotta\n",
+        "fr": "Simulateur de Combat\n",
+        "de": "Multiplayer\n",
+        "es": "Simulador de Combate\n"
+    },
+    {
+        "id": "L_OPTIONS_119",
+        "en": "Co-Operative\n",
+        "gb": "Co-Operative\n",
+        "jp": "\\h82a3\\h8282ミッション\n",
+        "it": "Collaborazione\n",
+        "fr": "Coopératif\n",
+        "de": "Teamwork\n",
+        "es": "Co-Operativo\n"
+    },
+    {
+        "id": "L_OPTIONS_120",
+        "en": "Counter-Operative\n",
+        "gb": "Counter-Operative\n",
+        "jp": "\\h8297\\h82fcミッション\n",
+        "it": "Tutti contro tutti!\n",
+        "fr": "Contre-Opération\n",
+        "de": "Counter Operative-Modus\n",
+        "es": "Contra-Operativa\n"
+    },
+    {
+        "id": "L_OPTIONS_121",
+        "en": "Cinema\n",
+        "gb": "Cinema\n",
+        "jp": "シネマ\n",
+        "it": "Cinema\n",
+        "fr": "Cinéma\n",
+        "de": "Filmsequenzen\n",
+        "es": "Películas\n"
+    },
+    {
+        "id": "L_OPTIONS_122",
+        "en": "Mission Select\n",
+        "gb": "Mission Select\n",
+        "jp": "ミッション\\h86c2\\h86c3\n",
+        "it": "Seleziona Missione\n",
+        "fr": "Sélection Mission\n",
+        "de": "Missionsauswahl\n",
+        "es": "Selecciona Misión\n"
+    },
+    {
+        "id": "L_OPTIONS_123",
+        "en": "Mission 1\n",
+        "gb": "Mission 1\n",
+        "jp": "ミッション１\n",
+        "it": "Missione 1\n",
+        "fr": "Mission 1\n",
+        "de": "Mission 1\n",
+        "es": "Misión 1\n"
+    },
+    {
+        "id": "L_OPTIONS_124",
+        "en": "Mission 2\n",
+        "gb": "Mission 2\n",
+        "jp": "ミッション２\n",
+        "it": "Missione 2\n",
+        "fr": "Mission 2\n",
+        "de": "Mission 2\n",
+        "es": "Misión 2\n"
+    },
+    {
+        "id": "L_OPTIONS_125",
+        "en": "Mission 3\n",
+        "gb": "Mission 3\n",
+        "jp": "ミッション３\n",
+        "it": "Missione 3\n",
+        "fr": "Mission 3\n",
+        "de": "Mission 3\n",
+        "es": "Misión 3\n"
+    },
+    {
+        "id": "L_OPTIONS_126",
+        "en": "Mission 4\n",
+        "gb": "Mission 4\n",
+        "jp": "ミッション４\n",
+        "it": "Missione 4\n",
+        "fr": "Mission 4\n",
+        "de": "Mission 4\n",
+        "es": "Misión 4\n"
+    },
+    {
+        "id": "L_OPTIONS_127",
+        "en": "Mission 5\n",
+        "gb": "Mission 5\n",
+        "jp": "ミッション５\n",
+        "it": "Missione 5\n",
+        "fr": "Mission 5\n",
+        "de": "Mission 5\n",
+        "es": "Misión 5\n"
+    },
+    {
+        "id": "L_OPTIONS_128",
+        "en": "Mission 6\n",
+        "gb": "Mission 6\n",
+        "jp": "ミッション６\n",
+        "it": "Missione 6\n",
+        "fr": "Mission 6\n",
+        "de": "Mission 6\n",
+        "es": "Misión 6\n"
+    },
+    {
+        "id": "L_OPTIONS_129",
+        "en": "Mission 7\n",
+        "gb": "Mission 7\n",
+        "jp": "ミッション７\n",
+        "it": "Missione 7\n",
+        "fr": "Mission 7\n",
+        "de": "Mission 7\n",
+        "es": "Misión 7\n"
+    },
+    {
+        "id": "L_OPTIONS_130",
+        "en": "Mission 8\n",
+        "gb": "Mission 8\n",
+        "jp": "ミッション８\n",
+        "it": "Missione 8\n",
+        "fr": "Mission 8\n",
+        "de": "Mission 8\n",
+        "es": "Misión 8\n"
+    },
+    {
+        "id": "L_OPTIONS_131",
+        "en": "Mission 9\n",
+        "gb": "Mission 9\n",
+        "jp": "ミッション９\n",
+        "it": "Missione 9\n",
+        "fr": "Mission 9\n",
+        "de": "Mission 9\n",
+        "es": "Misión 9\n"
+    },
+    {
+        "id": "L_OPTIONS_132",
+        "en": "Special Assignments\n",
+        "gb": "Special Assignments\n",
+        "jp": "スペシャルミッション\n",
+        "it": "Missioni speciali\n",
+        "fr": "Missions spéciales\n",
+        "de": "Spezialmissionen\n",
+        "es": "Asignaciones Especiales\n"
+    },
+    {
+        "id": "L_OPTIONS_133",
+        "en": "dataDyne Central",
+        "gb": "dataDyne Central",
+        "jp": "デ\\h8284タダイン\\h84b7\\h8493",
+        "it": "QG dataDyne",
+        "fr": "Centre dataDyne",
+        "de": "dataDyne",
+        "es": "Central dataDyne"
+    },
+    {
+        "id": "L_OPTIONS_134",
+        "en": "- Defection",
+        "gb": "- Defection",
+        "jp": "″\\h84d8\\h82c4〈",
+        "it": "- Ribellione",
+        "fr": "- Défection",
+        "de": "- Abtrünnig",
+        "es": "- Comienzo"
+    },
+    {
+        "id": "L_OPTIONS_135",
+        "en": "dataDyne Research",
+        "gb": "dataDyne Research",
+        "jp": "デ\\h8284タダイン\\h8298\\h87cc\\h84ff\\h8580\\h83e7",
+        "it": "Ricerca dataDyne",
+        "fr": "Recherche dataDyne",
+        "de": "dataDyne",
+        "es": "Lab. dataDyne"
+    },
+    {
+        "id": "L_OPTIONS_136",
+        "en": "- Investigation",
+        "gb": "- Investigation",
+        "jp": "″\\h8480\\h86e7〈",
+        "it": "- L'indagine",
+        "fr": "- Enquête",
+        "de": "- Ermittlung",
+        "es": "- Investigación"
+    },
+    {
+        "id": "L_OPTIONS_137",
+        "en": "dataDyne Central",
+        "gb": "dataDyne Central",
+        "jp": "デ\\h8284タダイン\\h84b7\\h8493",
+        "it": "QG dataDyne",
+        "fr": "Centre dataDyne",
+        "de": "dataDyne",
+        "es": "Central dataDyne"
+    },
+    {
+        "id": "L_OPTIONS_138",
+        "en": "- Extraction",
+        "gb": "- Extraction",
+        "jp": "″入\\h83f7〈",
+        "it": "- Salvataggio",
+        "fr": "- Extraction",
+        "de": "- Ausbruch",
+        "es": "- Extracción"
+    },
+    {
+        "id": "L_OPTIONS_139",
+        "en": "Carrington Villa",
+        "gb": "Carrington Villa",
+        "jp": "キャリントンの\\h83ff\\h85d6",
+        "it": "Villa Carrington",
+        "fr": "Villa Carrington",
+        "de": "Carrington Villa",
+        "es": "Villa Carrington"
+    },
+    {
+        "id": "L_OPTIONS_140",
+        "en": "- Hostage One",
+        "gb": "- Hostage One",
+        "jp": "″\\h84b1\\h85da〈",
+        "it": "- L'ostaggio n°1",
+        "fr": "- Otage",
+        "de": "- Geisel Nr. 1",
+        "es": "- Rehén Uno"
+    },
+    {
+        "id": "L_OPTIONS_141",
+        "en": "Chicago",
+        "gb": "Chicago",
+        "jp": "シカゴ",
+        "it": "Chicago",
+        "fr": "Chicago",
+        "de": "Chicago",
+        "es": "Chicago"
+    },
+    {
+        "id": "L_OPTIONS_142",
+        "en": "- Stealth",
+        "gb": "- Stealth",
+        "jp": "″\\h848d\\h82f6〈",
+        "it": "- In incognito",
+        "fr": "- Furtif",
+        "de": "- Unter Tarnung",
+        "es": "- Sigilo"
+    },
+    {
+        "id": "L_OPTIONS_143",
+        "en": "G5 Building",
+        "gb": "G5 Building",
+        "jp": "Ｇ５ビル",
+        "it": "Edificio G5",
+        "fr": "Immeuble G5",
+        "de": "G5-Building",
+        "es": "Edificio G5"
+    },
+    {
+        "id": "L_OPTIONS_144",
+        "en": "- Reconnaissance",
+        "gb": "- Reconnaissance",
+        "jp": "″\\h86ad\\h86e8〈",
+        "it": "- Ricognizione",
+        "fr": "- Reconnaissance",
+        "de": "- Aufklärung",
+        "es": "- Reconocimiento"
+    },
+    {
+        "id": "L_OPTIONS_145",
+        "en": "Area 51",
+        "gb": "Area 51",
+        "jp": "エリア５１",
+        "it": "Area 51",
+        "fr": "Secteur 51",
+        "de": "Area 51",
+        "es": "Área 51"
+    },
+    {
+        "id": "L_OPTIONS_146",
+        "en": "- Infiltration",
+        "gb": "- Infiltration",
+        "jp": "″\\h83c5\\h82ce〈",
+        "it": "- L'infiltrazione",
+        "fr": "- Infiltration",
+        "de": "- Infiltration",
+        "es": "- Infiltración"
+    },
+    {
+        "id": "L_OPTIONS_147",
+        "en": "Area 51",
+        "gb": "Area 51",
+        "jp": "エリア５１",
+        "it": "Area 51",
+        "fr": "Secteur 51",
+        "de": "Area 51",
+        "es": "Área 51"
+    },
+    {
+        "id": "L_OPTIONS_148",
+        "en": "- Rescue",
+        "gb": "- Rescue",
+        "jp": "″\\h82a8\\h829f〈",
+        "it": "- Salvataggio",
+        "fr": "- Sauvetage",
+        "de": "- Rettung",
+        "es": "- Rescate"
+    },
+    {
+        "id": "L_OPTIONS_149",
+        "en": "Area 51",
+        "gb": "Area 51",
+        "jp": "エリア５１",
+        "it": "Area 51",
+        "fr": "Secteur 51",
+        "de": "Area 51",
+        "es": "Área 51"
+    },
+    {
+        "id": "L_OPTIONS_150",
+        "en": "- Escape",
+        "gb": "- Escape",
+        "jp": "″\\h829e\\h829f〈",
+        "it": "- La fuga",
+        "fr": "- Fuite",
+        "de": "- Flucht",
+        "es": "- Escape"
+    },
+    {
+        "id": "L_OPTIONS_151",
+        "en": "Air Base",
+        "gb": "Air Base",
+        "jp": "アラスカ\\h83c3\\h84a6\\h84a7\\h8298",
+        "it": "Base aerea",
+        "fr": "Base Aérienne",
+        "de": "Stützpunkt",
+        "es": "Base Aérea"
+    },
+    {
+        "id": "L_OPTIONS_152",
+        "en": "- Espionage",
+        "gb": "- Espionage",
+        "jp": "″\\h82ca\\h82cd〈",
+        "it": "- Lo spionaggio",
+        "fr": "- Espionnage",
+        "de": "- Spionage",
+        "es": "- Espionaje"
+    },
+    {
+        "id": "L_OPTIONS_153",
+        "en": "Air Force One",
+        "gb": "Air Force One",
+        "jp": "\\h83c6\\h83c7\\h83c8\\h84b9\\h8388\\h83c2",
+        "it": "Air Force One",
+        "fr": "Air Force One",
+        "de": "Air Force One",
+        "es": "Air Force One"
+    },
+    {
+        "id": "L_OPTIONS_154",
+        "en": "- Antiterrorism",
+        "gb": "- Antiterrorism",
+        "jp": "″\\h84f1\\h86e9〈",
+        "it": "- Antiterrorismo",
+        "fr": "- Antiterrorisme",
+        "de": "- Antiterrorismus",
+        "es": "- Antiterrorismo"
+    },
+    {
+        "id": "L_OPTIONS_155",
+        "en": "Crash Site",
+        "gb": "Crash Site",
+        "jp": "\\h83cc\\h82d8\\h83cd\\h838a",
+        "it": "Luogo del disastro",
+        "fr": "Site du Crash",
+        "de": "Absturzstelle",
+        "es": "Lugar del Impacto"
+    },
+    {
+        "id": "L_OPTIONS_156",
+        "en": "- Confrontation",
+        "gb": "- Confrontation",
+        "jp": "″\\h82fc\\h83bd〈",
+        "it": "- Lo scontro",
+        "fr": "- Confrontation",
+        "de": "- Konfrontation",
+        "es": "- Confrontación"
+    },
+    {
+        "id": "L_OPTIONS_157",
+        "en": "Pelagic II",
+        "gb": "Pelagic II",
+        "jp": "ペラジック２",
+        "it": "Pelagic II",
+        "fr": "Pelagic II",
+        "de": "Pelagic II",
+        "es": "Pelagic II"
+    },
+    {
+        "id": "L_OPTIONS_158",
+        "en": "- Exploration",
+        "gb": "- Exploration",
+        "jp": "″\\h82b1\\h82b2〈",
+        "it": "- L'esplorazione",
+        "fr": "- Exploration",
+        "de": "- Erforschung",
+        "es": "- Exploración"
+    },
+    {
+        "id": "L_OPTIONS_159",
+        "en": "Deep Sea",
+        "gb": "Deep Sea",
+        "jp": "\\h8489\\h848a",
+        "it": "Negli abissi",
+        "fr": "Abysses",
+        "de": "Tiefsee",
+        "es": "Mar Profundo"
+    },
+    {
+        "id": "L_OPTIONS_160",
+        "en": "- Nullify Threat",
+        "gb": "- Nullify Threat",
+        "jp": "″\\h83ffれ〈",
+        "it": "- La minaccia",
+        "fr": "- Eliminer la menace",
+        "de": "- Abwendung",
+        "es": "- Anular Amenaza"
+    },
+    {
+        "id": "L_OPTIONS_161",
+        "en": "Carrington Institute",
+        "gb": "Carrington Institute",
+        "jp": "キャリントン\\h82a3\\h82a4ビル",
+        "it": "Carrington Institute",
+        "fr": "Institut Carrington",
+        "de": "Carrington Institut",
+        "es": "Instituto Carrington"
+    },
+    {
+        "id": "L_OPTIONS_162",
+        "en": "- Defense",
+        "gb": "- Defense",
+        "jp": "″\\h849e\\h83f8〈",
+        "it": "- La difesa",
+        "fr": "- Défense",
+        "de": "- Verteidigung",
+        "es": "- Defensa"
+    },
+    {
+        "id": "L_OPTIONS_163",
+        "en": "Attack Ship",
+        "gb": "Attack Ship",
+        "jp": "スケダ\\h8284\\h86ea\\h86eb\\h83f9",
+        "it": "Astronave d'assalto",
+        "fr": "Croiseur",
+        "de": "Das Schiff",
+        "es": "Nave de Ataque"
+    },
+    {
+        "id": "L_OPTIONS_164",
+        "en": "- Covert Assault",
+        "gb": "- Covert Assault",
+        "jp": "″\\h828c\\h8495〈",
+        "it": "- Attacco",
+        "fr": "- Assaut",
+        "de": "- Verdeckter Angriff",
+        "es": "- Asalto"
+    },
+    {
+        "id": "L_OPTIONS_165",
+        "en": "Skedar Ruins",
+        "gb": "Skedar Ruins",
+        "jp": "スケダ\\h8284の\\h8685\\h8686",
+        "it": "Rovine Skedar",
+        "fr": "Ruines Skedars",
+        "de": "Skedar-Ruinen",
+        "es": "Ruinas Skedar"
+    },
+    {
+        "id": "L_OPTIONS_166",
+        "en": "- Battle Shrine",
+        "gb": "- Battle Shrine",
+        "jp": "″\\h83bd\\h8291〈",
+        "it": "- Tempio di guerra",
+        "fr": "- Autel Combat",
+        "de": "- Der Schrein",
+        "es": "- Templo"
+    },
+    {
+        "id": "L_OPTIONS_167",
+        "en": "Mr. Blonde's Revenge",
+        "gb": "Mr. Blonde's Revenge",
+        "jp": "ミスタ\\h8284・ブロンド",
+        "it": "La vendetta di Mr Blonde",
+        "fr": "Blonde: la vengeance",
+        "de": "Mr. Blonds Rache",
+        "es": "Venganza de Mr. Blonde"
+    },
+    {
+        "id": "L_OPTIONS_168",
+        "en": "Maian SOS",
+        "gb": "Maian SOS",
+        "jp": "マイアンＳＯＳ",
+        "it": "L'SOS Maian",
+        "fr": "SOS Maian",
+        "de": "Maianisches SOS",
+        "es": "SOS Maian"
+    },
+    {
+        "id": "L_OPTIONS_169",
+        "en": "Retaking the Institute",
+        "gb": "Retaking the Institute",
+        "jp": "\\h82a3\\h82a4の\\h84df\\h82d2",
+        "it": "Il riscatto dell'istituto",
+        "fr": "Sauver l'Institut",
+        "de": "Die Übernahme",
+        "es": "Retomando el Instituto"
+    },
+    {
+        "id": "L_OPTIONS_170",
+        "en": "WAR!",
+        "gb": "WAR!",
+        "jp": "ＷＡＲ！",
+        "it": "GUERRA!",
+        "fr": "GUERRE!",
+        "de": "KRIEG!",
+        "es": "¡GUERRA!"
+    },
+    {
+        "id": "L_OPTIONS_171",
+        "en": "The Duel",
+        "gb": "The Duel",
+        "jp": "\\h83bd\\h8292",
+        "it": "Il duello",
+        "fr": "Le Duel",
+        "de": "Das Duell",
+        "es": "El Duelo"
+    },
+    {
+        "id": "L_OPTIONS_172",
+        "en": "Status\n",
+        "gb": "Status\n",
+        "jp": "\\h82b5\\h82b6\\h83d8\\h86ce\n",
+        "it": "Situazione\n",
+        "fr": "Statut\n",
+        "de": "Status\n",
+        "es": "Estatus\n"
+    },
+    {
+        "id": "L_OPTIONS_173",
+        "en": "Abort!\n",
+        "gb": "Abort!\n",
+        "jp": "\\h82b5\\h82b6\\h85c7\\h86e2！\n",
+        "it": "Interruzione!\n",
+        "fr": "Abandonner!\n",
+        "de": "Abbruch!\n",
+        "es": "¡Abortar!\n"
+    },
+    {
+        "id": "L_OPTIONS_174",
+        "en": "Warning\n",
+        "gb": "Warning\n",
+        "jp": "ー\\h8289\\h82f5ー\n",
+        "it": "Attenzione!\n",
+        "fr": "Attention\n",
+        "de": "ACHTUNG!\n",
+        "es": "Cuidado\n"
+    },
+    {
+        "id": "L_OPTIONS_175",
+        "en": "Do you want to abort the mission?\n",
+        "gb": "Do you want to abort the mission?\n",
+        "jp": "\\h8395\\h82d2は\\h82b5\\h82b6を\\h85c7\\h86e2しますか？\n",
+        "it": "Vuoi interrompere la missione?\n",
+        "fr": "Voulez-vous abandonner la mission?\n",
+        "de": "Möchten Sie die Mission wirklich abbrechen?\n",
+        "es": "¿Quieres abortar la misión?\n"
+    },
+    {
+        "id": "L_OPTIONS_176",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "キャンセル\n",
+        "it": "Annulla\n",
+        "fr": "Annuler\n",
+        "de": "NEIN\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_OPTIONS_177",
+        "en": "Abort\n",
+        "gb": "Abort\n",
+        "jp": "\\h82b5\\h82b6\\h85c7\\h86e2\n",
+        "it": "Interrompi\n",
+        "fr": "Abandonner\n",
+        "de": "JA\n",
+        "es": "Abortar\n"
+    },
+    {
+        "id": "L_OPTIONS_178",
+        "en": "Inventory\n",
+        "gb": "Inventory\n",
+        "jp": "\\h82d5ち\\h83b0\n",
+        "it": "Inventario\n",
+        "fr": "Inventaire\n",
+        "de": "Inventar\n",
+        "es": "Inventario\n"
+    },
+    {
+        "id": "L_OPTIONS_179",
+        "en": "Weapons Available\n",
+        "gb": "Weapons Available\n",
+        "jp": "\\h82f9\\h8388手\\h82a2な\\h82cc\\h84bd\n",
+        "it": "Armi disponibili\n",
+        "fr": "Armes Disponibles\n",
+        "de": "Verfügbare Waffen\n",
+        "es": "Armas Disponibles\n"
+    },
+    {
+        "id": "L_OPTIONS_180",
+        "en": "Options\n",
+        "gb": "Options\n",
+        "jp": "オプション\n",
+        "it": "Opzioni\n",
+        "fr": "Options\n",
+        "de": "Optionen\n",
+        "es": "Opciones\n"
+    },
+    {
+        "id": "L_OPTIONS_181",
+        "en": "Audio\n",
+        "gb": "Audio\n",
+        "jp": "オ\\h8284ディオ\n",
+        "it": "Audio\n",
+        "fr": "Audio\n",
+        "de": "Audio\n",
+        "es": "Audio\n"
+    },
+    {
+        "id": "L_OPTIONS_182",
+        "en": "Video\n",
+        "gb": "Video\n",
+        "jp": "ビデオ\n",
+        "it": "Video\n",
+        "fr": "Vidéo\n",
+        "de": "Video\n",
+        "es": "Vídeo\n"
+    },
+    {
+        "id": "L_OPTIONS_183",
+        "en": "Control\n",
+        "gb": "Control\n",
+        "jp": "\\h8589\\h83db\\h8688\\h84c7\n",
+        "it": "Comandi\n",
+        "fr": "Contrôle\n",
+        "de": "Steuerung\n",
+        "es": "Controles\n"
+    },
+    {
+        "id": "L_OPTIONS_184",
+        "en": "Display\n",
+        "gb": "Display\n",
+        "jp": "\\h86d3\\h8697\\h8688\\h84c7\n",
+        "it": "Visualizza\n",
+        "fr": "Affichage\n",
+        "de": "Display\n",
+        "es": "Pantalla\n"
+    },
+    {
+        "id": "L_OPTIONS_185",
+        "en": "Cheats\n",
+        "gb": "Cheats\n",
+        "jp": "チ\\h8284ト\n",
+        "it": "Trucchi\n",
+        "fr": "Triche\n",
+        "de": "Cheats\n",
+        "es": "Trucos\n"
+    },
+    {
+        "id": "L_OPTIONS_186",
+        "en": "Save Game\n",
+        "gb": "Save Game\n",
+        "jp": "セ\\h8284ブする\n",
+        "it": "Salva gioco\n",
+        "fr": "Sauvegarder jeu\n",
+        "de": "Spiel speichern\n",
+        "es": "Guardar Juego\n"
+    },
+    {
+        "id": "L_OPTIONS_187",
+        "en": "Change Agent...\n",
+        "gb": "Change Agent...\n",
+        "jp": "ファイル\\h82ca\\h82cb\n",
+        "it": "Cambia agente...\n",
+        "fr": "Changer d'Agent...\n",
+        "de": "Agent wechseln...\n",
+        "es": "Cambiar Agente...\n"
+    },
+    {
+        "id": "L_OPTIONS_188",
+        "en": "Warning\n",
+        "gb": "Warning\n",
+        "jp": "ー\\h8289\\h82f5ー\n",
+        "it": "Attenzione!\n",
+        "fr": "Attention\n",
+        "de": "ACHTUNG!\n",
+        "es": "Cuidado\n"
+    },
+    {
+        "id": "L_OPTIONS_189",
+        "en": "Do you want to load another agent?\n",
+        "gb": "Do you want to load another agent?\n",
+        "jp": "\\h83ffのゲ\\h8284ムファイルに\\h82ca\\h82cbしますか？\n",
+        "it": "Vuoi caricare un altro agente?\n",
+        "fr": "Voulez charger un autre agent?\n",
+        "de": "Möchten Sie wirklich andere Agenten-Daten laden?\n",
+        "es": "¿Quieres cargar otro agente?\n"
+    },
+    {
+        "id": "L_OPTIONS_190",
+        "en": "Yes\n",
+        "gb": "Yes\n",
+        "jp": "はい\n",
+        "it": "Sì\n",
+        "fr": "Oui\n",
+        "de": "Ja\n",
+        "es": "Sí\n"
+    },
+    {
+        "id": "L_OPTIONS_191",
+        "en": "No\n",
+        "gb": "No\n",
+        "jp": "いいえ\n",
+        "it": "No\n",
+        "fr": "Non\n",
+        "de": "Nein\n",
+        "es": "No\n"
+    },
+    {
+        "id": "L_OPTIONS_192",
+        "en": "Control Options\n",
+        "gb": "Control Options\n",
+        "jp": "\\h8589\\h83db\\h8688\\h84c7\n",
+        "it": "Opzioni comandi\n",
+        "fr": "Options de contrôle\n",
+        "de": "Steuerungsoptionen\n",
+        "es": "Opciones de Control\n"
+    },
+    {
+        "id": "L_OPTIONS_193",
+        "en": "Control Player 2\n",
+        "gb": "Control Player 2\n",
+        "jp": "２Ｐの\\h8589\\h83db\\h8688\\h84c7\n",
+        "it": "Comandi giocatore 2\n",
+        "fr": "Contrôle Joueur 2\n",
+        "de": "Steuerung Spieler 2\n",
+        "es": "Controles Jugador 2\n"
+    },
+    {
+        "id": "L_OPTIONS_194",
+        "en": "Control Style\n",
+        "gb": "Control Style\n",
+        "jp": "\\h8589\\h83dbモ\\h8284ド\n",
+        "it": "Modalità comandi\n",
+        "fr": "Style de contrôle\n",
+        "de": "Art der Steuerung\n",
+        "es": "Estilo de Control\n"
+    },
+    {
+        "id": "L_OPTIONS_195",
+        "en": "Reverse Pitch\n",
+        "gb": "Reverse Pitch\n",
+        "jp": "\\h86d1\\h83ce\\h84a8\\h82c4の\\h87cb\\h87cc\\h86d2\n",
+        "it": "Inv. punto vista\n",
+        "fr": "Visée inversée\n",
+        "de": "Blick nach oben/unten\n",
+        "es": "Control Opuesto\n"
+    },
+    {
+        "id": "L_OPTIONS_196",
+        "en": "Look Ahead\n",
+        "gb": "Look Ahead\n",
+        "jp": "\\h8397\\h82c4\\h839d\\h82d4\\h86d1\\h83ce\n",
+        "it": "Vista in avanti\n",
+        "fr": "Regard tête\n",
+        "de": "Geradeausschauen\n",
+        "es": "Mirar al Frente\n"
+    },
+    {
+        "id": "L_OPTIONS_197",
+        "en": "Head Roll\n",
+        "gb": "Head Roll\n",
+        "jp": "\\h86c8のゆれ\n",
+        "it": "Rotazione testa\n",
+        "fr": "Vue tête\n",
+        "de": "Kopfbewegung\n",
+        "es": "Giro de Cabeza\n"
+    },
+    {
+        "id": "L_OPTIONS_198",
+        "en": "Auto-Aim\n",
+        "gb": "Auto-Aim\n",
+        "jp": "\\h8397\\h82c4\\h82eb\\h84a5\n",
+        "it": "Mira automatica\n",
+        "fr": "Auto-ciblage\n",
+        "de": "Auto-Visier\n",
+        "es": "Auto-Apuntar\n"
+    },
+    {
+        "id": "L_OPTIONS_199",
+        "en": "Aim Control\n",
+        "gb": "Aim Control\n",
+        "jp": "\\h82eb\\h84a5\\h8688\\h84c7\n",
+        "it": "Mirino\n",
+        "fr": "Contrôle cible\n",
+        "de": "Fadenkreuz-Ausricht.\n",
+        "es": "Control Apuntar\n"
+    },
+    {
+        "id": "L_OPTIONS_200",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "\\h82e3る\n",
+        "it": "Esci\n",
+        "fr": "Retour\n",
+        "de": "Zurück\n",
+        "es": "Volver\n"
+    },
+    {
+        "id": "L_OPTIONS_201",
+        "en": "Hold\n",
+        "gb": "Hold\n",
+        "jp": "ホ\\h8284ルド\n",
+        "it": "Tieni premuto\n",
+        "fr": "Fixe\n",
+        "de": "Halten\n",
+        "es": "Mantener\n"
+    },
+    {
+        "id": "L_OPTIONS_202",
+        "en": "Toggle\n",
+        "gb": "Toggle\n",
+        "jp": "\\h8496り\\h86d4え\n",
+        "it": "Attiva/Disattiva\n",
+        "fr": "Alt.\n",
+        "de": "Umschalten\n",
+        "es": "Cambiar\n"
+    },
+    {
+        "id": "L_OPTIONS_203",
+        "en": "Display Options\n",
+        "gb": "Display Options\n",
+        "jp": "\\h86d3\\h8697\\h8688\\h84c7\n",
+        "it": "Visualizza opzioni\n",
+        "fr": "Options d'affichage\n",
+        "de": "Display-Optionen\n",
+        "es": "Opciones de Pantalla\n"
+    },
+    {
+        "id": "L_OPTIONS_204",
+        "en": "Display Player 2\n",
+        "gb": "Display Player 2\n",
+        "jp": "２Ｐの\\h86d3\\h8697\\h8688\\h84c7\n",
+        "it": "Comandi giocatore 2\n",
+        "fr": "Affichage Joueur 2\n",
+        "de": "Spieler 2 anzeigen\n",
+        "es": "Pantalla Jugador 2\n"
+    },
+    {
+        "id": "L_OPTIONS_205",
+        "en": "Sight on Screen\n",
+        "gb": "Sight on Screen\n",
+        "jp": "\\h82eb\\h84a5\\h84ec\\h84edの\\h86d3\\h8697\n",
+        "it": "Vista su schermo\n",
+        "fr": "Visée sur écran\n",
+        "de": "Sicht on-screen\n",
+        "es": "Mirilla en Pantalla\n"
+    },
+    {
+        "id": "L_OPTIONS_206",
+        "en": "Always Show Target\n",
+        "gb": "Always Show Target\n",
+        "jp": "\\h82eb\\h84a5を\\h83b9に\\h86d3\\h8697\n",
+        "it": "Obiettivo sempre\n",
+        "fr": "Toujours montrer cible\n",
+        "de": "Ziel immer anzeigen\n",
+        "es": "Siempre Muestra Objetivo\n"
+    },
+    {
+        "id": "L_OPTIONS_207",
+        "en": "Show Zoom Range\n",
+        "gb": "Show Zoom Range\n",
+        "jp": "ズ\\h8284ム\\h84fb\\h829bの\\h86d3\\h8697\n",
+        "it": "Area zoom\n",
+        "fr": "Montrer portée zoom\n",
+        "de": "Zoom-Bereich anzeigen\n",
+        "es": "Mostrar Alcance del Zoom\n"
+    },
+    {
+        "id": "L_OPTIONS_208",
+        "en": "Ammo on Screen\n",
+        "gb": "Ammo on Screen\n",
+        "jp": "\\h85a4\\h86c7の\\h86d3\\h8697\n",
+        "it": "Munizioni\n",
+        "fr": "Munitions affichées\n",
+        "de": "Munition on-screen\n",
+        "es": "Munición en Pantalla\n"
+    },
+    {
+        "id": "L_OPTIONS_209",
+        "en": "Show Gun Function\n",
+        "gb": "Show Gun Function\n",
+        "jp": "\\h82cc\\h84bdモ\\h8284ド\\h86d3\\h8697\n",
+        "it": "Funzioni arma\n",
+        "fr": "Montrer fonction arme\n",
+        "de": "Waffenfunktion anzeigen\n",
+        "es": "Mostrar Función del Arma\n"
+    },
+    {
+        "id": "L_OPTIONS_210",
+        "en": "Paintball\n",
+        "gb": "Paintball\n",
+        "jp": "ペイントボ\\h8284ルモ\\h8284ド\n",
+        "it": "Macchia colorata\n",
+        "fr": "Paintball\n",
+        "de": "Farbklecks\n",
+        "es": "Bolas de Pintura\n"
+    },
+    {
+        "id": "L_OPTIONS_211",
+        "en": "Subtitles\n",
+        "gb": "Subtitles\n",
+        "jp": "\\h86df\\h86e0の\\h86d3\\h8697\n",
+        "it": "Didascalia\n",
+        "fr": "Sous-titre\n",
+        "de": "Untertitel\n",
+        "es": "Subtítulos\n"
+    },
+    {
+        "id": "L_OPTIONS_212",
+        "en": "Show Mission Time\n",
+        "gb": "Show Mission Time\n",
+        "jp": "ミッションタイムの\\h86d3\\h8697\n",
+        "it": "Tempo missione\n",
+        "fr": "Afficher temps mission\n",
+        "de": "Missionszeit anzeigen\n",
+        "es": "Mostrar Tiempo de Misión\n"
+    },
+    {
+        "id": "L_OPTIONS_213",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "\\h82e3る\n",
+        "it": "Esci\n",
+        "fr": "Retour\n",
+        "de": "Zurück\n",
+        "es": "Volver\n"
+    },
+    {
+        "id": "L_OPTIONS_214",
+        "en": "Video Options\n",
+        "gb": "Video Options\n",
+        "jp": "ビデオ\\h8688\\h84c7\n",
+        "it": "Opzioni video\n",
+        "fr": "Options Vidéo\n",
+        "de": "Video-Optionen\n",
+        "es": "Opciones de Vídeo\n"
+    },
+    {
+        "id": "L_OPTIONS_215",
+        "en": "Screen Size\n",
+        "gb": "Screen Size\n",
+        "jp": "\\h839c\\h83faサイズ\n",
+        "it": "Dimensioni schermo\n",
+        "fr": "Taille écran\n",
+        "de": "Screen-Größe\n",
+        "es": "Tamaño de Pantalla\n"
+    },
+    {
+        "id": "L_OPTIONS_216",
+        "en": "Ratio\n",
+        "gb": "Ratio\n",
+        "jp": "\\h839c\\h86c0\n",
+        "it": "Rapporto\n",
+        "fr": "Ratio\n",
+        "de": "Verhältnis\n",
+        "es": "Ratio\n"
+    },
+    {
+        "id": "L_OPTIONS_217",
+        "en": "Hi-Res\n",
+        "gb": "Hi-Res\n",
+        "jp": "ハイレゾ\n",
+        "it": "Alta risoluzione\n",
+        "fr": "Haute-Res\n",
+        "de": "Hi-Res\n",
+        "es": "Alta Resolución\n"
+    },
+    {
+        "id": "L_OPTIONS_218",
+        "en": "2-Player Screen Split\n",
+        "gb": "2-Player Screen Split\n",
+        "jp": "２Ｐモ\\h8284ドの\\h839c\\h83fa\\h8398\\h86e1\n",
+        "it": "Diviso per 2 giocatori\n",
+        "fr": "Split écran 2 joueurs\n",
+        "de": "2-Spieler Splitscreen\n",
+        "es": "Pantalla Partida 2 Jugadores\n"
+    },
+    {
+        "id": "L_OPTIONS_219",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "\\h82e3る\n",
+        "it": "Esci\n",
+        "fr": "Retour\n",
+        "de": "Zurück\n",
+        "es": "Volver\n"
+    },
+    {
+        "id": "L_OPTIONS_220",
+        "en": "Full\n",
+        "gb": "Full\n",
+        "jp": "フル\n",
+        "it": "Intero\n",
+        "fr": "Plein\n",
+        "de": "Vollbild\n",
+        "es": "Completa\n"
+    },
+    {
+        "id": "L_OPTIONS_221",
+        "en": "Wide\n",
+        "gb": "Wide\n",
+        "jp": "ワイド\n",
+        "it": "Allargato\n",
+        "fr": "Large\n",
+        "de": "Breitbild\n",
+        "es": "Panorámica\n"
+    },
+    {
+        "id": "L_OPTIONS_222",
+        "en": "Cinema\n",
+        "gb": "Cinema\n",
+        "jp": "シネマ\n",
+        "it": "Cinema\n",
+        "fr": "Cinéma\n",
+        "de": "Cinema\n",
+        "es": "Cine\n"
+    },
+    {
+        "id": "L_OPTIONS_223",
+        "en": "Normal\n",
+        "gb": "Normal\n",
+        "jp": "ノ\\h8284マル\n",
+        "it": "Normale\n",
+        "fr": "Normal\n",
+        "de": "Normal\n",
+        "es": "Normal\n"
+    },
+    {
+        "id": "L_OPTIONS_224",
+        "en": "16:9\n",
+        "gb": "16:9\n",
+        "jp": "\\h84fa\\h86c0\n",
+        "it": "16:9\n",
+        "fr": "16:9\n",
+        "de": "16:9\n",
+        "es": "16:9\n"
+    },
+    {
+        "id": "L_OPTIONS_225",
+        "en": "Horizontal\n",
+        "gb": "Horizontal\n",
+        "jp": "ヨコ\n",
+        "it": "Orizzontale\n",
+        "fr": "Horizontal\n",
+        "de": "Horizontal\n",
+        "es": "Horizontal\n"
+    },
+    {
+        "id": "L_OPTIONS_226",
+        "en": "Vertical\n",
+        "gb": "Vertical\n",
+        "jp": "タテ\n",
+        "it": "Verticale\n",
+        "fr": "Vertical\n",
+        "de": "Vertikal\n",
+        "es": "Vertical\n"
+    },
+    {
+        "id": "L_OPTIONS_227",
+        "en": "Audio Options\n",
+        "gb": "Audio Options\n",
+        "jp": "オ\\h8284ディオ\\h8688\\h84c7\n",
+        "it": "Opzioni audio\n",
+        "fr": "Options Audio\n",
+        "de": "Audio-Optionen\n",
+        "es": "Opciones de Audio\n"
+    },
+    {
+        "id": "L_OPTIONS_228",
+        "en": "Sound\n",
+        "gb": "Sound\n",
+        "jp": "\\h83dc\\h83dd\\h85cf\n",
+        "it": "Suono\n",
+        "fr": "Son\n",
+        "de": "Soundeffekte\n",
+        "es": "Sonido\n"
+    },
+    {
+        "id": "L_OPTIONS_229",
+        "en": "Music\n",
+        "gb": "Music\n",
+        "jp": "ＢＧＭ\n",
+        "it": "Musica\n",
+        "fr": "Musique\n",
+        "de": "Musik\n",
+        "es": "Música\n"
+    },
+    {
+        "id": "L_OPTIONS_230",
+        "en": "Sound Mode\n",
+        "gb": "Sound Mode\n",
+        "jp": "モ\\h8284ド\n",
+        "it": "Modalità suono\n",
+        "fr": "Mode Son\n",
+        "de": "Sound\n",
+        "es": "Modo de Sonido\n"
+    },
+    {
+        "id": "L_OPTIONS_231",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "\\h82e3る\n",
+        "it": "Esci\n",
+        "fr": "Retour\n",
+        "de": "Zurück\n",
+        "es": "Volver\n"
+    },
+    {
+        "id": "L_OPTIONS_232",
+        "en": "Mono",
+        "gb": "Mono",
+        "jp": "モノラル",
+        "it": "Mono",
+        "fr": "Mono",
+        "de": "Mono",
+        "es": "Mono"
+    },
+    {
+        "id": "L_OPTIONS_233",
+        "en": "Stereo",
+        "gb": "Stereo",
+        "jp": "ステレオ",
+        "it": "Stereo",
+        "fr": "Stéréo",
+        "de": "Stereo",
+        "es": "Estéreo"
+    },
+    {
+        "id": "L_OPTIONS_234",
+        "en": "Headphone",
+        "gb": "Headphone",
+        "jp": "ヘッドホン",
+        "it": "Cuffie",
+        "fr": "Casque",
+        "de": "Kopfhörer",
+        "es": "Cascos"
+    },
+    {
+        "id": "L_OPTIONS_235",
+        "en": "Surround",
+        "gb": "Surround",
+        "jp": "サラウンド",
+        "it": "Surround",
+        "fr": "Surround",
+        "de": "Surround",
+        "es": "Surround"
+    },
+    {
+        "id": "L_OPTIONS_236",
+        "en": "Control\n",
+        "gb": "Control\n",
+        "jp": "\\h8589\\h83db\\h8688\\h84c7\n",
+        "it": "Comandi\n",
+        "fr": "Contrôle\n",
+        "de": "Steuerung\n",
+        "es": "Controles\n"
+    },
+    {
+        "id": "L_OPTIONS_237",
+        "en": "Single\n",
+        "gb": "Single\n",
+        "jp": "Single\n",
+        "it": "Singolo\n",
+        "fr": "Simple\n",
+        "de": "Einh.\n",
+        "es": "Simple\n"
+    },
+    {
+        "id": "L_OPTIONS_238",
+        "en": "Double\n",
+        "gb": "Double\n",
+        "jp": "Double\n",
+        "it": "Doppio\n",
+        "fr": "Double\n",
+        "de": "Beidh.\n",
+        "es": "Doble\n"
+    },
+    {
+        "id": "L_OPTIONS_239",
+        "en": "1.1",
+        "gb": "1.1",
+        "jp": "1-1",
+        "it": "1.1",
+        "fr": "1.1",
+        "de": "1.1",
+        "es": "1.1"
+    },
+    {
+        "id": "L_OPTIONS_240",
+        "en": "1.2",
+        "gb": "1.2",
+        "jp": "1-2",
+        "it": "1.2",
+        "fr": "1.2",
+        "de": "1.2",
+        "es": "1.2"
+    },
+    {
+        "id": "L_OPTIONS_241",
+        "en": "1.3",
+        "gb": "1.3",
+        "jp": "1-3",
+        "it": "1.3",
+        "fr": "1.3",
+        "de": "1.3",
+        "es": "1.3"
+    },
+    {
+        "id": "L_OPTIONS_242",
+        "en": "1.4",
+        "gb": "1.4",
+        "jp": "1-4",
+        "it": "1.4",
+        "fr": "1.4",
+        "de": "1.4",
+        "es": "1.4"
+    },
+    {
+        "id": "L_OPTIONS_243",
+        "en": "2.1",
+        "gb": "2.1",
+        "jp": "2-1",
+        "it": "2.1",
+        "fr": "2.1",
+        "de": "2.1",
+        "es": "2.1"
+    },
+    {
+        "id": "L_OPTIONS_244",
+        "en": "2.2",
+        "gb": "2.2",
+        "jp": "2-2",
+        "it": "2.2",
+        "fr": "2.2",
+        "de": "2.2",
+        "es": "2.2"
+    },
+    {
+        "id": "L_OPTIONS_245",
+        "en": "2.3",
+        "gb": "2.3",
+        "jp": "2-3",
+        "it": "2.3",
+        "fr": "2.3",
+        "de": "2.3",
+        "es": "2.3"
+    },
+    {
+        "id": "L_OPTIONS_246",
+        "en": "2.4",
+        "gb": "2.4",
+        "jp": "2-4",
+        "it": "2.4",
+        "fr": "2.4",
+        "de": "2.4",
+        "es": "2.4"
+    },
+    {
+        "id": "L_OPTIONS_247",
+        "en": "Briefing\n",
+        "gb": "Briefing\n",
+        "jp": "ミッション\\h84ec\\h84ed\n",
+        "it": "Istruzioni\n",
+        "fr": "Briefing\n",
+        "de": "Briefing\n",
+        "es": "Informe\n"
+    },
+    {
+        "id": "L_OPTIONS_248",
+        "en": "Select Difficulty\n",
+        "gb": "Select Difficulty\n",
+        "jp": "\\h85a8\\h85e6\\h83ac\\h86c2\\h86c3\n",
+        "it": "Seleziona difficoltà\n",
+        "fr": "Sélection Difficulté\n",
+        "de": "Wähle den Schwierigkeitsgrad\n",
+        "es": "Elegir Dificultad\n"
+    },
+    {
+        "id": "L_OPTIONS_249",
+        "en": "Difficulty\n",
+        "gb": "Difficulty\n",
+        "jp": "\\h85a8\\h85e6\\h83ac\n",
+        "it": "Difficoltà\n",
+        "fr": "Difficulté\n",
+        "de": "Schwierigkeitsgrad\n",
+        "es": "Dificultad\n"
+    },
+    {
+        "id": "L_OPTIONS_250",
+        "en": "Best Time\n",
+        "gb": "Best Time\n",
+        "jp": "ベストタイム\n",
+        "it": "Tempo migliore\n",
+        "fr": "Meilleur Temps\n",
+        "de": "Beste Zeit\n",
+        "es": "Mejor Tiempo\n"
+    },
+    {
+        "id": "L_OPTIONS_251",
+        "en": "Agent\n",
+        "gb": "Agent\n",
+        "jp": "エ\\h8284ジェント\n",
+        "it": "Agente\n",
+        "fr": "Agent\n",
+        "de": "Agent\n",
+        "es": "Agente\n"
+    },
+    {
+        "id": "L_OPTIONS_252",
+        "en": "Special Agent\n",
+        "gb": "Special Agent\n",
+        "jp": "アドバンスト\n",
+        "it": "Agente speciale\n",
+        "fr": "Agent Spécial\n",
+        "de": "Spezialagent\n",
+        "es": "Agente Especial\n"
+    },
+    {
+        "id": "L_OPTIONS_253",
+        "en": "Perfect Agent\n",
+        "gb": "Perfect Agent\n",
+        "jp": "パ\\h8284フェクト\n",
+        "it": "Agente Perfect\n",
+        "fr": "Agent Perfect\n",
+        "de": "Perfekter Agent\n",
+        "es": "Agente Perfecto\n"
+    },
+    {
+        "id": "L_OPTIONS_254",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "キャンセル\n",
+        "it": "Annulla\n",
+        "fr": "Annuler\n",
+        "de": "Cancel\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_OPTIONS_255",
+        "en": "Co-Operative Options\n",
+        "gb": "Co-Operative Options\n",
+        "jp": "\\h82a3\\h8282ミッション　\\h8688\\h84c7\n",
+        "it": "Opzioni collaborazione\n",
+        "fr": "Options Coopératif\n",
+        "de": "Teamwork-Optionen\n",
+        "es": "Opciones Modo Cooperativo\n"
+    },
+    {
+        "id": "L_OPTIONS_256",
+        "en": "Radar On\n",
+        "gb": "Radar On\n",
+        "jp": "レ\\h8284ダ\\h8284　オン\n",
+        "it": "Radar acceso\n",
+        "fr": "Radar Actif\n",
+        "de": "Radar Ein\n",
+        "es": "Radar Sí\n"
+    },
+    {
+        "id": "L_OPTIONS_257",
+        "en": "Friendly Fire\n",
+        "gb": "Friendly Fire\n",
+        "jp": "\\h84b3\\h82d4への\\h82ed\\h82d7\n",
+        "it": "Fuoco sugli amici\n",
+        "fr": "Binôme Protégé\n",
+        "de": "Teamspieler verletzbar\n",
+        "es": "Fuego Amigo\n"
+    },
+    {
+        "id": "L_OPTIONS_258",
+        "en": "Perfect Buddy\n",
+        "gb": "Perfect Buddy\n",
+        "jp": "\\h82a3\\h8282\\h83eeの\\h86c2\\h86c3\n",
+        "it": "AmicoPerfect\n",
+        "fr": "Binôme Perfect\n",
+        "de": "Perfekter Kumpel\n",
+        "es": "Compañero Perfecto\n"
+    },
+    {
+        "id": "L_OPTIONS_259",
+        "en": "Continue\n",
+        "gb": "Continue\n",
+        "jp": "\\h82b7む\n",
+        "it": "Continua\n",
+        "fr": "Continuer\n",
+        "de": "Weiter\n",
+        "es": "Continuar\n"
+    },
+    {
+        "id": "L_OPTIONS_260",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "\\h82e3る\n",
+        "it": "Annulla\n",
+        "fr": "Annuler\n",
+        "de": "Abbrechen\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_OPTIONS_261",
+        "en": "Human",
+        "gb": "Human",
+        "jp": "プレイヤ\\h8284２",
+        "it": "Umano",
+        "fr": "Humain",
+        "de": "Menschlich",
+        "es": "Humano"
+    },
+    {
+        "id": "L_OPTIONS_262",
+        "en": "1 Simulant",
+        "gb": "1 Simulant",
+        "jp": "シミュラント１\\h828b",
+        "it": "Un replicante",
+        "fr": "1 Simulant",
+        "de": "1 Simulant",
+        "es": "1 Simulante"
+    },
+    {
+        "id": "L_OPTIONS_263",
+        "en": "2 Simulants",
+        "gb": "2 Simulants",
+        "jp": "シミュラント２\\h828b",
+        "it": "2 replicanti",
+        "fr": "2 Simulants",
+        "de": "2 Simulanten",
+        "es": "2 Simulantes"
+    },
+    {
+        "id": "L_OPTIONS_264",
+        "en": "3 Simulants",
+        "gb": "3 Simulants",
+        "jp": "シミュラント３\\h828b",
+        "it": "3 replicanti",
+        "fr": "3 Simulants",
+        "de": "3 Simulanten",
+        "es": "3 Simulantes"
+    },
+    {
+        "id": "L_OPTIONS_265",
+        "en": "4 Simulants",
+        "gb": "4 Simulants",
+        "jp": "シミュラント４\\h828b",
+        "it": "4 replicanti",
+        "fr": "4 Simulants",
+        "de": "4 Simulanten",
+        "es": "4 Simulantes"
+    },
+    {
+        "id": "L_OPTIONS_266",
+        "en": "Counter-Operative Options\n",
+        "gb": "Counter-Operative Options\n",
+        "jp": "\\h8297\\h82fcミッション　\\h8688\\h84c7\n",
+        "it": "Tutti contro tutti!\n",
+        "fr": "Options Contre-Opération\n",
+        "de": "Counter Operative-Optionen\n",
+        "es": "Opciones Contra-Operativa\n"
+    },
+    {
+        "id": "L_OPTIONS_267",
+        "en": "Radar On\n",
+        "gb": "Radar On\n",
+        "jp": "レ\\h8284ダ\\h8284　オン\n",
+        "it": "Radar acceso\n",
+        "fr": "Radar Actif\n",
+        "de": "Radar Ein\n",
+        "es": "Radar Sí\n"
+    },
+    {
+        "id": "L_OPTIONS_268",
+        "en": "Counter-Operative\n",
+        "gb": "Counter-Operative\n",
+        "jp": "\\h8297\\h84b2プレイヤ\\h8284\n",
+        "it": "Tutti contro tutti!\n",
+        "fr": "Contre-Opération\n",
+        "de": "Counter Operative\n",
+        "es": "Contra-Operativa\n"
+    },
+    {
+        "id": "L_OPTIONS_269",
+        "en": "Continue\n",
+        "gb": "Continue\n",
+        "jp": "\\h82b7む\n",
+        "it": "Continua\n",
+        "fr": "Continuer\n",
+        "de": "Weiter\n",
+        "es": "Continuar\n"
+    },
+    {
+        "id": "L_OPTIONS_270",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "\\h82e3る\n",
+        "it": "Annulla\n",
+        "fr": "Annuler\n",
+        "de": "Abbrechen\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_OPTIONS_271",
+        "en": "Player 1",
+        "gb": "Player 1",
+        "jp": "プレイヤ\\h8284１",
+        "it": "Giocat. 1",
+        "fr": "Joueur 1",
+        "de": "Spieler 1",
+        "es": "Jugador 1"
+    },
+    {
+        "id": "L_OPTIONS_272",
+        "en": "Player 2",
+        "gb": "Player 2",
+        "jp": "プレイヤ\\h8284２",
+        "it": "Giocat. 2",
+        "fr": "Joueur 2",
+        "de": "Spieler 2",
+        "es": "Jugador 2"
+    },
+    {
+        "id": "L_OPTIONS_273",
+        "en": "Overview\n",
+        "gb": "Overview\n",
+        "jp": "千\\h86ed\\h82b5\\h82b6\n",
+        "it": "Panoramica\n",
+        "fr": "Briefing\n",
+        "de": "Überblick\n",
+        "es": "Visión General\n"
+    },
+    {
+        "id": "L_OPTIONS_274",
+        "en": "Accept\n",
+        "gb": "Accept\n",
+        "jp": "\\h82f4\\h8286する\n",
+        "it": "Accetta\n",
+        "fr": "Accepter\n",
+        "de": "Annehmen\n",
+        "es": "Aceptar\n"
+    },
+    {
+        "id": "L_OPTIONS_275",
+        "en": "Decline\n",
+        "gb": "Decline\n",
+        "jp": "\\h86ee\\h86efする\n",
+        "it": "Rifiuta\n",
+        "fr": "Refuser\n",
+        "de": "Ablehnen\n",
+        "es": "Declinar\n"
+    },
+    {
+        "id": "L_OPTIONS_276",
+        "en": "Completed\n",
+        "gb": "Completed\n",
+        "jp": "\\h82b5\\h82b6\\h82f3\\h82f4\n",
+        "it": "Compiuto\n",
+        "fr": "Succès\n",
+        "de": "Komplettiert\n",
+        "es": "Completado\n"
+    },
+    {
+        "id": "L_OPTIONS_277",
+        "en": "Failed\n",
+        "gb": "Failed\n",
+        "jp": "\\h82b5\\h82b6\\h82f1\\h82f2\n",
+        "it": "Fallito\n",
+        "fr": "Echec\n",
+        "de": "Fehlgeschlagen\n",
+        "es": "Fallado\n"
+    },
+    {
+        "id": "L_OPTIONS_278",
+        "en": "Mission Status:\n",
+        "gb": "Mission Status:\n",
+        "jp": "\\h82b5\\h82b6\\h86d9\\h83dd：\n",
+        "it": "Risultati missione:\n",
+        "fr": "Statut Mission:\n",
+        "de": "Missions-Status:\n",
+        "es": "Estatus de Misión:\n"
+    },
+    {
+        "id": "L_OPTIONS_279",
+        "en": "Agent Status:\n",
+        "gb": "Agent Status:\n",
+        "jp": "プレイヤ\\h8284\\h83d8\\h86ce：\n",
+        "it": "Stato agente:\n",
+        "fr": "Statut Agent:\n",
+        "de": "Status der Agentin:\n",
+        "es": "Estatus de Agente:\n"
+    },
+    {
+        "id": "L_OPTIONS_280",
+        "en": "Mission Time:\n",
+        "gb": "Mission Time:\n",
+        "jp": "ミッションタイム：\n",
+        "it": "Tempo missione:\n",
+        "fr": "Temps Mission:\n",
+        "de": "Missions-Zeit:\n",
+        "es": "Tiempo de Misión:\n"
+    },
+    {
+        "id": "L_OPTIONS_281",
+        "en": "Weapon of Choice:\n",
+        "gb": "Weapon of Choice:\n",
+        "jp": "\\h8283\\h82c6よく\\h82f9った\\h82cc\\h84bd：\n",
+        "it": "Arma più usata:\n",
+        "fr": "Arme de prédilection:\n",
+        "de": "Bevorzugte Waffe:\n",
+        "es": "Arma Preferida:\n"
+    },
+    {
+        "id": "L_OPTIONS_282",
+        "en": "Kills:\n",
+        "gb": "Kills:\n",
+        "jp": "\\h82d9した\\h859f\\h86c7：\n",
+        "it": "Vittime:\n",
+        "fr": "Victimes:\n",
+        "de": "Hits:\n",
+        "es": "Muertos:\n"
+    },
+    {
+        "id": "L_OPTIONS_283",
+        "en": "Accuracy:\n",
+        "gb": "Accuracy:\n",
+        "jp": "\\h83e9\\h828d\\h85a5：\n",
+        "it": "Accuratezza:\n",
+        "fr": "Précision:\n",
+        "de": "Präz.:\n",
+        "es": "Precisión:\n"
+    },
+    {
+        "id": "L_OPTIONS_284",
+        "en": "Shot Total:\n",
+        "gb": "Shot Total:\n",
+        "jp": "\\h859fショット\\h86c7：\n",
+        "it": "Colpi totali:\n",
+        "fr": "Total de tirs:\n",
+        "de": "Schüsse:\n",
+        "es": "Total Disparos:\n"
+    },
+    {
+        "id": "L_OPTIONS_285",
+        "en": "    Head Shots:\n",
+        "gb": "    Head Shots:\n",
+        "jp": "　\\h86c8\\h828fヒット：\n",
+        "it": " Colpi al capo:\n",
+        "fr": "    Tirs Tête:\n",
+        "de": "    Kopf:\n",
+        "es": "    Disp. Cabeza:\n"
+    },
+    {
+        "id": "L_OPTIONS_286",
+        "en": "    Body Shots:\n",
+        "gb": "    Body Shots:\n",
+        "jp": "　\\h86f0\\h828bヒット：\n",
+        "it": " Colpi al corpo:\n",
+        "fr": "    Tirs Corps:\n",
+        "de": "    Rumpf:\n",
+        "es": "    Disp. Cuerpo:\n"
+    },
+    {
+        "id": "L_OPTIONS_287",
+        "en": "    Limb Shots:\n",
+        "gb": "    Limb Shots:\n",
+        "jp": "　\\h82dd\\h86daヒット：\n",
+        "it": " Colpi agli arti:\n",
+        "fr": "    Tirs Membres:\n",
+        "de": "    Gliedm.:\n",
+        "es": "    Disp. Miembros:\n"
+    },
+    {
+        "id": "L_OPTIONS_288",
+        "en": "    Others:\n",
+        "gb": "    Others:\n",
+        "jp": "　その\\h8698：\n",
+        "it": " Altro:\n",
+        "fr": "    Autres:\n",
+        "de": "    Andere:\n",
+        "es": "    Otros:\n"
+    },
+    {
+        "id": "L_OPTIONS_289",
+        "en": "Press START\n",
+        "gb": "Press START\n",
+        "jp": "スタ\\h8284トボタン\n",
+        "it": "Premi START\n",
+        "fr": "Appuyer sur START\n",
+        "de": "Drücke START\n",
+        "es": "Pulsa START\n"
+    },
+    {
+        "id": "L_OPTIONS_290",
+        "en": "Deceased\n",
+        "gb": "Deceased\n",
+        "jp": "\\h82b0\\h8699\n",
+        "it": "Deceduto\n",
+        "fr": "Décédé\n",
+        "de": "Gefallen\n",
+        "es": "Difunto\n"
+    },
+    {
+        "id": "L_OPTIONS_291",
+        "en": "Active\n",
+        "gb": "Active\n",
+        "jp": "\\h8694\\h86b1\n",
+        "it": "Attivo\n",
+        "fr": "Actif\n",
+        "de": "Überlebt\n",
+        "es": "Activo\n"
+    },
+    {
+        "id": "L_OPTIONS_292",
+        "en": "Disavowed\n",
+        "gb": "Disavowed\n",
+        "jp": "\\h8389\\h8699\n",
+        "it": "Fuggito\n",
+        "fr": "Suspendu\n",
+        "de": "Abgebrochen\n",
+        "es": "Anulado\n"
+    },
+    {
+        "id": "L_OPTIONS_293",
+        "en": "Failed\n",
+        "gb": "Failed\n",
+        "jp": "\\h82b5\\h82b6\\h82f1\\h82f2\n",
+        "it": "Fallito\n",
+        "fr": "Echec\n",
+        "de": "Fehlgeschlagen\n",
+        "es": "Fallada\n"
+    },
+    {
+        "id": "L_OPTIONS_294",
+        "en": "Completed\n",
+        "gb": "Completed\n",
+        "jp": "\\h82b5\\h82b6\\h82f3\\h82f4\n",
+        "it": "Compiuto\n",
+        "fr": "Terminé\n",
+        "de": "Komplettiert\n",
+        "es": "Completada\n"
+    },
+    {
+        "id": "L_OPTIONS_295",
+        "en": "Aborted\n",
+        "gb": "Aborted\n",
+        "jp": "\\h82b5\\h82b6\\h828d\\h84ac\n",
+        "it": "Interrotto\n",
+        "fr": "Abandon\n",
+        "de": "Abgebrochen\n",
+        "es": "Abortada\n"
+    },
+    {
+        "id": "L_OPTIONS_296",
+        "en": "Retry",
+        "gb": "Retry",
+        "jp": "リトライ",
+        "it": "Riprova",
+        "fr": "Recommencer",
+        "de": "Neuer Versuch",
+        "es": "Reintentar"
+    },
+    {
+        "id": "L_OPTIONS_297",
+        "en": "Next Mission",
+        "gb": "Next Mission",
+        "jp": "\\h83e3のミッション",
+        "it": "Missione seguente",
+        "fr": "Prochaine Mission",
+        "de": "Nächste Mission",
+        "es": "Sig. Misión"
+    },
+    {
+        "id": "L_OPTIONS_298",
+        "en": "Accept\n",
+        "gb": "Accept\n",
+        "jp": "\\h82f4\\h8286する\n",
+        "it": "Accetta\n",
+        "fr": "Accepter\n",
+        "de": "Akzeptieren\n",
+        "es": "Aceptar\n"
+    },
+    {
+        "id": "L_OPTIONS_299",
+        "en": "Decline\n",
+        "gb": "Decline\n",
+        "jp": "\\h86ee\\h86efする\n",
+        "it": "Rifiuta\n",
+        "fr": "Refuser\n",
+        "de": "Ablehnen\n",
+        "es": "Declinar\n"
+    },
+    {
+        "id": "L_OPTIONS_300",
+        "en": "Objectives\n",
+        "gb": "Objectives\n",
+        "jp": "千\\h86ed\\h82b5\\h82b6\n",
+        "it": "Obiettivi\n",
+        "fr": "Objectifs\n",
+        "de": "Ziele\n",
+        "es": "Objetivos\n"
+    },
+    {
+        "id": "L_OPTIONS_301",
+        "en": "Press START\n",
+        "gb": "Press START\n",
+        "jp": "スタ\\h8284トボタン\n",
+        "it": "Premi START\n",
+        "fr": "Appuyer sur START\n",
+        "de": "Drücke START\n",
+        "es": "Pulsa START\n"
+    },
+    {
+        "id": "L_OPTIONS_302",
+        "en": "Small but Perfect Menu\n",
+        "gb": "Small but Perfect Menu\n",
+        "jp": "メインメニュ\\h8284（\\h86e6\\h8598パック\\h83bcし）\n",
+        "it": "Menu breve e conciso\n",
+        "fr": "Menu petit mais Perfect\n",
+        "de": "Kleines aber feines Menü\n",
+        "es": "Menú Pequeño pero Perfecto\n"
+    },
+    {
+        "id": "L_OPTIONS_303",
+        "en": "Combat Simulator\n",
+        "gb": "Combat Simulator\n",
+        "jp": "コンバット・シミュレ\\h8284タ\n",
+        "it": "Simulatore\n",
+        "fr": "Simulateur de Combat\n",
+        "de": "Kampfsimulator\n",
+        "es": "Simulador de Combate\n"
+    },
+    {
+        "id": "L_OPTIONS_304",
+        "en": "Training\n",
+        "gb": "Training\n",
+        "jp": "トレ\\h8284ニング\n",
+        "it": "Addestramento\n",
+        "fr": "Entraînement\n",
+        "de": "Training\n",
+        "es": "Entrenamiento\n"
+    },
+    {
+        "id": "L_OPTIONS_305",
+        "en": "Audio/Video\n",
+        "gb": "Audio/Video\n",
+        "jp": "オ\\h8284ディオ／ビデオ\n",
+        "it": "Audio/Video\n",
+        "fr": "Audio / Vidéo\n",
+        "de": "Audio/Video\n",
+        "es": "Audio/Vídeo\n"
+    },
+    {
+        "id": "L_OPTIONS_306",
+        "en": "Change Agent\n",
+        "gb": "Change Agent\n",
+        "jp": "ファイル\\h82ca\\h82cb\n",
+        "it": "Cambia agente\n",
+        "fr": "Changer d'Agent\n",
+        "de": "Agent wechseln\n",
+        "es": "Cambiar Agente\n"
+    },
+    {
+        "id": "L_OPTIONS_307",
+        "en": "Audio/Visual\n",
+        "gb": "Audio/Visual\n",
+        "jp": "オ\\h8284ディオ／ビデオ\\h8688\\h84c7l\n",
+        "it": "Audio/Video\n",
+        "fr": "Audio / Visuel\n",
+        "de": "Audio/Video\n",
+        "es": "Audio/Visual\n"
+    },
+    {
+        "id": "L_OPTIONS_308",
+        "en": "Sound\n",
+        "gb": "Sound\n",
+        "jp": "\\h83dc\\h83dd\\h85cf\n",
+        "it": "Suono\n",
+        "fr": "Son\n",
+        "de": "Sound\n",
+        "es": "Sonido\n"
+    },
+    {
+        "id": "L_OPTIONS_309",
+        "en": "Music\n",
+        "gb": "Music\n",
+        "jp": "ＢＧＭ\n",
+        "it": "Musica\n",
+        "fr": "Musique\n",
+        "de": "Musik\n",
+        "es": "Música\n"
+    },
+    {
+        "id": "L_OPTIONS_310",
+        "en": "Sound Mode\n",
+        "gb": "Sound Mode\n",
+        "jp": "モ\\h8284ド\n",
+        "it": "Modalità suono\n",
+        "fr": "Mode Son\n",
+        "de": "Sound\n",
+        "es": "Modo de Sonido\n"
+    },
+    {
+        "id": "L_OPTIONS_311",
+        "en": "Ratio\n",
+        "gb": "Ratio\n",
+        "jp": "\\h839c\\h86c0\n",
+        "it": "Rapporto\n",
+        "fr": "Ratio\n",
+        "de": "Verhältnis\n",
+        "es": "Ratio\n"
+    },
+    {
+        "id": "L_OPTIONS_312",
+        "en": "Back\n",
+        "gb": "Back\n",
+        "jp": "\\h82e3る\n",
+        "it": "Esci\n",
+        "fr": "Retour\n",
+        "de": "Zurück\n",
+        "es": "Volver\n"
+    },
+    {
+        "id": "L_OPTIONS_313",
+        "en": "< Empty >\n",
+        "gb": "< Empty >\n",
+        "jp": "″Ｎｅｗ〈\n",
+        "it": "< Vuoto >\n",
+        "fr": "< Vide >\n",
+        "de": "< Leer >\n",
+        "es": "< Vacío >\n"
+    },
+    {
+        "id": "L_OPTIONS_314",
+        "en": "DEL",
+        "gb": "DEL",
+        "jp": "DEL",
+        "it": "CANC",
+        "fr": "SUP",
+        "de": "ENTF",
+        "es": "SUPR"
+    },
+    {
+        "id": "L_OPTIONS_315",
+        "en": "CAPS",
+        "gb": "CAPS",
+        "jp": "CAPS",
+        "it": "MAIU",
+        "fr": "MAJ",
+        "de": "SHIFT",
+        "es": "MAY."
+    },
+    {
+        "id": "L_OPTIONS_316",
+        "en": "CANCEL",
+        "gb": "CANCEL",
+        "jp": "CANCEL",
+        "it": "ANNULLA",
+        "fr": "ANNULER",
+        "de": "ABBR",
+        "es": "SALIR"
+    },
+    {
+        "id": "L_OPTIONS_317",
+        "en": "OK",
+        "gb": "OK",
+        "jp": "OK",
+        "it": "OK",
+        "fr": "OK",
+        "de": "OK",
+        "es": "OK"
+    },
+    {
+        "id": "L_OPTIONS_318",
+        "en": "Combat Simulator Heads\n",
+        "gb": "Combat Simulator Heads\n",
+        "jp": "コンバットシミュレ\\h8284タ・ヘッド\n",
+        "it": "Testi simulatore\n",
+        "fr": "Visages de Simulateurs de Combat\n",
+        "de": "Kampfsimulator-Köpfe\n",
+        "es": "Cabezas Simulador Combate\n"
+    },
+    {
+        "id": "L_OPTIONS_319",
+        "en": "Mission Heads\n",
+        "gb": "Mission Heads\n",
+        "jp": "ミッション・ヘッド\n",
+        "it": "Teste missione\n",
+        "fr": "Visages Mission\n",
+        "de": "Köpfe in den Missionen\n",
+        "es": "Cabezas de Misiones\n"
+    },
+    {
+        "id": "L_OPTIONS_320",
+        "en": "Error\n",
+        "gb": "Error\n",
+        "jp": "エラ\\h8284\n",
+        "it": "Errore\n",
+        "fr": "Erreur\n",
+        "de": "Fehler\n",
+        "es": "Error\n"
+    },
+    {
+        "id": "L_OPTIONS_321",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "キャンセル\n",
+        "it": "Annulla\n",
+        "fr": "Annuler\n",
+        "de": "Abbruch\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_OPTIONS_322",
+        "en": "The Controller Pak\nwas not found\nin any controller.\n",
+        "gb": "The Controller Pak\nwas not found\nin any controller.\n",
+        "jp": "コントロ\\h8284ラパックが\n\\h82c9つかりません\n",
+        "it": "Controller Pak assente\nda tutti i Controller.\n",
+        "fr": "Controller Pak\nnon détecté.\n",
+        "de": "Es wurde kein\nController Pak in den\nControllern gefunden.\n",
+        "es": "El Controller Pak\nno se encontró\nen ningún mando.\n"
+    },
+    {
+        "id": "L_OPTIONS_323",
+        "en": "File was not saved.\n",
+        "gb": "File was not saved.\n",
+        "jp": "セ\\h8284ブ\\h829f\\h8390ません\n",
+        "it": "File non salvato.\n",
+        "fr": "Fichier non sauvegardé.\n",
+        "de": "Spielstand wurde nicht gespeichert.\n",
+        "es": "El fichero no ha sido salvado.\n"
+    },
+    {
+        "id": "L_OPTIONS_324",
+        "en": "File would not load.\n",
+        "gb": "File would not load.\n",
+        "jp": "ロ\\h8284ド\\h829f\\h8390ません\n",
+        "it": "File non caricato.\n",
+        "fr": "Fichier non chargeable.\n",
+        "de": "Spielstand wurde nicht geladen.\n",
+        "es": "El fichero no se cargará.\n"
+    },
+    {
+        "id": "L_OPTIONS_325",
+        "en": "Could not delete the file.\n",
+        "gb": "Could not delete the file.\n",
+        "jp": "\\h8391\\h83f6\\h829f\\h8390ません\n",
+        "it": "Impossibile cancellare file.\n",
+        "fr": "Impossible d'effacer le fichier.\n",
+        "de": "Spielstand konnte nicht gelöscht werden.\n",
+        "es": "No se puede borrar el fichero.\n"
+    },
+    {
+        "id": "L_OPTIONS_326",
+        "en": "Out of memory.\n",
+        "gb": "Out of memory.\n",
+        "jp": "メモリ\\h8284\\h82a0\\h86daです\n",
+        "it": "Memoria esaurita.\n",
+        "fr": "Plus de mémoire.\n",
+        "de": "Zu wenig Speicherplatz.\n",
+        "es": "Sin memoria.\n"
+    },
+    {
+        "id": "L_OPTIONS_327",
+        "en": "This player is already\nloaded for this game.\n",
+        "gb": "This player is already\nloaded for this game.\n",
+        "jp": "すでにこの\\h8688\\h84c7は\nロ\\h8284ドされています\n",
+        "it": "Giocatore già caricato\nnel gioco.\n",
+        "fr": "Ce joueur est déjà\nchargé pour cette partie.\n",
+        "de": "Diese Daten sind bereits\ngeladen worden.\n",
+        "es": "Este jugador ya ha sido\ncargado en este juego.\n"
+    },
+    {
+        "id": "L_OPTIONS_328",
+        "en": "has been removed.\n",
+        "gb": "has been removed.\n",
+        "jp": "が\\h83e1りません\n",
+        "it": "rimosso.\n",
+        "fr": "a été enlevé.\n",
+        "de": "wurde entfernt.\n",
+        "es": "ha sido quitado.\n"
+    },
+    {
+        "id": "L_OPTIONS_329",
+        "en": "Controller Pak is damaged or incorrectly inserted.\n",
+        "gb": "Controller Pak is damaged or incorrectly inserted.\n",
+        "jp": "コントロ\\h8284ラパックが\\h82cfれているようです\n",
+        "it": "Controller Pak danneggiato o in posizione errata.\n",
+        "fr": "Controller Pak est défectueux ou mal inséré.\n",
+        "de": "Controller Pak ist beschädigt oder nicht richtig eingelegt.\n",
+        "es": "El Controller Pak está dañado o mal insertado.\n"
+    },
+    {
+        "id": "L_OPTIONS_330",
+        "en": "Game note delete failed.\n",
+        "gb": "Game note delete failed.\n",
+        "jp": "ゲ\\h8284ムノ\\h8284トの\\h8391\\h83f6に\\h82f1\\h82f2しました\n",
+        "it": "Impossibile cancellare dati gioco.\n",
+        "fr": "Effacement des notes échoué.\n",
+        "de": "Löschvorgang konnte nicht durchgeführt werden.\n",
+        "es": "Falló el borrado de la Nota de Juego.\n"
+    },
+    {
+        "id": "L_OPTIONS_331",
+        "en": "Error Loading Game\n",
+        "gb": "Error Loading Game\n",
+        "jp": "ロ\\h8284ドエラ\\h8284\n",
+        "it": "Errore caric. gioco\n",
+        "fr": "Erreur charg. jeu\n",
+        "de": "Ladefehler\n",
+        "es": "Error Cargando\n"
+    },
+    {
+        "id": "L_OPTIONS_332",
+        "en": "Error Saving Game\n",
+        "gb": "Error Saving Game\n",
+        "jp": "セ\\h8284ブエラ\\h8284\n",
+        "it": "Errore salv. gioco\n",
+        "fr": "Erreur sauv. jeu\n",
+        "de": "Speicherfehler\n",
+        "es": "Error Guardando\n"
+    },
+    {
+        "id": "L_OPTIONS_333",
+        "en": "Error Loading Player\n",
+        "gb": "Error Loading Player\n",
+        "jp": "ロ\\h8284ドエラ\\h8284\n",
+        "it": "Errore caric. giocat.\n",
+        "fr": "Erreur charg. joueur\n",
+        "de": "Ladefehler Spieler\n",
+        "es": "Error Cargando\n"
+    },
+    {
+        "id": "L_OPTIONS_334",
+        "en": "Error Saving Player\n",
+        "gb": "Error Saving Player\n",
+        "jp": "セ\\h8284ブエラ\\h8284\n",
+        "it": "Errore salv. giocat.\n",
+        "fr": "Erreur sauv. joueur\n",
+        "de": "Speicherfehler Spieler\n",
+        "es": "Error Guardando\n"
+    },
+    {
+        "id": "L_OPTIONS_335",
+        "en": "Error Loading PerfectHead\n",
+        "gb": "Error Loading PerfectHead\n",
+        "jp": "ロ\\h8284ドエラ\\h8284\n",
+        "it": "Errore caric. testaPerfect\n",
+        "fr": "Erreur chargement PerfectHead\n",
+        "de": "Fehler während des Ladens von PerfectHead.\n",
+        "es": "Error Cargando\n"
+    },
+    {
+        "id": "L_OPTIONS_336",
+        "en": "Error Saving PerfectHead\n",
+        "gb": "Error Saving PerfectHead\n",
+        "jp": "セ\\h8284ブエラ\\h8284\n",
+        "it": "Errore salv. testaPerfect\n",
+        "fr": "Erreur sauvegarde PerfectHead\n",
+        "de": "Fehler während des Speicherns von PerfectHead.\n",
+        "es": "Error Guardando\n"
+    },
+    {
+        "id": "L_OPTIONS_337",
+        "en": "Error Reading File\n",
+        "gb": "Error Reading File\n",
+        "jp": "ロ\\h8284ドエラ\\h8284\n",
+        "it": "Errore lettura file\n",
+        "fr": "Erreur de lecture de fichier\n",
+        "de": "Fehler während des Lesevorgangs.\n",
+        "es": "Error Leyendo\n"
+    },
+    {
+        "id": "L_OPTIONS_338",
+        "en": "Error Writing File\n",
+        "gb": "Error Writing File\n",
+        "jp": "セ\\h8284ブエラ\\h8284\n",
+        "it": "Errore scrittura file\n",
+        "fr": "Erreur d'écriture de fichier\n",
+        "de": "Fehler während des Schreibvorgangs.\n",
+        "es": "Error Escribiendo\n"
+    },
+    {
+        "id": "L_OPTIONS_339",
+        "en": "Error\n",
+        "gb": "Error\n",
+        "jp": "エラ\\h8284\n",
+        "it": "Errore\n",
+        "fr": "Erreur\n",
+        "de": "Fehler\n",
+        "es": "Error\n"
+    },
+    {
+        "id": "L_OPTIONS_340",
+        "en": "Delete Failed\n",
+        "gb": "Delete Failed\n",
+        "jp": "\\h8391\\h83f6\\h82f1\\h82f2\n",
+        "it": "Non cancellato\n",
+        "fr": "Echec Effacement\n",
+        "de": "Löschvorgang nicht erfolgreich.\n",
+        "es": "Borrar Fallado\n"
+    },
+    {
+        "id": "L_OPTIONS_341",
+        "en": "Could not delete the file.\n",
+        "gb": "Could not delete the file.\n",
+        "jp": "ファイルの\\h8391\\h83f6が\\h829f\\h8390ません\n",
+        "it": "Impossibile cancellare.\n",
+        "fr": "Impossible d'effacer le fichier.\n",
+        "de": "Spielstand konnte nicht gelöscht werden.\n",
+        "es": "No se puede borrar el fichero.\n"
+    },
+    {
+        "id": "L_OPTIONS_342",
+        "en": "- Check that the Controller Pak is\ninserted correctly.\n",
+        "gb": "- Check that the Controller Pak is\ninserted correctly.\n",
+        "jp": "コントロ\\h8284ラパックが\n\\h85a0しく\\h85d1\\h82beされて\nいますか？\n",
+        "it": "- Controlla che il Controller Pak \nsia inserito correttamente.\n",
+        "fr": "- Vérifier que le Controller Pak est\ninséré correctement.\n",
+        "de": "- Überprüfen Sie, ob das Controller Pak is\nkorrekt eingelegt ist.\n",
+        "es": "- Comprueba que el Controller Pak\nestá insertado correctamente.\n"
+    },
+    {
+        "id": "L_OPTIONS_343",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "キャンセル\n",
+        "it": "Annulla\n",
+        "fr": "Annuler\n",
+        "de": "Abbrechen\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_OPTIONS_344",
+        "en": "There is no space.\n",
+        "gb": "There is no space.\n",
+        "jp": "\\h83c3きがありません\n",
+        "it": "Spazio esaurito.\n",
+        "fr": "Il n'y a plus de place.\n",
+        "de": "Es ist nicht genug Platz vorhanden.\n",
+        "es": "No hay espacio.\n"
+    },
+    {
+        "id": "L_OPTIONS_345",
+        "en": "Cool!\n",
+        "gb": "Cool!\n",
+        "jp": "\\h82f3\\h82f4！\n",
+        "it": "Perfetto!\n",
+        "fr": "Cool!\n",
+        "de": "Cool!\n",
+        "es": "¡Bien!\n"
+    },
+    {
+        "id": "L_OPTIONS_346",
+        "en": "File Saved.\n",
+        "gb": "File Saved.\n",
+        "jp": "セ\\h8284ブされました\n",
+        "it": "File salvato.\n",
+        "fr": "Fichier sauvegardé.\n",
+        "de": "Spiel gespeichert.\n",
+        "es": "Fichero Guardado.\n"
+    },
+    {
+        "id": "L_OPTIONS_347",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "ＯＫ\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "Aceptar\n"
+    },
+    {
+        "id": "L_OPTIONS_348",
+        "en": "An error occurred while\ntrying to save.\n",
+        "gb": "An error occurred while\ntrying to save.\n",
+        "jp": "セ\\h8284ブ\\h828dエラ\\h8284\\h82c8\\h83a8\n",
+        "it": "Errore durante il \nsalvataggio!\n",
+        "fr": "Une erreur est survenue\npendant la sauvegarde.\n",
+        "de": "Während des Speicherns ereignete\nsich ein Fehler.\n",
+        "es": "Ha aparecido un error\nal intentar guardar.\n"
+    },
+    {
+        "id": "L_OPTIONS_349",
+        "en": "Try Again\n",
+        "gb": "Try Again\n",
+        "jp": "もう１\\h83ac\n",
+        "it": "Riprova\n",
+        "fr": "Essayer encore\n",
+        "de": "Versuche es nochmals.\n",
+        "es": "Reintentar\n"
+    },
+    {
+        "id": "L_OPTIONS_350",
+        "en": "Save Elsewhere\n",
+        "gb": "Save Elsewhere\n",
+        "jp": "\\h83ffの\\h838a\\h83e7にセ\\h8284ブ\n",
+        "it": "Salva altrove\n",
+        "fr": "Sauver autre emplacement\n",
+        "de": "Anderen Speicherplatz wählen\n",
+        "es": "Guardar en otro Sitio\n"
+    },
+    {
+        "id": "L_OPTIONS_351",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "キャンセル\n",
+        "it": "Annulla\n",
+        "fr": "Annuler\n",
+        "de": "Abbrechen\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_OPTIONS_352",
+        "en": "An error occurred while\ntrying to load.\n",
+        "gb": "An error occurred while\ntrying to load.\n",
+        "jp": "ロ\\h8284ド\\h828dにエラ\\h8284が\n\\h82c8\\h83a8しました\n",
+        "it": "Errore durante il \ncaricamento!\n",
+        "fr": "Une erreur est survenue\npendant le chargement.\n",
+        "de": "Während des Ladens ereignete\nsich ein Fehler.\n",
+        "es": "Ha aparecido un error\nal intentar cargar.\n"
+    },
+    {
+        "id": "L_OPTIONS_353",
+        "en": "Try Again\n",
+        "gb": "Try Again\n",
+        "jp": "もう１\\h83ac\n",
+        "it": "Riprova\n",
+        "fr": "Essayer encore\n",
+        "de": "Wiederholen\n",
+        "es": "Reintentar\n"
+    },
+    {
+        "id": "L_OPTIONS_354",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "キャンセル\n",
+        "it": "Annulla\n",
+        "fr": "Annuler\n",
+        "de": "Abbrechen\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_OPTIONS_355",
+        "en": "Need Space For Head\n",
+        "gb": "Need Space For Head\n",
+        "jp": "ヘッド\\h8388のスペ\\h8284スが千\\h8383\n",
+        "it": "Serve spazio per la testa\n",
+        "fr": "Need Space For Head\n",
+        "de": "Es wird Platz für den Kopf benötigt.\n",
+        "es": "Necesitas Espacio para la Cabeza\n"
+    },
+    {
+        "id": "L_OPTIONS_356",
+        "en": "Choose a head to load over:\n",
+        "gb": "Choose a head to load over:\n",
+        "jp": "\\h87cb\\h86d0きするヘッドの\\h86c2\\h86c3：\n",
+        "it": "Scegli una testa da caricare:\n",
+        "fr": "Choose a head to load over:\n",
+        "de": "Wählen Sie einen Kopf, der überschrieben werden soll:\n",
+        "es": "Elige una cabeza para cargar encima:\n"
+    },
+    {
+        "id": "L_OPTIONS_357",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "ＯＫ\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "Aceptar\n"
+    },
+    {
+        "id": "L_OPTIONS_358",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "キャンセル\n",
+        "it": "Annulla\n",
+        "fr": "Cancel\n",
+        "de": "Abbrechen\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_OPTIONS_359",
+        "en": "Save\n",
+        "gb": "Save\n",
+        "jp": "セ\\h8284ブ\n",
+        "it": "Salva\n",
+        "fr": "Sauvegarde\n",
+        "de": "Speichern\n",
+        "es": "Guardar\n"
+    },
+    {
+        "id": "L_OPTIONS_360",
+        "en": "Would you like to save\nyour file elsewhere?\n",
+        "gb": "Would you like to save\nyour file elsewhere?\n",
+        "jp": "\\h83ffの\\h838a\\h83e7に\nセ\\h8284ブしますか？\n",
+        "it": "Vuoi salvare il file\naltrove?\n",
+        "fr": "Voulez-vous\nsauvegarder votre\nfichier ailleurs?\n",
+        "de": "Möchten Sie die Daten\nwoanders speichern?\n",
+        "es": "¿Quieres guardar tu\nfichero en otro sitio?\n"
+    },
+    {
+        "id": "L_OPTIONS_361",
+        "en": "Yes\n",
+        "gb": "Yes\n",
+        "jp": "ハイ\n",
+        "it": "Sì\n",
+        "fr": "Oui\n",
+        "de": "Ja\n",
+        "es": "Sí\n"
+    },
+    {
+        "id": "L_OPTIONS_362",
+        "en": "No\n",
+        "gb": "No\n",
+        "jp": "イイエ\n",
+        "it": "No\n",
+        "fr": "Non\n",
+        "de": "Nein\n",
+        "es": "No\n"
+    },
+    {
+        "id": "L_OPTIONS_363",
+        "en": "Please insert the Controller Pak containing your %s into any controller.\n",
+        "gb": "Please insert the Controller Pak containing your %s into any controller.\n",
+        "jp": "%sが\\h82f6った\\h86c5のパックを\\h85d1\\h82beして\\h87ccさい\n",
+        "it": "Inserisci il Controller Pak con il tuo %s in un Controller.\n",
+        "fr": "Insérez le\nController Pak\ncontenant: %s dans une manette.\n",
+        "de": "Bitte legen Sie das\nController Pak\nmit den %s ein.\n",
+        "es": "Por favor, inserta el Controller Pak que contiene tu %s en cualquier mando.\n"
+    },
+    {
+        "id": "L_OPTIONS_364",
+        "en": "Please insert the\nController Pak\nyou are saving to\ninto any controller.\n",
+        "gb": "Please insert the\nController Pak\nyou are saving to\ninto any controller.\n",
+        "jp": "セ\\h8284ブしたいコントロ\\h8284ラパックを\nどれかのコントロ\\h8284ラに\n\\h82f6れて\\h87ccさい\n",
+        "it": "Inserisci il\nController Pak\ndove vuoi salvare in un Controller.\n",
+        "fr": "Insérez le\nController Pak\nde vos sauvegardes\n dans une manette.\n",
+        "de": "Bitte legen Sie das\nController Pak ein,\nauf dem Sie speichern möchten.\n",
+        "es": "Por favor, inserta el\nController Pak\ndonde estés salvando\nen cualquier mando.\n"
+    },
+    {
+        "id": "L_OPTIONS_365",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "ＯＫ\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "Aceptar\n"
+    },
+    {
+        "id": "L_OPTIONS_366",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "キャンセル\n",
+        "it": "Annulla\n",
+        "fr": "Annuler\n",
+        "de": "Abbrechen\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_OPTIONS_367",
+        "en": "Select Location\n",
+        "gb": "Select Location\n",
+        "jp": "\\h838a\\h83e7\\h86c2\\h86c3\n",
+        "it": "Scegli dove!\n",
+        "fr": "Choix emplacement\n",
+        "de": "Speicherplatz wählen\n",
+        "es": "Elige Lugar\n"
+    },
+    {
+        "id": "L_OPTIONS_368",
+        "en": "Where\n",
+        "gb": "Where\n",
+        "jp": "\\h838a\\h83e7\n",
+        "it": "Dove?\n",
+        "fr": "Lieu\n",
+        "de": "Wo!\n",
+        "es": "Dónde\n"
+    },
+    {
+        "id": "L_OPTIONS_369",
+        "en": "Spaces\n",
+        "gb": "Spaces\n",
+        "jp": "\\h83c3き\n",
+        "it": "Spazi\n",
+        "fr": "Dispo\n",
+        "de": "Plätze\n",
+        "es": "Espacios\n"
+    },
+    {
+        "id": "L_OPTIONS_370",
+        "en": "Delete Files...\n",
+        "gb": "Delete Files...\n",
+        "jp": "ファイル\\h8391\\h83f6～\n",
+        "it": "Cancella file...\n",
+        "fr": "Effacer Fichiers...\n",
+        "de": "Löschen...\n",
+        "es": "Borrar Ficheros...\n"
+    },
+    {
+        "id": "L_OPTIONS_371",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "キャンセル\n",
+        "it": "Annulla\n",
+        "fr": "Annuler\n",
+        "de": "Abbrechen\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_OPTIONS_372",
+        "en": "Full",
+        "gb": "Full",
+        "jp": "\\h83bc",
+        "it": "Pieno",
+        "fr": "Saturé",
+        "de": "Voll",
+        "es": "Completo"
+    },
+    {
+        "id": "L_OPTIONS_373",
+        "en": "Copy File\n",
+        "gb": "Copy File\n",
+        "jp": "ファイルコピ\\h8284\n",
+        "it": "Copia file\n",
+        "fr": "Copier fichiers\n",
+        "de": "Spielstand kopieren\n",
+        "es": "Copiar Fichero\n"
+    },
+    {
+        "id": "L_OPTIONS_374",
+        "en": "Select a file to copy:\n",
+        "gb": "Select a file to copy:\n",
+        "jp": "コピ\\h8284ファイルの\\h86c2\\h86c3\n",
+        "it": "Scegli un file da copiare:\n",
+        "fr": "Choix fichier à copier:\n",
+        "de": "Wählen Sie den zu kopierenden Spielstand:\n",
+        "es": "Elige fichero a copiar:\n"
+    },
+    {
+        "id": "L_OPTIONS_375",
+        "en": "Press B Button to exit.\n",
+        "gb": "Press B Button to exit.\n",
+        "jp": "Ｂボタンで\\h82e3る\n",
+        "it": "Premi B per uscire.\n",
+        "fr": "Bouton B pour sortir.\n",
+        "de": "Abbruch\n",
+        "es": "Pulsa B para salir.\n"
+    },
+    {
+        "id": "L_OPTIONS_376",
+        "en": "Delete File\n",
+        "gb": "Delete File\n",
+        "jp": "ファイル\\h8391\\h83f6\n",
+        "it": "Cancella file\n",
+        "fr": "Effacer Fichier\n",
+        "de": "Spielstand löschen\n",
+        "es": "Borrar Fichero\n"
+    },
+    {
+        "id": "L_OPTIONS_377",
+        "en": "Select a file to delete:\n",
+        "gb": "Select a file to delete:\n",
+        "jp": "\\h8391\\h83f6ファイルの\\h86c2\\h86c3\n",
+        "it": "Che file cancellare?\n",
+        "fr": "Choix fichier à effacer:\n",
+        "de": "Welchen Spielstand:\n",
+        "es": "Elige fichero a borrar:\n"
+    },
+    {
+        "id": "L_OPTIONS_378",
+        "en": "Press B Button to exit.\n",
+        "gb": "Press B Button to exit.\n",
+        "jp": "Ｂボタンで\\h82e3る\n",
+        "it": "Premi B per uscire.\n",
+        "fr": "Bouton B pour sortir.\n",
+        "de": "Abbruch\n",
+        "es": "Pulsa B para salir.\n"
+    },
+    {
+        "id": "L_OPTIONS_379",
+        "en": "Warning\n",
+        "gb": "Warning\n",
+        "jp": "ー\\h8289\\h82f5ー\n",
+        "it": "Attenzione!\n",
+        "fr": "Attention\n",
+        "de": "ACHTUNG!\n",
+        "es": "Cuidado\n"
+    },
+    {
+        "id": "L_OPTIONS_380",
+        "en": "Are you sure you want\nto delete this file?\n",
+        "gb": "Are you sure you want\nto delete this file?\n",
+        "jp": "このファイルを\\h8391\\h83f6し\nてもよろしいですか？\n",
+        "it": "Sicuro di voler\ncancellare il file?\n",
+        "fr": "Etes-vous sûr de\nvouloir effacer?\n",
+        "de": "Möchten Sie diesen Spielstand\nwirklich löschen?\n",
+        "es": "¿Seguro que quieres\nborrar este fichero?\n"
+    },
+    {
+        "id": "L_OPTIONS_381",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "キャンセル\n",
+        "it": "Annulla\n",
+        "fr": "Annuler\n",
+        "de": "Abbrechen\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_OPTIONS_382",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "ＯＫ\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "Aceptar\n"
+    },
+    {
+        "id": "L_OPTIONS_383",
+        "en": "Delete Game Note\n",
+        "gb": "Delete Game Note\n",
+        "jp": "ゲ\\h8284ムノ\\h8284トの\\h8391\\h83f6\n",
+        "it": "Cancella dati gioco\n",
+        "fr": "Effacer Notes\n",
+        "de": "Spielerdaten löschen\n",
+        "es": "Borrar Nota de Juego\n"
+    },
+    {
+        "id": "L_OPTIONS_384",
+        "en": "Are you sure you\nwant to delete\nthis game note?\n",
+        "gb": "Are you sure you\nwant to delete\nthis game note?\n",
+        "jp": "\\h84b7\\h82d3にこの\nゲ\\h8284ムノ\\h8284トを\n\\h8391\\h83f6しますか？\n",
+        "it": "Sicuro di voler\ncancellare\nquesti dati?\n",
+        "fr": "Etes-vous sûr\nde vouloir effacer\nces notes?\n",
+        "de": "Möchten Sie diese Spielerdaten\nwirklich löschen?\n",
+        "es": "¿Estás seguro de\nque quieres borrar\nesta nota de juego?\n"
+    },
+    {
+        "id": "L_OPTIONS_385",
+        "en": "No\n",
+        "gb": "No\n",
+        "jp": "イイエ\n",
+        "it": "No\n",
+        "fr": "Non\n",
+        "de": "Nein\n",
+        "es": "No\n"
+    },
+    {
+        "id": "L_OPTIONS_386",
+        "en": "Yes\n",
+        "gb": "Yes\n",
+        "jp": "ハイ\n",
+        "it": "Sì\n",
+        "fr": "Oui\n",
+        "de": "Ja\n",
+        "es": "Sí\n"
+    },
+    {
+        "id": "L_OPTIONS_387",
+        "en": "Game Notes\n",
+        "gb": "Game Notes\n",
+        "jp": "ゲ\\h8284ムノ\\h8284ト\n",
+        "it": "Dati gioco\n",
+        "fr": "Notes de jeu\n",
+        "de": "Spielerdaten\n",
+        "es": "Notas de Juego\n"
+    },
+    {
+        "id": "L_OPTIONS_388",
+        "en": "Delete Game Notes:\n",
+        "gb": "Delete Game Notes:\n",
+        "jp": "ゲ\\h8284ムノ\\h8284トの\\h8391\\h83f6：\n",
+        "it": "Cancella dati:\n",
+        "fr": "Effacer notes de jeu:\n",
+        "de": "Spielerdaten löschen:\n",
+        "es": "Borra Notas de Juego:\n"
+    },
+    {
+        "id": "L_OPTIONS_389",
+        "en": "Note\n",
+        "gb": "Note\n",
+        "jp": "ノ\\h8284ト\n",
+        "it": "Dati\n",
+        "fr": "Note\n",
+        "de": "Daten\n",
+        "es": "Nota\n"
+    },
+    {
+        "id": "L_OPTIONS_390",
+        "en": "Pages\n",
+        "gb": "Pages\n",
+        "jp": "ペ\\h8284ジ\n",
+        "it": "Spazi\n",
+        "fr": "Pages\n",
+        "de": "Seiten\n",
+        "es": "Páginas\n"
+    },
+    {
+        "id": "L_OPTIONS_391",
+        "en": "Press the B Button to exit.\n",
+        "gb": "Press the B Button to exit.\n",
+        "jp": "Ｂボタンで\\h82e3る\n",
+        "it": "Premi B per uscire.\n",
+        "fr": "Bouton B pour sortir.\n",
+        "de": "Abbruch\n",
+        "es": "Pulsa B para salir.\n"
+    },
+    {
+        "id": "L_OPTIONS_392",
+        "en": "Empty\n",
+        "gb": "Empty\n",
+        "jp": "\\h83c3き\n",
+        "it": "Vuoto\n",
+        "fr": "Vide\n",
+        "de": "Frei\n",
+        "es": "Vacío\n"
+    },
+    {
+        "id": "L_OPTIONS_393",
+        "en": "--\n",
+        "gb": "--\n",
+        "jp": "--\n",
+        "it": "--\n",
+        "fr": "--\n",
+        "de": "--\n",
+        "es": "--\n"
+    },
+    {
+        "id": "L_OPTIONS_394",
+        "en": "Pages Free: \n",
+        "gb": "Pages Free: \n",
+        "jp": "\\h83c3きペ\\h8284ジ： \n",
+        "it": "Spazi vuoti: \n",
+        "fr": "Pages Libres: \n",
+        "de": "Freie Plätze: \n",
+        "es": "Páginas Libres: \n"
+    },
+    {
+        "id": "L_OPTIONS_395",
+        "en": "Pages Free: %d\n",
+        "gb": "Pages Free: %d\n",
+        "jp": "\\h83c3きペ\\h8284ジ： %d\n",
+        "it": "Spazi vuoti: %d\n",
+        "fr": "Pages libres: %d\n",
+        "de": "Freie Plätze: %d\n",
+        "es": "Páginas Libres: %d\n"
+    },
+    {
+        "id": "L_OPTIONS_396",
+        "en": "Pages Used: \n",
+        "gb": "Pages Used: \n",
+        "jp": "\\h82f9\\h8388ペ\\h8284ジ： \n",
+        "it": "Spazi pieni: \n",
+        "fr": "Pages utilisées: \n",
+        "de": "Belegte Plätze: \n",
+        "es": "Páginas Usadas: \n"
+    },
+    {
+        "id": "L_OPTIONS_397",
+        "en": "Pages Used: %d\n",
+        "gb": "Pages Used: %d\n",
+        "jp": "\\h82f9\\h8388ペ\\h8284ジ： %d\n",
+        "it": "Spazi pieni: %d\n",
+        "fr": "Pages utilisées: %d\n",
+        "de": "Belegte Plätze: %d\n",
+        "es": "Páginas Usadas: %d\n"
+    },
+    {
+        "id": "L_OPTIONS_398",
+        "en": "Perfect Dark note already exists\non this Controller Pak.\n",
+        "gb": "Perfect Dark note already exists\non this Controller Pak.\n",
+        "jp": "このゲ\\h8284ムのゲ\\h8284ムノ\\h8284トは\nこのコントロ\\h8284ラパックに\\h82e6に\\h84d6\\h85d8します\n",
+        "it": "Questo Controller Pak contiene già\nun gioco in memoria.\n",
+        "fr": "Déjà un fichier Perfect Dark.\n",
+        "de": "Es existiert bereits ein Speicherstand.\n",
+        "es": "Ya existe información de Perfect Dark\nen este Controller Pak.\n"
+    },
+    {
+        "id": "L_OPTIONS_399",
+        "en": "There is enough space for\nPerfect Dark note.\n",
+        "gb": "There is enough space for\nPerfect Dark note.\n",
+        "jp": "このゲ\\h8284ムのゲ\\h8284ムノ\\h8284トを\\h83dbるための\n\\h85c6\\h8398な\\h83c3きスペ\\h8284スがあります\n",
+        "it": "Spazio sufficiente per\ni dati di Perfect Dark.\n",
+        "fr": "Assez de place pour sauver Perfect Dark.\n",
+        "de": "Es steht ausreichend freier\nSpeicher zur Verfügung.\n",
+        "es": "Hay espacio suficiente para\nnotas de Perfect Dark.\n"
+    },
+    {
+        "id": "L_OPTIONS_400",
+        "en": "Controller Pak is too full to save note- 1 note\nand 28 pages required to save to Controller Pak.\n",
+        "gb": "Controller Pak is too full to save note- 1 note\nand 28 pages required to save to Controller Pak.\n",
+        "jp": "コントロ\\h8284ラパックがいっぱいです　セ\\h8284ブ\nするには１ノ\\h8284ト（２８ペ\\h8284ジ）が千\\h8383です\n",
+        "it": "Controller Pak pieno: impossibile salvare dati.\nServono 28 spazi per salvare sul Controller Pak.\n",
+        "fr": "Controller Pak trop plein pour sauver: 1 note\net 28 pages requises.\n",
+        "de": "Das Controller Pak ist zu voll, um das Spiel zu\nspeichern. Es werden 28 freie Plätze benötigt.\n",
+        "es": "El Controller Pak está demasiado lleno - 1 nota\ny 28 páginas son necesarias para guardar.\n"
+    },
+    {
+        "id": "L_OPTIONS_401",
+        "en": "Enter Agent Name\n",
+        "gb": "Enter Agent Name\n",
+        "jp": "\\h85bc\\h839dの\\h82f6\\h8282\n",
+        "it": "Digita nome agente\n",
+        "fr": "Entrer Nom Agent\n",
+        "de": "Geben Sie den Namen des Agenten ein!\n",
+        "es": "Introduce Nombre del Agente\n"
+    },
+    {
+        "id": "L_OPTIONS_402",
+        "en": "New...\n",
+        "gb": "New...\n",
+        "jp": "Ｎｅｗファイル～\n",
+        "it": "Nuovo...\n",
+        "fr": "Nouveau...\n",
+        "de": "Neu...\n",
+        "es": "Nuevo...\n"
+    },
+    {
+        "id": "L_OPTIONS_403",
+        "en": "New Agent...\n",
+        "gb": "New Agent...\n",
+        "jp": "Ｎｅｗエ\\h8284ジェント\n",
+        "it": "Nuovo agente...\n",
+        "fr": "Nouvel Agent...\n",
+        "de": "Neuer Agent...\n",
+        "es": "Nuevo Agente...\n"
+    },
+    {
+        "id": "L_OPTIONS_404",
+        "en": "New Recruit",
+        "gb": "New Recruit",
+        "jp": "\\h84d9\\h84b1エ\\h8284ジェント",
+        "it": "Nuova recluta",
+        "fr": "Nouvelle Recrue",
+        "de": "Neuer Rekrut",
+        "es": "Nuevo Recluta"
+    },
+    {
+        "id": "L_OPTIONS_405",
+        "en": "Mission Time:",
+        "gb": "Mission Time:",
+        "jp": "ミッションタイム：",
+        "it": "Tempo missione:",
+        "fr": "Temps Mission:",
+        "de": "Missionszeit:",
+        "es": "Tiempo de Misión:"
+    },
+    {
+        "id": "L_OPTIONS_406",
+        "en": "Challenge 1",
+        "gb": "Challenge 1",
+        "jp": "チャレンジ１",
+        "it": "Sfida 1",
+        "fr": "Challenge 1",
+        "de": "Challenge 1",
+        "es": "Desafío 1"
+    },
+    {
+        "id": "L_OPTIONS_407",
+        "en": "Challenge 2",
+        "gb": "Challenge 2",
+        "jp": "チャレンジ２",
+        "it": "Sfida 2",
+        "fr": "Challenge 2",
+        "de": "Challenge 2",
+        "es": "Desafío 2"
+    },
+    {
+        "id": "L_OPTIONS_408",
+        "en": "Challenge 3",
+        "gb": "Challenge 3",
+        "jp": "チャレンジ３",
+        "it": "Sfida 3",
+        "fr": "Challenge 3",
+        "de": "Challenge 3",
+        "es": "Desafío 3"
+    },
+    {
+        "id": "L_OPTIONS_409",
+        "en": "Challenge 4",
+        "gb": "Challenge 4",
+        "jp": "チャレンジ４",
+        "it": "Sfida 4",
+        "fr": "Challenge 4",
+        "de": "Challenge 4",
+        "es": "Desafío 4"
+    },
+    {
+        "id": "L_OPTIONS_410",
+        "en": "Challenge 5",
+        "gb": "Challenge 5",
+        "jp": "チャレンジ５",
+        "it": "Sfida 5",
+        "fr": "Challenge 5",
+        "de": "Challenge 5",
+        "es": "Desafío 5"
+    },
+    {
+        "id": "L_OPTIONS_411",
+        "en": "Challenge 6",
+        "gb": "Challenge 6",
+        "jp": "チャレンジ６",
+        "it": "Sfida 6",
+        "fr": "Challenge 6",
+        "de": "Challenge 6",
+        "es": "Desafío 6"
+    },
+    {
+        "id": "L_OPTIONS_412",
+        "en": "Challenge 7",
+        "gb": "Challenge 7",
+        "jp": "チャレンジ７",
+        "it": "Sfida 7",
+        "fr": "Challenge 7",
+        "de": "Challenge 7",
+        "es": "Desafío 7"
+    },
+    {
+        "id": "L_OPTIONS_413",
+        "en": "Challenge 8",
+        "gb": "Challenge 8",
+        "jp": "チャレンジ８",
+        "it": "Sfida 8",
+        "fr": "Challenge 8",
+        "de": "Challenge 8",
+        "es": "Desafío 8"
+    },
+    {
+        "id": "L_OPTIONS_414",
+        "en": "Challenge 9",
+        "gb": "Challenge 9",
+        "jp": "チャレンジ９",
+        "it": "Sfida 9",
+        "fr": "Challenge 9",
+        "de": "Challenge 9",
+        "es": "Desafío 9"
+    },
+    {
+        "id": "L_OPTIONS_415",
+        "en": "Challenge 10",
+        "gb": "Challenge 10",
+        "jp": "チャレンジ１０",
+        "it": "Sfida 10",
+        "fr": "Challenge 10",
+        "de": "Challenge 10",
+        "es": "Desafío 10"
+    },
+    {
+        "id": "L_OPTIONS_416",
+        "en": "Challenge 11",
+        "gb": "Challenge 11",
+        "jp": "チャレンジ１１",
+        "it": "Sfida 11",
+        "fr": "Challenge 11",
+        "de": "Challenge 11",
+        "es": "Desafío 11"
+    },
+    {
+        "id": "L_OPTIONS_417",
+        "en": "Challenge 12",
+        "gb": "Challenge 12",
+        "jp": "チャレンジ１２",
+        "it": "Sfida 12",
+        "fr": "Challenge 12",
+        "de": "Challenge 12",
+        "es": "Desafío 12"
+    },
+    {
+        "id": "L_OPTIONS_418",
+        "en": "Challenge 13",
+        "gb": "Challenge 13",
+        "jp": "チャレンジ１３",
+        "it": "Sfida 13",
+        "fr": "Challenge 13",
+        "de": "Challenge 13",
+        "es": "Desafío 13"
+    },
+    {
+        "id": "L_OPTIONS_419",
+        "en": "Challenge 14",
+        "gb": "Challenge 14",
+        "jp": "チャレンジ１４",
+        "it": "Sfida 14",
+        "fr": "Challenge 14",
+        "de": "Challenge 14",
+        "es": "Desafío 14"
+    },
+    {
+        "id": "L_OPTIONS_420",
+        "en": "Challenge 15",
+        "gb": "Challenge 15",
+        "jp": "チャレンジ１５",
+        "it": "Sfida 15",
+        "fr": "Challenge 15",
+        "de": "Challenge 15",
+        "es": "Desafío 15"
+    },
+    {
+        "id": "L_OPTIONS_421",
+        "en": "Challenge 16",
+        "gb": "Challenge 16",
+        "jp": "チャレンジ１６",
+        "it": "Sfida 16",
+        "fr": "Challenge 16",
+        "de": "Challenge 16",
+        "es": "Desafío 16"
+    },
+    {
+        "id": "L_OPTIONS_422",
+        "en": "Challenge 17",
+        "gb": "Challenge 17",
+        "jp": "チャレンジ１７",
+        "it": "Sfida 17",
+        "fr": "Challenge 17",
+        "de": "Challenge 17",
+        "es": "Desafío 17"
+    },
+    {
+        "id": "L_OPTIONS_423",
+        "en": "Challenge 18",
+        "gb": "Challenge 18",
+        "jp": "チャレンジ１８",
+        "it": "Sfida 18",
+        "fr": "Challenge 18",
+        "de": "Challenge 18",
+        "es": "Desafío 18"
+    },
+    {
+        "id": "L_OPTIONS_424",
+        "en": "Challenge 19",
+        "gb": "Challenge 19",
+        "jp": "チャレンジ１９",
+        "it": "Sfida 19",
+        "fr": "Challenge 19",
+        "de": "Challenge 19",
+        "es": "Desafío 19"
+    },
+    {
+        "id": "L_OPTIONS_425",
+        "en": "Challenge 20",
+        "gb": "Challenge 20",
+        "jp": "チャレンジ２０",
+        "it": "Sfida 20",
+        "fr": "Challenge 20",
+        "de": "Challenge 20",
+        "es": "Desafío 20"
+    },
+    {
+        "id": "L_OPTIONS_426",
+        "en": "Challenge 21",
+        "gb": "Challenge 21",
+        "jp": "チャレンジ２１",
+        "it": "Sfida 21",
+        "fr": "Challenge 21",
+        "de": "Challenge 21",
+        "es": "Desafío 21"
+    },
+    {
+        "id": "L_OPTIONS_427",
+        "en": "Challenge 22",
+        "gb": "Challenge 22",
+        "jp": "チャレンジ２２",
+        "it": "Sfida 22",
+        "fr": "Challenge 22",
+        "de": "Challenge 22",
+        "es": "Desafío 22"
+    },
+    {
+        "id": "L_OPTIONS_428",
+        "en": "Challenge 23",
+        "gb": "Challenge 23",
+        "jp": "チャレンジ２３",
+        "it": "Sfida 23",
+        "fr": "Challenge 23",
+        "de": "Challenge 23",
+        "es": "Desafío 23"
+    },
+    {
+        "id": "L_OPTIONS_429",
+        "en": "Challenge 24",
+        "gb": "Challenge 24",
+        "jp": "チャレンジ２４",
+        "it": "Sfida 24",
+        "fr": "Challenge 24",
+        "de": "Challenge 24",
+        "es": "Desafío 24"
+    },
+    {
+        "id": "L_OPTIONS_430",
+        "en": "Challenge 25",
+        "gb": "Challenge 25",
+        "jp": "チャレンジ２５",
+        "it": "Sfida 25",
+        "fr": "Challenge 25",
+        "de": "Challenge 25",
+        "es": "Desafío 25"
+    },
+    {
+        "id": "L_OPTIONS_431",
+        "en": "Challenge 26",
+        "gb": "Challenge 26",
+        "jp": "チャレンジ２６",
+        "it": "Sfida 26",
+        "fr": "Challenge 26",
+        "de": "Challenge 26",
+        "es": "Desafío 26"
+    },
+    {
+        "id": "L_OPTIONS_432",
+        "en": "Challenge 27",
+        "gb": "Challenge 27",
+        "jp": "チャレンジ２７",
+        "it": "Sfida 27",
+        "fr": "Challenge 27",
+        "de": "Challenge 27",
+        "es": "Desafío 27"
+    },
+    {
+        "id": "L_OPTIONS_433",
+        "en": "Challenge 28",
+        "gb": "Challenge 28",
+        "jp": "チャレンジ２８",
+        "it": "Sfida 28",
+        "fr": "Challenge 28",
+        "de": "Challenge 28",
+        "es": "Desafío 28"
+    },
+    {
+        "id": "L_OPTIONS_434",
+        "en": "Challenge 29",
+        "gb": "Challenge 29",
+        "jp": "チャレンジ２９",
+        "it": "Sfida 29",
+        "fr": "Challenge 29",
+        "de": "Challenge 29",
+        "es": "Desafío 29"
+    },
+    {
+        "id": "L_OPTIONS_435",
+        "en": "Challenge 30",
+        "gb": "Challenge 30",
+        "jp": "チャレンジ３０",
+        "it": "Sfida 30",
+        "fr": "Challenge 30",
+        "de": "Challenge 30",
+        "es": "Desafío 30"
+    },
+    {
+        "id": "L_OPTIONS_436",
+        "en": "Special\n",
+        "gb": "Special\n",
+        "jp": "スペシャル\n",
+        "it": "Speciale\n",
+        "fr": "Spécial\n",
+        "de": "Special\n",
+        "es": "Especial\n"
+    },
+    {
+        "id": "L_OPTIONS_437",
+        "en": "Intro\n",
+        "gb": "Intro\n",
+        "jp": "イントロ\n",
+        "it": "Prologo\n",
+        "fr": "Intro\n",
+        "de": "Intro\n",
+        "es": "Introducción\n"
+    },
+    {
+        "id": "L_OPTIONS_438",
+        "en": "Mission 1 - dataDyne Central\n",
+        "gb": "Mission 1 - dataDyne Central\n",
+        "jp": "ミッション１～デ\\h8284タダイン\\h84b7\\h8493\n",
+        "it": "Missione 1 - QG dataDyne\n",
+        "fr": "Mission 1 - Centre dataDyne\n",
+        "de": "Mission 1 - dataDyne Zentrale\n",
+        "es": "Misión 1 - Central dataDyne\n"
+    },
+    {
+        "id": "L_OPTIONS_439",
+        "en": "Mission 2 - Carrington Villa\n",
+        "gb": "Mission 2 - Carrington Villa\n",
+        "jp": "ミッション２～キャリントンの\\h83ff\\h85d6\n",
+        "it": "Missione 2 - Villa Carrington\n",
+        "fr": "Mission 2 - Villa Carrington\n",
+        "de": "Mission 2 - Carrington Villa\n",
+        "es": "Misión 2 - Villa Carrington\n"
+    },
+    {
+        "id": "L_OPTIONS_440",
+        "en": "Mission 3 - G5 Building\n",
+        "gb": "Mission 3 - G5 Building\n",
+        "jp": "ミッション３～Ｇ５ビル\n",
+        "it": "Missione 3 - Edificio G5\n",
+        "fr": "Mission 3 - Immeuble G5\n",
+        "de": "Mission 3 - G5-Building\n",
+        "es": "Misión 3 - Edificio G5\n"
+    },
+    {
+        "id": "L_OPTIONS_441",
+        "en": "Mission 4 - Area 51\n",
+        "gb": "Mission 4 - Area 51\n",
+        "jp": "ミッション４～エリア５１\n",
+        "it": "Missione 4 - Area 51\n",
+        "fr": "Mission 4 - Secteur 51\n",
+        "de": "Mission 4 - Area 51\n",
+        "es": "Misión 4 - Área 51\n"
+    },
+    {
+        "id": "L_OPTIONS_442",
+        "en": "Mission 5 - Air Force One\n",
+        "gb": "Mission 5 - Air Force One\n",
+        "jp": "ミッション５～\\h83c6\\h83c7\\h83c8\\h84b9\\h8388\\h83c2\n",
+        "it": "Missione 5 - Air Force One\n",
+        "fr": "Mission 5 - Air Force One\n",
+        "de": "Mission 5 - Air Force One\n",
+        "es": "Misión 5 - Air Force One\n"
+    },
+    {
+        "id": "L_OPTIONS_443",
+        "en": "Mission 6 - Pelagic II\n",
+        "gb": "Mission 6 - Pelagic II\n",
+        "jp": "ミッション６～ペラジック２\n",
+        "it": "Missione 6 - Pelagic II\n",
+        "fr": "Mission 6 - Pelagic II\n",
+        "de": "Mission 6 - Pelagic II\n",
+        "es": "Misión 6 - Pelagic II\n"
+    },
+    {
+        "id": "L_OPTIONS_444",
+        "en": "Mission 7 - Carrington Institute\n",
+        "gb": "Mission 7 - Carrington Institute\n",
+        "jp": "ミッション７～キャリントン\\h82a3\\h82a4ビル\n",
+        "it": "Missione 7 - Carrington Institute\n",
+        "fr": "Mission 7 - Institut Carrington\n",
+        "de": "Mission 7 - Carrington Institut\n",
+        "es": "Misión 7 - Instituto Carrington\n"
+    },
+    {
+        "id": "L_OPTIONS_445",
+        "en": "Mission 8 - Skedar Attack Ship\n",
+        "gb": "Mission 8 - Skedar Attack Ship\n",
+        "jp": "ミッション８～スケダ\\h8284\\h86ea\\h86eb\\h83f9\n",
+        "it": "Missione 8 - Astronave d'assalto Skedar\n",
+        "fr": "Mission 8 - Croiseur Skedar\n",
+        "de": "Mission 8 - Skedar Schiff\n",
+        "es": "Misión 8 - Nave de Ataque Skedar\n"
+    },
+    {
+        "id": "L_OPTIONS_446",
+        "en": "Mission 9 - Skedar Ruins\n",
+        "gb": "Mission 9 - Skedar Ruins\n",
+        "jp": "ミッション９～スケダ\\h8284の\\h8685\\h8686\n",
+        "it": "Missione 9 - Rovine Skedar\n",
+        "fr": "Mission 9 - Ruines Skedars\n",
+        "de": "Mission 9 - Skedar Ruinen\n",
+        "es": "Misión 9 - Ruinas Skedar\n"
+    },
+    {
+        "id": "L_OPTIONS_447",
+        "en": "Finale\n",
+        "gb": "Finale\n",
+        "jp": "ファイナル\n",
+        "it": "Finale\n",
+        "fr": "Finale\n",
+        "de": "Finale\n",
+        "es": "Final\n"
+    },
+    {
+        "id": "L_OPTIONS_448",
+        "en": "Play All\n",
+        "gb": "Play All\n",
+        "jp": "\\h8385てをプレイ\n",
+        "it": "Mostra tutto!\n",
+        "fr": "Jouer Tous\n",
+        "de": "Zeig mir alles!\n",
+        "es": "Mostrar Todo\n"
+    },
+    {
+        "id": "L_OPTIONS_449",
+        "en": "Intro\n",
+        "gb": "Intro\n",
+        "jp": "オ\\h8284プニング\n",
+        "it": "Prologo\n",
+        "fr": "Intro\n",
+        "de": "Intro\n",
+        "es": "Introducción\n"
+    },
+    {
+        "id": "L_OPTIONS_450",
+        "en": "1:1 Intro - Enter The Dark\n",
+        "gb": "1:1 Intro - Enter The Dark\n",
+        "jp": "1-1　\\h86f1：\\h8689への\\h84d8\\h82c4\n",
+        "it": "1:1 Prologo - Al buio\n",
+        "fr": "1:1 Intro - Opération Dark\n",
+        "de": "1:1 Intro - Die Dunkelheit\n",
+        "es": "Intro 1:1 - En la Oscuridad\n"
+    },
+    {
+        "id": "L_OPTIONS_451",
+        "en": "1:1 Outro - Quick Descent\n",
+        "gb": "1:1 Outro - Quick Descent\n",
+        "jp": "1-1　板：\\h838d\\h85e9\\h87cc\n",
+        "it": "1:1 Epilogo - Discesa rapida\n",
+        "fr": "1:1 Conclusion - Descente rapide\n",
+        "de": "1:1 Outro - Ein rascher Abstieg\n",
+        "es": "Final 1:1 - Descenso Rápido\n"
+    },
+    {
+        "id": "L_OPTIONS_452",
+        "en": "1:2 Intro - Going Down\n",
+        "gb": "1:2 Intro - Going Down\n",
+        "jp": "1-2　\\h86f1：\\h8298\\h87ccへ\n",
+        "it": "1:2 Prologo - Avanti!\n",
+        "fr": "1:2 Intro - En bas\n",
+        "de": "1:2 Intro - Abwärts!\n",
+        "es": "Intro 1:2 - Bajando\n"
+    },
+    {
+        "id": "L_OPTIONS_453",
+        "en": "1:2 Outro - Meet The Doctor\n",
+        "gb": "1:2 Outro - Meet The Doctor\n",
+        "jp": "1-2　板：\\h829f\\h82a4い\n",
+        "it": "1:2 Epilogo - L'incontro\n",
+        "fr": "1:2 Conclusion - Bonjour docteur\n",
+        "de": "1:2 Outro - Das Treffen\n",
+        "es": "Final 1:2 - El Doctor\n"
+    },
+    {
+        "id": "L_OPTIONS_454",
+        "en": "1:3 Intro - Lights Out\n",
+        "gb": "1:3 Intro - Lights Out\n",
+        "jp": "1-3　\\h86f1：\\h8391\\h8392\n",
+        "it": "1:3 Prologo - A luci spente\n",
+        "fr": "1:3 Intro - Bonne nuit\n",
+        "de": "1:3 Intro - Licht aus\n",
+        "es": "Intro 1:3 - Luces Fuera\n"
+    },
+    {
+        "id": "L_OPTIONS_455",
+        "en": "1:3 Outro - Going Somewhere?\n",
+        "gb": "1:3 Outro - Going Somewhere?\n",
+        "jp": "1-3　板：「どこにお\\h829fかけかしら？」\n",
+        "it": "1:3 Epilogo - Dove si va?\n",
+        "fr": "1:3 Conclusion - Tu vas où, toi?\n",
+        "de": "1:3 Outro - Wohin geht's?\n",
+        "es": "Final 1:3 - ¿Dónde vas?\n"
+    },
+    {
+        "id": "L_OPTIONS_456",
+        "en": "2:1 Intro - Negotiate This!\n",
+        "gb": "2:1 Intro - Negotiate This!\n",
+        "jp": "2-1　\\h86f1：オトリ\\h83db\\h8291\n",
+        "it": "2:1 Prologo - Il negoziato\n",
+        "fr": "2:1 Intro - Négocie-moi ça!\n",
+        "de": "2:1 Intro - Verhandle DARÜBER!\n",
+        "es": "Intro 2:1 - ¡Negocia esto!\n"
+    },
+    {
+        "id": "L_OPTIONS_457",
+        "en": "2:1 Intro 2 - Life On The Line\n",
+        "gb": "2:1 Intro 2 - Life On The Line\n",
+        "jp": "2-1　\\h86f1２：\\h85e2\\h839dのともし\\h86f2\n",
+        "it": "2:1 Prologo 2 - Sul filo del rasoio\n",
+        "fr": "2:1 Intro 2 - A un fil\n",
+        "de": "2:1 Intro 2 - Am seidenen Faden\n",
+        "es": "Intro 2 2:1 - Vida en Línea\n"
+    },
+    {
+        "id": "L_OPTIONS_458",
+        "en": "2:1 Outro - Carrington Rescued\n",
+        "gb": "2:1 Outro - Carrington Rescued\n",
+        "jp": "2-1　板：キャリントンの\\h82a8\\h829f\n",
+        "it": "2:1 Epilogo - Il salvataggio\n",
+        "fr": "2:1 Conclusion - Carrington sauvé\n",
+        "de": "2:1 Outro - Carringtons Rettung\n",
+        "es": "Final 2:1 - Carrington Rescatado\n"
+    },
+    {
+        "id": "L_OPTIONS_459",
+        "en": "3:1 Intro - Dark Alley\n",
+        "gb": "3:1 Intro - Dark Alley\n",
+        "jp": "3-1　\\h86f1：\\h859dき\\h82b8\\h8298\n",
+        "it": "3:1 Prologo - Vicoli bui\n",
+        "fr": "3:1 Intro - Sombre allée\n",
+        "de": "3:1 Intro - Dunkle Gassen\n",
+        "es": "Intro 3:1 - Callejón Oscuro\n"
+    },
+    {
+        "id": "L_OPTIONS_460",
+        "en": "3:1 Outro - G5 Penetrated\n",
+        "gb": "3:1 Outro - G5 Penetrated\n",
+        "jp": "3-1　板：Ｇ５ビルへ\n",
+        "it": "3:1 Epilogo - Irruzione G5\n",
+        "fr": "3:1 Conclusion - G5 investi\n",
+        "de": "3:1 Outro - Das Eindringen\n",
+        "es": "Final 3:1 - Entrando al G5\n"
+    },
+    {
+        "id": "L_OPTIONS_461",
+        "en": "3:2 Intro - Guns 'n' Poses\n",
+        "gb": "3:2 Intro - Guns 'n' Poses\n",
+        "jp": "3-2　\\h86f1：スパイクロ\\h8284ク\n",
+        "it": "3:2 Prologo - La perfezione\n",
+        "fr": "3:2 Intro - Guns 'n' Poses\n",
+        "de": "3:2 Intro - Die Perfektion\n",
+        "es": "Intro 3:2 - Armas y Poses\n"
+    },
+    {
+        "id": "L_OPTIONS_462",
+        "en": "3:2 Special - Conspiracy\n",
+        "gb": "3:2 Special - Conspiracy\n",
+        "jp": "3-2　\\h84ad：ミ\\h8284ティング\n",
+        "it": "3:2 Speciale - La cospirazione\n",
+        "fr": "3:2 Spécial - Conspiration\n",
+        "de": "3:2 Special - Die Verschwörung\n",
+        "es": "Especial 3:2 - Conspiración\n"
+    },
+    {
+        "id": "L_OPTIONS_463",
+        "en": "3:2 Outro - Fire Escape\n",
+        "gb": "3:2 Outro - Fire Escape\n",
+        "jp": "3-2　板：\\h83b8\\h83b9\\h8280\n",
+        "it": "3:2 Epilogo - Uscita antincendio\n",
+        "fr": "3:2 Conclusion - Sortie de secours\n",
+        "de": "3:2 Outro - Über die Feuerleiter\n",
+        "es": "Final 3:2 - Salida de Incendios\n"
+    },
+    {
+        "id": "L_OPTIONS_464",
+        "en": "4:1 Intro - Video Nasty\n",
+        "gb": "4:1 Intro - Video Nasty\n",
+        "jp": "4-1　\\h86f1：\\h83f4\\h83f5な\\h83a1\\h83a2\n",
+        "it": "4:1 Prologo - Interferenze\n",
+        "fr": "4:1 Intro - Sale vidéo\n",
+        "de": "4:1 Intro - Video-Gemeinheiten\n",
+        "es": "Intro 4:1 - Vídeos\n"
+    },
+    {
+        "id": "L_OPTIONS_465",
+        "en": "4:1 Outro - Loose Ends\n",
+        "gb": "4:1 Outro - Loose Ends\n",
+        "jp": "4-1　板：\\h84ce\\h83e0\n",
+        "it": "4:1 Epilogo - Lasciamo perdere...\n",
+        "fr": "4:1 Conclusion - A négliger\n",
+        "de": "4:1 Outro - Lose Enden\n",
+        "es": "Final 4:1 - Sin Salida\n"
+    },
+    {
+        "id": "L_OPTIONS_466",
+        "en": "4:2 Intro - Pearls Of Wisdom\n",
+        "gb": "4:2 Intro - Pearls Of Wisdom\n",
+        "jp": "4-2　\\h86f1：キュ\\h8284ト？なコンテナ\n",
+        "it": "4:2 Prologo - Perle di saggezza\n",
+        "fr": "4:2 Intro - Perles de sagesse\n",
+        "de": "4:2 Intro - Perlen der Weisheit\n",
+        "es": "Intro 4:2 - Perlas de Sabiduría\n"
+    },
+    {
+        "id": "L_OPTIONS_467",
+        "en": "4:2 Outro - Under The Knife\n",
+        "gb": "4:2 Outro - Under The Knife\n",
+        "jp": "4-2　板：\\h82a8\\h829f\n",
+        "it": "4:2 Epilogo - Sotto i ferri\n",
+        "fr": "4:2 Conclusion - Sous la lame\n",
+        "de": "4:2 Outro - Unterm Messer\n",
+        "es": "Final 4:2 - A Cuchillo\n"
+    },
+    {
+        "id": "L_OPTIONS_468",
+        "en": "4:3 Intro - Gas!\n",
+        "gb": "4:3 Intro - Gas!\n",
+        "jp": "4-3　\\h86f1：ガス！\n",
+        "it": "4:3 Prologo - Gas!\n",
+        "fr": "4:3 Intro - Gaz!\n",
+        "de": "4:3 Intro - Gas!\n",
+        "es": "Intro 4:3 - ¡Gas!\n"
+    },
+    {
+        "id": "L_OPTIONS_469",
+        "en": "4:3 Special - Elvis Wakes Up\n",
+        "gb": "4:3 Special - Elvis Wakes Up\n",
+        "jp": "4-3　\\h84ad：エルビスの\\h8497\\h82e1め\n",
+        "it": "4:3 Speciale - Il risveglio\n",
+        "fr": "4:3 Spécial - Réveil d'Elvis\n",
+        "de": "4:3 Special - Das Erwachen\n",
+        "es": "Especial 4:3 - Elvis Despierta\n"
+    },
+    {
+        "id": "L_OPTIONS_470",
+        "en": "4:3 Outro - Escape\n",
+        "gb": "4:3 Outro - Escape\n",
+        "jp": "4-3　板：\\h829e\\h829f\n",
+        "it": "4:3 Epilogo - La fuga\n",
+        "fr": "4:3 Conclusion - Fuite\n",
+        "de": "4:3 Outro - Die Flucht\n",
+        "es": "Final 4:3 - Escape\n"
+    },
+    {
+        "id": "L_OPTIONS_471",
+        "en": "5:1 Intro - High Altitude\n",
+        "gb": "5:1 Intro - High Altitude\n",
+        "jp": "5-1　\\h86f1：\\h86f3\\h8498の\\h8383\\h86f4\n",
+        "it": "5:1 Prologo - Ad alta quota\n",
+        "fr": "5:1 Intro - Haute altitude\n",
+        "de": "5:1 Intro - Über den Wolken\n",
+        "es": "Intro 5:1 - Gran Altitud\n"
+    },
+    {
+        "id": "L_OPTIONS_472",
+        "en": "5:1 Outro - Takeoff\n",
+        "gb": "5:1 Outro - Takeoff\n",
+        "jp": "5-1　板：\\h84cc\\h84cd\n",
+        "it": "5:1 Epilogo - Il decollo\n",
+        "fr": "5:1 Conclusion - Décollage\n",
+        "de": "5:1 Outro - Der Abflug\n",
+        "es": "Final 5:1 - Despegue\n"
+    },
+    {
+        "id": "L_OPTIONS_473",
+        "en": "5:2 Intro - Last Chance\n",
+        "gb": "5:2 Intro - Last Chance\n",
+        "jp": "5-2　\\h86f1：ラストチャンス\n",
+        "it": "5:2 Prologo - L'ultima possibilità\n",
+        "fr": "5:2 Intro - Dernière chance\n",
+        "de": "5:2 Intro - Die letzte Chance\n",
+        "es": "Intro 5:2 - Última Oportunidad\n"
+    },
+    {
+        "id": "L_OPTIONS_474",
+        "en": "5:2 Special - Docking\n",
+        "gb": "5:2 Special - Docking\n",
+        "jp": "5-2　\\h84ad：ドッキング\n",
+        "it": "5:2 Speciale - L'attracco\n",
+        "fr": "5:2 Spécial - Arrimage\n",
+        "de": "5:2 Special - Das Andockmanöver\n",
+        "es": "Especial 5:2 - Atraque\n"
+    },
+    {
+        "id": "L_OPTIONS_475",
+        "en": "5:2 Outro - Out Of Options\n",
+        "gb": "5:2 Outro - Out Of Options\n",
+        "jp": "5-2　板：\\h828c\\h86b7\\h82a0\\h82a2\n",
+        "it": "5:2 Epilogo - L'inevitabile\n",
+        "fr": "5:2 Conclusion - Plus de choix\n",
+        "de": "5:2 Outro - Keine Wahl\n",
+        "es": "Final 5:2 - Sin Opciones\n"
+    },
+    {
+        "id": "L_OPTIONS_476",
+        "en": "5:3 Intro - Red Horizons\n",
+        "gb": "5:3 Intro - Red Horizons\n",
+        "jp": "5-3　\\h86f1：\\h86f5けた\\h86f3\\h86f6\n",
+        "it": "5:3 Prologo - Orizzonte rosso\n",
+        "fr": "5:3 Intro - Horizons rouges\n",
+        "de": "5:3 Intro - Roter Horizont\n",
+        "es": "Intro 5:3 - Horizontes Rojos\n"
+    },
+    {
+        "id": "L_OPTIONS_477",
+        "en": "5:3 Outro - Blonde Freak\n",
+        "gb": "5:3 Outro - Blonde Freak\n",
+        "jp": "5-3　板：ブロンドの\\h84be\\h83b0\n",
+        "it": "5:3 Epilogo - Il fanatico biondo\n",
+        "fr": "5:3 Conclusion - Monstre blond\n",
+        "de": "5:3 Outro - Der blonde Freak\n",
+        "es": "Final 5:3 - Maníaco Rubio\n"
+    },
+    {
+        "id": "L_OPTIONS_478",
+        "en": "6:1 Intro - Sneak On Board\n",
+        "gb": "6:1 Intro - Sneak On Board\n",
+        "jp": "6-1　\\h86f1：ふたりのダイバ\\h8284\n",
+        "it": "6:1 Prologo - Chi va là?\n",
+        "fr": "6:1 Intro - Infiltration\n",
+        "de": "6:1 Intro - Wer schleicht da?\n",
+        "es": "Intro 6:1 - Sube a Bordo\n"
+    },
+    {
+        "id": "L_OPTIONS_479",
+        "en": "6:1 Outro - Descent Into The Depths\n",
+        "gb": "6:1 Outro - Descent Into The Depths\n",
+        "jp": "6-1　板：\\h8489\\h848aへ\n",
+        "it": "6:1 Epilogo - Negli abissi\n",
+        "fr": "6:1 Conclusion - Profondeurs\n",
+        "de": "6:1 Outro - In der Tiefe\n",
+        "es": "Final 6:1 - Descendiendo\n"
+    },
+    {
+        "id": "L_OPTIONS_480",
+        "en": "6:2 Intro - Deeper Inside\n",
+        "gb": "6:2 Intro - Deeper Inside\n",
+        "jp": "6-2　\\h86f1：\\h848a\\h84f8にて\n",
+        "it": "6:2 Prologo - Ancora più giù\n",
+        "fr": "6:2 Intro - Plus profond\n",
+        "de": "6:2 Intro - Noch tiefer\n",
+        "es": "Intro 6:2 - Más Profundo\n"
+    },
+    {
+        "id": "L_OPTIONS_481",
+        "en": "6:2 Special - Virus!\n",
+        "gb": "6:2 Special - Virus!\n",
+        "jp": "6-2　\\h84ad：\\h83ffれ\n",
+        "it": "6:2 Speciale - Virus!\n",
+        "fr": "6:2 Spécial - Virus!\n",
+        "de": "6:2 Special - Virus!\n",
+        "es": "Especial 6:2 - ¡Virus!\n"
+    },
+    {
+        "id": "L_OPTIONS_482",
+        "en": "6:2 Outro - Pulling Out\n",
+        "gb": "6:2 Outro - Pulling Out\n",
+        "jp": "6-2　板：\\h8391\\h86f7\n",
+        "it": "6:2 Epilogo - La risalita\n",
+        "fr": "6:2 Conclusion - En arrière!\n",
+        "de": "6:2 Outro - Der Weg nach oben\n",
+        "es": "Final 6:2 - Saliendo\n"
+    },
+    {
+        "id": "L_OPTIONS_483",
+        "en": "7:1 Intro - Victory Salute\n",
+        "gb": "7:1 Intro - Victory Salute\n",
+        "jp": "7-1　\\h86f1：パ\\h8284ティ\\h839dの～\n",
+        "it": "7:1 Prologo - L'ambasciata\n",
+        "fr": "7:1 Intro - Salut de victoire\n",
+        "de": "7:1 Intro - Salut\n",
+        "es": "Intro 7:1 - Saludo Victorioso\n"
+    },
+    {
+        "id": "L_OPTIONS_484",
+        "en": "7:1 Outro - Dash For Freedom\n",
+        "gb": "7:1 Outro - Dash For Freedom\n",
+        "jp": "7-1　板：\\h8389げて！\n",
+        "it": "7:1 Epilogo - Fuga per la libertà\n",
+        "fr": "7:1 Conclusion - Course liberté\n",
+        "de": "7:1 Outro - In die Freiheit\n",
+        "es": "Final 7:1 - Ayudando a Escapar\n"
+    },
+    {
+        "id": "L_OPTIONS_485",
+        "en": "8:1 Intro - Snatched!\n",
+        "gb": "8:1 Intro - Snatched!\n",
+        "jp": "8-1　\\h86f1：\\h85dbらわれの～\n",
+        "it": "8:1 Prologo - Prigioniera\n",
+        "fr": "8:1 Intro - Piqué!\n",
+        "de": "8:1 Intro - Entführt\n",
+        "es": "Intro 8:1 - ¡Atrapada!\n"
+    },
+    {
+        "id": "L_OPTIONS_486",
+        "en": "8:1 Outro - Heading For Trouble\n",
+        "gb": "8:1 Outro - Heading For Trouble\n",
+        "jp": "8-1　板：\\h87c9き\\h86f8へ\n",
+        "it": "8:1 Epilogo - Guai in vista\n",
+        "fr": "8:1 Conclusion - Des ennuis\n",
+        "de": "8:1 Outro - Ärger voraus\n",
+        "es": "Final 8:1 - Buscando Problemas\n"
+    },
+    {
+        "id": "L_OPTIONS_487",
+        "en": "9:1 Intro - Air Of Calm\n",
+        "gb": "9:1 Intro - Air Of Calm\n",
+        "jp": "9-1　\\h86f1：\\h86f9の\\h839dの～\n",
+        "it": "9:1 Prologo - Venti di guerra\n",
+        "fr": "9:1 Intro - Air calme\n",
+        "de": "9:1 Intro - Ruhe vor dem Sturm\n",
+        "es": "Intro 9:1 - Aire en Calma\n"
+    },
+    {
+        "id": "L_OPTIONS_488",
+        "en": "9:1 Outro - Gotcha!\n",
+        "gb": "9:1 Outro - Gotcha!\n",
+        "jp": "9-1　板：ジョアンナ\n",
+        "it": "9:1 Epilogo - Fatto!\n",
+        "fr": "9:1 Conclusion - J'te tiens!\n",
+        "de": "9:1 Outro - Hab dich!\n",
+        "es": "Final 9:1 - ¡Te pillé!\n"
+    },
+    {
+        "id": "L_OPTIONS_489",
+        "en": "End Sequence\n",
+        "gb": "End Sequence\n",
+        "jp": "エンディング\n",
+        "it": "Fine sequenza\n",
+        "fr": "Fin de séquence\n",
+        "de": "Endsequenz\n",
+        "es": "Secuencia Final\n"
+    },
+    {
+        "id": "L_OPTIONS_490",
+        "en": "Cinema\n",
+        "gb": "Cinema\n",
+        "jp": "シネマ\n",
+        "it": "Cinema\n",
+        "fr": "Cinéma\n",
+        "de": "Cinema\n",
+        "es": "Películas\n"
+    },
+    {
+        "id": "L_OPTIONS_491",
+        "en": "cloak %d\n",
+        "gb": "cloak %d\n",
+        "jp": "クロ\\h8284ク%d\n",
+        "it": "Mimesi %d\n",
+        "fr": "Occult. %d\n",
+        "de": "Tarnung %d\n",
+        "es": "Oculto %d\n"
+    },
+    {
+        "id": "L_OPTIONS_492",
+        "en": "Pick Target\n",
+        "gb": "Pick Target\n",
+        "jp": "タ\\h8284ゲット\\h86c2\\h86c3\n",
+        "it": "Scegli obiettivo\n",
+        "fr": "Choisir Cible\n",
+        "de": "Zielauswahl\n",
+        "es": "Escoge Objetivo\n"
+    },
+    {
+        "id": "L_OPTIONS_493",
+        "en": "Kills Score\n",
+        "gb": "Kills Score\n",
+        "jp": "\\h8297を\\h82d9すと\\h83a5\\h83ce\n",
+        "it": "Uccisioni\n",
+        "fr": "Score de Frags\n",
+        "de": "Hits\n",
+        "es": "Puntuación\n"
+    },
+    {
+        "id": "L_OPTIONS_494",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_OPTIONS_495",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    }
+]

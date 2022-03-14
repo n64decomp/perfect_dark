@@ -1,0 +1,2890 @@
+[
+    {
+        "id": "L_MPWEAPONS_000",
+        "en": "%shas the\nData Uplink\n",
+        "gb": "%shas the\nData Uplink\n",
+        "jp": "%s は\nデ-タリンカを\n\\h82ddに\\h82f6れた\n",
+        "it": "%sha il\nConnettore Dati\n",
+        "fr": "%s obtient:\nRécepteur\n",
+        "de": "%shat den\nData Uplink\n",
+        "es": "%stiene el\nC. de Datos\n"
+    },
+    {
+        "id": "L_MPWEAPONS_001",
+        "en": "%shas the\nBriefcase\n",
+        "gb": "%shas the\nBriefcase\n",
+        "jp": "%s は\nアタッシュを\n\\h82ddに\\h82f6れた\n",
+        "it": "%sha la\ncartella\n",
+        "fr": "%s obtient:\nMallette\n",
+        "de": "%shat den\nAktenkoffer\n",
+        "es": "%stiene el\nMaletín\n"
+    },
+    {
+        "id": "L_MPWEAPONS_002",
+        "en": "%shas the %s Briefcase\n",
+        "gb": "%shas the %s Briefcase\n",
+        "jp": "%s は\n%s の\nアタッシュを\n\\h82ddに\\h82f6れた\n",
+        "it": "%sha la cartella di %s\n",
+        "fr": "%s obtient:\nMallette %s\n",
+        "de": "%shat den Koffer von %s\n",
+        "es": "%stiene el Maletín de %s\n"
+    },
+    {
+        "id": "L_MPWEAPONS_003",
+        "en": "%shas our\nBriefcase\n",
+        "gb": "%shas our\nBriefcase\n",
+        "jp": "%s は\n\\h82e4\\h8285の\nアタッシュを\n\\h82ddに\\h82f6れた\n",
+        "it": "%sha la nostra\ncartella\n",
+        "fr": "%sa notre\nMallette\n",
+        "de": "%shat unseren\nAktenkoffer\n",
+        "es": "%stiene nuestro Maletín\n"
+    },
+    {
+        "id": "L_MPWEAPONS_004",
+        "en": "Got the %s Briefcase\n",
+        "gb": "Got the %s Briefcase\n",
+        "jp": "%s の\nアタッシュを\n\\h82ddに\\h82f6れた\n",
+        "it": "Presa la cartella di %s\n",
+        "fr": "Mallette %s",
+        "de": "Aktenkoffer von %s geschnappt\n",
+        "es": "Atrapaste el Maletín\nde %s\n"
+    },
+    {
+        "id": "L_MPWEAPONS_005",
+        "en": "You captured\nthe %s Briefcase\n",
+        "gb": "You captured\nthe %s Briefcase\n",
+        "jp": "%s の\nアタッシュで\n３ポイント！\n",
+        "it": "Hai preso la\ncartella di %s\n",
+        "fr": "Vous capturez:\nMallette %s\n",
+        "de": "Sie haben den\nAktenkoffer von %s geschnappt.\n",
+        "es": "Has capturado el\nMaletín de %s\n"
+    },
+    {
+        "id": "L_MPWEAPONS_006",
+        "en": "%scaptured our\nBriefcase\n",
+        "gb": "%scaptured our\nBriefcase\n",
+        "jp": "%s は\n\\h82e4\\h8285の\nアタッシュで\n３ポイント！\n",
+        "it": "%s ha preso la nostra\ncartella\n",
+        "fr": "%s capture notre\nMallette\n",
+        "de": "%shat unseren\nAktenkoffer geschnappt.\n",
+        "es": "%sha capturado\nnuestro Maletín\n"
+    },
+    {
+        "id": "L_MPWEAPONS_007",
+        "en": "%scaptured\nthe %s Briefcase\n",
+        "gb": "%scaptured\nthe %s Briefcase\n",
+        "jp": "%s は\n%s の\nアタッシュで\n３ポイント！\n",
+        "it": "%s ha preso la\ncartella di %s\n",
+        "fr": "%s capture:\nMallette %s\n",
+        "de": "%shat den\nAktenkoffer von %s geschnappt.\n",
+        "es": "%sha capturado\nel Maletín de %s\n"
+    },
+    {
+        "id": "L_MPWEAPONS_008",
+        "en": "Have a point for living!\n",
+        "gb": "Have a point for living!\n",
+        "jp": "\\h83a8\\h84d6ポイント！\n",
+        "it": "Un punto per la resistenza!\n",
+        "fr": "Un point pour survivre!\n",
+        "de": "Wieviel ist Ihnen das Leben wert?\n",
+        "es": "¡Un punto por sobrevivir!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_009",
+        "en": "You're supposed to look\n",
+        "gb": "You're supposed to look\n",
+        "jp": "\\h84b3\\h82d4のオニを\n",
+        "it": "Dovresti aver cura\n",
+        "fr": "Il faut s'occuper de\n",
+        "de": "Sie sollten Ihr Team nicht\n",
+        "es": "¡Se supone que debes\n"
+    },
+    {
+        "id": "L_MPWEAPONS_010",
+        "en": "after your friends!\n",
+        "gb": "after your friends!\n",
+        "jp": "\\h82d9してしまった！\n",
+        "it": "dei tuoi amici!\n",
+        "fr": "vos amis!\n",
+        "de": "angreifen!\n",
+        "es": "proteger a tus amigos!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_011",
+        "en": "Well done!\n",
+        "gb": "Well done!\n",
+        "jp": "ヨシ！\n",
+        "it": "Ben fatto!\n",
+        "fr": "Bien joué!\n",
+        "de": "Gut gemacht!\n",
+        "es": "¡Bien hecho!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_012",
+        "en": "You popped a cap!\n",
+        "gb": "You popped a cap!\n",
+        "jp": "オニを\\h82d9した！\n",
+        "it": "Libero!\n",
+        "fr": "Vous décapsulez!\n",
+        "de": "Einer weniger!\n",
+        "es": "¡Tú la llevas!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_013",
+        "en": "Have 2 Points...\n",
+        "gb": "Have 2 Points...\n",
+        "jp": "２ポイント\\h86ca\\h83a5\n",
+        "it": "Due punti ...\n",
+        "fr": "2 Points...\n",
+        "de": "Ist Ihnen das Leben noch immer etwas wert?\n",
+        "es": "Obtienes 2 Puntos...\n"
+    },
+    {
+        "id": "L_MPWEAPONS_014",
+        "en": "You are the victim!\n",
+        "gb": "You are the victim!\n",
+        "jp": "あなたがオニ\n",
+        "it": "Sei la vittima!\n",
+        "fr": "Vous êtes la victime!\n",
+        "de": "Sie sind das Opfer!\n",
+        "es": "¡Eres la víctima!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_015",
+        "en": "Protect %s!\n",
+        "gb": "Protect %s!\n",
+        "jp": "%s\nを\\h82acれ！\n",
+        "it": "Proteggi %s!\n",
+        "fr": "Protégez %s!\n",
+        "de": "Beschützen Sie %s!\n",
+        "es": "¡Protege a\n%s!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_016",
+        "en": "Get %s!\n",
+        "gb": "Get %s!\n",
+        "jp": "%s\nを\\h82d9せ！\n",
+        "it": "Prendi %s!\n",
+        "fr": "Abattez %s!\n",
+        "de": "Schnappen Sie %s!\n",
+        "es": "¡Coge a\n%s!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_017",
+        "en": "Download successful.\n",
+        "gb": "Download successful.\n",
+        "jp": "ハッキング\\h83b1\\h84b6\n",
+        "it": "Scaricamento avvenuto.\n",
+        "fr": "Téléchargement réussi.\n",
+        "de": "Download erfolgreich.\n",
+        "es": "Descarga completada.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_018",
+        "en": "Connection broken.\n",
+        "gb": "Connection broken.\n",
+        "jp": "\\h85d1\\h82beが\\h82c5\\h8496れました\n",
+        "it": "Connessione fallita.\n",
+        "fr": "Connexion perdue.\n",
+        "de": "Verbindung abgebrochen.\n",
+        "es": "Conexión perdida.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_019",
+        "en": "Starting download.\n",
+        "gb": "Starting download.\n",
+        "jp": "ハッキング\\h84d7\\h84d8\n",
+        "it": "Avvio scaricamento.\n",
+        "fr": "Début téléchargement.\n",
+        "de": "Download gestartet.\n",
+        "es": "Comenzando descarga.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_020",
+        "en": "You need to use the Data Uplink.\n",
+        "gb": "You need to use the Data Uplink.\n",
+        "jp": "デ\\h8284タリンカが千\\h8383\n",
+        "it": "Devi usare il Connettore Dati.\n",
+        "fr": "Il faut utiliser le récepteur.\n",
+        "de": "Sie müssen den Data Uplink einsetzen.\n",
+        "es": "Necesitas usar el Conector de Datos.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_021",
+        "en": "King of\nthe Hill!\n",
+        "gb": "King of\nthe Hill!\n",
+        "jp": "\\h85ff\\h839bり\\h82f3\\h82f4！\n",
+        "it": "Re \ndel colle!\n",
+        "fr": "Roi de\nla zone!\n",
+        "de": "Herr des\nHügels!\n",
+        "es": "¡Rey de\nla Colina!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_022",
+        "en": "We have\nthe Hill!\n",
+        "gb": "We have\nthe Hill!\n",
+        "jp": "\\h85ff\\h839bり\\h84d7\\h84d8！\n",
+        "it": "Abbiamo\nil colle!\n",
+        "fr": "Vous avez\nla zone!\n",
+        "de": "Der Hügel\nist unser!\n",
+        "es": "¡Tenemos\nla Colina!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_023",
+        "en": "%shas captured\nthe Hill!\n",
+        "gb": "%shas captured\nthe Hill!\n",
+        "jp": "%s が\n\\h85ff\\h839bり\\h84d7\\h84d8！\n",
+        "it": "%sha preso\nil colle!\n",
+        "fr": "%sa capturé\nla zone!\n",
+        "de": "%shat den Hügel\nerobert!\n",
+        "es": "¡%sha capturado\nla Colina!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_024",
+        "en": "%ds/Point\n",
+        "gb": "%ds/Point\n",
+        "jp": "%d\\h86db１\\h83ce\n",
+        "it": "%ds/punto\n",
+        "fr": "%ds/Point\n",
+        "de": "%ds/Punkt\n",
+        "es": "%ds/Punto\n"
+    },
+    {
+        "id": "L_MPWEAPONS_025",
+        "en": "1 Point!\n",
+        "gb": "1 Point!\n",
+        "jp": "１ポイント！\n",
+        "it": "Un punto!\n",
+        "fr": "1 Point!\n",
+        "de": "1 Punkt!\n",
+        "es": "¡1 Punto!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_026",
+        "en": "No Shield\n",
+        "gb": "No Shield\n",
+        "jp": "シ\\h8284ルド\\h83bcし\n",
+        "it": "Niente scudo\n",
+        "fr": "Pas de bouclier\n",
+        "de": "Kein Schild\n",
+        "es": "Sin Escudo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_027",
+        "en": "Automatics\n",
+        "gb": "Automatics\n",
+        "jp": "オ\\h8284トマチック\n",
+        "it": "Automatica\n",
+        "fr": "Automatiques\n",
+        "de": "Auto\n",
+        "es": "Automáticas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_028",
+        "en": "Rocket Launcher\n",
+        "gb": "Rocket Launcher\n",
+        "jp": "ロケットランチャ\n",
+        "it": "Lanciamissili\n",
+        "fr": "L-roquettes\n",
+        "de": "Raketenw.\n",
+        "es": "Lanzacohetes\n"
+    },
+    {
+        "id": "L_MPWEAPONS_029",
+        "en": "Simulants\n",
+        "gb": "Simulants\n",
+        "jp": "シミュラント\n",
+        "it": "Replicanti\n",
+        "fr": "Simulants\n",
+        "de": "Simulanten\n",
+        "es": "Simulantes\n"
+    },
+    {
+        "id": "L_MPWEAPONS_030",
+        "en": "King of the Hill\n",
+        "gb": "King of the Hill\n",
+        "jp": "\\h85ff\\h839bり\n",
+        "it": "Re del Colle\n",
+        "fr": "Roi de la zone\n",
+        "de": "Herr des Hügels\n",
+        "es": "Rey de la Colina\n"
+    },
+    {
+        "id": "L_MPWEAPONS_031",
+        "en": "Complex FarSight\n",
+        "gb": "Complex FarSight\n",
+        "jp": "\\h8680\\h8681　ファ\\h8284サイト\n",
+        "it": "TeleVista complessa\n",
+        "fr": "Complexe FarSight\n",
+        "de": "Weitsicht\n",
+        "es": "Complejo FarSight\n"
+    },
+    {
+        "id": "L_MPWEAPONS_032",
+        "en": "Hold the Briefcase\n",
+        "gb": "Hold the Briefcase\n",
+        "jp": "アタッシュケ\\h8284ス１\n",
+        "it": "Prendi la cartella\n",
+        "fr": "Tenir la mallette\n",
+        "de": "Der Koffer 1\n",
+        "es": "Mantén el Maletín\n"
+    },
+    {
+        "id": "L_MPWEAPONS_033",
+        "en": "Pistol One-Hit Kills\n",
+        "gb": "Pistol One-Hit Kills\n",
+        "jp": "ピストル　\\h8283\\h82d7千\\h8591\n",
+        "it": "Un-colpo-e-sei-morto\n",
+        "fr": "Pistolets meurtriers\n",
+        "de": "Höchste Vorsicht\n",
+        "es": "Mata de Un Tiro\n"
+    },
+    {
+        "id": "L_MPWEAPONS_034",
+        "en": "Capture the Case\n",
+        "gb": "Capture the Case\n",
+        "jp": "アタッシュケ\\h8284ス２\n",
+        "it": "Prendi la cassa\n",
+        "fr": "Capturer la mallette\n",
+        "de": "Der Koffer 2\n",
+        "es": "Captura el Maletín\n"
+    },
+    {
+        "id": "L_MPWEAPONS_035",
+        "en": "Cloaking\n",
+        "gb": "Cloaking\n",
+        "jp": "スパイクロ\\h8284ク\n",
+        "it": "Mimesi\n",
+        "fr": "Occultage\n",
+        "de": "Tarnung\n",
+        "es": "Ocultación\n"
+    },
+    {
+        "id": "L_MPWEAPONS_036",
+        "en": "Temple Explosives\n",
+        "gb": "Temple Explosives\n",
+        "jp": "\\h8682\\h8683　\\h85a3\\h82c8\\h8684\n",
+        "it": "Esplosivi tempio\n",
+        "fr": "Temple Explosifs\n",
+        "de": "Sprengs.\n",
+        "es": "Explosivos Templo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_037",
+        "en": "Slayer\n",
+        "gb": "Slayer\n",
+        "jp": "スレイヤ\\h8284\n",
+        "it": "Killer\n",
+        "fr": "Slayer\n",
+        "de": "Slayer\n",
+        "es": "Asesino\n"
+    },
+    {
+        "id": "L_MPWEAPONS_038",
+        "en": "Tranquilizer\n",
+        "gb": "Tranquilizer\n",
+        "jp": "トランキライザ\n",
+        "it": "Sedativo\n",
+        "fr": "Tranquil.\n",
+        "de": "B-Gewehr\n",
+        "es": "Tranquilizante\n"
+    },
+    {
+        "id": "L_MPWEAPONS_039",
+        "en": "Slow Motion\n",
+        "gb": "Slow Motion\n",
+        "jp": "スロ\\h8284モ\\h8284ション\n",
+        "it": "Al rallentatore\n",
+        "fr": "Ralenti\n",
+        "de": "Zeitlupe\n",
+        "es": "Cámara Lenta\n"
+    },
+    {
+        "id": "L_MPWEAPONS_040",
+        "en": "Press START\n",
+        "gb": "Press START\n",
+        "jp": "スタ\\h8284トボタン\n",
+        "it": "Premi START\n",
+        "fr": "Appuyer sur START\n",
+        "de": "Drücken Sie START\n",
+        "es": "Pulsa START\n"
+    },
+    {
+        "id": "L_MPWEAPONS_041",
+        "en": "Paused\n",
+        "gb": "Paused\n",
+        "jp": "ポ\\h8284ズ\\h828d\n",
+        "it": "In pausa\n",
+        "fr": "En pause\n",
+        "de": "Pause\n",
+        "es": "Pausa\n"
+    },
+    {
+        "id": "L_MPWEAPONS_042",
+        "en": "Custom\n",
+        "gb": "Custom\n",
+        "jp": "カスタム\n",
+        "it": "Personale\n",
+        "fr": "Custom\n",
+        "de": "individuell\n",
+        "es": "Personalizado\n"
+    },
+    {
+        "id": "L_MPWEAPONS_043",
+        "en": "Random\n",
+        "gb": "Random\n",
+        "jp": "ランダム\n",
+        "it": "A caso\n",
+        "fr": "Hasard\n",
+        "de": "zufällig\n",
+        "es": "Aleatorio\n"
+    },
+    {
+        "id": "L_MPWEAPONS_044",
+        "en": "Random Five\n",
+        "gb": "Random Five\n",
+        "jp": "ランダム５\n",
+        "it": "5 a caso\n",
+        "fr": "Hasard 5\n",
+        "de": "Fünf Zuf.\n",
+        "es": "Cinco al Azar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_045",
+        "en": "Close Combat\n",
+        "gb": "Close Combat\n",
+        "jp": "\\h85d1\\h82bc\\h8291\n",
+        "it": "Lotta\n",
+        "fr": "Corps à corps\n",
+        "de": "Nahkampf\n",
+        "es": "Mano a Mano\n"
+    },
+    {
+        "id": "L_MPWEAPONS_046",
+        "en": "Proximity Mine\n",
+        "gb": "Proximity Mine\n",
+        "jp": "センサ\\h8284\\h85a3\\h85a4\n",
+        "it": "Mina pross.\n",
+        "fr": "Mine proximité\n",
+        "de": "A-Mine\n",
+        "es": "Minas Proxim.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_047",
+        "en": "Rocket Launcher\n",
+        "gb": "Rocket Launcher\n",
+        "jp": "Ｒランチャ\n",
+        "it": "Lanciamissili\n",
+        "fr": "L-roquettes\n",
+        "de": "Raketenw.\n",
+        "es": "Lanzacohetes\n"
+    },
+    {
+        "id": "L_MPWEAPONS_048",
+        "en": "Grenade Launcher\n",
+        "gb": "Grenade Launcher\n",
+        "jp": "Ｇランチャ\n",
+        "it": "Lanciagran.\n",
+        "fr": "Lance-grenades\n",
+        "de": "Granatw.\n",
+        "es": "Lanzagranadas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_049",
+        "en": "Explosive\n",
+        "gb": "Explosive\n",
+        "jp": "\\h85a3\\h82c8\\h8684\n",
+        "it": "Esplosivo\n",
+        "fr": "Explosif\n",
+        "de": "Sprengs.\n",
+        "es": "Explosivos\n"
+    },
+    {
+        "id": "L_MPWEAPONS_050",
+        "en": "Golden Magnum\n",
+        "gb": "Golden Magnum\n",
+        "jp": "\\h86dc電\\h82e0\n",
+        "it": "Magnum Oro\n",
+        "fr": "Magnum d'Or\n",
+        "de": "G-Magnum\n",
+        "es": "Magnum Dorada\n"
+    },
+    {
+        "id": "L_MPWEAPONS_051",
+        "en": "Heavy\n",
+        "gb": "Heavy\n",
+        "jp": "ヘビ\\h8284\\h8684\n",
+        "it": "Pesante\n",
+        "fr": "Lourd\n",
+        "de": "Schwere\n",
+        "es": "Armas Pesadas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_052",
+        "en": "Tranquilizer\n",
+        "gb": "Tranquilizer\n",
+        "jp": "\\h878b\\h86a9\\h878c\n",
+        "it": "Sedativo\n",
+        "fr": "Tranquil.\n",
+        "de": "Bet.-Gewehr\n",
+        "es": "Tranquilizantes\n"
+    },
+    {
+        "id": "L_MPWEAPONS_053",
+        "en": "FarSight\n",
+        "gb": "FarSight\n",
+        "jp": "ファ\\h8284サイト\n",
+        "it": "TeleVista\n",
+        "fr": "FarSight\n",
+        "de": "Fernsicht\n",
+        "es": "FarSight\n"
+    },
+    {
+        "id": "L_MPWEAPONS_054",
+        "en": "Power\n",
+        "gb": "Power\n",
+        "jp": "パワ\\h8284\\h8684\n",
+        "it": "Power\n",
+        "fr": "Puissant\n",
+        "de": "Power\n",
+        "es": "Fuerza Bruta\n"
+    },
+    {
+        "id": "L_MPWEAPONS_055",
+        "en": "Automatics\n",
+        "gb": "Automatics\n",
+        "jp": "\\h83c2\\h829d\\h82e0\\h8684\n",
+        "it": "Automatico\n",
+        "fr": "Automatiques\n",
+        "de": "Autom.\n",
+        "es": "Automáticas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_056",
+        "en": "Pistols\n",
+        "gb": "Pistols\n",
+        "jp": "ピストル\\h8684\n",
+        "it": "Pistole\n",
+        "fr": "Pistolets\n",
+        "de": "Pistolen\n",
+        "es": "Pistolas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_057",
+        "en": "Test\n",
+        "gb": "Test\n",
+        "jp": "テスト\n",
+        "it": "Prova\n",
+        "fr": "Test\n",
+        "de": "Test\n",
+        "es": "Test\n"
+    },
+    {
+        "id": "L_MPWEAPONS_058",
+        "en": "4mb Test\n",
+        "gb": "4mb Test\n",
+        "jp": "４Ｍテスト\n",
+        "it": "Prova 4mb\n",
+        "fr": "Test 4mb\n",
+        "de": "4 MB-Test\n",
+        "es": "Test 4mb\n"
+    },
+    {
+        "id": "L_MPWEAPONS_059",
+        "en": "Nothing\n",
+        "gb": "Nothing\n",
+        "jp": "\\h83bcし\n",
+        "it": "Niente\n",
+        "fr": "Rien\n",
+        "de": "Nichts\n",
+        "es": "Nada\n"
+    },
+    {
+        "id": "L_MPWEAPONS_060",
+        "en": "Shield\n",
+        "gb": "Shield\n",
+        "jp": "シ\\h8284ルド\n",
+        "it": "Scudo\n",
+        "fr": "Bouclier\n",
+        "de": "Schild\n",
+        "es": "Escudo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_061",
+        "en": "Disabled\n",
+        "gb": "Disabled\n",
+        "jp": "\\h83bc\\h83dc\n",
+        "it": "Disattivato\n",
+        "fr": "Annulé\n",
+        "de": "Nicht belegt\n",
+        "es": "Desactivado\n"
+    },
+    {
+        "id": "L_MPWEAPONS_062",
+        "en": "Objectives Complete\n",
+        "gb": "Objectives Complete\n",
+        "jp": "\\h82b5\\h82b6\\h82f3\\h82f4\n",
+        "it": "Obiettivi raggiunti\n",
+        "fr": "Objectifs remplis\n",
+        "de": "Alle Ziele erreicht\n",
+        "es": "Objetivos Completados\n"
+    },
+    {
+        "id": "L_MPWEAPONS_063",
+        "en": "Unknown\n",
+        "gb": "Unknown\n",
+        "jp": "\\h82a0\\h82ec\n",
+        "it": "Sconosciuto\n",
+        "fr": "Inconnu\n",
+        "de": "Unbekannt\n",
+        "es": "Desconocido\n"
+    },
+    {
+        "id": "L_MPWEAPONS_064",
+        "en": "Missing\n",
+        "gb": "Missing\n",
+        "jp": "\\h82da\\h82d4\\h82a0\\h82ec\n",
+        "it": "Mancante\n",
+        "fr": "Manquant\n",
+        "de": "Vermisst\n",
+        "es": "Desaparecido\n"
+    },
+    {
+        "id": "L_MPWEAPONS_065",
+        "en": "Damaged Controller Pak\n",
+        "gb": "Damaged Controller Pak\n",
+        "jp": "パック\\h82a0\\h8694\n",
+        "it": "Controller Pak difettoso\n",
+        "fr": "Controller Pak inséré\n",
+        "de": "Contr.-Pak beschädigt\n",
+        "es": "Controller Pak Dañado\n"
+    },
+    {
+        "id": "L_MPWEAPONS_066",
+        "en": "is damaged or\n",
+        "gb": "is damaged or\n",
+        "jp": "は\\h82cfれているか\\h85a0しく\n",
+        "it": "È danneggiato o \n",
+        "fr": "endommagé ou\n",
+        "de": "ist beschädigt oder\n",
+        "es": "está dañado o\n"
+    },
+    {
+        "id": "L_MPWEAPONS_067",
+        "en": "inserted incorrectly.\n",
+        "gb": "inserted incorrectly.\n",
+        "jp": "\\h85d1\\h82beされていません\n",
+        "it": "inserito male.\n",
+        "fr": "mal branché.\n",
+        "de": "nicht korrekt eingelegt.\n",
+        "es": "mal insertado.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_068",
+        "en": "Attempt Repair\n",
+        "gb": "Attempt Repair\n",
+        "jp": "\\h86dd\\h8484を\\h85e4みる\n",
+        "it": "Sistemalo\n",
+        "fr": "Tenter répar.\n",
+        "de": "Schaden beheben\n",
+        "es": "Intentar Reparar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_069",
+        "en": "Retry\n",
+        "gb": "Retry\n",
+        "jp": "もう\\h8283\\h83ac\n",
+        "it": "Riprova\n",
+        "fr": "Recommencer\n",
+        "de": "Nochmals versuchen\n",
+        "es": "Reintentar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_070",
+        "en": "Continue without using\nthe Controller Pak\n",
+        "gb": "Continue without using\nthe Controller Pak\n",
+        "jp": "コントロ\\h8284ラパックを\n\\h82f9わずに\\h82beける\n",
+        "it": "Continua senza\nController Pak\n",
+        "fr": "Ne pas utiliser\n Controller Pak\n",
+        "de": "Ohne Controller Pak \nfortfahren\n",
+        "es": "Continuar sin usar\nel Controller Pak\n"
+    },
+    {
+        "id": "L_MPWEAPONS_071",
+        "en": "Full Controller Pak\n",
+        "gb": "Full Controller Pak\n",
+        "jp": "パックフル\n",
+        "it": "Controller Pak pieno\n",
+        "fr": "Controller Pak inséré\n",
+        "de": "Controller Pak ist voll\n",
+        "es": "Controller Pak Lleno\n"
+    },
+    {
+        "id": "L_MPWEAPONS_072",
+        "en": "is too full to save\nnote - 1 note and 28\npages required to save.\n",
+        "gb": "is too full to save\nnote - 1 note and 28\npages required to save.\n",
+        "jp": "は、いっぱいです。\nセ\\h8284ブするには\n１ノ\\h8284ト・２８ペ\\h8284ジ\nが千\\h8383です。\n",
+        "it": "Memoria esaurita,\nimpossibile salvare.\n",
+        "fr": "Espace libre insuf.:\n1 note et 28 pages\nrequises.\n",
+        "de": "ist zu voll, um zu \nspeichern - Es werden 28 \nfreie Seiten benötigt.\n",
+        "es": "Está demasiado lleno. Se\nnecesitan 1 nota y 28\npáginas para guardar.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_073",
+        "en": "Enter the Controller\nPak Menu to free some\nspace (hold START\nwhile powering up.)\n",
+        "gb": "Enter the Controller\nPak Menu to free some\nspace (hold START\nwhile powering up.)\n",
+        "jp": "",
+        "it": "Accedi al menu\nController Pak per\nliberare spazio - premi\nSTART all'avvio del gioco.\n",
+        "fr": "Utiliser le menu\npour faire de la place\n(maintenir START\nen allumant.)\n",
+        "de": "Schaffe im Controller Pak \nMenü ausreichend Platz. \n(Halte während des Einschaltens \nSTART gedrückt.)\n",
+        "es": "Entra en el Menú del\nController Pak para liberar\nespacio (pulsa  START\nmientras enciendes.)\n"
+    },
+    {
+        "id": "L_MPWEAPONS_074",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "ＯＫ\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "OK\n"
+    },
+    {
+        "id": "L_MPWEAPONS_075",
+        "en": "----------\n",
+        "gb": "----------\n",
+        "jp": "ーーーーーーーー\n",
+        "it": "----------\n",
+        "fr": "----------\n",
+        "de": "----------\n",
+        "es": "----------\n"
+    },
+    {
+        "id": "L_MPWEAPONS_076",
+        "en": "Hurricane Fists\n",
+        "gb": "Hurricane Fists\n",
+        "jp": "\\h83de\\h82ffパンチ\n",
+        "it": "Pugni uragano\n",
+        "fr": "Poings du dragon\n",
+        "de": "Hurricane-Faust\n",
+        "es": "Puñetazos Huracán\n"
+    },
+    {
+        "id": "L_MPWEAPONS_077",
+        "en": "Cloaking Device\n",
+        "gb": "Cloaking Device\n",
+        "jp": "スパイクロ\\h8284ク\n",
+        "it": "Dispositivo mimetico\n",
+        "fr": "Occulteur\n",
+        "de": "Tarnkappe\n",
+        "es": "Dispositivo de Ocultación\n"
+    },
+    {
+        "id": "L_MPWEAPONS_078",
+        "en": "Invincible\n",
+        "gb": "Invincible\n",
+        "jp": "\\h83bc\\h8297モ\\h8284ド\n",
+        "it": "Invulnerabile\n",
+        "fr": "Invincible\n",
+        "de": "Unbesiegbar\n",
+        "es": "Invencible\n"
+    },
+    {
+        "id": "L_MPWEAPONS_079",
+        "en": "All Guns in Solo\n",
+        "gb": "All Guns in Solo\n",
+        "jp": "オ\\h8284ル\\h82cc\\h84bd（ソロ）\n",
+        "it": "Tutte le armi per missioni individuali\n",
+        "fr": "Toutes les armes en solo\n",
+        "de": "Alle Waffen verfügbar\n",
+        "es": "Todas las Armas en Solo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_080",
+        "en": "Unlimited Ammo\n",
+        "gb": "Unlimited Ammo\n",
+        "jp": "\\h85a4\\h83bc\\h828c\\h84f9\n",
+        "it": "Munizioni illimitate\n",
+        "fr": "Munitions infinies\n",
+        "de": "Unbegrenzte Munition\n",
+        "es": "Munición Ilimitada\n"
+    },
+    {
+        "id": "L_MPWEAPONS_081",
+        "en": "Unlimited Ammo, No Reloads\n",
+        "gb": "Unlimited Ammo, No Reloads\n",
+        "jp": "\\h85a4\\h83bc\\h828c\\h84f9　リロ\\h8284ド\\h82a0\\h8383\n",
+        "it": "Munizioni illimitate, senza ricarica\n",
+        "fr": "Munit. inf. Pas de recharg.\n",
+        "de": "Unbegrenzte Munition, kein Nachladen\n",
+        "es": "Munición Ilimitada sin Recargas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_082",
+        "en": "Slo-mo Single Player\n",
+        "gb": "Slo-mo Single Player\n",
+        "jp": "スロ\\h8284モ\\h8284ション（ソロ）\n",
+        "it": "Un giocatore al rallentatore \n",
+        "fr": "Ralenti\n",
+        "de": "Zeitlupen-Modus\n",
+        "es": "Un jugador Cámara Lenta\n"
+    },
+    {
+        "id": "L_MPWEAPONS_083",
+        "en": "DK Mode\n",
+        "gb": "DK Mode\n",
+        "jp": "ＤＫモ\\h8284ド\n",
+        "it": "Modalità DK\n",
+        "fr": "Mode DK\n",
+        "de": "DK-Modus\n",
+        "es": "Modo DK\n"
+    },
+    {
+        "id": "L_MPWEAPONS_084",
+        "en": "Trent's Magnum\n",
+        "gb": "Trent's Magnum\n",
+        "jp": "トレントのマグナム\\h82e0\n",
+        "it": "Magnum di Trent\n",
+        "fr": "Magnum de Trent\n",
+        "de": "Trents Magnum\n",
+        "es": "Magnum de Trent\n"
+    },
+    {
+        "id": "L_MPWEAPONS_085",
+        "en": "FarSight\n",
+        "gb": "FarSight\n",
+        "jp": "ファ\\h8284サイト\n",
+        "it": "TeleVista\n",
+        "fr": "FarSight\n",
+        "de": "Fernsicht\n",
+        "es": "FarSight\n"
+    },
+    {
+        "id": "L_MPWEAPONS_086",
+        "en": "Small Jo\n",
+        "gb": "Small Jo\n",
+        "jp": "タイニ\\h8284ジョアンナ\n",
+        "it": "Jo Piccola\n",
+        "fr": "Petite Joanna\n",
+        "de": "Mini-Jo\n",
+        "es": "Mini-Joanna\n"
+    },
+    {
+        "id": "L_MPWEAPONS_087",
+        "en": "Small Characters\n",
+        "gb": "Small Characters\n",
+        "jp": "\\h8297スモ\\h8284ル\n",
+        "it": "Personaggi piccoli\n",
+        "fr": "Petits personnages\n",
+        "de": "Kleine Charaktere\n",
+        "es": "Mini-Personajes\n"
+    },
+    {
+        "id": "L_MPWEAPONS_088",
+        "en": "Enemy Shields\n",
+        "gb": "Enemy Shields\n",
+        "jp": "シ\\h8284ルド\\h82cd\\h838e（\\h8297）\n",
+        "it": "Scudi nemici\n",
+        "fr": "Boucliers Ennemis\n",
+        "de": "Feinde mit Schild\n",
+        "es": "Escudo de Enemigos\n"
+    },
+    {
+        "id": "L_MPWEAPONS_089",
+        "en": "Jo Shield\n",
+        "gb": "Jo Shield\n",
+        "jp": "シ\\h8284ルド\\h82cd\\h838e\n",
+        "it": "Scudo di Jo\n",
+        "fr": "Joanna bouclier\n",
+        "de": "Jo mit Schild\n",
+        "es": "Escudo de Joanna\n"
+    },
+    {
+        "id": "L_MPWEAPONS_090",
+        "en": "Super Shield\n",
+        "gb": "Super Shield\n",
+        "jp": "ス\\h8284パ\\h8284シ\\h8284ルド\n",
+        "it": "SuperScudo\n",
+        "fr": "Super bouclier\n",
+        "de": "Super-Schild\n",
+        "es": "Súper Escudo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_091",
+        "en": "Classic Sight\n",
+        "gb": "Classic Sight\n",
+        "jp": "クラシック\\h82eb\\h84a5\n",
+        "it": "Vista classica\n",
+        "fr": "Visée classique\n",
+        "de": "Klassische Sicht\n",
+        "es": "Mirilla Clásica\n"
+    },
+    {
+        "id": "L_MPWEAPONS_092",
+        "en": "Team Heads Only\n",
+        "gb": "Team Heads Only\n",
+        "jp": "\\h84d7\\h82c8スタッフのみ\n",
+        "it": "Solo capi squadra\n",
+        "fr": "Têtes équipe seulement\n",
+        "de": "Nur Köpfe des Teams\n",
+        "es": "Sólo Jefes de Equipo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_093",
+        "en": "Play as Elvis\n",
+        "gb": "Play as Elvis\n",
+        "jp": "エルビスでプレイ\n",
+        "it": "Gioca come Elvis\n",
+        "fr": "Jouer Elvis\n",
+        "de": "Elvis\n",
+        "es": "Jugar como Elvis\n"
+    },
+    {
+        "id": "L_MPWEAPONS_094",
+        "en": "Enemy Rockets\n",
+        "gb": "Enemy Rockets\n",
+        "jp": "\\h8385\\h8297Ｒランチャ\n",
+        "it": "Missili nemici\n",
+        "fr": "Ennemis roquettes\n",
+        "de": "Feinde mit Raketen\n",
+        "es": "Cohetes Enemigos\n"
+    },
+    {
+        "id": "L_MPWEAPONS_095",
+        "en": "Unlimited Ammo - Laptop Sentry Gun\n",
+        "gb": "Unlimited Ammo - Laptop Sentry Gun\n",
+        "jp": "ラップトップ\\h8397\\h82c4\\h83c2\\h82e0　\\h85a4\\h83bc\\h828c\\h84f9\n",
+        "it": "Munizioni illimitate - Pistola Laptop Sentinella\n",
+        "fr": "Munit. inf. Laptop sentinelle\n",
+        "de": "Unbegr. Muni für Selbstschuss-Anlage\n",
+        "es": "Munición Ilimitada - Arma PC Centinela\n"
+    },
+    {
+        "id": "L_MPWEAPONS_096",
+        "en": "Marquis of Queensbury Rules\n",
+        "gb": "Marquis of Queensbury Rules\n",
+        "jp": "\\h8385\\h8297\\h8384\\h82dd\n",
+        "it": "Regole del Marchese di Queensbury\n",
+        "fr": "Ennemis boxeurs\n",
+        "de": "Marquis of Queensbury-Regeln\n",
+        "es": "Reglas del Marqués de Queensbury\n"
+    },
+    {
+        "id": "L_MPWEAPONS_097",
+        "en": "Perfect Darkness\n",
+        "gb": "Perfect Darkness\n",
+        "jp": "\\h859d\\h8689モ\\h8284ド\n",
+        "it": "BuioPerfect\n",
+        "fr": "Perfect Darkness\n",
+        "de": "Perfekte Dunkelheit\n",
+        "es": "Oscuridad Perfecta\n"
+    },
+    {
+        "id": "L_MPWEAPONS_098",
+        "en": "Pugilist\n",
+        "gb": "Pugilist\n",
+        "jp": "ボクサ\\h8284\n",
+        "it": "Pugile\n",
+        "fr": "Pugiliste\n",
+        "de": "Boxer\n",
+        "es": "Pugilista\n"
+    },
+    {
+        "id": "L_MPWEAPONS_099",
+        "en": "Hotshot\n",
+        "gb": "Hotshot\n",
+        "jp": "ホットショット\n",
+        "it": "Colpo\n",
+        "fr": "Hotshot\n",
+        "de": "Hotshot\n",
+        "es": "Disparo Caliente\n"
+    },
+    {
+        "id": "L_MPWEAPONS_100",
+        "en": "Hit and Run\n",
+        "gb": "Hit and Run\n",
+        "jp": "ヒット〉ラン\n",
+        "it": "Toccata e fuga\n",
+        "fr": "Touche et tire\n",
+        "de": "Hit and Run\n",
+        "es": "Golpea y Corre\n"
+    },
+    {
+        "id": "L_MPWEAPONS_101",
+        "en": "Alien\n",
+        "gb": "Alien\n",
+        "jp": "エイリアン\n",
+        "it": "Alieno\n",
+        "fr": "Extraterrestre\n",
+        "de": "Alien\n",
+        "es": "Alienígena\n"
+    },
+    {
+        "id": "L_MPWEAPONS_102",
+        "en": "R-Tracker/Weapon Cache Locations\n",
+        "gb": "R-Tracker/Weapon Cache Locations\n",
+        "jp": "Ｒトラッカに\\h85b5\\h85b6\\h82cc\\h84bd\\h86d3\\h8697\n",
+        "it": "Puntatore R/Disposizione armi nascoste\n",
+        "fr": "Pisteur-R / Coffres armes\n",
+        "de": "R-Tracker / Munitions-Fundorte\n",
+        "es": "Rastreador/Localización de armas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_103",
+        "en": "Rocket Launcher\n",
+        "gb": "Rocket Launcher\n",
+        "jp": "Ｒランチャ\n",
+        "it": "Lanciamissili\n",
+        "fr": "Lance-roquettes\n",
+        "de": "Raketenw.\n",
+        "es": "Lanzacohetes\n"
+    },
+    {
+        "id": "L_MPWEAPONS_104",
+        "en": "Sniper Rifle\n",
+        "gb": "Sniper Rifle\n",
+        "jp": "Ｓライフル\n",
+        "it": "Fucile cecchino\n",
+        "fr": "Fusil sniper\n",
+        "de": "Sniper-Gewehr\n",
+        "es": "Rifle Francotirador\n"
+    },
+    {
+        "id": "L_MPWEAPONS_105",
+        "en": "X-Ray Scanner\n",
+        "gb": "X-Ray Scanner\n",
+        "jp": "Ｘスキャン\n",
+        "it": "Scanner a raggi X\n",
+        "fr": "Scan rayonsX\n",
+        "de": "Röntgen-Scanner\n",
+        "es": "Escáner de Rayos-X\n"
+    },
+    {
+        "id": "L_MPWEAPONS_106",
+        "en": "SuperDragon\n",
+        "gb": "SuperDragon\n",
+        "jp": "Ｓドラゴン\n",
+        "it": "SuperDragon\n",
+        "fr": "SuperDragon\n",
+        "de": "SuperDragon\n",
+        "es": "SuperDragón\n"
+    },
+    {
+        "id": "L_MPWEAPONS_107",
+        "en": "Laptop Gun\n",
+        "gb": "Laptop Gun\n",
+        "jp": "ラップトップガン\n",
+        "it": "Pistola Laptop\n",
+        "fr": "Laptop Gun\n",
+        "de": "Laptop-Gewehr\n",
+        "es": "Arma PC\n"
+    },
+    {
+        "id": "L_MPWEAPONS_108",
+        "en": "Phoenix\n",
+        "gb": "Phoenix\n",
+        "jp": "フェニクス\n",
+        "it": "Phoenix\n",
+        "fr": "Phoenix\n",
+        "de": "Phoenix\n",
+        "es": "Phoenix\n"
+    },
+    {
+        "id": "L_MPWEAPONS_109",
+        "en": "Psychosis Gun\n",
+        "gb": "Psychosis Gun\n",
+        "jp": "サイキックガン\n",
+        "it": "PsicoArma\n",
+        "fr": "Psychosis Gun\n",
+        "de": "Psychosis-Gewehr\n",
+        "es": "Pistola Psicosis\n"
+    },
+    {
+        "id": "L_MPWEAPONS_110",
+        "en": "PP9i\n",
+        "gb": "PP9i\n",
+        "jp": "PP9i\n",
+        "it": "PP9i\n",
+        "fr": "PP9i\n",
+        "de": "PP9i\n",
+        "es": "PP9i\n"
+    },
+    {
+        "id": "L_MPWEAPONS_111",
+        "en": "CC13\n",
+        "gb": "CC13\n",
+        "jp": "CC13\n",
+        "it": "CC13\n",
+        "fr": "CC13\n",
+        "de": "CC13\n",
+        "es": "CC13\n"
+    },
+    {
+        "id": "L_MPWEAPONS_112",
+        "en": "KL01313\n",
+        "gb": "KL01313\n",
+        "jp": "KL01313\n",
+        "it": "KL01313\n",
+        "fr": "KL01313\n",
+        "de": "KLO1313\n",
+        "es": "Klo1313\n"
+    },
+    {
+        "id": "L_MPWEAPONS_113",
+        "en": "KF7 Special\n",
+        "gb": "KF7 Special\n",
+        "jp": "KF7 Special\n",
+        "it": "KF7 Special\n",
+        "fr": "KF7 Spécial\n",
+        "de": "KF7 Spezial\n",
+        "es": "KF7 Especial\n"
+    },
+    {
+        "id": "L_MPWEAPONS_114",
+        "en": "ZZT (9mm)\n",
+        "gb": "ZZT (9mm)\n",
+        "jp": "ZZT (9mm)\n",
+        "it": "ZZT (9mm)\n",
+        "fr": "ZZT (9mm)\n",
+        "de": "ZZT (9mm)\n",
+        "es": "ZZT (9mm)\n"
+    },
+    {
+        "id": "L_MPWEAPONS_115",
+        "en": "DMC\n",
+        "gb": "DMC\n",
+        "jp": "DMC\n",
+        "it": "DMC\n",
+        "fr": "DMC\n",
+        "de": "DMC\n",
+        "es": "DMC\n"
+    },
+    {
+        "id": "L_MPWEAPONS_116",
+        "en": "AR53\n",
+        "gb": "AR53\n",
+        "jp": "AR53\n",
+        "it": "AR53\n",
+        "fr": "AR53\n",
+        "de": "AR53\n",
+        "es": "AR53\n"
+    },
+    {
+        "id": "L_MPWEAPONS_117",
+        "en": "RC-P45\n",
+        "gb": "RC-P45\n",
+        "jp": "RC-P45\n",
+        "it": "RC-P45\n",
+        "fr": "RC-P45\n",
+        "de": "RC-P45\n",
+        "es": "RC-P45\n"
+    },
+    {
+        "id": "L_MPWEAPONS_118",
+        "en": "Velvet Dark\n",
+        "gb": "Velvet Dark\n",
+        "jp": "ベルベット・ダ\\h8284ク\n",
+        "it": "Velvet Dark\n",
+        "fr": "Velvet Dark\n",
+        "de": "Velvet Dark\n",
+        "es": "Velvet Dark\n"
+    },
+    {
+        "id": "L_MPWEAPONS_119",
+        "en": "Fun\n",
+        "gb": "Fun\n",
+        "jp": "おたのしみ\n",
+        "it": "Divertimento\n",
+        "fr": "Fun\n",
+        "de": "Fun\n",
+        "es": "Diversión\n"
+    },
+    {
+        "id": "L_MPWEAPONS_120",
+        "en": "Gameplay\n",
+        "gb": "Gameplay\n",
+        "jp": "ゲ\\h8284ムプレイ\n",
+        "it": "Gioco\n",
+        "fr": "Jouabilité\n",
+        "de": "Gameplay\n",
+        "es": "Jugabilidad\n"
+    },
+    {
+        "id": "L_MPWEAPONS_121",
+        "en": "Weapons\n",
+        "gb": "Weapons\n",
+        "jp": "ウェポン\n",
+        "it": "Armi\n",
+        "fr": "Armes\n",
+        "de": "Waffen\n",
+        "es": "Armas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_122",
+        "en": "Buddies\n",
+        "gb": "Buddies\n",
+        "jp": "チ\\h8284ムメイト\n",
+        "it": "Amici\n",
+        "fr": "Amis\n",
+        "de": "Kumpel\n",
+        "es": "Compañeros\n"
+    },
+    {
+        "id": "L_MPWEAPONS_123",
+        "en": "Weapons for Jo in Solo\n",
+        "gb": "Weapons for Jo in Solo\n",
+        "jp": "ジョアンナ\\h8388の\\h82cc\\h84bd（ソロ）\n",
+        "it": "Armi per Jo da sola\n",
+        "fr": "Armes pour Joanna en solo\n",
+        "de": "Waffen für Jo im Solo-Modus\n",
+        "es": "Armas para Joanna en Solo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_124",
+        "en": "Classic Weapons for Jo in Solo\n",
+        "gb": "Classic Weapons for Jo in Solo\n",
+        "jp": "クラシックウェポン（ソロ）\n",
+        "it": "Armi classiche per Jo da sola\n",
+        "fr": "Armes classiques pour Joanna en solo\n",
+        "de": "Klassische Waffe für Jo im Solo-Modus\n",
+        "es": "Armas Clásicas para Joanna en Solo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_125",
+        "en": "dataDyne Defection",
+        "gb": "dataDyne Defection",
+        "jp": "デ\\h8284タダイン\\h84b7\\h8493″\\h84d8\\h82c4〈",
+        "it": "Ribellione dD",
+        "fr": "Désertion dataDyne",
+        "de": "dataDyne Überlauf",
+        "es": "Entrando en dataDyne"
+    },
+    {
+        "id": "L_MPWEAPONS_126",
+        "en": "dataDyne Extraction",
+        "gb": "dataDyne Extraction",
+        "jp": "デ\\h8284タダイン\\h84b7\\h8493″入\\h83f7〈",
+        "it": "Salvataggio dD",
+        "fr": "Extraction dataDyne ",
+        "de": "dataDyne Extraktion",
+        "es": "Extracción de dataDyne"
+    },
+    {
+        "id": "L_MPWEAPONS_127",
+        "en": "A51 Infiltration",
+        "gb": "A51 Infiltration",
+        "jp": "エリア５１″\\h83c5\\h82ce〈",
+        "it": "Infiltrazione A51",
+        "fr": "Infiltration S51 ",
+        "de": "A51 Infiltration",
+        "es": "Infiltración en A51"
+    },
+    {
+        "id": "L_MPWEAPONS_128",
+        "en": "A51 Rescue",
+        "gb": "A51 Rescue",
+        "jp": "エリア５１″\\h82a8\\h829f〈",
+        "it": "Salvataggio A51",
+        "fr": "Sauvetage S51",
+        "de": "A51 Rettung",
+        "es": "Rescate en A51"
+    },
+    {
+        "id": "L_MPWEAPONS_129",
+        "en": "A51 Escape",
+        "gb": "A51 Escape",
+        "jp": "エリア５１″\\h829e\\h829f〈",
+        "it": "Fuga A51",
+        "fr": "Fuite S51",
+        "de": "A51 Flucht",
+        "es": "Escape de A51"
+    },
+    {
+        "id": "L_MPWEAPONS_130",
+        "en": "Difficulty:\n",
+        "gb": "Difficulty:\n",
+        "jp": "\\h85a8\\h85e6\\h83ac：\n",
+        "it": "Difficoltà:\n",
+        "fr": "Difficulté:\n",
+        "de": "Schwierigkeit:\n",
+        "es": "Dificultad:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_131",
+        "en": "Cheat Solo Missions\n",
+        "gb": "Cheat Solo Missions\n",
+        "jp": "（チ\\h8284ト）ソロ・ミッション\n",
+        "it": "Trucco Missioni Individuali\n",
+        "fr": "Triche Missions Solo\n",
+        "de": "Cheat Solo Missionen\n",
+        "es": "Trucos en Misiones Solo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_132",
+        "en": "Cheat Combat Simulator\n",
+        "gb": "Cheat Combat Simulator\n",
+        "jp": "（チ\\h8284ト）コンバットシミュレ\\h8284タ\n",
+        "it": "Trucco Simulatore Lotta\n",
+        "fr": "Triche Simulateur Combat\n",
+        "de": "Cheat Kampf-Simulator\n",
+        "es": "Trucos en Simulador de Combate\n"
+    },
+    {
+        "id": "L_MPWEAPONS_133",
+        "en": "Cheat Co-Operative\n",
+        "gb": "Cheat Co-Operative\n",
+        "jp": "（チ\\h8284ト）\\h82a3\\h8282ミッション\n",
+        "it": "Trucco Collaborazione\n",
+        "fr": "Triche Coopératif\n",
+        "de": "Cheat Teamwork\n",
+        "es": "Trucos en Co-operativo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_134",
+        "en": "Cheat Counter-Operative\n",
+        "gb": "Cheat Counter-Operative\n",
+        "jp": "（チ\\h8284ト）\\h8297\\h82fcミッション\n",
+        "it": "Trucco Tutti-contro-Tutti\n",
+        "fr": "Triche Contre-Opération\n",
+        "de": "Cheat Counter Operative-Modus\n",
+        "es": "Trucos en Contra-Operativa\n"
+    },
+    {
+        "id": "L_MPWEAPONS_135",
+        "en": "Dishonored\n",
+        "gb": "Dishonored\n",
+        "jp": "プライドなし\n",
+        "it": "Disonore\n",
+        "fr": "Déshonneur\n",
+        "de": "Entehrt\n",
+        "es": "Sin honor\n"
+    },
+    {
+        "id": "L_MPWEAPONS_136",
+        "en": "Cheated\n",
+        "gb": "Cheated\n",
+        "jp": "チ\\h8284ト\\h82f9\\h8388\n",
+        "it": "Truccata\n",
+        "fr": "Tricheur\n",
+        "de": "Gecheated\n",
+        "es": "Trucada\n"
+    },
+    {
+        "id": "L_MPWEAPONS_137",
+        "en": "Cheat available",
+        "gb": "Cheat available",
+        "jp": "\\h83e2\\h8388手\\h82a2：",
+        "it": "Trucco disponibile",
+        "fr": "Triche disponible",
+        "de": "Cheat verfügbar",
+        "es": "Truco disponible"
+    },
+    {
+        "id": "L_MPWEAPONS_138",
+        "en": "Complete",
+        "gb": "Complete",
+        "jp": "ステ\\h8284ジ：",
+        "it": "Completa",
+        "fr": "Terminer",
+        "de": "Komplettierung",
+        "es": "Completa"
+    },
+    {
+        "id": "L_MPWEAPONS_139",
+        "en": "for cheat:",
+        "gb": "for cheat:",
+        "jp": "をクリアすれば：",
+        "it": "per trucco:",
+        "fr": "pour Triche:",
+        "de": "für den Cheat:",
+        "es": "para el truco:"
+    },
+    {
+        "id": "L_MPWEAPONS_140",
+        "en": "on",
+        "gb": "on",
+        "jp": "\\h85a8\\h85e6\\h83ac：",
+        "it": "con",
+        "fr": "sur",
+        "de": "auf",
+        "es": "en"
+    },
+    {
+        "id": "L_MPWEAPONS_141",
+        "en": "in under",
+        "gb": "in under",
+        "jp": "\\h828c\\h84f9\\h8393\\h82fd：",
+        "it": "in meno di",
+        "fr": "sous",
+        "de": "in weniger als ",
+        "es": "por debajo de"
+    },
+    {
+        "id": "L_MPWEAPONS_142",
+        "en": " or insert Game Boy (r) Perfect Dark into Transfer Pak (tm), connect Transfer Pak to any controller, then exit and enter menu",
+        "gb": " or insert Game Boy (r) Perfect Dark into Transfer Pak (tm), connect Transfer Pak to any controller, then exit and enter menu",
+        "jp": "",
+        "it": " o inserisci Perfect Dark Game Boy (r) nel Transfer Pak (tm), connetti il Transfer Pak ad un Controller, esci e accedi al menu",
+        "fr": " ou brancher Perfect Dark Game Boy (r) dans le Transfer Pak (tm), connectez le Transfer Pak dans une manette , sortez et accédez au menu",
+        "de": " oder legen Sie Perfect Dark - Game Boy (R) in das Transfer Pak (TM) ein. Legen Sie ein Transfer Pak in einen beliebigen Controller ein, und gehen Sie ins Menü.",
+        "es": " o inserta Perfect Dark de Game Boy (r) en un Transfer Pak (tm), conecta el Transfer Pak a cualquier mando, y sal y vuelve a entrar en el menú"
+    },
+    {
+        "id": "L_MPWEAPONS_143",
+        "en": "Select cheat for information\n",
+        "gb": "Select cheat for information\n",
+        "jp": "\\h84ec\\h84edをチェックしたいチ\\h8284トを\\h86c2んで\\h87ccさい。\n",
+        "it": "Seleziona trucco per informazioni\n",
+        "fr": "Choix Triche pour information\n",
+        "de": "Wählen Sie den Cheat für mehr Infos aus.\n",
+        "es": "Elige truco para más información\n"
+    },
+    {
+        "id": "L_MPWEAPONS_144",
+        "en": "Buddy Available",
+        "gb": "Buddy Available",
+        "jp": "\\h83e2\\h8388手\\h82a2\\h82a3\\h8282\\h83ee：",
+        "it": "Amico disponibile",
+        "fr": "Ami disponible",
+        "de": "Kumpel verfügbar",
+        "es": "Camarada disponible"
+    },
+    {
+        "id": "L_MPWEAPONS_145",
+        "en": "Win Golds on the firing range to enable classic guns.\n",
+        "gb": "Win Golds on the firing range to enable classic guns.\n",
+        "jp": "\\h85b7\\h82d7トレ\\h8284ニングでゴ\\h8284ルドメダルをたくさんゲット。\n",
+        "it": "Vinci medaglie d'oro al poligono per attivare le pistole classiche.\n",
+        "fr": "Gagner Or sur le champ de tir pour les armes classiques.\n",
+        "de": "Erlangen Sie Gold am Schießstand, um klassische Waffen anzuwählen.\n",
+        "es": "Gana Oros en las pruebas de tiro para activar las armas clásicas.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_146",
+        "en": "Sight on Screen\n",
+        "gb": "Sight on Screen\n",
+        "jp": "\\h82eb\\h84a5\\h84ec\\h84edの\\h86d3\\h8697\n",
+        "it": "Vista su schermo\n",
+        "fr": "Visée à l'écran\n",
+        "de": "Display\n",
+        "es": "Mirilla\n"
+    },
+    {
+        "id": "L_MPWEAPONS_147",
+        "en": "Target\n",
+        "gb": "Target\n",
+        "jp": "\\h82eb\\h84a5を\\h83b9に\\h86d3\\h8697\n",
+        "it": "Obiettivo\n",
+        "fr": "Cible\n",
+        "de": "Ziel\n",
+        "es": "Objetivo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_148",
+        "en": "Zoom Range\n",
+        "gb": "Zoom Range\n",
+        "jp": "ズ\\h8284ム\\h84fb\\h829b\n",
+        "it": "Area Zoom\n",
+        "fr": "Portée zoom\n",
+        "de": "Zoom\n",
+        "es": "Alcance de Zoom\n"
+    },
+    {
+        "id": "L_MPWEAPONS_149",
+        "en": "Show Ammo\n",
+        "gb": "Show Ammo\n",
+        "jp": "\\h85a4\\h86c7の\\h86d3\\h8697\n",
+        "it": "Munizioni\n",
+        "fr": "Voir munit.\n",
+        "de": "Munition\n",
+        "es": "Mostrar Munición\n"
+    },
+    {
+        "id": "L_MPWEAPONS_150",
+        "en": "Gun Function\n",
+        "gb": "Gun Function\n",
+        "jp": "\\h82cc\\h84bdモ\\h8284ド\\h86d3\\h8697\n",
+        "it": "Funzioni arma\n",
+        "fr": "Fonction arme\n",
+        "de": "Funktion\n",
+        "es": "Función Arma\n"
+    },
+    {
+        "id": "L_MPWEAPONS_151",
+        "en": "Paintball\n",
+        "gb": "Paintball\n",
+        "jp": "ペイントボ\\h8284ル\n",
+        "it": "Macchia colorata\n",
+        "fr": "Paintball\n",
+        "de": "Paintball\n",
+        "es": "Bolas de Pintura\n"
+    },
+    {
+        "id": "L_MPWEAPONS_152",
+        "en": "Subtitles\n",
+        "gb": "Subtitles\n",
+        "jp": "\\h86df\\h86e0の\\h86d3\\h8697\n",
+        "it": "Didascalie\n",
+        "fr": "Sous-titres\n",
+        "de": "Text\n",
+        "es": "Subtítulos\n"
+    },
+    {
+        "id": "L_MPWEAPONS_153",
+        "en": "Mission Time\n",
+        "gb": "Mission Time\n",
+        "jp": "ミッションタイム\n",
+        "it": "Tempo Missione\n",
+        "fr": "Temps mission\n",
+        "de": "Zeit\n",
+        "es": "Tiempo Misión\n"
+    },
+    {
+        "id": "L_MPWEAPONS_154",
+        "en": "Mode\n",
+        "gb": "Mode\n",
+        "jp": "モ\\h8284ド\n",
+        "it": "Modalità\n",
+        "fr": "Mode\n",
+        "de": "Sound\n",
+        "es": "Modo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_155",
+        "en": "Split\n",
+        "gb": "Split\n",
+        "jp": "\\h839c\\h83fa\\h8398\\h86e1\n",
+        "it": "Dividi\n",
+        "fr": "Split\n",
+        "de": "Split\n",
+        "es": "Corte\n"
+    },
+    {
+        "id": "L_MPWEAPONS_156",
+        "en": "Do you want to abort\nthe mission?\n",
+        "gb": "Do you want to abort\nthe mission?\n",
+        "jp": "\\h82b5\\h82b6を\\h85c7\\h86e2\nしますか？\n",
+        "it": "Vuoi interrompere\nla missione?\n",
+        "fr": "Voulez-vous abandonner\nla mission?\n",
+        "de": "Möchten Sie die Mission\nabbrechen?\n",
+        "es": "¿Quieres interrumpir\nla misión?\n"
+    },
+    {
+        "id": "L_MPWEAPONS_157",
+        "en": "Joanna Leather\n",
+        "gb": "Joanna Leather\n",
+        "jp": "ＪＤレザ\\h8284ス\\h8284ツ\n",
+        "it": "Pelle Joanna\n",
+        "fr": "Joanna Cuir\n",
+        "de": "Joanna in Leder\n",
+        "es": "Joanna en Piel\n"
+    },
+    {
+        "id": "L_MPWEAPONS_158",
+        "en": "Joanna Negotiator\n",
+        "gb": "Joanna Negotiator\n",
+        "jp": "ＪＤオフィス\n",
+        "it": "Negoziatore Joanna\n",
+        "fr": "Joanna Négociatrice\n",
+        "de": "Joanna als Unterhändler\n",
+        "es": "Joanna Negociadora\n"
+    },
+    {
+        "id": "L_MPWEAPONS_159",
+        "en": "Elvis (Waistcoat)\n",
+        "gb": "Elvis (Waistcoat)\n",
+        "jp": "エルビス　チョッキ\n",
+        "it": "Gilet Elvis\n",
+        "fr": "Elvis (gilet)\n",
+        "de": "Elvis (Weste)\n",
+        "es": "Elvis (Chaleco)\n"
+    },
+    {
+        "id": "L_MPWEAPONS_160",
+        "en": "Error\n",
+        "gb": "Error\n",
+        "jp": "エラ\\h8284\n",
+        "it": "Errore\n",
+        "fr": "Erreur\n",
+        "de": "Error\n",
+        "es": "Error\n"
+    },
+    {
+        "id": "L_MPWEAPONS_161",
+        "en": "Cannot delete file as\nit is being used.\n",
+        "gb": "Cannot delete file as\nit is being used.\n",
+        "jp": "このファイルは\\h82f9\\h8388\\h828d\nなので\\h8391\\h83f6\\h829f\\h8390ません\n",
+        "it": "Impossibile eliminare\nfile in uso.\n",
+        "fr": "Opér. impossible.\nUtilisation en cours.\n",
+        "de": "File ist aktiv. Aktive \nFiles können nicht \ngelöscht werden.\n",
+        "es": "No se puede borrar un\nfichero en uso.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_162",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "キャンセル\n",
+        "it": "Annulla\n",
+        "fr": "Annuler\n",
+        "de": "Abbrechen\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_163",
+        "en": "Time Limit:\n",
+        "gb": "Time Limit:\n",
+        "jp": "\\h828c\\h84f9\\h8393\\h82fd：\n",
+        "it": "Lim. tempo:\n",
+        "fr": "Limite temps:\n",
+        "de": "Zeit-Limit:\n",
+        "es": "Límite Tiempo:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_164",
+        "en": "Score Limit:\n",
+        "gb": "Score Limit:\n",
+        "jp": "\\h8497\\h84b4\\h86bf\\h84b1\\h83a5\\h83ce：\n",
+        "it": "Lim. punti:\n",
+        "fr": "Limite score:\n",
+        "de": "Score-Limit:\n",
+        "es": "Límite Puntos:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_165",
+        "en": "Team Score Limit:\n",
+        "gb": "Team Score Limit:\n",
+        "jp": "\\h8497\\h84b4\\h84ce\\h82f0\\h83a5\\h83ce：\n",
+        "it": "Lim. punti squadra:\n",
+        "fr": "Limite score équipe:\n",
+        "de": "Team Score-Limit:\n",
+        "es": "Límite P. Equipo:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_166",
+        "en": "Challenge Completed!\n",
+        "gb": "Challenge Completed!\n",
+        "jp": "チャレンジ　クリア！\n",
+        "it": "Sfida compiuta!\n",
+        "fr": "Challenge réussi!\n",
+        "de": "Abgeschlossen!\n",
+        "es": "¡Desafío Completado!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_167",
+        "en": "Challenge Failed!\n",
+        "gb": "Challenge Failed!\n",
+        "jp": "チャレンジ　\\h82f1\\h82f2！\n",
+        "it": "Sfida fallita!\n",
+        "fr": "Challenge échoué!\n",
+        "de": "Fehlgeschlagen!\n",
+        "es": "¡Desafío Fallado!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_168",
+        "en": "Challenge Cheated!\n",
+        "gb": "Challenge Cheated!\n",
+        "jp": "チャレンジ　チ\\h8284ト\\h82f9\\h8388！\n",
+        "it": "Sfida truccata!\n",
+        "fr": "Challenge triché!\n",
+        "de": "CHEATER!\n",
+        "es": "¡Desafío Trucado!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_169",
+        "en": "Cutscene Subtitles\n",
+        "gb": "Cutscene Subtitles\n",
+        "jp": "シネマの\\h86df\\h86e0\n",
+        "it": "Didascalie film\n",
+        "fr": "Sous-titres ciné\n",
+        "de": "Cutscene Untertitel\n",
+        "es": "Subtítulos en Escenas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_170",
+        "en": "In-Game Subtitles\n",
+        "gb": "In-Game Subtitles\n",
+        "jp": "ゲ\\h8284ム\\h828dの\\h86df\\h86e0\n",
+        "it": "Didascalie nel gioco\n",
+        "fr": "Sous-titres jeu\n",
+        "de": "In-Game Untertitel\n",
+        "es": "Subtítulos en el Juego\n"
+    },
+    {
+        "id": "L_MPWEAPONS_171",
+        "en": "Alternative Title Screen\n",
+        "gb": "Alternative Title Screen\n",
+        "jp": "タイトルスクリ\\h8284ンその２\n",
+        "it": "Schermo alternativo titolo\n",
+        "fr": "Ecran titre optionnel\n",
+        "de": "Alternativer Titelbildschirm\n",
+        "es": "Pantalla de Título Alternativa\n"
+    },
+    {
+        "id": "L_MPWEAPONS_172",
+        "en": "Start Challenge\n",
+        "gb": "Start Challenge\n",
+        "jp": "チャレンジスタ\\h8284ト\n",
+        "it": "Inizia sfida\n",
+        "fr": "Commencer Challenge\n",
+        "de": "Challenge beginnen\n",
+        "es": "Empezar Desafío\n"
+    },
+    {
+        "id": "L_MPWEAPONS_173",
+        "en": "dataDyne Investigation",
+        "gb": "dataDyne Investigation",
+        "jp": "デ\\h8284タダイン\\h8298\\h87cc\\h84ff\\h8580\\h83e7",
+        "it": "Indagine dataDyne",
+        "fr": "Enquête dataDyne",
+        "de": "dataDyne Untersuchung",
+        "es": "Investigación dataDyne"
+    },
+    {
+        "id": "L_MPWEAPONS_174",
+        "en": "Error\n",
+        "gb": "Error\n",
+        "jp": "エラ\\h8284\n",
+        "it": "Errore\n",
+        "fr": "Erreur\n",
+        "de": "Error\n",
+        "es": "Error\n"
+    },
+    {
+        "id": "L_MPWEAPONS_175",
+        "en": "The Controller Pak\nhas been removed.\n",
+        "gb": "The Controller Pak\nhas been removed.\n",
+        "jp": "\\h86c5のコントロ\\h8284ラ\nパックがありません\n",
+        "it": "Il Controller Pak\nè stato tolto.\n",
+        "fr": "Le Controller Pak\na été enlevé.\n",
+        "de": "Das Controller Pak \nwurde entfernt.\n",
+        "es": "El Controller Pak\nha sido quitado.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_176",
+        "en": "Attempt Repair\n",
+        "gb": "Attempt Repair\n",
+        "jp": "\\h86dd\\h8484を\\h85e4みる\n",
+        "it": "Sistemalo\n",
+        "fr": "Tentative réparation\n",
+        "de": "Schaden beheben\n",
+        "es": "Intentar Reparación\n"
+    },
+    {
+        "id": "L_MPWEAPONS_177",
+        "en": "Are you sure you want\nto attempt repair of\nthis Controller Pak?\n",
+        "gb": "Are you sure you want\nto attempt repair of\nthis Controller Pak?\n",
+        "jp": "このコントロ\\h8284ラ\nパックを\\h86dd\\h8484しても\nよろしいですか？\n",
+        "it": "Sicuro di voler\nsistemare il\nController Pak?\n",
+        "fr": "Tenter une\nréparation du\nController Pak?\n",
+        "de": "Sind Sie sicher, dass \nSie das Controller Pak \nreparieren wollen)\n",
+        "es": "¿Quieres intentar\nreparar este\nController Pak?\n"
+    },
+    {
+        "id": "L_MPWEAPONS_178",
+        "en": "Data may be lost!\n",
+        "gb": "Data may be lost!\n",
+        "jp": "デ\\h8284タは\\h82f1われます！\n",
+        "it": "Potresti perdere i dati!\n",
+        "fr": "Donnée être\nperdue!\n",
+        "de": "Datenverlust\nmöglich!\n",
+        "es": "¡Puedes perder datos!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_179",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "キャンセル\n",
+        "it": "Annulla\n",
+        "fr": "Annuler\n",
+        "de": "Abbruch\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_180",
+        "en": "Repair\n",
+        "gb": "Repair\n",
+        "jp": "\\h86dd\\h8484する\n",
+        "it": "Sistema\n",
+        "fr": "Réparer\n",
+        "de": "Reparatur\n",
+        "es": "Reparar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_181",
+        "en": "Repair Successful\n",
+        "gb": "Repair Successful\n",
+        "jp": "\\h86dd\\h8484\\h82f3\\h82f4\n",
+        "it": "Ci sei riuscito!\n",
+        "fr": "Réparation réussie\n",
+        "de": "Reparatur erfolgreich\n",
+        "es": "Reparado con Éxito\n"
+    },
+    {
+        "id": "L_MPWEAPONS_182",
+        "en": "The Controller Pak has\nbeen repaired.\n",
+        "gb": "The Controller Pak has\nbeen repaired.\n",
+        "jp": "コントロ\\h8284ラパックは\n\\h86dd\\h8484されました\n",
+        "it": "Il Controller Pak\nè stato sistemato.\n",
+        "fr": "Controller Pak\nréparé.\n",
+        "de": "Das Controller Pak \nwurde repariert.\n",
+        "es": "El Controller Pak ha\nsido reparado.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_183",
+        "en": "Repair Failed\n",
+        "gb": "Repair Failed\n",
+        "jp": "\\h86dd\\h8484\\h82f1\\h82f2\n",
+        "it": "Non ci sei riuscito.\n",
+        "fr": "Réparation échouée\n",
+        "de": "Reparatur nicht OK\n",
+        "es": "Reparación Fallada\n"
+    },
+    {
+        "id": "L_MPWEAPONS_184",
+        "en": "The Controller Pak \ncannot be repaired.\nYou will not be able to\nload from or save to\nthis Controller Pak.\n",
+        "gb": "The Controller Pak \ncannot be repaired.\nYou will not be able to\nload from or save to\nthis Controller Pak.\n",
+        "jp": "コントロ\\h8284ラパックの\n\\h86dd\\h8484に\\h82f1\\h82f2しました\nこのコントロ\\h8284ラ\nパックは\\h82f9えません\n",
+        "it": "Impossibile sistemare\nil Controller Pak:\nimpossibile caricare\no salvare su questo\nController Pak.\n",
+        "fr": "Controller Pak\nne peut être réparé.\nSauvegarde ou\nchargement impossible\navec ce Cont. Pak.\n",
+        "de": "Das Controller Pak \nkann nicht repariert\nwerden. Sie können\nkeine Daten laden \noder speichern.\n",
+        "es": "El Controller Pak \nno puede ser reparado.\nNo podrás cargar o\nguardar en este\nController Pak.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_185",
+        "en": "Player Handicaps\n",
+        "gb": "Player Handicaps\n",
+        "jp": "ハンディ\n",
+        "it": "Svantaggio giocatore\n",
+        "fr": "Handicap\n",
+        "de": "Handicaps\n",
+        "es": "Hándicap Jugador\n"
+    },
+    {
+        "id": "L_MPWEAPONS_186",
+        "en": "L/R BUTTONS: ",
+        "gb": "L/R BUTTONS: ",
+        "jp": "L/R: ",
+        "it": "PULSANTI L/R: ",
+        "fr": "BOUTONS L/R: ",
+        "de": "L/R-TASTEN: ",
+        "es": "BOTONES L/R: "
+    },
+    {
+        "id": "L_MPWEAPONS_187",
+        "en": "UP C BUTTON: ",
+        "gb": "UP C BUTTON: ",
+        "jp": "C-UP: ",
+        "it": "PULSANTE C SU: ",
+        "fr": "BOUTON C HAUT: ",
+        "de": "C OBEN: ",
+        "es": "BOTÓN C ARRIBA: "
+    },
+    {
+        "id": "L_MPWEAPONS_188",
+        "en": "LEFT/RIGHT C BUTTONS: ",
+        "gb": "LEFT/RIGHT C BUTTONS: ",
+        "jp": "C-LEFT/RIGHT: ",
+        "it": "PULSANTI C DX/SX: ",
+        "fr": "BOUTONS C G/D: ",
+        "de": "C LINKS/RECHTS: ",
+        "es": "BOTONES C I./D.: "
+    },
+    {
+        "id": "L_MPWEAPONS_189",
+        "en": "DOWN C BUTTON: ",
+        "gb": "DOWN C BUTTON: ",
+        "jp": "C-DOWN: ",
+        "it": "PULSANTE C GIÙ: ",
+        "fr": "BOUTON C BAS: ",
+        "de": "C UNEN: ",
+        "es": "BOTÓN C ABAJO: "
+    },
+    {
+        "id": "L_MPWEAPONS_190",
+        "en": "A BUTTON: ",
+        "gb": "A BUTTON: ",
+        "jp": "A: ",
+        "it": "PULSANTE A: ",
+        "fr": "BOUTON A: ",
+        "de": "A: ",
+        "es": "BOTÓN A: "
+    },
+    {
+        "id": "L_MPWEAPONS_191",
+        "en": "B BUTTON: ",
+        "gb": "B BUTTON: ",
+        "jp": "B: ",
+        "it": "PULSANTE B: ",
+        "fr": "BOUTON B: ",
+        "de": "B: ",
+        "es": "BOTÓN B: "
+    },
+    {
+        "id": "L_MPWEAPONS_192",
+        "en": "CONTROL STICK: ",
+        "gb": "CONTROL STICK: ",
+        "jp": "3D: ",
+        "it": "CONTROL STICK: ",
+        "fr": "STICK ANALOG.: ",
+        "de": "3D-STICK: ",
+        "es": "STICK C.: "
+    },
+    {
+        "id": "L_MPWEAPONS_193",
+        "en": "Z BUTTON: ",
+        "gb": "Z BUTTON: ",
+        "jp": "Z: ",
+        "it": "PULSANTE Z: ",
+        "fr": "BOUTON Z: ",
+        "de": "Z: ",
+        "es": "BÓTON Z: "
+    },
+    {
+        "id": "L_MPWEAPONS_194",
+        "en": "+ CONTROL PAD: ",
+        "gb": "+ CONTROL PAD: ",
+        "jp": "+ PAD: ",
+        "it": "PULSANTIERA +: ",
+        "fr": "MANETTE +: ",
+        "de": "+ STEUERKREUZ: ",
+        "es": "+ PANEL C.: "
+    },
+    {
+        "id": "L_MPWEAPONS_195",
+        "en": "AIM",
+        "gb": "AIM",
+        "jp": "\\h82eb\\h84a5～ホ\\h8284ルド",
+        "it": "MIRA",
+        "fr": "VISER",
+        "de": "ZIELEN",
+        "es": "APUNTAR"
+    },
+    {
+        "id": "L_MPWEAPONS_196",
+        "en": "AIM TOGGLE",
+        "gb": "AIM TOGGLE",
+        "jp": "\\h82eb\\h84a5～\\h8496り\\h86d4え",
+        "it": "DIS/ATTIVA MIRA",
+        "fr": "ALT. VISER",
+        "de": "ZIELFUNKTION",
+        "es": "CAMBIAR A PUNTAR"
+    },
+    {
+        "id": "L_MPWEAPONS_197",
+        "en": "LOOK UP",
+        "gb": "LOOK UP",
+        "jp": "\\h82c9\\h87cbげる",
+        "it": "GUARDA SU",
+        "fr": "REGARDER HAUT",
+        "de": "BLICK OBEN",
+        "es": "MIRAR ARRIBA"
+    },
+    {
+        "id": "L_MPWEAPONS_198",
+        "en": "LOOK DOWN",
+        "gb": "LOOK DOWN",
+        "jp": "\\h82c9\\h87ccろす",
+        "it": "GUARDA GIÙ",
+        "fr": "REGARDER BAS",
+        "de": "BLICK UNTEN",
+        "es": "MIRAR ABAJO"
+    },
+    {
+        "id": "L_MPWEAPONS_199",
+        "en": "LOOK DOWN",
+        "gb": "LOOK DOWN",
+        "jp": "\\h82c9\\h87ccろす",
+        "it": "GUARDA GIÙ",
+        "fr": "REGARDER BAS",
+        "de": "NACH UNTEN SCHAUEN",
+        "es": "MIRAR ABAJO"
+    },
+    {
+        "id": "L_MPWEAPONS_200",
+        "en": "LOOK UP",
+        "gb": "LOOK UP",
+        "jp": "\\h82c9\\h87cbげる",
+        "it": "GUARDA SU",
+        "fr": "REGARDER HAUT",
+        "de": "BLICK OBEN",
+        "es": "MIRAR ARRIBA"
+    },
+    {
+        "id": "L_MPWEAPONS_201",
+        "en": "FORWARDS",
+        "gb": "FORWARDS",
+        "jp": "\\h839d\\h82b7",
+        "it": "AVANTI",
+        "fr": "AVANT",
+        "de": "VORWÄRTS",
+        "es": "ADELANTE"
+    },
+    {
+        "id": "L_MPWEAPONS_202",
+        "en": "BACKWARDS",
+        "gb": "BACKWARDS",
+        "jp": "バック",
+        "it": "INDIETRO",
+        "fr": "ARRIERE",
+        "de": "RÜCKWÄRTS",
+        "es": "ATRÁS"
+    },
+    {
+        "id": "L_MPWEAPONS_203",
+        "en": "STRAFE",
+        "gb": "STRAFE",
+        "jp": "サイドステップ",
+        "it": "SPOSTATI",
+        "fr": "DEP. LATERAL",
+        "de": "AUSW.",
+        "es": "DESP. LATERAL"
+    },
+    {
+        "id": "L_MPWEAPONS_204",
+        "en": "WEAPON",
+        "gb": "WEAPON",
+        "jp": "\\h82cc\\h84bd\\h86c2\\h86c3",
+        "it": "ARMA",
+        "fr": "ARME",
+        "de": "WAFFE",
+        "es": "ARMA"
+    },
+    {
+        "id": "L_MPWEAPONS_205",
+        "en": "ACTION/RELOAD",
+        "gb": "ACTION/RELOAD",
+        "jp": "アクション／リロ\\h8284ド",
+        "it": "AZIONE/RICARICA",
+        "fr": "ACTION/RECHARGER",
+        "de": "AKTION/NACHLADEN",
+        "es": "ACCIÓN/RECARGA"
+    },
+    {
+        "id": "L_MPWEAPONS_206",
+        "en": "FIRE",
+        "gb": "FIRE",
+        "jp": "\\h82d7つ",
+        "it": "FUOCO",
+        "fr": "FEU",
+        "de": "FEUER",
+        "es": "DISPARO"
+    },
+    {
+        "id": "L_MPWEAPONS_207",
+        "en": "WALK/TURN",
+        "gb": "WALK/TURN",
+        "jp": "\\h84a8\\h82c4／タ\\h8284ン",
+        "it": "VAI/GIRA",
+        "fr": "MARCHER/TOURNER",
+        "de": "GEHEN/DREHEN",
+        "es": "CAMINAR/VOLVER"
+    },
+    {
+        "id": "L_MPWEAPONS_208",
+        "en": "LOOK",
+        "gb": "LOOK",
+        "jp": "\\h82c9\\h82d2し",
+        "it": "GUARDA",
+        "fr": "REGARDER",
+        "de": "UMSCHAUEN",
+        "es": "MIRAR"
+    },
+    {
+        "id": "L_MPWEAPONS_209",
+        "en": "WALK/STRAFE",
+        "gb": "WALK/STRAFE",
+        "jp": "\\h84a8\\h82c4／サイドステップ",
+        "it": "VAI/SPOSTATI",
+        "fr": "MARCHER/LATERAL",
+        "de": "GEHEN/AUSW.",
+        "es": "CAMINAR/DESP."
+    },
+    {
+        "id": "L_MPWEAPONS_210",
+        "en": "LOOK/STRAFE",
+        "gb": "LOOK/STRAFE",
+        "jp": "\\h82c9\\h82d2し／サイドステップ",
+        "it": "VAI/SPOSTATI",
+        "fr": "REGARDER/LATERAL",
+        "de": "UMSCHAUEN/AUSW.",
+        "es": "MIRAR/DESP."
+    },
+    {
+        "id": "L_MPWEAPONS_211",
+        "en": "AS C BUTTONS",
+        "gb": "AS C BUTTONS",
+        "jp": "Ｃボタンと\\h84f7じ",
+        "it": "COME PULSANTI C",
+        "fr": "COMME BOUTONS C",
+        "de": "WIE C-KNÖPFE",
+        "es": "COMO BOTONES C"
+    },
+    {
+        "id": "L_MPWEAPONS_212",
+        "en": "Controller 1:",
+        "gb": "Controller 1:",
+        "jp": "コントロ\\h8284ラ１：",
+        "it": "Controller 1:",
+        "fr": "MAnette 1:",
+        "de": "Controller 1:",
+        "es": "Mando 1:"
+    },
+    {
+        "id": "L_MPWEAPONS_213",
+        "en": "Controller 2:",
+        "gb": "Controller 2:",
+        "jp": "コントロ\\h8284ラ２：",
+        "it": "Controller 2:",
+        "fr": "Manette 2:",
+        "de": "Controller 2:",
+        "es": "Mando 2:"
+    },
+    {
+        "id": "L_MPWEAPONS_214",
+        "en": "Control Style %s %s\n",
+        "gb": "Control Style %s %s\n",
+        "jp": "\\h8589\\h83dbモ\\h8284ド %s %s\n",
+        "it": "Modalità comandi %s %s\n",
+        "fr": "Style contrôle %s %s\n",
+        "de": "Steuerungsart %s %s\n",
+        "es": "Estilo de Control %s %s\n"
+    },
+    {
+        "id": "L_MPWEAPONS_215",
+        "en": "(One-Handed)",
+        "gb": "(One-Handed)",
+        "jp": "（１\\h86bfモ\\h8284ド）",
+        "it": "(una mano)",
+        "fr": "(Une main)",
+        "de": "(Einhändig)",
+        "es": "(1 Mando)"
+    },
+    {
+        "id": "L_MPWEAPONS_216",
+        "en": "(Two-Handed)",
+        "gb": "(Two-Handed)",
+        "jp": "（２\\h86bfモ\\h8284ド）",
+        "it": "(due mani)",
+        "fr": "(Deux mains)",
+        "de": "(Beidhändig)",
+        "es": "(2 Mandos)"
+    },
+    {
+        "id": "L_MPWEAPONS_217",
+        "en": "Hold Weapon button for quick-menu.\nHold Action button to toggle function.\nAction+Fire temporarily changes function.\nAim allows you to target accurately.\nAim + Down C Button crouches.\nAim + Up C Button gets up.\n",
+        "gb": "Hold Weapon button for quick-menu.\nHold Action button to toggle function.\nAction+Fire temporarily changes function.\nAim allows you to target accurately.\nAim + Down C Button crouches.\nAim + Up C Button gets up.\n",
+        "jp": "「\\h82cc\\h84bd\\h86c2\\h86c3」ホ\\h8284ルド：クイックメニュ\\h8284\n「Ｂ」ホ\\h8284ルド：\\h82cc\\h84bdモ\\h8284ドの\\h8496\\h86d4\n「Ｂ」＋「\\h82d7つ」：\\h82cc\\h84bdモ\\h8284ドの\\h8283\\h8393\\h8496\\h86d4\n「\\h82eb\\h84a5」＋「Ｃ\\h87cc」：しゃがむ\n「\\h82eb\\h84a5」＋「Ｃ\\h87cb」：\\h83fcつ\n",
+        "it": "Tieni premuto ARMA per menu rapido.\nTieni premuto AZIONE per dis/attivare.\nAZIONE+FUOCO per cambiare funzioni.\nCon MIRA puoi mirare accuratamente.\nMIRA + C GIÙ per accucciarti.\nMIRA + C SU per alzarti.\n",
+        "fr": "Maintenir bouton d'arme pour menu rapide.\nMaintenir action pour autre fonction.\nAction+Feu pour changer de fonction.\nViser pour plus de précision.\nViser + Bouton C Bas pour s'accroupir.\nViser + Bouton C Haut pour se lever.\n",
+        "de": "'Waffe' gedrückt halten = Quick-Menü\n'Aktions' gedrückt halten = 2. Funktion\nAktion+Feuer ändert die Funktion kurz\nZielfunktion = manuelles Zielen\nZielen + C-Knopf unten = kriechen.\nZielen + C-Knopf oben = aufstehen.\n",
+        "es": "Mantén Arma para el menú rápido.\nMantén Acción para cambiar función.\nAcción+Disparo cambia temp. la función.\nApuntar aporta una mayor precisión.\nApuntar + Botón C Abajo te agacha.\nApuntar + Botón C Arriba te levanta.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_218",
+        "en": "Turn off all Cheats\n",
+        "gb": "Turn off all Cheats\n",
+        "jp": "\\h8385てのチ\\h8284トを\\h83bc\\h83dcにする\n",
+        "it": "Disattiva i trucchi\n",
+        "fr": "Désactiver toutes les triches\n",
+        "de": "Alle Cheats deaktivieren\n",
+        "es": "Desactiva todos los Trucos\n"
+    },
+    {
+        "id": "L_MPWEAPONS_219",
+        "en": "Language Filter\n",
+        "gb": "Language Filter\n",
+        "jp": "スラングＯＦＦ\n",
+        "it": "Filtro lingua\n",
+        "fr": "Filtre langage\n",
+        "de": "Sprachfilter\n",
+        "es": "Filtro de Lenguaje\n"
+    },
+    {
+        "id": "L_MPWEAPONS_220",
+        "en": "USERNAME:\n",
+        "gb": "USERNAME:\n",
+        "jp": "ユ\\h8284ザ\\h8284ＩＤ：\n",
+        "it": "NOME UTENTE:\n",
+        "fr": "UTILISATEUR:\n",
+        "de": "USERNAME:\n",
+        "es": "USUARIO:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_221",
+        "en": "PASSWORD:\n",
+        "gb": "PASSWORD:\n",
+        "jp": "パスワ\\h8284ド：\n",
+        "it": "PASSWORD:\n",
+        "fr": "MOT DE PASSE:\n",
+        "de": "PASSWORT:\n",
+        "es": "CLAVE:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_222",
+        "en": "Perfect Dark\n",
+        "gb": "Perfect Dark\n",
+        "jp": "スペシャル\n",
+        "it": "Perfect Dark\n",
+        "fr": "Perfect Dark\n",
+        "de": "Perfect Dark\n",
+        "es": "Oscuridad Perfecta\n"
+    },
+    {
+        "id": "L_MPWEAPONS_223",
+        "en": "Choose Settings:\n",
+        "gb": "Choose Settings:\n",
+        "jp": "\\h84ad\\h83ffオプション：\n",
+        "it": "Scegli impostaz.:\n",
+        "fr": "Choix paramètres:\n",
+        "de": "Einstellungen wählen:\n",
+        "es": "Elige Opciones:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_224",
+        "en": "Enemy Reaction Speed:\n",
+        "gb": "Enemy Reaction Speed:\n",
+        "jp": "\\h8297のスピ\\h8284ド：\n",
+        "it": "Velocità reazione nemico:\n",
+        "fr": "Vit. réaction ennemis:\n",
+        "de": "Gegnerische Reaktion:\n",
+        "es": "Vel. de Reacción Enemiga:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_225",
+        "en": "Enemy Health:\n",
+        "gb": "Enemy Health:\n",
+        "jp": "\\h8297の\\h828b\\h8282：\n",
+        "it": "Salute nemico:\n",
+        "fr": "Vie ennemis:\n",
+        "de": "Gegnerische Energie:\n",
+        "es": "Salud del Enemigo:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_226",
+        "en": "Enemy Damage:\n",
+        "gb": "Enemy Damage:\n",
+        "jp": "\\h8297の\\h83baさ：\n",
+        "it": "Danno nemico:\n",
+        "fr": "Dégâts ennemis:\n",
+        "de": "Schaden durch Gegner:\n",
+        "es": "Daño del Enemigo:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_227",
+        "en": "Enemy Accuracy:\n",
+        "gb": "Enemy Accuracy:\n",
+        "jp": "\\h8297の\\h83e9\\h828d\\h85a5：\n",
+        "it": "Precisione nemico:\n",
+        "fr": "Précision ennemis:\n",
+        "de": "Gegnerische Genauigkeit:\n",
+        "es": "Precisión del Enemigo:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_228",
+        "en": "OK\n",
+        "gb": "OK\n",
+        "jp": "ＯＫ\n",
+        "it": "OK\n",
+        "fr": "OK\n",
+        "de": "OK\n",
+        "es": "Aceptar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_229",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "キャンセル\n",
+        "it": "Annulla\n",
+        "fr": "Annuler\n",
+        "de": "Abbruch\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_230",
+        "en": "Controller Pak Not Found\n",
+        "gb": "Controller Pak Not Found\n",
+        "jp": "コントロ\\h8284ラパックが\\h82c9つかりません\n",
+        "it": "Controller Pak assente\n",
+        "fr": "Controller Pak introuvable\n",
+        "de": "Controller Pak wurde nicht gefunden\n",
+        "es": "Controller Pak No Encontrado\n"
+    },
+    {
+        "id": "L_MPWEAPONS_231",
+        "en": "Name:\n",
+        "gb": "Name:\n",
+        "jp": "ネ\\h8284ム：\n",
+        "it": "Nome:\n",
+        "fr": "Nom:\n",
+        "de": "Name:\n",
+        "es": "Nombre:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_232",
+        "en": "Location:\n",
+        "gb": "Location:\n",
+        "jp": "\\h838a\\h83e7：\n",
+        "it": "Dove:\n",
+        "fr": "Emplacement:\n",
+        "de": "Location:\n",
+        "es": "Lugar:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_233",
+        "en": "Duplicate File Name\n",
+        "gb": "Duplicate File Name\n",
+        "jp": "ーー\\h84ae\\h83b4ーー\n",
+        "it": "Copia nome file\n",
+        "fr": "Dupliquer nom fichier\n",
+        "de": "File Name duplizieren\n",
+        "es": "Nombre Duplicado\n"
+    },
+    {
+        "id": "L_MPWEAPONS_234",
+        "en": "already contains\n",
+        "gb": "already contains\n",
+        "jp": "\\h84f7\\h85bcファイルが\\h84d6\\h85d8\n",
+        "it": "contiene già un\n",
+        "fr": "contient déjà\n",
+        "de": "beinhaltet bereits\n",
+        "es": "ya tiene\n"
+    },
+    {
+        "id": "L_MPWEAPONS_235",
+        "en": "a file named\n",
+        "gb": "a file named\n",
+        "jp": "",
+        "it": "file di nome\n",
+        "fr": "un fichier nommé\n",
+        "de": "ein File namens\n",
+        "es": "un fichero nombrado\n"
+    },
+    {
+        "id": "L_MPWEAPONS_236",
+        "en": "Rename File\n",
+        "gb": "Rename File\n",
+        "jp": "\\h85bc\\h839dの\\h82ca\\h82cb\n",
+        "it": "Rinomina file\n",
+        "fr": "Renommer fichier\n",
+        "de": "File umbenennen\n",
+        "es": "Renombrar Fichero\n"
+    },
+    {
+        "id": "L_MPWEAPONS_237",
+        "en": "Change Location\n",
+        "gb": "Change Location\n",
+        "jp": "\\h838a\\h83e7の\\h82ca\\h82cb\n",
+        "it": "Cambia posto\n",
+        "fr": "Changer emplacement\n",
+        "de": "Location wechseln\n",
+        "es": "Cambiar Lugar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_238",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "キャンセル\n",
+        "it": "Annulla\n",
+        "fr": "Annuler\n",
+        "de": "Abbruch\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_239",
+        "en": "Change File Name\n",
+        "gb": "Change File Name\n",
+        "jp": "ファイル\\h85bcの\\h82ca\\h82cb\n",
+        "it": "Cambia nome file\n",
+        "fr": "Changer nom fichier\n",
+        "de": "File Namen ändern\n",
+        "es": "Cambiar Nombre\n"
+    },
+    {
+        "id": "L_MPWEAPONS_240",
+        "en": "Enter new file name:\n",
+        "gb": "Enter new file name:\n",
+        "jp": "\\h84d9たなファイル\\h85bc：\n",
+        "it": "Digita nuovo nome:\n",
+        "fr": "Nouveau nom fichier:\n",
+        "de": "Neuen Namen eingeben:\n",
+        "es": "Introduce nuevo nombre:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_241",
+        "en": "The file you are copying\ncannot be deleted.\n",
+        "gb": "The file you are copying\ncannot be deleted.\n",
+        "jp": "コピ\\h8284\\h86c5のファイル\nなので\\h8391\\h83f6できません\n",
+        "it": "Il file che stai copiando\nnon può essere cancellato.\n",
+        "fr": " Le fichier en copie\nne peut être effacé.\n",
+        "de": "Das zu kopierende File \nkann nicht gelöscht werden.\n",
+        "es": "El fichero que estás copiando\nno puede ser borrado.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_242",
+        "en": "ShockSim:%d\n",
+        "gb": "ShockSim:%d\n",
+        "jp": "ｄＤ\\h8291\\h8292\\h8293：%d\n",
+        "it": "RepShock:%d\n",
+        "fr": "ShockSim:%d\n",
+        "de": "SchockSim:%d\n",
+        "es": "SimShock:%d\n"
+    },
+    {
+        "id": "L_MPWEAPONS_243",
+        "en": "Target Time:\n",
+        "gb": "Target Time:\n",
+        "jp": "タ\\h8284ゲットタイム：\n",
+        "it": "Tempo-obiettivo:\n",
+        "fr": "Temps spécial:\n",
+        "de": "Maximale Zeit:\n",
+        "es": "Tiempo Requerido:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_244",
+        "en": "New Cheat Available!:\n",
+        "gb": "New Cheat Available!:\n",
+        "jp": "\\h84d9たなチ\\h8284トを\\h86ca\\h83a5！：\n",
+        "it": "Nuovo trucco disponibile!:\n",
+        "fr": "Nouvelle triche disponible:\n",
+        "de": "Neuer Cheat verfügbar!\n",
+        "es": "¡Nuevo Truco Disponible!:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_245",
+        "en": "Continue\n",
+        "gb": "Continue\n",
+        "jp": "\\h82beける\n",
+        "it": "Continua\n",
+        "fr": "Continuer\n",
+        "de": "Weiter\n",
+        "es": "Continuar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_246",
+        "en": "Replay Last Level\n",
+        "gb": "Replay Last Level\n",
+        "jp": "もう\\h8283\\h83acプレイする\n",
+        "it": "Replay ultimo livello\n",
+        "fr": "Recommencer dernier niveau\n",
+        "de": "Letzten Level wiederholen\n",
+        "es": "Volver a Jugar el Nivel\n"
+    },
+    {
+        "id": "L_MPWEAPONS_247",
+        "en": "Save Player\n",
+        "gb": "Save Player\n",
+        "jp": "\\h86bf\\h84b1\\h8688\\h84c7のセ\\h8284ブ\n",
+        "it": "Salva giocatore\n",
+        "fr": "Sauver joueur\n",
+        "de": "Spieler speichern\n",
+        "es": "Guardar Jugador\n"
+    },
+    {
+        "id": "L_MPWEAPONS_248",
+        "en": "Save new player\nand statistics?\n",
+        "gb": "Save new player\nand statistics?\n",
+        "jp": "\\h86bf\\h84b1\\h8688\\h84c7を\nセ\\h8284ブしますか？\n",
+        "it": "Salva nuovo giocatore\ne statistiche?\n",
+        "fr": "Sauver nouveau joueur\net stats?\n",
+        "de": "Neuen Spieler und \nWerte speichern?\n",
+        "es": "¿Guardar nuevo jugador\ny estadísticas?\n"
+    },
+    {
+        "id": "L_MPWEAPONS_249",
+        "en": "Save Now\n",
+        "gb": "Save Now\n",
+        "jp": "セ\\h8284ブする\n",
+        "it": "Salva!\n",
+        "fr": "Sauver maintenant\n",
+        "de": "Speichern\n",
+        "es": "Guardar Ahora\n"
+    },
+    {
+        "id": "L_MPWEAPONS_250",
+        "en": "No Thanks!\n",
+        "gb": "No Thanks!\n",
+        "jp": "セ\\h8284ブしない\n",
+        "it": "Non salvare!\n",
+        "fr": "Non merci!\n",
+        "de": "Nein Danke!\n",
+        "es": "¡No, Gracias!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_251",
+        "en": "Confirm player name:\n",
+        "gb": "Confirm player name:\n",
+        "jp": "プレイヤ\\h8284ネ\\h8284ム：\n",
+        "it": "Conferma nome giocatore:\n",
+        "fr": "Confirmer nom joueur:\n",
+        "de": "Spielernamen bestätigen:\n",
+        "es": "Confirmar nombre:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_252",
+        "en": "The saved file has\nbeen erased due\nto corruption\nor damage.\n",
+        "gb": "The saved file has\nbeen erased due\nto corruption\nor damage.\n",
+        "jp": "セ\\h8284ブファイルは\n\\h82ce\\h85e8のために\n\\h8391\\h83f6されました\n",
+        "it": "Il file in memoria\nè stato cancellato\na causa di un errore.\n",
+        "fr": "Le fichier sauvé\na été effacé:\ncorrupu ou\nendommagé.\n",
+        "de": "Das gespeicherte File wurde \naufgrund von beschädigten Daten \noder Hardware-Schäden \ngelöscht.\n",
+        "es": "El fichero guardado ha\nsido borrado debido\na datos corruptos\no dañados.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_253",
+        "en": "Continue\n",
+        "gb": "Continue\n",
+        "jp": "\\h82beける\n",
+        "it": "Continua\n",
+        "fr": "Continuer\n",
+        "de": "Weiter\n",
+        "es": "Continuar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_254",
+        "en": "Error\n",
+        "gb": "Error\n",
+        "jp": "エラ\\h8284\n",
+        "it": "Errore\n",
+        "fr": "Erreur\n",
+        "de": "Error\n",
+        "es": "Error\n"
+    },
+    {
+        "id": "L_MPWEAPONS_255",
+        "en": "Cannot read Game Boy Game Pak.\nCheck connections and make sure\ncorrect Game Boy Game Pak is\nbeing used.\n",
+        "gb": "Cannot read Game Boy Game Pak.\nCheck connections and make sure\ncorrect Game Boy Game Pak is\nbeing used.\n",
+        "jp": "ゲ\\h8284ムボ\\h8284イのカ\\h8284トリッジを\n\\h859eみ\\h82c1めません。\\h85d1\\h82beが\\h85a0しい\nか、カ\\h8284トリッジが\\h85a0しいかを\n\\h82b9\\h82c7して\\h87ccさい。\n",
+        "it": "Impossibile leggere la cassetta\ndi gioco Game Boy. Controlla le\nconnessioni e assicurati che si\ntratti della cassetta giusta.\n",
+        "fr": "Cartouche Game Boy illisible.\nVérifier connexions et s'assurer\nque la bonne cartouche est\nutilisée.\n",
+        "de": "Game Boy-Modul kann nicht gelesen werden.\nBitte überprüfen Sie, ob\ndas richtige Game Boy-Modul\neingelegt ist.\n",
+        "es": "No se puede acceder al Cartucho de GB.\nComprueba las conexiones y asegúrate\nde que estás usando el cartucho de\nGame Boy correcto.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_256",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "キャンセル\n",
+        "it": "Annulla\n",
+        "fr": "Annuler\n",
+        "de": "Abbruch\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_257",
+        "en": "Error\n",
+        "gb": "Error\n",
+        "jp": "エラ\\h8284\n",
+        "it": "Errore\n",
+        "fr": "Erreur\n",
+        "de": "Error\n",
+        "es": "Error\n"
+    },
+    {
+        "id": "L_MPWEAPONS_258",
+        "en": "The saved data has\n",
+        "gb": "The saved data has\n",
+        "jp": "セ\\h8284ブファイルは\n",
+        "it": "I dati in memoria\n",
+        "fr": "La sauvegarde a été\n",
+        "de": "Die gespeicherten Daten\n",
+        "es": "Los datos guardados\n"
+    },
+    {
+        "id": "L_MPWEAPONS_259",
+        "en": "been erased due to\n",
+        "gb": "been erased due to\n",
+        "jp": "\\h82ce\\h85e8のために\n",
+        "it": "sono stati eliminati\n",
+        "fr": "effacée: corrompue\n",
+        "de": "wurden aufgrund einer\n",
+        "es": "han sido borrados\n"
+    },
+    {
+        "id": "L_MPWEAPONS_260",
+        "en": "corruption or damage.\n",
+        "gb": "corruption or damage.\n",
+        "jp": "\\h8391\\h83f6されました\n",
+        "it": "perché danneggiati.\n",
+        "fr": "ou endommagée.\n",
+        "de": "Beschädigung gelöscht.\n",
+        "es": "porque estaban dañados.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_261",
+        "en": "Cancel\n",
+        "gb": "Cancel\n",
+        "jp": "キャンセル\n",
+        "it": "Annulla\n",
+        "fr": "Annuler\n",
+        "de": "Abbruch\n",
+        "es": "Cancelar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_262",
+        "en": "Choose your language:\n",
+        "gb": "Choose your language:\n",
+        "jp": "ランゲ\\h8284ジ\\h86c2\\h86c3：\n",
+        "it": "Scegli la lingua:\n",
+        "fr": "Choix de langue:\n",
+        "de": "Wählen Sie die Sprache:\n",
+        "es": "Elige tu idioma:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_263",
+        "en": "English\n",
+        "gb": "English\n",
+        "jp": "イングリッシュ\n",
+        "it": "Inglese\n",
+        "fr": "English\n",
+        "de": "Englisch\n",
+        "es": "Inglés\n"
+    },
+    {
+        "id": "L_MPWEAPONS_264",
+        "en": "French\n",
+        "gb": "Français\n",
+        "jp": "フレンチ\n",
+        "it": "Francese\n",
+        "fr": "Français\n",
+        "de": "Französisch\n",
+        "es": "Francés\n"
+    },
+    {
+        "id": "L_MPWEAPONS_265",
+        "en": "German\n",
+        "gb": "Deutsch\n",
+        "jp": "ジャ\\h8284マン\n",
+        "it": "Tedesco\n",
+        "fr": "Deutsch\n",
+        "de": "Deutsch\n",
+        "es": "Alemán\n"
+    },
+    {
+        "id": "L_MPWEAPONS_266",
+        "en": "Italian\n",
+        "gb": "Italiano\n",
+        "jp": "イタリアン\n",
+        "it": "Italiano\n",
+        "fr": "Italiano\n",
+        "de": "Italienisch\n",
+        "es": "Italiano\n"
+    },
+    {
+        "id": "L_MPWEAPONS_267",
+        "en": "Spanish\n",
+        "gb": "Español\n",
+        "jp": "スパニッシュ\n",
+        "it": "Spagnolo\n",
+        "fr": "Español\n",
+        "de": "Spanisch\n",
+        "es": "Español\n"
+    },
+    {
+        "id": "L_MPWEAPONS_268",
+        "en": "American\n",
+        "gb": "American\n",
+        "jp": "アメリカン\n",
+        "it": "Americano\n",
+        "fr": "American\n",
+        "de": "Amerikanisch\n",
+        "es": "I. Americano\n"
+    },
+    {
+        "id": "L_MPWEAPONS_269",
+        "en": "Language:\n",
+        "gb": "Language:\n",
+        "jp": "ランゲ\\h8284ジ：\n",
+        "it": "Lingua:\n",
+        "fr": "Langue:\n",
+        "de": "Sprache:\n",
+        "es": "Idioma:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_270",
+        "en": "Language\n",
+        "gb": "Language\n",
+        "jp": "ランゲ\\h8284ジ\n",
+        "it": "Lingua\n",
+        "fr": "Langue\n",
+        "de": "Sprache\n",
+        "es": "Idioma\n"
+    },
+    {
+        "id": "L_MPWEAPONS_271",
+        "en": "Control Style\n",
+        "gb": "Control Style\n",
+        "jp": "\\h8589\\h83dbモ\\h8284ド\n",
+        "it": "Modalità comandi\n",
+        "fr": "Style contrôle\n",
+        "de": "Steuerung\n",
+        "es": "Estilo C.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_272",
+        "en": "Reverse Pitch\n",
+        "gb": "Reverse Pitch\n",
+        "jp": "\\h86d1\\h83ce\\h84a8\\h82c4の\\h87cb\\h87cc\\h86d2\n",
+        "it": "Inv. punto vista\n",
+        "fr": "Visée inv.\n",
+        "de": "Blickrichtung\n",
+        "es": "C. Opuesto\n"
+    },
+    {
+        "id": "L_MPWEAPONS_273",
+        "en": "Look Ahead\n",
+        "gb": "Look Ahead\n",
+        "jp": "\\h8397\\h82c4\\h839d\\h82d4\\h86d1\\h83ce\n",
+        "it": "Vista in avanti\n",
+        "fr": "Voir droit\n",
+        "de": "Geradeaus\n",
+        "es": "M. Frente\n"
+    },
+    {
+        "id": "L_MPWEAPONS_274",
+        "en": "Head Roll\n",
+        "gb": "Head Roll\n",
+        "jp": "\\h86c8のゆれ\n",
+        "it": "Rotazione testa\n",
+        "fr": "Vue tête\n",
+        "de": "Kopfbewegung\n",
+        "es": "G. Cabeza\n"
+    },
+    {
+        "id": "L_MPWEAPONS_275",
+        "en": "Auto-Aim\n",
+        "gb": "Auto-Aim\n",
+        "jp": "\\h8397\\h82c4\\h82eb\\h84a5\n",
+        "it": "Mira automatica\n",
+        "fr": "Visée auto\n",
+        "de": "Auto-Visier\n",
+        "es": "Auto-Apun.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_276",
+        "en": "Aim Control\n",
+        "gb": "Aim Control\n",
+        "jp": "\\h82eb\\h84a5\\h8688\\h84c7\n",
+        "it": "Mirino\n",
+        "fr": "Contrôle cible\n",
+        "de": "Fadenkreuz\n",
+        "es": "C. Apuntar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_277",
+        "en": "Hold\n",
+        "gb": "Hold\n",
+        "jp": "ホ\\h8284ルド\n",
+        "it": "Tieni premuto\n",
+        "fr": "Fixe\n",
+        "de": "Halten\n",
+        "es": "Mant.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_278",
+        "en": "Toggle\n",
+        "gb": "Toggle\n",
+        "jp": "\\h8496り\\h86d4え\n",
+        "it": "Dis/Attiva\n",
+        "fr": "Alt.\n",
+        "de": "Umsch.\n",
+        "es": "Camb.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_279",
+        "en": "Cutscene Subtitles\n",
+        "gb": "Cutscene Subtitles\n",
+        "jp": "シネマの\\h86df\\h86e0\n",
+        "it": "Didascalie film\n",
+        "fr": "Sous-titres ciné\n",
+        "de": "Cutscene Untertitel\n",
+        "es": "Subt. Escenas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_280",
+        "en": "In-Game Subtitles\n",
+        "gb": "In-Game Subtitles\n",
+        "jp": "ゲ\\h8284ム\\h828dの\\h86df\\h86e0\n",
+        "it": "Didascalie nel gioco\n",
+        "fr": "Sous-titres jeu\n",
+        "de": "In-Game Untertitel\n",
+        "es": "Subt. Juego\n"
+    },
+    {
+        "id": "L_MPWEAPONS_281",
+        "en": "Perfect Dark Registered Trademark No. 43666801\n",
+        "gb": "THE N64 EXPANSION PAK ACCESSORY MUST BE INSTALLED IN THE N64 FOR\nTHIS GAME. SEE THE N64 EXPANSION PAK INSTRUCTION BOOKLET.\n",
+        "jp": "Perfect Dark Registered Trademark No. 4366801\n",
+        "it": "THE N64 EXPANSION PAK ACCESSORY MUST BE INSTALLED IN THE N64 FOR\nTHIS GAME. SEE THE N64 EXPANSION PAK INSTRUCTION BOOKLET.\n",
+        "fr": "THE N64 EXPANSION PAK ACCESSORY MUST BE INSTALLED IN THE N64 FOR\nTHIS GAME. SEE THE N64 EXPANSION PAK INSTRUCTION BOOKLET.\n",
+        "de": "THE N64 EXPANSION PAK ACCESSORY MUST BE INSTALLED IN THE N64 FOR\nTHIS GAME. SEE THE N64 EXPANSION PAK INSTRUCTION BOOKLET.\n",
+        "es": "THE N64 EXPANSION PAK ACCESSORY MUST BE INSTALLED IN THE N64 FOR\nTHIS GAME. SEE THE N64 EXPANSION PAK INSTRUCTION BOOKLET.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_282",
+        "en": "THE N64 EXPANSION PAK ACCESSORY MUST BE INSTALLED IN THE N64 FOR\nTHIS GAME. SEE THE N64 EXPANSION PAK INSTRUCTION BOOKLET.\n",
+        "gb": null,
+        "jp": "このゲ\\h8284ムには、メモリ\\h8284\\h86e6\\h8598パック\n",
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_283",
+        "en": null,
+        "gb": null,
+        "jp": "が千\\h8383です。　\\h8790しくはゲ\\h8284ムの\\h839b\\h87bd\n",
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_MPWEAPONS_284",
+        "en": null,
+        "gb": null,
+        "jp": "\\h85fb\\h82ec\\h86d0をお\\h859eみ\\h87ccさい。　　　　　　\n"
+    },
+    {
+        "id": "L_MPWEAPONS_285",
+        "en": null,
+        "gb": null,
+        "jp": "コントロ\\h8284ラコネクタ１に\n"
+    },
+    {
+        "id": "L_MPWEAPONS_286",
+        "en": null,
+        "gb": null,
+        "jp": "コントロ\\h8284ラが\\h85d1\\h82beされていません。\n"
+    },
+    {
+        "id": "L_MPWEAPONS_287",
+        "en": null,
+        "gb": null,
+        "jp": "\\h84b7\\h828bの\\h83c9\\h83d2を\\h8496ってから\n"
+    },
+    {
+        "id": "L_MPWEAPONS_288",
+        "en": null,
+        "gb": null,
+        "jp": "コントロ\\h8284ラを\\h85d1\\h82beして\\h87ccさい。\n"
+    },
+    {
+        "id": "L_MPWEAPONS_289",
+        "en": null,
+        "gb": null,
+        "jp": null
+    },
+    {
+        "id": "L_MPWEAPONS_290",
+        "en": null,
+        "gb": null,
+        "jp": null
+    },
+    {
+        "id": "L_MPWEAPONS_291",
+        "en": null,
+        "gb": null,
+        "jp": null
+    }
+]

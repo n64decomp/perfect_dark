@@ -1,0 +1,882 @@
+[
+    {
+        "id": "L_PROPOBJ_000",
+        "en": "Picked up %s.\n",
+        "gb": "Picked up %s.\n",
+        "jp": "%sを\\h82ddに\\h82f6れた\n",
+        "it": "Preso %s\n",
+        "fr": "%s obtenu.\n",
+        "de": "%s aufgenommen\n",
+        "es": "Recogiste %s.\n"
+    },
+    {
+        "id": "L_PROPOBJ_001",
+        "en": "Picked up %s.\n",
+        "gb": "Picked up %s.\n",
+        "jp": "%sを\\h82ddに\\h82f6れた\n",
+        "it": "Presa %s\n",
+        "fr": "%s obtenue.\n",
+        "de": "%s aufgenommen\n",
+        "es": "Recogiste %s.\n"
+    },
+    {
+        "id": "L_PROPOBJ_002",
+        "en": "Picked up %s.\n",
+        "gb": "Picked up %s.\n",
+        "jp": "%sを\\h82ddに\\h82f6れた\n",
+        "it": "Presa %s\n",
+        "fr": "",
+        "de": "%s aufgenommen\n",
+        "es": "Recogiste %s.\n"
+    },
+    {
+        "id": "L_PROPOBJ_003",
+        "en": "Picked up %s.\n",
+        "gb": "Picked up %s.\n",
+        "jp": "%sを\\h82ddに\\h82f6れた\n",
+        "it": "Preso %s\n",
+        "fr": "",
+        "de": "%s aufgenommen\n",
+        "es": "Recogiste %s.\n"
+    },
+    {
+        "id": "L_PROPOBJ_004",
+        "en": "Picked up %s.\n",
+        "gb": "Picked up %s.\n",
+        "jp": "%sを\\h82ddに\\h82f6れた\n",
+        "it": "Presi %s\n",
+        "fr": "%s obtenus.\n",
+        "de": "%s aufgenommen\n",
+        "es": "Recogiste %s.\n"
+    },
+    {
+        "id": "L_PROPOBJ_005",
+        "en": "Picked up %s.\n",
+        "gb": "Picked up %s.\n",
+        "jp": "%sを\\h82ddに\\h82f6れた\n",
+        "it": "Prese %s\n",
+        "fr": "%s obtenues.\n",
+        "de": "%s aufgenommen\n",
+        "es": "Recogiste %s.\n"
+    },
+    {
+        "id": "L_PROPOBJ_006",
+        "en": "Picked up %s.\n",
+        "gb": "Picked up %s.\n",
+        "jp": "%sを\\h82ddに\\h82f6れた\n",
+        "it": "Prese %s\n",
+        "fr": "",
+        "de": "%s aufgenommen\n",
+        "es": "Recogiste %s.\n"
+    },
+    {
+        "id": "L_PROPOBJ_007",
+        "en": "Picked up %s.\n",
+        "gb": "Picked up %s.\n",
+        "jp": "%sを\\h82ddに\\h82f6れた\n",
+        "it": "Prese %s\n",
+        "fr": "",
+        "de": "%s aufgenommen\n",
+        "es": "Recogiste %s.\n"
+    },
+    {
+        "id": "L_PROPOBJ_008",
+        "en": "Double ",
+        "gb": "Double ",
+        "jp": "ダブル・",
+        "it": "Doppio ",
+        "fr": "Double ",
+        "de": "Doppel ",
+        "es": "Doble "
+    },
+    {
+        "id": "L_PROPOBJ_009",
+        "en": "ammo",
+        "gb": "ammo",
+        "jp": "″\\h85a4〈",
+        "it": "munizioni",
+        "fr": "Munitions",
+        "de": "Munition",
+        "es": "munición"
+    },
+    {
+        "id": "L_PROPOBJ_010",
+        "en": "cartridge",
+        "gb": "cartridge",
+        "jp": "カ\\h8284トリッジ",
+        "it": "cartuccia",
+        "fr": "Cartouche",
+        "de": "Magazin",
+        "es": "cartucho"
+    },
+    {
+        "id": "L_PROPOBJ_011",
+        "en": "magnum bullet",
+        "gb": "magnum bullet",
+        "jp": "マグナム\\h82e0の\\h85a4",
+        "it": "pallottola magnum",
+        "fr": "Balle Magnum",
+        "de": "Magnum-Kugel",
+        "es": "bala de magnum"
+    },
+    {
+        "id": "L_PROPOBJ_012",
+        "en": "golden bullet",
+        "gb": "golden bullet",
+        "jp": "\\h86dc電の\\h85a4",
+        "it": "pallottola d'oro",
+        "fr": "balle en or",
+        "de": "goldene Kugel",
+        "es": "balas doradas"
+    },
+    {
+        "id": "L_PROPOBJ_013",
+        "en": "grenade",
+        "gb": "grenade",
+        "jp": "\\h82ddりゅう\\h85a4",
+        "it": "granata",
+        "fr": "Grenade",
+        "de": "Granate",
+        "es": "granada"
+    },
+    {
+        "id": "L_PROPOBJ_014",
+        "en": "grenade round",
+        "gb": "grenade round",
+        "jp": "Ｇランチャの\\h85a4",
+        "it": "granata a giro",
+        "fr": "Munit. grenade",
+        "de": "Granatwerfer-Munition",
+        "es": "cinto de granadas"
+    },
+    {
+        "id": "L_PROPOBJ_015",
+        "en": "rocket",
+        "gb": "rocket",
+        "jp": "ロケット\\h85a4",
+        "it": "missile",
+        "fr": "Roquette",
+        "de": "Rakete",
+        "es": "cohete"
+    },
+    {
+        "id": "L_PROPOBJ_016",
+        "en": "homing rocket",
+        "gb": "homing rocket",
+        "jp": "ホ\\h8284ミングロケット",
+        "it": "missile di ritorno",
+        "fr": "Roquette tête cher.",
+        "de": "Zielsuch-Rakete",
+        "es": "cohete buscador"
+    },
+    {
+        "id": "L_PROPOBJ_017",
+        "en": "remote mine",
+        "gb": "remote mine",
+        "jp": "リモ\\h8284ト\\h85a3\\h85a4",
+        "it": "mina a distanza",
+        "fr": "Mine télécom.",
+        "de": "Fernzünder-Mine",
+        "es": "mina remota"
+    },
+    {
+        "id": "L_PROPOBJ_018",
+        "en": "proximity mine",
+        "gb": "proximity mine",
+        "jp": "センサ\\h8284\\h85a3\\h85a4",
+        "it": "mina di prossimità",
+        "fr": "Mine prox.",
+        "de": "Annäherungs-Mine",
+        "es": "mina de proximidad"
+    },
+    {
+        "id": "L_PROPOBJ_019",
+        "en": "timed mine",
+        "gb": "timed mine",
+        "jp": "\\h8393\\h84f9\\h85a3\\h85a4",
+        "it": "mina a tempo",
+        "fr": "Mine retard.",
+        "de": "Zeitzünder-Mine",
+        "es": "mina de tiempo"
+    },
+    {
+        "id": "L_PROPOBJ_020",
+        "en": "combat knife",
+        "gb": "combat knife",
+        "jp": "コンバットナイフ",
+        "it": "pugnale da lotta",
+        "fr": "Couteau combat",
+        "de": "Kampfmesser",
+        "es": "cuchillo de combate"
+    },
+    {
+        "id": "L_PROPOBJ_021",
+        "en": "combat knives",
+        "gb": "combat knives",
+        "jp": "コンバットナイフ",
+        "it": "pugnali da lotta",
+        "fr": "Couteaux combat",
+        "de": "Kampfmesser",
+        "es": "cuchillos de combate"
+    },
+    {
+        "id": "L_PROPOBJ_022",
+        "en": "dart",
+        "gb": "dart",
+        "jp": "ダ\\h8284ツ",
+        "it": "freccia",
+        "fr": "Fléchette",
+        "de": "Pfeil",
+        "es": "dardo"
+    },
+    {
+        "id": "L_PROPOBJ_023",
+        "en": "N-Bomb",
+        "gb": "N-Bomb",
+        "jp": "Ｎボム",
+        "it": "bomba-n",
+        "fr": "Bombe-N",
+        "de": "N-Bombe",
+        "es": "bomba-N"
+    },
+    {
+        "id": "L_PROPOBJ_024",
+        "en": "sedatives",
+        "gb": "sedatives",
+        "jp": "\\h878b\\h86a9\\h878c",
+        "it": "sedativi",
+        "fr": "Sédatif",
+        "de": "Betäubungsgeschoss",
+        "es": "sedante"
+    },
+    {
+        "id": "L_PROPOBJ_025",
+        "en": "explosive pen",
+        "gb": "explosive pen",
+        "jp": "ペン\\h85a3\\h85a4",
+        "it": "penna esplosiva",
+        "fr": "stylo explosif",
+        "de": "Explosiver Kugelschreiber",
+        "es": "Boli Explosivo"
+    },
+    {
+        "id": "L_PROPOBJ_026",
+        "en": "explosive case",
+        "gb": "explosive case",
+        "jp": "カバン\\h85a3\\h85a4",
+        "it": "cassa esplosiva",
+        "fr": "malle explosive",
+        "de": "Explosiver Koffer",
+        "es": "Caja de Explosivos"
+    },
+    {
+        "id": "L_PROPOBJ_027",
+        "en": "flare",
+        "gb": "flare",
+        "jp": "フレア\\h8284",
+        "it": "fiamma",
+        "fr": "fusée",
+        "de": "Leuchtkugel",
+        "es": "Bengalas"
+    },
+    {
+        "id": "L_PROPOBJ_028",
+        "en": "piton",
+        "gb": "piton",
+        "jp": "ピトン",
+        "it": "chiodo",
+        "fr": "piton",
+        "de": "Felshaken",
+        "es": "Pitón"
+    },
+    {
+        "id": "L_PROPOBJ_029",
+        "en": "of dynamite",
+        "gb": "of dynamite",
+        "jp": "ダイナマイト",
+        "it": "di dinamite",
+        "fr": "de dynamite",
+        "de": "Dynamit-",
+        "es": ""
+    },
+    {
+        "id": "L_PROPOBJ_030",
+        "en": "stick ",
+        "gb": "stick ",
+        "jp": "スティック",
+        "it": "carica ",
+        "fr": "bâton ",
+        "de": "Stab ",
+        "es": "Cartucho de Dinamita"
+    },
+    {
+        "id": "L_PROPOBJ_031",
+        "en": "sticks ",
+        "gb": "sticks ",
+        "jp": "スティック",
+        "it": "cariche ",
+        "fr": "bâtons ",
+        "de": "Stäbe ",
+        "es": "Cartuchos de Dinamita"
+    },
+    {
+        "id": "L_PROPOBJ_032",
+        "en": "bug",
+        "gb": "bug",
+        "jp": "\\h82c8\\h83a4\\h84bd",
+        "it": "cimice",
+        "fr": "mouchard",
+        "de": "Peilsender",
+        "es": "Bicho"
+    },
+    {
+        "id": "L_PROPOBJ_033",
+        "en": "micro camera",
+        "gb": "micro camera",
+        "jp": "マイクロカメラ",
+        "it": "microcamera",
+        "fr": "micro camera",
+        "de": "Mikro-Kamera",
+        "es": "Microcámara"
+    },
+    {
+        "id": "L_PROPOBJ_034",
+        "en": "GoldenEye key",
+        "gb": "GoldenEye key",
+        "jp": "ゴ\\h8284ルデンアイ・キ\\h8284",
+        "it": "chiave GoldenEye",
+        "fr": "Clé GoldenEye",
+        "de": "GoldenEye-Schlüssel",
+        "es": "Llave GoldenEye"
+    },
+    {
+        "id": "L_PROPOBJ_035",
+        "en": "token",
+        "gb": "token",
+        "jp": "フラッグ",
+        "it": "buono",
+        "fr": "jeton",
+        "de": "Symbol",
+        "es": "Ficha"
+    },
+    {
+        "id": "L_PROPOBJ_036",
+        "en": "plastique",
+        "gb": "plastique",
+        "jp": "プラスチック\\h85a3\\h85a4",
+        "it": "plastica",
+        "fr": "plastique",
+        "de": "Plastik",
+        "es": "Explosivo Plástico"
+    },
+    {
+        "id": "L_PROPOBJ_037",
+        "en": "Picked up a key.\n",
+        "gb": "Picked up a key.\n",
+        "jp": "キ\\h8284を\\h82ddに\\h82f6れた\n",
+        "it": "Presa chiave.\n",
+        "fr": "Clé obtenue.\n",
+        "de": "Schlüssel aufgenommen\n",
+        "es": "Has cogido una Llave.\n"
+    },
+    {
+        "id": "L_PROPOBJ_038",
+        "en": "Picked up a shield.\n",
+        "gb": "Picked up a shield.\n",
+        "jp": "シ\\h8284ルドを\\h82ddに\\h82f6れた\n",
+        "it": "Preso scudo.\n",
+        "fr": "Bouclier obtenu.\n",
+        "de": "Schild aufgenommen\n",
+        "es": "Has cogido un Escudo.\n"
+    },
+    {
+        "id": "L_PROPOBJ_039",
+        "en": "A shield.\n",
+        "gb": "A shield.\n",
+        "jp": "シ\\h8284ルド\n",
+        "it": "uno scudo.\n",
+        "fr": "Un bouclier.\n",
+        "de": "Ein Schild\n",
+        "es": "Un Escudo.\n"
+    },
+    {
+        "id": "L_PROPOBJ_040",
+        "en": "Picked up something.\n",
+        "gb": "Picked up something.\n",
+        "jp": "Picked up something.\n",
+        "it": "Preso qualcosa.\n",
+        "fr": "Elément obtenu.\n",
+        "de": "Etwas wurde aufgenommen.\n",
+        "es": "Has cogido algo.\n"
+    },
+    {
+        "id": "L_PROPOBJ_041",
+        "en": "This door is locked.\n",
+        "gb": "This door is locked.\n",
+        "jp": "このドアはロックされています\n",
+        "it": "La porta è chiusa.\n",
+        "fr": "Cette porte est fermée.\n",
+        "de": "Diese Tür ist verschlossen.\n",
+        "es": "Esta puerta está cerrada.\n"
+    },
+    {
+        "id": "L_PROPOBJ_042",
+        "en": "bolt",
+        "gb": "bolt",
+        "jp": "\\h878d",
+        "it": "dardo",
+        "fr": "Carreau",
+        "de": "Bolzen",
+        "es": "saeta"
+    },
+    {
+        "id": "L_PROPOBJ_043",
+        "en": "orb",
+        "gb": "orb",
+        "jp": "オ\\h8284ブ",
+        "it": "globo",
+        "fr": "Orbe",
+        "de": "Kraftzelle",
+        "es": "orbe"
+    },
+    {
+        "id": "L_PROPOBJ_044",
+        "en": "Reaper ammo",
+        "gb": "Reaper ammo",
+        "jp": "リ\\h8284パ\\h8284の\\h85a4",
+        "it": "munizioni Falciatore",
+        "fr": "Munit. Reaper",
+        "de": "Reaper-Munition",
+        "es": "munición Segadora"
+    },
+    {
+        "id": "L_PROPOBJ_045",
+        "en": "cloaking device",
+        "gb": "cloaking device",
+        "jp": "スパイクロ\\h8284ク",
+        "it": "Dispositivo mimetico",
+        "fr": "Occulteur",
+        "de": "Tarnkappe",
+        "es": "disp. de ocultación"
+    },
+    {
+        "id": "L_PROPOBJ_046",
+        "en": "boost pill",
+        "gb": "boost pill",
+        "jp": "ブ\\h8284ストピル",
+        "it": "Pillola booster",
+        "fr": "Pilule boost",
+        "de": "Stärkungs-Pille",
+        "es": "reforzador"
+    },
+    {
+        "id": "L_PROPOBJ_047",
+        "en": "your ",
+        "gb": "your ",
+        "jp": "",
+        "it": "la ",
+        "fr": "votre ",
+        "de": "",
+        "es": "tu "
+    },
+    {
+        "id": "L_PROPOBJ_048",
+        "en": "Your ",
+        "gb": "Your ",
+        "jp": "",
+        "it": "La ",
+        "fr": "Votre ",
+        "de": "",
+        "es": "Tu "
+    },
+    {
+        "id": "L_PROPOBJ_049",
+        "en": "some ",
+        "gb": "some ",
+        "jp": "",
+        "it": "dei ",
+        "fr": "des ",
+        "de": "",
+        "es": "algunos "
+    },
+    {
+        "id": "L_PROPOBJ_050",
+        "en": "Some ",
+        "gb": "Some ",
+        "jp": "",
+        "it": "Presi ",
+        "fr": "Des ",
+        "de": "",
+        "es": "Algunos "
+    },
+    {
+        "id": "L_PROPOBJ_051",
+        "en": "some ",
+        "gb": "some ",
+        "jp": "",
+        "it": "delle ",
+        "fr": "des ",
+        "de": "",
+        "es": "algunas "
+    },
+    {
+        "id": "L_PROPOBJ_052",
+        "en": "Some ",
+        "gb": "Some ",
+        "jp": "",
+        "it": "Prese ",
+        "fr": "Des ",
+        "de": "",
+        "es": "Algunas "
+    },
+    {
+        "id": "L_PROPOBJ_053",
+        "en": "some ",
+        "gb": "some ",
+        "jp": "",
+        "it": "",
+        "fr": "",
+        "de": "",
+        "es": ""
+    },
+    {
+        "id": "L_PROPOBJ_054",
+        "en": "Some ",
+        "gb": "Some ",
+        "jp": "",
+        "it": "Prese ",
+        "fr": "",
+        "de": "",
+        "es": ""
+    },
+    {
+        "id": "L_PROPOBJ_055",
+        "en": "",
+        "gb": "",
+        "jp": "",
+        "it": "",
+        "fr": "",
+        "de": "",
+        "es": ""
+    },
+    {
+        "id": "L_PROPOBJ_056",
+        "en": "",
+        "gb": "",
+        "jp": "",
+        "it": "",
+        "fr": "",
+        "de": "",
+        "es": ""
+    },
+    {
+        "id": "L_PROPOBJ_057",
+        "en": "a ",
+        "gb": "a ",
+        "jp": "",
+        "it": "un ",
+        "fr": "un ",
+        "de": "",
+        "es": "un "
+    },
+    {
+        "id": "L_PROPOBJ_058",
+        "en": "A ",
+        "gb": "A ",
+        "jp": "",
+        "it": "Un ",
+        "fr": "Un ",
+        "de": "",
+        "es": "Un "
+    },
+    {
+        "id": "L_PROPOBJ_059",
+        "en": "an ",
+        "gb": "an ",
+        "jp": "",
+        "it": "una ",
+        "fr": "une ",
+        "de": "",
+        "es": "una "
+    },
+    {
+        "id": "L_PROPOBJ_060",
+        "en": "An ",
+        "gb": "An ",
+        "jp": "",
+        "it": "Una ",
+        "fr": "Une ",
+        "de": "",
+        "es": "Una "
+    },
+    {
+        "id": "L_PROPOBJ_061",
+        "en": "the ",
+        "gb": "the ",
+        "jp": "",
+        "it": "un'",
+        "fr": "",
+        "de": "",
+        "es": "unos"
+    },
+    {
+        "id": "L_PROPOBJ_062",
+        "en": "The ",
+        "gb": "The ",
+        "jp": "",
+        "it": "Un'",
+        "fr": "",
+        "de": "",
+        "es": "Unos"
+    },
+    {
+        "id": "L_PROPOBJ_063",
+        "en": "",
+        "gb": "",
+        "jp": "",
+        "it": "",
+        "fr": "",
+        "de": "",
+        "es": "unas"
+    },
+    {
+        "id": "L_PROPOBJ_064",
+        "en": "",
+        "gb": "",
+        "jp": "",
+        "it": "",
+        "fr": "",
+        "de": "",
+        "es": "Unas"
+    },
+    {
+        "id": "L_PROPOBJ_065",
+        "en": "bolts",
+        "gb": "bolts",
+        "jp": "\\h878d",
+        "it": "dardi",
+        "fr": "Carreaux",
+        "de": "Bolzen",
+        "es": "saetas"
+    },
+    {
+        "id": "L_PROPOBJ_066",
+        "en": "orbs",
+        "gb": "orbs",
+        "jp": "オ\\h8284ブ",
+        "it": "globi",
+        "fr": "Orbes",
+        "de": "Kraftzellen",
+        "es": "orbes"
+    },
+    {
+        "id": "L_PROPOBJ_067",
+        "en": "Reaper ammo",
+        "gb": "Reaper ammo",
+        "jp": "リ\\h8284パ\\h8284の\\h85a4",
+        "it": "munizioni Falciatore",
+        "fr": "Munit. Reaper",
+        "de": "Reaper-Munition",
+        "es": "Munición Segadora"
+    },
+    {
+        "id": "L_PROPOBJ_068",
+        "en": "cloaking devices",
+        "gb": "cloaking devices",
+        "jp": "スパイクロ\\h8284ク",
+        "it": "Dispositivo mimetico",
+        "fr": "Occulteurs",
+        "de": "Tarnkappen",
+        "es": "disp. de ocultación"
+    },
+    {
+        "id": "L_PROPOBJ_069",
+        "en": "boost pills",
+        "gb": "boost pills",
+        "jp": "ブ\\h8284ストピル",
+        "it": "Pillole booster",
+        "fr": "Pilules boost",
+        "de": "Stärkungs-Pillen",
+        "es": "reforzadores"
+    },
+    {
+        "id": "L_PROPOBJ_070",
+        "en": "ammo",
+        "gb": "ammo",
+        "jp": "″\\h85a4〈",
+        "it": "munizioni",
+        "fr": "Munitions",
+        "de": "Munition",
+        "es": "Munición"
+    },
+    {
+        "id": "L_PROPOBJ_071",
+        "en": "cartridges",
+        "gb": "cartridges",
+        "jp": "カ\\h8284トリッジ",
+        "it": "cartucce",
+        "fr": "Cartouches",
+        "de": "Magazin",
+        "es": "cartuchos"
+    },
+    {
+        "id": "L_PROPOBJ_072",
+        "en": "magnum bullets",
+        "gb": "magnum bullets",
+        "jp": "マグナム\\h82e0の\\h85a4",
+        "it": "pallottole magnum",
+        "fr": "Balles Magnum",
+        "de": "Magnum-Kugeln",
+        "es": "balas de magnum"
+    },
+    {
+        "id": "L_PROPOBJ_073",
+        "en": "golden bullets",
+        "gb": "golden bullets",
+        "jp": "\\h86dc電の\\h85a4",
+        "it": "pallottole d'oro",
+        "fr": "Balles en or",
+        "de": "Goldkugeln",
+        "es": "balas doradas"
+    },
+    {
+        "id": "L_PROPOBJ_074",
+        "en": "grenades",
+        "gb": "grenades",
+        "jp": "\\h82ddりゅう\\h85a4",
+        "it": "granate",
+        "fr": "Grenades",
+        "de": "Granaten",
+        "es": "granadas"
+    },
+    {
+        "id": "L_PROPOBJ_075",
+        "en": "grenade rounds",
+        "gb": "grenade rounds",
+        "jp": "Ｇランチャの\\h85a4",
+        "it": "granate a giro",
+        "fr": "Munit. grenades",
+        "de": "Granatwerfer-Munition",
+        "es": "cintos de granadas"
+    },
+    {
+        "id": "L_PROPOBJ_076",
+        "en": "rockets",
+        "gb": "rockets",
+        "jp": "ロケット\\h85a4",
+        "it": "missili",
+        "fr": "Roquettes",
+        "de": "Raketen",
+        "es": "cohetes"
+    },
+    {
+        "id": "L_PROPOBJ_077",
+        "en": "homing rockets",
+        "gb": "homing rockets",
+        "jp": "ホ\\h8284ミングロケット",
+        "it": "missili a giro",
+        "fr": "Roquettes tête cher.",
+        "de": "Zielsuch-Raketen",
+        "es": "cohetes buscadores"
+    },
+    {
+        "id": "L_PROPOBJ_078",
+        "en": "remote mines",
+        "gb": "remote mines",
+        "jp": "リモ\\h8284ト\\h85a3\\h85a4",
+        "it": "mine a distanza",
+        "fr": "Mines télécom.",
+        "de": "Fernzünder-Minen",
+        "es": "minas remotas"
+    },
+    {
+        "id": "L_PROPOBJ_079",
+        "en": "proximity mines",
+        "gb": "proximity mines",
+        "jp": "センサ\\h8284\\h85a3\\h85a4",
+        "it": "mine di prossimità",
+        "fr": "Mines prox.",
+        "de": "Annäherungs-Minen",
+        "es": "minas de proximidad"
+    },
+    {
+        "id": "L_PROPOBJ_080",
+        "en": "timed mines",
+        "gb": "timed mines",
+        "jp": "\\h8393\\h84f9\\h85a3\\h85a4",
+        "it": "mine a tempo",
+        "fr": "Mines retard.",
+        "de": "Zeitzünder-Minen",
+        "es": "minas de tiempo"
+    },
+    {
+        "id": "L_PROPOBJ_081",
+        "en": "darts",
+        "gb": "darts",
+        "jp": "ダ\\h8284ツ",
+        "it": "frecce",
+        "fr": "Fléchettes",
+        "de": "Pfeile",
+        "es": "dardos"
+    },
+    {
+        "id": "L_PROPOBJ_082",
+        "en": "n-bombs",
+        "gb": "n-bombs",
+        "jp": "Ｎボム",
+        "it": "bombe-n",
+        "fr": "Bombes-N",
+        "de": "N-Bomben",
+        "es": "bombas-N"
+    },
+    {
+        "id": "L_PROPOBJ_083",
+        "en": "sedatives",
+        "gb": "sedatives",
+        "jp": "\\h878b\\h86a9\\h878c",
+        "it": "sedativi",
+        "fr": "Sédatifs",
+        "de": "Betäubungsgeschosse",
+        "es": "sedantes"
+    },
+    {
+        "id": "L_PROPOBJ_084",
+        "en": "tokens",
+        "gb": "tokens",
+        "jp": "フラッグ",
+        "it": "gettoni",
+        "fr": "jetons",
+        "de": "Jetons",
+        "es": "fichas"
+    },
+    {
+        "id": "L_PROPOBJ_085",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_PROPOBJ_086",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    },
+    {
+        "id": "L_PROPOBJ_087",
+        "en": null,
+        "gb": null,
+        "jp": null,
+        "it": null,
+        "fr": null,
+        "de": null,
+        "es": null
+    }
+]

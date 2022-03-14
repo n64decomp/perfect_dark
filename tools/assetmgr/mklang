@@ -36,14 +36,6 @@ def make_object(rows, basename, key):
     binary = make_binary(rows, key)
     zipped = assetmgr.zip(binary)
 
-    # Write the zipped file, purely so `make test` can verify it
-    if '_str_' in basename:
-        tmpfilename = basename + 'Z'
-    else:
-        tmpfilename = basename
-
-    assetmgr.writefile('build/%s/assets/files/L%s' % (os.environ['ROMID'], tmpfilename), zipped)
-
     suffix = {
         'en': 'E',
         'gb': 'P',
@@ -62,26 +54,63 @@ def make_binary(rows, key):
         return (0).to_bytes(16, 'big')
 
     output = bytes()
-    pos = len(rows) * 4
+    pos = len([row for row in rows if key in row]) * 4
+    strings = []
 
     for index, row in enumerate(rows):
-        if row[key] is None:
-            output += (0).to_bytes(4, 'big')
-        else:
-            output += pos.to_bytes(4, 'big')
-            pos += assetmgr.align4(len(row[key]) + 1)
+        if key in row:
+            if row[key] is None:
+                output += (0).to_bytes(4, 'big')
+            else:
+                output += pos.to_bytes(4, 'big')
 
-    for index, row in enumerate(rows):
-        if row[key] is not None:
-            output += row[key].encode('latin_1')
-            amount = 4 - (len(row[key]) % 4)
-            output += (0).to_bytes(amount, 'big')
+                if os.environ['ROMID'] == 'jpn-final' and key == 'jp':
+                    string = encode_jp(row[key])
+                else:
+                    string = row[key].encode('latin_1')
+
+                strings.append(string)
+                pos += assetmgr.align4(len(string) + 1)
+
+    for string in strings:
+        output += string
+        amount = 4 - (len(string) % 4)
+        output += (0).to_bytes(amount, 'big')
 
     if len(output) % 16:
         amount = 16 - (len(output) % 16)
         output += (0).to_bytes(amount, 'big')
 
     return output
+
+"""
+The input string is UTF-8, and it needs to be re-encoded to a custom encoding.
+A lookup array is used for this.
+
+However, some UTF-8 characters appear multiple types with a different encoding.
+For duplicates, we store the character in JSON as something like \habcd where
+abcd is the target value in hex.
+"""
+def encode_jp(string):
+    outbytes = bytes()
+    i = 0
+
+    while i < len(string):
+        if string[i] in jpnchars:
+            outbytes += jpnchars[string[i]].to_bytes(2, 'big')
+            i += 1;
+        else:
+            match = re.match(r'^\\h([a-z0-9]{4})', string[i:])
+
+            if match:
+                dec = int(match[1], 16)
+                outbytes += dec.to_bytes(2, 'big')
+                i += 6;
+            else:
+                outbytes += ord(string[i]).to_bytes(1, 'big')
+                i += 1;
+
+    return outbytes
 
 banks = [
     '',
@@ -154,5 +183,274 @@ banks = [
     'mp19',
     'mp20',
 ]
+
+jpnchars = {
+	'　': 0x8080,
+	'、': 0x8081,
+	'＄': 0x8082,
+	'（': 0x8083,
+	'）': 0x8084,
+	'・': 0x8085,
+	'％': 0x8086,
+	'「': 0x8087,
+	'」': 0x8088,
+	'′': 0x8089,
+	'″': 0x808a,
+	'〈': 0x808b,
+	'〉': 0x808c,
+	'￥': 0x808d,
+	'～': 0x808e,
+	'　': 0x808f,
+	'０': 0x8090,
+	'１': 0x8091,
+	'２': 0x8092,
+	'３': 0x8093,
+	'４': 0x8094,
+	'５': 0x8095,
+	'６': 0x8096,
+	'７': 0x8097,
+	'８': 0x8098,
+	'９': 0x8099,
+	'Ａ': 0x809a,
+	'Ｂ': 0x809b,
+	'Ｃ': 0x809c,
+	'Ｄ': 0x809d,
+	'Ｅ': 0x809e,
+	'Ｆ': 0x809f,
+	'Ｇ': 0x80a0,
+	'Ｈ': 0x80a1,
+	'Ｉ': 0x80a2,
+	'Ｊ': 0x80a3,
+	'Ｋ': 0x80a4,
+	'Ｌ': 0x80a5,
+	'Ｍ': 0x80a6,
+	'Ｎ': 0x80a7,
+	'Ｏ': 0x80a8,
+	'Ｐ': 0x80a9,
+	'Ｑ': 0x80aa,
+	'Ｒ': 0x80ab,
+	'Ｓ': 0x80ac,
+	'Ｔ': 0x80ad,
+	'Ｕ': 0x80ae,
+	'Ｖ': 0x80af,
+	'Ｗ': 0x80b0,
+	'Ｘ': 0x80b1,
+	'Ｙ': 0x80b2,
+	'Ｚ': 0x80b3,
+	'！': 0x80b4,
+	'”': 0x80b5,
+	'＃': 0x80b6,
+	'’': 0x80b7,
+	'＊': 0x80b8,
+	'＋': 0x80b9,
+	'，': 0x80ba,
+	'ー': 0x80bb,
+	'．': 0x80bc,
+	'／': 0x80bd,
+	'：': 0x80be,
+	'＝': 0x80bf,
+	'？': 0x80c0,
+	'＠': 0x80c1,
+	'。': 0x80c2,
+	'ﾞ': 0x80c3,
+	'ﾟ': 0x80c4,
+	'ァ': 0x80c5,
+	'ィ': 0x80c6,
+	'ゥ': 0x80c7,
+	'ェ': 0x80c8,
+	'ォ': 0x80c9,
+	'ッ': 0x80ca,
+	'ャ': 0x80cb,
+	'ュ': 0x80cc,
+	'ョ': 0x80cd,
+	'ヲ': 0x80ce,
+	'ン': 0x80cf,
+	'ア': 0x80d0,
+	'イ': 0x80d1,
+	'ウ': 0x80d2,
+	'エ': 0x80d3,
+	'オ': 0x80d4,
+	'カ': 0x80d5,
+	'キ': 0x80d6,
+	'ク': 0x80d7,
+	'ケ': 0x80d8,
+	'コ': 0x80d9,
+	'サ': 0x80da,
+	'シ': 0x80db,
+	'ス': 0x80dc,
+	'セ': 0x80dd,
+	'ソ': 0x80de,
+	'タ': 0x80df,
+	'チ': 0x80e0,
+	'ツ': 0x80e1,
+	'テ': 0x80e2,
+	'ト': 0x80e3,
+	'ナ': 0x80e4,
+	'ニ': 0x80e5,
+	'ヌ': 0x80e6,
+	'ネ': 0x80e7,
+	'ノ': 0x80e8,
+	'ハ': 0x80e9,
+	'ヒ': 0x80ea,
+	'フ': 0x80eb,
+	'ヘ': 0x80ec,
+	'ホ': 0x80ed,
+	'マ': 0x80ee,
+	'ミ': 0x80ef,
+	'ム': 0x80f0,
+	'メ': 0x80f1,
+	'モ': 0x80f2,
+	'ヤ': 0x80f3,
+	'ユ': 0x80f4,
+	'ヨ': 0x80f5,
+	'ラ': 0x80f6,
+	'リ': 0x80f7,
+	'ル': 0x80f8,
+	'レ': 0x80f9,
+	'ロ': 0x80fa,
+	'ワ': 0x80fb,
+	'ガ': 0x80fc,
+	'ギ': 0x80fd,
+	'グ': 0x80fe,
+	'ゲ': 0x80ff,
+	'ゴ': 0x8180,
+	'ザ': 0x8181,
+	'ジ': 0x8182,
+	'ズ': 0x8183,
+	'ゼ': 0x8184,
+	'ゾ': 0x8185,
+	'ダ': 0x8186,
+	'ヂ': 0x8187,
+	'ヅ': 0x8188,
+	'デ': 0x8189,
+	'ド': 0x818a,
+	'バ': 0x818b,
+	'ビ': 0x818c,
+	'ブ': 0x818d,
+	'ベ': 0x818e,
+	'ボ': 0x818f,
+	'パ': 0x8190,
+	'ピ': 0x8191,
+	'プ': 0x8192,
+	'ペ': 0x8193,
+	'ポ': 0x8194,
+	'ａ': 0x8195,
+	'ｂ': 0x8196,
+	'ｃ': 0x8197,
+	'ｄ': 0x8198,
+	'ｅ': 0x8199,
+	'ｆ': 0x819a,
+	'ｇ': 0x819b,
+	'ｈ': 0x819c,
+	'ｉ': 0x819d,
+	'ｊ': 0x819e,
+	'ｋ': 0x819f,
+	'ｌ': 0x81a0,
+	'ｍ': 0x81a1,
+	'ｎ': 0x81a2,
+	'ｏ': 0x81a3,
+	'ｐ': 0x81a4,
+	'ｑ': 0x81a5,
+	'ｒ': 0x81a6,
+	'ｓ': 0x81a7,
+	'ｔ': 0x81a8,
+	'ｕ': 0x81a9,
+	'ｖ': 0x81aa,
+	'ｗ': 0x81ab,
+	'ｘ': 0x81ac,
+	'ｙ': 0x81ad,
+	'ｚ': 0x81ae,
+	'ぁ': 0x81af,
+	'ぃ': 0x81b0,
+	'ぅ': 0x81b1,
+	'ぇ': 0x81b2,
+	'ぉ': 0x81b3,
+	'っ': 0x81b4,
+	'ゃ': 0x81b5,
+	'ゅ': 0x81b6,
+	'ょ': 0x81b7,
+	'を': 0x81b8,
+	'ん': 0x81b9,
+	'あ': 0x81ba,
+	'い': 0x81bb,
+	'う': 0x81bc,
+	'え': 0x81bd,
+	'お': 0x81be,
+	'か': 0x81bf,
+	'き': 0x81c0,
+	'く': 0x81c1,
+	'け': 0x81c2,
+	'こ': 0x81c3,
+	'さ': 0x81c4,
+	'し': 0x81c5,
+	'す': 0x81c6,
+	'せ': 0x81c7,
+	'そ': 0x81c8,
+	'た': 0x81c9,
+	'ち': 0x81ca,
+	'つ': 0x81cb,
+	'て': 0x81cc,
+	'と': 0x81cd,
+	'な': 0x81ce,
+	'に': 0x81cf,
+	'ぬ': 0x81d0,
+	'ね': 0x81d1,
+	'の': 0x81d2,
+	'は': 0x81d3,
+	'ひ': 0x81d4,
+	'ふ': 0x81d5,
+	'へ': 0x81d6,
+	'ほ': 0x81d7,
+	'ま': 0x81d8,
+	'み': 0x81d9,
+	'む': 0x81da,
+	'め': 0x81db,
+	'も': 0x81dc,
+	'や': 0x81dd,
+	'ゆ': 0x81de,
+	'よ': 0x81df,
+	'ら': 0x81e0,
+	'り': 0x81e1,
+	'る': 0x81e2,
+	'れ': 0x81e3,
+	'ろ': 0x81e4,
+	'わ': 0x81e5,
+	'が': 0x81e6,
+	'ぎ': 0x81e7,
+	'ぐ': 0x81e8,
+	'げ': 0x81e9,
+	'ご': 0x81ea,
+	'ざ': 0x81eb,
+	'じ': 0x81ec,
+	'ず': 0x81ed,
+	'ぜ': 0x81ee,
+	'ぞ': 0x81ef,
+	'だ': 0x81f0,
+	'ぢ': 0x81f1,
+	'づ': 0x81f2,
+	'で': 0x81f3,
+	'ど': 0x81f4,
+	'ば': 0x81f5,
+	'び': 0x81f6,
+	'ぶ': 0x81f7,
+	'べ': 0x81f8,
+	'ぼ': 0x81f9,
+	'ぱ': 0x81fa,
+	'ぴ': 0x81fb,
+	'ぷ': 0x81fc,
+	'ぺ': 0x81fd,
+	'ぽ': 0x81fe,
+	'ヴ': 0x81ff,
+	'工': 0x8288,
+	'手': 0x82a1,
+	'入': 0x82ba,
+	'千': 0x8387,
+	'電': 0x8499,
+	'民': 0x868c,
+	'市': 0x8692,
+	'板': 0x86b3,
+	'倒': 0x86b9,
+	'須': 0x86c9,
+}
 
 main()
