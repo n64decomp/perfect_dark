@@ -4,6 +4,7 @@
 #include "n_libaudio.h"
 #include "n_seqp.h"
 #include "seq.h"
+#include "versions.h"
 
 void __n_unmapVoice(N_ALSeqPlayer *seqp, N_ALVoice *voice)
 {
@@ -85,7 +86,7 @@ void __n_seqpReleaseVoice(N_ALSeqPlayer *seqp, N_ALVoice *voice, ALMicroTime del
 	evt.type = AL_NOTE_END_EVT;
 	evt.msg.note.voice = voice;
 
-	deltaTime += (PAL ? 40000 : 32000);
+	deltaTime += AL_USEC_PER_FRAME * 2;
 
 	n_alEvtqPostEvent(&seqp->evtq, &evt, deltaTime, 0);
 }

@@ -316,7 +316,7 @@ void __scHandleRetrace(OSSched *sc)
 {
 	sc->frameCount++;
 
-#if VERSION >= VERSION_PAL_BETA
+#if PAL
 	if (!g_Resetting && (sc->frameCount & 1)) {
 		osStopTimer(&g_SchedRspTimer);
 		osSetTimer(&g_SchedRspTimer, 280000, 0, amgrGetFrameMesgQueue(), &g_SchedRspMsg);

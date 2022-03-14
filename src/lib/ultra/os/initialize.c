@@ -53,7 +53,7 @@ void osInitialize(void)
 	osCartRomInit();
 	osMapTLBRdb();
 
-#if !PAL
+#if VERSION < VERSION_PAL_BETA
 	osClockRate = osClockRate * 3 / 4;
 #endif
 

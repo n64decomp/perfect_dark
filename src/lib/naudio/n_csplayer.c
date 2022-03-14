@@ -933,16 +933,14 @@ void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
 						} else if (vs->phase == AL_PHASE_SUSTREL) {
 							vs->phase = AL_PHASE_RELEASE;
 
-#define MIN_RELEASE_TIME (PAL ? 20000 : 16000)
-
 							if (chanstate->unk24) {
 								__n_seqpReleaseVoice((N_ALSeqPlayer*)seqp,
 										&vs->voice,
-										(seqp->chanState[chan].releaseTime < MIN_RELEASE_TIME ? MIN_RELEASE_TIME : seqp->chanState[chan].releaseTime));
+										(seqp->chanState[chan].releaseTime < AL_USEC_PER_FRAME ? AL_USEC_PER_FRAME : seqp->chanState[chan].releaseTime));
 							} else {
 								__n_seqpReleaseVoice((N_ALSeqPlayer*)seqp,
 										&vs->voice,
-										vstate->sound->envelope->releaseTime < MIN_RELEASE_TIME ? MIN_RELEASE_TIME : vstate->sound->envelope->releaseTime);
+										vstate->sound->envelope->releaseTime < AL_USEC_PER_FRAME ? AL_USEC_PER_FRAME : vstate->sound->envelope->releaseTime);
 							}
 						}
 					}

@@ -1668,7 +1668,9 @@ void sndInit(void)
 {
 	ALSndpConfig sndpconfig;
 
-#if VERSION >= VERSION_PAL_BETA
+#if VERSION >= VERSION_JPN_FINAL
+	u32 heaplen = 1024 * 441;
+#elif VERSION >= VERSION_PAL_BETA
 	u32 heaplen = 1024 * 446;
 #elif VERSION >= VERSION_NTSC_1_0
 	u32 heaplen = 1024 * 441;
@@ -1681,11 +1683,7 @@ void sndInit(void)
 	if (IS4MB()) {
 		g_SndMaxFxBusses = 1;
 
-#if VERSION >= VERSION_PAL_BETA
-		heaplen -= 1024 * 6;
-#else
-		heaplen -= 1024 * 38;
-#endif
+		heaplen -= 1024 * (PAL ? 6 : 38);
 		heaplen -= 1024 * 137;
 		heaplen -= 1024 * 12;
 		heaplen -= 1024 * 23;

@@ -63,7 +63,7 @@ extern "C" {
 
 #define AL_FX_BUFFER_SIZE       8192
 #define AL_FRAME_INIT           -1
-#define AL_USEC_PER_FRAME       (PAL ? 20000 : 16000)
+#define AL_USEC_PER_FRAME       (VERSION >= VERSION_PAL_BETA ? 20000 : 16000)
 #define AL_MAX_PRIORITY         127
 #define AL_GAIN_CHANGE_TIME     1000
 

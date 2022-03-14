@@ -253,7 +253,7 @@ void joyCheckPfs(s32 arg0)
 		doingit = false;
 	}
 
-#if !PAL
+#if VERSION < VERSION_PAL_BETA
 	if (arg0) {
 		// empty
 	}

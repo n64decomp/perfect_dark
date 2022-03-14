@@ -5,7 +5,10 @@
 #define VERSION_PAL_FINAL  4
 #define VERSION_JPN_FINAL  5
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_JPN_FINAL
+#include "gamefiles.jpn-final.inc"
+#include "libfiles.jpn-final.inc"
+#elif VERSION >= VERSION_PAL_FINAL
 #include "gamefiles.pal-final.inc"
 #include "libfiles.pal-final.inc"
 #elif VERSION >= VERSION_PAL_BETA

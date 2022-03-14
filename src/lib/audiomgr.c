@@ -62,7 +62,13 @@ void amgrCreate(ALSynConfig *config)
 	config->outputRate = osAiSetFrequency(22020);
 	config->dmaproc = admaNew;
 
-#if VERSION >= VERSION_PAL_BETA
+#if VERSION >= VERSION_JPN_FINAL
+	freqpertick = settings[1] * (f32)config->outputRate / 25.0f;
+
+	if (IS4MB()) {
+		freqpertick *= 0.5f;
+	}
+#elif VERSION >= VERSION_PAL_BETA
 	freqpertick = settings[1] * (f32)config->outputRate / 25.0f;
 #else
 	freqpertick = config->outputRate / 30.0f;
@@ -90,7 +96,7 @@ void amgrCreate(ALSynConfig *config)
 
 	var800918ec = 2000;
 
-#if VERSION < VERSION_PAL_BETA
+#if !PAL
 	if (IS4MB()) {
 		var800918ec >>= 1;
 	}
@@ -174,7 +180,7 @@ void amgrMain(void *arg)
 
 	static u32 var8005d514 = 1;
 
-#if VERSION >= VERSION_PAL_BETA
+#if PAL
 	osScAddClient(&g_Sched, &var800918d0, &g_AudioManager.audioFrameMsgQ, true);
 #else
 	osScAddClient(&g_Sched, &var800918d0, &g_AudioManager.audioFrameMsgQ, !IS4MB());
