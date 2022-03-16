@@ -3845,7 +3845,7 @@ void bwalkUpdateSpeedTheta(void)
 	}
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel bwalk0f0c69b8
 .late_rodata
@@ -4892,7 +4892,7 @@ glabel var7f1ad854
 /*  f0c7dec:	03e00008 */ 	jr	$ra
 /*  f0c7df0:	00000000 */ 	nop
 );
-#elif VERSION >= VERSION_PAL_BETA
+#elif VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel bwalk0f0c69b8
 .late_rodata

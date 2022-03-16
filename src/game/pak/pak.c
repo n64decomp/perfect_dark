@@ -103,7 +103,22 @@
 
 #define MAX_HEADERCACHE_ENTRIES 50
 
-#if VERSION >= VERSION_PAL_BETA
+#if VERSION >= VERSION_JPN_FINAL
+#define LINE_825  825
+#define LINE_1058 1058
+#define LINE_1551 1551
+#define LINE_1802 1807
+#define LINE_3486 3498
+#define LINE_3495 3507
+#define LINE_3599 3611
+#define LINE_3829 3841
+#define LINE_3865 3877
+#define LINE_3889 3901
+#define LINE_3948 3960
+#define LINE_4140 4152
+#define LINE_4394 4406
+#define LINE_4801 4813
+#elif VERSION >= VERSION_PAL_BETA
 #define LINE_825  825
 #define LINE_1058 1058
 #define LINE_1551 1551
@@ -2267,7 +2282,9 @@ void pakInitAll(void)
 	}
 
 	for (i = 0; i < 5; i++) {
-#if VERSION >= VERSION_PAL_BETA
+#if VERSION >= VERSION_JPN_FINAL
+		pak0f11a32c(i, 7, 2049, "pak/pak.c");
+#elif VERSION >= VERSION_PAL_BETA
 		pak0f11a32c(i, 7, 2049, "pak.c");
 #elif VERSION >= VERSION_NTSC_FINAL
 		pak0f11a32c(i, 7, 2049, "pak/pak.c");
@@ -10112,6 +10129,68 @@ u32 pak0f11e610(u32 arg0)
 	return arg0;
 }
 
+#if VERSION >= VERSION_JPN_FINAL
+GLOBAL_ASM(
+glabel pakN64FontCodeToAscii
+/*  f11e9e4:	27bdfed0 */ 	addiu	$sp,$sp,-304
+/*  f11e9e8:	afb10018 */ 	sw	$s1,0x18($sp)
+/*  f11e9ec:	afb00014 */ 	sw	$s0,0x14($sp)
+/*  f11e9f0:	00808025 */ 	move	$s0,$a0
+/*  f11e9f4:	00c08825 */ 	move	$s1,$a2
+/*  f11e9f8:	afbf001c */ 	sw	$ra,0x1c($sp)
+/*  f11e9fc:	afa50134 */ 	sw	$a1,0x134($sp)
+/*  f11ea00:	27a20030 */ 	addiu	$v0,$sp,0x30
+/*  f11ea04:	18c00021 */ 	blez	$a2,.JF0f11ea8c
+/*  f11ea08:	00003825 */ 	move	$a3,$zero
+/*  f11ea0c:	3c067f1b */ 	lui	$a2,0x7f1b
+/*  f11ea10:	24c64760 */ 	addiu	$a2,$a2,0x4760
+/*  f11ea14:	24080022 */ 	li	$t0,0x22
+/*  f11ea18:	24050027 */ 	li	$a1,0x27
+.JF0f11ea1c:
+/*  f11ea1c:	92030000 */ 	lbu	$v1,0x0($s0)
+/*  f11ea20:	26100001 */ 	addiu	$s0,$s0,0x1
+/*  f11ea24:	24e70001 */ 	addiu	$a3,$a3,0x1
+/*  f11ea28:	28610042 */ 	slti	$at,$v1,0x42
+/*  f11ea2c:	10200003 */ 	beqz	$at,.JF0f11ea3c
+/*  f11ea30:	2404002a */ 	li	$a0,0x2a
+/*  f11ea34:	00c37021 */ 	addu	$t6,$a2,$v1
+/*  f11ea38:	91c40000 */ 	lbu	$a0,0x0($t6)
+.JF0f11ea3c:
+/*  f11ea3c:	14880005 */ 	bne	$a0,$t0,.JF0f11ea54
+/*  f11ea40:	28610042 */ 	slti	$at,$v1,0x42
+/*  f11ea44:	a0450000 */ 	sb	$a1,0x0($v0)
+/*  f11ea48:	24420001 */ 	addiu	$v0,$v0,0x1
+/*  f11ea4c:	1000000d */ 	b	.JF0f11ea84
+/*  f11ea50:	a0450000 */ 	sb	$a1,0x0($v0)
+.JF0f11ea54:
+/*  f11ea54:	1420000a */ 	bnez	$at,.JF0f11ea80
+/*  f11ea58:	28610095 */ 	slti	$at,$v1,0x95
+/*  f11ea5c:	10200008 */ 	beqz	$at,.JF0f11ea80
+/*  f11ea60:	000379c3 */ 	sra	$t7,$v1,0x7
+/*  f11ea64:	3079007f */ 	andi	$t9,$v1,0x7f
+/*  f11ea68:	35f80080 */ 	ori	$t8,$t7,0x80
+/*  f11ea6c:	37290080 */ 	ori	$t1,$t9,0x80
+/*  f11ea70:	a0580000 */ 	sb	$t8,0x0($v0)
+/*  f11ea74:	24420001 */ 	addiu	$v0,$v0,0x1
+/*  f11ea78:	10000002 */ 	b	.JF0f11ea84
+/*  f11ea7c:	a0490000 */ 	sb	$t1,0x0($v0)
+.JF0f11ea80:
+/*  f11ea80:	a0440000 */ 	sb	$a0,0x0($v0)
+.JF0f11ea84:
+/*  f11ea84:	14f1ffe5 */ 	bne	$a3,$s1,.JF0f11ea1c
+/*  f11ea88:	24420001 */ 	addiu	$v0,$v0,0x1
+.JF0f11ea8c:
+/*  f11ea8c:	a0400000 */ 	sb	$zero,0x0($v0)
+/*  f11ea90:	8fa40134 */ 	lw	$a0,0x134($sp)
+/*  f11ea94:	0c004c34 */ 	jal	0x130d0
+/*  f11ea98:	27a50030 */ 	addiu	$a1,$sp,0x30
+/*  f11ea9c:	8fbf001c */ 	lw	$ra,0x1c($sp)
+/*  f11eaa0:	8fb00014 */ 	lw	$s0,0x14($sp)
+/*  f11eaa4:	8fb10018 */ 	lw	$s1,0x18($sp)
+/*  f11eaa8:	03e00008 */ 	jr	$ra
+/*  f11eaac:	27bd0130 */ 	addiu	$sp,$sp,0x130
+);
+#else
 /**
  * The note name and note extension are stored on the pak using N64 font code.
  * This is different to ASCII.
@@ -10160,6 +10239,7 @@ void pakN64FontCodeToAscii(char *src, char *dst, s32 len)
 
 	strcpy(dst, buffer);
 }
+#endif
 
 s8 pakFindBySerial(s32 findserial)
 {

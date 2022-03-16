@@ -1381,7 +1381,7 @@ bool func0f12af5c(struct explosion *exp, struct prop *prop, struct coord *pos1, 
 	return result;
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f12b0e0
 .late_rodata
@@ -2159,7 +2159,7 @@ glabel var7f1b68a0pf
 /*  f12c6d8:	03e00008 */ 	jr	$ra
 /*  f12c6dc:	27bd03a8 */ 	addiu	$sp,$sp,0x3a8
 );
-#elif VERSION >= VERSION_PAL_BETA
+#elif VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel func0f12b0e0
 .late_rodata
@@ -4472,7 +4472,7 @@ glabel var7f1b559c
 );
 #endif
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f12bbdc
 .late_rodata
@@ -5177,7 +5177,7 @@ glabel var7f1b68b0pf
 /*  f12d0d0:	03e00008 */ 	jr	$ra
 /*  f12d0d4:	27bd0168 */ 	addiu	$sp,$sp,0x168
 );
-#elif VERSION >= VERSION_PAL_BETA
+#elif VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel func0f12bbdc
 .late_rodata

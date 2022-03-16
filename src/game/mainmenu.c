@@ -265,7 +265,7 @@ s32 menuhandlerScreenRatio(s32 operation, struct menuitem *item, union handlerda
 	return 0;
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_PAL_FINAL
 u16 var80071ce0pf[] = { 0x5507, 0x5508, 0x5509, 0x550a, 0x550b };
 
 GLOBAL_ASM(
@@ -334,7 +334,7 @@ glabel func0f1030e4pf
 /*  f1031bc:	03e00008 */ 	jr	$ra
 /*  f1031c0:	00000000 */ 	nop
 );
-#elif VERSION >= VERSION_PAL_BETA
+#elif VERSION == VERSION_PAL_BETA
 u16 var80071ce0pf[] = { 0x5507, 0x5508, 0x5509, 0x550a, 0x550b };
 
 GLOBAL_ASM(

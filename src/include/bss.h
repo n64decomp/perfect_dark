@@ -159,7 +159,7 @@ extern f32 var8009dd6c;
 extern s32 g_DefaultWeapons[2];
 extern s32 g_CutsceneCurAnimFrame60;
 
-#if VERSION >= VERSION_PAL_BETA
+#if PAL
 extern f32 var8009e388pf;
 #endif
 

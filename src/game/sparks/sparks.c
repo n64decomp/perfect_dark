@@ -14,7 +14,7 @@
 
 const u32 var7f1b5600[] = {0xb8d1b717};
 
-#if VERSION >= VERSION_PAL_BETA
+#if PAL
 const u32 var7f1b6914pf[] = {0x3f99999a};
 #endif
 
@@ -102,7 +102,7 @@ struct sparktype g_SparkTypes[] = {
 
 s32 g_SparksAreActive = false;
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f12f6c0
 /*  f130200:	3c03800a */ 	lui	$v1,0x800a
@@ -298,7 +298,7 @@ glabel func0f12f6c0
 /*  f1304c8:	03e00008 */ 	jr	$ra
 /*  f1304cc:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
-#elif VERSION >= VERSION_PAL_BETA
+#elif VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel func0f12f6c0
 /*  f130c10:	3c03800b */ 	lui	$v1,0x800b

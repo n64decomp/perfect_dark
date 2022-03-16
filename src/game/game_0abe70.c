@@ -2289,7 +2289,7 @@ struct casing *casingCreate(struct modelfiledata *modeldef, Mtxf *mtx)
 	return NULL;
 }
 
-#if VERSION >= VERSION_PAL_BETA
+#if PAL
 GLOBAL_ASM(
 glabel func0f0ade00
 .late_rodata

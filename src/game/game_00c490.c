@@ -1393,7 +1393,7 @@ void setupCctv(struct cctvobj *cctv, s32 cmdindex)
 	}
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel setupAutogun
 .late_rodata
@@ -1512,7 +1512,7 @@ glabel var7f1a9258pf
 /*  f00dd7c:	03e00008 */ 	jr	$ra
 /*  f00dd80:	00000000 */ 	nop
 );
-#elif VERSION >= VERSION_PAL_BETA
+#elif VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel setupAutogun
 .late_rodata
@@ -1816,7 +1816,7 @@ s32 func0f00e2b0(s32 padnum)
 	return func0f164e8c(&centre, &coord);
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel setupDoor
 .late_rodata
@@ -2213,7 +2213,7 @@ glabel var7f1a926cpf
 /*  f00e900:	03e00008 */ 	jr	$ra
 /*  f00e904:	00000000 */ 	nop
 );
-#elif VERSION >= VERSION_PAL_BETA
+#elif VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel setupDoor
 .late_rodata
@@ -3847,7 +3847,12 @@ void setupParseObjects(s32 stagenum)
 					break;
 				case OBJTYPE_SHIELD:
 					if (withobjs) {
-						if ((obj->flags2 & diffflag) == 0 || g_Jpn) {
+#if VERSION >= VERSION_JPN_FINAL
+						if ((obj->flags2 & diffflag) == 0)
+#else
+						if ((obj->flags2 & diffflag) == 0 || g_Jpn)
+#endif
+						{
 							struct shieldobj *shield = (struct shieldobj *)obj;
 							shield->initialamount = *(s32 *)&shield->initialamount / 65536.0f;
 							shield->amount = shield->initialamount;

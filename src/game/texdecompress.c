@@ -3247,7 +3247,7 @@ glabel texLoad
 /*  f17308c:	8f39b53c */ 	lw	$t9,%lo(var800ab53c)($t9)
 /*  f173090:	27a314bf */ 	addiu	$v1,$sp,0x14bf
 /*  f173094:	00035102 */ 	srl	$t2,$v1,0x4
-/*  f173098:	2b210daf */ 	slti	$at,$t9,0xdaf
+/*  f173098:	2b210daf */ 	slti	$at,$t9,_numtextures
 /*  f17309c:	102000e0 */ 	beqz	$at,.L0f173420
 /*  f1730a0:	000a5900 */ 	sll	$t3,$t2,0x4
 /*  f1730a4:	0c012048 */ 	jal	osWritebackDCacheAll
@@ -3571,7 +3571,7 @@ glabel texLoad
 //
 //		sp149c = tex0f172e8c(var800ab53c, arg1);
 //
-//		if (sp149c == NULL && var800ab53c < 0xdaf) {
+//		if (sp149c == NULL && var800ab53c < NUM_TEXTURES) {
 //			sp2c = (void *)(((u32)sp14b0 + 0xf) >> 4 << 4);
 //
 //			if (sp2c);
@@ -3679,7 +3679,7 @@ void texLoadFromConfigs(struct textureconfig *configs, s32 numconfigs, struct te
 	s32 i;
 
 	for (i = 0; i < numconfigs; i++) {
-		if ((s32)configs[i].texturenum < 0xdaf) {
+		if ((s32)configs[i].texturenum < NUM_TEXTURES) {
 			texLoad(&configs[i].texturenum, arg2, 1);
 			configs[i].unk0b = 1;
 		} else {

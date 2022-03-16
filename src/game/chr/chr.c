@@ -3940,8 +3940,10 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct c
 		sparksCreate(chrprop->rooms[0], chrprop, &coord3, coord2, 0, SPARKTYPE_04);
 	}
 
+#if VERSION < VERSION_JPN_FINAL
 	sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_02);
 	sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_03);
+#endif
 }
 
 GLOBAL_ASM(
@@ -5539,7 +5541,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 				}
 
 				// Create decal depending on the weapon's surface type
-				if (hit->hitthing.texturenum < 0 || hit->hitthing.texturenum >= 0xdaf) {
+				if (hit->hitthing.texturenum < 0 || hit->hitthing.texturenum >= NUM_TEXTURES) {
 					surfacetype = SURFACETYPE_DEFAULT;
 				} else {
 					surfacetype = g_Textures[hit->hitthing.texturenum].surfacetype;
@@ -6456,7 +6458,7 @@ f32 propGetShieldThing(struct prop **propptr)
 	return 0;
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel chr0f02983c
 .late_rodata
@@ -8618,7 +8620,7 @@ glabel var7f1a9ba0pf
 /*  f02b8f0:	03e00008 */ 	jr	$ra
 /*  f02b8f4:	27bd01f0 */ 	addiu	$sp,$sp,0x1f0
 );
-#elif VERSION >= VERSION_PAL_BETA
+#elif VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel chr0f02983c
 .late_rodata

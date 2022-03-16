@@ -2906,7 +2906,7 @@ void func0f0099a4(void)
 	}
 }
 
-#if VERSION >= VERSION_PAL_BETA
+#if PAL
 GLOBAL_ASM(
 glabel nbombInflictDamage
 .late_rodata

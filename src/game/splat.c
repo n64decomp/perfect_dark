@@ -97,6 +97,7 @@ void splatTick(struct prop *prop)
 
 void splatsCreateForChrHit(struct prop *prop, struct splat *arg1, struct coord *arg2, struct coord *arg3, s32 arg4, s32 arg5, struct chrdata *arg6)
 {
+#if VERSION != VERSION_JPN_FINAL
 	struct chrdata *chr = prop->chr;
 
 	if (chr->bulletstaken < 7) {
@@ -110,10 +111,14 @@ void splatsCreateForChrHit(struct prop *prop, struct splat *arg1, struct coord *
 			chr->stdsplatsadded += splatsCreate(rand, 0.8f, prop, arg1, arg2, arg3, arg4, arg5, TICKS(50), arg6, 0);
 		}
 	}
+#endif
 }
 
 s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct splat *arg3, struct coord *arg4, struct coord *arg5, s32 arg6, s32 arg7, s32 arg8, struct chrdata *arg9, s32 arg10)
 {
+#if VERSION == VERSION_JPN_FINAL
+	return 0;
+#else
 	s32 i;
 	s32 j;
 	struct splat stacksplat;
@@ -195,11 +200,15 @@ s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct splat *arg3, struc
 	}
 
 	return numdropped;
+#endif
 }
 
 const char var7f1b5fe0[] = "Splat : Out of range\n";
 const char var7f1b5ff8[] = "Splat_ResetChr : Reset One Char : chrdata = %x\n";
 
+#if VERSION == VERSION_JPN_FINAL
+void func0f149250jf(void);
+#else
 GLOBAL_ASM(
 glabel func0f149274
 .late_rodata
@@ -528,7 +537,7 @@ glabel var7f1b6030
 /*  f149708:	00000000 */ 	nop
 /*  f14970c:	8483003a */ 	lh	$v1,0x3a($a0)
 /*  f149710:	0460000d */ 	bltz	$v1,.L0f149748
-/*  f149714:	28610daf */ 	slti	$at,$v1,0xdaf
+/*  f149714:	28610daf */ 	slti	$at,$v1,_numtextures
 /*  f149718:	5020000c */ 	beqzl	$at,.L0f14974c
 /*  f14971c:	248c0010 */ 	addiu	$t4,$a0,0x10
 /*  f149720:	8ccb0000 */ 	lw	$t3,0x0($a2)
@@ -620,12 +629,16 @@ glabel var7f1b6030
 /*  f14985c:	03e00008 */ 	jr	$ra
 /*  f149860:	00000000 */ 	nop
 );
+#endif
 
 void func0f149864(void)
 {
 	// empty
 }
 
+#if VERSION == VERSION_JPN_FINAL
+void func0f149260jf(void);
+#else
 GLOBAL_ASM(
 glabel func0f14986c
 .late_rodata
@@ -916,6 +929,19 @@ glabel var7f1b6048
 /*  f149c5c:	03e00008 */ 	jr	$ra
 /*  f149c60:	00000000 */ 	nop
 );
+#endif
+
+#if VERSION == VERSION_JPN_FINAL
+void func0f149268jf(void)
+{
+	// empty
+}
+
+void func0f149270jf(void)
+{
+	// empty
+}
+#endif
 
 void chrInitSplats(struct chrdata *chr)
 {

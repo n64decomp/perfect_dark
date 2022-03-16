@@ -58,7 +58,7 @@ s32 menuhandler0010cabc(s32 operation, struct menuitem *item, union handlerdata 
 	return 0;
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f10cb2c
 /*  f10d4ac:	3c0e8007 */ 	lui	$t6,0x8007
@@ -128,7 +128,7 @@ glabel func0f10cb2c
 /*  f10d59c:	03e00008 */ 	jr	$ra
 /*  f10d5a0:	ac2a1728 */ 	sw	$t2,0x1728($at)
 );
-#elif VERSION >= VERSION_PAL_BETA
+#elif VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel func0f10cb2c
 /*  f10d20c:	3c0e8007 */ 	lui	$t6,0x8007

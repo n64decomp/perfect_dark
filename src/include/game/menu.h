@@ -64,7 +64,13 @@ Gfx *menuApplyScissor(Gfx *gdl);
 Gfx *dialogRender(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool lightweight);
 void menuGetContPads(s8 *contpadnum1, s8 *contpadnum2);
 void func0f0f7594(s32 arg0, s32 *vdir, s32 *hdir);
+
+#if VERSION >= VERSION_JPN_FINAL
+void menuFindAvailableSize(s32 *xmin, s32 *ymin, s32 *xmax, s32 *ymax, struct menudialog *dialog);
+#else
 void menuFindAvailableSize(s32 *xmin, s32 *ymin, s32 *xmax, s32 *ymax);
+#endif
+
 void dialogCalculatePosition(struct menudialog *dialog);
 void menuClose(void);
 void func0f0f8120(void);

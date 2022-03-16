@@ -39,7 +39,7 @@ bool bossfileLoadFull(void)
 {
 	bossfileLoad();
 
-#if PAL
+#if VERSION >= VERSION_PAL_BETA
 	func0f16f75c(g_Vars.unk000482);
 #endif
 

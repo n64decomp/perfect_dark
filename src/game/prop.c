@@ -814,7 +814,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 
 			uVar6 = func0f001734(&shotdata.gunpos, &hitpos, room);
 
-			if (sp694.texturenum < 0 || sp694.texturenum >= 0xdaf) {
+			if (sp694.texturenum < 0 || sp694.texturenum >= NUM_TEXTURES) {
 				surfacetype = g_SurfaceTypes[SURFACETYPE_DEFAULT];
 			} else {
 				index = g_Textures[sp694.texturenum].surfacetype;
@@ -1640,7 +1640,7 @@ u8 g_PausableObjs[] = {
 	1, // OBJTYPE_ESCASTEP
 };
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel propsTick
 .late_rodata
@@ -2639,7 +2639,7 @@ glabel var7f1ab190pf
 /*  f064054:	03e00008 */ 	jr	$ra
 /*  f064058:	27bd0098 */ 	addiu	$sp,$sp,0x98
 );
-#elif VERSION >= VERSION_PAL_BETA
+#elif VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel propsTick
 .late_rodata

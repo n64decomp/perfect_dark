@@ -21,24 +21,19 @@ CC := $(CC53)
 
 export ROMID
 
-NTSC=0
 PAL=0
-JPN=0
 ZIPMAGIC=0x0000
 COPYLEN=2
 
 ifeq ($(ROMID),ntsc-beta)
-	NTSC=1
 	VERSION=0
 	PIRACYCHECKS=0
 endif
 ifeq ($(ROMID),ntsc-1.0)
-	NTSC=1
 	VERSION=1
 	ZIPMAGIC=0xffff
 endif
 ifeq ($(ROMID),ntsc-final)
-	NTSC=1
 	VERSION=2
 	ZIPMAGIC=0xffff
 endif
@@ -54,13 +49,12 @@ ifeq ($(ROMID),pal-final)
 	ZIPMAGIC=0xaf00
 endif
 ifeq ($(ROMID),jpn-final)
-	JPN=1
 	VERSION=5
 	ZIPMAGIC=0x0002
 	COPYLEN=4
 endif
 
-DEFINES := VERSION=$(VERSION) NTSC=$(NTSC) PAL=$(PAL) JPN=$(JPN) PIRACYCHECKS=$(PIRACYCHECKS) _FINALROM=1
+DEFINES := VERSION=$(VERSION) PAL=$(PAL) PIRACYCHECKS=$(PIRACYCHECKS) _FINALROM=1
 
 C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
 AS_DEFINES := $(foreach d,$(DEFINES),--defsym $(d)) --defsym _LANGUAGE_ASSEMBLY=1

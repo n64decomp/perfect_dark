@@ -99,7 +99,7 @@ s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerd
 
 	switch (operation) {
 	case MENUOP_GETOPTIONHEIGHT:
-		data->list.value = 11;
+		data->list.value = LINEHEIGHT;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
 		data->list.value = 0;
@@ -148,6 +148,10 @@ s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerd
 		// Render weapon name
 		x = renderdata->x + 10;
 		y = renderdata->y;
+
+#if VERSION == VERSION_JPN_FINAL
+		y++;
+#endif
 
 		gdl = func0f153628(gdl);
 		gdl = textRenderProjected(gdl, &x, &y, bgunGetName(weaponnum2), g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
@@ -578,9 +582,16 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		struct frdata *frdata = frGetData();
 		char text[128];
 		bool failed = frdata->menutype == FRMENUTYPE_FAILED;
+#if VERSION >= VERSION_JPN_FINAL
+		u32 linecolourmid = failed ? 0xff644477 : 0x00ff0077; // line gradient colour in middle
+		u32 linecolourfig = failed ? 0xff664400 : 0x00ff0000; // line gradient colour at figures
+		u32 linecolourtex = failed ? 0xff664433 : 0x00ff0033; // line gradient colour at target texture
+#else
 		u32 linecolourmid = failed ? 0xff000077 : 0x00ff0077; // line gradient colour in middle
 		u32 linecolourfig = failed ? 0xff000000 : 0x00ff0000; // line gradient colour at figures
 		u32 linecolourtex = failed ? 0xff000033 : 0x00ff0033; // line gradient colour at target texture
+#endif
+
 #if VERSION >= VERSION_NTSC_1_0
 		u32 colour;
 #endif
@@ -770,6 +781,12 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		sprintf(text, langGet(L_MPMENU_465));
 		x = renderdata->x + 133;
 		y = renderdata->y + 63;
+
+#if VERSION >= VERSION_JPN_FINAL
+		x -= 44;
+		y += 3;
+#endif
+
 		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
@@ -778,6 +795,12 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = renderdata->x - textheight + 188;
 		y = renderdata->y + 63;
+
+#if VERSION >= VERSION_JPN_FINAL
+		x -= 27;
+		y += 3;
+#endif
+
 		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
@@ -826,7 +849,19 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 62, renderdata->y + 50, renderdata->x + 87, renderdata->y + 51, linecolourtex, linecolourmid);
 		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 70, renderdata->y + 60, renderdata->x + 90, renderdata->y + 61, linecolourtex, linecolourmid);
 
+#if VERSION >= VERSION_JPN_FINAL
 		// Vertical lines
+		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 81, renderdata->y + 17, renderdata->x + 82, renderdata->y + 37, linecolourmid, linecolourmid);
+		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 84, renderdata->y + 29, renderdata->x + 85, renderdata->y + 45, linecolourmid, linecolourmid);
+		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 87, renderdata->y + 41, renderdata->x + 88, renderdata->y + 51, linecolourmid, linecolourmid);
+		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 90, renderdata->y + 53, renderdata->x + 91, renderdata->y + 61, linecolourmid, linecolourmid);
+
+		// Horizontal lines - top right
+		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 81, renderdata->y + 17, renderdata->x + 96, renderdata->y + 18, linecolourmid, linecolourfig);
+		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 84, renderdata->y + 29, renderdata->x + 96, renderdata->y + 30, linecolourmid, linecolourfig);
+		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 87, renderdata->y + 41, renderdata->x + 96, renderdata->y + 42, linecolourmid, linecolourfig);
+		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 90, renderdata->y + 53, renderdata->x + 96, renderdata->y + 54, linecolourmid, linecolourfig);
+#else
 		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 81, renderdata->y + 17, renderdata->x + 82, renderdata->y + 37, linecolourmid, linecolourmid);
 		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 84, renderdata->y + 28, renderdata->x + 85, renderdata->y + 45, linecolourmid, linecolourmid);
 		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 87, renderdata->y + 39, renderdata->x + 88, renderdata->y + 51, linecolourmid, linecolourmid);
@@ -837,6 +872,7 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 84, renderdata->y + 28, renderdata->x + 96, renderdata->y + 29, linecolourmid, linecolourfig);
 		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 87, renderdata->y + 39, renderdata->x + 96, renderdata->y + 40, linecolourmid, linecolourfig);
 		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 90, renderdata->y + 50, renderdata->x + 96, renderdata->y + 51, linecolourmid, linecolourfig);
+#endif
 
 		return (s32)gdl;
 	}
@@ -1111,7 +1147,7 @@ s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialogdef *dialogdef,
 		g_Menus[g_MpPlayerNum].unk840.unk574 = TICKS(120);
 		g_Menus[g_MpPlayerNum].unk840.unk580 = 0;
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_PAL_FINAL
 		if (g_ViRes != VIRES_HI) {
 			x = -117;
 
@@ -1125,7 +1161,7 @@ s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialogdef *dialogdef,
 				x = -127;
 			}
 		}
-#elif VERSION >= VERSION_PAL_BETA
+#elif VERSION == VERSION_PAL_BETA
 		x = -117;
 
 		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
@@ -1358,22 +1394,31 @@ s32 dtTrainingDetailsMenuDialog(s32 operation, struct menudialogdef *dialogdef, 
 	switch (operation) {
 	case MENUOP_OPEN:
 		{
-		s32 weaponnum = dtGetWeaponByDeviceIndex(dtGetIndexBySlot(g_DtSlot));
-		u16 unused[] = {64250, 38500, 25650, 25700, 12950};
-		func0f1a1ac0();
-		g_Menus[g_MpPlayerNum].training.weaponnum = weaponnum;
-		func0f105948(weaponnum);
+			s32 weaponnum = dtGetWeaponByDeviceIndex(dtGetIndexBySlot(g_DtSlot));
+			u16 unused[] = {64250, 38500, 25650, 25700, 12950};
+			func0f1a1ac0();
+			g_Menus[g_MpPlayerNum].training.weaponnum = weaponnum;
+			func0f105948(weaponnum);
 
-#if VERSION >= VERSION_PAL_FINAL
-		if (g_ViRes == VIRES_HI) {
-			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
-				g_Menus[g_MpPlayerNum].unk840.unk538 = 84;
-				g_Menus[g_MpPlayerNum].unk840.unk510 = 84;
+#if VERSION == VERSION_PAL_FINAL
+			if (g_ViRes == VIRES_HI) {
+				if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+					g_Menus[g_MpPlayerNum].unk840.unk538 = 84;
+					g_Menus[g_MpPlayerNum].unk840.unk510 = 84;
+				} else {
+					g_Menus[g_MpPlayerNum].unk840.unk538 = 104;
+					g_Menus[g_MpPlayerNum].unk840.unk510 = 104;
+				}
 			} else {
-				g_Menus[g_MpPlayerNum].unk840.unk538 = 104;
-				g_Menus[g_MpPlayerNum].unk840.unk510 = 104;
+				if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+					g_Menus[g_MpPlayerNum].unk840.unk538 = 64;
+					g_Menus[g_MpPlayerNum].unk840.unk510 = 64;
+				} else {
+					g_Menus[g_MpPlayerNum].unk840.unk538 = 84;
+					g_Menus[g_MpPlayerNum].unk840.unk510 = 84;
+				}
 			}
-		} else {
+#elif VERSION == VERSION_PAL_BETA
 			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
 				g_Menus[g_MpPlayerNum].unk840.unk538 = 64;
 				g_Menus[g_MpPlayerNum].unk840.unk510 = 64;
@@ -1381,26 +1426,17 @@ s32 dtTrainingDetailsMenuDialog(s32 operation, struct menudialogdef *dialogdef, 
 				g_Menus[g_MpPlayerNum].unk840.unk538 = 84;
 				g_Menus[g_MpPlayerNum].unk840.unk510 = 84;
 			}
-		}
-#elif VERSION >= VERSION_PAL_BETA
-		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
-			g_Menus[g_MpPlayerNum].unk840.unk538 = 64;
-			g_Menus[g_MpPlayerNum].unk840.unk510 = 64;
-		} else {
-			g_Menus[g_MpPlayerNum].unk840.unk538 = 84;
-			g_Menus[g_MpPlayerNum].unk840.unk510 = 84;
-		}
 #else
-		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
-			g_Menus[g_MpPlayerNum].unk840.unk538 = 70;
-			g_Menus[g_MpPlayerNum].unk840.unk510 = 70;
-		} else {
-			g_Menus[g_MpPlayerNum].unk840.unk538 = 90;
-			g_Menus[g_MpPlayerNum].unk840.unk510 = 90;
-		}
+			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+				g_Menus[g_MpPlayerNum].unk840.unk538 = 70;
+				g_Menus[g_MpPlayerNum].unk840.unk510 = 70;
+			} else {
+				g_Menus[g_MpPlayerNum].unk840.unk538 = 90;
+				g_Menus[g_MpPlayerNum].unk840.unk510 = 90;
+			}
 #endif
 
-		g_Menus[g_MpPlayerNum].unk840.unk544 /= 2.5f;
+			g_Menus[g_MpPlayerNum].unk840.unk544 /= 2.5f;
 		}
 		break;
 	case MENUOP_CLOSE:
@@ -1869,7 +1905,160 @@ s32 ciHangarTitleMenuHandler(s32 operation, struct menuitem *item, union handler
 	return 0;
 }
 
-#if VERSION >= VERSION_PAL_BETA
+#if VERSION >= VERSION_JPN_FINAL
+GLOBAL_ASM(
+glabel ciHangarHolographMenuDialog
+.late_rodata
+glabel var7f1b99d4
+.word 0x3a83126f
+glabel var7f1b99d8
+.word 0x3c23d70a
+.text
+/*  f1a7eb4:	27bdff60 */ 	addiu	$sp,$sp,-160
+/*  f1a7eb8:	afa600a8 */ 	sw	$a2,0xa8($sp)
+/*  f1a7ebc:	00803025 */ 	move	$a2,$a0
+/*  f1a7ec0:	afa400a0 */ 	sw	$a0,0xa0($sp)
+/*  f1a7ec4:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  f1a7ec8:	3c048009 */ 	lui	$a0,0x8009
+/*  f1a7ecc:	afa500a4 */ 	sw	$a1,0xa4($sp)
+/*  f1a7ed0:	90848fd4 */ 	lbu	$a0,-0x702c($a0)
+/*  f1a7ed4:	0fc68836 */ 	jal	0xf1a20d8
+/*  f1a7ed8:	afa600a0 */ 	sw	$a2,0xa0($sp)
+/*  f1a7edc:	2841000e */ 	slti	$at,$v0,0xe
+/*  f1a7ee0:	14200076 */ 	bnez	$at,.JF0f1a80bc
+/*  f1a7ee4:	8fa600a0 */ 	lw	$a2,0xa0($sp)
+/*  f1a7ee8:	3c0e8009 */ 	lui	$t6,0x8009
+/*  f1a7eec:	27a70030 */ 	addiu	$a3,$sp,0x30
+/*  f1a7ef0:	25ce9e3c */ 	addiu	$t6,$t6,-25028
+/*  f1a7ef4:	25d8006c */ 	addiu	$t8,$t6,0x6c
+/*  f1a7ef8:	00e0c825 */ 	move	$t9,$a3
+.JF0f1a7efc:
+/*  f1a7efc:	8dc10000 */ 	lw	$at,0x0($t6)
+/*  f1a7f00:	25ce000c */ 	addiu	$t6,$t6,0xc
+/*  f1a7f04:	2739000c */ 	addiu	$t9,$t9,0xc
+/*  f1a7f08:	af21fff4 */ 	sw	$at,-0xc($t9)
+/*  f1a7f0c:	8dc1fff8 */ 	lw	$at,-0x8($t6)
+/*  f1a7f10:	af21fff8 */ 	sw	$at,-0x8($t9)
+/*  f1a7f14:	8dc1fffc */ 	lw	$at,-0x4($t6)
+/*  f1a7f18:	15d8fff8 */ 	bne	$t6,$t8,.JF0f1a7efc
+/*  f1a7f1c:	af21fffc */ 	sw	$at,-0x4($t9)
+/*  f1a7f20:	24010064 */ 	li	$at,0x64
+/*  f1a7f24:	10c10008 */ 	beq	$a2,$at,.JF0f1a7f48
+/*  f1a7f28:	3c088007 */ 	lui	$t0,0x8007
+/*  f1a7f2c:	24010065 */ 	li	$at,0x65
+/*  f1a7f30:	10c10062 */ 	beq	$a2,$at,.JF0f1a80bc
+/*  f1a7f34:	24010066 */ 	li	$at,0x66
+/*  f1a7f38:	10c10019 */ 	beq	$a2,$at,.JF0f1a7fa0
+/*  f1a7f3c:	00000000 */ 	nop
+/*  f1a7f40:	1000005f */ 	b	.JF0f1a80c0
+/*  f1a7f44:	8fbf0014 */ 	lw	$ra,0x14($sp)
+.JF0f1a7f48:
+/*  f1a7f48:	8d081998 */ 	lw	$t0,0x1998($t0)
+/*  f1a7f4c:	44800000 */ 	mtc1	$zero,$f0
+/*  f1a7f50:	3c0a800a */ 	lui	$t2,0x800a
+/*  f1a7f54:	000848c0 */ 	sll	$t1,$t0,0x3
+/*  f1a7f58:	01284823 */ 	subu	$t1,$t1,$t0
+/*  f1a7f5c:	00094880 */ 	sll	$t1,$t1,0x2
+/*  f1a7f60:	01284821 */ 	addu	$t1,$t1,$t0
+/*  f1a7f64:	000948c0 */ 	sll	$t1,$t1,0x3
+/*  f1a7f68:	01284823 */ 	subu	$t1,$t1,$t0
+/*  f1a7f6c:	00094900 */ 	sll	$t1,$t1,0x4
+/*  f1a7f70:	254ae700 */ 	addiu	$t2,$t2,-6400
+/*  f1a7f74:	012a1821 */ 	addu	$v1,$t1,$t2
+/*  f1a7f78:	e4600d88 */ 	swc1	$f0,0xd88($v1)
+/*  f1a7f7c:	e4600d60 */ 	swc1	$f0,0xd60($v1)
+/*  f1a7f80:	e4600d8c */ 	swc1	$f0,0xd8c($v1)
+/*  f1a7f84:	e4600d64 */ 	swc1	$f0,0xd64($v1)
+/*  f1a7f88:	e4600d78 */ 	swc1	$f0,0xd78($v1)
+/*  f1a7f8c:	e4600d50 */ 	swc1	$f0,0xd50($v1)
+/*  f1a7f90:	e4600d7c */ 	swc1	$f0,0xd7c($v1)
+/*  f1a7f94:	e4600d54 */ 	swc1	$f0,0xd54($v1)
+/*  f1a7f98:	10000048 */ 	b	.JF0f1a80bc
+/*  f1a7f9c:	e4600d5c */ 	swc1	$f0,0xd5c($v1)
+.JF0f1a7fa0:
+/*  f1a7fa0:	3c0b8007 */ 	lui	$t3,0x8007
+/*  f1a7fa4:	8d6b1998 */ 	lw	$t3,0x1998($t3)
+/*  f1a7fa8:	3c0d800a */ 	lui	$t5,0x800a
+/*  f1a7fac:	25ade700 */ 	addiu	$t5,$t5,-6400
+/*  f1a7fb0:	000b60c0 */ 	sll	$t4,$t3,0x3
+/*  f1a7fb4:	018b6023 */ 	subu	$t4,$t4,$t3
+/*  f1a7fb8:	000c6080 */ 	sll	$t4,$t4,0x2
+/*  f1a7fbc:	018b6021 */ 	addu	$t4,$t4,$t3
+/*  f1a7fc0:	000c60c0 */ 	sll	$t4,$t4,0x3
+/*  f1a7fc4:	018b6023 */ 	subu	$t4,$t4,$t3
+/*  f1a7fc8:	000c6100 */ 	sll	$t4,$t4,0x4
+/*  f1a7fcc:	018d1821 */ 	addu	$v1,$t4,$t5
+/*  f1a7fd0:	8c6404f8 */ 	lw	$a0,0x4f8($v1)
+/*  f1a7fd4:	5080003a */ 	beqzl	$a0,.JF0f1a80c0
+/*  f1a7fd8:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*  f1a7fdc:	8faf00a4 */ 	lw	$t7,0xa4($sp)
+/*  f1a7fe0:	8c980000 */ 	lw	$t8,0x0($a0)
+/*  f1a7fe4:	2445fff2 */ 	addiu	$a1,$v0,-14
+/*  f1a7fe8:	00057080 */ 	sll	$t6,$a1,0x2
+/*  f1a7fec:	15f80027 */ 	bne	$t7,$t8,.JF0f1a808c
+/*  f1a7ff0:	01c57023 */ 	subu	$t6,$t6,$a1
+/*  f1a7ff4:	000e7080 */ 	sll	$t6,$t6,0x2
+/*  f1a7ff8:	00ee2021 */ 	addu	$a0,$a3,$t6
+/*  f1a7ffc:	8c990004 */ 	lw	$t9,0x4($a0)
+/*  f1a8000:	94880008 */ 	lhu	$t0,0x8($a0)
+/*  f1a8004:	3c014f80 */ 	lui	$at,0x4f80
+/*  f1a8008:	44992000 */ 	mtc1	$t9,$f4
+/*  f1a800c:	44883000 */ 	mtc1	$t0,$f6
+/*  f1a8010:	240a0008 */ 	li	$t2,0x8
+/*  f1a8014:	46802020 */ 	cvt.s.w	$f0,$f4
+/*  f1a8018:	05010004 */ 	bgez	$t0,.JF0f1a802c
+/*  f1a801c:	46803220 */ 	cvt.s.w	$f8,$f6
+/*  f1a8020:	44815000 */ 	mtc1	$at,$f10
+/*  f1a8024:	00000000 */ 	nop
+/*  f1a8028:	460a4200 */ 	add.s	$f8,$f8,$f10
+.JF0f1a802c:
+/*  f1a802c:	3c017f1c */ 	lui	$at,0x7f1c
+/*  f1a8030:	c430a944 */ 	lwc1	$f16,-0x56bc($at)
+/*  f1a8034:	8c860000 */ 	lw	$a2,0x0($a0)
+/*  f1a8038:	8c69084c */ 	lw	$t1,0x84c($v1)
+/*  f1a803c:	46104082 */ 	mul.s	$f2,$f8,$f16
+/*  f1a8040:	e4600d54 */ 	swc1	$f0,0xd54($v1)
+/*  f1a8044:	e4600d7c */ 	swc1	$f0,0xd7c($v1)
+/*  f1a8048:	3c017f1c */ 	lui	$at,0x7f1c
+/*  f1a804c:	11260002 */ 	beq	$t1,$a2,.JF0f1a8058
+/*  f1a8050:	e4620d84 */ 	swc1	$f2,0xd84($v1)
+/*  f1a8054:	a06a0840 */ 	sb	$t2,0x840($v1)
+.JF0f1a8058:
+/*  f1a8058:	ac66084c */ 	sw	$a2,0x84c($v1)
+/*  f1a805c:	c432a948 */ 	lwc1	$f18,-0x56b8($at)
+/*  f1a8060:	3c01800a */ 	lui	$at,0x800a
+/*  f1a8064:	c424a640 */ 	lwc1	$f4,-0x59c0($at)
+/*  f1a8068:	c46a0d64 */ 	lwc1	$f10,0xd64($v1)
+/*  f1a806c:	3c0b8009 */ 	lui	$t3,0x8009
+/*  f1a8070:	46049182 */ 	mul.s	$f6,$f18,$f4
+/*  f1a8074:	256b9e34 */ 	addiu	$t3,$t3,-25036
+/*  f1a8078:	ac6b0df4 */ 	sw	$t3,0xdf4($v1)
+/*  f1a807c:	46065000 */ 	add.s	$f0,$f10,$f6
+/*  f1a8080:	e4600d8c */ 	swc1	$f0,0xd8c($v1)
+/*  f1a8084:	1000000d */ 	b	.JF0f1a80bc
+/*  f1a8088:	e4600d64 */ 	swc1	$f0,0xd64($v1)
+.JF0f1a808c:
+/*  f1a808c:	44800000 */ 	mtc1	$zero,$f0
+/*  f1a8090:	00000000 */ 	nop
+/*  f1a8094:	e4600d88 */ 	swc1	$f0,0xd88($v1)
+/*  f1a8098:	e4600d60 */ 	swc1	$f0,0xd60($v1)
+/*  f1a809c:	e4600d8c */ 	swc1	$f0,0xd8c($v1)
+/*  f1a80a0:	e4600d64 */ 	swc1	$f0,0xd64($v1)
+/*  f1a80a4:	e4600d78 */ 	swc1	$f0,0xd78($v1)
+/*  f1a80a8:	e4600d50 */ 	swc1	$f0,0xd50($v1)
+/*  f1a80ac:	e4600d7c */ 	swc1	$f0,0xd7c($v1)
+/*  f1a80b0:	e4600d54 */ 	swc1	$f0,0xd54($v1)
+/*  f1a80b4:	e4600d84 */ 	swc1	$f0,0xd84($v1)
+/*  f1a80b8:	e4600d5c */ 	swc1	$f0,0xd5c($v1)
+.JF0f1a80bc:
+/*  f1a80bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
+.JF0f1a80c0:
+/*  f1a80c0:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
+/*  f1a80c4:	00001025 */ 	move	$v0,$zero
+/*  f1a80c8:	03e00008 */ 	jr	$ra
+/*  f1a80cc:	00000000 */ 	nop
+);
+#elif VERSION >= VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel ciHangarHolographMenuDialog
 .late_rodata

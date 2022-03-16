@@ -3679,6 +3679,125 @@ s32 menuhandlerQuickTeamSeparator(s32 operation, struct menuitem *item, union ha
 	return 0;
 }
 
+#if VERSION >= VERSION_JPN_FINAL
+GLOBAL_ASM(
+glabel menuhandlerPlayerTeam
+.late_rodata
+glabel var7f1b9204
+.word 0x7f17fb18
+.word 0x7f17fc20
+.word 0x7f17fb2c
+.word 0x7f17fc20
+.word 0x7f17fc20
+.word 0x7f17fb4c
+.word 0x7f17fb64
+.word 0x7f17fc20
+.word 0x7f17fc20
+.word 0x7f17fc20
+.word 0x7f17fc20
+.word 0x7f17fc20
+.word 0x7f17fc20
+.word 0x7f17fc20
+.word 0x7f17fc20
+.word 0x7f17fc20
+.word 0x7f17fc20
+.word 0x7f17fc20
+.word 0x7f17fc20
+.word 0x7f17fc20
+.word 0x7f17fc20
+.word 0x7f17fc20
+.word 0x7f17fc20
+.word 0x7f17fc04
+.text
+/*  f17faec:	248effff */ 	addiu	$t6,$a0,-1
+/*  f17faf0:	27bdffe8 */ 	addiu	$sp,$sp,-24
+/*  f17faf4:	2dc10018 */ 	sltiu	$at,$t6,0x18
+/*  f17faf8:	10200049 */ 	beqz	$at,.JF0f17fc20
+/*  f17fafc:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  f17fb00:	000e7080 */ 	sll	$t6,$t6,0x2
+/*  f17fb04:	3c017f1c */ 	lui	$at,0x7f1c
+/*  f17fb08:	002e0821 */ 	addu	$at,$at,$t6
+/*  f17fb0c:	8c2e9204 */ 	lw	$t6,-0x6dfc($at)
+/*  f17fb10:	01c00008 */ 	jr	$t6
+/*  f17fb14:	00000000 */ 	nop
+/*  f17fb18:	0fc61aba */ 	jal	0xf186ae8
+/*  f17fb1c:	afa60020 */ 	sw	$a2,0x20($sp)
+/*  f17fb20:	8fa60020 */ 	lw	$a2,0x20($sp)
+/*  f17fb24:	1000003e */ 	b	.JF0f17fc20
+/*  f17fb28:	acc20000 */ 	sw	$v0,0x0($a2)
+/*  f17fb2c:	8ccf0000 */ 	lw	$t7,0x0($a2)
+/*  f17fb30:	3c19800b */ 	lui	$t9,0x800b
+/*  f17fb34:	2739d5e0 */ 	addiu	$t9,$t9,-10784
+/*  f17fb38:	000fc080 */ 	sll	$t8,$t7,0x2
+/*  f17fb3c:	030fc023 */ 	subu	$t8,$t8,$t7
+/*  f17fb40:	0018c080 */ 	sll	$t8,$t8,0x2
+/*  f17fb44:	10000037 */ 	b	.JF0f17fc24
+/*  f17fb48:	03191021 */ 	addu	$v0,$t8,$t9
+/*  f17fb4c:	90a90001 */ 	lbu	$t1,0x1($a1)
+/*  f17fb50:	8cc80000 */ 	lw	$t0,0x0($a2)
+/*  f17fb54:	3c01800a */ 	lui	$at,0x800a
+/*  f17fb58:	00290821 */ 	addu	$at,$at,$t1
+/*  f17fb5c:	10000030 */ 	b	.JF0f17fc20
+/*  f17fb60:	a028aadc */ 	sb	$t0,-0x5524($at)
+/*  f17fb64:	afa5001c */ 	sw	$a1,0x1c($sp)
+/*  f17fb68:	0fc61aba */ 	jal	0xf186ae8
+/*  f17fb6c:	afa60020 */ 	sw	$a2,0x20($sp)
+/*  f17fb70:	8fa5001c */ 	lw	$a1,0x1c($sp)
+/*  f17fb74:	3c04800a */ 	lui	$a0,0x800a
+/*  f17fb78:	8fa60020 */ 	lw	$a2,0x20($sp)
+/*  f17fb7c:	90aa0001 */ 	lbu	$t2,0x1($a1)
+/*  f17fb80:	008a2021 */ 	addu	$a0,$a0,$t2
+/*  f17fb84:	8084aadc */ 	lb	$a0,-0x5524($a0)
+/*  f17fb88:	0082082a */ 	slt	$at,$a0,$v0
+/*  f17fb8c:	1420001b */ 	bnez	$at,.JF0f17fbfc
+/*  f17fb90:	00000000 */ 	nop
+/*  f17fb94:	afa5001c */ 	sw	$a1,0x1c($sp)
+/*  f17fb98:	0fc61aba */ 	jal	0xf186ae8
+/*  f17fb9c:	afa60020 */ 	sw	$a2,0x20($sp)
+/*  f17fba0:	8fa5001c */ 	lw	$a1,0x1c($sp)
+/*  f17fba4:	3c0c800a */ 	lui	$t4,0x800a
+/*  f17fba8:	258ca630 */ 	addiu	$t4,$t4,-22992
+/*  f17fbac:	90ab0001 */ 	lbu	$t3,0x1($a1)
+/*  f17fbb0:	3c04800a */ 	lui	$a0,0x800a
+/*  f17fbb4:	8fa60020 */ 	lw	$a2,0x20($sp)
+/*  f17fbb8:	016c1821 */ 	addu	$v1,$t3,$t4
+/*  f17fbbc:	806d04ac */ 	lb	$t5,0x4ac($v1)
+/*  f17fbc0:	01a2001a */ 	div	$zero,$t5,$v0
+/*  f17fbc4:	00007010 */ 	mfhi	$t6
+/*  f17fbc8:	a06e04ac */ 	sb	$t6,0x4ac($v1)
+/*  f17fbcc:	90af0001 */ 	lbu	$t7,0x1($a1)
+/*  f17fbd0:	14400002 */ 	bnez	$v0,.JF0f17fbdc
+/*  f17fbd4:	00000000 */ 	nop
+/*  f17fbd8:	0007000d */ 	break	0x7
+.JF0f17fbdc:
+/*  f17fbdc:	2401ffff */ 	li	$at,-1
+/*  f17fbe0:	14410004 */ 	bne	$v0,$at,.JF0f17fbf4
+/*  f17fbe4:	3c018000 */ 	lui	$at,0x8000
+/*  f17fbe8:	15a10002 */ 	bne	$t5,$at,.JF0f17fbf4
+/*  f17fbec:	00000000 */ 	nop
+/*  f17fbf0:	0006000d */ 	break	0x6
+.JF0f17fbf4:
+/*  f17fbf4:	008f2021 */ 	addu	$a0,$a0,$t7
+/*  f17fbf8:	8084aadc */ 	lb	$a0,-0x5524($a0)
+.JF0f17fbfc:
+/*  f17fbfc:	10000008 */ 	b	.JF0f17fc20
+/*  f17fc00:	acc40000 */ 	sw	$a0,0x0($a2)
+/*  f17fc04:	3c18800a */ 	lui	$t8,0x800a
+/*  f17fc08:	8f18aae0 */ 	lw	$t8,-0x5520($t8)
+/*  f17fc0c:	24010002 */ 	li	$at,0x2
+/*  f17fc10:	53010004 */ 	beql	$t8,$at,.JF0f17fc24
+/*  f17fc14:	00001025 */ 	move	$v0,$zero
+/*  f17fc18:	10000002 */ 	b	.JF0f17fc24
+/*  f17fc1c:	24020001 */ 	li	$v0,0x1
+.JF0f17fc20:
+/*  f17fc20:	00001025 */ 	move	$v0,$zero
+.JF0f17fc24:
+/*  f17fc24:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*  f17fc28:	27bd0018 */ 	addiu	$sp,$sp,0x18
+/*  f17fc2c:	03e00008 */ 	jr	$ra
+/*  f17fc30:	00000000 */ 	nop
+);
+#else
 s32 menuhandlerPlayerTeam(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
@@ -3702,6 +3821,7 @@ s32 menuhandlerPlayerTeam(s32 operation, struct menuitem *item, union handlerdat
 
 	return 0;
 }
+#endif
 
 s32 menuhandlerMpNumberOfSimulants(s32 operation, struct menuitem *item, union handlerdata *data)
 {

@@ -424,6 +424,7 @@ extern struct weatherdata *g_WeatherData;
 extern s32 g_NextShardNum;
 extern bool g_ShardsActive;
 extern s32 g_ScaleX;
+extern s32 var8007fac4;
 extern struct font *g_FontNumeric;
 extern struct fontchar *g_CharsNumeric;
 extern struct font *g_FontHandelGothicXs;
@@ -454,7 +455,7 @@ extern s32 g_MusicAge60;
 extern s32 g_MusicLife60;
 extern s32 g_MusicSilenceTimer60;
 extern bool g_Jpn;
-#if PAL
+#if VERSION >= VERSION_PAL_BETA
 extern s32 g_LanguageId;
 #endif
 extern struct surfacetype *g_SurfaceTypes[15];

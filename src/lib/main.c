@@ -7,6 +7,7 @@
 #include "game/debug.h"
 #include "game/game_000000.h"
 #include "game/game_000090.h"
+#include "game/game_000100.h"
 #include "game/game_000130.h"
 #include "game/stubs/game_000840.h"
 #include "game/stubs/game_000850.h"

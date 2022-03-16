@@ -194,7 +194,7 @@ void bbikeHandleActivate(void)
 	}
 }
 
-#if VERSION >= VERSION_PAL_BETA
+#if PAL
 GLOBAL_ASM(
 glabel bbikeApplyMoveData
 .late_rodata

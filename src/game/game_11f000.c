@@ -7261,7 +7261,7 @@ f32 func0f125a1c(struct bootbufferthingdeep *arg0)
 	return sum;
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f125a6c
 .late_rodata
@@ -7863,7 +7863,7 @@ glabel var7f1b5108
 /*  f126e60:	03e00008 */ 	jr	$ra
 /*  f126e64:	27bd0170 */ 	addiu	$sp,$sp,0x170
 );
-#elif VERSION >= VERSION_PAL_BETA
+#elif VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel func0f125a6c
 .late_rodata
@@ -9077,7 +9077,7 @@ glabel var7f1b5108
 );
 #endif
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f126384
 .late_rodata
@@ -9656,7 +9656,7 @@ glabel var7f1b511c
 /*  f127704:	03e00008 */ 	jr	$ra
 /*  f127708:	27bd0198 */ 	addiu	$sp,$sp,0x198
 );
-#elif VERSION >= VERSION_PAL_BETA
+#elif VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel func0f126384
 .late_rodata

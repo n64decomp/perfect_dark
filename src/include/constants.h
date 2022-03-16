@@ -29,6 +29,7 @@
 #define CRASH()             *(u8 *)0 = 69
 #define IS4MB()             (g_Is4Mb == true)
 #define IS8MB()             (g_Is4Mb != true)
+#define LINEHEIGHT          (VERSION == VERSION_JPN_FINAL ? 14 : 11)
 #define MIXCOLOUR(dialog, property) dialog->transitionfrac < 0.0f ? g_MenuColourPalettes[dialog->type].property : colourBlend(g_MenuColourPalettes[dialog->type2].property, g_MenuColourPalettes[dialog->type].property, dialog->colourweight);
 #define MPCHR(index)        ((index) < 4 ? &g_PlayerConfigsArray[index].base : &g_BotConfigsArray[(index) - 4].base)
 #define PLAYERCOUNT()       ((g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0))
@@ -77,7 +78,9 @@
 #define ROM_COMPANYCODE 0x3031
 #endif
 
-#if PAL
+#if VERSION == VERSION_JPN_FINAL
+#define ROM_GAMECODE    'NPDJ'
+#elif PAL
 #define ROM_GAMECODE    'NPDP'
 #else
 #define ROM_GAMECODE    'NPDE'
@@ -1251,6 +1254,7 @@
 #define HUDMSGFLAG_NOCHANNEL   0x04 // not linked to audio
 #define HUDMSGFLAG_ALLOWDUPES  0x08
 #define HUDMSGFLAG_DELAY       0x10 // wait minimum 3 frames before showing
+#define HUDMSGFLAG_20          0x20
 
 #define HUDMSGREASON_NOCONTROL 0x00000002
 
@@ -1459,6 +1463,7 @@
 #define MENUDIALOGFLAG_DISABLERESIZE     0x0200
 #define MENUDIALOGFLAG_0400              0x0400
 #define MENUDIALOGFLAG_DROPOUTONCLOSE    0x0800
+#define MENUDIALOGFLAG_1000              0x1000
 
 #define MENUDIALOGSTATE_PREOPEN    0
 #define MENUDIALOGSTATE_OPENING    1
@@ -2848,20 +2853,20 @@
 #define MPWEAPON_DEVASTATOR       0x16
 #define MPWEAPON_ROCKETLAUNCHER   0x17
 #define MPWEAPON_SLAYER           0x18
-#define MPWEAPON_COMBATKNIFE      0x19
-#define MPWEAPON_CROSSBOW         0x1a
-#define MPWEAPON_TRANQUILIZER     0x1b
-#define MPWEAPON_GRENADE          0x1c
-#define MPWEAPON_NBOMB            0x1d
-#define MPWEAPON_TIMEDMINE        0x1e
-#define MPWEAPON_PROXIMITYMINE    0x1f
-#define MPWEAPON_REMOTEMINE       0x20
-#define MPWEAPON_LASER            0x21
-#define MPWEAPON_XRAYSCANNER      0x22
-#define MPWEAPON_CLOAKINGDEVICE   0x23
-#define MPWEAPON_COMBATBOOST      0x24
-#define MPWEAPON_SHIELD           0x25
-#define MPWEAPON_DISABLED         0x26
+#define MPWEAPON_COMBATKNIFE      (VERSION == VERSION_JPN_FINAL ?    0 : 0x19)
+#define MPWEAPON_CROSSBOW         (VERSION == VERSION_JPN_FINAL ? 0x19 : 0x1a)
+#define MPWEAPON_TRANQUILIZER     (VERSION == VERSION_JPN_FINAL ? 0x1a : 0x1b)
+#define MPWEAPON_GRENADE          (VERSION == VERSION_JPN_FINAL ? 0x1b : 0x1c)
+#define MPWEAPON_NBOMB            (VERSION == VERSION_JPN_FINAL ? 0x1c : 0x1d)
+#define MPWEAPON_TIMEDMINE        (VERSION == VERSION_JPN_FINAL ? 0x1d : 0x1e)
+#define MPWEAPON_PROXIMITYMINE    (VERSION == VERSION_JPN_FINAL ? 0x1e : 0x1f)
+#define MPWEAPON_REMOTEMINE       (VERSION == VERSION_JPN_FINAL ? 0x1f : 0x20)
+#define MPWEAPON_LASER            (VERSION == VERSION_JPN_FINAL ? 0x20 : 0x21)
+#define MPWEAPON_XRAYSCANNER      (VERSION == VERSION_JPN_FINAL ? 0x21 : 0x22)
+#define MPWEAPON_CLOAKINGDEVICE   (VERSION == VERSION_JPN_FINAL ? 0x22 : 0x23)
+#define MPWEAPON_COMBATBOOST      (VERSION == VERSION_JPN_FINAL ? 0x23 : 0x24)
+#define MPWEAPON_SHIELD           (VERSION == VERSION_JPN_FINAL ? 0x24 : 0x25)
+#define MPWEAPON_DISABLED         (VERSION == VERSION_JPN_FINAL ? 0x25 : 0x26)
 
 #define MUSICEVENTTYPE_PLAY    1
 #define MUSICEVENTTYPE_STOP    2
@@ -2879,7 +2884,7 @@
 #define NUM_MPBEAUHEADS       5
 #define NUM_MPBOTCOMMANDS     14
 #define NUM_MPBODIES          61
-#define NUM_MPHEADS           75
+#define NUM_MPHEADS           (VERSION == VERSION_JPN_FINAL ? 74 : 75)
 #define NUM_MPPRESETS         14
 #define NUM_MPTRACKS          42
 #define NUM_RACES             5
@@ -2887,7 +2892,7 @@
 #define NUM_SOLONORMALSTAGES  17
 #define NUM_SOLOSTAGES        21
 #define NUM_STAGES            90
-#define NUM_TEXTURES          3504
+#define NUM_TEXTURES          (VERSION == VERSION_JPN_FINAL ? 3511 : 3503)
 
 #define OBJECTIVE_INCOMPLETE 0
 #define OBJECTIVE_COMPLETE   1
@@ -3980,6 +3985,8 @@
 #define TITLEMODE_NOCONTROLLER     6
 #define TITLEMODE_RAREPRESENTS1    7
 #define TITLEMODE_RAREPRESENTS2    8
+#define TITLEMODE_9                9
+#define TITLEMODE_10               10
 
 #define TITLEAIMODE_RAREPRESENTS1 1
 #define TITLEAIMODE_RARELOGO      2

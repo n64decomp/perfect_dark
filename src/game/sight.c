@@ -332,7 +332,7 @@ s32 func0f0d789c(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 	return value / arg3 + arg1;
 }
 
-#if VERSION >= VERSION_PAL_BETA
+#if PAL
 GLOBAL_ASM(
 glabel sightRenderTargetBox
 /*  f0d78f4:	27bdff68 */ 	addiu	$sp,$sp,-152
@@ -1769,7 +1769,7 @@ glabel func0f0d7f54
 /*  f0d87a4:	27bd00d0 */ 	addiu	$sp,$sp,0xd0
 );
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f0d87a8
 .late_rodata
@@ -2311,7 +2311,7 @@ glabel var7f1af0ccpf
 /*  f0d9510:	03e00008 */ 	jr	$ra
 /*  f0d9514:	27bd00d0 */ 	addiu	$sp,$sp,0xd0
 );
-#elif VERSION >= VERSION_PAL_BETA
+#elif VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel func0f0d87a8
 .late_rodata
@@ -4991,7 +4991,7 @@ glabel func0f0d9948
 /*  f0d9b9c:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-#if VERSION >= VERSION_PAL_BETA
+#if PAL
 GLOBAL_ASM(
 glabel sightRenderSkedar
 /*  f0d9ba0:	27bdff70 */ 	addiu	$sp,$sp,-144

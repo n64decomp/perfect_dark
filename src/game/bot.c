@@ -2700,7 +2700,7 @@ bool botIsAboutToAttack(struct chrdata *chr, bool arg1)
 	return result;
 }
 
-#if VERSION >= VERSION_PAL_BETA
+#if PAL
 GLOBAL_ASM(
 glabel botTick
 .late_rodata
@@ -7352,7 +7352,7 @@ s32 botGetNumOpponentsInHill(struct chrdata *chr)
 	return max;
 }
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel botTickUnpaused
 .late_rodata
@@ -10366,7 +10366,7 @@ glabel var7f1b8fc8
 /*  f198638:	03e00008 */ 	jr	$ra
 /*  f19863c:	27bd02f8 */ 	addiu	$sp,$sp,0x2f8
 );
-#elif VERSION >= VERSION_PAL_BETA
+#elif VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel botTickUnpaused
 .late_rodata

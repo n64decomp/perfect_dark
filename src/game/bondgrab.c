@@ -826,7 +826,7 @@ bool bgrabTryMoveUpwards(f32 y)
 	return result;
 }
 
-#if VERSION >= VERSION_PAL_BETA
+#if PAL
 GLOBAL_ASM(
 glabel bgrabCalculateNewPosition
 .late_rodata

@@ -145,7 +145,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->unk059 = 0;
 					aibot->nextbullettimer60[0] = 0;
 					aibot->nextbullettimer60[1] = 0;
-#if !PAL
+#if VERSION < VERSION_PAL_BETA
 					aibot->unk030 = 301;
 #endif
 					aibot->unk038 = 0;

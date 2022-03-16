@@ -1,6 +1,7 @@
 #define GAMEFILES(section) \
 	build/ROMID/game/game_000000.o (section); \
 	build/ROMID/game/game_000090.o (section); \
+	build/ROMID/game/game_000100.o (section); \
 	build/ROMID/game/game_000130.o (section); \
 	build/ROMID/game/stubs/game_000840.o (section); \
 	build/ROMID/game/stubs/game_000850.o (section); \

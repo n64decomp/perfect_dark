@@ -5,6 +5,5 @@
 #include "types.h"
 
 void func0f000090(void);
-void func0f000100(void);
 
 #endif

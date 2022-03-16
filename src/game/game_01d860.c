@@ -5,7 +5,65 @@
 #include "data.h"
 #include "types.h"
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_JPN_FINAL
+const char var7f1a9240jf[] = "jap";
+
+GLOBAL_ASM(
+glabel func0f01d860
+/*  f01ea20:	27bdffe8 */ 	addiu	$sp,$sp,-24
+/*  f01ea24:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  f01ea28:	3c01800a */ 	lui	$at,0x800a
+/*  f01ea2c:	3c047f1b */ 	lui	$a0,0x7f1b
+/*  f01ea30:	3c058006 */ 	lui	$a1,0x8006
+/*  f01ea34:	ac20d370 */ 	sw	$zero,-0x2c90($at)
+/*  f01ea38:	24a528a0 */ 	addiu	$a1,$a1,0x28a0
+/*  f01ea3c:	0c0036b4 */ 	jal	0xdad0
+/*  f01ea40:	24849240 */ 	addiu	$a0,$a0,-28096
+/*  f01ea44:	3c048006 */ 	lui	$a0,0x8006
+/*  f01ea48:	8c8428a0 */ 	lw	$a0,0x28a0($a0)
+/*  f01ea4c:	2c810002 */ 	sltiu	$at,$a0,0x2
+/*  f01ea50:	10200006 */ 	beqz	$at,.JF0f01ea6c
+/*  f01ea54:	00000000 */ 	nop
+/*  f01ea58:	0fc5bb09 */ 	jal	0xf16ec24
+/*  f01ea5c:	00000000 */ 	nop
+/*  f01ea60:	240e0063 */ 	li	$t6,0x63
+/*  f01ea64:	3c018006 */ 	lui	$at,0x8006
+/*  f01ea68:	ac2e28a0 */ 	sw	$t6,0x28a0($at)
+.JF0f01ea6c:
+/*  f01ea6c:	3c06800a */ 	lui	$a2,0x800a
+/*  f01ea70:	8cc6d140 */ 	lw	$a2,-0x2ec0($a2)
+/*  f01ea74:	00001825 */ 	move	$v1,$zero
+/*  f01ea78:	00002025 */ 	move	$a0,$zero
+/*  f01ea7c:	18c00013 */ 	blez	$a2,.JF0f01eacc
+/*  f01ea80:	3c07800b */ 	lui	$a3,0x800b
+/*  f01ea84:	24e7b5a8 */ 	addiu	$a3,$a3,-19032
+.JF0f01ea88:
+/*  f01ea88:	8cef0000 */ 	lw	$t7,0x0($a3)
+/*  f01ea8c:	24630001 */ 	addiu	$v1,$v1,0x1
+/*  f01ea90:	01e41021 */ 	addu	$v0,$t7,$a0
+/*  f01ea94:	94450000 */ 	lhu	$a1,0x0($v0)
+/*  f01ea98:	0005c382 */ 	srl	$t8,$a1,0xe
+/*  f01ea9c:	13000008 */ 	beqz	$t8,.JF0f01eac0
+/*  f01eaa0:	2719ffff */ 	addiu	$t9,$t8,-1
+/*  f01eaa4:	904a0000 */ 	lbu	$t2,0x0($v0)
+/*  f01eaa8:	00194980 */ 	sll	$t1,$t9,0x6
+/*  f01eaac:	3c06800a */ 	lui	$a2,0x800a
+/*  f01eab0:	314bff3f */ 	andi	$t3,$t2,0xff3f
+/*  f01eab4:	012b6025 */ 	or	$t4,$t1,$t3
+/*  f01eab8:	a04c0000 */ 	sb	$t4,0x0($v0)
+/*  f01eabc:	8cc6d140 */ 	lw	$a2,-0x2ec0($a2)
+.JF0f01eac0:
+/*  f01eac0:	0066082a */ 	slt	$at,$v1,$a2
+/*  f01eac4:	1420fff0 */ 	bnez	$at,.JF0f01ea88
+/*  f01eac8:	24840002 */ 	addiu	$a0,$a0,0x2
+.JF0f01eacc:
+/*  f01eacc:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*  f01ead0:	27bd0018 */ 	addiu	$sp,$sp,0x18
+/*  f01ead4:	03e00008 */ 	jr	$ra
+/*  f01ead8:	00000000 */ 	nop
+/*  f01eadc:	00000000 */ 	nop
+);
+#elif VERSION >= VERSION_PAL_FINAL
 const char var7f1a9880pf[] = "language";
 
 GLOBAL_ASM(

@@ -101,7 +101,11 @@ OUTPUT_ARCH (mips)
 
 SECTIONS
 {
-#if VERSION >= VERSION_PAL_BETA
+#if VERSION >= VERSION_JPN_FINAL
+	_gamecode = 0x444a;
+	_jpndata1 = 0x17fc40;
+	_jpndata2 = 0x18b340;
+#elif VERSION >= VERSION_PAL_BETA
 	_gamecode = 0x4450;
 	_jpndata1 = 0x17fc40;
 	_jpndata2 = 0x18b340;
@@ -115,7 +119,17 @@ SECTIONS
 	_jpndata2 = 0x154340;
 #endif
 
-#if VERSION >= VERSION_PAL_BETA
+#if VERSION >= VERSION_JPN_FINAL
+	_numtextures = 3511;
+#else
+	_numtextures = 3503;
+#endif
+
+#if VERSION >= VERSION_JPN_FINAL
+	_val7f11aa14 = 0x0e52;
+	_val7f11aae4 = 0x0e60;
+	_val7f11c1d0 = 0x1292;
+#elif VERSION >= VERSION_PAL_BETA
 	_val7f11aa14 = 0x0e4d;
 	_val7f11aae4 = 0x0e5b;
 	_val7f11c1d0 = 0x128d;

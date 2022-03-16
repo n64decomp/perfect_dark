@@ -286,23 +286,35 @@ s32 invAddOneIfCantHaveSlayer(s32 index)
 		index++;
 	}
 
+#if VERSION >= VERSION_JPN_FINAL
+	if (index >= 26) {
+		index++;
+	}
+#endif
+
 	return index;
 }
 
 s32 currentStageForbidsSlayer(void)
 {
-	bool forbids = false;
+	bool value = VERSION >= VERSION_JPN_FINAL ? 1 : 0;
 
 	if (mainGetStageNum() != STAGE_ATTACKSHIP && mainGetStageNum() != STAGE_SKEDARRUINS) {
-		forbids = true;
+		value++;
 	}
 
-	return forbids;
+	return value;
 }
 
 bool invCanHaveAllGunsWeapon(s32 weaponnum)
 {
 	bool canhave = true;
+
+#if VERSION == VERSION_JPN_FINAL
+	if (weaponnum == WEAPON_COMBATKNIFE) {
+		canhave = false;
+	}
+#endif
 
 	if (weaponnum == WEAPON_SLAYER) {
 		canhave = false;
@@ -995,6 +1007,66 @@ char *invGetNameByIndex(s32 index)
 	return langGet(invGetNameIdByIndex(index));
 }
 
+#if VERSION >= VERSION_JPN_FINAL
+GLOBAL_ASM(
+glabel invGetShortNameByIndex
+/*  f113228:	27bdffe0 */ 	addiu	$sp,$sp,-32
+/*  f11322c:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  f113230:	0fc44b97 */ 	jal	0xf112e5c
+/*  f113234:	afa40020 */ 	sw	$a0,0x20($sp)
+/*  f113238:	8fa40020 */ 	lw	$a0,0x20($sp)
+/*  f11323c:	00402825 */ 	move	$a1,$v0
+/*  f113240:	10400012 */ 	beqz	$v0,.JF0f11328c
+/*  f113244:	00003025 */ 	move	$a2,$zero
+/*  f113248:	8c430000 */ 	lw	$v1,0x0($v0)
+/*  f11324c:	24010002 */ 	li	$at,0x2
+/*  f113250:	5461000a */ 	bnel	$v1,$at,.JF0f11327c
+/*  f113254:	24010001 */ 	li	$at,0x1
+/*  f113258:	8ca20004 */ 	lw	$v0,0x4($a1)
+/*  f11325c:	8c440004 */ 	lw	$a0,0x4($v0)
+/*  f113260:	0fc44bf1 */ 	jal	0xf112fc4
+/*  f113264:	afa00018 */ 	sw	$zero,0x18($sp)
+/*  f113268:	1040001c */ 	beqz	$v0,.JF0f1132dc
+/*  f11326c:	8fa60018 */ 	lw	$a2,0x18($sp)
+/*  f113270:	1000001a */ 	b	.JF0f1132dc
+/*  f113274:	8c460008 */ 	lw	$a2,0x8($v0)
+/*  f113278:	24010001 */ 	li	$at,0x1
+.JF0f11327c:
+/*  f11327c:	14610017 */ 	bne	$v1,$at,.JF0f1132dc
+/*  f113280:	00000000 */ 	nop
+/*  f113284:	10000015 */ 	b	.JF0f1132dc
+/*  f113288:	84460004 */ 	lh	$a2,0x4($v0)
+.JF0f11328c:
+/*  f11328c:	3c0e800a */ 	lui	$t6,0x800a
+/*  f113290:	8dcea8b4 */ 	lw	$t6,-0x574c($t6)
+/*  f113294:	8dcf1870 */ 	lw	$t7,0x1870($t6)
+/*  f113298:	11e00010 */ 	beqz	$t7,.JF0f1132dc
+/*  f11329c:	00000000 */ 	nop
+/*  f1132a0:	afa40020 */ 	sw	$a0,0x20($sp)
+/*  f1132a4:	0fc447f4 */ 	jal	0xf111fd0
+/*  f1132a8:	afa60018 */ 	sw	$a2,0x18($sp)
+/*  f1132ac:	8fa40020 */ 	lw	$a0,0x20($sp)
+/*  f1132b0:	2418002c */ 	li	$t8,0x2c
+/*  f1132b4:	0302c823 */ 	subu	$t9,$t8,$v0
+/*  f1132b8:	0099082a */ 	slt	$at,$a0,$t9
+/*  f1132bc:	10200007 */ 	beqz	$at,.JF0f1132dc
+/*  f1132c0:	8fa60018 */ 	lw	$a2,0x18($sp)
+/*  f1132c4:	0fc447da */ 	jal	0xf111f68
+/*  f1132c8:	24840001 */ 	addiu	$a0,$a0,0x1
+/*  f1132cc:	0fc28c4e */ 	jal	0xf0a3138
+/*  f1132d0:	00402025 */ 	move	$a0,$v0
+/*  f1132d4:	10000004 */ 	b	.JF0f1132e8
+/*  f1132d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
+.JF0f1132dc:
+/*  f1132dc:	0fc28c4e */ 	jal	0xf0a3138
+/*  f1132e0:	00c02025 */ 	move	$a0,$a2
+/*  f1132e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
+.JF0f1132e8:
+/*  f1132e8:	27bd0020 */ 	addiu	$sp,$sp,0x20
+/*  f1132ec:	03e00008 */ 	jr	$ra
+/*  f1132f0:	00000000 */ 	nop
+);
+#else
 char *invGetShortNameByIndex(s32 index)
 {
 	struct invitem *item = invGetItemByIndex(index);
@@ -1030,6 +1102,7 @@ char *invGetShortNameByIndex(s32 index)
 
 	return bgunGetShortName(weaponnum);
 }
+#endif
 
 void invInsertTextOverride(struct textoverride *override)
 {

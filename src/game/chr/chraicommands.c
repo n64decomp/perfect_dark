@@ -421,7 +421,7 @@ bool aiChrDoAnimation(void)
 
 		if (g_Vars.in_cutscene) {
 			if (startframe != 0xfffe) {
-#if VERSION >= VERSION_PAL_BETA
+#if PAL
 				fstartframe += var8009e388pf * speed;
 #else
 				fstartframe += g_CutsceneFrameOverrun240 * speed * 0.25f;
@@ -5152,7 +5152,7 @@ bool aiObjectDoAnimation(void)
 			thing = 1.0f / (s32)cmd[5];
 
 			if (g_Vars.in_cutscene && startframe != 0xfffe) {
-#if VERSION >= VERSION_PAL_BETA
+#if PAL
 				fstartframe += var8009e388pf * thing;
 #else
 				fstartframe += g_CutsceneFrameOverrun240 * thing * 0.25f;
@@ -5160,7 +5160,9 @@ bool aiObjectDoAnimation(void)
 			}
 
 			animInit(obj->model->anim);
-#if VERSION >= VERSION_PAL_BETA
+#if VERSION >= VERSION_JPN_FINAL
+			modelSetAnimPlaySpeed(obj->model, 1, 0);
+#elif VERSION >= VERSION_PAL_BETA
 			modelSetAnimPlaySpeed(obj->model, 1.2, 0);
 #endif
 			modelSetAnimation(obj->model, anim_id, 0, fstartframe, thing, 0);
@@ -7252,7 +7254,7 @@ s16 g_MaianQuipBank[][4] = {
 /**
  * @cmd 0130
  */
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel aiSayQuip
 .late_rodata
@@ -7915,7 +7917,7 @@ glabel var7f1a9d64
 /*  f05add8:	03e00008 */ 	jr	$ra
 /*  f05addc:	00000000 */ 	nop
 );
-#elif VERSION >= VERSION_PAL_BETA
+#elif VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
 glabel aiSayQuip
 .late_rodata
