@@ -36,10 +36,21 @@ Gfx *var800a4634;
 u32 var800a4638;
 u32 var800a463c;
 
+#if VERSION == VERSION_JPN_FINAL
+u32 var800800f0jf = 0;
 s32 g_ScaleX = 1;
 s32 var8007fac4 = 0;
-u32 var8007fac8 = 0x00000000;
-u32 var8007facc = 0x00000000;
+u32 var8007fac8 = 0;
+u32 var8007facc = 0;
+u32 var80080104jf = 0;
+u32 var80080108jf = 1;
+#else
+s32 g_ScaleX = 1;
+s32 var8007fac4 = 0;
+u32 var8007fac8 = 0;
+u32 var8007facc = 0;
+#endif
+
 u32 var8007fad0 = 0x00000001;
 u32 var8007fad4 = 0xffffffff;
 u32 var8007fad8 = 0x00000000;
@@ -93,6 +104,18 @@ u32 var8007fb8c = 0xff00ff18;
 u32 var8007fb90 = 0xff30ff5c;
 u32 var8007fb94 = 0xff88ffb4;
 u32 var8007fb98 = 0xffd8ffff;
+
+#if VERSION == VERSION_JPN_FINAL
+u32 var800801d8jf = 0xff00ff11;
+u32 var800801dcjf = 0xff22ff33;
+u32 var800801e0jf = 0xff44ff55;
+u32 var800801e4jf = 0xff66ff77;
+u32 var800801e8jf = 0xff88ff99;
+u32 var800801ecjf = 0xffaaffbb;
+u32 var800801f0jf = 0xffccffdd;
+u32 var800801f4jf = 0xffeeffff;
+#endif
+
 u32 var8007fb9c = 0x00000000;
 s32 var8007fba0 = 0;
 s32 var8007fba4 = -1;

@@ -1008,7 +1008,9 @@ struct menudialogdef g_MpSavePlayerMenuDialog = {
 };
 
 struct menuitem g_MpSaveSetupNameMenuItems[] = {
+#if VERSION != VERSION_JPN_FINAL
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPMENU_189, 0x00000000, NULL }, // "Enter a name for your game setup file:"
+#endif
 	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, menuhandlerMpSetupName },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };

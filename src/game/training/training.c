@@ -10880,6 +10880,14 @@ const char var7f1ba170[] = "%s";
 const char var7f1ba174[] = "%s";
 const char var7f1ba178[] = "\n";
 
+u32 var800898c8jf[] = {
+	L_MISC_423, // "ZONE 3"
+	L_MISC_424, // "ZONE 2"
+	L_MISC_425, // "ZONE 1"
+	L_MISC_426, // "BULL'S-EYE"
+	L_MISC_427, // "EXPLODED"
+};
+
 GLOBAL_ASM(
 glabel frGetFeedback
 .late_rodata

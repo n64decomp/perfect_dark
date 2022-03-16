@@ -2025,6 +2025,10 @@ extern void *_file_Acarrbye02M;
 #if VERSION >= VERSION_NTSC_1_0
 extern void *_file_Asaucerexp1M;
 #endif
+#if VERSION >= VERSION_JPN_FINAL
+extern void *_file_PjaplogoZ;
+extern void *_file_PjappdZ;
+#endif
 extern void *_filenamesSegmentRomStart;
 
 #if VERSION < VERSION_NTSC_1_0
@@ -4057,7 +4061,11 @@ void *filetable[] = {
 #if VERSION >= VERSION_NTSC_1_0
 	/*0x07dd*/ &_file_Asaucerexp1M,
 #endif
-	/*0x07de*/ &_filenamesSegmentRomStart,
+#if VERSION == VERSION_JPN_FINAL
+	/*0x07de*/ &_file_PjaplogoZ,
+	/*0x07df*/ &_file_PjappdZ,
+#endif
+	&_filenamesSegmentRomStart,
 };
 
 u32 fileGetRomAddress(s32 filenum)

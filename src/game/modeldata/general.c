@@ -401,7 +401,7 @@ struct skeleton g_SkelBB = {
 	SKEL_BB, ARRAYCOUNT(g_SkelBBJoints), g_SkelBBJoints,
 };
 
-struct modelstate g_ModelStates[441] = {
+struct modelstate g_ModelStates[NUM_MODELS] = {
 	//                 file                         scale
 	/*0x0000*/ { NULL, FILE_PROOFGUN,               0x0199 },
 	/*0x0001*/ { NULL, FILE_PGROUNDGUN,             0x0199 },
@@ -844,6 +844,10 @@ struct modelstate g_ModelStates[441] = {
 	/*0x01b6*/ { NULL, FILE_PDD_DR_NONREF,          0x1000 },
 	/*0x01b7*/ { NULL, FILE_PCETANDOORSIDE,         0x1000 },
 	/*0x01b8*/ { NULL, FILE_PBUDDYBRIDGE,           0x0199 },
+#if VERSION == VERSION_JPN_FINAL
+	/*0x01b9*/ { NULL, FILE_PJPNLOGO,               0x1000 },
+	/*0x01ba*/ { NULL, FILE_PJPNPD,                 0x1000 },
+#endif
 };
 
 u8 g_PropExplosionTypes[] = {
@@ -1295,9 +1299,15 @@ u8 g_PropExplosionTypes[] = {
 	/*0x01bd*/ EXPLOSIONTYPE_0,
 	/*0x01be*/ EXPLOSIONTYPE_0,
 	/*0x01bf*/ EXPLOSIONTYPE_0,
+	/*0x01c0*/ EXPLOSIONTYPE_0,
+	/*0x01c1*/ EXPLOSIONTYPE_0,
+#if VERSION >= VERSION_JPN_FINAL
+	/*0x01c2*/ EXPLOSIONTYPE_0,
+	/*0x01c3*/ EXPLOSIONTYPE_0,
+#endif
+	0xff,
 };
 
-u32 var8007bff4 = 0x0000ff00;
 u32 var8007bff8 = 0x00000000;
 u32 var8007bffc = 0x00000000;
 u32 var8007c000 = 0x00000000;

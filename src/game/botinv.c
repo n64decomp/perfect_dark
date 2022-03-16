@@ -56,7 +56,11 @@ struct aibotweaponpreference g_AibotWeaponPreferences[] = {
 	/*0x17*/ { 176, 188, 0,   0,   1, 1, BOTDISTCFG_SHOOTEXPLOSIVE, BOTDISTCFG_SHOOTEXPLOSIVE, 20,            20,  4,  4,  2, 0 }, // WEAPON_DEVASTATOR
 	/*0x18*/ { 160, 188, 0,   0,   1, 1, BOTDISTCFG_SHOOTEXPLOSIVE, BOTDISTCFG_SHOOTEXPLOSIVE, 2,             2,   1,  1,  2, 0 }, // WEAPON_ROCKETLAUNCHER
 	/*0x19*/ { 168, 188, 0,   0,   1, 1, BOTDISTCFG_SHOOTEXPLOSIVE, BOTDISTCFG_SHOOTEXPLOSIVE, 2,             2,   1,  1,  3, 0 }, // WEAPON_SLAYER
+#if VERSION == VERSION_JPN_FINAL
+	/*0x1a*/ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 }, // WEAPON_COMBATKNIFE
+#else
 	/*0x1a*/ { 20,  40,  24,  40,  1, 1, BOTDISTCFG_CLOSE,          BOTDISTCFG_DEFAULT,        0,             5,   0,  1,  1, 0 }, // WEAPON_COMBATKNIFE
+#endif
 	/*0x1b*/ { 108, 176, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        15,            15,  5,  5,  4, 1 }, // WEAPON_CROSSBOW
 	/*0x1c*/ { 48,  188, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_CLOSE,          20,            24,  6,  8,  1, 0 }, // WEAPON_TRANQUILIZER
 	/*0x1d*/ { 112, 112, 0,   0,   1, 1, BOTDISTCFG_DEFAULT,        BOTDISTCFG_CLOSE,          0,             0,   0,  0,  1, 0 }, // WEAPON_LASER

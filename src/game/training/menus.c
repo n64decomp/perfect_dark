@@ -1747,11 +1747,17 @@ struct menudialogdef g_HtDetailsMenuDialog = {
 
 struct menuitem g_HtFailedMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000032, L_MPMENU_426, 0x00000000,                     NULL }, // "Failed!"
-	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,    0x00000000,                     NULL },
+	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,   0x00000000,                     NULL },
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, L_MPMENU_424, (u32)&htMenuTextTimeTakenValue, NULL }, // "Time Taken:"
-	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,    0x00000000,                     NULL },
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP1, 0x00000000, 0x00000082,    PAL ? 110 : 100,                     NULL },
-	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,    0x00000000,                     NULL },
+	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,   0x00000000,                     NULL },
+#if VERSION >= VERSION_JPN_FINAL
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP1, 0x00000000, 0x00000082,   120,                     NULL },
+#elif PAL
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP1, 0x00000000, 0x00000082,   110,                     NULL },
+#else
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP1, 0x00000000, 0x00000082,   100,                     NULL },
+#endif
+	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,   0x00000000,                     NULL },
 };
 
 struct menudialogdef g_HtFailedMenuDialog = {
@@ -1765,11 +1771,17 @@ struct menudialogdef g_HtFailedMenuDialog = {
 
 struct menuitem g_HtCompletedMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000032, L_MPMENU_425, 0x00000000,                     NULL }, // "Completed!"
-	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,    0x00000000,                     NULL },
+	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,   0x00000000,                     NULL },
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, L_MPMENU_424, (u32)&htMenuTextTimeTakenValue, NULL }, // "Time Taken:"
-	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,    0x00000000,                     NULL },
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP2, 0x00000000, 0x00000082,    PAL ? 110 : 100,                     NULL },
-	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,    0x00000000,                     NULL },
+	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,   0x00000000,                     NULL },
+#if VERSION >= VERSION_JPN_FINAL
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP2, 0x00000000, 0x00000082,   120,                     NULL },
+#elif PAL
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP2, 0x00000000, 0x00000082,   110,                     NULL },
+#else
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP2, 0x00000000, 0x00000082,   100,                     NULL },
+#endif
+	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,   0x00000000,                     NULL },
 };
 
 struct menudialogdef g_HtCompletedMenuDialog = {

@@ -547,7 +547,11 @@ struct weapon invitem_falcon2 = {
 	1, // unk38
 	invf_000113f4, // fptr
 	invpartvisibility_falcon2, // part visibility
+#if VERSION == VERSION_JPN_FINAL
+	L_GUN_257, // short name
+#else
 	L_GUN_007, // short name
+#endif
 	L_GUN_007, // name
 	L_GUN_150, // manufacturer
 	L_GUN_156, // description
@@ -3300,7 +3304,11 @@ struct weapon invitem_ecmmine = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
+#if VERSION >= VERSION_JPN_FINAL
+	L_GUN_256, // short name
+#else
 	L_GUN_041, // short name
+#endif
 	L_GUN_041, // name
 	L_GUN_000, // manufacturer
 	L_GUN_188, // description
@@ -5672,7 +5680,11 @@ struct weapon invitem_skedarbomb = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
+#if VERSION >= VERSION_JPN_FINAL
+	L_GUN_259, // short name
+#else
 	L_GUN_221, // short name
+#endif
 	L_GUN_221, // name
 	L_GUN_000, // manufacturer
 	L_GUN_203, // description
@@ -5898,7 +5910,11 @@ struct weapon invitem_suitcase = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
+#if VERSION >= VERSION_JPN_FINAL
+	L_GUN_258, // short name
+#else
 	L_GUN_067, // short name
+#endif
 	L_GUN_067, // name
 	L_GUN_000, // manufacturer
 	L_GUN_000, // description

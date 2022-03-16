@@ -54,7 +54,7 @@ const char var7f1b8a00[] = "||||||||||||| Starting game... players %d\n";
 s32 var80087260 = 0x00000000;
 bool g_MpEnableMusicSwitching = false;
 
-struct mpweapon g_MpWeapons[0x27] = {
+struct mpweapon g_MpWeapons[NUM_MPWEAPONS] = {
 	/*0x00*/ { WEAPON_NONE,             0x00, 0x00, 0x00, 0x00, 1, 0,                                MODEL_CHRTT33,          0x0100 },
 	/*0x01*/ { WEAPON_FALCON2,          0x01, 0x50, 0x00, 0x00, 1, 0,                                MODEL_CHRFALCON2,       0x0100 },
 	/*0x02*/ { WEAPON_FALCON2_SILENCER, 0x01, 0x50, 0x00, 0x00, 1, MPFEATURE_WEAPON_FALCON2SILENCED, MODEL_CHRFALCON2SIL,    0x0100 },
@@ -80,7 +80,9 @@ struct mpweapon g_MpWeapons[0x27] = {
 	/*0x16*/ { WEAPON_DEVASTATOR,       0x0b, 0x10, 0x00, 0x00, 1, MPFEATURE_WEAPON_DEVASTATOR,      MODEL_CHRDEVASTATOR,    0x0100 },
 	/*0x17*/ { WEAPON_ROCKETLAUNCHER,   0x08, 0x03, 0x00, 0x00, 1, 0,                                MODEL_CHRDYROCKET,      0x0100 },
 	/*0x18*/ { WEAPON_SLAYER,           0x08, 0x03, 0x00, 0x00, 1, MPFEATURE_WEAPON_SLAYER,          MODEL_CHRSKROCKET,      0x0100 },
+#if VERSION != VERSION_JPN_FINAL
 	/*0x19*/ { WEAPON_COMBATKNIFE,      0x09, 0x05, 0x00, 0x00, 1, 0,                                MODEL_CHRKNIFE,         0x0100 },
+#endif
 	/*0x1a*/ { WEAPON_CROSSBOW,         0x03, 0x0a, 0x00, 0x00, 1, MPFEATURE_WEAPON_CROSSBOW,        MODEL_CHRCROSSBOW,      0x0100 },
 	/*0x1b*/ { WEAPON_TRANQUILIZER,     0x13, 0x32, 0x00, 0x00, 1, MPFEATURE_WEAPON_TRANQUILIZER,    MODEL_CHRDRUGGUN,       0x0100 },
 	/*0x1c*/ { WEAPON_GRENADE,          0x07, 0x05, 0x00, 0x00, 0, 0,                                MODEL_CHRGRENADE,       0x0100 },
@@ -93,7 +95,7 @@ struct mpweapon g_MpWeapons[0x27] = {
 	/*0x23*/ { WEAPON_CLOAKINGDEVICE,   0x00, 0x00, 0x00, 0x00, 1, MPFEATURE_WEAPON_CLOAKINGDEVICE,  MODEL_CHRCLOAKER,       0x0100 },
 	/*0x24*/ { WEAPON_COMBATBOOST,      0x00, 0x00, 0x00, 0x00, 1, MPFEATURE_WEAPON_COMBATBOOST,     MODEL_CHRSPEEDPILL,     0x0100 },
 	/*0x25*/ { WEAPON_MPSHIELD,         0x00, 0x00, 0x00, 0x00, 1, MPFEATURE_WEAPON_SHIELD,          MODEL_CHRSHIELD,        0x0100 },
-	/*0x26*/ { WEAPON_DISABLED,         0x00, 0x00, 0x00, 0x00, 0, 0x00,                             0,                      0x0000 },
+	/*0x26*/ { WEAPON_DISABLED },
 };
 
 /**
@@ -1864,7 +1866,11 @@ struct mpweaponset g_MpWeaponSets[12] = {
 	{ /*0x08*/ L_MPWEAPONS_047, { WEAPON_MAGSEC4,          WEAPON_CMP150,      WEAPON_AR34,        WEAPON_DEVASTATOR,     WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_DEVASTATOR,      0,                           0,                              0                       }, WEAPON_DISABLED,    WEAPON_DISABLED,    WEAPON_DISABLED,  WEAPON_DISABLED,       WEAPON_DISABLED, WEAPON_DISABLED }, // Grenade Launcher
 	{ /*0x09*/ L_MPWEAPONS_046, { WEAPON_MAULER,           WEAPON_CYCLONE,     WEAPON_DRAGON,      WEAPON_ROCKETLAUNCHER, WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_MAULER,          0,                           0,                              0                       }, WEAPON_FALCON2,     WEAPON_CYCLONE,     WEAPON_DRAGON,    WEAPON_ROCKETLAUNCHER, WEAPON_MPSHIELD, WEAPON_DISABLED }, // Rocket Launcher
 	{ /*0x0a*/ L_MPWEAPONS_045, { WEAPON_MAGSEC4,          WEAPON_LAPTOPGUN,   WEAPON_K7AVENGER,   WEAPON_PROXIMITYMINE,  WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_LAPTOPGUN,       MPFEATURE_WEAPON_K7AVENGER,  MPFEATURE_WEAPON_PROXIMITYMINE, 0                       }, WEAPON_DISABLED,    WEAPON_DISABLED,    WEAPON_DISABLED,  WEAPON_DISABLED,       WEAPON_DISABLED, WEAPON_DISABLED }, // Proximity Mine
+#if VERSION == VERSION_JPN_FINAL
+	{ /*0x0b*/ L_MPWEAPONS_044, { WEAPON_TIMEDMINE,        WEAPON_CROSSBOW,    WEAPON_TIMEDMINE,   WEAPON_CROSSBOW,       WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_CROSSBOW,        0,                           0,                              0                       }, WEAPON_TIMEDMINE,   WEAPON_TIMEDMINE,   WEAPON_TIMEDMINE, WEAPON_TIMEDMINE,      WEAPON_MPSHIELD, WEAPON_DISABLED }, // Close Combat
+#else
 	{ /*0x0b*/ L_MPWEAPONS_044, { WEAPON_COMBATKNIFE,      WEAPON_COMBATKNIFE, WEAPON_TIMEDMINE,   WEAPON_CROSSBOW,       WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_CROSSBOW,        0,                           0,                              0                       }, WEAPON_COMBATKNIFE, WEAPON_COMBATKNIFE, WEAPON_TIMEDMINE, WEAPON_TIMEDMINE,      WEAPON_MPSHIELD, WEAPON_DISABLED }, // Close Combat
+#endif
 };
 
 s32 g_MpWeaponSetNum = 0x00000000;
@@ -2296,83 +2302,85 @@ struct mphead g_MpBeauHeads[NUM_MPBEAUHEADS] = {
 	{ HEAD_BEAU6, 0 },
 };
 
-struct mphead g_MpHeads[75] = {
+struct mphead g_MpHeads[NUM_MPHEADS] = {
 	// head, require feature
-	{ /*0x00*/ HEAD_DARK_COMBAT,  0            },
-	{ /*0x01*/ HEAD_DARK_FROCK,   MPFEATURE_CHR_CI },
-	{ /*0x02*/ HEAD_DARKAQUA,     MPFEATURE_CHR_PELAGIC },
-	{ /*0x03*/ HEAD_DARK_SNOW,    MPFEATURE_4A },
-	{ /*0x04*/ HEAD_ELVIS,        MPFEATURE_CHR_ELVIS },
-	{ /*0x05*/ HEAD_ELVIS_GOGS,   MPFEATURE_CHR_ELVIS },
-	{ /*0x06*/ HEAD_CARRINGTON,   0            },
-	{ /*0x07*/ HEAD_MRBLONDE,     MPFEATURE_CHR_MRBLONDE },
-	{ /*0x08*/ HEAD_CASSANDRA,    0            },
-	{ /*0x09*/ HEAD_TRENT,        MPFEATURE_CHR_TRENT },
+	{ /*0x00*/ HEAD_DARK_COMBAT,  0                          },
+	{ /*0x01*/ HEAD_DARK_FROCK,   MPFEATURE_CHR_CI           },
+	{ /*0x02*/ HEAD_DARKAQUA,     MPFEATURE_CHR_PELAGIC      },
+	{ /*0x03*/ HEAD_DARK_SNOW,    MPFEATURE_4A               },
+	{ /*0x04*/ HEAD_ELVIS,        MPFEATURE_CHR_ELVIS        },
+	{ /*0x05*/ HEAD_ELVIS_GOGS,   MPFEATURE_CHR_ELVIS        },
+	{ /*0x06*/ HEAD_CARRINGTON,   0                          },
+	{ /*0x07*/ HEAD_MRBLONDE,     MPFEATURE_CHR_MRBLONDE     },
+	{ /*0x08*/ HEAD_CASSANDRA,    0                          },
+	{ /*0x09*/ HEAD_TRENT,        MPFEATURE_CHR_TRENT        },
 	{ /*0x0a*/ HEAD_JONATHAN,     MPFEATURE_CHR_INFILTRATION },
-	{ /*0x0b*/ HEAD_VD,           0            },
-	{ /*0x0c*/ HEAD_PRESIDENT,    MPFEATURE_CHR_CI },
-	{ /*0x0d*/ HEAD_DDSHOCK,      0            },
-	{ /*0x0e*/ HEAD_BIOTECH,      MPFEATURE_CHR_BIOTECH },
-	{ /*0x0f*/ HEAD_DDSNIPER,     MPFEATURE_CHR_VILLACHRS },
+	{ /*0x0b*/ HEAD_VD,           0                          },
+	{ /*0x0c*/ HEAD_PRESIDENT,    MPFEATURE_CHR_CI           },
+	{ /*0x0d*/ HEAD_DDSHOCK,      0                          },
+	{ /*0x0e*/ HEAD_BIOTECH,      MPFEATURE_CHR_BIOTECH      },
+	{ /*0x0f*/ HEAD_DDSNIPER,     MPFEATURE_CHR_VILLACHRS    },
 	{ /*0x10*/ HEAD_A51FACEPLATE, MPFEATURE_CHR_INFILTRATION },
-	{ /*0x11*/ HEAD_SECRETARY,    0            },
-	{ /*0x12*/ HEAD_FEM_GUARD,    MPFEATURE_CHR_FEMGUARD },
-	{ /*0x13*/ HEAD_FEM_GUARD2,   MPFEATURE_CHR_FEMGUARD },
-	{ /*0x14*/ HEAD_MAIAN_S,      MPFEATURE_CHR_ELVIS },
-	{ /*0x15*/ HEAD_JON,          0            },
-	{ /*0x16*/ HEAD_BEAU1,        0            },
-	{ /*0x17*/ HEAD_ROSS,         0            },
-	{ /*0x18*/ HEAD_MARK2,        0            },
-	{ /*0x19*/ HEAD_CHRIST,       0            },
-	{ /*0x1a*/ HEAD_RUSS,         0            },
-	{ /*0x1b*/ HEAD_DARLING,      0            },
-	{ /*0x1c*/ HEAD_BRIAN,        0            },
-	{ /*0x1d*/ HEAD_JAMIE,        0            },
-	{ /*0x1e*/ HEAD_DUNCAN2,      0            },
-	{ /*0x1f*/ HEAD_KEITH,        0            },
-	{ /*0x20*/ HEAD_STEVEM,       0            },
-	{ /*0x21*/ HEAD_GRANT,        0            },
-	{ /*0x22*/ HEAD_PENNY,        0            },
-	{ /*0x23*/ HEAD_DAVEC,        0            },
-	{ /*0x24*/ HEAD_JONES,        0            },
-	{ /*0x25*/ HEAD_GRAHAM,       0            },
-	{ /*0x26*/ HEAD_ROBERT,       0            },
-	{ /*0x27*/ HEAD_NEIL2,        0            },
-	{ /*0x28*/ HEAD_SHAUN,        0            },
-	{ /*0x29*/ HEAD_ROBIN,        0            },
-	{ /*0x2a*/ HEAD_COOK,         0            },
-	{ /*0x2b*/ HEAD_PRYCE,        0            },
-	{ /*0x2c*/ HEAD_SILKE,        0            },
-	{ /*0x2d*/ HEAD_SMITH,        0            },
-	{ /*0x2e*/ HEAD_GARETH,       0            },
-	{ /*0x2f*/ HEAD_MURCHIE,      0            },
-	{ /*0x30*/ HEAD_WONG,         0            },
-	{ /*0x31*/ HEAD_CARTER,       0            },
-	{ /*0x32*/ HEAD_TINTIN,       0            },
-	{ /*0x33*/ HEAD_MUNTON,       0            },
-	{ /*0x34*/ HEAD_STAMPER,      0            },
-	{ /*0x35*/ HEAD_PHELPS,       0            },
-	{ /*0x36*/ HEAD_ALEX,         0            },
-	{ /*0x37*/ HEAD_JULIANNE,     0            },
-	{ /*0x38*/ HEAD_LAURA,        0            },
-	{ /*0x39*/ HEAD_EDMCG,        0            },
-	{ /*0x3a*/ HEAD_ANKA,         0            },
-	{ /*0x3b*/ HEAD_LESLIE_S,     0            },
-	{ /*0x3c*/ HEAD_MATT_C,       0            },
-	{ /*0x3d*/ HEAD_PEER_S,       0            },
-	{ /*0x3e*/ HEAD_EILEEN_T,     0            },
-	{ /*0x3f*/ HEAD_ANDY_R,       0            },
-	{ /*0x40*/ HEAD_BEN_R,        0            },
-	{ /*0x41*/ HEAD_STEVE_K,      0            },
-	{ /*0x42*/ HEAD_SANCHEZ,      0            },
-	{ /*0x43*/ HEAD_TIM,          0            },
-	{ /*0x44*/ HEAD_KEN,          0            },
-	{ /*0x45*/ HEAD_EILEEN_H,     0            },
-	{ /*0x46*/ HEAD_SCOTT_H,      0            },
-	{ /*0x47*/ HEAD_JOEL,         0            },
-	{ /*0x48*/ HEAD_GRIFFEY,      0            },
-	{ /*0x49*/ HEAD_MOTO,         0            },
-	{ /*0x4a*/ HEAD_WINNER,       0            },
+	{ /*0x11*/ HEAD_SECRETARY,    0                          },
+	{ /*0x12*/ HEAD_FEM_GUARD,    MPFEATURE_CHR_FEMGUARD     },
+	{ /*0x13*/ HEAD_FEM_GUARD2,   MPFEATURE_CHR_FEMGUARD     },
+	{ /*0x14*/ HEAD_MAIAN_S,      MPFEATURE_CHR_ELVIS        },
+	{ /*0x15*/ HEAD_JON,          0                          },
+	{ /*0x16*/ HEAD_BEAU1,        0                          },
+	{ /*0x17*/ HEAD_ROSS,         0                          },
+	{ /*0x18*/ HEAD_MARK2,        0                          },
+	{ /*0x19*/ HEAD_CHRIST,       0                          },
+	{ /*0x1a*/ HEAD_RUSS,         0                          },
+	{ /*0x1b*/ HEAD_DARLING,      0                          },
+	{ /*0x1c*/ HEAD_BRIAN,        0                          },
+	{ /*0x1d*/ HEAD_JAMIE,        0                          },
+	{ /*0x1e*/ HEAD_DUNCAN2,      0                          },
+	{ /*0x1f*/ HEAD_KEITH,        0                          },
+	{ /*0x20*/ HEAD_STEVEM,       0                          },
+	{ /*0x21*/ HEAD_GRANT,        0                          },
+	{ /*0x22*/ HEAD_PENNY,        0                          },
+	{ /*0x23*/ HEAD_DAVEC,        0                          },
+	{ /*0x24*/ HEAD_JONES,        0                          },
+	{ /*0x25*/ HEAD_GRAHAM,       0                          },
+	{ /*0x26*/ HEAD_ROBERT,       0                          },
+	{ /*0x27*/ HEAD_NEIL2,        0                          },
+	{ /*0x28*/ HEAD_SHAUN,        0                          },
+	{ /*0x29*/ HEAD_ROBIN,        0                          },
+	{ /*0x2a*/ HEAD_COOK,         0                          },
+	{ /*0x2b*/ HEAD_PRYCE,        0                          },
+	{ /*0x2c*/ HEAD_SILKE,        0                          },
+	{ /*0x2d*/ HEAD_SMITH,        0                          },
+	{ /*0x2e*/ HEAD_GARETH,       0                          },
+	{ /*0x2f*/ HEAD_MURCHIE,      0                          },
+	{ /*0x30*/ HEAD_WONG,         0                          },
+	{ /*0x31*/ HEAD_CARTER,       0                          },
+	{ /*0x32*/ HEAD_TINTIN,       0                          },
+	{ /*0x33*/ HEAD_MUNTON,       0                          },
+	{ /*0x34*/ HEAD_STAMPER,      0                          },
+	{ /*0x35*/ HEAD_PHELPS,       0                          },
+	{ /*0x36*/ HEAD_ALEX,         0                          },
+	{ /*0x37*/ HEAD_JULIANNE,     0                          },
+	{ /*0x38*/ HEAD_LAURA,        0                          },
+	{ /*0x39*/ HEAD_EDMCG,        0                          },
+	{ /*0x3a*/ HEAD_ANKA,         0                          },
+	{ /*0x3b*/ HEAD_LESLIE_S,     0                          },
+	{ /*0x3c*/ HEAD_MATT_C,       0                          },
+	{ /*0x3d*/ HEAD_PEER_S,       0                          },
+	{ /*0x3e*/ HEAD_EILEEN_T,     0                          },
+	{ /*0x3f*/ HEAD_ANDY_R,       0                          },
+	{ /*0x40*/ HEAD_BEN_R,        0                          },
+	{ /*0x41*/ HEAD_STEVE_K,      0                          },
+	{ /*0x42*/ HEAD_SANCHEZ,      0                          },
+	{ /*0x43*/ HEAD_TIM,          0                          },
+	{ /*0x44*/ HEAD_KEN,          0                          },
+	{ /*0x45*/ HEAD_EILEEN_H,     0                          },
+	{ /*0x46*/ HEAD_SCOTT_H,      0                          },
+	{ /*0x47*/ HEAD_JOEL,         0                          },
+	{ /*0x48*/ HEAD_GRIFFEY,      0                          },
+#if VERSION != VERSION_JPN_FINAL
+	{ /*0x49*/ HEAD_MOTO,         0                          },
+#endif
+	{ /*0x4a*/ HEAD_WINNER,       0                          },
 };
 
 u32 g_BotHeads[] = {
@@ -2428,7 +2436,9 @@ u32 g_BotHeads[] = {
 	MPHEAD_SCOTT_H,
 	MPHEAD_JOEL,
 	MPHEAD_GRIFFEY,
+#if VERSION != VERSION_JPN_FINAL
 	MPHEAD_MOTO,
+#endif
 };
 
 // 2d74c
@@ -2564,7 +2574,9 @@ u32 g_MpMaleHeads[] = {
 	HEAD_KEN,
 	HEAD_SCOTT_H,
 	HEAD_JOEL,
+#if VERSION != VERSION_JPN_FINAL
 	HEAD_MOTO,
+#endif
 };
 
 u32 g_MpFemaleHeads[] = {

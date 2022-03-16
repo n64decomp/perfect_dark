@@ -2011,3 +2011,5 @@
 #define FILE_AP16_03_JOM             0x07db
 #define FILE_ACARRBYE02M             0x07dc
 #define FILE_ASAUCEREXP1M            0x07dd
+#define FILE_PJPNLOGO                0x07de
+#define FILE_PJPNPD                  0x07df

@@ -12,7 +12,7 @@
  * PAL ignores this mostly and introduces g_LanguageId.
  */
 #if VERSION >= VERSION_PAL_BETA
-bool g_Jpn = false;
+bool g_Jpn = VERSION == VERSION_JPN_FINAL ? true : false;
 u32 var80084664pf = 0;
 u32 var80084668pf = 0;
 u32 var8008466cpf = 0;
@@ -177,6 +177,8 @@ u32 langGetLangBankIndexFromStagenum(s32 stagenum)
 #if VERSION == VERSION_JPN_FINAL
 const char var7f1b8850jf[] = "tmul";
 const char var7f1b8858jf[] = "tload";
+u32 var80084810jf = 0;
+u32 var80084814jf = 8;
 
 GLOBAL_ASM(
 glabel func0f16e3fc

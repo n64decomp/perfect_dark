@@ -121,7 +121,10 @@ struct vimode g_ViModes[] = {
 	//  |    |    |  |                 |    |  |     |  |     cinemaheight
 	//  |    |    |  |                 |    |  |     |  |     |  cinematop
 	//  |    |    |  |                 |    |  |     |  |     |  |
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION >= VERSION_JPN_FINAL
+	{ 320, 220, 320, 1,                1, 220, 0,  180, 20, 136, 42  }, // default
+	{ 640, 220, 640, 0.5,              1, 220, 0,  180, 20, 136, 42  }, // hi-res
+#elif VERSION >= VERSION_PAL_FINAL
 	{ 320, 266, 320, 1,                1, 266, 0,  212, 20, 168, 42 }, // default
 	{ 448, 266, 448, 0.71428567171097, 1, 266, 0,  212, 20, 168, 42 }, // hi-res
 #elif VERSION >= VERSION_PAL_BETA

@@ -63,6 +63,11 @@ u32 var80062500 = 0x00000000;
 u32 var80062504 = 0x00000000;
 struct model *g_TitleModelPdTwo = NULL;
 struct model *g_TitleModelPdThree = NULL;
+
+#if VERSION == VERSION_JPN_FINAL
+u32 var800623f0jf[4] = {0};
+#endif
+
 u32 var80062510 = 0x00000000;
 u32 var80062514 = 0x00000000;
 u32 var80062518 = 0x96969600;
@@ -75,6 +80,11 @@ u32 var8006252c = 0x00000000;
 Lights1 var80062530 = gdSPDefLights1(0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
 Lights1 var80062548 = gdSPDefLights1(0x3f, 0xff, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
 Lights1 var80062560 = gdSPDefLights1(0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+
+#if VERSION == VERSION_JPN_FINAL
+u32 var80062468jf[6] = {0xffffff00, 0xffffff00 };
+#endif
+
 Lights1 var80062578 = gdSPDefLights1(0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00, 0x00, 0x7f);
 Lights1 var80062590 = gdSPDefLights1(0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
 
@@ -96,6 +106,21 @@ u32 var800625e0 = 0xffffff00;
 u32 var800625e4 = 0xffffff00;
 u32 var800625e8 = 0x00007f00;
 u32 var800625ec = 0x00000000;
+
+#if VERSION == VERSION_JPN_FINAL
+u32 var800624f8jf = 0;
+u32 var800624fcjf = 0;
+u32 var80062500jf = 0;
+u32 var80062504jf = 0;
+u32 var80062508jf = 0x00007f00;
+u32 var8006250cjf = 0;
+u32 var80062510jf = 0;
+u32 var80062514jf = 0;
+u32 var80062518jf = 0;
+u32 var8006251cjf = 0;
+u32 var80062520jf = 0x00007f00;
+u32 var80062524jf = 0;
+#endif
 
 char *mpPlayerGetWeaponOfChoiceName(u32 playernum, u32 slot)
 {
@@ -448,6 +473,29 @@ struct legalelement {
 };
 
 struct legalelement g_LegalElements[] = {
+#if VERSION == VERSION_JPN_FINAL
+	{ 49,  163, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_077   }, // "Nintendo 64 Product Identification"
+	{ 49,  184, 1, 1, LEGALELEMENTTYPE_LINE,        0               },
+	{ 69,  191, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_078   }, // "Product ID:"
+	{ 69,  211, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_079   }, // "Product Code:"
+	{ 69,  231, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_080   }, // "Variant:"
+	{ 69,  251, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_081   }, // "Developer:"
+	{ 249, 191, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_082   }, // "Perfect Dark"
+	{ 249, 211, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_083   }, // "NUS-NPDE-USA"
+	{ 249, 231, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_084   }, // "NTSC version 8.7 final"
+	{ 249, 251, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_085   }, // "Rare Ltd. (twycross)"
+	{ 69,  274, 1, 1, LEGALELEMENTTYPE_LINE,        0               },
+	{ 69,  283, 0, 1, LEGALELEMENTTYPE_WHITETEXTLG, L_OPTIONS_076   }, // "N64 EXPANSION PAK"
+	{ -1,  283, 0, 1, LEGALELEMENTTYPE_WHITETEXTLG, L_OPTIONS_074   }, // "NOT DETECTED"
+	{ 69,  304, 1, 1, LEGALELEMENTTYPE_LINE,        0               },
+	{ 69,  312, 0, 1, LEGALELEMENTTYPE_BLUETEXTMD,  L_OPTIONS_087   }, // "The Rarewere Logo and Perfect Dark are ..."
+	{ 69,  328, 0, 1, LEGALELEMENTTYPE_BLUETEXTMD,  L_MPWEAPONS_280 }, // "Perfect Dark Registered Trademark No..."
+	{ 138, 343, 0, 1, LEGALELEMENTTYPE_BLUETEXTMD,  L_OPTIONS_088   }, // "Presented in Dolby Surround. Dolby and ..."
+	{ 69,  372, 0, 1, LEGALELEMENTTYPE_BLUETEXTMD,  L_OPTIONS_089   }, // "Uses Miles Sound System ..."
+	{ 69,  428, 1, 1, LEGALELEMENTTYPE_LINE,        0               },
+	{ 69,  433, 0, 1, LEGALELEMENTTYPE_BLUETEXTSM,  L_OPTIONS_093   }, // "rare designs on the future <<<"
+	{ 69,  343, 0, 1, LEGALELEMENTTYPE_DOLBYLOGO,   0               },
+#else
 	{ 49,  179, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_077 }, // "Nintendo 64 Product Identification"
 	{ 49,  200, 1, 1, LEGALELEMENTTYPE_LINE,        0             },
 	{ 69,  207, 1, 1, LEGALELEMENTTYPE_BLUETEXTLG,  L_OPTIONS_078 }, // "Product ID:"
@@ -474,6 +522,7 @@ struct legalelement g_LegalElements[] = {
 	{ 69,  428, 1, 1, LEGALELEMENTTYPE_LINE,        0             },
 	{ 69,  433, 0, 1, LEGALELEMENTTYPE_BLUETEXTSM,  L_OPTIONS_093 }, // "rare designs on the future <<<"
 	{ 69,  344, 0, 1, LEGALELEMENTTYPE_DOLBYLOGO,   0             },
+#endif
 };
 
 #if VERSION >= VERSION_JPN_FINAL
@@ -1608,6 +1657,8 @@ u32 var80062760 = 0;
 u32 var80062764 = 0;
 
 #if VERSION >= VERSION_JPN_FINAL
+struct coord var800624a4jf = {0};
+
 GLOBAL_ASM(
 glabel titleInitPdLogo
 .late_rodata
@@ -10031,7 +10082,6 @@ u32 var8006292c = 0x00000001;
 u32 var80062930 = 0x00000001;
 u32 var80062934 = 0x00000001;
 u32 var80062938 = 0x00000000;
-u32 var8006293c = 0x00000000;
 
 s32 getNumPlayers(void)
 {

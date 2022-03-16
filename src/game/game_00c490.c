@@ -3550,7 +3550,7 @@ void setupLoadFiles(s32 stagenum)
 
 	g_DoorScale = 1;
 
-	for (i = 0; i < ARRAYCOUNT(g_ModelStates); i++) {
+	for (i = 0; i < NUM_MODELS; i++) {
 		g_ModelStates[i].filedata = NULL;
 	}
 

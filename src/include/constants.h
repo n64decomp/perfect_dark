@@ -2045,6 +2045,9 @@
 #define MODEL_DD_DR_NONREF          0x01b6
 #define MODEL_CETANDOORSIDE         0x01b7
 #define MODEL_BUDDYBRIDGE           0x01b8
+#define MODEL_JPNLOGO               0x01b9
+#define MODEL_JPNPD                 0x01ba
+#define NUM_MODELS                  (VERSION == VERSION_JPN_FINAL ? 0x1bb : 0x1b9)
 
 #define MODELNODETYPE_CHRINFO      0x01
 #define MODELNODETYPE_POSITION     0x02
@@ -2867,6 +2870,7 @@
 #define MPWEAPON_COMBATBOOST      (VERSION == VERSION_JPN_FINAL ? 0x23 : 0x24)
 #define MPWEAPON_SHIELD           (VERSION == VERSION_JPN_FINAL ? 0x24 : 0x25)
 #define MPWEAPON_DISABLED         (VERSION == VERSION_JPN_FINAL ? 0x25 : 0x26)
+#define NUM_MPWEAPONS             (VERSION == VERSION_JPN_FINAL ? 0x26 : 0x27)
 
 #define MUSICEVENTTYPE_PLAY    1
 #define MUSICEVENTTYPE_STOP    2

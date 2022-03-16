@@ -361,7 +361,7 @@ struct menudialogdef g_MpQuickGo4MbMenuDialog = {
 };
 
 struct menuitem g_MpConfirmChallenge4MbMenuItems[] = {
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_PAL_FINAL
 	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MPCONFIG, 0x00000000, 0x0000007c,   65,         NULL                },
 #else
 	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MPCONFIG, 0x00000000, 0x0000007c,   55,         NULL                },

@@ -962,6 +962,11 @@ void lvFindThreats(void)
 }
 
 #if VERSION >= VERSION_JPN_FINAL
+u32 var800846d4jf[] = {0, 0, 0, 0x1e000000};
+struct sndstate *g_CutsceneStaticAudioHandle = NULL;
+s32 g_CutsceneStaticTimer = 100;
+u8 g_CutsceneStaticActive = false;
+
 GLOBAL_ASM(
 glabel lvRender
 .late_rodata

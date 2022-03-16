@@ -27414,7 +27414,9 @@ struct menudialogdef g_PakDamagedMenuDialog = {
 struct menuitem g_PakFullMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&menuTextSaveDeviceName, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000210, L_MPWEAPONS_071, 0x00000000, NULL }, // "is too full to save note - 1 note and 28 pages required to save"
+#if VERSION != VERSION_JPN_FINAL
 	{ MENUITEMTYPE_LABEL,       0, 0x02000220, L_OPTIONS_003, 0x00000000, NULL }, // ""
+#endif
 	{ MENUITEMTYPE_LABEL,       0, 0x02000210, L_MPWEAPONS_072, 0x00000000, NULL }, // "Enter the Controller Pak Menu to free some space (hold START while powering up.)"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS_073, 0x00000000, NULL }, // "OK"

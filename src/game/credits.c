@@ -494,7 +494,17 @@ struct credit g_Credits[] = {
 	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE_131, L_TITLE_132 }, // "armond williams junior", "henry sterchi"
 	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE_133, L_TITLE_000   }, // "ed ridgeway", ""
 
-#if VERSION >= VERSION_PAL_FINAL
+#if VERSION == VERSION_JPN_FINAL
+	{ 1, 0, 1, 0, CREDITSTYLE_C_BIG,       L_TITLE_184, L_TITLE_000 }, // "ncl staff", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE_185, L_TITLE_186 }, // "s. miyamoto", "k. miki"
+	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE_187, L_TITLE_188 }, // "s. kojoh", "y. nakano"
+
+	{ 1, 1, 0, 0, CREDITSTYLE_C_BIG,       L_TITLE_184, L_TITLE_000 }, // "ncl staff", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE_189, L_TITLE_190 }, // "k.yamaguchi", "k. terasaki"
+	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE_191, L_TITLE_192 }, // "m. goto", "super mario club"
+#endif
+
+#if VERSION == VERSION_PAL_FINAL
 	{ 1, 0, 1, 0, CREDITSTYLE_L_BIG, L_TITLE_151, L_TITLE_000 }, // "testing (noe)"
 	{ 1, 0, 0, 0, CREDITSTYLE_11,    L_TITLE_152, L_TITLE_153 }, // "supervisor", "kai 'jellybean' neumann"
 	{ 0, 0, 0, 0, CREDITSTYLE_11,    L_TITLE_154, L_TITLE_155 }, // "deputy supervisor", "maurice 'pathfinder' tisdale"

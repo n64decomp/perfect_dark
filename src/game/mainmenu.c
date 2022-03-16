@@ -4395,7 +4395,13 @@ struct menudialogdef g_2PMissionControlStyleMenuDialog = {
 };
 
 struct menuitem g_SoloMissionControlStyleMenuItems[] = {
-	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, PAL ? 0x9c : 0x96, menuhandler001024dc },
+#if VERSION == VERSION_JPN_FINAL
+	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, 0xbe, menuhandler001024dc },
+#elif PAL
+	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, 0x9c, menuhandler001024dc },
+#else
+	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, 0x96, menuhandler001024dc },
+#endif
 	{ MENUITEMTYPE_CONTROLLER,  0, 0x00000001, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -4410,7 +4416,13 @@ struct menudialogdef g_SoloMissionControlStyleMenuDialog = {
 };
 
 struct menuitem g_CiControlStyleMenuItems[] = {
-	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, PAL ? 0x9c : 0x96, menuhandler001024dc },
+#if VERSION == VERSION_JPN_FINAL
+	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, 0xbe, menuhandler001024dc },
+#elif PAL
+	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, 0x9c, menuhandler001024dc },
+#else
+	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, 0x96, menuhandler001024dc },
+#endif
 	{ MENUITEMTYPE_CONTROLLER,  0, 0x00000001, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -4425,7 +4437,13 @@ struct menudialogdef g_CiControlStyleMenuDialog = {
 };
 
 struct menuitem g_CiControlStylePlayer2MenuItems[] = {
-	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, PAL ? 0x9c : 0x96, menuhandler001024fc },
+#if VERSION == VERSION_JPN_FINAL
+	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, 0xbe, menuhandler001024fc },
+#elif PAL
+	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, 0x9c, menuhandler001024fc },
+#else
+	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, 0x96, menuhandler001024fc },
+#endif
 	{ MENUITEMTYPE_CONTROLLER,  0, 0x00000001, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -4448,7 +4466,9 @@ struct menuitem g_AudioOptionsMenuItems[] = {
 	{ MENUITEMTYPE_SLIDER,      0, 0x00002800, L_OPTIONS_229, 0x7fff, menuhandlerMusicVolume }, // "Music"
 #endif
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_OPTIONS_230, 0x00000000, menuhandlerSoundMode }, // "Sound Mode"
+#if VERSION != VERSION_JPN_FINAL
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPWEAPONS_218, 0x00000000, menuhandlerLangFilter }, // "Language Filter"
+#endif
 #if VERSION >= VERSION_PAL_FINAL
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 200, 0x00000000, NULL },
 #else
@@ -4476,7 +4496,9 @@ struct menuitem g_2PMissionAudioOptionsVMenuItems[] = {
 	{ MENUITEMTYPE_SLIDER,      0, 0x00102800, L_OPTIONS_229, 0x7fff, menuhandlerMusicVolume }, // "Music"
 #endif
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_MPWEAPONS_153, 0x00000000, menuhandlerSoundMode }, // "Mode"
+#if VERSION != VERSION_JPN_FINAL
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPWEAPONS_218, 0x00000000, menuhandlerLangFilter }, // "Language Filter"
+#endif
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_OPTIONS_231, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -5771,10 +5793,18 @@ glabel var7f1b2e84
 #endif
 
 struct menuitem g_SoloMissionInventoryMenuItems[] = {
-	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x00000063, menuhandler00106178 },
+#if VERSION == VERSION_JPN_FINAL
+	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x54, menuhandler00106178 },
+#else
+	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x63, menuhandler00106178 },
+#endif
 	{ MENUITEMTYPE_LABEL,       0, 0x00000203, L_OPTIONS_003, (u32)&invMenuTextWeaponManufacturer, NULL }, // ""
 	{ MENUITEMTYPE_LABEL,       0, 0x00000302, L_OPTIONS_003, (u32)&invMenuTextWeaponName, NULL }, // ""
-	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x00000037, NULL },
+#if VERSION >= VERSION_JPN_FINAL
+	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x14, NULL },
+#else
+	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x37, NULL },
+#endif
 	{ MENUITEMTYPE_LABEL,       0, 0x00000202, L_OPTIONS_003, (u32)&invMenuTextPrimaryFunction, NULL }, // ""
 	{ MENUITEMTYPE_LABEL,       0, 0x00000202, L_OPTIONS_003, (u32)&invMenuTextSecondaryFunction, NULL }, // ""
 	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&invMenuTextWeaponDescription, 0x00000000, NULL },
@@ -5797,7 +5827,11 @@ struct menudialogdef g_SoloMissionInventoryMenuDialog = {
 	L_OPTIONS_178, // "Inventory"
 	g_SoloMissionInventoryMenuItems,
 	inventoryMenuDialog,
+#if VERSION >= VERSION_JPN_FINAL
+	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400 | MENUDIALOGFLAG_1000,
+#else
 	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400,
+#endif
 	&g_SoloMissionOptionsMenuDialog,
 };
 
