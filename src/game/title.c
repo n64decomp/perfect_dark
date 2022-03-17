@@ -10622,14 +10622,10 @@ glabel titleRenderNoController
 #endif
 
 #if VERSION >= VERSION_JPN_FINAL
-void titleInitNoExpansion(void);
-
-GLOBAL_ASM(
-glabel titleInitNoExpansion
-/*  f01b628:	3c018006 */ 	lui	$at,0x8006
-/*  f01b62c:	03e00008 */ 	jr	$ra
-/*  f01b630:	ac2023a4 */ 	sw	$zero,0x23a4($at)
-);
+void titleInitNoExpansion(void)
+{
+	g_TitleTimer = 0;
+}
 #endif
 
 #if VERSION >= VERSION_JPN_FINAL
