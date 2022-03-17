@@ -35,9 +35,12 @@ u32 var8009710cnb;
 #if VERSION == VERSION_NTSC_BETA
 char *var80097110nb;
 char *var80097114nb;
-u32 var80097118nb[594];
+u32 var80097118nb[24];
+u8 var80097178nb[MAX_LINES + 1][71];
 #elif VERSION == VERSION_PAL_BETA
-u8 var80097110nb[0x860];
+char *var80097110nb;
+char *var80097114nb;
+u8 var80097178nb[MAX_LINES + 1][71];
 #endif
 
 u8 g_CrashHasMessage = false;
@@ -1653,86 +1656,26 @@ void crashRenderChar(s32 x, s32 y, char c)
 }
 #endif
 
-#if VERSION == VERSION_PAL_BETA
-GLOBAL_ASM(
-glabel crashReset
-/*  cc80:	3c048006 */ 	lui	$a0,0x8006
-/*  cc84:	3c0e8009 */ 	lui	$t6,0x8009
-/*  cc88:	2484e324 */ 	addiu	$a0,$a0,-7388
-/*  cc8c:	25ce6fb8 */ 	addiu	$t6,$t6,0x6fb8
-/*  cc90:	11c00012 */ 	beqz	$t6,.PB0000ccdc
-/*  cc94:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*  cc98:	00001025 */ 	move	$v0,$zero
-/*  cc9c:	2406001e */ 	li	$a2,0x1e
-/*  cca0:	24050047 */ 	li	$a1,0x47
-/*  cca4:	00001825 */ 	move	$v1,$zero
-.PB0000cca8:
-/*  cca8:	0002c8c0 */ 	sll	$t9,$v0,0x3
-/*  ccac:	8c980000 */ 	lw	$t8,0x0($a0)
-/*  ccb0:	0322c821 */ 	addu	$t9,$t9,$v0
-/*  ccb4:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  ccb8:	0322c823 */ 	subu	$t9,$t9,$v0
-/*  ccbc:	03194021 */ 	addu	$t0,$t8,$t9
-/*  ccc0:	01034821 */ 	addu	$t1,$t0,$v1
-/*  ccc4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  ccc8:	1465fff7 */ 	bne	$v1,$a1,.PB0000cca8
-/*  cccc:	a1200000 */ 	sb	$zero,0x0($t1)
-/*  ccd0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  ccd4:	5446fff4 */ 	bnel	$v0,$a2,.PB0000cca8
-/*  ccd8:	00001825 */ 	move	$v1,$zero
-.PB0000ccdc:
-/*  ccdc:	03e00008 */ 	jr	$ra
-/*  cce0:	00000000 */ 	nop
-);
-#elif VERSION == VERSION_NTSC_BETA
-GLOBAL_ASM(
-glabel crashReset
-/*     d4d4:	3c048006 */ 	lui	$a0,0x8006
-/*     d4d8:	3c0e8009 */ 	lui	$t6,0x8009
-/*     d4dc:	2484f134 */ 	addiu	$a0,$a0,-3788
-/*     d4e0:	25ce7178 */ 	addiu	$t6,$t6,0x7178
-/*     d4e4:	11c00012 */ 	beqz	$t6,.NB0000d530
-/*     d4e8:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*     d4ec:	00001025 */ 	or	$v0,$zero,$zero
-/*     d4f0:	24060020 */ 	addiu	$a2,$zero,0x20
-/*     d4f4:	24050047 */ 	addiu	$a1,$zero,0x47
-/*     d4f8:	00001825 */ 	or	$v1,$zero,$zero
-.NB0000d4fc:
-/*     d4fc:	0002c8c0 */ 	sll	$t9,$v0,0x3
-/*     d500:	8c980000 */ 	lw	$t8,0x0($a0)
-/*     d504:	0322c821 */ 	addu	$t9,$t9,$v0
-/*     d508:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*     d50c:	0322c823 */ 	subu	$t9,$t9,$v0
-/*     d510:	03194021 */ 	addu	$t0,$t8,$t9
-/*     d514:	01034821 */ 	addu	$t1,$t0,$v1
-/*     d518:	24630001 */ 	addiu	$v1,$v1,0x1
-/*     d51c:	1465fff7 */ 	bne	$v1,$a1,.NB0000d4fc
-/*     d520:	a1200000 */ 	sb	$zero,0x0($t1)
-/*     d524:	24420001 */ 	addiu	$v0,$v0,0x1
-/*     d528:	5446fff4 */ 	bnel	$v0,$a2,.NB0000d4fc
-/*     d52c:	00001825 */ 	or	$v1,$zero,$zero
-.NB0000d530:
-/*     d530:	03e00008 */ 	jr	$ra
-/*     d534:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#else
 void crashReset(void)
 {
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+	g_CrashCharBuffer = var80097178nb;
+#else
 	g_CrashCharBuffer = NULL;
+#endif
 
 	if (g_CrashCharBuffer) {
 		// Unreachable
 		s32 x;
 		s32 y;
 
-		for (y = 0; y < 30; y++) {
+		for (y = 0; y < MAX_LINES + 1; y++) {
 			for (x = 0; x < 71; x++) {
 				g_CrashCharBuffer[y][x] = '\0';
 			}
 		}
 	}
 }
-#endif
 
 void crashRenderFrame(u8 *fb)
 {
