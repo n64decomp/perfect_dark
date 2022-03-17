@@ -174,12 +174,10 @@ void textSetRotation90(bool rotated)
 	g_TextRotated90 = rotated;
 }
 
-GLOBAL_ASM(
-glabel func0f1531c4
-/*  f1531c4:	3c018008 */ 	lui	$at,%hi(var8007facc)
-/*  f1531c8:	03e00008 */ 	jr	$ra
-/*  f1531cc:	ac24facc */ 	sw	$a0,%lo(var8007facc)($at)
-);
+void func0f1531c4(s32 arg0)
+{
+	var8007facc = arg0;
+}
 
 GLOBAL_ASM(
 glabel func0f1531d0
