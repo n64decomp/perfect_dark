@@ -4,6 +4,7 @@
 #include "bss.h"
 #include "lib/tlb.h"
 #include "lib/crash.h"
+#include "lib/dma.h"
 #include "lib/rmon.h"
 #include "data.h"
 #include "types.h"
@@ -34,7 +35,7 @@ u32 var8009710cnb;
 #if VERSION == VERSION_NTSC_BETA
 char *var80097110nb;
 char *var80097114nb;
-u8 var80097118nb[0x948];
+u32 var80097118nb[594];
 #elif VERSION == VERSION_PAL_BETA
 u8 var80097110nb[0x860];
 #endif
@@ -513,53 +514,24 @@ glabel func0000c4f0nb
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel crash0000c52cnb
-/*     c52c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*     c530:	afa40020 */ 	sw	$a0,0x20($sp)
-/*     c534:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     c538:	3c048009 */ 	lui	$a0,0x8009
-/*     c53c:	24847118 */ 	addiu	$a0,$a0,0x7118
-/*     c540:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*     c544:	0c003664 */ 	jal	dmaExec
-/*     c548:	24060060 */ 	addiu	$a2,$zero,0x60
-/*     c54c:	3c0e8009 */ 	lui	$t6,0x8009
-/*     c550:	8dce7118 */ 	lw	$t6,0x7118($t6)
-/*     c554:	3c028009 */ 	lui	$v0,0x8009
-/*     c558:	3c018009 */ 	lui	$at,0x8009
-/*     c55c:	3c0f8009 */ 	lui	$t7,0x8009
-/*     c560:	24427110 */ 	addiu	$v0,$v0,0x7110
-/*     c564:	25e4711c */ 	addiu	$a0,$t7,0x711c
-/*     c568:	ac2e710c */ 	sw	$t6,0x710c($at)
-/*     c56c:	0c00313c */ 	jal	func0000c4f0nb
-/*     c570:	ac440000 */ 	sw	$a0,0x0($v0)
-/*     c574:	3c048009 */ 	lui	$a0,0x8009
-/*     c578:	8c847110 */ 	lw	$a0,0x7110($a0)
-/*     c57c:	3c018009 */ 	lui	$at,0x8009
-/*     c580:	0044c021 */ 	addu	$t8,$v0,$a0
-/*     c584:	27190001 */ 	addiu	$t9,$t8,0x1
-/*     c588:	0c00313c */ 	jal	func0000c4f0nb
-/*     c58c:	ac397114 */ 	sw	$t9,0x7114($at)
-/*     c590:	3c048009 */ 	lui	$a0,0x8009
-/*     c594:	8c847114 */ 	lw	$a0,0x7114($a0)
-/*     c598:	0c00313c */ 	jal	func0000c4f0nb
-/*     c59c:	afa20018 */ 	sw	$v0,0x18($sp)
-/*     c5a0:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*     c5a4:	8faa0018 */ 	lw	$t2,0x18($sp)
-/*     c5a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     c5ac:	00484821 */ 	addu	$t1,$v0,$t0
-/*     c5b0:	012a1821 */ 	addu	$v1,$t1,$t2
-/*     c5b4:	24630006 */ 	addiu	$v1,$v1,0x6
-/*     c5b8:	306b0003 */ 	andi	$t3,$v1,0x3
-/*     c5bc:	11600003 */ 	beqz	$t3,.NB0000c5cc
-/*     c5c0:	00602025 */ 	or	$a0,$v1,$zero
-/*     c5c4:	34640003 */ 	ori	$a0,$v1,0x3
-/*     c5c8:	24840001 */ 	addiu	$a0,$a0,0x1
-.NB0000c5cc:
-/*     c5cc:	00801025 */ 	or	$v0,$a0,$zero
-/*     c5d0:	03e00008 */ 	jr	$ra
-/*     c5d4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+u32 crash0000c52cnb(u32 romaddr)
+{
+	u32 addr;
+
+	dmaExec(var80097118nb, romaddr, 0x60);
+
+	var8009710cnb = var80097118nb[0];
+	var80097110nb = (char *)&var80097118nb[1];
+	var80097114nb = (char *)(func0000c4f0nb(var80097110nb) + (u32)var80097110nb + 1);
+
+	addr = romaddr + func0000c4f0nb(var80097110nb) + func0000c4f0nb(var80097114nb) + 6;
+
+	if (addr % 4) {
+		addr = (addr | 3) + 1;
+	}
+
+	return addr;
+}
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
