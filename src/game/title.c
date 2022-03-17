@@ -10636,42 +10636,15 @@ void titleExitNoExpansion(void)
 #endif
 
 #if VERSION >= VERSION_JPN_FINAL
-void titleTickNoExpansion(void);
+void titleTickNoExpansion(void)
+{
+	viSetFovY(60);
+	viSetAspect(1.33333333f);
+	viSetZRange(100, 10000);
+	viSetUseZBuf(0);
 
-GLOBAL_ASM(
-glabel titleTickNoExpansion
-.late_rodata
-glabel var7f1a9058jf
-.word 0x3faaaaab
-.word 0x461c4000
-.text
-/*  f01b63c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f01b640:	3c014270 */ 	lui	$at,0x4270
-/*  f01b644:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f01b648:	44816000 */ 	mtc1	$at,$f12
-/*  f01b64c:	0c002f35 */ 	jal	viSetFovY
-/*  f01b650:	00000000 */ 	nop
-/*  f01b654:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f01b658:	0c002f48 */ 	jal	viSetAspect
-/*  f01b65c:	c42c9058 */ 	lwc1	$f12,-0x6fa8($at)
-/*  f01b660:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f01b664:	44816000 */ 	mtc1	$at,$f12
-/*  f01b668:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f01b66c:	0c002f8a */ 	jal	viSetZRange
-/*  f01b670:	c42e905c */ 	lwc1	$f14,-0x6fa4($at)
-/*  f01b674:	0c002f31 */ 	jal	viSetUseZBuf
-/*  f01b678:	00002025 */ 	move	$a0,$zero
-/*  f01b67c:	3c028006 */ 	lui	$v0,0x8006
-/*  f01b680:	244223a4 */ 	addiu	$v0,$v0,0x23a4
-/*  f01b684:	3c0f800a */ 	lui	$t7,0x800a
-/*  f01b688:	8defa668 */ 	lw	$t7,-0x5998($t7)
-/*  f01b68c:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f01b690:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01b694:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f01b698:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f01b69c:	03e00008 */ 	jr	$ra
-/*  f01b6a0:	ac580000 */ 	sw	$t8,0x0($v0)
-);
+	g_TitleTimer += g_Vars.lvupdate240_60;
+}
 #endif
 
 #if VERSION >= VERSION_JPN_FINAL
