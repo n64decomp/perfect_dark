@@ -622,12 +622,21 @@ s32 mpAwardsMenuHandler(s32 operation, struct menuitem *item, union handlerdata 
 
 				gDPSetEnvColorViaWord(gdl++, colour);
 
+#if VERSION == VERSION_JPN_FINAL
+				gSPTextureRectangle(gdl++,
+						(x << 2) * g_ScaleX,
+						(renderdata->y - 6) << 2,
+						((x + 11) << 2) * g_ScaleX,
+						(renderdata->y + 5) << 2,
+						G_TX_RENDERTILE, 0x0010, 0x0150, 1024 / g_ScaleX, -1024);
+#else
 				gSPTextureRectangle(gdl++,
 						(x << 2) * g_ScaleX,
 						(renderdata->y - 2) << 2,
 						((x + 11) << 2) * g_ScaleX,
 						(renderdata->y + 9) << 2,
 						G_TX_RENDERTILE, 0x0010, 0x0150, 1024 / g_ScaleX, -1024);
+#endif
 
 				x -= 14;
 			}

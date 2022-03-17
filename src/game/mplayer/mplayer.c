@@ -856,7 +856,7 @@ s32 mpGetTeamRankings(struct ranking *rankings)
 
 s32 func0f188bcc(void)
 {
-	return 39;
+	return NUM_MPWEAPONS;
 }
 
 s32 mpGetNumWeaponOptions(void)
@@ -4537,8 +4537,8 @@ void mpFindUnusedHeadAndBody(u8 *mpheadnum, u8 *mpbodynum)
 
 	do {
 		available = true;
-		trympheadnum = random() % 75;
-		trympbodynum = random() % 61;
+		trympheadnum = random() % NUM_MPHEADS;
+		trympbodynum = random() % NUM_MPBODIES;
 
 		for (i = 0; i < MAX_MPCHRS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {

@@ -72,6 +72,10 @@ struct mpscenario {
 	void (*writesavefunc)(struct savebuffer *buffer);
 };
 
+#if VERSION >= VERSION_JPN_FINAL
+u8 jpnfill7[0x40];
+#endif
+
 struct scenariodata g_ScenarioData;
 
 #if VERSION >= VERSION_JPN_FINAL
@@ -516,10 +520,18 @@ void scenarioCreateMatchStartHudmsgs(void)
 			setCurrentPlayerNum(i);
 
 			if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
+#if VERSION >= VERSION_JPN_FINAL
+				hudmsgCreateWithFlags(challengename, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_20);
+#else
 				hudmsgCreateWithFlags(challengename, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
+#endif
 			}
 
+#if VERSION >= VERSION_JPN_FINAL
+			hudmsgCreateWithFlags(scenarioname, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_20);
+#else
 			hudmsgCreateWithFlags(scenarioname, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
+#endif
 		}
 	}
 
@@ -1031,7 +1043,11 @@ void scenarioCreateHudmsg(s32 playernum, char *message)
 		s32 prevplayernum = g_Vars.currentplayernum;
 
 		setCurrentPlayerNum(playernum);
+#if VERSION >= VERSION_JPN_FINAL
+		hudmsgCreateWithFlags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_20);
+#else
 		hudmsgCreateWithFlags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
+#endif
 		setCurrentPlayerNum(prevplayernum);
 	}
 }
@@ -1835,7 +1851,11 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			if (chr->aibot || i != prevplayernum) {
 				setCurrentPlayerNum(i);
+#if VERSION >= VERSION_JPN_FINAL
+				hudmsgCreateWithFlags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_20);
+#else
 				hudmsgCreateWithFlags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
+#endif
 			}
 		}
 

@@ -631,10 +631,24 @@ glabel var7f1b6030
 );
 #endif
 
+#if VERSION == VERSION_JPN_FINAL
+void func0f149268jf(void)
+{
+	// empty
+}
+#endif
+
 void func0f149864(void)
 {
 	// empty
 }
+
+#if VERSION == VERSION_JPN_FINAL
+void func0f149270jf(void)
+{
+	// empty
+}
+#endif
 
 #if VERSION == VERSION_JPN_FINAL
 void func0f149260jf(void);
@@ -929,18 +943,6 @@ glabel var7f1b6048
 /*  f149c5c:	03e00008 */ 	jr	$ra
 /*  f149c60:	00000000 */ 	nop
 );
-#endif
-
-#if VERSION == VERSION_JPN_FINAL
-void func0f149268jf(void)
-{
-	// empty
-}
-
-void func0f149270jf(void)
-{
-	// empty
-}
 #endif
 
 void chrInitSplats(struct chrdata *chr)

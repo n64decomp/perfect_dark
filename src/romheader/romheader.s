@@ -22,7 +22,9 @@
 .word 0x00000000
 .endif
 
-.if VERSION == VERSION_NTSC_BETA
+.if VERSION == VERSION_JPN_FINAL
+.ascii "PERFECT DARK        "
+.elseif VERSION == VERSION_NTSC_BETA
 .ascii "Perfect Dark DBGNTSC"
 .else
 .ascii "Perfect Dark        "

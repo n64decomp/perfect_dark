@@ -691,7 +691,7 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		// Bull's-eye count
 		sprintf(text, "%d\n", frdata->numhitsbullseye);
 		x = renderdata->x + 93;
-		y = renderdata->y + 14;
+		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 15 : 14);
 		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
@@ -705,59 +705,59 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		// Bull's-eye score
 		sprintf(text, "%d\n", frdata->numhitsbullseye * 10);
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
-		x = renderdata->x - textheight + 182;
-		y = renderdata->y + 14;
+		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
+		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 15 : 14);
 		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 1 count
 		sprintf(text, "%d\n", frdata->numhitsring1);
 		x = renderdata->x + 93;
-		y = renderdata->y + 25;
+		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 27 : 25);
 		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// "Zone 1"
 		sprintf(text, langGet(L_MPMENU_462));
 		x = renderdata->x + 122;
-		y = renderdata->y + 25;
+		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 26 : 25);
 		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 1 score
 		sprintf(text, "%d\n", frdata->numhitsring1 * 5);
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
-		x = renderdata->x - textheight + 182;
-		y = renderdata->y + 25;
+		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
+		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 27 : 25);
 		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 2 count
 		sprintf(text, "%d\n", frdata->numhitsring2);
 		x = renderdata->x + 93;
-		y = renderdata->y + 36;
+		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 39 : 36);
 		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// "Zone 2"
 		sprintf(text, langGet(L_MPMENU_463));
 		x = renderdata->x + 122;
-		y = renderdata->y + 36;
+		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 38 : 36);
 		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 2 score
 		sprintf(text, "%d\n", frdata->numhitsring2 * 2);
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
-		x = renderdata->x - textheight + 182;
-		y = renderdata->y + 36;
+		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
+		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 39 : 36);
 		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 3 count
 		sprintf(text, "%d\n", frdata->numhitsring3);
 		x = renderdata->x + 93;
-		y = renderdata->y + 47;
+		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 51 : 47);
 		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
@@ -765,15 +765,15 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		// Note: developers forgot to remove last argument when copy/pasting
 		sprintf(text, langGet(L_MPMENU_464), frdata->numhitsring3);
 		x = renderdata->x + 122;
-		y = renderdata->y + 47;
+		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 50 : 47);
 		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 3 score
 		sprintf(text, "%d\n", frdata->numhitsring3);
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
-		x = renderdata->x - textheight + 182;
-		y = renderdata->y + 47;
+		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
+		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 51 : 47);
 		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
@@ -794,7 +794,7 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		sprintf(text, "%d\n", frdata->numhitsring3 + frdata->numhitsbullseye + frdata->numhitsring1 + frdata->numhitsring2);
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = renderdata->x - textheight + 188;
-		y = renderdata->y + 63;
+		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 64 : 63);
 
 #if VERSION >= VERSION_JPN_FINAL
 		x -= 27;

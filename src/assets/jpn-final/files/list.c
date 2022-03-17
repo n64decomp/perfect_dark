@@ -2016,4 +2016,7 @@ char *filenames[] = {
 	/*0x7db*/ "Ap16_03_joM",
 	/*0x7dc*/ "Acarrbye02M",
 	/*0x7dd*/ "Asaucerexp1M",
+	/*0x7de*/ "PjaplogoZ",
+	/*0x7df*/ "PjappdZ",
+	NULL,
 };

@@ -5821,7 +5821,7 @@ Gfx *creditsRender(Gfx *gdl)
 	func0f1531dc(false);
 
 #if VERSION >= VERSION_JPN_FINAL
-	var8007fac4 = 0;
+	var800800f0jf = 0;
 #endif
 
 	g_ScaleX = 1;

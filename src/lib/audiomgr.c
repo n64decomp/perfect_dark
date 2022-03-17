@@ -63,7 +63,7 @@ void amgrCreate(ALSynConfig *config)
 	config->dmaproc = admaNew;
 
 #if VERSION >= VERSION_JPN_FINAL
-	freqpertick = settings[1] * (f32)config->outputRate / 25.0f;
+	freqpertick = settings[1] * (f32)config->outputRate / 30.0f;
 
 	if (IS4MB()) {
 		freqpertick *= 0.5f;

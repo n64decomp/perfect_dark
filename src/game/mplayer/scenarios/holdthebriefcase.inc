@@ -285,7 +285,11 @@ void htbTickChr(struct chrdata *chr)
 			if (g_Vars.currentplayerstats->tokenheldtime >= TICKS(7200)) {
 				sndStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
 				g_MpAllChrConfigPtrs[g_Vars.currentplayernum]->numpoints++;
+#if VERSION >= VERSION_JPN_FINAL
+				hudmsgCreateWithFlags(langGet(L_MPWEAPONS_024), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_20); // "1 Point!"
+#else
 				hudmsgCreateWithFlags(langGet(L_MPWEAPONS_024), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE); // "1 Point!"
+#endif
 				g_Vars.currentplayerstats->tokenheldtime = 0;
 			}
 		} else {
@@ -296,7 +300,7 @@ void htbTickChr(struct chrdata *chr)
 
 /**
  * @bug: In NTSC Final, the calculation of mins and subsequent subtraction from
- * time240 should use 60 * 240 instead of 30 * 240. This has no noticeable
+ * time240 should use 14400 instead of 7200. This has no noticeable
  * effect unless the score duration is increased to above 30 seconds.
  *
  * PAL recognises that mins will always be 0 and simplifies the calculation.
@@ -316,15 +320,15 @@ Gfx *htbRenderHud(Gfx *gdl)
 		x = viGetViewLeft() + viGetViewWidth() / 2;
 		y = viGetViewTop() + 10;
 
+		time240 = TICKS(7200) - g_Vars.currentplayerstats->tokenheldtime;
+
 #if VERSION >= VERSION_PAL_BETA
-		time240 = (30 * 200) - g_Vars.currentplayerstats->tokenheldtime;
-		secs = (time240 + 199) / 200;
+		secs = (time240 + TICKS(240) - 1) / TICKS(240);
 		sprintf(text, "%d:%02d", 0, secs);
 #else
-		time240 = (30 * 240) - g_Vars.currentplayerstats->tokenheldtime;
-		mins = time240 / (30 * 240);
-		time240 -= (30 * 240) * mins;
-		secs = (time240 + 239) / 240;
+		mins = time240 / TICKS(7200);
+		time240 -= TICKS(7200) * mins;
+		secs = (time240 + TICKS(240) - 1) / TICKS(240);
 		sprintf(text, "%d:%02d", mins, secs);
 #endif
 

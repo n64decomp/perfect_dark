@@ -86,17 +86,20 @@ s32 var8009de08;
 u32 var8009de0c;
 s32 g_CutsceneCurAnimFrame60;
 
-#if PAL
-f32 g_CutsceneCurAnimFrame240;
-f32 var8009e388pf;
-#else
+#if VERSION == VERSION_JPN_FINAL
 s32 g_CutsceneCurAnimFrame240;
-#endif
-
+s32 g_CutsceneFrameOverrun240;
 s16 g_CutsceneAnimNum;
 f32 g_CutsceneBlurFrac;
-
-#if !PAL
+#elif PAL
+f32 g_CutsceneCurAnimFrame240;
+f32 var8009e388pf;
+s16 g_CutsceneAnimNum;
+f32 g_CutsceneBlurFrac;
+#else
+s32 g_CutsceneCurAnimFrame240;
+s16 g_CutsceneAnimNum;
+f32 g_CutsceneBlurFrac;
 s32 g_CutsceneFrameOverrun240;
 #endif
 

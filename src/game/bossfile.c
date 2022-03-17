@@ -189,7 +189,7 @@ void bossfileSave(void)
 	fileid = bossfileFindFileId();
 
 	if (fileid == 0) {
-		faultAssert("fileGuid", "bossfile.c", PAL ? 377 : 375);
+		faultAssert("fileGuid", "bossfile.c", VERSION >= VERSION_PAL_BETA ? 377 : 375);
 	}
 
 	if (pakSaveAtGuid(SAVEDEVICE_GAMEPAK, fileid, PAKFILETYPE_BOSS, buffer.bytes, NULL, 0) != 0) {

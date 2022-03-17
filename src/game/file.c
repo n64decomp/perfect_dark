@@ -4209,7 +4209,43 @@ glabel func0f166eb4
 );
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
+#if VERSION >= VERSION_JPN_FINAL
+GLOBAL_ASM(
+glabel func0f166f74
+/*  f166f74:	27bdffd0 */ 	addiu	$sp,$sp,-48
+/*  f166f78:	afb20020 */ 	sw	$s2,0x20($sp)
+/*  f166f7c:	afb1001c */ 	sw	$s1,0x1c($sp)
+/*  f166f80:	afb40028 */ 	sw	$s4,0x28($sp)
+/*  f166f84:	afb00018 */ 	sw	$s0,0x18($sp)
+/*  f166f88:	3c11800a */ 	lui	$s1,%hi(g_FileInfo)
+/*  f166f8c:	3c128008 */ 	lui	$s2,%hi(filetable)
+/*  f166f90:	afbf002c */ 	sw	$ra,0x2c($sp)
+/*  f166f94:	afb30024 */ 	sw	$s3,0x24($sp)
+/*  f166f98:	26522060 */ 	addiu	$s2,$s2,%lo(filetable)
+/*  f166f9c:	26316680 */ 	addiu	$s1,$s1,%lo(g_FileInfo)
+/*  f166fa0:	24100001 */ 	addiu	$s0,$zero,0x1
+/*  f166fa4:	241407de */ 	addiu	$s4,$zero,0x7e0
+/*  f166fa8:	001070c0 */ 	sll	$t6,$s0,0x3
+.L0f166fac:
+/*  f166fac:	022e1021 */ 	addu	$v0,$s1,$t6
+/*  f166fb0:	00107880 */ 	sll	$t7,$s0,0x2
+/*  f166fb4:	ac400000 */ 	sw	$zero,0x0($v0)
+/*  f166fb8:	ac400004 */ 	sw	$zero,0x4($v0)
+/*  f166fbc:	0fc59b95 */ 	jal	fileGetRomSizeByTableAddress
+/*  f166fc0:	024f2021 */ 	addu	$a0,$s2,$t7
+/*  f166fc4:	26100001 */ 	addiu	$s0,$s0,0x1
+/*  f166fc8:	5614fff8 */ 	bnel	$s0,$s4,.L0f166fac
+/*  f166fcc:	001070c0 */ 	sll	$t6,$s0,0x3
+/*  f166fd0:	8fbf002c */ 	lw	$ra,0x2c($sp)
+/*  f166fd4:	8fb00018 */ 	lw	$s0,0x18($sp)
+/*  f166fd8:	8fb1001c */ 	lw	$s1,0x1c($sp)
+/*  f166fdc:	8fb20020 */ 	lw	$s2,0x20($sp)
+/*  f166fe0:	8fb30024 */ 	lw	$s3,0x24($sp)
+/*  f166fe4:	8fb40028 */ 	lw	$s4,0x28($sp)
+/*  f166fe8:	03e00008 */ 	jr	$ra
+/*  f166fec:	27bd0030 */ 	addiu	$sp,$sp,0x30
+);
+#elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0f166f74
 /*  f166f74:	27bdffd0 */ 	addiu	$sp,$sp,-48

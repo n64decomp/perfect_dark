@@ -21016,5 +21016,53 @@
         "file": "0dae.bin",
         "flag00": 0,
         "surfacetype": 0
+    },
+    {
+        "id": "TEXTURE_0DAF",
+        "file": "0daf.bin",
+        "flag00": 0,
+        "surfacetype": 0
+    },
+    {
+        "id": "TEXTURE_0DB0",
+        "file": "0db0.bin",
+        "flag00": 0,
+        "surfacetype": 0
+    },
+    {
+        "id": "TEXTURE_0DB1",
+        "file": "0db1.bin",
+        "flag00": 0,
+        "surfacetype": 0
+    },
+    {
+        "id": "TEXTURE_0DB2",
+        "file": "0db2.bin",
+        "flag00": 0,
+        "surfacetype": 0
+    },
+    {
+        "id": "TEXTURE_0DB3",
+        "file": "0db3.bin",
+        "flag00": 0,
+        "surfacetype": 0
+    },
+    {
+        "id": "TEXTURE_0DB4",
+        "file": "0db4.bin",
+        "flag00": 0,
+        "surfacetype": 0
+    },
+    {
+        "id": "TEXTURE_0DB5",
+        "file": "0db5.bin",
+        "flag00": 0,
+        "surfacetype": 0
+    },
+    {
+        "id": "TEXTURE_0DB6",
+        "file": "0db6.bin",
+        "flag00": 0,
+        "surfacetype": 0
     }
 ]

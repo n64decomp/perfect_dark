@@ -104,9 +104,9 @@
 #define MAX_HEADERCACHE_ENTRIES 50
 
 #if VERSION >= VERSION_JPN_FINAL
-#define LINE_825  825
-#define LINE_1058 1058
-#define LINE_1551 1551
+#define LINE_825  830
+#define LINE_1058 1063
+#define LINE_1551 1556
 #define LINE_1802 1807
 #define LINE_3486 3498
 #define LINE_3495 3507
@@ -2283,7 +2283,7 @@ void pakInitAll(void)
 
 	for (i = 0; i < 5; i++) {
 #if VERSION >= VERSION_JPN_FINAL
-		pak0f11a32c(i, 7, 2049, "pak/pak.c");
+		pak0f11a32c(i, 7, 2054, "pak/pak.c");
 #elif VERSION >= VERSION_PAL_BETA
 		pak0f11a32c(i, 7, 2049, "pak.c");
 #elif VERSION >= VERSION_NTSC_FINAL

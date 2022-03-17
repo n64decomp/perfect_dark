@@ -23,7 +23,13 @@
 struct fileguid g_FilemgrFileToCopy;
 struct fileguid var800a21e8;
 struct fileguid g_FilemgrFileToDelete;
+#if VERSION == VERSION_JPN_FINAL
+u8 jpnfill3[0x18];
+#endif
 s32 g_FilemgrLastPakError;
+#if VERSION == VERSION_JPN_FINAL
+u8 jpnfill4[8];
+#endif
 struct gamefile g_GameFile;
 u32 var800a22bc;
 struct fileguid g_GameFileGuid;
@@ -2673,7 +2679,13 @@ s32 pakGameNoteListMenuHandler(s32 operation, struct menuitem *item, union handl
 	Gfx *gdl;
 	struct menuitemrenderdata *renderdata;
 	OSPfsState *note;
-#if VERSION >= VERSION_NTSC_1_0
+#if VERSION >= VERSION_JPN_FINAL
+	char tmpname[52];
+	char tmpext[20];
+	char generalbuffer[80];
+	char extbuffer[80];
+	char pagesbuffer[80];
+#elif VERSION >= VERSION_NTSC_1_0
 	char tmpname[40];
 	char tmpext[12];
 	char generalbuffer[60];
@@ -2735,7 +2747,7 @@ s32 pakGameNoteListMenuHandler(s32 operation, struct menuitem *item, union handl
 				renderdata->colour, viGetWidth(), viGetHeight(), 0, 1);
 
 		// Render ext character (for when a game has multiple notes)
-		x = renderdata->x + 190;
+		x = renderdata->x + (VERSION == VERSION_JPN_FINAL ? 220 : 190);
 		y = renderdata->y + 1;
 		gdl = textRenderProjected(gdl, &x, &y, extbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 				renderdata->colour, viGetWidth(), viGetHeight(), 0, 1);
@@ -2750,7 +2762,7 @@ s32 pakGameNoteListMenuHandler(s32 operation, struct menuitem *item, union handl
 
 		return (u32)gdl;
 	case MENUOP_GETOPTIONHEIGHT:
-		data->list.value = 11;
+		data->list.value = VERSION == VERSION_JPN_FINAL ? LINEHEIGHT - 1 : LINEHEIGHT;
 		break;
 	case MENUOP_SET:
 		if (g_EditingPak->notesinuse[data->list.value] == true) {
@@ -3192,7 +3204,7 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 				G_TX_RENDERTILE, 0, 1152, 1024 / g_ScaleX, -1024);
 
 		x = renderdata->x + 62;
-		y = renderdata->y + 4;
+		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 3 : 4);
 		gdl = func0f153628(gdl);
 
 		if (data->list.unk04 == g_FileLists[0]->numfiles) {
@@ -3205,7 +3217,7 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 					g_CharsHandelGothicMd, g_FontHandelGothicMd, renderdata->colour, viGetWidth(), viGetHeight(), 0, 1);
 
 			// Prepare and render stage name
-			y = renderdata->y + 18;
+			y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 16 : 18);
 			x = renderdata->x + 62;
 
 			if (stage > 0) {
@@ -3248,7 +3260,7 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 					g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
 
 			// Render seconds part of mission time (uses a smaller font)
-			y++;
+			y += (VERSION == VERSION_JPN_FINAL) ? 3 : 1;
 			x++;
 			sprintf(buffer, ".%02d", seconds);
 			gdl = textRenderProjected(gdl, &x, &y, buffer,

@@ -4,7 +4,7 @@
 #include "bss.h"
 #include "types.h"
 
-#if NTSC
+#if VERSION < VERSION_PAL_BETA
 u16 texts[] = {
 	/*0*/ L_MISC_281, // "FIRING\n Press Z Button to fire gun.\n"
 	/*1*/ L_MISC_282, // "AUTO RELOAD\n Release Z Button when out of ammo.\n"

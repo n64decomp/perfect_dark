@@ -1279,7 +1279,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->bdstart = 0;
 	chr->oldframe = 0;
 	chr->magicframe = 0;
-	chr->magicspeed = PAL ? 1 : 0.25;
+	chr->magicspeed = VERSION >= VERSION_PAL_BETA ? 1 : 0.25;
 
 	i = 0;
 
@@ -2366,7 +2366,7 @@ void chrUpdateCloak(struct chrdata *chr)
 					&& !chrIsDead(chr)
 					&& botactGetAmmoQuantityByWeapon(chr->aibot, WEAPON_RCP120, 0, 1) > 0) {
 				if (chr->hidden & CHRHFLAG_CLOAKED) {
-					chr->aibot->unk2c4 += (PAL ? g_Vars.lvupdate240freal : g_Vars.lvupdate240f) * 0.4f;
+					chr->aibot->unk2c4 += (VERSION >= VERSION_PAL_BETA ? g_Vars.lvupdate240freal : g_Vars.lvupdate240f) * 0.4f;
 
 					if (chr->aibot->unk2c4 >= 1) {
 						qty = chr->aibot->unk2c4;

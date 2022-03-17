@@ -192,7 +192,7 @@ s32 amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata
 			return (s32)gdl;
 		}
 	case MENUOP_GETOPTIONHEIGHT:
-		data->list.value = 11;
+		data->list.value = LINEHEIGHT;
 		break;
 	}
 
@@ -2534,10 +2534,16 @@ Gfx *amRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 	static u32 pickcol2 = 0xff4f00ff; // unused
 
 	u32 colour;
-	s32 paddingtop = 6;
-	s32 paddingbottom = 6;
+	s32 paddingtop;
+	s32 paddingbottom;
 
-#if VERSION != VERSION_JPN_FINAL
+#if VERSION == VERSION_JPN_FINAL
+	paddingtop = 7;
+	paddingbottom = 7;
+#else
+	paddingtop = 6;
+	paddingbottom = 6;
+
 	if (PLAYERCOUNT() >= 2) {
 		paddingtop = 5;
 		paddingbottom = 3;
