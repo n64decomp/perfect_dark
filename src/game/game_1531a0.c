@@ -50,15 +50,16 @@ u32 var80080104jf = 0;
 s32 var8007fac4 = 0;
 bool g_TextRotated90 = false;
 u32 var8007facc = 0;
+u32 var8007fad0 = 1;
 u32 var80080108jf = 1;
 #else
 s32 g_ScaleX = 1;
 s32 var8007fac4 = 0;
 bool g_TextRotated90 = false;
 u32 var8007facc = 0;
+u32 var8007fad0 = 1;
 #endif
 
-u32 var8007fad0 = 0x00000001;
 u32 var8007fad4 = 0xffffffff;
 u32 var8007fad8 = 0x00000000;
 u32 var8007fadc = 0x00000000;
@@ -184,25 +185,6 @@ void func0f1531d0(s32 arg0)
 	var8007fad4 = arg0;
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel func0f1531dc
-/*  f15288c:	10800005 */ 	beqz	$a0,.JF0f1528a4
-/*  f152890:	24180001 */ 	li	$t8,0x1
-/*  f152894:	240e0002 */ 	li	$t6,0x2
-/*  f152898:	3c018008 */ 	lui	$at,0x8008
-/*  f15289c:	10000004 */ 	b	.JF0f1528b0
-/*  f1528a0:	ac2e0108 */ 	sw	$t6,0x108($at)
-.JF0f1528a4:
-/*  f1528a4:	240f0001 */ 	li	$t7,0x1
-/*  f1528a8:	3c018008 */ 	lui	$at,0x8008
-/*  f1528ac:	ac2f0108 */ 	sw	$t7,0x108($at)
-.JF0f1528b0:
-/*  f1528b0:	3c018008 */ 	lui	$at,0x8008
-/*  f1528b4:	03e00008 */ 	jr	$ra
-/*  f1528b8:	ac38010c */ 	sw	$t8,0x10c($at)
-);
-#else
 void func0f1531dc(bool arg0)
 {
 	if (arg0) {
@@ -210,8 +192,11 @@ void func0f1531dc(bool arg0)
 	} else {
 		var8007fad0 = 1;
 	}
-}
+
+#if VERSION == VERSION_JPN_FINAL
+	var80080108jf = 1;
 #endif
+}
 
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(

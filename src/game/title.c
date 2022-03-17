@@ -10834,8 +10834,8 @@ glabel titleRenderNoExpansion
 //	x = 50;
 //	y = g_TitleViewHeight / 2 - 36;
 //
-//	var80080108jf = 2;
 //	var8007fad0 = 2;
+//	var80080108jf = 2;
 //
 //	if (1);
 //	text = langGet(L_MPWEAPONS_281);
@@ -10858,8 +10858,8 @@ glabel titleRenderNoExpansion
 //	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
 //	y += 18;
 //
-//	var80080108jf = 1;
 //	var8007fad0 = 1;
+//	var80080108jf = 1;
 //
 //	gdl = func0f153780(gdl);
 //
