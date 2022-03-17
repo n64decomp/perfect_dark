@@ -10814,6 +10814,57 @@ glabel titleRenderNoExpansion
 /*  f01b91c:	03e00008 */ 	jr	$ra
 /*  f01b920:	00000000 */ 	nop
 );
+
+// Mismatch: Need to find a way to allocate another cfe temp.
+// (return value of viGetWidth() should go into sp40 but instead goes into sp3c)
+//Gfx *titleRenderNoExpansion(Gfx *gdl)
+//{
+//	s32 textheight;
+//	s32 textwidth;
+//	s32 x;
+//	s32 y;
+//	char *text; // 4c
+//	u32 stack[3];
+//
+//	joyGetConnectedControllers();
+//
+//	gdl = func0f01afc0(gdl);
+//	gdl = func0f153628(gdl);
+//
+//	x = 50;
+//	y = g_TitleViewHeight / 2 - 36;
+//
+//	var80080108jf = 2;
+//	var8007fad0 = 2;
+//
+//	if (1);
+//	text = langGet(L_MPWEAPONS_281);
+//	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+//	x = 288 - textwidth;
+//	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
+//	y += 18;
+//
+//	if (1);
+//	text = langGet(L_MPWEAPONS_282);
+//	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+//	x = 288 - textwidth;
+//	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
+//	y += 18;
+//
+//	if (1);
+//	text = langGet(L_MPWEAPONS_284);
+//	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+//	x = 288 - textwidth;
+//	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
+//	y += 18;
+//
+//	var80080108jf = 1;
+//	var8007fad0 = 1;
+//
+//	gdl = func0f153780(gdl);
+//
+//	return gdl;
+//}
 #endif
 
 void titleSetNextMode(s32 mode)
@@ -10868,7 +10919,7 @@ void titleTick(void)
 			titleExitNoController();
 			break;
 #if VERSION >= VERSION_JPN_FINAL
-		case TITLEMODE_10:
+		case TITLEMODE_NOEXPANSION:
 			titleExitNoExpansion();
 			break;
 #endif
@@ -10924,7 +10975,7 @@ void titleTick(void)
 			titleInitNoController();
 			break;
 #if VERSION >= VERSION_JPN_FINAL
-		case TITLEMODE_10:
+		case TITLEMODE_NOEXPANSION:
 			titleInitNoExpansion();
 			break;
 #endif
@@ -10956,7 +11007,7 @@ void titleTick(void)
 		titleTickNoController();
 		break;
 #if VERSION >= VERSION_JPN_FINAL
-	case TITLEMODE_10:
+	case TITLEMODE_NOEXPANSION:
 		titleTickNoExpansion();
 		break;
 #endif
@@ -11007,7 +11058,7 @@ void titleExit(void)
 		titleExitNoController();
 		break;
 #if VERSION >= VERSION_JPN_FINAL
-	case TITLEMODE_10:
+	case TITLEMODE_NOEXPANSION:
 		titleExitNoExpansion();
 		break;
 #endif
@@ -11135,7 +11186,7 @@ Gfx *titleRender(Gfx *gdl)
 			gdl = titleRenderNoController(gdl);
 			break;
 #if VERSION >= VERSION_JPN_FINAL
-		case TITLEMODE_10:
+		case TITLEMODE_NOEXPANSION:
 			gdl = titleRenderNoExpansion(gdl);
 			break;
 #endif
