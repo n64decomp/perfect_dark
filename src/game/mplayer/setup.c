@@ -3722,7 +3722,7 @@ glabel var7f1b9204
 /*  f17fb0c:	8c2e9204 */ 	lw	$t6,-0x6dfc($at)
 /*  f17fb10:	01c00008 */ 	jr	$t6
 /*  f17fb14:	00000000 */ 	nop
-/*  f17fb18:	0fc61aba */ 	jal	0xf186ae8
+/*  f17fb18:	0fc61aba */ 	jal	scenarioGetMaxTeams
 /*  f17fb1c:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f17fb20:	8fa60020 */ 	lw	$a2,0x20($sp)
 /*  f17fb24:	1000003e */ 	b	.JF0f17fc20
@@ -3742,7 +3742,7 @@ glabel var7f1b9204
 /*  f17fb5c:	10000030 */ 	b	.JF0f17fc20
 /*  f17fb60:	a028aadc */ 	sb	$t0,-0x5524($at)
 /*  f17fb64:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17fb68:	0fc61aba */ 	jal	0xf186ae8
+/*  f17fb68:	0fc61aba */ 	jal	scenarioGetMaxTeams
 /*  f17fb6c:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f17fb70:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*  f17fb74:	3c04800a */ 	lui	$a0,0x800a
@@ -3754,7 +3754,7 @@ glabel var7f1b9204
 /*  f17fb8c:	1420001b */ 	bnez	$at,.JF0f17fbfc
 /*  f17fb90:	00000000 */ 	nop
 /*  f17fb94:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17fb98:	0fc61aba */ 	jal	0xf186ae8
+/*  f17fb98:	0fc61aba */ 	jal	scenarioGetMaxTeams
 /*  f17fb9c:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f17fba0:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*  f17fba4:	3c0c800a */ 	lui	$t4,0x800a

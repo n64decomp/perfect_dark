@@ -17,14 +17,14 @@ glabel func0f01d860
 /*  f01ea30:	3c058006 */ 	lui	$a1,0x8006
 /*  f01ea34:	ac20d370 */ 	sw	$zero,-0x2c90($at)
 /*  f01ea38:	24a528a0 */ 	addiu	$a1,$a1,0x28a0
-/*  f01ea3c:	0c0036b4 */ 	jal	0xdad0
+/*  f01ea3c:	0c0036b4 */ 	jal	mainOverrideVariable
 /*  f01ea40:	24849240 */ 	addiu	$a0,$a0,-28096
 /*  f01ea44:	3c048006 */ 	lui	$a0,0x8006
 /*  f01ea48:	8c8428a0 */ 	lw	$a0,0x28a0($a0)
 /*  f01ea4c:	2c810002 */ 	sltiu	$at,$a0,0x2
 /*  f01ea50:	10200006 */ 	beqz	$at,.JF0f01ea6c
 /*  f01ea54:	00000000 */ 	nop
-/*  f01ea58:	0fc5bb09 */ 	jal	0xf16ec24
+/*  f01ea58:	0fc5bb09 */ 	jal	func0f16ec24jf
 /*  f01ea5c:	00000000 */ 	nop
 /*  f01ea60:	240e0063 */ 	li	$t6,0x63
 /*  f01ea64:	3c018006 */ 	lui	$at,0x8006

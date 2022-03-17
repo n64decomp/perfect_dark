@@ -10182,7 +10182,7 @@ glabel pakN64FontCodeToAscii
 .JF0f11ea8c:
 /*  f11ea8c:	a0400000 */ 	sb	$zero,0x0($v0)
 /*  f11ea90:	8fa40134 */ 	lw	$a0,0x134($sp)
-/*  f11ea94:	0c004c34 */ 	jal	0x130d0
+/*  f11ea94:	0c004c34 */ 	jal	strcpy
 /*  f11ea98:	27a50030 */ 	addiu	$a1,$sp,0x30
 /*  f11ea9c:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*  f11eaa0:	8fb00014 */ 	lw	$s0,0x14($sp)

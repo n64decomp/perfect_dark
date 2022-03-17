@@ -427,16 +427,16 @@ glabel objectivesCheckAll
 /*  f096b84:	27deb478 */ 	addiu	$s8,$s8,-19336
 /*  f096b88:	27b6004c */ 	addiu	$s6,$sp,0x4c
 .JF0f096b8c:
-/*  f096b8c:	0fc25901 */ 	jal	0xf096404
+/*  f096b8c:	0fc25901 */ 	jal	objectiveCheck
 /*  f096b90:	02602025 */ 	move	$a0,$s3
 /*  f096b94:	8e8b0000 */ 	lw	$t3,0x0($s4)
 /*  f096b98:	00408825 */ 	move	$s1,$v0
 /*  f096b9c:	02602025 */ 	move	$a0,$s3
 /*  f096ba0:	104b003b */ 	beq	$v0,$t3,.JF0f096c90
 /*  f096ba4:	00000000 */ 	nop
-/*  f096ba8:	0fc258f4 */ 	jal	0xf0963d0
+/*  f096ba8:	0fc258f4 */ 	jal	objectiveGetDifficultyBits
 /*  f096bac:	ae820000 */ 	sw	$v0,0x0($s4)
-/*  f096bb0:	0fc5b3cf */ 	jal	0xf16cf3c
+/*  f096bb0:	0fc5b3cf */ 	jal	lvGetDifficulty
 /*  f096bb4:	00408025 */ 	move	$s0,$v0
 /*  f096bb8:	240c0001 */ 	li	$t4,0x1
 /*  f096bbc:	004c6804 */ 	sllv	$t5,$t4,$v0
@@ -449,55 +449,55 @@ glabel objectivesCheckAll
 /*  f096bd8:	bac10002 */ 	swr	$at,0x2($s6)
 /*  f096bdc:	a3ae004c */ 	sb	$t6,0x4c($sp)
 /*  f096be0:	a3a9004d */ 	sb	$t1,0x4d($sp)
-/*  f096be4:	0fc5baa5 */ 	jal	0xf16ea94
+/*  f096be4:	0fc5baa5 */ 	jal	langGet
 /*  f096be8:	24045803 */ 	li	$a0,0x5803
 /*  f096bec:	3c057f1b */ 	lui	$a1,0x7f1b
 /*  f096bf0:	24a5c444 */ 	addiu	$a1,$a1,-15292
 /*  f096bf4:	02402025 */ 	move	$a0,$s2
 /*  f096bf8:	00403025 */ 	move	$a2,$v0
-/*  f096bfc:	0c004d95 */ 	jal	0x13654
+/*  f096bfc:	0c004d95 */ 	jal	sprintf
 /*  f096c00:	02c03825 */ 	move	$a3,$s6
 /*  f096c04:	24010001 */ 	li	$at,0x1
 /*  f096c08:	1621000b */ 	bne	$s1,$at,.JF0f096c38
 /*  f096c0c:	00000000 */ 	nop
-/*  f096c10:	0fc5baa5 */ 	jal	0xf16ea94
+/*  f096c10:	0fc5baa5 */ 	jal	langGet
 /*  f096c14:	24045804 */ 	li	$a0,0x5804
 /*  f096c18:	02402025 */ 	move	$a0,$s2
-/*  f096c1c:	0c004c71 */ 	jal	0x131c4
+/*  f096c1c:	0c004c71 */ 	jal	strcat
 /*  f096c20:	00402825 */ 	move	$a1,$v0
 /*  f096c24:	02402025 */ 	move	$a0,$s2
-/*  f096c28:	0fc25a61 */ 	jal	0xf096984
+/*  f096c28:	0fc25a61 */ 	jal	objectivesShowHudmsg
 /*  f096c2c:	24050001 */ 	li	$a1,0x1
 /*  f096c30:	10000017 */ 	b	.JF0f096c90
 /*  f096c34:	00000000 */ 	nop
 .JF0f096c38:
 /*  f096c38:	1620000b */ 	bnez	$s1,.JF0f096c68
 /*  f096c3c:	24010002 */ 	li	$at,0x2
-/*  f096c40:	0fc5baa5 */ 	jal	0xf16ea94
+/*  f096c40:	0fc5baa5 */ 	jal	langGet
 /*  f096c44:	24045805 */ 	li	$a0,0x5805
 /*  f096c48:	02402025 */ 	move	$a0,$s2
-/*  f096c4c:	0c004c71 */ 	jal	0x131c4
+/*  f096c4c:	0c004c71 */ 	jal	strcat
 /*  f096c50:	00402825 */ 	move	$a1,$v0
 /*  f096c54:	02402025 */ 	move	$a0,$s2
-/*  f096c58:	0fc25a61 */ 	jal	0xf096984
+/*  f096c58:	0fc25a61 */ 	jal	objectivesShowHudmsg
 /*  f096c5c:	24050001 */ 	li	$a1,0x1
 /*  f096c60:	1000000b */ 	b	.JF0f096c90
 /*  f096c64:	00000000 */ 	nop
 .JF0f096c68:
 /*  f096c68:	16210009 */ 	bne	$s1,$at,.JF0f096c90
 /*  f096c6c:	00000000 */ 	nop
-/*  f096c70:	0fc5baa5 */ 	jal	0xf16ea94
+/*  f096c70:	0fc5baa5 */ 	jal	langGet
 /*  f096c74:	24045806 */ 	li	$a0,0x5806
 /*  f096c78:	02402025 */ 	move	$a0,$s2
-/*  f096c7c:	0c004c71 */ 	jal	0x131c4
+/*  f096c7c:	0c004c71 */ 	jal	strcat
 /*  f096c80:	00402825 */ 	move	$a1,$v0
 /*  f096c84:	02402025 */ 	move	$a0,$s2
-/*  f096c88:	0fc25a61 */ 	jal	0xf096984
+/*  f096c88:	0fc25a61 */ 	jal	objectivesShowHudmsg
 /*  f096c8c:	24050002 */ 	li	$a1,0x2
 .JF0f096c90:
-/*  f096c90:	0fc258f4 */ 	jal	0xf0963d0
+/*  f096c90:	0fc258f4 */ 	jal	objectiveGetDifficultyBits
 /*  f096c94:	02602025 */ 	move	$a0,$s3
-/*  f096c98:	0fc5b3cf */ 	jal	0xf16cf3c
+/*  f096c98:	0fc5b3cf */ 	jal	lvGetDifficulty
 /*  f096c9c:	00408025 */ 	move	$s0,$v0
 /*  f096ca0:	240a0001 */ 	li	$t2,0x1
 /*  f096ca4:	004a5804 */ 	sllv	$t3,$t2,$v0

@@ -53,13 +53,13 @@ glabel stageLoadCommonLang
 .JF0f00b440:
 /*  f00b440:	348f000f */ 	ori	$t7,$a0,0xf
 /*  f00b444:	39e4000f */ 	xori	$a0,$t7,0xf
-/*  f00b448:	0c0048e2 */ 	jal	0x12388
+/*  f00b448:	0c0048e2 */ 	jal	mempAlloc
 /*  f00b44c:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f00b450:	3c018008 */ 	lui	$at,0x8008
 /*  f00b454:	8fa30018 */ 	lw	$v1,0x18($sp)
 /*  f00b458:	ac224774 */ 	sw	$v0,0x4774($at)
 /*  f00b45c:	3c018008 */ 	lui	$at,0x8008
-/*  f00b460:	0fc5bab6 */ 	jal	0xf16ead8
+/*  f00b460:	0fc5bab6 */ 	jal	func0f16f6ecpf
 /*  f00b464:	ac23477c */ 	sw	$v1,0x477c($at)
 /*  f00b468:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f00b46c:	27bd0020 */ 	addiu	$sp,$sp,0x20

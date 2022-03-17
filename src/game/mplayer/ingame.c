@@ -216,7 +216,7 @@ glabel mpMenuTextWeaponDescription
 /*  f1787ac:	3c04800a */ 	lui	$a0,0x800a
 /*  f1787b0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1787b4:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f1787b8:	0fc2c814 */ 	jal	0xf0b2050
+/*  f1787b8:	0fc2c814 */ 	jal	weaponFindById
 /*  f1787bc:	8c84f528 */ 	lw	$a0,-0xad8($a0)
 /*  f1787c0:	10400067 */ 	beqz	$v0,.JF0f178960
 /*  f1787c4:	00402825 */ 	move	$a1,$v0
@@ -244,7 +244,7 @@ glabel mpMenuTextWeaponDescription
 /*  f17881c:	24010001 */ 	li	$at,0x1
 /*  f178820:	54810006 */ 	bnel	$a0,$at,.JF0f17883c
 /*  f178824:	24010002 */ 	li	$at,0x2
-/*  f178828:	0fc5baa5 */ 	jal	0xf16ea94
+/*  f178828:	0fc5baa5 */ 	jal	langGet
 /*  f17882c:	24044ced */ 	li	$a0,0x4ced
 /*  f178830:	1000004e */ 	b	.JF0f17896c
 /*  f178834:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -252,7 +252,7 @@ glabel mpMenuTextWeaponDescription
 .JF0f17883c:
 /*  f17883c:	54810006 */ 	bnel	$a0,$at,.JF0f178858
 /*  f178840:	24010050 */ 	li	$at,0x50
-/*  f178844:	0fc5baa5 */ 	jal	0xf16ea94
+/*  f178844:	0fc5baa5 */ 	jal	langGet
 /*  f178848:	24044cec */ 	li	$a0,0x4cec
 /*  f17884c:	10000047 */ 	b	.JF0f17896c
 /*  f178850:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -264,7 +264,7 @@ glabel mpMenuTextWeaponDescription
 /*  f178864:	24010034 */ 	li	$at,0x34
 /*  f178868:	15210039 */ 	bne	$t1,$at,.JF0f178950
 /*  f17886c:	00000000 */ 	nop
-/*  f178870:	0fc5b3cf */ 	jal	0xf16cf3c
+/*  f178870:	0fc5b3cf */ 	jal	lvGetDifficulty
 /*  f178874:	afa5004c */ 	sw	$a1,0x4c($sp)
 /*  f178878:	28410002 */ 	slti	$at,$v0,0x2
 /*  f17887c:	14200034 */ 	bnez	$at,.JF0f178950
@@ -311,24 +311,24 @@ glabel mpMenuTextWeaponDescription
 /*  f178918:	256dfffc */ 	addiu	$t5,$t3,-4
 /*  f17891c:	1464fffa */ 	bne	$v1,$a0,.JF0f178908
 /*  f178920:	a04dffff */ 	sb	$t5,-0x1($v0)
-/*  f178924:	0fc5baa5 */ 	jal	0xf16ea94
+/*  f178924:	0fc5baa5 */ 	jal	langGet
 /*  f178928:	24044cef */ 	li	$a0,0x4cef
 /*  f17892c:	3c048007 */ 	lui	$a0,0x8007
 /*  f178930:	8c841990 */ 	lw	$a0,0x1990($a0)
 /*  f178934:	00402825 */ 	move	$a1,$v0
 /*  f178938:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f17893c:	0c004d95 */ 	jal	0x13654
+/*  f17893c:	0c004d95 */ 	jal	sprintf
 /*  f178940:	27a70030 */ 	addiu	$a3,$sp,0x30
 /*  f178944:	3c028007 */ 	lui	$v0,0x8007
 /*  f178948:	10000007 */ 	b	.JF0f178968
 /*  f17894c:	8c421990 */ 	lw	$v0,0x1990($v0)
 .JF0f178950:
-/*  f178950:	0fc5baa5 */ 	jal	0xf16ea94
+/*  f178950:	0fc5baa5 */ 	jal	langGet
 /*  f178954:	94a4004a */ 	lhu	$a0,0x4a($a1)
 /*  f178958:	10000004 */ 	b	.JF0f17896c
 /*  f17895c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .JF0f178960:
-/*  f178960:	0fc5baa5 */ 	jal	0xf16ea94
+/*  f178960:	0fc5baa5 */ 	jal	langGet
 /*  f178964:	24045603 */ 	li	$a0,0x5603
 .JF0f178968:
 /*  f178968:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -783,36 +783,36 @@ glabel mpPushEndscreenDialog
 /*  f179550:	11600005 */ 	beqz	$t3,.JF0f179568
 /*  f179554:	00000000 */ 	nop
 .JF0f179558:
-/*  f179558:	0fc3e40a */ 	jal	0xf0f9028
+/*  f179558:	0fc3e40a */ 	jal	menuPushRootDialog
 /*  f17955c:	24050005 */ 	li	$a1,0x5
 /*  f179560:	10000018 */ 	b	.JF0f1795c4
 /*  f179564:	00000000 */ 	nop
 .JF0f179568:
-/*  f179568:	0fc673a7 */ 	jal	0xf19ce9c
+/*  f179568:	0fc673a7 */ 	jal	mpIsChallengeCompleteForEndscreen
 /*  f17956c:	00000000 */ 	nop
 /*  f179570:	10400007 */ 	beqz	$v0,.JF0f179590
 /*  f179574:	3c048008 */ 	lui	$a0,0x8008
 /*  f179578:	3c048008 */ 	lui	$a0,0x8008
 /*  f17957c:	248450b4 */ 	addiu	$a0,$a0,0x50b4
-/*  f179580:	0fc3e40a */ 	jal	0xf0f9028
+/*  f179580:	0fc3e40a */ 	jal	menuPushRootDialog
 /*  f179584:	24050005 */ 	li	$a1,0x5
 /*  f179588:	1000000e */ 	b	.JF0f1795c4
 /*  f17958c:	00000000 */ 	nop
 .JF0f179590:
 /*  f179590:	248450e4 */ 	addiu	$a0,$a0,0x50e4
-/*  f179594:	0fc3e40a */ 	jal	0xf0f9028
+/*  f179594:	0fc3e40a */ 	jal	menuPushRootDialog
 /*  f179598:	24050005 */ 	li	$a1,0x5
 /*  f17959c:	10000009 */ 	b	.JF0f1795c4
 /*  f1795a0:	00000000 */ 	nop
 .JF0f1795a4:
-/*  f1795a4:	0fc3e40a */ 	jal	0xf0f9028
+/*  f1795a4:	0fc3e40a */ 	jal	menuPushRootDialog
 /*  f1795a8:	24050005 */ 	li	$a1,0x5
 /*  f1795ac:	10000005 */ 	b	.JF0f1795c4
 /*  f1795b0:	00000000 */ 	nop
 .JF0f1795b4:
 /*  f1795b4:	3c048008 */ 	lui	$a0,0x8008
 /*  f1795b8:	24845084 */ 	addiu	$a0,$a0,0x5084
-/*  f1795bc:	0fc3e40a */ 	jal	0xf0f9028
+/*  f1795bc:	0fc3e40a */ 	jal	menuPushRootDialog
 /*  f1795c0:	24050005 */ 	li	$a1,0x5
 .JF0f1795c4:
 /*  f1795c4:	3c0c8009 */ 	lui	$t4,0x8009
@@ -840,7 +840,7 @@ glabel mpPushEndscreenDialog
 /*  f17961c:	34694000 */ 	ori	$t1,$v1,0x4000
 /*  f179620:	15000003 */ 	bnez	$t0,.JF0f179630
 /*  f179624:	248451a0 */ 	addiu	$a0,$a0,0x51a0
-/*  f179628:	0fc3cef8 */ 	jal	0xf0f3be0
+/*  f179628:	0fc3cef8 */ 	jal	menuPushDialog
 /*  f17962c:	a4490048 */ 	sh	$t1,0x48($v0)
 .JF0f179630:
 /*  f179630:	8fbf0014 */ 	lw	$ra,0x14($sp)

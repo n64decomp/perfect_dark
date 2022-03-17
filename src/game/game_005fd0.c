@@ -153,7 +153,7 @@ glabel chrCheckFootstep
 /*  f006270:	afbf004c */ 	sw	$ra,0x4c($sp)
 /*  f006274:	afb10048 */ 	sw	$s1,0x48($sp)
 /*  f006278:	00808825 */ 	move	$s1,$a0
-/*  f00627c:	0fc47cbe */ 	jal	0xf11f2f8
+/*  f00627c:	0fc47cbe */ 	jal	debugIsFootstepsEnabled
 /*  f006280:	afb00044 */ 	sw	$s0,0x44($sp)
 /*  f006284:	104000c2 */ 	beqz	$v0,.JF0f006590
 /*  f006288:	24010001 */ 	li	$at,0x1
@@ -212,7 +212,7 @@ glabel chrCheckFootstep
 /*  f00634c:	e7a0006c */ 	swc1	$f0,0x6c($sp)
 .JF0f006350:
 /*  f006350:	8e240020 */ 	lw	$a0,0x20($s1)
-/*  f006354:	0c007447 */ 	jal	0x1d11c
+/*  f006354:	0c007447 */ 	jal	modelGetAnimNum
 /*  f006358:	afa30050 */ 	sw	$v1,0x50($sp)
 /*  f00635c:	8fa30050 */ 	lw	$v1,0x50($sp)
 /*  f006360:	24010023 */ 	li	$at,0x23
@@ -328,7 +328,7 @@ glabel chrCheckFootstep
 /*  f0064e8:	00000000 */ 	nop
 /*  f0064ec:	a2390190 */ 	sb	$t9,0x190($s1)
 .JF0f0064f0:
-/*  f0064f0:	0fc01841 */ 	jal	0xf006104
+/*  f0064f0:	0fc01841 */ 	jal	chrChooseFootstepSound
 /*  f0064f4:	02202025 */ 	move	$a0,$s1
 /*  f0064f8:	2401ffff */ 	li	$at,-1
 /*  f0064fc:	5041001c */ 	beql	$v0,$at,.JF0f006570
@@ -357,7 +357,7 @@ glabel chrCheckFootstep
 /*  f006558:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f00655c:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f006560:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f006564:	0fc251de */ 	jal	0xf094778
+/*  f006564:	0fc251de */ 	jal	func0f0939f8
 /*  f006568:	e7a00038 */ 	swc1	$f0,0x38($sp)
 .JF0f00656c:
 /*  f00656c:	8e2e0020 */ 	lw	$t6,0x20($s1)

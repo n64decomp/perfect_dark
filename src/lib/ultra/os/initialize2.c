@@ -35,25 +35,25 @@ glabel osInitialize2
 /*  519dc:	3c018009 */ 	lui	$at,0x8009
 /*  519e0:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  519e4:	afa00030 */ 	sw	$zero,0x30($sp)
-/*  519e8:	0c0129f8 */ 	jal	0x4a7e0
+/*  519e8:	0c0129f8 */ 	jal	__osGetSR
 /*  519ec:	ac2e10d0 */ 	sw	$t6,0x10d0($at)
 /*  519f0:	00408025 */ 	move	$s0,$v0
 /*  519f4:	3c012000 */ 	lui	$at,0x2000
-/*  519f8:	0c0129f4 */ 	jal	0x4a7d0
+/*  519f8:	0c0129f4 */ 	jal	__osSetSR
 /*  519fc:	02012025 */ 	or	$a0,$s0,$at
 /*  51a00:	3c040100 */ 	lui	$a0,0x100
-/*  51a04:	0c011f3c */ 	jal	0x47cf0
+/*  51a04:	0c011f3c */ 	jal	__osSetFpcCsr
 /*  51a08:	34840800 */ 	ori	$a0,$a0,0x800
 /*  51a0c:	3c041fc0 */ 	lui	$a0,0x1fc0
 /*  51a10:	348407fc */ 	ori	$a0,$a0,0x7fc
-/*  51a14:	0c0129fc */ 	jal	0x4a7f0
+/*  51a14:	0c0129fc */ 	jal	__osSiRawReadIo
 /*  51a18:	27a50034 */ 	addiu	$a1,$sp,0x34
 /*  51a1c:	10400007 */ 	beqz	$v0,.JF00051a3c
 /*  51a20:	00000000 */ 	nop
 .JF00051a24:
 /*  51a24:	3c041fc0 */ 	lui	$a0,0x1fc0
 /*  51a28:	348407fc */ 	ori	$a0,$a0,0x7fc
-/*  51a2c:	0c0129fc */ 	jal	0x4a7f0
+/*  51a2c:	0c0129fc */ 	jal	__osSiRawReadIo
 /*  51a30:	27a50034 */ 	addiu	$a1,$sp,0x34
 /*  51a34:	1440fffb */ 	bnez	$v0,.JF00051a24
 /*  51a38:	00000000 */ 	nop
@@ -62,7 +62,7 @@ glabel osInitialize2
 /*  51a40:	3c041fc0 */ 	lui	$a0,0x1fc0
 /*  51a44:	348407fc */ 	ori	$a0,$a0,0x7fc
 /*  51a48:	34af0008 */ 	ori	$t7,$a1,0x8
-/*  51a4c:	0c012a10 */ 	jal	0x4a840
+/*  51a4c:	0c012a10 */ 	jal	__osSiRawWriteIo
 /*  51a50:	01e02825 */ 	move	$a1,$t7
 /*  51a54:	10400009 */ 	beqz	$v0,.JF00051a7c
 /*  51a58:	00000000 */ 	nop
@@ -71,7 +71,7 @@ glabel osInitialize2
 /*  51a60:	3c041fc0 */ 	lui	$a0,0x1fc0
 /*  51a64:	348407fc */ 	ori	$a0,$a0,0x7fc
 /*  51a68:	34b80008 */ 	ori	$t8,$a1,0x8
-/*  51a6c:	0c012a10 */ 	jal	0x4a840
+/*  51a6c:	0c012a10 */ 	jal	__osSiRawWriteIo
 /*  51a70:	03002825 */ 	move	$a1,$t8
 /*  51a74:	1440fff9 */ 	bnez	$v0,.JF00051a5c
 /*  51a78:	00000000 */ 	nop
@@ -124,30 +124,30 @@ glabel osInitialize2
 /*  51b30:	8dc10008 */ 	lw	$at,0x8($t6)
 /*  51b34:	ade10008 */ 	sw	$at,0x8($t7)
 /*  51b38:	8dd8000c */ 	lw	$t8,0xc($t6)
-/*  51b3c:	0c012a24 */ 	jal	0x4a890
+/*  51b3c:	0c012a24 */ 	jal	osWritebackDCache
 /*  51b40:	adf8000c */ 	sw	$t8,0xc($t7)
 /*  51b44:	3c048000 */ 	lui	$a0,0x8000
-/*  51b48:	0c011f18 */ 	jal	0x47c60
+/*  51b48:	0c011f18 */ 	jal	osInvalICache
 /*  51b4c:	24050190 */ 	li	$a1,0x190
-/*  51b50:	0c01471e */ 	jal	0x51c78
+/*  51b50:	0c01471e */ 	jal	osCartRomInit2
 /*  51b54:	00000000 */ 	nop
-/*  51b58:	0c0148a4 */ 	jal	0x52290
+/*  51b58:	0c0148a4 */ 	jal	osUnmapTLBAll
 /*  51b5c:	00000000 */ 	nop
-/*  51b60:	0c000bfc */ 	jal	0x2ff0
+/*  51b60:	0c000bfc */ 	jal	osMapTLBRdb
 /*  51b64:	00000000 */ 	nop
 /*  51b68:	3c048006 */ 	lui	$a0,0x8006
 /*  51b6c:	3c058006 */ 	lui	$a1,0x8006
 /*  51b70:	8ca5ce24 */ 	lw	$a1,-0x31dc($a1)
 /*  51b74:	8c84ce20 */ 	lw	$a0,-0x31e0($a0)
 /*  51b78:	24060000 */ 	li	$a2,0x0
-/*  51b7c:	0c01375e */ 	jal	0x4dd78
+/*  51b7c:	0c01375e */ 	jal	__ll_mul
 /*  51b80:	24070003 */ 	li	$a3,0x3
 /*  51b84:	afa20020 */ 	sw	$v0,0x20($sp)
 /*  51b88:	afa30024 */ 	sw	$v1,0x24($sp)
 /*  51b8c:	8fa50024 */ 	lw	$a1,0x24($sp)
 /*  51b90:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  51b94:	24060000 */ 	li	$a2,0x0
-/*  51b98:	0c01371e */ 	jal	0x4dc78
+/*  51b98:	0c01371e */ 	jal	__ull_div
 /*  51b9c:	24070004 */ 	li	$a3,0x4
 /*  51ba0:	3c088000 */ 	lui	$t0,0x8000
 /*  51ba4:	8d08030c */ 	lw	$t0,0x30c($t0)
@@ -157,7 +157,7 @@ glabel osInitialize2
 /*  51bb4:	ac23ce24 */ 	sw	$v1,-0x31dc($at)
 /*  51bb8:	3c048000 */ 	lui	$a0,0x8000
 /*  51bbc:	2484031c */ 	addiu	$a0,$a0,0x31c
-/*  51bc0:	0c012a44 */ 	jal	0x4a910
+/*  51bc0:	0c012a44 */ 	jal	bzero
 /*  51bc4:	24050040 */ 	li	$a1,0x40
 .JF00051bc8:
 /*  51bc8:	3c198000 */ 	lui	$t9,0x8000
@@ -186,7 +186,7 @@ glabel osInitialize2
 /*  51c1c:	3c018006 */ 	lui	$at,0x8006
 /*  51c20:	ac2d11f8 */ 	sw	$t5,0x11f8($at)
 .JF00051c24:
-/*  51c24:	0c012a6c */ 	jal	0x4a9b0
+/*  51c24:	0c012a6c */ 	jal	__osGetCause
 /*  51c28:	00000000 */ 	nop
 /*  51c2c:	304c1000 */ 	andi	$t4,$v0,0x1000
 /*  51c30:	11800003 */ 	beqz	$t4,.JF00051c40
