@@ -4959,7 +4959,7 @@ glabel var7f1b3658jf
 /*  f0f5370:	24010003 */ 	li	$at,0x3
 /*  f0f5374:	55c1000f */ 	bnel	$t6,$at,.JF0f0f53b4
 /*  f0f5378:	26060014 */ 	addiu	$a2,$s0,0x14
-/*  f0f537c:	0fc4ec7c */ 	jal	func0f13ae04
+/*  f0f537c:	0fc4ec7c */ 	jal	credits0f13ae04
 /*  f0f5380:	27a401c4 */ 	addiu	$a0,$sp,0x1c4
 /*  f0f5384:	27a401c4 */ 	addiu	$a0,$sp,0x1c4
 /*  f0f5388:	02202825 */ 	move	$a1,$s1
@@ -6565,7 +6565,7 @@ glabel var7f1b3c40pf
 /*  f0f4e10:	24010003 */ 	li	$at,0x3
 /*  f0f4e14:	5721000f */ 	bnel	$t9,$at,.PF0f0f4e54
 /*  f0f4e18:	26060014 */ 	addiu	$a2,$s0,0x14
-/*  f0f4e1c:	0fc4ee5a */ 	jal	func0f13ae04
+/*  f0f4e1c:	0fc4ee5a */ 	jal	credits0f13ae04
 /*  f0f4e20:	27a401c4 */ 	addiu	$a0,$sp,0x1c4
 /*  f0f4e24:	27a401c4 */ 	addiu	$a0,$sp,0x1c4
 /*  f0f4e28:	02202825 */ 	move	$a1,$s1
@@ -8171,7 +8171,7 @@ glabel var7f1b3c40pf
 /*  f0f4c28:	24010003 */ 	li	$at,0x3
 /*  f0f4c2c:	5721000f */ 	bnel	$t9,$at,.PB0f0f4c6c
 /*  f0f4c30:	26060014 */ 	addiu	$a2,$s0,0x14
-/*  f0f4c34:	0fc4f0e5 */ 	jal	func0f13ae04
+/*  f0f4c34:	0fc4f0e5 */ 	jal	credits0f13ae04
 /*  f0f4c38:	27a401c4 */ 	addiu	$a0,$sp,0x1c4
 /*  f0f4c3c:	27a401c4 */ 	addiu	$a0,$sp,0x1c4
 /*  f0f4c40:	02202825 */ 	move	$a1,$s1
@@ -9784,7 +9784,7 @@ glabel var7f1b2948
 /*  f0f46e0:	24010003 */ 	addiu	$at,$zero,0x3
 /*  f0f46e4:	55c1000f */ 	bnel	$t6,$at,.L0f0f4724
 /*  f0f46e8:	26060014 */ 	addiu	$a2,$s0,0x14
-/*  f0f46ec:	0fc4eb81 */ 	jal	func0f13ae04
+/*  f0f46ec:	0fc4eb81 */ 	jal	credits0f13ae04
 /*  f0f46f0:	27a401c4 */ 	addiu	$a0,$sp,0x1c4
 /*  f0f46f4:	27a401c4 */ 	addiu	$a0,$sp,0x1c4
 /*  f0f46f8:	02202825 */ 	or	$a1,$s1,$zero
@@ -11418,7 +11418,7 @@ glabel var7f1b2948
 /*  f0f1284:	24010003 */ 	addiu	$at,$zero,0x3
 /*  f0f1288:	5721000f */ 	bnel	$t9,$at,.NB0f0f12c8
 /*  f0f128c:	26260014 */ 	addiu	$a2,$s1,0x14
-/*  f0f1290:	0fc4d643 */ 	jal	func0f13ae04
+/*  f0f1290:	0fc4d643 */ 	jal	credits0f13ae04
 /*  f0f1294:	27a401c8 */ 	addiu	$a0,$sp,0x1c8
 /*  f0f1298:	27a401c8 */ 	addiu	$a0,$sp,0x1c8
 /*  f0f129c:	02002825 */ 	or	$a1,$s0,$zero
@@ -12462,7 +12462,7 @@ glabel var7f1b2948
 //		mtx4MultMtx4(&sp310, &sp350, &sp244);
 //
 //		if (arg2 == 3) {
-//			func0f13ae04(&sp1c4);
+//			credits0f13ae04(&sp1c4);
 //			mtx4MultMtx4(&sp1c4, &sp244, &sp184);
 //			mtx4MultMtx4(&sp184, &sp204, &thing->unk014);
 //		} else {

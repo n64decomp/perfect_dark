@@ -5579,11 +5579,10 @@ glabel var7f1b592c
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f13ae04
-/*  f13ae04:	03e00008 */ 	jr	$ra
-/*  f13ae08:	afa40000 */ 	sw	$a0,0x0($sp)
-);
+void credits0f13ae04(Mtxf *mtx)
+{
+	// empty
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 void creditsTick(void)

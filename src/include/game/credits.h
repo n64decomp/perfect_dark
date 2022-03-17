@@ -23,7 +23,7 @@ void creditsInitSlides(void);
 struct credit *creditGetByRow(s32 row);
 void creditsTickSlide(void);
 Gfx *func0f13a3ec(Gfx *gdl);
-void func0f13ae04(Mtxf *mtx);
+void credits0f13ae04(Mtxf *mtx);
 void creditsTick(void);
 Gfx *creditsRender(Gfx *gdl);
 void creditsInit(void);
