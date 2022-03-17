@@ -48,13 +48,13 @@ u32 var800800f0jf = 0;
 s32 g_ScaleX = 1;
 u32 var80080104jf = 0;
 s32 var8007fac4 = 0;
-u32 var8007fac8 = 0;
+bool g_TextRotated90 = false;
 u32 var8007facc = 0;
 u32 var80080108jf = 1;
 #else
 s32 g_ScaleX = 1;
 s32 var8007fac4 = 0;
-u32 var8007fac8 = 0;
+bool g_TextRotated90 = false;
 u32 var8007facc = 0;
 #endif
 
@@ -169,12 +169,10 @@ void func0f1531a8(s32 arg0)
 	var8007fac4 = -arg0;
 }
 
-GLOBAL_ASM(
-glabel textSetRotation90
-/*  f1531b8:	3c018008 */ 	lui	$at,%hi(var8007fac8)
-/*  f1531bc:	03e00008 */ 	jr	$ra
-/*  f1531c0:	ac24fac8 */ 	sw	$a0,%lo(var8007fac8)($at)
-);
+void textSetRotation90(bool rotated)
+{
+	g_TextRotated90 = rotated;
+}
 
 GLOBAL_ASM(
 glabel func0f1531c4
@@ -658,7 +656,7 @@ void fontsLoadForCurrentStage(void)
 	var8007fb38 = 0;
 
 	var8007fac4 = 0;
-	var8007fac8 = 0;
+	g_TextRotated90 = false;
 	var8007facc = 0;
 	var8007fad4 = 0xffffffff;
 	var8007fad8 = 0;
@@ -7445,8 +7443,8 @@ GLOBAL_ASM(
 glabel func0f15568c
 /*  f15568c:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f155690:	3c0d8008 */ 	lui	$t5,%hi(var8007fad0)
-/*  f155694:	3c0f8008 */ 	lui	$t7,%hi(var8007fac8)
-/*  f155698:	8deffac8 */ 	lw	$t7,%lo(var8007fac8)($t7)
+/*  f155694:	3c0f8008 */ 	lui	$t7,%hi(g_TextRotated90)
+/*  f155698:	8deffac8 */ 	lw	$t7,%lo(g_TextRotated90)($t7)
 /*  f15569c:	25adfad0 */ 	addiu	$t5,$t5,%lo(var8007fad0)
 /*  f1556a0:	8dae0000 */ 	lw	$t6,0x0($t5)
 /*  f1556a4:	afb20030 */ 	sw	$s2,0x30($sp)
@@ -7491,8 +7489,8 @@ glabel func0f15568c
 /*  f15573c:	ae580000 */ 	sw	$t8,0x0($s2)
 /*  f155740:	8fb900b8 */ 	lw	$t9,0xb8($sp)
 /*  f155744:	8fae008c */ 	lw	$t6,0x8c($sp)
-/*  f155748:	3c188008 */ 	lui	$t8,%hi(var8007fac8)
-/*  f15574c:	8f18fac8 */ 	lw	$t8,%lo(var8007fac8)($t8)
+/*  f155748:	3c188008 */ 	lui	$t8,%hi(g_TextRotated90)
+/*  f15574c:	8f18fac8 */ 	lw	$t8,%lo(g_TextRotated90)($t8)
 /*  f155750:	032e0019 */ 	multu	$t9,$t6
 /*  f155754:	00007812 */ 	mflo	$t7
 /*  f155758:	afaf00b8 */ 	sw	$t7,0xb8($sp)
@@ -7628,12 +7626,12 @@ glabel func0f15568c
 /*  f15594c:	54200158 */ 	bnezl	$at,.L0f155eb0
 /*  f155950:	92390002 */ 	lbu	$t9,0x2($s1)
 /*  f155954:	922e0002 */ 	lbu	$t6,0x2($s1)
-/*  f155958:	3c0f8008 */ 	lui	$t7,%hi(var8007fac8)
+/*  f155958:	3c0f8008 */ 	lui	$t7,%hi(g_TextRotated90)
 /*  f15595c:	00ce1021 */ 	addu	$v0,$a2,$t6
 /*  f155960:	0182082a */ 	slt	$at,$t4,$v0
 /*  f155964:	54200106 */ 	bnezl	$at,.L0f155d80
 /*  f155968:	0186082a */ 	slt	$at,$t4,$a2
-/*  f15596c:	8deffac8 */ 	lw	$t7,%lo(var8007fac8)($t7)
+/*  f15596c:	8deffac8 */ 	lw	$t7,%lo(g_TextRotated90)($t7)
 /*  f155970:	3c068008 */ 	lui	$a2,%hi(var8007fadc)
 /*  f155974:	24c6fadc */ 	addiu	$a2,$a2,%lo(var8007fadc)
 /*  f155978:	11e00050 */ 	beqz	$t7,.L0f155abc
@@ -9421,8 +9419,8 @@ glabel textRenderProjected
 GLOBAL_ASM(
 glabel textRenderProjected
 /*  f15603c:	27bdff40 */ 	addiu	$sp,$sp,-192
-/*  f156040:	3c0f8008 */ 	lui	$t7,%hi(var8007fac8)
-/*  f156044:	8deffac8 */ 	lw	$t7,%lo(var8007fac8)($t7)
+/*  f156040:	3c0f8008 */ 	lui	$t7,%hi(g_TextRotated90)
+/*  f156044:	8deffac8 */ 	lw	$t7,%lo(g_TextRotated90)($t7)
 /*  f156048:	3c0e8008 */ 	lui	$t6,%hi(var8007fad0)
 /*  f15604c:	8dcefad0 */ 	lw	$t6,%lo(var8007fad0)($t6)
 /*  f156050:	afb5004c */ 	sw	$s5,0x4c($sp)
@@ -9813,8 +9811,8 @@ glabel textRenderProjected
 /*  f156600:	5440ff90 */ 	bnezl	$v0,.L0f156444
 /*  f156604:	24010020 */ 	addiu	$at,$zero,0x20
 .L0f156608:
-/*  f156608:	3c098008 */ 	lui	$t1,%hi(var8007fac8)
-/*  f15660c:	8d29fac8 */ 	lw	$t1,%lo(var8007fac8)($t1)
+/*  f156608:	3c098008 */ 	lui	$t1,%hi(g_TextRotated90)
+/*  f15660c:	8d29fac8 */ 	lw	$t1,%lo(g_TextRotated90)($t1)
 /*  f156610:	02a01025 */ 	or	$v0,$s5,$zero
 /*  f156614:	11200012 */ 	beqz	$t1,.L0f156660
 /*  f156618:	00000000 */ 	nop
@@ -10525,13 +10523,13 @@ glabel func0f156a24
 /*  f156a60:	90ed0002 */ 	lbu	$t5,0x2($a3)
 /*  f156a64:	90ee0002 */ 	lbu	$t6,0x2($a3)
 /*  f156a68:	016d6021 */ 	addu	$t4,$t3,$t5
-/*  f156a6c:	3c188008 */ 	lui	$t8,%hi(var8007fac8)
+/*  f156a6c:	3c188008 */ 	lui	$t8,%hi(g_TextRotated90)
 /*  f156a70:	010e1021 */ 	addu	$v0,$t0,$t6
 /*  f156a74:	244f0002 */ 	addiu	$t7,$v0,0x2
 /*  f156a78:	018f082a */ 	slt	$at,$t4,$t7
 /*  f156a7c:	5420007a */ 	bnezl	$at,.L0f156c68
 /*  f156a80:	0188082a */ 	slt	$at,$t4,$t0
-/*  f156a84:	8f18fac8 */ 	lw	$t8,%lo(var8007fac8)($t8)
+/*  f156a84:	8f18fac8 */ 	lw	$t8,%lo(g_TextRotated90)($t8)
 /*  f156a88:	3c088008 */ 	lui	$t0,%hi(var8007fad0)
 /*  f156a8c:	2508fad0 */ 	addiu	$t0,$t0,%lo(var8007fad0)
 /*  f156a90:	1300003e */ 	beqz	$t8,.L0f156b8c
