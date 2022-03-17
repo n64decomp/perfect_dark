@@ -147,33 +147,31 @@ struct crashdescription g_CrashFpcsrDescriptions[] = {
 char (*g_CrashCharBuffer)[71] = NULL;
 
 #if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
-u32 var8005f138nb = 0;
-
-u32 var8005f13cnb[] = {
-	0x22220200, 0x55000000, 0x05f5f500, 0x27427200,
-	0x05124500, 0x34255300, 0x22000000, 0x24444420,
-	0x42222240, 0x06f6f600, 0x00272000, 0x00000240,
-	0x00070000, 0x00000200, 0x11224480, 0x25555200,
-	0x26222700, 0x25125700, 0x61211600, 0x33557300,
-	0x64611600, 0x24655200, 0x71112200, 0x25755200,
-	0x25531600, 0x00200200, 0x00200640, 0x01242100,
-	0x00707000, 0x04212400, 0x07120200, 0x25ff5700,
-	0x02557d00, 0x06575e00, 0x07445300, 0x07555600,
-	0x07565700, 0x07564400, 0x07c95700, 0x05575500,
-	0x07222700, 0x03111600, 0x05665500, 0x04445f00,
-	0x0dff9d00, 0x0f777d00, 0x07dd5700, 0x07564600,
-	0x07995770, 0x07565500, 0x07461e00, 0x07222200,
-	0x0d999600, 0x0d552200, 0x0df77500, 0x0d625500,
-	0x05622600, 0x07125700, 0x32222230, 0x44222110,
-	0x62222260, 0x25000000, 0x00000700, 0x42200000,
-	0x0067d700, 0x44755700, 0x00788600, 0x117dd700,
-	0x006fc700, 0x32722700, 0x007dd730, 0x44755500,
-	0x02622700, 0x02711130, 0x44766500, 0x62222700,
-	0x00ffff00, 0x00755d00, 0x006dd600, 0x00755740,
-	0x00799710, 0x00744600, 0x00775700, 0x02722300,
-	0x00555700, 0x00552200, 0x00577500, 0x00562500,
-	0x00552220, 0x00703700, 0x12242210, 0x02222220,
-	0x42212240, 0x005a0000,
+u32 var8005f138nb[] = {
+	0x00000000, 0x22220200, 0x55000000, 0x05f5f500,
+	0x27427200, 0x05124500, 0x34255300, 0x22000000,
+	0x24444420, 0x42222240, 0x06f6f600, 0x00272000,
+	0x00000240, 0x00070000, 0x00000200, 0x11224480,
+	0x25555200, 0x26222700, 0x25125700, 0x61211600,
+	0x33557300, 0x64611600, 0x24655200, 0x71112200,
+	0x25755200, 0x25531600, 0x00200200, 0x00200640,
+	0x01242100, 0x00707000, 0x04212400, 0x07120200,
+	0x25ff5700, 0x02557d00, 0x06575e00, 0x07445300,
+	0x07555600, 0x07565700, 0x07564400, 0x07c95700,
+	0x05575500, 0x07222700, 0x03111600, 0x05665500,
+	0x04445f00, 0x0dff9d00, 0x0f777d00, 0x07dd5700,
+	0x07564600, 0x07995770, 0x07565500, 0x07461e00,
+	0x07222200, 0x0d999600, 0x0d552200, 0x0df77500,
+	0x0d625500, 0x05622600, 0x07125700, 0x32222230,
+	0x44222110, 0x62222260, 0x25000000, 0x00000700,
+	0x42200000, 0x0067d700, 0x44755700, 0x00788600,
+	0x117dd700, 0x006fc700, 0x32722700, 0x007dd730,
+	0x44755500, 0x02622700, 0x02711130, 0x44766500,
+	0x62222700, 0x00ffff00, 0x00755d00, 0x006dd600,
+	0x00755740, 0x00799710, 0x00744600, 0x00775700,
+	0x02722300, 0x00555700, 0x00552200, 0x00577500,
+	0x00562500, 0x00552220, 0x00703700, 0x12242210,
+	0x02222220, 0x42212240, 0x005a0000,
 };
 #endif
 
@@ -1392,200 +1390,8 @@ void crashScroll(s32 numlines)
 	}
 }
 
-#if VERSION == VERSION_PAL_BETA
-GLOBAL_ASM(
-glabel crashRenderChar
-/*  cb44:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  cb48:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  cb4c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  cb50:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  cb54:	0c002e4d */ 	jal	viGetWidth
-/*  cb58:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  cb5c:	93a30023 */ 	lbu	$v1,0x23($sp)
-/*  cb60:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  cb64:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  cb68:	54600003 */ 	bnezl	$v1,.PB0000cb78
-/*  cb6c:	28610020 */ 	slti	$at,$v1,0x20
-/*  cb70:	24030020 */ 	li	$v1,0x20
-/*  cb74:	28610020 */ 	slti	$at,$v1,0x20
-.PB0000cb78:
-/*  cb78:	1420003d */ 	bnez	$at,.PB0000cc70
-/*  cb7c:	2861007f */ 	slti	$at,$v1,0x7f
-/*  cb80:	1020003b */ 	beqz	$at,.PB0000cc70
-/*  cb84:	38490280 */ 	xori	$t1,$v0,0x280
-/*  cb88:	2d290001 */ 	sltiu	$t1,$t1,0x1
-/*  cb8c:	1120000a */ 	beqz	$t1,.PB0000cbb8
-/*  cb90:	00006025 */ 	move	$t4,$zero
-/*  cb94:	00c20019 */ 	multu	$a2,$v0
-/*  cb98:	3c188006 */ 	lui	$t8,0x8006
-/*  cb9c:	8f18e4a4 */ 	lw	$t8,-0x1b5c($t8)
-/*  cba0:	00057880 */ 	sll	$t7,$a1,0x2
-/*  cba4:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  cba8:	00007012 */ 	mflo	$t6
-/*  cbac:	000e7840 */ 	sll	$t7,$t6,0x1
-/*  cbb0:	10000009 */ 	b	.PB0000cbd8
-/*  cbb4:	032f2021 */ 	addu	$a0,$t9,$t7
-.PB0000cbb8:
-/*  cbb8:	00c20019 */ 	multu	$a2,$v0
-/*  cbbc:	3c0e8006 */ 	lui	$t6,0x8006
-/*  cbc0:	8dcee4a4 */ 	lw	$t6,-0x1b5c($t6)
-/*  cbc4:	0005c040 */ 	sll	$t8,$a1,0x1
-/*  cbc8:	030ec821 */ 	addu	$t9,$t8,$t6
-/*  cbcc:	00007812 */ 	mflo	$t7
-/*  cbd0:	000fc040 */ 	sll	$t8,$t7,0x1
-/*  cbd4:	03382021 */ 	addu	$a0,$t9,$t8
-.PB0000cbd8:
-/*  cbd8:	00037080 */ 	sll	$t6,$v1,0x2
-/*  cbdc:	3c068006 */ 	lui	$a2,0x8006
-/*  cbe0:	00ce3021 */ 	addu	$a2,$a2,$t6
-/*  cbe4:	8cc6e2a8 */ 	lw	$a2,-0x1d58($a2)
-/*  cbe8:	00026840 */ 	sll	$t5,$v0,0x1
-/*  cbec:	241f0007 */ 	li	$ra,0x7
-/*  cbf0:	240b0004 */ 	li	$t3,0x4
-/*  cbf4:	3c0a8000 */ 	lui	$t2,0x8000
-/*  cbf8:	24080001 */ 	li	$t0,0x1
-/*  cbfc:	24077bdf */ 	li	$a3,0x7bdf
-/*  cc00:	00002825 */ 	move	$a1,$zero
-.PB0000cc04:
-/*  cc04:	00ca1824 */ 	and	$v1,$a2,$t2
-/*  cc08:	10600003 */ 	beqz	$v1,.PB0000cc18
-/*  cc0c:	00067840 */ 	sll	$t7,$a2,0x1
-/*  cc10:	10000002 */ 	b	.PB0000cc1c
-/*  cc14:	a4870000 */ 	sh	$a3,0x0($a0)
-.PB0000cc18:
-/*  cc18:	a4880000 */ 	sh	$t0,0x0($a0)
-.PB0000cc1c:
-/*  cc1c:	11200006 */ 	beqz	$t1,.PB0000cc38
-/*  cc20:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  cc24:	50600004 */ 	beqzl	$v1,.PB0000cc38
-/*  cc28:	a4880002 */ 	sh	$t0,0x2($a0)
-/*  cc2c:	10000002 */ 	b	.PB0000cc38
-/*  cc30:	a4870002 */ 	sh	$a3,0x2($a0)
-/*  cc34:	a4880002 */ 	sh	$t0,0x2($a0)
-.PB0000cc38:
-/*  cc38:	11200002 */ 	beqz	$t1,.PB0000cc44
-/*  cc3c:	24840002 */ 	addiu	$a0,$a0,0x2
-/*  cc40:	24840002 */ 	addiu	$a0,$a0,0x2
-.PB0000cc44:
-/*  cc44:	14abffef */ 	bne	$a1,$t3,.PB0000cc04
-/*  cc48:	01e03025 */ 	move	$a2,$t7
-/*  cc4c:	11200004 */ 	beqz	$t1,.PB0000cc60
-/*  cc50:	258c0001 */ 	addiu	$t4,$t4,0x1
-/*  cc54:	008d2021 */ 	addu	$a0,$a0,$t5
-/*  cc58:	10000003 */ 	b	.PB0000cc68
-/*  cc5c:	2484fff0 */ 	addiu	$a0,$a0,-16
-.PB0000cc60:
-/*  cc60:	008d2021 */ 	addu	$a0,$a0,$t5
-/*  cc64:	2484fff8 */ 	addiu	$a0,$a0,-8
-.PB0000cc68:
-/*  cc68:	559fffe6 */ 	bnel	$t4,$ra,.PB0000cc04
-/*  cc6c:	00002825 */ 	move	$a1,$zero
-.PB0000cc70:
-/*  cc70:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  cc74:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  cc78:	03e00008 */ 	jr	$ra
-/*  cc7c:	00000000 */ 	nop
-);
-#elif VERSION == VERSION_NTSC_BETA
-GLOBAL_ASM(
-glabel crashRenderChar
-/*     d398:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     d39c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     d3a0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*     d3a4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*     d3a8:	0c002f77 */ 	jal	viGetWidth
-/*     d3ac:	afa60020 */ 	sw	$a2,0x20($sp)
-/*     d3b0:	93a30023 */ 	lbu	$v1,0x23($sp)
-/*     d3b4:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*     d3b8:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*     d3bc:	54600003 */ 	bnezl	$v1,.NB0000d3cc
-/*     d3c0:	28610020 */ 	slti	$at,$v1,0x20
-/*     d3c4:	24030020 */ 	addiu	$v1,$zero,0x20
-/*     d3c8:	28610020 */ 	slti	$at,$v1,0x20
-.NB0000d3cc:
-/*     d3cc:	1420003d */ 	bnez	$at,.NB0000d4c4
-/*     d3d0:	2861007f */ 	slti	$at,$v1,0x7f
-/*     d3d4:	1020003b */ 	beqz	$at,.NB0000d4c4
-/*     d3d8:	38490280 */ 	xori	$t1,$v0,0x280
-/*     d3dc:	2d290001 */ 	sltiu	$t1,$t1,0x1
-/*     d3e0:	1120000a */ 	beqz	$t1,.NB0000d40c
-/*     d3e4:	00006025 */ 	or	$t4,$zero,$zero
-/*     d3e8:	00c20019 */ 	multu	$a2,$v0
-/*     d3ec:	3c188006 */ 	lui	$t8,0x8006
-/*     d3f0:	8f18f2b4 */ 	lw	$t8,-0xd4c($t8)
-/*     d3f4:	00057880 */ 	sll	$t7,$a1,0x2
-/*     d3f8:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*     d3fc:	00007012 */ 	mflo	$t6
-/*     d400:	000e7840 */ 	sll	$t7,$t6,0x1
-/*     d404:	10000009 */ 	beqz	$zero,.NB0000d42c
-/*     d408:	032f2021 */ 	addu	$a0,$t9,$t7
-.NB0000d40c:
-/*     d40c:	00c20019 */ 	multu	$a2,$v0
-/*     d410:	3c0e8006 */ 	lui	$t6,0x8006
-/*     d414:	8dcef2b4 */ 	lw	$t6,-0xd4c($t6)
-/*     d418:	0005c040 */ 	sll	$t8,$a1,0x1
-/*     d41c:	030ec821 */ 	addu	$t9,$t8,$t6
-/*     d420:	00007812 */ 	mflo	$t7
-/*     d424:	000fc040 */ 	sll	$t8,$t7,0x1
-/*     d428:	03382021 */ 	addu	$a0,$t9,$t8
-.NB0000d42c:
-/*     d42c:	00037080 */ 	sll	$t6,$v1,0x2
-/*     d430:	3c068006 */ 	lui	$a2,0x8006
-/*     d434:	00ce3021 */ 	addu	$a2,$a2,$t6
-/*     d438:	8cc6f0b8 */ 	lw	$a2,-0xf48($a2)
-/*     d43c:	00026840 */ 	sll	$t5,$v0,0x1
-/*     d440:	241f0007 */ 	addiu	$ra,$zero,0x7
-/*     d444:	240b0004 */ 	addiu	$t3,$zero,0x4
-/*     d448:	3c0a8000 */ 	lui	$t2,0x8000
-/*     d44c:	24080001 */ 	addiu	$t0,$zero,0x1
-/*     d450:	3407ffff */ 	dli	$a3,0xffff
-/*     d454:	00002825 */ 	or	$a1,$zero,$zero
-.NB0000d458:
-/*     d458:	00ca1824 */ 	and	$v1,$a2,$t2
-/*     d45c:	10600003 */ 	beqz	$v1,.NB0000d46c
-/*     d460:	00067840 */ 	sll	$t7,$a2,0x1
-/*     d464:	10000002 */ 	beqz	$zero,.NB0000d470
-/*     d468:	a4870000 */ 	sh	$a3,0x0($a0)
-.NB0000d46c:
-/*     d46c:	a4880000 */ 	sh	$t0,0x0($a0)
-.NB0000d470:
-/*     d470:	11200006 */ 	beqz	$t1,.NB0000d48c
-/*     d474:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*     d478:	50600004 */ 	beqzl	$v1,.NB0000d48c
-/*     d47c:	a4880002 */ 	sh	$t0,0x2($a0)
-/*     d480:	10000002 */ 	beqz	$zero,.NB0000d48c
-/*     d484:	a4870002 */ 	sh	$a3,0x2($a0)
-/*     d488:	a4880002 */ 	sh	$t0,0x2($a0)
-.NB0000d48c:
-/*     d48c:	11200002 */ 	beqz	$t1,.NB0000d498
-/*     d490:	24840002 */ 	addiu	$a0,$a0,0x2
-/*     d494:	24840002 */ 	addiu	$a0,$a0,0x2
-.NB0000d498:
-/*     d498:	14abffef */ 	bne	$a1,$t3,.NB0000d458
-/*     d49c:	01e03025 */ 	or	$a2,$t7,$zero
-/*     d4a0:	11200004 */ 	beqz	$t1,.NB0000d4b4
-/*     d4a4:	258c0001 */ 	addiu	$t4,$t4,0x1
-/*     d4a8:	008d2021 */ 	addu	$a0,$a0,$t5
-/*     d4ac:	10000003 */ 	beqz	$zero,.NB0000d4bc
-/*     d4b0:	2484fff0 */ 	addiu	$a0,$a0,-16
-.NB0000d4b4:
-/*     d4b4:	008d2021 */ 	addu	$a0,$a0,$t5
-/*     d4b8:	2484fff8 */ 	addiu	$a0,$a0,-8
-.NB0000d4bc:
-/*     d4bc:	559fffe6 */ 	bnel	$t4,$ra,.NB0000d458
-/*     d4c0:	00002825 */ 	or	$a1,$zero,$zero
-.NB0000d4c4:
-/*     d4c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     d4c8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     d4cc:	03e00008 */ 	jr	$ra
-/*     d4d0:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#else
 /**
  * Render a character to the crash buffer.
- *
- * It looks like the character rendering code has been removed however,
- * so it's just borders that remain.
  */
 void crashRenderChar(s32 x, s32 y, char c)
 {
@@ -1615,22 +1421,33 @@ void crashRenderChar(s32 x, s32 y, char c)
 		fbpos = g_CrashFrameBuffer + x + y * width;
 	}
 
+#if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
+	a2 = var8005f138nb[c - ' '];
+#else
 	a2 = 0;
+#endif
 
 	for (i = 0; i < 7; i++) {
 		for (j = 0; j < 4; j++) {
-			// gray occurs every 32nd pixel
 			u32 gray = a2 & 0x80000000;
 
 			if (gray) {
-				fbpos[0] = GPACK_RGBA5551(120, 120, 120, 1);
+#if VERSION == VERSION_NTSC_BETA
+				fbpos[0] = GPACK_RGBA5551(0xff, 0xff, 0xff, 1);
+#else
+				fbpos[0] = GPACK_RGBA5551(0x78, 0x78, 0x78, 1);
+#endif
 			} else {
 				fbpos[0] = GPACK_RGBA5551(0, 0, 0, 1);
 			}
 
 			if (hires) {
 				if (gray) {
-					fbpos[1] = GPACK_RGBA5551(120, 120, 120, 1);
+#if VERSION == VERSION_NTSC_BETA
+					fbpos[1] = GPACK_RGBA5551(0xff, 0xff, 0xff, 1);
+#else
+					fbpos[1] = GPACK_RGBA5551(0x78, 0x78, 0x78, 1);
+#endif
 				} else {
 					fbpos[1] = GPACK_RGBA5551(0, 0, 0, 1);
 				}
@@ -1654,7 +1471,6 @@ void crashRenderChar(s32 x, s32 y, char c)
 		}
 	}
 }
-#endif
 
 void crashReset(void)
 {
