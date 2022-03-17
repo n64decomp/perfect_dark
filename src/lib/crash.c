@@ -514,7 +514,7 @@ glabel func0000c4f0nb
 
 #if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0000c52cnb
+glabel crash0000c52cnb
 /*     c52c:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*     c530:	afa40020 */ 	sw	$a0,0x20($sp)
 /*     c534:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -578,7 +578,7 @@ glabel func0000c5d8nb
 /*     c600:	02608025 */ 	or	$s0,$s3,$zero
 /*     c604:	2652710c */ 	addiu	$s2,$s2,0x710c
 .NB0000c608:
-/*     c608:	0c00314b */ 	jal	func0000c52cnb
+/*     c608:	0c00314b */ 	jal	crash0000c52cnb
 /*     c60c:	02002025 */ 	or	$a0,$s0,$zero
 /*     c610:	8e430000 */ 	lw	$v1,0x0($s2)
 /*     c614:	0223082b */ 	sltu	$at,$s1,$v1
@@ -592,7 +592,7 @@ glabel func0000c5d8nb
 /*     c630:	1000fff5 */ 	beqz	$zero,.NB0000c608
 /*     c634:	00408025 */ 	or	$s0,$v0,$zero
 .NB0000c638:
-/*     c638:	0c00314b */ 	jal	func0000c52cnb
+/*     c638:	0c00314b */ 	jal	crash0000c52cnb
 /*     c63c:	02602025 */ 	or	$a0,$s3,$zero
 /*     c640:	24020001 */ 	addiu	$v0,$zero,0x1
 .NB0000c644:
@@ -607,22 +607,12 @@ glabel func0000c5d8nb
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0000c660nb
-/*     c660:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     c664:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     c668:	0c00314b */ 	jal	func0000c52cnb
-/*     c66c:	3c0400e0 */ 	lui	$a0,0xe0
-/*     c670:	3c028009 */ 	lui	$v0,0x8009
-/*     c674:	8c42710c */ 	lw	$v0,0x710c($v0)
-/*     c678:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     c67c:	3c018264 */ 	lui	$at,0x8264
-/*     c680:	342175be */ 	ori	$at,$at,0x75be
-/*     c684:	00417026 */ 	xor	$t6,$v0,$at
-/*     c688:	2dc20001 */ 	sltiu	$v0,$t6,0x1
-/*     c68c:	03e00008 */ 	jr	$ra
-/*     c690:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+bool crash0000c660nb(void)
+{
+	crash0000c52cnb(0xe00000);
+
+	return var8009710cnb == 0x826475be;
+}
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
