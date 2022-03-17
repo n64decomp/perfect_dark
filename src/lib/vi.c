@@ -2627,12 +2627,10 @@ void vi0000bd5cnb(s32 arg0)
 	var8005d588 = arg0;
 }
 
-GLOBAL_ASM(
-glabel vi0000bd68nb
-/*     bd68:	3c028006 */ 	lui	$v0,0x8006
-/*     bd6c:	03e00008 */ 	jr	$ra
-/*     bd70:	8c42ed28 */ 	lw	$v0,-0x12d8($v0)
-);
+s32 vi0000bd68nb(void)
+{
+	return var8005d588;
+}
 #endif
 
 void viSetBufSize(s16 width, s16 height)
