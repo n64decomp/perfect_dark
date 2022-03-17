@@ -179,12 +179,10 @@ void func0f1531c4(s32 arg0)
 	var8007facc = arg0;
 }
 
-GLOBAL_ASM(
-glabel func0f1531d0
-/*  f1531d0:	3c018008 */ 	lui	$at,%hi(var8007fad4)
-/*  f1531d4:	03e00008 */ 	jr	$ra
-/*  f1531d8:	ac24fad4 */ 	sw	$a0,%lo(var8007fad4)($at)
-);
+void func0f1531d0(s32 arg0)
+{
+	var8007fad4 = arg0;
+}
 
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
