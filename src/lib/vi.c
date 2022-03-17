@@ -2612,12 +2612,10 @@ Gfx *viRenderViewportEdges(Gfx *gdl)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel vi0000bd44nb
-/*     bd44:	3c018006 */ 	lui	$at,0x8006
-/*     bd48:	03e00008 */ 	jr	$ra
-/*     bd4c:	ac24ed2c */ 	sw	$a0,-0x12d4($at)
-);
+void vi0000bd44nb(s32 arg0)
+{
+	var8005d58c = arg0;
+}
 
 GLOBAL_ASM(
 glabel vi0000bd50nb
