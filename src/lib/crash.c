@@ -25,6 +25,12 @@ u8 g_FaultStack[STACKSIZE_FAULT];
 OSMesgQueue g_FaultMesgQueue;
 OSMesg g_FaultMesg;
 
+#if VERSION < VERSION_NTSC_1_0
+s32 var80097104nb;
+s32 var80097108nb;
+s32 var8009710cnb;
+#endif
+
 u8 g_CrashHasMessage = false;
 s16 g_CrashCurX = 0;
 s16 g_CrashCurY = 0;
@@ -702,22 +708,10 @@ glabel func0000c714nb
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-const char var70053fe8nb[] = "%08x";
-
-GLOBAL_ASM(
-glabel func0000c794nb
-/*     c794:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     c798:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     c79c:	3c047005 */ 	lui	$a0,0x7005
-/*     c7a0:	3c058009 */ 	lui	$a1,0x8009
-/*     c7a4:	8ca5710c */ 	lw	$a1,0x710c($a1)
-/*     c7a8:	0c00c47d */ 	jal	rmonPrintf
-/*     c7ac:	24843fe8 */ 	addiu	$a0,$a0,0x3fe8
-/*     c7b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     c7b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     c7b8:	03e00008 */ 	jr	$ra
-/*     c7bc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void crash0000c794nb(void)
+{
+	rmonPrintf("%08x", var8009710cnb);
+}
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
