@@ -28,7 +28,7 @@ OSMesg g_FaultMesg;
 #if VERSION < VERSION_NTSC_1_0
 s32 var80097104nb;
 s32 var80097108nb;
-s32 var8009710cnb;
+u32 var8009710cnb;
 #endif
 
 u8 g_CrashHasMessage = false;
@@ -715,12 +715,10 @@ void crash0000c794nb(void)
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0000c7c0nb
-/*     c7c0:	3c028009 */ 	lui	$v0,0x8009
-/*     c7c4:	03e00008 */ 	jr	$ra
-/*     c7c8:	8c42710c */ 	lw	$v0,0x710c($v0)
-);
+u32 crash0000c7c0nb(void)
+{
+	return var8009710cnb;
+}
 #endif
 
 u32 crashGetStackEnd(u32 sp, s32 tid)
