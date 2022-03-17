@@ -32,7 +32,7 @@ u32 var8009710cnb;
 #endif
 
 #if VERSION == VERSION_NTSC_BETA
-u32 var80097110nb;
+char *var80097110nb;
 char *var80097114nb;
 u8 var80097118nb[0x948];
 #elif VERSION == VERSION_PAL_BETA
@@ -626,48 +626,23 @@ glabel func0000c660nb
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-const char var70053fd0nb[] = "%.49s";
-const char var70053fd8nb[] = "???";
+void crash0000c694nb(void)
+{
+	s32 numvalid = 0;
+	s32 i;
 
-GLOBAL_ASM(
-glabel func0000c694nb
-/*     c694:	3c078009 */ 	lui	$a3,0x8009
-/*     c698:	8ce77110 */ 	lw	$a3,0x7110($a3)
-/*     c69c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     c6a0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     c6a4:	00002825 */ 	or	$a1,$zero,$zero
-/*     c6a8:	00001025 */ 	or	$v0,$zero,$zero
-/*     c6ac:	24060004 */ 	addiu	$a2,$zero,0x4
-/*     c6b0:	00e01825 */ 	or	$v1,$a3,$zero
-.NB0000c6b4:
-/*     c6b4:	90640000 */ 	lbu	$a0,0x0($v1)
-/*     c6b8:	24420001 */ 	addiu	$v0,$v0,0x1
-/*     c6bc:	28810021 */ 	slti	$at,$a0,0x21
-/*     c6c0:	14200004 */ 	bnez	$at,.NB0000c6d4
-/*     c6c4:	28810080 */ 	slti	$at,$a0,0x80
-/*     c6c8:	10200002 */ 	beqz	$at,.NB0000c6d4
-/*     c6cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     c6d0:	24a50001 */ 	addiu	$a1,$a1,0x1
-.NB0000c6d4:
-/*     c6d4:	1446fff7 */ 	bne	$v0,$a2,.NB0000c6b4
-/*     c6d8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*     c6dc:	14a60007 */ 	bne	$a1,$a2,.NB0000c6fc
-/*     c6e0:	3c047005 */ 	lui	$a0,0x7005
-/*     c6e4:	3c047005 */ 	lui	$a0,0x7005
-/*     c6e8:	24843fd0 */ 	addiu	$a0,$a0,0x3fd0
-/*     c6ec:	0c00c47d */ 	jal	rmonPrintf
-/*     c6f0:	00e02825 */ 	or	$a1,$a3,$zero
-/*     c6f4:	10000004 */ 	beqz	$zero,.NB0000c708
-/*     c6f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0000c6fc:
-/*     c6fc:	0c00c47d */ 	jal	rmonPrintf
-/*     c700:	24843fd8 */ 	addiu	$a0,$a0,0x3fd8
-/*     c704:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0000c708:
-/*     c708:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     c70c:	03e00008 */ 	jr	$ra
-/*     c710:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	for (i = 0; i < 4; i++) {
+		if (var80097110nb[i] >= '!' && var80097110nb[i] <= 0x7f) {
+			numvalid++;
+		}
+	}
+
+	if (numvalid == 4) {
+		rmonPrintf("%.49s", var80097110nb);
+	} else {
+		rmonPrintf("???");
+	}
+}
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
