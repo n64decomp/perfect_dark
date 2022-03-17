@@ -8084,12 +8084,10 @@ glabel func0f15568c
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f156024
-/*  f156024:	3c018008 */ 	lui	$at,%hi(var8007fbd8)
-/*  f156028:	03e00008 */ 	jr	$ra
-/*  f15602c:	ac24fbd8 */ 	sw	$a0,%lo(var8007fbd8)($at)
-);
+void func0f156024(s32 arg0)
+{
+	var8007fbd8 = arg0;
+}
 
 void func0f156030(u32 colour)
 {
