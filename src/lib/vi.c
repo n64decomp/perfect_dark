@@ -2617,12 +2617,10 @@ void vi0000bd44nb(s32 arg0)
 	var8005d58c = arg0;
 }
 
-GLOBAL_ASM(
-glabel vi0000bd50nb
-/*     bd50:	3c028006 */ 	lui	$v0,0x8006
-/*     bd54:	03e00008 */ 	jr	$ra
-/*     bd58:	8c42ed2c */ 	lw	$v0,-0x12d4($v0)
-);
+s32 vi0000bd50nb(void)
+{
+	return var8005d58c;
+}
 
 GLOBAL_ASM(
 glabel vi0000bd5cnb
