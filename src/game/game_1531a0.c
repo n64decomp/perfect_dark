@@ -8091,12 +8091,10 @@ glabel func0f156024
 /*  f15602c:	ac24fbd8 */ 	sw	$a0,%lo(var8007fbd8)($at)
 );
 
-GLOBAL_ASM(
-glabel func0f156030
-/*  f156030:	3c01800a */ 	lui	$at,%hi(var800a463c)
-/*  f156034:	03e00008 */ 	jr	$ra
-/*  f156038:	ac24463c */ 	sw	$a0,%lo(var800a463c)($at)
-);
+void func0f156030(u32 colour)
+{
+	var800a463c = colour;
+}
 
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
