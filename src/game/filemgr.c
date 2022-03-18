@@ -72,7 +72,7 @@ glabel func0f1088d0pf
 /*  f1088e8:	3c02800a */ 	lui	$v0,0x800a
 /*  f1088ec:	2442a510 */ 	addiu	$v0,$v0,-23280
 /*  f1088f0:	a44e0482 */ 	sh	$t6,0x482($v0)
-/*  f1088f4:	0fc5bdd7 */ 	jal	func0f16f75c
+/*  f1088f4:	0fc5bdd7 */ 	jal	lang0f16f75c
 /*  f1088f8:	31c4ffff */ 	andi	$a0,$t6,0xffff
 /*  f1088fc:	0fc3cf8c */ 	jal	menuPopDialog
 /*  f108900:	00000000 */ 	nop
@@ -95,7 +95,7 @@ glabel func0f1088d0pf
 /*  f108648:	3c02800a */ 	lui	$v0,0x800a
 /*  f10864c:	2442e4d0 */ 	addiu	$v0,$v0,-6960
 /*  f108650:	a44e0482 */ 	sh	$t6,0x482($v0)
-/*  f108654:	0fc5c097 */ 	jal	func0f16f75c
+/*  f108654:	0fc5c097 */ 	jal	lang0f16f75c
 /*  f108658:	31c4ffff */ 	andi	$a0,$t6,0xffff
 /*  f10865c:	0fc3cf12 */ 	jal	menuPopDialog
 /*  f108660:	00000000 */ 	nop

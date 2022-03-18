@@ -973,222 +973,47 @@ glabel func0f16f6ecpf
 );
 #endif
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel func0f16f75c
-.late_rodata
-glabel var7f1b9080pf
-.word func0f16f75c+0x58
-.word func0f16f75c+0x64
-.word func0f16f75c+0x74
-.word func0f16f75c+0x84
-.word func0f16f75c+0x94
-.word func0f16f75c+0xa4
-.text
-/*  f16eb48:	3c0e800b */ 	lui	$t6,0x800b
-/*  f16eb4c:	8dceb53c */ 	lw	$t6,-0x4ac4($t6)
-/*  f16eb50:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f16eb54:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16eb58:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f16eb5c:	11c00002 */ 	beqz	$t6,.JF0f16eb68
-/*  f16eb60:	00001025 */ 	move	$v0,$zero
-/*  f16eb64:	24020001 */ 	li	$v0,0x1
-.JF0f16eb68:
-/*  f16eb68:	10400004 */ 	beqz	$v0,.JF0f16eb7c
-/*  f16eb6c:	27a4001f */ 	addiu	$a0,$sp,0x1f
-/*  f16eb70:	0fc622a3 */ 	jal	mpGetTeamsWithDefaultName
-/*  f16eb74:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f16eb78:	8fa20018 */ 	lw	$v0,0x18($sp)
-.JF0f16eb7c:
-/*  f16eb7c:	8faf0020 */ 	lw	$t7,0x20($sp)
-/*  f16eb80:	2de10006 */ 	sltiu	$at,$t7,0x6
-/*  f16eb84:	1020001c */ 	beqz	$at,.JF0f16ebf8
-/*  f16eb88:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f16eb8c:	3c017f1c */ 	lui	$at,0x7f1c
-/*  f16eb90:	002f0821 */ 	addu	$at,$at,$t7
-/*  f16eb94:	8c2f8980 */ 	lw	$t7,-0x7680($at)
-/*  f16eb98:	01e00008 */ 	jr	$t7
-/*  f16eb9c:	00000000 */ 	nop
-/*  f16eba0:	3c018008 */ 	lui	$at,0x8008
-/*  f16eba4:	10000014 */ 	b	.JF0f16ebf8
-/*  f16eba8:	ac204780 */ 	sw	$zero,0x4780($at)
-/*  f16ebac:	24180002 */ 	li	$t8,0x2
-/*  f16ebb0:	3c018008 */ 	lui	$at,0x8008
-/*  f16ebb4:	10000010 */ 	b	.JF0f16ebf8
-/*  f16ebb8:	ac384780 */ 	sw	$t8,0x4780($at)
-/*  f16ebbc:	24190001 */ 	li	$t9,0x1
-/*  f16ebc0:	3c018008 */ 	lui	$at,0x8008
-/*  f16ebc4:	1000000c */ 	b	.JF0f16ebf8
-/*  f16ebc8:	ac394780 */ 	sw	$t9,0x4780($at)
-/*  f16ebcc:	24080004 */ 	li	$t0,0x4
-/*  f16ebd0:	3c018008 */ 	lui	$at,0x8008
-/*  f16ebd4:	10000008 */ 	b	.JF0f16ebf8
-/*  f16ebd8:	ac284780 */ 	sw	$t0,0x4780($at)
-/*  f16ebdc:	24090003 */ 	li	$t1,0x3
-/*  f16ebe0:	3c018008 */ 	lui	$at,0x8008
-/*  f16ebe4:	10000004 */ 	b	.JF0f16ebf8
-/*  f16ebe8:	ac294780 */ 	sw	$t1,0x4780($at)
-/*  f16ebec:	240afffe */ 	li	$t2,-2
-/*  f16ebf0:	3c018008 */ 	lui	$at,0x8008
-/*  f16ebf4:	ac2a4780 */ 	sw	$t2,0x4780($at)
-.JF0f16ebf8:
-/*  f16ebf8:	0fc5bab6 */ 	jal	func0f16f6ecpf
-/*  f16ebfc:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f16ec00:	8fa20018 */ 	lw	$v0,0x18($sp)
-/*  f16ec04:	50400004 */ 	beqzl	$v0,.JF0f16ec18
-/*  f16ec08:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16ec0c:	0fc622c5 */ 	jal	mpSetTeamNamesToDefault
-/*  f16ec10:	93a4001f */ 	lbu	$a0,0x1f($sp)
-/*  f16ec14:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.JF0f16ec18:
-/*  f16ec18:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f16ec1c:	03e00008 */ 	jr	$ra
-/*  f16ec20:	00000000 */ 	nop
-);
-#elif VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel func0f16f75c
-.late_rodata
-glabel var7f1b9080pf
-.word func0f16f75c+0x58
-.word func0f16f75c+0x64
-.word func0f16f75c+0x74
-.word func0f16f75c+0x84
-.word func0f16f75c+0x94
-.word func0f16f75c+0xa4
-.text
-/*  f16f75c:	3c0e800b */ 	lui	$t6,0x800b
-/*  f16f760:	8dceb0ec */ 	lw	$t6,-0x4f14($t6)
-/*  f16f764:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f16f768:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16f76c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f16f770:	11c00002 */ 	beqz	$t6,.PF0f16f77c
-/*  f16f774:	00001025 */ 	move	$v0,$zero
-/*  f16f778:	24020001 */ 	li	$v0,0x1
-.PF0f16f77c:
-/*  f16f77c:	10400004 */ 	beqz	$v0,.PF0f16f790
-/*  f16f780:	27a4001f */ 	addiu	$a0,$sp,0x1f
-/*  f16f784:	0fc624bf */ 	jal	mpGetTeamsWithDefaultName
-/*  f16f788:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f16f78c:	8fa20018 */ 	lw	$v0,0x18($sp)
-.PF0f16f790:
-/*  f16f790:	8faf0020 */ 	lw	$t7,0x20($sp)
-/*  f16f794:	2de10006 */ 	sltiu	$at,$t7,0x6
-/*  f16f798:	1020001c */ 	beqz	$at,.PF0f16f80c
-/*  f16f79c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f16f7a0:	3c017f1c */ 	lui	$at,0x7f1c
-/*  f16f7a4:	002f0821 */ 	addu	$at,$at,$t7
-/*  f16f7a8:	8c2f9080 */ 	lw	$t7,-0x6f80($at)
-/*  f16f7ac:	01e00008 */ 	jr	$t7
-/*  f16f7b0:	00000000 */ 	nop
-/*  f16f7b4:	3c018008 */ 	lui	$at,0x8008
-/*  f16f7b8:	10000014 */ 	b	.PF0f16f80c
-/*  f16f7bc:	ac204670 */ 	sw	$zero,0x4670($at)
-/*  f16f7c0:	24180002 */ 	li	$t8,0x2
-/*  f16f7c4:	3c018008 */ 	lui	$at,0x8008
-/*  f16f7c8:	10000010 */ 	b	.PF0f16f80c
-/*  f16f7cc:	ac384670 */ 	sw	$t8,0x4670($at)
-/*  f16f7d0:	24190001 */ 	li	$t9,0x1
-/*  f16f7d4:	3c018008 */ 	lui	$at,0x8008
-/*  f16f7d8:	1000000c */ 	b	.PF0f16f80c
-/*  f16f7dc:	ac394670 */ 	sw	$t9,0x4670($at)
-/*  f16f7e0:	24080004 */ 	li	$t0,0x4
-/*  f16f7e4:	3c018008 */ 	lui	$at,0x8008
-/*  f16f7e8:	10000008 */ 	b	.PF0f16f80c
-/*  f16f7ec:	ac284670 */ 	sw	$t0,0x4670($at)
-/*  f16f7f0:	24090003 */ 	li	$t1,0x3
-/*  f16f7f4:	3c018008 */ 	lui	$at,0x8008
-/*  f16f7f8:	10000004 */ 	b	.PF0f16f80c
-/*  f16f7fc:	ac294670 */ 	sw	$t1,0x4670($at)
-/*  f16f800:	240afffe */ 	li	$t2,-2
-/*  f16f804:	3c018008 */ 	lui	$at,0x8008
-/*  f16f808:	ac2a4670 */ 	sw	$t2,0x4670($at)
-.PF0f16f80c:
-/*  f16f80c:	0fc5bdbb */ 	jal	func0f16f6ecpf
-/*  f16f810:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f16f814:	8fa20018 */ 	lw	$v0,0x18($sp)
-/*  f16f818:	50400004 */ 	beqzl	$v0,.PF0f16f82c
-/*  f16f81c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16f820:	0fc624e1 */ 	jal	mpSetTeamNamesToDefault
-/*  f16f824:	93a4001f */ 	lbu	$a0,0x1f($sp)
-/*  f16f828:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.PF0f16f82c:
-/*  f16f82c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f16f830:	03e00008 */ 	jr	$ra
-/*  f16f834:	00000000 */ 	nop
-);
-#elif VERSION >= VERSION_PAL_BETA
-GLOBAL_ASM(
-glabel func0f16f75c
-.late_rodata
-glabel var7f1b9080pf
-.word 0x7f1702b4
-.word 0x7f1702c0
-.word 0x7f1702d0
-.word 0x7f1702e0
-.word 0x7f1702f0
-.word 0x7f170300
-.text
-/*  f17025c:	3c0e800b */ 	lui	$t6,0x800b
-/*  f170260:	8dcef16c */ 	lw	$t6,-0xe94($t6)
-/*  f170264:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f170268:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17026c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f170270:	11c00002 */ 	beqz	$t6,.PB0f17027c
-/*  f170274:	00001025 */ 	move	$v0,$zero
-/*  f170278:	24020001 */ 	li	$v0,0x1
-.PB0f17027c:
-/*  f17027c:	10400004 */ 	beqz	$v0,.PB0f170290
-/*  f170280:	27a4001f */ 	addiu	$a0,$sp,0x1f
-/*  f170284:	0fc6277f */ 	jal	mpGetTeamsWithDefaultName
-/*  f170288:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f17028c:	8fa20018 */ 	lw	$v0,0x18($sp)
-.PB0f170290:
-/*  f170290:	8faf0020 */ 	lw	$t7,0x20($sp)
-/*  f170294:	2de10006 */ 	sltiu	$at,$t7,0x6
-/*  f170298:	1020001c */ 	beqz	$at,.PB0f17030c
-/*  f17029c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1702a0:	3c017f1c */ 	lui	$at,0x7f1c
-/*  f1702a4:	002f0821 */ 	addu	$at,$at,$t7
-/*  f1702a8:	8c2f9dd0 */ 	lw	$t7,-0x6230($at)
-/*  f1702ac:	01e00008 */ 	jr	$t7
-/*  f1702b0:	00000000 */ 	nop
-/*  f1702b4:	3c018008 */ 	lui	$at,0x8008
-/*  f1702b8:	10000014 */ 	b	.PB0f17030c
-/*  f1702bc:	ac206600 */ 	sw	$zero,0x6600($at)
-/*  f1702c0:	24180002 */ 	li	$t8,0x2
-/*  f1702c4:	3c018008 */ 	lui	$at,0x8008
-/*  f1702c8:	10000010 */ 	b	.PB0f17030c
-/*  f1702cc:	ac386600 */ 	sw	$t8,0x6600($at)
-/*  f1702d0:	24190001 */ 	li	$t9,0x1
-/*  f1702d4:	3c018008 */ 	lui	$at,0x8008
-/*  f1702d8:	1000000c */ 	b	.PB0f17030c
-/*  f1702dc:	ac396600 */ 	sw	$t9,0x6600($at)
-/*  f1702e0:	24080004 */ 	li	$t0,0x4
-/*  f1702e4:	3c018008 */ 	lui	$at,0x8008
-/*  f1702e8:	10000008 */ 	b	.PB0f17030c
-/*  f1702ec:	ac286600 */ 	sw	$t0,0x6600($at)
-/*  f1702f0:	24090003 */ 	li	$t1,0x3
-/*  f1702f4:	3c018008 */ 	lui	$at,0x8008
-/*  f1702f8:	10000004 */ 	b	.PB0f17030c
-/*  f1702fc:	ac296600 */ 	sw	$t1,0x6600($at)
-/*  f170300:	240afffe */ 	li	$t2,-2
-/*  f170304:	3c018008 */ 	lui	$at,0x8008
-/*  f170308:	ac2a6600 */ 	sw	$t2,0x6600($at)
-.PB0f17030c:
-/*  f17030c:	0fc5c07b */ 	jal	func0f16f6ecpf
-/*  f170310:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f170314:	8fa20018 */ 	lw	$v0,0x18($sp)
-/*  f170318:	50400004 */ 	beqzl	$v0,.PB0f17032c
-/*  f17031c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f170320:	0fc627a1 */ 	jal	mpSetTeamNamesToDefault
-/*  f170324:	93a4001f */ 	lbu	$a0,0x1f($sp)
-/*  f170328:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.PB0f17032c:
-/*  f17032c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f170330:	03e00008 */ 	jr	$ra
-/*  f170334:	00000000 */ 	nop
-);
+#if VERSION >= VERSION_PAL_BETA
+void lang0f16f75c(u32 arg0)
+{
+	u8 teams;
+	bool hasoptionslang = false;
+
+	if (g_LangBanks[LANGBANK_OPTIONS] != NULL) {
+		hasoptionslang = true;
+	}
+
+	if (hasoptionslang) {
+		mpGetTeamsWithDefaultName(&teams);
+	}
+
+	switch (arg0) {
+	case 0:
+		g_LanguageId = LANGUAGE_PAL_EN;
+		break;
+	case 1:
+		g_LanguageId = LANGUAGE_PAL_DE;
+		break;
+	case 2:
+		g_LanguageId = LANGUAGE_PAL_FR;
+		break;
+	case 3:
+		g_LanguageId = LANGUAGE_PAL_ES;
+		break;
+	case 4:
+		g_LanguageId = LANGUAGE_PAL_IT;
+		break;
+	case 5:
+		g_LanguageId = -2;
+		break;
+	}
+
+	func0f16f6ecpf();
+
+	if (hasoptionslang) {
+		mpSetTeamNamesToDefault(teams);
+	}
+}
 #endif
 
 #if VERSION == VERSION_JPN_FINAL

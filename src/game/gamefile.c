@@ -134,7 +134,7 @@ void gamefileApplyOptions(struct gamefile *file)
 		g_Vars.unk000482 |= 0x04;
 	}
 
-	func0f16f75c(g_Vars.unk000482);
+	lang0f16f75c(g_Vars.unk000482);
 #endif
 }
 

@@ -80,7 +80,7 @@ glabel func0f01d860
 /*  f01d954:	2c810005 */ 	sltiu	$at,$a0,0x5
 /*  f01d958:	10200006 */ 	beqz	$at,.PF0f01d974
 /*  f01d95c:	00000000 */ 	nop
-/*  f01d960:	0fc5bdd7 */ 	jal	func0f16f75c
+/*  f01d960:	0fc5bdd7 */ 	jal	lang0f16f75c
 /*  f01d964:	00000000 */ 	nop
 /*  f01d968:	240e0063 */ 	li	$t6,0x63
 /*  f01d96c:	3c018006 */ 	lui	$at,0x8006
@@ -133,7 +133,7 @@ glabel func0f01d860
 /*  f01d8f4:	2c810005 */ 	sltiu	$at,$a0,0x5
 /*  f01d8f8:	10200006 */ 	beqz	$at,.PB0f01d914
 /*  f01d8fc:	00000000 */ 	nop
-/*  f01d900:	0fc5c097 */ 	jal	func0f16f75c
+/*  f01d900:	0fc5c097 */ 	jal	lang0f16f75c
 /*  f01d904:	00000000 */ 	nop
 /*  f01d908:	240e0063 */ 	li	$t6,0x63
 /*  f01d90c:	3c018006 */ 	lui	$at,0x8006
