@@ -13,9 +13,9 @@
  */
 #if VERSION >= VERSION_PAL_BETA
 bool g_Jpn = VERSION == VERSION_JPN_FINAL ? true : false;
-u32 var80084664pf = 0;
-u32 var80084668pf = 0;
-u32 var8008466cpf = 0;
+s32 var80084664pf = 0;
+s32 var80084668pf = 0;
+s32 var8008466cpf = 0;
 u32 *g_LangBanks[69];
 void *var800aabb4;
 struct var800aabb8 *var800aabb8;
@@ -647,190 +647,24 @@ s32 langGetFileId(s32 bank)
 	return g_LangFiles[bank] + langGetFileNumOffset();
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel langSetBankSimple
-/*  f16e964:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f16e968:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16e96c:	0fc5ba4c */ 	jal	langGetFileId
-/*  f16e970:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f16e974:	0fc59d19 */ 	jal	fileGetInflatedLength
-/*  f16e978:	00402025 */ 	move	$a0,$v0
-/*  f16e97c:	3c038008 */ 	lui	$v1,0x8008
-/*  f16e980:	8c634774 */ 	lw	$v1,0x4774($v1)
-/*  f16e984:	3c058008 */ 	lui	$a1,0x8008
-/*  f16e988:	8ca5477c */ 	lw	$a1,0x477c($a1)
-/*  f16e98c:	3c068008 */ 	lui	$a2,0x8008
-/*  f16e990:	8cc64778 */ 	lw	$a2,0x4778($a2)
-/*  f16e994:	00627021 */ 	addu	$t6,$v1,$v0
-/*  f16e998:	01c57821 */ 	addu	$t7,$t6,$a1
-/*  f16e99c:	01e6c023 */ 	subu	$t8,$t7,$a2
-/*  f16e9a0:	0700001e */ 	bltz	$t8,.JF0f16ea1c
-/*  f16e9a4:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f16e9a8:	0065c821 */ 	addu	$t9,$v1,$a1
-/*  f16e9ac:	03263823 */ 	subu	$a3,$t9,$a2
-/*  f16e9b0:	04e10003 */ 	bgez	$a3,.JF0f16e9c0
-/*  f16e9b4:	00074143 */ 	sra	$t0,$a3,0x5
-/*  f16e9b8:	24e1001f */ 	addiu	$at,$a3,0x1f
-/*  f16e9bc:	00014143 */ 	sra	$t0,$at,0x5
-.JF0f16e9c0:
-/*  f16e9c0:	00084940 */ 	sll	$t1,$t0,0x5
-/*  f16e9c4:	afa90018 */ 	sw	$t1,0x18($sp)
-/*  f16e9c8:	0fc5ba4c */ 	jal	langGetFileId
-/*  f16e9cc:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f16e9d0:	3c068008 */ 	lui	$a2,0x8008
-/*  f16e9d4:	8cc64778 */ 	lw	$a2,0x4778($a2)
-/*  f16e9d8:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f16e9dc:	00402025 */ 	move	$a0,$v0
-/*  f16e9e0:	0fc59d84 */ 	jal	func0f167200
-/*  f16e9e4:	24050022 */ 	li	$a1,0x22
-/*  f16e9e8:	8faa0020 */ 	lw	$t2,0x20($sp)
-/*  f16e9ec:	3c0c8008 */ 	lui	$t4,0x8008
-/*  f16e9f0:	8d8c4778 */ 	lw	$t4,0x4778($t4)
-/*  f16e9f4:	8fad001c */ 	lw	$t5,0x1c($sp)
-/*  f16e9f8:	3c01800b */ 	lui	$at,0x800b
-/*  f16e9fc:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f16ea00:	002b0821 */ 	addu	$at,$at,$t3
-/*  f16ea04:	ac22b490 */ 	sw	$v0,-0x4b70($at)
-/*  f16ea08:	0fc5dc84 */ 	jal	align32
-/*  f16ea0c:	018d2021 */ 	addu	$a0,$t4,$t5
-/*  f16ea10:	3c018008 */ 	lui	$at,0x8008
-/*  f16ea14:	10000003 */ 	b	.JF0f16ea24
-/*  f16ea18:	ac224778 */ 	sw	$v0,0x4778($at)
-.JF0f16ea1c:
-/*  f16ea1c:	240e0045 */ 	li	$t6,0x45
-/*  f16ea20:	a00e0000 */ 	sb	$t6,0x0($zero)
-.JF0f16ea24:
-/*  f16ea24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16ea28:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f16ea2c:	03e00008 */ 	jr	$ra
-/*  f16ea30:	00000000 */ 	nop
-);
-#elif VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel langSetBankSimple
-/*  f16f578:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f16f57c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16f580:	0fc5bd51 */ 	jal	langGetFileId
-/*  f16f584:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f16f588:	0fc59ff5 */ 	jal	fileGetInflatedLength
-/*  f16f58c:	00402025 */ 	move	$a0,$v0
-/*  f16f590:	3c038008 */ 	lui	$v1,0x8008
-/*  f16f594:	8c634664 */ 	lw	$v1,0x4664($v1)
-/*  f16f598:	3c058008 */ 	lui	$a1,0x8008
-/*  f16f59c:	8ca5466c */ 	lw	$a1,0x466c($a1)
-/*  f16f5a0:	3c068008 */ 	lui	$a2,0x8008
-/*  f16f5a4:	8cc64668 */ 	lw	$a2,0x4668($a2)
-/*  f16f5a8:	00627021 */ 	addu	$t6,$v1,$v0
-/*  f16f5ac:	01c57821 */ 	addu	$t7,$t6,$a1
-/*  f16f5b0:	01e6c023 */ 	subu	$t8,$t7,$a2
-/*  f16f5b4:	0700001e */ 	bltz	$t8,.PF0f16f630
-/*  f16f5b8:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f16f5bc:	0065c821 */ 	addu	$t9,$v1,$a1
-/*  f16f5c0:	03263823 */ 	subu	$a3,$t9,$a2
-/*  f16f5c4:	04e10003 */ 	bgez	$a3,.PF0f16f5d4
-/*  f16f5c8:	00074143 */ 	sra	$t0,$a3,0x5
-/*  f16f5cc:	24e1001f */ 	addiu	$at,$a3,0x1f
-/*  f16f5d0:	00014143 */ 	sra	$t0,$at,0x5
-.PF0f16f5d4:
-/*  f16f5d4:	00084940 */ 	sll	$t1,$t0,0x5
-/*  f16f5d8:	afa90018 */ 	sw	$t1,0x18($sp)
-/*  f16f5dc:	0fc5bd51 */ 	jal	langGetFileId
-/*  f16f5e0:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f16f5e4:	3c068008 */ 	lui	$a2,0x8008
-/*  f16f5e8:	8cc64668 */ 	lw	$a2,0x4668($a2)
-/*  f16f5ec:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f16f5f0:	00402025 */ 	move	$a0,$v0
-/*  f16f5f4:	0fc5a060 */ 	jal	func0f167200
-/*  f16f5f8:	24050022 */ 	li	$a1,0x22
-/*  f16f5fc:	8faa0020 */ 	lw	$t2,0x20($sp)
-/*  f16f600:	3c0c8008 */ 	lui	$t4,0x8008
-/*  f16f604:	8d8c4668 */ 	lw	$t4,0x4668($t4)
-/*  f16f608:	8fad001c */ 	lw	$t5,0x1c($sp)
-/*  f16f60c:	3c01800b */ 	lui	$at,0x800b
-/*  f16f610:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f16f614:	002b0821 */ 	addu	$at,$at,$t3
-/*  f16f618:	ac22b040 */ 	sw	$v0,-0x4fc0($at)
-/*  f16f61c:	0fc5df7c */ 	jal	align32
-/*  f16f620:	018d2021 */ 	addu	$a0,$t4,$t5
-/*  f16f624:	3c018008 */ 	lui	$at,0x8008
-/*  f16f628:	10000003 */ 	b	.PF0f16f638
-/*  f16f62c:	ac224668 */ 	sw	$v0,0x4668($at)
-.PF0f16f630:
-/*  f16f630:	240e0045 */ 	li	$t6,0x45
-/*  f16f634:	a00e0000 */ 	sb	$t6,0x0($zero)
-.PF0f16f638:
-/*  f16f638:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16f63c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f16f640:	03e00008 */ 	jr	$ra
-/*  f16f644:	00000000 */ 	nop
-);
-#elif VERSION >= VERSION_PAL_BETA
-GLOBAL_ASM(
-glabel langSetBankSimple
-/*  f170078:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f17007c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f170080:	0fc5c011 */ 	jal	langGetFileId
-/*  f170084:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f170088:	0fc5a1b1 */ 	jal	fileGetInflatedLength
-/*  f17008c:	00402025 */ 	move	$a0,$v0
-/*  f170090:	3c038008 */ 	lui	$v1,0x8008
-/*  f170094:	8c6365f4 */ 	lw	$v1,0x65f4($v1)
-/*  f170098:	3c058008 */ 	lui	$a1,0x8008
-/*  f17009c:	8ca565fc */ 	lw	$a1,0x65fc($a1)
-/*  f1700a0:	3c068008 */ 	lui	$a2,0x8008
-/*  f1700a4:	8cc665f8 */ 	lw	$a2,0x65f8($a2)
-/*  f1700a8:	00627021 */ 	addu	$t6,$v1,$v0
-/*  f1700ac:	01c57821 */ 	addu	$t7,$t6,$a1
-/*  f1700b0:	01e6c023 */ 	subu	$t8,$t7,$a2
-/*  f1700b4:	0700001e */ 	bltz	$t8,.PB0f170130
-/*  f1700b8:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f1700bc:	0065c821 */ 	addu	$t9,$v1,$a1
-/*  f1700c0:	03263823 */ 	subu	$a3,$t9,$a2
-/*  f1700c4:	04e10003 */ 	bgez	$a3,.PB0f1700d4
-/*  f1700c8:	00074143 */ 	sra	$t0,$a3,0x5
-/*  f1700cc:	24e1001f */ 	addiu	$at,$a3,0x1f
-/*  f1700d0:	00014143 */ 	sra	$t0,$at,0x5
-.PB0f1700d4:
-/*  f1700d4:	00084940 */ 	sll	$t1,$t0,0x5
-/*  f1700d8:	afa90018 */ 	sw	$t1,0x18($sp)
-/*  f1700dc:	0fc5c011 */ 	jal	langGetFileId
-/*  f1700e0:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f1700e4:	3c068008 */ 	lui	$a2,0x8008
-/*  f1700e8:	8cc665f8 */ 	lw	$a2,0x65f8($a2)
-/*  f1700ec:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f1700f0:	00402025 */ 	move	$a0,$v0
-/*  f1700f4:	0fc5a21c */ 	jal	func0f167200
-/*  f1700f8:	24050022 */ 	li	$a1,0x22
-/*  f1700fc:	8faa0020 */ 	lw	$t2,0x20($sp)
-/*  f170100:	3c0c8008 */ 	lui	$t4,0x8008
-/*  f170104:	8d8c65f8 */ 	lw	$t4,0x65f8($t4)
-/*  f170108:	8fad001c */ 	lw	$t5,0x1c($sp)
-/*  f17010c:	3c01800b */ 	lui	$at,0x800b
-/*  f170110:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f170114:	002b0821 */ 	addu	$at,$at,$t3
-/*  f170118:	ac22f0c0 */ 	sw	$v0,-0xf40($at)
-/*  f17011c:	0fc5e23c */ 	jal	align32
-/*  f170120:	018d2021 */ 	addu	$a0,$t4,$t5
-/*  f170124:	3c018008 */ 	lui	$at,0x8008
-/*  f170128:	10000003 */ 	b	.PB0f170138
-/*  f17012c:	ac2265f8 */ 	sw	$v0,0x65f8($at)
-.PB0f170130:
-/*  f170130:	240e0045 */ 	li	$t6,0x45
-/*  f170134:	a00e0000 */ 	sb	$t6,0x0($zero)
-.PB0f170138:
-/*  f170138:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17013c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f170140:	03e00008 */ 	jr	$ra
-/*  f170144:	00000000 */ 	nop
-);
-#else
 void langSetBankSimple(s32 bank)
 {
+#if VERSION >= VERSION_PAL_BETA
+	s32 len = fileGetInflatedLength(langGetFileId(bank));
+
+	if (var80084664pf + len + var8008466cpf - var80084668pf >= 0) {
+		s32 len2 = var80084664pf + var8008466cpf - var80084668pf;
+		len2 = len2 / 32 * 32;
+		g_LangBanks[bank] = func0f167200(langGetFileId(bank), 0x22, (u8 *)var80084668pf, len2);
+		var80084668pf = align32(var80084668pf + len);
+	} else {
+		CRASH();
+	}
+#else
 	s32 file_id = langGetFileId(bank);
 	g_LangBanks[bank] = func0f1670fc(file_id, 0x22);
-}
 #endif
+}
 
 void langSetBank(s32 bank, u8 *arg1, s32 arg2)
 {
@@ -876,7 +710,7 @@ void lang0f16f6ecpf(void)
 
 	var80084668pf = align32(var80084664pf);
 
-	for (i = 0; i < 0x45; i++) {
+	for (i = 0; i < 69; i++) {
 		if (g_LangBanks[i] != NULL) {
 			langSetBankSimple(i);
 		}
