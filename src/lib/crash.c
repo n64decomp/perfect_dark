@@ -26,24 +26,15 @@ u8 g_FaultStack[STACKSIZE_FAULT];
 OSMesgQueue g_FaultMesgQueue;
 OSMesg g_FaultMesg;
 
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_PAL_BETA
+bool g_CrashHasMessage = false;
+#elif VERSION == VERSION_NTSC_BETA
 s32 var80097104nb;
 s32 var80097108nb;
 u32 var8009710cnb;
-#endif
-
-#if VERSION == VERSION_NTSC_BETA
-char *var80097110nb;
-char *var80097114nb;
-u32 var80097118nb[24];
-u8 var80097178nb[MAX_LINES + 1][71];
-#elif VERSION == VERSION_PAL_BETA
-char *var80097110nb;
-char *var80097114nb;
-u8 var80097178nb[MAX_LINES + 1][71];
-#endif
-
 u8 g_CrashHasMessage = false;
+#endif
+
 s16 g_CrashCurX = 0;
 s16 g_CrashCurY = 0;
 
@@ -199,75 +190,7 @@ void crashCreateThread(void)
 	osStartThread(&g_FaultThread);
 }
 
-#if VERSION == VERSION_PAL_BETA
-GLOBAL_ASM(
-glabel faultproc
-/*  bd9c:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  bda0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  bda4:	3c118009 */ 	lui	$s1,0x8009
-/*  bda8:	26316f90 */ 	addiu	$s1,$s1,0x6f90
-/*  bdac:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  bdb0:	afa40068 */ 	sw	$a0,0x68($sp)
-/*  bdb4:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  bdb8:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  bdbc:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  bdc0:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  bdc4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  bdc8:	afa00064 */ 	sw	$zero,0x64($sp)
-/*  bdcc:	2404000c */ 	li	$a0,0xc
-/*  bdd0:	02202825 */ 	move	$a1,$s1
-/*  bdd4:	0c0122b8 */ 	jal	osSetEventMesg
-/*  bdd8:	24060010 */ 	li	$a2,0x10
-/*  bddc:	3c018009 */ 	lui	$at,0x8009
-/*  bde0:	3c138006 */ 	lui	$s3,0x8006
-/*  bde4:	ac206fb0 */ 	sw	$zero,0x6fb0($at)
-/*  bde8:	2673df40 */ 	addiu	$s3,$s3,-8384
-/*  bdec:	27b50034 */ 	addiu	$s5,$sp,0x34
-/*  bdf0:	27b40038 */ 	addiu	$s4,$sp,0x38
-/*  bdf4:	27b20064 */ 	addiu	$s2,$sp,0x64
-.PB0000bdf8:
-/*  bdf8:	02202025 */ 	move	$a0,$s1
-.PB0000bdfc:
-/*  bdfc:	02402825 */ 	move	$a1,$s2
-/*  be00:	0c01232c */ 	jal	osRecvMesg
-/*  be04:	24060001 */ 	li	$a2,0x1
-/*  be08:	0c012304 */ 	jal	osSetIntMask
-/*  be0c:	24040001 */ 	li	$a0,0x1
-/*  be10:	0c013b00 */ 	jal	__osGetCurrFaultedThread
-/*  be14:	00408025 */ 	move	$s0,$v0
-/*  be18:	3c018009 */ 	lui	$at,0x8009
-/*  be1c:	1040fff6 */ 	beqz	$v0,.PB0000bdf8
-/*  be20:	ac226fac */ 	sw	$v0,0x6fac($at)
-/*  be24:	0c012304 */ 	jal	osSetIntMask
-/*  be28:	02002025 */ 	move	$a0,$s0
-/*  be2c:	8e6e0000 */ 	lw	$t6,0x0($s3)
-/*  be30:	51c0fff2 */ 	beqzl	$t6,.PB0000bdfc
-/*  be34:	02202025 */ 	move	$a0,$s1
-/*  be38:	3c048009 */ 	lui	$a0,0x8009
-/*  be3c:	8c846fac */ 	lw	$a0,0x6fac($a0)
-/*  be40:	02802825 */ 	move	$a1,$s4
-/*  be44:	0c0030b1 */ 	jal	crashGenerate
-/*  be48:	02a03025 */ 	move	$a2,$s5
-/*  be4c:	0c0006c7 */ 	jal	schedSetCrashedUnexpectedly
-/*  be50:	24040001 */ 	li	$a0,0x1
-/*  be54:	1000ffe9 */ 	b	.PB0000bdfc
-/*  be58:	02202025 */ 	move	$a0,$s1
-/*  be5c:	00000000 */ 	nop
-/*  be60:	00000000 */ 	nop
-/*  be64:	00000000 */ 	nop
-/*  be68:	00000000 */ 	nop
-/*  be6c:	00000000 */ 	nop
-/*  be70:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  be74:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  be78:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  be7c:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  be80:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  be84:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  be88:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  be8c:	03e00008 */ 	jr	$ra
-/*  be90:	27bd0068 */ 	addiu	$sp,$sp,0x68
-);
-#elif VERSION == VERSION_NTSC_BETA
+#if VERSION == VERSION_NTSC_BETA
 GLOBAL_ASM(
 glabel faultproc
 /*     c270:	27bdff98 */ 	addiu	$sp,$sp,-104
@@ -342,6 +265,22 @@ void faultproc(void *arg0)
 	osSetEventMesg(OS_EVENT_FAULT, &g_FaultMesgQueue, (OSMesg) MSG_FAULT);
 	last = NULL;
 
+#if VERSION == VERSION_PAL_BETA
+	while (true) {
+		do {
+			do {
+				osRecvMesg(&g_FaultMesgQueue, &msg, OS_MESG_BLOCK);
+				mask = osSetIntMask(1);
+				curr = __osGetCurrFaultedThread();
+			} while (!curr);
+
+			osSetIntMask(mask);
+		} while (!g_CrashHasMessage);
+
+		crashGenerate(curr, callstack, &tracelen);
+		schedSetCrashedUnexpectedly(true);
+	}
+#elif VERSION == VERSION_NTSC_BETA
 	while (true) {
 		do {
 			osRecvMesg(&g_FaultMesgQueue, &msg, OS_MESG_BLOCK);
@@ -351,12 +290,30 @@ void faultproc(void *arg0)
 
 		osSetIntMask(mask);
 
-#if VERSION == VERSION_NTSC_BETA
 		crashGenerate(curr, callstack, &tracelen);
 		schedSetCrashedUnexpectedly(true);
-#endif
 	}
+#else
+	while (true) {
+		do {
+			osRecvMesg(&g_FaultMesgQueue, &msg, OS_MESG_BLOCK);
+			mask = osSetIntMask(1);
+			curr = __osGetCurrFaultedThread();
+		} while (!curr);
+
+		osSetIntMask(mask);
+	}
+#endif
 }
+#endif
+
+#if VERSION == VERSION_NTSC_BETA
+char *var80097110nb;
+char *var80097114nb;
+u32 var80097118nb[24];
+u8 var80097178nb[MAX_LINES + 1][71];
+#elif VERSION == VERSION_PAL_BETA
+u8 var80097178nb[MAX_LINES + 1][71];
 #endif
 
 /**
