@@ -26,13 +26,13 @@ u8 g_FaultStack[STACKSIZE_FAULT];
 OSMesgQueue g_FaultMesgQueue;
 OSMesg g_FaultMesg;
 
-#if VERSION == VERSION_PAL_BETA
-bool g_CrashHasMessage = false;
-#elif VERSION == VERSION_NTSC_BETA
+#if VERSION == VERSION_NTSC_BETA
 s32 var80097104nb;
 s32 var80097108nb;
 u32 var8009710cnb;
 u8 g_CrashHasMessage = false;
+#else
+bool g_CrashHasMessage = false;
 #endif
 
 s16 g_CrashCurX = 0;
