@@ -869,108 +869,19 @@ char *langGet(s32 textid)
 	return (char *)addr;
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel func0f16f6ecpf
-/*  f16ead8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f16eadc:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f16eae0:	3c048008 */ 	lui	$a0,0x8008
-/*  f16eae4:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f16eae8:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f16eaec:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f16eaf0:	0fc5dc84 */ 	jal	align32
-/*  f16eaf4:	8c844774 */ 	lw	$a0,0x4774($a0)
-/*  f16eaf8:	3c018008 */ 	lui	$at,0x8008
-/*  f16eafc:	3c11800b */ 	lui	$s1,0x800b
-/*  f16eb00:	ac224778 */ 	sw	$v0,0x4778($at)
-/*  f16eb04:	2631b490 */ 	addiu	$s1,$s1,-19312
-/*  f16eb08:	00008025 */ 	move	$s0,$zero
-/*  f16eb0c:	24120045 */ 	li	$s2,0x45
-.JF0f16eb10:
-/*  f16eb10:	8e2e0000 */ 	lw	$t6,0x0($s1)
-/*  f16eb14:	51c00004 */ 	beqzl	$t6,.JF0f16eb28
-/*  f16eb18:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f16eb1c:	0fc5ba59 */ 	jal	langSetBankSimple
-/*  f16eb20:	02002025 */ 	move	$a0,$s0
-/*  f16eb24:	26100001 */ 	addiu	$s0,$s0,0x1
-.JF0f16eb28:
-/*  f16eb28:	1612fff9 */ 	bne	$s0,$s2,.JF0f16eb10
-/*  f16eb2c:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f16eb30:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f16eb34:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f16eb38:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f16eb3c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f16eb40:	03e00008 */ 	jr	$ra
-/*  f16eb44:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
-#elif VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel func0f16f6ecpf
-/*  f16f6ec:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f16f6f0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f16f6f4:	3c048008 */ 	lui	$a0,0x8008
-/*  f16f6f8:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f16f6fc:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f16f700:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f16f704:	0fc5df7c */ 	jal	align32
-/*  f16f708:	8c844664 */ 	lw	$a0,0x4664($a0)
-/*  f16f70c:	3c018008 */ 	lui	$at,0x8008
-/*  f16f710:	3c11800b */ 	lui	$s1,0x800b
-/*  f16f714:	ac224668 */ 	sw	$v0,0x4668($at)
-/*  f16f718:	2631b040 */ 	addiu	$s1,$s1,-20416
-/*  f16f71c:	00008025 */ 	move	$s0,$zero
-/*  f16f720:	24120045 */ 	li	$s2,0x45
-.PF0f16f724:
-/*  f16f724:	8e2e0000 */ 	lw	$t6,0x0($s1)
-/*  f16f728:	51c00004 */ 	beqzl	$t6,.PF0f16f73c
-/*  f16f72c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f16f730:	0fc5bd5e */ 	jal	langSetBankSimple
-/*  f16f734:	02002025 */ 	move	$a0,$s0
-/*  f16f738:	26100001 */ 	addiu	$s0,$s0,0x1
-.PF0f16f73c:
-/*  f16f73c:	1612fff9 */ 	bne	$s0,$s2,.PF0f16f724
-/*  f16f740:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f16f744:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f16f748:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f16f74c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f16f750:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f16f754:	03e00008 */ 	jr	$ra
-/*  f16f758:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
-#elif VERSION >= VERSION_PAL_BETA
-GLOBAL_ASM(
-glabel func0f16f6ecpf
-/*  f1701ec:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1701f0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1701f4:	3c048008 */ 	lui	$a0,0x8008
-/*  f1701f8:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f1701fc:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f170200:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f170204:	0fc5e23c */ 	jal	align32
-/*  f170208:	8c8465f4 */ 	lw	$a0,0x65f4($a0)
-/*  f17020c:	3c018008 */ 	lui	$at,0x8008
-/*  f170210:	3c11800b */ 	lui	$s1,0x800b
-/*  f170214:	ac2265f8 */ 	sw	$v0,0x65f8($at)
-/*  f170218:	2631f0c0 */ 	addiu	$s1,$s1,-3904
-/*  f17021c:	00008025 */ 	move	$s0,$zero
-/*  f170220:	24120045 */ 	li	$s2,0x45
-.PB0f170224:
-/*  f170224:	8e2e0000 */ 	lw	$t6,0x0($s1)
-/*  f170228:	51c00004 */ 	beqzl	$t6,.PB0f17023c
-/*  f17022c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f170230:	0fc5c01e */ 	jal	langSetBankSimple
-/*  f170234:	02002025 */ 	move	$a0,$s0
-/*  f170238:	26100001 */ 	addiu	$s0,$s0,0x1
-.PB0f17023c:
-/*  f17023c:	1612fff9 */ 	bne	$s0,$s2,.PB0f170224
-/*  f170240:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f170244:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f170248:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f17024c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f170250:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f170254:	03e00008 */ 	jr	$ra
-/*  f170258:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+#if VERSION >= VERSION_PAL_BETA
+void lang0f16f6ecpf(void)
+{
+	s32 i;
+
+	var80084668pf = align32(var80084664pf);
+
+	for (i = 0; i < 0x45; i++) {
+		if (g_LangBanks[i] != NULL) {
+			langSetBankSimple(i);
+		}
+	}
+}
 #endif
 
 #if VERSION >= VERSION_PAL_BETA
@@ -1008,7 +919,7 @@ void lang0f16f75c(u32 arg0)
 		break;
 	}
 
-	func0f16f6ecpf();
+	lang0f16f6ecpf();
 
 	if (hasoptionslang) {
 		mpSetTeamNamesToDefault(teams);
@@ -1021,6 +932,6 @@ void langSetJpnEnabled(bool enable)
 {
 	g_Jpn = enable ? true : false;
 
-	func0f16f6ecpf();
+	lang0f16f6ecpf();
 }
 #endif
