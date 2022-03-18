@@ -536,47 +536,31 @@ u32 crash0000c52cnb(u32 romaddr)
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0000c5d8nb
-/*     c5d8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*     c5dc:	afb30020 */ 	sw	$s3,0x20($sp)
-/*     c5e0:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*     c5e4:	3c0200e0 */ 	lui	$v0,0xe0
-/*     c5e8:	34530004 */ 	ori	$s3,$v0,0x4
-/*     c5ec:	afb10018 */ 	sw	$s1,0x18($sp)
-/*     c5f0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*     c5f4:	3c128009 */ 	lui	$s2,0x8009
-/*     c5f8:	00808825 */ 	or	$s1,$a0,$zero
-/*     c5fc:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*     c600:	02608025 */ 	or	$s0,$s3,$zero
-/*     c604:	2652710c */ 	addiu	$s2,$s2,0x710c
-.NB0000c608:
-/*     c608:	0c00314b */ 	jal	crash0000c52cnb
-/*     c60c:	02002025 */ 	or	$a0,$s0,$zero
-/*     c610:	8e430000 */ 	lw	$v1,0x0($s2)
-/*     c614:	0223082b */ 	sltu	$at,$s1,$v1
-/*     c618:	14200007 */ 	bnez	$at,.NB0000c638
-/*     c61c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     c620:	14600003 */ 	bnez	$v1,.NB0000c630
-/*     c624:	02009825 */ 	or	$s3,$s0,$zero
-/*     c628:	10000006 */ 	beqz	$zero,.NB0000c644
-/*     c62c:	00001025 */ 	or	$v0,$zero,$zero
-.NB0000c630:
-/*     c630:	1000fff5 */ 	beqz	$zero,.NB0000c608
-/*     c634:	00408025 */ 	or	$s0,$v0,$zero
-.NB0000c638:
-/*     c638:	0c00314b */ 	jal	crash0000c52cnb
-/*     c63c:	02602025 */ 	or	$a0,$s3,$zero
-/*     c640:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB0000c644:
-/*     c644:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*     c648:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*     c64c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*     c650:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*     c654:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*     c658:	03e00008 */ 	jr	$ra
-/*     c65c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+bool crash0000c5d8nb(u32 arg0)
+{
+	u32 this = 0x00e00004;
+	u32 prev = 0x00e00004;
+
+	while (true) {
+		u32 next = crash0000c52cnb(this);
+
+		if (arg0 >= var8009710cnb) {
+			prev = this;
+
+			if (var8009710cnb == 0) {
+				return false;
+			}
+
+			this = next;
+		} else {
+			break;
+		}
+	}
+
+	crash0000c52cnb(prev);
+
+	return true;
+}
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
