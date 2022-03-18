@@ -1017,24 +1017,10 @@ void lang0f16f75c(u32 arg0)
 #endif
 
 #if VERSION == VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel func0f16ec24jf
-/*  f16ec24:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16ec28:	10800005 */ 	beqz	$a0,.JF0f16ec40
-/*  f16ec2c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16ec30:	240e0001 */ 	li	$t6,0x1
-/*  f16ec34:	3c018008 */ 	lui	$at,0x8008
-/*  f16ec38:	10000003 */ 	b	.JF0f16ec48
-/*  f16ec3c:	ac2e4770 */ 	sw	$t6,0x4770($at)
-.JF0f16ec40:
-/*  f16ec40:	3c018008 */ 	lui	$at,0x8008
-/*  f16ec44:	ac204770 */ 	sw	$zero,0x4770($at)
-.JF0f16ec48:
-/*  f16ec48:	0fc5bab6 */ 	jal	func0f16f6ecpf
-/*  f16ec4c:	00000000 */ 	nop
-/*  f16ec50:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16ec54:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f16ec58:	03e00008 */ 	jr	$ra
-/*  f16ec5c:	00000000 */ 	nop
-);
+void langSetJpnEnabled(bool enable)
+{
+	g_Jpn = enable ? true : false;
+
+	func0f16f6ecpf();
+}
 #endif

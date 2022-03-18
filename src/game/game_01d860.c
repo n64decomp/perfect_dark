@@ -24,7 +24,7 @@ glabel func0f01d860
 /*  f01ea4c:	2c810002 */ 	sltiu	$at,$a0,0x2
 /*  f01ea50:	10200006 */ 	beqz	$at,.JF0f01ea6c
 /*  f01ea54:	00000000 */ 	nop
-/*  f01ea58:	0fc5bb09 */ 	jal	func0f16ec24jf
+/*  f01ea58:	0fc5bb09 */ 	jal	langSetJpnEnabled
 /*  f01ea5c:	00000000 */ 	nop
 /*  f01ea60:	240e0063 */ 	li	$t6,0x63
 /*  f01ea64:	3c018006 */ 	lui	$at,0x8006
