@@ -3673,123 +3673,16 @@ void playerTickTeleport(f32 *aspectratio)
 	}
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel playerConfigureVi
-/*  f0be800:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0be804:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0be808:	0fc2f8fd */ 	jal	player0f0bd358
-/*  f0be80c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0be810:	3c018007 */ 	lui	$at,0x8007
-/*  f0be814:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f0be818:	ac200c18 */ 	sw	$zero,0xc18($at)
-/*  f0be81c:	0fc54a23 */ 	jal	func0f1531dc
-/*  f0be820:	00002025 */ 	move	$a0,$zero
-/*  f0be824:	3c018008 */ 	lui	$at,0x8008
-/*  f0be828:	ac2000f0 */ 	sw	$zero,0xf0($at)
-/*  f0be82c:	3c014270 */ 	lui	$at,0x4270
-/*  f0be830:	44816000 */ 	mtc1	$at,$f12
-/*  f0be834:	0fc4a3b7 */ 	jal	playermgrSetFovY
-/*  f0be838:	00000000 */ 	nop
-/*  f0be83c:	0fc4a3bb */ 	jal	playermgrSetAspectRatio
-/*  f0be840:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*  f0be844:	0fc2f57c */ 	jal	playerGetViewportWidth
-/*  f0be848:	00000000 */ 	nop
-/*  f0be84c:	00028400 */ 	sll	$s0,$v0,0x10
-/*  f0be850:	00107403 */ 	sra	$t6,$s0,0x10
-/*  f0be854:	0fc2f6cf */ 	jal	playerGetViewportHeight
-/*  f0be858:	01c08025 */ 	move	$s0,$t6
-/*  f0be85c:	02002025 */ 	move	$a0,$s0
-/*  f0be860:	0fc4a3a9 */ 	jal	playermgrSetViewSize
-/*  f0be864:	00402825 */ 	move	$a1,$v0
-/*  f0be868:	0fc2f612 */ 	jal	playerGetViewportLeft
-/*  f0be86c:	00000000 */ 	nop
-/*  f0be870:	00028400 */ 	sll	$s0,$v0,0x10
-/*  f0be874:	00107c03 */ 	sra	$t7,$s0,0x10
-/*  f0be878:	0fc2f7b0 */ 	jal	playerGetViewportTop
-/*  f0be87c:	01e08025 */ 	move	$s0,$t7
-/*  f0be880:	02002025 */ 	move	$a0,$s0
-/*  f0be884:	0fc4a3b0 */ 	jal	playermgrSetViewPosition
-/*  f0be888:	00402825 */ 	move	$a1,$v0
-/*  f0be88c:	3c188007 */ 	lui	$t8,0x8007
-/*  f0be890:	8f180c18 */ 	lw	$t8,0xc18($t8)
-/*  f0be894:	3c048007 */ 	lui	$a0,0x8007
-/*  f0be898:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f0be89c:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f0be8a0:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0be8a4:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f0be8a8:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0be8ac:	00992021 */ 	addu	$a0,$a0,$t9
-/*  f0be8b0:	0c002a95 */ 	jal	viSetMode
-/*  f0be8b4:	8c840bd0 */ 	lw	$a0,0xbd0($a0)
-/*  f0be8b8:	0fc2f57c */ 	jal	playerGetViewportWidth
-/*  f0be8bc:	00000000 */ 	nop
-/*  f0be8c0:	00028400 */ 	sll	$s0,$v0,0x10
-/*  f0be8c4:	00104403 */ 	sra	$t0,$s0,0x10
-/*  f0be8c8:	0fc2f6cf */ 	jal	playerGetViewportHeight
-/*  f0be8cc:	01008025 */ 	move	$s0,$t0
-/*  f0be8d0:	3c014270 */ 	lui	$at,0x4270
-/*  f0be8d4:	00103400 */ 	sll	$a2,$s0,0x10
-/*  f0be8d8:	00023c00 */ 	sll	$a3,$v0,0x10
-/*  f0be8dc:	00075403 */ 	sra	$t2,$a3,0x10
-/*  f0be8e0:	00064c03 */ 	sra	$t1,$a2,0x10
-/*  f0be8e4:	44816000 */ 	mtc1	$at,$f12
-/*  f0be8e8:	01203025 */ 	move	$a2,$t1
-/*  f0be8ec:	01403825 */ 	move	$a3,$t2
-/*  f0be8f0:	0c002f5f */ 	jal	viSetFovAspectAndSize
-/*  f0be8f4:	c7ae0024 */ 	lwc1	$f14,0x24($sp)
-/*  f0be8f8:	0fc2f612 */ 	jal	playerGetViewportLeft
-/*  f0be8fc:	00000000 */ 	nop
-/*  f0be900:	00028400 */ 	sll	$s0,$v0,0x10
-/*  f0be904:	00105c03 */ 	sra	$t3,$s0,0x10
-/*  f0be908:	0fc2f7b0 */ 	jal	playerGetViewportTop
-/*  f0be90c:	01608025 */ 	move	$s0,$t3
-/*  f0be910:	00102400 */ 	sll	$a0,$s0,0x10
-/*  f0be914:	00022c00 */ 	sll	$a1,$v0,0x10
-/*  f0be918:	00056c03 */ 	sra	$t5,$a1,0x10
-/*  f0be91c:	00046403 */ 	sra	$t4,$a0,0x10
-/*  f0be920:	01802025 */ 	move	$a0,$t4
-/*  f0be924:	0c002f13 */ 	jal	viSetViewPosition
-/*  f0be928:	01a02825 */ 	move	$a1,$t5
-/*  f0be92c:	0fc2f53a */ 	jal	playerGetFbWidth
-/*  f0be930:	00000000 */ 	nop
-/*  f0be934:	00028400 */ 	sll	$s0,$v0,0x10
-/*  f0be938:	00107403 */ 	sra	$t6,$s0,0x10
-/*  f0be93c:	0fc2f545 */ 	jal	playerGetFbHeight
-/*  f0be940:	01c08025 */ 	move	$s0,$t6
-/*  f0be944:	00102400 */ 	sll	$a0,$s0,0x10
-/*  f0be948:	00022c00 */ 	sll	$a1,$v0,0x10
-/*  f0be94c:	0005c403 */ 	sra	$t8,$a1,0x10
-/*  f0be950:	00047c03 */ 	sra	$t7,$a0,0x10
-/*  f0be954:	01e02025 */ 	move	$a0,$t7
-/*  f0be958:	0c002ee2 */ 	jal	viSetSize
-/*  f0be95c:	03002825 */ 	move	$a1,$t8
-/*  f0be960:	0fc2f53a */ 	jal	playerGetFbWidth
-/*  f0be964:	00000000 */ 	nop
-/*  f0be968:	00028400 */ 	sll	$s0,$v0,0x10
-/*  f0be96c:	0010cc03 */ 	sra	$t9,$s0,0x10
-/*  f0be970:	0fc2f545 */ 	jal	playerGetFbHeight
-/*  f0be974:	03208025 */ 	move	$s0,$t9
-/*  f0be978:	00102400 */ 	sll	$a0,$s0,0x10
-/*  f0be97c:	00022c00 */ 	sll	$a1,$v0,0x10
-/*  f0be980:	00054c03 */ 	sra	$t1,$a1,0x10
-/*  f0be984:	00044403 */ 	sra	$t0,$a0,0x10
-/*  f0be988:	01002025 */ 	move	$a0,$t0
-/*  f0be98c:	0c002ed1 */ 	jal	viSetBufSize
-/*  f0be990:	01202825 */ 	move	$a1,$t1
-/*  f0be994:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0be998:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0be99c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0be9a0:	03e00008 */ 	jr	$ra
-/*  f0be9a4:	00000000 */ 	nop
-);
-#else
 void playerConfigureVi(void)
 {
 	f32 ratio = player0f0bd358();
 	g_ViRes = VIRES_LO;
 
 	func0f1531dc(false);
+
+#if VERSION >= VERSION_JPN_FINAL
+	var800800f0jf = 0;
+#endif
 
 	playermgrSetFovY(60);
 	playermgrSetAspectRatio(ratio);
@@ -3804,7 +3697,6 @@ void playerConfigureVi(void)
 	viSetSize(playerGetFbWidth(), playerGetFbHeight());
 	viSetBufSize(playerGetFbWidth(), playerGetFbHeight());
 }
-#endif
 
 #if VERSION >= VERSION_JPN_FINAL
 const char var7f1af224pb[] = "tps";
