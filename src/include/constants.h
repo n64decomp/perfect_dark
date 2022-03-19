@@ -1254,7 +1254,7 @@
 #define HUDMSGFLAG_NOCHANNEL   0x04 // not linked to audio
 #define HUDMSGFLAG_ALLOWDUPES  0x08
 #define HUDMSGFLAG_DELAY       0x10 // wait minimum 3 frames before showing
-#define HUDMSGFLAG_20          0x20
+#define HUDMSGFLAG_NOWRAP      0x20
 
 #define HUDMSGREASON_NOCONTROL 0x00000002
 

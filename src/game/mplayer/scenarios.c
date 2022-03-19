@@ -521,14 +521,14 @@ void scenarioCreateMatchStartHudmsgs(void)
 
 			if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
 #if VERSION >= VERSION_JPN_FINAL
-				hudmsgCreateWithFlags(challengename, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_20);
+				hudmsgCreateWithFlags(challengename, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 #else
 				hudmsgCreateWithFlags(challengename, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
 #endif
 			}
 
 #if VERSION >= VERSION_JPN_FINAL
-			hudmsgCreateWithFlags(scenarioname, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_20);
+			hudmsgCreateWithFlags(scenarioname, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 #else
 			hudmsgCreateWithFlags(scenarioname, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
 #endif
@@ -1044,7 +1044,7 @@ void scenarioCreateHudmsg(s32 playernum, char *message)
 
 		setCurrentPlayerNum(playernum);
 #if VERSION >= VERSION_JPN_FINAL
-		hudmsgCreateWithFlags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_20);
+		hudmsgCreateWithFlags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 #else
 		hudmsgCreateWithFlags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 #endif
@@ -1852,7 +1852,7 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 			if (chr->aibot || i != prevplayernum) {
 				setCurrentPlayerNum(i);
 #if VERSION >= VERSION_JPN_FINAL
-				hudmsgCreateWithFlags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_20);
+				hudmsgCreateWithFlags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 #else
 				hudmsgCreateWithFlags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 #endif
@@ -2108,7 +2108,7 @@ s32 scenarioPickUpUplink(struct chrdata *chr, struct prop *prop)
 				setCurrentPlayerNum(i);
 
 #if VERSION >= VERSION_JPN_FINAL
-				hudmsgCreateWithFlags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_20);
+				hudmsgCreateWithFlags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 #else
 				hudmsgCreateWithFlags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 #endif
