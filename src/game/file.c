@@ -2069,13 +2069,6 @@ extern void *_file_PjappdZ;
 #endif
 extern void *_filenamesSegmentRomStart;
 
-#if VERSION < VERSION_NTSC_1_0
-const char var7f1b1d40nb[] = "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x";
-const char var7f1b1d78nb[] = "ob.c";
-const char var7f1b1d80nb[] = "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x";
-const char var7f1b1dd8nb[] = "ob.c";
-#endif
-
 struct fileinfo g_FileInfo[NUM_FILES];
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -4134,119 +4127,50 @@ u32 file0f166ea8(u32 *filetableaddr)
 	return 0;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-void fileLoad(void *dst, u32 allocationlen, u32 *romaddrptr, struct fileinfo *info)
+void fileLoad(u8 *dst, u32 allocationlen, u32 *romaddrptr, struct fileinfo *info)
 {
 	u32 romsize = fileGetRomSizeByTableAddress(romaddrptr);
 	u8 buffer[5 * 1024];
-	u32 tmp;
 
 	if (allocationlen == 0) {
 		// DMA with no inflate
 		dmaExec(dst, *romaddrptr, romsize);
 	} else {
 		// DMA the compressed data to scratch space then inflate
-		u32 scratchaddr = ((u32)dst + allocationlen) - (romsize + 7 & 0xfffffff8);
+		u8 *scratch = (dst + allocationlen) - (romsize + 7 & 0xfffffff8);
 
-		if (scratchaddr - (u32)dst < 8) {
+		if ((u32)scratch - (u32)dst < 8) {
 			info->loadedsize = 0;
 		} else {
-			dmaExec((void *)scratchaddr, *romaddrptr, romsize);
-			info->loadedsize = ALIGN16(rzipInflate((void *)scratchaddr, dst, buffer));
+			s32 result;
+#if VERSION < VERSION_NTSC_1_0
+			char sp54[128];
+			u32 stack[2];
+#endif
+
+			dmaExec(scratch, *romaddrptr, romsize);
+			result = rzipInflate(scratch, dst, buffer);
+
+#if VERSION < VERSION_NTSC_1_0
+			if (result == 0) {
+				sprintf(sp54, "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x", "ob.c", 204,
+						scratch[0], scratch[1], scratch[2], scratch[3],
+						scratch[4], scratch[5], scratch[6], scratch[7]);
+				crashSetMessage(sp54);
+				CRASH();
+			}
+#endif
+
+			result = ALIGN16(result);
+
+			info->loadedsize = result;
 		}
 	}
 }
-#else
-void fileLoad(void *dst, u32 allocationlen, u32 *romaddrptr, struct fileinfo *info);
 
-GLOBAL_ASM(
-glabel fileLoad
-/*  f1616b4:	27bdeb20 */ 	addiu	$sp,$sp,-5344
-/*  f1616b8:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f1616bc:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f1616c0:	afa414e0 */ 	sw	$a0,0x14e0($sp)
-/*  f1616c4:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f1616c8:	afa614e8 */ 	sw	$a2,0x14e8($sp)
-/*  f1616cc:	afa714ec */ 	sw	$a3,0x14ec($sp)
-/*  f1616d0:	0fc58595 */ 	jal	fileGetRomSizeByTableAddress
-/*  f1616d4:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f1616d8:	8fa714e0 */ 	lw	$a3,0x14e0($sp)
-/*  f1616dc:	8fa914e8 */ 	lw	$t1,0x14e8($sp)
-/*  f1616e0:	16000006 */ 	bnez	$s0,.NB0f1616fc
-/*  f1616e4:	00403025 */ 	or	$a2,$v0,$zero
-/*  f1616e8:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f1616ec:	0c003664 */ 	jal	dmaExec
-/*  f1616f0:	8d250000 */ 	lw	$a1,0x0($t1)
-/*  f1616f4:	1000003b */ 	beqz	$zero,.NB0f1617e4
-/*  f1616f8:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.NB0f1616fc:
-/*  f1616fc:	2408fff8 */ 	addiu	$t0,$zero,-8
-/*  f161700:	244e0007 */ 	addiu	$t6,$v0,0x7
-/*  f161704:	01c87824 */ 	and	$t7,$t6,$t0
-/*  f161708:	00f01821 */ 	addu	$v1,$a3,$s0
-/*  f16170c:	006fc023 */ 	subu	$t8,$v1,$t7
-/*  f161710:	0307c823 */ 	subu	$t9,$t8,$a3
-/*  f161714:	2f210008 */ 	sltiu	$at,$t9,0x8
-/*  f161718:	10200004 */ 	beqz	$at,.NB0f16172c
-/*  f16171c:	24cb0007 */ 	addiu	$t3,$a2,0x7
-/*  f161720:	8faa14ec */ 	lw	$t2,0x14ec($sp)
-/*  f161724:	1000002e */ 	beqz	$zero,.NB0f1617e0
-/*  f161728:	ad400000 */ 	sw	$zero,0x0($t2)
-.NB0f16172c:
-/*  f16172c:	01686024 */ 	and	$t4,$t3,$t0
-/*  f161730:	006c8023 */ 	subu	$s0,$v1,$t4
-/*  f161734:	02002025 */ 	or	$a0,$s0,$zero
-/*  f161738:	0c003664 */ 	jal	dmaExec
-/*  f16173c:	8d250000 */ 	lw	$a1,0x0($t1)
-/*  f161740:	8fa514e0 */ 	lw	$a1,0x14e0($sp)
-/*  f161744:	02002025 */ 	or	$a0,$s0,$zero
-/*  f161748:	0c001da4 */ 	jal	rzipInflate
-/*  f16174c:	27a600dc */ 	addiu	$a2,$sp,0xdc
-/*  f161750:	1440001e */ 	bnez	$v0,.NB0f1617cc
-/*  f161754:	00401825 */ 	or	$v1,$v0,$zero
-/*  f161758:	920d0000 */ 	lbu	$t5,0x0($s0)
-/*  f16175c:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f161760:	3c067f1b */ 	lui	$a2,0x7f1b
-/*  f161764:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f161768:	920e0001 */ 	lbu	$t6,0x1($s0)
-/*  f16176c:	24c61d78 */ 	addiu	$a2,$a2,0x1d78
-/*  f161770:	24a51d40 */ 	addiu	$a1,$a1,0x1d40
-/*  f161774:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f161778:	920f0002 */ 	lbu	$t7,0x2($s0)
-/*  f16177c:	27a40054 */ 	addiu	$a0,$sp,0x54
-/*  f161780:	240700cc */ 	addiu	$a3,$zero,0xcc
-/*  f161784:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*  f161788:	92180003 */ 	lbu	$t8,0x3($s0)
-/*  f16178c:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*  f161790:	92190004 */ 	lbu	$t9,0x4($s0)
-/*  f161794:	afb90020 */ 	sw	$t9,0x20($sp)
-/*  f161798:	920a0005 */ 	lbu	$t2,0x5($s0)
-/*  f16179c:	afaa0024 */ 	sw	$t2,0x24($sp)
-/*  f1617a0:	920b0006 */ 	lbu	$t3,0x6($s0)
-/*  f1617a4:	afab0028 */ 	sw	$t3,0x28($sp)
-/*  f1617a8:	920c0007 */ 	lbu	$t4,0x7($s0)
-/*  f1617ac:	afa200d4 */ 	sw	$v0,0xd4($sp)
-/*  f1617b0:	0c004fc1 */ 	jal	sprintf
-/*  f1617b4:	afac002c */ 	sw	$t4,0x2c($sp)
-/*  f1617b8:	0c003074 */ 	jal	crashSetMessage
-/*  f1617bc:	27a40054 */ 	addiu	$a0,$sp,0x54
-/*  f1617c0:	240d0045 */ 	addiu	$t5,$zero,0x45
-/*  f1617c4:	8fa300d4 */ 	lw	$v1,0xd4($sp)
-/*  f1617c8:	a00d0000 */ 	sb	$t5,0x0($zero)
-.NB0f1617cc:
-/*  f1617cc:	8fb814ec */ 	lw	$t8,0x14ec($sp)
-/*  f1617d0:	2463000f */ 	addiu	$v1,$v1,0xf
-/*  f1617d4:	346e000f */ 	ori	$t6,$v1,0xf
-/*  f1617d8:	39cf000f */ 	xori	$t7,$t6,0xf
-/*  f1617dc:	af0f0000 */ 	sw	$t7,0x0($t8)
-.NB0f1617e0:
-/*  f1617e0:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.NB0f1617e4:
-/*  f1617e4:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f1617e8:	27bd14e0 */ 	addiu	$sp,$sp,0x14e0
-/*  f1617ec:	03e00008 */ 	jr	$ra
-/*  f1617f0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1b1d80nb[] = "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x";
+const char var7f1b1dd8nb[] = "ob.c";
 #endif
 
 #if VERSION >= VERSION_JPN_FINAL
