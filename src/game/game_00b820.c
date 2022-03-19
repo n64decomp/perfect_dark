@@ -372,7 +372,7 @@ void resetSomeStageThings(void)
 	g_EnemyAccuracyScale = 1;
 	g_DamageReceivedScale = 1;
 	g_DamageDealtScale = 1;
-	var80062cac = 1;
+	g_AttackWalkDurationMultiplier = 1;
 
 	var80062cbc = 0;
 }

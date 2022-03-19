@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-extern f32 var80069880;
+extern f32 g_AutoAimScale;
 
 void propsSort(void);
 void propEnable(struct prop *prop);

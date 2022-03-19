@@ -49,7 +49,7 @@ u32 var8009cdb8;
 u32 var8009cdbc;
 #endif
 
-f32 var80069880 = 1;
+f32 g_AutoAimScale = 1;
 
 /**
  * Populate g_Vars.onscreenprops. This is an array of prop pointers, filtered by
@@ -6351,7 +6351,7 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 				sp48 = (sp84[0] - sp8c[0]) * 1.5f;
 
 				if (!g_Vars.normmplayerisrunning) {
-					sp48 = sp48 * var80069880;
+					sp48 = sp48 * g_AutoAimScale;
 				}
 
 				sp4c = currentPlayerGetScreenLeft() + 0.5f * currentPlayerGetScreenWidth() >= (sp8c[0] + sp84[0]) * 0.5f - sp48

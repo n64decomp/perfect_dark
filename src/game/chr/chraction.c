@@ -66,7 +66,7 @@ u8 g_RecentQuipsIndex;
 f32 g_EnemyAccuracyScale = 1;
 f32 g_DamageReceivedScale = 1;
 f32 g_DamageDealtScale = 1;
-f32 var80062cac = 1;
+f32 g_AttackWalkDurationMultiplier = 1;
 
 #if VERSION >= VERSION_NTSC_1_0
 u32 var80062cb0 = 0x00000000;
@@ -2469,9 +2469,9 @@ void chrAttackWalk(struct chrdata *chr, bool run)
 	chr->act_attackwalk.frame60count = 0;
 #if PAL
 	// This is really TICKS(400.0f), but off by one bit :(
-	chr->act_attackwalk.frame60max = random() % (s32)(333.33331298828f * var80062cac) + TICKS(120);
+	chr->act_attackwalk.frame60max = random() % (s32)(333.33331298828f * g_AttackWalkDurationMultiplier) + TICKS(120);
 #else
-	chr->act_attackwalk.frame60max = random() % (s32)(400 * var80062cac) + TICKS(120);
+	chr->act_attackwalk.frame60max = random() % (s32)(400 * g_AttackWalkDurationMultiplier) + TICKS(120);
 #endif
 	chr->act_attackwalk.facedtarget = false;
 	chr->act_attackwalk.animcfg = animcfg;

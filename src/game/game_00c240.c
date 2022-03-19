@@ -14,7 +14,7 @@ void gvarsInitProps(void)
 	g_Vars.props = mempAlloc(ALIGN64(g_Vars.maxprops * sizeof(struct prop)), MEMPOOL_STAGE);
 	g_Vars.onscreenprops = mempAlloc(ALIGN64(200 * sizeof(void *)), MEMPOOL_STAGE);
 
-	var80069880 = 1;
+	g_AutoAimScale = 1;
 
 	g_Vars.activeprops = g_Vars.activepropstail = NULL;
 	g_Vars.pausedprops = NULL;
