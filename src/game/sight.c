@@ -68,9 +68,12 @@ GLOBAL_ASM(
 glabel func0f0d715c
 /*  f0d715c:	03e00008 */ 	jr	$ra
 /*  f0d7160:	00000000 */ 	nop
-/*  f0d7164:	03e00008 */ 	jr	$ra
-/*  f0d7168:	00801025 */ 	or	$v0,$a0,$zero
 );
+
+Gfx *sight0f0d7164(Gfx *gdl)
+{
+	return gdl;
+}
 
 /**
  * Return true if the given prop can be added to the target list.
