@@ -64,11 +64,10 @@ bool sightIsPropFriendly(struct prop *prop)
 	return chrCompareTeams(g_Vars.currentplayer->prop->chr, prop->chr, COMPARE_FRIENDS);
 }
 
-GLOBAL_ASM(
-glabel func0f0d715c
-/*  f0d715c:	03e00008 */ 	jr	$ra
-/*  f0d7160:	00000000 */ 	nop
-);
+void sight0f0d715c(void)
+{
+	// empty
+}
 
 Gfx *sight0f0d7164(Gfx *gdl)
 {
