@@ -73,43 +73,26 @@ struct mpscenario {
 };
 
 #if VERSION >= VERSION_JPN_FINAL
-u8 jpnfill7[0x40];
+char *scenarioRemoveLineBreaks(char *src, s32 stringnum)
+{
+	static char strings[2][30];
+	char *out = strings[stringnum];
+	s32 i;
+
+	for (; *src != '\0'; src++) {
+		if (*src != '\n') {
+			*out = *src;
+			out++;
+		}
+	}
+
+	*out = '\0';
+
+	return strings[stringnum];
+}
 #endif
 
 struct scenariodata g_ScenarioData;
-
-#if VERSION >= VERSION_JPN_FINAL
-char *func0f180440jf(char *arg0, s32 arg1);
-
-GLOBAL_ASM(
-glabel func0f180440jf
-/*  f180440:	00057100 */ 	sll	$t6,$a1,0x4
-/*  f180444:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f180448:	01c57023 */ 	subu	$t6,$t6,$a1
-/*  f18044c:	3c0f800b */ 	lui	$t7,0x800b
-/*  f180450:	25efcb00 */ 	addiu	$t7,$t7,-13568
-/*  f180454:	000e7040 */ 	sll	$t6,$t6,0x1
-/*  f180458:	01cf3021 */ 	addu	$a2,$t6,$t7
-/*  f18045c:	00c01825 */ 	move	$v1,$a2
-/*  f180460:	1040000a */ 	beqz	$v0,.JF0f18048c
-/*  f180464:	00403825 */ 	move	$a3,$v0
-/*  f180468:	2405000a */ 	li	$a1,0xa
-.JF0f18046c:
-/*  f18046c:	50a70004 */ 	beql	$a1,$a3,.JF0f180480
-/*  f180470:	90820001 */ 	lbu	$v0,0x1($a0)
-/*  f180474:	a0620000 */ 	sb	$v0,0x0($v1)
-/*  f180478:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f18047c:	90820001 */ 	lbu	$v0,0x1($a0)
-.JF0f180480:
-/*  f180480:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f180484:	1440fff9 */ 	bnez	$v0,.JF0f18046c
-/*  f180488:	00403825 */ 	move	$a3,$v0
-.JF0f18048c:
-/*  f18048c:	a0600000 */ 	sb	$zero,0x0($v1)
-/*  f180490:	03e00008 */ 	jr	$ra
-/*  f180494:	00c01025 */ 	move	$v0,$a2
-);
-#endif
 
 s32 menuhandlerMpDisplayTeam(s32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -1163,7 +1146,7 @@ glabel scenarioPickUpBriefcase
 /*  f1870a8:	24045401 */ 	li	$a0,0x5401
 /*  f1870ac:	00408825 */ 	move	$s1,$v0
 /*  f1870b0:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f1870b4:	0fc60110 */ 	jal	func0f180440jf
+/*  f1870b4:	0fc60110 */ 	jal	scenarioRemoveLineBreaks
 /*  f1870b8:	00002825 */ 	move	$a1,$zero
 /*  f1870bc:	00408025 */ 	move	$s0,$v0
 /*  f1870c0:	0fc28c4e */ 	jal	bgunGetShortName
@@ -1412,7 +1395,7 @@ glabel scenarioPickUpBriefcase
 /*  f187428:	01d92021 */ 	addu	$a0,$t6,$t9
 /*  f18742c:	afa40044 */ 	sw	$a0,0x44($sp)
 /*  f187430:	00408025 */ 	move	$s0,$v0
-/*  f187434:	0fc60110 */ 	jal	func0f180440jf
+/*  f187434:	0fc60110 */ 	jal	scenarioRemoveLineBreaks
 /*  f187438:	00002825 */ 	move	$a1,$zero
 /*  f18743c:	27a400dc */ 	addiu	$a0,$sp,0xdc
 /*  f187440:	02002825 */ 	move	$a1,$s0
@@ -1422,7 +1405,7 @@ glabel scenarioPickUpBriefcase
 /*  f187450:	24045406 */ 	li	$a0,0x5406
 /*  f187454:	00408025 */ 	move	$s0,$v0
 /*  f187458:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f18745c:	0fc60110 */ 	jal	func0f180440jf
+/*  f18745c:	0fc60110 */ 	jal	scenarioRemoveLineBreaks
 /*  f187460:	00002825 */ 	move	$a1,$zero
 /*  f187464:	27a4009c */ 	addiu	$a0,$sp,0x9c
 /*  f187468:	02002825 */ 	move	$a1,$s0
@@ -1432,11 +1415,11 @@ glabel scenarioPickUpBriefcase
 /*  f187478:	24045407 */ 	li	$a0,0x5407
 /*  f18747c:	00408825 */ 	move	$s1,$v0
 /*  f187480:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f187484:	0fc60110 */ 	jal	func0f180440jf
+/*  f187484:	0fc60110 */ 	jal	scenarioRemoveLineBreaks
 /*  f187488:	00002825 */ 	move	$a1,$zero
 /*  f18748c:	00408025 */ 	move	$s0,$v0
 /*  f187490:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f187494:	0fc60110 */ 	jal	func0f180440jf
+/*  f187494:	0fc60110 */ 	jal	scenarioRemoveLineBreaks
 /*  f187498:	24050001 */ 	li	$a1,0x1
 /*  f18749c:	27a4005c */ 	addiu	$a0,$sp,0x5c
 /*  f1874a0:	02202825 */ 	move	$a1,$s1
@@ -1600,7 +1583,7 @@ glabel scenarioPickUpBriefcase
 /*  f1876c8:	ac38cb98 */ 	sw	$t8,-0x3468($at)
 /*  f1876cc:	00408825 */ 	move	$s1,$v0
 /*  f1876d0:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f1876d4:	0fc60110 */ 	jal	func0f180440jf
+/*  f1876d4:	0fc60110 */ 	jal	scenarioRemoveLineBreaks
 /*  f1876d8:	00002825 */ 	move	$a1,$zero
 /*  f1876dc:	8fab0128 */ 	lw	$t3,0x128($sp)
 /*  f1876e0:	3c12800b */ 	lui	$s2,0x800b
@@ -1611,7 +1594,7 @@ glabel scenarioPickUpBriefcase
 /*  f1876f4:	000ec880 */ 	sll	$t9,$t6,0x2
 /*  f1876f8:	032ec823 */ 	subu	$t9,$t9,$t6
 /*  f1876fc:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f187700:	0fc60110 */ 	jal	func0f180440jf
+/*  f187700:	0fc60110 */ 	jal	scenarioRemoveLineBreaks
 /*  f187704:	02592021 */ 	addu	$a0,$s2,$t9
 /*  f187708:	27a400dc */ 	addiu	$a0,$sp,0xdc
 /*  f18770c:	02202825 */ 	move	$a1,$s1
@@ -1622,7 +1605,7 @@ glabel scenarioPickUpBriefcase
 /*  f187720:	24045403 */ 	li	$a0,0x5403
 /*  f187724:	00408025 */ 	move	$s0,$v0
 /*  f187728:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f18772c:	0fc60110 */ 	jal	func0f180440jf
+/*  f18772c:	0fc60110 */ 	jal	scenarioRemoveLineBreaks
 /*  f187730:	00002825 */ 	move	$a1,$zero
 /*  f187734:	27a4009c */ 	addiu	$a0,$sp,0x9c
 /*  f187738:	02002825 */ 	move	$a1,$s0
@@ -1637,7 +1620,7 @@ glabel scenarioPickUpBriefcase
 /*  f18775c:	00084880 */ 	sll	$t1,$t0,0x2
 /*  f187760:	01284823 */ 	subu	$t1,$t1,$t0
 /*  f187764:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f187768:	0fc60110 */ 	jal	func0f180440jf
+/*  f187768:	0fc60110 */ 	jal	scenarioRemoveLineBreaks
 /*  f18776c:	02492021 */ 	addu	$a0,$s2,$t1
 /*  f187770:	27a4005c */ 	addiu	$a0,$sp,0x5c
 /*  f187774:	02002825 */ 	move	$a1,$s0
@@ -2093,7 +2076,7 @@ s32 scenarioPickUpUplink(struct chrdata *chr, struct prop *prop)
 
 #if VERSION >= VERSION_JPN_FINAL
 		// "%shas the\nData Uplink%s"
-		sprintf(message, langGet(L_MPWEAPONS_000), func0f180440jf(mpchr->name, 0));
+		sprintf(message, langGet(L_MPWEAPONS_000), scenarioRemoveLineBreaks(mpchr->name, 0));
 #elif VERSION >= VERSION_PAL_BETA
 		// "%shas the\nData Uplink%s"
 		sprintf(message, langGet(L_MPWEAPONS_000), mpchr->name);

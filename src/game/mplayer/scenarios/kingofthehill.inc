@@ -324,7 +324,7 @@ void kohTick(void)
 
 				// "%has captured the Hill!"
 #if VERSION >= VERSION_JPN_FINAL
-				sprintf(text, langGet(L_MPWEAPONS_022), func0f180440jf(g_BossFile.teamnames[hillteam], 0));
+				sprintf(text, langGet(L_MPWEAPONS_022), scenarioRemoveLineBreaks(g_BossFile.teamnames[hillteam], 0));
 #else
 				sprintf(text, langGet(L_MPWEAPONS_022), &g_BossFile.teamnames[hillteam]);
 #endif

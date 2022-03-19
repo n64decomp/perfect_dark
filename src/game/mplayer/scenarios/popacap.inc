@@ -126,13 +126,13 @@ void pacApplyNextVictim(void)
 			sprintf(text, langGet(L_MPWEAPONS_013)); // "You are the victim!"
 		} else if (scenarioChrsAreSameTeam(vplayernum, i)) {
 #if VERSION >= VERSION_JPN_FINAL
-			sprintf(text, langGet(L_MPWEAPONS_014), func0f180440jf(g_MpAllChrConfigPtrs[vplayernum]->name, 0)); // "Protect %s!"
+			sprintf(text, langGet(L_MPWEAPONS_014), scenarioRemoveLineBreaks(g_MpAllChrConfigPtrs[vplayernum]->name, 0)); // "Protect %s!"
 #else
 			sprintf(text, langGet(L_MPWEAPONS_014), g_MpAllChrConfigPtrs[vplayernum]->name); // "Protect %s!"
 #endif
 		} else {
 #if VERSION >= VERSION_JPN_FINAL
-			sprintf(text, langGet(L_MPWEAPONS_015), func0f180440jf(g_MpAllChrConfigPtrs[vplayernum]->name, 0)); // "Get %s!"
+			sprintf(text, langGet(L_MPWEAPONS_015), scenarioRemoveLineBreaks(g_MpAllChrConfigPtrs[vplayernum]->name, 0)); // "Get %s!"
 #else
 			sprintf(text, langGet(L_MPWEAPONS_015), g_MpAllChrConfigPtrs[vplayernum]->name); // "Get %s!"
 #endif
