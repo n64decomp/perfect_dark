@@ -2,6 +2,9 @@
 #include <rdb.h>
 #include <R4300.h>
 
+unsigned int __osRdbSendMessage = 0;
+unsigned int __osRdbWriteOK = 1;
+
 GLOBAL_ASM(
 glabel __osSyncPutChars
 /*     4100:	27bdffc8 */ 	addiu	$sp,$sp,-56
@@ -70,3 +73,30 @@ glabel __osSyncPutChars
 /*     41e4:	03e00008 */ 	jr	$ra
 /*     41e8:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+//void __osSyncPutChars(int type, int length, const char *buf)
+//{
+//	rdbPacket packet;
+//	int i;
+//	u32 mask;
+//
+//	packet.type = type;
+//	packet.length = length;
+//
+//	for (i = 0; i < length; i++) {
+//		packet.buf[i] = buf[i];
+//	}
+//
+//	while (!__osAtomicDec(&__osRdbWriteOK));
+//
+//	mask = __osDisableInt();
+//
+//	*(u32 *)RDB_BASE_REG = *(u32 *)&packet;
+//
+//	while (!(__osGetCause() & CAUSE_IP6));
+//
+//	*(u32 *)RDB_READ_INTR_REG = 0;
+//
+//	__osRdbWriteOK++;
+//	__osRestoreInt(mask);
+//}
