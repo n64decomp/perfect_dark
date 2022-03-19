@@ -1736,10 +1736,10 @@ glabel var7f1a8f68jf
 /*  f016ffc:	96040244 */ 	lhu	$a0,0x244($s0)
 /*  f017000:	34c67800 */ 	ori	$a2,$a2,0x7800
 /*  f017004:	02202825 */ 	move	$a1,$s1
-/*  f017008:	0fc6a0c5 */ 	jal	func0f1a7794
+/*  f017008:	0fc6a0c5 */ 	jal	modeldefLoad
 /*  f01700c:	00003825 */ 	move	$a3,$zero
 /*  f017010:	ae020240 */ 	sw	$v0,0x240($s0)
-/*  f017014:	0fc59da4 */ 	jal	fileGetSize
+/*  f017014:	0fc59da4 */ 	jal	fileGetLoadedSize
 /*  f017018:	96040244 */ 	lhu	$a0,0x244($s0)
 /*  f01701c:	2443003f */ 	addiu	$v1,$v0,0x3f
 /*  f017020:	346a003f */ 	ori	$t2,$v1,0x3f
@@ -1774,10 +1774,10 @@ glabel var7f1a8f68jf
 /*  f017094:	ada10008 */ 	sw	$at,0x8($t5)
 /*  f017098:	9604024c */ 	lhu	$a0,0x24c($s0)
 /*  f01709c:	02403025 */ 	move	$a2,$s2
-/*  f0170a0:	0fc6a0c5 */ 	jal	func0f1a7794
+/*  f0170a0:	0fc6a0c5 */ 	jal	modeldefLoad
 /*  f0170a4:	00003825 */ 	move	$a3,$zero
 /*  f0170a8:	ae020248 */ 	sw	$v0,0x248($s0)
-/*  f0170ac:	0fc59da4 */ 	jal	fileGetSize
+/*  f0170ac:	0fc59da4 */ 	jal	fileGetLoadedSize
 /*  f0170b0:	9604024c */ 	lhu	$a0,0x24c($s0)
 /*  f0170b4:	2443003f */ 	addiu	$v1,$v0,0x3f
 /*  f0170b8:	3479003f */ 	ori	$t9,$v1,0x3f
@@ -1810,10 +1810,10 @@ glabel var7f1a8f68jf
 /*  f017124:	ad610008 */ 	sw	$at,0x8($t3)
 /*  f017128:	9604026c */ 	lhu	$a0,0x26c($s0)
 /*  f01712c:	02403025 */ 	move	$a2,$s2
-/*  f017130:	0fc6a0c5 */ 	jal	func0f1a7794
+/*  f017130:	0fc6a0c5 */ 	jal	modeldefLoad
 /*  f017134:	00003825 */ 	move	$a3,$zero
 /*  f017138:	ae020268 */ 	sw	$v0,0x268($s0)
-/*  f01713c:	0fc59da4 */ 	jal	fileGetSize
+/*  f01713c:	0fc59da4 */ 	jal	fileGetLoadedSize
 /*  f017140:	9604026c */ 	lhu	$a0,0x26c($s0)
 /*  f017144:	2443003f */ 	addiu	$v1,$v0,0x3f
 /*  f017148:	3478003f */ 	ori	$t8,$v1,0x3f
@@ -1846,10 +1846,10 @@ glabel var7f1a8f68jf
 /*  f0171b4:	af210008 */ 	sw	$at,0x8($t9)
 /*  f0171b8:	96040dcc */ 	lhu	$a0,0xdcc($s0)
 /*  f0171bc:	02403025 */ 	move	$a2,$s2
-/*  f0171c0:	0fc6a0c5 */ 	jal	func0f1a7794
+/*  f0171c0:	0fc6a0c5 */ 	jal	modeldefLoad
 /*  f0171c4:	00003825 */ 	move	$a3,$zero
 /*  f0171c8:	ae020dc8 */ 	sw	$v0,0xdc8($s0)
-/*  f0171cc:	0fc59da4 */ 	jal	fileGetSize
+/*  f0171cc:	0fc59da4 */ 	jal	fileGetLoadedSize
 /*  f0171d0:	96040dcc */ 	lhu	$a0,0xdcc($s0)
 /*  f0171d4:	2443003f */ 	addiu	$v1,$v0,0x3f
 /*  f0171d8:	346c003f */ 	ori	$t4,$v1,0x3f
@@ -1885,10 +1885,10 @@ glabel var7f1a8f68jf
 /*  f017250:	96040dd4 */ 	lhu	$a0,0xdd4($s0)
 /*  f017254:	02202825 */ 	move	$a1,$s1
 /*  f017258:	02403025 */ 	move	$a2,$s2
-/*  f01725c:	0fc6a0c5 */ 	jal	func0f1a7794
+/*  f01725c:	0fc6a0c5 */ 	jal	modeldefLoad
 /*  f017260:	00003825 */ 	move	$a3,$zero
 /*  f017264:	ae020dd0 */ 	sw	$v0,0xdd0($s0)
-/*  f017268:	0fc59da4 */ 	jal	fileGetSize
+/*  f017268:	0fc59da4 */ 	jal	fileGetLoadedSize
 /*  f01726c:	96040dd4 */ 	lhu	$a0,0xdd4($s0)
 /*  f017270:	2443003f */ 	addiu	$v1,$v0,0x3f
 /*  f017274:	3478003f */ 	ori	$t8,$v1,0x3f
@@ -1921,10 +1921,10 @@ glabel var7f1a8f68jf
 /*  f0172e0:	adc10008 */ 	sw	$at,0x8($t6)
 /*  f0172e4:	96040274 */ 	lhu	$a0,0x274($s0)
 /*  f0172e8:	02403025 */ 	move	$a2,$s2
-/*  f0172ec:	0fc6a0c5 */ 	jal	func0f1a7794
+/*  f0172ec:	0fc6a0c5 */ 	jal	modeldefLoad
 /*  f0172f0:	00003825 */ 	move	$a3,$zero
 /*  f0172f4:	ae020270 */ 	sw	$v0,0x270($s0)
-/*  f0172f8:	0fc59da4 */ 	jal	fileGetSize
+/*  f0172f8:	0fc59da4 */ 	jal	fileGetLoadedSize
 /*  f0172fc:	96040274 */ 	lhu	$a0,0x274($s0)
 /*  f017300:	2443003f */ 	addiu	$v1,$v0,0x3f
 /*  f017304:	346c003f */ 	ori	$t4,$v1,0x3f
@@ -2022,10 +2022,10 @@ glabel titleInitPdLogo
 /*  f016d88:	96240244 */ 	lhu	$a0,0x244($s1)
 /*  f016d8c:	34c67800 */ 	ori	$a2,$a2,0x7800
 /*  f016d90:	00003825 */ 	or	$a3,$zero,$zero
-/*  f016d94:	0fc69de5 */ 	jal	func0f1a7794
+/*  f016d94:	0fc69de5 */ 	jal	modeldefLoad
 /*  f016d98:	02002825 */ 	or	$a1,$s0,$zero
 /*  f016d9c:	ae220240 */ 	sw	$v0,0x240($s1)
-/*  f016da0:	0fc59ca0 */ 	jal	fileGetSize
+/*  f016da0:	0fc59ca0 */ 	jal	fileGetLoadedSize
 /*  f016da4:	96240244 */ 	lhu	$a0,0x244($s1)
 /*  f016da8:	2443003f */ 	addiu	$v1,$v0,0x3f
 /*  f016dac:	3469003f */ 	ori	$t1,$v1,0x3f
@@ -2060,10 +2060,10 @@ glabel titleInitPdLogo
 /*  f016e20:	ad810008 */ 	sw	$at,0x8($t4)
 /*  f016e24:	9624024c */ 	lhu	$a0,0x24c($s1)
 /*  f016e28:	02403025 */ 	or	$a2,$s2,$zero
-/*  f016e2c:	0fc69de5 */ 	jal	func0f1a7794
+/*  f016e2c:	0fc69de5 */ 	jal	modeldefLoad
 /*  f016e30:	00003825 */ 	or	$a3,$zero,$zero
 /*  f016e34:	ae220248 */ 	sw	$v0,0x248($s1)
-/*  f016e38:	0fc59ca0 */ 	jal	fileGetSize
+/*  f016e38:	0fc59ca0 */ 	jal	fileGetLoadedSize
 /*  f016e3c:	9624024c */ 	lhu	$a0,0x24c($s1)
 /*  f016e40:	2443003f */ 	addiu	$v1,$v0,0x3f
 /*  f016e44:	346e003f */ 	ori	$t6,$v1,0x3f
@@ -2096,10 +2096,10 @@ glabel titleInitPdLogo
 /*  f016eb0:	ad010008 */ 	sw	$at,0x8($t0)
 /*  f016eb4:	9624026c */ 	lhu	$a0,0x26c($s1)
 /*  f016eb8:	02403025 */ 	or	$a2,$s2,$zero
-/*  f016ebc:	0fc69de5 */ 	jal	func0f1a7794
+/*  f016ebc:	0fc69de5 */ 	jal	modeldefLoad
 /*  f016ec0:	00003825 */ 	or	$a3,$zero,$zero
 /*  f016ec4:	ae220268 */ 	sw	$v0,0x268($s1)
-/*  f016ec8:	0fc59ca0 */ 	jal	fileGetSize
+/*  f016ec8:	0fc59ca0 */ 	jal	fileGetLoadedSize
 /*  f016ecc:	9624026c */ 	lhu	$a0,0x26c($s1)
 /*  f016ed0:	2443003f */ 	addiu	$v1,$v0,0x3f
 /*  f016ed4:	3479003f */ 	ori	$t9,$v1,0x3f
@@ -2132,10 +2132,10 @@ glabel titleInitPdLogo
 /*  f016f40:	ada10008 */ 	sw	$at,0x8($t5)
 /*  f016f44:	96240274 */ 	lhu	$a0,0x274($s1)
 /*  f016f48:	02403025 */ 	or	$a2,$s2,$zero
-/*  f016f4c:	0fc69de5 */ 	jal	func0f1a7794
+/*  f016f4c:	0fc69de5 */ 	jal	modeldefLoad
 /*  f016f50:	00003825 */ 	or	$a3,$zero,$zero
 /*  f016f54:	ae220270 */ 	sw	$v0,0x270($s1)
-/*  f016f58:	0fc59ca0 */ 	jal	fileGetSize
+/*  f016f58:	0fc59ca0 */ 	jal	fileGetLoadedSize
 /*  f016f5c:	96240274 */ 	lhu	$a0,0x274($s1)
 /*  f016f60:	2443003f */ 	addiu	$v1,$v0,0x3f
 /*  f016f64:	346a003f */ 	ori	$t2,$v1,0x3f
@@ -2218,8 +2218,8 @@ glabel titleInitPdLogo
 //
 //	{
 //		struct coord coord = {0, 0, 0}; // var80062738
-//		g_ModelStates[MODEL_NLOGO].filedata = func0f1a7794(g_ModelStates[MODEL_NLOGO].fileid, nextaddr, 0x47800, 0);
-//		size = ALIGN64(fileGetSize(g_ModelStates[MODEL_NLOGO].fileid));
+//		g_ModelStates[MODEL_NLOGO].filedata = modeldefLoad(g_ModelStates[MODEL_NLOGO].fileid, nextaddr, 0x47800, 0);
+//		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_NLOGO].fileid));
 //		nextaddr += size;
 //		remaining = 0x47800 - size;
 //		modelCalculateRwDataLen(g_ModelStates[MODEL_NLOGO].filedata);
@@ -2231,8 +2231,8 @@ glabel titleInitPdLogo
 //
 //	{
 //		struct coord coord = {0, 0, 0}; // var80062744
-//		g_ModelStates[MODEL_NLOGO2].filedata = func0f1a7794(g_ModelStates[MODEL_NLOGO2].fileid, nextaddr, remaining, 0);
-//		size = ALIGN64(fileGetSize(g_ModelStates[MODEL_NLOGO2].fileid));
+//		g_ModelStates[MODEL_NLOGO2].filedata = modeldefLoad(g_ModelStates[MODEL_NLOGO2].fileid, nextaddr, remaining, 0);
+//		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_NLOGO2].fileid));
 //		nextaddr += size;
 //		remaining -= size;
 //		modelCalculateRwDataLen(g_ModelStates[MODEL_NLOGO2].filedata);
@@ -2244,8 +2244,8 @@ glabel titleInitPdLogo
 //
 //	{
 //		struct coord coord = {0, 0, 0}; // var80062750
-//		g_ModelStates[MODEL_PDTWO].filedata = func0f1a7794(g_ModelStates[MODEL_PDTWO].fileid, nextaddr, remaining, 0);
-//		size = ALIGN64(fileGetSize(g_ModelStates[MODEL_PDTWO].fileid));
+//		g_ModelStates[MODEL_PDTWO].filedata = modeldefLoad(g_ModelStates[MODEL_PDTWO].fileid, nextaddr, remaining, 0);
+//		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_PDTWO].fileid));
 //		nextaddr += size;
 //		remaining -= size;
 //		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTWO].filedata);
@@ -2257,8 +2257,8 @@ glabel titleInitPdLogo
 //
 //	{
 //		struct coord coord = {0, 0, 0}; // var8006275c
-//		g_ModelStates[MODEL_PDTHREE].filedata = func0f1a7794(g_ModelStates[MODEL_PDTHREE].fileid, nextaddr, remaining, 0);
-//		size = ALIGN64(fileGetSize(g_ModelStates[MODEL_PDTHREE].fileid));
+//		g_ModelStates[MODEL_PDTHREE].filedata = modeldefLoad(g_ModelStates[MODEL_PDTHREE].fileid, nextaddr, remaining, 0);
+//		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_PDTHREE].fileid));
 //		nextaddr += size;
 //		remaining -= size;
 //		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTHREE].filedata);
@@ -9683,7 +9683,7 @@ void titleInitNintendoLogo(void)
 	{
 		struct coord coord = {0, 0, 0};
 
-		g_ModelStates[MODEL_NINTENDOLOGO].filedata = func0f1a7794(g_ModelStates[MODEL_NINTENDOLOGO].fileid, nextaddr, 0x47800, 0);
+		g_ModelStates[MODEL_NINTENDOLOGO].filedata = modeldefLoad(g_ModelStates[MODEL_NINTENDOLOGO].fileid, nextaddr, 0x47800, 0);
 
 		modelCalculateRwDataLen(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
 		g_TitleModel = modelInstantiate(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
@@ -9842,7 +9842,7 @@ void titleInitRareLogo(void)
 	{
 		struct coord coord = {0, 0, 0};
 
-		g_ModelStates[MODEL_RARELOGO].filedata = func0f1a7794(g_ModelStates[MODEL_RARELOGO].fileid, nextaddr, 0x47800, 0);
+		g_ModelStates[MODEL_RARELOGO].filedata = modeldefLoad(g_ModelStates[MODEL_RARELOGO].fileid, nextaddr, 0x47800, 0);
 
 		modelCalculateRwDataLen(g_ModelStates[MODEL_RARELOGO].filedata);
 		g_TitleModel = modelInstantiate(g_ModelStates[MODEL_RARELOGO].filedata);

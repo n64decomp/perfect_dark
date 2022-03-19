@@ -5235,8 +5235,8 @@ struct var800aabb8 {
 };
 
 struct fileinfo {
-	u32 size;
-	u32 unk04;
+	u32 loadedsize;
+	u32 allocsize;
 };
 
 struct portalcmd {

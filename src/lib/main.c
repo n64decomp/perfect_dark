@@ -587,7 +587,7 @@ glabel mainInit
 /*  d8f0:	00000000 */ 	nop
 /*  d8f4:	0fc6a10c */ 	jal	func0f1a78b0
 /*  d8f8:	00000000 */ 	nop
-/*  d8fc:	0fc59ce1 */ 	jal	func0f166f74
+/*  d8fc:	0fc59ce1 */ 	jal	filesResetAndPrint
 /*  d900:	00000000 */ 	nop
 /*  d904:	0fc5d8e8 */ 	jal	stub0f175f50
 /*  d908:	00000000 */ 	nop
@@ -982,7 +982,7 @@ glabel mainInit
 /*     d684:	00000000 */ 	nop
 /*     d688:	0fc6a2ac */ 	jal	func0f1a78b0
 /*     d68c:	00000000 */ 	nop
-/*     d690:	0fc59fbd */ 	jal	func0f166f74
+/*     d690:	0fc59fbd */ 	jal	filesResetAndPrint
 /*     d694:	00000000 */ 	nop
 /*     d698:	0fc5dbe0 */ 	jal	stub0f175f50
 /*     d69c:	00000000 */ 	nop
@@ -1407,7 +1407,7 @@ glabel mainInit
 /*  d724:	00000000 */ 	nop
 /*  d728:	0fc6a558 */ 	jal	func0f1a78b0
 /*  d72c:	00000000 */ 	nop
-/*  d730:	0fc5a179 */ 	jal	func0f166f74
+/*  d730:	0fc5a179 */ 	jal	filesResetAndPrint
 /*  d734:	00000000 */ 	nop
 /*  d738:	0fc5dea0 */ 	jal	stub0f175f50
 /*  d73c:	00000000 */ 	nop
@@ -1810,7 +1810,7 @@ glabel mainInit
 /*     d948:	00000000 */ 	nop
 /*     d94c:	0fc69e2c */ 	jal	func0f1a78b0
 /*     d950:	00000000 */ 	nop
-/*     d954:	0fc59bdd */ 	jal	func0f166f74
+/*     d954:	0fc59bdd */ 	jal	filesResetAndPrint
 /*     d958:	00000000 */ 	nop
 /*     d95c:	0fc5d7d4 */ 	jal	stub0f175f50
 /*     d960:	00000000 */ 	nop
@@ -2183,7 +2183,7 @@ glabel mainInit
 /*     de58:	00000000 */ 	sll	$zero,$zero,0x0
 /*     de5c:	0fc68554 */ 	jal	func0f1a78b0
 /*     de60:	00000000 */ 	sll	$zero,$zero,0x0
-/*     de64:	0fc585fd */ 	jal	func0f166f74
+/*     de64:	0fc585fd */ 	jal	filesResetAndPrint
 /*     de68:	00000000 */ 	sll	$zero,$zero,0x0
 /*     de6c:	0fc5c2fc */ 	jal	stub0f175f50
 /*     de70:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2449,7 +2449,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //
 //	vmInit();
 //	func0f1a78b0();
-//	func0f166f74();
+//	filesResetAndPrint();
 //	stub0f175f50();
 //	func0f175f90();
 //
@@ -2681,7 +2681,7 @@ void mainLoop(void)
 
 		mempResetPool(MEMPOOL_7);
 		mempResetPool(MEMPOOL_STAGE);
-		func0f1672f0(4);
+		filesReset(4);
 
 		if (argFindByPrefix(1, "-ma")) {
 			g_MainMemaHeapSize = strtol(argFindByPrefix(1, "-ma"), NULL, 0) * 1024;
@@ -2794,7 +2794,7 @@ void mainLoop(void)
 		lvReset();
 		mempDisablePool(MEMPOOL_STAGE);
 		mempDisablePool(MEMPOOL_7);
-		func0f1672f0(4);
+		filesReset(4);
 		viBlack(true);
 		pak0f116994();
 
@@ -3112,7 +3112,7 @@ glabel mainLoop
 /*     e48c:	24040007 */ 	addiu	$a0,$zero,0x7
 /*     e490:	0c004ab1 */ 	jal	mempResetPool
 /*     e494:	24040004 */ 	addiu	$a0,$zero,0x4
-/*     e498:	0fc58709 */ 	jal	func0f1672f0
+/*     e498:	0fc58709 */ 	jal	filesReset
 /*     e49c:	24040004 */ 	addiu	$a0,$zero,0x4
 /*     e4a0:	3c057005 */ 	lui	$a1,0x7005
 /*     e4a4:	24a55134 */ 	addiu	$a1,$a1,0x5134
@@ -3392,7 +3392,7 @@ glabel mainLoop
 /*     e880:	24040004 */ 	addiu	$a0,$zero,0x4
 /*     e884:	0c004acc */ 	jal	mempDisablePool
 /*     e888:	24040007 */ 	addiu	$a0,$zero,0x7
-/*     e88c:	0fc58709 */ 	jal	func0f1672f0
+/*     e88c:	0fc58709 */ 	jal	filesReset
 /*     e890:	24040004 */ 	addiu	$a0,$zero,0x4
 /*     e894:	0c00281a */ 	jal	viBlack
 /*     e898:	02e02025 */ 	or	$a0,$s7,$zero

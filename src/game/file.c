@@ -10,6 +10,44 @@
 #include "data.h"
 #include "types.h"
 
+/**
+ * This file contains functions relating to ROM asset files.
+ *
+ * Asset files include:
+ * - BG segment files
+ * - Lang files
+ * - MP3 files
+ * - Model files
+ * - Pad files
+ * - Stage setup files
+ * - Tile files
+ *
+ * The following are not implemented as asset files and are therefore not
+ * managed here:
+ * - Animations
+ * - Music
+ * - Textures
+ *
+ * The file system does not keep track of which files are loaded, nor does it
+ * maintain a list of pointers to loaded file data. All load operations either
+ * require the caller to pass a destination pointer, or the file system can make
+ * its own allocation and return the pointer. It does not store the pointer in
+ * either case.
+ *
+ * Most file types are compressed. This is abstracted away, so from the caller's
+ * perspect they just call a load function and they receive an inflated file.
+ * Exceptions to this are:
+ * - BG files, which contain multiple compressed parts. The caller uses
+ *   fileLoadPartToAddr which loads a slice of the file without inflation.
+ * - MP3 files, which are not compressed. The caller retrieves the ROM start and
+ *   end addresses from the file system, then gives that to the MP3 system which
+ *   does its own DMA operations.
+ *
+ * It is likely that during development files could be alternatively loaded
+ * from the host computer. This code no longer exists, but there are some unused
+ * functions that support this theory.
+ */
+
 extern void *_file_bg_sev_seg;
 extern void *_file_bg_silo_seg;
 extern void *_file_bg_stat_seg;
@@ -2044,7 +2082,7 @@ struct fileinfo g_FileInfo[NUM_FILES];
 u32 var800aa570;
 #endif
 
-void *filetable[] = {
+void *g_FileTable[] = {
 	/*0x0000*/ NULL,
 	/*0x0001*/ &_file_bg_sev_seg,
 	/*0x0002*/ &_file_bg_silo_seg,
@@ -4070,57 +4108,59 @@ void *filetable[] = {
 
 u32 fileGetRomAddress(s32 filenum)
 {
-	return (u32)filetable[filenum];
+	return (u32)g_FileTable[filenum];
 }
 
 u32 fileGetRomSizeByTableAddress(u32 *filetableaddr)
 {
-	u32 difference;
+	u32 size;
 
 	if (filetableaddr[1]) {
-		difference = filetableaddr[1] - filetableaddr[0];
+		size = filetableaddr[1] - filetableaddr[0];
 	} else {
-		difference = 0;
+		size = 0;
 	}
 
-	return difference;
+	return size;
 }
 
-s32 fileGetRomSizeByFileNum(s32 filenum)
+s32 fileGetRomSize(s32 filenum)
 {
-	return fileGetRomSizeByTableAddress((u32 *)&filetable[filenum]);
+	return fileGetRomSizeByTableAddress((u32 *)&g_FileTable[filenum]);
 }
 
-u32 func0f166ea8(u32 *filetableaddr)
+u32 file0f166ea8(u32 *filetableaddr)
 {
 	return 0;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void func0f166eb4(void *dst, u32 scratchlen, u32 *romaddrptr, struct fileinfo *info)
+void fileLoad(void *dst, u32 allocationlen, u32 *romaddrptr, struct fileinfo *info)
 {
 	u32 romsize = fileGetRomSizeByTableAddress(romaddrptr);
 	u8 buffer[5 * 1024];
 	u32 tmp;
 
-	if (scratchlen == 0) {
+	if (allocationlen == 0) {
 		// DMA with no inflate
 		dmaExec(dst, *romaddrptr, romsize);
 	} else {
 		// DMA the compressed data to scratch space then inflate
-		u32 scratchaddr = ((u32)dst + scratchlen) - (romsize + 7 & 0xfffffff8);
+		u32 scratchaddr = ((u32)dst + allocationlen) - (romsize + 7 & 0xfffffff8);
 
 		if (scratchaddr - (u32)dst < 8) {
-			info->size = 0;
+			info->loadedsize = 0;
 		} else {
 			dmaExec((void *)scratchaddr, *romaddrptr, romsize);
-			info->size = ALIGN16(rzipInflate((void *)scratchaddr, dst, buffer));
+			info->loadedsize = ALIGN16(rzipInflate((void *)scratchaddr, dst, buffer));
 		}
 	}
 }
 #else
+void fileLoad(void *dst, u32 allocationlen, u32 *romaddrptr, struct fileinfo *info);
+
 GLOBAL_ASM(
-glabel func0f166eb4
+glabel fileLoad
 /*  f1616b4:	27bdeb20 */ 	addiu	$sp,$sp,-5344
 /*  f1616b8:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f1616bc:	afb00038 */ 	sw	$s0,0x38($sp)
@@ -4211,17 +4251,17 @@ glabel func0f166eb4
 
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
-glabel func0f166f74
+glabel filesResetAndPrint
 /*  f166f74:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f166f78:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f166f7c:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f166f80:	afb40028 */ 	sw	$s4,0x28($sp)
 /*  f166f84:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f166f88:	3c11800a */ 	lui	$s1,%hi(g_FileInfo)
-/*  f166f8c:	3c128008 */ 	lui	$s2,%hi(filetable)
+/*  f166f8c:	3c128008 */ 	lui	$s2,%hi(g_FileTable)
 /*  f166f90:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f166f94:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f166f98:	26522060 */ 	addiu	$s2,$s2,%lo(filetable)
+/*  f166f98:	26522060 */ 	addiu	$s2,$s2,%lo(g_FileTable)
 /*  f166f9c:	26316680 */ 	addiu	$s1,$s1,%lo(g_FileInfo)
 /*  f166fa0:	24100001 */ 	addiu	$s0,$zero,0x1
 /*  f166fa4:	241407de */ 	addiu	$s4,$zero,0x7e0
@@ -4247,17 +4287,17 @@ glabel func0f166f74
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f166f74
+glabel filesResetAndPrint
 /*  f166f74:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f166f78:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f166f7c:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f166f80:	afb40028 */ 	sw	$s4,0x28($sp)
 /*  f166f84:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f166f88:	3c11800a */ 	lui	$s1,%hi(g_FileInfo)
-/*  f166f8c:	3c128008 */ 	lui	$s2,%hi(filetable)
+/*  f166f8c:	3c128008 */ 	lui	$s2,%hi(g_FileTable)
 /*  f166f90:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f166f94:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f166f98:	26522060 */ 	addiu	$s2,$s2,%lo(filetable)
+/*  f166f98:	26522060 */ 	addiu	$s2,$s2,%lo(g_FileTable)
 /*  f166f9c:	26316680 */ 	addiu	$s1,$s1,%lo(g_FileInfo)
 /*  f166fa0:	24100001 */ 	addiu	$s0,$zero,0x1
 /*  f166fa4:	241407de */ 	addiu	$s4,$zero,0x7de
@@ -4283,17 +4323,17 @@ glabel func0f166f74
 );
 #else
 GLOBAL_ASM(
-glabel func0f166f74
+glabel filesResetAndPrint
 /*  f166f74:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f166f78:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f166f7c:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f166f80:	afb40028 */ 	sw	$s4,0x28($sp)
 /*  f166f84:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f166f88:	3c11800a */ 	lui	$s1,%hi(g_FileInfo)
-/*  f166f8c:	3c128008 */ 	lui	$s2,%hi(filetable)
+/*  f166f8c:	3c128008 */ 	lui	$s2,%hi(g_FileTable)
 /*  f166f90:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f166f94:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f166f98:	26522060 */ 	addiu	$s2,$s2,%lo(filetable)
+/*  f166f98:	26522060 */ 	addiu	$s2,$s2,%lo(g_FileTable)
 /*  f166f9c:	26316680 */ 	addiu	$s1,$s1,%lo(g_FileInfo)
 /*  f166fa0:	24100001 */ 	addiu	$s0,$zero,0x1
 /*  f166fa4:	241407de */ 	addiu	$s4,$zero,0x7dd
@@ -4319,33 +4359,33 @@ glabel func0f166f74
 );
 #endif
 
-//void func0f166f74(void)
+//void filesResetAndPrint(void)
 //{
 //	s32 i;
 //
 //	for (i = 1; i < NUM_FILES; i++) {
-//		g_FileInfo[i].size = 0;
-//		g_FileInfo[i].unk04 = 0;
+//		g_FileInfo[i].loadedsize = 0;
+//		g_FileInfo[i].allocsize = 0;
 //
-//		fileGetRomSizeByTableAddress(&filetable[i]);
+//		fileGetRomSizeByTableAddress(&g_FileTable[i]);
 //	}
 //}
 
-void func0f166ff0(u16 filenum, void *memaddr, s32 offset, u32 len)
+void fileLoadPartToAddr(u16 filenum, void *memaddr, s32 offset, u32 len)
 {
 	u32 stack[2];
 
-	if (fileGetRomSizeByTableAddress((u32 *)&filetable[filenum])) {
-		dmaExec(memaddr, (u32)filetable[filenum] + offset, len);
+	if (fileGetRomSizeByTableAddress((u32 *)&g_FileTable[filenum])) {
+		dmaExec(memaddr, (u32)g_FileTable[filenum] + offset, len);
 	}
 }
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel fileGetInflatedLength
+glabel fileGetInflatedSize
 /*  f167054:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*  f167058:	3c0f8008 */ 	lui	$t7,%hi(filetable)
-/*  f16705c:	25ef2060 */ 	addiu	$t7,$t7,%lo(filetable)
+/*  f167058:	3c0f8008 */ 	lui	$t7,%hi(g_FileTable)
+/*  f16705c:	25ef2060 */ 	addiu	$t7,$t7,%lo(g_FileTable)
 /*  f167060:	00047080 */ 	sll	$t6,$a0,0x2
 /*  f167064:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f167068:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -4355,7 +4395,7 @@ glabel fileGetInflatedLength
 /*  f167078:	2401fff0 */ 	addiu	$at,$zero,-16
 /*  f16707c:	14a0000c */ 	bnez	$a1,.L0f1670b0
 /*  f167080:	24060040 */ 	addiu	$a2,$zero,0x40
-/*  f167084:	0fc59baa */ 	jal	func0f166ea8
+/*  f167084:	0fc59baa */ 	jal	file0f166ea8
 /*  f167088:	00000000 */ 	nop
 /*  f16708c:	27b00044 */ 	addiu	$s0,$sp,0x44
 /*  f167090:	2401fff0 */ 	addiu	$at,$zero,-16
@@ -4392,7 +4432,7 @@ glabel fileGetInflatedLength
 );
 #else
 GLOBAL_ASM(
-glabel fileGetInflatedLength
+glabel fileGetInflatedSize
 /*  f1618d4:	27bdfeb8 */ 	addiu	$sp,$sp,-328
 /*  f1618d8:	3c0f8008 */ 	lui	$t7,0x8008
 /*  f1618dc:	25ef48c0 */ 	addiu	$t7,$t7,0x48c0
@@ -4405,7 +4445,7 @@ glabel fileGetInflatedLength
 /*  f1618f8:	2401fff0 */ 	addiu	$at,$zero,-16
 /*  f1618fc:	14a0000c */ 	bnez	$a1,.NB0f161930
 /*  f161900:	24060040 */ 	addiu	$a2,$zero,0x40
-/*  f161904:	0fc585aa */ 	jal	func0f166ea8
+/*  f161904:	0fc585aa */ 	jal	file0f166ea8
 /*  f161908:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16190c:	27b00104 */ 	addiu	$s0,$sp,0x104
 /*  f161910:	2401fff0 */ 	addiu	$at,$zero,-16
@@ -4487,20 +4527,20 @@ glabel fileGetInflatedLength
 );
 #endif
 
-//u32 fileGetInflatedLength(u32 filenum)
+//u32 fileGetInflatedSize(u32 filenum)
 //{
 //	u8 buffer[0x50];
 //	u8 *alignedbuffer;
 //	void *romaddr;
 //	u32 tmp;
 //
-//	romaddr = filetable[filenum];
+//	romaddr = g_FileTable[filenum];
 //	alignedbuffer = buffer;
 //
 //	if (romaddr == NULL) {
 //		alignedbuffer = (u8 *)(((u32)alignedbuffer) & ~0xf);
 //
-//		stub0f175f58(func0f166ea8((u32 *) &filetable[filenum]), (u32)alignedbuffer, 16);
+//		stub0f175f58(file0f166ea8((u32 *) &g_FileTable[filenum]), (u32)alignedbuffer, 16);
 //	} else {
 //		alignedbuffer = (u8 *)(((u32)alignedbuffer) & ~0xf);
 //		dmaExec((void *)alignedbuffer, romaddr, 0x40);
@@ -4514,7 +4554,7 @@ glabel fileGetInflatedLength
 //}
 
 GLOBAL_ASM(
-glabel func0f1670fc
+glabel fileLoadToNew
 /*  f1670fc:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f167100:	24010011 */ 	addiu	$at,$zero,0x11
 /*  f167104:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -4534,7 +4574,7 @@ glabel func0f1670fc
 /*  f167138:	8e080000 */ 	lw	$t0,0x0($s0)
 /*  f16713c:	5500000e */ 	bnezl	$t0,.L0f167178
 /*  f167140:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f167144:	0fc59c15 */ 	jal	fileGetInflatedLength
+/*  f167144:	0fc59c15 */ 	jal	fileGetInflatedSize
 /*  f167148:	01e02025 */ 	or	$a0,$t7,$zero
 /*  f16714c:	24490020 */ 	addiu	$t1,$v0,0x20
 /*  f167150:	2401fff0 */ 	addiu	$at,$zero,-16
@@ -4553,14 +4593,14 @@ glabel func0f1670fc
 /*  f16717c:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f167180:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f167184:	8e050000 */ 	lw	$a1,0x0($s0)
-/*  f167188:	3c198008 */ 	lui	$t9,%hi(filetable)
-/*  f16718c:	27392060 */ 	addiu	$t9,$t9,%lo(filetable)
+/*  f167188:	3c198008 */ 	lui	$t9,%hi(g_FileTable)
+/*  f16718c:	27392060 */ 	addiu	$t9,$t9,%lo(g_FileTable)
 /*  f167190:	ae050004 */ 	sw	$a1,0x4($s0)
 /*  f167194:	8fae0030 */ 	lw	$t6,0x30($sp)
 /*  f167198:	00402025 */ 	or	$a0,$v0,$zero
 /*  f16719c:	02003825 */ 	or	$a3,$s0,$zero
 /*  f1671a0:	000ec080 */ 	sll	$t8,$t6,0x2
-/*  f1671a4:	0fc59bad */ 	jal	func0f166eb4
+/*  f1671a4:	0fc59bad */ 	jal	fileLoad
 /*  f1671a8:	03193021 */ 	addu	$a2,$t8,$t9
 /*  f1671ac:	8fa80034 */ 	lw	$t0,0x34($sp)
 /*  f1671b0:	24010011 */ 	addiu	$at,$zero,0x11
@@ -4582,39 +4622,39 @@ glabel func0f1670fc
 /*  f1671e4:	03e00008 */ 	jr	$ra
 /*  f1671e8:	27bd0030 */ 	addiu	$sp,$sp,0x30
 /*  f1671ec:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f1671f0:	3c018008 */ 	lui	$at,%hi(filetable)
+/*  f1671f0:	3c018008 */ 	lui	$at,%hi(g_FileTable)
 /*  f1671f4:	002e0821 */ 	addu	$at,$at,$t6
 /*  f1671f8:	03e00008 */ 	jr	$ra
-/*  f1671fc:	ac202060 */ 	sw	$zero,%lo(filetable)($at)
+/*  f1671fc:	ac202060 */ 	sw	$zero,%lo(g_FileTable)($at)
 );
 
-//void *func0f1670fc(u32 filenum, u32 arg1)
+//void *fileLoadToNew(u32 filenum, u32 method)
 //{
 //	struct fileinfo *info;
 //	u32 stack;
 //	void *ptr;
 //
-//	if (arg1 == 0x11 || arg1 == 0x22) {
+//	if (method == FILELOADMETHOD_EXTRAMEM || method == FILELOADMETHOD_DEFAULT) {
 //		// 124
 //		info = &g_FileInfo[filenum];
 //
 //		// 13c
-//		if (info->unk00 == 0) {
-//			info->unk00 = (fileGetInflatedLength(filenum) + 0x20) & 0xfffffff0;
+//		if (info->loadedsize == 0) {
+//			info->loadedsize = (fileGetInflatedSize(filenum) + 0x20) & 0xfffffff0;
 //
 //			// 164
-//			if (arg1 == 0x11) {
-//				info->unk00 += 0x8000;
+//			if (method == FILELOADMETHOD_EXTRAMEM) {
+//				info->loadedsize += 0x8000;
 //			}
 //		}
 //
 //		// 174
-//		ptr = mempAlloc(info->unk00, MEMPOOL_STAGE);
-//		info->unk04 = info->unk00;
-//		func0f166eb4(ptr, info->unk00, &filetable[filenum], info);
+//		ptr = mempAlloc(info->loadedsize, MEMPOOL_STAGE);
+//		info->allocsize = info->loadedsize;
+//		fileLoad(ptr, info->loadedsize, &g_FileTable[filenum], info);
 //
-//		if (arg1 != 0x11) {
-//			mempRealloc(ptr, info->unk00, MEMPOOL_STAGE);
+//		if (method != FILELOADMETHOD_EXTRAMEM) {
+//			mempRealloc(ptr, info->loadedsize, MEMPOOL_STAGE);
 //		}
 //	} else {
 //		while (true) {
@@ -4626,7 +4666,7 @@ glabel func0f1670fc
 //}
 
 GLOBAL_ASM(
-glabel func0f167200
+glabel fileLoadToAddr
 /*  f167200:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f167204:	24010011 */ 	addiu	$at,$zero,0x11
 /*  f167208:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -4646,12 +4686,12 @@ glabel func0f167200
 /*  f16723c:	01f83821 */ 	addu	$a3,$t7,$t8
 /*  f167240:	acf90004 */ 	sw	$t9,0x4($a3)
 /*  f167244:	8fa80018 */ 	lw	$t0,0x18($sp)
-/*  f167248:	3c0a8008 */ 	lui	$t2,%hi(filetable)
-/*  f16724c:	254a2060 */ 	addiu	$t2,$t2,%lo(filetable)
+/*  f167248:	3c0a8008 */ 	lui	$t2,%hi(g_FileTable)
+/*  f16724c:	254a2060 */ 	addiu	$t2,$t2,%lo(g_FileTable)
 /*  f167250:	00084880 */ 	sll	$t1,$t0,0x2
 /*  f167254:	012a3021 */ 	addu	$a2,$t1,$t2
 /*  f167258:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f16725c:	0fc59bad */ 	jal	func0f166eb4
+/*  f16725c:	0fc59bad */ 	jal	fileLoad
 /*  f167260:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f167264:	10000003 */ 	b	.L0f167274
 /*  f167268:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -4665,12 +4705,12 @@ glabel func0f167200
 );
 
 // Mismatch: Reordered instructions, most likely related to debug ifdefs.
-//void *func0f167200(s32 filenum, s32 arg1, u8 *ptr, u32 size)
+//void *fileLoadToAddr(s32 filenum, s32 method, u8 *ptr, u32 size)
 //{
-//	if (arg1 == 0x11 || arg1 == 0x22) {
-//		g_FileInfo[filenum].unk04 = size;
+//	if (method == FILELOADMETHOD_EXTRAMEM || method == FILELOADMETHOD_DEFAULT) {
+//		g_FileInfo[filenum].allocsize = size;
 //
-//		func0f166eb4(ptr, size, &filetable[filenum], &g_FileInfo[filenum]);
+//		fileLoad(ptr, size, &g_FileTable[filenum], &g_FileInfo[filenum]);
 //	} else {
 //		while (1);
 //	}
@@ -4678,39 +4718,39 @@ glabel func0f167200
 //	return ptr;
 //}
 
-u32 fileGetSize(s32 filenum)
+u32 fileGetLoadedSize(s32 filenum)
 {
-	return g_FileInfo[filenum].size;
+	return g_FileInfo[filenum].loadedsize;
 }
 
-u32 fileGetUnk04(s32 filenum)
+u32 fileGetAllocationSize(s32 filenum)
 {
-	return g_FileInfo[filenum].unk04;
+	return g_FileInfo[filenum].allocsize;
 }
 
-void func0f1672a8(s32 filenum, void *ptr, u32 size, bool resizing)
+void fileSetSize(s32 filenum, void *ptr, u32 size, bool reallocate)
 {
-	g_FileInfo[filenum].size = size;
-	g_FileInfo[filenum].unk04 = size;
+	g_FileInfo[filenum].loadedsize = size;
+	g_FileInfo[filenum].allocsize = size;
 
-	if (resizing) {
-		mempRealloc(ptr, g_FileInfo[filenum].size, MEMPOOL_STAGE);
+	if (reallocate) {
+		mempRealloc(ptr, g_FileInfo[filenum].loadedsize, MEMPOOL_STAGE);
 	}
 }
 
-void func0f1672f0(u8 arg0)
+void filesReset(u8 arg0)
 {
 	s32 i;
 
 	// Minus 1 because the last entry in the file table is just a marker
-	for (i = 1; i < ARRAYCOUNT(filetable) - 1; i++) {
+	for (i = 1; i < ARRAYCOUNT(g_FileTable) - 1; i++) {
 		if (arg0 == 4) {
-			g_FileInfo[i].size = 0;
+			g_FileInfo[i].loadedsize = 0;
 		}
 	}
 }
 
 void func0f167330(void)
 {
-	func0f1672f0(5);
+	filesReset(5);
 }

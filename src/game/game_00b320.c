@@ -59,7 +59,7 @@ glabel stageLoadCommonLang
 /*  f00b454:	8fa30018 */ 	lw	$v1,0x18($sp)
 /*  f00b458:	ac224774 */ 	sw	$v0,0x4774($at)
 /*  f00b45c:	3c018008 */ 	lui	$at,0x8008
-/*  f00b460:	0fc5bab6 */ 	jal	lang0f16f6ecpf
+/*  f00b460:	0fc5bab6 */ 	jal	langReload
 /*  f00b464:	ac23477c */ 	sw	$v1,0x477c($at)
 /*  f00b468:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f00b46c:	27bd0020 */ 	addiu	$sp,$sp,0x20
@@ -118,7 +118,7 @@ glabel stageLoadCommonLang
 /*  f00b3d4:	8fa30018 */ 	lw	$v1,0x18($sp)
 /*  f00b3d8:	ac224664 */ 	sw	$v0,0x4664($at)
 /*  f00b3dc:	3c018008 */ 	lui	$at,0x8008
-/*  f00b3e0:	0fc5bdbb */ 	jal	lang0f16f6ecpf
+/*  f00b3e0:	0fc5bdbb */ 	jal	langReload
 /*  f00b3e4:	ac23466c */ 	sw	$v1,0x466c($at)
 /*  f00b3e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f00b3ec:	27bd0020 */ 	addiu	$sp,$sp,0x20
@@ -177,7 +177,7 @@ glabel stageLoadCommonLang
 /*  f00b3d4:	8fa30018 */ 	lw	$v1,0x18($sp)
 /*  f00b3d8:	ac2265f4 */ 	sw	$v0,0x65f4($at)
 /*  f00b3dc:	3c018008 */ 	lui	$at,0x8008
-/*  f00b3e0:	0fc5c07b */ 	jal	lang0f16f6ecpf
+/*  f00b3e0:	0fc5c07b */ 	jal	langReload
 /*  f00b3e4:	ac2365fc */ 	sw	$v1,0x65fc($at)
 /*  f00b3e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f00b3ec:	27bd0020 */ 	addiu	$sp,$sp,0x20
@@ -193,15 +193,15 @@ void stageLoadCommonLang(s32 stagenum)
 		g_LangBanks[i] = NULL;
 	}
 
-	g_LangBanks[LANGBANK_GUN] = func0f1670fc(langGetFileId(LANGBANK_GUN), 0x22);
-	g_LangBanks[LANGBANK_MPMENU] = func0f1670fc(langGetFileId(LANGBANK_MPMENU), 0x22);
-	g_LangBanks[LANGBANK_PROPOBJ] = func0f1670fc(langGetFileId(LANGBANK_PROPOBJ), 0x22);
-	g_LangBanks[LANGBANK_MPWEAPONS] = func0f1670fc(langGetFileId(LANGBANK_MPWEAPONS), 0x22);
-	g_LangBanks[LANGBANK_OPTIONS] = func0f1670fc(langGetFileId(LANGBANK_OPTIONS), 0x22);
-	g_LangBanks[LANGBANK_MISC] = func0f1670fc(langGetFileId(LANGBANK_MISC), 0x22);
+	g_LangBanks[LANGBANK_GUN] = fileLoadToNew(langGetFileId(LANGBANK_GUN), FILELOADMETHOD_DEFAULT);
+	g_LangBanks[LANGBANK_MPMENU] = fileLoadToNew(langGetFileId(LANGBANK_MPMENU), FILELOADMETHOD_DEFAULT);
+	g_LangBanks[LANGBANK_PROPOBJ] = fileLoadToNew(langGetFileId(LANGBANK_PROPOBJ), FILELOADMETHOD_DEFAULT);
+	g_LangBanks[LANGBANK_MPWEAPONS] = fileLoadToNew(langGetFileId(LANGBANK_MPWEAPONS), FILELOADMETHOD_DEFAULT);
+	g_LangBanks[LANGBANK_OPTIONS] = fileLoadToNew(langGetFileId(LANGBANK_OPTIONS), FILELOADMETHOD_DEFAULT);
+	g_LangBanks[LANGBANK_MISC] = fileLoadToNew(langGetFileId(LANGBANK_MISC), FILELOADMETHOD_DEFAULT);
 
 	if (stagenum == STAGE_CREDITS) {
-		g_LangBanks[LANGBANK_TITLE] = func0f1670fc(langGetFileId(LANGBANK_TITLE), 0x22);
+		g_LangBanks[LANGBANK_TITLE] = fileLoadToNew(langGetFileId(LANGBANK_TITLE), FILELOADMETHOD_DEFAULT);
 	}
 }
 #endif

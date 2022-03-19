@@ -6244,7 +6244,7 @@ s32 propsndGetDuration60(s32 channelnum)
 			&& (channel->flags & AUDIOCHANNELFLAG_IDLE) == 0
 			&& (channel->flags & AUDIOCHANNELFLAG_0010)) {
 		s32 soundnum = channel->soundnum26;
-		return fileGetRomSizeByFileNum(soundnum & 0x7ff) * 60 / (1024 * 24 / 8);
+		return fileGetRomSize(soundnum & 0x7ff) * 60 / (1024 * 24 / 8);
 	}
 
 	return -1;

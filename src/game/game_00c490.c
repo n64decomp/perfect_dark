@@ -3214,9 +3214,9 @@ glabel setupLoadBriefing
 /*  f00e9f4:	24050022 */ 	addiu	$a1,$zero,0x22
 /*  f00e9f8:	02403025 */ 	or	$a2,$s2,$zero
 /*  f00e9fc:	02a03825 */ 	or	$a3,$s5,$zero
-/*  f00ea00:	0fc59c80 */ 	jal	func0f167200
+/*  f00ea00:	0fc59c80 */ 	jal	fileLoadToAddr
 /*  f00ea04:	00808025 */ 	or	$s0,$a0,$zero
-/*  f00ea08:	0fc59ca0 */ 	jal	fileGetSize
+/*  f00ea08:	0fc59ca0 */ 	jal	fileGetLoadedSize
 /*  f00ea0c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f00ea10:	02428021 */ 	addu	$s0,$s2,$v0
 /*  f00ea14:	02a2a023 */ 	subu	$s4,$s5,$v0
@@ -3225,7 +3225,7 @@ glabel setupLoadBriefing
 /*  f00ea20:	a622001a */ 	sh	$v0,0x1a($s1)
 /*  f00ea24:	3044ffff */ 	andi	$a0,$v0,0xffff
 /*  f00ea28:	02002825 */ 	or	$a1,$s0,$zero
-/*  f00ea2c:	0fc5b9d9 */ 	jal	langSetBank
+/*  f00ea2c:	0fc5b9d9 */ 	jal	langLoadToAddr
 /*  f00ea30:	02803025 */ 	or	$a2,$s4,$zero
 /*  f00ea34:	8e580010 */ 	lw	$t8,0x10($s2)
 /*  f00ea38:	02589821 */ 	addu	$s3,$s2,$t8
@@ -3349,9 +3349,9 @@ glabel setupLoadBriefing
 /*  f00e9f4:	24050022 */ 	addiu	$a1,$zero,0x22
 /*  f00e9f8:	02403025 */ 	or	$a2,$s2,$zero
 /*  f00e9fc:	02a03825 */ 	or	$a3,$s5,$zero
-/*  f00ea00:	0fc59c80 */ 	jal	func0f167200
+/*  f00ea00:	0fc59c80 */ 	jal	fileLoadToAddr
 /*  f00ea04:	00808025 */ 	or	$s0,$a0,$zero
-/*  f00ea08:	0fc59ca0 */ 	jal	fileGetSize
+/*  f00ea08:	0fc59ca0 */ 	jal	fileGetLoadedSize
 /*  f00ea0c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f00ea10:	02428021 */ 	addu	$s0,$s2,$v0
 /*  f00ea14:	02a2a023 */ 	subu	$s4,$s5,$v0
@@ -3360,7 +3360,7 @@ glabel setupLoadBriefing
 /*  f00ea20:	a622001a */ 	sh	$v0,0x1a($s1)
 /*  f00ea24:	3044ffff */ 	andi	$a0,$v0,0xffff
 /*  f00ea28:	02002825 */ 	or	$a1,$s0,$zero
-/*  f00ea2c:	0fc5b9d9 */ 	jal	langSetBank
+/*  f00ea2c:	0fc5b9d9 */ 	jal	langLoadToAddr
 /*  f00ea30:	02803025 */ 	or	$a2,$s4,$zero
 /*  f00ea34:	8e580010 */ 	lw	$t8,0x10($s2)
 /*  f00ea38:	02589821 */ 	addu	$s3,$s2,$t8
@@ -3474,16 +3474,16 @@ glabel setupLoadBriefing
 //
 //		if (g_Stages[stageindex].setupfileid);
 //
-//		func0f167200(setupfilenum, 0x22, buffer, bufferlen);
+//		fileLoadToAddr(setupfilenum, FILELOADMETHOD_DEFAULT, buffer, bufferlen);
 //
 //		setup = (struct stagesetup *)buffer;
-//		setupfilesize = fileGetSize(setupfilenum);
+//		setupfilesize = fileGetLoadedSize(setupfilenum);
 //		langbuffer = &buffer[setupfilesize];
 //		langbufferlen = bufferlen - setupfilesize;
 //
 //		briefing->langbank = langGetLangBankIndexFromStagenum(stagenum);
 //
-//		langSetBank(briefing->langbank, langbuffer, langbufferlen);
+//		langLoadToAddr(briefing->langbank, langbuffer, langbufferlen);
 //
 //		obj = (struct defaultobj *)((u32)setup + (u32)setup->props);
 //
@@ -3563,9 +3563,9 @@ void setupLoadFiles(s32 stagenum)
 
 		g_LoadType = LOADTYPE_SETUP;
 
-		g_GeCreditsData = (u8 *)func0f1670fc(filenum, 0x22);
+		g_GeCreditsData = (u8 *)fileLoadToNew(filenum, FILELOADMETHOD_DEFAULT);
 		setup = (struct stagesetup *)g_GeCreditsData;
-		langSetBankSimple(langGetLangBankIndexFromStagenum(stagenum));
+		langLoad(langGetLangBankIndexFromStagenum(stagenum));
 
 		g_StageSetup.intro = (s32 *)((u32)setup + (u32)setup->intro);
 		g_StageSetup.props = (u32 *)((u32)setup + (u32)setup->props);
@@ -3574,7 +3574,7 @@ void setupLoadFiles(s32 stagenum)
 
 		g_LoadType = LOADTYPE_PADS;
 
-		g_StageSetup.padfiledata = func0f1670fc(g_Stages[g_StageIndex].padsfileid, 0x22);
+		g_StageSetup.padfiledata = fileLoadToNew(g_Stages[g_StageIndex].padsfileid, FILELOADMETHOD_DEFAULT);
 
 		g_StageSetup.waypoints = NULL;
 		g_StageSetup.waygroups = NULL;

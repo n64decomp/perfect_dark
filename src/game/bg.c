@@ -3532,7 +3532,7 @@ void bgLoadFile(void *memaddr, u32 offset, u32 len)
 	if (var8007fc04) {
 		bcopy(var8007fc08 + offset, memaddr, len);
 	} else {
-		func0f166ff0(g_Stages[g_StageIndex].bgfileid, memaddr, offset, len);
+		fileLoadPartToAddr(g_Stages[g_StageIndex].bgfileid, memaddr, offset, len);
 	}
 }
 

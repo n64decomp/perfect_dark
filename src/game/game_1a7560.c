@@ -123,10 +123,10 @@ glabel func0f1a7560
 /*  f1a7594:	afb40030 */ 	sw	$s4,0x30($sp)
 /*  f1a7598:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f1a759c:	afa50094 */ 	sw	$a1,0x94($sp)
-/*  f1a75a0:	0fc59ca5 */ 	jal	fileGetUnk04
+/*  f1a75a0:	0fc59ca5 */ 	jal	fileGetAllocationSize
 /*  f1a75a4:	afa40058 */ 	sw	$a0,0x58($sp)
 /*  f1a75a8:	00408025 */ 	or	$s0,$v0,$zero
-/*  f1a75ac:	0fc59ca0 */ 	jal	fileGetSize
+/*  f1a75ac:	0fc59ca0 */ 	jal	fileGetLoadedSize
 /*  f1a75b0:	8fa40058 */ 	lw	$a0,0x58($sp)
 /*  f1a75b4:	afa20088 */ 	sw	$v0,0x88($sp)
 /*  f1a75b8:	afa00074 */ 	sw	$zero,0x74($sp)
@@ -215,7 +215,7 @@ glabel func0f1a7560
 /*  f1a76ec:	01603025 */ 	or	$a2,$t3,$zero
 /*  f1a76f0:	8fa40058 */ 	lw	$a0,0x58($sp)
 /*  f1a76f4:	02602825 */ 	or	$a1,$s3,$zero
-/*  f1a76f8:	0fc59caa */ 	jal	func0f1672a8
+/*  f1a76f8:	0fc59caa */ 	jal	fileSetSize
 /*  f1a76fc:	8fa700a4 */ 	lw	$a3,0xa4($sp)
 .L0f1a7700:
 /*  f1a7700:	8fbf0044 */ 	lw	$ra,0x44($sp)
@@ -246,31 +246,31 @@ void modelPromoteTypeToPointer(struct modelfiledata *filedata)
 	}
 }
 
-struct modelfiledata *func0f1a7794(u16 fileid, u8 *arg1, s32 arg2, s32 *arg3)
+struct modelfiledata *modeldefLoad(u16 fileid, u8 *dst, s32 size, s32 *arg3)
 {
 	struct modelfiledata *filedata;
 
 	g_LoadType = LOADTYPE_MODEL;
 
-	if (arg1) {
-		filedata = func0f167200(fileid, 0x11, arg1, arg2);
+	if (dst) {
+		filedata = fileLoadToAddr(fileid, FILELOADMETHOD_EXTRAMEM, dst, size);
 	} else {
-		filedata = func0f1670fc(fileid, 0x11);
+		filedata = fileLoadToNew(fileid, FILELOADMETHOD_EXTRAMEM);
 	}
 
 	modelPromoteTypeToPointer(filedata);
 	modelPromoteOffsetsToPointers(filedata, 0x5000000, (u32) filedata);
-	func0f1a7560(filedata, fileid, 0x5000000, filedata, arg3, arg1 == NULL);
+	func0f1a7560(filedata, fileid, 0x5000000, filedata, arg3, dst == NULL);
 
 	return filedata;
 }
 
-void *fileLoad(u16 fileid)
+void *modeldefLoadToNew(u16 fileid)
 {
-	return func0f1a7794(fileid, 0, 0, 0);
+	return modeldefLoad(fileid, NULL, 0, NULL);
 }
 
-void *func0f1a7878(u16 fileid, u8 *arg1, s32 arg2)
+void *modeldefLoadToAddr(u16 fileid, u8 *dst, s32 size)
 {
-	return func0f1a7794(fileid, arg1, arg2, 0);
+	return modeldefLoad(fileid, dst, size, NULL);
 }

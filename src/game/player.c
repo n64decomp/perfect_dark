@@ -1386,26 +1386,26 @@ void playerTickChrBody(void)
 			offset1 += sizeof(struct weaponobj);
 			offset1 = ALIGN64(offset1);
 
-			offset2 = offset1 + ALIGN64(fileGetInflatedLength(g_HeadsAndBodies[bodynum].filenum));
+			offset2 = offset1 + ALIGN64(fileGetInflatedSize(g_HeadsAndBodies[bodynum].filenum));
 
 			if (headnum >= 0) {
-				offset2 += ALIGN64(fileGetInflatedLength(g_HeadsAndBodies[headnum].filenum));
+				offset2 += ALIGN64(fileGetInflatedSize(g_HeadsAndBodies[headnum].filenum));
 			}
 
 			if (weaponmodelnum >= 0) {
-				offset2 += ALIGN64(fileGetInflatedLength(g_ModelStates[weaponmodelnum].fileid));
+				offset2 += ALIGN64(fileGetInflatedSize(g_ModelStates[weaponmodelnum].fileid));
 			}
 
 			offset2 += 0x4000;
 			bgunCalculateGunMemCapacity();
 			spe8 = g_Vars.currentplayer->gunmem2 + offset2;
 			func0f172e70(sp100, spe8, bgunCalculateGunMemCapacity() - offset2);
-			bodyfiledata = func0f1a7794(g_HeadsAndBodies[bodynum].filenum, allocation + offset1, offset2 - offset1, sp100);
-			offset1 = ALIGN64(fileGetSize(g_HeadsAndBodies[bodynum].filenum) + offset1);
+			bodyfiledata = modeldefLoad(g_HeadsAndBodies[bodynum].filenum, allocation + offset1, offset2 - offset1, sp100);
+			offset1 = ALIGN64(fileGetLoadedSize(g_HeadsAndBodies[bodynum].filenum) + offset1);
 
 			if (headnum >= 0) {
-				headfiledata = func0f1a7794(g_HeadsAndBodies[headnum].filenum, allocation + offset1, offset2 - offset1, sp100);
-				offset1 = ALIGN64(fileGetSize(g_HeadsAndBodies[headnum].filenum) + offset1);
+				headfiledata = modeldefLoad(g_HeadsAndBodies[headnum].filenum, allocation + offset1, offset2 - offset1, sp100);
+				offset1 = ALIGN64(fileGetLoadedSize(g_HeadsAndBodies[headnum].filenum) + offset1);
 			}
 
 			modelCalculateRwDataLen(bodyfiledata);
@@ -1431,7 +1431,7 @@ void playerTickChrBody(void)
 		} else {
 			// 2-4 players
 			if (g_HeadsAndBodies[bodynum].filedata == NULL) {
-				g_HeadsAndBodies[bodynum].filedata = fileLoad(g_HeadsAndBodies[bodynum].filenum);
+				g_HeadsAndBodies[bodynum].filedata = modeldefLoadToNew(g_HeadsAndBodies[bodynum].filenum);
 			}
 
 			bodyfiledata = g_HeadsAndBodies[bodynum].filedata;
@@ -1441,13 +1441,13 @@ void playerTickChrBody(void)
 			} else if (sp60) {
 				headfiledata = func0f18e57c(headnum, &headnum);
 			} else if (g_Vars.normmplayerisrunning && IS8MB()) {
-				g_HeadsAndBodies[headnum].filedata = fileLoad(g_HeadsAndBodies[headnum].filenum);
+				g_HeadsAndBodies[headnum].filedata = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
 				headfiledata = g_HeadsAndBodies[headnum].filedata;
-				g_FileInfo[g_HeadsAndBodies[headnum].filenum].size = 0;
+				g_FileInfo[g_HeadsAndBodies[headnum].filenum].loadedsize = 0;
 				bodyCalculateHeadOffset(headfiledata, headnum, bodynum);
 			} else {
 				if (g_HeadsAndBodies[headnum].filedata == NULL) {
-					g_HeadsAndBodies[headnum].filedata = fileLoad(g_HeadsAndBodies[headnum].filenum);
+					g_HeadsAndBodies[headnum].filedata = modeldefLoadToNew(g_HeadsAndBodies[headnum].filenum);
 				}
 
 				headfiledata = g_HeadsAndBodies[headnum].filedata;
@@ -1502,8 +1502,8 @@ void playerTickChrBody(void)
 
 		if (weaponmodelnum >= 0) {
 			if (g_Vars.mplayerisrunning == false) {
-				weaponfiledata = func0f1a7794(g_ModelStates[weaponmodelnum].fileid, allocation + offset1, offset2 - offset1, sp100);
-				fileGetSize(g_ModelStates[weaponmodelnum].fileid);
+				weaponfiledata = modeldefLoad(g_ModelStates[weaponmodelnum].fileid, allocation + offset1, offset2 - offset1, sp100);
+				fileGetLoadedSize(g_ModelStates[weaponmodelnum].fileid);
 				modelCalculateRwDataLen(weaponfiledata);
 			} else {
 				weaponobj = NULL;

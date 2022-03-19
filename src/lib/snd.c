@@ -2541,7 +2541,7 @@ void sndStartMp3(s16 soundnum, s32 arg1, s32 arg2, s32 arg3)
 			arg1 = arg1 * snd0000e9dc() / 0x7fff;
 
 			g_SndCurMp3.romaddr = fileGetRomAddress(sp20.id);
-			g_SndCurMp3.romsize = fileGetRomSizeByFileNum(sp20.id);
+			g_SndCurMp3.romsize = fileGetRomSize(sp20.id);
 
 			func00037f08(arg1, true);
 			func00037f5c(arg2, true);

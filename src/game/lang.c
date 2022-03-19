@@ -647,29 +647,29 @@ s32 langGetFileId(s32 bank)
 	return g_LangFiles[bank] + langGetFileNumOffset();
 }
 
-void langSetBankSimple(s32 bank)
+void langLoad(s32 bank)
 {
 #if VERSION >= VERSION_PAL_BETA
-	s32 len = fileGetInflatedLength(langGetFileId(bank));
+	s32 len = fileGetInflatedSize(langGetFileId(bank));
 
 	if (var80084664pf + len + var8008466cpf - var80084668pf >= 0) {
 		s32 len2 = var80084664pf + var8008466cpf - var80084668pf;
 		len2 = len2 / 32 * 32;
-		g_LangBanks[bank] = func0f167200(langGetFileId(bank), 0x22, (u8 *)var80084668pf, len2);
+		g_LangBanks[bank] = fileLoadToAddr(langGetFileId(bank), FILELOADMETHOD_DEFAULT, (u8 *)var80084668pf, len2);
 		var80084668pf = align32(var80084668pf + len);
 	} else {
 		CRASH();
 	}
 #else
 	s32 file_id = langGetFileId(bank);
-	g_LangBanks[bank] = func0f1670fc(file_id, 0x22);
+	g_LangBanks[bank] = fileLoadToNew(file_id, FILELOADMETHOD_DEFAULT);
 #endif
 }
 
-void langSetBank(s32 bank, u8 *arg1, s32 arg2)
+void langLoadToAddr(s32 bank, u8 *dst, s32 size)
 {
 	s32 file_id = langGetFileId(bank);
-	g_LangBanks[bank] = func0f167200(file_id, 0x22, arg1, arg2);
+	g_LangBanks[bank] = fileLoadToAddr(file_id, FILELOADMETHOD_DEFAULT, dst, size);
 }
 
 void langClearBank(s32 bank)
@@ -704,15 +704,15 @@ char *langGet(s32 textid)
 }
 
 #if VERSION >= VERSION_PAL_BETA
-void lang0f16f6ecpf(void)
+void langReload(void)
 {
 	s32 i;
 
 	var80084668pf = align32(var80084664pf);
 
-	for (i = 0; i < 69; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_LangBanks); i++) {
 		if (g_LangBanks[i] != NULL) {
-			langSetBankSimple(i);
+			langLoad(i);
 		}
 	}
 }
@@ -753,7 +753,7 @@ void langSetEuropean(u32 arg0)
 		break;
 	}
 
-	lang0f16f6ecpf();
+	langReload();
 
 	if (hasoptionslang) {
 		mpSetTeamNamesToDefault(teams);
@@ -766,6 +766,6 @@ void langSetJpnEnabled(bool enable)
 {
 	g_Jpn = enable ? true : false;
 
-	lang0f16f6ecpf();
+	langReload();
 }
 #endif
