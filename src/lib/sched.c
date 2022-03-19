@@ -695,26 +695,20 @@ void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00002d68nb
-/*     2d68:	8c8300c8 */ 	lw	$v1,0xc8($a0)
-/*     2d6c:	00001025 */ 	move	$v0,$zero
-/*     2d70:	10600005 */ 	beqz	$v1,.L00002d88
-/*     2d74:	00000000 */ 	nop
-/*     2d78:	8c620010 */ 	lw	$v0,0x10($v1)
-/*     2d7c:	384e0002 */ 	xori	$t6,$v0,0x2
-/*     2d80:	03e00008 */ 	jr	$ra
-/*     2d84:	2dc20001 */ 	sltiu	$v0,$t6,0x1
-.L00002d88:
-/*     2d88:	03e00008 */ 	jr	$ra
-/*     2d8c:	00000000 */ 	nop
-);
+bool schedIsCurTaskAudio(OSSched *sc)
+{
+	if (sc->curRSPTask) {
+		return sc->curRSPTask->list.t.type == M_AUDTASK;
+	}
+
+	return false;
+}
 #endif
 
 void __scYield(OSSched *sc)
 {
 	if (sc->curRSPTask->list.t.type == M_GFXTASK) {
-		sc->curRSPTask->state |= 0x0010;
+		sc->curRSPTask->state |= OS_SC_YIELD;
 		osSpTaskYield();
 	} else {
 		// empty
