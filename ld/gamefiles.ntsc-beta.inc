@@ -1,5 +1,5 @@
 #define GAMEFILES(section) \
-	build/ROMID/game/game_000000.o (section); \
+	build/ROMID/game/langinit.o (section); \
 	build/ROMID/game/game_000090.o (section); \
 	build/ROMID/game/game_000100.o (section); \
 	build/ROMID/game/game_000130.o (section); \

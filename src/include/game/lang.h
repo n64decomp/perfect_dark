@@ -4,6 +4,7 @@
 #include "data.h"
 #include "types.h"
 
+void langInit(void);
 void langTick(void);
 
 u32 langGetLangBankIndexFromStagenum(s32 stagenum);

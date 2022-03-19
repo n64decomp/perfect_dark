@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "game/chr/chraicommands.h"
-#include "game/game_000000.h"
 #include "game/prop.h"
 #include "game/inventory/items.h"
 #include "stagesetup.h"

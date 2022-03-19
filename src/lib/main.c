@@ -5,7 +5,7 @@
 #include "game/camdraw.h"
 #include "game/cheats.h"
 #include "game/debug.h"
-#include "game/game_000000.h"
+#include "game/lang.h"
 #include "game/game_000090.h"
 #include "game/game_000100.h"
 #include "game/game_000130.h"
@@ -623,7 +623,7 @@ glabel mainInit
 /*  d97c:	00000000 */ 	nop
 /*  d980:	0fc02c88 */ 	jal	loadTextureList
 /*  d984:	00000000 */ 	nop
-/*  d988:	0fc00000 */ 	jal	func0f000000
+/*  d988:	0fc00000 */ 	jal	langInit
 /*  d98c:	00000000 */ 	nop
 /*  d990:	0fc59fc2 */ 	jal	lv0f167af8
 /*  d994:	00000000 */ 	nop
@@ -1018,7 +1018,7 @@ glabel mainInit
 /*     d710:	00000000 */ 	nop
 /*     d714:	0fc02c68 */ 	jal	loadTextureList
 /*     d718:	00000000 */ 	nop
-/*     d71c:	0fc00000 */ 	jal	func0f000000
+/*     d71c:	0fc00000 */ 	jal	langInit
 /*     d720:	00000000 */ 	nop
 /*     d724:	0fc5a29e */ 	jal	lv0f167af8
 /*     d728:	00000000 */ 	nop
@@ -1443,7 +1443,7 @@ glabel mainInit
 /*  d7b0:	00000000 */ 	nop
 /*  d7b4:	0fc02c68 */ 	jal	loadTextureList
 /*  d7b8:	00000000 */ 	nop
-/*  d7bc:	0fc00000 */ 	jal	func0f000000
+/*  d7bc:	0fc00000 */ 	jal	langInit
 /*  d7c0:	00000000 */ 	nop
 /*  d7c4:	0fc5a45a */ 	jal	lv0f167af8
 /*  d7c8:	00000000 */ 	nop
@@ -1846,7 +1846,7 @@ glabel mainInit
 /*     d9d4:	00000000 */ 	nop
 /*     d9d8:	0fc02c64 */ 	jal	loadTextureList
 /*     d9dc:	00000000 */ 	nop
-/*     d9e0:	0fc00000 */ 	jal	func0f000000
+/*     d9e0:	0fc00000 */ 	jal	langInit
 /*     d9e4:	00000000 */ 	nop
 /*     d9e8:	0fc59ebe */ 	jal	lv0f167af8
 /*     d9ec:	00000000 */ 	nop
@@ -2219,7 +2219,7 @@ glabel mainInit
 /*     dee4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dee8:	0fc02b90 */ 	jal	loadTextureList
 /*     deec:	00000000 */ 	sll	$zero,$zero,0x0
-/*     def0:	0fc00000 */ 	jal	func0f000000
+/*     def0:	0fc00000 */ 	jal	langInit
 /*     def4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     def8:	0fc5890e */ 	jal	lv0f167af8
 /*     defc:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2468,7 +2468,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	func0f176ddc();
 //	func000034d0();
 //	loadTextureList();
-//	func0f000000();
+//	langInit();
 //	lv0f167af8();
 //	cheatsDisableAll();
 //	func0000e9c0();
