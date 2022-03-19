@@ -4621,11 +4621,6 @@ glabel fileLoadToNew
 /*  f1671e0:	8fb00018 */ 	lw	$s0,0x18($sp)
 /*  f1671e4:	03e00008 */ 	jr	$ra
 /*  f1671e8:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f1671ec:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f1671f0:	3c018008 */ 	lui	$at,%hi(g_FileTable)
-/*  f1671f4:	002e0821 */ 	addu	$at,$at,$t6
-/*  f1671f8:	03e00008 */ 	jr	$ra
-/*  f1671fc:	ac202060 */ 	sw	$zero,%lo(g_FileTable)($at)
 );
 
 //void *fileLoadToNew(u32 filenum, u32 method)
@@ -4664,6 +4659,11 @@ glabel fileLoadToNew
 //
 //	return ptr;
 //}
+
+void fileRemove(s32 filenum)
+{
+	g_FileTable[filenum] = 0;
+}
 
 GLOBAL_ASM(
 glabel fileLoadToAddr
