@@ -4477,112 +4477,34 @@ glabel fileGetInflatedSize
 //	return 0;
 //}
 
-GLOBAL_ASM(
-glabel fileLoadToNew
-/*  f1670fc:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f167100:	24010011 */ 	addiu	$at,$zero,0x11
-/*  f167104:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f167108:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f16710c:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f167110:	10a10004 */ 	beq	$a1,$at,.L0f167124
-/*  f167114:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f167118:	24010022 */ 	addiu	$at,$zero,0x22
-/*  f16711c:	14a1002c */ 	bne	$a1,$at,.L0f1671d0
-/*  f167120:	00000000 */ 	nop
-.L0f167124:
-/*  f167124:	8faf0030 */ 	lw	$t7,0x30($sp)
-/*  f167128:	3c19800a */ 	lui	$t9,%hi(g_FileInfo)
-/*  f16712c:	27396680 */ 	addiu	$t9,$t9,%lo(g_FileInfo)
-/*  f167130:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f167134:	03198021 */ 	addu	$s0,$t8,$t9
-/*  f167138:	8e080000 */ 	lw	$t0,0x0($s0)
-/*  f16713c:	5500000e */ 	bnezl	$t0,.L0f167178
-/*  f167140:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f167144:	0fc59c15 */ 	jal	fileGetInflatedSize
-/*  f167148:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f16714c:	24490020 */ 	addiu	$t1,$v0,0x20
-/*  f167150:	2401fff0 */ 	addiu	$at,$zero,-16
-/*  f167154:	01215024 */ 	and	$t2,$t1,$at
-/*  f167158:	ae0a0000 */ 	sw	$t2,0x0($s0)
-/*  f16715c:	8fab0034 */ 	lw	$t3,0x34($sp)
-/*  f167160:	24010011 */ 	addiu	$at,$zero,0x11
-/*  f167164:	15610003 */ 	bne	$t3,$at,.L0f167174
-/*  f167168:	34018000 */ 	dli	$at,0x8000
-/*  f16716c:	01416821 */ 	addu	$t5,$t2,$at
-/*  f167170:	ae0d0000 */ 	sw	$t5,0x0($s0)
-.L0f167174:
-/*  f167174:	8e040000 */ 	lw	$a0,0x0($s0)
-.L0f167178:
-/*  f167178:	0c0048f2 */ 	jal	mempAlloc
-/*  f16717c:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f167180:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f167184:	8e050000 */ 	lw	$a1,0x0($s0)
-/*  f167188:	3c198008 */ 	lui	$t9,%hi(g_FileTable)
-/*  f16718c:	27392060 */ 	addiu	$t9,$t9,%lo(g_FileTable)
-/*  f167190:	ae050004 */ 	sw	$a1,0x4($s0)
-/*  f167194:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*  f167198:	00402025 */ 	or	$a0,$v0,$zero
-/*  f16719c:	02003825 */ 	or	$a3,$s0,$zero
-/*  f1671a0:	000ec080 */ 	sll	$t8,$t6,0x2
-/*  f1671a4:	0fc59bad */ 	jal	fileLoad
-/*  f1671a8:	03193021 */ 	addu	$a2,$t8,$t9
-/*  f1671ac:	8fa80034 */ 	lw	$t0,0x34($sp)
-/*  f1671b0:	24010011 */ 	addiu	$at,$zero,0x11
-/*  f1671b4:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f1671b8:	11010007 */ 	beq	$t0,$at,.L0f1671d8
-/*  f1671bc:	24060004 */ 	addiu	$a2,$zero,0x4
-/*  f1671c0:	0c00490c */ 	jal	mempRealloc
-/*  f1671c4:	8e050000 */ 	lw	$a1,0x0($s0)
-/*  f1671c8:	10000004 */ 	b	.L0f1671dc
-/*  f1671cc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f1671d0:
-/*  f1671d0:	1000ffff */ 	b	.L0f1671d0
-/*  f1671d4:	00000000 */ 	nop
-.L0f1671d8:
-/*  f1671d8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f1671dc:
-/*  f1671dc:	8fa20024 */ 	lw	$v0,0x24($sp)
-/*  f1671e0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1671e4:	03e00008 */ 	jr	$ra
-/*  f1671e8:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void *fileLoadToNew(s32 filenum, u32 method)
+{
+	struct fileinfo *info = &g_FileInfo[filenum];
+	u32 stack;
+	void *ptr;
 
-//void *fileLoadToNew(u32 filenum, u32 method)
-//{
-//	struct fileinfo *info;
-//	u32 stack;
-//	void *ptr;
-//
-//	if (method == FILELOADMETHOD_EXTRAMEM || method == FILELOADMETHOD_DEFAULT) {
-//		// 124
-//		info = &g_FileInfo[filenum];
-//
-//		// 13c
-//		if (info->loadedsize == 0) {
-//			info->loadedsize = (fileGetInflatedSize(filenum) + 0x20) & 0xfffffff0;
-//
-//			// 164
-//			if (method == FILELOADMETHOD_EXTRAMEM) {
-//				info->loadedsize += 0x8000;
-//			}
-//		}
-//
-//		// 174
-//		ptr = mempAlloc(info->loadedsize, MEMPOOL_STAGE);
-//		info->allocsize = info->loadedsize;
-//		fileLoad(ptr, info->loadedsize, &g_FileTable[filenum], info);
-//
-//		if (method != FILELOADMETHOD_EXTRAMEM) {
-//			mempRealloc(ptr, info->loadedsize, MEMPOOL_STAGE);
-//		}
-//	} else {
-//		while (true) {
-//			// empty
-//		}
-//	}
-//
-//	return ptr;
-//}
+	if (method == FILELOADMETHOD_EXTRAMEM || method == FILELOADMETHOD_DEFAULT) {
+		if (info->loadedsize == 0) {
+			info->loadedsize = (fileGetInflatedSize(filenum) + 0x20) & 0xfffffff0;
+
+			if (method == FILELOADMETHOD_EXTRAMEM) {
+				info->loadedsize += 0x8000;
+			}
+		}
+
+		ptr = mempAlloc(info->loadedsize, MEMPOOL_STAGE);
+		info->allocsize = info->loadedsize;
+		fileLoad(ptr, info->loadedsize, (u32 *)&g_FileTable[filenum], info);
+
+		if (method != FILELOADMETHOD_EXTRAMEM) {
+			mempRealloc(ptr, info->loadedsize, MEMPOOL_STAGE);
+		}
+	} else {
+		while (1);
+	}
+
+	return ptr;
+}
 
 void fileRemove(s32 filenum)
 {
