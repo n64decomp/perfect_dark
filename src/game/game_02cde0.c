@@ -966,268 +966,11 @@ void func0f02ddbf(void)
 	// empty
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel bodyCalculateHeadOffset
-.late_rodata
-glabel var7f1a9678jf
-.word 0x7f02efdc
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efdc
-.word 0x7f02efdc
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efdc
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efdc
-.word 0x7f02efdc
-.word 0x7f02efdc
-.word 0x7f02efdc
-.word 0x7f02efdc
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efd8
-.word 0x7f02efdc
-.word 0x7f02efdc
-.word 0x7f02f05c
-.word 0x7f02f070
-.word 0x7f02f06c
-.word 0x7f02f070
-.word 0x7f02f064
-.word 0x7f02f070
-.word 0x7f02f098
-.word 0x7f02f0ac
-.word 0x7f02f0a8
-.word 0x7f02f090
-.word 0x7f02f0a0
-.word 0x7f02f0ac
-.text
-/*  f02ef7c:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f02ef80:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f02ef84:	24080004 */ 	li	$t0,0x4
-/*  f02ef88:	00a08025 */ 	move	$s0,$a1
-/*  f02ef8c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f02ef90:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f02ef94:	10a80007 */ 	beq	$a1,$t0,.JF0f02efb4
-/*  f02ef98:	00003825 */ 	move	$a3,$zero
-/*  f02ef9c:	2401000c */ 	li	$at,0xc
-/*  f02efa0:	12010004 */ 	beq	$s0,$at,.JF0f02efb4
-/*  f02efa4:	2401002f */ 	li	$at,0x2f
-/*  f02efa8:	12010002 */ 	beq	$s0,$at,.JF0f02efb4
-/*  f02efac:	2401003c */ 	li	$at,0x3c
-/*  f02efb0:	1601000a */ 	bne	$s0,$at,.JF0f02efdc
-.JF0f02efb4:
-/*  f02efb4:	24ceffaa */ 	addiu	$t6,$a2,-86
-/*  f02efb8:	2dc10041 */ 	sltiu	$at,$t6,0x41
-/*  f02efbc:	10200006 */ 	beqz	$at,.JF0f02efd8
-/*  f02efc0:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f02efc4:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f02efc8:	002e0821 */ 	addu	$at,$at,$t6
-/*  f02efcc:	8c2e9678 */ 	lw	$t6,-0x6988($at)
-/*  f02efd0:	01c00008 */ 	jr	$t6
-/*  f02efd4:	00000000 */ 	nop
-.JF0f02efd8:
-/*  f02efd8:	2407fff4 */ 	li	$a3,-12
-.JF0f02efdc:
-/*  f02efdc:	8faf0048 */ 	lw	$t7,0x48($sp)
-/*  f02efe0:	2401000d */ 	li	$at,0xd
-/*  f02efe4:	24040014 */ 	li	$a0,0x14
-/*  f02efe8:	85f80006 */ 	lh	$t8,0x6($t7)
-/*  f02efec:	5701007a */ 	bnel	$t8,$at,.JF0f02f1d8
-/*  f02eff0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f02eff4:	02040019 */ 	multu	$s0,$a0
-/*  f02eff8:	3c038008 */ 	lui	$v1,0x8008
-/*  f02effc:	2463d504 */ 	addiu	$v1,$v1,-11004
-/*  f02f000:	0000c812 */ 	mflo	$t9
-/*  f02f004:	00794821 */ 	addu	$t1,$v1,$t9
-/*  f02f008:	8d220000 */ 	lw	$v0,0x0($t1)
-/*  f02f00c:	00c40019 */ 	multu	$a2,$a0
-/*  f02f010:	000250c0 */ 	sll	$t2,$v0,0x3
-/*  f02f014:	000a1742 */ 	srl	$v0,$t2,0x1d
-/*  f02f018:	2c410006 */ 	sltiu	$at,$v0,0x6
-/*  f02f01c:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f02f020:	00006012 */ 	mflo	$t4
-/*  f02f024:	006c6821 */ 	addu	$t5,$v1,$t4
-/*  f02f028:	8da50000 */ 	lw	$a1,0x0($t5)
-/*  f02f02c:	000570c0 */ 	sll	$t6,$a1,0x3
-/*  f02f030:	000e2f42 */ 	srl	$a1,$t6,0x1d
-/*  f02f034:	14450003 */ 	bne	$v0,$a1,.JF0f02f044
-/*  f02f038:	00000000 */ 	nop
-/*  f02f03c:	50e00066 */ 	beqzl	$a3,.JF0f02f1d8
-/*  f02f040:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.JF0f02f044:
-/*  f02f044:	1020000a */ 	beqz	$at,.JF0f02f070
-/*  f02f048:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f02f04c:	00380821 */ 	addu	$at,$at,$t8
-/*  f02f050:	8c38977c */ 	lw	$t8,-0x6884($at)
-/*  f02f054:	03000008 */ 	jr	$t8
-/*  f02f058:	00000000 */ 	nop
-/*  f02f05c:	10000004 */ 	b	.JF0f02f070
-/*  f02f060:	24e7ffdd */ 	addiu	$a3,$a3,-35
-/*  f02f064:	10000002 */ 	b	.JF0f02f070
-/*  f02f068:	24e7ffec */ 	addiu	$a3,$a3,-20
-/*  f02f06c:	24e7ffd8 */ 	addiu	$a3,$a3,-40
-.JF0f02f070:
-/*  f02f070:	2ca10006 */ 	sltiu	$at,$a1,0x6
-/*  f02f074:	1020000d */ 	beqz	$at,.JF0f02f0ac
-/*  f02f078:	0005c880 */ 	sll	$t9,$a1,0x2
-/*  f02f07c:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f02f080:	00390821 */ 	addu	$at,$at,$t9
-/*  f02f084:	8c399794 */ 	lw	$t9,-0x686c($at)
-/*  f02f088:	03200008 */ 	jr	$t9
-/*  f02f08c:	00000000 */ 	nop
-/*  f02f090:	10000006 */ 	b	.JF0f02f0ac
-/*  f02f094:	24e7ffe2 */ 	addiu	$a3,$a3,-30
-/*  f02f098:	10000004 */ 	b	.JF0f02f0ac
-/*  f02f09c:	24e70023 */ 	addiu	$a3,$a3,0x23
-/*  f02f0a0:	10000002 */ 	b	.JF0f02f0ac
-/*  f02f0a4:	24e70014 */ 	addiu	$a3,$a3,0x14
-/*  f02f0a8:	24e70028 */ 	addiu	$a3,$a3,0x28
-.JF0f02f0ac:
-/*  f02f0ac:	24010001 */ 	li	$at,0x1
-/*  f02f0b0:	14a1000d */ 	bne	$a1,$at,.JF0f02f0e8
-/*  f02f0b4:	00000000 */ 	nop
-/*  f02f0b8:	10400003 */ 	beqz	$v0,.JF0f02f0c8
-/*  f02f0bc:	24010005 */ 	li	$at,0x5
-/*  f02f0c0:	14410003 */ 	bne	$v0,$at,.JF0f02f0d0
-/*  f02f0c4:	00000000 */ 	nop
-.JF0f02f0c8:
-/*  f02f0c8:	1000000e */ 	b	.JF0f02f104
-/*  f02f0cc:	24e7fff6 */ 	addiu	$a3,$a3,-10
-.JF0f02f0d0:
-/*  f02f0d0:	11020003 */ 	beq	$t0,$v0,.JF0f02f0e0
-/*  f02f0d4:	24010002 */ 	li	$at,0x2
-/*  f02f0d8:	1441000a */ 	bne	$v0,$at,.JF0f02f104
-/*  f02f0dc:	00000000 */ 	nop
-.JF0f02f0e0:
-/*  f02f0e0:	10000008 */ 	b	.JF0f02f104
-/*  f02f0e4:	24e7fffb */ 	addiu	$a3,$a3,-5
-.JF0f02f0e8:
-/*  f02f0e8:	15050006 */ 	bne	$t0,$a1,.JF0f02f104
-/*  f02f0ec:	00000000 */ 	nop
-/*  f02f0f0:	10400003 */ 	beqz	$v0,.JF0f02f100
-/*  f02f0f4:	24010005 */ 	li	$at,0x5
-/*  f02f0f8:	14410002 */ 	bne	$v0,$at,.JF0f02f104
-/*  f02f0fc:	00000000 */ 	nop
-.JF0f02f100:
-/*  f02f100:	24e7fffb */ 	addiu	$a3,$a3,-5
-.JF0f02f104:
-/*  f02f104:	50e00034 */ 	beqzl	$a3,.JF0f02f1d8
-/*  f02f108:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f02f10c:	afa00044 */ 	sw	$zero,0x44($sp)
-/*  f02f110:	8fb00044 */ 	lw	$s0,0x44($sp)
-.JF0f02f114:
-/*  f02f114:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*  f02f118:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f02f11c:	27a6003c */ 	addiu	$a2,$sp,0x3c
-/*  f02f120:	0c008b2c */ 	jal	modelIterateDisplayLists
-/*  f02f124:	afa70038 */ 	sw	$a3,0x38($sp)
-/*  f02f128:	8fa90044 */ 	lw	$t1,0x44($sp)
-/*  f02f12c:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f02f130:	51200019 */ 	beqzl	$t1,.JF0f02f198
-/*  f02f134:	8fb80044 */ 	lw	$t8,0x44($sp)
-/*  f02f138:	51300017 */ 	beql	$t1,$s0,.JF0f02f198
-/*  f02f13c:	8fb80044 */ 	lw	$t8,0x44($sp)
-/*  f02f140:	952a0000 */ 	lhu	$t2,0x0($t1)
-/*  f02f144:	24010018 */ 	li	$at,0x18
-/*  f02f148:	55410013 */ 	bnel	$t2,$at,.JF0f02f198
-/*  f02f14c:	8fb80044 */ 	lw	$t8,0x44($sp)
-/*  f02f150:	8d250004 */ 	lw	$a1,0x4($t1)
-/*  f02f154:	00001825 */ 	move	$v1,$zero
-/*  f02f158:	00002025 */ 	move	$a0,$zero
-/*  f02f15c:	84ab0010 */ 	lh	$t3,0x10($a1)
-/*  f02f160:	5960000d */ 	blezl	$t3,.JF0f02f198
-/*  f02f164:	8fb80044 */ 	lw	$t8,0x44($sp)
-/*  f02f168:	8cac000c */ 	lw	$t4,0xc($a1)
-.JF0f02f16c:
-/*  f02f16c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f02f170:	01841021 */ 	addu	$v0,$t4,$a0
-/*  f02f174:	844d0002 */ 	lh	$t5,0x2($v0)
-/*  f02f178:	2484000c */ 	addiu	$a0,$a0,0xc
-/*  f02f17c:	01a77021 */ 	addu	$t6,$t5,$a3
-/*  f02f180:	a44e0002 */ 	sh	$t6,0x2($v0)
-/*  f02f184:	84af0010 */ 	lh	$t7,0x10($a1)
-/*  f02f188:	006f082a */ 	slt	$at,$v1,$t7
-/*  f02f18c:	5420fff7 */ 	bnezl	$at,.JF0f02f16c
-/*  f02f190:	8cac000c */ 	lw	$t4,0xc($a1)
-/*  f02f194:	8fb80044 */ 	lw	$t8,0x44($sp)
-.JF0f02f198:
-/*  f02f198:	5700ffde */ 	bnezl	$t8,.JF0f02f114
-/*  f02f19c:	8fb00044 */ 	lw	$s0,0x44($sp)
-/*  f02f1a0:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*  f02f1a4:	0fc1a6a3 */ 	jal	modelFileDataFindBboxRodata
-/*  f02f1a8:	afa70038 */ 	sw	$a3,0x38($sp)
-/*  f02f1ac:	10400009 */ 	beqz	$v0,.JF0f02f1d4
-/*  f02f1b0:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f02f1b4:	44872000 */ 	mtc1	$a3,$f4
-/*  f02f1b8:	c446000c */ 	lwc1	$f6,0xc($v0)
-/*  f02f1bc:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f02f1c0:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f02f1c4:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f02f1c8:	46005400 */ 	add.s	$f16,$f10,$f0
-/*  f02f1cc:	e448000c */ 	swc1	$f8,0xc($v0)
-/*  f02f1d0:	e4500010 */ 	swc1	$f16,0x10($v0)
-.JF0f02f1d4:
-/*  f02f1d4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.JF0f02f1d8:
-/*  f02f1d8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f02f1dc:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f02f1e0:	03e00008 */ 	jr	$ra
-/*  f02f1e4:	00000000 */ 	nop
-);
-#else
 /**
  * Tweak the head's Y offset to suit the body.
  *
  * By default, heads and their matching bodies align perfectly and don't need
- * any tweaking. This function is used in multiplier where players can put any
+ * any tweaking. This function is used in multiplayer where players can put any
  * heads on any bodies.
  */
 void bodyCalculateHeadOffset(struct modelfiledata *headfiledata, s32 headnum, s32 bodynum)
@@ -1239,11 +982,70 @@ void bodyCalculateHeadOffset(struct modelfiledata *headfiledata, s32 headnum, s3
 	struct modelrodata_bbox *bbox;
 	s32 i;
 
+#if VERSION >= VERSION_JPN_FINAL
+	offset = 0;
+
+	switch (headnum) {
+	case HEAD_DARK_COMBAT:
+	case HEAD_DARK_FROCK:
+	case HEAD_DARKAQUA:
+	case HEAD_DARK_SNOW:
+		switch (bodynum) {
+		case BODY_DARK_COMBAT:
+		case BODY_DARK_FROCK:
+		case BODY_DARK_TRENCH:
+		case BODY_DARK_RIPPED:
+		case BODY_DARK_AF1:
+		case BODY_DARKWET:
+		case BODY_DARKAQUALUNG:
+		case BODY_DARKSNOW:
+		case BODY_DARKLAB:
+		case BODY_DARK_LEATHER:
+		case BODY_DARK_NEGOTIATOR:
+			break;
+		default:
+			offset = -12;
+			break;
+		}
+		break;
+	}
+#endif
+
 	if ((s16)(*(s32 *)&headfiledata->skel) == SKEL_HEAD) {
+#if VERSION >= VERSION_JPN_FINAL
+		if (g_HeadsAndBodies[headnum].type == g_HeadsAndBodies[bodynum].type && offset == 0) {
+			return;
+		}
+#else
 		if (g_HeadsAndBodies[headnum].type == g_HeadsAndBodies[bodynum].type) {
 			return;
 		}
+#endif
 
+#if VERSION >= VERSION_JPN_FINAL
+		switch (g_HeadsAndBodies[headnum].type) {
+		default:
+		case HEADBODYTYPE_FEMALE:
+			offset += 0;
+			break;
+		case HEADBODYTYPE_MAIAN:
+			offset += 0;
+			break;
+		case HEADBODYTYPE_DEFAULT:
+			offset -= 35;
+			break;
+		case HEADBODYTYPE_MRBLONDE:
+			offset += 0;
+			break;
+		case HEADBODYTYPE_CASS:
+			offset -= 20;
+			break;
+		case HEADBODYTYPE_FEMALEGUARD:
+			offset -= 40;
+			break;
+		}
+#else
+		// Same as JPN, but sets the value rather than adjusts
 		switch (g_HeadsAndBodies[headnum].type) {
 		default:
 		case HEADBODYTYPE_FEMALE:
@@ -1265,6 +1067,7 @@ void bodyCalculateHeadOffset(struct modelfiledata *headfiledata, s32 headnum, s3
 			offset = -40;
 			break;
 		}
+#endif
 
 		switch (g_HeadsAndBodies[bodynum].type) {
 		case HEADBODYTYPE_FEMALE:
@@ -1326,4 +1129,3 @@ void bodyCalculateHeadOffset(struct modelfiledata *headfiledata, s32 headnum, s3
 		}
 	}
 }
-#endif
