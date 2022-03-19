@@ -47,7 +47,6 @@
 #include "game/game_01b0a0.h"
 #include "game/game_01bea0.h"
 #include "game/weather/tick.h"
-#include "game/game_01d860.h"
 #include "game/game_01d990.h"
 #include "game/chr/chr.h"
 #include "game/prop.h"
@@ -4632,7 +4631,7 @@ void lvTick(void)
 
 	if (g_Vars.stagenum == STAGE_TITLE) {
 		titleTick();
-		func0f01d860();
+		langTick();
 		musicTick();
 	} else if (g_Vars.stagenum == STAGE_BOOTPAKMENU) {
 		setCurrentPlayerNum(0);
@@ -4641,16 +4640,16 @@ void lvTick(void)
 #endif
 		menuTick();
 		musicTick();
-		func0f01d860();
+		langTick();
 		pakExecuteDebugOperations();
 	} else if (g_Vars.stagenum == STAGE_4MBMENU) {
 		menuTick();
 		musicTick();
-		func0f01d860();
+		langTick();
 		pakExecuteDebugOperations();
 	} else if (g_Vars.stagenum == STAGE_CREDITS) {
 		musicTick();
-		func0f01d860();
+		langTick();
 	} else {
 		lvUpdateCutsceneTime();
 		vtxstoreTick();
@@ -4686,7 +4685,7 @@ void lvTick(void)
 		}
 
 		musicTick();
-		func0f01d860();
+		langTick();
 		propsTickPadEffects();
 
 		if (mainGetStageNum() == STAGE_CITRAINING) {

@@ -5,6 +5,8 @@
 #include "data.h"
 #include "types.h"
 
+u8 *g_FrameBuffers[2];
+
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
 glabel func0f000000

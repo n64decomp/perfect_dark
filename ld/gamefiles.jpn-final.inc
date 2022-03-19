@@ -69,7 +69,7 @@
 	build/ROMID/game/activemenu/tick.o (section); \
 	build/ROMID/game/game_01bea0.o (section); \
 	build/ROMID/game/weather/tick.o (section); \
-	build/ROMID/game/game_01d860.o (section); \
+	build/ROMID/game/langtick.o (section); \
 	build/ROMID/game/game_01d8c0.o (section); \
 	build/ROMID/game/game_01d990.o (section); \
 	build/ROMID/game/casing/tick.o (section); \

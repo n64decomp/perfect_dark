@@ -4,6 +4,8 @@
 #include "data.h"
 #include "types.h"
 
+void langTick(void);
+
 u32 langGetLangBankIndexFromStagenum(s32 stagenum);
 u32 func0f16e3fc(void);
 s32 langGetFileNumOffset(void);
@@ -12,6 +14,6 @@ void langSetBankSimple(s32 bank);
 void langSetBank(s32 bank, u8 *arg1, s32 arg2);
 void langClearBank(s32 bank);
 char *langGet(s32 textid);
-void lang0f16f75c(u32 arg0);
+void langSetEuropean(u32 arg0);
 
 #endif

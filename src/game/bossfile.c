@@ -40,7 +40,7 @@ bool bossfileLoadFull(void)
 	bossfileLoad();
 
 #if VERSION >= VERSION_PAL_BETA
-	lang0f16f75c(g_Vars.unk000482);
+	langSetEuropean(g_Vars.unk000482);
 #endif
 
 	return true;

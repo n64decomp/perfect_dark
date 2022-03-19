@@ -36,7 +36,7 @@ u32 *var8009ccb0[2];
 u32 var8009ccb8;
 
 #if VERSION == VERSION_JPN_FINAL
-u8 jpnfill[0x30];
+u8 jpnfill[0x20];
 #endif
 
 s16 g_TitleViewHeight = 480;

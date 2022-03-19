@@ -719,7 +719,7 @@ void lang0f16f6ecpf(void)
 #endif
 
 #if VERSION >= VERSION_PAL_BETA
-void lang0f16f75c(u32 arg0)
+void langSetEuropean(u32 arg0)
 {
 	u8 teams;
 	bool hasoptionslang = false;

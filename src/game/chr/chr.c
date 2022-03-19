@@ -53,22 +53,6 @@ s16 *g_Chrnums;
 s16 *g_ChrIndexes;
 struct chrdata *g_CurModelChr;
 
-u8 g_FileState = 0;
-u8 var80062944 = 0;
-u8 var80062948 = 0;
-u8 var8006294c = 0;
-u32 var80062950 = 100;
-bool g_WeatherTickEnabled = true;
-u32 var80062958 = 0x00000000;
-u32 var8006295c = 0x00000000;
-
-#if VERSION >= VERSION_PAL_BETA
-u32 var80062640pf = 99;
-u32 var80062644pf = 0;
-u32 var80062648pf = 0;
-u32 var8006264cpf = 0;
-#endif
-
 struct var80062960 *var80062960 = NULL;
 s32 var80062964 = 0;
 f32 var80062968 = 0;

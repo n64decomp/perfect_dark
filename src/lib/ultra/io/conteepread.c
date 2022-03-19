@@ -6,12 +6,11 @@
 OSPifRam __osEepPifRam;
 
 #if VERSION >= VERSION_JPN_FINAL
-u32 var8009d010pf[8];
+u32 var8009d010pf[4];
+s32 var8009d140jf;
 #elif VERSION >= VERSION_PAL_BETA
 u32 var8009d010pf[4];
 #endif
-
-u8 *g_FrameBuffers[2];
 
 void __osPackEepReadData(u8 address);
 

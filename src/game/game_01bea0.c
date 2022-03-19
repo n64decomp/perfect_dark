@@ -28,6 +28,11 @@
 #include "data.h"
 #include "types.h"
 
+u8 g_FileState = 0;
+u8 var80062944 = 0;
+u8 var80062948 = 0;
+u8 var8006294c = 0;
+
 const char var7f1a85b0[] = "lvup: %d\n";
 const char var7f1a85bc[] = "file id %x-%x";
 const char var7f1a85cc[] = " ticking: ";
