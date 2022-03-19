@@ -6,7 +6,6 @@
 #include "game/cheats.h"
 #include "game/debug.h"
 #include "game/lang.h"
-#include "game/game_000090.h"
 #include "game/game_000100.h"
 #include "game/game_000130.h"
 #include "game/stubs/game_000840.h"
@@ -677,7 +676,7 @@ glabel mainInit
 /*  da54:	00000000 */ 	nop
 /*  da58:	0fc0023c */ 	jal	stub0f000860
 /*  da5c:	00000000 */ 	nop
-/*  da60:	0fc00040 */ 	jal	func0f000090
+/*  da60:	0fc00040 */ 	jal	titleInit
 /*  da64:	00000000 */ 	nop
 /*  da68:	0c0026e7 */ 	jal	viConfigureForLegal
 /*  da6c:	00000000 */ 	nop
@@ -1072,7 +1071,7 @@ glabel mainInit
 /*     d7e8:	00000000 */ 	nop
 /*     d7ec:	0fc00218 */ 	jal	stub0f000860
 /*     d7f0:	00000000 */ 	nop
-/*     d7f4:	0fc00024 */ 	jal	func0f000090
+/*     d7f4:	0fc00024 */ 	jal	titleInit
 /*     d7f8:	00000000 */ 	nop
 /*     d7fc:	0c0026c0 */ 	jal	viConfigureForLegal
 /*     d800:	00000000 */ 	nop
@@ -1497,7 +1496,7 @@ glabel mainInit
 /*  d888:	00000000 */ 	nop
 /*  d88c:	0fc00218 */ 	jal	stub0f000860
 /*  d890:	00000000 */ 	nop
-/*  d894:	0fc00024 */ 	jal	func0f000090
+/*  d894:	0fc00024 */ 	jal	titleInit
 /*  d898:	00000000 */ 	nop
 /*  d89c:	0c0026ba */ 	jal	viConfigureForLegal
 /*  d8a0:	00000000 */ 	nop
@@ -1900,7 +1899,7 @@ glabel mainInit
 /*     daac:	00000000 */ 	nop
 /*     dab0:	0fc00218 */ 	jal	stub0f000860
 /*     dab4:	00000000 */ 	nop
-/*     dab8:	0fc00024 */ 	jal	func0f000090
+/*     dab8:	0fc00024 */ 	jal	titleInit
 /*     dabc:	00000000 */ 	nop
 /*     dac0:	0c0026fe */ 	jal	viConfigureForLegal
 /*     dac4:	00000000 */ 	nop
@@ -2273,7 +2272,7 @@ glabel mainInit
 /*     dfbc:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dfc0:	0fc00218 */ 	jal	stub0f000860
 /*     dfc4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dfc8:	0fc00024 */ 	jal	func0f000090
+/*     dfc8:	0fc00024 */ 	jal	titleInit
 /*     dfcc:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dfd0:	0c002767 */ 	jal	viConfigureForLegal
 /*     dfd4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2495,7 +2494,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	func0f000130();
 //	stub0f000850();
 //	stub0f000860();
-//	func0f000090();
+//	titleInit();
 //	viConfigureForLegal();
 //	viBlack(true);
 //

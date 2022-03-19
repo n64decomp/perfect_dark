@@ -8,6 +8,8 @@ extern u32 var800624d4;
 extern u32 var800624d8;
 extern u32 var800624dc;
 
+void titleInit(void);
+
 char *mpPlayerGetWeaponOfChoiceName(u32 playernum, u32 slot);
 void func0f01616c(void *light, u8 arg1, u8 arg2, u8 arg3, f32 arg4, struct coord *arg5);
 void titleInitLegal(void);
