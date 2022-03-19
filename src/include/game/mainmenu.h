@@ -6,6 +6,11 @@
 
 extern u16 g_ControlStyleOptions[];
 
+extern struct menudialogdef g_AcceptMissionMenuDialog;
+extern struct menudialogdef g_PreAndPostMissionBriefingMenuDialog;
+extern struct menudialogdef g_RetryMissionMenuDialog;
+extern struct menudialogdef g_NextMissionMenuDialog;
+
 char *menuTextCurrentStageName(struct menuitem *item);
 char *soloMenuTextDifficulty(struct menuitem *item);
 s32 menuhandlerControlStyleImpl(s32 operation, struct menuitem *item, union handlerdata *data, s32 mpindex);
