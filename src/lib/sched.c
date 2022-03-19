@@ -188,47 +188,31 @@ void osScAddClient(OSSched *sc, OSScClient *c, OSMesgQueue *msgQ, int is8mb)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel osScRemoveClient
-/*     205c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*     2060:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     2064:	afa40020 */ 	sw	$a0,0x20($sp)
-/*     2068:	8c8300b4 */ 	lw	$v1,0xb4($a0)
-/*     206c:	afa00018 */ 	sw	$zero,0x18($sp)
-/*     2070:	afa50024 */ 	sw	$a1,0x24($sp)
-/*     2074:	24040001 */ 	li	$a0,0x1
-/*     2078:	0c012688 */ 	jal	osSetIntMask
-/*     207c:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*     2080:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*     2084:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*     2088:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*     208c:	1060000f */ 	beqz	$v1,.L000020cc
-/*     2090:	00402025 */ 	move	$a0,$v0
-.L00002094:
-/*     2094:	5465000a */ 	bnel	$v1,$a1,.L000020c0
-/*     2098:	00603025 */ 	move	$a2,$v1
-/*     209c:	10c00004 */ 	beqz	$a2,.L000020b0
-/*     20a0:	8fb90020 */ 	lw	$t9,0x20($sp)
-/*     20a4:	8caf0000 */ 	lw	$t7,0x0($a1)
-/*     20a8:	10000008 */ 	b	.L000020cc
-/*     20ac:	accf0000 */ 	sw	$t7,0x0($a2)
-.L000020b0:
-/*     20b0:	8cb80000 */ 	lw	$t8,0x0($a1)
-/*     20b4:	10000005 */ 	b	.L000020cc
-/*     20b8:	af3800b4 */ 	sw	$t8,0xb4($t9)
-/*     20bc:	00603025 */ 	move	$a2,$v1
-.L000020c0:
-/*     20c0:	8c630000 */ 	lw	$v1,0x0($v1)
-/*     20c4:	1460fff3 */ 	bnez	$v1,.L00002094
-/*     20c8:	00000000 */ 	nop
-.L000020cc:
-/*     20cc:	0c012688 */ 	jal	osSetIntMask
-/*     20d0:	00000000 */ 	nop
-/*     20d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     20d8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*     20dc:	03e00008 */ 	jr	$ra
-/*     20e0:	00000000 */ 	nop
-);
+void osScRemoveClient(OSSched *sc, OSScClient *c)
+{
+	OSScClient *client = sc->clientList;
+	OSScClient *prev   = 0;
+	OSIntMask  mask;
+
+	mask = osSetIntMask(OS_IM_NONE);
+
+	while (client) {
+		if (client == c) {
+			if (prev) {
+				prev->next = c->next;
+			} else {
+				sc->clientList = c->next;
+			}
+
+			break;
+		}
+
+		prev = client;
+		client = client->next;
+	}
+
+	osSetIntMask(mask);
+}
 #endif
 
 OSMesgQueue *osScGetCmdQ(OSSched *sc)
