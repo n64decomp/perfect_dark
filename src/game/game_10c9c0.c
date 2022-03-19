@@ -58,147 +58,6 @@ s32 menuhandler0010cabc(s32 operation, struct menuitem *item, union handlerdata 
 	return 0;
 }
 
-#if VERSION == VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel func0f10cb2c
-/*  f10d4ac:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f10d4b0:	8dce1728 */ 	lw	$t6,0x1728($t6)
-/*  f10d4b4:	3c028006 */ 	lui	$v0,0x8006
-/*  f10d4b8:	3c018007 */ 	lui	$at,0x8007
-/*  f10d4bc:	24422610 */ 	addiu	$v0,$v0,0x2610
-/*  f10d4c0:	ac201728 */ 	sw	$zero,0x1728($at)
-/*  f10d4c4:	904f0000 */ 	lbu	$t7,0x0($v0)
-/*  f10d4c8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f10d4cc:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f10d4d0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f10d4d4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f10d4d8:	11e0000e */ 	beqz	$t7,.PF0f10d514
-/*  f10d4dc:	afae0020 */ 	sw	$t6,0x20($sp)
-/*  f10d4e0:	3c188008 */ 	lui	$t8,0x8008
-/*  f10d4e4:	8f1877b0 */ 	lw	$t8,0x77b0($t8)
-/*  f10d4e8:	3c10800a */ 	lui	$s0,0x800a
-/*  f10d4ec:	2610a510 */ 	addiu	$s0,$s0,-23280
-/*  f10d4f0:	17000024 */ 	bnez	$t8,.PF0f10d584
-/*  f10d4f4:	24190002 */ 	li	$t9,0x2
-/*  f10d4f8:	3c048007 */ 	lui	$a0,0x8007
-/*  f10d4fc:	ae190490 */ 	sw	$t9,0x490($s0)
-/*  f10d500:	24845758 */ 	addiu	$a0,$a0,0x5758
-/*  f10d504:	0fc3e29d */ 	jal	menuPushRootDialog
-/*  f10d508:	2405000b */ 	li	$a1,0xb
-/*  f10d50c:	1000001e */ 	b	.PF0f10d588
-/*  f10d510:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.PF0f10d514:
-/*  f10d514:	24080001 */ 	li	$t0,0x1
-/*  f10d518:	a0480000 */ 	sb	$t0,0x0($v0)
-/*  f10d51c:	00008025 */ 	move	$s0,$zero
-/*  f10d520:	24110006 */ 	li	$s1,0x6
-/*  f10d524:	02002025 */ 	move	$a0,$s0
-.PF0f10d528:
-/*  f10d528:	0fc623e7 */ 	jal	mpPlayerSetDefaults
-/*  f10d52c:	24050001 */ 	li	$a1,0x1
-/*  f10d530:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10d534:	5611fffc */ 	bnel	$s0,$s1,.PF0f10d528
-/*  f10d538:	02002025 */ 	move	$a0,$s0
-/*  f10d53c:	3c10800a */ 	lui	$s0,0x800a
-/*  f10d540:	2610a510 */ 	addiu	$s0,$s0,-23280
-/*  f10d544:	2402ffff */ 	li	$v0,-1
-/*  f10d548:	ae000294 */ 	sw	$zero,0x294($s0)
-/*  f10d54c:	ae020298 */ 	sw	$v0,0x298($s0)
-/*  f10d550:	0fc67037 */ 	jal	mpDetermineUnlockedFeatures
-/*  f10d554:	ae02029c */ 	sw	$v0,0x29c($s0)
-/*  f10d558:	3c048007 */ 	lui	$a0,0x8007
-/*  f10d55c:	248453e4 */ 	addiu	$a0,$a0,0x53e4
-/*  f10d560:	0fc3e29d */ 	jal	menuPushRootDialog
-/*  f10d564:	2405000a */ 	li	$a1,0xa
-/*  f10d568:	96090482 */ 	lhu	$t1,0x482($s0)
-/*  f10d56c:	3c048007 */ 	lui	$a0,0x8007
-/*  f10d570:	29210006 */ 	slti	$at,$t1,0x6
-/*  f10d574:	54200004 */ 	bnezl	$at,.PF0f10d588
-/*  f10d578:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f10d57c:	0fc3cda8 */ 	jal	menuPushDialog
-/*  f10d580:	24844810 */ 	addiu	$a0,$a0,0x4810
-.PF0f10d584:
-/*  f10d584:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.PF0f10d588:
-/*  f10d588:	8faa0020 */ 	lw	$t2,0x20($sp)
-/*  f10d58c:	3c018007 */ 	lui	$at,0x8007
-/*  f10d590:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f10d594:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f10d598:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f10d59c:	03e00008 */ 	jr	$ra
-/*  f10d5a0:	ac2a1728 */ 	sw	$t2,0x1728($at)
-);
-#elif VERSION == VERSION_PAL_BETA
-GLOBAL_ASM(
-glabel func0f10cb2c
-/*  f10d20c:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f10d210:	8dce3118 */ 	lw	$t6,0x3118($t6)
-/*  f10d214:	3c028006 */ 	lui	$v0,0x8006
-/*  f10d218:	3c018007 */ 	lui	$at,0x8007
-/*  f10d21c:	24424000 */ 	addiu	$v0,$v0,0x4000
-/*  f10d220:	ac203118 */ 	sw	$zero,0x3118($at)
-/*  f10d224:	904f0000 */ 	lbu	$t7,0x0($v0)
-/*  f10d228:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f10d22c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f10d230:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f10d234:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f10d238:	11e0000e */ 	beqz	$t7,.PB0f10d274
-/*  f10d23c:	afae0020 */ 	sw	$t6,0x20($sp)
-/*  f10d240:	3c188009 */ 	lui	$t8,0x8009
-/*  f10d244:	8f189740 */ 	lw	$t8,-0x68c0($t8)
-/*  f10d248:	3c10800a */ 	lui	$s0,0x800a
-/*  f10d24c:	2610e4d0 */ 	addiu	$s0,$s0,-6960
-/*  f10d250:	17000024 */ 	bnez	$t8,.PB0f10d2e4
-/*  f10d254:	24190002 */ 	li	$t9,0x2
-/*  f10d258:	3c048007 */ 	lui	$a0,0x8007
-/*  f10d25c:	ae190490 */ 	sw	$t9,0x490($s0)
-/*  f10d260:	24847068 */ 	addiu	$a0,$a0,0x7068
-/*  f10d264:	0fc3e223 */ 	jal	menuPushRootDialog
-/*  f10d268:	2405000b */ 	li	$a1,0xb
-/*  f10d26c:	1000001e */ 	b	.PB0f10d2e8
-/*  f10d270:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.PB0f10d274:
-/*  f10d274:	24080001 */ 	li	$t0,0x1
-/*  f10d278:	a0480000 */ 	sb	$t0,0x0($v0)
-/*  f10d27c:	00008025 */ 	move	$s0,$zero
-/*  f10d280:	24110006 */ 	li	$s1,0x6
-/*  f10d284:	02002025 */ 	move	$a0,$s0
-.PB0f10d288:
-/*  f10d288:	0fc626a7 */ 	jal	mpPlayerSetDefaults
-/*  f10d28c:	24050001 */ 	li	$a1,0x1
-/*  f10d290:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10d294:	5611fffc */ 	bnel	$s0,$s1,.PB0f10d288
-/*  f10d298:	02002025 */ 	move	$a0,$s0
-/*  f10d29c:	3c10800a */ 	lui	$s0,0x800a
-/*  f10d2a0:	2610e4d0 */ 	addiu	$s0,$s0,-6960
-/*  f10d2a4:	2402ffff */ 	li	$v0,-1
-/*  f10d2a8:	ae000294 */ 	sw	$zero,0x294($s0)
-/*  f10d2ac:	ae020298 */ 	sw	$v0,0x298($s0)
-/*  f10d2b0:	0fc67317 */ 	jal	mpDetermineUnlockedFeatures
-/*  f10d2b4:	ae02029c */ 	sw	$v0,0x29c($s0)
-/*  f10d2b8:	3c048007 */ 	lui	$a0,0x8007
-/*  f10d2bc:	24846cf4 */ 	addiu	$a0,$a0,0x6cf4
-/*  f10d2c0:	0fc3e223 */ 	jal	menuPushRootDialog
-/*  f10d2c4:	2405000a */ 	li	$a1,0xa
-/*  f10d2c8:	96090482 */ 	lhu	$t1,0x482($s0)
-/*  f10d2cc:	3c048007 */ 	lui	$a0,0x8007
-/*  f10d2d0:	29210006 */ 	slti	$at,$t1,0x6
-/*  f10d2d4:	54200004 */ 	bnezl	$at,.PB0f10d2e8
-/*  f10d2d8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f10d2dc:	0fc3cd2e */ 	jal	menuPushDialog
-/*  f10d2e0:	24846120 */ 	addiu	$a0,$a0,0x6120
-.PB0f10d2e4:
-/*  f10d2e4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.PB0f10d2e8:
-/*  f10d2e8:	8faa0020 */ 	lw	$t2,0x20($sp)
-/*  f10d2ec:	3c018007 */ 	lui	$at,0x8007
-/*  f10d2f0:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f10d2f4:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f10d2f8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f10d2fc:	03e00008 */ 	jr	$ra
-/*  f10d300:	ac2a3118 */ 	sw	$t2,0x3118($at)
-);
-#else
 void func0f10cb2c(void)
 {
 	s32 i;
@@ -224,11 +83,16 @@ void func0f10cb2c(void)
 		mpDetermineUnlockedFeatures();
 
 		menuPushRootDialog(&g_FilemgrFileSelect4MbMenuDialog, MENUROOT_4MBFILEMGR);
+
+#if PAL
+		if (g_Vars.unk000482 >= 6) {
+			menuPushDialog(&g_ChooseLanguageMenuDialog);
+		}
+#endif
 	}
 
 	g_MpPlayerNum = prevplayernum;
 }
-#endif
 
 s32 menudialog4MbMainMenu(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {

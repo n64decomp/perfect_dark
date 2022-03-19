@@ -4,6 +4,8 @@
 #include "data.h"
 #include "types.h"
 
+extern struct menudialogdef g_ChooseLanguageMenuDialog;
+
 char *filemgrGetDeviceName(s32 index);
 char *filemgrMenuTextDeviceName(struct menuitem *item);
 void filemgrGetSelectName(char *buffer, struct filelistfile *file, u32 filetype);
