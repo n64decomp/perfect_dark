@@ -4589,58 +4589,19 @@ void fileRemove(s32 filenum)
 	g_FileTable[filenum] = 0;
 }
 
-GLOBAL_ASM(
-glabel fileLoadToAddr
-/*  f167200:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f167204:	24010011 */ 	addiu	$at,$zero,0x11
-/*  f167208:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16720c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f167210:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f167214:	10a10004 */ 	beq	$a1,$at,.L0f167228
-/*  f167218:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f16721c:	24010022 */ 	addiu	$at,$zero,0x22
-/*  f167220:	14a10012 */ 	bne	$a1,$at,.L0f16726c
-/*  f167224:	00000000 */ 	nop
-.L0f167228:
-/*  f167228:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f16722c:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*  f167230:	3c18800a */ 	lui	$t8,%hi(g_FileInfo)
-/*  f167234:	27186680 */ 	addiu	$t8,$t8,%lo(g_FileInfo)
-/*  f167238:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f16723c:	01f83821 */ 	addu	$a3,$t7,$t8
-/*  f167240:	acf90004 */ 	sw	$t9,0x4($a3)
-/*  f167244:	8fa80018 */ 	lw	$t0,0x18($sp)
-/*  f167248:	3c0a8008 */ 	lui	$t2,%hi(g_FileTable)
-/*  f16724c:	254a2060 */ 	addiu	$t2,$t2,%lo(g_FileTable)
-/*  f167250:	00084880 */ 	sll	$t1,$t0,0x2
-/*  f167254:	012a3021 */ 	addu	$a2,$t1,$t2
-/*  f167258:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f16725c:	0fc59bad */ 	jal	fileLoad
-/*  f167260:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f167264:	10000003 */ 	b	.L0f167274
-/*  f167268:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f16726c:
-/*  f16726c:	1000ffff */ 	b	.L0f16726c
-/*  f167270:	00000000 */ 	nop
-.L0f167274:
-/*  f167274:	8fa20020 */ 	lw	$v0,0x20($sp)
-/*  f167278:	03e00008 */ 	jr	$ra
-/*  f16727c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void *fileLoadToAddr(s32 filenum, s32 method, u8 *ptr, u32 size)
+{
+	struct fileinfo *info = &g_FileInfo[filenum];
 
-// Mismatch: Reordered instructions, most likely related to debug ifdefs.
-//void *fileLoadToAddr(s32 filenum, s32 method, u8 *ptr, u32 size)
-//{
-//	if (method == FILELOADMETHOD_EXTRAMEM || method == FILELOADMETHOD_DEFAULT) {
-//		g_FileInfo[filenum].allocsize = size;
-//
-//		fileLoad(ptr, size, &g_FileTable[filenum], &g_FileInfo[filenum]);
-//	} else {
-//		while (1);
-//	}
-//
-//	return ptr;
-//}
+	if (method == FILELOADMETHOD_EXTRAMEM || method == FILELOADMETHOD_DEFAULT) {
+		info->allocsize = size;
+		fileLoad(ptr, size, (u32 *)&g_FileTable[filenum], info);
+	} else {
+		while (1);
+	}
+
+	return ptr;
+}
 
 u32 fileGetLoadedSize(s32 filenum)
 {
