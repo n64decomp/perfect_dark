@@ -63190,7 +63190,7 @@ bool propCanRegen(struct prop *prop)
 	return true;
 }
 
-u32 func0f07e474(struct prop *prop)
+u32 objTick(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
 	bool silent = false;
@@ -63300,7 +63300,7 @@ u32 func0f07e474(struct prop *prop)
  * much of the logic is skipped, and only the logic specific to the current
  * player is executed.
  */
-s32 objTick(struct prop *prop)
+s32 objTickPlayer(struct prop *prop)
 {
 	bool pass;
 	struct defaultobj *obj = prop->obj;

@@ -1182,7 +1182,7 @@ Gfx *lvRender(Gfx *gdl)
 				gdl = func0f11f984(gdl);
 				bgTick();
 				lightsTick();
-				propsTick(islastplayer);
+				propsTickPlayer(islastplayer);
 				scenarioTickChr(NULL);
 				propsSort();
 				autoaimTick();
@@ -2318,7 +2318,7 @@ void lvTick(void)
 		scenarioTick();
 
 		if (!g_MainIsEndscreen) {
-			propsTick2();
+			propsTick();
 		}
 
 		musicTick();

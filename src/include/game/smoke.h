@@ -16,8 +16,8 @@ void smokeCreateAtProp(struct prop *prop, s16 type);
 void smokeCreateAtPadEffect(struct padeffectobj *effect, struct coord *pos, s16 *rooms, s16 type);
 void smokeClearForProp(struct prop *prop);
 struct smoke *smokeCreateSimple(struct coord *pos, s16 *rooms, s16 type);
-u32 func0f12e848(struct prop *prop);
 u32 smokeTick(struct prop *prop);
+u32 smokeTickPlayer(struct prop *prop);
 Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool withalpha);
 void smokeClearSomeTypes(void);
 

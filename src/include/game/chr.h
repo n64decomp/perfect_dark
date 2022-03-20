@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void propsTick2(void);
+void propsTick(void);
 void chrSetChrnum(struct chrdata *chr, s16 chrnum);
 void chrDeregister(s32 chrnum);
 void chrCalculatePushPos(struct chrdata *chr, struct coord *pos, s16 *rooms, bool arg3);

@@ -4696,7 +4696,7 @@ struct explosiontype {
 	/*0x14*/ f32 blastradius;
 	/*0x18*/ f32 damageradius;
 	/*0x1c*/ s16 duration;
-	/*0x1e*/ u16 propagationrate;
+	/*0x1e*/ s16 propagationrate;
 	/*0x20*/ f32 flarespeed;
 	/*0x24*/ u8 smoketype;
 	/*0x26*/ u16 sound;
@@ -4705,8 +4705,8 @@ struct explosiontype {
 
 struct explosionpart {
 	struct coord pos;
-	u32 size;
-	u32 rot;
+	f32 size;
+	f32 rot;
 	s16 frame;
 	u8 bb;
 };
@@ -4719,21 +4719,17 @@ struct explosionbb { // billboards?
 };
 
 struct explosion {
-	struct prop *prop;
-	u32 unk04;
+	struct prop *prop; // Prop of the explosion
+	struct prop *source; // Prop of the thing that created the explosion
 	struct explosionpart parts[40];
 	/*0x3c8*/ s16 age;
-	/*0x3ca*/ s16 frame60;
+	/*0x3ca*/ s16 room;
 	/*0x3cc*/ s8 type;
 	/*0x3cd*/ s8 makescorch;
 	/*0x3ce*/ s8 owner;
 	/*0x3cf*/ u8 numbb;
-	/*0x3d0*/ u32 unk3d0;
-	/*0x3d4*/ u32 unk3d4;
-	/*0x3d8*/ u32 unk3d8;
-	/*0x3dc*/ u32 unk3dc;
-	/*0x3e0*/ u32 unk3e0;
-	/*0x3e4*/ u32 unk3e4;
+	/*0x3d0*/ struct coord unk3d0;
+	/*0x3dc*/ struct coord unk3dc;
 	/*0x3e8*/ struct explosionbb bbs[5]; // may be smaller
 	/*0x474*/ u32 unk474;
 };

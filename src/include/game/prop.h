@@ -33,7 +33,7 @@ void propFindForUplink(void);
 bool currentPlayerInteract(bool eyespy);
 void propPause(struct prop *prop);
 void propUnpause(struct prop *prop);
-void propsTick(u32 islastplayer);
+void propsTickPlayer(u32 islastplayer);
 void propsTickPadEffects(void);
 void propSetPerimEnabled(struct prop *prop, bool enable);
 void propsTestForPickup(void);

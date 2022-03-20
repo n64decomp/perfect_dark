@@ -203,7 +203,7 @@ void propFree(struct prop *prop)
  * Insert the prop to the head of activeprops. The prop must not be in any list
  * prior to calling this function.
  *
- * If this function is being called from propsTick (which iterates active props)
+ * If this function is being called from propsTickPlayer (which iterates active props)
  * then the prop will do its next tick on the next frame, due to it being
  * inserted at the head.
  */
@@ -234,8 +234,8 @@ void propActivate(struct prop *prop)
 
 /**
  * Similar to propActivate, but the prop inserted to the tail of the activeprops
- * list. This makes the prop tick on the current frame if called from propsTick,
- * because propsTick iterates the activeprops list from head to tail.
+ * list. This makes the prop tick on the current frame if called from propsTickPlayer,
+ * because propsTickPlayer iterates the activeprops list from head to tail.
  */
 void propActivateThisFrame(struct prop *prop)
 {
@@ -1547,7 +1547,7 @@ void propPause(struct prop *prop)
  * The prop is removed from its current list (activeprops or pausedprops)
  * if any, and is then inserted to the head of activeprops.
  *
- * If this function is being called from propsTick (which iterates active props)
+ * If this function is being called from propsTickPlayer (which iterates active props)
  * then the prop will do its next tick on the next frame, due to it being
  * inserted at the head.
  */
@@ -1642,7 +1642,7 @@ u8 g_PausableObjs[] = {
 
 #if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel propsTick
+glabel propsTickPlayer
 .late_rodata
 glabel var7f1ab184pf
 .word 0x3f99999a
@@ -2027,7 +2027,7 @@ glabel var7f1ab190pf
 /*  f0637c4:	54610006 */ 	bnel	$v1,$at,.PF0f0637e0
 /*  f0637c8:	24010007 */ 	li	$at,0x7
 .PF0f0637cc:
-/*  f0637cc:	0fc1fa6a */ 	jal	objTick
+/*  f0637cc:	0fc1fa6a */ 	jal	objTickPlayer
 /*  f0637d0:	02002025 */ 	move	$a0,$s0
 /*  f0637d4:	10000017 */ 	b	.PF0f063834
 /*  f0637d8:	00403025 */ 	move	$a2,$v0
@@ -2035,7 +2035,7 @@ glabel var7f1ab190pf
 .PF0f0637e0:
 /*  f0637e0:	54610006 */ 	bnel	$v1,$at,.PF0f0637fc
 /*  f0637e4:	24010008 */ 	li	$at,0x8
-/*  f0637e8:	0fc4b436 */ 	jal	explosionTick
+/*  f0637e8:	0fc4b436 */ 	jal	explosionTickPlayer
 /*  f0637ec:	02002025 */ 	move	$a0,$s0
 /*  f0637f0:	10000010 */ 	b	.PF0f063834
 /*  f0637f4:	00403025 */ 	move	$a2,$v0
@@ -2043,7 +2043,7 @@ glabel var7f1ab190pf
 .PF0f0637fc:
 /*  f0637fc:	54610006 */ 	bnel	$v1,$at,.PF0f063818
 /*  f063800:	24010006 */ 	li	$at,0x6
-/*  f063804:	0fc4bf31 */ 	jal	smokeTick
+/*  f063804:	0fc4bf31 */ 	jal	smokeTickPlayer
 /*  f063808:	02002025 */ 	move	$a0,$s0
 /*  f06380c:	10000009 */ 	b	.PF0f063834
 /*  f063810:	00403025 */ 	move	$a2,$v0
@@ -2185,7 +2185,7 @@ glabel var7f1ab190pf
 /*  f063a00:	93189564 */ 	lbu	$t8,-0x6a9c($t8)
 /*  f063a04:	57000006 */ 	bnezl	$t8,.PF0f063a20
 /*  f063a08:	860d0002 */ 	lh	$t5,0x2($s0)
-/*  f063a0c:	0fc1fa6a */ 	jal	objTick
+/*  f063a0c:	0fc1fa6a */ 	jal	objTickPlayer
 /*  f063a10:	02002025 */ 	move	$a0,$s0
 /*  f063a14:	10000027 */ 	b	.PF0f063ab4
 /*  f063a18:	00403025 */ 	move	$a2,$v0
@@ -2210,7 +2210,7 @@ glabel var7f1ab190pf
 .PF0f063a60:
 /*  f063a60:	54610006 */ 	bnel	$v1,$at,.PF0f063a7c
 /*  f063a64:	24010008 */ 	li	$at,0x8
-/*  f063a68:	0fc4b436 */ 	jal	explosionTick
+/*  f063a68:	0fc4b436 */ 	jal	explosionTickPlayer
 /*  f063a6c:	02002025 */ 	move	$a0,$s0
 /*  f063a70:	10000010 */ 	b	.PF0f063ab4
 /*  f063a74:	00403025 */ 	move	$a2,$v0
@@ -2218,7 +2218,7 @@ glabel var7f1ab190pf
 .PF0f063a7c:
 /*  f063a7c:	54610006 */ 	bnel	$v1,$at,.PF0f063a98
 /*  f063a80:	24010006 */ 	li	$at,0x6
-/*  f063a84:	0fc4bf31 */ 	jal	smokeTick
+/*  f063a84:	0fc4bf31 */ 	jal	smokeTickPlayer
 /*  f063a88:	02002025 */ 	move	$a0,$s0
 /*  f063a8c:	10000009 */ 	b	.PF0f063ab4
 /*  f063a90:	00403025 */ 	move	$a2,$v0
@@ -2641,7 +2641,7 @@ glabel var7f1ab190pf
 );
 #elif VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
-glabel propsTick
+glabel propsTickPlayer
 .late_rodata
 glabel var7f1ab184pf
 .word 0x3f99999a
@@ -3026,7 +3026,7 @@ glabel var7f1ab190pf
 /*  f063714:	54610006 */ 	bnel	$v1,$at,.PB0f063730
 /*  f063718:	24010007 */ 	li	$at,0x7
 .PB0f06371c:
-/*  f06371c:	0fc1fa3e */ 	jal	objTick
+/*  f06371c:	0fc1fa3e */ 	jal	objTickPlayer
 /*  f063720:	02002025 */ 	move	$a0,$s0
 /*  f063724:	10000017 */ 	b	.PB0f063784
 /*  f063728:	00403025 */ 	move	$a2,$v0
@@ -3034,7 +3034,7 @@ glabel var7f1ab190pf
 .PB0f063730:
 /*  f063730:	54610006 */ 	bnel	$v1,$at,.PB0f06374c
 /*  f063734:	24010008 */ 	li	$at,0x8
-/*  f063738:	0fc4b6ba */ 	jal	explosionTick
+/*  f063738:	0fc4b6ba */ 	jal	explosionTickPlayer
 /*  f06373c:	02002025 */ 	move	$a0,$s0
 /*  f063740:	10000010 */ 	b	.PB0f063784
 /*  f063744:	00403025 */ 	move	$a2,$v0
@@ -3042,7 +3042,7 @@ glabel var7f1ab190pf
 .PB0f06374c:
 /*  f06374c:	54610006 */ 	bnel	$v1,$at,.PB0f063768
 /*  f063750:	24010006 */ 	li	$at,0x6
-/*  f063754:	0fc4c1b5 */ 	jal	smokeTick
+/*  f063754:	0fc4c1b5 */ 	jal	smokeTickPlayer
 /*  f063758:	02002025 */ 	move	$a0,$s0
 /*  f06375c:	10000009 */ 	b	.PB0f063784
 /*  f063760:	00403025 */ 	move	$a2,$v0
@@ -3184,7 +3184,7 @@ glabel var7f1ab190pf
 /*  f063950:	9318af54 */ 	lbu	$t8,-0x50ac($t8)
 /*  f063954:	57000006 */ 	bnezl	$t8,.PB0f063970
 /*  f063958:	860d0002 */ 	lh	$t5,0x2($s0)
-/*  f06395c:	0fc1fa3e */ 	jal	objTick
+/*  f06395c:	0fc1fa3e */ 	jal	objTickPlayer
 /*  f063960:	02002025 */ 	move	$a0,$s0
 /*  f063964:	10000027 */ 	b	.PB0f063a04
 /*  f063968:	00403025 */ 	move	$a2,$v0
@@ -3209,7 +3209,7 @@ glabel var7f1ab190pf
 .PB0f0639b0:
 /*  f0639b0:	54610006 */ 	bnel	$v1,$at,.PB0f0639cc
 /*  f0639b4:	24010008 */ 	li	$at,0x8
-/*  f0639b8:	0fc4b6ba */ 	jal	explosionTick
+/*  f0639b8:	0fc4b6ba */ 	jal	explosionTickPlayer
 /*  f0639bc:	02002025 */ 	move	$a0,$s0
 /*  f0639c0:	10000010 */ 	b	.PB0f063a04
 /*  f0639c4:	00403025 */ 	move	$a2,$v0
@@ -3217,7 +3217,7 @@ glabel var7f1ab190pf
 .PB0f0639cc:
 /*  f0639cc:	54610006 */ 	bnel	$v1,$at,.PB0f0639e8
 /*  f0639d0:	24010006 */ 	li	$at,0x6
-/*  f0639d4:	0fc4c1b5 */ 	jal	smokeTick
+/*  f0639d4:	0fc4c1b5 */ 	jal	smokeTickPlayer
 /*  f0639d8:	02002025 */ 	move	$a0,$s0
 /*  f0639dc:	10000009 */ 	b	.PB0f063a04
 /*  f0639e0:	00403025 */ 	move	$a2,$v0
@@ -3640,7 +3640,7 @@ glabel var7f1ab190pf
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel propsTick
+glabel propsTickPlayer
 /*  f06302c:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f063030:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f063034:	3c11800a */ 	lui	$s1,%hi(g_Vars)
@@ -4012,7 +4012,7 @@ glabel propsTick
 /*  f063558:	54610006 */ 	bnel	$v1,$at,.L0f063574
 /*  f06355c:	24010007 */ 	addiu	$at,$zero,0x7
 .L0f063560:
-/*  f063560:	0fc1f9d6 */ 	jal	objTick
+/*  f063560:	0fc1f9d6 */ 	jal	objTickPlayer
 /*  f063564:	02002025 */ 	or	$a0,$s0,$zero
 /*  f063568:	10000017 */ 	b	.L0f0635c8
 /*  f06356c:	00403025 */ 	or	$a2,$v0,$zero
@@ -4020,7 +4020,7 @@ glabel propsTick
 .L0f063574:
 /*  f063574:	54610006 */ 	bnel	$v1,$at,.L0f063590
 /*  f063578:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f06357c:	0fc4b16a */ 	jal	explosionTick
+/*  f06357c:	0fc4b16a */ 	jal	explosionTickPlayer
 /*  f063580:	02002025 */ 	or	$a0,$s0,$zero
 /*  f063584:	10000010 */ 	b	.L0f0635c8
 /*  f063588:	00403025 */ 	or	$a2,$v0,$zero
@@ -4028,7 +4028,7 @@ glabel propsTick
 .L0f063590:
 /*  f063590:	54610006 */ 	bnel	$v1,$at,.L0f0635ac
 /*  f063594:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f063598:	0fc4bc61 */ 	jal	smokeTick
+/*  f063598:	0fc4bc61 */ 	jal	smokeTickPlayer
 /*  f06359c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0635a0:	10000009 */ 	b	.L0f0635c8
 /*  f0635a4:	00403025 */ 	or	$a2,$v0,$zero
@@ -4164,7 +4164,7 @@ glabel propsTick
 /*  f06377c:	93189884 */ 	lbu	$t8,%lo(g_PausableObjs)($t8)
 /*  f063780:	57000006 */ 	bnezl	$t8,.L0f06379c
 /*  f063784:	860d0002 */ 	lh	$t5,0x2($s0)
-/*  f063788:	0fc1f9d6 */ 	jal	objTick
+/*  f063788:	0fc1f9d6 */ 	jal	objTickPlayer
 /*  f06378c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f063790:	10000027 */ 	b	.L0f063830
 /*  f063794:	00403025 */ 	or	$a2,$v0,$zero
@@ -4189,7 +4189,7 @@ glabel propsTick
 .L0f0637dc:
 /*  f0637dc:	54610006 */ 	bnel	$v1,$at,.L0f0637f8
 /*  f0637e0:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f0637e4:	0fc4b16a */ 	jal	explosionTick
+/*  f0637e4:	0fc4b16a */ 	jal	explosionTickPlayer
 /*  f0637e8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0637ec:	10000010 */ 	b	.L0f063830
 /*  f0637f0:	00403025 */ 	or	$a2,$v0,$zero
@@ -4197,7 +4197,7 @@ glabel propsTick
 .L0f0637f8:
 /*  f0637f8:	54610006 */ 	bnel	$v1,$at,.L0f063814
 /*  f0637fc:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f063800:	0fc4bc61 */ 	jal	smokeTick
+/*  f063800:	0fc4bc61 */ 	jal	smokeTickPlayer
 /*  f063804:	02002025 */ 	or	$a0,$s0,$zero
 /*  f063808:	10000009 */ 	b	.L0f063830
 /*  f06380c:	00403025 */ 	or	$a2,$v0,$zero
@@ -4617,7 +4617,7 @@ glabel propsTick
 );
 #else
 GLOBAL_ASM(
-glabel propsTick
+glabel propsTickPlayer
 /*  f0622b0:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0622b4:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f0622b8:	3c11800a */ 	lui	$s1,0x800a
@@ -4985,7 +4985,7 @@ glabel propsTick
 /*  f0627cc:	54610006 */ 	bnel	$v1,$at,.NB0f0627e8
 /*  f0627d0:	24010007 */ 	addiu	$at,$zero,0x7
 .NB0f0627d4:
-/*  f0627d4:	0fc1f474 */ 	jal	objTick
+/*  f0627d4:	0fc1f474 */ 	jal	objTickPlayer
 /*  f0627d8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0627dc:	10000017 */ 	beqz	$zero,.NB0f06283c
 /*  f0627e0:	00403025 */ 	or	$a2,$v0,$zero
@@ -4993,7 +4993,7 @@ glabel propsTick
 .NB0f0627e8:
 /*  f0627e8:	54610006 */ 	bnel	$v1,$at,.NB0f062804
 /*  f0627ec:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f0627f0:	0fc49c4e */ 	jal	explosionTick
+/*  f0627f0:	0fc49c4e */ 	jal	explosionTickPlayer
 /*  f0627f4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0627f8:	10000010 */ 	beqz	$zero,.NB0f06283c
 /*  f0627fc:	00403025 */ 	or	$a2,$v0,$zero
@@ -5001,7 +5001,7 @@ glabel propsTick
 .NB0f062804:
 /*  f062804:	54610006 */ 	bnel	$v1,$at,.NB0f062820
 /*  f062808:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f06280c:	0fc4a745 */ 	jal	smokeTick
+/*  f06280c:	0fc4a745 */ 	jal	smokeTickPlayer
 /*  f062810:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062814:	10000009 */ 	beqz	$zero,.NB0f06283c
 /*  f062818:	00403025 */ 	or	$a2,$v0,$zero
@@ -5137,7 +5137,7 @@ glabel propsTick
 /*  f0629f0:	9318bf84 */ 	lbu	$t8,-0x407c($t8)
 /*  f0629f4:	57000006 */ 	bnezl	$t8,.NB0f062a10
 /*  f0629f8:	860d0002 */ 	lh	$t5,0x2($s0)
-/*  f0629fc:	0fc1f474 */ 	jal	objTick
+/*  f0629fc:	0fc1f474 */ 	jal	objTickPlayer
 /*  f062a00:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062a04:	10000027 */ 	beqz	$zero,.NB0f062aa4
 /*  f062a08:	00403025 */ 	or	$a2,$v0,$zero
@@ -5162,7 +5162,7 @@ glabel propsTick
 .NB0f062a50:
 /*  f062a50:	54610006 */ 	bnel	$v1,$at,.NB0f062a6c
 /*  f062a54:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f062a58:	0fc49c4e */ 	jal	explosionTick
+/*  f062a58:	0fc49c4e */ 	jal	explosionTickPlayer
 /*  f062a5c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062a60:	10000010 */ 	beqz	$zero,.NB0f062aa4
 /*  f062a64:	00403025 */ 	or	$a2,$v0,$zero
@@ -5170,7 +5170,7 @@ glabel propsTick
 .NB0f062a6c:
 /*  f062a6c:	54610006 */ 	bnel	$v1,$at,.NB0f062a88
 /*  f062a70:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f062a74:	0fc4a745 */ 	jal	smokeTick
+/*  f062a74:	0fc4a745 */ 	jal	smokeTickPlayer
 /*  f062a78:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062a7c:	10000009 */ 	beqz	$zero,.NB0f062aa4
 /*  f062a80:	00403025 */ 	or	$a2,$v0,$zero
@@ -5622,7 +5622,7 @@ glabel propsTick
 // 290: Duplicate write of &g_Vars.propstates[index] (t2) to sp34
 // 6fc and 864: Uses two instructions to reload addres of g_Vars.lvupdate240freal even though s1 could be used
 // 938: Loads s4 and s1 loaded with constant values despite them already having those values
-//void propsTick(u32 islastplayer)
+//void propsTickPlayer(u32 islastplayer)
 //{
 //	struct prop *prop;
 //	struct prop *end;
@@ -5830,11 +5830,11 @@ glabel propsTick
 //				g_Vars.propstates[prop->propstateindex].foregroundpropcount++;
 //
 //				if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
-//					op = objTick(prop);
+//					op = objTickPlayer(prop);
 //				} else if (prop->type == PROPTYPE_EXPLOSION) {
-//					op = explosionTick(prop);
+//					op = explosionTickPlayer(prop);
 //				} else if (prop->type == PROPTYPE_SMOKE) {
-//					op = smokeTick(prop);
+//					op = smokeTickPlayer(prop);
 //				} else if (prop->type == PROPTYPE_PLAYER) {
 //					splatTick(prop);
 //					op = playerTickThirdPerson(prop);
@@ -5891,7 +5891,7 @@ glabel propsTick
 //					struct defaultobj *obj = prop->obj;
 //
 //					if (!g_PausableObjs[obj->type]) {
-//						op = objTick(prop);
+//						op = objTickPlayer(prop);
 //					} else if (prop->timetoregen <= 0) {
 //						// The prop does not regenerate. If we've done a full
 //						// cycle of propstates while backgrounded and the prop
@@ -5904,9 +5904,9 @@ glabel propsTick
 //						}
 //					}
 //				} else if (prop->type == PROPTYPE_EXPLOSION) {
-//					op = explosionTick(prop);
+//					op = explosionTickPlayer(prop);
 //				} else if (prop->type == PROPTYPE_SMOKE) {
-//					op = smokeTick(prop);
+//					op = smokeTickPlayer(prop);
 //				} else if (prop->type == PROPTYPE_PLAYER) {
 //					splatTick(prop);
 //					op = playerTickThirdPerson(prop);

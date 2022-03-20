@@ -1395,7 +1395,7 @@ struct smoke *smokeCreateSimple(struct coord *pos, s16 *rooms, s16 type)
 }
 
 GLOBAL_ASM(
-glabel func0f12e848
+glabel smokeTick
 /*  f12e848:	27bdff30 */ 	addiu	$sp,$sp,-208
 /*  f12e84c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x34)
 /*  f12e850:	8dce9ff4 */ 	lw	$t6,%lo(g_Vars+0x34)($t6)
@@ -2033,7 +2033,7 @@ glabel func0f12e848
 /*  f12f180:	27bd00d0 */ 	addiu	$sp,$sp,0xd0
 );
 
-u32 smokeTick(struct prop *prop)
+u32 smokeTickPlayer(struct prop *prop)
 {
 	Mtxf *matrix = currentPlayerGetMatrix1740();
 

@@ -70,7 +70,7 @@ struct chrdata *g_ChrSlots = NULL;
 // 8006298c
 s32 g_NumChrSlots = 0;
 
-void propsTick2(void)
+void propsTick(void)
 {
 	s32 i;
 	struct prop *prop;
@@ -98,11 +98,11 @@ void propsTick2(void)
 		if (prop->type == PROPTYPE_CHR) {
 			tickop = chrTickBeams(prop);
 		} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
-			tickop = func0f07e474(prop);
+			tickop = objTick(prop);
 		} else if (prop->type == PROPTYPE_EXPLOSION) {
-			tickop = func0f12bbdc(prop);
+			tickop = explosionTick(prop);
 		} else if (prop->type == PROPTYPE_SMOKE) {
-			tickop = func0f12e848(prop);
+			tickop = smokeTick(prop);
 		} else if (prop->type == PROPTYPE_PLAYER) {
 			tickop = playerTickBeams(prop);
 		}
