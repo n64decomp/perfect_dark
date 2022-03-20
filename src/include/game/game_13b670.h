@@ -11,7 +11,7 @@ u32 func0f13b8a0(void);
 u32 func0f13bb5c(void);
 u32 func0f13bc48(void);
 u32 func0f13c07c(void);
-u32 func0f13c2e8(void);
+void func0f13c2e8(s16 arg0);
 void func0f13c370(s16 roomnum);
 void func0f13c3f4(void);
 bool func0f13c4f0(void);

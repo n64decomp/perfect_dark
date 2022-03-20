@@ -941,48 +941,22 @@ glabel func0f13c07c
 /*  f13c2e4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f13c2e8
-/*  f13c2e8:	3c028008 */ 	lui	$v0,%hi(g_StageIndex)
-/*  f13c2ec:	8c42fc00 */ 	lw	$v0,%lo(g_StageIndex)($v0)
-/*  f13c2f0:	00047400 */ 	sll	$t6,$a0,0x10
-/*  f13c2f4:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*  f13c2f8:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f13c2fc:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f13c300:	10410019 */ 	beq	$v0,$at,.L0f13c368
-/*  f13c304:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f13c308:	2401001f */ 	addiu	$at,$zero,0x1f
-/*  f13c30c:	14410002 */ 	bne	$v0,$at,.L0f13c318
-/*  f13c310:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f13c314:	11e10014 */ 	beq	$t7,$at,.L0f13c368
-.L0f13c318:
-/*  f13c318:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f13c31c:	14410002 */ 	bne	$v0,$at,.L0f13c328
-/*  f13c320:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f13c324:	10810010 */ 	beq	$a0,$at,.L0f13c368
-.L0f13c328:
-/*  f13c328:	24010020 */ 	addiu	$at,$zero,0x20
-/*  f13c32c:	10410006 */ 	beq	$v0,$at,.L0f13c348
-/*  f13c330:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f13c334:	10810003 */ 	beq	$a0,$at,.L0f13c344
-/*  f13c338:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f13c33c:	14810002 */ 	bne	$a0,$at,.L0f13c348
-/*  f13c340:	00000000 */ 	nop
-.L0f13c344:
-/*  f13c344:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f13c348:
-/*  f13c348:	3c028008 */ 	lui	$v0,%hi(var8007f6e4)
-/*  f13c34c:	2442f6e4 */ 	addiu	$v0,$v0,%lo(var8007f6e4)
-/*  f13c350:	8c580000 */ 	lw	$t8,0x0($v0)
-/*  f13c354:	3c018008 */ 	lui	$at,%hi(var8007f6ec)
-/*  f13c358:	50980003 */ 	beql	$a0,$t8,.L0f13c368
-/*  f13c35c:	ac440000 */ 	sw	$a0,0x0($v0)
-/*  f13c360:	ac20f6ec */ 	sw	$zero,%lo(var8007f6ec)($at)
-/*  f13c364:	ac440000 */ 	sw	$a0,0x0($v0)
-.L0f13c368:
-/*  f13c368:	03e00008 */ 	jr	$ra
-/*  f13c36c:	00000000 */ 	nop
-);
+void func0f13c2e8(s16 arg0)
+{
+	if (g_StageIndex != STAGEINDEX_AIRBASE
+			&& (g_StageIndex != STAGEINDEX_INVESTIGATION || arg0 != 1)
+			&& (g_StageIndex != STAGEINDEX_VILLA || arg0 != 1)) {
+		if (g_StageIndex != STAGEINDEX_ATTACKSHIP && (arg0 == 6 || arg0 == 7)) {
+			arg0 = 1;
+		}
+
+		if (var8007f6e4 != arg0) {
+			var8007f6ec = 0;
+		}
+
+		var8007f6e4 = arg0;
+	}
+}
 
 void func0f13c370(s16 roomnum)
 {
