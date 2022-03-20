@@ -10527,33 +10527,11 @@ char *htGetTip2(void)
 }
 
 #if VERSION >= VERSION_JPN_FINAL
-const char var7f1ba0e0jf[] = "%s";
-const char var7f1ba0e4jf[] = "%d\n";
-
-GLOBAL_ASM(
-glabel frGetGoalTargetsText
-/*  f1a30f8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a30fc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a3100:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a3104:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1a3108:	0fc5baa5 */ 	jal	langGet
-/*  f1a310c:	2404589e */ 	li	$a0,0x589e
-/*  f1a3110:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a3114:	24a5a0e0 */ 	addiu	$a1,$a1,-24352
-/*  f1a3118:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f1a311c:	0c004d95 */ 	jal	sprintf
-/*  f1a3120:	00403025 */ 	move	$a2,$v0
-/*  f1a3124:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a3128:	3c06800b */ 	lui	$a2,0x800b
-/*  f1a312c:	90c6d754 */ 	lbu	$a2,-0x28ac($a2)
-/*  f1a3130:	24a5a0e4 */ 	addiu	$a1,$a1,-24348
-/*  f1a3134:	0c004d95 */ 	jal	sprintf
-/*  f1a3138:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f1a313c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a3140:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a3144:	03e00008 */ 	jr	$ra
-/*  f1a3148:	00000000 */ 	nop
-);
+void frGetGoalTargetsText(char *buffer, char *buffer2)
+{
+	sprintf(buffer, "%s", langGet(L_MISC_417));
+	sprintf(buffer2, "%d\n", g_FrData.goaltargets);
+}
 #else
 void frGetGoalTargetsText(char *buffer)
 {

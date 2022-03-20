@@ -111,7 +111,13 @@ u32 func0f1a25c0(s32 index);
 char *htGetDescription(void);
 char *htGetTip1(void);
 char *htGetTip2(void);
+
+#if VERSION >= VERSION_JPN_FINAL
+void frGetGoalTargetsText(char *buffer, char *buffer2);
+#else
 void frGetGoalTargetsText(char *buffer);
+#endif
+
 void frGetTargetsDestroyedValue(char *buffer);
 void frGetScoreValue(char *buffer);
 void frGetGoalScoreText(char *buffer);
