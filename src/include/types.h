@@ -6776,9 +6776,23 @@ struct texcacheitem {
 	u8 heights[7];
 };
 
+struct var800a418c {
+	u16 unk00;
+	u16 unk02;
+	u16 unk04;
+};
+
+struct var800a4190 {
+	u16 unk00_00 : 7;
+	u16 unk00_07 : 1;
+	u8 unk01;
+	u16 unk02;
+};
+
 struct var800a4194 {
 	u16 roomnum;
-	s32 unk04;
+	u16 unk02;
+	u16 unk04;
 	s32 unk08;
 };
 
