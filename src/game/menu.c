@@ -25,13 +25,13 @@
 #include "game/texdecompress.h"
 #include "game/mplayer/setup.h"
 #include "game/game_19aa80.h"
-#include "game/training/training.h"
+#include "game/training.h"
 #include "game/game_1a78b0.h"
 #include "game/gamefile.h"
 #include "game/gfxmemory.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
-#include "game/pak/pak.h"
+#include "game/pak.h"
 #include "game/options.h"
 #include "game/propobj.h"
 #include "bss.h"
@@ -21250,7 +21250,7 @@ void func0f0f8bb4(struct menu840 *arg0, u32 arg1, u32 arg2)
 	arg0->unk524 = arg0->unk54c;
 }
 
-void menuInit(void)
+void menuReset(void)
 {
 	s32 i;
 

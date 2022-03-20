@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "constants.h"
-#include "game/game_092610.h"
+#include "game/propsnd.h"
 #include "game/game_0b0fd0.h"
 #include "game/player.h"
 #include "game/savebuffer.h"
@@ -658,7 +658,7 @@ void hudmsgsHideByChannel(s32 channelnum)
 	}
 }
 
-void hudmsgsInit(void)
+void hudmsgsReset(void)
 {
 	s32 i;
 
@@ -6258,7 +6258,7 @@ glabel var7f1adef4
 //	return gdl;
 //}
 
-void hudmsgsReset(void)
+void hudmsgsStop(void)
 {
 	s32 i;
 

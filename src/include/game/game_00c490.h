@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void setupInit(void);
+void propsReset(void);
 void addLiftDoor(struct linkliftdoorobj *link);
 void addPadlockedDoor(struct padlockeddoorobj *link);
 void addSafeItem(struct safeitemobj *link);
@@ -28,7 +28,7 @@ s32 func0f00e2b0(s32 padnum);
 void setupDoor(struct doorobj *door, s32 cmdindex);
 void setupHov(struct defaultobj *obj, struct hov *hov);
 void setupLoadBriefing(s32 stagenum, u8 *buffer, s32 bufferlen, struct briefing *briefing);
-void setupLoadFiles(s32 stagenum);
-void setupParseObjects(s32 stagenum);
+void setupReset(s32 stagenum);
+void propsCreate(s32 stagenum);
 
 #endif

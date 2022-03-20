@@ -4175,7 +4175,7 @@ const char var7f1b1dd8nb[] = "ob.c";
 
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
-glabel filesResetAndPrint
+glabel filesInit
 /*  f166f74:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f166f78:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f166f7c:	afb1001c */ 	sw	$s1,0x1c($sp)
@@ -4211,7 +4211,7 @@ glabel filesResetAndPrint
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel filesResetAndPrint
+glabel filesInit
 /*  f166f74:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f166f78:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f166f7c:	afb1001c */ 	sw	$s1,0x1c($sp)
@@ -4247,7 +4247,7 @@ glabel filesResetAndPrint
 );
 #else
 GLOBAL_ASM(
-glabel filesResetAndPrint
+glabel filesInit
 /*  f166f74:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f166f78:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f166f7c:	afb1001c */ 	sw	$s1,0x1c($sp)
@@ -4283,7 +4283,7 @@ glabel filesResetAndPrint
 );
 #endif
 
-//void filesResetAndPrint(void)
+//void filesInit(void)
 //{
 //	s32 i;
 //
@@ -4545,7 +4545,7 @@ void fileSetSize(s32 filenum, void *ptr, u32 size, bool reallocate)
 	}
 }
 
-void filesReset(u8 arg0)
+void filesStop(u8 arg0)
 {
 	s32 i;
 
@@ -4559,5 +4559,5 @@ void filesReset(u8 arg0)
 
 void func0f167330(void)
 {
-	filesReset(5);
+	filesStop(5);
 }

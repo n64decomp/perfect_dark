@@ -52,7 +52,7 @@ struct memorypool {
 struct memorypool g_MempOnboardPools[9];
 struct memorypool g_MempExpansionPools[9];
 
-void memp000121e0(void)
+void mempInit(void)
 {
 	// empty
 }
@@ -63,7 +63,7 @@ void memp000121e0(void)
  * The arguments passed are the onboard start and length that can be used.
  * If the expansion pak is present, the entire pak is used for the second bank.
  */
-void mempInit(u8 *heapstart, u32 heaplen)
+void mempSetHeap(u8 *heapstart, u32 heaplen)
 {
 	s32 i;
 	u8 *extraend;

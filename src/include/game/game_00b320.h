@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void stageLoadCommonLang(s32 stagenum);
+void langReset(s32 stagenum);
 void func0f00b420(void);
 
 #endif

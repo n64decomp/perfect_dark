@@ -3,15 +3,15 @@
 #include "game/bondeyespy.h"
 #include "game/bondmove.h"
 #include "game/cheats.h"
-#include "game/chr/chraction.h"
+#include "game/chraction.h"
 #include "game/floor.h"
-#include "game/inventory/items.h"
+#include "game/inv.h"
 #include "game/nbomb.h"
 #include "game/title.h"
-#include "game/chr/chr.h"
+#include "game/chr.h"
 #include "game/game_02cde0.h"
 #include "game/prop.h"
-#include "game/game_092610.h"
+#include "game/propsnd.h"
 #include "game/objectives.h"
 #include "game/atan2f.h"
 #include "game/game_096ca0.h"
@@ -28,9 +28,9 @@
 #include "game/menu.h"
 #include "game/mainmenu.h"
 #include "game/filemgr.h"
-#include "game/inventory/inventory.h"
+#include "game/inv.h"
 #include "game/playermgr.h"
-#include "game/explosions/explosions.h"
+#include "game/explosions.h"
 #include "game/bondview.h"
 #include "game/game_1531a0.h"
 #include "game/bg.h"
@@ -44,11 +44,10 @@
 #include "game/mplayer/ingame.h"
 #include "game/mplayer/scenarios.h"
 #include "game/radar.h"
-#include "game/training/training.h"
-#include "game/training/training.h"
+#include "game/training.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"
-#include "game/pak/pak.h"
+#include "game/pak.h"
 #include "game/options.h"
 #include "game/propobj.h"
 #include "game/splat.h"
@@ -881,7 +880,7 @@ bool playerSpawnAnti(struct chrdata *hostchr, bool force)
 		g_Vars.currentplayer->haschrbody = false;
 		g_Vars.currentplayer->model00d4 = NULL;
 
-		chr0f020d44(g_Vars.currentplayer->prop, false);
+		chrRemove(g_Vars.currentplayer->prop, false);
 
 		if (hostchr->bodynum == BODY_SKEDAR) {
 			g_Vars.antiheadnum = HEAD_MRBLONDE;
@@ -911,7 +910,7 @@ bool playerSpawnAnti(struct chrdata *hostchr, bool force)
 		playerchr->chrwidth = hostchr->chrwidth;
 		g_Vars.currentplayer->bond2.width = hostchr->chrwidth;
 
-		chr0f020d44(hostprop, true);
+		chrRemove(hostprop, true);
 		propDeregisterRooms(hostprop);
 		propDelist(hostprop);
 		propDisable(hostprop);
@@ -1529,12 +1528,12 @@ void playerTickChrBody(void)
 	}
 }
 
-void player0f0b9538(void)
+void playerRemoveChrBody(void)
 {
 	if (g_Vars.currentplayer->haschrbody) {
 		if (!g_Vars.mplayerisrunning || (IS4MB() && PLAYERCOUNT() == 1)) {
 			g_Vars.currentplayer->haschrbody = false;
-			chr0f020d44(g_Vars.currentplayer->prop, false);
+			chrRemove(g_Vars.currentplayer->prop, false);
 			g_Vars.currentplayer->model00d4 = NULL;
 			bmove0f0cb8c4(g_Vars.currentplayer);
 			bgun0f09df50();
@@ -2046,7 +2045,7 @@ void playerStartCutscene2(void)
 	var8009de2c = -1;
 	g_InCutscene = 1;
 
-	pakStopRumbleForAllPaks(true);
+	paksStop(true);
 	g_Vars.in_cutscene = g_Vars.tickmode == TICKMODE_CUTSCENE && g_CutsceneCurAnimFrame60 < animGetNumFrames(g_CutsceneAnimNum) - 1;
 	g_Vars.cutsceneskip60ths = 0;
 }
@@ -4217,7 +4216,7 @@ void playerTick(bool arg0)
 		struct chrdata *chr;
 		s32 i;
 
-		player0f0b9538();
+		playerRemoveChrBody();
 
 		if (g_PlayersWithControl[g_Vars.currentplayernum]) {
 			bmoveTick(1, 1, arg0, 0);
@@ -4499,7 +4498,7 @@ void playerTick(bool arg0)
 			}
 		}
 	} else if (g_Vars.tickmode == TICKMODE_GE_FADEIN || g_Vars.tickmode == TICKMODE_GE_FADEOUT) {
-		player0f0b9538();
+		playerRemoveChrBody();
 		bmoveTick(1, 1, arg0, 0);
 		playerUpdateShake();
 		playerSetCameraMode(CAMERAMODE_DEFAULT);
@@ -4531,7 +4530,7 @@ void playerTick(bool arg0)
 		struct pad pad;
 		f32 speedfrac;
 
-		player0f0b9538();
+		playerRemoveChrBody();
 		padUnpack(g_Vars.currentplayer->autocontrol_aimpad, PADFIELD_POS, &pad);
 
 		if (mainGetStageNum() == g_Stages[STAGEINDEX_EXTRACTION].id

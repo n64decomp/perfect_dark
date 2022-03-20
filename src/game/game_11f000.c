@@ -5,7 +5,7 @@
 #include "game/game_0b4950.h"
 #include "game/game_11f000.h"
 #include "game/game_152fa0.h"
-#include "game/game_1657c0.h"
+#include "game/env.h"
 #include "game/pad.h"
 #include "bss.h"
 #include "lib/vi.h"

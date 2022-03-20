@@ -1,109 +1,94 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/activemenu/activemenu.h"
-#include "game/activemenu/tick.h"
+#include "bss.h"
+#include "data.h"
+#include "game/activemenu.h"
 #include "game/atan2f.h"
+#include "game/bg.h"
+#include "game/bondgun.h"
+#include "game/bondhead.h"
 #include "game/bondmove.h"
+#include "game/bondview.h"
 #include "game/camdraw.h"
+#include "game/casing.h"
 #include "game/cheats.h"
-#include "game/chr/chraction.h"
+#include "game/chr.h"
+#include "game/chraction.h"
+#include "game/credits.h"
 #include "game/debug.h"
 #include "game/dlights.h"
+#include "game/explosions.h"
+#include "game/filemgr.h"
 #include "game/game_006900.h"
-#include "game/nbomb.h"
-#include "game/game_00b480.h"
 #include "game/game_00b820.h"
-#include "game/game_00c240.h"
 #include "game/game_00c490.h"
-#include "game/game_0108d0.h"
-#include "game/objectives.h"
-#include "game/casing.h"
-#include "game/playerinit.h"
-#include "game/inventory/init.h"
-#include "game/game_0125a0.h"
-#include "game/explosions/init.h"
-#include "game/smoke/init.h"
-#include "game/sparks/init.h"
-#include "game/weather/init.h"
-#include "game/stubs/game_013540.h"
 #include "game/game_013550.h"
-#include "game/game_013cf0.h"
 #include "game/game_0147a0.h"
-#include "game/game_0147d0.h"
-#include "game/game_014f10.h"
 #include "game/game_015010.h"
-#include "game/game_0150a0.h"
-#include "game/gfxmemory.h"
-#include "game/stubs/game_015260.h"
-#include "game/stubs/game_015270.h"
-#include "game/explosions/reset.h"
-#include "game/smoke/reset.h"
-#include "game/stubs/game_0153f0.h"
-#include "game/stubs/game_015400.h"
-#include "game/stubs/game_015410.h"
-#include "game/shards.h"
-#include "game/game_015470.h"
-#include "game/title.h"
 #include "game/game_01b0a0.h"
-#include "game/game_01bea0.h"
-#include "game/weather/tick.h"
 #include "game/game_01d990.h"
-#include "game/chr/chr.h"
-#include "game/prop.h"
-#include "game/objectives.h"
-#include "game/bondgun.h"
 #include "game/game_0abe70.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b28d0.h"
 #include "game/game_0b63b0.h"
-#include "game/player.h"
-#include "game/savebuffer.h"
-#include "game/hudmsg.h"
-#include "game/menu.h"
-#include "game/filemgr.h"
 #include "game/game_10c9c0.h"
 #include "game/game_11f000.h"
-#include "game/playermgr.h"
-#include "game/game_129210.h"
-#include "game/explosions/explosions.h"
-#include "game/sparks/sparks.h"
-#include "game/weather/weather.h"
-#include "game/sky.h"
-#include "game/credits.h"
 #include "game/game_13c510.h"
-#include "game/bondview.h"
 #include "game/game_1531a0.h"
-#include "game/bg.h"
 #include "game/game_165670.h"
-#include "game/lv.h"
-#include "game/music.h"
-#include "game/texdecompress.h"
 #include "game/game_176080.h"
-#include "game/mplayer/setup.h"
-#include "game/mplayer/scenarios.h"
 #include "game/game_19aa80.h"
-#include "game/training/training.h"
+#include "game/gfxmemory.h"
+#include "game/hudmsg.h"
+#include "game/inv.h"
 #include "game/lang.h"
+#include "game/lasersights.h"
+#include "game/lv.h"
+#include "game/menu.h"
 #include "game/mplayer/mplayer.h"
-#include "game/pak/pak.h"
+#include "game/mplayer/scenarios.h"
+#include "game/mplayer/setup.h"
+#include "game/music.h"
+#include "game/nbomb.h"
+#include "game/objectives.h"
+#include "game/pak.h"
+#include "game/player.h"
+#include "game/playermgr.h"
+#include "game/playerreset.h"
+#include "game/prop.h"
 #include "game/propobj.h"
-#include "game/sparks/tick.h"
+#include "game/propsnd.h"
+#include "game/savebuffer.h"
+#include "game/shards.h"
+#include "game/sky.h"
+#include "game/sparks.h"
 #include "game/splat.h"
+#include "game/stubs/game_013540.h"
+#include "game/stubs/game_015260.h"
+#include "game/stubs/game_015270.h"
+#include "game/stubs/game_0153f0.h"
+#include "game/stubs/game_015400.h"
+#include "game/stubs/game_015410.h"
+#include "game/texdecompress.h"
+#include "game/tiles.h"
+#include "game/title.h"
+#include "game/training.h"
 #include "game/utils.h"
+#include "game/vtxstore.h"
 #include "game/wallhit.h"
-#include "bss.h"
+#include "game/weather.h"
+#include "lib/anim.h"
 #include "lib/args.h"
 #include "lib/joy.h"
 #include "lib/lib_06440.h"
-#include "lib/vi.h"
+#include "lib/lib_317f0.h"
 #include "lib/main.h"
-#include "lib/snd.h"
+#include "lib/mtx.h"
 #include "lib/music.h"
 #include "lib/rng.h"
-#include "lib/mtx.h"
-#include "lib/anim.h"
-#include "lib/lib_317f0.h"
-#include "data.h"
+#include "lib/snd.h"
+#include "lib/vars.h"
+#include "lib/vi.h"
 #include "types.h"
 
 struct sndstate *g_MiscSfxAudioHandles[3];
@@ -150,13 +135,13 @@ void setVar80084040(u32 value)
 	var80084040 = value;
 }
 
-void lv0f167af8(void)
+void lvInit(void)
 {
 	g_Vars.lockscreen = 0;
 	g_Vars.joydisableframestogo = -1;
 }
 
-void lvStopAllMiscSfx(void)
+void lvResetMiscSfx(void)
 {
 	s32 i;
 
@@ -242,9 +227,9 @@ void lvUpdateMiscSfx(void)
 	}
 }
 
-void lvInit(s32 stagenum)
+void lvReset(s32 stagenum)
 {
-	lvCancelFade();
+	lvFadeReset();
 
 	var80084014 = false;
 	var80084010 = 0;
@@ -265,7 +250,7 @@ void lvInit(s32 stagenum)
 	g_Vars.paksconnected = 0;
 	g_Vars.stagenum = stagenum;
 
-	cheatsActivate();
+	cheatsReset();
 
 	var80084040 = true;
 	g_Vars.lvframenum = 0;
@@ -305,19 +290,19 @@ void lvInit(s32 stagenum)
 
 	g_MiscAudioHandle = NULL;
 
-	musicInit();
+	musicReset();
 	func0f011124(true);
 	func0f013b80();
-	texturesLoadConfigs();
-	fontsLoadForCurrentStage();
-	hudmsgsInit();
+	texReset();
+	fontsReset();
+	hudmsgsReset();
 
 	if (stagenum == STAGE_TEST_OLD) {
-		func0f00b480();
+		titleReset();
 	}
 
 	if (stagenum == STAGE_TITLE) {
-		func0f00b480();
+		titleReset();
 	} else if (stagenum == STAGE_BOOTPAKMENU) {
 		// empty
 	} else if (stagenum == STAGE_CREDITS) {
@@ -328,8 +313,8 @@ void lvInit(s32 stagenum)
 		s32 i;
 		s32 j;
 
-		stageLoadTiles();
-		bgInit(g_Vars.stagenum);
+		tilesReset();
+		bgReset(g_Vars.stagenum);
 		bgBuildTables(g_Vars.stagenum);
 		func0f0147a0(g_Vars.stagenum);
 
@@ -372,24 +357,24 @@ void lvInit(s32 stagenum)
 	}
 
 	mpSetDefaultNamesIfEmpty();
-	anim0002373c();
+	animsReset();
 	objectivesReset();
-	func0f013ba0();
+	vtxstoreReset();
 	func0f011110();
-	func0f0108d0();
-	setupLoadFiles(stagenum);
+	propsndReset();
+	setupReset(stagenum);
 	scenarioReset();
-	gvarsInitProps();
-	setupInit();
-	func0f00b510();
-	stageChooseActiveHeads(stagenum);
-	setupParseObjects(stagenum);
-	tagsAllocatePtrs();
-	explosionsInit();
-	smokeInit();
-	sparksInit();
-	weatherInit();
-	lvStopAllMiscSfx();
+	varsReset();
+	propsReset();
+	chrmgrReset();
+	headsReset(stagenum);
+	propsCreate(stagenum);
+	tagsReset();
+	explosionsReset();
+	smokeReset();
+	sparksReset();
+	weatherReset();
+	lvResetMiscSfx();
 
 	switch (g_Vars.stagenum) {
 	case STAGE_ESCAPE:
@@ -398,7 +383,7 @@ void lvInit(s32 stagenum)
 	case STAGE_DEFECTION:
 	case STAGE_ATTACKSHIP:
 	case STAGE_TEST_OLD:
-		skyInit();
+		skyReset();
 		break;
 	}
 
@@ -406,23 +391,23 @@ void lvInit(s32 stagenum)
 	func0f0147d0();
 	lasersightsReset();
 	stub0f013540();
-	shardsInit();
-	frUnloadData();
+	shardsReset();
+	frReset();
 
 	if (g_Vars.stagenum == STAGE_TITLE) {
 		// empty
 	} else if (stagenum == STAGE_BOOTPAKMENU) {
 		setCurrentPlayerNum(0);
-		menuInit();
+		menuReset();
 	} else if (stagenum == STAGE_4MBMENU) {
 		setCurrentPlayerNum(0);
-		menuInit();
+		menuReset();
 	} else if (stagenum == STAGE_CREDITS) {
-		creditsInit();
+		creditsReset();
 	} else {
 		s32 i;
 
-		func0f1777f8();
+		utilsReset();
 		casingsReset();
 
 		for (i = 0; i < PLAYERCOUNT(); i++) {
@@ -430,14 +415,14 @@ void lvInit(s32 stagenum)
 			g_Vars.currentplayer->usedowntime = 0;
 			g_Vars.currentplayer->invdowntime = g_Vars.currentplayer->usedowntime;
 
-			menuInit();
-			amInit();
-			invInitGunsHeld();
-			bgunInit();
+			menuReset();
+			amReset();
+			invReset();
+			bgunReset();
 			playerLoadDefaults();
-			playerInit();
+			playerReset();
 			playerSpawn();
-			currentPlayerInitAnimation();
+			bheadReset();
 
 			if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_TEAMSENABLED)) {
 				playermgrCalculateAiBuddyNums();
@@ -446,7 +431,7 @@ void lvInit(s32 stagenum)
 
 		acousticReset();
 		func0f0b65f8();
-		func0f001bdc();
+		lightsReset();
 		setCurrentPlayerNum(0);
 	}
 
@@ -454,19 +439,19 @@ void lvInit(s32 stagenum)
 		mpCalculateTeamIsOnlyAi();
 	}
 
-	pak0f11a2e4();
+	paksReset();
 	sndResetCurMp3();
 
 	if (stagenum == STAGE_BOOTPAKMENU) {
-		pakPushPakMenuDialog();
+		bootmenuReset();
 	}
 
 	if (stagenum == STAGE_4MBMENU) {
-		func0f10cb2c();
+		fmbmenuReset();
 	}
 
 	if (IS8MB()) {
-		func0f14a3c4();
+		pheadReset();
 	}
 
 	func0f011124(false);
@@ -575,7 +560,7 @@ bool lvIsFadeActive(void)
 	return g_FadeFrac >= 0;
 }
 
-void lvCancelFade(void)
+void lvFadeReset(void)
 {
 	g_FadeNumFrames = 0;
 	g_FadeFrac = -1;
@@ -1196,7 +1181,7 @@ Gfx *lvRender(Gfx *gdl)
 				gdl = viRenderViewportEdges(gdl);
 				gdl = func0f11f984(gdl);
 				bgTick();
-				func0f004314();
+				lightsTick();
 				propsTick(islastplayer);
 				scenarioTickChr(NULL);
 				propsSort();
@@ -1307,7 +1292,7 @@ Gfx *lvRender(Gfx *gdl)
 					currentPlayerInteract(true);
 				}
 
-				func0f0641f4();
+				propsTestForPickup();
 				gdl = bgRender(gdl);
 				chr0f028498(var80075d68 == 15 || g_AnimHostEnabled);
 				gdl = propsRenderBeams(gdl);
@@ -2011,7 +1996,7 @@ void lvTick(void)
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (g_Vars.unk0004e4) {
-		pak0f11c54c();
+		paksTick();
 	}
 #endif
 
@@ -2312,7 +2297,7 @@ void lvTick(void)
 		shardsTick();
 		sparksTick();
 		wallhitsTick();
-		func0f149864();
+		splatsTick();
 
 		if (g_WeatherActive) {
 			weatherTick();
@@ -2383,9 +2368,9 @@ void lvTickPlayer(void)
 	g_Vars.currentplayerstats->distance += sqrtf(xdiff * xdiff + zdiff * zdiff);
 }
 
-void lvReset(void)
+void lvStop(void)
 {
-	pakStopRumbleForAllPaks(true);
+	paksStop(true);
 
 	if (g_MiscAudioHandle && sndGetState(g_MiscAudioHandle)) {
 		audioStop(g_MiscAudioHandle);
@@ -2397,25 +2382,25 @@ void lvReset(void)
 		stub0f015270();
 	}
 
-	chrsReset();
-	explosionsReset();
-	smokeReset();
+	chrmgrStop();
+	explosionsStop();
+	smokeStop();
 	stub0f015400();
 	stub0f015410();
-	shardsReset();
+	shardsStop();
 	stub0f0153f0();
-	alarmReset();
-	objsReset(); // props/setup related
-	weatherReset();
-	objectivesAutocomplete();
+	propsStop();
+	objsStop();
+	weatherStop();
+	objectivesStop();
 	stub0f015260();
-	func0f015470();
-	func0f0150a0();
-	musicReset();
-	hudmsgsReset();
+	bgunStop();
+	propsndStop();
+	musicStop();
+	hudmsgsStop();
 
 	if (g_Vars.stagenum < NUM_STAGES) {
-		bgReset();
+		bgStop();
 	}
 
 	func00033dd8();
@@ -2426,7 +2411,7 @@ void lvReset(void)
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
-	func0f01bea0();
+	menuStop();
 #endif
 }
 

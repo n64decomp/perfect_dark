@@ -197,7 +197,7 @@ glabel func0f135f08
 );
 
 GLOBAL_ASM(
-glabel skyInit
+glabel skyReset
 /*  f1360e8:	27bdff18 */ 	addiu	$sp,$sp,-232
 /*  f1360ec:	3c05800a */ 	lui	$a1,%hi(g_Vars)
 /*  f1360f0:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)

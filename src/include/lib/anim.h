@@ -6,7 +6,7 @@
 
 void animsInit(void);
 void animsInitTables(void);
-void anim0002373c(void);
+void animsReset(void);
 s32 animGetNumFrames(s16 anim_id);
 bool animHasFrames(s16 animnum);
 s32 animGetNumAnimations(void);

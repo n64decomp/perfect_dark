@@ -14,7 +14,7 @@ void playerResetBond(struct playerbond *pb, struct coord *pos);
 void playersTickAllChrBodies(void);
 void playerChooseBodyAndHead(s32 *bodynum, s32 *headnum, s32 *arg2);
 void playerTickChrBody(void);
-void player0f0b9538(void);
+void playerRemoveChrBody(void);
 void playerTickMpSwirl(void);
 void playerExecutePreparedWarp(void);
 void playerStartCutscene(s16 anim_id);

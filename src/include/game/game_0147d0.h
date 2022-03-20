@@ -6,7 +6,5 @@
 
 void func0f0147d0(void);
 void lasersightsReset(void);
-void botmgrRemoveAll(void);
-void botmgrAllocateBot(s32 chrnum, s32 aibotnum);
 
 #endif

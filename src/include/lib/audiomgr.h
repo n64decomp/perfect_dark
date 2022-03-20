@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void amgrAllocateStack(void);
+void amgrInit(void);
 
 #if VERSION >= VERSION_PAL_BETA
 void amgrCreate(ALSynConfig *config, u32 *settings);

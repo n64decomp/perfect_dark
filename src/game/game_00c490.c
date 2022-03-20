@@ -1,21 +1,18 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/cheats.h"
-#include "game/game_00b480.h"
 #include "game/game_00b820.h"
 #include "game/game_00c490.h"
 #include "game/objectives.h"
-#include "game/playerinit.h"
-#include "game/inventory/init.h"
-#include "game/game_0125a0.h"
+#include "game/playerreset.h"
 #include "game/game_012d50.h"
-#include "game/game_0147d0.h"
-#include "game/chr/chr.h"
+#include "game/botmgr.h"
+#include "game/chr.h"
 #include "game/game_02cde0.h"
 #include "game/prop.h"
 #include "game/game_091e10.h"
 #include "game/atan2f.h"
-#include "game/inventory/inventory.h"
+#include "game/inv.h"
 #include "game/playermgr.h"
 #include "game/bg.h"
 #include "game/game_1655c0.h"
@@ -175,7 +172,7 @@ u32 var80061be4 = 0x00000000;
 u32 var80061be8 = 0x00000000;
 u32 var80061bec = 0x00000000;
 
-void setupInit(void)
+void propsReset(void)
 {
 	s32 i;
 
@@ -3533,7 +3530,7 @@ glabel setupLoadBriefing
 //	}
 //}
 
-void setupLoadFiles(s32 stagenum)
+void setupReset(s32 stagenum)
 {
 	s32 i;
 	s32 j;
@@ -3702,7 +3699,7 @@ void setupLoadFiles(s32 stagenum)
 	g_Vars.maxprops = total + numchrs + extra + 40;
 }
 
-void setupParseObjects(s32 stagenum)
+void propsCreate(s32 stagenum)
 {
 	s32 withchrs = !argFindByPrefix(1, "-nochr") && !argFindByPrefix(1, "-noprop");
 	s32 withobjs = !argFindByPrefix(1, "-noobj") && !argFindByPrefix(1, "-noprop");
@@ -3745,9 +3742,9 @@ void setupParseObjects(s32 stagenum)
 				numchrs += g_Vars.numaibuddies;
 			}
 
-			func0f00b62c(numchrs);
+			chrmgrConfigure(numchrs);
 		} else {
-			func0f00b62c(0);
+			chrmgrConfigure(0);
 		}
 
 		for (j = 0; j < PLAYERCOUNT(); j++) {
@@ -4505,7 +4502,7 @@ void setupParseObjects(s32 stagenum)
 			}
 		}
 	} else {
-		func0f00b62c(0);
+		chrmgrConfigure(0);
 	}
 
 	stageAllocateBgChrs();

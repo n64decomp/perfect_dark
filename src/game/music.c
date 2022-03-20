@@ -213,7 +213,7 @@ void musicQueueFadeEvent(s32 tracktype, f32 arg1, bool fadetopause)
 	}
 }
 
-void musicInit(void)
+void musicReset(void)
 {
 	s32 i;
 
@@ -515,7 +515,7 @@ void musicSetStage(s32 stagenum)
 	g_MusicStageNum = stagenum;
 }
 
-void musicReset(void)
+void musicStop(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	func0f16d430();

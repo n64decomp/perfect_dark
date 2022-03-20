@@ -6,14 +6,14 @@
 
 void profileInit(void);
 void profileTick(void);
-void profile00009a90(void);
+void profileReset(void);
 void profile00009a98(void);
 void profileSetMarker(u32 arg0);
 Gfx *profileRender(Gfx *gdl);
 void viConfigureForLogos(void);
 void viConfigureForBanner(u8 *fb);
 void viConfigureForLegal(void);
-void viAllocateFbs(s32 stagenum);
+void viReset(s32 stagenum);
 void viBlack(bool black);
 void vi00009ed4(void);
 void viUpdateMode(void);

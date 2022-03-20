@@ -180,7 +180,7 @@ const s16 g_ViModeHeights[] = {220, 220, 440};
  *
  * The same is probably true for wide and cinema modes.
  */
-void viAllocateFbs(s32 stagenum)
+void viReset(s32 stagenum)
 {
 	s32 i;
 	s32 fbsize;

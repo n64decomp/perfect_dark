@@ -18,7 +18,7 @@
 #include "game/game_19aa80.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
-#include "game/pak/pak.h"
+#include "game/pak.h"
 #include "bss.h"
 #include "lib/args.h"
 #include "lib/vi.h"
@@ -171,7 +171,7 @@ void mpStartMatch(void)
 	g_Vars.perfectbuddynum = 1;
 }
 
-void mpInit(void)
+void mpReset(void)
 {
 	s32 i;
 	s32 mpindex = 0;
@@ -456,7 +456,7 @@ void func0f1881d4(s32 index)
 	g_BotConfigsArray[index].difficulty = BOTDIFF_DISABLED;
 }
 
-void mpSetDefaultSetup(void)
+void mpInit(void)
 {
 	s32 i;
 	s32 j;

@@ -78,7 +78,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **Payload:** Corrupts the rspboot microcode, causing a crash.
 
-### lvInit
+### lvReset
 
 **When Called:** When loading any stage (including title screen).
 
@@ -90,13 +90,13 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **When Called:** When loading any stage that uses the eyespy.
 
-**What It Checks:** Checksums `lvInit` to make sure it hasn't been modified.
+**What It Checks:** Checksums `lvReset` to make sure it hasn't been modified.
 
 **Payload:** Nops `_memaFree` entirely, so any time that function is called it'll flow into the following function, which just returns. The effect this has is that the system is unable to free individual mema allocations which makes it more likely to run out of memory.
 
 ---
 
-### bgInit
+### bgReset
 
 **When Called:** When loading a normal stage (eg. CI Training).
 
@@ -108,7 +108,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **When Called:** When a chr decides to throw a grenade.
 
-**What It Checks:** Checksums `bgInit` to make sure it hasn't been modified.
+**What It Checks:** Checksums `bgReset` to make sure it hasn't been modified.
 
 **Payload:** Surrounds the player in infinite explosions.
 
@@ -126,9 +126,9 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **When Called:** Unknown.
 
-**What It Checks:** Checksums `tagsAllocatePtrs` to make sure it hasn't been modified.
+**What It Checks:** Checksums `tagsReset` to make sure it hasn't been modified.
 
-**Payload:** Corrupts `tagsAllocatePtrs` by writing 28 bytes of 0xff.
+**Payload:** Corrupts `tagsReset` by writing 28 bytes of 0xff.
 
 ---
 
@@ -138,7 +138,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **What It Checks:** Checksums `func00015fd0` to make sure it hasn't been modified.
 
-**Payload:** Corrupts `bgInit` by writing 16 bytes of 0x12 to a random address within that function.
+**Payload:** Corrupts `bgReset` by writing 16 bytes of 0x12 to a random address within that function.
 
 ### func0f15c920
 

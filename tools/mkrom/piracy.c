@@ -160,10 +160,10 @@ void piracy_patch(void)
 	patch(algo03, "botPickupProp", "doorFinishClose");
 	patch(algo04, "chrUncloak", "botPickupProp");
 	patch(algo05, "chrsCheckForNoise", "__scHandleRetrace");
-	patch(algo06, "lvInit", "lvGetSlowMotionType");
-	patch(algo07, "propAllocateEyespy", "lvInit");
-	patch(algo08, "chrConsiderGrenadeThrow", "bgInit");
-	patch(algo09, "bgun0f09e144", "tagsAllocatePtrs");
+	patch(algo06, "lvReset", "lvGetSlowMotionType");
+	patch(algo07, "propAllocateEyespy", "lvReset");
+	patch(algo08, "chrConsiderGrenadeThrow", "bgReset");
+	patch(algo09, "bgun0f09e144", "tagsReset");
 	patch(algo10, "explosionAlertChrs", "glassDestroy");
 	patch(algo11, "func0f0069dc", "mtxGetObfuscatedRomBase");
 	patch(algo12, "func0f15c920", "func0f0069dc");

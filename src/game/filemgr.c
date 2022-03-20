@@ -10,7 +10,7 @@
 #include "game/gamefile.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
-#include "game/pak/pak.h"
+#include "game/pak.h"
 #include "game/utils.h"
 #include "bss.h"
 #include "lib/vi.h"
@@ -3315,7 +3315,7 @@ s32 filemgrMainMenuDialog(s32 operation, struct menudialogdef *dialogdef, union 
 		g_Menus[g_MpPlayerNum].fm.filetypeplusone = 0;
 
 		filelistCreate(0, FILETYPE_GAME);
-		mpSetDefaultSetup();
+		mpInit();
 
 		// Set MP player names to "Player 1" through 4 if blank
 		for (i = 0; i < 4; i++) {
@@ -3436,7 +3436,7 @@ bool filemgrConsiderPushingFileSelectDialog(void)
 }
 #endif
 
-void pakPushPakMenuDialog(void)
+void bootmenuReset(void)
 {
 	s32 prevplayernum = g_MpPlayerNum;
 	g_MpPlayerNum = 0;

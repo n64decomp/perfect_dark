@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-void mpInitPresetFeatures(void);
+void challengesInit(void);
 
 #endif

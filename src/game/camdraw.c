@@ -6,7 +6,7 @@
 #include "game/stubs/game_102230.h"
 #include "game/bg.h"
 #include "game/lang.h"
-#include "game/pak/pak.h"
+#include "game/pak.h"
 #include "game/splat.h"
 #include "game/utils.h"
 #include "bss.h"
@@ -494,7 +494,7 @@ bool func0f14a2fc(s32 index, u32 line, char *file)
 	return thing->unk3f4_00;
 }
 
-void phAllocate(void)
+void pheadInit(void)
 {
 	s32 i;
 
@@ -513,12 +513,12 @@ void phAllocate(void)
 	}
 }
 
-void func0f14a3bc(void)
+void pheadInit2(void)
 {
 	// empty
 }
 
-void func0f14a3c4(void)
+void pheadReset(void)
 {
 	s32 i;
 

@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void objectivesAutocomplete(void);
+void objectivesStop(void);
 
 void objectivesReset(void);
 void tagInsert(struct tag *tag);
@@ -17,7 +17,7 @@ void objectiveAddHolographCriteria(struct criteria_holograph *criteria);
 u32 xorBaffbeff(u32 value);
 u32 xorBabeffff(u32 value);
 u32 xorBoobless(u32 value);
-void tagsAllocatePtrs(void);
+void tagsReset(void);
 s32 objGetTagNum(struct defaultobj *obj);
 s32 objectiveGetCount(void);
 u32 objectiveGetDifficultyBits(s32 index);

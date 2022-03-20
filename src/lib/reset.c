@@ -68,7 +68,7 @@ void resetproc(void *data)
 	}
 
 	// Stop controller rumbles if active
-	joyReset();
+	joyDestroy();
 
 	// Wait for the system to reset
 	while (1);

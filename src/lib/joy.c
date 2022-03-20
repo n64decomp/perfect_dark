@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/pak/pak.h"
+#include "game/pak.h"
 #include "bss.h"
 #include "lib/main.h"
 #include "lib/joy.h"
@@ -293,7 +293,7 @@ glabel joySetPfsTemporarilyPlugged
 );
 #endif
 
-void joySystemInit(void)
+void joyInit(void)
 {
 	s32 i;
 	s32 j;
@@ -348,7 +348,7 @@ void joyDisableTemporarily(void)
 	}
 }
 
-void joy00013dfc(void)
+void joyReset(void)
 {
 	OSMesg msg;
 
@@ -1317,7 +1317,7 @@ glabel func00016154nb
 );
 #endif
 
-void joyReset(void)
+void joyDestroy(void)
 {
 	s32 i;
 

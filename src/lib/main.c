@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include <sched.h>
 #include "lib/sched.h"
+#include "lib/vars.h"
 #include "constants.h"
 #include "game/camdraw.h"
 #include "game/cheats.h"
@@ -21,7 +22,6 @@
 #include "game/stubs/game_00b180.h"
 #include "game/stubs/game_00b200.h"
 #include "game/game_00b210.h"
-#include "game/game_00b320.h"
 #include "game/title.h"
 #include "game/game_01b0a0.h"
 #include "game/objectives.h"
@@ -37,7 +37,7 @@
 #include "game/game_176080.h"
 #include "game/game_1a78b0.h"
 #include "game/mplayer/mplayer.h"
-#include "game/pak/pak.h"
+#include "game/pak.h"
 #include "game/splat.h"
 #include "game/utils.h"
 #include "bss.h"
@@ -297,26 +297,26 @@ GLOBAL_ASM(
 glabel mainInit
 /*  d4c0:	27bdeb28 */ 	addiu	$sp,$sp,-5336
 /*  d4c4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  d4c8:	0c002fd4 */ 	jal	faultCreateThread
+/*  d4c8:	0c002fd4 */ 	jal	faultInit
 /*  d4cc:	afb00028 */ 	sw	$s0,0x28($sp)
 /*  d4d0:	0c003410 */ 	jal	dmaInit
 /*  d4d4:	00000000 */ 	nop
-/*  d4d8:	0c002264 */ 	jal	amgrAllocateStack
+/*  d4d8:	0c002264 */ 	jal	amgrInit
 /*  d4dc:	00000000 */ 	nop
-/*  d4e0:	0c005600 */ 	jal	gvarsInit
+/*  d4e0:	0c005600 */ 	jal	varsInit
 /*  d4e4:	00000000 */ 	nop
-/*  d4e8:	0c004868 */ 	jal	memp000121e0
+/*  d4e8:	0c004868 */ 	jal	mempInit
 /*  d4ec:	00000000 */ 	nop
 /*  d4f0:	0c004a73 */ 	jal	memaInit
 /*  d4f4:	00000000 */ 	nop
-/*  d4f8:	0c004dbe */ 	jal	videbugCreateMesgQueue
+/*  d4f8:	0c004dbe */ 	jal	videbugInit
 /*  d4fc:	00000000 */ 	nop
 /*  d500:	0c002690 */ 	jal	viConfigureForLogos
 /*  d504:	00000000 */ 	nop
 /*  d508:	0c00bd46 */ 	jal	rmonIsDisabled
 /*  d50c:	00000000 */ 	nop
 /*  d510:	3c018006 */ 	lui	$at,0x8006
-/*  d514:	0c004f0b */ 	jal	joySystemInit
+/*  d514:	0c004f0b */ 	jal	joyInit
 /*  d518:	ac22d860 */ 	sw	$v0,-0x27a0($at)
 /*  d51c:	27a41490 */ 	addiu	$a0,$sp,0x1490
 /*  d520:	27a514cc */ 	addiu	$a1,$sp,0x14cc
@@ -344,7 +344,7 @@ glabel mainInit
 /*  d574:	24010001 */ 	li	$at,0x1
 /*  d578:	56010006 */ 	bnel	$s0,$at,.JF0000d594
 /*  d57c:	2a010002 */ 	slti	$at,$s0,0x2
-/*  d580:	0c004f65 */ 	jal	joy00013dfc
+/*  d580:	0c004f65 */ 	jal	joyReset
 /*  d584:	00000000 */ 	nop
 /*  d588:	10000007 */ 	b	.JF0000d5a8
 /*  d58c:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -586,7 +586,7 @@ glabel mainInit
 /*  d8f0:	00000000 */ 	nop
 /*  d8f4:	0fc6a10c */ 	jal	func0f1a78b0
 /*  d8f8:	00000000 */ 	nop
-/*  d8fc:	0fc59ce1 */ 	jal	filesResetAndPrint
+/*  d8fc:	0fc59ce1 */ 	jal	filesInit
 /*  d900:	00000000 */ 	nop
 /*  d904:	0fc5d8e8 */ 	jal	stub0f175f50
 /*  d908:	00000000 */ 	nop
@@ -606,7 +606,7 @@ glabel mainInit
 /*  d93c:	8c631170 */ 	lw	$v1,0x1170($v1)
 /*  d940:	3c018000 */ 	lui	$at,0x8000
 /*  d944:	00412025 */ 	or	$a0,$v0,$at
-/*  d948:	0c00486a */ 	jal	mempInit
+/*  d948:	0c00486a */ 	jal	mempSetHeap
 /*  d94c:	00642823 */ 	subu	$a1,$v1,$a0
 /*  d950:	0c00493a */ 	jal	mempResetPool
 /*  d954:	24040008 */ 	li	$a0,0x8
@@ -614,19 +614,19 @@ glabel mainInit
 /*  d95c:	24040006 */ 	li	$a0,0x6
 /*  d960:	0c0033a6 */ 	jal	crashReset
 /*  d964:	00000000 */ 	nop
-/*  d968:	0fc02ca8 */ 	jal	mpInitPresetFeatures
+/*  d968:	0fc02ca8 */ 	jal	challengesInit
 /*  d96c:	00000000 */ 	nop
-/*  d970:	0fc5dc8b */ 	jal	func0f176ddc
+/*  d970:	0fc5dc8b */ 	jal	utilsInit
 /*  d974:	00000000 */ 	nop
 /*  d978:	0c000d34 */ 	jal	func000034d0
 /*  d97c:	00000000 */ 	nop
-/*  d980:	0fc02c88 */ 	jal	loadTextureList
+/*  d980:	0fc02c88 */ 	jal	texInit
 /*  d984:	00000000 */ 	nop
 /*  d988:	0fc00000 */ 	jal	langInit
 /*  d98c:	00000000 */ 	nop
-/*  d990:	0fc59fc2 */ 	jal	lv0f167af8
+/*  d990:	0fc59fc2 */ 	jal	lvInit
 /*  d994:	00000000 */ 	nop
-/*  d998:	0fc41d8f */ 	jal	cheatsDisableAll
+/*  d998:	0fc41d8f */ 	jal	cheatsInit
 /*  d99c:	00000000 */ 	nop
 /*  d9a0:	0c003a58 */ 	jal	func0000e9c0
 /*  d9a4:	00000000 */ 	nop
@@ -658,19 +658,19 @@ glabel mainInit
 /*  da0c:	00000000 */ 	nop
 /*  da10:	0fc00234 */ 	jal	stub0f000840
 /*  da14:	00000000 */ 	nop
-/*  da18:	0fc6224c */ 	jal	mpSetDefaultSetup
+/*  da18:	0fc6224c */ 	jal	mpInit
 /*  da1c:	00000000 */ 	nop
-/*  da20:	0fc52652 */ 	jal	phAllocate
+/*  da20:	0fc52652 */ 	jal	pheadInit
 /*  da24:	00000000 */ 	nop
-/*  da28:	0fc46362 */ 	jal	pakInitAll
+/*  da28:	0fc46362 */ 	jal	paksInit
 /*  da2c:	00000000 */ 	nop
-/*  da30:	0fc52677 */ 	jal	func0f14a3bc
+/*  da30:	0fc52677 */ 	jal	pheadInit2
 /*  da34:	00000000 */ 	nop
 /*  da38:	0c008bb4 */ 	jal	animsInit
 /*  da3c:	00000000 */ 	nop
-/*  da40:	0fc00064 */ 	jal	func0f000100
+/*  da40:	0fc00064 */ 	jal	racesInit
 /*  da44:	00000000 */ 	nop
-/*  da48:	0fc00070 */ 	jal	func0f000130
+/*  da48:	0fc00070 */ 	jal	bodiesInit
 /*  da4c:	00000000 */ 	nop
 /*  da50:	0fc00238 */ 	jal	stub0f000850
 /*  da54:	00000000 */ 	nop
@@ -694,26 +694,26 @@ GLOBAL_ASM(
 glabel mainInit
 /*     d260:	27bdeb20 */ 	addiu	$sp,$sp,-5344
 /*     d264:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*     d268:	0c002f3c */ 	jal	faultCreateThread
+/*     d268:	0c002f3c */ 	jal	faultInit
 /*     d26c:	afb00028 */ 	sw	$s0,0x28($sp)
 /*     d270:	0c003378 */ 	jal	dmaInit
 /*     d274:	00000000 */ 	nop
-/*     d278:	0c002258 */ 	jal	amgrAllocateStack
+/*     d278:	0c002258 */ 	jal	amgrInit
 /*     d27c:	00000000 */ 	nop
-/*     d280:	0c00557c */ 	jal	gvarsInit
+/*     d280:	0c00557c */ 	jal	varsInit
 /*     d284:	00000000 */ 	nop
-/*     d288:	0c0047dc */ 	jal	memp000121e0
+/*     d288:	0c0047dc */ 	jal	mempInit
 /*     d28c:	00000000 */ 	nop
 /*     d290:	0c0049e7 */ 	jal	memaInit
 /*     d294:	00000000 */ 	nop
-/*     d298:	0c004d3a */ 	jal	videbugCreateMesgQueue
+/*     d298:	0c004d3a */ 	jal	videbugInit
 /*     d29c:	00000000 */ 	nop
 /*     d2a0:	0c002668 */ 	jal	viConfigureForLogos
 /*     d2a4:	00000000 */ 	nop
 /*     d2a8:	0c00bcc2 */ 	jal	rmonIsDisabled
 /*     d2ac:	00000000 */ 	nop
 /*     d2b0:	3c018006 */ 	lui	$at,0x8006
-/*     d2b4:	0c004e87 */ 	jal	joySystemInit
+/*     d2b4:	0c004e87 */ 	jal	joyInit
 /*     d2b8:	ac22d650 */ 	sw	$v0,-0x29b0($at)
 /*     d2bc:	27a41498 */ 	addiu	$a0,$sp,0x1498
 /*     d2c0:	27a514d4 */ 	addiu	$a1,$sp,0x14d4
@@ -741,7 +741,7 @@ glabel mainInit
 /*     d314:	24010001 */ 	li	$at,0x1
 /*     d318:	56010006 */ 	bnel	$s0,$at,.PF0000d334
 /*     d31c:	2a010002 */ 	slti	$at,$s0,0x2
-/*     d320:	0c004ee1 */ 	jal	joy00013dfc
+/*     d320:	0c004ee1 */ 	jal	joyReset
 /*     d324:	00000000 */ 	nop
 /*     d328:	10000007 */ 	b	.PF0000d348
 /*     d32c:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -981,7 +981,7 @@ glabel mainInit
 /*     d684:	00000000 */ 	nop
 /*     d688:	0fc6a2ac */ 	jal	func0f1a78b0
 /*     d68c:	00000000 */ 	nop
-/*     d690:	0fc59fbd */ 	jal	filesResetAndPrint
+/*     d690:	0fc59fbd */ 	jal	filesInit
 /*     d694:	00000000 */ 	nop
 /*     d698:	0fc5dbe0 */ 	jal	stub0f175f50
 /*     d69c:	00000000 */ 	nop
@@ -1001,7 +1001,7 @@ glabel mainInit
 /*     d6d0:	8c631050 */ 	lw	$v1,0x1050($v1)
 /*     d6d4:	3c018000 */ 	lui	$at,0x8000
 /*     d6d8:	00412025 */ 	or	$a0,$v0,$at
-/*     d6dc:	0c0047de */ 	jal	mempInit
+/*     d6dc:	0c0047de */ 	jal	mempSetHeap
 /*     d6e0:	00642823 */ 	subu	$a1,$v1,$a0
 /*     d6e4:	0c0048ae */ 	jal	mempResetPool
 /*     d6e8:	24040008 */ 	li	$a0,0x8
@@ -1009,19 +1009,19 @@ glabel mainInit
 /*     d6f0:	24040006 */ 	li	$a0,0x6
 /*     d6f4:	0c00330e */ 	jal	crashReset
 /*     d6f8:	00000000 */ 	nop
-/*     d6fc:	0fc02c88 */ 	jal	mpInitPresetFeatures
+/*     d6fc:	0fc02c88 */ 	jal	challengesInit
 /*     d700:	00000000 */ 	nop
-/*     d704:	0fc5df83 */ 	jal	func0f176ddc
+/*     d704:	0fc5df83 */ 	jal	utilsInit
 /*     d708:	00000000 */ 	nop
 /*     d70c:	0c000d28 */ 	jal	func000034d0
 /*     d710:	00000000 */ 	nop
-/*     d714:	0fc02c68 */ 	jal	loadTextureList
+/*     d714:	0fc02c68 */ 	jal	texInit
 /*     d718:	00000000 */ 	nop
 /*     d71c:	0fc00000 */ 	jal	langInit
 /*     d720:	00000000 */ 	nop
-/*     d724:	0fc5a29e */ 	jal	lv0f167af8
+/*     d724:	0fc5a29e */ 	jal	lvInit
 /*     d728:	00000000 */ 	nop
-/*     d72c:	0fc41f77 */ 	jal	cheatsDisableAll
+/*     d72c:	0fc41f77 */ 	jal	cheatsInit
 /*     d730:	00000000 */ 	nop
 /*     d734:	0c0039c8 */ 	jal	func0000e9c0
 /*     d738:	00000000 */ 	nop
@@ -1053,19 +1053,19 @@ glabel mainInit
 /*     d7a0:	00000000 */ 	nop
 /*     d7a4:	0fc00210 */ 	jal	stub0f000840
 /*     d7a8:	00000000 */ 	nop
-/*     d7ac:	0fc62468 */ 	jal	mpSetDefaultSetup
+/*     d7ac:	0fc62468 */ 	jal	mpInit
 /*     d7b0:	00000000 */ 	nop
-/*     d7b4:	0fc52bf6 */ 	jal	phAllocate
+/*     d7b4:	0fc52bf6 */ 	jal	pheadInit
 /*     d7b8:	00000000 */ 	nop
-/*     d7bc:	0fc4652e */ 	jal	pakInitAll
+/*     d7bc:	0fc4652e */ 	jal	paksInit
 /*     d7c0:	00000000 */ 	nop
-/*     d7c4:	0fc52c1b */ 	jal	func0f14a3bc
+/*     d7c4:	0fc52c1b */ 	jal	pheadInit2
 /*     d7c8:	00000000 */ 	nop
 /*     d7cc:	0c008b30 */ 	jal	animsInit
 /*     d7d0:	00000000 */ 	nop
-/*     d7d4:	0fc00040 */ 	jal	func0f000100
+/*     d7d4:	0fc00040 */ 	jal	racesInit
 /*     d7d8:	00000000 */ 	nop
-/*     d7dc:	0fc0004c */ 	jal	func0f000130
+/*     d7dc:	0fc0004c */ 	jal	bodiesInit
 /*     d7e0:	00000000 */ 	nop
 /*     d7e4:	0fc00214 */ 	jal	stub0f000850
 /*     d7e8:	00000000 */ 	nop
@@ -1097,26 +1097,26 @@ GLOBAL_ASM(
 glabel mainInit
 /*  d2b0:	27bdeb20 */ 	addiu	$sp,$sp,-5344
 /*  d2b4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  d2b8:	0c002f38 */ 	jal	faultCreateThread
+/*  d2b8:	0c002f38 */ 	jal	faultInit
 /*  d2bc:	afb00028 */ 	sw	$s0,0x28($sp)
 /*  d2c0:	0c00338c */ 	jal	dmaInit
 /*  d2c4:	00000000 */ 	nop
-/*  d2c8:	0c002258 */ 	jal	amgrAllocateStack
+/*  d2c8:	0c002258 */ 	jal	amgrInit
 /*  d2cc:	00000000 */ 	nop
-/*  d2d0:	0c0058ac */ 	jal	gvarsInit
+/*  d2d0:	0c0058ac */ 	jal	varsInit
 /*  d2d4:	00000000 */ 	nop
-/*  d2d8:	0c004890 */ 	jal	memp000121e0
+/*  d2d8:	0c004890 */ 	jal	mempInit
 /*  d2dc:	00000000 */ 	nop
 /*  d2e0:	0c004aaf */ 	jal	memaInit
 /*  d2e4:	00000000 */ 	nop
-/*  d2e8:	0c004e46 */ 	jal	videbugCreateMesgQueue
+/*  d2e8:	0c004e46 */ 	jal	videbugInit
 /*  d2ec:	00000000 */ 	nop
 /*  d2f0:	0c002668 */ 	jal	viConfigureForLogos
 /*  d2f4:	00000000 */ 	nop
 /*  d2f8:	0c00bff2 */ 	jal	rmonIsDisabled
 /*  d2fc:	00000000 */ 	nop
 /*  d300:	3c018006 */ 	lui	$at,0x8006
-/*  d304:	0c0051b7 */ 	jal	joySystemInit
+/*  d304:	0c0051b7 */ 	jal	joyInit
 /*  d308:	ac22e4c0 */ 	sw	$v0,-0x1b40($at)
 /*  d30c:	27a41498 */ 	addiu	$a0,$sp,0x1498
 /*  d310:	27a514d4 */ 	addiu	$a1,$sp,0x14d4
@@ -1144,7 +1144,7 @@ glabel mainInit
 /*  d364:	24010001 */ 	li	$at,0x1
 /*  d368:	56010006 */ 	bnel	$s0,$at,.PB0000d384
 /*  d36c:	2a010002 */ 	slti	$at,$s0,0x2
-/*  d370:	0c005211 */ 	jal	joy00013dfc
+/*  d370:	0c005211 */ 	jal	joyReset
 /*  d374:	00000000 */ 	nop
 /*  d378:	10000007 */ 	b	.PB0000d398
 /*  d37c:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -1406,7 +1406,7 @@ glabel mainInit
 /*  d724:	00000000 */ 	nop
 /*  d728:	0fc6a558 */ 	jal	func0f1a78b0
 /*  d72c:	00000000 */ 	nop
-/*  d730:	0fc5a179 */ 	jal	filesResetAndPrint
+/*  d730:	0fc5a179 */ 	jal	filesInit
 /*  d734:	00000000 */ 	nop
 /*  d738:	0fc5dea0 */ 	jal	stub0f175f50
 /*  d73c:	00000000 */ 	nop
@@ -1426,7 +1426,7 @@ glabel mainInit
 /*  d770:	8c632fe0 */ 	lw	$v1,0x2fe0($v1)
 /*  d774:	3c018000 */ 	lui	$at,0x8000
 /*  d778:	00412025 */ 	or	$a0,$v0,$at
-/*  d77c:	0c004892 */ 	jal	mempInit
+/*  d77c:	0c004892 */ 	jal	mempSetHeap
 /*  d780:	00642823 */ 	subu	$a1,$v1,$a0
 /*  d784:	0c004977 */ 	jal	mempResetPool
 /*  d788:	24040008 */ 	li	$a0,0x8
@@ -1434,19 +1434,19 @@ glabel mainInit
 /*  d790:	24040006 */ 	li	$a0,0x6
 /*  d794:	0c003320 */ 	jal	crashReset
 /*  d798:	00000000 */ 	nop
-/*  d79c:	0fc02c88 */ 	jal	mpInitPresetFeatures
+/*  d79c:	0fc02c88 */ 	jal	challengesInit
 /*  d7a0:	00000000 */ 	nop
-/*  d7a4:	0fc5e243 */ 	jal	func0f176ddc
+/*  d7a4:	0fc5e243 */ 	jal	utilsInit
 /*  d7a8:	00000000 */ 	nop
 /*  d7ac:	0c000d28 */ 	jal	func000034d0
 /*  d7b0:	00000000 */ 	nop
-/*  d7b4:	0fc02c68 */ 	jal	loadTextureList
+/*  d7b4:	0fc02c68 */ 	jal	texInit
 /*  d7b8:	00000000 */ 	nop
 /*  d7bc:	0fc00000 */ 	jal	langInit
 /*  d7c0:	00000000 */ 	nop
-/*  d7c4:	0fc5a45a */ 	jal	lv0f167af8
+/*  d7c4:	0fc5a45a */ 	jal	lvInit
 /*  d7c8:	00000000 */ 	nop
-/*  d7cc:	0fc41edb */ 	jal	cheatsDisableAll
+/*  d7cc:	0fc41edb */ 	jal	cheatsInit
 /*  d7d0:	00000000 */ 	nop
 /*  d7d4:	0c003a7d */ 	jal	func0000e9c0
 /*  d7d8:	00000000 */ 	nop
@@ -1478,19 +1478,19 @@ glabel mainInit
 /*  d840:	00000000 */ 	nop
 /*  d844:	0fc00210 */ 	jal	stub0f000840
 /*  d848:	00000000 */ 	nop
-/*  d84c:	0fc62728 */ 	jal	mpSetDefaultSetup
+/*  d84c:	0fc62728 */ 	jal	mpInit
 /*  d850:	00000000 */ 	nop
-/*  d854:	0fc52db6 */ 	jal	phAllocate
+/*  d854:	0fc52db6 */ 	jal	pheadInit
 /*  d858:	00000000 */ 	nop
-/*  d85c:	0fc4649e */ 	jal	pakInitAll
+/*  d85c:	0fc4649e */ 	jal	paksInit
 /*  d860:	00000000 */ 	nop
-/*  d864:	0fc52ddb */ 	jal	func0f14a3bc
+/*  d864:	0fc52ddb */ 	jal	pheadInit2
 /*  d868:	00000000 */ 	nop
 /*  d86c:	0c008e60 */ 	jal	animsInit
 /*  d870:	00000000 */ 	nop
-/*  d874:	0fc00040 */ 	jal	func0f000100
+/*  d874:	0fc00040 */ 	jal	racesInit
 /*  d878:	00000000 */ 	nop
-/*  d87c:	0fc0004c */ 	jal	func0f000130
+/*  d87c:	0fc0004c */ 	jal	bodiesInit
 /*  d880:	00000000 */ 	nop
 /*  d884:	0fc00214 */ 	jal	stub0f000850
 /*  d888:	00000000 */ 	nop
@@ -1522,26 +1522,26 @@ GLOBAL_ASM(
 glabel mainInit
 /*     d520:	27bdeb28 */ 	addiu	$sp,$sp,-5336
 /*     d524:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*     d528:	0c002fec */ 	jal	faultCreateThread
+/*     d528:	0c002fec */ 	jal	faultInit
 /*     d52c:	afb00028 */ 	sw	$s0,0x28($sp)
 /*     d530:	0c003428 */ 	jal	dmaInit
 /*     d534:	00000000 */ 	nop
-/*     d538:	0c002288 */ 	jal	amgrAllocateStack
+/*     d538:	0c002288 */ 	jal	amgrInit
 /*     d53c:	00000000 */ 	nop
-/*     d540:	0c005618 */ 	jal	gvarsInit
+/*     d540:	0c005618 */ 	jal	varsInit
 /*     d544:	00000000 */ 	nop
-/*     d548:	0c004878 */ 	jal	memp000121e0
+/*     d548:	0c004878 */ 	jal	mempInit
 /*     d54c:	00000000 */ 	nop
 /*     d550:	0c004a83 */ 	jal	memaInit
 /*     d554:	00000000 */ 	nop
-/*     d558:	0c004dd6 */ 	jal	videbugCreateMesgQueue
+/*     d558:	0c004dd6 */ 	jal	videbugInit
 /*     d55c:	00000000 */ 	nop
 /*     d560:	0c0026ac */ 	jal	viConfigureForLogos
 /*     d564:	00000000 */ 	nop
 /*     d568:	0c00be82 */ 	jal	rmonIsDisabled
 /*     d56c:	00000000 */ 	nop
 /*     d570:	3c018006 */ 	lui	$at,%hi(var8005d9b0)
-/*     d574:	0c004f25 */ 	jal	joySystemInit
+/*     d574:	0c004f25 */ 	jal	joyInit
 /*     d578:	ac22d9b0 */ 	sw	$v0,%lo(var8005d9b0)($at)
 /*     d57c:	27a41490 */ 	addiu	$a0,$sp,0x1490
 /*     d580:	27a514cc */ 	addiu	$a1,$sp,0x14cc
@@ -1569,7 +1569,7 @@ glabel mainInit
 /*     d5d4:	24010001 */ 	addiu	$at,$zero,0x1
 /*     d5d8:	56010006 */ 	bnel	$s0,$at,.L0000d5f4
 /*     d5dc:	2a010002 */ 	slti	$at,$s0,0x2
-/*     d5e0:	0c004f7f */ 	jal	joy00013dfc
+/*     d5e0:	0c004f7f */ 	jal	joyReset
 /*     d5e4:	00000000 */ 	nop
 /*     d5e8:	10000007 */ 	b	.L0000d608
 /*     d5ec:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -1809,7 +1809,7 @@ glabel mainInit
 /*     d948:	00000000 */ 	nop
 /*     d94c:	0fc69e2c */ 	jal	func0f1a78b0
 /*     d950:	00000000 */ 	nop
-/*     d954:	0fc59bdd */ 	jal	filesResetAndPrint
+/*     d954:	0fc59bdd */ 	jal	filesInit
 /*     d958:	00000000 */ 	nop
 /*     d95c:	0fc5d7d4 */ 	jal	stub0f175f50
 /*     d960:	00000000 */ 	nop
@@ -1829,7 +1829,7 @@ glabel mainInit
 /*     d994:	8c630b00 */ 	lw	$v1,%lo(g_VmMarker)($v1)
 /*     d998:	3c018000 */ 	lui	$at,0x8000
 /*     d99c:	00412025 */ 	or	$a0,$v0,$at
-/*     d9a0:	0c00487a */ 	jal	mempInit
+/*     d9a0:	0c00487a */ 	jal	mempSetHeap
 /*     d9a4:	00642823 */ 	subu	$a1,$v1,$a0
 /*     d9a8:	0c00494a */ 	jal	mempResetPool
 /*     d9ac:	24040008 */ 	addiu	$a0,$zero,0x8
@@ -1837,19 +1837,19 @@ glabel mainInit
 /*     d9b4:	24040006 */ 	addiu	$a0,$zero,0x6
 /*     d9b8:	0c0033be */ 	jal	crashReset
 /*     d9bc:	00000000 */ 	nop
-/*     d9c0:	0fc02c84 */ 	jal	mpInitPresetFeatures
+/*     d9c0:	0fc02c84 */ 	jal	challengesInit
 /*     d9c4:	00000000 */ 	nop
-/*     d9c8:	0fc5db77 */ 	jal	func0f176ddc
+/*     d9c8:	0fc5db77 */ 	jal	utilsInit
 /*     d9cc:	00000000 */ 	nop
 /*     d9d0:	0c000d34 */ 	jal	func000034d0
 /*     d9d4:	00000000 */ 	nop
-/*     d9d8:	0fc02c64 */ 	jal	loadTextureList
+/*     d9d8:	0fc02c64 */ 	jal	texInit
 /*     d9dc:	00000000 */ 	nop
 /*     d9e0:	0fc00000 */ 	jal	langInit
 /*     d9e4:	00000000 */ 	nop
-/*     d9e8:	0fc59ebe */ 	jal	lv0f167af8
+/*     d9e8:	0fc59ebe */ 	jal	lvInit
 /*     d9ec:	00000000 */ 	nop
-/*     d9f0:	0fc41d3b */ 	jal	cheatsDisableAll
+/*     d9f0:	0fc41d3b */ 	jal	cheatsInit
 /*     d9f4:	00000000 */ 	nop
 /*     d9f8:	0c003a70 */ 	jal	func0000e9c0
 /*     d9fc:	00000000 */ 	nop
@@ -1881,19 +1881,19 @@ glabel mainInit
 /*     da64:	00000000 */ 	nop
 /*     da68:	0fc00210 */ 	jal	stub0f000840
 /*     da6c:	00000000 */ 	nop
-/*     da70:	0fc62084 */ 	jal	mpSetDefaultSetup
+/*     da70:	0fc62084 */ 	jal	mpInit
 /*     da74:	00000000 */ 	nop
-/*     da78:	0fc528ca */ 	jal	phAllocate
+/*     da78:	0fc528ca */ 	jal	pheadInit
 /*     da7c:	00000000 */ 	nop
-/*     da80:	0fc46276 */ 	jal	pakInitAll
+/*     da80:	0fc46276 */ 	jal	paksInit
 /*     da84:	00000000 */ 	nop
-/*     da88:	0fc528ef */ 	jal	func0f14a3bc
+/*     da88:	0fc528ef */ 	jal	pheadInit2
 /*     da8c:	00000000 */ 	nop
 /*     da90:	0c008cf0 */ 	jal	animsInit
 /*     da94:	00000000 */ 	nop
-/*     da98:	0fc00040 */ 	jal	func0f000100
+/*     da98:	0fc00040 */ 	jal	racesInit
 /*     da9c:	00000000 */ 	nop
-/*     daa0:	0fc0004c */ 	jal	func0f000130
+/*     daa0:	0fc0004c */ 	jal	bodiesInit
 /*     daa4:	00000000 */ 	nop
 /*     daa8:	0fc00214 */ 	jal	stub0f000850
 /*     daac:	00000000 */ 	nop
@@ -1919,26 +1919,26 @@ glabel mainInit
 /*     da84:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*     da88:	afb20030 */ 	sw	$s2,0x30($sp)
 /*     da8c:	afb1002c */ 	sw	$s1,0x2c($sp)
-/*     da90:	0c003060 */ 	jal	faultCreateThread
+/*     da90:	0c003060 */ 	jal	faultInit
 /*     da94:	afb00028 */ 	sw	$s0,0x28($sp)
 /*     da98:	0c0035b4 */ 	jal	dmaInit
 /*     da9c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     daa0:	0c0022f0 */ 	jal	amgrAllocateStack
+/*     daa0:	0c0022f0 */ 	jal	amgrInit
 /*     daa4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     daa8:	0c0059d4 */ 	jal	gvarsInit
+/*     daa8:	0c0059d4 */ 	jal	varsInit
 /*     daac:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dab0:	0c004994 */ 	jal	memp000121e0
+/*     dab0:	0c004994 */ 	jal	mempInit
 /*     dab4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dab8:	0c004beb */ 	jal	memaInit
 /*     dabc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dac0:	0c004fea */ 	jal	videbugCreateMesgQueue
+/*     dac0:	0c004fea */ 	jal	videbugInit
 /*     dac4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dac8:	0c002714 */ 	jal	viConfigureForLogos
 /*     dacc:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dad0:	0c00c456 */ 	jal	rmonIsDisabled
 /*     dad4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dad8:	3c018006 */ 	lui	$at,0x8006
-/*     dadc:	0c0052b6 */ 	jal	joySystemInit
+/*     dadc:	0c0052b6 */ 	jal	joyInit
 /*     dae0:	ac22f2d0 */ 	sw	$v0,-0xd30($at)
 /*     dae4:	27b11498 */ 	addiu	$s1,$sp,0x1498
 /*     dae8:	27b214d4 */ 	addiu	$s2,$sp,0x14d4
@@ -1966,7 +1966,7 @@ glabel mainInit
 /*     db3c:	24010001 */ 	addiu	$at,$zero,0x1
 /*     db40:	56010006 */ 	bnel	$s0,$at,.NB0000db5c
 /*     db44:	2a010002 */ 	slti	$at,$s0,0x2
-/*     db48:	0c005310 */ 	jal	joy00013dfc
+/*     db48:	0c005310 */ 	jal	joyReset
 /*     db4c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     db50:	10000007 */ 	beqz	$zero,.NB0000db70
 /*     db54:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -2182,7 +2182,7 @@ glabel mainInit
 /*     de58:	00000000 */ 	sll	$zero,$zero,0x0
 /*     de5c:	0fc68554 */ 	jal	func0f1a78b0
 /*     de60:	00000000 */ 	sll	$zero,$zero,0x0
-/*     de64:	0fc585fd */ 	jal	filesResetAndPrint
+/*     de64:	0fc585fd */ 	jal	filesInit
 /*     de68:	00000000 */ 	sll	$zero,$zero,0x0
 /*     de6c:	0fc5c2fc */ 	jal	stub0f175f50
 /*     de70:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2202,7 +2202,7 @@ glabel mainInit
 /*     dea4:	8c6330f0 */ 	lw	$v1,0x30f0($v1)
 /*     dea8:	3c018000 */ 	lui	$at,0x8000
 /*     deac:	00412025 */ 	or	$a0,$v0,$at
-/*     deb0:	0c004996 */ 	jal	mempInit
+/*     deb0:	0c004996 */ 	jal	mempSetHeap
 /*     deb4:	00642823 */ 	subu	$a1,$v1,$a0
 /*     deb8:	0c004ab1 */ 	jal	mempResetPool
 /*     debc:	24040008 */ 	addiu	$a0,$zero,0x8
@@ -2210,19 +2210,19 @@ glabel mainInit
 /*     dec4:	24040006 */ 	addiu	$a0,$zero,0x6
 /*     dec8:	0c003535 */ 	jal	crashReset
 /*     decc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     ded0:	0fc02bb0 */ 	jal	mpInitPresetFeatures
+/*     ded0:	0fc02bb0 */ 	jal	challengesInit
 /*     ded4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     ded8:	0fc5c69f */ 	jal	func0f176ddc
+/*     ded8:	0fc5c69f */ 	jal	utilsInit
 /*     dedc:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dee0:	0c000dbc */ 	jal	func000034d0
 /*     dee4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dee8:	0fc02b90 */ 	jal	loadTextureList
+/*     dee8:	0fc02b90 */ 	jal	texInit
 /*     deec:	00000000 */ 	sll	$zero,$zero,0x0
 /*     def0:	0fc00000 */ 	jal	langInit
 /*     def4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     def8:	0fc5890e */ 	jal	lv0f167af8
+/*     def8:	0fc5890e */ 	jal	lvInit
 /*     defc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df00:	0fc40c5b */ 	jal	cheatsDisableAll
+/*     df00:	0fc40c5b */ 	jal	cheatsInit
 /*     df04:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df08:	0c003c68 */ 	jal	func0000e9c0
 /*     df0c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2254,19 +2254,19 @@ glabel mainInit
 /*     df74:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df78:	0fc00210 */ 	jal	stub0f000840
 /*     df7c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df80:	0fc60985 */ 	jal	mpSetDefaultSetup
+/*     df80:	0fc60985 */ 	jal	mpInit
 /*     df84:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df88:	0fc512be */ 	jal	phAllocate
+/*     df88:	0fc512be */ 	jal	pheadInit
 /*     df8c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df90:	0fc44b4c */ 	jal	pakInitAll
+/*     df90:	0fc44b4c */ 	jal	paksInit
 /*     df94:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df98:	0fc512e3 */ 	jal	func0f14a3bc
+/*     df98:	0fc512e3 */ 	jal	pheadInit2
 /*     df9c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dfa0:	0c0091e8 */ 	jal	animsInit
 /*     dfa4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dfa8:	0fc00040 */ 	jal	func0f000100
+/*     dfa8:	0fc00040 */ 	jal	racesInit
 /*     dfac:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dfb0:	0fc0004c */ 	jal	func0f000130
+/*     dfb0:	0fc0004c */ 	jal	bodiesInit
 /*     dfb4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dfb8:	0fc00214 */ 	jal	stub0f000850
 /*     dfbc:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2316,16 +2316,16 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	u32 iVar5;
 //	u32 tmp;
 //
-//	faultCreateThread();
+//	faultInit();
 //	dmaInit();
-//	amgrAllocateStack();
-//	gvarsInit();
-//	memp000121e0();
+//	amgrInit();
+//	varsInit();
+//	mempInit();
 //	memaInit();
-//	videbugCreateMesgQueue();
+//	videbugInit();
 //	viConfigureForLogos();
 //	var8005d9b0 = rmonIsDisabled();
-//	joySystemInit();
+//	joyInit();
 //	osCreateMesgQueue(&queue, &msg, 1);
 //
 //	for (i = 0; i < 4; i++) {
@@ -2333,7 +2333,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //		osRecvMesg(&queue, &msg, OS_MESG_BLOCK);
 //
 //		if (i == 1) {
-//			joy00013dfc();
+//			joyReset();
 //		} else if (i >= 2) {
 //			joyDebugJoy();
 //		}
@@ -2448,7 +2448,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //
 //	vmInit();
 //	func0f1a78b0();
-//	filesResetAndPrint();
+//	filesInit();
 //	stub0f175f50();
 //	func0f175f90();
 //
@@ -2458,18 +2458,18 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //
 //	uVar2 = osVirtualToPhysical(&_bssSegmentEnd) | 0x80000000;
 //	tmp = g_VmMarker;
-//	mempInit(uVar2, tmp - uVar2);
+//	mempSetHeap(uVar2, tmp - uVar2);
 //
 //	mempResetPool(MEMPOOL_8);
 //	mempResetPool(MEMPOOL_PERMANENT);
 //	crashReset();
-//	mpInitPresetFeatures();
-//	func0f176ddc();
+//	challengesInit();
+//	utilsInit();
 //	func000034d0();
-//	loadTextureList();
+//	texInit();
 //	langInit();
-//	lv0f167af8();
-//	cheatsDisableAll();
+//	lvInit();
+//	cheatsInit();
 //	func0000e9c0();
 //	func0f1531a0();
 //	dhudInit();
@@ -2485,13 +2485,13 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	stub0f00b180();
 //	stub0f000910();
 //	stub0f000840();
-//	mpSetDefaultSetup();
-//	phAllocate();
-//	pakInitAll();
-//	func0f14a3bc();
+//	mpInit();
+//	pheadInit();
+//	paksInit();
+//	pheadInit2();
 //	animsInit();
-//	func0f000100();
-//	func0f000130();
+//	racesInit();
+//	bodiesInit();
 //	stub0f000850();
 //	stub0f000860();
 //	titleInit();
@@ -2680,14 +2680,14 @@ void mainLoop(void)
 
 		mempResetPool(MEMPOOL_7);
 		mempResetPool(MEMPOOL_STAGE);
-		filesReset(4);
+		filesStop(4);
 
 		if (argFindByPrefix(1, "-ma")) {
 			g_MainMemaHeapSize = strtol(argFindByPrefix(1, "-ma"), NULL, 0) * 1024;
 		}
 
-		memaHeapInit(mempAlloc(g_MainMemaHeapSize, MEMPOOL_STAGE), g_MainMemaHeapSize);
-		stageLoadCommonLang(g_StageNum);
+		memaReset(mempAlloc(g_MainMemaHeapSize, MEMPOOL_STAGE), g_MainMemaHeapSize);
+		langReset(g_StageNum);
 		playermgrReset();
 
 		if (g_StageNum >= STAGE_TITLE) {
@@ -2726,9 +2726,9 @@ void mainLoop(void)
 
 		if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
 			g_MpSetup.chrslots = 0x03;
-			mpInit();
+			mpReset();
 		} else if (g_Vars.perfectbuddynum) {
-			mpInit();
+			mpReset();
 		} else if (g_Vars.mplayerisrunning == false
 				&& (numplayers >= 2 || g_Vars.lvmpbotlevel || argFindByPrefix(1, "-play"))) {
 			g_MpSetup.chrslots = 1;
@@ -2746,17 +2746,17 @@ void mainLoop(void)
 			}
 
 			g_MpSetup.stagenum = g_StageNum;
-			mpInit();
+			mpReset();
 		}
 
-		gfxInitMemory();
-		joy00013dfc();
-		dhudTryReset();
+		gfxReset();
+		joyReset();
+		dhudReset();
 		func0f17608c(g_StageNum);
-		lvInit(g_StageNum);
-		viAllocateFbs(g_StageNum);
+		lvReset(g_StageNum);
+		viReset(g_StageNum);
 		frametimeCalculate();
-		profile00009a90();
+		profileReset();
 
 		while (osRecvMesg(&g_SchedMesgQueue, &msg, OS_MESG_NOBLOCK) != -1) {
 			// empty
@@ -2790,10 +2790,10 @@ void mainLoop(void)
 			}
 		}
 
-		lvReset();
+		lvStop();
 		mempDisablePool(MEMPOOL_STAGE);
 		mempDisablePool(MEMPOOL_7);
-		filesReset(4);
+		filesStop(4);
 		viBlack(true);
 		pak0f116994();
 
@@ -3111,7 +3111,7 @@ glabel mainLoop
 /*     e48c:	24040007 */ 	addiu	$a0,$zero,0x7
 /*     e490:	0c004ab1 */ 	jal	mempResetPool
 /*     e494:	24040004 */ 	addiu	$a0,$zero,0x4
-/*     e498:	0fc58709 */ 	jal	filesReset
+/*     e498:	0fc58709 */ 	jal	filesStop
 /*     e49c:	24040004 */ 	addiu	$a0,$zero,0x4
 /*     e4a0:	3c057005 */ 	lui	$a1,0x7005
 /*     e4a4:	24a55134 */ 	addiu	$a1,$a1,0x5134
@@ -3136,10 +3136,10 @@ glabel mainLoop
 /*     e4ec:	24050004 */ 	addiu	$a1,$zero,0x4
 /*     e4f0:	3c058006 */ 	lui	$a1,0x8006
 /*     e4f4:	8ca5f2d8 */ 	lw	$a1,-0xd28($a1)
-/*     e4f8:	0c004bed */ 	jal	memaHeapInit
+/*     e4f8:	0c004bed */ 	jal	memaReset
 /*     e4fc:	00402025 */ 	or	$a0,$v0,$zero
 /*     e500:	3c048006 */ 	lui	$a0,0x8006
-/*     e504:	0fc02bf4 */ 	jal	stageLoadCommonLang
+/*     e504:	0fc02bf4 */ 	jal	langReset
 /*     e508:	8c84f2d4 */ 	lw	$a0,-0xd2c($a0)
 /*     e50c:	0fc48964 */ 	jal	playermgrReset
 /*     e510:	00000000 */ 	sll	$zero,$zero,0x0
@@ -3223,7 +3223,7 @@ glabel mainLoop
 /*     e628:	05620006 */ 	bltzl	$t3,.NB0000e644
 /*     e62c:	8e4d0470 */ 	lw	$t5,0x470($s2)
 .NB0000e630:
-/*     e630:	0fc60755 */ 	jal	mpInit
+/*     e630:	0fc60755 */ 	jal	mpReset
 /*     e634:	a42c144e */ 	sh	$t4,0x144e($at)
 /*     e638:	10000033 */ 	beqz	$zero,.NB0000e708
 /*     e63c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -3231,7 +3231,7 @@ glabel mainLoop
 .NB0000e644:
 /*     e644:	51a00006 */ 	beqzl	$t5,.NB0000e660
 /*     e648:	8e590314 */ 	lw	$t9,0x314($s2)
-/*     e64c:	0fc60755 */ 	jal	mpInit
+/*     e64c:	0fc60755 */ 	jal	mpReset
 /*     e650:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e654:	1000002c */ 	beqz	$zero,.NB0000e708
 /*     e658:	00000000 */ 	sll	$zero,$zero,0x0
@@ -3281,27 +3281,27 @@ glabel mainLoop
 .NB0000e6f8:
 /*     e6f8:	8dadf2d4 */ 	lw	$t5,-0xd2c($t5)
 /*     e6fc:	3c01800b */ 	lui	$at,0x800b
-/*     e700:	0fc60755 */ 	jal	mpInit
+/*     e700:	0fc60755 */ 	jal	mpReset
 /*     e704:	a02d1449 */ 	sb	$t5,0x1449($at)
 .NB0000e708:
-/*     e708:	0fc58724 */ 	jal	gfxInitMemory
+/*     e708:	0fc58724 */ 	jal	gfxReset
 /*     e70c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     e710:	0c005310 */ 	jal	joy00013dfc
+/*     e710:	0c005310 */ 	jal	joyReset
 /*     e714:	00000000 */ 	sll	$zero,$zero,0x0
-/*     e718:	0c005049 */ 	jal	dhudTryReset
+/*     e718:	0c005049 */ 	jal	dhudReset
 /*     e71c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e720:	3c048006 */ 	lui	$a0,0x8006
 /*     e724:	0fc5c34b */ 	jal	func0f17608c
 /*     e728:	8c84f2d4 */ 	lw	$a0,-0xd2c($a0)
 /*     e72c:	3c048006 */ 	lui	$a0,0x8006
-/*     e730:	0fc589ee */ 	jal	lvInit
+/*     e730:	0fc589ee */ 	jal	lvReset
 /*     e734:	8c84f2d4 */ 	lw	$a0,-0xd2c($a0)
 /*     e738:	3c048006 */ 	lui	$a0,0x8006
-/*     e73c:	0c002778 */ 	jal	viAllocateFbs
+/*     e73c:	0c002778 */ 	jal	viReset
 /*     e740:	8c84f2d4 */ 	lw	$a0,-0xd2c($a0)
 /*     e744:	0fc59f11 */ 	jal	frametimeCalculate
 /*     e748:	00000000 */ 	sll	$zero,$zero,0x0
-/*     e74c:	0c00270c */ 	jal	profile00009a90
+/*     e74c:	0c00270c */ 	jal	profileReset
 /*     e750:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e754:	02602025 */ 	or	$a0,$s3,$zero
 /*     e758:	02802825 */ 	or	$a1,$s4,$zero
@@ -3385,13 +3385,13 @@ glabel mainLoop
 /*     e86c:	55c0ffca */ 	bnezl	$t6,.NB0000e798
 /*     e870:	02602025 */ 	or	$a0,$s3,$zero
 .NB0000e874:
-/*     e874:	0fc59e56 */ 	jal	lvReset
+/*     e874:	0fc59e56 */ 	jal	lvStop
 /*     e878:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e87c:	0c004acc */ 	jal	mempDisablePool
 /*     e880:	24040004 */ 	addiu	$a0,$zero,0x4
 /*     e884:	0c004acc */ 	jal	mempDisablePool
 /*     e888:	24040007 */ 	addiu	$a0,$zero,0x7
-/*     e88c:	0fc58709 */ 	jal	filesReset
+/*     e88c:	0fc58709 */ 	jal	filesStop
 /*     e890:	24040004 */ 	addiu	$a0,$zero,0x4
 /*     e894:	0c00281a */ 	jal	viBlack
 /*     e898:	02e02025 */ 	or	$a0,$s7,$zero
@@ -3462,7 +3462,7 @@ glabel mainTick
 /*  e198:	00000000 */ 	nop
 /*  e19c:	0c002662 */ 	jal	profile00009a98
 /*  e1a0:	00000000 */ 	nop
-/*  e1a4:	0c002660 */ 	jal	profile00009a90
+/*  e1a4:	0c002660 */ 	jal	profileReset
 /*  e1a8:	00000000 */ 	nop
 /*  e1ac:	0c002664 */ 	jal	profileSetMarker
 /*  e1b0:	3c040002 */ 	lui	$a0,0x2
@@ -3743,7 +3743,7 @@ glabel mainTick
 .PB0000e5bc:
 /*  e5bc:	0c004fd8 */ 	jal	dhudRender
 /*  e5c0:	8fa40094 */ 	lw	$a0,0x94($sp)
-/*  e5c4:	0c004f11 */ 	jal	dhudReset
+/*  e5c4:	0c004f11 */ 	jal	dhudClear
 /*  e5c8:	afa20094 */ 	sw	$v0,0x94($sp)
 /*  e5cc:	0fc4806b */ 	jal	debug0f11ed70
 /*  e5d0:	00000000 */ 	nop
@@ -3849,7 +3849,7 @@ glabel mainTick
 /*     e970:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e974:	0c00270e */ 	jal	profile00009a98
 /*     e978:	00000000 */ 	sll	$zero,$zero,0x0
-/*     e97c:	0c00270c */ 	jal	profile00009a90
+/*     e97c:	0c00270c */ 	jal	profileReset
 /*     e980:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e984:	0c002710 */ 	jal	profileSetMarker
 /*     e988:	3c040002 */ 	lui	$a0,0x2
@@ -4130,7 +4130,7 @@ glabel mainTick
 .NB0000ed94:
 /*     ed94:	0c0051a1 */ 	jal	dhudRender
 /*     ed98:	8fa40094 */ 	lw	$a0,0x94($sp)
-/*     ed9c:	0c0050b5 */ 	jal	dhudReset
+/*     ed9c:	0c0050b5 */ 	jal	dhudClear
 /*     eda0:	afa20094 */ 	sw	$v0,0x94($sp)
 /*     eda4:	0fc4663a */ 	jal	debug0f11ed70
 /*     eda8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -4217,7 +4217,7 @@ u32 var8005f690nb[] = {
 //	if (g_MainChangeToStageNum < 0 && g_MainNumGfxTasks < 2) {
 //		frametimeCalculate();
 //		profile00009a98();
-//		profile00009a90();
+//		profileReset();
 //		profileSetMarker(PROFILE_MAINTICK_START);
 //		func000034d8();
 //		joyDebugJoy();
@@ -4280,7 +4280,7 @@ u32 var8005f690nb[] = {
 //			}
 //
 //			gdl = dhudRender(gdl);
-//			dhudReset();
+//			dhudClear();
 //
 //			if (debug0f11ed70() >= 2) {
 //				gdl = profileRender(gdl);
@@ -4318,7 +4318,7 @@ void mainTick(void)
 	if (g_MainChangeToStageNum < 0 && g_MainNumGfxTasks < 2) {
 		frametimeCalculate();
 		profile00009a98();
-		profile00009a90();
+		profileReset();
 		profileSetMarker(PROFILE_MAINTICK_START);
 		func000034d8();
 		joyDebugJoy();

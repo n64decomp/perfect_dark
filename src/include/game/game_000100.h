@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-void func0f000100(void);
+void racesInit(void);
 
 #endif

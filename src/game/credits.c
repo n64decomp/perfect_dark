@@ -5930,7 +5930,7 @@ Gfx *creditsRender(Gfx *gdl)
 	return gdl;
 }
 
-void creditsInit(void)
+void creditsReset(void)
 {
 	var800a4164 = 0;
 	var800a416c = 0;

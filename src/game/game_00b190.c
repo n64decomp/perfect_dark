@@ -6,7 +6,7 @@
 #include "data.h"
 #include "types.h"
 
-void loadTextureList(void)
+void texInit(void)
 {
 	extern u8 _textureslistSegmentRomStart;
 	extern u8 _textureslistSegmentRomEnd;

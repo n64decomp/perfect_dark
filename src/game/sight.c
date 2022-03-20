@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/chr/chraction.h"
+#include "game/chraction.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b2150.h"

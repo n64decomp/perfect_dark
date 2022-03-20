@@ -6,7 +6,7 @@
 #include "data.h"
 #include "types.h"
 
-void faultCreateThread(void)
+void faultInit(void)
 {
 	crashCreateThread();
 }

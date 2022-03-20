@@ -14,9 +14,9 @@ s32 joyShiftPfsStates(void);
 void joyRecordPfsState(u8 pfsstate);
 void joyCheckPfs(s32 arg0);
 void joySetPfsTemporarilyPlugged(s8 index);
-void joySystemInit(void);
+void joyInit(void);
 void joyDisableTemporarily(void);
-void joy00013dfc(void);
+void joyReset(void);
 void joy00013e84(void);
 u32 joyGetConnectedControllers(void);
 void joyConsumeSamples(struct joydata *joydata);
@@ -47,7 +47,7 @@ void joyDisableCyclicPolling(s32 line, char *file);
 void joyEnableCyclicPolling(s32 line, char *file);
 #endif
 
-void joyReset(void);
+void joyDestroy(void);
 void joyGetContpadNumsForPlayer(s8 playernum, s32 *pad1, s32 *pad2);
 void joyStopRumble(s8 device, bool disablepolling);
 s32 joy000155b4(s8 device);

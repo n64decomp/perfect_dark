@@ -14,7 +14,7 @@ void profileTick(void)
 	// empty
 }
 
-void profile00009a90(void)
+void profileReset(void)
 {
 	// empty
 }

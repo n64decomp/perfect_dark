@@ -11,7 +11,7 @@ Gfx *hudmsgRenderZoomRange(Gfx *gdl, u32 alpha);
 Gfx *hudmsgRenderBox(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, f32 bgopacity, u32 bordercolour, f32 textopacity);
 s32 hudmsg0f0ddb1c(s32 *arg0, s32 arg1);
 void hudmsgsHideByChannel(s32 value);
-void hudmsgsInit(void);
+void hudmsgsReset(void);
 void hudmsgRemoveAll(void);
 s32 hudmsgGetNext(s32 refid);
 void hudmsgCreate(char *text, s32 type);
@@ -29,6 +29,6 @@ void hudmsgsSetOn(u32 reason);
 void hudmsgsSetOff(u32 reason);
 void hudmsgsRemoveForDeadPlayer(s32 playernum);
 Gfx *hudmsgsRender(Gfx *gdl);
-void hudmsgsReset(void);
+void hudmsgsStop(void);
 
 #endif

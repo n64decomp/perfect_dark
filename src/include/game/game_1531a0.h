@@ -10,7 +10,7 @@ void func0f1531c4(s32 arg0);
 void func0f1531d0(s32 arg0);
 void func0f1531dc(bool arg0);
 void fontLoad(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar **charsptr, bool monospace);
-void fontsLoadForCurrentStage(void);
+void fontsReset(void);
 Gfx *func0f153628(Gfx *gdl);
 Gfx *func0f153780(Gfx *gdl);
 Gfx *gfxSetPrimColour(Gfx *gdl, u32 colour);

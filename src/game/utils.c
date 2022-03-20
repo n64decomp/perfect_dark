@@ -85,7 +85,7 @@ u32 align32(u32 arg0)
 }
 
 GLOBAL_ASM(
-glabel func0f176ddc
+glabel utilsInit
 /*  f176ddc:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f176de0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f176de4:	24042710 */ 	addiu	$a0,$zero,0x2710
@@ -146,7 +146,7 @@ glabel func0f176ddc
 );
 
 // Mismatch: Different codegen in last 3 statements
-//void func0f176ddc(void)
+//void utilsInit(void)
 //{
 //	u32 stack1;
 //	u32 stack2;
@@ -488,7 +488,7 @@ bool func0f1777b8(struct coord *a, struct coord *b, struct coord *c, struct coor
 	return true;
 }
 
-void func0f1777f8(void)
+void utilsReset(void)
 {
 	s32 i;
 

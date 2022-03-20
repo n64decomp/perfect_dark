@@ -49,7 +49,7 @@ char *pakMenuTextPagesUsed(struct menuitem *item);
 char *pakMenuTextStatusMessage(struct menuitem *item);
 char *pakMenuTextEditingPakName(struct menuitem *item);
 bool filemgrConsiderPushingFileSelectDialog(void);
-void pakPushPakMenuDialog(void);
+void bootmenuReset(void);
 s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 pakGameNoteListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 filemgrFileToCopyListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);

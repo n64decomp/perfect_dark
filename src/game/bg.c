@@ -5,7 +5,7 @@
 #include "game/game_006900.h"
 #include "game/game_013550.h"
 #include "game/game_013ee0.h"
-#include "game/chr/chr.h"
+#include "game/chr.h"
 #include "game/prop.h"
 #include "game/ceil.h"
 #include "game/bondgun.h"
@@ -20,7 +20,7 @@
 #include "game/bg.h"
 #include "game/game_165360.h"
 #include "game/game_1655c0.h"
-#include "game/game_1657c0.h"
+#include "game/env.h"
 #include "game/game_1668e0.h"
 #include "game/file.h"
 #include "game/lv.h"
@@ -3862,7 +3862,7 @@ glabel func7f155c10nb
  * - 4 bytes pointer to light table
  * - 4 bytes null
  */
-void bgInit(s32 stagenum)
+void bgReset(s32 stagenum)
 {
 	u8 *header;
 	u8 headerbuffer[0x50];
@@ -4016,7 +4016,7 @@ void bgInit(s32 stagenum)
 }
 #else
 GLOBAL_ASM(
-glabel bgInit
+glabel bgReset
 /*  f155d14:	3c0f8009 */ 	lui	$t7,0x8009
 /*  f155d18:	91ef30e0 */ 	lbu	$t7,0x30e0($t7)
 /*  f155d1c:	27bdff48 */ 	addiu	$sp,$sp,-184
@@ -7852,7 +7852,7 @@ glabel var7f1b75d0
 //	func0f001c0c();
 //}
 
-void bgReset(void)
+void bgStop(void)
 {
 	bgUnloadAllRooms();
 	mtx00016748(1);

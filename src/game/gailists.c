@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "game/chr/chraicommands.h"
+#include "game/chraicommands.h"
 #include "game/prop.h"
 #include "stagesetup.h"
 #include "data.h"

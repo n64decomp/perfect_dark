@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/chr/chraction.h"
+#include "game/chraction.h"
 #include "game/debug.h"
 #include "lib/rmon.h"
 #include "lib/vi.h"
@@ -572,7 +572,7 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 			if (dmenuGetSelectedOption() == 0) {
 				// Selected "main" from cutscene menu
 				g_DebugCurMenu = DEBUGMENU_MAIN;
-				dhudReset();
+				dhudClear();
 				debugUpdateMenu();
 			} else {
 				cutsceneStart(0xc00 + dmenuGetSelectedOption() - 1);
@@ -694,7 +694,7 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 
 	if (buttonsthisframe & START_BUTTON) {
 		if (g_DebugIsMenuOpen == true) {
-			dhudReset();
+			dhudClear();
 		}
 
 		g_DebugIsMenuOpen = false;

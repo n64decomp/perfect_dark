@@ -63,7 +63,7 @@ u32 g_GfxNumSwaps = 0x00000002;
  * Comments in this function are strings that appear in an XBLA debug build.
  * They were likely in the N64 version but ifdeffed out.
  */
-void gfxInitMemory(void)
+void gfxReset(void)
 {
 	s32 stack;
 

@@ -58,7 +58,7 @@ s32 menuhandler0010cabc(s32 operation, struct menuitem *item, union handlerdata 
 	return 0;
 }
 
-void func0f10cb2c(void)
+void fmbmenuReset(void)
 {
 	s32 i;
 	u32 prevplayernum = g_MpPlayerNum;

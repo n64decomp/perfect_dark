@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/smoke/smoke.h"
+#include "game/smoke.h"
 #include "game/bg.h"
 #include "game/propobj.h"
 #include "game/splat.h"
@@ -638,7 +638,7 @@ void func0f149268jf(void)
 }
 #endif
 
-void func0f149864(void)
+void splatsTick(void)
 {
 	// empty
 }

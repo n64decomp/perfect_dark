@@ -4,6 +4,8 @@
 #include "data.h"
 #include "types.h"
 
+void bheadReset(void);
+
 void bheadFlipAnimation(void);
 void bheadUpdateIdleRoll(void);
 void bheadUpdatePos(struct coord *vel);

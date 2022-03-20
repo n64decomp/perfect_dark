@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/chr/chraction.h"
+#include "game/chraction.h"
 #include "game/ceil.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
@@ -8,7 +8,7 @@
 #include "game/menugfx.h"
 #include "game/menu.h"
 #include "game/mainmenu.h"
-#include "game/inventory/inventory.h"
+#include "game/inv.h"
 #include "game/game_1531a0.h"
 #include "game/file.h"
 #include "game/texdecompress.h"

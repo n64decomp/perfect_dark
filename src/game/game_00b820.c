@@ -1,9 +1,9 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/cheats.h"
-#include "game/chr/chrai.h"
+#include "game/chrai.h"
 #include "game/game_00b820.h"
-#include "game/playerinit.h"
+#include "game/playerreset.h"
 #include "game/game_02cde0.h"
 #include "game/game_091e10.h"
 #include "bss.h"
@@ -24,7 +24,7 @@ u32 var80061708 = 0x00000000;
 u32 var8006170c = 0x00000000;
 
 GLOBAL_ASM(
-glabel stageChooseActiveHeads
+glabel headsReset
 /*  f00b820:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f00b824:	3c0e8008 */ 	lui	$t6,%hi(g_HeadsAndBodies+0x2)
 /*  f00b828:	95cecf06 */ 	lhu	$t6,%lo(g_HeadsAndBodies+0x2)($t6)
@@ -275,7 +275,7 @@ glabel stageChooseActiveHeads
 // - PLAYERCOUNT() calculation is more spread out
 //   (does other register preparation during calculation)
 // - Loop at 950 is calculated differently
-//void stageChooseActiveHeads(s32 stagenum)
+//void headsReset(s32 stagenum)
 //{
 //	s32 *headsavailablelist;
 //	s32 headsavailablelen;

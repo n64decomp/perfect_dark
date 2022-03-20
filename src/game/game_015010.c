@@ -7,7 +7,7 @@
 #include "data.h"
 #include "types.h"
 
-void objsReset(void)
+void objsStop(void)
 {
 	u32 *ptr = g_StageSetup.props;
 

@@ -7,7 +7,7 @@
 #include "data.h"
 #include "types.h"
 
-void func0f000130(void)
+void bodiesInit(void)
 {
 	g_NumBondBodies = 0;
 

@@ -2,11 +2,11 @@
 #include "constants.h"
 #include "game/bondmove.h"
 #include "game/bondwalk.h"
-#include "game/chr/chraction.h"
+#include "game/chraction.h"
 #include "game/dlights.h"
-#include "game/chr/chr.h"
+#include "game/chr.h"
 #include "game/prop.h"
-#include "game/game_092610.h"
+#include "game/propsnd.h"
 #include "game/objectives.h"
 #include "game/floor.h"
 #include "game/ceil.h"
@@ -16,12 +16,12 @@
 #include "game/game_0b4950.h"
 #include "game/player.h"
 #include "game/playermgr.h"
-#include "game/explosions/explosions.h"
-#include "game/smoke/smoke.h"
-#include "game/sparks/sparks.h"
+#include "game/explosions.h"
+#include "game/smoke.h"
+#include "game/sparks.h"
 #include "game/bg.h"
 #include "game/bot.h"
-#include "game/training/training.h"
+#include "game/training.h"
 #include "game/pad.h"
 #include "game/propobj.h"
 #include "game/splat.h"
@@ -6225,7 +6225,7 @@ void propSetPerimEnabled(struct prop *prop, s32 enable)
 	}
 }
 
-void func0f0641f4(void)
+void propsTestForPickup(void)
 {
 	s16 *propnumptr;
 	s32 i;

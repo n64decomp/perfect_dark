@@ -7,13 +7,13 @@
 f32 mpHandicapToDamageScale(u8 value);
 void func0f187838(struct mpchrconfig *mpchr);
 void mpStartMatch(void);
-void mpInit(void);
+void mpReset(void);
 void mpCalculateTeamIsOnlyAi(void);
 void func0f187fbc(s32 playernum);
 void func0f187fec(void);
 void mpPlayerSetDefaults(s32 playernum, bool autonames);
 void func0f1881d4(s32 index);
-void mpSetDefaultSetup(void);
+void mpInit(void);
 void mpSetDefaultNamesIfEmpty(void);
 s32 mpCalculateTeamScoreLimit(void);
 void mpApplyLimits(void);

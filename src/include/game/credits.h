@@ -26,7 +26,7 @@ Gfx *func0f13a3ec(Gfx *gdl);
 void credits0f13ae04(Mtxf *mtx);
 void creditsTick(void);
 Gfx *creditsRender(Gfx *gdl);
-void creditsInit(void);
+void creditsReset(void);
 void creditsRequestAltTitle(void);
 
 struct credits000c {

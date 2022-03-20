@@ -141,11 +141,11 @@ void dhudInit(void)
 #endif
 }
 
-void dhudTryReset(void)
+void dhudReset(void)
 {
 #if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 	if (g_DHudInitialised) {
-		dhudReset();
+		dhudClear();
 	}
 #endif
 }
@@ -189,7 +189,7 @@ void dhudResetPos(void)
 #endif
 }
 
-void dhudReset(void)
+void dhudClear(void)
 {
 #if VERSION == VERSION_NTSC_BETA || VERSION == VERSION_PAL_BETA
 	s32 x;

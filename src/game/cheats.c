@@ -3,12 +3,12 @@
 #include "lib/sched.h"
 #include "game/camdraw.h"
 #include "game/cheats.h"
-#include "game/inventory/inventory.h"
+#include "game/inv.h"
 #include "game/playermgr.h"
-#include "game/training/training.h"
+#include "game/training.h"
 #include "game/gamefile.h"
 #include "game/lang.h"
-#include "game/pak/pak.h"
+#include "game/pak.h"
 #include "bss.h"
 #include "data.h"
 #include "types.h"
@@ -218,7 +218,7 @@ void cheatDeactivate(s32 cheat_id)
 	}
 }
 
-void cheatsDisableAll(void)
+void cheatsInit(void)
 {
 	g_CheatsActiveBank0 = 0;
 	g_CheatsActiveBank1 = 0;
@@ -226,10 +226,15 @@ void cheatsDisableAll(void)
 	g_CheatsEnabledBank1 = 0;
 }
 
-void cheatsActivate(void)
+/**
+ * Apply cheats at level startup.
+ */
+void cheatsReset(void)
 {
 	s32 cheat_id;
 
+	// Copy enabled cheats to active cheats, unless in CI training
+	// or weapon cheats not in solo
 	if (g_Vars.stagenum != STAGE_CITRAINING) {
 		g_CheatsActiveBank0 = g_CheatsEnabledBank0;
 		g_CheatsActiveBank1 = g_CheatsEnabledBank1;
@@ -263,6 +268,7 @@ void cheatsActivate(void)
 		g_CheatsActiveBank1 = 0;
 	}
 
+	// Set any "always on" cheats to active and properly activate all active cheats
 	for (cheat_id = 0; cheat_id != NUM_CHEATS; cheat_id++) {
 		if (g_Cheats[cheat_id].flags & CHEATFLAG_ALWAYSON) {
 			if (cheatIsUnlocked(cheat_id)) {

@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void stageChooseActiveHeads(s32 stagenum);
+void headsReset(s32 stagenum);
 void resetSomeStageThings(void);
 void stageAllocateBgChrs(void);
 

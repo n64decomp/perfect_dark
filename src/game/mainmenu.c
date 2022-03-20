@@ -4,7 +4,6 @@
 #include "game/game_00c490.h"
 #include "game/title.h"
 #include "game/game_01b0a0.h"
-#include "game/game_01bea0.h"
 #include "game/objectives.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
@@ -13,12 +12,12 @@
 #include "game/menu.h"
 #include "game/mainmenu.h"
 #include "game/filemgr.h"
-#include "game/inventory/inventory.h"
+#include "game/inv.h"
 #include "game/game_1531a0.h"
 #include "game/lv.h"
 #include "game/mplayer/ingame.h"
 #include "game/game_19aa80.h"
-#include "game/training/training.h"
+#include "game/training.h"
 #include "game/gamefile.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
@@ -797,7 +796,7 @@ struct menudialogdef g_PreAndPostMissionBriefingMenuDialog = {
 s32 menuhandlerAcceptMission(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		func0f01bea0();
+		menuStop();
 
 		if (g_Vars.stagenum == g_MissionConfig.stagenum) {
 			g_Vars.restartlevel = true;
@@ -6151,13 +6150,13 @@ s32 menuhandlerCinema(s32 operation, struct menuitem *item, union handlerdata *d
 			g_Vars.autocutgroupcur = 0;
 			g_Vars.autocutgroupleft = g_CutsceneCountsByMission[index];
 			menuPopDialog();
-			func0f01bea0();
+			menuStop();
 		} else {
 			// Play specific cutscene
 			g_Vars.autocutgroupcur = data->list.value - 1;
 			g_Vars.autocutgroupleft = 1;
 			menuPopDialog();
-			func0f01bea0();
+			menuStop();
 		}
 		break;
 	case MENUOP_GETOPTIONVALUE:

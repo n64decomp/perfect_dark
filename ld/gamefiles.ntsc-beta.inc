@@ -21,71 +21,76 @@
 	build/ROMID/game/game_00b190.o (section); \
 	build/ROMID/game/stubs/game_00b200.o (section); \
 	build/ROMID/game/game_00b210.o (section); \
-	build/ROMID/game/game_00b320.o (section); \
+	build/ROMID/game/langreset.o (section); \
 	build/ROMID/game/game_00b420.o (section); \
-	build/ROMID/game/game_00b480.o (section); \
+	build/ROMID/game/titlereset.o (section); \
+	build/ROMID/game/chrmgr.o (section); \
 	build/ROMID/game/game_00b820.o (section); \
-	build/ROMID/game/game_00c240.o (section); \
+	build/ROMID/game/varsreset.o (section); \
 	build/ROMID/game/game_00c490.o (section); \
-	build/ROMID/game/game_0108d0.o (section); \
-	build/ROMID/game/objectives/setup.o (section); \
-	build/ROMID/game/casing/reset.o (section); \
-	build/ROMID/game/bondguninit.o (section); \
-	build/ROMID/game/playerinit.o (section); \
-	build/ROMID/game/inventory/init.o (section); \
-	build/ROMID/game/game_0125a0.o (section); \
+	build/ROMID/game/propsndreset.o (section); \
+	build/ROMID/game/objectivesreset.o (section); \
+	build/ROMID/game/casingreset.o (section); \
+	build/ROMID/game/bondgunreset.o (section); \
+	build/ROMID/game/playerreset.o (section); \
+	build/ROMID/game/invreset.o (section); \
+	build/ROMID/game/bondheadreset.o (section); \
 	build/ROMID/game/game_012aa0.o (section); \
 	build/ROMID/game/game_012d50.o (section); \
-	build/ROMID/game/explosions/init.o (section); \
-	build/ROMID/game/smoke/init.o (section); \
-	build/ROMID/game/sparks/init.o (section); \
-	build/ROMID/game/weather/init.o (section); \
+	build/ROMID/game/explosionsreset.o (section); \
+	build/ROMID/game/smokereset.o (section); \
+	build/ROMID/game/sparksreset.o (section); \
+	build/ROMID/game/weatherreset.o (section); \
 	build/ROMID/game/stubs/game_013540.o (section); \
 	build/ROMID/game/game_013550.o (section); \
-	build/ROMID/game/shards/init.o (section); \
+	build/ROMID/game/shardsreset.o (section); \
 	build/ROMID/game/game_013b80.o (section); \
-	build/ROMID/game/game_013cf0.o (section); \
+	build/ROMID/game/vtxstorereset.o (section); \
+	build/ROMID/game/tilesreset.o (section); \
 	build/ROMID/game/game_013ee0.o (section); \
 	build/ROMID/game/game_0147a0.o (section); \
-	build/ROMID/game/game_0147d0.o (section); \
+	build/ROMID/game/lasersightsreset.o (section); \
 	build/ROMID/game/botmgr.o (section); \
 	build/ROMID/game/botinvinit.o (section); \
-	build/ROMID/game/game_014f10.o (section); \
+	build/ROMID/game/chrmgrstop.o (section); \
+	build/ROMID/game/propsstop.o (section); \
 	build/ROMID/game/game_015010.o (section); \
-	build/ROMID/game/game_0150a0.o (section); \
-	build/ROMID/game/objectives/autocomplete.o (section); \
+	build/ROMID/game/propsndstop.o (section); \
+	build/ROMID/game/objectivesstop.o (section); \
 	build/ROMID/game/stubs/game_015260.o (section); \
 	build/ROMID/game/stubs/game_015270.o (section); \
-	build/ROMID/game/explosions/reset.o (section); \
-	build/ROMID/game/smoke/reset.o (section); \
+	build/ROMID/game/explosionsstop.o (section); \
+	build/ROMID/game/smokestop.o (section); \
 	build/ROMID/game/stubs/game_0153f0.o (section); \
 	build/ROMID/game/stubs/game_015400.o (section); \
 	build/ROMID/game/stubs/game_015410.o (section); \
-	build/ROMID/game/shards/reset.o (section); \
-	build/ROMID/game/game_015470.o (section); \
+	build/ROMID/game/shardsstop.o (section); \
+	build/ROMID/game/bondgunstop.o (section); \
+	build/ROMID/game/getitle.o (section); \
 	build/ROMID/game/title.o (section); \
 	build/ROMID/game/game_01afc0.o (section); \
 	build/ROMID/game/game_01b0a0.o (section); \
-	build/ROMID/game/activemenu/tick.o (section); \
-	build/ROMID/game/game_01bea0.o (section); \
-	build/ROMID/game/weather/tick.o (section); \
+	build/ROMID/game/activemenutick.o (section); \
+	build/ROMID/game/menustop.o (section); \
+	build/ROMID/game/menutick.o (section); \
+	build/ROMID/game/weathertick.o (section); \
 	build/ROMID/game/langtick.o (section); \
 	build/ROMID/game/game_01d8c0.o (section); \
 	build/ROMID/game/game_01d990.o (section); \
-	build/ROMID/game/casing/tick.o (section); \
-	build/ROMID/game/shards/tick.o (section); \
-	build/ROMID/game/sparks/tick.o (section); \
-	build/ROMID/game/chr/chr.o (section); \
+	build/ROMID/game/casingtick.o (section); \
+	build/ROMID/game/shardstick.o (section); \
+	build/ROMID/game/sparkstick.o (section); \
+	build/ROMID/game/chr.o (section); \
 	build/ROMID/game/game_02cde0.o (section); \
-	build/ROMID/game/chr/chraction.o (section); \
-	build/ROMID/game/chr/chrai.o (section); \
-	build/ROMID/game/chr/chraicommands.o (section); \
+	build/ROMID/game/chraction.o (section); \
+	build/ROMID/game/chrai.o (section); \
+	build/ROMID/game/chraicommands.o (section); \
 	build/ROMID/game/prop.o (section); \
 	build/ROMID/game/propobj.o (section); \
 	build/ROMID/game/propobjbss.o (section); \
 	build/ROMID/game/game_091e10.o (section); \
-	build/ROMID/game/game_092610.o (section); \
-	build/ROMID/game/objectives/objectives.o (section); \
+	build/ROMID/game/propsnd.o (section); \
+	build/ROMID/game/objectives.o (section); \
 	build/ROMID/game/game_096360.o (section); \
 	build/ROMID/game/game_096700.o (section); \
 	build/ROMID/game/atan2f.o (section); \
@@ -97,7 +102,7 @@
 	build/ROMID/game/ceil.o (section); \
 	build/ROMID/game/game_097a50.o (section); \
 	build/ROMID/game/game_097aa0.o (section); \
-	build/ROMID/game/inventory/items.o (section); \
+	build/ROMID/game/invitems.o (section); \
 	build/ROMID/game/bondgun.o (section); \
 	build/ROMID/game/game_0abe70.o (section); \
 	build/ROMID/game/mpstats.o (section); \
@@ -122,7 +127,7 @@
 	build/ROMID/game/menugfx.o (section); \
 	build/ROMID/game/menuitem.o (section); \
 	build/ROMID/game/menu.o (section); \
-	build/ROMID/game/activemenu/activemenu.o (section); \
+	build/ROMID/game/activemenu.o (section); \
 	build/ROMID/game/stubs/game_102230.o (section); \
 	build/ROMID/game/mainmenu.o (section); \
 	build/ROMID/game/cheats.o (section); \
@@ -132,11 +137,11 @@
 	build/ROMID/game/gamefile.o (section); \
 	build/ROMID/game/bossfile.o (section); \
 	build/ROMID/game/filelist.o (section); \
-	build/ROMID/game/inventory/inventory.o (section); \
+	build/ROMID/game/inv.o (section); \
 	build/ROMID/game/bondhead.o (section); \
 	build/ROMID/game/padhalllv.o (section); \
 	build/ROMID/game/pad.o (section); \
-	build/ROMID/game/pak/pak.o (section); \
+	build/ROMID/game/pak.o (section); \
 	build/ROMID/game/debug1.o (section); \
 	build/ROMID/game/debug2.o (section); \
 	build/ROMID/game/debug3.o (section); \
@@ -161,11 +166,11 @@
 	build/ROMID/game/playermgr.o (section); \
 	build/ROMID/game/crc.o (section); \
 	build/ROMID/game/rng2.o (section); \
-	build/ROMID/game/game_129210.o (section); \
-	build/ROMID/game/explosions/explosions.o (section); \
-	build/ROMID/game/smoke/smoke.o (section); \
-	build/ROMID/game/sparks/sparks.o (section); \
-	build/ROMID/game/weather/weather.o (section); \
+	build/ROMID/game/vtxstore.o (section); \
+	build/ROMID/game/explosions.o (section); \
+	build/ROMID/game/smoke.o (section); \
+	build/ROMID/game/sparks.o (section); \
+	build/ROMID/game/weather.o (section); \
 	build/ROMID/game/sky.o (section); \
 	build/ROMID/game/credits.o (section); \
 	build/ROMID/game/game_13b670.o (section); \
@@ -174,7 +179,7 @@
 	build/ROMID/game/bondview.o (section); \
 	build/ROMID/game/splat.o (section); \
 	build/ROMID/game/camdraw.o (section); \
-	build/ROMID/game/shards/shards.o (section); \
+	build/ROMID/game/shards.o (section); \
 	build/ROMID/game/options.o (section); \
 	build/ROMID/game/game_152fa0.o (section); \
 	build/ROMID/game/game_1531a0.o (section); \
@@ -184,7 +189,7 @@
 	build/ROMID/game/game_165360.o (section); \
 	build/ROMID/game/game_1655c0.o (section); \
 	build/ROMID/game/game_165670.o (section); \
-	build/ROMID/game/game_1657c0.o (section); \
+	build/ROMID/game/env.o (section); \
 	build/ROMID/game/game_1668e0.o (section); \
 	build/ROMID/game/file.o (section); \
 	build/ROMID/game/gfxmemory.o (section); \
@@ -193,7 +198,7 @@
 	build/ROMID/game/music.o (section); \
 	build/ROMID/game/lang.o (section); \
 	build/ROMID/game/texdecompress.o (section); \
-	build/ROMID/game/game_173520.o (section); \
+	build/ROMID/game/texreset.o (section); \
 	build/ROMID/game/game_173a00.o (section); \
 	build/ROMID/game/stubs/game_175f50.o (section); \
 	build/ROMID/game/game_175f90.o (section); \
@@ -212,6 +217,6 @@
 	build/ROMID/game/mplayer/mpaicommands.o (section); \
 	build/ROMID/game/vmstats.o (section); \
 	build/ROMID/game/game_19aa80.o (section); \
-	build/ROMID/game/training/training.o (section); \
-	build/ROMID/game/training/menus.o (section); \
+	build/ROMID/game/training.o (section); \
+	build/ROMID/game/trainingmenus.o (section); \
 	build/ROMID/game/game_1a78b0.o (section);

@@ -6,7 +6,7 @@
 
 extern u8 *g_GfxBuffers[3];
 
-void gfxInitMemory(void);
+void gfxReset(void);
 Gfx *gfxGetMasterDisplayList(void);
 struct gfxvtx *gfxAllocateVertices(s32 count);
 void *gfxAllocateMatrix(void);

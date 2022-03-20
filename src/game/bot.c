@@ -1,10 +1,10 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/chr/chraction.h"
+#include "game/chraction.h"
 #include "game/debug.h"
-#include "game/chr/chr.h"
+#include "game/chr.h"
 #include "game/prop.h"
-#include "game/game_092610.h"
+#include "game/propsnd.h"
 #include "game/atan2f.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"

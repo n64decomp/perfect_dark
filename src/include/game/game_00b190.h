@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-void loadTextureList(void);
+void texInit(void);
 
 #endif

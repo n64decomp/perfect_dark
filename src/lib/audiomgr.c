@@ -45,7 +45,7 @@ void amgrHandleDoneMsg(AudioInfo *info);
 void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo);
 void amgrMain(void *arg);
 
-void amgrAllocateStack(void)
+void amgrInit(void)
 {
 	g_AudioSp = bootAllocateStack(THREAD_AUDIO, STACKSIZE_AUDIO);
 }

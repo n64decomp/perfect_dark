@@ -2,12 +2,12 @@
 #include "constants.h"
 #include "game/bondmove.h"
 #include "game/cheats.h"
-#include "game/chr/chraction.h"
-#include "game/inventory/items.h"
+#include "game/chraction.h"
+#include "game/inv.h"
 #include "game/game_006900.h"
-#include "game/chr/chr.h"
+#include "game/chr.h"
 #include "game/prop.h"
-#include "game/game_092610.h"
+#include "game/propsnd.h"
 #include "game/game_096360.h"
 #include "game/acosfasinf.h"
 #include "game/game_096b20.h"
@@ -23,19 +23,18 @@
 #include "game/game_0c33f0.h"
 #include "game/gfxmemory.h"
 #include "game/sight.h"
-#include "game/inventory/inventory.h"
+#include "game/inv.h"
 #include "game/playermgr.h"
-#include "game/smoke/smoke.h"
+#include "game/smoke.h"
 #include "game/game_1531a0.h"
 #include "game/file.h"
 #include "game/lv.h"
 #include "game/texdecompress.h"
 #include "game/game_176080.h"
-#include "game/training/training.h"
-#include "game/training/training.h"
+#include "game/training.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
-#include "game/pak/pak.h"
+#include "game/pak.h"
 #include "game/options.h"
 #include "game/propobj.h"
 #include "bss.h"
@@ -12099,7 +12098,7 @@ bool bgun0f09e004(s32 newowner)
 
 			if (newowner == GUNMEMOWNER_1 && var8009dfc0 != 0) {
 				unlock = true;
-				player0f0b9538();
+				playerRemoveChrBody();
 			}
 			break;
 		case GUNMEMOWNER_3:
@@ -12322,10 +12321,10 @@ glabel bgun0f09e144
 /*  f09e438:	3b2f003f */ 	xori	$t7,$t9,0x3f
 /*  f09e43c:	accf0000 */ 	sw	$t7,0x0($a2)
 /*  f09e440:	8e4a15bc */ 	lw	$t2,0x15bc($s2)
-/*  f09e444:	3c097f09 */ 	lui	$t1,%hi(tagsAllocatePtrs)
+/*  f09e444:	3c097f09 */ 	lui	$t1,%hi(tagsReset)
 /*  f09e448:	3c087f09 */ 	lui	$t0,%hi(tagFindById)
 /*  f09e44c:	01ee6023 */ 	subu	$t4,$t7,$t6
-/*  f09e450:	252953cc */ 	addiu	$t1,$t1,%lo(tagsAllocatePtrs)
+/*  f09e450:	252953cc */ 	addiu	$t1,$t1,%lo(tagsReset)
 /*  f09e454:	25055528 */ 	addiu	$a1,$t0,%lo(tagFindById)
 /*  f09e458:	020c8023 */ 	subu	$s0,$s0,$t4
 /*  f09e45c:	240d0004 */ 	addiu	$t5,$zero,0x4

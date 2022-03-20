@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/debug.h"
 #include "game/game_006900.h"
-#include "game/game_092610.h"
+#include "game/propsnd.h"
 #include "game/bg.h"
 #include "bss.h"
 #include "lib/rng.h"
@@ -64,7 +64,7 @@ void func0f0069dc(void)
 		}
 
 		if (checksum != CHECKSUM_PLACEHOLDER) {
-			u32 *ptr = (u32 *)&bgInit;
+			u32 *ptr = (u32 *)&bgReset;
 			ptr += random() % 0x40;
 			end = &ptr[4];
 

@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void func0f013b80(void);
-void func0f013ba0(void);
+void texReset(void);
+void vtxstoreReset(void);
 
 #endif

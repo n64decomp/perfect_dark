@@ -36,7 +36,7 @@ void propUnpause(struct prop *prop);
 void propsTick(u32 islastplayer);
 void propsTickPadEffects(void);
 void propSetPerimEnabled(struct prop *prop, bool enable);
-void func0f0641f4(void);
+void propsTestForPickup(void);
 f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f32 *arg4, s32 arg5, bool cangangsta, s32 arg7);
 void farsightChooseTarget(void);
 void autoaimTick(void);

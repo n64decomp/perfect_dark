@@ -596,7 +596,7 @@ void bootCreateSchedThread(void)
 void bootPhase2(void *arg)
 {
 	bootCreateIdleThread();
-	videbugInit();
+	videbugCreate();
 	pimgrCreate();
 	bootCreateRmonThread();
 

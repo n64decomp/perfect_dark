@@ -4,6 +4,10 @@
 #include "data.h"
 #include "types.h"
 
+void bgunReset(void);
+
+void bgunStop(void);
+
 void bgunRumble(s32 handnum, s32 weaponnum);
 s32 bgunGetUnequippedReloadIndex(s32 weaponnum);
 void bgunTickUnequippedReload(void);

@@ -106,7 +106,7 @@ void animsInitTables(void)
 	}
 }
 
-void anim0002373c(void)
+void animsReset(void)
 {
 	g_NumAnimations = var8009a894;
 	g_Anims = var8009a898;

@@ -3,7 +3,7 @@
 #include "game/bondgrab.h"
 #include "game/bondmove.h"
 #include "game/cheats.h"
-#include "game/chr/chraction.h"
+#include "game/chraction.h"
 #include "game/debug.h"
 #include "game/prop.h"
 #include "game/objectives.h"

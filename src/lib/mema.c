@@ -216,7 +216,7 @@ void memaInit(void)
 
 #if VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
-glabel memaHeapInit
+glabel memaReset
 /*  12ac4:	3c03800a */ 	lui	$v1,0x800a
 /*  12ac8:	2463c1a8 */ 	addiu	$v1,$v1,-15960
 /*  12acc:	2406ffff */ 	li	$a2,-1
@@ -253,7 +253,7 @@ glabel memaHeapInit
 /*  12b44:	ac39f910 */ 	sw	$t9,-0x6f0($at)
 );
 #else
-void memaHeapInit(void *heapaddr, u32 heapsize)
+void memaReset(void *heapaddr, u32 heapsize)
 {
 	struct memaspace *space;
 

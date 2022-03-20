@@ -365,7 +365,7 @@ void fontLoad(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar *
 
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
-glabel fontsLoadForCurrentStage
+glabel fontsReset
 /*  f1529d4:	3c018008 */ 	lui	$at,0x8008
 /*  f1529d8:	ac200128 */ 	sw	$zero,0x128($at)
 /*  f1529dc:	3c018008 */ 	lui	$at,0x8008
@@ -601,7 +601,7 @@ glabel fontsLoadForCurrentStage
 /*  f152d50:	00000000 */ 	nop
 );
 #else
-void fontsLoadForCurrentStage(void)
+void fontsReset(void)
 {
 	extern u8 _fontbankgothicSegmentRomStart,     _fontbankgothicSegmentRomEnd;
 	extern u8 _fontzurichSegmentRomStart,         _fontzurichSegmentRomEnd;

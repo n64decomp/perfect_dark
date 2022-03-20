@@ -7,10 +7,10 @@
 #include "game/savebuffer.h"
 #include "game/bg.h"
 #include "game/game_19aa80.h"
-#include "game/training/training.h"
+#include "game/training.h"
 #include "game/gamefile.h"
 #include "game/mplayer/mplayer.h"
-#include "game/pak/pak.h"
+#include "game/pak.h"
 #include "game/options.h"
 #include "game/utils.h"
 #include "bss.h"
@@ -284,7 +284,7 @@ s32 gamefileLoad(s32 device)
 		g_FilemgrLastPakError = ret;
 
 		if (ret == 0) {
-			cheatsDisableAll();
+			cheatsInit();
 			savebufferReadString(&buffer, g_GameFile.name, 0);
 			g_GameFile.thumbnail = savebufferReadBits(&buffer, 5);
 			g_GameFile.totaltime = savebufferReadBits(&buffer, 32);

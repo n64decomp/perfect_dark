@@ -2,12 +2,12 @@
 #include "constants.h"
 #include "game/cheats.h"
 #include "game/dlights.h"
-#include "game/game_092610.h"
+#include "game/propsnd.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b4950.h"
 #include "game/player.h"
-#include "game/smoke/smoke.h"
-#include "game/sparks/sparks.h"
+#include "game/smoke.h"
+#include "game/sparks.h"
 #include "game/bg.h"
 #include "game/file.h"
 #include "game/lv.h"
@@ -1101,7 +1101,7 @@ void roomSetLightBroken(s32 roomnum, s32 lightnum)
 	g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
 }
 
-void func0f001bdc(void)
+void lightsReset(void)
 {
 	if (var80061444) {
 		func0f004c6c();
@@ -4561,7 +4561,7 @@ glabel var7f1a7dd4
 );
 #endif
 
-void func0f004314(void)
+void lightsTick(void)
 {
 	struct hand *hand1 = &g_Vars.currentplayer->hands[0];
 	struct hand *hand2 = &g_Vars.currentplayer->hands[1];

@@ -5,14 +5,14 @@
 #include "types.h"
 
 u32 getVar80084040(void);
-void lv0f167af8(void);
-void lvStopAllMiscSfx(void);
+void lvInit(void);
+void lvResetMiscSfx(void);
 s32 lvGetMiscSfxIndex(u32 arg0);
 void lvSetMiscSfxState(u32 type, bool play);
 void lvUpdateMiscSfx(void);
-void lvInit(s32 stagenum);
+void lvReset(s32 stagenum);
 Gfx *lvRenderFade(Gfx *gdl);
-void lvCancelFade(void);
+void lvFadeReset(void);
 bool lvCheckCmpFollowThreat(struct threat *threat, s32 index);
 void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerpos, s32 *activeslots, f32 *param_5);
 void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 *activeslots, f32 *distances);
@@ -28,7 +28,7 @@ void lvCheckPauseStateChanged(void);
 void lvSetPaused(bool paused);
 void lvConfigureFade(u32 color, s16 num_frames);
 bool lvIsFadeActive(void);
-void lvReset(void);
+void lvStop(void);
 bool lvIsPaused(void);
 s32 lvGetDifficulty(void);
 void lvSetDifficulty(s32 difficulty);

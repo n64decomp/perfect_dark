@@ -1,8 +1,8 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/cheats.h"
-#include "game/chr/chraction.h"
-#include "game/chr/chr.h"
+#include "game/chraction.h"
+#include "game/chr.h"
 #include "game/game_02cde0.h"
 #include "game/prop.h"
 #include "game/atan2f.h"
@@ -888,7 +888,7 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 	{
 		u32 stack[2];
 		u32 checksum = 0;
-		s32 *ptr = (s32 *)&lvInit;
+		s32 *ptr = (s32 *)&lvReset;
 		s32 *end = (s32 *)&lvConfigureFade;
 
 		while (ptr < end) {

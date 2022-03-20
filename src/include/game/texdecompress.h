@@ -37,6 +37,6 @@ void texLoadFromConfigs(struct textureconfig *configs, s32 numconfigs, struct te
 void texLoadFromTextureNum(u32 arg0, struct texturething *arg1);
 void texSetBitstring(u8 *arg0);
 s32 texReadBits(s32 arg0);
-void texturesLoadConfigs(void);
+void texReset(void);
 
 #endif

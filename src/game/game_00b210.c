@@ -6,7 +6,7 @@
 #include "data.h"
 #include "types.h"
 
-void mpInitPresetFeatures(void)
+void challengesInit(void)
 {
 	struct mpconfigfull *mpconfig;
 	u8 buffer[0x1ca];

@@ -16,13 +16,13 @@ void func0f175f98(void)
 {
 	func0f167330();
 	mempResetPool(MEMPOOL_5);
-	filesReset(5);
+	filesStop(5);
 }
 
 void func0f175fc8(void)
 {
 	mempDisablePool(MEMPOOL_5);
-	filesReset(5);
+	filesStop(5);
 }
 
 char *func0f175ff0(void)
