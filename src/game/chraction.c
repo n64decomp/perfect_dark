@@ -6512,49 +6512,33 @@ bool chrCanSeeChr(struct chrdata *chr, struct chrdata *target, s16 *room)
 	return cansee;
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel chrCanSeeTarget
-/*  f03a58c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f03a590:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03a594:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f03a598:	0fc0a693 */ 	jal	chrGetTargetProp
-/*  f03a59c:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f03a5a0:	5040000d */ 	beqzl	$v0,.JF0f03a5d8
-/*  f03a5a4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03a5a8:	8c4e0004 */ 	lw	$t6,0x4($v0)
-/*  f03a5ac:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f03a5b0:	00003025 */ 	move	$a2,$zero
-/*  f03a5b4:	51c00008 */ 	beqzl	$t6,.JF0f03a5d8
-/*  f03a5b8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03a5bc:	0fc0e914 */ 	jal	chrCanSeeChr
-/*  f03a5c0:	8c450004 */ 	lw	$a1,0x4($v0)
-/*  f03a5c4:	10400003 */ 	beqz	$v0,.JF0f03a5d4
-/*  f03a5c8:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f03a5cc:	0fc0e855 */ 	jal	chrRecordLastVisibleTargetTime
-/*  f03a5d0:	8fa40020 */ 	lw	$a0,0x20($sp)
-.JF0f03a5d4:
-/*  f03a5d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.JF0f03a5d8:
-/*  f03a5d8:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f03a5dc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f03a5e0:	03e00008 */ 	jr	$ra
-/*  f03a5e4:	00000000 */ 	nop
-);
-#else
 bool chrCanSeeTarget(struct chrdata *chr)
 {
 	bool cansee;
-	struct prop *prop = chrGetTargetProp(chr);
+	struct prop *prop;
+
+#if VERSION >= VERSION_JPN_FINAL
+	cansee = false;
+	prop = chrGetTargetProp(chr);
+
+	if (prop && prop->chr) {
+		cansee = chrCanSeeChr(chr, prop->chr, NULL);
+
+		if (cansee) {
+			chrRecordLastVisibleTargetTime(chr);
+		}
+	}
+#else
+	prop = chrGetTargetProp(chr);
 	cansee = chrCanSeeChr(chr, prop->chr, NULL);
 
 	if (cansee) {
 		chrRecordLastVisibleTargetTime(chr);
 	}
+#endif
 
 	return cansee;
 }
-#endif
 
 bool chrHasLineOfSightToPos(struct chrdata *viewerchr, struct coord *pos, s16 *rooms)
 {
