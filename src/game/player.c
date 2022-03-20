@@ -3574,7 +3574,7 @@ void playerUpdateShake(void)
 	struct coord coord = {0, 0, 0};
 
 	if (g_Vars.currentplayer->isdead == false) {
-		func0f12acec(&g_Vars.currentplayer->bond2.unk10, &g_Vars.currentplayer->bond2.unk1c, &coord);
+		explosionsUpdateShake(&g_Vars.currentplayer->bond2.unk10, &g_Vars.currentplayer->bond2.unk1c, &coord);
 	} else {
 		viShake(0);
 	}

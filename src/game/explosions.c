@@ -30,8 +30,8 @@
 struct explosion *g_Explosions;
 s32 g_MaxExplosions;
 
-u32 var8007e4a0 = 0x00000000;
-u32 var8007e4a4 = 0x00000000;
+s32 var8007e4a0 = 0;
+s32 var8007e4a4 = 0;
 f32 g_ExplosionDamageReceivedScale = 1;
 u32 var8007e4ac = 0x0000004b;
 u32 var8007e4b0 = 0x000001e0;
@@ -1170,180 +1170,64 @@ glabel var7f1b5584
 /*  f12ace8:	ac22e4a4 */ 	sw	$v0,%lo(var8007e4a4)($at)
 );
 
-GLOBAL_ASM(
-glabel func0f12acec
-.late_rodata
-glabel var7f1b5588
-.word 0x3f4ccccd
-glabel var7f1b558c
-.word 0x38d1b717
-.text
-/*  f12acec:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f12acf0:	3c0e8008 */ 	lui	$t6,%hi(var8007e4a0)
-/*  f12acf4:	8dcee4a0 */ 	lw	$t6,%lo(var8007e4a0)($t6)
-/*  f12acf8:	afb2003c */ 	sw	$s2,0x3c($sp)
-/*  f12acfc:	afb10038 */ 	sw	$s1,0x38($sp)
-/*  f12ad00:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f12ad04:	00809025 */ 	or	$s2,$a0,$zero
-/*  f12ad08:	afbf004c */ 	sw	$ra,0x4c($sp)
-/*  f12ad0c:	afb50048 */ 	sw	$s5,0x48($sp)
-/*  f12ad10:	afb40044 */ 	sw	$s4,0x44($sp)
-/*  f12ad14:	afb30040 */ 	sw	$s3,0x40($sp)
-/*  f12ad18:	afb00034 */ 	sw	$s0,0x34($sp)
-/*  f12ad1c:	f7ba0028 */ 	sdc1	$f26,0x28($sp)
-/*  f12ad20:	f7b80020 */ 	sdc1	$f24,0x20($sp)
-/*  f12ad24:	f7b60018 */ 	sdc1	$f22,0x18($sp)
-/*  f12ad28:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f12ad2c:	15c00006 */ 	bnez	$t6,.L0f12ad48
-/*  f12ad30:	afa60070 */ 	sw	$a2,0x70($sp)
-/*  f12ad34:	44806000 */ 	mtc1	$zero,$f12
-/*  f12ad38:	0c002a94 */ 	jal	viShake
-/*  f12ad3c:	00000000 */ 	nop
-/*  f12ad40:	1000007a */ 	b	.L0f12af2c
-/*  f12ad44:	8fbf004c */ 	lw	$ra,0x4c($sp)
-.L0f12ad48:
-/*  f12ad48:	3c017f1b */ 	lui	$at,%hi(var7f1b5588)
-/*  f12ad4c:	c4345588 */ 	lwc1	$f20,%lo(var7f1b5588)($at)
-/*  f12ad50:	0c0068f4 */ 	jal	cosf
-/*  f12ad54:	4600a306 */ 	mov.s	$f12,$f20
-/*  f12ad58:	46000606 */ 	mov.s	$f24,$f0
-/*  f12ad5c:	0c0068f7 */ 	jal	sinf
-/*  f12ad60:	4600a306 */ 	mov.s	$f12,$f20
-/*  f12ad64:	c6240000 */ 	lwc1	$f4,0x0($s1)
-/*  f12ad68:	c6280008 */ 	lwc1	$f8,0x8($s1)
-/*  f12ad6c:	4600a306 */ 	mov.s	$f12,$f20
-/*  f12ad70:	4604c182 */ 	mul.s	$f6,$f24,$f4
-/*  f12ad74:	00000000 */ 	nop
-/*  f12ad78:	46004282 */ 	mul.s	$f10,$f8,$f0
-/*  f12ad7c:	460a3401 */ 	sub.s	$f16,$f6,$f10
-/*  f12ad80:	0c0068f7 */ 	jal	sinf
-/*  f12ad84:	e7b00054 */ 	swc1	$f16,0x54($sp)
-/*  f12ad88:	46000606 */ 	mov.s	$f24,$f0
-/*  f12ad8c:	0c0068f4 */ 	jal	cosf
-/*  f12ad90:	4600a306 */ 	mov.s	$f12,$f20
-/*  f12ad94:	c6320008 */ 	lwc1	$f18,0x8($s1)
-/*  f12ad98:	c6280000 */ 	lwc1	$f8,0x0($s1)
-/*  f12ad9c:	3c04800a */ 	lui	$a0,%hi(g_MaxExplosions)
-/*  f12ada0:	46009102 */ 	mul.s	$f4,$f18,$f0
-/*  f12ada4:	8c843434 */ 	lw	$a0,%lo(g_MaxExplosions)($a0)
-/*  f12ada8:	4480b000 */ 	mtc1	$zero,$f22
-/*  f12adac:	4608c182 */ 	mul.s	$f6,$f24,$f8
-/*  f12adb0:	3c14800a */ 	lui	$s4,%hi(g_Explosions)
-/*  f12adb4:	26943430 */ 	addiu	$s4,$s4,%lo(g_Explosions)
-/*  f12adb8:	00008825 */ 	or	$s1,$zero,$zero
-/*  f12adbc:	00008025 */ 	or	$s0,$zero,$zero
-/*  f12adc0:	3c02800a */ 	lui	$v0,%hi(g_Explosions)
-/*  f12adc4:	3c014170 */ 	lui	$at,0x4170
-/*  f12adc8:	46062280 */ 	add.s	$f10,$f4,$f6
-/*  f12adcc:	2415002c */ 	addiu	$s5,$zero,0x2c
-/*  f12add0:	4600b506 */ 	mov.s	$f20,$f22
-/*  f12add4:	1880002f */ 	blez	$a0,.L0f12ae94
-/*  f12add8:	e7aa0050 */ 	swc1	$f10,0x50($sp)
-/*  f12addc:	4481d000 */ 	mtc1	$at,$f26
-/*  f12ade0:	3c017f1b */ 	lui	$at,%hi(var7f1b558c)
-/*  f12ade4:	3c138008 */ 	lui	$s3,%hi(g_ExplosionTypes)
-/*  f12ade8:	2673e4b8 */ 	addiu	$s3,$s3,%lo(g_ExplosionTypes)
-/*  f12adec:	c438558c */ 	lwc1	$f24,%lo(var7f1b558c)($at)
-/*  f12adf0:	8c423430 */ 	lw	$v0,%lo(g_Explosions)($v0)
-.L0f12adf4:
-/*  f12adf4:	8c430000 */ 	lw	$v1,0x0($v0)
-/*  f12adf8:	50600022 */ 	beqzl	$v1,.L0f12ae84
-/*  f12adfc:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f12ae00:	c4700008 */ 	lwc1	$f16,0x8($v1)
-/*  f12ae04:	c6520000 */ 	lwc1	$f18,0x0($s2)
-/*  f12ae08:	c468000c */ 	lwc1	$f8,0xc($v1)
-/*  f12ae0c:	c6440004 */ 	lwc1	$f4,0x4($s2)
-/*  f12ae10:	46128001 */ 	sub.s	$f0,$f16,$f18
-/*  f12ae14:	c4660010 */ 	lwc1	$f6,0x10($v1)
-/*  f12ae18:	c64a0008 */ 	lwc1	$f10,0x8($s2)
-/*  f12ae1c:	46044081 */ 	sub.s	$f2,$f8,$f4
-/*  f12ae20:	46000402 */ 	mul.s	$f16,$f0,$f0
-/*  f12ae24:	460a3381 */ 	sub.s	$f14,$f6,$f10
-/*  f12ae28:	46021482 */ 	mul.s	$f18,$f2,$f2
-/*  f12ae2c:	46128200 */ 	add.s	$f8,$f16,$f18
-/*  f12ae30:	460e7102 */ 	mul.s	$f4,$f14,$f14
-/*  f12ae34:	0c012974 */ 	jal	sqrtf
-/*  f12ae38:	46044300 */ 	add.s	$f12,$f8,$f4
-/*  f12ae3c:	46160032 */ 	c.eq.s	$f0,$f22
-/*  f12ae40:	46000086 */ 	mov.s	$f2,$f0
-/*  f12ae44:	45020003 */ 	bc1fl	.L0f12ae54
-/*  f12ae48:	8e8f0000 */ 	lw	$t7,0x0($s4)
-/*  f12ae4c:	4600c086 */ 	mov.s	$f2,$f24
-/*  f12ae50:	8e8f0000 */ 	lw	$t7,0x0($s4)
-.L0f12ae54:
-/*  f12ae54:	3c04800a */ 	lui	$a0,%hi(g_MaxExplosions)
-/*  f12ae58:	8c843434 */ 	lw	$a0,%lo(g_MaxExplosions)($a0)
-/*  f12ae5c:	01f11021 */ 	addu	$v0,$t7,$s1
-/*  f12ae60:	805803cc */ 	lb	$t8,0x3cc($v0)
-/*  f12ae64:	03150019 */ 	multu	$t8,$s5
-/*  f12ae68:	0000c812 */ 	mflo	$t9
-/*  f12ae6c:	02794021 */ 	addu	$t0,$s3,$t9
-/*  f12ae70:	c5060010 */ 	lwc1	$f6,0x10($t0)
-/*  f12ae74:	46023003 */ 	div.s	$f0,$f6,$f2
-/*  f12ae78:	461a0282 */ 	mul.s	$f10,$f0,$f26
-/*  f12ae7c:	460aa500 */ 	add.s	$f20,$f20,$f10
-/*  f12ae80:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f12ae84:
-/*  f12ae84:	0204082a */ 	slt	$at,$s0,$a0
-/*  f12ae88:	26310478 */ 	addiu	$s1,$s1,0x478
-/*  f12ae8c:	1420ffd9 */ 	bnez	$at,.L0f12adf4
-/*  f12ae90:	24420478 */ 	addiu	$v0,$v0,1144
-.L0f12ae94:
-/*  f12ae94:	3c038008 */ 	lui	$v1,%hi(var8007e4a4)
-/*  f12ae98:	2463e4a4 */ 	addiu	$v1,$v1,%lo(var8007e4a4)
-/*  f12ae9c:	8c620000 */ 	lw	$v0,0x0($v1)
-/*  f12aea0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f12aea4:	18400005 */ 	blez	$v0,.L0f12aebc
-/*  f12aea8:	00000000 */ 	nop
-/*  f12aeac:	44818000 */ 	mtc1	$at,$f16
-/*  f12aeb0:	2449ffff */ 	addiu	$t1,$v0,-1
-/*  f12aeb4:	ac690000 */ 	sw	$t1,0x0($v1)
-/*  f12aeb8:	4610a500 */ 	add.s	$f20,$f20,$f16
-.L0f12aebc:
-/*  f12aebc:	3c038008 */ 	lui	$v1,%hi(var8007e4a0)
-/*  f12aec0:	2463e4a0 */ 	addiu	$v1,$v1,%lo(var8007e4a0)
-/*  f12aec4:	8c6a0000 */ 	lw	$t2,0x0($v1)
-/*  f12aec8:	254bffff */ 	addiu	$t3,$t2,-1
-/*  f12aecc:	316d0002 */ 	andi	$t5,$t3,0x2
-/*  f12aed0:	11a00005 */ 	beqz	$t5,.L0f12aee8
-/*  f12aed4:	ac6b0000 */ 	sw	$t3,0x0($v1)
-/*  f12aed8:	8fa20070 */ 	lw	$v0,0x70($sp)
-/*  f12aedc:	e4540004 */ 	swc1	$f20,0x4($v0)
-/*  f12aee0:	10000004 */ 	b	.L0f12aef4
-/*  f12aee4:	4600a507 */ 	neg.s	$f20,$f20
-.L0f12aee8:
-/*  f12aee8:	8fa20070 */ 	lw	$v0,0x70($sp)
-/*  f12aeec:	4600a487 */ 	neg.s	$f18,$f20
-/*  f12aef0:	e4520004 */ 	swc1	$f18,0x4($v0)
-.L0f12aef4:
-/*  f12aef4:	c7a80054 */ 	lwc1	$f8,0x54($sp)
-/*  f12aef8:	4608a102 */ 	mul.s	$f4,$f20,$f8
-/*  f12aefc:	e4440000 */ 	swc1	$f4,0x0($v0)
-/*  f12af00:	c7a60050 */ 	lwc1	$f6,0x50($sp)
-/*  f12af04:	4606a282 */ 	mul.s	$f10,$f20,$f6
-/*  f12af08:	e44a0008 */ 	swc1	$f10,0x8($v0)
-/*  f12af0c:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*  f12af10:	448f8000 */ 	mtc1	$t7,$f16
-/*  f12af14:	00000000 */ 	nop
-/*  f12af18:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f12af1c:	46149302 */ 	mul.s	$f12,$f18,$f20
-/*  f12af20:	0c002a94 */ 	jal	viShake
-/*  f12af24:	00000000 */ 	nop
-/*  f12af28:	8fbf004c */ 	lw	$ra,0x4c($sp)
-.L0f12af2c:
-/*  f12af2c:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f12af30:	d7b60018 */ 	ldc1	$f22,0x18($sp)
-/*  f12af34:	d7b80020 */ 	ldc1	$f24,0x20($sp)
-/*  f12af38:	d7ba0028 */ 	ldc1	$f26,0x28($sp)
-/*  f12af3c:	8fb00034 */ 	lw	$s0,0x34($sp)
-/*  f12af40:	8fb10038 */ 	lw	$s1,0x38($sp)
-/*  f12af44:	8fb2003c */ 	lw	$s2,0x3c($sp)
-/*  f12af48:	8fb30040 */ 	lw	$s3,0x40($sp)
-/*  f12af4c:	8fb40044 */ 	lw	$s4,0x44($sp)
-/*  f12af50:	8fb50048 */ 	lw	$s5,0x48($sp)
-/*  f12af54:	03e00008 */ 	jr	$ra
-/*  f12af58:	27bd0068 */ 	addiu	$sp,$sp,0x68
-);
+void explosionsUpdateShake(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+{
+	u32 stack[4];
+	f32 sp54;
+	f32 sp50;
+	s32 i;
+	f32 intensity;
+
+	if (var8007e4a0 == 0) {
+		viShake(0);
+		return;
+	}
+
+	sp54 = cosf(0.8f) * arg1->f[0] - sinf(0.8f) * arg1->f[2];
+	sp50 = sinf(0.8f) * arg1->f[0] + cosf(0.8f) * arg1->f[2];
+
+	intensity = 0.0f;
+
+	for (i = 0; i < g_MaxExplosions; i++) {
+		struct prop *prop = g_Explosions[i].prop;
+
+		if (prop) {
+			f32 xdiff = prop->pos.x - arg0->x;
+			f32 ydiff = prop->pos.y - arg0->y;
+			f32 zdiff = prop->pos.z - arg0->z;
+
+			f32 dist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
+			f32 mult;
+
+			if (dist == 0.0f) {
+				dist = 0.0001f;
+			}
+
+			mult = g_ExplosionTypes[g_Explosions[i].type].innersize / dist;
+
+			intensity += mult * 15.0f;
+		}
+	}
+
+	if (var8007e4a4 > 0) {
+		var8007e4a4--;
+		intensity++;
+	}
+
+	var8007e4a0--;
+
+	if (var8007e4a0 & 2) {
+		arg2->y = intensity;
+		intensity = -intensity;
+	} else {
+		arg2->y = -intensity;
+	}
+
+	arg2->x = intensity * sp54;
+	arg2->z = intensity * sp50;
+
+	viShake(var8007e4a0 * intensity);
+}
 
 bool func0f12af5c(struct explosion *exp, struct prop *prop, struct coord *pos1, struct coord *pos2)
 {
