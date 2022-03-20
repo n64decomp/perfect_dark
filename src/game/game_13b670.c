@@ -17,7 +17,7 @@ s32 var800a4184;
 s32 var800a4188;
 void *var800a418c;
 void *var800a4190;
-void *var800a4194;
+struct var800a4194 *var800a4194;
 s32 var800a4198;
 s32 var800a419c;
 
@@ -984,45 +984,25 @@ glabel func0f13c2e8
 /*  f13c36c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f13c370
-/*  f13c370:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f13c374:	00047400 */ 	sll	$t6,$a0,0x10
-/*  f13c378:	000e2403 */ 	sra	$a0,$t6,0x10
-/*  f13c37c:	0480000e */ 	bltz	$a0,.L0f13c3b8
-/*  f13c380:	3c038008 */ 	lui	$v1,%hi(var8007f6f0)
-/*  f13c384:	8c63f6f0 */ 	lw	$v1,%lo(var8007f6f0)($v1)
-/*  f13c388:	00001025 */ 	or	$v0,$zero,$zero
-/*  f13c38c:	3c05800a */ 	lui	$a1,%hi(var800a4194)
-/*  f13c390:	18600009 */ 	blez	$v1,.L0f13c3b8
-/*  f13c394:	00000000 */ 	nop
-/*  f13c398:	8ca54194 */ 	lw	$a1,%lo(var800a4194)($a1)
-.L0f13c39c:
-/*  f13c39c:	94b80000 */ 	lhu	$t8,0x0($a1)
-/*  f13c3a0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f13c3a4:	0043082a */ 	slt	$at,$v0,$v1
-/*  f13c3a8:	10980010 */ 	beq	$a0,$t8,.L0f13c3ec
-/*  f13c3ac:	00000000 */ 	nop
-/*  f13c3b0:	1420fffa */ 	bnez	$at,.L0f13c39c
-/*  f13c3b4:	24a5000c */ 	addiu	$a1,$a1,12
-.L0f13c3b8:
-/*  f13c3b8:	3c19800a */ 	lui	$t9,%hi(var800a4194)
-/*  f13c3bc:	8f394194 */ 	lw	$t9,%lo(var800a4194)($t9)
-/*  f13c3c0:	3c018008 */ 	lui	$at,%hi(var8007f6e8)
-/*  f13c3c4:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f13c3c8:	13200008 */ 	beqz	$t9,.L0f13c3ec
-/*  f13c3cc:	00000000 */ 	nop
-/*  f13c3d0:	ac20f6e8 */ 	sw	$zero,%lo(var8007f6e8)($at)
-/*  f13c3d4:	3c018008 */ 	lui	$at,%hi(var8007f6ec)
-/*  f13c3d8:	ac20f6ec */ 	sw	$zero,%lo(var8007f6ec)($at)
-/*  f13c3dc:	3c018008 */ 	lui	$at,%hi(var8007f6e0)
-/*  f13c3e0:	ac24f6e0 */ 	sw	$a0,%lo(var8007f6e0)($at)
-/*  f13c3e4:	3c018008 */ 	lui	$at,%hi(var8007f6e4)
-/*  f13c3e8:	ac28f6e4 */ 	sw	$t0,%lo(var8007f6e4)($at)
-.L0f13c3ec:
-/*  f13c3ec:	03e00008 */ 	jr	$ra
-/*  f13c3f0:	00000000 */ 	nop
-);
+void func0f13c370(s16 roomnum)
+{
+	s32 i;
+
+	if (roomnum >= 0) {
+		for (i = 0; i < var8007f6f0; i++) {
+			if (var800a4194[i].roomnum == roomnum) {
+				return;
+			}
+		}
+	}
+
+	if (var800a4194 != NULL) {
+		var8007f6e8 = 0;
+		var8007f6ec = 0;
+		var8007f6e0 = roomnum;
+		var8007f6e4 = -1;
+	}
+}
 
 void func0f13c3f4(void)
 {
@@ -1047,7 +1027,7 @@ void func0f13c3f4(void)
 	size2 = ALIGN64(var800a4180 * 0x06);
 	var800a418c = mempAlloc(size2, MEMPOOL_STAGE);
 
-	size3 = ALIGN64(var800a4188 * 0x0c);
+	size3 = ALIGN64(var800a4188 * sizeof(struct var800a4194));
 	var800a4194 = mempAlloc(size3, MEMPOOL_STAGE);
 
 	if (var800a4180);
