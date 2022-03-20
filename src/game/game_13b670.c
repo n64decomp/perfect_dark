@@ -12,22 +12,22 @@
 const char var7f1b5960[] = "modula";
 const char var7f1b5968[] = "ripsize";
 
-u32 var800a4180;
-u32 var800a4184;
-u32 var800a4188;
-u32 var800a418c;
-u32 var800a4190;
-u32 var800a4194;
-u32 var800a4198;
-u32 var800a419c;
+s32 var800a4180;
+s32 var800a4184;
+s32 var800a4188;
+void *var800a418c;
+void *var800a4190;
+void *var800a4194;
+s32 var800a4198;
+s32 var800a419c;
 
 s32 var8007f6e0 = -1;
-u32 var8007f6e4 = 0xffffffff;
-u32 var8007f6e8 = 0x00000000;
-u32 var8007f6ec = 0x00000000;
-u32 var8007f6f0 = 0x00000000;
-u32 var8007f6f4 = 0x00000000;
-u32 var8007f6f8 = 0x00000000;
+s32 var8007f6e4 = -1;
+s32 var8007f6e8 = 0x00000000;
+s32 var8007f6ec = 0x00000000;
+s32 var8007f6f0 = 0x00000000;
+s32 var8007f6f4 = 0x00000000;
+s32 var8007f6f8 = 0x00000000;
 u32 var8007f6fc = 0x00000041;
 u32 var8007f700 = 0x00000016;
 u32 var8007f704 = 0x0000001d;
@@ -1024,70 +1024,36 @@ glabel func0f13c370
 /*  f13c3f0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f13c3f4
-/*  f13c3f4:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f13c3f8:	3c018008 */ 	lui	$at,%hi(var8007f6e0)
-/*  f13c3fc:	ac22f6e0 */ 	sw	$v0,%lo(var8007f6e0)($at)
-/*  f13c400:	3c018008 */ 	lui	$at,%hi(var8007f6e4)
-/*  f13c404:	ac22f6e4 */ 	sw	$v0,%lo(var8007f6e4)($at)
-/*  f13c408:	3c018008 */ 	lui	$at,%hi(var8007f6e8)
-/*  f13c40c:	ac20f6e8 */ 	sw	$zero,%lo(var8007f6e8)($at)
-/*  f13c410:	3c018008 */ 	lui	$at,%hi(var8007f6f0)
-/*  f13c414:	ac20f6f0 */ 	sw	$zero,%lo(var8007f6f0)($at)
-/*  f13c418:	3c018008 */ 	lui	$at,%hi(var8007f6f4)
-/*  f13c41c:	ac20f6f4 */ 	sw	$zero,%lo(var8007f6f4)($at)
-/*  f13c420:	3c018008 */ 	lui	$at,%hi(var8007f6f8)
-/*  f13c424:	ac20f6f8 */ 	sw	$zero,%lo(var8007f6f8)($at)
-/*  f13c428:	3c01800a */ 	lui	$at,%hi(var800a4180)
-/*  f13c42c:	240e04b0 */ 	addiu	$t6,$zero,0x4b0
-/*  f13c430:	3c06800a */ 	lui	$a2,%hi(var800a4184)
-/*  f13c434:	ac2e4180 */ 	sw	$t6,%lo(var800a4180)($at)
-/*  f13c438:	24c64184 */ 	addiu	$a2,$a2,%lo(var800a4184)
-/*  f13c43c:	24030032 */ 	addiu	$v1,$zero,0x32
-/*  f13c440:	acc30000 */ 	sw	$v1,0x0($a2)
-/*  f13c444:	3c01800a */ 	lui	$at,%hi(var800a4188)
-/*  f13c448:	ac234188 */ 	sw	$v1,%lo(var800a4188)($at)
-/*  f13c44c:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f13c450:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f13c454:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f13c458:	00047880 */ 	sll	$t7,$a0,0x2
-/*  f13c45c:	25e4003f */ 	addiu	$a0,$t7,0x3f
-/*  f13c460:	3498003f */ 	ori	$t8,$a0,0x3f
-/*  f13c464:	3b04003f */ 	xori	$a0,$t8,0x3f
-/*  f13c468:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*  f13c46c:	0c0048f2 */ 	jal	mempAlloc
-/*  f13c470:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f13c474:	3c04800a */ 	lui	$a0,%hi(var800a4180)
-/*  f13c478:	8c844180 */ 	lw	$a0,%lo(var800a4180)($a0)
-/*  f13c47c:	3c01800a */ 	lui	$at,%hi(var800a4190)
-/*  f13c480:	ac224190 */ 	sw	$v0,%lo(var800a4190)($at)
-/*  f13c484:	00044080 */ 	sll	$t0,$a0,0x2
-/*  f13c488:	01044023 */ 	subu	$t0,$t0,$a0
-/*  f13c48c:	00084040 */ 	sll	$t0,$t0,0x1
-/*  f13c490:	2504003f */ 	addiu	$a0,$t0,0x3f
-/*  f13c494:	3489003f */ 	ori	$t1,$a0,0x3f
-/*  f13c498:	3924003f */ 	xori	$a0,$t1,0x3f
-/*  f13c49c:	0c0048f2 */ 	jal	mempAlloc
-/*  f13c4a0:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f13c4a4:	3c04800a */ 	lui	$a0,%hi(var800a4188)
-/*  f13c4a8:	8c844188 */ 	lw	$a0,%lo(var800a4188)($a0)
-/*  f13c4ac:	3c01800a */ 	lui	$at,%hi(var800a418c)
-/*  f13c4b0:	ac22418c */ 	sw	$v0,%lo(var800a418c)($at)
-/*  f13c4b4:	00045880 */ 	sll	$t3,$a0,0x2
-/*  f13c4b8:	01645823 */ 	subu	$t3,$t3,$a0
-/*  f13c4bc:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f13c4c0:	2564003f */ 	addiu	$a0,$t3,0x3f
-/*  f13c4c4:	348c003f */ 	ori	$t4,$a0,0x3f
-/*  f13c4c8:	3984003f */ 	xori	$a0,$t4,0x3f
-/*  f13c4cc:	0c0048f2 */ 	jal	mempAlloc
-/*  f13c4d0:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f13c4d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f13c4d8:	3c01800a */ 	lui	$at,%hi(var800a4194)
-/*  f13c4dc:	ac224194 */ 	sw	$v0,%lo(var800a4194)($at)
-/*  f13c4e0:	03e00008 */ 	jr	$ra
-/*  f13c4e4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f13c3f4(void)
+{
+	u32 size3;
+	u32 size2;
+	u32 size1;
+
+	var8007f6e0 = -1;
+	var8007f6e4 = -1;
+	var8007f6e8 = 0;
+	var8007f6f0 = 0;
+	var8007f6f4 = 0;
+	var8007f6f8 = 0;
+
+	var800a4180 = 1200;
+	var800a4184 = 50;
+	var800a4188 = 50;
+
+	size1 = ALIGN64(var800a4184 * 0x04);
+	var800a4190 = mempAlloc(size1, MEMPOOL_STAGE);
+
+	size2 = ALIGN64(var800a4180 * 0x06);
+	var800a418c = mempAlloc(size2, MEMPOOL_STAGE);
+
+	size3 = ALIGN64(var800a4188 * 0x0c);
+	var800a4194 = mempAlloc(size3, MEMPOOL_STAGE);
+
+	if (var800a4180);
+	if (var800a4184);
+	if (size1);
+}
 
 void func0f13c4e8(void)
 {
