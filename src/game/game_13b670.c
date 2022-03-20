@@ -1087,9 +1087,12 @@ glabel func0f13c3f4
 /*  f13c4dc:	ac224194 */ 	sw	$v0,%lo(var800a4194)($at)
 /*  f13c4e0:	03e00008 */ 	jr	$ra
 /*  f13c4e4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f13c4e8:	03e00008 */ 	jr	$ra
-/*  f13c4ec:	00000000 */ 	nop
 );
+
+void func0f13c4e8(void)
+{
+	// empty
+}
 
 bool func0f13c4f0(void)
 {
