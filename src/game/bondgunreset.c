@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/inv.h"
 #include "game/bondgun.h"
-#include "game/game_1655c0.h"
+#include "game/stagetable.h"
 #include "bss.h"
 #include "lib/memp.h"
 #include "data.h"

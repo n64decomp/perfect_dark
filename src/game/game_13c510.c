@@ -7,7 +7,7 @@
 #include "game/game_11f000.h"
 #include "game/game_13c510.h"
 #include "game/bg.h"
-#include "game/game_1655c0.h"
+#include "game/stagetable.h"
 #include "game/game_165670.h"
 #include "game/game_1668e0.h"
 #include "bss.h"

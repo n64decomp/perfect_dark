@@ -40,7 +40,7 @@
 #include "game/sparks.h"
 #include "game/game_1531a0.h"
 #include "game/bg.h"
-#include "game/game_1655c0.h"
+#include "game/stagetable.h"
 #include "game/game_165670.h"
 #include "game/env.h"
 #include "game/gfxmemory.h"

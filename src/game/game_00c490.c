@@ -15,7 +15,7 @@
 #include "game/inv.h"
 #include "game/playermgr.h"
 #include "game/bg.h"
-#include "game/game_1655c0.h"
+#include "game/stagetable.h"
 #include "game/file.h"
 #include "game/lv.h"
 #include "game/mplayer/scenarios.h"

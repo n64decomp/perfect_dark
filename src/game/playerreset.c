@@ -12,7 +12,7 @@
 #include "game/bondgun.h"
 #include "game/player.h"
 #include "game/inv.h"
-#include "game/game_1655c0.h"
+#include "game/stagetable.h"
 #include "game/mplayer/scenarios.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"

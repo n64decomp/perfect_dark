@@ -19,7 +19,7 @@
 #include "game/game_1531a0.h"
 #include "game/bg.h"
 #include "game/game_165360.h"
-#include "game/game_1655c0.h"
+#include "game/stagetable.h"
 #include "game/env.h"
 #include "game/game_1668e0.h"
 #include "game/file.h"

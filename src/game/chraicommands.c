@@ -27,7 +27,7 @@
 #include "game/smoke.h"
 #include "game/weather.h"
 #include "game/bg.h"
-#include "game/game_1655c0.h"
+#include "game/stagetable.h"
 #include "game/game_165670.h"
 #include "game/env.h"
 #include "game/lv.h"

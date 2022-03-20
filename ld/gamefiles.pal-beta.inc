@@ -187,7 +187,7 @@
 	build/ROMID/game/bg.o (section); \
 	build/ROMID/game/bgbss.o (section); \
 	build/ROMID/game/game_165360.o (section); \
-	build/ROMID/game/game_1655c0.o (section); \
+	build/ROMID/game/stagetable.o (section); \
 	build/ROMID/game/game_165670.o (section); \
 	build/ROMID/game/env.o (section); \
 	build/ROMID/game/game_1668e0.o (section); \
@@ -204,6 +204,7 @@
 	build/ROMID/game/game_175f90.o (section); \
 	build/ROMID/game/stubs/game_176000.o (section); \
 	build/ROMID/game/game_176080.o (section); \
+	build/ROMID/game/stagemusic.o (section); \
 	build/ROMID/game/utils.o (section); \
 	build/ROMID/game/mplayer/ingame.o (section); \
 	build/ROMID/game/mplayer/setup.o (section); \

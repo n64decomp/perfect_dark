@@ -11,7 +11,7 @@
 #include "game/inv.h"
 #include "game/mplayer/ingame.h"
 #include "game/playermgr.h"
-#include "game/game_1655c0.h"
+#include "game/stagetable.h"
 #include "game/lang.h"
 #include "game/options.h"
 #include "game/propobj.h"

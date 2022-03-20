@@ -14,7 +14,7 @@
 #include "game/mainmenu.h"
 #include "game/filemgr.h"
 #include "game/endscreen.h"
-#include "game/game_1655c0.h"
+#include "game/stagetable.h"
 #include "game/lv.h"
 #include "game/mplayer/ingame.h"
 #include "game/game_19aa80.h"
