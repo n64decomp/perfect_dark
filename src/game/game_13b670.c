@@ -21,7 +21,7 @@ u32 var800a4194;
 u32 var800a4198;
 u32 var800a419c;
 
-u32 var8007f6e0 = 0xffffffff;
+s32 var8007f6e0 = -1;
 u32 var8007f6e4 = 0xffffffff;
 u32 var8007f6e8 = 0x00000000;
 u32 var8007f6ec = 0x00000000;
@@ -1091,11 +1091,7 @@ glabel func0f13c3f4
 /*  f13c4ec:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f13c4f0
-/*  f13c4f0:	3c028008 */ 	lui	$v0,%hi(var8007f6e0)
-/*  f13c4f4:	8c42f6e0 */ 	lw	$v0,%lo(var8007f6e0)($v0)
-/*  f13c4f8:	284e0000 */ 	slti	$t6,$v0,0x0
-/*  f13c4fc:	03e00008 */ 	jr	$ra
-/*  f13c500:	39c20001 */ 	xori	$v0,$t6,0x1
-);
+bool func0f13c4f0(void)
+{
+	return var8007f6e0 >= 0;
+}
