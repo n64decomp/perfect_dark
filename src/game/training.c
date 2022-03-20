@@ -64,45 +64,20 @@ bool ciIsTourDone(void)
 	return gamefileHasFlag(GAMEFILEFLAG_CI_TOUR_DONE);
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel ciGetFiringRangeScore
-/*  f19d310:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19d314:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19d318:	00802825 */ 	move	$a1,$a0
-/*  f19d31c:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f19d320:	0fc67598 */ 	jal	frGetWeaponIndexByWeapon
-/*  f19d324:	2404001a */ 	li	$a0,0x1a
-/*  f19d328:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f19d32c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19d330:	3c0f800a */ 	lui	$t7,0x800a
-/*  f19d334:	14450003 */ 	bne	$v0,$a1,.JF0f19d344
-/*  f19d338:	00057083 */ 	sra	$t6,$a1,0x2
-/*  f19d33c:	1000000b */ 	b	.JF0f19d36c
-/*  f19d340:	24020003 */ 	li	$v0,0x3
-.JF0f19d344:
-/*  f19d344:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f19d348:	91ef29cc */ 	lbu	$t7,0x29cc($t7)
-/*  f19d34c:	04a10004 */ 	bgez	$a1,.JF0f19d360
-/*  f19d350:	30b80003 */ 	andi	$t8,$a1,0x3
-/*  f19d354:	13000002 */ 	beqz	$t8,.JF0f19d360
-/*  f19d358:	00000000 */ 	nop
-/*  f19d35c:	2718fffc */ 	addiu	$t8,$t8,-4
-.JF0f19d360:
-/*  f19d360:	0018c840 */ 	sll	$t9,$t8,0x1
-/*  f19d364:	032f4007 */ 	srav	$t0,$t7,$t9
-/*  f19d368:	31020003 */ 	andi	$v0,$t0,0x3
-.JF0f19d36c:
-/*  f19d36c:	03e00008 */ 	jr	$ra
-/*  f19d370:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
-#else
 u8 ciGetFiringRangeScore(s32 weaponindex)
 {
 	// Data at firingrangescores is a u8 array where each score uses 2 bits
+
+#if VERSION == VERSION_JPN_FINAL
+	if (weaponindex == frGetWeaponIndexByWeapon(WEAPON_COMBATKNIFE)) {
+		// The knife doesn't exist in the JPN version.
+		// Treat it as completed so unlockables still work.
+		return 3;
+	}
+#endif
+
 	return (g_GameFile.firingrangescores[weaponindex >> 2] >> (weaponindex % 4) * 2) & 3;
 }
-#endif
 
 void frSaveScoreIfBest(s32 weaponindex, s32 difficulty)
 {
