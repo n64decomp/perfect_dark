@@ -1158,13 +1158,13 @@ glabel var7f1b5584
 /*  f12acc8:	8fbe0050 */ 	lw	$s8,0x50($sp)
 /*  f12accc:	03e00008 */ 	jr	$ra
 /*  f12acd0:	27bd0160 */ 	addiu	$sp,$sp,0x160
-/*  f12acd4:	24020006 */ 	addiu	$v0,$zero,0x6
-/*  f12acd8:	3c018008 */ 	lui	$at,%hi(var8007e4a0)
-/*  f12acdc:	ac22e4a0 */ 	sw	$v0,%lo(var8007e4a0)($at)
-/*  f12ace0:	3c018008 */ 	lui	$at,%hi(var8007e4a4)
-/*  f12ace4:	03e00008 */ 	jr	$ra
-/*  f12ace8:	ac22e4a4 */ 	sw	$v0,%lo(var8007e4a4)($at)
 );
+
+void explosion0f12acd4(void)
+{
+	var8007e4a0 = 6;
+	var8007e4a4 = 6;
+}
 
 void explosionsUpdateShake(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
