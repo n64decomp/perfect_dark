@@ -1671,6 +1671,7 @@ s32 menuhandlerBuddyOptionsContinue(s32 operation, struct menuitem *item, union 
 	return 0;
 }
 
+#if VERSION >= VERSION_NTSC_1_0
 s32 getMaxAiBuddies(void)
 {
 	u32 stack;
@@ -1702,6 +1703,7 @@ s32 getMaxAiBuddies(void)
 
 	return max;
 }
+#endif
 
 s32 menudialogCoopAntiOptions(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {

@@ -5125,7 +5125,7 @@ glabel var7f1a8944
  * each pointer found, the vertices at that offset in the table are adjusted
  * randomly. Lastly, every colour in the node's colour table is darkened.
  */
-void chrDisfigure(struct chrdata *chr, u32 arg1, u32 arg2)
+void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 {
 	struct modelnode *node;
 	struct modelrodata_dl *rodata;

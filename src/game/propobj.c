@@ -497,7 +497,7 @@ bool objCanPickupFromSafe(struct defaultobj *obj)
 	return true;
 }
 
-void objUpdateLinkedScenery(struct defaultobj *obj, s32 arg1)
+void objUpdateLinkedScenery(struct defaultobj *obj, struct prop *arg1)
 {
 	if ((obj->hidden & OBJHFLAG_CONDITIONALSCENERY) && (obj->flags & OBJFLAG_INVINCIBLE) == 0) {
 		struct linksceneryobj *link = g_LinkedScenery;
@@ -5779,7 +5779,7 @@ glabel var7f1aa1fc
 );
 #endif
 
-void func0f06a170(struct defaultobj *obj, s32 arg1)
+void func0f06a170(struct defaultobj *obj, struct prop *arg1)
 {
 	struct model *model = obj->model;
 	s32 i;
