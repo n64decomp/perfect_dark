@@ -794,27 +794,27 @@
 #define DROPTYPE_5            5
 #define DROPTYPE_OWNERREAP    6
 
-#define EXPLOSIONTYPE_0  0
-#define EXPLOSIONTYPE_1  1
-#define EXPLOSIONTYPE_2  2
-#define EXPLOSIONTYPE_3  3
-#define EXPLOSIONTYPE_4  4
-#define EXPLOSIONTYPE_5  5
-#define EXPLOSIONTYPE_6  6
-#define EXPLOSIONTYPE_7  7
-#define EXPLOSIONTYPE_8  8
-#define EXPLOSIONTYPE_9  9
-#define EXPLOSIONTYPE_11 11
-#define EXPLOSIONTYPE_12 12
-#define EXPLOSIONTYPE_13 13
-#define EXPLOSIONTYPE_14 14
-#define EXPLOSIONTYPE_16 16
-#define EXPLOSIONTYPE_17 17
-#define EXPLOSIONTYPE_18 18
-#define EXPLOSIONTYPE_21 21
-#define EXPLOSIONTYPE_22 22
-#define EXPLOSIONTYPE_23 23
-#define EXPLOSIONTYPE_25 25
+#define EXPLOSIONTYPE_NONE          0
+#define EXPLOSIONTYPE_BULLETHOLE    1
+#define EXPLOSIONTYPE_EYESPY        2
+#define EXPLOSIONTYPE_LAPTOP        3
+#define EXPLOSIONTYPE_A51TABLE      4
+#define EXPLOSIONTYPE_FRTARGET      5
+#define EXPLOSIONTYPE_6             6
+#define EXPLOSIONTYPE_7             7
+#define EXPLOSIONTYPE_8             8
+#define EXPLOSIONTYPE_9             9
+#define EXPLOSIONTYPE_11            11
+#define EXPLOSIONTYPE_12            12
+#define EXPLOSIONTYPE_ROCKET        13
+#define EXPLOSIONTYPE_GASBARREL     14
+#define EXPLOSIONTYPE_16            16
+#define EXPLOSIONTYPE_HUGE17        17
+#define EXPLOSIONTYPE_BONDEXPLODE   18
+#define EXPLOSIONTYPE_SDGRENADE     21
+#define EXPLOSIONTYPE_PHOENIX       22
+#define EXPLOSIONTYPE_DRAGONBOMBSPY 23 // Used by both Dragon and bombspy
+#define EXPLOSIONTYPE_HUGE25        25
 
 #define EYESPYHIT_NONE  0
 #define EYESPYHIT_BG    1
@@ -2992,6 +2992,7 @@
 #define OBJFLAG2_AICANNOTUSE       0x20000000
 #define OBJFLAG2_AIRLOCKDOOR       0x40000000 // Door waits for sibling to close before it can open
 #define OBJFLAG2_80000000          0x80000000 // Attack Ship glass
+#define OBJFLAG2_WEAPON_HUGEEXP    0x80000000
 
 // obj->flags3
 #define OBJFLAG3_PUSHABLE           0x00000001

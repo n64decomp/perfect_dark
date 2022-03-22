@@ -3049,7 +3049,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 
 			explosionCreateSimple(g_Vars.currentplayer->eyespy->prop,
 					&g_Vars.currentplayer->eyespy->prop->pos,
-					g_Vars.currentplayer->eyespy->prop->rooms, EXPLOSIONTYPE_2, 0);
+					g_Vars.currentplayer->eyespy->prop->rooms, EXPLOSIONTYPE_EYESPY, 0);
 			invRemoveItemByNum(WEAPON_EYESPY);
 
 			func0f0926bc(g_Vars.currentplayer->eyespy->prop, 1, 0xffff);
@@ -19043,7 +19043,7 @@ glabel var7f1a9184
 //								func0f065e74(&gunpos, gunrooms, &hitpos, hitrooms);
 //							}
 //
-//							explosionCreateSimple(0, &hitpos, hitrooms, EXPLOSIONTYPE_22, playernum);
+//							explosionCreateSimple(0, &hitpos, hitrooms, EXPLOSIONTYPE_PHOENIX, playernum);
 //						}
 //					}
 //				}

@@ -1275,7 +1275,7 @@ Gfx *lvRender(Gfx *gdl)
 						explosionCreateSimple(g_Vars.currentplayer->eyespy->prop,
 								&g_Vars.currentplayer->eyespy->prop->pos,
 								g_Vars.currentplayer->eyespy->prop->rooms,
-								EXPLOSIONTYPE_23, 0);
+								EXPLOSIONTYPE_DRAGONBOMBSPY, 0);
 						chrBeginDeath(g_Vars.currentplayer->eyespy->prop->chr, &vel, 0, 0, &gset, false, 0);
 					}
 				}

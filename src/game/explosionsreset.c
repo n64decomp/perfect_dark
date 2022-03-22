@@ -10,8 +10,8 @@ void explosionsReset(void)
 	s32 i;
 	s32 j;
 
-	var8007e4a0 = 0;
-	var8007e4a4 = 0;
+	g_ExplosionShakeTotalTimer = 0;
+	g_ExplosionShakeIntensityTimer = 0;
 	g_ExplosionDamageReceivedScale = 1;
 
 	g_MaxExplosions = 6;

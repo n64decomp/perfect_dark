@@ -4711,9 +4711,9 @@ struct explosionpart {
 	u8 bb;
 };
 
-struct explosionbb { // billboards?
-	struct coord unk00;
-	struct coord unk0c;
+struct explosionbb {
+	struct coord bbmin;
+	struct coord bbmax;
 	s16 room;
 	s16 room2;
 };

@@ -10,7 +10,7 @@ void explosionsStop(void)
 {
 	s32 i;
 
-	var8007e4a0 = 0;
+	g_ExplosionShakeTotalTimer = 0;
 	viShake(0);
 
 	if (g_Explosions) {

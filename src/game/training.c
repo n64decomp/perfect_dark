@@ -9088,7 +9088,7 @@ glabel var7f1b94e4
 //				g_FrData.targetsdestroyed++;
 //
 //				if (g_FrData.targets[i].flags & FRTARGETFLAG_ONEHITEXPLODE) {
-//					explosionCreateSimple(g_FrData.targets[i].prop, &g_FrData.targets[i].prop->pos, g_FrData.targets[i].prop->rooms, EXPLOSIONTYPE_5, 1);
+//					explosionCreateSimple(g_FrData.targets[i].prop, &g_FrData.targets[i].prop->pos, g_FrData.targets[i].prop->rooms, EXPLOSIONTYPE_FRTARGET, 1);
 //				}
 //
 //				// 210

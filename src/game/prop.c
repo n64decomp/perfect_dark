@@ -803,7 +803,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 					sp8c.z = shotdata.hits[i].pos.z;
 
 					func0f065e74(&root->pos, root->rooms, &sp8c, sp7c);
-					explosionCreateSimple(0, &sp8c, sp7c, EXPLOSIONTYPE_22, g_Vars.currentplayernum);
+					explosionCreateSimple(0, &sp8c, sp7c, EXPLOSIONTYPE_PHOENIX, g_Vars.currentplayernum);
 				}
 			}
 		}
@@ -848,7 +848,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 				bgunPlayBgHitSound(&shotdata.gset, &sp694.unk00, sp694.texturenum, sp6c);
 
 				if (explosiveshells) {
-					explosionCreateSimple(NULL, &sp694.unk00, sp6c, EXPLOSIONTYPE_22, g_Vars.currentplayernum);
+					explosionCreateSimple(NULL, &sp694.unk00, sp6c, EXPLOSIONTYPE_PHOENIX, g_Vars.currentplayernum);
 				} else {
 					if (!chrIsUsingPaintball(g_Vars.currentplayer->prop->chr)) {
 						if (PLAYERCOUNT() >= 2) {
@@ -857,7 +857,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 							}
 						} else {
 							if (uVar6) {
-								explosionCreateSimple(NULL, &sp694.unk00, sp6c, EXPLOSIONTYPE_1, g_Vars.currentplayernum);
+								explosionCreateSimple(NULL, &sp694.unk00, sp6c, EXPLOSIONTYPE_BULLETHOLE, g_Vars.currentplayernum);
 							}
 						}
 					}

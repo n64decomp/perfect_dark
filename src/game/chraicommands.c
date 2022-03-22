@@ -2282,7 +2282,7 @@ bool aiDestroyObject(void)
 
 		if (entity->modelnum == MODEL_ELVIS_SAUCER) {
 			obj->flags = (obj->flags & ~OBJFLAG_00010000) | OBJFLAG_INVINCIBLE;
-			explosionCreateSimple(entity->prop, &entity->prop->pos, entity->prop->rooms, EXPLOSIONTYPE_3, 0);
+			explosionCreateSimple(entity->prop, &entity->prop->pos, entity->prop->rooms, EXPLOSIONTYPE_LAPTOP, 0);
 			smokeCreateAtProp(entity->prop, SMOKETYPE_UFO);
 		} else {
 			f32 damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;

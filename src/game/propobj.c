@@ -17774,9 +17774,9 @@ glabel var7f1aa2c4
 //				propUnsetDangerous(prop);
 //
 //				if (weapon->gunfunc == FUNC_2) {
-//					propExplode(prop, EXPLOSIONTYPE_21);
+//					propExplode(prop, EXPLOSIONTYPE_SDGRENADE);
 //				} else {
-//					propExplode(prop, (obj->flags2 & OBJFLAG2_80000000) ? EXPLOSIONTYPE_17 : EXPLOSIONTYPE_13);
+//					propExplode(prop, (obj->flags2 & OBJFLAG2_WEAPON_HUGEEXP) ? EXPLOSIONTYPE_HUGE17 : EXPLOSIONTYPE_ROCKET);
 //				}
 //
 //				obj->hidden |= OBJHFLAG_REAPABLE;
@@ -17829,7 +17829,7 @@ glabel var7f1aa2c4
 //		// a98
 //		// Handle rockets
 //		if (weapon->timer240 == 0) {
-//			propExplode(prop, (obj->flags2 & OBJFLAG2_80000000) ? EXPLOSIONTYPE_17 : EXPLOSIONTYPE_13);
+//			propExplode(prop, (obj->flags2 & OBJFLAG2_WEAPON_HUGEEXP) ? EXPLOSIONTYPE_HUGE17 : EXPLOSIONTYPE_ROCKET);
 //
 //			obj->hidden |= OBJHFLAG_REAPABLE;
 //
@@ -17847,7 +17847,7 @@ glabel var7f1aa2c4
 //			weapon->timer240 -= g_Vars.lvupdate240;
 //
 //			if (weapon->timer240 < 0) {
-//				if (propExplode(prop, (obj->flags2 & OBJFLAG2_80000000) ? EXPLOSIONTYPE_17 : EXPLOSIONTYPE_13)) {
+//				if (propExplode(prop, (obj->flags2 & OBJFLAG2_WEAPON_HUGEEXP) ? EXPLOSIONTYPE_HUGE17 : EXPLOSIONTYPE_ROCKET)) {
 //					weapon->timer240 = -1;
 //					obj->hidden |= OBJHFLAG_REAPABLE;
 //				}
@@ -17900,10 +17900,10 @@ glabel var7f1aa2c4
 //			}
 //		} else if (weapon->timer240 == 0) {
 //			// Mine was damaged or timer was set to 0 above
-//			exptype = EXPLOSIONTYPE_13;
+//			exptype = EXPLOSIONTYPE_ROCKET;
 //
-//			if (obj->flags2 & OBJFLAG2_80000000) {
-//				exptype = EXPLOSIONTYPE_17;
+//			if (obj->flags2 & OBJFLAG2_WEAPON_HUGEEXP) {
+//				exptype = EXPLOSIONTYPE_HUGE17;
 //			}
 //
 //			if (propExplode(prop, exptype)) {
@@ -17964,12 +17964,12 @@ glabel var7f1aa2c4
 //				}
 //			} else {
 //				// Regular explosive
-//				exptype = EXPLOSIONTYPE_13;
+//				exptype = EXPLOSIONTYPE_ROCKET;
 //
-//				if (obj->flags2 & OBJFLAG2_80000000) {
-//					exptype = EXPLOSIONTYPE_17;
+//				if (obj->flags2 & OBJFLAG2_WEAPON_HUGEEXP) {
+//					exptype = EXPLOSIONTYPE_HUGE17;
 //				} else if (weapon->weaponnum == WEAPON_DRAGON) {
-//					exptype = EXPLOSIONTYPE_23;
+//					exptype = EXPLOSIONTYPE_DRAGONBOMBSPY;
 //				}
 //
 //				if (propExplode(prop, exptype)) {
@@ -58227,7 +58227,7 @@ glabel var7f1aa698
 //
 //			func0f0926bc(chopperprop, 1, 0xffff);
 //
-//			explosionCreate(NULL, &chopperprop->pos, chopperprop->rooms, EXPLOSIONTYPE_13,
+//			explosionCreate(NULL, &chopperprop->pos, chopperprop->rooms, EXPLOSIONTYPE_ROCKET,
 //					0, true, &sp98, room, &sp74);
 //
 //			chopper->dead = true;
@@ -78882,9 +78882,9 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 
 		if (laptop->base.prop) {
 #if VERSION >= VERSION_NTSC_1_0
-			explosionCreateSimple(NULL, &laptop->base.prop->pos, laptop->base.prop->rooms, EXPLOSIONTYPE_3, index);
+			explosionCreateSimple(NULL, &laptop->base.prop->pos, laptop->base.prop->rooms, EXPLOSIONTYPE_LAPTOP, index);
 #else
-			explosionCreateSimple(NULL, &laptop->base.prop->pos, laptop->base.prop->rooms, EXPLOSIONTYPE_3, 0);
+			explosionCreateSimple(NULL, &laptop->base.prop->pos, laptop->base.prop->rooms, EXPLOSIONTYPE_LAPTOP, 0);
 #endif
 			objFreePermanently(&laptop->base, true);
 		}

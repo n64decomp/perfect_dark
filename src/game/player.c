@@ -2953,7 +2953,7 @@ void playerTickExplode(void)
 
 		pos.y += 200.0f * (random() * (1.0f / U32_MAX)) - 100.0f;
 
-		explosionCreateSimple(NULL, &pos, g_Vars.currentplayer->prop->rooms, EXPLOSIONTYPE_18, g_Vars.currentplayernum);
+		explosionCreateSimple(NULL, &pos, g_Vars.currentplayer->prop->rooms, EXPLOSIONTYPE_BONDEXPLODE, g_Vars.currentplayernum);
 
 		g_Vars.currentplayer->bondnextexplode = g_Vars.lvframe60 + TICKS(15) + (random() % TICKS(15));
 	}
