@@ -2553,7 +2553,7 @@ void bwalkUpdateVertical(void)
 			chr->floortype = g_Vars.currentplayer->floortype;
 			chr->footstep = 1;
 
-			sound = chrChooseFootstepSound(chr, true);
+			sound = footstepChooseSound(chr, true);
 
 			if (sound != -1) {
 				if (sound != -1) {
@@ -2562,7 +2562,7 @@ void bwalkUpdateVertical(void)
 				}
 
 				chr->footstep = 2;
-				sound = chrChooseFootstepSound(chr, true);
+				sound = footstepChooseSound(chr, true);
 
 				if (sound != -1) {
 					func0f0939f8(NULL, g_Vars.currentplayer->prop, sound,
@@ -3322,7 +3322,7 @@ glabel var7f1a7b20nb
 /*  f0c3504:	a0980191 */ 	sb	$t8,0x191($a0)
 /*  f0c3508:	a0990190 */ 	sb	$t9,0x190($a0)
 /*  f0c350c:	afa300ec */ 	sw	$v1,0xec($sp)
-/*  f0c3510:	0fc01771 */ 	jal	chrChooseFootstepSound
+/*  f0c3510:	0fc01771 */ 	jal	footstepChooseSound
 /*  f0c3514:	afa40070 */ 	sw	$a0,0x70($sp)
 /*  f0c3518:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f0c351c:	10410043 */ 	beq	$v0,$at,.NB0f0c362c
@@ -3360,7 +3360,7 @@ glabel var7f1a7b20nb
 /*  f0c3598:	240e0002 */ 	addiu	$t6,$zero,0x2
 /*  f0c359c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0c35a0:	a08e0190 */ 	sb	$t6,0x190($a0)
-/*  f0c35a4:	0fc01771 */ 	jal	chrChooseFootstepSound
+/*  f0c35a4:	0fc01771 */ 	jal	footstepChooseSound
 /*  f0c35a8:	afa300ec */ 	sw	$v1,0xec($sp)
 /*  f0c35ac:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f0c35b0:	1041001e */ 	beq	$v0,$at,.NB0f0c362c

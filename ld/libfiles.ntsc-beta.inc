@@ -60,7 +60,7 @@
 	build/ROMID/lib/path.o (section); \
 	build/ROMID/lib/modelasm.o (section); \
 	build/ROMID/lib/model.o (section); \
-	build/ROMID/game/game_1a7560.o (section); \
+	build/ROMID/game/modeldef.o (section); \
 	build/ROMID/lib/anim.o (section); \
 	build/ROMID/lib/collision.o (section); \
 	build/ROMID/lib/lib_2f490.o (section); \

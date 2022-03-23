@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_013ee0.h"
 #include "game/bondhead.h"
 #include "game/bg.h"
 #include "game/pad.h"

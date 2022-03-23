@@ -1,13 +1,13 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/cheats.h"
-#include "game/game_00c490.h"
+#include "game/setup.h"
 #include "game/title.h"
-#include "game/game_01b0a0.h"
+#include "game/pdmode.h"
 #include "game/objectives.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
-#include "game/game_0b3350.h"
+#include "game/tex.h"
 #include "game/player.h"
 #include "game/menu.h"
 #include "game/mainmenu.h"
@@ -16,7 +16,7 @@
 #include "game/game_1531a0.h"
 #include "game/lv.h"
 #include "game/mplayer/ingame.h"
-#include "game/game_19aa80.h"
+#include "game/challenge.h"
 #include "game/training.h"
 #include "game/gamefile.h"
 #include "game/lang.h"
@@ -2693,7 +2693,7 @@ glabel var7f1b2dfc
 /*  f104d1c:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f104d20:	02002025 */ 	or	$a0,$s0,$zero
 /*  f104d24:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f104d28:	0fc2ce70 */ 	jal	func0f0b39c0
+/*  f104d28:	0fc2ce70 */ 	jal	tex0f0b39c0
 /*  f104d2c:	00003825 */ 	or	$a3,$zero,$zero
 /*  f104d30:	8faf0138 */ 	lw	$t7,0x138($sp)
 /*  f104d34:	8faa0134 */ 	lw	$t2,0x134($sp)
@@ -2826,7 +2826,7 @@ glabel var7f1b2dfc
 /*  f104f28:	00003825 */ 	or	$a3,$zero,$zero
 /*  f104f2c:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f104f30:	afaa0134 */ 	sw	$t2,0x134($sp)
-/*  f104f34:	0fc2ce70 */ 	jal	func0f0b39c0
+/*  f104f34:	0fc2ce70 */ 	jal	tex0f0b39c0
 /*  f104f38:	24a501b0 */ 	addiu	$a1,$a1,0x1b0
 /*  f104f3c:	8fb80138 */ 	lw	$t8,0x138($sp)
 /*  f104f40:	8faa0134 */ 	lw	$t2,0x134($sp)
@@ -2990,7 +2990,7 @@ glabel var7f1b2dfc
 /*  f1051a0:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f1051a4:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f1051a8:	afaa0134 */ 	sw	$t2,0x134($sp)
-/*  f1051ac:	0fc2ce70 */ 	jal	func0f0b39c0
+/*  f1051ac:	0fc2ce70 */ 	jal	tex0f0b39c0
 /*  f1051b0:	24a50198 */ 	addiu	$a1,$a1,0x198
 /*  f1051b4:	8fb90138 */ 	lw	$t9,0x138($sp)
 /*  f1051b8:	8faa0134 */ 	lw	$t2,0x134($sp)
@@ -3696,7 +3696,7 @@ glabel var7f1ad0fcnb
 /*  f100b1c:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f100b20:	02002025 */ 	or	$a0,$s0,$zero
 /*  f100b24:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f100b28:	0fc2c5c8 */ 	jal	func0f0b39c0
+/*  f100b28:	0fc2c5c8 */ 	jal	tex0f0b39c0
 /*  f100b2c:	00003825 */ 	or	$a3,$zero,$zero
 /*  f100b30:	8faf0130 */ 	lw	$t7,0x130($sp)
 /*  f100b34:	8faa012c */ 	lw	$t2,0x12c($sp)
@@ -3815,7 +3815,7 @@ glabel var7f1ad0fcnb
 /*  f100cf0:	00003825 */ 	or	$a3,$zero,$zero
 /*  f100cf4:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f100cf8:	afaa012c */ 	sw	$t2,0x12c($sp)
-/*  f100cfc:	0fc2c5c8 */ 	jal	func0f0b39c0
+/*  f100cfc:	0fc2c5c8 */ 	jal	tex0f0b39c0
 /*  f100d00:	24a501b0 */ 	addiu	$a1,$a1,0x1b0
 /*  f100d04:	8fae0130 */ 	lw	$t6,0x130($sp)
 /*  f100d08:	8faa012c */ 	lw	$t2,0x12c($sp)
@@ -3965,7 +3965,7 @@ glabel var7f1ad0fcnb
 /*  f100f30:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f100f34:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f100f38:	afaa012c */ 	sw	$t2,0x12c($sp)
-/*  f100f3c:	0fc2c5c8 */ 	jal	func0f0b39c0
+/*  f100f3c:	0fc2c5c8 */ 	jal	tex0f0b39c0
 /*  f100f40:	24a50198 */ 	addiu	$a1,$a1,0x198
 /*  f100f44:	8fae0130 */ 	lw	$t6,0x130($sp)
 /*  f100f48:	8faa012c */ 	lw	$t2,0x12c($sp)
@@ -6184,7 +6184,7 @@ s32 menuhandlerMainMenuCombatSimulator(s32 operation, struct menuitem *item, uni
 		g_Vars.bondplayernum = 0;
 		g_Vars.coopplayernum = -1;
 		g_Vars.antiplayernum = -1;
-		mpDetermineUnlockedFeatures();
+		challengeDetermineUnlockedFeatures();
 		g_Vars.mpsetupmenu = MPSETUPMENU_GENERAL;
 		func0f0f820c(&g_CombatSimulatorMenuDialog, MENUROOT_MPSETUP);
 		func0f0f8300();

@@ -3,10 +3,10 @@
 #include "game/chraction.h"
 #include "game/debug.h"
 #include "game/prop.h"
-#include "game/game_091e10.h"
+#include "game/setuputils.h"
 #include "game/objectives.h"
-#include "game/game_0b3350.h"
-#include "game/game_0b4950.h"
+#include "game/tex.h"
+#include "game/camera.h"
 #include "game/hudmsg.h"
 #include "game/inv.h"
 #include "game/playermgr.h"
@@ -326,7 +326,7 @@ s32 objectiveCheck(s32 index)
 					}
 				}
 
-				cmd = cmd + setupGetCommandLength(cmd);
+				cmd = cmd + setupGetCmdLength(cmd);
 			}
 		}
 	}
@@ -508,14 +508,14 @@ void objectiveCheckHolograph(f32 maxdist)
 					f32 sp70[2];
 					func0f06803c(&sp9c, sp94, sp8c, sp78, sp70);
 
-					if (sp78[0] > currentPlayerGetScreenLeft()
-							&& sp78[0] < currentPlayerGetScreenLeft() + currentPlayerGetScreenWidth()
-							&& sp70[0] > currentPlayerGetScreenLeft()
-							&& sp70[0] < currentPlayerGetScreenLeft() + currentPlayerGetScreenWidth()
-							&& sp78[1] > currentPlayerGetScreenTop()
-							&& sp78[1] < currentPlayerGetScreenTop() + currentPlayerGetScreenHeight()
-							&& sp70[1] > currentPlayerGetScreenTop()
-							&& sp70[1] < currentPlayerGetScreenTop() + currentPlayerGetScreenHeight()) {
+					if (sp78[0] > camGetScreenLeft()
+							&& sp78[0] < camGetScreenLeft() + camGetScreenWidth()
+							&& sp70[0] > camGetScreenLeft()
+							&& sp70[0] < camGetScreenLeft() + camGetScreenWidth()
+							&& sp78[1] > camGetScreenTop()
+							&& sp78[1] < camGetScreenTop() + camGetScreenHeight()
+							&& sp70[1] > camGetScreenTop()
+							&& sp70[1] < camGetScreenTop() + camGetScreenHeight()) {
 						criteria->status = OBJECTIVE_COMPLETE;
 
 						if (g_Vars.stagenum == STAGE_CITRAINING) {
@@ -562,10 +562,10 @@ void objectiveCheckHolograph(f32 maxdist)
 //				if (pass && func0f0899dc(obj->prop, a, b, c))  {
 //					func0f06803c(a, b, c, &fStack56);
 //
-//					if (currentPlayerGetScreenLeft() < fStack56 && fStack56 < currentPlayerGetScreenWidth() + currentPlayerGetScreenLeft() &&
-//							currentPlayerGetScreenLeft() < fStack64 && fStack64 < currentPlayerGetScreenWidth() + currentPlayerGetScreenLeft() &&
-//							currentPlayerGetScreenTop() < fStack52 && fStack52 < currentPlayerGetScreenHeight() + currentPlayerGetScreenTop() &&
-//							currentPlayerGetScreenTop() < fStack60 && fStack60 < currentPlayerGetScreenHeight() + currentPlayerGetScreenTop()) {
+//					if (camGetScreenLeft() < fStack56 && fStack56 < camGetScreenWidth() + camGetScreenLeft() &&
+//							camGetScreenLeft() < fStack64 && fStack64 < camGetScreenWidth() + camGetScreenLeft() &&
+//							camGetScreenTop() < fStack52 && fStack52 < camGetScreenHeight() + camGetScreenTop() &&
+//							camGetScreenTop() < fStack60 && fStack60 < camGetScreenHeight() + camGetScreenTop()) {
 //						criteria->status = OBJECTIVE_COMPLETE;
 //
 //						if (g_Vars.stagenum == STAGE_CITRAINING) {

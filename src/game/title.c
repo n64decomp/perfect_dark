@@ -1,10 +1,9 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/title.h"
-#include "game/game_01afc0.h"
 #include "game/bondgun.h"
 #include "game/game_0b28d0.h"
-#include "game/game_0b3350.h"
+#include "game/tex.h"
 #include "game/inv.h"
 #include "game/playermgr.h"
 #include "game/gfxmemory.h"
@@ -15,7 +14,7 @@
 #include "game/lv.h"
 #include "game/music.h"
 #include "game/training.h"
-#include "game/game_1a7560.h"
+#include "game/modeldef.h"
 #include "game/lang.h"
 #include "game/propobj.h"
 #include "bss.h"
@@ -430,7 +429,7 @@ void titleTickCheckControllers(void)
 Gfx *titleRenderCheckControllers(Gfx *gdl)
 {
 	if (g_TitleTimer > 2 && g_TitleTimer < 6) {
-		gdl = func0f01afc0(gdl);
+		gdl = titleClear(gdl);
 	}
 
 	return gdl;
@@ -577,7 +576,7 @@ glabel var7f1a84fcjf
 /*  f0167b0:	8d8c2664 */ 	lw	$t4,0x2664($t4)
 /*  f0167b4:	518001c9 */ 	beqzl	$t4,.JF0f016edc
 /*  f0167b8:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*  f0167bc:	0fc07058 */ 	jal	func0f01afc0
+/*  f0167bc:	0fc07058 */ 	jal	titleClear
 /*  f0167c0:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0167c4:	afa20130 */ 	sw	$v0,0x130($sp)
 /*  f0167c8:	0fc35617 */ 	jal	func0f0d479c
@@ -730,7 +729,7 @@ glabel var7f1a84fcjf
 /*  f0169fc:	27a40130 */ 	addiu	$a0,$sp,0x130
 /*  f016a00:	24060001 */ 	li	$a2,0x1
 /*  f016a04:	00003825 */ 	move	$a3,$zero
-/*  f016a08:	0fc2d290 */ 	jal	func0f0b39c0
+/*  f016a08:	0fc2d290 */ 	jal	tex0f0b39c0
 /*  f016a0c:	24a50234 */ 	addiu	$a1,$a1,0x234
 /*  f016a10:	8fab0130 */ 	lw	$t3,0x130($sp)
 /*  f016a14:	3c0eba00 */ 	lui	$t6,0xba00
@@ -849,7 +848,7 @@ glabel var7f1a84fcjf
 /*  f016bd4:	27a40130 */ 	addiu	$a0,$sp,0x130
 /*  f016bd8:	24060001 */ 	li	$a2,0x1
 /*  f016bdc:	00003825 */ 	move	$a3,$zero
-/*  f016be0:	0fc2d290 */ 	jal	func0f0b39c0
+/*  f016be0:	0fc2d290 */ 	jal	tex0f0b39c0
 /*  f016be4:	24a5024c */ 	addiu	$a1,$a1,0x24c
 /*  f016be8:	8fb80130 */ 	lw	$t8,0x130($sp)
 /*  f016bec:	3c0eba00 */ 	lui	$t6,0xba00
@@ -1109,7 +1108,7 @@ glabel var7f1aa08cnb
 /*  f0167cc:	8d8c3dec */ 	lw	$t4,0x3dec($t4)
 /*  f0167d0:	5180016f */ 	beqzl	$t4,.PB0f016d90
 /*  f0167d4:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*  f0167d8:	0fc06c14 */ 	jal	func0f01afc0
+/*  f0167d8:	0fc06c14 */ 	jal	titleClear
 /*  f0167dc:	8fa40128 */ 	lw	$a0,0x128($sp)
 /*  f0167e0:	afa20128 */ 	sw	$v0,0x128($sp)
 /*  f0167e4:	0fc5528f */ 	jal	func0f153628
@@ -1254,7 +1253,7 @@ glabel var7f1aa08cnb
 /*  f0169f8:	27a40128 */ 	addiu	$a0,$sp,0x128
 /*  f0169fc:	24060001 */ 	li	$a2,0x1
 /*  f016a00:	00003825 */ 	move	$a3,$zero
-/*  f016a04:	0fc2cf74 */ 	jal	func0f0b39c0
+/*  f016a04:	0fc2cf74 */ 	jal	tex0f0b39c0
 /*  f016a08:	24a50234 */ 	addiu	$a1,$a1,0x234
 /*  f016a0c:	8fab0128 */ 	lw	$t3,0x128($sp)
 /*  f016a10:	3c0eba00 */ 	lui	$t6,0xba00
@@ -1373,7 +1372,7 @@ glabel var7f1aa08cnb
 /*  f016bd0:	27a40128 */ 	addiu	$a0,$sp,0x128
 /*  f016bd4:	24060001 */ 	li	$a2,0x1
 /*  f016bd8:	00003825 */ 	move	$a3,$zero
-/*  f016bdc:	0fc2cf74 */ 	jal	func0f0b39c0
+/*  f016bdc:	0fc2cf74 */ 	jal	tex0f0b39c0
 /*  f016be0:	24a5024c */ 	addiu	$a1,$a1,0x24c
 /*  f016be4:	8fb80128 */ 	lw	$t8,0x128($sp)
 /*  f016be8:	3c0eba00 */ 	lui	$t6,0xba00
@@ -1514,7 +1513,7 @@ Gfx *titleRenderLegal(Gfx *gdl)
 	struct font *font2;
 
 	if (g_LegalEnabled) {
-		gdl = func0f01afc0(gdl);
+		gdl = titleClear(gdl);
 		gdl = func0f153628(gdl);
 
 		elem = g_LegalElements;
@@ -1578,7 +1577,7 @@ Gfx *titleRenderLegal(Gfx *gdl)
 				gDPSetTextureLOD(gdl++, G_TL_TILE);
 				gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-				func0f0b39c0(&gdl, &g_TexGeneralConfigs[47], 1, 0, 2, 1, 0);
+				tex0f0b39c0(&gdl, &g_TexGeneralConfigs[47], 1, 0, 2, 1, 0);
 
 				gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 				gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -1601,7 +1600,7 @@ Gfx *titleRenderLegal(Gfx *gdl)
 				gDPSetTextureLOD(gdl++, G_TL_TILE);
 				gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-				func0f0b39c0(&gdl, &g_TexGeneralConfigs[49], 1, 0, 2, 1, 0);
+				tex0f0b39c0(&gdl, &g_TexGeneralConfigs[49], 1, 0, 2, 1, 0);
 
 				gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 				gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -9614,7 +9613,7 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 	s32 y;
 	s32 colourcomponent = 255;
 
-	gdl = func0f01afc0(gdl);
+	gdl = titleClear(gdl);
 	gdl = func0f153628(gdl);
 
 	x = viGetViewLeft() + 50;
@@ -9754,7 +9753,7 @@ Gfx *titleRenderNintendoLogo(Gfx *gdl)
 	struct coord spf8 = {0, 0, 0};
 	s32 v0;
 
-	gdl = func0f01afc0(gdl);
+	gdl = titleClear(gdl);
 
 	gSPSetLights1(gdl++, var80062590);
 
@@ -9934,7 +9933,7 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 
 	static f32 var80062920 = 0;
 
-	gdl = func0f01afc0(gdl);
+	gdl = titleClear(gdl);
 
 	if (g_TitleTimer < 0) {
 		return gdl;
@@ -10166,7 +10165,7 @@ glabel titleRenderNoController
 /*  f01b2f8:	00808825 */ 	move	$s1,$a0
 /*  f01b2fc:	0c004ff9 */ 	jal	joyGetConnectedControllers
 /*  f01b300:	afb00034 */ 	sw	$s0,0x34($sp)
-/*  f01b304:	0fc07058 */ 	jal	func0f01afc0
+/*  f01b304:	0fc07058 */ 	jal	titleClear
 /*  f01b308:	02202025 */ 	move	$a0,$s1
 /*  f01b30c:	0fc54b55 */ 	jal	func0f153628
 /*  f01b310:	00402025 */ 	move	$a0,$v0
@@ -10377,7 +10376,7 @@ glabel titleRenderNoController
 /*  f01a518:	afb00038 */ 	sw	$s0,0x38($sp)
 /*  f01a51c:	0c005013 */ 	jal	joyGetConnectedControllers
 /*  f01a520:	00808025 */ 	or	$s0,$a0,$zero
-/*  f01a524:	0fc06bf0 */ 	jal	func0f01afc0
+/*  f01a524:	0fc06bf0 */ 	jal	titleClear
 /*  f01a528:	02002025 */ 	or	$a0,$s0,$zero
 /*  f01a52c:	0fc54d8a */ 	jal	func0f153628
 /*  f01a530:	00402025 */ 	or	$a0,$v0,$zero
@@ -10582,7 +10581,7 @@ glabel titleRenderNoController
 //	// This was likely printed to console
 //	joyGetConnectedControllers();
 //
-//	gdl = func0f01afc0(gdl);
+//	gdl = titleClear(gdl);
 //	gdl = func0f153628(gdl);
 //
 //	// First line
@@ -10656,7 +10655,7 @@ glabel titleRenderNoExpansion
 /*  f01b6a8:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f01b6ac:	0c004ff9 */ 	jal	joyGetConnectedControllers
 /*  f01b6b0:	afa40060 */ 	sw	$a0,0x60($sp)
-/*  f01b6b4:	0fc07058 */ 	jal	func0f01afc0
+/*  f01b6b4:	0fc07058 */ 	jal	titleClear
 /*  f01b6b8:	8fa40060 */ 	lw	$a0,0x60($sp)
 /*  f01b6bc:	0fc54b55 */ 	jal	func0f153628
 /*  f01b6c0:	00402025 */ 	move	$a0,$v0
@@ -10828,7 +10827,7 @@ glabel titleRenderNoExpansion
 //
 //	joyGetConnectedControllers();
 //
-//	gdl = func0f01afc0(gdl);
+//	gdl = titleClear(gdl);
 //	gdl = func0f153628(gdl);
 //
 //	x = 50;

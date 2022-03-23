@@ -9,5 +9,6 @@ void func0f0069dc(void);
 f32 func0f006b08(f32 arg0);
 f32 func0f006b54(f32 arg0);
 f32 func0f006ba0(f32 arg0);
+f32 func0f006bd0(f32 arg0);
 
 #endif

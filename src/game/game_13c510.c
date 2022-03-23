@@ -3,13 +3,12 @@
 #include "constants.h"
 #include "game/dlights.h"
 #include "game/game_0b2150.h"
-#include "game/game_0b3350.h"
-#include "game/game_11f000.h"
+#include "game/tex.h"
+#include "game/sky.h"
 #include "game/game_13c510.h"
 #include "game/bg.h"
 #include "game/stagetable.h"
-#include "game/game_165670.h"
-#include "game/game_1668e0.h"
+#include "game/room.h"
 #include "bss.h"
 #include "lib/vi.h"
 #include "lib/mtx.h"
@@ -316,14 +315,14 @@ glabel func0f13c780
 /*  f13c854:	afab00c0 */ 	sw	$t3,0xc0($sp)
 /*  f13c858:	afa601c0 */ 	sw	$a2,0x1c0($sp)
 /*  f13c85c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f13c860:	0fc59a9b */ 	jal	func0f166a6c
+/*  f13c860:	0fc59a9b */ 	jal	room0f166a6c
 /*  f13c864:	018d8821 */ 	addu	$s1,$t4,$t5
 /*  f13c868:	0fc5722e */ 	jal	currentPlayerGetScaleBg2Gfx
 /*  f13c86c:	00000000 */ 	nop
 /*  f13c870:	46000306 */ 	mov.s	$f12,$f0
 /*  f13c874:	0c0057e2 */ 	jal	mtx00015f88
 /*  f13c878:	02002825 */ 	or	$a1,$s0,$zero
-/*  f13c87c:	0fc2d3f2 */ 	jal	currentPlayerGetUnk006c
+/*  f13c87c:	0fc2d3f2 */ 	jal	camGetUnk006c
 /*  f13c880:	00000000 */ 	nop
 /*  f13c884:	00402025 */ 	or	$a0,$v0,$zero
 /*  f13c888:	02002825 */ 	or	$a1,$s0,$zero
@@ -1106,7 +1105,7 @@ Gfx *func0f13d40c(Gfx *gdl)
 {
 	struct stagetableentry *stage = stageGetCurrent();
 
-	func0f0b39c0(&gdl, &g_TexLightGlareConfigs[stage->light_type], 4, 0, 2, 1, NULL);
+	tex0f0b39c0(&gdl, &g_TexLightGlareConfigs[stage->light_type], 4, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
@@ -1464,7 +1463,7 @@ glabel func0f13d568
 /*  f13da30:	44059000 */ 	mfc1	$a1,$f18
 /*  f13da34:	4600328d */ 	trunc.w.s	$f10,$f6
 /*  f13da38:	44065000 */ 	mfc1	$a2,$f10
-/*  f13da3c:	0fc49ccd */ 	jal	func0f127334
+/*  f13da3c:	0fc49ccd */ 	jal	sky0f127334
 /*  f13da40:	00000000 */ 	nop
 /*  f13da44:	8fac0164 */ 	lw	$t4,0x164($sp)
 /*  f13da48:	3c18800a */ 	lui	$t8,%hi(g_BgRooms)
@@ -1511,13 +1510,13 @@ glabel func0f13d568
 /*  f13dae4:	460a3481 */ 	sub.s	$f18,$f6,$f10
 /*  f13dae8:	14a8ffe4 */ 	bne	$a1,$t0,.L0f13da7c
 /*  f13daec:	e4b2fffc */ 	swc1	$f18,-0x4($a1)
-/*  f13daf0:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
+/*  f13daf0:	0fc2d5be */ 	jal	camGetMatrix1740
 /*  f13daf4:	00000000 */ 	nop
 /*  f13daf8:	00402025 */ 	or	$a0,$v0,$zero
 /*  f13dafc:	0c0056c4 */ 	jal	mtx4RotateVecInPlace
 /*  f13db00:	27a500e4 */ 	addiu	$a1,$sp,0xe4
 /*  f13db04:	27a400e4 */ 	addiu	$a0,$sp,0xe4
-/*  f13db08:	0fc2d341 */ 	jal	func0f0b4d04
+/*  f13db08:	0fc2d341 */ 	jal	cam0f0b4d04
 /*  f13db0c:	27a500dc */ 	addiu	$a1,$sp,0xdc
 /*  f13db10:	c7a000ec */ 	lwc1	$f0,0xec($sp)
 /*  f13db14:	3c013f80 */ 	lui	$at,0x3f80
@@ -1645,7 +1644,7 @@ glabel func0f13d568
 /*  f13dcd8:	3c017f1b */ 	lui	$at,%hi(var7f1b5a00)
 /*  f13dcdc:	c4245a00 */ 	lwc1	$f4,%lo(var7f1b5a00)($at)
 /*  f13dce0:	46045682 */ 	mul.s	$f26,$f10,$f4
-/*  f13dce4:	0fc2d60a */ 	jal	currentPlayerGetPerspAspect
+/*  f13dce4:	0fc2d60a */ 	jal	camGetPerspAspect
 /*  f13dce8:	00000000 */ 	nop
 /*  f13dcec:	0c002f22 */ 	jal	viGetViewWidth
 /*  f13dcf0:	46000506 */ 	mov.s	$f20,$f0

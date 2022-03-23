@@ -9,20 +9,20 @@
 #include "game/nbomb.h"
 #include "game/title.h"
 #include "game/chr.h"
-#include "game/game_02cde0.h"
+#include "game/body.h"
 #include "game/prop.h"
 #include "game/propsnd.h"
 #include "game/objectives.h"
 #include "game/atan2f.h"
-#include "game/game_096ca0.h"
+#include "game/quaternion.h"
 #include "game/bondgun.h"
-#include "game/game_0abe70.h"
+#include "game/gunfx.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b2150.h"
-#include "game/game_0b3350.h"
-#include "game/game_0b4950.h"
+#include "game/tex.h"
+#include "game/camera.h"
 #include "game/player.h"
-#include "game/game_1a7560.h"
+#include "game/modeldef.h"
 #include "game/healthbar.h"
 #include "game/hudmsg.h"
 #include "game/menu.h"
@@ -35,8 +35,7 @@
 #include "game/game_1531a0.h"
 #include "game/bg.h"
 #include "game/stagetable.h"
-#include "game/game_165670.h"
-#include "game/game_1668e0.h"
+#include "game/room.h"
 #include "game/gfxmemory.h"
 #include "game/lv.h"
 #include "game/music.h"
@@ -976,8 +975,8 @@ void playerSpawn(void)
 				s32 prevplayernum = g_Vars.currentplayernum;
 				setCurrentPlayerNum(g_Vars.bondplayernum);
 				bgun0f0a0c08(&sp84, &sp9c);
-				mtx4RotateVec(currentPlayerGetUnk174c(), &sp9c, &sp90);
-				mtx4TransformVec(currentPlayerGetUnk174c(), &sp84, &sp78);
+				mtx4RotateVec(camGetUnk174c(), &sp9c, &sp90);
+				mtx4TransformVec(camGetUnk174c(), &sp84, &sp78);
 				setCurrentPlayerNum(prevplayernum);
 			}
 
@@ -1453,7 +1452,7 @@ void playerTickChrBody(void)
 			}
 		}
 
-		g_Vars.currentplayer->model00d4 = func0f02ce8c(bodynum, headnum, bodyfiledata, headfiledata, false, model, true, true);
+		g_Vars.currentplayer->model00d4 = body0f02ce8c(bodynum, headnum, bodyfiledata, headfiledata, false, model, true, true);
 
 		chr0f020b14(g_Vars.currentplayer->prop, g_Vars.currentplayer->model00d4, &g_Vars.currentplayer->prop->pos,
 				g_Vars.currentplayer->prop->rooms, turnangle, 0);
@@ -2920,7 +2919,7 @@ Gfx *playerRenderHealthBar(Gfx *gdl)
 
 	gdl = healthbarRender(gdl, 0, 0, 0);
 
-	gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 	return gdl;
 }
@@ -4759,13 +4758,13 @@ struct var80070ba4 var80070ba4[4][7] = { // [wieldmode][turnmode]
 
 void playerSetGlobalDrawWorldOffset(s32 room)
 {
-	func0f166df0(room, &g_Vars.currentplayer->globaldrawworldoffset);
+	room0f166df0(room, &g_Vars.currentplayer->globaldrawworldoffset);
 
 	g_Vars.currentplayer->globaldrawworldbgoffset.x = g_Vars.currentplayer->globaldrawworldoffset.x;
 	g_Vars.currentplayer->globaldrawworldbgoffset.y = g_Vars.currentplayer->globaldrawworldoffset.y;
 	g_Vars.currentplayer->globaldrawworldbgoffset.z = g_Vars.currentplayer->globaldrawworldoffset.z;
 
-	currentPlayerSetLastRoomForOffset(room);
+	roomSetLastForOffset(room);
 }
 
 void playerSetGlobalDrawCameraOffset(void)
@@ -4774,7 +4773,7 @@ void playerSetGlobalDrawCameraOffset(void)
 	g_Vars.currentplayer->globaldrawcameraoffset.y = g_Vars.currentplayer->globaldrawworldoffset.y;
 	g_Vars.currentplayer->globaldrawcameraoffset.z = g_Vars.currentplayer->globaldrawworldoffset.z;
 
-	mtx4RotateVecInPlace(currentPlayerGetMatrix1740(), &g_Vars.currentplayer->globaldrawcameraoffset);
+	mtx4RotateVecInPlace(camGetMatrix1740(), &g_Vars.currentplayer->globaldrawcameraoffset);
 }
 
 GLOBAL_ASM(
@@ -4915,7 +4914,7 @@ glabel player0f0bfc7c
 /*  f0bfe90:	00000000 */ 	nop
 /*  f0bfe94:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f0bfe98:	00408825 */ 	or	$s1,$v0,$zero
-/*  f0bfe9c:	0fc2d5c6 */ 	jal	currentPlayerGetUnk1754
+/*  f0bfe9c:	0fc2d5c6 */ 	jal	camGetUnk1754
 /*  f0bfea0:	00408025 */ 	or	$s0,$v0,$zero
 /*  f0bfea4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0bfea8:	27a5008c */ 	addiu	$a1,$sp,0x8c
@@ -4953,12 +4952,12 @@ glabel player0f0bfc7c
 /*  f0bff18:	24a50001 */ 	addiu	$a1,$a1,0x1
 /*  f0bff1c:	14a8ffed */ 	bne	$a1,$t0,.L0f0bfed4
 /*  f0bff20:	24c60010 */ 	addiu	$a2,$a2,0x10
-/*  f0bff24:	0fc2d3ee */ 	jal	currentPlayerSetUnk006c
+/*  f0bff24:	0fc2d3ee */ 	jal	camSetUnk006c
 /*  f0bff28:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bff2c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bff30:	0c0128d8 */ 	jal	guMtxF2L
 /*  f0bff34:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0bff38:	0fc2d3fe */ 	jal	currentPlayerSetUnk1758
+/*  f0bff38:	0fc2d3fe */ 	jal	camSetUnk1758
 /*  f0bff3c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0bff40:	c7ac0070 */ 	lwc1	$f12,0x70($sp)
 /*  f0bff44:	0c0057c1 */ 	jal	mtx00015f04
@@ -4972,20 +4971,20 @@ glabel player0f0bfc7c
 /*  f0bff64:	0c005a08 */ 	jal	mtx00016820
 /*  f0bff68:	8c650060 */ 	lw	$a1,0x60($v1)
 /*  f0bff6c:	8e4e0284 */ 	lw	$t6,0x284($s2)
-/*  f0bff70:	0fc2d3e6 */ 	jal	currentPlayerSetUnk173c
+/*  f0bff70:	0fc2d3e6 */ 	jal	camSetUnk173c
 /*  f0bff74:	8dc4005c */ 	lw	$a0,0x5c($t6)
 /*  f0bff78:	8e4f0284 */ 	lw	$t7,0x284($s2)
-/*  f0bff7c:	0fc2d3de */ 	jal	currentPlayerSetUnk1738
+/*  f0bff7c:	0fc2d3de */ 	jal	camSetUnk1738
 /*  f0bff80:	8de40060 */ 	lw	$a0,0x60($t7)
 /*  f0bff84:	8e580284 */ 	lw	$t8,0x284($s2)
-/*  f0bff88:	0fc2d406 */ 	jal	currentPlayerSetMatrix1740
+/*  f0bff88:	0fc2d406 */ 	jal	camSetMatrix1740
 /*  f0bff8c:	8f040064 */ 	lw	$a0,0x64($t8)
 /*  f0bff90:	8e590284 */ 	lw	$t9,0x284($s2)
-/*  f0bff94:	0fc2d5d6 */ 	jal	currentPlayerSetUnk174c
+/*  f0bff94:	0fc2d5d6 */ 	jal	camSetUnk174c
 /*  f0bff98:	8f240068 */ 	lw	$a0,0x68($t9)
-/*  f0bff9c:	0fc2d5e6 */ 	jal	currentPlayerSetUnk175c
+/*  f0bff9c:	0fc2d5e6 */ 	jal	camSetUnk175c
 /*  f0bffa0:	8fa400cc */ 	lw	$a0,0xcc($sp)
-/*  f0bffa4:	0fc2d60e */ 	jal	func0f0b5838
+/*  f0bffa4:	0fc2d60e */ 	jal	cam0f0b5838
 /*  f0bffa8:	00000000 */ 	nop
 /*  f0bffac:	0fc2ff07 */ 	jal	playerSetGlobalDrawCameraOffset
 /*  f0bffb0:	00000000 */ 	nop
@@ -5054,7 +5053,7 @@ glabel player0f0bfc7c
 //
 //	s1 = gfxAllocateMatrix();
 //	s0 = gfxAllocateMatrix();
-//	mtx4MultMtx4(currentPlayerGetUnk1754(), &sp8c, s0);
+//	mtx4MultMtx4(camGetUnk1754(), &sp8c, s0);
 //
 //	for (i = 0; i < 4; i++) {
 //		for (j = 0; j < 4; j++) {
@@ -5066,18 +5065,18 @@ glabel player0f0bfc7c
 //		}
 //	}
 //
-//	currentPlayerSetUnk006c(s0);
+//	camSetUnk006c(s0);
 //	guMtxF2L(s0, s1);
-//	currentPlayerSetUnk1758(s1);
+//	camSetUnk1758(s1);
 //	mtx00015f04(scale, &sp8c);
 //	guMtxF2L(&sp8c, g_Vars.currentplayer->matrix5c);
 //	mtx00016820(g_Vars.currentplayer->matrix5c, g_Vars.currentplayer->matrix60);
-//	currentPlayerSetUnk173c(g_Vars.currentplayer->matrix5c);
-//	currentPlayerSetUnk1738(g_Vars.currentplayer->matrix60);
-//	currentPlayerSetMatrix1740(g_Vars.currentplayer->matrix64);
-//	currentPlayerSetUnk174c(g_Vars.currentplayer->matrix68);
-//	currentPlayerSetUnk175c(spcc);
-//	func0f0b5838();
+//	camSetUnk173c(g_Vars.currentplayer->matrix5c);
+//	camSetUnk1738(g_Vars.currentplayer->matrix60);
+//	camSetMatrix1740(g_Vars.currentplayer->matrix64);
+//	camSetUnk174c(g_Vars.currentplayer->matrix68);
+//	camSetUnk175c(spcc);
+//	cam0f0b5838();
 //	playerSetGlobalDrawCameraOffset();
 //}
 
@@ -5165,13 +5164,13 @@ Gfx *playerRenderShield(Gfx *gdl)
 		}
 
 		f20 = (sinf(g_Vars.currentplayer->shieldshowrot * (M_BADTAU / maxrotf)) + 1) * 0.5f;
-		sp90[0] = currentPlayerGetScreenLeft() + currentPlayerGetScreenWidth() * f20;
+		sp90[0] = camGetScreenLeft() + camGetScreenWidth() * f20;
 
 		f20 = (cosf(g_Vars.currentplayer->shieldshowrot * (M_BADTAU / maxrotf)) + 1) * 0.5f;
-		sp90[1] = currentPlayerGetScreenTop() + currentPlayerGetScreenHeight() * f20;
+		sp90[1] = camGetScreenTop() + camGetScreenHeight() * f20;
 
-		sp88[0] = currentPlayerGetScreenWidth() * (1.0f + 0.002f * ((g_Vars.currentplayer->shieldshowrnd >> 20) % 100) + (g_Vars.currentplayer->shieldshowtime * (0.2f + 0.002f * (g_Vars.currentplayer->shieldshowrnd % 100)) * (1.0f / 60.0f)));
-		sp88[1] = currentPlayerGetScreenHeight() * (1.0f + 0.002f * ((g_Vars.currentplayer->shieldshowrnd >> 24) % 100) + (g_Vars.currentplayer->shieldshowtime * (0.2f + 0.002f * ((g_Vars.currentplayer->shieldshowrnd >> 8) % 100)) * (1.0f / 60.0f)));
+		sp88[0] = camGetScreenWidth() * (1.0f + 0.002f * ((g_Vars.currentplayer->shieldshowrnd >> 20) % 100) + (g_Vars.currentplayer->shieldshowtime * (0.2f + 0.002f * (g_Vars.currentplayer->shieldshowrnd % 100)) * (1.0f / 60.0f)));
+		sp88[1] = camGetScreenHeight() * (1.0f + 0.002f * ((g_Vars.currentplayer->shieldshowrnd >> 24) % 100) + (g_Vars.currentplayer->shieldshowtime * (0.2f + 0.002f * ((g_Vars.currentplayer->shieldshowrnd >> 8) % 100)) * (1.0f / 60.0f)));
 
 		chr0f0295f8(shield, &red, &green, &blue);
 
@@ -5210,7 +5209,7 @@ Gfx *playerRenderShield(Gfx *gdl)
 		}
 
 		f20 = 1 - g_Vars.currentplayer->shieldshowtime * (1.0f / 60.0f);
-		func0f0b39c0(&gdl, &g_TexShieldConfigs[0], 4, 1, 2, 1, NULL);
+		tex0f0b39c0(&gdl, &g_TexShieldConfigs[0], 4, 1, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_2CYCLE);
 		gDPSetRenderMode(gdl++, G_RM_PASS, G_RM_CLD_SURF2);
@@ -5237,7 +5236,7 @@ Gfx *playerRenderShield(Gfx *gdl)
 Gfx *playerRenderHud(Gfx *gdl)
 {
 	if (g_Vars.currentplayer->cameramode == CAMERAMODE_THIRDPERSON) {
-		gdl = func0f0aeed8(gdl);
+		gdl = boltbeamsRender(gdl);
 		gdl = func0f15b114(gdl);
 		gdl = hudmsgsRender(gdl);
 
@@ -5254,7 +5253,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 
 	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY) {
 		bgun0f0a6c30();
-		gdl = func0f0aeed8(gdl);
+		gdl = boltbeamsRender(gdl);
 		bgun0f0a7138(&gdl);
 		gdl = lasersightRenderDot(gdl);
 
@@ -6098,7 +6097,7 @@ s32 playerTickThirdPerson(struct prop *prop)
 					spe8 = player->model00d4->matrices;
 				}
 
-				mtx00015be4(currentPlayerGetUnk174c(), spe8, &spa8);
+				mtx00015be4(camGetUnk174c(), spe8, &spa8);
 
 				sp9c.x = spa8.m[3][0] + spa8.m[1][0] * 7;
 				sp9c.y = spa8.m[3][1] + spa8.m[1][1] * 7;
@@ -6518,7 +6517,7 @@ glabel player0f0c3320
 /*  f0c3358:	00808025 */ 	or	$s0,$a0,$zero
 /*  f0c335c:	27b20040 */ 	addiu	$s2,$sp,0x40
 .L0f0c3360:
-/*  f0c3360:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f0c3360:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f0c3364:	00000000 */ 	nop
 /*  f0c3368:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0c336c:	02002825 */ 	or	$a1,$s0,$zero
@@ -6566,7 +6565,7 @@ glabel player0f0c3320
 //	s32 i;
 //
 //	for (i = 0; i < count; i++) {
-//		mtx00015be4(currentPlayerGetUnk174c(), &matrices[i], &sp40);
+//		mtx00015be4(camGetUnk174c(), &matrices[i], &sp40);
 //
 //		sp40.m[3][0] -= g_Vars.currentplayer->globaldrawworldoffset.x;
 //		sp40.m[3][1] -= g_Vars.currentplayer->globaldrawworldoffset.y;

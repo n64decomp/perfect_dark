@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/objectives.h"
 #include "game/game_096360.h"
-#include "game/game_0b3350.h"
+#include "game/tex.h"
 #include "game/training.h"
 #include "game/propobj.h"
 #include "bss.h"

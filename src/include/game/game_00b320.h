@@ -5,6 +5,5 @@
 #include "types.h"
 
 void langReset(s32 stagenum);
-void func0f00b420(void);
 
 #endif

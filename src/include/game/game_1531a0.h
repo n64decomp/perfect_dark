@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void func0f1531a0(void);
+void fontsInit(void);
 void textSetRotation90(bool rotated);
 void func0f1531c4(s32 arg0);
 void func0f1531d0(s32 arg0);

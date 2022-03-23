@@ -160,7 +160,7 @@ u32 var8007fbf8 = 0x00000000;
 u32 var8007fbfc = 0x00000000;
 #endif
 
-void func0f1531a0(void)
+void fontsInit(void)
 {
 	// empty
 }

@@ -190,9 +190,15 @@ f32 currentPlayerGetGunZoomFov(void)
 	struct weapon *weapon;
 
 	switch (bgunGetWeaponNum2(0)) {
-	case WEAPON_SNIPERRIFLE:    index = 0; break;
-	case WEAPON_FARSIGHT:   index = 1; break;
-	case WEAPON_HORIZONSCANNER: index = 2; break;
+	case WEAPON_SNIPERRIFLE:
+		index = 0;
+		break;
+	case WEAPON_FARSIGHT:
+		index = 1;
+		break;
+	case WEAPON_HORIZONSCANNER:
+		index = 2;
+		break;
 	}
 
 	if (index >= 0) {

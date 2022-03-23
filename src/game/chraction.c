@@ -4,21 +4,22 @@
 #include "game/chrai.h"
 #include "game/debug.h"
 #include "game/dlights.h"
+#include "game/footstep.h"
 #include "game/game_006900.h"
-#include "game/game_01b0a0.h"
+#include "game/pdmode.h"
 #include "game/chr.h"
-#include "game/game_02cde0.h"
+#include "game/body.h"
 #include "game/prop.h"
 #include "game/propsnd.h"
 #include "game/objectives.h"
 #include "game/atan2f.h"
 #include "game/acosfasinf.h"
 #include "game/bondgun.h"
-#include "game/game_0abe70.h"
+#include "game/gunfx.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b28d0.h"
-#include "game/game_0b3350.h"
-#include "game/game_0b4950.h"
+#include "game/tex.h"
+#include "game/camera.h"
 #include "game/player.h"
 #include "game/inv.h"
 #include "game/playermgr.h"
@@ -27,7 +28,6 @@
 #include "game/bg.h"
 #include "game/game_1531a0.h"
 #include "game/stagetable.h"
-#include "game/game_165670.h"
 #include "game/env.h"
 #include "game/lv.h"
 #include "game/bot.h"
@@ -9714,7 +9714,7 @@ glabel var7f1a8fc8
 /*  f03f32c:	afa20108 */ 	sw	$v0,0x108($sp)
 /*  f03f330:	00402025 */ 	or	$a0,$v0,$zero
 /*  f03f334:	8cb80004 */ 	lw	$t8,0x4($a1)
-/*  f03f338:	0fc2d4e9 */ 	jal	func0f0b53a4
+/*  f03f338:	0fc2d4e9 */ 	jal	cam0f0b53a4
 /*  f03f33c:	afb800c4 */ 	sw	$t8,0xc4($sp)
 /*  f03f340:	10400037 */ 	beqz	$v0,.L0f03f420
 /*  f03f344:	8fa40108 */ 	lw	$a0,0x108($sp)
@@ -9755,7 +9755,7 @@ glabel var7f1a8fc8
 /*  f03f3cc:	0c006973 */ 	jal	model0001a5cc
 /*  f03f3d0:	00003025 */ 	or	$a2,$zero,$zero
 /*  f03f3d4:	afa200b0 */ 	sw	$v0,0xb0($sp)
-/*  f03f3d8:	0fc2d4e9 */ 	jal	func0f0b53a4
+/*  f03f3d8:	0fc2d4e9 */ 	jal	cam0f0b53a4
 /*  f03f3dc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f03f3e0:	1040000f */ 	beqz	$v0,.L0f03f420
 /*  f03f3e4:	8fa400b0 */ 	lw	$a0,0xb0($sp)
@@ -10324,13 +10324,13 @@ bool chrGetGunPos(struct chrdata *chr, s32 handnum, struct coord *gunpos)
 				gunpos->y = rodata->pos.y;
 				gunpos->z = rodata->pos.z;
 
-				mtx00015be4(currentPlayerGetUnk174c(), spac, &sp6c);
+				mtx00015be4(camGetUnk174c(), spac, &sp6c);
 				mtx4TransformVecInPlace(&sp6c, gunpos);
 				result = true;
 			} else if ((part1 = modelGetPart(model->filedata, MODELPART_0001))) {
 				sp64 = model0001a5cc(model, part1, 0);
 
-				mtx00015be4(currentPlayerGetUnk174c(), sp64, &sp24);
+				mtx00015be4(camGetUnk174c(), sp64, &sp24);
 
 				gunpos->x = sp24.m[3][0];
 				gunpos->y = sp24.m[3][1];
@@ -10386,13 +10386,13 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 		if (prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) {
 			bestnode = NULL;
 			bestvolume = MAXFLOAT;
-			lVar4 = func0f0b5050(chr->model->matrices);
+			lVar4 = cam0f0b5050(chr->model->matrices);
 
 			if (lVar4) {
 				mtx4TransformVec(lVar4, pos, &sp124);
 				mtx4RotateVec(lVar4, vector, &sp118);
 
-				isdifferentmtx = (currentPlayerGetMatrix1740() != lVar4);
+				isdifferentmtx = (camGetMatrix1740() != lVar4);
 				node = chr->model->filedata->rootnode;
 
 				while (node) {
@@ -22621,7 +22621,7 @@ void chrTickPatrol(struct chrdata *chr)
 			chrNavTickMagic(chr, &chr->act_patrol.waydata, func0f0370a8(chr), &sp58, sp48);
 		}
 
-		chrCheckFootstepMagic(chr);
+		footstepCheckMagic(chr);
 	} else {
 		arrivinglaterally = posIsArrivingLaterallyAtPos(&chr->prevpos, &prop->pos, &sp58, 30);
 		arriving = posIsArrivingAtPos(&chr->prevpos, &prop->pos, &sp58, 30);
@@ -22641,7 +22641,7 @@ void chrTickPatrol(struct chrdata *chr)
 		}
 
 		chrNavTickMain(chr, &sp58, &chr->act_patrol.waydata, true);
-		chrCheckFootstep(chr);
+		footstepCheckDefault(chr);
 	}
 }
 
@@ -22935,10 +22935,10 @@ void chraTick(struct chrdata *chr)
 #endif
 
 		if (pass) {
-			chrCheckFootstep(chr);
+			footstepCheckDefault(chr);
 		}
 	} else {
-		chrCheckFootstepMagic(chr);
+		footstepCheckMagic(chr);
 	}
 }
 
@@ -25631,7 +25631,7 @@ bool chrCanSeeTargetWithExtraCheck(struct chrdata *chr)
 
 				bgun0f0a0c08(&sp68, &sp56);
 				modelGetRootPosition(model, &sp44);
-				mtx4TransformVecInPlace(currentPlayerGetMatrix1740(), &sp44);
+				mtx4TransformVecInPlace(camGetMatrix1740(), &sp44);
 
 				if (func0f06b39c(&sp68, &sp56, &sp44, somefloat)) {
 					return true;
@@ -26112,7 +26112,7 @@ bool func0f04aeb0(struct coord *pos, s16 *rooms)
 
 		if (rooms[i] != -1) {
 			// Room is visible by player
-			result = !func0f0b5d38(pos, 200, func0f158140(rooms[i]));
+			result = !cam0f0b5d38(pos, 200, func0f158140(rooms[i]));
 		}
 	}
 
@@ -26293,7 +26293,7 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 		if (chrAdjustPosForSpawn(20, &pos2, rooms2, angle, (spawnflags & SPAWNFLAG_00000010) != 0, 0))
 #endif
 		{
-			struct model *model = modelAllocateChr(bodynum, headnum, spawnflags);
+			struct model *model = bodyAllocateModel(bodynum, headnum, spawnflags);
 			struct chrdata *chr;
 
 			if (model) {
@@ -28611,7 +28611,7 @@ Gfx *chrsRenderChrStats(Gfx *gdl, s16 *rooms)
 			mtx4TransformVecInPlace(g_Vars.currentplayer->matrix1740, &sp20c);
 
 			if (sp20c.z < -100 && sp20c.z > -1000) {
-				func0f0b4eb8(&sp20c, sp204, g_Vars.currentplayer->c_perspfovy, g_Vars.currentplayer->c_perspaspect);
+				cam0f0b4eb8(&sp20c, sp204, g_Vars.currentplayer->c_perspfovy, g_Vars.currentplayer->c_perspaspect);
 				x = sp204[0];
 				y = sp204[1];
 

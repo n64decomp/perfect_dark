@@ -606,7 +606,7 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 				break;
 			case DEBUGOPT_ALLCHALLENGES:
 				g_DebugAllChallenges ^= 1;
-				mpDetermineUnlockedFeatures();
+				challengeDetermineUnlockedFeatures();
 				break;
 			case DEBUGOPT_ALLTRAINING:
 				g_DebugAllTraining ^= 1;
@@ -647,7 +647,7 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 				break;
 			case DEBUGOPT_ALLCHALLENGES:
 				g_DebugAllChallenges ^= 1;
-				mpDetermineUnlockedFeatures();
+				challengeDetermineUnlockedFeatures();
 				break;
 			case DEBUGOPT_ALLBUDDIES:
 				g_DebugAllBuddies ^= 1;

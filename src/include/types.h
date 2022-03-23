@@ -4487,7 +4487,7 @@ struct challenge {
 
 	// Bitfield xxx4 321a
 	// The number denotes if that player has the challenge available,
-	// and `a` denotes if any other has the challenge available.
+	// and `a` denotes if any player has the challenge available.
 	/*0x04*/ u8 availability;
 
 	// Same structure as availability, however each byte determines how many
@@ -5551,7 +5551,7 @@ struct mplockinfo {
 	s32 unk04;
 };
 
-struct var8009da60 {
+struct boltbeam {
 	union {
 		s32 unk00;
 		struct prop *unk00_prop;

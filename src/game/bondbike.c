@@ -4,12 +4,12 @@
 #include "game/bondmove.h"
 #include "game/chraction.h"
 #include "game/prop.h"
-#include "game/game_091e10.h"
+#include "game/setuputils.h"
 #include "game/propsnd.h"
 #include "game/objectives.h"
-#include "game/game_096ca0.h"
+#include "game/quaternion.h"
 #include "game/bondgun.h"
-#include "game/game_0b3350.h"
+#include "game/tex.h"
 #include "game/player.h"
 #include "game/bondhead.h"
 #include "game/lv.h"
@@ -508,11 +508,11 @@ glabel var7f1adb74
 /*  f0d2ad0:	e7aa0034 */ 	swc1	$f10,0x34($sp)
 /*  f0d2ad4:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f0d2ad8:	27a40030 */ 	addiu	$a0,$sp,0x30
-/*  f0d2adc:	0fc2d341 */ 	jal	func0f0b4d04
+/*  f0d2adc:	0fc2d341 */ 	jal	cam0f0b4d04
 /*  f0d2ae0:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*  f0d2ae4:	0fc2d602 */ 	jal	currentPlayerGetScreenTop
+/*  f0d2ae4:	0fc2d602 */ 	jal	camGetScreenTop
 /*  f0d2ae8:	00000000 */ 	nop
-/*  f0d2aec:	0fc2d5fa */ 	jal	currentPlayerGetScreenHeight
+/*  f0d2aec:	0fc2d5fa */ 	jal	camGetScreenHeight
 /*  f0d2af0:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f0d2af4:	c7a4002c */ 	lwc1	$f4,0x2c($sp)
 /*  f0d2af8:	c7a60024 */ 	lwc1	$f6,0x24($sp)
@@ -848,11 +848,11 @@ glabel var7f1adb74
 /*  f0d2ad0:	e7aa0034 */ 	swc1	$f10,0x34($sp)
 /*  f0d2ad4:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f0d2ad8:	27a40030 */ 	addiu	$a0,$sp,0x30
-/*  f0d2adc:	0fc2d341 */ 	jal	func0f0b4d04
+/*  f0d2adc:	0fc2d341 */ 	jal	cam0f0b4d04
 /*  f0d2ae0:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*  f0d2ae4:	0fc2d602 */ 	jal	currentPlayerGetScreenTop
+/*  f0d2ae4:	0fc2d602 */ 	jal	camGetScreenTop
 /*  f0d2ae8:	00000000 */ 	nop
-/*  f0d2aec:	0fc2d5fa */ 	jal	currentPlayerGetScreenHeight
+/*  f0d2aec:	0fc2d5fa */ 	jal	camGetScreenHeight
 /*  f0d2af0:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f0d2af4:	c7a4002c */ 	lwc1	$f4,0x2c($sp)
 /*  f0d2af8:	c7a60024 */ 	lwc1	$f6,0x24($sp)
@@ -977,9 +977,9 @@ glabel var7f1adb74
 //		sp30.y = -sinf(sp3c);
 //		sp30.z = cosf(sp3c);
 //
-//		func0f0b4d04(&sp30, sp28);
+//		cam0f0b4d04(&sp30, sp28);
 //
-//		g_Vars.currentplayer->gunextraaimy = -((sp28[1] - currentPlayerGetScreenTop()) * 2.0f / currentPlayerGetScreenHeight() - 1.0f) * 0.75f;
+//		g_Vars.currentplayer->gunextraaimy = -((sp28[1] - camGetScreenTop()) * 2.0f / camGetScreenHeight() - 1.0f) * 0.75f;
 //	}
 //}
 
@@ -1078,7 +1078,7 @@ s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
 				g_Vars.currentplayer->hoverbike->rooms,
 				&dstpos, dstrooms, spa8, 20);
 
-		func0f09233c(&bike->base, &dstpos, bike->base.realrot, dstrooms);
+		setup0f09233c(&bike->base, &dstpos, bike->base.realrot, dstrooms);
 
 		hasvel = true;
 

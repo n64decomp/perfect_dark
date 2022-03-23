@@ -3,14 +3,14 @@
 #include "game/game_006900.h"
 #include "game/title.h"
 #include "game/game_0b0fd0.h"
-#include "game/game_0b3350.h"
+#include "game/tex.h"
 #include "game/savebuffer.h"
 #include "game/menu.h"
 #include "game/mainmenu.h"
 #include "game/filemgr.h"
 #include "game/lv.h"
 #include "game/mplayer/ingame.h"
-#include "game/game_19aa80.h"
+#include "game/challenge.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/mplayer/setup.h"
@@ -605,7 +605,7 @@ s32 mpAwardsMenuHandler(s32 operation, struct menuitem *item, union handlerdata 
 					gDPSetTextureConvert(gdl++, G_TC_FILT);
 					gDPSetTextureFilter(gdl++, G_TF_POINT);
 
-					func0f0b39c0(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
+					tex0f0b39c0(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
 
 					gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 					gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -788,7 +788,7 @@ glabel mpPushEndscreenDialog
 /*  f179560:	10000018 */ 	b	.JF0f1795c4
 /*  f179564:	00000000 */ 	nop
 .JF0f179568:
-/*  f179568:	0fc673a7 */ 	jal	mpIsChallengeCompleteForEndscreen
+/*  f179568:	0fc673a7 */ 	jal	challengeIsCompleteForEndscreen
 /*  f17956c:	00000000 */ 	nop
 /*  f179570:	10400007 */ 	beqz	$v0,.JF0f179590
 /*  f179574:	3c048008 */ 	lui	$a0,0x8008
@@ -863,7 +863,7 @@ void mpPushEndscreenDialog(u32 arg0, u32 playernum)
 		if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
 			if (g_CheatsActiveBank0 || g_CheatsActiveBank1) {
 				menuPushRootDialog(&g_MpEndscreenChallengeCheatedMenuDialog, MENUROOT_MPENDSCREEN);
-			} else if (mpIsChallengeCompleteForEndscreen()) {
+			} else if (challengeIsCompleteForEndscreen()) {
 				menuPushRootDialog(&g_MpEndscreenChallengeCompletedMenuDialog, MENUROOT_MPENDSCREEN);
 			} else {
 				menuPushRootDialog(&g_MpEndscreenChallengeFailedMenuDialog, MENUROOT_MPENDSCREEN);

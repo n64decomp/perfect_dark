@@ -2,11 +2,11 @@
 #include "constants.h"
 #include "game/dlights.h"
 #include "game/prop.h"
-#include "game/game_0b3350.h"
-#include "game/game_0b4950.h"
+#include "game/tex.h"
+#include "game/camera.h"
 #include "game/smoke.h"
 #include "game/bg.h"
-#include "game/game_1668e0.h"
+#include "game/room.h"
 #include "game/file.h"
 #include "game/propobj.h"
 #include "bss.h"
@@ -106,7 +106,7 @@ glabel var7f1b55dc
 /*  f12d418:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f12d41c:	0fc59e73 */ 	jal	gfxAllocateColours
 /*  f12d420:	afa200b4 */ 	sw	$v0,0xb4($sp)
-/*  f12d424:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f12d424:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f12d428:	00408025 */ 	or	$s0,$v0,$zero
 /*  f12d42c:	8fae00b8 */ 	lw	$t6,0xb8($sp)
 /*  f12d430:	8fa700bc */ 	lw	$a3,0xbc($sp)
@@ -1542,7 +1542,7 @@ u32 smokeTick(struct prop *prop)
 
 u32 smokeTickPlayer(struct prop *prop)
 {
-	Mtxf *matrix = currentPlayerGetMatrix1740();
+	Mtxf *matrix = camGetMatrix1740();
 
 	prop->z = -(matrix->m[0][2] * prop->pos.x + matrix->m[1][2] * prop->pos.y + matrix->m[2][2] * prop->pos.z + matrix->m[3][2]);
 
@@ -1588,9 +1588,9 @@ Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool withalpha)
 	}
 
 	if (roomnum != -1) {
-		coord = func0f166dd0(roomnum);
+		coord = room0f166dd0(roomnum);
 
-		func0f166df0(roomnum, &worldoffset);
+		room0f166df0(roomnum, &worldoffset);
 
 		if (smoke->parts[0].size > 0) {
 			f32 x = smoke->parts[0].pos.x - worldoffset.x;
@@ -1609,9 +1609,9 @@ Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		}
 
 		gSPClearGeometryMode(gdl++, G_CULL_BOTH | G_FOG);
-		gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-		gdl = func0f166d7c(gdl, roomnum);
+		gdl = room0f166d7c(gdl, roomnum);
 
 		if (near) {
 			gSPMatrix(gdl++, osVirtualToPhysical(&var800a3448), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
@@ -1643,7 +1643,7 @@ Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		}
 
 		gDPSetColorDither(gdl++, G_CD_BAYER);
-		gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 	}
 
 	return gdl;

@@ -23,5 +23,5 @@ void titleReset(void)
 
 	var8009cca0 = mempAlloc(0x47800, MEMPOOL_STAGE);
 
-	func0f00b420();
+	getitleReset();
 }

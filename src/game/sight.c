@@ -4,7 +4,7 @@
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b2150.h"
-#include "game/game_0b3350.h"
+#include "game/tex.h"
 #include "game/savebuffer.h"
 #include "game/sight.h"
 #include "game/game_1531a0.h"
@@ -5579,7 +5579,7 @@ glabel sightRenderClassic
 /*  f0d97b0:	448f3000 */ 	mtc1	$t7,$f6
 /*  f0d97b4:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f0d97b8:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f0d97bc:	0fc2ce70 */ 	jal	func0f0b39c0
+/*  f0d97bc:	0fc2ce70 */ 	jal	tex0f0b39c0
 /*  f0d97c0:	e7a800c0 */ 	swc1	$f8,0xc0($sp)
 /*  f0d97c4:	92190005 */ 	lbu	$t9,0x5($s0)
 /*  f0d97c8:	92070004 */ 	lbu	$a3,0x4($s0)
@@ -5715,7 +5715,7 @@ glabel sightRenderClassic
 //	spbc[0] = (tconfig->width >> 1) * (f32)g_ScaleX;
 //	spbc[1] = tconfig->height >> 1;
 //
-//	func0f0b39c0(&gdl, tconfig, 2, 0, 0, 1, NULL);
+//	tex0f0b39c0(&gdl, tconfig, 2, 0, 0, 1, NULL);
 //
 //	func0f0b278c(&gdl, spc4, spbc, tconfig->width, tconfig->height,
 //			0, 0, 1, 0xff, 0xff, 0xff, 0x7f, tconfig->level > 0, 0);

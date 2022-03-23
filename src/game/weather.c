@@ -1,8 +1,8 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/dlights.h"
-#include "game/game_0b3350.h"
-#include "game/game_0b4950.h"
+#include "game/tex.h"
+#include "game/camera.h"
 #include "game/gfxmemory.h"
 #include "game/sparks.h"
 #include "game/weather.h"
@@ -56,7 +56,7 @@ Gfx *weatherRender(Gfx *gdl)
 	gSPDisplayList(gdl++, &var80061380);
 
 	if (weather->type == WEATHERTYPE_SNOW) {
-		func0f0b39c0(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, 1, NULL);
+		tex0f0b39c0(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetColorDither(gdl++, G_CD_NOISE);
@@ -898,7 +898,7 @@ glabel var7f1b5780
 /*  f132f6c:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f132f70:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f132f74:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f132f78:	0fc2ce70 */ 	jal	func0f0b39c0
+/*  f132f78:	0fc2ce70 */ 	jal	tex0f0b39c0
 /*  f132f7c:	24a5000c */ 	addiu	$a1,$a1,0x000c
 /*  f132f80:	8fab0de8 */ 	lw	$t3,0xde8($sp)
 /*  f132f84:	3c0dba00 */ 	lui	$t5,0xba00
@@ -963,7 +963,7 @@ glabel var7f1b5780
 /*  f133070:	afa00194 */ 	sw	$zero,0x194($sp)
 /*  f133074:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f133078:	02002025 */ 	or	$a0,$s0,$zero
-/*  f13307c:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
+/*  f13307c:	0fc2d5be */ 	jal	camGetMatrix1740
 /*  f133080:	00000000 */ 	nop
 /*  f133084:	00402025 */ 	or	$a0,$v0,$zero
 /*  f133088:	0c0056f8 */ 	jal	mtx00015be0
@@ -1829,7 +1829,7 @@ glabel var7f1b5780
 /*  f133cec:	c6480008 */ 	lwc1	$f8,0x8($s2)
 /*  f133cf0:	c6ea3e88 */ 	lwc1	$f10,0x3e88($s7)
 /*  f133cf4:	46085180 */ 	add.s	$f6,$f10,$f8
-/*  f133cf8:	0fc2d6e7 */ 	jal	func0f0b5b9c
+/*  f133cf8:	0fc2d6e7 */ 	jal	cam0f0b5b9c
 /*  f133cfc:	e7a60110 */ 	swc1	$f6,0x110($sp)
 /*  f133d00:	50400227 */ 	beqzl	$v0,.L0f1345a0
 /*  f133d04:	8fa30088 */ 	lw	$v1,0x88($sp)
@@ -2588,7 +2588,7 @@ u32 var8007f0fc = 22000;
 //		spdb0[i] = 0;
 //	}
 //
-//	func0f0b39c0(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, 1, NULL);
+//	tex0f0b39c0(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, 1, NULL);
 //
 //	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 //	gDPSetColorDither(gdl++, G_CD_DISABLE);
@@ -2604,7 +2604,7 @@ u32 var8007f0fc = 22000;
 //	sp194 = 0;
 //
 //	mtx4LoadIdentity(&sp1c8);
-//	mtx00015be0(currentPlayerGetMatrix1740(), &sp1c8);
+//	mtx00015be0(camGetMatrix1740(), &sp1c8);
 //
 //	sp1c8.m[3][0] = 0.0f;
 //	sp1c8.m[3][1] = 0.0f;
@@ -2898,7 +2898,7 @@ u32 var8007f0fc = 22000;
 //			sp108.f[1] = particledata->unk3e80.f[1] + particledata->particles[p].pos.f[1];
 //			sp108.f[2] = particledata->unk3e80.f[2] + particledata->particles[p].pos.f[2];
 //
-//			if (func0f0b5b9c(&sp108, 150)) {
+//			if (cam0f0b5b9c(&sp108, 150)) {
 //				spdb0[7] = spdb0[7] + osGetCount() - spd84[7];
 //
 //				sp218[0] = particledata->particles[p].pos.f[0];
@@ -3146,7 +3146,7 @@ glabel var7f1b5790
 /*  f134720:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f134724:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f134728:	afa01268 */ 	sw	$zero,0x1268($sp)
-/*  f13472c:	0fc2ce70 */ 	jal	func0f0b39c0
+/*  f13472c:	0fc2ce70 */ 	jal	tex0f0b39c0
 /*  f134730:	00003825 */ 	or	$a3,$zero,$zero
 /*  f134734:	8fb81398 */ 	lw	$t8,0x1398($sp)
 /*  f134738:	8fa81268 */ 	lw	$t0,0x1268($sp)
@@ -3232,7 +3232,7 @@ glabel var7f1b5790
 /*  f134878:	afa00198 */ 	sw	$zero,0x198($sp)
 /*  f13487c:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f134880:	02002025 */ 	or	$a0,$s0,$zero
-/*  f134884:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
+/*  f134884:	0fc2d5be */ 	jal	camGetMatrix1740
 /*  f134888:	00000000 */ 	nop
 /*  f13488c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f134890:	0c0056f8 */ 	jal	mtx00015be0
@@ -3904,7 +3904,7 @@ glabel var7f1b5790
 /*  f135240:	c6080008 */ 	lwc1	$f8,0x8($s0)
 /*  f135244:	c6463e88 */ 	lwc1	$f6,0x3e88($s2)
 /*  f135248:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f13524c:	0fc2d6e7 */ 	jal	func0f0b5b9c
+/*  f13524c:	0fc2d6e7 */ 	jal	cam0f0b5b9c
 /*  f135250:	e7aa012c */ 	swc1	$f10,0x12c($sp)
 /*  f135254:	50400237 */ 	beqzl	$v0,.L0f135b34
 /*  f135258:	27de0001 */ 	addiu	$s8,$s8,0x1
@@ -4634,7 +4634,7 @@ u32 var8007f110 = 0xffffff7f;
 //	s7 = 0;
 //	sp1268 = 0;
 //
-//	func0f0b39c0(&gdl, &g_TexGeneralConfigs[0], 4, 0, 2, 1, NULL);
+//	tex0f0b39c0(&gdl, &g_TexGeneralConfigs[0], 4, 0, 2, 1, NULL);
 //
 //	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 //	gDPSetColorDither(gdl++, G_CD_DISABLE);
@@ -4656,7 +4656,7 @@ u32 var8007f110 = 0xffffff7f;
 //	sp198 = 0;
 //
 //	mtx4LoadIdentity(&sp1cc);
-//	mtx00015be0(currentPlayerGetMatrix1740(), &sp1cc);
+//	mtx00015be0(camGetMatrix1740(), &sp1cc);
 //
 //	sp1cc.m[3][0] = 0.0f;
 //	sp1cc.m[3][1] = 0.0f;
@@ -4853,7 +4853,7 @@ u32 var8007f110 = 0xffffff7f;
 //			sp124.f[1] = particledata->unk3e80.f[1] + particledata->particles[s8].pos.f[1];
 //			sp124.f[2] = particledata->unk3e80.f[2] + particledata->particles[s8].pos.f[2];
 //
-//			if (func0f0b5b9c(&sp124, 5)) {
+//			if (cam0f0b5b9c(&sp124, 5)) {
 //				sp137c = sp137c + osGetCount() - sp1354;
 //
 //				sp21c = particledata->particles[s8].pos.f[0];

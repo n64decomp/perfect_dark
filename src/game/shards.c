@@ -5,8 +5,8 @@
 #include "game/dlights.h"
 #include "game/file.h"
 #include "game/propsnd.h"
-#include "game/game_0b3350.h"
-#include "game/game_0b4950.h"
+#include "game/tex.h"
+#include "game/camera.h"
 #include "game/gfxmemory.h"
 #include "bss.h"
 #include "lib/mtx.h"
@@ -226,7 +226,7 @@ Gfx *shardsRenderWood(Gfx *gdl)
 		gDPSetTextureFilter(gdl++, G_TF_BILERP);
 		gDPSetCycleType(gdl++, G_CYC_2CYCLE);
 		gDPSetTextureLOD(gdl++, G_TL_LOD);
-		gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		for (i = 0; i < g_MaxShards; i++) {
 			if (g_Shards[i].age60 > 0 && g_Shards[i].type == SHARDTYPE_WOOD) {
@@ -324,8 +324,8 @@ Gfx *shardsRenderWood(Gfx *gdl)
 		}
 
 		gSPClearGeometryMode(gdl++, G_LIGHTING | G_TEXTURE_GEN);
-		gSPMatrix(gdl++, currentPlayerGetUnk1750(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-		gSPMatrix(gdl++, currentPlayerGetUnk173c(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(gdl++, camGetUnk1750(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, camGetUnk173c(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	}
 
 	return gdl;
@@ -402,7 +402,7 @@ glabel shardsRenderWood
 /*  f14c050:	02608025 */ 	or	$s0,$s3,$zero
 /*  f14c054:	26f7e6c0 */ 	addiu	$s7,$s7,-6464
 /*  f14c058:	ae190000 */ 	sw	$t9,0x0($s0)
-/*  f14c05c:	0fc2cb5a */ 	jal	currentPlayerGetUnk1758
+/*  f14c05c:	0fc2cb5a */ 	jal	camGetUnk1758
 /*  f14c060:	26730008 */ 	addiu	$s3,$s3,0x8
 /*  f14c064:	0c013100 */ 	jal	osVirtualToPhysical
 /*  f14c068:	00402025 */ 	or	$a0,$v0,$zero
@@ -769,14 +769,14 @@ glabel shardsRenderWood
 /*  f14c5b0:	35080040 */ 	ori	$t0,$t0,0x40
 /*  f14c5b4:	02608025 */ 	or	$s0,$s3,$zero
 /*  f14c5b8:	ae080000 */ 	sw	$t0,0x0($s0)
-/*  f14c5bc:	0fc2cb52 */ 	jal	currentPlayerGetUnk1750
+/*  f14c5bc:	0fc2cb52 */ 	jal	camGetUnk1750
 /*  f14c5c0:	26730008 */ 	addiu	$s3,$s3,0x8
 /*  f14c5c4:	3c090102 */ 	lui	$t1,0x102
 /*  f14c5c8:	ae020004 */ 	sw	$v0,0x4($s0)
 /*  f14c5cc:	35290040 */ 	ori	$t1,$t1,0x40
 /*  f14c5d0:	02608825 */ 	or	$s1,$s3,$zero
 /*  f14c5d4:	ae290000 */ 	sw	$t1,0x0($s1)
-/*  f14c5d8:	0fc2cb42 */ 	jal	currentPlayerGetUnk173c
+/*  f14c5d8:	0fc2cb42 */ 	jal	camGetUnk173c
 /*  f14c5dc:	26730008 */ 	addiu	$s3,$s3,0x8
 /*  f14c5e0:	ae220004 */ 	sw	$v0,0x4($s1)
 .NB0f14c5e4:
@@ -811,9 +811,9 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 		s32 j;
 
 		if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
-			func0f0b39c0(&gdl, NULL, 2, 1, 2, 1, NULL);
+			tex0f0b39c0(&gdl, NULL, 2, 1, 2, 1, NULL);
 		} else {
-			func0f0b39c0(&gdl, &g_TexShardConfigs[1], 2, 1, 2, 1, NULL);
+			tex0f0b39c0(&gdl, &g_TexShardConfigs[1], 2, 1, 2, 1, NULL);
 		}
 
 		gSPTexture(gdl++, 0x0d80, 0x0d80, 2, G_TX_RENDERTILE, G_ON);
@@ -826,7 +826,7 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 			gSPSetGeometryMode(gdl++, G_LIGHTING | G_TEXTURE_GEN);
 		}
 
-		gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		for (i = 0; i < g_MaxShards; i++) {
 			if (g_Shards[i].age60 > 0 && g_Shards[i].type != SHARDTYPE_WOOD) {
@@ -918,8 +918,8 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 		}
 
 		gSPClearGeometryMode(gdl++, G_LIGHTING | G_TEXTURE_GEN);
-		gSPMatrix(gdl++, currentPlayerGetUnk1750(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-		gSPMatrix(gdl++, currentPlayerGetUnk173c(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(gdl++, camGetUnk1750(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, camGetUnk173c(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	}
 
 	return gdl;
@@ -967,7 +967,7 @@ glabel shardsRenderGlass
 /*  f14c6b8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f14c6bc:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f14c6c0:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f14c6c4:	0fc2c5c8 */ 	jal	func0f0b39c0
+/*  f14c6c4:	0fc2c5c8 */ 	jal	tex0f0b39c0
 /*  f14c6c8:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f14c6cc:	1000000b */ 	beqz	$zero,.NB0f14c6fc
 /*  f14c6d0:	8fab0138 */ 	lw	$t3,0x138($sp)
@@ -979,7 +979,7 @@ glabel shardsRenderGlass
 /*  f14c6e4:	afa90010 */ 	sw	$t1,0x10($sp)
 /*  f14c6e8:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f14c6ec:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f14c6f0:	0fc2c5c8 */ 	jal	func0f0b39c0
+/*  f14c6f0:	0fc2c5c8 */ 	jal	tex0f0b39c0
 /*  f14c6f4:	24a5000c */ 	addiu	$a1,$a1,0xc
 /*  f14c6f8:	8fab0138 */ 	lw	$t3,0x138($sp)
 .NB0f14c6fc:
@@ -1039,7 +1039,7 @@ glabel shardsRenderGlass
 /*  f14c7cc:	35290040 */ 	ori	$t1,$t1,0x40
 /*  f14c7d0:	26080008 */ 	addiu	$t0,$s0,0x8
 /*  f14c7d4:	afa80138 */ 	sw	$t0,0x138($sp)
-/*  f14c7d8:	0fc2cb5a */ 	jal	currentPlayerGetUnk1758
+/*  f14c7d8:	0fc2cb5a */ 	jal	camGetUnk1758
 /*  f14c7dc:	ae090000 */ 	sw	$t1,0x0($s0)
 /*  f14c7e0:	0c013100 */ 	jal	osVirtualToPhysical
 /*  f14c7e4:	00402025 */ 	or	$a0,$v0,$zero
@@ -1414,7 +1414,7 @@ glabel shardsRenderGlass
 /*  f14cd4c:	35ce0040 */ 	ori	$t6,$t6,0x40
 /*  f14cd50:	260d0008 */ 	addiu	$t5,$s0,0x8
 /*  f14cd54:	afad0138 */ 	sw	$t5,0x138($sp)
-/*  f14cd58:	0fc2cb52 */ 	jal	currentPlayerGetUnk1750
+/*  f14cd58:	0fc2cb52 */ 	jal	camGetUnk1750
 /*  f14cd5c:	ae0e0000 */ 	sw	$t6,0x0($s0)
 /*  f14cd60:	ae020004 */ 	sw	$v0,0x4($s0)
 /*  f14cd64:	8fb10138 */ 	lw	$s1,0x138($sp)
@@ -1422,7 +1422,7 @@ glabel shardsRenderGlass
 /*  f14cd6c:	35080040 */ 	ori	$t0,$t0,0x40
 /*  f14cd70:	26380008 */ 	addiu	$t8,$s1,0x8
 /*  f14cd74:	afb80138 */ 	sw	$t8,0x138($sp)
-/*  f14cd78:	0fc2cb42 */ 	jal	currentPlayerGetUnk173c
+/*  f14cd78:	0fc2cb42 */ 	jal	camGetUnk173c
 /*  f14cd7c:	ae280000 */ 	sw	$t0,0x0($s1)
 /*  f14cd80:	ae220004 */ 	sw	$v0,0x4($s1)
 .NB0f14cd84:

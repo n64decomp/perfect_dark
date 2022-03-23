@@ -3,8 +3,8 @@
 #include "game/cheats.h"
 #include "game/dlights.h"
 #include "game/propsnd.h"
-#include "game/game_0b3350.h"
-#include "game/game_0b4950.h"
+#include "game/tex.h"
+#include "game/camera.h"
 #include "game/player.h"
 #include "game/smoke.h"
 #include "game/sparks.h"
@@ -437,7 +437,7 @@ glabel var7f1a7d8c
 /*  f0012a4:	44cef800 */ 	ctc1	$t6,$31
 /*  f0012a8:	acab0000 */ 	sw	$t3,0x0($a1)
 /*  f0012ac:	afa50028 */ 	sw	$a1,0x28($sp)
-/*  f0012b0:	0fc2d5ea */ 	jal	currentPlayerGetUnk175c
+/*  f0012b0:	0fc2d5ea */ 	jal	camGetUnk175c
 /*  f0012b4:	26100008 */ 	addiu	$s0,$s0,0x8
 /*  f0012b8:	8fa50028 */ 	lw	$a1,0x28($sp)
 /*  f0012bc:	3c0c0382 */ 	lui	$t4,0x382
@@ -446,7 +446,7 @@ glabel var7f1a7d8c
 /*  f0012c8:	aca20004 */ 	sw	$v0,0x4($a1)
 /*  f0012cc:	ac6c0000 */ 	sw	$t4,0x0($v1)
 /*  f0012d0:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f0012d4:	0fc2d5ea */ 	jal	currentPlayerGetUnk175c
+/*  f0012d4:	0fc2d5ea */ 	jal	camGetUnk175c
 /*  f0012d8:	26100008 */ 	addiu	$s0,$s0,0x8
 /*  f0012dc:	8fa30024 */ 	lw	$v1,0x24($sp)
 /*  f0012e0:	244d0010 */ 	addiu	$t5,$v0,0x10
@@ -462,8 +462,8 @@ glabel var7f1a7d8c
 Gfx *func0f001300(Gfx *gdl)
 {
 	gSPSetLights1(gdl++, var80061460);
-	gSPLookAtX(gdl++, currentPlayerGetUnk175c()->m[0]);
-	gSPLookAtY(gdl++, currentPlayerGetUnk175c()->m[1]);
+	gSPLookAtX(gdl++, camGetUnk175c()->m[0]);
+	gSPLookAtY(gdl++, camGetUnk175c()->m[1]);
 
 	return gdl;
 }
@@ -5257,7 +5257,7 @@ glabel func0f004c6c
 /*  f004eb4:	00008025 */ 	or	$s0,$zero,$zero
 /*  f004eb8:	0000a025 */ 	or	$s4,$zero,$zero
 .L0f004ebc:
-/*  f004ebc:	0fc2d95b */ 	jal	func0f0b656c
+/*  f004ebc:	0fc2d95b */ 	jal	portal0f0b656c
 /*  f004ec0:	02202025 */ 	or	$a0,$s1,$zero
 /*  f004ec4:	3c013f00 */ 	lui	$at,0x3f00
 /*  f004ec8:	44812000 */ 	mtc1	$at,$f4

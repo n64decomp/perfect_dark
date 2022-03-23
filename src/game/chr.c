@@ -11,11 +11,11 @@
 #include "game/objectives.h"
 #include "game/game_096360.h"
 #include "game/bondgun.h"
-#include "game/game_0abe70.h"
+#include "game/gunfx.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b28d0.h"
-#include "game/game_0b3350.h"
-#include "game/game_0b4950.h"
+#include "game/tex.h"
+#include "game/camera.h"
 #include "game/player.h"
 #include "game/game_0c33f0.h"
 #include "game/playermgr.h"
@@ -26,7 +26,6 @@
 #include "game/smoke.h"
 #include "game/sparks.h"
 #include "game/bg.h"
-#include "game/game_165670.h"
 #include "game/file.h"
 #include "game/mplayer/setup.h"
 #include "game/bot.h"
@@ -1661,7 +1660,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 			return;
 		}
 
-		mtx00015be0(currentPlayerGetUnk174c(), mtx);
+		mtx00015be0(camGetUnk174c(), mtx);
 
 		sp138.x = mtx->m[3][0];
 		sp138.y = mtx->m[3][1];
@@ -1707,7 +1706,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 		mtx->m[3][1] = sp138.y;
 		mtx->m[3][2] = sp138.z;
 
-		mtx00015be0(currentPlayerGetMatrix1740(), mtx);
+		mtx00015be0(camGetMatrix1740(), mtx);
 	} else {
 		if (g_CurModelChr->model->filedata->skel == &g_SkelChr) {
 			lshoulderjoint = 2;
@@ -1870,7 +1869,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 					yrot += M_BADTAU;
 				}
 
-				mtx00015be0(currentPlayerGetUnk174c(), mtx);
+				mtx00015be0(camGetUnk174c(), mtx);
 
 				sp70.x = mtx->m[3][0];
 				sp70.y = mtx->m[3][1];
@@ -1915,7 +1914,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 				mtx->m[3][1] = sp70.y;
 				mtx->m[3][2] = sp70.z;
 
-				mtx00015be0(currentPlayerGetMatrix1740(), mtx);
+				mtx00015be0(camGetMatrix1740(), mtx);
 			}
 		}
 	}
@@ -2918,7 +2917,7 @@ s32 chrTick(struct prop *prop)
 			sp190.z = cosf(angle) * 19;
 
 			mtx4LoadTranslation(&sp190, &sp1a8);
-			mtx4MultMtx4InPlace(currentPlayerGetMatrix1740(), &sp1a8);
+			mtx4MultMtx4InPlace(camGetMatrix1740(), &sp1a8);
 			sp210.unk00 = &sp1a8;
 		} else if (prop->type == PROPTYPE_PLAYER) {
 			u8 stack[0x14];
@@ -2935,13 +2934,13 @@ s32 chrTick(struct prop *prop)
 				sp17c.z = sinf(-sp178) * sp130;
 
 				mtx4LoadTranslation(&sp17c, &sp1a8);
-				mtx4MultMtx4InPlace(currentPlayerGetMatrix1740(), &sp1a8);
+				mtx4MultMtx4InPlace(camGetMatrix1740(), &sp1a8);
 				sp210.unk00 = &sp1a8;
 			} else {
-				sp210.unk00 = currentPlayerGetMatrix1740();
+				sp210.unk00 = camGetMatrix1740();
 			}
 		} else {
-			sp210.unk00 = currentPlayerGetMatrix1740();
+			sp210.unk00 = camGetMatrix1740();
 		}
 
 		sp210.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
@@ -2961,7 +2960,7 @@ s32 chrTick(struct prop *prop)
 			f32 xdiff;
 			f32 ydiff;
 			f32 zdiff;
-			f32 sp114 = currentPlayerGetLodScaleZ();
+			f32 sp114 = camGetLodScaleZ();
 			bool restore = false;
 			f32 prevfrac;
 			s32 prevframea;
@@ -3280,7 +3279,7 @@ bool chr0f024738(struct chrdata *chr)
 								+ thing->unk06c.m[1][2] * campos->f[1]
 								+ thing->unk06c.m[2][2] * campos->f[2]) + thing->unk06c.m[3][2];
 
-						mtx00015be4(&thing->unk06c, currentPlayerGetUnk174c(), &thing->unk0ac);
+						mtx00015be4(&thing->unk06c, camGetUnk174c(), &thing->unk0ac);
 						thing->unk00c = true;
 					}
 
@@ -3388,13 +3387,13 @@ bool chr0f024b18(struct model *model, struct modelnode *node)
 							sp88.z = thing->bbox.zmin;
 						}
 
-						mtx00015be4(currentPlayerGetMatrix1740(), &thing->unk02c, &thing->unk0ec);
+						mtx00015be4(camGetMatrix1740(), &thing->unk02c, &thing->unk0ec);
 						mtx4TransformVec(&thing->unk0ec, &spa0, &sp70);
-						func0f0b4dec(&sp70, thing->unk134);
+						cam0f0b4dec(&sp70, thing->unk134);
 						mtx4TransformVec(&thing->unk0ec, &sp94, &sp70);
-						func0f0b4dec(&sp70, thing->unk13c);
+						cam0f0b4dec(&sp70, thing->unk13c);
 						mtx4TransformVec(&thing->unk0ec, &sp88, &sp70);
-						func0f0b4dec(&sp70, thing->unk144);
+						cam0f0b4dec(&sp70, thing->unk144);
 
 						thing->unk130 = 1;
 						thing->unk14c = thing->unk13c[1] - thing->unk134[1];
@@ -3448,7 +3447,7 @@ bool chr0f024b18(struct model *model, struct modelnode *node)
 						}
 
 						mtx4TransformVec(mtx, &sp64, &sp70);
-						func0f0b4dec(&sp70, sp80);
+						cam0f0b4dec(&sp70, sp80);
 
 						value = thing->unk14c * sp80[0] + thing->unk150 * sp80[1] - thing->unk154;
 
@@ -5388,9 +5387,9 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 					while (spc0 > 0) {
 						if (func0f084594(model, node, &shotdata->unk00, &shotdata->unk0c, &sp88, &sp84, &sp80)) {
 							mtx4TransformVec(&model->matrices[sp84], &sp88.unk00, &spdc);
-							mtx4TransformVecInPlace(currentPlayerGetUnk174c(), &spdc);
+							mtx4TransformVecInPlace(camGetUnk174c(), &spdc);
 							mtx4RotateVec(&model->matrices[sp84], &sp88.unk0c, &spd0);
-							mtx4RotateVecInPlace(currentPlayerGetUnk174c(), &spd0);
+							mtx4RotateVecInPlace(camGetUnk174c(), &spd0);
 							break;
 						}
 
@@ -5402,8 +5401,8 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 					if (spc0 > 0) {
 						if (func0f06bea0(model, model->filedata->rootnode, model->filedata->rootnode, &shotdata->unk00,
 									&shotdata->unk0c, &sp88.unk00, &sp70, &node, &spc0, &sp84, &sp80)) {
-							mtx4TransformVec(currentPlayerGetUnk174c(), &sp88.unk00, &spdc);
-							mtx4RotateVec(currentPlayerGetUnk174c(), &sp88.unk0c, &spd0);
+							mtx4TransformVec(camGetUnk174c(), &sp88.unk00, &spdc);
+							mtx4RotateVec(camGetUnk174c(), &sp88.unk0c, &spd0);
 						} else {
 							spc0 = 0;
 						}
@@ -5416,7 +5415,7 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 			}
 
 			if (spc0 > 0) {
-				mtx = currentPlayerGetMatrix1740();
+				mtx = camGetMatrix1740();
 				sp68 = spdc.x * mtx->m[0][2] + spdc.y * mtx->m[1][2] + spdc.z * mtx->m[2][2] + mtx->m[3][2];
 				sp68 = -sp68;
 
@@ -5470,7 +5469,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 		sp98.y = shotdata->unk00.y - (hit->distance * shotdata->unk0c.y) / shotdata->unk0c.z;
 		sp98.z = shotdata->unk00.z - hit->distance;
 
-		mtx4TransformVec(currentPlayerGetUnk174c(), &sp98, &hitpos);
+		mtx4TransformVec(camGetUnk174c(), &sp98, &hitpos);
 		bgunSetHitPos(&hitpos);
 		bgunPlayPropHitSound(&shotdata->gset, hit->prop, -1);
 
@@ -6788,7 +6787,7 @@ glabel var7f1a9ba0pf
 /*  f029df4:	24060004 */ 	li	$a2,0x4
 /*  f029df8:	24070001 */ 	li	$a3,0x1
 /*  f029dfc:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f029e00:	0fc2cfb8 */ 	jal	func0f0b39c0
+/*  f029e00:	0fc2cfb8 */ 	jal	tex0f0b39c0
 /*  f029e04:	e7ae016c */ 	swc1	$f14,0x16c($sp)
 /*  f029e08:	8fa80204 */ 	lw	$t0,0x204($sp)
 /*  f029e0c:	c7ae016c */ 	lwc1	$f14,0x16c($sp)
@@ -8950,7 +8949,7 @@ glabel var7f1a9ba0pf
 /*  f029da0:	24060004 */ 	li	$a2,0x4
 /*  f029da4:	24070001 */ 	li	$a3,0x1
 /*  f029da8:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f029dac:	0fc2cf74 */ 	jal	func0f0b39c0
+/*  f029dac:	0fc2cf74 */ 	jal	tex0f0b39c0
 /*  f029db0:	e7ae016c */ 	swc1	$f14,0x16c($sp)
 /*  f029db4:	8fa80204 */ 	lw	$t0,0x204($sp)
 /*  f029db8:	c7ae016c */ 	lwc1	$f14,0x16c($sp)
@@ -11106,7 +11105,7 @@ glabel var7f1a8980
 /*  f029cd0:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f029cd4:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f029cd8:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f029cdc:	0fc2ce70 */ 	jal	func0f0b39c0
+/*  f029cdc:	0fc2ce70 */ 	jal	tex0f0b39c0
 /*  f029ce0:	e7ae016c */ 	swc1	$f14,0x16c($sp)
 /*  f029ce4:	8fa80204 */ 	lw	$t0,0x204($sp)
 /*  f029ce8:	c7ae016c */ 	lwc1	$f14,0x16c($sp)
@@ -13126,7 +13125,7 @@ Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 						coord.y = mtx->m[3][1];
 						coord.z = mtx->m[3][2];
 
-						func0f0b4d68(&coord, screenpos);
+						cam0f0b4d68(&coord, screenpos);
 
 						if (screenpos[0] < 0.0f) {
 							screenpos[0] = 0.0f;

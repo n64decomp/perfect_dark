@@ -204,7 +204,7 @@ void ctcInitProps(void)
 		tmp = &g_CtcTokenObj0;
 		tmp->base.pad = g_ScenarioData.ctc.spawnpadsperteam[g_ScenarioData.ctc.teamindexes[0]].homepad;
 
-		weaponAssignToHome(tmp, 1000);
+		setupPlaceWeapon(tmp, 1000);
 
 		g_ScenarioData.ctc.tokens[0] = tmp->base.prop;
 
@@ -219,7 +219,7 @@ void ctcInitProps(void)
 		tmp = &g_CtcTokenObj1;
 		tmp->base.pad = g_ScenarioData.ctc.spawnpadsperteam[g_ScenarioData.ctc.teamindexes[1]].homepad;
 
-		weaponAssignToHome(tmp, 1001);
+		setupPlaceWeapon(tmp, 1001);
 
 		g_ScenarioData.ctc.tokens[1] = tmp->base.prop;
 
@@ -234,7 +234,7 @@ void ctcInitProps(void)
 		tmp = &g_CtcTokenObj2;
 		tmp->base.pad = g_ScenarioData.ctc.spawnpadsperteam[g_ScenarioData.ctc.teamindexes[2]].homepad;
 
-		weaponAssignToHome(tmp, 1002);
+		setupPlaceWeapon(tmp, 1002);
 
 		g_ScenarioData.ctc.tokens[2] = tmp->base.prop;
 
@@ -249,7 +249,7 @@ void ctcInitProps(void)
 		tmp = &g_CtcTokenObj3;
 		tmp->base.pad = g_ScenarioData.ctc.spawnpadsperteam[g_ScenarioData.ctc.teamindexes[3]].homepad;
 
-		weaponAssignToHome(tmp, 1003);
+		setupPlaceWeapon(tmp, 1003);
 
 		g_ScenarioData.ctc.tokens[3] = tmp->base.prop;
 

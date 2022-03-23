@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/filelist.h"
-#include "game/game_0b3350.h"
+#include "game/tex.h"
 #include "game/savebuffer.h"
 #include "game/menu.h"
 #include "game/filemgr.h"
@@ -2302,7 +2302,7 @@ Gfx *filemgrRenderPerfectHeadThumbnail(Gfx *gdl, struct menuitemrenderdata *rend
 		gDPSetTextureLOD(gdl++, G_TL_TILE);
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-		func0f0b39c0(&gdl, texture, 1, 0, 2, 1, NULL);
+		tex0f0b39c0(&gdl, texture, 1, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
@@ -3187,7 +3187,7 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 		gDPSetTextureLOD(gdl++, G_TL_TILE);
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-		func0f0b39c0(&gdl, &g_TexGeneralConfigs[texturenum], 2, 0, 2, 1, NULL);
+		tex0f0b39c0(&gdl, &g_TexGeneralConfigs[texturenum], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);

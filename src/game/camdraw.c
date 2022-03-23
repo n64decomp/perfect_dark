@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/camdraw.h"
-#include "game/game_0b3350.h"
+#include "game/tex.h"
 #include "game/menu.h"
 #include "game/stubs/game_102230.h"
 #include "game/bg.h"
@@ -2090,7 +2090,7 @@ Gfx *func0f14c870(Gfx *gdl, struct textureconfig *tconfig, f32 *arg2, f32 arg3, 
 	gDPSetTextureConvert(gdl++, G_TC_FILT);
 	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
 
-	func0f0b39c0(&gdl, tconfig, 1, 0, 2, 1, &var800a45a8);
+	tex0f0b39c0(&gdl, tconfig, 1, 0, 2, 1, &var800a45a8);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);

@@ -3,7 +3,7 @@
 #include "game/cheats.h"
 #include "game/game_006900.h"
 #include "game/title.h"
-#include "game/game_01b0a0.h"
+#include "game/pdmode.h"
 #include "game/objectives.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
@@ -17,7 +17,7 @@
 #include "game/stagetable.h"
 #include "game/lv.h"
 #include "game/mplayer/ingame.h"
-#include "game/game_19aa80.h"
+#include "game/challenge.h"
 #include "game/gamefile.h"
 #include "game/lang.h"
 #include "game/options.h"
@@ -1112,7 +1112,7 @@ void endscreenPrepare(void)
 				}
 #endif
 
-				mpDetermineUnlockedFeatures();
+				challengeDetermineUnlockedFeatures();
 
 				if (g_MissionConfig.stagenum == STAGE_SKEDARRUINS && g_AltTitleUnlocked == false) {
 					g_AltTitleUnlocked = true;

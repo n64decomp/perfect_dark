@@ -3,7 +3,6 @@
 #include "game/prop.h"
 #include "game/game_1531a0.h"
 #include "game/bg.h"
-#include "game/game_1577f0.h"
 #include "bss.h"
 #include "lib/dma.h"
 #include "lib/memp.h"

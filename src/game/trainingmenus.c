@@ -4,7 +4,7 @@
 #include "game/ceil.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
-#include "game/game_0b3350.h"
+#include "game/tex.h"
 #include "game/menugfx.h"
 #include "game/menu.h"
 #include "game/mainmenu.h"
@@ -12,7 +12,7 @@
 #include "game/game_1531a0.h"
 #include "game/file.h"
 #include "game/texdecompress.h"
-#include "game/game_173a00.h"
+#include "game/surface.h"
 #include "game/trainingmenus.h"
 #include "game/training.h"
 #include "game/lang.h"
@@ -165,7 +165,7 @@ s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerd
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 
-		func0f0b39c0(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
+		tex0f0b39c0(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -627,7 +627,7 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 
-		func0f0b39c0(&gdl, tconfig, 2, 0, 2, 1, NULL);
+		tex0f0b39c0(&gdl, tconfig, 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -1860,7 +1860,7 @@ s32 ciHangarTitleMenuHandler(s32 operation, struct menuitem *item, union handler
 			gDPSetTextureLOD(gdl++, G_TL_TILE);
 			gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-			func0f0b39c0(&gdl, &g_TexGeneralConfigs[texturenum], 1, 0, 2, 1, NULL);
+			tex0f0b39c0(&gdl, &g_TexGeneralConfigs[texturenum], 1, 0, 2, 1, NULL);
 
 			gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 			gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);

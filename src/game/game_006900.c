@@ -96,7 +96,6 @@ f32 func0f006ba0(f32 arg0)
 	return tmp;
 }
 
-#if VERSION < VERSION_NTSC_1_0
 f32 func0f006bd0(f32 arg0)
 {
 	s32 ival = arg0 * 4.0f;
@@ -116,4 +115,3 @@ f32 func0f006bd0(f32 arg0)
 
 	return 0.0f;
 }
-#endif

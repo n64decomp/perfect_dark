@@ -3,7 +3,7 @@
 #include "game/chraction.h"
 #include "game/dlights.h"
 #include "game/game_006900.h"
-#include "game/game_00c490.h"
+#include "game/setup.h"
 #include "game/prop.h"
 #include "game/propsnd.h"
 #include "game/atan2f.h"
@@ -19,7 +19,7 @@
 #include "game/mplayer/scenarios.h"
 #include "game/radar.h"
 #include "game/botcmd.h"
-#include "game/game_19aa80.h"
+#include "game/challenge.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"
@@ -110,7 +110,7 @@ s32 menuhandlerMpDisplayTeam(s32 operation, struct menuitem *item, union handler
 s32 menuhandlerMpOneHitKills(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED || operation == MENUOP_CHECKHIDDEN) {
-		if (mpIsFeatureUnlocked(MPFEATURE_ONEHITKILLS)) {
+		if (challengeIsFeatureUnlocked(MPFEATURE_ONEHITKILLS)) {
 			return false;
 		}
 
@@ -131,7 +131,7 @@ s32 menuhandlerMpSlowMotion(s32 operation, struct menuitem *item, union handlerd
 	switch (operation) {
 	case MENUOP_CHECKDISABLED:
 	case MENUOP_CHECKHIDDEN:
-		if (mpIsFeatureUnlocked(MPFEATURE_SLOWMOTION)) {
+		if (challengeIsFeatureUnlocked(MPFEATURE_SLOWMOTION)) {
 			return false;
 		}
 		return true;
@@ -323,7 +323,7 @@ s32 scenarioScenarioMenuHandler(s32 operation, struct menuitem *item, union hand
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		for (i = 0; i < ARRAYCOUNT(g_MpScenarioOverviews); i++) {
-			if (mpIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
+			if (challengeIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
 					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
 				count++;
 			}
@@ -333,7 +333,7 @@ s32 scenarioScenarioMenuHandler(s32 operation, struct menuitem *item, union hand
 		break;
 	case MENUOP_GETOPTIONTEXT:
 		for (i = 0; i < ARRAYCOUNT(g_MpScenarioOverviews); i++) {
-			if (mpIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
+			if (challengeIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
 					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
 				if (count == data->list.value) {
 					return (s32)langGet(g_MpScenarioOverviews[i].name);
@@ -346,7 +346,7 @@ s32 scenarioScenarioMenuHandler(s32 operation, struct menuitem *item, union hand
 		break;
 	case MENUOP_SET:
 		for (i = 0; i < ARRAYCOUNT(g_MpScenarioOverviews); i++) {
-			if (mpIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
+			if (challengeIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
 					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
 				if (count == data->list.value) {
 					g_MpSetup.scenario = i;
@@ -361,7 +361,7 @@ s32 scenarioScenarioMenuHandler(s32 operation, struct menuitem *item, union hand
 		break;
 	case MENUOP_GETOPTIONVALUE:
 		for (i = 0; i < ARRAYCOUNT(g_MpScenarioOverviews); i++) {
-			if (mpIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
+			if (challengeIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
 					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
 				if (i == g_MpSetup.scenario) {
 					data->list.value = count;
@@ -376,7 +376,7 @@ s32 scenarioScenarioMenuHandler(s32 operation, struct menuitem *item, union hand
 	case MENUOP_GETOPTGROUPCOUNT:
 		data->list.value = 2;
 
-		if (!teamgame || (!mpIsFeatureUnlocked(MPFEATURE_SCENARIO_KOH) && !mpIsFeatureUnlocked(MPFEATURE_SCENARIO_CTC))) {
+		if (!teamgame || (!challengeIsFeatureUnlocked(MPFEATURE_SCENARIO_KOH) && !challengeIsFeatureUnlocked(MPFEATURE_SCENARIO_CTC))) {
 			data->list.value--;
 		}
 		break;
@@ -384,7 +384,7 @@ s32 scenarioScenarioMenuHandler(s32 operation, struct menuitem *item, union hand
 		return (s32)langGet(groups[data->list.value].textid);
 	case MENUOP_GETGROUPSTARTINDEX:
 		for (i = 0; i < groups[data->list.value].startindex; i++) {
-			if (mpIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
+			if (challengeIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
 					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
 				count++;
 			}
@@ -490,9 +490,9 @@ void scenarioCreateMatchStartHudmsgs(void)
 
 	if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
 #if VERSION >= VERSION_JPN_FINAL
-		sprintf(challengename, "%s\n", mpGetChallengeNameBySlot(mpGetCurrentChallengeIndex()));
+		sprintf(challengename, "%s\n", challengeGetNameBySlot(challengeGetCurrent()));
 #else
-		sprintf(challengename, "%s:\n", mpGetChallengeNameBySlot(mpGetCurrentChallengeIndex()));
+		sprintf(challengename, "%s:\n", challengeGetNameBySlot(challengeGetCurrent()));
 #endif
 	}
 
@@ -1008,7 +1008,7 @@ struct prop *scenarioCreateObj(s32 modelnum, s16 padnum, f32 arg2, u32 flags, u3
 	obj->extrascale = arg2 * 256;
 	obj->hidden2 &= ~OBJHFLAG_REAPABLE;
 
-	setupGenericObject(obj, 123);
+	setupCreateObject(obj, 123);
 	propActivate(obj->prop);
 	propEnable(obj->prop);
 

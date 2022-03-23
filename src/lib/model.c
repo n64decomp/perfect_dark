@@ -2,11 +2,11 @@
 #include "constants.h"
 #include "game/game_096700.h"
 #include "game/acosfasinf.h"
-#include "game/game_096ca0.h"
-#include "game/game_0b4950.h"
+#include "game/quaternion.h"
+#include "game/camera.h"
 #include "game/floor.h"
 #include "game/ceil.h"
-#include "game/game_0b3350.h"
+#include "game/tex.h"
 #include "game/gfxmemory.h"
 #include "game/bg.h"
 #include "game/file.h"
@@ -3055,7 +3055,7 @@ void model0001c664(struct model *model, struct modelnode *node)
 	if (g_ModelDistanceDisabled || !mtx) {
 		distance = 0;
 	} else {
-		distance = -mtx->m[3][2] * currentPlayerGetLodScaleZ();
+		distance = -mtx->m[3][2] * camGetLodScaleZ();
 
 		if (g_ModelDistanceScale != 1) {
 			distance *= g_ModelDistanceScale;
@@ -5828,7 +5828,7 @@ glabel modelRenderNodeType16
 
 void model000216cc(struct modelrenderdata *renderdata, struct textureconfig *tconfig, s32 arg2)
 {
-	func0f0b39c0(&renderdata->gdl, tconfig, arg2, renderdata->zbufferenabled, 2, 1, NULL);
+	tex0f0b39c0(&renderdata->gdl, tconfig, arg2, renderdata->zbufferenabled, 2, 1, NULL);
 }
 
 GLOBAL_ASM(

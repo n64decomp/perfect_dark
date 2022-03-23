@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/game_006900.h"
 #include "game/title.h"
-#include "game/game_0b3350.h"
+#include "game/tex.h"
 #include "game/player.h"
 #include "game/savebuffer.h"
 #include "game/menugfx.h"
@@ -206,7 +206,7 @@ Gfx *creditsRenderBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 
 	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 
-	func0f0b39c0(&gdl, &g_TexGeneralConfigs[g_CreditsBgTypes[type].texturenum], 1, 1, 2, 1, NULL);
+	tex0f0b39c0(&gdl, &g_TexGeneralConfigs[g_CreditsBgTypes[type].texturenum], 1, 1, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 
@@ -2397,7 +2397,7 @@ glabel var7f1b5850
 /*  f139590:	24140001 */ 	addiu	$s4,$zero,0x1
 /*  f139594:	00006812 */ 	mflo	$t5
 /*  f139598:	01ae2821 */ 	addu	$a1,$t5,$t6
-/*  f13959c:	0fc2ce70 */ 	jal	func0f0b39c0
+/*  f13959c:	0fc2ce70 */ 	jal	tex0f0b39c0
 /*  f1395a0:	00000000 */ 	nop
 /*  f1395a4:	8fb90118 */ 	lw	$t9,0x118($sp)
 /*  f1395a8:	3c09ba00 */ 	lui	$t1,0xba00
@@ -5871,7 +5871,7 @@ Gfx *creditsRender(Gfx *gdl)
 
 		mtx4LoadIdentity(&sp68);
 		mtx00016054(&sp68, matrix);
-		currentPlayerSetMatrix1740(&sp68);
+		camSetMatrix1740(&sp68);
 
 		gSPMatrix(gdl++, osVirtualToPhysical(matrix), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 

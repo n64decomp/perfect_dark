@@ -1,9 +1,8 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_0b3350.h"
-#include "game/game_0b4950.h"
+#include "game/tex.h"
+#include "game/camera.h"
 #include "game/bg.h"
-#include "game/game_165670.h"
 #include "bss.h"
 #include "lib/vi.h"
 #include "data.h"
@@ -405,7 +404,7 @@ bool env0f1666f8(struct coord *pos, f32 arg1)
 		return true;
 	}
 
-	mtx = currentPlayerGetMatrix1740();
+	mtx = camGetMatrix1740();
 
 	sp24.x = pos->x - campos->x;
 	sp24.y = pos->y - campos->y;

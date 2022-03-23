@@ -4,7 +4,9 @@
 #include "data.h"
 #include "types.h"
 
-void getitleReset(void *addr, u32 arg1);
+void getitleReset(void);
+
+void getitleLoad(void *addr, u32 arg1);
 Gfx *getitleRender(Gfx *gdl);
 
 #endif

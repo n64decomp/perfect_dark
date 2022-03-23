@@ -86,7 +86,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **Payload:** Writes 16 bytes of data to the start of EEPROM. Unsure what this does, but it's probably corrupting it.
 
-### propAllocateEyespy
+### bodyAllocateEyespy
 
 **When Called:** When loading any stage that uses the eyespy.
 

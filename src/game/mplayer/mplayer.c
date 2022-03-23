@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/camdraw.h"
 #include "game/title.h"
-#include "game/game_01b0a0.h"
+#include "game/pdmode.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/player.h"
@@ -15,7 +15,7 @@
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
 #include "game/mpstats.h"
-#include "game/game_19aa80.h"
+#include "game/challenge.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pak.h"
@@ -143,11 +143,11 @@ void mpStartMatch(void)
 
 	mpConfigureQuickTeamSimulants();
 
-	if (!mpIsFeatureUnlocked(MPFEATURE_ONEHITKILLS)) {
+	if (!challengeIsFeatureUnlocked(MPFEATURE_ONEHITKILLS)) {
 		g_MpSetup.options &= ~MPOPTION_ONEHITKILLS;
 	}
 
-	if (!mpIsFeatureUnlocked(MPFEATURE_SLOWMOTION)) {
+	if (!challengeIsFeatureUnlocked(MPFEATURE_SLOWMOTION)) {
 		g_MpSetup.options &= ~(MPOPTION_SLOWMOTION_ON | MPOPTION_SLOWMOTION_SMART);
 	}
 
@@ -435,11 +435,11 @@ void mpPlayerSetDefaults(s32 playernum, bool autonames)
 	if (playernum < 4) {
 		for (i = 0; i < 30; i++) {
 			for (j = 1; j <= 4; j++) {
-				mpSetChallengeCompletedByPlayerWithNumPlayers(playernum, i, j, false);
+				challengeSetCompletedByPlayerWithNumPlayers(playernum, i, j, false);
 			}
 		}
 
-		mpDetermineUnlockedFeatures();
+		challengeDetermineUnlockedFeatures();
 	}
 
 	for (i = 0; i < 6; i++) {
@@ -510,7 +510,7 @@ void mpInit(void)
 	g_MpLockInfo.unk03 = -1;
 	g_MpLockInfo.unk04 = -1;
 
-	mpForceUnlockSimulantFeatures();
+	challengeForceUnlockBotFeatures();
 
 	for (i = 0; i < ARRAYCOUNT(g_PlayerConfigsArray); i++) {
 		for (j = 0; j < 6; j++) {
@@ -865,7 +865,7 @@ s32 mpGetNumWeaponOptions(void)
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(g_MpWeapons); i++) {
-		if (mpIsFeatureUnlocked(g_MpWeapons[i].unlockfeature)) {
+		if (challengeIsFeatureUnlocked(g_MpWeapons[i].unlockfeature)) {
 			count++;
 		}
 	}
@@ -878,7 +878,7 @@ char *mpGetWeaponLabel(s32 weaponnum)
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(g_MpWeapons); i++) {
-		if (mpIsFeatureUnlocked(g_MpWeapons[i].unlockfeature)) {
+		if (challengeIsFeatureUnlocked(g_MpWeapons[i].unlockfeature)) {
 			if (weaponnum == 0) {
 				if (g_MpWeapons[i].weaponnum == WEAPON_NONE) {
 					return langGet(L_MPWEAPONS_058); // "Nothing"
@@ -913,7 +913,7 @@ void mpSetWeaponSlot(s32 slot, s32 mpweaponnum)
 	s32 i;
 
 	for (i = 0; i <= mpweaponnum; i++) {
-		if (mpIsFeatureUnlocked(g_MpWeapons[i].unlockfeature) == 0) {
+		if (challengeIsFeatureUnlocked(g_MpWeapons[i].unlockfeature) == 0) {
 			mpweaponnum++;
 		}
 
@@ -929,7 +929,7 @@ s32 mpGetWeaponSlot(s32 slot)
 	s32 i;
 
 	for (i = 0; i < g_MpSetup.weapons[slot]; i++) {
-		if (mpIsFeatureUnlocked(g_MpWeapons[i].unlockfeature)) {
+		if (challengeIsFeatureUnlocked(g_MpWeapons[i].unlockfeature)) {
 			count++;
 		}
 	}
@@ -981,10 +981,10 @@ s32 mpCountWeaponSetThing(s32 weaponsetindex)
 	}
 
 	for (i = 0; i < weaponsetindex; i++) {
-		if ((mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[0])
-				&& mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[1])
-				&& mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[2])
-				&& mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[3])) || g_MpWeaponSets[i].unk0c != WEAPON_DISABLED) {
+		if ((challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[0])
+				&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[1])
+				&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[2])
+				&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[3])) || g_MpWeaponSets[i].unk0c != WEAPON_DISABLED) {
 			count++;
 		}
 	}
@@ -998,10 +998,10 @@ s32 func0f188f9c(s32 arg0)
 
 	for (i = 0; i < ARRAYCOUNT(g_MpWeaponSets); i++) {
 		// @bug? Shouldn't the disabled check be == WEAPON_DISABLED?
-		if ((mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[0])
-					&& mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[1])
-					&& mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[2])
-					&& mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[3]))
+		if ((challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[0])
+					&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[1])
+					&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[2])
+					&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[3]))
 				|| g_MpWeaponSets[i].unk0c != WEAPON_DISABLED) {
 			if (arg0 == 0) {
 				break;
@@ -1051,10 +1051,10 @@ void func0f18913c(void)
 	s32 j;
 
 	for (i = 0; !done && i < 12; i++) {
-		if (mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[0])
-				&& mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[1])
-				&& mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[2])
-				&& mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[3])) {
+		if (challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[0])
+				&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[1])
+				&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[2])
+				&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[3])) {
 			ptr = &g_MpWeaponSets[i].slots[0];
 		} else if (g_MpWeaponSets[i].unk0c != WEAPON_DISABLED) {
 			ptr = &g_MpWeaponSets[i].unk0c;
@@ -1069,7 +1069,7 @@ void func0f18913c(void)
 				s32 weaponnum = ptr[j];
 
 				if (weaponnum == WEAPON_MPSHIELD) {
-					if (!mpIsFeatureUnlocked(MPFEATURE_WEAPON_SHIELD)) {
+					if (!challengeIsFeatureUnlocked(MPFEATURE_WEAPON_SHIELD)) {
 						weaponnum = 0;
 					}
 				}
@@ -1097,10 +1097,10 @@ void mpApplyWeaponSet(void)
 	u8 *ptr;
 
 	if (g_MpWeaponSetNum >= 0 && g_MpWeaponSetNum < 12) {
-		if (mpIsFeatureUnlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[0])
-				&& mpIsFeatureUnlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[1])
-				&& mpIsFeatureUnlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[2])
-				&& mpIsFeatureUnlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[3])) {
+		if (challengeIsFeatureUnlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[0])
+				&& challengeIsFeatureUnlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[1])
+				&& challengeIsFeatureUnlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[2])
+				&& challengeIsFeatureUnlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[3])) {
 			ptr = &g_MpWeaponSets[g_MpWeaponSetNum].slots[0];
 		} else if (g_MpWeaponSets[g_MpWeaponSetNum].unk0c != WEAPON_DISABLED) {
 			ptr = &g_MpWeaponSets[g_MpWeaponSetNum].unk0c;
@@ -1115,7 +1115,7 @@ void mpApplyWeaponSet(void)
 				s32 mpweaponnum = MPWEAPON_NONE;
 				s32 weaponnum = ptr[i];
 
-				if (weaponnum == WEAPON_MPSHIELD && !mpIsFeatureUnlocked(MPFEATURE_WEAPON_SHIELD)) {
+				if (weaponnum == WEAPON_MPSHIELD && !challengeIsFeatureUnlocked(MPFEATURE_WEAPON_SHIELD)) {
 					weaponnum = 0;
 				}
 
@@ -4406,7 +4406,7 @@ void mpEndMatch(void)
 	mpCalculateAwards();
 
 	if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
-		mpConsiderMarkingCurrentChallengeComplete();
+		challengeConsiderMarkingComplete();
 	}
 
 	func0f0f820c(NULL, -6);
@@ -5723,7 +5723,7 @@ bool mpHasSimulants(void)
 
 bool mpHasUnusedBotSlots(void)
 {
-	s32 numvacant = mpIsFeatureUnlocked(MPFEATURE_8BOTS) ? MAX_BOTS : 4;
+	s32 numvacant = challengeIsFeatureUnlocked(MPFEATURE_8BOTS) ? MAX_BOTS : 4;
 	s32 i;
 
 	for (i = 4; i < MAX_MPCHRS; i++) {
@@ -6003,11 +6003,11 @@ void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2)
 
 	for (i = 0; i < 30; i++) {
 		for (j = 1; j < 5; j++) {
-			mpSetChallengeCompletedByPlayerWithNumPlayers(playernum, i, j, savebufferReadBits(buffer, 1));
+			challengeSetCompletedByPlayerWithNumPlayers(playernum, i, j, savebufferReadBits(buffer, 1));
 		}
 	}
 
-	mpDetermineUnlockedFeatures();
+	challengeDetermineUnlockedFeatures();
 	mpCalculatePlayerTitle(&g_PlayerConfigsArray[playernum]);
 	mpplayerfileLoadGunFuncs(buffer, playernum);
 }
@@ -6136,7 +6136,7 @@ void mpplayerfileSaveWad(s32 playernum, struct savebuffer *buffer)
 
 	for (i = 0; i < 30; i++) {
 		for (j = 1; j < 5; j++) {
-			savebufferOr(buffer, mpIsChallengeCompletedByPlayerWithNumPlayers(playernum, i, j), 1);
+			savebufferOr(buffer, challengeIsCompletedByPlayerWithNumPlayers(playernum, i, j), 1);
 		}
 	}
 
@@ -6236,7 +6236,7 @@ bool mpIsPresetUnlocked(s32 presetnum)
 	s32 i;
 
 	for (i = 0; i != 16; i++) {
-		if (!mpIsFeatureUnlocked(g_MpPresets[presetnum].requirefeatures[i]) &&
+		if (!challengeIsFeatureUnlocked(g_MpPresets[presetnum].requirefeatures[i]) &&
 				g_MpPresets[presetnum].requirefeatures[i] != MPFEATURE_WEAPON_SHIELD) {
 			return false;
 		}
@@ -6346,7 +6346,7 @@ void mpApplyConfig(struct mpconfigfull *config)
 		g_BotConfigsArray[i].base.team = config->config.simulants[i].team;
 	}
 
-	if (!mpIsFeatureUnlocked(MPFEATURE_WEAPON_SHIELD)) {
+	if (!challengeIsFeatureUnlocked(MPFEATURE_WEAPON_SHIELD)) {
 		for (i = 0; i < 6; i++) {
 			if (g_MpSetup.weapons[i] == MPWEAPON_SHIELD) {
 				g_MpSetup.weapons[i] = MPWEAPON_NONE;
@@ -6355,7 +6355,7 @@ void mpApplyConfig(struct mpconfigfull *config)
 	}
 
 	func0f18913c();
-	func0f19c190();
+	challengeRemoveForceUnlocks();
 }
 
 #if VERSION >= VERSION_JPN_FINAL
@@ -6394,7 +6394,7 @@ glabel func0f18dec4
 .JF0f18e844:
 /*  f18e844:	8fa4002c */ 	lw	$a0,0x2c($sp)
 /*  f18e848:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*  f18e84c:	0fc6709d */ 	jal	mpLoadConfig
+/*  f18e84c:	0fc6709d */ 	jal	challengeLoadConfig
 /*  f18e850:	240601ca */ 	li	$a2,0x1ca
 /*  f18e854:	0fc6397e */ 	jal	mpApplyConfig
 /*  f18e858:	00402025 */ 	move	$a0,$v0
@@ -6447,7 +6447,7 @@ void func0f18dec4(s32 slot)
 
 	}
 
-	config = mpLoadConfig(confignum, buffer, sizeof(buffer));
+	config = challengeLoadConfig(confignum, buffer, sizeof(buffer));
 
 	mpApplyConfig(config);
 }
@@ -6504,7 +6504,7 @@ void mpsetupfileLoadWad(struct savebuffer *buffer)
 		g_PlayerConfigsArray[i].base.team = savebufferReadBits(buffer, 3);
 	}
 
-	mpForceUnlockSimulantFeatures();
+	challengeForceUnlockBotFeatures();
 }
 
 void mpsetupfileSaveWad(struct savebuffer *buffer)

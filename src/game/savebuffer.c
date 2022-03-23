@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_0b3350.h"
-#include "game/game_0b4950.h"
+#include "game/tex.h"
+#include "game/camera.h"
 #include "game/savebuffer.h"
 #include "game/gfxmemory.h"
 #include "game/file.h"
@@ -133,7 +133,7 @@ Gfx *func0f0d479c(Gfx *gdl)
 Gfx *func0f0d49c8(Gfx *gdl)
 {
 	gSPViewport(gdl++, OS_K0_TO_PHYSICAL(viGetCurrentPlayerViewport()));
-	gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 	return gdl;
 }
@@ -146,9 +146,9 @@ Gfx *func0f0d4a3c(Gfx *gdl, s32 arg1)
 	gDPPipeSync(gdl++);
 
 	if (arg1 == 0) {
-		func0f0b39c0(&gdl, &g_TexGeneralConfigs[6], 2, 0, 2, 1, NULL);
+		tex0f0b39c0(&gdl, &g_TexGeneralConfigs[6], 2, 0, 2, 1, NULL);
 	} else if (arg1 == 1) {
-		func0f0b39c0(&gdl, &g_TexGeneralConfigs[11], 2, 0, 2, 1, NULL);
+		tex0f0b39c0(&gdl, &g_TexGeneralConfigs[11], 2, 0, 2, 1, NULL);
 	}
 
 	gDPPipeSync(gdl++);

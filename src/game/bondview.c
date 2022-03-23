@@ -4,7 +4,7 @@
 #include "game/game_006900.h"
 #include "game/atan2f.h"
 #include "game/savebuffer.h"
-#include "game/game_11f000.h"
+#include "game/sky.h"
 #include "game/bondview.h"
 #include "game/game_1531a0.h"
 #include "game/gfxmemory.h"
@@ -19784,7 +19784,7 @@ glabel bviewRenderNvLens
 /*  f1473f0:	14200004 */ 	bnez	$at,.L0f147404
 /*  f1473f4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1473f8:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1473fc:	0fc49ccd */ 	jal	func0f127334
+/*  f1473fc:	0fc49ccd */ 	jal	sky0f127334
 /*  f147400:	00403025 */ 	or	$a2,$v0,$zero
 .L0f147404:
 /*  f147404:	8e0e0288 */ 	lw	$t6,0x288($s0)
@@ -19954,7 +19954,7 @@ glabel bviewRenderNvLens
 /*  f141c84:	14200004 */ 	bnez	$at,.NB0f141c98
 /*  f141c88:	00402025 */ 	or	$a0,$v0,$zero
 /*  f141c8c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f141c90:	0fc487dd */ 	jal	func0f127334
+/*  f141c90:	0fc487dd */ 	jal	sky0f127334
 /*  f141c94:	00403025 */ 	or	$a2,$v0,$zero
 .NB0f141c98:
 /*  f141c98:	8e0e0288 */ 	lw	$t6,0x288($s0)
@@ -20088,7 +20088,7 @@ glabel bviewRenderNvLens
 //	roomvalue = func0f0009c0(g_Vars.currentplayer->prop->rooms[0]);
 //
 //	if (roomvalue > 128) {
-//		func0f127334(roomvalue, roomvalue, roomvalue);
+//		sky0f127334(roomvalue, roomvalue, roomvalue);
 //	}
 //
 //	if (g_Menus[g_Vars.currentplayerstats->mpindex].curframe == NULL) {

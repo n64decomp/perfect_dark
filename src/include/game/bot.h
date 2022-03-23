@@ -4,6 +4,8 @@
 #include "data.h"
 #include "types.h"
 
+bool botroomFindPos(s16 room, struct coord *pos, f32 *angleptr, s32 *padnumptr, s32 *covernumptr);
+
 bool botIsDizzy(struct chrdata *chr);
 void botReset(struct chrdata *chr, u8 respawning);
 void botSpawn(struct chrdata *chr, u8 full);

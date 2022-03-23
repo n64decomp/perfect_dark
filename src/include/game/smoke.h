@@ -4,6 +4,8 @@
 #include "data.h"
 #include "types.h"
 
+void smokesInit(void);
+
 void smokeReset(void);
 
 void smokeStop(void);

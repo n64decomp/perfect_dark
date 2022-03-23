@@ -7,23 +7,23 @@
 #include "game/cheats.h"
 #include "game/debug.h"
 #include "game/lang.h"
-#include "game/game_000100.h"
-#include "game/game_000130.h"
+#include "game/race.h"
+#include "game/body.h"
 #include "game/stubs/game_000840.h"
 #include "game/stubs/game_000850.h"
 #include "game/stubs/game_000860.h"
 #include "game/stubs/game_000870.h"
-#include "game/game_000880.h"
+#include "game/smoke.h"
 #include "game/stubs/game_0008e0.h"
 #include "game/stubs/game_0008f0.h"
 #include "game/stubs/game_000900.h"
 #include "game/stubs/game_000910.h"
-#include "game/game_00b190.h"
+#include "game/tex.h"
 #include "game/stubs/game_00b180.h"
 #include "game/stubs/game_00b200.h"
-#include "game/game_00b210.h"
+#include "game/challenge.h"
 #include "game/title.h"
-#include "game/game_01b0a0.h"
+#include "game/pdmode.h"
 #include "game/objectives.h"
 #include "game/endscreen.h"
 #include "game/playermgr.h"
@@ -630,7 +630,7 @@ glabel mainInit
 /*  d99c:	00000000 */ 	nop
 /*  d9a0:	0c003a58 */ 	jal	func0000e9c0
 /*  d9a4:	00000000 */ 	nop
-/*  d9a8:	0fc54a14 */ 	jal	func0f1531a0
+/*  d9a8:	0fc54a14 */ 	jal	fontsInit
 /*  d9ac:	00000000 */ 	nop
 /*  d9b0:	0c004dcc */ 	jal	dhudInit
 /*  d9b4:	00000000 */ 	nop
@@ -644,7 +644,7 @@ glabel mainInit
 /*  d9d4:	00000000 */ 	nop
 /*  d9d8:	0fc00240 */ 	jal	stub0f000870
 /*  d9dc:	00000000 */ 	nop
-/*  d9e0:	0fc00244 */ 	jal	func0f000880
+/*  d9e0:	0fc00244 */ 	jal	smokesInit
 /*  d9e4:	00000000 */ 	nop
 /*  d9e8:	0fc0025c */ 	jal	stub0f0008e0
 /*  d9ec:	00000000 */ 	nop
@@ -1025,7 +1025,7 @@ glabel mainInit
 /*     d730:	00000000 */ 	nop
 /*     d734:	0c0039c8 */ 	jal	func0000e9c0
 /*     d738:	00000000 */ 	nop
-/*     d73c:	0fc54f94 */ 	jal	func0f1531a0
+/*     d73c:	0fc54f94 */ 	jal	fontsInit
 /*     d740:	00000000 */ 	nop
 /*     d744:	0c004d48 */ 	jal	dhudInit
 /*     d748:	00000000 */ 	nop
@@ -1039,7 +1039,7 @@ glabel mainInit
 /*     d768:	00000000 */ 	nop
 /*     d76c:	0fc0021c */ 	jal	stub0f000870
 /*     d770:	00000000 */ 	nop
-/*     d774:	0fc00220 */ 	jal	func0f000880
+/*     d774:	0fc00220 */ 	jal	smokesInit
 /*     d778:	00000000 */ 	nop
 /*     d77c:	0fc00238 */ 	jal	stub0f0008e0
 /*     d780:	00000000 */ 	nop
@@ -1450,7 +1450,7 @@ glabel mainInit
 /*  d7d0:	00000000 */ 	nop
 /*  d7d4:	0c003a7d */ 	jal	func0000e9c0
 /*  d7d8:	00000000 */ 	nop
-/*  d7dc:	0fc55154 */ 	jal	func0f1531a0
+/*  d7dc:	0fc55154 */ 	jal	fontsInit
 /*  d7e0:	00000000 */ 	nop
 /*  d7e4:	0c004e5e */ 	jal	dhudInit
 /*  d7e8:	00000000 */ 	nop
@@ -1464,7 +1464,7 @@ glabel mainInit
 /*  d808:	00000000 */ 	nop
 /*  d80c:	0fc0021c */ 	jal	stub0f000870
 /*  d810:	00000000 */ 	nop
-/*  d814:	0fc00220 */ 	jal	func0f000880
+/*  d814:	0fc00220 */ 	jal	smokesInit
 /*  d818:	00000000 */ 	nop
 /*  d81c:	0fc00238 */ 	jal	stub0f0008e0
 /*  d820:	00000000 */ 	nop
@@ -1853,7 +1853,7 @@ glabel mainInit
 /*     d9f4:	00000000 */ 	nop
 /*     d9f8:	0c003a70 */ 	jal	func0000e9c0
 /*     d9fc:	00000000 */ 	nop
-/*     da00:	0fc54c68 */ 	jal	func0f1531a0
+/*     da00:	0fc54c68 */ 	jal	fontsInit
 /*     da04:	00000000 */ 	nop
 /*     da08:	0c004de4 */ 	jal	dhudInit
 /*     da0c:	00000000 */ 	nop
@@ -1867,7 +1867,7 @@ glabel mainInit
 /*     da2c:	00000000 */ 	nop
 /*     da30:	0fc0021c */ 	jal	stub0f000870
 /*     da34:	00000000 */ 	nop
-/*     da38:	0fc00220 */ 	jal	func0f000880
+/*     da38:	0fc00220 */ 	jal	smokesInit
 /*     da3c:	00000000 */ 	nop
 /*     da40:	0fc00238 */ 	jal	stub0f0008e0
 /*     da44:	00000000 */ 	nop
@@ -2226,7 +2226,7 @@ glabel mainInit
 /*     df04:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df08:	0c003c68 */ 	jal	func0000e9c0
 /*     df0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df10:	0fc53628 */ 	jal	func0f1531a0
+/*     df10:	0fc53628 */ 	jal	fontsInit
 /*     df14:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df18:	0c005002 */ 	jal	dhudInit
 /*     df1c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2240,7 +2240,7 @@ glabel mainInit
 /*     df3c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df40:	0fc0021c */ 	jal	stub0f000870
 /*     df44:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df48:	0fc00220 */ 	jal	func0f000880
+/*     df48:	0fc00220 */ 	jal	smokesInit
 /*     df4c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df50:	0fc00238 */ 	jal	stub0f0008e0
 /*     df54:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2471,14 +2471,14 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	lvInit();
 //	cheatsInit();
 //	func0000e9c0();
-//	func0f1531a0();
+//	fontsInit();
 //	dhudInit();
 //	playermgrInit();
 //	frametimeInit();
 //	stub0f00b200();
 //	profileInit();
 //	stub0f000870();
-//	func0f000880();
+//	smokesInit();
 //	stub0f0008e0();
 //	stub0f0008f0();
 //	stub0f000900();

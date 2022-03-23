@@ -168,7 +168,7 @@ void htbCreateUplink(void)
 	g_HtmUplinkObj = template;
 	g_HtmUplinkObj.base.pad = padnum;
 
-	weaponAssignToHome(&g_HtmUplinkObj, 999);
+	setupPlaceWeapon(&g_HtmUplinkObj, 999);
 
 	g_HtmUplinkObj.base.hidden2 &= ~OBJH2FLAG_CANREGEN;
 

@@ -3,7 +3,7 @@
 #include "game/camdraw.h"
 #include "game/game_006900.h"
 #include "game/objectives.h"
-#include "game/game_0b3350.h"
+#include "game/tex.h"
 #include "game/menugfx.h"
 #include "game/menuitem.h"
 #include "game/menu.h"
@@ -11,7 +11,7 @@
 #include "game/objectives.h"
 #include "game/game_1531a0.h"
 #include "game/lv.h"
-#include "game/game_19aa80.h"
+#include "game/challenge.h"
 #include "game/training.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
@@ -8472,13 +8472,13 @@ char *menuitemScrollableGetText(u32 type)
 {
 	switch (type) {
 	case DESCRIPTION_MPCONFIG:
-		return mpconfigGetDescription(g_Menus[g_MpPlayerNum].training.mpconfig);
+		return challengeGetConfigDescription(g_Menus[g_MpPlayerNum].training.mpconfig);
 	case DESCRIPTION_MPCHALLENGE:
-		if (!mpIsChallengeLoaded()) {
+		if (!challengeIsLoaded()) {
 			g_Menus[g_MpPlayerNum].unk840.unk010 = 0x4fac5ace;
-			mpLoadAndStoreCurrentChallenge(g_Menus[g_MpPlayerNum].unk840.unk004, g_Menus[g_MpPlayerNum].unk840.unk008);
+			challengeLoadAndStoreCurrent(g_Menus[g_MpPlayerNum].unk840.unk004, g_Menus[g_MpPlayerNum].unk840.unk008);
 		}
-		return mpGetCurrentChallengeDescription();
+		return challengeGetCurrentDescription();
 	case DESCRIPTION_CHRBIO:         return ciGetChrBioDescription();
 	case DESCRIPTION_MISCBIO:        return ciGetMiscBioDescription();
 	case DESCRIPTION_DEVICETRAINING: return dtGetDescription();
@@ -10564,7 +10564,7 @@ Gfx *menuitemControllerRenderTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32
 	gDPSetTextureLOD(gdl++, G_TL_TILE);
 	gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-	func0f0b39c0(&gdl, &g_TexGeneralConfigs[texturenum], 2, 0, 2, 1, NULL);
+	tex0f0b39c0(&gdl, &g_TexGeneralConfigs[texturenum], 2, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetTextureFilter(gdl++, G_TF_POINT);
@@ -10703,7 +10703,7 @@ glabel menuitemControllerRenderLines
 /*  f0f05d8:	00003825 */ 	move	$a3,$zero
 /*  f0f05dc:	24060002 */ 	li	$a2,0x2
 /*  f0f05e0:	27a40050 */ 	addiu	$a0,$sp,0x50
-/*  f0f05e4:	0fc2d290 */ 	jal	func0f0b39c0
+/*  f0f05e4:	0fc2d290 */ 	jal	tex0f0b39c0
 /*  f0f05e8:	24a50294 */ 	addiu	$a1,$a1,0x294
 /*  f0f05ec:	8fb90050 */ 	lw	$t9,0x50($sp)
 /*  f0f05f0:	3c0dba00 */ 	lui	$t5,0xba00
@@ -10905,7 +10905,7 @@ Gfx *menuitemControllerRenderLines(Gfx *gdl, struct menurendercontext *context, 
 	gDPSetTextureLOD(gdl++, G_TL_TILE);
 	gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-	func0f0b39c0(&gdl, &g_TexGeneralConfigs[55], 2, 0, 2, 1, NULL);
+	tex0f0b39c0(&gdl, &g_TexGeneralConfigs[55], 2, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetTextureFilter(gdl++, G_TF_POINT);

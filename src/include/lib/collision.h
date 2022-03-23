@@ -4,6 +4,10 @@
 #include "data.h"
 #include "types.h"
 
+u32 func0f1577f0(void);
+u32 func0f1578c8(void);
+f32 func0f1579cc(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3);
+
 f32 cd00024e40(void);
 void cd00024e4c(struct coord *arg0, struct coord *arg1, u32 line, char *file);
 f32 cd00024e98(void);

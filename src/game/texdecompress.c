@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_0b3350.h"
+#include "game/tex.h"
 #include "game/texdecompress.h"
 #include "bss.h"
 #include "lib/rzip.h"

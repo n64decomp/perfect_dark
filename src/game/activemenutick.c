@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/activemenu.h"
-#include "game/game_01b0a0.h"
+#include "game/pdmode.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/inv.h"

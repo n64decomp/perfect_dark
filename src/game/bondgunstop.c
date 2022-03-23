@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_01afc0.h"
 #include "bss.h"
 #include "lib/vi.h"
 #include "lib/dma.h"

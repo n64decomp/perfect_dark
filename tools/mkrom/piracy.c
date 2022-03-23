@@ -161,7 +161,7 @@ void piracy_patch(void)
 	patch(algo04, "chrUncloak", "botPickupProp");
 	patch(algo05, "chrsCheckForNoise", "__scHandleRetrace");
 	patch(algo06, "lvReset", "lvGetSlowMotionType");
-	patch(algo07, "propAllocateEyespy", "lvReset");
+	patch(algo07, "bodyAllocateEyespy", "lvReset");
 	patch(algo08, "chrConsiderGrenadeThrow", "bgReset");
 	patch(algo09, "bgun0f09e144", "tagsReset");
 	patch(algo10, "explosionAlertChrs", "glassDestroy");

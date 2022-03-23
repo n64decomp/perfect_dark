@@ -12,7 +12,7 @@
 #include "game/title.h"
 #include "game/chr.h"
 #include "game/prop.h"
-#include "game/game_091e10.h"
+#include "game/setuputils.h"
 #include "game/propsnd.h"
 #include "game/objectives.h"
 #include "game/atan2f.h"
@@ -28,7 +28,6 @@
 #include "game/weather.h"
 #include "game/bg.h"
 #include "game/stagetable.h"
-#include "game/game_165670.h"
 #include "game/env.h"
 #include "game/lv.h"
 #include "game/music.h"
@@ -5287,10 +5286,10 @@ bool ai00df(void)
 	struct tag *tag = tagFindById(cmd[2]);
 
 	if (tag) {
-		s32 cmdindex = tagGetCommandIndex(tag);
+		s32 cmdindex = setupGetCmdIndexByTag(tag);
 
 		if (cmdindex >= 0) {
-			void *ptr = setupGetPtrToCommandByIndex(cmdindex + tag->cmdoffset);
+			void *ptr = setupGetCmdByIndex(cmdindex + tag->cmdoffset);
 			playerPrepareWarpType2(ptr, cmd[4] | (cmd[3] << 8), cmd[6] | (cmd[5] << 8));
 		}
 	}

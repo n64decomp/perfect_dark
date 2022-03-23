@@ -4,6 +4,8 @@
 #include "data.h"
 #include "types.h"
 
+void wallhitReset(void);
+
 s16 func0f13e0e0(f32 arg0);
 void wallhitRemove(struct wallhit *wallhit);
 void wallhitsRemoveByProp(struct prop *prop, s8 layer);

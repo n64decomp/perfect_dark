@@ -21,28 +21,21 @@
 #include "game/filemgr.h"
 #include "game/game_006900.h"
 #include "game/game_00b820.h"
-#include "game/game_00c490.h"
-#include "game/game_013550.h"
-#include "game/game_0147a0.h"
-#include "game/game_015010.h"
-#include "game/game_01b0a0.h"
-#include "game/game_01d990.h"
-#include "game/game_0abe70.h"
+#include "game/gunfx.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b28d0.h"
-#include "game/game_0b63b0.h"
-#include "game/game_10c9c0.h"
-#include "game/game_11f000.h"
+#include "game/portal.h"
+#include "game/fmb.h"
+#include "game/sky.h"
 #include "game/game_13c510.h"
 #include "game/game_1531a0.h"
-#include "game/game_165670.h"
 #include "game/game_176080.h"
-#include "game/game_19aa80.h"
+#include "game/challenge.h"
 #include "game/gfxmemory.h"
+#include "game/gunfx.h"
 #include "game/hudmsg.h"
 #include "game/inv.h"
 #include "game/lang.h"
-#include "game/lasersights.h"
 #include "game/lv.h"
 #include "game/menu.h"
 #include "game/mplayer/mplayer.h"
@@ -52,17 +45,21 @@
 #include "game/nbomb.h"
 #include "game/objectives.h"
 #include "game/pak.h"
+#include "game/pdmode.h"
 #include "game/player.h"
 #include "game/playermgr.h"
 #include "game/playerreset.h"
 #include "game/prop.h"
 #include "game/propobj.h"
+#include "game/propobjstop.h"
 #include "game/propsnd.h"
 #include "game/savebuffer.h"
+#include "game/setup.h"
 #include "game/shards.h"
 #include "game/sky.h"
 #include "game/sparks.h"
 #include "game/splat.h"
+#include "game/stars.h"
 #include "game/stubs/game_013540.h"
 #include "game/stubs/game_015260.h"
 #include "game/stubs/game_015270.h"
@@ -292,7 +289,7 @@ void lvReset(s32 stagenum)
 
 	musicReset();
 	func0f011124(true);
-	func0f013b80();
+	surfaceReset();
 	texReset();
 	fontsReset();
 	hudmsgsReset();
@@ -316,7 +313,7 @@ void lvReset(s32 stagenum)
 		tilesReset();
 		bgReset(g_Vars.stagenum);
 		bgBuildTables(g_Vars.stagenum);
-		func0f0147a0(g_Vars.stagenum);
+		skyReset(g_Vars.stagenum);
 
 		if (g_Vars.normmplayerisrunning) {
 			musicSetStageAndStartMusic(stagenum);
@@ -362,13 +359,13 @@ void lvReset(s32 stagenum)
 	vtxstoreReset();
 	func0f011110();
 	propsndReset();
-	setupReset(stagenum);
+	setupLoadFiles(stagenum);
 	scenarioReset();
 	varsReset();
 	propsReset();
 	chrmgrReset();
-	headsReset(stagenum);
-	propsCreate(stagenum);
+	bodiesReset(stagenum);
+	setupCreateProps(stagenum);
 	tagsReset();
 	explosionsReset();
 	smokeReset();
@@ -383,12 +380,12 @@ void lvReset(s32 stagenum)
 	case STAGE_DEFECTION:
 	case STAGE_ATTACKSHIP:
 	case STAGE_TEST_OLD:
-		skyReset();
+		starsReset();
 		break;
 	}
 
 	func0f0099a4();
-	func0f0147d0();
+	boltbeamsReset();
 	lasersightsReset();
 	stub0f013540();
 	shardsReset();
@@ -430,7 +427,7 @@ void lvReset(s32 stagenum)
 		}
 
 		acousticReset();
-		func0f0b65f8();
+		portalsReset();
 		lightsReset();
 		setCurrentPlayerNum(0);
 	}
@@ -447,7 +444,7 @@ void lvReset(s32 stagenum)
 	}
 
 	if (stagenum == STAGE_4MBMENU) {
-		fmbmenuReset();
+		fmbReset();
 	}
 
 	if (IS8MB()) {
@@ -1179,7 +1176,7 @@ Gfx *lvRender(Gfx *gdl)
 				}
 
 				gdl = viRenderViewportEdges(gdl);
-				gdl = func0f11f984(gdl);
+				gdl = skyRender(gdl);
 				bgTick();
 				lightsTick();
 				propsTickPlayer(islastplayer);
@@ -1311,7 +1308,7 @@ Gfx *lvRender(Gfx *gdl)
 					gdl = lvRenderManPosIfEnabled(gdl);
 #endif
 				} else {
-					gdl = func0f0aeed8(gdl);
+					gdl = boltbeamsRender(gdl);
 
 					if (g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
 						gdl = func0f15b114(gdl);
@@ -1626,7 +1623,7 @@ Gfx *lvRender(Gfx *gdl)
 #endif
 				}
 
-				gdl = func0f1274d8(gdl);
+				gdl = sky0f1274d8(gdl);
 				gdl = amRender(gdl);
 				mtx00016748(1);
 
@@ -2291,8 +2288,8 @@ void lvTick(void)
 		lvUpdateCutsceneTime();
 		vtxstoreTick();
 		lvUpdateSoloHandicaps();
-		func0f01d8c0();
-		func0f01d990();
+		roomsTick();
+		skyTick();
 		casingsTick();
 		shardsTick();
 		sparksTick();
@@ -2312,7 +2309,7 @@ void lvTick(void)
 		pakExecuteDebugOperations();
 		lightingTick();
 		func0f0b2904();
-		func0f0aefb8();
+		boltbeamsTick();
 		amTick();
 		menuTick();
 		scenarioTick();

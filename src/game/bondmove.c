@@ -10,11 +10,11 @@
 #include "game/chr.h"
 #include "game/prop.h"
 #include "game/atan2f.h"
-#include "game/game_096ca0.h"
+#include "game/quaternion.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
-#include "game/game_0b3350.h"
-#include "game/game_0b4950.h"
+#include "game/tex.h"
+#include "game/camera.h"
 #include "game/player.h"
 #include "game/bondcutscene.h"
 #include "game/bondhead.h"
@@ -1488,7 +1488,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 				&& g_Vars.currentplayer->insightaimmode
 				&& (movedata.farsighttempautoseek || g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponfunc == FUNC_SECONDARY)
 				&& g_Vars.currentplayer->autoeraserdist > 0) {
-			eraserfov = func0f0b49b8(500.0f / g_Vars.currentplayer->autoeraserdist);
+			eraserfov = cam0f0b49b8(500.0f / g_Vars.currentplayer->autoeraserdist);
 
 			if (eraserfov > 60) {
 				eraserfov = 60;
@@ -1500,19 +1500,19 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 
 			g_Vars.currentplayer->gunzoomfovs[1] = eraserfov;
 
-			mtx4TransformVec(currentPlayerGetMatrix1740(), &g_Vars.currentplayer->autoerasertarget->pos, &spa0);
+			mtx4TransformVec(camGetMatrix1740(), &g_Vars.currentplayer->autoerasertarget->pos, &spa0);
 
-			func0f0b4eb8(&spa0, crosspos, eraserfov, g_Vars.currentplayer->c_perspaspect);
+			cam0f0b4eb8(&spa0, crosspos, eraserfov, g_Vars.currentplayer->c_perspaspect);
 
-			if (crosspos[0] < (currentPlayerGetScreenLeft() + currentPlayerGetScreenWidth() * 0.5f) - 20.0f) {
+			if (crosspos[0] < (camGetScreenLeft() + camGetScreenWidth() * 0.5f) - 20.0f) {
 				movedata.aimturnleftspeed = 0.25f;
-			} else if (crosspos[0] > currentPlayerGetScreenLeft() + currentPlayerGetScreenWidth() * 0.5f + 20.0f) {
+			} else if (crosspos[0] > camGetScreenLeft() + camGetScreenWidth() * 0.5f + 20.0f) {
 				movedata.aimturnrightspeed = 0.25f;
 			}
 
-			if (crosspos[1] < (currentPlayerGetScreenTop() + currentPlayerGetScreenHeight() * 0.5f) - 20.0f) {
+			if (crosspos[1] < (camGetScreenTop() + camGetScreenHeight() * 0.5f) - 20.0f) {
 				movedata.speedvertaup = 0.25f;
-			} else if (crosspos[1] > currentPlayerGetScreenTop() + currentPlayerGetScreenHeight() * 0.5f + 20.0f) {
+			} else if (crosspos[1] > camGetScreenTop() + camGetScreenHeight() * 0.5f + 20.0f) {
 				movedata.speedvertadown = 0.25f;
 			}
 		}
@@ -1957,7 +1957,7 @@ void bmoveTick(bool allowc1x, bool allowc1y, bool allowc1buttons, bool ignorec2)
 
 				chr->floortype = g_Vars.currentplayer->floortype;
 
-				sound = chrChooseFootstepSound(chr, distance > 10);
+				sound = footstepChooseSound(chr, distance > 10);
 
 				if (sound != -1) {
 					snd00010718(0, 0, 0x7fff, 0x40, sound, 1, 1, -1, 1);

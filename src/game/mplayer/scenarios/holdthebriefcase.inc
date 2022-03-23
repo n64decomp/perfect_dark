@@ -171,7 +171,7 @@ void htbCreateToken(void)
 	g_HtbTokenObj = template;
 	g_HtbTokenObj.base.pad = g_ScenarioData.htb.tokenpad;
 
-	weaponAssignToHome(&g_HtbTokenObj, 999);
+	setupPlaceWeapon(&g_HtbTokenObj, 999);
 
 	g_HtbTokenObj.base.hidden2 &= ~OBJH2FLAG_CANREGEN;
 

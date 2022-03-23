@@ -6,7 +6,7 @@
 #include "game/player.h"
 #include "game/savebuffer.h"
 #include "game/bg.h"
-#include "game/game_19aa80.h"
+#include "game/challenge.h"
 #include "game/training.h"
 #include "game/gamefile.h"
 #include "game/mplayer/mplayer.h"
@@ -231,11 +231,11 @@ void gamefileLoadDefaults(struct gamefile *file)
 
 	for (i = 0; i < 30; i++) {
 		for (j = 1; j != 5; j++) {
-			mpSetChallengeCompletedByAnyPlayerWithNumPlayers(i, j, false);
+			challengeSetCompletedByAnyPlayerWithNumPlayers(i, j, false);
 		}
 	}
 
-	mpDetermineUnlockedFeatures();
+	challengeDetermineUnlockedFeatures();
 
 	for (i = 0; i < ARRAYCOUNT(g_GameFile.coopcompletions); i++) {
 		g_GameFile.coopcompletions[i] = 0;
@@ -325,11 +325,11 @@ s32 gamefileLoad(s32 device)
 
 			for (i = 0; i < 30; i++) {
 				for (j = 1; j < 5; j++) {
-					mpSetChallengeCompletedByAnyPlayerWithNumPlayers(i, j, savebufferReadBits(&buffer, 1));
+					challengeSetCompletedByAnyPlayerWithNumPlayers(i, j, savebufferReadBits(&buffer, 1));
 				}
 			}
 
-			mpDetermineUnlockedFeatures();
+			challengeDetermineUnlockedFeatures();
 
 			for (i = 0; i < 3; i++) {
 				g_GameFile.coopcompletions[i] = savebufferReadBits(&buffer, 21);
@@ -488,7 +488,7 @@ s32 gamefileSave(s32 device, s32 fileid, u16 deviceserial)
 
 		for (i = 0; i < 30; i++) {
 			for (j = 1; j < 5; j++) {
-				savebufferOr(&buffer, mpIsChallengeCompletedByAnyPlayerWithNumPlayers(i, j), 1);
+				savebufferOr(&buffer, challengeIsCompletedByAnyPlayerWithNumPlayers(i, j), 1);
 			}
 		}
 
@@ -891,7 +891,7 @@ glabel gamefileSave
 .NB0f10a910:
 /*  f10a910:	02202025 */ 	or	$a0,$s1,$zero
 .NB0f10a914:
-/*  f10a914:	0fc65912 */ 	jal	mpIsChallengeCompletedByAnyPlayerWithNumPlayers
+/*  f10a914:	0fc65912 */ 	jal	challengeIsCompletedByAnyPlayerWithNumPlayers
 /*  f10a918:	02002825 */ 	or	$a1,$s0,$zero
 /*  f10a91c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f10a920:	00402825 */ 	or	$a1,$v0,$zero

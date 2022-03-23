@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/botmgr.h"
 #include "game/chr.h"
-#include "game/game_02cde0.h"
+#include "game/body.h"
 #include "game/prop.h"
 #include "game/botcmd.h"
 #include "game/mplayer/mplayer.h"
@@ -46,7 +46,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 		bodynum = BODY_DDSHOCK;
 	}
 
-	model = modelAllocateChr(bodynum, headnum, 0);
+	model = bodyAllocateModel(bodynum, headnum, 0);
 
 	if (model != NULL) {
 		struct coord pos = {0.0f, 0.0f, 0.0f};

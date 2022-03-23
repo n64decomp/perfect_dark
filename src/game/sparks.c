@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/dlights.h"
 #include "game/chr.h"
-#include "game/game_0b3350.h"
+#include "game/tex.h"
 #include "game/sparks.h"
 #include "game/file.h"
 #include "bss.h"
@@ -1248,7 +1248,7 @@ glabel sparksRender
 /*  f1301b8:	8ca5b5a4 */ 	lw	$a1,%lo(g_TexSparkConfigs)($a1)
 /*  f1301bc:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f1301c0:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f1301c4:	0fc2ce70 */ 	jal	func0f0b39c0
+/*  f1301c4:	0fc2ce70 */ 	jal	tex0f0b39c0
 /*  f1301c8:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f1301cc:	8fb90170 */ 	lw	$t9,0x170($sp)
 /*  f1301d0:	3c09ba00 */ 	lui	$t1,0xba00
@@ -1836,7 +1836,7 @@ glabel sparksRender
 /*  f130a48:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f130a4c:	0c005775 */ 	jal	mtx4SetTranslation
 /*  f130a50:	27a500d4 */ 	addiu	$a1,$sp,0xd4
-/*  f130a54:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
+/*  f130a54:	0fc2d5be */ 	jal	camGetMatrix1740
 /*  f130a58:	00000000 */ 	nop
 /*  f130a5c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f130a60:	0c0056f8 */ 	jal	mtx00015be0

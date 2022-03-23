@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_0b3350.h"
-#include "game/game_0b4950.h"
+#include "game/tex.h"
+#include "game/camera.h"
 #include "game/player.h"
 #include "game/file.h"
 #include "game/game_176080.h"
@@ -2380,7 +2380,7 @@ Gfx *vi0000ab78(Gfx *gdl)
 	u16 sp46;
 
 	guPerspectiveF(sp110.m, &sp46, g_ViBackData->fovy, g_ViBackData->aspect, g_ViBackData->znear, g_ViBackData->zfar + g_ViBackData->zfar, 1);
-	mtx4Copy(currentPlayerGetMatrix1740(), &sp90);
+	mtx4Copy(camGetMatrix1740(), &sp90);
 
 	sp90.m[3][0] = 0;
 	sp90.m[3][1] = 0;
@@ -2433,8 +2433,8 @@ Gfx *vi0000ad5c(Gfx *gdl, Vp *vp)
 	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(var80092870), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 	gSPPerspNormalize(gdl++, g_ViPerspScale);
 
-	currentPlayerSetUnk1750(var80092870);
-	currentPlayerSetUnk1754(&var80092830);
+	camSetUnk1750(var80092870);
+	camSetUnk1754(&var80092830);
 
 	return gdl;
 }
@@ -2462,8 +2462,8 @@ Gfx *vi0000af00(Gfx *gdl, Vp *vp)
 	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(var80092870), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 	gSPPerspNormalize(gdl++, g_ViPerspScale);
 
-	currentPlayerSetUnk1750(var80092870);
-	currentPlayerSetUnk1754(&var80092830);
+	camSetUnk1750(var80092870);
+	camSetUnk1754(&var80092830);
 
 	return gdl;
 }
@@ -2670,8 +2670,8 @@ void viSetViewSize(s16 width, s16 height)
 	g_ViBackData->viewx = width;
 	g_ViBackData->viewy = height;
 
-	currentPlayerSetScreenSize(g_ViBackData->viewx, g_ViBackData->viewy);
-	currentPlayerSetCameraScale();
+	camSetScreenSize(g_ViBackData->viewx, g_ViBackData->viewy);
+	camSetScale();
 }
 
 s16 viGetViewWidth(void)
@@ -2689,7 +2689,7 @@ void viSetViewPosition(s16 left, s16 top)
 	g_ViBackData->viewleft = left;
 	g_ViBackData->viewtop = top;
 
-	currentPlayerSetScreenPosition(g_ViBackData->viewleft, g_ViBackData->viewtop);
+	camSetScreenPosition(g_ViBackData->viewleft, g_ViBackData->viewtop);
 }
 
 s16 viGetViewLeft(void)
@@ -2711,16 +2711,16 @@ void viSetFovY(f32 fovy)
 {
 	g_ViBackData->fovy = fovy;
 
-	currentPlayerSetPerspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
-	currentPlayerSetCameraScale();
+	camSetPerspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
+	camSetScale();
 }
 
 void viSetAspect(f32 aspect)
 {
 	g_ViBackData->aspect = aspect;
 
-	currentPlayerSetPerspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
-	currentPlayerSetCameraScale();
+	camSetPerspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
+	camSetScale();
 }
 
 f32 viGetAspect(void)
@@ -2735,9 +2735,9 @@ void viSetFovAspectAndSize(f32 fovy, f32 aspect, s16 width, s16 height)
 	g_ViBackData->viewx = width;
 	g_ViBackData->viewy = height;
 
-	currentPlayerSetScreenSize(g_ViBackData->viewx, g_ViBackData->viewy);
-	currentPlayerSetPerspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
-	currentPlayerSetCameraScale();
+	camSetScreenSize(g_ViBackData->viewx, g_ViBackData->viewy);
+	camSetPerspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
+	camSetScale();
 }
 
 f32 viGetFovY(void)
@@ -2750,8 +2750,8 @@ void viSetZRange(f32 near, f32 far)
 	g_ViBackData->znear = near;
 	g_ViBackData->zfar = far;
 
-	currentPlayerSetPerspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
-	currentPlayerSetCameraScale();
+	camSetPerspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
+	camSetScale();
 }
 
 void viGetZRange(struct zrange *zrange)

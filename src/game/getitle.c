@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_01afc0.h"
 #include "bss.h"
 #include "lib/vi.h"
 #include "lib/dma.h"
@@ -61,7 +60,7 @@ glabel getitle0f0155f0
 /*  f015630:	02001025 */ 	or	$v0,$s0,$zero
 /*  f015634:	13000007 */ 	beqz	$t8,.L0f015654
 /*  f015638:	3c19ba00 */ 	lui	$t9,0xba00
-/*  f01563c:	0fc06bf0 */ 	jal	func0f01afc0
+/*  f01563c:	0fc06bf0 */ 	jal	titleClear
 /*  f015640:	02002025 */ 	or	$a0,$s0,$zero
 /*  f015644:	3c018006 */ 	lui	$at,%hi(var80062494)
 /*  f015648:	00408025 */ 	or	$s0,$v0,$zero
@@ -591,7 +590,7 @@ Gfx *getitle0f0155f0(Gfx *gdl, s32 arg1, u32 arg2);
 //	gSPDisplayList(gdl++, &var80061360);
 //
 //	if (var80062494) {
-//		gdl = func0f01afc0(gdl);
+//		gdl = titleClear(gdl);
 //		var80062494 = 0;
 //	} else {
 //		gDPSetCycleType(gdl++, G_CYC_FILL);
@@ -670,7 +669,7 @@ extern u8 _getitleSegmentRomStart;
 extern u8 _getitleSegmentStart;
 extern u8 _getitleSegmentEnd;
 
-void getitleReset(void *addr, u32 arg1)
+void getitleLoad(void *addr, u32 arg1)
 {
 	u32 len = (u32)&_getitleSegmentEnd - (u32)&_getitleSegmentStart;
 

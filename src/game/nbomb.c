@@ -9,8 +9,8 @@
 #include "game/prop.h"
 #include "game/objectives.h"
 #include "game/atan2f.h"
-#include "game/game_0b3350.h"
-#include "game/game_0b4950.h"
+#include "game/tex.h"
+#include "game/camera.h"
 #include "game/savebuffer.h"
 #include "game/bg.h"
 #include "game/file.h"
@@ -611,7 +611,7 @@ glabel var7f1a7ee8
 /*  f007440:	8fa40154 */ 	lw	$a0,0x154($sp)
 /*  f007444:	0c0059b7 */ 	jal	mtx4LoadTranslation
 /*  f007448:	02002825 */ 	or	$a1,$s0,$zero
-/*  f00744c:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
+/*  f00744c:	0fc2d5be */ 	jal	camGetMatrix1740
 /*  f007450:	00000000 */ 	nop
 /*  f007454:	00402025 */ 	or	$a0,$v0,$zero
 /*  f007458:	0c0056f8 */ 	jal	mtx00015be0
@@ -638,7 +638,7 @@ glabel var7f1a7ee8
 /*  f0074ac:	27a40150 */ 	addiu	$a0,$sp,0x150
 /*  f0074b0:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f0074b4:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f0074b8:	0fc2ce70 */ 	jal	func0f0b39c0
+/*  f0074b8:	0fc2ce70 */ 	jal	tex0f0b39c0
 /*  f0074bc:	24a50078 */ 	addiu	$a1,$a1,0x0078
 /*  f0074c0:	8fb90150 */ 	lw	$t9,0x150($sp)
 /*  f0074c4:	3c07e700 */ 	lui	$a3,0xe700
@@ -769,7 +769,7 @@ glabel var7f1a7ee8
 /*  f0076b8:	24180001 */ 	addiu	$t8,$zero,0x1
 /*  f0076bc:	afb80014 */ 	sw	$t8,0x14($sp)
 /*  f0076c0:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0076c4:	0fc2ce70 */ 	jal	func0f0b39c0
+/*  f0076c4:	0fc2ce70 */ 	jal	tex0f0b39c0
 /*  f0076c8:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f0076cc:	8fb90150 */ 	lw	$t9,0x150($sp)
 /*  f0076d0:	3c014500 */ 	lui	$at,0x4500
@@ -2806,7 +2806,7 @@ Gfx *nbombCreateGdl(void)
 
 	gdl = gdlstart = gfxAllocate(gdlsizes[index]);
 
-	func0f0b39c0(&gdl, &g_TexGeneralConfigs[0x0a], 2, 1, 2, 1, NULL);
+	tex0f0b39c0(&gdl, &g_TexGeneralConfigs[0x0a], 2, 1, 2, 1, NULL);
 
 	gDPPipeSync(gdl++);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -2879,7 +2879,7 @@ Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl)
 	mtx00015f04(nbomb->radius / 2000.0f, &sp88);
 	mtx4MultMtx4(&sp48, &sp88, &spc8);
 
-	mtx00015be0(currentPlayerGetMatrix1740(), &spc8);
+	mtx00015be0(camGetMatrix1740(), &spc8);
 	mtx00016054(&spc8, mtx);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
@@ -4095,7 +4095,7 @@ glabel func0f00a490
 /*  f00a6f4:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f00a6f8:	a7a8005e */ 	sh	$t0,0x5e($sp)
 /*  f00a6fc:	a7a9003c */ 	sh	$t1,0x3c($sp)
-/*  f00a700:	0fc2ce70 */ 	jal	func0f0b39c0
+/*  f00a700:	0fc2ce70 */ 	jal	tex0f0b39c0
 /*  f00a704:	24a50078 */ 	addiu	$a1,$a1,0x0078
 /*  f00a708:	8fae0080 */ 	lw	$t6,0x80($sp)
 /*  f00a70c:	87a8005e */ 	lh	$t0,0x5e($sp)
@@ -4406,7 +4406,7 @@ glabel func0f00a490
 /*  f00a6f4:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f00a6f8:	a7a8005e */ 	sh	$t0,0x5e($sp)
 /*  f00a6fc:	a7a9003c */ 	sh	$t1,0x3c($sp)
-/*  f00a700:	0fc2ce70 */ 	jal	func0f0b39c0
+/*  f00a700:	0fc2ce70 */ 	jal	tex0f0b39c0
 /*  f00a704:	24a50078 */ 	addiu	$a1,$a1,0x0078
 /*  f00a708:	8fae0080 */ 	lw	$t6,0x80($sp)
 /*  f00a70c:	87a8005e */ 	lh	$t0,0x5e($sp)
@@ -4899,7 +4899,7 @@ glabel var7f1a7f5c
 /*  f00ae1c:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f00ae20:	a7a80072 */ 	sh	$t0,0x72($sp)
 /*  f00ae24:	a7a900fa */ 	sh	$t1,0xfa($sp)
-/*  f00ae28:	0fc2ce70 */ 	jal	func0f0b39c0
+/*  f00ae28:	0fc2ce70 */ 	jal	tex0f0b39c0
 /*  f00ae2c:	24a50048 */ 	addiu	$a1,$a1,0x0048
 /*  f00ae30:	8fb80110 */ 	lw	$t8,0x110($sp)
 /*  f00ae34:	87a80072 */ 	lh	$t0,0x72($sp)
@@ -5259,7 +5259,7 @@ const u32 var7f1a7eac[] = {0x00000090};
 //
 //			gdl = func0f0d479c(gdl);
 //
-//			func0f0b39c0(&gdl, &g_TexGeneralConfigs[6], 4, 1, 2, 1, NULL);
+//			tex0f0b39c0(&gdl, &g_TexGeneralConfigs[6], 4, 1, 2, 1, NULL);
 //
 //			gDPPipeSync(gdl++);
 //			gDPSetCycleType(gdl++, G_CYC_1CYCLE);

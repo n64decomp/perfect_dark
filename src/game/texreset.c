@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_0b3350.h"
+#include "game/tex.h"
 #include "game/texdecompress.h"
 #include "bss.h"
 #include "lib/rzip.h"
@@ -91,31 +91,31 @@ void texReset(void)
 
 	if (IS4MB() && stage != STAGE_TITLE && stage != STAGE_CITRAINING && stage != STAGE_4MBMENU) {
 		for (i = 0; i < ARRAYCOUNT(g_TcWallhitConfigs); i++) {
-			func0f0b3988(&g_TexWallhitConfigs[i]);
+			tex0f0b3988(&g_TexWallhitConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcBeamConfigs); i++) {
-			func0f0b3988(&g_TexBeamConfigs[i]);
+			tex0f0b3988(&g_TexBeamConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcWaterConfigs); i++) {
-			func0f0b3988(&g_TexWaterConfigs[i]);
+			tex0f0b3988(&g_TexWaterConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcGroup06Configs); i++) {
-			func0f0b3988(&g_TexGroup06Configs[i]);
+			tex0f0b3988(&g_TexGroup06Configs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcShieldConfigs); i++) {
-			func0f0b3988(&g_TexShieldConfigs[i]);
+			tex0f0b3988(&g_TexShieldConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcRadarConfigs); i++) {
-			func0f0b3988(&g_TexRadarConfigs[i]);
+			tex0f0b3988(&g_TexRadarConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcSparkConfigs); i++) {
-			func0f0b3988(&g_TexSparkConfigs[i]);
+			tex0f0b3988(&g_TexSparkConfigs[i]);
 		}
 	}
 }

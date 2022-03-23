@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/camdraw.h"
-#include "game/game_0b3350.h"
+#include "game/tex.h"
 #include "game/savebuffer.h"
 #include "game/menu.h"
 #include "game/mainmenu.h"
@@ -11,7 +11,7 @@
 #include "game/mplayer/ingame.h"
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
-#include "game/game_19aa80.h"
+#include "game/challenge.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/options.h"
@@ -104,7 +104,7 @@ s16 mpChooseRandomStage(void)
 	s32 index;
 
 	for (i = 0; i < 16; i++) {
-		if (mpIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
+		if (challengeIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
 			numchallengescomplete++;
 		}
 	}
@@ -112,7 +112,7 @@ s16 mpChooseRandomStage(void)
 	index = random() % numchallengescomplete;
 
 	for (i = 0; i < 16; i++) {
-		if (mpIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
+		if (challengeIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
 			if (index == 0) {
 				return g_MpArenas[i].stagenum;
 			}
@@ -139,7 +139,7 @@ s32 mpArenaMenuHandler(s32 operation, struct menuitem *item, union handlerdata *
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		for (i = 0; i < ARRAYCOUNT(g_MpArenas); i++) {
-			if (mpIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
+			if (challengeIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
 				count++;
 			}
 		}
@@ -148,7 +148,7 @@ s32 mpArenaMenuHandler(s32 operation, struct menuitem *item, union handlerdata *
 		break;
 	case MENUOP_GETOPTIONTEXT:
 		for (i = 0; i < ARRAYCOUNT(g_MpArenas); i++) {
-			if (mpIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
+			if (challengeIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
 				if (count == data->list.value) {
 					return (s32)langGet(g_MpArenas[i].name);
 				}
@@ -159,7 +159,7 @@ s32 mpArenaMenuHandler(s32 operation, struct menuitem *item, union handlerdata *
 		break;
 	case MENUOP_SET:
 		for (i = 0; i < ARRAYCOUNT(g_MpArenas); i++) {
-			if (mpIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
+			if (challengeIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
 				if (count == data->list.value) {
 					break;
 				}
@@ -176,7 +176,7 @@ s32 mpArenaMenuHandler(s32 operation, struct menuitem *item, union handlerdata *
 				data->list.value = count;
 			}
 
-			if (mpIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
+			if (challengeIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
 				count++;
 			}
 		}
@@ -184,18 +184,18 @@ s32 mpArenaMenuHandler(s32 operation, struct menuitem *item, union handlerdata *
 	case MENUOP_GETOPTGROUPCOUNT:
 		data->list.value = 3;
 
-		if (!mpIsFeatureUnlocked(MPFEATURE_STAGE_COMPLEX)
-				&& !mpIsFeatureUnlocked(MPFEATURE_STAGE_TEMPLE)
-				&& !mpIsFeatureUnlocked(MPFEATURE_STAGE_FELICITY)) {
+		if (!challengeIsFeatureUnlocked(MPFEATURE_STAGE_COMPLEX)
+				&& !challengeIsFeatureUnlocked(MPFEATURE_STAGE_TEMPLE)
+				&& !challengeIsFeatureUnlocked(MPFEATURE_STAGE_FELICITY)) {
 			data->list.value--;
 		}
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
 		count = data->list.value;
 
-		if (!mpIsFeatureUnlocked(MPFEATURE_STAGE_COMPLEX)
-				&& !mpIsFeatureUnlocked(MPFEATURE_STAGE_TEMPLE)
-				&& !mpIsFeatureUnlocked(MPFEATURE_STAGE_FELICITY)
+		if (!challengeIsFeatureUnlocked(MPFEATURE_STAGE_COMPLEX)
+				&& !challengeIsFeatureUnlocked(MPFEATURE_STAGE_TEMPLE)
+				&& !challengeIsFeatureUnlocked(MPFEATURE_STAGE_FELICITY)
 				&& count > 0) {
 			count++;
 		}
@@ -203,15 +203,15 @@ s32 mpArenaMenuHandler(s32 operation, struct menuitem *item, union handlerdata *
 	case MENUOP_GETGROUPSTARTINDEX:
 		groupindex = data->list.value;
 
-		if (!mpIsFeatureUnlocked(MPFEATURE_STAGE_COMPLEX)
-				&& !mpIsFeatureUnlocked(MPFEATURE_STAGE_TEMPLE)
-				&& !mpIsFeatureUnlocked(MPFEATURE_STAGE_FELICITY)
+		if (!challengeIsFeatureUnlocked(MPFEATURE_STAGE_COMPLEX)
+				&& !challengeIsFeatureUnlocked(MPFEATURE_STAGE_TEMPLE)
+				&& !challengeIsFeatureUnlocked(MPFEATURE_STAGE_FELICITY)
 				&& groupindex == 1) {
 			groupindex++;
 		}
 
 		for (i = 0; i < groups[groupindex].offset; i++) {
-			if (mpIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
+			if (challengeIsFeatureUnlocked(g_MpArenas[i].requirefeature)) {
 				count++;
 			}
 		}
@@ -558,7 +558,7 @@ s32 mpCharacterBodyMenuHandler(s32 operation, struct menuitem *item, union handl
 		g_Menus[g_MpPlayerNum].unk840.unk554 = 30;
 		break;
 	case MENUOP_21:
-		if (!mpIsFeatureUnlocked(mpGetBodyRequiredFeature(data->carousel.value))) {
+		if (!challengeIsFeatureUnlocked(mpGetBodyRequiredFeature(data->carousel.value))) {
 			return 1;
 		}
 		break;
@@ -664,7 +664,7 @@ s32 mpChallengesListHandler(s32 operation, struct menuitem *item, union handlerd
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->list.value = mpGetAutoFocusedChallengeIndex(g_MpPlayerNum);
+		data->list.value = challengeGetAutoFocusedIndex(g_MpPlayerNum);
 		break;
 	case MENUOP_RENDER:
 		maxplayers = 4;
@@ -681,7 +681,7 @@ s32 mpChallengesListHandler(s32 operation, struct menuitem *item, union handlerd
 
 		gdl = func0f153628(gdl);
 
-		name = mpChallengeGetNameWithArg(g_MpPlayerNum, challengeindex);
+		name = xhallengeGetName(g_MpPlayerNum, challengeindex);
 
 		gdl = textRenderProjected(gdl, &x, &y, name,
 				g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour,
@@ -695,20 +695,20 @@ s32 mpChallengesListHandler(s32 operation, struct menuitem *item, union handlerd
 		gDPSetTextureLOD(gdl++, G_TL_TILE);
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-		func0f0b39c0(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
+		tex0f0b39c0(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 
 		for (i = 0, loopx = 10; i < maxplayers; i++) {
 #if VERSION >= VERSION_NTSC_1_0
-			if (mpIsChallengeCompletedByPlayerWithNumPlayers2(g_MpPlayerNum, challengeindex, i + 1)) {
+			if (challengeIsCompletedByPlayerWithNumPlayers2(g_MpPlayerNum, challengeindex, i + 1)) {
 				gDPSetEnvColorViaWord(gdl++, 0xb2efff00 | (renderdata->colour & 0xff) * 255 / 256);
 			} else {
 				gDPSetEnvColorViaWord(gdl++, 0x30407000 | (renderdata->colour & 0xff) * 255 / 256);
 			}
 #else
-			if (mpIsChallengeCompletedByPlayerWithNumPlayers2(g_MpPlayerNum, challengeindex, i + 1)) {
+			if (challengeIsCompletedByPlayerWithNumPlayers2(g_MpPlayerNum, challengeindex, i + 1)) {
 				gDPSetEnvColorViaWord(gdl++, 0xb2efffff);
 			} else {
 				gDPSetEnvColorViaWord(gdl++, 0x304070ff);
@@ -928,7 +928,7 @@ s32 mpMedalMenuHandler(s32 operation, struct menuitem *item, union handlerdata *
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 
-		func0f0b39c0(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
+		tex0f0b39c0(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -1300,7 +1300,7 @@ s32 mpCharacterHeadMenuHandler(s32 operation, struct menuitem *item, union handl
 		g_Menus[g_MpPlayerNum].unk840.unk554 = 30;
 		break;
 	case MENUOP_21:
-		if (!mpIsFeatureUnlocked(mpGetHeadRequiredFeature(data->carousel.value))) {
+		if (!challengeIsFeatureUnlocked(mpGetHeadRequiredFeature(data->carousel.value))) {
 			return 1;
 		}
 		break;
@@ -1879,7 +1879,7 @@ s32 mpAddChangeSimulantMenuHandler(s32 operation, struct menuitem *item, union h
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		for (i = 0; i < ARRAYCOUNT(g_BotProfiles); i++) {
-			if (mpIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
+			if (challengeIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
 				count++;
 			}
 		}
@@ -1888,7 +1888,7 @@ s32 mpAddChangeSimulantMenuHandler(s32 operation, struct menuitem *item, union h
 		break;
 	case MENUOP_GETOPTIONTEXT:
 		for (i = 0; i < ARRAYCOUNT(g_BotProfiles); i++) {
-			if (mpIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
+			if (challengeIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
 				if (count == data->list.value) {
 					return (s32)langGet(g_BotProfiles[i].name);
 				}
@@ -1909,7 +1909,7 @@ s32 mpAddChangeSimulantMenuHandler(s32 operation, struct menuitem *item, union h
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_BotProfiles); i++) {
-			if (mpIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
+			if (challengeIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
 				if (count == data->list.value) {
 					break;
 				}
@@ -1933,7 +1933,7 @@ s32 mpAddChangeSimulantMenuHandler(s32 operation, struct menuitem *item, union h
 		break;
 	case MENUOP_LISTITEMFOCUS:
 		for (i = 0; i < ARRAYCOUNT(g_BotProfiles); i++) {
-			if (mpIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
+			if (challengeIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
 				if (count == data->list.value) {
 					break;
 				}
@@ -1954,7 +1954,7 @@ s32 mpAddChangeSimulantMenuHandler(s32 operation, struct menuitem *item, union h
 		return (s32)langGet(groups[data->list.value].name);
 	case MENUOP_GETGROUPSTARTINDEX:
 		for (i = 0; i < groups[data->list.value].offset; i++) {
-			if (mpIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
+			if (challengeIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
 				count++;
 			}
 		}
@@ -2046,7 +2046,7 @@ s32 mpBotDifficultyMenuHandler(s32 operation, struct menuitem *item, union handl
 		break;
 	case MENUOP_GETOPTIONCOUNT:
 		for (i = 0; i < BOTDIFF_DISABLED; i++) {
-			if (mpIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
+			if (challengeIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
 				count++;
 			}
 		}
@@ -2055,7 +2055,7 @@ s32 mpBotDifficultyMenuHandler(s32 operation, struct menuitem *item, union handl
 		break;
 	case MENUOP_GETOPTIONTEXT:
 		for (i = 0; i < BOTDIFF_DISABLED; i++) {
-			if (mpIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
+			if (challengeIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
 				if (count == data->dropdown.value) {
 					// "Meat", "Easy", "Normal" etc
 					return (s32) langGet(L_MISC_082 + i);
@@ -2097,7 +2097,7 @@ s32 menuhandlerMpChangeSimulantType(s32 operation, struct menuitem *item, union 
 				g_BotConfigsArray[g_Menus[g_MpPlayerNum].mpsetup.slotindex].difficulty);
 
 		for (i = 0; i < profilenum; i++) {
-			if (mpIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
+			if (challengeIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
 				count++;
 			}
 		}
@@ -2153,7 +2153,7 @@ s32 menuhandlerMpSimulantSlot(s32 operation, struct menuitem *item, union handle
 		}
 		break;
 	case MENUOP_CHECKHIDDEN:
-		if (item->param >= 4 && !mpIsFeatureUnlocked(MPFEATURE_8BOTS)) {
+		if (item->param >= 4 && !challengeIsFeatureUnlocked(MPFEATURE_8BOTS)) {
 			return true;
 		}
 		break;
@@ -2805,7 +2805,7 @@ s32 menuhandlerMpTeamNameSlot(s32 operation, struct menuitem *item, union handle
 
 char *func0f17e318(struct menudialogdef *dialogdef)
 {
-	sprintf(g_StringPointer, langGet(L_MPMENU_056), mpGetChallengeNameBySlot(g_Menus[g_MpPlayerNum].mpsetup.slotindex));
+	sprintf(g_StringPointer, langGet(L_MPMENU_056), challengeGetNameBySlot(g_Menus[g_MpPlayerNum].mpsetup.slotindex));
 	return g_StringPointer;
 }
 
@@ -2816,11 +2816,11 @@ s32 menuhandler0017e38c(s32 operation, struct menuitem *item, union handlerdata 
 {
 	if (operation == MENUOP_SET) {
 #if VERSION >= VERSION_NTSC_1_0
-		mpClearCurrentChallenge();
+		challengeUnsetCurrent();
 #endif
 
 		menuPopDialog();
-		mpSetCurrentChallenge(g_Menus[g_MpPlayerNum].mpsetup.slotindex);
+		challengeSetCurrentBySlot(g_Menus[g_MpPlayerNum].mpsetup.slotindex);
 	}
 
 	return 0;
@@ -2832,7 +2832,7 @@ s32 menudialog0017e3fc(s32 operation, struct menudialogdef *dialogdef, union han
 	case MENUOP_OPEN:
 		g_Menus[g_MpPlayerNum].unk840.unk010 = 0;
 
-		g_Menus[g_MpPlayerNum].training.mpconfig = mpGetNthAvailableChallengeSomething(
+		g_Menus[g_MpPlayerNum].training.mpconfig = challengeLoadBySlot(
 				g_Menus[g_MpPlayerNum].training.unke1c,
 				g_Menus[g_MpPlayerNum].unk840.unk004,
 				g_Menus[g_MpPlayerNum].unk840.unk008);
@@ -3020,7 +3020,7 @@ s32 mpChallengesListMenuHandler(s32 operation, struct menuitem *item, union hand
 		}
 		break;
 	case MENUOP_GETOPTIONCOUNT:
-		data->list.value = mpGetNumAvailableChallenges();
+		data->list.value = challengeGetNumAvailable();
 		break;
 	case MENUOP_SET:
 		if (data->list.unk04 != 0) {
@@ -3062,7 +3062,7 @@ s32 mpChallengesListMenuHandler(s32 operation, struct menuitem *item, union hand
 		y = renderdata->y + 1;
 
 		gdl = func0f153628(gdl);
-		gdl = textRenderProjected(gdl, &x, &y, mpGetChallengeNameBySlot(data->type19.unk04), g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = textRenderProjected(gdl, &x, &y, challengeGetNameBySlot(data->type19.unk04), g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
 		gdl = func0f153780(gdl);
 
 		gDPPipeSync(gdl++);
@@ -3071,20 +3071,20 @@ s32 mpChallengesListMenuHandler(s32 operation, struct menuitem *item, union hand
 		gDPSetTextureLOD(gdl++, G_TL_TILE);
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-		func0f0b39c0(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
+		tex0f0b39c0(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 
 		for (i = 0; i < maxchrs; i++) {
 #if VERSION >= VERSION_NTSC_1_0
-			if (mpIsChallengeCompletedByAnyChrWithNumPlayersBySlot(data->type19.unk04, i + 1)) {
+			if (challengeIsCompletedByAnyChrWithNumPlayersBySlot(data->type19.unk04, i + 1)) {
 				gDPSetEnvColorViaWord(gdl++, (renderdata->colour & 0xff) * 0xff >> 8 | 0xffe56500);
 			} else {
 				gDPSetEnvColorViaWord(gdl++, (renderdata->colour & 0xff) * 0xff >> 8 | 0x43430000);
 			}
 #else
-			if (mpIsChallengeCompletedByAnyChrWithNumPlayersBySlot(data->type19.unk04, i + 1)) {
+			if (challengeIsCompletedByAnyChrWithNumPlayersBySlot(data->type19.unk04, i + 1)) {
 				gDPSetEnvColorViaWord(gdl++, 0xffe565ff);
 			} else {
 				gDPSetEnvColorViaWord(gdl++, 0x434300ff);
@@ -3137,7 +3137,7 @@ s32 menuhandlerMpAbortChallenge(s32 operation, struct menuitem *item, union hand
 	}
 
 	if (operation == MENUOP_SET) {
-		mpRemoveLock();
+		challengeRemovePlayerLock();
 	}
 
 	return 0;
@@ -3165,7 +3165,7 @@ char *mpMenuTextChallengeName(struct menuitem *item)
 	}
 #endif
 
-	sprintf(g_StringPointer, "%s:\n", mpChallengeGetName(mpGetCurrentChallengeIndex()));
+	sprintf(g_StringPointer, "%s:\n", challengeGetName(challengeGetCurrent()));
 	return g_StringPointer;
 }
 
@@ -3175,10 +3175,10 @@ s32 mpCombatChallengesMenuDialog(s32 operation, struct menudialogdef *dialogdef,
 		if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE
 				&& g_Menus[g_MpPlayerNum].curdialog
 				&& g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef
-				&& !mpIsChallengeLoaded()) {
+				&& !challengeIsLoaded()) {
 			g_Menus[g_MpPlayerNum].unk840.unk010 = 0x4fac5ace;
 
-			mpLoadAndStoreCurrentChallenge(
+			challengeLoadAndStoreCurrent(
 					g_Menus[g_MpPlayerNum].unk840.unk004,
 					g_Menus[g_MpPlayerNum].unk840.unk008);
 		}
@@ -3186,7 +3186,7 @@ s32 mpCombatChallengesMenuDialog(s32 operation, struct menudialogdef *dialogdef,
 
 	if (operation == MENUOP_CLOSE) {
 		if (g_Menus[g_MpPlayerNum].unk840.unk010 == 0x4fac5ace) {
-			mpClearCurrentChallenge();
+			challengeUnsetCurrent();
 		}
 	}
 
@@ -3196,7 +3196,7 @@ s32 mpCombatChallengesMenuDialog(s32 operation, struct menudialogdef *dialogdef,
 s32 menuhandler0017ec64(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		mpSetCurrentChallenge(g_Menus[g_MpPlayerNum].mpsetup.slotindex);
+		challengeSetCurrentBySlot(g_Menus[g_MpPlayerNum].mpsetup.slotindex);
 		func0f0f820c(&g_MpQuickGoMenuDialog, 3);
 	}
 
@@ -3526,7 +3526,7 @@ s32 menuhandlerMpNumberOfSimulants(s32 operation, struct menuitem *item, union h
 {
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->dropdown.value = !mpIsFeatureUnlocked(MPFEATURE_8BOTS) ? 4 : MAX_BOTS;
+		data->dropdown.value = !challengeIsFeatureUnlocked(MPFEATURE_8BOTS) ? 4 : MAX_BOTS;
 		break;
 	case MENUOP_GETOPTIONTEXT:
 		sprintf(g_StringPointer, "%d\n", data->dropdown.value + 1);
@@ -3581,7 +3581,7 @@ s32 mpQuickTeamSimulantDifficultyHandler(s32 operation, struct menuitem *item, u
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		for (i = 0; i < 6; i++) {
-			if (mpIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
+			if (challengeIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
 				count++;
 			}
 		}
@@ -3590,7 +3590,7 @@ s32 mpQuickTeamSimulantDifficultyHandler(s32 operation, struct menuitem *item, u
 		break;
 	case MENUOP_GETOPTIONTEXT:
 		for (i = 0; i < 6; i++) {
-			if (mpIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
+			if (challengeIsFeatureUnlocked(g_BotProfiles[i].requirefeature)) {
 				if (count == data->dropdown.value) {
 					return (s32) langGet(i + L_MISC_082);
 				}
@@ -3652,8 +3652,8 @@ s32 menudialogCombatSimulator(s32 operation, struct menudialogdef *dialogdef, un
 		g_Vars.mpsetupmenu = MPSETUPMENU_GENERAL;
 		g_Vars.mpquickteam = MPQUICKTEAM_NONE;
 		g_Vars.usingadvsetup = false;
-		mpClearCurrentChallenge();
-		mpRemoveLock();
+		challengeUnsetCurrent();
+		challengeRemovePlayerLock();
 	}
 
 	return false;

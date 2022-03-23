@@ -12,8 +12,8 @@
 #include "game/ceil.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
-#include "game/game_0b3350.h"
-#include "game/game_0b4950.h"
+#include "game/tex.h"
+#include "game/camera.h"
 #include "game/player.h"
 #include "game/playermgr.h"
 #include "game/explosions.h"
@@ -716,7 +716,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 	}
 
 	if (hitbg && shotdata.gset.weaponnum != WEAPON_FARSIGHT) {
-		mtx4TransformVec(currentPlayerGetMatrix1740(), &sp694.unk00, &sp658);
+		mtx4TransformVec(camGetMatrix1740(), &sp694.unk00, &sp658);
 
 		if (shotdata.unk34 > -sp658.z) {
 			shotdata.unk34 = -sp658.z;
@@ -986,8 +986,8 @@ struct prop *func0f061d54(s32 handnum, u32 arg1, u32 arg2)
 		sp58.y -= 15 * (random() * (1.0f / U32_MAX));
 	}
 
-	mtx4TransformVec(currentPlayerGetUnk174c(), &sp58, &sp40);
-	mtx4RotateVec(currentPlayerGetUnk174c(), &sp64, &sp4c);
+	mtx4TransformVec(camGetUnk174c(), &sp58, &sp40);
+	mtx4RotateVec(camGetUnk174c(), &sp64, &sp4c);
 
 	shotCalculateHits(handnum, arg1, &sp58, &sp64, &sp40, &sp4c, 0, 4294836224, PLAYERCOUNT() >= 2);
 }
@@ -1002,8 +1002,8 @@ void handCreateBulletRaycast(s32 handnum, bool arg1, bool dorandom, s32 arg3, bo
 	bgunCalculateShotSpread(&sp38, &sp44, handnum, dorandom);
 
 	if (arg3 > 0) {
-		mtx4TransformVec(currentPlayerGetUnk174c(), &sp38, &shootpos);
-		mtx4RotateVec(currentPlayerGetUnk174c(), &sp44, &shootdir);
+		mtx4TransformVec(camGetUnk174c(), &sp38, &shootpos);
+		mtx4RotateVec(camGetUnk174c(), &sp44, &shootdir);
 
 		shotCalculateHits(handnum, arg1, &sp38, &sp44, &shootpos, &shootdir, 0, 4294836224, arg4);
 
@@ -1175,10 +1175,10 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 
 				bgunGetCrossPos(&x, &y);
 
-				spfc[0] = (x - currentPlayerGetScreenLeft()) / (currentPlayerGetScreenWidth() * 0.5f) - 1.0f;
-				spfc[1] = (y - currentPlayerGetScreenTop()) / (currentPlayerGetScreenHeight() * 0.5f) - 1.0f;
-				spf4[0] = currentPlayerGetScreenHeight() * 0.16666667163372f;
-				spf4[1] = currentPlayerGetScreenHeight() * 0.125f;
+				spfc[0] = (x - camGetScreenLeft()) / (camGetScreenWidth() * 0.5f) - 1.0f;
+				spfc[1] = (y - camGetScreenTop()) / (camGetScreenHeight() * 0.5f) - 1.0f;
+				spf4[0] = camGetScreenHeight() * 0.16666667163372f;
+				spf4[1] = camGetScreenHeight() * 0.125f;
 
 				if (isbreakableobj) {
 					model = obj->model;
@@ -1224,7 +1224,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 							if (!chrIsAvoiding(chr)) {
 								bgunCalculateShotSpread(&spb8, &vector, handnum, true);
 								skipthething = true;
-								mtx4RotateVecInPlace(currentPlayerGetUnk174c(), &vector);
+								mtx4RotateVecInPlace(camGetUnk174c(), &vector);
 								bgunPlayPropHitSound(gset, prop, -1);
 
 								if (chr->model && chrGetShield(chr) > 0) {
@@ -6307,38 +6307,38 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 	}
 
 	if (sp50) {
-		top = currentPlayerGetScreenTop();
-		bottom = currentPlayerGetScreenTop() + currentPlayerGetScreenHeight();
-		left = currentPlayerGetScreenLeft();
-		right = currentPlayerGetScreenLeft() + currentPlayerGetScreenWidth();
+		top = camGetScreenTop();
+		bottom = camGetScreenTop() + camGetScreenHeight();
+		left = camGetScreenLeft();
+		right = camGetScreenLeft() + camGetScreenWidth();
 	} else {
-		top = currentPlayerGetScreenTop() + currentPlayerGetScreenHeight() * 0.175f;
-		bottom = currentPlayerGetScreenTop() + currentPlayerGetScreenHeight() * 0.825f;
-		left = currentPlayerGetScreenLeft() + currentPlayerGetScreenWidth() * 0.25f;
-		right = currentPlayerGetScreenLeft() + currentPlayerGetScreenWidth() * 0.75f;
+		top = camGetScreenTop() + camGetScreenHeight() * 0.175f;
+		bottom = camGetScreenTop() + camGetScreenHeight() * 0.825f;
+		left = camGetScreenLeft() + camGetScreenWidth() * 0.25f;
+		right = camGetScreenLeft() + camGetScreenWidth() * 0.75f;
 	}
 
 	if (arg1->z > -2.5f) {
 		return -1;
 	}
 
-	func0f0b4d04(arg1, spa0);
+	cam0f0b4d04(arg1, spa0);
 	sp94.x = arg2[0];
 	sp94.y = arg1->y;
 	sp94.z = arg1->z;
-	func0f0b4d04(&sp94, sp8c);
+	cam0f0b4d04(&sp94, sp8c);
 	sp94.x = arg2[1];
 	sp94.y = arg1->y;
 	sp94.z = arg1->z;
-	func0f0b4d04(&sp94, sp84);
+	cam0f0b4d04(&sp94, sp84);
 	sp94.x = arg1->x;
 	sp94.y = arg3[1];
 	sp94.z = arg1->z;
-	func0f0b4d04(&sp94, sp7c);
+	cam0f0b4d04(&sp94, sp7c);
 	sp94.x = arg1->x;
 	sp94.y = arg3[0];
 	sp94.z = arg1->z;
-	func0f0b4d04(&sp94, sp74);
+	cam0f0b4d04(&sp94, sp74);
 
 	if (sp74[1] >= top && bottom >= sp7c[1]) {
 		sp4c = false;
@@ -6354,8 +6354,8 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 					sp48 = sp48 * g_AutoAimScale;
 				}
 
-				sp4c = currentPlayerGetScreenLeft() + 0.5f * currentPlayerGetScreenWidth() >= (sp8c[0] + sp84[0]) * 0.5f - sp48
-					&& currentPlayerGetScreenLeft() + 0.5f * currentPlayerGetScreenWidth() <= (sp8c[0] + sp84[0]) * 0.5f + sp48
+				sp4c = camGetScreenLeft() + 0.5f * camGetScreenWidth() >= (sp8c[0] + sp84[0]) * 0.5f - sp48
+					&& camGetScreenLeft() + 0.5f * camGetScreenWidth() <= (sp8c[0] + sp84[0]) * 0.5f + sp48
 					&& left <= spa0[0]
 					&& right >= spa0[0];
 			}
@@ -6397,13 +6397,13 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 					arg4[0] = value;
 				}
 
-				if (currentPlayerGetScreenLeft() + 0.5f * currentPlayerGetScreenWidth() >= sp8c[0]
-						&& currentPlayerGetScreenLeft() + 0.5f * currentPlayerGetScreenWidth() <= sp84[0]) {
+				if (camGetScreenLeft() + 0.5f * camGetScreenWidth() >= sp8c[0]
+						&& camGetScreenLeft() + 0.5f * camGetScreenWidth() <= sp84[0]) {
 					result = 1;
-				} else if (currentPlayerGetScreenLeft() + 0.5f * currentPlayerGetScreenWidth() >= sp8c[0]) {
-					result = 1 - ((currentPlayerGetScreenLeft() + 0.5f * currentPlayerGetScreenWidth()) - sp84[0]) / sp48;
+				} else if (camGetScreenLeft() + 0.5f * camGetScreenWidth() >= sp8c[0]) {
+					result = 1 - ((camGetScreenLeft() + 0.5f * camGetScreenWidth()) - sp84[0]) / sp48;
 				} else {
-					result = 1 - (sp8c[0] - (currentPlayerGetScreenLeft() + 0.5f * currentPlayerGetScreenWidth())) / sp48;
+					result = 1 - (sp8c[0] - (camGetScreenLeft() + 0.5f * camGetScreenWidth())) / sp48;
 				}
 			}
 
@@ -6504,10 +6504,10 @@ void autoaimTick(void)
 					&& (threat->x1 >= 0 || threat->x2 >= 0)
 					&& (threat->y1 >= 0 || threat->y2 >= 0)) {
 				// Define the aim limits
-				f32 top = currentPlayerGetScreenTop() + currentPlayerGetScreenHeight() * 0.125f;
-				f32 bottom = currentPlayerGetScreenTop() + currentPlayerGetScreenHeight() * 0.875f;
-				f32 left = currentPlayerGetScreenLeft() + currentPlayerGetScreenWidth() * 0.125f;
-				f32 right = currentPlayerGetScreenLeft() + currentPlayerGetScreenWidth() * 0.875f;
+				f32 top = camGetScreenTop() + camGetScreenHeight() * 0.125f;
+				f32 bottom = camGetScreenTop() + camGetScreenHeight() * 0.875f;
+				f32 left = camGetScreenLeft() + camGetScreenWidth() * 0.125f;
+				f32 right = camGetScreenLeft() + camGetScreenWidth() * 0.875f;
 				struct chrdata *chr = NULL;
 
 				bestprop = threat->prop;
@@ -6528,7 +6528,7 @@ void autoaimTick(void)
 						if (spac.z < 0) {
 							spac.x = mtx->m[3][0];
 							spac.y = mtx->m[3][1];
-							func0f0b4d04(&spac, aimpos);
+							cam0f0b4d04(&spac, aimpos);
 						}
 					}
 				} else {
@@ -6633,11 +6633,11 @@ void autoaimTick(void)
 
 	if (bestprop) {
 		if (bmoveIsAutoAimYEnabledForCurrentWeapon() || iscmpsec) {
-			bmoveUpdateAutoAimYProp(bestprop, (aimpos[1] - currentPlayerGetScreenTop()) / (currentPlayerGetScreenHeight() * 0.5f) - 1);
+			bmoveUpdateAutoAimYProp(bestprop, (aimpos[1] - camGetScreenTop()) / (camGetScreenHeight() * 0.5f) - 1);
 		}
 
 		if (bmoveIsAutoAimXEnabledForCurrentWeapon() || iscmpsec) {
-			bmoveUpdateAutoAimXProp(bestprop, (aimpos[0] - currentPlayerGetScreenLeft()) / (currentPlayerGetScreenWidth() * 0.5f) - 1);
+			bmoveUpdateAutoAimXProp(bestprop, (aimpos[0] - camGetScreenLeft()) / (camGetScreenWidth() * 0.5f) - 1);
 		}
 
 		if (cangangsta) {

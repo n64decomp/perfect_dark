@@ -4,14 +4,14 @@
 #include "game/dlights.h"
 #include "game/chr.h"
 #include "game/prop.h"
-#include "game/game_091e10.h"
+#include "game/setuputils.h"
 #include "game/propsnd.h"
-#include "game/game_0b3350.h"
-#include "game/game_0b4950.h"
+#include "game/tex.h"
+#include "game/camera.h"
 #include "game/explosions.h"
 #include "game/smoke.h"
 #include "game/bg.h"
-#include "game/game_1668e0.h"
+#include "game/room.h"
 #include "game/file.h"
 #include "game/gfxmemory.h"
 #include "game/mplayer/mplayer.h"
@@ -244,7 +244,7 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exproom
 
 	// Bullet holes: only crate the flame (explosion) if within 4 metres
 	if (type == EXPLOSIONTYPE_BULLETHOLE) {
-		f32 lodscale = currentPlayerGetLodScaleZ();
+		f32 lodscale = camGetLodScaleZ();
 		struct coord *campos = &g_Vars.currentplayer->cam_pos;
 		f32 xdist = exppos->x - campos->x;
 		f32 ydist = exppos->y - campos->y;
@@ -779,7 +779,7 @@ void explosionInflictDamage(struct prop *expprop)
 							&& ydist <= damageradius && ydist >= -damageradius
 							&& zdist <= damageradius && zdist >= -damageradius) {
 
-						if (func0f092304(obj, &sp130, &sp124)) {
+						if (setup0f092304(obj, &sp130, &sp124)) {
 							if (explosionOverlapsProp(exp, prop, &sp130, &sp124)) {
 								candamage = true;
 							}
@@ -1244,7 +1244,7 @@ u32 explosionTick(struct prop *prop)
 
 u32 explosionTickPlayer(struct prop *prop)
 {
-	Mtxf *matrix = currentPlayerGetMatrix1740();
+	Mtxf *matrix = camGetMatrix1740();
 
 	prop->z = -(matrix->m[0][2] * prop->pos.x + matrix->m[1][2] * prop->pos.y + matrix->m[2][2] * prop->pos.z + matrix->m[3][2]);
 
@@ -1286,7 +1286,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool withalpha)
 
 	if (roomnum != -1) {
 		struct screenbox screenbox;
-		struct coord *coord = func0f166dd0(roomnum);
+		struct coord *coord = room0f166dd0(roomnum);
 		u32 *colour;
 		s32 tmp;
 
@@ -1297,9 +1297,9 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		}
 
 		gSPClearGeometryMode(gdl++, G_CULL_BOTH | G_FOG);
-		gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-		gdl = func0f166d7c(gdl, roomnum);
+		gdl = room0f166d7c(gdl, roomnum);
 
 		gSPDisplayList(gdl++, g_TexGdl2);
 
@@ -1366,7 +1366,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool withalpha)
 			}
 		}
 
-		gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 #if PAL
 		tmp = (g_ExplosionTypes[exp->type].flarespeed * 15.0f) * 0.83333331346512f;
@@ -1415,7 +1415,7 @@ glabel var7f1b55c4
 /*  f12cd8c:	afa700dc */ 	sw	$a3,0xdc($sp)
 /*  f12cd90:	0fc59e59 */ 	jal	gfxAllocateVertices
 /*  f12cd94:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f12cd98:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f12cd98:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f12cd9c:	00408025 */ 	or	$s0,$v0,$zero
 /*  f12cda0:	8faa00d0 */ 	lw	$t2,0xd0($sp)
 /*  f12cda4:	00405825 */ 	or	$t3,$v0,$zero

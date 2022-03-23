@@ -18,7 +18,7 @@
 #include "game/botcmd.h"
 #include "game/botact.h"
 #include "game/botinv.h"
-#include "game/game_19aa80.h"
+#include "game/challenge.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"

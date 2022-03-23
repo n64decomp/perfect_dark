@@ -11,22 +11,22 @@
 #include "game/playerreset.h"
 #include "game/chr.h"
 #include "game/prop.h"
-#include "game/game_091e10.h"
+#include "game/setuputils.h"
 #include "game/propsnd.h"
 #include "game/objectives.h"
 #include "game/game_096360.h"
 #include "game/atan2f.h"
 #include "game/acosfasinf.h"
-#include "game/game_096ca0.h"
+#include "game/quaternion.h"
 #include "game/floor.h"
 #include "game/ceil.h"
 #include "game/bondgun.h"
-#include "game/game_0abe70.h"
+#include "game/gunfx.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b28d0.h"
-#include "game/game_0b3350.h"
-#include "game/game_0b4950.h"
-#include "game/game_0b63b0.h"
+#include "game/tex.h"
+#include "game/camera.h"
+#include "game/portal.h"
 #include "game/player.h"
 #include "game/game_0c33f0.h"
 #include "game/hudmsg.h"
@@ -41,7 +41,6 @@
 #include "game/game_1531a0.h"
 #include "game/bg.h"
 #include "game/stagetable.h"
-#include "game/game_165670.h"
 #include "game/env.h"
 #include "game/gfxmemory.h"
 #include "game/lv.h"
@@ -2154,7 +2153,7 @@ glabel func0f06803c
 /*  f0680d4:	27a50044 */ 	addiu	$a1,$sp,0x44
 /*  f0680d8:	e7a60050 */ 	swc1	$f6,0x50($sp)
 /*  f0680dc:	c6080008 */ 	lwc1	$f8,0x8($s0)
-/*  f0680e0:	0fc2d3ae */ 	jal	func0f0b4eb8
+/*  f0680e0:	0fc2d3ae */ 	jal	cam0f0b4eb8
 /*  f0680e4:	e7a80054 */ 	swc1	$f8,0x54($sp)
 /*  f0680e8:	c7aa0044 */ 	lwc1	$f10,0x44($sp)
 /*  f0680ec:	8fab0064 */ 	lw	$t3,0x64($sp)
@@ -2169,7 +2168,7 @@ glabel func0f06803c
 /*  f068110:	c6120004 */ 	lwc1	$f18,0x4($s0)
 /*  f068114:	e7b20050 */ 	swc1	$f18,0x50($sp)
 /*  f068118:	c6040008 */ 	lwc1	$f4,0x8($s0)
-/*  f06811c:	0fc2d3ae */ 	jal	func0f0b4eb8
+/*  f06811c:	0fc2d3ae */ 	jal	cam0f0b4eb8
 /*  f068120:	e7a40054 */ 	swc1	$f4,0x54($sp)
 /*  f068124:	c7a60044 */ 	lwc1	$f6,0x44($sp)
 /*  f068128:	8fad0068 */ 	lw	$t5,0x68($sp)
@@ -2184,7 +2183,7 @@ glabel func0f06803c
 /*  f06814c:	27a50044 */ 	addiu	$a1,$sp,0x44
 /*  f068150:	e7aa0050 */ 	swc1	$f10,0x50($sp)
 /*  f068154:	c6100008 */ 	lwc1	$f16,0x8($s0)
-/*  f068158:	0fc2d3ae */ 	jal	func0f0b4eb8
+/*  f068158:	0fc2d3ae */ 	jal	cam0f0b4eb8
 /*  f06815c:	e7b00054 */ 	swc1	$f16,0x54($sp)
 /*  f068160:	c7b20048 */ 	lwc1	$f18,0x48($sp)
 /*  f068164:	8fae0064 */ 	lw	$t6,0x64($sp)
@@ -2199,7 +2198,7 @@ glabel func0f06803c
 /*  f068188:	27a50044 */ 	addiu	$a1,$sp,0x44
 /*  f06818c:	e7a60050 */ 	swc1	$f6,0x50($sp)
 /*  f068190:	c6080008 */ 	lwc1	$f8,0x8($s0)
-/*  f068194:	0fc2d3ae */ 	jal	func0f0b4eb8
+/*  f068194:	0fc2d3ae */ 	jal	cam0f0b4eb8
 /*  f068198:	e7a80054 */ 	swc1	$f8,0x54($sp)
 /*  f06819c:	c7aa0048 */ 	lwc1	$f10,0x48($sp)
 /*  f0681a0:	8fb90068 */ 	lw	$t9,0x68($sp)
@@ -4823,7 +4822,7 @@ void func0f069c70(struct defaultobj *obj, bool arg1, bool arg2)
 	}
 
 	if (arg2) {
-		func0f0923d4(obj);
+		setup0f0923d4(obj);
 	}
 
 	prop = obj->prop;
@@ -6658,7 +6657,7 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 		}
 
 		if (weapon->weaponnum == WEAPON_BOLT) {
-			s32 value = func0f0aec54(obj->prop);
+			s32 value = boltbeamFindByProp(obj->prop);
 
 			if (value != -1) {
 				func0f0aeea8(value, 1400);
@@ -6681,7 +6680,7 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 		struct tintedglassobj *glass = (struct tintedglassobj *) obj;
 
 		if (glass->portalnum >= 0) {
-			func0f0b6470(glass->portalnum, 1);
+			portal0f0b6470(glass->portalnum, 1);
 			portalSetEnabled(glass->portalnum, true);
 			g_BgPortals[glass->portalnum].flags |= PORTALFLAG_04;
 		}
@@ -6689,7 +6688,7 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 		struct glassobj *glass = (struct glassobj *) obj;
 
 		if (glass->portalnum >= 0) {
-			func0f0b6470(glass->portalnum, 1);
+			portal0f0b6470(glass->portalnum, 1);
 		}
 	} else if (obj->type == OBJTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
@@ -7398,13 +7397,13 @@ glabel func0f06b610
 /*  f06b818:	0c0056c5 */ 	jal	mtx4RotateVec
 /*  f06b81c:	01d82021 */ 	addu	$a0,$t6,$t8
 /*  f06b820:	c7a00108 */ 	lwc1	$f0,0x108($sp)
-/*  f06b824:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f06b824:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f06b828:	e6e00000 */ 	swc1	$f0,0x0($s7)
 /*  f06b82c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06b830:	27a500fc */ 	addiu	$a1,$sp,0xfc
 /*  f06b834:	0c0056da */ 	jal	mtx4TransformVec
 /*  f06b838:	8fa6014c */ 	lw	$a2,0x14c($sp)
-/*  f06b83c:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f06b83c:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f06b840:	00000000 */ 	nop
 /*  f06b844:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06b848:	27a500f0 */ 	addiu	$a1,$sp,0xf0
@@ -7628,7 +7627,7 @@ glabel func0f06b610
 /*  f06bb78:	0c0056c5 */ 	jal	mtx4RotateVec
 /*  f06bb7c:	03292021 */ 	addu	$a0,$t9,$t1
 /*  f06bb80:	c7b20118 */ 	lwc1	$f18,0x118($sp)
-/*  f06bb84:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f06bb84:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f06bb88:	e6f20000 */ 	swc1	$f18,0x0($s7)
 /*  f06bb8c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06bb90:	27a500fc */ 	addiu	$a1,$sp,0xfc
@@ -7657,7 +7656,7 @@ glabel func0f06b610
 /*  f06bbec:	e7aa00f4 */ 	swc1	$f10,0xf4($sp)
 /*  f06bbf0:	e7a800f8 */ 	swc1	$f8,0xf8($sp)
 .L0f06bbf4:
-/*  f06bbf4:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f06bbf4:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f06bbf8:	00000000 */ 	nop
 /*  f06bbfc:	8fb00150 */ 	lw	$s0,0x150($sp)
 /*  f06bc00:	00402025 */ 	or	$a0,$v0,$zero
@@ -8333,13 +8332,13 @@ glabel func0f06c28c
 /*  f06c508:	0c0056c5 */ 	jal	mtx4RotateVec
 /*  f06c50c:	01af2021 */ 	addu	$a0,$t5,$t7
 /*  f06c510:	c7a800ec */ 	lwc1	$f8,0xec($sp)
-/*  f06c514:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f06c514:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f06c518:	e7c80000 */ 	swc1	$f8,0x0($s8)
 /*  f06c51c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06c520:	02a02825 */ 	or	$a1,$s5,$zero
 /*  f06c524:	0c0056da */ 	jal	mtx4TransformVec
 /*  f06c528:	8fa6010c */ 	lw	$a2,0x10c($sp)
-/*  f06c52c:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f06c52c:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f06c530:	00000000 */ 	nop
 /*  f06c534:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06c538:	02c02825 */ 	or	$a1,$s6,$zero
@@ -8448,13 +8447,13 @@ glabel func0f06c28c
 /*  f06c6b4:	00000000 */ 	nop
 /*  f06c6b8:	45000034 */ 	bc1f	.L0f06c78c
 /*  f06c6bc:	00000000 */ 	nop
-/*  f06c6c0:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f06c6c0:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f06c6c4:	e7c40000 */ 	swc1	$f4,0x0($s8)
 /*  f06c6c8:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06c6cc:	02e02825 */ 	or	$a1,$s7,$zero
 /*  f06c6d0:	0c0056da */ 	jal	mtx4TransformVec
 /*  f06c6d4:	8fa6010c */ 	lw	$a2,0x10c($sp)
-/*  f06c6d8:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f06c6d8:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f06c6dc:	00000000 */ 	nop
 /*  f06c6e0:	8fb10110 */ 	lw	$s1,0x110($sp)
 /*  f06c6e4:	00402025 */ 	or	$a0,$v0,$zero
@@ -8653,7 +8652,7 @@ glabel func0f06c8ac
 /*  f06c9a8:	c6880004 */ 	lwc1	$f8,0x4($s4)
 /*  f06c9ac:	e7a8008c */ 	swc1	$f8,0x8c($sp)
 /*  f06c9b0:	c68a0008 */ 	lwc1	$f10,0x8($s4)
-/*  f06c9b4:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
+/*  f06c9b4:	0fc2d5be */ 	jal	camGetMatrix1740
 /*  f06c9b8:	e7aa0090 */ 	swc1	$f10,0x90($sp)
 /*  f06c9bc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06c9c0:	0c0056d9 */ 	jal	mtx4TransformVecInPlace
@@ -8663,7 +8662,7 @@ glabel func0f06c8ac
 /*  f06c9d0:	c7b000a0 */ 	lwc1	$f16,0xa0($sp)
 /*  f06c9d4:	e7a6007c */ 	swc1	$f6,0x7c($sp)
 /*  f06c9d8:	e7b20080 */ 	swc1	$f18,0x80($sp)
-/*  f06c9dc:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
+/*  f06c9dc:	0fc2d5be */ 	jal	camGetMatrix1740
 /*  f06c9e0:	e7b00084 */ 	swc1	$f16,0x84($sp)
 /*  f06c9e4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06c9e8:	0c0056c4 */ 	jal	mtx4RotateVecInPlace
@@ -10744,7 +10743,7 @@ glabel var7f1aa26c
 /*  f06d478:	8fa400a8 */ 	lw	$a0,0xa8($sp)
 /*  f06d47c:	27a50080 */ 	addiu	$a1,$sp,0x80
 /*  f06d480:	2486001c */ 	addiu	$a2,$a0,0x1c
-/*  f06d484:	0fc248cf */ 	jal	func0f09233c
+/*  f06d484:	0fc248cf */ 	jal	setup0f09233c
 /*  f06d488:	27a70070 */ 	addiu	$a3,$sp,0x70
 /*  f06d48c:	44800000 */ 	mtc1	$zero,$f0
 /*  f06d490:	2409003f */ 	addiu	$t1,$zero,0x3f
@@ -10996,7 +10995,7 @@ glabel var7f1aa26c
 /*  f06d810:	8fa400a8 */ 	lw	$a0,0xa8($sp)
 /*  f06d814:	02202825 */ 	or	$a1,$s1,$zero
 /*  f06d818:	2486001c */ 	addiu	$a2,$a0,0x1c
-/*  f06d81c:	0fc248cf */ 	jal	func0f09233c
+/*  f06d81c:	0fc248cf */ 	jal	setup0f09233c
 /*  f06d820:	27a70070 */ 	addiu	$a3,$sp,0x70
 /*  f06d824:	44808000 */ 	mtc1	$zero,$f16
 /*  f06d828:	44809000 */ 	mtc1	$zero,$f18
@@ -11135,7 +11134,7 @@ glabel var7f1aa26c
 /*  f06d650:	8fa400a8 */ 	lw	$a0,0xa8($sp)
 /*  f06d654:	27a50080 */ 	addiu	$a1,$sp,0x80
 /*  f06d658:	2486001c */ 	addiu	$a2,$a0,0x1c
-/*  f06d65c:	0fc24863 */ 	jal	func0f09233c
+/*  f06d65c:	0fc24863 */ 	jal	setup0f09233c
 /*  f06d660:	27a70070 */ 	addiu	$a3,$sp,0x70
 /*  f06d664:	44800000 */ 	mtc1	$zero,$f0
 /*  f06d668:	2409003f */ 	li	$t1,0x3f
@@ -11387,7 +11386,7 @@ glabel var7f1aa26c
 /*  f06d9e8:	8fa400a8 */ 	lw	$a0,0xa8($sp)
 /*  f06d9ec:	02202825 */ 	move	$a1,$s1
 /*  f06d9f0:	2486001c */ 	addiu	$a2,$a0,0x1c
-/*  f06d9f4:	0fc24863 */ 	jal	func0f09233c
+/*  f06d9f4:	0fc24863 */ 	jal	setup0f09233c
 /*  f06d9f8:	27a70070 */ 	addiu	$a3,$sp,0x70
 /*  f06d9fc:	44808000 */ 	mtc1	$zero,$f16
 /*  f06da00:	44809000 */ 	mtc1	$zero,$f18
@@ -11526,7 +11525,7 @@ glabel var7f1aa26c
 /*  f06d478:	8fa400a8 */ 	lw	$a0,0xa8($sp)
 /*  f06d47c:	27a50080 */ 	addiu	$a1,$sp,0x80
 /*  f06d480:	2486001c */ 	addiu	$a2,$a0,0x1c
-/*  f06d484:	0fc248cf */ 	jal	func0f09233c
+/*  f06d484:	0fc248cf */ 	jal	setup0f09233c
 /*  f06d488:	27a70070 */ 	addiu	$a3,$sp,0x70
 /*  f06d48c:	44800000 */ 	mtc1	$zero,$f0
 /*  f06d490:	2409003f */ 	addiu	$t1,$zero,0x3f
@@ -11778,7 +11777,7 @@ glabel var7f1aa26c
 /*  f06d810:	8fa400a8 */ 	lw	$a0,0xa8($sp)
 /*  f06d814:	02202825 */ 	or	$a1,$s1,$zero
 /*  f06d818:	2486001c */ 	addiu	$a2,$a0,0x1c
-/*  f06d81c:	0fc248cf */ 	jal	func0f09233c
+/*  f06d81c:	0fc248cf */ 	jal	setup0f09233c
 /*  f06d820:	27a70070 */ 	addiu	$a3,$sp,0x70
 /*  f06d824:	44808000 */ 	mtc1	$zero,$f16
 /*  f06d828:	44809000 */ 	mtc1	$zero,$f18
@@ -11917,7 +11916,7 @@ glabel var7f1aa26c
 /*  f06d478:	8fa400a8 */ 	lw	$a0,0xa8($sp)
 /*  f06d47c:	27a50080 */ 	addiu	$a1,$sp,0x80
 /*  f06d480:	2486001c */ 	addiu	$a2,$a0,0x1c
-/*  f06d484:	0fc248cf */ 	jal	func0f09233c
+/*  f06d484:	0fc248cf */ 	jal	setup0f09233c
 /*  f06d488:	27a70070 */ 	addiu	$a3,$sp,0x70
 /*  f06d48c:	44800000 */ 	mtc1	$zero,$f0
 /*  f06d490:	2409003f */ 	addiu	$t1,$zero,0x3f
@@ -12169,7 +12168,7 @@ glabel var7f1aa26c
 /*  f06d810:	8fa400a8 */ 	lw	$a0,0xa8($sp)
 /*  f06d814:	02202825 */ 	or	$a1,$s1,$zero
 /*  f06d818:	2486001c */ 	addiu	$a2,$a0,0x1c
-/*  f06d81c:	0fc248cf */ 	jal	func0f09233c
+/*  f06d81c:	0fc248cf */ 	jal	setup0f09233c
 /*  f06d820:	27a70070 */ 	addiu	$a3,$sp,0x70
 /*  f06d824:	44808000 */ 	mtc1	$zero,$f16
 /*  f06d828:	44809000 */ 	mtc1	$zero,$f18
@@ -13735,7 +13734,7 @@ glabel func0f06ec20
 /*  f06ed14:	27a60058 */ 	addiu	$a2,$sp,0x58
 /*  f06ed18:	0fc1a960 */ 	jal	func0f06a580
 /*  f06ed1c:	27a7002c */ 	addiu	$a3,$sp,0x2c
-/*  f06ed20:	0fc2bb15 */ 	jal	func0f0aec54
+/*  f06ed20:	0fc2bb15 */ 	jal	boltbeamFindByProp
 /*  f06ed24:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f06ed28:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f06ed2c:	10410008 */ 	beq	$v0,$at,.L0f06ed50
@@ -13965,7 +13964,7 @@ glabel func0f06ef44
 /*  f06f03c:	27a40034 */ 	addiu	$a0,$sp,0x34
 /*  f06f040:	0c0056f9 */ 	jal	mtx00015be4
 /*  f06f044:	27a50074 */ 	addiu	$a1,$sp,0x74
-/*  f06f048:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f06f048:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f06f04c:	00000000 */ 	nop
 /*  f06f050:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06f054:	8fa50024 */ 	lw	$a1,0x24($sp)
@@ -14363,7 +14362,7 @@ bool propExplode(struct prop *prop, s32 exptype)
 			pos.y = mtx->m[3][1];
 			pos.z = mtx->m[3][2];
 
-			mtx4TransformVecInPlace(currentPlayerGetUnk174c(), &pos);
+			mtx4TransformVecInPlace(camGetUnk174c(), &pos);
 		} else {
 			pos.x = parent->pos.x;
 			pos.y = parent->pos.y;
@@ -15452,7 +15451,7 @@ glabel var7f1aa2c4
 /*  f0703f0:	3c0d800a */ 	lui	$t5,%hi(g_Vars)
 /*  f0703f4:	8e030048 */ 	lw	$v1,0x48($s0)
 /*  f0703f8:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
-/*  f0703fc:	0fc2bb15 */ 	jal	func0f0aec54
+/*  f0703fc:	0fc2bb15 */ 	jal	boltbeamFindByProp
 /*  f070400:	afa3005c */ 	sw	$v1,0x5c($sp)
 /*  f070404:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f070408:	8fa3005c */ 	lw	$v1,0x5c($sp)
@@ -16661,7 +16660,7 @@ glabel var7f1aa2c4
 /*  f0703f0:	3c0d800a */ 	lui	$t5,%hi(g_Vars)
 /*  f0703f4:	8e030048 */ 	lw	$v1,0x48($s0)
 /*  f0703f8:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
-/*  f0703fc:	0fc2bb15 */ 	jal	func0f0aec54
+/*  f0703fc:	0fc2bb15 */ 	jal	boltbeamFindByProp
 /*  f070400:	afa3005c */ 	sw	$v1,0x5c($sp)
 /*  f070404:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f070408:	8fa3005c */ 	lw	$v1,0x5c($sp)
@@ -17596,7 +17595,7 @@ glabel var7f1aa2c4
 /*  f06f2c0:	8f230048 */ 	lw	$v1,0x48($t9)
 /*  f06f2c4:	afa70170 */ 	sw	$a3,0x170($sp)
 /*  f06f2c8:	8fa40178 */ 	lw	$a0,0x178($sp)
-/*  f06f2cc:	0fc2b26d */ 	jal	func0f0aec54
+/*  f06f2cc:	0fc2b26d */ 	jal	boltbeamFindByProp
 /*  f06f2d0:	afa30034 */ 	sw	$v1,0x34($sp)
 /*  f06f2d4:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f06f2d8:	8fa30034 */ 	lw	$v1,0x34($sp)
@@ -18058,7 +18057,7 @@ glabel var7f1aa2c4
 //
 //		if (weapon->timer240 < 0) {
 //			struct projectile *projectile = obj->projectile;
-//			s32 value = func0f0aec54(prop);
+//			s32 value = boltbeamFindByProp(prop);
 //
 //			if (value != -1) {
 //				func0f0aed70(value, &prop->pos);
@@ -18921,7 +18920,7 @@ void hovUpdateGround(struct defaultobj *obj, struct hov *hov, struct coord *pos,
 		testpos.z = pos->z;
 
 		roomsCopy(rooms, testrooms);
-		func0f09233c(obj, &testpos, matrix, testrooms);
+		setup0f09233c(obj, &testpos, matrix, testrooms);
 
 		ground = cdFindGroundYSimple(pos, 5, testrooms, &obj->floorcol, NULL);
 
@@ -19117,7 +19116,7 @@ glabel var7f1ab5c0pf
 /*  f071944:	02202025 */ 	move	$a0,$s1
 /*  f071948:	27a50090 */ 	addiu	$a1,$sp,0x90
 /*  f07194c:	8fa6005c */ 	lw	$a2,0x5c($sp)
-/*  f071950:	0fc2488f */ 	jal	func0f09233c
+/*  f071950:	0fc2488f */ 	jal	setup0f09233c
 /*  f071954:	27a7009c */ 	addiu	$a3,$sp,0x9c
 /*  f071958:	8fa40064 */ 	lw	$a0,0x64($sp)
 /*  f07195c:	8fa50060 */ 	lw	$a1,0x60($sp)
@@ -19982,7 +19981,7 @@ glabel var7f1ab5c0pf
 /*  f071894:	02202025 */ 	move	$a0,$s1
 /*  f071898:	27a50090 */ 	addiu	$a1,$sp,0x90
 /*  f07189c:	8fa6005c */ 	lw	$a2,0x5c($sp)
-/*  f0718a0:	0fc24863 */ 	jal	func0f09233c
+/*  f0718a0:	0fc24863 */ 	jal	setup0f09233c
 /*  f0718a4:	27a7009c */ 	addiu	$a3,$sp,0x9c
 /*  f0718a8:	8fa40064 */ 	lw	$a0,0x64($sp)
 /*  f0718ac:	8fa50060 */ 	lw	$a1,0x60($sp)
@@ -20843,7 +20842,7 @@ glabel var7f1aa314
 /*  f0716bc:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0716c0:	27a50090 */ 	addiu	$a1,$sp,0x90
 /*  f0716c4:	8fa6005c */ 	lw	$a2,0x5c($sp)
-/*  f0716c8:	0fc248cf */ 	jal	func0f09233c
+/*  f0716c8:	0fc248cf */ 	jal	setup0f09233c
 /*  f0716cc:	27a7009c */ 	addiu	$a3,$sp,0x9c
 /*  f0716d0:	8fa40064 */ 	lw	$a0,0x64($sp)
 /*  f0716d4:	8fa50060 */ 	lw	$a1,0x60($sp)
@@ -21712,7 +21711,7 @@ glabel var7f1aa31c
 /*  f072354:	02002025 */ 	or	$a0,$s0,$zero
 /*  f072358:	27a50450 */ 	addiu	$a1,$sp,0x450
 /*  f07235c:	27a60460 */ 	addiu	$a2,$sp,0x460
-/*  f072360:	0fc248cf */ 	jal	func0f09233c
+/*  f072360:	0fc248cf */ 	jal	setup0f09233c
 /*  f072364:	27a70440 */ 	addiu	$a3,$sp,0x440
 /*  f072368:	92020003 */ 	lbu	$v0,0x3($s0)
 /*  f07236c:	24010033 */ 	addiu	$at,$zero,0x33
@@ -21784,7 +21783,7 @@ glabel var7f1aa31c
 /*  f072460:	02002025 */ 	or	$a0,$s0,$zero
 /*  f072464:	27a50450 */ 	addiu	$a1,$sp,0x450
 /*  f072468:	27a60460 */ 	addiu	$a2,$sp,0x460
-/*  f07246c:	0fc248cf */ 	jal	func0f09233c
+/*  f07246c:	0fc248cf */ 	jal	setup0f09233c
 /*  f072470:	27a70440 */ 	addiu	$a3,$sp,0x440
 .L0f072474:
 /*  f072474:	8fb90484 */ 	lw	$t9,0x484($sp)
@@ -28513,7 +28512,7 @@ glabel var7f1ab110jf
 /*  f076a04:	8ca5d534 */ 	lw	$a1,-0x2acc($a1)
 /*  f076a08:	0c00695b */ 	jal	model0001a5cc
 /*  f076a0c:	00003025 */ 	move	$a2,$zero
-/*  f076a10:	0fc2d9de */ 	jal	currentPlayerGetMatrix1740
+/*  f076a10:	0fc2d9de */ 	jal	camGetMatrix1740
 /*  f076a14:	afa20184 */ 	sw	$v0,0x184($sp)
 /*  f076a18:	00402025 */ 	move	$a0,$v0
 /*  f076a1c:	27a505e8 */ 	addiu	$a1,$sp,0x5e8
@@ -32052,7 +32051,7 @@ glabel var7f1ab6dcpf
 /*  f075b64:	8ca5d3d4 */ 	lw	$a1,-0x2c2c($a1)
 /*  f075b68:	0c0068d7 */ 	jal	model0001a5cc
 /*  f075b6c:	00003025 */ 	move	$a2,$zero
-/*  f075b70:	0fc2d706 */ 	jal	currentPlayerGetMatrix1740
+/*  f075b70:	0fc2d706 */ 	jal	camGetMatrix1740
 /*  f075b74:	afa20184 */ 	sw	$v0,0x184($sp)
 /*  f075b78:	00402025 */ 	move	$a0,$v0
 /*  f075b7c:	27a505e8 */ 	addiu	$a1,$sp,0x5e8
@@ -35597,7 +35596,7 @@ glabel var7f1ab6dcpf
 /*  f075ab4:	8ca51394 */ 	lw	$a1,0x1394($a1)
 /*  f075ab8:	0c006c07 */ 	jal	model0001a5cc
 /*  f075abc:	00003025 */ 	move	$a2,$zero
-/*  f075ac0:	0fc2d6c2 */ 	jal	currentPlayerGetMatrix1740
+/*  f075ac0:	0fc2d6c2 */ 	jal	camGetMatrix1740
 /*  f075ac4:	afa20184 */ 	sw	$v0,0x184($sp)
 /*  f075ac8:	00402025 */ 	move	$a0,$v0
 /*  f075acc:	27a505e8 */ 	addiu	$a1,$sp,0x5e8
@@ -39135,7 +39134,7 @@ glabel var7f1aa438
 /*  f0758e0:	8ca5ce74 */ 	lw	$a1,%lo(var8009ce74)($a1)
 /*  f0758e4:	0c006973 */ 	jal	model0001a5cc
 /*  f0758e8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0758ec:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
+/*  f0758ec:	0fc2d5be */ 	jal	camGetMatrix1740
 /*  f0758f0:	afa20184 */ 	sw	$v0,0x184($sp)
 /*  f0758f4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0758f8:	27a505e8 */ 	addiu	$a1,$sp,0x5e8
@@ -42637,7 +42636,7 @@ glabel var7f1aa438
 /*  f07460c:	8ca515a4 */ 	lw	$a1,0x15a4($a1)
 /*  f074610:	0c006dcf */ 	jal	model0001a5cc
 /*  f074614:	00003025 */ 	or	$a2,$zero,$zero
-/*  f074618:	0fc2cd16 */ 	jal	currentPlayerGetMatrix1740
+/*  f074618:	0fc2cd16 */ 	jal	camGetMatrix1740
 /*  f07461c:	afa20188 */ 	sw	$v0,0x188($sp)
 /*  f074620:	00402025 */ 	or	$a0,$v0,$zero
 /*  f074624:	27a505e8 */ 	addiu	$a1,$sp,0x5e8
@@ -44325,7 +44324,7 @@ glabel var7f1aa44c
 /*  f077484:	8ed5000c */ 	lw	$s5,0xc($s6)
 /*  f077488:	0fc23109 */ 	jal	func0f08c424
 /*  f07748c:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f077490:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
+/*  f077490:	0fc2d5be */ 	jal	camGetMatrix1740
 /*  f077494:	00000000 */ 	nop
 /*  f077498:	00402025 */ 	or	$a0,$v0,$zero
 /*  f07749c:	0c0056f8 */ 	jal	mtx00015be0
@@ -44460,7 +44459,7 @@ glabel var7f1aa44c
 //	union modelrodata *rodata;
 //
 //	func0f08c424(door, matrices);
-//	mtx00015be0(currentPlayerGetMatrix1740(), matrices);
+//	mtx00015be0(camGetMatrix1740(), matrices);
 //
 //	if (model->filedata->type == &g_Skel11) {
 //		f32 xrot = M_BADTAU - door->frac * 0.017450513318181f;
@@ -46007,7 +46006,7 @@ void cctvInitMatrices(struct prop *prop, Mtxf *mtx)
 
 	mtx4TransformVecInPlace(mtx, &sp64);
 	mtx4SetTranslation(&sp64, &matrices[1]);
-	mtx00015be0(currentPlayerGetMatrix1740(), &matrices[1]);
+	mtx00015be0(camGetMatrix1740(), &matrices[1]);
 }
 
 void fanTick(struct prop *prop)
@@ -48552,7 +48551,7 @@ void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
 	mtx4LoadYRotation(yrot, &matrices[1]);
 	mtx4SetTranslation(&sp4c, &matrices[1]);
 	mtx00015f04(autogun->base.model->scale, &matrices[1]);
-	mtx00015be0(currentPlayerGetMatrix1740(), &matrices[1]);
+	mtx00015be0(camGetMatrix1740(), &matrices[1]);
 
 	node2 = modelGetPart(model->filedata, MODELPART_AUTOGUN_0002);
 	rodata = node2->rodata;
@@ -48771,7 +48770,7 @@ glabel var7f1aa5a8
 /*  f07a14c:	e7b0016c */ 	swc1	$f16,0x16c($sp)
 /*  f07a150:	e7b20170 */ 	swc1	$f18,0x170($sp)
 .L0f07a154:
-/*  f07a154:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f07a154:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f07a158:	afa50108 */ 	sw	$a1,0x108($sp)
 /*  f07a15c:	8fa50108 */ 	lw	$a1,0x108($sp)
 /*  f07a160:	00402025 */ 	or	$a0,$v0,$zero
@@ -49733,7 +49732,7 @@ glabel var7f1aa5a8
 /*  f07a2ec:	e7b0016c */ 	swc1	$f16,0x16c($sp)
 /*  f07a2f0:	e7b20170 */ 	swc1	$f18,0x170($sp)
 .PB0f07a2f4:
-/*  f07a2f4:	0fc2d6e2 */ 	jal	currentPlayerGetUnk174c
+/*  f07a2f4:	0fc2d6e2 */ 	jal	camGetUnk174c
 /*  f07a2f8:	afa50108 */ 	sw	$a1,0x108($sp)
 /*  f07a2fc:	8fa50108 */ 	lw	$a1,0x108($sp)
 /*  f07a300:	00402025 */ 	move	$a0,$v0
@@ -50695,7 +50694,7 @@ glabel var7f1aa5a8
 /*  f07a14c:	e7b0016c */ 	swc1	$f16,0x16c($sp)
 /*  f07a150:	e7b20170 */ 	swc1	$f18,0x170($sp)
 .L0f07a154:
-/*  f07a154:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f07a154:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f07a158:	afa50108 */ 	sw	$a1,0x108($sp)
 /*  f07a15c:	8fa50108 */ 	lw	$a1,0x108($sp)
 /*  f07a160:	00402025 */ 	or	$a0,$v0,$zero
@@ -51657,7 +51656,7 @@ glabel var7f1aa5a8
 /*  f07a14c:	e7b0016c */ 	swc1	$f16,0x16c($sp)
 /*  f07a150:	e7b20170 */ 	swc1	$f18,0x170($sp)
 .L0f07a154:
-/*  f07a154:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f07a154:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f07a158:	afa50108 */ 	sw	$a1,0x108($sp)
 /*  f07a15c:	8fa50108 */ 	lw	$a1,0x108($sp)
 /*  f07a160:	00402025 */ 	or	$a0,$v0,$zero
@@ -63156,7 +63155,7 @@ void objInitMatrices(struct prop *prop)
 	} else {
 		mtx3ToMtx4(obj->realrot, &mtx);
 		mtx4SetTranslation(&prop->pos, &mtx);
-		mtx00015be4(currentPlayerGetMatrix1740(), &mtx, obj->model->matrices);
+		mtx00015be4(camGetMatrix1740(), &mtx, obj->model->matrices);
 
 		if (obj->type == OBJTYPE_CCTV) {
 			cctvInitMatrices(prop, &mtx);
@@ -63232,11 +63231,11 @@ u32 objTick(struct prop *prop)
 					propDeregisterRooms(prop);
 					propDelist(prop);
 					obj->hidden &= ~OBJHFLAG_00000800;
-					cmdindex = setupGetCommandIndexByProp(prop);
+					cmdindex = setupGetCmdIndexByProp(prop);
 
 					// Find the parent obj (pad is repurposed here)
 					padnum = obj->pad;
-					newparent = setupCommandGetObject(cmdindex + padnum);
+					newparent = setupGetObjByCmdIndex(cmdindex + padnum);
 
 					if (newparent && newparent->prop) {
 						modelSetScale(obj->model, obj->model->scale);
@@ -63245,7 +63244,7 @@ u32 objTick(struct prop *prop)
 					}
 				} else {
 					propEnable(prop);
-					func0f0923d4(obj);
+					setup0f0923d4(obj);
 					obj->hidden &= ~OBJHFLAG_00000800;
 				}
 			} else {
@@ -63400,11 +63399,11 @@ s32 objTickPlayer(struct prop *prop)
 
 					sp556 = true;
 					sp476.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
-					sp476.unk00 = currentPlayerGetMatrix1740();
+					sp476.unk00 = camGetMatrix1740();
 					model0001cebc(&sp476, model);
 
 					if (fulltick) {
-						mtx00015be4(currentPlayerGetUnk174c(), model->matrices, &sp412);
+						mtx00015be4(camGetUnk174c(), model->matrices, &sp412);
 						mtx4ToMtx3(&sp412, obj->realrot);
 
 						sp400.x = sp412.m[3][0];
@@ -63494,7 +63493,7 @@ s32 objTickPlayer(struct prop *prop)
 
 			mtx3ToMtx4(obj->realrot, &sp248);
 			mtx4SetTranslation(&prop->pos, &sp248);
-			mtx4MultMtx4(currentPlayerGetMatrix1740(), &sp248, &sp152);
+			mtx4MultMtx4(camGetMatrix1740(), &sp248, &sp152);
 
 			sp556 = true;
 			sp312.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
@@ -63515,7 +63514,7 @@ s32 objTickPlayer(struct prop *prop)
 				if (modelGetCurAnimFrame(model) >= modelGetNumAnimFrames(model) - 1) {
 					animTurnOff(model->anim);
 					model->anim = NULL;
-					mtx00015be4(currentPlayerGetUnk174c(), model->matrices, &sp248);
+					mtx00015be4(camGetUnk174c(), model->matrices, &sp248);
 					mtx4ToMtx3(&sp248, obj->realrot);
 					tagnum = objGetTagNum(obj);
 
@@ -65287,7 +65286,7 @@ glabel var7f1aa824
 /*  f0808ac:	afae0014 */ 	sw	$t6,0x14($sp)
 /*  f0808b0:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f0808b4:	8fa700c8 */ 	lw	$a3,0xc8($sp)
-/*  f0808b8:	0fc2ce70 */ 	jal	func0f0b39c0
+/*  f0808b8:	0fc2ce70 */ 	jal	tex0f0b39c0
 /*  f0808bc:	8fa600cc */ 	lw	$a2,0xcc($sp)
 /*  f0808c0:	8fb000c4 */ 	lw	$s0,0xc4($sp)
 /*  f0808c4:	3c190102 */ 	lui	$t9,0x102
@@ -65637,7 +65636,7 @@ glabel var7f1aa824
 //		// Render the image
 //		gSPSetGeometryMode(gdl++, G_CULL_BACK);
 //
-//		func0f0b39c0(&gdl, tconfig, arg5, arg4, 2, 1, NULL);
+//		tex0f0b39c0(&gdl, tconfig, arg5, arg4, 2, 1, NULL);
 //
 //		gSPMatrix(gdl++, osVirtualToPhysical(model->matrices), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 //
@@ -65665,7 +65664,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool w
 		s32 sp60;
 
 		sp6c = 0;
-		sp6c += (obj->flags & OBJFLAG_00000200) && currentPlayerGetUnk1758();
+		sp6c += (obj->flags & OBJFLAG_00000200) && camGetUnk1758();
 
 		gdl = renderdata->gdl;
 
@@ -65751,7 +65750,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool w
 		}
 
 		if (sp6c) {
-			gSPMatrix(gdl++, currentPlayerGetUnk1758(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+			gSPMatrix(gdl++, camGetUnk1758(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 		}
 
 		renderdata->gdl = gdl;
@@ -65767,7 +65766,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool w
 		}
 
 		if (sp6c) {
-			gSPMatrix(gdl++, currentPlayerGetUnk1750(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+			gSPMatrix(gdl++, camGetUnk1750(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 		}
 
 		renderdata->gdl = gdl;
@@ -65830,7 +65829,7 @@ glabel gfxRenderRadialShadow
 /*  f081004:	8fa50110 */ 	lw	$a1,0x110($sp)
 /*  f081008:	0c005892 */ 	jal	mtx4LoadYRotationWithTranslation
 /*  f08100c:	27a600c0 */ 	addiu	$a2,$sp,0xc0
-/*  f081010:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
+/*  f081010:	0fc2d5be */ 	jal	camGetMatrix1740
 /*  f081014:	00000000 */ 	nop
 /*  f081018:	00402025 */ 	or	$a0,$v0,$zero
 /*  f08101c:	27a500c0 */ 	addiu	$a1,$sp,0xc0
@@ -65905,14 +65904,14 @@ glabel gfxRenderRadialShadow
 /*  f08112c:	a60a002e */ 	sh	$t2,0x2e($s0)
 /*  f081130:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f081134:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f081138:	0fc2ce70 */ 	jal	func0f0b39c0
+/*  f081138:	0fc2ce70 */ 	jal	tex0f0b39c0
 /*  f08113c:	afab0010 */ 	sw	$t3,0x10($sp)
 /*  f081140:	10000006 */ 	b	.L0f08115c
 /*  f081144:	8faf0100 */ 	lw	$t7,0x100($sp)
 .L0f081148:
 /*  f081148:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f08114c:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f081150:	0fc2ce70 */ 	jal	func0f0b39c0
+/*  f081150:	0fc2ce70 */ 	jal	tex0f0b39c0
 /*  f081154:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f081158:	8faf0100 */ 	lw	$t7,0x100($sp)
 .L0f08115c:
@@ -67861,7 +67860,7 @@ glabel var7f1aa85c
 /*  f0828ec:	c4500004 */ 	lwc1	$f16,0x4($v0)
 /*  f0828f0:	e7b00050 */ 	swc1	$f16,0x50($sp)
 /*  f0828f4:	c44a0008 */ 	lwc1	$f10,0x8($v0)
-/*  f0828f8:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f0828f8:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f0828fc:	e7aa0054 */ 	swc1	$f10,0x54($sp)
 /*  f082900:	00402025 */ 	or	$a0,$v0,$zero
 /*  f082904:	0c0056c4 */ 	jal	mtx4RotateVecInPlace
@@ -68060,7 +68059,7 @@ glabel var7f1aa85c
 /*  f0828ec:	c4500004 */ 	lwc1	$f16,0x4($v0)
 /*  f0828f0:	e7b00050 */ 	swc1	$f16,0x50($sp)
 /*  f0828f4:	c44a0008 */ 	lwc1	$f10,0x8($v0)
-/*  f0828f8:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f0828f8:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f0828fc:	e7aa0054 */ 	swc1	$f10,0x54($sp)
 /*  f082900:	00402025 */ 	or	$a0,$v0,$zero
 /*  f082904:	0c0056c4 */ 	jal	mtx4RotateVecInPlace
@@ -69124,7 +69123,7 @@ bool objDrop(struct prop *prop, bool lazy)
 			if (!lazy && (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
 				// Do collision checks
 				Mtxf *sp48 = model0001a60c(model);
-				mtx00015be4(currentPlayerGetUnk174c(), sp48, &spf0);
+				mtx00015be4(camGetUnk174c(), sp48, &spf0);
 				propSetPerimEnabled(root, false);
 
 				spe4.x = spf0.m[3][0];
@@ -71224,7 +71223,7 @@ void func0f084f64(struct defaultobj *obj)
 	if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 		rodata = modelGetPartRodata(model->filedata, 2);
 		sp7c = model0001a5cc(model, modelGetPart(model->filedata, 1), 0);
-		mtx00015be4(currentPlayerGetUnk174c(), sp7c, &matrix);
+		mtx00015be4(camGetUnk174c(), sp7c, &matrix);
 
 		shardsCreate((struct coord *) matrix.m[3], matrix.m[0], matrix.m[1], matrix.m[2],
 				rodata->bbox.xmin, rodata->bbox.xmax, rodata->bbox.ymin, rodata->bbox.ymax,
@@ -71667,9 +71666,9 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 				}
 			}
 
-			mtx4TransformVec(currentPlayerGetUnk174c(), &spd8, &sp7c);
+			mtx4TransformVec(camGetUnk174c(), &spd8, &sp7c);
 			mtx4RotateVec(&model->matrices[spe4], &hitthing1.unk0c, &sp70);
-			mtx4RotateVecInPlace(currentPlayerGetUnk174c(), &sp70);
+			mtx4RotateVecInPlace(camGetUnk174c(), &sp70);
 
 			func0f061fa8(shotdata, prop, spd4, lVar3,
 					node1, &hitthing1, spe4, node2,
@@ -71764,7 +71763,7 @@ glabel objHit
 /*  f085f84:	c48a0000 */ 	lwc1	$f10,0x0($a0)
 /*  f085f88:	c4480008 */ 	lwc1	$f8,0x8($v0)
 /*  f085f8c:	460a4481 */ 	sub.s	$f18,$f8,$f10
-/*  f085f90:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f085f90:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f085f94:	e7b20118 */ 	swc1	$f18,0x118($sp)
 /*  f085f98:	00402025 */ 	or	$a0,$v0,$zero
 /*  f085f9c:	0c0056d9 */ 	jal	mtx4TransformVecInPlace
@@ -72345,7 +72344,7 @@ glabel objHit
 /*  f0867dc:	c4440030 */ 	lwc1	$f4,0x30($v0)
 /*  f0867e0:	afb80048 */ 	sw	$t8,0x48($sp)
 /*  f0867e4:	46002402 */ 	mul.s	$f16,$f4,$f0
-/*  f0867e8:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
+/*  f0867e8:	0fc2d5de */ 	jal	camGetUnk174c
 /*  f0867ec:	e7b000b8 */ 	swc1	$f16,0xb8($sp)
 /*  f0867f0:	8fb9011c */ 	lw	$t9,0x11c($sp)
 /*  f0867f4:	8fac0124 */ 	lw	$t4,0x124($sp)
@@ -72495,7 +72494,7 @@ glabel objHit
 /*  f0847e8:	c48a0000 */ 	lwc1	$f10,0x0($a0)
 /*  f0847ec:	c4480008 */ 	lwc1	$f8,0x8($v0)
 /*  f0847f0:	460a4481 */ 	sub.s	$f18,$f8,$f10
-/*  f0847f4:	0fc2cd36 */ 	jal	currentPlayerGetUnk174c
+/*  f0847f4:	0fc2cd36 */ 	jal	camGetUnk174c
 /*  f0847f8:	e7b20118 */ 	swc1	$f18,0x118($sp)
 /*  f0847fc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f084800:	0c005a95 */ 	jal	mtx4TransformVecInPlace
@@ -73074,7 +73073,7 @@ glabel objHit
 /*  f085038:	c4440030 */ 	lwc1	$f4,0x30($v0)
 /*  f08503c:	afb90048 */ 	sw	$t9,0x48($sp)
 /*  f085040:	46002402 */ 	mul.s	$f16,$f4,$f0
-/*  f085044:	0fc2cd36 */ 	jal	currentPlayerGetUnk174c
+/*  f085044:	0fc2cd36 */ 	jal	camGetUnk174c
 /*  f085048:	e7b000b8 */ 	swc1	$f16,0xb8($sp)
 /*  f08504c:	8faf011c */ 	lw	$t7,0x11c($sp)
 /*  f085050:	8fae0124 */ 	lw	$t6,0x124($sp)
@@ -78162,7 +78161,7 @@ void hatLoadAndApplyToChr(struct hatobj *hat, struct chrdata *chr)
 	u32 stack;
 	s32 modelnum = hat->base.modelnum;
 
-	modelLoad(modelnum);
+	setupLoadModeldef(modelnum);
 
 	hatApplyToChr(hat, chr, g_ModelStates[modelnum].filedata, NULL, NULL);
 }
@@ -78179,7 +78178,7 @@ struct prop *hatCreateForChr(struct chrdata *chr, s32 modelnum, u32 flags)
 	struct model *model;
 	struct hatobj *obj;
 
-	modelLoad(modelnum);
+	setupLoadModeldef(modelnum);
 	filedata = g_ModelStates[modelnum].filedata;
 	prop = propAllocate();
 	model = modelInstantiate(filedata);
@@ -78852,7 +78851,7 @@ void func0f08b208(struct weaponobj *weapon, struct chrdata *chr)
 	u32 stack;
 	s32 modelnum = weapon->base.modelnum;
 
-	modelLoad(modelnum);
+	setupLoadModeldef(modelnum);
 	func0f08b108(weapon, chr, g_ModelStates[modelnum].filedata, 0, 0);
 }
 
@@ -78876,7 +78875,7 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 	}
 
 	if (index >= 0 && index < g_MaxThrownLaptops) {
-		modelLoad(modelnum);
+		setupLoadModeldef(modelnum);
 		filedata = g_ModelStates[modelnum].filedata;
 		laptop = &g_ThrownLaptops[index];
 
@@ -79086,7 +79085,7 @@ glabel var7f1aaf24
 /*  f08b664:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f08b668:	afa400a0 */ 	sw	$a0,0xa0($sp)
 /*  f08b66c:	afa500a4 */ 	sw	$a1,0xa4($sp)
-/*  f08b670:	0fc2486d */ 	jal	modelLoad
+/*  f08b670:	0fc2486d */ 	jal	setupLoadModeldef
 /*  f08b674:	afa600a8 */ 	sw	$a2,0xa8($sp)
 /*  f08b678:	8fae00a0 */ 	lw	$t6,0xa0($sp)
 /*  f08b67c:	3c188008 */ 	lui	$t8,%hi(g_ModelStates)
@@ -79311,7 +79310,7 @@ glabel var7f1aaf24
 /*  f089e9c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f089ea0:	afa400a0 */ 	sw	$a0,0xa0($sp)
 /*  f089ea4:	afa500a4 */ 	sw	$a1,0xa4($sp)
-/*  f089ea8:	0fc241fe */ 	jal	modelLoad
+/*  f089ea8:	0fc241fe */ 	jal	setupLoadModeldef
 /*  f089eac:	afa600a8 */ 	sw	$a2,0xa8($sp)
 /*  f089eb0:	8fae00a0 */ 	lw	$t6,0xa0($sp)
 /*  f089eb4:	3c188008 */ 	lui	$t8,0x8008
@@ -79501,7 +79500,7 @@ struct prop *weaponCreateForChr(struct chrdata *chr, s32 modelnum, s32 weaponnum
 	struct model *model;
 
 	if (filedata == NULL) {
-		modelLoad(modelnum);
+		setupLoadModeldef(modelnum);
 		filedata = g_ModelStates[modelnum].filedata;
 	}
 
@@ -81417,7 +81416,7 @@ f32 func0f08e6bc(struct prop *prop, f32 arg1)
 	struct coord *coord = env0f1667e8();
 
 	if (coord != NULL && coord->z < prop->z) {
-		f32 scalez = currentPlayerGetLodScaleZ();
+		f32 scalez = camGetLodScaleZ();
 		f32 value = ((prop->z - coord->z) * 100.0f / arg1 + coord->z) * scalez;
 
 		if (value >= coord->y) {
@@ -81439,7 +81438,7 @@ bool func0f08e794(struct coord *coord, f32 arg1)
 
 	if (ptr != NULL) {
 		struct coord *campos = &g_Vars.currentplayer->cam_pos;
-		Mtxf *mtx = currentPlayerGetMatrix1740();
+		Mtxf *mtx = camGetMatrix1740();
 
 		tmp.x = coord->x - campos->x;
 		tmp.y = coord->y - campos->y;
@@ -81448,7 +81447,7 @@ bool func0f08e794(struct coord *coord, f32 arg1)
 		sp20 = tmp.f[0] * mtx->m[0][0] + tmp.f[1] * mtx->m[0][1] + tmp.f[2] * mtx->m[0][2];
 
 		if (sp20 > ptr->z) {
-			f32 scalez = currentPlayerGetLodScaleZ();
+			f32 scalez = camGetLodScaleZ();
 			sp20 = ((sp20 - ptr->z) * 100 / arg1 + ptr->z) * scalez;
 
 			if (sp20 >= ptr->y) {
@@ -81473,7 +81472,7 @@ u32 func0f08e8ac(struct prop *prop, struct coord *coord, f32 arg2, bool arg3)
 	while (roomnum != -1) {
 		if (g_Rooms[roomnum].flags & ROOMFLAG_VISIBLEBYPLAYER) {
 			if (env0f1666f8(coord, arg2) && (!arg3 || func0f08e794(coord, arg2))) {
-				result = func0f0b6260(prop->rooms, coord, arg2);
+				result = cam0f0b6260(prop->rooms, coord, arg2);
 
 				if (result) {
 					struct coord *campos = &g_Vars.currentplayer->cam_pos;
@@ -81695,7 +81694,7 @@ void doorsCalcFrac(struct doorobj *door)
 			struct prop *loopprop;
 
 			doorUpdateTiles(loopdoor);
-			func0f0923d4(&loopdoor->base);
+			setup0f0923d4(&loopdoor->base);
 
 			loopprop = loopdoor->base.prop;
 
@@ -81803,7 +81802,7 @@ void doorsCalcFrac(struct doorobj *door)
 				loopdoor->frac = *(f32 *)&loopdoor->lastcalc60;
 
 				doorUpdateTiles(loopdoor);
-				func0f0923d4(&loopdoor->base);
+				setup0f0923d4(&loopdoor->base);
 				func0f08d460(loopdoor);
 			}
 		} else {
@@ -81843,8 +81842,8 @@ void doorsCalcFrac(struct doorobj *door)
 			}
 		}
 
-		func0f0b6470(door->portalnum, frac / numsameportal);
-		func0f0b63b0(door->portalnum, frac / numsameportal);
+		portal0f0b6470(door->portalnum, frac / numsameportal);
+		portal0f0b63b0(door->portalnum, frac / numsameportal);
 	}
 }
 

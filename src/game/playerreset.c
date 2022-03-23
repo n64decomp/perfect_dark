@@ -6,9 +6,9 @@
 #include "game/inv.h"
 #include "game/playerreset.h"
 #include "game/chr.h"
-#include "game/game_02cde0.h"
+#include "game/body.h"
 #include "game/prop.h"
-#include "game/game_091e10.h"
+#include "game/setuputils.h"
 #include "game/bondgun.h"
 #include "game/player.h"
 #include "game/inv.h"
@@ -366,13 +366,13 @@ bool weaponLoadProjectileModels(s32 weaponnum)
 				struct weaponfunc_shootprojectile *func = (struct weaponfunc_shootprojectile *)genericfunc;
 
 				if (func->projectilemodelnum >= 0) {
-					result |= modelLoad(func->projectilemodelnum);
+					result |= setupLoadModeldef(func->projectilemodelnum);
 				}
 			} else if (genericfunc->type == INVENTORYFUNCTYPE_THROW) {
 				struct weaponfunc_throw *func = (struct weaponfunc_throw *)genericfunc;
 
 				if (func->projectilemodelnum >= 0) {
-					result |= modelLoad(func->projectilemodelnum);
+					result |= setupLoadModeldef(func->projectilemodelnum);
 				}
 			}
 		}
@@ -391,7 +391,7 @@ void playerInitEyespy(void)
 
 	if (g_Vars.currentplayer->eyespy == NULL) {
 		/**
-		 * To create the eyespy's prop, a pad must be passed to propAllocateEyespy.
+		 * To create the eyespy's prop, a pad must be passed to bodyAllocateEyespy.
 		 * However the eyespy doesn't have a pad because it's held by the
 		 * player, so it needs to choose one from the stage. The method used
 		 * will increment the chosen pad number each time the stage is loaded
@@ -402,7 +402,7 @@ void playerInitEyespy(void)
 		 * causing the mid cutscene to play instead of the intro.
 		 */
 		padUnpack(nextpad++, PADFIELD_ROOM | PADFIELD_POS, &pad);
-		prop = propAllocateEyespy(&pad, pad.room);
+		prop = bodyAllocateEyespy(&pad, pad.room);
 
 		if (prop) {
 			g_Vars.currentplayer->eyespy = mempAlloc(sizeof(struct eyespy), MEMPOOL_STAGE);
