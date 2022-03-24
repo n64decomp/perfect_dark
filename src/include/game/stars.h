@@ -4,8 +4,8 @@
 #include "data.h"
 #include "types.h"
 
-void func0f135c70(void);
-u32 func0f135f08(void);
+void stars0f135c70(void);
+void func0f135f08(s32 arg0, f32 *arg1);
 void starsReset(void);
 Gfx *starsRender(Gfx *gdl);
 
