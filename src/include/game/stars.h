@@ -5,7 +5,7 @@
 #include "types.h"
 
 void stars0f135c70(void);
-void func0f135f08(s32 arg0, f32 *arg1);
+void starInsert(s32 arg0, struct coord *arg1);
 void starsReset(void);
 Gfx *starsRender(Gfx *gdl);
 

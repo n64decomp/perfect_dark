@@ -13,10 +13,10 @@
 #include "types.h"
 
 s32 g_StarCount;
-u8 *g_StarPositions = NULL;
+s8 *g_StarPositions = NULL;
 f32 *g_StarData3;
 s32 g_StarGridSize;
-s32 *g_StarData2;
+s32 *g_StarPosIndexes;
 
 bool g_StarsBelowHorizon = false;
 
@@ -66,133 +66,30 @@ void stars0f135c70(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f135f08
-/*  f135f08:	3c0a800a */ 	lui	$t2,%hi(g_StarGridSize)
-/*  f135f0c:	254a4158 */ 	addiu	$t2,$t2,%lo(g_StarGridSize)
-/*  f135f10:	8d460000 */ 	lw	$a2,0x0($t2)
-/*  f135f14:	240b0006 */ 	addiu	$t3,$zero,0x6
-/*  f135f18:	3c09800a */ 	lui	$t1,%hi(g_StarData2)
-/*  f135f1c:	00cb0019 */ 	multu	$a2,$t3
-/*  f135f20:	2529415c */ 	addiu	$t1,$t1,%lo(g_StarData2)
-/*  f135f24:	8d230000 */ 	lw	$v1,0x0($t1)
-/*  f135f28:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f135f2c:	00043880 */ 	sll	$a3,$a0,0x2
-/*  f135f30:	00676821 */ 	addu	$t5,$v1,$a3
-/*  f135f34:	8da80004 */ 	lw	$t0,0x4($t5)
-/*  f135f38:	3c0c8008 */ 	lui	$t4,%hi(g_StarPositions)
-/*  f135f3c:	258cf120 */ 	addiu	$t4,$t4,%lo(g_StarPositions)
-/*  f135f40:	00007012 */ 	mflo	$t6
-/*  f135f44:	00000000 */ 	nop
-/*  f135f48:	00000000 */ 	nop
-/*  f135f4c:	01c60019 */ 	multu	$t6,$a2
-/*  f135f50:	00007812 */ 	mflo	$t7
-/*  f135f54:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f135f58:	0078c821 */ 	addu	$t9,$v1,$t8
-/*  f135f5c:	8f220000 */ 	lw	$v0,0x0($t9)
-/*  f135f60:	2442ffff */ 	addiu	$v0,$v0,-1
-/*  f135f64:	0048082a */ 	slt	$at,$v0,$t0
-/*  f135f68:	14200016 */ 	bnez	$at,.L0f135fc4
-/*  f135f6c:	00021880 */ 	sll	$v1,$v0,0x2
-/*  f135f70:	00621823 */ 	subu	$v1,$v1,$v0
-/*  f135f74:	8d8e0000 */ 	lw	$t6,0x0($t4)
-.L0f135f78:
-/*  f135f78:	2442ffff */ 	addiu	$v0,$v0,-1
-/*  f135f7c:	006e2821 */ 	addu	$a1,$v1,$t6
-/*  f135f80:	80af0000 */ 	lb	$t7,0x0($a1)
-/*  f135f84:	a0af0003 */ 	sb	$t7,0x3($a1)
-/*  f135f88:	8d980000 */ 	lw	$t8,0x0($t4)
-/*  f135f8c:	00782821 */ 	addu	$a1,$v1,$t8
-/*  f135f90:	80b90001 */ 	lb	$t9,0x1($a1)
-/*  f135f94:	a0b90004 */ 	sb	$t9,0x4($a1)
-/*  f135f98:	8d8d0000 */ 	lw	$t5,0x0($t4)
-/*  f135f9c:	006d2821 */ 	addu	$a1,$v1,$t5
-/*  f135fa0:	80ae0002 */ 	lb	$t6,0x2($a1)
-/*  f135fa4:	2463fffd */ 	addiu	$v1,$v1,-3
-/*  f135fa8:	a0ae0005 */ 	sb	$t6,0x5($a1)
-/*  f135fac:	8d2f0000 */ 	lw	$t7,0x0($t1)
-/*  f135fb0:	01e7c021 */ 	addu	$t8,$t7,$a3
-/*  f135fb4:	8f080004 */ 	lw	$t0,0x4($t8)
-/*  f135fb8:	0048082a */ 	slt	$at,$v0,$t0
-/*  f135fbc:	5020ffee */ 	beqzl	$at,.L0f135f78
-/*  f135fc0:	8d8e0000 */ 	lw	$t6,0x0($t4)
-.L0f135fc4:
-/*  f135fc4:	8fb90004 */ 	lw	$t9,0x4($sp)
-/*  f135fc8:	3c0142fe */ 	lui	$at,0x42fe
-/*  f135fcc:	44810000 */ 	mtc1	$at,$f0
-/*  f135fd0:	c7240000 */ 	lwc1	$f4,0x0($t9)
-/*  f135fd4:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f135fd8:	01050019 */ 	multu	$t0,$a1
-/*  f135fdc:	46002182 */ 	mul.s	$f6,$f4,$f0
-/*  f135fe0:	3c0c8008 */ 	lui	$t4,%hi(g_StarPositions)
-/*  f135fe4:	258cf120 */ 	addiu	$t4,$t4,%lo(g_StarPositions)
-/*  f135fe8:	8d8f0000 */ 	lw	$t7,0x0($t4)
-/*  f135fec:	24830001 */ 	addiu	$v1,$a0,0x1
-/*  f135ff0:	00601025 */ 	or	$v0,$v1,$zero
-/*  f135ff4:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f135ff8:	0000c012 */ 	mflo	$t8
-/*  f135ffc:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f136000:	440e4000 */ 	mfc1	$t6,$f8
-/*  f136004:	00000000 */ 	nop
-/*  f136008:	a32e0000 */ 	sb	$t6,0x0($t9)
-/*  f13600c:	8fad0004 */ 	lw	$t5,0x4($sp)
-/*  f136010:	8d390000 */ 	lw	$t9,0x0($t1)
-/*  f136014:	8d8e0000 */ 	lw	$t6,0x0($t4)
-/*  f136018:	c5aa0004 */ 	lwc1	$f10,0x4($t5)
-/*  f13601c:	03276821 */ 	addu	$t5,$t9,$a3
-/*  f136020:	8daf0004 */ 	lw	$t7,0x4($t5)
-/*  f136024:	46005402 */ 	mul.s	$f16,$f10,$f0
-/*  f136028:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f13602c:	01e50019 */ 	multu	$t7,$a1
-/*  f136030:	44189000 */ 	mfc1	$t8,$f18
-/*  f136034:	0000c812 */ 	mflo	$t9
-/*  f136038:	01d96821 */ 	addu	$t5,$t6,$t9
-/*  f13603c:	a1b80001 */ 	sb	$t8,0x1($t5)
-/*  f136040:	8faf0004 */ 	lw	$t7,0x4($sp)
-/*  f136044:	8d2d0000 */ 	lw	$t5,0x0($t1)
-/*  f136048:	8d980000 */ 	lw	$t8,0x0($t4)
-/*  f13604c:	c5e40008 */ 	lwc1	$f4,0x8($t7)
-/*  f136050:	01a77821 */ 	addu	$t7,$t5,$a3
-/*  f136054:	8dee0004 */ 	lw	$t6,0x4($t7)
-/*  f136058:	46002182 */ 	mul.s	$f6,$f4,$f0
-/*  f13605c:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f136060:	01c50019 */ 	multu	$t6,$a1
-/*  f136064:	44194000 */ 	mfc1	$t9,$f8
-/*  f136068:	00006812 */ 	mflo	$t5
-/*  f13606c:	030d7821 */ 	addu	$t7,$t8,$t5
-/*  f136070:	a1f90002 */ 	sb	$t9,0x2($t7)
-/*  f136074:	8d460000 */ 	lw	$a2,0x0($t2)
-/*  f136078:	00cb0019 */ 	multu	$a2,$t3
-/*  f13607c:	00007012 */ 	mflo	$t6
-/*  f136080:	00000000 */ 	nop
-/*  f136084:	00000000 */ 	nop
-/*  f136088:	01c60019 */ 	multu	$t6,$a2
-/*  f13608c:	0000c012 */ 	mflo	$t8
-/*  f136090:	0303082a */ 	slt	$at,$t8,$v1
-/*  f136094:	14200012 */ 	bnez	$at,.L0f1360e0
-/*  f136098:	00031880 */ 	sll	$v1,$v1,0x2
-/*  f13609c:	8d2d0000 */ 	lw	$t5,0x0($t1)
-.L0f1360a0:
-/*  f1360a0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f1360a4:	01a32021 */ 	addu	$a0,$t5,$v1
-/*  f1360a8:	8c990000 */ 	lw	$t9,0x0($a0)
-/*  f1360ac:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f1360b0:	272f0001 */ 	addiu	$t7,$t9,0x1
-/*  f1360b4:	ac8f0000 */ 	sw	$t7,0x0($a0)
-/*  f1360b8:	8d460000 */ 	lw	$a2,0x0($t2)
-/*  f1360bc:	00cb0019 */ 	multu	$a2,$t3
-/*  f1360c0:	00007012 */ 	mflo	$t6
-/*  f1360c4:	00000000 */ 	nop
-/*  f1360c8:	00000000 */ 	nop
-/*  f1360cc:	01c60019 */ 	multu	$t6,$a2
-/*  f1360d0:	0000c012 */ 	mflo	$t8
-/*  f1360d4:	0302082a */ 	slt	$at,$t8,$v0
-/*  f1360d8:	5020fff1 */ 	beqzl	$at,.L0f1360a0
-/*  f1360dc:	8d2d0000 */ 	lw	$t5,0x0($t1)
-.L0f1360e0:
-/*  f1360e0:	03e00008 */ 	jr	$ra
-/*  f1360e4:	00000000 */ 	nop
-);
+/**
+ * Insert a star position *after* the given index.
+ */
+void starInsert(s32 index, struct coord *arg1)
+{
+	s32 i;
+
+	// Shuffle g_StarPositions forward after the insertion point
+	for (i = g_StarPosIndexes[g_StarGridSize * 6 * g_StarGridSize] - 1; i >= g_StarPosIndexes[index + 1]; i--) {
+		g_StarPositions[i * 3 + 3] = g_StarPositions[i * 3 + 0];
+		g_StarPositions[i * 3 + 4] = g_StarPositions[i * 3 + 1];
+		g_StarPositions[i * 3 + 5] = g_StarPositions[i * 3 + 2];
+	}
+
+	// Write new data
+	g_StarPositions[g_StarPosIndexes[index + 1] * 3 + 0] = arg1->x * 127;
+	g_StarPositions[g_StarPosIndexes[index + 1] * 3 + 1] = arg1->y * 127;
+	g_StarPositions[g_StarPosIndexes[index + 1] * 3 + 2] = arg1->z * 127;
+
+	// Increment indexes after the insertion point
+	for (i = index + 1; i <= g_StarGridSize * 6 * g_StarGridSize; i++) {
+		g_StarPosIndexes[i]++;
+	}
+}
 
 GLOBAL_ASM(
 glabel starsReset
@@ -322,10 +219,10 @@ glabel starsReset
 /*  f1362ac:	3c0e800a */ 	lui	$t6,%hi(g_StarCount)
 /*  f1362b0:	8dce4150 */ 	lw	$t6,%lo(g_StarCount)($t6)
 /*  f1362b4:	00e60019 */ 	multu	$a3,$a2
-/*  f1362b8:	3c04800a */ 	lui	$a0,%hi(g_StarData2)
+/*  f1362b8:	3c04800a */ 	lui	$a0,%hi(g_StarPosIndexes)
 /*  f1362bc:	000e6880 */ 	sll	$t5,$t6,0x2
 /*  f1362c0:	01ae6823 */ 	subu	$t5,$t5,$t6
-/*  f1362c4:	2484415c */ 	addiu	$a0,$a0,%lo(g_StarData2)
+/*  f1362c4:	2484415c */ 	addiu	$a0,$a0,%lo(g_StarPosIndexes)
 /*  f1362c8:	01a27821 */ 	addu	$t7,$t5,$v0
 /*  f1362cc:	ac8f0000 */ 	sw	$t7,0x0($a0)
 /*  f1362d0:	00001025 */ 	or	$v0,$zero,$zero
@@ -709,7 +606,7 @@ glabel starsReset
 /*  f136818:	02080019 */ 	multu	$s0,$t0
 /*  f13681c:	00005012 */ 	mflo	$t2
 /*  f136820:	01462021 */ 	addu	$a0,$t2,$a2
-/*  f136824:	0fc4d7c2 */ 	jal	func0f135f08
+/*  f136824:	0fc4d7c2 */ 	jal	starInsert
 /*  f136828:	00000000 */ 	nop
 /*  f13682c:	3c0b800a */ 	lui	$t3,%hi(g_StarCount)
 /*  f136830:	8d6b4150 */ 	lw	$t3,%lo(g_StarCount)($t3)
@@ -775,13 +672,13 @@ glabel starsReset
 //
 //		if (g_StarPositions != NULL) {
 //			s32 tmp;
-//			g_StarData2 = (s32 *)(g_StarPositions + g_StarCount * 3);
+//			g_StarPosIndexes = (s32 *)(g_StarPositions + g_StarCount * 3);
 //
 //			for (i = 0; i < (g_StarGridSize * 6 * g_StarGridSize + 1); i++) {
-//				g_StarData2[i] = 0;
+//				g_StarPosIndexes[i] = 0;
 //			}
 //
-//			g_StarData3 = (f32 *)((u32)g_StarData2 + (g_StarGridSize * 6 * g_StarGridSize + 1) * sizeof(f32));
+//			g_StarData3 = (f32 *)((u32)g_StarPosIndexes + (g_StarGridSize * 6 * g_StarGridSize + 1) * sizeof(f32));
 //
 //			stars0f135c70();
 //
@@ -845,7 +742,7 @@ glabel starsReset
 //					v1--;
 //				}
 //
-//				func0f135f08(spb0 * tmp + (g_StarGridSize * v1) + v0, spd4.f);
+//				starInsert(spb0 * tmp + (g_StarGridSize * v1) + v0, spd4.f);
 //			}
 //		}
 //	}
@@ -1193,12 +1090,12 @@ glabel var7f1b57bc
 /*  f136d64:	3c013f80 */ 	lui	$at,0x3f80
 /*  f136d68:	37184340 */ 	ori	$t8,$t8,0x4340
 /*  f136d6c:	35ef031d */ 	ori	$t7,$t7,0x31d
-/*  f136d70:	3c1f800a */ 	lui	$ra,%hi(g_StarData2)
+/*  f136d70:	3c1f800a */ 	lui	$ra,%hi(g_StarPosIndexes)
 /*  f136d74:	44816000 */ 	mtc1	$at,$f12
 /*  f136d78:	ac4f0000 */ 	sw	$t7,0x0($v0)
 /*  f136d7c:	ac580004 */ 	sw	$t8,0x4($v0)
 /*  f136d80:	24500008 */ 	addiu	$s0,$v0,0x8
-/*  f136d84:	27ff415c */ 	addiu	$ra,$ra,%lo(g_StarData2)
+/*  f136d84:	27ff415c */ 	addiu	$ra,$ra,%lo(g_StarPosIndexes)
 /*  f136d88:	0000b825 */ 	or	$s7,$zero,$zero
 /*  f136d8c:	241e0001 */ 	addiu	$s8,$zero,0x1
 /*  f136d90:	24160003 */ 	addiu	$s6,$zero,0x3
