@@ -824,7 +824,7 @@ Gfx *starsRender(Gfx *gdl)
 			f32 f0;
 			f32 f0_2;
 			bool spd0[4][4];
-			struct coord spC4;
+			struct coord spc4;
 
 			for (j = 0; j <= g_StarGridSize; j++) {
 				for (k = 0; k <= g_StarGridSize; k++) {
@@ -858,16 +858,16 @@ Gfx *starsRender(Gfx *gdl)
 								nextgroupstart += groupsize;
 							}
 
-							spC4.f[0] = pos[0];
-							spC4.f[1] = pos[1];
-							spC4.f[2] = pos[2];
+							spc4.f[0] = pos[0];
+							spc4.f[1] = pos[1];
+							spc4.f[2] = pos[2];
 							pos += 3;
 
-							f0_2 = 1.0f / (mtx.m[0][2] * spC4.f[0] + mtx.m[1][2] * spC4.f[1] + mtx.m[2][2] * spC4.f[2]);
-							screenpos[1] = screenmidy + (mtx.m[0][1] * spC4.f[0] + mtx.m[1][1] * spC4.f[1] + mtx.m[2][1] * spC4.f[2]) * f0_2;
+							f0_2 = 1.0f / (mtx.m[0][2] * spc4.f[0] + mtx.m[1][2] * spc4.f[1] + mtx.m[2][2] * spc4.f[2]);
+							screenpos[1] = screenmidy + (mtx.m[0][1] * spc4.f[0] + mtx.m[1][1] * spc4.f[1] + mtx.m[2][1] * spc4.f[2]) * f0_2;
 
 							if (screenpos[1] > viewtop && screenpos[1] < viewbottom) {
-								screenpos[0] = screenmidx - (mtx.m[0][0] * spC4.f[0] + mtx.m[1][0] * spC4.f[1] + mtx.m[2][0] * spC4.f[2]) * f0_2;
+								screenpos[0] = screenmidx - (mtx.m[0][0] * spc4.f[0] + mtx.m[1][0] * spc4.f[1] + mtx.m[2][0] * spc4.f[2]) * f0_2;
 
 								if (screenpos[0] > viewleft && screenpos[0] < viewright) {
 									drawpos[0] = screenpos[0];

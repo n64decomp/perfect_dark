@@ -10,7 +10,7 @@ void skyTick(void);
 
 void sky0f11f000(f32 left, f32 top, struct coord *arg2);
 bool sky0f11f07c(struct coord *arg0, struct coord *arg1, f32 *arg2);
-u32 sky0f11f1fc(void);
+bool sky0f11f1fc(struct coord *arg0, struct coord *arg1, f32 *arg2);
 void sky0f11f384(struct coord *arg0, struct coord *arg1, struct coord *out);
 f32 sky0f11f3d0(f32 value, f32 min, f32 max);
 f32 sky0f11f410(f32 value);

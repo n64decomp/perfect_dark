@@ -93,15 +93,12 @@ void sky0f11f000(f32 left, f32 top, struct coord *arg2)
 
 bool sky0f11f07c(struct coord *arg0, struct coord *arg1, f32 *arg2)
 {
-	struct coord *campos;
-	f32 f12;
-	f32 sp2C;
+	struct coord *campos = &g_Vars.currentplayer->cam_pos;
+	f32 f12 = 2.0f * arg0->y / sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2] + 0.0001f);
+	f32 sp2c;
 	f32 f12_2;
 	f32 sp24;
 	u32 stack[2];
-
-	campos = &g_Vars.currentplayer->cam_pos;
-	f12 = 2.0f * arg0->y / sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2] + 0.0001f);
 
 	if (f12 > 1.0f) {
 		f12 = 1.0f;
@@ -116,16 +113,16 @@ bool sky0f11f07c(struct coord *arg0, struct coord *arg1, f32 *arg2)
 	}
 
 	if (sp24 > 0.0f) {
-		sp2C = (envGetCurrent()->clouds_scale - campos->y) / sp24;
-		f12_2 = sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2]) * sp2C;
+		sp2c = (envGetCurrent()->clouds_scale - campos->y) / sp24;
+		f12_2 = sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2]) * sp2c;
 
 		if (f12_2 > 300000) {
-			sp2C *= 300000 / f12_2;
+			sp2c *= 300000 / f12_2;
 		}
 
-		arg1->x = campos->x + sp2C * arg0->f[0];
-		arg1->y = campos->y + sp2C * sp24;
-		arg1->z = campos->z + sp2C * arg0->f[2];
+		arg1->x = campos->x + sp2c * arg0->f[0];
+		arg1->y = campos->y + sp2c * sp24;
+		arg1->z = campos->z + sp2c * arg0->f[2];
 
 		return true;
 	}
@@ -133,119 +130,44 @@ bool sky0f11f07c(struct coord *arg0, struct coord *arg1, f32 *arg2)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel sky0f11f1fc
-.late_rodata
-glabel var7f1b4fec
-.word 0x38d1b717
-glabel var7f1b4ff0
-.word 0xbc23d70a
-glabel var7f1b4ff4
-.word 0x48927c00
-.text
-/*  f11f1fc:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f11f200:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f11f204:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f11f208:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f11f20c:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f11f210:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f11f214:	c4800008 */ 	lwc1	$f0,0x8($a0)
-/*  f11f218:	c48e0000 */ 	lwc1	$f14,0x0($a0)
-/*  f11f21c:	3c11800a */ 	lui	$s1,%hi(g_Vars+0x284)
-/*  f11f220:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f11f224:	3c017f1b */ 	lui	$at,%hi(var7f1b4fec)
-/*  f11f228:	8e31a244 */ 	lw	$s1,%lo(g_Vars+0x284)($s1)
-/*  f11f22c:	460e7182 */ 	mul.s	$f6,$f14,$f14
-/*  f11f230:	c42a4fec */ 	lwc1	$f10,%lo(var7f1b4fec)($at)
-/*  f11f234:	00808025 */ 	or	$s0,$a0,$zero
-/*  f11f238:	26311bb0 */ 	addiu	$s1,$s1,7088
-/*  f11f23c:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f11f240:	0c012974 */ 	jal	sqrtf
-/*  f11f244:	460a4300 */ 	add.s	$f12,$f8,$f10
-/*  f11f248:	3c013f80 */ 	lui	$at,0x3f80
-/*  f11f24c:	44816000 */ 	mtc1	$at,$f12
-/*  f11f250:	3c01c000 */ 	lui	$at,0xc000
-/*  f11f254:	44812000 */ 	mtc1	$at,$f4
-/*  f11f258:	c6060004 */ 	lwc1	$f6,0x4($s0)
-/*  f11f25c:	3c017f1b */ 	lui	$at,%hi(var7f1b4ff0)
-/*  f11f260:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11f264:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f11f268:	46004083 */ 	div.s	$f2,$f8,$f0
-/*  f11f26c:	4602603c */ 	c.lt.s	$f12,$f2
-/*  f11f270:	00000000 */ 	nop
-/*  f11f274:	45020003 */ 	bc1fl	.L0f11f284
-/*  f11f278:	46026281 */ 	sub.s	$f10,$f12,$f2
-/*  f11f27c:	46006086 */ 	mov.s	$f2,$f12
-/*  f11f280:	46026281 */ 	sub.s	$f10,$f12,$f2
-.L0f11f284:
-/*  f11f284:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*  f11f288:	44807000 */ 	mtc1	$zero,$f14
-/*  f11f28c:	e5ca0000 */ 	swc1	$f10,0x0($t6)
-/*  f11f290:	c6000004 */ 	lwc1	$f0,0x4($s0)
-/*  f11f294:	46007032 */ 	c.eq.s	$f14,$f0
-/*  f11f298:	00000000 */ 	nop
-/*  f11f29c:	45020004 */ 	bc1fl	.L0f11f2b0
-/*  f11f2a0:	46000406 */ 	mov.s	$f16,$f0
-/*  f11f2a4:	10000002 */ 	b	.L0f11f2b0
-/*  f11f2a8:	c4304ff0 */ 	lwc1	$f16,%lo(var7f1b4ff0)($at)
-/*  f11f2ac:	46000406 */ 	mov.s	$f16,$f0
-.L0f11f2b0:
-/*  f11f2b0:	460e803c */ 	c.lt.s	$f16,$f14
-/*  f11f2b4:	00000000 */ 	nop
-/*  f11f2b8:	4500002d */ 	bc1f	.L0f11f370
-/*  f11f2bc:	00000000 */ 	nop
-/*  f11f2c0:	0fc595f3 */ 	jal	envGetCurrent
-/*  f11f2c4:	e7b00024 */ 	swc1	$f16,0x24($sp)
-/*  f11f2c8:	c444002c */ 	lwc1	$f4,0x2c($v0)
-/*  f11f2cc:	c6260004 */ 	lwc1	$f6,0x4($s1)
-/*  f11f2d0:	c7b00024 */ 	lwc1	$f16,0x24($sp)
-/*  f11f2d4:	c6000008 */ 	lwc1	$f0,0x8($s0)
-/*  f11f2d8:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f11f2dc:	c60e0000 */ 	lwc1	$f14,0x0($s0)
-/*  f11f2e0:	46000282 */ 	mul.s	$f10,$f0,$f0
-/*  f11f2e4:	00000000 */ 	nop
-/*  f11f2e8:	460e7102 */ 	mul.s	$f4,$f14,$f14
-/*  f11f2ec:	46104083 */ 	div.s	$f2,$f8,$f16
-/*  f11f2f0:	46045300 */ 	add.s	$f12,$f10,$f4
-/*  f11f2f4:	0c012974 */ 	jal	sqrtf
-/*  f11f2f8:	e7a2002c */ 	swc1	$f2,0x2c($sp)
-/*  f11f2fc:	c7a2002c */ 	lwc1	$f2,0x2c($sp)
-/*  f11f300:	3c017f1b */ 	lui	$at,%hi(var7f1b4ff4)
-/*  f11f304:	c4324ff4 */ 	lwc1	$f18,%lo(var7f1b4ff4)($at)
-/*  f11f308:	46020302 */ 	mul.s	$f12,$f0,$f2
-/*  f11f30c:	c7b00024 */ 	lwc1	$f16,0x24($sp)
-/*  f11f310:	460c903c */ 	c.lt.s	$f18,$f12
-/*  f11f314:	00000000 */ 	nop
-/*  f11f318:	45020005 */ 	bc1fl	.L0f11f330
-/*  f11f31c:	c6080000 */ 	lwc1	$f8,0x0($s0)
-/*  f11f320:	460c9183 */ 	div.s	$f6,$f18,$f12
-/*  f11f324:	46061082 */ 	mul.s	$f2,$f2,$f6
-/*  f11f328:	00000000 */ 	nop
-/*  f11f32c:	c6080000 */ 	lwc1	$f8,0x0($s0)
-.L0f11f330:
-/*  f11f330:	c6240000 */ 	lwc1	$f4,0x0($s1)
-/*  f11f334:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f11f338:	46024282 */ 	mul.s	$f10,$f8,$f2
-/*  f11f33c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f11f340:	46045180 */ 	add.s	$f6,$f10,$f4
-/*  f11f344:	46101282 */ 	mul.s	$f10,$f2,$f16
-/*  f11f348:	e4660000 */ 	swc1	$f6,0x0($v1)
-/*  f11f34c:	c6280004 */ 	lwc1	$f8,0x4($s1)
-/*  f11f350:	460a4100 */ 	add.s	$f4,$f8,$f10
-/*  f11f354:	e4640004 */ 	swc1	$f4,0x4($v1)
-/*  f11f358:	c6060008 */ 	lwc1	$f6,0x8($s0)
-/*  f11f35c:	c62a0008 */ 	lwc1	$f10,0x8($s1)
-/*  f11f360:	46023202 */ 	mul.s	$f8,$f6,$f2
-/*  f11f364:	460a4100 */ 	add.s	$f4,$f8,$f10
-/*  f11f368:	10000001 */ 	b	.L0f11f370
-/*  f11f36c:	e4640008 */ 	swc1	$f4,0x8($v1)
-.L0f11f370:
-/*  f11f370:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f11f374:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f11f378:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f11f37c:	03e00008 */ 	jr	$ra
-/*  f11f380:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+bool sky0f11f1fc(struct coord *arg0, struct coord *arg1, f32 *arg2)
+{
+	struct coord *campos = &g_Vars.currentplayer->cam_pos;
+	f32 f12 = -2.0f * arg0->y / sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2] + 0.0001f);
+	f32 sp2c;
+	f32 f12_2;
+	f32 sp24;
+	u32 stack[2];
+
+	if (f12 > 1.0f) {
+		f12 = 1.0f;
+	}
+
+	*arg2 = 1.0f - f12;
+
+	if (arg0->y == 0.0f) {
+		sp24 = -0.01f;
+	} else {
+		sp24 = arg0->y;
+	}
+
+	if (sp24 < 0.0f) {
+		sp2c = (envGetCurrent()->water_scale - campos->y) / sp24;
+		f12_2 = sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2]) * sp2c;
+
+		if (f12_2 > 300000) {
+			sp2c *= 300000 / f12_2;
+		}
+
+		arg1->x = campos->x + sp2c * arg0->f[0];
+		arg1->y = campos->y + sp2c * sp24;
+		arg1->z = campos->z + sp2c * arg0->f[2];
+
+		return true;
+	}
+
+	return false;
+}
 
 /**
  * Scale base based on the height percentage between base and ref...
