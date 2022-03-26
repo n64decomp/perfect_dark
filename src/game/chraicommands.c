@@ -12068,11 +12068,11 @@ bool aiShuffleRuinsPillars(void)
 /**
  * @cmd 01b2
  */
-bool ai01b2(void)
+bool aiSetWindSpeed(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	var8007db84 = 0.1f * (s32)cmd[2];
+	g_SkyWindSpeed = 0.1f * (s32)cmd[2];
 	g_Vars.aioffset += 3;
 
 	return false;

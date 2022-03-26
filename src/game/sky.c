@@ -49,8 +49,8 @@ u32 var800a3424;
 u32 var800a3428;
 u32 var800a342c;
 
-f32 var8007db80 = 0;
-f32 var8007db84 = 1;
+f32 g_SkyCloudOffset = 0;
+f32 g_SkyWindSpeed = 1;
 f32 var8007db88[1] = {0};
 u32 var8007db8c = 0x00000000;
 u32 var8007db90 = 0x00000000;
@@ -91,117 +91,47 @@ void sky0f11f000(f32 left, f32 top, struct coord *arg2)
 	mtx4RotateVecInPlace(mtx, arg2);
 }
 
-GLOBAL_ASM(
-glabel sky0f11f07c
-.late_rodata
-glabel var7f1b4fe0
-.word 0x38d1b717
-glabel var7f1b4fe4
-.word 0x3c23d70a
-glabel var7f1b4fe8
-.word 0x48927c00
-.text
-/*  f11f07c:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f11f080:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f11f084:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f11f088:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f11f08c:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f11f090:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f11f094:	c4800008 */ 	lwc1	$f0,0x8($a0)
-/*  f11f098:	c48e0000 */ 	lwc1	$f14,0x0($a0)
-/*  f11f09c:	3c11800a */ 	lui	$s1,%hi(g_Vars+0x284)
-/*  f11f0a0:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f11f0a4:	3c017f1b */ 	lui	$at,%hi(var7f1b4fe0)
-/*  f11f0a8:	8e31a244 */ 	lw	$s1,%lo(g_Vars+0x284)($s1)
-/*  f11f0ac:	460e7182 */ 	mul.s	$f6,$f14,$f14
-/*  f11f0b0:	c42a4fe0 */ 	lwc1	$f10,%lo(var7f1b4fe0)($at)
-/*  f11f0b4:	00808025 */ 	or	$s0,$a0,$zero
-/*  f11f0b8:	26311bb0 */ 	addiu	$s1,$s1,7088
-/*  f11f0bc:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f11f0c0:	0c012974 */ 	jal	sqrtf
-/*  f11f0c4:	460a4300 */ 	add.s	$f12,$f8,$f10
-/*  f11f0c8:	c6020004 */ 	lwc1	$f2,0x4($s0)
-/*  f11f0cc:	3c013f80 */ 	lui	$at,0x3f80
-/*  f11f0d0:	44817000 */ 	mtc1	$at,$f14
-/*  f11f0d4:	46021100 */ 	add.s	$f4,$f2,$f2
-/*  f11f0d8:	3c017f1b */ 	lui	$at,%hi(var7f1b4fe4)
-/*  f11f0dc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11f0e0:	46002303 */ 	div.s	$f12,$f4,$f0
-/*  f11f0e4:	460c703c */ 	c.lt.s	$f14,$f12
-/*  f11f0e8:	00000000 */ 	nop
-/*  f11f0ec:	45020003 */ 	bc1fl	.L0f11f0fc
-/*  f11f0f0:	460c7181 */ 	sub.s	$f6,$f14,$f12
-/*  f11f0f4:	46007306 */ 	mov.s	$f12,$f14
-/*  f11f0f8:	460c7181 */ 	sub.s	$f6,$f14,$f12
-.L0f11f0fc:
-/*  f11f0fc:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*  f11f100:	44800000 */ 	mtc1	$zero,$f0
-/*  f11f104:	e5c60000 */ 	swc1	$f6,0x0($t6)
-/*  f11f108:	c6020004 */ 	lwc1	$f2,0x4($s0)
-/*  f11f10c:	46020032 */ 	c.eq.s	$f0,$f2
-/*  f11f110:	00000000 */ 	nop
-/*  f11f114:	45020004 */ 	bc1fl	.L0f11f128
-/*  f11f118:	46001406 */ 	mov.s	$f16,$f2
-/*  f11f11c:	10000002 */ 	b	.L0f11f128
-/*  f11f120:	c4304fe4 */ 	lwc1	$f16,%lo(var7f1b4fe4)($at)
-/*  f11f124:	46001406 */ 	mov.s	$f16,$f2
-.L0f11f128:
-/*  f11f128:	4610003c */ 	c.lt.s	$f0,$f16
-/*  f11f12c:	00000000 */ 	nop
-/*  f11f130:	4500002d */ 	bc1f	.L0f11f1e8
-/*  f11f134:	00000000 */ 	nop
-/*  f11f138:	0fc595f3 */ 	jal	envGetCurrent
-/*  f11f13c:	e7b00024 */ 	swc1	$f16,0x24($sp)
-/*  f11f140:	c4480014 */ 	lwc1	$f8,0x14($v0)
-/*  f11f144:	c62a0004 */ 	lwc1	$f10,0x4($s1)
-/*  f11f148:	c7b00024 */ 	lwc1	$f16,0x24($sp)
-/*  f11f14c:	c6000008 */ 	lwc1	$f0,0x8($s0)
-/*  f11f150:	460a4101 */ 	sub.s	$f4,$f8,$f10
-/*  f11f154:	c60e0000 */ 	lwc1	$f14,0x0($s0)
-/*  f11f158:	46000182 */ 	mul.s	$f6,$f0,$f0
-/*  f11f15c:	00000000 */ 	nop
-/*  f11f160:	460e7202 */ 	mul.s	$f8,$f14,$f14
-/*  f11f164:	46102083 */ 	div.s	$f2,$f4,$f16
-/*  f11f168:	46083300 */ 	add.s	$f12,$f6,$f8
-/*  f11f16c:	0c012974 */ 	jal	sqrtf
-/*  f11f170:	e7a2002c */ 	swc1	$f2,0x2c($sp)
-/*  f11f174:	c7a2002c */ 	lwc1	$f2,0x2c($sp)
-/*  f11f178:	3c017f1b */ 	lui	$at,%hi(var7f1b4fe8)
-/*  f11f17c:	c4324fe8 */ 	lwc1	$f18,%lo(var7f1b4fe8)($at)
-/*  f11f180:	46020302 */ 	mul.s	$f12,$f0,$f2
-/*  f11f184:	c7b00024 */ 	lwc1	$f16,0x24($sp)
-/*  f11f188:	460c903c */ 	c.lt.s	$f18,$f12
-/*  f11f18c:	00000000 */ 	nop
-/*  f11f190:	45020005 */ 	bc1fl	.L0f11f1a8
-/*  f11f194:	c6040000 */ 	lwc1	$f4,0x0($s0)
-/*  f11f198:	460c9283 */ 	div.s	$f10,$f18,$f12
-/*  f11f19c:	460a1082 */ 	mul.s	$f2,$f2,$f10
-/*  f11f1a0:	00000000 */ 	nop
-/*  f11f1a4:	c6040000 */ 	lwc1	$f4,0x0($s0)
-.L0f11f1a8:
-/*  f11f1a8:	c6280000 */ 	lwc1	$f8,0x0($s1)
-/*  f11f1ac:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f11f1b0:	46022182 */ 	mul.s	$f6,$f4,$f2
-/*  f11f1b4:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f11f1b8:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f11f1bc:	46101182 */ 	mul.s	$f6,$f2,$f16
-/*  f11f1c0:	e46a0000 */ 	swc1	$f10,0x0($v1)
-/*  f11f1c4:	c6240004 */ 	lwc1	$f4,0x4($s1)
-/*  f11f1c8:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f11f1cc:	e4680004 */ 	swc1	$f8,0x4($v1)
-/*  f11f1d0:	c60a0008 */ 	lwc1	$f10,0x8($s0)
-/*  f11f1d4:	c6260008 */ 	lwc1	$f6,0x8($s1)
-/*  f11f1d8:	46025102 */ 	mul.s	$f4,$f10,$f2
-/*  f11f1dc:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f11f1e0:	10000001 */ 	b	.L0f11f1e8
-/*  f11f1e4:	e4680008 */ 	swc1	$f8,0x8($v1)
-.L0f11f1e8:
-/*  f11f1e8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f11f1ec:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f11f1f0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f11f1f4:	03e00008 */ 	jr	$ra
-/*  f11f1f8:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+bool sky0f11f07c(struct coord *arg0, struct coord *arg1, f32 *arg2)
+{
+	struct coord *campos;
+	f32 f12;
+	f32 sp2C;
+	f32 f12_2;
+	f32 sp24;
+	u32 stack[2];
+
+	campos = &g_Vars.currentplayer->cam_pos;
+	f12 = 2.0f * arg0->y / sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2] + 0.0001f);
+
+	if (f12 > 1.0f) {
+		f12 = 1.0f;
+	}
+
+	*arg2 = 1.0f - f12;
+
+	if (arg0->y == 0.0f) {
+		sp24 = 0.01f;
+	} else {
+		sp24 = arg0->y;
+	}
+
+	if (sp24 > 0.0f) {
+		sp2C = (envGetCurrent()->clouds_scale - campos->y) / sp24;
+		f12_2 = sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2]) * sp2C;
+
+		if (f12_2 > 300000) {
+			sp2C *= 300000 / f12_2;
+		}
+
+		arg1->x = campos->x + sp2C * arg0->f[0];
+		arg1->y = campos->y + sp2C * sp24;
+		arg1->z = campos->z + sp2C * arg0->f[2];
+
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel sky0f11f1fc
@@ -1306,13 +1236,13 @@ glabel var7f1b50c8
 /*  f12007c:	c7ba05c8 */ 	lwc1	$f26,0x5c8($sp)
 /*  f120080:	46189182 */ 	mul.s	$f6,$f18,$f24
 /*  f120084:	e7aa0458 */ 	swc1	$f10,0x458($sp)
-/*  f120088:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f120088:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f12008c:	46184282 */ 	mul.s	$f10,$f8,$f24
 /*  f120090:	e7a4045c */ 	swc1	$f4,0x45c($sp)
 /*  f120094:	c7a805c4 */ 	lwc1	$f8,0x5c4($sp)
 /*  f120098:	4618a102 */ 	mul.s	$f4,$f20,$f24
 /*  f12009c:	e7a6046c */ 	swc1	$f6,0x46c($sp)
-/*  f1200a0:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f1200a0:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f1200a4:	4618b182 */ 	mul.s	$f6,$f22,$f24
 /*  f1200a8:	e7aa0470 */ 	swc1	$f10,0x470($sp)
 /*  f1200ac:	24110004 */ 	addiu	$s1,$zero,0x4
@@ -1373,13 +1303,13 @@ glabel var7f1b50c8
 /*  f120188:	c7ba0598 */ 	lwc1	$f26,0x598($sp)
 /*  f12018c:	46189182 */ 	mul.s	$f6,$f18,$f24
 /*  f120190:	e7aa0458 */ 	swc1	$f10,0x458($sp)
-/*  f120194:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f120194:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f120198:	46184282 */ 	mul.s	$f10,$f8,$f24
 /*  f12019c:	e7a4045c */ 	swc1	$f4,0x45c($sp)
 /*  f1201a0:	c7a80594 */ 	lwc1	$f8,0x594($sp)
 /*  f1201a4:	4618a102 */ 	mul.s	$f4,$f20,$f24
 /*  f1201a8:	e7a6046c */ 	swc1	$f6,0x46c($sp)
-/*  f1201ac:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f1201ac:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f1201b0:	4618b182 */ 	mul.s	$f6,$f22,$f24
 /*  f1201b4:	e7aa0470 */ 	swc1	$f10,0x470($sp)
 /*  f1201b8:	24110004 */ 	addiu	$s1,$zero,0x4
@@ -1440,13 +1370,13 @@ glabel var7f1b50c8
 /*  f120294:	c7ac05a4 */ 	lwc1	$f12,0x5a4($sp)
 /*  f120298:	46187182 */ 	mul.s	$f6,$f14,$f24
 /*  f12029c:	e7aa0458 */ 	swc1	$f10,0x458($sp)
-/*  f1202a0:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f1202a0:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f1202a4:	46184282 */ 	mul.s	$f10,$f8,$f24
 /*  f1202a8:	e7a4045c */ 	swc1	$f4,0x45c($sp)
 /*  f1202ac:	c7a805a0 */ 	lwc1	$f8,0x5a0($sp)
 /*  f1202b0:	46188102 */ 	mul.s	$f4,$f16,$f24
 /*  f1202b4:	e7a6046c */ 	swc1	$f6,0x46c($sp)
-/*  f1202b8:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f1202b8:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f1202bc:	46181182 */ 	mul.s	$f6,$f2,$f24
 /*  f1202c0:	e7aa0470 */ 	swc1	$f10,0x470($sp)
 /*  f1202c4:	240a0001 */ 	addiu	$t2,$zero,0x1
@@ -1509,13 +1439,13 @@ glabel var7f1b50c8
 /*  f1203a8:	c7b405b0 */ 	lwc1	$f20,0x5b0($sp)
 /*  f1203ac:	46181182 */ 	mul.s	$f6,$f2,$f24
 /*  f1203b0:	e7aa0458 */ 	swc1	$f10,0x458($sp)
-/*  f1203b4:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f1203b4:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f1203b8:	46184282 */ 	mul.s	$f10,$f8,$f24
 /*  f1203bc:	e7a4045c */ 	swc1	$f4,0x45c($sp)
 /*  f1203c0:	c7a805ac */ 	lwc1	$f8,0x5ac($sp)
 /*  f1203c4:	46186102 */ 	mul.s	$f4,$f12,$f24
 /*  f1203c8:	e7a6046c */ 	swc1	$f6,0x46c($sp)
-/*  f1203cc:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f1203cc:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f1203d0:	46189182 */ 	mul.s	$f6,$f18,$f24
 /*  f1203d4:	e7aa0470 */ 	swc1	$f10,0x470($sp)
 /*  f1203d8:	24110004 */ 	addiu	$s1,$zero,0x4
@@ -1576,13 +1506,13 @@ glabel var7f1b50c8
 /*  f1204b4:	c7b005bc */ 	lwc1	$f16,0x5bc($sp)
 /*  f1204b8:	4618b182 */ 	mul.s	$f6,$f22,$f24
 /*  f1204bc:	e7aa0458 */ 	swc1	$f10,0x458($sp)
-/*  f1204c0:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f1204c0:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f1204c4:	46184282 */ 	mul.s	$f10,$f8,$f24
 /*  f1204c8:	e7a4045c */ 	swc1	$f4,0x45c($sp)
 /*  f1204cc:	c7a805b8 */ 	lwc1	$f8,0x5b8($sp)
 /*  f1204d0:	4618d102 */ 	mul.s	$f4,$f26,$f24
 /*  f1204d4:	e7a6046c */ 	swc1	$f6,0x46c($sp)
-/*  f1204d8:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f1204d8:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f1204dc:	46187182 */ 	mul.s	$f6,$f14,$f24
 /*  f1204e0:	e7aa0470 */ 	swc1	$f10,0x470($sp)
 /*  f1204e4:	24110004 */ 	addiu	$s1,$zero,0x4
@@ -1634,13 +1564,13 @@ glabel var7f1b50c8
 /*  f12059c:	c7ac0598 */ 	lwc1	$f12,0x598($sp)
 /*  f1205a0:	46187182 */ 	mul.s	$f6,$f14,$f24
 /*  f1205a4:	e7aa0440 */ 	swc1	$f10,0x440($sp)
-/*  f1205a8:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f1205a8:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f1205ac:	46184282 */ 	mul.s	$f10,$f8,$f24
 /*  f1205b0:	e7a40444 */ 	swc1	$f4,0x444($sp)
 /*  f1205b4:	c7a80594 */ 	lwc1	$f8,0x594($sp)
 /*  f1205b8:	46188102 */ 	mul.s	$f4,$f16,$f24
 /*  f1205bc:	e7a60454 */ 	swc1	$f6,0x454($sp)
-/*  f1205c0:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f1205c0:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f1205c4:	46181182 */ 	mul.s	$f6,$f2,$f24
 /*  f1205c8:	e7aa0458 */ 	swc1	$f10,0x458($sp)
 /*  f1205cc:	24110003 */ 	addiu	$s1,$zero,0x3
@@ -1686,13 +1616,13 @@ glabel var7f1b50c8
 /*  f12066c:	c7b005b0 */ 	lwc1	$f16,0x5b0($sp)
 /*  f120670:	46181102 */ 	mul.s	$f4,$f2,$f24
 /*  f120674:	e7a80440 */ 	swc1	$f8,0x440($sp)
-/*  f120678:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f120678:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f12067c:	46183202 */ 	mul.s	$f8,$f6,$f24
 /*  f120680:	e7aa0444 */ 	swc1	$f10,0x444($sp)
 /*  f120684:	c7a605ac */ 	lwc1	$f6,0x5ac($sp)
 /*  f120688:	46186282 */ 	mul.s	$f10,$f12,$f24
 /*  f12068c:	e7a40454 */ 	swc1	$f4,0x454($sp)
-/*  f120690:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f120690:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f120694:	46187102 */ 	mul.s	$f4,$f14,$f24
 /*  f120698:	e7a80458 */ 	swc1	$f8,0x458($sp)
 /*  f12069c:	24110003 */ 	addiu	$s1,$zero,0x3
@@ -1738,13 +1668,13 @@ glabel var7f1b50c8
 /*  f12073c:	c7ac05bc */ 	lwc1	$f12,0x5bc($sp)
 /*  f120740:	46189282 */ 	mul.s	$f10,$f18,$f24
 /*  f120744:	e7a60440 */ 	swc1	$f6,0x440($sp)
-/*  f120748:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f120748:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f12074c:	46182182 */ 	mul.s	$f6,$f4,$f24
 /*  f120750:	e7a80444 */ 	swc1	$f8,0x444($sp)
 /*  f120754:	c7a405b8 */ 	lwc1	$f4,0x5b8($sp)
 /*  f120758:	4618a202 */ 	mul.s	$f8,$f20,$f24
 /*  f12075c:	e7aa0454 */ 	swc1	$f10,0x454($sp)
-/*  f120760:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f120760:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f120764:	46181282 */ 	mul.s	$f10,$f2,$f24
 /*  f120768:	e7a60458 */ 	swc1	$f6,0x458($sp)
 /*  f12076c:	24110003 */ 	addiu	$s1,$zero,0x3
@@ -1790,13 +1720,13 @@ glabel var7f1b50c8
 /*  f12080c:	c7b405a4 */ 	lwc1	$f20,0x5a4($sp)
 /*  f120810:	46187202 */ 	mul.s	$f8,$f14,$f24
 /*  f120814:	e7a40440 */ 	swc1	$f4,0x440($sp)
-/*  f120818:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f120818:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f12081c:	46185102 */ 	mul.s	$f4,$f10,$f24
 /*  f120820:	e7a60444 */ 	swc1	$f6,0x444($sp)
 /*  f120824:	c7aa05a0 */ 	lwc1	$f10,0x5a0($sp)
 /*  f120828:	46188182 */ 	mul.s	$f6,$f16,$f24
 /*  f12082c:	e7a80454 */ 	swc1	$f8,0x454($sp)
-/*  f120830:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f120830:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f120834:	46189202 */ 	mul.s	$f8,$f18,$f24
 /*  f120838:	e7a40458 */ 	swc1	$f4,0x458($sp)
 /*  f12083c:	24110003 */ 	addiu	$s1,$zero,0x3
@@ -1851,13 +1781,13 @@ glabel var7f1b50c8
 /*  f120900:	c7ba0598 */ 	lwc1	$f26,0x598($sp)
 /*  f120904:	46187182 */ 	mul.s	$f6,$f14,$f24
 /*  f120908:	e7aa0458 */ 	swc1	$f10,0x458($sp)
-/*  f12090c:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f12090c:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f120910:	46184282 */ 	mul.s	$f10,$f8,$f24
 /*  f120914:	e7a4045c */ 	swc1	$f4,0x45c($sp)
 /*  f120918:	c7a80594 */ 	lwc1	$f8,0x594($sp)
 /*  f12091c:	46188102 */ 	mul.s	$f4,$f16,$f24
 /*  f120920:	e7a6046c */ 	swc1	$f6,0x46c($sp)
-/*  f120924:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f120924:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f120928:	4618b182 */ 	mul.s	$f6,$f22,$f24
 /*  f12092c:	e7aa0470 */ 	swc1	$f10,0x470($sp)
 /*  f120930:	24110005 */ 	addiu	$s1,$zero,0x5
@@ -1926,7 +1856,7 @@ glabel var7f1b50c8
 /*  f120a2c:	c7a205a8 */ 	lwc1	$f2,0x5a8($sp)
 /*  f120a30:	46185282 */ 	mul.s	$f10,$f10,$f24
 /*  f120a34:	c7a005ac */ 	lwc1	$f0,0x5ac($sp)
-/*  f120a38:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f120a38:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f120a3c:	46183182 */ 	mul.s	$f6,$f6,$f24
 /*  f120a40:	24110005 */ 	addiu	$s1,$zero,0x5
 /*  f120a44:	e7ba0448 */ 	swc1	$f26,0x448($sp)
@@ -1938,7 +1868,7 @@ glabel var7f1b50c8
 /*  f120a5c:	c7a605a0 */ 	lwc1	$f6,0x5a0($sp)
 /*  f120a60:	46181082 */ 	mul.s	$f2,$f2,$f24
 /*  f120a64:	e7ba043c */ 	swc1	$f26,0x43c($sp)
-/*  f120a68:	c43adb80 */ 	lwc1	$f26,%lo(var8007db80)($at)
+/*  f120a68:	c43adb80 */ 	lwc1	$f26,%lo(g_SkyCloudOffset)($at)
 /*  f120a6c:	46185282 */ 	mul.s	$f10,$f10,$f24
 /*  f120a70:	e7a40470 */ 	swc1	$f4,0x470($sp)
 /*  f120a74:	c7a405b0 */ 	lwc1	$f4,0x5b0($sp)
@@ -2019,13 +1949,13 @@ glabel var7f1b50c8
 /*  f120ba0:	c7b005bc */ 	lwc1	$f16,0x5bc($sp)
 /*  f120ba4:	46181282 */ 	mul.s	$f10,$f2,$f24
 /*  f120ba8:	e7a60458 */ 	swc1	$f6,0x458($sp)
-/*  f120bac:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f120bac:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f120bb0:	46182182 */ 	mul.s	$f6,$f4,$f24
 /*  f120bb4:	e7a8045c */ 	swc1	$f8,0x45c($sp)
 /*  f120bb8:	c7a405b8 */ 	lwc1	$f4,0x5b8($sp)
 /*  f120bbc:	46186202 */ 	mul.s	$f8,$f12,$f24
 /*  f120bc0:	e7aa046c */ 	swc1	$f10,0x46c($sp)
-/*  f120bc4:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f120bc4:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f120bc8:	46187282 */ 	mul.s	$f10,$f14,$f24
 /*  f120bcc:	e7a60470 */ 	swc1	$f6,0x470($sp)
 /*  f120bd0:	24110005 */ 	addiu	$s1,$zero,0x5
@@ -2103,13 +2033,13 @@ glabel var7f1b50c8
 /*  f120cf0:	c7ac05a4 */ 	lwc1	$f12,0x5a4($sp)
 /*  f120cf4:	46189102 */ 	mul.s	$f4,$f18,$f24
 /*  f120cf8:	e7a80458 */ 	swc1	$f8,0x458($sp)
-/*  f120cfc:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f120cfc:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f120d00:	46183202 */ 	mul.s	$f8,$f6,$f24
 /*  f120d04:	e7aa045c */ 	swc1	$f10,0x45c($sp)
 /*  f120d08:	c7a605a0 */ 	lwc1	$f6,0x5a0($sp)
 /*  f120d0c:	4618a282 */ 	mul.s	$f10,$f20,$f24
 /*  f120d10:	e7a4046c */ 	swc1	$f4,0x46c($sp)
-/*  f120d14:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f120d14:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f120d18:	46181102 */ 	mul.s	$f4,$f2,$f24
 /*  f120d1c:	e7a80470 */ 	swc1	$f8,0x470($sp)
 /*  f120d20:	24110005 */ 	addiu	$s1,$zero,0x5
@@ -2554,10 +2484,10 @@ glabel var7f1b50c8
 /*  f1213b8:	c7a40630 */ 	lwc1	$f4,0x630($sp)
 /*  f1213bc:	46188202 */ 	mul.s	$f8,$f16,$f24
 /*  f1213c0:	e7aa04cc */ 	swc1	$f10,0x4cc($sp)
-/*  f1213c4:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f1213c4:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f1213c8:	46189282 */ 	mul.s	$f10,$f18,$f24
 /*  f1213cc:	e7a604d0 */ 	swc1	$f6,0x4d0($sp)
-/*  f1213d0:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f1213d0:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f1213d4:	46182182 */ 	mul.s	$f6,$f4,$f24
 /*  f1213d8:	e7a804d4 */ 	swc1	$f8,0x4d4($sp)
 /*  f1213dc:	c7a40624 */ 	lwc1	$f4,0x624($sp)
@@ -2633,10 +2563,10 @@ glabel var7f1b50c8
 /*  f1214f4:	c7a40600 */ 	lwc1	$f4,0x600($sp)
 /*  f1214f8:	46188202 */ 	mul.s	$f8,$f16,$f24
 /*  f1214fc:	e7aa04cc */ 	swc1	$f10,0x4cc($sp)
-/*  f121500:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f121500:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f121504:	46189282 */ 	mul.s	$f10,$f18,$f24
 /*  f121508:	e7a604d0 */ 	swc1	$f6,0x4d0($sp)
-/*  f12150c:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f12150c:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f121510:	46182182 */ 	mul.s	$f6,$f4,$f24
 /*  f121514:	e7a804d4 */ 	swc1	$f8,0x4d4($sp)
 /*  f121518:	c7a405f4 */ 	lwc1	$f4,0x5f4($sp)
@@ -2712,10 +2642,10 @@ glabel var7f1b50c8
 /*  f121630:	c7a405f4 */ 	lwc1	$f4,0x5f4($sp)
 /*  f121634:	4618a202 */ 	mul.s	$f8,$f20,$f24
 /*  f121638:	e7aa04cc */ 	swc1	$f10,0x4cc($sp)
-/*  f12163c:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f12163c:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f121640:	46188282 */ 	mul.s	$f10,$f16,$f24
 /*  f121644:	e7a604d0 */ 	swc1	$f6,0x4d0($sp)
-/*  f121648:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f121648:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f12164c:	46182182 */ 	mul.s	$f6,$f4,$f24
 /*  f121650:	e7a804d4 */ 	swc1	$f8,0x4d4($sp)
 /*  f121654:	c7a805f8 */ 	lwc1	$f8,0x5f8($sp)
@@ -2790,10 +2720,10 @@ glabel var7f1b50c8
 /*  f121768:	c7a40618 */ 	lwc1	$f4,0x618($sp)
 /*  f12176c:	46181202 */ 	mul.s	$f8,$f2,$f24
 /*  f121770:	e7aa04cc */ 	swc1	$f10,0x4cc($sp)
-/*  f121774:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f121774:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f121778:	4618a282 */ 	mul.s	$f10,$f20,$f24
 /*  f12177c:	e7a604d0 */ 	swc1	$f6,0x4d0($sp)
-/*  f121780:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f121780:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f121784:	46182182 */ 	mul.s	$f6,$f4,$f24
 /*  f121788:	e7a804d4 */ 	swc1	$f8,0x4d4($sp)
 /*  f12178c:	c7a8061c */ 	lwc1	$f8,0x61c($sp)
@@ -2868,10 +2798,10 @@ glabel var7f1b50c8
 /*  f1218a0:	c7a4060c */ 	lwc1	$f4,0x60c($sp)
 /*  f1218a4:	46186202 */ 	mul.s	$f8,$f12,$f24
 /*  f1218a8:	e7aa04cc */ 	swc1	$f10,0x4cc($sp)
-/*  f1218ac:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f1218ac:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f1218b0:	4618b282 */ 	mul.s	$f10,$f22,$f24
 /*  f1218b4:	e7a604d0 */ 	swc1	$f6,0x4d0($sp)
-/*  f1218b8:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f1218b8:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f1218bc:	46182182 */ 	mul.s	$f6,$f4,$f24
 /*  f1218c0:	e7a804d4 */ 	swc1	$f8,0x4d4($sp)
 /*  f1218c4:	c7a80610 */ 	lwc1	$f8,0x610($sp)
@@ -2940,13 +2870,13 @@ glabel var7f1b50c8
 /*  f1219c0:	c7ac05f8 */ 	lwc1	$f12,0x5f8($sp)
 /*  f1219c4:	46187282 */ 	mul.s	$f10,$f14,$f24
 /*  f1219c8:	e7a604b8 */ 	swc1	$f6,0x4b8($sp)
-/*  f1219cc:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f1219cc:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f1219d0:	46182182 */ 	mul.s	$f6,$f4,$f24
 /*  f1219d4:	e7a804bc */ 	swc1	$f8,0x4bc($sp)
 /*  f1219d8:	c7a405f4 */ 	lwc1	$f4,0x5f4($sp)
 /*  f1219dc:	46189202 */ 	mul.s	$f8,$f18,$f24
 /*  f1219e0:	e7aa04cc */ 	swc1	$f10,0x4cc($sp)
-/*  f1219e4:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f1219e4:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f1219e8:	46188282 */ 	mul.s	$f10,$f16,$f24
 /*  f1219ec:	e7a604d0 */ 	swc1	$f6,0x4d0($sp)
 /*  f1219f0:	3c013f80 */ 	lui	$at,0x3f80
@@ -3000,13 +2930,13 @@ glabel var7f1b50c8
 /*  f121ab0:	c7b00610 */ 	lwc1	$f16,0x610($sp)
 /*  f121ab4:	46186202 */ 	mul.s	$f8,$f12,$f24
 /*  f121ab8:	e7a404b8 */ 	swc1	$f4,0x4b8($sp)
-/*  f121abc:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f121abc:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f121ac0:	46185102 */ 	mul.s	$f4,$f10,$f24
 /*  f121ac4:	e7a604bc */ 	swc1	$f6,0x4bc($sp)
 /*  f121ac8:	c7aa060c */ 	lwc1	$f10,0x60c($sp)
 /*  f121acc:	46187182 */ 	mul.s	$f6,$f14,$f24
 /*  f121ad0:	e7a804cc */ 	swc1	$f8,0x4cc($sp)
-/*  f121ad4:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f121ad4:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f121ad8:	46181202 */ 	mul.s	$f8,$f2,$f24
 /*  f121adc:	e7a404d0 */ 	swc1	$f4,0x4d0($sp)
 /*  f121ae0:	3c013f80 */ 	lui	$at,0x3f80
@@ -3060,13 +2990,13 @@ glabel var7f1b50c8
 /*  f121ba0:	c7b2061c */ 	lwc1	$f18,0x61c($sp)
 /*  f121ba4:	46181182 */ 	mul.s	$f6,$f2,$f24
 /*  f121ba8:	e7aa04b8 */ 	swc1	$f10,0x4b8($sp)
-/*  f121bac:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f121bac:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f121bb0:	46184282 */ 	mul.s	$f10,$f8,$f24
 /*  f121bb4:	e7a404bc */ 	swc1	$f4,0x4bc($sp)
 /*  f121bb8:	c7a80618 */ 	lwc1	$f8,0x618($sp)
 /*  f121bbc:	46186102 */ 	mul.s	$f4,$f12,$f24
 /*  f121bc0:	e7a604cc */ 	swc1	$f6,0x4cc($sp)
-/*  f121bc4:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f121bc4:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f121bc8:	4618a182 */ 	mul.s	$f6,$f20,$f24
 /*  f121bcc:	e7aa04d0 */ 	swc1	$f10,0x4d0($sp)
 /*  f121bd0:	3c013f80 */ 	lui	$at,0x3f80
@@ -3120,13 +3050,13 @@ glabel var7f1b50c8
 /*  f121c90:	c7b00604 */ 	lwc1	$f16,0x604($sp)
 /*  f121c94:	46189102 */ 	mul.s	$f4,$f18,$f24
 /*  f121c98:	e7a804b8 */ 	swc1	$f8,0x4b8($sp)
-/*  f121c9c:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f121c9c:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f121ca0:	46183202 */ 	mul.s	$f8,$f6,$f24
 /*  f121ca4:	e7aa04bc */ 	swc1	$f10,0x4bc($sp)
 /*  f121ca8:	c7a60600 */ 	lwc1	$f6,0x600($sp)
 /*  f121cac:	4618a282 */ 	mul.s	$f10,$f20,$f24
 /*  f121cb0:	e7a404cc */ 	swc1	$f4,0x4cc($sp)
-/*  f121cb4:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f121cb4:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f121cb8:	46187102 */ 	mul.s	$f4,$f14,$f24
 /*  f121cbc:	e7a804d0 */ 	swc1	$f8,0x4d0($sp)
 /*  f121cc0:	3c013f80 */ 	lui	$at,0x3f80
@@ -3186,10 +3116,10 @@ glabel var7f1b50c8
 /*  f121d98:	c7a4063c */ 	lwc1	$f4,0x63c($sp)
 /*  f121d9c:	46186202 */ 	mul.s	$f8,$f12,$f24
 /*  f121da0:	e7aa04cc */ 	swc1	$f10,0x4cc($sp)
-/*  f121da4:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f121da4:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f121da8:	46187282 */ 	mul.s	$f10,$f14,$f24
 /*  f121dac:	e7a604d0 */ 	swc1	$f6,0x4d0($sp)
-/*  f121db0:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f121db0:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f121db4:	46182182 */ 	mul.s	$f6,$f4,$f24
 /*  f121db8:	e7a804d4 */ 	swc1	$f8,0x4d4($sp)
 /*  f121dbc:	c7a405f4 */ 	lwc1	$f4,0x5f4($sp)
@@ -3284,10 +3214,10 @@ glabel var7f1b50c8
 /*  f121f20:	c7aa0624 */ 	lwc1	$f10,0x624($sp)
 /*  f121f24:	46188182 */ 	mul.s	$f6,$f16,$f24
 /*  f121f28:	e7a804cc */ 	swc1	$f8,0x4cc($sp)
-/*  f121f2c:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f121f2c:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f121f30:	4618b202 */ 	mul.s	$f8,$f22,$f24
 /*  f121f34:	e7a404d0 */ 	swc1	$f4,0x4d0($sp)
-/*  f121f38:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f121f38:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f121f3c:	46185102 */ 	mul.s	$f4,$f10,$f24
 /*  f121f40:	e7a604d4 */ 	swc1	$f6,0x4d4($sp)
 /*  f121f44:	c7a60628 */ 	lwc1	$f6,0x628($sp)
@@ -3379,8 +3309,8 @@ glabel var7f1b50c8
 /*  f12209c:	e7aa04b8 */ 	swc1	$f10,0x4b8($sp)
 /*  f1220a0:	46189202 */ 	mul.s	$f8,$f18,$f24
 /*  f1220a4:	c7aa0630 */ 	lwc1	$f10,0x630($sp)
-/*  f1220a8:	3c018008 */ 	lui	$at,%hi(var8007db80)
-/*  f1220ac:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f1220a8:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
+/*  f1220ac:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f1220b0:	e7a604bc */ 	swc1	$f6,0x4bc($sp)
 /*  f1220b4:	46185182 */ 	mul.s	$f6,$f10,$f24
 /*  f1220b8:	3c013f80 */ 	lui	$at,0x3f80
@@ -3481,10 +3411,10 @@ glabel var7f1b50c8
 /*  f122234:	c7a40630 */ 	lwc1	$f4,0x630($sp)
 /*  f122238:	46181182 */ 	mul.s	$f6,$f2,$f24
 /*  f12223c:	e7a804cc */ 	swc1	$f8,0x4cc($sp)
-/*  f122240:	3c018008 */ 	lui	$at,%hi(var8007db80)
+/*  f122240:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
 /*  f122244:	46189202 */ 	mul.s	$f8,$f18,$f24
 /*  f122248:	e7aa04d0 */ 	swc1	$f10,0x4d0($sp)
-/*  f12224c:	c420db80 */ 	lwc1	$f0,%lo(var8007db80)($at)
+/*  f12224c:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
 /*  f122250:	46182282 */ 	mul.s	$f10,$f4,$f24
 /*  f122254:	e7a604d4 */ 	swc1	$f6,0x4d4($sp)
 /*  f122258:	c7a40600 */ 	lwc1	$f4,0x600($sp)

@@ -398,7 +398,7 @@
 /*0x01ae*/ bool aiClearInventory(void);
 /*0x01af*/ bool aiChrGrabObject(void);
 /*0x01b1*/ bool aiShuffleRuinsPillars(void);
-/*0x01b2*/ bool ai01b2(void);
+/*0x01b2*/ bool aiSetWindSpeed(void);
 /*0x01b3*/ bool aiToggleP1P2(void);
 /*0x01b4*/ bool ai01b4(void);
 /*0x01b5*/ bool aiChrSetP1P2(void);

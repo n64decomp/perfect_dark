@@ -444,7 +444,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01af*/ aiChrGrabObject,
 	/*0x01b0*/ NULL,
 	/*0x01b1*/ aiShuffleRuinsPillars,
-	/*0x01b2*/ ai01b2,
+	/*0x01b2*/ aiSetWindSpeed,
 	/*0x01b3*/ aiToggleP1P2,
 #if VERSION >= VERSION_NTSC_1_0
 	/*0x01b4*/ ai01b4,

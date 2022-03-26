@@ -3800,13 +3800,12 @@
 	msrc4, \
 	msrc5,
 
-// This just does:
-// addr8007db84 = addr7f1a9da4 * value
-// In practice, value is 8, 11, 15, 20, 22 and 130,
-// though some of these setup files are probably not used.
-#define cmd01b2_mponly(value) \
+/**
+ * Set the wind speed, which controls how quickly clouds in the sky are moving.
+ */
+#define set_wind_speed(speed) \
 	mkshort(0x01b2), \
-	value,
+	speed,
 
 /**
  * Toggle which player (Bond or Coop) is referenced by the chr's CHR_P1P2

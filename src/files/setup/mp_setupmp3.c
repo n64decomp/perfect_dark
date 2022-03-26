@@ -137,7 +137,7 @@ struct path paths[] = {
 };
 
 u8 func1001_27e0[] = {
-	cmd01b2_mponly(15)
+	set_wind_speed(15)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

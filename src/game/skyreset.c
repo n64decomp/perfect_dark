@@ -8,5 +8,5 @@ void skyReset(u32 stagenum)
 {
 	g_SkyStageNum = stagenum;
 	var800a33a4 = 0;
-	var8007db84 = 1;
+	g_SkyWindSpeed = 1;
 }
