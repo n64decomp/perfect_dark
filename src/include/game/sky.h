@@ -21,7 +21,7 @@ u32 sky0f1228d0(void);
 u32 sky0f122ce8(void);
 u32 sky0f122d4c(void);
 u32 sky0f123fd4(void);
-void sky0f125948(struct bootbufferthingdeep *arg0, s32 arg1, s32 arg2);
+void sky0f125948(struct bootbufferthingdeep *arg0, s32 x, s32 y);
 f32 sky0f125a1c(struct bootbufferthingdeep *arg0);
 Gfx *skyRenderSuns(Gfx *gdl, bool xray);
 Gfx *sky0f126384(Gfx *gdl, f32 x, f32 y, f32 arg3, f32 orbsize, s32 arg5, f32 arg6);

@@ -7018,64 +7018,23 @@ glabel var7f1b5104
 /*  f125944:	27bd04d0 */ 	addiu	$sp,$sp,0x4d0
 );
 
-GLOBAL_ASM(
-glabel sky0f125948
-/*  f125948:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f12594c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f125950:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f125954:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f125958:	0c002f40 */ 	jal	viGetViewLeft
-/*  f12595c:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f125960:	0c002f44 */ 	jal	viGetViewTop
-/*  f125964:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f125968:	0c002f22 */ 	jal	viGetViewWidth
-/*  f12596c:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f125970:	0c002f26 */ 	jal	viGetViewHeight
-/*  f125974:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f125978:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f12597c:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f125980:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*  f125984:	0083082a */ 	slt	$at,$a0,$v1
-/*  f125988:	14200020 */ 	bnez	$at,.L0f125a0c
-/*  f12598c:	006e7821 */ 	addu	$t7,$v1,$t6
-/*  f125990:	008f082a */ 	slt	$at,$a0,$t7
-/*  f125994:	1020001d */ 	beqz	$at,.L0f125a0c
-/*  f125998:	8fa30020 */ 	lw	$v1,0x20($sp)
-/*  f12599c:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f1259a0:	0062c021 */ 	addu	$t8,$v1,$v0
-/*  f1259a4:	00a3082a */ 	slt	$at,$a1,$v1
-/*  f1259a8:	14200018 */ 	bnez	$at,.L0f125a0c
-/*  f1259ac:	00b8082a */ 	slt	$at,$a1,$t8
-/*  f1259b0:	50200017 */ 	beqzl	$at,.L0f125a10
-/*  f1259b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1259b8:	0fc2d5f6 */ 	jal	camGetScreenWidth
-/*  f1259bc:	00000000 */ 	nop
-/*  f1259c0:	4600010d */ 	trunc.w.s	$f4,$f0
-/*  f1259c4:	8fa90030 */ 	lw	$t1,0x30($sp)
-/*  f1259c8:	8fab002c */ 	lw	$t3,0x2c($sp)
-/*  f1259cc:	3c0e8008 */ 	lui	$t6,%hi(var800844f0)
-/*  f1259d0:	44082000 */ 	mfc1	$t0,$f4
-/*  f1259d4:	8dce44f0 */ 	lw	$t6,%lo(var800844f0)($t6)
-/*  f1259d8:	8fa20028 */ 	lw	$v0,0x28($sp)
-/*  f1259dc:	01090019 */ 	multu	$t0,$t1
-/*  f1259e0:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f1259e4:	00005012 */ 	mflo	$t2
-/*  f1259e8:	014b6021 */ 	addu	$t4,$t2,$t3
-/*  f1259ec:	000c6840 */ 	sll	$t5,$t4,0x1
-/*  f1259f0:	01ae7821 */ 	addu	$t7,$t5,$t6
-/*  f1259f4:	ac4f0008 */ 	sw	$t7,0x8($v0)
-/*  f1259f8:	8fb8002c */ 	lw	$t8,0x2c($sp)
-/*  f1259fc:	a458000e */ 	sh	$t8,0xe($v0)
-/*  f125a00:	8fb90030 */ 	lw	$t9,0x30($sp)
-/*  f125a04:	a4480000 */ 	sh	$t0,0x0($v0)
-/*  f125a08:	a459000c */ 	sh	$t9,0xc($v0)
-.L0f125a0c:
-/*  f125a0c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f125a10:
-/*  f125a10:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f125a14:	03e00008 */ 	jr	$ra
-/*  f125a18:	00000000 */ 	nop
-);
+/**
+ * With this function stubbed, sun artifacts and glare do not render.
+ */
+void sky0f125948(struct bootbufferthingdeep *arg0, s32 x, s32 y)
+{
+	s32 viewleft = viGetViewLeft();
+	s32 viewtop = viGetViewTop();
+	s32 viewwidth = viGetViewWidth();
+	s32 viewheight = viGetViewHeight();
+
+	if (x >= viewleft && x < viewleft + viewwidth && y >= viewtop && y < viewtop + viewheight) {
+		arg0->unk08 = &var800844f0[(s32)camGetScreenWidth() * y + x];
+		arg0->unk0c.u16_2 = x;
+		arg0->unk0c.u16_1 = y;
+		arg0->unk00 = 1;
+	}
+}
 
 f32 sky0f125a1c(struct bootbufferthingdeep *arg0)
 {

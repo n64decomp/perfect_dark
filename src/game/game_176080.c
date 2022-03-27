@@ -17,7 +17,7 @@ u8 var800ab7c8[0x300];
 u8 var800abac8[0x300];
 u8 var800abdc8[0x300];
 
-void *var800844f0 = NULL;
+u16 *var800844f0 = NULL;
 void *var800844f4 = NULL;
 
 void *func0f176080(void)
