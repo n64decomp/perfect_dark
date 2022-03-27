@@ -2535,7 +2535,7 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 		}
 	}
 
-	gdl = sky0f125a6c(gdl, 1);
+	gdl = skyRenderSuns(gdl, true);
 
 	return gdl;
 }
@@ -2660,7 +2660,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 		gSPPerspNormalize(gdl++, viGetPerspScale());
 	}
 
-	gdl = sky0f125a6c(gdl, 0);
+	gdl = skyRenderSuns(gdl, false);
 
 	// Build an array of room numbers per onscreen prop.
 	// For each onscreen prop there is exactly one entry in the roomnumsbyprop array.
@@ -3122,7 +3122,7 @@ glabel bgRenderScene
 .NB0f1551d4:
 /*  f1551d4:	02202025 */ 	or	$a0,$s1,$zero
 .NB0f1551d8:
-/*  f1551d8:	0fc481ab */ 	jal	sky0f125a6c
+/*  f1551d8:	0fc481ab */ 	jal	skyRenderSuns
 /*  f1551dc:	00002825 */ 	or	$a1,$zero,$zero
 /*  f1551e0:	3c05800a */ 	lui	$a1,0x800a
 /*  f1551e4:	3c0e800a */ 	lui	$t6,0x800a

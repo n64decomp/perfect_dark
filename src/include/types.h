@@ -3323,15 +3323,13 @@ struct environment {
 };
 
 struct sun {
-	u8 lens_flare;
-	u8 red;
-	u8 green;
-	u8 blue;
-	f32 x;
-	f32 y;
-	f32 z;
-	u16 texture_size;
-	s16 orb_size;
+	/*0x00*/ u8 lens_flare;
+	/*0x01*/ u8 red;
+	/*0x02*/ u8 green;
+	/*0x03*/ u8 blue;
+	/*0x04*/ f32 pos[3];
+	/*0x10*/ s16 texture_size;
+	/*0x12*/ s16 orb_size;
 };
 
 struct envtype1 {
@@ -3632,8 +3630,12 @@ struct bootbufferthingdeep {
 	u32 unk10;
 };
 
+struct bootbufferthing2 {
+	struct bootbufferthingdeep unk00[8];
+};
+
 struct bootbufferthing {
-	struct bootbufferthingdeep unk00[15][8];
+	struct bootbufferthing2 unk00[15];
 };
 
 struct credit {

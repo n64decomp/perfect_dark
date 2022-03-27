@@ -59,7 +59,7 @@ void func0f13c510(void)
 	s32 i;
 
 	for (i = 0; i < 120; i++) {
-		thing->unk00[0][i].unk00 = 0;
+		thing->unk00[0].unk00[i].unk00 = 0;
 	}
 }
 

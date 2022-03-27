@@ -446,7 +446,7 @@ void bbufResetBuffers(void)
 
 	for (i = 0; i < 3; i++) {
 		for (j = 0; j < 120; j++) {
-			g_BootBuffers[i].unk00[0][j].unk00 = 0;
+			g_BootBuffers[i].unk00[0].unk00[j].unk00 = 0;
 		}
 
 		g_BootBufferDirtyIndexes[i] = 0;
@@ -496,7 +496,7 @@ void bbufUpdateIndex2Buffer(void)
 	s32 i;
 
 	for (i = 0; i < 120; i++) {
-		struct bootbufferthingdeep *deep = &thing->unk00[0][i];
+		struct bootbufferthingdeep *deep = &thing->unk00[0].unk00[i];
 
 		if (deep->unk00) {
 			u16 *unk08 = deep->unk08;
