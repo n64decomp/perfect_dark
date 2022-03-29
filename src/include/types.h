@@ -3306,13 +3306,13 @@ struct environment {
 	/*0x0c*/ struct sun *suns;
 	/*0x10*/ u8 clouds_enabled;
 	/*0x14*/ f32 clouds_scale;
-	/*0x18*/ u16 unk18;
+	/*0x18*/ s16 unk18;
 	/*0x1c*/ f32 clouds_r;
 	/*0x20*/ f32 clouds_g;
 	/*0x24*/ f32 clouds_b;
 	/*0x28*/ u8 water_enabled;
 	/*0x2c*/ f32 water_scale;
-	/*0x30*/ u16 water_type;
+	/*0x30*/ s16 water_type;
 	/*0x34*/ f32 water_r;
 	/*0x38*/ f32 water_g;
 	/*0x3c*/ f32 water_b;
@@ -6799,6 +6799,32 @@ struct var800a4194 {
 	u16 unk02;
 	u16 unk04;
 	s32 unk08;
+};
+
+struct skything18 {
+	/*0x00*/ f32 unk00;
+	/*0x04*/ f32 unk04;
+	/*0x08*/ f32 unk08;
+	/*0x0c*/ f32 unk0c;
+	/*0x10*/ f32 unk10;
+	/*0x14*/ u32 unk14;
+};
+
+struct skything38 {
+	/*0x00*/ f32 unk00;
+	/*0x04*/ f32 unk04;
+	/*0x08*/ f32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ f32 unk28;
+	/*0x2c*/ f32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
 };
 
 #endif

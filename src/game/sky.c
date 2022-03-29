@@ -16,22 +16,7 @@
 
 u32 g_SkyStageNum;
 s32 var800a33a4;
-u32 var800a33a8;
-u32 var800a33ac;
-u32 var800a33b0;
-u32 var800a33b4;
-u32 var800a33b8;
-u32 var800a33bc;
-u32 var800a33c0;
-u32 var800a33c4;
-u32 var800a33c8;
-u32 var800a33cc;
-u32 var800a33d0;
-u32 var800a33d4;
-u32 var800a33d8;
-u32 var800a33dc;
-u32 var800a33e0;
-u32 var800a33e4;
+Mtxf var800a33a8;
 struct coord g_SunPositions[3]; // relative to centre screen, with a huge scale
 u32 var800a340c;
 f32 g_SunScreenXPositions[4];
@@ -569,38 +554,23 @@ glabel skyRender
 .late_rodata
 glabel var7f1b5000
 .word 0x3dcccccd
-glabel var7f1b5004
-.word skyRender+0x6a0 # f120024
-glabel var7f1b5008
-.word skyRender+0xf24 # f1208a8
-glabel var7f1b500c
-.word skyRender+0x1074 # f1209f8
-glabel var7f1b5010
-.word skyRender+0x7ac # f120130
-glabel var7f1b5014
-.word skyRender+0x11c4 # f120b48
-glabel var7f1b5018
-.word skyRender+0xad8 # f12045c
-glabel var7f1b501c
-.word skyRender+0x1464 # f120de8
-glabel var7f1b5020
-.word skyRender+0xe54 # f1207d8
-glabel var7f1b5024
-.word skyRender+0x1314 # f120c98
-glabel var7f1b5028
-.word skyRender+0x1464 # f120de8
-glabel var7f1b502c
-.word skyRender+0x9cc # f120350
-glabel var7f1b5030
-.word skyRender+0xd84 # f120708
-glabel var7f1b5034
-.word skyRender+0x8b8 # f12023c
-glabel var7f1b5038
-.word skyRender+0xcb4 # f120638
-glabel var7f1b503c
-.word skyRender+0xbe4 # f120568
-glabel var7f1b5040
-.word skyRender+0x690 # f120014
+glabel jtbl_var7f1b5004
+.word .L0f120024
+.word .L0f1208a8
+.word .L0f1209f8
+.word .L0f120130
+.word .L0f120b48
+.word .L0f12045c
+.word .L0f120de8
+.word .L0f1207d8
+.word .L0f120c98
+.word .L0f120de8
+.word .L0f120350
+.word .L0f120708
+.word .L0f12023c
+.word .L0f120638
+.word .L0f120568
+.word .L0f120014
 glabel var7f1b5044
 .word 0x3d088889
 glabel var7f1b5048
@@ -635,38 +605,23 @@ glabel var7f1b5080
 .word 0x449fe000
 glabel var7f1b5084
 .word 0x446fc000
-glabel var7f1b5088
-.word skyRender+0x19e8 # f12136c
-glabel var7f1b508c
-.word skyRender+0x2010 # f121994
-glabel var7f1b5090
-.word skyRender+0x2100 # f121a84
-glabel var7f1b5094
-.word skyRender+0x1c68 # f1215ec
-glabel var7f1b5098
-.word skyRender+0x21f0 # f121b74
-glabel var7f1b509c
-.word skyRender+0x1da0 # f121724
-glabel var7f1b50a0
-.word skyRender+0x29f4 # f122378
-glabel var7f1b50a4
-.word skyRender+0x286c # f1221f0
-glabel var7f1b50a8
-.word skyRender+0x22e0 # f121c64
-glabel var7f1b50ac
-.word skyRender+0x29f4 # f122378
-glabel var7f1b50b0
-.word skyRender+0x1ed8 # f12185c
-glabel var7f1b50b4
-.word skyRender+0x26e4 # f122068
-glabel var7f1b50b8
-.word skyRender+0x1b2c # f1214b0
-glabel var7f1b50bc
-.word skyRender+0x2558 # f121edc
-glabel var7f1b50c0
-.word skyRender+0x23d0 # f121d54
-glabel var7f1b50c4
-.word skyRender+0x19f0 # f121374
+glabel jtbl_var7f1b5088
+.word .L0f12136c
+.word .L0f121994
+.word .L0f121a84
+.word .L0f1215ec
+.word .L0f121b74
+.word .L0f121724
+.word .L0f122378
+.word .L0f1221f0
+.word .L0f121c64
+.word .L0f122378
+.word .L0f12185c
+.word .L0f122068
+.word .L0f1214b0
+.word .L0f121edc
+.word .L0f121d54
+.word .L0f121374
 glabel var7f1b50c8
 .word 0x477fff00
 .text
@@ -1102,15 +1057,17 @@ glabel var7f1b50c8
 /*  f11fff4:	1020037c */ 	beqz	$at,.L0f120de8
 /*  f11fff8:	afb90068 */ 	sw	$t9,0x68($sp)
 /*  f11fffc:	00196880 */ 	sll	$t5,$t9,0x2
-/*  f120000:	3c017f1b */ 	lui	$at,%hi(var7f1b5004)
+/*  f120000:	3c017f1b */ 	lui	$at,%hi(jtbl_var7f1b5004)
 /*  f120004:	002d0821 */ 	addu	$at,$at,$t5
-/*  f120008:	8c2d5004 */ 	lw	$t5,%lo(var7f1b5004)($at)
+/*  f120008:	8c2d5004 */ 	lw	$t5,%lo(jtbl_var7f1b5004)($at)
 /*  f12000c:	01a00008 */ 	jr	$t5
 /*  f120010:	00000000 */ 	nop
+.L0f120014:
 /*  f120014:	3c017f1b */ 	lui	$at,%hi(var7f1b5044)
 /*  f120018:	00008825 */ 	or	$s1,$zero,$zero
 /*  f12001c:	10000374 */ 	b	.L0f120df0
 /*  f120020:	c4385044 */ 	lwc1	$f24,%lo(var7f1b5044)($at)
+.L0f120024:
 /*  f120024:	3c017f1b */ 	lui	$at,%hi(var7f1b5048)
 /*  f120028:	c4385048 */ 	lwc1	$f24,%lo(var7f1b5048)($at)
 /*  f12002c:	c7a205e4 */ 	lwc1	$f2,0x5e4($sp)
@@ -1178,6 +1135,7 @@ glabel var7f1b50c8
 /*  f120124:	8fa50560 */ 	lw	$a1,0x560($sp)
 /*  f120128:	10000331 */ 	b	.L0f120df0
 /*  f12012c:	00000000 */ 	nop
+.L0f120130:
 /*  f120130:	3c017f1b */ 	lui	$at,%hi(var7f1b504c)
 /*  f120134:	c438504c */ 	lwc1	$f24,%lo(var7f1b504c)($at)
 /*  f120138:	c7a205e4 */ 	lwc1	$f2,0x5e4($sp)
@@ -1245,6 +1203,7 @@ glabel var7f1b50c8
 /*  f120230:	8fa50550 */ 	lw	$a1,0x550($sp)
 /*  f120234:	100002ee */ 	b	.L0f120df0
 /*  f120238:	00000000 */ 	nop
+.L0f12023c:
 /*  f12023c:	3c017f1b */ 	lui	$at,%hi(var7f1b5050)
 /*  f120240:	c4385050 */ 	lwc1	$f24,%lo(var7f1b5050)($at)
 /*  f120244:	c7b605c0 */ 	lwc1	$f22,0x5c0($sp)
@@ -1314,6 +1273,7 @@ glabel var7f1b50c8
 /*  f120344:	8fa50554 */ 	lw	$a1,0x554($sp)
 /*  f120348:	100002a9 */ 	b	.L0f120df0
 /*  f12034c:	00000000 */ 	nop
+.L0f120350:
 /*  f120350:	3c017f1b */ 	lui	$at,%hi(var7f1b5054)
 /*  f120354:	c4385054 */ 	lwc1	$f24,%lo(var7f1b5054)($at)
 /*  f120358:	c7ae05d8 */ 	lwc1	$f14,0x5d8($sp)
@@ -1381,6 +1341,7 @@ glabel var7f1b50c8
 /*  f120450:	8fa50558 */ 	lw	$a1,0x558($sp)
 /*  f120454:	10000266 */ 	b	.L0f120df0
 /*  f120458:	00000000 */ 	nop
+.L0f12045c:
 /*  f12045c:	3c017f1b */ 	lui	$at,%hi(var7f1b5058)
 /*  f120460:	c4385058 */ 	lwc1	$f24,%lo(var7f1b5058)($at)
 /*  f120464:	c7b205cc */ 	lwc1	$f18,0x5cc($sp)
@@ -1448,6 +1409,7 @@ glabel var7f1b50c8
 /*  f12055c:	8fa5055c */ 	lw	$a1,0x55c($sp)
 /*  f120560:	10000223 */ 	b	.L0f120df0
 /*  f120564:	00000000 */ 	nop
+.L0f120568:
 /*  f120568:	3c017f1b */ 	lui	$at,%hi(var7f1b505c)
 /*  f12056c:	c438505c */ 	lwc1	$f24,%lo(var7f1b505c)($at)
 /*  f120570:	c7b605c0 */ 	lwc1	$f22,0x5c0($sp)
@@ -1500,6 +1462,7 @@ glabel var7f1b50c8
 /*  f12062c:	8fa50550 */ 	lw	$a1,0x550($sp)
 /*  f120630:	100001ef */ 	b	.L0f120df0
 /*  f120634:	00000000 */ 	nop
+.L0f120638:
 /*  f120638:	3c017f1b */ 	lui	$at,%hi(var7f1b5060)
 /*  f12063c:	c4385060 */ 	lwc1	$f24,%lo(var7f1b5060)($at)
 /*  f120640:	c7b205cc */ 	lwc1	$f18,0x5cc($sp)
@@ -1552,6 +1515,7 @@ glabel var7f1b50c8
 /*  f1206fc:	8fa50558 */ 	lw	$a1,0x558($sp)
 /*  f120700:	100001bb */ 	b	.L0f120df0
 /*  f120704:	00000000 */ 	nop
+.L0f120708:
 /*  f120708:	3c017f1b */ 	lui	$at,%hi(var7f1b5064)
 /*  f12070c:	c4385064 */ 	lwc1	$f24,%lo(var7f1b5064)($at)
 /*  f120710:	c7ae05d8 */ 	lwc1	$f14,0x5d8($sp)
@@ -1604,6 +1568,7 @@ glabel var7f1b50c8
 /*  f1207cc:	8fa5055c */ 	lw	$a1,0x55c($sp)
 /*  f1207d0:	10000187 */ 	b	.L0f120df0
 /*  f1207d4:	00000000 */ 	nop
+.L0f1207d8:
 /*  f1207d8:	3c017f1b */ 	lui	$at,%hi(var7f1b5068)
 /*  f1207dc:	c4385068 */ 	lwc1	$f24,%lo(var7f1b5068)($at)
 /*  f1207e0:	c7a205e4 */ 	lwc1	$f2,0x5e4($sp)
@@ -1656,6 +1621,7 @@ glabel var7f1b50c8
 /*  f12089c:	8fa50554 */ 	lw	$a1,0x554($sp)
 /*  f1208a0:	10000153 */ 	b	.L0f120df0
 /*  f1208a4:	00000000 */ 	nop
+.L0f1208a8:
 /*  f1208a8:	3c017f1b */ 	lui	$at,%hi(var7f1b506c)
 /*  f1208ac:	c438506c */ 	lwc1	$f24,%lo(var7f1b506c)($at)
 /*  f1208b0:	c7b205cc */ 	lwc1	$f18,0x5cc($sp)
@@ -1740,6 +1706,7 @@ glabel var7f1b50c8
 /*  f1209ec:	8fa50558 */ 	lw	$a1,0x558($sp)
 /*  f1209f0:	100000ff */ 	b	.L0f120df0
 /*  f1209f4:	00000000 */ 	nop
+.L0f1209f8:
 /*  f1209f8:	c7ba05e4 */ 	lwc1	$f26,0x5e4($sp)
 /*  f1209fc:	c7b605ec */ 	lwc1	$f22,0x5ec($sp)
 /*  f120a00:	c7b405d8 */ 	lwc1	$f20,0x5d8($sp)
@@ -1824,6 +1791,7 @@ glabel var7f1b50c8
 /*  f120b3c:	8fa50554 */ 	lw	$a1,0x554($sp)
 /*  f120b40:	100000ab */ 	b	.L0f120df0
 /*  f120b44:	00000000 */ 	nop
+.L0f120b48:
 /*  f120b48:	3c017f1b */ 	lui	$at,%hi(var7f1b5074)
 /*  f120b4c:	c4385074 */ 	lwc1	$f24,%lo(var7f1b5074)($at)
 /*  f120b50:	c7b605c0 */ 	lwc1	$f22,0x5c0($sp)
@@ -1908,6 +1876,7 @@ glabel var7f1b50c8
 /*  f120c8c:	8fa50550 */ 	lw	$a1,0x550($sp)
 /*  f120c90:	10000057 */ 	b	.L0f120df0
 /*  f120c94:	00000000 */ 	nop
+.L0f120c98:
 /*  f120c98:	3c017f1b */ 	lui	$at,%hi(var7f1b5078)
 /*  f120c9c:	c4385078 */ 	lwc1	$f24,%lo(var7f1b5078)($at)
 /*  f120ca0:	c7ae05d8 */ 	lwc1	$f14,0x5d8($sp)
@@ -2357,13 +2326,15 @@ glabel var7f1b50c8
 /*  f12134c:	1020040a */ 	beqz	$at,.L0f122378
 /*  f121350:	8fa306b0 */ 	lw	$v1,0x6b0($sp)
 /*  f121354:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f121358:	3c017f1b */ 	lui	$at,%hi(var7f1b5088)
+/*  f121358:	3c017f1b */ 	lui	$at,%hi(jtbl_var7f1b5088)
 /*  f12135c:	002e0821 */ 	addu	$at,$at,$t6
-/*  f121360:	8c2e5088 */ 	lw	$t6,%lo(var7f1b5088)($at)
+/*  f121360:	8c2e5088 */ 	lw	$t6,%lo(jtbl_var7f1b5088)($at)
 /*  f121364:	01c00008 */ 	jr	$t6
 /*  f121368:	00000000 */ 	nop
+.L0f12136c:
 /*  f12136c:	1000054e */ 	b	.L0f1228a8
 /*  f121370:	00601025 */ 	or	$v0,$v1,$zero
+.L0f121374:
 /*  f121374:	c7a20644 */ 	lwc1	$f2,0x644($sp)
 /*  f121378:	c7a40648 */ 	lwc1	$f4,0x648($sp)
 /*  f12137c:	c7ac064c */ 	lwc1	$f12,0x64c($sp)
@@ -2443,6 +2414,7 @@ glabel var7f1b50c8
 /*  f1214a4:	8fa50580 */ 	lw	$a1,0x580($sp)
 /*  f1214a8:	100003b6 */ 	b	.L0f122384
 /*  f1214ac:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
+.L0f1214b0:
 /*  f1214b0:	c7a20644 */ 	lwc1	$f2,0x644($sp)
 /*  f1214b4:	c7a40648 */ 	lwc1	$f4,0x648($sp)
 /*  f1214b8:	c7ac064c */ 	lwc1	$f12,0x64c($sp)
@@ -2522,6 +2494,7 @@ glabel var7f1b50c8
 /*  f1215e0:	8fa50570 */ 	lw	$a1,0x570($sp)
 /*  f1215e4:	10000367 */ 	b	.L0f122384
 /*  f1215e8:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
+.L0f1215ec:
 /*  f1215ec:	c7b60620 */ 	lwc1	$f22,0x620($sp)
 /*  f1215f0:	c7a40624 */ 	lwc1	$f4,0x624($sp)
 /*  f1215f4:	c7a20628 */ 	lwc1	$f2,0x628($sp)
@@ -2600,6 +2573,7 @@ glabel var7f1b50c8
 /*  f121718:	8fa50574 */ 	lw	$a1,0x574($sp)
 /*  f12171c:	10000319 */ 	b	.L0f122384
 /*  f121720:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
+.L0f121724:
 /*  f121724:	c7ae0638 */ 	lwc1	$f14,0x638($sp)
 /*  f121728:	c7a4063c */ 	lwc1	$f4,0x63c($sp)
 /*  f12172c:	c7b00640 */ 	lwc1	$f16,0x640($sp)
@@ -2678,6 +2652,7 @@ glabel var7f1b50c8
 /*  f121850:	8fa50578 */ 	lw	$a1,0x578($sp)
 /*  f121854:	100002cb */ 	b	.L0f122384
 /*  f121858:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
+.L0f12185c:
 /*  f12185c:	c7b2062c */ 	lwc1	$f18,0x62c($sp)
 /*  f121860:	c7a40630 */ 	lwc1	$f4,0x630($sp)
 /*  f121864:	c7b40634 */ 	lwc1	$f20,0x634($sp)
@@ -2756,6 +2731,7 @@ glabel var7f1b50c8
 /*  f121988:	8fa5057c */ 	lw	$a1,0x57c($sp)
 /*  f12198c:	1000027d */ 	b	.L0f122384
 /*  f121990:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
+.L0f121994:
 /*  f121994:	c7b60620 */ 	lwc1	$f22,0x620($sp)
 /*  f121998:	c7a40624 */ 	lwc1	$f4,0x624($sp)
 /*  f12199c:	c7a20628 */ 	lwc1	$f2,0x628($sp)
@@ -2816,6 +2792,7 @@ glabel var7f1b50c8
 /*  f121a78:	8fa50570 */ 	lw	$a1,0x570($sp)
 /*  f121a7c:	10000241 */ 	b	.L0f122384
 /*  f121a80:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
+.L0f121a84:
 /*  f121a84:	c7b2062c */ 	lwc1	$f18,0x62c($sp)
 /*  f121a88:	c7aa0630 */ 	lwc1	$f10,0x630($sp)
 /*  f121a8c:	c7b40634 */ 	lwc1	$f20,0x634($sp)
@@ -2876,6 +2853,7 @@ glabel var7f1b50c8
 /*  f121b68:	8fa50578 */ 	lw	$a1,0x578($sp)
 /*  f121b6c:	10000205 */ 	b	.L0f122384
 /*  f121b70:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
+.L0f121b74:
 /*  f121b74:	c7ae0638 */ 	lwc1	$f14,0x638($sp)
 /*  f121b78:	c7a8063c */ 	lwc1	$f8,0x63c($sp)
 /*  f121b7c:	c7b00640 */ 	lwc1	$f16,0x640($sp)
@@ -2936,6 +2914,7 @@ glabel var7f1b50c8
 /*  f121c58:	8fa5057c */ 	lw	$a1,0x57c($sp)
 /*  f121c5c:	100001c9 */ 	b	.L0f122384
 /*  f121c60:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
+.L0f121c64:
 /*  f121c64:	c7a20644 */ 	lwc1	$f2,0x644($sp)
 /*  f121c68:	c7a60648 */ 	lwc1	$f6,0x648($sp)
 /*  f121c6c:	c7ac064c */ 	lwc1	$f12,0x64c($sp)
@@ -2996,6 +2975,7 @@ glabel var7f1b50c8
 /*  f121d48:	8fa50574 */ 	lw	$a1,0x574($sp)
 /*  f121d4c:	1000018d */ 	b	.L0f122384
 /*  f121d50:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
+.L0f121d54:
 /*  f121d54:	c7b2062c */ 	lwc1	$f18,0x62c($sp)
 /*  f121d58:	c7a40630 */ 	lwc1	$f4,0x630($sp)
 /*  f121d5c:	c7b40634 */ 	lwc1	$f20,0x634($sp)
@@ -3094,6 +3074,7 @@ glabel var7f1b50c8
 /*  f121ed0:	8fa50578 */ 	lw	$a1,0x578($sp)
 /*  f121ed4:	1000012b */ 	b	.L0f122384
 /*  f121ed8:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
+.L0f121edc:
 /*  f121edc:	c7a20644 */ 	lwc1	$f2,0x644($sp)
 /*  f121ee0:	c7aa0648 */ 	lwc1	$f10,0x648($sp)
 /*  f121ee4:	c7ac064c */ 	lwc1	$f12,0x64c($sp)
@@ -3193,6 +3174,7 @@ glabel var7f1b50c8
 /*  f12205c:	8fa50574 */ 	lw	$a1,0x574($sp)
 /*  f122060:	100000c8 */ 	b	.L0f122384
 /*  f122064:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
+.L0f122068:
 /*  f122068:	c7b60620 */ 	lwc1	$f22,0x620($sp)
 /*  f12206c:	c7a80624 */ 	lwc1	$f8,0x624($sp)
 /*  f122070:	c7a40628 */ 	lwc1	$f4,0x628($sp)
@@ -3291,6 +3273,7 @@ glabel var7f1b50c8
 /*  f1221e4:	8fa50570 */ 	lw	$a1,0x570($sp)
 /*  f1221e8:	10000066 */ 	b	.L0f122384
 /*  f1221ec:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
+.L0f1221f0:
 /*  f1221f0:	c7ae0638 */ 	lwc1	$f14,0x638($sp)
 /*  f1221f4:	c7a4063c */ 	lwc1	$f4,0x63c($sp)
 /*  f1221f8:	c7b00640 */ 	lwc1	$f16,0x640($sp)
@@ -3744,6 +3727,1078 @@ glabel var7f1b50c8
 /*  f1228c8:	03e00008 */ 	jr	$ra
 /*  f1228cc:	27bd06b0 */ 	addiu	$sp,$sp,0x6b0
 );
+
+// Mismatch: Swapped instructions in case statements
+//Gfx *skyRender(Gfx *gdl)
+//{
+//	struct coord sp6a4;
+//	struct coord sp698;
+//	struct coord sp68c;
+//	struct coord sp680;
+//	struct coord sp674;
+//	struct coord sp668;
+//	struct coord sp65c;
+//	struct coord sp650;
+//	struct coord sp644;
+//	struct coord sp638;
+//	struct coord sp62c;
+//	struct coord sp620;
+//	struct coord sp614;
+//	struct coord sp608;
+//	struct coord sp5fc;
+//	struct coord sp5f0;
+//	struct coord sp5e4;
+//	struct coord sp5d8;
+//	struct coord sp5cc;
+//	struct coord sp5c0;
+//	struct coord sp5b4;
+//	struct coord sp5a8;
+//	struct coord sp59c;
+//	struct coord sp590;
+//	f32 sp58c;
+//	f32 sp588;
+//	f32 sp584;
+//	f32 sp580;
+//	f32 sp57c;
+//	f32 sp578;
+//	f32 sp574;
+//	f32 sp570;
+//	f32 sp56c;
+//	f32 sp568;
+//	f32 sp564;
+//	f32 sp560;
+//	f32 sp55c;
+//	f32 sp558;
+//	f32 sp554;
+//	f32 sp550;
+//	f32 sp54c;
+//	f32 sp548;
+//	s32 s1;
+//	s32 j;
+//	s32 k;
+//	s32 sp538;
+//	s32 sp534;
+//	s32 sp530;
+//	s32 sp52c;
+//	struct skything18 sp4b4[5];
+//	struct skything18 sp43c[5];
+//	f32 tmp;
+//	f32 scale;
+//	bool sp430;
+//	struct environment *env; // 42c
+//
+//	sp430 = false;
+//	env = envGetCurrent();
+//
+//	// f9c0
+//	if (!env->clouds_enabled || g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
+//		if (PLAYERCOUNT() == 1) {
+//			gDPSetCycleType(gdl++, G_CYC_FILL);
+//
+//			if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
+//				gdl = viSetFillColour(gdl, 0, 0, 0);
+//			} else {
+//				gdl = viSetFillColour(gdl, env->sky_r, env->sky_g, env->sky_b);
+//			}
+//
+//			gDPFillRectangle(gdl++, viGetViewLeft(), viGetViewTop(),
+//					viGetViewLeft() + viGetViewWidth() - 1,
+//					viGetViewTop() + viGetViewHeight() - 1);
+//
+//			gDPPipeSync(gdl++);
+//			return gdl;
+//		}
+//
+//		gDPPipeSync(gdl++);
+//		gDPSetCycleType(gdl++, G_CYC_FILL);
+//
+//		if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
+//			gdl = viSetFillColour(gdl, 0, 0, 0);
+//		} else {
+//			gdl = viSetFillColour(gdl, env->sky_r, env->sky_g, env->sky_b);
+//		}
+//
+//		gDPSetRenderMode(gdl++, G_RM_NOOP, G_RM_NOOP2);
+//
+//		gDPFillRectangle(gdl++,
+//				g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop,
+//				g_Vars.currentplayer->viewleft + g_Vars.currentplayer->viewwidth - 1,
+//				g_Vars.currentplayer->viewtop + g_Vars.currentplayer->viewheight - 1);
+//
+//		gDPPipeSync(gdl++);
+//		return gdl;
+//	}
+//
+//	// fc90
+//	gdl = viSetFillColour(gdl, env->sky_r, env->sky_g, env->sky_b);
+//
+//	if (&sp6a4);
+//
+//	sky0f11f000(0.0f, 0.0f, &sp6a4);
+//	sky0f11f000(camGetScreenWidth() - 0.1f, 0.0f, &sp698);
+//	sky0f11f000(0.0f, camGetScreenHeight() - 0.1f, &sp68c);
+//	sky0f11f000(camGetScreenWidth() - 0.1f, camGetScreenHeight() - 0.1f, &sp680);
+//
+//	sp538 = sky0f11f07c(&sp6a4, &sp644, &sp58c);
+//	sp534 = sky0f11f07c(&sp698, &sp638, &sp588);
+//	sp530 = sky0f11f07c(&sp68c, &sp62c, &sp584);
+//	sp52c = sky0f11f07c(&sp680, &sp620, &sp580);
+//
+//	sky0f11f1fc(&sp6a4, &sp5e4, &sp56c);
+//	sky0f11f1fc(&sp698, &sp5d8, &sp568);
+//	sky0f11f1fc(&sp68c, &sp5cc, &sp564);
+//	sky0f11f1fc(&sp680, &sp5c0, &sp560);
+//
+//	if (sp538 != sp530) {
+//		sp54c = camGetScreenTop() + camGetScreenHeight() * (sp6a4.f[1] / (sp6a4.f[1] - sp68c.f[1]));
+//
+//		sky0f11f000(0.0f, sp54c, &sp65c);
+//		sky0f11f384(&sp6a4, &sp68c, &sp65c);
+//		sky0f11f07c(&sp65c, &sp5fc, &sp574);
+//		sky0f11f1fc(&sp65c, &sp59c, &sp554);
+//	} else {
+//		sp54c = 0.0f;
+//	}
+//
+//	if (sp534 != sp52c) {
+//		sp548 = camGetScreenTop() + camGetScreenHeight() * (sp698.f[1] / (sp698.f[1] - sp680.f[1]));
+//
+//		sky0f11f000(camGetScreenWidth() - 0.1f, sp548, &sp650);
+//		sky0f11f384(&sp698, &sp680, &sp650);
+//		sky0f11f07c(&sp650, &sp5f0, &sp570);
+//		sky0f11f1fc(&sp650, &sp590, &sp550);
+//	} else {
+//		sp548 = 0.0f;
+//	}
+//
+//	if (sp538 != sp534) {
+//		sky0f11f000(camGetScreenLeft() + camGetScreenWidth() * (sp6a4.f[1] / (sp6a4.f[1] - sp698.f[1])), 0.0f, &sp674);
+//		sky0f11f384(&sp6a4, &sp698, &sp674);
+//		sky0f11f07c(&sp674, &sp614, &sp57c);
+//		sky0f11f1fc(&sp674, &sp5b4, &sp55c);
+//	}
+//
+//	if (sp530 != sp52c) {
+//		tmp = camGetScreenLeft() + camGetScreenWidth() * (sp68c.f[1] / (sp68c.f[1] - sp680.f[1]));
+//
+//		sky0f11f000(tmp, camGetScreenHeight() - 0.1f, &sp668);
+//		sky0f11f384(&sp68c, &sp680, &sp668);
+//		sky0f11f07c(&sp668, &sp608, &sp578);
+//		sky0f11f1fc(&sp668, &sp5a8, &sp558);
+//	}
+//
+//	// 000c
+//	switch ((sp538 << 3) | (sp534 << 2) | (sp530 << 1) | sp52c) {
+//	case 15:
+//		s1 = 0;
+//		scale = 0.033333335f;
+//		break;
+//	case 0:
+//		s1 = 4;
+//		scale = 0.033333335f;
+//		sp43c[0].unk00 = sp5e4.x * scale;
+//		sp43c[0].unk04 = sp5e4.y * scale;
+//		sp43c[0].unk08 = sp5e4.z * scale;
+//		sp43c[1].unk00 = sp5d8.x * scale;
+//		sp43c[1].unk04 = sp5d8.y * scale;
+//		sp43c[1].unk08 = sp5d8.z * scale;
+//		sp43c[2].unk00 = sp5cc.x * scale;
+//		sp43c[2].unk04 = sp5cc.y * scale;
+//		sp43c[2].unk08 = sp5cc.z * scale;
+//		sp43c[3].unk00 = sp5c0.x * scale;
+//		sp43c[3].unk04 = sp5c0.y * scale;
+//		sp43c[3].unk08 = sp5c0.z * scale;
+//		sp43c[0].unk0c = sp5e4.x;
+//		sp43c[1].unk0c = sp5d8.x;
+//		sp43c[2].unk0c = sp5cc.x;
+//		sp43c[3].unk0c = sp5c0.x;
+//		sp43c[0].unk10 = sp5e4.z + g_SkyCloudOffset;
+//		sp43c[1].unk10 = sp5d8.z + g_SkyCloudOffset;
+//		sp43c[2].unk10 = sp5cc.z + g_SkyCloudOffset;
+//		sp43c[3].unk10 = sp5c0.z + g_SkyCloudOffset;
+//
+//		sky0f11f6ec(&sp43c[0], sp56c);
+//		sky0f11f6ec(&sp43c[1], sp568);
+//		sky0f11f6ec(&sp43c[2], sp564);
+//		sky0f11f6ec(&sp43c[3], sp560);
+//		break;
+//	case 3: // 0130
+//		s1 = 4;
+//		scale = 0.033333335f;
+//		sp43c[0].unk00 = sp5e4.x * scale;
+//		sp43c[0].unk04 = sp5e4.y * scale;
+//		sp43c[0].unk08 = sp5e4.z * scale;
+//		sp43c[1].unk00 = sp5d8.x * scale;
+//		sp43c[1].unk04 = sp5d8.y * scale;
+//		sp43c[1].unk08 = sp5d8.z * scale;
+//		sp43c[2].unk00 = sp59c.x * scale;
+//		sp43c[2].unk04 = sp59c.y * scale;
+//		sp43c[2].unk08 = sp59c.z * scale;
+//		sp43c[3].unk00 = sp590.x * scale;
+//		sp43c[3].unk04 = sp590.y * scale;
+//		sp43c[3].unk08 = sp590.z * scale;
+//		sp43c[0].unk0c = sp5e4.x;
+//		sp43c[1].unk0c = sp5d8.x;
+//		sp43c[2].unk0c = sp59c.x;
+//		sp43c[3].unk0c = sp590.x;
+//		sp43c[0].unk10 = sp5e4.z + g_SkyCloudOffset;
+//		sp43c[1].unk10 = sp5d8.z + g_SkyCloudOffset;
+//		sp43c[2].unk10 = sp59c.z + g_SkyCloudOffset;
+//		sp43c[3].unk10 = sp590.z + g_SkyCloudOffset;
+//
+//		sky0f11f6ec(&sp43c[0], sp56c);
+//		sky0f11f6ec(&sp43c[1], sp568);
+//		sky0f11f6ec(&sp43c[2], sp554);
+//		sky0f11f6ec(&sp43c[3], sp550);
+//		break;
+//	case 12:
+//		s1 = 4;
+//		sp430 = true;
+//		scale = 0.033333335f;
+//		sp43c[0].unk00 = sp5c0.x * scale;
+//		sp43c[0].unk04 = sp5c0.y * scale;
+//		sp43c[0].unk08 = sp5c0.z * scale;
+//		sp43c[1].unk00 = sp5cc.x * scale;
+//		sp43c[1].unk04 = sp5cc.y * scale;
+//		sp43c[1].unk08 = sp5cc.z * scale;
+//		sp43c[2].unk00 = sp590.x * scale;
+//		sp43c[2].unk04 = sp590.y * scale;
+//		sp43c[2].unk08 = sp590.z * scale;
+//		sp43c[3].unk00 = sp59c.x * scale;
+//		sp43c[3].unk04 = sp59c.y * scale;
+//		sp43c[3].unk08 = sp59c.z * scale;
+//		sp43c[0].unk0c = sp5c0.x;
+//		sp43c[1].unk0c = sp5cc.x;
+//		sp43c[2].unk0c = sp590.x;
+//		sp43c[3].unk0c = sp59c.x;
+//		sp43c[0].unk10 = sp5c0.z + g_SkyCloudOffset;
+//		sp43c[1].unk10 = sp5cc.z + g_SkyCloudOffset;
+//		sp43c[2].unk10 = sp590.z + g_SkyCloudOffset;
+//		sp43c[3].unk10 = sp59c.z + g_SkyCloudOffset;
+//
+//		sky0f11f6ec(&sp43c[0], sp560);
+//		sky0f11f6ec(&sp43c[1], sp564);
+//		sky0f11f6ec(&sp43c[2], sp550);
+//		sky0f11f6ec(&sp43c[3], sp554);
+//		break;
+//	case 10:
+//		s1 = 4;
+//		scale = 0.033333335f;
+//		sp43c[0].unk00 = sp5d8.x * scale;
+//		sp43c[0].unk04 = sp5d8.y * scale;
+//		sp43c[0].unk08 = sp5d8.z * scale;
+//		sp43c[1].unk00 = sp5c0.x * scale;
+//		sp43c[1].unk04 = sp5c0.y * scale;
+//		sp43c[1].unk08 = sp5c0.z * scale;
+//		sp43c[2].unk00 = sp5b4.x * scale;
+//		sp43c[2].unk04 = sp5b4.y * scale;
+//		sp43c[2].unk08 = sp5b4.z * scale;
+//		sp43c[3].unk00 = sp5a8.x * scale;
+//		sp43c[3].unk04 = sp5a8.y * scale;
+//		sp43c[3].unk08 = sp5a8.z * scale;
+//		sp43c[0].unk10 = sp5d8.z + g_SkyCloudOffset;
+//		sp43c[1].unk10 = sp5c0.z + g_SkyCloudOffset;
+//		sp43c[2].unk10 = sp5b4.z + g_SkyCloudOffset;
+//		sp43c[3].unk10 = sp5a8.z + g_SkyCloudOffset;
+//		sp43c[0].unk0c = sp5d8.x;
+//		sp43c[1].unk0c = sp5c0.x;
+//		sp43c[2].unk0c = sp5b4.x;
+//		sp43c[3].unk0c = sp5a8.x;
+//
+//		sky0f11f6ec(&sp43c[0], sp568);
+//		sky0f11f6ec(&sp43c[1], sp560);
+//		sky0f11f6ec(&sp43c[2], sp55c);
+//		sky0f11f6ec(&sp43c[3], sp558);
+//		break;
+//	case 5: // 045c
+//		s1 = 4;
+//		scale = 0.033333335f;
+//		sp43c[0].unk00 = sp5cc.x * scale;
+//		sp43c[0].unk04 = sp5cc.y * scale;
+//		sp43c[0].unk08 = sp5cc.z * scale;
+//		sp43c[1].unk00 = sp5e4.x * scale;
+//		sp43c[1].unk04 = sp5e4.y * scale;
+//		sp43c[1].unk08 = sp5e4.z * scale;
+//		sp43c[2].unk00 = sp5a8.x * scale;
+//		sp43c[2].unk04 = sp5a8.y * scale;
+//		sp43c[2].unk08 = sp5a8.z * scale;
+//		sp43c[3].unk00 = sp5b4.x * scale;
+//		sp43c[3].unk04 = sp5b4.y * scale;
+//		sp43c[3].unk08 = sp5b4.z * scale;
+//		sp43c[0].unk0c = sp5cc.x;
+//		sp43c[1].unk0c = sp5e4.x;
+//		sp43c[2].unk0c = sp5a8.x;
+//		sp43c[3].unk0c = sp5b4.x;
+//		sp43c[0].unk10 = sp5cc.z + g_SkyCloudOffset;
+//		sp43c[1].unk10 = sp5e4.z + g_SkyCloudOffset;
+//		sp43c[2].unk10 = sp5a8.z + g_SkyCloudOffset;
+//		sp43c[3].unk10 = sp5b4.z + g_SkyCloudOffset;
+//
+//		sky0f11f6ec(&sp43c[0], sp564);
+//		sky0f11f6ec(&sp43c[1], sp56c);
+//		sky0f11f6ec(&sp43c[2], sp558);
+//		sky0f11f6ec(&sp43c[3], sp55c);
+//		break;
+//	case 14:
+//		s1 = 3;
+//		scale = 0.033333335f;
+//		sp43c[0].unk00 = sp5c0.x * scale;
+//		sp43c[0].unk04 = sp5c0.y * scale;
+//		sp43c[0].unk08 = sp5c0.z * scale;
+//		sp43c[1].unk00 = sp5a8.x * scale;
+//		sp43c[1].unk04 = sp5a8.y * scale;
+//		sp43c[1].unk08 = sp5a8.z * scale;
+//		sp43c[2].unk00 = sp590.x * scale;
+//		sp43c[2].unk04 = sp590.y * scale;
+//		sp43c[2].unk08 = sp590.z * scale;
+//		sp43c[0].unk10 = sp5c0.z + g_SkyCloudOffset;
+//		sp43c[1].unk10 = sp5a8.z + g_SkyCloudOffset;
+//		sp43c[2].unk10 = sp590.z + g_SkyCloudOffset;
+//		sp43c[0].unk0c = sp5c0.x;
+//		sp43c[1].unk0c = sp5a8.x;
+//		sp43c[2].unk0c = sp590.x;
+//
+//		sky0f11f6ec(&sp43c[0], sp560);
+//		sky0f11f6ec(&sp43c[1], sp558);
+//		sky0f11f6ec(&sp43c[2], sp550);
+//		break;
+//	case 13:
+//		s1 = 3;
+//		scale = 0.033333335f;
+//		sp43c[0].unk00 = sp5cc.x * scale;
+//		sp43c[0].unk04 = sp5cc.y * scale;
+//		sp43c[0].unk08 = sp5cc.z * scale;
+//		sp43c[1].unk00 = sp59c.x * scale;
+//		sp43c[1].unk04 = sp59c.y * scale;
+//		sp43c[1].unk08 = sp59c.z * scale;
+//		sp43c[2].unk00 = sp5a8.x * scale;
+//		sp43c[2].unk04 = sp5a8.y * scale;
+//		sp43c[2].unk08 = sp5a8.z * scale;
+//		sp43c[0].unk10 = sp5cc.z + g_SkyCloudOffset;
+//		sp43c[1].unk10 = sp59c.z + g_SkyCloudOffset;
+//		sp43c[2].unk10 = sp5a8.z + g_SkyCloudOffset;
+//		sp43c[0].unk0c = sp5cc.x;
+//		sp43c[1].unk0c = sp59c.x;
+//		sp43c[2].unk0c = sp5a8.x;
+//
+//		sky0f11f6ec(&sp43c[0], sp564);
+//		sky0f11f6ec(&sp43c[1], sp554);
+//		sky0f11f6ec(&sp43c[2], sp558);
+//		break;
+//	case 11:
+//		s1 = 3;
+//		scale = 0.033333335f;
+//		sp43c[0].unk00 = sp5d8.x * scale;
+//		sp43c[0].unk04 = sp5d8.y * scale;
+//		sp43c[0].unk08 = sp5d8.z * scale;
+//		sp43c[1].unk00 = sp590.x * scale;
+//		sp43c[1].unk04 = sp590.y * scale;
+//		sp43c[1].unk08 = sp590.z * scale;
+//		sp43c[2].unk00 = sp5b4.x * scale;
+//		sp43c[2].unk04 = sp5b4.y * scale;
+//		sp43c[2].unk08 = sp5b4.z * scale;
+//		sp43c[0].unk10 = sp5d8.z + g_SkyCloudOffset;
+//		sp43c[1].unk10 = sp590.z + g_SkyCloudOffset;
+//		sp43c[2].unk10 = sp5b4.z + g_SkyCloudOffset;
+//		sp43c[0].unk0c = sp5d8.x;
+//		sp43c[1].unk0c = sp590.x;
+//		sp43c[2].unk0c = sp5b4.x;
+//
+//		sky0f11f6ec(&sp43c[0], sp568);
+//		sky0f11f6ec(&sp43c[1], sp550);
+//		sky0f11f6ec(&sp43c[2], sp55c);
+//		break;
+//	case 7:
+//		s1 = 3;
+//		scale = 0.033333335f;
+//		sp43c[0].unk00 = sp5e4.x * scale;
+//		sp43c[0].unk04 = sp5e4.y * scale;
+//		sp43c[0].unk08 = sp5e4.z * scale;
+//		sp43c[1].unk00 = sp5b4.x * scale;
+//		sp43c[1].unk04 = sp5b4.y * scale;
+//		sp43c[1].unk08 = sp5b4.z * scale;
+//		sp43c[2].unk00 = sp59c.x * scale;
+//		sp43c[2].unk04 = sp59c.y * scale;
+//		sp43c[2].unk08 = sp59c.z * scale;
+//		sp43c[0].unk10 = sp5e4.z + g_SkyCloudOffset;
+//		sp43c[1].unk10 = sp5b4.z + g_SkyCloudOffset;
+//		sp43c[2].unk10 = sp59c.z + g_SkyCloudOffset;
+//		sp43c[0].unk0c = sp5e4.x;
+//		sp43c[1].unk0c = sp5b4.x;
+//		sp43c[2].unk0c = sp59c.x;
+//
+//		sky0f11f6ec(&sp43c[0], sp56c);
+//		sky0f11f6ec(&sp43c[1], sp55c);
+//		sky0f11f6ec(&sp43c[2], sp554);
+//		break;
+//	case 1: // 08a8
+//		s1 = 5;
+//		scale = 0.033333335f;
+//		sp43c[0].unk00 = sp5cc.x * scale;
+//		sp43c[0].unk04 = sp5cc.y * scale;
+//		sp43c[0].unk08 = sp5cc.z * scale;
+//		sp43c[1].unk00 = sp5e4.x * scale;
+//		sp43c[1].unk04 = sp5e4.y * scale;
+//		sp43c[1].unk08 = sp5e4.z * scale;
+//		sp43c[2].unk00 = sp5d8.x * scale;
+//		sp43c[2].unk04 = sp5d8.y * scale;
+//		sp43c[2].unk08 = sp5d8.z * scale;
+//		sp43c[3].unk00 = sp590.x * scale;
+//		sp43c[3].unk04 = sp590.y * scale;
+//		sp43c[3].unk08 = sp590.z * scale;
+//		sp43c[4].unk00 = sp5a8.x * scale;
+//		sp43c[4].unk04 = sp5a8.y * scale;
+//		sp43c[4].unk08 = sp5a8.z * scale;
+//		sp43c[0].unk0c = sp5cc.x;
+//		sp43c[0].unk10 = sp5cc.z + g_SkyCloudOffset;
+//		sp43c[1].unk0c = sp5e4.x;
+//		sp43c[1].unk10 = sp5e4.z + g_SkyCloudOffset;
+//		sp43c[2].unk0c = sp5d8.x;
+//		sp43c[2].unk10 = sp5d8.z + g_SkyCloudOffset;
+//		sp43c[3].unk0c = sp590.x;
+//		sp43c[3].unk10 = sp590.z + g_SkyCloudOffset;
+//		sp43c[4].unk0c = sp5a8.x;
+//		sp43c[4].unk10 = sp5a8.z + g_SkyCloudOffset;
+//
+//		sky0f11f6ec(&sp43c[0], sp564);
+//		sky0f11f6ec(&sp43c[1], sp56c);
+//		sky0f11f6ec(&sp43c[2], sp568);
+//		sky0f11f6ec(&sp43c[3], sp550);
+//		sky0f11f6ec(&sp43c[4], sp558);
+//		break;
+//	case 2: // 09f8
+//		s1 = 5;
+//		scale = 0.033333335f;
+//		sp43c[0].unk00 = sp5e4.x * scale;
+//		sp43c[0].unk04 = sp5e4.y * scale;
+//		sp43c[0].unk08 = sp5e4.z * scale;
+//		sp43c[1].unk00 = sp5d8.x * scale;
+//		sp43c[1].unk04 = sp5d8.y * scale;
+//		sp43c[1].unk08 = sp5d8.z * scale;
+//		sp43c[2].unk00 = sp5c0.x * scale;
+//		sp43c[2].unk04 = sp5c0.y * scale;
+//		sp43c[2].unk08 = sp5c0.z * scale;
+//		sp43c[3].unk00 = sp5a8.x * scale;
+//		sp43c[3].unk04 = sp5a8.y * scale;
+//		sp43c[3].unk08 = sp5a8.z * scale;
+//		sp43c[4].unk00 = sp59c.x * scale;
+//		sp43c[4].unk04 = sp59c.y * scale;
+//		sp43c[4].unk08 = sp59c.z * scale;
+//		sp43c[0].unk0c = sp5e4.x;
+//		sp43c[0].unk10 = sp5e4.z + g_SkyCloudOffset;
+//		sp43c[1].unk0c = sp5d8.x;
+//		sp43c[1].unk10 = sp5d8.z + g_SkyCloudOffset;
+//		sp43c[2].unk0c = sp5c0.x;
+//		sp43c[2].unk10 = sp5c0.z + g_SkyCloudOffset;
+//		sp43c[3].unk0c = sp5a8.x;
+//		sp43c[3].unk10 = sp5a8.z + g_SkyCloudOffset;
+//		sp43c[4].unk0c = sp59c.x;
+//		sp43c[4].unk10 = sp59c.z + g_SkyCloudOffset;
+//
+//		sky0f11f6ec(&sp43c[0], sp56c);
+//		sky0f11f6ec(&sp43c[1], sp568);
+//		sky0f11f6ec(&sp43c[2], sp560);
+//		sky0f11f6ec(&sp43c[3], sp558);
+//		sky0f11f6ec(&sp43c[4], sp554);
+//		break;
+//	case 4: // 0b48
+//		s1 = 5;
+//		scale = 0.033333335f;
+//		sp43c[0].unk00 = sp5c0.x * scale;
+//		sp43c[0].unk04 = sp5c0.y * scale;
+//		sp43c[0].unk08 = sp5c0.z * scale;
+//		sp43c[1].unk00 = sp5cc.x * scale;
+//		sp43c[1].unk04 = sp5cc.y * scale;
+//		sp43c[1].unk08 = sp5cc.z * scale;
+//		sp43c[2].unk00 = sp5e4.x * scale;
+//		sp43c[2].unk04 = sp5e4.y * scale;
+//		sp43c[2].unk08 = sp5e4.z * scale;
+//		sp43c[3].unk00 = sp5b4.x * scale;
+//		sp43c[3].unk04 = sp5b4.y * scale;
+//		sp43c[3].unk08 = sp5b4.z * scale;
+//		sp43c[4].unk00 = sp590.x * scale;
+//		sp43c[4].unk04 = sp590.y * scale;
+//		sp43c[4].unk08 = sp590.z * scale;
+//		sp43c[0].unk10 = sp5c0.z + g_SkyCloudOffset; // 44c
+//		sp43c[1].unk10 = sp5cc.z + g_SkyCloudOffset; // 464
+//		sp43c[2].unk10 = sp5e4.z + g_SkyCloudOffset; // 47c
+//		sp43c[3].unk10 = sp5b4.z + g_SkyCloudOffset; // 494
+//		sp43c[4].unk10 = sp590.z + g_SkyCloudOffset; // 4ac
+//		sp43c[0].unk0c = sp5c0.x; // 448
+//		sp43c[1].unk0c = sp5cc.x; // 460
+//		sp43c[2].unk0c = sp5e4.x; // 478
+//		sp43c[3].unk0c = sp5b4.x; // 490
+//		sp43c[4].unk0c = sp590.x; // 4a8
+//
+//		sky0f11f6ec(&sp43c[0], sp560);
+//		sky0f11f6ec(&sp43c[1], sp564);
+//		sky0f11f6ec(&sp43c[2], sp56c);
+//		sky0f11f6ec(&sp43c[3], sp55c);
+//		sky0f11f6ec(&sp43c[4], sp550);
+//		break;
+//	case 8: // 0c98
+//		s1 = 5;
+//		scale = 0.033333335f;
+//		sp43c[0].unk00 = sp5d8.x * scale;
+//		sp43c[0].unk04 = sp5d8.y * scale;
+//		sp43c[0].unk08 = sp5d8.z * scale;
+//		sp43c[1].unk00 = sp5c0.x * scale;
+//		sp43c[1].unk04 = sp5c0.y * scale;
+//		sp43c[1].unk08 = sp5c0.z * scale;
+//		sp43c[2].unk00 = sp5cc.x * scale;
+//		sp43c[2].unk04 = sp5cc.y * scale;
+//		sp43c[2].unk08 = sp5cc.z * scale;
+//		sp43c[3].unk00 = sp59c.x * scale;
+//		sp43c[3].unk04 = sp59c.y * scale;
+//		sp43c[3].unk08 = sp59c.z * scale;
+//		sp43c[4].unk00 = sp5b4.x * scale;
+//		sp43c[4].unk04 = sp5b4.y * scale;
+//		sp43c[4].unk08 = sp5b4.z * scale;
+//		sp43c[0].unk10 = sp5d8.z + g_SkyCloudOffset;
+//		sp43c[1].unk10 = sp5c0.z + g_SkyCloudOffset;
+//		sp43c[2].unk10 = sp5cc.z + g_SkyCloudOffset;
+//		sp43c[3].unk10 = sp59c.z + g_SkyCloudOffset;
+//		sp43c[4].unk10 = sp5b4.z + g_SkyCloudOffset;
+//		sp43c[0].unk0c = sp5d8.x;
+//		sp43c[1].unk0c = sp5c0.x;
+//		sp43c[2].unk0c = sp5cc.x;
+//		sp43c[3].unk0c = sp59c.x;
+//		sp43c[4].unk0c = sp5b4.x;
+//
+//		sky0f11f6ec(&sp43c[0], sp568);
+//		sky0f11f6ec(&sp43c[1], sp560);
+//		sky0f11f6ec(&sp43c[2], sp564);
+//		sky0f11f6ec(&sp43c[3], sp554);
+//		sky0f11f6ec(&sp43c[4], sp55c);
+//		break;
+//	default:
+//		return gdl;
+//	}
+//
+//	// 0df0
+//	if (s1 > 0) {
+//		Mtxf sp3cc;
+//		Mtxf sp38c;
+//		struct skything38 sp274[5];
+//		s32 i; // 270
+//
+//		mtx4MultMtx4(camGetUnk1754(), camGetMatrix1740(), &sp3cc);
+//		guScaleF(var800a33a8.m, 1.0f / scale, 1.0f / scale, 1.0f / scale);
+//		mtx4MultMtx4(&sp3cc, &var800a33a8, &sp38c);
+//
+//		for (i = 0; i < s1; i++) {
+//			sky0f1228d0(&sp43c[i], &sp38c, 130, 65535.0f, 65535.0f, &sp274[i]);
+//
+//			sp274[i].unk28 = skyClamp(sp274[i].unk28, camGetScreenLeft() * 4.0f, (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f);
+//			sp274[i].unk2c = skyClamp(sp274[i].unk2c, camGetScreenTop() * 4.0f, (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 1.0f);
+//
+//			if (sp274[i].unk2c > camGetScreenTop() * 4.0f + 4.0f
+//					&& sp274[i].unk2c < (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 4.0f) {
+//				sp274[i].unk2c -= 4.0f;
+//			}
+//		}
+//
+//		if (!env->water_enabled) {
+//			f32 f14 = 1279.0f;
+//			f32 f16 = 959.0f;
+//			f32 f2 = 0.0f;
+//			f32 f12 = 0.0f;
+//
+//			for (j = 0; j < s1; j++) {
+//				if (sp274[j].unk28 < f14) {
+//					f14 = sp274[j].unk28;
+//				}
+//
+//				if (sp274[j].unk28 > f2) {
+//					f2 = sp274[j].unk28;
+//				}
+//
+//				if (sp274[j].unk2c < f16) {
+//					f16 = sp274[j].unk2c;
+//				}
+//
+//				if (sp274[j].unk2c > f12) {
+//					f12 = sp274[j].unk2c;
+//				}
+//			}
+//
+//			gDPPipeSync(gdl++);
+//			gDPSetCycleType(gdl++, G_CYC_FILL);
+//			gDPSetRenderMode(gdl++, G_RM_NOOP, G_RM_NOOP2);
+//			gDPSetTexturePersp(gdl++, G_TP_NONE);
+//			gDPFillRectangle(gdl++, (s32)(f14 * 0.25f), (s32)(f16 * 0.25f), (s32)(f2 * 0.25f), (s32)(f12 * 0.25f));
+//			gDPPipeSync(gdl++);
+//			gDPSetTexturePersp(gdl++, G_TP_PERSP);
+//		} else {
+//			gDPPipeSync(gdl++);
+//
+//			tex0f0b39c0(&gdl, &g_TexWaterConfigs[env->water_type], 1, 0, 2, 1, NULL);
+//
+//			gDPSetRenderMode(gdl++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
+//
+//			if (s1 == 4) {
+//				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[1], &sp274[3], 130.0f, true);
+//
+//				if (sp430) {
+//					sp274[0].unk2c++;
+//					sp274[1].unk2c++;
+//					sp274[2].unk2c++;
+//					sp274[3].unk2c++;
+//				}
+//
+//				gdl = sky0f122d4c(gdl, &sp274[3], &sp274[2], &sp274[0], 130.0f, true);
+//			} else if (s1 == 5) {
+//				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[1], &sp274[2], 130.0f, true);
+//				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[2], &sp274[3], 130.0f, true);
+//				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[3], &sp274[4], 130.0f, true);
+//			} else if (s1 == 3) {
+//				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[1], &sp274[2], 130.0f, true);
+//			}
+//		}
+//	}
+//
+//	// 1364
+//	switch ((sp538 << 3) | (sp534 << 2) | (sp530 << 1) | sp52c) {
+//	case 0:
+//		return gdl;
+//	case 15:
+//		s1 = 4;
+//		sp4b4[0].unk00 = sp644.x * scale;
+//		sp4b4[0].unk04 = sp644.y * scale;
+//		sp4b4[0].unk08 = sp644.z * scale;
+//		sp4b4[1].unk00 = sp638.x * scale;
+//		sp4b4[1].unk04 = sp638.y * scale;
+//		sp4b4[1].unk08 = sp638.z * scale;
+//		sp4b4[2].unk00 = sp62c.x * scale;
+//		sp4b4[2].unk04 = sp62c.y * scale;
+//		sp4b4[2].unk08 = sp62c.z * scale;
+//		sp4b4[3].unk00 = sp620.x * scale;
+//		sp4b4[3].unk04 = sp620.y * scale;
+//		sp4b4[3].unk08 = sp620.z * scale;
+//		sp4b4[0].unk0c = sp644.x * 0.1f;
+//		sp4b4[0].unk10 = sp644.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[1].unk0c = sp638.x * 0.1f;
+//		sp4b4[1].unk10 = sp638.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[2].unk0c = sp62c.x * 0.1f;
+//		sp4b4[2].unk10 = sp62c.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[3].unk0c = sp620.x * 0.1f;
+//		sp4b4[3].unk10 = sp620.z * 0.1f + g_SkyCloudOffset;
+//
+//		sky0f11f438(&sp4b4[0], sp58c);
+//		sky0f11f438(&sp4b4[1], sp588);
+//		sky0f11f438(&sp4b4[2], sp584);
+//		sky0f11f438(&sp4b4[3], sp580);
+//		break;
+//	case 12: // 14b0
+//		s1 = 4;
+//		sp4b4[0].unk00 = sp644.x * scale;
+//		sp4b4[0].unk04 = sp644.y * scale;
+//		sp4b4[0].unk08 = sp644.z * scale;
+//		sp4b4[1].unk00 = sp638.x * scale;
+//		sp4b4[1].unk04 = sp638.y * scale;
+//		sp4b4[1].unk08 = sp638.z * scale;
+//		sp4b4[2].unk00 = sp5fc.x * scale;
+//		sp4b4[2].unk04 = sp5fc.y * scale;
+//		sp4b4[2].unk08 = sp5fc.z * scale;
+//		sp4b4[3].unk00 = sp5f0.x * scale;
+//		sp4b4[3].unk04 = sp5f0.y * scale;
+//		sp4b4[3].unk08 = sp5f0.z * scale;
+//		sp4b4[0].unk0c = sp644.x * 0.1f;
+//		sp4b4[0].unk10 = sp644.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[1].unk0c = sp638.x * 0.1f;
+//		sp4b4[1].unk10 = sp638.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[2].unk0c = sp5fc.x * 0.1f;
+//		sp4b4[2].unk10 = sp5fc.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[3].unk0c = sp5f0.x * 0.1f;
+//		sp4b4[3].unk10 = sp5f0.z * 0.1f + g_SkyCloudOffset;
+//
+//		sky0f11f438(&sp4b4[0], sp58c);
+//		sky0f11f438(&sp4b4[1], sp588);
+//		sky0f11f438(&sp4b4[2], sp574);
+//		sky0f11f438(&sp4b4[3], sp570);
+//		break;
+//	case 3: // 15ec
+//		s1 = 4;
+//		sp4b4[0].unk00 = sp620.x * scale;
+//		sp4b4[0].unk04 = sp620.y * scale;
+//		sp4b4[0].unk08 = sp620.z * scale;
+//		sp4b4[1].unk00 = sp62c.x * scale;
+//		sp4b4[1].unk04 = sp62c.y * scale;
+//		sp4b4[1].unk08 = sp62c.z * scale;
+//		sp4b4[2].unk00 = sp5f0.x * scale;
+//		sp4b4[2].unk04 = sp5f0.y * scale;
+//		sp4b4[2].unk08 = sp5f0.z * scale;
+//		sp4b4[3].unk00 = sp5fc.x * scale;
+//		sp4b4[3].unk04 = sp5fc.y * scale;
+//		sp4b4[3].unk08 = sp5fc.z * scale;
+//		sp4b4[0].unk0c = sp620.x * 0.1f;
+//		sp4b4[0].unk10 = sp620.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[1].unk0c = sp62c.x * 0.1f;
+//		sp4b4[1].unk10 = sp62c.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[2].unk0c = sp5f0.x * 0.1f;
+//		sp4b4[2].unk10 = sp5f0.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[3].unk0c = sp5fc.x * 0.1f;
+//		sp4b4[3].unk10 = sp5fc.z * 0.1f + g_SkyCloudOffset;
+//
+//		sky0f11f438(&sp4b4[0], sp580);
+//		sky0f11f438(&sp4b4[1], sp584);
+//		sky0f11f438(&sp4b4[2], sp570);
+//		sky0f11f438(&sp4b4[3], sp574);
+//		break;
+//	case 5: // 1724
+//		s1 = 4;
+//		sp4b4[0].unk00 = sp638.x * scale;
+//		sp4b4[1].unk00 = sp620.x * scale;
+//		sp4b4[2].unk00 = sp614.x * scale;
+//		sp4b4[3].unk00 = sp608.x * scale;
+//		sp4b4[0].unk04 = sp638.y * scale;
+//		sp4b4[1].unk04 = sp620.y * scale;
+//		sp4b4[2].unk04 = sp614.y * scale;
+//		sp4b4[3].unk04 = sp608.y * scale;
+//		sp4b4[0].unk08 = sp638.z * scale;
+//		sp4b4[1].unk08 = sp620.z * scale;
+//		sp4b4[2].unk08 = sp614.z * scale;
+//		sp4b4[3].unk08 = sp608.z * scale;
+//		sp4b4[0].unk0c = sp638.x * 0.1f;
+//		sp4b4[1].unk0c = sp620.x * 0.1f;
+//		sp4b4[2].unk0c = sp614.x * 0.1f;
+//		sp4b4[3].unk0c = sp608.x * 0.1f;
+//		sp4b4[0].unk10 = sp638.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[1].unk10 = sp620.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[2].unk10 = sp614.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[3].unk10 = sp608.z * 0.1f + g_SkyCloudOffset;
+//
+//		sky0f11f438(&sp4b4[0], sp588);
+//		sky0f11f438(&sp4b4[1], sp580);
+//		sky0f11f438(&sp4b4[2], sp57c);
+//		sky0f11f438(&sp4b4[3], sp578);
+//		break;
+//	case 10:
+//		s1 = 4;
+//		sp4b4[0].unk00 = sp62c.x * scale;
+//		sp4b4[0].unk04 = sp62c.y * scale;
+//		sp4b4[0].unk08 = sp62c.z * scale;
+//		sp4b4[1].unk00 = sp644.x * scale;
+//		sp4b4[1].unk04 = sp644.y * scale;
+//		sp4b4[1].unk08 = sp644.z * scale;
+//		sp4b4[2].unk00 = sp608.x * scale;
+//		sp4b4[2].unk04 = sp608.y * scale;
+//		sp4b4[2].unk08 = sp608.z * scale;
+//		sp4b4[3].unk00 = sp614.x * scale;
+//		sp4b4[3].unk04 = sp614.y * scale;
+//		sp4b4[3].unk08 = sp614.z * scale;
+//		sp4b4[0].unk10 = sp62c.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[1].unk10 = sp644.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[2].unk10 = sp608.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[3].unk10 = sp614.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[0].unk0c = sp62c.x * 0.1f;
+//		sp4b4[1].unk0c = sp644.x * 0.1f;
+//		sp4b4[2].unk0c = sp608.x * 0.1f;
+//		sp4b4[3].unk0c = sp614.x * 0.1f;
+//
+//		sky0f11f438(&sp4b4[0], sp584);
+//		sky0f11f438(&sp4b4[1], sp58c);
+//		sky0f11f438(&sp4b4[2], sp578);
+//		sky0f11f438(&sp4b4[3], sp57c);
+//		break;
+//	case 1:
+//		s1 = 3;
+//		sp4b4[0].unk00 = sp620.x * scale;
+//		sp4b4[0].unk04 = sp620.y * scale;
+//		sp4b4[0].unk08 = sp620.z * scale;
+//		sp4b4[1].unk00 = sp608.x * scale;
+//		sp4b4[1].unk04 = sp608.y * scale;
+//		sp4b4[1].unk08 = sp608.z * scale;
+//		sp4b4[2].unk00 = sp5f0.x * scale;
+//		sp4b4[2].unk04 = sp5f0.y * scale;
+//		sp4b4[2].unk08 = sp5f0.z * scale;
+//		sp4b4[0].unk10 = sp620.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[1].unk10 = sp608.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[2].unk10 = sp5f0.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[0].unk0c = sp620.x * 0.1f;
+//		sp4b4[1].unk0c = sp608.x * 0.1f;
+//		sp4b4[2].unk0c = sp5f0.x * 0.1f;
+//
+//		sky0f11f438(&sp4b4[0], sp580);
+//		sky0f11f438(&sp4b4[1], sp578);
+//		sky0f11f438(&sp4b4[2], sp570);
+//		break;
+//	case 2:
+//		s1 = 3;
+//		sp4b4[0].unk00 = sp62c.x * scale;
+//		sp4b4[0].unk04 = sp62c.y * scale;
+//		sp4b4[0].unk08 = sp62c.z * scale;
+//		sp4b4[1].unk00 = sp5fc.x * scale;
+//		sp4b4[1].unk04 = sp5fc.y * scale;
+//		sp4b4[1].unk08 = sp5fc.z * scale;
+//		sp4b4[2].unk00 = sp608.x * scale;
+//		sp4b4[2].unk04 = sp608.y * scale;
+//		sp4b4[2].unk08 = sp608.z * scale;
+//		sp4b4[0].unk10 = sp62c.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[1].unk10 = sp5fc.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[2].unk10 = sp608.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[0].unk0c = sp62c.x * 0.1f;
+//		sp4b4[1].unk0c = sp5fc.x * 0.1f;
+//		sp4b4[2].unk0c = sp608.x * 0.1f;
+//
+//		sky0f11f438(&sp4b4[0], sp584);
+//		sky0f11f438(&sp4b4[1], sp574);
+//		sky0f11f438(&sp4b4[2], sp578);
+//		break;
+//	case 4:
+//		s1 = 3;
+//		sp4b4[0].unk00 = sp638.x * scale;
+//		sp4b4[0].unk04 = sp638.y * scale;
+//		sp4b4[0].unk08 = sp638.z * scale;
+//		sp4b4[1].unk00 = sp5f0.x * scale;
+//		sp4b4[1].unk04 = sp5f0.y * scale;
+//		sp4b4[1].unk08 = sp5f0.z * scale;
+//		sp4b4[2].unk00 = sp614.x * scale;
+//		sp4b4[2].unk04 = sp614.y * scale;
+//		sp4b4[2].unk08 = sp614.z * scale;
+//		sp4b4[0].unk10 = sp638.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[1].unk10 = sp5f0.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[2].unk10 = sp614.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[0].unk0c = sp638.x * 0.1f;
+//		sp4b4[1].unk0c = sp5f0.x * 0.1f;
+//		sp4b4[2].unk0c = sp614.x * 0.1f;
+//
+//		sky0f11f438(&sp4b4[0], sp588);
+//		sky0f11f438(&sp4b4[1], sp570);
+//		sky0f11f438(&sp4b4[2], sp57c);
+//		break;
+//	case 8:
+//		s1 = 3;
+//		sp4b4[0].unk00 = sp644.x * scale;
+//		sp4b4[0].unk04 = sp644.y * scale;
+//		sp4b4[0].unk08 = sp644.z * scale;
+//		sp4b4[1].unk00 = sp614.x * scale;
+//		sp4b4[1].unk04 = sp614.y * scale;
+//		sp4b4[1].unk08 = sp614.z * scale;
+//		sp4b4[2].unk00 = sp5fc.x * scale;
+//		sp4b4[2].unk04 = sp5fc.y * scale;
+//		sp4b4[2].unk08 = sp5fc.z * scale;
+//		sp4b4[0].unk10 = sp644.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[1].unk10 = sp614.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[2].unk10 = sp5fc.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[0].unk0c = sp644.x * 0.1f;
+//		sp4b4[1].unk0c = sp614.x * 0.1f;
+//		sp4b4[2].unk0c = sp5fc.x * 0.1f;
+//
+//		sky0f11f438(&sp4b4[0], sp58c);
+//		sky0f11f438(&sp4b4[1], sp57c);
+//		sky0f11f438(&sp4b4[2], sp574);
+//		break;
+//	case 14:
+//		s1 = 5;
+//		sp4b4[0].unk00 = sp62c.x * scale;
+//		sp4b4[0].unk04 = sp62c.y * scale;
+//		sp4b4[0].unk08 = sp62c.z * scale;
+//		sp4b4[1].unk00 = sp644.x * scale;
+//		sp4b4[1].unk04 = sp644.y * scale;
+//		sp4b4[1].unk08 = sp644.z * scale;
+//		sp4b4[2].unk00 = sp638.x * scale;
+//		sp4b4[2].unk04 = sp638.y * scale;
+//		sp4b4[2].unk08 = sp638.z * scale;
+//		sp4b4[3].unk00 = sp5f0.x * scale;
+//		sp4b4[3].unk04 = sp5f0.y * scale;
+//		sp4b4[3].unk08 = sp5f0.z * scale;
+//		sp4b4[4].unk00 = sp608.x * scale;
+//		sp4b4[4].unk04 = sp608.y * scale;
+//		sp4b4[4].unk08 = sp608.z * scale;
+//		sp4b4[0].unk10 = sp62c.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[1].unk10 = sp644.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[2].unk10 = sp638.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[3].unk10 = sp5f0.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[4].unk10 = sp608.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[0].unk0c = sp62c.x * 0.1f;
+//		sp4b4[1].unk0c = sp644.x * 0.1f;
+//		sp4b4[2].unk0c = sp638.x * 0.1f;
+//		sp4b4[3].unk0c = sp5f0.x * 0.1f;
+//		sp4b4[4].unk0c = sp608.x * 0.1f;
+//
+//		sky0f11f438(&sp4b4[0], sp584);
+//		sky0f11f438(&sp4b4[1], sp58c);
+//		sky0f11f438(&sp4b4[2], sp588);
+//		sky0f11f438(&sp4b4[3], sp570);
+//		sky0f11f438(&sp4b4[4], sp578);
+//		break;
+//	case 13:
+//		s1 = 5;
+//		sp4b4[0].unk00 = sp644.x * scale;
+//		sp4b4[0].unk04 = sp644.y * scale;
+//		sp4b4[0].unk08 = sp644.z * scale;
+//		sp4b4[1].unk00 = sp638.x * scale;
+//		sp4b4[1].unk04 = sp638.y * scale;
+//		sp4b4[1].unk08 = sp638.z * scale;
+//		sp4b4[2].unk00 = sp620.x * scale;
+//		sp4b4[2].unk04 = sp620.y * scale;
+//		sp4b4[2].unk08 = sp620.z * scale;
+//		sp4b4[3].unk00 = sp608.x * scale;
+//		sp4b4[3].unk04 = sp608.y * scale;
+//		sp4b4[3].unk08 = sp608.z * scale;
+//		sp4b4[4].unk00 = sp5fc.x * scale;
+//		sp4b4[4].unk04 = sp5fc.y * scale;
+//		sp4b4[4].unk08 = sp5fc.z * scale;
+//		sp4b4[0].unk10 = sp644.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[1].unk10 = sp638.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[2].unk10 = sp620.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[3].unk10 = sp608.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[4].unk10 = sp5fc.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[0].unk0c = sp644.x * 0.1f;
+//		sp4b4[1].unk0c = sp638.x * 0.1f;
+//		sp4b4[2].unk0c = sp620.x * 0.1f;
+//		sp4b4[3].unk0c = sp608.x * 0.1f;
+//		sp4b4[4].unk0c = sp5fc.x * 0.1f;
+//
+//		sky0f11f438(&sp4b4[0], sp58c);
+//		sky0f11f438(&sp4b4[1], sp588);
+//		sky0f11f438(&sp4b4[2], sp580);
+//		sky0f11f438(&sp4b4[3], sp578);
+//		sky0f11f438(&sp4b4[4], sp574);
+//		break;
+//	case 11:
+//		s1 = 5;
+//		sp4b4[0].unk00 = sp620.x * scale;
+//		sp4b4[0].unk04 = sp620.y * scale;
+//		sp4b4[0].unk08 = sp620.z * scale;
+//		sp4b4[1].unk00 = sp62c.x * scale;
+//		sp4b4[1].unk04 = sp62c.y * scale;
+//		sp4b4[1].unk08 = sp62c.z * scale;
+//		sp4b4[2].unk00 = sp644.x * scale;
+//		sp4b4[2].unk04 = sp644.y * scale;
+//		sp4b4[2].unk08 = sp644.z * scale;
+//		sp4b4[3].unk00 = sp614.x * scale;
+//		sp4b4[3].unk04 = sp614.y * scale;
+//		sp4b4[3].unk08 = sp614.z * scale;
+//		sp4b4[4].unk00 = sp5f0.x * scale;
+//		sp4b4[4].unk04 = sp5f0.y * scale;
+//		sp4b4[4].unk08 = sp5f0.z * scale;
+//		sp4b4[0].unk10 = sp620.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[1].unk10 = sp62c.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[2].unk10 = sp644.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[3].unk10 = sp614.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[4].unk10 = sp5f0.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[0].unk0c = sp620.x * 0.1f;
+//		sp4b4[1].unk0c = sp62c.x * 0.1f;
+//		sp4b4[2].unk0c = sp644.x * 0.1f;
+//		sp4b4[3].unk0c = sp614.x * 0.1f;
+//		sp4b4[4].unk0c = sp5f0.x * 0.1f;
+//
+//		sky0f11f438(&sp4b4[0], sp580);
+//		sky0f11f438(&sp4b4[1], sp584);
+//		sky0f11f438(&sp4b4[2], sp58c);
+//		sky0f11f438(&sp4b4[3], sp57c);
+//		sky0f11f438(&sp4b4[4], sp570);
+//		break;
+//	case 7:
+//		s1 = 5;
+//		sp4b4[0].unk00 = sp638.x * scale;
+//		sp4b4[0].unk04 = sp638.y * scale;
+//		sp4b4[0].unk08 = sp638.z * scale;
+//		sp4b4[1].unk00 = sp620.x * scale;
+//		sp4b4[1].unk04 = sp620.y * scale;
+//		sp4b4[1].unk08 = sp620.z * scale;
+//		sp4b4[2].unk00 = sp62c.x * scale;
+//		sp4b4[2].unk04 = sp62c.y * scale;
+//		sp4b4[2].unk08 = sp62c.z * scale;
+//		sp4b4[3].unk00 = sp5fc.x * scale;
+//		sp4b4[3].unk04 = sp5fc.y * scale;
+//		sp4b4[3].unk08 = sp5fc.z * scale;
+//		sp4b4[4].unk00 = sp614.x * scale;
+//		sp4b4[4].unk04 = sp614.y * scale;
+//		sp4b4[4].unk08 = sp614.z * scale;
+//		sp4b4[0].unk10 = sp638.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[1].unk10 = sp620.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[2].unk10 = sp62c.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[3].unk10 = sp5fc.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[4].unk10 = sp614.z * 0.1f + g_SkyCloudOffset;
+//		sp4b4[0].unk0c = sp638.x * 0.1f;
+//		sp4b4[1].unk0c = sp620.x * 0.1f;
+//		sp4b4[2].unk0c = sp62c.x * 0.1f;
+//		sp4b4[3].unk0c = sp5fc.x * 0.1f;
+//		sp4b4[4].unk0c = sp614.x * 0.1f;
+//
+//		sky0f11f438(&sp4b4[0], sp588);
+//		sky0f11f438(&sp4b4[1], sp580);
+//		sky0f11f438(&sp4b4[2], sp584);
+//		sky0f11f438(&sp4b4[3], sp574);
+//		sky0f11f438(&sp4b4[4], sp57c);
+//		break;
+//	default:
+//		return gdl;
+//	}
+//
+//	// 2380
+//	{
+//		s32 stack;
+//		Mtxf sp1ec;
+//		Mtxf sp1ac;
+//		struct skything38 sp94[5];
+//		s32 i; // 90
+//
+//		gDPPipeSync(gdl++);
+//
+//		tex0f0b39c0(&gdl, &g_TexWaterConfigs[env->unk18], 1, 0, 2, 1, NULL);
+//
+//		gDPSetEnvColor(gdl++, env->sky_r, env->sky_g, env->sky_b, 0xff);
+//		gDPSetCombineLERP(gdl++,
+//				SHADE, ENVIRONMENT, TEXEL0, ENVIRONMENT, 0, 0, 0, SHADE,
+//				SHADE, ENVIRONMENT, TEXEL0, ENVIRONMENT, 0, 0, 0, SHADE);
+//
+//		mtx4MultMtx4(camGetUnk1754(), camGetMatrix1740(), &sp1ec);
+//		guScaleF(var800a33a8.m, 1.0f / scale, 1.0f / scale, 1.0f / scale);
+//		mtx4MultMtx4(&sp1ec, &var800a33a8, &sp1ac);
+//
+//		for (i = 0; i < s1; i++) {
+//			sky0f1228d0(&sp4b4[i], &sp1ac, 130, 65535.0f, 65535.0f, &sp94[i]);
+//
+//			sp94[i].unk28 = skyClamp(sp94[i].unk28, camGetScreenLeft() * 4.0f, (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f);
+//			sp94[i].unk2c = skyClamp(sp94[i].unk2c, camGetScreenTop() * 4.0f, (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 1.0f);
+//		}
+//
+//		if (s1 == 4) {
+//			if (((sp538 << 3) | (sp534 << 2) | (sp530 << 1) | sp52c) == 12) {
+//				if (sp548 < sp54c) {
+//					if (sp94[3].unk2c >= sp94[1].unk2c + 4.0f) {
+//						sp94[0].unk28 = camGetScreenLeft() * 4.0f;
+//						sp94[0].unk2c = camGetScreenTop() * 4.0f;
+//						sp94[1].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
+//						sp94[1].unk2c = camGetScreenTop() * 4.0f;
+//						sp94[2].unk28 = camGetScreenLeft() * 4.0f;
+//						sp94[3].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
+//
+//						gdl = sky0f123fd4(gdl, &sp94[0], &sp94[1], &sp94[2], &sp94[3], 130.0f);
+//					} else {
+//						gdl = sky0f122d4c(gdl, &sp94[0], &sp94[1], &sp94[2], 130.0f, 1);
+//					}
+//				} else if (sp94[2].unk2c >= sp94[0].unk2c + 4.0f) {
+//					sp94[0].unk28 = camGetScreenLeft() * 4.0f;
+//					sp94[0].unk2c = camGetScreenTop() * 4.0f;
+//					sp94[1].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
+//					sp94[1].unk2c = camGetScreenTop() * 4.0f;
+//					sp94[2].unk28 = camGetScreenLeft() * 4.0f;
+//					sp94[3].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
+//
+//					gdl = sky0f123fd4(gdl, &sp94[1], &sp94[0], &sp94[3], &sp94[2], 130.0f);
+//				} else {
+//					gdl = sky0f122d4c(gdl, &sp94[1], &sp94[0], &sp94[3], 130.0f, 1);
+//				}
+//			} else {
+//				gdl = sky0f122d4c(gdl, &sp94[0], &sp94[1], &sp94[3], 130.0f, 1);
+//				gdl = sky0f122d4c(gdl, &sp94[3], &sp94[2], &sp94[0], 130.0f, 1);
+//			}
+//		} else if (s1 == 5) {
+//			gdl = sky0f122d4c(gdl, &sp94[0], &sp94[1], &sp94[2], 130.0f, 1);
+//			gdl = sky0f122d4c(gdl, &sp94[0], &sp94[2], &sp94[3], 130.0f, 1);
+//			gdl = sky0f122d4c(gdl, &sp94[0], &sp94[3], &sp94[4], 130.0f, 1);
+//		} else if (s1 == 3) {
+//			gdl = sky0f122d4c(gdl, &sp94[0], &sp94[1], &sp94[2], 130.0f, 1);
+//		}
+//	}
+//
+//	return gdl;
+//}
 
 GLOBAL_ASM(
 glabel sky0f1228d0
