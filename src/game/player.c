@@ -1535,7 +1535,7 @@ void playerRemoveChrBody(void)
 			chrRemove(g_Vars.currentplayer->prop, false);
 			g_Vars.currentplayer->model00d4 = NULL;
 			bmove0f0cb8c4(g_Vars.currentplayer);
-			bgun0f09df50();
+			bgunFreeGunMem();
 			g_Vars.currentplayer->gunmem2 = NULL;
 		}
 	}
@@ -4665,7 +4665,7 @@ void playerTick(bool arg0)
 	// Handle mission exit on death
 	if (g_Vars.currentplayer->isdead) {
 		if (g_Vars.currentplayer->redbloodfinished == false) {
-			bgun0f0a29c8();
+			bgunHandlePlayerDead();
 		}
 
 		if (g_Vars.currentplayer->redbloodfinished && g_Vars.currentplayer->deathanimfinished) {
@@ -5252,7 +5252,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 	}
 
 	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY) {
-		bgun0f0a6c30();
+		bgunTickGameplay2();
 		gdl = boltbeamsRender(gdl);
 		bgun0f0a7138(&gdl);
 		gdl = lasersightRenderDot(gdl);
@@ -5518,7 +5518,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 	}
 
 	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY) {
-		gdl = bgun0f0abcb0(gdl);
+		gdl = bgunRenderSight(gdl);
 
 		if (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_HORIZONSCANNER) {
 			gdl = bviewRenderHorizonScanner(gdl);
@@ -5639,7 +5639,7 @@ void playerDieByShooter(u32 shooter, bool force)
 		}
 
 		bmoveSetMode(MOVEMODE_WALK);
-		bgun0f0a29c8();
+		bgunHandlePlayerDead();
 
 		if (playerGetMissionTime() - g_Vars.currentplayer->lifestarttime60 < g_Vars.currentplayerstats->shortestlife) {
 			g_Vars.currentplayerstats->shortestlife = playerGetMissionTime() - g_Vars.currentplayer->lifestarttime60;

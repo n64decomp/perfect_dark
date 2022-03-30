@@ -155,7 +155,7 @@ void bgunReset(void)
 	g_Vars.currentplayer->gunctrl.unk15b1 = 0;
 	g_Vars.currentplayer->gunctrl.gunmemtype = 0;
 	g_Vars.currentplayer->gunctrl.gunmemnew = -1;
-	g_Vars.currentplayer->gunctrl.gunmemowner = GUNMEMOWNER_2;
+	g_Vars.currentplayer->gunctrl.gunmemowner = GUNMEMOWNER_CHRBODY;
 	g_Vars.currentplayer->gunctrl.gunlocktimer = 0;
 
 	g_Vars.currentplayer->gunctrl.unk1583_06 = true;

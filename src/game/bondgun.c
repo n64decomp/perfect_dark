@@ -5316,7 +5316,7 @@ s32 bgunTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 				playermgrDeleteWeapon(handnum);
 			}
 
-			bgun0f09fa20(handnum);
+			bgunFreeRocket(handnum);
 
 			hand->mode = HANDMODE_6;
 			hand->stateminor = 2;
@@ -9737,7 +9737,7 @@ bool bgunTickIncAttackingThrow(s32 handnum, struct hand *hand)
 				invRemoveItemByNum(hand->gset.weaponnum);
 				g_Vars.currentplayer->gunctrl.unk1583_04 = true;
 #if VERSION >= VERSION_NTSC_1_0
-				bgun0f0a1ab0();
+				bgunSwitchToPrevious();
 #else
 				bgunAutoSwitchWeapon();
 #endif
@@ -10561,7 +10561,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 					playermgrDeleteWeapon(handnum);
 				}
 
-				bgun0f09fa20(handnum);
+				bgunFreeRocket(handnum);
 				hand->mode = HANDMODE_6;
 				hand->stateminor++;
 			} else {
@@ -10905,7 +10905,7 @@ bool bgunSetState(s32 handnum, s32 state)
 	return valid;
 }
 
-void bgunTick(s32 handnum)
+void bgunTickHand(s32 handnum)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 	struct handweaponinfo info;
@@ -11708,22 +11708,22 @@ u32 bgunCalculateGunMemCapacity(void)
 	return var800700a8;
 }
 
-void bgun0f09df50(void)
+void bgunFreeGunMem(void)
 {
-	g_Vars.currentplayer->gunctrl.gunmemowner = GUNMEMOWNER_11;
+	g_Vars.currentplayer->gunctrl.gunmemowner = GUNMEMOWNER_FREE;
 }
 
-void bgun0f09df64(s32 arg0)
+void bgunSetGunMemWeapon(s32 weaponnum)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	if (player->gunctrl.gunmemowner == GUNMEMOWNER_0) {
+	if (player->gunctrl.gunmemowner == GUNMEMOWNER_BONDGUN) {
 		player->gunctrl.unk15b0 = 0;
 		player->gunctrl.unk15b1 = 0;
-		player->gunctrl.gunmemnew = arg0;
+		player->gunctrl.gunmemnew = weaponnum;
 		player->gunctrl.gunlocktimer = -1;
 	} else {
-		player->gunctrl.gunmemnew = arg0;
+		player->gunctrl.gunmemnew = weaponnum;
 	}
 }
 
@@ -11771,7 +11771,7 @@ bool bgun0f09e004(s32 newowner)
 		bool unlock = false;
 
 		switch (player->gunctrl.gunmemowner) {
-		case GUNMEMOWNER_0:
+		case GUNMEMOWNER_BONDGUN:
 			if (player->gunctrl.gunmemtype != -1) {
 				player->gunctrl.gunmemnew = player->gunctrl.gunmemtype;
 			}
@@ -11781,7 +11781,7 @@ bool bgun0f09e004(s32 newowner)
 			player->gunctrl.unk1583_06 = true;
 			unlock = true;
 			break;
-		case GUNMEMOWNER_2:
+		case GUNMEMOWNER_CHRBODY:
 			if (g_Vars.mplayerisrunning) {
 				unlock = true;
 			}
@@ -11790,7 +11790,7 @@ bool bgun0f09e004(s32 newowner)
 				unlock = true;
 			}
 
-			if (newowner == GUNMEMOWNER_1 && var8009dfc0 != 0) {
+			if (newowner == GUNMEMOWNER_INVMENU && var8009dfc0 != 0) {
 				unlock = true;
 				playerRemoveChrBody();
 			}
@@ -11798,15 +11798,15 @@ bool bgun0f09e004(s32 newowner)
 		case GUNMEMOWNER_3:
 			unlock = true;
 			break;
-		case GUNMEMOWNER_10:
-		case GUNMEMOWNER_11:
+		case GUNMEMOWNER_CHANGING:
+		case GUNMEMOWNER_FREE:
 			unlock = true;
 			break;
 		}
 
 		if (unlock) {
 			player->gunctrl.gunlocktimer = -1;
-			player->gunctrl.gunmemowner = GUNMEMOWNER_10;
+			player->gunctrl.gunmemowner = GUNMEMOWNER_CHANGING;
 		}
 	}
 
@@ -12280,7 +12280,7 @@ glabel bgun0f09e144
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel bgunTickLoad
+glabel bgunTickIncLoad
 /*  f09e4e0:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f09e4e4:	afb5002c */ 	sw	$s5,0x2c($sp)
 /*  f09e4e8:	3c15800a */ 	lui	$s5,%hi(g_Vars)
@@ -12687,7 +12687,7 @@ glabel bgunTickLoad
 );
 #else
 GLOBAL_ASM(
-glabel bgunTickLoad
+glabel bgunTickIncLoad
 /*  f09c38c:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f09c390:	afb5002c */ 	sw	$s5,0x2c($sp)
 /*  f09c394:	3c15800a */ 	lui	$s5,0x800a
@@ -13087,7 +13087,7 @@ glabel bgunTickLoad
 );
 #endif
 
-//void bgunTickLoad(void)
+//void bgunTickIncLoad(void)
 //{
 //	s32 spa4;
 //	s32 bodynum;
@@ -13099,7 +13099,7 @@ glabel bgunTickLoad
 //
 //	struct player *player = g_Vars.currentplayer;
 //
-//	if ((player->gunctrl.gunmemowner == GUNMEMOWNER_0 || bgun0f09e004(GUNMEMOWNER_0)) && player->gunctrl.gunmemnew >= 0) {
+//	if ((player->gunctrl.gunmemowner == GUNMEMOWNER_BONDGUN || bgun0f09e004(GUNMEMOWNER_BONDGUN)) && player->gunctrl.gunmemnew >= 0) {
 //		if (player->gunctrl.gunlocktimer == 0) {
 //			spa4 = player->gunctrl.gunmemnew;
 //
@@ -13320,12 +13320,12 @@ glabel bgunTickLoad
 //	}
 //}
 
-void bgun0f09ea90(void)
+void bgunTickLoad(void)
 {
 	s32 i;
 
 	for (i = 0; i < g_Vars.lvupdate240; i += 8) {
-		bgunTickLoad();
+		bgunTickIncLoad();
 	}
 }
 
@@ -13351,10 +13351,10 @@ bool bgun0f09eae4(void)
 		return false;
 	}
 
-	if (g_Vars.currentplayer->gunctrl.gunmemowner) {
-		bgun0f09e004(GUNMEMOWNER_0);
+	if (g_Vars.currentplayer->gunctrl.gunmemowner != GUNMEMOWNER_BONDGUN) {
+		bgun0f09e004(GUNMEMOWNER_BONDGUN);
 
-		if (g_Vars.currentplayer->gunctrl.gunmemowner) {
+		if (g_Vars.currentplayer->gunctrl.gunmemowner != GUNMEMOWNER_BONDGUN) {
 			g_Vars.lockscreen = true;
 			return true;
 		}
@@ -13363,7 +13363,7 @@ bool bgun0f09eae4(void)
 	bgun0f09df9c();
 
 	do {
-		bgunTickLoad();
+		bgunTickIncLoad();
 	} while (!bgun0f09dd7c());
 
 	g_Vars.currentplayer->gunctrl.unk1583_06 = false;
@@ -14629,7 +14629,7 @@ void bgun0f09f974(s32 handnum, struct weaponfunc_shootprojectile *func)
 	}
 }
 
-void bgun0f09fa20(s32 handnum)
+void bgunFreeRocket(s32 handnum)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 
@@ -17112,7 +17112,7 @@ glabel var7f1ac740
 
 #if PAL
 GLOBAL_ASM(
-glabel bgun0f0a0394
+glabel bgunSwivel
 .late_rodata
 glabel var7f1ac744
 .word 0x3e99999a
@@ -17652,7 +17652,7 @@ glabel var7f1ac764
 );
 #else
 GLOBAL_ASM(
-glabel bgun0f0a0394
+glabel bgunSwivel
 .late_rodata
 glabel var7f1ac744
 .word 0x3e99999a
@@ -18192,7 +18192,13 @@ glabel var7f1ac764
 );
 #endif
 
-void bgunSwivelTowards(f32 screenx, f32 screeny, f32 damp)
+/**
+ * Swivel the gun towards the given screen coordinates, dampening the movement
+ * speed as it reaches the target.
+ *
+ * This is used for auto aim, the CMP's follow lock-on, and general turning.
+ */
+void bgunSwivelWithDamp(f32 screenx, f32 screeny, f32 damp)
 {
 	struct weapon *weapon = weaponFindById(bgunGetWeaponNum(HAND_RIGHT));
 	f32 value = PAL ? weapon->eptr->unk10 : weapon->eptr->unk14;
@@ -18201,15 +18207,21 @@ void bgunSwivelTowards(f32 screenx, f32 screeny, f32 damp)
 		value = damp;
 	}
 
-	bgun0f0a0394(screenx, screeny, damp, value);
+	bgunSwivel(screenx, screeny, damp, value);
 }
 
-void bgun0f0a0b98(f32 screenx, f32 screeny)
+/**
+ * Swivel the gun towards the given screen coordinates without slowing the speed
+ * speed as it reaches the target.
+ *
+ * This is used when manual aiming.
+ */
+void bgunSwivelWithoutDamp(f32 screenx, f32 screeny)
 {
 	struct weapon *weapon = weaponFindById(bgunGetWeaponNum(HAND_RIGHT));
 	f32 value = PAL ? weapon->eptr->unk10 : weapon->eptr->unk14;
 
-	bgun0f0a0394(screenx, screeny, PAL ? 0.935f : 0.945f, value);
+	bgunSwivel(screenx, screeny, PAL ? 0.935f : 0.945f, value);
 }
 
 void bgunGetCrossPos(f32 *x, f32 *y)
@@ -18518,7 +18530,7 @@ void bgunSetLastShootInfo(struct coord *pos, struct coord *dir, s32 handnum)
 	hand->lastshootdir.z = dir->z;
 }
 
-u32 bgunGetUnk0c30(s32 handnum)
+s32 bgunGetShotsToTake(s32 handnum)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 
@@ -18559,7 +18571,7 @@ void bgun0f0a134c(s32 handnum)
 		playermgrDeleteWeapon(handnum);
 	}
 
-	bgun0f09fa20(handnum);
+	bgunFreeRocket(handnum);
 }
 
 #if VERSION >= VERSION_JPN_FINAL
@@ -18674,7 +18686,7 @@ glabel bgun0f0a1528
 /*  f0a2608:	1000000a */ 	b	.JF0f0a2634
 /*  f0a260c:	a2800000 */ 	sb	$zero,0x0($s4)
 .JF0f0a2610:
-/*  f0a2610:	0fc27ba2 */ 	jal	bgun0f09df64
+/*  f0a2610:	0fc27ba2 */ 	jal	bgunSetGunMemWeapon
 /*  f0a2614:	00000000 */ 	nop
 /*  f0a2618:	82990002 */ 	lb	$t9,0x2($s4)
 /*  f0a261c:	26a20ddc */ 	addiu	$v0,$s5,0xddc
@@ -18924,7 +18936,7 @@ void bgun0f0a1528(void)
 				righthand->inuse = false;
 				ctrl->weaponnum = WEAPON_NONE;
 			} else {
-				bgun0f09df64(ctrl->switchtoweaponnum);
+				bgunSetGunMemWeapon(ctrl->switchtoweaponnum);
 				ctrl->weaponnum = ctrl->switchtoweaponnum;
 				lefthand->inuse = true;
 				righthand->inuse = true;
@@ -19055,7 +19067,7 @@ bool bgun0f0a1a10(s32 weaponnum)
 	return false;
 }
 
-s32 bgun0f0a1a68(s32 arg0)
+s32 bgunGetSwitchToWeapon(s32 handnum)
 {
 	s32 weaponnum;
 
@@ -19065,14 +19077,14 @@ s32 bgun0f0a1a68(s32 arg0)
 		weaponnum = g_Vars.currentplayer->gunctrl.weaponnum;
 	}
 
-	if (!g_Vars.currentplayer->gunctrl.dualwielding && arg0 == 1) {
+	if (!g_Vars.currentplayer->gunctrl.dualwielding && handnum == HAND_LEFT) {
 		weaponnum = WEAPON_NONE;
 	}
 
 	return weaponnum;
 }
 
-void bgun0f0a1ab0(void)
+void bgunSwitchToPrevious(void)
 {
 	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
 		struct player *player = g_Vars.currentplayer;
@@ -19102,8 +19114,8 @@ void bgunCycleForward(void)
 	struct player *player = g_Vars.currentplayer;
 
 	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
-		weaponnum1 = bgun0f0a1a68(0);
-		weaponnum2 = bgun0f0a1a68(1);
+		weaponnum1 = bgunGetSwitchToWeapon(HAND_RIGHT);
+		weaponnum2 = bgunGetSwitchToWeapon(HAND_LEFT);
 
 		if (weaponnum1 > WEAPON_PSYCHOSISGUN || weaponnum2 > WEAPON_PSYCHOSISGUN) {
 			weaponnum1 = player->gunctrl.prevweaponnum;
@@ -19129,8 +19141,8 @@ void bgunCycleBack(void)
 	struct player *player = g_Vars.currentplayer;
 
 	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
-		weaponnum1 = bgun0f0a1a68(0);
-		weaponnum2 = bgun0f0a1a68(1);
+		weaponnum1 = bgunGetSwitchToWeapon(HAND_RIGHT);
+		weaponnum2 = bgunGetSwitchToWeapon(HAND_LEFT);
 
 		if (weaponnum2 == WEAPON_REMOTEMINE) {
 			weaponnum2 = WEAPON_NONE;
@@ -19532,9 +19544,9 @@ glabel bgunAutoSwitchWeapon
 //	}
 //}
 
-void bgunEquipWeapon2(bool arg0, s32 weaponnum)
+void bgunEquipWeapon2(s32 handnum, s32 weaponnum)
 {
-	if (arg0 == 1) {
+	if (handnum == HAND_LEFT) {
 		if (weaponnum == WEAPON_NONE) {
 			g_Vars.currentplayer->gunctrl.dualwielding = false;
 		} else {
@@ -19598,7 +19610,7 @@ void bgunReloadIfPossible(s32 handnum)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	if (bgunGetAmmoTypeForWeapon(bgunGetWeaponNum(handnum), 0)
+	if (bgunGetAmmoTypeForWeapon(bgunGetWeaponNum(handnum), FUNC_PRIMARY)
 			&& player->hands[handnum].modenext == HANDMODE_NONE) {
 		player->hands[handnum].modenext = HANDMODE_RELOAD;
 	}
@@ -20137,7 +20149,7 @@ bool bgun0f0a28d8(void)
 	return false;
 }
 
-void bgun0f0a29c8(void)
+void bgunHandlePlayerDead(void)
 {
 	struct player *player = g_Vars.currentplayer;
 	s32 i;
@@ -20158,11 +20170,11 @@ void bgun0f0a29c8(void)
 			player->hands[i].matmot2 = 0;
 			player->hands[i].matmot3 = 0;
 
-			bgunSetState(i, 0);
+			bgunSetState(i, HANDSTATE_IDLE);
 		}
 
-		bgunEquipWeapon2(1, WEAPON_NONE);
-		bgunEquipWeapon2(0, WEAPON_NONE);
+		bgunEquipWeapon2(HAND_LEFT, WEAPON_NONE);
+		bgunEquipWeapon2(HAND_RIGHT, WEAPON_NONE);
 	}
 }
 
@@ -32376,7 +32388,7 @@ void bgunTickMaulerCharge(void)
 	}
 }
 
-void bgun0f0a6c30(void)
+void bgunTickGameplay2(void)
 {
 	struct player *player = g_Vars.currentplayer;
 	struct hand *hand;
@@ -32392,7 +32404,7 @@ void bgun0f0a6c30(void)
 	if (player->gunctrl.unk1583_06) {
 		// empty
 	} else {
-		bgun0f09ea90();
+		bgunTickLoad();
 	}
 
 	// Return control to Jo if eyespy has been deselected
@@ -35409,7 +35421,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 #endif
 }
 
-void bgun0f0a8404(struct coord *pos, s16 *rooms, s32 arg2)
+void bgunPlayGlassHitSound(struct coord *pos, s16 *rooms, s32 arg2)
 {
 	if (g_Vars.lvupdate240 > 0) {
 		struct sndstate **handle = bgunAllocateAudioHandle();
@@ -36559,7 +36571,12 @@ bool bgunIsUsingSecondaryFunction(void)
 	return false;
 }
 
-void bgunsTick(bool triggeron)
+/**
+ * Tick gun-related things during first-person gameplay.
+ *
+ * This function is not called during cutscenes.
+ */
+void bgunTickGameplay(bool triggeron)
 {
 	s32 gunsfiring[2] = {false, false};
 	struct player *player = g_Vars.currentplayer;
@@ -36679,8 +36696,8 @@ void bgunsTick(bool triggeron)
 	bgunSetTriggerOn(HAND_LEFT, gunsfiring[1]);
 
 	if (g_Vars.tickmode == TICKMODE_NORMAL && g_Vars.lvupdate240 > 0) {
-		bgunTick(HAND_RIGHT);
-		bgunTick(HAND_LEFT);
+		bgunTickHand(HAND_RIGHT);
+		bgunTickHand(HAND_LEFT);
 		bgun0f09ce8c();
 
 		if (cheatIsActive(CHEAT_UNLIMITEDAMMONORELOADS)) {
@@ -36804,43 +36821,39 @@ void bgunSetGunAmmoVisible(u32 reason, bool enable)
 }
 
 struct ammotype g_AmmoTypes[] = {
-	{ 0,     0, 0  },
-	{ 800,   0, 0  },
-	{ 800,   0, 0  },
-	{ 69,    0, 0  },
-	{ 400,   0, -2 },
-	{ 100,   0, 0  },
-	{ 100,   0, 0  },
-	{ 12,    0, 0  },
-	{ 3,     0, -2 },
-	{ 10,    0, 0  },
-	{ 200,   0, 0  },
-	{ 40,    0, 0  },
-	{ 10,    0, 1  },
-	{ 10,    0, 1  },
-	{ 10,    0, 1  },
-	{ 800,   0, 0  },
-	{ 15,    0, -2 },
-	{ 50,    0, 0  },
-	{ 10,    0, 0  },
-	{ 200,   0, 0  },
-#if PAL
-	{ 15000, 0, 0  },
-#else
-	{ 18000, 0, 0  },
-#endif
-	{ 4,     0, 0  },
-	{ 200,   0, 0  },
-	{ 2,     0, 0  },
-	{ 10,    0, 0  },
-	{ 10,    0, 0  },
-	{ 10,    0, 0  },
-	{ 1000,  0, 0  },
-	{ 10,    0, 0  },
-	{ 50,    0, -1 },
-	{ 1,     0, 0  },
-	{ 200,   0, 0  },
-	{ 10,    0, 0  },
+	{ 0,            0, 0  },
+	{ 800,          0, 0  }, // AMMOTYPE_PISTOL
+	{ 800,          0, 0  }, // AMMOTYPE_SMG
+	{ 69,           0, 0  }, // AMMOTYPE_CROSSBOW
+	{ 400,          0, -2 }, // AMMOTYPE_RIFLE
+	{ 100,          0, 0  }, // AMMOTYPE_SHOTGUN
+	{ 100,          0, 0  }, // AMMOTYPE_FARSIGHT
+	{ 12,           0, 0  }, // AMMOTYPE_GRENADE
+	{ 3,            0, -2 }, // AMMOTYPE_ROCKET
+	{ 10,           0, 0  }, // AMMOTYPE_KNIFE
+	{ 200,          0, 0  }, // AMMOTYPE_MAGNUM
+	{ 40,           0, 0  }, // AMMOTYPE_DEVASTATOR
+	{ 10,           0, 1  }, // AMMOTYPE_REMOTE_MINE
+	{ 10,           0, 1  }, // AMMOTYPE_PROXY_MINE
+	{ 10,           0, 1  }, // AMMOTYPE_TIMED_MINE
+	{ 800,          0, 0  }, // AMMOTYPE_REAPER
+	{ 15,           0, -2 }, // AMMOTYPE_HOMINGROCKET
+	{ 50,           0, 0  }, // AMMOTYPE_DART
+	{ 10,           0, 0  }, // AMMOTYPE_NBOMB
+	{ 200,          0, 0  }, // AMMOTYPE_SEDATIVE
+	{ TICKS(18000), 0, 0  }, // AMMOTYPE_CLOAK
+	{ 4,            0, 0  }, // AMMOTYPE_BOOST
+	{ 200,          0, 0  }, // AMMOTYPE_PSYCHOSIS
+	{ 2,            0, 0  }, // AMMOTYPE_17
+	{ 10,           0, 0  }, // AMMOTYPE_BUG
+	{ 10,           0, 0  }, // AMMOTYPE_MICROCAMERA
+	{ 10,           0, 0  }, // AMMOTYPE_PLASTIQUE
+	{ 1000,         0, 0  }, // AMMOTYPE_1B
+	{ 10,           0, 0  }, // AMMOTYPE_1C
+	{ 50,           0, -1 }, // AMMOTYPE_1D
+	{ 1,            0, 0  }, // AMMOTYPE_TOKEN
+	{ 200,          0, 0  }, // AMMOTYPE_1F
+	{ 10,           0, 0  }, // AMMOTYPE_ECM_MINE
 };
 
 void bgunSetAmmoQuantity(s32 ammotype, s32 quantity)
@@ -46633,7 +46646,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //	return gdl;
 //}
 
-void bgunAddBoostc(s32 amount)
+void bgunAddBoost(s32 amount)
 {
 	g_Vars.speedpilltime += amount;
 
@@ -46665,19 +46678,26 @@ void bgunApplyBoost(void)
 	if (lvGetSlowMotionType() != SLOWMOTION_OFF) {
 		bgunSubtractBoost(TICKS(1200));
 	} else {
-		bgunAddBoostc(TICKS(600));
+		bgunAddBoost(TICKS(600));
 	}
 }
 
 void bgunRevertBoost(void)
 {
 	if (lvGetSlowMotionType() != SLOWMOTION_OFF) {
-		bgunAddBoostc(TICKS(1200));
+		bgunAddBoost(TICKS(1200));
 	} else {
 		bgunSubtractBoost(TICKS(600));
 	}
 }
 
+/**
+ * The main tick function as called from lvTick.
+ *
+ * This function doesn't do much because it's called during both cutscenes and
+ * gameplay, while most gun tick operations happen during gameplay only.
+ * See bgunTickGameplay for that.
+ */
 void bgunTickBoost(void)
 {
 	if (g_Vars.speedpillon && g_Vars.speedpilltime > 0 && !g_Vars.in_cutscene) {
@@ -46700,7 +46720,7 @@ void bgunSetSightVisible(u32 reason, bool visible)
 	g_Vars.currentplayer->gunsightoff |= reason;
 }
 
-Gfx *bgun0f0abcb0(Gfx *gdl)
+Gfx *bgunRenderSight(Gfx *gdl)
 {
 	if (g_Vars.currentplayer->gunsightoff == false && !g_Vars.currentplayer->mpmenuon) {
 		gdl = sightRender(gdl, true, currentPlayerGetSight());

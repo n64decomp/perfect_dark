@@ -686,11 +686,11 @@ void menuTick(void)
 			}
 		}
 
-		if (g_Vars.currentplayer->gunctrl.gunmemowner == 1 && g_Vars.stagenum != STAGE_CITRAINING) {
+		if (g_Vars.currentplayer->gunctrl.gunmemowner == GUNMEMOWNER_INVMENU && g_Vars.stagenum != STAGE_CITRAINING) {
 			g_MenuData.unk5d5_01 = true;
 
 			if (g_Menus[0].unk840.unk004) {
-				bgun0f09df50();
+				bgunFreeGunMem();
 				g_Menus[0].unk840.unk004 = NULL;
 			}
 		}

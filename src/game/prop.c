@@ -1144,19 +1144,19 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 			 * present for those.
 			 */
 			struct defaultobj *obj = prop->obj;
-			bool isbreakableobj = false;
+			bool isglass = false;
 
 			if (obj && gset->weaponnum != WEAPON_TRANQUILIZER) {
-				isbreakableobj = obj->type == OBJTYPE_GLASS || obj->type == OBJTYPE_TINTEDGLASS;
+				isglass = obj->type == OBJTYPE_GLASS || obj->type == OBJTYPE_TINTEDGLASS;
 			}
 
 			if (arg2) {
-				isbreakableobj = false;
+				isglass = false;
 			}
 
 			if (prop->type == PROPTYPE_CHR
 					|| (prop->type == PROPTYPE_PLAYER && prop->chr && playermgrGetPlayerNumByProp(prop) != g_Vars.currentplayernum)
-					|| isbreakableobj) {
+					|| isglass) {
 				f32 rangelimit = 60;
 				f32 distance;
 				f32 sp110;
@@ -1180,7 +1180,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 				spf4[0] = camGetScreenHeight() * 0.16666667163372f;
 				spf4[1] = camGetScreenHeight() * 0.125f;
 
-				if (isbreakableobj) {
+				if (isglass) {
 					model = obj->model;
 				} else {
 					model = chr->model;
@@ -1191,12 +1191,12 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 						&& distance >= -rangelimit) {
 					someval = 0x33;
 
-					if (isbreakableobj) {
+					if (isglass) {
 						someval = 0;
 					}
 
 					if (cd0002dc18(&playerprop->pos, playerprop->rooms, &prop->pos, someval)) {
-						if (isbreakableobj) {
+						if (isglass) {
 							struct model *model = obj->model;
 							struct coord spd8;
 							struct coord spcc;
@@ -1207,7 +1207,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 							if (model000225d4(model, &spd8, &spcc, &node) > 0) {
 								f32 damage = gsetGetDamage(gset) * 2.5f;
 								skipthething = true;
-								bgun0f0a8404(&playerprop->pos, playerprop->rooms, -1);
+								bgunPlayGlassHitSound(&playerprop->pos, playerprop->rooms, -1);
 								objTakeGunfire(obj, damage, &prop->pos, gset->weaponnum, g_Vars.currentplayernum);
 								objDropRecursively(prop, false);
 							}
@@ -1303,7 +1303,7 @@ void handTickAttack(s32 handnum)
 					handCreateBulletRaycast(handnum, true, true, 1, true);
 					handCreateBulletRaycast(handnum, true, true, 1, true);
 				} else {
-					handCreateBulletRaycast(handnum, true, true, bgunGetUnk0c30(handnum), g_Vars.mplayerisrunning);
+					handCreateBulletRaycast(handnum, true, true, bgunGetShotsToTake(handnum), g_Vars.mplayerisrunning);
 				}
 
 				mpstats0f0b0520();

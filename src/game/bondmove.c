@@ -1454,7 +1454,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 		movedata.speedvertaup = savedverta;
 	}
 
-	bgunsTick(movedata.triggeron);
+	bgunTickGameplay(movedata.triggeron);
 
 	if (g_Vars.bondvisible && (bgunIsFiring(HAND_RIGHT) || bgunIsFiring(HAND_LEFT))) {
 		noiseradius = 0;
@@ -1775,9 +1775,9 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 			y = g_Vars.currentplayer->autoaimy;
 
 			if (followlockon) {
-				bgun0f0a0394(x, y, PAL ? 0.899f : 0.915f, PAL ? 0.899f : 0.915f);
+				bgunSwivel(x, y, PAL ? 0.899f : 0.915f, PAL ? 0.899f : 0.915f);
 			} else {
-				bgunSwivelTowards(x, y, g_Vars.currentplayer->autoaimdamp);
+				bgunSwivelWithDamp(x, y, g_Vars.currentplayer->autoaimdamp);
 			}
 		} else {
 			// This code moves the crosshair as the player turns and makes
@@ -1793,13 +1793,13 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 			x = g_Vars.currentplayer->speedtheta * 0.3f + g_Vars.currentplayer->gunextraaimx;
 			y = -g_Vars.currentplayer->speedverta * 0.1f + g_Vars.currentplayer->gunextraaimy;
 
-			bgunSwivelTowards(x, y, PAL ? 0.955f : 0.963f);
+			bgunSwivelWithDamp(x, y, PAL ? 0.955f : 0.963f);
 		}
 	} else if (movedata.canmanualaim) {
 		// Adjust crosshair's position on screen
 		// when holding aim and moving stick
 		bgunSetAimType(0);
-		bgun0f0a0b98((movedata.c1stickxraw * 0.65f) / 80.0f, (movedata.c1stickyraw * 0.65f) / 80.0f);
+		bgunSwivelWithoutDamp((movedata.c1stickxraw * 0.65f) / 80.0f, (movedata.c1stickyraw * 0.65f) / 80.0f);
 	}
 }
 
