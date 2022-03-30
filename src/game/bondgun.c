@@ -3393,129 +3393,6 @@ s32 bgun0f098ca0(s32 funcnum, struct handweaponinfo *info, struct hand *hand)
 	return result;
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel bgun0f098df8
-/*  f099ccc:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f099cd0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f099cd4:	00a08025 */ 	move	$s0,$a1
-/*  f099cd8:	00802825 */ 	move	$a1,$a0
-/*  f099cdc:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f099ce0:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f099ce4:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f099ce8:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f099cec:	0fc2c84e */ 	jal	weaponGetFunction
-/*  f099cf0:	00c02025 */ 	move	$a0,$a2
-/*  f099cf4:	5040005f */ 	beqzl	$v0,.JF0f099e74
-/*  f099cf8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f099cfc:	80430007 */ 	lb	$v1,0x7($v0)
-/*  f099d00:	2401ffff */ 	li	$at,-1
-/*  f099d04:	5061005b */ 	beql	$v1,$at,.JF0f099e74
-/*  f099d08:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f099d0c:	8e0e0008 */ 	lw	$t6,0x8($s0)
-/*  f099d10:	00603025 */ 	move	$a2,$v1
-/*  f099d14:	8fb90040 */ 	lw	$t9,0x40($sp)
-/*  f099d18:	01c37821 */ 	addu	$t7,$t6,$v1
-/*  f099d1c:	81f80064 */ 	lb	$t8,0x64($t7)
-/*  f099d20:	07000053 */ 	bltz	$t8,.JF0f099e70
-/*  f099d24:	00033880 */ 	sll	$a3,$v1,0x2
-/*  f099d28:	03272821 */ 	addu	$a1,$t9,$a3
-/*  f099d2c:	8caa0228 */ 	lw	$t2,0x228($a1)
-/*  f099d30:	8cab0220 */ 	lw	$t3,0x220($a1)
-/*  f099d34:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f099d38:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f099d3c:	014b1823 */ 	subu	$v1,$t2,$t3
-/*  f099d40:	afa3002c */ 	sw	$v1,0x2c($sp)
-/*  f099d44:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f099d48:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f099d4c:	0fc262ab */ 	jal	bgunGetUnequippedReloadIndex
-/*  f099d50:	afa50020 */ 	sw	$a1,0x20($sp)
-/*  f099d54:	3c0c8009 */ 	lui	$t4,0x8009
-/*  f099d58:	918c8e74 */ 	lbu	$t4,-0x718c($t4)
-/*  f099d5c:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*  f099d60:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f099d64:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f099d68:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f099d6c:	11800002 */ 	beqz	$t4,.JF0f099d78
-/*  f099d70:	00402025 */ 	move	$a0,$v0
-/*  f099d74:	2404ffff */ 	li	$a0,-1
-.JF0f099d78:
-/*  f099d78:	93ad004b */ 	lbu	$t5,0x4b($sp)
-/*  f099d7c:	93ab0047 */ 	lbu	$t3,0x47($sp)
-/*  f099d80:	11a0000b */ 	beqz	$t5,.JF0f099db0
-/*  f099d84:	00000000 */ 	nop
-/*  f099d88:	04800009 */ 	bltz	$a0,.JF0f099db0
-/*  f099d8c:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*  f099d90:	00047840 */ 	sll	$t7,$a0,0x1
-/*  f099d94:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f099d98:	9719073c */ 	lhu	$t9,0x73c($t8)
-/*  f099d9c:	07210003 */ 	bgez	$t9,.JF0f099dac
-/*  f099da0:	00195203 */ 	sra	$t2,$t9,0x8
-/*  f099da4:	272100ff */ 	addiu	$at,$t9,0xff
-/*  f099da8:	00015203 */ 	sra	$t2,$at,0x8
-.JF0f099dac:
-/*  f099dac:	006a1823 */ 	subu	$v1,$v1,$t2
-.JF0f099db0:
-/*  f099db0:	51600003 */ 	beqzl	$t3,.JF0f099dc0
-/*  f099db4:	8e0d0008 */ 	lw	$t5,0x8($s0)
-/*  f099db8:	24030001 */ 	li	$v1,0x1
-/*  f099dbc:	8e0d0008 */ 	lw	$t5,0x8($s0)
-.JF0f099dc0:
-/*  f099dc0:	3c08800a */ 	lui	$t0,0x800a
-/*  f099dc4:	2508a630 */ 	addiu	$t0,$t0,-22992
-/*  f099dc8:	01a67021 */ 	addu	$t6,$t5,$a2
-/*  f099dcc:	81cf0064 */ 	lb	$t7,0x64($t6)
-/*  f099dd0:	8d0c0284 */ 	lw	$t4,0x284($t0)
-/*  f099dd4:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f099dd8:	0198c821 */ 	addu	$t9,$t4,$t8
-/*  f099ddc:	8f2217a8 */ 	lw	$v0,0x17a8($t9)
-/*  f099de0:	0043082a */ 	slt	$at,$v0,$v1
-/*  f099de4:	50200003 */ 	beqzl	$at,.JF0f099df4
-/*  f099de8:	8ca40220 */ 	lw	$a0,0x220($a1)
-/*  f099dec:	00401825 */ 	move	$v1,$v0
-/*  f099df0:	8ca40220 */ 	lw	$a0,0x220($a1)
-.JF0f099df4:
-/*  f099df4:	8caa0228 */ 	lw	$t2,0x228($a1)
-/*  f099df8:	01441023 */ 	subu	$v0,$t2,$a0
-/*  f099dfc:	0043082a */ 	slt	$at,$v0,$v1
-/*  f099e00:	50200003 */ 	beqzl	$at,.JF0f099e10
-/*  f099e04:	00835821 */ 	addu	$t3,$a0,$v1
-/*  f099e08:	00401825 */ 	move	$v1,$v0
-/*  f099e0c:	00835821 */ 	addu	$t3,$a0,$v1
-.JF0f099e10:
-/*  f099e10:	acab0220 */ 	sw	$t3,0x220($a1)
-/*  f099e14:	8e0e0008 */ 	lw	$t6,0x8($s0)
-/*  f099e18:	8d0d0284 */ 	lw	$t5,0x284($t0)
-/*  f099e1c:	01c67821 */ 	addu	$t7,$t6,$a2
-/*  f099e20:	81ec0064 */ 	lb	$t4,0x64($t7)
-/*  f099e24:	000cc080 */ 	sll	$t8,$t4,0x2
-/*  f099e28:	01b81021 */ 	addu	$v0,$t5,$t8
-/*  f099e2c:	8c5917a8 */ 	lw	$t9,0x17a8($v0)
-/*  f099e30:	03235023 */ 	subu	$t2,$t9,$v1
-/*  f099e34:	ac4a17a8 */ 	sw	$t2,0x17a8($v0)
-/*  f099e38:	8e0b0004 */ 	lw	$t3,0x4($s0)
-/*  f099e3c:	01677021 */ 	addu	$t6,$t3,$a3
-/*  f099e40:	8dcf001c */ 	lw	$t7,0x1c($t6)
-/*  f099e44:	91ec0010 */ 	lbu	$t4,0x10($t7)
-/*  f099e48:	318d0001 */ 	andi	$t5,$t4,0x1
-/*  f099e4c:	51a00009 */ 	beqzl	$t5,.JF0f099e74
-/*  f099e50:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f099e54:	8e190008 */ 	lw	$t9,0x8($s0)
-/*  f099e58:	8d180284 */ 	lw	$t8,0x284($t0)
-/*  f099e5c:	03265021 */ 	addu	$t2,$t9,$a2
-/*  f099e60:	814b0064 */ 	lb	$t3,0x64($t2)
-/*  f099e64:	000b7080 */ 	sll	$t6,$t3,0x2
-/*  f099e68:	030e7821 */ 	addu	$t7,$t8,$t6
-/*  f099e6c:	ade017a8 */ 	sw	$zero,0x17a8($t7)
-.JF0f099e70:
-/*  f099e70:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.JF0f099e74:
-/*  f099e74:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f099e78:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f099e7c:	03e00008 */ 	jr	$ra
-/*  f099e80:	00000000 */ 	nop
-);
-#else
 void bgun0f098df8(s32 weaponfunc, struct handweaponinfo *info, struct hand *hand, u8 onebullet, u8 checkunequipped)
 {
 	struct weaponfunc *func = weaponGetFunction(&hand->gset, weaponfunc);
@@ -3548,6 +3425,15 @@ void bgun0f098df8(s32 weaponfunc, struct handweaponinfo *info, struct hand *hand
 				amount = g_Vars.currentplayer->ammoheldarr[info->gunctrl->ammotypes[ammoindex]];
 			}
 
+#if VERSION >= VERSION_JPN_FINAL
+			// In most versions of the game, reloading the shotgun while going
+			// through a teleport in Deep Sea will cause the shotgun to load
+			// more ammo than its capacity. JPN Final fixes this here.
+			if (amount > hand->clipsizes[ammoindex] - hand->loadedammo[ammoindex]) {
+				amount = hand->clipsizes[ammoindex] - hand->loadedammo[ammoindex];
+			}
+#endif
+
 			hand->loadedammo[ammoindex] += amount;
 			g_Vars.currentplayer->ammoheldarr[info->gunctrl->ammotypes[ammoindex]] -= amount;
 
@@ -3559,7 +3445,6 @@ void bgun0f098df8(s32 weaponfunc, struct handweaponinfo *info, struct hand *hand
 		}
 	}
 }
-#endif
 
 void bgun0f098f8c(struct handweaponinfo *info, struct hand *hand)
 {
