@@ -10003,12 +10003,6 @@ u32 var8007021c = 0x00000000;
 u32 var80070220 = 0x00000000;
 u32 var80070224 = 0x00000000;
 u32 var80070228 = 0x00000000;
-u32 var8007022c = 0x00000000;
-u32 var80070230 = 0x00000000;
-u32 var80070234 = 0x00000000;
-u32 var80070238 = 0x00000000;
-u32 var8007023c = 0x00000000;
-u32 var80070240 = 0x00000000;
 
 bool bgunTickIncAttackingClose(s32 handnum, struct hand *hand)
 {
@@ -22709,237 +22703,49 @@ void bgunUpdateDevastator(struct hand *hand, u8 *allocation, struct modelfiledat
 	}
 }
 
+/**
+ * Display the shotgun's starburst when appropriate.
+ *
+ * This logic is different to most guns, likely because most guns display the
+ * starburst when the trigger is pressed while the shotgun has the double blast
+ * function.
+ */
+void bgunUpdateShotgun(struct hand *hand, Mtxf *allocation, bool *arg2, struct modelfiledata *modeldef)
+{
+	if (hand->flashon) {
+		hand->matmot1 = 1.0f;
+	}
+
+	if (hand->matmot1 > 0.0f) {
 #if VERSION >= VERSION_PAL_BETA
-GLOBAL_ASM(
-glabel bgun0f0a419c
-.late_rodata
-glabel var7f1ac8c4
-.word 0x3c23d70a
-.text
-/*  f0a419c:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0a41a0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0a41a4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0a41a8:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f0a41ac:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f0a41b0:	808e0005 */ 	lb	$t6,0x5($a0)
-/*  f0a41b4:	44801000 */ 	mtc1	$zero,$f2
-/*  f0a41b8:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0a41bc:	11c00004 */ 	beqz	$t6,.L0f0a41d0
-/*  f0a41c0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0a41c4:	44812000 */ 	mtc1	$at,$f4
-/*  f0a41c8:	00000000 */ 	nop
-/*  f0a41cc:	e484023c */ 	swc1	$f4,0x23c($a0)
-.L0f0a41d0:
-/*  f0a41d0:	c600023c */ 	lwc1	$f0,0x23c($s0)
-/*  f0a41d4:	3c188007 */ 	lui	$t8,%hi(var8007022c)
-/*  f0a41d8:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4c)
-/*  f0a41dc:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0a41e0:	2718022c */ 	addiu	$t8,$t8,%lo(var8007022c)
-/*  f0a41e4:	27af0028 */ 	addiu	$t7,$sp,0x28
-/*  f0a41e8:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f0a41ec:	45020011 */ 	bc1fl	.L0f0a4234
-/*  f0a41f0:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0a41f4:	c426a004 */ 	lwc1	$f6,%lo(g_Vars+0x4c)($at)
-/*  f0a41f8:	3c0140c0 */ 	lui	$at,0x40c0
-/*  f0a41fc:	44814000 */ 	mtc1	$at,$f8
-/*  f0a4200:	3c017f1b */ 	lui	$at,%hi(var7f1ac8c4)
-/*  f0a4204:	46083283 */ 	div.s	$f10,$f6,$f8
-/*  f0a4208:	460a0401 */ 	sub.s	$f16,$f0,$f10
-/*  f0a420c:	e610023c */ 	swc1	$f16,0x23c($s0)
-/*  f0a4210:	c432c8c4 */ 	lwc1	$f18,%lo(var7f1ac8c4)($at)
-/*  f0a4214:	c600023c */ 	lwc1	$f0,0x23c($s0)
-/*  f0a4218:	4612003c */ 	c.lt.s	$f0,$f18
-/*  f0a421c:	00000000 */ 	nop
-/*  f0a4220:	45020004 */ 	bc1fl	.L0f0a4234
-/*  f0a4224:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0a4228:	e602023c */ 	swc1	$f2,0x23c($s0)
-/*  f0a422c:	c600023c */ 	lwc1	$f0,0x23c($s0)
-/*  f0a4230:	4600103c */ 	c.lt.s	$f2,$f0
-.L0f0a4234:
-/*  f0a4234:	00000000 */ 	nop
-/*  f0a4238:	4502003a */ 	bc1fl	.L0f0a4324
-/*  f0a423c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0a4240:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f0a4244:	8f080004 */ 	lw	$t0,0x4($t8)
-/*  f0a4248:	24050050 */ 	addiu	$a1,$zero,0x50
-/*  f0a424c:	ade10000 */ 	sw	$at,0x0($t7)
-/*  f0a4250:	8f010008 */ 	lw	$at,0x8($t8)
-/*  f0a4254:	ade80004 */ 	sw	$t0,0x4($t7)
-/*  f0a4258:	0c006a47 */ 	jal	modelGetPart
-/*  f0a425c:	ade10008 */ 	sw	$at,0x8($t7)
-/*  f0a4260:	8faa0040 */ 	lw	$t2,0x40($sp)
-/*  f0a4264:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f0a4268:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0a426c:	1040002c */ 	beqz	$v0,.L0f0a4320
-/*  f0a4270:	ad490000 */ 	sw	$t1,0x0($t2)
-/*  f0a4274:	0c006949 */ 	jal	model0001a524
-/*  f0a4278:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0a427c:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f0a4280:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0a4284:	44812000 */ 	mtc1	$at,$f4
-/*  f0a4288:	c606023c */ 	lwc1	$f6,0x23c($s0)
-/*  f0a428c:	3c014100 */ 	lui	$at,0x4100
-/*  f0a4290:	44815000 */ 	mtc1	$at,$f10
-/*  f0a4294:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0a4298:	3c013f00 */ 	lui	$at,0x3f00
-/*  f0a429c:	44819000 */ 	mtc1	$at,$f18
-/*  f0a42a0:	8fab003c */ 	lw	$t3,0x3c($sp)
-/*  f0a42a4:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f0a42a8:	00026180 */ 	sll	$t4,$v0,0x6
-/*  f0a42ac:	016c2821 */ 	addu	$a1,$t3,$t4
-/*  f0a42b0:	0c0057aa */ 	jal	mtx00015ea8
-/*  f0a42b4:	46128300 */ 	add.s	$f12,$f16,$f18
-/*  f0a42b8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0a42bc:	44810000 */ 	mtc1	$at,$f0
-/*  f0a42c0:	c604023c */ 	lwc1	$f4,0x23c($s0)
-/*  f0a42c4:	3c014040 */ 	lui	$at,0x4040
-/*  f0a42c8:	44814000 */ 	mtc1	$at,$f8
-/*  f0a42cc:	46040181 */ 	sub.s	$f6,$f0,$f4
-/*  f0a42d0:	8fae0034 */ 	lw	$t6,0x34($sp)
-/*  f0a42d4:	8fad003c */ 	lw	$t5,0x3c($sp)
-/*  f0a42d8:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f0a42dc:	000ec980 */ 	sll	$t9,$t6,0x6
-/*  f0a42e0:	01b92821 */ 	addu	$a1,$t5,$t9
-/*  f0a42e4:	afa50020 */ 	sw	$a1,0x20($sp)
-/*  f0a42e8:	0c00577c */ 	jal	mtx00015df0
-/*  f0a42ec:	46005300 */ 	add.s	$f12,$f10,$f0
-/*  f0a42f0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0a42f4:	44818000 */ 	mtc1	$at,$f16
-/*  f0a42f8:	c612023c */ 	lwc1	$f18,0x23c($s0)
-/*  f0a42fc:	3c014040 */ 	lui	$at,0x4040
-/*  f0a4300:	44813000 */ 	mtc1	$at,$f6
-/*  f0a4304:	46128101 */ 	sub.s	$f4,$f16,$f18
-/*  f0a4308:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0a430c:	44815000 */ 	mtc1	$at,$f10
-/*  f0a4310:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f0a4314:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0a4318:	0c005793 */ 	jal	mtx00015e4c
-/*  f0a431c:	460a4300 */ 	add.s	$f12,$f8,$f10
-.L0f0a4320:
-/*  f0a4320:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0a4324:
-/*  f0a4324:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0a4328:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0a432c:	03e00008 */ 	jr	$ra
-/*  f0a4330:	00000000 */ 	nop
-);
+		hand->matmot1 -= g_Vars.lvupdate240freal / 6.0f;
 #else
-GLOBAL_ASM(
-glabel bgun0f0a419c
-.late_rodata
-glabel var7f1ac8c4
-.word 0x3c23d70a
-.text
-/*  f0a419c:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0a41a0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0a41a4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0a41a8:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f0a41ac:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f0a41b0:	808e0005 */ 	lb	$t6,0x5($a0)
-/*  f0a41b4:	44801000 */ 	mtc1	$zero,$f2
-/*  f0a41b8:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0a41bc:	11c00004 */ 	beqz	$t6,.L0f0a41d0
-/*  f0a41c0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0a41c4:	44812000 */ 	mtc1	$at,$f4
-/*  f0a41c8:	00000000 */ 	nop
-/*  f0a41cc:	e484023c */ 	swc1	$f4,0x23c($a0)
-.L0f0a41d0:
-/*  f0a41d0:	c600023c */ 	lwc1	$f0,0x23c($s0)
-/*  f0a41d4:	3c188007 */ 	lui	$t8,%hi(var8007022c)
-/*  f0a41d8:	3c01800a */ 	lui	$at,%hi(g_Vars+0x44)
-/*  f0a41dc:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0a41e0:	2718022c */ 	addiu	$t8,$t8,%lo(var8007022c)
-/*  f0a41e4:	27af0028 */ 	addiu	$t7,$sp,0x28
-/*  f0a41e8:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f0a41ec:	45020011 */ 	bc1fl	.L0f0a4234
-/*  f0a41f0:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0a41f4:	c426a004 */ 	lwc1	$f6,%lo(g_Vars+0x44)($at)
-/*  f0a41f8:	3c0140c0 */ 	lui	$at,0x40c0
-/*  f0a41fc:	44814000 */ 	mtc1	$at,$f8
-/*  f0a4200:	3c017f1b */ 	lui	$at,%hi(var7f1ac8c4)
-/*  f0a4204:	46083283 */ 	div.s	$f10,$f6,$f8
-/*  f0a4208:	460a0401 */ 	sub.s	$f16,$f0,$f10
-/*  f0a420c:	e610023c */ 	swc1	$f16,0x23c($s0)
-/*  f0a4210:	c432c8c4 */ 	lwc1	$f18,%lo(var7f1ac8c4)($at)
-/*  f0a4214:	c600023c */ 	lwc1	$f0,0x23c($s0)
-/*  f0a4218:	4612003c */ 	c.lt.s	$f0,$f18
-/*  f0a421c:	00000000 */ 	nop
-/*  f0a4220:	45020004 */ 	bc1fl	.L0f0a4234
-/*  f0a4224:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0a4228:	e602023c */ 	swc1	$f2,0x23c($s0)
-/*  f0a422c:	c600023c */ 	lwc1	$f0,0x23c($s0)
-/*  f0a4230:	4600103c */ 	c.lt.s	$f2,$f0
-.L0f0a4234:
-/*  f0a4234:	00000000 */ 	nop
-/*  f0a4238:	4502003a */ 	bc1fl	.L0f0a4324
-/*  f0a423c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0a4240:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f0a4244:	8f080004 */ 	lw	$t0,0x4($t8)
-/*  f0a4248:	24050050 */ 	addiu	$a1,$zero,0x50
-/*  f0a424c:	ade10000 */ 	sw	$at,0x0($t7)
-/*  f0a4250:	8f010008 */ 	lw	$at,0x8($t8)
-/*  f0a4254:	ade80004 */ 	sw	$t0,0x4($t7)
-/*  f0a4258:	0c006a47 */ 	jal	modelGetPart
-/*  f0a425c:	ade10008 */ 	sw	$at,0x8($t7)
-/*  f0a4260:	8faa0040 */ 	lw	$t2,0x40($sp)
-/*  f0a4264:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f0a4268:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0a426c:	1040002c */ 	beqz	$v0,.L0f0a4320
-/*  f0a4270:	ad490000 */ 	sw	$t1,0x0($t2)
-/*  f0a4274:	0c006949 */ 	jal	model0001a524
-/*  f0a4278:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0a427c:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f0a4280:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0a4284:	44812000 */ 	mtc1	$at,$f4
-/*  f0a4288:	c606023c */ 	lwc1	$f6,0x23c($s0)
-/*  f0a428c:	3c014100 */ 	lui	$at,0x4100
-/*  f0a4290:	44815000 */ 	mtc1	$at,$f10
-/*  f0a4294:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0a4298:	3c013f00 */ 	lui	$at,0x3f00
-/*  f0a429c:	44819000 */ 	mtc1	$at,$f18
-/*  f0a42a0:	8fab003c */ 	lw	$t3,0x3c($sp)
-/*  f0a42a4:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f0a42a8:	00026180 */ 	sll	$t4,$v0,0x6
-/*  f0a42ac:	016c2821 */ 	addu	$a1,$t3,$t4
-/*  f0a42b0:	0c0057aa */ 	jal	mtx00015ea8
-/*  f0a42b4:	46128300 */ 	add.s	$f12,$f16,$f18
-/*  f0a42b8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0a42bc:	44810000 */ 	mtc1	$at,$f0
-/*  f0a42c0:	c604023c */ 	lwc1	$f4,0x23c($s0)
-/*  f0a42c4:	3c014040 */ 	lui	$at,0x4040
-/*  f0a42c8:	44814000 */ 	mtc1	$at,$f8
-/*  f0a42cc:	46040181 */ 	sub.s	$f6,$f0,$f4
-/*  f0a42d0:	8fae0034 */ 	lw	$t6,0x34($sp)
-/*  f0a42d4:	8fad003c */ 	lw	$t5,0x3c($sp)
-/*  f0a42d8:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f0a42dc:	000ec980 */ 	sll	$t9,$t6,0x6
-/*  f0a42e0:	01b92821 */ 	addu	$a1,$t5,$t9
-/*  f0a42e4:	afa50020 */ 	sw	$a1,0x20($sp)
-/*  f0a42e8:	0c00577c */ 	jal	mtx00015df0
-/*  f0a42ec:	46005300 */ 	add.s	$f12,$f10,$f0
-/*  f0a42f0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0a42f4:	44818000 */ 	mtc1	$at,$f16
-/*  f0a42f8:	c612023c */ 	lwc1	$f18,0x23c($s0)
-/*  f0a42fc:	3c014040 */ 	lui	$at,0x4040
-/*  f0a4300:	44813000 */ 	mtc1	$at,$f6
-/*  f0a4304:	46128101 */ 	sub.s	$f4,$f16,$f18
-/*  f0a4308:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0a430c:	44815000 */ 	mtc1	$at,$f10
-/*  f0a4310:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f0a4314:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0a4318:	0c005793 */ 	jal	mtx00015e4c
-/*  f0a431c:	460a4300 */ 	add.s	$f12,$f8,$f10
-.L0f0a4320:
-/*  f0a4320:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0a4324:
-/*  f0a4324:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0a4328:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0a432c:	03e00008 */ 	jr	$ra
-/*  f0a4330:	00000000 */ 	nop
-);
+		hand->matmot1 -= g_Vars.lvupdate240f / 6.0f;
 #endif
 
-void bgun0f0a4334(struct hand *hand)
+		if (hand->matmot1 < 0.01f) {
+			hand->matmot1 = 0.0f;
+		}
+	}
+
+	if (hand->matmot1 > 0.0f) {
+		s32 sp34;
+		s32 sp28[3] = {0, 0, 0};
+		struct modelnode *node = modelGetPart(modeldef, MODELPART_SHOTGUN_0050);
+
+		*arg2 = true;
+
+		if (node) {
+			sp34 = model0001a524(node, 0);
+
+			mtx00015ea8((1.0f - hand->matmot1) * 8.0f + 0.5f, (Mtxf *)((u32)allocation + sp34 * sizeof(Mtxf)));
+			mtx00015df0((1.0f - hand->matmot1) * 3.0f + 1.0f, (Mtxf *)((u32)allocation + sp34 * sizeof(Mtxf)));
+			mtx00015e4c((1.0f - hand->matmot1) * 3.0f + 1.0f, (Mtxf *)((u32)allocation + sp34 * sizeof(Mtxf)));
+		}
+	}
+}
+
+void bgunUpdateLaser(struct hand *hand)
 {
 	if (hand->firing && hand->gset.weaponfunc == FUNC_SECONDARY) {
 		if (hand->audiohandle == NULL && g_Vars.lvupdate240 != 0) {
@@ -25248,6 +25054,10 @@ glabel var7f1ac918
 );
 #endif
 
+u32 var80070238 = 0x00000000;
+u32 var8007023c = 0x00000000;
+u32 var80070240 = 0x00000000;
+
 GLOBAL_ASM(
 glabel bgun0f0a4e44
 .late_rodata
@@ -25848,7 +25658,7 @@ void bgun0f0a5550(s32 handnum)
 	Mtxf sp234;
 	Mtxf sp1f4;
 	union modelrodata *rodata;
-	u32 *sp1e4[3] = {NULL, NULL, NULL};
+	bool *sp1e4[3] = {NULL, NULL, NULL};
 	s32 sp1e0 = 0;
 	struct modelnode *node;
 	struct player *player = g_Vars.currentplayer;
@@ -26047,7 +25857,7 @@ void bgun0f0a5550(s32 handnum)
 
 			if (node) {
 				rodata = node->rodata;
-				sp1e4[sp1e0] = &hand->unk0a6c[rodata->toggle.rwdataindex];
+				sp1e4[sp1e0] = (bool *)&hand->unk0a6c[rodata->toggle.rwdataindex];
 				sp1e0++;
 			}
 		}
@@ -26088,7 +25898,7 @@ void bgun0f0a5550(s32 handnum)
 
 		switch (weaponnum) {
 		case WEAPON_LASER:
-			bgun0f0a4334(hand);
+			bgunUpdateLaser(hand);
 			break;
 		case WEAPON_REAPER:
 			bgun0f0a3aa4(hand, modeldef);
@@ -26262,15 +26072,15 @@ void bgun0f0a5550(s32 handnum)
 			}
 
 			if (sp1e4[0] != NULL) {
-				*sp1e4[0] = 0;
+				*sp1e4[0] = false;
 			}
 
 			if (sp1e4[1] != NULL) {
-				*sp1e4[1] = 0;
+				*sp1e4[1] = false;
 			}
 
 			if (sp1e4[2] != NULL) {
-				*sp1e4[2] = 0;
+				*sp1e4[2] = false;
 			}
 
 			switch (weaponnum) {
@@ -26281,7 +26091,7 @@ void bgun0f0a5550(s32 handnum)
 				bgunUpdateDevastator(hand, mtxallocation, modeldef);
 				break;
 			case WEAPON_SHOTGUN:
-				bgun0f0a419c(hand, (Mtxf *)mtxallocation, sp1e4[0], modeldef);
+				bgunUpdateShotgun(hand, (Mtxf *)mtxallocation, sp1e4[0], modeldef);
 				break;
 			}
 

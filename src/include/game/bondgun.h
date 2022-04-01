@@ -127,13 +127,13 @@ void bgun0f0a37b4(struct hand *hand, struct modelfiledata *modeldef, s32 handnum
 void bgun0f0a3aa4(struct hand *hand, struct modelfiledata *modeldef);
 void bgun0f0a3eac(struct modelfiledata *modeldef, Mtxf *arg1);
 void bgunUpdateDevastator(struct hand *hand, u8 *allocation, struct modelfiledata *modeldef);
-void bgun0f0a419c(struct hand *hand, Mtxf *arg1, u32 *arg2, struct modelfiledata *modeldef);
-void bgun0f0a4334(struct hand *hand);
+void bgunUpdateShotgun(struct hand *hand, Mtxf *allocation, bool *arg2, struct modelfiledata *modeldef);
+void bgunUpdateLaser(struct hand *hand);
 void bgunUpdateMagnum(struct hand *hand, s32 handnum, struct modelfiledata *modeldef, Mtxf *mtx);
 void bgunUpdateRocketLauncher(struct hand *hand, s32 handnum, struct weaponfunc_shootprojectile *func);
 void bgun0f0a45d0(struct hand *hand, struct modelfiledata *modeldef, bool isdetonator);
 void bgun0f0a46a4(struct hand *hand, struct modelfiledata *modeldef, bool isdetonator);
-void bgun0f0a4e44(struct hand *hand, struct weapon *weapondef, struct modelfiledata *modeldef, struct weaponfunc *funcdef, s32 arg4, Mtxf *arg5, s32 weaponnum, u32 **sp1e4, s32 sp6c, Mtxf *arg9, Mtxf *arg10);
+void bgun0f0a4e44(struct hand *hand, struct weapon *weapondef, struct modelfiledata *modeldef, struct weaponfunc *funcdef, s32 arg4, Mtxf *arg5, s32 weaponnum, bool **sp1e4, s32 sp6c, Mtxf *arg9, Mtxf *arg10);
 void bgun0f0a5300(struct hand *hand, s32 handnum, struct weaponfunc *funcdef, s32 weaponnum, struct modelfiledata *modeldef, Mtxf *mtx);
 void bgun0f0a5550(s32 handnum);
 void bgunTickMaulerCharge(void);
