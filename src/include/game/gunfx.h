@@ -30,7 +30,7 @@ void boltbeamsTick(void);
 bool lasersightExists(s32 id, s32 *index);
 Gfx *lasersightRenderDot(Gfx *gdl);
 Gfx *lasersightRenderBeam(Gfx *gdl);
-void func0f0b0268(s32 id, s32 arg1, struct coord *near, struct coord *far);
+void lasersightSetBeam(s32 id, s32 arg1, struct coord *near, struct coord *far);
 void lasersightSetDot(s32 arg0, struct coord *pos, struct coord *rot);
 void lasersightFree(s32 arg0);
 

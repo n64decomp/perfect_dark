@@ -5733,7 +5733,7 @@ glabel var7f1acd90
 //	return gdl;
 //}
 
-void func0f0b0268(s32 id, s32 arg1, struct coord *near, struct coord *far)
+void lasersightSetBeam(s32 id, s32 arg1, struct coord *near, struct coord *far)
 {
 	s32 i;
 

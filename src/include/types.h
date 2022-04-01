@@ -2388,9 +2388,9 @@ struct hand {
 	/*0x0ce0*/ s32 statevar1;
 	/*0x0ce4*/ s32 attacktype;
 	/*0x0ce8*/ struct guncmd *unk0ce8;
-	/*0x0cec*/ ubool unk0cec;
-	/*0x0cf0*/ struct coord unk0cf0;
-	/*0x0cfc*/ struct coord unk0cfc;
+	/*0x0cec*/ ubool hasdotinfo;
+	/*0x0cf0*/ struct coord dotpos;
+	/*0x0cfc*/ struct coord dotrot;
 	/*0x0d08*/ f32 gangstarot;
 	/*0x0d0c*/ s16 primetimer;
 	/*0x0d0e*/ u8 unk0d0e_00 : 4;
