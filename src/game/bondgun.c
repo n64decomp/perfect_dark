@@ -22961,96 +22961,38 @@ void bgun0f0a4334(struct hand *hand)
 	}
 }
 
-GLOBAL_ASM(
-glabel bgun0f0a4438
-.late_rodata
-glabel var7f1ac8c8
-.word 0x411fffff
-.text
-/*  f0a4438:	27bdff60 */ 	addiu	$sp,$sp,-160
-/*  f0a443c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0a4440:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0a4444:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f0a4448:	afb60040 */ 	sw	$s6,0x40($sp)
-/*  f0a444c:	afb5003c */ 	sw	$s5,0x3c($sp)
-/*  f0a4450:	afb40038 */ 	sw	$s4,0x38($sp)
-/*  f0a4454:	afb30034 */ 	sw	$s3,0x34($sp)
-/*  f0a4458:	afb20030 */ 	sw	$s2,0x30($sp)
-/*  f0a445c:	afb1002c */ 	sw	$s1,0x2c($sp)
-/*  f0a4460:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f0a4464:	f7b60020 */ 	sdc1	$f22,0x20($sp)
-/*  f0a4468:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*  f0a446c:	00c09825 */ 	or	$s3,$a2,$zero
-/*  f0a4470:	0080a025 */ 	or	$s4,$a0,$zero
-/*  f0a4474:	00e0a825 */ 	or	$s5,$a3,$zero
-/*  f0a4478:	00a0b025 */ 	or	$s6,$a1,$zero
-/*  f0a447c:	10c00030 */ 	beqz	$a2,.L0f0a4540
-/*  f0a4480:	c5d60078 */ 	lwc1	$f22,0x78($t6)
-/*  f0a4484:	8c8f0690 */ 	lw	$t7,0x690($a0)
-/*  f0a4488:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0a448c:	3c017f1b */ 	lui	$at,%hi(var7f1ac8c8)
-/*  f0a4490:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f0a4494:	0018cf42 */ 	srl	$t9,$t8,0x1d
-/*  f0a4498:	1b200029 */ 	blez	$t9,.L0f0a4540
-/*  f0a449c:	24120006 */ 	addiu	$s2,$zero,0x6
-/*  f0a44a0:	c434c8c8 */ 	lwc1	$f20,%lo(var7f1ac8c8)($at)
-/*  f0a44a4:	27b0004c */ 	addiu	$s0,$sp,0x4c
-.L0f0a44a8:
-/*  f0a44a8:	0c004b70 */ 	jal	random
-/*  f0a44ac:	00000000 */ 	nop
-/*  f0a44b0:	0052001b */ 	divu	$zero,$v0,$s2
-/*  f0a44b4:	00002810 */ 	mfhi	$a1
-/*  f0a44b8:	24a5000a */ 	addiu	$a1,$a1,0xa
-/*  f0a44bc:	02602025 */ 	or	$a0,$s3,$zero
-/*  f0a44c0:	16400002 */ 	bnez	$s2,.L0f0a44cc
-/*  f0a44c4:	00000000 */ 	nop
-/*  f0a44c8:	0007000d */ 	break	0x7
-.L0f0a44cc:
-/*  f0a44cc:	0c006a47 */ 	jal	modelGetPart
-/*  f0a44d0:	00000000 */ 	nop
-/*  f0a44d4:	10400013 */ 	beqz	$v0,.L0f0a4524
-/*  f0a44d8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0a44dc:	0c006949 */ 	jal	model0001a524
-/*  f0a44e0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0a44e4:	00024180 */ 	sll	$t0,$v0,0x6
-/*  f0a44e8:	02a82021 */ 	addu	$a0,$s5,$t0
-/*  f0a44ec:	0c005746 */ 	jal	mtx4Copy
-/*  f0a44f0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0a44f4:	4600a306 */ 	mov.s	$f12,$f20
-/*  f0a44f8:	0c0057c1 */ 	jal	mtx00015f04
-/*  f0a44fc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0a4500:	0fc2d5de */ 	jal	camGetUnk174c
-/*  f0a4504:	00000000 */ 	nop
-/*  f0a4508:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0a450c:	0c00567f */ 	jal	mtx4MultMtx4InPlace
-/*  f0a4510:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0a4514:	4405b000 */ 	mfc1	$a1,$f22
-/*  f0a4518:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f0a451c:	0fc2b780 */ 	jal	func0f0ade00
-/*  f0a4520:	02003025 */ 	or	$a2,$s0,$zero
-.L0f0a4524:
-/*  f0a4524:	8e890690 */ 	lw	$t1,0x690($s4)
-/*  f0a4528:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0a452c:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f0a4530:	000a5f42 */ 	srl	$t3,$t2,0x1d
-/*  f0a4534:	022b082a */ 	slt	$at,$s1,$t3
-/*  f0a4538:	1420ffdb */ 	bnez	$at,.L0f0a44a8
-/*  f0a453c:	00000000 */ 	nop
-.L0f0a4540:
-/*  f0a4540:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f0a4544:	d7b40018 */ 	ldc1	$f20,0x18($sp)
-/*  f0a4548:	d7b60020 */ 	ldc1	$f22,0x20($sp)
-/*  f0a454c:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f0a4550:	8fb1002c */ 	lw	$s1,0x2c($sp)
-/*  f0a4554:	8fb20030 */ 	lw	$s2,0x30($sp)
-/*  f0a4558:	8fb30034 */ 	lw	$s3,0x34($sp)
-/*  f0a455c:	8fb40038 */ 	lw	$s4,0x38($sp)
-/*  f0a4560:	8fb5003c */ 	lw	$s5,0x3c($sp)
-/*  f0a4564:	8fb60040 */ 	lw	$s6,0x40($sp)
-/*  f0a4568:	03e00008 */ 	jr	$ra
-/*  f0a456c:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
-);
+/**
+ * Create ammo casing so they can be ejected during reload.
+ */
+void bgunUpdateMagnum(struct hand *hand, s32 handnum, struct modelfiledata *modeldef, Mtxf *mtx)
+{
+	f32 ground = g_Vars.currentplayer->vv_ground;
+	s32 i;
 
+	if (modeldef != NULL) {
+		for (i = 0; i < hand->unk0cc8_04; i++) {
+			struct modelnode *node = modelGetPart(modeldef, 0x0a + random() % 6);
+
+			if (node) {
+				s32 index = model0001a524(node, 0);
+				Mtxf *tmp = mtx;
+				Mtxf sp4c;
+
+				tmp += index;
+
+				mtx4Copy(tmp, &sp4c);
+				mtx00015f04(9.999999f, &sp4c);
+				mtx4MultMtx4InPlace(camGetUnk174c(), &sp4c);
+
+				func0f0ade00(handnum, ground, &sp4c);
+			}
+		}
+	}
+}
+
+/**
+ * Create and/or update the rocket prop that sits inside the rocket launcher.
+ */
 void bgunUpdateRocketLauncher(struct hand *hand, s32 handnum, struct weaponfunc_shootprojectile *func)
 {
 	if (hand->rocket == NULL && hand->loadedammo[0] > 0) {
@@ -26416,7 +26358,7 @@ void bgun0f0a5550(s32 handnum)
 	case WEAPON_DY357MAGNUM:
 	case WEAPON_DY357LX:
 		if (hand->unk0cc8_04 > 0) {
-			bgun0f0a4438(hand, handnum, modeldef, (Mtxf *)mtxallocation);
+			bgunUpdateMagnum(hand, handnum, modeldef, (Mtxf *)mtxallocation);
 		}
 		break;
 	}

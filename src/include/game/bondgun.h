@@ -129,7 +129,7 @@ void bgun0f0a3eac(struct modelfiledata *modeldef, Mtxf *arg1);
 void bgunUpdateDevastator(struct hand *hand, u8 *allocation, struct modelfiledata *modeldef);
 void bgun0f0a419c(struct hand *hand, Mtxf *arg1, u32 *arg2, struct modelfiledata *modeldef);
 void bgun0f0a4334(struct hand *hand);
-void bgun0f0a4438(struct hand *hand, s32 handnum, struct modelfiledata *modeldef, Mtxf *mtx);
+void bgunUpdateMagnum(struct hand *hand, s32 handnum, struct modelfiledata *modeldef, Mtxf *mtx);
 void bgunUpdateRocketLauncher(struct hand *hand, s32 handnum, struct weaponfunc_shootprojectile *func);
 void bgun0f0a45d0(struct hand *hand, struct modelfiledata *modeldef, bool isdetonator);
 void bgun0f0a46a4(struct hand *hand, struct modelfiledata *modeldef, bool isdetonator);

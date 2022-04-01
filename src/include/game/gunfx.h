@@ -14,7 +14,7 @@ Gfx *func0f0acb90(Gfx *gdl, struct beam *beam, bool arg2, u32 arg3);
 void beamTick(struct beam *beam);
 
 struct casing *casingCreate(struct modelfiledata *modeldef, Mtxf *mtx);
-u32 func0f0ade00(void);
+void func0f0ade00(s32 handnum, f32 ground, Mtxf *mtx);
 void casingRender(struct casing *casing, Gfx **gdlptr);
 void casingsRender(Gfx **gdlptr);
 
