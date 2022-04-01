@@ -9999,10 +9999,6 @@ struct guncmd var80070200[2] = {
 u32 var80070210 = 0x00000000;
 u32 var80070214 = 0x00000000;
 u32 var80070218 = 0x00000000;
-u32 var8007021c = 0x00000000;
-u32 var80070220 = 0x00000000;
-u32 var80070224 = 0x00000000;
-u32 var80070228 = 0x00000000;
 
 bool bgunTickIncAttackingClose(s32 handnum, struct hand *hand)
 {
@@ -22541,134 +22537,49 @@ glabel var7f1ac8b8
 );
 #endif
 
-GLOBAL_ASM(
-glabel bgun0f0a3eac
-/*  f0a3eac:	27bdff58 */ 	addiu	$sp,$sp,-168
-/*  f0a3eb0:	3c0f8007 */ 	lui	$t7,%hi(var8007021c)
-/*  f0a3eb4:	afbf0054 */ 	sw	$ra,0x54($sp)
-/*  f0a3eb8:	afb70050 */ 	sw	$s7,0x50($sp)
-/*  f0a3ebc:	afb6004c */ 	sw	$s6,0x4c($sp)
-/*  f0a3ec0:	afb50048 */ 	sw	$s5,0x48($sp)
-/*  f0a3ec4:	afb40044 */ 	sw	$s4,0x44($sp)
-/*  f0a3ec8:	afb30040 */ 	sw	$s3,0x40($sp)
-/*  f0a3ecc:	afb2003c */ 	sw	$s2,0x3c($sp)
-/*  f0a3ed0:	afb10038 */ 	sw	$s1,0x38($sp)
-/*  f0a3ed4:	afb00034 */ 	sw	$s0,0x34($sp)
-/*  f0a3ed8:	f7ba0028 */ 	sdc1	$f26,0x28($sp)
-/*  f0a3edc:	f7b80020 */ 	sdc1	$f24,0x20($sp)
-/*  f0a3ee0:	f7b60018 */ 	sdc1	$f22,0x18($sp)
-/*  f0a3ee4:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f0a3ee8:	25ef021c */ 	addiu	$t7,$t7,%lo(var8007021c)
-/*  f0a3eec:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f0a3ef0:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f0a3ef4:	27ae0088 */ 	addiu	$t6,$sp,0x88
-/*  f0a3ef8:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f0a3efc:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f0a3f00:	8de8000c */ 	lw	$t0,0xc($t7)
-/*  f0a3f04:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f0a3f08:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0a3f0c:	00a0b825 */ 	or	$s7,$a1,$zero
-/*  f0a3f10:	adc8000c */ 	sw	$t0,0xc($t6)
-/*  f0a3f14:	0fc2c536 */ 	jal	currentPlayerGetGunZoomFov
-/*  f0a3f18:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f0a3f1c:	3c014000 */ 	lui	$at,0x4000
-/*  f0a3f20:	44812000 */ 	mtc1	$at,$f4
-/*  f0a3f24:	3c014268 */ 	lui	$at,0x4268
-/*  f0a3f28:	44814000 */ 	mtc1	$at,$f8
-/*  f0a3f2c:	46040181 */ 	sub.s	$f6,$f0,$f4
-/*  f0a3f30:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0a3f34:	44818000 */ 	mtc1	$at,$f16
-/*  f0a3f38:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0a3f3c:	46083283 */ 	div.s	$f10,$f6,$f8
-/*  f0a3f40:	2405002a */ 	addiu	$a1,$zero,0x2a
-/*  f0a3f44:	0c006a47 */ 	jal	modelGetPart
-/*  f0a3f48:	460a8681 */ 	sub.s	$f26,$f16,$f10
-/*  f0a3f4c:	afa20098 */ 	sw	$v0,0x98($sp)
-/*  f0a3f50:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0a3f54:	0c006a47 */ 	jal	modelGetPart
-/*  f0a3f58:	2405002b */ 	addiu	$a1,$zero,0x2b
-/*  f0a3f5c:	afa2009c */ 	sw	$v0,0x9c($sp)
-/*  f0a3f60:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0a3f64:	0c006a47 */ 	jal	modelGetPart
-/*  f0a3f68:	2405002c */ 	addiu	$a1,$zero,0x2c
-/*  f0a3f6c:	afa200a0 */ 	sw	$v0,0xa0($sp)
-/*  f0a3f70:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0a3f74:	0c006a47 */ 	jal	modelGetPart
-/*  f0a3f78:	2405002d */ 	addiu	$a1,$zero,0x2d
-/*  f0a3f7c:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f0a3f80:	4481c000 */ 	mtc1	$at,$f24
-/*  f0a3f84:	4480b000 */ 	mtc1	$zero,$f22
-/*  f0a3f88:	afa200a4 */ 	sw	$v0,0xa4($sp)
-/*  f0a3f8c:	00009025 */ 	or	$s2,$zero,$zero
-/*  f0a3f90:	00009825 */ 	or	$s3,$zero,$zero
-/*  f0a3f94:	27b40098 */ 	addiu	$s4,$sp,0x98
-/*  f0a3f98:	24160004 */ 	addiu	$s6,$zero,0x4
-/*  f0a3f9c:	27b50070 */ 	addiu	$s5,$sp,0x70
-.L0f0a3fa0:
-/*  f0a3fa0:	8e840000 */ 	lw	$a0,0x0($s4)
-/*  f0a3fa4:	3c014080 */ 	lui	$at,0x4080
-/*  f0a3fa8:	50800028 */ 	beqzl	$a0,.L0f0a404c
-/*  f0a3fac:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f0a3fb0:	44819000 */ 	mtc1	$at,$f18
-/*  f0a3fb4:	27a90088 */ 	addiu	$t1,$sp,0x88
-/*  f0a3fb8:	02698821 */ 	addu	$s1,$s3,$t1
-/*  f0a3fbc:	4612d502 */ 	mul.s	$f20,$f26,$f18
-/*  f0a3fc0:	0c006949 */ 	jal	model0001a524
-/*  f0a3fc4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0a3fc8:	44922000 */ 	mtc1	$s2,$f4
-/*  f0a3fcc:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0a3fd0:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f0a3fd4:	4600a03c */ 	c.lt.s	$f20,$f0
-/*  f0a3fd8:	4600a181 */ 	sub.s	$f6,$f20,$f0
-/*  f0a3fdc:	45000002 */ 	bc1f	.L0f0a3fe8
-/*  f0a3fe0:	e6260000 */ 	swc1	$f6,0x0($s1)
-/*  f0a3fe4:	e6360000 */ 	swc1	$f22,0x0($s1)
-.L0f0a3fe8:
-/*  f0a3fe8:	c6280000 */ 	lwc1	$f8,0x0($s1)
-/*  f0a3fec:	00035180 */ 	sll	$t2,$v1,0x6
-/*  f0a3ff0:	02ea8021 */ 	addu	$s0,$s7,$t2
-/*  f0a3ff4:	46184402 */ 	mul.s	$f16,$f8,$f24
-/*  f0a3ff8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0a3ffc:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f0a4000:	e6300000 */ 	swc1	$f16,0x0($s1)
-/*  f0a4004:	e7b60070 */ 	swc1	$f22,0x70($sp)
-/*  f0a4008:	e7b60074 */ 	swc1	$f22,0x74($sp)
-/*  f0a400c:	c62a0000 */ 	lwc1	$f10,0x0($s1)
-/*  f0a4010:	0c0056c4 */ 	jal	mtx4RotateVecInPlace
-/*  f0a4014:	e7aa0078 */ 	swc1	$f10,0x78($sp)
-/*  f0a4018:	c6120030 */ 	lwc1	$f18,0x30($s0)
-/*  f0a401c:	c7a40070 */ 	lwc1	$f4,0x70($sp)
-/*  f0a4020:	c6080034 */ 	lwc1	$f8,0x34($s0)
-/*  f0a4024:	46049180 */ 	add.s	$f6,$f18,$f4
-/*  f0a4028:	c6120038 */ 	lwc1	$f18,0x38($s0)
-/*  f0a402c:	e6060030 */ 	swc1	$f6,0x30($s0)
-/*  f0a4030:	c7b00074 */ 	lwc1	$f16,0x74($sp)
-/*  f0a4034:	46104280 */ 	add.s	$f10,$f8,$f16
-/*  f0a4038:	e60a0034 */ 	swc1	$f10,0x34($s0)
-/*  f0a403c:	c7a40078 */ 	lwc1	$f4,0x78($sp)
-/*  f0a4040:	46049180 */ 	add.s	$f6,$f18,$f4
-/*  f0a4044:	e6060038 */ 	swc1	$f6,0x38($s0)
-/*  f0a4048:	26520001 */ 	addiu	$s2,$s2,0x1
-.L0f0a404c:
-/*  f0a404c:	26730004 */ 	addiu	$s3,$s3,0x4
-/*  f0a4050:	1656ffd3 */ 	bne	$s2,$s6,.L0f0a3fa0
-/*  f0a4054:	26940004 */ 	addiu	$s4,$s4,0x4
-/*  f0a4058:	8fbf0054 */ 	lw	$ra,0x54($sp)
-/*  f0a405c:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f0a4060:	d7b60018 */ 	ldc1	$f22,0x18($sp)
-/*  f0a4064:	d7b80020 */ 	ldc1	$f24,0x20($sp)
-/*  f0a4068:	d7ba0028 */ 	ldc1	$f26,0x28($sp)
-/*  f0a406c:	8fb00034 */ 	lw	$s0,0x34($sp)
-/*  f0a4070:	8fb10038 */ 	lw	$s1,0x38($sp)
-/*  f0a4074:	8fb2003c */ 	lw	$s2,0x3c($sp)
-/*  f0a4078:	8fb30040 */ 	lw	$s3,0x40($sp)
-/*  f0a407c:	8fb40044 */ 	lw	$s4,0x44($sp)
-/*  f0a4080:	8fb50048 */ 	lw	$s5,0x48($sp)
-/*  f0a4084:	8fb6004c */ 	lw	$s6,0x4c($sp)
-/*  f0a4088:	8fb70050 */ 	lw	$s7,0x50($sp)
-/*  f0a408c:	03e00008 */ 	jr	$ra
-/*  f0a4090:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
-);
+/**
+ * Move/extend the scope on the gun model when the zoom function is used.
+ */
+void bgunUpdateSniperRifle(struct modelfiledata *modeldef, u8 *allocation)
+{
+	struct modelnode *nodes[4];
+	f32 sp88[4] = {0, 0, 0, 0};
+	s32 i;
+	f32 f26;
+	s32 mtxindex;
+	struct coord sp70;
+
+	f26 = 1.0f - (currentPlayerGetGunZoomFov() - 2.0f) / 58.0f;
+
+	nodes[0] = modelGetPart(modeldef, MODELPART_SNIPERRIFLE_002A);
+	nodes[1] = modelGetPart(modeldef, MODELPART_SNIPERRIFLE_002B);
+	nodes[2] = modelGetPart(modeldef, MODELPART_SNIPERRIFLE_002C);
+	nodes[3] = modelGetPart(modeldef, MODELPART_SNIPERRIFLE_002D);
+
+	for (i = 0; i < 4; i++) {
+		if (nodes[i]) {
+			f32 f20 = f26 * 4.0f;
+			mtxindex = model0001a524(nodes[i], 0);
+			sp88[i] = f20 - i;
+
+			if (f20 < i) {
+				sp88[i] = 0.0f;
+			}
+
+			sp88[i] *= 100.0f;
+
+			sp70.x = 0.0f;
+			sp70.y = 0.0f;
+			sp70.z = sp88[i];
+
+			mtx4RotateVecInPlace((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)), &sp70);
+
+			((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][0] += sp70.x;
+			((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][1] += sp70.y;
+			((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][2] += sp70.z;
+		}
+	}
+}
 
 /**
  * Animate the cartridge slider thing in the Devastator model.
@@ -22710,7 +22621,7 @@ void bgunUpdateDevastator(struct hand *hand, u8 *allocation, struct modelfiledat
  * starburst when the trigger is pressed while the shotgun has the double blast
  * function.
  */
-void bgunUpdateShotgun(struct hand *hand, Mtxf *allocation, bool *arg2, struct modelfiledata *modeldef)
+void bgunUpdateShotgun(struct hand *hand, u8 *allocation, bool *arg2, struct modelfiledata *modeldef)
 {
 	if (hand->flashon) {
 		hand->matmot1 = 1.0f;
@@ -26085,13 +25996,13 @@ void bgun0f0a5550(s32 handnum)
 
 			switch (weaponnum) {
 			case WEAPON_SNIPERRIFLE:
-				bgun0f0a3eac(modeldef, (Mtxf *)mtxallocation);
+				bgunUpdateSniperRifle(modeldef, mtxallocation);
 				break;
 			case WEAPON_DEVASTATOR:
 				bgunUpdateDevastator(hand, mtxallocation, modeldef);
 				break;
 			case WEAPON_SHOTGUN:
-				bgunUpdateShotgun(hand, (Mtxf *)mtxallocation, sp1e4[0], modeldef);
+				bgunUpdateShotgun(hand, mtxallocation, sp1e4[0], modeldef);
 				break;
 			}
 
