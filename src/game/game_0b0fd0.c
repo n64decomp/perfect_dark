@@ -226,11 +226,7 @@ void currentPlayerZoomOut(f32 fovpersec)
 	}
 
 	if (index >= 0) {
-#if VERSION >= VERSION_PAL_BETA
-		f32 amount = fovpersec * 0.25f * g_Vars.lvupdate240freal;
-#else
-		f32 amount = fovpersec * 0.25f * g_Vars.lvupdate240f;
-#endif
+		f32 amount = fovpersec * 0.25f * LVUPDATE240FREAL();
 
 		if (bgunGetWeaponNum2(0) == WEAPON_FARSIGHT) {
 			amount *= 0.5f;
@@ -255,11 +251,7 @@ void currentPlayerZoomIn(f32 fovpersec)
 	}
 
 	if (index >= 0) {
-#if VERSION >= VERSION_PAL_BETA
-		f32 amount = fovpersec * 0.25f * g_Vars.lvupdate240freal;
-#else
-		f32 amount = fovpersec * 0.25f * g_Vars.lvupdate240f;
-#endif
+		f32 amount = fovpersec * 0.25f * LVUPDATE240FREAL();
 
 		if (bgunGetWeaponNum2(0) == WEAPON_FARSIGHT) {
 			amount *= 0.5f;
@@ -571,11 +563,7 @@ f32 gsetGetDamage(struct gset *gset)
 			damage = fullfunc->damage;
 
 			if (gset->weaponnum == WEAPON_REAPER) {
-#if VERSION >= VERSION_PAL_BETA
-				damage *= g_Vars.lvupdate240freal;
-#else
-				damage *= g_Vars.lvupdate240f;
-#endif
+				damage *= LVUPDATE240FREAL();
 			}
 		}
 

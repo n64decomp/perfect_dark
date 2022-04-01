@@ -43,6 +43,12 @@
 		&& EYESPYINACTIVE() \
 		&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & (device)))
 
+#if VERSION >= VERSION_PAL_BETA
+#define LVUPDATE240FREAL()  g_Vars.lvupdate240freal
+#else
+#define LVUPDATE240FREAL()  g_Vars.lvupdate240f
+#endif
+
 #if VERSION >= VERSION_NTSC_1_0
 #define VOLUME(volume)      (volume > 0x5000 ? 0x5000 : volume)
 #else

@@ -2349,7 +2349,7 @@ void chrUpdateCloak(struct chrdata *chr)
 					&& !chrIsDead(chr)
 					&& botactGetAmmoQuantityByWeapon(chr->aibot, WEAPON_RCP120, 0, 1) > 0) {
 				if (chr->hidden & CHRHFLAG_CLOAKED) {
-					chr->aibot->unk2c4 += (VERSION >= VERSION_PAL_BETA ? g_Vars.lvupdate240freal : g_Vars.lvupdate240f) * 0.4f;
+					chr->aibot->unk2c4 += LVUPDATE240FREAL() * 0.4f;
 
 					if (chr->aibot->unk2c4 >= 1) {
 						qty = chr->aibot->unk2c4;

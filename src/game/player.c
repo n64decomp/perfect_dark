@@ -4087,13 +4087,8 @@ void playerTick(bool arg0)
 				sp2ac.x = sp2b8[0][0];
 				sp2ac.z = sp2b8[0][2];
 
-#if VERSION >= VERSION_PAL_BETA
-				fVar22 = sticky * g_Vars.lvupdate240freal * 0.00025f;
-				sp174 = -stickx * g_Vars.lvupdate240freal * 0.00025f;
-#else
-				fVar22 = sticky * g_Vars.lvupdate240f * 0.00025f;
-				sp174 = -stickx * g_Vars.lvupdate240f * 0.00025f;
-#endif
+				fVar22 = sticky * LVUPDATE240FREAL() * 0.00025f;
+				sp174 = -stickx * LVUPDATE240FREAL() * 0.00025f;
 
 				f20 = sqrtf(sp2ac.f[0] * sp2ac.f[0] + sp2ac.f[2] * sp2ac.f[2]);
 
@@ -4146,21 +4141,13 @@ void playerTick(bool arg0)
 				newspeed = prevspeed;
 
 				if (prevspeed < targetspeed) {
-#if VERSION >= VERSION_PAL_BETA
-					newspeed = prevspeed + 0.05f * g_Vars.lvupdate240freal;
-#else
-					newspeed = prevspeed + 0.05f * g_Vars.lvupdate240f;
-#endif
+					newspeed = prevspeed + 0.05f * LVUPDATE240FREAL();
 
 					if (newspeed > targetspeed) {
 						newspeed = targetspeed;
 					}
 				} else if (prevspeed > targetspeed) {
-#if VERSION >= VERSION_PAL_BETA
-					newspeed = prevspeed - 0.05f * g_Vars.lvupdate240freal;
-#else
-					newspeed = prevspeed - 0.05f * g_Vars.lvupdate240f;
-#endif
+					newspeed = prevspeed - 0.05f * LVUPDATE240FREAL();
 
 					if (newspeed < targetspeed) {
 						newspeed = targetspeed;

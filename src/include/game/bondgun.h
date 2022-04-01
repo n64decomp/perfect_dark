@@ -124,7 +124,7 @@ void bgunStartDetonateAnimation(s32 playernum);
 void bgun0f0a3160(struct hand *hand, s32 handnum, struct coord *arg2, struct weaponfunc *funcdef, Mtxf *arg4, Mtxf *arg5);
 void bgun0f0a3490(struct hand *hand, s32 handnum, s32 weaponnum, struct weaponfunc *funcdef);
 void bgun0f0a37b4(struct hand *hand, struct modelfiledata *modeldef, s32 handnum, Mtxf *mtx);
-void bgun0f0a3aa4(struct hand *hand, struct modelfiledata *modeldef);
+void bgunUpdateReaper(struct hand *hand, struct modelfiledata *modeldef);
 void bgunUpdateSniperRifle(struct modelfiledata *modeldef, u8 *allocation);
 void bgunUpdateDevastator(struct hand *hand, u8 *allocation, struct modelfiledata *modeldef);
 void bgunUpdateShotgun(struct hand *hand, u8 *allocation, bool *arg2, struct modelfiledata *modeldef);

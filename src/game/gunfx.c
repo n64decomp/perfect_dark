@@ -4182,11 +4182,7 @@ void boltbeamsTick(void)
 					(g_BoltBeams[i].unk20.f[1] - g_BoltBeams[i].unk14.f[1]) * (g_BoltBeams[i].unk20.f[1] - g_BoltBeams[i].unk14.f[1]) +
 					(g_BoltBeams[i].unk20.f[2] - g_BoltBeams[i].unk14.f[2]) * (g_BoltBeams[i].unk20.f[2] - g_BoltBeams[i].unk14.f[2]));
 
-#if VERSION >= VERSION_PAL_BETA
-			value -= g_BoltBeams[i].unk2c * g_Vars.lvupdate240freal / 60.0f;
-#else
-			value -= g_BoltBeams[i].unk2c * g_Vars.lvupdate240f / 60.0f;
-#endif
+			value -= g_BoltBeams[i].unk2c * LVUPDATE240FREAL() / 60.0f;
 
 			if (value < 0) {
 				g_BoltBeams[i].unk00 = -1;
