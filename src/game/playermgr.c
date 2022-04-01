@@ -401,7 +401,7 @@ void playermgrAllocatePlayer(s32 index)
 
 	g_Vars.players[index]->gunctrl.gunmemtype = 0;
 	g_Vars.players[index]->gunctrl.gunmem = NULL;
-	g_Vars.players[index]->gunctrl.unk1590 = 0;
+	g_Vars.players[index]->gunctrl.gunmodeldef = NULL;
 
 	g_Vars.players[index]->gunctrl.weaponnum = WEAPON_NONE;
 	g_Vars.players[index]->gunctrl.prevweaponnum = -1;

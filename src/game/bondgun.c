@@ -484,8 +484,8 @@ void bgunSetPartVisible(s16 partnum, bool visible, struct hand *hand, struct mod
 	struct modelnode *node;
 
 	if (partnum == MODELPART_0035 || partnum == MODELPART_0036) {
-		if (g_Vars.currentplayer->gunctrl.unk1594) {
-			node = modelGetPart(g_Vars.currentplayer->gunctrl.unk1594, partnum);
+		if (g_Vars.currentplayer->gunctrl.handmodeldef) {
+			node = modelGetPart(g_Vars.currentplayer->gunctrl.handmodeldef, partnum);
 
 			if (node) {
 				struct modelrodata_toggle *rodata = &node->rodata->toggle;
@@ -566,10 +566,10 @@ f32 bgun0f09815c(struct hand *hand)
 {
 	if (hand->animmode == HANDANIMMODE_BUSY && hand->unk0ce8 != NULL) {
 		if (hand->unk0ce8->unk04 < 0) {
-			return modelGetNumAnimFrames(&hand->unk09bc) - modelGetCurAnimFrame(&hand->unk09bc);
+			return modelGetNumAnimFrames(&hand->gunmodel) - modelGetCurAnimFrame(&hand->gunmodel);
 		}
 
-		return modelGetCurAnimFrame(&hand->unk09bc);
+		return modelGetCurAnimFrame(&hand->gunmodel);
 	}
 
 	return 0;
@@ -10907,7 +10907,7 @@ void bgunTickHand(s32 handnum)
 
 	hand->animframeinc = g_Vars.lvupdate240_60;
 #if VERSION >= VERSION_PAL_BETA
-	hand->animframeincfreal = modelGetAbsAnimSpeed(&hand->unk09bc) * PALUPF(hand->animframeinc);
+	hand->animframeincfreal = modelGetAbsAnimSpeed(&hand->gunmodel) * PALUPF(hand->animframeinc);
 #else
 	hand->animframeincfreal += PALUPF(g_Vars.lvupdate240_60);
 #endif
@@ -10946,8 +10946,8 @@ void bgunInitHandAnims(void)
 
 		animInit(&hand->anim);
 
-		hand->unk09bc.anim = &hand->anim;
-		hand->unk0b6c.anim = &hand->anim;
+		hand->gunmodel.anim = &hand->anim;
+		hand->handmodel.anim = &hand->anim;
 	}
 }
 
@@ -11660,7 +11660,7 @@ u32 bgunGetGunMemType(void)
 
 struct modelfiledata *bgun0f09dddc(void)
 {
-	return g_Vars.currentplayer->gunctrl.unk1590;
+	return g_Vars.currentplayer->gunctrl.gunmodeldef;
 }
 
 u8 *bgunGetGunMem(void)
@@ -11714,7 +11714,7 @@ void bgun0f09df9c(void)
 	struct casing *casing;
 
 	g_Vars.currentplayer->gunctrl.handfilenum = 0xffff;
-	g_Vars.currentplayer->gunctrl.unk1594 = NULL;
+	g_Vars.currentplayer->gunctrl.handmodeldef = NULL;
 	g_Vars.currentplayer->gunctrl.unk15a0 = 0;
 	g_Vars.currentplayer->gunctrl.unk15a4 = 0;
 	g_Vars.currentplayer->gunctrl.unk15b0 = 0;
@@ -13142,7 +13142,7 @@ glabel bgunTickIncLoad
 //									player->gunctrl.unk15a4 = bgunCalculateGunMemCapacity();
 //									player->gunctrl.unk15b1 = 1;
 //									player->gunctrl.unk15b2 = handfilenum;
-//									player->gunctrl.unk15b4 = &player->gunctrl.unk1594;
+//									player->gunctrl.unk15b4 = &player->gunctrl.handmodeldef;
 //									player->gunctrl.unk15b8 = &player->gunctrl.unk15a0;
 //									player->gunctrl.unk15bc = &player->gunctrl.unk15a4;
 //								}
@@ -13157,7 +13157,7 @@ glabel bgunTickIncLoad
 //							}
 //						} else {
 //							player->gunctrl.handfilenum = 0;
-//							player->gunctrl.unk1594 = NULL;
+//							player->gunctrl.handmodeldef = NULL;
 //							player->gunctrl.unk15a0 = bgunGetGunMem();
 //							player->gunctrl.unk15a4 = bgunCalculateGunMemCapacity();
 //						}
@@ -13168,7 +13168,7 @@ glabel bgunTickIncLoad
 //						if (player->gunctrl.unk15b1 == 0) {
 //							player->gunctrl.unk15b1 = 1;
 //							player->gunctrl.unk15b2 = gunfilenum;
-//							player->gunctrl.unk15b4 = &player->gunctrl.unk1590;
+//							player->gunctrl.unk15b4 = &player->gunctrl.gunmodeldef;
 //							player->gunctrl.unk15b8 = &player->gunctrl.unk15a8;
 //							player->gunctrl.unk15bc = &player->gunctrl.unk15ac;
 //							player->gunctrl.unk15a8 = (u32)player->gunctrl.unk15a0;
@@ -13239,24 +13239,24 @@ glabel bgunTickIncLoad
 //							s32 value;
 //							hand = &player->hands[i];
 //
-//							modelInit(&hand->unk09bc, player->gunctrl.unk1590, (union modelrwdata **)hand->unk0a6c, 0);
+//							modelInit(&hand->gunmodel, player->gunctrl.gunmodeldef, (union modelrwdata **)hand->unk0a6c, 0);
 //
-//							if (player->gunctrl.unk1594 != 0) {
-//								modelInit(&hand->unk0b6c, player->gunctrl.unk1594, (union modelrwdata **)hand->handsavedata, false);
+//							if (player->gunctrl.handmodeldef != 0) {
+//								modelInit(&hand->handmodel, player->gunctrl.handmodeldef, (union modelrwdata **)hand->handsavedata, false);
 //							}
 //
 //							hand->unk0dcc = player->gunctrl.unk15a8;
 //
-//							value = bgun0f0a2e94(&hand->unk09bc, player->gunctrl.unk1590->rootnode, player->gunctrl.unk15a8);
+//							value = bgun0f0a2e94(&hand->gunmodel, player->gunctrl.gunmodeldef->rootnode, player->gunctrl.unk15a8);
 //
 //							sum += value;
 //							player->gunctrl.unk15a8 += value;
 //							player->gunctrl.unk15ac -= value;
 //
-//							if (player->gunctrl.unk1594 != 0) {
+//							if (player->gunctrl.handmodeldef != 0) {
 //								hand->unk0dd0 = player->gunctrl.unk15a8;
 //
-//								value = bgun0f0a2e94(&hand->unk0b6c, player->gunctrl.unk1594->rootnode, player->gunctrl.unk15a8);
+//								value = bgun0f0a2e94(&hand->handmodel, player->gunctrl.handmodeldef->rootnode, player->gunctrl.unk15a8);
 //
 //								sum += value;
 //								player->gunctrl.unk15a8 += value;
@@ -26020,7 +26020,7 @@ void bgun0f0a5550(s32 handnum)
 	}
 
 	if (hand->visible) {
-		modeldef = player->gunctrl.unk1590;
+		modeldef = player->gunctrl.gunmodeldef;
 		mtxallocation = gfxAllocate(modeldef->nummatrices * sizeof(Mtxf));
 
 		if (weaponHasFlag(weaponnum, WEAPONFLAG_02000000)) {
@@ -26032,7 +26032,7 @@ void bgun0f0a5550(s32 handnum)
 
 		bgun0f0a2da8(hand->unk0dcc);
 
-		if (player->gunctrl.unk1594 != NULL) {
+		if (player->gunctrl.handmodeldef != NULL) {
 			bgun0f0a2da8(hand->unk0dd0);
 		}
 
@@ -26110,8 +26110,8 @@ void bgun0f0a5550(s32 handnum)
 			}
 		}
 
-		hand->unk09bc.matrices = (Mtxf *)mtxallocation;
-		hand->unk0b6c.matrices = (Mtxf *)mtxallocation;
+		hand->gunmodel.matrices = (Mtxf *)mtxallocation;
+		hand->handmodel.matrices = (Mtxf *)mtxallocation;
 
 		if (weaponHasFlag(weaponnum, WEAPONFLAG_DUALFLIP) && handnum == HAND_LEFT) {
 			mtx00015e24(-1, &sp2c4);
@@ -26169,7 +26169,7 @@ void bgun0f0a5550(s32 handnum)
 			s32 sp6c;
 
 			renderdata.unk00 = &sp2c4;
-			renderdata.unk10 = hand->unk09bc.matrices;
+			renderdata.unk10 = hand->gunmodel.matrices;
 
 			if (hand->animmode != HANDANIMMODE_IDLE) {
 				a0 = false;
@@ -26215,7 +26215,7 @@ void bgun0f0a5550(s32 handnum)
 			}
 
 #if VERSION >= VERSION_PAL_BETA
-			switch (modelGetAnimNum(&hand->unk09bc)) {
+			switch (modelGetAnimNum(&hand->gunmodel)) {
 			case ANIM_00C1:
 			case ANIM_00E2:
 			case ANIM_00E3:
@@ -26240,7 +26240,7 @@ void bgun0f0a5550(s32 handnum)
 				if (player->hands[HAND_RIGHT].unk0dd4 == -1) {
 					mtx4LoadIdentity(&sp84);
 
-					spc4 = hand->unk09bc.matrices;
+					spc4 = hand->gunmodel.matrices;
 
 					renderdata.unk00 = &sp84;
 					renderdata.unk10 = player->hands[HAND_RIGHT].unk0dd8;
@@ -26252,7 +26252,7 @@ void bgun0f0a5550(s32 handnum)
 						var8005efb0_2 = true;
 					}
 
-					model0001cebc(&renderdata, &hand->unk09bc);
+					model0001cebc(&renderdata, &hand->gunmodel);
 
 					var8005efd8_2 = false;
 
@@ -26260,18 +26260,18 @@ void bgun0f0a5550(s32 handnum)
 						var8005efb0_2 = false;
 					}
 #else
-					model0001cebc(&renderdata, &hand->unk09bc);
+					model0001cebc(&renderdata, &hand->gunmodel);
 #endif
 
 					player->hands[HAND_RIGHT].unk0dd4 = 1;
 
-					hand->unk09bc.matrices = spc4;
+					hand->gunmodel.matrices = spc4;
 				}
 
 				spc8 = player->hands[HAND_RIGHT].unk0dd8;
-				spc4 = hand->unk09bc.matrices;
+				spc4 = hand->gunmodel.matrices;
 
-				for (spcc = 0; spcc < hand->unk09bc.filedata->nummatrices; spcc++) {
+				for (spcc = 0; spcc < hand->gunmodel.filedata->nummatrices; spcc++) {
 					mtx00015be4(&sp2c4, spc8, spc4);
 					spc8++;
 					spc4++;
@@ -26284,7 +26284,7 @@ void bgun0f0a5550(s32 handnum)
 					var8005efb0_2 = true;
 				}
 
-				model0001cebc(&renderdata, &hand->unk09bc);
+				model0001cebc(&renderdata, &hand->gunmodel);
 
 				var8005efd8_2 = false;
 
@@ -26292,7 +26292,7 @@ void bgun0f0a5550(s32 handnum)
 					var8005efb0_2 = false;
 				}
 #else
-				model0001cebc(&renderdata, &hand->unk09bc);
+				model0001cebc(&renderdata, &hand->gunmodel);
 #endif
 			}
 

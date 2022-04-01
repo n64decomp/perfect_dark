@@ -2309,11 +2309,11 @@ struct hand {
 	/*0x096c*/ Mtxf prevmtx;
 	/*0x09ac*/ struct coord muzzlepos;
 	/*0x09b8*/ f32 muzzlez;
-	/*0x09bc*/ struct model unk09bc;
+	/*0x09bc*/ struct model gunmodel;
 	/*0x09e0*/ struct anim anim;
 	/*0x0a6c*/ u32 unk0a6c[32];
 	/*0x0aec*/ u32 handsavedata[32]; // should be 0a6c
-	/*0x0b6c*/ struct model unk0b6c;
+	/*0x0b6c*/ struct model handmodel;
 	/*0x0b90*/ s32 burstbullets;
 	/*0x0b94*/ struct coord hitpos;
 	/*0x0ba0*/ u32 unk0ba0;
@@ -2466,8 +2466,8 @@ struct gunctrl {
 	/*0x1584*/ s32 gunmemnew; // weapon number?
 	/*0x1588*/ s32 gunmemtype; // also a weapon number?
 	/*0x158c*/ u8 *gunmem;
-	/*0x1590*/ struct modelfiledata *unk1590;
-	/*0x1594*/ struct modelfiledata *unk1594;
+	/*0x1590*/ struct modelfiledata *gunmodeldef;
+	/*0x1594*/ struct modelfiledata *handmodeldef;
 	/*0x1598*/ struct modelfiledata *unk1598;
 	/*0x159c*/ u16 handfilenum;
 	/*0x15a0*/ u8 *unk15a0;
