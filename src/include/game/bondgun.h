@@ -126,7 +126,7 @@ void bgun0f0a3490(struct hand *hand, s32 handnum, s32 weaponnum, struct weaponfu
 void bgun0f0a37b4(struct hand *hand, struct modelfiledata *modeldef, s32 handnum, Mtxf *mtx);
 void bgun0f0a3aa4(struct hand *hand, struct modelfiledata *modeldef);
 void bgun0f0a3eac(struct modelfiledata *modeldef, Mtxf *arg1);
-void bgun0f0a4094(struct hand *hand, Mtxf *arg1, struct modelfiledata *modeldef);
+void bgunUpdateDevastator(struct hand *hand, u8 *allocation, struct modelfiledata *modeldef);
 void bgun0f0a419c(struct hand *hand, Mtxf *arg1, u32 *arg2, struct modelfiledata *modeldef);
 void bgun0f0a4334(struct hand *hand);
 void bgun0f0a4438(struct hand *hand, s32 handnum, struct modelfiledata *modeldef, Mtxf *mtx);

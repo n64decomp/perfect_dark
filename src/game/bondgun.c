@@ -22676,163 +22676,38 @@ glabel bgun0f0a3eac
 /*  f0a4090:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
+/**
+ * Animate the cartridge slider thing in the Devastator model.
+ */
+void bgunUpdateDevastator(struct hand *hand, u8 *allocation, struct modelfiledata *modeldef)
+{
+	struct modelnode *node = modelGetPart(modeldef, MODELPART_DEVASTATOR_0028);
+
+	if (node) {
+		s32 mtxindex = model0001a524(node, 0);
+		struct coord sp24;
+
 #if VERSION >= VERSION_PAL_BETA
-GLOBAL_ASM(
-glabel bgun0f0a4094
-.late_rodata
-glabel var7f1ac8bc
-.word 0x3c23d70a
-glabel var7f1ac8c0
-.word 0x3fd16873
-.text
-/*  f0a4094:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0a4098:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a409c:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f0a40a0:	00803825 */ 	or	$a3,$a0,$zero
-/*  f0a40a4:	afa70038 */ 	sw	$a3,0x38($sp)
-/*  f0a40a8:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0a40ac:	0c006a47 */ 	jal	modelGetPart
-/*  f0a40b0:	24050028 */ 	addiu	$a1,$zero,0x28
-/*  f0a40b4:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f0a40b8:	10400034 */ 	beqz	$v0,.L0f0a418c
-/*  f0a40bc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0a40c0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0a40c4:	0c006949 */ 	jal	model0001a524
-/*  f0a40c8:	afa70038 */ 	sw	$a3,0x38($sp)
-/*  f0a40cc:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0a40d0:	44811000 */ 	mtc1	$at,$f2
-/*  f0a40d4:	3c017f1b */ 	lui	$at,%hi(var7f1ac8bc)
-/*  f0a40d8:	c424c8bc */ 	lwc1	$f4,%lo(var7f1ac8bc)($at)
-/*  f0a40dc:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4c)
-/*  f0a40e0:	c426a004 */ 	lwc1	$f6,%lo(g_Vars+0x4c)($at)
-/*  f0a40e4:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f0a40e8:	3c01c120 */ 	lui	$at,0xc120
-/*  f0a40ec:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0a40f0:	c4ea0250 */ 	lwc1	$f10,0x250($a3)
-/*  f0a40f4:	44819000 */ 	mtc1	$at,$f18
-/*  f0a40f8:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0a40fc:	46085400 */ 	add.s	$f16,$f10,$f8
-/*  f0a4100:	e4f00250 */ 	swc1	$f16,0x250($a3)
-/*  f0a4104:	c4e00250 */ 	lwc1	$f0,0x250($a3)
-/*  f0a4108:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0a410c:	00000000 */ 	nop
-/*  f0a4110:	45000003 */ 	bc1f	.L0f0a4120
-/*  f0a4114:	00000000 */ 	nop
-/*  f0a4118:	e4e20250 */ 	swc1	$f2,0x250($a3)
-/*  f0a411c:	c4e00250 */ 	lwc1	$f0,0x250($a3)
-.L0f0a4120:
-/*  f0a4120:	46120102 */ 	mul.s	$f4,$f0,$f18
-/*  f0a4124:	3c017f1b */ 	lui	$at,%hi(var7f1ac8c0)
-/*  f0a4128:	c426c8c0 */ 	lwc1	$f6,%lo(var7f1ac8c0)($at)
-/*  f0a412c:	8fae003c */ 	lw	$t6,0x3c($sp)
-/*  f0a4130:	44801000 */ 	mtc1	$zero,$f2
-/*  f0a4134:	00037980 */ 	sll	$t7,$v1,0x6
-/*  f0a4138:	01cf2021 */ 	addu	$a0,$t6,$t7
-/*  f0a413c:	46062282 */ 	mul.s	$f10,$f4,$f6
-/*  f0a4140:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*  f0a4144:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f0a4148:	e7a20028 */ 	swc1	$f2,0x28($sp)
-/*  f0a414c:	e7a2002c */ 	swc1	$f2,0x2c($sp)
-/*  f0a4150:	0c0056c4 */ 	jal	mtx4RotateVecInPlace
-/*  f0a4154:	e7aa0024 */ 	swc1	$f10,0x24($sp)
-/*  f0a4158:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0a415c:	c7b00024 */ 	lwc1	$f16,0x24($sp)
-/*  f0a4160:	c4880030 */ 	lwc1	$f8,0x30($a0)
-/*  f0a4164:	c4840034 */ 	lwc1	$f4,0x34($a0)
-/*  f0a4168:	46104480 */ 	add.s	$f18,$f8,$f16
-/*  f0a416c:	c4880038 */ 	lwc1	$f8,0x38($a0)
-/*  f0a4170:	e4920030 */ 	swc1	$f18,0x30($a0)
-/*  f0a4174:	c7a60028 */ 	lwc1	$f6,0x28($sp)
-/*  f0a4178:	46062280 */ 	add.s	$f10,$f4,$f6
-/*  f0a417c:	e48a0034 */ 	swc1	$f10,0x34($a0)
-/*  f0a4180:	c7b0002c */ 	lwc1	$f16,0x2c($sp)
-/*  f0a4184:	46104480 */ 	add.s	$f18,$f8,$f16
-/*  f0a4188:	e4920038 */ 	swc1	$f18,0x38($a0)
-.L0f0a418c:
-/*  f0a418c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a4190:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0a4194:	03e00008 */ 	jr	$ra
-/*  f0a4198:	00000000 */ 	nop
-);
+		hand->loadslide += 0.01f * g_Vars.lvupdate240freal;
 #else
-GLOBAL_ASM(
-glabel bgun0f0a4094
-.late_rodata
-glabel var7f1ac8bc
-.word 0x3c23d70a
-glabel var7f1ac8c0
-.word 0x3fd16873
-.text
-/*  f0a4094:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0a4098:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a409c:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f0a40a0:	00803825 */ 	or	$a3,$a0,$zero
-/*  f0a40a4:	afa70038 */ 	sw	$a3,0x38($sp)
-/*  f0a40a8:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0a40ac:	0c006a47 */ 	jal	modelGetPart
-/*  f0a40b0:	24050028 */ 	addiu	$a1,$zero,0x28
-/*  f0a40b4:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f0a40b8:	10400034 */ 	beqz	$v0,.L0f0a418c
-/*  f0a40bc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0a40c0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0a40c4:	0c006949 */ 	jal	model0001a524
-/*  f0a40c8:	afa70038 */ 	sw	$a3,0x38($sp)
-/*  f0a40cc:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0a40d0:	44811000 */ 	mtc1	$at,$f2
-/*  f0a40d4:	3c017f1b */ 	lui	$at,%hi(var7f1ac8bc)
-/*  f0a40d8:	c424c8bc */ 	lwc1	$f4,%lo(var7f1ac8bc)($at)
-/*  f0a40dc:	3c01800a */ 	lui	$at,%hi(g_Vars+0x44)
-/*  f0a40e0:	c426a004 */ 	lwc1	$f6,%lo(g_Vars+0x44)($at)
-/*  f0a40e4:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f0a40e8:	3c01c120 */ 	lui	$at,0xc120
-/*  f0a40ec:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0a40f0:	c4ea0250 */ 	lwc1	$f10,0x250($a3)
-/*  f0a40f4:	44819000 */ 	mtc1	$at,$f18
-/*  f0a40f8:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0a40fc:	46085400 */ 	add.s	$f16,$f10,$f8
-/*  f0a4100:	e4f00250 */ 	swc1	$f16,0x250($a3)
-/*  f0a4104:	c4e00250 */ 	lwc1	$f0,0x250($a3)
-/*  f0a4108:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0a410c:	00000000 */ 	nop
-/*  f0a4110:	45000003 */ 	bc1f	.L0f0a4120
-/*  f0a4114:	00000000 */ 	nop
-/*  f0a4118:	e4e20250 */ 	swc1	$f2,0x250($a3)
-/*  f0a411c:	c4e00250 */ 	lwc1	$f0,0x250($a3)
-.L0f0a4120:
-/*  f0a4120:	46120102 */ 	mul.s	$f4,$f0,$f18
-/*  f0a4124:	3c017f1b */ 	lui	$at,%hi(var7f1ac8c0)
-/*  f0a4128:	c426c8c0 */ 	lwc1	$f6,%lo(var7f1ac8c0)($at)
-/*  f0a412c:	8fae003c */ 	lw	$t6,0x3c($sp)
-/*  f0a4130:	44801000 */ 	mtc1	$zero,$f2
-/*  f0a4134:	00037980 */ 	sll	$t7,$v1,0x6
-/*  f0a4138:	01cf2021 */ 	addu	$a0,$t6,$t7
-/*  f0a413c:	46062282 */ 	mul.s	$f10,$f4,$f6
-/*  f0a4140:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*  f0a4144:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f0a4148:	e7a20028 */ 	swc1	$f2,0x28($sp)
-/*  f0a414c:	e7a2002c */ 	swc1	$f2,0x2c($sp)
-/*  f0a4150:	0c0056c4 */ 	jal	mtx4RotateVecInPlace
-/*  f0a4154:	e7aa0024 */ 	swc1	$f10,0x24($sp)
-/*  f0a4158:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0a415c:	c7b00024 */ 	lwc1	$f16,0x24($sp)
-/*  f0a4160:	c4880030 */ 	lwc1	$f8,0x30($a0)
-/*  f0a4164:	c4840034 */ 	lwc1	$f4,0x34($a0)
-/*  f0a4168:	46104480 */ 	add.s	$f18,$f8,$f16
-/*  f0a416c:	c4880038 */ 	lwc1	$f8,0x38($a0)
-/*  f0a4170:	e4920030 */ 	swc1	$f18,0x30($a0)
-/*  f0a4174:	c7a60028 */ 	lwc1	$f6,0x28($sp)
-/*  f0a4178:	46062280 */ 	add.s	$f10,$f4,$f6
-/*  f0a417c:	e48a0034 */ 	swc1	$f10,0x34($a0)
-/*  f0a4180:	c7b0002c */ 	lwc1	$f16,0x2c($sp)
-/*  f0a4184:	46104480 */ 	add.s	$f18,$f8,$f16
-/*  f0a4188:	e4920038 */ 	swc1	$f18,0x38($a0)
-.L0f0a418c:
-/*  f0a418c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a4190:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0a4194:	03e00008 */ 	jr	$ra
-/*  f0a4198:	00000000 */ 	nop
-);
+		hand->loadslide += 0.01f * g_Vars.lvupdate240f;
 #endif
+
+		if (hand->loadslide > 1.0f) {
+			hand->loadslide = 1.0f;
+		}
+
+		sp24.x = hand->loadslide * -10.0f * 1.636f;
+		sp24.y = 0.0f;
+		sp24.z = 0.0f;
+
+		mtx4RotateVecInPlace((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)), &sp24);
+
+		((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][0] += sp24.x;
+		((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][1] += sp24.y;
+		((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][2] += sp24.z;
+	}
+}
 
 #if VERSION >= VERSION_PAL_BETA
 GLOBAL_ASM(
@@ -26461,7 +26336,7 @@ void bgun0f0a5550(s32 handnum)
 				bgun0f0a3eac(modeldef, (Mtxf *)mtxallocation);
 				break;
 			case WEAPON_DEVASTATOR:
-				bgun0f0a4094(hand, (Mtxf *)mtxallocation, modeldef);
+				bgunUpdateDevastator(hand, mtxallocation, modeldef);
 				break;
 			case WEAPON_SHOTGUN:
 				bgun0f0a419c(hand, (Mtxf *)mtxallocation, sp1e4[0], modeldef);
