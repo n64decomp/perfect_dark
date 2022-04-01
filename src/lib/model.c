@@ -31,7 +31,7 @@ f32 var8005efc0 = 0;
 bool (*var8005efc4)(struct model *model, struct modelnode *node) = NULL;
 
 #if VERSION >= VERSION_PAL_BETA
-u32 var8005efd8_2 = 0;
+bool var8005efd8_2 = false;
 #endif
 
 struct gfxvtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices) = NULL;

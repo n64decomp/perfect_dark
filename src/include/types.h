@@ -2287,15 +2287,15 @@ struct hand {
 	/*0x0814*/ struct beam beam;
 	/*0x0840*/ f32 noiseradius;
 	/*0x0844*/ u32 fingerroty;
-	/*0x0848*/ u32 slidetrans;
+	/*0x0848*/ f32 slidetrans;
 	/*0x084c*/ u32 slideinc;
 	/*0x0850*/ struct weaponobj *rocket;
 	/*0x0854*/ bool firedrocket;
 	/*0x0858*/ s32 loadedammo[2];
 	/*0x0860*/ s32 clipsizes[2];
 	/*0x0868*/ f32 angledamper;
-	/*0x086c*/ u32 lastrotangx;
-	/*0x0870*/ u32 lastrotangy;
+	/*0x086c*/ f32 lastrotangx;
+	/*0x0870*/ f32 lastrotangy;
 	/*0x0874*/ f32 matmot1;
 	/*0x0878*/ f32 matmot2;
 	/*0x087c*/ f32 matmot3;
@@ -2378,9 +2378,7 @@ struct hand {
 	/*0x0cc8*/ u8 unk0cc8_01 : 1;
 	/*0x0cc8*/ u8 unk0cc8_02 : 1;
 	/*0x0cc8*/ u8 unk0cc8_03 : 1;
-	/*0x0cc8*/ u8 unk0cc8_04 : 1;
-	/*0x0cc8*/ u8 unk0cc8_05 : 1;
-	/*0x0cc8*/ u8 unk0cc8_06 : 1;
+	/*0x0cc8*/ u8 unk0cc8_04 : 3;
 	/*0x0cc8*/ u8 unk0cc8_07 : 1;
 	/*0x0cc8*/ u8 unk0cc8_08 : 1;
 	/*0x0cc9*/ u8 animloopcount;
@@ -2450,7 +2448,7 @@ struct hand {
 	/*0x0dcc*/ u32 unk0dcc;
 	/*0x0dd0*/ u32 unk0dd0;
 	/*0x0dd4*/ s32 unk0dd4;
-	/*0x0dd8*/ u32 unk0dd8;
+	/*0x0dd8*/ Mtxf *unk0dd8;
 };
 
 struct gunctrl {
