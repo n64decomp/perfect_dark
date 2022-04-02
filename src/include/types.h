@@ -2374,7 +2374,7 @@ struct hand {
 #else
 	/*0x0cc0*/ u32 animframeincfreal;
 #endif
-	/*0x0cc4*/ u32 animmode;
+	/*0x0cc4*/ s32 animmode;
 	/*0x0cc8*/ u8 unk0cc8_01 : 1;
 	/*0x0cc8*/ u8 unk0cc8_02 : 1;
 	/*0x0cc8*/ u8 unk0cc8_03 : 1;
@@ -2391,7 +2391,7 @@ struct hand {
 	/*0x0cec*/ ubool hasdotinfo;
 	/*0x0cf0*/ struct coord dotpos;
 	/*0x0cfc*/ struct coord dotrot;
-	/*0x0d08*/ f32 gangstarot;
+	/*0x0d08*/ f32 gangstarot; // frac
 	/*0x0d0c*/ s16 primetimer;
 	/*0x0d0e*/ u8 unk0d0e_00 : 4;
 	/*0x0d0e*/ u8 unk0d0e_04 : 3;
@@ -2426,7 +2426,7 @@ struct hand {
 	/*0x0d6c*/ u32 unk0d6c;
 	/*0x0d70*/ u32 unk0d70;
 	/*0x0d74*/ u16 gunroundsspent[4]; // actually a countdown timer
-	/*0x0d7c*/ u32 ispare1;
+	/*0x0d7c*/ s32 ispare1;
 	/*0x0d80*/ struct guncmd *unk0d80;
 	/*0x0d84*/ struct sndstate *audiohandle;
 	/*0x0d88*/ u32 ispare4;

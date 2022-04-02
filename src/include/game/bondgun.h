@@ -121,7 +121,7 @@ void bgunLoseGun(struct prop *attacker);
 void bgun0f0a2da8(u32 arg0);
 s32 bgun0f0a2e94(struct model *model, struct modelnode *node, s32 arg2);
 void bgunStartDetonateAnimation(s32 playernum);
-void bgun0f0a3160(struct hand *hand, s32 handnum, struct coord *arg2, struct weaponfunc *funcdef, Mtxf *arg4, Mtxf *arg5);
+void bgunUpdateGangsta(struct hand *hand, s32 handnum, struct coord *arg2, struct weaponfunc *funcdef, Mtxf *arg4, Mtxf *arg5);
 void bgun0f0a3490(struct hand *hand, s32 handnum, s32 weaponnum, struct weaponfunc *funcdef);
 void bgunUpdateLasersight(struct hand *hand, struct modelfiledata *modeldef, s32 handnum, u8 *allocation);
 void bgunUpdateReaper(struct hand *hand, struct modelfiledata *modeldef);
