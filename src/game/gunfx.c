@@ -119,7 +119,7 @@ void beamCreate(struct beam *beam, s32 weaponnum, struct coord *from, struct coo
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f0ac138
+glabel beamCreateForHand
 .late_rodata
 glabel var7f1acc48
 .word 0x3db2b17a
@@ -362,7 +362,7 @@ glabel var7f1acc48
 );
 #else
 GLOBAL_ASM(
-glabel func0f0ac138
+glabel beamCreateForHand
 .late_rodata
 glabel var7f1acc48
 .word 0x3db2b17a
@@ -2291,7 +2291,7 @@ struct casing *casingCreate(struct modelfiledata *modeldef, Mtxf *mtx)
 
 #if PAL
 GLOBAL_ASM(
-glabel func0f0ade00
+glabel casingCreateForHand
 .late_rodata
 glabel var7f1accf8
 .word 0x3f088888
@@ -3122,7 +3122,7 @@ glabel var7f1acd60
 );
 #else
 GLOBAL_ASM(
-glabel func0f0ade00
+glabel casingCreateForHand
 .late_rodata
 glabel var7f1accf8
 .word 0x3f088888

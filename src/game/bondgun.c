@@ -20686,7 +20686,7 @@ void bgunUpdateMagnum(struct hand *hand, s32 handnum, struct modelfiledata *mode
 				mtx00015f04(9.999999f, &sp4c);
 				mtx4MultMtx4InPlace(camGetUnk174c(), &sp4c);
 
-				func0f0ade00(handnum, ground, &sp4c);
+				casingCreateForHand(handnum, ground, &sp4c);
 			}
 		}
 	}
@@ -23291,256 +23291,111 @@ glabel var7f1ac934
 /*  f0a52fc:	27bd0118 */ 	addiu	$sp,$sp,0x118
 );
 
-GLOBAL_ASM(
-glabel bgun0f0a5300
-.late_rodata
-glabel var7f1ac938
-.word 0x411fffff
-glabel var7f1ac93c
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac940
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac944
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac948
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac94c
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac950
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac954
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac958
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac95c
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac960
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac964
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac968
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac96c
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac970
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac974
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac978
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac97c
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac980
-.word bgun0f0a5300+0x240 # f0a5540
-glabel var7f1ac984
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac988
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac98c
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac990
-.word bgun0f0a5300+0x240 # f0a5540
-glabel var7f1ac994
-.word bgun0f0a5300+0x240 # f0a5540
-glabel var7f1ac998
-.word bgun0f0a5300+0x240 # f0a5540
-glabel var7f1ac99c
-.word bgun0f0a5300+0x240 # f0a5540
-glabel var7f1ac9a0
-.word bgun0f0a5300+0x240 # f0a5540
-glabel var7f1ac9a4
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac9a8
-.word bgun0f0a5300+0x228 # f0a5528
-glabel var7f1ac9ac
-.word bgun0f0a5300+0x240 # f0a5540
-glabel var7f1ac9b0
-.word bgun0f0a5300+0x240 # f0a5540
-glabel var7f1ac9b4
-.word bgun0f0a5300+0x240 # f0a5540
-glabel var7f1ac9b8
-.word bgun0f0a5300+0x240 # f0a5540
-glabel var7f1ac9bc
-.word bgun0f0a5300+0x240 # f0a5540
-glabel var7f1ac9c0
-.word bgun0f0a5300+0x240 # f0a5540
-glabel var7f1ac9c4
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac9c8
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac9cc
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac9d0
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac9d4
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac9d8
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac9dc
-.word bgun0f0a5300+0x20c # f0a550c
-glabel var7f1ac9e0
-.word bgun0f0a5300+0x20c # f0a550c
-.text
-/*  f0a5300:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f0a5304:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0a5308:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0a530c:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0a5310:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0a5314:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a5318:	afa40078 */ 	sw	$a0,0x78($sp)
-/*  f0a531c:	afa5007c */ 	sw	$a1,0x7c($sp)
-/*  f0a5320:	afa60080 */ 	sw	$a2,0x80($sp)
-/*  f0a5324:	afa70084 */ 	sw	$a3,0x84($sp)
-/*  f0a5328:	afae0070 */ 	sw	$t6,0x70($sp)
-/*  f0a532c:	904f1583 */ 	lbu	$t7,0x1583($v0)
-/*  f0a5330:	31f8fff7 */ 	andi	$t8,$t7,0xfff7
-/*  f0a5334:	a0581583 */ 	sb	$t8,0x1583($v0)
-/*  f0a5338:	8fb90080 */ 	lw	$t9,0x80($sp)
-/*  f0a533c:	53200055 */ 	beqzl	$t9,.L0f0a5494
-/*  f0a5340:	8fab0080 */ 	lw	$t3,0x80($sp)
-/*  f0a5344:	8c680284 */ 	lw	$t0,0x284($v1)
-/*  f0a5348:	8fa40088 */ 	lw	$a0,0x88($sp)
-/*  f0a534c:	8fa90084 */ 	lw	$t1,0x84($sp)
-/*  f0a5350:	c5040078 */ 	lwc1	$f4,0x78($t0)
-/*  f0a5354:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f0a5358:	1080003b */ 	beqz	$a0,.L0f0a5448
-/*  f0a535c:	e7a40074 */ 	swc1	$f4,0x74($sp)
-/*  f0a5360:	11210039 */ 	beq	$t1,$at,.L0f0a5448
-/*  f0a5364:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f0a5368:	11210037 */ 	beq	$t1,$at,.L0f0a5448
-/*  f0a536c:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f0a5370:	1521000a */ 	bne	$t1,$at,.L0f0a539c
-/*  f0a5374:	2405003c */ 	addiu	$a1,$zero,0x3c
-/*  f0a5378:	8faa0078 */ 	lw	$t2,0x78($sp)
-/*  f0a537c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0a5380:	24050031 */ 	addiu	$a1,$zero,0x31
-/*  f0a5384:	8d4b0558 */ 	lw	$t3,0x558($t2)
-/*  f0a5388:	316c0001 */ 	andi	$t4,$t3,0x1
-/*  f0a538c:	15810003 */ 	bne	$t4,$at,.L0f0a539c
-/*  f0a5390:	00000000 */ 	nop
-/*  f0a5394:	10000001 */ 	b	.L0f0a539c
-/*  f0a5398:	24050030 */ 	addiu	$a1,$zero,0x30
-.L0f0a539c:
-/*  f0a539c:	0c006a47 */ 	jal	modelGetPart
-/*  f0a53a0:	00000000 */ 	nop
-/*  f0a53a4:	10400017 */ 	beqz	$v0,.L0f0a5404
-/*  f0a53a8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0a53ac:	0c006949 */ 	jal	model0001a524
-/*  f0a53b0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0a53b4:	8fad008c */ 	lw	$t5,0x8c($sp)
-/*  f0a53b8:	00027180 */ 	sll	$t6,$v0,0x6
-/*  f0a53bc:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f0a53c0:	0c005746 */ 	jal	mtx4Copy
-/*  f0a53c4:	01ae2021 */ 	addu	$a0,$t5,$t6
-/*  f0a53c8:	3c017f1b */ 	lui	$at,%hi(var7f1ac938)
-/*  f0a53cc:	c42cc938 */ 	lwc1	$f12,%lo(var7f1ac938)($at)
-/*  f0a53d0:	0c0057c1 */ 	jal	mtx00015f04
-/*  f0a53d4:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f0a53d8:	0fc2d5de */ 	jal	camGetUnk174c
-/*  f0a53dc:	00000000 */ 	nop
-/*  f0a53e0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0a53e4:	0c00567f */ 	jal	mtx4MultMtx4InPlace
-/*  f0a53e8:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f0a53ec:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f0a53f0:	8fa50074 */ 	lw	$a1,0x74($sp)
-/*  f0a53f4:	0fc2b780 */ 	jal	func0f0ade00
-/*  f0a53f8:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*  f0a53fc:	10000007 */ 	b	.L0f0a541c
-/*  f0a5400:	24040046 */ 	addiu	$a0,$zero,0x46
-.L0f0a5404:
-/*  f0a5404:	8fa60078 */ 	lw	$a2,0x78($sp)
-/*  f0a5408:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f0a540c:	8fa50074 */ 	lw	$a1,0x74($sp)
-/*  f0a5410:	0fc2b780 */ 	jal	func0f0ade00
-/*  f0a5414:	24c602f4 */ 	addiu	$a2,$a2,0x2f4
-/*  f0a5418:	24040046 */ 	addiu	$a0,$zero,0x46
-.L0f0a541c:
-/*  f0a541c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0a5420:	8fa60078 */ 	lw	$a2,0x78($sp)
-/*  f0a5424:	0fc25f9d */ 	jal	bgunSetPartVisible
-/*  f0a5428:	8fa70088 */ 	lw	$a3,0x88($sp)
-/*  f0a542c:	24040047 */ 	addiu	$a0,$zero,0x47
-/*  f0a5430:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0a5434:	8fa60078 */ 	lw	$a2,0x78($sp)
-/*  f0a5438:	0fc25f9d */ 	jal	bgunSetPartVisible
-/*  f0a543c:	8fa70088 */ 	lw	$a3,0x88($sp)
-/*  f0a5440:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0a5444:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-.L0f0a5448:
-/*  f0a5448:	8faf0080 */ 	lw	$t7,0x80($sp)
-/*  f0a544c:	24010201 */ 	addiu	$at,$zero,0x201
-/*  f0a5450:	8de20000 */ 	lw	$v0,0x0($t7)
-/*  f0a5454:	14410007 */ 	bne	$v0,$at,.L0f0a5474
-/*  f0a5458:	304800ff */ 	andi	$t0,$v0,0xff
-/*  f0a545c:	8c780284 */ 	lw	$t8,0x284($v1)
-/*  f0a5460:	8f1900bc */ 	lw	$t9,0xbc($t8)
-/*  f0a5464:	0fc0897d */ 	jal	chrUncloakTemporarily
-/*  f0a5468:	8f240004 */ 	lw	$a0,0x4($t9)
-/*  f0a546c:	10000009 */ 	b	.L0f0a5494
-/*  f0a5470:	8fab0080 */ 	lw	$t3,0x80($sp)
-.L0f0a5474:
-/*  f0a5474:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0a5478:	55010006 */ 	bnel	$t0,$at,.L0f0a5494
-/*  f0a547c:	8fab0080 */ 	lw	$t3,0x80($sp)
-/*  f0a5480:	8c690284 */ 	lw	$t1,0x284($v1)
-/*  f0a5484:	8d2a00bc */ 	lw	$t2,0xbc($t1)
-/*  f0a5488:	0fc0897d */ 	jal	chrUncloakTemporarily
-/*  f0a548c:	8d440004 */ 	lw	$a0,0x4($t2)
-/*  f0a5490:	8fab0080 */ 	lw	$t3,0x80($sp)
-.L0f0a5494:
-/*  f0a5494:	51600012 */ 	beqzl	$t3,.L0f0a54e0
-/*  f0a5498:	8fad0070 */ 	lw	$t5,0x70($sp)
-/*  f0a549c:	8d620000 */ 	lw	$v0,0x0($t3)
-/*  f0a54a0:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0a54a4:	304300ff */ 	andi	$v1,$v0,0xff
-/*  f0a54a8:	10610003 */ 	beq	$v1,$at,.L0f0a54b8
-/*  f0a54ac:	304c0200 */ 	andi	$t4,$v0,0x200
-/*  f0a54b0:	51800003 */ 	beqzl	$t4,.L0f0a54c0
-/*  f0a54b4:	24010004 */ 	addiu	$at,$zero,0x4
-.L0f0a54b8:
-/*  f0a54b8:	afa00070 */ 	sw	$zero,0x70($sp)
-/*  f0a54bc:	24010004 */ 	addiu	$at,$zero,0x4
-.L0f0a54c0:
-/*  f0a54c0:	54610003 */ 	bnel	$v1,$at,.L0f0a54d0
-/*  f0a54c4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0a54c8:	afa00070 */ 	sw	$zero,0x70($sp)
-/*  f0a54cc:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f0a54d0:
-/*  f0a54d0:	54610003 */ 	bnel	$v1,$at,.L0f0a54e0
-/*  f0a54d4:	8fad0070 */ 	lw	$t5,0x70($sp)
-/*  f0a54d8:	afa00070 */ 	sw	$zero,0x70($sp)
-/*  f0a54dc:	8fad0070 */ 	lw	$t5,0x70($sp)
-.L0f0a54e0:
-/*  f0a54e0:	8fae0084 */ 	lw	$t6,0x84($sp)
-/*  f0a54e4:	11a00016 */ 	beqz	$t5,.L0f0a5540
-/*  f0a54e8:	25cffffe */ 	addiu	$t7,$t6,-2
-/*  f0a54ec:	2de1002a */ 	sltiu	$at,$t7,0x2a
-/*  f0a54f0:	10200013 */ 	beqz	$at,.L0f0a5540
-/*  f0a54f4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0a54f8:	3c017f1b */ 	lui	$at,%hi(var7f1ac93c)
-/*  f0a54fc:	002f0821 */ 	addu	$at,$at,$t7
-/*  f0a5500:	8c2fc93c */ 	lw	$t7,%lo(var7f1ac93c)($at)
-/*  f0a5504:	01e00008 */ 	jr	$t7
-/*  f0a5508:	00000000 */ 	nop
-/*  f0a550c:	0fc2b04e */ 	jal	func0f0ac138
-/*  f0a5510:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f0a5514:	8fb80078 */ 	lw	$t8,0x78($sp)
-/*  f0a5518:	8f190028 */ 	lw	$t9,0x28($t8)
-/*  f0a551c:	27280001 */ 	addiu	$t0,$t9,0x1
-/*  f0a5520:	10000007 */ 	b	.L0f0a5540
-/*  f0a5524:	af080028 */ 	sw	$t0,0x28($t8)
-/*  f0a5528:	8fa90078 */ 	lw	$t1,0x78($sp)
-/*  f0a552c:	8d2a0028 */ 	lw	$t2,0x28($t1)
-/*  f0a5530:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*  f0a5534:	ad2b0028 */ 	sw	$t3,0x28($t1)
-/*  f0a5538:	0fc2b04e */ 	jal	func0f0ac138
-/*  f0a553c:	8fa4007c */ 	lw	$a0,0x7c($sp)
-.L0f0a5540:
-/*  f0a5540:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a5544:	27bd0078 */ 	addiu	$sp,$sp,0x78
-/*  f0a5548:	03e00008 */ 	jr	$ra
-/*  f0a554c:	00000000 */ 	nop
-);
+/**
+ * Create casing and beam for a fired weapon,
+ * and uncloak if the weapon is a throwable or fired projectile.
+ */
+void bgunCreateFx(struct hand *hand, s32 handnum, struct weaponfunc *funcdef, s32 weaponnum, struct modelfiledata *modeldef, u8 *allocation)
+{
+	f32 ground;
+	bool createbeam = true;
+
+	g_Vars.currentplayer->gunctrl.unk1583_04 = false;
+
+	if (funcdef) {
+		ground = g_Vars.currentplayer->vv_ground;
+
+		if (modeldef && weaponnum != WEAPON_DY357MAGNUM && weaponnum != WEAPON_DY357LX) {
+			s32 partnum = MODELPART_PISTOL_003C;
+			struct modelnode *node;
+
+			if (weaponnum == WEAPON_REAPER) {
+				partnum = (hand->burstbullets & 1) == 1 ? MODELPART_REAPER_0030 : MODELPART_REAPER_0031;
+			}
+
+			node = modelGetPart(modeldef, partnum);
+
+			if (node) {
+				Mtxf *mtx = (Mtxf *)allocation;
+				Mtxf sp24;
+
+				mtx += model0001a524(node, 0);
+
+				mtx4Copy(mtx, &sp24);
+				mtx00015f04(9.999999f, &sp24);
+				mtx4MultMtx4InPlace(camGetUnk174c(), &sp24);
+
+				casingCreateForHand(handnum, ground, &sp24);
+			} else {
+				casingCreateForHand(handnum, ground, &hand->posmtx);
+			}
+
+			bgunSetPartVisible(MODELPART_CMP150_0046, false, hand, modeldef);
+			bgunSetPartVisible(MODELPART_CMP150_0047, true, hand, modeldef);
+		}
+
+		if (funcdef->type == INVENTORYFUNCTYPE_SHOOT_PROJECTILE) {
+			chrUncloakTemporarily(g_Vars.currentplayer->prop->chr);
+		} else if ((funcdef->type & 0xff) == INVENTORYFUNCTYPE_THROW) {
+			chrUncloakTemporarily(g_Vars.currentplayer->prop->chr);
+		}
+	}
+
+	if (funcdef) {
+		if ((funcdef->type & 0xff) == INVENTORYFUNCTYPE_CLOSE || (funcdef->type & INVENTORYFUNCTYPE_0200)) {
+			createbeam = false;
+		}
+
+		if ((funcdef->type & 0xff) == INVENTORYFUNCTYPE_SPECIAL) {
+			createbeam = false;
+		}
+
+		if ((funcdef->type & 0xff) == INVENTORYFUNCTYPE_THROW) {
+			createbeam = false;
+		}
+	}
+
+	if (createbeam) {
+		switch (weaponnum) {
+		case WEAPON_FALCON2:
+		case WEAPON_FALCON2_SILENCER:
+		case WEAPON_FALCON2_SCOPE:
+		case WEAPON_MAGSEC4:
+		case WEAPON_MAULER:
+		case WEAPON_PHOENIX:
+		case WEAPON_DY357MAGNUM:
+		case WEAPON_DY357LX:
+		case WEAPON_CMP150:
+		case WEAPON_CYCLONE:
+		case WEAPON_CALLISTO:
+		case WEAPON_RCP120:
+		case WEAPON_LAPTOPGUN:
+		case WEAPON_DRAGON:
+		case WEAPON_K7AVENGER:
+		case WEAPON_AR34:
+		case WEAPON_SUPERDRAGON:
+		case WEAPON_REAPER:
+		case WEAPON_SNIPERRIFLE:
+		case WEAPON_FARSIGHT:
+		case WEAPON_TRANQUILIZER:
+		case WEAPON_PP9I:
+		case WEAPON_CC13:
+		case WEAPON_KL01313:
+		case WEAPON_KF7SPECIAL:
+		case WEAPON_ZZT:
+		case WEAPON_DMC:
+		case WEAPON_AR53:
+		case WEAPON_RCP45:
+			beamCreateForHand(handnum);
+			hand->numfires++;
+			return;
+		case WEAPON_LASER:
+			hand->numfires++;
+			beamCreateForHand(handnum);
+			break;
+		}
+	}
+}
 
 void bgun0f0a5550(s32 handnum)
 {
@@ -24068,7 +23923,7 @@ void bgun0f0a5550(s32 handnum)
 	}
 
 	if (hand->firing && g_Vars.lvupdate240 != 0) {
-		bgun0f0a5300(hand, handnum, funcdef, weaponnum, modeldef, (Mtxf *)mtxallocation);
+		bgunCreateFx(hand, handnum, funcdef, weaponnum, modeldef, mtxallocation);
 	}
 
 	if (PLAYERCOUNT() == 1 && IS8MB() && g_Vars.lvupdate240 != 0) {

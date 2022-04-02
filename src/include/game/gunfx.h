@@ -8,13 +8,13 @@ void boltbeamsReset(void);
 void lasersightsReset(void);
 
 void beamCreate(struct beam *beam, s32 weaponnum, struct coord *from, struct coord *to);
-u32 func0f0ac138(void);
+void beamCreateForHand(s32 handnum);
 Gfx *func0f0ac4b8(Gfx *gdl, struct textureconfig *arg1, f32 arg2, struct coord *arg3, u32 colour1, f32 arg5, struct coord *arg6, u32 colour2);
 Gfx *func0f0acb90(Gfx *gdl, struct beam *beam, bool arg2, u32 arg3);
 void beamTick(struct beam *beam);
 
 struct casing *casingCreate(struct modelfiledata *modeldef, Mtxf *mtx);
-void func0f0ade00(s32 handnum, f32 ground, Mtxf *mtx);
+void casingCreateForHand(s32 handnum, f32 ground, Mtxf *mtx);
 void casingRender(struct casing *casing, Gfx **gdlptr);
 void casingsRender(Gfx **gdlptr);
 
