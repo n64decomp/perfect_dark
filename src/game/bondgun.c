@@ -18439,39 +18439,26 @@ glabel bgun0f0a0fac
 /*  f0a1228:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 /*  f0a122c:	03e00008 */ 	jr	$ra
 /*  f0a1230:	00000000 */ 	nop
-/*  f0a1234:	00067900 */ 	sll	$t7,$a2,0x4
-/*  f0a1238:	01e67823 */ 	subu	$t7,$t7,$a2
-/*  f0a123c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0a1240:	01e67821 */ 	addu	$t7,$t7,$a2
-/*  f0a1244:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0a1248:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0a124c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0a1250:	01e67821 */ 	addu	$t7,$t7,$a2
-/*  f0a1254:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0a1258:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f0a125c:	80780c14 */ 	lb	$t8,0xc14($v1)
-/*  f0a1260:	24630638 */ 	addiu	$v1,$v1,1592
-/*  f0a1264:	57000004 */ 	bnezl	$t8,.L0f0a1278
-/*  f0a1268:	c46405ec */ 	lwc1	$f4,0x5ec($v1)
-/*  f0a126c:	03e00008 */ 	jr	$ra
-/*  f0a1270:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a1274:	c46405ec */ 	lwc1	$f4,0x5ec($v1)
-.L0f0a1278:
-/*  f0a1278:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0a127c:	e4840000 */ 	swc1	$f4,0x0($a0)
-/*  f0a1280:	c46605f0 */ 	lwc1	$f6,0x5f0($v1)
-/*  f0a1284:	e4860004 */ 	swc1	$f6,0x4($a0)
-/*  f0a1288:	c46805f4 */ 	lwc1	$f8,0x5f4($v1)
-/*  f0a128c:	e4880008 */ 	swc1	$f8,0x8($a0)
-/*  f0a1290:	c46a05e0 */ 	lwc1	$f10,0x5e0($v1)
-/*  f0a1294:	e4aa0000 */ 	swc1	$f10,0x0($a1)
-/*  f0a1298:	c47005e4 */ 	lwc1	$f16,0x5e4($v1)
-/*  f0a129c:	e4b00004 */ 	swc1	$f16,0x4($a1)
-/*  f0a12a0:	c47205e8 */ 	lwc1	$f18,0x5e8($v1)
-/*  f0a12a4:	e4b20008 */ 	swc1	$f18,0x8($a1)
-/*  f0a12a8:	03e00008 */ 	jr	$ra
-/*  f0a12ac:	00000000 */ 	nop
 );
+
+bool bgunGetLastShootInfo(struct coord *pos, struct coord *dir, s32 handnum)
+{
+	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
+
+	if (!hand->lastdirvalid) {
+		return false;
+	}
+
+	pos->x = hand->lastshootpos.x;
+	pos->y = hand->lastshootpos.y;
+	pos->z = hand->lastshootpos.z;
+
+	dir->x = hand->lastshootdir.x;
+	dir->y = hand->lastshootdir.y;
+	dir->z = hand->lastshootdir.z;
+
+	return true;
+}
 
 void bgunSetLastShootInfo(struct coord *pos, struct coord *dir, s32 handnum)
 {

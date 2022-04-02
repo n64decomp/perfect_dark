@@ -2345,7 +2345,7 @@ struct hand {
 	/*0x0c08*/ u32 unk0c08;
 	/*0x0c0c*/ u32 unk0c0c;
 	/*0x0c10*/ u32 unk0c10;
-	/*0x0c14*/ u8 lastdirvalid;
+	/*0x0c14*/ s8 lastdirvalid;
 	/*0x0c18*/ struct coord lastshootdir;
 	/*0x0c24*/ struct coord lastshootpos;
 	/*0x0c30*/ s32 shotstotake;
