@@ -47,9 +47,9 @@ struct smoketype g_SmokeTypes[NUM_SMOKETYPES] = {
 	/*13*/ { 10,  12, 5,   5,   0.03600000217557,  0x66404000, 1.2,             21,  0.18,             0.36,              1 }, // SMOKETYPE_SKCORPSE
 	/*14*/ { 10,  12, 5,   5,   0.03600000217557,  0x66660000, 1.2,             21,  0.18,             0.36,              1 },
 	/*15*/ { 41,  4,  4,   3,   0.03600000217557,  0xffffff00, 0.36,            180, 0,                0.54,              0 }, // SMOKETYPE_MUZZLE_PISTOL
-	/*16*/ { 41,  4,  5,   3,   0.03600000217557,  0xafffaf00, 0.36,            180, 0.108000010252,   0.36,              0 }, // SMOKETYPE_MUZZLE_SHOTGUN
+	/*16*/ { 41,  4,  5,   3,   0.03600000217557,  0xafffaf00, 0.36,            180, 0.108000010252,   0.36,              0 }, // SMOKETYPE_MUZZLE_REAPER
 	/*17*/ { 41,  4,  3,   3,   0.03600000217557,  0xffffff00, 0.36,            180, 0,                0.4200000166893,   0 }, // SMOKETYPE_MUZZLE_AUTOMATIC
-	/*18*/ { 41,  4,  3,   3,   0.03600000217557,  0xaf8f6f00, 0.36,            180, 0.12000000476837, 0.36,              0 }, // SMOKETYPE_MUZZLE_REAPER
+	/*18*/ { 41,  4,  3,   3,   0.03600000217557,  0xaf8f6f00, 0.36,            180, 0.12000000476837, 0.36,              0 }, // SMOKETYPE_MUZZLE_SHOTGUN
 	/*19*/ { 41,  1,  2,   16,  0.03600000217557,  0xffff8000, 3.6000001430511, 36,  0.18,             0.36,              1 }, // SMOKETYPE_PINBALL
 	/*20*/ { 150, 8,  6,   18,  0.072000004351139, 0xffffff00, 0.36,            0,   0.228,            0.084000006318092, 1 }, // SMOKETYPE_WATER
 	/*21*/ { 183, 33, 37,  60,  0.024,             0x20202000, 0.36,            36,  1.8000000715256,  2.16,              6 }, // SMOKETYPE_DEBRIS
@@ -71,9 +71,9 @@ struct smoketype g_SmokeTypes[NUM_SMOKETYPES] = {
 	/*13*/ { 12,  15, 7,   5,   0.03,              0x66404000, 1,               18,  0.15,             0.3,               1 }, // SMOKETYPE_SKCORPSE
 	/*14*/ { 12,  15, 7,   5,   0.03,              0x66660000, 1,               18,  0.15,             0.3,               1 },
 	/*15*/ { 50,  5,  5,   3,   0.03,              0xffffff00, 0.3,             150, 0,                0.45,              0 }, // SMOKETYPE_MUZZLE_PISTOL
-	/*16*/ { 50,  5,  6,   3,   0.03,              0xafffaf00, 0.3,             150, 0.09,             0.3,               0 }, // SMOKETYPE_MUZZLE_SHOTGUN
+	/*16*/ { 50,  5,  6,   3,   0.03,              0xafffaf00, 0.3,             150, 0.09,             0.3,               0 }, // SMOKETYPE_MUZZLE_REAPER
 	/*17*/ { 50,  5,  3,   3,   0.03,              0xffffff00, 0.3,             150, 0,                0.35,              0 }, // SMOKETYPE_MUZZLE_AUTOMATIC
-	/*18*/ { 50,  5,  3,   3,   0.03,              0xaf8f6f00, 0.3,             150, 0.1,              0.3,               0 }, // SMOKETYPE_MUZZLE_REAPER
+	/*18*/ { 50,  5,  3,   3,   0.03,              0xaf8f6f00, 0.3,             150, 0.1,              0.3,               0 }, // SMOKETYPE_MUZZLE_SHOTGUN
 	/*19*/ { 50,  1,  2,   16,  0.03,              0xffff8000, 3,               30,  0.15,             0.3,               1 }, // SMOKETYPE_PINBALL
 	/*20*/ { 180, 10, 8,   18,  0.06,              0xffffff00, 0.3,             0,   0.19,             0.07,              1 }, // SMOKETYPE_WATER
 	/*21*/ { 220, 40, 45,  60,  0.02,              0x20202000, 0.3,             30,  1.5,              1.8,               6 }, // SMOKETYPE_DEBRIS
@@ -1238,7 +1238,7 @@ glabel smokeCreate
 //		} else {
 //			// 308
 //			// 1 player - if creating muzzle smoke, remove the third bullet impact smoke
-//			if (type >= SMOKETYPE_MUZZLE_PISTOL && type <= SMOKETYPE_MUZZLE_REAPER) {
+//			if (type >= SMOKETYPE_MUZZLE_PISTOL && type <= SMOKETYPE_MUZZLE_SHOTGUN) {
 //				if (g_Smokes[i].type == SMOKETYPE_BULLETIMPACT) {
 //					// 32c
 //					if (count == 3) {
@@ -1290,7 +1290,7 @@ bool smokeCreateForHand(struct coord *pos, s16 *rooms, s16 type, s32 handnum)
 		if (g_Smokes[i].prop
 				&& g_Smokes[i].option == handnum
 				&& g_Smokes[i].type >= SMOKETYPE_MUZZLE_PISTOL
-				&& g_Smokes[i].type <= SMOKETYPE_MUZZLE_REAPER) {
+				&& g_Smokes[i].type <= SMOKETYPE_MUZZLE_SHOTGUN) {
 			bool fail = false;
 
 			if (g_Smokes[i].age < g_SmokeTypes[g_Smokes[i].type].duration) {
@@ -1458,7 +1458,7 @@ u32 smokeTick(struct prop *prop)
 						part->rot = RANDOMFRAC() * M_BADTAU;
 						part->deltarot = (0.5f - RANDOMFRAC()) * g_SmokeTypes[smoke->type].bgrotatespeed;
 
-						if (smoke->type >= SMOKETYPE_MUZZLE_PISTOL && smoke->type <= SMOKETYPE_MUZZLE_REAPER) {
+						if (smoke->type >= SMOKETYPE_MUZZLE_PISTOL && smoke->type <= SMOKETYPE_MUZZLE_SHOTGUN) {
 							part->pos.x = g_Vars.currentplayer->hands[smoke->option].muzzlepos.x;
 							part->pos.y = g_Vars.currentplayer->hands[smoke->option].muzzlepos.y;
 							part->pos.z = g_Vars.currentplayer->hands[smoke->option].muzzlepos.z;

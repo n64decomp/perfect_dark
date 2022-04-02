@@ -133,7 +133,7 @@ void bgunUpdateMagnum(struct hand *hand, s32 handnum, struct modelfiledata *mode
 void bgunUpdateRocketLauncher(struct hand *hand, s32 handnum, struct weaponfunc_shootprojectile *func);
 void bgun0f0a45d0(struct hand *hand, struct modelfiledata *modeldef, bool isdetonator);
 void bgun0f0a46a4(struct hand *hand, struct modelfiledata *modeldef, bool isdetonator);
-void bgun0f0a4e44(struct hand *hand, struct weapon *weapondef, struct modelfiledata *modeldef, struct weaponfunc *funcdef, s32 arg4, Mtxf *arg5, s32 weaponnum, bool **sp1e4, s32 sp6c, Mtxf *arg9, Mtxf *arg10);
+void bgun0f0a4e44(struct hand *hand, struct weapon *weapondef, struct modelfiledata *modeldef, struct weaponfunc *funcdef, s32 maxburst, u8 *allocation, s32 weaponnum, bool **arg7, s32 mtxindex, Mtxf *arg9, Mtxf *arg10);
 void bgunCreateFx(struct hand *hand, s32 handnum, struct weaponfunc *funcdef, s32 weaponnum, struct modelfiledata *modeldef, u8 *allocation);
 void bgun0f0a5550(s32 handnum);
 void bgunTickMaulerCharge(void);

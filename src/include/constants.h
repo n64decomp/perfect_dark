@@ -950,6 +950,7 @@
 #define FUNC_2         2
 #define FUNC_POISON    3 // Internal function for delivering knife poison periodically
 
+#define FUNCFLAG_00000001               0x00000001
 #define FUNCFLAG_BURST3                 0x00000002
 #define FUNCFLAG_BURST50                0x00000020 // automatics only
 #define FUNCFLAG_NOAUTOAIM              0x00000040
@@ -3606,9 +3607,9 @@
 #define SMOKETYPE_HOMINGTAIL       11
 #define SMOKETYPE_SKCORPSE         13
 #define SMOKETYPE_MUZZLE_PISTOL    15
-#define SMOKETYPE_MUZZLE_SHOTGUN   16
+#define SMOKETYPE_MUZZLE_REAPER    16
 #define SMOKETYPE_MUZZLE_AUTOMATIC 17
-#define SMOKETYPE_MUZZLE_REAPER    18
+#define SMOKETYPE_MUZZLE_SHOTGUN   18
 #define SMOKETYPE_PINBALL          19 // Grenade in proxy pinball mode
 #define SMOKETYPE_WATER            20 // Splash effect in Chicago
 #define SMOKETYPE_DEBRIS           21 // Crash site cockpit, Skedar Ruins outro
