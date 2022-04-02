@@ -2396,7 +2396,8 @@ struct hand {
 	/*0x0d0e*/ u8 unk0d0e_00 : 4;
 	/*0x0d0e*/ u8 unk0d0e_04 : 3;
 	/*0x0d0e*/ u8 unk0d0e_07 : 1;
-	/*0x0d0f*/ u8 unk0d0f_00 : 2;
+	/*0x0d0f*/ u8 createsmoke : 1;
+	/*0x0d0f*/ u8 forcecreatesmoke : 1;
 	/*0x0d0f*/ u8 unk0d0f_02 : 1;
 	/*0x0d0f*/ u8 unk0d0f_03 : 1;
 	/*0x0d0f*/ u8 unk0d0f_04 : 4;
@@ -4763,7 +4764,11 @@ struct smoke {
 	/*0x000*/ struct prop *prop; // Prop of the smoke itself
 	/*0x004*/ s16 age;
 	/*0x006*/ u16 type : 7;
-	/*0x006*/ u16 srcispadeffect : 1;
+
+	// If source is set, option 0/1 determines whether the source is a prop/pad effect
+	// If source is null, option 0/1 is the handnum (right/left)
+	/*0x006*/ u16 option : 1;
+
 	/*0x007*/ u16 unk06_08 : 8;
 	/*0x008*/ struct smokepart parts[10];
 

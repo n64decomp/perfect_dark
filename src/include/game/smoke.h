@@ -12,7 +12,7 @@ void smokeStop(void);
 
 Gfx *smokeRenderPart(struct smoke *smoke, struct smokepart *part, Gfx *gdl, struct coord *coord, f32 size);
 struct smoke *smokeCreate(struct coord *pos, s16 *rooms, s16 type);
-bool func0f12e454(struct coord *pos, s16 *rooms, s16 type, u32 arg4);
+bool smokeCreateForHand(struct coord *pos, s16 *rooms, s16 type, s32 handnum);
 bool smokeCreateWithSource(void *source, struct coord *pos, s16 *rooms, s16 type, bool srcispadeffect);
 void smokeCreateAtProp(struct prop *prop, s16 type);
 void smokeCreateAtPadEffect(struct padeffectobj *effect, struct coord *pos, s16 *rooms, s16 type);

@@ -1280,7 +1280,7 @@ glabel smokeCreate
 //	return smoke;
 //}
 
-bool func0f12e454(struct coord *pos, s16 *rooms, s16 type, u32 srcispadeffect)
+bool smokeCreateForHand(struct coord *pos, s16 *rooms, s16 type, s32 handnum)
 {
 	struct smoke *smoke;
 	s32 i;
@@ -1288,7 +1288,7 @@ bool func0f12e454(struct coord *pos, s16 *rooms, s16 type, u32 srcispadeffect)
 
 	for (i = 0; i < g_MaxSmokes; i++) {
 		if (g_Smokes[i].prop
-				&& g_Smokes[i].srcispadeffect == srcispadeffect
+				&& g_Smokes[i].option == handnum
 				&& g_Smokes[i].type >= SMOKETYPE_MUZZLE_PISTOL
 				&& g_Smokes[i].type <= SMOKETYPE_MUZZLE_REAPER) {
 			bool fail = false;
@@ -1310,7 +1310,7 @@ bool func0f12e454(struct coord *pos, s16 *rooms, s16 type, u32 srcispadeffect)
 	smoke = smokeCreate(pos, rooms, type);
 
 	if (smoke) {
-		smoke->srcispadeffect = srcispadeffect;
+		smoke->option = handnum;
 		return true;
 	}
 
@@ -1357,7 +1357,7 @@ bool smokeCreateWithSource(void *source, struct coord *pos, s16 *rooms, s16 type
 
 	if (smoke) {
 		smoke->source = source;
-		smoke->srcispadeffect = srcispadeffect;
+		smoke->option = srcispadeffect;
 		return true;
 	}
 
@@ -1379,7 +1379,7 @@ void smokeClearForProp(struct prop *prop)
 	s32 i;
 
 	for (i = 0; i < g_MaxSmokes; i++) {
-		if (g_Smokes[i].prop && g_Smokes[i].source == prop && g_Smokes[i].srcispadeffect == false) {
+		if (g_Smokes[i].prop && g_Smokes[i].source == prop && g_Smokes[i].option == 0) {
 			g_Smokes[i].age = g_SmokeTypes[g_Smokes[i].type].duration;
 			g_Smokes[i].source = NULL;
 		}
@@ -1459,10 +1459,10 @@ u32 smokeTick(struct prop *prop)
 						part->deltarot = (0.5f - RANDOMFRAC()) * g_SmokeTypes[smoke->type].bgrotatespeed;
 
 						if (smoke->type >= SMOKETYPE_MUZZLE_PISTOL && smoke->type <= SMOKETYPE_MUZZLE_REAPER) {
-							part->pos.x = g_Vars.currentplayer->hands[smoke->srcispadeffect].muzzlepos.x;
-							part->pos.y = g_Vars.currentplayer->hands[smoke->srcispadeffect].muzzlepos.y;
-							part->pos.z = g_Vars.currentplayer->hands[smoke->srcispadeffect].muzzlepos.z;
-						} else if (smoke->sourceprop && !smoke->srcispadeffect) {
+							part->pos.x = g_Vars.currentplayer->hands[smoke->option].muzzlepos.x;
+							part->pos.y = g_Vars.currentplayer->hands[smoke->option].muzzlepos.y;
+							part->pos.z = g_Vars.currentplayer->hands[smoke->option].muzzlepos.z;
+						} else if (smoke->sourceprop && smoke->option == 0) {
 							part->pos.x = smoke->sourceprop->pos.x;
 							part->pos.y = smoke->sourceprop->pos.y;
 							part->pos.z = smoke->sourceprop->pos.z;
