@@ -10984,7 +10984,7 @@ glabel var7f1a90e0
 /*  f040a0c:	00065080 */ 	sll	$t2,$a2,0x2
 /*  f040a10:	000a37c2 */ 	srl	$a2,$t2,0x1f
 /*  f040a14:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f040a18:	0fc283eb */ 	jal	bgun0f0a0fac
+/*  f040a18:	0fc283eb */ 	jal	bgunCalculateBotShotSpread
 /*  f040a1c:	afa90010 */ 	sw	$t1,0x10($sp)
 .L0f040a20:
 /*  f040a20:	8fab0278 */ 	lw	$t3,0x278($sp)
@@ -12574,7 +12574,7 @@ glabel var7f1a9184
 /*  f040b90:	00065080 */ 	sll	$t2,$a2,0x2
 /*  f040b94:	000a37c2 */ 	srl	$a2,$t2,0x1f
 /*  f040b98:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f040b9c:	0fc284b4 */ 	jal	bgun0f0a0fac
+/*  f040b9c:	0fc284b4 */ 	jal	bgunCalculateBotShotSpread
 /*  f040ba0:	afa90010 */ 	sw	$t1,0x10($sp)
 .PF0f040ba4:
 /*  f040ba4:	8fab0278 */ 	lw	$t3,0x278($sp)
@@ -14172,7 +14172,7 @@ glabel var7f1a9184
 /*  f040b1c:	00065080 */ 	sll	$t2,$a2,0x2
 /*  f040b20:	000a37c2 */ 	srl	$a2,$t2,0x1f
 /*  f040b24:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f040b28:	0fc28488 */ 	jal	bgun0f0a0fac
+/*  f040b28:	0fc28488 */ 	jal	bgunCalculateBotShotSpread
 /*  f040b2c:	afa90010 */ 	sw	$t1,0x10($sp)
 .PB0f040b30:
 /*  f040b30:	8fab0278 */ 	lw	$t3,0x278($sp)
@@ -15770,7 +15770,7 @@ glabel var7f1a9184
 /*  f040a0c:	00065080 */ 	sll	$t2,$a2,0x2
 /*  f040a10:	000a37c2 */ 	srl	$a2,$t2,0x1f
 /*  f040a14:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f040a18:	0fc283eb */ 	jal	bgun0f0a0fac
+/*  f040a18:	0fc283eb */ 	jal	bgunCalculateBotShotSpread
 /*  f040a1c:	afa90010 */ 	sw	$t1,0x10($sp)
 .L0f040a20:
 /*  f040a20:	8fab0278 */ 	lw	$t3,0x278($sp)
@@ -17360,7 +17360,7 @@ glabel var7f1a9184
 /*  f0401ec:	00065080 */ 	sll	$t2,$a2,0x2
 /*  f0401f0:	000a37c2 */ 	srl	$a2,$t2,0x1f
 /*  f0401f4:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f0401f8:	0fc27b58 */ 	jal	bgun0f0a0fac
+/*  f0401f8:	0fc27b58 */ 	jal	bgunCalculateBotShotSpread
 /*  f0401fc:	afa90010 */ 	sw	$t1,0x10($sp)
 .NB0f040200:
 /*  f040200:	8fab0278 */ 	lw	$t3,0x278($sp)
@@ -18649,7 +18649,7 @@ glabel var7f1a9184
 //					vector.f[2] = cosf(sp200) * cosf(aimangle);
 //
 //					if (isaibot) {
-//						bgun0f0a0fac(&vector, chr->aibot->weaponnum, chr->aibot->gunfunc, chr->aibot->burstsdone[handnum], botGuessCrouchPos(chr), chr->weapons_held[0] && chr->weapons_held[1]);
+//						bgunCalculateBotShotSpread(&vector, chr->aibot->weaponnum, chr->aibot->gunfunc, chr->aibot->burstsdone[handnum], botGuessCrouchPos(chr), chr->weapons_held[0] && chr->weapons_held[1]);
 //					}
 //				}
 //

@@ -980,7 +980,7 @@ struct prop *func0f061d54(s32 handnum, u32 arg1, u32 arg2)
 	struct coord sp4c;
 	struct coord sp40;
 
-	bgunCalculateShotSpread(&sp58, &sp64, handnum, arg2);
+	bgunCalculatePlayerShotSpread(&sp58, &sp64, handnum, arg2);
 
 	if (arg2 == 2 && bgunGetWeaponNum(HAND_RIGHT) == WEAPON_REAPER) {
 		sp58.y -= 15 * (random() * (1.0f / U32_MAX));
@@ -999,7 +999,7 @@ void handCreateBulletRaycast(s32 handnum, bool arg1, bool dorandom, s32 arg3, bo
 	struct coord sp44;
 	struct coord sp38;
 
-	bgunCalculateShotSpread(&sp38, &sp44, handnum, dorandom);
+	bgunCalculatePlayerShotSpread(&sp38, &sp44, handnum, dorandom);
 
 	if (arg3 > 0) {
 		mtx4TransformVec(camGetUnk174c(), &sp38, &shootpos);
@@ -1202,7 +1202,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 							struct coord spcc;
 							struct modelnode *node = NULL;
 
-							bgunCalculateShotSpread(&spd8, &spcc, handnum, true);
+							bgunCalculatePlayerShotSpread(&spd8, &spcc, handnum, true);
 
 							if (model000225d4(model, &spd8, &spcc, &node) > 0) {
 								f32 damage = gsetGetDamage(gset) * 2.5f;
@@ -1222,7 +1222,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 							s32 hitpart = HITPART_TORSO;
 
 							if (!chrIsAvoiding(chr)) {
-								bgunCalculateShotSpread(&spb8, &vector, handnum, true);
+								bgunCalculatePlayerShotSpread(&spb8, &vector, handnum, true);
 								skipthething = true;
 								mtx4RotateVecInPlace(camGetUnk174c(), &vector);
 								bgunPlayPropHitSound(gset, prop, -1);
