@@ -58,7 +58,7 @@ void bgunInitHandAnims(void);
 f32 bgunGetNoiseRadius(s32 handnum);
 void bgunDecreaseNoiseRadius(void);
 void bgunCalculateBlend(s32 hand);
-void bgun0f09d550(struct hand *hand, s32 handnum);
+void bgunUpdateBlend(struct hand *hand, s32 handnum);
 void bgun0f09d8dc(f32 breathing, f32 arg1, f32 arg2, f32 arg3, f32 arg4);
 bool bgun0f09dd7c(void);
 u32 bgunGetGunMemType(void);

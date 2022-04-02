@@ -2268,9 +2268,9 @@ struct hand {
 	/*0x0714*/ struct coord damppossum;
 	/*0x0720*/ struct coord damplooksum;
 	/*0x072c*/ struct coord dampupsum;
-	/*0x0738*/ f32 blendpos[4][3];
-	/*0x0768*/ f32 blendlook[4][3];
-	/*0x0798*/ f32 blendup[4][3];
+	/*0x0738*/ struct coord blendpos[4];
+	/*0x0768*/ struct coord blendlook[4];
+	/*0x0798*/ struct coord blendup[4];
 	/*0x07c8*/ s32 curblendpos;
 	/*0x07cc*/ f32 dampt;
 	/*0x07d0*/ f32 blendscale;
