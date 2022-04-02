@@ -16,7 +16,7 @@ void bgunSetPartVisible(s16 partnum, bool visible, struct hand *hand, struct mod
 void bgun0f097f28(struct hand *hand, struct modelfiledata *arg1, struct inventory_typef *arg2);
 void bgun0f098030(struct hand *hand, struct modelfiledata *arg1);
 f32 bgun0f09815c(struct hand *hand);
-void bgun0f0981e8(struct hand *hand, struct modelfiledata *arg1);
+void bgun0f0981e8(struct hand *hand, struct modelfiledata *modeldef);
 bool bgun0f098884(struct guncmd *cmd, struct gset *gset);
 void bgunStartAnimation(struct guncmd *cmd, s32 handnum, struct hand *hand);
 bool bgun0f098a44(struct hand *hand, s32 time);
