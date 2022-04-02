@@ -8436,7 +8436,7 @@ glabel var7f1ac320
 /*  f09a828:	a2060005 */ 	sb	$a2,0x5($s0)
 .L0f09a82c:
 /*  f09a82c:	8fa4005c */ 	lw	$a0,0x5c($sp)
-/*  f09a830:	0fc288c2 */ 	jal	bgunResetSlideInc
+/*  f09a830:	0fc288c2 */ 	jal	bgunStartSlide
 /*  f09a834:	afa70064 */ 	sw	$a3,0x64($sp)
 /*  f09a838:	82020004 */ 	lb	$v0,0x4($s0)
 /*  f09a83c:	44803000 */ 	mtc1	$zero,$f6
@@ -8766,7 +8766,7 @@ glabel var7f1ac320
 /*  f09a828:	a2060005 */ 	sb	$a2,0x5($s0)
 .L0f09a82c:
 /*  f09a82c:	8fa4005c */ 	lw	$a0,0x5c($sp)
-/*  f09a830:	0fc288c2 */ 	jal	bgunResetSlideInc
+/*  f09a830:	0fc288c2 */ 	jal	bgunStartSlide
 /*  f09a834:	afa70064 */ 	sw	$a3,0x64($sp)
 /*  f09a838:	82020004 */ 	lb	$v0,0x4($s0)
 /*  f09a83c:	44803000 */ 	mtc1	$zero,$f6
@@ -9096,7 +9096,7 @@ glabel var7f1ac320
 /*  f098864:	a2060005 */ 	sb	$a2,0x5($s0)
 .NB0f098868:
 /*  f098868:	8fa40054 */ 	lw	$a0,0x54($sp)
-/*  f09886c:	0fc28021 */ 	jal	bgunResetSlideInc
+/*  f09886c:	0fc28021 */ 	jal	bgunStartSlide
 /*  f098870:	afa7005c */ 	sw	$a3,0x5c($sp)
 /*  f098874:	82020004 */ 	lb	$v0,0x4($s0)
 /*  f098878:	44803000 */ 	mtc1	$zero,$f6
@@ -9376,7 +9376,7 @@ const char var7f1ab898[] = "rofftime";
 //		hand->flashon = true;
 //	}
 //
-//	bgunResetSlideInc(handnum);
+//	bgunStartSlide(handnum);
 //
 //	hand->loadslide = 0;
 //
@@ -19582,112 +19582,51 @@ void bgunSetAdjustPos(f32 angle)
 	player->hands[1].adjustpos.z = (1 - cosf(angle)) * 5;
 }
 
-void bgunResetSlideInc(s32 handnum)
+void bgunStartSlide(s32 handnum)
 {
-	g_Vars.currentplayer->hands[handnum].slideinc = 1;
+	g_Vars.currentplayer->hands[handnum].slideinc = true;
 }
 
-GLOBAL_ASM(
-glabel bgun0f0a233c
-.late_rodata
-glabel var7f1ac768
-.word 0x3e2aaaab
-.text
-/*  f0a233c:	44801000 */ 	mtc1	$zero,$f2
-/*  f0a2340:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0a2344:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a2348:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f0a234c:	0fc2c43b */ 	jal	currentPlayerGetWeaponFunction
-/*  f0a2350:	e7a2002c */ 	swc1	$f2,0x2c($sp)
-/*  f0a2354:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f0a2358:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f0a235c:	c7a2002c */ 	lwc1	$f2,0x2c($sp)
-/*  f0a2360:	10400007 */ 	beqz	$v0,.L0f0a2380
-/*  f0a2364:	8cc40284 */ 	lw	$a0,0x284($a2)
-/*  f0a2368:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f0a236c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0a2370:	31cf00ff */ 	andi	$t7,$t6,0xff
-/*  f0a2374:	55e10003 */ 	bnel	$t7,$at,.L0f0a2384
-/*  f0a2378:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*  f0a237c:	c4420030 */ 	lwc1	$f2,0x30($v0)
-.L0f0a2380:
-/*  f0a2380:	8fb80030 */ 	lw	$t8,0x30($sp)
-.L0f0a2384:
-/*  f0a2384:	0018c900 */ 	sll	$t9,$t8,0x4
-/*  f0a2388:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f0a238c:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0a2390:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f0a2394:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f0a2398:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f0a239c:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0a23a0:	00991821 */ 	addu	$v1,$a0,$t9
-/*  f0a23a4:	8c68084c */ 	lw	$t0,0x84c($v1)
-/*  f0a23a8:	51000017 */ 	beqzl	$t0,.L0f0a2408
-/*  f0a23ac:	8c690858 */ 	lw	$t1,0x858($v1)
-/*  f0a23b0:	c4600848 */ 	lwc1	$f0,0x848($v1)
-/*  f0a23b4:	3c013e80 */ 	lui	$at,0x3e80
-/*  f0a23b8:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f0a23bc:	00000000 */ 	nop
-/*  f0a23c0:	4502000a */ 	bc1fl	.L0f0a23ec
-/*  f0a23c4:	4600103e */ 	c.le.s	$f2,$f0
-/*  f0a23c8:	44812000 */ 	mtc1	$at,$f4
-/*  f0a23cc:	c4c8004c */ 	lwc1	$f8,0x4c($a2)
-/*  f0a23d0:	46041182 */ 	mul.s	$f6,$f2,$f4
-/*  f0a23d4:	00000000 */ 	nop
-/*  f0a23d8:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f0a23dc:	460a0400 */ 	add.s	$f16,$f0,$f10
-/*  f0a23e0:	e4700848 */ 	swc1	$f16,0x848($v1)
-/*  f0a23e4:	c4600848 */ 	lwc1	$f0,0x848($v1)
-/*  f0a23e8:	4600103e */ 	c.le.s	$f2,$f0
-.L0f0a23ec:
-/*  f0a23ec:	00000000 */ 	nop
-/*  f0a23f0:	45020026 */ 	bc1fl	.L0f0a248c
-/*  f0a23f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a23f8:	e4620848 */ 	swc1	$f2,0x848($v1)
-/*  f0a23fc:	10000022 */ 	b	.L0f0a2488
-/*  f0a2400:	ac60084c */ 	sw	$zero,0x84c($v1)
-/*  f0a2404:	8c690858 */ 	lw	$t1,0x858($v1)
-.L0f0a2408:
-/*  f0a2408:	24640638 */ 	addiu	$a0,$v1,0x638
-/*  f0a240c:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f0a2410:	5920001e */ 	blezl	$t1,.L0f0a248c
-/*  f0a2414:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a2418:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f0a241c:	0fc26291 */ 	jal	bgun0f098a44
-/*  f0a2420:	e7a2002c */ 	swc1	$f2,0x2c($sp)
-/*  f0a2424:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f0a2428:	44806000 */ 	mtc1	$zero,$f12
-/*  f0a242c:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f0a2430:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f0a2434:	10400014 */ 	beqz	$v0,.L0f0a2488
-/*  f0a2438:	c7a2002c */ 	lwc1	$f2,0x2c($sp)
-/*  f0a243c:	c4600848 */ 	lwc1	$f0,0x848($v1)
-/*  f0a2440:	3c017f1b */ 	lui	$at,%hi(var7f1ac768)
-/*  f0a2444:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f0a2448:	00000000 */ 	nop
-/*  f0a244c:	4502000a */ 	bc1fl	.L0f0a2478
-/*  f0a2450:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0a2454:	c432c768 */ 	lwc1	$f18,%lo(var7f1ac768)($at)
-/*  f0a2458:	c4c6004c */ 	lwc1	$f6,0x4c($a2)
-/*  f0a245c:	46121102 */ 	mul.s	$f4,$f2,$f18
-/*  f0a2460:	00000000 */ 	nop
-/*  f0a2464:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0a2468:	46080281 */ 	sub.s	$f10,$f0,$f8
-/*  f0a246c:	e46a0848 */ 	swc1	$f10,0x848($v1)
-/*  f0a2470:	c4600848 */ 	lwc1	$f0,0x848($v1)
-/*  f0a2474:	460c003c */ 	c.lt.s	$f0,$f12
-.L0f0a2478:
-/*  f0a2478:	00000000 */ 	nop
-/*  f0a247c:	45020003 */ 	bc1fl	.L0f0a248c
-/*  f0a2480:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a2484:	e46c0848 */ 	swc1	$f12,0x848($v1)
-.L0f0a2488:
-/*  f0a2488:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0a248c:
-/*  f0a248c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0a2490:	03e00008 */ 	jr	$ra
-/*  f0a2494:	00000000 */ 	nop
-);
+/**
+ * Update the slide on weapons which have them (eg. Falcon 2).
+ *
+ * The slide moves back and then forward when firing. If the gun no longer has
+ * any ammo loaded in it, the slide moves back and remains in the back position.
+ */
+void bgunUpdateSlide(s32 handnum)
+{
+	f32 slidemax = 0.0f;
+	struct weaponfunc *funcdef = currentPlayerGetWeaponFunction(handnum);
+	struct player *player = g_Vars.currentplayer;
+
+	if (funcdef && ((funcdef->type & 0xff) == INVENTORYFUNCTYPE_SHOOT)) {
+		struct weaponfunc_shoot *shootfunc = (struct weaponfunc_shoot *)funcdef;
+		slidemax = shootfunc->slidemax;
+	}
+
+	if (player->hands[handnum].slideinc) {
+		// Slide is moving backwards
+		if (player->hands[handnum].slidetrans < slidemax) {
+			player->hands[handnum].slidetrans += slidemax * 0.25f * g_Vars.lvupdate240freal;
+		}
+
+		if (player->hands[handnum].slidetrans >= slidemax) {
+			player->hands[handnum].slidetrans = slidemax;
+			player->hands[handnum].slideinc = false;
+		}
+	} else if (player->hands[handnum].loadedammo[FUNC_PRIMARY] > 0) {
+		if (bgun0f098a44(&player->hands[handnum], 3)) {
+			// Slide is moving forwards
+			if (player->hands[handnum].slidetrans > 0.0f) {
+				player->hands[handnum].slidetrans -= slidemax * 0.16666667f * g_Vars.lvupdate240freal;
+			}
+
+			if (player->hands[handnum].slidetrans < 0.0f) {
+				player->hands[handnum].slidetrans = 0.0f;
+			}
+		}
+	}
+}
 
 f32 bgun0f0a2498(f32 arg0, f32 arg1, f32 arg2, f32 arg3)
 {
@@ -25312,7 +25251,7 @@ void bgun0f0a5550(s32 handnum)
 			if (node) {
 				sp80 = model0001a524(node, 0);
 
-				bgun0f0a233c(handnum);
+				bgunUpdateSlide(handnum);
 
 				sp74.f[0] = 0.0f;
 				sp74.f[1] = 0.0f;

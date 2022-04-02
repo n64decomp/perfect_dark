@@ -2287,8 +2287,8 @@ struct hand {
 	/*0x0814*/ struct beam beam;
 	/*0x0840*/ f32 noiseradius;
 	/*0x0844*/ u32 fingerroty;
-	/*0x0848*/ f32 slidetrans;
-	/*0x084c*/ u32 slideinc;
+	/*0x0848*/ f32 slidetrans; // 0 at rest, positive when back (struct weaponfunc_shoot.slidemax)
+	/*0x084c*/ bool slideinc; // true when moving back, false when moving forward or not moving
 	/*0x0850*/ struct weaponobj *rocket;
 	/*0x0854*/ bool firedrocket;
 	/*0x0858*/ s32 loadedammo[2];
@@ -3063,7 +3063,7 @@ struct weaponfunc_shoot {
 
 	/*0x28*/ f32 recoil;
 	/*0x2c*/ f32 unk2c;
-	/*0x30*/ f32 unk30;
+	/*0x30*/ f32 slidemax;
 	/*0x34*/ f32 strength;
 	/*0x38*/ u8 unk38;
 	/*0x3a*/ u16 shootsound;

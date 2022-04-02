@@ -2026,8 +2026,8 @@ void lvTick(void)
 	}
 
 	for (j = 0; j < PLAYERCOUNT(); j++) {
-		g_Vars.players[j]->hands[HAND_LEFT].unk0cec = 0;
-		g_Vars.players[j]->hands[HAND_RIGHT].unk0cec = 0;
+		g_Vars.players[j]->hands[HAND_LEFT].hasdotinfo = false;
+		g_Vars.players[j]->hands[HAND_RIGHT].hasdotinfo = false;
 	}
 
 	if (lvIsPaused()) {
