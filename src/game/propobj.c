@@ -63675,7 +63675,7 @@ s32 objTickPlayer(struct prop *prop)
 
 	if (obj->hidden & OBJHFLAG_00000100) {
 		obj->hidden &= ~OBJHFLAG_00000100;
-		objDamage(obj, random() * (1.0f / U32_MAX) * 4.0f + 2.0f, &prop->pos, WEAPON_NONE, (obj->hidden & 0xf0000000) >> 28);
+		objDamage(obj, RANDOMFRAC() * 4.0f + 2.0f, &prop->pos, WEAPON_NONE, (obj->hidden & 0xf0000000) >> 28);
 	}
 
 	if (fulltick) {
@@ -69025,9 +69025,9 @@ bool objDrop(struct prop *prop, bool lazy)
 
 			mtx00016208(rootobj->realrot, &spe4);
 
-			spa4 = random() * (1.0f / U32_MAX) * 13.333333015442f;
+			spa4 = RANDOMFRAC() * 13.333333015442f;
 			spa0 = atan2f(spe4.x, spe4.z);
-			spa0 += random() * (1.0f / U32_MAX) * 0.7852731347084f - 0.3926365673542f;
+			spa0 += RANDOMFRAC() * 0.7852731347084f - 0.3926365673542f;
 
 			if (spa0 >= M_BADTAU) {
 				spa0 -= M_BADTAU;
@@ -69053,12 +69053,12 @@ bool objDrop(struct prop *prop, bool lazy)
 				f32 angle = chrGetInverseTheta(chr);
 
 				projectile->speed.x = sinf(angle) * 1.6666666269302f;
-				projectile->speed.y = -(random() * (1.0f / U32_MAX)) * 0.83333331346512f;
+				projectile->speed.y = -RANDOMFRAC() * 0.83333331346512f;
 				projectile->speed.z = cosf(angle) * 1.6666666269302f;
 
-				rot.x = random() * (1.0f / U32_MAX) * PALUPF(0.012269892729819f) - PALUPF(0.0061349463649094f);
-				rot.y = random() * (1.0f / U32_MAX) * PALUPF(0.012269892729819f) - PALUPF(0.0061349463649094f);
-				rot.z = random() * (1.0f / U32_MAX) * PALUPF(0.012269892729819f) - PALUPF(0.0061349463649094f);
+				rot.x = RANDOMFRAC() * PALUPF(0.012269892729819f) - PALUPF(0.0061349463649094f);
+				rot.y = RANDOMFRAC() * PALUPF(0.012269892729819f) - PALUPF(0.0061349463649094f);
+				rot.z = RANDOMFRAC() * PALUPF(0.012269892729819f) - PALUPF(0.0061349463649094f);
 
 				mtx4LoadRotation(&rot, (Mtxf *)&projectile->unk020);
 			} else if (projectile->droptype == DROPTYPE_THROWGRENADE && parent->type == PROPTYPE_CHR) {
@@ -69081,9 +69081,9 @@ bool objDrop(struct prop *prop, bool lazy)
 				projectile->speed.y = (((dist >= 1200) * ((dist - 1200) / 1200)) + 1) * 6.6666665077209f;
 				projectile->speed.z = cosf(angle) * 13.333333015442f * (dist / 1000);
 
-				rot.x = random() * (1.0f / U32_MAX) * PALUPF(0.012269892729819f) - PALUPF(0.0061349463649094f);
-				rot.y = random() * (1.0f / U32_MAX) * PALUPF(0.012269892729819f) - PALUPF(0.0061349463649094f);
-				rot.z = random() * (1.0f / U32_MAX) * PALUPF(0.012269892729819f) - PALUPF(0.0061349463649094f);
+				rot.x = RANDOMFRAC() * PALUPF(0.012269892729819f) - PALUPF(0.0061349463649094f);
+				rot.y = RANDOMFRAC() * PALUPF(0.012269892729819f) - PALUPF(0.0061349463649094f);
+				rot.z = RANDOMFRAC() * PALUPF(0.012269892729819f) - PALUPF(0.0061349463649094f);
 
 				mtx4LoadRotation(&rot, (Mtxf *)&projectile->unk020);
 				objSetProjectileFlag4(prop);
@@ -69094,25 +69094,25 @@ bool objDrop(struct prop *prop, bool lazy)
 				f32 z = parent->pos.z - playerprop->pos.z;
 				f32 angle = atan2f(x, z);
 
-				projectile->speed.x = (random() * (1.0f / U32_MAX) * 3.3333332538605f + 3.3333332538605f) * sinf(angle);
-				projectile->speed.y = random() * (1.0f / U32_MAX) * 3.3333332538605f;
-				projectile->speed.z = (random() * (1.0f / U32_MAX) * 3.3333332538605f + 3.3333332538605f) * cosf(angle);
+				projectile->speed.x = (RANDOMFRAC() * 3.3333332538605f + 3.3333332538605f) * sinf(angle);
+				projectile->speed.y = RANDOMFRAC() * 3.3333332538605f;
+				projectile->speed.z = (RANDOMFRAC() * 3.3333332538605f + 3.3333332538605f) * cosf(angle);
 
-				rot.x = random() * (1.0f / U32_MAX) * PALUPF(0.049079570919275f) - PALUPF(0.024539785459638f);
-				rot.y = random() * (1.0f / U32_MAX) * PALUPF(0.049079570919275f) - PALUPF(0.024539785459638f);
-				rot.z = random() * (1.0f / U32_MAX) * PALUPF(0.049079570919275f) - PALUPF(0.024539785459638f);
+				rot.x = RANDOMFRAC() * PALUPF(0.049079570919275f) - PALUPF(0.024539785459638f);
+				rot.y = RANDOMFRAC() * PALUPF(0.049079570919275f) - PALUPF(0.024539785459638f);
+				rot.z = RANDOMFRAC() * PALUPF(0.049079570919275f) - PALUPF(0.024539785459638f);
 
 				mtx4LoadRotation(&rot, (Mtxf *)&projectile->unk020);
 			} else if (projectile->droptype == DROPTYPE_OWNERREAP) {
 				struct coord rot = {0, 0, 0};
 
-				projectile->speed.x = (0.5f - (random() * (1.0f / U32_MAX))) * 1.6666666269302f;
+				projectile->speed.x = (0.5f - RANDOMFRAC()) * 1.6666666269302f;
 				projectile->speed.y = 0.0f;
-				projectile->speed.z = (0.5f - (random() * (1.0f / U32_MAX))) * 1.6666666269302f;
+				projectile->speed.z = (0.5f - RANDOMFRAC()) * 1.6666666269302f;
 
-				rot.x = random() * (1.0f / U32_MAX) * PALUPF(0.049079570919275f) - PALUPF(0.024539785459638f);
-				rot.y = random() * (1.0f / U32_MAX) * PALUPF(0.049079570919275f) - PALUPF(0.024539785459638f);
-				rot.z = random() * (1.0f / U32_MAX) * PALUPF(0.049079570919275f) - PALUPF(0.024539785459638f);
+				rot.x = RANDOMFRAC() * PALUPF(0.049079570919275f) - PALUPF(0.024539785459638f);
+				rot.y = RANDOMFRAC() * PALUPF(0.049079570919275f) - PALUPF(0.024539785459638f);
+				rot.z = RANDOMFRAC() * PALUPF(0.049079570919275f) - PALUPF(0.024539785459638f);
 
 				mtx4LoadRotation(&rot, (Mtxf *)&projectile->unk020);
 			} else {

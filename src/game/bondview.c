@@ -21369,7 +21369,7 @@ Gfx *bviewRenderHorizonScanner(Gfx *gdl)
 
 		gDPSetColor(gdl++, G_SETENVCOLOR, colour);
 
-		gdl = bviewRenderLensRect(gdl, fb, liney, 5, liney, random() * (1.0f / U32_MAX) * range + 1, viewleft, viewwidth);
+		gdl = bviewRenderLensRect(gdl, fb, liney, 5, liney, RANDOMFRAC() * range + 1, viewleft, viewwidth);
 	}
 
 	return gdl;

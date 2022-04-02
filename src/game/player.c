@@ -2944,13 +2944,13 @@ void playerTickExplode(void)
 		pos.z = g_Vars.currentplayer->prop->pos.z;
 
 		switch (g_Vars.currentplayer->bondcurexplode % 4) {
-		case 0: pos.x += 250.0f + 150.0f * (random() * (1.0f / U32_MAX)); break;
-		case 1: pos.x -= 250.0f + 150.0f * (random() * (1.0f / U32_MAX)); break;
-		case 2: pos.z += 250.0f + 150.0f * (random() * (1.0f / U32_MAX)); break;
-		case 3: pos.z -= 250.0f + 150.0f * (random() * (1.0f / U32_MAX)); break;
+		case 0: pos.x += 250.0f + 150.0f * RANDOMFRAC(); break;
+		case 1: pos.x -= 250.0f + 150.0f * RANDOMFRAC(); break;
+		case 2: pos.z += 250.0f + 150.0f * RANDOMFRAC(); break;
+		case 3: pos.z -= 250.0f + 150.0f * RANDOMFRAC(); break;
 		}
 
-		pos.y += 200.0f * (random() * (1.0f / U32_MAX)) - 100.0f;
+		pos.y += 200.0f * RANDOMFRAC() - 100.0f;
 
 		explosionCreateSimple(NULL, &pos, g_Vars.currentplayer->prop->rooms, EXPLOSIONTYPE_BONDEXPLODE, g_Vars.currentplayernum);
 

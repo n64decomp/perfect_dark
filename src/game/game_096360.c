@@ -15,18 +15,18 @@ void func0f096360(Mtxf *mtx)
 {
 	struct coord coord = {0, 0, 0};
 
-	coord.x = random() * (1.0f / U32_MAX) * PALUPF(M_BADTAU) * 0.0078125f - PALUPF(0.024539785459638f);
-	coord.y = random() * (1.0f / U32_MAX) * PALUPF(M_BADTAU) * 0.0078125f - PALUPF(0.024539785459638f);
-	coord.z = random() * (1.0f / U32_MAX) * PALUPF(M_BADTAU) * 0.0078125f - PALUPF(0.024539785459638f);
+	coord.x = RANDOMFRAC() * PALUPF(M_BADTAU) * 0.0078125f - PALUPF(0.024539785459638f);
+	coord.y = RANDOMFRAC() * PALUPF(M_BADTAU) * 0.0078125f - PALUPF(0.024539785459638f);
+	coord.z = RANDOMFRAC() * PALUPF(M_BADTAU) * 0.0078125f - PALUPF(0.024539785459638f);
 
 	mtx4LoadRotation(&coord, mtx);
 }
 
 void func0f0964b4(struct coord *coord, Mtxf *mtx)
 {
-	coord->x = random() * (1.0f / U32_MAX) * 1.6666666269302f * 4.0f - 3.3333332538605f;
-	coord->y = random() * (1.0f / U32_MAX) * 1.6666666269302f * 4.0f;
-	coord->z = random() * (1.0f / U32_MAX) * 1.6666666269302f * 4.0f - 3.3333332538605f;
+	coord->x = RANDOMFRAC() * 1.6666666269302f * 4.0f - 3.3333332538605f;
+	coord->y = RANDOMFRAC() * 1.6666666269302f * 4.0f;
+	coord->z = RANDOMFRAC() * 1.6666666269302f * 4.0f - 3.3333332538605f;
 
 	func0f096360(mtx);
 }

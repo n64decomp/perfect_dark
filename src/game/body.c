@@ -556,7 +556,7 @@ glabel var7f1a8a84
 //
 //					if (g_HeadsAndBodies[bodynum].canvaryheight && varyheight) {
 //						// Set height to between 95% and 115%
-//						f32 frac = random() * (1.0f / U32_MAX) * 0.05f;
+//						f32 frac = RANDOMFRAC() * 0.05f;
 //						scale *= 2.0f * frac - 0.05f + 1.0f;
 //					}
 //				}
@@ -578,7 +578,7 @@ glabel var7f1a8a84
 //		} else if (bodyfiledata->type == &g_SkelSkedar) {
 //			if (g_HeadsAndBodies[bodynum].canvaryheight && varyheight && bodynum == BODY_SKEDAR) {
 //				// Set height to between 65% and 85%
-//				f32 frac = random() * (1.0f / U32_MAX);
+//				f32 frac = RANDOMFRAC();
 //				scale *= 2.0f * (0.1f * frac) - 0.1f + 0.75f;
 //			}
 //		}

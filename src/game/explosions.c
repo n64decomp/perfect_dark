@@ -531,8 +531,8 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exproom
 			exp->parts[0].pos.x = exppos->x;
 			exp->parts[0].pos.y = exppos->y;
 			exp->parts[0].pos.z = exppos->z;
-			exp->parts[0].size = g_ExplosionTypes[type].innersize * (random() * (1.0f / U32_MAX) * 0.5f + 1);
-			exp->parts[0].rot = random() * (1.0f / U32_MAX) * M_BADTAU;
+			exp->parts[0].size = g_ExplosionTypes[type].innersize * (RANDOMFRAC() * 0.5f + 1);
+			exp->parts[0].rot = RANDOMFRAC() * M_BADTAU;
 			exp->parts[0].bb = 0;
 
 			if (g_Vars.mplayerisrunning) {
@@ -850,7 +850,7 @@ void explosionInflictDamage(struct prop *expprop)
 							// Damage the object
 							if ((obj->hidden & OBJHFLAG_00001000) == 0
 									&& (obj->flags2 & (OBJFLAG2_LINKEDTOSAFE | OBJFLAG2_00200000)) == 0) {
-								func0f085050(prop, (random() * (1.0f / U32_MAX) * 0.5f + 1.0f) * minfrac, &prop->pos, 0x22, exp->owner);
+								func0f085050(prop, (RANDOMFRAC() * 0.5f + 1.0f) * minfrac, &prop->pos, 0x22, exp->owner);
 							}
 
 							// Give object momentum if it's a hover obj
@@ -881,7 +881,7 @@ void explosionInflictDamage(struct prop *expprop)
 
 							if ((obj->hidden & OBJHFLAG_00001000) == 0
 									&& (obj->flags2 & (OBJFLAG2_LINKEDTOSAFE | OBJFLAG2_00200000)) == 0) {
-								func0f085050(prop, (random() * (1.0f / U32_MAX) * 0.5f + 1.0f) * minfrac,
+								func0f085050(prop, (RANDOMFRAC() * 0.5f + 1.0f) * minfrac,
 										&prop->pos, 0x22, exp->owner);
 							}
 						}
@@ -1150,13 +1150,13 @@ u32 explosionTick(struct prop *prop)
 						}
 					}
 
-					exp->parts[j].pos.f[0] = spfc.f[0] + random() * (1.0f / U32_MAX) * (spf0.f[0] - spfc.f[0]);
-					exp->parts[j].pos.f[1] = spfc.f[1] + random() * (1.0f / U32_MAX) * (spf0.f[1] - spfc.f[1]);
-					exp->parts[j].pos.f[2] = spfc.f[2] + random() * (1.0f / U32_MAX) * (spf0.f[2] - spfc.f[2]);
+					exp->parts[j].pos.f[0] = spfc.f[0] + RANDOMFRAC() * (spf0.f[0] - spfc.f[0]);
+					exp->parts[j].pos.f[1] = spfc.f[1] + RANDOMFRAC() * (spf0.f[1] - spfc.f[1]);
+					exp->parts[j].pos.f[2] = spfc.f[2] + RANDOMFRAC() * (spf0.f[2] - spfc.f[2]);
 					exp->parts[j].bb = bb;
 					exp->parts[j].frame = 1;
-					exp->parts[j].size = (1.0f + random() * (1.0f / U32_MAX) * 0.5f) * type->innersize;
-					exp->parts[j].rot = random() * (1.0f / U32_MAX) * M_BADTAU;
+					exp->parts[j].size = (1.0f + RANDOMFRAC() * 0.5f) * type->innersize;
+					exp->parts[j].rot = RANDOMFRAC() * M_BADTAU;
 					break;
 				}
 			}
@@ -1201,7 +1201,7 @@ u32 explosionTick(struct prop *prop)
 				scorchsize = 100.0f;
 			}
 
-			scorchsize *= 0.8f + 0.2f * (random() * (1.0f / U32_MAX));
+			scorchsize *= 0.8f + 0.2f * RANDOMFRAC();
 
 			if (g_Vars.normmplayerisrunning) {
 				chr = mpGetChrFromPlayerIndex(exp->owner);

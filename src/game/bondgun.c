@@ -11003,17 +11003,17 @@ void bgunCalculateBlend(s32 handnum)
 	sp58[handnum] = (player->hands[handnum].curblendpos + 1) % 4;
 	player->hands[handnum].curblendpos = sp58[handnum];
 
-	player->hands[handnum].blendlook[sp60[handnum]][0] = (random() * (1.0f / U32_MAX) - 0.5f) * 0.08f * mult;
-	player->hands[handnum].blendlook[sp60[handnum]][1] = (random() * (1.0f / U32_MAX) - 0.5f) * 0.1f * mult;
+	player->hands[handnum].blendlook[sp60[handnum]][0] = (RANDOMFRAC() - 0.5f) * 0.08f * mult;
+	player->hands[handnum].blendlook[sp60[handnum]][1] = (RANDOMFRAC() - 0.5f) * 0.1f * mult;
 	player->hands[handnum].blendlook[sp60[handnum]][2] = -1;
 
-	player->hands[handnum].blendup[sp60[handnum]][0] = (random() * (1.0f / U32_MAX) - 0.5f) * 0.1f * mult;
+	player->hands[handnum].blendup[sp60[handnum]][0] = (RANDOMFRAC() - 0.5f) * 0.1f * mult;
 	player->hands[handnum].blendup[sp60[handnum]][1] = 1;
-	player->hands[handnum].blendup[sp60[handnum]][2] = (random() * (1.0f / U32_MAX) - 0.5f) * 0.1f * mult;
+	player->hands[handnum].blendup[sp60[handnum]][2] = (RANDOMFRAC() - 0.5f) * 0.1f * mult;
 
-	player->hands[handnum].blendpos[sp60[handnum]][0] = (random() * (1.0f / U32_MAX) * 0.75f) + 1.5f;
-	player->hands[handnum].blendpos[sp60[handnum]][1] = (2 + random() * (1.0f / U32_MAX)) * player->hands[handnum].blendscale1;
-	player->hands[handnum].blendpos[sp60[handnum]][2] = (random() * (1.0f / U32_MAX) - 0.5f) * 2.5f;
+	player->hands[handnum].blendpos[sp60[handnum]][0] = (RANDOMFRAC() * 0.75f) + 1.5f;
+	player->hands[handnum].blendpos[sp60[handnum]][1] = (2 + RANDOMFRAC()) * player->hands[handnum].blendscale1;
+	player->hands[handnum].blendpos[sp60[handnum]][2] = (RANDOMFRAC() - 0.5f) * 2.5f;
 
 	if (player->hands[handnum].sideflag < 0) {
 		player->hands[handnum].blendpos[sp60[handnum]][0] *= -1;
@@ -11583,7 +11583,7 @@ void bgun0f09d8dc(f32 breathing, f32 arg1, f32 arg2, f32 arg3, f32 arg4)
 
 	if (player->synccount > 60.0f) {
 		player->synccount = 0.0f;
-		player->syncchange = (random() * (1.0f / U32_MAX) - 0.5f) * 0.2f / 60.0f;
+		player->syncchange = (RANDOMFRAC() - 0.5f) * 0.2f / 60.0f;
 	}
 
 	if (player->syncchange + sp4c > 0.0f) {
@@ -13424,7 +13424,7 @@ struct defaultobj *bgun0f09ee18(struct chrdata *chr, struct gset *gset, struct c
 	}
 
 	if (gset->weaponnum == WEAPON_COMBATKNIFE) {
-		guRotateF(mtx.m, 90.0f / (random() * (1.0f / U32_MAX) + 12.1f),
+		guRotateF(mtx.m, 90.0f / (RANDOMFRAC() + 12.1f),
 				arg4->m[1][0], arg4->m[1][1], arg4->m[1][2]);
 	} else {
 		func0f096360(&mtx);
@@ -18237,7 +18237,7 @@ void bgunCalculatePlayerShotSpread(struct coord *arg0, struct coord *arg1, s32 h
 	scaledspread = 120.0f * spread / viGetFovY();
 
 	if (dorandom) {
-		randfactor = (random() * (1.0f / U32_MAX) - 0.5f) * (random() * (1.0f / U32_MAX));
+		randfactor = (RANDOMFRAC() - 0.5f) * RANDOMFRAC();
 	} else {
 		randfactor = 0;
 	}
@@ -18246,7 +18246,7 @@ void bgunCalculatePlayerShotSpread(struct coord *arg0, struct coord *arg1, s32 h
 		/ (viGetHeight() * camGetPerspAspect());
 
 	if (dorandom) {
-		randfactor = (random() * (1.0f / U32_MAX) - 0.5f) * (random() * (1.0f / U32_MAX));
+		randfactor = (RANDOMFRAC() - 0.5f) * RANDOMFRAC();
 	} else {
 		randfactor = 0;
 	}
@@ -18294,8 +18294,8 @@ void bgunCalculateBotShotSpread(struct coord *arg0, s32 weaponnum, s32 funcnum, 
 	}
 
 	radius = 120.0f * spread / viGetFovY();
-	x = (random() * (1.0f / U32_MAX) - 0.5f) * (random() * (1.0f / U32_MAX)) * radius;
-	y = (random() * (1.0f / U32_MAX) - 0.5f) * (random() * (1.0f / U32_MAX)) * radius;
+	x = (RANDOMFRAC() - 0.5f) * RANDOMFRAC() * radius;
+	y = (RANDOMFRAC() - 0.5f) * RANDOMFRAC() * radius;
 
 	sp48.x = g_Vars.currentplayer->c_scalex * x;
 	sp48.y = g_Vars.currentplayer->c_scaley * y;
@@ -24078,9 +24078,9 @@ void bgun0f0a5550(s32 handnum)
 	sp274.z -= player->guncloseroffset * 15.0f / -90.0f * 50.0f;
 
 	if (hand->firing && shootfunc && g_Vars.lvupdate240 != 0 && shootfunc->unk14 != NULL) {
-		sp274.x += (random() * (1.0f / U32_MAX) - 0.5f) * shootfunc->unk14->minradius * hand->finalmult[0];
-		sp274.y += (random() * (1.0f / U32_MAX) - 0.5f) * shootfunc->unk14->maxradius * hand->finalmult[0];
-		sp274.z += (random() * (1.0f / U32_MAX) - 0.5f) * shootfunc->unk14->incradius * hand->finalmult[0];
+		sp274.x += (RANDOMFRAC() - 0.5f) * shootfunc->unk14->minradius * hand->finalmult[0];
+		sp274.y += (RANDOMFRAC() - 0.5f) * shootfunc->unk14->maxradius * hand->finalmult[0];
+		sp274.z += (RANDOMFRAC() - 0.5f) * shootfunc->unk14->incradius * hand->finalmult[0];
 	}
 
 	hand->fspare1 = (player->crosspos2[0] - camGetScreenLeft() - camGetScreenWidth() * 0.5f) * weapondef->eptr->unk0c / (camGetScreenWidth() * 0.5f);

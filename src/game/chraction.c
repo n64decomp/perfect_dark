@@ -6838,7 +6838,7 @@ bool chrTryRunSideways(struct chrdata *chr)
 			&& chrIsReadyForOrders(chr)
 			&& g_Vars.lvframe60 - chr->lastwalk60 > TICKS(180)) {
 		struct prop *prop = chr->prop;
-		f32 distance = 200.0f + random() * (1.0f / U32_MAX) * 200.0f;
+		f32 distance = 200.0f + RANDOMFRAC() * 200.0f;
 		struct coord vector;
 		struct coord dstpos;
 

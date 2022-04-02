@@ -456,10 +456,10 @@ void weaponPlayWhooshSound(s32 weaponnum, struct prop *prop)
 		// empty
 	} else if (weaponnum == WEAPON_COMBATKNIFE) {
 		soundnum = random() % 2 == 1 ? SFX_8060 : SFX_8061;
-		speed = 1.05f - random() * (1.0f / U32_MAX) * 0.2f;
+		speed = 1.05f - RANDOMFRAC() * 0.2f;
 	} else {
 		soundnum = SFX_0069;
-		speed = 1.0f - random() * (1.0f / U32_MAX) * 0.2f;
+		speed = 1.0f - RANDOMFRAC() * 0.2f;
 	}
 
 	if (soundnum != -1) {
@@ -508,14 +508,14 @@ void func0f060bac(s32 weaponnum, struct prop *prop)
 			soundnum = SFX_THUD_8094;
 		}
 
-		speed = 1.0f - random() * (1.0f / U32_MAX) * 0.1f;
+		speed = 1.0f - RANDOMFRAC() * 0.1f;
 	} else if (weaponnum == WEAPON_TRANQUILIZER) {
 		soundnum = SFX_RELOAD_04FB;
 		speed = 2.78f;
 	} else {
 #if VERSION >= VERSION_NTSC_1_0
 		soundnum = SFX_HIT_METAL_8079;
-		speed = 1.0f - random() * (1.0f / U32_MAX) * 0.1f;
+		speed = 1.0f - RANDOMFRAC() * 0.1f;
 #else
 		soundnum = SFX_HIT_METAL_8079;
 
@@ -523,7 +523,7 @@ void func0f060bac(s32 weaponnum, struct prop *prop)
 			soundnum = SFX_HATHIT_807C;
 		}
 
-		speed = 1.0f - random() * (1.0f / U32_MAX) * 0.1f;
+		speed = 1.0f - RANDOMFRAC() * 0.1f;
 #endif
 	}
 
@@ -983,7 +983,7 @@ struct prop *func0f061d54(s32 handnum, u32 arg1, u32 arg2)
 	bgunCalculatePlayerShotSpread(&sp58, &sp64, handnum, arg2);
 
 	if (arg2 == 2 && bgunGetWeaponNum(HAND_RIGHT) == WEAPON_REAPER) {
-		sp58.y -= 15 * (random() * (1.0f / U32_MAX));
+		sp58.y -= 15 * RANDOMFRAC();
 	}
 
 	mtx4TransformVec(camGetUnk174c(), &sp58, &sp40);

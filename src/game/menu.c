@@ -3600,7 +3600,7 @@ void menuOpenDialog(struct menudialogdef *dialogdef, struct menudialog *dialog, 
 	dialog->type = dialogdef->type;
 	dialog->transitionfrac = -1;
 	dialog->redrawtimer = 0;
-	dialog->unk4c = random() * (1.0f / U32_MAX) * M_TAU;
+	dialog->unk4c = RANDOMFRAC() * M_TAU;
 
 	g_Menus[g_MpPlayerNum].curdialog->state = MENUDIALOGSTATE_PREOPEN;
 	g_Menus[g_MpPlayerNum].curdialog->statefrac = 0;
@@ -28902,9 +28902,9 @@ Gfx *menuRender(Gfx *gdl)
 
 		// Everyone 1 in 100 frames on average, calculate a new X/Y for the hudpiece
 		// Note: unintentional 64-bit float comparison done here
-		if (random() * (1.0f / U32_MAX) < 0.01) {
-			g_MenuData.unk01c.unk538 = random() * (1.0f / U32_MAX) * 80.0f + -205.5f - 40.0f;
-			g_MenuData.unk01c.unk53c = random() * (1.0f / U32_MAX) * 80.0f + 244.7f - 40.0f;
+		if (RANDOMFRAC() < 0.01) {
+			g_MenuData.unk01c.unk538 = RANDOMFRAC() * 80.0f + -205.5f - 40.0f;
+			g_MenuData.unk01c.unk53c = RANDOMFRAC() * 80.0f + 244.7f - 40.0f;
 		}
 
 		var8009de98 = var8009de9c = 0;

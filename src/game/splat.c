@@ -169,7 +169,7 @@ s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct splat *arg3, struc
 
 	for (i = 0; i < qty; i++) {
 		for (j = 0; j < 3; j++) {
-			f32 rand = random() * (1.0f / U32_MAX);
+			f32 rand = RANDOMFRAC();
 			spe4[j] = (rand * var8007f8a8 + rand * var8007f8a8 - var8007f8a8) * 0.017453292384744f;
 		}
 

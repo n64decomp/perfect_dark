@@ -25,19 +25,17 @@ void bheadFlipAnimation(void)
 
 void bheadUpdateIdleRoll(void)
 {
-	f32 mult = 1.0f / U32_MAX;
-
-	g_Vars.currentplayer->standlook[g_Vars.currentplayer->standcnt].x = ((f32)random() * mult - 0.5f) * 0.02f;
+	g_Vars.currentplayer->standlook[g_Vars.currentplayer->standcnt].x = (RANDOMFRAC() - 0.5f) * 0.02f;
 	g_Vars.currentplayer->standlook[g_Vars.currentplayer->standcnt].z = 1;
-	g_Vars.currentplayer->standup[g_Vars.currentplayer->standcnt].x = ((f32)random() * mult - 0.5f) * 0.02f;
+	g_Vars.currentplayer->standup[g_Vars.currentplayer->standcnt].x = (RANDOMFRAC() - 0.5f) * 0.02f;
 	g_Vars.currentplayer->standup[g_Vars.currentplayer->standcnt].y = 1;
 
 	if (g_Vars.currentplayer->standcnt) {
-		g_Vars.currentplayer->standlook[g_Vars.currentplayer->standcnt].y = (f32)random() * mult * 0.01f;
-		g_Vars.currentplayer->standup[g_Vars.currentplayer->standcnt].z = (f32)random() * mult * -0.01f;
+		g_Vars.currentplayer->standlook[g_Vars.currentplayer->standcnt].y = RANDOMFRAC() * 0.01f;
+		g_Vars.currentplayer->standup[g_Vars.currentplayer->standcnt].z = RANDOMFRAC() * -0.01f;
 	} else {
-		g_Vars.currentplayer->standlook[g_Vars.currentplayer->standcnt].y = (f32)random() * mult * -0.01f;
-		g_Vars.currentplayer->standup[g_Vars.currentplayer->standcnt].z = (f32)random() * mult * 0.01f;
+		g_Vars.currentplayer->standlook[g_Vars.currentplayer->standcnt].y = RANDOMFRAC() * -0.01f;
+		g_Vars.currentplayer->standup[g_Vars.currentplayer->standcnt].z = RANDOMFRAC() * 0.01f;
 	}
 
 	g_Vars.currentplayer->standcnt = 1 - g_Vars.currentplayer->standcnt;

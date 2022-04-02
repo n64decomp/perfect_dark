@@ -258,7 +258,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 
 					aibot->random2ttl60 = 0;
 					aibot->random2 = random();
-					aibot->randomfrac = random() * (1.0f / U32_MAX);
+					aibot->randomfrac = RANDOMFRAC();
 					aibot->cheap = false;
 #if VERSION >= VERSION_NTSC_1_0
 					aibot->unk078 = 0;

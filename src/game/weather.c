@@ -115,15 +115,15 @@ struct weatherparticledata *weatherAllocateParticles(void)
 
 	for (i = 0; i != (s32)ARRAYCOUNT(g_WeatherData->particledata[0]->particles); i++) {
 		struct weatherparticle *particle = &data->particles[i];
-		particle->pos.x = random() * (1.0f / U32_MAX) * 1600 - 800;
-		particle->pos.y = random() * (1.0f / U32_MAX) * 1600 - 800;
-		particle->pos.z = random() * (1.0f / U32_MAX) * 1600 - 800;
+		particle->pos.x = RANDOMFRAC() * 1600 - 800;
+		particle->pos.y = RANDOMFRAC() * 1600 - 800;
+		particle->pos.z = RANDOMFRAC() * 1600 - 800;
 
-		particle->inc.x = random() * (1.0f / U32_MAX) * 10 - 5;
-		particle->inc.y = -10 - random() * (1.0f / U32_MAX) * 40;
-		particle->inc.z = random() * (1.0f / U32_MAX) * 10 - 5;
+		particle->inc.x = RANDOMFRAC() * 10 - 5;
+		particle->inc.y = -10 - RANDOMFRAC() * 40;
+		particle->inc.z = RANDOMFRAC() * 10 - 5;
 
-		particle->unk1c = random() * (1.0f / U32_MAX) + 0.7f;
+		particle->unk1c = RANDOMFRAC() + 0.7f;
 
 		particle->active = false;
 	}
@@ -363,8 +363,8 @@ void weatherTickRain(struct weatherdata *weather)
 		weather->windspeedx = cosf(weather->windanglerad) * weather->windspeed;
 		weather->windspeedz = sinf(weather->windanglerad) * weather->windspeed;
 		lVar6 = 1;
-	} else if (random() * (1.0f / U32_MAX) > 0.99f) {
-		rand = random() * (1.0f / U32_MAX);
+	} else if (RANDOMFRAC() > 0.99f) {
+		rand = RANDOMFRAC();
 
 		weather->unk0c = (rand + rand) * M_PI;
 		weather->unk10 = (weather->unk0c - weather->windanglerad) / (PAL ? 0.012f : 0.01f);
@@ -387,12 +387,12 @@ void weatherTickRain(struct weatherdata *weather)
 			lVar6 = 2;
 
 			// Reset particle
-			particle->pos.x = data->boundarymin.x + (random() * (1.0f / U32_MAX)) * (ABS(data->boundarymin.x) + ABS(data->boundarymax.x));
-			particle->pos.z = data->boundarymin.z + (random() * (1.0f / U32_MAX)) * (ABS(data->boundarymin.z) + ABS(data->boundarymax.z));
+			particle->pos.x = data->boundarymin.x + RANDOMFRAC() * (ABS(data->boundarymin.x) + ABS(data->boundarymax.x));
+			particle->pos.z = data->boundarymin.z + RANDOMFRAC() * (ABS(data->boundarymin.z) + ABS(data->boundarymax.z));
 
-			particle->unk1c = random() * (1.0f / U32_MAX) + 0.7f;
+			particle->unk1c = RANDOMFRAC() + 0.7f;
 
-			particle->inc.y = -(random() * (1.0f / U32_MAX) * g_RainSpeedExtra + weather->unkc8);
+			particle->inc.y = -(RANDOMFRAC() * g_RainSpeedExtra + weather->unkc8);
 
 			if (ABS(relativetotal) < 2 && weather->unkd0 != weather->unkd4) {
 				if (weather->unkd0 < weather->unkd4) {
@@ -455,8 +455,8 @@ void weatherTickSnow(struct weatherdata *weather)
 		weather->windspeedx = cosf(weather->windanglerad) * weather->windspeed;
 		weather->windspeedz = sinf(weather->windanglerad) * weather->windspeed;
 		lVar7 = 1;
-	} else if (random() * (1.0f / U32_MAX) > 0.99f) {
-		rand = random() * (1.0f / U32_MAX);
+	} else if (RANDOMFRAC() > 0.99f) {
+		rand = RANDOMFRAC();
 
 		weather->unk0c = (rand + rand) * M_PI;
 		weather->unk10 = (weather->unk0c - weather->windanglerad) / (PAL ? 0.012f : 0.01f);
@@ -566,12 +566,12 @@ void weatherTickSnow(struct weatherdata *weather)
 		if (particle->pos.y < data->boundarymin.y) {
 			lVar7 = 2;
 
-			particle->pos.x = data->boundarymin.f[0] + (random() * (1.0f / U32_MAX)) * (ABS(data->boundarymin.f[0]) + ABS(data->boundarymax.f[0]));
-			particle->pos.z = data->boundarymin.f[2] + (random() * (1.0f / U32_MAX)) * (ABS(data->boundarymin.f[2]) + ABS(data->boundarymax.f[2]));
+			particle->pos.x = data->boundarymin.f[0] + RANDOMFRAC() * (ABS(data->boundarymin.f[0]) + ABS(data->boundarymax.f[0]));
+			particle->pos.z = data->boundarymin.f[2] + RANDOMFRAC() * (ABS(data->boundarymin.f[2]) + ABS(data->boundarymax.f[2]));
 
-			particle->unk1c = random() * (1.0f / U32_MAX) + 0.7f;
+			particle->unk1c = RANDOMFRAC() + 0.7f;
 
-			particle->inc.y = -(g_SnowSpeed / 10.0f) - (random() * (1.0f / U32_MAX) * g_SnowSpeedExtra) / 10.0f;
+			particle->inc.y = -(g_SnowSpeed / 10.0f) - (RANDOMFRAC() * g_SnowSpeedExtra) / 10.0f;
 			particle->inc.x = weather->windspeedx * particle->unk1c;
 			particle->inc.z = weather->windspeedz * particle->unk1c;
 
@@ -2684,7 +2684,7 @@ u32 var8007f0fc = 22000;
 //		var800a33a4 = 0;
 //
 //		if (weather->unk94 < 0) {
-//			if (random() * (1.0f / U32_MAX) < weather->unkc4) {
+//			if (RANDOMFRAC() < weather->unkc4) {
 //				func0f131610(weather);
 //			}
 //		} else {
@@ -2715,8 +2715,8 @@ u32 var8007f0fc = 22000;
 //			// 3574
 //			if (weather->unka4 == weather->unk94) {
 //				s1_2 = 0x80ba;
-//				sp174 = random() * (1.0f / U32_MAX) * 1.5f + 0.4f;
-//				frac = random() * (1.0f / U32_MAX);
+//				sp174 = RANDOMFRAC() * 1.5f + 0.4f;
+//				frac = RANDOMFRAC();
 //
 //				if (frac);
 //

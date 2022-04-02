@@ -1462,7 +1462,7 @@ glabel var7f1b5d18
 
 void wallhitCreate(struct coord *arg0, struct coord *arg1, struct coord *arg2, u32 arg3, u32 arg4, s16 arg5, s16 room, struct prop *arg7, s8 arg8, s8 arg9, struct chrdata *chr, bool arg11)
 {
-	f32 f0 = random() * (1.0f / U32_MAX) * 0.1f + 0.6f;
+	f32 f0 = RANDOMFRAC() * 0.1f + 0.6f;
 	f32 a = var8007f75c[arg5].unk00 * f0;
 	f32 b = var8007f75c[arg5].unk04 * f0;
 

@@ -41,7 +41,7 @@ void casingTick(struct casing *casing)
 				&& i >= 0
 				&& g_Vars.currentplayer->hands[0].mode != HANDMODE_2
 				&& g_Vars.currentplayer->hands[1].mode != HANDMODE_2) {
-			sp58 = random() * (1.0f / U32_MAX) * 0.25f + 0.98f;
+			sp58 = RANDOMFRAC() * 0.25f + 0.98f;
 
 			var8009d0d8 = TICKS(20);
 			sndStart(var80095200, SFX_8051, &g_CasingAudioHandles[i], -1, -1, -1.0f, -1, -1);

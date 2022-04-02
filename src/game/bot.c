@@ -1092,7 +1092,7 @@ glabel botReset
 //			aibot->unk2c4 = 0;
 //
 //			aibot->random2 = random();
-//			aibot->randomfrac = random() * (1.0f / U32_MAX);
+//			aibot->randomfrac = RANDOMFRAC();
 //			aibot->unk078 = 0;
 //			aibot->cheap = 0;
 //			aibot->unk050 = 0;
@@ -13640,7 +13640,7 @@ void botTickUnpaused(struct chrdata *chr)
 		if (aibot->random2ttl60 < 0) {
 			aibot->random2ttl60 = 1800 + random() % 14400;
 			aibot->random2 = random();
-			aibot->randomfrac = random() * (1.0f / U32_MAX);
+			aibot->randomfrac = RANDOMFRAC();
 		}
 
 		// Consider reloading

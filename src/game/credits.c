@@ -583,7 +583,7 @@ f32 func0f1382e0(f32 range)
 	f32 value;
 
 	do {
-		value = random() * (1.0f / U32_MAX) * range;
+		value = RANDOMFRAC() * range;
 		value = (value + value) - range;
 	} while (value < 0.0001f && value > -0.0001f);
 
@@ -767,15 +767,15 @@ void func0f13870c(void)
 	g_CreditsData->unk41ff = 7;
 
 	for (i = 0; i < ARRAYCOUNT(g_CreditsData->unk000c); i++) {
-		tmp = random() * (1.0f / U32_MAX);
+		tmp = RANDOMFRAC();
 		g_CreditsData->unk000c[i].unk00 = (tmp + tmp) * 3000.0f - 3000.0f;
 
-		tmp = random() * (1.0f / U32_MAX);
+		tmp = RANDOMFRAC();
 		g_CreditsData->unk000c[i].unk04 = (tmp + tmp) * 3000.0f - 3000.0f;
 
 		g_CreditsData->unk000c[i].unk12 = random() % 4;
 		g_CreditsData->unk000c[i].unk14 = random() % 4;
-		g_CreditsData->unk000c[i].unk0c = random() * (1.0f / U32_MAX) * M_BADTAU;
+		g_CreditsData->unk000c[i].unk0c = RANDOMFRAC() * M_BADTAU;
 
 		if (g_CreditsData->unk4200 < g_CreditsData->unk41ff) {
 			g_CreditsData->unk000c[i].unk13 = g_CreditsData->unk4200
@@ -792,7 +792,7 @@ void func0f13870c(void)
 			g_CreditsData->unk000c[i].unk11 = g_CreditsData->unk41fe;
 		}
 
-		g_CreditsData->unk000c[i].unk08 = random() * (1.0f / U32_MAX) * -8000.0f;
+		g_CreditsData->unk000c[i].unk08 = RANDOMFRAC() * -8000.0f;
 	}
 }
 
@@ -1816,13 +1816,13 @@ glabel var7f1b5824
 //			g_CreditsData->unk41f5 = -1;
 //		}
 //	} else {
-//		if (random() * (1.0f / U32_MAX) < 0.007f && joyGetButtons(0, L_TRIG | R_TRIG) == 0) {
+//		if (RANDOMFRAC() < 0.007f && joyGetButtons(0, L_TRIG | R_TRIG) == 0) {
 //			g_CreditsData->unk41f5 = random() % 4;
 //			g_CreditsData->unk41f8 = 0;
 //		}
 //	}
 //
-//	if (random() * (1.0f / U32_MAX) < 0.002f && joyGetButtons(0, L_TRIG | R_TRIG) == 0) {
+//	if (RANDOMFRAC() < 0.002f && joyGetButtons(0, L_TRIG | R_TRIG) == 0) {
 //		g_CreditsData->unk41fc = random() % 5;
 //	}
 //
@@ -1835,7 +1835,7 @@ glabel var7f1b5824
 //		}
 //	}
 //
-//	if (random() * (1.0f / U32_MAX) < 0.007f) {
+//	if (RANDOMFRAC() < 0.007f) {
 //		g_CreditsData->unk41fd = random() % 2;
 //		g_CreditsData->unk41fe = random() % 2;
 //	}
@@ -1852,16 +1852,16 @@ glabel var7f1b5824
 //		g_CreditsData->unk000c[i].unk08 += g_Vars.diffframe240f * 30.0f * 0.25f;
 //
 //		if (g_CreditsData->unk000c[i].unk08 > 0) {
-//			tmp = random() * (1.0f / U32_MAX);
+//			tmp = RANDOMFRAC();
 //			g_CreditsData->unk000c[i].unk00 = (tmp + tmp) * 3000 - 3000;
 //
-//			tmp = random() * (1.0f / U32_MAX);
+//			tmp = RANDOMFRAC();
 //			g_CreditsData->unk000c[i].unk04 = (tmp + tmp) * 3000 - 3000;
 //
 //			g_CreditsData->unk000c[i].unk12 = random() % 4;
 //			g_CreditsData->unk000c[i].unk14 = random() % 4;
 //
-//			g_CreditsData->unk000c[i].unk0c = random() * (1.0f / U32_MAX) * M_BADTAU;
+//			g_CreditsData->unk000c[i].unk0c = RANDOMFRAC() * M_BADTAU;
 //
 //			if (g_CreditsData->unk4200 < g_CreditsData->unk41ff) {
 //				g_CreditsData->unk000c[i].unk13 = g_CreditsData->unk4200
@@ -5628,7 +5628,7 @@ void creditsTick(void)
 
 	if (g_CreditsData->slidesenabled) {
 		creditsTickSlide();
-	} else if (random() * (1.0f / U32_MAX) < 0.01f && !joyGetButtons(0, L_TRIG | R_TRIG)) {
+	} else if (RANDOMFRAC() < 0.01f && !joyGetButtons(0, L_TRIG | R_TRIG)) {
 		creditsCreatePendingBgLayers(0xffffffff);
 	}
 

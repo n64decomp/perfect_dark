@@ -106,17 +106,16 @@ void shardsCreate(struct coord *pos, f32 *rotx, f32 *roty, f32 *rotz, f32 relxmi
 			thispos.y = basepos.f[1] + x * (f32) speci * spcc[1] + spc0[1] * f20;
 			thispos.z = basepos.f[2] + x * (f32) speci * spcc[2] + spc0[2] * f20;
 
-			shardCreate(prop->rooms[0], &thispos, f30,
-					(random() * (1.0f / U32_MAX) * 0.7f + 0.1f) * spec, type);
+			shardCreate(prop->rooms[0], &thispos, f30, (RANDOMFRAC() * 0.7f + 0.1f) * spec, type);
 		}
 	}
 }
 
 void shardCreate(s16 room, struct coord *pos, f32 rotx, f32 size, s32 type)
 {
-	f32 velx = random() * (1.0f / U32_MAX) * 2.0f - 1.0f;
-	f32 vely = random() * (1.0f / U32_MAX) * 1.12f - 0.12f;
-	f32 velz = random() * (1.0f / U32_MAX) * 2.0f - 1.0f;
+	f32 velx = RANDOMFRAC() * 2.0f - 1.0f;
+	f32 vely = RANDOMFRAC() * 1.12f - 0.12f;
+	f32 velz = RANDOMFRAC() * 2.0f - 1.0f;
 	s32 i;
 
 	g_Shards[g_NextShardNum].type = type;
@@ -131,12 +130,12 @@ void shardCreate(s16 room, struct coord *pos, f32 rotx, f32 size, s32 type)
 	g_Shards[g_NextShardNum].vel.y = vely * PALUPF(3.0f);
 	g_Shards[g_NextShardNum].vel.z = velz * PALUPF(1.5f);
 
-	g_Shards[g_NextShardNum].vertices[0].x = (random() * (1.0f / U32_MAX) * 0.5f + 1.0f) * size;
-	g_Shards[g_NextShardNum].vertices[0].y = (random() * (1.0f / U32_MAX) * 0.5f + 1.0f) * size;
-	g_Shards[g_NextShardNum].vertices[1].x = (random() * (1.0f / U32_MAX) * 0.5f + 1.0f) * size;
-	g_Shards[g_NextShardNum].vertices[1].y = (random() * (1.0f / U32_MAX) * 0.5f + 1.0f) * -size;
-	g_Shards[g_NextShardNum].vertices[2].x = (random() * (1.0f / U32_MAX) * 0.5f + 1.0f) * -size;
-	g_Shards[g_NextShardNum].vertices[2].y = (random() * (1.0f / U32_MAX) * 0.5f + 1.0f) * -size;
+	g_Shards[g_NextShardNum].vertices[0].x = (RANDOMFRAC() * 0.5f + 1.0f) * size;
+	g_Shards[g_NextShardNum].vertices[0].y = (RANDOMFRAC() * 0.5f + 1.0f) * size;
+	g_Shards[g_NextShardNum].vertices[1].x = (RANDOMFRAC() * 0.5f + 1.0f) * size;
+	g_Shards[g_NextShardNum].vertices[1].y = (RANDOMFRAC() * 0.5f + 1.0f) * -size;
+	g_Shards[g_NextShardNum].vertices[2].x = (RANDOMFRAC() * 0.5f + 1.0f) * -size;
+	g_Shards[g_NextShardNum].vertices[2].y = (RANDOMFRAC() * 0.5f + 1.0f) * -size;
 
 	for (i = 0; i < 3; i++) {
 		g_Shards[g_NextShardNum].vertices[i].z = 0;
@@ -192,11 +191,11 @@ void shardCreate(s16 room, struct coord *pos, f32 rotx, f32 size, s32 type)
 
 	g_Shards[g_NextShardNum].rot.x = rotx;
 	g_Shards[g_NextShardNum].rot.y = 0;
-	g_Shards[g_NextShardNum].rot.z = random() * (1.0f / U32_MAX) * M_BADTAU;
+	g_Shards[g_NextShardNum].rot.z = RANDOMFRAC() * M_BADTAU;
 
-	g_Shards[g_NextShardNum].rotspeed.x = random() * (1.0f / U32_MAX) * PALUPF(0.1f);
-	g_Shards[g_NextShardNum].rotspeed.y = random() * (1.0f / U32_MAX) * PALUPF(0.1f);
-	g_Shards[g_NextShardNum].rotspeed.z = random() * (1.0f / U32_MAX) * PALUPF(0.1f);
+	g_Shards[g_NextShardNum].rotspeed.x = RANDOMFRAC() * PALUPF(0.1f);
+	g_Shards[g_NextShardNum].rotspeed.y = RANDOMFRAC() * PALUPF(0.1f);
+	g_Shards[g_NextShardNum].rotspeed.z = RANDOMFRAC() * PALUPF(0.1f);
 
 	g_NextShardNum++;
 

@@ -34,6 +34,7 @@
 #define MPCHR(index)        ((index) < 4 ? &g_PlayerConfigsArray[index].base : &g_BotConfigsArray[(index) - 4].base)
 #define PLAYERCOUNT()       ((g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0))
 #define PLAYERCOUNT3012()   ((g_Vars.players[3] ? 1 : 0) + (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0))
+#define RANDOMFRAC()        (random() * (1.0f / U32_MAX))
 #define SECSTOTIME240(secs) (secs * 240)
 #define SECSTOTIME60(secs)  (secs * 60)
 #define PFS(device)         (device == SAVEDEVICE_GAMEPAK ? NULL : &g_Pfses[device])

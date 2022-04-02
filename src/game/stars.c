@@ -684,15 +684,15 @@ glabel starsReset
 //			stars0f135c70();
 //
 //			for (i = 0; i < g_StarCount; i++) {
-//				spd4.f[0] = 2.0f * (random() * (1.0f / U32_MAX)) - 1.0f;
+//				spd4.f[0] = 2.0f * RANDOMFRAC() - 1.0f;
 //
 //				if (g_StarsBelowHorizon) {
-//					spd4.f[1] = 2.0f * (random() * (1.0f / U32_MAX)) - 1.0f;
+//					spd4.f[1] = 2.0f * RANDOMFRAC() - 1.0f;
 //				} else {
-//					spd4.f[1] = random() * (1.0f / U32_MAX);
+//					spd4.f[1] = RANDOMFRAC();
 //				}
 //
-//				spd4.f[2] = 2.0f * (random() * (1.0f / U32_MAX)) - 1.0f;
+//				spd4.f[2] = 2.0f * RANDOMFRAC() - 1.0f;
 //
 //				guNormalize(&spd4.f[0], &spd4.f[1], &spd4.f[2]);
 //

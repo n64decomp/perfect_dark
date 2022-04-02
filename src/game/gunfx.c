@@ -89,7 +89,7 @@ void beamCreate(struct beam *beam, s32 weaponnum, struct coord *from, struct coo
 			beam->mindist = 3000;
 		}
 
-		beam->dist = (-0.1f - random() * (1.0f / U32_MAX) * 0.3f) * distance;
+		beam->dist = (-0.1f - RANDOMFRAC() * 0.3f) * distance;
 	} else if (weaponnum == -2) {
 		beam->speed = 0;
 		beam->mindist = distance;
@@ -108,7 +108,7 @@ void beamCreate(struct beam *beam, s32 weaponnum, struct coord *from, struct coo
 			beam->mindist = 3000;
 		}
 
-		tmp = random() * (1.0f / U32_MAX);
+		tmp = RANDOMFRAC();
 		beam->dist = (tmp + tmp - 1) * beam->speed;
 	}
 
@@ -2244,7 +2244,7 @@ void beamTick(struct beam *beam)
 				beam->dist += beam->speed * g_Vars.lvupdate240f;
 			} else {
 				// Lagging
-				beam->dist += beam->speed * (2 + random() * (1.0f / U32_MAX) * 0.5f);
+				beam->dist += beam->speed * (2 + RANDOMFRAC() * 0.5f);
 			}
 
 			if (beam->dist >= beam->maxdist) {
