@@ -19073,28 +19073,30 @@ void bgun0f0a256c(s32 arg0, Mtxf *mtx)
 			var8009d144->unk0d14 = mtx->m[3][0];
 			var8009d144->unk0d18 = mtx->m[3][1];
 			var8009d144->unk0d1c = mtx->m[3][2];
-			var8009d144->unk0d2c = mtx->m[0][0];
-			var8009d144->unk0d30 = mtx->m[0][1];
-			var8009d144->unk0d34 = mtx->m[0][2];
-			var8009d144->unk0d38 = mtx->m[1][0];
-			var8009d144->unk0d3c = mtx->m[1][1];
-			var8009d144->unk0d40 = mtx->m[1][2];
-			var8009d144->unk0d44 = mtx->m[2][0];
-			var8009d144->unk0d48 = mtx->m[2][1];
-			var8009d144->unk0d4c = mtx->m[2][2];
+
+			var8009d144->unk0d2c[0][0] = mtx->m[0][0];
+			var8009d144->unk0d2c[0][1] = mtx->m[0][1];
+			var8009d144->unk0d2c[0][2] = mtx->m[0][2];
+			var8009d144->unk0d2c[1][0] = mtx->m[1][0];
+			var8009d144->unk0d2c[1][1] = mtx->m[1][1];
+			var8009d144->unk0d2c[1][2] = mtx->m[1][2];
+			var8009d144->unk0d2c[2][0] = mtx->m[2][0];
+			var8009d144->unk0d2c[2][1] = mtx->m[2][1];
+			var8009d144->unk0d2c[2][2] = mtx->m[2][2];
 		} else if (var8009d144->unk0d0e_00 >= 2) {
 			mtx->m[3][0] = var8009d144->unk0d14;
 			mtx->m[3][1] = var8009d144->unk0d18;
 			mtx->m[3][2] = var8009d144->unk0d1c;
-			mtx->m[0][0] = var8009d144->unk0d2c;
-			mtx->m[0][1] = var8009d144->unk0d30;
-			mtx->m[0][2] = var8009d144->unk0d34;
-			mtx->m[1][0] = var8009d144->unk0d38;
-			mtx->m[1][1] = var8009d144->unk0d3c;
-			mtx->m[1][2] = var8009d144->unk0d40;
-			mtx->m[2][0] = var8009d144->unk0d44;
-			mtx->m[2][1] = var8009d144->unk0d48;
-			mtx->m[2][2] = var8009d144->unk0d4c;
+
+			mtx->m[0][0] = var8009d144->unk0d2c[0][0];
+			mtx->m[0][1] = var8009d144->unk0d2c[0][1];
+			mtx->m[0][2] = var8009d144->unk0d2c[0][2];
+			mtx->m[1][0] = var8009d144->unk0d2c[1][0];
+			mtx->m[1][1] = var8009d144->unk0d2c[1][1];
+			mtx->m[1][2] = var8009d144->unk0d2c[1][2];
+			mtx->m[2][0] = var8009d144->unk0d2c[2][0];
+			mtx->m[2][1] = var8009d144->unk0d2c[2][1];
+			mtx->m[2][2] = var8009d144->unk0d2c[2][2];
 		}
 	}
 
@@ -22471,6 +22473,107 @@ glabel var7f1ac918
 /*  f0a4e40:	27bd00e0 */ 	addiu	$sp,$sp,0xe0
 );
 #endif
+
+/**
+ * With this function stubbed, the tranquilizer's spent ammo does not detach
+ * when reloading, and the pulled pin on grenades and nbombs appears to move
+ * with the model rather than detaching properly.
+ */
+//void bgun0f0a46a4(struct hand *hand, struct modelfiledata *modeldef, bool isdetonator)
+//{
+//	struct coord spd0;
+//	Mtxf sp90;
+//	struct coord sp84;
+//	Mtxf sp44;
+//	s32 i;
+//	f32 lvupdate;
+//	f32 newval;
+//	f32 sumval;
+//
+//	switch (hand->unk0d0e_00) {
+//	case 1:
+//		// 6e4
+//		switch (hand->unk0d0e_04) {
+//		case 0:
+//			// 710
+//			hand->unk0d20.f[0] = (RANDOMFRAC() - 0.5f) * 0.5333333f * 0.0625f + 0.5333333f;
+//			hand->unk0d20.f[1] = 0.0f;
+//			hand->unk0d20.f[2] = RANDOMFRAC() * 2.5f * 0.0625f + 2.5f;
+//			spd0.f[0] = 2.0f * RANDOMFRAC() * M_BADTAU / 184.0f - 0.03414231f;
+//			spd0.f[1] = 2.0f * RANDOMFRAC() * M_BADTAU / 184.0f - 0.03414231f;
+//			spd0.f[2] = 2.0f * RANDOMFRAC() * M_BADTAU / 184.0f - 0.03414231f;
+//			break;
+//		case 1:
+//			// 8b8
+//			hand->unk0d20.f[0] = -((RANDOMFRAC() - 0.5f) * 0.5333333f * 0.0625f + 3.0f * 0.5333333f);
+//			hand->unk0d20.f[1] = RANDOMFRAC() * 2.5f * 0.125f + 2.5f;
+//			hand->unk0d20.f[2] = -(RANDOMFRAC() + 1.0f);
+//			spd0.f[0] = (RANDOMFRAC() + 3.0f) * M_BADTAU / 208.0f;
+//			spd0.f[1] = 2.0f * RANDOMFRAC() * M_BADTAU / 544.0f - 0.0115481345f;
+//			spd0.f[2] = 2.0f * RANDOMFRAC() * M_BADTAU / 544.0f - 0.0115481345f;
+//			break;
+//		case 2:
+//			// aa4
+//			hand->unk0d20.f[0] = 0.0f;
+//			hand->unk0d20.f[1] = RANDOMFRAC() * 2.5f * 0.125f + 2.5f;
+//			hand->unk0d20.f[2] = (RANDOMFRAC() + 1.0f) * 0.25f;
+//			spd0.f[0] = (RANDOMFRAC() + 3.0f) * M_BADTAU / 368.0f;
+//			spd0.f[1] = 2.0f * RANDOMFRAC() * M_BADTAU / 944.0f - 0.006654857f;
+//			spd0.f[2] = 2.0f * RANDOMFRAC() * M_BADTAU / 944.0f - 0.006654857f;
+//			break;
+//		}
+//
+//		// c28
+//		hand->unk0d10 = hand->unk0d14 - 200.0f;
+//
+//		mtx4LoadRotation(&spd0, &sp90);
+//		mtx4ToMtx3(&sp90, hand->unk0d50);
+//
+//		if (g_Vars.lvupdate240 > 0 && hand->unk0d0e_04) {
+//			sp84.x = (hand->posmtx.m[3][0] - hand->prevmtx.m[3][0]) / g_Vars.lvupdate240f;
+//			sp84.y = (hand->posmtx.m[3][1] - hand->prevmtx.m[3][1]) / g_Vars.lvupdate240f;
+//			sp84.z = (hand->posmtx.m[3][2] - hand->prevmtx.m[3][2]) / g_Vars.lvupdate240f;
+//
+//			mtx00017588(hand->posmtx.m, sp44.m);
+//			mtx4RotateVecInPlace(&sp44, &sp84);
+//
+//			hand->unk0d20.f[0] += sp84.x * 0.3f;
+//			hand->unk0d20.f[1] += sp84.y * 0.3f;
+//			hand->unk0d20.f[2] += sp84.z * 0.3f;
+//		}
+//
+//		hand->unk0d0e_00 = 2;
+//		break;
+//	case 2:
+//		// d28
+//		lvupdate = g_Vars.lvupdate240f;
+//
+//		if (g_Vars.currentplayer->isdead && lvupdate > 1.5f) {
+//			lvupdate = 1.5f;
+//		}
+//
+//		newval = hand->unk0d20.f[1] - lvupdate * 0.2777778f;
+//
+//		if (hand->unk0d18 < hand->unk0d10) {
+//			hand->unk0d0e_00 = 3;
+//			break;
+//		}
+//
+//		sumval = hand->unk0d20.f[1] + newval;
+//
+//		hand->unk0d20.f[1] = newval;
+//
+//		hand->unk0d14 += lvupdate * hand->unk0d20.f[0];
+//		hand->unk0d18 += lvupdate * 0.5f * sumval;
+//		hand->unk0d1c += lvupdate * hand->unk0d20.f[2];
+//
+//		for (i = 0; i < g_Vars.lvupdate240; i++) {
+//			mtx00016110(hand->unk0d50, hand->unk0d2c);
+//		}
+//
+//		break;
+//	}
+//}
 
 u32 var80070238 = 0x00000000;
 u32 var8007023c = 0x00000000;
