@@ -5537,7 +5537,7 @@ bool aiIfNumPlayersLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (PLAYERCOUNT3012() < (s8)cmd[2]) {
+	if ((s8)cmd[2] > PLAYERCOUNT()) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
