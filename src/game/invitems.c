@@ -1955,13 +1955,13 @@ struct weaponfunc_shootprojectile invfunc_superdragon_grenadelauncher = {
 	1,
 	0x00000123,
 	0x00000000,
-	0x3f800000,
+	1,
 	0x00000000,
 	0.08,
 	0x0000001e,
 	0x000004b0,
 	0.1,
-	0x8053,
+	SFX_LAUNCH_ROCKET_8053,
 };
 
 struct inventory_ammo invammo_superdragon = {
@@ -2720,13 +2720,13 @@ struct weaponfunc_shootprojectile invfunc_rockerlauncher_shoot = {
 	1,
 	0x0000011f,
 	0x00000000,
-	0x40066666,
+	2.1,
 	0x0000003c,
 	0,
 	0x00000000,
 	0xffffffff,
 	0.05,
-	0x8053,
+	SFX_LAUNCH_ROCKET_8053,
 };
 
 struct weaponfunc_shootprojectile invfunc_rocketlauncher_homing = {
@@ -2751,13 +2751,13 @@ struct weaponfunc_shootprojectile invfunc_rocketlauncher_homing = {
 	1,
 	0x0000011f,
 	0x00000000,
-	0x40066666,
+	2.1,
 	0x00000000,
 	0,
 	0x00000005,
 	0xffffffff,
 	0.05,
-	0x8053,
+	SFX_LAUNCH_ROCKET_8053,
 };
 
 struct inventory_ammo invammo_rocketlauncher = {
@@ -2830,13 +2830,13 @@ struct weaponfunc_shootprojectile invfunc_slayer_shoot = {
 	1,
 	0x00000120,
 	0x00000000,
-	0x40833333,
+	4.1,
 	0x0000000a,
 	0,
 	0x00000000,
 	0xffffffff,
 	0.05,
-	0x8053,
+	SFX_LAUNCH_ROCKET_8053,
 };
 
 struct weaponfunc_shootprojectile invfunc_slayer_flybywire = {
@@ -2861,13 +2861,13 @@ struct weaponfunc_shootprojectile invfunc_slayer_flybywire = {
 	1,
 	0x00000120,
 	0x00000000,
-	0x40833333,
+	4.1,
 	0x0000000a,
 	0,
 	0x00000000,
 	0xffffffff,
 	0.05,
-	0x8068,
+	SFX_SLAYER_WHIR,
 };
 
 struct inventory_ammo invammo_slayer = {
@@ -2950,13 +2950,13 @@ struct weaponfunc_shootprojectile invfunc_devastator_shoot = {
 	1,
 	0x00000122,
 	0x00000000,
-	0x3f800000,
+	1,
 	0x00000000,
 	0.08,
 	0x00000028,
 	0x000004b0,
 	0.3,
-	0x8053,
+	SFX_LAUNCH_ROCKET_8053,
 };
 
 struct weaponfunc_shootprojectile invfunc_devastator_wallhugger = {
@@ -2981,13 +2981,13 @@ struct weaponfunc_shootprojectile invfunc_devastator_wallhugger = {
 	1,
 	0x00000122,
 	0x00000000,
-	0x3f800000,
+	1,
 	0x00000000,
 	0.08,
 	0x00000028,
 	0x00000168,
 	0.3,
-	0x8053,
+	SFX_LAUNCH_ROCKET_8053,
 };
 
 struct inventory_ammo invammo_devastator = {
@@ -3658,7 +3658,7 @@ struct weaponfunc_shootprojectile invfunc_crossbow_lethal = {
 	1,
 	0x00000121,
 	0x00000000,
-	0x40066666,
+	2.1,
 	0x00000000,
 	0,
 	0x0000003c,
@@ -3689,7 +3689,7 @@ struct weaponfunc_shootprojectile invfunc_crossbow_shoot = {
 	1,
 	0x00000121,
 	0x00000000,
-	0x40066666,
+	2.1,
 	0x00000000,
 	0,
 	0x0000003c,
@@ -6022,13 +6022,13 @@ struct weaponfunc_shootprojectile invfunc_rocketlauncher34_primary = {
 	1,
 	0x0000011f,
 	0x00000000,
-	0x40066666,
+	2.1,
 	0x00000014,
 	0,
 	0x00000000,
 	0xffffffff,
 	0.05,
-	0x8053,
+	SFX_LAUNCH_ROCKET_8053,
 };
 
 struct inventory_ammo invammo_rocketlauncher34 = {

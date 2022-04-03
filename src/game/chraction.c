@@ -7683,7 +7683,7 @@ bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum)
 		return false;
 	}
 
-	weapon = func0f08b880(modelnum, (u8)weaponnum, chr);
+	weapon = weaponCreateProjectileFromWeaponNum(modelnum, (u8)weaponnum, chr);
 
 	if (weapon && weapon->base.prop) {
 		modelSetScale(weapon->base.model, weapon->base.model->scale);
@@ -11165,7 +11165,7 @@ glabel var7f1a90e0
 /*  f040cb0:	24050054 */ 	addiu	$a1,$zero,0x54
 /*  f040cb4:	8c640040 */ 	lw	$a0,0x40($v1)
 .L0f040cb8:
-/*  f040cb8:	0fc22e20 */ 	jal	func0f08b880
+/*  f040cb8:	0fc22e20 */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f040cbc:	afa300d4 */ 	sw	$v1,0xd4($sp)
 /*  f040cc0:	1000002e */ 	b	.L0f040d7c
 /*  f040cc4:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -11175,7 +11175,7 @@ glabel var7f1a90e0
 /*  f040cd0:	24050056 */ 	addiu	$a1,$zero,0x56
 /*  f040cd4:	8c640040 */ 	lw	$a0,0x40($v1)
 /*  f040cd8:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f040cdc:	0fc22e20 */ 	jal	func0f08b880
+/*  f040cdc:	0fc22e20 */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f040ce0:	8fa60278 */ 	lw	$a2,0x278($sp)
 /*  f040ce4:	10400025 */ 	beqz	$v0,.L0f040d7c
 /*  f040ce8:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -11188,7 +11188,7 @@ glabel var7f1a90e0
 /*  f040d00:	24050055 */ 	addiu	$a1,$zero,0x55
 /*  f040d04:	8c640040 */ 	lw	$a0,0x40($v1)
 /*  f040d08:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f040d0c:	0fc22e20 */ 	jal	func0f08b880
+/*  f040d0c:	0fc22e20 */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f040d10:	8fa60278 */ 	lw	$a2,0x278($sp)
 /*  f040d14:	10400019 */ 	beqz	$v0,.L0f040d7c
 /*  f040d18:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -11202,7 +11202,7 @@ glabel var7f1a90e0
 /*  f040d34:	8c640040 */ 	lw	$a0,0x40($v1)
 /*  f040d38:	afa300d4 */ 	sw	$v1,0xd4($sp)
 /*  f040d3c:	24050055 */ 	addiu	$a1,$zero,0x55
-/*  f040d40:	0fc22e20 */ 	jal	func0f08b880
+/*  f040d40:	0fc22e20 */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f040d44:	8fa60278 */ 	lw	$a2,0x278($sp)
 /*  f040d48:	1040000c */ 	beqz	$v0,.L0f040d7c
 /*  f040d4c:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -11215,7 +11215,7 @@ glabel var7f1a90e0
 /*  f040d64:	27a50260 */ 	addiu	$a1,$sp,0x260
 /*  f040d68:	8dae00bc */ 	lw	$t6,0xbc($t5)
 /*  f040d6c:	8dc60004 */ 	lw	$a2,0x4($t6)
-/*  f040d70:	0fc22d96 */ 	jal	func0f08b658
+/*  f040d70:	0fc22d96 */ 	jal	weaponCreateProjectileFromGset
 /*  f040d74:	afa300d4 */ 	sw	$v1,0xd4($sp)
 /*  f040d78:	afa201b8 */ 	sw	$v0,0x1b8($sp)
 .L0f040d7c:
@@ -12755,7 +12755,7 @@ glabel var7f1a9184
 /*  f040e34:	24050054 */ 	li	$a1,0x54
 /*  f040e38:	8c640040 */ 	lw	$a0,0x40($v1)
 .PF0f040e3c:
-/*  f040e3c:	0fc22deb */ 	jal	func0f08b880
+/*  f040e3c:	0fc22deb */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f040e40:	afa300d4 */ 	sw	$v1,0xd4($sp)
 /*  f040e44:	1000002e */ 	b	.PF0f040f00
 /*  f040e48:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -12765,7 +12765,7 @@ glabel var7f1a9184
 /*  f040e54:	24050056 */ 	li	$a1,0x56
 /*  f040e58:	8c640040 */ 	lw	$a0,0x40($v1)
 /*  f040e5c:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f040e60:	0fc22deb */ 	jal	func0f08b880
+/*  f040e60:	0fc22deb */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f040e64:	8fa60278 */ 	lw	$a2,0x278($sp)
 /*  f040e68:	10400025 */ 	beqz	$v0,.PF0f040f00
 /*  f040e6c:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -12778,7 +12778,7 @@ glabel var7f1a9184
 /*  f040e84:	24050055 */ 	li	$a1,0x55
 /*  f040e88:	8c640040 */ 	lw	$a0,0x40($v1)
 /*  f040e8c:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f040e90:	0fc22deb */ 	jal	func0f08b880
+/*  f040e90:	0fc22deb */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f040e94:	8fa60278 */ 	lw	$a2,0x278($sp)
 /*  f040e98:	10400019 */ 	beqz	$v0,.PF0f040f00
 /*  f040e9c:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -12792,7 +12792,7 @@ glabel var7f1a9184
 /*  f040eb8:	8c640040 */ 	lw	$a0,0x40($v1)
 /*  f040ebc:	afa300d4 */ 	sw	$v1,0xd4($sp)
 /*  f040ec0:	24050055 */ 	li	$a1,0x55
-/*  f040ec4:	0fc22deb */ 	jal	func0f08b880
+/*  f040ec4:	0fc22deb */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f040ec8:	8fa60278 */ 	lw	$a2,0x278($sp)
 /*  f040ecc:	1040000c */ 	beqz	$v0,.PF0f040f00
 /*  f040ed0:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -12805,7 +12805,7 @@ glabel var7f1a9184
 /*  f040ee8:	27a50260 */ 	addiu	$a1,$sp,0x260
 /*  f040eec:	8dae00bc */ 	lw	$t6,0xbc($t5)
 /*  f040ef0:	8dc60004 */ 	lw	$a2,0x4($t6)
-/*  f040ef4:	0fc22d61 */ 	jal	func0f08b658
+/*  f040ef4:	0fc22d61 */ 	jal	weaponCreateProjectileFromGset
 /*  f040ef8:	afa300d4 */ 	sw	$v1,0xd4($sp)
 /*  f040efc:	afa201b8 */ 	sw	$v0,0x1b8($sp)
 .PF0f040f00:
@@ -14353,7 +14353,7 @@ glabel var7f1a9184
 /*  f040dc0:	24050054 */ 	li	$a1,0x54
 /*  f040dc4:	8c640040 */ 	lw	$a0,0x40($v1)
 .PB0f040dc8:
-/*  f040dc8:	0fc22dbf */ 	jal	func0f08b880
+/*  f040dc8:	0fc22dbf */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f040dcc:	afa300d4 */ 	sw	$v1,0xd4($sp)
 /*  f040dd0:	1000002e */ 	b	.PB0f040e8c
 /*  f040dd4:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -14363,7 +14363,7 @@ glabel var7f1a9184
 /*  f040de0:	24050056 */ 	li	$a1,0x56
 /*  f040de4:	8c640040 */ 	lw	$a0,0x40($v1)
 /*  f040de8:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f040dec:	0fc22dbf */ 	jal	func0f08b880
+/*  f040dec:	0fc22dbf */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f040df0:	8fa60278 */ 	lw	$a2,0x278($sp)
 /*  f040df4:	10400025 */ 	beqz	$v0,.PB0f040e8c
 /*  f040df8:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -14376,7 +14376,7 @@ glabel var7f1a9184
 /*  f040e10:	24050055 */ 	li	$a1,0x55
 /*  f040e14:	8c640040 */ 	lw	$a0,0x40($v1)
 /*  f040e18:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f040e1c:	0fc22dbf */ 	jal	func0f08b880
+/*  f040e1c:	0fc22dbf */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f040e20:	8fa60278 */ 	lw	$a2,0x278($sp)
 /*  f040e24:	10400019 */ 	beqz	$v0,.PB0f040e8c
 /*  f040e28:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -14390,7 +14390,7 @@ glabel var7f1a9184
 /*  f040e44:	8c640040 */ 	lw	$a0,0x40($v1)
 /*  f040e48:	afa300d4 */ 	sw	$v1,0xd4($sp)
 /*  f040e4c:	24050055 */ 	li	$a1,0x55
-/*  f040e50:	0fc22dbf */ 	jal	func0f08b880
+/*  f040e50:	0fc22dbf */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f040e54:	8fa60278 */ 	lw	$a2,0x278($sp)
 /*  f040e58:	1040000c */ 	beqz	$v0,.PB0f040e8c
 /*  f040e5c:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -14403,7 +14403,7 @@ glabel var7f1a9184
 /*  f040e74:	27a50260 */ 	addiu	$a1,$sp,0x260
 /*  f040e78:	8dae00bc */ 	lw	$t6,0xbc($t5)
 /*  f040e7c:	8dc60004 */ 	lw	$a2,0x4($t6)
-/*  f040e80:	0fc22d35 */ 	jal	func0f08b658
+/*  f040e80:	0fc22d35 */ 	jal	weaponCreateProjectileFromGset
 /*  f040e84:	afa300d4 */ 	sw	$v1,0xd4($sp)
 /*  f040e88:	afa201b8 */ 	sw	$v0,0x1b8($sp)
 .PB0f040e8c:
@@ -15951,7 +15951,7 @@ glabel var7f1a9184
 /*  f040cb0:	24050054 */ 	addiu	$a1,$zero,0x54
 /*  f040cb4:	8c640040 */ 	lw	$a0,0x40($v1)
 .L0f040cb8:
-/*  f040cb8:	0fc22e20 */ 	jal	func0f08b880
+/*  f040cb8:	0fc22e20 */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f040cbc:	afa300d4 */ 	sw	$v1,0xd4($sp)
 /*  f040cc0:	1000002e */ 	b	.L0f040d7c
 /*  f040cc4:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -15961,7 +15961,7 @@ glabel var7f1a9184
 /*  f040cd0:	24050056 */ 	addiu	$a1,$zero,0x56
 /*  f040cd4:	8c640040 */ 	lw	$a0,0x40($v1)
 /*  f040cd8:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f040cdc:	0fc22e20 */ 	jal	func0f08b880
+/*  f040cdc:	0fc22e20 */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f040ce0:	8fa60278 */ 	lw	$a2,0x278($sp)
 /*  f040ce4:	10400025 */ 	beqz	$v0,.L0f040d7c
 /*  f040ce8:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -15974,7 +15974,7 @@ glabel var7f1a9184
 /*  f040d00:	24050055 */ 	addiu	$a1,$zero,0x55
 /*  f040d04:	8c640040 */ 	lw	$a0,0x40($v1)
 /*  f040d08:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f040d0c:	0fc22e20 */ 	jal	func0f08b880
+/*  f040d0c:	0fc22e20 */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f040d10:	8fa60278 */ 	lw	$a2,0x278($sp)
 /*  f040d14:	10400019 */ 	beqz	$v0,.L0f040d7c
 /*  f040d18:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -15988,7 +15988,7 @@ glabel var7f1a9184
 /*  f040d34:	8c640040 */ 	lw	$a0,0x40($v1)
 /*  f040d38:	afa300d4 */ 	sw	$v1,0xd4($sp)
 /*  f040d3c:	24050055 */ 	addiu	$a1,$zero,0x55
-/*  f040d40:	0fc22e20 */ 	jal	func0f08b880
+/*  f040d40:	0fc22e20 */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f040d44:	8fa60278 */ 	lw	$a2,0x278($sp)
 /*  f040d48:	1040000c */ 	beqz	$v0,.L0f040d7c
 /*  f040d4c:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -16001,7 +16001,7 @@ glabel var7f1a9184
 /*  f040d64:	27a50260 */ 	addiu	$a1,$sp,0x260
 /*  f040d68:	8dae00bc */ 	lw	$t6,0xbc($t5)
 /*  f040d6c:	8dc60004 */ 	lw	$a2,0x4($t6)
-/*  f040d70:	0fc22d96 */ 	jal	func0f08b658
+/*  f040d70:	0fc22d96 */ 	jal	weaponCreateProjectileFromGset
 /*  f040d74:	afa300d4 */ 	sw	$v1,0xd4($sp)
 /*  f040d78:	afa201b8 */ 	sw	$v0,0x1b8($sp)
 .L0f040d7c:
@@ -17541,7 +17541,7 @@ glabel var7f1a9184
 /*  f040490:	24050053 */ 	addiu	$a1,$zero,0x53
 /*  f040494:	8c640040 */ 	lw	$a0,0x40($v1)
 .NB0f040498:
-/*  f040498:	0fc2282a */ 	jal	func0f08b880
+/*  f040498:	0fc2282a */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f04049c:	afa300d4 */ 	sw	$v1,0xd4($sp)
 /*  f0404a0:	1000002e */ 	beqz	$zero,.NB0f04055c
 /*  f0404a4:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -17551,7 +17551,7 @@ glabel var7f1a9184
 /*  f0404b0:	24050055 */ 	addiu	$a1,$zero,0x55
 /*  f0404b4:	8c640040 */ 	lw	$a0,0x40($v1)
 /*  f0404b8:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f0404bc:	0fc2282a */ 	jal	func0f08b880
+/*  f0404bc:	0fc2282a */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f0404c0:	8fa60278 */ 	lw	$a2,0x278($sp)
 /*  f0404c4:	10400025 */ 	beqz	$v0,.NB0f04055c
 /*  f0404c8:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -17564,7 +17564,7 @@ glabel var7f1a9184
 /*  f0404e0:	24050054 */ 	addiu	$a1,$zero,0x54
 /*  f0404e4:	8c640040 */ 	lw	$a0,0x40($v1)
 /*  f0404e8:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f0404ec:	0fc2282a */ 	jal	func0f08b880
+/*  f0404ec:	0fc2282a */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f0404f0:	8fa60278 */ 	lw	$a2,0x278($sp)
 /*  f0404f4:	10400019 */ 	beqz	$v0,.NB0f04055c
 /*  f0404f8:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -17578,7 +17578,7 @@ glabel var7f1a9184
 /*  f040514:	8c640040 */ 	lw	$a0,0x40($v1)
 /*  f040518:	afa300d4 */ 	sw	$v1,0xd4($sp)
 /*  f04051c:	24050054 */ 	addiu	$a1,$zero,0x54
-/*  f040520:	0fc2282a */ 	jal	func0f08b880
+/*  f040520:	0fc2282a */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f040524:	8fa60278 */ 	lw	$a2,0x278($sp)
 /*  f040528:	1040000c */ 	beqz	$v0,.NB0f04055c
 /*  f04052c:	afa201b8 */ 	sw	$v0,0x1b8($sp)
@@ -17591,7 +17591,7 @@ glabel var7f1a9184
 /*  f040544:	27a50260 */ 	addiu	$a1,$sp,0x260
 /*  f040548:	8dae00bc */ 	lw	$t6,0xbc($t5)
 /*  f04054c:	8dc60004 */ 	lw	$a2,0x4($t6)
-/*  f040550:	0fc227a4 */ 	jal	func0f08b658
+/*  f040550:	0fc227a4 */ 	jal	weaponCreateProjectileFromGset
 /*  f040554:	afa300d4 */ 	sw	$v1,0xd4($sp)
 /*  f040558:	afa201b8 */ 	sw	$v0,0x1b8($sp)
 .NB0f04055c:
@@ -18737,28 +18737,28 @@ glabel var7f1a9184
 //								rockettype = WEAPON_HOMINGROCKET;
 //							}
 //
-//							projectileobj = func0f08b880(func->projectilemodelnum, rockettype, chr);
+//							projectileobj = weaponCreateProjectileFromWeaponNum(func->projectilemodelnum, rockettype, chr);
 //						} else if (gset.weaponnum == WEAPON_CROSSBOW) {
-//							projectileobj = func0f08b880(func->projectilemodelnum, WEAPON_BOLT, chr);
+//							projectileobj = weaponCreateProjectileFromWeaponNum(func->projectilemodelnum, WEAPON_BOLT, chr);
 //
 //							if (projectileobj) {
 //								projectileobj->gunfunc = gset.weaponfunc;
 //							}
 //						} else if (gset.weaponnum == WEAPON_DEVASTATOR) {
-//							projectileobj = func0f08b880(func->projectilemodelnum, WEAPON_GRENADEROUND, chr);
+//							projectileobj = weaponCreateProjectileFromWeaponNum(func->projectilemodelnum, WEAPON_GRENADEROUND, chr);
 //
 //							if (projectileobj) {
 //								projectileobj->gunfunc = gset.weaponfunc;
 //							}
 //						} else if (gset.weaponnum == WEAPON_SUPERDRAGON) {
-//							projectileobj = func0f08b880(func->projectilemodelnum, WEAPON_GRENADEROUND, chr);
+//							projectileobj = weaponCreateProjectileFromWeaponNum(func->projectilemodelnum, WEAPON_GRENADEROUND, chr);
 //
 //							if (projectileobj) {
 //								projectileobj->gunfunc = FUNC_2;
 //							}
 //						} else {
 //							// Unreachable
-//							projectileobj = func0f08b658(func->projectilemodelnum, &gset, g_Vars.currentplayer->prop->chr);
+//							projectileobj = weaponCreateProjectileFromGset(func->projectilemodelnum, &gset, g_Vars.currentplayer->prop->chr);
 //						}
 //
 //						if (projectileobj) {
@@ -18870,7 +18870,7 @@ glabel var7f1a9184
 //								projectileobj->base.projectile->unk08c = func->unk5c;
 //								projectileobj->base.projectile->unk098 = func->unk50 * (1.0f / 0.6f);
 //
-//								projectileobj->base.projectile->unk0e8 = chrGetTargetProp(chr);
+//								projectileobj->base.projectile->targetprop = chrGetTargetProp(chr);
 //
 //								// Play sound
 //								if (func->unk60 > 0) {

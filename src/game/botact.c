@@ -497,7 +497,7 @@ void botactGetRocketSpawnPos(u16 padnum, struct coord *pos)
  */
 void botactCreateSlayerRocket(struct chrdata *chr)
 {
-	struct weaponobj *rocket = func0f08b880(MODEL_CHRSKROCKETMIS, WEAPON_SKROCKET, chr);
+	struct weaponobj *rocket = weaponCreateProjectileFromWeaponNum(MODEL_CHRSKROCKETMIS, WEAPON_SKROCKET, chr);
 
 	if (rocket) {
 		Mtxf sp260;

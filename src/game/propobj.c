@@ -2334,7 +2334,7 @@ void projectileReset(struct projectile *projectile)
 	projectile->obj = NULL;
 	projectile->unk0d8 = 0;
 	projectile->unk0f4 = 0;
-	projectile->unk0e8 = 0;
+	projectile->targetprop = NULL;
 	projectile->unk108 = 0;
 	projectile->unk0b2 = 0xffff;
 	projectile->unk0b8 = 1;
@@ -79006,78 +79006,78 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f08b658
+glabel weaponCreateProjectileFromGset
 .late_rodata
 glabel var7f1aae9c
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaea0
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaea4
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaea8
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaeac
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaeb0
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaeb4
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaeb8
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaebc
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaec0
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaec4
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaec8
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaecc
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaed0
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaed4
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaed8
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaedc
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaee0
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaee4
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaee8
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaeec
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaef0
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaef4
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaef8
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaefc
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf00
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf04
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf08
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf0c
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf10
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf14
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf18
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf1c
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf20
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf24
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 .text
 /*  f08b658:	27bdff60 */ 	addiu	$sp,$sp,-160
 /*  f08b65c:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -79231,78 +79231,78 @@ glabel var7f1aaf24
 );
 #else
 GLOBAL_ASM(
-glabel func0f08b658
+glabel weaponCreateProjectileFromGset
 .late_rodata
 glabel var7f1aae9c
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaea0
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaea4
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaea8
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaeac
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaeb0
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaeb4
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaeb8
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaebc
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaec0
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaec4
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaec8
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaecc
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaed0
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaed4
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaed8
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaedc
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaee0
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaee4
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaee8
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaeec
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaef0
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaef4
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaef8
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaefc
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf00
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf04
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf08
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf0c
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf10
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf14
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf18
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf1c
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf20
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 glabel var7f1aaf24
-.word func0f08b658+0x174 # f08b7cc
+.word weaponCreateProjectileFromGset+0x174 # f08b7cc
 .text
 /*  f089e90:	27bdff60 */ 	addiu	$sp,$sp,-160
 /*  f089e94:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -79478,12 +79478,12 @@ u32 var8006ad80 = 0x00000000;
 u32 var8006ad84 = 0x00ffffff;
 u32 var8006ad88 = 0x00000000;
 
-struct weaponobj *func0f08b880(s32 modelnum, s32 weaponnum, struct chrdata *chr)
+struct weaponobj *weaponCreateProjectileFromWeaponNum(s32 modelnum, s32 weaponnum, struct chrdata *chr)
 {
 	struct gset gset = {0};
 	gset.weaponnum = weaponnum;
 
-	return func0f08b658(modelnum, &gset, chr);
+	return weaponCreateProjectileFromGset(modelnum, &gset, chr);
 }
 
 void weaponDeleteFromChr(struct chrdata *chr, s32 hand)
@@ -83159,7 +83159,7 @@ glabel var7f1ab214
 /*  f091678:	e7aa009c */ 	swc1	$f10,0x9c($sp)
 /*  f09167c:	c446007c */ 	lwc1	$f6,0x7c($v0)
 /*  f091680:	00003025 */ 	or	$a2,$zero,$zero
-/*  f091684:	0fc22e20 */ 	jal	func0f08b880
+/*  f091684:	0fc22e20 */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f091688:	e7a60098 */ 	swc1	$f6,0x98($sp)
 /*  f09168c:	104001b9 */ 	beqz	$v0,.L0f091d74
 /*  f091690:	afa2017c */ 	sw	$v0,0x17c($sp)
@@ -83888,7 +83888,7 @@ glabel var7f1ab214
 /*  f091678:	e7aa009c */ 	swc1	$f10,0x9c($sp)
 /*  f09167c:	c446007c */ 	lwc1	$f6,0x7c($v0)
 /*  f091680:	00003025 */ 	or	$a2,$zero,$zero
-/*  f091684:	0fc22e20 */ 	jal	func0f08b880
+/*  f091684:	0fc22e20 */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f091688:	e7a60098 */ 	swc1	$f6,0x98($sp)
 /*  f09168c:	104001b9 */ 	beqz	$v0,.L0f091d74
 /*  f091690:	afa2017c */ 	sw	$v0,0x17c($sp)
@@ -84617,7 +84617,7 @@ glabel var7f1ab214
 /*  f091678:	e7aa009c */ 	swc1	$f10,0x9c($sp)
 /*  f09167c:	c446007c */ 	lwc1	$f6,0x7c($v0)
 /*  f091680:	00003025 */ 	or	$a2,$zero,$zero
-/*  f091684:	0fc22e20 */ 	jal	func0f08b880
+/*  f091684:	0fc22e20 */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f091688:	e7a60098 */ 	swc1	$f6,0x98($sp)
 /*  f09168c:	104001b9 */ 	beqz	$v0,.L0f091d74
 /*  f091690:	afa2017c */ 	sw	$v0,0x17c($sp)
@@ -85346,7 +85346,7 @@ glabel var7f1ab214
 /*  f091678:	e7aa009c */ 	swc1	$f10,0x9c($sp)
 /*  f09167c:	c446007c */ 	lwc1	$f6,0x7c($v0)
 /*  f091680:	00003025 */ 	or	$a2,$zero,$zero
-/*  f091684:	0fc22e20 */ 	jal	func0f08b880
+/*  f091684:	0fc22e20 */ 	jal	weaponCreateProjectileFromWeaponNum
 /*  f091688:	e7a60098 */ 	swc1	$f6,0x98($sp)
 /*  f09168c:	104001b9 */ 	beqz	$v0,.L0f091d74
 /*  f091690:	afa2017c */ 	sw	$v0,0x17c($sp)

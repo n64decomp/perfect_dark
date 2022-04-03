@@ -1511,8 +1511,8 @@ struct projectile {
 	/*0x09c*/ s32 unk09c;
 	/*0x0a0*/ u32 unk0a0;
 	/*0x0a4*/ s32 unk0a4;
-	/*0x0a8*/ u32 unk0a8;
-	/*0x0ac*/ u32 unk0ac;
+	/*0x0a8*/ f32 unk0a8;
+	/*0x0ac*/ f32 unk0ac;
 	/*0x0b0*/ s16 droptype;
 	/*0x0b2*/ s16 unk0b2;
 	/*0x0b4*/ s32 unk0b4;
@@ -1526,7 +1526,7 @@ struct projectile {
 	/*0x0dc*/ f32 unk0dc;
 	/*0x0e0*/ f32 unk0e0;
 	/*0x0e4*/ f32 unk0e4;
-	/*0x0e8*/ struct prop *unk0e8;
+	/*0x0e8*/ struct prop *targetprop; // for homing rockets
 	/*0x0ec*/ f32 unk0ec;
 	/*0x0f0*/ f32 unk0f0;
 	/*0x0f4*/ u32 unk0f4;
@@ -3071,13 +3071,13 @@ struct weaponfunc_shootprojectile {
 	struct weaponfunc_shoot base;
 	/*0x40*/ s32 projectilemodelnum;
 	/*0x44*/ u32 unk44;
-	/*0x48*/ u32 unk48;
+	/*0x48*/ f32 scale;
 	/*0x4c*/ s32 unk4c;
 	/*0x50*/ f32 unk50;
 	/*0x54*/ s32 unk54;
 	/*0x58*/ s32 timer60;
 	/*0x5c*/ f32 unk5c;
-	/*0x60*/ s16 unk60;
+	/*0x60*/ s16 soundnum;
 };
 
 struct weaponfunc_throw {
