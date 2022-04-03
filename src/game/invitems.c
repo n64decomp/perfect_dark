@@ -2367,7 +2367,7 @@ struct weaponfunc_throw invfunc_laptopgun_deploy = {
 	-1, // unk07
 	&invnoisesettings_00010fd0,
 	NULL, // fire animation
-	FUNCFLAG_NOAUTOAIM | FUNCFLAG_STICKTOWALL | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_DISCARDWEAPON | FUNCFLAG_00800000,
+	FUNCFLAG_NOAUTOAIM | FUNCFLAG_STICKTOWALL | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_DISCARDWEAPON | FUNCFLAG_CALCULATETRAJECTORY,
 	0x00000157,
 	240, // activatetime60
 	60, // recoverytime60
@@ -3062,7 +3062,7 @@ struct weaponfunc_throw invfunc_timedmine_throw = {
 	0, // unk07
 	&invnoisesettings_00010fd0,
 	invanim_mine_throw, // fire animation
-	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
+	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
 	0x00000113,
 	240, // activatetime60
 	0, // recoverytime60
@@ -3138,7 +3138,7 @@ struct weaponfunc_throw invfunc_remotemine_throw = {
 	0, // unk07
 	&invnoisesettings_00010fd0,
 	invanim_remotemine_throw, // fire animation
-	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
+	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
 	0x00000115,
 	240, // activatetime60
 	0, // recoverytime60
@@ -3207,7 +3207,7 @@ struct weaponfunc_throw invfunc_proxymine_throw = {
 	0, // unk07
 	&invnoisesettings_00010fd0,
 	invanim_mine_throw, // fire animation
-	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
+	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
 	0x00000114,
 	240, // activatetime60
 	0, // recoverytime60
@@ -3270,7 +3270,7 @@ struct weaponfunc_throw invfunc_ecmmine_throw = {
 	0, // unk07
 	&invnoisesettings_00010fd0,
 	invanim_ecmmine_throw, // fire animation
-	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
+	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
 	0x00000116,
 	240, // activatetime60
 	60, // recoverytime60
@@ -3643,7 +3643,7 @@ struct weaponfunc_shootprojectile invfunc_crossbow_lethal = {
 	0, // unk07
 	&invnoisesettings_00010fe4,
 	invanim_crossbow_shoot, // fire animation
-	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
+	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
 	NULL,
 	0,
 	100, // damage
@@ -3674,7 +3674,7 @@ struct weaponfunc_shootprojectile invfunc_crossbow_shoot = {
 	0, // unk07
 	&invnoisesettings_00010fe4,
 	invanim_crossbow_shoot, // fire animation
-	FUNCFLAG_MAKEDIZZY | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
+	FUNCFLAG_MAKEDIZZY | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
 	NULL,
 	0,
 	1, // damage
@@ -4861,7 +4861,7 @@ struct weaponfunc_throw invfunc_combatknife_throw = {
 	0, // unk07
 	&invnoisesettings_00010fd0,
 	invanim_combatknife_throw, // fire animation
-	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
+	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
 	0x0000010f,
 	240, // activatetime60
 	60, // recoverytime60
@@ -4908,7 +4908,7 @@ struct weaponfunc_throw invfunc_bug_throw = {
 	0, // unk07
 	&invnoisesettings_00010fd0,
 	NULL, // fire animation
-	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
+	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
 	0x00000012,
 	240, // activatetime60
 	60, // recoverytime60
@@ -4922,7 +4922,7 @@ struct weaponfunc_throw invfunc_targetamplifier_throw = {
 	0, // unk07
 	&invnoisesettings_00010fd0,
 	NULL, // fire animation
-	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
+	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_CALCULATETRAJECTORY,
 	0x000001b1,
 	240, // activatetime60
 	60, // recoverytime60

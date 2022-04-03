@@ -969,7 +969,7 @@
 #define FUNCFLAG_AUTOSWITCHUNSELECTABLE 0x00100000
 #define FUNCFLAG_PSYCHOSIS              0x00200000
 #define FUNCFLAG_00400000               0x00400000 // punch, disarm and pistol whip
-#define FUNCFLAG_00800000               0x00800000 // mostly throwables but some projectiles too
+#define FUNCFLAG_CALCULATETRAJECTORY    0x00800000 // throwables will land on crosshair
 #define FUNCFLAG_08000000               0x08000000 // rockets
 #define FUNCFLAG_10000000               0x10000000 // grenade launchers
 #define FUNCFLAG_20000000               0x20000000 // explosives related
@@ -3042,6 +3042,7 @@
 #define OBJHFLAG_REAPABLE           0x00000004
 #define OBJHFLAG_ISRETICK           0x00000008
 #define OBJHFLAG_TAGGED             0x00000010
+#define OBJHFLAG_00000020           0x00000020 // thrown knife
 #define OBJHFLAG_00000040           0x00000040
 #define OBJHFLAG_AIRBORNE           0x00000080
 #define OBJHFLAG_00000100           0x00000100

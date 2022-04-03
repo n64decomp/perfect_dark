@@ -367,7 +367,7 @@ void botact0f19a37c(struct chrdata *chr)
 			}
 		}
 
-		func0f04031c(&prop->pos, 16.666666f, &sp56, &sp152);
+		chrCalculateTrajectory(&prop->pos, 16.666666f, &sp56, &sp152);
 	} else {
 		// These numbers are about 2 billionths away from BADDEG2RAD(20),
 		// but tweaking the multiplier in BADDEG2RAD doesn't make this match
@@ -396,7 +396,7 @@ void botact0f19a37c(struct chrdata *chr)
 	mtx4LoadYRotation(sp80, &sp84);
 	mtx00015be0(&sp84, &sp164);
 
-	bgun0f09ee18(chr, &gset, &prop->pos, prop->rooms, &sp164, &sp228);
+	bgunCreateThrownProjectile2(chr, &gset, &prop->pos, prop->rooms, &sp164, &sp228);
 
 	if (gset.weaponnum == WEAPON_REMOTEMINE) {
 		chr->aibot->unk064 |= 0x1000;

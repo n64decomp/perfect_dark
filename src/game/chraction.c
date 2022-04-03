@@ -10514,10 +10514,9 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 }
 
 /**
- * Sets the speed and trajectory for some thrown items. Specifically, for bots
- * throwing grenades, and maybe other things.
+ * Calculates the trajectory for thrown items.
  */
-void func0f04031c(struct coord *frompos, f32 arg1, struct coord *aimpos, struct coord *arg3)
+void chrCalculateTrajectory(struct coord *frompos, f32 arg1, struct coord *aimpos, struct coord *arg3)
 {
 	f32 xvel;
 	f32 yvel;
@@ -11323,7 +11322,7 @@ glabel var7f1a90e0
 /*  f040ef0:	c57200b4 */ 	lwc1	$f18,0xb4($t3)
 /*  f040ef4:	e7b200bc */ 	swc1	$f18,0xbc($sp)
 /*  f040ef8:	c5440010 */ 	lwc1	$f4,0x10($t2)
-/*  f040efc:	0fc100c7 */ 	jal	func0f04031c
+/*  f040efc:	0fc100c7 */ 	jal	chrCalculateTrajectory
 /*  f040f00:	e7a400c0 */ 	swc1	$f4,0xc0($sp)
 /*  f040f04:	1000001c */ 	b	.L0f040f78
 /*  f040f08:	24030001 */ 	addiu	$v1,$zero,0x1
@@ -11355,7 +11354,7 @@ glabel var7f1a90e0
 /*  f040f64:	46085481 */ 	sub.s	$f18,$f10,$f8
 /*  f040f68:	e7b200bc */ 	swc1	$f18,0xbc($sp)
 .L0f040f6c:
-/*  f040f6c:	0fc100c7 */ 	jal	func0f04031c
+/*  f040f6c:	0fc100c7 */ 	jal	chrCalculateTrajectory
 /*  f040f70:	8fa500cc */ 	lw	$a1,0xcc($sp)
 /*  f040f74:	24030001 */ 	addiu	$v1,$zero,0x1
 .L0f040f78:
@@ -12913,7 +12912,7 @@ glabel var7f1a9184
 /*  f041074:	c57200b4 */ 	lwc1	$f18,0xb4($t3)
 /*  f041078:	e7b200bc */ 	swc1	$f18,0xbc($sp)
 /*  f04107c:	c5440010 */ 	lwc1	$f4,0x10($t2)
-/*  f041080:	0fc10128 */ 	jal	func0f04031c
+/*  f041080:	0fc10128 */ 	jal	chrCalculateTrajectory
 /*  f041084:	e7a400c0 */ 	swc1	$f4,0xc0($sp)
 /*  f041088:	1000001c */ 	b	.PF0f0410fc
 /*  f04108c:	24030001 */ 	li	$v1,0x1
@@ -12945,7 +12944,7 @@ glabel var7f1a9184
 /*  f0410e8:	46085481 */ 	sub.s	$f18,$f10,$f8
 /*  f0410ec:	e7b200bc */ 	swc1	$f18,0xbc($sp)
 .PF0f0410f0:
-/*  f0410f0:	0fc10128 */ 	jal	func0f04031c
+/*  f0410f0:	0fc10128 */ 	jal	chrCalculateTrajectory
 /*  f0410f4:	8fa500cc */ 	lw	$a1,0xcc($sp)
 /*  f0410f8:	24030001 */ 	li	$v1,0x1
 .PF0f0410fc:
@@ -14511,7 +14510,7 @@ glabel var7f1a9184
 /*  f041000:	c57200b4 */ 	lwc1	$f18,0xb4($t3)
 /*  f041004:	e7b200bc */ 	swc1	$f18,0xbc($sp)
 /*  f041008:	c5440010 */ 	lwc1	$f4,0x10($t2)
-/*  f04100c:	0fc1010b */ 	jal	func0f04031c
+/*  f04100c:	0fc1010b */ 	jal	chrCalculateTrajectory
 /*  f041010:	e7a400c0 */ 	swc1	$f4,0xc0($sp)
 /*  f041014:	1000001c */ 	b	.PB0f041088
 /*  f041018:	24030001 */ 	li	$v1,0x1
@@ -14543,7 +14542,7 @@ glabel var7f1a9184
 /*  f041074:	46085481 */ 	sub.s	$f18,$f10,$f8
 /*  f041078:	e7b200bc */ 	swc1	$f18,0xbc($sp)
 .PB0f04107c:
-/*  f04107c:	0fc1010b */ 	jal	func0f04031c
+/*  f04107c:	0fc1010b */ 	jal	chrCalculateTrajectory
 /*  f041080:	8fa500cc */ 	lw	$a1,0xcc($sp)
 /*  f041084:	24030001 */ 	li	$v1,0x1
 .PB0f041088:
@@ -16109,7 +16108,7 @@ glabel var7f1a9184
 /*  f040ef0:	c57200b4 */ 	lwc1	$f18,0xb4($t3)
 /*  f040ef4:	e7b200bc */ 	swc1	$f18,0xbc($sp)
 /*  f040ef8:	c5440010 */ 	lwc1	$f4,0x10($t2)
-/*  f040efc:	0fc100c7 */ 	jal	func0f04031c
+/*  f040efc:	0fc100c7 */ 	jal	chrCalculateTrajectory
 /*  f040f00:	e7a400c0 */ 	swc1	$f4,0xc0($sp)
 /*  f040f04:	1000001c */ 	b	.L0f040f78
 /*  f040f08:	24030001 */ 	addiu	$v1,$zero,0x1
@@ -16141,7 +16140,7 @@ glabel var7f1a9184
 /*  f040f64:	46085481 */ 	sub.s	$f18,$f10,$f8
 /*  f040f68:	e7b200bc */ 	swc1	$f18,0xbc($sp)
 .L0f040f6c:
-/*  f040f6c:	0fc100c7 */ 	jal	func0f04031c
+/*  f040f6c:	0fc100c7 */ 	jal	chrCalculateTrajectory
 /*  f040f70:	8fa500cc */ 	lw	$a1,0xcc($sp)
 /*  f040f74:	24030001 */ 	addiu	$v1,$zero,0x1
 .L0f040f78:
@@ -17699,7 +17698,7 @@ glabel var7f1a9184
 /*  f0406d0:	c57200b4 */ 	lwc1	$f18,0xb4($t3)
 /*  f0406d4:	e7b200bc */ 	swc1	$f18,0xbc($sp)
 /*  f0406d8:	c5440010 */ 	lwc1	$f4,0x10($t2)
-/*  f0406dc:	0fc0febf */ 	jal	func0f04031c
+/*  f0406dc:	0fc0febf */ 	jal	chrCalculateTrajectory
 /*  f0406e0:	e7a400c0 */ 	swc1	$f4,0xc0($sp)
 /*  f0406e4:	1000001c */ 	beqz	$zero,.NB0f040758
 /*  f0406e8:	24030001 */ 	addiu	$v1,$zero,0x1
@@ -17731,7 +17730,7 @@ glabel var7f1a9184
 /*  f040744:	46085481 */ 	sub.s	$f18,$f10,$f8
 /*  f040748:	e7b200bc */ 	swc1	$f18,0xbc($sp)
 .NB0f04074c:
-/*  f04074c:	0fc0febf */ 	jal	func0f04031c
+/*  f04074c:	0fc0febf */ 	jal	chrCalculateTrajectory
 /*  f040750:	8fa500cc */ 	lw	$a1,0xcc($sp)
 /*  f040754:	24030001 */ 	addiu	$v1,$zero,0x1
 .NB0f040758:
@@ -18800,7 +18799,7 @@ glabel var7f1a9184
 //										aimpos.y = targetprop->chr->manground;
 //										aimpos.z = targetprop->pos.z;
 //
-//										func0f04031c(&gunpos, spcc, &aimpos, &vector);
+//										chrCalculateTrajectory(&gunpos, spcc, &aimpos, &vector);
 //										hasaimpos = true;
 //									}
 //								} else if ((gset.weaponnum == WEAPON_DEVASTATOR && gset.weaponfunc == FUNC_SECONDARY)
@@ -18814,7 +18813,7 @@ glabel var7f1a9184
 //										aimpos.y -= 25;
 //									}
 //
-//									func0f04031c(&gunpos, spcc, &aimpos, &vector);
+//									chrCalculateTrajectory(&gunpos, spcc, &aimpos, &vector);
 //									hasaimpos = true;
 //								}
 //
