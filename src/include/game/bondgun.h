@@ -81,7 +81,7 @@ void bgunUpdateHeldRocket(s32 handnum);
 void bgunCreateHeldRocket(s32 handnum, struct weaponfunc_shootprojectile *func);
 void bgunFreeHeldRocket(s32 handnum);
 void bgunCreateFiredProjectile(s32 handnum);
-void bgunSwivel(f32 autoaimx, f32 autoaimy, f32 damp, f32 arg3);
+void bgunSwivel(f32 autoaimx, f32 autoaimy, f32 crossdamp, f32 aimdamp);
 void bgunSwivelWithDamp(f32 screenx, f32 screeny, f32 damp);
 void bgunSwivelWithoutDamp(f32 arg0, f32 arg1);
 void bgunGetCrossPos(f32 *x, f32 *y);

@@ -2789,7 +2789,7 @@ struct player {
 	/*0x1938*/ u32 mpjoywascentre;
 	/*0x193c*/ s32 damagetype;
 	/*0x1940*/ u32 deathcount;
-	/*0x1948*/ u32 oldcrosspos[2];
+	/*0x1944*/ f32 oldcrosspos[2];
 	/*0x194c*/ s32 lastkilltime60;
 	/*0x1950*/ s32 lastkilltime60_2;
 	/*0x1954*/ s32 lastkilltime60_3;
