@@ -1025,260 +1025,70 @@ glabel var7f1b55dc
 /*  f12e1bc:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
 );
 
-GLOBAL_ASM(
-glabel smokeCreate
-/*  f12e1c0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f12e1c4:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f12e1c8:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f12e1cc:	8c4f006c */ 	lw	$t7,0x6c($v0)
-/*  f12e1d0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f12e1d4:	00068400 */ 	sll	$s0,$a2,0x10
-/*  f12e1d8:	00107403 */ 	sra	$t6,$s0,0x10
-/*  f12e1dc:	01c08025 */ 	or	$s0,$t6,$zero
-/*  f12e1e0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f12e1e4:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f12e1e8:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f12e1ec:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f12e1f0:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f12e1f4:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f12e1f8:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f12e1fc:	11e00003 */ 	beqz	$t7,.L0f12e20c
-/*  f12e200:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f12e204:	10000002 */ 	b	.L0f12e210
-/*  f12e208:	24130001 */ 	addiu	$s3,$zero,0x1
-.L0f12e20c:
-/*  f12e20c:	00009825 */ 	or	$s3,$zero,$zero
-.L0f12e210:
-/*  f12e210:	8c580068 */ 	lw	$t8,0x68($v0)
-/*  f12e214:	00008825 */ 	or	$s1,$zero,$zero
-/*  f12e218:	00009025 */ 	or	$s2,$zero,$zero
-/*  f12e21c:	13000003 */ 	beqz	$t8,.L0f12e22c
-/*  f12e220:	3c08800a */ 	lui	$t0,%hi(g_MaxSmokes)
-/*  f12e224:	10000001 */ 	b	.L0f12e22c
-/*  f12e228:	24110001 */ 	addiu	$s1,$zero,0x1
-.L0f12e22c:
-/*  f12e22c:	8c590064 */ 	lw	$t9,0x64($v0)
-/*  f12e230:	00006825 */ 	or	$t5,$zero,$zero
-/*  f12e234:	00003025 */ 	or	$a2,$zero,$zero
-/*  f12e238:	13200003 */ 	beqz	$t9,.L0f12e248
-/*  f12e23c:	3c1f800a */ 	lui	$ra,%hi(g_Smokes)
-/*  f12e240:	10000001 */ 	b	.L0f12e248
-/*  f12e244:	24120001 */ 	addiu	$s2,$zero,0x1
-.L0f12e248:
-/*  f12e248:	8c4e0070 */ 	lw	$t6,0x70($v0)
-/*  f12e24c:	27ff3440 */ 	addiu	$ra,$ra,%lo(g_Smokes)
-/*  f12e250:	240c0024 */ 	addiu	$t4,$zero,0x24
-/*  f12e254:	11c00003 */ 	beqz	$t6,.L0f12e264
-/*  f12e258:	3c0b8008 */ 	lui	$t3,%hi(g_SmokeTypes)
-/*  f12e25c:	10000001 */ 	b	.L0f12e264
-/*  f12e260:	240d0001 */ 	addiu	$t5,$zero,0x1
-.L0f12e264:
-/*  f12e264:	8d083444 */ 	lw	$t0,%lo(g_MaxSmokes)($t0)
-/*  f12e268:	00004825 */ 	or	$t1,$zero,$zero
-/*  f12e26c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f12e270:	1900003b */ 	blez	$t0,.L0f12e360
-/*  f12e274:	256be940 */ 	addiu	$t3,$t3,%lo(g_SmokeTypes)
-/*  f12e278:	240a0007 */ 	addiu	$t2,$zero,0x7
-.L0f12e27c:
-/*  f12e27c:	8fe50000 */ 	lw	$a1,0x0($ra)
-/*  f12e280:	01b27021 */ 	addu	$t6,$t5,$s2
-/*  f12e284:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f12e288:	00a67821 */ 	addu	$t7,$a1,$a2
-/*  f12e28c:	8df80000 */ 	lw	$t8,0x0($t7)
-/*  f12e290:	01d17821 */ 	addu	$t7,$t6,$s1
-/*  f12e294:	00c51821 */ 	addu	$v1,$a2,$a1
-/*  f12e298:	17000003 */ 	bnez	$t8,.L0f12e2a8
-/*  f12e29c:	00c5c821 */ 	addu	$t9,$a2,$a1
-/*  f12e2a0:	1000002f */ 	b	.L0f12e360
-/*  f12e2a4:	afb9002c */ 	sw	$t9,0x2c($sp)
-.L0f12e2a8:
-/*  f12e2a8:	01f3c021 */ 	addu	$t8,$t7,$s3
-/*  f12e2ac:	2b010002 */ 	slti	$at,$t8,0x2
-/*  f12e2b0:	54200015 */ 	bnezl	$at,.L0f12e308
-/*  f12e2b4:	2a01000f */ 	slti	$at,$s0,0xf
-/*  f12e2b8:	94640006 */ 	lhu	$a0,0x6($v1)
-/*  f12e2bc:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f12e2c0:	0004ca42 */ 	srl	$t9,$a0,0x9
-/*  f12e2c4:	51590024 */ 	beql	$t2,$t9,.L0f12e358
-/*  f12e2c8:	00e8082a */ 	slt	$at,$a3,$t0
-/*  f12e2cc:	13210021 */ 	beq	$t9,$at,.L0f12e354
-/*  f12e2d0:	2401000b */ 	addiu	$at,$zero,0xb
-/*  f12e2d4:	1321001f */ 	beq	$t9,$at,.L0f12e354
-/*  f12e2d8:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f12e2dc:	5321001e */ 	beql	$t9,$at,.L0f12e358
-/*  f12e2e0:	00e8082a */ 	slt	$at,$a3,$t0
-/*  f12e2e4:	032c0019 */ 	multu	$t9,$t4
-/*  f12e2e8:	3c08800a */ 	lui	$t0,%hi(g_MaxSmokes)
-/*  f12e2ec:	00007012 */ 	mflo	$t6
-/*  f12e2f0:	016e7821 */ 	addu	$t7,$t3,$t6
-/*  f12e2f4:	85f80000 */ 	lh	$t8,0x0($t7)
-/*  f12e2f8:	a4780004 */ 	sh	$t8,0x4($v1)
-/*  f12e2fc:	10000015 */ 	b	.L0f12e354
-/*  f12e300:	8d083444 */ 	lw	$t0,%lo(g_MaxSmokes)($t0)
-/*  f12e304:	2a01000f */ 	slti	$at,$s0,0xf
-.L0f12e308:
-/*  f12e308:	14200012 */ 	bnez	$at,.L0f12e354
-/*  f12e30c:	2a010013 */ 	slti	$at,$s0,0x13
-/*  f12e310:	10200010 */ 	beqz	$at,.L0f12e354
-/*  f12e314:	00c51021 */ 	addu	$v0,$a2,$a1
-/*  f12e318:	94430006 */ 	lhu	$v1,0x6($v0)
-/*  f12e31c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f12e320:	0003ca42 */ 	srl	$t9,$v1,0x9
-/*  f12e324:	5559000c */ 	bnel	$t2,$t9,.L0f12e358
-/*  f12e328:	00e8082a */ 	slt	$at,$a3,$t0
-/*  f12e32c:	55210009 */ 	bnel	$t1,$at,.L0f12e354
-/*  f12e330:	25290001 */ 	addiu	$t1,$t1,0x1
-/*  f12e334:	032c0019 */ 	multu	$t9,$t4
-/*  f12e338:	3c08800a */ 	lui	$t0,%hi(g_MaxSmokes)
-/*  f12e33c:	00007012 */ 	mflo	$t6
-/*  f12e340:	016e7821 */ 	addu	$t7,$t3,$t6
-/*  f12e344:	85f80000 */ 	lh	$t8,0x0($t7)
-/*  f12e348:	a4580004 */ 	sh	$t8,0x4($v0)
-/*  f12e34c:	8d083444 */ 	lw	$t0,%lo(g_MaxSmokes)($t0)
-/*  f12e350:	25290001 */ 	addiu	$t1,$t1,0x1
-.L0f12e354:
-/*  f12e354:	00e8082a */ 	slt	$at,$a3,$t0
-.L0f12e358:
-/*  f12e358:	1420ffc8 */ 	bnez	$at,.L0f12e27c
-/*  f12e35c:	24c6019c */ 	addiu	$a2,$a2,0x19c
-.L0f12e360:
-/*  f12e360:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*  f12e364:	53200034 */ 	beqzl	$t9,.L0f12e438
-/*  f12e368:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f12e36c:	0fc180d6 */ 	jal	propAllocate
-/*  f12e370:	00000000 */ 	nop
-/*  f12e374:	240a0007 */ 	addiu	$t2,$zero,0x7
-/*  f12e378:	1040002e */ 	beqz	$v0,.L0f12e434
-/*  f12e37c:	00408825 */ 	or	$s1,$v0,$zero
-/*  f12e380:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f12e384:	8fa90034 */ 	lw	$t1,0x34($sp)
-/*  f12e388:	240e0008 */ 	addiu	$t6,$zero,0x8
-/*  f12e38c:	a04e0000 */ 	sb	$t6,0x0($v0)
-/*  f12e390:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*  f12e394:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f12e398:	00004040 */ 	sll	$t0,$zero,0x1
-/*  f12e39c:	ac4f0004 */ 	sw	$t7,0x4($v0)
-/*  f12e3a0:	c4640000 */ 	lwc1	$f4,0x0($v1)
-/*  f12e3a4:	00482821 */ 	addu	$a1,$v0,$t0
-/*  f12e3a8:	00003825 */ 	or	$a3,$zero,$zero
-/*  f12e3ac:	e4440008 */ 	swc1	$f4,0x8($v0)
-/*  f12e3b0:	c4660004 */ 	lwc1	$f6,0x4($v1)
-/*  f12e3b4:	e446000c */ 	swc1	$f6,0xc($v0)
-/*  f12e3b8:	c4680008 */ 	lwc1	$f8,0x8($v1)
-/*  f12e3bc:	01281821 */ 	addu	$v1,$t1,$t0
-/*  f12e3c0:	e4480010 */ 	swc1	$f8,0x10($v0)
-/*  f12e3c4:	85380000 */ 	lh	$t8,0x0($t1)
-/*  f12e3c8:	50d8000b */ 	beql	$a2,$t8,.L0f12e3f8
-/*  f12e3cc:	0007c840 */ 	sll	$t9,$a3,0x1
-/*  f12e3d0:	84640000 */ 	lh	$a0,0x0($v1)
-/*  f12e3d4:	a4a40028 */ 	sh	$a0,0x28($a1)
-.L0f12e3d8:
-/*  f12e3d8:	84640002 */ 	lh	$a0,0x2($v1)
-/*  f12e3dc:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f12e3e0:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f12e3e4:	10c40003 */ 	beq	$a2,$a0,.L0f12e3f4
-/*  f12e3e8:	24a50002 */ 	addiu	$a1,$a1,0x2
-/*  f12e3ec:	54eafffa */ 	bnel	$a3,$t2,.L0f12e3d8
-/*  f12e3f0:	a4a40028 */ 	sh	$a0,0x28($a1)
-.L0f12e3f4:
-/*  f12e3f4:	0007c840 */ 	sll	$t9,$a3,0x1
-.L0f12e3f8:
-/*  f12e3f8:	02397021 */ 	addu	$t6,$s1,$t9
-/*  f12e3fc:	a5c60028 */ 	sh	$a2,0x28($t6)
-/*  f12e400:	0fc1814e */ 	jal	propActivateThisFrame
-/*  f12e404:	02202025 */ 	or	$a0,$s1,$zero
-/*  f12e408:	0fc180bc */ 	jal	propEnable
-/*  f12e40c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f12e410:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*  f12e414:	00107040 */ 	sll	$t6,$s0,0x1
-/*  f12e418:	91f80006 */ 	lbu	$t8,0x6($t7)
-/*  f12e41c:	adf10000 */ 	sw	$s1,0x0($t7)
-/*  f12e420:	a5e00004 */ 	sh	$zero,0x4($t7)
-/*  f12e424:	3319ff01 */ 	andi	$t9,$t8,0xff01
-/*  f12e428:	01d9c025 */ 	or	$t8,$t6,$t9
-/*  f12e42c:	a1f80006 */ 	sb	$t8,0x6($t7)
-/*  f12e430:	ade00198 */ 	sw	$zero,0x198($t7)
-.L0f12e434:
-/*  f12e434:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f12e438:
-/*  f12e438:	8fa2002c */ 	lw	$v0,0x2c($sp)
-/*  f12e43c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f12e440:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f12e444:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f12e448:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f12e44c:	03e00008 */ 	jr	$ra
-/*  f12e450:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+struct smoke *smokeCreate(struct coord *pos, s16 *rooms, s16 type)
+{
+	struct smoke *smoke = NULL;
+	s32 playercount = PLAYERCOUNT();
+	s32 count = 0;
+	s32 i;
 
-// Mismatch because goal calculates g_Smokes[i].type an extra time while mine
-// resuses an existing one.
-//struct smoke *smokeCreate(struct coord *pos, s16 *rooms, s16 type)
-//{
-//	struct smoke *smoke = NULL;
-//	s32 playercount = PLAYERCOUNT();
-//	s32 count = 0;
-//	s32 i;
-//
-//	// 270
-//	for (i = 0; i < g_MaxSmokes; i++) {
-//		if (g_Smokes[i].prop == NULL) {
-//			smoke = &g_Smokes[i];
-//			break;
-//		}
-//
-//		// 2b0
-//		if (playercount >= 2) {
-//			// Multiplayer - clear existing smoke if it's not any of the following
-//			if (g_Smokes[i].type != SMOKETYPE_BULLETIMPACT
-//					&& g_Smokes[i].type != SMOKETYPE_ROCKETTAIL
-//					&& g_Smokes[i].type != SMOKETYPE_HOMINGTAIL
-//					&& g_Smokes[i].type != SMOKETYPE_GRENADETAIL) {
-//				g_Smokes[i].age = g_SmokeTypes[g_Smokes[i].type].duration;
-//			}
-//		} else {
-//			// 308
-//			// 1 player - if creating muzzle smoke, remove the third bullet impact smoke
-//			if (type >= SMOKETYPE_MUZZLE_PISTOL && type <= SMOKETYPE_MUZZLE_SHOTGUN) {
-//				if (g_Smokes[i].type == SMOKETYPE_BULLETIMPACT) {
-//					// 32c
-//					if (count == 3) {
-//						g_Smokes[i].age = g_SmokeTypes[g_Smokes[i].type].duration;
-//					}
-//
-//					count++;
-//				}
-//			}
-//		}
-//	}
-//
-//	// 360
-//	if (smoke) {
-//		struct prop *prop = propAllocate();
-//
-//		if (prop) {
-//			prop->type = PROPTYPE_SMOKE;
-//			prop->smoke = smoke;
-//			prop->pos.x = pos->x;
-//			prop->pos.y = pos->y;
-//			prop->pos.z = pos->z;
-//
-//			for (i = 0; rooms[i] != -1 && i < 7; i++) {
-//				prop->rooms[i] = rooms[i];
-//			}
-//
-//			prop->rooms[i] = -1;
-//			propActivateThisFrame(prop);
-//			propEnable(prop);
-//
-//			smoke->prop = prop;
-//			smoke->age = 0;
-//			smoke->type = type;
-//			smoke->source = NULL;
-//		}
-//	}
-//
-//	return smoke;
-//}
+	for (i = 0; i < g_MaxSmokes; i++) {
+		if (g_Smokes[i].prop == NULL) {
+			smoke = &g_Smokes[i];
+			break;
+		}
+
+		if (playercount >= 2) {
+			// Multiplayer - clear existing smoke if it's not any of the following
+			if ((g_Smokes + i)->type != SMOKETYPE_BULLETIMPACT
+					&& (g_Smokes + i)->type != SMOKETYPE_ROCKETTAIL
+					&& (g_Smokes + i)->type != SMOKETYPE_HOMINGTAIL
+					&& (g_Smokes + i)->type != SMOKETYPE_GRENADETAIL) {
+				(g_Smokes + i)->age = g_SmokeTypes[(g_Smokes + i)->type].duration;
+			}
+		} else {
+			// 1 player - if creating muzzle smoke, remove the third bullet impact smoke
+			if (type >= SMOKETYPE_MUZZLE_PISTOL && type <= SMOKETYPE_MUZZLE_SHOTGUN) {
+				struct smoke *smoke = g_Smokes + i;
+
+				if (smoke->type == SMOKETYPE_BULLETIMPACT) {
+					if (count == 3) {
+						smoke->age = g_SmokeTypes[smoke->type].duration;
+					}
+
+					count++;
+				}
+			}
+		}
+	}
+
+	if (smoke) {
+		struct prop *prop = propAllocate();
+
+		if (prop) {
+			prop->type = PROPTYPE_SMOKE;
+			prop->smoke = smoke;
+			prop->pos.x = pos->x;
+			prop->pos.y = pos->y;
+			prop->pos.z = pos->z;
+
+			for (i = 0; rooms[i] != -1 && i < 7; i++) {
+				prop->rooms[i] = rooms[i];
+			}
+
+			prop->rooms[i] = -1;
+			propActivateThisFrame(prop);
+			propEnable(prop);
+
+			smoke->prop = prop;
+			smoke->age = 0;
+			smoke->type = type;
+			smoke->source = NULL;
+		}
+	}
+
+	return smoke;
+}
 
 bool smokeCreateForHand(struct coord *pos, s16 *rooms, s16 type, s32 handnum)
 {
