@@ -28,7 +28,7 @@ void chr0f021fa8(struct chrdata *chr, struct coord *pos, s16 *rooms);
 void chr0f0220ec(struct chrdata *chr, s32 lvupdate240, s32 arg2);
 void chr0f022214(struct chrdata *chr, struct prop *child, bool fulltick);
 void chrUpdateCloak(struct chrdata *chr);
-s32 chr0f022be4(struct chrdata *chr);
+s32 chrGetCloakAlpha(struct chrdata *chr);
 void chrSetPoisoned(struct chrdata *chr, struct prop *poisonprop);
 void chrTickPoisoned(struct chrdata *chr);
 bool chrTickBeams(struct prop *prop);

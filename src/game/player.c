@@ -5241,7 +5241,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY) {
 		bgunTickGameplay2();
 		gdl = boltbeamsRender(gdl);
-		bgun0f0a7138(&gdl);
+		bgunRender(&gdl);
 		gdl = lasersightRenderDot(gdl);
 
 		if (g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {

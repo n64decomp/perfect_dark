@@ -18665,7 +18665,7 @@ u32 var800702dc = 0x00000001;
 
 #if PAL
 GLOBAL_ASM(
-glabel bgun0f0a7138
+glabel bgunRender
 .late_rodata
 glabel var7f1aca8c
 .word 0x3faaaaab
@@ -19200,7 +19200,7 @@ glabel var7f1aca90
 .L0f0a78e4:
 /*  f0a78e4:	8e6f00bc */ 	lw	$t7,0xbc($s3)
 .L0f0a78e8:
-/*  f0a78e8:	0fc08af9 */ 	jal	chr0f022be4
+/*  f0a78e8:	0fc08af9 */ 	jal	chrGetCloakAlpha
 /*  f0a78ec:	8de40004 */ 	lw	$a0,0x4($t7)
 /*  f0a78f0:	284100ff */ 	slti	$at,$v0,0xff
 /*  f0a78f4:	1020000f */ 	beqz	$at,.L0f0a7934
@@ -19506,7 +19506,7 @@ glabel var7f1aca90
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel bgun0f0a7138
+glabel bgunRender
 .late_rodata
 glabel var7f1aca8c
 .word 0x3faaaaab
@@ -20041,7 +20041,7 @@ glabel var7f1aca90
 .L0f0a78e4:
 /*  f0a78e4:	8e6f00bc */ 	lw	$t7,0xbc($s3)
 .L0f0a78e8:
-/*  f0a78e8:	0fc08af9 */ 	jal	chr0f022be4
+/*  f0a78e8:	0fc08af9 */ 	jal	chrGetCloakAlpha
 /*  f0a78ec:	8de40004 */ 	lw	$a0,0x4($t7)
 /*  f0a78f0:	284100ff */ 	slti	$at,$v0,0xff
 /*  f0a78f4:	1020000f */ 	beqz	$at,.L0f0a7934
@@ -20347,7 +20347,7 @@ glabel var7f1aca90
 );
 #else
 GLOBAL_ASM(
-glabel bgun0f0a7138
+glabel bgunRender
 .late_rodata
 glabel var7f1aca8c
 .word 0x3faaaaab
@@ -20882,7 +20882,7 @@ glabel var7f1aca90
 .NB0f0a5630:
 /*  f0a5630:	8e6f00bc */ 	lw	$t7,0xbc($s3)
 .NB0f0a5634:
-/*  f0a5634:	0fc089b4 */ 	jal	chr0f022be4
+/*  f0a5634:	0fc089b4 */ 	jal	chrGetCloakAlpha
 /*  f0a5638:	8de40004 */ 	lw	$a0,0x4($t7)
 /*  f0a563c:	284100ff */ 	slti	$at,$v0,0xff
 /*  f0a5640:	1020000f */ 	beqz	$at,.NB0f0a5680
@@ -21178,6 +21178,261 @@ glabel var7f1aca90
 /*  f0a5a84:	27bd0148 */ 	addiu	$sp,$sp,0x148
 );
 #endif
+
+// Mismatch: Goal uses different codegen for accessing vertices
+//void bgunRender(Gfx **gdlptr)
+//{
+//	Gfx *gdl = *gdlptr;
+//	struct modelrenderdata renderdata = {NULL, true, 3}; // 10c
+//	struct player *player;
+//	s32 i;
+//
+//	static bool renderhand = true; // var800702dc
+//
+//	player = g_Vars.currentplayer;
+//
+//	if (player->visionmode == VISIONMODE_XRAY) {
+//		for (i = 0; i < 2; i++) {
+//			if (g_Vars.currentplayer->hands[i].firedrocket) {
+//				g_Vars.currentplayer->hands[i].rocket = NULL;
+//			}
+//		}
+//		return;
+//	}
+//
+//	gdl = func0f1766b4(gdl);
+//	gdl = vi0000b280(gdl);
+//	gdl = vi0000b1d0(gdl);
+//
+//	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, viGetViewLeft(), viGetViewTop(),
+//			viGetViewLeft() + viGetViewWidth(), viGetViewTop() + viGetViewHeight());
+//
+//	gdl = vi0000aca4(gdl, 1.5, 1000);
+//
+//	if (g_Vars.currentplayer->teleportstate != TELEPORTSTATE_INACTIVE) {
+//		f32 f2;
+//
+//		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+//			f2 = player0f0bd358() * 1.3333334f;
+//		} else {
+//			f2 = player0f0bd358();
+//		}
+//
+//		gdl = vi0000b0e8(gdl, 60, f2);
+//	}
+//
+//	if (PLAYERCOUNT() == 1 && IS8MB()) {
+//		gdl = lasersightRenderBeam(gdl);
+//	}
+//
+//	for (i = 0; i < 2; i++) {
+//		struct hand *hand;
+//		s32 j;
+//		s32 alpha;
+//		s32 weaponnum; // ec
+//		struct modelnode *node; // e8
+//		u32 colour; // e4
+//
+//		hand = player->hands + i;
+//
+//		weaponnum = bgunGetWeaponNum2(i);
+//
+//		if (hand->visible) {
+//			gdl = func0f0acb90(gdl, &hand->beam, 0, 0);
+//
+//			if (weaponHasFlag(hand->gset.weaponnum, WEAPONFLAG_00008000)) {
+//				gSPNumLights(gdl++, 1);
+//				gSPLight(gdl++, &var80070098, 1);
+//				gSPLight(gdl++, &var80070090, 2);
+//				gSPLookAt(gdl++, camGetUnk175c());
+//			}
+//
+//			gSPPerspNormalize(gdl++, mtx00016dcc(0, 300));
+//
+//			// There is support for guns having a TV screen on them
+//			// but no guns have this model part so it's not used.
+//			node = modelGetPart(hand->gunmodel.filedata, MODELPART_0010);
+//
+//			if (node) {
+//				union modelrwdata *rwdata = modelGetNodeRwData(&hand->gunmodel, modelGetPart(hand->gunmodel.filedata, MODELPART_0011));
+//
+//				if (rwdata) {
+//					rwdata->toggle.visible = true;
+//				}
+//
+//				gdl = tvscreenRender(&hand->gunmodel, node, &var8009cf88, gdl, 0, 1);
+//			}
+//
+//			renderdata.gdl = gdl;
+//			renderdata.unk30 = 4;
+//
+//			if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
+//				// 67c
+//				u8 *col = player->gunshadecol;
+//				u32 shade;
+//				s32 spb0[4];
+//				s32 spa0[4];
+//
+//				if (col[0] > col[1] && col[0] > col[2]) {
+//					shade = col[0];
+//				} else if (col[1] > col[2]) {
+//					shade = col[1];
+//				} else {
+//					shade = col[2];
+//				}
+//
+//				renderdata.envcolour = (shade << 24 | shade << 16 | shade << 8) + col[3];
+//
+//				if (USINGDEVICE(DEVICE_NIGHTVISION)) {
+//					spb0[0] = var8009caef;
+//					spb0[1] = var8009caef;
+//					spb0[2] = var8009caef;
+//					spb0[3] = var8009caf0;
+//
+//					colour = (spb0[0] << 24 | spb0[1] << 16 | spb0[2] << 8) + spb0[3];
+//				} else if (USINGDEVICE(DEVICE_IRSCANNER)) {
+//					spa0[0] = 0xff;
+//					spa0[1] = 0;
+//					spa0[2] = 0;
+//					spa0[3] = 0x80;
+//
+//					colour = (spa0[0] << 24 | spa0[1] << 16 | spa0[2] << 8) + spa0[3];
+//				}
+//
+//				if (weaponnum == WEAPON_UNARMED) {
+//					renderdata.envcolour = colour;
+//				}
+//			} else {
+//				renderdata.envcolour = player->gunshadecol[0] << 24 | player->gunshadecol[1] << 16 | player->gunshadecol[2] << 8 | player->gunshadecol[3];
+//				colour = renderdata.envcolour;
+//
+//				// 838
+//				if (hand->gset.weaponnum == WEAPON_MAULER) {
+//					u32 weight = hand->matmot1 * 50.0f;
+//					renderdata.envcolour = colourBlend(0xff00007f, renderdata.envcolour, weight);
+//				}
+//			}
+//
+//			// Apply transparency based on player's cloak
+//			alpha = chrGetCloakAlpha(player->prop->chr);
+//
+//			if (alpha < 255) {
+//				colour = (s32) (alpha * 0.74509805f) + 0x41;
+//				renderdata.unk30 = 5;
+//				renderdata.fogcolour = renderdata.envcolour;
+//				renderdata.envcolour = colour;
+//			}
+//
+//			renderdata.zbufferenabled = true;
+//
+//			mtx00016760();
+//
+//			// Render rocket launcher's rocket if it's in Jo's hand or in the launcher
+//			if (hand->rocket) {
+//				struct model *rocketmodel = hand->rocket->base.model; // 98
+//				bool sp94 = false;
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//				if (rocketmodel && rocketmodel->filedata) {
+//					sp94 = true;
+//
+//					modelRender(&renderdata, rocketmodel);
+//
+//					func0f0c33f0(rocketmodel->matrices, rocketmodel->filedata->nummatrices);
+//
+//					if (hand->firedrocket) {
+//						hand->rocket = NULL;
+//					}
+//				}
+//
+//				if (sp94);
+//#else
+//				modelRender(&renderdata, rocketmodel);
+//
+//				func0f0c33f0(rocketmodel->matrices, rocketmodel->filedata->nummatrices);
+//
+//				if (hand->firedrocket) {
+//					hand->rocket = NULL;
+//				}
+//#endif
+//			}
+//
+//			if (weaponHasFlag(weaponnum, WEAPONFLAG_DUALFLIP)) {
+//				gSPClearGeometryMode(renderdata.gdl++, G_CULL_BOTH);
+//
+//				if (i == HAND_RIGHT) {
+//					renderdata.cullmode = CULLMODE_BACK;
+//				} else {
+//					renderdata.cullmode = CULLMODE_FRONT;
+//				}
+//			}
+//
+//			// Slide the laser's liquid texture
+//			if (PLAYERCOUNT() == 1) {
+//				node = modelGetPart(hand->gunmodel.filedata, MODELPART_LASER_0041);
+//
+//				// a5c
+//				if (node) {
+//					struct modelrodata_gundl *rodata;
+//					rodata = &node->rodata->gundl;
+//
+//					for (j = 0; j < rodata->numvertices; j++) {
+//						// a7c
+//						s32 stack[2];
+//						s32 k;
+//
+//						(rodata->vertices + j)->unk0a -= g_Vars.lvupdate240 * PALUP(25);
+//
+//						if ((rodata->vertices + j)->unk0a < -0x6000) {
+//							for (k = 0; k < rodata->numvertices; k++) {
+//								(rodata->vertices + k)->unk0a += 0x2000;
+//							}
+//						}
+//					}
+//				}
+//			}
+//
+//			// Render the gun
+//			modelRender(&renderdata, &hand->gunmodel);
+//
+//			// Render the hand
+//			if (player->gunctrl.handmodeldef && renderhand) {
+//				s32 prevcolour = renderdata.envcolour; // 7c
+//
+//				hand->handmodel.matrices = hand->gunmodel.matrices;
+//
+//				model0001cc20(&hand->handmodel);
+//
+//				renderdata.envcolour = colour;
+//				modelRender(&renderdata, &hand->handmodel);
+//				renderdata.envcolour = prevcolour;
+//			}
+//
+//			// Clean up
+//			gdl = renderdata.gdl;
+//
+//			if (weaponHasFlag(weaponnum, WEAPONFLAG_DUALFLIP)) {
+//				gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+//			}
+//
+//			func0f0c33f0(hand->gunmodel.matrices, hand->gunmodel.filedata->nummatrices);
+//			mtx00016784();
+//
+//			gSPPerspNormalize(gdl++, viGetPerspScale());
+//		}
+//	}
+//
+//	casingsRender(&gdl);
+//	func0f176298();
+//
+//	gdl = func0f1762ac(gdl);
+//	gdl = vi0000b1d0(gdl);
+//
+//	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, viGetViewLeft(), viGetViewTop(),
+//			viGetViewLeft() + viGetViewWidth(), viGetViewTop() + viGetViewHeight());
+//
+//	*gdlptr = gdl;
+//}
 
 /**
  * Find and return an available audio handle out of a pool of four.

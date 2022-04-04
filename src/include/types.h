@@ -550,18 +550,12 @@ struct modelrodata_position { // type 0x02
 	f32 drawdist;
 };
 
-struct modelrodata_gundl0c {
-	u32 unk00;
-	u32 unk04;
-	s16 unk08;
-};
-
 struct modelrodata_gundl { // type 0x04
 	Gfx *primary;
 	Gfx *secondary;
 	void *baseaddr;
-	struct modelrodata_gundl0c *unk0c;
-	s16 unk10;
+	struct gfxvtx *vertices;
+	s16 numvertices;
 	s16 unk12;
 };
 

@@ -2465,24 +2465,24 @@ void chrUpdateCloak(struct chrdata *chr)
 	}
 }
 
-s32 chr0f022be4(struct chrdata *chr)
+s32 chrGetCloakAlpha(struct chrdata *chr)
 {
-	s32 result = 255;
+	s32 alpha = 255;
 
 	if (chr->cloakfadefrac > 0 || chr->cloakfadefinished == true) {
 		if (!chr->cloakfadefinished) {
-			result = 255 - chr->cloakfadefrac * 2;
+			alpha = 255 - chr->cloakfadefrac * 2;
 		} else {
 			f32 fVar3 = (f32)cosf((chr->cloakfadefrac / 127.0f + chr->cloakfadefrac / 127.0f) * M_PI);
-			result = (1.0f - fVar3) * 20.0f * 0.5f;
+			alpha = (1.0f - fVar3) * 20.0f * 0.5f;
 		}
 
-		if (result == 0) {
-			result = 1;
+		if (alpha == 0) {
+			alpha = 1;
 		}
 	}
 
-	return result;
+	return alpha;
 }
 
 void chrSetPoisoned(struct chrdata *chr, struct prop *poisonprop)
@@ -3645,7 +3645,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 	}
 
 	if (!USINGDEVICE(DEVICE_IRSCANNER)) {
-		alpha = chr0f022be4(chr) * alpha * 0.0039215688593686f;
+		alpha = chrGetCloakAlpha(chr) * alpha * 0.0039215688593686f;
 	}
 
 	if (alpha < 0xff) {

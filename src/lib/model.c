@@ -7023,7 +7023,7 @@ void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 vma, u32 file
 			break;
 		case MODELNODETYPE_GUNDL:
 			rodata = node->rodata;
-			PROMOTE(rodata->gundl.unk0c);
+			PROMOTE(rodata->gundl.vertices);
 			rodata->gundl.baseaddr = (void *)fileramaddr;
 			break;
 		case MODELNODETYPE_DL:

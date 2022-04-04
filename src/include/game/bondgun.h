@@ -139,7 +139,7 @@ void bgun0f0a5550(s32 handnum);
 void bgunTickMaulerCharge(void);
 void bgunTickGameplay2(void);
 s32 bgunAllocateFireslot(void);
-void bgun0f0a7138(Gfx **gdl);
+void bgunRender(Gfx **gdl);
 struct sndstate **bgunAllocateAudioHandle(void);
 void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum);
 void bgunPlayGlassHitSound(struct coord *pos, s16 *rooms, s32 arg2);
