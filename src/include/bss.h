@@ -110,7 +110,7 @@ extern struct hatobj *g_HatSlots;
 extern struct ammocrateobj *g_AmmoCrates;
 extern struct defaultobj *var8009ce64;
 extern struct projectile *g_Projectiles;
-extern struct monitorthing *g_MonitorThings;
+extern struct monitormount *g_MonitorMounts;
 extern u32 var8009ce70;
 extern u32 var8009ce74;
 extern u32 var8009ce78[4];

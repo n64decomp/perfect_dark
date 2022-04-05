@@ -273,12 +273,12 @@ void propsReset(void)
 	}
 
 	if (g_MaxMonitorThings == 0) {
-		g_MonitorThings = 0;
+		g_MonitorMounts = 0;
 	} else {
-		g_MonitorThings = mempAlloc(ALIGN16(g_MaxMonitorThings * sizeof(struct monitorthing)), MEMPOOL_STAGE);
+		g_MonitorMounts = mempAlloc(ALIGN16(g_MaxMonitorThings * sizeof(struct monitormount)), MEMPOOL_STAGE);
 
 		for (i = 0; i < g_MaxMonitorThings; i++) {
-			g_MonitorThings[i].flags = 0x00000001;
+			g_MonitorMounts[i].flags = 0x00000001;
 		}
 	}
 
@@ -1689,8 +1689,9 @@ void setupCreateSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 	monitor->screen = var8009ce98;
 	tvscreenSetImageByNum(&monitor->screen, monitor->imagenum);
 
-	// The setup files never place any monitors on a -1 pad, so this code is
-	// unreachable. It appears to allow attaching monitors to other objects.
+	// In GE, monitors with a negative pad are hanging TVs which attach to a
+	// hangingmonitors object, which is actually just the mount. In PD, hanging
+	// monitors do not exist in the setup files so this code is unused.
 	if (monitor->base.pad < 0 && (monitor->base.flags & OBJFLAG_INSIDEANOTHEROBJ) == 0) {
 		s32 modelnum = monitor->base.modelnum;
 		struct defaultobj *owner = (struct defaultobj *)setupGetCmdByIndex(cmdindex + monitor->owneroffset);
@@ -1709,10 +1710,10 @@ void setupCreateSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 		}
 
 		prop = objInitWithAutoModel(&monitor->base);
-		monitor->base.monitorthing = monitorthingGetNew();
+		monitor->base.monitormount = monitormountAllocate();
 
-		if (prop && monitor->base.monitorthing) {
-			monitor->base.hidden |= OBJHFLAG_00000040;
+		if (prop && monitor->base.monitormount) {
+			monitor->base.hidden |= OBJHFLAG_HANGINGMONITOR;
 			modelSetScale(monitor->base.model, monitor->base.model->scale * scale);
 			monitor->base.model->attachedtomodel = owner->model;
 
@@ -1736,7 +1737,7 @@ void setupCreateSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 			spa4.z = -spa4.z;
 
 			mtx4LoadTranslation(&spa4, &sp24);
-			mtx00015be4(&sp64, &sp24, &monitor->base.monitorthing->matrix);
+			mtx00015be4(&sp64, &sp24, &monitor->base.monitormount->matrix);
 		}
 	} else {
 		setupCreateObject(&monitor->base, cmdindex);

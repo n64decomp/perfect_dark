@@ -1471,22 +1471,7 @@ struct projectile {
 	/*0x014*/ f32 unk014;
 	/*0x018*/ f32 unk018;
 	/*0x01c*/ f32 unk01c;
-	/*0x020*/ f32 unk020;
-	/*0x024*/ u32 unk024;
-	/*0x028*/ u32 unk028;
-	/*0x02c*/ u32 unk02c;
-	/*0x030*/ u32 unk030;
-	/*0x034*/ f32 unk034;
-	/*0x038*/ f32 unk038;
-	/*0x03c*/ f32 unk03c;
-	/*0x040*/ u32 unk040;
-	/*0x044*/ struct projectile *unk044;
-	/*0x048*/ u32 unk048;
-	/*0x04c*/ u32 unk04c;
-	/*0x050*/ u32 unk050;
-	/*0x054*/ u32 unk054;
-	/*0x058*/ u32 unk058;
-	/*0x05c*/ u32 unk05c;
+	/*0x020*/ Mtxf unk020;
 	/*0x060*/ f32 unk060;
 	/*0x064*/ u32 unk064;
 	/*0x068*/ u32 unk068;
@@ -1530,10 +1515,10 @@ struct projectile {
 	/*0x108*/ struct prop *unk108;
 };
 
-struct monitorthing {
+struct monitormount {
 	/*0x000*/ u32 flags;
 	/*0x004*/ Mtxf matrix;
-	/*0x044*/ struct projectile *unk044;
+	/*0x044*/ struct projectile *projectile;
 };
 
 struct tvscreen {
@@ -1618,7 +1603,7 @@ struct defaultobj {
 	};
 	union {
 		/*0x48*/ struct projectile *projectile;
-		/*0x48*/ struct monitorthing *monitorthing;
+		/*0x48*/ struct monitormount *monitormount;
 	};
 	/*0x4c*/ s16 damage;
 	/*0x4e*/ s16 maxdamage;

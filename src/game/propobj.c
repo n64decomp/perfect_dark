@@ -116,7 +116,7 @@ struct hatobj *g_HatSlots;
 struct ammocrateobj *g_AmmoCrates;
 struct defaultobj *var8009ce64;
 struct projectile *g_Projectiles;
-struct monitorthing *g_MonitorThings;
+struct monitormount *g_MonitorMounts;
 
 u32 g_TintedGlassEnabled = 0;
 s32 g_AlarmTimer = 0;
@@ -2145,7 +2145,7 @@ void projectileReset(struct projectile *projectile)
 	projectile->unk018 = 0;
 	projectile->unk01c = 0;
 
-	mtx4LoadIdentity((Mtxf *)&projectile->unk020);
+	mtx4LoadIdentity(&projectile->unk020);
 
 	projectile->unk060 = 1;
 	projectile->ownerprop = NULL;
@@ -2175,7 +2175,7 @@ void projectileReset(struct projectile *projectile)
 	projectile->unk0f0 = 0;
 }
 
-struct projectile *projectileGetNew(void)
+struct projectile *projectileAllocate(void)
 {
 	s32 bestindex = -1;
 	s32 i;
@@ -2224,17 +2224,17 @@ void func0f0685e4(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
 
-	if (obj->hidden & OBJHFLAG_00000040) {
-		if (obj->projectile->unk044) {
-			projectileReset(obj->projectile->unk044);
+	if (obj->hidden & OBJHFLAG_HANGINGMONITOR) {
+		if (obj->monitormount->projectile) {
+			projectileReset(obj->monitormount->projectile);
 		} else {
-			obj->projectile->unk044 = projectileGetNew();
+			obj->monitormount->projectile = projectileAllocate();
 		}
 	} else if ((obj->hidden & OBJHFLAG_AIRBORNE) == 0) {
 		if (obj->projectile) {
 			projectileReset(obj->projectile);
 		} else {
-			obj->projectile = projectileGetNew();
+			obj->projectile = projectileAllocate();
 		}
 
 		if (obj->projectile) {
@@ -2248,8 +2248,8 @@ void objSetProjectileFlag4(struct prop *prop)
 	struct defaultobj *obj = prop->obj;
 	struct projectile *projectile = NULL;
 
-	if (obj->hidden & OBJHFLAG_00000040) {
-		projectile = obj->projectile->unk044;
+	if (obj->hidden & OBJHFLAG_HANGINGMONITOR) {
+		projectile = obj->monitormount->projectile;
 	} else if (obj->hidden & OBJHFLAG_AIRBORNE) {
 		projectile = obj->projectile;
 	}
@@ -2259,21 +2259,21 @@ void objSetProjectileFlag4(struct prop *prop)
 	}
 }
 
-void projectileSetFlag1(struct projectile *projectile)
+void monitormountFree(struct monitormount *mount)
 {
-	projectile->flags |= PROJECTILEFLAG_00000001;
+	mount->flags |= MONITORMOUNTFLAG_FREE;
 }
 
-struct monitorthing *monitorthingGetNew(void)
+struct monitormount *monitormountAllocate(void)
 {
 	s32 i;
 
 	for (i = 0; i < g_MaxMonitorThings; i++) {
-		if (g_MonitorThings[i].flags & 0x00000001) {
-			g_MonitorThings[i].flags = 0;
-			g_MonitorThings[i].unk044 = NULL;
+		if (g_MonitorMounts[i].flags & MONITORMOUNTFLAG_FREE) {
+			g_MonitorMounts[i].flags = 0;
+			g_MonitorMounts[i].projectile = NULL;
 
-			return &g_MonitorThings[i];
+			return &g_MonitorMounts[i];
 		}
 	}
 
@@ -6384,17 +6384,17 @@ void func0f06ac90(struct prop *prop)
 	if (prop && prop->obj) {
 		struct defaultobj *obj = prop->obj;
 
-		if (obj->hidden & OBJHFLAG_00000040) {
-			if (obj->projectile) {
-				if (obj->projectile->unk044) {
-					projectileFree(obj->projectile->unk044);
+		if (obj->hidden & OBJHFLAG_HANGINGMONITOR) {
+			if (obj->monitormount) {
+				if (obj->monitormount->projectile) {
+					projectileFree(obj->monitormount->projectile);
 				}
 
-				projectileSetFlag1(obj->projectile);
+				monitormountFree(obj->monitormount);
 			}
 
-			obj->projectile = NULL;
-			obj->hidden &= ~OBJHFLAG_00000040;
+			obj->monitormount = NULL;
+			obj->hidden &= ~OBJHFLAG_HANGINGMONITOR;
 		} else if (obj->hidden & OBJHFLAG_AIRBORNE) {
 			objEndFlight(obj);
 		}
@@ -13692,7 +13692,7 @@ glabel func0f06ef44
 /*  f06ef68:	31f80002 */ 	andi	$t8,$t7,0x2
 /*  f06ef6c:	53000047 */ 	beqzl	$t8,.L0f06f08c
 /*  f06ef70:	00001025 */ 	or	$v0,$zero,$zero
-/*  f06ef74:	0fc1a1bc */ 	jal	monitorthingGetNew
+/*  f06ef74:	0fc1a1bc */ 	jal	monitormountAllocate
 /*  f06ef78:	8c900004 */ 	lw	$s0,0x4($a0)
 /*  f06ef7c:	10400042 */ 	beqz	$v0,.L0f06f088
 /*  f06ef80:	ae020048 */ 	sw	$v0,0x48($s0)
@@ -14153,7 +14153,7 @@ bool propExplode(struct prop *prop, s32 exptype)
 		func0f065e74(&parent->pos, parent->rooms, &pos, rooms);
 
 		result = explosionCreateComplex(NULL, &pos, rooms, exptype, playernum);
-	} else if ((obj->hidden & (OBJHFLAG_00000040 | OBJHFLAG_AIRBORNE | OBJHFLAG_00020000)) == OBJHFLAG_00020000) {
+	} else if ((obj->hidden & (OBJHFLAG_HANGINGMONITOR | OBJHFLAG_AIRBORNE | OBJHFLAG_00020000)) == OBJHFLAG_00020000) {
 		struct coord sp5c;
 		struct coord sp50;
 		f32 ymin = modelBboxGetYMin(modelFindBboxRodata(obj->model));
@@ -17505,7 +17505,7 @@ glabel var7f1aa2c4
 //
 //					func0f0685e4(prop);
 //
-//					if (obj->hidden & OBJHFLAG_00000040) {
+//					if (obj->hidden & OBJHFLAG_HANGINGMONITOR) {
 //						projectile = obj->projectile->unk044;
 //					} else if (obj->hidden & OBJHFLAG_AIRBORNE) {
 //						projectile = obj->projectile;
@@ -17950,14 +17950,14 @@ void func0f07079c(struct prop *prop, bool fulltick)
 		return;
 	}
 
-	if (model->attachedtonode && (obj->hidden & OBJHFLAG_00000040)) {
+	if (model->attachedtonode && (obj->hidden & OBJHFLAG_HANGINGMONITOR)) {
 		Mtxf *mtx = model0001a5cc(model->attachedtomodel, model->attachedtonode, 0);
 		struct modelrenderdata renderdata = {NULL, true, 3};
 		u32 stack;
 		Mtxf sp30;
 
 		prop->flags |= PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK;
-		mtx00015be4(mtx, &obj->monitorthing->matrix, &sp30);
+		mtx00015be4(mtx, &obj->monitormount->matrix, &sp30);
 
 		renderdata.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
 		renderdata.unk00 = &sp30;
@@ -67975,8 +67975,8 @@ void objSetDropped(struct prop *prop, u32 droptype)
 
 		func0f0685e4(prop);
 
-		if ((obj->hidden & OBJHFLAG_00000040) && obj->projectile->unk044) {
-			obj->projectile->unk044->droptype = droptype;
+		if ((obj->hidden & OBJHFLAG_HANGINGMONITOR) && obj->monitormount->projectile) {
+			obj->monitormount->projectile->droptype = droptype;
 		} else if (obj->hidden & OBJHFLAG_AIRBORNE) {
 			obj->projectile->droptype = droptype;
 		}
@@ -68856,13 +68856,13 @@ bool objDrop(struct prop *prop, bool lazy)
 	struct coord spe4;
 	s16 rooms[8];
 
-	if ((obj->hidden & OBJHFLAG_00000040) && obj->projectile->unk044) {
-		struct projectile *projectile2 = obj->projectile->unk044;
+	if ((obj->hidden & OBJHFLAG_HANGINGMONITOR) && obj->monitormount->projectile) {
+		struct projectile *projectile2 = obj->monitormount->projectile;
 
-		projectileSetFlag1(obj->projectile);
+		monitormountFree(obj->monitormount);
 
 		obj->projectile = projectile2;
-		obj->hidden &= ~OBJHFLAG_00000040;
+		obj->hidden &= ~OBJHFLAG_HANGINGMONITOR;
 		obj->hidden |= OBJHFLAG_AIRBORNE;
 	}
 
@@ -78149,7 +78149,7 @@ struct weaponobj *weaponCreate(bool musthaveprop, bool musthavemodel, struct mod
 #endif
 			{
 				if (g_WeaponSlots[i].base.prop->parent) {
-					if (g_WeaponSlots[i].base.hidden & OBJHFLAG_00000040) {
+					if (g_WeaponSlots[i].base.hidden & OBJHFLAG_HANGINGMONITOR) {
 						usable = true;
 					}
 				} else {

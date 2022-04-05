@@ -2468,6 +2468,9 @@
 #define MODFILE_MPSETUP 2
 #define MODFILE_BOSS    4
 
+// Might be the same flags as PROJECTILEFLAG
+#define MONITORMOUNTFLAG_FREE 0x00000001
+
 #define MOVEMODE_WALK     0
 #define MOVEMODE_BIKE     3
 #define MOVEMODE_GRAB     4
@@ -3045,7 +3048,7 @@
 #define OBJHFLAG_ISRETICK           0x00000008
 #define OBJHFLAG_TAGGED             0x00000010
 #define OBJHFLAG_00000020           0x00000020 // thrown knife
-#define OBJHFLAG_00000040           0x00000040
+#define OBJHFLAG_HANGINGMONITOR     0x00000040
 #define OBJHFLAG_AIRBORNE           0x00000080
 #define OBJHFLAG_00000100           0x00000100
 #define OBJHFLAG_00000200           0x00000200
