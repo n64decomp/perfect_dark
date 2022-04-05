@@ -79252,253 +79252,70 @@ bool doorIsRangeEmpty(struct doorobj *door)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel doorsCheckAutomatic
-/*  f08c190:	27bdfd90 */ 	addiu	$sp,$sp,-624
-/*  f08c194:	afb50034 */ 	sw	$s5,0x34($sp)
-/*  f08c198:	3c15800a */ 	lui	$s5,%hi(g_Vars)
-/*  f08c19c:	26b59fc0 */ 	addiu	$s5,$s5,%lo(g_Vars)
-/*  f08c1a0:	8eae0284 */ 	lw	$t6,0x284($s5)
-/*  f08c1a4:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f08c1a8:	afbe0040 */ 	sw	$s8,0x40($sp)
-/*  f08c1ac:	afb7003c */ 	sw	$s7,0x3c($sp)
-/*  f08c1b0:	afb60038 */ 	sw	$s6,0x38($sp)
-/*  f08c1b4:	afb40030 */ 	sw	$s4,0x30($sp)
-/*  f08c1b8:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*  f08c1bc:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f08c1c0:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f08c1c4:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f08c1c8:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*  f08c1cc:	8dc400bc */ 	lw	$a0,0xbc($t6)
-/*  f08c1d0:	27b00068 */ 	addiu	$s0,$sp,0x68
-/*  f08c1d4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f08c1d8:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f08c1dc:	0fc197e0 */ 	jal	roomGetProps
-/*  f08c1e0:	24840028 */ 	addiu	$a0,$a0,0x28
-/*  f08c1e4:	87af0068 */ 	lh	$t7,0x68($sp)
-/*  f08c1e8:	0200b825 */ 	or	$s7,$s0,$zero
-/*  f08c1ec:	27b80068 */ 	addiu	$t8,$sp,0x68
-/*  f08c1f0:	05e0007f */ 	bltz	$t7,.L0f08c3f0
-/*  f08c1f4:	241e0002 */ 	addiu	$s8,$zero,0x2
-/*  f08c1f8:	4480a000 */ 	mtc1	$zero,$f20
-/*  f08c1fc:	87020000 */ 	lh	$v0,0x0($t8)
-/*  f08c200:	8ea80338 */ 	lw	$t0,0x338($s5)
-.L0f08c204:
-/*  f08c204:	0002c8c0 */ 	sll	$t9,$v0,0x3
-/*  f08c208:	0322c821 */ 	addu	$t9,$t9,$v0
-/*  f08c20c:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f08c210:	03282821 */ 	addu	$a1,$t9,$t0
-/*  f08c214:	90a90000 */ 	lbu	$t1,0x0($a1)
-/*  f08c218:	57c90072 */ 	bnel	$s8,$t1,.L0f08c3e4
-/*  f08c21c:	86e20002 */ 	lh	$v0,0x2($s7)
-/*  f08c220:	8cb60004 */ 	lw	$s6,0x4($a1)
-/*  f08c224:	96ca0070 */ 	lhu	$t2,0x70($s6)
-/*  f08c228:	314b0010 */ 	andi	$t3,$t2,0x10
-/*  f08c22c:	5160006d */ 	beqzl	$t3,.L0f08c3e4
-/*  f08c230:	86e20002 */ 	lh	$v0,0x2($s7)
-/*  f08c234:	8eac0284 */ 	lw	$t4,0x284($s5)
-/*  f08c238:	0fc22f40 */ 	jal	doorIsUnlocked
-/*  f08c23c:	8d8400bc */ 	lw	$a0,0xbc($t4)
-/*  f08c240:	50400068 */ 	beqzl	$v0,.L0f08c3e4
-/*  f08c244:	86e20002 */ 	lh	$v0,0x2($s7)
-/*  f08c248:	82c20084 */ 	lb	$v0,0x84($s6)
-/*  f08c24c:	53c20009 */ 	beql	$s8,$v0,.L0f08c274
-/*  f08c250:	8ea30284 */ 	lw	$v1,0x284($s5)
-/*  f08c254:	54400063 */ 	bnezl	$v0,.L0f08c3e4
-/*  f08c258:	86e20002 */ 	lh	$v0,0x2($s7)
-/*  f08c25c:	c6c4007c */ 	lwc1	$f4,0x7c($s6)
-/*  f08c260:	4614203e */ 	c.le.s	$f4,$f20
-/*  f08c264:	00000000 */ 	nop
-/*  f08c268:	4502005e */ 	bc1fl	.L0f08c3e4
-/*  f08c26c:	86e20002 */ 	lh	$v0,0x2($s7)
-/*  f08c270:	8ea30284 */ 	lw	$v1,0x284($s5)
-.L0f08c274:
-/*  f08c274:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f08c278:	00009025 */ 	or	$s2,$zero,$zero
-/*  f08c27c:	8c6201b0 */ 	lw	$v0,0x1b0($v1)
-/*  f08c280:	00009825 */ 	or	$s3,$zero,$zero
-/*  f08c284:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f08c288:	54410007 */ 	bnel	$v0,$at,.L0f08c2a8
-/*  f08c28c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f08c290:	0fc31f31 */ 	jal	bmoveGetGrabbedProp
-/*  f08c294:	00000000 */ 	nop
-/*  f08c298:	8c530004 */ 	lw	$s3,0x4($v0)
-/*  f08c29c:	10000009 */ 	b	.L0f08c2c4
-/*  f08c2a0:	8ea30284 */ 	lw	$v1,0x284($s5)
-/*  f08c2a4:	24010003 */ 	addiu	$at,$zero,0x3
-.L0f08c2a8:
-/*  f08c2a8:	54410007 */ 	bnel	$v0,$at,.L0f08c2c8
-/*  f08c2ac:	8c6400bc */ 	lw	$a0,0xbc($v1)
-/*  f08c2b0:	0fc31f26 */ 	jal	bmoveGetHoverbike
-/*  f08c2b4:	00000000 */ 	nop
-/*  f08c2b8:	8c530004 */ 	lw	$s3,0x4($v0)
-/*  f08c2bc:	24140001 */ 	addiu	$s4,$zero,0x1
-/*  f08c2c0:	8ea30284 */ 	lw	$v1,0x284($s5)
-.L0f08c2c4:
-/*  f08c2c4:	8c6400bc */ 	lw	$a0,0xbc($v1)
-.L0f08c2c8:
-/*  f08c2c8:	02c02825 */ 	or	$a1,$s6,$zero
-/*  f08c2cc:	0fc23fff */ 	jal	posIsInFrontOfDoor
-/*  f08c2d0:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f08c2d4:	8ea50284 */ 	lw	$a1,0x284($s5)
-/*  f08c2d8:	00408825 */ 	or	$s1,$v0,$zero
-/*  f08c2dc:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f08c2e0:	0fc22fde */ 	jal	vectorIsInFrontOfDoor
-/*  f08c2e4:	24a5036c */ 	addiu	$a1,$a1,0x36c
-/*  f08c2e8:	50510011 */ 	beql	$v0,$s1,.L0f08c330
-/*  f08c2ec:	8ed000bc */ 	lw	$s0,0xbc($s6)
-/*  f08c2f0:	8eae0284 */ 	lw	$t6,0x284($s5)
-/*  f08c2f4:	4406a000 */ 	mfc1	$a2,$f20
-/*  f08c2f8:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f08c2fc:	8dc500bc */ 	lw	$a1,0xbc($t6)
-/*  f08c300:	02803825 */ 	or	$a3,$s4,$zero
-/*  f08c304:	0fc22f75 */ 	jal	doorIsPosInRange
-/*  f08c308:	24a50008 */ 	addiu	$a1,$a1,0x8
-/*  f08c30c:	14400007 */ 	bnez	$v0,.L0f08c32c
-/*  f08c310:	00409025 */ 	or	$s2,$v0,$zero
-/*  f08c314:	12600005 */ 	beqz	$s3,.L0f08c32c
-/*  f08c318:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f08c31c:	02602825 */ 	or	$a1,$s3,$zero
-/*  f08c320:	0fc22fa0 */ 	jal	doorIsObjInRange
-/*  f08c324:	02803025 */ 	or	$a2,$s4,$zero
-/*  f08c328:	00409025 */ 	or	$s2,$v0,$zero
-.L0f08c32c:
-/*  f08c32c:	8ed000bc */ 	lw	$s0,0xbc($s6)
-.L0f08c330:
-/*  f08c330:	12000027 */ 	beqz	$s0,.L0f08c3d0
-/*  f08c334:	00000000 */ 	nop
-/*  f08c338:	12160025 */ 	beq	$s0,$s6,.L0f08c3d0
-/*  f08c33c:	00000000 */ 	nop
-/*  f08c340:	16400023 */ 	bnez	$s2,.L0f08c3d0
-/*  f08c344:	00000000 */ 	nop
-/*  f08c348:	8eaf0284 */ 	lw	$t7,0x284($s5)
-.L0f08c34c:
-/*  f08c34c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f08c350:	8de400bc */ 	lw	$a0,0xbc($t7)
-/*  f08c354:	0fc23fff */ 	jal	posIsInFrontOfDoor
-/*  f08c358:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f08c35c:	8ea50284 */ 	lw	$a1,0x284($s5)
-/*  f08c360:	00408825 */ 	or	$s1,$v0,$zero
-/*  f08c364:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08c368:	0fc22fde */ 	jal	vectorIsInFrontOfDoor
-/*  f08c36c:	24a5036c */ 	addiu	$a1,$a1,0x36c
-/*  f08c370:	50510011 */ 	beql	$v0,$s1,.L0f08c3b8
-/*  f08c374:	8e1000bc */ 	lw	$s0,0xbc($s0)
-/*  f08c378:	8eb90284 */ 	lw	$t9,0x284($s5)
-/*  f08c37c:	4406a000 */ 	mfc1	$a2,$f20
-/*  f08c380:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08c384:	8f2500bc */ 	lw	$a1,0xbc($t9)
-/*  f08c388:	02803825 */ 	or	$a3,$s4,$zero
-/*  f08c38c:	0fc22f75 */ 	jal	doorIsPosInRange
-/*  f08c390:	24a50008 */ 	addiu	$a1,$a1,0x8
-/*  f08c394:	14400007 */ 	bnez	$v0,.L0f08c3b4
-/*  f08c398:	00409025 */ 	or	$s2,$v0,$zero
-/*  f08c39c:	12600005 */ 	beqz	$s3,.L0f08c3b4
-/*  f08c3a0:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f08c3a4:	02602825 */ 	or	$a1,$s3,$zero
-/*  f08c3a8:	0fc22fa0 */ 	jal	doorIsObjInRange
-/*  f08c3ac:	02803025 */ 	or	$a2,$s4,$zero
-/*  f08c3b0:	00409025 */ 	or	$s2,$v0,$zero
-.L0f08c3b4:
-/*  f08c3b4:	8e1000bc */ 	lw	$s0,0xbc($s0)
-.L0f08c3b8:
-/*  f08c3b8:	12000005 */ 	beqz	$s0,.L0f08c3d0
-/*  f08c3bc:	00000000 */ 	nop
-/*  f08c3c0:	12160003 */ 	beq	$s0,$s6,.L0f08c3d0
-/*  f08c3c4:	00000000 */ 	nop
-/*  f08c3c8:	5240ffe0 */ 	beqzl	$s2,.L0f08c34c
-/*  f08c3cc:	8eaf0284 */ 	lw	$t7,0x284($s5)
-.L0f08c3d0:
-/*  f08c3d0:	12400003 */ 	beqz	$s2,.L0f08c3e0
-/*  f08c3d4:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f08c3d8:	0fc23922 */ 	jal	doorsRequestMode
-/*  f08c3dc:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f08c3e0:
-/*  f08c3e0:	86e20002 */ 	lh	$v0,0x2($s7)
-.L0f08c3e4:
-/*  f08c3e4:	26f70002 */ 	addiu	$s7,$s7,0x2
-/*  f08c3e8:	0443ff86 */ 	bgezl	$v0,.L0f08c204
-/*  f08c3ec:	8ea80338 */ 	lw	$t0,0x338($s5)
-.L0f08c3f0:
-/*  f08c3f0:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f08c3f4:	d7b40018 */ 	ldc1	$f20,0x18($sp)
-/*  f08c3f8:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f08c3fc:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f08c400:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f08c404:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*  f08c408:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*  f08c40c:	8fb50034 */ 	lw	$s5,0x34($sp)
-/*  f08c410:	8fb60038 */ 	lw	$s6,0x38($sp)
-/*  f08c414:	8fb7003c */ 	lw	$s7,0x3c($sp)
-/*  f08c418:	8fbe0040 */ 	lw	$s8,0x40($sp)
-/*  f08c41c:	03e00008 */ 	jr	$ra
-/*  f08c420:	27bd0270 */ 	addiu	$sp,$sp,0x270
-);
-
 /**
  * Find automatic doors and open them if the player is close to them.
  */
-// Mismatch: regalloc when preparing arguments for doorIsPosInRange.
-//void doorsCheckAutomatic(void)
-//{
-//	s16 *propnumptr;
-//	s16 propnums[256];
-//
-//	roomGetProps(g_Vars.currentplayer->prop->rooms, propnums, 256);
-//	propnumptr = propnums;
-//
-//	while (*propnumptr >= 0) {
-//		struct prop *doorprop = &g_Vars.props[*propnumptr];
-//
-//		if (doorprop->type == PROPTYPE_DOOR) {
-//			struct doorobj *door = doorprop->door;
-//
-//			if ((door->doorflags & DOORFLAG_AUTOMATIC)
-//					&& doorIsUnlocked(g_Vars.currentplayer->prop, doorprop)
-//					&& (door->mode == DOORMODE_CLOSING || (door->mode == DOORMODE_IDLE && door->frac <= 0))) {
-//				bool canopen = false;
-//				struct defaultobj *obj = NULL;
-//				bool isbike = false;
-//				struct doorobj *sibling;
-//
-//				if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
-//					obj = bmoveGetGrabbedProp()->obj;
-//				} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-//					obj = bmoveGetHoverbike()->obj;
-//					isbike = true;
-//				}
-//
-//				if (posIsInFrontOfDoor(&g_Vars.currentplayer->prop->pos, door) != vectorIsInFrontOfDoor(door, &g_Vars.currentplayer->bond2.unk00)) {
-//					canopen = doorIsPosInRange(door, &g_Vars.currentplayer->prop->pos, 0, isbike);
-//
-//					if (!canopen && obj) {
-//						canopen = doorIsObjInRange(door, obj, isbike);
-//					}
-//				}
-//
-//				sibling = door->sibling;
-//
-//				while (sibling && sibling != door && !canopen) {
-//					if (posIsInFrontOfDoor(&g_Vars.currentplayer->prop->pos, sibling) != vectorIsInFrontOfDoor(sibling, &g_Vars.currentplayer->bond2.unk00)) {
-//						canopen = doorIsPosInRange(sibling, &g_Vars.currentplayer->prop->pos, 0, isbike);
-//
-//						if (!canopen && obj) {
-//							canopen = doorIsObjInRange(door, obj, isbike);
-//						}
-//					}
-//
-//					sibling = sibling->sibling;
-//				}
-//
-//				if (canopen) {
-//					doorsRequestMode(door, DOORMODE_OPENING);
-//				}
-//			}
-//		}
-//
-//		propnumptr++;
-//	}
-//}
+void doorsCheckAutomatic(void)
+{
+	struct prop *doorprop;
+	s16 *propnumptr;
+	s16 propnums[256];
+
+	roomGetProps(g_Vars.currentplayer->prop->rooms, propnums, 256);
+	propnumptr = propnums;
+
+	while (*propnumptr >= 0) {
+		doorprop = &g_Vars.props[*propnumptr];
+
+		if (doorprop->type == PROPTYPE_DOOR) {
+			struct doorobj *door = doorprop->door;
+
+			if ((door->doorflags & DOORFLAG_AUTOMATIC)
+					&& doorIsUnlocked(g_Vars.currentplayer->prop, doorprop)
+					&& (door->mode == DOORMODE_CLOSING || (door->mode == DOORMODE_IDLE && door->frac <= 0))) {
+				bool canopen = false;
+				struct defaultobj *obj = NULL;
+				bool isbike = false;
+				struct doorobj *sibling;
+
+				if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
+					obj = bmoveGetGrabbedProp()->obj;
+				} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
+					obj = bmoveGetHoverbike()->obj;
+					isbike = true;
+				}
+
+				if ((posIsInFrontOfDoor(&g_Vars.currentplayer->prop->pos, door) != vectorIsInFrontOfDoor(door, &g_Vars.currentplayer->bond2.unk00)) != 0) {
+					canopen = doorIsPosInRange(door, &g_Vars.currentplayer->prop->pos, 0, isbike);
+
+					if (!canopen && obj) {
+						canopen = doorIsObjInRange(door, obj, isbike);
+					}
+				}
+
+				sibling = door->sibling;
+
+				while (sibling && sibling != door && !canopen) {
+					if ((posIsInFrontOfDoor(&g_Vars.currentplayer->prop->pos, sibling) != vectorIsInFrontOfDoor(sibling, &g_Vars.currentplayer->bond2.unk00)) != 0) {
+						canopen = doorIsPosInRange(sibling, &g_Vars.currentplayer->prop->pos, 0, isbike);
+
+						if (!canopen && obj) {
+							canopen = doorIsObjInRange(door, obj, isbike);
+						}
+					}
+
+					sibling = sibling->sibling;
+				}
+
+				if (canopen) {
+					doorsRequestMode(door, DOORMODE_OPENING);
+				}
+			}
+		}
+
+		propnumptr++;
+	}
+}
 
 void func0f08c424(struct doorobj *door, Mtxf *matrix)
 {
