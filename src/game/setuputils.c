@@ -149,11 +149,11 @@ u32 setupGetCmdIndexByProp(struct prop *prop)
 	return -1;
 }
 
-bool setupLoadModeldef(s32 propnum)
+bool setupLoadModeldef(s32 modelnum)
 {
-	if (g_ModelStates[propnum].filedata == NULL) {
-		g_ModelStates[propnum].filedata = modeldefLoadToNew(g_ModelStates[propnum].fileid);
-		modelCalculateRwDataLen(g_ModelStates[propnum].filedata);
+	if (g_ModelStates[modelnum].filedata == NULL) {
+		g_ModelStates[modelnum].filedata = modeldefLoadToNew(g_ModelStates[modelnum].fileid);
+		modelCalculateRwDataLen(g_ModelStates[modelnum].filedata);
 		return true;
 	}
 

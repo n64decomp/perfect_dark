@@ -78802,479 +78802,120 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 	return laptop;
 }
 
+struct weaponobj *weaponCreateProjectileFromGset(s32 modelnum, struct gset *gset, struct chrdata *chr)
+{
+	struct modelfiledata *modeldef;
+	struct prop *prop;
+	struct model *model;
+	struct weaponobj *weapon;
+
+	setupLoadModeldef(modelnum);
+
+	modeldef = g_ModelStates[modelnum].filedata;
+	prop = propAllocate();
+	model = modelInstantiate(modeldef);
+
+	weapon = weaponCreate(prop == NULL, model == NULL, modeldef);
+
+	if (prop == NULL) {
+		prop = propAllocate();
+	}
+
+	if (model == NULL) {
+		model = modelInstantiate(modeldef);
+	}
+
+	if (weapon && prop && model) {
+		struct weaponobj tmp = {
+			256,                    // extrascale
+			0,                      // hidden2
+			OBJTYPE_WEAPON,         // type
+			0,                      // modelnum
+			-1,                     // pad
+			OBJFLAG_00000001,       // flags
+			0,                      // flags2
+			0,                      // flags3
+			NULL,                   // prop
+			NULL,                   // model
+			1, 0, 0,                // realrot
+			0, 1, 0,
+			0, 0, 1,
+			0,                      // hidden
+			NULL,                   // geo
+			NULL,                   // projectile
+			0,                      // damage
+			1000,                   // maxdamage
+			0xff, 0xff, 0xff, 0x00, // shadecol
+			0xff, 0xff, 0xff, 0x00, // nextcol
+			0x0fff,                 // floorcol
+			0,                      // tiles
+			0,                      // weaponnum
+			0,                      // unk5d
+			0,                      // unk5e
+			0,                      // gunfunc
+			0,                      // fadeouttimer60
+			-1,                     // dualweaponnum
+			-1,                     // timer240
+			NULL,                   // dualweapon
+		};
+
+		*weapon = tmp;
+
+		weapon->weaponnum = gset->weaponnum;
+		weapon->unk5d = gset->unk0639;
+		weapon->unk5e = gset->unk063a;
+		weapon->gunfunc = gset->weaponfunc;
+
+		// This switch is useless because everything uses the same case
+		switch (gset->weaponnum) {
+		case WEAPON_SUPERDRAGON:
+		case WEAPON_DEVASTATOR:
+		case WEAPON_ROCKETLAUNCHER:
+		case WEAPON_SLAYER:
+		case WEAPON_COMBATKNIFE:
+		case WEAPON_CROSSBOW:
+		case WEAPON_GRENADE:
+		case WEAPON_NBOMB:
+		case WEAPON_TIMEDMINE:
+		case WEAPON_PROXIMITYMINE:
+		case WEAPON_REMOTEMINE:
+		case WEAPON_ROCKETLAUNCHER_34:
+		default:
+			weapon->base.modelnum = modelnum;
+
+			prop = func0f08adc8(weapon, modeldef, prop, model);
+
+			if (g_Vars.mplayerisrunning) {
+				s32 index = mpPlayerGetIndex(chr);
+
+				weapon->base.hidden &= 0x0fffffff;
+				weapon->base.hidden |= ((index << 28) & 0xf0000000);
+			}
+
+			prop->forcetick = true;
+			break;
+		}
+	} else {
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel weaponCreateProjectileFromGset
-.late_rodata
-glabel var7f1aae9c
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaea0
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaea4
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaea8
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaeac
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaeb0
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaeb4
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaeb8
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaebc
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaec0
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaec4
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaec8
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaecc
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaed0
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaed4
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaed8
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaedc
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaee0
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaee4
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaee8
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaeec
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaef0
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaef4
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaef8
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaefc
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf00
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf04
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf08
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf0c
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf10
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf14
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf18
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf1c
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf20
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf24
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-.text
-/*  f08b658:	27bdff60 */ 	addiu	$sp,$sp,-160
-/*  f08b65c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f08b660:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f08b664:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f08b668:	afa400a0 */ 	sw	$a0,0xa0($sp)
-/*  f08b66c:	afa500a4 */ 	sw	$a1,0xa4($sp)
-/*  f08b670:	0fc2486d */ 	jal	setupLoadModeldef
-/*  f08b674:	afa600a8 */ 	sw	$a2,0xa8($sp)
-/*  f08b678:	8fae00a0 */ 	lw	$t6,0xa0($sp)
-/*  f08b67c:	3c188008 */ 	lui	$t8,%hi(g_ModelStates)
-/*  f08b680:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f08b684:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f08b688:	8f18b06c */ 	lw	$t8,%lo(g_ModelStates)($t8)
-/*  f08b68c:	0fc180d6 */ 	jal	propAllocate
-/*  f08b690:	afb8009c */ 	sw	$t8,0x9c($sp)
-/*  f08b694:	00408825 */ 	or	$s1,$v0,$zero
-/*  f08b698:	0fc2cc2b */ 	jal	modelInstantiate
-/*  f08b69c:	8fa4009c */ 	lw	$a0,0x9c($sp)
-/*  f08b6a0:	2e240001 */ 	sltiu	$a0,$s1,0x1
-/*  f08b6a4:	2c450001 */ 	sltiu	$a1,$v0,0x1
-/*  f08b6a8:	8fa6009c */ 	lw	$a2,0x9c($sp)
-/*  f08b6ac:	0fc227e3 */ 	jal	weaponCreate
-/*  f08b6b0:	afa20094 */ 	sw	$v0,0x94($sp)
-/*  f08b6b4:	8fa70094 */ 	lw	$a3,0x94($sp)
-/*  f08b6b8:	16200005 */ 	bnez	$s1,.L0f08b6d0
-/*  f08b6bc:	00408025 */ 	or	$s0,$v0,$zero
-/*  f08b6c0:	0fc180d6 */ 	jal	propAllocate
-/*  f08b6c4:	afa70094 */ 	sw	$a3,0x94($sp)
-/*  f08b6c8:	8fa70094 */ 	lw	$a3,0x94($sp)
-/*  f08b6cc:	00408825 */ 	or	$s1,$v0,$zero
-.L0f08b6d0:
-/*  f08b6d0:	14e00004 */ 	bnez	$a3,.L0f08b6e4
-/*  f08b6d4:	00000000 */ 	nop
-/*  f08b6d8:	0fc2cc2b */ 	jal	modelInstantiate
-/*  f08b6dc:	8fa4009c */ 	lw	$a0,0x9c($sp)
-/*  f08b6e0:	00403825 */ 	or	$a3,$v0,$zero
-.L0f08b6e4:
-/*  f08b6e4:	12000054 */ 	beqz	$s0,.L0f08b838
-/*  f08b6e8:	00000000 */ 	nop
-/*  f08b6ec:	12200052 */ 	beqz	$s1,.L0f08b838
-/*  f08b6f0:	00000000 */ 	nop
-/*  f08b6f4:	10e00050 */ 	beqz	$a3,.L0f08b838
-/*  f08b6f8:	27a20028 */ 	addiu	$v0,$sp,0x28
-/*  f08b6fc:	3c198007 */ 	lui	$t9,%hi(var8006ad24)
-/*  f08b700:	2739ad24 */ 	addiu	$t9,$t9,%lo(var8006ad24)
-/*  f08b704:	8fa300a4 */ 	lw	$v1,0xa4($sp)
-/*  f08b708:	27290060 */ 	addiu	$t1,$t9,0x60
-/*  f08b70c:	00405025 */ 	or	$t2,$v0,$zero
-.L0f08b710:
-/*  f08b710:	8f210000 */ 	lw	$at,0x0($t9)
-/*  f08b714:	2739000c */ 	addiu	$t9,$t9,0xc
-/*  f08b718:	254a000c */ 	addiu	$t2,$t2,0xc
-/*  f08b71c:	ad41fff4 */ 	sw	$at,-0xc($t2)
-/*  f08b720:	8f21fff8 */ 	lw	$at,-0x8($t9)
-/*  f08b724:	ad41fff8 */ 	sw	$at,-0x8($t2)
-/*  f08b728:	8f21fffc */ 	lw	$at,-0x4($t9)
-/*  f08b72c:	1729fff8 */ 	bne	$t9,$t1,.L0f08b710
-/*  f08b730:	ad41fffc */ 	sw	$at,-0x4($t2)
-/*  f08b734:	8f210000 */ 	lw	$at,0x0($t9)
-/*  f08b738:	00406825 */ 	or	$t5,$v0,$zero
-/*  f08b73c:	02007025 */ 	or	$t6,$s0,$zero
-/*  f08b740:	ad410000 */ 	sw	$at,0x0($t2)
-/*  f08b744:	8f290004 */ 	lw	$t1,0x4($t9)
-/*  f08b748:	244c0060 */ 	addiu	$t4,$v0,0x60
-/*  f08b74c:	ad490004 */ 	sw	$t1,0x4($t2)
-.L0f08b750:
-/*  f08b750:	8da10000 */ 	lw	$at,0x0($t5)
-/*  f08b754:	25ad000c */ 	addiu	$t5,$t5,0xc
-/*  f08b758:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f08b75c:	adc1fff4 */ 	sw	$at,-0xc($t6)
-/*  f08b760:	8da1fff8 */ 	lw	$at,-0x8($t5)
-/*  f08b764:	adc1fff8 */ 	sw	$at,-0x8($t6)
-/*  f08b768:	8da1fffc */ 	lw	$at,-0x4($t5)
-/*  f08b76c:	15acfff8 */ 	bne	$t5,$t4,.L0f08b750
-/*  f08b770:	adc1fffc */ 	sw	$at,-0x4($t6)
-/*  f08b774:	8da10000 */ 	lw	$at,0x0($t5)
-/*  f08b778:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f08b77c:	8dac0004 */ 	lw	$t4,0x4($t5)
-/*  f08b780:	adcc0004 */ 	sw	$t4,0x4($t6)
-/*  f08b784:	906f0000 */ 	lbu	$t7,0x0($v1)
-/*  f08b788:	a20f005c */ 	sb	$t7,0x5c($s0)
-/*  f08b78c:	90780001 */ 	lbu	$t8,0x1($v1)
-/*  f08b790:	a218005d */ 	sb	$t8,0x5d($s0)
-/*  f08b794:	90680002 */ 	lbu	$t0,0x2($v1)
-/*  f08b798:	a208005e */ 	sb	$t0,0x5e($s0)
-/*  f08b79c:	90690003 */ 	lbu	$t1,0x3($v1)
-/*  f08b7a0:	a209005f */ 	sb	$t1,0x5f($s0)
-/*  f08b7a4:	90790000 */ 	lbu	$t9,0x0($v1)
-/*  f08b7a8:	272affee */ 	addiu	$t2,$t9,-18
-/*  f08b7ac:	2d410023 */ 	sltiu	$at,$t2,0x23
-/*  f08b7b0:	10200006 */ 	beqz	$at,.L0f08b7cc
-/*  f08b7b4:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f08b7b8:	3c017f1b */ 	lui	$at,%hi(var7f1aae9c)
-/*  f08b7bc:	002a0821 */ 	addu	$at,$at,$t2
-/*  f08b7c0:	8c2aae9c */ 	lw	$t2,%lo(var7f1aae9c)($at)
-/*  f08b7c4:	01400008 */ 	jr	$t2
-/*  f08b7c8:	00000000 */ 	nop
-.L0f08b7cc:
-/*  f08b7cc:	8fab00a0 */ 	lw	$t3,0xa0($sp)
-/*  f08b7d0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08b7d4:	02203025 */ 	or	$a2,$s1,$zero
-/*  f08b7d8:	a60b0004 */ 	sh	$t3,0x4($s0)
-/*  f08b7dc:	0fc22b72 */ 	jal	func0f08adc8
-/*  f08b7e0:	8fa5009c */ 	lw	$a1,0x9c($sp)
-/*  f08b7e4:	3c0c800a */ 	lui	$t4,%hi(g_Vars+0x314)
-/*  f08b7e8:	8d8ca2d4 */ 	lw	$t4,%lo(g_Vars+0x314)($t4)
-/*  f08b7ec:	00408825 */ 	or	$s1,$v0,$zero
-/*  f08b7f0:	5180000e */ 	beqzl	$t4,.L0f08b82c
-/*  f08b7f4:	922a003f */ 	lbu	$t2,0x3f($s1)
-/*  f08b7f8:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f08b7fc:	8fa400a8 */ 	lw	$a0,0xa8($sp)
-/*  f08b800:	8e0d0040 */ 	lw	$t5,0x40($s0)
-/*  f08b804:	3c010fff */ 	lui	$at,0xfff
-/*  f08b808:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f08b80c:	01a17024 */ 	and	$t6,$t5,$at
-/*  f08b810:	3c01f000 */ 	lui	$at,0xf000
-/*  f08b814:	0002c700 */ 	sll	$t8,$v0,0x1c
-/*  f08b818:	03014024 */ 	and	$t0,$t8,$at
-/*  f08b81c:	ae0e0040 */ 	sw	$t6,0x40($s0)
-/*  f08b820:	01c84825 */ 	or	$t1,$t6,$t0
-/*  f08b824:	ae090040 */ 	sw	$t1,0x40($s0)
-/*  f08b828:	922a003f */ 	lbu	$t2,0x3f($s1)
-.L0f08b82c:
-/*  f08b82c:	354b0020 */ 	ori	$t3,$t2,0x20
-/*  f08b830:	1000000d */ 	b	.L0f08b868
-/*  f08b834:	a22b003f */ 	sb	$t3,0x3f($s1)
-.L0f08b838:
-/*  f08b838:	12000003 */ 	beqz	$s0,.L0f08b848
-/*  f08b83c:	00000000 */ 	nop
-/*  f08b840:	ae000014 */ 	sw	$zero,0x14($s0)
-/*  f08b844:	ae000018 */ 	sw	$zero,0x18($s0)
-.L0f08b848:
-/*  f08b848:	10e00003 */ 	beqz	$a3,.L0f08b858
-/*  f08b84c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f08b850:	0fc2cc33 */ 	jal	modelFree
-/*  f08b854:	00e02025 */ 	or	$a0,$a3,$zero
-.L0f08b858:
-/*  f08b858:	52200004 */ 	beqzl	$s1,.L0f08b86c
-/*  f08b85c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08b860:	0fc1810e */ 	jal	propFree
-/*  f08b864:	02202025 */ 	or	$a0,$s1,$zero
-.L0f08b868:
-/*  f08b868:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f08b86c:
-/*  f08b86c:	02001025 */ 	or	$v0,$s0,$zero
-/*  f08b870:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f08b874:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f08b878:	03e00008 */ 	jr	$ra
-/*  f08b87c:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
-);
-#else
-GLOBAL_ASM(
-glabel weaponCreateProjectileFromGset
-.late_rodata
-glabel var7f1aae9c
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaea0
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaea4
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaea8
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaeac
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaeb0
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaeb4
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaeb8
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaebc
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaec0
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaec4
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaec8
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaecc
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaed0
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaed4
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaed8
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaedc
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaee0
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaee4
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaee8
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaeec
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaef0
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaef4
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaef8
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaefc
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf00
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf04
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf08
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf0c
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf10
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf14
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf18
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf1c
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf20
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-glabel var7f1aaf24
-.word weaponCreateProjectileFromGset+0x174 # f08b7cc
-.text
-/*  f089e90:	27bdff60 */ 	addiu	$sp,$sp,-160
-/*  f089e94:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f089e98:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f089e9c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f089ea0:	afa400a0 */ 	sw	$a0,0xa0($sp)
-/*  f089ea4:	afa500a4 */ 	sw	$a1,0xa4($sp)
-/*  f089ea8:	0fc241fe */ 	jal	setupLoadModeldef
-/*  f089eac:	afa600a8 */ 	sw	$a2,0xa8($sp)
-/*  f089eb0:	8fae00a0 */ 	lw	$t6,0xa0($sp)
-/*  f089eb4:	3c188008 */ 	lui	$t8,0x8008
-/*  f089eb8:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f089ebc:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f089ec0:	8f18d8cc */ 	lw	$t8,-0x2734($t8)
-/*  f089ec4:	0fc17d86 */ 	jal	propAllocate
-/*  f089ec8:	afb8009c */ 	sw	$t8,0x9c($sp)
-/*  f089ecc:	00408825 */ 	or	$s1,$v0,$zero
-/*  f089ed0:	0fc2c383 */ 	jal	modelInstantiate
-/*  f089ed4:	8fa4009c */ 	lw	$a0,0x9c($sp)
-/*  f089ed8:	2e240001 */ 	sltiu	$a0,$s1,0x1
-/*  f089edc:	2c450001 */ 	sltiu	$a1,$v0,0x1
-/*  f089ee0:	8fa6009c */ 	lw	$a2,0x9c($sp)
-/*  f089ee4:	0fc221fa */ 	jal	weaponCreate
-/*  f089ee8:	afa20094 */ 	sw	$v0,0x94($sp)
-/*  f089eec:	8fa70094 */ 	lw	$a3,0x94($sp)
-/*  f089ef0:	16200005 */ 	bnez	$s1,.NB0f089f08
-/*  f089ef4:	00408025 */ 	or	$s0,$v0,$zero
-/*  f089ef8:	0fc17d86 */ 	jal	propAllocate
-/*  f089efc:	afa70094 */ 	sw	$a3,0x94($sp)
-/*  f089f00:	8fa70094 */ 	lw	$a3,0x94($sp)
-/*  f089f04:	00408825 */ 	or	$s1,$v0,$zero
-.NB0f089f08:
-/*  f089f08:	14e00004 */ 	bnez	$a3,.NB0f089f1c
-/*  f089f0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f089f10:	0fc2c383 */ 	jal	modelInstantiate
-/*  f089f14:	8fa4009c */ 	lw	$a0,0x9c($sp)
-/*  f089f18:	00403825 */ 	or	$a3,$v0,$zero
-.NB0f089f1c:
-/*  f089f1c:	12000054 */ 	beqz	$s0,.NB0f08a070
-/*  f089f20:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f089f24:	12200052 */ 	beqz	$s1,.NB0f08a070
-/*  f089f28:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f089f2c:	10e00050 */ 	beqz	$a3,.NB0f08a070
-/*  f089f30:	27a20028 */ 	addiu	$v0,$sp,0x28
-/*  f089f34:	3c198007 */ 	lui	$t9,0x8007
-/*  f089f38:	2739d420 */ 	addiu	$t9,$t9,-11232
-/*  f089f3c:	8fa300a4 */ 	lw	$v1,0xa4($sp)
-/*  f089f40:	27290060 */ 	addiu	$t1,$t9,0x60
-/*  f089f44:	00405025 */ 	or	$t2,$v0,$zero
-.NB0f089f48:
-/*  f089f48:	8f210000 */ 	lw	$at,0x0($t9)
-/*  f089f4c:	2739000c */ 	addiu	$t9,$t9,0xc
-/*  f089f50:	254a000c */ 	addiu	$t2,$t2,0xc
-/*  f089f54:	ad41fff4 */ 	sw	$at,-0xc($t2)
-/*  f089f58:	8f21fff8 */ 	lw	$at,-0x8($t9)
-/*  f089f5c:	ad41fff8 */ 	sw	$at,-0x8($t2)
-/*  f089f60:	8f21fffc */ 	lw	$at,-0x4($t9)
-/*  f089f64:	1729fff8 */ 	bne	$t9,$t1,.NB0f089f48
-/*  f089f68:	ad41fffc */ 	sw	$at,-0x4($t2)
-/*  f089f6c:	8f210000 */ 	lw	$at,0x0($t9)
-/*  f089f70:	00406825 */ 	or	$t5,$v0,$zero
-/*  f089f74:	02007025 */ 	or	$t6,$s0,$zero
-/*  f089f78:	ad410000 */ 	sw	$at,0x0($t2)
-/*  f089f7c:	8f290004 */ 	lw	$t1,0x4($t9)
-/*  f089f80:	244c0060 */ 	addiu	$t4,$v0,0x60
-/*  f089f84:	ad490004 */ 	sw	$t1,0x4($t2)
-.NB0f089f88:
-/*  f089f88:	8da10000 */ 	lw	$at,0x0($t5)
-/*  f089f8c:	25ad000c */ 	addiu	$t5,$t5,0xc
-/*  f089f90:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f089f94:	adc1fff4 */ 	sw	$at,-0xc($t6)
-/*  f089f98:	8da1fff8 */ 	lw	$at,-0x8($t5)
-/*  f089f9c:	adc1fff8 */ 	sw	$at,-0x8($t6)
-/*  f089fa0:	8da1fffc */ 	lw	$at,-0x4($t5)
-/*  f089fa4:	15acfff8 */ 	bne	$t5,$t4,.NB0f089f88
-/*  f089fa8:	adc1fffc */ 	sw	$at,-0x4($t6)
-/*  f089fac:	8da10000 */ 	lw	$at,0x0($t5)
-/*  f089fb0:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f089fb4:	8dac0004 */ 	lw	$t4,0x4($t5)
-/*  f089fb8:	adcc0004 */ 	sw	$t4,0x4($t6)
-/*  f089fbc:	906f0000 */ 	lbu	$t7,0x0($v1)
-/*  f089fc0:	a20f005c */ 	sb	$t7,0x5c($s0)
-/*  f089fc4:	90780001 */ 	lbu	$t8,0x1($v1)
-/*  f089fc8:	a218005d */ 	sb	$t8,0x5d($s0)
-/*  f089fcc:	90680002 */ 	lbu	$t0,0x2($v1)
-/*  f089fd0:	a208005e */ 	sb	$t0,0x5e($s0)
-/*  f089fd4:	90690003 */ 	lbu	$t1,0x3($v1)
-/*  f089fd8:	a209005f */ 	sb	$t1,0x5f($s0)
-/*  f089fdc:	90790000 */ 	lbu	$t9,0x0($v1)
-/*  f089fe0:	272affee */ 	addiu	$t2,$t9,-18
-/*  f089fe4:	2d410023 */ 	sltiu	$at,$t2,0x23
-/*  f089fe8:	10200006 */ 	beqz	$at,.NB0f08a004
-/*  f089fec:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f089ff0:	3c017f1a */ 	lui	$at,0x7f1a
-/*  f089ff4:	002a0821 */ 	addu	$at,$at,$t2
-/*  f089ff8:	8c2a51b8 */ 	lw	$t2,0x51b8($at)
-/*  f089ffc:	01400008 */ 	jr	$t2
-/*  f08a000:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f08a004:
-/*  f08a004:	8fab00a0 */ 	lw	$t3,0xa0($sp)
-/*  f08a008:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08a00c:	02203025 */ 	or	$a2,$s1,$zero
-/*  f08a010:	a60b0004 */ 	sh	$t3,0x4($s0)
-/*  f08a014:	0fc22580 */ 	jal	func0f08adc8
-/*  f08a018:	8fa5009c */ 	lw	$a1,0x9c($sp)
-/*  f08a01c:	3c0c800a */ 	lui	$t4,0x800a
-/*  f08a020:	8d8ce9d4 */ 	lw	$t4,-0x162c($t4)
-/*  f08a024:	00408825 */ 	or	$s1,$v0,$zero
-/*  f08a028:	5180000e */ 	beqzl	$t4,.NB0f08a064
-/*  f08a02c:	922a003f */ 	lbu	$t2,0x3f($s1)
-/*  f08a030:	0fc61c7f */ 	jal	mpPlayerGetIndex
-/*  f08a034:	8fa400a8 */ 	lw	$a0,0xa8($sp)
-/*  f08a038:	8e0d0040 */ 	lw	$t5,0x40($s0)
-/*  f08a03c:	3c010fff */ 	lui	$at,0xfff
-/*  f08a040:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f08a044:	01a17024 */ 	and	$t6,$t5,$at
-/*  f08a048:	3c01f000 */ 	lui	$at,0xf000
-/*  f08a04c:	0002c700 */ 	sll	$t8,$v0,0x1c
-/*  f08a050:	03014024 */ 	and	$t0,$t8,$at
-/*  f08a054:	ae0e0040 */ 	sw	$t6,0x40($s0)
-/*  f08a058:	01c84825 */ 	or	$t1,$t6,$t0
-/*  f08a05c:	ae090040 */ 	sw	$t1,0x40($s0)
-/*  f08a060:	922a003f */ 	lbu	$t2,0x3f($s1)
-.NB0f08a064:
-/*  f08a064:	354b0020 */ 	ori	$t3,$t2,0x20
-/*  f08a068:	10000009 */ 	beqz	$zero,.NB0f08a090
-/*  f08a06c:	a22b003f */ 	sb	$t3,0x3f($s1)
-.NB0f08a070:
-/*  f08a070:	10e00003 */ 	beqz	$a3,.NB0f08a080
-/*  f08a074:	00008025 */ 	or	$s0,$zero,$zero
-/*  f08a078:	0fc2c38b */ 	jal	modelFree
-/*  f08a07c:	00e02025 */ 	or	$a0,$a3,$zero
-.NB0f08a080:
-/*  f08a080:	52200004 */ 	beqzl	$s1,.NB0f08a094
-/*  f08a084:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08a088:	0fc17dbe */ 	jal	propFree
-/*  f08a08c:	02202025 */ 	or	$a0,$s1,$zero
-.NB0f08a090:
-/*  f08a090:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.NB0f08a094:
-/*  f08a094:	02001025 */ 	or	$v0,$s0,$zero
-/*  f08a098:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f08a09c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f08a0a0:	03e00008 */ 	jr	$ra
-/*  f08a0a4:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
-);
+		if (weapon) {
+			weapon->base.prop = NULL;
+			weapon->base.model = NULL;
+		}
 #endif
 
-u32 var8006ad24 = 0x01000008;
-u32 var8006ad28 = 0x0000ffff;
-u32 var8006ad2c = 0x00000001;
-u32 var8006ad30 = 0x00000000;
-u32 var8006ad34 = 0x00000000;
-u32 var8006ad38 = 0x00000000;
-u32 var8006ad3c = 0x00000000;
-u32 var8006ad40 = 0x3f800000;
-u32 var8006ad44 = 0x00000000;
-u32 var8006ad48 = 0x00000000;
-u32 var8006ad4c = 0x00000000;
-u32 var8006ad50 = 0x3f800000;
-u32 var8006ad54 = 0x00000000;
-u32 var8006ad58 = 0x00000000;
-u32 var8006ad5c = 0x00000000;
-u32 var8006ad60 = 0x3f800000;
-u32 var8006ad64 = 0x00000000;
-u32 var8006ad68 = 0x00000000;
-u32 var8006ad6c = 0x00000000;
-u32 var8006ad70 = 0x000003e8;
-u32 var8006ad74 = 0xffffff00;
-u32 var8006ad78 = 0xffffff00;
-u32 var8006ad7c = 0x0fff0000;
-u32 var8006ad80 = 0x00000000;
-u32 var8006ad84 = 0x00ffffff;
-u32 var8006ad88 = 0x00000000;
+		weapon = NULL;
+
+		if (model) {
+			modelFree(model);
+		}
+
+		if (prop) {
+			propFree(prop);
+		}
+	}
+
+	return weapon;
+}
 
 struct weaponobj *weaponCreateProjectileFromWeaponNum(s32 modelnum, s32 weaponnum, struct chrdata *chr)
 {
