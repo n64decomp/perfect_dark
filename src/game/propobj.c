@@ -4476,7 +4476,7 @@ void func0f069630(struct prop *prop, u8 *nextcol, u16 floorcol)
 }
 
 /**
- * Shift shadecol to be closer to nextcol.
+ * Shift col to be closer to nextcol.
  *
  * It works by moving halfway towards the nextcol colour each time it's called.
  */
@@ -4491,74 +4491,28 @@ void colourTween(u8 *col, u8 *nextcol)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f069750
-/*  f069750:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f069754:	14a1003c */ 	bne	$a1,$at,.L0f069848
-/*  f069758:	3c01437f */ 	lui	$at,0x437f
-/*  f06975c:	44811000 */ 	mtc1	$at,$f2
-/*  f069760:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*  f069764:	c4c80004 */ 	lwc1	$f8,0x4($a2)
-/*  f069768:	c4d00008 */ 	lwc1	$f16,0x8($a2)
-/*  f06976c:	46022182 */ 	mul.s	$f6,$f4,$f2
-/*  f069770:	00000000 */ 	nop
-/*  f069774:	46024282 */ 	mul.s	$f10,$f8,$f2
-/*  f069778:	00000000 */ 	nop
-/*  f06977c:	46028482 */ 	mul.s	$f18,$f16,$f2
-/*  f069780:	e4c60000 */ 	swc1	$f6,0x0($a2)
-/*  f069784:	c4c80000 */ 	lwc1	$f8,0x0($a2)
-/*  f069788:	c4c6000c */ 	lwc1	$f6,0xc($a2)
-/*  f06978c:	e4ca0004 */ 	swc1	$f10,0x4($a2)
-/*  f069790:	e4d20008 */ 	swc1	$f18,0x8($a2)
-/*  f069794:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*  f069798:	8c990004 */ 	lw	$t9,0x4($a0)
-/*  f06979c:	8c8a0008 */ 	lw	$t2,0x8($a0)
-/*  f0697a0:	448e2000 */ 	mtc1	$t6,$f4
-/*  f0697a4:	8c8d000c */ 	lw	$t5,0xc($a0)
-/*  f0697a8:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f0697ac:	46004281 */ 	sub.s	$f10,$f8,$f0
-/*  f0697b0:	44994000 */ 	mtc1	$t9,$f8
-/*  f0697b4:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f0697b8:	46008480 */ 	add.s	$f18,$f16,$f0
-/*  f0697bc:	46804020 */ 	cvt.s.w	$f0,$f8
-/*  f0697c0:	4600910d */ 	trunc.w.s	$f4,$f18
-/*  f0697c4:	44182000 */ 	mfc1	$t8,$f4
-/*  f0697c8:	00000000 */ 	nop
-/*  f0697cc:	ac980000 */ 	sw	$t8,0x0($a0)
-/*  f0697d0:	c4ca0004 */ 	lwc1	$f10,0x4($a2)
-/*  f0697d4:	c4c6000c */ 	lwc1	$f6,0xc($a2)
-/*  f0697d8:	46005401 */ 	sub.s	$f16,$f10,$f0
-/*  f0697dc:	448a5000 */ 	mtc1	$t2,$f10
-/*  f0697e0:	46103482 */ 	mul.s	$f18,$f6,$f16
-/*  f0697e4:	46009100 */ 	add.s	$f4,$f18,$f0
-/*  f0697e8:	46805020 */ 	cvt.s.w	$f0,$f10
-/*  f0697ec:	4600220d */ 	trunc.w.s	$f8,$f4
-/*  f0697f0:	44094000 */ 	mfc1	$t1,$f8
-/*  f0697f4:	00000000 */ 	nop
-/*  f0697f8:	ac890004 */ 	sw	$t1,0x4($a0)
-/*  f0697fc:	c4d00008 */ 	lwc1	$f16,0x8($a2)
-/*  f069800:	c4c6000c */ 	lwc1	$f6,0xc($a2)
-/*  f069804:	46008481 */ 	sub.s	$f18,$f16,$f0
-/*  f069808:	448d8000 */ 	mtc1	$t5,$f16
-/*  f06980c:	46123102 */ 	mul.s	$f4,$f6,$f18
-/*  f069810:	46002200 */ 	add.s	$f8,$f4,$f0
-/*  f069814:	46808020 */ 	cvt.s.w	$f0,$f16
-/*  f069818:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f06981c:	46001481 */ 	sub.s	$f18,$f2,$f0
-/*  f069820:	440c5000 */ 	mfc1	$t4,$f10
-/*  f069824:	00000000 */ 	nop
-/*  f069828:	ac8c0008 */ 	sw	$t4,0x8($a0)
-/*  f06982c:	c4c6000c */ 	lwc1	$f6,0xc($a2)
-/*  f069830:	46123102 */ 	mul.s	$f4,$f6,$f18
-/*  f069834:	46002200 */ 	add.s	$f8,$f4,$f0
-/*  f069838:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f06983c:	440f5000 */ 	mfc1	$t7,$f10
-/*  f069840:	00000000 */ 	nop
-/*  f069844:	ac8f000c */ 	sw	$t7,0xc($a0)
-.L0f069848:
-/*  f069848:	03e00008 */ 	jr	$ra
-/*  f06984c:	00000000 */ 	nop
-);
+void func0f069750(s32 *arg0, s32 arg1, f32 *arg2)
+{
+	if (arg1 == 1) {
+		f32 tmp;
+
+		arg2[0] *= 255.0f;
+		arg2[1] *= 255.0f;
+		arg2[2] *= 255.0f;
+
+		tmp = arg0[0];
+		arg0[0] = tmp + (arg2[0] - tmp) * arg2[3];
+
+		tmp = arg0[1];
+		arg0[1] = tmp + (arg2[1] - tmp) * arg2[3];
+
+		tmp = arg0[2];
+		arg0[2] = tmp + (arg2[2] - tmp) * arg2[3];
+
+		tmp = arg0[3];
+		arg0[3] = tmp + (255.0f - tmp) * arg2[3];
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f069850
