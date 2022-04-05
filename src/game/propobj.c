@@ -12089,104 +12089,26 @@ void applySpeed(f32 *distdone, f32 maxdist, f32 *speedptr, f32 accel, f32 decel,
 	*speedptr = speed;
 }
 
-GLOBAL_ASM(
-glabel applyRotation
-.late_rodata
-glabel var7f1aa270
-.word 0xc0490fdb
-glabel var7f1aa274
-.word 0x40c907a9
-glabel var7f1aa278
-.word 0x40490fdb
-glabel var7f1aa27c
-.word 0x40c907a9
-glabel var7f1aa280
-.word 0x40c907a9
-.text
-/*  f06db00:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f06db04:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f06db08:	44856000 */ 	mtc1	$a1,$f12
-/*  f06db0c:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f06db10:	3c017f1b */ 	lui	$at,%hi(var7f1aa270)
-/*  f06db14:	c426a270 */ 	lwc1	$f6,%lo(var7f1aa270)($at)
-/*  f06db18:	46046001 */ 	sub.s	$f0,$f12,$f4
-/*  f06db1c:	44877000 */ 	mtc1	$a3,$f14
-/*  f06db20:	3c017f1b */ 	lui	$at,%hi(var7f1aa274)
-/*  f06db24:	c7b00030 */ 	lwc1	$f16,0x30($sp)
-/*  f06db28:	4606003c */ 	c.lt.s	$f0,$f6
-/*  f06db2c:	44077000 */ 	mfc1	$a3,$f14
-/*  f06db30:	45000005 */ 	bc1f	.L0f06db48
-/*  f06db34:	00000000 */ 	nop
-/*  f06db38:	3c017f1b */ 	lui	$at,%hi(var7f1aa278)
-/*  f06db3c:	c428a274 */ 	lwc1	$f8,%lo(var7f1aa274)($at)
-/*  f06db40:	10000009 */ 	b	.L0f06db68
-/*  f06db44:	46086300 */ 	add.s	$f12,$f12,$f8
-.L0f06db48:
-/*  f06db48:	c42aa278 */ 	lwc1	$f10,%lo(var7f1aa278)($at)
-/*  f06db4c:	3c017f1b */ 	lui	$at,%hi(var7f1aa27c)
-/*  f06db50:	4600503e */ 	c.le.s	$f10,$f0
-/*  f06db54:	00000000 */ 	nop
-/*  f06db58:	45020004 */ 	bc1fl	.L0f06db6c
-/*  f06db5c:	c7b20034 */ 	lwc1	$f18,0x34($sp)
-/*  f06db60:	c422a27c */ 	lwc1	$f2,%lo(var7f1aa27c)($at)
-/*  f06db64:	46026301 */ 	sub.s	$f12,$f12,$f2
-.L0f06db68:
-/*  f06db68:	c7b20034 */ 	lwc1	$f18,0x34($sp)
-.L0f06db6c:
-/*  f06db6c:	44056000 */ 	mfc1	$a1,$f12
-/*  f06db70:	e7b00010 */ 	swc1	$f16,0x10($sp)
-/*  f06db74:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f06db78:	0fc1b643 */ 	jal	applySpeed
-/*  f06db7c:	e7b20014 */ 	swc1	$f18,0x14($sp)
-/*  f06db80:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f06db84:	44802000 */ 	mtc1	$zero,$f4
-/*  f06db88:	3c017f1b */ 	lui	$at,%hi(var7f1aa280)
-/*  f06db8c:	c4800000 */ 	lwc1	$f0,0x0($a0)
-/*  f06db90:	c422a280 */ 	lwc1	$f2,%lo(var7f1aa280)($at)
-/*  f06db94:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f06db98:	00000000 */ 	nop
-/*  f06db9c:	45020005 */ 	bc1fl	.L0f06dbb4
-/*  f06dba0:	4600103e */ 	c.le.s	$f2,$f0
-/*  f06dba4:	46020180 */ 	add.s	$f6,$f0,$f2
-/*  f06dba8:	e4860000 */ 	swc1	$f6,0x0($a0)
-/*  f06dbac:	c4800000 */ 	lwc1	$f0,0x0($a0)
-/*  f06dbb0:	4600103e */ 	c.le.s	$f2,$f0
-.L0f06dbb4:
-/*  f06dbb4:	00000000 */ 	nop
-/*  f06dbb8:	45020004 */ 	bc1fl	.L0f06dbcc
-/*  f06dbbc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f06dbc0:	46020201 */ 	sub.s	$f8,$f0,$f2
-/*  f06dbc4:	e4880000 */ 	swc1	$f8,0x0($a0)
-/*  f06dbc8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f06dbcc:
-/*  f06dbcc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f06dbd0:	03e00008 */ 	jr	$ra
-/*  f06dbd4:	00000000 */ 	nop
-);
+void applyRotation(f32 *angle, f32 maxrot, f32 *speed, f32 accel, f32 decel, f32 maxspeed)
+{
+	f32 tmp = maxrot - *angle;
 
-// Mismatch: M_BADTAU + 1 should be just M_BADTAU, but this causes reordering.
-//void applyRotation(f32 *angle, f32 maxrot, f32 *speed, f32 accel, f32 decel, f32 maxspeed)
-//{
-//	f32 tmp = maxrot - *angle;
-//
-//	if (tmp < -M_PI) {
-//		maxrot += M_PI;
-//	} else if (tmp >= M_BADTAU) {
-//		maxrot -= M_BADTAU + 1;
-//	}
-//
-//	if (1);
-//
-//	applySpeed(angle, maxrot, speed, accel, decel, maxspeed);
-//
-//	if (*angle < 0) {
-//		*angle += M_BADTAU;
-//	}
-//
-//	if (*angle >= M_BADTAU) {
-//		*angle -= M_BADTAU;
-//	}
-//}
+	if (tmp < -M_PI) {
+		maxrot += M_BADTAU;
+	} else if (tmp >= M_PI) {
+		maxrot -= M_BADTAU;
+	}
+
+	applySpeed(angle, maxrot, speed, accel, decel, maxspeed);
+
+	if (*angle < 0) {
+		*angle += M_BADTAU;
+	}
+
+	if (*angle >= M_BADTAU) {
+		*angle -= M_BADTAU;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f06dbd8
