@@ -198,179 +198,6 @@ u32 var800699f8 = 0x80740000;
 u32 var800699fc = 0x00000000;
 u32 var80069a00 = 0xc1200000;
 u32 var80069a04 = 0x00000000;
-u32 var80069a08 = 0x00000000;
-u32 var80069a0c = 0x00000001;
-u32 var80069a10 = 0x00000003;
-u32 var80069a14 = 0x00000000;
-u32 var80069a18 = 0x00000000;
-u32 var80069a1c = 0x00000000;
-u32 var80069a20 = 0x00000000;
-u32 var80069a24 = 0x00000000;
-u32 var80069a28 = 0x00000000;
-u32 var80069a2c = 0x00000000;
-u32 var80069a30 = 0x00000000;
-u32 var80069a34 = 0x00000000;
-u32 var80069a38 = 0x00000000;
-u32 var80069a3c = 0x00000000;
-u32 var80069a40 = 0x00000000;
-u32 var80069a44 = 0x00000000;
-struct prop *g_Lifts[MAX_LIFTS] = {NULL};
-u32 var80069a70 = 0x42b40000;
-u32 var80069a74 = 0x3f800000;
-u32 var80069a78 = 0x40000000;
-
-#if PAL
-u32 var80069a7c = 0x3a9d4952;
-u32 var80069a80 = 0x3f99999a;
-u32 var80069a84 = 0x3bcddaca;
-u32 var80069a88 = 0x3bcddaca;
-u32 var80069a8c = 0x3752cb90;
-u32 var80069a90 = 0x39c59ed7;
-u32 var80069a94 = 0x3bcddaca;
-u32 var80069a98 = 0x3bcddaca;
-u32 var80069a9c = 0x3752cb90;
-u32 var80069aa0 = 0x39c59ed7;
-u32 var80069aa4 = 0x42a00000;
-u32 var80069aa8 = 0x3f800000;
-u32 var80069aac = 0x40400000;
-u32 var80069ab0 = 0x3b449ba6;
-u32 var80069ab4 = 0x3df5c290;
-u32 var80069ab8 = 0x3c4ddaca;
-u32 var80069abc = 0x3c9a6417;
-u32 var80069ac0 = 0x37d2cb90;
-u32 var80069ac4 = 0x3a459ed7;
-u32 var80069ac8 = 0x3c4ddaca;
-u32 var80069acc = 0x3c9a6417;
-u32 var80069ad0 = 0x37d2cb90;
-u32 var80069ad4 = 0x3a459ed7;
-u32 var80069ad8 = 0x428c0000;
-u32 var80069adc = 0x40000000;
-u32 var80069ae0 = 0x40800000;
-u32 var80069ae4 = 0x3a9d4952;
-u32 var80069ae8 = 0x3f99999a;
-u32 var80069aec = 0x3bcddaca;
-u32 var80069af0 = 0x3c4ddaca;
-u32 var80069af4 = 0x3752cb90;
-u32 var80069af8 = 0x39c59ed7;
-u32 var80069afc = 0x3bcddaca;
-u32 var80069b00 = 0x3c4ddaca;
-u32 var80069b04 = 0x3752cb90;
-u32 var80069b08 = 0x39c59ed7;
-u32 var80069b0c = 0x432a0000;
-u32 var80069b10 = 0x40000000;
-u32 var80069b14 = 0x40000000;
-u32 var80069b18 = 0x3a9d4952;
-u32 var80069b1c = 0x3f99999a;
-u32 var80069b20 = 0x3b4ddaca;
-u32 var80069b24 = 0x3b4ddaca;
-u32 var80069b28 = 0x36d2cb90;
-u32 var80069b2c = 0x396d2501;
-u32 var80069b30 = 0x3b4ddaca;
-u32 var80069b34 = 0x3b4ddaca;
-u32 var80069b38 = 0x36d2cb90;
-u32 var80069b3c = 0x396d2501;
-u32 var80069b40 = 0x432a0000;
-u32 var80069b44 = 0x40000000;
-u32 var80069b48 = 0x40000000;
-u32 var80069b4c = 0x3a9d4952;
-u32 var80069b50 = 0x3f99999a;
-u32 var80069b54 = 0x3b4ddaca;
-u32 var80069b58 = 0x3b4ddaca;
-u32 var80069b5c = 0x36d2cb90;
-u32 var80069b60 = 0x396d2501;
-u32 var80069b64 = 0x3b4ddaca;
-u32 var80069b68 = 0x3b4ddaca;
-u32 var80069b6c = 0x36d2cb90;
-u32 var80069b70 = 0x396d2501;
-#else
-u32 var80069a7c = 0x3a83126f;
-u32 var80069a80 = 0x3f800000;
-u32 var80069a84 = 0x3bcddaca;
-u32 var80069a88 = 0x3bcddaca;
-u32 var80069a8c = 0x372fa9a2;
-u32 var80069a90 = 0x39a4af08;
-u32 var80069a94 = 0x3bcddaca;
-u32 var80069a98 = 0x3bcddaca;
-u32 var80069a9c = 0x372fa9a2;
-u32 var80069aa0 = 0x39a4af08;
-u32 var80069aa4 = 0x42a00000;
-u32 var80069aa8 = 0x3f800000;
-u32 var80069aac = 0x40400000;
-u32 var80069ab0 = 0x3b23d70a;
-u32 var80069ab4 = 0x3dcccccd;
-u32 var80069ab8 = 0x3c4ddaca;
-u32 var80069abc = 0x3c9a6417;
-u32 var80069ac0 = 0x37afa9a2;
-u32 var80069ac4 = 0x3a24af08;
-u32 var80069ac8 = 0x3c4ddaca;
-u32 var80069acc = 0x3c9a6417;
-u32 var80069ad0 = 0x37afa9a2;
-u32 var80069ad4 = 0x3a24af08;
-u32 var80069ad8 = 0x428c0000;
-u32 var80069adc = 0x40000000;
-u32 var80069ae0 = 0x40800000;
-u32 var80069ae4 = 0x3a83126f;
-u32 var80069ae8 = 0x3f800000;
-u32 var80069aec = 0x3bcddaca;
-u32 var80069af0 = 0x3c4ddaca;
-u32 var80069af4 = 0x372fa9a2;
-u32 var80069af8 = 0x39a4af08;
-u32 var80069afc = 0x3bcddaca;
-u32 var80069b00 = 0x3c4ddaca;
-u32 var80069b04 = 0x372fa9a2;
-u32 var80069b08 = 0x39a4af08;
-u32 var80069b0c = 0x432a0000;
-u32 var80069b10 = 0x40000000;
-u32 var80069b14 = 0x40000000;
-u32 var80069b18 = 0x3a83126f;
-u32 var80069b1c = 0x3f800000;
-u32 var80069b20 = 0x3b4ddaca;
-u32 var80069b24 = 0x3b4ddaca;
-u32 var80069b28 = 0x36afa9a2;
-u32 var80069b2c = 0x39459ed6;
-u32 var80069b30 = 0x3b4ddaca;
-u32 var80069b34 = 0x3b4ddaca;
-u32 var80069b38 = 0x36afa9a2;
-u32 var80069b3c = 0x39459ed6;
-u32 var80069b40 = 0x432a0000;
-u32 var80069b44 = 0x40000000;
-u32 var80069b48 = 0x40000000;
-u32 var80069b4c = 0x3a83126f;
-u32 var80069b50 = 0x3f800000;
-u32 var80069b54 = 0x3b4ddaca;
-u32 var80069b58 = 0x3b4ddaca;
-u32 var80069b5c = 0x36afa9a2;
-u32 var80069b60 = 0x39459ed6;
-u32 var80069b64 = 0x3b4ddaca;
-u32 var80069b68 = 0x3b4ddaca;
-u32 var80069b6c = 0x36afa9a2;
-u32 var80069b70 = 0x39459ed6;
-#endif
-
-u32 var80069b74 = 0x00000000;
-u32 var80069b78 = 0x00000000;
-u32 var80069b7c = 0x00000000;
-u32 var80069b80 = 0x00000000;
-u32 var80069b84 = 0x00000000;
-u32 var80069b88 = 0x00000000;
-u32 var80069b8c = 0x00000000;
-u32 var80069b90 = 0x00000000;
-u32 var80069b94 = 0x00000000;
-u32 var80069b98 = 0x00000000;
-u32 var80069b9c = 0x00000000;
-u32 var80069ba0 = 0x00000000;
-u32 var80069ba4 = 0x00000000;
-u32 var80069ba8 = 0x00000000;
-u32 var80069bac = 0x3f800000;
-u32 var80069bb0 = 0x00000000;
-u32 var80069bb4 = 0x3f800000;
-u32 var80069bb8 = 0x00000000;
-u32 var80069bbc = 0x00270028;
-u32 var80069bc0 = 0x0029002a;
-u32 var80069bc4 = 0x00000000;
-u32 var80069bc8 = 0x00000003;
-u32 var80069bcc = 0x00000014;
-u32 var80069bd0 = 0x00000078;
 
 /**
  * Attempt to call a lift from the given door.
@@ -18111,116 +17938,54 @@ void func0f0706f8(struct prop *prop, bool arg1)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f07079c
-/*  f07079c:	27bdff38 */ 	addiu	$sp,$sp,-200
-/*  f0707a0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0707a4:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0707a8:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0707ac:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0707b0:	8c910004 */ 	lw	$s1,0x4($a0)
-/*  f0707b4:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0707b8:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f0707bc:	8e220040 */ 	lw	$v0,0x40($s1)
-/*  f0707c0:	8e230018 */ 	lw	$v1,0x18($s1)
-/*  f0707c4:	304e0004 */ 	andi	$t6,$v0,0x4
-/*  f0707c8:	51c0000a */ 	beqzl	$t6,.L0f0707f4
-/*  f0707cc:	8c65001c */ 	lw	$a1,0x1c($v1)
-/*  f0707d0:	92260002 */ 	lbu	$a2,0x2($s1)
-/*  f0707d4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0707d8:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0707dc:	30cf0004 */ 	andi	$t7,$a2,0x4
-/*  f0707e0:	0fc1ab4b */ 	jal	objFree
-/*  f0707e4:	01e03025 */ 	or	$a2,$t7,$zero
-/*  f0707e8:	1000004b */ 	b	.L0f070918
-/*  f0707ec:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0707f0:	8c65001c */ 	lw	$a1,0x1c($v1)
-.L0f0707f4:
-/*  f0707f4:	30580040 */ 	andi	$t8,$v0,0x40
-/*  f0707f8:	50a00038 */ 	beqzl	$a1,.L0f0708dc
-/*  f0707fc:	92090001 */ 	lbu	$t1,0x1($s0)
-/*  f070800:	13000035 */ 	beqz	$t8,.L0f0708d8
-/*  f070804:	00003025 */ 	or	$a2,$zero,$zero
-/*  f070808:	8c640018 */ 	lw	$a0,0x18($v1)
-/*  f07080c:	0c006973 */ 	jal	model0001a5cc
-/*  f070810:	afa300c0 */ 	sw	$v1,0xc0($sp)
-/*  f070814:	3c088007 */ 	lui	$t0,%hi(var80069a08)
-/*  f070818:	25089a08 */ 	addiu	$t0,$t0,%lo(var80069a08)
-/*  f07081c:	250b003c */ 	addiu	$t3,$t0,0x3c
-/*  f070820:	27b90074 */ 	addiu	$t9,$sp,0x74
-.L0f070824:
-/*  f070824:	8d010000 */ 	lw	$at,0x0($t0)
-/*  f070828:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f07082c:	2739000c */ 	addiu	$t9,$t9,0xc
-/*  f070830:	af21fff4 */ 	sw	$at,-0xc($t9)
-/*  f070834:	8d01fff8 */ 	lw	$at,-0x8($t0)
-/*  f070838:	af21fff8 */ 	sw	$at,-0x8($t9)
-/*  f07083c:	8d01fffc */ 	lw	$at,-0x4($t0)
-/*  f070840:	150bfff8 */ 	bne	$t0,$t3,.L0f070824
-/*  f070844:	af21fffc */ 	sw	$at,-0x4($t9)
-/*  f070848:	8d010000 */ 	lw	$at,0x0($t0)
-/*  f07084c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f070850:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f070854:	af210000 */ 	sw	$at,0x0($t9)
-/*  f070858:	920c0001 */ 	lbu	$t4,0x1($s0)
-/*  f07085c:	358d0042 */ 	ori	$t5,$t4,0x42
-/*  f070860:	a20d0001 */ 	sb	$t5,0x1($s0)
-/*  f070864:	8e250048 */ 	lw	$a1,0x48($s1)
-/*  f070868:	0c0056f9 */ 	jal	mtx00015be4
-/*  f07086c:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f070870:	8fae00c0 */ 	lw	$t6,0xc0($sp)
-/*  f070874:	8dcf0008 */ 	lw	$t7,0x8($t6)
-/*  f070878:	85e4000e */ 	lh	$a0,0xe($t7)
-/*  f07087c:	0004c180 */ 	sll	$t8,$a0,0x6
-/*  f070880:	0fc59e7d */ 	jal	gfxAllocate
-/*  f070884:	03002025 */ 	or	$a0,$t8,$zero
-/*  f070888:	27aa0030 */ 	addiu	$t2,$sp,0x30
-/*  f07088c:	afa20084 */ 	sw	$v0,0x84($sp)
-/*  f070890:	afaa0074 */ 	sw	$t2,0x74($sp)
-/*  f070894:	27a40074 */ 	addiu	$a0,$sp,0x74
-/*  f070898:	0c007399 */ 	jal	model0001ce64
-/*  f07089c:	8fa500c0 */ 	lw	$a1,0xc0($sp)
-/*  f0708a0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0708a4:	0fc1c18f */ 	jal	func0f07063c
-/*  f0708a8:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0708ac:	8e11001c */ 	lw	$s1,0x1c($s0)
-/*  f0708b0:	52200019 */ 	beqzl	$s1,.L0f070918
-/*  f0708b4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0708b8:
-/*  f0708b8:	8e300020 */ 	lw	$s0,0x20($s1)
-/*  f0708bc:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0708c0:	0fc1c1e7 */ 	jal	func0f07079c
-/*  f0708c4:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0708c8:	1600fffb */ 	bnez	$s0,.L0f0708b8
-/*  f0708cc:	02008825 */ 	or	$s1,$s0,$zero
-/*  f0708d0:	10000011 */ 	b	.L0f070918
-/*  f0708d4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0708d8:
-/*  f0708d8:	92090001 */ 	lbu	$t1,0x1($s0)
-.L0f0708dc:
-/*  f0708dc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0708e0:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0708e4:	312bfffd */ 	andi	$t3,$t1,0xfffd
-/*  f0708e8:	0fc1c18f */ 	jal	func0f07063c
-/*  f0708ec:	a20b0001 */ 	sb	$t3,0x1($s0)
-/*  f0708f0:	8e11001c */ 	lw	$s1,0x1c($s0)
-/*  f0708f4:	52200008 */ 	beqzl	$s1,.L0f070918
-/*  f0708f8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0708fc:
-/*  f0708fc:	8e300020 */ 	lw	$s0,0x20($s1)
-/*  f070900:	02202025 */ 	or	$a0,$s1,$zero
-/*  f070904:	0fc1c1be */ 	jal	func0f0706f8
-/*  f070908:	02402825 */ 	or	$a1,$s2,$zero
-/*  f07090c:	1600fffb */ 	bnez	$s0,.L0f0708fc
-/*  f070910:	02008825 */ 	or	$s1,$s0,$zero
-/*  f070914:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f070918:
-/*  f070918:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f07091c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f070920:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f070924:	03e00008 */ 	jr	$ra
-/*  f070928:	27bd00c8 */ 	addiu	$sp,$sp,0xc8
-);
+void func0f07079c(struct prop *prop, bool fulltick)
+{
+	struct defaultobj *obj = prop->obj;
+	struct model *model = obj->model;
+	struct prop *child;
+	struct prop *next;
+
+	if (obj->hidden & OBJHFLAG_REAPABLE) {
+		objFree(obj, true, obj->hidden2 & OBJH2FLAG_CANREGEN);
+		return;
+	}
+
+	if (model->attachedtonode && (obj->hidden & OBJHFLAG_00000040)) {
+		Mtxf *mtx = model0001a5cc(model->attachedtomodel, model->attachedtonode, 0);
+		struct modelrenderdata renderdata = {NULL, true, 3};
+		u32 stack;
+		Mtxf sp30;
+
+		prop->flags |= PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK;
+		mtx00015be4(mtx, &obj->monitorthing->matrix, &sp30);
+
+		renderdata.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
+		renderdata.unk00 = &sp30;
+
+		model0001ce64(&renderdata, model);
+		func0f07063c(prop, fulltick);
+
+		child = prop->child;
+
+		while (child) {
+			next = child->next;
+			func0f07079c(child, fulltick);
+			child = next;
+		}
+	} else {
+		prop->flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
+
+		func0f07063c(prop, fulltick);
+
+		child = prop->child;
+
+		while (child) {
+			next = child->next;
+			func0f0706f8(child, fulltick);
+			child = next;
+		}
+	}
+}
 
 s32 glassCalculateOpacity(struct coord *pos, f32 xludist, f32 opadist, f32 arg3)
 {
@@ -18243,6 +18008,163 @@ s32 glassCalculateOpacity(struct coord *pos, f32 xludist, f32 opadist, f32 arg3)
 	return opacity;
 }
 
+struct prop *g_Lifts[MAX_LIFTS] = {NULL};
+u32 var80069a70 = 0x42b40000;
+u32 var80069a74 = 0x3f800000;
+u32 var80069a78 = 0x40000000;
+
+#if PAL
+u32 var80069a7c = 0x3a9d4952;
+u32 var80069a80 = 0x3f99999a;
+u32 var80069a84 = 0x3bcddaca;
+u32 var80069a88 = 0x3bcddaca;
+u32 var80069a8c = 0x3752cb90;
+u32 var80069a90 = 0x39c59ed7;
+u32 var80069a94 = 0x3bcddaca;
+u32 var80069a98 = 0x3bcddaca;
+u32 var80069a9c = 0x3752cb90;
+u32 var80069aa0 = 0x39c59ed7;
+u32 var80069aa4 = 0x42a00000;
+u32 var80069aa8 = 0x3f800000;
+u32 var80069aac = 0x40400000;
+u32 var80069ab0 = 0x3b449ba6;
+u32 var80069ab4 = 0x3df5c290;
+u32 var80069ab8 = 0x3c4ddaca;
+u32 var80069abc = 0x3c9a6417;
+u32 var80069ac0 = 0x37d2cb90;
+u32 var80069ac4 = 0x3a459ed7;
+u32 var80069ac8 = 0x3c4ddaca;
+u32 var80069acc = 0x3c9a6417;
+u32 var80069ad0 = 0x37d2cb90;
+u32 var80069ad4 = 0x3a459ed7;
+u32 var80069ad8 = 0x428c0000;
+u32 var80069adc = 0x40000000;
+u32 var80069ae0 = 0x40800000;
+u32 var80069ae4 = 0x3a9d4952;
+u32 var80069ae8 = 0x3f99999a;
+u32 var80069aec = 0x3bcddaca;
+u32 var80069af0 = 0x3c4ddaca;
+u32 var80069af4 = 0x3752cb90;
+u32 var80069af8 = 0x39c59ed7;
+u32 var80069afc = 0x3bcddaca;
+u32 var80069b00 = 0x3c4ddaca;
+u32 var80069b04 = 0x3752cb90;
+u32 var80069b08 = 0x39c59ed7;
+u32 var80069b0c = 0x432a0000;
+u32 var80069b10 = 0x40000000;
+u32 var80069b14 = 0x40000000;
+u32 var80069b18 = 0x3a9d4952;
+u32 var80069b1c = 0x3f99999a;
+u32 var80069b20 = 0x3b4ddaca;
+u32 var80069b24 = 0x3b4ddaca;
+u32 var80069b28 = 0x36d2cb90;
+u32 var80069b2c = 0x396d2501;
+u32 var80069b30 = 0x3b4ddaca;
+u32 var80069b34 = 0x3b4ddaca;
+u32 var80069b38 = 0x36d2cb90;
+u32 var80069b3c = 0x396d2501;
+u32 var80069b40 = 0x432a0000;
+u32 var80069b44 = 0x40000000;
+u32 var80069b48 = 0x40000000;
+u32 var80069b4c = 0x3a9d4952;
+u32 var80069b50 = 0x3f99999a;
+u32 var80069b54 = 0x3b4ddaca;
+u32 var80069b58 = 0x3b4ddaca;
+u32 var80069b5c = 0x36d2cb90;
+u32 var80069b60 = 0x396d2501;
+u32 var80069b64 = 0x3b4ddaca;
+u32 var80069b68 = 0x3b4ddaca;
+u32 var80069b6c = 0x36d2cb90;
+u32 var80069b70 = 0x396d2501;
+#else
+u32 var80069a7c = 0x3a83126f;
+u32 var80069a80 = 0x3f800000;
+u32 var80069a84 = 0x3bcddaca;
+u32 var80069a88 = 0x3bcddaca;
+u32 var80069a8c = 0x372fa9a2;
+u32 var80069a90 = 0x39a4af08;
+u32 var80069a94 = 0x3bcddaca;
+u32 var80069a98 = 0x3bcddaca;
+u32 var80069a9c = 0x372fa9a2;
+u32 var80069aa0 = 0x39a4af08;
+u32 var80069aa4 = 0x42a00000;
+u32 var80069aa8 = 0x3f800000;
+u32 var80069aac = 0x40400000;
+u32 var80069ab0 = 0x3b23d70a;
+u32 var80069ab4 = 0x3dcccccd;
+u32 var80069ab8 = 0x3c4ddaca;
+u32 var80069abc = 0x3c9a6417;
+u32 var80069ac0 = 0x37afa9a2;
+u32 var80069ac4 = 0x3a24af08;
+u32 var80069ac8 = 0x3c4ddaca;
+u32 var80069acc = 0x3c9a6417;
+u32 var80069ad0 = 0x37afa9a2;
+u32 var80069ad4 = 0x3a24af08;
+u32 var80069ad8 = 0x428c0000;
+u32 var80069adc = 0x40000000;
+u32 var80069ae0 = 0x40800000;
+u32 var80069ae4 = 0x3a83126f;
+u32 var80069ae8 = 0x3f800000;
+u32 var80069aec = 0x3bcddaca;
+u32 var80069af0 = 0x3c4ddaca;
+u32 var80069af4 = 0x372fa9a2;
+u32 var80069af8 = 0x39a4af08;
+u32 var80069afc = 0x3bcddaca;
+u32 var80069b00 = 0x3c4ddaca;
+u32 var80069b04 = 0x372fa9a2;
+u32 var80069b08 = 0x39a4af08;
+u32 var80069b0c = 0x432a0000;
+u32 var80069b10 = 0x40000000;
+u32 var80069b14 = 0x40000000;
+u32 var80069b18 = 0x3a83126f;
+u32 var80069b1c = 0x3f800000;
+u32 var80069b20 = 0x3b4ddaca;
+u32 var80069b24 = 0x3b4ddaca;
+u32 var80069b28 = 0x36afa9a2;
+u32 var80069b2c = 0x39459ed6;
+u32 var80069b30 = 0x3b4ddaca;
+u32 var80069b34 = 0x3b4ddaca;
+u32 var80069b38 = 0x36afa9a2;
+u32 var80069b3c = 0x39459ed6;
+u32 var80069b40 = 0x432a0000;
+u32 var80069b44 = 0x40000000;
+u32 var80069b48 = 0x40000000;
+u32 var80069b4c = 0x3a83126f;
+u32 var80069b50 = 0x3f800000;
+u32 var80069b54 = 0x3b4ddaca;
+u32 var80069b58 = 0x3b4ddaca;
+u32 var80069b5c = 0x36afa9a2;
+u32 var80069b60 = 0x39459ed6;
+u32 var80069b64 = 0x3b4ddaca;
+u32 var80069b68 = 0x3b4ddaca;
+u32 var80069b6c = 0x36afa9a2;
+u32 var80069b70 = 0x39459ed6;
+#endif
+
+u32 var80069b74 = 0x00000000;
+u32 var80069b78 = 0x00000000;
+u32 var80069b7c = 0x00000000;
+u32 var80069b80 = 0x00000000;
+u32 var80069b84 = 0x00000000;
+u32 var80069b88 = 0x00000000;
+u32 var80069b8c = 0x00000000;
+u32 var80069b90 = 0x00000000;
+u32 var80069b94 = 0x00000000;
+u32 var80069b98 = 0x00000000;
+u32 var80069b9c = 0x00000000;
+u32 var80069ba0 = 0x00000000;
+u32 var80069ba4 = 0x00000000;
+u32 var80069ba8 = 0x00000000;
+u32 var80069bac = 0x3f800000;
+u32 var80069bb0 = 0x00000000;
+u32 var80069bb4 = 0x3f800000;
+u32 var80069bb8 = 0x00000000;
+u32 var80069bbc = 0x00270028;
+u32 var80069bc0 = 0x0029002a;
+u32 var80069bc4 = 0x00000000;
+u32 var80069bc8 = 0x00000003;
+u32 var80069bcc = 0x00000014;
+u32 var80069bd0 = 0x00000078;
 GLOBAL_ASM(
 glabel func0f070a1c
 /*  f070a1c:	c4ae0000 */ 	lwc1	$f14,0x0($a1)
