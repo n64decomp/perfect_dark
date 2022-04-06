@@ -1358,100 +1358,37 @@ glabel func0f0675c8
 /*  f0677a8:	27bd0098 */ 	addiu	$sp,$sp,0x98
 );
 
-GLOBAL_ASM(
-glabel func0f0677ac
-/*  f0677ac:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f0677b0:	c4c60000 */ 	lwc1	$f6,0x0($a2)
-/*  f0677b4:	c4880004 */ 	lwc1	$f8,0x4($a0)
-/*  f0677b8:	c4ca0004 */ 	lwc1	$f10,0x4($a2)
-/*  f0677bc:	8fae0014 */ 	lw	$t6,0x14($sp)
-/*  f0677c0:	46062081 */ 	sub.s	$f2,$f4,$f6
-/*  f0677c4:	c4c40008 */ 	lwc1	$f4,0x8($a2)
-/*  f0677c8:	c5c60000 */ 	lwc1	$f6,0x0($t6)
-/*  f0677cc:	460a4301 */ 	sub.s	$f12,$f8,$f10
-/*  f0677d0:	c4920008 */ 	lwc1	$f18,0x8($a0)
-/*  f0677d4:	46061202 */ 	mul.s	$f8,$f2,$f6
-/*  f0677d8:	c5ca0004 */ 	lwc1	$f10,0x4($t6)
-/*  f0677dc:	46049381 */ 	sub.s	$f14,$f18,$f4
-/*  f0677e0:	c5c60008 */ 	lwc1	$f6,0x8($t6)
-/*  f0677e4:	460a6482 */ 	mul.s	$f18,$f12,$f10
-/*  f0677e8:	c4b00008 */ 	lwc1	$f16,0x8($a1)
-/*  f0677ec:	460e3282 */ 	mul.s	$f10,$f6,$f14
-/*  f0677f0:	c7a60028 */ 	lwc1	$f6,0x28($sp)
-/*  f0677f4:	46124100 */ 	add.s	$f4,$f8,$f18
-/*  f0677f8:	c7a8002c */ 	lwc1	$f8,0x2c($sp)
-/*  f0677fc:	46045000 */ 	add.s	$f0,$f10,$f4
-/*  f067800:	46088480 */ 	add.s	$f18,$f16,$f8
-/*  f067804:	4600903c */ 	c.lt.s	$f18,$f0
-/*  f067808:	00000000 */ 	nop
-/*  f06780c:	45010007 */ 	bc1t	.L0f06782c
-/*  f067810:	00000000 */ 	nop
-/*  f067814:	46103281 */ 	sub.s	$f10,$f6,$f16
-/*  f067818:	8fa20010 */ 	lw	$v0,0x10($sp)
-/*  f06781c:	460a003c */ 	c.lt.s	$f0,$f10
-/*  f067820:	00000000 */ 	nop
-/*  f067824:	45020004 */ 	bc1fl	.L0f067838
-/*  f067828:	c4440000 */ 	lwc1	$f4,0x0($v0)
-.L0f06782c:
-/*  f06782c:	03e00008 */ 	jr	$ra
-/*  f067830:	00001025 */ 	or	$v0,$zero,$zero
-/*  f067834:	c4440000 */ 	lwc1	$f4,0x0($v0)
-.L0f067838:
-/*  f067838:	c4520004 */ 	lwc1	$f18,0x4($v0)
-/*  f06783c:	c4b00004 */ 	lwc1	$f16,0x4($a1)
-/*  f067840:	46041202 */ 	mul.s	$f8,$f2,$f4
-/*  f067844:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f067848:	46126182 */ 	mul.s	$f6,$f12,$f18
-/*  f06784c:	46064280 */ 	add.s	$f10,$f8,$f6
-/*  f067850:	460e2482 */ 	mul.s	$f18,$f4,$f14
-/*  f067854:	c7a80024 */ 	lwc1	$f8,0x24($sp)
-/*  f067858:	c7a40020 */ 	lwc1	$f4,0x20($sp)
-/*  f06785c:	46088180 */ 	add.s	$f6,$f16,$f8
-/*  f067860:	460a9000 */ 	add.s	$f0,$f18,$f10
-/*  f067864:	4600303c */ 	c.lt.s	$f6,$f0
-/*  f067868:	00000000 */ 	nop
-/*  f06786c:	45010006 */ 	bc1t	.L0f067888
-/*  f067870:	00000000 */ 	nop
-/*  f067874:	46102481 */ 	sub.s	$f18,$f4,$f16
-/*  f067878:	4612003c */ 	c.lt.s	$f0,$f18
-/*  f06787c:	00000000 */ 	nop
-/*  f067880:	45020004 */ 	bc1fl	.L0f067894
-/*  f067884:	c4ea0000 */ 	lwc1	$f10,0x0($a3)
-.L0f067888:
-/*  f067888:	03e00008 */ 	jr	$ra
-/*  f06788c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f067890:	c4ea0000 */ 	lwc1	$f10,0x0($a3)
-.L0f067894:
-/*  f067894:	c4e60004 */ 	lwc1	$f6,0x4($a3)
-/*  f067898:	c4b00000 */ 	lwc1	$f16,0x0($a1)
-/*  f06789c:	460a1202 */ 	mul.s	$f8,$f2,$f10
-/*  f0678a0:	c4ea0008 */ 	lwc1	$f10,0x8($a3)
-/*  f0678a4:	46066102 */ 	mul.s	$f4,$f12,$f6
-/*  f0678a8:	46044480 */ 	add.s	$f18,$f8,$f4
-/*  f0678ac:	460e5182 */ 	mul.s	$f6,$f10,$f14
-/*  f0678b0:	c7a8001c */ 	lwc1	$f8,0x1c($sp)
-/*  f0678b4:	c7aa0018 */ 	lwc1	$f10,0x18($sp)
-/*  f0678b8:	46088100 */ 	add.s	$f4,$f16,$f8
-/*  f0678bc:	46123000 */ 	add.s	$f0,$f6,$f18
-/*  f0678c0:	4600203c */ 	c.lt.s	$f4,$f0
-/*  f0678c4:	00000000 */ 	nop
-/*  f0678c8:	45010007 */ 	bc1t	.L0f0678e8
-/*  f0678cc:	00000000 */ 	nop
-/*  f0678d0:	46105181 */ 	sub.s	$f6,$f10,$f16
-/*  f0678d4:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0678d8:	4606003c */ 	c.lt.s	$f0,$f6
-/*  f0678dc:	00000000 */ 	nop
-/*  f0678e0:	45000003 */ 	bc1f	.L0f0678f0
-/*  f0678e4:	00000000 */ 	nop
-.L0f0678e8:
-/*  f0678e8:	03e00008 */ 	jr	$ra
-/*  f0678ec:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0678f0:
-/*  f0678f0:	03e00008 */ 	jr	$ra
-/*  f0678f4:	00000000 */ 	nop
-);
+bool func0f0677ac(struct coord *coord, struct coord *arg1, struct coord *pos,
+		struct coord *normal, struct coord *up, struct coord *look,
+		f32 xmin, f32 xmax, f32 ymin, f32 ymax, f32 zmin, f32 zmax)
+{
+	f32 xdiff = coord->x - pos->x;
+	f32 ydiff = coord->y - pos->y;
+	f32 zdiff = coord->z - pos->z;
+	f32 f0;
 
-bool func0f0678f8(struct coord *coord, f32 *arg1, s32 padnum)
+	f0 = xdiff * look->f[0] + ydiff * look->f[1] + zdiff * look->f[2];
+
+	if (f0 > arg1->z + zmax || f0 < zmin - arg1->z) {
+		return false;
+	}
+
+	f0 = xdiff * up->f[0] + ydiff * up->f[1] + zdiff * up->f[2];
+
+	if (f0 > arg1->y + ymax || f0 < ymin - arg1->y) {
+		return false;
+	}
+
+	f0 = xdiff * normal->f[0] + ydiff * normal->f[1] + zdiff * normal->f[2];
+
+	if (f0 > arg1->x + xmax || f0 < xmin - arg1->x) {
+		return false;
+	}
+
+	return true;
+}
+
+bool func0f0678f8(struct coord *coord, struct coord *arg1, s32 padnum)
 {
 	struct pad pad;
 
@@ -1463,13 +1400,13 @@ bool func0f0678f8(struct coord *coord, f32 *arg1, s32 padnum)
 
 bool func0f06797c(struct coord *coord, f32 arg1, s32 padnum)
 {
-	f32 sp1c[3];
+	struct coord sp1c;
 
-	sp1c[0] = arg1;
-	sp1c[1] = arg1;
-	sp1c[2] = arg1;
+	sp1c.x = arg1;
+	sp1c.y = arg1;
+	sp1c.z = arg1;
 
-	return func0f0678f8(coord, sp1c, padnum);
+	return func0f0678f8(coord, &sp1c, padnum);
 }
 
 GLOBAL_ASM(
@@ -78162,7 +78099,7 @@ bool doorIsUnlocked(struct prop *playerprop, struct prop *doorprop)
 
 bool doorIsPosInRange(struct doorobj *door, struct coord *pos, f32 distance, bool isbike)
 {
-	f32 range[3];
+	struct coord range;
 
 	if ((door->doorflags & DOORFLAG_LONGRANGE) || isbike) {
 		distance += 400;
@@ -78170,14 +78107,14 @@ bool doorIsPosInRange(struct doorobj *door, struct coord *pos, f32 distance, boo
 		distance += 200;
 	}
 
-	range[0] = distance;
-	range[1] = 0;
-	range[2] = 0;
+	range.x = distance;
+	range.y = 0;
+	range.z = 0;
 
 	if (door->doortype == DOORTYPE_VERTICAL
 			|| door->doortype == DOORTYPE_SLIDING
 			|| door->doortype == DOORTYPE_SWINGING) {
-		if (func0f0678f8(pos, range, door->base.pad)) {
+		if (func0f0678f8(pos, &range, door->base.pad)) {
 			return true;
 		}
 	}
