@@ -12732,7 +12732,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 						}
 
 						if (weapon->base.projectile->flags & PROJECTILEFLAG_00000080) {
-							func0f073ae8(weapon, weapon->base.projectile, &sp6c, &sp60);
+							func0f073ae8(&weapon->base, weapon->base.projectile, &sp6c, &sp60);
 						}
 					} else {
 						failed = true;
@@ -12808,7 +12808,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 					}
 
 					if (weapon->base.projectile->flags & PROJECTILEFLAG_00000080) {
-						func0f073ae8(weapon, weapon->base.projectile, &sp6c, &sp60);
+						func0f073ae8(&weapon->base, weapon->base.projectile, &sp6c, &sp60);
 					}
 				}
 #endif
