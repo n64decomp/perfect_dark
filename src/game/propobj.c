@@ -1873,107 +1873,52 @@ bool modelSetRedBox(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *a
 	return func0f067dc4(model, arg1, arg2, arg3, arg4);
 }
 
-GLOBAL_ASM(
-glabel func0f06803c
-/*  f06803c:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f068040:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f068044:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f068048:	00808025 */ 	or	$s0,$a0,$zero
-/*  f06804c:	f7b60020 */ 	sdc1	$f22,0x20($sp)
-/*  f068050:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*  f068054:	afa5005c */ 	sw	$a1,0x5c($sp)
-/*  f068058:	afa60060 */ 	sw	$a2,0x60($sp)
-/*  f06805c:	0c002f72 */ 	jal	viGetAspect
-/*  f068060:	afa70064 */ 	sw	$a3,0x64($sp)
-/*  f068064:	0c002f9d */ 	jal	viGetFovY
-/*  f068068:	46000586 */ 	mov.s	$f22,$f0
-/*  f06806c:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f068070:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f068074:	46000506 */ 	mov.s	$f20,$f0
-/*  f068078:	8faa005c */ 	lw	$t2,0x5c($sp)
-/*  f06807c:	8c4f1c54 */ 	lw	$t7,0x1c54($v0)
-/*  f068080:	8c4e00c4 */ 	lw	$t6,0xc4($v0)
-/*  f068084:	01e0c027 */ 	nor	$t8,$t7,$zero
-/*  f068088:	01d8c824 */ 	and	$t9,$t6,$t8
-/*  f06808c:	33280004 */ 	andi	$t0,$t9,0x4
-/*  f068090:	5100000b */ 	beqzl	$t0,.L0f0680c0
-/*  f068094:	c5440000 */ 	lwc1	$f4,0x0($t2)
-/*  f068098:	8c430480 */ 	lw	$v1,0x480($v0)
-/*  f06809c:	50600008 */ 	beqzl	$v1,.L0f0680c0
-/*  f0680a0:	c5440000 */ 	lwc1	$f4,0x0($t2)
-/*  f0680a4:	80690037 */ 	lb	$t1,0x37($v1)
-/*  f0680a8:	3c0142f0 */ 	lui	$at,0x42f0
-/*  f0680ac:	51200004 */ 	beqzl	$t1,.L0f0680c0
-/*  f0680b0:	c5440000 */ 	lwc1	$f4,0x0($t2)
-/*  f0680b4:	4481a000 */ 	mtc1	$at,$f20
-/*  f0680b8:	00000000 */ 	nop
-/*  f0680bc:	c5440000 */ 	lwc1	$f4,0x0($t2)
-.L0f0680c0:
-/*  f0680c0:	4406a000 */ 	mfc1	$a2,$f20
-/*  f0680c4:	4407b000 */ 	mfc1	$a3,$f22
-/*  f0680c8:	e7a4004c */ 	swc1	$f4,0x4c($sp)
-/*  f0680cc:	c6060004 */ 	lwc1	$f6,0x4($s0)
-/*  f0680d0:	27a4004c */ 	addiu	$a0,$sp,0x4c
-/*  f0680d4:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f0680d8:	e7a60050 */ 	swc1	$f6,0x50($sp)
-/*  f0680dc:	c6080008 */ 	lwc1	$f8,0x8($s0)
-/*  f0680e0:	0fc2d3ae */ 	jal	cam0f0b4eb8
-/*  f0680e4:	e7a80054 */ 	swc1	$f8,0x54($sp)
-/*  f0680e8:	c7aa0044 */ 	lwc1	$f10,0x44($sp)
-/*  f0680ec:	8fab0064 */ 	lw	$t3,0x64($sp)
-/*  f0680f0:	4406a000 */ 	mfc1	$a2,$f20
-/*  f0680f4:	4407b000 */ 	mfc1	$a3,$f22
-/*  f0680f8:	e56a0000 */ 	swc1	$f10,0x0($t3)
-/*  f0680fc:	8fac005c */ 	lw	$t4,0x5c($sp)
-/*  f068100:	27a4004c */ 	addiu	$a0,$sp,0x4c
-/*  f068104:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f068108:	c5900004 */ 	lwc1	$f16,0x4($t4)
-/*  f06810c:	e7b0004c */ 	swc1	$f16,0x4c($sp)
-/*  f068110:	c6120004 */ 	lwc1	$f18,0x4($s0)
-/*  f068114:	e7b20050 */ 	swc1	$f18,0x50($sp)
-/*  f068118:	c6040008 */ 	lwc1	$f4,0x8($s0)
-/*  f06811c:	0fc2d3ae */ 	jal	cam0f0b4eb8
-/*  f068120:	e7a40054 */ 	swc1	$f4,0x54($sp)
-/*  f068124:	c7a60044 */ 	lwc1	$f6,0x44($sp)
-/*  f068128:	8fad0068 */ 	lw	$t5,0x68($sp)
-/*  f06812c:	4406a000 */ 	mfc1	$a2,$f20
-/*  f068130:	4407b000 */ 	mfc1	$a3,$f22
-/*  f068134:	e5a60000 */ 	swc1	$f6,0x0($t5)
-/*  f068138:	c6080000 */ 	lwc1	$f8,0x0($s0)
-/*  f06813c:	8faf0060 */ 	lw	$t7,0x60($sp)
-/*  f068140:	27a4004c */ 	addiu	$a0,$sp,0x4c
-/*  f068144:	e7a8004c */ 	swc1	$f8,0x4c($sp)
-/*  f068148:	c5ea0004 */ 	lwc1	$f10,0x4($t7)
-/*  f06814c:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f068150:	e7aa0050 */ 	swc1	$f10,0x50($sp)
-/*  f068154:	c6100008 */ 	lwc1	$f16,0x8($s0)
-/*  f068158:	0fc2d3ae */ 	jal	cam0f0b4eb8
-/*  f06815c:	e7b00054 */ 	swc1	$f16,0x54($sp)
-/*  f068160:	c7b20048 */ 	lwc1	$f18,0x48($sp)
-/*  f068164:	8fae0064 */ 	lw	$t6,0x64($sp)
-/*  f068168:	4406a000 */ 	mfc1	$a2,$f20
-/*  f06816c:	4407b000 */ 	mfc1	$a3,$f22
-/*  f068170:	e5d20004 */ 	swc1	$f18,0x4($t6)
-/*  f068174:	c6040000 */ 	lwc1	$f4,0x0($s0)
-/*  f068178:	8fb80060 */ 	lw	$t8,0x60($sp)
-/*  f06817c:	27a4004c */ 	addiu	$a0,$sp,0x4c
-/*  f068180:	e7a4004c */ 	swc1	$f4,0x4c($sp)
-/*  f068184:	c7060000 */ 	lwc1	$f6,0x0($t8)
-/*  f068188:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f06818c:	e7a60050 */ 	swc1	$f6,0x50($sp)
-/*  f068190:	c6080008 */ 	lwc1	$f8,0x8($s0)
-/*  f068194:	0fc2d3ae */ 	jal	cam0f0b4eb8
-/*  f068198:	e7a80054 */ 	swc1	$f8,0x54($sp)
-/*  f06819c:	c7aa0048 */ 	lwc1	$f10,0x48($sp)
-/*  f0681a0:	8fb90068 */ 	lw	$t9,0x68($sp)
-/*  f0681a4:	e72a0004 */ 	swc1	$f10,0x4($t9)
-/*  f0681a8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0681ac:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f0681b0:	d7b60020 */ 	ldc1	$f22,0x20($sp)
-/*  f0681b4:	d7b40018 */ 	ldc1	$f20,0x18($sp)
-/*  f0681b8:	03e00008 */ 	jr	$ra
-/*  f0681bc:	27bd0058 */ 	addiu	$sp,$sp,0x58
-);
+void func0f06803c(struct coord *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4)
+{
+	struct coord sp4c;
+	f32 sp44[2];
+
+	f32 aspect = viGetAspect();
+	f32 fovy = viGetFovY();
+
+	if (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_EYESPY) {
+		if (g_Vars.currentplayer->eyespy && g_Vars.currentplayer->eyespy->active) {
+			fovy = 120.0f;
+		}
+	}
+
+	sp4c.x = arg1[0];
+	sp4c.y = arg0->y;
+	sp4c.z = arg0->z;
+
+	cam0f0b4eb8(&sp4c, sp44, fovy, aspect);
+
+	arg3[0] = sp44[0];
+
+	sp4c.x = arg1[1];
+	sp4c.y = arg0->y;
+	sp4c.z = arg0->z;
+
+	cam0f0b4eb8(&sp4c, sp44, fovy, aspect);
+
+	arg4[0] = sp44[0];
+
+	sp4c.x = arg0->x;
+	sp4c.y = arg2[1];
+	sp4c.z = arg0->z;
+
+	cam0f0b4eb8(&sp4c, sp44, fovy, aspect);
+
+	arg3[1] = sp44[1];
+
+	sp4c.x = arg0->x;
+	sp4c.y = arg2[0];
+	sp4c.z = arg0->z;
+
+	cam0f0b4eb8(&sp4c, sp44, fovy, aspect);
+
+	arg4[1] = sp44[1];
+}
 
 struct defaultobj *objFindByPadNum(s32 padnum)
 {
