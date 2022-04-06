@@ -67737,86 +67737,19 @@ s8 var8006abbc = 0;
 //}
 #endif
 
-GLOBAL_ASM(
-glabel func0f082e84
-.late_rodata
-glabel var7f1aa8d4
-.word 0x3e4ccccd
-glabel var7f1aa8d8
-.word 0x3e4ccccd
-glabel var7f1aa8dc
-.word 0x38d1b717
-.text
-/*  f082e84:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f082e88:	3c0e8007 */ 	lui	$t6,%hi(var8006abc0)
-/*  f082e8c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f082e90:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f082e94:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f082e98:	afa7004c */ 	sw	$a3,0x4c($sp)
-/*  f082e9c:	25ceabc0 */ 	addiu	$t6,$t6,%lo(var8006abc0)
-/*  f082ea0:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f082ea4:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f082ea8:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f082eac:	aca10000 */ 	sw	$at,0x0($a1)
-/*  f082eb0:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f082eb4:	acb90004 */ 	sw	$t9,0x4($a1)
-/*  f082eb8:	8dc10008 */ 	lw	$at,0x8($t6)
-/*  f082ebc:	aca10008 */ 	sw	$at,0x8($a1)
-/*  f082ec0:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*  f082ec4:	8fa80048 */ 	lw	$t0,0x48($sp)
-/*  f082ec8:	8faa0044 */ 	lw	$t2,0x44($sp)
-/*  f082ecc:	c5240008 */ 	lwc1	$f4,0x8($t1)
-/*  f082ed0:	c50c0008 */ 	lwc1	$f12,0x8($t0)
-/*  f082ed4:	c5280000 */ 	lwc1	$f8,0x0($t1)
-/*  f082ed8:	c5020000 */ 	lwc1	$f2,0x0($t0)
-/*  f082edc:	46046182 */ 	mul.s	$f6,$f12,$f4
-/*  f082ee0:	8c820014 */ 	lw	$v0,0x14($a0)
-/*  f082ee4:	c5440000 */ 	lwc1	$f4,0x0($t2)
-/*  f082ee8:	46024282 */ 	mul.s	$f10,$f8,$f2
-/*  f082eec:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*  f082ef0:	3c017f1b */ 	lui	$at,%hi(var7f1aa8d4)
-/*  f082ef4:	8fab0050 */ 	lw	$t3,0x50($sp)
-/*  f082ef8:	46082381 */ 	sub.s	$f14,$f4,$f8
-/*  f082efc:	460a3000 */ 	add.s	$f0,$f6,$f10
-/*  f082f00:	c5460008 */ 	lwc1	$f6,0x8($t2)
-/*  f082f04:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f082f08:	46007207 */ 	neg.s	$f8,$f14
-/*  f082f0c:	460a3401 */ 	sub.s	$f16,$f6,$f10
-/*  f082f10:	46101102 */ 	mul.s	$f4,$f2,$f16
-/*  f082f14:	00000000 */ 	nop
-/*  f082f18:	460c4182 */ 	mul.s	$f6,$f8,$f12
-/*  f082f1c:	c428a8d4 */ 	lwc1	$f8,%lo(var7f1aa8d4)($at)
-/*  f082f20:	3c017f1b */ 	lui	$at,%hi(var7f1aa8d8)
-/*  f082f24:	46020282 */ 	mul.s	$f10,$f0,$f2
-/*  f082f28:	46062480 */ 	add.s	$f18,$f4,$f6
-/*  f082f2c:	c7a60034 */ 	lwc1	$f6,0x34($sp)
-/*  f082f30:	46085102 */ 	mul.s	$f4,$f10,$f8
-/*  f082f34:	46043280 */ 	add.s	$f10,$f6,$f4
-/*  f082f38:	c424a8d8 */ 	lwc1	$f4,%lo(var7f1aa8d8)($at)
-/*  f082f3c:	3c017f1b */ 	lui	$at,%hi(var7f1aa8dc)
-/*  f082f40:	e7aa0034 */ 	swc1	$f10,0x34($sp)
-/*  f082f44:	c5080008 */ 	lwc1	$f8,0x8($t0)
-/*  f082f48:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f082f4c:	46080182 */ 	mul.s	$f6,$f0,$f8
-/*  f082f50:	c7a8003c */ 	lwc1	$f8,0x3c($sp)
-/*  f082f54:	46043282 */ 	mul.s	$f10,$f6,$f4
-/*  f082f58:	460a4180 */ 	add.s	$f6,$f8,$f10
-/*  f082f5c:	46120102 */ 	mul.s	$f4,$f0,$f18
-/*  f082f60:	c428a8dc */ 	lwc1	$f8,%lo(var7f1aa8dc)($at)
-/*  f082f64:	e7a6003c */ 	swc1	$f6,0x3c($sp)
-/*  f082f68:	46082282 */ 	mul.s	$f10,$f4,$f8
-/*  f082f6c:	44065000 */ 	mfc1	$a2,$f10
-/*  f082f70:	0fc20a87 */ 	jal	func0f082a1c
-/*  f082f74:	00000000 */ 	nop
-/*  f082f78:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f082f7c:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f082f80:	03e00008 */ 	jr	$ra
-/*  f082f84:	00000000 */ 	nop
-);
+void func0f082e84(struct defaultobj *obj, struct coord *pos, struct coord *dir, struct coord *tween, bool arg4)
+{
+	struct coord sp34 = {0, 0, 0};
+	f32 a = tween->f[0] * dir->f[0] + tween->f[2] * dir->f[2];
+	f32 b = pos->f[0] - obj->prop->pos.f[0];
+	f32 c = pos->f[2] - obj->prop->pos.f[2];
+	f32 d = -b * dir->f[2] + c * dir->f[0];
 
-u32 var8006abc0 = 0x00000000;
-u32 var8006abc4 = 0x00000000;
-u32 var8006abc8 = 0x00000000;
+	sp34.f[0] += a * dir->f[0] * 0.2f;
+	sp34.f[2] += a * dir->f[2] * 0.2f;
+
+	func0f082a1c(obj, &sp34, a * d * 0.0001f, true, arg4);
+}
 
 void objDetach(struct prop *prop)
 {

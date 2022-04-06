@@ -217,7 +217,7 @@ u32 func0f0826cc(void);
 void objSetDropped(struct prop *prop, u32 droptype);
 void func0f082a1c(struct defaultobj *obj, struct coord *coord, f32 rotate, bool arg3, bool arg4);
 void piracyRestore(void);
-void func0f082e84(struct defaultobj *obj, struct coord *arg1, struct coord *arg2, struct coord *arg3, bool arg4);
+void func0f082e84(struct defaultobj *obj, struct coord *pos, struct coord *dir, struct coord *tween, bool arg4);
 void objDetach(struct prop *prop);
 bool objDrop(struct prop *prop, bool lazy);
 u32 func0f083db0(void);
