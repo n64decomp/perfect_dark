@@ -7023,37 +7023,37 @@ void func0f065e74(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newr
 	func0f065dfc(pos, rooms, newpos, newrooms, NULL, 0);
 }
 
-void func0f065e98(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2)
+void func0f065e98(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *dstrooms)
 {
-	s16 sp6c[21];
-	s16 sp40[21];
+	s16 inrooms[21];
+	s16 aboverooms[21];
 	s16 *ptr = NULL;
 	s32 i;
 
-	func0f162194(pos2, sp6c, sp40, 20, NULL);
+	bgFindRoomsByPos(pos2, inrooms, aboverooms, 20, NULL);
 
-	if (sp6c[0] != -1) {
-		ptr = sp6c;
-	} else if (sp40[0] != -1) {
-		ptr = sp40;
+	if (inrooms[0] != -1) {
+		ptr = inrooms;
+	} else if (aboverooms[0] != -1) {
+		ptr = aboverooms;
 	}
 
 	if (ptr) {
 		s32 room = cd0002a400(pos2, ptr);
 
 		if (room > 0) {
-			rooms2[0] = room;
-			rooms2[1] = -1;
+			dstrooms[0] = room;
+			dstrooms[1] = -1;
 		} else {
-			rooms2[0] = *ptr;
-			rooms2[1] = -1;
+			dstrooms[0] = *ptr;
+			dstrooms[1] = -1;
 		}
 	} else {
 		for (i = 0; rooms[i] != -1; i++) {
-			rooms2[i] = rooms[i];
+			dstrooms[i] = rooms[i];
 		}
 
-		rooms2[i] = -1;
+		dstrooms[i] = -1;
 	}
 }
 

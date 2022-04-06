@@ -33,8 +33,8 @@ void setupPreparePads(void)
 	struct pad pad;
 	struct waypoint *waypoint;
 	struct waygroup *waygroup;
-	s16 sp90[24];
-	s16 sp64[22];
+	s16 inrooms[24];
+	s16 aboverooms[22];
 	s32 offset;
 
 	g_PadsFile = (struct padsfileheader *)g_StageSetup.padfiledata;
@@ -50,12 +50,12 @@ void setupPreparePads(void)
 		// If room is negative (ie. not specified)
 		if (packedpad->room < 0) {
 			roomsptr = NULL;
-			func0f162194(&pad.pos, sp90, sp64, 20, 0);
+			bgFindRoomsByPos(&pad.pos, inrooms, aboverooms, 20, NULL);
 
-			if (sp90[0] != -1) {
-				roomsptr = sp90;
-			} else if (sp64[0] != -1) {
-				roomsptr = sp64;
+			if (inrooms[0] != -1) {
+				roomsptr = inrooms;
+			} else if (aboverooms[0] != -1) {
+				roomsptr = aboverooms;
 			}
 
 			if (roomsptr != NULL) {

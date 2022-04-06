@@ -3916,7 +3916,7 @@ void playerTick(bool arg0)
 		playerExecutePreparedWarp();
 	} else if (g_Vars.currentplayer->visionmode == (u32)VISIONMODE_SLAYERROCKET) {
 		// Controlling a Slayer rocket
-		struct coord sp2fc = {0, 0, 0};
+		struct coord rocketpos = {0, 0, 0};
 		struct coord sp2f0 = {0, 0, 1};
 		struct coord sp2e4 = {0, 1, 0};
 
@@ -3935,10 +3935,10 @@ void playerTick(bool arg0)
 					rocket->base.realrot[0][0] * rocket->base.realrot[0][0] +
 					rocket->base.realrot[1][0] * rocket->base.realrot[1][0] +
 					rocket->base.realrot[2][0] * rocket->base.realrot[2][0]);
-			s16 rooms[21];
-			bool outofbounds = false;
-			s16 sp250[20];
-			s16 sp24e;
+			s16 inrooms[21];
+			s16 aboverooms[21];
+			s16 bestroom;
+			s16 outofbounds = false;
 
 			sp2b8[0][0] = rocket->base.realrot[0][0] / sp2a8;
 			sp2b8[0][1] = rocket->base.realrot[0][1] / sp2a8;
@@ -3950,13 +3950,13 @@ void playerTick(bool arg0)
 			sp2b8[2][1] = rocket->base.realrot[2][1] / sp2a8;
 			sp2b8[2][2] = rocket->base.realrot[2][2] / sp2a8;
 
-			sp2fc.x = rocket->base.prop->pos.x;
-			sp2fc.y = rocket->base.prop->pos.y;
-			sp2fc.z = rocket->base.prop->pos.z;
+			rocketpos.x = rocket->base.prop->pos.x;
+			rocketpos.y = rocket->base.prop->pos.y;
+			rocketpos.z = rocket->base.prop->pos.z;
 
-			func0f162194(&sp2fc, rooms, sp250, 20, &sp24e);
+			bgFindRoomsByPos(&rocketpos, inrooms, aboverooms, 20, &bestroom);
 
-			if (rooms[0] == -1) {
+			if (inrooms[0] == -1) {
 				outofbounds = true;
 			}
 
@@ -4188,9 +4188,9 @@ void playerTick(bool arg0)
 		g_Vars.currentplayer->waitforzrelease = true;
 
 		if (rocket && rocket->base.prop) {
-			player0f0c1840(&sp2fc, &sp2e4, &sp2f0, &rocket->base.prop->pos, rocket->base.prop->rooms);
+			player0f0c1840(&rocketpos, &sp2e4, &sp2f0, &rocket->base.prop->pos, rocket->base.prop->rooms);
 		} else {
-			player0f0c1840(&sp2fc, &sp2e4, &sp2f0, NULL, NULL);
+			player0f0c1840(&rocketpos, &sp2e4, &sp2f0, NULL, NULL);
 		}
 	} else if (g_Vars.tickmode == TICKMODE_NORMAL) {
 		// Normal movement
@@ -5713,13 +5713,13 @@ void playerSetCameraMode(s32 mode)
 void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struct coord *pos2, s16 *rooms2)
 {
 	bool done = false;
-	s32 room;
-	s16 sp90[20];
-	s16 tmp;
-	s16 sp64[20];
+	s16 inrooms[21];
+	s16 aboverooms[21];
 	s16 sp54[8];
-	s16 sp52;
+	s16 bestroom;
+	s16 tmp;
 	s32 i;
+	s32 room;
 
 	if (rooms2 != NULL && *rooms2 != -1) {
 		func00018148(pos2, pos, rooms2, sp54, NULL, 0);
@@ -5781,27 +5781,27 @@ void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, str
 	}
 
 	if (!done) {
-		func0f162194(pos, sp90, sp64, 20, &sp52);
+		bgFindRoomsByPos(pos, inrooms, aboverooms, 20, &bestroom);
 
-		if (sp90[0] != -1) {
-			tmp = room = cd0002a400(pos, sp90);
+		if (inrooms[0] != -1) {
+			tmp = room = cd0002a400(pos, inrooms);
 
 			if (room > 0) {
 				playerSetCamPropertiesWithRoom(pos, up, look, tmp);
 			} else {
-				playerSetCamPropertiesWithRoom(pos, up, look, sp90[0]);
+				playerSetCamPropertiesWithRoom(pos, up, look, inrooms[0]);
 			}
-		} else if (sp64[0] != -1) {
-			tmp = room = cd0002a400(pos, sp64);
+		} else if (aboverooms[0] != -1) {
+			tmp = room = cd0002a400(pos, aboverooms);
 
 			if (room > 0) {
 				playerSetCamPropertiesWithoutRoom(pos, up, look, tmp);
 			} else {
-				playerSetCamPropertiesWithoutRoom(pos, up, look, sp64[0]);
+				playerSetCamPropertiesWithoutRoom(pos, up, look, aboverooms[0]);
 			}
 		} else {
-			if (sp52 != -1) {
-				playerSetCamPropertiesWithoutRoom(pos, up, look, sp52);
+			if (bestroom != -1) {
+				playerSetCamPropertiesWithoutRoom(pos, up, look, bestroom);
 			} else {
 				playerSetCamPropertiesWithoutRoom(pos, up, look, 1);
 			}

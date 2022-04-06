@@ -30,8 +30,8 @@ void setupPrepareCover(void)
 	struct coord aimpos;
 	struct cover cover;
 	u16 specialcovernums[1024];
-	s16 rooms1[21];
-	s16 rooms2[21];
+	s16 inrooms[21];
+	s16 aboverooms[21];
 
 	g_CoverFlags = mempAlloc(ALIGN16(numcovers * sizeof(u16)), MEMPOOL_STAGE);
 	g_CoverRooms = mempAlloc(ALIGN16(numcovers * sizeof(s32)), MEMPOOL_STAGE);
@@ -65,12 +65,12 @@ void setupPrepareCover(void)
 				}
 
 				// Find room
-				func0f162194(cover.pos, rooms1, rooms2, 20, NULL);
+				bgFindRoomsByPos(cover.pos, inrooms, aboverooms, 20, NULL);
 
-				if (rooms1[0] != -1) {
-					roomsptr = rooms1;
-				} else if (rooms2[0] != -1) {
-					roomsptr = rooms2;
+				if (inrooms[0] != -1) {
+					roomsptr = inrooms;
+				} else if (aboverooms[0] != -1) {
+					roomsptr = aboverooms;
 				}
 
 				g_CoverRooms[i] = -1;
@@ -93,12 +93,12 @@ void setupPrepareCover(void)
 					aimpos.y = cover.pos->y;
 					aimpos.z = cover.pos->z + cover.look->f[2] * 600;
 
-					func0f162194(&aimpos, rooms1, rooms2, 20, NULL);
+					bgFindRoomsByPos(&aimpos, inrooms, aboverooms, 20, NULL);
 
-					if (rooms1[0] != -1) {
-						roomsptr = rooms1;
-					} else if (rooms2[0] != -1) {
-						roomsptr = rooms2;
+					if (inrooms[0] != -1) {
+						roomsptr = inrooms;
+					} else if (aboverooms[0] != -1) {
+						roomsptr = aboverooms;
 					}
 
 					if (roomsptr) {

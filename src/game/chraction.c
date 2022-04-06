@@ -7235,8 +7235,8 @@ bool chrGoToProp(struct chrdata *chr, struct prop *prop, s32 speed)
 
 bool func0f03abd0(struct chrdata *chr, struct coord *pos, u32 flags)
 {
-	s16 roomlist1[21];
-	s16 roomlist2[21];
+	s16 inrooms[21];
+	s16 aboverooms[21];
 
 	if (chrIsReadyForOrders(chr)) {
 #if VERSION >= VERSION_NTSC_1_0
@@ -7249,12 +7249,12 @@ bool func0f03abd0(struct chrdata *chr, struct coord *pos, u32 flags)
 		{
 			s16 *rooms = NULL;
 
-			func0f162194(pos, roomlist1, roomlist2, 20, NULL);
+			bgFindRoomsByPos(pos, inrooms, aboverooms, 20, NULL);
 
-			if (roomlist1[0] != -1) {
-				rooms = roomlist1;
-			} else if (roomlist2[0] != -1) {
-				rooms = roomlist2;
+			if (inrooms[0] != -1) {
+				rooms = inrooms;
+			} else if (aboverooms[0] != -1) {
+				rooms = aboverooms;
 			}
 
 			if (rooms != NULL && chrGoToPos(chr, pos, rooms, flags)) {

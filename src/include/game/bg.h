@@ -76,7 +76,7 @@ bool roomContainsCoord(struct coord *pos, s16 roomnum);
 bool func0f161c08(struct coord *arg0, s16 roomnum);
 bool func0f161d30(struct coord *arg0, s16 roomnum);
 bool func0f162128(struct coord *arg0, s16 roomnum);
-void func0f162194(struct coord *pos, s16 *rooms1, s16 *rooms2, s32 len, s16 *arg4);
+void bgFindRoomsByPos(struct coord *pos, s16 *inrooms, s16 *aboverooms, s32 max, s16 *bestroom);
 bool portalPushValue(bool value);
 bool portalPopValue(void);
 bool portalGetNthValueFromEnd(s32 offset);
