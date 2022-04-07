@@ -6103,7 +6103,7 @@ struct var8007e3d0_data {
 	s16 unk0e;
 };
 
-struct var8007e3d0 {
+struct vtxstoretype {
 	s32 valifsp;
 	s32 numifsp;
 	s32 valifmp;

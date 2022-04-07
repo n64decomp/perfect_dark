@@ -33,7 +33,7 @@ const char var7f1b54c0[] = "vtxstore: Out of vertices type %d wanted %d free %d 
 const char var7f1b5508[] = "vtxstore: freevertices type %d, list %x\n";
 const char var7f1b5534[] = "freevertices: address not found in array %x\n";
 
-struct var8007e3d0 var8007e3d0[] = {
+struct vtxstoretype g_VtxstoreTypes[] = {
 	{ 3000, 120, 3000, 80, 0, 0, 500,  20, 12, 0, 0, 0, 0 },
 	{ 1500, 40,  500,  20, 0, 0, 500,  20, 12, 0, 0, 0, 0 },
 	{ 6000, 120, 6000, 80, 0, 0, 1000, 20, 4,  0, 0, 0, 0 },
@@ -101,26 +101,26 @@ void vtxstoreTick(void)
 	s32 i;
 	s32 j;
 
-	if (var8007e3d0[1].val2 < var8007e3d0[1].val1 >> 2) {
-		for (i = 0; i < var8007e3d0[1].numallocated - 1; i++) {
-			if (var8007e3d0[1].unk24[i].unk0e > 0) {
-				for (j = i + 1; j < var8007e3d0[1].numallocated; j++) {
-					if (var8007e3d0[1].unk24[j].unk0e > 0
-							&& var8007e3d0[1].unk24[i].unk04 == var8007e3d0[1].unk24[j].unk04
-							&& var8007e3d0[1].unk24[i].unk08 == var8007e3d0[1].unk24[j].unk08) {
-						s32 size = ALIGN16(var8007e3d0[1].unk24[j].unk0c * 0x0c);
-						vtxstoreFixRefs(var8007e3d0[1].unk24[j].unk00, var8007e3d0[1].unk24[i].unk00);
-						var8007e3d0[1].unk24[i].unk0e += var8007e3d0[1].unk24[j].unk0e;
-						memaFree(var8007e3d0[1].unk24[j].unk00, size);
-						var8007e3d0[1].unk24[j].unk0e = 0;
-						var8007e3d0[1].val2 += var8007e3d0[1].unk24[j].unk0c;
+	if (g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].val2 < g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].val1 >> 2) {
+		for (i = 0; i < g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].numallocated - 1; i++) {
+			if (g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[i].unk0e > 0) {
+				for (j = i + 1; j < g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].numallocated; j++) {
+					if (g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk0e > 0
+							&& g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[i].unk04 == g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk04
+							&& g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[i].unk08 == g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk08) {
+						s32 size = ALIGN16(g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk0c * 0x0c);
+						vtxstoreFixRefs(g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk00, g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[i].unk00);
+						g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[i].unk0e += g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk0e;
+						memaFree(g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk00, size);
+						g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk0e = 0;
+						g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].val2 += g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk0c;
 					}
 				}
 			}
 		}
 	}
 
-	if (var8007e3d0[1].val2 < var8007e3d0[1].val1 >> 2) {
+	if (g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].val2 < g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].val1 >> 2) {
 		func0f091030();
 	}
 }
@@ -140,27 +140,27 @@ void *vtxstoreAllocate(s32 count, s32 index, s32 arg2, s32 arg3)
 	}
 #endif
 
-	if (count <= var8007e3d0[index].val2) {
-		for (i = 0; i < var8007e3d0[index].numallocated; i++) {
-			if (var8007e3d0[index].unk24[i].unk0e == 0) {
+	if (count <= g_VtxstoreTypes[index].val2) {
+		for (i = 0; i < g_VtxstoreTypes[index].numallocated; i++) {
+			if (g_VtxstoreTypes[index].unk24[i].unk0e == 0) {
 				size = ALIGN16(count * 0xc);
-				var8007e3d0[index].unk24[i].unk00 = memaAlloc(size);
+				g_VtxstoreTypes[index].unk24[i].unk00 = memaAlloc(size);
 
 #if VERSION < VERSION_NTSC_1_0
-				if (!var8007e3d0[index].unk24[i].unk00) {
+				if (!g_VtxstoreTypes[index].unk24[i].unk00) {
 					bgGarbageCollectRooms(size, false);
-					var8007e3d0[index].unk24[i].unk00 = memaAlloc(size);
+					g_VtxstoreTypes[index].unk24[i].unk00 = memaAlloc(size);
 				}
 #endif
 
-				if (var8007e3d0[index].unk24[i].unk00) {
-					var8007e3d0[index].unk24[i].unk0c = count;
-					var8007e3d0[index].unk24[i].unk0e = 1;
-					var8007e3d0[index].unk24[i].unk04 = arg2;
-					var8007e3d0[index].unk24[i].unk08 = arg3;
-					var8007e3d0[index].val2 -= count;
+				if (g_VtxstoreTypes[index].unk24[i].unk00) {
+					g_VtxstoreTypes[index].unk24[i].unk0c = count;
+					g_VtxstoreTypes[index].unk24[i].unk0e = 1;
+					g_VtxstoreTypes[index].unk24[i].unk04 = arg2;
+					g_VtxstoreTypes[index].unk24[i].unk08 = arg3;
+					g_VtxstoreTypes[index].val2 -= count;
 
-					return var8007e3d0[index].unk24[i].unk00;
+					return g_VtxstoreTypes[index].unk24[i].unk00;
 				}
 
 				return NULL;
@@ -212,21 +212,21 @@ void *vtxstoreAllocate(s32 count, s32 index, s32 arg2, s32 arg3)
 	return NULL;
 }
 
-void vtxstoreFree(s32 arg0, void *arg1)
+void vtxstoreFree(s32 type, void *arg1)
 {
 	s32 i;
 
-	for (i = 0; i < var8007e3d0[arg0].numallocated; i++) {
-		if (var8007e3d0[arg0].unk24[i].unk0e > 0 && arg1 == var8007e3d0[arg0].unk24[i].unk00) {
-			var8007e3d0[arg0].unk24[i].unk0e--;
+	for (i = 0; i < g_VtxstoreTypes[type].numallocated; i++) {
+		if (g_VtxstoreTypes[type].unk24[i].unk0e > 0 && arg1 == g_VtxstoreTypes[type].unk24[i].unk00) {
+			g_VtxstoreTypes[type].unk24[i].unk0e--;
 
-			if (var8007e3d0[arg0].unk24[i].unk0e) {
+			if (g_VtxstoreTypes[type].unk24[i].unk0e) {
 				return;
 			}
 
-			memaFree(var8007e3d0[arg0].unk24[i].unk00, ALIGN16(var8007e3d0[arg0].unk24[i].unk0c * 0xc));
+			memaFree(g_VtxstoreTypes[type].unk24[i].unk00, ALIGN16(g_VtxstoreTypes[type].unk24[i].unk0c * 0xc));
 
-			var8007e3d0[arg0].val2 += var8007e3d0[arg0].unk24[i].unk0c;
+			g_VtxstoreTypes[type].val2 += g_VtxstoreTypes[type].unk24[i].unk0c;
 			return;
 		}
 	}

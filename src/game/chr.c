@@ -1432,7 +1432,7 @@ void chrRemove(struct prop *prop, bool delete)
 	func0f14159c(prop);
 	func0f0926bc(prop, 1, 0xffff);
 	shieldhitsRemoveByProp(prop);
-	func0f089a94(0, model);
+	func0f089a94(VTXSTORETYPE_CHRVTX, model);
 	propDeregisterRooms(prop);
 
 	if (g_Vars.stagenum == STAGE_CITRAINING) {

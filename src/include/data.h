@@ -416,7 +416,7 @@ extern u32 var8007dbd0;
 extern struct coord g_TeleportToPos;
 extern struct coord g_TeleportToUp;
 extern struct coord g_TeleportToLook;
-extern struct var8007e3d0 var8007e3d0[];
+extern struct vtxstoretype g_VtxstoreTypes[];
 extern s32 g_ExplosionShakeTotalTimer;
 extern s32 g_ExplosionShakeIntensityTimer;
 extern f32 g_ExplosionDamageReceivedScale;
