@@ -1393,176 +1393,80 @@ void func0f067d88(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg
 	func0f067bc4(model, arg3, arg4, 1);
 }
 
-GLOBAL_ASM(
-glabel func0f067dc4
-/*  f067dc4:	27bdff70 */ 	addiu	$sp,$sp,-144
-/*  f067dc8:	afb70038 */ 	sw	$s7,0x38($sp)
-/*  f067dcc:	afb60034 */ 	sw	$s6,0x34($sp)
-/*  f067dd0:	afb50030 */ 	sw	$s5,0x30($sp)
-/*  f067dd4:	afb30028 */ 	sw	$s3,0x28($sp)
-/*  f067dd8:	00c0a825 */ 	or	$s5,$a2,$zero
-/*  f067ddc:	00a0b025 */ 	or	$s6,$a1,$zero
-/*  f067de0:	00e0b825 */ 	or	$s7,$a3,$zero
-/*  f067de4:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f067de8:	afb4002c */ 	sw	$s4,0x2c($sp)
-/*  f067dec:	afb20024 */ 	sw	$s2,0x24($sp)
-/*  f067df0:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f067df4:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f067df8:	afa40090 */ 	sw	$a0,0x90($sp)
-/*  f067dfc:	10800076 */ 	beqz	$a0,.L0f067fd8
-/*  f067e00:	24130001 */ 	addiu	$s3,$zero,0x1
-/*  f067e04:	8c820008 */ 	lw	$v0,0x8($a0)
-/*  f067e08:	10400073 */ 	beqz	$v0,.L0f067fd8
-/*  f067e0c:	00000000 */ 	nop
-/*  f067e10:	8c500000 */ 	lw	$s0,0x0($v0)
-/*  f067e14:	8fb400a0 */ 	lw	$s4,0xa0($sp)
-/*  f067e18:	1200006f */ 	beqz	$s0,.L0f067fd8
-/*  f067e1c:	00000000 */ 	nop
-/*  f067e20:	96020000 */ 	lhu	$v0,0x0($s0)
-.L0f067e24:
-/*  f067e24:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f067e28:	8fa40090 */ 	lw	$a0,0x90($sp)
-/*  f067e2c:	304f00ff */ 	andi	$t7,$v0,0xff
-/*  f067e30:	15e10058 */ 	bne	$t7,$at,.L0f067f94
-/*  f067e34:	02002825 */ 	or	$a1,$s0,$zero
-/*  f067e38:	8e120004 */ 	lw	$s2,0x4($s0)
-/*  f067e3c:	0c006973 */ 	jal	model0001a5cc
-/*  f067e40:	00003025 */ 	or	$a2,$zero,$zero
-/*  f067e44:	c4440038 */ 	lwc1	$f4,0x38($v0)
-/*  f067e48:	44803000 */ 	mtc1	$zero,$f6
-/*  f067e4c:	00408825 */ 	or	$s1,$v0,$zero
-/*  f067e50:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f067e54:	00000000 */ 	nop
-/*  f067e58:	4500004c */ 	bc1f	.L0f067f8c
-/*  f067e5c:	00000000 */ 	nop
-/*  f067e60:	c4480030 */ 	lwc1	$f8,0x30($v0)
-/*  f067e64:	02402025 */ 	or	$a0,$s2,$zero
-/*  f067e68:	00402825 */ 	or	$a1,$v0,$zero
-/*  f067e6c:	e7a80050 */ 	swc1	$f8,0x50($sp)
-/*  f067e70:	c44a0034 */ 	lwc1	$f10,0x34($v0)
-/*  f067e74:	e7aa0054 */ 	swc1	$f10,0x54($sp)
-/*  f067e78:	c4500038 */ 	lwc1	$f16,0x38($v0)
-/*  f067e7c:	0fc199f7 */ 	jal	func0f0667dc
-/*  f067e80:	e7b00058 */ 	swc1	$f16,0x58($sp)
-/*  f067e84:	c7b20050 */ 	lwc1	$f18,0x50($sp)
-/*  f067e88:	02402025 */ 	or	$a0,$s2,$zero
-/*  f067e8c:	02202825 */ 	or	$a1,$s1,$zero
-/*  f067e90:	46009100 */ 	add.s	$f4,$f18,$f0
-/*  f067e94:	0fc19a03 */ 	jal	func0f06680c
-/*  f067e98:	e7a40064 */ 	swc1	$f4,0x64($sp)
-/*  f067e9c:	c7a60050 */ 	lwc1	$f6,0x50($sp)
-/*  f067ea0:	02402025 */ 	or	$a0,$s2,$zero
-/*  f067ea4:	02202825 */ 	or	$a1,$s1,$zero
-/*  f067ea8:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f067eac:	0fc19a0f */ 	jal	func0f06683c
-/*  f067eb0:	e7a80068 */ 	swc1	$f8,0x68($sp)
-/*  f067eb4:	c7aa0054 */ 	lwc1	$f10,0x54($sp)
-/*  f067eb8:	02402025 */ 	or	$a0,$s2,$zero
-/*  f067ebc:	02202825 */ 	or	$a1,$s1,$zero
-/*  f067ec0:	46005400 */ 	add.s	$f16,$f10,$f0
-/*  f067ec4:	0fc19a1b */ 	jal	func0f06686c
-/*  f067ec8:	e7b0005c */ 	swc1	$f16,0x5c($sp)
-/*  f067ecc:	c7b20054 */ 	lwc1	$f18,0x54($sp)
-/*  f067ed0:	27b8006c */ 	addiu	$t8,$sp,0x6c
-/*  f067ed4:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f067ed8:	46009100 */ 	add.s	$f4,$f18,$f0
-/*  f067edc:	27a40050 */ 	addiu	$a0,$sp,0x50
-/*  f067ee0:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f067ee4:	27a6005c */ 	addiu	$a2,$sp,0x5c
-/*  f067ee8:	e7a40060 */ 	swc1	$f4,0x60($sp)
-/*  f067eec:	0fc1a00f */ 	jal	func0f06803c
-/*  f067ef0:	27a70074 */ 	addiu	$a3,$sp,0x74
-/*  f067ef4:	16600007 */ 	bnez	$s3,.L0f067f14
-/*  f067ef8:	0013102b */ 	sltu	$v0,$zero,$s3
-/*  f067efc:	c7a60074 */ 	lwc1	$f6,0x74($sp)
-/*  f067f00:	c6a80000 */ 	lwc1	$f8,0x0($s5)
-/*  f067f04:	4608303c */ 	c.lt.s	$f6,$f8
-/*  f067f08:	00000000 */ 	nop
-/*  f067f0c:	45000003 */ 	bc1f	.L0f067f1c
-/*  f067f10:	00000000 */ 	nop
-.L0f067f14:
-/*  f067f14:	c7aa0074 */ 	lwc1	$f10,0x74($sp)
-/*  f067f18:	e6aa0000 */ 	swc1	$f10,0x0($s5)
-.L0f067f1c:
-/*  f067f1c:	16600006 */ 	bnez	$s3,.L0f067f38
-/*  f067f20:	c7b2006c */ 	lwc1	$f18,0x6c($sp)
-/*  f067f24:	c6d00000 */ 	lwc1	$f16,0x0($s6)
-/*  f067f28:	4612803c */ 	c.lt.s	$f16,$f18
-/*  f067f2c:	00000000 */ 	nop
-/*  f067f30:	45000003 */ 	bc1f	.L0f067f40
-/*  f067f34:	00000000 */ 	nop
-.L0f067f38:
-/*  f067f38:	c7a4006c */ 	lwc1	$f4,0x6c($sp)
-/*  f067f3c:	e6c40000 */ 	swc1	$f4,0x0($s6)
-.L0f067f40:
-/*  f067f40:	16600006 */ 	bnez	$s3,.L0f067f5c
-/*  f067f44:	c7a60078 */ 	lwc1	$f6,0x78($sp)
-/*  f067f48:	c6880000 */ 	lwc1	$f8,0x0($s4)
-/*  f067f4c:	4608303c */ 	c.lt.s	$f6,$f8
-/*  f067f50:	00000000 */ 	nop
-/*  f067f54:	45000003 */ 	bc1f	.L0f067f64
-/*  f067f58:	00000000 */ 	nop
-.L0f067f5c:
-/*  f067f5c:	c7aa0078 */ 	lwc1	$f10,0x78($sp)
-/*  f067f60:	e68a0000 */ 	swc1	$f10,0x0($s4)
-.L0f067f64:
-/*  f067f64:	14400007 */ 	bnez	$v0,.L0f067f84
-/*  f067f68:	00009825 */ 	or	$s3,$zero,$zero
-/*  f067f6c:	c6f00000 */ 	lwc1	$f16,0x0($s7)
-/*  f067f70:	c7b20070 */ 	lwc1	$f18,0x70($sp)
-/*  f067f74:	4612803c */ 	c.lt.s	$f16,$f18
-/*  f067f78:	00000000 */ 	nop
-/*  f067f7c:	45000003 */ 	bc1f	.L0f067f8c
-/*  f067f80:	00000000 */ 	nop
-.L0f067f84:
-/*  f067f84:	c7a40070 */ 	lwc1	$f4,0x70($sp)
-/*  f067f88:	e6e40000 */ 	swc1	$f4,0x0($s7)
-.L0f067f8c:
-/*  f067f8c:	10000002 */ 	b	.L0f067f98
-/*  f067f90:	8e020014 */ 	lw	$v0,0x14($s0)
-.L0f067f94:
-/*  f067f94:	8e020014 */ 	lw	$v0,0x14($s0)
-.L0f067f98:
-/*  f067f98:	10400003 */ 	beqz	$v0,.L0f067fa8
-/*  f067f9c:	00000000 */ 	nop
-/*  f067fa0:	1000000b */ 	b	.L0f067fd0
-/*  f067fa4:	00408025 */ 	or	$s0,$v0,$zero
-.L0f067fa8:
-/*  f067fa8:	12000009 */ 	beqz	$s0,.L0f067fd0
-/*  f067fac:	00000000 */ 	nop
-/*  f067fb0:	8e02000c */ 	lw	$v0,0xc($s0)
-.L0f067fb4:
-/*  f067fb4:	50400004 */ 	beqzl	$v0,.L0f067fc8
-/*  f067fb8:	8e100008 */ 	lw	$s0,0x8($s0)
-/*  f067fbc:	10000004 */ 	b	.L0f067fd0
-/*  f067fc0:	00408025 */ 	or	$s0,$v0,$zero
-/*  f067fc4:	8e100008 */ 	lw	$s0,0x8($s0)
-.L0f067fc8:
-/*  f067fc8:	5600fffa */ 	bnezl	$s0,.L0f067fb4
-/*  f067fcc:	8e02000c */ 	lw	$v0,0xc($s0)
-.L0f067fd0:
-/*  f067fd0:	5600ff94 */ 	bnezl	$s0,.L0f067e24
-/*  f067fd4:	96020000 */ 	lhu	$v0,0x0($s0)
-.L0f067fd8:
-/*  f067fd8:	12600003 */ 	beqz	$s3,.L0f067fe8
-/*  f067fdc:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f067fe0:	10000002 */ 	b	.L0f067fec
-/*  f067fe4:	00001825 */ 	or	$v1,$zero,$zero
-.L0f067fe8:
-/*  f067fe8:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f067fec:
-/*  f067fec:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f067ff0:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f067ff4:	8fb20024 */ 	lw	$s2,0x24($sp)
-/*  f067ff8:	8fb30028 */ 	lw	$s3,0x28($sp)
-/*  f067ffc:	8fb4002c */ 	lw	$s4,0x2c($sp)
-/*  f068000:	8fb50030 */ 	lw	$s5,0x30($sp)
-/*  f068004:	8fb60034 */ 	lw	$s6,0x34($sp)
-/*  f068008:	8fb70038 */ 	lw	$s7,0x38($sp)
-/*  f06800c:	27bd0090 */ 	addiu	$sp,$sp,0x90
-/*  f068010:	03e00008 */ 	jr	$ra
-/*  f068014:	00601025 */ 	or	$v0,$v1,$zero
-);
+bool func0f067dc4(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4)
+{
+	bool first = true;
+
+	if (model) {
+		struct modelfiledata *modeldef = model->filedata;
+
+		if (modeldef) {
+			struct modelnode *node = modeldef->rootnode;
+
+			while (node) {
+				u32 type = node->type & 0xff;
+
+				if (type == MODELNODETYPE_BBOX) {
+					struct modelrodata_bbox *bbox = &node->rodata->bbox;
+					f32 sp74[2];
+					f32 sp6c[2];
+					f32 sp64[2];
+					f32 sp5c[2];
+					struct coord sp50;
+					Mtxf *mtx = model0001a5cc(model, node, 0);
+
+					if (mtx->m[3][2] < 0.0f) {
+						sp50.x = mtx->m[3][0];
+						sp50.y = mtx->m[3][1];
+						sp50.z = mtx->m[3][2];
+
+						sp64[0] = func0f0667dc(bbox, mtx) + sp50.f[0];
+						sp64[1] = func0f06680c(bbox, mtx) + sp50.f[0];
+						sp5c[0] = func0f06683c(bbox, mtx) + sp50.f[1];
+						sp5c[1] = func0f06686c(bbox, mtx) + sp50.f[1];
+
+						func0f06803c(&sp50, sp64, sp5c, sp74, sp6c);
+
+						if (first || sp74[0] < *arg2) {
+							*arg2 = sp74[0];
+						}
+
+						if (first || sp6c[0] > *arg1) {
+							*arg1 = sp6c[0];
+						}
+
+						if (first || sp74[1] < *arg4) {
+							*arg4 = sp74[1];
+						}
+
+						if (first || sp6c[1] > *arg3) {
+							*arg3 = sp6c[1];
+						}
+
+						first = false;
+					}
+				} else {
+					// empty
+				}
+
+				if (node->child) {
+					node = node->child;
+				} else {
+					while (node) {
+						if (node->next) {
+							node = node->next;
+							break;
+						}
+
+						node = node->parent;
+					}
+				}
+			}
+		}
+	}
+
+	return first ? false : true;
+}
 
 bool modelSetRedBox(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4)
 {
