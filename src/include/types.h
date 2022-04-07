@@ -670,6 +670,11 @@ struct modelrodata_dl { // type 0x18
 	/*0x16*/ u16 numcolours;
 };
 
+struct modelrodata_type19 { // type 0x19
+	/*0x00*/ u32 unk00;
+	/*0x04*/ struct coord unk04[4];
+};
+
 union modelrodata {
 	struct modelrodata_chrinfo chrinfo;
 	struct modelrodata_position position;
@@ -686,6 +691,7 @@ union modelrodata {
 	struct modelrodata_type16 type16;
 	struct modelrodata_headspot headspot;
 	struct modelrodata_dl dl;
+	struct modelrodata_type19 type19;
 };
 
 struct modelnode {

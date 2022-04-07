@@ -4452,7 +4452,7 @@ void func0f069b4c(struct defaultobj *obj)
 				flags |= TILEFLAG_0020;
 			}
 
-			func0f070ca0(obj, (struct tiletype1 *)ptr, flags, NULL, rodata);
+			func0f070ca0(obj, (struct tiletype1 *)ptr, flags, NULL, &rodata->type19);
 
 			ptr += 0x40;
 		}
@@ -4460,7 +4460,7 @@ void func0f069b4c(struct defaultobj *obj)
 		rodata = modelGetPartRodata(obj->model->filedata, MODELPART_0066);
 
 		if (rodata != NULL) {
-			func0f070ca0(obj, (struct tiletype1 *)ptr, TILEFLAG_0004 | TILEFLAG_0008 | TILEFLAG_0010, NULL, rodata);
+			func0f070ca0(obj, (struct tiletype1 *)ptr, TILEFLAG_0004 | TILEFLAG_0008 | TILEFLAG_0010, NULL, &rodata->type19);
 		}
 	}
 }
@@ -18082,64 +18082,18 @@ glabel func0f070a1c
 /*  f070bcc:	e4ea002c */ 	swc1	$f10,0x2c($a3)
 );
 
-GLOBAL_ASM(
-glabel func0f070bd0
-/*  f070bd0:	00804025 */ 	or	$t0,$a0,$zero
-/*  f070bd4:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f070bd8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f070bdc:	00e01825 */ 	or	$v1,$a3,$zero
-.L0f070be0:
-/*  f070be0:	c4b20000 */ 	lwc1	$f18,0x0($a1)
-/*  f070be4:	c5100004 */ 	lwc1	$f16,0x4($t0)
-/*  f070be8:	c4ce0000 */ 	lwc1	$f14,0x0($a2)
-/*  f070bec:	c4ac000c */ 	lwc1	$f12,0xc($a1)
-/*  f070bf0:	46109402 */ 	mul.s	$f16,$f18,$f16
-/*  f070bf4:	c5120008 */ 	lwc1	$f18,0x8($t0)
-/*  f070bf8:	c50a000c */ 	lwc1	$f10,0xc($t0)
-/*  f070bfc:	c4a80018 */ 	lwc1	$f8,0x18($a1)
-/*  f070c00:	46126482 */ 	mul.s	$f18,$f12,$f18
-/*  f070c04:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f070c08:	2463000c */ 	addiu	$v1,$v1,0xc
-/*  f070c0c:	46085202 */ 	mul.s	$f8,$f10,$f8
-/*  f070c10:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f070c14:	46107400 */ 	add.s	$f16,$f14,$f16
-/*  f070c18:	46128480 */ 	add.s	$f18,$f16,$f18
-/*  f070c1c:	46124480 */ 	add.s	$f18,$f8,$f18
-/*  f070c20:	e472fff4 */ 	swc1	$f18,-0xc($v1)
-/*  f070c24:	c4b20004 */ 	lwc1	$f18,0x4($a1)
-/*  f070c28:	c508fff8 */ 	lwc1	$f8,-0x8($t0)
-/*  f070c2c:	c4b00010 */ 	lwc1	$f16,0x10($a1)
-/*  f070c30:	c50efffc */ 	lwc1	$f14,-0x4($t0)
-/*  f070c34:	46089202 */ 	mul.s	$f8,$f18,$f8
-/*  f070c38:	c4d20004 */ 	lwc1	$f18,0x4($a2)
-/*  f070c3c:	c50a0000 */ 	lwc1	$f10,0x0($t0)
-/*  f070c40:	460e8382 */ 	mul.s	$f14,$f16,$f14
-/*  f070c44:	c4b0001c */ 	lwc1	$f16,0x1c($a1)
-/*  f070c48:	46105402 */ 	mul.s	$f16,$f10,$f16
-/*  f070c4c:	46089200 */ 	add.s	$f8,$f18,$f8
-/*  f070c50:	460e4380 */ 	add.s	$f14,$f8,$f14
-/*  f070c54:	460e8380 */ 	add.s	$f14,$f16,$f14
-/*  f070c58:	e46efff8 */ 	swc1	$f14,-0x8($v1)
-/*  f070c5c:	c4ae0008 */ 	lwc1	$f14,0x8($a1)
-/*  f070c60:	c510fff8 */ 	lwc1	$f16,-0x8($t0)
-/*  f070c64:	c4a80014 */ 	lwc1	$f8,0x14($a1)
-/*  f070c68:	c512fffc */ 	lwc1	$f18,-0x4($t0)
-/*  f070c6c:	46107402 */ 	mul.s	$f16,$f14,$f16
-/*  f070c70:	c4ce0008 */ 	lwc1	$f14,0x8($a2)
-/*  f070c74:	c50a0000 */ 	lwc1	$f10,0x0($t0)
-/*  f070c78:	46124482 */ 	mul.s	$f18,$f8,$f18
-/*  f070c7c:	c4a80020 */ 	lwc1	$f8,0x20($a1)
-/*  f070c80:	46085202 */ 	mul.s	$f8,$f10,$f8
-/*  f070c84:	46107400 */ 	add.s	$f16,$f14,$f16
-/*  f070c88:	46128480 */ 	add.s	$f18,$f16,$f18
-/*  f070c8c:	46124480 */ 	add.s	$f18,$f8,$f18
-/*  f070c90:	1444ffd3 */ 	bne	$v0,$a0,.L0f070be0
-/*  f070c94:	e472fffc */ 	swc1	$f18,-0x4($v1)
-/*  f070c98:	03e00008 */ 	jr	$ra
-/*  f070c9c:	00000000 */ 	nop
-);
+void func0f070bd0(struct modelrodata_type19 *rodata, f32 rot[3][3], struct coord *pos, struct coord *vertices)
+{
+	s32 i;
 
-void func0f070ca0(struct defaultobj *obj, struct tiletype1 *tile, u32 flags, struct modelrodata_bbox *bbox, union modelrodata *rodata)
+	for (i = 0; i < 4; i++) {
+		vertices[i].x = pos->x + rot[0][0] * rodata->unk04[i].x + rot[1][0] * rodata->unk04[i].y + rot[2][0] * rodata->unk04[i].z;
+		vertices[i].y = pos->y + rot[0][1] * rodata->unk04[i].x + rot[1][1] * rodata->unk04[i].y + rot[2][1] * rodata->unk04[i].z;
+		vertices[i].z = pos->z + rot[0][2] * rodata->unk04[i].x + rot[1][2] * rodata->unk04[i].y + rot[2][2] * rodata->unk04[i].z;
+	}
+}
+
+void func0f070ca0(struct defaultobj *obj, struct tiletype1 *tile, u32 flags, struct modelrodata_bbox *bbox, struct modelrodata_type19 *rodata)
 {
 	struct coord vertices[4];
 	s32 i;
@@ -18318,7 +18272,7 @@ void liftUpdateTiles(struct liftobj *lift, bool stationary)
 		} while (!bbox && !rodata);
 
 		if (bbox || rodata) {
-			func0f070ca0(&lift->base, (struct tiletype1 *)geo, flags, bbox, rodata);
+			func0f070ca0(&lift->base, (struct tiletype1 *)geo, flags, bbox, &rodata->type19);
 			lift->base.numtiles++;
 		}
 	} while (bbox || rodata);
