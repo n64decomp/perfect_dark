@@ -208,7 +208,7 @@ void tvscreenSetImageByNum(struct tvscreen *screen, s32 imagenum);
 void tvscreenSetTexture(struct tvscreen *screen, s32 texturenum);
 Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen *screen, Gfx *gdl, s32 arg4, s32 arg5);
 void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool withalpha);
-Gfx *gfxRenderRadialShadow(Gfx *gdl, f32 x, f32 y, f32 z, f32 angle, f32 size, u32 alpha);
+Gfx *gfxRenderRadialShadow(Gfx *gdl, f32 x, f32 y, f32 z, f32 angle, f32 radius, u32 colour);
 Gfx *objRenderShadow(struct defaultobj *obj, Gfx *gdl);
 Gfx *objRender(struct prop *prop, Gfx *gdl, bool withalpha);
 bool modelIsNodeNotTvscreen(struct modelfiledata *filedata, struct modelnode *node);

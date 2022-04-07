@@ -61,7 +61,7 @@ void texReset(void)
 	g_TexGroup03Configs = (struct textureconfig *)(g_TexBase + (u32)g_TcGroup03Configs);
 	g_TexGeCrosshairConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcGeCrosshairConfigs);
 	g_TexRedLinesConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcRedLineConfigs);
-	g_TexGroup06Configs = (struct textureconfig *)(g_TexBase + (u32)g_TcGroup06Configs);
+	g_TexShadowConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcGroup06Configs);
 	g_TexShieldConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcShieldConfigs);
 	g_TexShardConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcShardConfigs);
 	g_TexScreenConfigs = (struct textureconfig *)(g_TexBase + (u32)g_TcScreenConfigs);
@@ -103,7 +103,7 @@ void texReset(void)
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcGroup06Configs); i++) {
-			tex0f0b3988(&g_TexGroup06Configs[i]);
+			tex0f0b3988(&g_TexShadowConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcShieldConfigs); i++) {

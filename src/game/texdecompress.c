@@ -34,7 +34,7 @@ struct textureconfig *g_TexLaserConfigs;
 struct textureconfig *g_TexGroup03Configs;
 struct textureconfig *g_TexGeCrosshairConfigs;
 struct textureconfig *g_TexRedLinesConfigs;
-struct textureconfig *g_TexGroup06Configs;
+struct textureconfig *g_TexShadowConfigs;
 struct textureconfig *g_TexShieldConfigs;
 struct textureconfig *g_TexShardConfigs;
 struct textureconfig *g_TexScreenConfigs;

@@ -273,7 +273,7 @@ extern struct textureconfig *g_TexBeamConfigs;
 extern struct textureconfig *g_TexLaserConfigs;
 extern struct textureconfig *g_TexGroup03Configs;
 extern struct textureconfig *g_TexGeCrosshairConfigs;
-extern struct textureconfig *g_TexGroup06Configs;
+extern struct textureconfig *g_TexShadowConfigs;
 extern struct textureconfig *g_TexShieldConfigs;
 extern struct textureconfig *g_TexShardConfigs;
 extern struct textureconfig *g_TexScreenConfigs;

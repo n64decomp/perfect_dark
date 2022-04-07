@@ -63704,177 +63704,77 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool w
 	}
 }
 
-GLOBAL_ASM(
-glabel gfxRenderRadialShadow
-/*  f080f8c:	27bdff00 */ 	addiu	$sp,$sp,-256
-/*  f080f90:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f080f94:	afa40100 */ 	sw	$a0,0x100($sp)
-/*  f080f98:	afb10028 */ 	sw	$s1,0x28($sp)
-/*  f080f9c:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f080fa0:	afa50104 */ 	sw	$a1,0x104($sp)
-/*  f080fa4:	afa60108 */ 	sw	$a2,0x108($sp)
-/*  f080fa8:	afa7010c */ 	sw	$a3,0x10c($sp)
-/*  f080fac:	0fc59e59 */ 	jal	gfxAllocateVertices
-/*  f080fb0:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f080fb4:	00408025 */ 	or	$s0,$v0,$zero
-/*  f080fb8:	0fc59e73 */ 	jal	gfxAllocateColours
-/*  f080fbc:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f080fc0:	8fae0118 */ 	lw	$t6,0x118($sp)
-/*  f080fc4:	3c11800b */ 	lui	$s1,%hi(g_TexGroup06Configs)
-/*  f080fc8:	afa20074 */ 	sw	$v0,0x74($sp)
-/*  f080fcc:	8e31b588 */ 	lw	$s1,%lo(g_TexGroup06Configs)($s1)
-/*  f080fd0:	3c014000 */ 	lui	$at,0x4000
-/*  f080fd4:	ac4e0000 */ 	sw	$t6,0x0($v0)
-/*  f080fd8:	c7a60108 */ 	lwc1	$f6,0x108($sp)
-/*  f080fdc:	44814000 */ 	mtc1	$at,$f8
-/*  f080fe0:	c7a40104 */ 	lwc1	$f4,0x104($sp)
-/*  f080fe4:	c7b0010c */ 	lwc1	$f16,0x10c($sp)
-/*  f080fe8:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f080fec:	e7a40068 */ 	swc1	$f4,0x68($sp)
-/*  f080ff0:	e7b00070 */ 	swc1	$f16,0x70($sp)
-/*  f080ff4:	0fc59e66 */ 	jal	gfxAllocateMatrix
-/*  f080ff8:	e7aa006c */ 	swc1	$f10,0x6c($sp)
-/*  f080ffc:	afa2007c */ 	sw	$v0,0x7c($sp)
-/*  f081000:	27a40068 */ 	addiu	$a0,$sp,0x68
-/*  f081004:	8fa50110 */ 	lw	$a1,0x110($sp)
-/*  f081008:	0c005892 */ 	jal	mtx4LoadYRotationWithTranslation
-/*  f08100c:	27a600c0 */ 	addiu	$a2,$sp,0xc0
-/*  f081010:	0fc2d5be */ 	jal	camGetMatrix1740
-/*  f081014:	00000000 */ 	nop
-/*  f081018:	00402025 */ 	or	$a0,$v0,$zero
-/*  f08101c:	27a500c0 */ 	addiu	$a1,$sp,0xc0
-/*  f081020:	0c005680 */ 	jal	mtx4MultMtx4
-/*  f081024:	27a60080 */ 	addiu	$a2,$sp,0x80
-/*  f081028:	27a40080 */ 	addiu	$a0,$sp,0x80
-/*  f08102c:	0c005815 */ 	jal	mtx00016054
-/*  f081030:	8fa5007c */ 	lw	$a1,0x7c($sp)
-/*  f081034:	00001825 */ 	or	$v1,$zero,$zero
-/*  f081038:	02001025 */ 	or	$v0,$s0,$zero
-/*  f08103c:	24040004 */ 	addiu	$a0,$zero,0x4
-.L0f081040:
-/*  f081040:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f081044:	2442000c */ 	addiu	$v0,$v0,0xc
-/*  f081048:	a440fff6 */ 	sh	$zero,-0xa($v0)
-/*  f08104c:	1464fffc */ 	bne	$v1,$a0,.L0f081040
-/*  f081050:	a040fffb */ 	sb	$zero,-0x5($v0)
-/*  f081054:	44800000 */ 	mtc1	$zero,$f0
-/*  f081058:	c7a20114 */ 	lwc1	$f2,0x114($sp)
-/*  f08105c:	27a40100 */ 	addiu	$a0,$sp,0x100
-/*  f081060:	00002825 */ 	or	$a1,$zero,$zero
-/*  f081064:	46020481 */ 	sub.s	$f18,$f0,$f2
-/*  f081068:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f08106c:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f081070:	46020280 */ 	add.s	$f10,$f0,$f2
-/*  f081074:	240d0002 */ 	addiu	$t5,$zero,0x2
-/*  f081078:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f08107c:	4600910d */ 	trunc.w.s	$f4,$f18
-/*  f081080:	4600540d */ 	trunc.w.s	$f16,$f10
-/*  f081084:	44032000 */ 	mfc1	$v1,$f4
-/*  f081088:	46020181 */ 	sub.s	$f6,$f0,$f2
-/*  f08108c:	44028000 */ 	mfc1	$v0,$f16
-/*  f081090:	a6030000 */ 	sh	$v1,0x0($s0)
-/*  f081094:	46020480 */ 	add.s	$f18,$f0,$f2
-/*  f081098:	a6020010 */ 	sh	$v0,0x10($s0)
-/*  f08109c:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f0810a0:	4600910d */ 	trunc.w.s	$f4,$f18
-/*  f0810a4:	44034000 */ 	mfc1	$v1,$f8
-/*  f0810a8:	44022000 */ 	mfc1	$v0,$f4
-/*  f0810ac:	a6030004 */ 	sh	$v1,0x4($s0)
-/*  f0810b0:	a603000c */ 	sh	$v1,0xc($s0)
-/*  f0810b4:	a6030028 */ 	sh	$v1,0x28($s0)
-/*  f0810b8:	a6020018 */ 	sh	$v0,0x18($s0)
-/*  f0810bc:	a602001c */ 	sh	$v0,0x1c($s0)
-/*  f0810c0:	12200021 */ 	beqz	$s1,.L0f081148
-/*  f0810c4:	a6020024 */ 	sh	$v0,0x24($s0)
-/*  f0810c8:	a6000008 */ 	sh	$zero,0x8($s0)
-/*  f0810cc:	a600000a */ 	sh	$zero,0xa($s0)
-/*  f0810d0:	92290004 */ 	lbu	$t1,0x4($s1)
-/*  f0810d4:	a6000016 */ 	sh	$zero,0x16($s0)
-/*  f0810d8:	27a40100 */ 	addiu	$a0,$sp,0x100
-/*  f0810dc:	00095140 */ 	sll	$t2,$t1,0x5
-/*  f0810e0:	254bffff */ 	addiu	$t3,$t2,-1
-/*  f0810e4:	a60b0014 */ 	sh	$t3,0x14($s0)
-/*  f0810e8:	922c0004 */ 	lbu	$t4,0x4($s1)
-/*  f0810ec:	240b0002 */ 	addiu	$t3,$zero,0x2
-/*  f0810f0:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0810f4:	000c6940 */ 	sll	$t5,$t4,0x5
-/*  f0810f8:	25aeffff */ 	addiu	$t6,$t5,-1
-/*  f0810fc:	a60e0020 */ 	sh	$t6,0x20($s0)
-/*  f081100:	922f0005 */ 	lbu	$t7,0x5($s1)
-/*  f081104:	a600002c */ 	sh	$zero,0x2c($s0)
-/*  f081108:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f08110c:	000fc140 */ 	sll	$t8,$t7,0x5
-/*  f081110:	2719ffff */ 	addiu	$t9,$t8,-1
-/*  f081114:	a6190022 */ 	sh	$t9,0x22($s0)
-/*  f081118:	92280005 */ 	lbu	$t0,0x5($s1)
-/*  f08111c:	24060004 */ 	addiu	$a2,$zero,0x4
-/*  f081120:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f081124:	00084940 */ 	sll	$t1,$t0,0x5
-/*  f081128:	252affff */ 	addiu	$t2,$t1,-1
-/*  f08112c:	a60a002e */ 	sh	$t2,0x2e($s0)
-/*  f081130:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f081134:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f081138:	0fc2ce70 */ 	jal	tex0f0b39c0
-/*  f08113c:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f081140:	10000006 */ 	b	.L0f08115c
-/*  f081144:	8faf0100 */ 	lw	$t7,0x100($sp)
-.L0f081148:
-/*  f081148:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f08114c:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f081150:	0fc2ce70 */ 	jal	tex0f0b39c0
-/*  f081154:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f081158:	8faf0100 */ 	lw	$t7,0x100($sp)
-.L0f08115c:
-/*  f08115c:	3c19b700 */ 	lui	$t9,0xb700
-/*  f081160:	24082000 */ 	addiu	$t0,$zero,0x2000
-/*  f081164:	25f80008 */ 	addiu	$t8,$t7,0x8
-/*  f081168:	afb80100 */ 	sw	$t8,0x100($sp)
-/*  f08116c:	ade80004 */ 	sw	$t0,0x4($t7)
-/*  f081170:	adf90000 */ 	sw	$t9,0x0($t7)
-/*  f081174:	8fb10100 */ 	lw	$s1,0x100($sp)
-/*  f081178:	3c0b0102 */ 	lui	$t3,0x102
-/*  f08117c:	356b0040 */ 	ori	$t3,$t3,0x40
-/*  f081180:	262a0008 */ 	addiu	$t2,$s1,0x8
-/*  f081184:	afaa0100 */ 	sw	$t2,0x100($sp)
-/*  f081188:	ae2b0000 */ 	sw	$t3,0x0($s1)
-/*  f08118c:	0c012d20 */ 	jal	osVirtualToPhysical
-/*  f081190:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f081194:	ae220004 */ 	sw	$v0,0x4($s1)
-/*  f081198:	8fac0100 */ 	lw	$t4,0x100($sp)
-/*  f08119c:	3c0e0700 */ 	lui	$t6,0x700
-/*  f0811a0:	35ce0004 */ 	ori	$t6,$t6,0x4
-/*  f0811a4:	258d0008 */ 	addiu	$t5,$t4,0x8
-/*  f0811a8:	afad0100 */ 	sw	$t5,0x100($sp)
-/*  f0811ac:	ad8e0000 */ 	sw	$t6,0x0($t4)
-/*  f0811b0:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*  f0811b4:	0c012d20 */ 	jal	osVirtualToPhysical
-/*  f0811b8:	afac0044 */ 	sw	$t4,0x44($sp)
-/*  f0811bc:	8fa30044 */ 	lw	$v1,0x44($sp)
-/*  f0811c0:	3c190430 */ 	lui	$t9,0x430
-/*  f0811c4:	37390030 */ 	ori	$t9,$t9,0x30
-/*  f0811c8:	ac620004 */ 	sw	$v0,0x4($v1)
-/*  f0811cc:	8fb10100 */ 	lw	$s1,0x100($sp)
-/*  f0811d0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0811d4:	26380008 */ 	addiu	$t8,$s1,0x8
-/*  f0811d8:	afb80100 */ 	sw	$t8,0x100($sp)
-/*  f0811dc:	0c012d20 */ 	jal	osVirtualToPhysical
-/*  f0811e0:	ae390000 */ 	sw	$t9,0x0($s1)
-/*  f0811e4:	ae220004 */ 	sw	$v0,0x4($s1)
-/*  f0811e8:	8fa80100 */ 	lw	$t0,0x100($sp)
-/*  f0811ec:	3c0ab100 */ 	lui	$t2,0xb100
-/*  f0811f0:	354a0002 */ 	ori	$t2,$t2,0x2
-/*  f0811f4:	25090008 */ 	addiu	$t1,$t0,0x8
-/*  f0811f8:	afa90100 */ 	sw	$t1,0x100($sp)
-/*  f0811fc:	240b3210 */ 	addiu	$t3,$zero,0x3210
-/*  f081200:	ad0b0004 */ 	sw	$t3,0x4($t0)
-/*  f081204:	ad0a0000 */ 	sw	$t2,0x0($t0)
-/*  f081208:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f08120c:	8fb10028 */ 	lw	$s1,0x28($sp)
-/*  f081210:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*  f081214:	8fa20100 */ 	lw	$v0,0x100($sp)
-/*  f081218:	03e00008 */ 	jr	$ra
-/*  f08121c:	27bd0100 */ 	addiu	$sp,$sp,0x100
-);
+Gfx *gfxRenderRadialShadow(Gfx *gdl, f32 x, f32 y, f32 z, f32 angle, f32 radius, u32 colour)
+{
+	Mtxf spc0;
+	Mtxf sp80;
+	Mtxf *mtx;
+	struct gfxvtx *vertices;
+	u32 *colours;
+	struct coord pos;
+	struct textureconfig *tconfig;
+	s32 i;
+	f32 base1 = 0.0f;
+	f32 base2 = 0.0f;
+	f32 base3 = 0.0f;
+	f32 base4 = 0.0f;
+
+	if (radius);
+
+	vertices = gfxAllocateVertices(4);
+	colours = gfxAllocateColours(1);
+
+	tconfig = &g_TexShadowConfigs[0];
+
+	colours[0] = colour;
+
+	pos.x = x;
+	pos.y = y + 2.0f;
+	pos.z = z;
+
+	mtx = gfxAllocateMatrix();
+	mtx4LoadYRotationWithTranslation(&pos, angle, &spc0);
+	mtx4MultMtx4(camGetMatrix1740(), &spc0, &sp80);
+	mtx00016054(&sp80, mtx);
+
+	for (i = 0; i < 4; i++) {
+		vertices[i].y = 0;
+		vertices[i].colour = 0;
+	}
+
+	vertices[0].x = base1 - radius;
+	vertices[0].z = base3 - radius;
+	vertices[1].x = base1 - radius;
+	vertices[1].z = base4 + radius;
+	vertices[2].x = base2 + radius;
+	vertices[2].z = base4 + radius;
+	vertices[3].x = base2 + radius;
+	vertices[3].z = base3 - radius;
+
+	if (tconfig) {
+		vertices[0].unk08 = 0;
+		vertices[0].unk0a = 0;
+		vertices[1].unk08 = tconfig->width * 32 - 1;
+		vertices[1].unk0a = 0;
+		vertices[2].unk08 = tconfig->width * 32 - 1;
+		vertices[2].unk0a = tconfig->height * 32 - 1;
+		vertices[3].unk08 = 0;
+		vertices[3].unk0a = tconfig->height * 32 - 1;
+
+		tex0f0b39c0(&gdl, tconfig, 4, 1, 2, 1, NULL);
+	} else {
+		tex0f0b39c0(&gdl, NULL, 1, 1, 2, 1, NULL);
+	}
+
+	gSPSetGeometryMode(gdl++, G_CULL_BACK);
+	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+
+	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
+	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
+	gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
+
+	return gdl;
+}
 
 Gfx *objRenderShadow(struct defaultobj *obj, Gfx *gdl)
 {
