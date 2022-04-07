@@ -385,21 +385,10 @@ f32 modelBboxGetZMax(struct modelrodata_bbox *bbox)
 	return bbox->zmax;
 }
 
-GLOBAL_ASM(
-glabel func0f0667dc
-/*  f0667dc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0667e0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0667e4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0667e8:	00a07025 */ 	or	$t6,$a1,$zero
-/*  f0667ec:	8dc60010 */ 	lw	$a2,0x10($t6)
-/*  f0667f0:	8dc70020 */ 	lw	$a3,0x20($t6)
-/*  f0667f4:	0fc19a87 */ 	jal	func0f066a1c
-/*  f0667f8:	8ca50000 */ 	lw	$a1,0x0($a1)
-/*  f0667fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f066800:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f066804:	03e00008 */ 	jr	$ra
-/*  f066808:	00000000 */ 	nop
-);
+f32 func0f0667dc(struct modelrodata_bbox *bbox, Mtxf *mtx)
+{
+	return func0f066a1c(bbox, mtx->m[0][0], mtx->m[1][0], mtx->m[2][0]);
+}
 
 GLOBAL_ASM(
 glabel func0f06680c
