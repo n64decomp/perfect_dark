@@ -53,7 +53,7 @@ f32 func0f066abc(struct modelrodata_bbox *bbox, f32 arg1, f32 arg2, f32 arg3);
 s32 func0f066b5c(f32 xmin, f32 xmax, f32 ymin, f32 ymax, f32 zmin, f32 zmax, Mtxf *mtx, struct tiletype2 *tile);
 void func0f067424(struct modelrodata_bbox *bbox, Mtxf *mtx, struct tiletype2 *tile);
 u32 func0f0674bc(void);
-bool func0f0675c8(struct coord *coord, f32 arg1, struct modelrodata_bbox *arg2, Mtxf *arg3);
+bool func0f0675c8(struct coord *pos, f32 arg1, struct modelrodata_bbox *bbox, Mtxf *mtx);
 bool func0f0677ac(struct coord *coord, struct coord *arg1, struct coord *pos, struct coord *normal, struct coord *up, struct coord *look, f32 xmin, f32 xmax, f32 ymin, f32 ymax, f32 zmin, f32 zmax);
 bool func0f0678f8(struct coord *coord, struct coord *arg1, s32 padnum);
 bool func0f06797c(struct coord *coord, f32 arg1, s32 padnum);

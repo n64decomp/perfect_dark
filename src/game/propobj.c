@@ -1191,139 +1191,40 @@ glabel func0f0674bc
 /*  f0675c4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0675c8
-/*  f0675c8:	44856000 */ 	mtc1	$a1,$f12
-/*  f0675cc:	27bdff68 */ 	addiu	$sp,$sp,-152
-/*  f0675d0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0675d4:	e7ac003c */ 	swc1	$f12,0x3c($sp)
-/*  f0675d8:	c7a0003c */ 	lwc1	$f0,0x3c($sp)
-/*  f0675dc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0675e0:	afa40098 */ 	sw	$a0,0x98($sp)
-/*  f0675e4:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f0675e8:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f0675ec:	c4e60030 */ 	lwc1	$f6,0x30($a3)
-/*  f0675f0:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f0675f4:	00c08025 */ 	or	$s0,$a2,$zero
-/*  f0675f8:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f0675fc:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f067600:	e7a8004c */ 	swc1	$f8,0x4c($sp)
-/*  f067604:	c4f00034 */ 	lwc1	$f16,0x34($a3)
-/*  f067608:	c48a0004 */ 	lwc1	$f10,0x4($a0)
-/*  f06760c:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f067610:	e7b20050 */ 	swc1	$f18,0x50($sp)
-/*  f067614:	c4e60038 */ 	lwc1	$f6,0x38($a3)
-/*  f067618:	c4840008 */ 	lwc1	$f4,0x8($a0)
-/*  f06761c:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f067620:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f067624:	0c005c39 */ 	jal	mtx000170e4
-/*  f067628:	e7a80054 */ 	swc1	$f8,0x54($sp)
-/*  f06762c:	27a40058 */ 	addiu	$a0,$sp,0x58
-/*  f067630:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f067634:	0c0056c5 */ 	jal	mtx4RotateVec
-/*  f067638:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f06763c:	27a40058 */ 	addiu	$a0,$sp,0x58
-/*  f067640:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f067644:	0c0056c5 */ 	jal	mtx4RotateVec
-/*  f067648:	27a60028 */ 	addiu	$a2,$sp,0x28
-/*  f06764c:	44800000 */ 	mtc1	$zero,$f0
-/*  f067650:	c7a20028 */ 	lwc1	$f2,0x28($sp)
-/*  f067654:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f067658:	00000000 */ 	nop
-/*  f06765c:	45020004 */ 	bc1fl	.L0f067670
-/*  f067660:	c7a2002c */ 	lwc1	$f2,0x2c($sp)
-/*  f067664:	46001087 */ 	neg.s	$f2,$f2
-/*  f067668:	e7a20028 */ 	swc1	$f2,0x28($sp)
-/*  f06766c:	c7a2002c */ 	lwc1	$f2,0x2c($sp)
-.L0f067670:
-/*  f067670:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f067674:	00000000 */ 	nop
-/*  f067678:	45020004 */ 	bc1fl	.L0f06768c
-/*  f06767c:	c7a20030 */ 	lwc1	$f2,0x30($sp)
-/*  f067680:	46001087 */ 	neg.s	$f2,$f2
-/*  f067684:	e7a2002c */ 	swc1	$f2,0x2c($sp)
-/*  f067688:	c7a20030 */ 	lwc1	$f2,0x30($sp)
-.L0f06768c:
-/*  f06768c:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f067690:	00000000 */ 	nop
-/*  f067694:	45020004 */ 	bc1fl	.L0f0676a8
-/*  f067698:	c7aa0040 */ 	lwc1	$f10,0x40($sp)
-/*  f06769c:	46001087 */ 	neg.s	$f2,$f2
-/*  f0676a0:	e7a20030 */ 	swc1	$f2,0x30($sp)
-/*  f0676a4:	c7aa0040 */ 	lwc1	$f10,0x40($sp)
-.L0f0676a8:
-/*  f0676a8:	c7b00028 */ 	lwc1	$f16,0x28($sp)
-/*  f0676ac:	c6040008 */ 	lwc1	$f4,0x8($s0)
-/*  f0676b0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0676b4:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f0676b8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0676bc:	4604903e */ 	c.le.s	$f18,$f4
-/*  f0676c0:	00000000 */ 	nop
-/*  f0676c4:	45000002 */ 	bc1f	.L0f0676d0
-/*  f0676c8:	00000000 */ 	nop
-/*  f0676cc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0676d0:
-/*  f0676d0:	50400034 */ 	beqzl	$v0,.L0f0677a4
-/*  f0676d4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0676d8:	460a8180 */ 	add.s	$f6,$f16,$f10
-/*  f0676dc:	c6080004 */ 	lwc1	$f8,0x4($s0)
-/*  f0676e0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0676e4:	c7a40044 */ 	lwc1	$f4,0x44($sp)
-/*  f0676e8:	4606403e */ 	c.le.s	$f8,$f6
-/*  f0676ec:	c7b2002c */ 	lwc1	$f18,0x2c($sp)
-/*  f0676f0:	45000002 */ 	bc1f	.L0f0676fc
-/*  f0676f4:	00000000 */ 	nop
-/*  f0676f8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0676fc:
-/*  f0676fc:	50400029 */ 	beqzl	$v0,.L0f0677a4
-/*  f067700:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f067704:	46122401 */ 	sub.s	$f16,$f4,$f18
-/*  f067708:	c60a0010 */ 	lwc1	$f10,0x10($s0)
-/*  f06770c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f067710:	460a803e */ 	c.le.s	$f16,$f10
-/*  f067714:	00000000 */ 	nop
-/*  f067718:	45000002 */ 	bc1f	.L0f067724
-/*  f06771c:	00000000 */ 	nop
-/*  f067720:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f067724:
-/*  f067724:	5040001f */ 	beqzl	$v0,.L0f0677a4
-/*  f067728:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f06772c:	46049180 */ 	add.s	$f6,$f18,$f4
-/*  f067730:	c608000c */ 	lwc1	$f8,0xc($s0)
-/*  f067734:	00001025 */ 	or	$v0,$zero,$zero
-/*  f067738:	c7aa0048 */ 	lwc1	$f10,0x48($sp)
-/*  f06773c:	4606403e */ 	c.le.s	$f8,$f6
-/*  f067740:	c7b00030 */ 	lwc1	$f16,0x30($sp)
-/*  f067744:	45000002 */ 	bc1f	.L0f067750
-/*  f067748:	00000000 */ 	nop
-/*  f06774c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f067750:
-/*  f067750:	50400014 */ 	beqzl	$v0,.L0f0677a4
-/*  f067754:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f067758:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f06775c:	c6040018 */ 	lwc1	$f4,0x18($s0)
-/*  f067760:	00001025 */ 	or	$v0,$zero,$zero
-/*  f067764:	4604903e */ 	c.le.s	$f18,$f4
-/*  f067768:	00000000 */ 	nop
-/*  f06776c:	45000002 */ 	bc1f	.L0f067778
-/*  f067770:	00000000 */ 	nop
-/*  f067774:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f067778:
-/*  f067778:	5040000a */ 	beqzl	$v0,.L0f0677a4
-/*  f06777c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f067780:	460a8180 */ 	add.s	$f6,$f16,$f10
-/*  f067784:	c6080014 */ 	lwc1	$f8,0x14($s0)
-/*  f067788:	00001025 */ 	or	$v0,$zero,$zero
-/*  f06778c:	4606403e */ 	c.le.s	$f8,$f6
-/*  f067790:	00000000 */ 	nop
-/*  f067794:	45020003 */ 	bc1fl	.L0f0677a4
-/*  f067798:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f06779c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0677a0:	8fb00018 */ 	lw	$s0,0x18($sp)
-.L0f0677a4:
-/*  f0677a4:	03e00008 */ 	jr	$ra
-/*  f0677a8:	27bd0098 */ 	addiu	$sp,$sp,0x98
-);
+bool func0f0675c8(struct coord *pos, f32 arg1, struct modelrodata_bbox *bbox, Mtxf *mtx)
+{
+	Mtxf sp58;
+	struct coord sp4c;
+	struct coord sp40;
+	struct coord sp34;
+	struct coord sp28;
+
+	sp34.f[0] = sp34.f[1] = sp34.f[2] = arg1;
+
+	sp4c.x = pos->x - mtx->m[3][0];
+	sp4c.y = pos->y - mtx->m[3][1];
+	sp4c.z = pos->z - mtx->m[3][2];
+
+	mtx000170e4(mtx->m, sp58.m);
+	mtx4RotateVec(&sp58, &sp4c, &sp40);
+	mtx4RotateVec(&sp58, &sp34, &sp28);
+
+	if (sp28.x < 0.0f) {
+		sp28.x = -sp28.x;
+	}
+
+	if (sp28.y < 0.0f) {
+		sp28.y = -sp28.y;
+	}
+
+	if (sp28.z < 0.0f) {
+		sp28.z = -sp28.z;
+	}
+
+	return sp40.x - sp28.x <= bbox->xmax && sp28.x + sp40.x >= bbox->xmin
+		&& sp40.y - sp28.y <= bbox->ymax && sp28.y + sp40.y >= bbox->ymin
+		&& sp40.z - sp28.z <= bbox->zmax && sp28.z + sp40.z >= bbox->zmin;
+}
 
 bool func0f0677ac(struct coord *coord, struct coord *arg1, struct coord *pos,
 		struct coord *normal, struct coord *up, struct coord *look,
