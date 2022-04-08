@@ -1117,78 +1117,20 @@ void func0f067424(struct modelrodata_bbox *bbox, Mtxf *mtx, struct tiletype2 *ti
 	tile->ymax = mtx->m[3][1] + func0f06686c(bbox, mtx);
 }
 
-GLOBAL_ASM(
-glabel func0f0674bc
-/*  f0674bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0674c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0674c4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0674c8:	8c890000 */ 	lw	$t1,0x0($a0)
-/*  f0674cc:	00004025 */ 	or	$t0,$zero,$zero
-/*  f0674d0:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*  f0674d4:	19200026 */ 	blez	$t1,.L0f067570
-/*  f0674d8:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f0674dc:	00e01825 */ 	or	$v1,$a3,$zero
-/*  f0674e0:	00801025 */ 	or	$v0,$a0,$zero
-/*  f0674e4:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-.L0f0674e8:
-/*  f0674e8:	c4460004 */ 	lwc1	$f6,0x4($v0)
-/*  f0674ec:	c4d20010 */ 	lwc1	$f18,0x10($a2)
-/*  f0674f0:	c4ca0030 */ 	lwc1	$f10,0x30($a2)
-/*  f0674f4:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0674f8:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f0674fc:	25080001 */ 	addiu	$t0,$t0,0x1
-/*  f067500:	24630008 */ 	addiu	$v1,$v1,0x8
-/*  f067504:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*  f067508:	c4d20020 */ 	lwc1	$f18,0x20($a2)
-/*  f06750c:	2442000c */ 	addiu	$v0,$v0,0xc
-/*  f067510:	46085400 */ 	add.s	$f16,$f10,$f8
-/*  f067514:	c4480000 */ 	lwc1	$f8,0x0($v0)
-/*  f067518:	46124102 */ 	mul.s	$f4,$f8,$f18
-/*  f06751c:	46068280 */ 	add.s	$f10,$f16,$f6
-/*  f067520:	460a2400 */ 	add.s	$f16,$f4,$f10
-/*  f067524:	e4700004 */ 	swc1	$f16,0x4($v1)
-/*  f067528:	c448fff8 */ 	lwc1	$f8,-0x8($v0)
-/*  f06752c:	c4c60008 */ 	lwc1	$f6,0x8($a2)
-/*  f067530:	c4d00018 */ 	lwc1	$f16,0x18($a2)
-/*  f067534:	c4c40038 */ 	lwc1	$f4,0x38($a2)
-/*  f067538:	46083482 */ 	mul.s	$f18,$f6,$f8
-/*  f06753c:	c446fffc */ 	lwc1	$f6,-0x4($v0)
-/*  f067540:	46068202 */ 	mul.s	$f8,$f16,$f6
-/*  f067544:	c4d00028 */ 	lwc1	$f16,0x28($a2)
-/*  f067548:	46122280 */ 	add.s	$f10,$f4,$f18
-/*  f06754c:	c4520000 */ 	lwc1	$f18,0x0($v0)
-/*  f067550:	46109182 */ 	mul.s	$f6,$f18,$f16
-/*  f067554:	46085100 */ 	add.s	$f4,$f10,$f8
-/*  f067558:	46043280 */ 	add.s	$f10,$f6,$f4
-/*  f06755c:	e46a0008 */ 	swc1	$f10,0x8($v1)
-/*  f067560:	8c890000 */ 	lw	$t1,0x0($a0)
-/*  f067564:	0109082a */ 	slt	$at,$t0,$t1
-/*  f067568:	5420ffdf */ 	bnezl	$at,.L0f0674e8
-/*  f06756c:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-.L0f067570:
-/*  f067570:	a0e90001 */ 	sb	$t1,0x1($a3)
-/*  f067574:	a0ee0000 */ 	sb	$t6,0x0($a3)
-/*  f067578:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f06757c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f067580:	0fc19a0f */ 	jal	func0f06683c
-/*  f067584:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f067588:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f06758c:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f067590:	c4a80034 */ 	lwc1	$f8,0x34($a1)
-/*  f067594:	46080480 */ 	add.s	$f18,$f0,$f8
-/*  f067598:	e4f20008 */ 	swc1	$f18,0x8($a3)
-/*  f06759c:	0fc19a1b */ 	jal	func0f06686c
-/*  f0675a0:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0675a4:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f0675a8:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f0675ac:	c4d00034 */ 	lwc1	$f16,0x34($a2)
-/*  f0675b0:	46100180 */ 	add.s	$f6,$f0,$f16
-/*  f0675b4:	e4e60004 */ 	swc1	$f6,0x4($a3)
-/*  f0675b8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0675bc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0675c0:	03e00008 */ 	jr	$ra
-/*  f0675c4:	00000000 */ 	nop
-);
+void func0f0674bc(struct modelrodata_type19 *rodata19, struct modelrodata_bbox *bbox, Mtxf *mtx, struct tiletype2 *tile)
+{
+	s32 i;
+
+	for (i = 0; i < rodata19->numvertices; i++) {
+		tile->vertices[i][0] = mtx->m[3][0] + mtx->m[0][0] * rodata19->vertices[i].x + mtx->m[1][0] * rodata19->vertices[i].y + mtx->m[2][0] * rodata19->vertices[i].z;
+		tile->vertices[i][1] = mtx->m[3][2] + mtx->m[0][2] * rodata19->vertices[i].x + mtx->m[1][2] * rodata19->vertices[i].y + mtx->m[2][2] * rodata19->vertices[i].z;
+	}
+
+	tile->header.numvertices = rodata19->numvertices;
+	tile->header.type = TILETYPE_02;
+	tile->ymin = mtx->m[3][1] + func0f06683c(bbox, mtx);
+	tile->ymax = mtx->m[3][1] + func0f06686c(bbox, mtx);
+}
 
 bool func0f0675c8(struct coord *pos, f32 arg1, struct modelrodata_bbox *bbox, Mtxf *mtx)
 {
@@ -17351,9 +17293,9 @@ void func0f070bd0(struct modelrodata_type19 *rodata, f32 rot[3][3], struct coord
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		vertices[i].x = pos->x + rot[0][0] * rodata->unk04[i].x + rot[1][0] * rodata->unk04[i].y + rot[2][0] * rodata->unk04[i].z;
-		vertices[i].y = pos->y + rot[0][1] * rodata->unk04[i].x + rot[1][1] * rodata->unk04[i].y + rot[2][1] * rodata->unk04[i].z;
-		vertices[i].z = pos->z + rot[0][2] * rodata->unk04[i].x + rot[1][2] * rodata->unk04[i].y + rot[2][2] * rodata->unk04[i].z;
+		vertices[i].x = pos->x + rot[0][0] * rodata->vertices[i].x + rot[1][0] * rodata->vertices[i].y + rot[2][0] * rodata->vertices[i].z;
+		vertices[i].y = pos->y + rot[0][1] * rodata->vertices[i].x + rot[1][1] * rodata->vertices[i].y + rot[2][1] * rodata->vertices[i].z;
+		vertices[i].z = pos->z + rot[0][2] * rodata->vertices[i].x + rot[1][2] * rodata->vertices[i].y + rot[2][2] * rodata->vertices[i].z;
 	}
 }
 

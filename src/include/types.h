@@ -671,8 +671,8 @@ struct modelrodata_dl { // type 0x18
 };
 
 struct modelrodata_type19 { // type 0x19
-	/*0x00*/ u32 unk00;
-	/*0x04*/ struct coord unk04[4];
+	/*0x00*/ s32 numvertices;
+	/*0x04*/ struct coord vertices[4];
 };
 
 union modelrodata {
