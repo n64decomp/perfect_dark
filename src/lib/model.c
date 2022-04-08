@@ -288,7 +288,7 @@ struct modelnode *modelGetPart(struct modelfiledata *modelfiledata, s32 partnum)
 	return NULL;
 }
 
-union modelrodata *modelGetPartRodata(struct modelfiledata *modelfiledata, s32 partnum)
+void *modelGetPartRodata(struct modelfiledata *modelfiledata, s32 partnum)
 {
 	struct modelnode *node = modelGetPart(modelfiledata, partnum);
 
