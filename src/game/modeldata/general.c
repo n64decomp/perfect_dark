@@ -850,7 +850,7 @@ struct modelstate g_ModelStates[NUM_MODELS] = {
 #endif
 };
 
-u8 g_PropExplosionTypes[] = {
+s8 g_PropExplosionTypes[] = {
 	/*0x0000*/ EXPLOSIONTYPE_NONE,
 	/*0x0001*/ EXPLOSIONTYPE_NONE,
 	/*0x0002*/ EXPLOSIONTYPE_NONE,

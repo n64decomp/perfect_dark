@@ -820,6 +820,7 @@
 #define EXPLOSIONTYPE_SDGRENADE     21
 #define EXPLOSIONTYPE_PHOENIX       22
 #define EXPLOSIONTYPE_DRAGONBOMBSPY 23 // Used by both Dragon and bombspy
+#define EXPLOSIONTYPE_24            24
 #define EXPLOSIONTYPE_HUGE25        25
 
 #define EYESPYHIT_NONE  0
@@ -2969,43 +2970,44 @@
 #define OBJFLAG_MONITOR_RENDERPOSTBG       0x40000000
 #define OBJFLAG_WEAPON_40000000            0x40000000
 #define OBJFLAG_80000000                   0x80000000
+#define OBJFLAG_HOVERCAR_ISHOVERBOT        0x80000000
 #define OBJFLAG_CHOPPER_INACTIVE           0x80000000 // Or lift disabled, or hovercar something
 #define OBJFLAG_DOOR_TWOWAY                0x80000000 // Door swings in both directions
 
 // obj->flags2
-#define OBJFLAG2_00000001          0x00000001 // Used only in CI Training
-#define OBJFLAG2_00000002          0x00000002 // Ruins spikes
-#define OBJFLAG2_SKIPDOORLOCKEDMSG 0x00000004
-#define OBJFLAG2_00000008          0x00000008 // Editor: "Don't load in Multiplayer"
-#define OBJFLAG2_EXCLUDE_A         0x00000010
-#define OBJFLAG2_EXCLUDE_SA        0x00000020
-#define OBJFLAG2_EXCLUDE_PA        0x00000040
-#define OBJFLAG2_EXCLUDE_PD        0x00000080
-#define OBJFLAG2_00000100          0x00000100 // Editor: "Immobile"
-#define OBJFLAG2_00000200          0x00000200 // Editor: "Mines"
-#define OBJFLAG2_LINKEDTOSAFE      0x00000400 // Applied to safe door and item
-#define OBJFLAG2_INTERACTCHECKLOS  0x00000800 // Check line of sight when attempting to interact with object
-#define OBJFLAG2_PICKUPWITHOUTLOS  0x00001000 // Object can be picked up without having line of sight
-#define OBJFLAG2_00002000          0x00002000 // Ruins commhub - used as a "shown message" flag
-#define OBJFLAG2_IMMUNETOGUNFIRE   0x00004000
-#define OBJFLAG2_SHOOTTHROUGH      0x00008000
-#define OBJFLAG2_DRAWONTOP         0x00010000
-#define OBJFLAG2_00020000          0x00020000 // G5 mine, Air Base mine
-#define OBJFLAG2_00040000          0x00040000 // Only used in CI training
-#define OBJFLAG2_INVISIBLE         0x00080000
-#define OBJFLAG2_BULLETPROOF       0x00100000 // Only magnum and FarSight can shoot through it
-#define OBJFLAG2_00200000          0x00200000 // Editor: "Immune to Explosions" (Ruins spikes)
-#define OBJFLAG2_EXCLUDE_2P        0x00400000
-#define OBJFLAG2_EXCLUDE_3P        0x00800000
-#define OBJFLAG2_EXCLUDE_4P        0x01000000
-#define OBJFLAG2_THROWTHROUGH      0x02000000 // Rockets/mines/grenades etc pass through object
-#define OBJFLAG2_04000000          0x04000000 // Used quite a lot - gravity?
-#define OBJFLAG2_LOCKEDFRONT       0x08000000 // One-way door lock
-#define OBJFLAG2_LOCKEDBACK        0x10000000 // One-way door lock
-#define OBJFLAG2_AICANNOTUSE       0x20000000
-#define OBJFLAG2_AIRLOCKDOOR       0x40000000 // Door waits for sibling to close before it can open
-#define OBJFLAG2_80000000          0x80000000 // Attack Ship glass
-#define OBJFLAG2_WEAPON_HUGEEXP    0x80000000
+#define OBJFLAG2_00000001            0x00000001 // Used only in CI Training
+#define OBJFLAG2_00000002            0x00000002 // Ruins spikes
+#define OBJFLAG2_SKIPDOORLOCKEDMSG   0x00000004
+#define OBJFLAG2_00000008            0x00000008 // Editor: "Don't load in Multiplayer"
+#define OBJFLAG2_EXCLUDE_A           0x00000010
+#define OBJFLAG2_EXCLUDE_SA          0x00000020
+#define OBJFLAG2_EXCLUDE_PA          0x00000040
+#define OBJFLAG2_EXCLUDE_PD          0x00000080
+#define OBJFLAG2_00000100            0x00000100 // Editor: "Immobile"
+#define OBJFLAG2_00000200            0x00000200 // Editor: "Mines"
+#define OBJFLAG2_LINKEDTOSAFE        0x00000400 // Applied to safe door and item
+#define OBJFLAG2_INTERACTCHECKLOS    0x00000800 // Check line of sight when attempting to interact with object
+#define OBJFLAG2_PICKUPWITHOUTLOS    0x00001000 // Object can be picked up without having line of sight
+#define OBJFLAG2_REMOVEWHENDESTROYED 0x00002000
+#define OBJFLAG2_IMMUNETOGUNFIRE     0x00004000
+#define OBJFLAG2_SHOOTTHROUGH        0x00008000
+#define OBJFLAG2_DRAWONTOP           0x00010000
+#define OBJFLAG2_00020000            0x00020000 // G5 mine, Air Base mine
+#define OBJFLAG2_00040000            0x00040000 // Only used in CI training
+#define OBJFLAG2_INVISIBLE           0x00080000
+#define OBJFLAG2_BULLETPROOF         0x00100000 // Only magnum and FarSight can shoot through it
+#define OBJFLAG2_00200000            0x00200000 // Editor: "Immune to Explosions" (Ruins spikes)
+#define OBJFLAG2_EXCLUDE_2P          0x00400000
+#define OBJFLAG2_EXCLUDE_3P          0x00800000
+#define OBJFLAG2_EXCLUDE_4P          0x01000000
+#define OBJFLAG2_THROWTHROUGH        0x02000000 // Rockets/mines/grenades etc pass through object
+#define OBJFLAG2_04000000            0x04000000 // Used quite a lot - gravity?
+#define OBJFLAG2_LOCKEDFRONT         0x08000000 // One-way door lock
+#define OBJFLAG2_LOCKEDBACK          0x10000000 // One-way door lock
+#define OBJFLAG2_AICANNOTUSE         0x20000000
+#define OBJFLAG2_AIRLOCKDOOR         0x40000000 // Door waits for sibling to close before it can open
+#define OBJFLAG2_80000000            0x80000000 // Attack Ship glass
+#define OBJFLAG2_WEAPON_HUGEEXP      0x80000000
 
 // obj->flags3
 #define OBJFLAG3_PUSHABLE           0x00000001
@@ -3058,6 +3060,7 @@
 #define OBJHFLAG_PADLOCKEDDOOR      0x00002000
 #define OBJHFLAG_ACTIVATED_BY_BOND  0x00004000
 #define OBJHFLAG_00008000           0x00008000
+#define OBJHFLAG_00010000           0x00010000
 #define OBJHFLAG_00020000           0x00020000
 #define OBJHFLAG_ACTIVATED_BY_COOP  0x00040000
 #define OBJHFLAG_HASOWNER           0x00080000

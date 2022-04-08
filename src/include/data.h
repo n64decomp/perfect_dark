@@ -352,7 +352,7 @@ extern struct skeleton g_SkelRareLogo;
 extern struct skeleton g_SkelWireFence;
 extern struct skeleton g_SkelBB;
 extern struct modelstate g_ModelStates[NUM_MODELS];
-extern u8 g_PropExplosionTypes[];
+extern s8 g_PropExplosionTypes[];
 extern struct skeleton g_SkelBasic;
 extern struct skeleton g_SkelChrGun;
 extern struct skeleton g_Skel0B;
