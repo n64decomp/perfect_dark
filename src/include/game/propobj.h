@@ -213,7 +213,7 @@ Gfx *objRenderShadow(struct defaultobj *obj, Gfx *gdl);
 Gfx *objRender(struct prop *prop, Gfx *gdl, bool withalpha);
 bool modelIsNodeNotTvscreen(struct modelfiledata *filedata, struct modelnode *node);
 void func0f081ccc(struct defaultobj *obj, s32 arg1);
-void func0f0826cc(struct defaultobj *obj, struct coord *arg1);
+void objBounce(struct defaultobj *obj, struct coord *arg1);
 void objSetDropped(struct prop *prop, u32 droptype);
 void func0f082a1c(struct defaultobj *obj, struct coord *coord, f32 rotate, bool arg3, bool arg4);
 void piracyRestore(void);
