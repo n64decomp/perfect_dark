@@ -369,11 +369,10 @@ f32 modelBboxGetYMin(struct modelrodata_bbox *bbox)
 	return bbox->ymin;
 }
 
-GLOBAL_ASM(
-glabel func0f0667c4
-/*  f0667c4:	03e00008 */ 	jr	$ra
-/*  f0667c8:	c4800010 */ 	lwc1	$f0,0x10($a0)
-);
+f32 modelBboxGetYMax(struct modelrodata_bbox *bbox)
+{
+	return bbox->ymax;
+}
 
 f32 modelBboxGetZMin(struct modelrodata_bbox *bbox)
 {
@@ -3849,11 +3848,11 @@ void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], stru
 
 		if (obj->type == OBJTYPE_HOVERBIKE) {
 			hoverbike = (struct hoverbikeobj *)obj;
-			tile->ymax = hoverbike->hov.ground + var80069a70[hoverbike->hov.unk00].unk00 + func0f0667c4(bbox) * obj->model->scale;
+			tile->ymax = hoverbike->hov.ground + var80069a70[hoverbike->hov.unk00].unk00 + modelBboxGetYMax(bbox) * obj->model->scale;
 			tile->ymin = hoverbike->hov.ground + 20.0f;
 		} else if (obj->type == OBJTYPE_HOVERPROP) {
 			hoverprop = (struct hoverpropobj *)obj;
-			tile->ymax = hoverprop->hov.ground + var80069a70[hoverprop->hov.unk00].unk00 + func0f0667c4(bbox) * obj->model->scale;
+			tile->ymax = hoverprop->hov.ground + var80069a70[hoverprop->hov.unk00].unk00 + modelBboxGetYMax(bbox) * obj->model->scale;
 			tile->ymin = hoverprop->hov.ground + 20.0f;
 		} else {
 			tile->ymin = mtx.m[3][1] + func0f06683c(bbox, &mtx);
@@ -3872,11 +3871,11 @@ void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], stru
 
 		if (obj->type == OBJTYPE_HOVERBIKE) {
 			hoverbike = (struct hoverbikeobj *)obj;
-			tile->ymax = hoverbike->hov.ground + var80069a70[hoverbike->hov.unk00].unk00 + func0f0667c4(bbox) * obj->model->scale;
+			tile->ymax = hoverbike->hov.ground + var80069a70[hoverbike->hov.unk00].unk00 + modelBboxGetYMax(bbox) * obj->model->scale;
 			tile->ymin = hoverbike->hov.ground + 20.0f;
 		} else if (obj->type == OBJTYPE_HOVERPROP) {
 			hoverprop = (struct hoverpropobj *)obj;
-			tile->ymax = hoverprop->hov.ground + var80069a70[hoverprop->hov.unk00].unk00 + func0f0667c4(bbox) * obj->model->scale;
+			tile->ymax = hoverprop->hov.ground + var80069a70[hoverprop->hov.unk00].unk00 + modelBboxGetYMax(bbox) * obj->model->scale;
 			tile->ymin = hoverprop->hov.ground + 20.0f;
 		}
 	}
@@ -5116,7 +5115,7 @@ glabel var7f1aa200
 /*  f06a758:	0fc199ef */ 	jal	modelBboxGetYMin
 /*  f06a75c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06a760:	46000506 */ 	mov.s	$f20,$f0
-/*  f06a764:	0fc199f1 */ 	jal	func0f0667c4
+/*  f06a764:	0fc199f1 */ 	jal	modelBboxGetYMax
 /*  f06a768:	8fa400c4 */ 	lw	$a0,0xc4($sp)
 /*  f06a76c:	8faf00c8 */ 	lw	$t7,0xc8($sp)
 /*  f06a770:	46000386 */ 	mov.s	$f14,$f0
@@ -5407,7 +5406,7 @@ glabel var7f1aa200
 /*  f0699c0:	0fc1968f */ 	jal	modelBboxGetYMin
 /*  f0699c4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0699c8:	46000506 */ 	mov.s	$f20,$f0
-/*  f0699cc:	0fc19691 */ 	jal	func0f0667c4
+/*  f0699cc:	0fc19691 */ 	jal	modelBboxGetYMax
 /*  f0699d0:	8fa400bc */ 	lw	$a0,0xbc($sp)
 /*  f0699d4:	8faf00c0 */ 	lw	$t7,0xc0($sp)
 /*  f0699d8:	46000386 */ 	mov.s	$f14,$f0
@@ -63938,7 +63937,7 @@ glabel var7f1aa838
 /*  f081e90:	0fc199ef */ 	jal	modelBboxGetYMin
 /*  f081e94:	8fa400a4 */ 	lw	$a0,0xa4($sp)
 /*  f081e98:	8fa400a4 */ 	lw	$a0,0xa4($sp)
-/*  f081e9c:	0fc199f1 */ 	jal	func0f0667c4
+/*  f081e9c:	0fc199f1 */ 	jal	modelBboxGetYMax
 /*  f081ea0:	e7a000cc */ 	swc1	$f0,0xcc($sp)
 /*  f081ea4:	c7ae00cc */ 	lwc1	$f14,0xcc($sp)
 /*  f081ea8:	1000000b */ 	b	.L0f081ed8
@@ -64643,7 +64642,7 @@ glabel var7f1aa838
 /*  f0808ec:	0fc1968f */ 	jal	modelBboxGetYMin
 /*  f0808f0:	8fa400ac */ 	lw	$a0,0xac($sp)
 /*  f0808f4:	8fa400ac */ 	lw	$a0,0xac($sp)
-/*  f0808f8:	0fc19691 */ 	jal	func0f0667c4
+/*  f0808f8:	0fc19691 */ 	jal	modelBboxGetYMax
 /*  f0808fc:	e7a000d4 */ 	swc1	$f0,0xd4($sp)
 /*  f080900:	c7ae00d4 */ 	lwc1	$f14,0xd4($sp)
 /*  f080904:	1000000b */ 	beqz	$zero,.NB0f080934

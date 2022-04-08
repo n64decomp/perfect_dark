@@ -33,7 +33,7 @@ void objUpdateLinkedScenery(struct defaultobj *obj, struct prop *arg1);
 u32 func0f0667ac(void);
 u32 func0f0667b4(void);
 f32 modelBboxGetYMin(struct modelrodata_bbox *bbox);
-f32 func0f0667c4(struct modelrodata_bbox *bbox);
+f32 modelBboxGetYMax(struct modelrodata_bbox *bbox);
 f32 modelBboxGetZMin(struct modelrodata_bbox *bbox);
 f32 modelBboxGetZMax(struct modelrodata_bbox *bbox);
 f32 func0f0667dc(struct modelrodata_bbox *bbox, Mtxf *mtx);
