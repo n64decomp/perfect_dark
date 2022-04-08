@@ -221,7 +221,7 @@ void func0f082e84(struct defaultobj *obj, struct coord *pos, struct coord *dir, 
 void objDetach(struct prop *prop);
 bool objDrop(struct prop *prop, bool lazy);
 void func0f083db0(struct defaultobj *obj, s32 playernum);
-void func0f0840ac(struct prop *prop, s32 playernum);
+void objDestroySupportedObjects(struct prop *prop, s32 playernum);
 void objCheckDestroyed(struct defaultobj *obj, struct coord *pos, s32 playernum);
 bool func0f084594(struct model *model, struct modelnode *node, struct coord *arg2, struct coord *arg3, struct hitthing *arg4, s32 *arg5, struct modelnode **arg6);
 bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *arg2, struct coord *arg3, struct hitthing *hitthing, s32 *dstmtxindex, struct modelnode **dstnode);

@@ -67310,175 +67310,47 @@ u32 var8006abfc = 0x00000000;
 u32 var8006ac00 = 0x00000000;
 u32 var8006ac04 = 0x00000000;
 
+/**
+ * Destroy the objects that the given prop is supporting.
+ *
+ * For example, destroying a table will also destroy all the props that are
+ * sitting on that table.
+ */
+void objDestroySupportedObjects(struct prop *tableprop, s32 playernum)
+{
+	struct prop *prop;
+	s16 *propnumptr;
+	s16 propnums[256];
+	u8 *start;
+	u8 *end;
+
+	if (propUpdateGeometry(tableprop, &start, &end)) {
+		roomGetProps(tableprop->rooms, propnums, 256);
+
+		propnumptr = propnums;
+
+		while (*propnumptr >= 0) {
+			prop = &g_Vars.props[*propnumptr];
+
+			if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
+				struct defaultobj *obj = prop->obj;
+
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f0840ac
-/*  f0840ac:	27bdfda8 */ 	addiu	$sp,$sp,-600
-/*  f0840b0:	afb70030 */ 	sw	$s7,0x30($sp)
-/*  f0840b4:	00a0b825 */ 	or	$s7,$a1,$zero
-/*  f0840b8:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0840bc:	afb6002c */ 	sw	$s6,0x2c($sp)
-/*  f0840c0:	0080b025 */ 	or	$s6,$a0,$zero
-/*  f0840c4:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f0840c8:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f0840cc:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0840d0:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0840d4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0840d8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0840dc:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f0840e0:	0fc198a4 */ 	jal	propUpdateGeometry
-/*  f0840e4:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f0840e8:	10400031 */ 	beqz	$v0,.L0f0841b0
-/*  f0840ec:	27b00050 */ 	addiu	$s0,$sp,0x50
-/*  f0840f0:	26c40028 */ 	addiu	$a0,$s6,0x28
-/*  f0840f4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0840f8:	0fc197e0 */ 	jal	roomGetProps
-/*  f0840fc:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f084100:	87ae0050 */ 	lh	$t6,0x50($sp)
-/*  f084104:	02008825 */ 	or	$s1,$s0,$zero
-/*  f084108:	27af0050 */ 	addiu	$t7,$sp,0x50
-/*  f08410c:	05c00028 */ 	bltz	$t6,.L0f0841b0
-/*  f084110:	24150004 */ 	addiu	$s5,$zero,0x4
-/*  f084114:	3c13800a */ 	lui	$s3,%hi(g_Vars)
-/*  f084118:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
-/*  f08411c:	85e30000 */ 	lh	$v1,0x0($t7)
-/*  f084120:	24140001 */ 	addiu	$s4,$zero,0x1
-/*  f084124:	24120048 */ 	addiu	$s2,$zero,0x48
-.L0f084128:
-/*  f084128:	00720019 */ 	multu	$v1,$s2
-/*  f08412c:	8e790338 */ 	lw	$t9,0x338($s3)
-/*  f084130:	0000c012 */ 	mflo	$t8
-/*  f084134:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f084138:	90440000 */ 	lbu	$a0,0x0($v0)
-/*  f08413c:	52840004 */ 	beql	$s4,$a0,.L0f084150
-/*  f084140:	8c500004 */ 	lw	$s0,0x4($v0)
-/*  f084144:	56a40017 */ 	bnel	$s5,$a0,.L0f0841a4
-/*  f084148:	86230002 */ 	lh	$v1,0x2($s1)
-/*  f08414c:	8c500004 */ 	lw	$s0,0x4($v0)
-.L0f084150:
-/*  f084150:	52000014 */ 	beqzl	$s0,.L0f0841a4
-/*  f084154:	86230002 */ 	lh	$v1,0x2($s1)
-/*  f084158:	c6c4000c */ 	lwc1	$f4,0xc($s6)
-/*  f08415c:	c446000c */ 	lwc1	$f6,0xc($v0)
-/*  f084160:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f084164:	00000000 */ 	nop
-/*  f084168:	4502000e */ 	bc1fl	.L0f0841a4
-/*  f08416c:	86230002 */ 	lh	$v1,0x2($s1)
-/*  f084170:	8e080040 */ 	lw	$t0,0x40($s0)
-/*  f084174:	8fa6004c */ 	lw	$a2,0x4c($sp)
-/*  f084178:	31098000 */ 	andi	$t1,$t0,0x8000
-/*  f08417c:	51200009 */ 	beqzl	$t1,.L0f0841a4
-/*  f084180:	86230002 */ 	lh	$v1,0x2($s1)
-/*  f084184:	c44c0008 */ 	lwc1	$f12,0x8($v0)
-/*  f084188:	0c0099a9 */ 	jal	func000266a4
-/*  f08418c:	c44e0010 */ 	lwc1	$f14,0x10($v0)
-/*  f084190:	10400003 */ 	beqz	$v0,.L0f0841a0
-/*  f084194:	02002025 */ 	or	$a0,$s0,$zero
-/*  f084198:	0fc20f6c */ 	jal	func0f083db0
-/*  f08419c:	02e02825 */ 	or	$a1,$s7,$zero
-.L0f0841a0:
-/*  f0841a0:	86230002 */ 	lh	$v1,0x2($s1)
-.L0f0841a4:
-/*  f0841a4:	26310002 */ 	addiu	$s1,$s1,0x2
-/*  f0841a8:	0461ffdf */ 	bgez	$v1,.L0f084128
-/*  f0841ac:	00000000 */ 	nop
-.L0f0841b0:
-/*  f0841b0:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0841b4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0841b8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0841bc:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0841c0:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0841c4:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f0841c8:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f0841cc:	8fb6002c */ 	lw	$s6,0x2c($sp)
-/*  f0841d0:	8fb70030 */ 	lw	$s7,0x30($sp)
-/*  f0841d4:	03e00008 */ 	jr	$ra
-/*  f0841d8:	27bd0258 */ 	addiu	$sp,$sp,0x258
-);
-#else
-GLOBAL_ASM(
-glabel func0f0840ac
-/*  f0829cc:	27bdfda8 */ 	addiu	$sp,$sp,-600
-/*  f0829d0:	afb70030 */ 	sw	$s7,0x30($sp)
-/*  f0829d4:	00a0b825 */ 	or	$s7,$a1,$zero
-/*  f0829d8:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0829dc:	afb6002c */ 	sw	$s6,0x2c($sp)
-/*  f0829e0:	0080b025 */ 	or	$s6,$a0,$zero
-/*  f0829e4:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f0829e8:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f0829ec:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0829f0:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0829f4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0829f8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0829fc:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f082a00:	0fc1953e */ 	jal	propUpdateGeometry
-/*  f082a04:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f082a08:	1040002f */ 	beqz	$v0,.NB0f082ac8
-/*  f082a0c:	27b00050 */ 	addiu	$s0,$sp,0x50
-/*  f082a10:	26c40028 */ 	addiu	$a0,$s6,0x28
-/*  f082a14:	02002825 */ 	or	$a1,$s0,$zero
-/*  f082a18:	0fc1947a */ 	jal	roomGetProps
-/*  f082a1c:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f082a20:	87ae0050 */ 	lh	$t6,0x50($sp)
-/*  f082a24:	02008825 */ 	or	$s1,$s0,$zero
-/*  f082a28:	27af0050 */ 	addiu	$t7,$sp,0x50
-/*  f082a2c:	05c00026 */ 	bltz	$t6,.NB0f082ac8
-/*  f082a30:	24150004 */ 	addiu	$s5,$zero,0x4
-/*  f082a34:	3c13800a */ 	lui	$s3,0x800a
-/*  f082a38:	2673e6c0 */ 	addiu	$s3,$s3,-6464
-/*  f082a3c:	85e30000 */ 	lh	$v1,0x0($t7)
-/*  f082a40:	24140001 */ 	addiu	$s4,$zero,0x1
-/*  f082a44:	24120048 */ 	addiu	$s2,$zero,0x48
-.NB0f082a48:
-/*  f082a48:	00720019 */ 	multu	$v1,$s2
-/*  f082a4c:	8e790338 */ 	lw	$t9,0x338($s3)
-/*  f082a50:	0000c012 */ 	mflo	$t8
-/*  f082a54:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f082a58:	90440000 */ 	lbu	$a0,0x0($v0)
-/*  f082a5c:	52840004 */ 	beql	$s4,$a0,.NB0f082a70
-/*  f082a60:	c6c4000c */ 	lwc1	$f4,0xc($s6)
-/*  f082a64:	56a40015 */ 	bnel	$s5,$a0,.NB0f082abc
-/*  f082a68:	86230002 */ 	lh	$v1,0x2($s1)
-/*  f082a6c:	c6c4000c */ 	lwc1	$f4,0xc($s6)
-.NB0f082a70:
-/*  f082a70:	c446000c */ 	lwc1	$f6,0xc($v0)
-/*  f082a74:	8c500004 */ 	lw	$s0,0x4($v0)
-/*  f082a78:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f082a7c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f082a80:	4502000e */ 	bc1fl	.NB0f082abc
-/*  f082a84:	86230002 */ 	lh	$v1,0x2($s1)
-/*  f082a88:	8e080040 */ 	lw	$t0,0x40($s0)
-/*  f082a8c:	8fa6004c */ 	lw	$a2,0x4c($sp)
-/*  f082a90:	31098000 */ 	andi	$t1,$t0,0x8000
-/*  f082a94:	51200009 */ 	beqzl	$t1,.NB0f082abc
-/*  f082a98:	86230002 */ 	lh	$v1,0x2($s1)
-/*  f082a9c:	c44c0008 */ 	lwc1	$f12,0x8($v0)
-/*  f082aa0:	0c009ead */ 	jal	func000266a4
-/*  f082aa4:	c44e0010 */ 	lwc1	$f14,0x10($v0)
-/*  f082aa8:	10400003 */ 	beqz	$v0,.NB0f082ab8
-/*  f082aac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f082ab0:	0fc209c6 */ 	jal	func0f083db0
-/*  f082ab4:	02e02825 */ 	or	$a1,$s7,$zero
-.NB0f082ab8:
-/*  f082ab8:	86230002 */ 	lh	$v1,0x2($s1)
-.NB0f082abc:
-/*  f082abc:	26310002 */ 	addiu	$s1,$s1,0x2
-/*  f082ac0:	0461ffe1 */ 	bgez	$v1,.NB0f082a48
-/*  f082ac4:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f082ac8:
-/*  f082ac8:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f082acc:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f082ad0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f082ad4:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f082ad8:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f082adc:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f082ae0:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f082ae4:	8fb6002c */ 	lw	$s6,0x2c($sp)
-/*  f082ae8:	8fb70030 */ 	lw	$s7,0x30($sp)
-/*  f082aec:	03e00008 */ 	jr	$ra
-/*  f082af0:	27bd0258 */ 	addiu	$sp,$sp,0x258
-);
+				if (obj)
 #endif
+				{
+					if (prop->pos.y > tableprop->pos.y
+							&& (obj->hidden & OBJHFLAG_00008000)
+							&& func000266a4(prop->pos.x, prop->pos.z, (struct tile *)start)) {
+						func0f083db0(obj, playernum);
+					}
+				}
+			}
+
+			propnumptr++;
+		}
+	}
+}
 
 void objCheckDestroyed(struct defaultobj *obj, struct coord *pos, s32 playernum)
 {
@@ -67546,7 +67418,7 @@ void objCheckDestroyed(struct defaultobj *obj, struct coord *pos, s32 playernum)
 				func0f081ccc(obj, 1);
 
 				if (rootprop == prop) {
-					func0f0840ac(prop, playernum);
+					objDestroySupportedObjects(prop, playernum);
 
 					if ((obj->hidden & OBJHFLAG_00008000) == 0) {
 						obj->hidden |= OBJHFLAG_00010000;
