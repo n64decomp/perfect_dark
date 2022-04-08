@@ -224,7 +224,7 @@ u32 func0f083db0(void);
 u32 func0f0840ac(void);
 void func0f0841dc(struct defaultobj *obj, struct coord *pos, s32 playernum);
 bool func0f084594(struct model *model, struct modelnode *node, struct coord *arg2, struct coord *arg3, struct hitthing *arg4, s32 *arg5, struct modelnode **arg6);
-bool func0f0849dc(struct model *model, struct modelnode *node, struct coord *arg2, struct coord *arg3, struct hitthing *arg4, s32 *arg5, struct modelnode **arg6);
+bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *arg2, struct coord *arg3, struct hitthing *hitthing, s32 *dstmtxindex, struct modelnode **dstnode);
 u32 add43214321(u32 value);
 void glassDestroy(struct defaultobj *obj);
 void doorDestroyGlass(struct doorobj *door);
