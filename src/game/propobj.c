@@ -1478,63 +1478,25 @@ struct defaultobj *objFindByPadNum(s32 padnum)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f068218
-/*  f068218:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f06821c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f068220:	3c10800a */ 	lui	$s0,%hi(g_Vars+0x33c)
-/*  f068224:	8e10a2fc */ 	lw	$s0,%lo(g_Vars+0x33c)($s0)
-/*  f068228:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f06822c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f068230:	00808825 */ 	or	$s1,$a0,$zero
-/*  f068234:	00a0a825 */ 	or	$s5,$a1,$zero
-/*  f068238:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f06823c:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f068240:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f068244:	1200001b */ 	beqz	$s0,.L0f0682b4
-/*  f068248:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f06824c:	27b40034 */ 	addiu	$s4,$sp,0x34
-/*  f068250:	27b30038 */ 	addiu	$s3,$sp,0x38
-/*  f068254:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f068258:	920e0000 */ 	lbu	$t6,0x0($s0)
-.L0f06825c:
-/*  f06825c:	26040028 */ 	addiu	$a0,$s0,0x28
-/*  f068260:	564e0012 */ 	bnel	$s2,$t6,.L0f0682ac
-/*  f068264:	8e100020 */ 	lw	$s0,0x20($s0)
-/*  f068268:	0fc19620 */ 	jal	arrayIntersects
-/*  f06826c:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f068270:	1040000d */ 	beqz	$v0,.L0f0682a8
-/*  f068274:	02002025 */ 	or	$a0,$s0,$zero
-/*  f068278:	02602825 */ 	or	$a1,$s3,$zero
-/*  f06827c:	0fc198a4 */ 	jal	propUpdateGeometry
-/*  f068280:	02803025 */ 	or	$a2,$s4,$zero
-/*  f068284:	10400008 */ 	beqz	$v0,.L0f0682a8
-/*  f068288:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f06828c:	c62c0000 */ 	lwc1	$f12,0x0($s1)
-/*  f068290:	0c0099a9 */ 	jal	func000266a4
-/*  f068294:	c62e0008 */ 	lwc1	$f14,0x8($s1)
-/*  f068298:	50400004 */ 	beqzl	$v0,.L0f0682ac
-/*  f06829c:	8e100020 */ 	lw	$s0,0x20($s0)
-/*  f0682a0:	10000005 */ 	b	.L0f0682b8
-/*  f0682a4:	8e020004 */ 	lw	$v0,0x4($s0)
-.L0f0682a8:
-/*  f0682a8:	8e100020 */ 	lw	$s0,0x20($s0)
-.L0f0682ac:
-/*  f0682ac:	5600ffeb */ 	bnezl	$s0,.L0f06825c
-/*  f0682b0:	920e0000 */ 	lbu	$t6,0x0($s0)
-.L0f0682b4:
-/*  f0682b4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0682b8:
-/*  f0682b8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0682bc:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0682c0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0682c4:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0682c8:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0682cc:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f0682d0:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f0682d4:	03e00008 */ 	jr	$ra
-/*  f0682d8:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+struct defaultobj *objFindByPos(struct coord *pos, s16 *rooms)
+{
+	struct prop *prop = g_Vars.activeprops;
+	u8 *sp38;
+	u8 *sp34;
+
+	while (prop) {
+		if (prop->type == PROPTYPE_OBJ
+				&& arrayIntersects(prop->rooms, rooms)
+				&& propUpdateGeometry(prop, &sp38, &sp34)
+				&& func000266a4(pos->x, pos->z, (struct tile *)sp38)) {
+			return prop->obj;
+		}
+
+		prop = prop->next;
+	}
+
+	return NULL;
+}
 
 void projectileFree(struct projectile *projectile)
 {
@@ -5385,7 +5347,7 @@ glabel var7f1aa200
 /*  f06aa08:	c7ae00bc */ 	lwc1	$f14,0xbc($sp)
 /*  f06aa0c:	27a400b0 */ 	addiu	$a0,$sp,0xb0
 /*  f06aa10:	27a50060 */ 	addiu	$a1,$sp,0x60
-/*  f06aa14:	0fc1a086 */ 	jal	func0f068218
+/*  f06aa14:	0fc1a086 */ 	jal	objFindByPos
 /*  f06aa18:	e7ae00bc */ 	swc1	$f14,0xbc($sp)
 /*  f06aa1c:	10400038 */ 	beqz	$v0,.L0f06ab00
 /*  f06aa20:	c7ae00bc */ 	lwc1	$f14,0xbc($sp)
@@ -5675,7 +5637,7 @@ glabel var7f1aa200
 /*  f069c6c:	c7ae00b4 */ 	lwc1	$f14,0xb4($sp)
 /*  f069c70:	27a400a8 */ 	addiu	$a0,$sp,0xa8
 /*  f069c74:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f069c78:	0fc19d26 */ 	jal	func0f068218
+/*  f069c78:	0fc19d26 */ 	jal	objFindByPos
 /*  f069c7c:	e7ae00b4 */ 	swc1	$f14,0xb4($sp)
 /*  f069c80:	10400038 */ 	beqz	$v0,.NB0f069d64
 /*  f069c84:	c7ae00b4 */ 	lwc1	$f14,0xb4($sp)
@@ -5875,7 +5837,7 @@ glabel var7f1aa200
 //		if (cd0002a440(&spb0, sp60, &sp58, &obj->floorcol) > 0)
 //#endif
 //		{
-//			struct defaultobj *obj2 = func0f068218(&spb0, sp60);
+//			struct defaultobj *obj2 = objFindByPos(&spb0, sp60);
 //
 //			if (obj2) {
 //				bool updated = propUpdateGeometry(obj2->prop, &sp3c, &sp38);

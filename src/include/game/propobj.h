@@ -64,7 +64,7 @@ bool func0f067dc4(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg
 bool modelSetRedBox(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4);
 void func0f06803c(struct coord *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4);
 struct defaultobj *objFindByPadNum(s32 padnum);
-struct defaultobj *func0f068218(struct coord *arg0, s16 *rooms);
+struct defaultobj *objFindByPos(struct coord *pos, s16 *rooms);
 void projectileFree(struct projectile *projectile);
 void projectilesUnrefOwner(struct prop *owner);
 void projectileReset(struct projectile *projectile);
