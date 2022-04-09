@@ -2964,6 +2964,135 @@ glabel func0f068c04
 );
 #endif
 
+// Mismatch: Something weird with the registers for the neg.s instructions for
+// the pad normal. Two of them reuse the same register, and one of those is a
+// callee-save register.
+//s32 func0f068c04(struct prop *prop, s32 *arg1, s32 *arg2)
+//{
+//	struct doorobj *door = prop->door; // 12c
+//	struct doorobj *sibling; // 128
+//	f32 f22;
+//	s32 s1;
+//	s32 s3 = 0;
+//	s32 s4 = 0;
+//	s32 s2 = 0;
+//	s32 s5 = 0;
+//	s32 v1;
+//	s32 result;
+//	struct prop *loopprop; // 104
+//	struct pad pad; // b0
+//	s32 i;
+//	u32 stack[7];
+//
+//#if VERSION < VERSION_PAL_BETA
+//	static u32 var80069974 = 0;
+//
+//	mainOverrideVariable("debugdoors", &var80069974);
+//#endif
+//
+//	sibling = door;
+//
+//	while (sibling && sibling->base.prop) {
+//		if (sibling->portalnum == door->portalnum) {
+//			if (g_Vars.currentplayer->prop) {
+//				struct coord *campos = &g_Vars.currentplayer->cam_pos;
+//				loopprop = sibling->base.prop;
+//
+//				padUnpack(sibling->base.pad, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_NORMAL | PADFIELD_ROOM, &pad);
+//
+//				if (door->base.flags3 & OBJFLAG3_04000000) {
+//					s3 += func0f000b24(pad.room);
+//					s4 += func0f000c54(pad.room);
+//					s5++;
+//
+//					s2 = s3 + s4;
+//
+//					if (s2 > 255) {
+//						s2 = 255;
+//					}
+//				} else {
+//					// d3c
+//					f32 a;
+//					f32 b;
+//					f32 c;
+//
+//					if (door->doorflags & DOORFLAG_FLIP) {
+//						pad.normal.f[0] = -pad.normal.f[0];
+//						pad.normal.f[1] = -pad.normal.f[1];
+//						pad.normal.f[2] = -pad.normal.f[2];
+//					}
+//
+//					// d78
+//					a = campos->f[0] - pad.pos.f[0];
+//					b = campos->f[1] - pad.pos.f[1];
+//					c = campos->f[2] - pad.pos.f[2];
+//
+//					f22 = pad.normal.f[0] * a + pad.normal.f[1] * b + pad.normal.f[2] * c;
+//
+//					for (i = 0; loopprop->rooms[i] != -1; i++) {
+//						f32 a;
+//						f32 b;
+//						f32 c;
+//						f32 f20;
+//
+//						a = g_Rooms[loopprop->rooms[i]].centre.f[0] - pad.pos.f[0];
+//						b = g_Rooms[loopprop->rooms[i]].centre.f[1] - pad.pos.f[1];
+//						c = g_Rooms[loopprop->rooms[i]].centre.f[2] - pad.pos.f[2];
+//
+//						f20 = pad.normal.f[0] * a + pad.normal.f[1] * b + pad.normal.f[2] * c;
+//
+//						// e1c
+//						if ((f22 < 0.0f && f22 < 0.0f) || (f22 > 0.0f && f20 > 0.0f)) {
+//							s32 value1 = func0f000c54(loopprop->rooms[i]);
+//							s32 value2 = func0f000b24(loopprop->rooms[i]);
+//							s32 sum = value2 + value1;
+//
+//							if (sum > 255) {
+//								sum = 255;
+//							}
+//
+//							s5++;
+//							s3 += value2;
+//							s4 += value1;
+//							s2 += sum;
+//						}
+//					}
+//				}
+//			}
+//		}
+//
+//		sibling = sibling->sibling;
+//
+//		if (sibling == door) {
+//			break;
+//		}
+//	}
+//
+//	if (s5 == 0) {
+//		s1 = func0f068b14(prop->rooms, 0);
+//		v1 = func0f068b14(prop->rooms, 1);
+//	} else {
+//		s1 = s3 / s5;
+//		v1 = s4 / s5;
+//	}
+//
+//	if (arg1 != NULL) {
+//		*arg1 = s1;
+//	}
+//
+//	if (arg2 != NULL) {
+//		*arg2 = v1;
+//	}
+//
+//	if (s1 + v1 < 255) {
+//		result = s1 + v1;
+//	} else {
+//		result = 255;
+//	}
+//
+//	return result;
+//}
+
 s32 func0f068fc8(struct prop *prop, bool arg1)
 {
 	struct defaultobj *obj = prop->obj;
