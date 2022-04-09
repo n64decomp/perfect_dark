@@ -353,13 +353,13 @@ void objUpdateLinkedScenery(struct defaultobj *obj, struct prop *arg1)
 }
 
 GLOBAL_ASM(
-glabel func0f0667ac
+glabel modelBboxGetXMin
 /*  f0667ac:	03e00008 */ 	jr	$ra
 /*  f0667b0:	c4800004 */ 	lwc1	$f0,0x4($a0)
 );
 
 GLOBAL_ASM(
-glabel func0f0667b4
+glabel modelBboxGetXMax
 /*  f0667b4:	03e00008 */ 	jr	$ra
 /*  f0667b8:	c4800008 */ 	lwc1	$f0,0x8($a0)
 );
@@ -5325,10 +5325,10 @@ glabel var7f1aa200
 .L0f06a920:
 /*  f06a920:	15000009 */ 	bnez	$t0,.L0f06a948
 /*  f06a924:	8fa400c4 */ 	lw	$a0,0xc4($sp)
-/*  f06a928:	0fc199eb */ 	jal	func0f0667ac
+/*  f06a928:	0fc199eb */ 	jal	modelBboxGetXMin
 /*  f06a92c:	afa80050 */ 	sw	$t0,0x50($sp)
 /*  f06a930:	46000506 */ 	mov.s	$f20,$f0
-/*  f06a934:	0fc199ed */ 	jal	func0f0667b4
+/*  f06a934:	0fc199ed */ 	jal	modelBboxGetXMax
 /*  f06a938:	8fa400c4 */ 	lw	$a0,0xc4($sp)
 /*  f06a93c:	8fa80050 */ 	lw	$t0,0x50($sp)
 /*  f06a940:	1000000a */ 	b	.L0f06a96c
@@ -5616,10 +5616,10 @@ glabel var7f1aa200
 .NB0f069b88:
 /*  f069b88:	15000009 */ 	bnez	$t0,.NB0f069bb0
 /*  f069b8c:	8fa400bc */ 	lw	$a0,0xbc($sp)
-/*  f069b90:	0fc1968b */ 	jal	func0f0667ac
+/*  f069b90:	0fc1968b */ 	jal	modelBboxGetXMin
 /*  f069b94:	afa80048 */ 	sw	$t0,0x48($sp)
 /*  f069b98:	46000506 */ 	mov.s	$f20,$f0
-/*  f069b9c:	0fc1968d */ 	jal	func0f0667b4
+/*  f069b9c:	0fc1968d */ 	jal	modelBboxGetXMax
 /*  f069ba0:	8fa400bc */ 	lw	$a0,0xbc($sp)
 /*  f069ba4:	8fa80048 */ 	lw	$t0,0x48($sp)
 /*  f069ba8:	1000000a */ 	beqz	$zero,.NB0f069bd4
@@ -5765,6 +5765,142 @@ glabel var7f1aa200
 /*  f069dc0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 #endif
+
+// Mismatch: Floating point pain, and sp50 needs to prefer t0 rather than v0
+//void func0f06a730(struct defaultobj *obj, struct coord *arg1, Mtxf *mtx, s16 *rooms, struct coord *centre)
+//{
+//	struct modelrodata_bbox *bbox; // c4
+//	f32 min;
+//	f32 max; // bc
+//	struct coord spb0;
+//	Mtxf sp70;
+//	s16 sp60[8];
+//	f32 sp58;
+//	s32 sp50;
+//	s32 sp4c;
+//	u8 *sp3c;
+//	u8 *sp38;
+//	f32 curval;
+//	f32 bestval;
+//
+//	bbox = modelFindBboxRodata(obj->model);
+//	min = modelBboxGetYMin(bbox);
+//	max = modelBboxGetYMax(bbox);
+//
+//	if (obj->flags & OBJFLAG_00000004) {
+//		mtx4LoadZRotation(M_BADPI, &sp70);
+//		mtx4MultMtx4InPlace(mtx, &sp70);
+//
+//		spb0.f[0] = centre->f[0] - sp70.m[1][0] * max;
+//		spb0.f[1] = centre->f[1] - sp70.m[1][1] * max;
+//		spb0.f[2] = centre->f[2] - sp70.m[1][2] * max;
+//	} else if (obj->flags & OBJFLAG_00000008) {
+//		mtx4Copy(mtx, &sp70);
+//
+//		spb0.f[0] = centre->f[0] - sp70.m[1][0] * min;
+//		spb0.f[1] = centre->f[1] - sp70.m[1][1] * min;
+//		spb0.f[2] = centre->f[2] - sp70.m[1][2] * min;
+//	} else {
+//		mtx4Copy(mtx, &sp70);
+//
+//		curval = sp70.m[0][1];
+//
+//		if (curval < 0.0f) {
+//			curval = -curval;
+//		}
+//
+//		sp50 = 0;
+//		sp4c = 0;
+//
+//		if (sp70.m[0][1] < 0.0f) {
+//			sp4c = 1;
+//		}
+//
+//		bestval = curval;
+//
+//		curval = sp70.m[1][1];
+//
+//		if (curval < 0.0f) {
+//			curval = -curval;
+//		}
+//
+//		if (bestval < curval) {
+//			sp50 = 1;
+//			sp4c = 0;
+//			bestval = curval;
+//
+//			if (sp70.m[1][1] < 0.0f) {
+//				sp4c = 1;
+//			}
+//		}
+//
+//		curval = sp70.m[2][1];
+//
+//		if (curval < 0.0f) {
+//			curval = -curval;
+//		}
+//
+//		if (bestval < curval) {
+//			sp50 = 2;
+//			sp4c = 0;
+//
+//			if (sp70.m[2][1] < 0.0f) {
+//				sp4c = 1;
+//			}
+//		}
+//
+//		if (sp50 == 0) {
+//			min = modelBboxGetXMin(bbox);
+//			max = modelBboxGetXMax(bbox);
+//		} else if (sp50 == 2) {
+//			min = modelBboxGetZMin(bbox);
+//			max = modelBboxGetZMax(bbox);
+//		}
+//
+//		if (sp70.m[sp50][0]);
+//
+//		if (sp4c) {
+//			f32 tmp = min;
+//			min = max;
+//			max = tmp;
+//		}
+//
+//		spb0.x = centre->x - sp70.m[sp50][0] * min;
+//		spb0.y = centre->y - sp70.m[sp50][1] * min;
+//		spb0.z = centre->z - sp70.m[sp50][2] * min;
+//
+//		func0f065e74(arg1, rooms, &spb0, sp60);
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//		if (cd0002a440(&spb0, sp60, &sp58, &obj->floorcol, NULL) > 0)
+//#else
+//		if (cd0002a440(&spb0, sp60, &sp58, &obj->floorcol) > 0)
+//#endif
+//		{
+//			struct defaultobj *obj2 = func0f068218(&spb0, sp60);
+//
+//			if (obj2) {
+//				bool updated = propUpdateGeometry(obj2->prop, &sp3c, &sp38);
+//				struct tiletype2 *tile2 = (struct tiletype2 *)sp3c;
+//
+//				if (updated
+//						&& sp3c[0] == TILETYPE_02
+//						&& tile2->ymax > sp58
+//						&& tile2->ymin < sp58 + (max - min) * sp70.m[sp50][1] + func0f06a620(obj)) {
+//					spb0.y = tile2->ymax - sp70.m[sp50][1] * min;
+//					obj->hidden |= OBJHFLAG_00008000;
+//				} else {
+//					spb0.y = sp58 - min * sp70.m[sp50][1] + func0f06a620(obj);
+//				}
+//			} else {
+//				spb0.y = sp58 - min * sp70.m[sp50][1] + func0f06a620(obj);
+//			}
+//		}
+//	}
+//
+//	func0f065e74(arg1, rooms, &spb0, sp60);
+//	func0f06a580(obj, &spb0, &sp70, sp60);
+//}
 
 void func0f06ab60(struct defaultobj *obj, struct coord *arg1, Mtxf *arg2, s16 *rooms, struct coord *arg4)
 {
@@ -64008,10 +64144,10 @@ glabel var7f1aa838
 /*  f081e50:	c7ae00cc */ 	lwc1	$f14,0xcc($sp)
 /*  f081e54:	15400009 */ 	bnez	$t2,.L0f081e7c
 /*  f081e58:	afa200a4 */ 	sw	$v0,0xa4($sp)
-/*  f081e5c:	0fc199eb */ 	jal	func0f0667ac
+/*  f081e5c:	0fc199eb */ 	jal	modelBboxGetXMin
 /*  f081e60:	00402025 */ 	or	$a0,$v0,$zero
 /*  f081e64:	8fa400a4 */ 	lw	$a0,0xa4($sp)
-/*  f081e68:	0fc199ed */ 	jal	func0f0667b4
+/*  f081e68:	0fc199ed */ 	jal	modelBboxGetXMax
 /*  f081e6c:	e7a000cc */ 	swc1	$f0,0xcc($sp)
 /*  f081e70:	c7ae00cc */ 	lwc1	$f14,0xcc($sp)
 /*  f081e74:	10000018 */ 	b	.L0f081ed8
@@ -64713,10 +64849,10 @@ glabel var7f1aa838
 /*  f0808ac:	c7ae00d4 */ 	lwc1	$f14,0xd4($sp)
 /*  f0808b0:	15400009 */ 	bnez	$t2,.NB0f0808d8
 /*  f0808b4:	afa200ac */ 	sw	$v0,0xac($sp)
-/*  f0808b8:	0fc1968b */ 	jal	func0f0667ac
+/*  f0808b8:	0fc1968b */ 	jal	modelBboxGetXMin
 /*  f0808bc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0808c0:	8fa400ac */ 	lw	$a0,0xac($sp)
-/*  f0808c4:	0fc1968d */ 	jal	func0f0667b4
+/*  f0808c4:	0fc1968d */ 	jal	modelBboxGetXMax
 /*  f0808c8:	e7a000d4 */ 	swc1	$f0,0xd4($sp)
 /*  f0808cc:	c7ae00d4 */ 	lwc1	$f14,0xd4($sp)
 /*  f0808d0:	10000018 */ 	beqz	$zero,.NB0f080934
