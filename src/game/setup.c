@@ -182,7 +182,7 @@ void propsReset(void)
 	g_MaxWeaponSlots = 50;
 	g_MaxHatSlots = 10;
 	g_MaxAmmoCrates = 20;
-	var8009ce4c = 15;
+	g_MaxDebrisSlots = 15;
 	g_MaxProjectiles = IS4MB() ? 20 : 100;
 	g_MaxMonitorThings = IS4MB() ? 40 : 80;
 
@@ -190,7 +190,7 @@ void propsReset(void)
 		g_MaxWeaponSlots = 0;
 		g_MaxHatSlots = 0;
 		g_MaxAmmoCrates = 0;
-		var8009ce4c = 0;
+		g_MaxDebrisSlots = 0;
 		g_MaxProjectiles = 0;
 		g_MaxMonitorThings = 0;
 	}
@@ -252,18 +252,18 @@ void propsReset(void)
 		}
 	}
 
-	if (var8009ce4c == 0) {
-		var8009ce64 = 0;
+	if (g_MaxDebrisSlots == 0) {
+		g_DebrisSlots = NULL;
 	} else {
-		var8009ce64 = mempAlloc(ALIGN16(var8009ce4c * sizeof(struct defaultobj)), MEMPOOL_STAGE);
+		g_DebrisSlots = mempAlloc(ALIGN16(g_MaxDebrisSlots * sizeof(struct defaultobj)), MEMPOOL_STAGE);
 
-		for (i = 0; i < var8009ce4c; i++) {
-			var8009ce64[i].prop = NULL;
+		for (i = 0; i < g_MaxDebrisSlots; i++) {
+			g_DebrisSlots[i].prop = NULL;
 		}
 	}
 
 	if (g_MaxProjectiles == 0) {
-		g_Projectiles = 0;
+		g_Projectiles = NULL;
 	} else {
 		g_Projectiles = mempAlloc(ALIGN16(g_MaxProjectiles * sizeof(struct projectile)), MEMPOOL_STAGE);
 
@@ -273,12 +273,12 @@ void propsReset(void)
 	}
 
 	if (g_MaxMonitorThings == 0) {
-		g_MonitorMounts = 0;
+		g_MonitorMounts = NULL;
 	} else {
 		g_MonitorMounts = mempAlloc(ALIGN16(g_MaxMonitorThings * sizeof(struct monitormount)), MEMPOOL_STAGE);
 
 		for (i = 0; i < g_MaxMonitorThings; i++) {
-			g_MonitorMounts[i].flags = 0x00000001;
+			g_MonitorMounts[i].flags = MONITORMOUNTFLAG_FREE;
 		}
 	}
 

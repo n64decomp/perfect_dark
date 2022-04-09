@@ -108,13 +108,13 @@ bool g_GasEnableDamage;
 s32 g_MaxWeaponSlots;
 s32 g_MaxHatSlots;
 s32 g_MaxAmmoCrates;
-s32 var8009ce4c;
+s32 g_MaxDebrisSlots;
 s32 g_MaxProjectiles;
 s32 g_MaxMonitorThings;
 struct weaponobj *g_WeaponSlots;
 struct hatobj *g_HatSlots;
 struct ammocrateobj *g_AmmoCrates;
-struct defaultobj *var8009ce64;
+struct defaultobj *g_DebrisSlots;
 struct projectile *g_Projectiles;
 struct monitormount *g_MonitorMounts;
 
@@ -73062,111 +73062,40 @@ struct ammocrateobj *ammocrateAllocate(void)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel debrisAllocate
-/*  f08a88c:	3c05800a */ 	lui	$a1,%hi(var8009ce4c)
-/*  f08a890:	8ca5ce4c */ 	lw	$a1,%lo(var8009ce4c)($a1)
-/*  f08a894:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f08a898:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08a89c:	18a0000f */ 	blez	$a1,.L0f08a8dc
-/*  f08a8a0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f08a8a4:	3c07800a */ 	lui	$a3,%hi(var8009ce64)
-/*  f08a8a8:	8ce7ce64 */ 	lw	$a3,%lo(var8009ce64)($a3)
-/*  f08a8ac:	00003025 */ 	or	$a2,$zero,$zero
-/*  f08a8b0:	00e01025 */ 	or	$v0,$a3,$zero
-.L0f08a8b4:
-/*  f08a8b4:	8c4e0014 */ 	lw	$t6,0x14($v0)
-/*  f08a8b8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f08a8bc:	0065082a */ 	slt	$at,$v1,$a1
-/*  f08a8c0:	15c00003 */ 	bnez	$t6,.L0f08a8d0
-/*  f08a8c4:	2442005c */ 	addiu	$v0,$v0,0x5c
-/*  f08a8c8:	10000046 */ 	b	.L0f08a9e4
-/*  f08a8cc:	00c71021 */ 	addu	$v0,$a2,$a3
-.L0f08a8d0:
-/*  f08a8d0:	1420fff8 */ 	bnez	$at,.L0f08a8b4
-/*  f08a8d4:	24c6005c */ 	addiu	$a2,$a2,0x5c
-/*  f08a8d8:	00001825 */ 	or	$v1,$zero,$zero
-.L0f08a8dc:
-/*  f08a8dc:	18a00022 */ 	blez	$a1,.L0f08a968
-/*  f08a8e0:	3c07800a */ 	lui	$a3,%hi(var8009ce64)
-/*  f08a8e4:	8ce7ce64 */ 	lw	$a3,%lo(var8009ce64)($a3)
-/*  f08a8e8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f08a8ec:	00e01025 */ 	or	$v0,$a3,$zero
-.L0f08a8f0:
-/*  f08a8f0:	8c4f0040 */ 	lw	$t7,0x40($v0)
-/*  f08a8f4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f08a8f8:	0065082a */ 	slt	$at,$v1,$a1
-/*  f08a8fc:	31f80080 */ 	andi	$t8,$t7,0x80
-/*  f08a900:	57000016 */ 	bnezl	$t8,.L0f08a95c
-/*  f08a904:	24c6005c */ 	addiu	$a2,$a2,0x5c
-/*  f08a908:	90590002 */ 	lbu	$t9,0x2($v0)
-/*  f08a90c:	33280004 */ 	andi	$t0,$t9,0x4
-/*  f08a910:	55000012 */ 	bnezl	$t0,.L0f08a95c
-/*  f08a914:	24c6005c */ 	addiu	$a2,$a2,0x5c
-/*  f08a918:	8c440014 */ 	lw	$a0,0x14($v0)
-/*  f08a91c:	8c890018 */ 	lw	$t1,0x18($a0)
-/*  f08a920:	5520000e */ 	bnezl	$t1,.L0f08a95c
-/*  f08a924:	24c6005c */ 	addiu	$a2,$a2,0x5c
-/*  f08a928:	908a0001 */ 	lbu	$t2,0x1($a0)
-/*  f08a92c:	314b00c2 */ 	andi	$t3,$t2,0xc2
-/*  f08a930:	15600009 */ 	bnez	$t3,.L0f08a958
-/*  f08a934:	00c72021 */ 	addu	$a0,$a2,$a3
-/*  f08a938:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08a93c:	0fc1acd3 */ 	jal	objFreePermanently
-/*  f08a940:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f08a944:	3c0c800a */ 	lui	$t4,%hi(var8009ce64)
-/*  f08a948:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f08a94c:	8d8cce64 */ 	lw	$t4,%lo(var8009ce64)($t4)
-/*  f08a950:	10000024 */ 	b	.L0f08a9e4
-/*  f08a954:	00cc1021 */ 	addu	$v0,$a2,$t4
-.L0f08a958:
-/*  f08a958:	24c6005c */ 	addiu	$a2,$a2,0x5c
-.L0f08a95c:
-/*  f08a95c:	1420ffe4 */ 	bnez	$at,.L0f08a8f0
-/*  f08a960:	2442005c */ 	addiu	$v0,$v0,0x5c
-/*  f08a964:	00001825 */ 	or	$v1,$zero,$zero
-.L0f08a968:
-/*  f08a968:	18a0001d */ 	blez	$a1,.L0f08a9e0
-/*  f08a96c:	3c07800a */ 	lui	$a3,%hi(var8009ce64)
-/*  f08a970:	8ce7ce64 */ 	lw	$a3,%lo(var8009ce64)($a3)
-/*  f08a974:	00003025 */ 	or	$a2,$zero,$zero
-/*  f08a978:	00e01025 */ 	or	$v0,$a3,$zero
-.L0f08a97c:
-/*  f08a97c:	8c4d0040 */ 	lw	$t5,0x40($v0)
-/*  f08a980:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f08a984:	0065082a */ 	slt	$at,$v1,$a1
-/*  f08a988:	31ae0080 */ 	andi	$t6,$t5,0x80
-/*  f08a98c:	55c00012 */ 	bnezl	$t6,.L0f08a9d8
-/*  f08a990:	24c6005c */ 	addiu	$a2,$a2,0x5c
-/*  f08a994:	904f0002 */ 	lbu	$t7,0x2($v0)
-/*  f08a998:	31f80004 */ 	andi	$t8,$t7,0x4
-/*  f08a99c:	5700000e */ 	bnezl	$t8,.L0f08a9d8
-/*  f08a9a0:	24c6005c */ 	addiu	$a2,$a2,0x5c
-/*  f08a9a4:	8c590014 */ 	lw	$t9,0x14($v0)
-/*  f08a9a8:	8f280018 */ 	lw	$t0,0x18($t9)
-/*  f08a9ac:	15000009 */ 	bnez	$t0,.L0f08a9d4
-/*  f08a9b0:	00c72021 */ 	addu	$a0,$a2,$a3
-/*  f08a9b4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08a9b8:	0fc1acd3 */ 	jal	objFreePermanently
-/*  f08a9bc:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f08a9c0:	3c09800a */ 	lui	$t1,%hi(var8009ce64)
-/*  f08a9c4:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f08a9c8:	8d29ce64 */ 	lw	$t1,%lo(var8009ce64)($t1)
-/*  f08a9cc:	10000005 */ 	b	.L0f08a9e4
-/*  f08a9d0:	00c91021 */ 	addu	$v0,$a2,$t1
-.L0f08a9d4:
-/*  f08a9d4:	24c6005c */ 	addiu	$a2,$a2,0x5c
-.L0f08a9d8:
-/*  f08a9d8:	1420ffe8 */ 	bnez	$at,.L0f08a97c
-/*  f08a9dc:	2442005c */ 	addiu	$v0,$v0,0x5c
-.L0f08a9e0:
-/*  f08a9e0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f08a9e4:
-/*  f08a9e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08a9e8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f08a9ec:	03e00008 */ 	jr	$ra
-/*  f08a9f0:	00000000 */ 	nop
-);
+struct defaultobj *debrisAllocate(void)
+{
+	s32 i;
+
+	// Try to find an unused slot
+	for (i = 0; i < g_MaxDebrisSlots; i++) {
+		if (g_DebrisSlots[i].prop == NULL) {
+			return &g_DebrisSlots[i];
+		}
+	}
+
+	// Try to find one that's landed and offscreen
+	for (i = 0; i < g_MaxDebrisSlots; i++) {
+		if ((g_DebrisSlots[i].hidden & OBJHFLAG_AIRBORNE) == 0
+				&& (g_DebrisSlots[i].hidden2 & OBJH2FLAG_CANREGEN) == 0
+				&& g_DebrisSlots[i].prop->parent == NULL
+				&& (g_DebrisSlots[i].prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0) {
+			objFreePermanently(&g_DebrisSlots[i], true);
+			return &g_DebrisSlots[i];
+		}
+	}
+
+	// Same as above but onscreen
+	for (i = 0; i < g_MaxDebrisSlots; i++) {
+		if ((g_DebrisSlots[i].hidden & OBJHFLAG_AIRBORNE) == 0
+				&& (g_DebrisSlots[i].hidden2 & OBJH2FLAG_CANREGEN) == 0
+				&& g_DebrisSlots[i].prop->parent == NULL) {
+			objFreePermanently(&g_DebrisSlots[i], true);
+			return &g_DebrisSlots[i];
+		}
+	}
+
+	return NULL;
+}
 
 void playerActivateRemoteMineDetonator(s32 playernum)
 {
