@@ -357,11 +357,10 @@ f32 modelBboxGetXMin(struct modelrodata_bbox *bbox)
 	return bbox->xmin;
 }
 
-GLOBAL_ASM(
-glabel modelBboxGetXMax
-/*  f0667b4:	03e00008 */ 	jr	$ra
-/*  f0667b8:	c4800008 */ 	lwc1	$f0,0x8($a0)
-);
+f32 modelBboxGetXMax(struct modelrodata_bbox *bbox)
+{
+	return bbox->xmax;
+}
 
 f32 modelBboxGetYMin(struct modelrodata_bbox *bbox)
 {
