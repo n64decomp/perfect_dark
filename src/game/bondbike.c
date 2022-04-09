@@ -71,17 +71,17 @@ void bbikeExit(void)
 {
 	struct defaultobj *obj = g_Vars.currentplayer->hoverbike->obj;
 	struct hoverbikeobj *bikeobj = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
-	struct coord coord;
-	f32 w;
+	struct coord speed;
+	f32 rotation;
 
 	obj->hidden &= ~OBJHFLAG_MOUNTED;
 
-	coord.x = bikeobj->speed[0];
-	coord.y = 0;
-	coord.z = bikeobj->speed[1];
-	w = bikeobj->w;
+	speed.x = bikeobj->speed[0];
+	speed.y = 0;
+	speed.z = bikeobj->speed[1];
+	rotation = bikeobj->w;
 
-	func0f082a1c(obj, &coord, w, 0, 0);
+	objApplyMomentum(obj, &speed, rotation, false, false);
 	func0f0926bc(g_Vars.currentplayer->hoverbike, 1, 0xffff);
 	func0f0926bc(g_Vars.currentplayer->prop, 1, 0xffff);
 	func0f0939f8(NULL, g_Vars.currentplayer->hoverbike, SFX_BIKE_PULSE, -1,
@@ -1028,8 +1028,8 @@ void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct
 	if (arg2) {
 		f32 xdiff = sp9c.x - bike->prop->pos.x;
 		f32 zdiff = sp9c.z - bike->prop->pos.z;
-		f32 somefloat = 0;
-		struct coord sp3c = {0, 0, 0};
+		f32 rotation = 0;
+		struct coord speed = {0, 0, 0};
 
 		f32 tmp = 1 / sqrtf(xdiff * xdiff + zdiff * zdiff);
 
@@ -1038,11 +1038,12 @@ void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct
 
 		arg2 = arg2 / g_Vars.lvupdate240freal;
 
-		sp3c.x += -zdiff * arg2 * 40;
-		sp3c.z += xdiff * arg2 * 40;
-		somefloat += arg2 * 0.1f;
+		speed.x += -zdiff * arg2 * 40;
+		speed.z += xdiff * arg2 * 40;
 
-		func0f082a1c(obstacle, &sp3c, somefloat, true, true);
+		rotation += arg2 * 0.1f;
+
+		objApplyMomentum(obstacle, &speed, rotation, true, true);
 	}
 }
 

@@ -215,9 +215,9 @@ bool modelIsNodeNotTvscreen(struct modelfiledata *filedata, struct modelnode *no
 void func0f081ccc(struct defaultobj *obj, s32 arg1);
 void objBounce(struct defaultobj *obj, struct coord *arg1);
 void objSetDropped(struct prop *prop, u32 droptype);
-void func0f082a1c(struct defaultobj *obj, struct coord *coord, f32 rotate, bool arg3, bool arg4);
+void objApplyMomentum(struct defaultobj *obj, struct coord *speed, f32 rotation, bool addspeed, bool addrotation);
 void piracyRestore(void);
-void func0f082e84(struct defaultobj *obj, struct coord *pos, struct coord *dir, struct coord *tween, bool arg4);
+void func0f082e84(struct defaultobj *obj, struct coord *pos, struct coord *dir, struct coord *tween, bool addrotation);
 void objDetach(struct prop *prop);
 bool objDrop(struct prop *prop, bool lazy);
 void objFall(struct defaultobj *obj, s32 playernum);

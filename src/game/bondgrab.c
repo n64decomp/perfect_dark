@@ -173,7 +173,7 @@ void bgrabExit(void)
 
 			rotateamount /= g_Vars.lvupdate240freal;
 
-			func0f082a1c(g_Vars.currentplayer->grabbedprop->obj, &moveamount,
+			objApplyMomentum(g_Vars.currentplayer->grabbedprop->obj, &moveamount,
 					rotateamount, 0, 0);
 		}
 
@@ -476,7 +476,7 @@ glabel var7f1ad990
 /*  f0cd038:	e7a80034 */ 	swc1	$f8,0x34($sp)
 /*  f0cd03c:	46049400 */ 	add.s	$f16,$f18,$f4
 /*  f0cd040:	44068000 */ 	mfc1	$a2,$f16
-/*  f0cd044:	0fc20a87 */ 	jal	func0f082a1c
+/*  f0cd044:	0fc20a87 */ 	jal	objApplyMomentum
 /*  f0cd048:	00000000 */ 	nop
 .L0f0cd04c:
 /*  f0cd04c:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -780,7 +780,7 @@ glabel var7f1ad990
 /*  f0cd038:	e7a80034 */ 	swc1	$f8,0x34($sp)
 /*  f0cd03c:	46049400 */ 	add.s	$f16,$f18,$f4
 /*  f0cd040:	44068000 */ 	mfc1	$a2,$f16
-/*  f0cd044:	0fc20a87 */ 	jal	func0f082a1c
+/*  f0cd044:	0fc20a87 */ 	jal	objApplyMomentum
 /*  f0cd048:	00000000 */ 	nop
 .L0f0cd04c:
 /*  f0cd04c:	8fbf001c */ 	lw	$ra,0x1c($sp)

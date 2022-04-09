@@ -873,7 +873,7 @@ void explosionInflictDamage(struct prop *expprop)
 									}
 								}
 
-								func0f082a1c(obj, &spf4, 0.0f, 1, 1);
+								objApplyMomentum(obj, &spf4, 0.0f, true, true);
 							}
 						} else if (objIsHealthy(obj)) {
 							// Sustained damage
