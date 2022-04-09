@@ -352,11 +352,10 @@ void objUpdateLinkedScenery(struct defaultobj *obj, struct prop *arg1)
 	}
 }
 
-GLOBAL_ASM(
-glabel modelBboxGetXMin
-/*  f0667ac:	03e00008 */ 	jr	$ra
-/*  f0667b0:	c4800004 */ 	lwc1	$f0,0x4($a0)
-);
+f32 modelBboxGetXMin(struct modelrodata_bbox *bbox)
+{
+	return bbox->xmin;
+}
 
 GLOBAL_ASM(
 glabel modelBboxGetXMax
