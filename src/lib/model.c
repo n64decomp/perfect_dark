@@ -6957,7 +6957,7 @@ s32 model000225d4(struct model *model, struct coord *arg1, struct coord *arg2, s
 			rodata = node->rodata;
 			mtx = model0001a5cc(model, node, 0);
 
-			if (model000220fc(rodata, mtx, arg1, arg2)) {
+			if (model000220fc(&rodata->bbox, mtx, arg1, arg2)) {
 				*startnode = node;
 				return rodata->bbox.hitpart;
 			}

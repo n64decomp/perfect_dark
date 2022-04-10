@@ -141,27 +141,8 @@ struct g_vars {
 	/*0002b4*/ u32 knockoutcount;
 	/*0002b8*/ struct textoverride *textoverrides;
 	/*0002bc*/ s32 roomcount;
-	/*0002c0*/ u32 hitboundscount;
-	/*0002c4*/ u32 unk0002c4;
-	/*0002c8*/ u32 unk0002c8;
-	/*0002cc*/ u32 unk0002cc;
-	/*0002d0*/ u32 unk0002d0;
-	/*0002d4*/ u32 unk0002d4;
-	/*0002d8*/ u32 unk0002d8;
-	/*0002dc*/ u32 unk0002dc;
-	/*0002e0*/ u32 unk0002e0;
-	/*0002e4*/ u32 unk0002e4;
-	/*0002e8*/ u32 unk0002e8;
-	/*0002ec*/ u32 unk0002ec;
-	/*0002f0*/ u32 unk0002f0;
-	/*0002f4*/ u32 unk0002f4;
-	/*0002f8*/ u32 unk0002f8;
-	/*0002fc*/ u32 unk0002fc;
-	/*000300*/ u32 unk000300;
-	/*000304*/ u32 unk000304;
-	/*000308*/ u32 unk000308;
-	/*00030c*/ u32 unk00030c;
-	/*000310*/ u32 unk000310;
+	/*0002c0*/ s32 hitboundscount;
+	/*0002c4*/ struct modelnode *hitnodes[20];
 	/*000314*/ u32 mplayerisrunning;     // combat sim with any number of players, coop with human buddy, and counter-op
 	/*000318*/ u32 normmplayerisrunning; // combat sim with any number of players
 	/*00031c*/ s32 lvmpbotlevel;

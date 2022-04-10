@@ -90,7 +90,7 @@ void modelRenderNodeType16(struct modelrenderdata *renderdata, struct modelnode 
 void model000216cc(struct modelrenderdata *renderdata, struct textureconfig *tconfig, s32 arg2);
 void modelRenderNodeGunfire(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node);
 void modelRender(struct modelrenderdata *renderdata, struct model *model);
-bool model000220fc(union modelrodata *rodata, Mtxf *mtx, struct coord *arg2, struct coord *arg3);
+bool model000220fc(struct modelrodata_bbox *bbox, Mtxf *mtx, struct coord *arg2, struct coord *arg3);
 s32 model000225d4(struct model *model, struct coord *arg1, struct coord *arg2, struct modelnode **startnode);
 void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 vma, u32 fileramaddr);
 void modelPromoteOffsetsToPointers(struct modelfiledata *filedata, u32 arg1, u32 arg2);
