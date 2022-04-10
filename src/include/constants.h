@@ -3673,6 +3673,7 @@
 #define SPARKTYPE_17 0x17
 #define SPARKTYPE_18 0x18
 #define SPARKTYPE_19 0x19
+#define SPARKTYPE_1A 0x1a
 
 #define SPAWNFLAG_FORCESUNGLASSES     0x00000001 // 100% chance of wearing sunglasses if head model supports it
 #define SPAWNFLAG_MAYBESUNGLASSES     0x00000002 // 50% chance of wearing sunglasses if head model supports it
