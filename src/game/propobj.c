@@ -162,9 +162,6 @@ s32 g_MaxThrownLaptops = 0;
 u32 var80069974 = 0x00000000;
 #endif
 
-u32 var80069978 = 0x00000000;
-u32 var8006997c = 0x00000000;
-
 /**
  * Attempt to call a lift from the given door.
  *
@@ -3771,6 +3768,133 @@ glabel var7f1aa1d8
 /*  f068898:	00000000 */ 	sll	$zero,$zero,0x0
 );
 #endif
+
+u32 var80069978 = 0x00000000;
+u32 var8006997c = 0x00000000;
+
+//void func0f069144(struct prop *prop, u8 *nextcol, u16 floorcol)
+//{
+//	f32 sp5C;
+//	s32 sp58;
+//	s32 sp54;
+//	s32 sp50;
+//	struct defaultobj *obj;
+//	s32 v0;
+//	s32 a0;
+//	s32 a1;
+//	s32 a2;
+//	s32 t3;
+//
+//	static u32 var80069978 = 0;
+//	static u32 var8006997c = 0;
+//
+//	mainOverrideVariable("scol", &var80069978);
+//	mainOverrideVariable("salp", &var8006997c);
+//
+//	if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
+//		obj = prop->obj;
+//	} else {
+//		obj = NULL;
+//	}
+//
+//	if (prop->type == PROPTYPE_CHR) {
+//		struct chrdata *chr = prop->chr;
+//		chr->unk32c_18 = false;
+//	}
+//
+//	if (obj && (obj->flags & OBJFLAG_ILLUMINATED)) {
+//		nextcol[0] = 0xff;
+//		nextcol[1] = 0xff;
+//		nextcol[2] = 0xff;
+//		nextcol[3] = 0xff;
+//	} else {
+//		u8 r;
+//		u8 g;
+//		u8 b;
+//
+//		r = (floorcol >> 8) & 0xf;
+//		g = (floorcol >> 4) & 0xf;
+//		b = (floorcol >> 0) & 0xf;
+//
+//		nextcol[0] = (r << 4) | r;
+//		nextcol[1] = (g << 4) | g;
+//		nextcol[2] = (b << 4) | b;
+//		nextcol[3] = 0xff;
+//	}
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//	if (obj == NULL || (obj->flags & OBJFLAG_00001000) == 0 || cheatIsActive(CHEAT_PERFECTDARKNESS))
+//#else
+//	if (obj == NULL || (obj->flags & OBJFLAG_00001000) == 0)
+//#endif
+//	{
+//		s32 tmp;
+//		s32 shade = func0f068fc8(prop, 0);
+//
+//		sp58 = shade;
+//		sp54 = shade;
+//		sp50 = shade;
+//
+//		sp5C = 1.0f - shade * (1.0f / 2550.0f);
+//
+//		scenarioHighlightRoom(prop->rooms[0], &sp58, &sp54, &sp50);
+//
+//		nextcol[0] = (nextcol[0] * sp58) >> 8;
+//		nextcol[1] = (nextcol[1] * sp54) >> 8;
+//		nextcol[2] = (nextcol[2] * sp50) >> 8;
+//
+//		tmp = nextcol[0] * 79 + nextcol[1] * 156 + nextcol[2] * 21;
+//		nextcol[3] = (0xff - (tmp >> 8)) * sp5C;
+//	} else {
+//		s32 tmp = nextcol[0] * 79 + nextcol[1] * 156 + nextcol[2] * 21;
+//		nextcol[3] = (0xff - (tmp >> 8)) * 0.9f;
+//	}
+//
+//	// 4e0
+//	v0 = 0;
+//	t3 = 0;
+//
+//	if (nextcol[0] < nextcol[1]) {
+//		v0 = 1;
+//	} else {
+//		t3 = 1;
+//	}
+//
+//	// 508
+//	a2 = nextcol[v0];
+//	a1 = v0;
+//
+//	if (nextcol[v0] < nextcol[2]) {
+//		v0 = 2;
+//		a2 = nextcol[v0];
+//	} else {
+//		// 530
+//		a1 = t3;
+//
+//		if (nextcol[t3] < nextcol[2]) {
+//			a1 = 2;
+//		} else {
+//			t3 = 2;
+//		}
+//	}
+//
+//	// 550
+//	if (a2 > 0) {
+//		a0 = a2 - nextcol[t3];
+//		nextcol[t3] = 0;
+//		nextcol[a1] = nextcol[a1] * a0 / a2;
+//		nextcol[v0] = a0;
+//	}
+//
+//	nextcol[0] >>= 1;
+//	nextcol[1] >>= 1;
+//	nextcol[2] >>= 1;
+//
+//	if (var80069978 || var8006997c) {
+//		nextcol[0] = nextcol[1] = nextcol[2] = var80069978;
+//		nextcol[3] = var8006997c;
+//	}
+//}
 
 void func0f069630(struct prop *prop, u8 *nextcol, u16 floorcol)
 {
