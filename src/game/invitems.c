@@ -4654,7 +4654,7 @@ struct weapon invitem_briefcase2 = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_00000800 | WEAPONFLAG_HIDEMENUMODEL | WEAPONFLAG_DONTCOUNTSHOTS | WEAPONFLAG_DETERMINER_S_THE | WEAPONFLAG_DETERMINER_F_THE,
 };
 
-struct weaponfunc_shootauto invfunc_59_rapidfire = {
+struct weaponfunc_shootauto invfunc_choppergun_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
 	0x00, // unk06
@@ -4681,7 +4681,7 @@ struct weaponfunc_shootauto invfunc_59_rapidfire = {
 	0, 0,
 };
 
-struct inventory_ammo invammo_59 = {
+struct inventory_ammo invammo_choppergun = {
 	AMMOTYPE_SMG,
 	CASING_RIFLE,
 	27, // clip size
@@ -4689,15 +4689,15 @@ struct inventory_ammo invammo_59 = {
 	0, // flags
 };
 
-struct weapon invitem_59 = {
+struct weapon invitem_choppergun = {
 	0, // hi model
 	0, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
-	{ &invfunc_59_rapidfire, NULL }, // functions
-	&invammo_59, // pri ammo
+	{ &invfunc_choppergun_rapidfire, NULL }, // functions
+	&invammo_choppergun, // pri ammo
 	NULL, // sec ammo
 	&invclass_default,
 	1, // sway
@@ -4714,7 +4714,7 @@ struct weapon invitem_59 = {
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_DUALWIELD,
 };
 
-struct weaponfunc_shootauto invfunc_5a_rapidfire = {
+struct weaponfunc_shootauto invfunc_watchlaser_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
 	0x00, // unk06
@@ -4741,7 +4741,7 @@ struct weaponfunc_shootauto invfunc_5a_rapidfire = {
 	0, 0,
 };
 
-struct inventory_ammo invammo_5a = {
+struct inventory_ammo invammo_watchlaser = {
 	AMMOTYPE_SMG,
 	CASING_RIFLE,
 	27, // clip size
@@ -4749,15 +4749,15 @@ struct inventory_ammo invammo_5a = {
 	0, // flags
 };
 
-struct weapon invitem_5a = {
+struct weapon invitem_watchlaser = {
 	0, // hi model
 	0, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
-	{ &invfunc_5a_rapidfire, NULL }, // functions
-	&invammo_5a, // pri ammo
+	{ &invfunc_watchlaser_rapidfire, NULL }, // functions
+	&invammo_watchlaser, // pri ammo
 	NULL, // sec ammo
 	&invclass_default,
 	1, // sway
@@ -6216,8 +6216,8 @@ struct weapon *g_Weapons[] = {
 	&invitem_bolt,
 	&invitem_briefcase2,
 	&invitem_rocket,
-	&invitem_59,
-	&invitem_5a,
+	&invitem_choppergun,
+	&invitem_watchlaser,
 	&invitem_hammer,
 	&invitem_hammer,
 	&invitem_suicidepill,

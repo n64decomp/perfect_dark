@@ -2138,7 +2138,7 @@
 #define MODELPART_CHOPPER_0000        0x0000 // position
 #define MODELPART_CHOPPER_0001        0x0001 // position
 #define MODELPART_CHOPPER_0002        0x0002 // position
-#define MODELPART_CHOPPER_0003        0x0003 // gunfire
+#define MODELPART_CHOPPER_GUNFLASH    0x0003 // gunfire
 #define MODELPART_CHOPPER_0005        0x0005 // toggle
 #define MODELPART_CHRGUN_GUNFIRE      0x0000 // gunfire
 #define MODELPART_CHRGUN_0001         0x0001 // positionheld
@@ -4233,7 +4233,7 @@ enum weaponnum {
 	/*0x56*/ WEAPON_BOLT,
 	/*0x57*/ WEAPON_BRIEFCASE2,
 	/*0x58*/ WEAPON_SKROCKET,
-	/*0x59*/ WEAPON_59,
+	/*0x59*/ WEAPON_CHOPPERGUN,
 	/*0x5a*/ WEAPON_WATCHLASER,
 	/*0x5b*/ WEAPON_MPSHIELD,
 	/*0x5c*/ WEAPON_DISABLED,
