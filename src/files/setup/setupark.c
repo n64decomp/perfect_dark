@@ -1256,26 +1256,25 @@ u8 func0408_hovercopter[] = {
 	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x44)
 	goto_first(0x22)
 
-	label(0x44)
-	yield
-	if_can_see_target(/*goto*/ 0x47)
-	restart_timer
-
-	beginloop(0x45)
-		if_timer_gt(480, /*goto*/ 0x46)
+	beginloop(0x44)
 		if_can_see_target(/*goto*/ 0x47)
-	endloop(0x45)
+		restart_timer
 
-	label(0x46)
-	stop_chr
-	goto_first(0x22)
+		beginloop(0x45)
+			if_timer_gt(480, /*goto*/ 0x46)
+			if_can_see_target(/*goto*/ 0x47)
+		endloop(0x45)
 
-	label(0x47)
-	if_stage_flag_eq(STAGEFLAG_SAID_SURRENDER_OR_DIE, TRUE, /*goto*/ 0x20)
-	play_sound(MP3_030B, -1)
-	set_stage_flag(STAGEFLAG_SAID_SURRENDER_OR_DIE)
-	label(0x20)
-	goto_first(0x44)
+		label(0x46)
+		stop_chr
+		goto_first(0x22)
+
+		label(0x47)
+		if_stage_flag_eq(STAGEFLAG_SAID_SURRENDER_OR_DIE, TRUE, /*goto*/ 0x20)
+		play_sound(MP3_030B, -1)
+		set_stage_flag(STAGEFLAG_SAID_SURRENDER_OR_DIE)
+		label(0x20)
+	endloop(0x44)
 
 	// Mid shooting
 	label(0x48)
@@ -1283,26 +1282,25 @@ u8 func0408_hovercopter[] = {
 	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x49)
 	goto_first(0x24)
 
-	label(0x49)
-	yield
-	if_can_see_target(/*goto*/ 0x4c)
-	restart_timer
-
-	beginloop(0x4a)
-		if_timer_gt(180, /*goto*/ 0x4b)
+	beginloop(0x49)
 		if_can_see_target(/*goto*/ 0x4c)
-	endloop(0x4a)
+		restart_timer
 
-	label(0x4b)
-	stop_chr
-	goto_first(0x24)
+		beginloop(0x4a)
+			if_timer_gt(180, /*goto*/ 0x4b)
+			if_can_see_target(/*goto*/ 0x4c)
+		endloop(0x4a)
 
-	label(0x4c)
-	if_stage_flag_eq(STAGEFLAG_SAID_GIVE_UP, TRUE, /*goto*/ 0x20)
-	play_sound(MP3_030D, -1)
-	set_stage_flag(STAGEFLAG_SAID_GIVE_UP)
-	label(0x20)
-	goto_first(0x49)
+		label(0x4b)
+		stop_chr
+		goto_first(0x24)
+
+		label(0x4c)
+		if_stage_flag_eq(STAGEFLAG_SAID_GIVE_UP, TRUE, /*goto*/ 0x20)
+		play_sound(MP3_030D, -1)
+		set_stage_flag(STAGEFLAG_SAID_GIVE_UP)
+		label(0x20)
+	endloop(0x49)
 
 	// High shooting (roof)
 	label(0x4d)
@@ -1326,25 +1324,25 @@ u8 func0408_hovercopter[] = {
 
 	label(0x00)
 	restart_timer
-	label(0x4e)
-	yield
-	if_can_see_target(/*goto*/ 0x51)
-	restart_timer
 
-	beginloop(0x4f)
-		if_timer_gt(480, /*goto*/ 0x50)
+	beginloop(0x4e)
 		if_can_see_target(/*goto*/ 0x51)
-	endloop(0x4f)
+		restart_timer
 
-	label(0x50)
-	stop_chr
-	goto_first(0x26)
+		beginloop(0x4f)
+			if_timer_gt(480, /*goto*/ 0x50)
+			if_can_see_target(/*goto*/ 0x51)
+		endloop(0x4f)
 
-	label(0x51)
-	if_difficulty_lt(DIFF_SA, /*goto*/ 0x20)
-	if_timer_gt(500, /*goto*/ 0x27)
-	label(0x20)
-	goto_first(0x4e)
+		label(0x50)
+		stop_chr
+		goto_first(0x26)
+
+		label(0x51)
+		if_difficulty_lt(DIFF_SA, /*goto*/ 0x20)
+		if_timer_gt(500, /*goto*/ 0x27)
+		label(0x20)
+	endloop(0x4e)
 
 	label(0x27)
 	restart_timer

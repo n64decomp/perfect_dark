@@ -5359,7 +5359,7 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 			Mtxf *iVar5 = model0001a60c(model);
 			struct prop *next;
 			struct prop *child;
-			s32 sp70;
+			f32 sp70;
 			Mtxf *mtx;
 			f32 sp68;
 
