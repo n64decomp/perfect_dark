@@ -2027,8 +2027,8 @@ struct chopperobj { // objtype 0x39
 		};
 		struct coord fall;
 	};
-	/*0x70*/ u32 turnyspeed60;
-	/*0x74*/ u32 turnxspeed60;
+	/*0x70*/ f32 turnyspeed60;
+	/*0x74*/ f32 turnxspeed60;
 	/*0x78*/ f32 turnrot60;
 	/*0x7c*/ f32 roty;
 	/*0x80*/ f32 rotx;
