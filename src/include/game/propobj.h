@@ -124,7 +124,7 @@ void func0f06e9cc(struct coord *arg0, Mtxf *arg1);
 void func0f06eb4c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2);
 void func0f06ec20(struct weaponobj *weapon, struct coord *arg1);
 u32 func0f06ed64(void);
-u32 func0f06ef44(void);
+bool func0f06ef44(struct prop *prop, struct prop *parent, struct model *model, struct modelnode *node);
 u32 func0f06f0a0(void);
 bool propExplode(struct prop *prop, s32 explosiontype);
 void ammocrateTick(struct prop *ammocrate);
