@@ -154,7 +154,7 @@ void hovercarStartNextPath(struct hovercarobj *hovercar);
 void hovercarIncrementStep(struct hovercarobj *hovercar);
 u32 func0f0727d4(void);
 void hoverbikeUpdateMovement(struct hoverbikeobj *hoverbike, f32 arg1, f32 arg2, f32 arg3);
-u32 func0f0732d4(void);
+void platformDisplaceProps2(struct prop *platform, Mtxf *arg1);
 u32 func0f073478(void);
 s32 func0f073ae8(struct defaultobj *obj, struct projectile *projectile, struct coord *arg2, struct coord *arg3);
 s32 func0f073c6c(struct defaultobj *obj, bool *arg1);
