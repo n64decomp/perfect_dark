@@ -24,7 +24,7 @@ void cd00025168(struct prop *prop);
 u32 cd000251ac(void);
 void cd00025254(struct coord *arg0, struct coord *arg1, struct coord *pos, struct prop *prop, f32 arg4, struct tile *tile);
 u32 cd00025314(void);
-u32 cd00025364(void);
+bool cd00025364(struct coord *arg0, struct coord *arg1);
 u32 cd000253c4(void);
 u32 cd00025410(void);
 u32 cd000254d8(void);
