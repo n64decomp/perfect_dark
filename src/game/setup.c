@@ -288,7 +288,7 @@ void propsReset(void)
 	g_LinkedScenery = NULL;
 	g_BlockedPaths = NULL;
 
-	var80069930 = 0;
+	var80069930 = NULL;
 	var80069934 = -1;
 	g_CameraWaitMultiplier = 1;
 	var8006994c = 1;

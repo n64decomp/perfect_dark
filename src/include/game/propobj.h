@@ -6,7 +6,7 @@
 
 extern u32 var800698f0;
 extern u32 var800698f4;
-extern u32 var80069930;
+extern struct prop *var80069930;
 extern s32 var80069934;
 extern f32 g_CameraWaitMultiplier;
 extern f32 var8006994c;
@@ -109,7 +109,7 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen);
 void objFreePermanently(struct defaultobj *obj, bool freeprop);
 f32 objGetWidth(struct defaultobj *obj);
 bool func0f06b39c(struct coord *arg0, struct coord *arg1, struct coord *arg2, f32 arg3);
-u32 func0f06b488(void);
+bool func0f06b488(struct prop *prop, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4, struct coord *arg5, f32 *arg6);
 u32 func0f06b610(void);
 bool func0f06bea0(struct model *model, struct modelnode *arg1, struct modelnode *arg2, struct coord *arg3, struct coord *arg4, void *arg5, f32 *arg6, struct modelnode **arg7, s32 *hitpart, s32 *arg9, struct modelnode **arg10);
 u32 func0f06c28c(void);
