@@ -10291,92 +10291,40 @@ void func0f06eb4c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 	func0f06a580(obj, &newpos, &sp40, newrooms);
 }
 
-GLOBAL_ASM(
-glabel func0f06ec20
-/*  f06ec20:	27bdff68 */ 	addiu	$sp,$sp,-152
-/*  f06ec24:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f06ec28:	00808025 */ 	or	$s0,$a0,$zero
-/*  f06ec2c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f06ec30:	afa5009c */ 	sw	$a1,0x9c($sp)
-/*  f06ec34:	0fc1a2aa */ 	jal	modelFindBboxRodata
-/*  f06ec38:	8c840018 */ 	lw	$a0,0x18($a0)
-/*  f06ec3c:	8e0e0014 */ 	lw	$t6,0x14($s0)
-/*  f06ec40:	240f000d */ 	addiu	$t7,$zero,0xd
-/*  f06ec44:	00402025 */ 	or	$a0,$v0,$zero
-/*  f06ec48:	afae003c */ 	sw	$t6,0x3c($sp)
-/*  f06ec4c:	0fc199f5 */ 	jal	modelBboxGetZMax
-/*  f06ec50:	a60f0062 */ 	sh	$t7,0x62($s0)
-/*  f06ec54:	0c004b70 */ 	jal	random
-/*  f06ec58:	e7a00040 */ 	swc1	$f0,0x40($sp)
-/*  f06ec5c:	44822000 */ 	mtc1	$v0,$f4
-/*  f06ec60:	c7a20040 */ 	lwc1	$f2,0x40($sp)
-/*  f06ec64:	04410005 */ 	bgez	$v0,.L0f06ec7c
-/*  f06ec68:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f06ec6c:	3c014f80 */ 	lui	$at,0x4f80
-/*  f06ec70:	44814000 */ 	mtc1	$at,$f8
-/*  f06ec74:	00000000 */ 	nop
-/*  f06ec78:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f06ec7c:
-/*  f06ec7c:	3c012f80 */ 	lui	$at,0x2f80
-/*  f06ec80:	44815000 */ 	mtc1	$at,$f10
-/*  f06ec84:	3c0141c8 */ 	lui	$at,0x41c8
-/*  f06ec88:	44818000 */ 	mtc1	$at,$f16
-/*  f06ec8c:	460a3002 */ 	mul.s	$f0,$f6,$f10
-/*  f06ec90:	2604001c */ 	addiu	$a0,$s0,0x1c
-/*  f06ec94:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f06ec98:	46000480 */ 	add.s	$f18,$f0,$f0
-/*  f06ec9c:	46128100 */ 	add.s	$f4,$f16,$f18
-/*  f06eca0:	46041081 */ 	sub.s	$f2,$f2,$f4
-/*  f06eca4:	0c005755 */ 	jal	mtx3ToMtx4
-/*  f06eca8:	e7a20040 */ 	swc1	$f2,0x40($sp)
-/*  f06ecac:	c7a20040 */ 	lwc1	$f2,0x40($sp)
-/*  f06ecb0:	c7a60078 */ 	lwc1	$f6,0x78($sp)
-/*  f06ecb4:	8fa2009c */ 	lw	$v0,0x9c($sp)
-/*  f06ecb8:	c7a4007c */ 	lwc1	$f4,0x7c($sp)
-/*  f06ecbc:	46023282 */ 	mul.s	$f10,$f6,$f2
-/*  f06ecc0:	c4480000 */ 	lwc1	$f8,0x0($v0)
-/*  f06ecc4:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f06ecc8:	46022182 */ 	mul.s	$f6,$f4,$f2
-/*  f06eccc:	27a6004c */ 	addiu	$a2,$sp,0x4c
-/*  f06ecd0:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f06ecd4:	27a7002c */ 	addiu	$a3,$sp,0x2c
-/*  f06ecd8:	24650028 */ 	addiu	$a1,$v1,0x28
-/*  f06ecdc:	460a4401 */ 	sub.s	$f16,$f8,$f10
-/*  f06ece0:	e7b0004c */ 	swc1	$f16,0x4c($sp)
-/*  f06ece4:	c4520004 */ 	lwc1	$f18,0x4($v0)
-/*  f06ece8:	c7b00080 */ 	lwc1	$f16,0x80($sp)
-/*  f06ecec:	46069201 */ 	sub.s	$f8,$f18,$f6
-/*  f06ecf0:	46028102 */ 	mul.s	$f4,$f16,$f2
-/*  f06ecf4:	e7a80050 */ 	swc1	$f8,0x50($sp)
-/*  f06ecf8:	c44a0008 */ 	lwc1	$f10,0x8($v0)
-/*  f06ecfc:	afa40024 */ 	sw	$a0,0x24($sp)
-/*  f06ed00:	46045481 */ 	sub.s	$f18,$f10,$f4
-/*  f06ed04:	0fc19776 */ 	jal	func0f065dd8
-/*  f06ed08:	e7b20054 */ 	swc1	$f18,0x54($sp)
-/*  f06ed0c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f06ed10:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f06ed14:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f06ed18:	0fc1a960 */ 	jal	func0f06a580
-/*  f06ed1c:	27a7002c */ 	addiu	$a3,$sp,0x2c
-/*  f06ed20:	0fc2bb15 */ 	jal	boltbeamFindByProp
-/*  f06ed24:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f06ed28:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f06ed2c:	10410008 */ 	beq	$v0,$at,.L0f06ed50
-/*  f06ed30:	00408025 */ 	or	$s0,$v0,$zero
-/*  f06ed34:	00402025 */ 	or	$a0,$v0,$zero
-/*  f06ed38:	0fc2bb5c */ 	jal	func0f0aed70
-/*  f06ed3c:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f06ed40:	3c054503 */ 	lui	$a1,0x4503
-/*  f06ed44:	34a54000 */ 	ori	$a1,$a1,0x4000
-/*  f06ed48:	0fc2bbaa */ 	jal	func0f0aeea8
-/*  f06ed4c:	02002025 */ 	or	$a0,$s0,$zero
-.L0f06ed50:
-/*  f06ed50:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f06ed54:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f06ed58:	27bd0098 */ 	addiu	$sp,$sp,0x98
-/*  f06ed5c:	03e00008 */ 	jr	$ra
-/*  f06ed60:	00000000 */ 	nop
-);
+void func0f06ec20(struct weaponobj *weapon, struct coord *arg1)
+{
+	Mtxf mtx;
+	struct coord newpos;
+	struct modelrodata_bbox *bbox;
+	s32 beamnum;
+	f32 zmax;
+	struct prop *prop;
+	s16 newrooms[8];
+
+	bbox = modelFindBboxRodata(weapon->base.model);
+	prop = weapon->base.prop;
+
+	weapon->timer240 = 13;
+
+	zmax = modelBboxGetZMax(bbox);
+	zmax -= 25.0f + 2.0f * RANDOMFRAC();
+
+	mtx3ToMtx4(weapon->base.realrot, &mtx);
+
+	newpos.x = arg1->x - mtx.m[2][0] * zmax;
+	newpos.y = arg1->y - mtx.m[2][1] * zmax;
+	newpos.z = arg1->z - mtx.m[2][2] * zmax;
+
+	func0f065dd8(&prop->pos, prop->rooms, &newpos, newrooms);
+	func0f06a580(&weapon->base, &newpos, &mtx, newrooms);
+
+	beamnum = boltbeamFindByProp(prop);
+
+	if (beamnum != -1) {
+		func0f0aed70(beamnum, &prop->pos);
+		func0f0aeea8(beamnum, 2100);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f06ed64
