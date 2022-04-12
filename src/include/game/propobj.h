@@ -111,7 +111,6 @@ f32 objGetWidth(struct defaultobj *obj);
 bool func0f06b39c(struct coord *arg0, struct coord *arg1, struct coord *arg2, f32 arg3);
 u32 func0f06b488(void);
 u32 func0f06b610(void);
-u32 func0f06be44(void);
 bool func0f06bea0(struct model *model, struct modelnode *arg1, struct modelnode *arg2, struct coord *arg3, struct coord *arg4, void *arg5, f32 *arg6, struct modelnode **arg7, s32 *hitpart, s32 *arg9, struct modelnode **arg10);
 u32 func0f06c28c(void);
 s32 func0f06c8ac(struct prop *prop, struct coord *pos, struct coord *arg2, u32 arg3, struct coord *arg4, struct coord *arg5, s16 *spcc);

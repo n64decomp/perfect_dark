@@ -6373,35 +6373,23 @@ glabel func0f06b610
 /*  f06be40:	27bd0130 */ 	addiu	$sp,$sp,0x130
 );
 
-GLOBAL_ASM(
-glabel func0f06be44
-/*  f06be44:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f06be48:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f06be4c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f06be50:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f06be54:	00008025 */ 	or	$s0,$zero,$zero
-/*  f06be58:	1080000b */ 	beqz	$a0,.L0f06be88
-/*  f06be5c:	00808825 */ 	or	$s1,$a0,$zero
-/*  f06be60:	8e240014 */ 	lw	$a0,0x14($s1)
-.L0f06be64:
-/*  f06be64:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f06be68:	50800005 */ 	beqzl	$a0,.L0f06be80
-/*  f06be6c:	8e31000c */ 	lw	$s1,0xc($s1)
-/*  f06be70:	0fc1af91 */ 	jal	func0f06be44
-/*  f06be74:	00000000 */ 	nop
-/*  f06be78:	02028021 */ 	addu	$s0,$s0,$v0
-/*  f06be7c:	8e31000c */ 	lw	$s1,0xc($s1)
-.L0f06be80:
-/*  f06be80:	5620fff8 */ 	bnezl	$s1,.L0f06be64
-/*  f06be84:	8e240014 */ 	lw	$a0,0x14($s1)
-.L0f06be88:
-/*  f06be88:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f06be8c:	02001025 */ 	or	$v0,$s0,$zero
-/*  f06be90:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f06be94:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f06be98:	03e00008 */ 	jr	$ra
-/*  f06be9c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+s32 func0f06be44(struct modelnode *rootnode)
+{
+	s32 count = 0;
+	struct modelnode *node = rootnode;
+
+	while (node) {
+		count++;
+
+		if (node->child) {
+			count += func0f06be44(node->child);
+		}
+
+		node = node->next;
+	}
+
+	return count;
+}
 
 bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelnode *node, struct coord *arg3, struct coord *arg4, void *arg5, f32 *arg6, struct modelnode **arg7, s32 *hitpart, s32 *arg9, struct modelnode **arg10)
 {
