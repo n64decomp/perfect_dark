@@ -184,7 +184,7 @@ void propsReset(void)
 	g_MaxAmmoCrates = 20;
 	g_MaxDebrisSlots = 15;
 	g_MaxProjectiles = IS4MB() ? 20 : 100;
-	g_MaxMonitorThings = IS4MB() ? 40 : 80;
+	g_MaxEmbedments = IS4MB() ? 40 : 80;
 
 	if (g_Vars.stagenum >= STAGE_TITLE) {
 		g_MaxWeaponSlots = 0;
@@ -192,7 +192,7 @@ void propsReset(void)
 		g_MaxAmmoCrates = 0;
 		g_MaxDebrisSlots = 0;
 		g_MaxProjectiles = 0;
-		g_MaxMonitorThings = 0;
+		g_MaxEmbedments = 0;
 	}
 
 	setupReset0f00cc8c();
@@ -272,13 +272,13 @@ void propsReset(void)
 		}
 	}
 
-	if (g_MaxMonitorThings == 0) {
-		g_MonitorMounts = NULL;
+	if (g_MaxEmbedments == 0) {
+		g_Embedments = NULL;
 	} else {
-		g_MonitorMounts = mempAlloc(ALIGN16(g_MaxMonitorThings * sizeof(struct monitormount)), MEMPOOL_STAGE);
+		g_Embedments = mempAlloc(ALIGN16(g_MaxEmbedments * sizeof(struct embedment)), MEMPOOL_STAGE);
 
-		for (i = 0; i < g_MaxMonitorThings; i++) {
-			g_MonitorMounts[i].flags = MONITORMOUNTFLAG_FREE;
+		for (i = 0; i < g_MaxEmbedments; i++) {
+			g_Embedments[i].flags = EMBEDMENTFLAG_FREE;
 		}
 	}
 
@@ -288,7 +288,7 @@ void propsReset(void)
 	g_LinkedScenery = NULL;
 	g_BlockedPaths = NULL;
 
-	var80069930 = NULL;
+	g_EmbedProp = NULL;
 	var80069934 = -1;
 	g_CameraWaitMultiplier = 1;
 	var8006994c = 1;
@@ -1710,10 +1710,10 @@ void setupCreateSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 		}
 
 		prop = objInitWithAutoModel(&monitor->base);
-		monitor->base.monitormount = monitormountAllocate();
+		monitor->base.embedment = embedmentAllocate();
 
-		if (prop && monitor->base.monitormount) {
-			monitor->base.hidden |= OBJHFLAG_HANGINGMONITOR;
+		if (prop && monitor->base.embedment) {
+			monitor->base.hidden |= OBJHFLAG_EMBEDDED;
 			modelSetScale(monitor->base.model, monitor->base.model->scale * scale);
 			monitor->base.model->attachedtomodel = owner->model;
 
@@ -1737,7 +1737,7 @@ void setupCreateSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 			spa4.z = -spa4.z;
 
 			mtx4LoadTranslation(&spa4, &sp24);
-			mtx00015be4(&sp64, &sp24, &monitor->base.monitormount->matrix);
+			mtx00015be4(&sp64, &sp24, &monitor->base.embedment->matrix);
 		}
 	} else {
 		setupCreateObject(&monitor->base, cmdindex);
@@ -4254,8 +4254,8 @@ void setupCreateProps(s32 stagenum)
 				case OBJECTIVETYPE_ENTERROOM:
 					objectiveAddRoomEnteredCriteria((struct criteria_roomentered *)obj);
 					break;
-				case OBJECTIVETYPE_ATTACHOBJ:
-					objectiveAddMultiroomEnteredCriteria((struct criteria_multiroomentered *)obj);
+				case OBJECTIVETYPE_THROWINROOM:
+					objectiveAddThrowInRoomCriteria((struct criteria_throwinroom *)obj);
 					break;
 				case OBJECTIVETYPE_HOLOGRAPH:
 					objectiveAddHolographCriteria((struct criteria_holograph *)obj);

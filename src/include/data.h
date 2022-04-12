@@ -217,7 +217,7 @@ extern struct padlockeddoorobj *g_PadlockedDoors;
 extern struct safeitemobj *g_SafeItems;
 extern struct linksceneryobj *g_LinkedScenery;
 extern struct blockedpathobj *g_BlockedPaths;
-extern struct prop *var80069930;
+extern struct prop *g_EmbedProp;
 extern s32 var80069934;
 extern f32 g_CameraWaitMultiplier;
 extern f32 var8006994c;

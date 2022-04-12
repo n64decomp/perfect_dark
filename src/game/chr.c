@@ -2218,8 +2218,8 @@ glabel var7f1a87a8
 //
 //		prop->flags |= PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK;
 //
-//		if (obj->hidden & OBJHFLAG_HANGINGMONITOR) {
-//			mtx00015be4(sp104, &obj->monitormount->matrix, &sp80);
+//		if (obj->hidden & OBJHFLAG_EMBEDDED) {
+//			mtx00015be4(sp104, &obj->embedment->matrix, &sp80);
 //			thing.matrix = &sp80;
 //		} else if (CHRRACE(chr) == RACE_SKEDAR) {
 //			// The skedar hand position is rotated weirdly, so compensate for it
@@ -3135,7 +3135,7 @@ void chrDropConcealedItems(struct chrdata *chr)
 		if (prop != chr->weapons_held[2]
 				&& prop != chr->weapons_held[1]
 				&& prop != chr->weapons_held[0]
-				&& (prop->obj->hidden & OBJHFLAG_HANGINGMONITOR) == 0
+				&& (prop->obj->hidden & OBJHFLAG_EMBEDDED) == 0
 				&& (prop->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
 			objSetDropped(prop, DROPTYPE_DEFAULT);
 		}

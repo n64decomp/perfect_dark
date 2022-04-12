@@ -121,8 +121,8 @@
 #define require_room_entered(room) \
 	0x20, room,
 
-#define require_object_thrown_on_target(throw_object, target_object) \
-	0x21, throw_object, target_object, 0,
+#define require_object_thrown_in_room(object, pad) \
+	0x21, object, pad, 0,
 
 #define briefing(value, text) \
 	0x23, value, text, 0,

@@ -11,7 +11,7 @@ void tagInsert(struct tag *tag);
 void briefingInsert(struct briefingobj *obj);
 void objectiveInsert(struct objective *objective);
 void objectiveAddRoomEnteredCriteria(struct criteria_roomentered *criteria);
-void objectiveAddMultiroomEnteredCriteria(struct criteria_multiroomentered *criteria);
+void objectiveAddThrowInRoomCriteria(struct criteria_throwinroom *criteria);
 void objectiveAddHolographCriteria(struct criteria_holograph *criteria);
 
 u32 xorBaffbeff(u32 value);
@@ -27,7 +27,7 @@ void objectivesDisableChecking(void);
 void objectivesShowHudmsg(char *buffer, s32 hudmsgtype);
 void objectivesCheckAll(void);
 void objectiveCheckRoomEntered(s32 currentroom);
-void objectiveCheckMultiroomEntered(s32 arg0, s16 *requiredrooms);
+void objectiveCheckThrowInRoom(s32 arg0, s16 *requiredrooms);
 void objectiveCheckHolograph(f32 sqdist);
 struct prop *chopperGetTargetProp(struct chopperobj *heli);
 struct defaultobj *objFindByTagId(s32 tag_id);

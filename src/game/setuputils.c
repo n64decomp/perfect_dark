@@ -59,7 +59,7 @@ u32 setupGetCmdLength(u32 *cmd)
 	case OBJECTIVETYPE_HOLOGRAPH:    return 4;
 	case OBJECTIVETYPE_1F:           return 1;
 	case OBJECTIVETYPE_ENTERROOM:    return 4;
-	case OBJECTIVETYPE_ATTACHOBJ:    return 5;
+	case OBJECTIVETYPE_THROWINROOM:    return 5;
 	case OBJTYPE_22:                 return 1;
 	case OBJTYPE_BRIEFING:           return 4;
 	case OBJTYPE_PADLOCKEDDOOR:      return 4;
@@ -262,7 +262,7 @@ struct defaultobj *setupGetObjByCmdIndex(u32 cmdindex)
 		case OBJECTIVETYPE_HOLOGRAPH:
 		case OBJECTIVETYPE_1F:
 		case OBJECTIVETYPE_ENTERROOM:
-		case OBJECTIVETYPE_ATTACHOBJ:
+		case OBJECTIVETYPE_THROWINROOM:
 		case OBJTYPE_22:
 		case OBJTYPE_BRIEFING:
 		case OBJTYPE_RENAMEOBJ:

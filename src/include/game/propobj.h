@@ -6,7 +6,7 @@
 
 extern u32 var800698f0;
 extern u32 var800698f4;
-extern struct prop *var80069930;
+extern struct prop *g_EmbedProp;
 extern s32 var80069934;
 extern f32 g_CameraWaitMultiplier;
 extern f32 var8006994c;
@@ -71,8 +71,8 @@ void projectileReset(struct projectile *projectile);
 struct projectile *projectileAllocate(void);
 void func0f0685e4(struct prop *prop);
 void objSetProjectileFlag4(struct prop *prop);
-void monitormountFree(struct monitormount *mount);
-struct monitormount *monitormountAllocate(void);
+void embedmentFree(struct embedment *embedment);
+struct embedment *embedmentAllocate(void);
 s32 objGetShotsTaken(struct defaultobj *obj);
 s32 objGetDestroyedLevel(struct defaultobj *obj);
 struct modelnode *func0f0687e4(struct model *model);
@@ -121,11 +121,11 @@ void applyRotation(f32 *angle, f32 maxrot, f32 *speed, f32 accel, f32 decel, f32
 u32 func0f06dbd8(void);
 void knifePlayWooshSound(struct defaultobj *obj);
 void func0f06e9cc(struct coord *arg0, Mtxf *arg1);
-void func0f06eb4c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2);
-void func0f06ec20(struct weaponobj *weapon, struct coord *arg1);
-void func0f06ed64(struct defaultobj *obj, struct coord *arg1, struct coord *arg2);
-bool func0f06ef44(struct prop *prop, struct prop *parent, struct model *model, struct modelnode *node);
-u32 func0f06f0a0(void);
+void objLand2(struct defaultobj *obj, struct coord *arg1, struct coord *arg2);
+void boltLand(struct weaponobj *weapon, struct coord *arg1);
+void knifeLand(struct defaultobj *obj, struct coord *arg1, struct coord *arg2);
+bool objEmbed(struct prop *prop, struct prop *parent, struct model *model, struct modelnode *node);
+void objLand(struct prop *prop, struct coord *arg1, struct coord *arg2, bool *embedded);
 bool propExplode(struct prop *prop, s32 explosiontype);
 void ammocrateTick(struct prop *ammocrate);
 void weaponTick(struct prop *weapon);

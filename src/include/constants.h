@@ -800,6 +800,9 @@
 #define DROPTYPE_5            5
 #define DROPTYPE_OWNERREAP    6
 
+// Might be the same flags as PROJECTILEFLAG
+#define EMBEDMENTFLAG_FREE 0x00000001
+
 #define EXPLOSIONTYPE_NONE          0
 #define EXPLOSIONTYPE_BULLETHOLE    1
 #define EXPLOSIONTYPE_EYESPY        2
@@ -2469,9 +2472,6 @@
 #define MODFILE_MPSETUP 2
 #define MODFILE_BOSS    4
 
-// Might be the same flags as PROJECTILEFLAG
-#define MONITORMOUNTFLAG_FREE 0x00000001
-
 #define MOVEMODE_WALK     0
 #define MOVEMODE_BIKE     3
 #define MOVEMODE_GRAB     4
@@ -3050,7 +3050,7 @@
 #define OBJHFLAG_ISRETICK           0x00000008
 #define OBJHFLAG_TAGGED             0x00000010
 #define OBJHFLAG_00000020           0x00000020 // thrown knife
-#define OBJHFLAG_HANGINGMONITOR     0x00000040
+#define OBJHFLAG_EMBEDDED           0x00000040 // obj is embedded in a chr or other obj (eg. knife)
 #define OBJHFLAG_AIRBORNE           0x00000080
 #define OBJHFLAG_00000100           0x00000100
 #define OBJHFLAG_00000200           0x00000200
@@ -3115,7 +3115,7 @@
 #define OBJECTIVETYPE_HOLOGRAPH    0x1e
 #define OBJECTIVETYPE_1F           0x1f
 #define OBJECTIVETYPE_ENTERROOM    0x20
-#define OBJECTIVETYPE_ATTACHOBJ    0x21
+#define OBJECTIVETYPE_THROWINROOM  0x21
 #define OBJTYPE_22                 0x22
 #define OBJTYPE_BRIEFING           0x23
 #define OBJTYPE_GASBOTTLE          0x24

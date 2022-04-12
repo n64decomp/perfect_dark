@@ -27,7 +27,7 @@ u32 g_ObjectiveStatuses[MAX_OBJECTIVES];
 struct tag *g_TagsLinkedList;
 struct briefingobj *g_BriefingObjs;
 struct criteria_roomentered *g_RoomEnteredCriterias;
-struct criteria_multiroomentered *g_MultiroomEnteredCriterias;
+struct criteria_throwinroom *g_ThrowInRoomCriterias;
 struct criteria_holograph *g_HolographCriterias;
 s32 g_NumTags;
 struct tag **g_TagPtrs;
@@ -302,7 +302,7 @@ s32 objectiveCheck(s32 index)
 						reqstatus = OBJECTIVE_INCOMPLETE;
 					}
 					break;
-				case OBJECTIVETYPE_ATTACHOBJ:
+				case OBJECTIVETYPE_THROWINROOM:
 					if (cmd[3] == 0) {
 						reqstatus = OBJECTIVE_INCOMPLETE;
 					}
@@ -452,20 +452,20 @@ void objectiveCheckRoomEntered(s32 currentroom)
 	}
 }
 
-void objectiveCheckMultiroomEntered(s32 arg0, s16 *requiredrooms)
+void objectiveCheckThrowInRoom(s32 arg0, s16 *inrooms)
 {
-	struct criteria_multiroomentered *criteria = g_MultiroomEnteredCriterias;
+	struct criteria_throwinroom *criteria = g_ThrowInRoomCriterias;
 
 	while (criteria) {
 		if (criteria->status == OBJECTIVE_INCOMPLETE && criteria->unk04 == arg0) {
 			s32 room = chrGetPadRoom(NULL, criteria->pad);
 
 			if (room >= 0) {
-				s16 objectiverooms[2];
-				objectiverooms[0] = room;
-				objectiverooms[1] = -1;
+				s16 requirerooms[2];
+				requirerooms[0] = room;
+				requirerooms[1] = -1;
 
-				if (arrayIntersects(objectiverooms, requiredrooms)) {
+				if (arrayIntersects(requirerooms, inrooms)) {
 					criteria->status = OBJECTIVE_COMPLETE;
 				}
 			}

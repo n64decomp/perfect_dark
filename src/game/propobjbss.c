@@ -3,8 +3,8 @@
 #include "data.h"
 #include "types.h"
 
-u32 var8009ce70;
-u32 var8009ce74;
+struct model *g_EmbedModel;
+struct modelnode *g_EmbedNode;
 u32 var8009ce78[4];
 u32 var8009ce88[4];
 struct tvscreen var8009ce98;

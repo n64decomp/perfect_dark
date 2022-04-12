@@ -1513,7 +1513,7 @@ struct projectile {
 	/*0x108*/ struct prop *unk108;
 };
 
-struct monitormount {
+struct embedment {
 	/*0x000*/ u32 flags;
 	/*0x004*/ Mtxf matrix;
 	/*0x044*/ struct projectile *projectile;
@@ -1601,7 +1601,7 @@ struct defaultobj {
 	};
 	union {
 		/*0x48*/ struct projectile *projectile;
-		/*0x48*/ struct monitormount *monitormount;
+		/*0x48*/ struct embedment *embedment;
 	};
 	/*0x4c*/ s16 damage;
 	/*0x4e*/ s16 maxdamage;
@@ -4626,12 +4626,12 @@ struct criteria_roomentered {
 	struct criteria_roomentered *next;
 };
 
-struct criteria_multiroomentered {
+struct criteria_throwinroom {
 	u32 unk00;
 	u32 unk04;
 	u32 pad;
 	u32 status;
-	struct criteria_multiroomentered *next;
+	struct criteria_throwinroom *next;
 };
 
 struct criteria_holograph {

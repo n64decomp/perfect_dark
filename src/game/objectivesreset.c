@@ -27,7 +27,7 @@ void objectivesReset(void)
 	g_TagsLinkedList = NULL;
 	g_BriefingObjs = NULL;
 	g_RoomEnteredCriterias = NULL;
-	g_MultiroomEnteredCriterias = NULL;
+	g_ThrowInRoomCriterias = NULL;
 	g_HolographCriterias = NULL;
 }
 
@@ -58,10 +58,10 @@ void objectiveAddRoomEnteredCriteria(struct criteria_roomentered *criteria)
 	g_RoomEnteredCriterias = criteria;
 }
 
-void objectiveAddMultiroomEnteredCriteria(struct criteria_multiroomentered *criteria)
+void objectiveAddThrowInRoomCriteria(struct criteria_throwinroom *criteria)
 {
-	criteria->next = g_MultiroomEnteredCriterias;
-	g_MultiroomEnteredCriterias = criteria;
+	criteria->next = g_ThrowInRoomCriterias;
+	g_ThrowInRoomCriterias = criteria;
 }
 
 void objectiveAddHolographCriteria(struct criteria_holograph *criteria)
