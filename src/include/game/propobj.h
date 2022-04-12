@@ -119,7 +119,7 @@ u32 func0f06d37c(void);
 void applySpeed(f32 *distdone, f32 maxdist, f32 *speed, f32 accel, f32 decel, f32 maxspeed);
 void applyRotation(f32 *angle, f32 maxrot, f32 *speed, f32 accel, f32 decel, f32 maxspeed);
 u32 func0f06dbd8(void);
-u32 func0f06e87c(void);
+void knifePlayWooshSound(struct defaultobj *obj);
 void func0f06e9cc(struct coord *arg0, Mtxf *arg1);
 void func0f06eb4c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2);
 void func0f06ec20(struct weaponobj *weapon, struct coord *arg1);

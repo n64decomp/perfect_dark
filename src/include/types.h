@@ -1485,7 +1485,7 @@ struct projectile {
 	/*0x090*/ s32 unk090;
 	/*0x094*/ s32 unk094;
 	/*0x098*/ f32 unk098;
-	/*0x09c*/ s32 unk09c;
+	/*0x09c*/ s32 lastwooshframe;
 	/*0x0a0*/ u32 unk0a0;
 	/*0x0a4*/ s32 unk0a4;
 	/*0x0a8*/ f32 unk0a8;
