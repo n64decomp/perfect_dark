@@ -47902,84 +47902,30 @@ void chopperSetMaxDamage(struct chopperobj *chopper, u16 health)
 	chopper->base.maxdamage = health;
 }
 
-GLOBAL_ASM(
-glabel func0f07b164
-/*  f07b164:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f07b168:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f07b16c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f07b170:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f07b174:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f07b178:	c4860000 */ 	lwc1	$f6,0x0($a0)
-/*  f07b17c:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f07b180:	00808025 */ 	or	$s0,$a0,$zero
-/*  f07b184:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f07b188:	e7a80034 */ 	swc1	$f8,0x34($sp)
-/*  f07b18c:	c4900004 */ 	lwc1	$f16,0x4($a0)
-/*  f07b190:	c4aa0004 */ 	lwc1	$f10,0x4($a1)
-/*  f07b194:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f07b198:	e7b20038 */ 	swc1	$f18,0x38($sp)
-/*  f07b19c:	c4860008 */ 	lwc1	$f6,0x8($a0)
-/*  f07b1a0:	c4a40008 */ 	lwc1	$f4,0x8($a1)
-/*  f07b1a4:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f07b1a8:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f07b1ac:	e7a8003c */ 	swc1	$f8,0x3c($sp)
-/*  f07b1b0:	c4900000 */ 	lwc1	$f16,0x0($a0)
-/*  f07b1b4:	c4ca0000 */ 	lwc1	$f10,0x0($a2)
-/*  f07b1b8:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f07b1bc:	e7b20028 */ 	swc1	$f18,0x28($sp)
-/*  f07b1c0:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*  f07b1c4:	c4c40004 */ 	lwc1	$f4,0x4($a2)
-/*  f07b1c8:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f07b1cc:	e7a8002c */ 	swc1	$f8,0x2c($sp)
-/*  f07b1d0:	c4900008 */ 	lwc1	$f16,0x8($a0)
-/*  f07b1d4:	c4ca0008 */ 	lwc1	$f10,0x8($a2)
-/*  f07b1d8:	afa7004c */ 	sw	$a3,0x4c($sp)
-/*  f07b1dc:	27a6003c */ 	addiu	$a2,$sp,0x3c
-/*  f07b1e0:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f07b1e4:	27a40034 */ 	addiu	$a0,$sp,0x34
-/*  f07b1e8:	0c0011e4 */ 	jal	guNormalize
-/*  f07b1ec:	e7b20030 */ 	swc1	$f18,0x30($sp)
-/*  f07b1f0:	c7a40028 */ 	lwc1	$f4,0x28($sp)
-/*  f07b1f4:	c7a60034 */ 	lwc1	$f6,0x34($sp)
-/*  f07b1f8:	c7aa002c */ 	lwc1	$f10,0x2c($sp)
-/*  f07b1fc:	c7b00038 */ 	lwc1	$f16,0x38($sp)
-/*  f07b200:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f07b204:	8fa7004c */ 	lw	$a3,0x4c($sp)
-/*  f07b208:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f07b20c:	c7b00030 */ 	lwc1	$f16,0x30($sp)
-/*  f07b210:	c7aa003c */ 	lwc1	$f10,0x3c($sp)
-/*  f07b214:	46124100 */ 	add.s	$f4,$f8,$f18
-/*  f07b218:	46105202 */ 	mul.s	$f8,$f10,$f16
-/*  f07b21c:	c60a0000 */ 	lwc1	$f10,0x0($s0)
-/*  f07b220:	46044080 */ 	add.s	$f2,$f8,$f4
-/*  f07b224:	46023482 */ 	mul.s	$f18,$f6,$f2
-/*  f07b228:	460a9400 */ 	add.s	$f16,$f18,$f10
-/*  f07b22c:	e4f00000 */ 	swc1	$f16,0x0($a3)
-/*  f07b230:	c7a80038 */ 	lwc1	$f8,0x38($sp)
-/*  f07b234:	c6060004 */ 	lwc1	$f6,0x4($s0)
-/*  f07b238:	46024102 */ 	mul.s	$f4,$f8,$f2
-/*  f07b23c:	46062480 */ 	add.s	$f18,$f4,$f6
-/*  f07b240:	e4f20004 */ 	swc1	$f18,0x4($a3)
-/*  f07b244:	c7aa003c */ 	lwc1	$f10,0x3c($sp)
-/*  f07b248:	c6080008 */ 	lwc1	$f8,0x8($s0)
-/*  f07b24c:	46025402 */ 	mul.s	$f16,$f10,$f2
-/*  f07b250:	46088100 */ 	add.s	$f4,$f16,$f8
-/*  f07b254:	e4e40008 */ 	swc1	$f4,0x8($a3)
-/*  f07b258:	c7a60028 */ 	lwc1	$f6,0x28($sp)
-/*  f07b25c:	c7aa002c */ 	lwc1	$f10,0x2c($sp)
-/*  f07b260:	c7a40030 */ 	lwc1	$f4,0x30($sp)
-/*  f07b264:	46063482 */ 	mul.s	$f18,$f6,$f6
-/*  f07b268:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f07b26c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f07b270:	460a5402 */ 	mul.s	$f16,$f10,$f10
-/*  f07b274:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f07b278:	46042182 */ 	mul.s	$f6,$f4,$f4
-/*  f07b27c:	46109200 */ 	add.s	$f8,$f18,$f16
-/*  f07b280:	46021482 */ 	mul.s	$f18,$f2,$f2
-/*  f07b284:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f07b288:	03e00008 */ 	jr	$ra
-/*  f07b28c:	46125001 */ 	sub.s	$f0,$f10,$f18
-);
+f32 func0f07b164(struct coord *pos1, struct coord *pos2, struct coord *pos3, struct coord *result)
+{
+	struct coord sp34;
+	struct coord sp28;
+	f32 tmp;
+
+	sp34.x = pos2->x - pos1->x;
+	sp34.y = pos2->y - pos1->y;
+	sp34.z = pos2->z - pos1->z;
+
+	sp28.x = pos3->x - pos1->x;
+	sp28.y = pos3->y - pos1->y;
+	sp28.z = pos3->z - pos1->z;
+
+	guNormalize(&sp34.x, &sp34.y, &sp34.z);
+
+	tmp = sp28.f[0] * sp34.f[0] + sp28.f[1] * sp34.f[1] + sp28.f[2] * sp34.f[2];
+
+	result->x = sp34.x * tmp + pos1->x;
+	result->y = sp34.y * tmp + pos1->y;
+	result->z = sp34.z * tmp + pos1->z;
+
+	return sp28.f[0] * sp28.f[0] + sp28.f[1] * sp28.f[1] + sp28.f[2] * sp28.f[2] - tmp * tmp;
+}
 
 void chopperFireRocket(struct chopperobj *chopper, bool side)
 {
