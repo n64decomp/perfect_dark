@@ -10271,62 +10271,25 @@ glabel var7f1aa2a0
 /*  f06eb48:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f06eb4c
-/*  f06eb4c:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f06eb50:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f06eb54:	afa40080 */ 	sw	$a0,0x80($sp)
-/*  f06eb58:	afa50084 */ 	sw	$a1,0x84($sp)
-/*  f06eb5c:	afa60088 */ 	sw	$a2,0x88($sp)
-/*  f06eb60:	0fc1a2aa */ 	jal	modelFindBboxRodata
-/*  f06eb64:	8c840018 */ 	lw	$a0,0x18($a0)
-/*  f06eb68:	0fc199ef */ 	jal	modelBboxGetYMin
-/*  f06eb6c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f06eb70:	8faf0080 */ 	lw	$t7,0x80($sp)
-/*  f06eb74:	8fa40088 */ 	lw	$a0,0x88($sp)
-/*  f06eb78:	27a50040 */ 	addiu	$a1,$sp,0x40
-/*  f06eb7c:	8df80014 */ 	lw	$t8,0x14($t7)
-/*  f06eb80:	e7a0002c */ 	swc1	$f0,0x2c($sp)
-/*  f06eb84:	0fc1ba73 */ 	jal	func0f06e9cc
-/*  f06eb88:	afb80028 */ 	sw	$t8,0x28($sp)
-/*  f06eb8c:	8fb90080 */ 	lw	$t9,0x80($sp)
-/*  f06eb90:	27a50040 */ 	addiu	$a1,$sp,0x40
-/*  f06eb94:	8f280018 */ 	lw	$t0,0x18($t9)
-/*  f06eb98:	0c0057c1 */ 	jal	mtx00015f04
-/*  f06eb9c:	c50c0014 */ 	lwc1	$f12,0x14($t0)
-/*  f06eba0:	c7a2002c */ 	lwc1	$f2,0x2c($sp)
-/*  f06eba4:	c7a60050 */ 	lwc1	$f6,0x50($sp)
-/*  f06eba8:	8fa20084 */ 	lw	$v0,0x84($sp)
-/*  f06ebac:	c7b20054 */ 	lwc1	$f18,0x54($sp)
-/*  f06ebb0:	46023202 */ 	mul.s	$f8,$f6,$f2
-/*  f06ebb4:	c4440000 */ 	lwc1	$f4,0x0($v0)
-/*  f06ebb8:	8fa30028 */ 	lw	$v1,0x28($sp)
-/*  f06ebbc:	46029182 */ 	mul.s	$f6,$f18,$f2
-/*  f06ebc0:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*  f06ebc4:	27a70018 */ 	addiu	$a3,$sp,0x18
-/*  f06ebc8:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f06ebcc:	24650028 */ 	addiu	$a1,$v1,0x28
-/*  f06ebd0:	46082281 */ 	sub.s	$f10,$f4,$f8
-/*  f06ebd4:	e7aa0034 */ 	swc1	$f10,0x34($sp)
-/*  f06ebd8:	c4500004 */ 	lwc1	$f16,0x4($v0)
-/*  f06ebdc:	c7aa0058 */ 	lwc1	$f10,0x58($sp)
-/*  f06ebe0:	46068101 */ 	sub.s	$f4,$f16,$f6
-/*  f06ebe4:	46025482 */ 	mul.s	$f18,$f10,$f2
-/*  f06ebe8:	e7a40038 */ 	swc1	$f4,0x38($sp)
-/*  f06ebec:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*  f06ebf0:	46124401 */ 	sub.s	$f16,$f8,$f18
-/*  f06ebf4:	0fc1979d */ 	jal	func0f065e74
-/*  f06ebf8:	e7b0003c */ 	swc1	$f16,0x3c($sp)
-/*  f06ebfc:	8fa40080 */ 	lw	$a0,0x80($sp)
-/*  f06ec00:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f06ec04:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f06ec08:	0fc1a960 */ 	jal	func0f06a580
-/*  f06ec0c:	27a70018 */ 	addiu	$a3,$sp,0x18
-/*  f06ec10:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f06ec14:	27bd0080 */ 	addiu	$sp,$sp,0x80
-/*  f06ec18:	03e00008 */ 	jr	$ra
-/*  f06ec1c:	00000000 */ 	nop
-);
+void func0f06eb4c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
+{
+	Mtxf sp40;
+	struct coord newpos;
+	struct modelrodata_bbox *bbox = modelFindBboxRodata(obj->model);
+	f32 ymin = modelBboxGetYMin(bbox);
+	struct prop *prop = obj->prop;
+	s16 newrooms[8];
+
+	func0f06e9cc(arg2, &sp40);
+	mtx00015f04(obj->model->scale, &sp40);
+
+	newpos.x = arg1->x - sp40.m[1][0] * ymin;
+	newpos.y = arg1->y - sp40.m[1][1] * ymin;
+	newpos.z = arg1->z - sp40.m[1][2] * ymin;
+
+	func0f065e74(&prop->pos, prop->rooms, &newpos, newrooms);
+	func0f06a580(obj, &newpos, &sp40, newrooms);
+}
 
 GLOBAL_ASM(
 glabel func0f06ec20
