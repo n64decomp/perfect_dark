@@ -9730,148 +9730,38 @@ void func0f06ec20(struct weaponobj *weapon, struct coord *arg1)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f06ed64
-.late_rodata
-glabel var7f1aa2a4
-.word 0x3f4ccccd
-glabel var7f1aa2a8
-.word 0x3ecccccd
-glabel var7f1aa2ac
-.word 0x3f4ccccd
-glabel var7f1aa2b0
-.word 0x3ecccccd
-glabel var7f1aa2b4
-.word 0x3f4ccccd
-glabel var7f1aa2b8
-.word 0x3ecccccd
-glabel var7f1aa2bc
-.word 0xbfc907a9
-.text
-/*  f06ed64:	27bdfef0 */ 	addiu	$sp,$sp,-272
-/*  f06ed68:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f06ed6c:	afa40110 */ 	sw	$a0,0x110($sp)
-/*  f06ed70:	afa50114 */ 	sw	$a1,0x114($sp)
-/*  f06ed74:	afa60118 */ 	sw	$a2,0x118($sp)
-/*  f06ed78:	0fc1a2aa */ 	jal	modelFindBboxRodata
-/*  f06ed7c:	8c840018 */ 	lw	$a0,0x18($a0)
-/*  f06ed80:	8faf0110 */ 	lw	$t7,0x110($sp)
-/*  f06ed84:	00402025 */ 	or	$a0,$v0,$zero
-/*  f06ed88:	8df80014 */ 	lw	$t8,0x14($t7)
-/*  f06ed8c:	0fc199f3 */ 	jal	modelBboxGetZMin
-/*  f06ed90:	afb80038 */ 	sw	$t8,0x38($sp)
-/*  f06ed94:	0c004b70 */ 	jal	random
-/*  f06ed98:	00000000 */ 	nop
-/*  f06ed9c:	0c004b70 */ 	jal	random
-/*  f06eda0:	00000000 */ 	nop
-/*  f06eda4:	44822000 */ 	mtc1	$v0,$f4
-/*  f06eda8:	04410005 */ 	bgez	$v0,.L0f06edc0
-/*  f06edac:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f06edb0:	3c014f80 */ 	lui	$at,0x4f80
-/*  f06edb4:	44814000 */ 	mtc1	$at,$f8
-/*  f06edb8:	00000000 */ 	nop
-/*  f06edbc:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f06edc0:
-/*  f06edc0:	3c012f80 */ 	lui	$at,0x2f80
-/*  f06edc4:	44815000 */ 	mtc1	$at,$f10
-/*  f06edc8:	3c017f1b */ 	lui	$at,%hi(var7f1aa2a4)
-/*  f06edcc:	c432a2a4 */ 	lwc1	$f18,%lo(var7f1aa2a4)($at)
-/*  f06edd0:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f06edd4:	8fb90118 */ 	lw	$t9,0x118($sp)
-/*  f06edd8:	3c017f1b */ 	lui	$at,%hi(var7f1aa2a8)
-/*  f06eddc:	c42aa2a8 */ 	lwc1	$f10,%lo(var7f1aa2a8)($at)
-/*  f06ede0:	c7280000 */ 	lwc1	$f8,0x0($t9)
-/*  f06ede4:	46128102 */ 	mul.s	$f4,$f16,$f18
-/*  f06ede8:	46082180 */ 	add.s	$f6,$f4,$f8
-/*  f06edec:	460a3401 */ 	sub.s	$f16,$f6,$f10
-/*  f06edf0:	0c004b70 */ 	jal	random
-/*  f06edf4:	e7b0001c */ 	swc1	$f16,0x1c($sp)
-/*  f06edf8:	44829000 */ 	mtc1	$v0,$f18
-/*  f06edfc:	3c014f80 */ 	lui	$at,0x4f80
-/*  f06ee00:	04410004 */ 	bgez	$v0,.L0f06ee14
-/*  f06ee04:	46809120 */ 	cvt.s.w	$f4,$f18
-/*  f06ee08:	44814000 */ 	mtc1	$at,$f8
-/*  f06ee0c:	00000000 */ 	nop
-/*  f06ee10:	46082100 */ 	add.s	$f4,$f4,$f8
-.L0f06ee14:
-/*  f06ee14:	3c012f80 */ 	lui	$at,0x2f80
-/*  f06ee18:	44813000 */ 	mtc1	$at,$f6
-/*  f06ee1c:	3c017f1b */ 	lui	$at,%hi(var7f1aa2ac)
-/*  f06ee20:	c430a2ac */ 	lwc1	$f16,%lo(var7f1aa2ac)($at)
-/*  f06ee24:	46062282 */ 	mul.s	$f10,$f4,$f6
-/*  f06ee28:	8fa80118 */ 	lw	$t0,0x118($sp)
-/*  f06ee2c:	3c017f1b */ 	lui	$at,%hi(var7f1aa2b0)
-/*  f06ee30:	c426a2b0 */ 	lwc1	$f6,%lo(var7f1aa2b0)($at)
-/*  f06ee34:	c5080004 */ 	lwc1	$f8,0x4($t0)
-/*  f06ee38:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f06ee3c:	46089100 */ 	add.s	$f4,$f18,$f8
-/*  f06ee40:	46062281 */ 	sub.s	$f10,$f4,$f6
-/*  f06ee44:	0c004b70 */ 	jal	random
-/*  f06ee48:	e7aa0020 */ 	swc1	$f10,0x20($sp)
-/*  f06ee4c:	44828000 */ 	mtc1	$v0,$f16
-/*  f06ee50:	3c014f80 */ 	lui	$at,0x4f80
-/*  f06ee54:	04410004 */ 	bgez	$v0,.L0f06ee68
-/*  f06ee58:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f06ee5c:	44814000 */ 	mtc1	$at,$f8
-/*  f06ee60:	00000000 */ 	nop
-/*  f06ee64:	46089480 */ 	add.s	$f18,$f18,$f8
-.L0f06ee68:
-/*  f06ee68:	3c012f80 */ 	lui	$at,0x2f80
-/*  f06ee6c:	44812000 */ 	mtc1	$at,$f4
-/*  f06ee70:	3c017f1b */ 	lui	$at,%hi(var7f1aa2b4)
-/*  f06ee74:	c42aa2b4 */ 	lwc1	$f10,%lo(var7f1aa2b4)($at)
-/*  f06ee78:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*  f06ee7c:	8fa90118 */ 	lw	$t1,0x118($sp)
-/*  f06ee80:	3c017f1b */ 	lui	$at,%hi(var7f1aa2b8)
-/*  f06ee84:	c424a2b8 */ 	lwc1	$f4,%lo(var7f1aa2b8)($at)
-/*  f06ee88:	c5280008 */ 	lwc1	$f8,0x8($t1)
-/*  f06ee8c:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f06ee90:	27a50090 */ 	addiu	$a1,$sp,0x90
-/*  f06ee94:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f06ee98:	46088480 */ 	add.s	$f18,$f16,$f8
-/*  f06ee9c:	46049181 */ 	sub.s	$f6,$f18,$f4
-/*  f06eea0:	0fc1ba73 */ 	jal	func0f06e9cc
-/*  f06eea4:	e7a60024 */ 	swc1	$f6,0x24($sp)
-/*  f06eea8:	3c017f1b */ 	lui	$at,%hi(var7f1aa2bc)
-/*  f06eeac:	c42ca2bc */ 	lwc1	$f12,%lo(var7f1aa2bc)($at)
-/*  f06eeb0:	0c0058ba */ 	jal	mtx4LoadXRotation
-/*  f06eeb4:	27a50050 */ 	addiu	$a1,$sp,0x50
-/*  f06eeb8:	27a40090 */ 	addiu	$a0,$sp,0x90
-/*  f06eebc:	27a50050 */ 	addiu	$a1,$sp,0x50
-/*  f06eec0:	0c005680 */ 	jal	mtx4MultMtx4
-/*  f06eec4:	27a600d0 */ 	addiu	$a2,$sp,0xd0
-/*  f06eec8:	8faa0110 */ 	lw	$t2,0x110($sp)
-/*  f06eecc:	27a500d0 */ 	addiu	$a1,$sp,0xd0
-/*  f06eed0:	8d4b0018 */ 	lw	$t3,0x18($t2)
-/*  f06eed4:	0c0057c1 */ 	jal	mtx00015f04
-/*  f06eed8:	c56c0014 */ 	lwc1	$f12,0x14($t3)
-/*  f06eedc:	8fa20114 */ 	lw	$v0,0x114($sp)
-/*  f06eee0:	44800000 */ 	mtc1	$zero,$f0
-/*  f06eee4:	8fa30038 */ 	lw	$v1,0x38($sp)
-/*  f06eee8:	c44a0000 */ 	lwc1	$f10,0x0($v0)
-/*  f06eeec:	27a60044 */ 	addiu	$a2,$sp,0x44
-/*  f06eef0:	27a70028 */ 	addiu	$a3,$sp,0x28
-/*  f06eef4:	46005401 */ 	sub.s	$f16,$f10,$f0
-/*  f06eef8:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f06eefc:	24650028 */ 	addiu	$a1,$v1,0x28
-/*  f06ef00:	e7b00044 */ 	swc1	$f16,0x44($sp)
-/*  f06ef04:	c4480004 */ 	lwc1	$f8,0x4($v0)
-/*  f06ef08:	46004481 */ 	sub.s	$f18,$f8,$f0
-/*  f06ef0c:	e7b20048 */ 	swc1	$f18,0x48($sp)
-/*  f06ef10:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f06ef14:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f06ef18:	0fc1979d */ 	jal	func0f065e74
-/*  f06ef1c:	e7a6004c */ 	swc1	$f6,0x4c($sp)
-/*  f06ef20:	8fa40110 */ 	lw	$a0,0x110($sp)
-/*  f06ef24:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f06ef28:	27a600d0 */ 	addiu	$a2,$sp,0xd0
-/*  f06ef2c:	0fc1a960 */ 	jal	func0f06a580
-/*  f06ef30:	27a70028 */ 	addiu	$a3,$sp,0x28
-/*  f06ef34:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f06ef38:	27bd0110 */ 	addiu	$sp,$sp,0x110
-/*  f06ef3c:	03e00008 */ 	jr	$ra
-/*  f06ef40:	00000000 */ 	nop
-);
+void func0f06ed64(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
+{
+	Mtxf spd0;
+	Mtxf sp90;
+	Mtxf sp50;
+	struct coord newpos;
+	struct modelrodata_bbox *bbox = modelFindBboxRodata(obj->model);
+	f32 zero = 0.0f;
+	struct prop *prop = obj->prop;
+	s16 newrooms[8];
+	struct coord sp1c;
+
+	// @bug? Should these be assigned to zero?
+	modelBboxGetZMin(bbox);
+	random();
+
+	sp1c.x = RANDOMFRAC() * 0.8f + arg2->x - 0.4f;
+	sp1c.y = RANDOMFRAC() * 0.8f + arg2->y - 0.4f;
+	sp1c.z = RANDOMFRAC() * 0.8f + arg2->z - 0.4f;
+
+	func0f06e9cc(&sp1c, &sp90);
+	mtx4LoadXRotation(-1.5705463f, &sp50);
+	mtx4MultMtx4(&sp90, &sp50, &spd0);
+	mtx00015f04(obj->model->scale, &spd0);
+
+	newpos.x = arg1->x - zero;
+	newpos.y = arg1->y - zero;
+	newpos.z = arg1->z - zero;
+
+	func0f065e74(&prop->pos, prop->rooms, &newpos, newrooms);
+	func0f06a580(obj, &newpos, &spd0, newrooms);
+}
 
 bool func0f06ef44(struct prop *prop, struct prop *parent, struct model *model, struct modelnode *node)
 {
