@@ -62992,30 +62992,20 @@ struct nameinfo {
 	u8 unk08[5];
 };
 
-struct nameinfo *func0f087888pf(s32 id, struct nameinfo *table);
+struct nameinfo *func0f087888pf(s32 id, struct nameinfo *info)
+{
+	if (info) {
+		while (info->id) {
+			if (info->id == id) {
+				return info;
+			}
 
-GLOBAL_ASM(
-glabel func0f087888pf
-/*  f087888:	50a0000d */ 	beqzl	$a1,.PF0f0878c0
-/*  f08788c:	00001025 */ 	move	$v0,$zero
-/*  f087890:	8ca20000 */ 	lw	$v0,0x0($a1)
-/*  f087894:	5040000a */ 	beqzl	$v0,.PF0f0878c0
-/*  f087898:	00001025 */ 	move	$v0,$zero
-.PF0f08789c:
-/*  f08789c:	54820004 */ 	bnel	$a0,$v0,.PF0f0878b0
-/*  f0878a0:	8ca20010 */ 	lw	$v0,0x10($a1)
-/*  f0878a4:	03e00008 */ 	jr	$ra
-/*  f0878a8:	00a01025 */ 	move	$v0,$a1
-/*  f0878ac:	8ca20010 */ 	lw	$v0,0x10($a1)
-.PF0f0878b0:
-/*  f0878b0:	24a50010 */ 	addiu	$a1,$a1,0x10
-/*  f0878b4:	1440fff9 */ 	bnez	$v0,.PF0f08789c
-/*  f0878b8:	00000000 */ 	nop
-/*  f0878bc:	00001025 */ 	move	$v0,$zero
-.PF0f0878c0:
-/*  f0878c0:	03e00008 */ 	jr	$ra
-/*  f0878c4:	00000000 */ 	nop
-);
+			info++;
+		}
+	}
+
+	return NULL;
+}
 #endif
 
 #if VERSION >= VERSION_PAL_BETA
