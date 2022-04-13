@@ -23,7 +23,7 @@ void cd000250cc(struct coord *arg0, struct coord *arg1, f32 width);
 void cd00025168(struct prop *prop);
 u32 cd000251ac(void);
 void cd00025254(struct coord *arg0, struct coord *arg1, struct coord *pos, struct prop *prop, f32 arg4, struct tile *tile);
-u32 cd00025314(void);
+void cd00025314(struct coord *pos, struct coord *arg1);
 bool cd00025364(struct coord *arg0, struct coord *arg1);
 u32 cd000253c4(void);
 u32 cd00025410(void);
@@ -119,7 +119,7 @@ u32 cd0002e82c(void);
 u32 cd0002e9d8(void);
 u32 cd0002eb84(void);
 u32 cd0002ed30(void);
-u32 cd0002f02c(void);
+s32 cd0002f02c(struct tiletype2 *tile, s16 *rooms, s32 types);
 bool cd0002f308(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f32 distance, s32 arg4, u16 arg5);
 bool cd0002f450(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f32 distance, s32 arg4);
 

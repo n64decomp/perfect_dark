@@ -148,7 +148,7 @@ void func0f0714b8(struct defaultobj *obj, struct hov *hov);
 s32 objIsHoverpropOrBike(struct defaultobj *obj);
 f32 hoverpropGetTurnAngle(struct defaultobj *obj);
 void hoverpropSetTurnAngle(struct defaultobj *obj, f32 angle);
-u32 func0f072144(void);
+s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3);
 void hovercarFindNextPath(struct hovercarobj *hovercar);
 void hovercarStartNextPath(struct hovercarobj *hovercar);
 void hovercarIncrementStep(struct hovercarobj *hovercar);
