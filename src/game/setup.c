@@ -289,7 +289,7 @@ void propsReset(void)
 	g_BlockedPaths = NULL;
 
 	g_EmbedProp = NULL;
-	var80069934 = -1;
+	g_EmbedHitPart = -1;
 	g_CameraWaitMultiplier = 1;
 	var8006994c = 1;
 	var80069950 = 1;
