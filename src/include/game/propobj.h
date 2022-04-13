@@ -115,7 +115,7 @@ bool func0f06bea0(struct model *model, struct modelnode *arg1, struct modelnode 
 u32 func0f06c28c(void);
 s32 func0f06c8ac(struct prop *prop, struct coord *pos, struct coord *arg2, u32 arg3, struct coord *arg4, struct coord *arg5, s16 *spcc);
 bool func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, struct coord *arg3);
-u32 func0f06d37c(void);
+bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2, struct coord *arg3);
 void applySpeed(f32 *distdone, f32 maxdist, f32 *speed, f32 accel, f32 decel, f32 maxspeed);
 void applyRotation(f32 *angle, f32 maxrot, f32 *speed, f32 accel, f32 decel, f32 maxspeed);
 u32 func0f06dbd8(void);
