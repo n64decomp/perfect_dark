@@ -12142,9 +12142,9 @@ void bgun0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, stru
 		if (obj->hidden & OBJHFLAG_AIRBORNE) {
 			obj->projectile->flags |= PROJECTILEFLAG_00000080;
 
-			obj->projectile->pos.x = newpos->x;
-			obj->projectile->pos.y = newpos->y;
-			obj->projectile->pos.z = newpos->z;
+			obj->projectile->nextsteppos.x = newpos->x;
+			obj->projectile->nextsteppos.y = newpos->y;
+			obj->projectile->nextsteppos.z = newpos->z;
 		}
 	}
 }
@@ -12422,9 +12422,9 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 
 		if (obj->hidden & OBJHFLAG_AIRBORNE) {
 			obj->projectile->flags |= PROJECTILEFLAG_00000080;
-			obj->projectile->pos.x = muzzlepos.x;
-			obj->projectile->pos.y = muzzlepos.y;
-			obj->projectile->pos.z = muzzlepos.z;
+			obj->projectile->nextsteppos.x = muzzlepos.x;
+			obj->projectile->nextsteppos.y = muzzlepos.y;
+			obj->projectile->nextsteppos.z = muzzlepos.z;
 
 			if (gset->weaponnum == WEAPON_GRENADE && gset->weaponfunc == FUNC_SECONDARY) {
 				obj->projectile->unk08c = 1.0f;
@@ -12717,8 +12717,8 @@ void bgunCreateFiredProjectile(s32 handnum)
 						weapon->base.projectile->unk0a8 = weapon->base.prop->pos.y;
 						weapon->base.projectile->unk0ac = weapon->base.projectile->speed.y;
 						weapon->base.projectile->unk010 = sp250.x;
-						weapon->base.projectile->unk014 = sp250.y;
-						weapon->base.projectile->unk018 = sp250.z;
+						weapon->base.projectile->xrot = sp250.y;
+						weapon->base.projectile->yrot = sp250.z;
 						weapon->base.projectile->unk0b4 = TICKS(240);
 						weapon->base.projectile->unk08c = funcdef->unk5c;
 						weapon->base.projectile->unk098 = funcdef->unk50 * 1.6666666f;
@@ -12793,8 +12793,8 @@ void bgunCreateFiredProjectile(s32 handnum)
 					weapon->base.projectile->unk0a8 = weapon->base.prop->pos.y;
 					weapon->base.projectile->unk0ac = weapon->base.projectile->speed.y;
 					weapon->base.projectile->unk010 = sp250.x;
-					weapon->base.projectile->unk014 = sp250.y;
-					weapon->base.projectile->unk018 = sp250.z;
+					weapon->base.projectile->xrot = sp250.y;
+					weapon->base.projectile->yrot = sp250.z;
 					weapon->base.projectile->unk0b4 = TICKS(240);
 					weapon->base.projectile->unk08c = funcdef->unk5c;
 					weapon->base.projectile->unk098 = funcdef->unk50 * 1.6666666f;

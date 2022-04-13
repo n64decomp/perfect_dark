@@ -1466,8 +1466,8 @@ struct projectile {
 	/*0x000*/ u32 flags;
 	/*0x004*/ struct coord speed; // distance moved in last tick
 	/*0x010*/ f32 unk010;
-	/*0x014*/ f32 unk014;
-	/*0x018*/ f32 unk018;
+	/*0x014*/ f32 xrot;
+	/*0x018*/ f32 yrot;
 	/*0x01c*/ f32 unk01c;
 	/*0x020*/ Mtxf unk020;
 	/*0x060*/ f32 unk060;
@@ -1496,8 +1496,8 @@ struct projectile {
 	/*0x0b8*/ f32 unk0b8;
 	/*0x0bc*/ f32 unk0bc;
 	/*0x0c0*/ f32 unk0c0;
-	/*0x0c4*/ struct coord pos;
-	/*0x0d0*/ u32 unk0d0;
+	/*0x0c4*/ struct coord nextsteppos;
+	/*0x0d0*/ s32 losttimer240;
 	/*0x0d4*/ struct defaultobj *obj;
 	/*0x0d8*/ s32 unk0d8;
 	/*0x0dc*/ f32 unk0dc;
@@ -1506,10 +1506,10 @@ struct projectile {
 	/*0x0e8*/ struct prop *targetprop; // for homing rockets
 	/*0x0ec*/ f32 unk0ec;
 	/*0x0f0*/ f32 unk0f0;
-	/*0x0f4*/ u32 unk0f4;
+	/*0x0f4*/ s32 smoketimer240;
 	/*0x0f8*/ s16 waypads[6];
 	/*0x104*/ u8 numwaypads;
-	/*0x105*/ u8 unk105;
+	/*0x105*/ u8 step;
 	/*0x108*/ struct prop *unk108;
 };
 

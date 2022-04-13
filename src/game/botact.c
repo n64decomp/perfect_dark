@@ -462,7 +462,7 @@ bool botactFindRocketRoute(struct chrdata *chr, struct coord *frompos, struct co
 				i++;
 			}
 
-			projectile->unk105 = 0;
+			projectile->step = 0;
 			projectile->numwaypads = i;
 
 			return true;
@@ -473,11 +473,12 @@ bool botactFindRocketRoute(struct chrdata *chr, struct coord *frompos, struct co
 }
 
 /**
- * Determine where to spawn a Slayer rocket in fly-by-wire mode.
+ * Populate pos with the position of the given pad
+ * for a Slayer rocket in fly-by-wire mode.
  *
  * It's the ground position of the pad plus 1.5 metres.
  */
-void botactGetRocketSpawnPos(u16 padnum, struct coord *pos)
+void botactGetRocketNextStepPos(u16 padnum, struct coord *pos)
 {
 	struct pad pad;
 	s16 rooms[2];
@@ -504,19 +505,19 @@ void botactCreateSlayerRocket(struct chrdata *chr)
 		Mtxf sp196;
 		Mtxf sp132;
 		struct coord sp120 = {0, 0, 0};
-		f32 a;
-		f32 b;
+		f32 yrot;
+		f32 xrot;
 		struct coord sp100;
 
-		a = chrGetAimAngle(chr);
-		b = func0f03e754(chr);
+		yrot = chrGetAimAngle(chr);
+		xrot = func0f03e754(chr);
 
-		sp100.x = cosf(b) * sinf(a);
-		sp100.y = sinf(b);
-		sp100.z = cosf(b) * cosf(a);
+		sp100.x = cosf(xrot) * sinf(yrot);
+		sp100.y = sinf(xrot);
+		sp100.z = cosf(xrot) * cosf(yrot);
 
-		mtx4LoadXRotation(b, &sp196);
-		mtx4LoadYRotation(a, &sp132);
+		mtx4LoadXRotation(xrot, &sp196);
+		mtx4LoadYRotation(yrot, &sp132);
 		mtx00015be0(&sp132, &sp196);
 		mtx4LoadIdentity(&sp260);
 
@@ -526,9 +527,9 @@ void botactCreateSlayerRocket(struct chrdata *chr)
 			struct prop *target = chrGetTargetProp(chr);
 			rocket->timer240 = -1;
 			rocket->base.projectile->unk010 = 7.5;
-			rocket->base.projectile->unk014 = b;
-			rocket->base.projectile->unk018 = a;
-			rocket->base.projectile->unk0f4 = 0;
+			rocket->base.projectile->xrot = xrot;
+			rocket->base.projectile->yrot = yrot;
+			rocket->base.projectile->smoketimer240 = 0;
 			rocket->base.projectile->unk0b4 = 0x20000000;
 
 			// Fire rocket sound
@@ -538,7 +539,7 @@ void botactCreateSlayerRocket(struct chrdata *chr)
 			if (!botactFindRocketRoute(chr, &chr->prop->pos, &target->pos, chr->prop->rooms, target->rooms, rocket->base.projectile)) {
 				rocket->timer240 = 0; // blow up rocket
 			} else {
-				botactGetRocketSpawnPos(rocket->base.projectile->waypads[0], &rocket->base.projectile->pos);
+				botactGetRocketNextStepPos(rocket->base.projectile->waypads[0], &rocket->base.projectile->nextsteppos);
 				chr->aibot->skrocket = rocket->base.prop;
 			}
 		}

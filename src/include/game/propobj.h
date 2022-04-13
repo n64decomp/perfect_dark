@@ -155,7 +155,7 @@ void hovercarIncrementStep(struct hovercarobj *hovercar);
 f32 objCollide(struct defaultobj *obj, struct coord *arg1, f32 arg2);
 void hoverbikeUpdateMovement(struct hoverbikeobj *hoverbike, f32 arg1, f32 arg2, f32 arg3);
 void platformDisplaceProps2(struct prop *platform, Mtxf *arg1);
-u32 func0f073478(void);
+bool rocketTickFbw(struct weaponobj *rocket);
 s32 func0f073ae8(struct defaultobj *obj, struct projectile *projectile, struct coord *arg2, struct coord *arg3);
 s32 func0f073c6c(struct defaultobj *obj, bool *arg1);
 void doorTick(struct prop *doorprop);
