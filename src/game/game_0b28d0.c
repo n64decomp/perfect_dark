@@ -11,9 +11,9 @@ u32 var8009dd00;
 struct anim *var8009dd04;
 u32 var8009dd08;
 u32 var8009dd0c;
-u32 var8009dd10;
-u32 var8009dd14;
-u32 var8009dd18;
+struct var8009dd10 *var8009dd10;
+struct var8009dd10 *var8009dd14;
+struct var8009dd10 *var8009dd18;
 u32 var8009dd1c;
 
 u32 var800705a0 = 0x00000000;
@@ -614,136 +614,60 @@ struct model *modelInstantiate(struct modelfiledata *modelfiledata)
 	return func0f0b2b64(modelfiledata, false);
 }
 
-GLOBAL_ASM(
-glabel modelFree
-/*  f0b30cc:	3c098009 */ 	lui	$t1,%hi(g_Is4Mb)
-/*  f0b30d0:	25290af0 */ 	addiu	$t1,$t1,%lo(g_Is4Mb)
-/*  f0b30d4:	91250000 */ 	lbu	$a1,0x0($t1)
-/*  f0b30d8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b30dc:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f0b30e0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b30e4:	00803025 */ 	or	$a2,$a0,$zero
-/*  f0b30e8:	00004025 */ 	or	$t0,$zero,$zero
-/*  f0b30ec:	14e50003 */ 	bne	$a3,$a1,.L0f0b30fc
-/*  f0b30f0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0b30f4:	10000002 */ 	b	.L0f0b3100
-/*  f0b30f8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b30fc:
-/*  f0b30fc:	24020023 */ 	addiu	$v0,$zero,0x23
-.L0f0b3100:
-/*  f0b3100:	18400016 */ 	blez	$v0,.L0f0b315c
-/*  f0b3104:	3c0e800a */ 	lui	$t6,%hi(var8009dd10)
-/*  f0b3108:	8dcedd10 */ 	lw	$t6,%lo(var8009dd10)($t6)
-/*  f0b310c:	000378c0 */ 	sll	$t7,$v1,0x3
-/*  f0b3110:	240affff */ 	addiu	$t2,$zero,-1
-/*  f0b3114:	01cf2021 */ 	addu	$a0,$t6,$t7
-/*  f0b3118:	8c980000 */ 	lw	$t8,0x0($a0)
-.L0f0b311c:
-/*  f0b311c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0b3120:	24020023 */ 	addiu	$v0,$zero,0x23
-/*  f0b3124:	14d80006 */ 	bne	$a2,$t8,.L0f0b3140
-/*  f0b3128:	00000000 */ 	nop
-/*  f0b312c:	ac800000 */ 	sw	$zero,0x0($a0)
-/*  f0b3130:	acc00010 */ 	sw	$zero,0x10($a2)
-/*  f0b3134:	a4ca0002 */ 	sh	$t2,0x2($a2)
-/*  f0b3138:	10000008 */ 	b	.L0f0b315c
-/*  f0b313c:	00e04025 */ 	or	$t0,$a3,$zero
-.L0f0b3140:
-/*  f0b3140:	14e50003 */ 	bne	$a3,$a1,.L0f0b3150
-/*  f0b3144:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f0b3148:	10000001 */ 	b	.L0f0b3150
-/*  f0b314c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b3150:
-/*  f0b3150:	0062082a */ 	slt	$at,$v1,$v0
-/*  f0b3154:	5420fff1 */ 	bnezl	$at,.L0f0b311c
-/*  f0b3158:	8c980000 */ 	lw	$t8,0x0($a0)
-.L0f0b315c:
-/*  f0b315c:	1500001e */ 	bnez	$t0,.L0f0b31d8
-/*  f0b3160:	240affff */ 	addiu	$t2,$zero,-1
-/*  f0b3164:	91250000 */ 	lbu	$a1,0x0($t1)
-/*  f0b3168:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0b316c:	24020019 */ 	addiu	$v0,$zero,0x19
-/*  f0b3170:	14e50003 */ 	bne	$a3,$a1,.L0f0b3180
-/*  f0b3174:	3c19800a */ 	lui	$t9,%hi(var8009dd14)
-/*  f0b3178:	10000001 */ 	b	.L0f0b3180
-/*  f0b317c:	24020018 */ 	addiu	$v0,$zero,0x18
-.L0f0b3180:
-/*  f0b3180:	18400015 */ 	blez	$v0,.L0f0b31d8
-/*  f0b3184:	00000000 */ 	nop
-/*  f0b3188:	8f39dd14 */ 	lw	$t9,%lo(var8009dd14)($t9)
-/*  f0b318c:	000358c0 */ 	sll	$t3,$v1,0x3
-/*  f0b3190:	032b2021 */ 	addu	$a0,$t9,$t3
-/*  f0b3194:	8c8c0000 */ 	lw	$t4,0x0($a0)
-.L0f0b3198:
-/*  f0b3198:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0b319c:	24020019 */ 	addiu	$v0,$zero,0x19
-/*  f0b31a0:	14cc0006 */ 	bne	$a2,$t4,.L0f0b31bc
-/*  f0b31a4:	00000000 */ 	nop
-/*  f0b31a8:	ac800000 */ 	sw	$zero,0x0($a0)
-/*  f0b31ac:	acc00010 */ 	sw	$zero,0x10($a2)
-/*  f0b31b0:	a4ca0002 */ 	sh	$t2,0x2($a2)
-/*  f0b31b4:	10000008 */ 	b	.L0f0b31d8
-/*  f0b31b8:	00e04025 */ 	or	$t0,$a3,$zero
-.L0f0b31bc:
-/*  f0b31bc:	14e50003 */ 	bne	$a3,$a1,.L0f0b31cc
-/*  f0b31c0:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f0b31c4:	10000001 */ 	b	.L0f0b31cc
-/*  f0b31c8:	24020018 */ 	addiu	$v0,$zero,0x18
-.L0f0b31cc:
-/*  f0b31cc:	0062082a */ 	slt	$at,$v1,$v0
-/*  f0b31d0:	5420fff1 */ 	bnezl	$at,.L0f0b3198
-/*  f0b31d4:	8c8c0000 */ 	lw	$t4,0x0($a0)
-.L0f0b31d8:
-/*  f0b31d8:	5500001e */ 	bnezl	$t0,.L0f0b3254
-/*  f0b31dc:	8cc40020 */ 	lw	$a0,0x20($a2)
-/*  f0b31e0:	91250000 */ 	lbu	$a1,0x0($t1)
-/*  f0b31e4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0b31e8:	24020014 */ 	addiu	$v0,$zero,0x14
-/*  f0b31ec:	14e50003 */ 	bne	$a3,$a1,.L0f0b31fc
-/*  f0b31f0:	3c0d800a */ 	lui	$t5,%hi(var8009dd18)
-/*  f0b31f4:	10000001 */ 	b	.L0f0b31fc
-/*  f0b31f8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b31fc:
-/*  f0b31fc:	58400015 */ 	blezl	$v0,.L0f0b3254
-/*  f0b3200:	8cc40020 */ 	lw	$a0,0x20($a2)
-/*  f0b3204:	8daddd18 */ 	lw	$t5,%lo(var8009dd18)($t5)
-/*  f0b3208:	000370c0 */ 	sll	$t6,$v1,0x3
-/*  f0b320c:	01ae2021 */ 	addu	$a0,$t5,$t6
-/*  f0b3210:	8c8f0000 */ 	lw	$t7,0x0($a0)
-.L0f0b3214:
-/*  f0b3214:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0b3218:	24020014 */ 	addiu	$v0,$zero,0x14
-/*  f0b321c:	14cf0005 */ 	bne	$a2,$t7,.L0f0b3234
-/*  f0b3220:	00000000 */ 	nop
-/*  f0b3224:	ac800000 */ 	sw	$zero,0x0($a0)
-/*  f0b3228:	acc00010 */ 	sw	$zero,0x10($a2)
-/*  f0b322c:	10000008 */ 	b	.L0f0b3250
-/*  f0b3230:	a4ca0002 */ 	sh	$t2,0x2($a2)
-.L0f0b3234:
-/*  f0b3234:	14e50003 */ 	bne	$a3,$a1,.L0f0b3244
-/*  f0b3238:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f0b323c:	10000001 */ 	b	.L0f0b3244
-/*  f0b3240:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b3244:
-/*  f0b3244:	0062082a */ 	slt	$at,$v1,$v0
-/*  f0b3248:	5420fff2 */ 	bnezl	$at,.L0f0b3214
-/*  f0b324c:	8c8f0000 */ 	lw	$t7,0x0($a0)
-.L0f0b3250:
-/*  f0b3250:	8cc40020 */ 	lw	$a0,0x20($a2)
-.L0f0b3254:
-/*  f0b3254:	50800006 */ 	beqzl	$a0,.L0f0b3270
-/*  f0b3258:	acc00008 */ 	sw	$zero,0x8($a2)
-/*  f0b325c:	0fc2ccce */ 	jal	animTurnOff
-/*  f0b3260:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f0b3264:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f0b3268:	acc00020 */ 	sw	$zero,0x20($a2)
-/*  f0b326c:	acc00008 */ 	sw	$zero,0x8($a2)
-.L0f0b3270:
-/*  f0b3270:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b3274:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b3278:	03e00008 */ 	jr	$ra
-/*  f0b327c:	00000000 */ 	nop
-);
+#define NUMTHINGS1() (IS4MB() ? 0 : 35)
+#define NUMTHINGS2() (IS4MB() ? 24 : 25)
+#define NUMTHINGS3() (IS4MB() ? 0 : 20)
+
+void modelFree(struct model *model)
+{
+	bool done = false;
+	s32 i;
+
+	for (i = 0; i < NUMTHINGS1(); i++) {
+		if (var8009dd10[i].model == model) {
+			var8009dd10[i].model = NULL;
+
+			model->rwdatas = NULL;
+			model->unk02 = -1;
+
+			done = true;
+			break;
+		}
+	}
+
+	if (!done) {
+		for (i = 0; i < NUMTHINGS2(); i++) {
+			if (var8009dd14[i].model == model) {
+				var8009dd14[i].model = NULL;
+
+				model->rwdatas = NULL;
+				model->unk02 = -1;
+
+				done = true;
+				break;
+			}
+		}
+	}
+
+	if (!done) {
+		for (i = 0; i < NUMTHINGS3(); i++) {
+			if (var8009dd18[i].model == model) {
+				var8009dd18[i].model = NULL;
+
+				model->rwdatas = NULL;
+				model->unk02 = -1;
+				break;
+			}
+		}
+	}
+
+	if (model->anim) {
+		animTurnOff(model->anim);
+		model->anim = NULL;
+	}
+
+	model->filedata = NULL;
+}
 
 struct model *func0f0b3280(struct modelfiledata *modelfiledata)
 {

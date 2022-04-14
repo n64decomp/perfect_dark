@@ -6810,4 +6810,9 @@ struct var80069a70 {
 	/*0x30*/ u32 unk30;
 };
 
+struct var8009dd10 {
+	struct model *model;
+	u32 unk04;
+};
+
 #endif

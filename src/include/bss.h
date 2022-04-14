@@ -138,7 +138,7 @@ extern u32 var8009dd00;
 extern struct anim *var8009dd04;
 extern u32 var8009dd08;
 extern u32 var8009dd0c;
-extern u32 var8009dd10;
+extern struct var8009dd10 *var8009dd10;
 extern f32 var8009dd20;
 extern f32 var8009dd24;
 extern f32 var8009dd28;
