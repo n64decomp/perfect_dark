@@ -4212,7 +4212,7 @@ struct prop *objInit(struct defaultobj *obj, struct modelfiledata *filedata, str
 	}
 
 	if (model == NULL) {
-		model = modelInstantiate(filedata);
+		model = modelInstantiateWithoutAnim(filedata);
 	}
 
 	if (prop && model) {
@@ -61355,7 +61355,7 @@ struct prop *hatCreateForChr(struct chrdata *chr, s32 modelnum, u32 flags)
 	setupLoadModeldef(modelnum);
 	filedata = g_ModelStates[modelnum].filedata;
 	prop = propAllocate();
-	model = modelInstantiate(filedata);
+	model = modelInstantiateWithoutAnim(filedata);
 	obj = hatCreate(prop == NULL, model == NULL, filedata);
 
 	if (prop == NULL) {
@@ -61363,7 +61363,7 @@ struct prop *hatCreateForChr(struct chrdata *chr, s32 modelnum, u32 flags)
 	}
 
 	if (model == NULL) {
-		model = modelInstantiate(filedata);
+		model = modelInstantiateWithoutAnim(filedata);
 	}
 
 	if (obj && prop && model) {
@@ -61992,14 +61992,14 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 		}
 
 		prop = propAllocate();
-		model = modelInstantiate(filedata);
+		model = modelInstantiateWithoutAnim(filedata);
 
 		if (prop == NULL) {
 			prop = propAllocate();
 		}
 
 		if (model == NULL) {
-			model = modelInstantiate(filedata);
+			model = modelInstantiateWithoutAnim(filedata);
 		}
 
 		if (laptop && prop && model) {
@@ -62118,7 +62118,7 @@ struct weaponobj *weaponCreateProjectileFromGset(s32 modelnum, struct gset *gset
 
 	modeldef = g_ModelStates[modelnum].filedata;
 	prop = propAllocate();
-	model = modelInstantiate(modeldef);
+	model = modelInstantiateWithoutAnim(modeldef);
 
 	weapon = weaponCreate(prop == NULL, model == NULL, modeldef);
 
@@ -62127,7 +62127,7 @@ struct weaponobj *weaponCreateProjectileFromGset(s32 modelnum, struct gset *gset
 	}
 
 	if (model == NULL) {
-		model = modelInstantiate(modeldef);
+		model = modelInstantiateWithoutAnim(modeldef);
 	}
 
 	if (weapon && prop && model) {
@@ -62249,7 +62249,7 @@ struct prop *weaponCreateForChr(struct chrdata *chr, s32 modelnum, s32 weaponnum
 	}
 
 	prop = propAllocate();
-	model = modelInstantiate(filedata);
+	model = modelInstantiateWithoutAnim(filedata);
 
 	if (obj == NULL) {
 		obj = weaponCreate(prop == NULL, model == NULL, filedata);
@@ -62260,7 +62260,7 @@ struct prop *weaponCreateForChr(struct chrdata *chr, s32 modelnum, s32 weaponnum
 	}
 
 	if (model == NULL) {
-		model = modelInstantiate(filedata);
+		model = modelInstantiateWithoutAnim(filedata);
 	}
 
 	if (obj && prop && model) {

@@ -440,7 +440,7 @@ glabel var7f1a8a84
 /*  f02d254:	10000005 */ 	b	.L0f02d26c
 /*  f02d258:	8fac005c */ 	lw	$t4,0x5c($sp)
 .L0f02d25c:
-/*  f02d25c:	0fc2cca0 */ 	jal	func0f0b3280
+/*  f02d25c:	0fc2cca0 */ 	jal	modelInstantiateWithAnim
 /*  f02d260:	8fa40050 */ 	lw	$a0,0x50($sp)
 /*  f02d264:	afa2005c */ 	sw	$v0,0x5c($sp)
 /*  f02d268:	8fac005c */ 	lw	$t4,0x5c($sp)
@@ -589,7 +589,7 @@ glabel var7f1a8a84
 //			// empty
 //		}
 //	} else {
-//		model = func0f0b3280(bodyfiledata);
+//		model = modelInstantiateWithAnim(bodyfiledata);
 //	}
 //
 //	if (model) {
