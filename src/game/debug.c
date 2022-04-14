@@ -157,7 +157,7 @@ bool debug0f11edb0(void)
 	return false;
 }
 
-bool debug0f11edb8(void)
+bool debugIsObjDeformDebugEnabled(void)
 {
 	return false;
 }

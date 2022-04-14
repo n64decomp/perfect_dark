@@ -351,7 +351,7 @@ bool g_DebugRoomState = false;
 s32 var80078710nb = 0;
 s32 var80078714nb = 0;
 s32 var80078718nb = 0;
-s32 var8007871cnb = 0;
+bool g_DebugObjDeform = false;
 bool g_DebugLineMode = false;
 s32 var80078724nb = 0;
 s32 var80078728nb = 0;
@@ -750,9 +750,9 @@ bool debug0f11edb0(void)
 	return var80078718nb;
 }
 
-bool debug0f11edb8(void)
+bool debugIsObjDeformDebugEnabled(void)
 {
-	return var8007871cnb;
+	return g_DebugObjDeform;
 }
 
 bool debugIsRoomStateDebugEnabled(void)

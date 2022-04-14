@@ -211,7 +211,7 @@ Gfx *gfxRenderRadialShadow(Gfx *gdl, f32 x, f32 y, f32 z, f32 angle, f32 radius,
 Gfx *objRenderShadow(struct defaultobj *obj, Gfx *gdl);
 Gfx *objRender(struct prop *prop, Gfx *gdl, bool withalpha);
 bool modelIsNodeNotTvscreen(struct modelfiledata *filedata, struct modelnode *node);
-void func0f081ccc(struct defaultobj *obj, s32 arg1);
+void objDeform(struct defaultobj *obj, s32 level);
 void objBounce(struct defaultobj *obj, struct coord *arg1);
 void objSetDropped(struct prop *prop, u32 droptype);
 void objApplyMomentum(struct defaultobj *obj, struct coord *speed, f32 rotation, bool addspeed, bool addrotation);
@@ -260,7 +260,7 @@ void currentPlayerQueuePickupWeaponHudmsg(u32 weaponnum, bool dual);
 s32 propPickupByPlayer(struct prop *prop, bool showhudmsg);
 s32 objTestForPickup(struct prop *prop);
 bool func0f0899dc(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3);
-void func0f089a94(s32 vtxstoretype, struct model *model);
+void modelFreeVertices(s32 vtxstoretype, struct model *model);
 struct prop *hatApplyToChr(struct hatobj *hat, struct chrdata *chr, struct modelfiledata *filedata, struct prop *prop, struct model *model);
 void hatLoadAndApplyToChr(struct hatobj *hat, struct chrdata *chr);
 void hatAssignToChr(struct hatobj *hat, struct chrdata *chr);

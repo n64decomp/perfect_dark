@@ -106,14 +106,14 @@ void vtxstoreTick(void)
 			if (g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[i].unk0e > 0) {
 				for (j = i + 1; j < g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].numallocated; j++) {
 					if (g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk0e > 0
-							&& g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[i].unk04 == g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk04
-							&& g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[i].unk08 == g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk08) {
-						s32 size = ALIGN16(g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk0c * 0x0c);
+							&& g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[i].node == g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].node
+							&& g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[i].level == g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].level) {
+						s32 size = ALIGN16(g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].count * 0x0c);
 						vtxstoreFixRefs(g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk00, g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[i].unk00);
 						g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[i].unk0e += g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk0e;
 						memaFree(g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk00, size);
 						g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk0e = 0;
-						g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].val2 += g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk0c;
+						g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].val2 += g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].count;
 					}
 				}
 			}
@@ -125,7 +125,7 @@ void vtxstoreTick(void)
 	}
 }
 
-void *vtxstoreAllocate(s32 count, s32 index, s32 arg2, s32 arg3)
+void *vtxstoreAllocate(s32 count, s32 index, struct modelnode *node, s32 level)
 {
 	s32 i;
 	s32 numchrs;
@@ -154,10 +154,10 @@ void *vtxstoreAllocate(s32 count, s32 index, s32 arg2, s32 arg3)
 #endif
 
 				if (g_VtxstoreTypes[index].unk24[i].unk00) {
-					g_VtxstoreTypes[index].unk24[i].unk0c = count;
+					g_VtxstoreTypes[index].unk24[i].count = count;
 					g_VtxstoreTypes[index].unk24[i].unk0e = 1;
-					g_VtxstoreTypes[index].unk24[i].unk04 = arg2;
-					g_VtxstoreTypes[index].unk24[i].unk08 = arg3;
+					g_VtxstoreTypes[index].unk24[i].node = node;
+					g_VtxstoreTypes[index].unk24[i].level = level;
 					g_VtxstoreTypes[index].val2 -= count;
 
 					return g_VtxstoreTypes[index].unk24[i].unk00;
@@ -224,9 +224,9 @@ void vtxstoreFree(s32 type, void *arg1)
 				return;
 			}
 
-			memaFree(g_VtxstoreTypes[type].unk24[i].unk00, ALIGN16(g_VtxstoreTypes[type].unk24[i].unk0c * 0xc));
+			memaFree(g_VtxstoreTypes[type].unk24[i].unk00, ALIGN16(g_VtxstoreTypes[type].unk24[i].count * 0xc));
 
-			g_VtxstoreTypes[type].val2 += g_VtxstoreTypes[type].unk24[i].unk0c;
+			g_VtxstoreTypes[type].val2 += g_VtxstoreTypes[type].unk24[i].count;
 			return;
 		}
 	}

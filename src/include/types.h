@@ -6016,9 +6016,14 @@ struct var80067e6c {
 };
 
 struct gfxvtx {
-	/*0x00*/ s16 x;
-	/*0x02*/ s16 y;
-	/*0x04*/ s16 z;
+	union {
+		struct {
+			/*0x00*/ s16 x;
+			/*0x02*/ s16 y;
+			/*0x04*/ s16 z;
+		};
+		s16 v[3];
+	};
 	/*0x06*/ u8 flags;
 	/*0x07*/ u8 colour;
 	/*0x08*/ s16 unk08;
@@ -6078,9 +6083,9 @@ struct audiochannel {
 
 struct var8007e3d0_data {
 	void *unk00;
-	u32 unk04;
-	u32 unk08;
-	s16 unk0c;
+	struct modelnode *node;
+	s32 level;
+	s16 count;
 	s16 unk0e;
 };
 
