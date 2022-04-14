@@ -8,7 +8,7 @@
 #include "types.h"
 
 u32 var8009dd00;
-u32 var8009dd04;
+struct anim *var8009dd04;
 u32 var8009dd08;
 u32 var8009dd0c;
 u32 var8009dd10;
@@ -17,7 +17,7 @@ u32 var8009dd18;
 u32 var8009dd1c;
 
 u32 var800705a0 = 0x00000000;
-u32 var800705a4 = 0x00000000;
+s32 var800705a4 = 0;
 bool var800705a8 = false;
 u32 var800705ac = 0x00000000;
 u32 var800705b0 = 0x00000000;
@@ -756,33 +756,20 @@ void func0f0b32a0(struct model *model, struct modelnode *node, struct modelfiled
 	modelInitRwData(model, headmodeldef->rootnode);
 }
 
-GLOBAL_ASM(
-glabel func0f0b32e4
-/*  f0b32e4:	3c048007 */ 	lui	$a0,%hi(var800705a4)
-/*  f0b32e8:	8c8405a4 */ 	lw	$a0,%lo(var800705a4)($a0)
-/*  f0b32ec:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0b32f0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b32f4:	1880000e */ 	blez	$a0,.L0f0b3330
-/*  f0b32f8:	3c05800a */ 	lui	$a1,%hi(var8009dd04)
-/*  f0b32fc:	8ca5dd04 */ 	lw	$a1,%lo(var8009dd04)($a1)
-/*  f0b3300:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0b3304:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f0b3308:	00a03825 */ 	or	$a3,$a1,$zero
-.L0f0b330c:
-/*  f0b330c:	84ee0000 */ 	lh	$t6,0x0($a3)
-/*  f0b3310:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0b3314:	0044082a */ 	slt	$at,$v0,$a0
-/*  f0b3318:	150e0003 */ 	bne	$t0,$t6,.L0f0b3328
-/*  f0b331c:	24e7008c */ 	addiu	$a3,$a3,0x8c
-/*  f0b3320:	03e00008 */ 	jr	$ra
-/*  f0b3324:	00c51021 */ 	addu	$v0,$a2,$a1
-.L0f0b3328:
-/*  f0b3328:	1420fff8 */ 	bnez	$at,.L0f0b330c
-/*  f0b332c:	24c6008c */ 	addiu	$a2,$a2,0x8c
-.L0f0b3330:
-/*  f0b3330:	03e00008 */ 	jr	$ra
-/*  f0b3334:	00601025 */ 	or	$v0,$v1,$zero
-);
+struct anim *func0f0b32e4(void)
+{
+	s32 i;
+	struct anim *anim = NULL;
+
+	for (i = 0; i < var800705a4; i++) {
+		if (var8009dd04[i].animnum == -1) {
+			anim = &var8009dd04[i];
+			break;
+		}
+	}
+
+	return anim;
+}
 
 void animTurnOff(struct anim *anim)
 {

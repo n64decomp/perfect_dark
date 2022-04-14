@@ -251,7 +251,7 @@ extern struct weapon *g_Weapons[];
 extern u32 var800700ac;
 extern bool g_CasingsActive;
 extern u32 var800705a0;
-extern u32 var800705a4;
+extern s32 var800705a4;
 extern bool var800705a8;
 extern u32 var800705ac;
 extern u32 var800705b0;

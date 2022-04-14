@@ -135,7 +135,7 @@ extern struct casing g_Casings[20];
 extern struct boltbeam g_BoltBeams[8];
 extern struct lasersight g_LaserSights[4];
 extern u32 var8009dd00;
-extern u32 var8009dd04;
+extern struct anim *var8009dd04;
 extern u32 var8009dd08;
 extern u32 var8009dd0c;
 extern u32 var8009dd10;
