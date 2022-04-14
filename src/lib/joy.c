@@ -261,7 +261,6 @@ void joyCheckPfs(s32 arg0)
 }
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
 /**
  * "Temporarily" because the next time joyCheckPfs runs, the true state will be
  * recorded.
@@ -271,27 +270,14 @@ void joyCheckPfs(s32 arg0)
  */
 void joySetPfsTemporarilyPlugged(s8 index)
 {
+#if VERSION >= VERSION_NTSC_1_0
 	u8 bitpattern = var8005eed8 & ~(1 << index);
 
 	joyRecordPfsState(bitpattern);
-}
 #else
-GLOBAL_ASM(
-glabel joySetPfsTemporarilyPlugged
-/*    14aa8:	3c028006 */ 	lui	$v0,0x8006
-/*    14aac:	244212c4 */ 	addiu	$v0,$v0,0x12c4
-/*    14ab0:	00047600 */ 	sll	$t6,$a0,0x18
-/*    14ab4:	90580000 */ 	lbu	$t8,0x0($v0)
-/*    14ab8:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*    14abc:	24190001 */ 	addiu	$t9,$zero,0x1
-/*    14ac0:	01f94004 */ 	sllv	$t0,$t9,$t7
-/*    14ac4:	01004827 */ 	nor	$t1,$t0,$zero
-/*    14ac8:	03095024 */ 	and	$t2,$t8,$t1
-/*    14acc:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    14ad0:	03e00008 */ 	jr	$ra
-/*    14ad4:	a04a0000 */ 	sb	$t2,0x0($v0)
-);
+	var8005eed8 &= ~(1 << index);
 #endif
+}
 
 void joyInit(void)
 {
