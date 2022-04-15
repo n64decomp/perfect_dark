@@ -13,6 +13,6 @@ void sparksReset(void)
 		g_SparkGroups[i].age = 0;
 	}
 
-	var800a4130 = 0;
+	g_NextSparkGroupIndex = 0;
 	g_SparksAreActive = false;
 }

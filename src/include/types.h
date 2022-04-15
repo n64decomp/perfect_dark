@@ -3616,7 +3616,7 @@ struct sparktype {
 	f32 weight;
 	u16 maxage;
 	u16 unk12;
-	u16 unk14;
+	u16 numsparks;
 	u32 unk18;
 	u32 unk1c;
 	u32 unk20;
@@ -3628,11 +3628,9 @@ struct sparkgroup {
 	s32 numsparks;
 	s32 age;
 	s32 startindex; // index into g_Sparks
-	u32 unk10;
-	u32 unk14;
-	u32 unk18;
-	u32 unk1c;
-	u32 unk20;
+	s32 room;
+	struct prop *prop;
+	struct coord pos;
 };
 
 struct spark {

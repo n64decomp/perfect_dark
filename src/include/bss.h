@@ -212,7 +212,7 @@ extern Mtx var800a3488;
 extern struct spark g_Sparks[100];
 extern s32 g_NextSparkIndex;
 extern struct sparkgroup g_SparkGroups[10];
-extern u32 var800a4130;
+extern s32 g_NextSparkGroupIndex;
 extern u8 *var800a41a0;
 extern struct wallhit *var800a41b0;
 extern struct wallhit *var800a41b4;
