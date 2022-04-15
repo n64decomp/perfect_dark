@@ -210,7 +210,7 @@ extern s32 g_MaxSmokes;
 extern Mtx var800a3448;
 extern Mtx var800a3488;
 extern struct spark g_Sparks[100];
-extern u32 g_NextSparkIndex;
+extern s32 g_NextSparkIndex;
 extern struct sparkgroup g_SparkGroups[10];
 extern u32 var800a4130;
 extern u8 *var800a41a0;
