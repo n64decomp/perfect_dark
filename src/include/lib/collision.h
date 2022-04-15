@@ -27,7 +27,7 @@ void cd00025314(struct coord *pos, struct coord *arg1);
 bool cd00025364(struct coord *arg0, struct coord *arg1);
 u32 cd000253c4(void);
 s32 cd00025410(f32 arg0, f32 arg1, f32 arg2, f32 arg3);
-u32 cd000254d8(void);
+s32 cd000254d8(struct coord *arg0, struct coord *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s32 *arg6);
 f32 cd00025654(f32 x1, f32 z1, f32 x2, f32 z2, f32 x3, f32 z3);
 f32 cd00025724(f32 x1, f32 z1, f32 x2, f32 z2);
 bool cd00025774(f32 x1, f32 z1, f32 x2, f32 z2, f32 x3, f32 z3);
