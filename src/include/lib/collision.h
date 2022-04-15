@@ -118,7 +118,7 @@ u32 cd0002e680(void);
 u32 cd0002e82c(void);
 u32 cd0002e9d8(void);
 u32 cd0002eb84(void);
-u32 cd0002ed30(void);
+bool cd0002ed30(u8 *start, u8 *end, struct tiletype2 *tile, s32 numvertices, struct coord *arg4, struct coord *arg5, s32 arg6, struct prop *prop);
 s32 cd0002f02c(struct tiletype2 *tile, s16 *rooms, s32 types);
 bool cd0002f308(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f32 distance, s32 arg4, u16 arg5);
 bool cd0002f450(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f32 distance, s32 arg4);
