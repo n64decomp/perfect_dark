@@ -35,27 +35,7 @@ struct coord var8009a8f8;
 s32 var8009a904;
 struct coord var8009a908;
 s32 var8009a914;
-
-u32 var8009a918;
-u32 var8009a91c;
-u32 var8009a920;
-u32 var8009a924;
-u32 var8009a928;
-u32 var8009a92c;
-u32 var8009a930;
-u32 var8009a934;
-u32 var8009a938;
-u32 var8009a93c;
-u32 var8009a940;
-u32 var8009a944;
-u32 var8009a948;
-u32 var8009a94c;
-u32 var8009a950;
-u32 var8009a954;
-u32 var8009a958;
-u32 var8009a95c;
-u32 var8009a960;
-
+struct tiletype2 var8009a918;
 struct tile *var8009a964;
 s32 var8009a968;
 s32 var8009a96c;
@@ -299,29 +279,12 @@ bool cd00025364(struct coord *arg0, struct coord *arg1)
 	return var8009a8f4;
 }
 
-GLOBAL_ASM(
-glabel cd000253c4
-/*    253c4:	3c0e800a */ 	lui	$t6,%hi(var8009a918)
-/*    253c8:	25cea918 */ 	addiu	$t6,$t6,%lo(var8009a918)
-/*    253cc:	00804025 */ 	or	$t0,$a0,$zero
-/*    253d0:	24990048 */ 	addiu	$t9,$a0,0x48
-.L000253d4:
-/*    253d4:	8d010000 */ 	lw	$at,0x0($t0)
-/*    253d8:	2508000c */ 	addiu	$t0,$t0,0xc
-/*    253dc:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*    253e0:	adc1fff4 */ 	sw	$at,-0xc($t6)
-/*    253e4:	8d01fff8 */ 	lw	$at,-0x8($t0)
-/*    253e8:	adc1fff8 */ 	sw	$at,-0x8($t6)
-/*    253ec:	8d01fffc */ 	lw	$at,-0x4($t0)
-/*    253f0:	1519fff8 */ 	bne	$t0,$t9,.L000253d4
-/*    253f4:	adc1fffc */ 	sw	$at,-0x4($t6)
-/*    253f8:	8d010000 */ 	lw	$at,0x0($t0)
-/*    253fc:	24090001 */ 	addiu	$t1,$zero,0x1
-/*    25400:	adc10000 */ 	sw	$at,0x0($t6)
-/*    25404:	3c018006 */ 	lui	$at,%hi(var8005f034)
-/*    25408:	03e00008 */ 	jr	$ra
-/*    2540c:	ac29f034 */ 	sw	$t1,%lo(var8005f034)($at)
-);
+void cd000253c4(struct tiletype2 *tile)
+{
+	var8009a918 = *tile;
+
+	var8005f034 = true;
+}
 
 s32 cd00025410(f32 arg0, f32 arg1, f32 arg2, f32 arg3)
 {
