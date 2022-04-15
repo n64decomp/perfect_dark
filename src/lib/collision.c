@@ -31,13 +31,9 @@ struct coord g_CdPos;
 u32 var8009a8ec;
 f32 var8009a8f0;
 u32 var8009a8f4;
-u32 var8009a8f8;
-u32 var8009a8fc;
-u32 var8009a900;
+struct coord var8009a8f8;
 u32 var8009a904;
-u32 var8009a908;
-u32 var8009a90c;
-u32 var8009a910;
+struct coord var8009a908;
 u32 var8009a914;
 
 u32 var8009a918;
@@ -316,29 +312,18 @@ void cd00025254(struct coord *arg0, struct coord *arg1, struct coord *pos, struc
 	var8005f038 = 1;
 }
 
-GLOBAL_ASM(
-glabel cd00025314
-/*    25314:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*    25318:	3c02800a */ 	lui	$v0,%hi(var8009a8f8)
-/*    2531c:	2442a8f8 */ 	addiu	$v0,$v0,%lo(var8009a8f8)
-/*    25320:	e4440000 */ 	swc1	$f4,0x0($v0)
-/*    25324:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*    25328:	3c03800a */ 	lui	$v1,%hi(var8009a908)
-/*    2532c:	2463a908 */ 	addiu	$v1,$v1,%lo(var8009a908)
-/*    25330:	e4460004 */ 	swc1	$f6,0x4($v0)
-/*    25334:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*    25338:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*    2533c:	3c01800a */ 	lui	$at,%hi(var8009a8f4)
-/*    25340:	e4480008 */ 	swc1	$f8,0x8($v0)
-/*    25344:	c4aa0000 */ 	lwc1	$f10,0x0($a1)
-/*    25348:	e46a0000 */ 	swc1	$f10,0x0($v1)
-/*    2534c:	c4b00004 */ 	lwc1	$f16,0x4($a1)
-/*    25350:	e4700004 */ 	swc1	$f16,0x4($v1)
-/*    25354:	c4b20008 */ 	lwc1	$f18,0x8($a1)
-/*    25358:	e4720008 */ 	swc1	$f18,0x8($v1)
-/*    2535c:	03e00008 */ 	jr	$ra
-/*    25360:	ac2ea8f4 */ 	sw	$t6,%lo(var8009a8f4)($at)
-);
+void cd00025314(struct coord *arg0, struct coord *arg1)
+{
+	var8009a8f8.x = arg0->x;
+	var8009a8f8.y = arg0->y;
+	var8009a8f8.z = arg0->z;
+
+	var8009a908.x = arg1->x;
+	var8009a908.y = arg1->y;
+	var8009a908.z = arg1->z;
+
+	var8009a8f4 = 1;
+}
 
 GLOBAL_ASM(
 glabel cd00025364
