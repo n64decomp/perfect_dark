@@ -18,7 +18,7 @@ void cd00024ee8(struct coord *arg0);
 u32 cdGetTileFlags(void);
 void cd00024f6c(void);
 void cd00024fb0(struct coord *arg0, struct coord *arg1, struct prop *prop);
-u32 cd00025038(void);
+void cd00025038(struct coord *arg0, struct coord *arg1, struct prop *prop, f32 arg3);
 void cd000250cc(struct coord *arg0, struct coord *arg1, f32 width);
 void cd00025168(struct prop *prop);
 u32 cd000251ac(void);

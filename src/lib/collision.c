@@ -20,7 +20,7 @@ s32 g_TileNumRooms;
 u32 *g_TileRooms;
 s32 var8009a8ac;
 f32 var8009a8b0;
-u32 var8009a8b4;
+s32 var8009a8b4;
 struct coord var8009a8b8;
 u32 var8009a8c4;
 struct coord var8009a8c8;
@@ -161,46 +161,27 @@ void cd00024fb0(struct coord *arg0, struct coord *arg1, struct prop *prop)
 	var8005f038 = 0;
 }
 
-GLOBAL_ASM(
-glabel cd00025038
-/*    25038:	44876000 */ 	mtc1	$a3,$f12
-/*    2503c:	3c01800a */ 	lui	$at,%hi(var8009a8b0)
-/*    25040:	3c02800a */ 	lui	$v0,%hi(var8009a8b8)
-/*    25044:	e42ca8b0 */ 	swc1	$f12,%lo(var8009a8b0)($at)
-/*    25048:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*    2504c:	2442a8b8 */ 	addiu	$v0,$v0,%lo(var8009a8b8)
-/*    25050:	3c03800a */ 	lui	$v1,%hi(var8009a8c8)
-/*    25054:	e4440000 */ 	swc1	$f4,0x0($v0)
-/*    25058:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*    2505c:	2463a8c8 */ 	addiu	$v1,$v1,%lo(var8009a8c8)
-/*    25060:	24070001 */ 	addiu	$a3,$zero,0x1
-/*    25064:	e4460004 */ 	swc1	$f6,0x4($v0)
-/*    25068:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*    2506c:	3c01800a */ 	lui	$at,%hi(var8009a8b4)
-/*    25070:	e4480008 */ 	swc1	$f8,0x8($v0)
-/*    25074:	c4aa0000 */ 	lwc1	$f10,0x0($a1)
-/*    25078:	e46a0000 */ 	swc1	$f10,0x0($v1)
-/*    2507c:	c4b00004 */ 	lwc1	$f16,0x4($a1)
-/*    25080:	e4700004 */ 	swc1	$f16,0x4($v1)
-/*    25084:	c4b20008 */ 	lwc1	$f18,0x8($a1)
-/*    25088:	e4720008 */ 	swc1	$f18,0x8($v1)
-/*    2508c:	ac27a8b4 */ 	sw	$a3,%lo(var8009a8b4)($at)
-/*    25090:	3c01800a */ 	lui	$at,%hi(var8009a8ac)
-/*    25094:	ac27a8ac */ 	sw	$a3,%lo(var8009a8ac)($at)
-/*    25098:	3c01800a */ 	lui	$at,%hi(g_CdObstacle)
-/*    2509c:	ac26a8d4 */ 	sw	$a2,%lo(g_CdObstacle)($at)
-/*    250a0:	3c01800a */ 	lui	$at,%hi(var8009a8d8)
-/*    250a4:	ac20a8d8 */ 	sw	$zero,%lo(var8009a8d8)($at)
-/*    250a8:	3c01800a */ 	lui	$at,%hi(var8009a8ec)
-/*    250ac:	ac20a8ec */ 	sw	$zero,%lo(var8009a8ec)($at)
-/*    250b0:	3c01800a */ 	lui	$at,%hi(var8009a8f4)
-/*    250b4:	ac20a8f4 */ 	sw	$zero,%lo(var8009a8f4)($at)
-/*    250b8:	3c018006 */ 	lui	$at,%hi(var8005f034)
-/*    250bc:	ac20f034 */ 	sw	$zero,%lo(var8005f034)($at)
-/*    250c0:	3c018006 */ 	lui	$at,%hi(var8005f038)
-/*    250c4:	03e00008 */ 	jr	$ra
-/*    250c8:	ac20f038 */ 	sw	$zero,%lo(var8005f038)($at)
-);
+void cd00025038(struct coord *arg0, struct coord *arg1, struct prop *prop, f32 arg3)
+{
+	var8009a8b0 = arg3;
+
+	var8009a8b8.x = arg0->x;
+	var8009a8b8.y = arg0->y;
+	var8009a8b8.z = arg0->z;
+
+	var8009a8c8.x = arg1->x;
+	var8009a8c8.y = arg1->y;
+	var8009a8c8.z = arg1->z;
+
+	var8009a8b4 = 1;
+	var8009a8ac = 1;
+	g_CdObstacle = prop;
+	var8009a8d8 = 0;
+	var8009a8ec = 0;
+	var8009a8f4 = 0;
+	var8005f034 = 0;
+	var8005f038 = 0;
+}
 
 void cd000250cc(struct coord *arg0, struct coord *arg1, f32 width)
 {
