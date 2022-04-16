@@ -115,59 +115,23 @@ void camSetScale(void)
 	player->c_cameraleftnorm.z = -fVar5 * fVar4;
 }
 
-GLOBAL_ASM(
-glabel cam0f0b4c3c
-/*  f0b4c3c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0b4c40:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0b4c44:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0b4c48:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b4c4c:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f0b4c50:	c4840004 */ 	lwc1	$f4,0x4($a0)
-/*  f0b4c54:	c4461710 */ 	lwc1	$f6,0x1710($v0)
-/*  f0b4c58:	c44a1724 */ 	lwc1	$f10,0x1724($v0)
-/*  f0b4c5c:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0b4c60:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0b4c64:	c4860000 */ 	lwc1	$f6,0x0($a0)
-/*  f0b4c68:	c444172c */ 	lwc1	$f4,0x172c($v0)
-/*  f0b4c6c:	44810000 */ 	mtc1	$at,$f0
-/*  f0b4c70:	46085481 */ 	sub.s	$f18,$f10,$f8
-/*  f0b4c74:	c44a170c */ 	lwc1	$f10,0x170c($v0)
-/*  f0b4c78:	46049382 */ 	mul.s	$f14,$f18,$f4
-/*  f0b4c7c:	460a3201 */ 	sub.s	$f8,$f6,$f10
-/*  f0b4c80:	c4521720 */ 	lwc1	$f18,0x1720($v0)
-/*  f0b4c84:	c4461728 */ 	lwc1	$f6,0x1728($v0)
-/*  f0b4c88:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f0b4c8c:	46124101 */ 	sub.s	$f4,$f8,$f18
-/*  f0b4c90:	e7ae001c */ 	swc1	$f14,0x1c($sp)
-/*  f0b4c94:	46062402 */ 	mul.s	$f16,$f4,$f6
-/*  f0b4c98:	00000000 */ 	nop
-/*  f0b4c9c:	46108282 */ 	mul.s	$f10,$f16,$f16
-/*  f0b4ca0:	e7b00020 */ 	swc1	$f16,0x20($sp)
-/*  f0b4ca4:	460e7202 */ 	mul.s	$f8,$f14,$f14
-/*  f0b4ca8:	46085480 */ 	add.s	$f18,$f10,$f8
-/*  f0b4cac:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f0b4cb0:	0c012974 */ 	jal	sqrtf
-/*  f0b4cb4:	46049300 */ 	add.s	$f12,$f18,$f4
-/*  f0b4cb8:	c7a60030 */ 	lwc1	$f6,0x30($sp)
-/*  f0b4cbc:	c7b00020 */ 	lwc1	$f16,0x20($sp)
-/*  f0b4cc0:	c7ae001c */ 	lwc1	$f14,0x1c($sp)
-/*  f0b4cc4:	46003083 */ 	div.s	$f2,$f6,$f0
-/*  f0b4cc8:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0b4ccc:	44819000 */ 	mtc1	$at,$f18
-/*  f0b4cd0:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f0b4cd4:	46028282 */ 	mul.s	$f10,$f16,$f2
-/*  f0b4cd8:	00000000 */ 	nop
-/*  f0b4cdc:	46027202 */ 	mul.s	$f8,$f14,$f2
-/*  f0b4ce0:	00000000 */ 	nop
-/*  f0b4ce4:	46029102 */ 	mul.s	$f4,$f18,$f2
-/*  f0b4ce8:	e4aa0000 */ 	swc1	$f10,0x0($a1)
-/*  f0b4cec:	e4a80004 */ 	swc1	$f8,0x4($a1)
-/*  f0b4cf0:	e4a40008 */ 	swc1	$f4,0x8($a1)
-/*  f0b4cf4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b4cf8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0b4cfc:	03e00008 */ 	jr	$ra
-/*  f0b4d00:	00000000 */ 	nop
-);
+void cam0f0b4c3c(f32 *crosspos, struct coord *dst, f32 arg2)
+{
+	struct player *player = g_Vars.currentplayer;
+	f32 sp20;
+	f32 sp1c;
+	f32 sp18 = -1.0f;
+	f32 f2;
+
+	sp1c = (player->c_halfheight - (crosspos[1] - player->c_screentop)) * player->c_scaley;
+	sp20 = (crosspos[0] - player->c_screenleft - player->c_halfwidth) * player->c_scalex;
+
+	f2 = arg2 / sqrtf(sp20 * sp20 + sp1c * sp1c + sp18 * sp18);
+
+	dst->x = sp20 * f2;
+	dst->y = sp1c * f2;
+	dst->z = sp18 * f2;
+}
 
 void cam0f0b4d04(struct coord *in, f32 *out)
 {
