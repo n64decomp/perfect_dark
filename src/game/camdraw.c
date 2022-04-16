@@ -2040,36 +2040,26 @@ void func0f14c80c(void)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func0f14c814
-/*  f14c814:	908e0004 */ 	lbu	$t6,0x4($a0)
-/*  f14c818:	908f0005 */ 	lbu	$t7,0x5($a0)
-/*  f14c81c:	90820008 */ 	lbu	$v0,0x8($a0)
-/*  f14c820:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f14c824:	01cf0019 */ 	multu	$t6,$t7
-/*  f14c828:	00001812 */ 	mflo	$v1
-/*  f14c82c:	10400009 */ 	beqz	$v0,.L0f14c854
-/*  f14c830:	00000000 */ 	nop
-/*  f14c834:	1041000c */ 	beq	$v0,$at,.L0f14c868
-/*  f14c838:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f14c83c:	10410007 */ 	beq	$v0,$at,.L0f14c85c
-/*  f14c840:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f14c844:	10410007 */ 	beq	$v0,$at,.L0f14c864
-/*  f14c848:	00034080 */ 	sll	$t0,$v1,0x2
-/*  f14c84c:	03e00008 */ 	jr	$ra
-/*  f14c850:	00601025 */ 	or	$v0,$v1,$zero
-.L0f14c854:
-/*  f14c854:	03e00008 */ 	jr	$ra
-/*  f14c858:	00031042 */ 	srl	$v0,$v1,0x1
-.L0f14c85c:
-/*  f14c85c:	03e00008 */ 	jr	$ra
-/*  f14c860:	00031040 */ 	sll	$v0,$v1,0x1
-.L0f14c864:
-/*  f14c864:	01001825 */ 	or	$v1,$t0,$zero
-.L0f14c868:
-/*  f14c868:	03e00008 */ 	jr	$ra
-/*  f14c86c:	00601025 */ 	or	$v0,$v1,$zero
-);
+u32 func0f14c814(struct textureconfig *tconfig)
+{
+	u32 size = tconfig->width * tconfig->height;
+
+	switch (tconfig->depth) {
+	case 0:
+		size >>= 1;
+		break;
+	case 2:
+		size *= 2;
+		break;
+	case 3:
+		size *= 4;
+		break;
+	case 1:
+		break;
+	}
+
+	return size;
+}
 
 Gfx *func0f14c870(Gfx *gdl, struct textureconfig *tconfig, f32 *arg2, f32 arg3, f32 arg4)
 {
