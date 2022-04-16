@@ -3933,7 +3933,7 @@ f32 gasGetDoorFrac(s32 tagnum)
 
 #if PAL
 GLOBAL_ASM(
-glabel func0f00a490
+glabel nbombRenderOverlay
 /*  f00a490:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f00a494:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
 /*  f00a498:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
@@ -4244,7 +4244,7 @@ glabel func0f00a490
 );
 #else
 GLOBAL_ASM(
-glabel func0f00a490
+glabel nbombRenderOverlay
 /*  f00a490:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f00a494:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
 /*  f00a498:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
@@ -4554,6 +4554,134 @@ glabel func0f00a490
 /*  f00a93c:	27bd0080 */ 	addiu	$sp,$sp,0x80
 );
 #endif
+
+/**
+ * Checks if the player is inside an nbomb storm, and if so renders the black
+ * storm texture directly over the screen.
+ */
+// Mismatch: The below saves a and b to the stack then adds them together later,
+// while goal adds them immediately to save into sp5e.
+//Gfx *nbombRenderOverlay(Gfx *gdl)
+//{
+//	u32 stack;
+//	struct coord campos; // 70
+//	struct gfxvtx *vertices;
+//	u32 maxalpha;
+//	bool inside;
+//	s32 i;
+//	s16 sp5e;
+//	s16 s2;
+//	u32 stack2[2];
+//	bool sp50 = false;
+//	u32 stack3;
+//	u32 *colours; // 48
+//	s16 a;
+//	s16 b;
+//	s16 viewleft; // 42
+//	s16 viewtop; // 40
+//	s16 viewright; // 3e
+//	s16 viewbottom; // 3c
+//
+//	campos.x = g_Vars.currentplayer->cam_pos.x;
+//	campos.y = g_Vars.currentplayer->cam_pos.y;
+//	campos.z = g_Vars.currentplayer->cam_pos.z;
+//
+//	inside = false;
+//	maxalpha = 0;
+//
+//	for (i = 0; i < ARRAYCOUNT(g_Nbombs); i++) {
+//		if (g_Nbombs[i].age240 >= 0 && g_Nbombs[i].age240 <= TICKS(350)) {
+//			f32 xdiff = campos.f[0] - g_Nbombs[i].pos.f[0];
+//			f32 ydiff = campos.f[1] - g_Nbombs[i].pos.f[1];
+//			f32 zdiff = campos.f[2] - g_Nbombs[i].pos.f[2];
+//
+//			if (sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff) < g_Nbombs[i].radius) {
+//				u32 alpha = nbombCalculateAlpha(&g_Nbombs[i]);
+//
+//				inside = true;
+//
+//				if (alpha > maxalpha) {
+//					maxalpha = alpha;
+//				}
+//			}
+//		}
+//	}
+//
+//	if (inside) {
+//		colours = gfxAllocateColours(1);
+//		vertices = gfxAllocateVertices(4);
+//
+//		viewleft = viGetViewLeft() * 10;
+//		viewtop = viGetViewTop() * 10;
+//		viewright = (s16)(viGetViewLeft() + viGetViewWidth()) * 10;
+//		viewbottom = (s16)(viGetViewTop() + viGetViewHeight()) * 10;
+//
+//		s2 = (s32) (8.0f * var80061630 * 128.0f * 32.0f) % 2048;
+//		a = (s32)(campos.f[1] * 8.0f) % 2048;
+//		b = 2.0f * var80061630 * 128.0f * 32.0f;
+//		sp5e = a + b;
+//
+//		if (1);
+//		sp50 = true;
+//
+//		gdl = func0f0d479c(gdl);
+//
+//		tex0f0b39c0(&gdl, &g_TexGeneralConfigs[10], 2, 1, 2, 1, NULL);
+//
+//		gDPPipeSync(gdl++);
+//		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//		gDPSetAlphaCompare(gdl++, G_AC_NONE);
+//		gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
+//		gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+//		gDPSetColorDither(gdl++, G_CD_DISABLE);
+//		gDPSetTextureFilter(gdl++, G_TF_BILERP);
+//		gDPSetRenderMode(gdl++, G_RM_ZB_XLU_SURF, G_RM_ZB_XLU_SURF2);
+//		gDPSetTexturePersp(gdl++, G_TP_PERSP);
+//
+//		vertices[0].z = -10;
+//		vertices[1].z = -10;
+//		vertices[2].z = -10;
+//		vertices[3].z = -10;
+//
+//		vertices[0].x = viewleft;
+//		vertices[0].y = viewtop;
+//
+//		vertices[1].x = viewright;
+//		vertices[1].y = viewtop;
+//
+//		vertices[2].x = viewright;
+//		vertices[2].y = viewbottom;
+//
+//		vertices[3].x = viewleft;
+//		vertices[3].y = viewbottom;
+//
+//		vertices[0].unk08 = s2;
+//		vertices[0].unk0a = sp5e;
+//		vertices[1].unk08 = s2 + 160;
+//		vertices[1].unk0a = sp5e;
+//		vertices[2].unk08 = s2 + 160;
+//		vertices[2].unk0a = sp5e + 960;
+//		vertices[3].unk08 = s2;
+//		vertices[3].unk0a = sp5e + 960;
+//
+//		vertices[0].colour = 0;
+//		vertices[1].colour = 0;
+//		vertices[2].colour = 0;
+//		vertices[3].colour = 0;
+//
+//		colours[0] = maxalpha;
+//
+//		gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
+//		gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
+//		gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
+//	}
+//
+//	if (sp50) {
+//		gdl = func0f0d49c8(gdl);
+//	}
+//
+//	return gdl;
+//}
 
 GLOBAL_ASM(
 glabel gasRender

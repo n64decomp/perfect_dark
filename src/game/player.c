@@ -5249,7 +5249,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 		}
 
 		if (g_NbombsActive) {
-			gdl = func0f00a490(gdl);
+			gdl = nbombRenderOverlay(gdl);
 		}
 
 		if (g_Vars.stagenum == STAGE_ESCAPE) {
