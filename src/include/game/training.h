@@ -122,7 +122,13 @@ void frGetTargetsDestroyedValue(char *buffer);
 void frGetScoreValue(char *buffer);
 void frGetGoalScoreText(char *buffer);
 f32 frGetAccuracy(char *buffer);
+
+#if VERSION >= VERSION_JPN_FINAL
+bool frGetMinAccuracy(char *buffer, f32 accuracy, char *buffer2);
+#else
 bool frGetMinAccuracy(char *buffer, f32 accuracy);
+#endif
+
 bool frFormatTime(char *buffer);
 bool frGetHudMiddleSubtext(char *buffer);
 bool frGetFeedback(char *score, char *zone);

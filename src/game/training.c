@@ -10605,50 +10605,13 @@ f32 frGetAccuracy(char *buffer)
 }
 
 #if VERSION >= VERSION_JPN_FINAL
-const char var7f1ba11cjf[] = "%s";
-const char var7f1ba120jf[] = "%d%%\n";
+bool frGetMinAccuracy(char *buffer1, f32 accuracy, char *buffer2)
+{
+	sprintf(buffer1, "%s", langGet(L_MISC_419));
+	sprintf(buffer2, "%d%%\n", g_FrData.goalaccuracy);
 
-GLOBAL_ASM(
-glabel frGetMinAccuracy
-/*  f1a32e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a32e8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a32ec:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a32f0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1a32f4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1a32f8:	0fc5baa5 */ 	jal	langGet
-/*  f1a32fc:	240458a0 */ 	li	$a0,0x58a0
-/*  f1a3300:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a3304:	24a5a11c */ 	addiu	$a1,$a1,-24292
-/*  f1a3308:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f1a330c:	0c004d95 */ 	jal	sprintf
-/*  f1a3310:	00403025 */ 	move	$a2,$v0
-/*  f1a3314:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a3318:	3c06800b */ 	lui	$a2,0x800b
-/*  f1a331c:	90c6d758 */ 	lbu	$a2,-0x28a8($a2)
-/*  f1a3320:	24a5a120 */ 	addiu	$a1,$a1,-24288
-/*  f1a3324:	0c004d95 */ 	jal	sprintf
-/*  f1a3328:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f1a332c:	3c0e800b */ 	lui	$t6,0x800b
-/*  f1a3330:	91ced758 */ 	lbu	$t6,-0x28a8($t6)
-/*  f1a3334:	c7a4001c */ 	lwc1	$f4,0x1c($sp)
-/*  f1a3338:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a333c:	448e3000 */ 	mtc1	$t6,$f6
-/*  f1a3340:	3c014f80 */ 	lui	$at,0x4f80
-/*  f1a3344:	05c10004 */ 	bgez	$t6,.JF0f1a3358
-/*  f1a3348:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f1a334c:	44815000 */ 	mtc1	$at,$f10
-/*  f1a3350:	00000000 */ 	nop
-/*  f1a3354:	460a4200 */ 	add.s	$f8,$f8,$f10
-.JF0f1a3358:
-/*  f1a3358:	4608203c */ 	c.lt.s	$f4,$f8
-/*  f1a335c:	00001025 */ 	move	$v0,$zero
-/*  f1a3360:	45000002 */ 	bc1f	.JF0f1a336c
-/*  f1a3364:	00000000 */ 	nop
-/*  f1a3368:	24020001 */ 	li	$v0,0x1
-.JF0f1a336c:
-/*  f1a336c:	03e00008 */ 	jr	$ra
-/*  f1a3370:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+	return accuracy < g_FrData.goalaccuracy;
+}
 #else
 bool frGetMinAccuracy(char *buffer, f32 accuracy)
 {
