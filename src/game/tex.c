@@ -123,43 +123,30 @@ s32 tex0f0b34d8(s32 arg0, s32 arg1, s32 arg2)
 	return sum;
 }
 
-GLOBAL_ASM(
-glabel tex0f0b3548
-/*  f0b3548:	1cc00002 */ 	bgtz	$a2,.L0f0b3554
-/*  f0b354c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0b3550:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f0b3554:
-/*  f0b3554:	18c00016 */ 	blez	$a2,.L0f0b35b0
-/*  f0b3558:	248e0003 */ 	addiu	$t6,$a0,0x3
-.L0f0b355c:
-/*  f0b355c:	05c10003 */ 	bgez	$t6,.L0f0b356c
-/*  f0b3560:	000e7883 */ 	sra	$t7,$t6,0x2
-/*  f0b3564:	25c10003 */ 	addiu	$at,$t6,0x3
-/*  f0b3568:	00017883 */ 	sra	$t7,$at,0x2
-.L0f0b356c:
-/*  f0b356c:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f0b3570:	03050019 */ 	multu	$t8,$a1
-/*  f0b3574:	28810002 */ 	slti	$at,$a0,0x2
-/*  f0b3578:	24c6ffff */ 	addiu	$a2,$a2,-1
-/*  f0b357c:	00044043 */ 	sra	$t0,$a0,0x1
-/*  f0b3580:	00054843 */ 	sra	$t1,$a1,0x1
-/*  f0b3584:	0000c812 */ 	mflo	$t9
-/*  f0b3588:	00791821 */ 	addu	$v1,$v1,$t9
-/*  f0b358c:	54200003 */ 	bnezl	$at,.L0f0b359c
-/*  f0b3590:	28a10002 */ 	slti	$at,$a1,0x2
-/*  f0b3594:	01002025 */ 	or	$a0,$t0,$zero
-/*  f0b3598:	28a10002 */ 	slti	$at,$a1,0x2
-.L0f0b359c:
-/*  f0b359c:	14200002 */ 	bnez	$at,.L0f0b35a8
-/*  f0b35a0:	00000000 */ 	nop
-/*  f0b35a4:	01202825 */ 	or	$a1,$t1,$zero
-.L0f0b35a8:
-/*  f0b35a8:	5cc0ffec */ 	bgtzl	$a2,.L0f0b355c
-/*  f0b35ac:	248e0003 */ 	addiu	$t6,$a0,0x3
-.L0f0b35b0:
-/*  f0b35b0:	03e00008 */ 	jr	$ra
-/*  f0b35b4:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 tex0f0b3548(s32 arg0, s32 arg1, s32 arg2)
+{
+	s32 sum = 0;
+
+	if (arg2 <= 0) {
+		arg2 = 1;
+	}
+
+	while (arg2 > 0) {
+		sum += (arg0 + 3) / 4 * 4 * arg1;
+
+		arg2--;
+
+		if (arg0 >= 2) {
+			arg0 >>= 1;
+		}
+
+		if (arg1 >= 2) {
+			arg1 >>= 1;
+		}
+	}
+
+	return sum;
+}
 
 GLOBAL_ASM(
 glabel tex0f0b35b8
