@@ -416,20 +416,17 @@ u32 joyGetConnectedControllers(void)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00014e9cnb
-/*    14e9c:	3c018006 */ 	lui	$at,0x8006
-/*    14ea0:	ac2412b4 */ 	sw	$a0,0x12b4($at)
-/*    14ea4:	3c01800a */ 	lui	$at,0x800a
-/*    14ea8:	03e00008 */ 	jr	$ra
-/*    14eac:	ac25e5c4 */ 	sw	$a1,-0x1a3c($at)
-);
+void func00014e9cnb(void *callback, s32 value2)
+{
+	var8005eec4 = callback;
+	g_JoyData[1].unk200 =  value2;
+}
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-void func00014eb0nb(s32 value)
+void func00014eb0nb(void *value)
 {
-	var8006eec8 = value;
+	var8005eec8 = value;
 }
 #endif
 
