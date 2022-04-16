@@ -113,22 +113,18 @@ char *htGetTip1(void);
 char *htGetTip2(void);
 
 #if VERSION >= VERSION_JPN_FINAL
-void frGetGoalTargetsText(char *buffer, char *buffer2);
+void frGetGoalTargetsText(char *buffer1, char *buffer2);
+void frGetGoalScoreText(char *buffer1, char *buffer2);
+bool frGetMinAccuracy(char *buffer1, f32 accuracy, char *buffer2);
 #else
 void frGetGoalTargetsText(char *buffer);
+void frGetGoalScoreText(char *buffer);
+bool frGetMinAccuracy(char *buffer, f32 accuracy);
 #endif
 
 void frGetTargetsDestroyedValue(char *buffer);
 void frGetScoreValue(char *buffer);
-void frGetGoalScoreText(char *buffer);
 f32 frGetAccuracy(char *buffer);
-
-#if VERSION >= VERSION_JPN_FINAL
-bool frGetMinAccuracy(char *buffer, f32 accuracy, char *buffer2);
-#else
-bool frGetMinAccuracy(char *buffer, f32 accuracy);
-#endif
-
 bool frFormatTime(char *buffer);
 bool frGetHudMiddleSubtext(char *buffer);
 bool frGetFeedback(char *score, char *zone);

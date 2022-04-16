@@ -10526,51 +10526,16 @@ void frGetScoreValue(char *buffer)
 }
 
 #if VERSION >= VERSION_JPN_FINAL
-const char var7f1ba0f8[] = "%s";
-const char var7f1ba0fc[] = "%d\n";
-const char var7f1ba100[] = "";
-const char var7f1ba104[] = "";
-
-GLOBAL_ASM(
-glabel frGetGoalScoreText
-/*  f1a31a4:	3c0e800b */ 	lui	$t6,0x800b
-/*  f1a31a8:	95ced752 */ 	lhu	$t6,-0x28ae($t6)
-/*  f1a31ac:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a31b0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a31b4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1a31b8:	11c00011 */ 	beqz	$t6,.JF0f1a3200
-/*  f1a31bc:	00803825 */ 	move	$a3,$a0
-/*  f1a31c0:	2404589f */ 	li	$a0,0x589f
-/*  f1a31c4:	0fc5baa5 */ 	jal	langGet
-/*  f1a31c8:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f1a31cc:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a31d0:	24a5a0f8 */ 	addiu	$a1,$a1,-24328
-/*  f1a31d4:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f1a31d8:	0c004d95 */ 	jal	sprintf
-/*  f1a31dc:	00403025 */ 	move	$a2,$v0
-/*  f1a31e0:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a31e4:	3c06800b */ 	lui	$a2,0x800b
-/*  f1a31e8:	94c6d752 */ 	lhu	$a2,-0x28ae($a2)
-/*  f1a31ec:	24a5a0fc */ 	addiu	$a1,$a1,-24324
-/*  f1a31f0:	0c004d95 */ 	jal	sprintf
-/*  f1a31f4:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f1a31f8:	1000000a */ 	b	.JF0f1a3224
-/*  f1a31fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.JF0f1a3200:
-/*  f1a3200:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a3204:	24a5a100 */ 	addiu	$a1,$a1,-24320
-/*  f1a3208:	0c004d95 */ 	jal	sprintf
-/*  f1a320c:	00e02025 */ 	move	$a0,$a3
-/*  f1a3210:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a3214:	24a5a104 */ 	addiu	$a1,$a1,-24316
-/*  f1a3218:	0c004d95 */ 	jal	sprintf
-/*  f1a321c:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f1a3220:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.JF0f1a3224:
-/*  f1a3224:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a3228:	03e00008 */ 	jr	$ra
-/*  f1a322c:	00000000 */ 	nop
-);
+void frGetGoalScoreText(char *buffer1, char *buffer2)
+{
+	if (g_FrData.goalscore) {
+		sprintf(buffer1, "%s", langGet(L_MISC_418));
+		sprintf(buffer2, "%d\n", g_FrData.goalscore);
+	} else {
+		sprintf(buffer1, "");
+		sprintf(buffer2, "");
+	}
+}
 #else
 void frGetGoalScoreText(char *buffer)
 {
