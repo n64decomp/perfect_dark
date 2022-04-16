@@ -1265,24 +1265,15 @@ void joyEnableCyclicPolling(
 }
 
 #if VERSION < VERSION_NTSC_1_0
-void joy00016130nb(s32 arg0)
+void joySetDataIndex(s32 arg0)
 {
 	g_JoyDataPtr = &g_JoyData[arg0];
 }
 
-GLOBAL_ASM(
-glabel func00016154nb
-/*    16154:	3c0e8006 */ 	lui	$t6,0x8006
-/*    16158:	8dce1250 */ 	lw	$t6,0x1250($t6)
-/*    1615c:	3c0f800a */ 	lui	$t7,0x800a
-/*    16160:	25efe1c0 */ 	addiu	$t7,$t7,-7744
-/*    16164:	24010204 */ 	addiu	$at,$zero,0x204
-/*    16168:	01cf1023 */ 	subu	$v0,$t6,$t7
-/*    1616c:	0041001a */ 	div	$zero,$v0,$at
-/*    16170:	00001012 */ 	mflo	$v0
-/*    16174:	03e00008 */ 	jr	$ra
-/*    16178:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 joyGetDataIndex(void)
+{
+	return g_JoyDataPtr - g_JoyData;
+}
 #endif
 
 void joyDestroy(void)
