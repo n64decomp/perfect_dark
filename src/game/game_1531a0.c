@@ -12619,13 +12619,10 @@ glabel textMeasure
 //}
 
 #if VERSION == VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel func0f157768jf
-/*  f157768:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f15776c:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f157770:	03e00008 */ 	jr	$ra
-/*  f157774:	00001025 */ 	move	$v0,$zero
-);
+bool func0f157768jf(s32 arg0, s32 arg1)
+{
+	return false;
+}
 #endif
 
 #if VERSION >= VERSION_JPN_FINAL
