@@ -40,7 +40,7 @@ bool bossfileLoadFull(void)
 	bossfileLoad();
 
 #if VERSION >= VERSION_PAL_BETA
-	langSetEuropean(g_Vars.unk000482);
+	langSetEuropean(g_Vars.language);
 #endif
 
 	return true;
@@ -116,7 +116,7 @@ void bossfileLoad(void)
 
 		g_BossFile.unk89 = savebufferReadBits(&buffer, 1);
 
-		g_Vars.unk000482 = savebufferReadBits(&buffer, 4);
+		g_Vars.language = savebufferReadBits(&buffer, 4);
 
 		for (i = 0; i < 8; i++) {
 			savebufferReadString(&buffer, g_BossFile.teamnames[i], 1);
@@ -164,7 +164,7 @@ void bossfileSave(void)
 	savebufferWriteGuid(&buffer, &guid);
 
 	savebufferOr(&buffer, g_BossFile.unk89, 1);
-	savebufferOr(&buffer, g_Vars.unk000482, 4);
+	savebufferOr(&buffer, g_Vars.language, 4);
 
 	for (i = 0; i < 8; i++) {
 		func0f0d55a4(&buffer, g_BossFile.teamnames[i]);
@@ -215,7 +215,7 @@ void bossfileSetDefaults(void)
 	g_BossFile.locktype = MPLOCKTYPE_NONE;
 	g_Vars.bossfileid = 0;
 	g_Vars.bossdeviceserial = 0;
-	g_Vars.unk000482 = (PAL ? 7 : 0);
+	g_Vars.language = (PAL ? 7 : 0);
 	g_AltTitleUnlocked = 0;
 	g_AltTitleEnabled = false;
 

@@ -58,64 +58,25 @@ struct menudialogdef g_FilemgrRenameMenuDialog;
 #endif
 
 #if PAL
-s32 func0f1088d0pf(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 filemgrHandleSetLanguage(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	if (operation == MENUOP_SET) {
+		g_Vars.language = item->param;
+		langSetEuropean(g_Vars.language);
+		menuPopDialog();
+	}
 
-#if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel func0f1088d0pf
-/*  f1088d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1088d4:	24010006 */ 	li	$at,0x6
-/*  f1088d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1088dc:	14810009 */ 	bne	$a0,$at,.PF0f108904
-/*  f1088e0:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1088e4:	90ae0001 */ 	lbu	$t6,0x1($a1)
-/*  f1088e8:	3c02800a */ 	lui	$v0,0x800a
-/*  f1088ec:	2442a510 */ 	addiu	$v0,$v0,-23280
-/*  f1088f0:	a44e0482 */ 	sh	$t6,0x482($v0)
-/*  f1088f4:	0fc5bdd7 */ 	jal	langSetEuropean
-/*  f1088f8:	31c4ffff */ 	andi	$a0,$t6,0xffff
-/*  f1088fc:	0fc3cf8c */ 	jal	menuPopDialog
-/*  f108900:	00000000 */ 	nop
-.PF0f108904:
-/*  f108904:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108908:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10890c:	00001025 */ 	move	$v0,$zero
-/*  f108910:	03e00008 */ 	jr	$ra
-/*  f108914:	00000000 */ 	nop
-);
-#else
-GLOBAL_ASM(
-glabel func0f1088d0pf
-/*  f108630:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f108634:	24010006 */ 	li	$at,0x6
-/*  f108638:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10863c:	14810009 */ 	bne	$a0,$at,.PB0f108664
-/*  f108640:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f108644:	90ae0001 */ 	lbu	$t6,0x1($a1)
-/*  f108648:	3c02800a */ 	lui	$v0,0x800a
-/*  f10864c:	2442e4d0 */ 	addiu	$v0,$v0,-6960
-/*  f108650:	a44e0482 */ 	sh	$t6,0x482($v0)
-/*  f108654:	0fc5c097 */ 	jal	langSetEuropean
-/*  f108658:	31c4ffff */ 	andi	$a0,$t6,0xffff
-/*  f10865c:	0fc3cf12 */ 	jal	menuPopDialog
-/*  f108660:	00000000 */ 	nop
-.PB0f108664:
-/*  f108664:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108668:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10866c:	00001025 */ 	move	$v0,$zero
-/*  f108670:	03e00008 */ 	jr	$ra
-/*  f108674:	00000000 */ 	nop
-);
-#endif
+	return 0;
+}
 
 struct menuitem g_ChooseLanguageMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,      0,               0x00004010, L_MPWEAPONS_261, 0x00000000, 0x00000000     }, // "Choose your language:"
 	{ MENUITEMTYPE_SEPARATOR,  0,               0x00000000, 0x00000000, 0x00000000, 0x00000000     },
-	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_EN, 0x00000020, L_MPWEAPONS_262, 0x00000000, func0f1088d0pf }, // "English"
-	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_FR, 0x00000020, L_MPWEAPONS_263, 0x00000000, func0f1088d0pf }, // "French"
-	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_DE, 0x00000020, L_MPWEAPONS_264, 0x00000000, func0f1088d0pf }, // "German"
-	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_IT, 0x00000020, L_MPWEAPONS_265, 0x00000000, func0f1088d0pf }, // "Italian"
-	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_ES, 0x00000020, L_MPWEAPONS_266, 0x00000000, func0f1088d0pf }, // "Spanish"
+	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_EN, 0x00000020, L_MPWEAPONS_262, 0x00000000, filemgrHandleSetLanguage }, // "English"
+	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_FR, 0x00000020, L_MPWEAPONS_263, 0x00000000, filemgrHandleSetLanguage }, // "French"
+	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_DE, 0x00000020, L_MPWEAPONS_264, 0x00000000, filemgrHandleSetLanguage }, // "German"
+	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_IT, 0x00000020, L_MPWEAPONS_265, 0x00000000, filemgrHandleSetLanguage }, // "Italian"
+	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_ES, 0x00000020, L_MPWEAPONS_266, 0x00000000, filemgrHandleSetLanguage }, // "Spanish"
 	{ MENUITEMTYPE_END,        0,               0x00000000, 0x00000000, 0x00000000, 0x00000000     },
 };
 

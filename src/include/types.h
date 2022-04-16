@@ -191,7 +191,7 @@ struct g_vars {
 	/*000478*/ bool aibuddiesspawned;
 	/*00047c*/ s32 bossfileid;
 	/*000480*/ u16 bossdeviceserial;
-	/*000482*/ u16 unk000482;
+	/*000482*/ u16 language;
 	/*000484*/ s32 mphilltime;
 	/*000488*/ s32 totalkills;
 	/*00048c*/ bool unk00048c;

@@ -120,21 +120,21 @@ void gamefileApplyOptions(struct gamefile *file)
 	g_Vars.antiradaron = pakHasBitflag(GAMEFILEFLAG_ANTIRADARON, file->flags) ? 1 : 0;
 
 #if VERSION >= VERSION_PAL_BETA
-	g_Vars.unk000482 = 0;
+	g_Vars.language = 0;
 
-	if (pakHasBitflag(GAMEFILEFLAG_44, file->flags)) {
-		g_Vars.unk000482 |= 0x01;
+	if (pakHasBitflag(GAMEFILEFLAG_LANGBIT1, file->flags)) {
+		g_Vars.language |= 0x01;
 	}
 
-	if (pakHasBitflag(GAMEFILEFLAG_45, file->flags)) {
-		g_Vars.unk000482 |= 0x02;
+	if (pakHasBitflag(GAMEFILEFLAG_LANGBIT2, file->flags)) {
+		g_Vars.language |= 0x02;
 	}
 
-	if (pakHasBitflag(GAMEFILEFLAG_46, file->flags)) {
-		g_Vars.unk000482 |= 0x04;
+	if (pakHasBitflag(GAMEFILEFLAG_LANGBIT3, file->flags)) {
+		g_Vars.language |= 0x04;
 	}
 
-	langSetEuropean(g_Vars.unk000482);
+	langSetEuropean(g_Vars.language);
 #endif
 }
 
@@ -216,9 +216,9 @@ void gamefileLoadDefaults(struct gamefile *file)
 	pakSetBitflag(GAMEFILEFLAG_ANTIPLAYERNUM, file->flags, 1);
 
 #if VERSION >= VERSION_PAL_BETA
-	pakSetBitflag(GAMEFILEFLAG_44, g_GameFile.flags, ((g_Vars.unk000482 & 0x01) == 0x01));
-	pakSetBitflag(GAMEFILEFLAG_45, g_GameFile.flags, ((g_Vars.unk000482 & 0x02) == 0x02));
-	pakSetBitflag(GAMEFILEFLAG_46, g_GameFile.flags, ((g_Vars.unk000482 & 0x04) == 0x04));
+	pakSetBitflag(GAMEFILEFLAG_LANGBIT1, g_GameFile.flags, ((g_Vars.language & 0x01) == 0x01));
+	pakSetBitflag(GAMEFILEFLAG_LANGBIT2, g_GameFile.flags, ((g_Vars.language & 0x02) == 0x02));
+	pakSetBitflag(GAMEFILEFLAG_LANGBIT3, g_GameFile.flags, ((g_Vars.language & 0x04) == 0x04));
 #endif
 
 	file->unk1e = 0;
@@ -455,9 +455,9 @@ s32 gamefileSave(s32 device, s32 fileid, u16 deviceserial)
 	pakSetBitflag(GAMEFILEFLAG_ANTIRADARON, g_GameFile.flags, g_Vars.antiradaron == 1);
 
 #if VERSION >= VERSION_PAL_BETA
-	pakSetBitflag(GAMEFILEFLAG_44, g_GameFile.flags, (g_Vars.unk000482 & 0x01) == 0x01);
-	pakSetBitflag(GAMEFILEFLAG_45, g_GameFile.flags, (g_Vars.unk000482 & 0x02) == 0x02);
-	pakSetBitflag(GAMEFILEFLAG_46, g_GameFile.flags, (g_Vars.unk000482 & 0x04) == 0x04);
+	pakSetBitflag(GAMEFILEFLAG_LANGBIT1, g_GameFile.flags, (g_Vars.language & 0x01) == 0x01);
+	pakSetBitflag(GAMEFILEFLAG_LANGBIT2, g_GameFile.flags, (g_Vars.language & 0x02) == 0x02);
+	pakSetBitflag(GAMEFILEFLAG_LANGBIT3, g_GameFile.flags, (g_Vars.language & 0x04) == 0x04);
 #endif
 
 	if (device >= 0) {

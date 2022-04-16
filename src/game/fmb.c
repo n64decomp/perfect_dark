@@ -85,7 +85,7 @@ void fmbReset(void)
 		menuPushRootDialog(&g_FilemgrFileSelect4MbMenuDialog, MENUROOT_4MBFILEMGR);
 
 #if PAL
-		if (g_Vars.unk000482 >= 6) {
+		if (g_Vars.language >= 6) {
 			menuPushDialog(&g_ChooseLanguageMenuDialog);
 		}
 #endif
