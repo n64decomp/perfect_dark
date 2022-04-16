@@ -860,61 +860,16 @@ Gfx *func0f1538e4(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2)
 	return gdl;
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel func0f153990
-/*  f1530ec:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1530f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1530f4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1530f8:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1530fc:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f153100:	0fc54bce */ 	jal	gfxSetPrimColour
-/*  f153104:	00002825 */ 	move	$a1,$zero
-/*  f153108:	3c0f8008 */ 	lui	$t7,0x8008
-/*  f15310c:	8def0108 */ 	lw	$t7,0x108($t7)
-/*  f153110:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*  f153114:	3c0d8008 */ 	lui	$t5,0x8008
-/*  f153118:	8dad010c */ 	lw	$t5,0x10c($t5)
-/*  f15311c:	01cf0019 */ 	multu	$t6,$t7
-/*  f153120:	8fac0028 */ 	lw	$t4,0x28($sp)
-/*  f153124:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f153128:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f15312c:	3c01f600 */ 	lui	$at,0xf600
-/*  f153130:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f153134:	0000c012 */ 	mflo	$t8
-/*  f153138:	0303c821 */ 	addu	$t9,$t8,$v1
-/*  f15313c:	27280001 */ 	addiu	$t0,$t9,0x1
-/*  f153140:	018d0019 */ 	multu	$t4,$t5
-/*  f153144:	310903ff */ 	andi	$t1,$t0,0x3ff
-/*  f153148:	00095380 */ 	sll	$t2,$t1,0xe
-/*  f15314c:	01415825 */ 	or	$t3,$t2,$at
-/*  f153150:	246affff */ 	addiu	$t2,$v1,-1
-/*  f153154:	314c03ff */ 	andi	$t4,$t2,0x3ff
-/*  f153158:	000c6b80 */ 	sll	$t5,$t4,0xe
-/*  f15315c:	00007012 */ 	mflo	$t6
-/*  f153160:	00ae7821 */ 	addu	$t7,$a1,$t6
-/*  f153164:	25f80001 */ 	addiu	$t8,$t7,0x1
-/*  f153168:	331903ff */ 	andi	$t9,$t8,0x3ff
-/*  f15316c:	24aeffff */ 	addiu	$t6,$a1,-1
-/*  f153170:	31cf03ff */ 	andi	$t7,$t6,0x3ff
-/*  f153174:	00194080 */ 	sll	$t0,$t9,0x2
-/*  f153178:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f15317c:	01b8c825 */ 	or	$t9,$t5,$t8
-/*  f153180:	01684825 */ 	or	$t1,$t3,$t0
-/*  f153184:	ac490000 */ 	sw	$t1,0x0($v0)
-/*  f153188:	0fc54be5 */ 	jal	func0f153838
-/*  f15318c:	ac590004 */ 	sw	$t9,0x4($v0)
-/*  f153190:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f153194:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f153198:	03e00008 */ 	jr	$ra
-/*  f15319c:	00000000 */ 	nop
-);
-#elif VERSION >= VERSION_NTSC_1_0
+#if VERSION >= VERSION_NTSC_1_0
 Gfx *func0f153990(Gfx *gdl, s32 left, s32 top, s32 width, s32 height)
 {
 	gdl = gfxSetPrimColour(gdl, 0x00000000);
 
+#if VERSION >= VERSION_JPN_FINAL
+	gDPFillRectangle(gdl++, left - 1, top - 1, width * var8007fad0 + left + 1, top + height * var80080108jf + 1);
+#else
 	gDPFillRectangle(gdl++, left - 1, top - 1, width * var8007fad0 + left + 1, top + height + 1);
+#endif
 
 	gdl = func0f153838(gdl);
 
