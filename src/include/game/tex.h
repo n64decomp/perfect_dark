@@ -11,7 +11,7 @@ s32 tex0f0b33f8(s32 arg0, s32 arg1, s32 arg2);
 s32 tex0f0b3468(s32 arg0, s32 arg1, s32 arg2);
 s32 tex0f0b34d8(s32 arg0, s32 arg1, s32 arg2);
 s32 tex0f0b3548(s32 arg0, s32 arg1, s32 arg2);
-u32 tex0f0b35b8(void);
+void texSetRenderMode(Gfx **gdlptr, s32 arg1, s32 numcycles, s32 arg3);
 void tex0f0b3988(struct textureconfig *config);
 void tex0f0b39c0(Gfx **gdl, struct textureconfig *arg1, u32 arg2, u32 arg3, u32 arg4, s32 arg5, u32 *arg6);
 
