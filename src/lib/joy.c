@@ -123,27 +123,22 @@ u32 joy00013980(void)
 }
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
+/**
+ * Note: Some of the variables in this file are misnamed in NTSC beta.
+ * @TODO: Untangle these.
+ */
 void joy0001398c(s32 value)
 {
+#if VERSION >= VERSION_NTSC_1_0
 	var8005eee4 = var8005eee0 = value * 11000;
-}
 #else
-GLOBAL_ASM(
-glabel joy0001398c
-/*    14a70:	3c018006 */ 	lui	$at,0x8006
-/*    14a74:	03e00008 */ 	jr	$ra
-/*    14a78:	ac2412bc */ 	sw	$a0,0x12bc($at)
-);
+	g_JoyNextPfsStateIndex = value;
 #endif
+}
 
 void joy000139c8(void)
 {
-#if VERSION >= VERSION_NTSC_1_0
-	joy0001398c(10);
-#else
-	joy0001398c(30);
-#endif
+	joy0001398c(VERSION >= VERSION_NTSC_1_0 ? 10 : 30);
 }
 
 #if VERSION < VERSION_NTSC_1_0
