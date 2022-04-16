@@ -427,12 +427,10 @@ glabel func00014e9cnb
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00014eb0nb
-/*    14eb0:	3c018006 */ 	lui	$at,0x8006
-/*    14eb4:	03e00008 */ 	jr	$ra
-/*    14eb8:	ac2412b8 */ 	sw	$a0,0x12b8($at)
-);
+void func00014eb0nb(s32 value)
+{
+	var8006eec8 = value;
+}
 #endif
 
 void joyConsumeSamples(struct joydata *joydata)
