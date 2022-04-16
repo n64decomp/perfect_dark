@@ -8,8 +8,8 @@ void texInit(void);
 
 s32 tex0f0b3350(s32 value);
 s32 tex0f0b33f8(s32 arg0, s32 arg1, s32 arg2);
-u32 tex0f0b3468(void);
-u32 tex0f0b34d8(void);
+s32 tex0f0b3468(s32 arg0, s32 arg1, s32 arg2);
+s32 tex0f0b34d8(s32 arg0, s32 arg1, s32 arg2);
 u32 tex0f0b3548(void);
 u32 tex0f0b35b8(void);
 void tex0f0b3988(struct textureconfig *config);
