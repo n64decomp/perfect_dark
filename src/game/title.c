@@ -69,7 +69,10 @@ struct model *g_TitleModelPdTwo = NULL;
 struct model *g_TitleModelPdThree = NULL;
 
 #if VERSION == VERSION_JPN_FINAL
-u32 var800623f0jf[4] = {0};
+u32 var800623f0jf = 0;
+struct model *var800623f4jf = NULL;
+struct model *var800623f8jf = NULL;
+struct model *var800623fcjf = NULL;
 #endif
 
 u32 var80062510 = 0x00000000;
@@ -2269,40 +2272,6 @@ glabel titleInitPdLogo
 //}
 #endif
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel titleExitPdLogo
-/*  f01740c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f017410:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f017414:	3c048006 */ 	lui	$a0,0x8006
-/*  f017418:	0fc2d053 */ 	jal	modelFree
-/*  f01741c:	8c8423d8 */ 	lw	$a0,0x23d8($a0)
-/*  f017420:	3c048006 */ 	lui	$a0,0x8006
-/*  f017424:	0fc2d053 */ 	jal	modelFree
-/*  f017428:	8c8423dc */ 	lw	$a0,0x23dc($a0)
-/*  f01742c:	3c048006 */ 	lui	$a0,0x8006
-/*  f017430:	0fc2d053 */ 	jal	modelFree
-/*  f017434:	8c8423e8 */ 	lw	$a0,0x23e8($a0)
-/*  f017438:	3c048006 */ 	lui	$a0,0x8006
-/*  f01743c:	0fc2d053 */ 	jal	modelFree
-/*  f017440:	8c8423ec */ 	lw	$a0,0x23ec($a0)
-/*  f017444:	3c048006 */ 	lui	$a0,0x8006
-/*  f017448:	0fc2d053 */ 	jal	modelFree
-/*  f01744c:	8c8423f4 */ 	lw	$a0,0x23f4($a0)
-/*  f017450:	3c048006 */ 	lui	$a0,0x8006
-/*  f017454:	0fc2d053 */ 	jal	modelFree
-/*  f017458:	8c8423f8 */ 	lw	$a0,0x23f8($a0)
-/*  f01745c:	3c048006 */ 	lui	$a0,0x8006
-/*  f017460:	0fc2d053 */ 	jal	modelFree
-/*  f017464:	8c8423fc */ 	lw	$a0,0x23fc($a0)
-/*  f017468:	0c0051ea */ 	jal	joy00014810
-/*  f01746c:	24040001 */ 	li	$a0,0x1
-/*  f017470:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f017474:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f017478:	03e00008 */ 	jr	$ra
-/*  f01747c:	00000000 */ 	nop
-);
-#else
 void titleExitPdLogo(void)
 {
 	modelFree(g_TitleModel);
@@ -2310,9 +2279,14 @@ void titleExitPdLogo(void)
 	modelFree(g_TitleModelPdTwo);
 	modelFree(g_TitleModelPdThree);
 
+#if VERSION == VERSION_JPN_FINAL
+	modelFree(var800623f4jf);
+	modelFree(var800623f8jf);
+	modelFree(var800623fcjf);
+#endif
+
 	joy00014810(true);
 }
-#endif
 
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
