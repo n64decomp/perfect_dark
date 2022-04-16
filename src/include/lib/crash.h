@@ -87,6 +87,12 @@ extern const char var700529a4[];
 extern const char var700529a8[];
 extern const char var700529ac[];
 
+#if VERSION == VERSION_NTSC_BETA
+extern u8 g_CrashHasMessage;
+#else
+extern bool g_CrashHasMessage;
+#endif
+
 void crashSetMessage(char *string);
 void crashCreateThread(void);
 u32 crashGetParentStackFrame(u32 *ptr, u32 *start, u32 sp, u32 *regs);

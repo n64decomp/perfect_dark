@@ -18,6 +18,7 @@
 #include "game/lang.h"
 #include "game/propobj.h"
 #include "bss.h"
+#include "lib/crash.h"
 #include "lib/joy.h"
 #include "lib/vi.h"
 #include "lib/main.h"
@@ -327,47 +328,6 @@ glabel func0f01616c
 /*  f016400:	a0980012 */ 	sb	$t8,0x12($a0)
 );
 
-#if VERSION == VERSION_PAL_BETA
-GLOBAL_ASM(
-glabel titleInitLegal
-/*  f016424:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f016428:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f01642c:	0fc5bb4c */ 	jal	musicQueueStopAllEvent
-/*  f016430:	00000000 */ 	nop
-/*  f016434:	240e0001 */ 	li	$t6,0x1
-/*  f016438:	3c018006 */ 	lui	$at,0x8006
-/*  f01643c:	ac2e3bb4 */ 	sw	$t6,0x3bb4($at)
-/*  f016440:	3c018006 */ 	lui	$at,0x8006
-/*  f016444:	ac203b84 */ 	sw	$zero,0x3b84($at)
-/*  f016448:	3c0f8006 */ 	lui	$t7,0x8006
-/*  f01644c:	8defdf40 */ 	lw	$t7,-0x20c0($t7)
-/*  f016450:	3c018006 */ 	lui	$at,0x8006
-/*  f016454:	ac203b68 */ 	sw	$zero,0x3b68($at)
-/*  f016458:	3c018006 */ 	lui	$at,0x8006
-/*  f01645c:	11e00010 */ 	beqz	$t7,.PB0f0164a0
-/*  f016460:	ac203b6c */ 	sw	$zero,0x3b6c($at)
-/*  f016464:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f016468:	44812000 */ 	mtc1	$at,$f4
-/*  f01646c:	3c048009 */ 	lui	$a0,0x8009
-/*  f016470:	2418ffff */ 	li	$t8,-1
-/*  f016474:	2419ffff */ 	li	$t9,-1
-/*  f016478:	2408ffff */ 	li	$t0,-1
-/*  f01647c:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*  f016480:	afb90018 */ 	sw	$t9,0x18($sp)
-/*  f016484:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f016488:	8c847f30 */ 	lw	$a0,0x7f30($a0)
-/*  f01648c:	24058113 */ 	li	$a1,-32493
-/*  f016490:	00003025 */ 	move	$a2,$zero
-/*  f016494:	2407ffff */ 	li	$a3,-1
-/*  f016498:	0c004254 */ 	jal	sndStart
-/*  f01649c:	e7a40014 */ 	swc1	$f4,0x14($sp)
-.PB0f0164a0:
-/*  f0164a0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0164a4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0164a8:	03e00008 */ 	jr	$ra
-/*  f0164ac:	00000000 */ 	nop
-);
-#else
 void titleInitLegal(void)
 {
 	musicQueueStopAllEvent();
@@ -375,8 +335,13 @@ void titleInitLegal(void)
 	g_TitleTimer = 0;
 	g_TitleButtonPressed = false;
 	g_TitleFastForward = false;
-}
+
+#if VERSION == VERSION_PAL_BETA
+	if (g_CrashHasMessage) {
+		sndStart(var80095200, SFX_8113, 0, -1, -1, -1.0f, -1, -1);
+	}
 #endif
+}
 
 void titleExitLegal(void)
 {
