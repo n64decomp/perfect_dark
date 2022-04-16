@@ -2288,128 +2288,6 @@ void titleExitPdLogo(void)
 	joy00014810(true);
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel titleTickPdLogo
-.late_rodata
-glabel var7f1a8f70jf
-.word 0x3faaaaab
-.word 0x461c4000
-.text
-/*  f017480:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f017484:	3c014238 */ 	lui	$at,0x4238
-/*  f017488:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f01748c:	44816000 */ 	mtc1	$at,$f12
-/*  f017490:	0c002f35 */ 	jal	viSetFovY
-/*  f017494:	00000000 */ 	nop
-/*  f017498:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f01749c:	0c002f48 */ 	jal	viSetAspect
-/*  f0174a0:	c42c8f70 */ 	lwc1	$f12,-0x7090($at)
-/*  f0174a4:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f0174a8:	44816000 */ 	mtc1	$at,$f12
-/*  f0174ac:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f0174b0:	0c002f8a */ 	jal	viSetZRange
-/*  f0174b4:	c42e8f74 */ 	lwc1	$f14,-0x708c($at)
-/*  f0174b8:	0c002f31 */ 	jal	viSetUseZBuf
-/*  f0174bc:	00002025 */ 	move	$a0,$zero
-/*  f0174c0:	3c038006 */ 	lui	$v1,0x8006
-/*  f0174c4:	246323a4 */ 	addiu	$v1,$v1,0x23a4
-/*  f0174c8:	3c02800a */ 	lui	$v0,0x800a
-/*  f0174cc:	3c0f800a */ 	lui	$t7,0x800a
-/*  f0174d0:	8defa668 */ 	lw	$t7,-0x5998($t7)
-/*  f0174d4:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f0174d8:	2442d348 */ 	addiu	$v0,$v0,-11448
-/*  f0174dc:	8c590000 */ 	lw	$t9,0x0($v0)
-/*  f0174e0:	24080001 */ 	li	$t0,0x1
-/*  f0174e4:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f0174e8:	2b0103b7 */ 	slti	$at,$t8,0x3b7
-/*  f0174ec:	01194823 */ 	subu	$t1,$t0,$t9
-/*  f0174f0:	ac780000 */ 	sw	$t8,0x0($v1)
-/*  f0174f4:	14200004 */ 	bnez	$at,.JF0f017508
-/*  f0174f8:	ac490000 */ 	sw	$t1,0x0($v0)
-/*  f0174fc:	240b0001 */ 	li	$t3,0x1
-/*  f017500:	3c018006 */ 	lui	$at,0x8006
-/*  f017504:	ac2b266c */ 	sw	$t3,0x266c($at)
-.JF0f017508:
-/*  f017508:	3c0c8006 */ 	lui	$t4,0x8006
-/*  f01750c:	8d8c266c */ 	lw	$t4,0x266c($t4)
-/*  f017510:	3c0d800a */ 	lui	$t5,0x800a
-/*  f017514:	11800025 */ 	beqz	$t4,.JF0f0175ac
-/*  f017518:	00000000 */ 	nop
-/*  f01751c:	91ad2a4c */ 	lbu	$t5,0x2a4c($t5)
-/*  f017520:	3c0e8009 */ 	lui	$t6,0x8009
-/*  f017524:	11a0001d */ 	beqz	$t5,.JF0f01759c
-/*  f017528:	00000000 */ 	nop
-/*  f01752c:	91ce1160 */ 	lbu	$t6,0x1160($t6)
-/*  f017530:	24010001 */ 	li	$at,0x1
-/*  f017534:	240f0005 */ 	li	$t7,0x5
-/*  f017538:	11c10018 */ 	beq	$t6,$at,.JF0f01759c
-/*  f01753c:	3c018006 */ 	lui	$at,0x8006
-/*  f017540:	0fc4ee95 */ 	jal	creditsRequestAltTitle
-/*  f017544:	ac2f2394 */ 	sw	$t7,0x2394($at)
-/*  f017548:	2418005c */ 	li	$t8,0x5c
-/*  f01754c:	3c018006 */ 	lui	$at,0x8006
-/*  f017550:	ac3823c4 */ 	sw	$t8,0x23c4($at)
-/*  f017554:	0fc06c4c */ 	jal	setNumPlayers
-/*  f017558:	24040001 */ 	li	$a0,0x1
-/*  f01755c:	3c048006 */ 	lui	$a0,0x8006
-/*  f017560:	0c003a3f */ 	jal	mainChangeToStage
-/*  f017564:	8c8423c4 */ 	lw	$a0,0x23c4($a0)
-/*  f017568:	3c03800a */ 	lui	$v1,0x800a
-/*  f01756c:	2463a630 */ 	addiu	$v1,$v1,-22992
-/*  f017570:	2402ffff */ 	li	$v0,-1
-/*  f017574:	ac600294 */ 	sw	$zero,0x294($v1)
-/*  f017578:	ac620298 */ 	sw	$v0,0x298($v1)
-/*  f01757c:	ac62029c */ 	sw	$v0,0x29c($v1)
-/*  f017580:	0fc5b3d2 */ 	jal	lvSetDifficulty
-/*  f017584:	00002025 */ 	move	$a0,$zero
-/*  f017588:	0c00279a */ 	jal	viBlack
-/*  f01758c:	24040001 */ 	li	$a0,0x1
-/*  f017590:	3c038006 */ 	lui	$v1,0x8006
-/*  f017594:	10000005 */ 	b	.JF0f0175ac
-/*  f017598:	246323a4 */ 	addiu	$v1,$v1,0x23a4
-.JF0f01759c:
-/*  f01759c:	0fc06e49 */ 	jal	titleSetNextMode
-/*  f0175a0:	24040005 */ 	li	$a0,0x5
-/*  f0175a4:	3c038006 */ 	lui	$v1,0x8006
-/*  f0175a8:	246323a4 */ 	addiu	$v1,$v1,0x23a4
-.JF0f0175ac:
-/*  f0175ac:	3c088006 */ 	lui	$t0,0x8006
-/*  f0175b0:	8d082388 */ 	lw	$t0,0x2388($t0)
-/*  f0175b4:	51000008 */ 	beqzl	$t0,.JF0f0175d8
-/*  f0175b8:	00002025 */ 	move	$a0,$zero
-/*  f0175bc:	8c790000 */ 	lw	$t9,0x0($v1)
-/*  f0175c0:	2b21029b */ 	slti	$at,$t9,0x29b
-/*  f0175c4:	54200004 */ 	bnezl	$at,.JF0f0175d8
-/*  f0175c8:	00002025 */ 	move	$a0,$zero
-/*  f0175cc:	0fc06e49 */ 	jal	titleSetNextMode
-/*  f0175d0:	24040005 */ 	li	$a0,0x5
-/*  f0175d4:	00002025 */ 	move	$a0,$zero
-.JF0f0175d8:
-/*  f0175d8:	0c0053ee */ 	jal	joyGetButtonsPressedThisFrame
-/*  f0175dc:	3405ffff */ 	li	$a1,0xffff
-/*  f0175e0:	1040000d */ 	beqz	$v0,.JF0f017618
-/*  f0175e4:	24090001 */ 	li	$t1,0x1
-/*  f0175e8:	3c028006 */ 	lui	$v0,0x8006
-/*  f0175ec:	2442238c */ 	addiu	$v0,$v0,0x238c
-/*  f0175f0:	ac490000 */ 	sw	$t1,0x0($v0)
-/*  f0175f4:	3c0b8006 */ 	lui	$t3,0x8006
-/*  f0175f8:	8d6b23a4 */ 	lw	$t3,0x23a4($t3)
-/*  f0175fc:	3c018006 */ 	lui	$at,0x8006
-/*  f017600:	ac292388 */ 	sw	$t1,0x2388($at)
-/*  f017604:	29610225 */ 	slti	$at,$t3,0x225
-/*  f017608:	50200004 */ 	beqzl	$at,.JF0f01761c
-/*  f01760c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f017610:	0fc06e49 */ 	jal	titleSetNextMode
-/*  f017614:	24040002 */ 	li	$a0,0x2
-.JF0f017618:
-/*  f017618:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.JF0f01761c:
-/*  f01761c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f017620:	03e00008 */ 	jr	$ra
-/*  f017624:	00000000 */ 	nop
-);
-#else
 void titleTickPdLogo(void)
 {
 	viSetFovY(46);
@@ -2419,6 +2297,12 @@ void titleTickPdLogo(void)
 
 	g_TitleTimer += g_Vars.lvupdate240_60;
 	var8009ccb8 = 1 - var8009ccb8;
+
+#if VERSION == VERSION_JPN_FINAL
+	if (g_TitleTimer > 950) {
+		g_PdLogoTriggerExit = true;
+	}
+#endif
 
 	if (g_PdLogoTriggerExit) {
 		// Exiting due to player not pressing anything
@@ -2452,7 +2336,6 @@ void titleTickPdLogo(void)
 		}
 	}
 }
-#endif
 
 u32 var80062768 = 0x00000000;
 u32 var8006276c = 0x00000001;
