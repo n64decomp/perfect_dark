@@ -10971,50 +10971,21 @@ glabel func0f15ef9c
 /*  f15f208:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
 
-GLOBAL_ASM(
-glabel func0f15f20c
-/*  f15f20c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f15f210:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f15f214:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f15f218:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f15f21c:	8ccf0000 */ 	lw	$t7,0x0($a2)
-/*  f15f220:	448f2000 */ 	mtc1	$t7,$f4
-/*  f15f224:	00000000 */ 	nop
-/*  f15f228:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f15f22c:	e7a60024 */ 	swc1	$f6,0x24($sp)
-/*  f15f230:	8cd80004 */ 	lw	$t8,0x4($a2)
-/*  f15f234:	44984000 */ 	mtc1	$t8,$f8
-/*  f15f238:	00000000 */ 	nop
-/*  f15f23c:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f15f240:	e7aa0028 */ 	swc1	$f10,0x28($sp)
-/*  f15f244:	8cd90008 */ 	lw	$t9,0x8($a2)
-/*  f15f248:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*  f15f24c:	44998000 */ 	mtc1	$t9,$f16
-/*  f15f250:	00000000 */ 	nop
-/*  f15f254:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f15f258:	e7b2002c */ 	swc1	$f18,0x2c($sp)
-/*  f15f25c:	8ce90000 */ 	lw	$t1,0x0($a3)
-/*  f15f260:	44892000 */ 	mtc1	$t1,$f4
-/*  f15f264:	00000000 */ 	nop
-/*  f15f268:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f15f26c:	e7a60018 */ 	swc1	$f6,0x18($sp)
-/*  f15f270:	8cea0004 */ 	lw	$t2,0x4($a3)
-/*  f15f274:	448a4000 */ 	mtc1	$t2,$f8
-/*  f15f278:	00000000 */ 	nop
-/*  f15f27c:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f15f280:	e7aa001c */ 	swc1	$f10,0x1c($sp)
-/*  f15f284:	8ceb0008 */ 	lw	$t3,0x8($a3)
-/*  f15f288:	27a70018 */ 	addiu	$a3,$sp,0x18
-/*  f15f28c:	448b8000 */ 	mtc1	$t3,$f16
-/*  f15f290:	00000000 */ 	nop
-/*  f15f294:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f15f298:	0fc57cac */ 	jal	func0f15f2b0
-/*  f15f29c:	e7b20020 */ 	swc1	$f18,0x20($sp)
-/*  f15f2a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f15f2a4:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f15f2a8:	03e00008 */ 	jr	$ra
-/*  f15f2ac:	00000000 */ 	nop
-);
+bool func0f15f20c(struct coord *arg0, struct coord *arg1, s32 *arg2, s32 *arg3)
+{
+	struct coord sp24;
+	struct coord sp18;
+
+	sp24.x = arg2[0];
+	sp24.y = arg2[1];
+	sp24.z = arg2[2];
+
+	sp18.x = arg3[0];
+	sp18.y = arg3[1];
+	sp18.z = arg3[2];
+
+	return func0f15f2b0(arg0, arg1, &sp24, &sp18);
+}
 
 GLOBAL_ASM(
 glabel func0f15f2b0
