@@ -7,7 +7,7 @@
 void texInit(void);
 
 s32 tex0f0b3350(s32 value);
-u32 tex0f0b33f8(void);
+s32 tex0f0b33f8(s32 arg0, s32 arg1, s32 arg2);
 u32 tex0f0b3468(void);
 u32 tex0f0b34d8(void);
 u32 tex0f0b3548(void);
