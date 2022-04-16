@@ -11875,30 +11875,10 @@ glabel textRender
 #endif
 
 #if VERSION == VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel func0f1574d0jf
-/*  f1574d0:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f1574d4:	8fae0048 */ 	lw	$t6,0x48($sp)
-/*  f1574d8:	8faf004c */ 	lw	$t7,0x4c($sp)
-/*  f1574dc:	8fb80050 */ 	lw	$t8,0x50($sp)
-/*  f1574e0:	8fb90058 */ 	lw	$t9,0x58($sp)
-/*  f1574e4:	8fa8005c */ 	lw	$t0,0x5c($sp)
-/*  f1574e8:	8fa90060 */ 	lw	$t1,0x60($sp)
-/*  f1574ec:	8faa0064 */ 	lw	$t2,0x64($sp)
-/*  f1574f0:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f1574f4:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f1574f8:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f1574fc:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f157500:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f157504:	afa80020 */ 	sw	$t0,0x20($sp)
-/*  f157508:	afa90024 */ 	sw	$t1,0x24($sp)
-/*  f15750c:	0fc55886 */ 	jal	textRenderProjected
-/*  f157510:	afaa0028 */ 	sw	$t2,0x28($sp)
-/*  f157514:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f157518:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f15751c:	03e00008 */ 	jr	$ra
-/*  f157520:	00000000 */ 	nop
-);
+Gfx *func0f1574d0jf(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *font1, struct font *font2, s32 colour, u32 colour2, s32 width, s32 height, s32 arg9, u32 arg10)
+{
+	return textRenderProjected(gdl, x, y, text, font1, font2, colour, width, height, arg9, arg10);
+}
 #endif
 
 #if VERSION >= VERSION_JPN_FINAL
