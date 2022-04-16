@@ -16888,38 +16888,18 @@ glabel var7f1b76c4
 //	return bestportalnum;
 //}
 
-GLOBAL_ASM(
-glabel func0f164f9c
-/*  f164f9c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f164fa0:	00a04025 */ 	or	$t0,$a1,$zero
-/*  f164fa4:	00c04825 */ 	or	$t1,$a2,$zero
-/*  f164fa8:	2402000c */ 	addiu	$v0,$zero,0xc
-.L0f164fac:
-/*  f164fac:	c5040000 */ 	lwc1	$f4,0x0($t0)
-/*  f164fb0:	c5260000 */ 	lwc1	$f6,0x0($t1)
-/*  f164fb4:	00e37021 */ 	addu	$t6,$a3,$v1
-/*  f164fb8:	00837821 */ 	addu	$t7,$a0,$v1
-/*  f164fbc:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f164fc0:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f164fc4:	25080004 */ 	addiu	$t0,$t0,0x4
-/*  f164fc8:	45010007 */ 	bc1t	.L0f164fe8
-/*  f164fcc:	00000000 */ 	nop
-/*  f164fd0:	c5c80000 */ 	lwc1	$f8,0x0($t6)
-/*  f164fd4:	c5ea0000 */ 	lwc1	$f10,0x0($t7)
-/*  f164fd8:	460a403c */ 	c.lt.s	$f8,$f10
-/*  f164fdc:	00000000 */ 	nop
-/*  f164fe0:	45000003 */ 	bc1f	.L0f164ff0
-/*  f164fe4:	00000000 */ 	nop
-.L0f164fe8:
-/*  f164fe8:	03e00008 */ 	jr	$ra
-/*  f164fec:	00001025 */ 	or	$v0,$zero,$zero
-.L0f164ff0:
-/*  f164ff0:	1462ffee */ 	bne	$v1,$v0,.L0f164fac
-/*  f164ff4:	25290004 */ 	addiu	$t1,$t1,0x4
-/*  f164ff8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f164ffc:	03e00008 */ 	jr	$ra
-/*  f165000:	00000000 */ 	nop
-);
+bool func0f164f9c(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3)
+{
+	s32 i;
+
+	for (i = 0; i < 3; i++) {
+		if (arg1->f[i] < arg2->f[i] || arg3->f[i] < arg0->f[i]) {
+			return false;
+		}
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f165004
