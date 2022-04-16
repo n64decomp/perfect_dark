@@ -449,26 +449,23 @@ bool crashIsReturnAddress(u32 *instruction)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0000c4f0nb
-/*     c4f0:	90820000 */ 	lbu	$v0,0x0($a0)
-/*     c4f4:	00001825 */ 	or	$v1,$zero,$zero
-/*     c4f8:	24840001 */ 	addiu	$a0,$a0,0x1
-/*     c4fc:	10400009 */ 	beqz	$v0,.NB0000c524
-/*     c500:	00000000 */ 	sll	$zero,$zero,0x0
-/*     c504:	24630001 */ 	addiu	$v1,$v1,0x1
-.NB0000c508:
-/*     c508:	28610100 */ 	slti	$at,$v1,0x100
-/*     c50c:	10200005 */ 	beqz	$at,.NB0000c524
-/*     c510:	00000000 */ 	sll	$zero,$zero,0x0
-/*     c514:	90820000 */ 	lbu	$v0,0x0($a0)
-/*     c518:	24840001 */ 	addiu	$a0,$a0,0x1
-/*     c51c:	5440fffa */ 	bnezl	$v0,.NB0000c508
-/*     c520:	24630001 */ 	addiu	$v1,$v1,0x1
-.NB0000c524:
-/*     c524:	03e00008 */ 	jr	$ra
-/*     c528:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 crashGetStrLen(char *str)
+{
+	s32 i = 0;
+	char c = *str++;
+
+	while (c != '\0') {
+		i++;
+
+		if (i >= 256) {
+			break;
+		}
+
+		c = *str++;
+	}
+
+	return i;
+}
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
@@ -480,9 +477,9 @@ u32 crash0000c52cnb(u32 romaddr)
 
 	var8009710cnb = var80097118nb[0];
 	var80097110nb = (char *)&var80097118nb[1];
-	var80097114nb = (char *)(func0000c4f0nb(var80097110nb) + (u32)var80097110nb + 1);
+	var80097114nb = (char *)(crashGetStrLen(var80097110nb) + (u32)var80097110nb + 1);
 
-	addr = romaddr + func0000c4f0nb(var80097110nb) + func0000c4f0nb(var80097114nb) + 6;
+	addr = romaddr + crashGetStrLen(var80097110nb) + crashGetStrLen(var80097114nb) + 6;
 
 	if (addr % 4) {
 		addr = (addr | 3) + 1;
