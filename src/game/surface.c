@@ -283,58 +283,31 @@ s32 texGetWidthAtLod(struct texloadthing *arg0, s32 lod)
 	return width;
 }
 
-GLOBAL_ASM(
-glabel surface0f173cb8
-/*  f173cb8:	14a00003 */ 	bnez	$a1,.L0f173cc8
-/*  f173cbc:	90830009 */ 	lbu	$v1,0x9($a0)
-/*  f173cc0:	03e00008 */ 	jr	$ra
-/*  f173cc4:	00601025 */ 	or	$v0,$v1,$zero
-.L0f173cc8:
-/*  f173cc8:	8c8e000c */ 	lw	$t6,0xc($a0)
-/*  f173ccc:	3c02800b */ 	lui	$v0,%hi(g_TexCacheCount)
-/*  f173cd0:	000ec080 */ 	sll	$t8,$t6,0x2
-/*  f173cd4:	07010018 */ 	bgez	$t8,.L0f173d38
-/*  f173cd8:	00000000 */ 	nop
-/*  f173cdc:	8c42b538 */ 	lw	$v0,%lo(g_TexCacheCount)($v0)
-/*  f173ce0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f173ce4:	18400012 */ 	blez	$v0,.L0f173d30
-/*  f173ce8:	00000000 */ 	nop
-/*  f173cec:	8c830000 */ 	lw	$v1,0x0($a0)
-/*  f173cf0:	3c07800b */ 	lui	$a3,%hi(g_TexCacheItems)
-/*  f173cf4:	24e7abd8 */ 	addiu	$a3,$a3,%lo(g_TexCacheItems)
-/*  f173cf8:	0003cd02 */ 	srl	$t9,$v1,0x14
-/*  f173cfc:	03201825 */ 	or	$v1,$t9,$zero
-.L0f173d00:
-/*  f173d00:	84e80000 */ 	lh	$t0,0x0($a3)
-/*  f173d04:	14680006 */ 	bne	$v1,$t0,.L0f173d20
-/*  f173d08:	00064900 */ 	sll	$t1,$a2,0x4
-/*  f173d0c:	01255021 */ 	addu	$t2,$t1,$a1
-/*  f173d10:	3c02800b */ 	lui	$v0,%hi(g_TexCacheItems+0x8)
-/*  f173d14:	004a1021 */ 	addu	$v0,$v0,$t2
-/*  f173d18:	03e00008 */ 	jr	$ra
-/*  f173d1c:	9042abe0 */ 	lbu	$v0,%lo(g_TexCacheItems+0x8)($v0)
-.L0f173d20:
-/*  f173d20:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f173d24:	00c2082a */ 	slt	$at,$a2,$v0
-/*  f173d28:	1420fff5 */ 	bnez	$at,.L0f173d00
-/*  f173d2c:	24e70010 */ 	addiu	$a3,$a3,0x10
-.L0f173d30:
-/*  f173d30:	03e00008 */ 	jr	$ra
-/*  f173d34:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f173d38:
-/*  f173d38:	18a00006 */ 	blez	$a1,.L0f173d54
-/*  f173d3c:	00003025 */ 	or	$a2,$zero,$zero
-.L0f173d40:
-/*  f173d40:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f173d44:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f173d48:	00035843 */ 	sra	$t3,$v1,0x1
-/*  f173d4c:	14c5fffc */ 	bne	$a2,$a1,.L0f173d40
-/*  f173d50:	01601825 */ 	or	$v1,$t3,$zero
-.L0f173d54:
-/*  f173d54:	00601025 */ 	or	$v0,$v1,$zero
-/*  f173d58:	03e00008 */ 	jr	$ra
-/*  f173d5c:	00000000 */ 	nop
-);
+s32 texGetHeightAtLod(struct texloadthing *arg0, s32 lod)
+{
+	s32 i;
+	s32 height = arg0->height;
+
+	if (lod == 0) {
+		return height;
+	}
+
+	if (arg0->unk0c_02) {
+		for (i = 0; i < g_TexCacheCount; i++) {
+			if (arg0->texturenum == g_TexCacheItems[i].texturenum) {
+				return g_TexCacheItems[i].heights[lod - 1];
+			}
+		}
+
+		return 1;
+	}
+
+	for (i = 0; i < lod; i++) {
+		height = (height + 1) >> 1;
+	}
+
+	return height;
+}
 
 GLOBAL_ASM(
 glabel surface0f173d60
@@ -397,7 +370,7 @@ glabel surface0f173e10
 /*  f173e10:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f173e14:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f173e18:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f173e1c:	0fc5cf2e */ 	jal	surface0f173cb8
+/*  f173e1c:	0fc5cf2e */ 	jal	texGetHeightAtLod
 /*  f173e20:	afa50024 */ 	sw	$a1,0x24($sp)
 /*  f173e24:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*  f173e28:	8fa40020 */ 	lw	$a0,0x20($sp)
@@ -1111,7 +1084,7 @@ glabel surface0f1747a4
 /*  f174840:	00402025 */ 	or	$a0,$v0,$zero
 /*  f174844:	00409825 */ 	or	$s3,$v0,$zero
 /*  f174848:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f17484c:	0fc5cf2e */ 	jal	surface0f173cb8
+/*  f17484c:	0fc5cf2e */ 	jal	texGetHeightAtLod
 /*  f174850:	02402825 */ 	or	$a1,$s2,$zero
 /*  f174854:	0fc5cfc6 */ 	jal	surface0f173f18
 /*  f174858:	00402025 */ 	or	$a0,$v0,$zero
@@ -1248,7 +1221,7 @@ glabel surface0f1747a4
 /*  f174a44:	0019c080 */ 	sll	$t8,$t9,0x2
 /*  f174a48:	0218a021 */ 	addu	$s4,$s0,$t8
 /*  f174a4c:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f174a50:	0fc5cf2e */ 	jal	surface0f173cb8
+/*  f174a50:	0fc5cf2e */ 	jal	texGetHeightAtLod
 /*  f174a54:	02402825 */ 	or	$a1,$s2,$zero
 /*  f174a58:	8faf00c8 */ 	lw	$t7,0xc8($sp)
 /*  f174a5c:	24010002 */ 	addiu	$at,$zero,0x2

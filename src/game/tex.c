@@ -530,7 +530,7 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 				if (tile > 0) {
 					if (s4 && s4->unk0c_02) {
 						width = texGetWidthAtLod(s4, tile);
-						height = surface0f173cb8(s4, tile);
+						height = texGetHeightAtLod(s4, tile);
 					} else {
 						if (width >= 2) {
 							width >>= 1;
