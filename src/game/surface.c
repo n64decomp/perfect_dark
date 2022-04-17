@@ -257,58 +257,31 @@ bool surface0f173b8c(s32 index, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel surface0f173c10
-/*  f173c10:	14a00003 */ 	bnez	$a1,.L0f173c20
-/*  f173c14:	90830008 */ 	lbu	$v1,0x8($a0)
-/*  f173c18:	03e00008 */ 	jr	$ra
-/*  f173c1c:	00601025 */ 	or	$v0,$v1,$zero
-.L0f173c20:
-/*  f173c20:	8c8e000c */ 	lw	$t6,0xc($a0)
-/*  f173c24:	3c02800b */ 	lui	$v0,%hi(g_TexCacheCount)
-/*  f173c28:	000ec080 */ 	sll	$t8,$t6,0x2
-/*  f173c2c:	07010018 */ 	bgez	$t8,.L0f173c90
-/*  f173c30:	00000000 */ 	nop
-/*  f173c34:	8c42b538 */ 	lw	$v0,%lo(g_TexCacheCount)($v0)
-/*  f173c38:	00003025 */ 	or	$a2,$zero,$zero
-/*  f173c3c:	18400012 */ 	blez	$v0,.L0f173c88
-/*  f173c40:	00000000 */ 	nop
-/*  f173c44:	8c830000 */ 	lw	$v1,0x0($a0)
-/*  f173c48:	3c07800b */ 	lui	$a3,%hi(g_TexCacheItems)
-/*  f173c4c:	24e7abd8 */ 	addiu	$a3,$a3,%lo(g_TexCacheItems)
-/*  f173c50:	0003cd02 */ 	srl	$t9,$v1,0x14
-/*  f173c54:	03201825 */ 	or	$v1,$t9,$zero
-.L0f173c58:
-/*  f173c58:	84e80000 */ 	lh	$t0,0x0($a3)
-/*  f173c5c:	14680006 */ 	bne	$v1,$t0,.L0f173c78
-/*  f173c60:	00064900 */ 	sll	$t1,$a2,0x4
-/*  f173c64:	01255021 */ 	addu	$t2,$t1,$a1
-/*  f173c68:	3c02800b */ 	lui	$v0,%hi(g_TexCacheItems+0x1)
-/*  f173c6c:	004a1021 */ 	addu	$v0,$v0,$t2
-/*  f173c70:	03e00008 */ 	jr	$ra
-/*  f173c74:	9042abd9 */ 	lbu	$v0,%lo(g_TexCacheItems+0x1)($v0)
-.L0f173c78:
-/*  f173c78:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f173c7c:	00c2082a */ 	slt	$at,$a2,$v0
-/*  f173c80:	1420fff5 */ 	bnez	$at,.L0f173c58
-/*  f173c84:	24e70010 */ 	addiu	$a3,$a3,0x10
-.L0f173c88:
-/*  f173c88:	03e00008 */ 	jr	$ra
-/*  f173c8c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f173c90:
-/*  f173c90:	18a00006 */ 	blez	$a1,.L0f173cac
-/*  f173c94:	00003025 */ 	or	$a2,$zero,$zero
-.L0f173c98:
-/*  f173c98:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f173c9c:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f173ca0:	00035843 */ 	sra	$t3,$v1,0x1
-/*  f173ca4:	14c5fffc */ 	bne	$a2,$a1,.L0f173c98
-/*  f173ca8:	01601825 */ 	or	$v1,$t3,$zero
-.L0f173cac:
-/*  f173cac:	00601025 */ 	or	$v0,$v1,$zero
-/*  f173cb0:	03e00008 */ 	jr	$ra
-/*  f173cb4:	00000000 */ 	nop
-);
+s32 texGetWidthAtLod(struct texloadthing *arg0, s32 lod)
+{
+	s32 i;
+	s32 width = arg0->width;
+
+	if (lod == 0) {
+		return width;
+	}
+
+	if (arg0->unk0c_02) {
+		for (i = 0; i < g_TexCacheCount; i++) {
+			if (arg0->texturenum == g_TexCacheItems[i].texturenum) {
+				return g_TexCacheItems[i].widths[lod - 1];
+			}
+		}
+
+		return 1;
+	}
+
+	for (i = 0; i < lod; i++) {
+		width = (width + 1) >> 1;
+	}
+
+	return width;
+}
 
 GLOBAL_ASM(
 glabel surface0f173cb8
@@ -369,7 +342,7 @@ glabel surface0f173d60
 /*  f173d64:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f173d68:	8c830008 */ 	lw	$v1,0x8($a0)
 /*  f173d6c:	306e0003 */ 	andi	$t6,$v1,0x3
-/*  f173d70:	0fc5cf04 */ 	jal	surface0f173c10
+/*  f173d70:	0fc5cf04 */ 	jal	texGetWidthAtLod
 /*  f173d74:	afae001c */ 	sw	$t6,0x1c($sp)
 /*  f173d78:	8fa3001c */ 	lw	$v1,0x1c($sp)
 /*  f173d7c:	24010003 */ 	addiu	$at,$zero,0x3
@@ -1132,7 +1105,7 @@ glabel surface0f1747a4
 /*  f17482c:	afa60064 */ 	sw	$a2,0x64($sp)
 /*  f174830:	02a02025 */ 	or	$a0,$s5,$zero
 .L0f174834:
-/*  f174834:	0fc5cf04 */ 	jal	surface0f173c10
+/*  f174834:	0fc5cf04 */ 	jal	texGetWidthAtLod
 /*  f174838:	02402825 */ 	or	$a1,$s2,$zero
 /*  f17483c:	0fc5cfc6 */ 	jal	surface0f173f18
 /*  f174840:	00402025 */ 	or	$a0,$v0,$zero
@@ -1257,7 +1230,7 @@ glabel surface0f1747a4
 .L0f174a0c:
 /*  f174a0c:	00008025 */ 	or	$s0,$zero,$zero
 .L0f174a10:
-/*  f174a10:	0fc5cf04 */ 	jal	surface0f173c10
+/*  f174a10:	0fc5cf04 */ 	jal	texGetWidthAtLod
 /*  f174a14:	0200b825 */ 	or	$s7,$s0,$zero
 /*  f174a18:	8fad00c8 */ 	lw	$t5,0xc8($sp)
 /*  f174a1c:	00409825 */ 	or	$s3,$v0,$zero
