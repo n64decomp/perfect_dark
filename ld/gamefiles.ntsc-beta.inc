@@ -111,7 +111,7 @@
 	build/ROMID/game/game_0b0fd0.o (section); \
 	build/ROMID/game/game_0b2150.o (section); \
 	build/ROMID/game/game_0b28d0.o (section); \
-	build/ROMID/game/tex.o (section); \
+	build/ROMID/game/texselect.o (section); \
 	build/ROMID/game/camera.o (section); \
 	build/ROMID/game/portal.o (section); \
 	build/ROMID/game/player.o (section); \
@@ -201,7 +201,7 @@
 	build/ROMID/game/lang.o (section); \
 	build/ROMID/game/texdecompress.o (section); \
 	build/ROMID/game/texreset.o (section); \
-	build/ROMID/game/surface.o (section); \
+	build/ROMID/game/tex.o (section); \
 	build/ROMID/game/stubs/game_175f50.o (section); \
 	build/ROMID/game/game_175f90.o (section); \
 	build/ROMID/game/buildtime.o (section); \

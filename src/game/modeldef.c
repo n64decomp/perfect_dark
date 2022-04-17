@@ -12,7 +12,7 @@
 #include "game/game_1531a0.h"
 #include "game/file.h"
 #include "game/texdecompress.h"
-#include "game/surface.h"
+#include "game/tex.h"
 #include "game/modeldef.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
@@ -148,7 +148,7 @@ glabel modeldef0f1a7560
 /*  f1a75f8:	02644023 */ 	subu	$t0,$s3,$a0
 /*  f1a75fc:	00684821 */ 	addu	$t1,$v1,$t0
 /*  f1a7600:	afa90084 */ 	sw	$t1,0x84($sp)
-/*  f1a7604:	0fc5d7bd */ 	jal	surface0f175ef4
+/*  f1a7604:	0fc5d7bd */ 	jal	tex0f175ef4
 /*  f1a7608:	00732821 */ 	addu	$a1,$v1,$s3
 /*  f1a760c:	8fbe00a0 */ 	lw	$s8,0xa0($sp)
 /*  f1a7610:	8e640018 */ 	lw	$a0,0x18($s3)
@@ -199,7 +199,7 @@ glabel modeldef0f1a7560
 /*  f1a76b0:	01f82021 */ 	addu	$a0,$t7,$t8
 /*  f1a76b4:	02802825 */ 	or	$a1,$s4,$zero
 /*  f1a76b8:	03c03825 */ 	or	$a3,$s8,$zero
-/*  f1a76bc:	0fc5d5b0 */ 	jal	surface0f1756c0
+/*  f1a76bc:	0fc5d5b0 */ 	jal	tex0f1756c0
 /*  f1a76c0:	afa30010 */ 	sw	$v1,0x10($sp)
 /*  f1a76c4:	8fa80074 */ 	lw	$t0,0x74($sp)
 /*  f1a76c8:	02a2a821 */ 	addu	$s5,$s5,$v0

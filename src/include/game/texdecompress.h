@@ -35,8 +35,5 @@ void texLoadFromDisplayList(Gfx *gdl, struct texturething *arg1, s32 arg2);
 void texLoad(u32 *texturenum, struct texturething *arg1, s32 arg2);
 void texLoadFromConfigs(struct textureconfig *configs, s32 numconfigs, struct texturething *arg2, s32 arg3);
 void texLoadFromTextureNum(u32 arg0, struct texturething *arg1);
-void texSetBitstring(u8 *arg0);
-s32 texReadBits(s32 arg0);
-void texReset(void);
 
 #endif

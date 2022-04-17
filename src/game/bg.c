@@ -26,7 +26,6 @@
 #include "game/file.h"
 #include "game/lv.h"
 #include "game/texdecompress.h"
-#include "game/surface.h"
 #include "game/wallhit.h"
 #include "bss.h"
 #include "lib/rzip.h"
@@ -9085,7 +9084,7 @@ glabel roomLoad
 /*  f15e148:	02988021 */ 	addu	$s0,$s4,$t8
 /*  f15e14c:	00441823 */ 	subu	$v1,$v0,$a0
 /*  f15e150:	02032823 */ 	subu	$a1,$s0,$v1
-/*  f15e154:	0fc5d7bd */ 	jal	surface0f175ef4
+/*  f15e154:	0fc5d7bd */ 	jal	tex0f175ef4
 /*  f15e158:	00603025 */ 	or	$a2,$v1,$zero
 /*  f15e15c:	26420001 */ 	addiu	$v0,$s2,0x1
 /*  f15e160:	1840000d */ 	blez	$v0,.L0f15e198
@@ -9120,7 +9119,7 @@ glabel roomLoad
 /*  f15e1c8:	afa30038 */ 	sw	$v1,0x38($sp)
 /*  f15e1cc:	00003825 */ 	or	$a3,$zero,$zero
 /*  f15e1d0:	01ae2823 */ 	subu	$a1,$t5,$t6
-/*  f15e1d4:	0fc5d5b0 */ 	jal	surface0f1756c0
+/*  f15e1d4:	0fc5d5b0 */ 	jal	tex0f1756c0
 /*  f15e1d8:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f15e1dc:	8fa602dc */ 	lw	$a2,0x2dc($sp)
 /*  f15e1e0:	8fa90040 */ 	lw	$t1,0x40($sp)
@@ -9658,7 +9657,7 @@ glabel roomLoad
 /*  f158904:	02788021 */ 	addu	$s0,$s3,$t8
 /*  f158908:	00441823 */ 	subu	$v1,$v0,$a0
 /*  f15890c:	02032823 */ 	subu	$a1,$s0,$v1
-/*  f158910:	0fc5c2e5 */ 	jal	surface0f175ef4
+/*  f158910:	0fc5c2e5 */ 	jal	tex0f175ef4
 /*  f158914:	00603025 */ 	or	$a2,$v1,$zero
 /*  f158918:	26220001 */ 	addiu	$v0,$s1,0x1
 /*  f15891c:	1840000d */ 	blez	$v0,.NB0f158954
@@ -9694,7 +9693,7 @@ glabel roomLoad
 /*  f158988:	afa602dc */ 	sw	$a2,0x2dc($sp)
 /*  f15898c:	afa30034 */ 	sw	$v1,0x34($sp)
 /*  f158990:	00003825 */ 	or	$a3,$zero,$zero
-/*  f158994:	0fc5c0d8 */ 	jal	surface0f1756c0
+/*  f158994:	0fc5c0d8 */ 	jal	tex0f1756c0
 /*  f158998:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f15899c:	8fa602dc */ 	lw	$a2,0x2dc($sp)
 /*  f1589a0:	8fa9003c */ 	lw	$t1,0x3c($sp)
@@ -10045,7 +10044,7 @@ const char var7f1b1a60nb[] = "bg.c";
 //		sp208[len] = (s32)allocation + inflatedlen;
 //		allocationend = (s32)allocation + size;
 //
-//		surface0f175ef4(sp208[0], allocationend - (sp208[len] - sp208[0]), sp208[len] - sp208[0]);
+//		tex0f175ef4(sp208[0], allocationend - (sp208[len] - sp208[0]), sp208[len] - sp208[0]);
 //
 //		for (i = 0; i < len + 1; i++) {
 //			sp78[i] = sp208[i] + (allocationend - sp208[len]);
@@ -10054,7 +10053,7 @@ const char var7f1b1a60nb[] = "bg.c";
 //		a2 = sp208[0];
 //
 //		for (i = 0; i < len; i++) {
-//			v0 = surface0f1756c0(sp78[i], sp208[i + 1] - sp208[i], a2, 0, sp140[i]);
+//			v0 = tex0f1756c0(sp78[i], sp208[i + 1] - sp208[i], a2, 0, sp140[i]);
 //			sp78[i] = a2;
 //			a2 += v0;
 //			a2 = ALIGN8(a2);

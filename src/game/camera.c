@@ -5,7 +5,6 @@
 #include "game/playermgr.h"
 #include "game/bg.h"
 #include "game/texdecompress.h"
-#include "game/surface.h"
 #include "bss.h"
 #include "lib/mtx.h"
 #include "data.h"

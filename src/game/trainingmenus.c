@@ -12,7 +12,6 @@
 #include "game/game_1531a0.h"
 #include "game/file.h"
 #include "game/texdecompress.h"
-#include "game/surface.h"
 #include "game/trainingmenus.h"
 #include "game/training.h"
 #include "game/lang.h"
