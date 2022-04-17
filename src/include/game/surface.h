@@ -12,7 +12,7 @@ bool surface0f173a70(s32 index, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5
 bool surface0f173b8c(s32 index, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 s32 texGetWidthAtLod(struct texloadthing *arg0, s32 lod);
 s32 texGetHeightAtLod(struct texloadthing *arg0, s32 lod);
-s32 surface0f173d60(struct texloadthing *arg0, s32 lod);
+s32 tex0f173d60(struct texloadthing *arg0, s32 lod);
 s32 tex0f173e10(struct texloadthing *arg0, s32 lod);
 void surface0f173e50(struct texloadthing *arg0, s32 *arg1, s32 *arg2);
 s32 surface0f173f18(s32 arg0);
