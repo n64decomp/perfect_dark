@@ -170,7 +170,7 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct textur
 		numimages = 1;
 	}
 
-	arg4->unk0c->unk0b_00 = forcenumimages;
+	arg4->unk0c->maxlod = forcenumimages;
 	arg4->unk0c->unk0c_02 = arg2;
 
 	if (arg2) {
@@ -227,13 +227,13 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct textur
 
 		if (arg2 == 1) {
 			if (IS4MB() && j == 2 && !foundthething) {
-				arg4->unk0c->unk0b_00 = j;
+				arg4->unk0c->maxlod = j;
 				foundthething = true;
 			}
 
 			if (totalbytesout + imagebytesout > 0x800 || foundthething) {
 				if (!foundthething) {
-					arg4->unk0c->unk0b_00 = j;
+					arg4->unk0c->maxlod = j;
 					foundthething = true;
 				}
 			} else {
@@ -267,12 +267,12 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct textur
 				imagebytesout = func0f16f0f4(start, end, tmpwidth, tmpheight, format, palette, numcolours);
 
 				if (IS4MB() && j == 2) {
-					arg4->unk0c->unk0b_00 = j;
+					arg4->unk0c->maxlod = j;
 					break;
 				}
 
 				if (totalbytesout + imagebytesout > 0x800) {
-					arg4->unk0c->unk0b_00 = j;
+					arg4->unk0c->maxlod = j;
 					break;
 				}
 
@@ -1352,7 +1352,7 @@ s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct tex
 
 	numimages = arg2 && forcenumimages ? forcenumimages : 1;
 
-	arg4->unk0c->unk0b_00 = forcenumimages;
+	arg4->unk0c->maxlod = forcenumimages;
 	arg4->unk0c->unk0c_02 = arg2;
 
 	if (arg2) {

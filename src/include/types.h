@@ -5602,11 +5602,11 @@ struct var800ab5b8 {
 };
 
 struct var800ab718 {
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
-	u32 unk10;
+	bool inuse;
+	s32 uls;
+	s32 ult;
+	s32 lrs;
+	s32 lrt;
 };
 
 // This struct might be the same struct as shotdata
@@ -6731,7 +6731,7 @@ struct texloadthing {
 	/*0x08*/ u8 width;
 	/*0x09*/ u8 height;
 	/*0x0a*/ u8 unk0a;
-	/*0x0b*/ u8 unk0b_00 : 3;
+	/*0x0b*/ u8 maxlod : 3;
 	/*0x0b*/ u8 gbiformat : 3;
 	/*0x0b*/ u8 depth : 2;
 	/*0x0c*/ u32 lutmodeindex : 2;
