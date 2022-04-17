@@ -334,66 +334,28 @@ s32 tex0f173e10(struct texloadthing *arg0, s32 lod)
 	return texGetHeightAtLod(arg0, lod) * tex0f173d60(arg0, lod);
 }
 
-GLOBAL_ASM(
-glabel surface0f173e50
-/*  f173e50:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f173e54:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f173e58:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f173e5c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f173e60:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f173e64:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f173e68:	8c830008 */ 	lw	$v1,0x8($a0)
-/*  f173e6c:	9082000b */ 	lbu	$v0,0xb($a0)
-/*  f173e70:	00c08825 */ 	or	$s1,$a2,$zero
-/*  f173e74:	306e0003 */ 	andi	$t6,$v1,0x3
-/*  f173e78:	00027942 */ 	srl	$t7,$v0,0x5
-/*  f173e7c:	00809825 */ 	or	$s3,$a0,$zero
-/*  f173e80:	11e00003 */ 	beqz	$t7,.L0f173e90
-/*  f173e84:	01c01825 */ 	or	$v1,$t6,$zero
-/*  f173e88:	10000002 */ 	b	.L0f173e94
-/*  f173e8c:	01e09025 */ 	or	$s2,$t7,$zero
-.L0f173e90:
-/*  f173e90:	24120001 */ 	addiu	$s2,$zero,0x1
-.L0f173e94:
-/*  f173e94:	24020003 */ 	addiu	$v0,$zero,0x3
-/*  f173e98:	14620003 */ 	bne	$v1,$v0,.L0f173ea8
-/*  f173e9c:	ae200000 */ 	sw	$zero,0x0($s1)
-/*  f173ea0:	1000000b */ 	b	.L0f173ed0
-/*  f173ea4:	aca20000 */ 	sw	$v0,0x0($a1)
-.L0f173ea8:
-/*  f173ea8:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f173eac:	14620003 */ 	bne	$v1,$v0,.L0f173ebc
-/*  f173eb0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f173eb4:	10000006 */ 	b	.L0f173ed0
-/*  f173eb8:	aca20000 */ 	sw	$v0,0x0($a1)
-.L0f173ebc:
-/*  f173ebc:	54610004 */ 	bnel	$v1,$at,.L0f173ed0
-/*  f173ec0:	aca20000 */ 	sw	$v0,0x0($a1)
-/*  f173ec4:	10000002 */ 	b	.L0f173ed0
-/*  f173ec8:	aca20000 */ 	sw	$v0,0x0($a1)
-/*  f173ecc:	aca20000 */ 	sw	$v0,0x0($a1)
-.L0f173ed0:
-/*  f173ed0:	1a40000a */ 	blez	$s2,.L0f173efc
-/*  f173ed4:	00008025 */ 	or	$s0,$zero,$zero
-.L0f173ed8:
-/*  f173ed8:	02602025 */ 	or	$a0,$s3,$zero
-/*  f173edc:	0fc5cf84 */ 	jal	tex0f173e10
-/*  f173ee0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f173ee4:	8e380000 */ 	lw	$t8,0x0($s1)
-/*  f173ee8:	0002c880 */ 	sll	$t9,$v0,0x2
-/*  f173eec:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f173ef0:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f173ef4:	1612fff8 */ 	bne	$s0,$s2,.L0f173ed8
-/*  f173ef8:	ae280000 */ 	sw	$t0,0x0($s1)
-.L0f173efc:
-/*  f173efc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f173f00:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f173f04:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f173f08:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f173f0c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f173f10:	03e00008 */ 	jr	$ra
-/*  f173f14:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void tex0f173e50(struct texloadthing *arg0, s32 *deptharg, s32 *lenarg)
+{
+	s32 depth = arg0->depth;
+	s32 s2 = arg0->unk0b_00 ? arg0->unk0b_00 : 1;
+	s32 i;
+
+	*lenarg = 0;
+
+	if (depth == G_IM_SIZ_32b) {
+		*deptharg = G_IM_SIZ_32b;
+	} else if (depth == G_IM_SIZ_16b) {
+		*deptharg = G_IM_SIZ_16b;
+	} else if (depth == G_IM_SIZ_8b) {
+		*deptharg = G_IM_SIZ_16b;
+	} else {
+		*deptharg = G_IM_SIZ_16b;
+	}
+
+	for (i = 0; i < s2; i++) {
+		*lenarg += tex0f173e10(arg0, i) * 4;
+	}
+}
 
 s32 surface0f173f18(s32 arg0)
 {
@@ -721,7 +683,7 @@ glabel surface0f1743a0
 /*  f1743b4:	afa600a0 */ 	sw	$a2,0xa0($sp)
 /*  f1743b8:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f1743bc:	27a50094 */ 	addiu	$a1,$sp,0x94
-/*  f1743c0:	0fc5cf94 */ 	jal	surface0f173e50
+/*  f1743c0:	0fc5cf94 */ 	jal	tex0f173e50
 /*  f1743c4:	27a60090 */ 	addiu	$a2,$sp,0x90
 /*  f1743c8:	8fa9009c */ 	lw	$t1,0x9c($sp)
 /*  f1743cc:	8fa800a0 */ 	lw	$t0,0xa0($sp)
@@ -1250,7 +1212,7 @@ glabel surface0f174b54
 /*  f174b64:	afa5009c */ 	sw	$a1,0x9c($sp)
 /*  f174b68:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f174b6c:	27a50094 */ 	addiu	$a1,$sp,0x94
-/*  f174b70:	0fc5cf94 */ 	jal	surface0f173e50
+/*  f174b70:	0fc5cf94 */ 	jal	tex0f173e50
 /*  f174b74:	27a60090 */ 	addiu	$a2,$sp,0x90
 /*  f174b78:	8fa8009c */ 	lw	$t0,0x9c($sp)
 /*  f174b7c:	3c01fd00 */ 	lui	$at,0xfd00

@@ -14,7 +14,7 @@ s32 texGetWidthAtLod(struct texloadthing *arg0, s32 lod);
 s32 texGetHeightAtLod(struct texloadthing *arg0, s32 lod);
 s32 tex0f173d60(struct texloadthing *arg0, s32 lod);
 s32 tex0f173e10(struct texloadthing *arg0, s32 lod);
-void surface0f173e50(struct texloadthing *arg0, s32 *arg1, s32 *arg2);
+void tex0f173e50(struct texloadthing *arg0, s32 *arg1, s32 *arg2);
 s32 surface0f173f18(s32 arg0);
 u32 surface0f173f48(u32 arg0);
 u32 surface0f173f78(void);

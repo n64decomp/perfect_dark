@@ -436,7 +436,7 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 			}
 
 			if (s4 && s4->unk0c_02) {
-				surface0f173e50(s4, &depth2, &lrs);
+				tex0f173e50(s4, &depth2, &lrs);
 			} else {
 				switch (depth) {
 				case G_IM_SIZ_32b:
