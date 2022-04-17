@@ -365,25 +365,10 @@ glabel surface0f173d60
 /*  f173e0c:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-GLOBAL_ASM(
-glabel surface0f173e10
-/*  f173e10:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f173e14:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f173e18:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f173e1c:	0fc5cf2e */ 	jal	texGetHeightAtLod
-/*  f173e20:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f173e24:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f173e28:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f173e2c:	0fc5cf58 */ 	jal	surface0f173d60
-/*  f173e30:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f173e34:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*  f173e38:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f173e3c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f173e40:	004e0019 */ 	multu	$v0,$t6
-/*  f173e44:	00001012 */ 	mflo	$v0
-/*  f173e48:	03e00008 */ 	jr	$ra
-/*  f173e4c:	00000000 */ 	nop
-);
+s32 tex0f173e10(struct texloadthing *arg0, s32 lod)
+{
+	return texGetHeightAtLod(arg0, lod) * surface0f173d60(arg0, lod);
+}
 
 GLOBAL_ASM(
 glabel surface0f173e50
@@ -428,7 +413,7 @@ glabel surface0f173e50
 /*  f173ed4:	00008025 */ 	or	$s0,$zero,$zero
 .L0f173ed8:
 /*  f173ed8:	02602025 */ 	or	$a0,$s3,$zero
-/*  f173edc:	0fc5cf84 */ 	jal	surface0f173e10
+/*  f173edc:	0fc5cf84 */ 	jal	tex0f173e10
 /*  f173ee0:	02002825 */ 	or	$a1,$s0,$zero
 /*  f173ee4:	8e380000 */ 	lw	$t8,0x0($s1)
 /*  f173ee8:	0002c880 */ 	sll	$t9,$v0,0x2
@@ -1094,7 +1079,7 @@ glabel surface0f1747a4
 /*  f174868:	02402825 */ 	or	$a1,$s2,$zero
 /*  f17486c:	00408025 */ 	or	$s0,$v0,$zero
 /*  f174870:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f174874:	0fc5cf84 */ 	jal	surface0f173e10
+/*  f174874:	0fc5cf84 */ 	jal	tex0f173e10
 /*  f174878:	02402825 */ 	or	$a1,$s2,$zero
 /*  f17487c:	afa20080 */ 	sw	$v0,0x80($sp)
 /*  f174880:	8ea3000c */ 	lw	$v1,0xc($s5)
@@ -1836,7 +1821,7 @@ glabel surface0f175308
 /*  f175324:	afa60048 */ 	sw	$a2,0x48($sp)
 /*  f175328:	afa7004c */ 	sw	$a3,0x4c($sp)
 /*  f17532c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f175330:	0fc5cf84 */ 	jal	surface0f173e10
+/*  f175330:	0fc5cf84 */ 	jal	tex0f173e10
 /*  f175334:	8fa40054 */ 	lw	$a0,0x54($sp)
 /*  f175338:	00408825 */ 	or	$s1,$v0,$zero
 /*  f17533c:	02002025 */ 	or	$a0,$s0,$zero
