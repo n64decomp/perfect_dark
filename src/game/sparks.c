@@ -331,7 +331,7 @@ Gfx *sparksRender(Gfx *gdl)
 			axis = ABS(g_Vars.currentplayer->cam_look.z) > ABS(g_Vars.currentplayer->cam_look.x) ? 2 : 0;
 		}
 
-		tex0f0b39c0(&gdl, &g_TexSparkConfigs[0], 4, 0, 2, 1, NULL);
+		texSelect(&gdl, &g_TexSparkConfigs[0], 4, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetColorDither(gdl++, G_CD_DISABLE);

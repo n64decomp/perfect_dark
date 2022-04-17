@@ -5196,7 +5196,7 @@ Gfx *playerRenderShield(Gfx *gdl)
 		}
 
 		f20 = 1 - g_Vars.currentplayer->shieldshowtime * (1.0f / 60.0f);
-		tex0f0b39c0(&gdl, &g_TexShieldConfigs[0], 4, 1, 2, 1, NULL);
+		texSelect(&gdl, &g_TexShieldConfigs[0], 4, 1, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_2CYCLE);
 		gDPSetRenderMode(gdl++, G_RM_PASS, G_RM_CLD_SURF2);

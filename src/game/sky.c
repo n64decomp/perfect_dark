@@ -2209,7 +2209,7 @@ glabel var7f1b50c8
 /*  f12118c:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f121190:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f121194:	00003825 */ 	or	$a3,$zero,$zero
-/*  f121198:	0fc2ce70 */ 	jal	tex0f0b39c0
+/*  f121198:	0fc2ce70 */ 	jal	texSelect
 /*  f12119c:	01792821 */ 	addu	$a1,$t3,$t9
 /*  f1211a0:	8fb806b0 */ 	lw	$t8,0x6b0($sp)
 /*  f1211a4:	3c0eb900 */ 	lui	$t6,0xb900
@@ -3397,7 +3397,7 @@ glabel var7f1b50c8
 /*  f1223c8:	27a406b0 */ 	addiu	$a0,$sp,0x6b0
 /*  f1223cc:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f1223d0:	00003825 */ 	or	$a3,$zero,$zero
-/*  f1223d4:	0fc2ce70 */ 	jal	tex0f0b39c0
+/*  f1223d4:	0fc2ce70 */ 	jal	texSelect
 /*  f1223d8:	01f82821 */ 	addu	$a1,$t7,$t8
 /*  f1223dc:	8fa206b0 */ 	lw	$v0,0x6b0($sp)
 /*  f1223e0:	3c0bfb00 */ 	lui	$t3,0xfb00
@@ -4332,7 +4332,7 @@ glabel var7f1b50c8
 //		} else {
 //			gDPPipeSync(gdl++);
 //
-//			tex0f0b39c0(&gdl, &g_TexWaterConfigs[env->water_type], 1, 0, 2, 1, NULL);
+//			texSelect(&gdl, &g_TexWaterConfigs[env->water_type], 1, 0, 2, 1, NULL);
 //
 //			gDPSetRenderMode(gdl++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
 //
@@ -4739,7 +4739,7 @@ glabel var7f1b50c8
 //
 //		gDPPipeSync(gdl++);
 //
-//		tex0f0b39c0(&gdl, &g_TexWaterConfigs[env->unk18], 1, 0, 2, 1, NULL);
+//		texSelect(&gdl, &g_TexWaterConfigs[env->unk18], 1, 0, 2, 1, NULL);
 //
 //		gDPSetEnvColor(gdl++, env->sky_r, env->sky_g, env->sky_b, 0xff);
 //		gDPSetCombineLERP(gdl++,
@@ -8252,7 +8252,7 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray)
 
 					g_SunFlareTimers240[i] += g_Vars.lvupdate240;
 
-					tex0f0b39c0(&gdl, &g_TexLightGlareConfigs[5], 4, 0, 2, 1, NULL);
+					texSelect(&gdl, &g_TexLightGlareConfigs[5], 4, 0, 2, 1, NULL);
 
 					gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 					gDPSetColorDither(gdl++, G_CD_DISABLE);
@@ -8409,7 +8409,7 @@ glabel var7f1b511c
 /*  f126fe0:	24a50048 */ 	addiu	$a1,$a1,0x48
 /*  f126fe4:	460ae101 */ 	sub.s	$f4,$f28,$f10
 /*  f126fe8:	46142182 */ 	mul.s	$f6,$f4,$f20
-/*  f126fec:	0fc2cfb8 */ 	jal	tex0f0b39c0
+/*  f126fec:	0fc2cfb8 */ 	jal	texSelect
 /*  f126ff0:	e7a6012c */ 	swc1	$f6,0x12c($sp)
 /*  f126ff4:	8fa90198 */ 	lw	$t1,0x198($sp)
 /*  f126ff8:	3c10ba00 */ 	lui	$s0,0xba00
@@ -8566,7 +8566,7 @@ glabel var7f1b511c
 /*  f127254:	24060004 */ 	li	$a2,0x4
 /*  f127258:	00003825 */ 	move	$a3,$zero
 /*  f12725c:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f127260:	0fc2cfb8 */ 	jal	tex0f0b39c0
+/*  f127260:	0fc2cfb8 */ 	jal	texSelect
 /*  f127264:	24a5000c */ 	addiu	$a1,$a1,0xc
 /*  f127268:	8fab0198 */ 	lw	$t3,0x198($sp)
 /*  f12726c:	3c0fba00 */ 	lui	$t7,0xba00
@@ -8988,7 +8988,7 @@ glabel var7f1b511c
 /*  f1279f0:	24a50048 */ 	addiu	$a1,$a1,0x48
 /*  f1279f4:	460ae101 */ 	sub.s	$f4,$f28,$f10
 /*  f1279f8:	46142182 */ 	mul.s	$f6,$f4,$f20
-/*  f1279fc:	0fc2cf74 */ 	jal	tex0f0b39c0
+/*  f1279fc:	0fc2cf74 */ 	jal	texSelect
 /*  f127a00:	e7a6012c */ 	swc1	$f6,0x12c($sp)
 /*  f127a04:	8fa90198 */ 	lw	$t1,0x198($sp)
 /*  f127a08:	3c10ba00 */ 	lui	$s0,0xba00
@@ -9145,7 +9145,7 @@ glabel var7f1b511c
 /*  f127c64:	24060004 */ 	li	$a2,0x4
 /*  f127c68:	00003825 */ 	move	$a3,$zero
 /*  f127c6c:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f127c70:	0fc2cf74 */ 	jal	tex0f0b39c0
+/*  f127c70:	0fc2cf74 */ 	jal	texSelect
 /*  f127c74:	24a5000c */ 	addiu	$a1,$a1,0xc
 /*  f127c78:	8fab0198 */ 	lw	$t3,0x198($sp)
 /*  f127c7c:	3c0fba00 */ 	lui	$t7,0xba00
@@ -9574,7 +9574,7 @@ glabel var7f1b511c
 /*  f126514:	24a50048 */ 	addiu	$a1,$a1,0x48
 /*  f126518:	460ae101 */ 	sub.s	$f4,$f28,$f10
 /*  f12651c:	46142182 */ 	mul.s	$f6,$f4,$f20
-/*  f126520:	0fc2ce70 */ 	jal	tex0f0b39c0
+/*  f126520:	0fc2ce70 */ 	jal	texSelect
 /*  f126524:	e7a60124 */ 	swc1	$f6,0x124($sp)
 /*  f126528:	8faa0190 */ 	lw	$t2,0x190($sp)
 /*  f12652c:	3c11ba00 */ 	lui	$s1,0xba00
@@ -9729,7 +9729,7 @@ glabel var7f1b511c
 /*  f126780:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f126784:	00003825 */ 	or	$a3,$zero,$zero
 /*  f126788:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f12678c:	0fc2ce70 */ 	jal	tex0f0b39c0
+/*  f12678c:	0fc2ce70 */ 	jal	texSelect
 /*  f126790:	24a5000c */ 	addiu	$a1,$a1,0xc
 /*  f126794:	8fa90190 */ 	lw	$t1,0x190($sp)
 /*  f126798:	3c0eba00 */ 	lui	$t6,0xba00
@@ -10083,7 +10083,7 @@ glabel var7f1b511c
 //	sp124 = (y - viGetViewHeight() * 0.5f) * 0.01f;
 //
 //	// Render the sun
-//	tex0f0b39c0(&gdl, &g_TexLightGlareConfigs[6], 4, 0, 2, 1, NULL);
+//	texSelect(&gdl, &g_TexLightGlareConfigs[6], 4, 0, 2, 1, NULL);
 //
 //	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 //	gDPSetColorDither(gdl++, G_CD_BAYER);
@@ -10111,7 +10111,7 @@ glabel var7f1b511c
 //	func0f0b2150(&gdl, sp17c, sp174, g_TexLightGlareConfigs[6].width, g_TexLightGlareConfigs[6].height, 0, 1, 1, 1, 0, 1);
 //
 //	// Render the artifacts
-//	tex0f0b39c0(&gdl, &g_TexLightGlareConfigs[1], 4, 0, 2, 1, NULL);
+//	texSelect(&gdl, &g_TexLightGlareConfigs[1], 4, 0, 2, 1, NULL);
 //
 //	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 //	gDPSetColorDither(gdl++, G_CD_BAYER);

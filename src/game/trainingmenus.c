@@ -165,7 +165,7 @@ s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerd
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 
-		tex0f0b39c0(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
+		texSelect(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -627,7 +627,7 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 
-		tex0f0b39c0(&gdl, tconfig, 2, 0, 2, 1, NULL);
+		texSelect(&gdl, tconfig, 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -1860,7 +1860,7 @@ s32 ciHangarTitleMenuHandler(s32 operation, struct menuitem *item, union handler
 			gDPSetTextureLOD(gdl++, G_TL_TILE);
 			gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-			tex0f0b39c0(&gdl, &g_TexGeneralConfigs[texturenum], 1, 0, 2, 1, NULL);
+			texSelect(&gdl, &g_TexGeneralConfigs[texturenum], 1, 0, 2, 1, NULL);
 
 			gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 			gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);

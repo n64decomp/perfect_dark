@@ -22,10 +22,7 @@
 
 struct var800a45a0 *var800a45a0;
 u32 var800a45a4;
-u32 var800a45a8;
-u32 var800a45ac;
-u32 var800a45b0;
-u32 var800a45b4;
+struct texturething var800a45a8;
 u32 var800a45b8;
 u32 var800a45bc;
 
@@ -2080,7 +2077,7 @@ Gfx *func0f14c870(Gfx *gdl, struct textureconfig *tconfig, f32 *arg2, f32 arg3, 
 	gDPSetTextureConvert(gdl++, G_TC_FILT);
 	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
 
-	tex0f0b39c0(&gdl, tconfig, 1, 0, 2, 1, &var800a45a8);
+	texSelect(&gdl, tconfig, 1, 0, 2, 1, &var800a45a8);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);

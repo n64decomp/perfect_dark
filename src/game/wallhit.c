@@ -5462,7 +5462,7 @@ Gfx *wallhitRenderBgHitsLayer1(s32 roomnum, Gfx *gdl)
 			}
 
 			if (hit->texturenum != prevtexturenum || hit->unk6b != prev6b) {
-				tex0f0b39c0(&gdl, &g_TexWallhitConfigs[hit->texturenum], 2, hit->unk6b, 2, 1, NULL);
+				texSelect(&gdl, &g_TexWallhitConfigs[hit->texturenum], 2, hit->unk6b, 2, 1, NULL);
 
 				prevtexturenum = hit->texturenum;
 				prev6b = hit->unk6b;
@@ -5520,7 +5520,7 @@ Gfx *wallhitRenderBgHitsLayer2(s32 roomnum, Gfx *gdl)
 			hit->unk6b = 1;
 
 			if (hit->texturenum != prevtexturenum || hit->unk6b != prev6b) {
-				tex0f0b39c0(&gdl, &g_TexWallhitConfigs[hit->texturenum], 2, hit->unk6b, 2, 1, NULL);
+				texSelect(&gdl, &g_TexWallhitConfigs[hit->texturenum], 2, hit->unk6b, 2, 1, NULL);
 
 				prevtexturenum = hit->texturenum;
 				prev6b = hit->unk6b;
@@ -5607,7 +5607,7 @@ Gfx *wallhitRenderPropHits(Gfx *gdl, struct prop *prop, bool withalpha)
 			}
 
 			if (prevtexturenum != hit->texturenum || prev6b != hit->unk6b) {
-				tex0f0b39c0(&gdl, &g_TexWallhitConfigs[hit->texturenum], 2, hit->unk6b, 2, 1, NULL);
+				texSelect(&gdl, &g_TexWallhitConfigs[hit->texturenum], 2, hit->unk6b, 2, 1, NULL);
 
 				prevtexturenum = hit->texturenum;
 				prev6b = hit->unk6b;

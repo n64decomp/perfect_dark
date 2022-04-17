@@ -91,31 +91,31 @@ void texReset(void)
 
 	if (IS4MB() && stage != STAGE_TITLE && stage != STAGE_CITRAINING && stage != STAGE_4MBMENU) {
 		for (i = 0; i < ARRAYCOUNT(g_TcWallhitConfigs); i++) {
-			tex0f0b3988(&g_TexWallhitConfigs[i]);
+			texLoadFromConfig(&g_TexWallhitConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcBeamConfigs); i++) {
-			tex0f0b3988(&g_TexBeamConfigs[i]);
+			texLoadFromConfig(&g_TexBeamConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcWaterConfigs); i++) {
-			tex0f0b3988(&g_TexWaterConfigs[i]);
+			texLoadFromConfig(&g_TexWaterConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcGroup06Configs); i++) {
-			tex0f0b3988(&g_TexShadowConfigs[i]);
+			texLoadFromConfig(&g_TexShadowConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcShieldConfigs); i++) {
-			tex0f0b3988(&g_TexShieldConfigs[i]);
+			texLoadFromConfig(&g_TexShieldConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcRadarConfigs); i++) {
-			tex0f0b3988(&g_TexRadarConfigs[i]);
+			texLoadFromConfig(&g_TexRadarConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcSparkConfigs); i++) {
-			tex0f0b3988(&g_TexSparkConfigs[i]);
+			texLoadFromConfig(&g_TexSparkConfigs[i]);
 		}
 	}
 }

@@ -1659,7 +1659,7 @@ glabel var7f1adf18
 /*  f0e10f4:	27a40118 */ 	addiu	$a0,$sp,0x118
 /*  f0e10f8:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f0e10fc:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0e1100:	0fc2ce70 */ 	jal	tex0f0b39c0
+/*  f0e1100:	0fc2ce70 */ 	jal	texSelect
 /*  f0e1104:	24a50048 */ 	addiu	$a1,$a1,0x0048
 /*  f0e1108:	2406000a */ 	addiu	$a2,$zero,0xa
 /*  f0e110c:	02060019 */ 	multu	$s0,$a2
@@ -2060,7 +2060,7 @@ glabel var7f1adf18
 //	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 //	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 //
-//	tex0f0b39c0(&gdl, &g_TexGeneralConfigs[6], 2, 0, 2, 1, NULL);
+//	texSelect(&gdl, &g_TexGeneralConfigs[6], 2, 0, 2, 1, NULL);
 //
 //	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 //
@@ -2219,7 +2219,7 @@ glabel menugfx0f0e1668
 /*  f0e1760:	27a40078 */ 	addiu	$a0,$sp,0x78
 /*  f0e1764:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0e1768:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f0e176c:	0fc2ce70 */ 	jal	tex0f0b39c0
+/*  f0e176c:	0fc2ce70 */ 	jal	texSelect
 /*  f0e1770:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0e1774:	8fac007c */ 	lw	$t4,0x7c($sp)
 /*  f0e1778:	2408000a */ 	addiu	$t0,$zero,0xa
@@ -2363,7 +2363,7 @@ Gfx *menugfxDrawListGroupHeader(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 
-	tex0f0b39c0(&gdl, NULL, 2, 0, 2, 1, NULL);
+	texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 
@@ -2501,7 +2501,7 @@ glabel menugfxDrawListGroupHeader
 /*  f0dee88:	27a40090 */ 	addiu	$a0,$sp,0x90
 /*  f0dee8c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0dee90:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f0dee94:	0fc2c5c8 */ 	jal	tex0f0b39c0
+/*  f0dee94:	0fc2c5c8 */ 	jal	texSelect
 /*  f0dee98:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0dee9c:	8fab0094 */ 	lw	$t3,0x94($sp)
 /*  f0deea0:	2404000a */ 	addiu	$a0,$zero,0xa
@@ -2759,7 +2759,7 @@ glabel menugfxRenderGradient
 /*  f0e1de0:	27a40060 */ 	addiu	$a0,$sp,0x60
 /*  f0e1de4:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0e1de8:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f0e1dec:	0fc2ce70 */ 	jal	tex0f0b39c0
+/*  f0e1dec:	0fc2ce70 */ 	jal	texSelect
 /*  f0e1df0:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0e1df4:	8fb90060 */ 	lw	$t9,0x60($sp)
 /*  f0e1df8:	8fab0070 */ 	lw	$t3,0x70($sp)
@@ -2889,7 +2889,7 @@ glabel menugfxRenderGradient
 //	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 //	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 //
-//	tex0f0b39c0(&gdl, NULL, 2, 0, 2, 1, NULL);
+//	texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
 //
 //	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 //
@@ -2960,7 +2960,7 @@ Gfx *menugfxRenderSlider(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 markerx, 
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 
-	tex0f0b39c0(&gdl, NULL, 2, 0, 2, 1, NULL);
+	texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
@@ -3050,7 +3050,7 @@ Gfx *menugfx0f0e2498(Gfx *gdl)
 	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH)
 
-	tex0f0b39c0(&gdl, 0, 2, 0, 2, 1, NULL);
+	texSelect(&gdl, 0, 2, 0, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 
@@ -3617,7 +3617,7 @@ Gfx *menugfxDrawCarouselChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction,
 	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 
-	tex0f0b39c0(&gdl, NULL, 2, 0, 2, 1, NULL);
+	texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 
@@ -3701,7 +3701,7 @@ Gfx *menugfxDrawDialogChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u
 	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 
-	tex0f0b39c0(&gdl, NULL, 2, 0, 2, 1, NULL);
+	texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
 
@@ -4872,7 +4872,7 @@ glabel var7f1adf90
 /*  f0e5570:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f0e5574:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f0e5578:	afa20150 */ 	sw	$v0,0x150($sp)
-/*  f0e557c:	0fc2ce70 */ 	jal	tex0f0b39c0
+/*  f0e557c:	0fc2ce70 */ 	jal	texSelect
 /*  f0e5580:	24a5000c */ 	addiu	$a1,$a1,0x000c
 /*  f0e5584:	8fb80150 */ 	lw	$t8,0x150($sp)
 /*  f0e5588:	3c09ba00 */ 	lui	$t1,0xba00
@@ -5757,7 +5757,7 @@ glabel var7f1adf90
 /*  f0e5570:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f0e5574:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f0e5578:	afa20150 */ 	sw	$v0,0x150($sp)
-/*  f0e557c:	0fc2ce70 */ 	jal	tex0f0b39c0
+/*  f0e557c:	0fc2ce70 */ 	jal	texSelect
 /*  f0e5580:	24a5000c */ 	addiu	$a1,$a1,0x000c
 /*  f0e5584:	8fb80150 */ 	lw	$t8,0x150($sp)
 /*  f0e5588:	3c09ba00 */ 	lui	$t1,0xba00

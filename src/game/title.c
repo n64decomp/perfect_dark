@@ -533,7 +533,7 @@ glabel var7f1a84fcjf
 /*  f0169fc:	27a40130 */ 	addiu	$a0,$sp,0x130
 /*  f016a00:	24060001 */ 	li	$a2,0x1
 /*  f016a04:	00003825 */ 	move	$a3,$zero
-/*  f016a08:	0fc2d290 */ 	jal	tex0f0b39c0
+/*  f016a08:	0fc2d290 */ 	jal	texSelect
 /*  f016a0c:	24a50234 */ 	addiu	$a1,$a1,0x234
 /*  f016a10:	8fab0130 */ 	lw	$t3,0x130($sp)
 /*  f016a14:	3c0eba00 */ 	lui	$t6,0xba00
@@ -652,7 +652,7 @@ glabel var7f1a84fcjf
 /*  f016bd4:	27a40130 */ 	addiu	$a0,$sp,0x130
 /*  f016bd8:	24060001 */ 	li	$a2,0x1
 /*  f016bdc:	00003825 */ 	move	$a3,$zero
-/*  f016be0:	0fc2d290 */ 	jal	tex0f0b39c0
+/*  f016be0:	0fc2d290 */ 	jal	texSelect
 /*  f016be4:	24a5024c */ 	addiu	$a1,$a1,0x24c
 /*  f016be8:	8fb80130 */ 	lw	$t8,0x130($sp)
 /*  f016bec:	3c0eba00 */ 	lui	$t6,0xba00
@@ -1057,7 +1057,7 @@ glabel var7f1aa08cnb
 /*  f0169f8:	27a40128 */ 	addiu	$a0,$sp,0x128
 /*  f0169fc:	24060001 */ 	li	$a2,0x1
 /*  f016a00:	00003825 */ 	move	$a3,$zero
-/*  f016a04:	0fc2cf74 */ 	jal	tex0f0b39c0
+/*  f016a04:	0fc2cf74 */ 	jal	texSelect
 /*  f016a08:	24a50234 */ 	addiu	$a1,$a1,0x234
 /*  f016a0c:	8fab0128 */ 	lw	$t3,0x128($sp)
 /*  f016a10:	3c0eba00 */ 	lui	$t6,0xba00
@@ -1176,7 +1176,7 @@ glabel var7f1aa08cnb
 /*  f016bd0:	27a40128 */ 	addiu	$a0,$sp,0x128
 /*  f016bd4:	24060001 */ 	li	$a2,0x1
 /*  f016bd8:	00003825 */ 	move	$a3,$zero
-/*  f016bdc:	0fc2cf74 */ 	jal	tex0f0b39c0
+/*  f016bdc:	0fc2cf74 */ 	jal	texSelect
 /*  f016be0:	24a5024c */ 	addiu	$a1,$a1,0x24c
 /*  f016be4:	8fb80128 */ 	lw	$t8,0x128($sp)
 /*  f016be8:	3c0eba00 */ 	lui	$t6,0xba00
@@ -1381,7 +1381,7 @@ Gfx *titleRenderLegal(Gfx *gdl)
 				gDPSetTextureLOD(gdl++, G_TL_TILE);
 				gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-				tex0f0b39c0(&gdl, &g_TexGeneralConfigs[47], 1, 0, 2, 1, 0);
+				texSelect(&gdl, &g_TexGeneralConfigs[47], 1, 0, 2, 1, 0);
 
 				gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 				gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -1404,7 +1404,7 @@ Gfx *titleRenderLegal(Gfx *gdl)
 				gDPSetTextureLOD(gdl++, G_TL_TILE);
 				gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-				tex0f0b39c0(&gdl, &g_TexGeneralConfigs[49], 1, 0, 2, 1, 0);
+				texSelect(&gdl, &g_TexGeneralConfigs[49], 1, 0, 2, 1, 0);
 
 				gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 				gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);

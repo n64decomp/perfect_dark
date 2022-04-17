@@ -94,6 +94,13 @@
 #define gDPTri1(pkt, x1, y1, z1) \
 	gDPTri4(pkt, x1, y1, z1, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
+#define	gDPLoadTLUT06(pkt, a, b, c, d)				                                        \
+{                                                                                           \
+	Gfx *_g = (Gfx *)pkt;                                                                   \
+	_g->words.w0 = _SHIFTL(G_LOADTLUT, 24, 8) | _SHIFTL((a), 14, 10) | _SHIFTL((b), 2, 10); \
+	_g->words.w1 = _SHIFTL(0x06, 24, 8) | _SHIFTL((c), 14, 10) | _SHIFTL((d), 2, 10);       \
+}
+
 /**
  * Like gDPSetPrimColor, but is useful when the input colour is already in
  * RGBA format. It avoids unnecessary bitshifting and masking.

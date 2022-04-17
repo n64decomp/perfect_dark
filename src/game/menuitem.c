@@ -10564,7 +10564,7 @@ Gfx *menuitemControllerRenderTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32
 	gDPSetTextureLOD(gdl++, G_TL_TILE);
 	gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-	tex0f0b39c0(&gdl, &g_TexGeneralConfigs[texturenum], 2, 0, 2, 1, NULL);
+	texSelect(&gdl, &g_TexGeneralConfigs[texturenum], 2, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetTextureFilter(gdl++, G_TF_POINT);
@@ -10703,7 +10703,7 @@ glabel menuitemControllerRenderLines
 /*  f0f05d8:	00003825 */ 	move	$a3,$zero
 /*  f0f05dc:	24060002 */ 	li	$a2,0x2
 /*  f0f05e0:	27a40050 */ 	addiu	$a0,$sp,0x50
-/*  f0f05e4:	0fc2d290 */ 	jal	tex0f0b39c0
+/*  f0f05e4:	0fc2d290 */ 	jal	texSelect
 /*  f0f05e8:	24a50294 */ 	addiu	$a1,$a1,0x294
 /*  f0f05ec:	8fb90050 */ 	lw	$t9,0x50($sp)
 /*  f0f05f0:	3c0dba00 */ 	lui	$t5,0xba00
@@ -10905,7 +10905,7 @@ Gfx *menuitemControllerRenderLines(Gfx *gdl, struct menurendercontext *context, 
 	gDPSetTextureLOD(gdl++, G_TL_TILE);
 	gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-	tex0f0b39c0(&gdl, &g_TexGeneralConfigs[55], 2, 0, 2, 1, NULL);
+	texSelect(&gdl, &g_TexGeneralConfigs[55], 2, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetTextureFilter(gdl++, G_TF_POINT);

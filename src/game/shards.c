@@ -810,9 +810,9 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 		s32 j;
 
 		if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
-			tex0f0b39c0(&gdl, NULL, 2, 1, 2, 1, NULL);
+			texSelect(&gdl, NULL, 2, 1, 2, 1, NULL);
 		} else {
-			tex0f0b39c0(&gdl, &g_TexShardConfigs[1], 2, 1, 2, 1, NULL);
+			texSelect(&gdl, &g_TexShardConfigs[1], 2, 1, 2, 1, NULL);
 		}
 
 		gSPTexture(gdl++, 0x0d80, 0x0d80, 2, G_TX_RENDERTILE, G_ON);
@@ -966,7 +966,7 @@ glabel shardsRenderGlass
 /*  f14c6b8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f14c6bc:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f14c6c0:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f14c6c4:	0fc2c5c8 */ 	jal	tex0f0b39c0
+/*  f14c6c4:	0fc2c5c8 */ 	jal	texSelect
 /*  f14c6c8:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f14c6cc:	1000000b */ 	beqz	$zero,.NB0f14c6fc
 /*  f14c6d0:	8fab0138 */ 	lw	$t3,0x138($sp)
@@ -978,7 +978,7 @@ glabel shardsRenderGlass
 /*  f14c6e4:	afa90010 */ 	sw	$t1,0x10($sp)
 /*  f14c6e8:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f14c6ec:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f14c6f0:	0fc2c5c8 */ 	jal	tex0f0b39c0
+/*  f14c6f0:	0fc2c5c8 */ 	jal	texSelect
 /*  f14c6f4:	24a5000c */ 	addiu	$a1,$a1,0xc
 /*  f14c6f8:	8fab0138 */ 	lw	$t3,0x138($sp)
 .NB0f14c6fc:

@@ -56,7 +56,7 @@ Gfx *weatherRender(Gfx *gdl)
 	gSPDisplayList(gdl++, &var80061380);
 
 	if (weather->type == WEATHERTYPE_SNOW) {
-		tex0f0b39c0(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, 1, NULL);
+		texSelect(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetColorDither(gdl++, G_CD_NOISE);
@@ -886,7 +886,7 @@ glabel var7f1b5780
 /*  f132f6c:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f132f70:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f132f74:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f132f78:	0fc2ce70 */ 	jal	tex0f0b39c0
+/*  f132f78:	0fc2ce70 */ 	jal	texSelect
 /*  f132f7c:	24a5000c */ 	addiu	$a1,$a1,0x000c
 /*  f132f80:	8fab0de8 */ 	lw	$t3,0xde8($sp)
 /*  f132f84:	3c0dba00 */ 	lui	$t5,0xba00
@@ -2576,7 +2576,7 @@ u32 var8007f0fc = 22000;
 //		spdb0[i] = 0;
 //	}
 //
-//	tex0f0b39c0(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, 1, NULL);
+//	texSelect(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, 1, NULL);
 //
 //	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 //	gDPSetColorDither(gdl++, G_CD_DISABLE);
@@ -3134,7 +3134,7 @@ glabel var7f1b5790
 /*  f134720:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f134724:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f134728:	afa01268 */ 	sw	$zero,0x1268($sp)
-/*  f13472c:	0fc2ce70 */ 	jal	tex0f0b39c0
+/*  f13472c:	0fc2ce70 */ 	jal	texSelect
 /*  f134730:	00003825 */ 	or	$a3,$zero,$zero
 /*  f134734:	8fb81398 */ 	lw	$t8,0x1398($sp)
 /*  f134738:	8fa81268 */ 	lw	$t0,0x1268($sp)
@@ -4622,7 +4622,7 @@ u32 var8007f110 = 0xffffff7f;
 //	s7 = 0;
 //	sp1268 = 0;
 //
-//	tex0f0b39c0(&gdl, &g_TexGeneralConfigs[0], 4, 0, 2, 1, NULL);
+//	texSelect(&gdl, &g_TexGeneralConfigs[0], 4, 0, 2, 1, NULL);
 //
 //	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 //	gDPSetColorDither(gdl++, G_CD_DISABLE);

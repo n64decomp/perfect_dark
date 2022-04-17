@@ -52025,7 +52025,7 @@ glabel var7f1aa824
 /*  f0808ac:	afae0014 */ 	sw	$t6,0x14($sp)
 /*  f0808b0:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f0808b4:	8fa700c8 */ 	lw	$a3,0xc8($sp)
-/*  f0808b8:	0fc2ce70 */ 	jal	tex0f0b39c0
+/*  f0808b8:	0fc2ce70 */ 	jal	texSelect
 /*  f0808bc:	8fa600cc */ 	lw	$a2,0xcc($sp)
 /*  f0808c0:	8fb000c4 */ 	lw	$s0,0xc4($sp)
 /*  f0808c4:	3c190102 */ 	lui	$t9,0x102
@@ -52375,7 +52375,7 @@ glabel var7f1aa824
 //		// Render the image
 //		gSPSetGeometryMode(gdl++, G_CULL_BACK);
 //
-//		tex0f0b39c0(&gdl, tconfig, arg5, arg4, 2, 1, NULL);
+//		texSelect(&gdl, tconfig, arg5, arg4, 2, 1, NULL);
 //
 //		gSPMatrix(gdl++, osVirtualToPhysical(model->matrices), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 //
@@ -52590,9 +52590,9 @@ Gfx *gfxRenderRadialShadow(Gfx *gdl, f32 x, f32 y, f32 z, f32 angle, f32 radius,
 		vertices[3].unk08 = 0;
 		vertices[3].unk0a = tconfig->height * 32 - 1;
 
-		tex0f0b39c0(&gdl, tconfig, 4, 1, 2, 1, NULL);
+		texSelect(&gdl, tconfig, 4, 1, 2, 1, NULL);
 	} else {
-		tex0f0b39c0(&gdl, NULL, 1, 1, 2, 1, NULL);
+		texSelect(&gdl, NULL, 1, 1, 2, 1, NULL);
 	}
 
 	gSPSetGeometryMode(gdl++, G_CULL_BACK);

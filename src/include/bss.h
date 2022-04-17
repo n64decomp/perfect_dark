@@ -264,7 +264,7 @@ extern u8 *var800ab540;
 extern u32 var800ab544;
 extern s32 var800ab548;
 extern s32 g_TexNumConfigs;
-extern u32 *g_TexWords;
+extern struct texloadthing **g_TexWords;
 extern struct textureconfig *g_TexWallhitConfigs;
 extern Gfx *g_TexGdl1;
 extern Gfx *g_TexGdl2;

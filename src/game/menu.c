@@ -5543,7 +5543,7 @@ glabel var7f1b3658jf
 /*  f0f5c14:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f0f5c18:	00002825 */ 	move	$a1,$zero
 /*  f0f5c1c:	24060002 */ 	li	$a2,0x2
-/*  f0f5c20:	0fc2d290 */ 	jal	tex0f0b39c0
+/*  f0f5c20:	0fc2d290 */ 	jal	texSelect
 /*  f0f5c24:	00003825 */ 	move	$a3,$zero
 /*  f0f5c28:	8fae0440 */ 	lw	$t6,0x440($sp)
 /*  f0f5c2c:	3c18b900 */ 	lui	$t8,0xb900
@@ -5562,7 +5562,7 @@ glabel var7f1b3658jf
 /*  f0f5c60:	02002025 */ 	move	$a0,$s0
 /*  f0f5c64:	00002825 */ 	move	$a1,$zero
 /*  f0f5c68:	24060002 */ 	li	$a2,0x2
-/*  f0f5c6c:	0fc2d290 */ 	jal	tex0f0b39c0
+/*  f0f5c6c:	0fc2d290 */ 	jal	texSelect
 /*  f0f5c70:	00003825 */ 	move	$a3,$zero
 /*  f0f5c74:	8faf0440 */ 	lw	$t7,0x440($sp)
 /*  f0f5c78:	3c190600 */ 	lui	$t9,0x600
@@ -7149,7 +7149,7 @@ glabel var7f1b3c40pf
 /*  f0f56b4:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f0f56b8:	00002825 */ 	move	$a1,$zero
 /*  f0f56bc:	24060002 */ 	li	$a2,0x2
-/*  f0f56c0:	0fc2cfb8 */ 	jal	tex0f0b39c0
+/*  f0f56c0:	0fc2cfb8 */ 	jal	texSelect
 /*  f0f56c4:	00003825 */ 	move	$a3,$zero
 /*  f0f56c8:	8fb90440 */ 	lw	$t9,0x440($sp)
 /*  f0f56cc:	3c09b900 */ 	lui	$t1,0xb900
@@ -7168,7 +7168,7 @@ glabel var7f1b3c40pf
 /*  f0f5700:	02002025 */ 	move	$a0,$s0
 /*  f0f5704:	00002825 */ 	move	$a1,$zero
 /*  f0f5708:	24060002 */ 	li	$a2,0x2
-/*  f0f570c:	0fc2cfb8 */ 	jal	tex0f0b39c0
+/*  f0f570c:	0fc2cfb8 */ 	jal	texSelect
 /*  f0f5710:	00003825 */ 	move	$a3,$zero
 /*  f0f5714:	8fac0440 */ 	lw	$t4,0x440($sp)
 /*  f0f5718:	3c0f0600 */ 	lui	$t7,0x600
@@ -8755,7 +8755,7 @@ glabel var7f1b3c40pf
 /*  f0f54cc:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f0f54d0:	00002825 */ 	move	$a1,$zero
 /*  f0f54d4:	24060002 */ 	li	$a2,0x2
-/*  f0f54d8:	0fc2cf74 */ 	jal	tex0f0b39c0
+/*  f0f54d8:	0fc2cf74 */ 	jal	texSelect
 /*  f0f54dc:	00003825 */ 	move	$a3,$zero
 /*  f0f54e0:	8fb90440 */ 	lw	$t9,0x440($sp)
 /*  f0f54e4:	3c09b900 */ 	lui	$t1,0xb900
@@ -8774,7 +8774,7 @@ glabel var7f1b3c40pf
 /*  f0f5518:	02002025 */ 	move	$a0,$s0
 /*  f0f551c:	00002825 */ 	move	$a1,$zero
 /*  f0f5520:	24060002 */ 	li	$a2,0x2
-/*  f0f5524:	0fc2cf74 */ 	jal	tex0f0b39c0
+/*  f0f5524:	0fc2cf74 */ 	jal	texSelect
 /*  f0f5528:	00003825 */ 	move	$a3,$zero
 /*  f0f552c:	8fac0440 */ 	lw	$t4,0x440($sp)
 /*  f0f5530:	3c0f0600 */ 	lui	$t7,0x600
@@ -10364,7 +10364,7 @@ glabel var7f1b2948
 /*  f0f4f70:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f0f4f74:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0f4f78:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f0f4f7c:	0fc2ce70 */ 	jal	tex0f0b39c0
+/*  f0f4f7c:	0fc2ce70 */ 	jal	texSelect
 /*  f0f4f80:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0f4f84:	8fad0440 */ 	lw	$t5,0x440($sp)
 /*  f0f4f88:	3c0cb900 */ 	lui	$t4,0xb900
@@ -10383,7 +10383,7 @@ glabel var7f1b2948
 /*  f0f4fbc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0f4fc0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0f4fc4:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f0f4fc8:	0fc2ce70 */ 	jal	tex0f0b39c0
+/*  f0f4fc8:	0fc2ce70 */ 	jal	texSelect
 /*  f0f4fcc:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0f4fd0:	8fb90440 */ 	lw	$t9,0x440($sp)
 /*  f0f4fd4:	3c0d0600 */ 	lui	$t5,0x600
@@ -11998,7 +11998,7 @@ glabel var7f1b2948
 /*  f0f1b14:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f0f1b18:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0f1b1c:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f0f1b20:	0fc2c5c8 */ 	jal	tex0f0b39c0
+/*  f0f1b20:	0fc2c5c8 */ 	jal	texSelect
 /*  f0f1b24:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0f1b28:	8faa0468 */ 	lw	$t2,0x468($sp)
 /*  f0f1b2c:	3c0bb900 */ 	lui	$t3,0xb900
@@ -12017,7 +12017,7 @@ glabel var7f1b2948
 /*  f0f1b60:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0f1b64:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0f1b68:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f0f1b6c:	0fc2c5c8 */ 	jal	tex0f0b39c0
+/*  f0f1b6c:	0fc2c5c8 */ 	jal	texSelect
 /*  f0f1b70:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0f1b74:	8fac0468 */ 	lw	$t4,0x468($sp)
 /*  f0f1b78:	3c0a0600 */ 	lui	$t2,0x600
@@ -12621,11 +12621,11 @@ glabel var7f1b2948
 //		gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 //		gDPSetTextureFilter(gdl++, G_TF_BILERP);
 //
-//		tex0f0b39c0(&gdl, NULL, 2, 0, 2, 1, NULL);
+//		texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
 //
 //		gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 //
-//		tex0f0b39c0(&gdl, NULL, 2, 0, 2, 1, NULL);
+//		texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
 //
 //		gSPDisplayList(gdl++, var800613a0);
 //	}
@@ -21263,26 +21263,26 @@ void menuReset(void)
 
 	g_MenuData.unk5d5_01 = false;
 
-	tex0f0b3988(&g_TexGeneralConfigs[1]);
-	tex0f0b3988(&g_TexGeneralConfigs[6]);
-	tex0f0b3988(&g_TexGeneralConfigs[51]);
-	tex0f0b3988(&g_TexGeneralConfigs[52]);
-	tex0f0b3988(&g_TexGeneralConfigs[53]);
-	tex0f0b3988(&g_TexGeneralConfigs[54]);
-	tex0f0b3988(&g_TexGeneralConfigs[55]);
+	texLoadFromConfig(&g_TexGeneralConfigs[1]);
+	texLoadFromConfig(&g_TexGeneralConfigs[6]);
+	texLoadFromConfig(&g_TexGeneralConfigs[51]);
+	texLoadFromConfig(&g_TexGeneralConfigs[52]);
+	texLoadFromConfig(&g_TexGeneralConfigs[53]);
+	texLoadFromConfig(&g_TexGeneralConfigs[54]);
+	texLoadFromConfig(&g_TexGeneralConfigs[55]);
 
 	if (g_Vars.stagenum == STAGE_CITRAINING) {
 		for (i = 12; i < 34; i++) {
-			tex0f0b3988(&g_TexGeneralConfigs[i]);
+			texLoadFromConfig(&g_TexGeneralConfigs[i]);
 		}
 
-		tex0f0b3988(&g_TexGeneralConfigs[34]);
-		tex0f0b3988(&g_TexGeneralConfigs[36]);
-		tex0f0b3988(&g_TexGeneralConfigs[35]);
+		texLoadFromConfig(&g_TexGeneralConfigs[34]);
+		texLoadFromConfig(&g_TexGeneralConfigs[36]);
+		texLoadFromConfig(&g_TexGeneralConfigs[35]);
 	}
 
 	if (g_Vars.mplayerisrunning) {
-		tex0f0b3988(&g_TexGeneralConfigs[35]);
+		texLoadFromConfig(&g_TexGeneralConfigs[35]);
 	}
 
 	for (i = 0; i < 4; i++) {

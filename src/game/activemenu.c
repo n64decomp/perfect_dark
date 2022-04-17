@@ -2841,7 +2841,7 @@ glabel amRender
 /*  f1017b8:	27a40148 */ 	addiu	$a0,$sp,0x148
 /*  f1017bc:	00002825 */ 	move	$a1,$zero
 /*  f1017c0:	24060002 */ 	li	$a2,0x2
-/*  f1017c4:	0fc2d290 */ 	jal	tex0f0b39c0
+/*  f1017c4:	0fc2d290 */ 	jal	texSelect
 /*  f1017c8:	00003825 */ 	move	$a3,$zero
 /*  f1017cc:	8fac0148 */ 	lw	$t4,0x148($sp)
 /*  f1017d0:	3c0eb900 */ 	lui	$t6,0xb900
@@ -3750,7 +3750,7 @@ glabel amRender
 /*  f1014d4:	27a401d8 */ 	addiu	$a0,$sp,0x1d8
 /*  f1014d8:	00002825 */ 	move	$a1,$zero
 /*  f1014dc:	24060002 */ 	li	$a2,0x2
-/*  f1014e0:	0fc2cfb8 */ 	jal	tex0f0b39c0
+/*  f1014e0:	0fc2cfb8 */ 	jal	texSelect
 /*  f1014e4:	00003825 */ 	move	$a3,$zero
 /*  f1014e8:	8faf01d8 */ 	lw	$t7,0x1d8($sp)
 /*  f1014ec:	3c19b900 */ 	lui	$t9,0xb900
@@ -5329,7 +5329,7 @@ glabel amRender
 /*  f1012f4:	27a401d8 */ 	addiu	$a0,$sp,0x1d8
 /*  f1012f8:	00002825 */ 	move	$a1,$zero
 /*  f1012fc:	24060002 */ 	li	$a2,0x2
-/*  f101300:	0fc2cf74 */ 	jal	tex0f0b39c0
+/*  f101300:	0fc2cf74 */ 	jal	texSelect
 /*  f101304:	00003825 */ 	move	$a3,$zero
 /*  f101308:	8faf01d8 */ 	lw	$t7,0x1d8($sp)
 /*  f10130c:	3c19b900 */ 	lui	$t9,0xb900
@@ -6918,7 +6918,7 @@ glabel amRender
 /*  f100d74:	27a401d8 */ 	addiu	$a0,$sp,0x1d8
 /*  f100d78:	00002825 */ 	or	$a1,$zero,$zero
 /*  f100d7c:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f100d80:	0fc2ce70 */ 	jal	tex0f0b39c0
+/*  f100d80:	0fc2ce70 */ 	jal	texSelect
 /*  f100d84:	00003825 */ 	or	$a3,$zero,$zero
 /*  f100d88:	8fb901d8 */ 	lw	$t9,0x1d8($sp)
 /*  f100d8c:	3c0fb900 */ 	lui	$t7,0xb900
@@ -8507,7 +8507,7 @@ glabel amRender
 /*  f0fced8:	27a401b0 */ 	addiu	$a0,$sp,0x1b0
 /*  f0fcedc:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0fcee0:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f0fcee4:	0fc2c5c8 */ 	jal	tex0f0b39c0
+/*  f0fcee4:	0fc2c5c8 */ 	jal	texSelect
 /*  f0fcee8:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0fceec:	8fb901b0 */ 	lw	$t9,0x1b0($sp)
 /*  f0fcef0:	3c0fb900 */ 	lui	$t7,0xb900
@@ -9806,7 +9806,7 @@ glabel amRender
 //		gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
 //		gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 //
-//		tex0f0b39c0(&gdl, NULL, 2, 0, 2, 1, NULL);
+//		texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
 //
 //		gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 //

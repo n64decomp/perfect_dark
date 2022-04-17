@@ -23,7 +23,7 @@ u32 var800ab54c;
 u32 g_TexBase;
 u8 *g_TextureConfigSegment;
 s32 g_TexNumConfigs;
-u32 *g_TexWords;
+struct texloadthing **g_TexWords;
 struct textureconfig *g_TexWallhitConfigs;
 Gfx *g_TexGdl1;
 Gfx *g_TexGdl2;
@@ -62,11 +62,53 @@ s32 g_TexFormatChannelSizes[] = { 256, 32, 256, 32, 256, 16, 8, 256, 16, 256, 16
 s32 g_TexFormatBitsPerPixel[] = { 32, 16, 24, 15, 16, 8, 4, 8, 4, 16, 16, 16, 16 };
 
 // Mapping to GBI format
-s32 g_TexFormatGbiMappings[] = { G_IM_FMT_RGBA, G_IM_FMT_RGBA, G_IM_FMT_RGBA, G_IM_FMT_RGBA, G_IM_FMT_IA, G_IM_FMT_IA, G_IM_FMT_IA, G_IM_FMT_I, G_IM_FMT_I, G_IM_FMT_CI, G_IM_FMT_CI, G_IM_FMT_CI, G_IM_FMT_CI };
+s32 g_TexFormatGbiMappings[] = {
+	G_IM_FMT_RGBA,
+	G_IM_FMT_RGBA,
+	G_IM_FMT_RGBA,
+	G_IM_FMT_RGBA,
+	G_IM_FMT_IA,
+	G_IM_FMT_IA,
+	G_IM_FMT_IA,
+	G_IM_FMT_I,
+	G_IM_FMT_I,
+	G_IM_FMT_CI,
+	G_IM_FMT_CI,
+	G_IM_FMT_CI,
+	G_IM_FMT_CI,
+};
 
-s32 var800842bc[] = { 3, 2, 3, 2, 2, 1, 0, 1, 0, 1, 0, 1, 0 };
+s32 g_TexFormatDepths[] = {
+	G_IM_SIZ_32b,
+	G_IM_SIZ_16b,
+	G_IM_SIZ_32b,
+	G_IM_SIZ_16b,
+	G_IM_SIZ_16b,
+	G_IM_SIZ_8b,
+	G_IM_SIZ_4b,
+	G_IM_SIZ_8b,
+	G_IM_SIZ_4b,
+	G_IM_SIZ_8b,
+	G_IM_SIZ_4b,
+	G_IM_SIZ_8b,
+	G_IM_SIZ_4b,
+};
 
-s32 var800842f0[] = { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x8000, 0x8000, 0xc000, 0xc000 };
+s32 g_TexFormatLutModes[] = {
+	G_TT_NONE,
+	G_TT_NONE,
+	G_TT_NONE,
+	G_TT_NONE,
+	G_TT_NONE,
+	G_TT_NONE,
+	G_TT_NONE,
+	G_TT_NONE,
+	G_TT_NONE,
+	G_TT_RGBA16,
+	G_TT_RGBA16,
+	G_TT_IA16,
+	G_TT_IA16,
+};
 
 void func0f16e810(u32 arg0)
 {
@@ -159,8 +201,8 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct textur
 			arg4->unk0c->height = height;
 			arg4->unk0c->unk0a = numcolours - 1;
 			arg4->unk0c->gbiformat = g_TexFormatGbiMappings[format];
-			arg4->unk0c->unk0b_06 = var800842bc[format];
-			arg4->unk0c->unk0c_00 = var800842f0[format] >> 14;
+			arg4->unk0c->depth = g_TexFormatDepths[format];
+			arg4->unk0c->lutmodeindex = g_TexFormatLutModes[format] >> G_MDSFT_TEXTLUT;
 		} else if (writetocache) {
 			g_TexCacheItems[g_TexCacheCount].widths[j - 1] = width;
 			g_TexCacheItems[g_TexCacheCount].heights[j - 1] = height;
@@ -1333,8 +1375,8 @@ s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct tex
 			arg4->unk0c->width = width;
 			arg4->unk0c->height = height;
 			arg4->unk0c->gbiformat = g_TexFormatGbiMappings[format];
-			arg4->unk0c->unk0b_06 = var800842bc[format];
-			arg4->unk0c->unk0c_00 = var800842f0[format] >> 14;
+			arg4->unk0c->depth = g_TexFormatDepths[format];
+			arg4->unk0c->lutmodeindex = g_TexFormatLutModes[format] >> G_MDSFT_TEXTLUT;
 		} else if (writetocache) {
 			g_TexCacheItems[g_TexCacheCount].widths[i - 1] = width;
 			g_TexCacheItems[g_TexCacheCount].heights[i - 1] = height;

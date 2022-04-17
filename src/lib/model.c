@@ -5828,7 +5828,7 @@ glabel modelRenderNodeType16
 
 void model000216cc(struct modelrenderdata *renderdata, struct textureconfig *tconfig, s32 arg2)
 {
-	tex0f0b39c0(&renderdata->gdl, tconfig, arg2, renderdata->zbufferenabled, 2, 1, NULL);
+	texSelect(&renderdata->gdl, tconfig, arg2, renderdata->zbufferenabled, 2, 1, NULL);
 }
 
 GLOBAL_ASM(

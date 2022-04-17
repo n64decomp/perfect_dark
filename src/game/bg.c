@@ -2487,7 +2487,7 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
 	gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-	tex0f0b39c0(&gdl, NULL, 2, 0, 2, 1, NULL);
+	texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
 
