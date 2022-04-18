@@ -10700,166 +10700,57 @@ bool frGetHudMiddleSubtext(char *buffer)
 #endif
 
 #if VERSION >= VERSION_JPN_FINAL
-const char var7f1ba150[] = "";
-const char var7f1ba154[] = "010\n";
-const char var7f1ba15c[] = "%03d\n";
-const char var7f1ba164[] = "%s";
-const char var7f1ba168[] = "%s";
-const char var7f1ba16c[] = "%s";
-const char var7f1ba170[] = "%s";
-const char var7f1ba174[] = "%s";
-const char var7f1ba178[] = "\n";
+bool frGetFeedback(char *scorebuffer, char *zonebuffer, char *extrabuffer)
+{
+	u32 texts[] = {
+		L_MISC_423, // "ZONE 3"
+		L_MISC_424, // "ZONE 2"
+		L_MISC_425, // "ZONE 1"
+		L_MISC_426, // "BULL'S-EYE"
+		L_MISC_427, // "EXPLODED"
+	};
 
-u32 var800898c8jf[] = {
-	L_MISC_423, // "ZONE 3"
-	L_MISC_424, // "ZONE 2"
-	L_MISC_425, // "ZONE 1"
-	L_MISC_426, // "BULL'S-EYE"
-	L_MISC_427, // "EXPLODED"
-};
+	sprintf(extrabuffer, "");
 
-GLOBAL_ASM(
-glabel frGetFeedback
-.late_rodata
-glabel var7f1ba70cjf
-.word 0x7f1a36ac
-.word 0x7f1a36d0
-.word 0x7f1a3760
-.word 0x7f1a3760
-.word 0x7f1a36f4
-.word 0x7f1a3760
-.word 0x7f1a3760
-.word 0x7f1a3760
-.word 0x7f1a3760
-.word 0x7f1a3718
-.word 0x7f1a373c
-.text
-/*  f1a35a8:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f1a35ac:	3c0f8009 */ 	lui	$t7,0x8009
-/*  f1a35b0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a35b4:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f1a35b8:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f1a35bc:	25ef92c8 */ 	addiu	$t7,$t7,-27960
-/*  f1a35c0:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f1a35c4:	27ae0024 */ 	addiu	$t6,$sp,0x24
-/*  f1a35c8:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f1a35cc:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f1a35d0:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f1a35d4:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f1a35d8:	8de8000c */ 	lw	$t0,0xc($t7)
-/*  f1a35dc:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f1a35e0:	8de10010 */ 	lw	$at,0x10($t7)
-/*  f1a35e4:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a35e8:	24a5a150 */ 	addiu	$a1,$a1,-24240
-/*  f1a35ec:	00c02025 */ 	move	$a0,$a2
-/*  f1a35f0:	adc8000c */ 	sw	$t0,0xc($t6)
-/*  f1a35f4:	0c004d95 */ 	jal	sprintf
-/*  f1a35f8:	adc10010 */ 	sw	$at,0x10($t6)
-/*  f1a35fc:	3c03800b */ 	lui	$v1,0x800b
-/*  f1a3600:	2463d750 */ 	addiu	$v1,$v1,-10416
-/*  f1a3604:	90640471 */ 	lbu	$a0,0x471($v1)
-/*  f1a3608:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f1a360c:	3c0a800a */ 	lui	$t2,0x800a
-/*  f1a3610:	10800059 */ 	beqz	$a0,.JF0f1a3778
-/*  f1a3614:	00001025 */ 	move	$v0,$zero
-/*  f1a3618:	80690472 */ 	lb	$t1,0x472($v1)
-/*  f1a361c:	8d4aa668 */ 	lw	$t2,-0x5998($t2)
-/*  f1a3620:	00001025 */ 	move	$v0,$zero
-/*  f1a3624:	2401000b */ 	li	$at,0xb
-/*  f1a3628:	012a5823 */ 	subu	$t3,$t1,$t2
-/*  f1a362c:	a06b0472 */ 	sb	$t3,0x472($v1)
-/*  f1a3630:	806c0472 */ 	lb	$t4,0x472($v1)
-/*  f1a3634:	1d800004 */ 	bgtz	$t4,.JF0f1a3648
-/*  f1a3638:	00000000 */ 	nop
-/*  f1a363c:	a0600471 */ 	sb	$zero,0x471($v1)
-/*  f1a3640:	1000004d */ 	b	.JF0f1a3778
-/*  f1a3644:	a0600472 */ 	sb	$zero,0x472($v1)
-.JF0f1a3648:
-/*  f1a3648:	14810008 */ 	bne	$a0,$at,.JF0f1a366c
-/*  f1a364c:	00803025 */ 	move	$a2,$a0
-/*  f1a3650:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a3654:	24a5a154 */ 	addiu	$a1,$a1,-24236
-/*  f1a3658:	0c004d95 */ 	jal	sprintf
-/*  f1a365c:	00e02025 */ 	move	$a0,$a3
-/*  f1a3660:	3c03800b */ 	lui	$v1,0x800b
-/*  f1a3664:	10000007 */ 	b	.JF0f1a3684
-/*  f1a3668:	2463d750 */ 	addiu	$v1,$v1,-10416
-.JF0f1a366c:
-/*  f1a366c:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a3670:	24a5a15c */ 	addiu	$a1,$a1,-24228
-/*  f1a3674:	0c004d95 */ 	jal	sprintf
-/*  f1a3678:	00e02025 */ 	move	$a0,$a3
-/*  f1a367c:	3c03800b */ 	lui	$v1,0x800b
-/*  f1a3680:	2463d750 */ 	addiu	$v1,$v1,-10416
-.JF0f1a3684:
-/*  f1a3684:	906d0471 */ 	lbu	$t5,0x471($v1)
-/*  f1a3688:	25b9ffff */ 	addiu	$t9,$t5,-1
-/*  f1a368c:	2f21000b */ 	sltiu	$at,$t9,0xb
-/*  f1a3690:	10200033 */ 	beqz	$at,.JF0f1a3760
-/*  f1a3694:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f1a3698:	3c017f1c */ 	lui	$at,0x7f1c
-/*  f1a369c:	00390821 */ 	addu	$at,$at,$t9
-/*  f1a36a0:	8c39a70c */ 	lw	$t9,-0x58f4($at)
-/*  f1a36a4:	03200008 */ 	jr	$t9
-/*  f1a36a8:	00000000 */ 	nop
-/*  f1a36ac:	0fc5baa5 */ 	jal	langGet
-/*  f1a36b0:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f1a36b4:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a36b8:	24a5a164 */ 	addiu	$a1,$a1,-24220
-/*  f1a36bc:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f1a36c0:	0c004d95 */ 	jal	sprintf
-/*  f1a36c4:	00403025 */ 	move	$a2,$v0
-/*  f1a36c8:	1000002b */ 	b	.JF0f1a3778
-/*  f1a36cc:	24020001 */ 	li	$v0,0x1
-/*  f1a36d0:	0fc5baa5 */ 	jal	langGet
-/*  f1a36d4:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f1a36d8:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a36dc:	24a5a168 */ 	addiu	$a1,$a1,-24216
-/*  f1a36e0:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f1a36e4:	0c004d95 */ 	jal	sprintf
-/*  f1a36e8:	00403025 */ 	move	$a2,$v0
-/*  f1a36ec:	10000022 */ 	b	.JF0f1a3778
-/*  f1a36f0:	24020001 */ 	li	$v0,0x1
-/*  f1a36f4:	0fc5baa5 */ 	jal	langGet
-/*  f1a36f8:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f1a36fc:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a3700:	24a5a16c */ 	addiu	$a1,$a1,-24212
-/*  f1a3704:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f1a3708:	0c004d95 */ 	jal	sprintf
-/*  f1a370c:	00403025 */ 	move	$a2,$v0
-/*  f1a3710:	10000019 */ 	b	.JF0f1a3778
-/*  f1a3714:	24020001 */ 	li	$v0,0x1
-/*  f1a3718:	0fc5baa5 */ 	jal	langGet
-/*  f1a371c:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f1a3720:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a3724:	24a5a170 */ 	addiu	$a1,$a1,-24208
-/*  f1a3728:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f1a372c:	0c004d95 */ 	jal	sprintf
-/*  f1a3730:	00403025 */ 	move	$a2,$v0
-/*  f1a3734:	10000010 */ 	b	.JF0f1a3778
-/*  f1a3738:	24020001 */ 	li	$v0,0x1
-/*  f1a373c:	0fc5baa5 */ 	jal	langGet
-/*  f1a3740:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*  f1a3744:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a3748:	24a5a174 */ 	addiu	$a1,$a1,-24204
-/*  f1a374c:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f1a3750:	0c004d95 */ 	jal	sprintf
-/*  f1a3754:	00403025 */ 	move	$a2,$v0
-/*  f1a3758:	10000007 */ 	b	.JF0f1a3778
-/*  f1a375c:	24020001 */ 	li	$v0,0x1
-.JF0f1a3760:
-/*  f1a3760:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a3764:	24a5a178 */ 	addiu	$a1,$a1,-24200
-/*  f1a3768:	0c004d95 */ 	jal	sprintf
-/*  f1a376c:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f1a3770:	10000001 */ 	b	.JF0f1a3778
-/*  f1a3774:	24020001 */ 	li	$v0,0x1
-.JF0f1a3778:
-/*  f1a3778:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a377c:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f1a3780:	03e00008 */ 	jr	$ra
-/*  f1a3784:	00000000 */ 	nop
-);
+	if (g_FrData.feedbackzone) {
+		g_FrData.feedbackttl -= g_Vars.lvupdate240_60;
+
+		if (g_FrData.feedbackttl <= 0) {
+			g_FrData.feedbackzone = 0;
+			g_FrData.feedbackttl = 0;
+			return false;
+		}
+
+		if (g_FrData.feedbackzone == FRZONE_EXPLODE) {
+			sprintf(scorebuffer, "010\n");
+		} else {
+			sprintf(scorebuffer, "%03d\n", g_FrData.feedbackzone);
+		}
+
+		switch (g_FrData.feedbackzone) {
+		case FRZONE_RING3:
+			sprintf(zonebuffer, "%s", langGet(texts[0]));
+			return true;
+		case FRZONE_RING2:
+			sprintf(zonebuffer, "%s", langGet(texts[1]));
+			return true;
+		case FRZONE_RING1:
+			sprintf(zonebuffer, "%s", langGet(texts[2]));
+			return true;
+		case FRZONE_BULLSEYE:
+			sprintf(zonebuffer, "%s", langGet(texts[3]));
+			return true;
+		case FRZONE_EXPLODE:
+			sprintf(zonebuffer, "%s", langGet(texts[4]));
+			return true;
+		}
+
+		sprintf(zonebuffer, "\n");
+		return true;
+	}
+
+	return false;
+}
 #else
 bool frGetFeedback(char *scorebuffer, char *zonebuffer)
 {
