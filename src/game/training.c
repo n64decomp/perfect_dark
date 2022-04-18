@@ -2306,38 +2306,24 @@ void frHideAllTargets(void)
 	}
 }
 
-struct pospad {
-	struct coord pos;
-	struct pad pad;
-};
-
-#if VERSION >= VERSION_NTSC_1_0
-/**
- * About pospad:
- * This function has a coord struct and a pad struct next to each other in the
- * stack. When using separate variables for these a mismatched is introduced
- * because the compiler stores the pos fields in callee-save fp registers
- * instead of using the stack. It can do this because pos is not referenced by
- * its address anywhere.
- *
- * Combining the two into a single struct is probably not how the original
- * source does it, but it forces the stack to be used for pos and is the only
- * way I've found that matches.
- */
 void frInitTargets(void)
 {
 	s32 count = 0;
 	s32 i;
 	struct prop *prop;
 	struct defaultobj *obj;
-	struct pospad pospad;
+	struct pad pad;
+	struct coord pos;
 	Mtxf sp144;
 	f32 sp108[3][3];
 
 	for (i = 0; i < ARRAYCOUNT(g_FrData.targets); i++) {
 		prop = g_FrData.targets[i].prop;
 
-		if (prop) {
+#if VERSION >= VERSION_NTSC_1_0
+		if (prop)
+#endif
+		{
 			obj = prop->obj;
 
 			objFree(obj, false, true);
@@ -2357,19 +2343,22 @@ void frInitTargets(void)
 					g_FrData.targets[i].active = false;
 				}
 
-				padUnpack(g_FrPads[g_FrData.targets[i].frpadindex], PADFIELD_POS, &pospad.pad);
+				padUnpack(g_FrPads[g_FrData.targets[i].frpadindex], PADFIELD_POS, &pad);
 
-				pospad.pos.x = pospad.pad.pos.x;
-				pospad.pos.y = pospad.pad.pos.y;
-				pospad.pos.z = pospad.pad.pos.z;
-				pospad.pos.z += 6.0f * i;
+				pos.f[0] = pad.pos.f[0];
+				pos.f[1] = pad.pos.f[1];
+#if VERSION >= VERSION_NTSC_1_0
+				pos.f[2] = pad.pos.f[2] + 6.0f * i;
+#else
+				pos.f[2] = pad.pos.f[2];
+#endif
 
 				frExecuteTargetScript(i);
 
 				if (g_FrData.targets[i].travelspeed == -1) {
-					pospad.pos.x = g_FrData.targets[i].dstpos.x;
-					pospad.pos.y = g_FrData.targets[i].dstpos.y;
-					pospad.pos.z = g_FrData.targets[i].dstpos.z;
+					pos.x = g_FrData.targets[i].dstpos.x;
+					pos.y = g_FrData.targets[i].dstpos.y;
+					pos.z = g_FrData.targets[i].dstpos.z;
 				}
 
 				count++;
@@ -2378,9 +2367,17 @@ void frInitTargets(void)
 			}
 
 			if (obj->flags2 & OBJFLAG2_INVISIBLE) {
-				pospad.pos.x = 0.0f;
-				pospad.pos.y = 5000.0f;
-				pospad.pos.z = 6.0f * i;
+#if VERSION < VERSION_NTSC_1_0
+				padUnpack(g_FrPads[g_FrData.targets[i].frpadindex], PADFIELD_POS, &pad);
+
+				pos.x = 0.0f;
+				pos.y = 5000.0f;
+				pos.z = 0.0f;
+#else
+				pos.x = 0.0f;
+				pos.y = 5000.0f;
+				pos.z = 6.0f * i;
+#endif
 			}
 
 			if (g_FrData.targets[i].flags & FRTARGETFLAG_SPAWNFACINGAWAY) {
@@ -2394,201 +2391,14 @@ void frInitTargets(void)
 			mtx4ToMtx3(&sp144, sp108);
 			mtx3Copy(sp108, obj->realrot);
 
-			prop->pos.x = pospad.pos.x;
-			prop->pos.y = pospad.pos.y;
-			prop->pos.z = pospad.pos.z;
+			prop->pos.x = pos.x;
+			prop->pos.y = pos.y;
+			prop->pos.z = pos.z;
 
 			func0f069c70(obj, true, false);
 		}
 	}
 }
-#else
-GLOBAL_ASM(
-glabel frInitTargets
-.late_rodata
-glabel var7f1b3a40
-.word 0x459c4000
-glabel var7f1b3a44
-.word 0x40490fdb
-.text
-/*  f198464:	27bdfec8 */ 	addiu	$sp,$sp,-312
-/*  f198468:	f7ba0030 */ 	sdc1	$f26,0x30($sp)
-/*  f19846c:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f198470:	c43a3a40 */ 	lwc1	$f26,0x3a40($at)
-/*  f198474:	f7b80028 */ 	sdc1	$f24,0x28($sp)
-/*  f198478:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f19847c:	afb70054 */ 	sw	$s7,0x54($sp)
-/*  f198480:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f198484:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*  f198488:	4481c000 */ 	mtc1	$at,$f24
-/*  f19848c:	afbe0058 */ 	sw	$s8,0x58($sp)
-/*  f198490:	afb60050 */ 	sw	$s6,0x50($sp)
-/*  f198494:	afb5004c */ 	sw	$s5,0x4c($sp)
-/*  f198498:	afb40048 */ 	sw	$s4,0x48($sp)
-/*  f19849c:	afb30044 */ 	sw	$s3,0x44($sp)
-/*  f1984a0:	f7b60020 */ 	sdc1	$f22,0x20($sp)
-/*  f1984a4:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f1984a8:	3c10800b */ 	lui	$s0,0x800b
-/*  f1984ac:	3c178009 */ 	lui	$s7,0x8009
-/*  f1984b0:	4480a000 */ 	mtc1	$zero,$f20
-/*  f1984b4:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*  f1984b8:	afb20040 */ 	sw	$s2,0x40($sp)
-/*  f1984bc:	afb1003c */ 	sw	$s1,0x3c($sp)
-/*  f1984c0:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f1984c4:	26f7af84 */ 	addiu	$s7,$s7,-20604
-/*  f1984c8:	261015d0 */ 	addiu	$s0,$s0,0x15d0
-/*  f1984cc:	c4363a44 */ 	lwc1	$f22,0x3a44($at)
-/*  f1984d0:	00009825 */ 	or	$s3,$zero,$zero
-/*  f1984d4:	27b40088 */ 	addiu	$s4,$sp,0x88
-/*  f1984d8:	3c160008 */ 	lui	$s6,0x8
-/*  f1984dc:	27be00d4 */ 	addiu	$s8,$sp,0xd4
-.NB0f1984e0:
-/*  f1984e0:	8e120014 */ 	lw	$s2,0x14($s0)
-/*  f1984e4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f1984e8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f1984ec:	8e510004 */ 	lw	$s1,0x4($s2)
-/*  f1984f0:	0fc1a7e4 */ 	jal	objFree
-/*  f1984f4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f1984f8:	a620004c */ 	sh	$zero,0x4c($s1)
-/*  f1984fc:	a6400002 */ 	sh	$zero,0x2($s2)
-/*  f198500:	8e0e0010 */ 	lw	$t6,0x10($s0)
-/*  f198504:	000e7fc2 */ 	srl	$t7,$t6,0x1f
-/*  f198508:	51e00038 */ 	beqzl	$t7,.NB0f1985ec
-/*  f19850c:	8e2e000c */ 	lw	$t6,0xc($s1)
-/*  f198510:	92180010 */ 	lbu	$t8,0x10($s0)
-/*  f198514:	3c0a800b */ 	lui	$t2,0x800b
-/*  f198518:	3308ffef */ 	andi	$t0,$t8,0xffef
-/*  f19851c:	a2080010 */ 	sb	$t0,0x10($s0)
-/*  f198520:	310900df */ 	andi	$t1,$t0,0xdf
-/*  f198524:	a2090010 */ 	sb	$t1,0x10($s0)
-/*  f198528:	914a15d0 */ 	lbu	$t2,0x15d0($t2)
-/*  f19852c:	02aa082a */ 	slt	$at,$s5,$t2
-/*  f198530:	5020000b */ 	beqzl	$at,.NB0f198560
-/*  f198534:	8e38000c */ 	lw	$t8,0xc($s1)
-/*  f198538:	8e2b000c */ 	lw	$t3,0xc($s1)
-/*  f19853c:	3c01fff7 */ 	lui	$at,0xfff7
-/*  f198540:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f198544:	01616024 */ 	and	$t4,$t3,$at
-/*  f198548:	ae2c000c */ 	sw	$t4,0xc($s1)
-/*  f19854c:	920e0010 */ 	lbu	$t6,0x10($s0)
-/*  f198550:	35cf0040 */ 	ori	$t7,$t6,0x40
-/*  f198554:	10000007 */ 	beqz	$zero,.NB0f198574
-/*  f198558:	a20f0010 */ 	sb	$t7,0x10($s0)
-/*  f19855c:	8e38000c */ 	lw	$t8,0xc($s1)
-.NB0f198560:
-/*  f198560:	0316c825 */ 	or	$t9,$t8,$s6
-/*  f198564:	ae39000c */ 	sw	$t9,0xc($s1)
-/*  f198568:	92080010 */ 	lbu	$t0,0x10($s0)
-/*  f19856c:	3109ffbf */ 	andi	$t1,$t0,0xffbf
-/*  f198570:	a2090010 */ 	sb	$t1,0x10($s0)
-.NB0f198574:
-/*  f198574:	920a0010 */ 	lbu	$t2,0x10($s0)
-/*  f198578:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f19857c:	03c03025 */ 	or	$a2,$s8,$zero
-/*  f198580:	314b0003 */ 	andi	$t3,$t2,0x3
-/*  f198584:	000b6040 */ 	sll	$t4,$t3,0x1
-/*  f198588:	02ec6821 */ 	addu	$t5,$s7,$t4
-/*  f19858c:	0fc43fc4 */ 	jal	padUnpack
-/*  f198590:	95a40000 */ 	lhu	$a0,0x0($t5)
-/*  f198594:	c7a400d4 */ 	lwc1	$f4,0xd4($sp)
-/*  f198598:	c7a600d8 */ 	lwc1	$f6,0xd8($sp)
-/*  f19859c:	c7a800dc */ 	lwc1	$f8,0xdc($sp)
-/*  f1985a0:	02602025 */ 	or	$a0,$s3,$zero
-/*  f1985a4:	e7a400c8 */ 	swc1	$f4,0xc8($sp)
-/*  f1985a8:	e7a600cc */ 	swc1	$f6,0xcc($sp)
-/*  f1985ac:	0fc66032 */ 	jal	frExecuteTargetScript
-/*  f1985b0:	e7a800d0 */ 	swc1	$f8,0xd0($sp)
-/*  f1985b4:	c60a002c */ 	lwc1	$f10,0x2c($s0)
-/*  f1985b8:	460ac032 */ 	c.eq.s	$f24,$f10
-/*  f1985bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1985c0:	45000007 */ 	bc1f	.NB0f1985e0
-/*  f1985c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1985c8:	c6100018 */ 	lwc1	$f16,0x18($s0)
-/*  f1985cc:	c612001c */ 	lwc1	$f18,0x1c($s0)
-/*  f1985d0:	c6040020 */ 	lwc1	$f4,0x20($s0)
-/*  f1985d4:	e7b000c8 */ 	swc1	$f16,0xc8($sp)
-/*  f1985d8:	e7b200cc */ 	swc1	$f18,0xcc($sp)
-/*  f1985dc:	e7a400d0 */ 	swc1	$f4,0xd0($sp)
-.NB0f1985e0:
-/*  f1985e0:	10000004 */ 	beqz	$zero,.NB0f1985f4
-/*  f1985e4:	26b50001 */ 	addiu	$s5,$s5,0x1
-/*  f1985e8:	8e2e000c */ 	lw	$t6,0xc($s1)
-.NB0f1985ec:
-/*  f1985ec:	01d67825 */ 	or	$t7,$t6,$s6
-/*  f1985f0:	ae2f000c */ 	sw	$t7,0xc($s1)
-.NB0f1985f4:
-/*  f1985f4:	8e38000c */ 	lw	$t8,0xc($s1)
-/*  f1985f8:	0316c824 */ 	and	$t9,$t8,$s6
-/*  f1985fc:	5320000d */ 	beqzl	$t9,.NB0f198634
-/*  f198600:	920c0040 */ 	lbu	$t4,0x40($s0)
-/*  f198604:	92080010 */ 	lbu	$t0,0x10($s0)
-/*  f198608:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f19860c:	03c03025 */ 	or	$a2,$s8,$zero
-/*  f198610:	31090003 */ 	andi	$t1,$t0,0x3
-/*  f198614:	00095040 */ 	sll	$t2,$t1,0x1
-/*  f198618:	02ea5821 */ 	addu	$t3,$s7,$t2
-/*  f19861c:	0fc43fc4 */ 	jal	padUnpack
-/*  f198620:	95640000 */ 	lhu	$a0,0x0($t3)
-/*  f198624:	e7b400c8 */ 	swc1	$f20,0xc8($sp)
-/*  f198628:	e7ba00cc */ 	swc1	$f26,0xcc($sp)
-/*  f19862c:	e7b400d0 */ 	swc1	$f20,0xd0($sp)
-/*  f198630:	920c0040 */ 	lbu	$t4,0x40($s0)
-.NB0f198634:
-/*  f198634:	02802825 */ 	or	$a1,$s4,$zero
-/*  f198638:	318d0010 */ 	andi	$t5,$t4,0x10
-/*  f19863c:	11a00006 */ 	beqz	$t5,.NB0f198658
-/*  f198640:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f198644:	4600a306 */ 	mov.s	$f12,$f20
-/*  f198648:	0c005cc1 */ 	jal	mtx4LoadYRotation
-/*  f19864c:	02802825 */ 	or	$a1,$s4,$zero
-/*  f198650:	10000003 */ 	beqz	$zero,.NB0f198660
-/*  f198654:	e6160038 */ 	swc1	$f22,0x38($s0)
-.NB0f198658:
-/*  f198658:	0c005cc1 */ 	jal	mtx4LoadYRotation
-/*  f19865c:	4600b306 */ 	mov.s	$f12,$f22
-.NB0f198660:
-/*  f198660:	8e2e0018 */ 	lw	$t6,0x18($s1)
-/*  f198664:	02802825 */ 	or	$a1,$s4,$zero
-/*  f198668:	0c005b7d */ 	jal	mtx00015f04
-/*  f19866c:	c5cc0014 */ 	lwc1	$f12,0x14($t6)
-/*  f198670:	02802025 */ 	or	$a0,$s4,$zero
-/*  f198674:	0c005b24 */ 	jal	mtx4ToMtx3
-/*  f198678:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f19867c:	27a40064 */ 	addiu	$a0,$sp,0x64
-/*  f198680:	0c005af2 */ 	jal	mtx3Copy
-/*  f198684:	2625001c */ 	addiu	$a1,$s1,0x1c
-/*  f198688:	c7a600c8 */ 	lwc1	$f6,0xc8($sp)
-/*  f19868c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f198690:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f198694:	e6460008 */ 	swc1	$f6,0x8($s2)
-/*  f198698:	c7a800cc */ 	lwc1	$f8,0xcc($sp)
-/*  f19869c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1986a0:	e648000c */ 	swc1	$f8,0xc($s2)
-/*  f1986a4:	c7aa00d0 */ 	lwc1	$f10,0xd0($sp)
-/*  f1986a8:	0fc1a3b7 */ 	jal	func0f069c70
-/*  f1986ac:	e64a0010 */ 	swc1	$f10,0x10($s2)
-/*  f1986b0:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f1986b4:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f1986b8:	1661ff89 */ 	bne	$s3,$at,.NB0f1984e0
-/*  f1986bc:	2610003c */ 	addiu	$s0,$s0,0x3c
-/*  f1986c0:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*  f1986c4:	d7b40018 */ 	ldc1	$f20,0x18($sp)
-/*  f1986c8:	d7b60020 */ 	ldc1	$f22,0x20($sp)
-/*  f1986cc:	d7b80028 */ 	ldc1	$f24,0x28($sp)
-/*  f1986d0:	d7ba0030 */ 	ldc1	$f26,0x30($sp)
-/*  f1986d4:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f1986d8:	8fb1003c */ 	lw	$s1,0x3c($sp)
-/*  f1986dc:	8fb20040 */ 	lw	$s2,0x40($sp)
-/*  f1986e0:	8fb30044 */ 	lw	$s3,0x44($sp)
-/*  f1986e4:	8fb40048 */ 	lw	$s4,0x48($sp)
-/*  f1986e8:	8fb5004c */ 	lw	$s5,0x4c($sp)
-/*  f1986ec:	8fb60050 */ 	lw	$s6,0x50($sp)
-/*  f1986f0:	8fb70054 */ 	lw	$s7,0x54($sp)
-/*  f1986f4:	8fbe0058 */ 	lw	$s8,0x58($sp)
-/*  f1986f8:	03e00008 */ 	jr	$ra
-/*  f1986fc:	27bd0138 */ 	addiu	$sp,$sp,0x138
-);
-#endif
 
 void frCloseAndLockDoor(void)
 {
