@@ -118,19 +118,20 @@ void frGetGoalScoreText(char *buffer1, char *buffer2);
 bool frGetMinAccuracy(char *buffer1, f32 accuracy, char *buffer2);
 bool frGetHudMiddleSubtext(char *buffer1, char *buffer2);
 bool frGetFeedback(char *score, char *zone, char *extrabuffer);
+Gfx *frRenderHudElement(Gfx *gdl, s32 x, s32 y, char *string1, char *string2, char *string3, u32 colour, u8 alpha);
 #else
 void frGetGoalTargetsText(char *buffer);
 void frGetGoalScoreText(char *buffer);
 bool frGetMinAccuracy(char *buffer, f32 accuracy);
 bool frGetHudMiddleSubtext(char *buffer);
 bool frGetFeedback(char *score, char *zone);
+Gfx *frRenderHudElement(Gfx *gdl, s32 x, s32 y, char *string1, char *string2, u32 colour, u8 alpha);
 #endif
 
 void frGetTargetsDestroyedValue(char *buffer);
 void frGetScoreValue(char *buffer);
 f32 frGetAccuracy(char *buffer);
 bool frFormatTime(char *buffer);
-Gfx *frRenderHudElement(Gfx *gdl, s32 x, s32 y, char *string1, char *string2, u32 colour, u8 alpha);
 Gfx *frRenderHud(Gfx *gdl);
 
 #endif
