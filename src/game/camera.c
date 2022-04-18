@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/atan2f.h"
+#include "game/camera.h"
 #include "game/tex.h"
 #include "game/playermgr.h"
 #include "game/bg.h"
@@ -144,7 +145,7 @@ void cam0f0b4d04(struct coord *in, f32 *out)
 		- in->x * value * player->c_recipscalex;
 }
 
-void cam0f0b4d68(struct coord *in, struct coord *out)
+void cam0f0b4d68(struct coord *in, f32 out[2])
 {
 	struct player *player = g_Vars.currentplayer;
 	f32 value;
@@ -155,11 +156,8 @@ void cam0f0b4d68(struct coord *in, struct coord *out)
 		value = 1.0f / in->z;
 	}
 
-	out->y = in->y * value * player->c_recipscaley
-		+ (player->c_screentop + player->c_halfheight);
-
-	out->x = (player->c_screenleft + player->c_halfwidth) -
-		in->x * value * player->c_recipscalex;
+	out[1] = in->y * value * player->c_recipscaley + (player->c_screentop + player->c_halfheight);
+	out[0] = (player->c_screenleft + player->c_halfwidth) - in->x * value * player->c_recipscalex;
 }
 
 void cam0f0b4dec(struct coord *in, f32 out[2])
@@ -171,11 +169,8 @@ void cam0f0b4dec(struct coord *in, f32 out[2])
 		value = -value;
 	}
 
-	out[1] = in->y * value * player->c_recipscaley +
-		(player->c_screentop + player->c_halfheight);
-
-	out[0] = (player->c_screenleft + player->c_halfwidth)
-		- in->x * value * player->c_recipscalex;
+	out[1] = in->y * value * player->c_recipscaley + (player->c_screentop + player->c_halfheight);
+	out[0] = (player->c_screenleft + player->c_halfwidth) - in->x * value * player->c_recipscalex;
 }
 
 void cam0f0b4e68(struct coord *in, f32 divisor, struct coord *out)
@@ -1610,3 +1605,50 @@ glabel cam0f0b6260
 /*  f0b63a0:	03e00008 */ 	jr	$ra
 /*  f0b63a4:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
+
+// Mismatch: Too much compiler-managed stack
+//bool cam0f0b6260(s16 *rooms, struct coord *coord, f32 arg2)
+//{
+//	s8 hasdata = false;
+//	s16 room;
+//	s32 i;
+//	struct var800a4640_00 *thisthing;
+//	struct var800a4640_00 thing; // 34
+//
+//	for (i = 0, room = rooms[0]; room != -1; i++, room = rooms[i]) {
+//		if (g_Rooms[room].flags & ROOMFLAG_VISIBLEBYPLAYER) {
+//			thisthing = func0f158140(room);
+//
+//			if (hasdata == false) {
+//				thing.box.xmin = thisthing->box.xmin;
+//				thing.box.ymin = thisthing->box.ymin;
+//				thing.box.xmax = thisthing->box.xmax;
+//				thing.box.ymax = thisthing->box.ymax;
+//			} else {
+//				if (thisthing->box.xmin < thing.box.xmin) {
+//					thing.box.xmin = thisthing->box.xmin;
+//				}
+//
+//				if (thisthing->box.ymin < thing.box.ymin) {
+//					thing.box.ymin = thisthing->box.ymin;
+//				}
+//
+//				if (thisthing->box.xmax > thing.box.xmax) {
+//					thing.box.xmax = thisthing->box.xmax;
+//				}
+//
+//				if (thisthing->box.ymax > thing.box.ymax) {
+//					thing.box.ymax = thisthing->box.ymax;
+//				}
+//			}
+//
+//			hasdata = true;
+//		}
+//	}
+//
+//	if (!hasdata) {
+//		return false;
+//	}
+//
+//	return cam0f0b5d38(coord, arg2, &thing);
+//}
