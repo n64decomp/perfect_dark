@@ -1710,7 +1710,6 @@ struct menudialogdef g_FilemgrDuplicateNameMenuDialog = {
 };
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
 char *filemgrMenuTextLocationName2(struct menuitem *item)
 {
 	u16 names[] = {
@@ -1726,78 +1725,18 @@ char *filemgrMenuTextLocationName2(struct menuitem *item)
 		return NULL;
 	}
 
+#if VERSION >= VERSION_NTSC_1_0
 	if (g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->spacesfree[item->param] < 0) {
 		return langGet(names[5]);
 	}
+#else
+	if (g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->spacesfree[item->param] <= 0) {
+		return langGet(names[5]);
+	}
+#endif
 
 	return langGet(names[item->param]);
 }
-#else
-u16 names[] = {
-	L_OPTIONS_112, // "Controller Pak 1"
-	L_OPTIONS_113, // "Controller Pak 2"
-	L_OPTIONS_114, // "Controller Pak 3"
-	L_OPTIONS_115, // "Controller Pak 4"
-	L_OPTIONS_111, // "Game Pak"
-	L_OPTIONS_004, // ""
-};
-
-GLOBAL_ASM(
-glabel filemgrMenuTextLocationName2
-/*  f105228:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f10522c:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f105230:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f105234:	25ce6bd8 */ 	addiu	$t6,$t6,0x6bd8
-/*  f105238:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f10523c:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f105240:	3c088007 */ 	lui	$t0,0x8007
-/*  f105244:	aca10000 */ 	sw	$at,0x0($a1)
-/*  f105248:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f10524c:	3c0a800a */ 	lui	$t2,0x800a
-/*  f105250:	3c028007 */ 	lui	$v0,0x8007
-/*  f105254:	acb90004 */ 	sw	$t9,0x4($a1)
-/*  f105258:	8dc10008 */ 	lw	$at,0x8($t6)
-/*  f10525c:	aca10008 */ 	sw	$at,0x8($a1)
-/*  f105260:	8d083af0 */ 	lw	$t0,0x3af0($t0)
-/*  f105264:	000848c0 */ 	sll	$t1,$t0,0x3
-/*  f105268:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f10526c:	000948c0 */ 	sll	$t1,$t1,0x3
-/*  f105270:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f105274:	00094900 */ 	sll	$t1,$t1,0x4
-/*  f105278:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f10527c:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f105280:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f105284:	914a355b */ 	lbu	$t2,0x355b($t2)
-/*  f105288:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f10528c:	004b1021 */ 	addu	$v0,$v0,$t3
-/*  f105290:	8c427f60 */ 	lw	$v0,0x7f60($v0)
-/*  f105294:	54400004 */ 	bnezl	$v0,.NB0f1052a8
-/*  f105298:	90830001 */ 	lbu	$v1,0x1($a0)
-/*  f10529c:	1000000e */ 	beqz	$zero,.NB0f1052d8
-/*  f1052a0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1052a4:	90830001 */ 	lbu	$v1,0x1($a0)
-.NB0f1052a8:
-/*  f1052a8:	00436021 */ 	addu	$t4,$v0,$v1
-/*  f1052ac:	818d02d2 */ 	lb	$t5,0x2d2($t4)
-/*  f1052b0:	0003c040 */ 	sll	$t8,$v1,0x1
-/*  f1052b4:	00b87821 */ 	addu	$t7,$a1,$t8
-/*  f1052b8:	1da00005 */ 	bgtz	$t5,.NB0f1052d0
-/*  f1052bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1052c0:	0fc5a4dd */ 	jal	langGet
-/*  f1052c4:	97a4002e */ 	lhu	$a0,0x2e($sp)
-/*  f1052c8:	10000004 */ 	beqz	$zero,.NB0f1052dc
-/*  f1052cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f1052d0:
-/*  f1052d0:	0fc5a4dd */ 	jal	langGet
-/*  f1052d4:	95e40000 */ 	lhu	$a0,0x0($t7)
-.NB0f1052d8:
-/*  f1052d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f1052dc:
-/*  f1052dc:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f1052e0:	03e00008 */ 	jr	$ra
-/*  f1052e4:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
 
 char *filemgrMenuTextSaveLocationSpaces(struct menuitem *item)
 {
