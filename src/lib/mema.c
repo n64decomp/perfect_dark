@@ -59,7 +59,7 @@ s32 g_MemaHeapSize;
 struct memaheap g_MemaHeap;
 
 #if VERSION == VERSION_PAL_BETA
-u32 var8005f910pb = 1000000;
+u32 g_MemaLeastEverFree = 1000000;
 #endif
 
 void memaSwap(struct memaspace *a, struct memaspace *b)
@@ -246,98 +246,10 @@ void memaReset(void *heapaddr, u32 heapsize)
 	g_MemaHeap.spaces[0].size = g_MemaHeapSize = heapsize;
 
 #if VERSION == VERSION_PAL_BETA
-	var8005f910pb = 1000000;
+	g_MemaLeastEverFree = 1000000;
 #endif
 }
 
-#if VERSION == VERSION_PAL_BETA
-const char var70054900pb[] = "Lev0: %d";
-const char var7005490cpb[] = "Lev1: %d";
-const char var70054918pb[] = "mema: %d (%d)";
-
-GLOBAL_ASM(
-glabel memaPrint
-/*  12b48:	27bdff58 */ 	addiu	$sp,$sp,-168
-/*  12b4c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  12b50:	3c04800a */ 	lui	$a0,0x800a
-/*  12b54:	0c0049e8 */ 	jal	memaDefragPass
-/*  12b58:	2484c1a8 */ 	addiu	$a0,$a0,-15960
-/*  12b5c:	0fc48118 */ 	jal	debugIsMemInfoEnabled
-/*  12b60:	00000000 */ 	nop
-/*  12b64:	10400041 */ 	beqz	$v0,.PB00012c6c
-/*  12b68:	240400ff */ 	li	$a0,0xff
-/*  12b6c:	240500ff */ 	li	$a1,0xff
-/*  12b70:	240600ff */ 	li	$a2,0xff
-/*  12b74:	0c004f62 */ 	jal	dhudSetFgColour
-/*  12b78:	240700ff */ 	li	$a3,0xff
-/*  12b7c:	00002025 */ 	move	$a0,$zero
-/*  12b80:	00002825 */ 	move	$a1,$zero
-/*  12b84:	00003025 */ 	move	$a2,$zero
-/*  12b88:	0c004f71 */ 	jal	dhudSetBgColour
-/*  12b8c:	240700ff */ 	li	$a3,0xff
-/*  12b90:	24040004 */ 	li	$a0,0x4
-/*  12b94:	0c00494d */ 	jal	mempGetPoolFree
-/*  12b98:	00002825 */ 	move	$a1,$zero
-/*  12b9c:	3c057005 */ 	lui	$a1,0x7005
-/*  12ba0:	24a54950 */ 	addiu	$a1,$a1,0x4950
-/*  12ba4:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  12ba8:	0c004e1d */ 	jal	sprintf
-/*  12bac:	00403025 */ 	move	$a2,$v0
-/*  12bb0:	2404001f */ 	li	$a0,0x1f
-/*  12bb4:	0c004f3b */ 	jal	dhudSetPos
-/*  12bb8:	24050001 */ 	li	$a1,0x1
-/*  12bbc:	0c004fc3 */ 	jal	dhudPrintString
-/*  12bc0:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  12bc4:	240e0002 */ 	li	$t6,0x2
-/*  12bc8:	afae009c */ 	sw	$t6,0x9c($sp)
-/*  12bcc:	24040004 */ 	li	$a0,0x4
-/*  12bd0:	0c00494d */ 	jal	mempGetPoolFree
-/*  12bd4:	24050001 */ 	li	$a1,0x1
-/*  12bd8:	3c057005 */ 	lui	$a1,0x7005
-/*  12bdc:	24a5495c */ 	addiu	$a1,$a1,0x495c
-/*  12be0:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  12be4:	0c004e1d */ 	jal	sprintf
-/*  12be8:	00403025 */ 	move	$a2,$v0
-/*  12bec:	2404001f */ 	li	$a0,0x1f
-/*  12bf0:	0c004f3b */ 	jal	dhudSetPos
-/*  12bf4:	8fa5009c */ 	lw	$a1,0x9c($sp)
-/*  12bf8:	0c004fc3 */ 	jal	dhudPrintString
-/*  12bfc:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  12c00:	8faf009c */ 	lw	$t7,0x9c($sp)
-/*  12c04:	25f80001 */ 	addiu	$t8,$t7,0x1
-/*  12c08:	0c004baa */ 	jal	memaGetLongestFree
-/*  12c0c:	afb8009c */ 	sw	$t8,0x9c($sp)
-/*  12c10:	3c198006 */ 	lui	$t9,0x8006
-/*  12c14:	8f39f910 */ 	lw	$t9,-0x6f0($t9)
-/*  12c18:	0059082b */ 	sltu	$at,$v0,$t9
-/*  12c1c:	10200005 */ 	beqz	$at,.PB00012c34
-/*  12c20:	00000000 */ 	nop
-/*  12c24:	0c004baa */ 	jal	memaGetLongestFree
-/*  12c28:	00000000 */ 	nop
-/*  12c2c:	3c018006 */ 	lui	$at,0x8006
-/*  12c30:	ac22f910 */ 	sw	$v0,-0x6f0($at)
-.PB00012c34:
-/*  12c34:	0c004baa */ 	jal	memaGetLongestFree
-/*  12c38:	00000000 */ 	nop
-/*  12c3c:	3c057005 */ 	lui	$a1,0x7005
-/*  12c40:	3c078006 */ 	lui	$a3,0x8006
-/*  12c44:	8ce7f910 */ 	lw	$a3,-0x6f0($a3)
-/*  12c48:	24a54968 */ 	addiu	$a1,$a1,0x4968
-/*  12c4c:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  12c50:	0c004e1d */ 	jal	sprintf
-/*  12c54:	00403025 */ 	move	$a2,$v0
-/*  12c58:	2404001f */ 	li	$a0,0x1f
-/*  12c5c:	0c004f3b */ 	jal	dhudSetPos
-/*  12c60:	8fa5009c */ 	lw	$a1,0x9c($sp)
-/*  12c64:	0c004fc3 */ 	jal	dhudPrintString
-/*  12c68:	27a4001c */ 	addiu	$a0,$sp,0x1c
-.PB00012c6c:
-/*  12c6c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  12c70:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
-/*  12c74:	03e00008 */ 	jr	$ra
-/*  12c78:	00000000 */ 	nop
-);
-#else
 /**
  * Example printout of figures:
  *
@@ -376,7 +288,36 @@ void memaPrint(void)
 
 	memaDefragPass(&g_MemaHeap);
 
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION == VERSION_PAL_BETA
+	if (debugIsMemInfoEnabled()) {
+		dhudSetFgColour(0xff, 0xff, 0xff, 0xff);
+		dhudSetBgColour(0, 0, 0, 0xff);
+
+		sprintf(buffer, "Lev0: %d", mempGetPoolFree(MEMPOOL_STAGE, MEMBANK_ONBOARD));
+
+		dhudSetPos(31, line);
+		dhudPrintString(buffer);
+		line++;
+
+		sprintf(buffer, "Lev1: %d", mempGetPoolFree(MEMPOOL_STAGE, MEMBANK_EXPANSION));
+
+		dhudSetPos(31, line);
+		dhudPrintString(buffer);
+		line++;
+
+		if (memaGetLongestFree() < g_MemaLeastEverFree) {
+			g_MemaLeastEverFree = memaGetLongestFree();
+		}
+
+		sprintf(buffer, "mema: %d (%d)", memaGetLongestFree(), g_MemaLeastEverFree);
+
+		dhudSetPos(31, line);
+		dhudPrintString(buffer);
+		line++;
+	}
+#endif
+
+#if VERSION == VERSION_NTSC_BETA
 	if (debugIsMemInfoEnabled()) {
 		dhudSetFgColour(0xff, 0xff, 0xff, 0xff);
 		dhudSetBgColour(0, 0, 0, 0xff);
@@ -451,7 +392,6 @@ void memaPrint(void)
 	}
 #endif
 }
-#endif
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
