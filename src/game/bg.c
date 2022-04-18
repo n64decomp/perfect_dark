@@ -16265,27 +16265,27 @@ Gfx *func0f164150(Gfx *gdl)
 						value *= 3.0f;
 					}
 
-					if (var8009dd4c + radius < var8009dd40 * g_Rooms[i].centre.f[0]
-							+ var8009dd44 * g_Rooms[i].centre.f[1]
-							+ var8009dd48 * g_Rooms[i].centre.f[2]) {
+					if (var8009dd4c + radius < var8009dd40.f[0] * g_Rooms[i].centre.f[0]
+							+ var8009dd40.f[1] * g_Rooms[i].centre.f[1]
+							+ var8009dd40.f[2] * g_Rooms[i].centre.f[2]) {
 						value *= 1.5f;
 					}
 
-					if (var8009dd5c + radius < var8009dd50 * g_Rooms[i].centre.f[0]
-							+ var8009dd54 * g_Rooms[i].centre.f[1]
-							+ var8009dd58 * g_Rooms[i].centre.f[2]) {
+					if (var8009dd5c + radius < var8009dd50.f[0] * g_Rooms[i].centre.f[0]
+							+ var8009dd50.f[1] * g_Rooms[i].centre.f[1]
+							+ var8009dd50.f[2] * g_Rooms[i].centre.f[2]) {
 						value *= 1.5f;
 					}
 
-					if (var8009dd2c + radius < var8009dd20 * g_Rooms[i].centre.f[0]
-							+ var8009dd24 * g_Rooms[i].centre.f[1]
-							+ var8009dd28 * g_Rooms[i].centre.f[2]) {
+					if (var8009dd2c + radius < var8009dd20.f[0] * g_Rooms[i].centre.f[0]
+							+ var8009dd20.f[1] * g_Rooms[i].centre.f[1]
+							+ var8009dd20.f[2] * g_Rooms[i].centre.f[2]) {
 						value *= 2.0f;
 					}
 
-					if (var8009dd3c + radius < var8009dd30 * g_Rooms[i].centre.f[0]
-							+ var8009dd34 * g_Rooms[i].centre.f[1]
-							+ var8009dd38 * g_Rooms[i].centre.f[2]) {
+					if (var8009dd3c + radius < var8009dd30.f[0] * g_Rooms[i].centre.f[0]
+							+ var8009dd30.f[1] * g_Rooms[i].centre.f[1]
+							+ var8009dd30.f[2] * g_Rooms[i].centre.f[2]) {
 						value *= 2.0f;
 					}
 

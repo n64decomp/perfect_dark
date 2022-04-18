@@ -41,7 +41,7 @@ f32 camGetScreenLeft(void);
 f32 camGetScreenTop(void);
 f32 camGetPerspAspect(void);
 void cam0f0b5838(void);
-bool cam0f0b5b9c(void *arg0, f32 arg1);
+bool cam0f0b5b9c(struct coord *arg0, f32 arg1);
 bool cam0f0b5d38(struct coord *pos, f32 arg1, struct var800a4640_00 *arg2);
 bool cam0f0b6260(s16 *rooms, struct coord *coord, f32 arg2);
 
