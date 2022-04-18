@@ -184,61 +184,18 @@ void cam0f0b4e68(struct coord *in, f32 divisor, struct coord *out)
 	out->x = in->x * (1.0f / divisor) * g_Vars.currentplayer->c_recipscalex;
 }
 
-GLOBAL_ASM(
-glabel cam0f0b4eb8
-.late_rodata
-glabel var7f1ad154
-.word 0x3c0efa35
-.text
-/*  f0b4eb8:	3c017f1b */ 	lui	$at,%hi(var7f1ad154)
-/*  f0b4ebc:	44867000 */ 	mtc1	$a2,$f14
-/*  f0b4ec0:	c424d154 */ 	lwc1	$f4,%lo(var7f1ad154)($at)
-/*  f0b4ec4:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0b4ec8:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0b4ecc:	46047302 */ 	mul.s	$f12,$f14,$f4
-/*  f0b4ed0:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0b4ed4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b4ed8:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f0b4edc:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f0b4ee0:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f0b4ee4:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f0b4ee8:	0c0068f4 */ 	jal	cosf
-/*  f0b4eec:	e7ac0018 */ 	swc1	$f12,0x18($sp)
-/*  f0b4ef0:	c7ac0018 */ 	lwc1	$f12,0x18($sp)
-/*  f0b4ef4:	0c0068f7 */ 	jal	sinf
-/*  f0b4ef8:	e7a0001c */ 	swc1	$f0,0x1c($sp)
-/*  f0b4efc:	8fa20024 */ 	lw	$v0,0x24($sp)
-/*  f0b4f00:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f0b4f04:	c7a6001c */ 	lwc1	$f6,0x1c($sp)
-/*  f0b4f08:	c4421724 */ 	lwc1	$f2,0x1724($v0)
-/*  f0b4f0c:	c46a0008 */ 	lwc1	$f10,0x8($v1)
-/*  f0b4f10:	c4521720 */ 	lwc1	$f18,0x1720($v0)
-/*  f0b4f14:	46023202 */ 	mul.s	$f8,$f6,$f2
-/*  f0b4f18:	c7a6003c */ 	lwc1	$f6,0x3c($sp)
-/*  f0b4f1c:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*  f0b4f20:	46005402 */ 	mul.s	$f16,$f10,$f0
-/*  f0b4f24:	46104303 */ 	div.s	$f12,$f8,$f16
-/*  f0b4f28:	c4680004 */ 	lwc1	$f8,0x4($v1)
-/*  f0b4f2c:	460c9102 */ 	mul.s	$f4,$f18,$f12
-/*  f0b4f30:	c4521710 */ 	lwc1	$f18,0x1710($v0)
-/*  f0b4f34:	46023282 */ 	mul.s	$f10,$f6,$f2
-/*  f0b4f38:	46029180 */ 	add.s	$f6,$f18,$f2
-/*  f0b4f3c:	460c4402 */ 	mul.s	$f16,$f8,$f12
-/*  f0b4f40:	460a2383 */ 	div.s	$f14,$f4,$f10
-/*  f0b4f44:	46068100 */ 	add.s	$f4,$f16,$f6
-/*  f0b4f48:	e4840004 */ 	swc1	$f4,0x4($a0)
-/*  f0b4f4c:	c4700000 */ 	lwc1	$f16,0x0($v1)
-/*  f0b4f50:	c4481720 */ 	lwc1	$f8,0x1720($v0)
-/*  f0b4f54:	c44a170c */ 	lwc1	$f10,0x170c($v0)
-/*  f0b4f58:	46085480 */ 	add.s	$f18,$f10,$f8
-/*  f0b4f5c:	460e8182 */ 	mul.s	$f6,$f16,$f14
-/*  f0b4f60:	46069101 */ 	sub.s	$f4,$f18,$f6
-/*  f0b4f64:	e4840000 */ 	swc1	$f4,0x0($a0)
-/*  f0b4f68:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b4f6c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0b4f70:	03e00008 */ 	jr	$ra
-/*  f0b4f74:	00000000 */ 	nop
-);
+void cam0f0b4eb8(struct coord *arg0, f32 arg1[2], f32 zoom, f32 aspect)
+{
+	f32 f12;
+	f32 f14;
+	struct player *player = g_Vars.currentplayer;
+
+	f12 = cosf(zoom * 0.008726646f) * player->c_halfheight / (sinf(zoom * 0.008726646f) * arg0->f[2]);
+	f14 = f12 * player->c_halfwidth / (aspect * player->c_halfheight);
+
+	arg1[1] = f12 * arg0->f[1] + (player->c_screentop + player->c_halfheight);
+	arg1[0] = player->c_screenleft + player->c_halfwidth - f14 * arg0->f[0];
+}
 
 void camSetUnk1738(void *value)
 {
