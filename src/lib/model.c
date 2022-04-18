@@ -7403,48 +7403,25 @@ void animInit(struct anim *anim)
 	anim->animscale = 1;
 }
 
-GLOBAL_ASM(
-glabel model00023108
-/*    23108:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    2310c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    23110:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    23114:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    23118:	afa70024 */ 	sw	$a3,0x24($sp)
-/*    2311c:	00c02825 */ 	or	$a1,$a2,$zero
-/*    23120:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    23124:	afa60020 */ 	sw	$a2,0x20($sp)
-/*    23128:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*    2312c:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*    23130:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*    23134:	ac450000 */ 	sw	$a1,0x0($v0)
-/*    23138:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*    2313c:	84f80014 */ 	lh	$t8,0x14($a3)
-/*    23140:	8dcf0010 */ 	lw	$t7,0x10($t6)
-/*    23144:	0018c880 */ 	sll	$t9,$t8,0x2
-/*    23148:	01f94021 */ 	addu	$t0,$t7,$t9
-/*    2314c:	ac480004 */ 	sw	$t0,0x4($v0)
-/*    23150:	8ca30000 */ 	lw	$v1,0x0($a1)
-/*    23154:	acc30014 */ 	sw	$v1,0x14($a2)
-/*    23158:	10600006 */ 	beqz	$v1,.L00023174
-/*    2315c:	00602025 */ 	or	$a0,$v1,$zero
-/*    23160:	ac660008 */ 	sw	$a2,0x8($v1)
-.L00023164:
-/*    23164:	8c63000c */ 	lw	$v1,0xc($v1)
-/*    23168:	5460fffe */ 	bnezl	$v1,.L00023164
-/*    2316c:	ac660008 */ 	sw	$a2,0x8($v1)
-/*    23170:	8cc40014 */ 	lw	$a0,0x14($a2)
-.L00023174:
-/*    23174:	0c008ada */ 	jal	modelCalculateRwDataIndexes
-/*    23178:	00000000 */ 	nop
-/*    2317c:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*    23180:	84ea0014 */ 	lh	$t2,0x14($a3)
-/*    23184:	01425821 */ 	addu	$t3,$t2,$v0
-/*    23188:	a4eb0014 */ 	sh	$t3,0x14($a3)
-/*    2318c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    23190:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    23194:	03e00008 */ 	jr	$ra
-/*    23198:	00000000 */ 	nop
-);
+void model00023108(struct model *pmodel, struct modelfiledata *pmodeldef, struct modelnode *pnode, struct modelfiledata *cmodeldef)
+{
+	struct modelrwdata_headspot *rwdata = modelGetNodeRwData(pmodel, pnode);
+	struct modelnode *node;
+
+	rwdata->modelfiledata = cmodeldef;
+	rwdata->rwdatas = &pmodel->rwdatas[pmodeldef->rwdatalen];
+
+	pnode->child = cmodeldef->rootnode;
+
+	node = pnode->child;
+
+	while (node) {
+		node->parent = pnode;
+		node = node->next;
+	}
+
+	pmodeldef->rwdatalen += modelCalculateRwDataIndexes(pnode->child);
+}
 
 /**
  * This function can be called repeatedly to iterate a model's display lists.
