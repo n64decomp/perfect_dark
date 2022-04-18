@@ -10386,7 +10386,7 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 		if (prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) {
 			bestnode = NULL;
 			bestvolume = MAXFLOAT;
-			lVar4 = cam0f0b5050(chr->model->matrices);
+			lVar4 = cam0f0b5050((u8 *)chr->model->matrices);
 
 			if (lVar4) {
 				mtx4TransformVec(lVar4, pos, &sp124);
