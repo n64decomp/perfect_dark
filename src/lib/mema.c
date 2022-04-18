@@ -214,45 +214,6 @@ void memaInit(void)
 	// empty
 }
 
-#if VERSION == VERSION_PAL_BETA
-GLOBAL_ASM(
-glabel memaReset
-/*  12ac4:	3c03800a */ 	lui	$v1,0x800a
-/*  12ac8:	2463c1a8 */ 	addiu	$v1,$v1,-15960
-/*  12acc:	2406ffff */ 	li	$a2,-1
-/*  12ad0:	ac6603ec */ 	sw	$a2,0x3ec($v1)
-/*  12ad4:	ac6603f4 */ 	sw	$a2,0x3f4($v1)
-/*  12ad8:	240effff */ 	li	$t6,-1
-/*  12adc:	3c06800a */ 	lui	$a2,0x800a
-/*  12ae0:	3c02800a */ 	lui	$v0,0x800a
-/*  12ae4:	ac600000 */ 	sw	$zero,0x0($v1)
-/*  12ae8:	ac600004 */ 	sw	$zero,0x4($v1)
-/*  12aec:	ac600008 */ 	sw	$zero,0x8($v1)
-/*  12af0:	ac6003f0 */ 	sw	$zero,0x3f0($v1)
-/*  12af4:	ac6e03f8 */ 	sw	$t6,0x3f8($v1)
-/*  12af8:	2442c1b4 */ 	addiu	$v0,$v0,-15948
-/*  12afc:	24c6c58c */ 	addiu	$a2,$a2,-14964
-.PB00012b00:
-/*  12b00:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  12b04:	00c2082b */ 	sltu	$at,$a2,$v0
-/*  12b08:	ac40fff8 */ 	sw	$zero,-0x8($v0)
-/*  12b0c:	1020fffc */ 	beqz	$at,.PB00012b00
-/*  12b10:	ac40fffc */ 	sw	$zero,-0x4($v0)
-/*  12b14:	3c02800a */ 	lui	$v0,0x800a
-/*  12b18:	3c06800a */ 	lui	$a2,0x800a
-/*  12b1c:	24c6c1a4 */ 	addiu	$a2,$a2,-15964
-/*  12b20:	2442c1a0 */ 	addiu	$v0,$v0,-15968
-/*  12b24:	3c19000f */ 	lui	$t9,0xf
-/*  12b28:	ac440000 */ 	sw	$a0,0x0($v0)
-/*  12b2c:	ac64000c */ 	sw	$a0,0xc($v1)
-/*  12b30:	acc50000 */ 	sw	$a1,0x0($a2)
-/*  12b34:	ac650010 */ 	sw	$a1,0x10($v1)
-/*  12b38:	37394240 */ 	ori	$t9,$t9,0x4240
-/*  12b3c:	3c018006 */ 	lui	$at,0x8006
-/*  12b40:	03e00008 */ 	jr	$ra
-/*  12b44:	ac39f910 */ 	sw	$t9,-0x6f0($at)
-);
-#else
 void memaReset(void *heapaddr, u32 heapsize)
 {
 	struct memaspace *space;
@@ -283,8 +244,11 @@ void memaReset(void *heapaddr, u32 heapsize)
 
 	g_MemaHeap.spaces[0].addr = g_MemaHeapStart = (u32)heapaddr;
 	g_MemaHeap.spaces[0].size = g_MemaHeapSize = heapsize;
-}
+
+#if VERSION == VERSION_PAL_BETA
+	var8005f910pb = 1000000;
 #endif
+}
 
 #if VERSION == VERSION_PAL_BETA
 const char var70054900pb[] = "Lev0: %d";
