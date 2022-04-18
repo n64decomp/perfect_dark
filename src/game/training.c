@@ -10629,92 +10629,41 @@ bool frFormatTime(char *buffer)
 }
 
 #if VERSION >= VERSION_JPN_FINAL
-const char var7f1ba134jf[] = "";
-const char var7f1ba138jf[] = "%s";
-const char var7f1ba13cjf[] = "%s";
-const char var7f1ba140jf[] = "%s";
-const char var7f1ba144jf[] = "%02d:%02d\n";
+bool frGetHudMiddleSubtext(char *buffer1, char *buffer2)
+{
+	s32 secs;
+	s32 mins;
 
-GLOBAL_ASM(
-glabel frGetHudMiddleSubtext
-/*  f1a348c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a3490:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f1a3494:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f1a3498:	00a02025 */ 	move	$a0,$a1
-/*  f1a349c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1a34a0:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a34a4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f1a34a8:	0c004d95 */ 	jal	sprintf
-/*  f1a34ac:	24a5a134 */ 	addiu	$a1,$a1,-24268
-/*  f1a34b0:	3c04800b */ 	lui	$a0,0x800b
-/*  f1a34b4:	2484d750 */ 	addiu	$a0,$a0,-10416
-/*  f1a34b8:	8c83044c */ 	lw	$v1,0x44c($a0)
-/*  f1a34bc:	2861ff4c */ 	slti	$at,$v1,-180
-/*  f1a34c0:	1020000a */ 	beqz	$at,.JF0f1a34ec
-/*  f1a34c4:	00000000 */ 	nop
-/*  f1a34c8:	0fc5baa5 */ 	jal	langGet
-/*  f1a34cc:	240458a1 */ 	li	$a0,0x58a1
-/*  f1a34d0:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a34d4:	24a5a138 */ 	addiu	$a1,$a1,-24264
-/*  f1a34d8:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f1a34dc:	0c004d95 */ 	jal	sprintf
-/*  f1a34e0:	00403025 */ 	move	$a2,$v0
-/*  f1a34e4:	1000002b */ 	b	.JF0f1a3594
-/*  f1a34e8:	00001025 */ 	move	$v0,$zero
-.JF0f1a34ec:
-/*  f1a34ec:	0463000b */ 	bgezl	$v1,.JF0f1a351c
-/*  f1a34f0:	90820005 */ 	lbu	$v0,0x5($a0)
-/*  f1a34f4:	0fc5baa5 */ 	jal	langGet
-/*  f1a34f8:	240458a2 */ 	li	$a0,0x58a2
-/*  f1a34fc:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a3500:	24a5a13c */ 	addiu	$a1,$a1,-24260
-/*  f1a3504:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f1a3508:	0c004d95 */ 	jal	sprintf
-/*  f1a350c:	00403025 */ 	move	$a2,$v0
-/*  f1a3510:	10000020 */ 	b	.JF0f1a3594
-/*  f1a3514:	24020001 */ 	li	$v0,0x1
-/*  f1a3518:	90820005 */ 	lbu	$v0,0x5($a0)
-.JF0f1a351c:
-/*  f1a351c:	240100ff */ 	li	$at,0xff
-/*  f1a3520:	240458a3 */ 	li	$a0,0x58a3
-/*  f1a3524:	14410003 */ 	bne	$v0,$at,.JF0f1a3534
-/*  f1a3528:	00403825 */ 	move	$a3,$v0
-/*  f1a352c:	10000019 */ 	b	.JF0f1a3594
-/*  f1a3530:	00001025 */ 	move	$v0,$zero
-.JF0f1a3534:
-/*  f1a3534:	2841003c */ 	slti	$at,$v0,0x3c
-/*  f1a3538:	14200008 */ 	bnez	$at,.JF0f1a355c
-/*  f1a353c:	00008025 */ 	move	$s0,$zero
-/*  f1a3540:	2841003c */ 	slti	$at,$v0,0x3c
-/*  f1a3544:	14200005 */ 	bnez	$at,.JF0f1a355c
-/*  f1a3548:	00000000 */ 	nop
-.JF0f1a354c:
-/*  f1a354c:	24e7ffc4 */ 	addiu	$a3,$a3,-60
-/*  f1a3550:	28e1003c */ 	slti	$at,$a3,0x3c
-/*  f1a3554:	1020fffd */ 	beqz	$at,.JF0f1a354c
-/*  f1a3558:	26100001 */ 	addiu	$s0,$s0,0x1
-.JF0f1a355c:
-/*  f1a355c:	0fc5baa5 */ 	jal	langGet
-/*  f1a3560:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f1a3564:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a3568:	24a5a140 */ 	addiu	$a1,$a1,-24256
-/*  f1a356c:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f1a3570:	0c004d95 */ 	jal	sprintf
-/*  f1a3574:	00403025 */ 	move	$a2,$v0
-/*  f1a3578:	3c057f1c */ 	lui	$a1,0x7f1c
-/*  f1a357c:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f1a3580:	24a5a144 */ 	addiu	$a1,$a1,-24252
-/*  f1a3584:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f1a3588:	0c004d95 */ 	jal	sprintf
-/*  f1a358c:	02003025 */ 	move	$a2,$s0
-/*  f1a3590:	24020001 */ 	li	$v0,0x1
-.JF0f1a3594:
-/*  f1a3594:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1a3598:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1a359c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f1a35a0:	03e00008 */ 	jr	$ra
-/*  f1a35a4:	00000000 */ 	nop
-);
+	sprintf(buffer2, "");
+
+	if (g_FrData.timetaken < TICKS(-180)) {
+		sprintf(buffer1, "%s", langGet(L_MISC_420)); // "FIRE TO START"
+		return false;
+	}
+
+	if (g_FrData.timetaken < 0) {
+		sprintf(buffer1, "%s", langGet(L_MISC_421)); // "GET READY!"
+		return true;
+	}
+
+	if (g_FrData.timelimit == 255) {
+		return false;
+	}
+
+	secs = g_FrData.timelimit;
+	mins = 0;
+
+	if (secs >= 60) {
+		while (secs >= 60) {
+			secs -= 60;
+			mins++;
+		}
+	}
+
+	sprintf(buffer1, "%s", langGet(L_MISC_422)); // "LIMIT:"
+	sprintf(buffer2, "%02d:%02d\n", mins, secs);
+	return true;
+}
 #else
 bool frGetHudMiddleSubtext(char *buffer)
 {
