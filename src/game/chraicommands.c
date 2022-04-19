@@ -10466,10 +10466,10 @@ bool aiIfChrInSquadronDoingAction(void)
 bool ai0139(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
+	u32 angle = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 	struct coord pos;
 
-	func0f04c874(g_Vars.chrdata, flags, &pos, cmd[7], cmd[6]);
+	chr0f04c874(g_Vars.chrdata, angle, &pos, cmd[7], cmd[6]);
 
 	g_Vars.aioffset += 8;
 

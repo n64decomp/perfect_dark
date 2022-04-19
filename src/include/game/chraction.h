@@ -219,7 +219,7 @@ s32 chrAssignCoverByCriteria(struct chrdata *chr, u16 arg1, s32 arg2);
 s32 chrAssignCoverAwayFromDanger(struct chrdata *chr, s32 mindist, s32 maxdist);
 bool chrRunFromPos(struct chrdata *chr, u32 speed, f32 distance, struct coord *frompos);
 f32 func0f04c784(struct chrdata *chr);
-bool func0f04c874(struct chrdata *chr, u32 angle360, struct coord *pos, u8 arg3, u8 arg4);
+bool chr0f04c874(struct chrdata *chr, u32 angle360, struct coord *pos, u8 arg3, u8 arg4);
 void rebuildTeams(void);
 void rebuildSquadrons(void);
 void chrAvoid(struct chrdata *chr);

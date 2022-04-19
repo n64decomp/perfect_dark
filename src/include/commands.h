@@ -2948,9 +2948,9 @@
 // I think this is related to flanking, where the value arg is the angle
 // relative to the player's direction. 335 is the same as 25 degress to the
 // right (360 - 25).
-#define cmd0139(value, u1, bool) \
+#define cmd0139(angle, u1, bool) \
 	mkshort(0x0139), \
-	mkword(value), \
+	mkword(angle), \
 	u1, \
 	bool,
 
