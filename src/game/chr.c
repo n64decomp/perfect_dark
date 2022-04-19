@@ -1995,274 +1995,77 @@ void chr0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2)
 	}
 }
 
-u32 var80062998 = 0x00000000;
-u32 var8006299c = 0x00000001;
-u32 var800629a0 = 0x00000003;
-u32 var800629a4 = 0x00000000;
-u32 var800629a8 = 0x00000000;
-u32 var800629ac = 0x00000000;
-u32 var800629b0 = 0x00000000;
-u32 var800629b4 = 0x00000000;
-u32 var800629b8 = 0x00000000;
-u32 var800629bc = 0x00000000;
-u32 var800629c0 = 0x00000000;
-u32 var800629c4 = 0x00000000;
-u32 var800629c8 = 0x00000000;
-u32 var800629cc = 0x00000000;
-u32 var800629d0 = 0x00000000;
-u32 var800629d4 = 0x00000000;
+void chr0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
+{
+	struct defaultobj *obj = prop->obj;
+	struct model *model = obj->model;
+	struct prop *child;
+	struct prop *next;
 
-GLOBAL_ASM(
-glabel chr0f022214
-.late_rodata
-glabel var7f1a87a0
-.word 0x3fa8dd79
-glabel var7f1a87a4
-.word 0x3fc907a9
-glabel var7f1a87a8
-.word 0x404907a9
-.text
-/*  f022214:	27bdfee8 */ 	addiu	$sp,$sp,-280
-/*  f022218:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f02221c:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f022220:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f022224:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f022228:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f02222c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f022230:	8cb00004 */ 	lw	$s0,0x4($a1)
-/*  f022234:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f022238:	00c09825 */ 	or	$s3,$a2,$zero
-/*  f02223c:	8e020040 */ 	lw	$v0,0x40($s0)
-/*  f022240:	0080a025 */ 	or	$s4,$a0,$zero
-/*  f022244:	8e030018 */ 	lw	$v1,0x18($s0)
-/*  f022248:	304e0004 */ 	andi	$t6,$v0,0x4
-/*  f02224c:	51c0000a */ 	beqzl	$t6,.L0f022278
-/*  f022250:	8c640018 */ 	lw	$a0,0x18($v1)
-/*  f022254:	92060002 */ 	lbu	$a2,0x2($s0)
-/*  f022258:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02225c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f022260:	30cf0004 */ 	andi	$t7,$a2,0x4
-/*  f022264:	0fc1ab4b */ 	jal	objFree
-/*  f022268:	01e03025 */ 	or	$a2,$t7,$zero
-/*  f02226c:	1000007e */ 	b	.L0f022468
-/*  f022270:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f022274:	8c640018 */ 	lw	$a0,0x18($v1)
-.L0f022278:
-/*  f022278:	5080006c */ 	beqzl	$a0,.L0f02242c
-/*  f02227c:	924a0001 */ 	lbu	$t2,0x1($s2)
-/*  f022280:	8c65001c */ 	lw	$a1,0x1c($v1)
-/*  f022284:	30580800 */ 	andi	$t8,$v0,0x800
-/*  f022288:	50a00068 */ 	beqzl	$a1,.L0f02242c
-/*  f02228c:	924a0001 */ 	lbu	$t2,0x1($s2)
-/*  f022290:	57000066 */ 	bnezl	$t8,.L0f02242c
-/*  f022294:	924a0001 */ 	lbu	$t2,0x1($s2)
-/*  f022298:	8e19000c */ 	lw	$t9,0xc($s0)
-/*  f02229c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0222a0:	00194300 */ 	sll	$t0,$t9,0xc
-/*  f0222a4:	05020061 */ 	bltzl	$t0,.L0f02242c
-/*  f0222a8:	924a0001 */ 	lbu	$t2,0x1($s2)
-/*  f0222ac:	0c006973 */ 	jal	model0001a5cc
-/*  f0222b0:	afa30110 */ 	sw	$v1,0x110($sp)
-/*  f0222b4:	3c0a8006 */ 	lui	$t2,%hi(var80062998)
-/*  f0222b8:	254a2998 */ 	addiu	$t2,$t2,%lo(var80062998)
-/*  f0222bc:	afa20104 */ 	sw	$v0,0x104($sp)
-/*  f0222c0:	254d003c */ 	addiu	$t5,$t2,0x3c
-/*  f0222c4:	27a900c4 */ 	addiu	$t1,$sp,0xc4
-.L0f0222c8:
-/*  f0222c8:	8d410000 */ 	lw	$at,0x0($t2)
-/*  f0222cc:	254a000c */ 	addiu	$t2,$t2,0xc
-/*  f0222d0:	2529000c */ 	addiu	$t1,$t1,0xc
-/*  f0222d4:	ad21fff4 */ 	sw	$at,-0xc($t1)
-/*  f0222d8:	8d41fff8 */ 	lw	$at,-0x8($t2)
-/*  f0222dc:	ad21fff8 */ 	sw	$at,-0x8($t1)
-/*  f0222e0:	8d41fffc */ 	lw	$at,-0x4($t2)
-/*  f0222e4:	154dfff8 */ 	bne	$t2,$t5,.L0f0222c8
-/*  f0222e8:	ad21fffc */ 	sw	$at,-0x4($t1)
-/*  f0222ec:	8d410000 */ 	lw	$at,0x0($t2)
-/*  f0222f0:	27b10080 */ 	addiu	$s1,$sp,0x80
-/*  f0222f4:	ad210000 */ 	sw	$at,0x0($t1)
-/*  f0222f8:	924e0001 */ 	lbu	$t6,0x1($s2)
-/*  f0222fc:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f022300:	35cf0042 */ 	ori	$t7,$t6,0x42
-/*  f022304:	a24f0001 */ 	sb	$t7,0x1($s2)
-/*  f022308:	8e180040 */ 	lw	$t8,0x40($s0)
-/*  f02230c:	8fa40104 */ 	lw	$a0,0x104($sp)
-/*  f022310:	33190040 */ 	andi	$t9,$t8,0x40
-/*  f022314:	13200007 */ 	beqz	$t9,.L0f022334
-/*  f022318:	00000000 */ 	nop
-/*  f02231c:	8e050048 */ 	lw	$a1,0x48($s0)
-/*  f022320:	02203025 */ 	or	$a2,$s1,$zero
-/*  f022324:	0c0056f9 */ 	jal	mtx00015be4
-/*  f022328:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f02232c:	10000025 */ 	b	.L0f0223c4
-/*  f022330:	afb100c4 */ 	sw	$s1,0xc4($sp)
-.L0f022334:
-/*  f022334:	12800003 */ 	beqz	$s4,.L0f022344
-/*  f022338:	00001825 */ 	or	$v1,$zero,$zero
-/*  f02233c:	10000001 */ 	b	.L0f022344
-/*  f022340:	928302fe */ 	lbu	$v1,0x2fe($s4)
-.L0f022344:
-/*  f022344:	14610012 */ 	bne	$v1,$at,.L0f022390
-/*  f022348:	27b10080 */ 	addiu	$s1,$sp,0x80
-/*  f02234c:	3c017f1b */ 	lui	$at,%hi(var7f1a87a0)
-/*  f022350:	c42c87a0 */ 	lwc1	$f12,%lo(var7f1a87a0)($at)
-/*  f022354:	0c0058dd */ 	jal	mtx4LoadYRotation
-/*  f022358:	02202825 */ 	or	$a1,$s1,$zero
-/*  f02235c:	27b00040 */ 	addiu	$s0,$sp,0x40
-/*  f022360:	3c017f1b */ 	lui	$at,%hi(var7f1a87a4)
-/*  f022364:	c42c87a4 */ 	lwc1	$f12,%lo(var7f1a87a4)($at)
-/*  f022368:	0c005900 */ 	jal	mtx4LoadZRotation
-/*  f02236c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f022370:	02002025 */ 	or	$a0,$s0,$zero
-/*  f022374:	0c00567f */ 	jal	mtx4MultMtx4InPlace
-/*  f022378:	02202825 */ 	or	$a1,$s1,$zero
-/*  f02237c:	8fa40104 */ 	lw	$a0,0x104($sp)
-/*  f022380:	0c00567f */ 	jal	mtx4MultMtx4InPlace
-/*  f022384:	02202825 */ 	or	$a1,$s1,$zero
-/*  f022388:	1000000e */ 	b	.L0f0223c4
-/*  f02238c:	afb100c4 */ 	sw	$s1,0xc4($sp)
-.L0f022390:
-/*  f022390:	8e880174 */ 	lw	$t0,0x174($s4)
-/*  f022394:	27b10080 */ 	addiu	$s1,$sp,0x80
-/*  f022398:	02202825 */ 	or	$a1,$s1,$zero
-/*  f02239c:	16480008 */ 	bne	$s2,$t0,.L0f0223c0
-/*  f0223a0:	3c017f1b */ 	lui	$at,%hi(var7f1a87a8)
-/*  f0223a4:	0c005900 */ 	jal	mtx4LoadZRotation
-/*  f0223a8:	c42c87a8 */ 	lwc1	$f12,%lo(var7f1a87a8)($at)
-/*  f0223ac:	8fa40104 */ 	lw	$a0,0x104($sp)
-/*  f0223b0:	0c00567f */ 	jal	mtx4MultMtx4InPlace
-/*  f0223b4:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0223b8:	10000002 */ 	b	.L0f0223c4
-/*  f0223bc:	afb100c4 */ 	sw	$s1,0xc4($sp)
-.L0f0223c0:
-/*  f0223c0:	afa200c4 */ 	sw	$v0,0xc4($sp)
-.L0f0223c4:
-/*  f0223c4:	8fac0110 */ 	lw	$t4,0x110($sp)
-/*  f0223c8:	8d8b0008 */ 	lw	$t3,0x8($t4)
-/*  f0223cc:	8564000e */ 	lh	$a0,0xe($t3)
-/*  f0223d0:	00046980 */ 	sll	$t5,$a0,0x6
-/*  f0223d4:	0fc59e7d */ 	jal	gfxAllocate
-/*  f0223d8:	01a02025 */ 	or	$a0,$t5,$zero
-/*  f0223dc:	afa200d4 */ 	sw	$v0,0xd4($sp)
-/*  f0223e0:	27a400c4 */ 	addiu	$a0,$sp,0xc4
-/*  f0223e4:	0c007399 */ 	jal	model0001ce64
-/*  f0223e8:	8fa50110 */ 	lw	$a1,0x110($sp)
-/*  f0223ec:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0223f0:	0fc1c18f */ 	jal	func0f07063c
-/*  f0223f4:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0223f8:	8e51001c */ 	lw	$s1,0x1c($s2)
-/*  f0223fc:	5220001a */ 	beqzl	$s1,.L0f022468
-/*  f022400:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f022404:
-/*  f022404:	8e300020 */ 	lw	$s0,0x20($s1)
-/*  f022408:	02802025 */ 	or	$a0,$s4,$zero
-/*  f02240c:	02202825 */ 	or	$a1,$s1,$zero
-/*  f022410:	0fc08885 */ 	jal	chr0f022214
-/*  f022414:	02603025 */ 	or	$a2,$s3,$zero
-/*  f022418:	1600fffa */ 	bnez	$s0,.L0f022404
-/*  f02241c:	02008825 */ 	or	$s1,$s0,$zero
-/*  f022420:	10000011 */ 	b	.L0f022468
-/*  f022424:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f022428:	924a0001 */ 	lbu	$t2,0x1($s2)
-.L0f02242c:
-/*  f02242c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f022430:	02602825 */ 	or	$a1,$s3,$zero
-/*  f022434:	3149fffd */ 	andi	$t1,$t2,0xfffd
-/*  f022438:	0fc1c18f */ 	jal	func0f07063c
-/*  f02243c:	a2490001 */ 	sb	$t1,0x1($s2)
-/*  f022440:	8e51001c */ 	lw	$s1,0x1c($s2)
-/*  f022444:	52200008 */ 	beqzl	$s1,.L0f022468
-/*  f022448:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f02244c:
-/*  f02244c:	8e300020 */ 	lw	$s0,0x20($s1)
-/*  f022450:	02202025 */ 	or	$a0,$s1,$zero
-/*  f022454:	0fc1c1be */ 	jal	func0f0706f8
-/*  f022458:	02602825 */ 	or	$a1,$s3,$zero
-/*  f02245c:	1600fffb */ 	bnez	$s0,.L0f02244c
-/*  f022460:	02008825 */ 	or	$s1,$s0,$zero
-/*  f022464:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f022468:
-/*  f022468:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f02246c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f022470:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f022474:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f022478:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f02247c:	03e00008 */ 	jr	$ra
-/*  f022480:	27bd0118 */ 	addiu	$sp,$sp,0x118
-);
+	if (obj->hidden & OBJHFLAG_REAPABLE) {
+		objFree(obj, true, obj->hidden2 & OBJH2FLAG_CANREGEN);
+		return;
+	}
 
-// Mismatch: regalloc
-//void chr0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
-//{
-//	struct defaultobj *obj = prop->obj;
-//	struct model *model = obj->model;
-//	struct prop *child;
-//	struct prop *next;
-//
-//	if (obj->hidden & OBJHFLAG_REAPABLE) {
-//		objFree(obj, true, obj->hidden2 & OBJH2FLAG_CANREGEN);
-//		return;
-//	}
-//
-//	if (prop);
-//	if (prop);
-//
-//	if (model->attachedtomodel && model->attachedtonode
-//			&& (obj->hidden & OBJHFLAG_00000800) == 0
-//			&& (obj->flags2 & OBJFLAG2_INVISIBLE) == 0) {
-//		Mtxf *sp104 = model0001a5cc(model->attachedtomodel, model->attachedtonode, 0);
-//		struct modelrenderdata thing = {NULL, 1, 3};
-//		u32 stack;
-//		Mtxf sp80;
-//		Mtxf sp40;
-//
-//		prop->flags |= PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK;
-//
-//		if (obj->hidden & OBJHFLAG_EMBEDDED) {
-//			mtx00015be4(sp104, &obj->embedment->matrix, &sp80);
-//			thing.matrix = &sp80;
-//		} else if (CHRRACE(chr) == RACE_SKEDAR) {
-//			// The skedar hand position is rotated weirdly, so compensate for it
-//			mtx4LoadYRotation(1.3192588090897f, &sp80);
-//			mtx4LoadZRotation(1.5705462694168f, &sp40);
-//			mtx4MultMtx4InPlace(&sp40, &sp80);
-//			mtx4MultMtx4InPlace(sp104, &sp80);
-//			thing.matrix = &sp80;
-//		} else if (prop == chr->weapons_held[HAND_LEFT]) {
-//			// Flip the model
-//			mtx4LoadZRotation(M_BADPI, &sp80);
-//			mtx4MultMtx4InPlace(sp104, &sp80);
-//			thing.matrix = &sp80;
-//		} else {
-//			thing.matrix = sp104;
-//		}
-//
-//		thing.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
-//		model0001ce64(&thing, model);
-//
-//		func0f07063c(prop, fulltick);
-//
-//		child = prop->child;
-//
-//		while (child) {
-//			next = child->next;
-//			chr0f022214(chr, child, fulltick);
-//			child = next;
-//		}
-//	} else {
-//		prop->flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
-//
-//		func0f07063c(prop, fulltick);
-//
-//		child = prop->child;
-//
-//		while (child) {
-//			next = child->next;
-//			func0f0706f8(child, fulltick);
-//			child = next;
-//		}
-//	}
-//}
+	if (model->attachedtomodel && model->attachedtonode
+			&& (obj->hidden & OBJHFLAG_00000800) == 0
+			&& (obj->flags2 & OBJFLAG2_INVISIBLE) == 0) {
+		Mtxf *sp104 = model0001a5cc(model->attachedtomodel, model->attachedtonode, 0);
+		struct modelrenderdata thing = {NULL, 1, 3};
+		u32 stack;
+		Mtxf sp80;
+		Mtxf sp40;
+
+		prop->flags |= PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK;
+
+		if (obj->hidden & OBJHFLAG_EMBEDDED) {
+			mtx00015be4(sp104, &obj->embedment->matrix, &sp80);
+			thing.unk00 = &sp80;
+		} else if (CHRRACE(chr) == RACE_SKEDAR) {
+			// The skedar hand position is rotated weirdly, so compensate for it
+			mtx4LoadYRotation(1.3192588090897f, &sp80);
+			mtx4LoadZRotation(1.5705462694168f, &sp40);
+			mtx4MultMtx4InPlace(&sp40, &sp80);
+			mtx4MultMtx4InPlace(sp104, &sp80);
+			thing.unk00 = &sp80;
+		} else if (prop == chr->weapons_held[HAND_LEFT]) {
+			// Flip the model
+			mtx4LoadZRotation(M_BADPI, &sp80);
+			mtx4MultMtx4InPlace(sp104, &sp80);
+			thing.unk00 = &sp80;
+		} else {
+			thing.unk00 = sp104;
+		}
+
+		thing.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
+		model0001ce64(&thing, model);
+
+		func0f07063c(prop, fulltick);
+
+		child = prop->child;
+
+		while (child) {
+			if (prop);
+			if (prop);
+
+			next = child->next;
+			chr0f022214(chr, child, fulltick);
+			child = next;
+		}
+	} else {
+		prop->flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
+
+		func0f07063c(prop, fulltick);
+
+		child = prop->child;
+
+		while (child) {
+			next = child->next;
+			func0f0706f8(child, fulltick);
+			child = next;
+		}
+	}
+}
 
 void chrCloak(struct chrdata *chr, bool value)
 {
