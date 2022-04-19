@@ -324,7 +324,7 @@ s32 doorIsOpen(struct doorobj *door);
 s32 func0f08e5a8(s16 *rooms, struct screenbox *box);
 f32 func0f08e6bc(struct prop *prop, f32 arg1);
 bool func0f08e794(struct coord *coord, f32 arg1);
-u32 func0f08e8ac(struct prop *prop, struct coord *coord, f32 arg2, bool arg3);
+bool func0f08e8ac(struct prop *prop, struct coord *pos, f32 arg2, bool arg3);
 bool posIsInDrawDistance(struct coord *arg);
 void doorCreateSparks(struct doorobj *door);
 bool doorCalcIntendedFrac(struct doorobj *door);

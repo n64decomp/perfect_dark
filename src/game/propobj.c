@@ -64020,7 +64020,7 @@ bool func0f08e794(struct coord *coord, f32 arg1)
 	return result;
 }
 
-u32 func0f08e8ac(struct prop *prop, struct coord *coord, f32 arg2, bool arg3)
+bool func0f08e8ac(struct prop *prop, struct coord *pos, f32 arg2, bool arg3)
 {
 	s16 *rooms;
 	s32 roomnum;
@@ -64032,14 +64032,14 @@ u32 func0f08e8ac(struct prop *prop, struct coord *coord, f32 arg2, bool arg3)
 
 	while (roomnum != -1) {
 		if (g_Rooms[roomnum].flags & ROOMFLAG_VISIBLEBYPLAYER) {
-			if (env0f1666f8(coord, arg2) && (!arg3 || func0f08e794(coord, arg2))) {
-				result = cam0f0b6260(prop->rooms, coord, arg2);
+			if (env0f1666f8(pos, arg2) && (!arg3 || func0f08e794(pos, arg2))) {
+				result = camIsPosInFovAndVisibleRoom(prop->rooms, pos, arg2);
 
 				if (result) {
 					struct coord *campos = &g_Vars.currentplayer->cam_pos;
-					f32 xdiff = coord->x - campos->x;
-					f32 ydiff = coord->y - campos->y;
-					f32 zdiff = coord->z - campos->z;
+					f32 xdiff = pos->x - campos->x;
+					f32 ydiff = pos->y - campos->y;
+					f32 zdiff = pos->z - campos->z;
 
 					if (xdiff * xdiff + ydiff * ydiff + zdiff * zdiff > 32000 * 32000) {
 						result = false;

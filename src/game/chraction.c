@@ -26111,7 +26111,7 @@ bool func0f04aeb0(struct coord *pos, s16 *rooms)
 
 		if (rooms[i] != -1) {
 			// Room is visible by player
-			result = !cam0f0b5d38(pos, 200, func0f158140(rooms[i]));
+			result = !camIsPosInScreenBox(pos, 200, func0f158140(rooms[i]));
 		}
 	}
 
