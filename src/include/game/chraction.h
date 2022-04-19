@@ -171,7 +171,7 @@ bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrr
 bool chrNavTryObstacle(struct chrdata *chr, struct coord *arg1, bool arg2, struct coord *arg3, f32 width, bool arg5, struct coord *nextpos, struct waydata *waydata, f32 arg8, s32 cdtypes, s32 arg10);
 struct prop *chrOpenDoor(struct chrdata *chr, struct coord *coord);
 void chrNavTickMain(struct chrdata *chr, struct coord *pos, struct waydata *waydata, bool arg3);
-bool goPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, bool arrivingatlift, s16 curpadnum, s32 nextpadnum);
+bool chrGoPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, bool arrivingatlift, s16 curpadnum, s32 nextpadnum);
 s16 chrGoPosGetNextPadNum(struct chrdata *chr);
 void chrTickGoPos(struct chrdata *chr);
 void chrTickPatrol(struct chrdata *chr);

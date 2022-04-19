@@ -21850,414 +21850,139 @@ void chrNavTickMain(struct chrdata *chr, struct coord *nextpos, struct waydata *
 	}
 }
 
-GLOBAL_ASM(
-glabel goPosUpdateLiftAction
-/*  f046648:	27bdff60 */ 	addiu	$sp,$sp,-160
-/*  f04664c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f046650:	00808025 */ 	or	$s0,$a0,$zero
-/*  f046654:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f046658:	afa500a4 */ 	sw	$a1,0xa4($sp)
-/*  f04665c:	afa600a8 */ 	sw	$a2,0xa8($sp)
-/*  f046660:	afa700ac */ 	sw	$a3,0xac($sp)
-/*  f046664:	87a400b2 */ 	lh	$a0,0xb2($sp)
-/*  f046668:	afa00044 */ 	sw	$zero,0x44($sp)
-/*  f04666c:	0fc1c396 */ 	jal	liftFindByPad
-/*  f046670:	afa0009c */ 	sw	$zero,0x9c($sp)
-/*  f046674:	8fa30044 */ 	lw	$v1,0x44($sp)
-/*  f046678:	8fa8009c */ 	lw	$t0,0x9c($sp)
-/*  f04667c:	14400003 */ 	bnez	$v0,.L0f04668c
-/*  f046680:	00402825 */ 	or	$a1,$v0,$zero
-/*  f046684:	100000e5 */ 	b	.L0f046a1c
-/*  f046688:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04668c:
-/*  f04668c:	8ca40004 */ 	lw	$a0,0x4($a1)
-/*  f046690:	afa8009c */ 	sw	$t0,0x9c($sp)
-/*  f046694:	afa30044 */ 	sw	$v1,0x44($sp)
-/*  f046698:	0fc1c3ab */ 	jal	liftGetY
-/*  f04669c:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f0466a0:	8fae00b4 */ 	lw	$t6,0xb4($sp)
-/*  f0466a4:	8fa30044 */ 	lw	$v1,0x44($sp)
-/*  f0466a8:	8fa8009c */ 	lw	$t0,0x9c($sp)
-/*  f0466ac:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*  f0466b0:	05c0000b */ 	bltz	$t6,.L0f0466e0
-/*  f0466b4:	46000086 */ 	mov.s	$f2,$f0
-/*  f0466b8:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f0466bc:	240500c2 */ 	addiu	$a1,$zero,0xc2
-/*  f0466c0:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f0466c4:	afa8009c */ 	sw	$t0,0x9c($sp)
-/*  f0466c8:	0fc456ac */ 	jal	padUnpack
-/*  f0466cc:	e7a2003c */ 	swc1	$f2,0x3c($sp)
-/*  f0466d0:	8fa8009c */ 	lw	$t0,0x9c($sp)
-/*  f0466d4:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*  f0466d8:	c7a2003c */ 	lwc1	$f2,0x3c($sp)
-/*  f0466dc:	8fa30094 */ 	lw	$v1,0x94($sp)
-.L0f0466e0:
-/*  f0466e0:	8fa200a4 */ 	lw	$v0,0xa4($sp)
-/*  f0466e4:	30780800 */ 	andi	$t8,$v1,0x800
-/*  f0466e8:	304f0400 */ 	andi	$t7,$v0,0x400
-/*  f0466ec:	11e00061 */ 	beqz	$t7,.L0f046874
-/*  f0466f0:	304b0800 */ 	andi	$t3,$v0,0x800
-/*  f0466f4:	1300005a */ 	beqz	$t8,.L0f046860
-/*  f0466f8:	8faa00ac */ 	lw	$t2,0xac($sp)
-/*  f0466fc:	8fa400ac */ 	lw	$a0,0xac($sp)
-/*  f046700:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x318)
-/*  f046704:	54800005 */ 	bnezl	$a0,.L0f04671c
-/*  f046708:	3c014220 */ 	lui	$at,0x4220
-/*  f04670c:	9219032c */ 	lbu	$t9,0x32c($s0)
-/*  f046710:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f046714:	17210028 */ 	bne	$t9,$at,.L0f0467b8
-/*  f046718:	3c014220 */ 	lui	$at,0x4220
-.L0f04671c:
-/*  f04671c:	44812000 */ 	mtc1	$at,$f4
-/*  f046720:	c60000b4 */ 	lwc1	$f0,0xb4($s0)
-/*  f046724:	00004025 */ 	or	$t0,$zero,$zero
-/*  f046728:	46040180 */ 	add.s	$f6,$f0,$f4
-/*  f04672c:	4606103e */ 	c.le.s	$f2,$f6
-/*  f046730:	00000000 */ 	nop
-/*  f046734:	45000002 */ 	bc1f	.L0f046740
-/*  f046738:	00000000 */ 	nop
-/*  f04673c:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0f046740:
-/*  f046740:	8d4aa2d8 */ 	lw	$t2,%lo(g_Vars+0x318)($t2)
-/*  f046744:	1540000b */ 	bnez	$t2,.L0f046774
-/*  f046748:	00000000 */ 	nop
-/*  f04674c:	11000009 */ 	beqz	$t0,.L0f046774
-/*  f046750:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f046754:	44814000 */ 	mtc1	$at,$f8
-/*  f046758:	00004025 */ 	or	$t0,$zero,$zero
-/*  f04675c:	46080281 */ 	sub.s	$f10,$f0,$f8
-/*  f046760:	4602503c */ 	c.lt.s	$f10,$f2
-/*  f046764:	00000000 */ 	nop
-/*  f046768:	45000002 */ 	bc1f	.L0f046774
-/*  f04676c:	00000000 */ 	nop
-/*  f046770:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0f046774:
-/*  f046774:	11000010 */ 	beqz	$t0,.L0f0467b8
-/*  f046778:	00000000 */ 	nop
-/*  f04677c:	812b0085 */ 	lb	$t3,0x85($t1)
-/*  f046780:	3c013f00 */ 	lui	$at,0x3f00
-/*  f046784:	000b6080 */ 	sll	$t4,$t3,0x2
-/*  f046788:	012c6821 */ 	addu	$t5,$t1,$t4
-/*  f04678c:	8da20064 */ 	lw	$v0,0x64($t5)
-/*  f046790:	10400009 */ 	beqz	$v0,.L0f0467b8
-/*  f046794:	00000000 */ 	nop
-/*  f046798:	c450007c */ 	lwc1	$f16,0x7c($v0)
-/*  f04679c:	44819000 */ 	mtc1	$at,$f18
-/*  f0467a0:	00000000 */ 	nop
-/*  f0467a4:	4612803c */ 	c.lt.s	$f16,$f18
-/*  f0467a8:	00000000 */ 	nop
-/*  f0467ac:	45000002 */ 	bc1f	.L0f0467b8
-/*  f0467b0:	00000000 */ 	nop
-/*  f0467b4:	00004025 */ 	or	$t0,$zero,$zero
-.L0f0467b8:
-/*  f0467b8:	55000016 */ 	bnezl	$t0,.L0f046814
-/*  f0467bc:	a200032c */ 	sb	$zero,0x32c($s0)
-/*  f0467c0:	50800096 */ 	beqzl	$a0,.L0f046a1c
-/*  f0467c4:	01001025 */ 	or	$v0,$t0,$zero
-/*  f0467c8:	920e032c */ 	lbu	$t6,0x32c($s0)
-/*  f0467cc:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0467d0:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f0467d4:	11c10090 */ 	beq	$t6,$at,.L0f046a18
-/*  f0467d8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0467dc:	a20f032c */ 	sb	$t7,0x32c($s0)
-/*  f0467e0:	afa8009c */ 	sw	$t0,0x9c($sp)
-/*  f0467e4:	0fc0b9b7 */ 	jal	chrStandChooseAnimation
-/*  f0467e8:	3c054180 */ 	lui	$a1,0x4180
-/*  f0467ec:	8fb800b4 */ 	lw	$t8,0xb4($sp)
-/*  f0467f0:	8fa8009c */ 	lw	$t0,0x9c($sp)
-/*  f0467f4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0467f8:	07000087 */ 	bltz	$t8,.L0f046a18
-/*  f0467fc:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*  f046800:	0fc1169c */ 	jal	chrOpenDoor
-/*  f046804:	afa8009c */ 	sw	$t0,0x9c($sp)
-/*  f046808:	10000083 */ 	b	.L0f046a18
-/*  f04680c:	8fa8009c */ 	lw	$t0,0x9c($sp)
-/*  f046810:	a200032c */ 	sb	$zero,0x32c($s0)
-.L0f046814:
-/*  f046814:	afa8009c */ 	sw	$t0,0x9c($sp)
-/*  f046818:	0fc0b819 */ 	jal	func0f02e064
-/*  f04681c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f046820:	1040007d */ 	beqz	$v0,.L0f046a18
-/*  f046824:	8fa8009c */ 	lw	$t0,0x9c($sp)
-/*  f046828:	82190007 */ 	lb	$t9,0x7($s0)
-/*  f04682c:	2401000e */ 	addiu	$at,$zero,0xe
-/*  f046830:	02002025 */ 	or	$a0,$s0,$zero
-/*  f046834:	17210006 */ 	bne	$t9,$at,.L0f046850
-/*  f046838:	00000000 */ 	nop
-/*  f04683c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f046840:	0fc0e21a */ 	jal	chrPatrolChooseAnimation
-/*  f046844:	afa8009c */ 	sw	$t0,0x9c($sp)
-/*  f046848:	10000073 */ 	b	.L0f046a18
-/*  f04684c:	8fa8009c */ 	lw	$t0,0x9c($sp)
-.L0f046850:
-/*  f046850:	0fc0dedc */ 	jal	chrGoPosChooseAnimation
-/*  f046854:	afa8009c */ 	sw	$t0,0x9c($sp)
-/*  f046858:	1000006f */ 	b	.L0f046a18
-/*  f04685c:	8fa8009c */ 	lw	$t0,0x9c($sp)
-.L0f046860:
-/*  f046860:	5140006e */ 	beqzl	$t2,.L0f046a1c
-/*  f046864:	01001025 */ 	or	$v0,$t0,$zero
-/*  f046868:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f04686c:	1000006a */ 	b	.L0f046a18
-/*  f046870:	a200032c */ 	sb	$zero,0x32c($s0)
-.L0f046874:
-/*  f046874:	11600068 */ 	beqz	$t3,.L0f046a18
-/*  f046878:	306c0400 */ 	andi	$t4,$v1,0x400
-/*  f04687c:	11800060 */ 	beqz	$t4,.L0f046a00
-/*  f046880:	8fad00a8 */ 	lw	$t5,0xa8($sp)
-/*  f046884:	15a00004 */ 	bnez	$t5,.L0f046898
-/*  f046888:	27a5002c */ 	addiu	$a1,$sp,0x2c
-/*  f04688c:	920e032c */ 	lbu	$t6,0x32c($s0)
-/*  f046890:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f046894:	15c10036 */ 	bne	$t6,$at,.L0f046970
-.L0f046898:
-/*  f046898:	3c0f8007 */ 	lui	$t7,%hi(var8006843c)
-/*  f04689c:	25ef843c */ 	addiu	$t7,$t7,%lo(var8006843c)
-/*  f0468a0:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f0468a4:	27a40048 */ 	addiu	$a0,$sp,0x48
-/*  f0468a8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0468ac:	aca10000 */ 	sw	$at,0x0($a1)
-/*  f0468b0:	8faa0090 */ 	lw	$t2,0x90($sp)
-/*  f0468b4:	e7a2003c */ 	swc1	$f2,0x3c($sp)
-/*  f0468b8:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0468bc:	0c00a8db */ 	jal	cd0002a36c
-/*  f0468c0:	a7aa002c */ 	sh	$t2,0x2c($sp)
-/*  f0468c4:	3c0141f0 */ 	lui	$at,0x41f0
-/*  f0468c8:	44812000 */ 	mtc1	$at,$f4
-/*  f0468cc:	c7a2003c */ 	lwc1	$f2,0x3c($sp)
-/*  f0468d0:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*  f0468d4:	46040181 */ 	sub.s	$f6,$f0,$f4
-/*  f0468d8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0468dc:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x318)
-/*  f0468e0:	4602303e */ 	c.le.s	$f6,$f2
-/*  f0468e4:	00000000 */ 	nop
-/*  f0468e8:	45000002 */ 	bc1f	.L0f0468f4
-/*  f0468ec:	00000000 */ 	nop
-/*  f0468f0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0468f4:
-/*  f0468f4:	8d6ba2d8 */ 	lw	$t3,%lo(g_Vars+0x318)($t3)
-/*  f0468f8:	00404025 */ 	or	$t0,$v0,$zero
-/*  f0468fc:	1560000b */ 	bnez	$t3,.L0f04692c
-/*  f046900:	00000000 */ 	nop
-/*  f046904:	10400009 */ 	beqz	$v0,.L0f04692c
-/*  f046908:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f04690c:	44814000 */ 	mtc1	$at,$f8
-/*  f046910:	00004025 */ 	or	$t0,$zero,$zero
-/*  f046914:	46080280 */ 	add.s	$f10,$f0,$f8
-/*  f046918:	460a103c */ 	c.lt.s	$f2,$f10
-/*  f04691c:	00000000 */ 	nop
-/*  f046920:	45000002 */ 	bc1f	.L0f04692c
-/*  f046924:	00000000 */ 	nop
-/*  f046928:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0f04692c:
-/*  f04692c:	11000010 */ 	beqz	$t0,.L0f046970
-/*  f046930:	00000000 */ 	nop
-/*  f046934:	812c0085 */ 	lb	$t4,0x85($t1)
-/*  f046938:	3c013f00 */ 	lui	$at,0x3f00
-/*  f04693c:	000c6880 */ 	sll	$t5,$t4,0x2
-/*  f046940:	012d7021 */ 	addu	$t6,$t1,$t5
-/*  f046944:	8dc20064 */ 	lw	$v0,0x64($t6)
-/*  f046948:	10400009 */ 	beqz	$v0,.L0f046970
-/*  f04694c:	00000000 */ 	nop
-/*  f046950:	c450007c */ 	lwc1	$f16,0x7c($v0)
-/*  f046954:	44819000 */ 	mtc1	$at,$f18
-/*  f046958:	00000000 */ 	nop
-/*  f04695c:	4612803c */ 	c.lt.s	$f16,$f18
-/*  f046960:	00000000 */ 	nop
-/*  f046964:	45000002 */ 	bc1f	.L0f046970
-/*  f046968:	00000000 */ 	nop
-/*  f04696c:	00004025 */ 	or	$t0,$zero,$zero
-.L0f046970:
-/*  f046970:	1500000f */ 	bnez	$t0,.L0f0469b0
-/*  f046974:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*  f046978:	8fb800a8 */ 	lw	$t8,0xa8($sp)
-/*  f04697c:	53000027 */ 	beqzl	$t8,.L0f046a1c
-/*  f046980:	01001025 */ 	or	$v0,$t0,$zero
-/*  f046984:	920f032c */ 	lbu	$t7,0x32c($s0)
-/*  f046988:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f04698c:	24190003 */ 	addiu	$t9,$zero,0x3
-/*  f046990:	11e10021 */ 	beq	$t7,$at,.L0f046a18
-/*  f046994:	02002025 */ 	or	$a0,$s0,$zero
-/*  f046998:	a219032c */ 	sb	$t9,0x32c($s0)
-/*  f04699c:	afa8009c */ 	sw	$t0,0x9c($sp)
-/*  f0469a0:	0fc0b9b7 */ 	jal	chrStandChooseAnimation
-/*  f0469a4:	3c054180 */ 	lui	$a1,0x4180
-/*  f0469a8:	1000001b */ 	b	.L0f046a18
-/*  f0469ac:	8fa8009c */ 	lw	$t0,0x9c($sp)
-.L0f0469b0:
-/*  f0469b0:	a20a032c */ 	sb	$t2,0x32c($s0)
-/*  f0469b4:	afa8009c */ 	sw	$t0,0x9c($sp)
-/*  f0469b8:	0fc0b819 */ 	jal	func0f02e064
-/*  f0469bc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0469c0:	10400015 */ 	beqz	$v0,.L0f046a18
-/*  f0469c4:	8fa8009c */ 	lw	$t0,0x9c($sp)
-/*  f0469c8:	820b0007 */ 	lb	$t3,0x7($s0)
-/*  f0469cc:	2401000e */ 	addiu	$at,$zero,0xe
-/*  f0469d0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0469d4:	15610006 */ 	bne	$t3,$at,.L0f0469f0
-/*  f0469d8:	00000000 */ 	nop
-/*  f0469dc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0469e0:	0fc0e21a */ 	jal	chrPatrolChooseAnimation
-/*  f0469e4:	afa8009c */ 	sw	$t0,0x9c($sp)
-/*  f0469e8:	1000000b */ 	b	.L0f046a18
-/*  f0469ec:	8fa8009c */ 	lw	$t0,0x9c($sp)
-.L0f0469f0:
-/*  f0469f0:	0fc0dedc */ 	jal	chrGoPosChooseAnimation
-/*  f0469f4:	afa8009c */ 	sw	$t0,0x9c($sp)
-/*  f0469f8:	10000007 */ 	b	.L0f046a18
-/*  f0469fc:	8fa8009c */ 	lw	$t0,0x9c($sp)
-.L0f046a00:
-/*  f046a00:	8fac00a8 */ 	lw	$t4,0xa8($sp)
-/*  f046a04:	240d0002 */ 	addiu	$t5,$zero,0x2
-/*  f046a08:	51800004 */ 	beqzl	$t4,.L0f046a1c
-/*  f046a0c:	01001025 */ 	or	$v0,$t0,$zero
-/*  f046a10:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f046a14:	a20d032c */ 	sb	$t5,0x32c($s0)
-.L0f046a18:
-/*  f046a18:	01001025 */ 	or	$v0,$t0,$zero
-.L0f046a1c:
-/*  f046a1c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f046a20:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f046a24:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
-/*  f046a28:	03e00008 */ 	jr	$ra
-/*  f046a2c:	00000000 */ 	nop
-);
+bool chrGoPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, bool arrivingatlift, s16 curpadnum, s32 nextpadnum)
+{
+	bool advance = false;
+	struct pad nextpad;
+	u32 nextpadflags = 0;
+	f32 nextground;
+	f32 lifty;
+	struct liftobj *lift;
+	struct prop *liftprop = liftFindByPad(curpadnum);
+	u32 stack;
 
-u32 var8006843c = 0x0000ffff;
+	if (!liftprop) {
+		return false;
+	}
 
-// Mismatch: Goal loads arrivingatlift into a0 then later copies s0 (chr) to a0.
-// The below loads arrivingatlift into v1 and copies s0 to a0 earlier.
-//bool goPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, bool arrivingatlift, s16 curpadnum, s32 nextpadnum)
-//{
-//	bool advance = false;
-//	struct pad nextpad;
-//	u32 nextpadflags = 0;
-//	f32 nextground;
-//	f32 lifty;
-//	struct liftobj *lift;
-//	struct prop *liftprop = liftFindByPad(curpadnum);
-//	u32 stack;
-//
-//	if (!liftprop) {
-//		return false;
-//	}
-//
-//	lift = (struct liftobj *) liftprop->obj;
-//
-//	lifty = liftGetY(lift);
-//
-//	if (nextpadnum >= 0) {
-//		padUnpack(nextpadnum, PADFIELD_POS | PADFIELD_ROOM | PADFIELD_FLAGS, &nextpad);
-//		nextpadflags = nextpad.flags;
-//	}
-//
-//	if (curpadflags & PADFLAG_AIWAITLIFT) {
-//		if (nextpadflags & PADFLAG_AIONLIFT) {
-//			if (arrivingatlift || chr->liftaction == LIFTACTION_WAITINGFORLIFT) {
-//				// Begin entering lift if lift is under 40cm above this level
-//				advance = (lifty <= chr->manground + 40);
-//
-//				// ...and (if solo mode) lift is over 1m under this level
-//				// (this logic allows MP simulants to drop down onto lifts)
-//				if (!g_Vars.normmplayerisrunning && advance) {
-//					advance = (lifty > chr->manground - 100);
-//				}
-//
-//				// ...and if the lift has a door, is at least halfway open
-//				if (advance && lift->doors[lift->levelcur] && lift->doors[lift->levelcur]->frac < 0.5f) {
-//					advance = false;
-//				}
-//			}
-//
-//			if (!advance) {
-//				if (arrivingatlift && chr->liftaction != LIFTACTION_WAITINGFORLIFT) {
-//					// Just arrived at lift
-//					chr->liftaction = LIFTACTION_WAITINGFORLIFT;
-//
-//					chrStandChooseAnimation(chr, 16);
-//
-//					if (nextpadnum >= 0) {
-//						// Call the lift
-//						chrOpenDoor(chr, &nextpad.pos);
-//					}
-//				}
-//			} else {
-//				// Enter lift
-//				chr->liftaction = LIFTACTION_NOTUSINGLIFT;
-//
-//				if (func0f02e064(chr)) {
-//					if (chr->actiontype == ACT_PATROL) {
-//						chrPatrolChooseAnimation(chr);
-//					} else {
-//						chrGoPosChooseAnimation(chr);
-//					}
-//				}
-//			}
-//		} else {
-//			// On a wait lift pad, but the next pad in the route is not on the
-//			// lift, so the chr is running past the lift without using it.
-//			if (arrivingatlift) {
-//				advance = true;
-//				chr->liftaction = LIFTACTION_NOTUSINGLIFT;
-//			}
-//		}
-//	} else if (curpadflags & PADFLAG_AIONLIFT) {
-//		if (nextpadflags & PADFLAG_AIWAITLIFT) {
-//			// Waiting for door to close or lift to arrive at destination
-//			if (arg2 || chr->liftaction == LIFTACTION_WAITINGONLIFT) {
-//				// Continue waiting
-//				s16 rooms[] = {0, -1};
-//				u32 stack2;
-//
-//				rooms[0] = nextpad.room;
-//
-//				nextground = cd0002a36c(&nextpad.pos, rooms, NULL, NULL);
-//
-//				// Begin exiting lift if lift is 30cm under destination or higher
-//				advance = (lifty >= nextground - 30);
-//
-//				// ...and (if solo) lift is under 1m above destination
-//				if (!g_Vars.normmplayerisrunning && advance) {
-//					advance = (lifty < nextground + 100);
-//				}
-//
-//				// ...and if the lift has a door, is at least halfway open
-//				if (advance && lift->doors[lift->levelcur] && lift->doors[lift->levelcur]->frac < 0.5f) {
-//					advance = false;
-//				}
-//			}
-//
-//			if (!advance) {
-//				if (arg2 && chr->liftaction != LIFTACTION_WAITINGONLIFT) {
-//					// Just arrived inside lift
-//					chr->liftaction = LIFTACTION_WAITINGONLIFT;
-//					chrStandChooseAnimation(chr, 16);
-//				}
-//			} else {
-//				// Start disembarking
-//				chr->liftaction = LIFTACTION_ONLIFT;
-//
-//				if (func0f02e064(chr)) {
-//					if (chr->actiontype == ACT_PATROL) {
-//						chrPatrolChooseAnimation(chr);
-//					} else {
-//						chrGoPosChooseAnimation(chr);
-//					}
-//				}
-//			}
-//		} else {
-//			// Not our stop? Not sure why advance is true here. I guess the chr
-//			// can't go anywhere anyway because the next pad is above or below
-//			// them.
-//			if (arg2) {
-//				advance = true;
-//				chr->liftaction = LIFTACTION_ONLIFT;
-//			}
-//		}
-//	}
-//
-//	return advance;
-//}
+	lift = (struct liftobj *) liftprop->obj;
+
+	lifty = liftGetY(lift);
+
+	if (nextpadnum >= 0) {
+		padUnpack(nextpadnum, PADFIELD_POS | PADFIELD_ROOM | PADFIELD_FLAGS, &nextpad);
+		nextpadflags = nextpad.flags;
+	}
+
+	if (curpadflags & PADFLAG_AIWAITLIFT) {
+		if (nextpadflags & PADFLAG_AIONLIFT) {
+			if (arrivingatlift || chr->liftaction == LIFTACTION_WAITINGFORLIFT) {
+				if (nextpadflags);
+
+				// Begin entering lift if lift is under 40cm above this level
+				advance = (lifty <= chr->manground + 40);
+
+				// ...and (if solo mode) lift is over 1m under this level
+				// (this logic allows MP simulants to drop down onto lifts)
+				if (!g_Vars.normmplayerisrunning && advance) {
+					advance = (lifty > chr->manground - 100);
+				}
+
+				// ...and if the lift has a door, is at least halfway open
+				if (advance && lift->doors[lift->levelcur] && lift->doors[lift->levelcur]->frac < 0.5f) {
+					advance = false;
+				}
+			}
+
+			if (!advance) {
+				if (arrivingatlift && chr->liftaction != LIFTACTION_WAITINGFORLIFT) {
+					// Just arrived at lift
+					chr->liftaction = LIFTACTION_WAITINGFORLIFT;
+
+					chrStandChooseAnimation(chr, 16);
+
+					if (nextpadnum >= 0) {
+						// Call the lift
+						chrOpenDoor(chr, &nextpad.pos);
+					}
+				}
+			} else {
+				// Enter lift
+				chr->liftaction = LIFTACTION_NOTUSINGLIFT;
+
+				if (func0f02e064(chr)) {
+					if (chr->actiontype == ACT_PATROL) {
+						chrPatrolChooseAnimation(chr);
+					} else {
+						chrGoPosChooseAnimation(chr);
+					}
+				}
+			}
+		} else {
+			// On a wait lift pad, but the next pad in the route is not on the
+			// lift, so the chr is running past the lift without using it.
+			if (arrivingatlift) {
+				advance = true;
+				chr->liftaction = LIFTACTION_NOTUSINGLIFT;
+			}
+		}
+	} else if (curpadflags & PADFLAG_AIONLIFT) {
+		if (nextpadflags & PADFLAG_AIWAITLIFT) {
+			// Waiting for door to close or lift to arrive at destination
+			if (arg2 || chr->liftaction == LIFTACTION_WAITINGONLIFT) {
+				// Continue waiting
+				s16 rooms[] = {0, -1};
+				u32 stack2;
+
+				rooms[0] = nextpad.room;
+
+				nextground = cd0002a36c(&nextpad.pos, rooms, NULL, NULL);
+
+				// Begin exiting lift if lift is 30cm under destination or higher
+				advance = (lifty >= nextground - 30);
+
+				// ...and (if solo) lift is under 1m above destination
+				if (!g_Vars.normmplayerisrunning && advance) {
+					advance = (lifty < nextground + 100);
+				}
+
+				// ...and if the lift has a door, is at least halfway open
+				if (advance && lift->doors[lift->levelcur] && lift->doors[lift->levelcur]->frac < 0.5f) {
+					advance = false;
+				}
+			}
+
+			if (!advance) {
+				if (arg2 && chr->liftaction != LIFTACTION_WAITINGONLIFT) {
+					// Just arrived inside lift
+					chr->liftaction = LIFTACTION_WAITINGONLIFT;
+					chrStandChooseAnimation(chr, 16);
+				}
+			} else {
+				// Start disembarking
+				chr->liftaction = LIFTACTION_ONLIFT;
+
+				if (func0f02e064(chr)) {
+					if (chr->actiontype == ACT_PATROL) {
+						chrPatrolChooseAnimation(chr);
+					} else {
+						chrGoPosChooseAnimation(chr);
+					}
+				}
+			}
+		} else {
+			// Not our stop? Not sure why advance is true here. I guess the chr
+			// can't go anywhere anyway because the next pad is above or below
+			// them.
+			if (arg2) {
+				advance = true;
+				chr->liftaction = LIFTACTION_ONLIFT;
+			}
+		}
+	}
+
+	return advance;
+}
 
 s32 chrIsUsingLift(struct chrdata *chr)
 {
@@ -22405,7 +22130,7 @@ void chrTickGoPos(struct chrdata *chr)
 			}
 
 			if ((pad.flags & PADFLAG_AIWAITLIFT) || (pad.flags & PADFLAG_AIONLIFT)) {
-				advance = goPosUpdateLiftAction(chr, pad.flags, sp184, sp188, waypoint->padnum, chrGoPosGetNextPadNum(chr));
+				advance = chrGoPosUpdateLiftAction(chr, pad.flags, sp184, sp188, waypoint->padnum, chrGoPosGetNextPadNum(chr));
 			} else {
 				if (sp188 || (sp184 && (chr->inlift || (pad.flags & PADFLAG_8000)))) {
 					advance = true;
@@ -22627,7 +22352,7 @@ void chrTickPatrol(struct chrdata *chr)
 		advance = false;
 
 		if ((flags & PADFLAG_AIWAITLIFT) || (flags & PADFLAG_AIONLIFT)) {
-			advance = goPosUpdateLiftAction(chr, flags, arrivinglaterally, arriving,
+			advance = chrGoPosUpdateLiftAction(chr, flags, arrivinglaterally, arriving,
 					chrPatrolCalculatePadNum(chr, 0),
 					chrPatrolCalculatePadNum(chr, 1));
 		} else if (arriving) {
