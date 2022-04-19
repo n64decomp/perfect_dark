@@ -26669,171 +26669,6 @@ s32 chrAssignCoverByCriteria(struct chrdata *chr, u16 criteria, s32 refdist)
 	return -1;
 }
 
-GLOBAL_ASM(
-glabel chrAssignCoverAwayFromDanger
-/*  f04bffc:	27bdff58 */ 	addiu	$sp,$sp,-168
-/*  f04c000:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*  f04c004:	afbe0058 */ 	sw	$s8,0x58($sp)
-/*  f04c008:	afb70054 */ 	sw	$s7,0x54($sp)
-/*  f04c00c:	afb60050 */ 	sw	$s6,0x50($sp)
-/*  f04c010:	afb5004c */ 	sw	$s5,0x4c($sp)
-/*  f04c014:	afb40048 */ 	sw	$s4,0x48($sp)
-/*  f04c018:	afb30044 */ 	sw	$s3,0x44($sp)
-/*  f04c01c:	afb20040 */ 	sw	$s2,0x40($sp)
-/*  f04c020:	afb1003c */ 	sw	$s1,0x3c($sp)
-/*  f04c024:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f04c028:	f7ba0030 */ 	sdc1	$f26,0x30($sp)
-/*  f04c02c:	f7b80028 */ 	sdc1	$f24,0x28($sp)
-/*  f04c030:	f7b60020 */ 	sdc1	$f22,0x20($sp)
-/*  f04c034:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*  f04c038:	8c8e001c */ 	lw	$t6,0x1c($a0)
-/*  f04c03c:	4480d000 */ 	mtc1	$zero,$f26
-/*  f04c040:	3c01432a */ 	lui	$at,0x432a
-/*  f04c044:	44813000 */ 	mtc1	$at,$f6
-/*  f04c048:	c5c4000c */ 	lwc1	$f4,0xc($t6)
-/*  f04c04c:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f04c050:	00808825 */ 	or	$s1,$a0,$zero
-/*  f04c054:	00a0a025 */ 	or	$s4,$a1,$zero
-/*  f04c058:	00c0a825 */ 	or	$s5,$a2,$zero
-/*  f04c05c:	afaf0078 */ 	sw	$t7,0x78($sp)
-/*  f04c060:	e7ba0090 */ 	swc1	$f26,0x90($sp)
-/*  f04c064:	4600d586 */ 	mov.s	$f22,$f26
-/*  f04c068:	0fc458b4 */ 	jal	coverGetCount
-/*  f04c06c:	46062600 */ 	add.s	$f24,$f4,$f6
-/*  f04c070:	02940019 */ 	multu	$s4,$s4
-/*  f04c074:	86380292 */ 	lh	$t8,0x292($s1)
-/*  f04c078:	27b60090 */ 	addiu	$s6,$sp,0x90
-/*  f04c07c:	00409825 */ 	or	$s3,$v0,$zero
-/*  f04c080:	afb8007c */ 	sw	$t8,0x7c($sp)
-/*  f04c084:	8e39001c */ 	lw	$t9,0x1c($s1)
-/*  f04c088:	c62a02c8 */ 	lwc1	$f10,0x2c8($s1)
-/*  f04c08c:	02c02825 */ 	or	$a1,$s6,$zero
-/*  f04c090:	c7280008 */ 	lwc1	$f8,0x8($t9)
-/*  f04c094:	27a4009c */ 	addiu	$a0,$sp,0x9c
-/*  f04c098:	0000a012 */ 	mflo	$s4
-/*  f04c09c:	460a4401 */ 	sub.s	$f16,$f8,$f10
-/*  f04c0a0:	27a600a0 */ 	addiu	$a2,$sp,0xa0
-/*  f04c0a4:	02b50019 */ 	multu	$s5,$s5
-/*  f04c0a8:	e7b0009c */ 	swc1	$f16,0x9c($sp)
-/*  f04c0ac:	8e28001c */ 	lw	$t0,0x1c($s1)
-/*  f04c0b0:	c62402d0 */ 	lwc1	$f4,0x2d0($s1)
-/*  f04c0b4:	c5120010 */ 	lwc1	$f18,0x10($t0)
-/*  f04c0b8:	46049181 */ 	sub.s	$f6,$f18,$f4
-/*  f04c0bc:	0000a812 */ 	mflo	$s5
-/*  f04c0c0:	0c0011e4 */ 	jal	guNormalize
-/*  f04c0c4:	e7a600a0 */ 	swc1	$f6,0xa0($sp)
-/*  f04c0c8:	1a600048 */ 	blez	$s3,.L0f04c1ec
-/*  f04c0cc:	00008025 */ 	or	$s0,$zero,$zero
-/*  f04c0d0:	27be0098 */ 	addiu	$s8,$sp,0x98
-/*  f04c0d4:	27b70094 */ 	addiu	$s7,$sp,0x94
-/*  f04c0d8:	27b20064 */ 	addiu	$s2,$sp,0x64
-/*  f04c0dc:	02002025 */ 	or	$a0,$s0,$zero
-.L0f04c0e0:
-/*  f04c0e0:	0fc458b8 */ 	jal	coverUnpack
-/*  f04c0e4:	02402825 */ 	or	$a1,$s2,$zero
-/*  f04c0e8:	5040003e */ 	beqzl	$v0,.L0f04c1e4
-/*  f04c0ec:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f04c0f0:	0fc45917 */ 	jal	coverIsInUse
-/*  f04c0f4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04c0f8:	14400039 */ 	bnez	$v0,.L0f04c1e0
-/*  f04c0fc:	8fa90064 */ 	lw	$t1,0x64($sp)
-/*  f04c100:	c5280004 */ 	lwc1	$f8,0x4($t1)
-/*  f04c104:	4608c03c */ 	c.lt.s	$f24,$f8
-/*  f04c108:	00000000 */ 	nop
-/*  f04c10c:	45030035 */ 	bc1tl	.L0f04c1e4
-/*  f04c110:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f04c114:	0fc4596c */ 	jal	coverIsSpecial
-/*  f04c118:	02402025 */ 	or	$a0,$s2,$zero
-/*  f04c11c:	14400030 */ 	bnez	$v0,.L0f04c1e0
-/*  f04c120:	262402c8 */ 	addiu	$a0,$s1,0x2c8
-/*  f04c124:	44945000 */ 	mtc1	$s4,$f10
-/*  f04c128:	8fa50064 */ 	lw	$a1,0x64($sp)
-/*  f04c12c:	0fc12565 */ 	jal	coordGetSquaredDistanceToCoord
-/*  f04c130:	46805520 */ 	cvt.s.w	$f20,$f10
-/*  f04c134:	4614003c */ 	c.lt.s	$f0,$f20
-/*  f04c138:	00000000 */ 	nop
-/*  f04c13c:	45030029 */ 	bc1tl	.L0f04c1e4
-/*  f04c140:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f04c144:	44958000 */ 	mtc1	$s5,$f16
-/*  f04c148:	8faa0064 */ 	lw	$t2,0x64($sp)
-/*  f04c14c:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f04c150:	4600903c */ 	c.lt.s	$f18,$f0
-/*  f04c154:	00000000 */ 	nop
-/*  f04c158:	45030022 */ 	bc1tl	.L0f04c1e4
-/*  f04c15c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f04c160:	8e2b001c */ 	lw	$t3,0x1c($s1)
-/*  f04c164:	c5440000 */ 	lwc1	$f4,0x0($t2)
-/*  f04c168:	02e02025 */ 	or	$a0,$s7,$zero
-/*  f04c16c:	c5660008 */ 	lwc1	$f6,0x8($t3)
-/*  f04c170:	02c02825 */ 	or	$a1,$s6,$zero
-/*  f04c174:	03c03025 */ 	or	$a2,$s8,$zero
-/*  f04c178:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f04c17c:	e7a80094 */ 	swc1	$f8,0x94($sp)
-/*  f04c180:	8e2c001c */ 	lw	$t4,0x1c($s1)
-/*  f04c184:	c54a0008 */ 	lwc1	$f10,0x8($t2)
-/*  f04c188:	c5900010 */ 	lwc1	$f16,0x10($t4)
-/*  f04c18c:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f04c190:	0c0011e4 */ 	jal	guNormalize
-/*  f04c194:	e7b20098 */ 	swc1	$f18,0x98($sp)
-/*  f04c198:	c7a40098 */ 	lwc1	$f4,0x98($sp)
-/*  f04c19c:	c7a600a0 */ 	lwc1	$f6,0xa0($sp)
-/*  f04c1a0:	c7aa009c */ 	lwc1	$f10,0x9c($sp)
-/*  f04c1a4:	c7b00094 */ 	lwc1	$f16,0x94($sp)
-/*  f04c1a8:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f04c1ac:	00000000 */ 	nop
-/*  f04c1b0:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f04c1b4:	46124080 */ 	add.s	$f2,$f8,$f18
-/*  f04c1b8:	461a103c */ 	c.lt.s	$f2,$f26
-/*  f04c1bc:	00000000 */ 	nop
-/*  f04c1c0:	45010007 */ 	bc1t	.L0f04c1e0
-/*  f04c1c4:	00000000 */ 	nop
-/*  f04c1c8:	4602b03c */ 	c.lt.s	$f22,$f2
-/*  f04c1cc:	00000000 */ 	nop
-/*  f04c1d0:	45020004 */ 	bc1fl	.L0f04c1e4
-/*  f04c1d4:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f04c1d8:	46001586 */ 	mov.s	$f22,$f2
-/*  f04c1dc:	afb00078 */ 	sw	$s0,0x78($sp)
-.L0f04c1e0:
-/*  f04c1e0:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f04c1e4:
-/*  f04c1e4:	5613ffbe */ 	bnel	$s0,$s3,.L0f04c0e0
-/*  f04c1e8:	02002025 */ 	or	$a0,$s0,$zero
-.L0f04c1ec:
-/*  f04c1ec:	8fad0078 */ 	lw	$t5,0x78($sp)
-/*  f04c1f0:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f04c1f4:	a62d0292 */ 	sh	$t5,0x292($s1)
-/*  f04c1f8:	8fae0078 */ 	lw	$t6,0x78($sp)
-/*  f04c1fc:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f04c200:	51c20009 */ 	beql	$t6,$v0,.L0f04c228
-/*  f04c204:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*  f04c208:	50820004 */ 	beql	$a0,$v0,.L0f04c21c
-/*  f04c20c:	86240292 */ 	lh	$a0,0x292($s1)
-/*  f04c210:	0fc45929 */ 	jal	coverSetInUse
-/*  f04c214:	00002825 */ 	or	$a1,$zero,$zero
-/*  f04c218:	86240292 */ 	lh	$a0,0x292($s1)
-.L0f04c21c:
-/*  f04c21c:	0fc45929 */ 	jal	coverSetInUse
-/*  f04c220:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f04c224:	8fbf005c */ 	lw	$ra,0x5c($sp)
-.L0f04c228:
-/*  f04c228:	8fa20078 */ 	lw	$v0,0x78($sp)
-/*  f04c22c:	d7b40018 */ 	ldc1	$f20,0x18($sp)
-/*  f04c230:	d7b60020 */ 	ldc1	$f22,0x20($sp)
-/*  f04c234:	d7b80028 */ 	ldc1	$f24,0x28($sp)
-/*  f04c238:	d7ba0030 */ 	ldc1	$f26,0x30($sp)
-/*  f04c23c:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f04c240:	8fb1003c */ 	lw	$s1,0x3c($sp)
-/*  f04c244:	8fb20040 */ 	lw	$s2,0x40($sp)
-/*  f04c248:	8fb30044 */ 	lw	$s3,0x44($sp)
-/*  f04c24c:	8fb40048 */ 	lw	$s4,0x48($sp)
-/*  f04c250:	8fb5004c */ 	lw	$s5,0x4c($sp)
-/*  f04c254:	8fb60050 */ 	lw	$s6,0x50($sp)
-/*  f04c258:	8fb70054 */ 	lw	$s7,0x54($sp)
-/*  f04c25c:	8fbe0058 */ 	lw	$s8,0x58($sp)
-/*  f04c260:	03e00008 */ 	jr	$ra
-/*  f04c264:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
-);
-
 /**
  * Find cover in the opposite direction (?) of the chr's runfrompos and assign
  * it to the chr. The distance from the runfrompos to the cover must be between
@@ -26875,77 +26710,75 @@ glabel chrAssignCoverAwayFromDanger
  * Preference is given to cover which is the "most opposite", meaning ones
  * which are directly behind the chr from the perspective of runfrompos.
  */
-// Mismatch: Regalloc in callee-save registers
-//s32 chrAssignCoverAwayFromDanger(struct chrdata *chr, s32 mindist, s32 maxdist)
-//{
-//	s32 i;
-//	f32 vecfromdanger[2];
-//	f32 vectocover[2];
-//	f32 y;
-//	f32 ymax;
-//	f32 bestsqdist;
-//	f32 sqdist;
-//	s32 numcovers;
-//	s32 prevcover;
-//	s32 newcover;
-//	f32 coversqdistfrompos;
-//	struct cover cover;
-//
-//	ymax = chr->prop->pos.y + 170;
-//	y = 0;
-//	bestsqdist = 0;
-//	newcover = -1;
-//	numcovers = coverGetCount();
-//	prevcover = chr->cover;
-//
-//	mindist = mindist * mindist;
-//	maxdist = maxdist * maxdist;
-//
-//	if (mindist);
-//	if (maxdist);
-//
-//	vecfromdanger[0] = chr->prop->pos.x - chr->runfrompos.x;
-//	vecfromdanger[1] = chr->prop->pos.z - chr->runfrompos.z;
-//
-//	guNormalize(&vecfromdanger[0], &y, &vecfromdanger[1]);
-//
-//	for (i = 0; i < numcovers; i++) {
-//		if (coverUnpack(i, &cover)
-//				&& !coverIsInUse(i)
-//				&& !(cover.pos->y > ymax)
-//				&& !coverIsSpecial(&cover)) {
-//			coversqdistfrompos = coordGetSquaredDistanceToCoord(&chr->runfrompos, cover.pos);
-//
-//			if (!(coversqdistfrompos < mindist) && !(coversqdistfrompos > maxdist)) {
-//				vectocover[0] = cover.pos->x - chr->prop->pos.x;
-//				vectocover[1] = cover.pos->z - chr->prop->pos.z;
-//
-//				guNormalize(&vectocover[0], &y, &vectocover[1]);
-//
-//				sqdist = vecfromdanger[0] * vectocover[0] + vecfromdanger[1] * vectocover[1];
-//
-//				if (!(sqdist < 0) && sqdist > bestsqdist) {
-//					bestsqdist = sqdist;
-//					newcover = i;
-//				}
-//			}
-//		}
-//
-//		if (numcovers);
-//	}
-//
-//	chr->cover = newcover;
-//
-//	if (newcover != -1) {
-//		if (prevcover != -1) {
-//			coverSetInUse(prevcover, false);
-//		}
-//
-//		coverSetInUse(chr->cover, true);
-//	}
-//
-//	return newcover;
-//}
+s32 chrAssignCoverAwayFromDanger(struct chrdata *chr, s32 mindist, s32 maxdist)
+{
+	s32 i;
+	f32 vecfromdanger[2];
+	f32 vectocover[2];
+	f32 y;
+	f32 ymax;
+	f32 bestsqdist;
+	f32 sqdist;
+	s32 numcovers;
+	s32 prevcover;
+	s32 newcover;
+	f32 coversqdistfrompos;
+	struct cover cover;
+
+	ymax = chr->prop->pos.y + 170;
+	y = 0;
+	bestsqdist = 0;
+	newcover = -1;
+
+	numcovers = coverGetCount();
+	prevcover = chr->cover;
+
+	mindist *= mindist;
+	maxdist *= maxdist;
+
+	if (mindist);
+	if (maxdist);
+
+	vecfromdanger[0] = chr->prop->pos.x - chr->runfrompos.x;
+	vecfromdanger[1] = chr->prop->pos.z - chr->runfrompos.z;
+
+	guNormalize(&vecfromdanger[0], &y, &vecfromdanger[1]);
+
+	for (i = 0; i < numcovers; i++) {
+		if (coverUnpack(i, &cover) && !coverIsInUse(i) && !(cover.pos->y > ymax) && !coverIsSpecial(&cover)) {
+			coversqdistfrompos = coordGetSquaredDistanceToCoord(&chr->runfrompos, cover.pos);
+
+			if (!(coversqdistfrompos < mindist) && !(coversqdistfrompos > maxdist)) {
+				vectocover[0] = cover.pos->x - chr->prop->pos.x;
+				vectocover[1] = cover.pos->z - chr->prop->pos.z;
+
+				guNormalize(&vectocover[0], &y, &vectocover[1]);
+
+				sqdist = vecfromdanger[0] * vectocover[0] + vecfromdanger[1] * vectocover[1];
+
+				if (!(sqdist < 0) && sqdist > bestsqdist) {
+					bestsqdist = sqdist;
+					newcover = i;
+					if (1);
+				}
+			}
+		}
+
+		if (numcovers);
+	}
+
+	chr->cover = newcover;
+
+	if (newcover != -1) {
+		if (prevcover != -1) {
+			coverSetInUse(prevcover, false);
+		}
+
+		coverSetInUse(chr->cover, true);
+	}
+
+	return newcover;
+}
 
 s16 chrGoToCover(struct chrdata *chr, u8 speed)
 {
