@@ -8351,44 +8351,19 @@ void pak0f11d678(void)
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pak7f1172c8nb
-/*  f1172c8:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f1172cc:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f1172d0:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f1172d4:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1172d8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1172dc:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1172e0:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f1172e4:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f1172e8:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f1172ec:	3c01800a */ 	lui	$at,0x800a
-/*  f1172f0:	00380821 */ 	addu	$at,$at,$t8
-/*  f1172f4:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f1172f8:	ac206ae8 */ 	sw	$zero,0x6ae8($at)
-/*  f1172fc:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f117300:	00001825 */ 	or	$v1,$zero,$zero
-/*  f117304:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f117308:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11730c:	27a30048 */ 	addiu	$v1,$sp,0x48
-/*  f117310:	27a20028 */ 	addiu	$v0,$sp,0x28
-/*  f117314:	04a10003 */ 	bgez	$a1,.NB0f117324
-/*  f117318:	00053043 */ 	sra	$a2,$a1,0x1
-/*  f11731c:	24a10001 */ 	addiu	$at,$a1,0x1
-/*  f117320:	00013043 */ 	sra	$a2,$at,0x1
-.NB0f117324:
-/*  f117324:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f117328:	1443fffe */ 	bne	$v0,$v1,.NB0f117324
-/*  f11732c:	a046ffff */ 	sb	$a2,-0x1($v0)
-/*  f117330:	24054000 */ 	addiu	$a1,$zero,0x4000
-/*  f117334:	27a60028 */ 	addiu	$a2,$sp,0x28
-/*  f117338:	0fc45a3b */ 	jal	gbpakWrite
-/*  f11733c:	24070020 */ 	addiu	$a3,$zero,0x20
-/*  f117340:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f117344:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f117348:	03e00008 */ 	jr	$ra
-/*  f11734c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void gbpak0f1172c8nb(s8 device, s32 arg1)
+{
+	u8 buffer[0x20];
+	s32 i;
+
+	g_Paks[device].unk278 = 0;
+
+	for (i = 0; i < sizeof(buffer); i++) {
+		buffer[i] = arg1 / 2;
+	}
+
+	gbpakWrite(device, 0x4000, buffer, sizeof(buffer));
+}
 #endif
 
 bool gbpak0f11d680(s8 device, bool arg1)
@@ -9990,7 +9965,7 @@ glabel pak7f117f94nb
 /*  f118188:	1443fffc */ 	bne	$v0,$v1,.NB0f11817c
 /*  f11818c:	a1200000 */ 	sb	$zero,0x0($t1)
 /*  f118190:	8cc50270 */ 	lw	$a1,0x270($a2)
-/*  f118194:	0fc45cb2 */ 	jal	pak7f1172c8nb
+/*  f118194:	0fc45cb2 */ 	jal	gbpak0f1172c8nb
 /*  f118198:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f11819c:	8fa60018 */ 	lw	$a2,0x18($sp)
 /*  f1181a0:	24030009 */ 	addiu	$v1,$zero,0x9
