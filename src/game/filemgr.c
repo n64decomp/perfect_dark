@@ -1705,7 +1705,6 @@ const char var7f1b34a0[] = "MenuClosed\n";
 const char var7f1b34ac[] = "Deleting files, wad %d\n";
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
 /**
  * item->param is a SAVEDEVICE constant.
  */
@@ -1722,163 +1721,39 @@ s32 filemgrSelectLocationMenuHandler(s32 operation, struct menuitem *item, union
 	}
 
 	if (operation == MENUOP_SET) {
+#if VERSION >= VERSION_NTSC_1_0
 		g_Menus[g_MpPlayerNum].fm.device2 = item->param;
 		filemgrSaveToDevice();
+#else
+		menuPopDialog();
+
+		if (g_Menus[g_MpPlayerNum].fm.unke3e == 0) {
+			filemgrSaveGameToDevice(item->param);
+		} else if (g_Menus[g_MpPlayerNum].fm.unke3e == 5) {
+			// empty
+		} else if (g_Menus[g_MpPlayerNum].fm.unke3e == 6) {
+			struct fileguid guid;
+			guid.fileid = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[item->param].fileid;
+			guid.deviceserial = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[item->param].deviceserial;
+			filemgrSaveOrLoad(&guid, FILEOP_SAVE_MPPLAYER, (u32)g_MpPlayerNum);
+		} else if (g_Menus[g_MpPlayerNum].fm.unke3e == 7) {
+			struct fileguid guid;
+			guid.fileid = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[item->param].fileid;
+			guid.deviceserial = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[item->param].deviceserial;
+			filemgrSaveOrLoad(&guid, FILEOP_SAVE_MPSETUP, 0);
+		} else if (g_Menus[g_MpPlayerNum].fm.unke3e >= 9) {
+			struct fileguid guid;
+			guid.fileid = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[item->param].fileid;
+			guid.deviceserial = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[item->param].deviceserial;
+			filemgrSaveOrLoad(&guid, -1, 0);
+		} else {
+			func0f1097d0(item->param);
+		}
+#endif
 	}
 
 	return 0;
 }
-#else
-GLOBAL_ASM(
-glabel filemgrSelectLocationMenuHandler
-/*  f1053a0:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f1053a4:	8dce3af0 */ 	lw	$t6,0x3af0($t6)
-/*  f1053a8:	3c18800a */ 	lui	$t8,0x800a
-/*  f1053ac:	3c098007 */ 	lui	$t1,0x8007
-/*  f1053b0:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f1053b4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1053b8:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f1053bc:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1053c0:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f1053c4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1053c8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1053cc:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f1053d0:	9318355b */ 	lbu	$t8,0x355b($t8)
-/*  f1053d4:	25297f60 */ 	addiu	$t1,$t1,0x7f60
-/*  f1053d8:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f1053dc:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f1053e0:	01395021 */ 	addu	$t2,$t1,$t9
-/*  f1053e4:	8d420000 */ 	lw	$v0,0x0($t2)
-/*  f1053e8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1053ec:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f1053f0:	14400003 */ 	bnez	$v0,.NB0f105400
-/*  f1053f4:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f1053f8:	1000006f */ 	beqz	$zero,.NB0f1055b8
-/*  f1053fc:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f105400:
-/*  f105400:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f105404:	54810009 */ 	bnel	$a0,$at,.NB0f10542c
-/*  f105408:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10540c:	90eb0001 */ 	lbu	$t3,0x1($a3)
-/*  f105410:	004b6021 */ 	addu	$t4,$v0,$t3
-/*  f105414:	818d02d2 */ 	lb	$t5,0x2d2($t4)
-/*  f105418:	5da00004 */ 	bgtzl	$t5,.NB0f10542c
-/*  f10541c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f105420:	10000065 */ 	beqz	$zero,.NB0f1055b8
-/*  f105424:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f105428:	24010006 */ 	addiu	$at,$zero,0x6
-.NB0f10542c:
-/*  f10542c:	54810062 */ 	bnel	$a0,$at,.NB0f1055b8
-/*  f105430:	00001025 */ 	or	$v0,$zero,$zero
-/*  f105434:	0fc3c088 */ 	jal	menuPopDialog
-/*  f105438:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f10543c:	3c088007 */ 	lui	$t0,0x8007
-/*  f105440:	8d083af0 */ 	lw	$t0,0x3af0($t0)
-/*  f105444:	3c0f800a */ 	lui	$t7,0x800a
-/*  f105448:	25ef27c0 */ 	addiu	$t7,$t7,0x27c0
-/*  f10544c:	000870c0 */ 	sll	$t6,$t0,0x3
-/*  f105450:	01c87023 */ 	subu	$t6,$t6,$t0
-/*  f105454:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f105458:	01c87023 */ 	subu	$t6,$t6,$t0
-/*  f10545c:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f105460:	01c87023 */ 	subu	$t6,$t6,$t0
-/*  f105464:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f105468:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f10546c:	90620d9a */ 	lbu	$v0,0xd9a($v1)
-/*  f105470:	3c098007 */ 	lui	$t1,0x8007
-/*  f105474:	25297f60 */ 	addiu	$t1,$t1,0x7f60
-/*  f105478:	14400005 */ 	bnez	$v0,.NB0f105490
-/*  f10547c:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f105480:	0fc41475 */ 	jal	filemgrSaveGameToDevice
-/*  f105484:	90e40001 */ 	lbu	$a0,0x1($a3)
-/*  f105488:	1000004b */ 	beqz	$zero,.NB0f1055b8
-/*  f10548c:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f105490:
-/*  f105490:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f105494:	10410047 */ 	beq	$v0,$at,.NB0f1055b4
-/*  f105498:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10549c:	54410016 */ 	bnel	$v0,$at,.NB0f1054f8
-/*  f1054a0:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f1054a4:	90780d9b */ 	lbu	$t8,0xd9b($v1)
-/*  f1054a8:	90eb0001 */ 	lbu	$t3,0x1($a3)
-/*  f1054ac:	27a40038 */ 	addiu	$a0,$sp,0x38
-/*  f1054b0:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f1054b4:	01395021 */ 	addu	$t2,$t1,$t9
-/*  f1054b8:	8d420000 */ 	lw	$v0,0x0($t2)
-/*  f1054bc:	000b60c0 */ 	sll	$t4,$t3,0x3
-/*  f1054c0:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f1054c4:	004c6821 */ 	addu	$t5,$v0,$t4
-/*  f1054c8:	8dae02d8 */ 	lw	$t6,0x2d8($t5)
-/*  f1054cc:	01003025 */ 	or	$a2,$t0,$zero
-/*  f1054d0:	afae0038 */ 	sw	$t6,0x38($sp)
-/*  f1054d4:	90ef0001 */ 	lbu	$t7,0x1($a3)
-/*  f1054d8:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f1054dc:	0058c821 */ 	addu	$t9,$v0,$t8
-/*  f1054e0:	972a02dc */ 	lhu	$t2,0x2dc($t9)
-/*  f1054e4:	0fc41358 */ 	jal	filemgrSaveOrLoad
-/*  f1054e8:	a7aa003c */ 	sh	$t2,0x3c($sp)
-/*  f1054ec:	10000032 */ 	beqz	$zero,.NB0f1055b8
-/*  f1054f0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1054f4:	24010007 */ 	addiu	$at,$zero,0x7
-.NB0f1054f8:
-/*  f1054f8:	54410016 */ 	bnel	$v0,$at,.NB0f105554
-/*  f1054fc:	28410009 */ 	slti	$at,$v0,0x9
-/*  f105500:	906b0d9b */ 	lbu	$t3,0xd9b($v1)
-/*  f105504:	90ee0001 */ 	lbu	$t6,0x1($a3)
-/*  f105508:	27a40030 */ 	addiu	$a0,$sp,0x30
-/*  f10550c:	000b6080 */ 	sll	$t4,$t3,0x2
-/*  f105510:	012c6821 */ 	addu	$t5,$t1,$t4
-/*  f105514:	8da20000 */ 	lw	$v0,0x0($t5)
-/*  f105518:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10551c:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f105520:	004fc021 */ 	addu	$t8,$v0,$t7
-/*  f105524:	8f1902d8 */ 	lw	$t9,0x2d8($t8)
-/*  f105528:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10552c:	afb90030 */ 	sw	$t9,0x30($sp)
-/*  f105530:	90ea0001 */ 	lbu	$t2,0x1($a3)
-/*  f105534:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f105538:	004b6021 */ 	addu	$t4,$v0,$t3
-/*  f10553c:	958d02dc */ 	lhu	$t5,0x2dc($t4)
-/*  f105540:	0fc41358 */ 	jal	filemgrSaveOrLoad
-/*  f105544:	a7ad0034 */ 	sh	$t5,0x34($sp)
-/*  f105548:	1000001b */ 	beqz	$zero,.NB0f1055b8
-/*  f10554c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f105550:	28410009 */ 	slti	$at,$v0,0x9
-.NB0f105554:
-/*  f105554:	14200015 */ 	bnez	$at,.NB0f1055ac
-/*  f105558:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10555c:	906e0d9b */ 	lbu	$t6,0xd9b($v1)
-/*  f105560:	90f90001 */ 	lbu	$t9,0x1($a3)
-/*  f105564:	27a40028 */ 	addiu	$a0,$sp,0x28
-/*  f105568:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f10556c:	012fc021 */ 	addu	$t8,$t1,$t7
-/*  f105570:	8f020000 */ 	lw	$v0,0x0($t8)
-/*  f105574:	001950c0 */ 	sll	$t2,$t9,0x3
-/*  f105578:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f10557c:	004a5821 */ 	addu	$t3,$v0,$t2
-/*  f105580:	8d6c02d8 */ 	lw	$t4,0x2d8($t3)
-/*  f105584:	00003025 */ 	or	$a2,$zero,$zero
-/*  f105588:	afac0028 */ 	sw	$t4,0x28($sp)
-/*  f10558c:	90ed0001 */ 	lbu	$t5,0x1($a3)
-/*  f105590:	000d70c0 */ 	sll	$t6,$t5,0x3
-/*  f105594:	004e7821 */ 	addu	$t7,$v0,$t6
-/*  f105598:	95f802dc */ 	lhu	$t8,0x2dc($t7)
-/*  f10559c:	0fc41358 */ 	jal	filemgrSaveOrLoad
-/*  f1055a0:	a7b8002c */ 	sh	$t8,0x2c($sp)
-/*  f1055a4:	10000004 */ 	beqz	$zero,.NB0f1055b8
-/*  f1055a8:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f1055ac:
-/*  f1055ac:	0fc41414 */ 	jal	func0f1097d0
-/*  f1055b0:	90e40001 */ 	lbu	$a0,0x1($a3)
-.NB0f1055b4:
-/*  f1055b4:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f1055b8:
-/*  f1055b8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1055bc:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f1055c0:	03e00008 */ 	jr	$ra
-/*  f1055c4:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
 
 s32 filemgrCancelSaveMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
