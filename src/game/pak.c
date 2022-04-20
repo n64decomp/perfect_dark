@@ -682,103 +682,54 @@ s32 pakGetBodyLenByType(s8 device, u32 filetype)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pak0f1114a0nb
-.late_rodata
-glabel var7f1aefa8nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aefacnb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aefb0nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aefb4nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aefb8nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aefbcnb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aefc0nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aefc4nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aefc8nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aefccnb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aefd0nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aefd4nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aefd8nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aefdcnb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aefe0nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aefe4nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aefe8nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aefecnb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aeff0nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aeff4nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aeff8nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1aeffcnb
-.word pak0f1114a0nb+0x5c
-glabel var7f1af000nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1af004nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1af008nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1af00cnb
-.word pak0f1114a0nb+0x5c
-glabel var7f1af010nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1af014nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1af018nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1af01cnb
-.word pak0f1114a0nb+0x5c
-glabel var7f1af020nb
-.word pak0f1114a0nb+0x5c
-glabel var7f1af024nb
-.word pak0f1114a0nb+0x5c
-.text
-/*  f1114a0:	2c810041 */ 	sltiu	$at,$a0,0x41
-/*  f1114a4:	14200005 */ 	bnez	$at,.NB0f1114bc
-/*  f1114a8:	24010080 */ 	addiu	$at,$zero,0x80
-/*  f1114ac:	10810013 */ 	beq	$a0,$at,.NB0f1114fc
-/*  f1114b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1114b4:	03e00008 */ 	jr	$ra
-/*  f1114b8:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f1114bc:
-/*  f1114bc:	2c810021 */ 	sltiu	$at,$a0,0x21
-/*  f1114c0:	14200006 */ 	bnez	$at,.NB0f1114dc
-/*  f1114c4:	248effff */ 	addiu	$t6,$a0,-1
-/*  f1114c8:	24010040 */ 	addiu	$at,$zero,0x40
-/*  f1114cc:	1081000b */ 	beq	$a0,$at,.NB0f1114fc
-/*  f1114d0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1114d4:	03e00008 */ 	jr	$ra
-/*  f1114d8:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f1114dc:
-/*  f1114dc:	2dc10020 */ 	sltiu	$at,$t6,0x20
-/*  f1114e0:	10200006 */ 	beqz	$at,.NB0f1114fc
-/*  f1114e4:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f1114e8:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f1114ec:	002e0821 */ 	addu	$at,$at,$t6
-/*  f1114f0:	8c2eefa8 */ 	lw	$t6,-0x1058($at)
-/*  f1114f4:	01c00008 */ 	jr	$t6
-/*  f1114f8:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f1114fc:
-/*  f1114fc:	03e00008 */ 	jr	$ra
-/*  f111500:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void pak0f1114a0nb(u32 arg0)
+{
+	if (arg0 >= 0x41) {
+		if (arg0 != 0x80) {
+
+		}
+	} else if (arg0 >= 0x21) {
+		if (arg0 != 0x40) {
+
+		}
+	} else {
+		switch (arg0) {
+		case 0x01:
+		case 0x02:
+		case 0x03:
+		case 0x04:
+		case 0x05:
+		case 0x06:
+		case 0x07:
+		case 0x08:
+		case 0x09:
+		case 0x0a:
+		case 0x0b:
+		case 0x0c:
+		case 0x0d:
+		case 0x0e:
+		case 0x0f:
+		case 0x10:
+		case 0x11:
+		case 0x12:
+		case 0x13:
+		case 0x14:
+		case 0x15:
+		case 0x16:
+		case 0x17:
+		case 0x18:
+		case 0x19:
+		case 0x1a:
+		case 0x1b:
+		case 0x1c:
+		case 0x1d:
+		case 0x1e:
+		case 0x1f:
+		case 0x20:
+			break;
+		}
+	}
+}
 #endif
 
 void pak0f117150(s8 device, u8 *ptr)
