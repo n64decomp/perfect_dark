@@ -1264,14 +1264,6 @@ const char var7f1b3df8[] = "Pak_SetThisGameSetupFile -> Pak=%d, File=%d, EEPROM=
 
 #if VERSION < VERSION_NTSC_1_0
 const char var7f1adbd8nb[] = "RWI : Pak_OneNewFile - Using a snug in a bug offset\n";
-const char var7f1adc10nb[] = "pak.c";
-const char var7f1adc18nb[] = "Pak_Make -> Dumping details of file types found\n";
-const char var7f1adc4cnb[] = "Type %d -> ";
-const char var7f1adc58nb[] = ", dSize=%u, fSize=%u\n";
-const char var7f1adc70nb[] = "Pak_Make -> Checking for inserted pakz\n";
-const char var7f1adc98nb[] = "Pak_Make -> Loading Boss File\n";
-const char var7f1adcb8nb[] = "Pak_Make -> Boss file load failed - Try to make a new one\n";
-const char var7f1adcf4nb[] = "Pak_Make -> Setting up default game file\n";
 #endif
 
 s32 pakGetPdNumBlocks(s8 device)
@@ -2220,9 +2212,9 @@ void pak0f1189d0(void)
 	// empty
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void paksInit(void)
 {
+#if VERSION >= VERSION_NTSC_1_0
 	u8 prevvalue = g_Vars.paksconnected;
 	s8 i;
 
@@ -2258,94 +2250,51 @@ void paksInit(void)
 	g_GameFileGuid.deviceserial = 0;
 	g_Vars.unk0004e4 = 0xf5;
 	g_Vars.paksconnected = prevvalue;
-}
 #else
-GLOBAL_ASM(
-glabel paksInit
-/*  f112d30:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f112d34:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f112d38:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f112d3c:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f112d40:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f112d44:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f112d48:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f112d4c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f112d50:	00102600 */ 	sll	$a0,$s0,0x18
-.NB0f112d54:
-/*  f112d54:	00047603 */ 	sra	$t6,$a0,0x18
-/*  f112d58:	0fc450bb */ 	jal	pakInit
-/*  f112d5c:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f112d60:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f112d64:	00107e00 */ 	sll	$t7,$s0,0x18
-/*  f112d68:	000f8603 */ 	sra	$s0,$t7,0x18
-/*  f112d6c:	2a010005 */ 	slti	$at,$s0,0x5
-/*  f112d70:	5420fff8 */ 	bnezl	$at,.NB0f112d54
-/*  f112d74:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f112d78:	2419001f */ 	addiu	$t9,$zero,0x1f
-/*  f112d7c:	3c01800a */ 	lui	$at,0x800a
-/*  f112d80:	3c117f1b */ 	lui	$s1,0x7f1b
-/*  f112d84:	a039eb91 */ 	sb	$t9,-0x146f($at)
-/*  f112d88:	2631dc10 */ 	addiu	$s1,$s1,-9200
-/*  f112d8c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f112d90:	00102600 */ 	sll	$a0,$s0,0x18
-.NB0f112d94:
-/*  f112d94:	00044603 */ 	sra	$t0,$a0,0x18
-/*  f112d98:	01002025 */ 	or	$a0,$t0,$zero
-/*  f112d9c:	24050007 */ 	addiu	$a1,$zero,0x7
-/*  f112da0:	24060789 */ 	addiu	$a2,$zero,0x789
-/*  f112da4:	0fc4507d */ 	jal	pak0f11a32c
-/*  f112da8:	02203825 */ 	or	$a3,$s1,$zero
-/*  f112dac:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f112db0:	00104e00 */ 	sll	$t1,$s0,0x18
-/*  f112db4:	00098603 */ 	sra	$s0,$t1,0x18
-/*  f112db8:	2a010005 */ 	slti	$at,$s0,0x5
-/*  f112dbc:	5420fff5 */ 	bnezl	$at,.NB0f112d94
-/*  f112dc0:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f112dc4:	0fc4608d */ 	jal	pakProbeEeprom
-/*  f112dc8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112dcc:	00008825 */ 	or	$s1,$zero,$zero
-/*  f112dd0:	24140009 */ 	addiu	$s4,$zero,0x9
-/*  f112dd4:	240b0001 */ 	addiu	$t3,$zero,0x1
-.NB0f112dd8:
-/*  f112dd8:	022b9004 */ 	sllv	$s2,$t3,$s1
-/*  f112ddc:	02402825 */ 	or	$a1,$s2,$zero
-/*  f112de0:	0fc444f9 */ 	jal	pakGetBodyLenByType
-/*  f112de4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f112de8:	00409825 */ 	or	$s3,$v0,$zero
-/*  f112dec:	0fc44528 */ 	jal	pak0f1114a0nb
-/*  f112df0:	02402025 */ 	or	$a0,$s2,$zero
-/*  f112df4:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f112df8:	00046603 */ 	sra	$t4,$a0,0x18
-/*  f112dfc:	01802025 */ 	or	$a0,$t4,$zero
-/*  f112e00:	0fc442ae */ 	jal	pakGetAlignedFileLenByBodyLen
-/*  f112e04:	02602825 */ 	or	$a1,$s3,$zero
-/*  f112e08:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f112e0c:	5634fff2 */ 	bnel	$s1,$s4,.NB0f112dd8
-/*  f112e10:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f112e14:	0fc45920 */ 	jal	pakExecuteDebugOperations
-/*  f112e18:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112e1c:	0fc42ace */ 	jal	bossfileLoadFull
-/*  f112e20:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112e24:	3c10800a */ 	lui	$s0,0x800a
-/*  f112e28:	261066f0 */ 	addiu	$s0,$s0,0x66f0
-/*  f112e2c:	0fc426fe */ 	jal	gamefileLoadDefaults
-/*  f112e30:	02002025 */ 	or	$a0,$s0,$zero
-/*  f112e34:	0fc425d9 */ 	jal	gamefileApplyOptions
-/*  f112e38:	02002025 */ 	or	$a0,$s0,$zero
-/*  f112e3c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f112e40:	3c01800a */ 	lui	$at,0x800a
-/*  f112e44:	a42067b4 */ 	sh	$zero,0x67b4($at)
-/*  f112e48:	3c01800a */ 	lui	$at,0x800a
-/*  f112e4c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f112e50:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f112e54:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f112e58:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f112e5c:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f112e60:	a020eb91 */ 	sb	$zero,-0x146f($at)
-/*  f112e64:	03e00008 */ 	jr	$ra
-/*  f112e68:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+	s8 i;
+	s32 j;
+
+	for (i = 0; i < 5; i++) {
+		pakInit(i);
+	}
+
+	g_Vars.paksconnected2 = 0x1f;
+
+	for (i = 0; i < 5; i++) {
+		pak0f11a32c(i, 7, 1929, "pak.c");
+	}
+
+	pakProbeEeprom();
+
+	osSyncPrintf("Pak_Make -> Dumping details of file types found\n");
+
+	for (j = 0; j < 9; j++) {
+		s32 len = pakGetBodyLenByType(0, 1 << j);
+		pak0f1114a0nb(1 << j);
+
+		// The use of i in pakGetAlignedFileLenByBodyLen is likely a bug,
+		// but this is debug code anyway
+		osSyncPrintf("Type %d -> ", 1 << j);
+		osSyncPrintf(", dSize=%u, fSize=%u\n", len, pakGetAlignedFileLenByBodyLen(i, len));
+	}
+
+	osSyncPrintf("Pak_Make -> Checking for inserted pakz\n");
+	pakExecuteDebugOperations();
+
+	osSyncPrintf("Pak_Make -> Loading Boss File\n");
+
+	if (!bossfileLoadFull()) {
+		osSyncPrintf("Pak_Make -> Boss file load failed - Try to make a new one\n");
+	}
+
+	osSyncPrintf("Pak_Make -> Setting up default game file\n");
+	gamefileLoadDefaults(&g_GameFile);
+	gamefileApplyOptions(&g_GameFile);
+
+	g_GameFileGuid.deviceserial = 0;
+	g_Vars.paksconnected2 = 0;
 #endif
+}
 
 const char var7f1b3e3c[] = "Pak %d -> Pak_Dir - ERROR : Pak Not Ready\n";
 const char var7f1b3e68[] = "Pak %d -> Pak_Dir - Done - Pak_GetOffsetEOF\n";
