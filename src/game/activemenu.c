@@ -766,159 +766,30 @@ void amClose(void)
 	g_PlayersWithControl[g_Vars.currentplayernum] = 1;
 }
 
-#if VERSION == VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel amIsCramped
-/*  f0ffd20:	3c06800a */ 	lui	$a2,0x800a
-/*  f0ffd24:	24c6a630 */ 	addiu	$a2,$a2,-22992
-/*  f0ffd28:	8cc7006c */ 	lw	$a3,0x6c($a2)
-/*  f0ffd2c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0ffd30:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0ffd34:	10e00003 */ 	beqz	$a3,.JF0f0ffd44
-/*  f0ffd38:	00002825 */ 	move	$a1,$zero
-/*  f0ffd3c:	10000001 */ 	b	.JF0f0ffd44
-/*  f0ffd40:	24050001 */ 	li	$a1,0x1
-.JF0f0ffd44:
-/*  f0ffd44:	8cc80068 */ 	lw	$t0,0x68($a2)
-/*  f0ffd48:	00002025 */ 	move	$a0,$zero
-/*  f0ffd4c:	00001825 */ 	move	$v1,$zero
-/*  f0ffd50:	11000003 */ 	beqz	$t0,.JF0f0ffd60
-/*  f0ffd54:	00001025 */ 	move	$v0,$zero
-/*  f0ffd58:	10000001 */ 	b	.JF0f0ffd60
-/*  f0ffd5c:	24040001 */ 	li	$a0,0x1
-.JF0f0ffd60:
-/*  f0ffd60:	8cc90064 */ 	lw	$t1,0x64($a2)
-/*  f0ffd64:	3c19800a */ 	lui	$t9,0x800a
-/*  f0ffd68:	11200003 */ 	beqz	$t1,.JF0f0ffd78
-/*  f0ffd6c:	00000000 */ 	nop
-/*  f0ffd70:	10000001 */ 	b	.JF0f0ffd78
-/*  f0ffd74:	24030001 */ 	li	$v1,0x1
-.JF0f0ffd78:
-/*  f0ffd78:	8cca0070 */ 	lw	$t2,0x70($a2)
-/*  f0ffd7c:	11400003 */ 	beqz	$t2,.JF0f0ffd8c
-/*  f0ffd80:	00000000 */ 	nop
-/*  f0ffd84:	10000001 */ 	b	.JF0f0ffd8c
-/*  f0ffd88:	24020001 */ 	li	$v0,0x1
-.JF0f0ffd8c:
-/*  f0ffd8c:	00437021 */ 	addu	$t6,$v0,$v1
-/*  f0ffd90:	01c47821 */ 	addu	$t7,$t6,$a0
-/*  f0ffd94:	01e5c021 */ 	addu	$t8,$t7,$a1
-/*  f0ffd98:	2b010003 */ 	slti	$at,$t8,0x3
-/*  f0ffd9c:	1420000d */ 	bnez	$at,.JF0f0ffdd4
-/*  f0ffda0:	3c0e8009 */ 	lui	$t6,0x8009
-/*  f0ffda4:	8f3928b8 */ 	lw	$t9,0x28b8($t9)
-/*  f0ffda8:	3c0d800a */ 	lui	$t5,0x800a
-/*  f0ffdac:	240b0001 */ 	li	$t3,0x1
-/*  f0ffdb0:	001960c0 */ 	sll	$t4,$t9,0x3
-/*  f0ffdb4:	01996023 */ 	subu	$t4,$t4,$t9
-/*  f0ffdb8:	000c60c0 */ 	sll	$t4,$t4,0x3
-/*  f0ffdbc:	01ac6821 */ 	addu	$t5,$t5,$t4
-/*  f0ffdc0:	81ad27d0 */ 	lb	$t5,0x27d0($t5)
-/*  f0ffdc4:	116d0003 */ 	beq	$t3,$t5,.JF0f0ffdd4
-/*  f0ffdc8:	00000000 */ 	nop
-/*  f0ffdcc:	1000004d */ 	b	.JF0f0fff04
-/*  f0ffdd0:	24020001 */ 	li	$v0,0x1
-.JF0f0ffdd4:
-/*  f0ffdd4:	91ce1160 */ 	lbu	$t6,0x1160($t6)
-/*  f0ffdd8:	240b0001 */ 	li	$t3,0x1
-/*  f0ffddc:	24010002 */ 	li	$at,0x2
-/*  f0ffde0:	156e0018 */ 	bne	$t3,$t6,.JF0f0ffe44
-/*  f0ffde4:	00000000 */ 	nop
-/*  f0ffde8:	10e00003 */ 	beqz	$a3,.JF0f0ffdf8
-/*  f0ffdec:	00002825 */ 	move	$a1,$zero
-/*  f0ffdf0:	10000001 */ 	b	.JF0f0ffdf8
-/*  f0ffdf4:	01602825 */ 	move	$a1,$t3
-.JF0f0ffdf8:
-/*  f0ffdf8:	11000003 */ 	beqz	$t0,.JF0f0ffe08
-/*  f0ffdfc:	00002025 */ 	move	$a0,$zero
-/*  f0ffe00:	10000001 */ 	b	.JF0f0ffe08
-/*  f0ffe04:	01602025 */ 	move	$a0,$t3
-.JF0f0ffe08:
-/*  f0ffe08:	11200003 */ 	beqz	$t1,.JF0f0ffe18
-/*  f0ffe0c:	00001825 */ 	move	$v1,$zero
-/*  f0ffe10:	10000001 */ 	b	.JF0f0ffe18
-/*  f0ffe14:	01601825 */ 	move	$v1,$t3
-.JF0f0ffe18:
-/*  f0ffe18:	11400003 */ 	beqz	$t2,.JF0f0ffe28
-/*  f0ffe1c:	00001025 */ 	move	$v0,$zero
-/*  f0ffe20:	10000001 */ 	b	.JF0f0ffe28
-/*  f0ffe24:	01601025 */ 	move	$v0,$t3
-.JF0f0ffe28:
-/*  f0ffe28:	00437821 */ 	addu	$t7,$v0,$v1
-/*  f0ffe2c:	01e4c021 */ 	addu	$t8,$t7,$a0
-/*  f0ffe30:	0305c821 */ 	addu	$t9,$t8,$a1
-/*  f0ffe34:	17210003 */ 	bne	$t9,$at,.JF0f0ffe44
-/*  f0ffe38:	00000000 */ 	nop
-/*  f0ffe3c:	10000031 */ 	b	.JF0f0fff04
-/*  f0ffe40:	24020001 */ 	li	$v0,0x1
-.JF0f0ffe44:
-/*  f0ffe44:	0fc54978 */ 	jal	optionsGetScreenSplit
-/*  f0ffe48:	00000000 */ 	nop
-/*  f0ffe4c:	3c06800a */ 	lui	$a2,0x800a
-/*  f0ffe50:	240b0001 */ 	li	$t3,0x1
-/*  f0ffe54:	1562002a */ 	bne	$t3,$v0,.JF0f0fff00
-/*  f0ffe58:	24c6a630 */ 	addiu	$a2,$a2,-22992
-/*  f0ffe5c:	8ccc006c */ 	lw	$t4,0x6c($a2)
-/*  f0ffe60:	24010002 */ 	li	$at,0x2
-/*  f0ffe64:	00002825 */ 	move	$a1,$zero
-/*  f0ffe68:	11800003 */ 	beqz	$t4,.JF0f0ffe78
-/*  f0ffe6c:	00002025 */ 	move	$a0,$zero
-/*  f0ffe70:	10000001 */ 	b	.JF0f0ffe78
-/*  f0ffe74:	01602825 */ 	move	$a1,$t3
-.JF0f0ffe78:
-/*  f0ffe78:	8ccd0068 */ 	lw	$t5,0x68($a2)
-/*  f0ffe7c:	00001825 */ 	move	$v1,$zero
-/*  f0ffe80:	00001025 */ 	move	$v0,$zero
-/*  f0ffe84:	11a00003 */ 	beqz	$t5,.JF0f0ffe94
-/*  f0ffe88:	00000000 */ 	nop
-/*  f0ffe8c:	10000001 */ 	b	.JF0f0ffe94
-/*  f0ffe90:	01602025 */ 	move	$a0,$t3
-.JF0f0ffe94:
-/*  f0ffe94:	8cce0064 */ 	lw	$t6,0x64($a2)
-/*  f0ffe98:	3c0d800a */ 	lui	$t5,0x800a
-/*  f0ffe9c:	11c00003 */ 	beqz	$t6,.JF0f0ffeac
-/*  f0ffea0:	00000000 */ 	nop
-/*  f0ffea4:	10000001 */ 	b	.JF0f0ffeac
-/*  f0ffea8:	01601825 */ 	move	$v1,$t3
-.JF0f0ffeac:
-/*  f0ffeac:	8ccf0070 */ 	lw	$t7,0x70($a2)
-/*  f0ffeb0:	11e00003 */ 	beqz	$t7,.JF0f0ffec0
-/*  f0ffeb4:	00000000 */ 	nop
-/*  f0ffeb8:	10000001 */ 	b	.JF0f0ffec0
-/*  f0ffebc:	01601025 */ 	move	$v0,$t3
-.JF0f0ffec0:
-/*  f0ffec0:	0043c021 */ 	addu	$t8,$v0,$v1
-/*  f0ffec4:	0304c821 */ 	addu	$t9,$t8,$a0
-/*  f0ffec8:	03256021 */ 	addu	$t4,$t9,$a1
-/*  f0ffecc:	5581000d */ 	bnel	$t4,$at,.JF0f0fff04
-/*  f0ffed0:	00001025 */ 	move	$v0,$zero
-/*  f0ffed4:	8dad28b8 */ 	lw	$t5,0x28b8($t5)
-/*  f0ffed8:	3c0f800a */ 	lui	$t7,0x800a
-/*  f0ffedc:	000d70c0 */ 	sll	$t6,$t5,0x3
-/*  f0ffee0:	01cd7023 */ 	subu	$t6,$t6,$t5
-/*  f0ffee4:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f0ffee8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0ffeec:	81ef27d0 */ 	lb	$t7,0x27d0($t7)
-/*  f0ffef0:	516f0004 */ 	beql	$t3,$t7,.JF0f0fff04
-/*  f0ffef4:	00001025 */ 	move	$v0,$zero
-/*  f0ffef8:	10000002 */ 	b	.JF0f0fff04
-/*  f0ffefc:	24020001 */ 	li	$v0,0x1
-.JF0f0fff00:
-/*  f0fff00:	00001025 */ 	move	$v0,$zero
-.JF0f0fff04:
-/*  f0fff04:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0fff08:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0fff0c:	03e00008 */ 	jr	$ra
-/*  f0fff10:	00000000 */ 	nop
-);
-#else
 bool amIsCramped(void)
 {
+#if VERSION == VERSION_JPN_FINAL
+	if (PLAYERCOUNT() >= 3 && g_AmMenus[g_AmIndex].screenindex != 1) {
+		return true;
+	}
+
+	if (IS4MB() && PLAYERCOUNT() == 2) {
+		return true;
+	}
+
+	if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL
+			&& PLAYERCOUNT() == 2
+			&& g_AmMenus[g_AmIndex].screenindex != 1) {
+		return true;
+	}
+
+	return false;
+#else
 	return (g_AmMenus[g_AmIndex].screenindex == 0 && PLAYERCOUNT() >= 3)
 		|| (IS4MB() && PLAYERCOUNT() == 2)
 		|| (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL);
-}
 #endif
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
