@@ -22,10 +22,13 @@
 // bss
 struct fileguid g_FilemgrFileToCopy;
 struct fileguid var800a21e8;
+
+#if VERSION >= VERSION_JPN_FINAL
+struct fileguid g_FilemgrFileToDelete[4];
+#else
 struct fileguid g_FilemgrFileToDelete;
-#if VERSION == VERSION_JPN_FINAL
-u8 jpnfill3[0x18];
 #endif
+
 s32 g_FilemgrLastPakError;
 #if VERSION == VERSION_JPN_FINAL
 u8 jpnfill4[8];
@@ -2117,56 +2120,29 @@ glabel filemgrIsFileInUse
 );
 #endif
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel filemgrConfirmDeleteMenuHandler
-/*  f10a944:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f10a948:	24010006 */ 	li	$at,0x6
-/*  f10a94c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10a950:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f10a954:	14810016 */ 	bne	$a0,$at,.JF0f10a9b0
-/*  f10a958:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f10a95c:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f10a960:	8dce1998 */ 	lw	$t6,0x1998($t6)
-/*  f10a964:	3c18800a */ 	lui	$t8,0x800a
-/*  f10a968:	271828f0 */ 	addiu	$t8,$t8,0x28f0
-/*  f10a96c:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10a970:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f10a974:	8c590000 */ 	lw	$t9,0x0($v0)
-/*  f10a978:	94480004 */ 	lhu	$t0,0x4($v0)
-/*  f10a97c:	afb90020 */ 	sw	$t9,0x20($sp)
-/*  f10a980:	0fc3d0dc */ 	jal	menuPopDialog
-/*  f10a984:	a7a80024 */ 	sh	$t0,0x24($sp)
-/*  f10a988:	0fc429d6 */ 	jal	filemgrIsFileInUse
-/*  f10a98c:	27a40020 */ 	addiu	$a0,$sp,0x20
-/*  f10a990:	10400005 */ 	beqz	$v0,.JF0f10a9a8
-/*  f10a994:	00000000 */ 	nop
-/*  f10a998:	0fc421f7 */ 	jal	filemgrPushErrorDialog
-/*  f10a99c:	24040003 */ 	li	$a0,0x3
-/*  f10a9a0:	10000004 */ 	b	.JF0f10a9b4
-/*  f10a9a4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.JF0f10a9a8:
-/*  f10a9a8:	0fc42608 */ 	jal	filemgrDeleteCurrentFile
-/*  f10a9ac:	00000000 */ 	nop
-.JF0f10a9b0:
-/*  f10a9b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.JF0f10a9b4:
-/*  f10a9b4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f10a9b8:	00001025 */ 	move	$v0,$zero
-/*  f10a9bc:	03e00008 */ 	jr	$ra
-/*  f10a9c0:	00000000 */ 	nop
-);
-#else
 s32 filemgrConfirmDeleteMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
+#if VERSION >= VERSION_JPN_FINAL
+		struct filelistfile file;
+		file.fileid = g_FilemgrFileToDelete[g_MpPlayerNum].fileid;
+		file.deviceserial = g_FilemgrFileToDelete[g_MpPlayerNum].deviceserial;
+
+		menuPopDialog();
+
+		if (filemgrIsFileInUse(&file)) {
+			filemgrPushErrorDialog(FILEERROR_DELETEFAILED);
+		} else {
+			filemgrDeleteCurrentFile();
+		}
+#else
 		menuPopDialog();
 		filemgrDeleteCurrentFile();
+#endif
 	}
 
 	return 0;
 }
-#endif
 
 #if VERSION >= VERSION_NTSC_1_0
 char *filemgrMenuTextFileInUseDescription(struct menuitem *item)
