@@ -4460,81 +4460,31 @@ void pakQueryPdSize(s8 device)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pak0f1147b8nb
-/*  f1147b8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1147bc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f1147c0:	00048600 */ 	sll	$s0,$a0,0x18
-/*  f1147c4:	00107603 */ 	sra	$t6,$s0,0x18
-/*  f1147c8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1147cc:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f1147d0:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f1147d4:	01c08025 */ 	or	$s0,$t6,$zero
-/*  f1147d8:	24a5e39c */ 	addiu	$a1,$a1,-7268
-/*  f1147dc:	0c00581b */ 	jal	joyDisableCyclicPolling
-/*  f1147e0:	24040cc8 */ 	addiu	$a0,$zero,0xcc8
-/*  f1147e4:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f1147e8:	16010003 */ 	bne	$s0,$at,.NB0f1147f8
-/*  f1147ec:	3c04800a */ 	lui	$a0,0x800a
-/*  f1147f0:	10000009 */ 	beqz	$zero,.NB0f114818
-/*  f1147f4:	00002825 */ 	or	$a1,$zero,$zero
-.NB0f1147f8:
-/*  f1147f8:	00107880 */ 	sll	$t7,$s0,0x2
-/*  f1147fc:	01f07823 */ 	subu	$t7,$t7,$s0
-/*  f114800:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f114804:	01f07821 */ 	addu	$t7,$t7,$s0
-/*  f114808:	3c18800a */ 	lui	$t8,0x800a
-/*  f11480c:	27187658 */ 	addiu	$t8,$t8,0x7658
-/*  f114810:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f114814:	01f82821 */ 	addu	$a1,$t7,$t8
-.NB0f114818:
-/*  f114818:	2484e5d8 */ 	addiu	$a0,$a0,-6696
-/*  f11481c:	0fc4478e */ 	jal	pakInitPak
-/*  f114820:	02003025 */ 	or	$a2,$s0,$zero
-/*  f114824:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f114828:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f11482c:	24a5e3a4 */ 	addiu	$a1,$a1,-7260
-/*  f114830:	0c005834 */ 	jal	joyEnableCyclicPolling
-/*  f114834:	24040cca */ 	addiu	$a0,$zero,0xcca
-/*  f114838:	00102e00 */ 	sll	$a1,$s0,0x18
-/*  f11483c:	0005ce03 */ 	sra	$t9,$a1,0x18
-/*  f114840:	03202825 */ 	or	$a1,$t9,$zero
-/*  f114844:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f114848:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f11484c:	0fc458cb */ 	jal	pakHandleResult
-/*  f114850:	24070ccc */ 	addiu	$a3,$zero,0xccc
-/*  f114854:	14400003 */ 	bnez	$v0,.NB0f114864
-/*  f114858:	24080003 */ 	addiu	$t0,$zero,0x3
-/*  f11485c:	10000015 */ 	beqz	$zero,.NB0f1148b4
-/*  f114860:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f114864:
-/*  f114864:	00104880 */ 	sll	$t1,$s0,0x2
-/*  f114868:	01304823 */ 	subu	$t1,$t1,$s0
-/*  f11486c:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f114870:	01304823 */ 	subu	$t1,$t1,$s0
-/*  f114874:	000948c0 */ 	sll	$t1,$t1,0x3
-/*  f114878:	01304821 */ 	addu	$t1,$t1,$s0
-/*  f11487c:	000948c0 */ 	sll	$t1,$t1,0x3
-/*  f114880:	3c01800a */ 	lui	$at,0x800a
-/*  f114884:	00290821 */ 	addu	$at,$at,$t1
-/*  f114888:	ac286880 */ 	sw	$t0,0x6880($at)
-/*  f11488c:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f114890:	56010008 */ 	bnel	$s0,$at,.NB0f1148b4
-/*  f114894:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f114898:	0fc45920 */ 	jal	pakExecuteDebugOperations
-/*  f11489c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1148a0:	0fc45920 */ 	jal	pakExecuteDebugOperations
-/*  f1148a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1148a8:	0fc45920 */ 	jal	pakExecuteDebugOperations
-/*  f1148ac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1148b0:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB0f1148b4:
-/*  f1148b4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1148b8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1148bc:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f1148c0:	03e00008 */ 	jr	$ra
-/*  f1148c4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool pak0f1147b8nb(s8 device)
+{
+	u32 stack;
+	s32 ret;
+
+	osSyncPrintf("Pak %d -> Pak_Memory_Init1");
+
+	joyDisableCyclicPolling(3272, "pak.c");
+	ret = pakInitPak(&g_PiMesgQueue, PFS(device), device);
+	joyEnableCyclicPolling(3274, "pak.c");
+
+	if (!pakHandleResult(ret, device, true, 3276)) {
+		return false;
+	}
+
+	g_Paks[device].unk010 = 3;
+
+	if (device == SAVEDEVICE_GAMEPAK) {
+		pakExecuteDebugOperations();
+		pakExecuteDebugOperations();
+		pakExecuteDebugOperations();
+	}
+
+	return true;
+}
 #endif
 
 #if VERSION >= VERSION_NTSC_FINAL
@@ -5379,12 +5329,6 @@ glabel mempakPrepare
 //
 //	return false;
 //}
-
-#if VERSION < VERSION_NTSC_1_0
-const char var7f1ae380nb[] = "Pak %d -> Pak_Memory_Init1";
-const char var7f1ae39cnb[] = "pak.c";
-const char var7f1ae3a4nb[] = "pak.c";
-#endif
 
 #if VERSION >= VERSION_NTSC_1_0
 const char var7f1b44bc[] = "Pak %d -> Searching for the game file\n";
