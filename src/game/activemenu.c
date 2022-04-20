@@ -791,13 +791,13 @@ bool amIsCramped(void)
 #endif
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 {
+#if VERSION == VERSION_JPN_FINAL
 	s32 playercount = PLAYERCOUNT();
 
 	*x = g_AmMenus[g_AmIndex].xradius * (column - 1);
-	*y = row * 50 - 50;
+	*y = (row - 1) * 50;
 
 	if (column != 1 && row != 1) {
 		*x = *x / 2;
@@ -828,314 +828,126 @@ void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 		}
 	}
 
-#if VERSION == VERSION_JPN_FINAL
 	if (playercount >= 2) {
 		*y = (*y * 7) / 10;
 	}
-#else
-	if (playercount >= 2) {
-		*y = (*y * 3) / 5;
-	} else if (playercount >= 3) {
-		*y = (*y * 3) / 5;
-	}
-#endif
 
 	*x += viGetViewLeft() / g_ScaleX + viGetViewWidth() / (g_ScaleX * 2);
 	*y += viGetViewTop() + viGetViewHeight() / 2;
 
-#if VERSION == VERSION_JPN_FINAL
 	if (playercount >= 2) {
 		*y += 4;
 	}
-#endif
 
 	if ((playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()))
 			|| playercount >= 3) {
-		if ((g_Vars.currentplayernum & 1) == 0) {
+		if ((g_Vars.currentplayernum % 2) == 0) {
 			*x += 8;
 		} else {
 			*x -= 8;
 		}
 	}
-}
+#elif VERSION >= VERSION_NTSC_1_0
+	s32 playercount = PLAYERCOUNT();
+
+	*x = g_AmMenus[g_AmIndex].xradius * (column - 1);
+	*y = (row - 1) * 50;
+
+	if (column != 1 && row != 1) {
+		*x = *x / 2;
+		*y = *y / 2;
+	}
+
+	if (amIsCramped()) {
+		s32 offset = 1;
+
+		if (row == 1) {
+			offset = 3;
+		}
+
+		if (column == 0) {
+			*x = -(g_AmMenus[g_AmIndex].slotwidth / 2) - offset;
+		} else if (column == 2) {
+			*x = g_AmMenus[g_AmIndex].slotwidth / 2 + offset;
+		}
+	} else {
+		if (playercount >= 2) {
+			if (row == 1 && !amIsCramped()) {
+				*x = (*x * 6) / 7;
+			}
+		} else {
+			if (playercount >= 3 && row == 1 && !amIsCramped()) {
+				*x = (*x * 6) / 14;
+			}
+		}
+	}
+
+	if (playercount >= 2) {
+		*y = (*y * 3) / 5;
+	} else if (playercount >= 3) {
+		*y = (*y * 3) / 5;
+	}
+
+	*x += viGetViewLeft() / g_ScaleX + viGetViewWidth() / (g_ScaleX * 2);
+	*y += viGetViewTop() + viGetViewHeight() / 2;
+
+	if ((playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()))
+			|| playercount >= 3) {
+		if ((g_Vars.currentplayernum % 2) == 0) {
+			*x += 8;
+		} else {
+			*x -= 8;
+		}
+	}
 #else
-GLOBAL_ASM(
-glabel amCalculateSlotPosition
-/*  f0fb61c:	3c0e800a */ 	lui	$t6,0x800a
-/*  f0fb620:	8dcee72c */ 	lw	$t6,-0x18d4($t6)
-/*  f0fb624:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0fb628:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0fb62c:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f0fb630:	11c00003 */ 	beqz	$t6,.NB0f0fb640
-/*  f0fb634:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f0fb638:	10000002 */ 	beqz	$zero,.NB0f0fb644
-/*  f0fb63c:	240a0001 */ 	addiu	$t2,$zero,0x1
-.NB0f0fb640:
-/*  f0fb640:	00005025 */ 	or	$t2,$zero,$zero
-.NB0f0fb644:
-/*  f0fb644:	3c0f800a */ 	lui	$t7,0x800a
-/*  f0fb648:	8defe728 */ 	lw	$t7,-0x18d8($t7)
-/*  f0fb64c:	3c18800a */ 	lui	$t8,0x800a
-/*  f0fb650:	3c19800a */ 	lui	$t9,0x800a
-/*  f0fb654:	11e00003 */ 	beqz	$t7,.NB0f0fb664
-/*  f0fb658:	3c0b800a */ 	lui	$t3,0x800a
-/*  f0fb65c:	10000002 */ 	beqz	$zero,.NB0f0fb668
-/*  f0fb660:	24090001 */ 	addiu	$t1,$zero,0x1
-.NB0f0fb664:
-/*  f0fb664:	00004825 */ 	or	$t1,$zero,$zero
-.NB0f0fb668:
-/*  f0fb668:	8f18e724 */ 	lw	$t8,-0x18dc($t8)
-/*  f0fb66c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0fb670:	13000003 */ 	beqz	$t8,.NB0f0fb680
-/*  f0fb674:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fb678:	10000001 */ 	beqz	$zero,.NB0f0fb680
-/*  f0fb67c:	24050001 */ 	addiu	$a1,$zero,0x1
-.NB0f0fb680:
-/*  f0fb680:	8f39e730 */ 	lw	$t9,-0x18d0($t9)
-/*  f0fb684:	00004025 */ 	or	$t0,$zero,$zero
-/*  f0fb688:	13200003 */ 	beqz	$t9,.NB0f0fb698
-/*  f0fb68c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fb690:	10000001 */ 	beqz	$zero,.NB0f0fb698
-/*  f0fb694:	24080001 */ 	addiu	$t0,$zero,0x1
-.NB0f0fb698:
-/*  f0fb698:	8d6b66a8 */ 	lw	$t3,0x66a8($t3)
-/*  f0fb69c:	3c0d800a */ 	lui	$t5,0x800a
-/*  f0fb6a0:	87a4003a */ 	lh	$a0,0x3a($sp)
-/*  f0fb6a4:	000b60c0 */ 	sll	$t4,$t3,0x3
-/*  f0fb6a8:	018b6023 */ 	subu	$t4,$t4,$t3
-/*  f0fb6ac:	000c60c0 */ 	sll	$t4,$t4,0x3
-/*  f0fb6b0:	01ac6821 */ 	addu	$t5,$t5,$t4
-/*  f0fb6b4:	85ad65c2 */ 	lh	$t5,0x65c2($t5)
-/*  f0fb6b8:	2484ffff */ 	addiu	$a0,$a0,-1
-/*  f0fb6bc:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0fb6c0:	01a40019 */ 	multu	$t5,$a0
-/*  f0fb6c4:	00007012 */ 	mflo	$t6
-/*  f0fb6c8:	a4ce0000 */ 	sh	$t6,0x0($a2)
-/*  f0fb6cc:	87a3003e */ 	lh	$v1,0x3e($sp)
-/*  f0fb6d0:	00037880 */ 	sll	$t7,$v1,0x2
-/*  f0fb6d4:	01e37823 */ 	subu	$t7,$t7,$v1
-/*  f0fb6d8:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0fb6dc:	01e37821 */ 	addu	$t7,$t7,$v1
-/*  f0fb6e0:	000f7840 */ 	sll	$t7,$t7,0x1
-/*  f0fb6e4:	25e3ffce */ 	addiu	$v1,$t7,-50
-/*  f0fb6e8:	a4e30000 */ 	sh	$v1,0x0($a3)
-/*  f0fb6ec:	87b8003a */ 	lh	$t8,0x3a($sp)
-/*  f0fb6f0:	1301000f */ 	beq	$t8,$at,.NB0f0fb730
-/*  f0fb6f4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fb6f8:	1060000d */ 	beqz	$v1,.NB0f0fb730
-/*  f0fb6fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fb700:	84d90000 */ 	lh	$t9,0x0($a2)
-/*  f0fb704:	07210003 */ 	bgez	$t9,.NB0f0fb714
-/*  f0fb708:	00195843 */ 	sra	$t3,$t9,0x1
-/*  f0fb70c:	27210001 */ 	addiu	$at,$t9,0x1
-/*  f0fb710:	00015843 */ 	sra	$t3,$at,0x1
-.NB0f0fb714:
-/*  f0fb714:	a4cb0000 */ 	sh	$t3,0x0($a2)
-/*  f0fb718:	84ec0000 */ 	lh	$t4,0x0($a3)
-/*  f0fb71c:	05810003 */ 	bgez	$t4,.NB0f0fb72c
-/*  f0fb720:	000c6843 */ 	sra	$t5,$t4,0x1
-/*  f0fb724:	25810001 */ 	addiu	$at,$t4,0x1
-/*  f0fb728:	00016843 */ 	sra	$t5,$at,0x1
-.NB0f0fb72c:
-/*  f0fb72c:	a4ed0000 */ 	sh	$t5,0x0($a3)
-.NB0f0fb730:
-/*  f0fb730:	54600023 */ 	bnezl	$v1,.NB0f0fb7c0
-/*  f0fb734:	01055821 */ 	addu	$t3,$t0,$a1
-/*  f0fb738:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f0fb73c:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*  f0fb740:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f0fb744:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f0fb748:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f0fb74c:	afa80030 */ 	sw	$t0,0x30($sp)
-/*  f0fb750:	afa90028 */ 	sw	$t1,0x28($sp)
-/*  f0fb754:	0fc3ed19 */ 	jal	amIsCramped
-/*  f0fb758:	afaa0024 */ 	sw	$t2,0x24($sp)
-/*  f0fb75c:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f0fb760:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0fb764:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f0fb768:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f0fb76c:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f0fb770:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*  f0fb774:	8fa90028 */ 	lw	$t1,0x28($sp)
-/*  f0fb778:	10400010 */ 	beqz	$v0,.NB0f0fb7bc
-/*  f0fb77c:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*  f0fb780:	5080000f */ 	beqzl	$a0,.NB0f0fb7c0
-/*  f0fb784:	01055821 */ 	addu	$t3,$t0,$a1
-/*  f0fb788:	84ce0000 */ 	lh	$t6,0x0($a2)
-/*  f0fb78c:	05c10003 */ 	bgez	$t6,.NB0f0fb79c
-/*  f0fb790:	000e7843 */ 	sra	$t7,$t6,0x1
-/*  f0fb794:	25c10001 */ 	addiu	$at,$t6,0x1
-/*  f0fb798:	00017843 */ 	sra	$t7,$at,0x1
-.NB0f0fb79c:
-/*  f0fb79c:	a4cf0000 */ 	sh	$t7,0x0($a2)
-/*  f0fb7a0:	84c20000 */ 	lh	$v0,0x0($a2)
-/*  f0fb7a4:	04410004 */ 	bgez	$v0,.NB0f0fb7b8
-/*  f0fb7a8:	24590004 */ 	addiu	$t9,$v0,0x4
-/*  f0fb7ac:	2458fffc */ 	addiu	$t8,$v0,-4
-/*  f0fb7b0:	10000002 */ 	beqz	$zero,.NB0f0fb7bc
-/*  f0fb7b4:	a4d80000 */ 	sh	$t8,0x0($a2)
-.NB0f0fb7b8:
-/*  f0fb7b8:	a4d90000 */ 	sh	$t9,0x0($a2)
-.NB0f0fb7bc:
-/*  f0fb7bc:	01055821 */ 	addu	$t3,$t0,$a1
-.NB0f0fb7c0:
-/*  f0fb7c0:	01696021 */ 	addu	$t4,$t3,$t1
-/*  f0fb7c4:	018a6821 */ 	addu	$t5,$t4,$t2
-/*  f0fb7c8:	29a10002 */ 	slti	$at,$t5,0x2
-/*  f0fb7cc:	1420001b */ 	bnez	$at,.NB0f0fb83c
-/*  f0fb7d0:	afad001c */ 	sw	$t5,0x1c($sp)
-/*  f0fb7d4:	54600011 */ 	bnezl	$v1,.NB0f0fb81c
-/*  f0fb7d8:	84f90000 */ 	lh	$t9,0x0($a3)
-/*  f0fb7dc:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f0fb7e0:	0fc3ed19 */ 	jal	amIsCramped
-/*  f0fb7e4:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f0fb7e8:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f0fb7ec:	1440000a */ 	bnez	$v0,.NB0f0fb818
-/*  f0fb7f0:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f0fb7f4:	84ce0000 */ 	lh	$t6,0x0($a2)
-/*  f0fb7f8:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f0fb7fc:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0fb800:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0fb804:	000f7840 */ 	sll	$t7,$t7,0x1
-/*  f0fb808:	01e1001a */ 	div	$zero,$t7,$at
-/*  f0fb80c:	0000c012 */ 	mflo	$t8
-/*  f0fb810:	a4d80000 */ 	sh	$t8,0x0($a2)
-/*  f0fb814:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f0fb818:
-/*  f0fb818:	84f90000 */ 	lh	$t9,0x0($a3)
-.NB0f0fb81c:
-/*  f0fb81c:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f0fb820:	00195880 */ 	sll	$t3,$t9,0x2
-/*  f0fb824:	01795823 */ 	subu	$t3,$t3,$t9
-/*  f0fb828:	0161001a */ 	div	$zero,$t3,$at
-/*  f0fb82c:	00006012 */ 	mflo	$t4
-/*  f0fb830:	a4ec0000 */ 	sh	$t4,0x0($a3)
-/*  f0fb834:	1000001f */ 	beqz	$zero,.NB0f0fb8b4
-/*  f0fb838:	afa60040 */ 	sw	$a2,0x40($sp)
-.NB0f0fb83c:
-/*  f0fb83c:	8fad001c */ 	lw	$t5,0x1c($sp)
-/*  f0fb840:	29a10003 */ 	slti	$at,$t5,0x3
-/*  f0fb844:	5420001b */ 	bnezl	$at,.NB0f0fb8b4
-/*  f0fb848:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f0fb84c:	54600011 */ 	bnezl	$v1,.NB0f0fb894
-/*  f0fb850:	84f90000 */ 	lh	$t9,0x0($a3)
-/*  f0fb854:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f0fb858:	0fc3ed19 */ 	jal	amIsCramped
-/*  f0fb85c:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f0fb860:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f0fb864:	1440000a */ 	bnez	$v0,.NB0f0fb890
-/*  f0fb868:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f0fb86c:	84ce0000 */ 	lh	$t6,0x0($a2)
-/*  f0fb870:	2401000e */ 	addiu	$at,$zero,0xe
-/*  f0fb874:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0fb878:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0fb87c:	000f7840 */ 	sll	$t7,$t7,0x1
-/*  f0fb880:	01e1001a */ 	div	$zero,$t7,$at
-/*  f0fb884:	0000c012 */ 	mflo	$t8
-/*  f0fb888:	a4d80000 */ 	sh	$t8,0x0($a2)
-/*  f0fb88c:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f0fb890:
-/*  f0fb890:	84f90000 */ 	lh	$t9,0x0($a3)
-.NB0f0fb894:
-/*  f0fb894:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f0fb898:	00195880 */ 	sll	$t3,$t9,0x2
-/*  f0fb89c:	01795823 */ 	subu	$t3,$t3,$t9
-/*  f0fb8a0:	0161001a */ 	div	$zero,$t3,$at
-/*  f0fb8a4:	00006012 */ 	mflo	$t4
-/*  f0fb8a8:	a4ec0000 */ 	sh	$t4,0x0($a3)
-/*  f0fb8ac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fb8b0:	afa60040 */ 	sw	$a2,0x40($sp)
-.NB0f0fb8b4:
-/*  f0fb8b4:	0c002f97 */ 	jal	viGetViewWidth
-/*  f0fb8b8:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f0fb8bc:	0c002fb5 */ 	jal	viGetViewLeft
-/*  f0fb8c0:	a7a20020 */ 	sh	$v0,0x20($sp)
-/*  f0fb8c4:	3c038008 */ 	lui	$v1,0x8008
-/*  f0fb8c8:	8c632320 */ 	lw	$v1,0x2320($v1)
-/*  f0fb8cc:	87b80020 */ 	lh	$t8,0x20($sp)
-/*  f0fb8d0:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f0fb8d4:	0043001a */ 	div	$zero,$v0,$v1
-/*  f0fb8d8:	0003c840 */ 	sll	$t9,$v1,0x1
-/*  f0fb8dc:	00007012 */ 	mflo	$t6
-/*  f0fb8e0:	84cd0000 */ 	lh	$t5,0x0($a2)
-/*  f0fb8e4:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f0fb8e8:	0319001a */ 	div	$zero,$t8,$t9
-/*  f0fb8ec:	14600002 */ 	bnez	$v1,.NB0f0fb8f8
-/*  f0fb8f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fb8f4:	0007000d */ 	break	0x7
-.NB0f0fb8f8:
-/*  f0fb8f8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0fb8fc:	14610004 */ 	bne	$v1,$at,.NB0f0fb910
-/*  f0fb900:	3c018000 */ 	lui	$at,0x8000
-/*  f0fb904:	14410002 */ 	bne	$v0,$at,.NB0f0fb910
-/*  f0fb908:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fb90c:	0006000d */ 	break	0x6
-.NB0f0fb910:
-/*  f0fb910:	00005812 */ 	mflo	$t3
-/*  f0fb914:	01ae7821 */ 	addu	$t7,$t5,$t6
-/*  f0fb918:	01eb6021 */ 	addu	$t4,$t7,$t3
-/*  f0fb91c:	17200002 */ 	bnez	$t9,.NB0f0fb928
-/*  f0fb920:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fb924:	0007000d */ 	break	0x7
-.NB0f0fb928:
-/*  f0fb928:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0fb92c:	17210004 */ 	bne	$t9,$at,.NB0f0fb940
-/*  f0fb930:	3c018000 */ 	lui	$at,0x8000
-/*  f0fb934:	17010002 */ 	bne	$t8,$at,.NB0f0fb940
-/*  f0fb938:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fb93c:	0006000d */ 	break	0x6
-.NB0f0fb940:
-/*  f0fb940:	a4cc0000 */ 	sh	$t4,0x0($a2)
-/*  f0fb944:	0c002f9b */ 	jal	viGetViewHeight
-/*  f0fb948:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fb94c:	0c002fb9 */ 	jal	viGetViewTop
-/*  f0fb950:	a7a20020 */ 	sh	$v0,0x20($sp)
-/*  f0fb954:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f0fb958:	87b80020 */ 	lh	$t8,0x20($sp)
-/*  f0fb95c:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f0fb960:	84ed0000 */ 	lh	$t5,0x0($a3)
-/*  f0fb964:	01a27021 */ 	addu	$t6,$t5,$v0
-/*  f0fb968:	07010003 */ 	bgez	$t8,.NB0f0fb978
-/*  f0fb96c:	0018c843 */ 	sra	$t9,$t8,0x1
-/*  f0fb970:	27010001 */ 	addiu	$at,$t8,0x1
-/*  f0fb974:	0001c843 */ 	sra	$t9,$at,0x1
-.NB0f0fb978:
-/*  f0fb978:	01d97821 */ 	addu	$t7,$t6,$t9
-/*  f0fb97c:	a4ef0000 */ 	sh	$t7,0x0($a3)
-/*  f0fb980:	8fab001c */ 	lw	$t3,0x1c($sp)
-/*  f0fb984:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0fb988:	55610007 */ 	bnel	$t3,$at,.NB0f0fb9a8
-/*  f0fb98c:	8fac001c */ 	lw	$t4,0x1c($sp)
-/*  f0fb990:	0fc53588 */ 	jal	optionsGetScreenSplit
-/*  f0fb994:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f0fb998:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0fb99c:	10410004 */ 	beq	$v0,$at,.NB0f0fb9b0
-/*  f0fb9a0:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f0fb9a4:	8fac001c */ 	lw	$t4,0x1c($sp)
-.NB0f0fb9a8:
-/*  f0fb9a8:	29810003 */ 	slti	$at,$t4,0x3
-/*  f0fb9ac:	1420000c */ 	bnez	$at,.NB0f0fb9e0
-.NB0f0fb9b0:
-/*  f0fb9b0:	3c0d800a */ 	lui	$t5,0x800a
-/*  f0fb9b4:	8dade94c */ 	lw	$t5,-0x16b4($t5)
-/*  f0fb9b8:	31b80001 */ 	andi	$t8,$t5,0x1
-/*  f0fb9bc:	57000006 */ 	bnezl	$t8,.NB0f0fb9d8
-/*  f0fb9c0:	84cf0000 */ 	lh	$t7,0x0($a2)
-/*  f0fb9c4:	84ce0000 */ 	lh	$t6,0x0($a2)
-/*  f0fb9c8:	25d90008 */ 	addiu	$t9,$t6,0x8
-/*  f0fb9cc:	10000004 */ 	beqz	$zero,.NB0f0fb9e0
-/*  f0fb9d0:	a4d90000 */ 	sh	$t9,0x0($a2)
-/*  f0fb9d4:	84cf0000 */ 	lh	$t7,0x0($a2)
-.NB0f0fb9d8:
-/*  f0fb9d8:	25ebfff8 */ 	addiu	$t3,$t7,-8
-/*  f0fb9dc:	a4cb0000 */ 	sh	$t3,0x0($a2)
-.NB0f0fb9e0:
-/*  f0fb9e0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0fb9e4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0fb9e8:	03e00008 */ 	jr	$ra
-/*  f0fb9ec:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	s32 playercount = PLAYERCOUNT();
+
+	*x = g_AmMenus[g_AmIndex].xradius * (column - 1);
+	*y = (row - 1) * 50;
+
+	if (column != 1 && row != 1) {
+		*x = *x / 2;
+		*y = *y / 2;
+
+		if (1);
+	}
+
+	if (row == 1 && amIsCramped() && column != 1) {
+		*x = *x / 2;
+
+		if (*x < 0) {
+			*x -= 4;
+		} else {
+			*x += 4;
+		}
+	}
+
+	if (playercount >= 2) {
+		if (row == 1 && !amIsCramped()) {
+			*x = (*x * 6) / 7;
+		}
+
+		*y = (*y * 3) / 5;
+	} else if (playercount >= 3) {
+		if (row == 1 && !amIsCramped()) {
+			*x = (*x * 6) / 14;
+		}
+
+		*y = (*y * 3) / 5;
+	}
+
+	*x += viGetViewLeft() / g_ScaleX + viGetViewWidth() / (g_ScaleX * 2);
+	*y += viGetViewTop() + viGetViewHeight() / 2;
+
+	if ((playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) || playercount >= 3) {
+		if ((g_Vars.currentplayernum % 2) == 0) {
+			*x += 8;
+		} else {
+			*x -= 8;
+		}
+	}
 #endif
+}
 
 Gfx *amRenderText(Gfx *gdl, char *text, u32 colour, s16 left, s16 top)
 {
