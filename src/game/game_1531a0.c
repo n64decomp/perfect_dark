@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/game_006900.h"
+#include "game/gfxmemory.h"
 #include "game/savebuffer.h"
 #include "game/game_1531a0.h"
 #include "game/file.h"
@@ -37,7 +38,7 @@ u8 jpnfill5[0x2a8];
 
 struct var800a45d0 var800a45d0;
 Gfx *var800a4634;
-u32 var800a4638;
+Gfx *var800a4638;
 #if VERSION == VERSION_JPN_FINAL
 u8 jpnfill6[0x0c];
 #endif
@@ -888,45 +889,26 @@ Gfx *func0f153a34(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f153ab0
-/*  f153ab0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f153ab4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f153ab8:	00808025 */ 	or	$s0,$a0,$zero
-/*  f153abc:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f153ac0:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f153ac4:	3c018008 */ 	lui	$at,%hi(var8007fb9c)
-/*  f153ac8:	ac2efb9c */ 	sw	$t6,%lo(var8007fb9c)($at)
-/*  f153acc:	0fc59e7d */ 	jal	gfxAllocate
-/*  f153ad0:	24041090 */ 	addiu	$a0,$zero,0x1090
-/*  f153ad4:	3c05800a */ 	lui	$a1,%hi(var800a4634)
-/*  f153ad8:	24a54634 */ 	addiu	$a1,$a1,%lo(var800a4634)
-/*  f153adc:	aca20000 */ 	sw	$v0,0x0($a1)
-/*  f153ae0:	244f1090 */ 	addiu	$t7,$v0,0x1090
-/*  f153ae4:	3c01800a */ 	lui	$at,%hi(var800a4638)
-/*  f153ae8:	ac2f4638 */ 	sw	$t7,%lo(var800a4638)($at)
-/*  f153aec:	3c180600 */ 	lui	$t8,0x600
-/*  f153af0:	ae180000 */ 	sw	$t8,0x0($s0)
-/*  f153af4:	8cb90000 */ 	lw	$t9,0x0($a1)
-/*  f153af8:	26040008 */ 	addiu	$a0,$s0,0x8
-/*  f153afc:	0fc35320 */ 	jal	func0f0d4c80
-/*  f153b00:	ae190004 */ 	sw	$t9,0x4($s0)
-/*  f153b04:	3c04800a */ 	lui	$a0,%hi(var800a4634)
-/*  f153b08:	00408025 */ 	or	$s0,$v0,$zero
-/*  f153b0c:	8c844634 */ 	lw	$a0,%lo(var800a4634)($a0)
-/*  f153b10:	0fc3528f */ 	jal	func0f0d4a3c
-/*  f153b14:	00002825 */ 	or	$a1,$zero,$zero
-/*  f153b18:	3c01800a */ 	lui	$at,%hi(var800a4634)
-/*  f153b1c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f153b20:	ac224634 */ 	sw	$v0,%lo(var800a4634)($at)
-/*  f153b24:	02001025 */ 	or	$v0,$s0,$zero
-/*  f153b28:	3c018008 */ 	lui	$at,%hi(var8007fba4)
-/*  f153b2c:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f153b30:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f153b34:	ac28fba4 */ 	sw	$t0,%lo(var8007fba4)($at)
-/*  f153b38:	03e00008 */ 	jr	$ra
-/*  f153b3c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+Gfx *func0f153ab0(Gfx *gdl)
+{
+	Gfx *allocation;
+
+	var8007fb9c = 1;
+
+	allocation = gfxAllocate(sizeof(Gfx) * 530);
+
+	var800a4634 = allocation;
+	var800a4638 = allocation + 530;
+
+	gSPDisplayList(gdl++, var800a4634);
+
+	gdl = func0f0d4c80(gdl);
+
+	var800a4634 = func0f0d4a3c(var800a4634, 0);
+	var8007fba4 = -1;
+
+	return gdl;
+}
 
 void func0f153b40(void)
 {
