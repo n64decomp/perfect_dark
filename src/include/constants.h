@@ -248,6 +248,7 @@
 #define ATTACKFLAG_AIMONLY        0x0020 // aim only - do not shoot
 #define ATTACKFLAG_DONTTURN       0x0040 // don't do a shooting animation that would change the chr's direction
 #define ATTACKFLAG_SINGLESHOT     0x0080 // single shot only (doesn't work correctly with dual weapons)
+#define ATTACKFLAG_NOVERTICAL     0x0100 // don't aim up/down
 #define ATTACKFLAG_AIMATTARGET    0x0200 // aim/shoot at whatever is in the chr's `target` field
 
 #define AUDIOCHANNELFLAG_IDLE 0x0001

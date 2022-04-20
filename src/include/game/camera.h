@@ -26,7 +26,7 @@ void camSetUnk1758(Mtx *matrix);
 Mtx *camGetUnk1758(void);
 void camSetMatrix1740(Mtxf *value);
 void *cam0f0b5050(u8 *arg0);
-void *cam0f0b53a4(u8 *arg0);
+Mtxf *cam0f0b53a4(u8 *arg0);
 Mtxf *camGetMatrix1740(void);
 void camSetUnk1754(Mtxf *matrix);
 Mtxf *camGetUnk1754(void);
