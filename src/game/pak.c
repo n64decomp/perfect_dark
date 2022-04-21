@@ -5307,134 +5307,52 @@ bool pakProbe(s8 device)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-const char var7f1ae48cnb[] = "pak.c";
-const char var7f1ae494nb[] = "pak.c";
-const char var7f1ae49cnb[] = "Pak %d -> About to wipe blocks %d to %d of the game file with the wipe byte %d";
-#endif
+void pak0f114dd4nb(s8 device)
+{
+	struct pak *pak = &g_Paks[device];
+	s32 ret;
 
-#if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pak0f114dd4nb
-/*  f114dd4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f114dd8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f114ddc:	00048e00 */ 	sll	$s1,$a0,0x18
-/*  f114de0:	00117603 */ 	sra	$t6,$s1,0x18
-/*  f114de4:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f114de8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f114dec:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f114df0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f114df4:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f114df8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f114dfc:	3c18800a */ 	lui	$t8,0x800a
-/*  f114e00:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f114e04:	27186870 */ 	addiu	$t8,$t8,0x6870
-/*  f114e08:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f114e0c:	01f88021 */ 	addu	$s0,$t7,$t8
-/*  f114e10:	920802b8 */ 	lbu	$t0,0x2b8($s0)
-/*  f114e14:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f114e18:	000e2600 */ 	sll	$a0,$t6,0x18
-/*  f114e1c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f114e20:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f114e24:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f114e28:	240a0003 */ 	addiu	$t2,$zero,0x3
-/*  f114e2c:	00045e03 */ 	sra	$t3,$a0,0x18
-/*  f114e30:	3109ff7f */ 	andi	$t1,$t0,0xff7f
-/*  f114e34:	01c08825 */ 	or	$s1,$t6,$zero
-/*  f114e38:	ae19029c */ 	sw	$t9,0x29c($s0)
-/*  f114e3c:	a20902b8 */ 	sb	$t1,0x2b8($s0)
-/*  f114e40:	ae000000 */ 	sw	$zero,0x0($s0)
-/*  f114e44:	ae020008 */ 	sw	$v0,0x8($s0)
-/*  f114e48:	ae020004 */ 	sw	$v0,0x4($s0)
-/*  f114e4c:	ae0a000c */ 	sw	$t2,0xc($s0)
-/*  f114e50:	0fc45302 */ 	jal	pakProbe
-/*  f114e54:	01602025 */ 	or	$a0,$t3,$zero
-/*  f114e58:	50400049 */ 	beqzl	$v0,.NB0f114f80
-/*  f114e5c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f114e60:	92020014 */ 	lbu	$v0,0x14($s0)
-/*  f114e64:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f114e68:	00046e03 */ 	sra	$t5,$a0,0x18
-/*  f114e6c:	304c0001 */ 	andi	$t4,$v0,0x1
-/*  f114e70:	5180000b */ 	beqzl	$t4,.NB0f114ea0
-/*  f114e74:	30580002 */ 	andi	$t8,$v0,0x2
-/*  f114e78:	0fc451ee */ 	jal	pak0f1147b8nb
-/*  f114e7c:	01a02025 */ 	or	$a0,$t5,$zero
-/*  f114e80:	50400006 */ 	beqzl	$v0,.NB0f114e9c
-/*  f114e84:	92020014 */ 	lbu	$v0,0x14($s0)
-/*  f114e88:	8e0e0264 */ 	lw	$t6,0x264($s0)
-/*  f114e8c:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f114e90:	1000003a */ 	beqz	$zero,.NB0f114f7c
-/*  f114e94:	ae0f0264 */ 	sw	$t7,0x264($s0)
-/*  f114e98:	92020014 */ 	lbu	$v0,0x14($s0)
-.NB0f114e9c:
-/*  f114e9c:	30580002 */ 	andi	$t8,$v0,0x2
-.NB0f114ea0:
-/*  f114ea0:	1300002c */ 	beqz	$t8,.NB0f114f54
-/*  f114ea4:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f114ea8:	12210034 */ 	beq	$s1,$at,.NB0f114f7c
-/*  f114eac:	24040dba */ 	addiu	$a0,$zero,0xdba
-/*  f114eb0:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f114eb4:	0c00581b */ 	jal	joyDisableCyclicPolling
-/*  f114eb8:	24a5e48c */ 	addiu	$a1,$a1,-7028
-/*  f114ebc:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f114ec0:	16210003 */ 	bne	$s1,$at,.NB0f114ed0
-/*  f114ec4:	3c04800a */ 	lui	$a0,0x800a
-/*  f114ec8:	10000009 */ 	beqz	$zero,.NB0f114ef0
-/*  f114ecc:	00002825 */ 	or	$a1,$zero,$zero
-.NB0f114ed0:
-/*  f114ed0:	0011c880 */ 	sll	$t9,$s1,0x2
-/*  f114ed4:	0331c823 */ 	subu	$t9,$t9,$s1
-/*  f114ed8:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f114edc:	0331c821 */ 	addu	$t9,$t9,$s1
-/*  f114ee0:	3c08800a */ 	lui	$t0,0x800a
-/*  f114ee4:	25087658 */ 	addiu	$t0,$t0,0x7658
-/*  f114ee8:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f114eec:	03282821 */ 	addu	$a1,$t9,$t0
-.NB0f114ef0:
-/*  f114ef0:	2484e5d8 */ 	addiu	$a0,$a0,-6696
-/*  f114ef4:	0c01440d */ 	jal	osMotorProbe
-/*  f114ef8:	02203025 */ 	or	$a2,$s1,$zero
-/*  f114efc:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f114f00:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f114f04:	24a5e494 */ 	addiu	$a1,$a1,-7020
-/*  f114f08:	0c005834 */ 	jal	joyEnableCyclicPolling
-/*  f114f0c:	24040dbc */ 	addiu	$a0,$zero,0xdbc
-/*  f114f10:	00112e00 */ 	sll	$a1,$s1,0x18
-/*  f114f14:	00054e03 */ 	sra	$t1,$a1,0x18
-/*  f114f18:	01202825 */ 	or	$a1,$t1,$zero
-/*  f114f1c:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f114f20:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f114f24:	0fc458cb */ 	jal	pakHandleResult
-/*  f114f28:	24070dbe */ 	addiu	$a3,$zero,0xdbe
-/*  f114f2c:	10400008 */ 	beqz	$v0,.NB0f114f50
-/*  f114f30:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f114f34:	8e0c0264 */ 	lw	$t4,0x264($s0)
-/*  f114f38:	240b000b */ 	addiu	$t3,$zero,0xb
-/*  f114f3c:	ae0a0000 */ 	sw	$t2,0x0($s0)
-/*  f114f40:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*  f114f44:	ae0b0010 */ 	sw	$t3,0x10($s0)
-/*  f114f48:	1000000c */ 	beqz	$zero,.NB0f114f7c
-/*  f114f4c:	ae0d0264 */ 	sw	$t5,0x264($s0)
-.NB0f114f50:
-/*  f114f50:	92020014 */ 	lbu	$v0,0x14($s0)
-.NB0f114f54:
-/*  f114f54:	304e0004 */ 	andi	$t6,$v0,0x4
-/*  f114f58:	11c00008 */ 	beqz	$t6,.NB0f114f7c
-/*  f114f5c:	240f0008 */ 	addiu	$t7,$zero,0x8
-/*  f114f60:	921802b8 */ 	lbu	$t8,0x2b8($s0)
-/*  f114f64:	8e080264 */ 	lw	$t0,0x264($s0)
-/*  f114f68:	ae0f0010 */ 	sw	$t7,0x10($s0)
-/*  f114f6c:	3319ff7f */ 	andi	$t9,$t8,0xff7f
-/*  f114f70:	25090001 */ 	addiu	$t1,$t0,0x1
-/*  f114f74:	a21902b8 */ 	sb	$t9,0x2b8($s0)
-/*  f114f78:	ae090264 */ 	sw	$t1,0x264($s0)
-.NB0f114f7c:
-/*  f114f7c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.NB0f114f80:
-/*  f114f80:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f114f84:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f114f88:	03e00008 */ 	jr	$ra
-/*  f114f8c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+	pak->pdnoteindex = -1;
+	pak->unk2b8_01 = false;
+	pak->type = PAKTYPE_NONE;
+	pak->unk008 = 1;
+	pak->rumblestate = RUMBLESTATE_1;
+	pak->unk00c = 3;
+
+	if (pakProbe(device)) {
+		if (pak->unk014 & 1) {
+			if (pak0f1147b8nb(device)) {
+				pak->unk264++;
+				return;
+			}
+
+			if (1);
+		}
+
+		if (pak->unk014 & 2) {
+			if (device != SAVEDEVICE_GAMEPAK) {
+				joyDisableCyclicPolling(3514, "pak.c");
+				ret = osMotorProbe(&g_PiMesgQueue, PFS(device), device);
+				joyEnableCyclicPolling(3516, "pak.c");
+
+				if (pakHandleResult(ret, device, 1, 3518)) {
+					pak->type = PAKTYPE_RUMBLE;
+					pak->unk010 = PAK010_11;
+					pak->unk264++;
+					return;
+				}
+			} else {
+				return;
+			}
+		}
+
+		if (pak->unk014 & 4) {
+			pak->unk010 = PAK010_08;
+			pak->unk2b8_01 = false;
+			pak->unk264++;
+		}
+	}
+}
 #endif
 
 /**
@@ -5444,6 +5362,10 @@ void pakWipe(s8 device, u32 blocknumstart, u32 blocknumend)
 {
 	u8 buffer[128];
 	u32 i;
+
+#if VERSION < VERSION_NTSC_1_0
+	osSyncPrintf("Pak %d -> About to wipe blocks %d to %d of the game file with the wipe byte %d", device, blocknumstart, blocknumend, '!');
+#endif
 
 	for (i = 0; i < pakGetBlockSize(device); i++) {
 		buffer[i] = '!';
