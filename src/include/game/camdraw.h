@@ -50,7 +50,7 @@ void func0f14c7dc(struct textureconfig *tconfig);
 u32 func0f14c814(struct textureconfig *tconfig);
 Gfx *func0f14c870(Gfx *gdl, struct textureconfig *tconfig, f32 *arg2, f32 arg3, f32 arg4);
 void func0f14cdb8(s32 index, u8 *arg1);
-u32 func0f14cf6c(void);
+void func0f14cf6c(s8 device);
 void func0f14d064(s32 index, u8 *arg1);
 void func0f14d2c8(u8 *arg0, u8 *arg1);
 void func0f14d4f0(u8 *arg0, u8 *arg1);
