@@ -4796,8 +4796,8 @@ struct pak {
 	/*0x2b4*/ f32 rumblettl;
 	/*0x2b8*/ u8 unk2b8_01 : 1;
 	/*0x2b8*/ u8 unk2b8_02 : 1;
-	/*0x2b8*/ u8 unk2b8_03 : 1;
-	/*0x2b8*/ u8 unk2b8_04 : 1;
+	/*0x2b8*/ u8 isgbcamera : 1;
+	/*0x2b8*/ u8 isgbpd : 1;
 	/*0x2b8*/ u8 unk2b8_05 : 1;
 	/*0x2b8*/ u8 unk2b8_06 : 1;
 	/*0x2b8*/ u8 unk2b8_07 : 1;
