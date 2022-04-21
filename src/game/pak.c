@@ -6816,17 +6816,6 @@ const char var7f1b4628[] = "paksNeedToBeLive4Menu=%x\n";
 
 const char var7f1b4644[] = "g_LastPackPattern=%x\n";
 
-#if VERSION < VERSION_NTSC_1_0
-const char var7f1ae664nb[] = "lvGetPause    = %s";
-const char var7f1ae678nb[] = "TRUE";
-const char var7f1ae680nb[] = "FALSE";
-const char var7f1ae688nb[] = "MP_GetPause   = %s";
-const char var7f1ae69cnb[] = "TRUE";
-const char var7f1ae6a4nb[] = "FALSE";
-const char var7f1ae6acnb[] = "getnumplayers = %d";
-#endif
-
-#if VERSION >= VERSION_NTSC_1_0
 bool pakHandleResult(s32 err1, s8 device, bool arg2, u32 line)
 {
 	if (err1 == PAK_ERR1_OK) {
@@ -6835,10 +6824,12 @@ bool pakHandleResult(s32 err1, s8 device, bool arg2, u32 line)
 
 	if (arg2) {
 		switch (err1) {
+#if VERSION >= VERSION_NTSC_1_0
 		case PAK_ERR1_NOPAK:
 			g_Paks[device].type = PAKTYPE_MEMORY;
 			g_Paks[device].unk010 = PAK010_01;
 			break;
+#endif
 		case PAK_ERR1_DEVICE:
 			g_Paks[device].type = PAKTYPE_MEMORY;
 			g_Paks[device].unk010 = PAK010_14;
@@ -6880,156 +6871,6 @@ bool pakHandleResult(s32 err1, s8 device, bool arg2, u32 line)
 
 	return false;
 }
-#else
-GLOBAL_ASM(
-glabel pakHandleResult
-.late_rodata
-glabel var7f1af094nb
-.word pakHandleResult+0x080
-glabel var7f1af098nb
-.word pakHandleResult+0x0f4
-glabel var7f1af09cnb
-.word pakHandleResult+0x0f4
-glabel var7f1af0a0nb
-.word pakHandleResult+0x0f4
-glabel var7f1af0a4nb
-.word pakHandleResult+0x0bc
-glabel var7f1af0a8nb
-.word pakHandleResult+0x0bc
-glabel var7f1af0acnb
-.word pakHandleResult+0x0f4
-glabel var7f1af0b0nb
-.word pakHandleResult+0x080
-glabel var7f1af0b4nb
-.word pakHandleResult+0x044
-glabel var7f1af0b8nb
-.word pakHandleResult+0x148
-glabel var7f1af0bcnb
-.word pakHandleResult+0x148
-glabel var7f1af0c0nb
-.word pakHandleResult+0x148
-glabel var7f1af0c4nb
-.word pakHandleResult+0x148
-glabel var7f1af0c8nb
-.word pakHandleResult+0x148
-glabel var7f1af0ccnb
-.word pakHandleResult+0x148
-glabel var7f1af0d0nb
-.word pakHandleResult+0x148
-glabel var7f1af0d4nb
-.word pakHandleResult+0x148
-glabel var7f1af0d8nb
-.word pakHandleResult+0x148
-glabel var7f1af0dcnb
-.word pakHandleResult+0x148
-glabel var7f1af0e0nb
-.word pakHandleResult+0x148
-glabel var7f1af0e4nb
-.word pakHandleResult+0x148
-glabel var7f1af0e8nb
-.word pakHandleResult+0x148
-glabel var7f1af0ecnb
-.word pakHandleResult+0x148
-glabel var7f1af0f0nb
-.word pakHandleResult+0x148
-glabel var7f1af0f4nb
-.word pakHandleResult+0x148
-glabel var7f1af0f8nb
-.word pakHandleResult+0x148
-glabel var7f1af0fcnb
-.word pakHandleResult+0x148
-.text
-/*  f11632c:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f116330:	00057600 */ 	sll	$t6,$a1,0x18
-/*  f116334:	000e2e03 */ 	sra	$a1,$t6,0x18
-/*  f116338:	14800003 */ 	bnez	$a0,.NB0f116348
-/*  f11633c:	afa7000c */ 	sw	$a3,0xc($sp)
-/*  f116340:	03e00008 */ 	jr	$ra
-/*  f116344:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB0f116348:
-/*  f116348:	10c00035 */ 	beqz	$a2,.NB0f116420
-/*  f11634c:	2498fffd */ 	addiu	$t8,$a0,-3
-/*  f116350:	2f010009 */ 	sltiu	$at,$t8,0x9
-/*  f116354:	10200032 */ 	beqz	$at,.NB0f116420
-/*  f116358:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11635c:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f116360:	00380821 */ 	addu	$at,$at,$t8
-/*  f116364:	8c38f094 */ 	lw	$t8,-0xf6c($at)
-/*  f116368:	03000008 */ 	jr	$t8
-/*  f11636c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f116370:	0005c880 */ 	sll	$t9,$a1,0x2
-/*  f116374:	0325c823 */ 	subu	$t9,$t9,$a1
-/*  f116378:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f11637c:	0325c823 */ 	subu	$t9,$t9,$a1
-/*  f116380:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f116384:	0325c821 */ 	addu	$t9,$t9,$a1
-/*  f116388:	3c08800a */ 	lui	$t0,0x800a
-/*  f11638c:	25086870 */ 	addiu	$t0,$t0,0x6870
-/*  f116390:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f116394:	03281021 */ 	addu	$v0,$t9,$t0
-/*  f116398:	24090002 */ 	addiu	$t1,$zero,0x2
-/*  f11639c:	240a000e */ 	addiu	$t2,$zero,0xe
-/*  f1163a0:	ac490000 */ 	sw	$t1,0x0($v0)
-/*  f1163a4:	1000001e */ 	beqz	$zero,.NB0f116420
-/*  f1163a8:	ac4a0010 */ 	sw	$t2,0x10($v0)
-/*  f1163ac:	00055880 */ 	sll	$t3,$a1,0x2
-/*  f1163b0:	01655823 */ 	subu	$t3,$t3,$a1
-/*  f1163b4:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f1163b8:	01655823 */ 	subu	$t3,$t3,$a1
-/*  f1163bc:	000b58c0 */ 	sll	$t3,$t3,0x3
-/*  f1163c0:	01655821 */ 	addu	$t3,$t3,$a1
-/*  f1163c4:	3c0c800a */ 	lui	$t4,0x800a
-/*  f1163c8:	258c6870 */ 	addiu	$t4,$t4,0x6870
-/*  f1163cc:	000b58c0 */ 	sll	$t3,$t3,0x3
-/*  f1163d0:	016c1021 */ 	addu	$v0,$t3,$t4
-/*  f1163d4:	240d0002 */ 	addiu	$t5,$zero,0x2
-/*  f1163d8:	240e000f */ 	addiu	$t6,$zero,0xf
-/*  f1163dc:	ac4d0000 */ 	sw	$t5,0x0($v0)
-/*  f1163e0:	1000000f */ 	beqz	$zero,.NB0f116420
-/*  f1163e4:	ac4e0010 */ 	sw	$t6,0x10($v0)
-/*  f1163e8:	00057880 */ 	sll	$t7,$a1,0x2
-/*  f1163ec:	01e57823 */ 	subu	$t7,$t7,$a1
-/*  f1163f0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1163f4:	01e57823 */ 	subu	$t7,$t7,$a1
-/*  f1163f8:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f1163fc:	01e57821 */ 	addu	$t7,$t7,$a1
-/*  f116400:	3c18800a */ 	lui	$t8,0x800a
-/*  f116404:	27186870 */ 	addiu	$t8,$t8,0x6870
-/*  f116408:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f11640c:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f116410:	24190002 */ 	addiu	$t9,$zero,0x2
-/*  f116414:	24080010 */ 	addiu	$t0,$zero,0x10
-/*  f116418:	ac590000 */ 	sw	$t9,0x0($v0)
-/*  f11641c:	ac480010 */ 	sw	$t0,0x10($v0)
-.NB0f116420:
-/*  f116420:	2881000e */ 	slti	$at,$a0,0xe
-/*  f116424:	1420000a */ 	bnez	$at,.NB0f116450
-/*  f116428:	00801025 */ 	or	$v0,$a0,$zero
-/*  f11642c:	2449ff80 */ 	addiu	$t1,$v0,-128
-/*  f116430:	2d210005 */ 	sltiu	$at,$t1,0x5
-/*  f116434:	1020000f */ 	beqz	$at,.NB0f116474
-/*  f116438:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11643c:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f116440:	00290821 */ 	addu	$at,$at,$t1
-/*  f116444:	8c29f0b8 */ 	lw	$t1,-0xf48($at)
-/*  f116448:	01200008 */ 	jr	$t1
-/*  f11644c:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f116450:
-/*  f116450:	244affff */ 	addiu	$t2,$v0,-1
-/*  f116454:	2d41000d */ 	sltiu	$at,$t2,0xd
-/*  f116458:	10200006 */ 	beqz	$at,.NB0f116474
-/*  f11645c:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f116460:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f116464:	002a0821 */ 	addu	$at,$at,$t2
-/*  f116468:	8c2af0cc */ 	lw	$t2,-0xf34($at)
-/*  f11646c:	01400008 */ 	jr	$t2
-/*  f116470:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f116474:
-/*  f116474:	00001025 */ 	or	$v0,$zero,$zero
-/*  f116478:	03e00008 */ 	jr	$ra
-/*  f11647c:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
 
 #if VERSION >= VERSION_NTSC_1_0
 void paksTick(void)
@@ -7183,9 +7024,9 @@ void pakExecuteDebugOperations(void)
 	static u32 g_PakDebugDumpEeprom = 0;
 	s8 i;
 
-	if (lvIsPaused());
-	if (mpIsPaused());
-	if (1);
+	osSyncPrintf("lvGetPause    = %s", lvIsPaused() ? "TRUE" : "FALSE");
+	osSyncPrintf("MP_GetPause   = %s", mpIsPaused() ? "TRUE" : "FALSE");
+	osSyncPrintf("getnumplayers = %d", PLAYERCOUNT());
 
 	mainOverrideVariable("forcecrc", &g_PakDebugForceCrc);
 	mainOverrideVariable("forcescrub", &g_PakDebugForceScrub);
