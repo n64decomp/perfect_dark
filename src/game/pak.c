@@ -2586,10 +2586,10 @@ void pak0f119340(u32 arg0)
 	}
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-// Note: ntsc-beta doesn't match the below due to stack size
 s32 pakFindFile(s8 device, u32 fileid, struct pakfileheader *headerptr)
 {
+	// NTSC 1.0 adds error checking
+#if VERSION >= VERSION_NTSC_1_0
 	struct pakfileheader header;
 	s32 offset = 0;
 	u32 fslen;
@@ -2613,87 +2613,33 @@ s32 pakFindFile(s8 device, u32 fileid, struct pakfileheader *headerptr)
 		ret = pakReadHeaderAtOffset(device, offset, &header);
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (ret == PAK_ERR2_NOPAK) {
 		return -1;
 	}
-#endif
 
 	return 0xffff;
-}
 #else
-GLOBAL_ASM(
-glabel pakFindFile
-/*  f11369c:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f1136a0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f1136a4:	00048e00 */ 	sll	$s1,$a0,0x18
-/*  f1136a8:	00117603 */ 	sra	$t6,$s1,0x18
-/*  f1136ac:	afa40040 */ 	sw	$a0,0x40($sp)
-/*  f1136b0:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f1136b4:	000e2600 */ 	sll	$a0,$t6,0x18
-/*  f1136b8:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f1136bc:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1136c0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f1136c4:	00047e03 */ 	sra	$t7,$a0,0x18
-/*  f1136c8:	01c08825 */ 	or	$s1,$t6,$zero
-/*  f1136cc:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f1136d0:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f1136d4:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1136d8:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f1136dc:	0fc455c3 */ 	jal	pakGetFilesystemLength
-/*  f1136e0:	27a5002c */ 	addiu	$a1,$sp,0x2c
-/*  f1136e4:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f1136e8:	27b30030 */ 	addiu	$s3,$sp,0x30
-/*  f1136ec:	0004c603 */ 	sra	$t8,$a0,0x18
-/*  f1136f0:	03002025 */ 	or	$a0,$t8,$zero
-/*  f1136f4:	02603025 */ 	or	$a2,$s3,$zero
-/*  f1136f8:	0fc4461f */ 	jal	pakReadHeaderAtOffset
-/*  f1136fc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f113700:	1440001d */ 	bnez	$v0,.NB0f113778
-/*  f113704:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*  f113708:	5320001c */ 	beqzl	$t9,.NB0f11377c
-/*  f11370c:	3402ffff */ 	dli	$v0,0xffff
-/*  f113710:	8fa8003c */ 	lw	$t0,0x3c($sp)
-.NB0f113714:
-/*  f113714:	8fab0038 */ 	lw	$t3,0x38($sp)
-/*  f113718:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f11371c:	00084b40 */ 	sll	$t1,$t0,0xd
-/*  f113720:	00095642 */ 	srl	$t2,$t1,0x19
-/*  f113724:	164a0009 */ 	bne	$s2,$t2,.NB0f11374c
-/*  f113728:	316c0fff */ 	andi	$t4,$t3,0xfff
-/*  f11372c:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*  f113730:	02602825 */ 	or	$a1,$s3,$zero
-/*  f113734:	10800003 */ 	beqz	$a0,.NB0f113744
-/*  f113738:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11373c:	0c012e88 */ 	jal	memcpy
-/*  f113740:	24060010 */ 	addiu	$a2,$zero,0x10
-.NB0f113744:
-/*  f113744:	1000000d */ 	beqz	$zero,.NB0f11377c
-/*  f113748:	02001025 */ 	or	$v0,$s0,$zero
-.NB0f11374c:
-/*  f11374c:	020c8021 */ 	addu	$s0,$s0,$t4
-/*  f113750:	00046e03 */ 	sra	$t5,$a0,0x18
-/*  f113754:	01a02025 */ 	or	$a0,$t5,$zero
-/*  f113758:	02002825 */ 	or	$a1,$s0,$zero
-/*  f11375c:	0fc4461f */ 	jal	pakReadHeaderAtOffset
-/*  f113760:	02603025 */ 	or	$a2,$s3,$zero
-/*  f113764:	14400004 */ 	bnez	$v0,.NB0f113778
-/*  f113768:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*  f11376c:	020e082b */ 	sltu	$at,$s0,$t6
-/*  f113770:	5420ffe8 */ 	bnezl	$at,.NB0f113714
-/*  f113774:	8fa8003c */ 	lw	$t0,0x3c($sp)
-.NB0f113778:
-/*  f113778:	3402ffff */ 	dli	$v0,0xffff
-.NB0f11377c:
-/*  f11377c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f113780:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f113784:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f113788:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f11378c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f113790:	03e00008 */ 	jr	$ra
-/*  f113794:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+	struct pakfileheader header;
+	u32 fslen;
+	s32 offset = 0;
+
+	pakGetFilesystemLength(device, &fslen);
+
+	while (pakReadHeaderAtOffset(device, offset, &header) == PAK_ERR2_OK && offset < fslen) {
+		if (fileid == header.fileid) {
+			if (headerptr) {
+				memcpy(headerptr, &header, sizeof(struct pakfileheader));
+			}
+
+			return offset;
+		}
+
+		offset += header.filelen;
+	}
+
+	return 0xffff;
 #endif
+}
 
 #if VERSION >= VERSION_NTSC_FINAL
 bool pakWriteBlankFile(s8 device, u32 offset, struct pakfileheader *header)
