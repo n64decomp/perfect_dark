@@ -7448,147 +7448,39 @@ const char var7f1ae9acnb[] = "Pak -> Connector Check Failed";
 const char var7f1ae9ccnb[] = "Pak -> osGbpakReadId - Failed";
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pak0f11ca30
-/*  f11ca30:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f11ca34:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f11ca38:	3c15800a */ 	lui	$s5,%hi(g_Vars)
-/*  f11ca3c:	26b59fc0 */ 	addiu	$s5,$s5,%lo(g_Vars)
-/*  f11ca40:	8eae02ac */ 	lw	$t6,0x2ac($s5)
-/*  f11ca44:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f11ca48:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f11ca4c:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f11ca50:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f11ca54:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f11ca58:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f11ca5c:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f11ca60:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f11ca64:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f11ca68:	15c10005 */ 	bne	$t6,$at,.L0f11ca80
-/*  f11ca6c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f11ca70:	3c0f800a */ 	lui	$t7,%hi(g_MenuData)
-/*  f11ca74:	8def19c0 */ 	lw	$t7,%lo(g_MenuData)($t7)
-/*  f11ca78:	59e0003d */ 	blezl	$t7,.L0f11cb70
-/*  f11ca7c:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f11ca80:
-/*  f11ca80:	96b804e4 */ 	lhu	$t8,0x4e4($s5)
-/*  f11ca84:	3c028007 */ 	lui	$v0,%hi(var80075d10)
-/*  f11ca88:	90565d10 */ 	lbu	$s6,%lo(var80075d10)($v0)
-/*  f11ca8c:	3319000f */ 	andi	$t9,$t8,0xf
-/*  f11ca90:	241400ff */ 	addiu	$s4,$zero,0xff
-/*  f11ca94:	17200035 */ 	bnez	$t9,.L0f11cb6c
-/*  f11ca98:	02c09825 */ 	or	$s3,$s6,$zero
-/*  f11ca9c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f11caa0:	241e0002 */ 	addiu	$s8,$zero,0x2
-/*  f11caa4:	241700ff */ 	addiu	$s7,$zero,0xff
-/*  f11caa8:	92a904d1 */ 	lbu	$t1,0x4d1($s5)
-.L0f11caac:
-/*  f11caac:	92aa04d0 */ 	lbu	$t2,0x4d0($s5)
-/*  f11cab0:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f11cab4:	02288004 */ 	sllv	$s0,$t0,$s1
-/*  f11cab8:	012a5825 */ 	or	$t3,$t1,$t2
-/*  f11cabc:	01706024 */ 	and	$t4,$t3,$s0
-/*  f11cac0:	11800024 */ 	beqz	$t4,.L0f11cb54
-/*  f11cac4:	02801825 */ 	or	$v1,$s4,$zero
-/*  f11cac8:	16f40005 */ 	bne	$s7,$s4,.L0f11cae0
-/*  f11cacc:	02c09025 */ 	or	$s2,$s6,$zero
-/*  f11cad0:	0c004e7a */ 	jal	joyShiftPfsStates
-/*  f11cad4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11cad8:	305400ff */ 	andi	$s4,$v0,0xff
-/*  f11cadc:	02801825 */ 	or	$v1,$s4,$zero
-.L0f11cae0:
-/*  f11cae0:	00701024 */ 	and	$v0,$v1,$s0
-/*  f11cae4:	02506824 */ 	and	$t5,$s2,$s0
-/*  f11cae8:	11a2001a */ 	beq	$t5,$v0,.L0f11cb54
-/*  f11caec:	00117080 */ 	sll	$t6,$s1,0x2
-/*  f11caf0:	01d17023 */ 	subu	$t6,$t6,$s1
-/*  f11caf4:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f11caf8:	01d17023 */ 	subu	$t6,$t6,$s1
-/*  f11cafc:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f11cb00:	01d17021 */ 	addu	$t6,$t6,$s1
-/*  f11cb04:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f11cb08:	01d17023 */ 	subu	$t6,$t6,$s1
-/*  f11cb0c:	3c0f800a */ 	lui	$t7,%hi(g_Paks)
-/*  f11cb10:	25ef2380 */ 	addiu	$t7,$t7,%lo(g_Paks)
-/*  f11cb14:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f11cb18:	10400006 */ 	beqz	$v0,.L0f11cb34
-/*  f11cb1c:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f11cb20:	02709825 */ 	or	$s3,$s3,$s0
-/*  f11cb24:	327800ff */ 	andi	$t8,$s3,0xff
-/*  f11cb28:	ac7e0010 */ 	sw	$s8,0x10($v1)
-/*  f11cb2c:	10000009 */ 	beqz	$zero,.L0f11cb54
-/*  f11cb30:	03009825 */ 	or	$s3,$t8,$zero
-.L0f11cb34:
-/*  f11cb34:	02004027 */ 	nor	$t0,$s0,$zero
-/*  f11cb38:	02689824 */ 	and	$s3,$s3,$t0
-/*  f11cb3c:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f11cb40:	326900ff */ 	andi	$t1,$s3,0xff
-/*  f11cb44:	ac790010 */ 	sw	$t9,0x10($v1)
-/*  f11cb48:	01209825 */ 	or	$s3,$t1,$zero
-/*  f11cb4c:	0fc44364 */ 	jal	func0f110d90
-/*  f11cb50:	02202025 */ 	or	$a0,$s1,$zero
-.L0f11cb54:
-/*  f11cb54:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f11cb58:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f11cb5c:	5621ffd3 */ 	bnel	$s1,$at,.L0f11caac
-/*  f11cb60:	92a904d1 */ 	lbu	$t1,0x4d1($s5)
-/*  f11cb64:	3c018007 */ 	lui	$at,%hi(var80075d10)
-/*  f11cb68:	a0335d10 */ 	sb	$s3,%lo(var80075d10)($at)
-.L0f11cb6c:
-/*  f11cb6c:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f11cb70:
-/*  f11cb70:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f11cb74:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f11cb78:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f11cb7c:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f11cb80:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f11cb84:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f11cb88:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f11cb8c:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f11cb90:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f11cb94:	03e00008 */ 	jr	$ra
-/*  f11cb98:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
-
-// Mismatch: regalloc
-//void pak0f11ca30(void)
-//{
-//	if (g_Vars.tickmode != TICKMODE_CUTSCENE || g_MenuData.count > 0) {
-//		u8 oldvalue = var80075d10;
-//		u8 newvalue = var80075d10;
-//		u8 thing = 0xff;
-//		s32 i;
-//
-//		if ((g_Vars.unk0004e4 & 0xf) == 0) {
-//			for (i = 0; i < 5; i++) {
-//				u32 thisbit = 1 << i;
-//
-//				if ((g_Vars.paksconnected2 | g_Vars.paksconnected) & thisbit) {
-//					if (thing == 0xff) {
-//						thing = joyShiftPfsStates();
-//					}
-//
-//					if ((thing & thisbit) != (oldvalue & thisbit)) {
-//						if (thing & thisbit) {
-//							g_Paks[i].unk010 = PAK010_02;
-//							newvalue |= thisbit;
-//						} else {
-//							g_Paks[i].unk010 = PAK010_01;
-//							newvalue &= ~thisbit;
-//							func0f110d90(i);
-//						}
-//					}
-//				}
-//			}
-//
-//			var80075d10 = newvalue;
-//		}
-//	}
-//}
-#else
 void pak0f11ca30(void)
 {
+#if VERSION >= VERSION_NTSC_1_0
+	if (g_Vars.tickmode != TICKMODE_CUTSCENE || g_MenuData.count > 0) {
+		u8 oldvalue = var80075d10;
+		u8 newvalue = var80075d10;
+		u8 thing = 0xff;
+		s32 i;
+
+		if ((g_Vars.unk0004e4 & 0xf) == 0) {
+			for (i = 0; i < 5; i++) {
+				if ((g_Vars.paksconnected2 | g_Vars.paksconnected) & (1 << i)) {
+					if (thing == 0xff) {
+						thing = joyShiftPfsStates();
+					}
+
+					if (((thing & (1 << i)) != (oldvalue & (1 << i)))) {
+						if ((thing & (1 << i))) {
+							g_Paks[i].unk010 = PAK010_02;
+							newvalue |= (1 << i);
+						} else {
+							g_Paks[i].unk010 = PAK010_01;
+							newvalue &= ~(1 << i);
+							func0f110d90(i);
+						}
+					}
+				}
+			}
+
+			var80075d10 = newvalue;
+		}
+	}
+#else
 	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
 		u32 thing = joy00013980();
 		u8 oldvalue = var80075d10;
@@ -7613,8 +7505,8 @@ void pak0f11ca30(void)
 
 		var80075d10 = newvalue;
 	}
-}
 #endif
+}
 
 void gbpakHandleError(u32 err)
 {
