@@ -2651,169 +2651,6 @@ bool pakWriteBlankFile(s8 device, u32 offset, struct pakfileheader *header)
 }
 #endif
 
-#if VERSION >= VERSION_NTSC_FINAL
-GLOBAL_ASM(
-glabel pakRepairAsBlank
-/*  f1194e0:	27bdff70 */ 	addiu	$sp,$sp,-144
-/*  f1194e4:	afb10034 */ 	sw	$s1,0x34($sp)
-/*  f1194e8:	00048e00 */ 	sll	$s1,$a0,0x18
-/*  f1194ec:	00117603 */ 	sra	$t6,$s1,0x18
-/*  f1194f0:	afa40090 */ 	sw	$a0,0x90($sp)
-/*  f1194f4:	000e2600 */ 	sll	$a0,$t6,0x18
-/*  f1194f8:	afbf0054 */ 	sw	$ra,0x54($sp)
-/*  f1194fc:	afb20038 */ 	sw	$s2,0x38($sp)
-/*  f119500:	00047e03 */ 	sra	$t7,$a0,0x18
-/*  f119504:	00c09025 */ 	or	$s2,$a2,$zero
-/*  f119508:	01c08825 */ 	or	$s1,$t6,$zero
-/*  f11950c:	afbe0050 */ 	sw	$s8,0x50($sp)
-/*  f119510:	afb7004c */ 	sw	$s7,0x4c($sp)
-/*  f119514:	afb60048 */ 	sw	$s6,0x48($sp)
-/*  f119518:	afb50044 */ 	sw	$s5,0x44($sp)
-/*  f11951c:	afb40040 */ 	sw	$s4,0x40($sp)
-/*  f119520:	afb3003c */ 	sw	$s3,0x3c($sp)
-/*  f119524:	afb00030 */ 	sw	$s0,0x30($sp)
-/*  f119528:	afa50094 */ 	sw	$a1,0x94($sp)
-/*  f11952c:	0fc45c1b */ 	jal	pakGetMaxFileSize
-/*  f119530:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f119534:	8fb80094 */ 	lw	$t8,0x94($sp)
-/*  f119538:	00114880 */ 	sll	$t1,$s1,0x2
-/*  f11953c:	01314823 */ 	subu	$t1,$t1,$s1
-/*  f119540:	8f030000 */ 	lw	$v1,0x0($t8)
-/*  f119544:	0040b825 */ 	or	$s7,$v0,$zero
-/*  f119548:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11954c:	0060b025 */ 	or	$s6,$v1,$zero
-/*  f119550:	0060f025 */ 	or	$s8,$v1,$zero
-/*  f119554:	12400004 */ 	beqz	$s2,.L0f119568
-/*  f119558:	00608025 */ 	or	$s0,$v1,$zero
-/*  f11955c:	8e590008 */ 	lw	$t9,0x8($s2)
-/*  f119560:	33280fff */ 	andi	$t0,$t9,0xfff
-/*  f119564:	00688021 */ 	addu	$s0,$v1,$t0
-.L0f119568:
-/*  f119568:	01314823 */ 	subu	$t1,$t1,$s1
-/*  f11956c:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f119570:	01314821 */ 	addu	$t1,$t1,$s1
-/*  f119574:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f119578:	01314823 */ 	subu	$t1,$t1,$s1
-/*  f11957c:	3c0a800a */ 	lui	$t2,%hi(g_Paks)
-/*  f119580:	254a2380 */ 	addiu	$t2,$t2,%lo(g_Paks)
-/*  f119584:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f119588:	012aa821 */ 	addu	$s5,$t1,$t2
-/*  f11958c:	8eab02a0 */ 	lw	$t3,0x2a0($s5)
-/*  f119590:	24140001 */ 	addiu	$s4,$zero,0x1
-/*  f119594:	24130004 */ 	addiu	$s3,$zero,0x4
-/*  f119598:	020b082b */ 	sltu	$at,$s0,$t3
-/*  f11959c:	10200038 */ 	beqz	$at,.L0f119680
-/*  f1195a0:	27b20080 */ 	addiu	$s2,$sp,0x80
-/*  f1195a4:	00112600 */ 	sll	$a0,$s1,0x18
-.L0f1195a8:
-/*  f1195a8:	00046603 */ 	sra	$t4,$a0,0x18
-/*  f1195ac:	01802025 */ 	or	$a0,$t4,$zero
-/*  f1195b0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1195b4:	0fc45d48 */ 	jal	pakReadHeaderAtOffset
-/*  f1195b8:	02403025 */ 	or	$a2,$s2,$zero
-/*  f1195bc:	14400009 */ 	bnez	$v0,.L0f1195e4
-/*  f1195c0:	8fad0088 */ 	lw	$t5,0x88($sp)
-/*  f1195c4:	000d75c2 */ 	srl	$t6,$t5,0x17
-/*  f1195c8:	31cf0002 */ 	andi	$t7,$t6,0x2
-/*  f1195cc:	15e00009 */ 	bnez	$t7,.L0f1195f4
-/*  f1195d0:	03d0082b */ 	sltu	$at,$s8,$s0
-/*  f1195d4:	50200008 */ 	beqzl	$at,.L0f1195f8
-/*  f1195d8:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f1195dc:	10000028 */ 	beqz	$zero,.L0f119680
-/*  f1195e0:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1195e4:
-/*  f1195e4:	54540004 */ 	bnel	$v0,$s4,.L0f1195f8
-/*  f1195e8:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f1195ec:	1000003b */ 	beqz	$zero,.L0f1196dc
-/*  f1195f0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1195f4:
-/*  f1195f4:	00112600 */ 	sll	$a0,$s1,0x18
-.L0f1195f8:
-/*  f1195f8:	0004c603 */ 	sra	$t8,$a0,0x18
-/*  f1195fc:	0fc45974 */ 	jal	pakGetBlockSize
-/*  f119600:	03002025 */ 	or	$a0,$t8,$zero
-/*  f119604:	12330009 */ 	beq	$s1,$s3,.L0f11962c
-/*  f119608:	02028021 */ 	addu	$s0,$s0,$v0
-/*  f11960c:	0216c823 */ 	subu	$t9,$s0,$s6
-/*  f119610:	02f9082b */ 	sltu	$at,$s7,$t9
-/*  f119614:	50200006 */ 	beqzl	$at,.L0f119630
-/*  f119618:	8ea202a0 */ 	lw	$v0,0x2a0($s5)
-/*  f11961c:	8fa80094 */ 	lw	$t0,0x94($sp)
-/*  f119620:	00001025 */ 	or	$v0,$zero,$zero
-/*  f119624:	1000002d */ 	beqz	$zero,.L0f1196dc
-/*  f119628:	ad100000 */ 	sw	$s0,0x0($t0)
-.L0f11962c:
-/*  f11962c:	8ea202a0 */ 	lw	$v0,0x2a0($s5)
-.L0f119630:
-/*  f119630:	0202082b */ 	sltu	$at,$s0,$v0
-/*  f119634:	1420000f */ 	bnez	$at,.L0f119674
-/*  f119638:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f11963c:	00044e03 */ 	sra	$t1,$a0,0x18
-/*  f119640:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f119644:	afaa0020 */ 	sw	$t2,0x20($sp)
-/*  f119648:	01202025 */ 	or	$a0,$t1,$zero
-/*  f11964c:	02c02825 */ 	or	$a1,$s6,$zero
-/*  f119650:	24060004 */ 	addiu	$a2,$zero,0x4
-/*  f119654:	00003825 */ 	or	$a3,$zero,$zero
-/*  f119658:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f11965c:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f119660:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f119664:	0fc46f15 */ 	jal	pakWriteFileAtOffset
-/*  f119668:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f11966c:	1000001b */ 	beqz	$zero,.L0f1196dc
-/*  f119670:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f119674:
-/*  f119674:	0202082b */ 	sltu	$at,$s0,$v0
-/*  f119678:	5420ffcb */ 	bnezl	$at,.L0f1195a8
-/*  f11967c:	00112600 */ 	sll	$a0,$s1,0x18
-.L0f119680:
-/*  f119680:	0fc459a1 */ 	jal	pakGetBodyLenByFileLen
-/*  f119684:	02162023 */ 	subu	$a0,$s0,$s6
-/*  f119688:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f11968c:	00045e03 */ 	sra	$t3,$a0,0x18
-/*  f119690:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f119694:	afac0020 */ 	sw	$t4,0x20($sp)
-/*  f119698:	01602025 */ 	or	$a0,$t3,$zero
-/*  f11969c:	02c02825 */ 	or	$a1,$s6,$zero
-/*  f1196a0:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f1196a4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f1196a8:	afa20010 */ 	sw	$v0,0x10($sp)
-/*  f1196ac:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f1196b0:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f1196b4:	0fc46f15 */ 	jal	pakWriteFileAtOffset
-/*  f1196b8:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f1196bc:	10400005 */ 	beqz	$v0,.L0f1196d4
-/*  f1196c0:	8fae0094 */ 	lw	$t6,0x94($sp)
-/*  f1196c4:	8fad0094 */ 	lw	$t5,0x94($sp)
-/*  f1196c8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1196cc:	10000003 */ 	beqz	$zero,.L0f1196dc
-/*  f1196d0:	adb00000 */ 	sw	$s0,0x0($t5)
-.L0f1196d4:
-/*  f1196d4:	add00000 */ 	sw	$s0,0x0($t6)
-/*  f1196d8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1196dc:
-/*  f1196dc:	8fbf0054 */ 	lw	$ra,0x54($sp)
-/*  f1196e0:	8fb00030 */ 	lw	$s0,0x30($sp)
-/*  f1196e4:	8fb10034 */ 	lw	$s1,0x34($sp)
-/*  f1196e8:	8fb20038 */ 	lw	$s2,0x38($sp)
-/*  f1196ec:	8fb3003c */ 	lw	$s3,0x3c($sp)
-/*  f1196f0:	8fb40040 */ 	lw	$s4,0x40($sp)
-/*  f1196f4:	8fb50044 */ 	lw	$s5,0x44($sp)
-/*  f1196f8:	8fb60048 */ 	lw	$s6,0x48($sp)
-/*  f1196fc:	8fb7004c */ 	lw	$s7,0x4c($sp)
-/*  f119700:	8fbe0050 */ 	lw	$s8,0x50($sp)
-/*  f119704:	03e00008 */ 	jr	$ra
-/*  f119708:	27bd0090 */ 	addiu	$sp,$sp,0x90
-);
-
-#if VERSION < VERSION_NTSC_FINAL
-const char var7f1b407c_2[] = "Pak %d -> Pak_RepairAsBlank : Repairing as Blank, Offset=%u, pH=%x\n";
-const char var7f1b407c_3[] = "Pak %d -> Pak_RepairAsBlank -> Summing @ offset=%u, ret=%d\n";
-const char var7f1b407c_4[] = "Pak %d -> Pak_RepairAsBlank -> Fault Speads Over More Than One File - TERMINAL";
-#endif
-const char var7f1b409c[] = "Pak %d -> Pak_RepairAsBlank - St=%u, Ed=%u, Gap=%u, Blank Size=%u\n";
-const char var7f1b40e0[] = "Pak %d -> Pak_RepairAsBlank - Fatal Error at tOffset %u\n";
-#else
 /**
  * Repair the pak by writing a blank file from the given offset up until the
  * start of the next file.
@@ -2836,7 +2673,6 @@ const char var7f1b40e0[] = "Pak %d -> Pak_RepairAsBlank - Fatal Error at tOffset
  * corresponding to the starting offset and the function takes a shortcut by
  * starting the scan at the end of the header.
  */
-// ntsc-final mismatches due to regalloc
 bool pakRepairAsBlank(s8 device, u32 *offsetptr, struct pakfileheader *header)
 {
 	struct pakfileheader iterheader;
@@ -2857,10 +2693,16 @@ bool pakRepairAsBlank(s8 device, u32 *offsetptr, struct pakfileheader *header)
 		offset += header->filelen;
 	}
 
+#if VERSION >= VERSION_NTSC_FINAL
+	if (1);
+#endif
+
 	while (offset < g_Paks[device].pdnumbytes) {
 		result = pakReadHeaderAtOffset(device, offset, &iterheader);
 
 #if VERSION >= VERSION_NTSC_FINAL
+		if (1);
+
 		if (result == PAK_ERR2_OK) {
 			// Found a valid header
 			if ((iterheader.filetype & PAKFILETYPE_BLANK) == 0 && offset > start2) {
@@ -2875,7 +2717,6 @@ bool pakRepairAsBlank(s8 device, u32 *offsetptr, struct pakfileheader *header)
 
 		// For controller paks, consider giving up
 		if (device != SAVEDEVICE_GAMEPAK && offset - start > maxfilesize) {
-			osSyncPrintf("Pak %d -> Pak_RepairAsBlank -> Fault Speads Over More Than One File - TERMINAL", device);
 			*offsetptr = offset;
 			return false;
 		}
@@ -2946,7 +2787,6 @@ bool pakRepairAsBlank(s8 device, u32 *offsetptr, struct pakfileheader *header)
 	*offsetptr = offset;
 	return true;
 }
-#endif
 
 #if VERSION >= VERSION_NTSC_1_0
 const char var7f1b411c[] = "Pak %d -> Pak_ValidateVersion - Start - Game File Size = %d\n";
