@@ -53329,89 +53329,7 @@ void objApplyMomentum(struct defaultobj *obj, struct coord *speed, f32 rotation,
 }
 
 #if PIRACYCHECKS
-GLOBAL_ASM(
-glabel piracyRestore
-/*  f082d74:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*  f082d78:	27a70024 */ 	addiu	$a3,$sp,0x24
-/*  f082d7c:	30ee0007 */ 	andi	$t6,$a3,0x7
-/*  f082d80:	11c00005 */ 	beqz	$t6,.L0f082d98
-/*  f082d84:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f082d88:	24e70004 */ 	addiu	$a3,$a3,0x4
-.L0f082d8c:
-/*  f082d8c:	30ef0007 */ 	andi	$t7,$a3,0x7
-/*  f082d90:	55e0fffe */ 	bnezl	$t7,.L0f082d8c
-/*  f082d94:	24e70004 */ 	addiu	$a3,$a3,0x4
-.L0f082d98:
-/*  f082d98:	3c0501d6 */ 	lui	$a1,%hi(_blankSegmentRomStart)
-/*  f082d9c:	24a55740 */ 	addiu	$a1,$a1,%lo(_blankSegmentRomStart)
-/*  f082da0:	afa50020 */ 	sw	$a1,0x20($sp)
-/*  f082da4:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f082da8:	24060040 */ 	addiu	$a2,$zero,0x40
-/*  f082dac:	0c003504 */ 	jal	dmaExec
-/*  f082db0:	afa70074 */ 	sw	$a3,0x74($sp)
-/*  f082db4:	3c098007 */ 	lui	$t1,%hi(var8006abbc)
-/*  f082db8:	8129abbc */ 	lb	$t1,%lo(var8006abbc)($t1)
-/*  f082dbc:	8fa70074 */ 	lw	$a3,0x74($sp)
-/*  f082dc0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f082dc4:	24080040 */ 	addiu	$t0,$zero,0x40
-/*  f082dc8:	0520000c */ 	bltz	$t1,.L0f082dfc
-/*  f082dcc:	00003025 */ 	or	$a2,$zero,$zero
-/*  f082dd0:	25250001 */ 	addiu	$a1,$t1,0x1
-.L0f082dd4:
-/*  f082dd4:	0060c025 */ 	or	$t8,$v1,$zero
-/*  f082dd8:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f082ddc:	01064021 */ 	addu	$t0,$t0,$a2
-/*  f082de0:	00f91021 */ 	addu	$v0,$a3,$t9
-/*  f082de4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f082de8:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f082dec:	14a3fff9 */ 	bne	$a1,$v1,.L0f082dd4
-/*  f082df0:	8c460004 */ 	lw	$a2,0x4($v0)
-/*  f082df4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f082df8:	afa40080 */ 	sw	$a0,0x80($sp)
-.L0f082dfc:
-/*  f082dfc:	10c0000a */ 	beqz	$a2,.L0f082e28
-/*  f082e00:	8fa40080 */ 	lw	$a0,0x80($sp)
-/*  f082e04:	8faa0020 */ 	lw	$t2,0x20($sp)
-/*  f082e08:	afa30084 */ 	sw	$v1,0x84($sp)
-/*  f082e0c:	afa70074 */ 	sw	$a3,0x74($sp)
-/*  f082e10:	0c003504 */ 	jal	dmaExec
-/*  f082e14:	01482821 */ 	addu	$a1,$t2,$t0
-/*  f082e18:	3c098007 */ 	lui	$t1,%hi(var8006abbc)
-/*  f082e1c:	8129abbc */ 	lb	$t1,%lo(var8006abbc)($t1)
-/*  f082e20:	8fa30084 */ 	lw	$v1,0x84($sp)
-/*  f082e24:	8fa70074 */ 	lw	$a3,0x74($sp)
-.L0f082e28:
-/*  f082e28:	8ceb0000 */ 	lw	$t3,0x0($a3)
-/*  f082e2c:	25250001 */ 	addiu	$a1,$t1,0x1
-/*  f082e30:	00054e00 */ 	sll	$t1,$a1,0x18
-/*  f082e34:	11600009 */ 	beqz	$t3,.L0f082e5c
-/*  f082e38:	0009c603 */ 	sra	$t8,$t1,0x18
-/*  f082e3c:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f082e40:
-/*  f082e40:	28610008 */ 	slti	$at,$v1,0x8
-/*  f082e44:	10200005 */ 	beqz	$at,.L0f082e5c
-/*  f082e48:	000368c0 */ 	sll	$t5,$v1,0x3
-/*  f082e4c:	00ed7021 */ 	addu	$t6,$a3,$t5
-/*  f082e50:	8dcf0000 */ 	lw	$t7,0x0($t6)
-/*  f082e54:	55e0fffa */ 	bnezl	$t7,.L0f082e40
-/*  f082e58:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f082e5c:
-/*  f082e5c:	3c018007 */ 	lui	$at,%hi(var8006abbc)
-/*  f082e60:	a038abbc */ 	sb	$t8,%lo(var8006abbc)($at)
-/*  f082e64:	0303082a */ 	slt	$at,$t8,$v1
-/*  f082e68:	14200002 */ 	bnez	$at,.L0f082e74
-/*  f082e6c:	3c018007 */ 	lui	$at,%hi(var8006abbc)
-/*  f082e70:	a020abbc */ 	sb	$zero,%lo(var8006abbc)($at)
-.L0f082e74:
-/*  f082e74:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f082e78:	27bd0088 */ 	addiu	$sp,$sp,0x88
-/*  f082e7c:	03e00008 */ 	jr	$ra
-/*  f082e80:	00000000 */ 	nop
-);
-
-s8 var8006abbc = 0;
-
-//extern u8 _blankSegmentRomStart;
+extern u8 _blankSegmentRomStart;
 
 /**
  * This function is called whenever a player exits a lift as well as on tick
@@ -53425,59 +53343,67 @@ s8 var8006abbc = 0;
  * ROM. The feature may have been abandoned because it would have revealed where
  * all the piracy checks are, or perhaps they never got around to implementing
  * the generation of the payload list into their build system.
+ *
+ * The the segment being read is expected to start with a table of word-pairs
+ * for the destination RAM address and copy length. 0x40 bytes are reserved for
+ * the table but it can be terminated early with a zero RAM address.
+ *
+ * From 0x40 onwards are the payloads in order. To calculate the read offset for
+ * a particular payload, the function must sum the lengths of the payloads
+ * before it.
  */
-// Mismatch: Goal has an extra move instruction when calculating tmp.
-//void piracyRestore(void)
-//{
-//	u32 writeaddr;
-//	s32 copylen;
-//	s32 readoffset;
-//	s32 i;
-//	u8 *ptr;
-//	s32 len;
-//	u8 stack[0x48];
-//	u32 *tmp;
-//	static s8 index = 0; // var8006abbc
-//
-//	ptr = stack;
-//
-//	// Align ptr to an 8 byte boundary
-//	while ((u32)ptr % 8) {
-//		ptr += 4;
-//	}
-//
-//	// Copy the writeaddr/copylen pairs from ROM to the stack
-//	dmaExec(ptr, (u32) &_blankSegmentRomStart, 0x40);
-//
-//	// Calculate what needs to be copied and where
-//	i = 0;
-//	readoffset = 0x40;
-//	copylen = 0;
-//
-//	while (i <= index) {
-//		tmp = (u32 *)((u32)ptr + (i << 3));
-//		readoffset += copylen;
-//		writeaddr = tmp[0];
-//		copylen = tmp[1];
-//		i++;
-//	}
-//
-//	// Copy it
-//	if (copylen != 0) {
-//		dmaExec((void *) writeaddr, (u32) &_blankSegmentRomStart + readoffset, copylen);
-//	}
-//
-//	// Increment the index, so the next time the function is called
-//	// it copies the next payload. To do this, calculate the number
-//	// of payloads so it can wrap.
-//	for (i = 0; i < 8 && *(u32 *)&ptr[i * 8]; i++);
-//
-//	index++;
-//
-//	if (index >= i) {
-//		index = 0;
-//	}
-//}
+void piracyRestore(void)
+{
+	s32 i;
+	u32 writeaddr;
+	s32 copylen;
+	s32 readoffset;
+	u32 *ptr;
+	u32 *tmp;
+	u8 buffer[0x4c];
+
+	static s8 index = 0;
+
+	ptr = (u32 *)buffer;
+
+	// Align ptr to an 8 byte boundary
+	while ((u32)ptr % 8) {
+		ptr++;
+	}
+
+	// Copy the writeaddr/copylen pairs from ROM to the buffer
+	dmaExec(ptr, (u32) &_blankSegmentRomStart, 0x40);
+
+	// Calculate what needs to be copied and where
+	i = 0;
+	readoffset = 0x40;
+	copylen = 0;
+
+	while (i <= index) {
+		tmp = ptr;
+		tmp += i << 1;
+		readoffset += copylen;
+		writeaddr = tmp[0];
+		copylen = tmp[1];
+		i++;
+	}
+
+	// Copy it
+	if (copylen != 0) {
+		dmaExec((void *) writeaddr, (u32) &_blankSegmentRomStart + readoffset, copylen);
+	}
+
+	// Increment the index, so the next time the function is called
+	// it copies the next payload. To do this, calculate the number
+	// of payloads so it can wrap.
+	for (i = 0; i < 8 && ptr[i * 2]; i++);
+
+	index++;
+
+	if (index >= i) {
+		index = 0;
+	}
+}
 #endif
 
 void func0f082e84(struct defaultobj *obj, struct coord *pos, struct coord *dir, struct coord *tween, bool addrotation)
