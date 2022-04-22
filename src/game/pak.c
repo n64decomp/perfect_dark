@@ -8488,7 +8488,6 @@ void pak0f11e3b4(void)
 
 #if VERSION < VERSION_NTSC_1_0
 s32 gbpakIdentifyGame(s8 device);
-void func0f14cf6c(s8 device);
 
 void pak0f117f94nb(s8 device)
 {
@@ -8508,7 +8507,7 @@ void pak0f117f94nb(s8 device)
 	}
 
 	if (!pak->unk2b8_05) {
-		func0f14cf6c(device);
+		func0f14cf6c();
 		pak->unk008 = 12;
 		return;
 	}
