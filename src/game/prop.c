@@ -869,7 +869,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 							sparktype = SPARKTYPE_00;
 
 							if (chrIsUsingPaintball(g_Vars.currentplayer->prop->chr)) {
-								sparktype = SPARKTYPE_19;
+								sparktype = SPARKTYPE_PAINT;
 							} else {
 								switch (shotdata.gset.weaponnum) {
 								case WEAPON_FARSIGHT:
@@ -1075,7 +1075,7 @@ void func0f061fa8(struct shotdata *shotdata, struct prop *prop, f32 arg2, s32 hi
 			hit->hitpart = hitpart;
 			hit->node = node;
 			hit->hitthing = *hitthing;
-			hit->unk40 = arg6;
+			hit->mtxindex = arg6;
 			hit->unk44 = arg7;
 			hit->model = model;
 			hit->unk4c = arg9;

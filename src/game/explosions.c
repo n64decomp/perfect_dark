@@ -841,7 +841,7 @@ void explosionInflictDamage(struct prop *expprop)
 
 						if (g_Vars.antiplayernum >= 0
 								&& g_Vars.antiplayernum == exp->owner
-								&& (obj->flags2 & OBJFLAG2_00000001)) {
+								&& (obj->flags2 & OBJFLAG2_IMMUNETOANTI)) {
 							// anti cannot damage this obj
 						} else if (isfirstframe) {
 							// Unblock path if this object is a path blocker

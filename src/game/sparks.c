@@ -194,7 +194,7 @@ void sparksCreate(s32 room, struct prop *prop, struct coord *pos, struct coord *
 		} else if (typenum == SPARKTYPE_03) {
 			type->unk20 = colours[2];
 		}
-	} else if (typenum == SPARKTYPE_19) {
+	} else if (typenum == SPARKTYPE_PAINT) {
 		type->unk1c = (random() % 2 ? 0xff000000 : 0) | (random() % 2 ? 0x00ff0000 : 0) | (random() % 2 ? 0x0000ff00 : 0) | 0xff;
 
 		if (type->unk1c == 0x000000ff) {

@@ -18291,13 +18291,13 @@ glabel var7f1a9184
 //								sp210 = true;
 //
 //								if (chrIsUsingPaintball(chr)) {
-//									sparksCreate(hitrooms[0], hitprop, &hitpos, NULL, NULL, SPARKTYPE_19);
+//									sparksCreate(hitrooms[0], hitprop, &hitpos, NULL, NULL, SPARKTYPE_PAINT);
 //								} else {
 //									sparksCreate(hitrooms[0], hitprop, &hitpos, NULL, NULL, SPARKTYPE_00);
 //								}
 //
 //								if (g_MissionConfig.iscoop && chr->team == TEAM_ALLY
-//										&& (hitobj->flags2 & OBJFLAG2_00000001)) {
+//										&& (hitobj->flags2 & OBJFLAG2_IMMUNETOANTI)) {
 //									// empty
 //								} else {
 //									objTakeGunfire(hitobj, gsetGetDamage(&gset), &hitpos, gset.weaponnum, playernum);
@@ -18310,7 +18310,7 @@ glabel var7f1a9184
 //							bgunPlayBgHitSound(&gset, &hitpos, -1, hitrooms);
 //
 //							if (chrIsUsingPaintball(chr)) {
-//								sparksCreate(hitrooms[0], 0, &hitpos, NULL, NULL, SPARKTYPE_19);
+//								sparksCreate(hitrooms[0], 0, &hitpos, NULL, NULL, SPARKTYPE_PAINT);
 //							} else {
 //								sparksCreate(hitrooms[0], 0, &hitpos, NULL, NULL, SPARKTYPE_00);
 //							}

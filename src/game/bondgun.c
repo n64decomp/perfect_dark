@@ -21731,7 +21731,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 #endif
 }
 
-void bgunPlayGlassHitSound(struct coord *pos, s16 *rooms, s32 arg2)
+void bgunPlayGlassHitSound(struct coord *pos, s16 *rooms, s32 texturenum)
 {
 	if (g_Vars.lvupdate240 > 0) {
 		struct sndstate **handle = bgunAllocateAudioHandle();

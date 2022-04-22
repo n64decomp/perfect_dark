@@ -142,7 +142,7 @@ s32 bgunAllocateFireslot(void);
 void bgunRender(Gfx **gdl);
 struct sndstate **bgunAllocateAudioHandle(void);
 void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum);
-void bgunPlayGlassHitSound(struct coord *pos, s16 *rooms, s32 arg2);
+void bgunPlayGlassHitSound(struct coord *pos, s16 *rooms, s32 texturenum);
 void bgunPlayBgHitSound(struct gset *gset, struct coord *arg1, s32 texturenum, s16 *arg3);
 void bgunSetTriggerOn(s32 handnum, bool on);
 s32 bgunConsiderToggleGunFunction(s32 usedowntime, bool firing, s32 arg2);

@@ -1743,10 +1743,10 @@ void lvUpdateSoloHandicaps(void)
 	if (g_Vars.antiplayernum >= 0) {
 		if (g_Difficulty == DIFF_A) {
 			g_CameraWaitMultiplier = 2;
-			var8006994c = 2;
+			g_CctvDamageMultiplier = 2;
 			var80069950 = 0.5f;
 			var80069954 = 0.5f;
-			var80069958 = 2;
+			g_AutogunDamageMultiplier = 2;
 			g_EnemyAccuracyScale = 0.5f;
 			g_DamageReceivedScale = 0.35f;
 			g_DamageDealtScale = 4;
@@ -1756,10 +1756,10 @@ void lvUpdateSoloHandicaps(void)
 			g_AttackWalkDurationMultiplier = 0.2f;
 		} else if (g_Difficulty == DIFF_SA) {
 			g_CameraWaitMultiplier = 2;
-			var8006994c = 1.5f;
+			g_CctvDamageMultiplier = 1.5f;
 			var80069950 = 0.5f;
 			var80069954 = 0.5f;
-			var80069958 = 1.5f;
+			g_AutogunDamageMultiplier = 1.5f;
 			g_EnemyAccuracyScale = 0.6f;
 			g_DamageReceivedScale = 0.5f;
 			g_DamageDealtScale = 3;
@@ -1769,10 +1769,10 @@ void lvUpdateSoloHandicaps(void)
 			g_AttackWalkDurationMultiplier = 0.5f;
 		} else {
 			g_CameraWaitMultiplier = 2;
-			var8006994c = 1;
+			g_CctvDamageMultiplier = 1;
 			var80069950 = 0.5f;
 			var80069954 = 0.5f;
-			var80069958 = 1;
+			g_AutogunDamageMultiplier = 1;
 			g_EnemyAccuracyScale = 0.7f;
 			g_DamageReceivedScale = 0.65f;
 			g_DamageDealtScale = 2;
@@ -1784,10 +1784,10 @@ void lvUpdateSoloHandicaps(void)
 	} else if (g_Vars.coopplayernum >= 0) {
 		if (g_Difficulty == DIFF_A) {
 			g_CameraWaitMultiplier = 2;
-			var8006994c = 2;
+			g_CctvDamageMultiplier = 2;
 			var80069950 = 0.5f;
 			var80069954 = 0.5f;
-			var80069958 = 2;
+			g_AutogunDamageMultiplier = 2;
 			g_EnemyAccuracyScale = 0.6f;
 			g_DamageReceivedScale = 0.5f;
 			g_DamageDealtScale = 2;
@@ -1797,10 +1797,10 @@ void lvUpdateSoloHandicaps(void)
 			g_AttackWalkDurationMultiplier = 0.2f;
 		} else if (g_Difficulty == DIFF_SA) {
 			g_CameraWaitMultiplier = 1;
-			var8006994c = 1;
+			g_CctvDamageMultiplier = 1;
 			var80069950 = 0.75f;
 			var80069954 = 1;
-			var80069958 = 1;
+			g_AutogunDamageMultiplier = 1;
 			g_EnemyAccuracyScale = 0.75f;
 			g_DamageReceivedScale = 1;
 			g_DamageDealtScale = 1;
@@ -1814,10 +1814,10 @@ void lvUpdateSoloHandicaps(void)
 			g_AttackWalkDurationMultiplier = 0.5f;
 		} else {
 			g_CameraWaitMultiplier = 1;
-			var8006994c = 1;
+			g_CctvDamageMultiplier = 1;
 			var80069950 = 1;
 			var80069954 = 1.5f;
-			var80069958 = 1;
+			g_AutogunDamageMultiplier = 1;
 			g_EnemyAccuracyScale = 1.5f;
 			g_DamageReceivedScale = 1.5f;
 			g_DamageDealtScale = 1;
@@ -1850,10 +1850,10 @@ void lvUpdateSoloHandicaps(void)
 			}
 
 			g_CameraWaitMultiplier = 2;
-			var8006994c = 2;
+			g_CctvDamageMultiplier = 2;
 			var80069950 = 0.5f * frac;
 			var80069954 = 0.5f * frac;
-			var80069958 = 2;
+			g_AutogunDamageMultiplier = 2;
 			g_EnemyAccuracyScale = 0.6f;
 			g_DamageReceivedScale = 0.5f * frac;
 			g_DamageDealtScale = 2;
@@ -1863,10 +1863,10 @@ void lvUpdateSoloHandicaps(void)
 			g_AttackWalkDurationMultiplier = 0.2f;
 		} else if (g_Difficulty == DIFF_SA) {
 			g_CameraWaitMultiplier = 1;
-			var8006994c = 1;
+			g_CctvDamageMultiplier = 1;
 			var80069950 = 0.75f;
 			var80069954 = 0.75f;
-			var80069958 = 1;
+			g_AutogunDamageMultiplier = 1;
 			g_EnemyAccuracyScale = 0.8f;
 			g_DamageReceivedScale = 0.6f;
 			g_DamageDealtScale = 1;
@@ -1880,10 +1880,10 @@ void lvUpdateSoloHandicaps(void)
 			g_AttackWalkDurationMultiplier = 0.5f;
 		} else if (g_Difficulty == DIFF_PA) {
 			g_CameraWaitMultiplier = 1;
-			var8006994c = 1;
+			g_CctvDamageMultiplier = 1;
 			var80069950 = 1;
 			var80069954 = 1;
-			var80069958 = 1;
+			g_AutogunDamageMultiplier = 1;
 			g_EnemyAccuracyScale = 1.175f;
 			g_DamageReceivedScale = 1;
 			g_DamageDealtScale = 1;
@@ -1897,10 +1897,10 @@ void lvUpdateSoloHandicaps(void)
 			g_AttackWalkDurationMultiplier = 1;
 		} else if (g_Difficulty == DIFF_PD) {
 			g_CameraWaitMultiplier = 1;
-			var8006994c = 1;
+			g_CctvDamageMultiplier = 1;
 			var80069950 = 1;
 			var80069954 = 1;
-			var80069958 = 1;
+			g_AutogunDamageMultiplier = 1;
 			g_EnemyAccuracyScale = 1.1f;
 			g_DamageReceivedScale = 1;
 			g_DamageDealtScale = 1;

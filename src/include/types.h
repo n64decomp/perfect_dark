@@ -1625,7 +1625,7 @@ struct doorobj { // objtype 0x01
 	/*0x7c*/ f32 frac; // 0 = closed, maxfrac = fully open
 	/*0x80*/ f32 fracspeed;
 	/*0x84*/ s8 mode;
-	/*0x85*/ u8 glasshits;
+	/*0x85*/ s8 glasshits;
 	/*0x86*/ s16 fadealpha;
 	/*0x88*/ s16 xludist;
 	/*0x8a*/ s16 opadist;
@@ -6390,7 +6390,7 @@ struct hit {
 	/*0x08*/ s32 hitpart;
 	/*0x0c*/ struct modelnode *node;
 	/*0x10*/ struct hitthing hitthing;
-	/*0x40*/ u32 unk40;
+	/*0x40*/ s32 mtxindex;
 	/*0x44*/ struct modelnode *unk44;
 	/*0x48*/ struct model *model;
 	/*0x4c*/ s8 unk4c;

@@ -276,14 +276,14 @@ u32 props[] = {
 	tag(0x23, 8)
 	tag(0x24, 8)
 	tag(0x25, 8)
-	weapon(0x0100, MODEL_CHRWPPK, PAD_DISH_0115, OBJFLAG_00000008 | OBJFLAG_UNCOLLECTABLE, OBJFLAG2_00000001, 0, WEAPON_LAPTOPGUN)
-	weapon(0x0100, MODEL_CHRTT33, PAD_DISH_0116, OBJFLAG_00000008 | OBJFLAG_UNCOLLECTABLE, OBJFLAG2_00000001, 0, WEAPON_LAPTOPGUN)
-	weapon(0x0100, MODEL_CHRSKORPION, PAD_DISH_0117, OBJFLAG_00000008 | OBJFLAG_UNCOLLECTABLE, OBJFLAG2_00000001, 0, WEAPON_LAPTOPGUN)
-	weapon(0x0100, MODEL_CHRKALASH, PAD_DISH_0118, OBJFLAG_00000008 | OBJFLAG_UNCOLLECTABLE, OBJFLAG2_00000001, 0, WEAPON_LAPTOPGUN)
-	weapon(0x0100, MODEL_CHRUZI, PAD_DISH_0119, OBJFLAG_00000008 | OBJFLAG_UNCOLLECTABLE, OBJFLAG2_00000001, 0, WEAPON_LAPTOPGUN)
-	weapon(0x0100, MODEL_CHRMP5K, PAD_DISH_011A, OBJFLAG_00000008 | OBJFLAG_UNCOLLECTABLE, OBJFLAG2_00000001, 0, WEAPON_LAPTOPGUN)
-	weapon(0x0100, MODEL_CHRM16, PAD_DISH_011B, OBJFLAG_00000008 | OBJFLAG_UNCOLLECTABLE, OBJFLAG2_00000001, 0, WEAPON_LAPTOPGUN)
-	weapon(0x0100, MODEL_CHRFNP90, PAD_DISH_011C, OBJFLAG_00000008 | OBJFLAG_UNCOLLECTABLE, OBJFLAG2_00000001, 0, WEAPON_LAPTOPGUN)
+	weapon(0x0100, MODEL_CHRWPPK, PAD_DISH_0115, OBJFLAG_00000008 | OBJFLAG_UNCOLLECTABLE, OBJFLAG2_IMMUNETOANTI, 0, WEAPON_LAPTOPGUN)
+	weapon(0x0100, MODEL_CHRTT33, PAD_DISH_0116, OBJFLAG_00000008 | OBJFLAG_UNCOLLECTABLE, OBJFLAG2_IMMUNETOANTI, 0, WEAPON_LAPTOPGUN)
+	weapon(0x0100, MODEL_CHRSKORPION, PAD_DISH_0117, OBJFLAG_00000008 | OBJFLAG_UNCOLLECTABLE, OBJFLAG2_IMMUNETOANTI, 0, WEAPON_LAPTOPGUN)
+	weapon(0x0100, MODEL_CHRKALASH, PAD_DISH_0118, OBJFLAG_00000008 | OBJFLAG_UNCOLLECTABLE, OBJFLAG2_IMMUNETOANTI, 0, WEAPON_LAPTOPGUN)
+	weapon(0x0100, MODEL_CHRUZI, PAD_DISH_0119, OBJFLAG_00000008 | OBJFLAG_UNCOLLECTABLE, OBJFLAG2_IMMUNETOANTI, 0, WEAPON_LAPTOPGUN)
+	weapon(0x0100, MODEL_CHRMP5K, PAD_DISH_011A, OBJFLAG_00000008 | OBJFLAG_UNCOLLECTABLE, OBJFLAG2_IMMUNETOANTI, 0, WEAPON_LAPTOPGUN)
+	weapon(0x0100, MODEL_CHRM16, PAD_DISH_011B, OBJFLAG_00000008 | OBJFLAG_UNCOLLECTABLE, OBJFLAG2_IMMUNETOANTI, 0, WEAPON_LAPTOPGUN)
+	weapon(0x0100, MODEL_CHRFNP90, PAD_DISH_011C, OBJFLAG_00000008 | OBJFLAG_UNCOLLECTABLE, OBJFLAG2_IMMUNETOANTI, 0, WEAPON_LAPTOPGUN)
 	tag(0x7a, 1)
 	glass(0x0100, MODEL_DD_WINDOW, PAD_DISH_01C8, OBJFLAG_00000002 | OBJFLAG_00000020 | OBJFLAG_00000040 | OBJFLAG_00000100 | OBJFLAG_00000200 | OBJFLAG_PATHBLOCKER | OBJFLAG_INVINCIBLE | OBJFLAG_AISEETHROUGH, OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_BULLETPROOF | OBJFLAG2_00200000, 0, 1000)
 	tag(0x79, 1)
@@ -323,7 +323,7 @@ u32 props[] = {
 	tag(0x35, 1)
 	multimonitor(0x0100, MODEL_CIHUB, PAD_DISH_023B, OBJFLAG_00000002, 0, OBJFLAG3_INTERACTABLE, 1000, 3, 0, 0, 0)
 	tag(0x88, 1)
-	stdobject(0x0200, MODEL_CHRDOORDECODER, PAD_DISH_0130, OBJFLAG_00000008 | OBJFLAG_ILLUMINATED | OBJFLAG_INVINCIBLE, OBJFLAG2_00000001 | OBJFLAG2_INVISIBLE, 0, 1000)
+	stdobject(0x0200, MODEL_CHRDOORDECODER, PAD_DISH_0130, OBJFLAG_00000008 | OBJFLAG_ILLUMINATED | OBJFLAG_INVINCIBLE, OBJFLAG2_IMMUNETOANTI | OBJFLAG2_INVISIBLE, 0, 1000)
 	tag(0x2c, 1)
 	weapon(0x0180, MODEL_RUSSDAR, -1, OBJFLAG_00000001 | OBJFLAG_UNCOLLECTABLE, OBJFLAG2_INVISIBLE, 0, WEAPON_RTRACKER)
 	tag(0x36, 1)
@@ -549,11 +549,11 @@ u32 props[] = {
 	tag(0x8d, 1)
 	autogun(0x00a6, MODEL_CI_ROOFGUN, PAD_DISH_0233, OBJFLAG_00000004, 0, 0, 1000, 0x0097, 0x00005555, 0xffffaaab, 0x00000aaa, 0x00320000)
 	tag(0x8e, 1)
-	multimonitor(0x0099, MODEL_CIHUB, PAD_DISH_0236, OBJFLAG_00000002, OBJFLAG2_00000001, OBJFLAG3_INTERACTABLE, 1000, 3, 3, 3, 0)
+	multimonitor(0x0099, MODEL_CIHUB, PAD_DISH_0236, OBJFLAG_00000002, OBJFLAG2_IMMUNETOANTI, OBJFLAG3_INTERACTABLE, 1000, 3, 3, 3, 0)
 	tag(0x8f, 1)
-	multimonitor(0x0099, MODEL_CIHUB, PAD_DISH_0237, OBJFLAG_00000002, OBJFLAG2_00000001, OBJFLAG3_INTERACTABLE, 1000, 3, 3, 3, 0)
+	multimonitor(0x0099, MODEL_CIHUB, PAD_DISH_0237, OBJFLAG_00000002, OBJFLAG2_IMMUNETOANTI, OBJFLAG3_INTERACTABLE, 1000, 3, 3, 3, 0)
 	tag(0x90, 1)
-	multimonitor(0x0099, MODEL_CIHUB, PAD_DISH_0238, OBJFLAG_00000002, OBJFLAG2_00000001, OBJFLAG3_INTERACTABLE, 1000, 3, 3, 3, 0)
+	multimonitor(0x0099, MODEL_CIHUB, PAD_DISH_0238, OBJFLAG_00000002, OBJFLAG2_IMMUNETOANTI, OBJFLAG3_INTERACTABLE, 1000, 3, 3, 3, 0)
 	endprops
 };
 
@@ -1262,8 +1262,8 @@ u8 func1005_devicetraining_xray[] = {
 	move_object_to_pad(0x29, PAD_DISH_011D)
 	unset_object_flag(0x29, OBJFLAG_UNCOLLECTABLE)
 	unset_object_flag2(0x29, OBJFLAG2_INVISIBLE)
-	unset_object_flag2(0x38, OBJFLAG2_00000001)
-	unset_object_flag2(0x39, OBJFLAG2_00000001)
+	unset_object_flag2(0x38, OBJFLAG2_IMMUNETOANTI)
+	unset_object_flag2(0x39, OBJFLAG2_IMMUNETOANTI)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 	close_door(0x31)
 	close_door(0x8a)
@@ -1350,11 +1350,11 @@ u8 func1005_devicetraining_xray[] = {
 	endloop(0x82)
 
 	label(0x5b)
-	if_object_flag2(0x38, OBJFLAG2_00000001, /*goto*/ 0x87)
+	if_object_flag2(0x38, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x87)
 	remove_hudmsgs
 	show_hudmsg(CHR_BOND, L_DISH_041) // "Laser Grid 1 has been deactivated."
 	set_object_image(0x38, 0, TVCMDLIST_12)
-	set_object_flag2(0x38, OBJFLAG2_00000001)
+	set_object_flag2(0x38, OBJFLAG2_IMMUNETOANTI)
 	open_door(0x3a)
 	label(0x87)
 	restart_timer
@@ -1368,11 +1368,11 @@ u8 func1005_devicetraining_xray[] = {
 	endloop(0x89)
 
 	label(0x5c)
-	if_object_flag2(0x39, OBJFLAG2_00000001, /*goto*/ 0x88)
+	if_object_flag2(0x39, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x88)
 	set_object_image(0x39, 0, TVCMDLIST_12)
 	remove_hudmsgs
 	show_hudmsg(CHR_BOND, L_DISH_042) // "Laser Grid 2 has been deactivated."
-	set_object_flag2(0x39, OBJFLAG2_00000001)
+	set_object_flag2(0x39, OBJFLAG2_IMMUNETOANTI)
 	open_door(0x3b)
 	label(0x88)
 	restart_timer
@@ -1399,11 +1399,11 @@ u8 func1005_devicetraining_xray[] = {
 	goto_next(0x06)
 
 	label(0x06)
-	if_object_flag2(0x38, OBJFLAG2_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x38, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x2f)
 	goto_first(0x82)
 
 	label(0x2f)
-	if_object_flag2(0x39, OBJFLAG2_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x39, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x2f)
 	goto_first(0x82)
 
 	label(0x09)
@@ -3624,30 +3624,30 @@ u8 func101c_holo1_main[] = {
 	enable_object(0x4d)
 	enable_object(0x4e)
 	enable_object(0x4f)
-	unset_object_flag2(0x48, OBJFLAG2_00000001)
-	unset_object_flag2(0x49, OBJFLAG2_00000001)
-	unset_object_flag2(0x4a, OBJFLAG2_00000001)
-	unset_object_flag2(0x4b, OBJFLAG2_00000001)
-	unset_object_flag2(0x4c, OBJFLAG2_00000001)
-	unset_object_flag2(0x4d, OBJFLAG2_00000001)
-	unset_object_flag2(0x4e, OBJFLAG2_00000001)
-	unset_object_flag2(0x4f, OBJFLAG2_00000001)
+	unset_object_flag2(0x48, OBJFLAG2_IMMUNETOANTI)
+	unset_object_flag2(0x49, OBJFLAG2_IMMUNETOANTI)
+	unset_object_flag2(0x4a, OBJFLAG2_IMMUNETOANTI)
+	unset_object_flag2(0x4b, OBJFLAG2_IMMUNETOANTI)
+	unset_object_flag2(0x4c, OBJFLAG2_IMMUNETOANTI)
+	unset_object_flag2(0x4d, OBJFLAG2_IMMUNETOANTI)
+	unset_object_flag2(0x4e, OBJFLAG2_IMMUNETOANTI)
+	unset_object_flag2(0x4f, OBJFLAG2_IMMUNETOANTI)
 	disable_chr(0x04)
 	dprint 't','r','a','i','n','i','n','g',0,
 	label(0x91)
-	if_object_flag2(0x4c, OBJFLAG2_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x4c, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	if_object_flag2(0x4d, OBJFLAG2_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x4d, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	if_object_flag2(0x4e, OBJFLAG2_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x4e, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	if_object_flag2(0x4f, OBJFLAG2_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x4f, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x2f)
 	label(0x06)
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_100) // "Get the access codes by examining terminals. - Use the codes on the wall terminals."
@@ -3732,7 +3732,7 @@ u8 func101c_holo1_main[] = {
 		reloop(0x04) \
  \
 		label(0x2f) \
-		if_object_flag2(object, OBJFLAG2_00000001, /*goto*/ 0x2f) \
+		if_object_flag2(object, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x2f) \
 	endloop(0x04) \
  \
 	label(0x2f) \
@@ -3774,7 +3774,7 @@ u8 func1020_holo1_monitor_switches[] = {
 		reloop(0x04)
 
 		label(0x2f)
-		if_object_flag2(0x4f, OBJFLAG2_00000001, /*goto*/ 0x2f)
+		if_object_flag2(0x4f, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
@@ -3801,7 +3801,7 @@ u8 func1020_holo1_monitor_switches[] = {
 		reloop(0x04) \
  \
 		label(0x2f) \
-		if_object_flag2(object1, OBJFLAG2_00000001, /*goto*/ 0x2f) \
+		if_object_flag2(object1, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x2f) \
 		if_chr_distance_to_pad_lt(CHR_BOND, 400, pad, /*goto*/ 0x09) \
 		label(0x2f) \
 		if_chr_looking_at_object(CHR_BOND, object1, /*goto*/ 0x2f) \
@@ -3830,7 +3830,7 @@ u8 func1020_holo1_monitor_switches[] = {
 	goto_first(0x57) \
  \
 	label(0x2f) \
-	set_object_flag2(object2, OBJFLAG2_00000001) \
+	set_object_flag2(object2, OBJFLAG2_IMMUNETOANTI) \
  \
 	beginloop(0x59) \
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_SUCCESS, TRUE, /*goto*/ 0x2f) \
@@ -3849,12 +3849,12 @@ u8 func1020_holo1_monitor_switches[] = {
 u8 func1021_holo1_code1[] = {
 	label(0x8f)
 	set_object_image(0x48, 0, TVCMDLIST_12)
-	unset_object_flag2(0x4c, OBJFLAG2_00000001)
+	unset_object_flag2(0x4c, OBJFLAG2_IMMUNETOANTI)
 
 	holo1_code_thing_p1(0x48, 0x4c, 0x0240)
 
-	set_object_flag2(0x48, OBJFLAG2_00000001)
-	set_object_flag2(0x4c, OBJFLAG2_00000001)
+	set_object_flag2(0x48, OBJFLAG2_IMMUNETOANTI)
+	set_object_flag2(0x4c, OBJFLAG2_IMMUNETOANTI)
 
 	// 0x1c55 = "LOOK UP - Press Down C Button to look up at the target."
 	// 0x1c65 = "Code 1 has been obtained."
@@ -3866,11 +3866,11 @@ u8 func1021_holo1_code1[] = {
 u8 func1021_holo1_code2[] = {
 	label(0x8f)
 	set_object_image(0x49, 0, TVCMDLIST_12)
-	unset_object_flag2(0x4d, OBJFLAG2_00000001)
+	unset_object_flag2(0x4d, OBJFLAG2_IMMUNETOANTI)
 
 	holo1_code_thing_p1(0x49, 0x4d, 0x0241)
 
-	set_object_flag2(0x49, OBJFLAG2_00000001)
+	set_object_flag2(0x49, OBJFLAG2_IMMUNETOANTI)
 
 	// 0x1c56 = "LOOK DOWN - Press Up C Button to look down at the target."
 	// 0x1c66 = "Code 2 has been obtained."
@@ -3880,12 +3880,12 @@ u8 func1021_holo1_code2[] = {
 
 u8 func1021_holo1_code3[] = {
 	label(0x8f)
-	unset_object_flag2(0x4e, OBJFLAG2_00000001)
+	unset_object_flag2(0x4e, OBJFLAG2_IMMUNETOANTI)
 	set_object_image(0x4a, 0, TVCMDLIST_12)
 
 	holo1_code_thing_p1(0x4a, 0x4e, 0x0242)
 
-	set_object_flag2(0x4a, OBJFLAG2_00000001)
+	set_object_flag2(0x4a, OBJFLAG2_IMMUNETOANTI)
 
 	// 0x1c55 = "LOOK UP - Press Down C Button to look up at the target."
 	// 0x1c67 = "Code 3 has been obtained."
@@ -3895,12 +3895,12 @@ u8 func1021_holo1_code3[] = {
 
 u8 func1021_holo1_code4[] = {
 	label(0x8f)
-	unset_object_flag2(0x4f, OBJFLAG2_00000001)
+	unset_object_flag2(0x4f, OBJFLAG2_IMMUNETOANTI)
 	set_object_image(0x4b, 0, TVCMDLIST_12)
 
 	holo1_code_thing_p1(0x4b, 0x4f, 0x0243)
 
-	set_object_flag2(0x4b, OBJFLAG2_00000001)
+	set_object_flag2(0x4b, OBJFLAG2_IMMUNETOANTI)
 
 	// 0x1c55 = "LOOK UP - Press Down C Button to look up at the target."
 	// 0x1c68 = "Code 4 has been obtained."
@@ -3983,10 +3983,10 @@ u8 func1022_holo2_main[] = {
 	if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x2f)
 	if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x2f)
 	label(0x2f)
-	unset_object_flag2(0x54, OBJFLAG2_00000001)
-	unset_object_flag2(0x55, OBJFLAG2_00000001)
-	unset_object_flag2(0x56, OBJFLAG2_00000001)
-	unset_object_flag2(0x57, OBJFLAG2_00000001)
+	unset_object_flag2(0x54, OBJFLAG2_IMMUNETOANTI)
+	unset_object_flag2(0x55, OBJFLAG2_IMMUNETOANTI)
+	unset_object_flag2(0x56, OBJFLAG2_IMMUNETOANTI)
+	unset_object_flag2(0x57, OBJFLAG2_IMMUNETOANTI)
 	set_object_image(0x54, 0, TVCMDLIST_14)
 	set_object_image(0x55, 0, TVCMDLIST_14)
 	set_object_image(0x56, 0, TVCMDLIST_14)
@@ -4072,7 +4072,7 @@ u8 func1022_holo2_main[] = {
 	restart_timer \
 	beginloop(0x04) \
 		if_chr_activated_object(CHR_ANY, object, /*goto*/ 0x2f) \
-		if_object_flag2(object, OBJFLAG2_00000001, /*goto*/ 0x06) \
+		if_object_flag2(object, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x06) \
 		reloop(0x04) \
  \
 		label(0x06) \
@@ -4081,14 +4081,14 @@ u8 func1022_holo2_main[] = {
  \
 		label(0x06) \
 		set_object_image(object, 0, TVCMDLIST_14) \
-		unset_object_flag2(object, OBJFLAG2_00000001) \
+		unset_object_flag2(object, OBJFLAG2_IMMUNETOANTI) \
 	endloop(0x04) \
  \
 	label(0x2f) \
 	assign_sound(SFX_043A, CHANNEL_7) \
 	control_sound_from_object(CHANNEL_7, object, TRUE) \
 	set_object_image(object, 0, TVCMDLIST_13) \
-	set_object_flag2(object, OBJFLAG2_00000001) \
+	set_object_flag2(object, OBJFLAG2_IMMUNETOANTI) \
 	set_returnlist(CHR_SELF, function) \
 	set_ailist(CHR_SELF, 0x041b)
 
@@ -4121,19 +4121,19 @@ u8 func041b_holo2_part1[] = {
 
 	label(0x04)
 	yield
-	if_object_flag2(0x54, OBJFLAG2_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x54, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	if_object_flag2(0x55, OBJFLAG2_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x55, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	if_object_flag2(0x56, OBJFLAG2_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x56, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	if_object_flag2(0x57, OBJFLAG2_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x57, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
@@ -4246,8 +4246,8 @@ u8 func1027_holo3_main[] = {
 	if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x2f)
 	if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x2f)
 	label(0x2f)
-	unset_object_flag2(0x65, OBJFLAG2_00000001)
-	unset_object_flag2(0x66, OBJFLAG2_00000001)
+	unset_object_flag2(0x65, OBJFLAG2_IMMUNETOANTI)
+	unset_object_flag2(0x66, OBJFLAG2_IMMUNETOANTI)
 	set_object_image(0x65, 0, TVCMDLIST_14)
 	set_object_image(0x66, 0, TVCMDLIST_14)
 	unset_stage_flag(STAGEFLAG_HOLO_ABORTING)
@@ -4464,7 +4464,7 @@ u8 func102c_holo3_object1[] = {
 	assign_sound(SFX_043A, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, 0x65, TRUE)
 	set_object_image(0x65, 0, TVCMDLIST_13)
-	set_object_flag2(0x65, OBJFLAG2_00000001)
+	set_object_flag2(0x65, OBJFLAG2_IMMUNETOANTI)
 	set_returnlist(CHR_SELF, AILIST_HOLO3_OBJECT1)
 	set_ailist(CHR_SELF, AILIST_HOLO3_CHECK_DONE)
 	endlist
@@ -4479,7 +4479,7 @@ u8 func102d_holo3_object2[] = {
 	assign_sound(SFX_043A, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, 0x65, TRUE)
 	set_object_image(0x66, 0, TVCMDLIST_13)
-	set_object_flag2(0x66, OBJFLAG2_00000001)
+	set_object_flag2(0x66, OBJFLAG2_IMMUNETOANTI)
 	set_returnlist(CHR_SELF, AILIST_HOLO3_OBJECT2)
 	set_ailist(CHR_SELF, AILIST_HOLO3_CHECK_DONE)
 	endlist
@@ -4488,11 +4488,11 @@ u8 func102d_holo3_object2[] = {
 u8 func041c_holo3_check_done[] = {
 	label(0x04)
 	yield
-	if_object_flag2(0x65, OBJFLAG2_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x65, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	if_object_flag2(0x66, OBJFLAG2_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x66, OBJFLAG2_IMMUNETOANTI, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)

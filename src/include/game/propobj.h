@@ -9,10 +9,10 @@ extern u32 var800698f4;
 extern struct prop *g_EmbedProp;
 extern s32 g_EmbedHitPart;
 extern f32 g_CameraWaitMultiplier;
-extern f32 var8006994c;
+extern f32 g_CctvDamageMultiplier;
 extern f32 var80069950;
 extern f32 var80069954;
-extern f32 var80069958;
+extern f32 g_AutogunDamageMultiplier;
 extern struct beam *g_ThrownLaptopBeams;
 
 void alarmActivate(void);
@@ -227,7 +227,7 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 u32 add43214321(u32 value);
 void glassDestroy(struct defaultobj *obj);
 void doorDestroyGlass(struct doorobj *door);
-void func0f084f64(struct defaultobj *obj);
+void cctvHandleLensShot(struct defaultobj *obj);
 void func0f085050(struct prop *prop, f32 damage, struct coord *pos, s32 arg3, s32 playernum);
 bool func0f085194(struct defaultobj *obj);
 bool objIsMortal(struct defaultobj *obj);

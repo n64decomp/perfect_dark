@@ -3688,7 +3688,7 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct c
 	s32 race;
 
 	if (chrIsUsingPaintball(chr2)) {
-		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_19);
+		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_PAINT);
 		return;
 	}
 
@@ -5348,7 +5348,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 								type->unk04[index],
 								1,
 								hit->prop,
-								hit->unk40,
+								hit->mtxindex,
 								0,
 								g_Vars.currentplayer->prop->chr,
 								0);
@@ -5384,7 +5384,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 						type->unk04[index],
 						1,
 						chr->weapons_held[2],
-						hit->unk40,
+						hit->mtxindex,
 						0,
 						g_Vars.currentplayer->prop->chr,
 						0);

@@ -291,10 +291,10 @@ void propsReset(void)
 	g_EmbedProp = NULL;
 	g_EmbedHitPart = -1;
 	g_CameraWaitMultiplier = 1;
-	var8006994c = 1;
+	g_CctvDamageMultiplier = 1;
 	var80069950 = 1;
 	var80069954 = 1;
-	var80069958 = 1;
+	g_AutogunDamageMultiplier = 1;
 	g_AmmoMultiplier = 1;
 
 	g_MaxThrownLaptops = g_Vars.normmplayerisrunning ? 12 : PLAYERCOUNT();
@@ -1341,7 +1341,7 @@ void setupCreateCctv(struct cctvobj *cctv, s32 cmdindex)
 
 	if (cctv->lookatpadnum >= 0) {
 		struct coord lenspos;
-		union modelrodata *lens = modelGetPartRodata(obj->model->filedata, MODELPART_CCTV_LENS);
+		union modelrodata *lens = modelGetPartRodata(obj->model->filedata, MODELPART_CCTV_CASING);
 		struct pad pad;
 		f32 xdiff;
 		f32 ydiff;

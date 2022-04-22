@@ -2135,8 +2135,8 @@
 #define MODELPART_CALLISTO_0028       0x0028 // toggle
 #define MODELPART_CALLISTO_0032       0x0032 // position
 #define MODELPART_CALLISTO_0037       0x0037 // position
-#define MODELPART_CCTV_LENS           0x0000 // position
-#define MODELPART_CCTV_0001           0x0001 // dl
+#define MODELPART_CCTV_CASING           0x0000 // position
+#define MODELPART_CCTV_LENS           0x0001 // dl
 #define MODELPART_CCTV_0002           0x0002 // bbox
 #define MODELPART_CCTV_0003           0x0003 // toggle
 #define MODELPART_CHOPPER_0000        0x0000 // position
@@ -2944,7 +2944,7 @@
 #define OBJFLAG_COLLECTABLE                0x00040000
 #define OBJFLAG_THROWNLAPTOP               0x00080000
 #define OBJFLAG_UNCOLLECTABLE              0x00100000
-#define OBJFLAG_REACTIFSHOT                0x00200000 // Bounce or explode
+#define OBJFLAG_BOUNCEIFSHOT                0x00200000 // Bounce or explode
 #define OBJFLAG_00400000                   0x00400000 // Not used in scripts
 #define OBJFLAG_00800000                   0x00800000 // Not used in scripts
 #define OBJFLAG_01000000                   0x01000000 // Editor: "Embedded Object"
@@ -2976,7 +2976,7 @@
 #define OBJFLAG_DOOR_TWOWAY                0x80000000 // Door swings in both directions
 
 // obj->flags2
-#define OBJFLAG2_00000001            0x00000001 // Used only in CI Training
+#define OBJFLAG2_IMMUNETOANTI        0x00000001 // Counter-op cannot damage this object
 #define OBJFLAG2_00000002            0x00000002 // Ruins spikes
 #define OBJFLAG2_SKIPDOORLOCKEDMSG   0x00000004
 #define OBJFLAG2_00000008            0x00000008 // Editor: "Don't load in Multiplayer"
@@ -3659,22 +3659,22 @@
 #define SOUNDMODE_HEADPHONE 2
 #define SOUNDMODE_SURROUND  3
 
-#define SPARKTYPE_00 0x00
-#define SPARKTYPE_01 0x01
-#define SPARKTYPE_02 0x02
-#define SPARKTYPE_03 0x03
-#define SPARKTYPE_04 0x04
-#define SPARKTYPE_09 0x09
-#define SPARKTYPE_0A 0x0a
-#define SPARKTYPE_0C 0x0c
-#define SPARKTYPE_0B 0x0b
-#define SPARKTYPE_0D 0x0d
-#define SPARKTYPE_0F 0x0f
-#define SPARKTYPE_16 0x16
-#define SPARKTYPE_17 0x17
-#define SPARKTYPE_18 0x18
-#define SPARKTYPE_19 0x19
-#define SPARKTYPE_1A 0x1a
+#define SPARKTYPE_00    0x00
+#define SPARKTYPE_01    0x01
+#define SPARKTYPE_02    0x02
+#define SPARKTYPE_03    0x03
+#define SPARKTYPE_04    0x04
+#define SPARKTYPE_09    0x09
+#define SPARKTYPE_0A    0x0a
+#define SPARKTYPE_0C    0x0c
+#define SPARKTYPE_0B    0x0b
+#define SPARKTYPE_0D    0x0d
+#define SPARKTYPE_0F    0x0f
+#define SPARKTYPE_16    0x16
+#define SPARKTYPE_17    0x17
+#define SPARKTYPE_18    0x18
+#define SPARKTYPE_PAINT 0x19
+#define SPARKTYPE_1A    0x1a
 
 #define SPAWNFLAG_FORCESUNGLASSES     0x00000001 // 100% chance of wearing sunglasses if head model supports it
 #define SPAWNFLAG_MAYBESUNGLASSES     0x00000002 // 50% chance of wearing sunglasses if head model supports it
