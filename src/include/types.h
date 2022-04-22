@@ -1466,8 +1466,8 @@ struct projectile {
 	/*0x000*/ u32 flags;
 	/*0x004*/ struct coord speed; // distance moved in last tick
 	/*0x010*/ f32 unk010;
-	/*0x014*/ f32 xrot;
-	/*0x018*/ f32 yrot;
+	/*0x014*/ f32 unk014;
+	/*0x018*/ f32 unk018;
 	/*0x01c*/ f32 unk01c;
 	/*0x020*/ Mtxf unk020;
 	/*0x060*/ f32 unk060;
@@ -3718,7 +3718,7 @@ struct room {
 
 struct fireslotthing {
 	/*0x00*/ u8 unk00;
-	/*0x01*/ s8 unk01;
+	/*0x01*/ u8 unk01;
 	/*0x04*/ struct beam *beam;
 	/*0x08*/ s32 unk08;
 	/*0x0c*/ f32 unk0c;

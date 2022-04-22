@@ -4115,8 +4115,8 @@ void playerTick(bool arg0)
 
 				projectile->unk0b2 = 0xffff;
 				projectile->flags |= PROJECTILEFLAG_00004000;
-				projectile->yrot = 0;
-				projectile->xrot = 0;
+				projectile->unk018 = 0;
+				projectile->unk014 = 0;
 				projectile->unk010 = 0;
 
 				if ((projectile->flags & PROJECTILEFLAG_00000080) == 0) {

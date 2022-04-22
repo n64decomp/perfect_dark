@@ -108,7 +108,7 @@ void func0f06ac90(struct prop *prop);
 void objFree(struct defaultobj *obj, bool freeprop, bool canregen);
 void objFreePermanently(struct defaultobj *obj, bool freeprop);
 f32 objGetWidth(struct defaultobj *obj);
-bool func0f06b39c(struct coord *arg0, struct coord *arg1, struct coord *arg2, f32 arg3);
+bool func0f06b39c(struct coord *pos, struct coord *dir, struct coord *aimpos, f32 arg3);
 bool func0f06b488(struct prop *prop, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4, struct coord *arg5, f32 *arg6);
 bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2, struct coord *arg3, f32 arg4, struct coord *arg5, struct coord *arg6, struct coord *arg7, struct coord *arg8, f32 *arg9);
 bool func0f06bea0(struct model *model, struct modelnode *arg1, struct modelnode *arg2, struct coord *arg3, struct coord *arg4, void *arg5, f32 *arg6, struct modelnode **arg7, s32 *hitpart, s32 *arg9, struct modelnode **arg10);
@@ -348,7 +348,7 @@ void alarmTick(void);
 void func0f091030(void);
 void currentPlayerDropAllItems(void);
 void weaponCreateForPlayerDrop(s32 weaponnum);
-void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct coord *pos, struct coord *direction, s32 weaponnum, struct prop *targetprop);
+void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct coord *pos, struct coord *direction, u8 weaponnum, struct prop *targetprop);
 void objSetModelPartVisible(struct defaultobj *obj, s32 partnum, bool visible);
 
 #endif

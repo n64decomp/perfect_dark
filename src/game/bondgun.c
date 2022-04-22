@@ -12717,8 +12717,8 @@ void bgunCreateFiredProjectile(s32 handnum)
 						weapon->base.projectile->unk0a8 = weapon->base.prop->pos.y;
 						weapon->base.projectile->unk0ac = weapon->base.projectile->speed.y;
 						weapon->base.projectile->unk010 = sp250.x;
-						weapon->base.projectile->xrot = sp250.y;
-						weapon->base.projectile->yrot = sp250.z;
+						weapon->base.projectile->unk014 = sp250.y;
+						weapon->base.projectile->unk018 = sp250.z;
 						weapon->base.projectile->unk0b4 = TICKS(240);
 						weapon->base.projectile->unk08c = funcdef->unk5c;
 						weapon->base.projectile->unk098 = funcdef->unk50 * 1.6666666f;

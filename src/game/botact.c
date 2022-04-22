@@ -527,8 +527,8 @@ void botactCreateSlayerRocket(struct chrdata *chr)
 			struct prop *target = chrGetTargetProp(chr);
 			rocket->timer240 = -1;
 			rocket->base.projectile->unk010 = 7.5;
-			rocket->base.projectile->xrot = xrot;
-			rocket->base.projectile->yrot = yrot;
+			rocket->base.projectile->unk014 = xrot;
+			rocket->base.projectile->unk018 = yrot;
 			rocket->base.projectile->smoketimer240 = 0;
 			rocket->base.projectile->unk0b4 = 0x20000000;
 
