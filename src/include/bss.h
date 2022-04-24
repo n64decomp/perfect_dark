@@ -227,6 +227,8 @@ extern u32 var800a65b8;
 extern struct screenbox var800a65c0;
 extern struct screenbox var800a65c8;
 extern u32 g_PortalDisableParentExec;
+extern s32 var800a65d4;
+extern s32 var800a65d8;
 extern u32 g_FogEnabled;
 extern u32 var800a65e4;
 extern struct coord *var800a65e8;

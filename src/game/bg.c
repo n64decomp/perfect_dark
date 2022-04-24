@@ -3700,48 +3700,22 @@ u32 xorBabebabe(u32 value)
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func7f155b84nb
-/*  f155b84:	3c05800b */ 	lui	$a1,0x800b
-/*  f155b88:	24a5ae94 */ 	addiu	$a1,$a1,-20844
-/*  f155b8c:	aca00000 */ 	sw	$zero,0x0($a1)
-/*  f155b90:	3c03800a */ 	lui	$v1,0x800a
-/*  f155b94:	8c63e97c */ 	lw	$v1,-0x1684($v1)
-/*  f155b98:	00001025 */ 	or	$v0,$zero,$zero
-/*  f155b9c:	3c04800b */ 	lui	$a0,0x800b
-/*  f155ba0:	1860000b */ 	blez	$v1,.NB0f155bd0
-/*  f155ba4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f155ba8:	8c8490a8 */ 	lw	$a0,-0x6f58($a0)
-.NB0f155bac:
-/*  f155bac:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*  f155bb0:	808f0008 */ 	lb	$t7,0x8($a0)
-/*  f155bb4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f155bb8:	0043082a */ 	slt	$at,$v0,$v1
-/*  f155bbc:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f155bc0:	2484008c */ 	addiu	$a0,$a0,0x8c
-/*  f155bc4:	1420fff9 */ 	bnez	$at,.NB0f155bac
-/*  f155bc8:	acb80000 */ 	sw	$t8,0x0($a1)
-/*  f155bcc:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f155bd0:
-/*  f155bd0:	3c05800b */ 	lui	$a1,0x800b
-/*  f155bd4:	24a5ae98 */ 	addiu	$a1,$a1,-20840
-/*  f155bd8:	1860000b */ 	blez	$v1,.NB0f155c08
-/*  f155bdc:	aca00000 */ 	sw	$zero,0x0($a1)
-/*  f155be0:	3c04800b */ 	lui	$a0,0x800b
-/*  f155be4:	8c8490a8 */ 	lw	$a0,-0x6f58($a0)
-.NB0f155be8:
-/*  f155be8:	8cb90000 */ 	lw	$t9,0x0($a1)
-/*  f155bec:	9488000a */ 	lhu	$t0,0xa($a0)
-/*  f155bf0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f155bf4:	0043082a */ 	slt	$at,$v0,$v1
-/*  f155bf8:	03284821 */ 	addu	$t1,$t9,$t0
-/*  f155bfc:	2484008c */ 	addiu	$a0,$a0,0x8c
-/*  f155c00:	1420fff9 */ 	bnez	$at,.NB0f155be8
-/*  f155c04:	aca90000 */ 	sw	$t1,0x0($a1)
-.NB0f155c08:
-/*  f155c08:	03e00008 */ 	jr	$ra
-/*  f155c0c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void bg0f155b84nb(void)
+{
+	s32 i;
+
+	var800a65d4 = 0;
+
+	for (i = 0; i < g_Vars.roomcount; i++) {
+		var800a65d4 += g_Rooms[i].numlights;
+	}
+
+	var800a65d8 = 0;
+
+	for (i = 0; i < g_Vars.roomcount; i++) {
+		var800a65d8 += g_Rooms[i].lightindex;
+	}
+}
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
@@ -7419,7 +7393,7 @@ glabel var7f1b75d0
 /*  f156f64:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f156f68:	0fc00729 */ 	jal	func0f001c0c
 /*  f156f6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f156f70:	0fc556e1 */ 	jal	func7f155b84nb
+/*  f156f70:	0fc556e1 */ 	jal	bg0f155b84nb
 /*  f156f74:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f156f78:	8fbf003c */ 	lw	$ra,0x3c($sp)
 /*  f156f7c:	8fb00018 */ 	lw	$s0,0x18($sp)
