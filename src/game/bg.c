@@ -8433,62 +8433,40 @@ u32 bgInflate(u8 *src, u8 *dst, u32 len)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f15da00
-/*  f15da00:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f15da04:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f15da08:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f15da0c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f15da10:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f15da14:	00808025 */ 	or	$s0,$a0,$zero
-/*  f15da18:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f15da1c:	00c09025 */ 	or	$s2,$a2,$zero
-/*  f15da20:	24130001 */ 	addiu	$s3,$zero,0x1
-/*  f15da24:	afbf0024 */ 	sw	$ra,0x24($sp)
-.L0f15da28:
-/*  f15da28:	16000003 */ 	bnez	$s0,.L0f15da38
-/*  f15da2c:	02202825 */ 	or	$a1,$s1,$zero
-/*  f15da30:	10000019 */ 	b	.L0f15da98
-/*  f15da34:	02401025 */ 	or	$v0,$s2,$zero
-.L0f15da38:
-/*  f15da38:	92020000 */ 	lbu	$v0,0x0($s0)
-/*  f15da3c:	02403025 */ 	or	$a2,$s2,$zero
-/*  f15da40:	50400006 */ 	beqzl	$v0,.L0f15da5c
-/*  f15da44:	8e020008 */ 	lw	$v0,0x8($s0)
-/*  f15da48:	1053000e */ 	beq	$v0,$s3,.L0f15da84
-/*  f15da4c:	00000000 */ 	nop
-/*  f15da50:	10000011 */ 	b	.L0f15da98
-/*  f15da54:	02401025 */ 	or	$v0,$s2,$zero
-/*  f15da58:	8e020008 */ 	lw	$v0,0x8($s0)
-.L0f15da5c:
-/*  f15da5c:	0222082b */ 	sltu	$at,$s1,$v0
-/*  f15da60:	10200006 */ 	beqz	$at,.L0f15da7c
-/*  f15da64:	0052082b */ 	sltu	$at,$v0,$s2
-/*  f15da68:	54200004 */ 	bnezl	$at,.L0f15da7c
-/*  f15da6c:	00409025 */ 	or	$s2,$v0,$zero
-/*  f15da70:	16400002 */ 	bnez	$s2,.L0f15da7c
-/*  f15da74:	00000000 */ 	nop
-/*  f15da78:	00409025 */ 	or	$s2,$v0,$zero
-.L0f15da7c:
-/*  f15da7c:	1000ffea */ 	b	.L0f15da28
-/*  f15da80:	8e100004 */ 	lw	$s0,0x4($s0)
-.L0f15da84:
-/*  f15da84:	0fc57680 */ 	jal	func0f15da00
-/*  f15da88:	8e040008 */ 	lw	$a0,0x8($s0)
-/*  f15da8c:	8e100004 */ 	lw	$s0,0x4($s0)
-/*  f15da90:	1000ffe5 */ 	b	.L0f15da28
-/*  f15da94:	00409025 */ 	or	$s2,$v0,$zero
-.L0f15da98:
-/*  f15da98:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f15da9c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f15daa0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f15daa4:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f15daa8:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f15daac:	03e00008 */ 	jr	$ra
-/*  f15dab0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+Gfx *func0f15da00(struct roomgfxdata18 *arg0, Gfx *arg1, Gfx *arg2)
+{ \
+	Gfx *tmp; \
+	while (true) {
+		if (arg0 == NULL) {
+			return arg2;
+		}
 
-Gfx *room0f15dab4(s32 roomnum, u32 arg1, u32 arg2)
+		if (arg1);
+		if (arg1);
+		if (arg1);
+		if (arg1);
+
+		switch (arg0->type) {
+		case 0:
+			if (arg1 < arg0->gdl && (arg2 > arg0->gdl || arg2 == NULL)) {
+				arg2 = arg0->gdl;
+			}
+			arg0 = arg0->next;
+			break;
+		case 1:
+			tmp = func0f15da00(arg0->child, arg1, arg2);
+			arg0 = arg0->next;
+			arg2 = tmp;
+			break;
+		default:
+			return arg2;
+		}
+	}
+
+	return arg2;
+}
+
+Gfx *room0f15dab4(s32 roomnum, Gfx *arg1, u32 arg2)
 {
 	struct roomgfxdata18 *thing1 = g_Rooms[roomnum].gfxdata->unk08;
 	struct roomgfxdata18 *thing2 = g_Rooms[roomnum].gfxdata->unk0c;
@@ -8528,7 +8506,7 @@ struct gfxvtx *room0f15dbb4(s32 roomnum, Gfx *gdl)
 	u32 end = (u32)g_Rooms[roomnum].gfxdata->vertices;
 
 	while ((u32)(thing + 1) <= end) {
-		switch (thing->unk00) {
+		switch (thing->type) {
 		case 0:
 			if (gdl == thing->gdl) {
 				return thing->vertices;

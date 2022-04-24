@@ -267,20 +267,20 @@ void gfxReplaceGbiCommands(Gfx *startgdl, Gfx *endgdl, s32 type)
 
 void gfxReplaceGbiCommandsRecursively(struct roomgfxdata18 *arg0, s32 type)
 {
-	if (arg0->unk00 == 1);
+	if (arg0->type == 1);
 
 	while (true) {
 		if (!arg0) {
 			return;
 		}
 
-		switch (arg0->unk00) {
+		switch (arg0->type) {
 		case 0:
 			gfxReplaceGbiCommands(arg0->gdl, NULL, type);
 			arg0 = arg0->next;
 			break;
 		case 1:
-			gfxReplaceGbiCommandsRecursively((struct roomgfxdata18 *)arg0->gdl, type);
+			gfxReplaceGbiCommandsRecursively(arg0->child, type);
 			arg0 = arg0->next;
 			break;
 		default:

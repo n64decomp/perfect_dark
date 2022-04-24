@@ -3652,9 +3652,12 @@ struct screenbox {
 };
 
 struct roomgfxdata18 {
-	u8 unk00;
+	u8 type;
 	struct roomgfxdata18 *next;
-	Gfx *gdl;
+	union {
+		Gfx *gdl; // type 0
+		struct roomgfxdata18 *child; // type 1
+	};
 	struct gfxvtx *vertices;
 	u32 *colours;
 };
