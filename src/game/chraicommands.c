@@ -12157,7 +12157,7 @@ bool aiChrSetCloaked(void)
 /**
  * @cmd 01b8
  */
-bool aiSetAutogunType(void)
+bool aiSetAutogunTargetTeam(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
@@ -12165,7 +12165,7 @@ bool aiSetAutogunType(void)
 	if (obj && obj->prop && obj->type == OBJTYPE_AUTOGUN) {
 		struct autogunobj *autogun = (struct autogunobj *)obj;
 		autogun->targetteam = cmd[3];
-		autogun->unka4 = 0;
+		autogun->target = NULL;
 	}
 
 	g_Vars.aioffset += 4;

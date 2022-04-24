@@ -1759,7 +1759,7 @@ struct hangingmonitorsobj { // objtype 0x0c
 struct autogunobj { // objtype 0x0d
 	struct defaultobj base;
 	/*0x5c*/ s16 targetpad;
-	/*0x5e*/ u8 firing;
+	/*0x5e*/ s8 firing;
 	/*0x5f*/ u8 firecount;
 	/*0x60*/ f32 yzero;
 	/*0x64*/ f32 ymaxleft;
@@ -1778,10 +1778,10 @@ struct autogunobj { // objtype 0x0d
 	/*0x98*/ s32 allowsoundframe;
 	/*0x9c*/ struct beam *beam;
 	/*0xa0*/ f32 shotbondsum;
-	/*0xa4*/ u32 unka4;
+	/*0xa4*/ struct prop *target;
 	/*0xa8*/ u8 targetteam;
 	/*0xa9*/ u8 ammoquantity;
-	/*0xaa*/ u16 nextchrtest;
+	/*0xaa*/ s16 nextchrtest;
 };
 
 struct linkgunsobj { // objtype 0x0e

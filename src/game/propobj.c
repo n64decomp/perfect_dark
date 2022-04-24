@@ -38743,6 +38743,434 @@ glabel var7f1aa580
 );
 #endif
 
+// Mismatch: Goal reloads &g_Vars into t1 unnecessarily
+//void autogunTick(struct prop *prop)
+//{
+//	struct autogunobj *autogun; // ac
+//	struct defaultobj *obj; // a8
+//	f32 goalyrot; // a4
+//	f32 goalxrot; // a0
+//	f32 f0;
+//	f32 maxspeed;
+//	f32 xdist; // 94
+//	f32 ydist; // 90
+//	f32 zdist; // 8c
+//	f32 sqdist; // 88
+//	f32 dist; // 84
+//	f32 horizdist; // 80
+//	bool awake; // 7c
+//	bool spinup; // 78
+//	bool insight; // 74
+//	f32 limitangle; // 70
+//	struct prop *target; // 6c
+//	s32 ownerplayernum;
+//	f32 f2;
+//	f32 f12;
+//	s32 numchrs; // 5c
+//	struct chrdata *chr; // 58
+//	s32 i;
+//	f32 targetangleh; // 50
+//	f32 targetanglev; // 4c
+//	f32 relangleh; // 48
+//	bool track; // 44
+//	u32 stack[2];
+//
+//	autogun = (struct autogunobj *)prop->obj;
+//	obj = prop->obj;
+//	target = NULL;
+//	awake = false;
+//	spinup = false;
+//	insight = false;
+//	limitangle = 0.0f;
+//
+//	// Malfunctioning mode 1: The gun looks around continuously in random
+//	// directions on both axis without spinning the barrel.
+//	if (obj->flags2 & OBJFLAG2_AUTOGUN_MALFUNCTIONING1) {
+//		if (obj->flags2 & OBJFLAG2_AUTOGUN_40000000) {
+//			autogun->xzero = autogun->xrot;
+//			autogun->yzero = autogun->yrot;
+//		} else if (autogun->yrot == autogun->yzero && autogun->xrot == autogun->xzero) {
+//			autogun->xzero = (RANDOMFRAC() * 39.0f + 1.0f) * 0.017450513f;
+//			autogun->yzero = RANDOMFRAC() * M_BADTAU;
+//		}
+//
+//		applyRotation(&autogun->yrot, autogun->yzero, &autogun->yspeed, 0.00001163367596746f, 0.00001163367596746f, 0.000698f);
+//		applyRotation(&autogun->xrot, autogun->xzero, &autogun->xspeed, 0.0000058168379837298f, 0.0000058168379837298f, 0.000349f);
+//		return;
+//	}
+//
+//	// Malfunctioning mode 2: The gun looks around left/right continuously
+//	// and spins the barrel based on its angle.
+//	if (obj->flags2 & OBJFLAG2_AUTOGUN_MALFUNCTIONING2) {
+//		if (obj->flags2 & OBJFLAG2_AUTOGUN_40000000) {
+//			autogun->xzero = autogun->xrot;
+//			autogun->yzero = autogun->yrot;
+//		} else if (autogun->yrot == autogun->yzero) {
+//			autogun->yzero = RANDOMFRAC() * M_BADTAU;
+//		}
+//
+//		applyRotation(&autogun->yrot, autogun->yzero, &autogun->yspeed, 0.00001163367596746f, 0.00001163367596746f, 0.000698f);
+//		applyRotation(&autogun->xrot, autogun->xzero, &autogun->xspeed, 0.0000058168379837298f, 0.0000058168379837298f, 0.000349f);
+//
+//		maxspeed = cosf(autogun->yrot);
+//
+//		if (maxspeed > 0.0f) {
+//			maxspeed = 0.02512874f * maxspeed;
+//		} else {
+//			maxspeed = 0.000001f;
+//		}
+//
+//		if (1) {
+//			autogun->barrelspeed += 0.009971722f * g_Vars.lvupdate240freal;
+//
+//			if (autogun->barrelspeed > maxspeed) {
+//				autogun->barrelspeed = maxspeed;
+//			}
+//		}
+//
+//		if (autogun->barrelspeed > 0.0f) {
+//			autogun->barrelrot += autogun->barrelspeed * g_Vars.lvupdate240freal;
+//
+//			while (autogun->barrelrot >= M_BADTAU) {
+//				autogun->barrelrot -= M_BADTAU;
+//			}
+//		}
+//
+//		return;
+//	}
+//
+//	// Regular behaviour
+//	if (autogun->ammoquantity == 0) {
+//		// don't set target
+//	} else if (autogun->target) {
+//		target = autogun->target;
+//	} else {
+//		// Find new target
+//		if (frIsInTraining()) {
+//			// Laptop gun in firing range
+//			target = frChooseAutogunTarget(&prop->pos);
+//			if (1);
+//		} else if (autogun->targetteam != 0) {
+//			// Autogun (solo or MP) configured to attack specific teams
+//			if (g_Vars.normmplayerisrunning) {
+//				numchrs = g_MpNumChrs;
+//			} else {
+//				numchrs = chrsGetNumSlots();
+//			}
+//
+//			while (true) {
+//				autogun->nextchrtest++;
+//
+//				if (autogun->nextchrtest >= numchrs) {
+//					autogun->nextchrtest = -1;
+//					break;
+//				}
+//
+//				if (g_Vars.normmplayerisrunning) {
+//					ownerplayernum = (obj->hidden & 0xf0000000) >> 28;
+//
+//					if (autogun->nextchrtest == ownerplayernum) {
+//						continue;
+//					}
+//
+//					chr = g_MpAllChrPtrs[autogun->nextchrtest];
+//
+//					if (!chr->prop) {
+//						continue;
+//					}
+//
+//					if (!chr->model) {
+//						continue;
+//					}
+//
+//					if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) && (chr->team & autogun->targetteam) == 0) {
+//						continue;
+//					}
+//				} else {
+//					chr = &g_ChrSlots[autogun->nextchrtest];
+//
+//					if (!chr->prop) {
+//						continue;
+//					}
+//
+//					if ((chr->team & autogun->targetteam) == 0) {
+//						continue;
+//					}
+//
+//					if ((!chr->model || (chr->prop->flags & PROPFLAG_ENABLED) == 0) && chr->prop->type != PROPTYPE_PLAYER) {
+//						continue;
+//					}
+//				}
+//
+//				if ((chr->chrflags & CHRCFLAG_HIDDEN) == 0
+//						&& (chr->hidden & CHRHFLAG_CLOAKED) == 0
+//						&& !chrIsDead(chr)) {
+//					target = chr->prop;
+//					break;
+//				}
+//
+//				if (1);
+//			}
+//		} else if (g_Vars.coopplayernum >= 0) {
+//			if (g_Vars.lvframenum & 1) {
+//				target = g_Vars.bond->prop;
+//			} else {
+//				target = g_Vars.coop->prop;
+//			}
+//		} else {
+//			target = g_Vars.bond->prop;
+//		}
+//	}
+//
+//	if (target) {
+//		if (target->chr == NULL) {
+//			target = NULL;
+//		} else if (target->type != PROPTYPE_CHR && target->type != PROPTYPE_PLAYER && !frIsInTraining()) {
+//			target = NULL;
+//		}
+//	}
+//
+//	goalyrot = autogun->yzero;
+//	goalxrot = autogun->xzero;
+//
+//	if (target) {
+//		xdist = target->pos.f[0] - prop->pos.f[0];
+//		ydist = target->pos.f[1] - prop->pos.f[1];
+//		zdist = target->pos.f[2] - prop->pos.f[2];
+//
+//		if (target->type == PROPTYPE_PLAYER) {
+//			ydist -= 20.0f;
+//		}
+//
+//		sqdist = xdist * xdist + zdist * zdist;
+//		dist = sqrtf(sqdist);
+//		horizdist = dist;
+//
+//		if (obj->flags & OBJFLAG_08000000) {
+//			sqdist += ydist * ydist;
+//			dist = sqrtf(sqdist);
+//		}
+//
+//		limitangle = chrGetAimLimitAngle(sqdist);
+//
+//		if (dist <= autogun->aimdist) {
+//			targetangleh = atan2f(xdist, zdist);
+//			targetanglev = atan2f(ydist, horizdist);
+//
+//			if ((obj->flags & OBJFLAG_AUTOGUN_DAMAGED) || (obj->flags & OBJFLAG_AUTOGUN_SEENTARGET)) {
+//				awake = true;
+//			} else {
+//				f12 = targetangleh - autogun->yrot;
+//
+//				if (f12 < 0.0f) {
+//					f12 += M_BADTAU;
+//				}
+//
+//				if (f12 > M_PI) {
+//					f12 -= M_BADTAU;
+//				}
+//
+//				f2 = targetanglev - autogun->xrot;
+//
+//				if (f2 < 0.0f) {
+//					f2 += M_BADTAU;
+//				}
+//
+//				if (f2 > M_PI) {
+//					f2 -= M_BADTAU;
+//				}
+//
+//				if (f12 < 1.221536f && f12 > -1.221536f) {
+//					awake = true;
+//				}
+//			}
+//
+//			if (awake) {
+//				relangleh = targetangleh - autogun->yzero;
+//				track = true;
+//
+//				if (relangleh < -M_PI) {
+//					relangleh += M_BADTAU;
+//				} else if (relangleh >= M_PI) {
+//					relangleh -= M_BADTAU;
+//				}
+//
+//				if (target->type == PROPTYPE_PLAYER) {
+//					if (!g_Vars.bondvisible
+//							|| g_Vars.players[playermgrGetPlayerNumByProp(target)]->isdead
+//							|| (target->chr->chrflags & CHRCFLAG_HIDDEN)
+//							|| (target->chr->hidden & CHRHFLAG_CLOAKED)) {
+//						track = false;
+//					}
+//				} else if (target->type == PROPTYPE_CHR) {
+//					struct chrdata *chr = target->chr;
+//
+//					if (chr == NULL
+//							|| (chr->chrflags & CHRCFLAG_HIDDEN)
+//							|| (chr->hidden & CHRHFLAG_CLOAKED)
+//							|| (chr->hidden & CHRHFLAG_ANTINONINTERACTABLE)
+//							|| chrIsDead(chr)
+//							|| chr->actiontype == ACT_DRUGGEDCOMINGUP
+//							|| chr->actiontype == ACT_DRUGGEDDROP
+//							|| chr->actiontype == ACT_DRUGGEDKO) {
+//						track = false;
+//					}
+//				} else if (target->type == PROPTYPE_OBJ) {
+//					struct defaultobj *obj = target->obj;
+//
+//					if (obj && obj->modelnum == MODEL_TARGET && !frIsTargetFacingPos(target, &prop->pos)) {
+//						track = false;
+//					}
+//				} else {
+//					track = false;
+//				}
+//
+//				propSetPerimEnabled(prop, false);
+//				propSetPerimEnabled(target, false);
+//
+//				if (relangleh <= autogun->ymaxleft
+//						&& relangleh >= autogun->ymaxright
+//						&& track
+//						&& cdHasLineOfSight(&prop->pos, prop->rooms, &target->pos, target->rooms, CDTYPE_ALL, 8)) {
+//					obj->flags |= OBJFLAG_AUTOGUN_SEENTARGET;
+//					insight = true;
+//					goalxrot = targetanglev;
+//					goalyrot = targetangleh;
+//
+//					if (autogun->target == NULL) {
+//						autogun->target = target;
+//					}
+//				} else if (autogun->lastseebond60 >= 0 && autogun->lastseebond60 > g_Vars.lvframe60 - 120) {
+//					// Target recently lost
+//					goalyrot = autogun->yrot;
+//					goalxrot = autogun->xrot;
+//				} else {
+//					awake = false;
+//				}
+//
+//				propSetPerimEnabled(prop, true);
+//				propSetPerimEnabled(target, true);
+//			}
+//		}
+//	}
+//
+//	if (!awake) {
+//		autogun->target = NULL;
+//	}
+//
+//	// The turret swivels left and right while firing
+//	if (autogun->firing) {
+//		goalyrot += limitangle * 0.8f * sinf((g_Vars.lvframe60 % 120) * 0.05235154f);
+//
+//		if (goalyrot < 0.0f) {
+//			goalyrot += M_BADTAU;
+//		}
+//
+//		if (goalyrot >= M_BADTAU) {
+//			goalyrot -= M_BADTAU;
+//		}
+//	}
+//
+//	f0 = goalyrot - autogun->yzero;
+//
+//	if (f0 < -M_PI) {
+//		f0 += M_BADTAU;
+//	} else if (f0 >= M_PI) {
+//		f0 -= M_BADTAU;
+//	}
+//
+//	if (f0 > autogun->ymaxleft) {
+//		goalyrot = autogun->yzero + autogun->ymaxleft;
+//	} else if (f0 < autogun->ymaxright) {
+//		goalyrot = autogun->yzero + autogun->ymaxright;
+//	}
+//
+//	if (goalyrot < 0.0f) {
+//		goalyrot += M_BADTAU;
+//	}
+//
+//	if (goalyrot >= M_BADTAU) {
+//		goalyrot -= M_BADTAU;
+//	}
+//
+//	applyRotation(&autogun->yrot, goalyrot, &autogun->yspeed, 0.00087252567755058f, 0.00087252567755058f, autogun->maxspeed);
+//	applyRotation(&autogun->xrot, goalxrot, &autogun->xspeed, 0.00087252567755058f, 0.00087252567755058f, autogun->maxspeed);
+//
+//	f12 = goalyrot - autogun->yrot;
+//
+//	if (f12 < 0.0f) {
+//		f12 += M_BADTAU;
+//	}
+//
+//	if (f12 > M_BADPI) {
+//		f12 -= M_BADTAU;
+//	}
+//
+//	f2 = goalxrot - autogun->xrot;
+//
+//	if (f2 < 0.0f) {
+//		f2 += M_BADTAU;
+//	}
+//
+//	if (f2 > M_BADPI) {
+//		f2 -= M_BADTAU;
+//	}
+//
+//	autogun->firing = false;
+//
+//	if (awake) {
+//		if (f12 < limitangle && -limitangle < f12 && f2 < limitangle && -limitangle < f2) {
+//			autogun->firing = true;
+//			spinup = true;
+//
+//			if (insight) {
+//				autogun->lastseebond60 = g_Vars.lvframe60;
+//				autogun->lastaimbond60 = g_Vars.lvframe60;
+//			}
+//		} else {
+//			f32 f0 = 2.0f * limitangle;
+//
+//			if (f12 < f0 && -f0 < f12 && f2 < f0 && -f0 < f2) {
+//				autogun->firing = true;
+//				spinup = true;
+//
+//				if (insight) {
+//					autogun->lastseebond60 = g_Vars.lvframe60;
+//				}
+//			} else {
+//				if (autogun->lastseebond60 >= 0 && autogun->lastseebond60 > g_Vars.lvframe60 - 120) {
+//					autogun->firing = true;
+//					spinup = true;
+//				}
+//			}
+//		}
+//	}
+//
+//	if (spinup) {
+//		autogun->barrelspeed += 0.009971722f * g_Vars.lvupdate240freal;
+//
+//		if (autogun->barrelspeed > 0.5983033f) {
+//			autogun->barrelspeed = 0.5983033f;
+//		}
+//	} else if (autogun->barrelspeed > 0.0f) {
+//		for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+//			autogun->barrelspeed *= 0.99f;
+//		}
+//
+//		if (autogun->barrelspeed <= 0.0001f) {
+//			autogun->barrelspeed = 0.0f;
+//		}
+//	}
+//
+//	if (autogun->barrelspeed > 0.0f) {
+//		autogun->barrelrot += autogun->barrelspeed * g_Vars.lvupdate240freal;
+//
+//		while (autogun->barrelrot >= M_BADTAU) {
+//			autogun->barrelrot -= M_BADTAU;
+//		}
+//	}
+//}
+
 void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
 {
 	struct autogunobj *autogun = (struct autogunobj *)prop->obj;
@@ -54713,7 +55141,7 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 				chopper->attackmode = CHOPPERMODE_COMBAT;
 			}
 		} else if (obj->type == OBJTYPE_AUTOGUN) {
-			obj->flags |= OBJFLAG_AUTOGUN_ALERTED;
+			obj->flags |= OBJFLAG_AUTOGUN_DAMAGED;
 
 			if (objGetDestroyedLevel(obj) == 1) {
 				obj->flags |= OBJFLAG_DEACTIVATED;
@@ -60751,7 +61179,7 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 
 			laptop->targetpad = -1;
 			laptop->aimdist = 5000;
-			laptop->unka4 = 0;
+			laptop->target = NULL;
 			laptop->targetteam = ~chr->team & 0xff;
 			laptop->nextchrtest = 0;
 			laptop->firecount = 0;

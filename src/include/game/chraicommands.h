@@ -404,7 +404,7 @@
 /*0x01b5*/ bool aiChrSetP1P2(void);
 /*0x01b6*/ bool aiConfigureSnow(void);
 /*0x01b7*/ bool aiChrSetCloaked(void);
-/*0x01b8*/ bool aiSetAutogunType(void);
+/*0x01b8*/ bool aiSetAutogunTargetTeam(void);
 /*0x01b9*/ bool aiShufflePelagicSwitches(void);
 /*0x01ba*/ bool aiTryAttackLie(void);
 /*0x01bb*/ bool aiNoOp01bb(void);

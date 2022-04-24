@@ -57,7 +57,7 @@ void frSetCompleted(void);
 bool frIsTargetOneHitExplodable(struct prop *prop);
 f32 frGetTargetAngleToPos(struct coord *a, f32 angle, struct coord *b);
 bool frIsTargetFacingPos(struct prop *prop, struct coord *pos);
-struct prop *frChooseAutogunTarget(struct coord *arg0);
+struct prop *frChooseAutogunTarget(struct coord *autogunpos);
 bool frIsAmmoWasted(void);
 void frTick(void);
 void func0f1a0924(struct prop *prop);
