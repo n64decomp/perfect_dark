@@ -49,7 +49,7 @@ bool roomIsVisibleByAnyPlayer(s32 room);
 bool roomIsVisibleByAnyAibot(s32 room);
 bool roomIsVisibleByPlayer(s32 room, u32 playernum);
 bool roomIsVisibleByAibot(s32 room, u32 aibotindex);
-s32 func0f15d870(void *arg0);
+s32 portalFindNumByVertices(struct portalvertices *pvertices);
 u32 bgInflate(u8 *src, u8 *dst, u32 len);
 u32 func0f15da00(void);
 s32 func0f15dab4(s32 roomnum, s32 ref, s32 arg2);

@@ -4797,7 +4797,7 @@ glabel var7f1b75d0
 /*  f15c1c0:	8e0f0004 */ 	lw	$t7,0x4($s0)
 /*  f15c1c4:	8e790000 */ 	lw	$t9,0x0($s3)
 /*  f15c1c8:	01f9c021 */ 	addu	$t8,$t7,$t9
-/*  f15c1cc:	0fc5761c */ 	jal	func0f15d870
+/*  f15c1cc:	0fc5761c */ 	jal	portalFindNumByVertices
 /*  f15c1d0:	03142021 */ 	addu	$a0,$t8,$s4
 /*  f15c1d4:	8fce0000 */ 	lw	$t6,0x0($s8)
 /*  f15c1d8:	01d27821 */ 	addu	$t7,$t6,$s2
@@ -5861,7 +5861,7 @@ glabel var7f1b75d0
 /*  f15bf84:	8e0f0004 */ 	lw	$t7,0x4($s0)
 /*  f15bf88:	8e790000 */ 	lw	$t9,0x0($s3)
 /*  f15bf8c:	01f9c021 */ 	addu	$t8,$t7,$t9
-/*  f15bf90:	0fc5758b */ 	jal	func0f15d870
+/*  f15bf90:	0fc5758b */ 	jal	portalFindNumByVertices
 /*  f15bf94:	03142021 */ 	addu	$a0,$t8,$s4
 /*  f15bf98:	8fce0000 */ 	lw	$t6,0x0($s8)
 /*  f15bf9c:	01d27821 */ 	addu	$t7,$t6,$s2
@@ -6923,7 +6923,7 @@ glabel var7f1b75d0
 /*  f156918:	8e0f0004 */ 	lw	$t7,0x4($s0)
 /*  f15691c:	8e790000 */ 	lw	$t9,0x0($s3)
 /*  f156920:	01f9c021 */ 	addu	$t8,$t7,$t9
-/*  f156924:	0fc55fd5 */ 	jal	func0f15d870
+/*  f156924:	0fc55fd5 */ 	jal	portalFindNumByVertices
 /*  f156928:	03142021 */ 	addu	$a0,$t8,$s4
 /*  f15692c:	8fce0000 */ 	lw	$t6,0x0($s8)
 /*  f156930:	01d27821 */ 	addu	$t7,$t6,$s2
@@ -7639,7 +7639,7 @@ glabel var7f1b75d0
 //		if (g_BgPortalCommands != NULL) {
 //			for (s4 = 0; g_BgPortalCommands[s4].type != PORTALCMD_END; s4++) { // might not be s4
 //				if (g_BgPortalCommands[s4].type == PORTALCMD_64) {
-//					g_BgPortalCommands[s4].param = func0f15d870((void *)(g_BgPortalCommands[s4].param + (u32)g_BgPrimaryData + 0xf1000000));
+//					g_BgPortalCommands[s4].param = portalFindNumByVertices((void *)(g_BgPortalCommands[s4].param + (u32)g_BgPrimaryData + 0xf1000000));
 //				}
 //			}
 //		}
@@ -8420,34 +8420,21 @@ bool roomIsVisibleByAibot(s32 room, u32 aibotindex)
 	return g_Rooms[room].flags & ROOMFLAG_VISIBLEBYAIBOT;
 }
 
-GLOBAL_ASM(
-glabel func0f15d870
-/*  f15d870:	3c02800a */ 	lui	$v0,%hi(g_BgPortals)
-/*  f15d874:	8c424cc8 */ 	lw	$v0,%lo(g_BgPortals)($v0)
-/*  f15d878:	00803825 */ 	or	$a3,$a0,$zero
-/*  f15d87c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f15d880:	944e0000 */ 	lhu	$t6,0x0($v0)
-/*  f15d884:	00402825 */ 	or	$a1,$v0,$zero
-/*  f15d888:	51c0000d */ 	beqzl	$t6,.L0f15d8c0
-/*  f15d88c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f15d890:	94460000 */ 	lhu	$a2,0x0($v0)
-/*  f15d894:	00c22021 */ 	addu	$a0,$a2,$v0
-.L0f15d898:
-/*  f15d898:	54870004 */ 	bnel	$a0,$a3,.L0f15d8ac
-/*  f15d89c:	94a60008 */ 	lhu	$a2,0x8($a1)
-/*  f15d8a0:	03e00008 */ 	jr	$ra
-/*  f15d8a4:	00601025 */ 	or	$v0,$v1,$zero
-/*  f15d8a8:	94a60008 */ 	lhu	$a2,0x8($a1)
-.L0f15d8ac:
-/*  f15d8ac:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f15d8b0:	24a50008 */ 	addiu	$a1,$a1,0x8
-/*  f15d8b4:	54c0fff8 */ 	bnezl	$a2,.L0f15d898
-/*  f15d8b8:	00c22021 */ 	addu	$a0,$a2,$v0
-/*  f15d8bc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f15d8c0:
-/*  f15d8c0:	03e00008 */ 	jr	$ra
-/*  f15d8c4:	00000000 */ 	nop
-);
+s32 portalFindNumByVertices(struct portalvertices *arg0)
+{
+	s32 i;
+	struct bgportal *portal = g_BgPortals;
+
+	for (i = 0; portal[i].verticesoffset != 0; i++) {
+		struct portalvertices *pvertices = (struct portalvertices *)((u32)portal + portal[i].verticesoffset);
+
+		if (pvertices == arg0) {
+			return i;
+		}
+	}
+
+	return 0;
+}
 
 /**
  * Build a string showing the state of all rooms in the stage.
