@@ -3545,104 +3545,32 @@ s32 stageGetIndex2(s32 stagenum)
 	return index;
 }
 
-GLOBAL_ASM(
-glabel func0f15b274
-/*  f15b274:	27bdff50 */ 	addiu	$sp,$sp,-176
-/*  f15b278:	3c02800a */ 	lui	$v0,%hi(g_BgPortals)
-/*  f15b27c:	8c424cc8 */ 	lw	$v0,%lo(g_BgPortals)($v0)
-/*  f15b280:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f15b284:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*  f15b288:	afb40058 */ 	sw	$s4,0x58($sp)
-/*  f15b28c:	afb30054 */ 	sw	$s3,0x54($sp)
-/*  f15b290:	afb20050 */ 	sw	$s2,0x50($sp)
-/*  f15b294:	afb1004c */ 	sw	$s1,0x4c($sp)
-/*  f15b298:	afb00048 */ 	sw	$s0,0x48($sp)
-/*  f15b29c:	f7be0040 */ 	sdc1	$f30,0x40($sp)
-/*  f15b2a0:	f7bc0038 */ 	sdc1	$f28,0x38($sp)
-/*  f15b2a4:	f7ba0030 */ 	sdc1	$f26,0x30($sp)
-/*  f15b2a8:	f7b80028 */ 	sdc1	$f24,0x28($sp)
-/*  f15b2ac:	f7b60020 */ 	sdc1	$f22,0x20($sp)
-/*  f15b2b0:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*  f15b2b4:	004e7821 */ 	addu	$t7,$v0,$t6
-/*  f15b2b8:	95f80000 */ 	lhu	$t8,0x0($t7)
-/*  f15b2bc:	4480e000 */ 	mtc1	$zero,$f28
-/*  f15b2c0:	24110002 */ 	addiu	$s1,$zero,0x2
-/*  f15b2c4:	03029821 */ 	addu	$s3,$t8,$v0
-/*  f15b2c8:	92740000 */ 	lbu	$s4,0x0($s3)
-/*  f15b2cc:	26720018 */ 	addiu	$s2,$s3,0x18
-/*  f15b2d0:	2a810003 */ 	slti	$at,$s4,0x3
-/*  f15b2d4:	14200034 */ 	bnez	$at,.L0f15b3a8
-/*  f15b2d8:	3c013f00 */ 	lui	$at,0x3f00
-/*  f15b2dc:	4481f000 */ 	mtc1	$at,$f30
-/*  f15b2e0:	27b00084 */ 	addiu	$s0,$sp,0x84
-.L0f15b2e4:
-/*  f15b2e4:	27a40084 */ 	addiu	$a0,$sp,0x84
-/*  f15b2e8:	02401025 */ 	or	$v0,$s2,$zero
-/*  f15b2ec:	02602825 */ 	or	$a1,$s3,$zero
-/*  f15b2f0:	27a30078 */ 	addiu	$v1,$sp,0x78
-.L0f15b2f4:
-/*  f15b2f4:	c444fff8 */ 	lwc1	$f4,-0x8($v0)
-/*  f15b2f8:	c4a60004 */ 	lwc1	$f6,0x4($a1)
-/*  f15b2fc:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f15b300:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f15b304:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f15b308:	24420004 */ 	addiu	$v0,$v0,4
-/*  f15b30c:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f15b310:	e488fffc */ 	swc1	$f8,-0x4($a0)
-/*  f15b314:	c444fff4 */ 	lwc1	$f4,-0xc($v0)
-/*  f15b318:	c44a0000 */ 	lwc1	$f10,0x0($v0)
-/*  f15b31c:	46045181 */ 	sub.s	$f6,$f10,$f4
-/*  f15b320:	1470fff4 */ 	bne	$v1,$s0,.L0f15b2f4
-/*  f15b324:	e466fffc */ 	swc1	$f6,-0x4($v1)
-/*  f15b328:	c7b00088 */ 	lwc1	$f16,0x88($sp)
-/*  f15b32c:	c7b20080 */ 	lwc1	$f18,0x80($sp)
-/*  f15b330:	c7b4007c */ 	lwc1	$f20,0x7c($sp)
-/*  f15b334:	c7b6008c */ 	lwc1	$f22,0x8c($sp)
-/*  f15b338:	46128202 */ 	mul.s	$f8,$f16,$f18
-/*  f15b33c:	c7b80078 */ 	lwc1	$f24,0x78($sp)
-/*  f15b340:	c7ba0084 */ 	lwc1	$f26,0x84($sp)
-/*  f15b344:	4616a282 */ 	mul.s	$f10,$f20,$f22
-/*  f15b348:	4600d187 */ 	neg.s	$f6,$f26
-/*  f15b34c:	4616c102 */ 	mul.s	$f4,$f24,$f22
-/*  f15b350:	460a4001 */ 	sub.s	$f0,$f8,$f10
-/*  f15b354:	46123202 */ 	mul.s	$f8,$f6,$f18
-/*  f15b358:	00000000 */ 	nop
-/*  f15b35c:	4614d282 */ 	mul.s	$f10,$f26,$f20
-/*  f15b360:	e7a00090 */ 	swc1	$f0,0x90($sp)
-/*  f15b364:	4610c182 */ 	mul.s	$f6,$f24,$f16
-/*  f15b368:	46082080 */ 	add.s	$f2,$f4,$f8
-/*  f15b36c:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f15b370:	00000000 */ 	nop
-/*  f15b374:	46021202 */ 	mul.s	$f8,$f2,$f2
-/*  f15b378:	e7a20094 */ 	swc1	$f2,0x94($sp)
-/*  f15b37c:	46065381 */ 	sub.s	$f14,$f10,$f6
-/*  f15b380:	460e7182 */ 	mul.s	$f6,$f14,$f14
-/*  f15b384:	46082280 */ 	add.s	$f10,$f4,$f8
-/*  f15b388:	e7ae0098 */ 	swc1	$f14,0x98($sp)
-/*  f15b38c:	0c012974 */ 	jal	sqrtf
-/*  f15b390:	460a3300 */ 	add.s	$f12,$f6,$f10
-/*  f15b394:	461e0102 */ 	mul.s	$f4,$f0,$f30
-/*  f15b398:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f15b39c:	2652000c */ 	addiu	$s2,$s2,0xc
-/*  f15b3a0:	1634ffd0 */ 	bne	$s1,$s4,.L0f15b2e4
-/*  f15b3a4:	4604e700 */ 	add.s	$f28,$f28,$f4
-.L0f15b3a8:
-/*  f15b3a8:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*  f15b3ac:	4600e006 */ 	mov.s	$f0,$f28
-/*  f15b3b0:	d7bc0038 */ 	ldc1	$f28,0x38($sp)
-/*  f15b3b4:	d7b40018 */ 	ldc1	$f20,0x18($sp)
-/*  f15b3b8:	d7b60020 */ 	ldc1	$f22,0x20($sp)
-/*  f15b3bc:	d7b80028 */ 	ldc1	$f24,0x28($sp)
-/*  f15b3c0:	d7ba0030 */ 	ldc1	$f26,0x30($sp)
-/*  f15b3c4:	d7be0040 */ 	ldc1	$f30,0x40($sp)
-/*  f15b3c8:	8fb00048 */ 	lw	$s0,0x48($sp)
-/*  f15b3cc:	8fb1004c */ 	lw	$s1,0x4c($sp)
-/*  f15b3d0:	8fb20050 */ 	lw	$s2,0x50($sp)
-/*  f15b3d4:	8fb30054 */ 	lw	$s3,0x54($sp)
-/*  f15b3d8:	8fb40058 */ 	lw	$s4,0x58($sp)
-/*  f15b3dc:	03e00008 */ 	jr	$ra
-/*  f15b3e0:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
-);
+f32 portal0f15b274(s32 portalnum)
+{
+	struct portalvertices *pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
+	s32 count = pvertices->count;
+	s32 i;
+	s32 j;
+	f32 sum = 0.0f;
+	f32 sp90[3];
+	f32 sp84[3];
+	f32 sp78[3];
+
+	for (i = 2; i < count; i++) {
+		for (j = 0; j < 3; j++) {
+			sp84[j] = pvertices->vertices[i - 1].f[j] - pvertices->vertices[0].f[j];
+			sp78[j] = pvertices->vertices[i].f[j] - pvertices->vertices[i - 1].f[j];
+		}
+
+		sp90[0] = sp84[1] * sp78[2] - sp84[2] * sp78[1];
+		sp90[1] = -sp84[0] * sp78[2] + sp84[2] * sp78[0];
+		sp90[2] = sp84[0] * sp78[1] - sp84[1] * sp78[0];
+
+		sum += sqrtf(sp90[0] * sp90[0] + sp90[1] * sp90[1] + sp90[2] * sp90[2]) * 0.5f;
+	}
+
+	return sum;
+}
 
 void func0f15b3e4(s32 portalnum, struct coord *a, struct coord *b, struct coord *c, struct coord *d)
 {
@@ -3668,7 +3596,7 @@ void func0f15b3e4(s32 portalnum, struct coord *a, struct coord *b, struct coord 
 
 u8 func0f15b4c0(s32 portal)
 {
-	s32 uVar2 = func0f15b274(portal) / 10000.0f;
+	s32 uVar2 = portal0f15b274(portal) / 10000.0f;
 
 	if (uVar2 > 0xff) {
 		uVar2 = 0xff;

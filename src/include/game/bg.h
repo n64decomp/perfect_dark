@@ -20,7 +20,7 @@ Gfx *bgRenderScene(Gfx *gdl);
 Gfx *func0f15b114(Gfx *gdl);
 void bgLoadFile(void *memaddr, u32 offset, u32 len);
 s32 stageGetIndex2(s32 stagenum);
-f32 func0f15b274(s32 portal);
+f32 portal0f15b274(s32 portal);
 u8 func0f15b4c0(s32 portal);
 u32 not(u32 arg);
 u32 xorBabebabe(u32 value);

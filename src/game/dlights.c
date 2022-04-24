@@ -1615,10 +1615,10 @@ f32 func0f002334(s32 roomnum, f32 mult, s32 portalnum1, s32 portalnum2)
 	f32 result;
 
 	if (portalnum1 != -1) {
-		fVar2 = func0f15b274(portalnum1);
+		fVar2 = portal0f15b274(portalnum1);
 	}
 
-	result = (func0f15b274(portalnum2) / (g_Rooms[roomnum].unk70 - fVar2)) * mult;
+	result = (portal0f15b274(portalnum2) / (g_Rooms[roomnum].unk70 - fVar2)) * mult;
 	return result;
 }
 
@@ -1848,7 +1848,7 @@ glabel var7f1a7d94
 /*  f0026c8:	000a5840 */ 	sll	$t3,$t2,0x1
 /*  f0026cc:	012b6021 */ 	addu	$t4,$t1,$t3
 /*  f0026d0:	01906821 */ 	addu	$t5,$t4,$s0
-/*  f0026d4:	0fc56c9d */ 	jal	func0f15b274
+/*  f0026d4:	0fc56c9d */ 	jal	portal0f15b274
 /*  f0026d8:	85a40000 */ 	lh	$a0,0x0($t5)
 /*  f0026dc:	8eae0000 */ 	lw	$t6,0x0($s5)
 /*  f0026e0:	26310001 */ 	addiu	$s1,$s1,0x1
