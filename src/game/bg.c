@@ -16791,71 +16791,36 @@ bool func0f164f9c(struct coord *arg0, struct coord *arg1, struct coord *arg2, st
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f165004
-.late_rodata
-glabel var7f1b76c8
-.word 0x7f7fffff
-glabel var7f1b76cc
-.word 0xff7fffff
-.text
-/*  f165004:	3c017f1b */ 	lui	$at,%hi(var7f1b76c8)
-/*  f165008:	c42076c8 */ 	lwc1	$f0,%lo(var7f1b76c8)($at)
-/*  f16500c:	3c017f1b */ 	lui	$at,%hi(var7f1b76cc)
-/*  f165010:	c42276cc */ 	lwc1	$f2,%lo(var7f1b76cc)($at)
-/*  f165014:	e4a00000 */ 	swc1	$f0,0x0($a1)
-/*  f165018:	e4a00004 */ 	swc1	$f0,0x4($a1)
-/*  f16501c:	e4a00008 */ 	swc1	$f0,0x8($a1)
-/*  f165020:	3c03800a */ 	lui	$v1,%hi(g_BgPortals)
-/*  f165024:	e4c20000 */ 	swc1	$f2,0x0($a2)
-/*  f165028:	e4c20004 */ 	swc1	$f2,0x4($a2)
-/*  f16502c:	e4c20008 */ 	swc1	$f2,0x8($a2)
-/*  f165030:	8c634cc8 */ 	lw	$v1,%lo(g_BgPortals)($v1)
-/*  f165034:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f165038:	00003825 */ 	or	$a3,$zero,$zero
-/*  f16503c:	006e7821 */ 	addu	$t7,$v1,$t6
-/*  f165040:	95f80000 */ 	lhu	$t8,0x0($t7)
-/*  f165044:	240c000c */ 	addiu	$t4,$zero,0xc
-/*  f165048:	03031021 */ 	addu	$v0,$t8,$v1
-/*  f16504c:	90590000 */ 	lbu	$t9,0x0($v0)
-/*  f165050:	00402025 */ 	or	$a0,$v0,$zero
-/*  f165054:	1b20001c */ 	blez	$t9,.L0f1650c8
-/*  f165058:	00004025 */ 	or	$t0,$zero,$zero
-.L0f16505c:
-/*  f16505c:	00804825 */ 	or	$t1,$a0,$zero
-/*  f165060:	00a05025 */ 	or	$t2,$a1,$zero
-/*  f165064:	00c05825 */ 	or	$t3,$a2,$zero
-.L0f165068:
-/*  f165068:	c5200004 */ 	lwc1	$f0,0x4($t1)
-/*  f16506c:	c5440000 */ 	lwc1	$f4,0x0($t2)
-/*  f165070:	25080004 */ 	addiu	$t0,$t0,0x4
-/*  f165074:	25290004 */ 	addiu	$t1,$t1,0x4
-/*  f165078:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f16507c:	00000000 */ 	nop
-/*  f165080:	45020003 */ 	bc1fl	.L0f165090
-/*  f165084:	c5660000 */ 	lwc1	$f6,0x0($t3)
-/*  f165088:	e5400000 */ 	swc1	$f0,0x0($t2)
-/*  f16508c:	c5660000 */ 	lwc1	$f6,0x0($t3)
-.L0f165090:
-/*  f165090:	254a0004 */ 	addiu	$t2,$t2,0x4
-/*  f165094:	4600303c */ 	c.lt.s	$f6,$f0
-/*  f165098:	00000000 */ 	nop
-/*  f16509c:	45000002 */ 	bc1f	.L0f1650a8
-/*  f1650a0:	00000000 */ 	nop
-/*  f1650a4:	e5600000 */ 	swc1	$f0,0x0($t3)
-.L0f1650a8:
-/*  f1650a8:	150cffef */ 	bne	$t0,$t4,.L0f165068
-/*  f1650ac:	256b0004 */ 	addiu	$t3,$t3,0x4
-/*  f1650b0:	90430000 */ 	lbu	$v1,0x0($v0)
-/*  f1650b4:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f1650b8:	2484000c */ 	addiu	$a0,$a0,0xc
-/*  f1650bc:	00e3082a */ 	slt	$at,$a3,$v1
-/*  f1650c0:	5420ffe6 */ 	bnezl	$at,.L0f16505c
-/*  f1650c4:	00004025 */ 	or	$t0,$zero,$zero
-.L0f1650c8:
-/*  f1650c8:	03e00008 */ 	jr	$ra
-/*  f1650cc:	00000000 */ 	nop
-);
+void portalFindBbox(s32 portalnum, struct coord *bbmin, struct coord *bbmax)
+{
+	struct portalvertices *pvertices;
+	s32 i;
+	s32 j;
+
+	bbmin->x = MAXFLOAT;
+	bbmin->y = MAXFLOAT;
+	bbmin->z = MAXFLOAT;
+
+	bbmax->x = MINFLOAT;
+	bbmax->y = MINFLOAT;
+	bbmax->z = MINFLOAT;
+
+	pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
+
+	for (i = 0; i < pvertices->count; i++) {
+		for (j = 0; j < 3; j++) {
+			f32 value = pvertices->vertices[i].f[j];
+
+			if (value < bbmin->f[j]) {
+				bbmin->f[j] = value;
+			}
+
+			if (value > bbmax->f[j]) {
+				bbmax->f[j] = value;
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1650d0
@@ -16954,7 +16919,7 @@ glabel func0f1650d0
 /*  f165228:	02202025 */ 	or	$a0,$s1,$zero
 .L0f16522c:
 /*  f16522c:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f165230:	0fc59401 */ 	jal	func0f165004
+/*  f165230:	0fc59401 */ 	jal	portalFindBbox
 /*  f165234:	02c03025 */ 	or	$a2,$s6,$zero
 /*  f165238:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f16523c:	02c02825 */ 	or	$a1,$s6,$zero

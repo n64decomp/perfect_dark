@@ -307,10 +307,10 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exproom
 			s32 portalnum;
 			s32 indexplus1;
 			s32 indexplus2;
-			struct coord sp104;
-			struct coord spf8;
-			struct coord spec;
-			struct coord spe0;
+			struct coord portalbbmin;
+			struct coord portalbbmax;
+			struct coord portal2bbmin;
+			struct coord portal2bbmax;
 			struct coord spd4;
 			struct coord spc8;
 			s16 otherroom;
@@ -389,9 +389,9 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exproom
 				for (k = 0; k < g_Rooms[exproom].numportals; k++) {
 					portalnum = g_RoomPortals[g_Rooms[exproom].roomportallistoffset + k];
 
-					func0f165004(portalnum, &sp104, &spf8);
+					portalFindBbox(portalnum, &portalbbmin, &portalbbmax);
 
-					if (func0f164f9c(&sp104, &spf8, &spd4, &spc8)) {
+					if (func0f164f9c(&portalbbmin, &portalbbmax, &spd4, &spc8)) {
 						otherroom2 = -1;
 						index = 0;
 
@@ -428,74 +428,74 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exproom
 						indexplus1 = (index + 1) % 3;
 						indexplus2 = (index + 2) % 3;
 
-						value1 = spf8.f[indexplus1] - sp104.f[indexplus1];
-						value2 = spf8.f[indexplus2] - sp104.f[indexplus2];
+						value1 = portalbbmax.f[indexplus1] - portalbbmin.f[indexplus1];
+						value2 = portalbbmax.f[indexplus2] - portalbbmin.f[indexplus2];
 
 						if (value2 < value1) {
 							value1 = value2;
 						}
 
-						sp104.f[index] -= value1;
-						spf8.f[index] += value1;
+						portalbbmin.f[index] -= value1;
+						portalbbmax.f[index] += value1;
 
-						if (sp104.f[index] < g_Rooms[exproom].bbmin[index]) {
-							sp104.f[index] = g_Rooms[exproom].bbmin[index];
+						if (portalbbmin.f[index] < g_Rooms[exproom].bbmin[index]) {
+							portalbbmin.f[index] = g_Rooms[exproom].bbmin[index];
 						}
 
-						if (spf8.f[index] > g_Rooms[exproom].bbmax[index]) {
-							spf8.f[index] = g_Rooms[exproom].bbmax[index];
+						if (portalbbmax.f[index] > g_Rooms[exproom].bbmax[index]) {
+							portalbbmax.f[index] = g_Rooms[exproom].bbmax[index];
 						}
 
-						if (sp104.f[index] > g_Rooms[otherroom].bbmin[index]) {
-							sp104.f[index] = g_Rooms[otherroom].bbmin[index];
+						if (portalbbmin.f[index] > g_Rooms[otherroom].bbmin[index]) {
+							portalbbmin.f[index] = g_Rooms[otherroom].bbmin[index];
 						}
 
-						if (spf8.f[index] < g_Rooms[otherroom].bbmax[index]) {
-							spf8.f[index] = g_Rooms[otherroom].bbmax[index];
+						if (portalbbmax.f[index] < g_Rooms[otherroom].bbmax[index]) {
+							portalbbmax.f[index] = g_Rooms[otherroom].bbmax[index];
 						}
 
 						for (j = 0; j < g_Rooms[otherroom].numportals; j++) {
 							portalnum2 = g_RoomPortals[g_Rooms[otherroom].roomportallistoffset + j];
 
 							if (portalnum2 != portalnum) {
-								func0f165004(portalnum2, &spec, &spe0);
+								portalFindBbox(portalnum2, &portal2bbmin, &portal2bbmax);
 
-								if (spec.f[indexplus1] <= sp104.f[indexplus1] + 10.0f * mult
-										&& spec.f[indexplus2] <= sp104.f[indexplus2] + 10.0f * mult
-										&& spe0.f[indexplus1] >= spf8.f[indexplus1] - 10.0f * mult
-										&& spe0.f[indexplus2] >= spf8.f[indexplus2] - 10.0f * mult) {
+								if (portal2bbmin.f[indexplus1] <= portalbbmin.f[indexplus1] + 10.0f * mult
+										&& portal2bbmin.f[indexplus2] <= portalbbmin.f[indexplus2] + 10.0f * mult
+										&& portal2bbmax.f[indexplus1] >= portalbbmax.f[indexplus1] - 10.0f * mult
+										&& portal2bbmax.f[indexplus2] >= portalbbmax.f[indexplus2] - 10.0f * mult) {
 									if (otherroom == g_BgPortals[portalnum2].roomnum1) {
 										otherroom2 = g_BgPortals[portalnum2].roomnum2;
 									} else {
 										otherroom2 = g_BgPortals[portalnum2].roomnum1;
 									}
 
-									if (sp104.f[index] > g_Rooms[otherroom2].bbmin[index]) {
-										sp104.f[index] = g_Rooms[otherroom2].bbmin[index];
+									if (portalbbmin.f[index] > g_Rooms[otherroom2].bbmin[index]) {
+										portalbbmin.f[index] = g_Rooms[otherroom2].bbmin[index];
 									}
 
-									if (spf8.f[index] < g_Rooms[otherroom2].bbmax[index]) {
-										spf8.f[index] = g_Rooms[otherroom2].bbmax[index];
+									if (portalbbmax.f[index] < g_Rooms[otherroom2].bbmax[index]) {
+										portalbbmax.f[index] = g_Rooms[otherroom2].bbmax[index];
 									}
 									break;
 								}
 							}
 						}
 
-						sp104.f[0] *= mult;
-						sp104.f[1] *= mult;
-						sp104.f[2] *= mult;
+						portalbbmin.f[0] *= mult;
+						portalbbmin.f[1] *= mult;
+						portalbbmin.f[2] *= mult;
 
-						spf8.f[0] *= mult;
-						spf8.f[1] *= mult;
-						spf8.f[2] *= mult;
+						portalbbmax.f[0] *= mult;
+						portalbbmax.f[1] *= mult;
+						portalbbmax.f[2] *= mult;
 
-						exp->bbs[exp->numbb].bbmin.x = sp104.f[0];
-						exp->bbs[exp->numbb].bbmin.y = sp104.f[1];
-						exp->bbs[exp->numbb].bbmin.z = sp104.f[2];
-						exp->bbs[exp->numbb].bbmax.x = spf8.f[0];
-						exp->bbs[exp->numbb].bbmax.y = spf8.f[1];
-						exp->bbs[exp->numbb].bbmax.z = spf8.f[2];
+						exp->bbs[exp->numbb].bbmin.x = portalbbmin.f[0];
+						exp->bbs[exp->numbb].bbmin.y = portalbbmin.f[1];
+						exp->bbs[exp->numbb].bbmin.z = portalbbmin.f[2];
+						exp->bbs[exp->numbb].bbmax.x = portalbbmax.f[0];
+						exp->bbs[exp->numbb].bbmax.y = portalbbmax.f[1];
+						exp->bbs[exp->numbb].bbmax.z = portalbbmax.f[2];
 						exp->bbs[exp->numbb].room = otherroom;
 						exp->bbs[exp->numbb].room2 = otherroom2;
 
