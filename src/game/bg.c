@@ -40,11 +40,6 @@
 #include "data.h"
 #include "types.h"
 
-#if VERSION < VERSION_NTSC_1_0
-const char var7f1b1970nb[] = "NumLightsChecksum failed %s %d";
-const char var7f1b1990nb[] = "LightsOffsetChecksum failed %s %d";
-#endif
-
 struct var800a4640 var800a4640;
 u8 *g_BgPrimaryData;
 u32 var800a4920;
@@ -3700,99 +3695,63 @@ u32 xorBabebabe(u32 value)
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-void bg0f155b84nb(void)
+/**
+ * The following two functions were surely debug code that was accidentally left
+ * in the NTSC beta build, whose purpose is to debug a light data corruption
+ * issue.
+ *
+ * The first function is run on stage start and builds the known good checksums.
+ * The second function runs on every tick, re-sums them and induces a crash if
+ * they've changed.
+ */
+void bgBuildReferenceLightSums(void)
 {
 	s32 i;
 
-	var800a65d4 = 0;
+	g_BgNumLightsChecksum = 0;
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
-		var800a65d4 += g_Rooms[i].numlights;
+		g_BgNumLightsChecksum += g_Rooms[i].numlights;
 	}
 
-	var800a65d8 = 0;
+	g_BgLightsOffsetChecksum = 0;
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
-		var800a65d8 += g_Rooms[i].lightindex;
+		g_BgLightsOffsetChecksum += g_Rooms[i].lightindex;
 	}
 }
-#endif
 
-#if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func7f155c10nb
-/*  f155c10:	3c06800a */ 	lui	$a2,0x800a
-/*  f155c14:	8cc6e97c */ 	lw	$a2,-0x1684($a2)
-/*  f155c18:	27bdff50 */ 	addiu	$sp,$sp,-176
-/*  f155c1c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f155c20:	afa400b0 */ 	sw	$a0,0xb0($sp)
-/*  f155c24:	afa500b4 */ 	sw	$a1,0xb4($sp)
-/*  f155c28:	00004025 */ 	or	$t0,$zero,$zero
-/*  f155c2c:	18c0000a */ 	blez	$a2,.NB0f155c58
-/*  f155c30:	00001825 */ 	or	$v1,$zero,$zero
-/*  f155c34:	3c02800b */ 	lui	$v0,0x800b
-/*  f155c38:	8c4290a8 */ 	lw	$v0,-0x6f58($v0)
-.NB0f155c3c:
-/*  f155c3c:	804e0008 */ 	lb	$t6,0x8($v0)
-/*  f155c40:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f155c44:	0066082a */ 	slt	$at,$v1,$a2
-/*  f155c48:	2442008c */ 	addiu	$v0,$v0,0x8c
-/*  f155c4c:	1420fffb */ 	bnez	$at,.NB0f155c3c
-/*  f155c50:	010e4021 */ 	addu	$t0,$t0,$t6
-/*  f155c54:	00001825 */ 	or	$v1,$zero,$zero
-.NB0f155c58:
-/*  f155c58:	3c0f800b */ 	lui	$t7,0x800b
-/*  f155c5c:	8defae94 */ 	lw	$t7,-0x516c($t7)
-/*  f155c60:	27a40028 */ 	addiu	$a0,$sp,0x28
-/*  f155c64:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f155c68:	010f1026 */ 	xor	$v0,$t0,$t7
-/*  f155c6c:	1040000f */ 	beqz	$v0,.NB0f155cac
-/*  f155c70:	00004025 */ 	or	$t0,$zero,$zero
-/*  f155c74:	24a51970 */ 	addiu	$a1,$a1,0x1970
-/*  f155c78:	8fa600b0 */ 	lw	$a2,0xb0($sp)
-/*  f155c7c:	8fa700b4 */ 	lw	$a3,0xb4($sp)
-/*  f155c80:	afa300ac */ 	sw	$v1,0xac($sp)
-/*  f155c84:	0c004fc1 */ 	jal	sprintf
-/*  f155c88:	afa000a8 */ 	sw	$zero,0xa8($sp)
-/*  f155c8c:	0c003074 */ 	jal	crashSetMessage
-/*  f155c90:	27a40028 */ 	addiu	$a0,$sp,0x28
-/*  f155c94:	24180045 */ 	addiu	$t8,$zero,0x45
-/*  f155c98:	a0180000 */ 	sb	$t8,0x0($zero)
-/*  f155c9c:	3c06800a */ 	lui	$a2,0x800a
-/*  f155ca0:	8fa300ac */ 	lw	$v1,0xac($sp)
-/*  f155ca4:	8fa800a8 */ 	lw	$t0,0xa8($sp)
-/*  f155ca8:	8cc6e97c */ 	lw	$a2,-0x1684($a2)
-.NB0f155cac:
-/*  f155cac:	18c00009 */ 	blez	$a2,.NB0f155cd4
-/*  f155cb0:	3c09800b */ 	lui	$t1,0x800b
-/*  f155cb4:	3c02800b */ 	lui	$v0,0x800b
-/*  f155cb8:	8c4290a8 */ 	lw	$v0,-0x6f58($v0)
-.NB0f155cbc:
-/*  f155cbc:	9459000a */ 	lhu	$t9,0xa($v0)
-/*  f155cc0:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f155cc4:	0066082a */ 	slt	$at,$v1,$a2
-/*  f155cc8:	2442008c */ 	addiu	$v0,$v0,0x8c
-/*  f155ccc:	1420fffb */ 	bnez	$at,.NB0f155cbc
-/*  f155cd0:	01194021 */ 	addu	$t0,$t0,$t9
-.NB0f155cd4:
-/*  f155cd4:	8d29ae98 */ 	lw	$t1,-0x5168($t1)
-/*  f155cd8:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f155cdc:	24a51990 */ 	addiu	$a1,$a1,0x1990
-/*  f155ce0:	11090008 */ 	beq	$t0,$t1,.NB0f155d04
-/*  f155ce4:	27a40028 */ 	addiu	$a0,$sp,0x28
-/*  f155ce8:	8fa600b0 */ 	lw	$a2,0xb0($sp)
-/*  f155cec:	0c004fc1 */ 	jal	sprintf
-/*  f155cf0:	8fa700b4 */ 	lw	$a3,0xb4($sp)
-/*  f155cf4:	0c003074 */ 	jal	crashSetMessage
-/*  f155cf8:	27a40028 */ 	addiu	$a0,$sp,0x28
-/*  f155cfc:	240a0045 */ 	addiu	$t2,$zero,0x45
-/*  f155d00:	a00a0000 */ 	sb	$t2,0x0($zero)
-.NB0f155d04:
-/*  f155d04:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f155d08:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
-/*  f155d0c:	03e00008 */ 	jr	$ra
-/*  f155d10:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void bgVerifyLightSums(char *file, s32 line)
+{
+	s32 i;
+	s32 sum;
+	char message[128];
+	u32 stack;
+
+	sum = 0;
+
+	for (i = 0; i < g_Vars.roomcount; i++) {
+		sum += g_Rooms[i].numlights;
+	}
+
+	if (sum != g_BgNumLightsChecksum) {
+		sprintf(message, "NumLightsChecksum failed %s %d", file, line);
+		crashSetMessage(message);
+		CRASH();
+	}
+
+	sum = 0;
+
+	for (i = 0; i < g_Vars.roomcount; i++) {
+		sum += g_Rooms[i].lightindex;
+	}
+
+	if (sum != g_BgLightsOffsetChecksum) {
+		sprintf(message, "LightsOffsetChecksum failed %s %d", file, line);
+		crashSetMessage(message);
+		CRASH();
+	}
+}
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -7393,7 +7352,7 @@ glabel var7f1b75d0
 /*  f156f64:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f156f68:	0fc00729 */ 	jal	func0f001c0c
 /*  f156f6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f156f70:	0fc556e1 */ 	jal	bg0f155b84nb
+/*  f156f70:	0fc556e1 */ 	jal	bgBuildReferenceLightSums
 /*  f156f74:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f156f78:	8fbf003c */ 	lw	$ra,0x3c($sp)
 /*  f156f7c:	8fb00018 */ 	lw	$s0,0x18($sp)
@@ -7898,7 +7857,7 @@ void bgTick(void)
 	g_NumActiveRooms = 0;
 
 #if VERSION < VERSION_NTSC_1_0
-	func7f155c10nb("bg.c", 5761);
+	bgVerifyLightSums("bg.c", 5761);
 #endif
 
 	func0f15c920();
@@ -7935,9 +7894,9 @@ void bgTick(void)
 #if VERSION >= VERSION_NTSC_1_0
 	bgTickPortals();
 #else
-	func7f155c10nb("bg.c", 5834);
+	bgVerifyLightSums("bg.c", 5834);
 	bgTickPortals();
-	func7f155c10nb("bg.c", 5846);
+	bgVerifyLightSums("bg.c", 5846);
 #endif
 }
 
@@ -9288,7 +9247,7 @@ glabel roomLoad
 /*  f158408:	afb10020 */ 	sw	$s1,0x20($sp)
 /*  f15840c:	afb0001c */ 	sw	$s0,0x1c($sp)
 /*  f158410:	24841a2c */ 	addiu	$a0,$a0,0x1a2c
-/*  f158414:	0fc55704 */ 	jal	func7f155c10nb
+/*  f158414:	0fc55704 */ 	jal	bgVerifyLightSums
 /*  f158418:	24051ba4 */ 	addiu	$a1,$zero,0x1ba4
 /*  f15841c:	8fa402f8 */ 	lw	$a0,0x2f8($sp)
 /*  f158420:	3c0e800a */ 	lui	$t6,0x800a
@@ -9856,7 +9815,7 @@ glabel roomLoad
 /*  f158c48:	ad800058 */ 	sw	$zero,0x58($t4)
 /*  f158c4c:	3c047f1b */ 	lui	$a0,0x7f1b
 /*  f158c50:	24841a60 */ 	addiu	$a0,$a0,0x1a60
-/*  f158c54:	0fc55704 */ 	jal	func7f155c10nb
+/*  f158c54:	0fc55704 */ 	jal	bgVerifyLightSums
 /*  f158c58:	24051d32 */ 	addiu	$a1,$zero,0x1d32
 .NB0f158c5c:
 /*  f158c5c:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -9901,7 +9860,7 @@ const char var7f1b1a60nb[] = "bg.c";
 //	s32 prev;
 //
 //#if VERSION < VERSION_NTSC_1_0
-//	func7f155c10nb("bg.c", 7076);
+//	bgVerifyLightSums("bg.c", 7076);
 //#endif
 //
 //	if (roomnum == 0 || roomnum >= g_Vars.roomcount || g_Rooms[roomnum].loaded240) {
@@ -10094,7 +10053,7 @@ const char var7f1b1a60nb[] = "bg.c";
 //	}
 //
 //#if VERSION < VERSION_NTSC_1_0
-//	func7f155c10nb("bg.c", 7474);
+//	bgVerifyLightSums("bg.c", 7474);
 //#endif
 //}
 
