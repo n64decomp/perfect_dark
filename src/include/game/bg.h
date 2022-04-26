@@ -96,7 +96,7 @@ void currentPlayerCalculateScreenProperties(void);
 void bgExpandRoomToPortals(s32 roomnum);
 void portalSwapRooms(u32 portal);
 void func0f164ab8(s32 portalnum);
-void func0f164c64(s32 roomnum);
+void room0f164c64(s32 roomnum);
 void portalSetEnabled(s32 portal, bool enable);
 s32 func0f164e8c(struct coord *arg0, struct coord *arg1);
 bool func0f164f9c(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3);
