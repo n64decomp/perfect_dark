@@ -59,7 +59,7 @@ void roomUnload(s32 room);
 void bgUnloadAllRooms(void);
 void bgGarbageCollectRooms(s32 bytesneeded, bool desparate);
 void bgTickRooms(void);
-Gfx *func0f15e85c(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool arg3);
+Gfx *room0f15e85c(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool arg3);
 Gfx *bgRenderRoomOpaque(Gfx *gdl, s32 roomnum);
 Gfx *bgRenderRoomAlpha(Gfx *gdl, s32 roomnum);
 s32 func0f15ecd8(s32 roomnum, void *allocation, Gfx *gdl, s32 arg3, struct gfxvtx *vtx, s32 arg5);

@@ -3655,10 +3655,15 @@ struct roomgfxdata18 {
 	u8 type;
 	struct roomgfxdata18 *next;
 	union {
-		Gfx *gdl; // type 0
-		struct roomgfxdata18 *child; // type 1
+		struct { // type 0
+			Gfx *gdl;
+			struct gfxvtx *vertices;
+		};
+		struct { // type 1
+			struct roomgfxdata18 *child;
+			struct coord *unk0c; // pointer to 2 coords at least
+		};
 	};
-	struct gfxvtx *vertices;
 	u32 *colours;
 };
 

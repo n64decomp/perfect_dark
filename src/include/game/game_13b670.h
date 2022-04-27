@@ -9,7 +9,7 @@ u32 func0f13b754(void);
 u32 func0f13b7bc(void);
 u32 func0f13b8a0(void);
 u32 func0f13bb5c(void);
-u32 func0f13bc48(void);
+void func0f13bc48(s32 roomnum, struct gfxvtx *vertices);
 void func0f13c07c(s32 arg0);
 void func0f13c2e8(s16 arg0);
 void func0f13c370(s16 roomnum);
