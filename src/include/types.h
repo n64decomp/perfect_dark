@@ -4557,7 +4557,7 @@ struct bgportal {
 
 struct portalthing {
 	u16 unk00;
-	u16 unk02;
+	s16 unk02;
 	u16 unk04;
 	s16 unk06;
 	u32 unk08;
@@ -5269,15 +5269,15 @@ struct zrange {
 
 struct var800a4d00 {
 	/*0x00*/ s16 roomnum;
-	/*0x02*/ s16 unk02[5]; // also roomnums
-	/*0x0c*/ s8 unk0c;
-	/*0x0d*/ s8 unk0d;
-	/*0x0e*/ s16 unk0e;
+	/*0x02*/ s16 roomnums[5];
+	/*0x0c*/ u8 draworder;
+	/*0x0d*/ u8 numportals;
+	/*0x0e*/ s16 roomportallistoffset;
 	/*0x10*/ struct screenbox screenbox;
 };
 
 struct var800a4cf0 {
-	u16 unk00;
+	s16 unk00;
 	s16 index; // index into unk10
 	s16 unk04; // also an index into unk10
 	struct zrange zrange;

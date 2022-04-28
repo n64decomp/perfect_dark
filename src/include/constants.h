@@ -3336,6 +3336,7 @@
 #define PORTALCMD_TRAILER          0x65
 
 #define PORTALFLAG_ENABLED 0x01
+#define PORTALFLAG_02      0x02
 #define PORTALFLAG_04      0x04
 
 #define PORTALMODE_SHOW 0
