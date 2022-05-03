@@ -94,7 +94,7 @@ s32 roomGetNeighbours(s32 room, s16 *rooms, s32 len);
 bool roomsAreNeighbours(s32 roomnum1, s32 roomnum2);
 void currentPlayerCalculateScreenProperties(void);
 void bgExpandRoomToPortals(s32 roomnum);
-void portalSwapRooms(u32 portal);
+void portalSwapRooms(s32 portal);
 void func0f164ab8(s32 portalnum);
 void room0f164c64(s32 roomnum);
 void portalSetEnabled(s32 portal, bool enable);

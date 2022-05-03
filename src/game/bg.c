@@ -16009,125 +16009,72 @@ bool portalExists(s32 portalnum)
 	return false;
 }
 
-void portalSwapRooms(u32 portal)
+void portalSwapRooms(s32 portal)
 {
 	s16 tmp = g_BgPortals[portal].roomnum1;
 	g_BgPortals[portal].roomnum1 = g_BgPortals[portal].roomnum2;
 	g_BgPortals[portal].roomnum2 = tmp;
 }
 
-GLOBAL_ASM(
-glabel func0f164ab8
-/*  f164ab8:	3c0e800a */ 	lui	$t6,%hi(g_BgPortals)
-/*  f164abc:	8dce4cc8 */ 	lw	$t6,%lo(g_BgPortals)($t6)
-/*  f164ac0:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f164ac4:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f164ac8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f164acc:	01cf3021 */ 	addu	$a2,$t6,$t7
-/*  f164ad0:	84c80002 */ 	lh	$t0,0x2($a2)
-/*  f164ad4:	240a008c */ 	addiu	$t2,$zero,0x8c
-/*  f164ad8:	3c07800a */ 	lui	$a3,%hi(g_Rooms)
-/*  f164adc:	010a0019 */ 	multu	$t0,$t2
-/*  f164ae0:	8ce74928 */ 	lw	$a3,%lo(g_Rooms)($a3)
-/*  f164ae4:	84c90004 */ 	lh	$t1,0x4($a2)
-/*  f164ae8:	3c0c800a */ 	lui	$t4,%hi(var800a4ccc)
-/*  f164aec:	8d8c4ccc */ 	lw	$t4,%lo(var800a4ccc)($t4)
-/*  f164af0:	00045880 */ 	sll	$t3,$a0,0x2
-/*  f164af4:	01645821 */ 	addu	$t3,$t3,$a0
-/*  f164af8:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f164afc:	016c1021 */ 	addu	$v0,$t3,$t4
-/*  f164b00:	0000c012 */ 	mflo	$t8
-/*  f164b04:	00f81821 */ 	addu	$v1,$a3,$t8
-/*  f164b08:	c4640030 */ 	lwc1	$f4,0x30($v1)
-/*  f164b0c:	012a0019 */ 	multu	$t1,$t2
-/*  f164b10:	e7a4004c */ 	swc1	$f4,0x4c($sp)
-/*  f164b14:	c4660034 */ 	lwc1	$f6,0x34($v1)
-/*  f164b18:	e7a60050 */ 	swc1	$f6,0x50($sp)
-/*  f164b1c:	c4680038 */ 	lwc1	$f8,0x38($v1)
-/*  f164b20:	0000c812 */ 	mflo	$t9
-/*  f164b24:	00f92821 */ 	addu	$a1,$a3,$t9
-/*  f164b28:	e7a80054 */ 	swc1	$f8,0x54($sp)
-/*  f164b2c:	c4aa0030 */ 	lwc1	$f10,0x30($a1)
-/*  f164b30:	e7aa0040 */ 	swc1	$f10,0x40($sp)
-/*  f164b34:	c4b00034 */ 	lwc1	$f16,0x34($a1)
-/*  f164b38:	e7b00044 */ 	swc1	$f16,0x44($sp)
-/*  f164b3c:	c4b20038 */ 	lwc1	$f18,0x38($a1)
-/*  f164b40:	e7b20048 */ 	swc1	$f18,0x48($sp)
-/*  f164b44:	c4440000 */ 	lwc1	$f4,0x0($v0)
-/*  f164b48:	e7a40028 */ 	swc1	$f4,0x28($sp)
-/*  f164b4c:	c4460004 */ 	lwc1	$f6,0x4($v0)
-/*  f164b50:	c7b20028 */ 	lwc1	$f18,0x28($sp)
-/*  f164b54:	c7a4004c */ 	lwc1	$f4,0x4c($sp)
-/*  f164b58:	e7a6002c */ 	swc1	$f6,0x2c($sp)
-/*  f164b5c:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*  f164b60:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*  f164b64:	c7a40054 */ 	lwc1	$f4,0x54($sp)
-/*  f164b68:	e7a80030 */ 	swc1	$f8,0x30($sp)
-/*  f164b6c:	c44a000c */ 	lwc1	$f10,0xc($v0)
-/*  f164b70:	c7a8002c */ 	lwc1	$f8,0x2c($sp)
-/*  f164b74:	e7aa0034 */ 	swc1	$f10,0x34($sp)
-/*  f164b78:	c4500010 */ 	lwc1	$f16,0x10($v0)
-/*  f164b7c:	c7aa0050 */ 	lwc1	$f10,0x50($sp)
-/*  f164b80:	00001025 */ 	or	$v0,$zero,$zero
-/*  f164b84:	e7b00038 */ 	swc1	$f16,0x38($sp)
-/*  f164b88:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f164b8c:	c7a80030 */ 	lwc1	$f8,0x30($sp)
-/*  f164b90:	46082282 */ 	mul.s	$f10,$f4,$f8
-/*  f164b94:	46103480 */ 	add.s	$f18,$f6,$f16
-/*  f164b98:	c7a60038 */ 	lwc1	$f6,0x38($sp)
-/*  f164b9c:	46125080 */ 	add.s	$f2,$f10,$f18
-/*  f164ba0:	4602303c */ 	c.lt.s	$f6,$f2
-/*  f164ba4:	00000000 */ 	nop
-/*  f164ba8:	45020017 */ 	bc1fl	.L0f164c08
-/*  f164bac:	c7aa0028 */ 	lwc1	$f10,0x28($sp)
-/*  f164bb0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f164bb4:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f164bb8:	0fc592a2 */ 	jal	portalSwapRooms
-/*  f164bbc:	afa40058 */ 	sw	$a0,0x58($sp)
-/*  f164bc0:	c7b00028 */ 	lwc1	$f16,0x28($sp)
-/*  f164bc4:	c7a8002c */ 	lwc1	$f8,0x2c($sp)
-/*  f164bc8:	c7b20030 */ 	lwc1	$f18,0x30($sp)
-/*  f164bcc:	46008107 */ 	neg.s	$f4,$f16
-/*  f164bd0:	c7a00034 */ 	lwc1	$f0,0x34($sp)
-/*  f164bd4:	c7b00038 */ 	lwc1	$f16,0x38($sp)
-/*  f164bd8:	46004287 */ 	neg.s	$f10,$f8
-/*  f164bdc:	e7a40028 */ 	swc1	$f4,0x28($sp)
-/*  f164be0:	46009187 */ 	neg.s	$f6,$f18
-/*  f164be4:	46000207 */ 	neg.s	$f8,$f0
-/*  f164be8:	46008107 */ 	neg.s	$f4,$f16
-/*  f164bec:	8fa20018 */ 	lw	$v0,0x18($sp)
-/*  f164bf0:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f164bf4:	e7aa002c */ 	swc1	$f10,0x2c($sp)
-/*  f164bf8:	e7a60030 */ 	swc1	$f6,0x30($sp)
-/*  f164bfc:	e7a40034 */ 	swc1	$f4,0x34($sp)
-/*  f164c00:	e7a80038 */ 	swc1	$f8,0x38($sp)
-/*  f164c04:	c7aa0028 */ 	lwc1	$f10,0x28($sp)
-.L0f164c08:
-/*  f164c08:	c7b20040 */ 	lwc1	$f18,0x40($sp)
-/*  f164c0c:	c7b0002c */ 	lwc1	$f16,0x2c($sp)
-/*  f164c10:	c7a40044 */ 	lwc1	$f4,0x44($sp)
-/*  f164c14:	46125182 */ 	mul.s	$f6,$f10,$f18
-/*  f164c18:	c7b20048 */ 	lwc1	$f18,0x48($sp)
-/*  f164c1c:	46048202 */ 	mul.s	$f8,$f16,$f4
-/*  f164c20:	c7b00030 */ 	lwc1	$f16,0x30($sp)
-/*  f164c24:	46109102 */ 	mul.s	$f4,$f18,$f16
-/*  f164c28:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f164c2c:	c7a60034 */ 	lwc1	$f6,0x34($sp)
-/*  f164c30:	460a2000 */ 	add.s	$f0,$f4,$f10
-/*  f164c34:	4606003e */ 	c.le.s	$f0,$f6
-/*  f164c38:	00000000 */ 	nop
-/*  f164c3c:	45020006 */ 	bc1fl	.L0f164c58
-/*  f164c40:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f164c44:	50400004 */ 	beqzl	$v0,.L0f164c58
-/*  f164c48:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f164c4c:	0fc592a2 */ 	jal	portalSwapRooms
-/*  f164c50:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f164c54:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f164c58:
-/*  f164c58:	27bd0058 */ 	addiu	$sp,$sp,0x58
-/*  f164c5c:	03e00008 */ 	jr	$ra
-/*  f164c60:	00000000 */ 	nop
-);
+void func0f164ab8(s32 portalnum)
+{
+	struct coord room1centre;
+	struct coord room2centre;
+	f32 tmp;
+	struct var800a4ccc sp28;
+	struct var800a4ccc *ptr;
+	f32 tmp1;
+	f32 tmp2;
+	bool sp18;
+	s32 roomnum1;
+	s32 roomnum2;
+
+	roomnum1 = g_BgPortals[portalnum].roomnum1;
+	roomnum2 = g_BgPortals[portalnum].roomnum2;
+
+	room1centre.x = g_Rooms[roomnum1].centre.x;
+	room1centre.y = g_Rooms[roomnum1].centre.y;
+	room1centre.z = g_Rooms[roomnum1].centre.z;
+
+	room2centre.x = g_Rooms[roomnum2].centre.x;
+	room2centre.y = g_Rooms[roomnum2].centre.y;
+	room2centre.z = g_Rooms[roomnum2].centre.z;
+
+	ptr = &var800a4ccc[portalnum];
+	sp28.coord.x = ptr->coord.x;
+	sp28.coord.y = ptr->coord.y;
+	sp28.coord.z = ptr->coord.z;
+	sp28.unk0c = ptr->unk0c;
+	sp28.unk10 = ptr->unk10;
+
+	tmp1 = sp28.coord.f[0] * room1centre.f[0] + sp28.coord.f[1] * room1centre.f[1] + sp28.coord.f[2] * room1centre.f[2];
+
+	if (tmp1);
+
+	sp18 = 0;
+
+	if (tmp1 > sp28.unk10) {
+		sp18 = 1;
+
+		portalSwapRooms(portalnum);
+
+		sp28.coord.x = -sp28.coord.x;
+		sp28.coord.y = -sp28.coord.y;
+		sp28.coord.z = -sp28.coord.z;
+
+		tmp = sp28.unk0c;
+		sp28.unk0c = -sp28.unk10;
+		sp28.unk10 = -tmp;
+	}
+
+	tmp2 = sp28.coord.f[0] * room2centre.f[0] + sp28.coord.f[1] * room2centre.f[1] + sp28.coord.f[2] * room2centre.f[2];
+
+	if (tmp2 <= sp28.unk0c && sp18) {
+		portalSwapRooms(portalnum);
+	}
+
+	if (sp18);
+}
 
 void room0f164c64(s32 roomnum)
 {
