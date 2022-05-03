@@ -13692,6 +13692,132 @@ glabel func0f161d30
 /*  f162124:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
 );
 
+// Mismatch: Goal writes to sp40 and lower
+//bool func0f161d30(struct coord *arg0, s16 roomnum)
+//{
+//	struct room *room;
+//	s32 portalnum;
+//	struct var800a4ccc *s2;
+//	struct portalvertices *pvertices;
+//	s32 i;
+//	s32 j;
+//	struct coord *cur;
+//	struct coord *next;
+//	f32 f0;
+//	f32 f18;
+//	s32 t4;
+//	bool t5;
+//
+//	struct coord sp74;
+//	struct coord sp68;
+//	struct coord sp5c;
+//	f32 sp58;
+//	struct coord sp4c;
+//
+//	room = &g_Rooms[roomnum];
+//
+//	sp74.f[0] = room->centre.f[0];
+//	sp74.f[1] = room->centre.f[1];
+//	sp74.f[2] = room->centre.f[2];
+//
+//	for (i = 0; i < room->numportals; i++) {
+//		portalnum = g_RoomPortals[room->roomportallistoffset + i];
+//		pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
+//		s2 = &var800a4ccc[portalnum];
+//
+//		f0 = arg0->f[0] * s2->coord.f[0] + arg0->f[1] * s2->coord.f[1] + arg0->f[2] * s2->coord.f[2];
+//		f18 = sp74.f[0] * s2->coord.f[0] + sp74.f[1] * s2->coord.f[1] + sp74.f[2] * s2->coord.f[2];
+//
+//		if (f0 < s2->unk0c) {
+//			if (f18 < s2->unk0c) {
+//				continue;
+//			}
+//		} else {
+//			if (f0 > s2->unk10 && f18 > s2->unk10) {
+//				continue;
+//			}
+//		}
+//
+//		sp68.f[0] = sp74.f[0] - arg0->f[0];
+//		sp68.f[1] = sp74.f[1] - arg0->f[1];
+//		sp68.f[2] = sp74.f[2] - arg0->f[2];
+//
+//		t4 = 0;
+//		t5 = true;
+//		cur = &pvertices->vertices[0];
+//		next = &pvertices->vertices[1];
+//
+//		for (j = 0; j < pvertices->count; j++) {
+//			f32 tmp;
+//			f32 sp44;
+//			f32 sp40;
+//			f32 sp3c;
+//			f32 sp38;
+//			f32 sp34;
+//			f32 sp30;
+//
+//			if (j + 1 == pvertices->count) {
+//				next = &pvertices->vertices[0];
+//			}
+//
+//			sp5c.f[0] = next->f[0] - cur->f[0];
+//			sp5c.f[1] = next->f[1] - cur->f[1];
+//			sp5c.f[2] = next->f[2] - cur->f[2];
+//
+//			sp44 = sp68.f[0];
+//			sp40 = sp68.f[1];
+//			sp3c = sp68.f[2];
+//
+//			sp38 = sp5c.f[0];
+//			sp34 = sp5c.f[1];
+//			sp30 = sp5c.f[2];
+//
+//			sp4c.f[0] = sp34 * sp3c - sp30 * sp40;
+//			sp4c.f[1] = sp30 * sp44 - sp38 * sp3c;
+//			sp4c.f[2] = sp38 * sp40 - sp34 * sp44;
+//
+//			if (sp4c.f[0] * sp4c.f[0] + sp4c.f[1] * sp4c.f[1] + sp4c.f[2] * sp4c.f[2] == 0.0f) {
+//				t5 = false;
+//				break;
+//			}
+//
+//			sp58 = sp4c.f[0] * cur->f[0] + sp4c.f[1] * cur->f[1] + sp4c.f[2] * cur->f[2];
+//			tmp = sp4c.f[0] * arg0->f[0] + sp4c.f[1] * arg0->f[1] + sp4c.f[2] * arg0->f[2];
+//
+//			if (tmp < sp58) {
+//				if (t4 == 2) {
+//					t5 = false;
+//					break;
+//				}
+//
+//				t4 = 1;
+//			} else if (t4 == 1) {
+//				t5 = false;
+//				break;
+//			} else {
+//				t4 = 2;
+//			}
+//
+//			cur++;
+//			next++;
+//		}
+//
+//		if (t5) {
+//			if (f0 < s2->unk0c) {
+//				if (roomnum == g_BgPortals[portalnum].roomnum2) {
+//					return false;
+//				}
+//			} else if (f0 > s2->unk10) {
+//				if (roomnum == g_BgPortals[portalnum].roomnum1) {
+//					return false;
+//				}
+//			}
+//		}
+//	}
+//
+//	return true;
+//}
+
 bool func0f162128(struct coord *arg0, s16 roomnum)
 {
 	if (g_Rooms[roomnum].flags & ROOMFLAG_0010) {
