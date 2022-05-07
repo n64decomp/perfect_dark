@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0f165360(void);
+s32 func0f165360(s32 portalnum, s32 *start, struct portalthing2 *things);
 
 #endif

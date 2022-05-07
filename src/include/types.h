@@ -3645,10 +3645,15 @@ struct roombitfield {
 };
 
 struct screenbox {
-	s16 xmin;
-	s16 ymin;
-	s16 xmax;
-	s16 ymax;
+	union {
+		struct {
+			s16 xmin;
+			s16 ymin;
+			s16 xmax;
+			s16 ymax;
+		};
+		s16 array[2][2];
+	};
 };
 
 struct roomgfxdata18 {
@@ -4560,8 +4565,10 @@ struct portalthing {
 	s16 unk02;
 	u16 unk04;
 	s16 unk06;
-	u32 unk08;
-	u32 unk0c;
+	s16 xmin;
+	s16 ymin;
+	s16 xmax;
+	s16 ymax;
 };
 
 struct var800a4ccc { // related to portals
@@ -6819,6 +6826,11 @@ struct var80069a70 {
 struct var8009dd10 {
 	struct model *model;
 	void *rwdata;
+};
+
+struct portalthing2 {
+	struct coord coord;
+	u32 unk0c;
 };
 
 #endif
