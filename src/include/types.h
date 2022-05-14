@@ -3684,6 +3684,17 @@ struct roomgfxdata {
 	/*0x18*/ struct roomgfxdata18 unk18[1];
 };
 
+struct room44 {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+};
+
 struct room {
 	/*0x00*/ u16 flags;
 	/*0x02*/ s16 loaded240; // 0 when unloaded, 1 when visible, ticks up to 120 when recently visible
@@ -3702,8 +3713,8 @@ struct room {
 	/*0x24*/ f32 bbmax[3];
 	/*0x30*/ struct coord centre;
 	/*0x3c*/ f32 radius; // from volume centre to the corner in 3D
-	/*0x40*/ u32 unk40;
-	/*0x44*/ void *unk44;
+	/*0x40*/ s32 unk40;
+	/*0x44*/ struct room44 *unk44;
 	/*0x48*/ u8 unk48;
 	/*0x49*/ u8 unk49;
 	/*0x4a*/ u8 unk4a;
@@ -6396,7 +6407,6 @@ struct hitthing {
 	s16 unk28;
 	s16 texturenum;
 	s16 unk2c;
-	s16 unk2e;
 };
 
 struct hit {
@@ -6831,6 +6841,11 @@ struct var8009dd10 {
 struct portalthing2 {
 	struct coord coord;
 	u32 unk0c;
+};
+
+struct var800a6538 {
+	s32 unk00;
+	f32 unk04;
 };
 
 #endif

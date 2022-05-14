@@ -222,7 +222,7 @@ extern s16 *g_RoomPortals;
 extern struct var800a4cf0 var800a4cf0;
 extern u32 var800a6470;
 extern u32 var800a647c;
-extern u32 var800a6538;
+extern struct var800a6538 var800a6538[16];
 extern u32 var800a65b8;
 extern struct screenbox var800a65c0;
 extern struct screenbox var800a65c8;

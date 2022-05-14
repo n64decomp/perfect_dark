@@ -690,7 +690,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 		roomsGetActive(roomsptr, 100);
 
 		for (i = 0; rooms[i] != -1; i++) {
-			if (func0f161520(&shotdata.gunpos, &hitpos, rooms[i], &sp664.unk00)) {
+			if (func0f161520(&shotdata.gunpos, &hitpos, rooms[i], &sp664)) {
 				sp664.unk00.x *= 1;
 				sp664.unk00.y *= 1;
 				sp664.unk00.z *= 1;
