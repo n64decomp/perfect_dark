@@ -1448,104 +1448,36 @@ s32 bbike0f0d3940(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel bbike0f0d3c60
-/*  f0d3c60:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f0d3c64:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0d3c68:	afa40070 */ 	sw	$a0,0x70($sp)
-/*  f0d3c6c:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f0d3c70:	0fc34da0 */ 	jal	bbike0f0d3680
-/*  f0d3c74:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0d3c78:	14400031 */ 	bnez	$v0,.L0f0d3d40
-/*  f0d3c7c:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*  f0d3c80:	27ae0040 */ 	addiu	$t6,$sp,0x40
-/*  f0d3c84:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0d3c88:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f0d3c8c:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0d3c90:	0fc34db5 */ 	jal	bbike0f0d36d4
-/*  f0d3c94:	27a7004c */ 	addiu	$a3,$sp,0x4c
-/*  f0d3c98:	1c400002 */ 	bgtz	$v0,.L0f0d3ca4
-/*  f0d3c9c:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*  f0d3ca0:	0441000c */ 	bgez	$v0,.L0f0d3cd4
-.L0f0d3ca4:
-/*  f0d3ca4:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f0d3ca8:	0fc34e10 */ 	jal	bbike0f0d3840
-/*  f0d3cac:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0d3cb0:	1c400023 */ 	bgtz	$v0,.L0f0d3d40
-/*  f0d3cb4:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*  f0d3cb8:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f0d3cbc:	0fc34e50 */ 	jal	bbike0f0d3940
-/*  f0d3cc0:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0d3cc4:	5c40001f */ 	bgtzl	$v0,.L0f0d3d44
-/*  f0d3cc8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0d3ccc:	1000001d */ 	b	.L0f0d3d44
-/*  f0d3cd0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0d3cd4:
-/*  f0d3cd4:	1440001a */ 	bnez	$v0,.L0f0d3d40
-/*  f0d3cd8:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*  f0d3cdc:	27af0024 */ 	addiu	$t7,$sp,0x24
-/*  f0d3ce0:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0d3ce4:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f0d3ce8:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f0d3cec:	0fc34db5 */ 	jal	bbike0f0d36d4
-/*  f0d3cf0:	27a70030 */ 	addiu	$a3,$sp,0x30
-/*  f0d3cf4:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*  f0d3cf8:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f0d3cfc:	0fc34e10 */ 	jal	bbike0f0d3840
-/*  f0d3d00:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f0d3d04:	1c40000e */ 	bgtz	$v0,.L0f0d3d40
-/*  f0d3d08:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*  f0d3d0c:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f0d3d10:	0fc34e10 */ 	jal	bbike0f0d3840
-/*  f0d3d14:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0d3d18:	1c400009 */ 	bgtz	$v0,.L0f0d3d40
-/*  f0d3d1c:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*  f0d3d20:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f0d3d24:	0fc34e50 */ 	jal	bbike0f0d3940
-/*  f0d3d28:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f0d3d2c:	1c400004 */ 	bgtz	$v0,.L0f0d3d40
-/*  f0d3d30:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*  f0d3d34:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f0d3d38:	0fc34e50 */ 	jal	bbike0f0d3940
-/*  f0d3d3c:	27a60058 */ 	addiu	$a2,$sp,0x58
-.L0f0d3d40:
-/*  f0d3d40:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0d3d44:
-/*  f0d3d44:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*  f0d3d48:	03e00008 */ 	jr	$ra
-/*  f0d3d4c:	00000000 */ 	nop
-);
+void bbike0f0d3c60(struct coord *arg0)
+{
+	struct coord sp64;
+	struct coord sp58;
+	struct coord sp4c;
+	struct coord sp40;
+	s32 value;
+	struct coord sp30;
+	struct coord sp24;
 
-// Mismatch because the below copies arg0 into s0 but goal uses sp.
-//void bbike0f0d3c60(struct coord *arg0)
-//{
-//	struct coord sp100;
-//	struct coord sp88;
-//	struct coord sp76;
-//	struct coord sp64;
-//	s32 lVar1;
-//	struct coord sp48;
-//	struct coord sp36;
-//
-//	if (bbike0f0d3680(arg0, &sp100, &sp88) == 0) {
-//		lVar1 = bbike0f0d36d4(arg0, &sp100, &sp88, &sp76, &sp64);
-//
-//		if (lVar1 > 0 || lVar1 < 0) {
-//			if (bbike0f0d3840(arg0, &sp100, &sp88) < 1
-//					&& bbike0f0d3940(arg0, &sp100, &sp88) < 1) {
-//				// empty
-//			}
-//		} else if (lVar1 == 0) {
-//			bbike0f0d36d4(arg0, &sp76, &sp64, &sp48, &sp36);
-//
-//			if (bbike0f0d3840(arg0, &sp76, &sp64) < 1
-//					&& bbike0f0d3840(arg0, &sp100, &sp88) < 1
-//					&& bbike0f0d3940(arg0, &sp76, &sp64) < 1) {
-//				bbike0f0d3940(arg0, &sp100, &sp88);
-//			}
-//		}
-//	}
-//}
+	if (bbike0f0d3680(arg0, &sp64, &sp58) == 0) {
+		value = bbike0f0d36d4(arg0, &sp64, &sp58, &sp4c, &sp40);
+
+		if (value > 0 || value < 0) {
+			if (bbike0f0d3840(arg0, &sp64, &sp58) <= 0
+					&& bbike0f0d3940(arg0, &sp64, &sp58) <= 0) {
+				// empty
+			}
+		} else if (value == 0) {
+			bbike0f0d36d4(arg0, &sp4c, &sp40, &sp30, &sp24);
+
+			if (bbike0f0d3840(arg0, &sp4c, &sp40) <= 0
+					&& bbike0f0d3840(arg0, &sp64, &sp58) <= 0
+					&& bbike0f0d3940(arg0, &sp4c, &sp40) <= 0
+					&& bbike0f0d3940(arg0, &sp64, &sp58) <= 0) {
+				if (&arg0);
+			}
+		}
+	}
+}
 
 void bbikeTick(void)
 {
