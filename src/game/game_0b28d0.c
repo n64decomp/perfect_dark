@@ -104,6 +104,14 @@ void func0f0b2904(void)
 		var800705bc = count5;
 	}
 
+	osSyncPrintf("MOT : Type 1  = %d/%d (%d)");
+	osSyncPrintf("MOT : Type 2  = %d/%d (%d)");
+	osSyncPrintf("MOT : Type 3  = %d/%d (%d)");
+	osSyncPrintf("MOT : Type OI = %d/%d/%d/%d");
+	osSyncPrintf("MOT : Type OA = %d/%d/%d/%d");
+	osSyncPrintf("MOT : g_ObjCount = %d");
+	osSyncPrintf("MOT : g_AnimCount = %d");
+
 	if (IS4MB());
 }
 
@@ -138,6 +146,7 @@ struct model *modelInstantiate(struct modelfiledata *modeldef, bool withanim)
 		}
 
 		if (model == NULL) {
+			osSyncPrintf("Allocating %d bytes for objinst structure\n", ALIGN16(sizeof(struct model)));
 			model = mempAlloc(ALIGN16(sizeof(struct model)), MEMPOOL_STAGE);
 		}
 
@@ -154,6 +163,7 @@ struct model *modelInstantiate(struct modelfiledata *modeldef, bool withanim)
 				if (modeldef->rwdatalen <= 4) {
 					for (i = 0; i < NUMTHINGS1(); i++) {
 						if (var8009dd10[0][i].model == NULL) {
+							osSyncPrintf("MotInst: Using cache entry type 1 %d (0x%08x) - Bytes=%d\n");
 							rwdatas = var8009dd10[0][i].rwdata;
 							var8009dd10[0][i].model = model;
 							done = true;
@@ -165,6 +175,7 @@ struct model *modelInstantiate(struct modelfiledata *modeldef, bool withanim)
 				if (!done && modeldef->rwdatalen <= 52) {
 					for (i = 0; i < NUMTHINGS2(); i++) {
 						if (var8009dd10[1][i].model == NULL) {
+							osSyncPrintf("MotInst: Using cache entry type 2 %d (0x%08x) - Bytes=%d\n");
 							if (IS4MB());
 							rwdatas = var8009dd10[1][i].rwdata;
 							var8009dd10[1][i].model = model;
@@ -177,6 +188,7 @@ struct model *modelInstantiate(struct modelfiledata *modeldef, bool withanim)
 				if (!done && modeldef->rwdatalen <= 256) {
 					for (i = 0; i < NUMTHINGS3(); i++) {
 						if (var8009dd10[2][i].model == NULL && var8009dd10[2][i].rwdata != NULL) {
+							osSyncPrintf("MotInst: Using cache entry type 3 %d (0x%08x) - Bytes=%d\n");
 							if (IS4MB());
 							rwdatas = var8009dd10[2][i].rwdata;
 							var8009dd10[2][i].model = model;
@@ -236,6 +248,9 @@ struct model *modelInstantiate(struct modelfiledata *modeldef, bool withanim)
 		model->unk02 = sp36;
 	}
 
+	osSyncPrintf("***************************************\n");
+	osSyncPrintf("***************************************\n");
+
 	return model;
 }
 
@@ -264,6 +279,8 @@ void modelFree(struct model *model)
 	if (!done) {
 		for (i = 0; i < NUMTHINGS2(); i++) {
 			if (var8009dd10[1][i].model == model) {
+				osSyncPrintf("\nMotInst: Freeing type 2 cache entry %d (0x%08x)\n\n");
+
 				var8009dd10[1][i].model = NULL;
 
 				model->rwdatas = NULL;
@@ -278,13 +295,20 @@ void modelFree(struct model *model)
 	if (!done) {
 		for (i = 0; i < NUMTHINGS3(); i++) {
 			if (var8009dd10[2][i].model == model) {
+				osSyncPrintf("\nMotInst: Freeing type 3 cache entry %d (0x%08x)\n\n");
 				var8009dd10[2][i].model = NULL;
 
 				model->rwdatas = NULL;
 				model->unk02 = -1;
+
+				done = true;
 				break;
 			}
 		}
+	}
+
+	if (!done) {
+		osSyncPrintf("MotInst -> Attempt to free item not in cache\n");
 	}
 
 	if (model->anim) {
