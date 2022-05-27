@@ -11,7 +11,7 @@ bool bgrabTryMoveUpwards(f32 y);
 s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2);
 bool bgrabCalculateNewPositiontWithPush(struct coord *delta, f32 angle, bool arg2);
 bool bgrab0f0cdb04(f32 angle, bool arg2);
-void bgrab0f0cdb68(f32 angle);
+bool bgrab0f0cdb68(f32 angle);
 void bgrab0f0cdef0(void);
 bool bgrab0f0cdf64(struct coord *delta, struct coord *arg1, struct coord *arg2);
 s32 bgrab0f0cdfbc(struct coord *delta, struct coord *arg1, struct coord *arg2);
