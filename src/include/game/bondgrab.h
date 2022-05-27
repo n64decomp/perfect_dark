@@ -6,7 +6,7 @@
 
 void bgrabInit(void);
 void bgrabExit(void);
-void bgrab0f0ccbf0(struct coord *delta, f32 angle);
+void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj);
 bool bgrabTryMoveUpwards(f32 y);
 s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2);
 bool bgrabCalculateNewPositiontWithPush(struct coord *delta, f32 angle, bool arg2);
