@@ -732,9 +732,9 @@ void playerLoadDefaults(void)
 	g_Vars.currentplayer->speedverta = 0;
 	g_Vars.currentplayer->vv_cosverta = 1;
 	g_Vars.currentplayer->vv_sinverta = 0;
-	g_Vars.currentplayer->bondshotspeed[0] = 0;
-	g_Vars.currentplayer->bondshotspeed[1] = 0;
-	g_Vars.currentplayer->bondshotspeed[2] = 0;
+	g_Vars.currentplayer->bondshotspeed.x = 0;
+	g_Vars.currentplayer->bondshotspeed.y = 0;
+	g_Vars.currentplayer->bondshotspeed.z = 0;
 
 	g_Vars.currentplayer->docentreupdown = 0;
 	g_Vars.currentplayer->lastupdown60 = 0;

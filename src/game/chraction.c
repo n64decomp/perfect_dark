@@ -4823,8 +4823,8 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 					boostscale = 1;
 				}
 
-				g_Vars.currentplayer->bondshotspeed[0] += vector->x * boostscale;
-				g_Vars.currentplayer->bondshotspeed[2] += vector->z * boostscale;
+				g_Vars.currentplayer->bondshotspeed.x += vector->x * boostscale;
+				g_Vars.currentplayer->bondshotspeed.z += vector->z * boostscale;
 
 				if (showdamage) {
 					playerDisplayDamage();

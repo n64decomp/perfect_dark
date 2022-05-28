@@ -73,7 +73,7 @@ void bwalkInit(void)
 
 	if (prevmode != MOVEMODE_GRAB && prevmode != MOVEMODE_WALK) {
 		for (i = 0; i != 3; i++) {
-			g_Vars.currentplayer->bondshotspeed[i] = 0;
+			g_Vars.currentplayer->bondshotspeed.f[i] = 0;
 		}
 
 		g_Vars.currentplayer->speedsideways = 0;
