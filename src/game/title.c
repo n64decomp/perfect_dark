@@ -9310,7 +9310,7 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 		gdl = func0f153a34(gdl, x + 2, y, x + 12, y + 20, colour);
 	}
 
-	gdl = bviewRenderRarePresents(gdl);
+	gdl = bviewDrawIntroText(gdl);
 
 	if (g_TitleTimer > TICKS(222)) {
 		f32 alpha = ((g_TitleTimer - TICKS(222.0f)) / TICKS(78.0f));

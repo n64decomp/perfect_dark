@@ -1121,7 +1121,7 @@ Gfx *lvRender(Gfx *gdl)
 				}
 			}
 
-			bviewSetBlur(bluramount);
+			bviewSetMotionBlur(bluramount);
 
 			gSPDisplayList(gdl++, &var800613a0);
 
@@ -1160,7 +1160,7 @@ Gfx *lvRender(Gfx *gdl)
 			}
 
 			if (g_Vars.lockscreen) {
-				gdl = bviewRenderMotionBlur(gdl, 0xffffffff, 255);
+				gdl = bviewDrawMotionBlur(gdl, 0xffffffff, 255);
 				g_Vars.lockscreen--;
 			} else if (var8009dfc0) {
 				gdl = viRenderViewportEdges(gdl);
@@ -1372,7 +1372,7 @@ Gfx *lvRender(Gfx *gdl)
 						case 0x1e5:
 							// Horizon scanner in Air Base intro
 							if (g_CutsceneCurAnimFrame60 > 839 && g_CutsceneCurAnimFrame60 < 1411) {
-								gdl = bviewRenderHorizonScanner(gdl);
+								gdl = bviewDrawHorizonScanner(gdl);
 							}
 							break;
 						case 0x181:
@@ -1394,7 +1394,7 @@ Gfx *lvRender(Gfx *gdl)
 									g_CutsceneStaticActive = false;
 								}
 
-								gdl = bviewRenderFilmLens(gdl, 0xffffffff, 0xffffffff);
+								gdl = bviewDrawFilmInterlace(gdl, 0xffffffff, 0xffffffff);
 
 								if (g_CutsceneStaticTimer < TICKS(15)) {
 									if (g_CutsceneStaticActive == false) {
@@ -1413,7 +1413,7 @@ Gfx *lvRender(Gfx *gdl)
 								}
 
 								if (cutscenestatic) {
-									gdl = bviewRenderStatic(gdl, 0xffffffff, cutscenestatic);
+									gdl = bviewDrawStatic(gdl, 0xffffffff, cutscenestatic);
 								}
 							}
 							break;
@@ -1427,7 +1427,7 @@ Gfx *lvRender(Gfx *gdl)
 					// Slayer rocket shows static when flying out of bounds
 					if (g_Vars.currentplayer->visionmode == VISIONMODE_SLAYERROCKET
 							&& g_Vars.tickmode != TICKMODE_CUTSCENE) {
-						gdl = bviewRenderSlayerRocketLens(gdl, 0xffffffff, 0xffffffff);
+						gdl = bviewDrawSlayerRocketInterlace(gdl, 0xffffffff, 0xffffffff);
 
 						if (g_Vars.currentplayer->badrockettime > 0) {
 							u32 slayerstatic = g_Vars.currentplayer->badrockettime * 255 / TICKS(90);
@@ -1436,13 +1436,13 @@ Gfx *lvRender(Gfx *gdl)
 								slayerstatic = 255;
 							}
 
-							gdl = bviewRenderStatic(gdl, 0x4fffffff, slayerstatic);
+							gdl = bviewDrawStatic(gdl, 0x4fffffff, slayerstatic);
 						}
 					}
 
 #if VERSION >= VERSION_NTSC_1_0
 					if (g_Vars.currentplayer->visionmode == VISIONMODE_SLAYERROCKETSTATIC) {
-						gdl = bviewRenderStatic(gdl, 0x4fffffff, 255);
+						gdl = bviewDrawStatic(gdl, 0x4fffffff, 255);
 						g_Vars.currentplayer->visionmode = VISIONMODE_NORMAL;
 					}
 #endif
@@ -1459,7 +1459,7 @@ Gfx *lvRender(Gfx *gdl)
 #endif
 						}
 
-						gdl = bviewRenderZoomBlur(gdl, 0xffffffff, xraything, 1.05f, 1.05f);
+						gdl = bviewDrawZoomBlur(gdl, 0xffffffff, xraything, 1.05f, 1.05f);
 					}
 
 					// Handle combat boosts
@@ -1471,14 +1471,14 @@ Gfx *lvRender(Gfx *gdl)
 						}
 
 						if (g_Vars.speedpillchange < (PAL ? 13 : 15)) {
-							gdl = bviewRenderZoomBlur(gdl, 0xffffffff,
+							gdl = bviewDrawZoomBlur(gdl, 0xffffffff,
 									g_Vars.speedpillchange * 180 / (PAL ? 13 : 15),
 									(f32)g_Vars.speedpillchange * (PAL ? 0.023076923564076f : 0.02000000141561f) + 1.1f,
 									(f32)g_Vars.speedpillchange * (PAL ? 0.023076923564076f : 0.02000000141561f) + 1.1f);
 							gdl = playerDrawFade(gdl, 0xff, 0xff, 0xff,
 									g_Vars.speedpillchange * (PAL ? 0.0076923076994717f : 0.0066666668280959f));
 						} else {
-							gdl = bviewRenderZoomBlur(gdl, 0xffffffff,
+							gdl = bviewDrawZoomBlur(gdl, 0xffffffff,
 									((PAL ? 26 : 30) - g_Vars.speedpillchange) * 180 / (PAL ? 13 : 15),
 									(f32)((PAL ? 26 : 30) - g_Vars.speedpillchange) * (PAL ? 0.023076923564076f : 0.02000000141561f) + 1.1f,
 									(f32)((PAL ? 26 : 30) - g_Vars.speedpillchange) * (PAL ? 0.023076923564076f : 0.02000000141561f) + 1.1f);
@@ -1508,8 +1508,8 @@ Gfx *lvRender(Gfx *gdl)
 					}
 
 					if (bluramount) {
-						bviewClearBlur();
-						gdl = bviewRenderMotionBlur(gdl, 0xffffffff, bluramount);
+						bviewClearMotionBlur();
+						gdl = bviewDrawMotionBlur(gdl, 0xffffffff, bluramount);
 					}
 
 					// Handle blur effect in cutscenes (Extraction intro?)
@@ -1520,7 +1520,7 @@ Gfx *lvRender(Gfx *gdl)
 #if VERSION < VERSION_PAL_BETA
 							u32 stack;
 #endif
-							gdl = bviewRenderMotionBlur(gdl, 0xffffff00, cutsceneblurfrac * 255);
+							gdl = bviewDrawMotionBlur(gdl, 0xffffff00, cutsceneblurfrac * 255);
 						}
 					}
 
@@ -1538,11 +1538,11 @@ Gfx *lvRender(Gfx *gdl)
 #endif
 
 					if (debugGetMotionBlur() == 1) {
-						gdl = bviewRenderMotionBlur(gdl, 0xffffff00, 128);
+						gdl = bviewDrawMotionBlur(gdl, 0xffffff00, 128);
 					} else if (debugGetMotionBlur() == 2) {
-						gdl = bviewRenderMotionBlur(gdl, 0xffffff00, 192);
+						gdl = bviewDrawMotionBlur(gdl, 0xffffff00, 192);
 					} else if (debugGetMotionBlur() == 3) {
-						gdl = bviewRenderMotionBlur(gdl, 0xffffff00, 230);
+						gdl = bviewDrawMotionBlur(gdl, 0xffffff00, 230);
 					}
 
 					// Render white when teleporting
