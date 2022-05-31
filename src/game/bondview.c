@@ -20,17 +20,18 @@
 #include "types.h"
 #include "gbiex.h"
 
-#if VERSION >= VERSION_NTSC_1_0
-char var800a41c0[990];
-#else
-char var800a41c0[1438];
+char var800a41c0[24];
+u8 g_IrScanlines[2][480];
+
+#if VERSION < VERSION_NTSC_1_0
+u8 var800a8b58nb[0x1c0];
 #endif
 
 s32 var8007f840 = 0;
 u8 var8007f844 = 0;
 u8 var8007f848 = 0;
-u32 g_IrBinocularRadius = PAL ? 102 : 90;
-u32 var8007f850 = 0x00000003;
+s32 g_IrBinocularRadius = PAL ? 102 : 90;
+s32 var8007f850 = 3;
 u32 var8007f854 = 0x00000000;
 u32 var8007f858 = 0xb8000000;
 u32 var8007f85c = 0x00000000;
@@ -38,8 +39,8 @@ u32 var8007f85c = 0x00000000;
 #if VERSION < VERSION_NTSC_1_0
 void func0f13c2d0nb(void)
 {
-	mainOverrideVariable("fsrad", &g_IrBinocularRadius);
-	mainOverrideVariable("fscs", &var8007f850);
+	mainOverrideVariable("fsrad", (u32 *)&g_IrBinocularRadius);
+	mainOverrideVariable("fscs", (u32 *)&var8007f850);
 }
 #endif
 
@@ -19750,6 +19751,8 @@ Gfx *bviewDrawNvLens(Gfx *gdl)
 		return gdl;
 	}
 
+	// @bug: This is overflowing var800a41c0 into g_IrScanlines, but it has
+	// no effect because IR scanlines are not rendered for night vision.
 	strcpy(var800a41c0, "Fullscreen_DrawFaultScope");
 
 	var8009caec = 0xbc;
@@ -19799,12 +19802,6 @@ Gfx *bviewDrawNvBinoculars(Gfx *gdl)
 {
 	return gdl;
 }
-
-const char var7f1b5e6c[] = "Fullscreen_DrawFaultScope";
-
-#if VERSION < VERSION_NTSC_1_0
-const char var7f1b03d8nb[] = "Fault Scope is active\n";
-#endif
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -20537,6 +20534,182 @@ glabel bviewDrawIrLens
 /*  f142314:	27bd00f0 */ 	addiu	$sp,$sp,0xf0
 );
 #endif
+
+const char var7f1b5e6c[] = "Fullscreen_DrawFaultScope";
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1b03d8nb[] = "Fault Scope is active\n";
+#endif
+
+// Mismatch: scanincrement and fadeincrement float math is reordered.
+//Gfx *bviewDrawIrLens(Gfx *gdl)
+//{
+//	s32 i;
+//	s32 fadeincrement; // e8
+//	u8 *fb = viGetBackBuffer();
+//	s32 viewheight = viGetViewHeight();
+//	s32 viewwidth = viGetViewWidth(); // dc
+//	s32 viewtop = viGetViewTop();
+//	s32 viewleft = viGetViewLeft(); // d4
+//	s32 viewright;
+//	s32 viewbottom;
+//	s32 viewcentrex; // c8
+//	s32 scantop;
+//	s32 scanbottom; // ac
+//	u32 red; // a0
+//	s32 outerradius;
+//	s32 a0;
+//	s32 innerradius; // s5
+//	s32 scanincrement;
+//	s32 viewcentrey; // 64
+//	s32 scanrate = 4;
+//	s32 faderate = 2;
+//	f32 viewheightf;
+//	s32 tmp;
+//	s32 stack[3];
+//
+//	viewright = viewleft + viewwidth;
+//	viewcentrex = (viewleft + viewright) / 2;
+//
+//	outerradius = g_IrBinocularRadius;
+//	innerradius = g_IrBinocularRadius / var8007f850;
+//
+//	var8007f840++;
+//
+//	if (var8007f840 >= 2) {
+//		return gdl;
+//	}
+//
+//	// @bug: This is overflowing var800a41c0 into g_IrScanlines, but it has
+//	// no effect because the first couple of scanlines are obscured by the
+//	// binocular and are therefore not rendered.
+//	strcpy(var800a41c0, "Fullscreen_DrawFaultScope");
+//
+//#if VERSION < VERSION_NTSC_1_0
+//	func0f13c2d0nb();
+//#endif
+//
+//	viewbottom = viewtop + viewheight;
+//	viewcentrey = (viewtop + viewbottom) / 2;
+//	scantop = viewcentrey - outerradius;
+//	scanbottom = viewcentrey + outerradius;
+//
+//	if (scantop > viewbottom) {
+//		scantop = viewbottom;
+//	}
+//
+//	if (scanbottom > viewbottom) {
+//		scanbottom = viewbottom;
+//	}
+//
+//	if (scantop < viewtop) {
+//		scantop = viewtop;
+//	}
+//
+//	if (scanbottom < viewtop) {
+//		scanbottom = viewtop;
+//	}
+//
+//	scanincrement = (f32)scanrate * viewheight / 240.0f;
+//	fadeincrement = (f32)faderate * viewheight / 240.0f;
+//
+//	// This code runs on the first frame of IR use (90 != 0),
+//	// and in debug versions developers could change the radius at runtime.
+//	if (outerradius != g_Vars.currentplayer->fslastradius) {
+//		for (i = 0; i < 480; i++) {
+//#if VERSION >= VERSION_NTSC_1_0
+//			g_IrScanlines[g_Vars.currentplayernum][i] = 0xff;
+//#else
+//			g_IrScanlines[0][i] = 0xff;
+//#endif
+//		}
+//
+//		g_Vars.currentplayer->fsscanline = 0;
+//		g_Vars.currentplayer->fslastradius = outerradius;
+//	}
+//
+//	// Increment the scanline
+//	for (i = 0; i < scanincrement; i++) {
+//		if (g_Vars.currentplayer->fsscanline >= scanbottom) {
+//			g_Vars.currentplayer->fsscanline = scantop;
+//		}
+//
+//		g_IrScanlines[g_Vars.currentplayernum][g_Vars.currentplayer->fsscanline] = 0xff - i;
+//
+//		g_Vars.currentplayer->fsscanline++;
+//	}
+//
+//	var8009caec = 0xff;
+//	var8009caef = 0xde;
+//	var8009caf0 = 0xde;
+//
+//	gDPPipeSync(gdl++);
+//
+//	gdl = bviewPrepareStaticRgba16(gdl, 0xffffffff, 255);
+//
+//	innerradius = innerradius * innerradius;
+//
+//	for (i = scantop; i < scanbottom; i++) {
+//#if VERSION >= VERSION_NTSC_1_0
+//		if (i & 1) {
+//			red = g_IrScanlines[g_Vars.currentplayernum][i];
+//		} else {
+//			red = g_IrScanlines[g_Vars.currentplayernum][i] * 2 / 3;
+//		}
+//#else
+//		if (i & 1) {
+//			red = g_IrScanlines[0][i];
+//		} else {
+//			red = g_IrScanlines[0][i] * 2 / 3;
+//		}
+//#endif
+//
+//		red += random() % 8;
+//
+//		if (red > 255) {
+//			red = 255;
+//		}
+//
+//		gDPSetEnvColorViaWord(gdl++, (red << 24) + 0xff);
+//
+//		a0 = viewcentrey - i;
+//
+//		if (a0 * a0 < innerradius) {
+//			// Rendering a line that overlaps the semicircle
+//			// in the middle of the screen
+//			f32 f0 = a0;
+//			s32 semicirclewidth = sqrtf(innerradius - (s32) (f0 * f0)) * (viewwidth / 320.0f);
+//			s32 semicircleright = viewcentrex + semicirclewidth;
+//			s32 rightsidewidth = viewwidth - semicircleright;
+//
+//			// Left and right of semicircle
+//			gdl = bviewCopyPixels(gdl, fb, i, 5, i, 1.0f, viewleft, viewcentrex);
+//			gdl = bviewCopyPixels(gdl, fb, i, 5, i, 1.0f, semicircleright, rightsidewidth);
+//
+//			// The semicircle itself has a static colour
+//			gDPSetEnvColorViaWord(gdl++, 0xee0000ff);
+//			gdl = bviewCopyPixels(gdl, fb, i, 5, i, 1.0f, viewcentrex, semicirclewidth);
+//		} else {
+//			gdl = bviewCopyPixels(gdl, fb, i, 5, i, 1.0f, viewleft, viewwidth);
+//		}
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//		if (g_IrScanlines[g_Vars.currentplayernum][i] > fadeincrement) {
+//			g_IrScanlines[g_Vars.currentplayernum][i] -= fadeincrement;
+//		}
+//#else
+//		if (g_IrScanlines[0][i] > fadeincrement) {
+//			g_IrScanlines[0][i] -= fadeincrement;
+//		}
+//#endif
+//	}
+//
+//	if (g_Menus[g_Vars.currentplayerstats->mpindex].curdialog == NULL) {
+//		gdl = bviewDrawMotionBlur(gdl, 0xff000000, 0x40);
+//	}
+//
+//	return gdl;
+//}
 
 /**
  * Draw a horizontal blur/sretch effect. Unused.

@@ -2899,7 +2899,8 @@ struct player {
 	/*0x1c54*/ u32 devicesinhibit;
 	/*0x1c58*/ f32 grabbedforcez;
 	/*0x1c5c*/ f32 stealhealth;
-	/*0x1c60*/ s32 unk1c60;
+	/*0x1c60*/ s16 fslastradius;
+	/*0x1c62*/ s16 fsscanline;
 	/*0x1c64*/ s32 unk1c64;
 	/*0x1c68*/ u32 unk1c68;
 	/*0x1c6c*/ u32 unk1c6c;
