@@ -5529,20 +5529,20 @@ Gfx *playerRenderHud(Gfx *gdl)
 
 		if (g_Vars.currentplayer->eyespy) {
 			if (g_Vars.currentplayer->eyespy->startuptimer60 < TICKS(50)) {
-				gdl = bviewDrawFisheye(gdl, -1, 255, 0, g_Vars.currentplayer->eyespy->startuptimer60, g_Vars.currentplayer->eyespy->hit);
+				gdl = bviewDrawFisheye(gdl, 0xffffffff, 255, 0, g_Vars.currentplayer->eyespy->startuptimer60, g_Vars.currentplayer->eyespy->hit);
 			} else {
 				s32 time = g_Vars.currentplayer->eyespy->camerashuttertime;
 
 				if (time > 0) {
 					if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
-						gdl = bviewDrawFisheye(gdl, -1, 255, time, TICKS(50), g_Vars.currentplayer->eyespy->hit);
+						gdl = bviewDrawFisheye(gdl, 0xffffffff, 255, time, TICKS(50), g_Vars.currentplayer->eyespy->hit);
 					} else {
-						gdl = bviewDrawFisheye(gdl, -1, 255, 0, TICKS(50), g_Vars.currentplayer->eyespy->hit);
+						gdl = bviewDrawFisheye(gdl, 0xffffffff, 255, 0, TICKS(50), g_Vars.currentplayer->eyespy->hit);
 					}
 
 					g_Vars.currentplayer->eyespy->camerashuttertime -= g_Vars.lvupdate240_60;
 				} else {
-					gdl = bviewDrawFisheye(gdl, -1, 255, 0, TICKS(50), g_Vars.currentplayer->eyespy->hit);
+					gdl = bviewDrawFisheye(gdl, 0xffffffff, 255, 0, TICKS(50), g_Vars.currentplayer->eyespy->hit);
 				}
 			}
 

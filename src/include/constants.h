@@ -828,12 +828,12 @@
 #define EXPLOSIONTYPE_24            24
 #define EXPLOSIONTYPE_HUGE25        25
 
-#define EYESPYHIT_NONE  0
-#define EYESPYHIT_BG    1
-#define EYESPYHIT_CHR   2
-#define EYESPYHIT_DOOR  3
-#define EYESPYHIT_LASER 4
-#define EYESPYHIT_OBJ   5
+#define EYESPYHIT_NONE   0
+#define EYESPYHIT_BG     1
+#define EYESPYHIT_CHR    2
+#define EYESPYHIT_DOOR   3
+#define EYESPYHIT_DAMAGE 4
+#define EYESPYHIT_OBJ    5
 
 #define EYESPYMODE_CAMSPY  0
 #define EYESPYMODE_DRUGSPY 1

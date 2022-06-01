@@ -252,7 +252,7 @@ bool eyespyCalculateNewPositionWithPush(struct coord *vel)
 
 					if (prop);
 
-					g_EyespyHit = EYESPYHIT_LASER;
+					g_EyespyHit = EYESPYHIT_DAMAGE;
 				}
 			}
 
@@ -422,7 +422,7 @@ void eyespyUpdateVertical(void)
 	struct coord origpos;
 	f32 accel;
 	f32 maxfallspeed;
-	u8 sp73 = 0;
+	u8 hit = EYESPYHIT_NONE;
 	f32 newy;
 	struct coord sp60;
 	struct coord sp54;
@@ -527,7 +527,7 @@ void eyespyUpdateVertical(void)
 			g_Vars.currentplayer->eyespy->height = newheight;
 		} else {
 			rebound = true;
-			sp73 = 1;
+			hit = EYESPYHIT_BG;
 		}
 
 		if (rebound) {
@@ -536,7 +536,7 @@ void eyespyUpdateVertical(void)
 	}
 
 	if (g_EyespyHit == EYESPYHIT_NONE) {
-		g_EyespyHit = sp73;
+		g_EyespyHit = hit;
 	}
 
 	chr0f0220ac(chr);
@@ -1068,7 +1068,7 @@ void eyespyProcessInput(bool allowbuttons)
 		case EYESPYHIT_CHR:
 			snd00010718(NULL, 0, 16000, 0x40, SFX_EYESPYHIT, 1, 1, -1, 1);
 			break;
-		case EYESPYHIT_LASER:
+		case EYESPYHIT_DAMAGE:
 			sndStart(var80095200, SFX_PICKUP_LASER, NULL, -1, -1, -1, -1, -1);
 			break;
 		default:

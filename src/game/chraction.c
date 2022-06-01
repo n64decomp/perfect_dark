@@ -3560,7 +3560,7 @@ void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 
 
 			strength *= 4;
 
-			eyespy->hit = 4;
+			eyespy->hit = EYESPYHIT_DAMAGE;
 			eyespy->vel.x += vector->x * strength;
 			eyespy->vel.z += vector->z * strength;
 		}

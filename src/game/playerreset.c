@@ -436,7 +436,7 @@ void playerInitEyespy(void)
 				g_Vars.currentplayer->eyespy->oldground = 0;
 				g_Vars.currentplayer->eyespy->height = 0;
 				g_Vars.currentplayer->eyespy->gravity = 0;
-				g_Vars.currentplayer->eyespy->hit = false;
+				g_Vars.currentplayer->eyespy->hit = EYESPYHIT_NONE;
 				g_Vars.currentplayer->eyespy->opendoor = false;
 				g_Vars.currentplayer->eyespy->mode = EYESPYMODE_CAMSPY;
 				propchr = prop->chr;
