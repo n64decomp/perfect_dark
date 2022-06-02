@@ -1397,7 +1397,7 @@ void playerTickChrBody(void)
 			offset2 += 0x4000;
 			bgunCalculateGunMemCapacity();
 			spe8 = g_Vars.currentplayer->gunmem2 + offset2;
-			func0f172e70(&sp100, spe8, bgunCalculateGunMemCapacity() - offset2);
+			tex0f172e70(&sp100, spe8, bgunCalculateGunMemCapacity() - offset2);
 			bodyfiledata = modeldefLoad(g_HeadsAndBodies[bodynum].filenum, allocation + offset1, offset2 - offset1, &sp100);
 			offset1 = ALIGN64(fileGetLoadedSize(g_HeadsAndBodies[bodynum].filenum) + offset1);
 

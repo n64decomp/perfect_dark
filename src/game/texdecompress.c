@@ -3173,16 +3173,13 @@ void texBlur(u8 *pixels, s32 width, s32 height, s32 method, s32 chansize)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f172e70
-/*  f172e70:	00a67021 */ 	addu	$t6,$a1,$a2
-/*  f172e74:	00a67821 */ 	addu	$t7,$a1,$a2
-/*  f172e78:	ac850000 */ 	sw	$a1,0x0($a0)
-/*  f172e7c:	ac8e0004 */ 	sw	$t6,0x4($a0)
-/*  f172e80:	ac850008 */ 	sw	$a1,0x8($a0)
-/*  f172e84:	03e00008 */ 	jr	$ra
-/*  f172e88:	ac8f000c */ 	sw	$t7,0xc($a0)
-);
+void tex0f172e70(struct texturething *arg0, u8 *arg1, s32 arg2)
+{
+	arg0->unk00 = (struct texloadthing *)arg1;
+	arg0->unk04 = (struct texloadthing *)(arg1 + arg2);
+	arg0->unk08 = (struct texloadthing *)arg1;
+	arg0->unk0c = (struct texloadthing *)((s32)arg1 + arg2);
+}
 
 struct texloadthing *tex0f172e8c(s32 texturenum, struct texturething *arg1)
 {

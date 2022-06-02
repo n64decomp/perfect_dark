@@ -27,7 +27,7 @@ s32 texInflateLookup(s32 width, s32 height, u8 *dst, u8 *lookup, s32 numcolours,
 s32 texInflateLookupFromBuffer(u8 *src, s32 width, s32 height, u8 *dst, u8 *lookup, s32 numcolours, s32 format);
 void texSwapAltRowBytes(u8 *arg0, s32 width, s32 height, s32 format);
 void texBlur(u8 *pixels, s32 width, s32 height, s32 method, s32 chansize);
-void func0f172e70(struct texturething *arg0, void *arg1, s32 arg2);
+void tex0f172e70(struct texturething *arg0, u8 *arg1, s32 arg2);
 struct texloadthing *tex0f172e8c(s32 texturenum, struct texturething *arg1);
 s32 func0f172f44(struct texturething *arg0);
 struct texloadthing *func0f172f54(struct texturething *arg0);
