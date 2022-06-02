@@ -15835,7 +15835,7 @@ glabel var7f1b76c4
 /*  f164efc:	02002025 */ 	or	$a0,$s0,$zero
 .L0f164f00:
 /*  f164f00:	02802825 */ 	or	$a1,$s4,$zero
-/*  f164f04:	0c005f8c */ 	jal	func00017e30
+/*  f164f04:	0c005f8c */ 	jal	portal00017e30
 /*  f164f08:	02a03025 */ 	or	$a2,$s5,$zero
 /*  f164f0c:	5040000f */ 	beqzl	$v0,.L0f164f4c
 /*  f164f10:	8ed80000 */ 	lw	$t8,0x0($s6)
@@ -15889,7 +15889,7 @@ glabel var7f1b76c4
 //	s32 i;
 //
 //	for (i = 0; g_BgPortals[i].verticesoffset; i++) {
-//		if (func00017e30(i, arg0, arg1)) {
+//		if (portal00017e30(i, arg0, arg1) != 0) {
 //			thisthing = var8007fcb4;
 //
 //			if (thisthing < 0) {
