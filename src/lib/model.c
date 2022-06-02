@@ -7104,7 +7104,7 @@ void modelPromoteOffsetsToPointers(struct modelfiledata *filedata, u32 vma, u32 
 
 	PROMOTE(filedata->rootnode);
 	PROMOTE(filedata->parts);
-	PROMOTE(filedata->unk18);
+	PROMOTE(filedata->texconfigs);
 
 	for (i = 0; i < filedata->numparts; i++) {
 		PROMOTE(filedata->parts[i]);

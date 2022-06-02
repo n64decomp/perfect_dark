@@ -696,7 +696,8 @@ struct modelfiledata {
 	s16 nummatrices;
 	f32 unk10;
 	s16 rwdatalen; // in words
-	void *unk18;
+	s16 numtexconfigs;
+	struct textureconfig *texconfigs;
 };
 
 struct model {

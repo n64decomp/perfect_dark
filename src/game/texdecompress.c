@@ -3231,9 +3231,9 @@ s32 func0f172f44(struct texturething *arg0)
 	return (u32)arg0->unk0c - (u32)arg0->unk08;
 }
 
-s32 func0f172f54(s32 *arg0)
+struct texloadthing *func0f172f54(struct texturething *arg0)
 {
-	return arg0[2];
+	return arg0->unk08;
 }
 
 void texLoadFromDisplayList(Gfx *gdl, struct texturething *arg1, s32 arg2)

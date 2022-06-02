@@ -43,7 +43,7 @@ u32 tex0f175308(void);
 u32 tex0f175490(void);
 u32 tex0f1755dc(void);
 u32 tex0f17563c(void);
-s32 tex0f1756c0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+s32 tex0f1756c0(s32 arg0, s32 arg1, s32 arg2, struct texturething *arg3, struct gfxvtx *arg4);
 void tex0f175ef4(s32 arg0, s32 arg1, s32 arg2);
 
 #endif
