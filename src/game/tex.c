@@ -2147,28 +2147,15 @@ glabel var7f1b7c80
 /*  f175ef0:	27bd0138 */ 	addiu	$sp,$sp,0x138
 );
 
-GLOBAL_ASM(
-glabel tex0f175ef4
-/*  f175ef4:	000670c3 */ 	sra	$t6,$a2,0x3
-/*  f175ef8:	25c2ffff */ 	addiu	$v0,$t6,-1
-/*  f175efc:	01c03025 */ 	or	$a2,$t6,$zero
-/*  f175f00:	000218c0 */ 	sll	$v1,$v0,0x3
-/*  f175f04:	00642021 */ 	addu	$a0,$v1,$a0
-/*  f175f08:	00652821 */ 	addu	$a1,$v1,$a1
-/*  f175f0c:	01c03825 */ 	or	$a3,$t6,$zero
-/*  f175f10:	10c0000a */ 	beqz	$a2,.L0f175f3c
-/*  f175f14:	00403025 */ 	or	$a2,$v0,$zero
-.L0f175f18:
-/*  f175f18:	8c980000 */ 	lw	$t8,0x0($a0)
-/*  f175f1c:	8c990004 */ 	lw	$t9,0x4($a0)
-/*  f175f20:	00c03825 */ 	or	$a3,$a2,$zero
-/*  f175f24:	24a5fff8 */ 	addiu	$a1,$a1,-8
-/*  f175f28:	2484fff8 */ 	addiu	$a0,$a0,-8
-/*  f175f2c:	acb80008 */ 	sw	$t8,0x8($a1)
-/*  f175f30:	acb9000c */ 	sw	$t9,0xc($a1)
-/*  f175f34:	14c0fff8 */ 	bnez	$a2,.L0f175f18
-/*  f175f38:	24c6ffff */ 	addiu	$a2,$a2,-1
-.L0f175f3c:
-/*  f175f3c:	03e00008 */ 	jr	$ra
-/*  f175f40:	00000000 */ 	nop
-);
+void tex0f175ef4(Gfx *arg0, Gfx *arg1, s32 arg2)
+{
+	arg2 = (arg2 >> 3);
+	arg0 = arg0 + (arg2 - 1);
+	arg1 = arg1 + (arg2 - 1);
+
+	while (arg2--) {
+		arg1->force_structure_alignment = arg0->force_structure_alignment;
+		arg1--;
+		arg0--;
+	}
+}

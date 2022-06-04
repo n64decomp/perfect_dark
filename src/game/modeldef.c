@@ -130,7 +130,7 @@ void modeldef0f1a7560(struct modelfiledata *modeldef, u16 filenum, u32 arg2, u32
 		s32 v1 = allocsize - (loadedsize - (s32)(((u32)modeldef + (gdl & 0xffffff)) - (u32)modeldef));
 		sp84 = (s32)v1 + (s32)((s32)modeldef - ((u32)modeldef + (gdl & 0xffffff)));
 
-		tex0f175ef4((u32)modeldef + (gdl & 0xffffff), v1 + (u32)modeldef, loadedsize - (s32)(((u32)modeldef + (gdl & 0xffffff)) - (u32)modeldef));
+		tex0f175ef4((Gfx *)((u32)modeldef + (gdl & 0xffffff)), (Gfx *)(v1 + (u32)modeldef), loadedsize - (s32)(((u32)modeldef + (gdl & 0xffffff)) - (u32)modeldef));
 		texLoadFromConfigs(modeldef->texconfigs, modeldef->numtexconfigs, arg4, arg3 - arg2);
 
 		while (node) {
