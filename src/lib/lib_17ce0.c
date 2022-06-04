@@ -11,69 +11,28 @@ u8 var8005ef20 = 254;
 
 u8 var8009a4e0[456][2];
 
-GLOBAL_ASM(
-glabel func00017ce0
-/*    17ce0:	3c03800a */ 	lui	$v1,%hi(g_BgPortals)
-/*    17ce4:	8c634cc8 */ 	lw	$v1,%lo(g_BgPortals)($v1)
-/*    17ce8:	000470c0 */ 	sll	$t6,$a0,0x3
-/*    17cec:	3c013f80 */ 	lui	$at,0x3f80
-/*    17cf0:	006e7821 */ 	addu	$t7,$v1,$t6
-/*    17cf4:	95f80000 */ 	lhu	$t8,0x0($t7)
-/*    17cf8:	44815000 */ 	mtc1	$at,$f10
-/*    17cfc:	3c014f80 */ 	lui	$at,0x4f80
-/*    17d00:	03031021 */ 	addu	$v0,$t8,$v1
-/*    17d04:	c4440004 */ 	lwc1	$f4,0x4($v0)
-/*    17d08:	2443000c */ 	addiu	$v1,$v0,0xc
-/*    17d0c:	24070001 */ 	addiu	$a3,$zero,0x1
-/*    17d10:	e4a40000 */ 	swc1	$f4,0x0($a1)
-/*    17d14:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*    17d18:	e4a60004 */ 	swc1	$f6,0x4($a1)
-/*    17d1c:	c448000c */ 	lwc1	$f8,0xc($v0)
-/*    17d20:	e4a80008 */ 	swc1	$f8,0x8($a1)
-/*    17d24:	90460000 */ 	lbu	$a2,0x0($v0)
-/*    17d28:	44868000 */ 	mtc1	$a2,$f16
-/*    17d2c:	04c10004 */ 	bgez	$a2,.L00017d40
-/*    17d30:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*    17d34:	44812000 */ 	mtc1	$at,$f4
-/*    17d38:	00000000 */ 	nop
-/*    17d3c:	46049480 */ 	add.s	$f18,$f18,$f4
-.L00017d40:
-/*    17d40:	28c10002 */ 	slti	$at,$a2,0x2
-/*    17d44:	14200013 */ 	bnez	$at,.L00017d94
-/*    17d48:	46125003 */ 	div.s	$f0,$f10,$f18
-/*    17d4c:	c4a60000 */ 	lwc1	$f6,0x0($a1)
-.L00017d50:
-/*    17d50:	c4680004 */ 	lwc1	$f8,0x4($v1)
-/*    17d54:	c4a40004 */ 	lwc1	$f4,0x4($a1)
-/*    17d58:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*    17d5c:	46083400 */ 	add.s	$f16,$f6,$f8
-/*    17d60:	c4a60008 */ 	lwc1	$f6,0x8($a1)
-/*    17d64:	2463000c */ 	addiu	$v1,$v1,12
-/*    17d68:	e4b00000 */ 	swc1	$f16,0x0($a1)
-/*    17d6c:	c46afffc */ 	lwc1	$f10,-0x4($v1)
-/*    17d70:	460a2480 */ 	add.s	$f18,$f4,$f10
-/*    17d74:	e4b20004 */ 	swc1	$f18,0x4($a1)
-/*    17d78:	c4680000 */ 	lwc1	$f8,0x0($v1)
-/*    17d7c:	46083400 */ 	add.s	$f16,$f6,$f8
-/*    17d80:	e4b00008 */ 	swc1	$f16,0x8($a1)
-/*    17d84:	90590000 */ 	lbu	$t9,0x0($v0)
-/*    17d88:	00f9082a */ 	slt	$at,$a3,$t9
-/*    17d8c:	5420fff0 */ 	bnezl	$at,.L00017d50
-/*    17d90:	c4a60000 */ 	lwc1	$f6,0x0($a1)
-.L00017d94:
-/*    17d94:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*    17d98:	c4b20004 */ 	lwc1	$f18,0x4($a1)
-/*    17d9c:	c4a80008 */ 	lwc1	$f8,0x8($a1)
-/*    17da0:	46002282 */ 	mul.s	$f10,$f4,$f0
-/*    17da4:	00000000 */ 	nop
-/*    17da8:	46009182 */ 	mul.s	$f6,$f18,$f0
-/*    17dac:	00000000 */ 	nop
-/*    17db0:	46004402 */ 	mul.s	$f16,$f8,$f0
-/*    17db4:	e4aa0000 */ 	swc1	$f10,0x0($a1)
-/*    17db8:	e4a60004 */ 	swc1	$f6,0x4($a1)
-/*    17dbc:	03e00008 */ 	jr	$ra
-/*    17dc0:	e4b00008 */ 	swc1	$f16,0x8($a1)
-);
+void portalGetAvgVertexPos(s32 portalnum, struct coord *avg)
+{
+	struct portalvertices *pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
+	f32 f0;
+	s32 i;
+
+	avg->x = pvertices->vertices[0].x;
+	avg->y = pvertices->vertices[0].y;
+	avg->z = pvertices->vertices[0].z;
+
+	f0 = 1.0f / pvertices->count;
+
+	for (i = 1; i < pvertices->count; i++) {
+		avg->x += pvertices->vertices[i].x;
+		avg->y += pvertices->vertices[i].y;
+		avg->z += pvertices->vertices[i].z;
+	}
+
+	avg->x *= f0;
+	avg->y *= f0;
+	avg->z *= f0;
+}
 
 #if VERSION < VERSION_NTSC_1_0
 bool portal00018e34nb(s32 portalnum)
