@@ -105,39 +105,28 @@ glabel func00018e34nb
 );
 #endif
 
-GLOBAL_ASM(
-glabel func00017dc4
-/*    17dc4:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    17dc8:	848f0000 */ 	lh	$t7,0x0($a0)
-/*    17dcc:	00053400 */ 	sll	$a2,$a1,0x10
-/*    17dd0:	00067403 */ 	sra	$t6,$a2,0x10
-/*    17dd4:	2407ffff */ 	addiu	$a3,$zero,-1
-/*    17dd8:	01c03025 */ 	or	$a2,$t6,$zero
-/*    17ddc:	10ef000c */ 	beq	$a3,$t7,.L00017e10
-/*    17de0:	00001025 */ 	or	$v0,$zero,$zero
-/*    17de4:	0000c040 */ 	sll	$t8,$zero,0x1
-/*    17de8:	00981821 */ 	addu	$v1,$a0,$t8
-/*    17dec:	84650000 */ 	lh	$a1,0x0($v1)
-.L00017df0:
-/*    17df0:	10c5000d */ 	beq	$a2,$a1,.L00017e28
-/*    17df4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    17df8:	28410010 */ 	slti	$at,$v0,0x10
-/*    17dfc:	10200004 */ 	beqz	$at,.L00017e10
-/*    17e00:	24630002 */ 	addiu	$v1,$v1,0x2
-/*    17e04:	84650000 */ 	lh	$a1,0x0($v1)
-/*    17e08:	14e5fff9 */ 	bne	$a3,$a1,.L00017df0
-/*    17e0c:	00000000 */ 	nop
-.L00017e10:
-/*    17e10:	2841000f */ 	slti	$at,$v0,0xf
-/*    17e14:	10200004 */ 	beqz	$at,.L00017e28
-/*    17e18:	0002c840 */ 	sll	$t9,$v0,0x1
-/*    17e1c:	00991821 */ 	addu	$v1,$a0,$t9
-/*    17e20:	a4660000 */ 	sh	$a2,0x0($v1)
-/*    17e24:	a4670002 */ 	sh	$a3,0x2($v1)
-.L00017e28:
-/*    17e28:	03e00008 */ 	jr	$ra
-/*    17e2c:	00000000 */ 	nop
-);
+/**
+ * Add roomnum to the rooms list, provided it's not already there and there's
+ * space available at the end of the list.
+ *
+ * The list is assumed to have 16 slots, with the last being reserved for the
+ * -1 terminator.
+ */
+void portal00017dc4(s16 *rooms, s16 roomnum)
+{
+	s32 i;
+
+	for (i = 0; i < 16 && rooms[i] != -1; i++) {
+		if (rooms[i] == roomnum) {
+			return;
+		}
+	}
+
+	if (i < 15) {
+		rooms[i] = roomnum;
+		rooms[i + 1] = -1;
+	}
+}
 
 s32 portal00017e30(s32 portalnum, struct coord *arg1, struct coord *arg2)
 {
@@ -269,16 +258,16 @@ void portal00018148(struct coord *pos1, struct coord *pos2, s16 *rooms1, s16 *ro
 				if (s1[1] != 0) {
 					if (s1[1] == 1) {
 						if (roomnum == g_BgPortals[portalnum].roomnum1) {
-							func00017dc4(rooms7c, g_BgPortals[portalnum].roomnum2);
-							func00017dc4(rooms5c, g_BgPortals[portalnum].roomnum2);
+							portal00017dc4(rooms7c, g_BgPortals[portalnum].roomnum2);
+							portal00017dc4(rooms5c, g_BgPortals[portalnum].roomnum2);
 							s1[1] = 0;
 						}
 					}
 
 					if (s1[1] == 2) {
 						if (roomnum == g_BgPortals[portalnum].roomnum2) {
-							func00017dc4(rooms7c, g_BgPortals[portalnum].roomnum1);
-							func00017dc4(rooms5c, g_BgPortals[portalnum].roomnum1);
+							portal00017dc4(rooms7c, g_BgPortals[portalnum].roomnum1);
+							portal00017dc4(rooms5c, g_BgPortals[portalnum].roomnum1);
 							s1[1] = 0;
 						}
 					}
