@@ -7621,7 +7621,7 @@ bool cd0002d6ac(struct coord *pos, s16 *rooms, struct coord *targetpos, u32 type
 	s16 sp44[21];
 	s16 sp34[8];
 
-	func00018148(pos, targetpos, rooms, sp34, sp44, 20);
+	portal00018148(pos, targetpos, rooms, sp34, sp44, 20);
 
 	return cd0002d15c(pos, targetpos, sp44, types, 4, 0, arg4, arg5, arg6);
 }
@@ -7648,7 +7648,7 @@ bool cd0002d7c0(struct coord *pos, s16 *rooms, struct coord *arg2, u32 arg3, u32
 	s16 sp44[21];
 	s16 sp34[8];
 
-	func00018148(pos, arg2, rooms, sp34, sp44, 20);
+	portal00018148(pos, arg2, rooms, sp34, sp44, 20);
 
 	return cd0002d3b0(pos, arg2, sp44, arg3, 4, 0, arg4, ymax, ymin);
 }
@@ -7657,7 +7657,7 @@ s32 cd0002d840(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, u32
 {
 	s16 rooms[21];
 
-	func00018148(arg0, arg2, arg1, arg3, rooms, 20);
+	portal00018148(arg0, arg2, arg1, arg3, rooms, 20);
 
 	return cd0002d15c(arg0, arg2, rooms, types, 4, 0, arg5, ymax, ymin);
 }
@@ -7710,7 +7710,7 @@ s32 cd0002da50(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, u32
 {
 	s16 rooms[21];
 
-	func00018148(arg0, arg2, arg1, arg3, rooms, 20);
+	portal00018148(arg0, arg2, arg1, arg3, rooms, 20);
 
 	return cd0002d3b0(arg0, arg2, rooms, types, 4, 0, arg5, ymax, ymin);
 }
@@ -7721,7 +7721,7 @@ s32 cd0002dac8(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, f32
 	struct coord sp40;
 	s32 result;
 
-	func00018148(arg0, arg2, arg1, arg3, rooms, 20);
+	portal00018148(arg0, arg2, arg1, arg3, rooms, 20);
 
 	result = cd0002d3b0(arg0, arg2, rooms, types, 4, 0, arg6, ymax, ymin);
 
@@ -7741,7 +7741,7 @@ bool cd0002db98(struct coord *viewpos, s16 *rooms, struct coord *targetpos, u32 
 	s16 sp44[21];
 	s16 sp34[8];
 
-	func00018148(viewpos, targetpos, rooms, sp34, sp44, 20);
+	portal00018148(viewpos, targetpos, rooms, sp34, sp44, 20);
 
 	return cd0002d15c(viewpos, targetpos, sp44, types, arg4, 1, 1, 0, 0);
 }
@@ -7794,7 +7794,7 @@ s32 cdTestAToB4(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types, u1
 	s16 sp44[21];
 	s16 sp34[8];
 
-	func00018148(pos, pos2, rooms, sp34, sp44, 20);
+	portal00018148(pos, pos2, rooms, sp34, sp44, 20);
 
 	return cd0002d3b0(pos, pos2, sp44, types, arg4, 1, 1, 0, 0);
 }
@@ -7808,7 +7808,7 @@ s32 cd0002de34(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, u32
 {
 	s16 rooms[21];
 
-	func00018148(arg0, arg2, arg1, arg3, rooms, 20);
+	portal00018148(arg0, arg2, arg1, arg3, rooms, 20);
 
 	return cd0002d15c(arg0, arg2, rooms, types, arg5, 1, 1, 0, 0);
 }

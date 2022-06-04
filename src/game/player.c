@@ -5722,7 +5722,7 @@ void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, str
 	s32 room;
 
 	if (rooms2 != NULL && *rooms2 != -1) {
-		func00018148(pos2, pos, rooms2, sp54, NULL, 0);
+		portal00018148(pos2, pos, rooms2, sp54, NULL, 0);
 
 		// Remove values from sp54 (room numbers) if that room doesn't contain
 		// the coord, and shuffle the array back when removing values.

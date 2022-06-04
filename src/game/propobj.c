@@ -6594,7 +6594,7 @@ bool func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2,
 	if ((prop->pos.x != pos->x || prop->pos.y != pos->y || prop->pos.z != pos->z)
 			&& (obj->hidden & OBJHFLAG_AIRBORNE)
 			&& (obj->projectile->flags & PROJECTILEFLAG_00000004)) {
-		func00018148(&prop->pos, &sp1c4, prop->rooms, &spb8, &spcc, 20);
+		portal00018148(&prop->pos, &sp1c4, prop->rooms, &spb8, &spcc, 20);
 
 		ptr = spcc;
 
@@ -39920,7 +39920,7 @@ glabel var7f1aa5a8
 /*  f07a89c:	13200024 */ 	beqz	$t9,.L0f07a930
 /*  f07a8a0:	27a7012c */ 	addiu	$a3,$sp,0x12c
 /*  f07a8a4:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f07a8a8:	0c006052 */ 	jal	func00018148
+/*  f07a8a8:	0c006052 */ 	jal	portal00018148
 /*  f07a8ac:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f07a8b0:	0fc4f92a */ 	jal	chrIsUsingPaintball
 /*  f07a8b4:	8fa40110 */ 	lw	$a0,0x110($sp)
@@ -40882,7 +40882,7 @@ glabel var7f1aa5a8
 /*  f07aa3c:	13200024 */ 	beqz	$t9,.PB0f07aad0
 /*  f07aa40:	27a7012c */ 	addiu	$a3,$sp,0x12c
 /*  f07aa44:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f07aa48:	0c0062e6 */ 	jal	func00018148
+/*  f07aa48:	0c0062e6 */ 	jal	portal00018148
 /*  f07aa4c:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f07aa50:	0fc4fe8e */ 	jal	chrIsUsingPaintball
 /*  f07aa54:	8fa40110 */ 	lw	$a0,0x110($sp)
@@ -41844,7 +41844,7 @@ glabel var7f1aa5a8
 /*  f07a89c:	13200024 */ 	beqz	$t9,.L0f07a930
 /*  f07a8a0:	27a7012c */ 	addiu	$a3,$sp,0x12c
 /*  f07a8a4:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f07a8a8:	0c006052 */ 	jal	func00018148
+/*  f07a8a8:	0c006052 */ 	jal	portal00018148
 /*  f07a8ac:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f07a8b0:	0fc4f92a */ 	jal	chrIsUsingPaintball
 /*  f07a8b4:	8fa40110 */ 	lw	$a0,0x110($sp)
@@ -42806,7 +42806,7 @@ glabel var7f1aa5a8
 /*  f07a89c:	13200024 */ 	beqz	$t9,.L0f07a930
 /*  f07a8a0:	27a7012c */ 	addiu	$a3,$sp,0x12c
 /*  f07a8a4:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f07a8a8:	0c006052 */ 	jal	func00018148
+/*  f07a8a8:	0c006052 */ 	jal	portal00018148
 /*  f07a8ac:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f07a8b0:	0fc4f92a */ 	jal	chrIsUsingPaintball
 /*  f07a8b4:	8fa40110 */ 	lw	$a0,0x110($sp)

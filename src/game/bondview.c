@@ -761,11 +761,13 @@ Gfx *bviewDrawFisheye(Gfx *gdl, u32 colour, u32 alpha, s32 shuttertime60, s8 sta
 	f32 fullradius;
 	s32 one = 1;
 	s32 spec;
-	f32 tmp;
+	u8 alpha2;
 
 #if VERSION >= VERSION_PAL_FINAL && PAL
 	s32 vpadding;
 #endif
+
+	f32 tmp;
 
 #if VERSION >= VERSION_PAL_FINAL
 	viewtop = viGetViewTop();
@@ -862,12 +864,11 @@ Gfx *bviewDrawFisheye(Gfx *gdl, u32 colour, u32 alpha, s32 shuttertime60, s8 sta
 		}
 	} else {
 		f32 f22 = 1.0f;
-		u8 alpha;
 
 		for (i = viewtop; i < viewtop + viewheight; i++) {
 			if (hit == EYESPYHIT_DAMAGE) {
-				alpha = (random() % 120) + 120;
-				colour = 0xff333300 | (alpha & 0xff);
+				alpha2 = (random() % 120) + 120;
+				colour = 0xff333300 | (alpha2 & 0xff);
 				f22 = ((random() % 32) + 220.0f) * (1.0f / 256.0f);
 
 				gDPSetEnvColorViaWord(gdl++, colour);

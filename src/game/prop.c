@@ -677,8 +677,8 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 		hitpos.z = shotdata.gunpos.z + shotdata.dir.z * 65536;
 	}
 
-	func00018148(&playerprop->pos, &shotdata.gunpos, playerprop->rooms, spc8, 0, 0);
-	func00018148(&shotdata.gunpos, &hitpos, spc8, spb8, rooms, 30);
+	portal00018148(&playerprop->pos, &shotdata.gunpos, playerprop->rooms, spc8, 0, 0);
+	portal00018148(&shotdata.gunpos, &hitpos, spc8, spb8, rooms, 30);
 
 	if (shotdata.gset.weaponnum != WEAPON_FARSIGHT || g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
 		roomsptr = rooms;
@@ -6986,7 +6986,7 @@ void func0f065d1c(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newr
 	s32 index;
 	s32 i;
 
-	func00018148(pos, newpos, rooms, stackrooms, morerooms, arg5);
+	portal00018148(pos, newpos, rooms, stackrooms, morerooms, arg5);
 
 	index = 0;
 
