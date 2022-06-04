@@ -76,17 +76,10 @@ glabel func00017ce0
 );
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00018e34nb
-/*    18e34:	3c0e800b */ 	lui	$t6,0x800b
-/*    18e38:	8dce9448 */ 	lw	$t6,-0x6bb8($t6)
-/*    18e3c:	000478c0 */ 	sll	$t7,$a0,0x3
-/*    18e40:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*    18e44:	93020006 */ 	lbu	$v0,0x6($t8)
-/*    18e48:	30590002 */ 	andi	$t9,$v0,0x2
-/*    18e4c:	03e00008 */ 	jr	$ra
-/*    18e50:	03201025 */ 	or	$v0,$t9,$zero
-);
+bool portal00018e34nb(s32 portalnum)
+{
+	return g_BgPortals[portalnum].flags & PORTALFLAG_02;
+}
 
 void portal00018e54nb(s32 portalnum)
 {
