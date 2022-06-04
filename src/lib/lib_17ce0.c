@@ -86,17 +86,14 @@ glabel func00018e34nb
 /*    18e48:	30590002 */ 	andi	$t9,$v0,0x2
 /*    18e4c:	03e00008 */ 	jr	$ra
 /*    18e50:	03201025 */ 	or	$v0,$t9,$zero
-/*    18e54:	3c0e800b */ 	lui	$t6,0x800b
-/*    18e58:	8dce9448 */ 	lw	$t6,-0x6bb8($t6)
-/*    18e5c:	000478c0 */ 	sll	$t7,$a0,0x3
-/*    18e60:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*    18e64:	90580006 */ 	lbu	$t8,0x6($v0)
-/*    18e68:	37190002 */ 	ori	$t9,$t8,0x2
-/*    18e6c:	03e00008 */ 	jr	$ra
-/*    18e70:	a0590006 */ 	sb	$t9,0x6($v0)
 );
 
-void portal00018e74(s32 portalnum)
+void portal00018e54nb(s32 portalnum)
+{
+	g_BgPortals[portalnum].flags |= PORTALFLAG_02;
+}
+
+void portal00018e74nb(s32 portalnum)
 {
 	g_BgPortals[portalnum].flags &= (~PORTALFLAG_02 & 0xff);
 }
