@@ -5093,7 +5093,10 @@ struct texture {
 	u32 soundsurfacetype : 4;
 	u32 surfacetype : 4;
 	u32 dataoffset : 24;
-	u32 unk04;
+	u32 unk04_00 : 4;
+	u32 unk04_04 : 4;
+	u32 unk04_08 : 4;
+	u32 unk04_0c : 4;
 };
 
 struct var800aabb4 {
