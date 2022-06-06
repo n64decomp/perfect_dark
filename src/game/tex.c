@@ -720,8 +720,7 @@ Gfx *tex0f1747a4(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 ar
 	}
 
 	for (tile = arg5; tile < maxlod + arg5 && tile < 6; tile++) {
-		s32 tmp;
-		s32 stack;
+		s32 stack[2];
 		s32 lod = tile - arg5;
 		u32 masks = tex0f173f18(texGetWidthAtLod(arg1, lod));
 		u32 maskt = tex0f173f18(texGetHeightAtLod(arg1, lod));
@@ -743,8 +742,8 @@ Gfx *tex0f1747a4(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 ar
 					tex0f173f48(arg2), masks, tile - arg5);
 		}
 
-		uls = tmp = arg4 == 2 && sp7c == 0 ? 2 : 0;
-		ult = tmp = arg4 == 2 && sp7c == 0 ? 2 : 0;
+		uls = uls = arg4 == 2 && sp7c == 0 ? 2 : 0;
+		ult = ult = arg4 == 2 && sp7c == 0 ? 2 : 0;
 
 		lrs = ((texGetWidthAtLod(arg1, lod) - 1) << 2) + (arg4 == 2 && sp7c == 0 ? 2 : 0);
 		lrt = ((texGetHeightAtLod(arg1, lod) - 1) << 2) + (arg4 == 2 && sp7c == 0 ? 2 : 0);
@@ -1024,193 +1023,43 @@ glabel tex0f174b54
 /*  f174f2c:	27bd0098 */ 	addiu	$sp,$sp,0x98
 );
 
-GLOBAL_ASM(
-glabel tex0f174f30
-/*  f174f30:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f174f34:	afb10038 */ 	sw	$s1,0x38($sp)
-/*  f174f38:	00808825 */ 	or	$s1,$a0,$zero
-/*  f174f3c:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f174f40:	afb00034 */ 	sw	$s0,0x34($sp)
-/*  f174f44:	afa60078 */ 	sw	$a2,0x78($sp)
-/*  f174f48:	afa7007c */ 	sw	$a3,0x7c($sp)
-/*  f174f4c:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f174f50:	0fc5cfc6 */ 	jal	tex0f173f18
-/*  f174f54:	90a40008 */ 	lbu	$a0,0x8($a1)
-/*  f174f58:	afa2006c */ 	sw	$v0,0x6c($sp)
-/*  f174f5c:	0fc5cfc6 */ 	jal	tex0f173f18
-/*  f174f60:	92040009 */ 	lbu	$a0,0x9($s0)
-/*  f174f64:	afa20068 */ 	sw	$v0,0x68($sp)
-/*  f174f68:	02002025 */ 	or	$a0,$s0,$zero
-/*  f174f6c:	0fc5cf58 */ 	jal	texGetLineSizeInBytes
-/*  f174f70:	00002825 */ 	or	$a1,$zero,$zero
-/*  f174f74:	afa20064 */ 	sw	$v0,0x64($sp)
-/*  f174f78:	8e03000c */ 	lw	$v1,0xc($s0)
-/*  f174f7c:	00037080 */ 	sll	$t6,$v1,0x2
-/*  f174f80:	00032782 */ 	srl	$a0,$v1,0x1e
-/*  f174f84:	000e7fc2 */ 	srl	$t7,$t6,0x1f
-/*  f174f88:	0004c380 */ 	sll	$t8,$a0,0xe
-/*  f174f8c:	afaf0050 */ 	sw	$t7,0x50($sp)
-/*  f174f90:	0fc5ce91 */ 	jal	texSetLutMode
-/*  f174f94:	03002025 */ 	or	$a0,$t8,$zero
-/*  f174f98:	10400009 */ 	beqz	$v0,.L0f174fc0
-/*  f174f9c:	3c19ba00 */ 	lui	$t9,0xba00
-/*  f174fa0:	02201025 */ 	or	$v0,$s1,$zero
-/*  f174fa4:	37390e02 */ 	ori	$t9,$t9,0xe02
-/*  f174fa8:	ac590000 */ 	sw	$t9,0x0($v0)
-/*  f174fac:	8e09000c */ 	lw	$t1,0xc($s0)
-/*  f174fb0:	26310008 */ 	addiu	$s1,$s1,0x8
-/*  f174fb4:	00095782 */ 	srl	$t2,$t1,0x1e
-/*  f174fb8:	000a5b80 */ 	sll	$t3,$t2,0xe
-/*  f174fbc:	ac4b0004 */ 	sw	$t3,0x4($v0)
-.L0f174fc0:
-/*  f174fc0:	8e020008 */ 	lw	$v0,0x8($s0)
-/*  f174fc4:	8fad0078 */ 	lw	$t5,0x78($sp)
-/*  f174fc8:	8fae007c */ 	lw	$t6,0x7c($sp)
-/*  f174fcc:	8faf006c */ 	lw	$t7,0x6c($sp)
-/*  f174fd0:	8fb80068 */ 	lw	$t8,0x68($sp)
-/*  f174fd4:	00022ec0 */ 	sll	$a1,$v0,0x1b
-/*  f174fd8:	00056742 */ 	srl	$t4,$a1,0x1d
-/*  f174fdc:	01802825 */ 	or	$a1,$t4,$zero
-/*  f174fe0:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f174fe4:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f174fe8:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f174fec:	8fa40084 */ 	lw	$a0,0x84($sp)
-/*  f174ff0:	8fa70064 */ 	lw	$a3,0x64($sp)
-/*  f174ff4:	30460003 */ 	andi	$a2,$v0,0x3
-/*  f174ff8:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f174ffc:	afae0018 */ 	sw	$t6,0x18($sp)
-/*  f175000:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*  f175004:	0fc5ce9c */ 	jal	tex0f173a70
-/*  f175008:	afb80020 */ 	sw	$t8,0x20($sp)
-/*  f17500c:	1040002b */ 	beqz	$v0,.L0f1750bc
-/*  f175010:	02201825 */ 	or	$v1,$s1,$zero
-/*  f175014:	8e0d0008 */ 	lw	$t5,0x8($s0)
-/*  f175018:	3c01f500 */ 	lui	$at,0xf500
-/*  f17501c:	26310008 */ 	addiu	$s1,$s1,0x8
-/*  f175020:	000dcec0 */ 	sll	$t9,$t5,0x1b
-/*  f175024:	00194f42 */ 	srl	$t1,$t9,0x1d
-/*  f175028:	8fb90064 */ 	lw	$t9,0x64($sp)
-/*  f17502c:	312a0007 */ 	andi	$t2,$t1,0x7
-/*  f175030:	000a5d40 */ 	sll	$t3,$t2,0x15
-/*  f175034:	31ae0003 */ 	andi	$t6,$t5,0x3
-/*  f175038:	000e7cc0 */ 	sll	$t7,$t6,0x13
-/*  f17503c:	01616025 */ 	or	$t4,$t3,$at
-/*  f175040:	332901ff */ 	andi	$t1,$t9,0x1ff
-/*  f175044:	00095240 */ 	sll	$t2,$t1,0x9
-/*  f175048:	018fc025 */ 	or	$t8,$t4,$t7
-/*  f17504c:	030a5825 */ 	or	$t3,$t8,$t2
-/*  f175050:	ac6b0000 */ 	sw	$t3,0x0($v1)
-/*  f175054:	afa30048 */ 	sw	$v1,0x48($sp)
-/*  f175058:	0fc5cfd2 */ 	jal	tex0f173f48
-/*  f17505c:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f175060:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f175064:	0fc5cfd2 */ 	jal	tex0f173f48
-/*  f175068:	afa20040 */ 	sw	$v0,0x40($sp)
-/*  f17506c:	8fac0084 */ 	lw	$t4,0x84($sp)
-/*  f175070:	304d0003 */ 	andi	$t5,$v0,0x3
-/*  f175074:	8fa30040 */ 	lw	$v1,0x40($sp)
-/*  f175078:	000d7200 */ 	sll	$t6,$t5,0x8
-/*  f17507c:	318f0007 */ 	andi	$t7,$t4,0x7
-/*  f175080:	8fad0068 */ 	lw	$t5,0x68($sp)
-/*  f175084:	000fce00 */ 	sll	$t9,$t7,0x18
-/*  f175088:	01d94825 */ 	or	$t1,$t6,$t9
-/*  f17508c:	8fb9006c */ 	lw	$t9,0x6c($sp)
-/*  f175090:	30780003 */ 	andi	$t8,$v1,0x3
-/*  f175094:	00185480 */ 	sll	$t2,$t8,0x12
-/*  f175098:	31ac000f */ 	andi	$t4,$t5,0xf
-/*  f17509c:	012a5825 */ 	or	$t3,$t1,$t2
-/*  f1750a0:	8fad0048 */ 	lw	$t5,0x48($sp)
-/*  f1750a4:	000c7b80 */ 	sll	$t7,$t4,0xe
-/*  f1750a8:	3338000f */ 	andi	$t8,$t9,0xf
-/*  f1750ac:	00184900 */ 	sll	$t1,$t8,0x4
-/*  f1750b0:	016f7025 */ 	or	$t6,$t3,$t7
-/*  f1750b4:	01c95025 */ 	or	$t2,$t6,$t1
-/*  f1750b8:	adaa0004 */ 	sw	$t2,0x4($t5)
-.L0f1750bc:
-/*  f1750bc:	8fa20080 */ 	lw	$v0,0x80($sp)
-/*  f1750c0:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f1750c4:	8fa80050 */ 	lw	$t0,0x50($sp)
-/*  f1750c8:	14440005 */ 	bne	$v0,$a0,.L0f1750e0
-/*  f1750cc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f1750d0:	55000004 */ 	bnezl	$t0,.L0f1750e4
-/*  f1750d4:	8fa80050 */ 	lw	$t0,0x50($sp)
-/*  f1750d8:	10000002 */ 	b	.L0f1750e4
-/*  f1750dc:	00801825 */ 	or	$v1,$a0,$zero
-.L0f1750e0:
-/*  f1750e0:	8fa80050 */ 	lw	$t0,0x50($sp)
-.L0f1750e4:
-/*  f1750e4:	14440005 */ 	bne	$v0,$a0,.L0f1750fc
-/*  f1750e8:	00602825 */ 	or	$a1,$v1,$zero
-/*  f1750ec:	55000004 */ 	bnezl	$t0,.L0f175100
-/*  f1750f0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f1750f4:	10000002 */ 	b	.L0f175100
-/*  f1750f8:	00801825 */ 	or	$v1,$a0,$zero
-.L0f1750fc:
-/*  f1750fc:	00001825 */ 	or	$v1,$zero,$zero
-.L0f175100:
-/*  f175100:	14440005 */ 	bne	$v0,$a0,.L0f175118
-/*  f175104:	00603025 */ 	or	$a2,$v1,$zero
-/*  f175108:	55000004 */ 	bnezl	$t0,.L0f17511c
-/*  f17510c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f175110:	10000002 */ 	b	.L0f17511c
-/*  f175114:	00801825 */ 	or	$v1,$a0,$zero
-.L0f175118:
-/*  f175118:	00001825 */ 	or	$v1,$zero,$zero
-.L0f17511c:
-/*  f17511c:	920c0008 */ 	lbu	$t4,0x8($s0)
-/*  f175120:	258bffff */ 	addiu	$t3,$t4,-1
-/*  f175124:	000b7880 */ 	sll	$t7,$t3,0x2
-/*  f175128:	14440005 */ 	bne	$v0,$a0,.L0f175140
-/*  f17512c:	006f3821 */ 	addu	$a3,$v1,$t7
-/*  f175130:	55000004 */ 	bnezl	$t0,.L0f175144
-/*  f175134:	00001825 */ 	or	$v1,$zero,$zero
-/*  f175138:	10000002 */ 	b	.L0f175144
-/*  f17513c:	24030002 */ 	addiu	$v1,$zero,0x2
-.L0f175140:
-/*  f175140:	00001825 */ 	or	$v1,$zero,$zero
-.L0f175144:
-/*  f175144:	92190009 */ 	lbu	$t9,0x9($s0)
-/*  f175148:	afa70058 */ 	sw	$a3,0x58($sp)
-/*  f17514c:	afa6005c */ 	sw	$a2,0x5c($sp)
-/*  f175150:	2738ffff */ 	addiu	$t8,$t9,-1
-/*  f175154:	00187080 */ 	sll	$t6,$t8,0x2
-/*  f175158:	006e4021 */ 	addu	$t0,$v1,$t6
-/*  f17515c:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f175160:	afa80054 */ 	sw	$t0,0x54($sp)
-/*  f175164:	afa50060 */ 	sw	$a1,0x60($sp)
-/*  f175168:	0fc5cee3 */ 	jal	tex0f173b8c
-/*  f17516c:	8fa40084 */ 	lw	$a0,0x84($sp)
-/*  f175170:	8fa50060 */ 	lw	$a1,0x60($sp)
-/*  f175174:	8fa6005c */ 	lw	$a2,0x5c($sp)
-/*  f175178:	8fa70058 */ 	lw	$a3,0x58($sp)
-/*  f17517c:	10400013 */ 	beqz	$v0,.L0f1751cc
-/*  f175180:	8fa80054 */ 	lw	$t0,0x54($sp)
-/*  f175184:	30a90fff */ 	andi	$t1,$a1,0xfff
-/*  f175188:	00095300 */ 	sll	$t2,$t1,0xc
-/*  f17518c:	3c01f200 */ 	lui	$at,0xf200
-/*  f175190:	01416825 */ 	or	$t5,$t2,$at
-/*  f175194:	30cc0fff */ 	andi	$t4,$a2,0xfff
-/*  f175198:	01ac5825 */ 	or	$t3,$t5,$t4
-/*  f17519c:	02201025 */ 	or	$v0,$s1,$zero
-/*  f1751a0:	ac4b0000 */ 	sw	$t3,0x0($v0)
-/*  f1751a4:	8faf0084 */ 	lw	$t7,0x84($sp)
-/*  f1751a8:	30ee0fff */ 	andi	$t6,$a3,0xfff
-/*  f1751ac:	000e4b00 */ 	sll	$t1,$t6,0xc
-/*  f1751b0:	31f90007 */ 	andi	$t9,$t7,0x7
-/*  f1751b4:	0019c600 */ 	sll	$t8,$t9,0x18
-/*  f1751b8:	03095025 */ 	or	$t2,$t8,$t1
-/*  f1751bc:	310d0fff */ 	andi	$t5,$t0,0xfff
-/*  f1751c0:	014d6025 */ 	or	$t4,$t2,$t5
-/*  f1751c4:	ac4c0004 */ 	sw	$t4,0x4($v0)
-/*  f1751c8:	26310008 */ 	addiu	$s1,$s1,0x8
-.L0f1751cc:
-/*  f1751cc:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f1751d0:	02201025 */ 	or	$v0,$s1,$zero
-/*  f1751d4:	8fb10038 */ 	lw	$s1,0x38($sp)
-/*  f1751d8:	8fb00034 */ 	lw	$s0,0x34($sp)
-/*  f1751dc:	03e00008 */ 	jr	$ra
-/*  f1751e0:	27bd0070 */ 	addiu	$sp,$sp,0x70
-);
+Gfx *tex0f174f30(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 arg4, s32 tile)
+{
+	s32 masks;
+	s32 maskt;
+	s32 line;
+	s32 uls;
+	s32 ult;
+	s32 lrs;
+	s32 lrt;
+	s32 sp50;
+
+	masks = tex0f173f18(arg1->width);
+	maskt = tex0f173f18(arg1->height);
+	line = texGetLineSizeInBytes(arg1, 0);
+	sp50 = arg1->unk0c_02;
+
+	if (texSetLutMode(arg1->lutmodeindex << G_MDSFT_TEXTLUT)) {
+		gDPSetTextureLUT(gdl++, arg1->lutmodeindex << G_MDSFT_TEXTLUT);
+	}
+
+	if (tex0f173a70(tile, arg1->gbiformat, arg1->depth, line, 0, arg2, arg3, masks, maskt, 0, 0)) {
+		gDPSetTile(gdl++, arg1->gbiformat, arg1->depth, line, 0x0000, tile, 0,
+				tex0f173f48(arg3), maskt, G_TX_NOLOD,
+				tex0f173f48(arg2), masks, G_TX_NOLOD);
+	}
+
+	uls = uls = (arg4 == 2 && sp50 == 0 ? 2 : 0);
+	ult = ult = (arg4 == 2 && sp50 == 0 ? 2 : 0);
+	lrs = (arg4 == 2 && sp50 == 0 ? 2 : 0) + ((arg1->width - 1) << 2);
+	lrt = (arg4 == 2 && sp50 == 0 ? 2 : 0) + ((arg1->height - 1) << 2);
+
+	if (tex0f173b8c(tile, uls, ult, lrs, lrt)) {
+		gDPSetTileSize(gdl++, tile, uls, ult, lrs, lrt);
+	}
+
+	return gdl;
+}
 
 Gfx *tex0f1751e4(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
 {
