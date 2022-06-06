@@ -27,23 +27,11 @@ s32 var800705bc = 0;
 #define NUMTHINGS2() (IS4MB() ? 24 : 25)
 #define NUMTHINGS3() (IS4MB() ? 0 : 20)
 
-GLOBAL_ASM(
-glabel func0f0b28d0
-/*  f0b28d0:	84a30014 */ 	lh	$v1,0x14($a1)
-/*  f0b28d4:	28620001 */ 	slti	$v0,$v1,0x1
-/*  f0b28d8:	14400008 */ 	bnez	$v0,.L0f0b28fc
-/*  f0b28dc:	00000000 */ 	nop
-/*  f0b28e0:	8c820010 */ 	lw	$v0,0x10($a0)
-/*  f0b28e4:	0002702b */ 	sltu	$t6,$zero,$v0
-/*  f0b28e8:	11c00004 */ 	beqz	$t6,.L0f0b28fc
-/*  f0b28ec:	01c01025 */ 	or	$v0,$t6,$zero
-/*  f0b28f0:	848f0002 */ 	lh	$t7,0x2($a0)
-/*  f0b28f4:	01e3102a */ 	slt	$v0,$t7,$v1
-/*  f0b28f8:	38420001 */ 	xori	$v0,$v0,0x1
-.L0f0b28fc:
-/*  f0b28fc:	03e00008 */ 	jr	$ra
-/*  f0b2900:	00000000 */ 	nop
-);
+bool func0f0b28d0(struct model *model, struct modelfiledata *modeldef)
+{
+	return modeldef->rwdatalen <= 0
+		|| (model->rwdatas != NULL && model->unk02 >= modeldef->rwdatalen);
+}
 
 void func0f0b2904(void)
 {
