@@ -4,6 +4,9 @@
 #include "data.h"
 #include "types.h"
 
+#define G_SETCOLOR 0x07
+#define G_TRI4     0xb1
+
 /**
  * 04	rsp_uc05_vertex
  *
@@ -18,7 +21,7 @@
 #define	gDPSetVerticeArray(pkt, ptr, numvertices)                   \
 {                                                                   \
 	Gfx *_g = (Gfx *)(pkt);                                         \
-	_g->words.w0 = (_SHIFTL(0x04, 24, 8)                            \
+	_g->words.w0 = (_SHIFTL(G_VTX, 24, 8)                            \
 			| _SHIFTL(numvertices - 1, 20, 4)                       \
 			| _SHIFTL(numvertices * sizeof(struct gfxvtx), 0, 20)); \
 	_g->words.w1 = (unsigned int)(ptr);                             \
@@ -39,7 +42,7 @@
 #define	gDPSetColorArray(pkt, ptr, numcolors)     \
 {                                                 \
 	Gfx *_g = (Gfx *)(pkt);                       \
-	_g->words.w0 = (_SHIFTL(0x07, 24, 8)          \
+	_g->words.w0 = (_SHIFTL(G_SETCOLOR, 24, 8)          \
 			| _SHIFTL((numcolors - 1) * 4, 16, 8) \
 			| _SHIFTL(numcolors * 4, 0, 16));     \
 	_g->words.w1 = (unsigned int)(ptr);           \
@@ -68,21 +71,21 @@
  * 0000000f	x1
  */
 #define	gDPTri4(pkt, x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4) \
-{                                        \
-	Gfx *_g = (Gfx *)(pkt);              \
-	_g->words.w0 = (_SHIFTL(0xb1, 24, 8) \
-			| _SHIFTL(z4, 12, 4)         \
-			| _SHIFTL(z3, 8, 4)          \
-			| _SHIFTL(z2, 4, 4)          \
-			| _SHIFTL(z1, 0, 4));        \
-	_g->words.w1 = (_SHIFTL(y4, 28, 4)   \
-			| _SHIFTL(x4, 24, 4)         \
-			| _SHIFTL(y3, 20, 4)         \
-			| _SHIFTL(x3, 16, 4)         \
-			| _SHIFTL(y2, 12, 4)         \
-			| _SHIFTL(x2, 8, 4)          \
-			| _SHIFTL(y1, 4, 4)          \
-			| _SHIFTL(x1, 0, 4));        \
+{                                          \
+	Gfx *_g = (Gfx *)(pkt);                \
+	_g->words.w0 = (_SHIFTL(G_TRI4, 24, 8) \
+			| _SHIFTL(z4, 12, 4)           \
+			| _SHIFTL(z3, 8, 4)            \
+			| _SHIFTL(z2, 4, 4)            \
+			| _SHIFTL(z1, 0, 4));          \
+	_g->words.w1 = (_SHIFTL(y4, 28, 4)     \
+			| _SHIFTL(x4, 24, 4)           \
+			| _SHIFTL(y3, 20, 4)           \
+			| _SHIFTL(x3, 16, 4)           \
+			| _SHIFTL(y2, 12, 4)           \
+			| _SHIFTL(x2, 8, 4)            \
+			| _SHIFTL(y1, 4, 4)            \
+			| _SHIFTL(x1, 0, 4));          \
 }
 
 #define gDPTri3(pkt, x1, y1, z1, x2, y2, z2, x3, y3, z3) \

@@ -5,6 +5,7 @@
 #include "game/texdecompress.h"
 #include "bss.h"
 #include "data.h"
+#include "textures.h"
 #include "types.h"
 
 s32 g_TexLutMode;
@@ -1264,7 +1265,7 @@ Gfx *tex0f1751e4(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 ar
 
 	gDPPipeSync(gdl++);
 
-	var800844d0 = 1;
+	var800844d0 = true;
 
 	return gdl;
 }
@@ -1530,48 +1531,29 @@ glabel tex0f17563c
 GLOBAL_ASM(
 glabel tex0f1756c0
 .late_rodata
-glabel var7f1b7c30
-.word tex0f1756c0+0x544 # f175c04
-glabel var7f1b7c34
-.word tex0f1756c0+0x768 # f175e28
-glabel var7f1b7c38
-.word tex0f1756c0+0x768 # f175e28
-glabel var7f1b7c3c
-.word tex0f1756c0+0x768 # f175e28
-glabel var7f1b7c40
-.word tex0f1756c0+0x768 # f175e28
-glabel var7f1b7c44
-.word tex0f1756c0+0x768 # f175e28
-glabel var7f1b7c48
-.word tex0f1756c0+0x768 # f175e28
-glabel var7f1b7c4c
-.word tex0f1756c0+0x768 # f175e28
-glabel var7f1b7c50
-.word tex0f1756c0+0x768 # f175e28
-glabel var7f1b7c54
-.word tex0f1756c0+0x74c # f175e0c
-glabel var7f1b7c58
-.word tex0f1756c0+0x70c # f175dcc
-glabel var7f1b7c5c
-.word tex0f1756c0+0x768 # f175e28
-glabel var7f1b7c60
-.word tex0f1756c0+0x768 # f175e28
-glabel var7f1b7c64
-.word tex0f1756c0+0x768 # f175e28
-glabel var7f1b7c68
-.word tex0f1756c0+0x544 # f175c04
-glabel var7f1b7c6c
-.word tex0f1756c0+0x114 # f1757d4
-glabel var7f1b7c70
-.word tex0f1756c0+0x1c0 # f175880
-glabel var7f1b7c74
-.word tex0f1756c0+0x224 # f1758e4
-glabel var7f1b7c78
-.word tex0f1756c0+0x2bc # f17597c
-glabel var7f1b7c7c
-.word tex0f1756c0+0x2f8 # f1759b8
-glabel var7f1b7c80
-.word tex0f1756c0+0x330 # f1759f0
+glabel jtbl_var7f1b7c30
+.word .L0f175c04
+.word .L0f175e28
+.word .L0f175e28
+.word .L0f175e28
+.word .L0f175e28
+.word .L0f175e28
+.word .L0f175e28
+.word .L0f175e28
+.word .L0f175e28
+.word .L0f175e0c
+.word .L0f175dcc
+.word .L0f175e28
+.word .L0f175e28
+.word .L0f175e28
+.word .L0f175c04
+.word .L0f1757d4
+glabel jtbl_var7f1b7c70
+.word .L0f175880
+.word .L0f1758e4
+.word .L0f17597c
+.word .L0f1759b8
+.word .L0f1759f0
 .text
 /*  f1756c0:	27bdfec8 */ 	addiu	$sp,$sp,-312
 /*  f1756c4:	afb00030 */ 	sw	$s0,0x30($sp)
@@ -1637,9 +1619,9 @@ glabel var7f1b7c80
 /*  f1757a0:	2f210010 */ 	sltiu	$at,$t9,0x10
 /*  f1757a4:	102001a0 */ 	beqz	$at,.L0f175e28
 /*  f1757a8:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f1757ac:	3c017f1b */ 	lui	$at,%hi(var7f1b7c30)
+/*  f1757ac:	3c017f1b */ 	lui	$at,%hi(jtbl_var7f1b7c30)
 /*  f1757b0:	00390821 */ 	addu	$at,$at,$t9
-/*  f1757b4:	8c397c30 */ 	lw	$t9,%lo(var7f1b7c30)($at)
+/*  f1757b4:	8c397c30 */ 	lw	$t9,%lo(jtbl_var7f1b7c30)($at)
 /*  f1757b8:	03200008 */ 	jr	$t9
 /*  f1757bc:	00000000 */ 	nop
 .L0f1757c0:
@@ -1648,6 +1630,7 @@ glabel var7f1b7c80
 /*  f1757c8:	8fb800e0 */ 	lw	$t8,0xe0($sp)
 /*  f1757cc:	10000197 */ 	b	.L0f175e2c
 /*  f1757d0:	8ea10000 */ 	lw	$at,0x0($s5)
+.L0f1757d4:
 /*  f1757d4:	240c0001 */ 	addiu	$t4,$zero,0x1
 /*  f1757d8:	13c00003 */ 	beqz	$s8,.L0f1757e8
 /*  f1757dc:	afac00e4 */ 	sw	$t4,0xe4($sp)
@@ -1689,11 +1672,12 @@ glabel var7f1b7c80
 /*  f175860:	2da10005 */ 	sltiu	$at,$t5,0x5
 /*  f175864:	1020006f */ 	beqz	$at,.L0f175a24
 /*  f175868:	000d6880 */ 	sll	$t5,$t5,0x2
-/*  f17586c:	3c017f1b */ 	lui	$at,%hi(var7f1b7c70)
+/*  f17586c:	3c017f1b */ 	lui	$at,%hi(jtbl_var7f1b7c70)
 /*  f175870:	002d0821 */ 	addu	$at,$at,$t5
-/*  f175874:	8c2d7c70 */ 	lw	$t5,%lo(var7f1b7c70)($at)
+/*  f175874:	8c2d7c70 */ 	lw	$t5,%lo(jtbl_var7f1b7c70)($at)
 /*  f175878:	01a00008 */ 	jr	$t5
 /*  f17587c:	00000000 */ 	nop
+.L0f175880:
 /*  f175880:	8ea80004 */ 	lw	$t0,0x4($s5)
 /*  f175884:	00033582 */ 	srl	$a2,$v1,0x16
 /*  f175888:	00033d02 */ 	srl	$a3,$v1,0x14
@@ -1719,6 +1703,7 @@ glabel var7f1b7c80
 /*  f1758d8:	02202825 */ 	or	$a1,$s1,$zero
 /*  f1758dc:	10000051 */ 	b	.L0f175a24
 /*  f1758e0:	0040b025 */ 	or	$s6,$v0,$zero
+.L0f1758e4:
 /*  f1758e4:	8eb00004 */ 	lw	$s0,0x4($s5)
 /*  f1758e8:	8fa50144 */ 	lw	$a1,0x144($sp)
 /*  f1758ec:	00107b02 */ 	srl	$t7,$s0,0xc
@@ -1757,6 +1742,7 @@ glabel var7f1b7c80
 /*  f175970:	02202825 */ 	or	$a1,$s1,$zero
 /*  f175974:	1000002b */ 	b	.L0f175a24
 /*  f175978:	0040b025 */ 	or	$s6,$v0,$zero
+.L0f17597c:
 /*  f17597c:	00033582 */ 	srl	$a2,$v1,0x16
 /*  f175980:	00033d02 */ 	srl	$a3,$v1,0x14
 /*  f175984:	00031482 */ 	srl	$v0,$v1,0x12
@@ -1772,6 +1758,7 @@ glabel var7f1b7c80
 /*  f1759ac:	afb30014 */ 	sw	$s3,0x14($sp)
 /*  f1759b0:	1000001c */ 	b	.L0f175a24
 /*  f1759b4:	0040b025 */ 	or	$s6,$v0,$zero
+.L0f1759b8:
 /*  f1759b8:	00033582 */ 	srl	$a2,$v1,0x16
 /*  f1759bc:	00033d02 */ 	srl	$a3,$v1,0x14
 /*  f1759c0:	00031482 */ 	srl	$v0,$v1,0x12
@@ -1786,6 +1773,7 @@ glabel var7f1b7c80
 /*  f1759e4:	02202825 */ 	or	$a1,$s1,$zero
 /*  f1759e8:	1000000e */ 	b	.L0f175a24
 /*  f1759ec:	0040b025 */ 	or	$s6,$v0,$zero
+.L0f1759f0:
 /*  f1759f0:	00033582 */ 	srl	$a2,$v1,0x16
 /*  f1759f4:	00033d02 */ 	srl	$a3,$v1,0x14
 /*  f1759f8:	00031482 */ 	srl	$v0,$v1,0x12
@@ -1938,6 +1926,7 @@ glabel var7f1b7c80
 /*  f175bf8:	8eb9fffc */ 	lw	$t9,-0x4($s5)
 /*  f175bfc:	10000090 */ 	b	.L0f175e40
 /*  f175c00:	aed9fffc */ 	sw	$t9,-0x4($s6)
+.L0f175c04:
 /*  f175c04:	240c0001 */ 	addiu	$t4,$zero,0x1
 /*  f175c08:	13c00067 */ 	beqz	$s8,.L0f175da8
 /*  f175c0c:	afac0104 */ 	sw	$t4,0x104($sp)
@@ -2061,6 +2050,7 @@ glabel var7f1b7c80
 /*  f175dc0:	8eb8fffc */ 	lw	$t8,-0x4($s5)
 /*  f175dc4:	1000001e */ 	b	.L0f175e40
 /*  f175dc8:	aed8fffc */ 	sw	$t8,-0x4($s6)
+.L0f175dcc:
 /*  f175dcc:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*  f175dd0:	001e102b */ 	sltu	$v0,$zero,$s8
 /*  f175dd4:	afad00e4 */ 	sw	$t5,0xe4($sp)
@@ -2078,6 +2068,7 @@ glabel var7f1b7c80
 /*  f175e00:	8eaefffc */ 	lw	$t6,-0x4($s5)
 /*  f175e04:	1000000e */ 	b	.L0f175e40
 /*  f175e08:	aecefffc */ 	sw	$t6,-0x4($s6)
+.L0f175e0c:
 /*  f175e0c:	8ea10000 */ 	lw	$at,0x0($s5)
 /*  f175e10:	26d60008 */ 	addiu	$s6,$s6,0x8
 /*  f175e14:	26b50008 */ 	addiu	$s5,$s5,0x8
@@ -2146,6 +2137,331 @@ glabel var7f1b7c80
 /*  f175eec:	03e00008 */ 	jr	$ra
 /*  f175ef0:	27bd0138 */ 	addiu	$sp,$sp,0x138
 );
+
+// Mismatch: Extra move instruction in last half of G_VTX case
+//s32 tex0f1756c0(Gfx *arg0, s32 arg1, Gfx *arg2, struct texturething *arg3, u32 arg4)
+//{
+//	struct texloadthing *v0;
+//	struct texloadthing *v0_2;
+//	Gfx *sp12c;
+//	s32 sp128;
+//	u32 tmp1;
+//	u32 tmp2;
+//	u32 tmp3;
+//	u32 tmp4;
+//	u32 tmp5;
+//	u32 tmp6;
+//	bool flag;
+//	s32 j;
+//	bool sp104;
+//	u8 animated;
+//	Gfx *s5;
+//	Gfx *s6;
+//	u32 spf4;
+//	s32 texturenum;
+//	s32 texturenum2;
+//	bool spe8;
+//	s32 spe4;
+//	s32 spe0;
+//	struct gfxvtx *spA0[16];
+//	u8 sp90[16];
+//
+//	s32 i;
+//
+//	sp12c = NULL;
+//	sp104 = true;
+//	animated = false;
+//	spe8 = false;
+//	spe4 = false;
+//	var800844d0 = false;
+//	spf4 = 0;
+//	s5 = arg0;
+//	s6 = arg2;
+//
+//	sp128 = arg1 >> 3;
+//
+//	tex0f173a08();
+//
+//	spe0 = func0f13c4f0();
+//
+//	if (spe0) {
+//		for (j = 0; j < 16; j++) {
+//			sp90[j] = 0;
+//		}
+//	}
+//
+//	if (arg3 == NULL) {
+//		arg3 = &var800aabc8;
+//	}
+//
+//	while (sp128 > 0) {
+//		switch (s5->texture.cmd) {
+//		case 0xc0: // Repurposed?
+//			spe4 = true;
+//
+//			if (animated) {
+//				spe8 = true;
+//			}
+//
+//			texturenum = s5->words.w1 & 0xfff;
+//			flag = s5->words.w0 & 0x200;
+//
+//			texLoadFromTextureNum(texturenum, arg3);
+//
+//			v0 = tex0f172e8c(texturenum, arg3);
+//
+//			if (v0 != NULL) {
+//				spf4 = v0->unk0c_03;
+//			} else {
+//				spf4 = 0;
+//			}
+//
+//			if (v0 != NULL) {
+//				s6 = tex0f1742e4(s6, sp12c, v0, sp104);
+//				sp104 = false;
+//				animated = false;
+//
+//				switch (s5->unkc0.subcmd) {
+//				case 0:
+//					tmp6 = (s5->words.w1 >> 24) & 0xff;
+//					tmp1 = (s5->words.w0 >> 22) & 3;
+//					tmp2 = (s5->words.w0 >> 20) & 3;
+//					tmp3 = (s5->words.w0 >> 18) & 3;
+//					tmp4 = (s5->words.w0 >> 14) & 0xf;
+//					tmp5 = (s5->words.w0 >> 10) & 0xf;
+//
+//					s6 = tex0f175490(s6, v0, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, flag);
+//					break;
+//				case 1:
+//					texturenum2 = (s5->words.w1 >> 12) & 0xfff;
+//					texLoadFromTextureNum(texturenum2, arg3);
+//					v0_2 = tex0f172e8c(texturenum2, arg3);
+//
+//					if (v0_2 != NULL) {
+//						tmp6 = (s5->words.w1 >> 24) & 0xff;
+//						tmp1 = (s5->words.w0 >> 22) & 3;
+//						tmp2 = (s5->words.w0 >> 20) & 3;
+//						tmp3 = (s5->words.w0 >> 18) & 3;
+//						tmp4 = (s5->words.w0 >> 14) & 0xf;
+//						tmp5 = (s5->words.w0 >> 10) & 0xf;
+//
+//						s6 = tex0f175308(s6, v0, tmp1, tmp2, tmp3, v0_2, tmp4, tmp5, tmp6, flag);
+//					}
+//					break;
+//				case 2:
+//					tmp1 = (s5->words.w0 >> 22) & 3;
+//					tmp2 = (s5->words.w0 >> 20) & 3;
+//					tmp3 = (s5->words.w0 >> 18) & 3;
+//
+//					s6 = tex0f1751e4(s6, v0, tmp1, tmp2, tmp3, flag);
+//					break;
+//				case 3:
+//					tmp1 = (s5->words.w0 >> 22) & 3;
+//					tmp2 = (s5->words.w0 >> 20) & 3;
+//					tmp3 = (s5->words.w0 >> 18) & 3;
+//
+//					s6 = tex0f17563c(s6, v0, tmp1, tmp2, tmp3);
+//					break;
+//				case 4:
+//					tmp1 = (s5->words.w0 >> 22) & 3;
+//					tmp2 = (s5->words.w0 >> 20) & 3;
+//					tmp3 = (s5->words.w0 >> 18) & 3;
+//
+//					s6 = tex0f1755dc(s6, v0, tmp1, tmp2, tmp3);
+//					break;
+//				}
+//
+//				if (spe0 != 0) {
+//					if (texturenum == TEXTURE_06CB) {
+//						func0f13c2e8(1);
+//						animated = true;
+//					}
+//
+//					if (texturenum == TEXTURE_0A6A) {
+//						func0f13c2e8(6);
+//						animated = true;
+//					}
+//
+//					if (texturenum == TEXTURE_0A69) {
+//						func0f13c2e8(7);
+//						animated = true;
+//					}
+//
+//					if (texturenum == TEXTURE_06E2) {
+//						func0f13c2e8(3);
+//						animated = true;
+//					}
+//
+//					if (texturenum == TEXTURE_01C7 || texturenum == TEXTURE_0DAE) {
+//						func0f13c2e8(1);
+//						animated = true;
+//					}
+//
+//					if (texturenum == TEXTURE_029B) {
+//						func0f13c2e8(4);
+//						animated = true;
+//					}
+//
+//					if (texturenum == TEXTURE_090F) {
+//						func0f13c2e8(5);
+//						animated = true;
+//					}
+//
+//					if (texturenum == TEXTURE_0A42) {
+//						func0f13c2e8(2);
+//						animated = true;
+//					}
+//				}
+//			}
+//
+//			s5++;
+//			break;
+//		case G_VTX:
+//			{
+//				s32 start;
+//				s32 count;
+//				u32 offset;
+//				struct gfxvtx *vtx;
+//
+//				if (spe0) {
+//					start = s5->bytes[1] & 0xf;
+//					count = ((u32)s5->bytes[1] >> 4) + 1;
+//					vtx = (struct gfxvtx *)(s5->dma.addr & 0x00ffffff);
+//
+//					for (i = start; i < start + count; i++) {
+//						if (animated && sp90[i]) {
+//							func0f13c07c(spA0[i]);
+//							sp90[i] = 0;
+//						}
+//
+//						spA0[i] = vtx;
+//						vtx++;
+//					}
+//				}
+//
+//				if (spf4 && arg4) {
+//					// b7c
+//					u32 offset;
+//					struct gfxvtx *vtx;
+//					s32 i;
+//
+//					count = (s5->dma.par >> 4) + 1;
+//					offset = s5->dma.addr & 0x00ffffff;
+//					i = 0;
+//					offset = (arg4 + offset);
+//					vtx = (struct gfxvtx *) offset;
+//
+//					for (; i < count; i++) {
+//						vtx[i].unk08 >>= 1;
+//						vtx[i].unk0a >>= 1;
+//					}
+//				}
+//			}
+//
+//			*s6 = *s5;
+//			s6++;
+//			s5++;
+//			break;
+//		case G_RDPPIPESYNC:
+//			var800844d0 = true;
+//			*s6 = *s5;
+//			s6++;
+//			s5++;
+//			break;
+//		case (u8)G_TRI4:
+//		case (u8)G_TRI1:
+//			if (animated) {
+//				if (s5->texture.cmd == (u8)G_TRI1) {
+//					sp90[s5->tri.tri.v[0] / 10] = 1;
+//					sp90[s5->tri.tri.v[1] / 10] = 1;
+//					sp90[s5->tri.tri.v[2] / 10] = 1;
+//				} else {
+//					// c68
+//					if (s5->tri4.x1 != s5->tri4.y1 || s5->tri4.z1 != s5->tri4.y1) {
+//						sp90[s5->tri4.x1] = 1;
+//						sp90[s5->tri4.y1] = 1;
+//						sp90[s5->tri4.z1] = 1;
+//					}
+//
+//					// cbc
+//					if (s5->tri4.x2 != s5->tri4.y2 || s5->tri4.z2 != s5->tri4.y2) {
+//						sp90[s5->tri4.x2] = 1;
+//						sp90[s5->tri4.y2] = 1;
+//						sp90[s5->tri4.z2] = 1;
+//					}
+//
+//					// d0c
+//					if (s5->tri4.x3 != s5->tri4.y3 || s5->tri4.z3 != s5->tri4.y3) {
+//						sp90[s5->tri4.x3] = 1;
+//						sp90[s5->tri4.y3] = 1;
+//						sp90[s5->tri4.z3] = 1;
+//					}
+//
+//					// d58
+//					if (s5->tri4.x4 != s5->tri4.y4 || s5->tri4.z4 != s5->tri4.y4) {
+//						sp90[s5->tri4.x4] = 1;
+//						sp90[s5->tri4.y4] = 1;
+//						sp90[s5->tri4.z4] = 1;
+//					}
+//				}
+//			}
+//
+//			sp104 = true;
+//			var800844d0 = false;
+//
+//			*s6 = *s5;
+//			s6++;
+//			s5++;
+//			break;
+//		case (u8)G_TEXTURE:
+//			spe4 = true;
+//
+//			if (animated) {
+//				spe8 = true;
+//			}
+//
+//			animated = false;
+//			sp104 = false;
+//
+//			sp12c = s6;
+//			*s6 = *s5;
+//			s6++;
+//			s5++;
+//			break;
+//		case (u8)G_SETOTHERMODE_H:
+//			*s6 = *s5;
+//			s6++;
+//			s5++;
+//			break;
+//		default:
+//			*s6 = *s5;
+//			s6++;
+//			s5++;
+//			break;
+//		}
+//
+//		sp128--;
+//
+//		if (spe4 || sp128 <= 0) {
+//			spe4 = false;
+//
+//			if (spe8 || animated) {
+//				s32 i;
+//
+//				spe8 = false;
+//
+//				for (i = 0; i < 16; i++) {
+//					if (sp90[i]) {
+//						func0f13c07c(spA0[i]);
+//						sp90[i] = 0;
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	return (u32)s6 - (u32)arg2;
+//}
 
 void tex0f175ef4(Gfx *arg0, Gfx *arg1, s32 arg2)
 {

@@ -779,7 +779,7 @@ glabel var7f1b598c
 /*  f13c078:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-void func0f13c07c(s32 arg0)
+void func0f13c07c(struct gfxvtx *vertex)
 {
 	if (var8007f6e0 >= 0 && var8007f6f8 != var800a4180) {
 		if (var8007f6e8 == 0) {
@@ -813,7 +813,7 @@ void func0f13c07c(s32 arg0)
 			var8007f6ec = 1;
 		}
 
-		var800a418c[var8007f6f8].unk00 = arg0;
+		var800a418c[var8007f6f8].unk00 = (u16)vertex; // @TODO: Investigate this
 		var8007f6f8++;
 
 		var800a4190[var8007f6f4 - 1].unk01++;
