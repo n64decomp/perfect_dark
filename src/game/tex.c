@@ -1475,42 +1475,18 @@ Gfx *tex0f1755dc(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 ar
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel tex0f17563c
-/*  f17563c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f175640:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f175644:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f175648:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f17564c:	0fc5d2d5 */ 	jal	tex0f174b54
-/*  f175650:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f175654:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*  f175658:	00402025 */ 	or	$a0,$v0,$zero
-/*  f17565c:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f175660:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f175664:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f175668:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f17566c:	0fc5d3cc */ 	jal	tex0f174f30
-/*  f175670:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f175674:	8faf0030 */ 	lw	$t7,0x30($sp)
-/*  f175678:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f17567c:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f175680:	00402025 */ 	or	$a0,$v0,$zero
-/*  f175684:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f175688:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f17568c:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f175690:	0fc5d3cc */ 	jal	tex0f174f30
-/*  f175694:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f175698:	3c19e700 */ 	lui	$t9,0xe700
-/*  f17569c:	ac590000 */ 	sw	$t9,0x0($v0)
-/*  f1756a0:	ac400004 */ 	sw	$zero,0x4($v0)
-/*  f1756a4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1756a8:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f1756ac:	3c018008 */ 	lui	$at,%hi(var800844d0)
-/*  f1756b0:	ac2844d0 */ 	sw	$t0,%lo(var800844d0)($at)
-/*  f1756b4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f1756b8:	03e00008 */ 	jr	$ra
-/*  f1756bc:	24420008 */ 	addiu	$v0,$v0,0x8
-);
+Gfx *tex0f17563c(Gfx *gdl, struct texloadthing *arg1, s32 arg2, s32 arg3, s32 arg4)
+{
+	gdl = tex0f174b54(gdl, arg1);
+	gdl = tex0f174f30(gdl, arg1, arg2, arg3, arg4, 0);
+	gdl = tex0f174f30(gdl, arg1, arg2, arg3, arg4, 1);
+
+	gDPPipeSync(gdl++);
+
+	var800844d0 = true;
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel tex0f1756c0
