@@ -618,61 +618,29 @@ glabel tex0f173f78
 /*  f1742e0:	27bd0090 */ 	addiu	$sp,$sp,0x90
 );
 
-GLOBAL_ASM(
-glabel tex0f1742e4
-/*  f1742e4:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f1742e8:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f1742ec:	90c2000b */ 	lbu	$v0,0xb($a2)
-/*  f1742f0:	00808025 */ 	or	$s0,$a0,$zero
-/*  f1742f4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f1742f8:	00027142 */ 	srl	$t6,$v0,0x5
-/*  f1742fc:	11c00003 */ 	beqz	$t6,.L0f17430c
-/*  f174300:	00000000 */ 	nop
-/*  f174304:	10000001 */ 	b	.L0f17430c
-/*  f174308:	25c3ffff */ 	addiu	$v1,$t6,-1
-.L0f17430c:
-/*  f17430c:	50e0001a */ 	beqzl	$a3,.L0f174378
-/*  f174310:	8cad0000 */ 	lw	$t5,0x0($a1)
-/*  f174314:	10a0000d */ 	beqz	$a1,.L0f17434c
-/*  f174318:	02001025 */ 	or	$v0,$s0,$zero
-/*  f17431c:	8ca40000 */ 	lw	$a0,0x0($a1)
-/*  f174320:	2401c7ff */ 	addiu	$at,$zero,-14337
-/*  f174324:	0003c2c0 */ 	sll	$t8,$v1,0xb
-/*  f174328:	00817824 */ 	and	$t7,$a0,$at
-/*  f17432c:	01f81025 */ 	or	$v0,$t7,$t8
-/*  f174330:	50440018 */ 	beql	$v0,$a0,.L0f174394
-/*  f174334:	02001025 */ 	or	$v0,$s0,$zero
-/*  f174338:	ae020000 */ 	sw	$v0,0x0($s0)
-/*  f17433c:	8cb90004 */ 	lw	$t9,0x4($a1)
-/*  f174340:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f174344:	10000012 */ 	b	.L0f174390
-/*  f174348:	ae19fffc */ 	sw	$t9,-0x4($s0)
-.L0f17434c:
-/*  f17434c:	30680007 */ 	andi	$t0,$v1,0x7
-/*  f174350:	00084ac0 */ 	sll	$t1,$t0,0xb
-/*  f174354:	3c01bb00 */ 	lui	$at,0xbb00
-/*  f174358:	01215025 */ 	or	$t2,$t1,$at
-/*  f17435c:	354b0001 */ 	ori	$t3,$t2,0x1
-/*  f174360:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f174364:	ac4c0004 */ 	sw	$t4,0x4($v0)
-/*  f174368:	ac4b0000 */ 	sw	$t3,0x0($v0)
-/*  f17436c:	10000008 */ 	b	.L0f174390
-/*  f174370:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f174374:	8cad0000 */ 	lw	$t5,0x0($a1)
-.L0f174378:
-/*  f174378:	2401c7ff */ 	addiu	$at,$zero,-14337
-/*  f17437c:	0003c2c0 */ 	sll	$t8,$v1,0xb
-/*  f174380:	01a17024 */ 	and	$t6,$t5,$at
-/*  f174384:	acae0000 */ 	sw	$t6,0x0($a1)
-/*  f174388:	01d8c825 */ 	or	$t9,$t6,$t8
-/*  f17438c:	acb90000 */ 	sw	$t9,0x0($a1)
-.L0f174390:
-/*  f174390:	02001025 */ 	or	$v0,$s0,$zero
-.L0f174394:
-/*  f174394:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f174398:	03e00008 */ 	jr	$ra
-/*  f17439c:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+Gfx *tex0f1742e4(Gfx *arg0, Gfx *arg1, struct texloadthing *arg2, bool arg3)
+{
+	s32 lod = arg2->maxlod ? arg2->maxlod - 1 : 0;
+
+	if (arg3) {
+		if (arg1 != NULL) {
+			u32 v0 = (arg1->words.w0 & ~0x3800) | (lod << 11);
+
+			if (v0 != arg1->words.w0) {
+				arg0->words.w0 = v0;
+				arg0->words.w1 = arg1->words.w1;
+				arg0++;
+			}
+		} else {
+			gSPTexture(arg0++, 0xffff, 0xffff, lod, G_TX_RENDERTILE, G_ON);
+		}
+	} else {
+		arg1->words.w0 &= ~0x3800;
+		arg1->words.w0 |= lod << 11;
+	}
+
+	return arg0;
+}
 
 Gfx *tex0f1743a0(Gfx *gdl, struct texloadthing *arg1, s32 arg2)
 {
