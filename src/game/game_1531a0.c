@@ -199,88 +199,6 @@ void func0f1531dc(bool arg0)
 #endif
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel fontLoad
-/*  f1528bc:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f1528c0:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f1528c4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1528c8:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f1528cc:	2408005e */ 	li	$t0,0x5e
-/*  f1528d0:	00a42023 */ 	subu	$a0,$a1,$a0
-/*  f1528d4:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f1528d8:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f1528dc:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*  f1528e0:	24050004 */ 	li	$a1,0x4
-/*  f1528e4:	0c0048e2 */ 	jal	mempAlloc
-/*  f1528e8:	afa80020 */ 	sw	$t0,0x20($sp)
-/*  f1528ec:	244902a4 */ 	addiu	$t1,$v0,0x2a4
-/*  f1528f0:	afa90024 */ 	sw	$t1,0x24($sp)
-/*  f1528f4:	00402025 */ 	move	$a0,$v0
-/*  f1528f8:	8fa50038 */ 	lw	$a1,0x38($sp)
-/*  f1528fc:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f152900:	0c0034ec */ 	jal	dmaExec
-/*  f152904:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f152908:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*  f15290c:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*  f152910:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*  f152914:	00001825 */ 	move	$v1,$zero
-/*  f152918:	01201025 */ 	move	$v0,$t1
-.JF0f15291c:
-/*  f15291c:	8c580008 */ 	lw	$t8,0x8($v0)
-/*  f152920:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f152924:	2442000c */ 	addiu	$v0,$v0,0xc
-/*  f152928:	0307c821 */ 	addu	$t9,$t8,$a3
-/*  f15292c:	1468fffb */ 	bne	$v1,$t0,.JF0f15291c
-/*  f152930:	ac59fffc */ 	sw	$t9,-0x4($v0)
-/*  f152934:	8faa0038 */ 	lw	$t2,0x38($sp)
-/*  f152938:	3c0b007f */ 	lui	$t3,0x7f
-/*  f15293c:	256b93c0 */ 	addiu	$t3,$t3,-27712
-/*  f152940:	154b0008 */ 	bne	$t2,$t3,.JF0f152964
-/*  f152944:	00001825 */ 	move	$v1,$zero
-/*  f152948:	01201025 */ 	move	$v0,$t1
-.JF0f15294c:
-/*  f15294c:	804c0002 */ 	lb	$t4,0x2($v0)
-/*  f152950:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f152954:	2442000c */ 	addiu	$v0,$v0,0xc
-/*  f152958:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*  f15295c:	1468fffb */ 	bne	$v1,$t0,.JF0f15294c
-/*  f152960:	a04dfff6 */ 	sb	$t5,-0xa($v0)
-.JF0f152964:
-/*  f152964:	8fae0048 */ 	lw	$t6,0x48($sp)
-/*  f152968:	00002825 */ 	move	$a1,$zero
-/*  f15296c:	00001825 */ 	move	$v1,$zero
-/*  f152970:	11c00010 */ 	beqz	$t6,.JF0f1529b4
-/*  f152974:	01201025 */ 	move	$v0,$t1
-.JF0f152978:
-/*  f152978:	90440004 */ 	lbu	$a0,0x4($v0)
-/*  f15297c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f152980:	00a4082a */ 	slt	$at,$a1,$a0
-/*  f152984:	10200002 */ 	beqz	$at,.JF0f152990
-/*  f152988:	00000000 */ 	nop
-/*  f15298c:	00802825 */ 	move	$a1,$a0
-.JF0f152990:
-/*  f152990:	1468fff9 */ 	bne	$v1,$t0,.JF0f152978
-/*  f152994:	2442000c */ 	addiu	$v0,$v0,0xc
-/*  f152998:	00001825 */ 	move	$v1,$zero
-/*  f15299c:	24a5ffff */ 	addiu	$a1,$a1,-1
-/*  f1529a0:	01201025 */ 	move	$v0,$t1
-.JF0f1529a4:
-/*  f1529a4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f1529a8:	2442000c */ 	addiu	$v0,$v0,0xc
-/*  f1529ac:	1468fffd */ 	bne	$v1,$t0,.JF0f1529a4
-/*  f1529b0:	a045fff8 */ 	sb	$a1,-0x8($v0)
-.JF0f1529b4:
-/*  f1529b4:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*  f1529b8:	ade70000 */ 	sw	$a3,0x0($t7)
-/*  f1529bc:	8fb80044 */ 	lw	$t8,0x44($sp)
-/*  f1529c0:	af090000 */ 	sw	$t1,0x0($t8)
-/*  f1529c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1529c8:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f1529cc:	03e00008 */ 	jr	$ra
-/*  f1529d0:	00000000 */ 	nop
-);
-#else
 void fontLoad(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar **charsptr, bool monospace)
 {
 	extern u8 _fonthandelgothicsmSegmentRomStart;
@@ -293,15 +211,20 @@ void fontLoad(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar *
 	struct font *font;
 	struct fontchar *chars;
 
-#if PAL
-	// PAL has more characters in these fonts
+#if VERSION >= VERSION_PAL_BETA
 	s32 numchars = 94;
 
+#if PAL
+	// PAL has more characters in these fonts
 	if (romstart == &_fonthandelgothicsmSegmentRomStart
 			|| romstart == &_fonthandelgothicxsSegmentRomStart
 			|| romstart == &_fonthandelgothicmdSegmentRomStart) {
 		numchars = 135;
 	}
+#endif
+#define NUMCHARS() numchars
+#else
+#define NUMCHARS() 94
 #endif
 
 	len = (u32)romend - (u32)romstart;
@@ -311,25 +234,23 @@ void fontLoad(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar *
 	dmaExec(font, (u32) romstart, len);
 
 	// Convert pointers
-#if PAL
-	for (i = 0; i < numchars; i++)
-#else
-	for (i = 0; i < 94; i++)
-#endif
-	{
+	for (i = 0; i < NUMCHARS(); i++) {
 		chars[i].pixeldata += (u32)font;
 	}
+
+#if VERSION >= VERSION_JPN_FINAL
+	if (romstart == &_fonthandelgothicsmSegmentRomStart) {
+		for (i = 0; i < NUMCHARS(); i++) {
+			chars[i].unk02++;
+		}
+	}
+#endif
 
 	// If requested monospace, set all widths to the max, minus 1 for some reason
 	if (monospace) {
 		maxwidth = 0;
 
-#if PAL
-		for (i = 0; i < numchars; i++)
-#else
-		for (i = 0; i < 94; i++)
-#endif
-		{
+		for (i = 0; i < NUMCHARS(); i++) {
 			if (chars[i].width > maxwidth) {
 				maxwidth = chars[i].width;
 			}
@@ -337,12 +258,7 @@ void fontLoad(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar *
 
 		maxwidth--;
 
-#if PAL
-		for (i = 0; i < numchars; i++)
-#else
-		for (i = 0; i < 94; i++)
-#endif
-		{
+		for (i = 0; i < NUMCHARS(); i++) {
 			chars[i].width = maxwidth;
 		}
 	}
@@ -362,7 +278,6 @@ void fontLoad(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar *
 	}
 #endif
 }
-#endif
 
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(

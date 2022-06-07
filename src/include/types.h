@@ -6098,9 +6098,16 @@ struct escastepkeyframe {
 struct fontchar {
 	u8 index;
 	s8 baseline;
+#if VERSION == VERSION_JPN_FINAL
+	s8 unk02;
+	u8 height; // unsure
+	u8 width;
+	u8 unk04; // unsure
+#else
 	u8 height;
 	u8 width;
 	u32 unk04;
+#endif
 	u8 *pixeldata;
 };
 
