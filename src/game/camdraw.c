@@ -4355,85 +4355,44 @@ u32 func0f14f76c(struct var8007f8e0 *arg0, u32 arg1)
 	return bits;
 }
 
-GLOBAL_ASM(
-glabel func0f14f7d4
-/*  f14f7d4:	3c03800a */ 	lui	$v1,%hi(var800a45a0)
-/*  f14f7d8:	8c6345a0 */ 	lw	$v1,%lo(var800a45a0)($v1)
-/*  f14f7dc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f14f7e0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f14f7e4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f14f7e8:	8c65000c */ 	lw	$a1,0xc($v1)
-/*  f14f7ec:	00808025 */ 	or	$s0,$a0,$zero
-/*  f14f7f0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f14f7f4:	18a00004 */ 	blez	$a1,.L0f14f808
-/*  f14f7f8:	24aeffff */ 	addiu	$t6,$a1,-1
-/*  f14f7fc:	ac6e000c */ 	sw	$t6,0xc($v1)
-/*  f14f800:	1000002d */ 	b	.L0f14f8b8
-/*  f14f804:	00001025 */ 	or	$v0,$zero,$zero
-.L0f14f808:
-/*  f14f808:	0fc53ddb */ 	jal	func0f14f76c
-/*  f14f80c:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f14f810:	14400009 */ 	bnez	$v0,.L0f14f838
-/*  f14f814:	00403025 */ 	or	$a2,$v0,$zero
-/*  f14f818:	02002025 */ 	or	$a0,$s0,$zero
-/*  f14f81c:	0fc53ddb */ 	jal	func0f14f76c
-/*  f14f820:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f14f824:	3c0f800a */ 	lui	$t7,%hi(var800a45a0)
-/*  f14f828:	8def45a0 */ 	lw	$t7,%lo(var800a45a0)($t7)
-/*  f14f82c:	ade2000c */ 	sw	$v0,0xc($t7)
-/*  f14f830:	10000021 */ 	b	.L0f14f8b8
-/*  f14f834:	00001025 */ 	or	$v0,$zero,$zero
-.L0f14f838:
-/*  f14f838:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f14f83c:	14410006 */ 	bne	$v0,$at,.L0f14f858
-/*  f14f840:	02002025 */ 	or	$a0,$s0,$zero
-/*  f14f844:	02002025 */ 	or	$a0,$s0,$zero
-/*  f14f848:	0fc53ddb */ 	jal	func0f14f76c
-/*  f14f84c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f14f850:	10000008 */ 	b	.L0f14f874
-/*  f14f854:	24460001 */ 	addiu	$a2,$v0,0x1
-.L0f14f858:
-/*  f14f858:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f14f85c:	0fc53ddb */ 	jal	func0f14f76c
-/*  f14f860:	afa60024 */ 	sw	$a2,0x24($sp)
-/*  f14f864:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*  f14f868:	0006c080 */ 	sll	$t8,$a2,0x2
-/*  f14f86c:	00583021 */ 	addu	$a2,$v0,$t8
-/*  f14f870:	24c6fffb */ 	addiu	$a2,$a2,-5
-.L0f14f874:
-/*  f14f874:	02002025 */ 	or	$a0,$s0,$zero
-/*  f14f878:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f14f87c:	0fc53ddb */ 	jal	func0f14f76c
-/*  f14f880:	afa60024 */ 	sw	$a2,0x24($sp)
-/*  f14f884:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*  f14f888:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f14f88c:	00401825 */ 	or	$v1,$v0,$zero
-/*  f14f890:	24d9001f */ 	addiu	$t9,$a2,0x1f
-/*  f14f894:	03284804 */ 	sllv	$t1,$t0,$t9
-/*  f14f898:	01225024 */ 	and	$t2,$t1,$v0
-/*  f14f89c:	11400003 */ 	beqz	$t2,.L0f14f8ac
-/*  f14f8a0:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f14f8a4:	10000005 */ 	b	.L0f14f8bc
-/*  f14f8a8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f14f8ac:
-/*  f14f8ac:	00cb6004 */ 	sllv	$t4,$t3,$a2
-/*  f14f8b0:	006c1023 */ 	subu	$v0,$v1,$t4
-/*  f14f8b4:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f14f8b8:
-/*  f14f8b8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f14f8bc:
-/*  f14f8bc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f14f8c0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f14f8c4:	03e00008 */ 	jr	$ra
-/*  f14f8c8:	00000000 */ 	nop
-);
+s32 phead0f14f7d4(struct var8007f8e0 *arg0)
+{
+	s32 sp24;
+	s32 v0;
+
+	if (var800a45a0->unk00c > 0) {
+		var800a45a0->unk00c--;
+		return 0;
+	}
+
+	sp24 = func0f14f76c(arg0, 2);
+
+	if (sp24 == 0) {
+		var800a45a0->unk00c = func0f14f76c(arg0, 4);
+		return 0;
+	}
+
+	if (sp24 == 1) {
+		sp24 = func0f14f76c(arg0, 1) + 1;
+	} else {
+		sp24 = func0f14f76c(arg0, 2) + sp24 * 4 - 5;
+	}
+
+	v0 = func0f14f76c(arg0, sp24);
+
+	if ((1 << (sp24 + 31)) & v0) {
+		return v0;
+	}
+
+	return (v0 - (1 << sp24)) + 1;
+}
 
 void phead0f14f8cc(struct var8007f8e0 *arg0, u32 arg1[8][8])
 {
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(var7f1b60a0); i++) {
-		s32 v0 = func0f14f7d4(arg0);
+		s32 v0 = phead0f14f7d4(arg0);
 
 		s32 upper = var7f1b60a0[i][0];
 		s32 lower = var7f1b60a0[i][1];
