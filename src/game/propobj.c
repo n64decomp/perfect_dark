@@ -43616,7 +43616,7 @@ void chopperIncrementMovement(struct prop *prop, f32 goalroty, f32 goalrotx, str
 	if (chopper->power > 0.45f && !firing && (chopper->base.flags2 & OBJFLAG2_INVISIBLE) == 0 && objIsHealthy(&chopper->base)) {
 		soundnum = g_Vars.stagenum == STAGE_EXTRACTION ? SFX_810D : SFX_8110;
 
-		func0f09294c(prop, soundnum, 6);
+		propsnd0f09294c(prop, soundnum, 6);
 	} else {
 		func0f0926bc(prop, 6, 0xffff);
 	}
@@ -43653,7 +43653,7 @@ void chopperIncrementMovement(struct prop *prop, f32 goalroty, f32 goalrotx, str
 	if ((chopper->base.flags2 & OBJFLAG2_INVISIBLE) == 0 && objIsHealthy(&chopper->base)) {
 		soundnum = g_Vars.stagenum == STAGE_EXTRACTION ? SFX_SHIP_HUM : SFX_810F;
 
-		func0f09294c(prop, soundnum, 5);
+		propsnd0f09294c(prop, soundnum, 5);
 	} else {
 		func0f0926bc(prop, 5, 0xffff);
 	}
