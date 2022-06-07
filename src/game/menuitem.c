@@ -10474,87 +10474,20 @@ void menuitemPlayerStatsInit(struct menuitem *item, union menuitemdata *data)
 	menuitemDropdownInit(item, data);
 }
 
-GLOBAL_ASM(
-glabel menuitemControllerRenderLine
-/*  f0ef394:	3c098008 */ 	lui	$t1,%hi(g_ScaleX)
-/*  f0ef398:	8faf0010 */ 	lw	$t7,0x10($sp)
-/*  f0ef39c:	2529fac0 */ 	addiu	$t1,$t1,%lo(g_ScaleX)
-/*  f0ef3a0:	8d390000 */ 	lw	$t9,0x0($t1)
-/*  f0ef3a4:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f0ef3a8:	04c10004 */ 	bgez	$a2,.L0f0ef3bc
-/*  f0ef3ac:	30ce0003 */ 	andi	$t6,$a2,0x3
-/*  f0ef3b0:	11c00002 */ 	beqz	$t6,.L0f0ef3bc
-/*  f0ef3b4:	00000000 */ 	nop
-/*  f0ef3b8:	25cefffc */ 	addiu	$t6,$t6,-4
-.L0f0ef3bc:
-/*  f0ef3bc:	03190019 */ 	multu	$t8,$t9
-/*  f0ef3c0:	01c52821 */ 	addu	$a1,$t6,$a1
-/*  f0ef3c4:	8fae0014 */ 	lw	$t6,0x14($sp)
-/*  f0ef3c8:	3c01e400 */ 	lui	$at,0xe400
-/*  f0ef3cc:	00801025 */ 	or	$v0,$a0,$zero
-/*  f0ef3d0:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0ef3d4:	31f80fff */ 	andi	$t8,$t7,0xfff
-/*  f0ef3d8:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f0ef3dc:	00801825 */ 	or	$v1,$a0,$zero
-/*  f0ef3e0:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f0ef3e4:	00005012 */ 	mflo	$t2
-/*  f0ef3e8:	314b0fff */ 	andi	$t3,$t2,0xfff
-/*  f0ef3ec:	000b6300 */ 	sll	$t4,$t3,0xc
-/*  f0ef3f0:	01816825 */ 	or	$t5,$t4,$at
-/*  f0ef3f4:	01b8c825 */ 	or	$t9,$t5,$t8
-/*  f0ef3f8:	ac590000 */ 	sw	$t9,0x0($v0)
-/*  f0ef3fc:	8d2b0000 */ 	lw	$t3,0x0($t1)
-/*  f0ef400:	00065080 */ 	sll	$t2,$a2,0x2
-/*  f0ef404:	00076880 */ 	sll	$t5,$a3,0x2
-/*  f0ef408:	014b0019 */ 	multu	$t2,$t3
-/*  f0ef40c:	31b80fff */ 	andi	$t8,$t5,0xfff
-/*  f0ef410:	00055940 */ 	sll	$t3,$a1,0x5
-/*  f0ef414:	3c0ab400 */ 	lui	$t2,0xb400
-/*  f0ef418:	00804025 */ 	or	$t0,$a0,$zero
-/*  f0ef41c:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f0ef420:	00006012 */ 	mflo	$t4
-/*  f0ef424:	318e0fff */ 	andi	$t6,$t4,0xfff
-/*  f0ef428:	000e7b00 */ 	sll	$t7,$t6,0xc
-/*  f0ef42c:	01f8c825 */ 	or	$t9,$t7,$t8
-/*  f0ef430:	ac590004 */ 	sw	$t9,0x4($v0)
-/*  f0ef434:	01606025 */ 	or	$t4,$t3,$zero
-/*  f0ef438:	000c7400 */ 	sll	$t6,$t4,0x10
-/*  f0ef43c:	ac6a0000 */ 	sw	$t2,0x0($v1)
-/*  f0ef440:	04e10004 */ 	bgez	$a3,.L0f0ef454
-/*  f0ef444:	30ed0003 */ 	andi	$t5,$a3,0x3
-/*  f0ef448:	11a00002 */ 	beqz	$t5,.L0f0ef454
-/*  f0ef44c:	00000000 */ 	nop
-/*  f0ef450:	25adfffc */ 	addiu	$t5,$t5,-4
-.L0f0ef454:
-/*  f0ef454:	000d7940 */ 	sll	$t7,$t5,0x5
-/*  f0ef458:	31f8ffff */ 	andi	$t8,$t7,0xffff
-/*  f0ef45c:	01d8c825 */ 	or	$t9,$t6,$t8
-/*  f0ef460:	ac790004 */ 	sw	$t9,0x4($v1)
-/*  f0ef464:	3c0ab300 */ 	lui	$t2,0xb300
-/*  f0ef468:	ad0a0000 */ 	sw	$t2,0x0($t0)
-/*  f0ef46c:	8d2b0000 */ 	lw	$t3,0x0($t1)
-/*  f0ef470:	240c0400 */ 	addiu	$t4,$zero,0x400
-/*  f0ef474:	00801025 */ 	or	$v0,$a0,$zero
-/*  f0ef478:	018b001a */ 	div	$zero,$t4,$t3
-/*  f0ef47c:	00006812 */ 	mflo	$t5
-/*  f0ef480:	31afffff */ 	andi	$t7,$t5,0xffff
-/*  f0ef484:	000f7400 */ 	sll	$t6,$t7,0x10
-/*  f0ef488:	35d80400 */ 	ori	$t8,$t6,0x400
-/*  f0ef48c:	15600002 */ 	bnez	$t3,.L0f0ef498
-/*  f0ef490:	00000000 */ 	nop
-/*  f0ef494:	0007000d */ 	break	0x7
-.L0f0ef498:
-/*  f0ef498:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0ef49c:	15610004 */ 	bne	$t3,$at,.L0f0ef4b0
-/*  f0ef4a0:	3c018000 */ 	lui	$at,0x8000
-/*  f0ef4a4:	15810002 */ 	bne	$t4,$at,.L0f0ef4b0
-/*  f0ef4a8:	00000000 */ 	nop
-/*  f0ef4ac:	0006000d */ 	break	0x6
-.L0f0ef4b0:
-/*  f0ef4b0:	ad180004 */ 	sw	$t8,0x4($t0)
-/*  f0ef4b4:	03e00008 */ 	jr	$ra
-/*  f0ef4b8:	00000000 */ 	nop
-);
+Gfx *menuitemControllerRenderLine(Gfx *gdl, s32 speed, s32 x1, s32 y1, s32 x2, s32 y2)
+{
+	speed = speed + (x1 % 4);
+
+	gSPTextureRectangle(gdl++,
+			x1 * 4 * g_ScaleX, y1 * 4,
+			x2 * 4 * g_ScaleX, y2 * 4,
+			G_TX_RENDERTILE,
+			speed * 32,
+			(y1 % 4) * 32,
+			1024 / g_ScaleX, 1024);
+
+	return gdl;
+}
 
 Gfx *menuitemControllerRenderTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32 alpha)
 {
