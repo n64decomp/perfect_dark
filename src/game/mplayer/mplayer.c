@@ -6358,82 +6358,12 @@ void mpApplyConfig(struct mpconfigfull *config)
 	challengeRemoveForceUnlocks();
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel func0f18dec4
-/*  f18e7d8:	27bdfe00 */ 	addiu	$sp,$sp,-512
-/*  f18e7dc:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f18e7e0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f18e7e4:	00808825 */ 	move	$s1,$a0
-/*  f18e7e8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f18e7ec:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f18e7f0:	00008025 */ 	move	$s0,$zero
-.JF0f18e7f4:
-/*  f18e7f4:	0fc63924 */ 	jal	mpIsPresetUnlocked
-/*  f18e7f8:	02002025 */ 	move	$a0,$s0
-/*  f18e7fc:	5040000d */ 	beqzl	$v0,.JF0f18e834
-/*  f18e800:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f18e804:	16200009 */ 	bnez	$s1,.JF0f18e82c
-/*  f18e808:	00107080 */ 	sll	$t6,$s0,0x2
-/*  f18e80c:	01d07023 */ 	subu	$t6,$t6,$s0
-/*  f18e810:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f18e814:	3c0f8009 */ 	lui	$t7,0x8009
-/*  f18e818:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f18e81c:	8def81d8 */ 	lw	$t7,-0x7e28($t7)
-/*  f18e820:	00008025 */ 	move	$s0,$zero
-/*  f18e824:	10000007 */ 	b	.JF0f18e844
-/*  f18e828:	afaf002c */ 	sw	$t7,0x2c($sp)
-.JF0f18e82c:
-/*  f18e82c:	2631ffff */ 	addiu	$s1,$s1,-1
-/*  f18e830:	26100001 */ 	addiu	$s0,$s0,0x1
-.JF0f18e834:
-/*  f18e834:	2e01000e */ 	sltiu	$at,$s0,0xe
-/*  f18e838:	1420ffee */ 	bnez	$at,.JF0f18e7f4
-/*  f18e83c:	00000000 */ 	nop
-/*  f18e840:	00008025 */ 	move	$s0,$zero
-.JF0f18e844:
-/*  f18e844:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f18e848:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*  f18e84c:	0fc6709d */ 	jal	challengeLoadConfig
-/*  f18e850:	240601ca */ 	li	$a2,0x1ca
-/*  f18e854:	0fc6397e */ 	jal	mpApplyConfig
-/*  f18e858:	00402025 */ 	move	$a0,$v0
-/*  f18e85c:	3c03800b */ 	lui	$v1,0x800b
-/*  f18e860:	2463d5b8 */ 	addiu	$v1,$v1,-10824
-/*  f18e864:	94780016 */ 	lhu	$t8,0x16($v1)
-/*  f18e868:	3c02800b */ 	lui	$v0,0x800b
-/*  f18e86c:	2442cf68 */ 	addiu	$v0,$v0,-12440
-/*  f18e870:	3319000f */ 	andi	$t9,$t8,0xf
-/*  f18e874:	a4790016 */ 	sh	$t9,0x16($v1)
-/*  f18e878:	24050008 */ 	li	$a1,0x8
-/*  f18e87c:	24040006 */ 	li	$a0,0x6
-.JF0f18e880:
-/*  f18e880:	90480048 */ 	lbu	$t0,0x48($v0)
-/*  f18e884:	260a0004 */ 	addiu	$t2,$s0,0x4
-/*  f18e888:	50880007 */ 	beql	$a0,$t0,.JF0f18e8a8
-/*  f18e88c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f18e890:	94690016 */ 	lhu	$t1,0x16($v1)
-/*  f18e894:	240b0001 */ 	li	$t3,0x1
-/*  f18e898:	014b6004 */ 	sllv	$t4,$t3,$t2
-/*  f18e89c:	012c6825 */ 	or	$t5,$t1,$t4
-/*  f18e8a0:	a46d0016 */ 	sh	$t5,0x16($v1)
-/*  f18e8a4:	26100001 */ 	addiu	$s0,$s0,0x1
-.JF0f18e8a8:
-/*  f18e8a8:	1605fff5 */ 	bne	$s0,$a1,.JF0f18e880
-/*  f18e8ac:	2442004c */ 	addiu	$v0,$v0,0x4c
-/*  f18e8b0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f18e8b4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f18e8b8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f18e8bc:	03e00008 */ 	jr	$ra
-/*  f18e8c0:	27bd0200 */ 	addiu	$sp,$sp,0x200
-);
-#else
-void func0f18dec4(s32 slot)
+void mp0f18dec4(s32 slot)
 {
 	struct mpconfigfull *config;
 	u8 buffer[0x1ca];
 	s32 confignum = 0;
-	s32 i;
+	u32 i;
 
 	for (i = 0; i < 14; i++) {
 		if (mpIsPresetUnlocked(i)) {
@@ -6444,14 +6374,22 @@ void func0f18dec4(s32 slot)
 
 			slot--;
 		}
-
 	}
 
 	config = challengeLoadConfig(confignum, buffer, sizeof(buffer));
 
 	mpApplyConfig(config);
-}
+
+#if VERSION >= VERSION_JPN_FINAL
+	g_MpSetup.chrslots &= 0x0f;
+
+	for (i = 0; i < MAX_BOTS; i++) {
+		if (g_BotConfigsArray[i].difficulty != BOTDIFF_DISABLED) {
+			g_MpSetup.chrslots |= 1 << (i + 4);
+		}
+	}
 #endif
+}
 
 void mpsetupfileLoadWad(struct savebuffer *buffer)
 {

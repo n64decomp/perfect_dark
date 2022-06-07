@@ -1416,7 +1416,7 @@ s32 mpLoadSettingsMenuHandler(s32 operation, struct menuitem *item, union handle
 		mpCloseDialogsForNewSetup();
 
 		if (data->list.value < mpGetNumUnlockedPresets()) {
-			func0f18dec4(data->list.value);
+			mp0f18dec4(data->list.value);
 		} else if (g_FileLists[1] != NULL) {
 			struct filelistfile *file = &g_FileLists[1]->files[data->list.value - mpGetNumUnlockedPresets()];
 			struct fileguid guid;
