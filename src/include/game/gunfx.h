@@ -22,7 +22,7 @@ s32 boltbeamFindByProp(struct prop *prop);
 s32 boltbeamCreate(struct prop *prop);
 void func0f0aed3c(s32 index, struct coord *pos);
 void func0f0aed70(s32 index, struct coord *pos);
-void func0f0aeda4(s32 arg0, f32 arg1, u32 arg2);
+void func0f0aeda4(s32 arg0, f32 arg1, bool arg2);
 void func0f0aeea8(s32 index, f32 arg1);
 Gfx *boltbeamsRender(Gfx *gdl);
 void boltbeamsTick(void);

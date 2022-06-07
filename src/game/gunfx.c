@@ -3657,75 +3657,29 @@ void func0f0aed70(s32 index, struct coord *coord)
 	g_BoltBeams[index].unk20.z = coord->z;
 }
 
-GLOBAL_ASM(
-glabel func0f0aeda4
-/*  f0aeda4:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f0aeda8:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f0aedac:	3c0f800a */ 	lui	$t7,%hi(g_BoltBeams)
-/*  f0aedb0:	25efda60 */ 	addiu	$t7,$t7,%lo(g_BoltBeams)
-/*  f0aedb4:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f0aedb8:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0aedbc:	c4440028 */ 	lwc1	$f4,0x28($v0)
-/*  f0aedc0:	c446001c */ 	lwc1	$f6,0x1c($v0)
-/*  f0aedc4:	c4480020 */ 	lwc1	$f8,0x20($v0)
-/*  f0aedc8:	c44a0014 */ 	lwc1	$f10,0x14($v0)
-/*  f0aedcc:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f0aedd0:	c4460018 */ 	lwc1	$f6,0x18($v0)
-/*  f0aedd4:	c4440024 */ 	lwc1	$f4,0x24($v0)
-/*  f0aedd8:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f0aeddc:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0aede0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0aede4:	46062381 */ 	sub.s	$f14,$f4,$f6
-/*  f0aede8:	46021202 */ 	mul.s	$f8,$f2,$f2
-/*  f0aedec:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f0aedf0:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f0aedf4:	460e7282 */ 	mul.s	$f10,$f14,$f14
-/*  f0aedf8:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0aedfc:	46000182 */ 	mul.s	$f6,$f0,$f0
-/*  f0aee00:	460a4100 */ 	add.s	$f4,$f8,$f10
-/*  f0aee04:	0c012974 */ 	jal	sqrtf
-/*  f0aee08:	46043300 */ 	add.s	$f12,$f6,$f4
-/*  f0aee0c:	c7a80034 */ 	lwc1	$f8,0x34($sp)
-/*  f0aee10:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f0aee14:	8fb80038 */ 	lw	$t8,0x38($sp)
-/*  f0aee18:	4600403c */ 	c.lt.s	$f8,$f0
-/*  f0aee1c:	00000000 */ 	nop
-/*  f0aee20:	4502001e */ 	bc1fl	.L0f0aee9c
-/*  f0aee24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0aee28:	5700001c */ 	bnezl	$t8,.L0f0aee9c
-/*  f0aee2c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0aee30:	c44c0020 */ 	lwc1	$f12,0x20($v0)
-/*  f0aee34:	c44a0014 */ 	lwc1	$f10,0x14($v0)
-/*  f0aee38:	c4420028 */ 	lwc1	$f2,0x28($v0)
-/*  f0aee3c:	c44e0024 */ 	lwc1	$f14,0x24($v0)
-/*  f0aee40:	460c5181 */ 	sub.s	$f6,$f10,$f12
-/*  f0aee44:	c44a001c */ 	lwc1	$f10,0x1c($v0)
-/*  f0aee48:	c4440018 */ 	lwc1	$f4,0x18($v0)
-/*  f0aee4c:	46003403 */ 	div.s	$f16,$f6,$f0
-/*  f0aee50:	46025181 */ 	sub.s	$f6,$f10,$f2
-/*  f0aee54:	460e2201 */ 	sub.s	$f8,$f4,$f14
-/*  f0aee58:	46003103 */ 	div.s	$f4,$f6,$f0
-/*  f0aee5c:	46004483 */ 	div.s	$f18,$f8,$f0
-/*  f0aee60:	c7a80034 */ 	lwc1	$f8,0x34($sp)
-/*  f0aee64:	e7a40028 */ 	swc1	$f4,0x28($sp)
-/*  f0aee68:	c7a40034 */ 	lwc1	$f4,0x34($sp)
-/*  f0aee6c:	46088282 */ 	mul.s	$f10,$f16,$f8
-/*  f0aee70:	460c5180 */ 	add.s	$f6,$f10,$f12
-/*  f0aee74:	46049202 */ 	mul.s	$f8,$f18,$f4
-/*  f0aee78:	c7a40034 */ 	lwc1	$f4,0x34($sp)
-/*  f0aee7c:	e4460014 */ 	swc1	$f6,0x14($v0)
-/*  f0aee80:	c7a60028 */ 	lwc1	$f6,0x28($sp)
-/*  f0aee84:	460e4280 */ 	add.s	$f10,$f8,$f14
-/*  f0aee88:	46043202 */ 	mul.s	$f8,$f6,$f4
-/*  f0aee8c:	e44a0018 */ 	swc1	$f10,0x18($v0)
-/*  f0aee90:	46024280 */ 	add.s	$f10,$f8,$f2
-/*  f0aee94:	e44a001c */ 	swc1	$f10,0x1c($v0)
-/*  f0aee98:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0aee9c:
-/*  f0aee9c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0aeea0:	03e00008 */ 	jr	$ra
-/*  f0aeea4:	00000000 */ 	nop
-);
+void func0f0aeda4(s32 index, f32 arg1, bool arg2)
+{
+	f32 dist;
+
+#define DIFF(i) (g_BoltBeams[index].unk20.f[i] - g_BoltBeams[index].unk14.f[i])
+#define SQDIFF(i) (DIFF(i) * DIFF(i))
+
+	dist = sqrtf(SQDIFF(0) + SQDIFF(1) + SQDIFF(2));
+
+	if (dist > arg1 && !arg2) {
+		f32 tmp[3];
+
+		if (1);
+
+		tmp[0] = (g_BoltBeams[index].unk14.f[0] - g_BoltBeams[index].unk20.f[0]) / dist;
+		tmp[1] = (g_BoltBeams[index].unk14.f[1] - g_BoltBeams[index].unk20.f[1]) / dist;
+		tmp[2] = (g_BoltBeams[index].unk14.f[2] - g_BoltBeams[index].unk20.f[2]) / dist;
+
+		g_BoltBeams[index].unk14.f[0] = g_BoltBeams[index].unk20.f[0] + tmp[0] * arg1;
+		g_BoltBeams[index].unk14.f[1] = g_BoltBeams[index].unk20.f[1] + tmp[1] * arg1;
+		g_BoltBeams[index].unk14.f[2] = g_BoltBeams[index].unk20.f[2] + tmp[2] * arg1;
+	}
+}
 
 void func0f0aeea8(s32 index, f32 arg1)
 {
@@ -3763,7 +3717,7 @@ void boltbeamsTick(void)
 			if (value < 0) {
 				g_BoltBeams[i].unk00 = -1;
 			} else {
-				func0f0aeda4(i, value, 0);
+				func0f0aeda4(i, value, false);
 			}
 		}
 	}
