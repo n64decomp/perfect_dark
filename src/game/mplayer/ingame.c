@@ -743,115 +743,6 @@ void mpPushPauseDialog(void)
 	}
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel mpPushEndscreenDialog
-/*  f1794c8:	3c028007 */ 	lui	$v0,0x8007
-/*  f1794cc:	0005c0c0 */ 	sll	$t8,$a1,0x3
-/*  f1794d0:	24421998 */ 	addiu	$v0,$v0,0x1998
-/*  f1794d4:	0305c023 */ 	subu	$t8,$t8,$a1
-/*  f1794d8:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f1794dc:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1794e0:	ac450000 */ 	sw	$a1,0x0($v0)
-/*  f1794e4:	0305c021 */ 	addu	$t8,$t8,$a1
-/*  f1794e8:	3c19800b */ 	lui	$t9,0x800b
-/*  f1794ec:	8f39d5c4 */ 	lw	$t9,-0x2a3c($t9)
-/*  f1794f0:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f1794f4:	0305c023 */ 	subu	$t8,$t8,$a1
-/*  f1794f8:	0018c100 */ 	sll	$t8,$t8,0x4
-/*  f1794fc:	3c01800a */ 	lui	$at,0x800a
-/*  f179500:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f179504:	00380821 */ 	addu	$at,$at,$t8
-/*  f179508:	33280002 */ 	andi	$t0,$t9,0x2
-/*  f17950c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f179510:	a024ef3b */ 	sb	$a0,-0x10c5($at)
-/*  f179514:	11000027 */ 	beqz	$t0,.JF0f1795b4
-/*  f179518:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f17951c:	3c09800b */ 	lui	$t1,0x800b
-/*  f179520:	9129d640 */ 	lbu	$t1,-0x29c0($t1)
-/*  f179524:	24010005 */ 	li	$at,0x5
-/*  f179528:	3c048008 */ 	lui	$a0,0x8008
-/*  f17952c:	1521001d */ 	bne	$t1,$at,.JF0f1795a4
-/*  f179530:	2484509c */ 	addiu	$a0,$a0,0x509c
-/*  f179534:	3c0a800a */ 	lui	$t2,0x800a
-/*  f179538:	8d4a28d0 */ 	lw	$t2,0x28d0($t2)
-/*  f17953c:	3c048008 */ 	lui	$a0,0x8008
-/*  f179540:	3c0b800a */ 	lui	$t3,0x800a
-/*  f179544:	15400004 */ 	bnez	$t2,.JF0f179558
-/*  f179548:	248450cc */ 	addiu	$a0,$a0,0x50cc
-/*  f17954c:	8d6b28d4 */ 	lw	$t3,0x28d4($t3)
-/*  f179550:	11600005 */ 	beqz	$t3,.JF0f179568
-/*  f179554:	00000000 */ 	nop
-.JF0f179558:
-/*  f179558:	0fc3e40a */ 	jal	menuPushRootDialog
-/*  f17955c:	24050005 */ 	li	$a1,0x5
-/*  f179560:	10000018 */ 	b	.JF0f1795c4
-/*  f179564:	00000000 */ 	nop
-.JF0f179568:
-/*  f179568:	0fc673a7 */ 	jal	challengeIsCompleteForEndscreen
-/*  f17956c:	00000000 */ 	nop
-/*  f179570:	10400007 */ 	beqz	$v0,.JF0f179590
-/*  f179574:	3c048008 */ 	lui	$a0,0x8008
-/*  f179578:	3c048008 */ 	lui	$a0,0x8008
-/*  f17957c:	248450b4 */ 	addiu	$a0,$a0,0x50b4
-/*  f179580:	0fc3e40a */ 	jal	menuPushRootDialog
-/*  f179584:	24050005 */ 	li	$a1,0x5
-/*  f179588:	1000000e */ 	b	.JF0f1795c4
-/*  f17958c:	00000000 */ 	nop
-.JF0f179590:
-/*  f179590:	248450e4 */ 	addiu	$a0,$a0,0x50e4
-/*  f179594:	0fc3e40a */ 	jal	menuPushRootDialog
-/*  f179598:	24050005 */ 	li	$a1,0x5
-/*  f17959c:	10000009 */ 	b	.JF0f1795c4
-/*  f1795a0:	00000000 */ 	nop
-.JF0f1795a4:
-/*  f1795a4:	0fc3e40a */ 	jal	menuPushRootDialog
-/*  f1795a8:	24050005 */ 	li	$a1,0x5
-/*  f1795ac:	10000005 */ 	b	.JF0f1795c4
-/*  f1795b0:	00000000 */ 	nop
-.JF0f1795b4:
-/*  f1795b4:	3c048008 */ 	lui	$a0,0x8008
-/*  f1795b8:	24845084 */ 	addiu	$a0,$a0,0x5084
-/*  f1795bc:	0fc3e40a */ 	jal	menuPushRootDialog
-/*  f1795c0:	24050005 */ 	li	$a1,0x5
-.JF0f1795c4:
-/*  f1795c4:	3c0c8009 */ 	lui	$t4,0x8009
-/*  f1795c8:	918c1160 */ 	lbu	$t4,0x1160($t4)
-/*  f1795cc:	24010001 */ 	li	$at,0x1
-/*  f1795d0:	3c0d8007 */ 	lui	$t5,0x8007
-/*  f1795d4:	51810017 */ 	beql	$t4,$at,.JF0f179634
-/*  f1795d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1795dc:	8dad1998 */ 	lw	$t5,0x1998($t5)
-/*  f1795e0:	3c0f800b */ 	lui	$t7,0x800b
-/*  f1795e4:	25efd1e8 */ 	addiu	$t7,$t7,-11800
-/*  f1795e8:	000d7080 */ 	sll	$t6,$t5,0x2
-/*  f1795ec:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*  f1795f0:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f1795f4:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f1795f8:	94430048 */ 	lhu	$v1,0x48($v0)
-/*  f1795fc:	30784000 */ 	andi	$t8,$v1,0x4000
-/*  f179600:	5700000c */ 	bnezl	$t8,.JF0f179634
-/*  f179604:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f179608:	8c59004c */ 	lw	$t9,0x4c($v0)
-/*  f17960c:	57200009 */ 	bnezl	$t9,.JF0f179634
-/*  f179610:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f179614:	94480050 */ 	lhu	$t0,0x50($v0)
-/*  f179618:	3c048008 */ 	lui	$a0,0x8008
-/*  f17961c:	34694000 */ 	ori	$t1,$v1,0x4000
-/*  f179620:	15000003 */ 	bnez	$t0,.JF0f179630
-/*  f179624:	248451a0 */ 	addiu	$a0,$a0,0x51a0
-/*  f179628:	0fc3cef8 */ 	jal	menuPushDialog
-/*  f17962c:	a4490048 */ 	sh	$t1,0x48($v0)
-.JF0f179630:
-/*  f179630:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.JF0f179634:
-/*  f179634:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*  f179638:	3c018007 */ 	lui	$at,0x8007
-/*  f17963c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f179640:	03e00008 */ 	jr	$ra
-/*  f179644:	ac2a1998 */ 	sw	$t2,0x1998($at)
-);
-#else
 void mpPushEndscreenDialog(u32 arg0, u32 playernum)
 {
 	u32 prevplayernum = g_MpPlayerNum;
@@ -875,18 +766,20 @@ void mpPushEndscreenDialog(u32 arg0, u32 playernum)
 		menuPushRootDialog(&g_MpEndscreenIndGameOverMenuDialog, MENUROOT_MPENDSCREEN);
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
-	if ((g_PlayerConfigsArray[g_MpPlayerNum].options & OPTION_ASKEDSAVEPLAYER) == 0
-			&& g_PlayerConfigsArray[g_MpPlayerNum].fileguid.fileid == 0
-			&& g_PlayerConfigsArray[g_MpPlayerNum].fileguid.deviceserial == 0) {
-		g_PlayerConfigsArray[g_MpPlayerNum].options |= OPTION_ASKEDSAVEPLAYER;
-		menuPushDialog(&g_MpEndscreenSavePlayerMenuDialog);
-	}
+#if VERSION >= VERSION_JPN_FINAL
+	if (IS8MB())
 #endif
+	{
+		if ((g_PlayerConfigsArray[g_MpPlayerNum].options & OPTION_ASKEDSAVEPLAYER) == 0
+				&& g_PlayerConfigsArray[g_MpPlayerNum].fileguid.fileid == 0
+				&& g_PlayerConfigsArray[g_MpPlayerNum].fileguid.deviceserial == 0) {
+			g_PlayerConfigsArray[g_MpPlayerNum].options |= OPTION_ASKEDSAVEPLAYER;
+			menuPushDialog(&g_MpEndscreenSavePlayerMenuDialog);
+		}
+	}
 
 	g_MpPlayerNum = prevplayernum;
 }
-#endif
 
 struct menuitem g_MpGameOverMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x01000010, (u32)&mpGetCurrentPlayerName, (u32)&mpMenuTextPlacementWithSuffix, mpPlacementMenuHandler },
