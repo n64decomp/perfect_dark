@@ -1548,10 +1548,6 @@ struct menudialogdef g_SoloMissionDifficultyMenuDialog = {
 	NULL,
 };
 
-const u32 var7f1b2d40[] = {0x57055706};
-const u32 var7f1b2d44[] = {0x57075708};
-const u32 var7f1b2d48[] = {0x57090000};
-
 s32 menuhandlerBuddyOptionsContinue(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
@@ -1653,272 +1649,105 @@ s32 menuhandlerCoopFriendlyFire(s32 operation, struct menuitem *item, union hand
 	return 0;
 }
 
+s32 menuhandlerCoopBuddy(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	const u16 labels[] = {
+		L_OPTIONS_261, // "Human"
+		L_OPTIONS_262, // "1 Simulant"
+		L_OPTIONS_263, // "2 Simulants"
+		L_OPTIONS_264, // "3 Simulants"
+		L_OPTIONS_265, // "4 Simulants"
+	};
+
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel menuhandlerCoopBuddy
-/*  f10429c:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f1042a0:	3c0f7f1b */ 	lui	$t7,%hi(var7f1b2d40)
-/*  f1042a4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1042a8:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f1042ac:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f1042b0:	25ef2d40 */ 	addiu	$t7,$t7,%lo(var7f1b2d40)
-/*  f1042b4:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f1042b8:	27ae0034 */ 	addiu	$t6,$sp,0x34
-/*  f1042bc:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f1042c0:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f1042c4:	95e10008 */ 	lhu	$at,0x8($t7)
-/*  f1042c8:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1042cc:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f1042d0:	1085000c */ 	beq	$a0,$a1,.L0f104304
-/*  f1042d4:	a5c10008 */ 	sh	$at,0x8($t6)
-/*  f1042d8:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f1042dc:	10810017 */ 	beq	$a0,$at,.L0f10433c
-/*  f1042e0:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f1042e4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1042e8:	10810024 */ 	beq	$a0,$at,.L0f10437c
-/*  f1042ec:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f1042f0:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f1042f4:	10810031 */ 	beq	$a0,$at,.L0f1043bc
-/*  f1042f8:	00000000 */ 	nop
-/*  f1042fc:	10000044 */ 	b	.L0f104410
-/*  f104300:	00001025 */ 	or	$v0,$zero,$zero
-.L0f104304:
-/*  f104304:	0fc41023 */ 	jal	getMaxAiBuddies
-/*  f104308:	00000000 */ 	nop
-/*  f10430c:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f104310:	0c005013 */ 	jal	joyGetConnectedControllers
-/*  f104314:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f104318:	30490002 */ 	andi	$t1,$v0,0x2
-/*  f10431c:	11200002 */ 	beqz	$t1,.L0f104328
-/*  f104320:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*  f104324:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f104328:
-/*  f104328:	8faa0030 */ 	lw	$t2,0x30($sp)
-/*  f10432c:	8fac0048 */ 	lw	$t4,0x48($sp)
-/*  f104330:	006a5821 */ 	addu	$t3,$v1,$t2
-/*  f104334:	10000035 */ 	b	.L0f10440c
-/*  f104338:	ad8b0000 */ 	sw	$t3,0x0($t4)
-.L0f10433c:
-/*  f10433c:	0c005013 */ 	jal	joyGetConnectedControllers
-/*  f104340:	afa30028 */ 	sw	$v1,0x28($sp)
-/*  f104344:	304d0002 */ 	andi	$t5,$v0,0x2
-/*  f104348:	11a00002 */ 	beqz	$t5,.L0f104354
-/*  f10434c:	8fa30028 */ 	lw	$v1,0x28($sp)
-/*  f104350:	00001825 */ 	or	$v1,$zero,$zero
-.L0f104354:
-/*  f104354:	8fb90048 */ 	lw	$t9,0x48($sp)
-/*  f104358:	00037840 */ 	sll	$t7,$v1,0x1
-/*  f10435c:	8f380000 */ 	lw	$t8,0x0($t9)
-/*  f104360:	00187040 */ 	sll	$t6,$t8,0x1
-/*  f104364:	01cf4021 */ 	addu	$t0,$t6,$t7
-/*  f104368:	03a82021 */ 	addu	$a0,$sp,$t0
-/*  f10436c:	0fc5b9f1 */ 	jal	langGet
-/*  f104370:	94840034 */ 	lhu	$a0,0x34($a0)
-/*  f104374:	10000027 */ 	b	.L0f104414
-/*  f104378:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10437c:
-/*  f10437c:	0c005013 */ 	jal	joyGetConnectedControllers
-/*  f104380:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f104384:	30490002 */ 	andi	$t1,$v0,0x2
-/*  f104388:	11200002 */ 	beqz	$t1,.L0f104394
-/*  f10438c:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f104390:	00001825 */ 	or	$v1,$zero,$zero
-.L0f104394:
-/*  f104394:	8faa0048 */ 	lw	$t2,0x48($sp)
-/*  f104398:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f10439c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f1043a0:	8c4d0458 */ 	lw	$t5,0x458($v0)
-/*  f1043a4:	8d4b0000 */ 	lw	$t3,0x0($t2)
-/*  f1043a8:	35b90001 */ 	ori	$t9,$t5,0x1
-/*  f1043ac:	01636021 */ 	addu	$t4,$t3,$v1
-/*  f1043b0:	ac4c0474 */ 	sw	$t4,0x474($v0)
-/*  f1043b4:	10000015 */ 	b	.L0f10440c
-/*  f1043b8:	ac590458 */ 	sw	$t9,0x458($v0)
-.L0f1043bc:
-/*  f1043bc:	0c005013 */ 	jal	joyGetConnectedControllers
-/*  f1043c0:	afa50020 */ 	sw	$a1,0x20($sp)
-/*  f1043c4:	30580002 */ 	andi	$t8,$v0,0x2
-/*  f1043c8:	8fa30020 */ 	lw	$v1,0x20($sp)
-/*  f1043cc:	13000002 */ 	beqz	$t8,.L0f1043d8
-/*  f1043d0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1043d4:	00001825 */ 	or	$v1,$zero,$zero
-.L0f1043d8:
-/*  f1043d8:	14650006 */ 	bne	$v1,$a1,.L0f1043f4
-/*  f1043dc:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f1043e0:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f1043e4:	8c4e0474 */ 	lw	$t6,0x474($v0)
-/*  f1043e8:	15c00002 */ 	bnez	$t6,.L0f1043f4
-/*  f1043ec:	00000000 */ 	nop
-/*  f1043f0:	ac450474 */ 	sw	$a1,0x474($v0)
-.L0f1043f4:
-/*  f1043f4:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f1043f8:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f1043fc:	8c4f0474 */ 	lw	$t7,0x474($v0)
-/*  f104400:	8fa90048 */ 	lw	$t1,0x48($sp)
-/*  f104404:	01e34023 */ 	subu	$t0,$t7,$v1
-/*  f104408:	ad280000 */ 	sw	$t0,0x0($t1)
-.L0f10440c:
-/*  f10440c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f104410:
-/*  f104410:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f104414:
-/*  f104414:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f104418:	03e00008 */ 	jr	$ra
-/*  f10441c:	00000000 */ 	nop
-);
+		{
+			s32 maxaibuddies = getMaxAiBuddies();
+			s32 human = 0;
+
+			if (joyGetConnectedControllers() & 2) {
+				human = 1;
+			}
+
+			data->dropdown.value = human + maxaibuddies;
+		}
 #else
-GLOBAL_ASM(
-glabel menuhandlerCoopBuddy
-/*  f100014:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f100018:	3c0f7f1b */ 	lui	$t7,0x7f1b
-/*  f10001c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f100020:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f100024:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*  f100028:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f10002c:	25efd040 */ 	addiu	$t7,$t7,-12224
-/*  f100030:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f100034:	27ae003c */ 	addiu	$t6,$sp,0x3c
-/*  f100038:	8dea0004 */ 	lw	$t2,0x4($t7)
-/*  f10003c:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f100040:	95e10008 */ 	lhu	$at,0x8($t7)
-/*  f100044:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f100048:	00802825 */ 	or	$a1,$a0,$zero
-/*  f10004c:	adca0004 */ 	sw	$t2,0x4($t6)
-/*  f100050:	1089000c */ 	beq	$a0,$t1,.NB0f100084
-/*  f100054:	a5c10008 */ 	sh	$at,0x8($t6)
-/*  f100058:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f10005c:	10a40037 */ 	beq	$a1,$a0,.NB0f10013c
-/*  f100060:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f100064:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f100068:	10a10044 */ 	beq	$a1,$at,.NB0f10017c
-/*  f10006c:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f100070:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f100074:	10a10051 */ 	beq	$a1,$at,.NB0f1001bc
-/*  f100078:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10007c:	10000064 */ 	beqz	$zero,.NB0f100210
-/*  f100080:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f100084:
-/*  f100084:	3c0b800a */ 	lui	$t3,0x800a
-/*  f100088:	8d6b27a8 */ 	lw	$t3,0x27a8($t3)
-/*  f10008c:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f100090:	afa00038 */ 	sw	$zero,0x38($sp)
-/*  f100094:	000b6642 */ 	srl	$t4,$t3,0x19
-/*  f100098:	012c4023 */ 	subu	$t0,$t1,$t4
-/*  f10009c:	0c0053a4 */ 	jal	joyGetConnectedControllers
-/*  f1000a0:	afa80030 */ 	sw	$t0,0x30($sp)
-/*  f1000a4:	304d0002 */ 	andi	$t5,$v0,0x2
-/*  f1000a8:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f1000ac:	11a00003 */ 	beqz	$t5,.NB0f1000bc
-/*  f1000b0:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*  f1000b4:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f1000b8:	afb9002c */ 	sw	$t9,0x2c($sp)
-.NB0f1000bc:
-/*  f1000bc:	3c03800a */ 	lui	$v1,0x800a
-/*  f1000c0:	246366f0 */ 	addiu	$v1,$v1,0x66f0
-/*  f1000c4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1000c8:	3c06fffe */ 	lui	$a2,0xfffe
-/*  f1000cc:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f1000d0:	24040003 */ 	addiu	$a0,$zero,0x3
-.NB0f1000d4:
-/*  f1000d4:	8c7800a0 */ 	lw	$t8,0xa0($v1)
-/*  f1000d8:	03067025 */ 	or	$t6,$t8,$a2
-/*  f1000dc:	54ae0003 */ 	bnel	$a1,$t6,.NB0f1000ec
-/*  f1000e0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f1000e4:	24470001 */ 	addiu	$a3,$v0,0x1
-/*  f1000e8:	24420001 */ 	addiu	$v0,$v0,0x1
-.NB0f1000ec:
-/*  f1000ec:	1444fff9 */ 	bne	$v0,$a0,.NB0f1000d4
-/*  f1000f0:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f1000f4:	01074021 */ 	addu	$t0,$t0,$a3
-/*  f1000f8:	29010005 */ 	slti	$at,$t0,0x5
-/*  f1000fc:	14200002 */ 	bnez	$at,.NB0f100108
-/*  f100100:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f100104:	24080004 */ 	addiu	$t0,$zero,0x4
-.NB0f100108:
-/*  f100108:	1d000002 */ 	bgtz	$t0,.NB0f100114
-/*  f10010c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f100110:	24080001 */ 	addiu	$t0,$zero,0x1
-.NB0f100114:
-/*  f100114:	0fc466d8 */ 	jal	debugIsAllBuddiesEnabled
-/*  f100118:	afa80030 */ 	sw	$t0,0x30($sp)
-/*  f10011c:	10400002 */ 	beqz	$v0,.NB0f100128
-/*  f100120:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*  f100124:	24080004 */ 	addiu	$t0,$zero,0x4
-.NB0f100128:
-/*  f100128:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*  f10012c:	8fab0050 */ 	lw	$t3,0x50($sp)
-/*  f100130:	01e85021 */ 	addu	$t2,$t7,$t0
-/*  f100134:	10000035 */ 	beqz	$zero,.NB0f10020c
-/*  f100138:	ad6a0000 */ 	sw	$t2,0x0($t3)
-.NB0f10013c:
-/*  f10013c:	0c0053a4 */ 	jal	joyGetConnectedControllers
-/*  f100140:	afa30028 */ 	sw	$v1,0x28($sp)
-/*  f100144:	304c0002 */ 	andi	$t4,$v0,0x2
-/*  f100148:	11800002 */ 	beqz	$t4,.NB0f100154
-/*  f10014c:	8fa30028 */ 	lw	$v1,0x28($sp)
-/*  f100150:	00001825 */ 	or	$v1,$zero,$zero
-.NB0f100154:
-/*  f100154:	8fad0050 */ 	lw	$t5,0x50($sp)
-/*  f100158:	00037040 */ 	sll	$t6,$v1,0x1
-/*  f10015c:	8db90000 */ 	lw	$t9,0x0($t5)
-/*  f100160:	0019c040 */ 	sll	$t8,$t9,0x1
-/*  f100164:	030e7821 */ 	addu	$t7,$t8,$t6
-/*  f100168:	03af2021 */ 	addu	$a0,$sp,$t7
-/*  f10016c:	0fc5a4dd */ 	jal	langGet
-/*  f100170:	9484003c */ 	lhu	$a0,0x3c($a0)
-/*  f100174:	10000027 */ 	beqz	$zero,.NB0f100214
-/*  f100178:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f10017c:
-/*  f10017c:	0c0053a4 */ 	jal	joyGetConnectedControllers
-/*  f100180:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f100184:	304a0002 */ 	andi	$t2,$v0,0x2
-/*  f100188:	11400002 */ 	beqz	$t2,.NB0f100194
-/*  f10018c:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f100190:	00001825 */ 	or	$v1,$zero,$zero
-.NB0f100194:
-/*  f100194:	8fab0050 */ 	lw	$t3,0x50($sp)
-/*  f100198:	3c02800a */ 	lui	$v0,0x800a
-/*  f10019c:	2442e6c0 */ 	addiu	$v0,$v0,-6464
-/*  f1001a0:	8c590458 */ 	lw	$t9,0x458($v0)
-/*  f1001a4:	8d6c0000 */ 	lw	$t4,0x0($t3)
-/*  f1001a8:	37380001 */ 	ori	$t8,$t9,0x1
-/*  f1001ac:	01836821 */ 	addu	$t5,$t4,$v1
-/*  f1001b0:	ac4d0474 */ 	sw	$t5,0x474($v0)
-/*  f1001b4:	10000015 */ 	beqz	$zero,.NB0f10020c
-/*  f1001b8:	ac580458 */ 	sw	$t8,0x458($v0)
-.NB0f1001bc:
-/*  f1001bc:	0c0053a4 */ 	jal	joyGetConnectedControllers
-/*  f1001c0:	afa90020 */ 	sw	$t1,0x20($sp)
-/*  f1001c4:	304e0002 */ 	andi	$t6,$v0,0x2
-/*  f1001c8:	8fa30020 */ 	lw	$v1,0x20($sp)
-/*  f1001cc:	11c00002 */ 	beqz	$t6,.NB0f1001d8
-/*  f1001d0:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f1001d4:	00001825 */ 	or	$v1,$zero,$zero
-.NB0f1001d8:
-/*  f1001d8:	14690006 */ 	bne	$v1,$t1,.NB0f1001f4
-/*  f1001dc:	3c02800a */ 	lui	$v0,0x800a
-/*  f1001e0:	2442e6c0 */ 	addiu	$v0,$v0,-6464
-/*  f1001e4:	8c4f0474 */ 	lw	$t7,0x474($v0)
-/*  f1001e8:	15e00002 */ 	bnez	$t7,.NB0f1001f4
-/*  f1001ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1001f0:	ac490474 */ 	sw	$t1,0x474($v0)
-.NB0f1001f4:
-/*  f1001f4:	3c02800a */ 	lui	$v0,0x800a
-/*  f1001f8:	2442e6c0 */ 	addiu	$v0,$v0,-6464
-/*  f1001fc:	8c4a0474 */ 	lw	$t2,0x474($v0)
-/*  f100200:	8fac0050 */ 	lw	$t4,0x50($sp)
-/*  f100204:	01435823 */ 	subu	$t3,$t2,$v1
-/*  f100208:	ad8b0000 */ 	sw	$t3,0x0($t4)
-.NB0f10020c:
-/*  f10020c:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f100210:
-/*  f100210:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f100214:
-/*  f100214:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f100218:	03e00008 */ 	jr	$ra
-/*  f10021c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+		{
+			s32 extrabuddies = 0;
+			s32 i;
+			s32 maxbuddies = 1 - g_MissionConfig.difficulty;
+			s32 human = 0;
+
+			if (joyGetConnectedControllers() & 2) {
+				human = 1;
+			}
+
+			for (i = 0; i < 3; i++) {
+				if ((g_GameFile.coopcompletions[i] | 0xfffe0000) == 0xffffffff) {
+					extrabuddies = i + 1;
+				}
+			}
+
+			maxbuddies += extrabuddies;
+
+			if (maxbuddies > 4) {
+				maxbuddies = 4;
+			}
+
+			if (maxbuddies < 1) {
+				maxbuddies = 1;
+			}
+
+			if (debugIsAllBuddiesEnabled()) {
+				maxbuddies = 4;
+			}
+
+			data->dropdown.value = human + maxbuddies;
+		}
 #endif
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		{
+			s32 extra = 1;
+
+			if (joyGetConnectedControllers() & 2) {
+				extra = 0;
+			}
+
+			return (s32)langGet(labels[data->dropdown.value + extra]);
+		}
+	case MENUOP_SET:
+		{
+			s32 extra = 1;
+
+			if (joyGetConnectedControllers() & 2) {
+				extra = 0;
+			}
+
+			g_Vars.numaibuddies = data->dropdown.value + extra;
+			g_Vars.modifiedfiles |= MODFILE_GAME;
+		}
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		{
+			s32 extra = 1;
+
+			if (joyGetConnectedControllers() & 2) {
+				extra = 0;
+			}
+
+			if (extra == 1 && g_Vars.numaibuddies == 0) {
+				g_Vars.numaibuddies = 1;
+			}
+
+			data->dropdown.value = g_Vars.numaibuddies - extra;
+		}
+		break;
+	}
+
+	return 0;
+}
 
 struct menuitem g_CoopOptionsMenuItems[] = {
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_OPTIONS_256, 0x00000000, menuhandlerCoopRadar }, // "Radar On"

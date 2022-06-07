@@ -766,6 +766,7 @@ void mpPushEndscreenDialog(u32 arg0, u32 playernum)
 		menuPushRootDialog(&g_MpEndscreenIndGameOverMenuDialog, MENUROOT_MPENDSCREEN);
 	}
 
+#if VERSION >= VERSION_NTSC_1_0
 #if VERSION >= VERSION_JPN_FINAL
 	if (IS8MB())
 #endif
@@ -777,6 +778,7 @@ void mpPushEndscreenDialog(u32 arg0, u32 playernum)
 			menuPushDialog(&g_MpEndscreenSavePlayerMenuDialog);
 		}
 	}
+#endif
 
 	g_MpPlayerNum = prevplayernum;
 }
