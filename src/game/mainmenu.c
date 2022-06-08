@@ -5132,9 +5132,9 @@ char *invMenuTextWeaponDescription(struct menuitem *item)
 
 struct menuitem g_SoloMissionInventoryMenuItems[] = {
 #if VERSION == VERSION_JPN_FINAL
-	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x54, menuhandler00106178 },
+	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x54, menuhandlerInventoryList },
 #else
-	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x63, menuhandler00106178 },
+	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x63, menuhandlerInventoryList },
 #endif
 	{ MENUITEMTYPE_LABEL,       0, 0x00000203, L_OPTIONS_003, (u32)&invMenuTextWeaponManufacturer, NULL }, // ""
 	{ MENUITEMTYPE_LABEL,       0, 0x00000302, L_OPTIONS_003, (u32)&invMenuTextWeaponName, NULL }, // ""
@@ -5150,7 +5150,7 @@ struct menuitem g_SoloMissionInventoryMenuItems[] = {
 };
 
 struct menuitem g_FrWeaponsAvailableMenuItems[] = {
-	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x00000063, menuhandlerInventoryList },
+	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x00000063, menuhandlerFrInventoryList },
 	{ MENUITEMTYPE_LABEL,       0, 0x0213, L_OPTIONS_003, (u32)&invMenuTextWeaponManufacturer, NULL }, // ""
 	{ MENUITEMTYPE_LABEL,       0, 0x0312, L_OPTIONS_003, (u32)&invMenuTextWeaponName, NULL }, // ""
 	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x00000037, NULL },
@@ -5182,7 +5182,7 @@ struct menudialogdef g_FrWeaponsAvailableMenuDialog = {
 	NULL,
 };
 
-s32 menuhandlerInventoryList(s32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandlerFrInventoryList(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	static u8 g_FrFocusedSlotIndex = 0;
 
@@ -5223,367 +5223,79 @@ s32 menuhandlerInventoryList(s32 operation, struct menuitem *item, union handler
 	return 0;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel menuhandler00106178
-.late_rodata
-glabel var7f1b2e48
-.word menuhandler00106178+0x34 # f1061ac
-glabel var7f1b2e4c
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e50
-.word menuhandler00106178+0x48 # f1061c0
-glabel var7f1b2e54
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e58
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e5c
-.word menuhandler00106178+0x5c # f1061d4
-glabel var7f1b2e60
-.word menuhandler00106178+0x138 # f1062b0
-glabel var7f1b2e64
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e68
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e6c
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e70
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e74
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e78
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e7c
-.word menuhandler00106178+0x14c # f1062c4
-glabel var7f1b2e80
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e84
-.word menuhandler00106178+0x17c # f1062f4
-.text
-/*  f106178:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f10617c:	248effff */ 	addiu	$t6,$a0,-1
-/*  f106180:	2dc10010 */ 	sltiu	$at,$t6,0x10
-/*  f106184:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f106188:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f10618c:	1020007c */ 	beqz	$at,.L0f106380
-/*  f106190:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f106194:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f106198:	3c017f1b */ 	lui	$at,%hi(var7f1b2e48)
-/*  f10619c:	002e0821 */ 	addu	$at,$at,$t6
-/*  f1061a0:	8c2e2e48 */ 	lw	$t6,%lo(var7f1b2e48)($at)
-/*  f1061a4:	01c00008 */ 	jr	$t6
-/*  f1061a8:	00000000 */ 	nop
-/*  f1061ac:	0fc44a54 */ 	jal	invGetCount
-/*  f1061b0:	00000000 */ 	nop
-/*  f1061b4:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*  f1061b8:	10000071 */ 	b	.L0f106380
-/*  f1061bc:	ade20000 */ 	sw	$v0,0x0($t7)
-/*  f1061c0:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*  f1061c4:	0fc44b7f */ 	jal	invGetNameByIndex
-/*  f1061c8:	8f040000 */ 	lw	$a0,0x0($t8)
-/*  f1061cc:	1000006e */ 	b	.L0f106388
-/*  f1061d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1061d4:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*  f1061d8:	0fc44b11 */ 	jal	invGetWeaponNumByIndex
-/*  f1061dc:	8f240000 */ 	lw	$a0,0x0($t9)
-/*  f1061e0:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f1061e4:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f1061e8:	10400014 */ 	beqz	$v0,.L0f10623c
-/*  f1061ec:	afa80018 */ 	sw	$t0,0x18($sp)
-/*  f1061f0:	0fc2c62f */ 	jal	currentPlayerGetDeviceState
-/*  f1061f4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1061f8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f1061fc:	50410010 */ 	beql	$v0,$at,.L0f106240
-/*  f106200:	8fab0018 */ 	lw	$t3,0x18($sp)
-/*  f106204:	8fa90028 */ 	lw	$t1,0x28($sp)
-/*  f106208:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f10620c:	8d2a0004 */ 	lw	$t2,0x4($t1)
-/*  f106210:	5540000b */ 	bnezl	$t2,.L0f106240
-/*  f106214:	8fab0018 */ 	lw	$t3,0x18($sp)
-/*  f106218:	14400006 */ 	bnez	$v0,.L0f106234
-/*  f10621c:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f106220:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f106224:	0fc2c652 */ 	jal	currentPlayerSetDeviceActive
-/*  f106228:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f10622c:	10000004 */ 	b	.L0f106240
-/*  f106230:	8fab0018 */ 	lw	$t3,0x18($sp)
-.L0f106234:
-/*  f106234:	0fc2c652 */ 	jal	currentPlayerSetDeviceActive
-/*  f106238:	00002825 */ 	or	$a1,$zero,$zero
-.L0f10623c:
-/*  f10623c:	8fab0018 */ 	lw	$t3,0x18($sp)
-.L0f106240:
-/*  f106240:	8fac0028 */ 	lw	$t4,0x28($sp)
-/*  f106244:	51600016 */ 	beqzl	$t3,.L0f1062a0
-/*  f106248:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*  f10624c:	0fc44bd8 */ 	jal	invSetCurrentIndex
-/*  f106250:	8d840000 */ 	lw	$a0,0x0($t4)
-/*  f106254:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f106258:	0fc4473e */ 	jal	invHasDoubleWeaponIncAllGuns
-/*  f10625c:	00802825 */ 	or	$a1,$a0,$zero
-/*  f106260:	10400009 */ 	beqz	$v0,.L0f106288
-/*  f106264:	00002025 */ 	or	$a0,$zero,$zero
-/*  f106268:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10626c:	0fc28824 */ 	jal	bgunEquipWeapon2
-/*  f106270:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f106274:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f106278:	0fc28824 */ 	jal	bgunEquipWeapon2
-/*  f10627c:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f106280:	10000007 */ 	b	.L0f1062a0
-/*  f106284:	8fad0028 */ 	lw	$t5,0x28($sp)
-.L0f106288:
-/*  f106288:	0fc28824 */ 	jal	bgunEquipWeapon2
-/*  f10628c:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f106290:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f106294:	0fc28824 */ 	jal	bgunEquipWeapon2
-/*  f106298:	00002825 */ 	or	$a1,$zero,$zero
-/*  f10629c:	8fad0028 */ 	lw	$t5,0x28($sp)
-.L0f1062a0:
-/*  f1062a0:	3c018007 */ 	lui	$at,%hi(var800711f0)
-/*  f1062a4:	8dae0000 */ 	lw	$t6,0x0($t5)
-/*  f1062a8:	10000035 */ 	b	.L0f106380
-/*  f1062ac:	ac2e11f0 */ 	sw	$t6,%lo(var800711f0)($at)
-/*  f1062b0:	0fc44bd4 */ 	jal	invGetCurrentIndex
-/*  f1062b4:	00000000 */ 	nop
-/*  f1062b8:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*  f1062bc:	10000030 */ 	b	.L0f106380
-/*  f1062c0:	ade20000 */ 	sw	$v0,0x0($t7)
-/*  f1062c4:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*  f1062c8:	0fc44b11 */ 	jal	invGetWeaponNumByIndex
-/*  f1062cc:	8f040000 */ 	lw	$a0,0x0($t8)
-/*  f1062d0:	1040002b */ 	beqz	$v0,.L0f106380
-/*  f1062d4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1062d8:	0fc2c62f */ 	jal	currentPlayerGetDeviceState
-/*  f1062dc:	00000000 */ 	nop
-/*  f1062e0:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f1062e4:	10410026 */ 	beq	$v0,$at,.L0f106380
-/*  f1062e8:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*  f1062ec:	10000024 */ 	b	.L0f106380
-/*  f1062f0:	af220004 */ 	sw	$v0,0x4($t9)
-/*  f1062f4:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*  f1062f8:	0fc44b11 */ 	jal	invGetWeaponNumByIndex
-/*  f1062fc:	8d040000 */ 	lw	$a0,0x0($t0)
-/*  f106300:	3c03800a */ 	lui	$v1,%hi(g_InventoryWeapon)
-/*  f106304:	246321c0 */ 	addiu	$v1,$v1,%lo(g_InventoryWeapon)
-/*  f106308:	a0620000 */ 	sb	$v0,0x0($v1)
-/*  f10630c:	3c0a8007 */ 	lui	$t2,%hi(g_MpPlayerNum)
-/*  f106310:	8d4a1448 */ 	lw	$t2,%lo(g_MpPlayerNum)($t2)
-/*  f106314:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe28)
-/*  f106318:	304900ff */ 	andi	$t1,$v0,0xff
-/*  f10631c:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f106320:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f106324:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f106328:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f10632c:	000b58c0 */ 	sll	$t3,$t3,0x3
-/*  f106330:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f106334:	000b5900 */ 	sll	$t3,$t3,0x4
-/*  f106338:	002b0821 */ 	addu	$at,$at,$t3
-/*  f10633c:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionInventoryMenuItems+0x14)
-/*  f106340:	ac29ee28 */ 	sw	$t1,%lo(g_Menus+0xe28)($at)
-/*  f106344:	248433e8 */ 	addiu	$a0,$a0,%lo(g_SoloMissionInventoryMenuItems+0x14)
-/*  f106348:	0fc3c4e7 */ 	jal	func0f0f139c
-/*  f10634c:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f106350:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionInventoryMenuItems+0x28)
-/*  f106354:	248433fc */ 	addiu	$a0,$a0,%lo(g_SoloMissionInventoryMenuItems+0x28)
-/*  f106358:	0fc3c4e7 */ 	jal	func0f0f139c
-/*  f10635c:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f106360:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionInventoryMenuItems+0x50)
-/*  f106364:	24843424 */ 	addiu	$a0,$a0,%lo(g_SoloMissionInventoryMenuItems+0x50)
-/*  f106368:	0fc3c4e7 */ 	jal	func0f0f139c
-/*  f10636c:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f106370:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionInventoryMenuItems+0x64)
-/*  f106374:	24843438 */ 	addiu	$a0,$a0,%lo(g_SoloMissionInventoryMenuItems+0x64)
-/*  f106378:	0fc3c4e7 */ 	jal	func0f0f139c
-/*  f10637c:	3c05bf80 */ 	lui	$a1,0xbf80
-.L0f106380:
-/*  f106380:	00001025 */ 	or	$v0,$zero,$zero
-/*  f106384:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f106388:
-/*  f106388:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f10638c:	03e00008 */ 	jr	$ra
-/*  f106390:	00000000 */ 	nop
-);
-#else
-GLOBAL_ASM(
-glabel menuhandler00106178
-.late_rodata
-glabel var7f1b2e48
-.word menuhandler00106178+0x34 # f1061ac
-glabel var7f1b2e4c
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e50
-.word menuhandler00106178+0x48 # f1061c0
-glabel var7f1b2e54
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e58
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e5c
-.word menuhandler00106178+0x5c # f1061d4
-glabel var7f1b2e60
-.word menuhandler00106178+0x138 # f1062b0
-glabel var7f1b2e64
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e68
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e6c
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e70
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e74
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e78
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e7c
-.word menuhandler00106178+0x14c # f1062c4
-glabel var7f1b2e80
-.word menuhandler00106178+0x208 # f106380
-glabel var7f1b2e84
-.word menuhandler00106178+0x17c # f1062f4
-.text
-/*  f101dfc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f101e00:	248effff */ 	addiu	$t6,$a0,-1
-/*  f101e04:	2dc10010 */ 	sltiu	$at,$t6,0x10
-/*  f101e08:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f101e0c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f101e10:	1020007c */ 	beqz	$at,.NB0f102004
-/*  f101e14:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f101e18:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f101e1c:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f101e20:	002e0821 */ 	addu	$at,$at,$t6
-/*  f101e24:	8c2ed148 */ 	lw	$t6,-0x2eb8($at)
-/*  f101e28:	01c00008 */ 	jr	$t6
-/*  f101e2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f101e30:	0fc4336c */ 	jal	invGetCount
-/*  f101e34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f101e38:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*  f101e3c:	10000071 */ 	beqz	$zero,.NB0f102004
-/*  f101e40:	ade20000 */ 	sw	$v0,0x0($t7)
-/*  f101e44:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*  f101e48:	0fc43497 */ 	jal	invGetNameByIndex
-/*  f101e4c:	8f040000 */ 	lw	$a0,0x0($t8)
-/*  f101e50:	1000006e */ 	beqz	$zero,.NB0f10200c
-/*  f101e54:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f101e58:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*  f101e5c:	0fc43429 */ 	jal	invGetWeaponNumByIndex
-/*  f101e60:	8f240000 */ 	lw	$a0,0x0($t9)
-/*  f101e64:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f101e68:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f101e6c:	10400014 */ 	beqz	$v0,.NB0f101ec0
-/*  f101e70:	afa80018 */ 	sw	$t0,0x18($sp)
-/*  f101e74:	0fc2bd87 */ 	jal	currentPlayerGetDeviceState
-/*  f101e78:	00402025 */ 	or	$a0,$v0,$zero
-/*  f101e7c:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f101e80:	50410010 */ 	beql	$v0,$at,.NB0f101ec4
-/*  f101e84:	8fab0018 */ 	lw	$t3,0x18($sp)
-/*  f101e88:	8fa90028 */ 	lw	$t1,0x28($sp)
-/*  f101e8c:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f101e90:	8d2a0004 */ 	lw	$t2,0x4($t1)
-/*  f101e94:	5540000b */ 	bnezl	$t2,.NB0f101ec4
-/*  f101e98:	8fab0018 */ 	lw	$t3,0x18($sp)
-/*  f101e9c:	14400006 */ 	bnez	$v0,.NB0f101eb8
-/*  f101ea0:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f101ea4:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f101ea8:	0fc2bdaa */ 	jal	currentPlayerSetDeviceActive
-/*  f101eac:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f101eb0:	10000004 */ 	beqz	$zero,.NB0f101ec4
-/*  f101eb4:	8fab0018 */ 	lw	$t3,0x18($sp)
-.NB0f101eb8:
-/*  f101eb8:	0fc2bdaa */ 	jal	currentPlayerSetDeviceActive
-/*  f101ebc:	00002825 */ 	or	$a1,$zero,$zero
-.NB0f101ec0:
-/*  f101ec0:	8fab0018 */ 	lw	$t3,0x18($sp)
-.NB0f101ec4:
-/*  f101ec4:	8fac0028 */ 	lw	$t4,0x28($sp)
-/*  f101ec8:	51600016 */ 	beqzl	$t3,.NB0f101f24
-/*  f101ecc:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*  f101ed0:	0fc434f0 */ 	jal	invSetCurrentIndex
-/*  f101ed4:	8d840000 */ 	lw	$a0,0x0($t4)
-/*  f101ed8:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f101edc:	0fc43056 */ 	jal	invHasDoubleWeaponIncAllGuns
-/*  f101ee0:	00802825 */ 	or	$a1,$a0,$zero
-/*  f101ee4:	10400009 */ 	beqz	$v0,.NB0f101f0c
-/*  f101ee8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f101eec:	00002025 */ 	or	$a0,$zero,$zero
-/*  f101ef0:	0fc27f83 */ 	jal	bgunEquipWeapon2
-/*  f101ef4:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f101ef8:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f101efc:	0fc27f83 */ 	jal	bgunEquipWeapon2
-/*  f101f00:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f101f04:	10000007 */ 	beqz	$zero,.NB0f101f24
-/*  f101f08:	8fad0028 */ 	lw	$t5,0x28($sp)
-.NB0f101f0c:
-/*  f101f0c:	0fc27f83 */ 	jal	bgunEquipWeapon2
-/*  f101f10:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f101f14:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f101f18:	0fc27f83 */ 	jal	bgunEquipWeapon2
-/*  f101f1c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f101f20:	8fad0028 */ 	lw	$t5,0x28($sp)
-.NB0f101f24:
-/*  f101f24:	3c018007 */ 	lui	$at,0x8007
-/*  f101f28:	8dae0000 */ 	lw	$t6,0x0($t5)
-/*  f101f2c:	10000035 */ 	beqz	$zero,.NB0f102004
-/*  f101f30:	ac2e38a0 */ 	sw	$t6,0x38a0($at)
-/*  f101f34:	0fc434ec */ 	jal	invGetCurrentIndex
-/*  f101f38:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f101f3c:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*  f101f40:	10000030 */ 	beqz	$zero,.NB0f102004
-/*  f101f44:	ade20000 */ 	sw	$v0,0x0($t7)
-/*  f101f48:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*  f101f4c:	0fc43429 */ 	jal	invGetWeaponNumByIndex
-/*  f101f50:	8f040000 */ 	lw	$a0,0x0($t8)
-/*  f101f54:	1040002b */ 	beqz	$v0,.NB0f102004
-/*  f101f58:	00402025 */ 	or	$a0,$v0,$zero
-/*  f101f5c:	0fc2bd87 */ 	jal	currentPlayerGetDeviceState
-/*  f101f60:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f101f64:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f101f68:	10410026 */ 	beq	$v0,$at,.NB0f102004
-/*  f101f6c:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*  f101f70:	10000024 */ 	beqz	$zero,.NB0f102004
-/*  f101f74:	af220004 */ 	sw	$v0,0x4($t9)
-/*  f101f78:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*  f101f7c:	0fc43429 */ 	jal	invGetWeaponNumByIndex
-/*  f101f80:	8d040000 */ 	lw	$a0,0x0($t0)
-/*  f101f84:	3c03800a */ 	lui	$v1,0x800a
-/*  f101f88:	246366b0 */ 	addiu	$v1,$v1,0x66b0
-/*  f101f8c:	a0620000 */ 	sb	$v0,0x0($v1)
-/*  f101f90:	3c0a8007 */ 	lui	$t2,0x8007
-/*  f101f94:	8d4a3af0 */ 	lw	$t2,0x3af0($t2)
-/*  f101f98:	3c01800a */ 	lui	$at,0x800a
-/*  f101f9c:	304900ff */ 	andi	$t1,$v0,0xff
-/*  f101fa0:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f101fa4:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f101fa8:	000b58c0 */ 	sll	$t3,$t3,0x3
-/*  f101fac:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f101fb0:	000b5900 */ 	sll	$t3,$t3,0x4
-/*  f101fb4:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f101fb8:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f101fbc:	002b0821 */ 	addu	$at,$at,$t3
-/*  f101fc0:	3c048007 */ 	lui	$a0,0x8007
-/*  f101fc4:	ac293544 */ 	sw	$t1,0x3544($at)
-/*  f101fc8:	24845948 */ 	addiu	$a0,$a0,0x5948
-/*  f101fcc:	0fc3b7ea */ 	jal	func0f0f139c
-/*  f101fd0:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f101fd4:	3c048007 */ 	lui	$a0,0x8007
-/*  f101fd8:	2484595c */ 	addiu	$a0,$a0,0x595c
-/*  f101fdc:	0fc3b7ea */ 	jal	func0f0f139c
-/*  f101fe0:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f101fe4:	3c048007 */ 	lui	$a0,0x8007
-/*  f101fe8:	24845984 */ 	addiu	$a0,$a0,0x5984
-/*  f101fec:	0fc3b7ea */ 	jal	func0f0f139c
-/*  f101ff0:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f101ff4:	3c048007 */ 	lui	$a0,0x8007
-/*  f101ff8:	24845998 */ 	addiu	$a0,$a0,0x5998
-/*  f101ffc:	0fc3b7ea */ 	jal	func0f0f139c
-/*  f102000:	3c05bf80 */ 	lui	$a1,0xbf80
-.NB0f102004:
-/*  f102004:	00001025 */ 	or	$v0,$zero,$zero
-/*  f102008:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f10200c:
-/*  f10200c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f102010:	03e00008 */ 	jr	$ra
-/*  f102014:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
+s32 menuhandlerInventoryList(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		data->list.value = invGetCount();
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		return (s32)invGetNameByIndex(data->list.value);
+	case MENUOP_SET:
+		{
+			s32 weaponnum = invGetWeaponNumByIndex(data->list.value);
+			bool equippable = true;
+
+			if (weaponnum != WEAPON_NONE) {
+				s32 state = currentPlayerGetDeviceState(weaponnum);
+
+				if (state != DEVICESTATE_UNEQUIPPED) {
+					equippable = false;
+
+					if (data->list.unk04 == 0) {
+						if (state == DEVICESTATE_INACTIVE) {
+							currentPlayerSetDeviceActive(weaponnum, true);
+						} else {
+							currentPlayerSetDeviceActive(weaponnum, false);
+						}
+					}
+				}
+			}
+
+			if (equippable) {
+				invSetCurrentIndex(data->list.value);
+
+				if (invHasDoubleWeaponIncAllGuns(weaponnum, weaponnum)) {
+					bgunEquipWeapon2(HAND_RIGHT, weaponnum);
+					bgunEquipWeapon2(HAND_LEFT, weaponnum);
+				} else {
+					bgunEquipWeapon2(HAND_RIGHT, weaponnum);
+					bgunEquipWeapon2(HAND_LEFT, WEAPON_NONE);
+				}
+			}
+
+			var800711f0 = data->list.value;
+		}
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		data->list.value = invGetCurrentIndex();
+		break;
+	case MENUOP_GETLISTITEMCHECKBOX:
+		{
+			s32 weaponnum = invGetWeaponNumByIndex(data->list.value);
+
+			if (weaponnum != WEAPON_NONE) {
+				s32 state = currentPlayerGetDeviceState(weaponnum);
+
+				if (state != DEVICESTATE_UNEQUIPPED) {
+					data->list.unk04 = state;
+				}
+			}
+		}
+		break;
+	case MENUOP_LISTITEMFOCUS:
+		g_InventoryWeapon = invGetWeaponNumByIndex(data->list.value);
+		g_Menus[g_MpPlayerNum].training.weaponnum = g_InventoryWeapon;
+
+		func0f0f139c(&g_SoloMissionInventoryMenuItems[1], -1);
+		func0f0f139c(&g_SoloMissionInventoryMenuItems[2], -1);
+		func0f0f139c(&g_SoloMissionInventoryMenuItems[4], -1);
+		func0f0f139c(&g_SoloMissionInventoryMenuItems[5], -1);
+		break;
+	}
+
+	return 0;
+}
 
 s32 menuhandlerAbortMission(s32 operation, struct menuitem *item, union handlerdata *data)
 {
