@@ -3116,11 +3116,6 @@ struct stagemusic {
 	s16 xtrack;
 };
 
-struct mission {
-	u32 first_stage_index;
-	u16 name;
-};
-
 struct var800a6600 {
 	f32 znear;
 	f32 zfar;
@@ -3326,7 +3321,10 @@ struct handlerdata_list {
 		u32 value;
 		s32 values32;
 	};
-	s32 unk04;
+	union {
+		s32 unk04;
+		u32 unk04u32;
+	};
 	s32 groupstartindex;
 	s32 unk0c;
 };
@@ -3360,8 +3358,12 @@ struct menuitemrenderdata {
 
 struct handlerdata_type19 {
 	Gfx *gdl;
-	s32 unk04;
+	union {
+		s32 unk04;
+		u32 unk04u32;
+	};
 	struct menuitemrenderdata *renderdata2;
+	s32 unk0c;
 };
 
 struct handlerdata_dialog1 {

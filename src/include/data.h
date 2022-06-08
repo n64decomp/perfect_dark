@@ -288,7 +288,6 @@ extern u32 g_MpNumJoined;
 extern u16 g_ControlStyleOptions[];
 extern struct menudialogdef g_PreAndPostMissionBriefingMenuDialog;
 extern struct stageoverviewentry g_StageNames[NUM_SOLOSTAGES];
-extern struct mission missions[];
 extern struct menudialogdef g_SoloMissionControlStyleMenuDialog;
 extern struct menudialogdef g_CiControlStyleMenuDialog;
 extern struct menudialogdef g_CiControlStylePlayer2MenuDialog;

@@ -44,7 +44,7 @@ s32 menuhandlerAcceptPdModeSettings(s32 operation, struct menuitem *item, union 
 s32 menuhandlerBuddyOptionsContinue(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerCoopDifficulty(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerAntiDifficulty(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandler0010476c(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 menuhandlerMissionList(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerControlStyle(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerInventoryList(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandler00106178(s32 operation, struct menuitem *item, union handlerdata *data);

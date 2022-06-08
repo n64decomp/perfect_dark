@@ -1821,8 +1821,6 @@ struct menudialogdef g_AntiOptionsMenuDialog = {
 	NULL,
 };
 
-const char var7f1b2d50[] = "\n";
-
 s32 menuhandlerCoopDifficulty(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
@@ -1960,74 +1958,36 @@ s32 func0f104720(s32 value)
 	return 20;
 }
 
-struct mission missions[] = {
-	// first stage index, name
-	{  0, L_OPTIONS_123 }, // "Mission 1"
-	{  3, L_OPTIONS_124 }, // "Mission 2"
-	{  4, L_OPTIONS_125 }, // "Mission 3"
-	{  6, L_OPTIONS_126 }, // "Mission 4"
-	{  9, L_OPTIONS_127 }, // "Mission 5"
-	{ 12, L_OPTIONS_128 }, // "Mission 6"
-	{ 14, L_OPTIONS_129 }, // "Mission 7"
-	{ 15, L_OPTIONS_130 }, // "Mission 8"
-	{ 16, L_OPTIONS_131 }, // "Mission 9"
-	{ 99, L_OPTIONS_132 }, // "Special Assignments"
-};
-
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel menuhandler0010476c
+glabel menuhandlerMissionList
 .late_rodata
-glabel var7f1b2d9c
-.word menuhandler0010476c+0x80 # f1047ec
-glabel var7f1b2da0
-.word menuhandler0010476c+0x394 # f104b00
-glabel var7f1b2da4
-.word menuhandler0010476c+0x144 # f1048b0
-glabel var7f1b2da8
-.word menuhandler0010476c+0x400 # f104b6c
-glabel var7f1b2dac
-.word menuhandler0010476c+0x434 # f104ba0
-glabel var7f1b2db0
-.word menuhandler0010476c+0x1d0 # f10493c
-glabel var7f1b2db4
-.word menuhandler0010476c+0x2a8 # f104a14
-glabel var7f1b2db8
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dbc
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dc0
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dc4
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dc8
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dcc
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dd0
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dd4
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dd8
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2ddc
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2de0
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2de4
-.word menuhandler0010476c+0x47c # f104be8
-glabel var7f1b2de8
-.word menuhandler0010476c+0xe10 # f10557c
-glabel var7f1b2dec
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2df0
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2df4
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2df8
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dfc
-.word menuhandler0010476c+0x2b8 # f104a24
+glabel jtbl_var7f1b2d9c
+.word .L0f1047ec
+.word .L0f104b00
+.word .L0f1048b0
+.word .L0f104b6c
+.word .L0f104ba0
+.word .L0f10493c
+.word .L0f104a14
+.word .L0f105584
+.word .L0f105584
+.word .L0f105584
+.word .L0f105584
+.word .L0f105584
+.word .L0f105584
+.word .L0f105584
+.word .L0f105584
+.word .L0f105584
+.word .L0f105584
+.word .L0f105584
+.word .L0f104be8
+.word .L0f10557c
+.word .L0f105584
+.word .L0f105584
+.word .L0f105584
+.word .L0f105584
+.word .L0f104a24
 .text
 /*  f10476c:	27bdfe08 */ 	addiu	$sp,$sp,-504
 /*  f104770:	3c0e8007 */ 	lui	$t6,%hi(missions)
@@ -2057,11 +2017,12 @@ glabel var7f1b2dfc
 /*  f1047cc:	1020036d */ 	beqz	$at,.L0f105584
 /*  f1047d0:	af190004 */ 	sw	$t9,0x4($t8)
 /*  f1047d4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1047d8:	3c017f1b */ 	lui	$at,%hi(var7f1b2d9c)
+/*  f1047d8:	3c017f1b */ 	lui	$at,%hi(jtbl_var7f1b2d9c)
 /*  f1047dc:	002f0821 */ 	addu	$at,$at,$t7
-/*  f1047e0:	8c2f2d9c */ 	lw	$t7,%lo(var7f1b2d9c)($at)
+/*  f1047e0:	8c2f2d9c */ 	lw	$t7,%lo(jtbl_var7f1b2d9c)($at)
 /*  f1047e4:	01e00008 */ 	jr	$t7
 /*  f1047e8:	00000000 */ 	nop
+.L0f1047ec:
 /*  f1047ec:	3c0a800a */ 	lui	$t2,%hi(g_GameFile)
 /*  f1047f0:	3c09800a */ 	lui	$t1,%hi(g_GameFile)
 /*  f1047f4:	3c08800a */ 	lui	$t0,%hi(g_MissionConfig)
@@ -2118,12 +2079,13 @@ glabel var7f1b2dfc
 /*  f1048a4:	01c2c021 */ 	addu	$t8,$t6,$v0
 /*  f1048a8:	10000336 */ 	b	.L0f105584
 /*  f1048ac:	ae180000 */ 	sw	$t8,0x0($s0)
+.L0f1048b0:
 /*  f1048b0:	8e050004 */ 	lw	$a1,0x4($s0)
 /*  f1048b4:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f1048b8:	27a6018c */ 	addiu	$a2,$sp,0x18c
 /*  f1048bc:	54a00009 */ 	bnezl	$a1,.L0f1048e4
 /*  f1048c0:	8e030000 */ 	lw	$v1,0x0($s0)
-/*  f1048c4:	0fc411db */ 	jal	menuhandler0010476c
+/*  f1048c4:	0fc411db */ 	jal	menuhandlerMissionList
 /*  f1048c8:	8fa501fc */ 	lw	$a1,0x1fc($sp)
 /*  f1048cc:	0fc41199 */ 	jal	getNumUnlockedSpecialStages
 /*  f1048d0:	00000000 */ 	nop
@@ -2155,11 +2117,12 @@ glabel var7f1b2dfc
 /*  f104930:	94841e72 */ 	lhu	$a0,%lo(g_StageNames+0x6)($a0)
 /*  f104934:	10000315 */ 	b	.L0f10558c
 /*  f104938:	8fbf003c */ 	lw	$ra,0x3c($sp)
+.L0f10493c:
 /*  f10493c:	8e070000 */ 	lw	$a3,0x0($s0)
 /*  f104940:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f104944:	8fa501fc */ 	lw	$a1,0x1fc($sp)
 /*  f104948:	27a60178 */ 	addiu	$a2,$sp,0x178
-/*  f10494c:	0fc411db */ 	jal	menuhandler0010476c
+/*  f10494c:	0fc411db */ 	jal	menuhandlerMissionList
 /*  f104950:	afa70188 */ 	sw	$a3,0x188($sp)
 /*  f104954:	0fc41199 */ 	jal	getNumUnlockedSpecialStages
 /*  f104958:	00000000 */ 	nop
@@ -2212,10 +2175,12 @@ glabel var7f1b2dfc
 /*  f104a08:	24841c00 */ 	addiu	$a0,$a0,%lo(g_SoloMissionDifficultyMenuDialog)
 /*  f104a0c:	100002de */ 	b	.L0f105588
 /*  f104a10:	00001025 */ 	or	$v0,$zero,$zero
+.L0f104a14:
 /*  f104a14:	3c0f000f */ 	lui	$t7,0xf
 /*  f104a18:	35efffff */ 	ori	$t7,$t7,0xffff
 /*  f104a1c:	100002d9 */ 	b	.L0f105584
 /*  f104a20:	ae0f0000 */ 	sw	$t7,0x0($s0)
+.L0f104a24:
 /*  f104a24:	8e0e0004 */ 	lw	$t6,0x4($s0)
 /*  f104a28:	3c08800a */ 	lui	$t0,%hi(g_MissionConfig)
 /*  f104a2c:	2508dfe8 */ 	addiu	$t0,$t0,%lo(g_MissionConfig)
@@ -2234,7 +2199,7 @@ glabel var7f1b2dfc
 /*  f104a60:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f104a64:	27a60168 */ 	addiu	$a2,$sp,0x168
 /*  f104a68:	ae190000 */ 	sw	$t9,0x0($s0)
-/*  f104a6c:	0fc411db */ 	jal	menuhandler0010476c
+/*  f104a6c:	0fc411db */ 	jal	menuhandlerMissionList
 /*  f104a70:	8fa501fc */ 	lw	$a1,0x1fc($sp)
 /*  f104a74:	0fc41199 */ 	jal	getNumUnlockedSpecialStages
 /*  f104a78:	00000000 */ 	nop
@@ -2273,9 +2238,10 @@ glabel var7f1b2dfc
 /*  f104af4:	afa30164 */ 	sw	$v1,0x164($sp)
 /*  f104af8:	100002a3 */ 	b	.L0f105588
 /*  f104afc:	00001025 */ 	or	$v0,$zero,$zero
+.L0f104b00:
 /*  f104b00:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f104b04:	8fa501fc */ 	lw	$a1,0x1fc($sp)
-/*  f104b08:	0fc411db */ 	jal	menuhandler0010476c
+/*  f104b08:	0fc411db */ 	jal	menuhandlerMissionList
 /*  f104b0c:	27a60150 */ 	addiu	$a2,$sp,0x150
 /*  f104b10:	0fc41199 */ 	jal	getNumUnlockedSpecialStages
 /*  f104b14:	00000000 */ 	nop
@@ -2302,6 +2268,7 @@ glabel var7f1b2dfc
 /*  f104b60:	25d90001 */ 	addiu	$t9,$t6,0x1
 /*  f104b64:	10000287 */ 	b	.L0f105584
 /*  f104b68:	ae190000 */ 	sw	$t9,0x0($s0)
+.L0f104b6c:
 /*  f104b6c:	8e030000 */ 	lw	$v1,0x0($s0)
 /*  f104b70:	8e0f000c */ 	lw	$t7,0xc($s0)
 /*  f104b74:	0003c0c0 */ 	sll	$t8,$v1,0x3
@@ -2316,13 +2283,14 @@ glabel var7f1b2dfc
 /*  f104b94:	95c40004 */ 	lhu	$a0,0x4($t6)
 /*  f104b98:	1000027c */ 	b	.L0f10558c
 /*  f104b9c:	8fbf003c */ 	lw	$ra,0x3c($sp)
+.L0f104ba0:
 /*  f104ba0:	8e030000 */ 	lw	$v1,0x0($s0)
 /*  f104ba4:	8e19000c */ 	lw	$t9,0xc($s0)
 /*  f104ba8:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f104bac:	8fa501fc */ 	lw	$a1,0x1fc($sp)
 /*  f104bb0:	14790009 */ 	bne	$v1,$t9,.L0f104bd8
 /*  f104bb4:	000370c0 */ 	sll	$t6,$v1,0x3
-/*  f104bb8:	0fc411db */ 	jal	menuhandler0010476c
+/*  f104bb8:	0fc411db */ 	jal	menuhandlerMissionList
 /*  f104bbc:	27a6013c */ 	addiu	$a2,$sp,0x13c
 /*  f104bc0:	0fc41199 */ 	jal	getNumUnlockedSpecialStages
 /*  f104bc4:	00000000 */ 	nop
@@ -2335,6 +2303,7 @@ glabel var7f1b2dfc
 /*  f104bdc:	8f2f0000 */ 	lw	$t7,0x0($t9)
 /*  f104be0:	10000268 */ 	b	.L0f105584
 /*  f104be4:	ae0f0008 */ 	sw	$t7,0x8($s0)
+.L0f104be8:
 /*  f104be8:	8e180000 */ 	lw	$t8,0x0($s0)
 /*  f104bec:	afb80138 */ 	sw	$t8,0x138($sp)
 /*  f104bf0:	8e0a0008 */ 	lw	$t2,0x8($s0)
@@ -2346,7 +2315,7 @@ glabel var7f1b2dfc
 /*  f104c08:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f104c0c:	8fa501fc */ 	lw	$a1,0x1fc($sp)
 /*  f104c10:	27a600dc */ 	addiu	$a2,$sp,0xdc
-/*  f104c14:	0fc411db */ 	jal	menuhandler0010476c
+/*  f104c14:	0fc411db */ 	jal	menuhandlerMissionList
 /*  f104c18:	afaa0134 */ 	sw	$t2,0x134($sp)
 /*  f104c1c:	0fc41199 */ 	jal	getNumUnlockedSpecialStages
 /*  f104c20:	00000000 */ 	nop
@@ -2965,6 +2934,7 @@ glabel var7f1b2dfc
 /*  f105570:	00402025 */ 	or	$a0,$v0,$zero
 /*  f105574:	10000005 */ 	b	.L0f10558c
 /*  f105578:	8fbf003c */ 	lw	$ra,0x3c($sp)
+.L0f10557c:
 /*  f10557c:	240e002a */ 	addiu	$t6,$zero,0x2a
 /*  f105580:	ae0e0000 */ 	sw	$t6,0x0($s0)
 .L0f105584:
@@ -2979,58 +2949,34 @@ glabel var7f1b2dfc
 );
 #else
 GLOBAL_ASM(
-glabel menuhandler0010476c
+glabel menuhandlerMissionList
 .late_rodata
-glabel var7f1ad09cnb
-.word menuhandler0010476c+0x080
-glabel var7f1ad0a0nb
-.word menuhandler0010476c+0x394
-glabel var7f1ad0a4nb
-.word menuhandler0010476c+0x144
-glabel var7f1ad0a8nb
-.word menuhandler0010476c+0x400
-glabel var7f1ad0acnb
-.word menuhandler0010476c+0x434
-glabel var7f1ad0b0nb
-.word menuhandler0010476c+0x1d0
-glabel var7f1ad0b4nb
-.word menuhandler0010476c+0x2a8
-glabel var7f1ad0b8nb
-.word menuhandler0010476c+0xd68
-glabel var7f1ad0bcnb
-.word menuhandler0010476c+0xd68
-glabel var7f1ad0c0nb
-.word menuhandler0010476c+0xd68
-glabel var7f1ad0c4nb
-.word menuhandler0010476c+0xd68
-glabel var7f1ad0c8nb
-.word menuhandler0010476c+0xd68
-glabel var7f1ad0ccnb
-.word menuhandler0010476c+0xd68
-glabel var7f1ad0d0nb
-.word menuhandler0010476c+0xd68
-glabel var7f1ad0d4nb
-.word menuhandler0010476c+0xd68
-glabel var7f1ad0d8nb
-.word menuhandler0010476c+0xd68
-glabel var7f1ad0dcnb
-.word menuhandler0010476c+0xd68
-glabel var7f1ad0e0nb
-.word menuhandler0010476c+0xd68
-glabel var7f1ad0e4nb
-.word menuhandler0010476c+0x47c
-glabel var7f1ad0e8nb
-.word menuhandler0010476c+0xd60
-glabel var7f1ad0ecnb
-.word menuhandler0010476c+0xd68
-glabel var7f1ad0f0nb
-.word menuhandler0010476c+0xd68
-glabel var7f1ad0f4nb
-.word menuhandler0010476c+0xd68
-glabel var7f1ad0f8nb
-.word menuhandler0010476c+0xd68
-glabel var7f1ad0fcnb
-.word menuhandler0010476c+0x2b8
+glabel jtbl_var7f1ad09cnb
+.word .NB0f1005ec
+.word .NB0f100900
+.word .NB0f1006b0
+.word .NB0f10096c
+.word .NB0f1009a0
+.word .NB0f10073c
+.word .NB0f100814
+.word .NB0f1012d4
+.word .NB0f1012d4
+.word .NB0f1012d4
+.word .NB0f1012d4
+.word .NB0f1012d4
+.word .NB0f1012d4
+.word .NB0f1012d4
+.word .NB0f1012d4
+.word .NB0f1012d4
+.word .NB0f1012d4
+.word .NB0f1012d4
+.word .NB0f1009e8
+.word .NB0f1012cc
+.word .NB0f1012d4
+.word .NB0f1012d4
+.word .NB0f1012d4
+.word .NB0f1012d4
+.word .NB0f100824
 .text
 /*  f10056c:	27bdfe10 */ 	addiu	$sp,$sp,-496
 /*  f100570:	3c0e8007 */ 	lui	$t6,0x8007
@@ -3060,11 +3006,12 @@ glabel var7f1ad0fcnb
 /*  f1005cc:	10200341 */ 	beqz	$at,.NB0f1012d4
 /*  f1005d0:	af190004 */ 	sw	$t9,0x4($t8)
 /*  f1005d4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1005d8:	3c017f1b */ 	lui	$at,0x7f1b
+/*  f1005d8:	3c017f1b */ 	lui	$at,%hi(jtbl_var7f1ad09cnb)
 /*  f1005dc:	002f0821 */ 	addu	$at,$at,$t7
-/*  f1005e0:	8c2fd09c */ 	lw	$t7,-0x2f64($at)
+/*  f1005e0:	8c2fd09c */ 	lw	$t7,%lo(jtbl_var7f1ad09cnb)($at)
 /*  f1005e4:	01e00008 */ 	jr	$t7
 /*  f1005e8:	00000000 */ 	sll	$zero,$zero,0x0
+.NB0f1005ec:
 /*  f1005ec:	3c0a800a */ 	lui	$t2,0x800a
 /*  f1005f0:	3c09800a */ 	lui	$t1,0x800a
 /*  f1005f4:	3c08800a */ 	lui	$t0,0x800a
@@ -3121,12 +3068,13 @@ glabel var7f1ad0fcnb
 /*  f1006a4:	01c2c021 */ 	addu	$t8,$t6,$v0
 /*  f1006a8:	1000030a */ 	beqz	$zero,.NB0f1012d4
 /*  f1006ac:	ae180000 */ 	sw	$t8,0x0($s0)
+.NB0f1006b0:
 /*  f1006b0:	8e050004 */ 	lw	$a1,0x4($s0)
 /*  f1006b4:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f1006b8:	27a60184 */ 	addiu	$a2,$sp,0x184
 /*  f1006bc:	54a00009 */ 	bnezl	$a1,.NB0f1006e4
 /*  f1006c0:	8e030000 */ 	lw	$v1,0x0($s0)
-/*  f1006c4:	0fc4015b */ 	jal	menuhandler0010476c
+/*  f1006c4:	0fc4015b */ 	jal	menuhandlerMissionList
 /*  f1006c8:	8fa501f4 */ 	lw	$a1,0x1f4($sp)
 /*  f1006cc:	0fc40119 */ 	jal	getNumUnlockedSpecialStages
 /*  f1006d0:	00000000 */ 	sll	$zero,$zero,0x0
@@ -3158,11 +3106,12 @@ glabel var7f1ad0fcnb
 /*  f100730:	94844402 */ 	lhu	$a0,0x4402($a0)
 /*  f100734:	100002e9 */ 	beqz	$zero,.NB0f1012dc
 /*  f100738:	8fbf003c */ 	lw	$ra,0x3c($sp)
+.NB0f10073c:
 /*  f10073c:	8e070000 */ 	lw	$a3,0x0($s0)
 /*  f100740:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f100744:	8fa501f4 */ 	lw	$a1,0x1f4($sp)
 /*  f100748:	27a60170 */ 	addiu	$a2,$sp,0x170
-/*  f10074c:	0fc4015b */ 	jal	menuhandler0010476c
+/*  f10074c:	0fc4015b */ 	jal	menuhandlerMissionList
 /*  f100750:	afa70180 */ 	sw	$a3,0x180($sp)
 /*  f100754:	0fc40119 */ 	jal	getNumUnlockedSpecialStages
 /*  f100758:	00000000 */ 	sll	$zero,$zero,0x0
@@ -3215,10 +3164,12 @@ glabel var7f1ad0fcnb
 /*  f100808:	24844190 */ 	addiu	$a0,$a0,0x4190
 /*  f10080c:	100002b2 */ 	beqz	$zero,.NB0f1012d8
 /*  f100810:	00001025 */ 	or	$v0,$zero,$zero
+.NB0f100814:
 /*  f100814:	3c0f000f */ 	lui	$t7,0xf
 /*  f100818:	35efffff */ 	ori	$t7,$t7,0xffff
 /*  f10081c:	100002ad */ 	beqz	$zero,.NB0f1012d4
 /*  f100820:	ae0f0000 */ 	sw	$t7,0x0($s0)
+.NB0f100824:
 /*  f100824:	8e0e0004 */ 	lw	$t6,0x4($s0)
 /*  f100828:	3c08800a */ 	lui	$t0,0x800a
 /*  f10082c:	250827a8 */ 	addiu	$t0,$t0,0x27a8
@@ -3237,7 +3188,7 @@ glabel var7f1ad0fcnb
 /*  f100860:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f100864:	27a60160 */ 	addiu	$a2,$sp,0x160
 /*  f100868:	ae190000 */ 	sw	$t9,0x0($s0)
-/*  f10086c:	0fc4015b */ 	jal	menuhandler0010476c
+/*  f10086c:	0fc4015b */ 	jal	menuhandlerMissionList
 /*  f100870:	8fa501f4 */ 	lw	$a1,0x1f4($sp)
 /*  f100874:	0fc40119 */ 	jal	getNumUnlockedSpecialStages
 /*  f100878:	00000000 */ 	sll	$zero,$zero,0x0
@@ -3276,9 +3227,10 @@ glabel var7f1ad0fcnb
 /*  f1008f4:	afa3015c */ 	sw	$v1,0x15c($sp)
 /*  f1008f8:	10000277 */ 	beqz	$zero,.NB0f1012d8
 /*  f1008fc:	00001025 */ 	or	$v0,$zero,$zero
+.NB0f100900:
 /*  f100900:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f100904:	8fa501f4 */ 	lw	$a1,0x1f4($sp)
-/*  f100908:	0fc4015b */ 	jal	menuhandler0010476c
+/*  f100908:	0fc4015b */ 	jal	menuhandlerMissionList
 /*  f10090c:	27a60148 */ 	addiu	$a2,$sp,0x148
 /*  f100910:	0fc40119 */ 	jal	getNumUnlockedSpecialStages
 /*  f100914:	00000000 */ 	sll	$zero,$zero,0x0
@@ -3305,6 +3257,7 @@ glabel var7f1ad0fcnb
 /*  f100960:	25d90001 */ 	addiu	$t9,$t6,0x1
 /*  f100964:	1000025b */ 	beqz	$zero,.NB0f1012d4
 /*  f100968:	ae190000 */ 	sw	$t9,0x0($s0)
+.NB0f10096c:
 /*  f10096c:	8e030000 */ 	lw	$v1,0x0($s0)
 /*  f100970:	8e0f000c */ 	lw	$t7,0xc($s0)
 /*  f100974:	0003c0c0 */ 	sll	$t8,$v1,0x3
@@ -3319,13 +3272,14 @@ glabel var7f1ad0fcnb
 /*  f100994:	95c40004 */ 	lhu	$a0,0x4($t6)
 /*  f100998:	10000250 */ 	beqz	$zero,.NB0f1012dc
 /*  f10099c:	8fbf003c */ 	lw	$ra,0x3c($sp)
+.NB0f1009a0:
 /*  f1009a0:	8e030000 */ 	lw	$v1,0x0($s0)
 /*  f1009a4:	8e19000c */ 	lw	$t9,0xc($s0)
 /*  f1009a8:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f1009ac:	8fa501f4 */ 	lw	$a1,0x1f4($sp)
 /*  f1009b0:	14790009 */ 	bne	$v1,$t9,.NB0f1009d8
 /*  f1009b4:	000370c0 */ 	sll	$t6,$v1,0x3
-/*  f1009b8:	0fc4015b */ 	jal	menuhandler0010476c
+/*  f1009b8:	0fc4015b */ 	jal	menuhandlerMissionList
 /*  f1009bc:	27a60134 */ 	addiu	$a2,$sp,0x134
 /*  f1009c0:	0fc40119 */ 	jal	getNumUnlockedSpecialStages
 /*  f1009c4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -3338,6 +3292,7 @@ glabel var7f1ad0fcnb
 /*  f1009dc:	8f2f0000 */ 	lw	$t7,0x0($t9)
 /*  f1009e0:	1000023c */ 	beqz	$zero,.NB0f1012d4
 /*  f1009e4:	ae0f0008 */ 	sw	$t7,0x8($s0)
+.NB0f1009e8:
 /*  f1009e8:	8e180000 */ 	lw	$t8,0x0($s0)
 /*  f1009ec:	afb80130 */ 	sw	$t8,0x130($sp)
 /*  f1009f0:	8e0a0008 */ 	lw	$t2,0x8($s0)
@@ -3349,7 +3304,7 @@ glabel var7f1ad0fcnb
 /*  f100a08:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f100a0c:	8fa501f4 */ 	lw	$a1,0x1f4($sp)
 /*  f100a10:	27a600d4 */ 	addiu	$a2,$sp,0xd4
-/*  f100a14:	0fc4015b */ 	jal	menuhandler0010476c
+/*  f100a14:	0fc4015b */ 	jal	menuhandlerMissionList
 /*  f100a18:	afaa012c */ 	sw	$t2,0x12c($sp)
 /*  f100a1c:	0fc40119 */ 	jal	getNumUnlockedSpecialStages
 /*  f100a20:	00000000 */ 	sll	$zero,$zero,0x0
@@ -3924,6 +3879,7 @@ glabel var7f1ad0fcnb
 /*  f1012c0:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1012c4:	10000005 */ 	beqz	$zero,.NB0f1012dc
 /*  f1012c8:	8fbf003c */ 	lw	$ra,0x3c($sp)
+.NB0f1012cc:
 /*  f1012cc:	2418002a */ 	addiu	$t8,$zero,0x2a
 /*  f1012d0:	ae180000 */ 	sw	$t8,0x0($s0)
 .NB0f1012d4:
@@ -3937,6 +3893,321 @@ glabel var7f1ad0fcnb
 /*  f1012e8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 #endif
+
+const char var7f1b2d50[] = "\n";
+
+struct optiongroup missions[] = {
+	{  0, L_OPTIONS_123 }, // "Mission 1"
+	{  3, L_OPTIONS_124 }, // "Mission 2"
+	{  4, L_OPTIONS_125 }, // "Mission 3"
+	{  6, L_OPTIONS_126 }, // "Mission 4"
+	{  9, L_OPTIONS_127 }, // "Mission 5"
+	{ 12, L_OPTIONS_128 }, // "Mission 6"
+	{ 14, L_OPTIONS_129 }, // "Mission 7"
+	{ 15, L_OPTIONS_130 }, // "Mission 8"
+	{ 16, L_OPTIONS_131 }, // "Mission 9"
+	{ 99, L_OPTIONS_132 }, // "Special Assignments"
+};
+
+// Mismatch: sp124 and the solo mission star loop is handled differently
+//s32 menuhandlerMissionList(s32 operation, struct menuitem *item, union handlerdata *data)
+//{
+//	struct optiongroup groups[] = { // 1a8
+//		{  0, L_OPTIONS_123 }, // "Mission 1"
+//		{  3, L_OPTIONS_124 }, // "Mission 2"
+//		{  4, L_OPTIONS_125 }, // "Mission 3"
+//		{  6, L_OPTIONS_126 }, // "Mission 4"
+//		{  9, L_OPTIONS_127 }, // "Mission 5"
+//		{ 12, L_OPTIONS_128 }, // "Mission 6"
+//		{ 14, L_OPTIONS_129 }, // "Mission 7"
+//		{ 15, L_OPTIONS_130 }, // "Mission 8"
+//		{ 16, L_OPTIONS_131 }, // "Mission 9"
+//		{ 99, L_OPTIONS_132 }, // "Special Assignments"
+//	};
+//
+//	s32 i;
+//	s32 j;
+//	bool stageiscomplete;
+//	union handlerdata sp18c;
+//	u32 sp188;
+//	union handlerdata sp178;
+//	union handlerdata sp168;
+//	s32 sp164;
+//	s32 sp160;
+//	union handlerdata sp150;
+//	s32 stack2;
+//	union handlerdata sp13c;
+//	Gfx *gdl; // 138
+//	struct menuitemrenderdata *renderdata; // 134
+//	s32 x; // 130
+//	s32 y; // 12c
+//	s32 sp124;
+//	s32 stack3;
+//	char text[50]; // f0
+//	s32 stageindex; // ec
+//	union handlerdata spdc;
+//	s32 extra;
+//	u32 stack[2];
+//
+//	switch (operation) {
+//	case MENUOP_GETOPTIONCOUNT:
+//		data->list.value = 0;
+//
+//		for (i = 0; i < 17; i++) {
+//			stageiscomplete = false;
+//
+//			for (j = 0; j < 3; j++) {
+//				if (g_GameFile.besttimes[i][j] != 0) {
+//					stageiscomplete = true;
+//				}
+//
+//				if ((g_MissionConfig.iscoop || g_MissionConfig.isanti)
+//						&& (g_GameFile.coopcompletions[j] & (1 << i))) {
+//					stageiscomplete = true;
+//				}
+//			}
+//
+//			data->list.value++;
+//
+//			if (!stageiscomplete) {
+//				break;
+//			}
+//		}
+//
+//		data->list.value += getNumUnlockedSpecialStages();
+//		break;
+//	case MENUOP_GETOPTIONTEXT:
+//		// 8b0
+//		if (data->list.unk04u32 == 0) {
+//			menuhandlerMissionList(MENUOP_GETOPTIONCOUNT, item, &sp18c);
+//			data->list.unk04u32 = sp18c.list.value - getNumUnlockedSpecialStages();
+//		}
+//
+//		if (data->list.value < data->list.unk04u32) {
+//			// Regular stage such as "dataDyne Central - Defection"
+//			// Return the name before the dash, such as "dataDyne Central"
+//			return (s32)langGet(g_StageNames[data->list.value].name1);
+//		}
+//
+//		// Special stages have no dash and suffix, so just return the name
+//		return (s32)langGet(g_StageNames[func0f104720(data->list.value - data->list.unk04u32)].name1);
+//	case MENUOP_SET:
+//		sp188 = data->list.value;
+//		menuhandlerMissionList(MENUOP_GETOPTIONCOUNT, item, &sp178);
+//		sp178.list.value -= getNumUnlockedSpecialStages();
+//
+//		if (data->list.value >= sp178.list.value) {
+//			sp188 = func0f104720(data->list.value - sp178.list.value);
+//		}
+//
+//		g_Vars.mplayerisrunning = false;
+//		g_Vars.normmplayerisrunning = false;
+//		g_MissionConfig.stagenum = g_StageNames[sp188].stagenum;
+//		g_MissionConfig.stageindex = sp188;
+//
+//		if (g_MissionConfig.iscoop) {
+//			menuPushDialog(&g_CoopMissionDifficultyMenuDialog);
+//		} else if (g_MissionConfig.isanti) {
+//			menuPushDialog(&g_AntiMissionDifficultyMenuDialog);
+//		} else {
+//			menuPushDialog(&g_SoloMissionDifficultyMenuDialog);
+//		}
+//
+//		break;
+//	case MENUOP_GETOPTIONVALUE:
+//		data->list.value = 0xfffff;
+//		break;
+//	case MENUOP_25:
+//		if (data->list.unk04 == 0 && !g_MissionConfig.iscoop && !g_MissionConfig.isanti) {
+//			data->list.value = g_GameFile.autostageindex;
+//
+//			menuhandlerMissionList(MENUOP_GETOPTIONCOUNT, item, &sp168);
+//			sp168.list.value -= getNumUnlockedSpecialStages();
+//
+//			if (data->list.value >= sp168.list.value) {
+//				sp164 = getNumUnlockedSpecialStages();
+//
+//				data->list.value = sp168.list.value - 1;
+//
+//				for (sp160 = 0; sp160 < sp164; sp160++) {
+//					if (func0f104720(sp160) == g_GameFile.autostageindex) {
+//						data->list.value = sp168.list.values32 + sp160;
+//					}
+//				}
+//			}
+//		}
+//		break;
+//	case MENUOP_GETOPTGROUPCOUNT:
+//		menuhandlerMissionList(MENUOP_GETOPTIONCOUNT, item, &sp150);
+//		sp150.list.value -= getNumUnlockedSpecialStages();
+//
+//		data->list.unk0c = 0;
+//
+//		for (i = 0; i < ARRAYCOUNT(groups); i++) {
+//			if (groups[i].offset < sp150.list.value) {
+//				data->list.unk0c++;
+//			}
+//		}
+//
+//		data->list.value = data->list.unk0c + 1;
+//		break;
+//	case MENUOP_GETOPTGROUPTEXT:
+//		if (data->list.unk0c == data->list.value) {
+//			return (s32)langGet(groups[9].name); // "Special Assignments"
+//		}
+//		return (s32)langGet(groups[data->list.value].name);
+//	case MENUOP_GETGROUPSTARTINDEX:
+//		if (data->list.unk0c == data->list.value) {
+//			menuhandlerMissionList(MENUOP_GETOPTIONCOUNT, item, &sp13c);
+//			data->list.groupstartindex = sp13c.list.value - getNumUnlockedSpecialStages();
+//		} else {
+//			data->list.groupstartindex = groups[data->list.value].offset;
+//		}
+//		break;
+//	case MENUOP_RENDER:
+//		gdl = data->type19.gdl;
+//		renderdata = data->type19.renderdata2;
+//		stageindex = data->type19.unk04;
+//		sp124 = 0;
+//
+//		if (data->list.unk0c == 0) {
+//			menuhandlerMissionList(MENUOP_GETOPTIONCOUNT, item, &spdc);
+//			data->list.unk0c = spdc.list.value - getNumUnlockedSpecialStages();
+//		}
+//
+//		if (data->type19.unk04 >= data->type19.unk0c) {
+//			stageindex = func0f104720(data->type19.unk04 - data->type19.unk0c);
+//		}
+//
+//		// Draw the thumbnail
+//		gDPPipeSync(gdl++);
+//		gDPSetTexturePersp(gdl++, G_TP_NONE);
+//		gDPSetAlphaCompare(gdl++, G_AC_NONE);
+//		gDPSetTextureLOD(gdl++, G_TL_TILE);
+//		gDPSetTextureConvert(gdl++, G_TC_FILT);
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//		texSelect(&gdl, g_TexGeneralConfigs + 13 + stageindex, 2, 0, 2, 1, 0);
+//#else
+//		texSelect(&gdl, g_TexGeneralConfigs + 13 + stageindex, 1, 0, 2, 1, 0);
+//#endif
+//
+//		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//		gDPSetCombineLERP(gdl++, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0);
+//		gDPSetTextureFilter(gdl++, G_TF_POINT);
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//		gDPSetEnvColorViaWord(gdl++, 0xffffff00 | ((renderdata->colour & 0xff) * 255 / 256));
+//#endif
+//
+//		gSPTextureRectangle(gdl++,
+//				((renderdata->x + 4) << 2) * g_ScaleX, (renderdata->y + 3) << 2,
+//				((renderdata->x + 60) << 2) * g_ScaleX, (renderdata->y + 39) << 2,
+//				G_TX_RENDERTILE, 0, 0x0480, 1024 / g_ScaleX, -1024);
+//
+//		if (g_MissionConfig.isanti) {
+//			// No stars
+//		} else if (g_MissionConfig.iscoop) {
+//			// f0c
+//			texSelect(&gdl, &g_TexGeneralConfigs[36], 2, 0, 2, 1, 0);
+//
+//			gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//			gDPSetTextureFilter(gdl++, G_TF_POINT);
+//
+//			for (i = 0, extra = 63; i < 3; i++, extra += 17) {
+//				if ((g_GameFile.coopcompletions[i] & (1 << stageindex)) == 0) {
+//#if VERSION >= VERSION_NTSC_1_0
+//					gDPSetEnvColorViaWord(gdl++, 0xffffff00 | ((renderdata->colour & 0xff) * 63 / 256));
+//#else
+//					gDPSetEnvColorViaWord(gdl++, 0xffffff3f);
+//#endif
+//					gDPSetCombineLERP(gdl++,
+//							TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0,
+//							TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0);
+//				} else {
+//					// 020
+//#if VERSION >= VERSION_NTSC_1_0
+//					gDPSetEnvColorViaWord(gdl++, 0xffffff00 | ((renderdata->colour & 0xff) * 207 / 256));
+//#else
+//					gDPSetEnvColorViaWord(gdl++, 0xffffffcf);
+//#endif
+//					gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
+//				}
+//
+//				gSPTextureRectangle(gdl++,
+//						((renderdata->x + extra) << 2) * g_ScaleX, (renderdata->y + 25) << 2,
+//						((renderdata->x + extra + 14) << 2) * g_ScaleX, (renderdata->y + 39) << 2,
+//						G_TX_RENDERTILE, 0x0010, 0x01C0, 1024 / g_ScaleX, -1024);
+//			}
+//		} else {
+//			// 190
+//			texSelect(&gdl, &g_TexGeneralConfigs[34], 2, 0, 2, 1, 0);
+//
+//			gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//			gDPSetTextureFilter(gdl++, G_TF_POINT);
+//			gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//			gDPSetEnvColorViaWord(gdl++, 0xffffff00 | ((renderdata->colour & 0xff) * 175 / 256));
+//#else
+//			gDPSetEnvColorViaWord(gdl++, 0xffffffaf);
+//#endif
+//
+//			sp124 = 0;
+//
+//			for (i = 0; i < 3; i++) {
+//				if (g_GameFile.besttimes[stageindex][i] != 0) {
+//					sp124 = i + 1;
+//				}
+//			}
+//
+//			for (i = 0; i < 3; i++) {
+//				if (i == sp124) {
+//#if VERSION >= VERSION_NTSC_1_0
+//					gDPSetEnvColorViaWord(gdl++, 0xffffff00 | ((renderdata->colour & 0xff) * 63 / 256));
+//#else
+//					gDPSetEnvColorViaWord(gdl++, 0xffffff3f);
+//#endif
+//					gDPSetCombineLERP(gdl++,
+//							TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0,
+//							TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0);
+//				}
+//
+//				gSPTextureRectangle(gdl++,
+//						((renderdata->x + (63 + i * 17)) << 2) * g_ScaleX, (renderdata->y + 25) << 2,
+//						((renderdata->x + (63 + i * 17) + 14) << 2) * g_ScaleX, (renderdata->y + 39) << 2,
+//						G_TX_RENDERTILE, 0x0010, 0x01C0, 1024 / g_ScaleX, -1024);
+//			}
+//		}
+//
+//		x = renderdata->x + 62;
+//		y = renderdata->y + 3;
+//
+//		gdl = func0f153628(gdl);
+//
+//		// Draw first part of name
+//		strcpy(text, langGet(g_StageNames[stageindex].name1));
+//		strcat(text, "\n");
+//
+//		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicMd, g_FontHandelGothicMd,
+//				renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
+//
+//		// Draw last part of name
+//		strcpy(text, langGet(g_StageNames[stageindex].name2));
+//
+//		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+//				renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
+//
+//		gdl = func0f153780(gdl);
+//
+//		return (s32)gdl;
+//	case MENUOP_GETOPTIONHEIGHT:
+//		data->list.value = 42;
+//		break;
+//	}
+//
+//	return 0;
+//}
 
 s32 menudialog0010559c(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
@@ -5659,7 +5930,7 @@ struct menudialogdef g_CinemaMenuDialog = {
 };
 
 struct menuitem g_SelectMissionMenuItems[] = {
-	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x000000eb, 0x00000000, menuhandler0010476c },
+	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x000000eb, 0x00000000, menuhandlerMissionList },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
