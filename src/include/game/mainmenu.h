@@ -46,7 +46,7 @@ s32 menuhandlerCoopDifficulty(s32 operation, struct menuitem *item, union handle
 s32 menuhandlerAntiDifficulty(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandler0010476c(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerControlStyle(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandler00106028(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 menuhandlerInventoryList(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandler00106178(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerAbortMission(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerCinema(s32 operation, struct menuitem *item, union handlerdata *data);

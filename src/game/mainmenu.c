@@ -4859,257 +4859,98 @@ char *invMenuTextWeaponDescription(struct menuitem *item)
 	return langGet(L_OPTIONS_003); // "\n"
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel menuhandler00106028
-.late_rodata
-glabel var7f1b2e08
-.word menuhandler00106028+0x48 # f106070
-glabel var7f1b2e0c
-.word menuhandler00106028+0x30 # f106058
-glabel var7f1b2e10
-.word menuhandler00106028+0x5c # f106084
-glabel var7f1b2e14
-.word menuhandler00106028+0x38 # f106060
-glabel var7f1b2e18
-.word menuhandler00106028+0x40 # f106068
-glabel var7f1b2e1c
-.word menuhandler00106028+0x7c # f1060a4
-glabel var7f1b2e20
-.word menuhandler00106028+0x90 # f1060b8
-glabel var7f1b2e24
-.word menuhandler00106028+0x13c # f106164
-glabel var7f1b2e28
-.word menuhandler00106028+0x13c # f106164
-glabel var7f1b2e2c
-.word menuhandler00106028+0x13c # f106164
-glabel var7f1b2e30
-.word menuhandler00106028+0x13c # f106164
-glabel var7f1b2e34
-.word menuhandler00106028+0x13c # f106164
-glabel var7f1b2e38
-.word menuhandler00106028+0x13c # f106164
-glabel var7f1b2e3c
-.word menuhandler00106028+0x13c # f106164
-glabel var7f1b2e40
-.word menuhandler00106028+0x13c # f106164
-glabel var7f1b2e44
-.word menuhandler00106028+0xa0 # f1060c8
-.text
-/*  f106028:	248effff */ 	addiu	$t6,$a0,-1
-/*  f10602c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f106030:	2dc10010 */ 	sltiu	$at,$t6,0x10
-/*  f106034:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f106038:	1020004a */ 	beqz	$at,.L0f106164
-/*  f10603c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f106040:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f106044:	3c017f1b */ 	lui	$at,%hi(var7f1b2e08)
-/*  f106048:	002e0821 */ 	addu	$at,$at,$t6
-/*  f10604c:	8c2e2e08 */ 	lw	$t6,%lo(var7f1b2e08)($at)
-/*  f106050:	01c00008 */ 	jr	$t6
-/*  f106054:	00000000 */ 	nop
-/*  f106058:	10000042 */ 	b	.L0f106164
-/*  f10605c:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f106060:	10000041 */ 	b	.L0f106168
-/*  f106064:	00001025 */ 	or	$v0,$zero,$zero
-/*  f106068:	1000003e */ 	b	.L0f106164
-/*  f10606c:	acc00008 */ 	sw	$zero,0x8($a2)
-/*  f106070:	0fc674b8 */ 	jal	frGetNumWeaponsAvailable
-/*  f106074:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f106078:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f10607c:	10000039 */ 	b	.L0f106164
-/*  f106080:	acc20000 */ 	sw	$v0,0x0($a2)
-/*  f106084:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f106088:	3c018007 */ 	lui	$at,%hi(var80073544)
-/*  f10608c:	0fc6749a */ 	jal	frGetWeaponBySlot
-/*  f106090:	a0243544 */ 	sb	$a0,%lo(var80073544)($at)
-/*  f106094:	0fc28857 */ 	jal	bgunGetName
-/*  f106098:	00402025 */ 	or	$a0,$v0,$zero
-/*  f10609c:	10000033 */ 	b	.L0f10616c
-/*  f1060a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1060a4:	8ccf0000 */ 	lw	$t7,0x0($a2)
-/*  f1060a8:	3c018007 */ 	lui	$at,%hi(var80073544)
-/*  f1060ac:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1060b0:	1000002d */ 	b	.L0f106168
-/*  f1060b4:	a02f3544 */ 	sb	$t7,%lo(var80073544)($at)
-/*  f1060b8:	3c188007 */ 	lui	$t8,%hi(var80073544)
-/*  f1060bc:	93183544 */ 	lbu	$t8,%lo(var80073544)($t8)
-/*  f1060c0:	10000028 */ 	b	.L0f106164
-/*  f1060c4:	acd80000 */ 	sw	$t8,0x0($a2)
-/*  f1060c8:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f1060cc:	0fc6749a */ 	jal	frGetWeaponBySlot
-/*  f1060d0:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1060d4:	3c03800a */ 	lui	$v1,%hi(g_InventoryWeapon)
-/*  f1060d8:	246321c0 */ 	addiu	$v1,$v1,%lo(g_InventoryWeapon)
-/*  f1060dc:	a0620000 */ 	sb	$v0,0x0($v1)
-/*  f1060e0:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
-/*  f1060e4:	8d081448 */ 	lw	$t0,%lo(g_MpPlayerNum)($t0)
-/*  f1060e8:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f1060ec:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe28)
-/*  f1060f0:	000848c0 */ 	sll	$t1,$t0,0x3
-/*  f1060f4:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f1060f8:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f1060fc:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f106100:	000948c0 */ 	sll	$t1,$t1,0x3
-/*  f106104:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f106108:	00094900 */ 	sll	$t1,$t1,0x4
-/*  f10610c:	00290821 */ 	addu	$at,$at,$t1
-/*  f106110:	305900ff */ 	andi	$t9,$v0,0xff
-/*  f106114:	ac39ee28 */ 	sw	$t9,%lo(g_Menus+0xe28)($at)
-/*  f106118:	8cca0000 */ 	lw	$t2,0x0($a2)
-/*  f10611c:	3c018007 */ 	lui	$at,%hi(var80073544)
-/*  f106120:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionInventoryMenuItems+0x14)
-/*  f106124:	248433e8 */ 	addiu	$a0,$a0,%lo(g_SoloMissionInventoryMenuItems+0x14)
-/*  f106128:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f10612c:	0fc3c4e7 */ 	jal	func0f0f139c
-/*  f106130:	a02a3544 */ 	sb	$t2,%lo(var80073544)($at)
-/*  f106134:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionInventoryMenuItems+0x28)
-/*  f106138:	248433fc */ 	addiu	$a0,$a0,%lo(g_SoloMissionInventoryMenuItems+0x28)
-/*  f10613c:	0fc3c4e7 */ 	jal	func0f0f139c
-/*  f106140:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f106144:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionInventoryMenuItems+0x50)
-/*  f106148:	24843424 */ 	addiu	$a0,$a0,%lo(g_SoloMissionInventoryMenuItems+0x50)
-/*  f10614c:	0fc3c4e7 */ 	jal	func0f0f139c
-/*  f106150:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f106154:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionInventoryMenuItems+0x64)
-/*  f106158:	24843438 */ 	addiu	$a0,$a0,%lo(g_SoloMissionInventoryMenuItems+0x64)
-/*  f10615c:	0fc3c4e7 */ 	jal	func0f0f139c
-/*  f106160:	3c05bf80 */ 	lui	$a1,0xbf80
-.L0f106164:
-/*  f106164:	00001025 */ 	or	$v0,$zero,$zero
-.L0f106168:
-/*  f106168:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10616c:
-/*  f10616c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f106170:	03e00008 */ 	jr	$ra
-/*  f106174:	00000000 */ 	nop
-);
+struct menuitem g_SoloMissionInventoryMenuItems[] = {
+#if VERSION == VERSION_JPN_FINAL
+	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x54, menuhandler00106178 },
 #else
-GLOBAL_ASM(
-glabel menuhandler00106028
-.late_rodata
-glabel var7f1b2e08
-.word menuhandler00106028+0x48 # f106070
-glabel var7f1b2e0c
-.word menuhandler00106028+0x30 # f106058
-glabel var7f1b2e10
-.word menuhandler00106028+0x5c # f106084
-glabel var7f1b2e14
-.word menuhandler00106028+0x38 # f106060
-glabel var7f1b2e18
-.word menuhandler00106028+0x40 # f106068
-glabel var7f1b2e1c
-.word menuhandler00106028+0x7c # f1060a4
-glabel var7f1b2e20
-.word menuhandler00106028+0x90 # f1060b8
-glabel var7f1b2e24
-.word menuhandler00106028+0x13c # f106164
-glabel var7f1b2e28
-.word menuhandler00106028+0x13c # f106164
-glabel var7f1b2e2c
-.word menuhandler00106028+0x13c # f106164
-glabel var7f1b2e30
-.word menuhandler00106028+0x13c # f106164
-glabel var7f1b2e34
-.word menuhandler00106028+0x13c # f106164
-glabel var7f1b2e38
-.word menuhandler00106028+0x13c # f106164
-glabel var7f1b2e3c
-.word menuhandler00106028+0x13c # f106164
-glabel var7f1b2e40
-.word menuhandler00106028+0x13c # f106164
-glabel var7f1b2e44
-.word menuhandler00106028+0xa0 # f1060c8
-.text
-/*  f101cac:	248effff */ 	addiu	$t6,$a0,-1
-/*  f101cb0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f101cb4:	2dc10010 */ 	sltiu	$at,$t6,0x10
-/*  f101cb8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f101cbc:	1020004a */ 	beqz	$at,.NB0f101de8
-/*  f101cc0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f101cc4:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f101cc8:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f101ccc:	002e0821 */ 	addu	$at,$at,$t6
-/*  f101cd0:	8c2ed108 */ 	lw	$t6,-0x2ef8($at)
-/*  f101cd4:	01c00008 */ 	jr	$t6
-/*  f101cd8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f101cdc:	10000042 */ 	beqz	$zero,.NB0f101de8
-/*  f101ce0:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f101ce4:	10000041 */ 	beqz	$zero,.NB0f101dec
-/*  f101ce8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f101cec:	1000003e */ 	beqz	$zero,.NB0f101de8
-/*  f101cf0:	acc00008 */ 	sw	$zero,0x8($a2)
-/*  f101cf4:	0fc65ce0 */ 	jal	frGetNumWeaponsAvailable
-/*  f101cf8:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f101cfc:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f101d00:	10000039 */ 	beqz	$zero,.NB0f101de8
-/*  f101d04:	acc20000 */ 	sw	$v0,0x0($a2)
-/*  f101d08:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f101d0c:	3c018007 */ 	lui	$at,0x8007
-/*  f101d10:	0fc65cc2 */ 	jal	frGetWeaponBySlot
-/*  f101d14:	a0245aa4 */ 	sb	$a0,0x5aa4($at)
-/*  f101d18:	0fc27fb6 */ 	jal	bgunGetName
-/*  f101d1c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f101d20:	10000033 */ 	beqz	$zero,.NB0f101df0
-/*  f101d24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f101d28:	8ccf0000 */ 	lw	$t7,0x0($a2)
-/*  f101d2c:	3c018007 */ 	lui	$at,0x8007
-/*  f101d30:	00001025 */ 	or	$v0,$zero,$zero
-/*  f101d34:	1000002d */ 	beqz	$zero,.NB0f101dec
-/*  f101d38:	a02f5aa4 */ 	sb	$t7,0x5aa4($at)
-/*  f101d3c:	3c188007 */ 	lui	$t8,0x8007
-/*  f101d40:	93185aa4 */ 	lbu	$t8,0x5aa4($t8)
-/*  f101d44:	10000028 */ 	beqz	$zero,.NB0f101de8
-/*  f101d48:	acd80000 */ 	sw	$t8,0x0($a2)
-/*  f101d4c:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f101d50:	0fc65cc2 */ 	jal	frGetWeaponBySlot
-/*  f101d54:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f101d58:	3c03800a */ 	lui	$v1,0x800a
-/*  f101d5c:	246366b0 */ 	addiu	$v1,$v1,0x66b0
-/*  f101d60:	a0620000 */ 	sb	$v0,0x0($v1)
-/*  f101d64:	3c088007 */ 	lui	$t0,0x8007
-/*  f101d68:	8d083af0 */ 	lw	$t0,0x3af0($t0)
-/*  f101d6c:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f101d70:	3c01800a */ 	lui	$at,0x800a
-/*  f101d74:	000848c0 */ 	sll	$t1,$t0,0x3
-/*  f101d78:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f101d7c:	000948c0 */ 	sll	$t1,$t1,0x3
-/*  f101d80:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f101d84:	00094900 */ 	sll	$t1,$t1,0x4
-/*  f101d88:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f101d8c:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f101d90:	00290821 */ 	addu	$at,$at,$t1
-/*  f101d94:	305900ff */ 	andi	$t9,$v0,0xff
-/*  f101d98:	ac393544 */ 	sw	$t9,0x3544($at)
-/*  f101d9c:	8cca0000 */ 	lw	$t2,0x0($a2)
-/*  f101da0:	3c018007 */ 	lui	$at,0x8007
-/*  f101da4:	3c048007 */ 	lui	$a0,0x8007
-/*  f101da8:	24845948 */ 	addiu	$a0,$a0,0x5948
-/*  f101dac:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f101db0:	0fc3b7ea */ 	jal	func0f0f139c
-/*  f101db4:	a02a5aa4 */ 	sb	$t2,0x5aa4($at)
-/*  f101db8:	3c048007 */ 	lui	$a0,0x8007
-/*  f101dbc:	2484595c */ 	addiu	$a0,$a0,0x595c
-/*  f101dc0:	0fc3b7ea */ 	jal	func0f0f139c
-/*  f101dc4:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f101dc8:	3c048007 */ 	lui	$a0,0x8007
-/*  f101dcc:	24845984 */ 	addiu	$a0,$a0,0x5984
-/*  f101dd0:	0fc3b7ea */ 	jal	func0f0f139c
-/*  f101dd4:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f101dd8:	3c048007 */ 	lui	$a0,0x8007
-/*  f101ddc:	24845998 */ 	addiu	$a0,$a0,0x5998
-/*  f101de0:	0fc3b7ea */ 	jal	func0f0f139c
-/*  f101de4:	3c05bf80 */ 	lui	$a1,0xbf80
-.NB0f101de8:
-/*  f101de8:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f101dec:
-/*  f101dec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f101df0:
-/*  f101df0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f101df4:	03e00008 */ 	jr	$ra
-/*  f101df8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x63, menuhandler00106178 },
 #endif
+	{ MENUITEMTYPE_LABEL,       0, 0x00000203, L_OPTIONS_003, (u32)&invMenuTextWeaponManufacturer, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x00000302, L_OPTIONS_003, (u32)&invMenuTextWeaponName, NULL }, // ""
+#if VERSION >= VERSION_JPN_FINAL
+	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x14, NULL },
+#else
+	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x37, NULL },
+#endif
+	{ MENUITEMTYPE_LABEL,       0, 0x00000202, L_OPTIONS_003, (u32)&invMenuTextPrimaryFunction, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x00000202, L_OPTIONS_003, (u32)&invMenuTextSecondaryFunction, NULL }, // ""
+	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&invMenuTextWeaponDescription, 0x00000000, NULL },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menuitem g_FrWeaponsAvailableMenuItems[] = {
+	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x00000063, menuhandlerInventoryList },
+	{ MENUITEMTYPE_LABEL,       0, 0x0213, L_OPTIONS_003, (u32)&invMenuTextWeaponManufacturer, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x0312, L_OPTIONS_003, (u32)&invMenuTextWeaponName, NULL }, // ""
+	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x00000037, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x0212, L_OPTIONS_003, (u32)&invMenuTextPrimaryFunction, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x0212, L_OPTIONS_003, (u32)&invMenuTextSecondaryFunction, NULL }, // ""
+	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&invMenuTextWeaponDescription, 0x00000000, NULL },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialogdef g_SoloMissionInventoryMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_OPTIONS_178, // "Inventory"
+	g_SoloMissionInventoryMenuItems,
+	inventoryMenuDialog,
+#if VERSION >= VERSION_JPN_FINAL
+	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400 | MENUDIALOGFLAG_1000,
+#else
+	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400,
+#endif
+	&g_SoloMissionOptionsMenuDialog,
+};
+
+struct menudialogdef g_FrWeaponsAvailableMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_OPTIONS_179, // "Weapons Available"
+	g_FrWeaponsAvailableMenuItems,
+	inventoryMenuDialog,
+	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400,
+	NULL,
+};
+
+s32 menuhandlerInventoryList(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	static u8 g_FrFocusedSlotIndex = 0;
+
+	switch (operation) {
+	case MENUOP_GETOPTGROUPCOUNT:
+		data->list.value = 0;
+		break;
+	case MENUOP_GETOPTGROUPTEXT:
+		return 0;
+	case MENUOP_GETGROUPSTARTINDEX:
+		data->list.groupstartindex = 0;
+		break;
+	case MENUOP_GETOPTIONCOUNT:
+		data->list.value = frGetNumWeaponsAvailable();
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		g_FrFocusedSlotIndex = data->list.value;
+		return (s32)bgunGetName(frGetWeaponBySlot(data->list.value));
+	case MENUOP_SET:
+		g_FrFocusedSlotIndex = data->list.value;
+		return 0;
+	case MENUOP_GETOPTIONVALUE:
+		data->list.value = g_FrFocusedSlotIndex;
+		break;
+	case MENUOP_LISTITEMFOCUS:
+		g_InventoryWeapon = frGetWeaponBySlot(data->list.value);
+		g_Menus[g_MpPlayerNum].training.weaponnum = g_InventoryWeapon;
+		g_FrFocusedSlotIndex = data->list.value;
+
+		// These items are labels
+		func0f0f139c(&g_SoloMissionInventoryMenuItems[1], -1.0f); // manufacturer
+		func0f0f139c(&g_SoloMissionInventoryMenuItems[2], -1.0f); // weapon name
+		func0f0f139c(&g_SoloMissionInventoryMenuItems[4], -1.0f); // primary function
+		func0f0f139c(&g_SoloMissionInventoryMenuItems[5], -1.0f); // secondary function
+		break;
+	}
+
+	return 0;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -5472,60 +5313,6 @@ glabel var7f1b2e84
 /*  f102014:	00000000 */ 	sll	$zero,$zero,0x0
 );
 #endif
-
-struct menuitem g_SoloMissionInventoryMenuItems[] = {
-#if VERSION == VERSION_JPN_FINAL
-	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x54, menuhandler00106178 },
-#else
-	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x63, menuhandler00106178 },
-#endif
-	{ MENUITEMTYPE_LABEL,       0, 0x00000203, L_OPTIONS_003, (u32)&invMenuTextWeaponManufacturer, NULL }, // ""
-	{ MENUITEMTYPE_LABEL,       0, 0x00000302, L_OPTIONS_003, (u32)&invMenuTextWeaponName, NULL }, // ""
-#if VERSION >= VERSION_JPN_FINAL
-	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x14, NULL },
-#else
-	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x37, NULL },
-#endif
-	{ MENUITEMTYPE_LABEL,       0, 0x00000202, L_OPTIONS_003, (u32)&invMenuTextPrimaryFunction, NULL }, // ""
-	{ MENUITEMTYPE_LABEL,       0, 0x00000202, L_OPTIONS_003, (u32)&invMenuTextSecondaryFunction, NULL }, // ""
-	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&invMenuTextWeaponDescription, 0x00000000, NULL },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
-};
-
-struct menuitem g_FrWeaponsAvailableMenuItems[] = {
-	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x00000063, menuhandler00106028 },
-	{ MENUITEMTYPE_LABEL,       0, 0x0213, L_OPTIONS_003, (u32)&invMenuTextWeaponManufacturer, NULL }, // ""
-	{ MENUITEMTYPE_LABEL,       0, 0x0312, L_OPTIONS_003, (u32)&invMenuTextWeaponName, NULL }, // ""
-	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x00000037, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x0212, L_OPTIONS_003, (u32)&invMenuTextPrimaryFunction, NULL }, // ""
-	{ MENUITEMTYPE_LABEL,       0, 0x0212, L_OPTIONS_003, (u32)&invMenuTextSecondaryFunction, NULL }, // ""
-	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&invMenuTextWeaponDescription, 0x00000000, NULL },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
-};
-
-struct menudialogdef g_SoloMissionInventoryMenuDialog = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_OPTIONS_178, // "Inventory"
-	g_SoloMissionInventoryMenuItems,
-	inventoryMenuDialog,
-#if VERSION >= VERSION_JPN_FINAL
-	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400 | MENUDIALOGFLAG_1000,
-#else
-	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400,
-#endif
-	&g_SoloMissionOptionsMenuDialog,
-};
-
-struct menudialogdef g_FrWeaponsAvailableMenuDialog = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_OPTIONS_179, // "Weapons Available"
-	g_FrWeaponsAvailableMenuItems,
-	inventoryMenuDialog,
-	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400,
-	NULL,
-};
-
-u32 var80073544 = 0;
 
 s32 menuhandlerAbortMission(s32 operation, struct menuitem *item, union handlerdata *data)
 {
