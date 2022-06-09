@@ -359,14 +359,6 @@ bool func0f1774b4(struct coord *arg0, struct coord *arg1, struct coord *out)
 	return true;
 }
 
-const char var7f1b7df8[] = "utils.c";
-const char var7f1b7e00[] = "WARNING - UTILS -> DEBUG - Triangle passed to Planar Poly Test\n";
-const char var7f1b7e40[] = "utils.c";
-const char var7f1b7e48[] = "utils.c";
-const char var7f1b7e50[] = "UM_ZeroRunVerify_U8 - FAILED on item %d\n";
-
-const u32 var7f1b7e7c[] = {0x3a83126f};
-
 void func0f17758c(f32 *arg0, f32 *arg1, struct coord *arg2, f32 *arg3)
 {
 	f32 a = arg0[0] - arg1[0];
@@ -383,51 +375,34 @@ void func0f17758c(f32 *arg0, f32 *arg1, struct coord *arg2, f32 *arg3)
 	arg3[2] = c + arg0[2];
 }
 
-GLOBAL_ASM(
-glabel func0f177624
-/*  f177624:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f177628:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f17762c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f177630:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f177634:	3c077f1b */ 	lui	$a3,%hi(var7f1b7df8)
-/*  f177638:	24e77df8 */ 	addiu	$a3,$a3,%lo(var7f1b7df8)
-/*  f17763c:	24060303 */ 	addiu	$a2,$zero,0x303
-/*  f177640:	0fc5dc59 */ 	jal	func0f177164
-/*  f177644:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f177648:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f17764c:	c4a00000 */ 	lwc1	$f0,0x0($a1)
-/*  f177650:	c4a20008 */ 	lwc1	$f2,0x8($a1)
-/*  f177654:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f177658:	00000000 */ 	nop
-/*  f17765c:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f177660:	0c012974 */ 	jal	sqrtf
-/*  f177664:	46062300 */ 	add.s	$f12,$f4,$f6
-/*  f177668:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f17766c:	8fa20020 */ 	lw	$v0,0x20($sp)
-/*  f177670:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f177674:	c4a80000 */ 	lwc1	$f8,0x0($a1)
-/*  f177678:	c4aa0008 */ 	lwc1	$f10,0x8($a1)
-/*  f17767c:	44808000 */ 	mtc1	$zero,$f16
-/*  f177680:	46004303 */ 	div.s	$f12,$f8,$f0
-/*  f177684:	e4500004 */ 	swc1	$f16,0x4($v0)
-/*  f177688:	46000207 */ 	neg.s	$f8,$f0
-/*  f17768c:	46005083 */ 	div.s	$f2,$f10,$f0
-/*  f177690:	46006487 */ 	neg.s	$f18,$f12
-/*  f177694:	e4520008 */ 	swc1	$f18,0x8($v0)
-/*  f177698:	e4420000 */ 	swc1	$f2,0x0($v0)
-/*  f17769c:	c4a40004 */ 	lwc1	$f4,0x4($a1)
-/*  f1776a0:	e4680004 */ 	swc1	$f8,0x4($v1)
-/*  f1776a4:	46022182 */ 	mul.s	$f6,$f4,$f2
-/*  f1776a8:	e4660000 */ 	swc1	$f6,0x0($v1)
-/*  f1776ac:	c4aa0004 */ 	lwc1	$f10,0x4($a1)
-/*  f1776b0:	c4500008 */ 	lwc1	$f16,0x8($v0)
-/*  f1776b4:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f1776b8:	e4720008 */ 	swc1	$f18,0x8($v1)
-/*  f1776bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1776c0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1776c4:	03e00008 */ 	jr	$ra
-/*  f1776c8:	00000000 */ 	nop
-);
+void func0f177624(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3)
+{
+	f32 dist;
+	f32 tmpx;
+	f32 tmpz;
+
+	func0f177164(arg0, arg1, 771, "utils.c");
+
+	dist = sqrtf(arg1->x * arg1->x + arg1->z * arg1->z);
+
+	tmpx = (arg1->x / dist);
+	tmpz = arg1->z / dist;
+
+	arg2->x = tmpz;
+	arg2->y = 0.0f;
+	arg2->z = -tmpx;
+
+	arg3->x = arg1->y * tmpz;
+	arg3->y = -dist;
+	arg3->z = arg1->y * arg2->z;
+}
+
+const char var7f1b7e00[] = "WARNING - UTILS -> DEBUG - Triangle passed to Planar Poly Test\n";
+const char var7f1b7e40[] = "utils.c";
+const char var7f1b7e48[] = "utils.c";
+const char var7f1b7e50[] = "UM_ZeroRunVerify_U8 - FAILED on item %d\n";
+
+const u32 var7f1b7e7c[] = {0x3a83126f};
 
 f32 func0f1776cc(struct coord *a, struct coord *b, struct coord *c)
 {
