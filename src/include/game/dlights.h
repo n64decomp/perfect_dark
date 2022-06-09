@@ -46,7 +46,7 @@ void func0f004558(s32 roomnum, s32 increment, s32 limit);
 void func0f004604(s32 roomnum);
 void func0f004c6c(void);
 u32 func0f00505c(void);
-f32 func0f0053d0(s32 room1, struct coord *arg1, s32 portal1, s32 room2, struct coord *arg4, s32 portal2, s32 arg6);
+f32 func0f0053d0(s32 room1, struct coord *arg1, s32 portal1, s32 room2, struct coord *arg4, s32 portal2, f32 *arg6);
 void func0f0056f4(s32 room1, struct coord *coord1, s32 room2, struct coord *coord2, s32 arg4, f32 *arg5, s32 arg6);
 void func0f005bb0(void);
 
