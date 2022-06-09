@@ -367,46 +367,24 @@ const char var7f1b7e50[] = "UM_ZeroRunVerify_U8 - FAILED on item %d\n";
 
 const u32 var7f1b7e7c[] = {0x3a83126f};
 
+void func0f17758c(f32 *arg0, f32 *arg1, struct coord *arg2, f32 *arg3)
+{
+	f32 a = arg0[0] - arg1[0];
+	f32 b = arg0[1] - arg1[1];
+	f32 c = arg0[2] - arg1[2];
+	f32 sum = a * arg2->x + b * arg2->y + c * arg2->z;
+
+	a = -sum * arg2->x;
+	b = -sum * arg2->y;
+	c = -sum * arg2->z;
+
+	arg3[0] = a + arg0[0];
+	arg3[1] = b + arg0[1];
+	arg3[2] = c + arg0[2];
+}
+
 GLOBAL_ASM(
-glabel func0f17758c
-/*  f17758c:	c4820000 */ 	lwc1	$f2,0x0($a0)
-/*  f177590:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f177594:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*  f177598:	c4a80004 */ 	lwc1	$f8,0x4($a1)
-/*  f17759c:	46041001 */ 	sub.s	$f0,$f2,$f4
-/*  f1775a0:	c4a40008 */ 	lwc1	$f4,0x8($a1)
-/*  f1775a4:	c48a0008 */ 	lwc1	$f10,0x8($a0)
-/*  f1775a8:	46083301 */ 	sub.s	$f12,$f6,$f8
-/*  f1775ac:	c4c60004 */ 	lwc1	$f6,0x4($a2)
-/*  f1775b0:	c4d20000 */ 	lwc1	$f18,0x0($a2)
-/*  f1775b4:	46045381 */ 	sub.s	$f14,$f10,$f4
-/*  f1775b8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1775bc:	e7a6000c */ 	swc1	$f6,0xc($sp)
-/*  f1775c0:	46009282 */ 	mul.s	$f10,$f18,$f0
-/*  f1775c4:	c7a4000c */ 	lwc1	$f4,0xc($sp)
-/*  f1775c8:	c4c80008 */ 	lwc1	$f8,0x8($a2)
-/*  f1775cc:	46046182 */ 	mul.s	$f6,$f12,$f4
-/*  f1775d0:	e7a80008 */ 	swc1	$f8,0x8($sp)
-/*  f1775d4:	46065200 */ 	add.s	$f8,$f10,$f6
-/*  f1775d8:	c7aa0008 */ 	lwc1	$f10,0x8($sp)
-/*  f1775dc:	460a7182 */ 	mul.s	$f6,$f14,$f10
-/*  f1775e0:	46064400 */ 	add.s	$f16,$f8,$f6
-/*  f1775e4:	46008207 */ 	neg.s	$f8,$f16
-/*  f1775e8:	e7a80004 */ 	swc1	$f8,0x4($sp)
-/*  f1775ec:	c7a60004 */ 	lwc1	$f6,0x4($sp)
-/*  f1775f0:	46123002 */ 	mul.s	$f0,$f6,$f18
-/*  f1775f4:	46001200 */ 	add.s	$f8,$f2,$f0
-/*  f1775f8:	46043302 */ 	mul.s	$f12,$f6,$f4
-/*  f1775fc:	e4e80000 */ 	swc1	$f8,0x0($a3)
-/*  f177600:	c4840004 */ 	lwc1	$f4,0x4($a0)
-/*  f177604:	460a3382 */ 	mul.s	$f14,$f6,$f10
-/*  f177608:	460c2180 */ 	add.s	$f6,$f4,$f12
-/*  f17760c:	e4e60004 */ 	swc1	$f6,0x4($a3)
-/*  f177610:	c48a0008 */ 	lwc1	$f10,0x8($a0)
-/*  f177614:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f177618:	460e5200 */ 	add.s	$f8,$f10,$f14
-/*  f17761c:	03e00008 */ 	jr	$ra
-/*  f177620:	e4e80008 */ 	swc1	$f8,0x8($a3)
+glabel func0f177624
 /*  f177624:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f177628:	afa70024 */ 	sw	$a3,0x24($sp)
 /*  f17762c:	afbf0014 */ 	sw	$ra,0x14($sp)
