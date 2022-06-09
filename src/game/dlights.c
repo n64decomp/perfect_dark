@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "game/cheats.h"
 #include "game/dlights.h"
+#include "game/gfxmemory.h"
 #include "game/propsnd.h"
 #include "game/tex.h"
 #include "game/camera.h"
@@ -333,135 +334,42 @@ void roomSetDefaults(struct room *room)
 	room->unk68 = 0;
 }
 
-GLOBAL_ASM(
-glabel func0f001138
-.late_rodata
-glabel var7f1a7d8c
-.word 0x3f169697
-.text
-/*  f001138:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f00113c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f001140:	00808025 */ 	or	$s0,$a0,$zero
-/*  f001144:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f001148:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f00114c:	0fc59e7d */ 	jal	gfxAllocate
-/*  f001150:	24040018 */ 	addiu	$a0,$zero,0x18
-/*  f001154:	87a40046 */ 	lh	$a0,0x46($sp)
-/*  f001158:	0fc00284 */ 	jal	func0f000a10
-/*  f00115c:	afa2003c */ 	sw	$v0,0x3c($sp)
-/*  f001160:	44822000 */ 	mtc1	$v0,$f4
-/*  f001164:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f001168:	2406004d */ 	addiu	$a2,$zero,0x4d
-/*  f00116c:	04410005 */ 	bgez	$v0,.L0f001184
-/*  f001170:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f001174:	3c014f80 */ 	lui	$at,0x4f80
-/*  f001178:	44814000 */ 	mtc1	$at,$f8
-/*  f00117c:	00000000 */ 	nop
-/*  f001180:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f001184:
-/*  f001184:	3c017f1a */ 	lui	$at,%hi(var7f1a7d8c)
-/*  f001188:	c42a7d8c */ 	lwc1	$f10,%lo(var7f1a7d8c)($at)
-/*  f00118c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f001190:	02002825 */ 	or	$a1,$s0,$zero
-/*  f001194:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f001198:	3c18bc00 */ 	lui	$t8,0xbc00
-/*  f00119c:	3c198000 */ 	lui	$t9,0x8000
-/*  f0011a0:	3c080386 */ 	lui	$t0,0x386
-/*  f0011a4:	3c0a0388 */ 	lui	$t2,0x388
-/*  f0011a8:	3c0b0384 */ 	lui	$t3,0x384
-/*  f0011ac:	3c014f00 */ 	lui	$at,0x4f00
-/*  f0011b0:	444ef800 */ 	cfc1	$t6,$31
-/*  f0011b4:	44c4f800 */ 	ctc1	$a0,$31
-/*  f0011b8:	240f002e */ 	addiu	$t7,$zero,0x2e
-/*  f0011bc:	354a0010 */ 	ori	$t2,$t2,0x10
-/*  f0011c0:	460084a4 */ 	cvt.w.s	$f18,$f16
-/*  f0011c4:	35080010 */ 	ori	$t0,$t0,0x10
-/*  f0011c8:	37390040 */ 	ori	$t9,$t9,0x40
-/*  f0011cc:	37180002 */ 	ori	$t8,$t8,0x2
-/*  f0011d0:	4444f800 */ 	cfc1	$a0,$31
-/*  f0011d4:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f0011d8:	24690008 */ 	addiu	$t1,$v1,0x8
-/*  f0011dc:	30840078 */ 	andi	$a0,$a0,0x78
-/*  f0011e0:	10800012 */ 	beqz	$a0,.L0f00122c
-/*  f0011e4:	356b0010 */ 	ori	$t3,$t3,0x10
-/*  f0011e8:	44819000 */ 	mtc1	$at,$f18
-/*  f0011ec:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0011f0:	46128481 */ 	sub.s	$f18,$f16,$f18
-/*  f0011f4:	44c4f800 */ 	ctc1	$a0,$31
-/*  f0011f8:	00000000 */ 	nop
-/*  f0011fc:	460094a4 */ 	cvt.w.s	$f18,$f18
-/*  f001200:	4444f800 */ 	cfc1	$a0,$31
-/*  f001204:	00000000 */ 	nop
-/*  f001208:	30840078 */ 	andi	$a0,$a0,0x78
-/*  f00120c:	14800005 */ 	bnez	$a0,.L0f001224
-/*  f001210:	00000000 */ 	nop
-/*  f001214:	44049000 */ 	mfc1	$a0,$f18
-/*  f001218:	3c018000 */ 	lui	$at,0x8000
-/*  f00121c:	10000007 */ 	b	.L0f00123c
-/*  f001220:	00812025 */ 	or	$a0,$a0,$at
-.L0f001224:
-/*  f001224:	10000005 */ 	b	.L0f00123c
-/*  f001228:	2404ffff */ 	addiu	$a0,$zero,-1
-.L0f00122c:
-/*  f00122c:	44049000 */ 	mfc1	$a0,$f18
-/*  f001230:	00000000 */ 	nop
-/*  f001234:	0480fffb */ 	bltz	$a0,.L0f001224
-/*  f001238:	00000000 */ 	nop
-.L0f00123c:
-/*  f00123c:	a0620008 */ 	sb	$v0,0x8($v1)
-/*  f001240:	a0620009 */ 	sb	$v0,0x9($v1)
-/*  f001244:	a062000a */ 	sb	$v0,0xa($v1)
-/*  f001248:	a062000c */ 	sb	$v0,0xc($v1)
-/*  f00124c:	a062000d */ 	sb	$v0,0xd($v1)
-/*  f001250:	a062000e */ 	sb	$v0,0xe($v1)
-/*  f001254:	a0640000 */ 	sb	$a0,0x0($v1)
-/*  f001258:	a0640001 */ 	sb	$a0,0x1($v1)
-/*  f00125c:	a0640002 */ 	sb	$a0,0x2($v1)
-/*  f001260:	a0640004 */ 	sb	$a0,0x4($v1)
-/*  f001264:	a0640005 */ 	sb	$a0,0x5($v1)
-/*  f001268:	a0640006 */ 	sb	$a0,0x6($v1)
-/*  f00126c:	a0660010 */ 	sb	$a2,0x10($v1)
-/*  f001270:	a0660011 */ 	sb	$a2,0x11($v1)
-/*  f001274:	a06f0012 */ 	sb	$t7,0x12($v1)
-/*  f001278:	acb80000 */ 	sw	$t8,0x0($a1)
-/*  f00127c:	acb90004 */ 	sw	$t9,0x4($a1)
-/*  f001280:	02001025 */ 	or	$v0,$s0,$zero
-/*  f001284:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f001288:	02002025 */ 	or	$a0,$s0,$zero
-/*  f00128c:	ac480000 */ 	sw	$t0,0x0($v0)
-/*  f001290:	ac490004 */ 	sw	$t1,0x4($v0)
-/*  f001294:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f001298:	ac830004 */ 	sw	$v1,0x4($a0)
-/*  f00129c:	ac8a0000 */ 	sw	$t2,0x0($a0)
-/*  f0012a0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0012a4:	44cef800 */ 	ctc1	$t6,$31
-/*  f0012a8:	acab0000 */ 	sw	$t3,0x0($a1)
-/*  f0012ac:	afa50028 */ 	sw	$a1,0x28($sp)
-/*  f0012b0:	0fc2d5ea */ 	jal	camGetUnk175c
-/*  f0012b4:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f0012b8:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f0012bc:	3c0c0382 */ 	lui	$t4,0x382
-/*  f0012c0:	358c0010 */ 	ori	$t4,$t4,0x10
-/*  f0012c4:	02001825 */ 	or	$v1,$s0,$zero
-/*  f0012c8:	aca20004 */ 	sw	$v0,0x4($a1)
-/*  f0012cc:	ac6c0000 */ 	sw	$t4,0x0($v1)
-/*  f0012d0:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f0012d4:	0fc2d5ea */ 	jal	camGetUnk175c
-/*  f0012d8:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f0012dc:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f0012e0:	244d0010 */ 	addiu	$t5,$v0,0x10
-/*  f0012e4:	02001025 */ 	or	$v0,$s0,$zero
-/*  f0012e8:	ac6d0004 */ 	sw	$t5,0x4($v1)
-/*  f0012ec:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0012f0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0012f4:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f0012f8:	03e00008 */ 	jr	$ra
-/*  f0012fc:	00000000 */ 	nop
-);
+Gfx *func0f001138(Gfx *gdl, s16 roomnum)
+{
+	Lights1 *lights = gfxAllocate(sizeof(Lights1));
+
+	u8 v0 = func0f000a10(roomnum);
+	u8 a0 = (u32)(v0 * 0.5882353f);
+
+	lights->a.l.col[0] = a0;
+	lights->a.l.col[1] = a0;
+	lights->a.l.col[2] = a0;
+	lights->a.l.colc[0] = a0;
+	lights->a.l.colc[1] = a0;
+	lights->a.l.colc[2] = a0;
+
+	lights->l[0].l.col[0] = v0;
+	lights->l[0].l.col[1] = v0;
+	lights->l[0].l.col[2] = v0;
+	lights->l[0].l.colc[0] = v0;
+	lights->l[0].l.colc[1] = v0;
+	lights->l[0].l.colc[2] = v0;
+	lights->l[0].l.dir[0] = 0x4d;
+	lights->l[0].l.dir[1] = 0x4d;
+	lights->l[0].l.dir[2] = 0x2e;
+
+	gSPSetLights1(gdl++, (*lights));
+
+	gSPLookAtX(gdl++, camGetUnk175c()->m[0]);
+	gSPLookAtY(gdl++, camGetUnk175c()->m[1]);
+
+	return gdl;
+}
 
 Gfx *func0f001300(Gfx *gdl)
 {
 	gSPSetLights1(gdl++, var80061460);
+
 	gSPLookAtX(gdl++, camGetUnk175c()->m[0]);
 	gSPLookAtY(gdl++, camGetUnk175c()->m[1]);
 
