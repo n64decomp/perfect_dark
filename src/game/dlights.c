@@ -5838,10 +5838,6 @@ glabel var7f1a7de0
 
 GLOBAL_ASM(
 glabel func0f0056f4
-.late_rodata
-glabel var7f1a7de4
-.word 0x46fffe00
-.text
 /*  f0056f4:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0056f8:	3c0e8006 */ 	lui	$t6,%hi(var80061444)
 /*  f0056fc:	8dce1444 */ 	lw	$t6,%lo(var80061444)($t6)
@@ -6052,122 +6048,40 @@ glabel var7f1a7de4
 /*  f0059f0:	8fbe0048 */ 	lw	$s8,0x48($sp)
 /*  f0059f4:	03e00008 */ 	jr	$ra
 /*  f0059f8:	27bd0098 */ 	addiu	$sp,$sp,0x98
-/*  f0059fc:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f005a00:	afb20030 */ 	sw	$s2,0x30($sp)
-/*  f005a04:	3c017f1a */ 	lui	$at,%hi(var7f1a7de4)
-/*  f005a08:	8fb2008c */ 	lw	$s2,0x8c($sp)
-/*  f005a0c:	c4247de4 */ 	lwc1	$f4,%lo(var7f1a7de4)($at)
-/*  f005a10:	afbf004c */ 	sw	$ra,0x4c($sp)
-/*  f005a14:	afbe0048 */ 	sw	$s8,0x48($sp)
-/*  f005a18:	afb70044 */ 	sw	$s7,0x44($sp)
-/*  f005a1c:	afb60040 */ 	sw	$s6,0x40($sp)
-/*  f005a20:	afb5003c */ 	sw	$s5,0x3c($sp)
-/*  f005a24:	afb40038 */ 	sw	$s4,0x38($sp)
-/*  f005a28:	afb30034 */ 	sw	$s3,0x34($sp)
-/*  f005a2c:	afb1002c */ 	sw	$s1,0x2c($sp)
-/*  f005a30:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f005a34:	afa5007c */ 	sw	$a1,0x7c($sp)
-/*  f005a38:	afa70084 */ 	sw	$a3,0x84($sp)
-/*  f005a3c:	0080a825 */ 	or	$s5,$a0,$zero
-/*  f005a40:	00c0b025 */ 	or	$s6,$a2,$zero
-/*  f005a44:	14860006 */ 	bne	$a0,$a2,.L0f005a60
-/*  f005a48:	e6440000 */ 	swc1	$f4,0x0($s2)
-/*  f005a4c:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f005a50:	0fc5dd18 */ 	jal	coordsGetDistance
-/*  f005a54:	8fa50084 */ 	lw	$a1,0x84($sp)
-/*  f005a58:	10000049 */ 	b	.L0f005b80
-/*  f005a5c:	e6400000 */ 	swc1	$f0,0x0($s2)
-.L0f005a60:
-/*  f005a60:	001570c0 */ 	sll	$t6,$s5,0x3
-/*  f005a64:	3c1e800a */ 	lui	$s8,%hi(g_Rooms)
-/*  f005a68:	01d57021 */ 	addu	$t6,$t6,$s5
-/*  f005a6c:	27de4928 */ 	addiu	$s8,$s8,%lo(g_Rooms)
-/*  f005a70:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f005a74:	8fc20000 */ 	lw	$v0,0x0($s8)
-/*  f005a78:	01d57023 */ 	subu	$t6,$t6,$s5
-/*  f005a7c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f005a80:	afae005c */ 	sw	$t6,0x5c($sp)
-/*  f005a84:	004e2821 */ 	addu	$a1,$v0,$t6
-/*  f005a88:	80a60005 */ 	lb	$a2,0x5($a1)
-/*  f005a8c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f005a90:	00004025 */ 	or	$t0,$zero,$zero
-/*  f005a94:	18c0003a */ 	blez	$a2,.L0f005b80
-/*  f005a98:	0016b8c0 */ 	sll	$s7,$s6,0x3
-/*  f005a9c:	02f6b821 */ 	addu	$s7,$s7,$s6
-/*  f005aa0:	0017b880 */ 	sll	$s7,$s7,0x2
-/*  f005aa4:	02f6b823 */ 	subu	$s7,$s7,$s6
-/*  f005aa8:	0017b880 */ 	sll	$s7,$s7,0x2
-/*  f005aac:	00571821 */ 	addu	$v1,$v0,$s7
-/*  f005ab0:	3c14800a */ 	lui	$s4,%hi(g_RoomPortals)
-/*  f005ab4:	26944ce0 */ 	addiu	$s4,$s4,%lo(g_RoomPortals)
-/*  f005ab8:	80640005 */ 	lb	$a0,0x5($v1)
-.L0f005abc:
-/*  f005abc:	84b9000e */ 	lh	$t9,0xe($a1)
-/*  f005ac0:	8e980000 */ 	lw	$t8,0x0($s4)
-/*  f005ac4:	00008025 */ 	or	$s0,$zero,$zero
-/*  f005ac8:	00194840 */ 	sll	$t1,$t9,0x1
-/*  f005acc:	03095021 */ 	addu	$t2,$t8,$t1
-/*  f005ad0:	01485821 */ 	addu	$t3,$t2,$t0
-/*  f005ad4:	18800026 */ 	blez	$a0,.L0f005b70
-/*  f005ad8:	85730000 */ 	lh	$s3,0x0($t3)
-/*  f005adc:	00008825 */ 	or	$s1,$zero,$zero
-/*  f005ae0:	afa7006c */ 	sw	$a3,0x6c($sp)
-/*  f005ae4:	afa80050 */ 	sw	$t0,0x50($sp)
-/*  f005ae8:	846d000e */ 	lh	$t5,0xe($v1)
-.L0f005aec:
-/*  f005aec:	8e8c0000 */ 	lw	$t4,0x0($s4)
-/*  f005af0:	8fb80084 */ 	lw	$t8,0x84($sp)
-/*  f005af4:	000d7040 */ 	sll	$t6,$t5,0x1
-/*  f005af8:	018e7821 */ 	addu	$t7,$t4,$t6
-/*  f005afc:	01f1c821 */ 	addu	$t9,$t7,$s1
-/*  f005b00:	87220000 */ 	lh	$v0,0x0($t9)
-/*  f005b04:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f005b08:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f005b0c:	8fa5007c */ 	lw	$a1,0x7c($sp)
-/*  f005b10:	02603025 */ 	or	$a2,$s3,$zero
-/*  f005b14:	02c03825 */ 	or	$a3,$s6,$zero
-/*  f005b18:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f005b1c:	0fc014f4 */ 	jal	func0f0053d0
-/*  f005b20:	afa20014 */ 	sw	$v0,0x14($sp)
-/*  f005b24:	c6460000 */ 	lwc1	$f6,0x0($s2)
-/*  f005b28:	4606003c */ 	c.lt.s	$f0,$f6
-/*  f005b2c:	00000000 */ 	nop
-/*  f005b30:	45020003 */ 	bc1fl	.L0f005b40
-/*  f005b34:	8fc20000 */ 	lw	$v0,0x0($s8)
-/*  f005b38:	e6400000 */ 	swc1	$f0,0x0($s2)
-/*  f005b3c:	8fc20000 */ 	lw	$v0,0x0($s8)
-.L0f005b40:
-/*  f005b40:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f005b44:	26310002 */ 	addiu	$s1,$s1,0x2
-/*  f005b48:	00571821 */ 	addu	$v1,$v0,$s7
-/*  f005b4c:	80640005 */ 	lb	$a0,0x5($v1)
-/*  f005b50:	0204082a */ 	slt	$at,$s0,$a0
-/*  f005b54:	5420ffe5 */ 	bnezl	$at,.L0f005aec
-/*  f005b58:	846d000e */ 	lh	$t5,0xe($v1)
-/*  f005b5c:	8fa9005c */ 	lw	$t1,0x5c($sp)
-/*  f005b60:	8fa80050 */ 	lw	$t0,0x50($sp)
-/*  f005b64:	8fa7006c */ 	lw	$a3,0x6c($sp)
-/*  f005b68:	00492821 */ 	addu	$a1,$v0,$t1
-/*  f005b6c:	80a60005 */ 	lb	$a2,0x5($a1)
-.L0f005b70:
-/*  f005b70:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f005b74:	00e6082a */ 	slt	$at,$a3,$a2
-/*  f005b78:	1420ffd0 */ 	bnez	$at,.L0f005abc
-/*  f005b7c:	25080002 */ 	addiu	$t0,$t0,0x2
-.L0f005b80:
-/*  f005b80:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*  f005b84:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f005b88:	8fb1002c */ 	lw	$s1,0x2c($sp)
-/*  f005b8c:	8fb20030 */ 	lw	$s2,0x30($sp)
-/*  f005b90:	8fb30034 */ 	lw	$s3,0x34($sp)
-/*  f005b94:	8fb40038 */ 	lw	$s4,0x38($sp)
-/*  f005b98:	8fb5003c */ 	lw	$s5,0x3c($sp)
-/*  f005b9c:	8fb60040 */ 	lw	$s6,0x40($sp)
-/*  f005ba0:	8fb70044 */ 	lw	$s7,0x44($sp)
-/*  f005ba4:	8fbe0048 */ 	lw	$s8,0x48($sp)
-/*  f005ba8:	03e00008 */ 	jr	$ra
-/*  f005bac:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
+
+void func0f0059fc(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *pos2, s32 arg4, f32 *result)
+{
+	s32 portalnum1;
+	s32 portalnum2;
+	s32 i;
+	s32 j;
+	f32 dist;
+
+	*result = 32767;
+
+	if (roomnum1 == roomnum2) {
+		*result = coordsGetDistance(pos1, pos2);
+		return;
+	}
+
+	for (i = 0; i < g_Rooms[roomnum1].numportals; i++) {
+		portalnum1 = g_RoomPortals[g_Rooms[roomnum1].roomportallistoffset + i];
+		if (1);
+
+		for (j = 0; j < g_Rooms[roomnum2].numportals; j++) {
+			portalnum2 = g_RoomPortals[g_Rooms[roomnum2].roomportallistoffset + j];
+			if (j);
+			if (j);
+
+			dist = func0f0053d0(roomnum1, pos1, portalnum1, roomnum2, pos2, portalnum2, 0);
+
+			if (dist < *result) {
+				*result = dist;
+			}
+		}
+	}
+}
 
 /**
  * This function:
