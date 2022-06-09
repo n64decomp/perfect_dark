@@ -3657,44 +3657,23 @@ glabel func0f14e884
 /*  f14eb8c:	27bd0038 */ 	addiu	$sp,$sp,0x38
 /*  f14eb90:	03e00008 */ 	jr	$ra
 /*  f14eb94:	00000000 */ 	nop
-/*  f14eb98:	44862000 */ 	mtc1	$a2,$f4
-/*  f14eb9c:	44874000 */ 	mtc1	$a3,$f8
-/*  f14eba0:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f14eba4:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f14eba8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f14ebac:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f14ebb0:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f14ebb4:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f14ebb8:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f14ebbc:	e7a60030 */ 	swc1	$f6,0x30($sp)
-/*  f14ebc0:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f14ebc4:	0fc5281b */ 	jal	func0f14a06c
-/*  f14ebc8:	e7aa0034 */ 	swc1	$f10,0x34($sp)
-/*  f14ebcc:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*  f14ebd0:	8fb90040 */ 	lw	$t9,0x40($sp)
-/*  f14ebd4:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*  f14ebd8:	8faa0044 */ 	lw	$t2,0x44($sp)
-/*  f14ebdc:	03194023 */ 	subu	$t0,$t8,$t9
-/*  f14ebe0:	44888000 */ 	mtc1	$t0,$f16
-/*  f14ebe4:	012a5823 */ 	subu	$t3,$t1,$t2
-/*  f14ebe8:	448b3000 */ 	mtc1	$t3,$f6
-/*  f14ebec:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f14ebf0:	3c013d80 */ 	lui	$at,0x3d80
-/*  f14ebf4:	44810000 */ 	mtc1	$at,$f0
-/*  f14ebf8:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f14ebfc:	24450010 */ 	addiu	$a1,$v0,0x10
-/*  f14ec00:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f14ec04:	46009102 */ 	mul.s	$f4,$f18,$f0
-/*  f14ec08:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f14ec0c:	46004282 */ 	mul.s	$f10,$f8,$f0
-/*  f14ec10:	44072000 */ 	mfc1	$a3,$f4
-/*  f14ec14:	0fc5321c */ 	jal	func0f14c870
-/*  f14ec18:	e7aa0010 */ 	swc1	$f10,0x10($sp)
-/*  f14ec1c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f14ec20:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f14ec24:	03e00008 */ 	jr	$ra
-/*  f14ec28:	00000000 */ 	nop
 );
+
+Gfx *func0f14eb98(Gfx *gdl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
+{
+	f32 sp30[2];
+	struct var8007f8e0 *thing;
+	u32 stack[2];
+
+	sp30[0] = arg2;
+	sp30[1] = arg3;
+
+	thing = func0f14a06c(arg1);
+
+	gdl = func0f14c870(gdl, &thing->unk010, sp30, (arg4 - arg2) * 0.0625f, (arg5 - arg3) * 0.0625f);
+
+	return gdl;
+}
 
 void func0f14ec2c(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
 {
