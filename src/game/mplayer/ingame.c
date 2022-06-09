@@ -199,188 +199,6 @@ char *menutextMatchTime(s32 arg0)
 	return g_StringPointer;
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel mpMenuTextWeaponDescription
-/*  f178780:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f178784:	8dce1998 */ 	lw	$t6,0x1998($t6)
-/*  f178788:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f17878c:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f178790:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f178794:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f178798:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17879c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f1787a0:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f1787a4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1787a8:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f1787ac:	3c04800a */ 	lui	$a0,0x800a
-/*  f1787b0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1787b4:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f1787b8:	0fc2c814 */ 	jal	weaponFindById
-/*  f1787bc:	8c84f528 */ 	lw	$a0,-0xad8($a0)
-/*  f1787c0:	10400067 */ 	beqz	$v0,.JF0f178960
-/*  f1787c4:	00402825 */ 	move	$a1,$v0
-/*  f1787c8:	3c188007 */ 	lui	$t8,0x8007
-/*  f1787cc:	8f181998 */ 	lw	$t8,0x1998($t8)
-/*  f1787d0:	3c02800a */ 	lui	$v0,0x800a
-/*  f1787d4:	2401002e */ 	li	$at,0x2e
-/*  f1787d8:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f1787dc:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f1787e0:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f1787e4:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f1787e8:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f1787ec:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f1787f0:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f1787f4:	00591021 */ 	addu	$v0,$v0,$t9
-/*  f1787f8:	8c42f528 */ 	lw	$v0,-0xad8($v0)
-/*  f1787fc:	3c08800a */ 	lui	$t0,0x800a
-/*  f178800:	54410015 */ 	bnel	$v0,$at,.JF0f178858
-/*  f178804:	24010050 */ 	li	$at,0x50
-/*  f178808:	8d08a8b4 */ 	lw	$t0,-0x574c($t0)
-/*  f17880c:	8d030480 */ 	lw	$v1,0x480($t0)
-/*  f178810:	50600011 */ 	beqzl	$v1,.JF0f178858
-/*  f178814:	24010050 */ 	li	$at,0x50
-/*  f178818:	9064006b */ 	lbu	$a0,0x6b($v1)
-/*  f17881c:	24010001 */ 	li	$at,0x1
-/*  f178820:	54810006 */ 	bnel	$a0,$at,.JF0f17883c
-/*  f178824:	24010002 */ 	li	$at,0x2
-/*  f178828:	0fc5baa5 */ 	jal	langGet
-/*  f17882c:	24044ced */ 	li	$a0,0x4ced
-/*  f178830:	1000004e */ 	b	.JF0f17896c
-/*  f178834:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f178838:	24010002 */ 	li	$at,0x2
-.JF0f17883c:
-/*  f17883c:	54810006 */ 	bnel	$a0,$at,.JF0f178858
-/*  f178840:	24010050 */ 	li	$at,0x50
-/*  f178844:	0fc5baa5 */ 	jal	langGet
-/*  f178848:	24044cec */ 	li	$a0,0x4cec
-/*  f17884c:	10000047 */ 	b	.JF0f17896c
-/*  f178850:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f178854:	24010050 */ 	li	$at,0x50
-.JF0f178858:
-/*  f178858:	1441003d */ 	bne	$v0,$at,.JF0f178950
-/*  f17885c:	3c09800a */ 	lui	$t1,0x800a
-/*  f178860:	8d29aae4 */ 	lw	$t1,-0x551c($t1)
-/*  f178864:	24010034 */ 	li	$at,0x34
-/*  f178868:	15210039 */ 	bne	$t1,$at,.JF0f178950
-/*  f17886c:	00000000 */ 	nop
-/*  f178870:	0fc5b3cf */ 	jal	lvGetDifficulty
-/*  f178874:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*  f178878:	28410002 */ 	slti	$at,$v0,0x2
-/*  f17887c:	14200034 */ 	bnez	$at,.JF0f178950
-/*  f178880:	8fa5004c */ 	lw	$a1,0x4c($sp)
-/*  f178884:	3c0b8008 */ 	lui	$t3,0x8008
-/*  f178888:	256b4de8 */ 	addiu	$t3,$t3,0x4de8
-/*  f17888c:	8d610000 */ 	lw	$at,0x0($t3)
-/*  f178890:	27aa0040 */ 	addiu	$t2,$sp,0x40
-/*  f178894:	8d6d0004 */ 	lw	$t5,0x4($t3)
-/*  f178898:	ad410000 */ 	sw	$at,0x0($t2)
-/*  f17889c:	95610008 */ 	lhu	$at,0x8($t3)
-/*  f1788a0:	3c0f8008 */ 	lui	$t7,0x8008
-/*  f1788a4:	25ef4df4 */ 	addiu	$t7,$t7,0x4df4
-/*  f1788a8:	ad4d0004 */ 	sw	$t5,0x4($t2)
-/*  f1788ac:	a5410008 */ 	sh	$at,0x8($t2)
-/*  f1788b0:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f1788b4:	27ae0030 */ 	addiu	$t6,$sp,0x30
-/*  f1788b8:	8df90004 */ 	lw	$t9,0x4($t7)
-/*  f1788bc:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f1788c0:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f1788c4:	27a20040 */ 	addiu	$v0,$sp,0x40
-/*  f1788c8:	00001825 */ 	move	$v1,$zero
-/*  f1788cc:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f1788d0:	95e1000c */ 	lhu	$at,0xc($t7)
-/*  f1788d4:	24040038 */ 	li	$a0,0x38
-/*  f1788d8:	add90004 */ 	sw	$t9,0x4($t6)
-/*  f1788dc:	a5c1000c */ 	sh	$at,0xc($t6)
-.JF0f1788e0:
-/*  f1788e0:	90480000 */ 	lbu	$t0,0x0($v0)
-/*  f1788e4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f1788e8:	01034823 */ 	subu	$t1,$t0,$v1
-/*  f1788ec:	24630009 */ 	addiu	$v1,$v1,0x9
-/*  f1788f0:	2861005a */ 	slti	$at,$v1,0x5a
-/*  f1788f4:	252cfff7 */ 	addiu	$t4,$t1,-9
-/*  f1788f8:	1420fff9 */ 	bnez	$at,.JF0f1788e0
-/*  f1788fc:	a04cffff */ 	sb	$t4,-0x1($v0)
-/*  f178900:	27a20030 */ 	addiu	$v0,$sp,0x30
-/*  f178904:	00001825 */ 	move	$v1,$zero
-.JF0f178908:
-/*  f178908:	904a0000 */ 	lbu	$t2,0x0($v0)
-/*  f17890c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f178910:	01435823 */ 	subu	$t3,$t2,$v1
-/*  f178914:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f178918:	256dfffc */ 	addiu	$t5,$t3,-4
-/*  f17891c:	1464fffa */ 	bne	$v1,$a0,.JF0f178908
-/*  f178920:	a04dffff */ 	sb	$t5,-0x1($v0)
-/*  f178924:	0fc5baa5 */ 	jal	langGet
-/*  f178928:	24044cef */ 	li	$a0,0x4cef
-/*  f17892c:	3c048007 */ 	lui	$a0,0x8007
-/*  f178930:	8c841990 */ 	lw	$a0,0x1990($a0)
-/*  f178934:	00402825 */ 	move	$a1,$v0
-/*  f178938:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f17893c:	0c004d95 */ 	jal	sprintf
-/*  f178940:	27a70030 */ 	addiu	$a3,$sp,0x30
-/*  f178944:	3c028007 */ 	lui	$v0,0x8007
-/*  f178948:	10000007 */ 	b	.JF0f178968
-/*  f17894c:	8c421990 */ 	lw	$v0,0x1990($v0)
-.JF0f178950:
-/*  f178950:	0fc5baa5 */ 	jal	langGet
-/*  f178954:	94a4004a */ 	lhu	$a0,0x4a($a1)
-/*  f178958:	10000004 */ 	b	.JF0f17896c
-/*  f17895c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.JF0f178960:
-/*  f178960:	0fc5baa5 */ 	jal	langGet
-/*  f178964:	24045603 */ 	li	$a0,0x5603
-.JF0f178968:
-/*  f178968:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.JF0f17896c:
-/*  f17896c:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f178970:	03e00008 */ 	jr	$ra
-/*  f178974:	00000000 */ 	nop
-);
-#else
-char *mpMenuTextWeaponDescription(struct menuitem *item)
-{
-	struct weapon *weapon = weaponFindById(g_Menus[g_MpPlayerNum].mppause.weaponnum);
-
-	if (weapon) {
-		return langGet(weapon->description);
-	}
-
-	return "\n";
-}
-#endif
-
-char *mpMenuTitleStatsFor(struct menudialogdef *dialogdef)
-{
-	struct mpchrconfig *mpchr = MPCHR(g_MpSelectedPlayersForStats[g_MpPlayerNum]);
-
-	// "Stats for %s"
-	sprintf(g_StringPointer, langGet(L_MPMENU_280), mpchr->name);
-	return g_StringPointer;
-}
-
-s32 func0f178440(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	if (operation);
-
-	return 0;
-}
-
-char *mpMenuTextWeaponOfChoiceName(struct menuitem *item)
-{
-	return mpPlayerGetWeaponOfChoiceName(g_Menus[g_MpPlayerNum].playernum, 0);
-}
-
-char *mpMenuTextAward1(struct menuitem *item)
-{
-	return g_Vars.players[g_Menus[g_MpPlayerNum].playernum]->award1;
-}
-
-char *mpMenuTextAward2(struct menuitem *item)
-{
-	return g_Vars.players[g_Menus[g_MpPlayerNum].playernum]->award2;
-}
-
 struct menuitem g_MpEndGameMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x02000020, L_MPMENU_291, 0x00000000, NULL }, // "Are you sure?"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
@@ -433,17 +251,120 @@ struct menudialogdef g_MpPauseControlMenuDialog = {
 	NULL,
 };
 
-#if VERSION == VERSION_JPN_FINAL
-u32 var80084de8jf[] = {
-	0x4c56715b,
-	0x6566727a,
-	0x835a0000,
-	0x4d40595f,
-	0x6e716958,
-	0x726c7568,
-	0x69380000,
-};
+#if VERSION >= VERSION_JPN_FINAL
+char *mpMenuTextWeaponDescription(struct menuitem *item)
+{
+	struct weapon *weapondef = weaponFindById(g_Menus[g_MpPlayerNum].training.weaponnum);
+
+	if (weapondef != NULL) {
+		if (g_Menus[g_MpPlayerNum].training.weaponnum == WEAPON_EYESPY) {
+			if (g_Vars.currentplayer->eyespy != NULL) {
+				if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+					return langGet(L_GUN_237);
+				}
+
+				if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_BOMBSPY) {
+					return langGet(L_GUN_236);
+				}
+			}
+		}
+
+		if (g_Menus[g_MpPlayerNum].training.weaponnum == WEAPON_NECKLACE && g_Vars.stagenum == STAGE_ATTACKSHIP) {
+			if (lvGetDifficulty() >= DIFF_PA) {
+				u8 username[] = {
+					'C' + 9 * 1,
+					'D' + 9 * 2,
+					'V' + 9 * 3,
+					'7' + 9 * 4,
+					'8' + 9 * 5,
+					'0' + 9 * 6,
+					'3' + 9 * 7,
+					'2' + 9 * 8,
+					'2' + 9 * 9,
+					'\0' + 9 * 10,
+				};
+
+				u8 password[] = {
+					'I' + 4 * 1,
+					'8' + 4 * 2,
+					'M' + 4 * 3,
+					'O' + 4 * 4,
+					'Z' + 4 * 5,
+					'Y' + 4 * 6,
+					'M' + 4 * 7,
+					'8' + 4 * 8,
+					'N' + 4 * 9,
+					'D' + 4 * 10,
+					'I' + 4 * 11,
+					'8' + 4 * 12,
+					'5' + 4 * 13,
+					'\0' + 4 * 14,
+				};
+
+				s32 i;
+
+				for (i = 0; i < ARRAYCOUNT(username); i++) {
+					username[i] -= i * 9 + 9;
+				}
+
+				for (i = 0; i < ARRAYCOUNT(password); i++) {
+					password[i] -= i * 4 + 4;
+				}
+
+				sprintf(g_StringPointer, langGet(L_GUN_239), username, password);
+
+				return g_StringPointer;
+			}
+		}
+
+		return langGet(weapondef->description);
+	}
+
+	return langGet(L_OPTIONS_003); // ""
+}
+#else
+char *mpMenuTextWeaponDescription(struct menuitem *item)
+{
+	struct weapon *weapon = weaponFindById(g_Menus[g_MpPlayerNum].mppause.weaponnum);
+
+	if (weapon) {
+		return langGet(weapon->description);
+	}
+
+	return "\n";
+}
 #endif
+
+char *mpMenuTitleStatsFor(struct menudialogdef *dialogdef)
+{
+	struct mpchrconfig *mpchr = MPCHR(g_MpSelectedPlayersForStats[g_MpPlayerNum]);
+
+	// "Stats for %s"
+	sprintf(g_StringPointer, langGet(L_MPMENU_280), mpchr->name);
+	return g_StringPointer;
+}
+
+s32 func0f178440(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	if (operation);
+
+	return 0;
+}
+
+char *mpMenuTextWeaponOfChoiceName(struct menuitem *item)
+{
+	return mpPlayerGetWeaponOfChoiceName(g_Menus[g_MpPlayerNum].playernum, 0);
+}
+
+char *mpMenuTextAward1(struct menuitem *item)
+{
+	return g_Vars.players[g_Menus[g_MpPlayerNum].playernum]->award1;
+}
+
+char *mpMenuTextAward2(struct menuitem *item)
+{
+	return g_Vars.players[g_Menus[g_MpPlayerNum].playernum]->award2;
+}
 
 struct menuitem g_Mp2PMissionInventoryMenuItems[] = {
 	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x00000078, 0x00000042, menuhandlerInventoryList },

@@ -1159,7 +1159,7 @@ char *mpMenuTextUsernamePassword(struct menuitem *item)
 	// EnTROpIcDeCAy
 	// ZeRo-Tau
 
-	u8 username[15] = {
+	u8 username[] = {
 		'E' + 9 * 1,
 		'n' + 9 * 2,
 		'T' + 9 * 3,
@@ -1177,7 +1177,7 @@ char *mpMenuTextUsernamePassword(struct menuitem *item)
 		'\0' + 9 * 15,
 	};
 
-	u8 password[10] = {
+	u8 password[] = {
 		'Z' + 4 * 1,
 		'e' + 4 * 2,
 		'R' + 4 * 3,
@@ -1194,11 +1194,11 @@ char *mpMenuTextUsernamePassword(struct menuitem *item)
 	s32 i;
 
 	if (item->param == 0) {
-		for (i = 0; i < 15; i++) {
+		for (i = 0; i < ARRAYCOUNT(username); i++) {
 			g_StringPointer[i] = username[i] - i * 9 - 9;
 		}
 	} else {
-		for (i = 0; i < 10; i++) {
+		for (i = 0; i < ARRAYCOUNT(password); i++) {
 			g_StringPointer[i] = password[i] - i * 4 - 4;
 		}
 	}
