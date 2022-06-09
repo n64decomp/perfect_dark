@@ -3620,44 +3620,23 @@ glabel func0f14e884
 /*  f14eaf8:	27bd0060 */ 	addiu	$sp,$sp,0x60
 /*  f14eafc:	03e00008 */ 	jr	$ra
 /*  f14eb00:	00000000 */ 	nop
-/*  f14eb04:	44862000 */ 	mtc1	$a2,$f4
-/*  f14eb08:	44874000 */ 	mtc1	$a3,$f8
-/*  f14eb0c:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f14eb10:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f14eb14:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f14eb18:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f14eb1c:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f14eb20:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f14eb24:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f14eb28:	e7a60030 */ 	swc1	$f6,0x30($sp)
-/*  f14eb2c:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f14eb30:	0fc5281b */ 	jal	func0f14a06c
-/*  f14eb34:	e7aa0034 */ 	swc1	$f10,0x34($sp)
-/*  f14eb38:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*  f14eb3c:	8fb90040 */ 	lw	$t9,0x40($sp)
-/*  f14eb40:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*  f14eb44:	8faa0044 */ 	lw	$t2,0x44($sp)
-/*  f14eb48:	03194023 */ 	subu	$t0,$t8,$t9
-/*  f14eb4c:	44888000 */ 	mtc1	$t0,$f16
-/*  f14eb50:	012a5823 */ 	subu	$t3,$t1,$t2
-/*  f14eb54:	448b3000 */ 	mtc1	$t3,$f6
-/*  f14eb58:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f14eb5c:	3c013c80 */ 	lui	$at,0x3c80
-/*  f14eb60:	44810000 */ 	mtc1	$at,$f0
-/*  f14eb64:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f14eb68:	24450004 */ 	addiu	$a1,$v0,0x4
-/*  f14eb6c:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f14eb70:	46009102 */ 	mul.s	$f4,$f18,$f0
-/*  f14eb74:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f14eb78:	46004282 */ 	mul.s	$f10,$f8,$f0
-/*  f14eb7c:	44072000 */ 	mfc1	$a3,$f4
-/*  f14eb80:	0fc5321c */ 	jal	func0f14c870
-/*  f14eb84:	e7aa0010 */ 	swc1	$f10,0x10($sp)
-/*  f14eb88:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f14eb8c:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f14eb90:	03e00008 */ 	jr	$ra
-/*  f14eb94:	00000000 */ 	nop
 );
+
+Gfx *func0f14eb04(Gfx *gdl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
+{
+	f32 sp30[2];
+	struct var8007f8e0 *thing;
+	u32 stack[2];
+
+	sp30[0] = arg2;
+	sp30[1] = arg3;
+
+	thing = func0f14a06c(arg1);
+
+	gdl = func0f14c870(gdl, &thing->unk004, sp30, (arg4 - arg2) * 0.015625f, (arg5 - arg3) * 0.015625f);
+
+	return gdl;
+}
 
 Gfx *func0f14eb98(Gfx *gdl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
 {
