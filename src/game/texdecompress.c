@@ -633,7 +633,7 @@ glabel func0f16f0f4
 /*  f16f3b8:	02c03025 */ 	or	$a2,$s6,$zero
 /*  f16f3bc:	02603825 */ 	or	$a3,$s3,$zero
 /*  f16f3c0:	afb40010 */ 	sw	$s4,0x10($sp)
-/*  f16f3c4:	0fc5bf23 */ 	jal	func0f16fc8c
+/*  f16f3c4:	0fc5bf23 */ 	jal	tex0f16fc8c
 /*  f16f3c8:	afa20014 */ 	sw	$v0,0x14($sp)
 /*  f16f3cc:	8fad0474 */ 	lw	$t5,0x474($sp)
 /*  f16f3d0:	00175843 */ 	sra	$t3,$s7,0x1
@@ -894,7 +894,7 @@ glabel func0f16f0f4
 /*  f16f77c:	02c03025 */ 	or	$a2,$s6,$zero
 /*  f16f780:	02603825 */ 	or	$a3,$s3,$zero
 /*  f16f784:	afb40010 */ 	sw	$s4,0x10($sp)
-/*  f16f788:	0fc5bf23 */ 	jal	func0f16fc8c
+/*  f16f788:	0fc5bf23 */ 	jal	tex0f16fc8c
 /*  f16f78c:	afa20014 */ 	sw	$v0,0x14($sp)
 /*  f16f790:	8fae0474 */ 	lw	$t6,0x474($sp)
 /*  f16f794:	00176083 */ 	sra	$t4,$s7,0x2
@@ -980,7 +980,7 @@ glabel func0f16f0f4
 /*  f16f8c8:	02c03025 */ 	or	$a2,$s6,$zero
 /*  f16f8cc:	02603825 */ 	or	$a3,$s3,$zero
 /*  f16f8d0:	afb40010 */ 	sw	$s4,0x10($sp)
-/*  f16f8d4:	0fc5bf23 */ 	jal	func0f16fc8c
+/*  f16f8d4:	0fc5bf23 */ 	jal	tex0f16fc8c
 /*  f16f8d8:	afa20014 */ 	sw	$v0,0x14($sp)
 /*  f16f8dc:	93d80000 */ 	lbu	$t8,0x0($s8)
 /*  f16f8e0:	26f70004 */ 	addiu	$s7,$s7,0x4
@@ -1239,61 +1239,35 @@ glabel func0f16f0f4
 /*  f16fc88:	27bd04b0 */ 	addiu	$sp,$sp,0x4b0
 );
 
-GLOBAL_ASM(
-glabel func0f16fc8c
-/*  f16fc8c:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*  f16fc90:	afb1000c */ 	sw	$s1,0xc($sp)
-/*  f16fc94:	afb00008 */ 	sw	$s0,0x8($sp)
-/*  f16fc98:	3c0205f5 */ 	lui	$v0,0x5f5
-/*  f16fc9c:	00c08025 */ 	or	$s0,$a2,$zero
-/*  f16fca0:	00e08825 */ 	or	$s1,$a3,$zero
-/*  f16fca4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f16fca8:	3442e0ff */ 	ori	$v0,$v0,0xe0ff
-/*  f16fcac:	18a00023 */ 	blez	$a1,.L0f16fd3c
-/*  f16fcb0:	00004025 */ 	or	$t0,$zero,$zero
-/*  f16fcb4:	00803025 */ 	or	$a2,$a0,$zero
-/*  f16fcb8:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*  f16fcbc:	8fa90020 */ 	lw	$t1,0x20($sp)
-.L0f16fcc0:
-/*  f16fcc0:	90ce0000 */ 	lbu	$t6,0x0($a2)
-/*  f16fcc4:	90cf0001 */ 	lbu	$t7,0x1($a2)
-/*  f16fcc8:	90d90002 */ 	lbu	$t9,0x2($a2)
-/*  f16fccc:	01d02023 */ 	subu	$a0,$t6,$s0
-/*  f16fcd0:	00840019 */ 	multu	$a0,$a0
-/*  f16fcd4:	01f12023 */ 	subu	$a0,$t7,$s1
-/*  f16fcd8:	90cc0003 */ 	lbu	$t4,0x3($a2)
-/*  f16fcdc:	00003812 */ 	mflo	$a3
-/*  f16fce0:	00000000 */ 	nop
-/*  f16fce4:	00000000 */ 	nop
-/*  f16fce8:	00840019 */ 	multu	$a0,$a0
-/*  f16fcec:	03292023 */ 	subu	$a0,$t9,$t1
-/*  f16fcf0:	0000c012 */ 	mflo	$t8
-/*  f16fcf4:	00f83821 */ 	addu	$a3,$a3,$t8
-/*  f16fcf8:	00000000 */ 	nop
-/*  f16fcfc:	00840019 */ 	multu	$a0,$a0
-/*  f16fd00:	018a2023 */ 	subu	$a0,$t4,$t2
-/*  f16fd04:	00005812 */ 	mflo	$t3
-/*  f16fd08:	00eb3821 */ 	addu	$a3,$a3,$t3
-/*  f16fd0c:	00000000 */ 	nop
-/*  f16fd10:	00840019 */ 	multu	$a0,$a0
-/*  f16fd14:	00006812 */ 	mflo	$t5
-/*  f16fd18:	00ed3821 */ 	addu	$a3,$a3,$t5
-/*  f16fd1c:	00e2082a */ 	slt	$at,$a3,$v0
-/*  f16fd20:	50200004 */ 	beqzl	$at,.L0f16fd34
-/*  f16fd24:	25080001 */ 	addiu	$t0,$t0,0x1
-/*  f16fd28:	01001825 */ 	or	$v1,$t0,$zero
-/*  f16fd2c:	00e01025 */ 	or	$v0,$a3,$zero
-/*  f16fd30:	25080001 */ 	addiu	$t0,$t0,0x1
-.L0f16fd34:
-/*  f16fd34:	1505ffe2 */ 	bne	$t0,$a1,.L0f16fcc0
-/*  f16fd38:	24c60004 */ 	addiu	$a2,$a2,0x4
-.L0f16fd3c:
-/*  f16fd3c:	8fb00008 */ 	lw	$s0,0x8($sp)
-/*  f16fd40:	8fb1000c */ 	lw	$s1,0xc($sp)
-/*  f16fd44:	27bd0010 */ 	addiu	$sp,$sp,0x10
-/*  f16fd48:	03e00008 */ 	jr	$ra
-/*  f16fd4c:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 tex0f16fc8c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
+{
+	s32 minindex = 0;
+	s32 minvalue = 99999999;
+	s32 curvalue;
+	s32 tmp;
+	s32 i;
+
+	for (i = 0; i < arg1; i++) {
+		tmp = arg0[i * 4 + 0] - arg2;
+		curvalue = tmp * tmp;
+
+		tmp = arg0[i * 4 + 1] - arg3;
+		curvalue += tmp * tmp;
+
+		tmp = arg0[i * 4 + 2] - arg4;
+		curvalue += tmp * tmp;
+
+		tmp = arg0[i * 4 + 3] - arg5;
+		curvalue += tmp * tmp;
+
+		if (curvalue < minvalue) {
+			minindex = i;
+			minvalue = curvalue;
+		}
+	}
+
+	return minindex;
+}
 
 s32 func0f16fd50(u16 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
