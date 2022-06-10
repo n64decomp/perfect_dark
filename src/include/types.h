@@ -5490,8 +5490,8 @@ struct light {
 };
 
 struct var80061420 {
-	s32 unk00;
-	s32 unk04;
+	u8 *unk00;
+	u8 *unk04;
 };
 
 struct var800ab5b8 {
