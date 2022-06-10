@@ -28,7 +28,7 @@ void roomSetLightBroken(s32 roomnum, s32 lightnum);
 void lightsReset(void);
 void func0f001c0c(void);
 void func0f00215c(u8 *arg0);
-u32 func0f0023b8(void);
+void func0f0023b8(void);
 void func0f00259c(s32 arg0);
 u32 func0f002844(void);
 void func0f002a98(void);
