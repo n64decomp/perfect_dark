@@ -29,7 +29,7 @@ void lightsReset(void);
 void func0f001c0c(void);
 void func0f00215c(u8 *arg0);
 void func0f0023b8(void);
-void func0f00259c(s32 arg0);
+void func0f00259c(s32 roomnum);
 void func0f002844(s32 roomnum, f32 arg1, s32 arg2, s32 portalnum);
 void func0f002a98(void);
 void roomSetLightsOn(s32 roomnum, s32 enable);
