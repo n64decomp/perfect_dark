@@ -22,7 +22,7 @@ void roomSetDefaults(struct room *room);
 Gfx *func0f001138(Gfx *gdl, s16 roomnum);
 Gfx *func0f001300(Gfx *gdl);
 void roomInitLights(s32 roomnum);
-s32 func0f001734(struct coord *arg0, struct coord *arg1, s32 roomnum);
+bool lightsHandleHit(struct coord *gunpos, struct coord *hitpos, s32 roomnum);
 void roomSetLightsFaulty(s32 roomnum, s32 chance);
 void roomSetLightBroken(s32 roomnum, s32 lightnum);
 void lightsReset(void);

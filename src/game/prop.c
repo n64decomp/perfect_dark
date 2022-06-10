@@ -812,7 +812,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 			sp6c[0] = room;
 			sp6c[1] = -1;
 
-			uVar6 = func0f001734(&shotdata.gunpos, &hitpos, room);
+			uVar6 = lightsHandleHit(&shotdata.gunpos, &hitpos, room);
 
 			if (sp694.texturenum < 0 || sp694.texturenum >= NUM_TEXTURES) {
 				surfacetype = g_SurfaceTypes[SURFACETYPE_DEFAULT];

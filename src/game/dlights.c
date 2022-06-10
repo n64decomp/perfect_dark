@@ -759,221 +759,64 @@ glabel roomInitLights
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f001734
-/*  f001734:	27bdff48 */ 	addiu	$sp,$sp,-184
-/*  f001738:	afbf006c */ 	sw	$ra,0x6c($sp)
-/*  f00173c:	afbe0068 */ 	sw	$s8,0x68($sp)
-/*  f001740:	afb70064 */ 	sw	$s7,0x64($sp)
-/*  f001744:	afb60060 */ 	sw	$s6,0x60($sp)
-/*  f001748:	afb5005c */ 	sw	$s5,0x5c($sp)
-/*  f00174c:	afb40058 */ 	sw	$s4,0x58($sp)
-/*  f001750:	afb30054 */ 	sw	$s3,0x54($sp)
-/*  f001754:	afb20050 */ 	sw	$s2,0x50($sp)
-/*  f001758:	afb1004c */ 	sw	$s1,0x4c($sp)
-/*  f00175c:	10c0000f */ 	beqz	$a2,.L0f00179c
-/*  f001760:	afb00048 */ 	sw	$s0,0x48($sp)
-/*  f001764:	3c1e800a */ 	lui	$s8,%hi(g_Rooms)
-/*  f001768:	0006b8c0 */ 	sll	$s7,$a2,0x3
-/*  f00176c:	02e6b821 */ 	addu	$s7,$s7,$a2
-/*  f001770:	27de4928 */ 	addiu	$s8,$s8,%lo(g_Rooms)
-/*  f001774:	8fce0000 */ 	lw	$t6,0x0($s8)
-/*  f001778:	0017b880 */ 	sll	$s7,$s7,0x2
-/*  f00177c:	02e6b823 */ 	subu	$s7,$s7,$a2
-/*  f001780:	0017b880 */ 	sll	$s7,$s7,0x2
-/*  f001784:	01d77821 */ 	addu	$t7,$t6,$s7
-/*  f001788:	81f80008 */ 	lb	$t8,0x8($t7)
-/*  f00178c:	00064080 */ 	sll	$t0,$a2,0x2
-/*  f001790:	01064021 */ 	addu	$t0,$t0,$a2
-/*  f001794:	17000003 */ 	bnez	$t8,.L0f0017a4
-/*  f001798:	3c19800a */ 	lui	$t9,%hi(g_BgRooms)
-.L0f00179c:
-/*  f00179c:	100000a5 */ 	b	.L0f001a34
-/*  f0017a0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0017a4:
-/*  f0017a4:	8f394cc4 */ 	lw	$t9,%lo(g_BgRooms)($t9)
-/*  f0017a8:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f0017ac:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f0017b0:	03281021 */ 	addu	$v0,$t9,$t0
-/*  f0017b4:	c4460004 */ 	lwc1	$f6,0x4($v0)
-/*  f0017b8:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0017bc:	e7a800a4 */ 	swc1	$f8,0xa4($sp)
-/*  f0017c0:	c4500008 */ 	lwc1	$f16,0x8($v0)
-/*  f0017c4:	c48a0004 */ 	lwc1	$f10,0x4($a0)
-/*  f0017c8:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f0017cc:	e7b200a8 */ 	swc1	$f18,0xa8($sp)
-/*  f0017d0:	c446000c */ 	lwc1	$f6,0xc($v0)
-/*  f0017d4:	c4840008 */ 	lwc1	$f4,0x8($a0)
-/*  f0017d8:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0017dc:	e7a800ac */ 	swc1	$f8,0xac($sp)
-/*  f0017e0:	c4500004 */ 	lwc1	$f16,0x4($v0)
-/*  f0017e4:	c4aa0000 */ 	lwc1	$f10,0x0($a1)
-/*  f0017e8:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f0017ec:	e7b20098 */ 	swc1	$f18,0x98($sp)
-/*  f0017f0:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f0017f4:	c4a40004 */ 	lwc1	$f4,0x4($a1)
-/*  f0017f8:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0017fc:	c7a600a4 */ 	lwc1	$f6,0xa4($sp)
-/*  f001800:	c7a40098 */ 	lwc1	$f4,0x98($sp)
-/*  f001804:	e7a8009c */ 	swc1	$f8,0x9c($sp)
-/*  f001808:	c450000c */ 	lwc1	$f16,0xc($v0)
-/*  f00180c:	c4aa0008 */ 	lwc1	$f10,0x8($a1)
-/*  f001810:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f001814:	c7a600ac */ 	lwc1	$f6,0xac($sp)
-/*  f001818:	afa600c0 */ 	sw	$a2,0xc0($sp)
-/*  f00181c:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f001820:	c7b000a8 */ 	lwc1	$f16,0xa8($sp)
-/*  f001824:	c7aa009c */ 	lwc1	$f10,0x9c($sp)
-/*  f001828:	e7a8008c */ 	swc1	$f8,0x8c($sp)
-/*  f00182c:	e7b200a0 */ 	swc1	$f18,0xa0($sp)
-/*  f001830:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f001834:	c7a400a0 */ 	lwc1	$f4,0xa0($sp)
-/*  f001838:	46084402 */ 	mul.s	$f16,$f8,$f8
-/*  f00183c:	46062281 */ 	sub.s	$f10,$f4,$f6
-/*  f001840:	46129102 */ 	mul.s	$f4,$f18,$f18
-/*  f001844:	e7b20090 */ 	swc1	$f18,0x90($sp)
-/*  f001848:	460a5202 */ 	mul.s	$f8,$f10,$f10
-/*  f00184c:	e7aa0094 */ 	swc1	$f10,0x94($sp)
-/*  f001850:	46048180 */ 	add.s	$f6,$f16,$f4
-/*  f001854:	0c012974 */ 	jal	sqrtf
-/*  f001858:	46083300 */ 	add.s	$f12,$f6,$f8
-/*  f00185c:	3c014000 */ 	lui	$at,0x4000
-/*  f001860:	44819000 */ 	mtc1	$at,$f18
-/*  f001864:	c7b0008c */ 	lwc1	$f16,0x8c($sp)
-/*  f001868:	c7aa0090 */ 	lwc1	$f10,0x90($sp)
-/*  f00186c:	46009083 */ 	div.s	$f2,$f18,$f0
-/*  f001870:	c7a80094 */ 	lwc1	$f8,0x94($sp)
-/*  f001874:	8fc90000 */ 	lw	$t1,0x0($s8)
-/*  f001878:	3c0c800a */ 	lui	$t4,%hi(g_BgLightsFileData)
-/*  f00187c:	8d8c4cd8 */ 	lw	$t4,%lo(g_BgLightsFileData)($t4)
-/*  f001880:	01371021 */ 	addu	$v0,$t1,$s7
-/*  f001884:	00009825 */ 	or	$s3,$zero,$zero
-/*  f001888:	27b6008c */ 	addiu	$s6,$sp,0x8c
-/*  f00188c:	27b50098 */ 	addiu	$s5,$sp,0x98
-/*  f001890:	27b400a4 */ 	addiu	$s4,$sp,0xa4
-/*  f001894:	46028102 */ 	mul.s	$f4,$f16,$f2
-/*  f001898:	c7b00098 */ 	lwc1	$f16,0x98($sp)
-/*  f00189c:	46025182 */ 	mul.s	$f6,$f10,$f2
-/*  f0018a0:	00000000 */ 	nop
-/*  f0018a4:	46024482 */ 	mul.s	$f18,$f8,$f2
-/*  f0018a8:	e7a4008c */ 	swc1	$f4,0x8c($sp)
-/*  f0018ac:	46048280 */ 	add.s	$f10,$f16,$f4
-/*  f0018b0:	c7a8009c */ 	lwc1	$f8,0x9c($sp)
-/*  f0018b4:	c7a400a0 */ 	lwc1	$f4,0xa0($sp)
-/*  f0018b8:	e7a60090 */ 	swc1	$f6,0x90($sp)
-/*  f0018bc:	e7aa0098 */ 	swc1	$f10,0x98($sp)
-/*  f0018c0:	46064400 */ 	add.s	$f16,$f8,$f6
-/*  f0018c4:	e7b20094 */ 	swc1	$f18,0x94($sp)
-/*  f0018c8:	46122280 */ 	add.s	$f10,$f4,$f18
-/*  f0018cc:	e7b0009c */ 	swc1	$f16,0x9c($sp)
-/*  f0018d0:	e7aa00a0 */ 	swc1	$f10,0xa0($sp)
-/*  f0018d4:	944a000a */ 	lhu	$t2,0xa($v0)
-/*  f0018d8:	804d0008 */ 	lb	$t5,0x8($v0)
-/*  f0018dc:	000a5900 */ 	sll	$t3,$t2,0x4
-/*  f0018e0:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f0018e4:	000b5840 */ 	sll	$t3,$t3,0x1
-/*  f0018e8:	19a00051 */ 	blez	$t5,.L0f001a30
-/*  f0018ec:	016c8021 */ 	addu	$s0,$t3,$t4
-/*  f0018f0:	96020004 */ 	lhu	$v0,0x4($s0)
-.L0f0018f4:
-/*  f0018f4:	00027e40 */ 	sll	$t7,$v0,0x19
-/*  f0018f8:	05e10045 */ 	bgez	$t7,.L0f001a10
-/*  f0018fc:	0002cf00 */ 	sll	$t9,$v0,0x1c
-/*  f001900:	07210043 */ 	bgez	$t9,.L0f001a10
-/*  f001904:	2604000a */ 	addiu	$a0,$s0,0xa
-/*  f001908:	26110010 */ 	addiu	$s1,$s0,0x10
-/*  f00190c:	2612001c */ 	addiu	$s2,$s0,0x1c
-/*  f001910:	02403025 */ 	or	$a2,$s2,$zero
-/*  f001914:	02202825 */ 	or	$a1,$s1,$zero
-/*  f001918:	00003825 */ 	or	$a3,$zero,$zero
-/*  f00191c:	afb40010 */ 	sw	$s4,0x10($sp)
-/*  f001920:	afb50014 */ 	sw	$s5,0x14($sp)
-/*  f001924:	afb60018 */ 	sw	$s6,0x18($sp)
-/*  f001928:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f00192c:	0c00bd24 */ 	jal	func0002f490
-/*  f001930:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f001934:	1440000c */ 	bnez	$v0,.L0f001968
-/*  f001938:	02202025 */ 	or	$a0,$s1,$zero
-/*  f00193c:	26050016 */ 	addiu	$a1,$s0,0x16
-/*  f001940:	02403025 */ 	or	$a2,$s2,$zero
-/*  f001944:	00003825 */ 	or	$a3,$zero,$zero
-/*  f001948:	afb40010 */ 	sw	$s4,0x10($sp)
-/*  f00194c:	afb50014 */ 	sw	$s5,0x14($sp)
-/*  f001950:	afb60018 */ 	sw	$s6,0x18($sp)
-/*  f001954:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f001958:	0c00bd24 */ 	jal	func0002f490
-/*  f00195c:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f001960:	5040002c */ 	beqzl	$v0,.L0f001a14
-/*  f001964:	8fcf0000 */ 	lw	$t7,0x0($s8)
-.L0f001968:
-/*  f001968:	8608000a */ 	lh	$t0,0xa($s0)
-/*  f00196c:	8fa400c0 */ 	lw	$a0,0xc0($sp)
-/*  f001970:	02602825 */ 	or	$a1,$s3,$zero
-/*  f001974:	44884000 */ 	mtc1	$t0,$f8
-/*  f001978:	00000000 */ 	nop
-/*  f00197c:	468041a0 */ 	cvt.s.w	$f6,$f8
-/*  f001980:	e7a6007c */ 	swc1	$f6,0x7c($sp)
-/*  f001984:	8609000c */ 	lh	$t1,0xc($s0)
-/*  f001988:	44898000 */ 	mtc1	$t1,$f16
-/*  f00198c:	00000000 */ 	nop
-/*  f001990:	46808120 */ 	cvt.s.w	$f4,$f16
-/*  f001994:	e7a40080 */ 	swc1	$f4,0x80($sp)
-/*  f001998:	860a000e */ 	lh	$t2,0xe($s0)
-/*  f00199c:	448a9000 */ 	mtc1	$t2,$f18
-/*  f0019a0:	00000000 */ 	nop
-/*  f0019a4:	468092a0 */ 	cvt.s.w	$f10,$f18
-/*  f0019a8:	0fc006de */ 	jal	roomSetLightBroken
-/*  f0019ac:	e7aa0084 */ 	swc1	$f10,0x84($sp)
-/*  f0019b0:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0019b4:	44810000 */ 	mtc1	$at,$f0
-/*  f0019b8:	8fae00c0 */ 	lw	$t6,0xc0($sp)
-/*  f0019bc:	240bffff */ 	addiu	$t3,$zero,-1
-/*  f0019c0:	240c0400 */ 	addiu	$t4,$zero,0x400
-/*  f0019c4:	27ad007c */ 	addiu	$t5,$sp,0x7c
-/*  f0019c8:	afad0020 */ 	sw	$t5,0x20($sp)
-/*  f0019cc:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f0019d0:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f0019d4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0019d8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0019dc:	24068077 */ 	addiu	$a2,$zero,-32649
-/*  f0019e0:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f0019e4:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f0019e8:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0019ec:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0019f0:	afae002c */ 	sw	$t6,0x2c($sp)
-/*  f0019f4:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f0019f8:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f0019fc:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f001a00:	0fc24e7e */ 	jal	func0f0939f8
-/*  f001a04:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f001a08:	1000000a */ 	b	.L0f001a34
-/*  f001a0c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f001a10:
-/*  f001a10:	8fcf0000 */ 	lw	$t7,0x0($s8)
-.L0f001a14:
-/*  f001a14:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f001a18:	26100022 */ 	addiu	$s0,$s0,0x22
-/*  f001a1c:	01f7c021 */ 	addu	$t8,$t7,$s7
-/*  f001a20:	83190008 */ 	lb	$t9,0x8($t8)
-/*  f001a24:	0279082a */ 	slt	$at,$s3,$t9
-/*  f001a28:	5420ffb2 */ 	bnezl	$at,.L0f0018f4
-/*  f001a2c:	96020004 */ 	lhu	$v0,0x4($s0)
-.L0f001a30:
-/*  f001a30:	00001025 */ 	or	$v0,$zero,$zero
-.L0f001a34:
-/*  f001a34:	8fbf006c */ 	lw	$ra,0x6c($sp)
-/*  f001a38:	8fb00048 */ 	lw	$s0,0x48($sp)
-/*  f001a3c:	8fb1004c */ 	lw	$s1,0x4c($sp)
-/*  f001a40:	8fb20050 */ 	lw	$s2,0x50($sp)
-/*  f001a44:	8fb30054 */ 	lw	$s3,0x54($sp)
-/*  f001a48:	8fb40058 */ 	lw	$s4,0x58($sp)
-/*  f001a4c:	8fb5005c */ 	lw	$s5,0x5c($sp)
-/*  f001a50:	8fb60060 */ 	lw	$s6,0x60($sp)
-/*  f001a54:	8fb70064 */ 	lw	$s7,0x64($sp)
-/*  f001a58:	8fbe0068 */ 	lw	$s8,0x68($sp)
-/*  f001a5c:	03e00008 */ 	jr	$ra
-/*  f001a60:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
-);
+bool lightsHandleHit(struct coord *gunpos, struct coord *hitpos, s32 roomnum)
+{
+	s32 i;
+	f32 f2;
+	struct coord spa4;
+	struct coord sp98;
+	struct coord sp8c;
+	struct light *light;
+
+	if (roomnum == 0 || g_Rooms[roomnum].numlights == 0) {
+		return false;
+	}
+
+	spa4.x = gunpos->x - g_BgRooms[roomnum].pos.x;
+	spa4.y = gunpos->y - g_BgRooms[roomnum].pos.y;
+	spa4.z = gunpos->z - g_BgRooms[roomnum].pos.z;
+
+	sp98.x = hitpos->x - g_BgRooms[roomnum].pos.x;
+	sp98.y = hitpos->y - g_BgRooms[roomnum].pos.y;
+	sp98.z = hitpos->z - g_BgRooms[roomnum].pos.z;
+
+	sp8c.x = sp98.x - spa4.x;
+	sp8c.y = sp98.y - spa4.y;
+	sp8c.z = sp98.z - spa4.z;
+
+	f2 = 2.0f / sqrtf(sp8c.x * sp8c.x + sp8c.y * sp8c.y + sp8c.z * sp8c.z);
+
+	sp8c.x *= f2;
+	sp8c.y *= f2;
+	sp8c.z *= f2;
+
+	sp98.x += sp8c.x;
+	sp98.y += sp8c.y;
+	sp98.z += sp8c.z;
+
+	light = (struct light *)&g_BgLightsFileData[g_Rooms[roomnum].lightindex * 0x22];
+
+	for (i = 0; i < g_Rooms[roomnum].numlights; i++) {
+		if (light->healthy && light->vulnerable) {
+			if (func0002f490(&light->bbox[0], &light->bbox[1], &light->bbox[3], 0, &spa4, &sp98, &sp8c, 0, 0)
+					|| func0002f490(&light->bbox[1], &light->bbox[2], &light->bbox[3], 0, &spa4, &sp98, &sp8c, 0, 0)) {
+				struct coord soundpos;
+
+				soundpos.x = light->bbox[0].x;
+				soundpos.y = light->bbox[0].y;
+				soundpos.z = light->bbox[0].z;
+
+				roomSetLightBroken(roomnum, i);
+				func0f0939f8(0, 0, SFX_HIT_GLASS, -1, -1, 0x400, 0, 0, &soundpos, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
+				return true;
+			}
+		}
+
+		light++;
+	}
+
+	return false;
+}
 
 void roomSetLightsFaulty(s32 roomnum, s32 chance)
 {
