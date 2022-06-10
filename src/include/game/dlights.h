@@ -30,7 +30,7 @@ void func0f001c0c(void);
 void func0f00215c(u8 *arg0);
 void func0f0023b8(void);
 void func0f00259c(s32 arg0);
-u32 func0f002844(void);
+void func0f002844(s32 roomnum, f32 arg1, s32 arg2, s32 portalnum);
 void func0f002a98(void);
 void roomSetLightsOn(s32 roomnum, s32 enable);
 void roomSetLighting(s32 roomnum, s32 operation, u8 arg2, u8 arg3, u8 arg4);
