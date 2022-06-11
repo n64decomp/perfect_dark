@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-s32 func0f000920(s32 num1, s32 num2);
+u32 func0f000920(s32 portalnum1, s32 portalnum2);
 struct light *roomGetLight(s32 roomnum, s32 lightnum);
 u8 func0f0009c0(s32 roomnum);
 u8 func0f000a10(s32 roomnum);
