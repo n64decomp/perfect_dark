@@ -34,7 +34,7 @@ void func0f002844(s32 roomnum, f32 arg1, s32 arg2, s32 portalnum);
 void func0f002a98(void);
 void roomSetLightsOn(s32 roomnum, s32 enable);
 void roomSetLighting(s32 roomnum, s32 operation, u8 arg2, u8 arg3, u8 arg4);
-u32 func0f002ef8(void);
+bool lightTickBroken(s32 roomnum, s32 lightnum);
 void lightingTick(void);
 void func0f003444(void);
 void func0f0035c0(void);

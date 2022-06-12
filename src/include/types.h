@@ -5480,7 +5480,7 @@ struct light {
 	/*0x05*/ u8 unk05_00 : 1;
 	/*0x05*/ u8 healthy : 1; // just a guess based on context
 	/*0x05*/ u8 on : 1;
-	/*0x05*/ u8 unk05_03 : 1;
+	/*0x05*/ u8 sparking : 1;
 	/*0x05*/ u8 vulnerable : 1;
 	/*0x06*/ u8 unk06;
 	/*0x07*/ s8 unk07;

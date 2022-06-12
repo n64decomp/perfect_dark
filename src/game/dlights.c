@@ -54,22 +54,6 @@ const char var7f1a7b90[] = "";
 const char var7f1a7b94[] = "";
 const char var7f1a7b98[] = "L2(%d) -> ";
 const char var7f1a7ba4[] = "L2 -> Finished\n";
-const char var7f1a7bb4[] = "dlights.c";
-const char var7f1a7bc0[] = "dlights.c";
-const char var7f1a7bcc[] = "L2 - g_bfGlobalLightRebuild = %d";
-const char var7f1a7bf0[] = "Acoustic Shadowing is %s";
-const char var7f1a7c0c[] = "Enabled";
-const char var7f1a7c14[] = "Disabled";
-const char var7f1a7c20[] = "L2 - Fading Rm%d - Mode=%d%%";
-const char var7f1a7c40[] = "RWI : Re-light all affected char props : g_bfGlobalLightRebuild";
-const char var7f1a7c80[] = "L2 - %d Rooms have been processed";
-const char var7f1a7ca4[] = "L2 - %d Chars need lighting";
-const char var7f1a7cc0[] = "L2(%d) -> ";
-const char var7f1a7ccc[] = "L2 -> Building portal range table (Num Portals = %d)\n";
-const char var7f1a7d04[] = "L2(%d) -> ";
-const char var7f1a7d10[] = "L2 -> Allocated %uK for the compressed acoustic shadow table\n";
-const char var7f1a7d50[] = "L2(%d) -> ";
-const char var7f1a7d5c[] = "L2 -> Finished building portal range table\n";
 
 s32 *var8009cad0;
 u32 var8009cad4;
@@ -233,6 +217,9 @@ f32 func0f000dbc(s32 roomnum)
 	return g_Rooms[roomnum].brightness / 255.0f;
 }
 
+/**
+ * The resulting position is not a world position. It is relative to the room.
+ */
 bool lightGetBboxCentre(s32 roomnum, u32 lightnum, struct coord *pos)
 {
 	struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[roomnum].lightindex * 0x22];
@@ -445,7 +432,7 @@ void roomInitLights(s32 roomnum)
 			light->unk05_00 = (random() % 2) ? true : false;
 			light->healthy = false;
 			light->on = false;
-			light->unk05_03 = false;
+			light->sparking = false;
 			light->vulnerable = false;
 		} else
 #endif
@@ -454,7 +441,7 @@ void roomInitLights(s32 roomnum)
 			light->unk05_00 = true;
 			light->healthy = true;
 			light->on = true;
-			light->unk05_03 = false;
+			light->sparking = false;
 			light->vulnerable = true;
 
 			switch (g_Vars.stagenum) {
@@ -969,7 +956,7 @@ void roomSetLighting(s32 roomnum, s32 operation, u8 arg2, u8 arg3, u8 arg4)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f002ef8
+glabel lightTickBroken
 /*  f002ef8:	0004c0c0 */ 	sll	$t8,$a0,0x3
 /*  f002efc:	0304c021 */ 	addu	$t8,$t8,$a0
 /*  f002f00:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
@@ -1288,7 +1275,7 @@ glabel func0f002ef8
 );
 #else
 GLOBAL_ASM(
-glabel func0f002ef8
+glabel lightTickBroken
 /*  f002ef8:	0004c0c0 */ 	sll	$t8,$a0,0x3
 /*  f002efc:	0304c021 */ 	addu	$t8,$t8,$a0
 /*  f002f00:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
@@ -1607,6 +1594,140 @@ glabel func0f002ef8
 );
 #endif
 
+const char var7f1a7bb4[] = "dlights.c";
+const char var7f1a7bc0[] = "dlights.c";
+
+// Mismatch: Documented below
+//bool lightTickBroken(s32 roomnum, s32 lightnum)
+//{
+//	struct light *light = (struct light *)(g_BgLightsFileData + ((g_Rooms[roomnum].lightindex + lightnum) * 0x22));
+//	struct coord spc8;
+//	struct coord spbc;
+//	struct coord spb0;
+//	struct coord spa4;
+//	struct coord sp98;
+//	struct coord sp8c;
+//	struct coord sp80;
+//	struct coord centre; // 74
+//	f32 rand1; // 70
+//	f32 rand2; // 6c
+//	s32 sparktype; // 68
+//
+//	if (!light->unk05_00) {
+//		return false;
+//	}
+//
+//	if (light->sparking) {
+//		if ((random() % 8) == 0) {
+//			light->sparking = false;
+//		} else if ((random() % 2) == 0) {
+//			rand1 = 2.0f * RANDOMFRAC() - 1.0f; // range -1 to 1
+//			rand2 = 2.0f * RANDOMFRAC() - 1.0f; // range -1 to 1
+//			sparktype = -1;
+//
+//			spc8.x = light->bbox[1].x - light->bbox[0].x;
+//			spc8.y = light->bbox[1].y - light->bbox[0].y;
+//			spc8.z = light->bbox[1].z - light->bbox[0].z;
+//
+//			spc8.x = rand1 * spc8.x;
+//			spc8.y = rand1 * spc8.y;
+//			spc8.z = rand1 * spc8.z;
+//
+//			spbc.x = light->bbox[2].x - light->bbox[0].x;
+//			spbc.y = light->bbox[2].y - light->bbox[0].y;
+//			spbc.z = light->bbox[2].z - light->bbox[0].z;
+//
+//			spbc.x = rand2 * spbc.x;
+//			spbc.y = rand2 * spbc.y;
+//			spbc.z = rand2 * spbc.z;
+//
+//			// @bug? These all use x
+//			sp98.x = light->bbox[0].x + spc8.x + spbc.x;
+//			sp98.y = light->bbox[0].x + spc8.y + spbc.y;
+//			sp98.z = light->bbox[0].x + spc8.z + spbc.z;
+//
+//			sp8c.x = light->unk07;
+//			sp8c.y = light->unk08;
+//			sp8c.z = light->unk09;
+//
+//			sp80.x = -sp8c.f[0];
+//			sp80.y = -sp8c.f[1];
+//			sp80.z = -sp8c.f[2];
+//
+//			func0f177164(&sp98, &spa4, VERSION >= VERSION_NTSC_1_0 ? 1546 : 1570, "dlights.c");
+//
+//			spa4.x += sp80.x;
+//			spa4.y += sp80.y;
+//			spa4.z += sp80.z;
+//
+//			func0f177164(&spa4, &spa4, VERSION >= VERSION_NTSC_1_0 ? 1548 : 1572, "dlights.c");
+//
+//			// Mismatch: Goal loads roomnum * 0x14 into sp58 here but doesn't
+//			// use it until after lightGetBboxCentre. The below statement does
+//			// the same but also emits the load and store instructions.
+//			g_BgRooms[roomnum].unk00 += 0;
+//
+//			switch (random() % 4) {
+//			case 0:
+//				sparktype = SPARKTYPE_11;
+//				break;
+//			case 1:
+//				sparktype = SPARKTYPE_12;
+//				break;
+//			case 2:
+//				sparktype = SPARKTYPE_13;
+//				break;
+//			case 3:
+//				sparktype = SPARKTYPE_14;
+//				break;
+//			}
+//
+//			lightGetBboxCentre(roomnum, lightnum, &centre);
+//
+//			centre.x += g_BgRooms[roomnum].pos.x;
+//			centre.y += g_BgRooms[roomnum].pos.y;
+//			centre.z += g_BgRooms[roomnum].pos.z;
+//
+//			sparksCreate(roomnum, NULL, &centre, &spa4, &sp8c, sparktype);
+//
+//			if ((random() % 4) == 0) {
+//				s16 smokerooms[2]; // 64
+//				smokerooms[0] = roomnum;
+//				smokerooms[1] = -1;
+//
+//				smokeCreateSimple(&centre, smokerooms, SMOKETYPE_BULLETIMPACT);
+//			}
+//
+//			roomAdjustLighting(roomnum, 0x40, 0x50);
+//			func0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0x400, 0, 0x10, &centre, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
+//			return true;
+//		}
+//	} else {
+//		u32 stack;
+//
+//		if ((random() % 80) == 0) {
+//			light->sparking = true;
+//		}
+//	}
+//
+//	return false;
+//}
+
+const char var7f1a7bcc[] = "L2 - g_bfGlobalLightRebuild = %d";
+const char var7f1a7bf0[] = "Acoustic Shadowing is %s";
+const char var7f1a7c0c[] = "Enabled";
+const char var7f1a7c14[] = "Disabled";
+const char var7f1a7c20[] = "L2 - Fading Rm%d - Mode=%d%%";
+const char var7f1a7c40[] = "RWI : Re-light all affected char props : g_bfGlobalLightRebuild";
+const char var7f1a7c80[] = "L2 - %d Rooms have been processed";
+const char var7f1a7ca4[] = "L2 - %d Chars need lighting";
+const char var7f1a7cc0[] = "L2(%d) -> ";
+const char var7f1a7ccc[] = "L2 -> Building portal range table (Num Portals = %d)\n";
+const char var7f1a7d04[] = "L2(%d) -> ";
+const char var7f1a7d10[] = "L2 -> Allocated %uK for the compressed acoustic shadow table\n";
+const char var7f1a7d50[] = "L2(%d) -> ";
+const char var7f1a7d5c[] = "L2 -> Finished building portal range table\n";
+
 void lightingTick(void)
 {
 	s32 i;
@@ -1639,7 +1760,7 @@ void func0f003444(void)
 			light->unk05_00 = random() % 2 ? true : false;
 			light->healthy = true;
 			light->on = true;
-			light->unk05_03 = false;
+			light->sparking = false;
 			light->vulnerable = true;
 			light->unk04 = g_Rooms[i].unk4a;
 
@@ -1664,7 +1785,7 @@ void func0f0035c0(void)
 			light->unk05_00 = random() % 2 ? true : false;
 			light->healthy = false;
 			light->on = false;
-			light->unk05_03 = false;
+			light->sparking = false;
 			light->vulnerable = false;
 			light->unk04 = 0;
 

@@ -3676,6 +3676,10 @@
 #define SPARKTYPE_0B    0x0b
 #define SPARKTYPE_0D    0x0d
 #define SPARKTYPE_0F    0x0f
+#define SPARKTYPE_11    0x11
+#define SPARKTYPE_12    0x12
+#define SPARKTYPE_13    0x13
+#define SPARKTYPE_14    0x14
 #define SPARKTYPE_16    0x16
 #define SPARKTYPE_17    0x17
 #define SPARKTYPE_18    0x18
