@@ -774,68 +774,38 @@ glabel func0f177bb4
 /*  f177c88:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f177c8c
-/*  f177c8c:	8ca30000 */ 	lw	$v1,0x0($a1)
-/*  f177c90:	240effff */ 	addiu	$t6,$zero,-1
-/*  f177c94:	240700ff */ 	addiu	$a3,$zero,0xff
-/*  f177c98:	54600004 */ 	bnezl	$v1,.L0f177cac
-/*  f177c9c:	00647821 */ 	addu	$t7,$v1,$a0
-/*  f177ca0:	acce0000 */ 	sw	$t6,0x0($a2)
-/*  f177ca4:	8ca30000 */ 	lw	$v1,0x0($a1)
-/*  f177ca8:	00647821 */ 	addu	$t7,$v1,$a0
-.L0f177cac:
-/*  f177cac:	91f80000 */ 	lbu	$t8,0x0($t7)
-/*  f177cb0:	17000020 */ 	bnez	$t8,.L0f177d34
-/*  f177cb4:	24790001 */ 	addiu	$t9,$v1,0x1
-.L0f177cb8:
-/*  f177cb8:	acb90000 */ 	sw	$t9,0x0($a1)
-/*  f177cbc:	03244821 */ 	addu	$t1,$t9,$a0
-/*  f177cc0:	91220000 */ 	lbu	$v0,0x0($t1)
-/*  f177cc4:	10400014 */ 	beqz	$v0,.L0f177d18
-/*  f177cc8:	00000000 */ 	nop
-/*  f177ccc:	14e2000b */ 	bne	$a3,$v0,.L0f177cfc
-/*  f177cd0:	00401825 */ 	or	$v1,$v0,$zero
-/*  f177cd4:	8cca0000 */ 	lw	$t2,0x0($a2)
-.L0f177cd8:
-/*  f177cd8:	254b00ff */ 	addiu	$t3,$t2,0xff
-/*  f177cdc:	accb0000 */ 	sw	$t3,0x0($a2)
-/*  f177ce0:	8cac0000 */ 	lw	$t4,0x0($a1)
-/*  f177ce4:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*  f177ce8:	acad0000 */ 	sw	$t5,0x0($a1)
-/*  f177cec:	01a47821 */ 	addu	$t7,$t5,$a0
-/*  f177cf0:	91e30000 */ 	lbu	$v1,0x0($t7)
-/*  f177cf4:	50e3fff8 */ 	beql	$a3,$v1,.L0f177cd8
-/*  f177cf8:	8cca0000 */ 	lw	$t2,0x0($a2)
-.L0f177cfc:
-/*  f177cfc:	8cd80000 */ 	lw	$t8,0x0($a2)
-/*  f177d00:	0303c821 */ 	addu	$t9,$t8,$v1
-/*  f177d04:	acd90000 */ 	sw	$t9,0x0($a2)
-/*  f177d08:	8ca80000 */ 	lw	$t0,0x0($a1)
-/*  f177d0c:	25090001 */ 	addiu	$t1,$t0,0x1
-/*  f177d10:	10000003 */ 	b	.L0f177d20
-/*  f177d14:	aca90000 */ 	sw	$t1,0x0($a1)
-.L0f177d18:
-/*  f177d18:	03e00008 */ 	jr	$ra
-/*  f177d1c:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f177d20:
-/*  f177d20:	8ca30000 */ 	lw	$v1,0x0($a1)
-/*  f177d24:	00645021 */ 	addu	$t2,$v1,$a0
-/*  f177d28:	914b0000 */ 	lbu	$t3,0x0($t2)
-/*  f177d2c:	5160ffe2 */ 	beqzl	$t3,.L0f177cb8
-/*  f177d30:	24790001 */ 	addiu	$t9,$v1,0x1
-.L0f177d34:
-/*  f177d34:	8ccc0000 */ 	lw	$t4,0x0($a2)
-/*  f177d38:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*  f177d3c:	accd0000 */ 	sw	$t5,0x0($a2)
-/*  f177d40:	8ca30000 */ 	lw	$v1,0x0($a1)
-/*  f177d44:	00647021 */ 	addu	$t6,$v1,$a0
-/*  f177d48:	91c20000 */ 	lbu	$v0,0x0($t6)
-/*  f177d4c:	246f0001 */ 	addiu	$t7,$v1,0x1
-/*  f177d50:	acaf0000 */ 	sw	$t7,0x0($a1)
-/*  f177d54:	03e00008 */ 	jr	$ra
-/*  f177d58:	00000000 */ 	nop
-);
+s32 func0f177c8c(u8 *arg0, s32 *arg1, s32 *arg2)
+{
+	s32 result;
+
+	if (*arg1 == 0) {
+		*arg2 = -1;
+	}
+
+	while (arg0[*arg1] == 0) {
+		*arg1 = *arg1 + 1;
+
+		if (arg0[*arg1]) {
+			while (arg0[*arg1] == 0xff) {
+				*arg2 += 255;
+				*arg1 = *arg1 + 1;
+			}
+
+			*arg2 += arg0[*arg1];
+			*arg1 = *arg1 + 1;
+		} else {
+			return -1;
+		}
+	}
+
+	*arg2 = *arg2 + 1;
+
+	result = arg0[*arg1];
+
+	*arg1 = *arg1 + 1;
+
+	return result;
+}
 
 bool func0f177d5c(u8 *arg0, s32 arg1)
 {
