@@ -3463,6 +3463,7 @@
 #define ROOMFLAG_RENDERALWAYS     0x0080
 #define ROOMFLAG_DIRTY            0x0100
 #define ROOMFLAG_0200             0x0200
+#define ROOMFLAG_0400             0x0400
 #define ROOMFLAG_0800             0x0800
 #define ROOMFLAG_1000             0x1000
 #define ROOMFLAG_LIGHTSOFF        0x2000

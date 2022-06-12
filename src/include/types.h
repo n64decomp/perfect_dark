@@ -3517,11 +3517,6 @@ struct spark {
 	s32 ttl; // time to live (number of ticks remaining)
 };
 
-struct roombitfield {
-	u8 prevop : 4;
-	u8 b : 4;
-};
-
 struct screenbox {
 	union {
 		struct {
@@ -3599,10 +3594,11 @@ struct room {
 	/*0x4b*/ u8 unk4b;
 	/*0x4c*/ u8 unk4c;
 	/*0x4d*/ u8 unk4d;
-	/*0x4e*/ struct roombitfield bitfield;
+	/*0x4e*/ u8 lightop : 4;
+	/*0x4e*/ u8 unk4e_04 : 4;
 	/*0x50*/ s16 brightness;
 	/*0x52*/ s16 unk52;
-	/*0x54*/ u16 unk54;
+	/*0x54*/ s16 unk54;
 	/*0x56*/ u16 unk56;
 	/*0x58*/ struct colour *colours;
 	/*0x5c*/ f32 unk5c;
@@ -3611,9 +3607,9 @@ struct room {
 	/*0x68*/ f32 unk68;
 	/*0x6c*/ f32 unk6c;
 	/*0x70*/ f32 unk70;
-	/*0x74*/ u32 unk74;
-	/*0x78*/ u32 unk78;
-	/*0x7c*/ u32 unk7c;
+	/*0x74*/ f32 unk74;
+	/*0x78*/ f32 unk78;
+	/*0x7c*/ f32 unk7c;
 	/*0x80*/ s32 gfxdatalen; // when inflated
 	/*0x84*/ struct wallhit *wallhits1;
 	/*0x88*/ struct wallhit *wallhits2;

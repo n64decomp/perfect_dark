@@ -18,6 +18,6 @@ bool func0f17776c(struct coord *a, struct coord *b, f32 mult, struct coord *out)
 void utilsReset(void);
 s32 func0f177a54(void *arg0, s32 arg1, void *arg2, s32 arg3);
 u32 func0f177bb4(void);
-s32 func0f177c8c(u8 *arg0, s32 *arg1, s32 *arg2);
+s32 func0f177c8c(u8 *arg0, s32 *arg1, s32 *roomnum);
 
 #endif

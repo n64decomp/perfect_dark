@@ -7347,8 +7347,8 @@ glabel var7f1b75d0
 //		g_Rooms[s4].lightindex = 0;
 //		g_Rooms[s4].flags = 0;
 //		g_Rooms[s4].unk4d = 0;
-//		g_Rooms[s4].bitfield.prevop = 0;
-//		g_Rooms[s4].bitfield.b = 0;
+//		g_Rooms[s4].prevop = 0;
+//		g_Rooms[s4].b = 0;
 //	}
 //
 //	// ae4
@@ -9748,7 +9748,7 @@ const char var7f1b1a60nb[] = "bg.c";
 //
 //		g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
 //		g_Rooms[roomnum].flags |= ROOMFLAG_0200;
-//		g_Rooms[roomnum].unk58 = 0;
+//		g_Rooms[roomnum].colours = NULL;
 //
 //		func0f13c370(-1);
 //	}
@@ -9930,7 +9930,7 @@ Gfx *room0f15e85c(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool arg3)
 
 		roomHighlight(roomnum);
 
-		v0 = g_Rooms[roomnum].unk58;
+		v0 = (u32)g_Rooms[roomnum].colours;
 
 		if (v0 != NULL) {
 			s32 addr = ALIGN8((u32)&g_Rooms[roomnum].gfxdata->vertices[g_Rooms[roomnum].gfxdata->numvertices]);

@@ -12747,7 +12747,7 @@ bool aiConfigureEnvironment(void)
 		}
 		break;
 	case AIENVCMD_07:
-		g_Rooms[room_id].bitfield.b = value;
+		g_Rooms[room_id].unk4e_04 = value;
 		break;
 	case AIENVCMD_08:
 		g_Rooms[room_id].unk4d = value;
