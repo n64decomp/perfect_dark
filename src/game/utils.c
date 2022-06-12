@@ -42,9 +42,6 @@ void *var80084614 = NULL;
 void *var80084618 = NULL;
 u32 var8008461c = 0x00000004;
 u32 var80084620 = 0x00000000;
-u32 var80084624 = 0x00000000;
-u32 var80084628 = 0x00000000;
-u32 var8008462c = 0x00000000;
 
 void func0f176d70(s32 arg0)
 {
@@ -708,71 +705,53 @@ u8 func0f177b44(u8 *arg0, s32 *arg1)
 	return arg0[var800ac108++];
 }
 
-GLOBAL_ASM(
-glabel func0f177bb4
-/*  f177bb4:	14800003 */ 	bnez	$a0,.L0f177bc4
-/*  f177bb8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f177bbc:	03e00008 */ 	jr	$ra
-/*  f177bc0:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f177bc4:
-/*  f177bc4:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*  f177bc8:	3c078008 */ 	lui	$a3,%hi(var80084624)
-/*  f177bcc:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f177bd0:	15c00002 */ 	bnez	$t6,.L0f177bdc
-/*  f177bd4:	00000000 */ 	nop
-/*  f177bd8:	accf0000 */ 	sw	$t7,0x0($a2)
-.L0f177bdc:
-/*  f177bdc:	8ce74624 */ 	lw	$a3,%lo(var80084624)($a3)
-/*  f177be0:	3c018008 */ 	lui	$at,%hi(var80084624)
-/*  f177be4:	24e7ffff */ 	addiu	$a3,$a3,-1
-/*  f177be8:	1ce00022 */ 	bgtz	$a3,.L0f177c74
-/*  f177bec:	ac274624 */ 	sw	$a3,%lo(var80084624)($at)
-/*  f177bf0:	8ca20000 */ 	lw	$v0,0x0($a1)
-/*  f177bf4:	0044c021 */ 	addu	$t8,$v0,$a0
-/*  f177bf8:	93080000 */ 	lbu	$t0,0x0($t8)
-/*  f177bfc:	24590001 */ 	addiu	$t9,$v0,0x1
-/*  f177c00:	03245821 */ 	addu	$t3,$t9,$a0
-/*  f177c04:	51000004 */ 	beqzl	$t0,.L0f177c18
-/*  f177c08:	acb90000 */ 	sw	$t9,0x0($a1)
-/*  f177c0c:	10000017 */ 	b	.L0f177c6c
-/*  f177c10:	01001825 */ 	or	$v1,$t0,$zero
-/*  f177c14:	acb90000 */ 	sw	$t9,0x0($a1)
-.L0f177c18:
-/*  f177c18:	91680000 */ 	lbu	$t0,0x0($t3)
-/*  f177c1c:	03201025 */ 	or	$v0,$t9,$zero
-/*  f177c20:	240a00ff */ 	addiu	$t2,$zero,0xff
-/*  f177c24:	1100000f */ 	beqz	$t0,.L0f177c64
-/*  f177c28:	00003825 */ 	or	$a3,$zero,$zero
-/*  f177c2c:	15480009 */ 	bne	$t2,$t0,.L0f177c54
-/*  f177c30:	01004825 */ 	or	$t1,$t0,$zero
-/*  f177c34:	244c0001 */ 	addiu	$t4,$v0,0x1
-.L0f177c38:
-/*  f177c38:	acac0000 */ 	sw	$t4,0x0($a1)
-/*  f177c3c:	01846821 */ 	addu	$t5,$t4,$a0
-/*  f177c40:	91a90000 */ 	lbu	$t1,0x0($t5)
-/*  f177c44:	24e700ff */ 	addiu	$a3,$a3,0xff
-/*  f177c48:	01801025 */ 	or	$v0,$t4,$zero
-/*  f177c4c:	5149fffa */ 	beql	$t2,$t1,.L0f177c38
-/*  f177c50:	244c0001 */ 	addiu	$t4,$v0,0x1
-.L0f177c54:
-/*  f177c54:	00e93821 */ 	addu	$a3,$a3,$t1
-/*  f177c58:	3c018008 */ 	lui	$at,%hi(var80084624)
-/*  f177c5c:	10000003 */ 	b	.L0f177c6c
-/*  f177c60:	ac274624 */ 	sw	$a3,%lo(var80084624)($at)
-.L0f177c64:
-/*  f177c64:	03e00008 */ 	jr	$ra
-/*  f177c68:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f177c6c:
-/*  f177c6c:	244e0001 */ 	addiu	$t6,$v0,0x1
-/*  f177c70:	acae0000 */ 	sw	$t6,0x0($a1)
-.L0f177c74:
-/*  f177c74:	8ccf0000 */ 	lw	$t7,0x0($a2)
-/*  f177c78:	00601025 */ 	or	$v0,$v1,$zero
-/*  f177c7c:	25f80001 */ 	addiu	$t8,$t7,0x1
-/*  f177c80:	acd80000 */ 	sw	$t8,0x0($a2)
-/*  f177c84:	03e00008 */ 	jr	$ra
-/*  f177c88:	00000000 */ 	nop
-);
+s32 func0f177bb4(u8 *arg0, s32 *arg1, s32 *arg2)
+{
+	s32 result = 0;
+	s32 value;
+	s32 tmp = 255;
+
+	static s32 var80084624 = 0;
+
+	if (arg0 == 0) {
+		return -1;
+	}
+
+	if (*arg1 == 0) {
+		*arg2 = -1;
+	}
+
+	var80084624--;
+
+	if (var80084624 <= 0) {
+		if (arg0[*arg1] != 0) {
+			result = arg0[*arg1];
+		} else {
+			*arg1 += 1;
+
+			if (arg0[*arg1] != 0) {
+				var80084624 = 0;
+				value = arg0[*arg1];
+
+				while (tmp == value) {
+					var80084624 += tmp;
+					*arg1 += 1;
+					value = arg0[*arg1];
+				}
+
+				var80084624 += value;
+			} else {
+				return -1;
+			}
+		}
+
+		*arg1 += 1;
+	}
+
+	*arg2 += 1;
+
+	return result;
+}
 
 s32 func0f177c8c(u8 *arg0, s32 *arg1, s32 *arg2)
 {
@@ -783,31 +762,31 @@ s32 func0f177c8c(u8 *arg0, s32 *arg1, s32 *arg2)
 	}
 
 	while (arg0[*arg1] == 0) {
-		*arg1 = *arg1 + 1;
+		*arg1 += 1;
 
 		if (arg0[*arg1]) {
 			while (arg0[*arg1] == 0xff) {
 				*arg2 += 255;
-				*arg1 = *arg1 + 1;
+				*arg1 += 1;
 			}
 
 			*arg2 += arg0[*arg1];
-			*arg1 = *arg1 + 1;
+			*arg1 += 1;
 		} else {
 			return -1;
 		}
 	}
 
-	*arg2 = *arg2 + 1;
+	*arg2 += 1;
 
 	result = arg0[*arg1];
 
-	*arg1 = *arg1 + 1;
+	*arg1 += 1;
 
 	return result;
 }
 
-bool func0f177d5c(u8 *arg0, s32 arg1)
+bool func0f177d5c(u8 *arg0, u8 *arg1)
 {
 	s32 sp34 = 0; \
 	s32 sp30 = 0; \
