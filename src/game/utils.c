@@ -683,6 +683,47 @@ glabel func0f177a54
 /*  f177b40:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
+// Mismatch: Goal moves a0 to a2
+//s32 func0f177a54(u8 *arg0, s32 arg1, u8 *arg2, s32 arg3)
+//{
+//	s32 i = 0;
+//	s32 v1 = 0;
+//	s32 t0 = 0;
+//
+//	for (; i < arg1; i++) {
+//		if (*arg0 != 0) {
+//			if (i != 0 && arg0[-arg3] == 0) {
+//				arg2[v1++] = 0;
+//
+//				if (t0 == 255) {
+//					arg2[v1++] = 200;
+//					arg2[v1++] = 0;
+//					t0 -= 200;
+//				} else {
+//					while (t0 > 255) {
+//						arg2[v1++] = 255;
+//						t0 -= 255;
+//					}
+//				}
+//
+//				arg2[v1++] = t0;
+//				t0 = 0;
+//			}
+//
+//			arg2[v1++] = *arg0;
+//		} else {
+//			t0++;
+//		}
+//
+//		arg0 += arg3;
+//	}
+//
+//	arg2[v1++] = 0;
+//	arg2[v1++] = 0;
+//
+//	return v1;
+//}
+
 u8 func0f177b44(u8 *arg0, s32 *arg1)
 {
 	static s32 var800ac108;
