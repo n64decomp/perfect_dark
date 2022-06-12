@@ -22,7 +22,6 @@ u32 var800ac0e0;
 u32 var800ac0e4;
 void *var800ac0e8[4];
 u32 var800ac0f8[4];
-u32 var800ac108;
 
 f32 var800845d0 = 999999;
 f32 var800845d4 = 0.00001f;
@@ -685,38 +684,29 @@ glabel func0f177a54
 /*  f177b38:	24620001 */ 	addiu	$v0,$v1,0x1
 /*  f177b3c:	03e00008 */ 	jr	$ra
 /*  f177b40:	27bd0008 */ 	addiu	$sp,$sp,0x8
-/*  f177b44:	8ca30000 */ 	lw	$v1,0x0($a1)
-/*  f177b48:	00803025 */ 	or	$a2,$a0,$zero
-/*  f177b4c:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f177b50:	14610003 */ 	bne	$v1,$at,.L0f177b60
-/*  f177b54:	3c04800b */ 	lui	$a0,%hi(var800ac108)
-/*  f177b58:	3c01800b */ 	lui	$at,%hi(var800ac108)
-/*  f177b5c:	ac20c108 */ 	sw	$zero,%lo(var800ac108)($at)
-.L0f177b60:
-/*  f177b60:	8c84c108 */ 	lw	$a0,%lo(var800ac108)($a0)
-/*  f177b64:	3c01800b */ 	lui	$at,%hi(var800ac108)
-/*  f177b68:	00c43821 */ 	addu	$a3,$a2,$a0
-/*  f177b6c:	90ee0000 */ 	lbu	$t6,0x0($a3)
-/*  f177b70:	55c0000b */ 	bnezl	$t6,.L0f177ba0
-/*  f177b74:	24780001 */ 	addiu	$t8,$v1,0x1
-/*  f177b78:	90e20001 */ 	lbu	$v0,0x1($a3)
-/*  f177b7c:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f177b80:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f177b84:	10400005 */ 	beqz	$v0,.L0f177b9c
-/*  f177b88:	00627821 */ 	addu	$t7,$v1,$v0
-/*  f177b8c:	acaf0000 */ 	sw	$t7,0x0($a1)
-/*  f177b90:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f177b94:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f177b98:	01e01825 */ 	or	$v1,$t7,$zero
-.L0f177b9c:
-/*  f177b9c:	24780001 */ 	addiu	$t8,$v1,0x1
-.L0f177ba0:
-/*  f177ba0:	acb80000 */ 	sw	$t8,0x0($a1)
-/*  f177ba4:	90e20000 */ 	lbu	$v0,0x0($a3)
-/*  f177ba8:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f177bac:	03e00008 */ 	jr	$ra
-/*  f177bb0:	ac24c108 */ 	sw	$a0,%lo(var800ac108)($at)
 );
+
+u8 func0f177b44(u8 *arg0, s32 *arg1)
+{
+	static s32 var800ac108;
+
+	if (*arg1 == -1) {
+		var800ac108 = 0;
+	}
+
+	if (arg0[var800ac108] == 0) {
+		var800ac108++;
+
+		if (arg0[var800ac108] != 0) {
+			*arg1 += arg0[var800ac108];
+			var800ac108++;
+		}
+	}
+
+	*arg1 = *arg1 + 1;
+
+	return arg0[var800ac108++];
+}
 
 GLOBAL_ASM(
 glabel func0f177bb4
