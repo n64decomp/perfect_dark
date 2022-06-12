@@ -835,46 +835,21 @@ glabel func0f177c8c
 /*  f177d50:	acaf0000 */ 	sw	$t7,0x0($a1)
 /*  f177d54:	03e00008 */ 	jr	$ra
 /*  f177d58:	00000000 */ 	nop
-/*  f177d5c:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f177d60:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f177d64:	00808825 */ 	or	$s1,$a0,$zero
-/*  f177d68:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f177d6c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f177d70:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f177d74:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f177d78:	27b20034 */ 	addiu	$s2,$sp,0x34
-/*  f177d7c:	27b30030 */ 	addiu	$s3,$sp,0x30
-/*  f177d80:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f177d84:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f177d88:	02402825 */ 	or	$a1,$s2,$zero
-/*  f177d8c:	02603025 */ 	or	$a2,$s3,$zero
-/*  f177d90:	afa00034 */ 	sw	$zero,0x34($sp)
-/*  f177d94:	0fc5deed */ 	jal	func0f177bb4
-/*  f177d98:	afa00030 */ 	sw	$zero,0x30($sp)
-/*  f177d9c:	0442000f */ 	bltzl	$v0,.L0f177ddc
-/*  f177da0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f177da4:	8fae0030 */ 	lw	$t6,0x30($sp)
-.L0f177da8:
-/*  f177da8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f177dac:	02402825 */ 	or	$a1,$s2,$zero
-/*  f177db0:	022e7821 */ 	addu	$t7,$s1,$t6
-/*  f177db4:	91f80000 */ 	lbu	$t8,0x0($t7)
-/*  f177db8:	10580003 */ 	beq	$v0,$t8,.L0f177dc8
-/*  f177dbc:	00000000 */ 	nop
-/*  f177dc0:	10000006 */ 	b	.L0f177ddc
-/*  f177dc4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f177dc8:
-/*  f177dc8:	0fc5deed */ 	jal	func0f177bb4
-/*  f177dcc:	02603025 */ 	or	$a2,$s3,$zero
-/*  f177dd0:	0443fff5 */ 	bgezl	$v0,.L0f177da8
-/*  f177dd4:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*  f177dd8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f177ddc:
-/*  f177ddc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f177de0:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f177de4:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f177de8:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f177dec:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f177df0:	03e00008 */ 	jr	$ra
-/*  f177df4:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
+
+bool func0f177d5c(u8 *arg0, s32 arg1)
+{
+	s32 sp34 = 0; \
+	s32 sp30 = 0; \
+	s32 value = func0f177bb4(arg1, &sp34, &sp30);
+
+	while (value >= 0) {
+		if (value != arg0[sp30]) {
+			return false;
+		}
+
+		value = func0f177bb4(arg1, &sp34, &sp30);
+	}
+
+	return true;
+}
