@@ -9928,7 +9928,7 @@ Gfx *room0f15e85c(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool arg3)
 
 		gSPSegment(gdl++, 0xe, OS_PHYSICAL_TO_K0(arg2->vertices));
 
-		func0f004604(roomnum);
+		roomHighlight(roomnum);
 
 		v0 = g_Rooms[roomnum].unk58;
 
@@ -10043,7 +10043,7 @@ glabel bgRenderRoomAlpha
 /*  f15ec48:	afa30018 */ 	sw	$v1,0x18($sp)
 .L0f15ec4c:
 /*  f15ec4c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f15ec50:	0fc01181 */ 	jal	func0f004604
+/*  f15ec50:	0fc01181 */ 	jal	roomHighlight
 /*  f15ec54:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f15ec58:	8fa30018 */ 	lw	$v1,0x18($sp)
 /*  f15ec5c:	8fa50024 */ 	lw	$a1,0x24($sp)
@@ -10096,7 +10096,7 @@ glabel bgRenderRoomAlpha
 //			return gdl;
 //		}
 //
-//		func0f004604(roomnum);
+//		roomHighlight(roomnum);
 //
 //		if (g_Rooms[roomnum].gfxdata->unk0c) {
 //			// empty

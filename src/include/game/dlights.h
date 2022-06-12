@@ -43,7 +43,7 @@ void func0f0037ac(void);
 void lightsTick(void);
 void roomAdjustLighting(s32 roomnum, s32 start, s32 limit);
 void func0f004558(s32 roomnum, s32 increment, s32 limit);
-void func0f004604(s32 roomnum);
+void roomHighlight(s32 roomnum);
 void func0f004c6c(void);
 void func0f00505c(void);
 f32 func0f0053d0(s32 room1, struct coord *arg1, s32 portal1, s32 room2, struct coord *arg4, s32 portal2, f32 *arg6);

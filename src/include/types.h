@@ -3603,7 +3603,8 @@ struct room {
 	/*0x50*/ s16 brightness;
 	/*0x52*/ s16 unk52;
 	/*0x54*/ u16 unk54;
-	/*0x58*/ u32 unk58;
+	/*0x56*/ u16 unk56;
+	/*0x58*/ struct colour *colours;
 	/*0x5c*/ f32 unk5c;
 	/*0x60*/ f32 unk60;
 	/*0x64*/ f32 unk64;
