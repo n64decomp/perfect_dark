@@ -508,7 +508,7 @@ bool lightsHandleHit(struct coord *gunpos, struct coord *hitpos, s32 roomnum)
 				soundpos.z = light->bbox[0].z;
 
 				roomSetLightBroken(roomnum, i);
-				func0f0939f8(0, 0, SFX_HIT_GLASS, -1, -1, 0x400, 0, 0, &soundpos, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
+				propsnd0f0939f8(0, 0, SFX_HIT_GLASS, -1, -1, 0x400, 0, 0, &soundpos, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
 				return true;
 			}
 		}
@@ -1245,7 +1245,7 @@ glabel lightTickBroken
 /*  f003354:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f003358:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f00335c:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f003360:	0fc24e7e */ 	jal	func0f0939f8
+/*  f003360:	0fc24e7e */ 	jal	propsnd0f0939f8
 /*  f003364:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f003368:	1000000d */ 	b	.L0f0033a0
 /*  f00336c:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -1564,7 +1564,7 @@ glabel lightTickBroken
 /*  f003354:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f003358:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f00335c:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f003360:	0fc24e7e */ 	jal	func0f0939f8
+/*  f003360:	0fc24e7e */ 	jal	propsnd0f0939f8
 /*  f003364:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f003368:	1000000d */ 	b	.L0f0033a0
 /*  f00336c:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -1695,7 +1695,7 @@ const char var7f1a7bc0[] = "dlights.c";
 //			}
 //
 //			roomAdjustLighting(roomnum, 0x40, 0x50);
-//			func0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0x400, 0, 0x10, &centre, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
+//			propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0x400, 0, 0x10, &centre, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
 //			return true;
 //		}
 //	} else {

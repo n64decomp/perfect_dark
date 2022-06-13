@@ -79,7 +79,7 @@ void shardsCreate(struct coord *pos, f32 *rotx, f32 *roty, f32 *rotz, f32 relxmi
 	basepos.z = (pos->f[2] + (relxmin + (speci >> 1)) * spcc[2]) + spc0[2] * (relymin + (speci >> 1));
 
 	if (type == SHARDTYPE_GLASS) {
-		func0f0939f8(NULL, NULL, SFX_GLASS_SHATTER, -1,
+		propsnd0f0939f8(NULL, NULL, SFX_GLASS_SHATTER, -1,
 				-1, 0, 0, 0, &prop->pos, -1.0f, prop->rooms, -1, -1.0f, -1.0f, -1.0f);
 	} else if (type == SHARDTYPE_BOTTLE) {
 		/**
@@ -88,10 +88,10 @@ void shardsCreate(struct coord *pos, f32 *rotx, f32 *roty, f32 *rotz, f32 relxmi
 		 * when you shoot the bottles, half of them don't play any breaking
 		 * sound effect.
 		 */
-		func0f0939f8(NULL, NULL, SFX_BOTTLE_BREAK + (random() % 2) * 2, -1,
+		propsnd0f0939f8(NULL, NULL, SFX_BOTTLE_BREAK + (random() % 2) * 2, -1,
 				-1, 0, 0, 0, &prop->pos, -1.0f, prop->rooms, -1, -1.0f, -1.0f, -1.0f);
 	} else if (type == SHARDTYPE_WOOD) {
-		func0f0939f8(NULL, NULL, SFX_WOOD_BREAK, -1,
+		propsnd0f0939f8(NULL, NULL, SFX_WOOD_BREAK, -1,
 				-1, 0, 0, 0, &prop->pos, -1.0f, prop->rooms, -1, -1.0f, -1.0f, -1.0f);
 	}
 

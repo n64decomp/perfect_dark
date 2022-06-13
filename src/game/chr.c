@@ -2073,7 +2073,7 @@ void chrCloak(struct chrdata *chr, bool value)
 		chr->hidden |= CHRHFLAG_CLOAKED;
 
 		if (value) {
-			func0f0939f8(0, chr->prop, SFX_CLOAK_ON, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+			propsnd0f0939f8(0, chr->prop, SFX_CLOAK_ON, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		}
 	}
 }
@@ -2084,7 +2084,7 @@ void chrUncloak(struct chrdata *chr, bool value)
 		chr->hidden &= ~CHRHFLAG_CLOAKED;
 
 		if (value) {
-			func0f0939f8(0, chr->prop, SFX_CLOAK_OFF, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+			propsnd0f0939f8(0, chr->prop, SFX_CLOAK_OFF, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		}
 
 #if PIRACYCHECKS

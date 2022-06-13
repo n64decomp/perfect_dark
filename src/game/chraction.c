@@ -4044,7 +4044,7 @@ void chrChoke(struct chrdata *chr, s32 choketype)
 			func0f0926bc(chr->prop, 9, 0);
 
 			if (!func0f092610(chr->prop, 13)) {
-				func0f0939f8(NULL, chr->prop, soundnum, -1,
+				propsnd0f0939f8(NULL, chr->prop, soundnum, -1,
 						-1, 0, 0, 13, NULL, -1, NULL, -1, -1, -1, -1);
 			}
 		}
@@ -4585,7 +4585,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 			u16 sounds[] = { SFX_HIT_METAL_807B, SFX_HIT_METAL_8079, SFX_HATHIT_807C };
 			damage = 0;
 
-			func0f0939f8(NULL, chr->prop, sounds[random() % 3], -1,
+			propsnd0f0939f8(NULL, chr->prop, sounds[random() % 3], -1,
 					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
 		}
 	}
@@ -8133,7 +8133,7 @@ void chrTickAnim(struct chrdata *chr)
 			&& modelGetCurAnimFrame(chr->model) >= 42
 			&& (g_Vars.lvframenum % 2) == 0
 			&& chrGetDistanceToCurrentPlayer(chr) < 800) {
-		func0f0939f8(NULL, chr->prop, SFX_0037, -1,
+		propsnd0f0939f8(NULL, chr->prop, SFX_0037, -1,
 				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 	}
 
@@ -8374,7 +8374,7 @@ void chrTickDie(struct chrdata *chr)
 				SFX_DRCAROLL_YOU_WERE_SUPPOSED,
 			};
 
-			func0f0939f8(NULL, chr->prop, phrases[random() % 5], -1,
+			propsnd0f0939f8(NULL, chr->prop, phrases[random() % 5], -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 			chr->voicebox = 0;
 		}
@@ -8397,7 +8397,7 @@ void chrTickDie(struct chrdata *chr)
 			// Play shield damage sound
 			chr->soundtimer = 0;
 			var80068080 -= 5;
-			func0f0939f8(NULL, prop, SFX_SHIELD_DAMAGE, -1,
+			propsnd0f0939f8(NULL, prop, SFX_SHIELD_DAMAGE, -1,
 					-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 			sparksCreate(prop->rooms[0], prop, &prop->pos, NULL, 0, SPARKTYPE_01);
 		}
@@ -8409,10 +8409,10 @@ void chrTickDie(struct chrdata *chr)
 	// If due, play thud 1 sound
 	if (chr->act_die.thudframe1 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.thudframe1) {
 		if (chr->specialdie == 0) {
-			func0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
+			propsnd0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		} else if (chr->specialdie != SPECIALDIE_OVERRAILING) {
-			func0f0939f8(NULL, chr->prop, specialdiesounds[chr->specialdie - 1], -1,
+			propsnd0f0939f8(NULL, chr->prop, specialdiesounds[chr->specialdie - 1], -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		}
 
@@ -8428,10 +8428,10 @@ void chrTickDie(struct chrdata *chr)
 	// If due, play thud 2 sound
 	if (chr->act_die.thudframe2 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.thudframe2) {
 		if (chr->specialdie < 5) {
-			func0f0939f8(NULL, chr->prop, SFX_THUD_808E, -1,
+			propsnd0f0939f8(NULL, chr->prop, SFX_THUD_808E, -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		} else {
-			func0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
+			propsnd0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		}
 
@@ -8556,7 +8556,7 @@ void chrTickDruggedDrop(struct chrdata *chr)
 
 	// If due, play thud 1 sound
 	if (chr->act_die.thudframe1 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.thudframe1) {
-		func0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
+		propsnd0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
 				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 		thudindex++;
@@ -8570,7 +8570,7 @@ void chrTickDruggedDrop(struct chrdata *chr)
 
 	// If due, play thud 2 sound
 	if (chr->act_die.thudframe2 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.thudframe2) {
-		func0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
+		propsnd0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
 				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 		thudindex++;
@@ -8814,11 +8814,11 @@ void chrCreateFireslot(struct chrdata *chr, s32 handnum, bool withsound, bool wi
 
 			if (playsound) {
 #if VERSION >= VERSION_NTSC_1_0
-				func0f0939f8(NULL, chr->prop, soundnum, -1, -1, 0x400, 4, 0x11, NULL, -1, NULL, -1, -1, -1, -1);
+				propsnd0f0939f8(NULL, chr->prop, soundnum, -1, -1, 0x400, 4, 0x11, NULL, -1, NULL, -1, -1, -1, -1);
 				fireslot->endlvframe = (u32)g_Vars.lvframe60 + duration;
 				chr->hidden2 |= CHRH2FLAG_0020;
 #else
-				func0f0939f8(NULL, chr->prop, soundnum, -1, -1, 0x400, 4, 0, NULL, -1, NULL, -1, -1, -1, -1);
+				propsnd0f0939f8(NULL, chr->prop, soundnum, -1, -1, 0x400, 4, 0, NULL, -1, NULL, -1, -1, -1, -1);
 				fireslot->endlvframe = (u32)g_Vars.lvframe60 + duration;
 				chr->hidden |= CHRHFLAG_00000080;
 
@@ -10797,7 +10797,7 @@ GLOBAL_ASM(
 	/*  f0411cc:	e7a00024 */ 	swc1	$f0,0x24($sp)
 	/*  f0411d0:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f0411d4:	e7a00034 */ 	swc1	$f0,0x34($sp)
-	/*  f0411d8:	0fc24e7e */ 	jal	func0f0939f8
+	/*  f0411d8:	0fc24e7e */ 	jal	propsnd0f0939f8
 /*  f0411dc:	e7a00038 */ 	swc1	$f0,0x38($sp)
 	/*  f0411e0:	10000002 */ 	b	.L0f0411ec
 	/*  f0411e4:	00000000 */ 	nop
@@ -12395,7 +12395,7 @@ GLOBAL_ASM(
 	/*  f041370:	e7a00024 */ 	swc1	$f0,0x24($sp)
 	/*  f041374:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f041378:	e7a00034 */ 	swc1	$f0,0x34($sp)
-	/*  f04137c:	0fc24e3a */ 	jal	func0f0939f8
+	/*  f04137c:	0fc24e3a */ 	jal	propsnd0f0939f8
 /*  f041380:	e7a00038 */ 	swc1	$f0,0x38($sp)
 	/*  f041384:	10000002 */ 	b	.PF0f041390
 	/*  f041388:	00000000 */ 	nop
@@ -13993,7 +13993,7 @@ glabel var7f1a9184
 /*  f0412fc:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f041300:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f041304:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f041308:	0fc24e0e */ 	jal	func0f0939f8
+/*  f041308:	0fc24e0e */ 	jal	propsnd0f0939f8
 /*  f04130c:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f041310:	10000002 */ 	b	.PB0f04131c
 /*  f041314:	00000000 */ 	nop
@@ -15583,7 +15583,7 @@ glabel var7f1a9184
 /*  f0411cc:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f0411d0:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f0411d4:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f0411d8:	0fc24e7e */ 	jal	func0f0939f8
+/*  f0411d8:	0fc24e7e */ 	jal	propsnd0f0939f8
 /*  f0411dc:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f0411e0:	10000002 */ 	b	.L0f0411ec
 /*  f0411e4:	00000000 */ 	nop
@@ -17173,7 +17173,7 @@ glabel var7f1a9184
 /*  f0409ac:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f0409b0:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f0409b4:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f0409b8:	0fc24762 */ 	jal	func0f0939f8
+/*  f0409b8:	0fc24762 */ 	jal	propsnd0f0939f8
 /*  f0409bc:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f0409c0:	10000002 */ 	beqz	$zero,.NB0f0409cc
 /*  f0409c4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -18156,7 +18156,7 @@ glabel var7f1a9184
 //
 //								// Play sound
 //								if (func->unk60 > 0) {
-//									func0f0939f8(NULL, projectileobj->base.prop, func->unk60, -1,
+//									propsnd0f0939f8(NULL, projectileobj->base.prop, func->unk60, -1,
 //											-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
 //								}
 //							}
@@ -21736,7 +21736,7 @@ void chrTickSkJump(struct chrdata *chr)
 					SFX_SKEDAR_ROAR_0534,
 				};
 
-				func0f0939f8(NULL, chr->prop, sounds[random() % 3], -1,
+				propsnd0f0939f8(NULL, chr->prop, sounds[random() % 3], -1,
 						-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 				modelSetAnimation(chr->model, ANIM_SKEDAR_JUMPAIR, 0, 0, -1, 16);
 				modelSetAnimSpeed(chr->model, 1, 0);
@@ -26415,7 +26415,7 @@ bool chrIsAvoiding(struct chrdata *chr)
 void chrDrCarollEmitSparks(struct chrdata *chr)
 {
 	if (chr && chr->prop) {
-		func0f0939f8(0, chr->prop, SFX_SHIELD_DAMAGE, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+		propsnd0f0939f8(0, chr->prop, SFX_SHIELD_DAMAGE, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		sparksCreate(chr->prop->rooms[0], chr->prop, &chr->prop->pos, NULL, 0, SPARKTYPE_01);
 	}
 }

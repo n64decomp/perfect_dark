@@ -6621,7 +6621,7 @@ bool func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2,
 						struct coord spa4 = {0, 0, 0};
 						s0 = false;
 						sparksCreate(prop->rooms[0], prop, &hitthing.unk00, &spa4, &hitthing.unk0c, SPARKTYPE_1A);
-						func0f0939f8(0, prop, SFX_HIT_WATER, -1, -1, 1024, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+						propsnd0f0939f8(0, prop, SFX_HIT_WATER, -1, -1, 1024, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 						obj->hidden |= OBJHFLAG_REAPABLE;
 					}
 				}
@@ -7879,7 +7879,7 @@ void knifePlayWooshSound(struct defaultobj *obj)
 				func0f0926bc(obj->prop, 1, 0xffff);
 
 				if (!lvIsPaused()) {
-					func0f0939f8(0, obj->prop, soundnums[index], -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+					propsnd0f0939f8(0, obj->prop, soundnums[index], -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 					obj->projectile->lastwooshframe = g_Vars.lvframe60;
 				}
 			}
@@ -12768,7 +12768,7 @@ glabel var7f1ab5c0pf
 /*  f071bb4:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f071bb8:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f071bbc:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f071bc0:	0fc24e3a */ 	jal	func0f0939f8
+/*  f071bc0:	0fc24e3a */ 	jal	propsnd0f0939f8
 /*  f071bc4:	e7a00038 */ 	swc1	$f0,0x38($sp)
 .PF0f071bc8:
 /*  f071bc8:	8fae00c0 */ 	lw	$t6,0xc0($sp)
@@ -13633,7 +13633,7 @@ glabel var7f1ab5c0pf
 /*  f071b04:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f071b08:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f071b0c:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f071b10:	0fc24e0e */ 	jal	func0f0939f8
+/*  f071b10:	0fc24e0e */ 	jal	propsnd0f0939f8
 /*  f071b14:	e7a00038 */ 	swc1	$f0,0x38($sp)
 .PB0f071b18:
 /*  f071b18:	8fae00c0 */ 	lw	$t6,0xc0($sp)
@@ -14494,7 +14494,7 @@ glabel var7f1aa314
 /*  f07192c:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f071930:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f071934:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f071938:	0fc24e7e */ 	jal	func0f0939f8
+/*  f071938:	0fc24e7e */ 	jal	propsnd0f0939f8
 /*  f07193c:	e7a00038 */ 	swc1	$f0,0x38($sp)
 .L0f071940:
 /*  f071940:	8fae00c0 */ 	lw	$t6,0xc0($sp)
@@ -20759,7 +20759,7 @@ glabel var7f1ab110jf
 /*  f077a08:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f077a0c:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f077a10:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f077a14:	0fc251de */ 	jal	func0f0939f8
+/*  f077a14:	0fc251de */ 	jal	propsnd0f0939f8
 /*  f077a18:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f077a1c:	3c03800a */ 	lui	$v1,0x800a
 /*  f077a20:	10000052 */ 	b	.JF0f077b6c
@@ -20800,7 +20800,7 @@ glabel var7f1ab110jf
 /*  f077aa8:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f077aac:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f077ab0:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f077ab4:	0fc251de */ 	jal	func0f0939f8
+/*  f077ab4:	0fc251de */ 	jal	propsnd0f0939f8
 /*  f077ab8:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f077abc:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f077ac0:	44810000 */ 	mtc1	$at,$f0
@@ -20820,7 +20820,7 @@ glabel var7f1ab110jf
 /*  f077af8:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f077afc:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f077b00:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f077b04:	0fc251de */ 	jal	func0f0939f8
+/*  f077b04:	0fc251de */ 	jal	propsnd0f0939f8
 /*  f077b08:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f077b0c:	3c03800a */ 	lui	$v1,0x800a
 /*  f077b10:	10000016 */ 	b	.JF0f077b6c
@@ -20843,7 +20843,7 @@ glabel var7f1ab110jf
 /*  f077b50:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f077b54:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f077b58:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f077b5c:	0fc251de */ 	jal	func0f0939f8
+/*  f077b5c:	0fc251de */ 	jal	propsnd0f0939f8
 /*  f077b60:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f077b64:	3c03800a */ 	lui	$v1,0x800a
 /*  f077b68:	8c63a63c */ 	lw	$v1,-0x59c4($v1)
@@ -24298,7 +24298,7 @@ glabel var7f1ab6dcpf
 /*  f076b68:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f076b6c:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f076b70:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f076b74:	0fc24e3a */ 	jal	func0f0939f8
+/*  f076b74:	0fc24e3a */ 	jal	propsnd0f0939f8
 /*  f076b78:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f076b7c:	3c03800a */ 	lui	$v1,0x800a
 /*  f076b80:	10000052 */ 	b	.PF0f076ccc
@@ -24339,7 +24339,7 @@ glabel var7f1ab6dcpf
 /*  f076c08:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f076c0c:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f076c10:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f076c14:	0fc24e3a */ 	jal	func0f0939f8
+/*  f076c14:	0fc24e3a */ 	jal	propsnd0f0939f8
 /*  f076c18:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f076c1c:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f076c20:	44810000 */ 	mtc1	$at,$f0
@@ -24359,7 +24359,7 @@ glabel var7f1ab6dcpf
 /*  f076c58:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f076c5c:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f076c60:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f076c64:	0fc24e3a */ 	jal	func0f0939f8
+/*  f076c64:	0fc24e3a */ 	jal	propsnd0f0939f8
 /*  f076c68:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f076c6c:	3c03800a */ 	lui	$v1,0x800a
 /*  f076c70:	10000016 */ 	b	.PF0f076ccc
@@ -24382,7 +24382,7 @@ glabel var7f1ab6dcpf
 /*  f076cb0:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f076cb4:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f076cb8:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f076cbc:	0fc24e3a */ 	jal	func0f0939f8
+/*  f076cbc:	0fc24e3a */ 	jal	propsnd0f0939f8
 /*  f076cc0:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f076cc4:	3c03800a */ 	lui	$v1,0x800a
 /*  f076cc8:	8c63a51c */ 	lw	$v1,-0x5ae4($v1)
@@ -27843,7 +27843,7 @@ glabel var7f1ab6dcpf
 /*  f076ab8:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f076abc:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f076ac0:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f076ac4:	0fc24e0e */ 	jal	func0f0939f8
+/*  f076ac4:	0fc24e0e */ 	jal	propsnd0f0939f8
 /*  f076ac8:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f076acc:	3c03800a */ 	lui	$v1,0x800a
 /*  f076ad0:	10000052 */ 	b	.PB0f076c1c
@@ -27884,7 +27884,7 @@ glabel var7f1ab6dcpf
 /*  f076b58:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f076b5c:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f076b60:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f076b64:	0fc24e0e */ 	jal	func0f0939f8
+/*  f076b64:	0fc24e0e */ 	jal	propsnd0f0939f8
 /*  f076b68:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f076b6c:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f076b70:	44810000 */ 	mtc1	$at,$f0
@@ -27904,7 +27904,7 @@ glabel var7f1ab6dcpf
 /*  f076ba8:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f076bac:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f076bb0:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f076bb4:	0fc24e0e */ 	jal	func0f0939f8
+/*  f076bb4:	0fc24e0e */ 	jal	propsnd0f0939f8
 /*  f076bb8:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f076bbc:	3c03800a */ 	lui	$v1,0x800a
 /*  f076bc0:	10000016 */ 	b	.PB0f076c1c
@@ -27927,7 +27927,7 @@ glabel var7f1ab6dcpf
 /*  f076c00:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f076c04:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f076c08:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f076c0c:	0fc24e0e */ 	jal	func0f0939f8
+/*  f076c0c:	0fc24e0e */ 	jal	propsnd0f0939f8
 /*  f076c10:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f076c14:	3c03800a */ 	lui	$v1,0x800a
 /*  f076c18:	8c63e4dc */ 	lw	$v1,-0x1b24($v1)
@@ -31381,7 +31381,7 @@ glabel var7f1aa438
 /*  f0768e4:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f0768e8:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f0768ec:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f0768f0:	0fc24e7e */ 	jal	func0f0939f8
+/*  f0768f0:	0fc24e7e */ 	jal	propsnd0f0939f8
 /*  f0768f4:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f0768f8:	3c03800a */ 	lui	$v1,%hi(g_Vars+0xc)
 /*  f0768fc:	10000052 */ 	b	.L0f076a48
@@ -31422,7 +31422,7 @@ glabel var7f1aa438
 /*  f076984:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f076988:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f07698c:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f076990:	0fc24e7e */ 	jal	func0f0939f8
+/*  f076990:	0fc24e7e */ 	jal	propsnd0f0939f8
 /*  f076994:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f076998:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f07699c:	44810000 */ 	mtc1	$at,$f0
@@ -31442,7 +31442,7 @@ glabel var7f1aa438
 /*  f0769d4:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f0769d8:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f0769dc:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f0769e0:	0fc24e7e */ 	jal	func0f0939f8
+/*  f0769e0:	0fc24e7e */ 	jal	propsnd0f0939f8
 /*  f0769e4:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f0769e8:	3c03800a */ 	lui	$v1,%hi(g_Vars+0xc)
 /*  f0769ec:	10000016 */ 	b	.L0f076a48
@@ -31465,7 +31465,7 @@ glabel var7f1aa438
 /*  f076a2c:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f076a30:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f076a34:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f076a38:	0fc24e7e */ 	jal	func0f0939f8
+/*  f076a38:	0fc24e7e */ 	jal	propsnd0f0939f8
 /*  f076a3c:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f076a40:	3c03800a */ 	lui	$v1,%hi(g_Vars+0xc)
 /*  f076a44:	8c639fcc */ 	lw	$v1,%lo(g_Vars+0xc)($v1)
@@ -34818,7 +34818,7 @@ glabel var7f1aa438
 /*  f075518:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f07551c:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f075520:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f075524:	0fc24762 */ 	jal	func0f0939f8
+/*  f075524:	0fc24762 */ 	jal	propsnd0f0939f8
 /*  f075528:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f07552c:	3c03800a */ 	lui	$v1,0x800a
 /*  f075530:	10000052 */ 	beqz	$zero,.NB0f07567c
@@ -34859,7 +34859,7 @@ glabel var7f1aa438
 /*  f0755b8:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f0755bc:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f0755c0:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f0755c4:	0fc24762 */ 	jal	func0f0939f8
+/*  f0755c4:	0fc24762 */ 	jal	propsnd0f0939f8
 /*  f0755c8:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f0755cc:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f0755d0:	44810000 */ 	mtc1	$at,$f0
@@ -34879,7 +34879,7 @@ glabel var7f1aa438
 /*  f075608:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f07560c:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f075610:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f075614:	0fc24762 */ 	jal	func0f0939f8
+/*  f075614:	0fc24762 */ 	jal	propsnd0f0939f8
 /*  f075618:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f07561c:	3c03800a */ 	lui	$v1,0x800a
 /*  f075620:	10000016 */ 	beqz	$zero,.NB0f07567c
@@ -34902,7 +34902,7 @@ glabel var7f1aa438
 /*  f075660:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f075664:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f075668:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f07566c:	0fc24762 */ 	jal	func0f0939f8
+/*  f07566c:	0fc24762 */ 	jal	propsnd0f0939f8
 /*  f075670:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f075674:	3c03800a */ 	lui	$v1,0x800a
 /*  f075678:	8c63e6cc */ 	lw	$v1,-0x1934($v1)
@@ -35339,13 +35339,13 @@ void doorTick(struct prop *doorprop)
 		if (door->frac > soundpoint) {
 			if (prevfrac <= soundpoint) {
 				// frac increased past the soundpoint
-				func0f0939f8(NULL, doorprop, SFX_DOOR_8014, -1,
+				propsnd0f0939f8(NULL, doorprop, SFX_DOOR_8014, -1,
 						-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
 			}
 		} else {
 			if (prevfrac > soundpoint) {
 				// frac decreased past the soundpoint
-				func0f0939f8(NULL, doorprop, SFX_DOOR_8015, -1,
+				propsnd0f0939f8(NULL, doorprop, SFX_DOOR_8015, -1,
 						-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
 			}
 		}
@@ -40170,7 +40170,7 @@ glabel var7f1aa5a8
 /*  f07ac40:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f07ac44:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f07ac48:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f07ac4c:	0fc24e7e */ 	jal	func0f0939f8
+/*  f07ac4c:	0fc24e7e */ 	jal	propsnd0f0939f8
 /*  f07ac50:	e7a00038 */ 	swc1	$f0,0x38($sp)
 .L0f07ac54:
 /*  f07ac54:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x8)
@@ -41132,7 +41132,7 @@ glabel var7f1aa5a8
 /*  f07ade0:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f07ade4:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f07ade8:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f07adec:	0fc24e0e */ 	jal	func0f0939f8
+/*  f07adec:	0fc24e0e */ 	jal	propsnd0f0939f8
 /*  f07adf0:	e7a00038 */ 	swc1	$f0,0x38($sp)
 .PB0f07adf4:
 /*  f07adf4:	3c0a800a */ 	lui	$t2,0x800a
@@ -42094,7 +42094,7 @@ glabel var7f1aa5a8
 /*  f07ac40:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f07ac44:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f07ac48:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f07ac4c:	0fc24e7e */ 	jal	func0f0939f8
+/*  f07ac4c:	0fc24e7e */ 	jal	propsnd0f0939f8
 /*  f07ac50:	e7a00038 */ 	swc1	$f0,0x38($sp)
 .L0f07ac54:
 /*  f07ac54:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x8)
@@ -43056,7 +43056,7 @@ glabel var7f1aa5a8
 /*  f07ac40:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f07ac44:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f07ac48:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f07ac4c:	0fc24e7e */ 	jal	func0f0939f8
+/*  f07ac4c:	0fc24e7e */ 	jal	propsnd0f0939f8
 /*  f07ac50:	e7a00038 */ 	swc1	$f0,0x38($sp)
 .L0f07ac54:
 /*  f07ac54:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x8)
@@ -46141,7 +46141,7 @@ glabel var7f1aa6e4
 /*  f07e468:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f07e46c:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f07e470:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f07e474:	0fc251de */ 	jal	func0f0939f8
+/*  f07e474:	0fc251de */ 	jal	propsnd0f0939f8
 /*  f07e478:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f07e47c:	8fa50278 */ 	lw	$a1,0x278($sp)
 /*  f07e480:	00003825 */ 	move	$a3,$zero
@@ -47107,7 +47107,7 @@ glabel var7f1aa6e4
 /*  f07d3b0:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f07d3b4:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f07d3b8:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f07d3bc:	0fc24e7e */ 	jal	func0f0939f8
+/*  f07d3bc:	0fc24e7e */ 	jal	propsnd0f0939f8
 /*  f07d3c0:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f07d3c4:	8fa50278 */ 	lw	$a1,0x278($sp)
 /*  f07d3c8:	00003825 */ 	or	$a3,$zero,$zero
@@ -48073,7 +48073,7 @@ glabel var7f1aa6e4
 /*  f07d3b0:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f07d3b4:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f07d3b8:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f07d3bc:	0fc24e7e */ 	jal	func0f0939f8
+/*  f07d3bc:	0fc24e7e */ 	jal	propsnd0f0939f8
 /*  f07d3c0:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f07d3c4:	8fa50278 */ 	lw	$a1,0x278($sp)
 /*  f07d3c8:	00003825 */ 	or	$a3,$zero,$zero
@@ -49037,7 +49037,7 @@ glabel var7f1aa6e0
 /*  f07be5c:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f07be60:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f07be64:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f07be68:	0fc24762 */ 	jal	func0f0939f8
+/*  f07be68:	0fc24762 */ 	jal	propsnd0f0939f8
 /*  f07be6c:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f07be70:	8fa50278 */ 	lw	$a1,0x278($sp)
 /*  f07be74:	00003825 */ 	or	$a3,$zero,$zero
@@ -49913,7 +49913,7 @@ glabel var7f1aa6e0
 //				hovercar->sparkstimer60 = 50;
 //
 //				// Play damage sound
-//				func0f0939f8(NULL, prop, SFX_SHIELD_DAMAGE, -1,
+//				propsnd0f0939f8(NULL, prop, SFX_SHIELD_DAMAGE, -1,
 //						-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 //
 //				// Create sparks
@@ -50435,7 +50435,7 @@ u32 objTick(struct prop *prop)
 
 			if (!silent) {
 				// Play respawn sound
-				func0f0939f8(NULL, prop, SFX_REGEN, -1,
+				propsnd0f0939f8(NULL, prop, SFX_REGEN, -1,
 						-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 			}
 		}
@@ -57541,7 +57541,7 @@ s32 propPlayPickupSound(struct prop *prop, s32 weapon)
 		sound = SFX_PICKUP_GUN;
 	}
 
-	return func0f0939f8(NULL, prop, sound, -1,
+	return propsnd0f0939f8(NULL, prop, sound, -1,
 			-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 }
 
@@ -62697,21 +62697,21 @@ void doorPlayOpeningSound(s32 soundtype, struct prop *prop)
 
 	if (sound1) {
 #if VERSION >= VERSION_NTSC_1_0
-		func0f0939f8(NULL, prop, sound1, -1,
+		propsnd0f0939f8(NULL, prop, sound1, -1,
 				-1, 1024, 0, 12, 0, -1, 0, -1, -1, -1, -1);
 #else
-		func0f0939f8(NULL, prop, sound1, -1,
+		propsnd0f0939f8(NULL, prop, sound1, -1,
 				-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
 #endif
 	}
 
 	if (sound2) {
-		func0f0939f8(NULL, prop, sound2, -1,
+		propsnd0f0939f8(NULL, prop, sound2, -1,
 				-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
 	}
 
 	if (sound3) {
-		func0f0939f8(NULL, prop, sound3, -1,
+		propsnd0f0939f8(NULL, prop, sound3, -1,
 				-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
 	}
 }
@@ -62761,21 +62761,21 @@ void doorPlayClosingSound(s32 soundtype, struct prop *prop)
 
 	if (sound1) {
 #if VERSION >= VERSION_NTSC_1_0
-		func0f0939f8(NULL, prop, sound1, -1,
+		propsnd0f0939f8(NULL, prop, sound1, -1,
 				-1, 1024, 0, 12, 0, -1, 0, -1, -1, -1, -1);
 #else
-		func0f0939f8(NULL, prop, sound1, -1,
+		propsnd0f0939f8(NULL, prop, sound1, -1,
 				-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
 #endif
 	}
 
 	if (sound2) {
-		func0f0939f8(NULL, prop, sound2, -1,
+		propsnd0f0939f8(NULL, prop, sound2, -1,
 				-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
 	}
 
 	if (sound3) {
-		func0f0939f8(NULL, prop, sound3, -1,
+		propsnd0f0939f8(NULL, prop, sound3, -1,
 				-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
 	}
 }
@@ -62824,10 +62824,10 @@ void doorPlayOpenedSound(s32 soundtype, struct prop *prop)
 
 	if (sound) {
 #if VERSION >= VERSION_NTSC_1_0
-		func0f0939f8(NULL, prop, sound, -1,
+		propsnd0f0939f8(NULL, prop, sound, -1,
 				-1, 1024, 0, 12, 0, -1, 0, -1, -1, -1, -1);
 #else
-		func0f0939f8(NULL, prop, sound, -1,
+		propsnd0f0939f8(NULL, prop, sound, -1,
 				-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
 #endif
 	}
@@ -62874,10 +62874,10 @@ void doorPlayClosedSound(s32 soundtype, struct prop *prop)
 
 	if (sound) {
 #if VERSION >= VERSION_NTSC_1_0
-		func0f0939f8(NULL, prop, sound, -1,
+		propsnd0f0939f8(NULL, prop, sound, -1,
 				-1, 1024, 0, 12, 0, -1, 0, -1, -1, -1, -1);
 #else
-		func0f0939f8(NULL, prop, sound, -1,
+		propsnd0f0939f8(NULL, prop, sound, -1,
 				-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
 #endif
 	}
@@ -63254,10 +63254,10 @@ void doorCreateSparks(struct doorobj *door)
 		sparksCreate(door->base.prop->rooms[0], door->base.prop, &sp88, &sp70, &pad.up, SPARKTYPE_0D);
 	}
 
-	func0f0939f8(NULL, door->base.prop, propsndGetRandomSparkSound(), -1,
+	propsnd0f0939f8(NULL, door->base.prop, propsndGetRandomSparkSound(), -1,
 			-1, 0, 0, 0, &sp88, -1, door->base.prop->rooms, -1, -1, -1, -1);
 
-	func0f0939f8(NULL, door->base.prop, propsndGetRandomSparkSound(), -1,
+	propsnd0f0939f8(NULL, door->base.prop, propsndGetRandomSparkSound(), -1,
 			-1, 0, 0, 0, &sp7c, -1, door->base.prop->rooms, -1, -1, -1, -1);
 
 	for (i = 0; door->base.prop->rooms[i] != -1; i++) {
@@ -64638,22 +64638,22 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 			switch (weaponnum) {
 			case WEAPON_CHOPPERGUN:
 				func0f0926bc(fromprop, 7, 0xffff);
-				func0f0939f8(0, fromprop, SFX_810E, -1, -1, 0, 0, 7, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+				propsnd0f0939f8(0, fromprop, SFX_810E, -1, -1, 0, 0, 7, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 				arg1->unk08 = g_Vars.lvframe60 + 4;
 				break;
 			case WEAPON_RCP45:
 				func0f0926bc(fromprop, 1, 0xffff);
-				func0f0939f8(0, fromprop, SFX_805A, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+				propsnd0f0939f8(0, fromprop, SFX_805A, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 				arg1->unk08 = g_Vars.lvframe60 + 2;
 				break;
 			case WEAPON_WATCHLASER:
 				func0f0926bc(fromprop, 1, 0xffff);
-				func0f0939f8(0, fromprop, SFX_8043, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+				propsnd0f0939f8(0, fromprop, SFX_8043, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 				arg1->unk08 = g_Vars.lvframe60 + 8;
 				break;
 			default:
 				func0f0926bc(fromprop, 1, 0xffff);
-				func0f0939f8(0, fromprop, SFX_8045, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+				propsnd0f0939f8(0, fromprop, SFX_8045, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 				arg1->unk08 = g_Vars.lvframe60 + 2;
 				break;
 			}
@@ -64707,7 +64707,7 @@ void projectileCreate(struct prop *fromprop, struct fireslotthing *arg1, struct 
 						rocket->base.projectile->unk014 = sp120.y;
 						rocket->base.projectile->unk018 = sp120.z;
 
-						func0f0939f8(NULL, rocket->base.prop, SFX_LAUNCH_ROCKET_8053, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+						propsnd0f0939f8(NULL, rocket->base.prop, SFX_LAUNCH_ROCKET_8053, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 					}
 				}
 			}

@@ -64,10 +64,10 @@ void botactReload(struct chrdata *chr, s32 handnum, bool withsound)
 
 				if (withsound) {
 					if (aibot->weaponnum == WEAPON_FARSIGHT) {
-						func0f0939f8(NULL, chr->prop, SFX_RELOAD_FARSIGHT, -1,
+						propsnd0f0939f8(NULL, chr->prop, SFX_RELOAD_FARSIGHT, -1,
 								-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 					} else {
-						func0f0939f8(NULL, chr->prop, SFX_RELOAD_DEFAULT, -1,
+						propsnd0f0939f8(NULL, chr->prop, SFX_RELOAD_DEFAULT, -1,
 								-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 					}
 				}
@@ -533,7 +533,7 @@ void botactCreateSlayerRocket(struct chrdata *chr)
 			rocket->base.projectile->unk0b4 = 0x20000000;
 
 			// Fire rocket sound
-			func0f0939f8(NULL, rocket->base.prop, SFX_LAUNCH_ROCKET_8053, -1,
+			propsnd0f0939f8(NULL, rocket->base.prop, SFX_LAUNCH_ROCKET_8053, -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 			if (!botactFindRocketRoute(chr, &chr->prop->pos, &target->pos, chr->prop->rooms, target->rooms, rocket->base.projectile)) {

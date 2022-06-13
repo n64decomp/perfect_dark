@@ -1169,7 +1169,7 @@ u32 explosionTick(struct prop *prop)
 
 	// Play boom sound if this is the first frame
 	if (exp->age == 0) {
-		func0f0939f8(NULL, NULL, type->sound, -1, -1, 0, 0, 0, &exp->prop->pos, -1.0f, exp->prop->rooms, -1, -1.0f, -1.0f, -1.0f);
+		propsnd0f0939f8(NULL, NULL, type->sound, -1, -1, 0, 0, 0, &exp->prop->pos, -1.0f, exp->prop->rooms, -1, -1.0f, -1.0f, -1.0f);
 	}
 
 	for (k = 0; k < (s32)lvupdate; k++) {

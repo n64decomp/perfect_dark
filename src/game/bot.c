@@ -1198,7 +1198,7 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 			}
 
 			// Pickup sound
-			func0f0939f8(NULL, prop, SFX_PICKUP_AMMO, -1,
+			propsnd0f0939f8(NULL, prop, SFX_PICKUP_AMMO, -1,
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 			objFree(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
@@ -1249,7 +1249,7 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 			}
 
 			// Pickup sound
-			func0f0939f8(NULL, prop, SFX_PICKUP_AMMO, -1,
+			propsnd0f0939f8(NULL, prop, SFX_PICKUP_AMMO, -1,
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 			objFree(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
@@ -1302,7 +1302,7 @@ u32 botPickupProp(struct prop *prop, struct chrdata *chr)
 		{
 			struct shieldobj *shield = (struct shieldobj *)prop->obj;
 
-			func0f0939f8(NULL, prop, SFX_PICKUP_SHIELD, -1,
+			propsnd0f0939f8(NULL, prop, SFX_PICKUP_SHIELD, -1,
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 			chrSetShield(chr, shield->amount * 8);
@@ -1503,7 +1503,7 @@ glabel var7f1b3480nb
 /*  f18aa04:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f18aa08:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f18aa0c:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f18aa10:	0fc24762 */ 	jal	func0f0939f8
+/*  f18aa10:	0fc24762 */ 	jal	propsnd0f0939f8
 /*  f18aa14:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f18aa18:	8fa4007c */ 	lw	$a0,0x7c($sp)
 /*  f18aa1c:	00002825 */ 	or	$a1,$zero,$zero
@@ -1560,7 +1560,7 @@ glabel var7f1b3480nb
 /*  f18aad8:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f18aadc:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f18aae0:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f18aae4:	0fc24762 */ 	jal	func0f0939f8
+/*  f18aae4:	0fc24762 */ 	jal	propsnd0f0939f8
 /*  f18aae8:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f18aaec:	8fa4007c */ 	lw	$a0,0x7c($sp)
 /*  f18aaf0:	00002825 */ 	or	$a1,$zero,$zero
@@ -1668,7 +1668,7 @@ glabel var7f1b3480nb
 /*  f18ac70:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f18ac74:	e7a00034 */ 	swc1	$f0,0x34($sp)
 /*  f18ac78:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f18ac7c:	0fc24762 */ 	jal	func0f0939f8
+/*  f18ac7c:	0fc24762 */ 	jal	propsnd0f0939f8
 /*  f18ac80:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f18ac84:	3c014100 */ 	lui	$at,0x4100
 /*  f18ac88:	44813000 */ 	mtc1	$at,$f6

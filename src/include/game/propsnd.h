@@ -21,7 +21,7 @@ void propsndTick(void);
 void func0f093630(struct prop *prop, f32 arg1, s32 arg2);
 void func0f093790(struct prop *prop, s32 arg1);
 void func0f0938ec(struct prop *prop);
-s16 func0f0939f8(struct audiochannel *channel, struct prop *prop, s16 soundnum, s16 padnum, s32 arg4, u16 flags, u16 flags2, s32 arg7, struct coord *pos, f32 arg9, s16 *rooms, s32 room, f32 arg12, f32 arg13, f32 arg14);
+s16 propsnd0f0939f8(struct audiochannel *channel, struct prop *prop, s16 soundnum, s16 padnum, s32 arg4, u16 flags, u16 flags2, s32 arg7, struct coord *pos, f32 arg9, s16 *rooms, s32 room, f32 arg12, f32 arg13, f32 arg14);
 void audioMuteChannel(s32 channelnum);
 bool audioIsChannelIdle(s32 channelnum);
 void audioPlayFromProp2(s32 channelnum, s32 soundnum, s16 padnum, struct prop *prop, s32 arg4, s32 arg5, s32 arg6, u16 arg7);

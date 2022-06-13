@@ -84,7 +84,7 @@ void bbikeExit(void)
 	objApplyMomentum(obj, &speed, rotation, false, false);
 	func0f0926bc(g_Vars.currentplayer->hoverbike, 1, 0xffff);
 	func0f0926bc(g_Vars.currentplayer->prop, 1, 0xffff);
-	func0f0939f8(NULL, g_Vars.currentplayer->hoverbike, SFX_BIKE_PULSE, -1,
+	propsnd0f0939f8(NULL, g_Vars.currentplayer->hoverbike, SFX_BIKE_PULSE, -1,
 			-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 	obj->flags |= OBJFLAG_HOVERBIKE_MOVINGWHILEEMPTY;
@@ -1650,13 +1650,13 @@ void bbikeTick(void)
 
 			func0f0926bc(g_Vars.currentplayer->hoverbike, 1, 0xffff);
 
-			func0f0939f8(NULL, g_Vars.currentplayer->prop, SFX_BIKE_TAKEOFF, -1,
+			propsnd0f0939f8(NULL, g_Vars.currentplayer->prop, SFX_BIKE_TAKEOFF, -1,
 					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
 
-			func0f0939f8(NULL, g_Vars.currentplayer->prop, SFX_BIKE_PULSE, -1,
+			propsnd0f0939f8(NULL, g_Vars.currentplayer->prop, SFX_BIKE_PULSE, -1,
 					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
 
-			func0f0939f8(NULL, g_Vars.currentplayer->hoverbike, SFX_BIKE_ENGINE, -1,
+			propsnd0f0939f8(NULL, g_Vars.currentplayer->hoverbike, SFX_BIKE_ENGINE, -1,
 					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
 		}
 

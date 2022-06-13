@@ -12228,7 +12228,7 @@ struct defaultobj *bgunCreateThrownProjectile2(struct chrdata *chr, struct gset 
 			obj->projectile->unk08c = 0.1f;
 			obj->projectile->unk0b4 = TICKS(240);
 
-			func0f0939f8(NULL, obj->prop, SFX_THROW, -1,
+			propsnd0f0939f8(NULL, obj->prop, SFX_THROW, -1,
 					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
 		}
 	}
@@ -12724,7 +12724,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 						weapon->base.projectile->unk098 = funcdef->unk50 * 1.6666666f;
 
 						if (funcdef->soundnum > 0) {
-							func0f0939f8(NULL, weapon->base.prop, funcdef->soundnum, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+							propsnd0f0939f8(NULL, weapon->base.prop, funcdef->soundnum, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 						}
 
 						if (funcdef->base.base.flags & FUNCFLAG_FLYBYWIRE) {
@@ -12800,7 +12800,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 					weapon->base.projectile->unk098 = funcdef->unk50 * 1.6666666f;
 
 					if (funcdef->soundnum > 0) {
-						func0f0939f8(NULL, weapon->base.prop, funcdef->soundnum, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+						propsnd0f0939f8(NULL, weapon->base.prop, funcdef->soundnum, -1, -1, 0, 0, 0, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 					}
 
 					if (funcdef->base.base.flags & FUNCFLAG_FLYBYWIRE) {
@@ -21473,7 +21473,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 			|| gset->weaponnum == WEAPON_TRACERBUG
 			|| gset->weaponnum == WEAPON_TARGETAMPLIFIER
 			|| gset->weaponnum == WEAPON_ECMMINE) {
-		func0f0939f8(NULL, prop, SFX_80AA, -1, -1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
+		propsnd0f0939f8(NULL, prop, SFX_80AA, -1, -1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
 		return;
 	}
 
@@ -21618,7 +21618,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 			|| gset->weaponnum == WEAPON_TRACERBUG
 			|| gset->weaponnum == WEAPON_TARGETAMPLIFIER
 			|| gset->weaponnum == WEAPON_ECMMINE) {
-		func0f0939f8(NULL, prop, SFX_80AA, -1, -1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
+		propsnd0f0939f8(NULL, prop, SFX_80AA, -1, -1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
 		return;
 	}
 

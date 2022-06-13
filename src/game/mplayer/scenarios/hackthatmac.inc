@@ -360,7 +360,7 @@ void htmTickChr(struct chrdata *chr)
 #else
 							hudmsgCreateWithFlags(langGet(L_MPWEAPONS_018), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE); // "Starting download."
 #endif
-							func0f0939f8(NULL, data->terminals[data->dlterminalnum].prop, SFX_01BF, -1,
+							propsnd0f0939f8(NULL, data->terminals[data->dlterminalnum].prop, SFX_01BF, -1,
 									-1, 2, 2, 0, NULL, -1, NULL, -1, -1, -1, -1);
 						}
 					}

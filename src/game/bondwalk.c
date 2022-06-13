@@ -1037,7 +1037,7 @@ void bwalkUpdateVertical(void)
 
 			if (sound != -1) {
 				if (sound != -1) {
-					func0f0939f8(NULL, g_Vars.currentplayer->prop, sound,
+					propsnd0f0939f8(NULL, g_Vars.currentplayer->prop, sound,
 							-1, -1, 0x8400, 0, 0, 0, -1, NULL, -1, -1, -1, -1);
 				}
 
@@ -1045,7 +1045,7 @@ void bwalkUpdateVertical(void)
 				sound = footstepChooseSound(chr, true);
 
 				if (sound != -1) {
-					func0f0939f8(NULL, g_Vars.currentplayer->prop, sound,
+					propsnd0f0939f8(NULL, g_Vars.currentplayer->prop, sound,
 							-1, -1, 0x8400, 0, 0, 0, -1, NULL, -1, -1, -1, -1);
 				}
 			}
@@ -1060,7 +1060,7 @@ void bwalkUpdateVertical(void)
 					SFX_JO_LANDING_05B7
 				};
 
-				func0f0939f8(NULL, g_Vars.currentplayer->prop, sounds[random() % 3],
+				propsnd0f0939f8(NULL, g_Vars.currentplayer->prop, sounds[random() % 3],
 						-1, -1, 0x8400, 0, 0, 0, -1, NULL, -1, -1, -1, -1);
 			}
 		}

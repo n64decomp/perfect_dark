@@ -662,10 +662,10 @@ bool eyespyTryLaunch(void)
 		chr->chrflags &= ~CHRCFLAG_INVINCIBLE;
 
 #if VERSION >= VERSION_NTSC_1_0
-		func0f0939f8(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,
+		propsnd0f0939f8(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,
 				-1, 2, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 #else
-		func0f0939f8(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,
+		propsnd0f0939f8(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,
 				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 #endif
 	}
