@@ -5756,154 +5756,63 @@ s32 propsnd0f094d78(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, f32 arg4, b
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel propsnd0f094ef4
-.late_rodata
-glabel var7f1ab77c
-.word 0x451c4000
-glabel var7f1ab780
-.word 0x453b8000
-glabel var7f1ab784
-.word 0x4b18967f
-.text
-/*  f094ef4:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f094ef8:	afa60068 */ 	sw	$a2,0x68($sp)
-/*  f094efc:	3c0143c8 */ 	lui	$at,0x43c8
-/*  f094f00:	87ae006a */ 	lh	$t6,0x6a($sp)
-/*  f094f04:	44811000 */ 	mtc1	$at,$f2
-/*  f094f08:	3c017f1b */ 	lui	$at,%hi(var7f1ab77c)
-/*  f094f0c:	c42cb77c */ 	lwc1	$f12,%lo(var7f1ab77c)($at)
-/*  f094f10:	3c017f1b */ 	lui	$at,%hi(var7f1ab780)
-/*  f094f14:	a7ae0044 */ 	sh	$t6,0x44($sp)
-/*  f094f18:	8faf0044 */ 	lw	$t7,0x44($sp)
-/*  f094f1c:	c420b780 */ 	lwc1	$f0,%lo(var7f1ab780)($at)
-/*  f094f20:	3c017f1b */ 	lui	$at,%hi(var7f1ab784)
-/*  f094f24:	c424b784 */ 	lwc1	$f4,%lo(var7f1ab784)($at)
-/*  f094f28:	000fc7c2 */ 	srl	$t8,$t7,0x1f
-/*  f094f2c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f094f30:	afa40060 */ 	sw	$a0,0x60($sp)
-/*  f094f34:	afa50064 */ 	sw	$a1,0x64($sp)
-/*  f094f38:	afa7006c */ 	sw	$a3,0x6c($sp)
-/*  f094f3c:	00004025 */ 	or	$t0,$zero,$zero
-/*  f094f40:	13000020 */ 	beqz	$t8,.L0f094fc4
-/*  f094f44:	e7a40040 */ 	swc1	$f4,0x40($sp)
-/*  f094f48:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f094f4c:	30997fff */ 	andi	$t9,$a0,0x7fff
-/*  f094f50:	3c0a8006 */ 	lui	$t2,%hi(g_AudioRussMappings)
-/*  f094f54:	254adde4 */ 	addiu	$t2,$t2,%lo(g_AudioRussMappings)
-/*  f094f58:	00194880 */ 	sll	$t1,$t9,0x2
-/*  f094f5c:	012a1821 */ 	addu	$v1,$t1,$t2
-/*  f094f60:	94650002 */ 	lhu	$a1,0x2($v1)
-/*  f094f64:	3c0c8006 */ 	lui	$t4,%hi(g_AudioConfigs)
-/*  f094f68:	258ce4d8 */ 	addiu	$t4,$t4,%lo(g_AudioConfigs)
-/*  f094f6c:	00055940 */ 	sll	$t3,$a1,0x5
-/*  f094f70:	016c1021 */ 	addu	$v0,$t3,$t4
-/*  f094f74:	8c4e001c */ 	lw	$t6,0x1c($v0)
-/*  f094f78:	846d0000 */ 	lh	$t5,0x0($v1)
-/*  f094f7c:	c4420000 */ 	lwc1	$f2,0x0($v0)
-/*  f094f80:	31cf0001 */ 	andi	$t7,$t6,0x1
-/*  f094f84:	c44c0004 */ 	lwc1	$f12,0x4($v0)
-/*  f094f88:	c4400008 */ 	lwc1	$f0,0x8($v0)
-/*  f094f8c:	11e00002 */ 	beqz	$t7,.L0f094f98
-/*  f094f90:	a7ad0048 */ 	sh	$t5,0x48($sp)
-/*  f094f94:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0f094f98:
-/*  f094f98:	c7a60040 */ 	lwc1	$f6,0x40($sp)
-/*  f094f9c:	4606003c */ 	c.lt.s	$f0,$f6
-/*  f094fa0:	00000000 */ 	nop
-/*  f094fa4:	45020003 */ 	bc1fl	.L0f094fb4
-/*  f094fa8:	93b80048 */ 	lbu	$t8,0x48($sp)
-/*  f094fac:	e7a00040 */ 	swc1	$f0,0x40($sp)
-/*  f094fb0:	93b80048 */ 	lbu	$t8,0x48($sp)
-.L0f094fb4:
-/*  f094fb4:	3319ff7f */ 	andi	$t9,$t8,0xff7f
-/*  f094fb8:	a3b90048 */ 	sb	$t9,0x48($sp)
-/*  f094fbc:	87a90048 */ 	lh	$t1,0x48($sp)
-/*  f094fc0:	a7a9006a */ 	sh	$t1,0x6a($sp)
-.L0f094fc4:
-/*  f094fc4:	8faa0064 */ 	lw	$t2,0x64($sp)
-/*  f094fc8:	87ab006a */ 	lh	$t3,0x6a($sp)
-/*  f094fcc:	44051000 */ 	mfc1	$a1,$f2
-/*  f094fd0:	44066000 */ 	mfc1	$a2,$f12
-/*  f094fd4:	44070000 */ 	mfc1	$a3,$f0
-/*  f094fd8:	240c7fff */ 	addiu	$t4,$zero,0x7fff
-/*  f094fdc:	27ad0040 */ 	addiu	$t5,$sp,0x40
-/*  f094fe0:	afad001c */ 	sw	$t5,0x1c($sp)
-/*  f094fe4:	afac0018 */ 	sw	$t4,0x18($sp)
-/*  f094fe8:	8fa40060 */ 	lw	$a0,0x60($sp)
-/*  f094fec:	afa8003c */ 	sw	$t0,0x3c($sp)
-/*  f094ff0:	e7a00054 */ 	swc1	$f0,0x54($sp)
-/*  f094ff4:	e7a2005c */ 	swc1	$f2,0x5c($sp)
-/*  f094ff8:	e7ac0058 */ 	swc1	$f12,0x58($sp)
-/*  f094ffc:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f095000:	0fc251ac */ 	jal	func0f0946b0
-/*  f095004:	afab0014 */ 	sw	$t3,0x14($sp)
-/*  f095008:	8fae006c */ 	lw	$t6,0x6c($sp)
-/*  f09500c:	8fa8003c */ 	lw	$t0,0x3c($sp)
-/*  f095010:	c7a00054 */ 	lwc1	$f0,0x54($sp)
-/*  f095014:	c7a2005c */ 	lwc1	$f2,0x5c($sp)
-/*  f095018:	c7ac0058 */ 	lwc1	$f12,0x58($sp)
-/*  f09501c:	adc20000 */ 	sw	$v0,0x0($t6)
-/*  f095020:	c7a80040 */ 	lwc1	$f8,0x40($sp)
-/*  f095024:	44070000 */ 	mfc1	$a3,$f0
-/*  f095028:	44051000 */ 	mfc1	$a1,$f2
-/*  f09502c:	44066000 */ 	mfc1	$a2,$f12
-/*  f095030:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f095034:	8fa40060 */ 	lw	$a0,0x60($sp)
-/*  f095038:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f09503c:	0fc2535e */ 	jal	propsnd0f094d78
-/*  f095040:	e7a80010 */ 	swc1	$f8,0x10($sp)
-/*  f095044:	8faf0070 */ 	lw	$t7,0x70($sp)
-/*  f095048:	ade20000 */ 	sw	$v0,0x0($t7)
-/*  f09504c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f095050:	27bd0060 */ 	addiu	$sp,$sp,0x60
-/*  f095054:	03e00008 */ 	jr	$ra
-/*  f095058:	00000000 */ 	nop
-);
+void propsnd0f094ef4(struct coord *pos, s16 *rooms, s16 soundnum, s32 *arg3, s32 *arg4)
+{
+	f32 sp5c;
+	f32 sp58;
+	f32 sp54;
+	struct audiorussmapping *russ;
+	struct audioconfig *config;
+	union soundnumhack sp48;
+	union soundnumhack sp44;
+	f32 sp40;
+	bool sp3c;
+	s32 index;
+	s32 confignum;
+	s32 zero = 0;
 
-//void propsnd0f094ef4(struct coord *pos, s16 *rooms, s16 soundnum, s32 *arg3, s32 *arg4)
-//{
-//	f32 sp5c;
-//	f32 sp58;
-//	f32 sp54;
-//	struct audiorussmapping *russ;
-//	struct audioconfig *config;
-//	union soundnumhack sp48;
-//	union soundnumhack sp44;
-//	f32 sp40;
-//	bool sp3c;
-//	u32 stack[4];
-//
-//	sp5c = 400;
-//	sp58 = 2500;
-//	sp54 = 3000;
-//	sp44.packed = soundnum;
-//	sp40 = 9999999;
-//	sp3c = false;
-//
-//	if (sp44.hasconfig) {
-//		russ = &g_AudioRussMappings[sp44.confignum];
-//		config = &g_AudioConfigs[russ->audioconfig_index];
-//		sp5c = config->unk00;
-//		sp58 = config->unk00;
-//		sp54 = config->unk00;
-//		sp48.packed = russ->soundnum;
-//
-//		if (config->flags & AUDIOCONFIGFLAG_01) {
-//			sp3c = true;
-//		}
-//
-//		if (sp54 < sp40) {
-//			sp40 = sp54;
-//		}
-//
-//		sp48.hasconfig = false;
-//		soundnum = sp48.packed;
-//	}
-//
-//	*arg3 = func0f0946b0(pos, sp5c, sp58, sp54, rooms, soundnum, 0x7fff, &sp40);
-//	*arg4 = propsnd0f094d78(pos, sp5c, sp58, sp54, sp40, sp3c, 0);
-//}
+	sp5c = 400;
+	sp58 = 2500;
+	sp54 = 3000;
+	if (1);
+	sp44.packed = soundnum;
+	sp40 = 9999999;
+	sp3c = false;
+
+	// To make this match, sp40 must be reloaded from the stack rather than
+	// reuse its register. Calling a function invalidates the register, thus
+	// forcing the compiler to emit code that reloads it from stack. Then an
+	// optimisation pass in the compiler removes this branch and function call,
+	// leaving the reload from stack in place.
+	if (zero) {
+		random();
+	}
+
+	if (sp44.hasconfig) {
+		confignum = sp44.confignum;
+		russ = &g_AudioRussMappings[confignum];
+		index = russ->audioconfig_index;
+		config = &g_AudioConfigs[index];
+		sp5c = config->unk00;
+		sp58 = config->unk04;
+		sp54 = config->unk08;
+		sp48.packed = russ->soundnum;
+
+		if (config->flags & AUDIOCONFIGFLAG_01) {
+			sp3c = true;
+		}
+
+		if (sp54 < sp40) {
+			sp40 = sp54;
+		}
+
+		sp48.hasconfig = false;
+		soundnum = sp48.packed;
+	}
+
+	*arg3 = func0f0946b0(pos, sp5c, sp58, sp54, rooms, soundnum, 0x7fff, &sp40);
+	*arg4 = propsnd0f094d78(pos, sp5c, sp58, sp54, sp40, sp3c, 0);
+}
 #endif
 
 GLOBAL_ASM(
