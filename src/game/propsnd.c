@@ -4338,7 +4338,7 @@ s32 propsnd0f0946b0(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, s16 *rooms,
 }
 
 GLOBAL_ASM(
-glabel func0f094940
+glabel propsnd0f094940
 .late_rodata
 glabel var7f1ab74c
 .word 0x3f2aaaab
@@ -4486,6 +4486,75 @@ glabel var7f1ab754
 /*  f094b18:	00601025 */ 	or	$v0,$v1,$zero
 );
 
+// Mismatch: regalloc
+//s32 propsnd0f094940(s32 arg0, f32 arg1, struct audiochannel *channel)
+//{
+//	s32 v1;
+//
+//	while (arg0 >= 180) {
+//		arg0 -= 360;
+//	}
+//
+//	while (arg0 < -180) {
+//		arg0 += 360;
+//	}
+//
+//	switch (g_SoundMode) {
+//	default:
+//		{
+//			s32 v0;
+//			s32 a1;
+//
+//			v0 = ABS(arg0);
+//
+//			if (v0 > 90) {
+//				v0 = 180 - v0;
+//			}
+//
+//			// 9ac
+//			a1 = arg0 > 0 ? 1 : -1;
+//
+//			arg0 = a1 * v0;
+//		}
+//		break;
+//	case SOUNDMODE_SURROUND:
+//		if (arg0 > -45 && arg0 < 45) {
+//			arg0 *= 2;
+//		} else {
+//			s32 t4;
+//			s32 v0;
+//			s32 a1;
+//
+//			// 9fc
+//			v0 = arg0 > 0 ? 1 : -1;
+//			a1 = ABS(arg0);
+//
+//			t4 = (180 - a1) * 0.6666667f;
+//			arg0 = (180 - t4) * v0;
+//		}
+//		break;
+//	}
+//
+//	if (arg0 >= -90 && arg0 <= 90) {
+//		v1 = arg0 * 0.7f + 64.0f;
+//	} else {
+//		s32 v0;
+//		s32 a1;
+//
+//		v0 = (arg0 > 0 ? 1 : -1);
+//		a1 = ABS(arg0);
+//
+//		v1 = (s32) ((180 - a1) * v0 * 0.7f + 64.0f) + 128;
+//	}
+//
+//	if (channel != NULL) {
+//		channel->unk14 = arg0;
+//		channel->unk16 = 100.0f * arg1;
+//	}
+//
+//	return v1;
+//}
+
 s32 propsnd0f094b1c(struct coord *pos, s32 arg1, f32 arg2, struct audiochannel *channel)
 {
 	s32 result = 64;
@@ -4528,7 +4597,7 @@ s32 propsnd0f094b1c(struct coord *pos, s32 arg1, f32 arg2, struct audiochannel *
 			channel->unk16 = 100.0f * arg2;
 		}
 
-		result = func0f094940(a0, arg2, channel);
+		result = propsnd0f094940(a0, arg2, channel);
 	}
 
 	return result;
