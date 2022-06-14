@@ -5946,7 +5946,7 @@ struct shard {
 
 struct audiochannel {
 	/*0x00*/ struct sndstate *audiohandle;
-	/*0x04*/ s16 soundnum04;
+	/*0x04*/ s16 unk04;
 	/*0x06*/ s16 unk06;
 	/*0x08*/ s16 unk08;
 	/*0x0a*/ s16 unk0a;

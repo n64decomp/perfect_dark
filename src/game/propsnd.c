@@ -77,10 +77,10 @@ u32 var8006ae38 = 0x00000000;
 bool g_PropsndPrintChannels = false;
 
 u32 var8006ae40 = 0x00000000;
-u32 var8006ae44 = 0x00000000;
+bool var8006ae44 = false;
 u32 var8006ae48 = 0x00000001;
 u32 var8006ae4c = 0x00000000;
-u32 var8006ae50 = 0xffff0000;
+s16 var8006ae50 = -1;
 u32 var8006ae54 = 0x000003e7;
 
 bool func0f092610(struct prop *prop, s32 arg1)
@@ -187,15 +187,15 @@ void func0f092a98(s32 channelnum)
 	channel->flags2 |= 0x80;
 #endif
 
-	if (channel->flags & AUDIOCHANNELFLAG_0200) {
+	if (channel->flags & AUDIOCHANNELFLAG_FORHUDMSG) {
 		hudmsgsHideByChannel(channelnum);
 	}
 
-	if (channel->flags & AUDIOCHANNELFLAG_0008) {
-		func0f05abdc(channel->prop);
+	if (channel->flags & AUDIOCHANNELFLAG_FORPROP) {
+		propDecrementSoundCount(channel->prop);
 	}
 
-	if ((channel->flags & AUDIOCHANNELFLAG_0010)) {
+	if ((channel->flags & AUDIOCHANNELFLAG_ISMP3)) {
 		snd0000fbc4(channel->soundnum26);
 	} else if (channel->audiohandle && sndGetState(channel->audiohandle) != AL_STOPPED) {
 		audioStop(channel->audiohandle);
@@ -841,7 +841,7 @@ glabel var7f1ab740
 /*  f0941d8:	30780008 */ 	andi	$t8,$v1,0x8
 /*  f0941dc:	53000005 */ 	beqzl	$t8,.JF0f0941f4
 /*  f0941e0:	30790200 */ 	andi	$t9,$v1,0x200
-/*  f0941e4:	0fc16f3f */ 	jal	func0f05abdc
+/*  f0941e4:	0fc16f3f */ 	jal	propDecrementSoundCount
 /*  f0941e8:	8e040050 */ 	lw	$a0,0x50($s0)
 /*  f0941ec:	96030030 */ 	lhu	$v1,0x30($s0)
 /*  f0941f0:	30790200 */ 	andi	$t9,$v1,0x200
@@ -861,7 +861,7 @@ glabel var7f1ab740
 /*  f09421c:	00000000 */ 	nop
 /*  f094220:	51a00004 */ 	beqzl	$t5,.JF0f094234
 /*  f094224:	240c0001 */ 	li	$t4,0x1
-/*  f094228:	0fc16f3f */ 	jal	func0f05abdc
+/*  f094228:	0fc16f3f */ 	jal	propDecrementSoundCount
 /*  f09422c:	8e040050 */ 	lw	$a0,0x50($s0)
 /*  f094230:	240c0001 */ 	li	$t4,0x1
 .JF0f094234:
@@ -1492,7 +1492,7 @@ glabel var7f1ab740
 /*  f093348:	30780008 */ 	andi	$t8,$v1,0x8
 /*  f09334c:	53000005 */ 	beqzl	$t8,.PF0f093364
 /*  f093350:	30790200 */ 	andi	$t9,$v1,0x200
-/*  f093354:	0fc16b78 */ 	jal	func0f05abdc
+/*  f093354:	0fc16b78 */ 	jal	propDecrementSoundCount
 /*  f093358:	8e040050 */ 	lw	$a0,0x50($s0)
 /*  f09335c:	96030030 */ 	lhu	$v1,0x30($s0)
 /*  f093360:	30790200 */ 	andi	$t9,$v1,0x200
@@ -1512,7 +1512,7 @@ glabel var7f1ab740
 /*  f09338c:	00000000 */ 	nop
 /*  f093390:	51a00004 */ 	beqzl	$t5,.PF0f0933a4
 /*  f093394:	240c0001 */ 	li	$t4,0x1
-/*  f093398:	0fc16b78 */ 	jal	func0f05abdc
+/*  f093398:	0fc16b78 */ 	jal	propDecrementSoundCount
 /*  f09339c:	8e040050 */ 	lw	$a0,0x50($s0)
 /*  f0933a0:	240c0001 */ 	li	$t4,0x1
 .PF0f0933a4:
@@ -2143,7 +2143,7 @@ glabel var7f1ab740
 /*  f093298:	30780008 */ 	andi	$t8,$v1,0x8
 /*  f09329c:	53000005 */ 	beqzl	$t8,.PB0f0932b4
 /*  f0932a0:	30790200 */ 	andi	$t9,$v1,0x200
-/*  f0932a4:	0fc16b4d */ 	jal	func0f05abdc
+/*  f0932a4:	0fc16b4d */ 	jal	propDecrementSoundCount
 /*  f0932a8:	8e040050 */ 	lw	$a0,0x50($s0)
 /*  f0932ac:	96030030 */ 	lhu	$v1,0x30($s0)
 /*  f0932b0:	30790200 */ 	andi	$t9,$v1,0x200
@@ -2163,7 +2163,7 @@ glabel var7f1ab740
 /*  f0932dc:	00000000 */ 	nop
 /*  f0932e0:	51a00004 */ 	beqzl	$t5,.PB0f0932f4
 /*  f0932e4:	240c0001 */ 	li	$t4,0x1
-/*  f0932e8:	0fc16b4d */ 	jal	func0f05abdc
+/*  f0932e8:	0fc16b4d */ 	jal	propDecrementSoundCount
 /*  f0932ec:	8e040050 */ 	lw	$a0,0x50($s0)
 /*  f0932f0:	240c0001 */ 	li	$t4,0x1
 .PB0f0932f4:
@@ -2797,7 +2797,7 @@ glabel var7f1ab740
 /*  f093458:	30790008 */ 	andi	$t9,$v1,0x8
 /*  f09345c:	53200005 */ 	beqzl	$t9,.L0f093474
 /*  f093460:	306a0200 */ 	andi	$t2,$v1,0x200
-/*  f093464:	0fc16af7 */ 	jal	func0f05abdc
+/*  f093464:	0fc16af7 */ 	jal	propDecrementSoundCount
 /*  f093468:	8e040050 */ 	lw	$a0,0x50($s0)
 /*  f09346c:	96030030 */ 	lhu	$v1,0x30($s0)
 /*  f093470:	306a0200 */ 	andi	$t2,$v1,0x200
@@ -2817,7 +2817,7 @@ glabel var7f1ab740
 /*  f09349c:	00000000 */ 	nop
 /*  f0934a0:	51c00004 */ 	beqzl	$t6,.L0f0934b4
 /*  f0934a4:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f0934a8:	0fc16af7 */ 	jal	func0f05abdc
+/*  f0934a8:	0fc16af7 */ 	jal	propDecrementSoundCount
 /*  f0934ac:	8e040050 */ 	lw	$a0,0x50($s0)
 /*  f0934b0:	240d0001 */ 	addiu	$t5,$zero,0x1
 .L0f0934b4:
@@ -3377,7 +3377,7 @@ glabel var7f1ab740
 /*  f091998:	306e0008 */ 	andi	$t6,$v1,0x8
 /*  f09199c:	51c00005 */ 	beqzl	$t6,.NB0f0919b4
 /*  f0919a0:	306d0200 */ 	andi	$t5,$v1,0x200
-/*  f0919a4:	0fc16805 */ 	jal	func0f05abdc
+/*  f0919a4:	0fc16805 */ 	jal	propDecrementSoundCount
 /*  f0919a8:	8e040050 */ 	lw	$a0,0x50($s0)
 /*  f0919ac:	96030030 */ 	lhu	$v1,0x30($s0)
 /*  f0919b0:	306d0200 */ 	andi	$t5,$v1,0x200
@@ -3395,7 +3395,7 @@ glabel var7f1ab740
 /*  f0919d8:	24190001 */ 	addiu	$t9,$zero,0x1
 /*  f0919dc:	53000004 */ 	beqzl	$t8,.NB0f0919f0
 /*  f0919e0:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f0919e4:	0fc16805 */ 	jal	func0f05abdc
+/*  f0919e4:	0fc16805 */ 	jal	propDecrementSoundCount
 /*  f0919e8:	8e040050 */ 	lw	$a0,0x50($s0)
 /*  f0919ec:	24190001 */ 	addiu	$t9,$zero,0x1
 .NB0f0919f0:
@@ -3423,6 +3423,289 @@ glabel var7f1ab740
 /*  f091a38:	00000000 */ 	sll	$zero,$zero,0x0
 );
 #endif
+
+// Mismatch: Some reordered instructions
+//void propsndTickChannel(s32 channelnum)
+//{
+//	struct audiochannel *channel = &g_AudioChannels[channelnum];
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//	if ((channel->flags2 & AUDIOCHANNELFLAG2_0080) == 0
+//			&& channel->unk28 != 11
+//			&& ((channel->audiohandle != NULL && sndGetState(channel->audiohandle) != AL_STOPPED)
+//				|| (channel->flags & AUDIOCHANNELFLAG_0002)
+//				|| (channel->flags & AUDIOCHANNELFLAG_1000)
+//				|| ((channel->flags & AUDIOCHANNELFLAG_ISMP3) && sndIsPlayingMp3())))
+//#else
+//	if ((channel->audiohandle != NULL && sndGetState(channel->audiohandle) != AL_STOPPED)
+//			|| (channel->flags & AUDIOCHANNELFLAG_0002)
+//			|| (channel->flags & AUDIOCHANNELFLAG_1000)
+//			|| ((channel->flags & AUDIOCHANNELFLAG_ISMP3) && sndIsPlayingMp3()))
+//#endif
+//	{
+//		struct coord *pos = NULL; // 50
+//		s16 *rooms = NULL; // 4c
+//		s32 sp48;
+//		s32 sp44;
+//		s32 sp40;
+//		f32 sp3c;
+//
+//		if (channel->prop) {
+//			pos = &channel->prop->pos;
+//			rooms = channel->prop->rooms;
+//		} else if (channel->rooms[0] != -1) {
+//			rooms = channel->rooms;
+//		}
+//
+//		if (channel->posptr != NULL) {
+//			pos = channel->posptr;
+//		}
+//
+//		if (1);
+//
+//		if (g_Vars.langfilteron && (channel->flags2 & AUDIOCHANNELFLAG2_OFFENSIVE)) {
+//			channel->unk04 = 0;
+//		} else if (channel->flags2 & AUDIOCHANNELFLAG2_0010) {
+//			if ((channel->flags & AUDIOCHANNELFLAG_1000) == 0) {
+//				return;
+//			}
+//
+//			channel->unk04 = channel->unk10;
+//		} else {
+//			if (pos && rooms) {
+//				s16 *tmprooms;
+//
+//				if (channel->flags & AUDIOCHANNELFLAG_8000) {
+//					tmprooms = NULL;
+//				} else {
+//					tmprooms = rooms;
+//				}
+//
+//				var8006ae50 = channel->unk2c;
+//
+//				channel->unk04 = propsnd0f0946b0(pos, channel->unk34, channel->unk38, channel->unk3c,
+//						tmprooms, channel->soundnum26, channel->unk10, &channel->unk4c);
+//			}
+//
+//			if ((channel->flags & AUDIOCHANNELFLAG_0020) == 0) {
+//				channel->unk0a = propsnd0f094d78(pos, channel->unk34, channel->unk38, channel->unk3c,
+//						channel->unk4c, channel->flags & AUDIOCHANNELFLAG_0800, &channel->audiohandle);
+//			}
+//		}
+//
+//		if (rooms != NULL && rooms[0] != -1) {
+//			channel->unk0c = 0;
+//			channel->unk1a = 1;
+//		} else {
+//			channel->unk0c = 0;
+//			channel->unk1a = 1;
+//		}
+//
+//		if (channel->audiohandle != NULL && channel->unk44 > 0.0f) {
+//			if (channel->unk48 < 0.0f) {
+//				sp3c = channel->unk44;
+//			} else if (channel->unk20 > 0.0f) {
+//				sp3c = channel->unk48 + (channel->unk44 - channel->unk48) * g_Vars.lvupdate240 / channel->unk20;
+//			} else {
+//				sp3c = channel->unk44;
+//			}
+//		} else {
+//			sp3c = -1.0f;
+//		}
+//
+//		sp44 = channel->unk0a;
+//		sp48 = channel->unk06;
+//		sp40 = channel->unk0c;
+//
+//		if (channel->unk06 == -1) {
+//			sp48 = channel->unk04;
+//		} else if (channel->unk1c >= 0) {
+//			if (channel->unk1c > g_Vars.lvupdate240_60) {
+//				sp48 = channel->unk06 + (channel->unk04 - channel->unk06) * g_Vars.lvupdate240_60 / channel->unk1c;
+//			}
+//
+//			channel->unk1c -= g_Vars.lvupdate240_60;
+//		} else if (channel->unk18 && channel->unk06 != channel->unk04) {
+//			f32 f12 = channel->unk04 - channel->unk06;
+//#if VERSION >= VERSION_PAL_BETA
+//			f32 f14 = g_Vars.lvupdate240freal * (1.0f / 6000.0f) * channel->unk18;
+//#else
+//			f32 f14 = g_Vars.lvupdate240_60 * (1.0f / 6000.0f) * channel->unk18;
+//#endif
+//
+//			if (ABS(f12) > 1.0f) {
+//				if (f14 > 1.0f) {
+//					f14 = 1.0f;
+//				}
+//
+//				if (ABS(f14 * f12) > 1.0f) {
+//					sp48 = channel->unk06 + (s32) (f14 * f12);
+//				}
+//			}
+//		} else {
+//			sp48 = channel->unk04;
+//		}
+//
+//		if (lvIsPaused()
+//				|| (mpIsPaused() && (channel->flags2 & AUDIOCHANNELFLAG2_0002))
+//				|| (mpIsPaused() && PLAYERCOUNT() == 1)) {
+//			channel->unk06 = -1;
+//			sp48 = 0;
+//		}
+//
+//		if (sp48 != channel->unk06) {
+//			channel->unk06 = sp48;
+//		} else {
+//			sp48 = -1;
+//		}
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//		if (channel->unk0a != channel->unk08) {
+//			if (channel->flags & AUDIOCHANNELFLAG_1000) {
+//				channel->unk08 = channel->unk0a;
+//				sp44 = channel->unk08;
+//			} else {
+//				s32 diff = channel->unk0a - channel->unk08;
+//				s32 lvupdate = g_Vars.lvupdate240 * 512 / 240;
+//				s32 dir = diff < 0 ? -1 : 1;
+//				s32 absdiff = ABS(diff);
+//				s32 amount = absdiff < lvupdate ? absdiff : lvupdate;
+//
+//				channel->unk08 += amount * dir;
+//				sp44 = channel->unk08;
+//			}
+//
+//			channel->flags |= AUDIOCHANNELFLAG_4000;
+//		} else {
+//			sp44 = -1;
+//		}
+//#else
+//		if (sp44 != channel->unk08) {
+//			channel->flags |= AUDIOCHANNELFLAG_4000;
+//			channel->unk08 = sp44;
+//		} else {
+//			sp44 = -1;
+//		}
+//#endif
+//
+//		if (sp40 != channel->unk0e) {
+//			channel->unk0e = sp40;
+//		} else {
+//			sp40 = -1;
+//		}
+//
+//		if (sp3c > 0.0f && ABS(sp3c - channel->unk48) > 0.01f) {
+//			channel->unk48 = sp3c;
+//		} else {
+//			sp3c = -1.0f;
+//		}
+//
+//		if (channel->flags & AUDIOCHANNELFLAG_0002) {
+//			if (channel->unk06 > 0) {
+//				if (channel->flags & AUDIOCHANNELFLAG_2000) {
+//					channel->flags &= ~AUDIOCHANNELFLAG_2000;
+//					channel->flags |= AUDIOCHANNELFLAG_1000;
+//				}
+//			} else {
+//				if ((channel->flags & AUDIOCHANNELFLAG_2000) == 0) {
+//					if (channel->audiohandle != NULL && sndGetState(channel->audiohandle) != AL_STOPPED) {
+//						audioStop(channel->audiohandle);
+//#if VERSION < VERSION_NTSC_1_0
+//						channel->audiohandle = NULL;
+//#endif
+//					}
+//
+//					channel->flags |= AUDIOCHANNELFLAG_2000;
+//				}
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//				channel->flags &= ~AUDIOCHANNELFLAG_1000;
+//#endif
+//			}
+//		}
+//
+//		if ((channel->flags & AUDIOCHANNELFLAG_2000) == 0) {
+//			if (channel->flags & AUDIOCHANNELFLAG_1000) {
+//				if (channel->flags & AUDIOCHANNELFLAG_ISMP3) {
+//					sndStartMp3(channel->soundnum26, sp48, sp44, (channel->flags2 & AUDIOCHANNELFLAG2_0001) ? 1 : 0);
+//				} else {
+//#if VERSION >= VERSION_NTSC_1_0
+//					if (channel->flags & AUDIOCHANNELFLAG_0400) {
+//						if (sp48) {
+//							snd00010718(&channel->audiohandle, channel->flags & AUDIOCHANNELFLAG_ISMP3, sp48, sp44,
+//									channel->soundnum26, sp3c, channel->unk1a, sp40, 1);
+//						}
+//					} else {
+//						if (sp48) {
+//							snd00010718(&channel->audiohandle, channel->flags & AUDIOCHANNELFLAG_ISMP3, sp48, sp44,
+//									channel->soundnum26, sp3c, channel->unk1a, sp40, 1);
+//						}
+//					}
+//#else
+//					snd00010718(&channel->audiohandle, channel->flags & AUDIOCHANNELFLAG_ISMP3, sp48, sp44,
+//							channel->soundnum26, sp3c, channel->unk1a, sp40, 1);
+//#endif
+//				}
+//
+//				channel->flags &= ~AUDIOCHANNELFLAG_1000;
+//			} else {
+//				sndAdjust(&channel->audiohandle, channel->flags & AUDIOCHANNELFLAG_ISMP3, sp48, sp44,
+//						channel->soundnum26, sp3c, channel->unk1a, sp40, channel->flags & AUDIOCHANNELFLAG_4000);
+//			}
+//		}
+//	} else {
+//#if VERSION >= VERSION_NTSC_1_0
+//		if (channel->unk28 != 11) {
+//			if (channel->flags & AUDIOCHANNELFLAG_ISMP3) {
+//				if (!sndIsPlayingMp3()) {
+//					if (channel->flags & AUDIOCHANNELFLAG_FORPROP) {
+//						propDecrementSoundCount(channel->prop);
+//					}
+//
+//					if (channel->flags & AUDIOCHANNELFLAG_FORHUDMSG) {
+//						hudmsgsHideByChannel(channelnum);
+//					}
+//				}
+//
+//				channel->flags = AUDIOCHANNELFLAG_IDLE;
+//			} else if (channel->audiohandle == NULL) {
+//				if (channel->flags & AUDIOCHANNELFLAG_FORPROP) {
+//					propDecrementSoundCount(channel->prop);
+//				}
+//
+//				channel->flags = AUDIOCHANNELFLAG_IDLE;
+//			}
+//		}
+//#else
+//		if (channel->flags & AUDIOCHANNELFLAG_ISMP3) {
+//			if (!sndIsPlayingMp3()) {
+//				if (channel->flags & AUDIOCHANNELFLAG_FORPROP) {
+//					propDecrementSoundCount(channel->prop);
+//				}
+//
+//				if (channel->flags & AUDIOCHANNELFLAG_FORHUDMSG) {
+//					hudmsgsHideByChannel(channelnum);
+//				}
+//			}
+//		} else if (channel->audiohandle == NULL) {
+//			if (channel->flags & AUDIOCHANNELFLAG_FORPROP) {
+//				propDecrementSoundCount(channel->prop);
+//			}
+//		}
+//
+//		channel->flags = AUDIOCHANNELFLAG_IDLE;
+//#endif
+//	}
+//
+//	if (var8006ae44 && (channel->flags2 & AUDIOCHANNELFLAG2_0004)) {
+//		propsndPrintChannel(channel);
+//	}
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//	channel->flags &= ~AUDIOCHANNELFLAG_1000;
+//#endif
+//	channel->flags &= ~AUDIOCHANNELFLAG_4000;
+//}
 
 void propsndTick(void)
 {
@@ -3658,7 +3941,7 @@ s16 propsnd0f0939f8(
 	channel->unk06 = -1;
 	channel->unk08 = -1;
 	channel->unk0e = -1;
-	channel->soundnum04 = (arg4 != -1) ? arg4 : -1;
+	channel->unk04 = (arg4 != -1) ? arg4 : -1;
 	channel->unk0a = 64;
 	channel->unk0c = 0;
 	channel->unk10 = 0x7fff;
@@ -3714,8 +3997,8 @@ s16 propsnd0f0939f8(
 		}
 
 		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_08) {
-			if (channel->soundnum04 == -1) {
-				channel->soundnum04 = channel->unk10;
+			if (channel->unk04 == -1) {
+				channel->unk04 = channel->unk10;
 			}
 
 			channel->flags |= AUDIOCHANNELFLAG_8000;
@@ -3763,8 +4046,8 @@ s16 propsnd0f0939f8(
 
 #if VERSION < VERSION_NTSC_1_0
 	if (channel->flags2 & AUDIOCHANNELFLAG2_0010) {
-		if (channel->soundnum04 == -1) {
-			channel->soundnum04 = channel->unk10;
+		if (channel->unk04 == -1) {
+			channel->unk04 = channel->unk10;
 		}
 	}
 #endif
@@ -3797,15 +4080,15 @@ s16 propsnd0f0939f8(
 		channel->flags2 |= AUDIOCHANNELFLAG2_0010;
 	}
 
-	if ((channel->flags2 & AUDIOCHANNELFLAG2_0010) && channel->soundnum04 == -1) {
-		channel->soundnum04 = channel->unk10;
+	if ((channel->flags2 & AUDIOCHANNELFLAG2_0010) && channel->unk04 == -1) {
+		channel->unk04 = channel->unk10;
 	}
 #endif
 
 	channel->flags |= AUDIOCHANNELFLAG_1000;
 
 	if (sndIsMp3(soundnum)) {
-		channel->flags |= AUDIOCHANNELFLAG_0010;
+		channel->flags |= AUDIOCHANNELFLAG_ISMP3;
 
 #if VERSION >= VERSION_NTSC_1_0
 		prevpri = osGetThreadPri(0);
@@ -3933,7 +4216,7 @@ bool audioIsChannelIdle(s32 channelnum)
 	return true;
 }
 
-void audioPlayFromProp2(s32 channelnum, s32 soundnum, s16 padnum, struct prop *prop, s32 arg4, s32 arg5, s32 arg6, u16 arg7)
+void audioPlayFromProp2(s32 channelnum, s32 arg1, s16 padnum, struct prop *prop, s32 arg4, s32 arg5, s32 arg6, u16 arg7)
 {
 	struct audiochannel *channel = &g_AudioChannels[channelnum];
 	bool a1 = (arg4 >= 6) ? true : false;
@@ -3946,8 +4229,8 @@ void audioPlayFromProp2(s32 channelnum, s32 soundnum, s16 padnum, struct prop *p
 			propsnd0f0939f8(&g_AudioChannels[channelnum], prop, channel->soundnum26, -1,
 					-1, arg7, 0, 0, 0, -1, 0, -1, 400, arg5, arg6);
 		} else {
-			if ((channel->flags & AUDIOCHANNELFLAG_2000) == 0 && soundnum >= 0) {
-				channel->soundnum04 = soundnum;
+			if ((channel->flags & AUDIOCHANNELFLAG_2000) == 0 && arg1 >= 0) {
+				channel->unk04 = arg1;
 			}
 
 			if (a1) {
@@ -4385,7 +4668,7 @@ glabel var7f1ab768
 /*  f094d74:	00000000 */ 	nop
 );
 
-s32 propsnd0f094d78(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, f32 arg4, bool arg5, s32 arg6)
+s32 propsnd0f094d78(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, f32 arg4, bool arg5, struct sndstate **audiohandle)
 {
 	s32 result = 0x40;
 
@@ -4424,13 +4707,13 @@ s32 propsnd0f094d78(struct coord *pos, f32 arg1, f32 arg2, f32 arg3, f32 arg4, b
 							f2 = 1;
 						}
 
-						result = func0f094b1c(pos, 0, f2, arg6);
+						result = func0f094b1c(pos, 0, f2, audiohandle);
 					} else {
-						result = func0f094b1c(pos, 0, -1, 0);
+						result = func0f094b1c(pos, 0, -1, NULL);
 					}
 				}
 			} else {
-				result = func0f094b1c(pos, 0, -1, arg6);
+				result = func0f094b1c(pos, 0, -1, audiohandle);
 			}
 		}
 	}
@@ -4584,9 +4867,11 @@ s32 propsndGetDuration60(s32 channelnum)
 
 	if (channelnum >= 0 && channelnum < (IS4MB() ? 30 : 40)
 			&& (channel->flags & AUDIOCHANNELFLAG_IDLE) == 0
-			&& (channel->flags & AUDIOCHANNELFLAG_0010)) {
-		s32 soundnum = channel->soundnum26;
-		return fileGetRomSize(soundnum & 0x7ff) * 60 / (1024 * 24 / 8);
+			&& (channel->flags & AUDIOCHANNELFLAG_ISMP3)) {
+		union soundnumhack soundnum;
+		soundnum.packed = channel->soundnum26;
+
+		return fileGetRomSize(soundnum.id) * 60 / (1024 * 24 / 8);
 	}
 
 	return -1;

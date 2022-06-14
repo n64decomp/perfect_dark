@@ -10150,7 +10150,7 @@ glabel var7f1a9d64
 //	return false;
 //}
 
-void func0f05abdc(struct prop *prop)
+void propDecrementSoundCount(struct prop *prop)
 {
 	if (prop && prop->chr && prop->chr->model && prop->chr->propsoundcount > 0) {
 		prop->chr->propsoundcount--;

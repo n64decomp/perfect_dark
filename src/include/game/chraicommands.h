@@ -446,6 +446,6 @@
 /*0x01df*/ bool aiIfChrSameFloorDistanceToPadLessThan(void);
 /*0x01e0*/ bool aiRemoveReferencesToChr(void);
 
-void func0f05abdc(struct prop *prop);
+void propDecrementSoundCount(struct prop *prop);
 
 #endif
