@@ -21,6 +21,7 @@
 #define MAXFLOAT ((float)3.40282346638528860e+38)
 
 #define ABS(val)            ((val) > 0 ? (val) : -(val))
+#define ABSF(val)           ((val) > 0.0f ? (val) : -(val))
 #define ALIGN2(val)         (((val) | 1) ^ 0x1)
 #define ALIGN8(val)         (((val) + 0x7 | 0x7) ^ 0x7)
 #define ALIGN16(val)        (((val) + 0xf | 0xf) ^ 0xf)

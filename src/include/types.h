@@ -5954,7 +5954,8 @@ struct audiochannel {
 	/*0x0e*/ s16 unk0e;
 	/*0x10*/ s16 unk10;
 	/*0x12*/ u16 unk12;
-	/*0x14*/ u32 unk14;
+	/*0x14*/ s16 unk14;
+	/*0x16*/ s16 unk16;
 	/*0x18*/ s16 unk18;
 	/*0x1a*/ u8 unk1a;
 	/*0x1c*/ s32 unk1c;
