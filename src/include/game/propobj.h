@@ -113,7 +113,7 @@ bool func0f06b488(struct prop *prop, struct coord *arg1, struct coord *arg2, str
 bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2, struct coord *arg3, f32 arg4, struct coord *arg5, struct coord *arg6, struct coord *arg7, struct coord *arg8, f32 *arg9);
 bool func0f06bea0(struct model *model, struct modelnode *arg1, struct modelnode *arg2, struct coord *arg3, struct coord *arg4, void *arg5, f32 *arg6, struct modelnode **arg7, s32 *hitpart, s32 *arg9, struct modelnode **arg10);
 bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, struct coord *arg3, f32 arg4, struct coord *arg5, struct coord *arg6, struct coord *arg7, struct coord *arg8, f32 *arg9);
-s32 func0f06c8ac(struct prop *prop, struct coord *pos, struct coord *arg2, u32 arg3, struct coord *arg4, struct coord *arg5, s16 *spcc);
+bool projectileFindCollidingProp(struct prop *prop, struct coord *pos, struct coord *arg2, u32 cdtypes, struct coord *arg4, struct coord *arg5, s16 *arg6);
 bool func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, struct coord *arg3);
 bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2, struct coord *arg3);
 void applySpeed(f32 *distdone, f32 maxdist, f32 *speed, f32 accel, f32 decel, f32 maxspeed);
