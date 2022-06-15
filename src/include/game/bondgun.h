@@ -178,7 +178,7 @@ void bgunApplyBoost(void);
 void bgunRevertBoost(void);
 void bgunTickBoost(void);
 void bgunSetSightVisible(u32 bits, bool visible);
-Gfx *bgunRenderSight(Gfx *gdl);
+Gfx *bgunDrawSight(Gfx *gdl);
 void bgun0f0abd30(s32 handnum);
 s32 bgunGetWeaponNum2(s32 handnum);
 s8 bgunFreeFireslotWrapper(s32 fireslot);

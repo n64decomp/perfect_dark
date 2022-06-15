@@ -5505,7 +5505,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 	}
 
 	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY) {
-		gdl = bgunRenderSight(gdl);
+		gdl = bgunDrawSight(gdl);
 
 		if (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_HORIZONSCANNER) {
 			gdl = bviewDrawHorizonScanner(gdl);

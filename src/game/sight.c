@@ -336,7 +336,7 @@ s32 func0f0d789c(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
-glabel sightRenderTargetBox
+glabel sightDrawTargetBox
 /*  f0d78f4:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0d78f8:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f0d78fc:	afa40098 */ 	sw	$a0,0x98($sp)
@@ -780,7 +780,7 @@ glabel sightRenderTargetBox
 );
 #elif PAL
 GLOBAL_ASM(
-glabel sightRenderTargetBox
+glabel sightDrawTargetBox
 /*  f0d78f4:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0d78f8:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f0d78fc:	afa40098 */ 	sw	$a0,0x98($sp)
@@ -1224,7 +1224,7 @@ glabel sightRenderTargetBox
 );
 #else
 GLOBAL_ASM(
-glabel sightRenderTargetBox
+glabel sightDrawTargetBox
 /*  f0d78f4:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0d78f8:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f0d78fc:	afa40098 */ 	sw	$a0,0x98($sp)
@@ -3835,60 +3835,60 @@ glabel var7f1adde8
 
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
-glabel sightRenderDefault
+glabel sightDrawDefault
 .late_rodata
 glabel var7f1addec
-.word sightRenderDefault+0xbc # f0d9034
+.word sightDrawDefault+0xbc # f0d9034
 glabel var7f1addf0
-.word sightRenderDefault+0xf4 # f0d906c
+.word sightDrawDefault+0xf4 # f0d906c
 glabel var7f1addf4
-.word sightRenderDefault+0x1c4 # f0d913c
+.word sightDrawDefault+0x1c4 # f0d913c
 glabel var7f1addf8
-.word sightRenderDefault+0x310 # f0d9288
+.word sightDrawDefault+0x310 # f0d9288
 glabel var7f1addfc
-.word sightRenderDefault+0x3d8 # f0d9350
+.word sightDrawDefault+0x3d8 # f0d9350
 glabel var7f1ade00
-.word sightRenderDefault+0x3d8 # f0d9350
+.word sightDrawDefault+0x3d8 # f0d9350
 glabel var7f1ade04
-.word sightRenderDefault+0x4d8 # f0d9450
+.word sightDrawDefault+0x4d8 # f0d9450
 glabel var7f1ade08
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade0c
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade10
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade14
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade18
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade1c
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade20
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade24
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade28
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade2c
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade30
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade34
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade38
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade3c
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade40
-.word sightRenderDefault+0x488 # f0d9400
+.word sightDrawDefault+0x488 # f0d9400
 glabel var7f1ade44
-.word sightRenderDefault+0x4a4 # f0d941c
+.word sightDrawDefault+0x4a4 # f0d941c
 glabel var7f1ade48
-.word sightRenderDefault+0x4c0 # f0d9438
+.word sightDrawDefault+0x4c0 # f0d9438
 glabel var7f1ade4c
-.word sightRenderDefault+0x4c8 # f0d9440
+.word sightDrawDefault+0x4c8 # f0d9440
 glabel var7f1ade50
-.word sightRenderDefault+0x4d0 # f0d9448
+.word sightDrawDefault+0x4d0 # f0d9448
 .text
 /*  f0d8f78:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0d8f7c:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
@@ -4095,7 +4095,7 @@ glabel var7f1ade50
 /*  f0d926c:	25051624 */ 	addiu	$a1,$t0,0x1624
 /*  f0d9270:	132000ab */ 	beqz	$t9,.L0f0d9520
 /*  f0d9274:	00000000 */ 	nop
-/*  f0d9278:	0fc35e3d */ 	jal	sightRenderTargetBox
+/*  f0d9278:	0fc35e3d */ 	jal	sightDrawTargetBox
 /*  f0d927c:	95071b90 */ 	lhu	$a3,0x1b90($t0)
 /*  f0d9280:	100000a7 */ 	b	.L0f0d9520
 /*  f0d9284:	00409825 */ 	or	$s3,$v0,$zero
@@ -4112,7 +4112,7 @@ glabel var7f1ade50
 /*  f0d92ac:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0d92b0:	11600006 */ 	beqz	$t3,.L0f0d92cc
 /*  f0d92b4:	010c6821 */ 	addu	$t5,$t0,$t4
-/*  f0d92b8:	0fc35e3d */ 	jal	sightRenderTargetBox
+/*  f0d92b8:	0fc35e3d */ 	jal	sightDrawTargetBox
 /*  f0d92bc:	95a71b90 */ 	lhu	$a3,0x1b90($t5)
 /*  f0d92c0:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f0d92c4:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
@@ -4231,7 +4231,7 @@ glabel var7f1ade50
 /*  f0d9460:	01096821 */ 	addu	$t5,$t0,$t1
 .L0f0d9464:
 /*  f0d9464:	95a71b90 */ 	lhu	$a3,0x1b90($t5)
-/*  f0d9468:	0fc35e3d */ 	jal	sightRenderTargetBox
+/*  f0d9468:	0fc35e3d */ 	jal	sightDrawTargetBox
 /*  f0d946c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f0d9470:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f0d9474:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
@@ -4240,7 +4240,7 @@ glabel var7f1ade50
 .L0f0d9480:
 /*  f0d9480:	01097021 */ 	addu	$t6,$t0,$t1
 /*  f0d9484:	95c71b90 */ 	lhu	$a3,0x1b90($t6)
-/*  f0d9488:	0fc35e3d */ 	jal	sightRenderTargetBox
+/*  f0d9488:	0fc35e3d */ 	jal	sightDrawTargetBox
 /*  f0d948c:	26060002 */ 	addiu	$a2,$s0,0x2
 /*  f0d9490:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f0d9494:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
@@ -4297,60 +4297,60 @@ glabel var7f1ade50
 );
 #elif VERSION >= VERSION_PAL_BETA
 GLOBAL_ASM(
-glabel sightRenderDefault
+glabel sightDrawDefault
 .late_rodata
 glabel var7f1addec
-.word sightRenderDefault+0xbc # f0d9034
+.word sightDrawDefault+0xbc # f0d9034
 glabel var7f1addf0
-.word sightRenderDefault+0xf4 # f0d906c
+.word sightDrawDefault+0xf4 # f0d906c
 glabel var7f1addf4
-.word sightRenderDefault+0x1c4 # f0d913c
+.word sightDrawDefault+0x1c4 # f0d913c
 glabel var7f1addf8
-.word sightRenderDefault+0x310 # f0d9288
+.word sightDrawDefault+0x310 # f0d9288
 glabel var7f1addfc
-.word sightRenderDefault+0x3d8 # f0d9350
+.word sightDrawDefault+0x3d8 # f0d9350
 glabel var7f1ade00
-.word sightRenderDefault+0x3d8 # f0d9350
+.word sightDrawDefault+0x3d8 # f0d9350
 glabel var7f1ade04
-.word sightRenderDefault+0x4d8 # f0d9450
+.word sightDrawDefault+0x4d8 # f0d9450
 glabel var7f1ade08
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade0c
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade10
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade14
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade18
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade1c
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade20
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade24
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade28
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade2c
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade30
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade34
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade38
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade3c
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade40
-.word sightRenderDefault+0x488 # f0d9400
+.word sightDrawDefault+0x488 # f0d9400
 glabel var7f1ade44
-.word sightRenderDefault+0x4a4 # f0d941c
+.word sightDrawDefault+0x4a4 # f0d941c
 glabel var7f1ade48
-.word sightRenderDefault+0x4c0 # f0d9438
+.word sightDrawDefault+0x4c0 # f0d9438
 glabel var7f1ade4c
-.word sightRenderDefault+0x4c8 # f0d9440
+.word sightDrawDefault+0x4c8 # f0d9440
 glabel var7f1ade50
-.word sightRenderDefault+0x4d0 # f0d9448
+.word sightDrawDefault+0x4d0 # f0d9448
 .text
 /*  f0d8f78:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0d8f7c:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
@@ -4557,7 +4557,7 @@ glabel var7f1ade50
 /*  f0d926c:	25051624 */ 	addiu	$a1,$t0,0x1624
 /*  f0d9270:	132000ab */ 	beqz	$t9,.L0f0d9520
 /*  f0d9274:	00000000 */ 	nop
-/*  f0d9278:	0fc35e3d */ 	jal	sightRenderTargetBox
+/*  f0d9278:	0fc35e3d */ 	jal	sightDrawTargetBox
 /*  f0d927c:	95071b90 */ 	lhu	$a3,0x1b90($t0)
 /*  f0d9280:	100000a7 */ 	b	.L0f0d9520
 /*  f0d9284:	00409825 */ 	or	$s3,$v0,$zero
@@ -4574,7 +4574,7 @@ glabel var7f1ade50
 /*  f0d92ac:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0d92b0:	11600006 */ 	beqz	$t3,.L0f0d92cc
 /*  f0d92b4:	010c6821 */ 	addu	$t5,$t0,$t4
-/*  f0d92b8:	0fc35e3d */ 	jal	sightRenderTargetBox
+/*  f0d92b8:	0fc35e3d */ 	jal	sightDrawTargetBox
 /*  f0d92bc:	95a71b90 */ 	lhu	$a3,0x1b90($t5)
 /*  f0d92c0:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f0d92c4:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
@@ -4693,7 +4693,7 @@ glabel var7f1ade50
 /*  f0d9460:	01096821 */ 	addu	$t5,$t0,$t1
 .L0f0d9464:
 /*  f0d9464:	95a71b90 */ 	lhu	$a3,0x1b90($t5)
-/*  f0d9468:	0fc35e3d */ 	jal	sightRenderTargetBox
+/*  f0d9468:	0fc35e3d */ 	jal	sightDrawTargetBox
 /*  f0d946c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f0d9470:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f0d9474:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
@@ -4702,7 +4702,7 @@ glabel var7f1ade50
 .L0f0d9480:
 /*  f0d9480:	01097021 */ 	addu	$t6,$t0,$t1
 /*  f0d9484:	95c71b90 */ 	lhu	$a3,0x1b90($t6)
-/*  f0d9488:	0fc35e3d */ 	jal	sightRenderTargetBox
+/*  f0d9488:	0fc35e3d */ 	jal	sightDrawTargetBox
 /*  f0d948c:	26060002 */ 	addiu	$a2,$s0,0x2
 /*  f0d9490:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f0d9494:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
@@ -4759,60 +4759,60 @@ glabel var7f1ade50
 );
 #else
 GLOBAL_ASM(
-glabel sightRenderDefault
+glabel sightDrawDefault
 .late_rodata
 glabel var7f1addec
-.word sightRenderDefault+0xbc # f0d9034
+.word sightDrawDefault+0xbc # f0d9034
 glabel var7f1addf0
-.word sightRenderDefault+0xf4 # f0d906c
+.word sightDrawDefault+0xf4 # f0d906c
 glabel var7f1addf4
-.word sightRenderDefault+0x1c4 # f0d913c
+.word sightDrawDefault+0x1c4 # f0d913c
 glabel var7f1addf8
-.word sightRenderDefault+0x310 # f0d9288
+.word sightDrawDefault+0x310 # f0d9288
 glabel var7f1addfc
-.word sightRenderDefault+0x3d8 # f0d9350
+.word sightDrawDefault+0x3d8 # f0d9350
 glabel var7f1ade00
-.word sightRenderDefault+0x3d8 # f0d9350
+.word sightDrawDefault+0x3d8 # f0d9350
 glabel var7f1ade04
-.word sightRenderDefault+0x4d8 # f0d9450
+.word sightDrawDefault+0x4d8 # f0d9450
 glabel var7f1ade08
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade0c
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade10
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade14
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade18
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade1c
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade20
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade24
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade28
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade2c
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade30
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade34
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade38
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade3c
-.word sightRenderDefault+0x4e8 # f0d9460
+.word sightDrawDefault+0x4e8 # f0d9460
 glabel var7f1ade40
-.word sightRenderDefault+0x488 # f0d9400
+.word sightDrawDefault+0x488 # f0d9400
 glabel var7f1ade44
-.word sightRenderDefault+0x4a4 # f0d941c
+.word sightDrawDefault+0x4a4 # f0d941c
 glabel var7f1ade48
-.word sightRenderDefault+0x4c0 # f0d9438
+.word sightDrawDefault+0x4c0 # f0d9438
 glabel var7f1ade4c
-.word sightRenderDefault+0x4c8 # f0d9440
+.word sightDrawDefault+0x4c8 # f0d9440
 glabel var7f1ade50
-.word sightRenderDefault+0x4d0 # f0d9448
+.word sightDrawDefault+0x4d0 # f0d9448
 .text
 /*  f0d8f78:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0d8f7c:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
@@ -5019,7 +5019,7 @@ glabel var7f1ade50
 /*  f0d926c:	25051624 */ 	addiu	$a1,$t0,0x1624
 /*  f0d9270:	132000ab */ 	beqz	$t9,.L0f0d9520
 /*  f0d9274:	00000000 */ 	nop
-/*  f0d9278:	0fc35e3d */ 	jal	sightRenderTargetBox
+/*  f0d9278:	0fc35e3d */ 	jal	sightDrawTargetBox
 /*  f0d927c:	95071b90 */ 	lhu	$a3,0x1b90($t0)
 /*  f0d9280:	100000a7 */ 	b	.L0f0d9520
 /*  f0d9284:	00409825 */ 	or	$s3,$v0,$zero
@@ -5036,7 +5036,7 @@ glabel var7f1ade50
 /*  f0d92ac:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0d92b0:	11600006 */ 	beqz	$t3,.L0f0d92cc
 /*  f0d92b4:	010c6821 */ 	addu	$t5,$t0,$t4
-/*  f0d92b8:	0fc35e3d */ 	jal	sightRenderTargetBox
+/*  f0d92b8:	0fc35e3d */ 	jal	sightDrawTargetBox
 /*  f0d92bc:	95a71b90 */ 	lhu	$a3,0x1b90($t5)
 /*  f0d92c0:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f0d92c4:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
@@ -5155,7 +5155,7 @@ glabel var7f1ade50
 /*  f0d9460:	01096821 */ 	addu	$t5,$t0,$t1
 .L0f0d9464:
 /*  f0d9464:	95a71b90 */ 	lhu	$a3,0x1b90($t5)
-/*  f0d9468:	0fc35e3d */ 	jal	sightRenderTargetBox
+/*  f0d9468:	0fc35e3d */ 	jal	sightDrawTargetBox
 /*  f0d946c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f0d9470:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f0d9474:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
@@ -5164,7 +5164,7 @@ glabel var7f1ade50
 .L0f0d9480:
 /*  f0d9480:	01097021 */ 	addu	$t6,$t0,$t1
 /*  f0d9484:	95c71b90 */ 	lhu	$a3,0x1b90($t6)
-/*  f0d9488:	0fc35e3d */ 	jal	sightRenderTargetBox
+/*  f0d9488:	0fc35e3d */ 	jal	sightDrawTargetBox
 /*  f0d948c:	26060002 */ 	addiu	$a2,$s0,0x2
 /*  f0d9490:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f0d9494:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
@@ -5222,7 +5222,7 @@ glabel var7f1ade50
 #endif
 
 // Mismatch: Goal loads g_Vars.lvupdate240 differently for add to var80070f98.
-//Gfx *sightRenderDefault(Gfx *gdl, bool sighton)
+//Gfx *sightDrawDefault(Gfx *gdl, bool sighton)
 //{
 //	s32 s1;
 //	s32 sp90;
@@ -5298,14 +5298,14 @@ glabel var7f1ade50
 //			gdl = func0f0d7f54(gdl, x, y, s1, sp90, colour);
 //
 //			if (g_Vars.currentplayer->lookingatprop.prop) {
-//				gdl = sightRenderTargetBox(gdl, &g_Vars.currentplayer->lookingatprop, 1, g_Vars.currentplayer->targetset[0]);
+//				gdl = sightDrawTargetBox(gdl, &g_Vars.currentplayer->lookingatprop, 1, g_Vars.currentplayer->targetset[0]);
 //			}
 //		}
 //		break;
 //	case SIGHTTARGET_3: // f0d9288
 //		for (i = 0; i < 1; i++) {
 //			if (g_Vars.currentplayer->cmpfollowprops[i].prop) {
-//				gdl = sightRenderTargetBox(gdl, &g_Vars.currentplayer->cmpfollowprops[i], 0,
+//				gdl = sightDrawTargetBox(gdl, &g_Vars.currentplayer->cmpfollowprops[i], 0,
 //						g_Vars.currentplayer->targetset[i]);
 //			}
 //		}
@@ -5382,13 +5382,13 @@ glabel var7f1ade50
 //						}
 //					}
 //
-//					gdl = sightRenderTargetBox(gdl, &g_Vars.currentplayer->cmpfollowprops[i], textid,
+//					gdl = sightDrawTargetBox(gdl, &g_Vars.currentplayer->cmpfollowprops[i], textid,
 //							g_Vars.currentplayer->targetset[i]);
 //				} else {
 //					// CMP150-tracked prop - render with index number
 //					// For some reason i + 2 is passed instead of i + 1,
-//					// but this is compensated for in sightRenderTargetBox.
-//					gdl = sightRenderTargetBox(gdl, &g_Vars.currentplayer->cmpfollowprops[i], i + 2,
+//					// but this is compensated for in sightDrawTargetBox.
+//					gdl = sightDrawTargetBox(gdl, &g_Vars.currentplayer->cmpfollowprops[i], i + 2,
 //							g_Vars.currentplayer->targetset[i]);
 //				}
 //			}
@@ -5419,7 +5419,7 @@ u32 var80070f9c = 0x00ff00ff;
 u32 var80070fa0 = 0x00ff0011;
 
 GLOBAL_ASM(
-glabel sightRenderClassic
+glabel sightDrawClassic
 /*  f0d9544:	27bdff30 */ 	addiu	$sp,$sp,-208
 /*  f0d9548:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
 /*  f0d954c:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
@@ -5674,7 +5674,7 @@ glabel sightRenderClassic
 );
 
 // Mismatch: Arguments for gDPFillRectangle are calculated differently
-//Gfx *sightRenderClassic(Gfx *gdl, bool sighton)
+//Gfx *sightDrawClassic(Gfx *gdl, bool sighton)
 //{
 //	struct textureconfig *tconfig = &g_TexGeCrosshairConfigs[0];
 //
@@ -5732,176 +5732,90 @@ glabel sightRenderClassic
 //	return gdl;
 //}
 
-Gfx *sightRenderType2(Gfx *gdl, bool sighton)
+Gfx *sightDrawType2(Gfx *gdl, bool sighton)
 {
-	return sightRenderClassic(gdl, sighton);
+	return sightDrawClassic(gdl, sighton);
 }
 
-GLOBAL_ASM(
-glabel func0f0d9948
-/*  f0d9948:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0d994c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0d9950:	00808825 */ 	or	$s1,$a0,$zero
-/*  f0d9954:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0d9958:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0d995c:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f0d9960:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f0d9964:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f0d9968:	0fc59e59 */ 	jal	gfxAllocateVertices
-/*  f0d996c:	afa7004c */ 	sw	$a3,0x4c($sp)
-/*  f0d9970:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f0d9974:	0fc59e73 */ 	jal	gfxAllocateColours
-/*  f0d9978:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f0d997c:	8fa7004c */ 	lw	$a3,0x4c($sp)
-/*  f0d9980:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f0d9984:	8fa60048 */ 	lw	$a2,0x48($sp)
-/*  f0d9988:	10e0000c */ 	beqz	$a3,.L0f0d99bc
-/*  f0d998c:	00404025 */ 	or	$t0,$v0,$zero
-/*  f0d9990:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0d9994:	10e10013 */ 	beq	$a3,$at,.L0f0d99e4
-/*  f0d9998:	26180005 */ 	addiu	$t8,$s0,0x5
-/*  f0d999c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0d99a0:	10e10019 */ 	beq	$a3,$at,.L0f0d9a08
-/*  f0d99a4:	26020007 */ 	addiu	$v0,$s0,0x7
-/*  f0d99a8:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0d99ac:	10e1001f */ 	beq	$a3,$at,.L0f0d9a2c
-/*  f0d99b0:	2602fff9 */ 	addiu	$v0,$s0,-7
-/*  f0d99b4:	10000075 */ 	b	.L0f0d9b8c
-/*  f0d99b8:	02201025 */ 	or	$v0,$s1,$zero
-.L0f0d99bc:
-/*  f0d99bc:	260e0005 */ 	addiu	$t6,$s0,0x5
-/*  f0d99c0:	24c20007 */ 	addiu	$v0,$a2,0x7
-/*  f0d99c4:	260ffffb */ 	addiu	$t7,$s0,-5
-/*  f0d99c8:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f0d99cc:	afa6002c */ 	sw	$a2,0x2c($sp)
-/*  f0d99d0:	afae0030 */ 	sw	$t6,0x30($sp)
-/*  f0d99d4:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f0d99d8:	afaf0038 */ 	sw	$t7,0x38($sp)
-/*  f0d99dc:	1000001e */ 	b	.L0f0d9a58
-/*  f0d99e0:	afa2003c */ 	sw	$v0,0x3c($sp)
-.L0f0d99e4:
-/*  f0d99e4:	24c2fff9 */ 	addiu	$v0,$a2,-7
-/*  f0d99e8:	2619fffb */ 	addiu	$t9,$s0,-5
-/*  f0d99ec:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f0d99f0:	afa6002c */ 	sw	$a2,0x2c($sp)
-/*  f0d99f4:	afb80030 */ 	sw	$t8,0x30($sp)
-/*  f0d99f8:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f0d99fc:	afb90038 */ 	sw	$t9,0x38($sp)
-/*  f0d9a00:	10000015 */ 	b	.L0f0d9a58
-/*  f0d9a04:	afa2003c */ 	sw	$v0,0x3c($sp)
-.L0f0d9a08:
-/*  f0d9a08:	24c9fffb */ 	addiu	$t1,$a2,-5
-/*  f0d9a0c:	24ca0005 */ 	addiu	$t2,$a2,0x5
-/*  f0d9a10:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f0d9a14:	afa6002c */ 	sw	$a2,0x2c($sp)
-/*  f0d9a18:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f0d9a1c:	afa90034 */ 	sw	$t1,0x34($sp)
-/*  f0d9a20:	afa20038 */ 	sw	$v0,0x38($sp)
-/*  f0d9a24:	1000000c */ 	b	.L0f0d9a58
-/*  f0d9a28:	afaa003c */ 	sw	$t2,0x3c($sp)
-.L0f0d9a2c:
-/*  f0d9a2c:	24cbfffb */ 	addiu	$t3,$a2,-5
-/*  f0d9a30:	24cc0005 */ 	addiu	$t4,$a2,0x5
-/*  f0d9a34:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f0d9a38:	afa6002c */ 	sw	$a2,0x2c($sp)
-/*  f0d9a3c:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f0d9a40:	afab0034 */ 	sw	$t3,0x34($sp)
-/*  f0d9a44:	afa20038 */ 	sw	$v0,0x38($sp)
-/*  f0d9a48:	10000003 */ 	b	.L0f0d9a58
-/*  f0d9a4c:	afac003c */ 	sw	$t4,0x3c($sp)
-/*  f0d9a50:	1000004e */ 	b	.L0f0d9b8c
-/*  f0d9a54:	02201025 */ 	or	$v0,$s1,$zero
-.L0f0d9a58:
-/*  f0d9a58:	2402000a */ 	addiu	$v0,$zero,0xa
-/*  f0d9a5c:	02020019 */ 	multu	$s0,$v0
-/*  f0d9a60:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f0d9a64:	2403fff6 */ 	addiu	$v1,$zero,-10
-/*  f0d9a68:	3c01ff00 */ 	lui	$at,0xff00
-/*  f0d9a6c:	342100b2 */ 	ori	$at,$at,0xb2
-/*  f0d9a70:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0d9a74:	00006812 */ 	mflo	$t5
-/*  f0d9a78:	a4ad0000 */ 	sh	$t5,0x0($a1)
-/*  f0d9a7c:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*  f0d9a80:	a4a30004 */ 	sh	$v1,0x4($a1)
-/*  f0d9a84:	01c20019 */ 	multu	$t6,$v0
-/*  f0d9a88:	00007812 */ 	mflo	$t7
-/*  f0d9a8c:	a4af0002 */ 	sh	$t7,0x2($a1)
-/*  f0d9a90:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*  f0d9a94:	03020019 */ 	multu	$t8,$v0
-/*  f0d9a98:	0000c812 */ 	mflo	$t9
-/*  f0d9a9c:	a4b9000c */ 	sh	$t9,0xc($a1)
-/*  f0d9aa0:	8fa90034 */ 	lw	$t1,0x34($sp)
-/*  f0d9aa4:	a4a30010 */ 	sh	$v1,0x10($a1)
-/*  f0d9aa8:	01220019 */ 	multu	$t1,$v0
-/*  f0d9aac:	00005012 */ 	mflo	$t2
-/*  f0d9ab0:	a4aa000e */ 	sh	$t2,0xe($a1)
-/*  f0d9ab4:	8fab0038 */ 	lw	$t3,0x38($sp)
-/*  f0d9ab8:	01620019 */ 	multu	$t3,$v0
-/*  f0d9abc:	00006012 */ 	mflo	$t4
-/*  f0d9ac0:	a4ac0018 */ 	sh	$t4,0x18($a1)
-/*  f0d9ac4:	8fad003c */ 	lw	$t5,0x3c($sp)
-/*  f0d9ac8:	a4a3001c */ 	sh	$v1,0x1c($a1)
-/*  f0d9acc:	01a20019 */ 	multu	$t5,$v0
-/*  f0d9ad0:	00007012 */ 	mflo	$t6
-/*  f0d9ad4:	a4ae001a */ 	sh	$t6,0x1a($a1)
-/*  f0d9ad8:	54c1000b */ 	bnel	$a2,$at,.L0f0d9b08
-/*  f0d9adc:	0006ce02 */ 	srl	$t9,$a2,0x18
-/*  f0d9ae0:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f0d9ae4:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f0d9ae8:	0fc35c1c */ 	jal	sightIsPropFriendly
-/*  f0d9aec:	afa80020 */ 	sw	$t0,0x20($sp)
-/*  f0d9af0:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f0d9af4:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f0d9af8:	10400002 */ 	beqz	$v0,.L0f0d9b04
-/*  f0d9afc:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*  f0d9b00:	3406ff60 */ 	dli	$a2,0xff60
-.L0f0d9b04:
-/*  f0d9b04:	0006ce02 */ 	srl	$t9,$a2,0x18
-.L0f0d9b08:
-/*  f0d9b08:	00065c02 */ 	srl	$t3,$a2,0x10
-/*  f0d9b0c:	316c00ff */ 	andi	$t4,$t3,0xff
-/*  f0d9b10:	00194e00 */ 	sll	$t1,$t9,0x18
-/*  f0d9b14:	0006c202 */ 	srl	$t8,$a2,0x8
-/*  f0d9b18:	331900ff */ 	andi	$t9,$t8,0xff
-/*  f0d9b1c:	000c6c00 */ 	sll	$t5,$t4,0x10
-/*  f0d9b20:	012d7025 */ 	or	$t6,$t1,$t5
-/*  f0d9b24:	00195200 */ 	sll	$t2,$t9,0x8
-/*  f0d9b28:	01ca5825 */ 	or	$t3,$t6,$t2
-/*  f0d9b2c:	356c0008 */ 	ori	$t4,$t3,0x8
-/*  f0d9b30:	ad060000 */ 	sw	$a2,0x0($t0)
-/*  f0d9b34:	ad0c0004 */ 	sw	$t4,0x4($t0)
-/*  f0d9b38:	24070004 */ 	addiu	$a3,$zero,0x4
-/*  f0d9b3c:	a0a00007 */ 	sb	$zero,0x7($a1)
-/*  f0d9b40:	a0a70013 */ 	sb	$a3,0x13($a1)
-/*  f0d9b44:	a0a7001f */ 	sb	$a3,0x1f($a1)
-/*  f0d9b48:	3c090704 */ 	lui	$t1,0x704
-/*  f0d9b4c:	02201025 */ 	or	$v0,$s1,$zero
-/*  f0d9b50:	35290008 */ 	ori	$t1,$t1,0x8
-/*  f0d9b54:	ac490000 */ 	sw	$t1,0x0($v0)
-/*  f0d9b58:	ac480004 */ 	sw	$t0,0x4($v0)
-/*  f0d9b5c:	26230008 */ 	addiu	$v1,$s1,0x8
-/*  f0d9b60:	3c0d0420 */ 	lui	$t5,0x420
-/*  f0d9b64:	35ad0024 */ 	ori	$t5,$t5,0x24
-/*  f0d9b68:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f0d9b6c:	ac6d0000 */ 	sw	$t5,0x0($v1)
-/*  f0d9b70:	ac650004 */ 	sw	$a1,0x4($v1)
-/*  f0d9b74:	3c0fb100 */ 	lui	$t7,0xb100
-/*  f0d9b78:	35ef0002 */ 	ori	$t7,$t7,0x2
-/*  f0d9b7c:	24180010 */ 	addiu	$t8,$zero,0x10
-/*  f0d9b80:	ac980004 */ 	sw	$t8,0x4($a0)
-/*  f0d9b84:	ac8f0000 */ 	sw	$t7,0x0($a0)
-/*  f0d9b88:	24820008 */ 	addiu	$v0,$a0,0x8
-.L0f0d9b8c:
-/*  f0d9b8c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0d9b90:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0d9b94:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0d9b98:	03e00008 */ 	jr	$ra
-/*  f0d9b9c:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+Gfx *sightDrawSkedarTriangle(Gfx *gdl, s32 x, s32 y, s32 dir, u32 colour)
+{
+	s32 points[6];
+	struct gfxvtx *vertices;
+	u32 *colours;
+
+	vertices = gfxAllocateVertices(3);
+	colours = gfxAllocateColours(2);
+
+	switch (dir) {
+	case 0:
+		points[0] = x;
+		points[1] = y;
+		points[2] = x + 5;
+		points[3] = y + 7;
+		points[4] = x - 5;
+		points[5] = y + 7;
+		break;
+	case 1:
+		points[0] = x;
+		points[1] = y;
+		points[2] = x + 5;
+		points[3] = y - 7;
+		points[4] = x - 5;
+		points[5] = y - 7;
+		break;
+	case 2:
+		points[0] = x;
+		points[1] = y;
+		points[2] = x + 7;
+		points[3] = y - 5;
+		points[4] = x + 7;
+		points[5] = y + 5;
+		break;
+	case 3:
+		points[0] = x;
+		points[1] = y;
+		points[2] = x - 7;
+		points[3] = y - 5;
+		points[4] = x - 7;
+		points[5] = y + 5;
+		break;
+	default:
+		return gdl;
+	}
+
+	vertices[0].x = points[0] * 10;
+	vertices[0].y = points[1] * 10;
+	vertices[0].z = -10;
+	vertices[1].x = points[2] * 10;
+	vertices[1].y = points[3] * 10;
+	vertices[1].z = -10;
+	vertices[2].x = points[4] * 10;
+	vertices[2].y = points[5] * 10;
+	vertices[2].z = -10;
+
+	if (colour == 0xff0000b2 && sightIsPropFriendly(NULL)) {
+		colour = 0x0000ff60;
+	}
+
+#define RGBA(r, g, b, a) (((r) & 0xff) << 24 | ((g) & 0xff) << 16 | ((b) & 0xff) << 8 | ((a) & 0xff))
+
+	colours[0] = colour;
+	colours[1] = RGBA((colour >> 24) & 0xff, (colour >> 16) & 0xff, (colour >> 8) & 0xff, 0x08);
+
+	vertices[0].colour = 0;
+	vertices[1].colour = 4;
+	vertices[2].colour = 4;
+
+	gDPSetColorArray(gdl++, colours, 2);
+	gDPSetVerticeArray(gdl++, vertices, 3);
+	gDPTri1(gdl++, 0, 1, 2);
+
+	return gdl;
+}
 
 #if PAL
 GLOBAL_ASM(
-glabel sightRenderSkedar
+glabel sightDrawSkedar
 /*  f0d9ba0:	27bdff70 */ 	addiu	$sp,$sp,-144
 /*  f0d9ba4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f0d9ba8:	afa40090 */ 	sw	$a0,0x90($sp)
@@ -6122,7 +6036,7 @@ glabel sightRenderSkedar
 /*  f0d9ec4:	afaa0074 */ 	sw	$t2,0x74($sp)
 /*  f0d9ec8:	afab0084 */ 	sw	$t3,0x84($sp)
 /*  f0d9ecc:	afac004c */ 	sw	$t4,0x4c($sp)
-/*  f0d9ed0:	0fc36652 */ 	jal	func0f0d9948
+/*  f0d9ed0:	0fc36652 */ 	jal	sightDrawSkedarTriangle
 /*  f0d9ed4:	afad0078 */ 	sw	$t5,0x78($sp)
 /*  f0d9ed8:	8fac004c */ 	lw	$t4,0x4c($sp)
 /*  f0d9edc:	3c1fff55 */ 	lui	$ra,0xff55
@@ -6182,7 +6096,7 @@ glabel sightRenderSkedar
 /*  f0d9fa0:	afaa0074 */ 	sw	$t2,0x74($sp)
 /*  f0d9fa4:	afab0084 */ 	sw	$t3,0x84($sp)
 /*  f0d9fa8:	afac004c */ 	sw	$t4,0x4c($sp)
-/*  f0d9fac:	0fc36652 */ 	jal	func0f0d9948
+/*  f0d9fac:	0fc36652 */ 	jal	sightDrawSkedarTriangle
 /*  f0d9fb0:	afad0078 */ 	sw	$t5,0x78($sp)
 /*  f0d9fb4:	8fac004c */ 	lw	$t4,0x4c($sp)
 /*  f0d9fb8:	3c1fff55 */ 	lui	$ra,0xff55
@@ -6273,7 +6187,7 @@ glabel sightRenderSkedar
 /*  f0da0ec:	afa90010 */ 	sw	$t1,0x10($sp)
 /*  f0da0f0:	afa8002c */ 	sw	$t0,0x2c($sp)
 /*  f0da0f4:	afab0084 */ 	sw	$t3,0x84($sp)
-/*  f0da0f8:	0fc36652 */ 	jal	func0f0d9948
+/*  f0da0f8:	0fc36652 */ 	jal	sightDrawSkedarTriangle
 /*  f0da0fc:	afac004c */ 	sw	$t4,0x4c($sp)
 /*  f0da100:	8fac004c */ 	lw	$t4,0x4c($sp)
 /*  f0da104:	3c1fff55 */ 	lui	$ra,0xff55
@@ -6342,7 +6256,7 @@ glabel sightRenderSkedar
 /*  f0da1e8:	8fa6005c */ 	lw	$a2,0x5c($sp)
 .L0f0da1ec:
 /*  f0da1ec:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f0da1f0:	0fc36652 */ 	jal	func0f0d9948
+/*  f0da1f0:	0fc36652 */ 	jal	sightDrawSkedarTriangle
 /*  f0da1f4:	afac004c */ 	sw	$t4,0x4c($sp)
 /*  f0da1f8:	8fac004c */ 	lw	$t4,0x4c($sp)
 /*  f0da1fc:	3c1fff55 */ 	lui	$ra,0xff55
@@ -6374,28 +6288,28 @@ glabel sightRenderSkedar
 /*  f0da25c:	35295564 */ 	ori	$t1,$t1,0x5564
 .L0f0da260:
 /*  f0da260:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f0da264:	0fc36652 */ 	jal	func0f0d9948
+/*  f0da264:	0fc36652 */ 	jal	sightDrawSkedarTriangle
 /*  f0da268:	afa90054 */ 	sw	$t1,0x54($sp)
 /*  f0da26c:	8fa90054 */ 	lw	$t1,0x54($sp)
 /*  f0da270:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0da274:	8fa5006c */ 	lw	$a1,0x6c($sp)
 /*  f0da278:	8fa60028 */ 	lw	$a2,0x28($sp)
 /*  f0da27c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0da280:	0fc36652 */ 	jal	func0f0d9948
+/*  f0da280:	0fc36652 */ 	jal	sightDrawSkedarTriangle
 /*  f0da284:	afa90010 */ 	sw	$t1,0x10($sp)
 /*  f0da288:	8fa90054 */ 	lw	$t1,0x54($sp)
 /*  f0da28c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0da290:	8fa50020 */ 	lw	$a1,0x20($sp)
 /*  f0da294:	8fa60060 */ 	lw	$a2,0x60($sp)
 /*  f0da298:	24070003 */ 	addiu	$a3,$zero,0x3
-/*  f0da29c:	0fc36652 */ 	jal	func0f0d9948
+/*  f0da29c:	0fc36652 */ 	jal	sightDrawSkedarTriangle
 /*  f0da2a0:	afa90010 */ 	sw	$t1,0x10($sp)
 /*  f0da2a4:	8fa90054 */ 	lw	$t1,0x54($sp)
 /*  f0da2a8:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0da2ac:	8fa50024 */ 	lw	$a1,0x24($sp)
 /*  f0da2b0:	8fa60060 */ 	lw	$a2,0x60($sp)
 /*  f0da2b4:	24070002 */ 	addiu	$a3,$zero,0x2
-/*  f0da2b8:	0fc36652 */ 	jal	func0f0d9948
+/*  f0da2b8:	0fc36652 */ 	jal	sightDrawSkedarTriangle
 /*  f0da2bc:	afa90010 */ 	sw	$t1,0x10($sp)
 /*  f0da2c0:	00402025 */ 	or	$a0,$v0,$zero
 .L0f0da2c4:
@@ -6409,7 +6323,7 @@ glabel sightRenderSkedar
 );
 #else
 GLOBAL_ASM(
-glabel sightRenderSkedar
+glabel sightDrawSkedar
 /*  f0d9ba0:	27bdff70 */ 	addiu	$sp,$sp,-144
 /*  f0d9ba4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f0d9ba8:	afa40090 */ 	sw	$a0,0x90($sp)
@@ -6630,7 +6544,7 @@ glabel sightRenderSkedar
 /*  f0d9ec4:	afaa0074 */ 	sw	$t2,0x74($sp)
 /*  f0d9ec8:	afab0084 */ 	sw	$t3,0x84($sp)
 /*  f0d9ecc:	afac004c */ 	sw	$t4,0x4c($sp)
-/*  f0d9ed0:	0fc36652 */ 	jal	func0f0d9948
+/*  f0d9ed0:	0fc36652 */ 	jal	sightDrawSkedarTriangle
 /*  f0d9ed4:	afad0078 */ 	sw	$t5,0x78($sp)
 /*  f0d9ed8:	8fac004c */ 	lw	$t4,0x4c($sp)
 /*  f0d9edc:	3c1fff55 */ 	lui	$ra,0xff55
@@ -6690,7 +6604,7 @@ glabel sightRenderSkedar
 /*  f0d9fa0:	afaa0074 */ 	sw	$t2,0x74($sp)
 /*  f0d9fa4:	afab0084 */ 	sw	$t3,0x84($sp)
 /*  f0d9fa8:	afac004c */ 	sw	$t4,0x4c($sp)
-/*  f0d9fac:	0fc36652 */ 	jal	func0f0d9948
+/*  f0d9fac:	0fc36652 */ 	jal	sightDrawSkedarTriangle
 /*  f0d9fb0:	afad0078 */ 	sw	$t5,0x78($sp)
 /*  f0d9fb4:	8fac004c */ 	lw	$t4,0x4c($sp)
 /*  f0d9fb8:	3c1fff55 */ 	lui	$ra,0xff55
@@ -6781,7 +6695,7 @@ glabel sightRenderSkedar
 /*  f0da0ec:	afa90010 */ 	sw	$t1,0x10($sp)
 /*  f0da0f0:	afa8002c */ 	sw	$t0,0x2c($sp)
 /*  f0da0f4:	afab0084 */ 	sw	$t3,0x84($sp)
-/*  f0da0f8:	0fc36652 */ 	jal	func0f0d9948
+/*  f0da0f8:	0fc36652 */ 	jal	sightDrawSkedarTriangle
 /*  f0da0fc:	afac004c */ 	sw	$t4,0x4c($sp)
 /*  f0da100:	8fac004c */ 	lw	$t4,0x4c($sp)
 /*  f0da104:	3c1fff55 */ 	lui	$ra,0xff55
@@ -6850,7 +6764,7 @@ glabel sightRenderSkedar
 /*  f0da1e8:	8fa6005c */ 	lw	$a2,0x5c($sp)
 .L0f0da1ec:
 /*  f0da1ec:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f0da1f0:	0fc36652 */ 	jal	func0f0d9948
+/*  f0da1f0:	0fc36652 */ 	jal	sightDrawSkedarTriangle
 /*  f0da1f4:	afac004c */ 	sw	$t4,0x4c($sp)
 /*  f0da1f8:	8fac004c */ 	lw	$t4,0x4c($sp)
 /*  f0da1fc:	3c1fff55 */ 	lui	$ra,0xff55
@@ -6882,28 +6796,28 @@ glabel sightRenderSkedar
 /*  f0da25c:	35295564 */ 	ori	$t1,$t1,0x5564
 .L0f0da260:
 /*  f0da260:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f0da264:	0fc36652 */ 	jal	func0f0d9948
+/*  f0da264:	0fc36652 */ 	jal	sightDrawSkedarTriangle
 /*  f0da268:	afa90054 */ 	sw	$t1,0x54($sp)
 /*  f0da26c:	8fa90054 */ 	lw	$t1,0x54($sp)
 /*  f0da270:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0da274:	8fa5006c */ 	lw	$a1,0x6c($sp)
 /*  f0da278:	8fa60028 */ 	lw	$a2,0x28($sp)
 /*  f0da27c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0da280:	0fc36652 */ 	jal	func0f0d9948
+/*  f0da280:	0fc36652 */ 	jal	sightDrawSkedarTriangle
 /*  f0da284:	afa90010 */ 	sw	$t1,0x10($sp)
 /*  f0da288:	8fa90054 */ 	lw	$t1,0x54($sp)
 /*  f0da28c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0da290:	8fa50020 */ 	lw	$a1,0x20($sp)
 /*  f0da294:	8fa60060 */ 	lw	$a2,0x60($sp)
 /*  f0da298:	24070003 */ 	addiu	$a3,$zero,0x3
-/*  f0da29c:	0fc36652 */ 	jal	func0f0d9948
+/*  f0da29c:	0fc36652 */ 	jal	sightDrawSkedarTriangle
 /*  f0da2a0:	afa90010 */ 	sw	$t1,0x10($sp)
 /*  f0da2a4:	8fa90054 */ 	lw	$t1,0x54($sp)
 /*  f0da2a8:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0da2ac:	8fa50024 */ 	lw	$a1,0x24($sp)
 /*  f0da2b0:	8fa60060 */ 	lw	$a2,0x60($sp)
 /*  f0da2b4:	24070002 */ 	addiu	$a3,$zero,0x2
-/*  f0da2b8:	0fc36652 */ 	jal	func0f0d9948
+/*  f0da2b8:	0fc36652 */ 	jal	sightDrawSkedarTriangle
 /*  f0da2bc:	afa90010 */ 	sw	$t1,0x10($sp)
 /*  f0da2c0:	00402025 */ 	or	$a0,$v0,$zero
 .L0f0da2c4:
@@ -6918,7 +6832,7 @@ glabel sightRenderSkedar
 #endif
 
 GLOBAL_ASM(
-glabel sightRenderZoom
+glabel sightDrawZoom
 .late_rodata
 glabel var7f1ade54
 .word 0x3e4ccccd
@@ -9014,7 +8928,7 @@ glabel var7f1ade54
 /*  f0dc150:	00403025 */ 	or	$a2,$v0,$zero
 .L0f0dc154:
 /*  f0dc154:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0dc158:	0fc363de */ 	jal	sightRenderDefault
+/*  f0dc158:	0fc363de */ 	jal	sightDrawDefault
 /*  f0dc15c:	8fa50104 */ 	lw	$a1,0x104($sp)
 /*  f0dc160:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0dc164:	27bd0100 */ 	addiu	$sp,$sp,0x100
@@ -9023,7 +8937,7 @@ glabel var7f1ade54
 );
 
 GLOBAL_ASM(
-glabel sightRenderMaian
+glabel sightDrawMaian
 /*  f0dc170:	27bdff50 */ 	addiu	$sp,$sp,-176
 /*  f0dc174:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f0dc178:	afb00014 */ 	sw	$s0,0x14($sp)
@@ -9387,7 +9301,7 @@ glabel sightRenderMaian
 );
 
 // Mismatch: Many reordered instructions from around vertices[4] onwards
-//Gfx *sightRenderMaian(Gfx *gdl, bool sighton)
+//Gfx *sightDrawMaian(Gfx *gdl, bool sighton)
 //{
 //	s32 viewleft = viGetViewLeft() / g_ScaleX; // ac
 //	s32 viewtop = viGetViewTop(); // a8
@@ -9495,7 +9409,7 @@ glabel sightRenderMaian
 //	return gdl;
 //}
 
-Gfx *sightRenderTarget(Gfx *gdl)
+Gfx *sightDrawTarget(Gfx *gdl)
 {
 	s32 x = (s32)g_Vars.currentplayer->crosspos[0] / g_ScaleX;
 	s32 y = g_Vars.currentplayer->crosspos[1];
@@ -9528,7 +9442,7 @@ bool sightHasTargetWhileAiming(s32 sight)
 	return false;
 }
 
-Gfx *sightRender(Gfx *gdl, bool sighton, s32 sight)
+Gfx *sightDraw(Gfx *gdl, bool sighton, s32 sight)
 {
 	if (sight);
 
@@ -9558,28 +9472,28 @@ Gfx *sightRender(Gfx *gdl, bool sighton, s32 sight)
 
 	switch (sight) {
 	case SIGHT_DEFAULT:
-		gdl = sightRenderDefault(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
+		gdl = sightDrawDefault(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
 		break;
 	case SIGHT_CLASSIC:
-		gdl = sightRenderClassic(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
+		gdl = sightDrawClassic(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
 		break;
 	case SIGHT_2:
-		gdl = sightRenderType2(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
+		gdl = sightDrawType2(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
 		break;
 	case SIGHT_3:
-		gdl = sightRenderDefault(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
+		gdl = sightDrawDefault(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
 		break;
 	case SIGHT_SKEDAR:
-		gdl = sightRenderSkedar(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
+		gdl = sightDrawSkedar(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
 		break;
 	case SIGHT_ZOOM:
-		gdl = sightRenderZoom(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
+		gdl = sightDrawZoom(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
 		break;
 	case SIGHT_MAIAN:
-		gdl = sightRenderMaian(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
+		gdl = sightDrawMaian(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
 		break;
 	default:
-		gdl = sightRenderDefault(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
+		gdl = sightDrawDefault(gdl, sighton && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
 		break;
 	case SIGHT_NONE:
 		break;
@@ -9588,7 +9502,7 @@ Gfx *sightRender(Gfx *gdl, bool sighton, s32 sight)
 	if (sight != SIGHT_NONE && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex)) {
 		if ((optionsGetAlwaysShowTarget(g_Vars.currentplayerstats->mpindex) && !sighton)
 				|| (sighton && sightHasTargetWhileAiming(sight))) {
-			gdl = sightRenderTarget(gdl);
+			gdl = sightDrawTarget(gdl);
 		}
 	}
 

@@ -33030,12 +33030,12 @@ void bgunSetSightVisible(u32 reason, bool visible)
 	g_Vars.currentplayer->gunsightoff |= reason;
 }
 
-Gfx *bgunRenderSight(Gfx *gdl)
+Gfx *bgunDrawSight(Gfx *gdl)
 {
 	if (g_Vars.currentplayer->gunsightoff == false && !g_Vars.currentplayer->mpmenuon) {
-		gdl = sightRender(gdl, true, currentPlayerGetSight());
+		gdl = sightDraw(gdl, true, currentPlayerGetSight());
 	} else {
-		gdl = sightRender(gdl, false, currentPlayerGetSight());
+		gdl = sightDraw(gdl, false, currentPlayerGetSight());
 	}
 
 	return gdl;
