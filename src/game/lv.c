@@ -566,52 +566,52 @@ void lvFadeReset(void)
 	g_FadeDelay = 0;
 }
 
-bool lvCheckCmpFollowThreat(struct threat *threat, s32 index)
+bool lvUpdateTrackedProp(struct trackedprop *trackedprop, s32 index)
 {
-	f32 sp76;
-	f32 sp72;
-	f32 sp68;
-	f32 sp64;
-	struct prop *prop = threat->prop;
+	f32 y1;
+	f32 x1;
+	f32 y2;
+	f32 x2;
+	struct prop *prop = trackedprop->prop;
 	struct chrdata *chr;
 
-	if (threat->prop && prop->chr) {
-		switch (threat->prop->type) {
+	if (trackedprop->prop && prop->chr) {
+		switch (trackedprop->prop->type) {
 		case PROPTYPE_PLAYER:
 			if (playermgrGetPlayerNumByProp(prop) == g_Vars.currentplayernum) {
 				return false;
 			}
 			// fall through
 		case PROPTYPE_CHR:
-			chr = threat->prop->chr;
+			chr = trackedprop->prop->chr;
 
-			if (chrIsDead(threat->prop->chr)) {
+			if (chrIsDead(trackedprop->prop->chr)) {
 				if (index >= 0) {
-					// Existing threat
+					// Existing trackedprop
 					if (g_Vars.currentplayer->targetset[index] < TICKS(129)) {
 						g_Vars.currentplayer->targetset[index] = TICKS(129);
 					}
 
 					if (g_Vars.currentplayer->targetset[index] >= (PAL ? 146 : 175)) {
-						threat->prop = NULL;
+						trackedprop->prop = NULL;
 						return false;
 					}
 				} else {
-					// Attempting to add a new threat, but chr is dead
-					threat->prop = NULL;
+					// lookingatprop
+					trackedprop->prop = NULL;
 					return false;
 				}
 			}
 
-			if ((threat->prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)
+			if ((trackedprop->prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)
 					&& (chr->chrflags & CHRCFLAG_NOAUTOAIM) == 0) {
 				struct model *model = chr->model;
-				sp72 = -1;
-				sp76 = -1;
-				sp64 = -2;
-				sp68 = -2;
+				x1 = -1;
+				y1 = -1;
+				x2 = -2;
+				y2 = -2;
 
-				if (modelSetRedBox(model, &sp64, &sp72, &sp68, &sp76)) {
+				if (modelGetScreenCoords(model, &x2, &x1, &y2, &y1)) {
 					break;
 				}
 				return false;
@@ -619,15 +619,15 @@ bool lvCheckCmpFollowThreat(struct threat *threat, s32 index)
 			return false;
 		case PROPTYPE_OBJ:
 		case PROPTYPE_WEAPON:
-			if (threat->prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
-				struct defaultobj *obj = threat->prop->obj;
+			if (trackedprop->prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
+				struct defaultobj *obj = trackedprop->prop->obj;
 				struct model *model = obj->model;
-				sp72 = -1;
-				sp76 = -1;
-				sp64 = -2;
-				sp68 = -2;
+				x1 = -1;
+				y1 = -1;
+				x2 = -2;
+				y2 = -2;
 
-				if (modelSetRedBox(model, &sp64, &sp72, &sp68, &sp76)) {
+				if (modelGetScreenCoords(model, &x2, &x1, &y2, &y1)) {
 					break;
 				}
 				return false;
@@ -641,10 +641,10 @@ bool lvCheckCmpFollowThreat(struct threat *threat, s32 index)
 			return false;
 		}
 
-		threat->x1 = sp72 - 2;
-		threat->x2 = sp64 + 2;
-		threat->y1 = sp76 - 2;
-		threat->y2 = sp68 + 2;
+		trackedprop->x1 = x1 - 2;
+		trackedprop->x2 = x2 + 2;
+		trackedprop->y1 = y1 - 2;
+		trackedprop->y2 = y2 + 2;
 	}
 
 	return true;
@@ -773,7 +773,7 @@ void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerp
 
 		if (pass) {
 			for (i = 0; i != 4; i++) {
-				if (g_Vars.currentplayer->cmpfollowprops[i].prop == prop) {
+				if (g_Vars.currentplayer->trackedprops[i].prop == prop) {
 					pass = false;
 				}
 			}
@@ -785,7 +785,7 @@ void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerp
 			sp76 = -2;
 			sp80 = -2;
 
-			if (!modelSetRedBox(model, &sp76, &sp84, &sp80, &sp88)) {
+			if (!modelGetScreenCoords(model, &sp76, &sp84, &sp80, &sp88)) {
 				pass = false;
 			}
 		}
@@ -820,11 +820,11 @@ void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerp
 			}
 
 			if (index >= 0) {
-				g_Vars.currentplayer->cmpfollowprops[index].prop = prop;
-				g_Vars.currentplayer->cmpfollowprops[index].x1 = sp84 - 2;
-				g_Vars.currentplayer->cmpfollowprops[index].x2 = sp76 + 2;
-				g_Vars.currentplayer->cmpfollowprops[index].y1 = sp88 - 2;
-				g_Vars.currentplayer->cmpfollowprops[index].y2 = sp80 + 2;
+				g_Vars.currentplayer->trackedprops[index].prop = prop;
+				g_Vars.currentplayer->trackedprops[index].x1 = sp84 - 2;
+				g_Vars.currentplayer->trackedprops[index].x2 = sp76 + 2;
+				g_Vars.currentplayer->trackedprops[index].y1 = sp88 - 2;
+				g_Vars.currentplayer->trackedprops[index].y2 = sp80 + 2;
 				g_Vars.currentplayer->targetset[index] = 0;
 				activeslots[index] = true;
 				distances[index] = sqdist;
@@ -851,19 +851,19 @@ void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 
 	struct model *model;
 
 	for (i = 0; i != 4; i++) {
-		if (g_Vars.currentplayer->cmpfollowprops[i].prop == prop
+		if (g_Vars.currentplayer->trackedprops[i].prop == prop
 				&& (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
 			model = NULL;
 
 			if (prop->type == PROPTYPE_OBJ
 					|| prop->type == PROPTYPE_WEAPON
 					|| prop->type == PROPTYPE_DOOR) {
-				model = g_Vars.currentplayer->cmpfollowprops[i].prop->obj->model;
+				model = g_Vars.currentplayer->trackedprops[i].prop->obj->model;
 			} else {
 				if (prop->type == PROPTYPE_CHR
 						|| (prop->type == PROPTYPE_PLAYER
 							&& playermgrGetPlayerNumByProp(prop) != g_Vars.currentplayernum)) {
-					model = g_Vars.currentplayer->cmpfollowprops[i].prop->chr->model;
+					model = g_Vars.currentplayer->trackedprops[i].prop->chr->model;
 				}
 			}
 
@@ -873,12 +873,12 @@ void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 
 				sp116 = -2;
 				sp120 = -2;
 
-				if (modelSetRedBox(model, &sp116, &sp124, &sp120, &sp128)) {
+				if (modelGetScreenCoords(model, &sp116, &sp124, &sp120, &sp128)) {
 					activeslots[i] = true;
-					g_Vars.currentplayer->cmpfollowprops[i].x1 = sp124 - 2;
-					g_Vars.currentplayer->cmpfollowprops[i].x2 = sp116 + 2;
-					g_Vars.currentplayer->cmpfollowprops[i].y1 = sp128 - 2;
-					g_Vars.currentplayer->cmpfollowprops[i].y2 = sp120 + 2;
+					g_Vars.currentplayer->trackedprops[i].x1 = sp124 - 2;
+					g_Vars.currentplayer->trackedprops[i].x2 = sp116 + 2;
+					g_Vars.currentplayer->trackedprops[i].y1 = sp128 - 2;
+					g_Vars.currentplayer->trackedprops[i].y2 = sp120 + 2;
 
 					distances[i] =
 						(prop->pos.f[0] - playerpos->f[0]) * (prop->pos.f[0] - playerpos->f[0]) +
@@ -923,9 +923,9 @@ void lvFindThreats(void)
 
 	for (i = 0; i != ARRAYCOUNT(activeslots); i++) {
 		if (!activeslots[i]) {
-			g_Vars.currentplayer->cmpfollowprops[i].prop = NULL;
-			g_Vars.currentplayer->cmpfollowprops[i].x1 = -1;
-			g_Vars.currentplayer->cmpfollowprops[i].x2 = -2;
+			g_Vars.currentplayer->trackedprops[i].prop = NULL;
+			g_Vars.currentplayer->trackedprops[i].x1 = -1;
+			g_Vars.currentplayer->trackedprops[i].x2 = -2;
 		}
 	}
 
@@ -1230,14 +1230,14 @@ Gfx *lvRender(Gfx *gdl)
 							&& g_Vars.currentplayer->lookingatprop.prop
 							&& bmoveIsInSightAimMode()) {
 						func0f1a0924(g_Vars.currentplayer->lookingatprop.prop);
-					} else if (lvCheckCmpFollowThreat(&g_Vars.currentplayer->lookingatprop, -1) == 0) {
+					} else if (lvUpdateTrackedProp(&g_Vars.currentplayer->lookingatprop, -1) == 0) {
 						g_Vars.currentplayer->lookingatprop.prop = NULL;
 					}
 
-					for (j = 0; j < ARRAYCOUNT(g_Vars.currentplayer->cmpfollowprops); j++) {
-						if (!lvCheckCmpFollowThreat(&g_Vars.currentplayer->cmpfollowprops[j], j)) {
-							g_Vars.currentplayer->cmpfollowprops[j].x1 = -1;
-							g_Vars.currentplayer->cmpfollowprops[j].x2 = -2;
+					for (j = 0; j < ARRAYCOUNT(g_Vars.currentplayer->trackedprops); j++) {
+						if (!lvUpdateTrackedProp(&g_Vars.currentplayer->trackedprops[j], j)) {
+							g_Vars.currentplayer->trackedprops[j].x1 = -1;
+							g_Vars.currentplayer->trackedprops[j].x2 = -2;
 						}
 					}
 				}

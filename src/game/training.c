@@ -9158,20 +9158,20 @@ void func0f1a0924(struct prop *prop)
 		sp56 = -2;
 		sp60 = -2;
 
-		modelSetRedBox(obj->model, &sp56, &sp64, &sp60, &sp68);
+		modelGetScreenCoords(obj->model, &sp56, &sp64, &sp60, &sp68);
 
 		for (i = 0; i < 4; i++) {
-			if (g_Vars.currentplayer->cmpfollowprops[i].prop == prop) {
+			if (g_Vars.currentplayer->trackedprops[i].prop == prop) {
 				return;
 			}
 
-			if (g_Vars.currentplayer->cmpfollowprops[i].prop == NULL) {
-				g_Vars.currentplayer->cmpfollowprops[i].prop = prop;
+			if (g_Vars.currentplayer->trackedprops[i].prop == NULL) {
+				g_Vars.currentplayer->trackedprops[i].prop = prop;
 
-				g_Vars.currentplayer->cmpfollowprops[i].x1 = sp64 - 2;
-				g_Vars.currentplayer->cmpfollowprops[i].x2 = sp56 + 2;
-				g_Vars.currentplayer->cmpfollowprops[i].y1 = sp68 - 2;
-				g_Vars.currentplayer->cmpfollowprops[i].y2 = sp60 + 2;
+				g_Vars.currentplayer->trackedprops[i].x1 = sp64 - 2;
+				g_Vars.currentplayer->trackedprops[i].x2 = sp56 + 2;
+				g_Vars.currentplayer->trackedprops[i].y1 = sp68 - 2;
+				g_Vars.currentplayer->trackedprops[i].y2 = sp60 + 2;
 				g_Vars.currentplayer->targetset[i] = 0;
 				return;
 			}

@@ -238,7 +238,7 @@ void bgunReset(void)
 	bgunCalculateBlend(HAND_LEFT);
 
 	g_Vars.currentplayer->gunammooff = 0;
-	g_Vars.currentplayer->gunsightoff = GUNSIGHTREASON_AIMING;
+	g_Vars.currentplayer->gunsightoff = GUNSIGHTREASON_NOTAIMING;
 	g_Vars.currentplayer->gunzoomfovs[0] = 15;
 	g_Vars.currentplayer->gunzoomfovs[1] = 60;
 	g_Vars.currentplayer->gunzoomfovs[2] = 30;

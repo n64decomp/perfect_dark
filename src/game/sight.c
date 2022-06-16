@@ -74,7 +74,7 @@ bool sightCanTargetProp(struct prop *prop, s32 max)
 	s32 i;
 
 	for (i = 0; i < max; i++) {
-		if (prop == g_Vars.currentplayer->cmpfollowprops[i].prop) {
+		if (prop == g_Vars.currentplayer->trackedprops[i].prop) {
 			return false;
 		}
 	}
@@ -139,7 +139,7 @@ s32 sightFindFreeTargetIndex(s32 max)
 	s32 i;
 
 	for (i = 0; i < max; i++) {
-		if (g_Vars.currentplayer->cmpfollowprops[i].prop == NULL) {
+		if (g_Vars.currentplayer->trackedprops[i].prop == NULL) {
 			return i;
 		}
 	}
@@ -151,14 +151,14 @@ void func0f0d7364(void)
 {
 	s32 i;
 
-	for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->cmpfollowprops); i++) {
-		g_Vars.currentplayer->cmpfollowprops[i].prop = NULL;
+	for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->trackedprops); i++) {
+		g_Vars.currentplayer->trackedprops[i].prop = NULL;
 	}
 }
 
 void sightTick(bool sighton)
 {
-	struct threat *threat;
+	struct trackedprop *trackedprop;
 	u8 newtarget;
 	s32 i;
 	s32 index;
@@ -197,70 +197,70 @@ void sightTick(bool sighton)
 	if (newtarget != g_Vars.currentplayer->target) {
 		if (newtarget == 5) {
 			for (i = 0; i < 4; i++) {
-				g_Vars.currentplayer->cmpfollowprops[i].prop = NULL;
+				g_Vars.currentplayer->trackedprops[i].prop = NULL;
 			}
 		}
 
 		g_Vars.currentplayer->target = newtarget;
 
 		switch (newtarget) {
-		case SIGHTTARGET_0:
-		case SIGHTTARGET_1:
-		case SIGHTTARGET_2:
-		case SIGHTTARGET_3:
-		case SIGHTTARGET_4:
+		case SIGHTTARGET_NONE:
+		case SIGHTTARGET_DEFAULT:
+		case SIGHTTARGET_BETASCANNER:
+		case SIGHTTARGET_ROCKETLAUNCHER:
+		case SIGHTTARGET_CMP150:
 			break;
 		}
 	}
 
 	if (sighton && g_Vars.currentplayer->lastsighton == false && newtarget != 5) {
 		for (i = 0; i < 4; i++) {
-			g_Vars.currentplayer->cmpfollowprops[i].prop = NULL;
+			g_Vars.currentplayer->trackedprops[i].prop = NULL;
 		}
 	}
 
 	for (i = 0; i < 4; i++) {
-		threat = &g_Vars.currentplayer->cmpfollowprops[i];
+		trackedprop = &g_Vars.currentplayer->trackedprops[i];
 
-		if (threat->prop && !sightIsReactiveToProp(threat->prop)) {
-			threat->prop = NULL;
+		if (trackedprop->prop && !sightIsReactiveToProp(trackedprop->prop)) {
+			trackedprop->prop = NULL;
 		}
 	}
 
-	threat = &g_Vars.currentplayer->lookingatprop;
+	trackedprop = &g_Vars.currentplayer->lookingatprop;
 
-	if (threat->prop && !sightIsReactiveToProp(threat->prop)) {
-		threat->prop = NULL;
+	if (trackedprop->prop && !sightIsReactiveToProp(trackedprop->prop)) {
+		trackedprop->prop = NULL;
 	}
 
 	switch (g_Vars.currentplayer->target) {
-	case SIGHTTARGET_1:
-	case SIGHTTARGET_2:
-		// Conditionally copy lookingatprop to cmpfollowprops[0], overwriting anything that's there
+	case SIGHTTARGET_DEFAULT:
+	case SIGHTTARGET_BETASCANNER:
+		// Conditionally copy lookingatprop to trackedprops[0], overwriting anything that's there
 		if (sighton) {
 			if (g_Vars.currentplayer->lookingatprop.prop) {
-				if (g_Vars.currentplayer->lookingatprop.prop != g_Vars.currentplayer->cmpfollowprops[0].prop) {
+				if (g_Vars.currentplayer->lookingatprop.prop != g_Vars.currentplayer->trackedprops[0].prop) {
 					struct sndstate *handle;
 
 					handle = snd00010718(&handle, 0, 0x7fff, 0x40, 7, 1, 1, -1, 1);
 
-					threat = &g_Vars.currentplayer->cmpfollowprops[0];
+					trackedprop = &g_Vars.currentplayer->trackedprops[0];
 
-					threat->prop = g_Vars.currentplayer->lookingatprop.prop;
-					threat->x1 = g_Vars.currentplayer->lookingatprop.x1;
-					threat->y1 = g_Vars.currentplayer->lookingatprop.y1;
-					threat->x2 = g_Vars.currentplayer->lookingatprop.x2;
-					threat->y2 = g_Vars.currentplayer->lookingatprop.y2;
+					trackedprop->prop = g_Vars.currentplayer->lookingatprop.prop;
+					trackedprop->x1 = g_Vars.currentplayer->lookingatprop.x1;
+					trackedprop->y1 = g_Vars.currentplayer->lookingatprop.y1;
+					trackedprop->x2 = g_Vars.currentplayer->lookingatprop.x2;
+					trackedprop->y2 = g_Vars.currentplayer->lookingatprop.y2;
 
 					g_Vars.currentplayer->targetset[0] = 0;
 				}
 			} else {
-				g_Vars.currentplayer->cmpfollowprops[0].prop = NULL;
+				g_Vars.currentplayer->trackedprops[0].prop = NULL;
 			}
 		}
 		break;
-	case SIGHTTARGET_3:
-		// Conditionally copy lookingatprop to cmpfollowprops[0], but only if that slot is empty
+	case SIGHTTARGET_ROCKETLAUNCHER:
+		// Conditionally copy lookingatprop to trackedprops[0], but only if that slot is empty
 		if (sighton && g_Vars.currentplayer->lookingatprop.prop
 				&& sightCanTargetProp(g_Vars.currentplayer->lookingatprop.prop, 1)) {
 			index = sightFindFreeTargetIndex(1);
@@ -270,20 +270,20 @@ void sightTick(bool sighton)
 
 				handle = snd00010718(&handle, 0, 0x7fff, 0x40, 7, 1, 1, -1, 1);
 
-				threat = &g_Vars.currentplayer->cmpfollowprops[index];
+				trackedprop = &g_Vars.currentplayer->trackedprops[index];
 
-				threat->prop = g_Vars.currentplayer->lookingatprop.prop;
-				threat->x1 = g_Vars.currentplayer->lookingatprop.x1;
-				threat->y1 = g_Vars.currentplayer->lookingatprop.y1;
-				threat->x2 = g_Vars.currentplayer->lookingatprop.x2;
-				threat->y2 = g_Vars.currentplayer->lookingatprop.y2;
+				trackedprop->prop = g_Vars.currentplayer->lookingatprop.prop;
+				trackedprop->x1 = g_Vars.currentplayer->lookingatprop.x1;
+				trackedprop->y1 = g_Vars.currentplayer->lookingatprop.y1;
+				trackedprop->x2 = g_Vars.currentplayer->lookingatprop.x2;
+				trackedprop->y2 = g_Vars.currentplayer->lookingatprop.y2;
 
 				g_Vars.currentplayer->targetset[index] = 0;
 			}
 		}
 		break;
-	case SIGHTTARGET_4:
-		// Conditionally copy lookingatprop to any cmpfollowprops slot, but only if the slot is empty
+	case SIGHTTARGET_CMP150:
+		// Conditionally copy lookingatprop to any trackedprops slot, but only if the slot is empty
 		if (sighton && g_Vars.currentplayer->lookingatprop.prop
 				&& sightCanTargetProp(g_Vars.currentplayer->lookingatprop.prop, 4)) {
 			index = sightFindFreeTargetIndex(4);
@@ -293,20 +293,20 @@ void sightTick(bool sighton)
 
 				handle = snd00010718(&handle, 0, 0x7fff, 0x40, 7, 1, 1, -1, 1);
 
-				threat = &g_Vars.currentplayer->cmpfollowprops[index];
+				trackedprop = &g_Vars.currentplayer->trackedprops[index];
 
-				threat->prop = g_Vars.currentplayer->lookingatprop.prop;
-				threat->x1 = g_Vars.currentplayer->lookingatprop.x1;
-				threat->y1 = g_Vars.currentplayer->lookingatprop.y1;
-				threat->x2 = g_Vars.currentplayer->lookingatprop.x2;
-				threat->y2 = g_Vars.currentplayer->lookingatprop.y2;
+				trackedprop->prop = g_Vars.currentplayer->lookingatprop.prop;
+				trackedprop->x1 = g_Vars.currentplayer->lookingatprop.x1;
+				trackedprop->y1 = g_Vars.currentplayer->lookingatprop.y1;
+				trackedprop->x2 = g_Vars.currentplayer->lookingatprop.x2;
+				trackedprop->y2 = g_Vars.currentplayer->lookingatprop.y2;
 
 				g_Vars.currentplayer->targetset[index] = 0;
 			}
 		}
 		break;
-	case SIGHTTARGET_0:
-	case SIGHTTARGET_5:
+	case SIGHTTARGET_NONE:
+	case SIGHTTARGET_THREATDETECTOR:
 		break;
 	}
 
@@ -333,7 +333,7 @@ s32 sightCalculateBoxBound(s32 targetx, s32 viewleft, s32 timeelapsed, s32 timee
 }
 
 /**
- * Draw a red (or blue) box around the given threat.
+ * Draw a red (or blue) box around the given trackedprop.
  *
  * textid can be:
  * 0 to have no label
@@ -343,7 +343,7 @@ s32 sightCalculateBoxBound(s32 targetx, s32 viewleft, s32 timeelapsed, s32 timee
  * 6 to label it as "5"
  * 7 or above to treat textid as a proper language text ID.
  */
-Gfx *sightDrawTargetBox(Gfx *gdl, struct threat *threat, s32 textid, s32 time)
+Gfx *sightDrawTargetBox(Gfx *gdl, struct trackedprop *trackedprop, s32 textid, s32 time)
 {
 	s32 viewleft = viGetViewLeft() / g_ScaleX;
 	s32 viewtop = viGetViewTop();
@@ -362,13 +362,13 @@ Gfx *sightDrawTargetBox(Gfx *gdl, struct threat *threat, s32 textid, s32 time)
 		time = TICKS(512);
 	}
 
-	boxleft = sightCalculateBoxBound(threat->x1 / g_ScaleX, viewleft, time, TICKS(80));
-	boxtop = sightCalculateBoxBound(threat->y1, viewtop, time, TICKS(80));
-	boxright = sightCalculateBoxBound(threat->x2 / g_ScaleX, viewright, time, TICKS(80));
-	boxbottom = sightCalculateBoxBound(threat->y2, viewbottom, time, TICKS(80));
+	boxleft = sightCalculateBoxBound(trackedprop->x1 / g_ScaleX, viewleft, time, TICKS(80));
+	boxtop = sightCalculateBoxBound(trackedprop->y1, viewtop, time, TICKS(80));
+	boxright = sightCalculateBoxBound(trackedprop->x2 / g_ScaleX, viewright, time, TICKS(80));
+	boxbottom = sightCalculateBoxBound(trackedprop->y2, viewbottom, time, TICKS(80));
 
-	if (threat->prop) {
-		colour = sightIsPropFriendly(threat->prop) ? 0x000ff60 : 0xff000060;
+	if (trackedprop->prop) {
+		colour = sightIsPropFriendly(trackedprop->prop) ? 0x000ff60 : 0xff000060;
 
 		gdl = gfxSetPrimColour(gdl, colour);
 
@@ -435,11 +435,9 @@ u32 var80070f84 = 0x43200000;
 u32 var80070f88 = 0x42f00000;
 u32 var80070f8c = 0x00000000;
 u32 var80070f90 = 0x00000000;
-u32 var80070f94 = 0x00000000;
-u32 var80070f98 = 0x00000000;
 
 GLOBAL_ASM(
-glabel func0f0d7f54
+glabel sightDrawAimer
 /*  f0d7f54:	27bdff30 */ 	addiu	$sp,$sp,-208
 /*  f0d7f58:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f0d7f5c:	afb30020 */ 	sw	$s3,0x20($sp)
@@ -987,7 +985,7 @@ glabel func0f0d7f54
 
 #if VERSION == VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0d87a8
+glabel sightDrawDelayedAimer
 .late_rodata
 glabel var7f1adde0
 .word 0xc019999a
@@ -1529,7 +1527,7 @@ glabel var7f1af0ccpf
 );
 #elif VERSION == VERSION_PAL_BETA
 GLOBAL_ASM(
-glabel func0f0d87a8
+glabel sightDrawDelayedAimer
 .late_rodata
 glabel var7f1adde0
 .word 0xc019999a
@@ -2071,7 +2069,7 @@ glabel var7f1af0ccpf
 );
 #else
 GLOBAL_ASM(
-glabel func0f0d87a8
+glabel sightDrawDelayedAimer
 .late_rodata
 glabel var7f1adde0
 .word 0x3d4ccccd
@@ -2719,7 +2717,7 @@ glabel var7f1ade50
 /*  f0d9050:	02602025 */ 	or	$a0,$s3,$zero
 /*  f0d9054:	8fa50088 */ 	lw	$a1,0x88($sp)
 /*  f0d9058:	8fa60084 */ 	lw	$a2,0x84($sp)
-/*  f0d905c:	0fc35fd5 */ 	jal	func0f0d7f54
+/*  f0d905c:	0fc35fd5 */ 	jal	sightDrawAimer
 /*  f0d9060:	24070008 */ 	addiu	$a3,$zero,0x8
 /*  f0d9064:	1000012e */ 	b	.L0f0d9520
 /*  f0d9068:	00409825 */ 	or	$s3,$v0,$zero
@@ -2767,7 +2765,7 @@ glabel var7f1ade50
 /*  f0d90fc:	8fa60084 */ 	lw	$a2,0x84($sp)
 /*  f0d9100:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0d9104:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f0d9108:	0fc35fd5 */ 	jal	func0f0d7f54
+/*  f0d9108:	0fc35fd5 */ 	jal	sightDrawAimer
 /*  f0d910c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d9110:	10000103 */ 	b	.L0f0d9520
 /*  f0d9114:	00409825 */ 	or	$s3,$v0,$zero
@@ -2777,7 +2775,7 @@ glabel var7f1ade50
 /*  f0d9120:	8fa50088 */ 	lw	$a1,0x88($sp)
 /*  f0d9124:	8fa60084 */ 	lw	$a2,0x84($sp)
 /*  f0d9128:	00113840 */ 	sll	$a3,$s1,0x1
-/*  f0d912c:	0fc361ea */ 	jal	func0f0d87a8
+/*  f0d912c:	0fc361ea */ 	jal	sightDrawDelayedAimer
 /*  f0d9130:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d9134:	100000fa */ 	b	.L0f0d9520
 /*  f0d9138:	00409825 */ 	or	$s3,$v0,$zero
@@ -2854,7 +2852,7 @@ glabel var7f1ade50
 /*  f0d9240:	8fa60084 */ 	lw	$a2,0x84($sp)
 /*  f0d9244:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0d9248:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f0d924c:	0fc35fd5 */ 	jal	func0f0d7f54
+/*  f0d924c:	0fc35fd5 */ 	jal	sightDrawAimer
 /*  f0d9250:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d9254:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
 /*  f0d9258:	8d08a244 */ 	lw	$t0,%lo(g_Vars+0x284)($t0)
@@ -2921,7 +2919,7 @@ glabel var7f1ade50
 /*  f0d9334:	8fa60084 */ 	lw	$a2,0x84($sp)
 /*  f0d9338:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0d933c:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f0d9340:	0fc35fd5 */ 	jal	func0f0d7f54
+/*  f0d9340:	0fc35fd5 */ 	jal	sightDrawAimer
 /*  f0d9344:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d9348:	10000075 */ 	b	.L0f0d9520
 /*  f0d934c:	00409825 */ 	or	$s3,$v0,$zero
@@ -3051,7 +3049,7 @@ glabel var7f1ade50
 /*  f0d9508:	8fa60084 */ 	lw	$a2,0x84($sp)
 /*  f0d950c:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0d9510:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f0d9514:	0fc35fd5 */ 	jal	func0f0d7f54
+/*  f0d9514:	0fc35fd5 */ 	jal	sightDrawAimer
 /*  f0d9518:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d951c:	00409825 */ 	or	$s3,$v0,$zero
 .L0f0d9520:
@@ -3181,7 +3179,7 @@ glabel var7f1ade50
 /*  f0d9050:	02602025 */ 	or	$a0,$s3,$zero
 /*  f0d9054:	8fa50088 */ 	lw	$a1,0x88($sp)
 /*  f0d9058:	8fa60084 */ 	lw	$a2,0x84($sp)
-/*  f0d905c:	0fc35fd5 */ 	jal	func0f0d7f54
+/*  f0d905c:	0fc35fd5 */ 	jal	sightDrawAimer
 /*  f0d9060:	24070008 */ 	addiu	$a3,$zero,0x8
 /*  f0d9064:	1000012e */ 	b	.L0f0d9520
 /*  f0d9068:	00409825 */ 	or	$s3,$v0,$zero
@@ -3229,7 +3227,7 @@ glabel var7f1ade50
 /*  f0d90fc:	8fa60084 */ 	lw	$a2,0x84($sp)
 /*  f0d9100:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0d9104:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f0d9108:	0fc35fd5 */ 	jal	func0f0d7f54
+/*  f0d9108:	0fc35fd5 */ 	jal	sightDrawAimer
 /*  f0d910c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d9110:	10000103 */ 	b	.L0f0d9520
 /*  f0d9114:	00409825 */ 	or	$s3,$v0,$zero
@@ -3239,7 +3237,7 @@ glabel var7f1ade50
 /*  f0d9120:	8fa50088 */ 	lw	$a1,0x88($sp)
 /*  f0d9124:	8fa60084 */ 	lw	$a2,0x84($sp)
 /*  f0d9128:	00113840 */ 	sll	$a3,$s1,0x1
-/*  f0d912c:	0fc361ea */ 	jal	func0f0d87a8
+/*  f0d912c:	0fc361ea */ 	jal	sightDrawDelayedAimer
 /*  f0d9130:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d9134:	100000fa */ 	b	.L0f0d9520
 /*  f0d9138:	00409825 */ 	or	$s3,$v0,$zero
@@ -3316,7 +3314,7 @@ glabel var7f1ade50
 /*  f0d9240:	8fa60084 */ 	lw	$a2,0x84($sp)
 /*  f0d9244:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0d9248:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f0d924c:	0fc35fd5 */ 	jal	func0f0d7f54
+/*  f0d924c:	0fc35fd5 */ 	jal	sightDrawAimer
 /*  f0d9250:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d9254:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
 /*  f0d9258:	8d08a244 */ 	lw	$t0,%lo(g_Vars+0x284)($t0)
@@ -3383,7 +3381,7 @@ glabel var7f1ade50
 /*  f0d9334:	8fa60084 */ 	lw	$a2,0x84($sp)
 /*  f0d9338:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0d933c:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f0d9340:	0fc35fd5 */ 	jal	func0f0d7f54
+/*  f0d9340:	0fc35fd5 */ 	jal	sightDrawAimer
 /*  f0d9344:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d9348:	10000075 */ 	b	.L0f0d9520
 /*  f0d934c:	00409825 */ 	or	$s3,$v0,$zero
@@ -3513,7 +3511,7 @@ glabel var7f1ade50
 /*  f0d9508:	8fa60084 */ 	lw	$a2,0x84($sp)
 /*  f0d950c:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0d9510:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f0d9514:	0fc35fd5 */ 	jal	func0f0d7f54
+/*  f0d9514:	0fc35fd5 */ 	jal	sightDrawAimer
 /*  f0d9518:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d951c:	00409825 */ 	or	$s3,$v0,$zero
 .L0f0d9520:
@@ -3531,58 +3529,34 @@ glabel var7f1ade50
 GLOBAL_ASM(
 glabel sightDrawDefault
 .late_rodata
-glabel var7f1addec
-.word sightDrawDefault+0xbc # f0d9034
-glabel var7f1addf0
-.word sightDrawDefault+0xf4 # f0d906c
-glabel var7f1addf4
-.word sightDrawDefault+0x1c4 # f0d913c
-glabel var7f1addf8
-.word sightDrawDefault+0x310 # f0d9288
-glabel var7f1addfc
-.word sightDrawDefault+0x3d8 # f0d9350
-glabel var7f1ade00
-.word sightDrawDefault+0x3d8 # f0d9350
-glabel var7f1ade04
-.word sightDrawDefault+0x4d8 # f0d9450
-glabel var7f1ade08
-.word sightDrawDefault+0x4e8 # f0d9460
-glabel var7f1ade0c
-.word sightDrawDefault+0x4e8 # f0d9460
-glabel var7f1ade10
-.word sightDrawDefault+0x4e8 # f0d9460
-glabel var7f1ade14
-.word sightDrawDefault+0x4e8 # f0d9460
-glabel var7f1ade18
-.word sightDrawDefault+0x4e8 # f0d9460
-glabel var7f1ade1c
-.word sightDrawDefault+0x4e8 # f0d9460
-glabel var7f1ade20
-.word sightDrawDefault+0x4e8 # f0d9460
-glabel var7f1ade24
-.word sightDrawDefault+0x4e8 # f0d9460
-glabel var7f1ade28
-.word sightDrawDefault+0x4e8 # f0d9460
-glabel var7f1ade2c
-.word sightDrawDefault+0x4e8 # f0d9460
-glabel var7f1ade30
-.word sightDrawDefault+0x4e8 # f0d9460
-glabel var7f1ade34
-.word sightDrawDefault+0x4e8 # f0d9460
-glabel var7f1ade38
-.word sightDrawDefault+0x4e8 # f0d9460
-glabel var7f1ade3c
-.word sightDrawDefault+0x4e8 # f0d9460
-glabel var7f1ade40
-.word sightDrawDefault+0x488 # f0d9400
-glabel var7f1ade44
-.word sightDrawDefault+0x4a4 # f0d941c
-glabel var7f1ade48
-.word sightDrawDefault+0x4c0 # f0d9438
-glabel var7f1ade4c
-.word sightDrawDefault+0x4c8 # f0d9440
-glabel var7f1ade50
-.word sightDrawDefault+0x4d0 # f0d9448
+glabel jtbl_var7f1addec
+.word .L0f0d9034
+.word .L0f0d906c
+.word .L0f0d913c
+.word .L0f0d9288
+.word .L0f0d9350
+.word .L0f0d9350
+glabel jtbl_var7f1ade04
+.word .L0f0d9450
+.word .L0f0d9460
+.word .L0f0d9460
+.word .L0f0d9460
+.word .L0f0d9460
+.word .L0f0d9460
+.word .L0f0d9460
+.word .L0f0d9460
+.word .L0f0d9460
+.word .L0f0d9460
+.word .L0f0d9460
+.word .L0f0d9460
+.word .L0f0d9460
+.word .L0f0d9460
+.word .L0f0d9460
+.word .L0f0d9400
+.word .L0f0d941c
+.word .L0f0d9438
+.word .L0f0d9440
+.word .L0f0d9448
 .text
 /*  f0d8f78:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0d8f7c:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
@@ -3628,11 +3602,12 @@ glabel var7f1ade50
 /*  f0d9014:	2da10006 */ 	sltiu	$at,$t5,0x6
 /*  f0d9018:	10200141 */ 	beqz	$at,.L0f0d9520
 /*  f0d901c:	000d6880 */ 	sll	$t5,$t5,0x2
-/*  f0d9020:	3c017f1b */ 	lui	$at,%hi(var7f1addec)
+/*  f0d9020:	3c017f1b */ 	lui	$at,%hi(jtbl_var7f1addec)
 /*  f0d9024:	002d0821 */ 	addu	$at,$at,$t5
-/*  f0d9028:	8c2dddec */ 	lw	$t5,%lo(var7f1addec)($at)
+/*  f0d9028:	8c2dddec */ 	lw	$t5,%lo(jtbl_var7f1addec)($at)
 /*  f0d902c:	01a00008 */ 	jr	$t5
 /*  f0d9030:	00000000 */ 	nop
+.L0f0d9034:
 /*  f0d9034:	8fae009c */ 	lw	$t6,0x9c($sp)
 /*  f0d9038:	11c00139 */ 	beqz	$t6,.L0f0d9520
 /*  f0d903c:	3c1800ff */ 	lui	$t8,0xff
@@ -3643,10 +3618,11 @@ glabel var7f1ade50
 /*  f0d9050:	02602025 */ 	or	$a0,$s3,$zero
 /*  f0d9054:	8fa50088 */ 	lw	$a1,0x88($sp)
 /*  f0d9058:	8fa60084 */ 	lw	$a2,0x84($sp)
-/*  f0d905c:	0fc35fd5 */ 	jal	func0f0d7f54
+/*  f0d905c:	0fc35fd5 */ 	jal	sightDrawAimer
 /*  f0d9060:	24070008 */ 	addiu	$a3,$zero,0x8
 /*  f0d9064:	1000012e */ 	b	.L0f0d9520
 /*  f0d9068:	00409825 */ 	or	$s3,$v0,$zero
+.L0f0d906c:
 /*  f0d906c:	8fb9009c */ 	lw	$t9,0x9c($sp)
 /*  f0d9070:	1320012b */ 	beqz	$t9,.L0f0d9520
 /*  f0d9074:	00000000 */ 	nop
@@ -3691,7 +3667,7 @@ glabel var7f1ade50
 /*  f0d90fc:	8fa60084 */ 	lw	$a2,0x84($sp)
 /*  f0d9100:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0d9104:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f0d9108:	0fc35fd5 */ 	jal	func0f0d7f54
+/*  f0d9108:	0fc35fd5 */ 	jal	sightDrawAimer
 /*  f0d910c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d9110:	10000103 */ 	b	.L0f0d9520
 /*  f0d9114:	00409825 */ 	or	$s3,$v0,$zero
@@ -3701,10 +3677,11 @@ glabel var7f1ade50
 /*  f0d9120:	8fa50088 */ 	lw	$a1,0x88($sp)
 /*  f0d9124:	8fa60084 */ 	lw	$a2,0x84($sp)
 /*  f0d9128:	00113840 */ 	sll	$a3,$s1,0x1
-/*  f0d912c:	0fc361ea */ 	jal	func0f0d87a8
+/*  f0d912c:	0fc361ea */ 	jal	sightDrawDelayedAimer
 /*  f0d9130:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d9134:	100000fa */ 	b	.L0f0d9520
 /*  f0d9138:	00409825 */ 	or	$s3,$v0,$zero
+.L0f0d913c:
 /*  f0d913c:	8fad009c */ 	lw	$t5,0x9c($sp)
 /*  f0d9140:	11a000f7 */ 	beqz	$t5,.L0f0d9520
 /*  f0d9144:	00000000 */ 	nop
@@ -3778,7 +3755,7 @@ glabel var7f1ade50
 /*  f0d9240:	8fa60084 */ 	lw	$a2,0x84($sp)
 /*  f0d9244:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0d9248:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f0d924c:	0fc35fd5 */ 	jal	func0f0d7f54
+/*  f0d924c:	0fc35fd5 */ 	jal	sightDrawAimer
 /*  f0d9250:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d9254:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
 /*  f0d9258:	8d08a244 */ 	lw	$t0,%lo(g_Vars+0x284)($t0)
@@ -3793,6 +3770,7 @@ glabel var7f1ade50
 /*  f0d927c:	95071b90 */ 	lhu	$a3,0x1b90($t0)
 /*  f0d9280:	100000a7 */ 	b	.L0f0d9520
 /*  f0d9284:	00409825 */ 	or	$s3,$v0,$zero
+.L0f0d9288:
 /*  f0d9288:	00008025 */ 	or	$s0,$zero,$zero
 /*  f0d928c:	00008825 */ 	or	$s1,$zero,$zero
 /*  f0d9290:	24120001 */ 	addiu	$s2,$zero,0x1
@@ -3845,10 +3823,11 @@ glabel var7f1ade50
 /*  f0d9334:	8fa60084 */ 	lw	$a2,0x84($sp)
 /*  f0d9338:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0d933c:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f0d9340:	0fc35fd5 */ 	jal	func0f0d7f54
+/*  f0d9340:	0fc35fd5 */ 	jal	sightDrawAimer
 /*  f0d9344:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d9348:	10000075 */ 	b	.L0f0d9520
 /*  f0d934c:	00409825 */ 	or	$s3,$v0,$zero
+.L0f0d9350:
 /*  f0d9350:	00008025 */ 	or	$s0,$zero,$zero
 /*  f0d9354:	00008825 */ 	or	$s1,$zero,$zero
 /*  f0d9358:	24120001 */ 	addiu	$s2,$zero,0x1
@@ -3890,11 +3869,12 @@ glabel var7f1ade50
 /*  f0d93e0:	2f010014 */ 	sltiu	$at,$t8,0x14
 /*  f0d93e4:	1020001e */ 	beqz	$at,.L0f0d9460
 /*  f0d93e8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f0d93ec:	3c017f1b */ 	lui	$at,%hi(var7f1ade04)
+/*  f0d93ec:	3c017f1b */ 	lui	$at,%hi(jtbl_var7f1ade04)
 /*  f0d93f0:	00380821 */ 	addu	$at,$at,$t8
-/*  f0d93f4:	8c38de04 */ 	lw	$t8,%lo(var7f1ade04)($at)
+/*  f0d93f4:	8c38de04 */ 	lw	$t8,%lo(jtbl_var7f1ade04)($at)
 /*  f0d93f8:	03000008 */ 	jr	$t8
 /*  f0d93fc:	00000000 */ 	nop
+.L0f0d9400:
 /*  f0d9400:	9059005f */ 	lbu	$t9,0x5f($v0)
 /*  f0d9404:	16590003 */ 	bne	$s2,$t9,.L0f0d9414
 /*  f0d9408:	00000000 */ 	nop
@@ -3903,6 +3883,7 @@ glabel var7f1ade50
 .L0f0d9414:
 /*  f0d9414:	10000012 */ 	b	.L0f0d9460
 /*  f0d9418:	24064cd5 */ 	addiu	$a2,$zero,0x4cd5
+.L0f0d941c:
 /*  f0d941c:	904b005f */ 	lbu	$t3,0x5f($v0)
 /*  f0d9420:	164b0003 */ 	bne	$s2,$t3,.L0f0d9430
 /*  f0d9424:	00000000 */ 	nop
@@ -3911,12 +3892,16 @@ glabel var7f1ade50
 .L0f0d9430:
 /*  f0d9430:	1000000b */ 	b	.L0f0d9460
 /*  f0d9434:	24064cd8 */ 	addiu	$a2,$zero,0x4cd8
+.L0f0d9438:
 /*  f0d9438:	10000009 */ 	b	.L0f0d9460
 /*  f0d943c:	24064cd5 */ 	addiu	$a2,$zero,0x4cd5
+.L0f0d9440:
 /*  f0d9440:	10000007 */ 	b	.L0f0d9460
 /*  f0d9444:	24064cd4 */ 	addiu	$a2,$zero,0x4cd4
+.L0f0d9448:
 /*  f0d9448:	10000005 */ 	b	.L0f0d9460
 /*  f0d944c:	24064cd6 */ 	addiu	$a2,$zero,0x4cd6
+.L0f0d9450:
 /*  f0d9450:	904c005f */ 	lbu	$t4,0x5f($v0)
 /*  f0d9454:	564c0003 */ 	bnel	$s2,$t4,.L0f0d9464
 /*  f0d9458:	01096821 */ 	addu	$t5,$t0,$t1
@@ -3975,7 +3960,7 @@ glabel var7f1ade50
 /*  f0d9508:	8fa60084 */ 	lw	$a2,0x84($sp)
 /*  f0d950c:	02203825 */ 	or	$a3,$s1,$zero
 /*  f0d9510:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f0d9514:	0fc35fd5 */ 	jal	func0f0d7f54
+/*  f0d9514:	0fc35fd5 */ 	jal	sightDrawAimer
 /*  f0d9518:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d951c:	00409825 */ 	or	$s3,$v0,$zero
 .L0f0d9520:
@@ -3991,36 +3976,48 @@ glabel var7f1ade50
 );
 #endif
 
+u32 var80070f94 = 0;
+s32 var80070f98 = 0;
+
 // Mismatch: Goal loads g_Vars.lvupdate240 differently for add to var80070f98.
 //Gfx *sightDrawDefault(Gfx *gdl, bool sighton)
 //{
-//	s32 s1;
-//	s32 sp90;
+//	s32 radius;
+//	s32 cornergap;
 //	u32 colour;
 //	s32 x = (s32)g_Vars.currentplayer->crosspos[0] / g_ScaleX; // 88
 //	s32 y = g_Vars.currentplayer->crosspos[1]; // 84
+//	struct trackedprop *trackedprop;
 //	s32 i;
+//
+//	static s32 var80070f98 = 0;
 //
 //	gdl = func0f153628(gdl);
 //
 //	switch (g_Vars.currentplayer->target) {
-//	case SIGHTTARGET_0: // f0d9034
+//	case SIGHTTARGET_NONE: // f0d9034
+//		// SIGHTTARGET_NONE is used for unarmed, but this appears to be
+//		// unreachable. The aimer is never drawn when unarmed.
 //		if (sighton) {
-//			gdl = func0f0d7f54(gdl, x, y, 8, 5, 0x00ff0028);
+//			colour = 0x00ff0028;
+//			radius = 8;
+//			cornergap = 5;
+//			gdl = sightDrawAimer(gdl, x, y, radius, cornergap, colour);
 //		}
 //		break;
-//	case SIGHTTARGET_1: // f0d906c
+//	case SIGHTTARGET_DEFAULT: // f0d906c
+//		// For most guns, render the aimer if holding R
 //		if (sighton) {
 //			// 084
 //			if (g_Vars.currentplayer->lookingatprop.prop == NULL) {
 //				colour = 0x00ff0028;
-//				s1 = 8;
-//				sp90 = 5;
+//				radius = 8;
+//				cornergap = 5;
 //			} else {
 //				// 094
 //				colour = sightIsPropFriendly(NULL) ? 0x0000ff60 : 0xff000060;
-//				s1 = 6;
-//				sp90 = 3;
+//				radius = 6;
+//				cornergap = 3;
 //			}
 //
 //			// 0b8
@@ -4028,29 +4025,29 @@ glabel var7f1ade50
 //
 //			switch (var80070f94) {
 //			case 0:
-//				gdl = func0f0d7f54(gdl, x, y, s1, sp90, colour);
+//				gdl = sightDrawAimer(gdl, x, y, radius, cornergap, colour);
 //				break;
 //			case 1:
-//				gdl = func0f0d87a8(gdl, x, y, s1 * 2, sp90 * 2, colour);
+//				gdl = sightDrawDelayedAimer(gdl, x, y, radius * 2, cornergap * 2, colour);
 //				break;
 //			}
 //		}
 //		break;
-//	case SIGHTTARGET_2: // f0d913c
+//	case SIGHTTARGET_BETASCANNER: // f0d913c
+//		// An unused sight target. When holding R, it flashes the text
+//		// "Identify" and draws a red box around the targetted prop.
 //		if (sighton) {
 //			s32 textx; // 78
 //			s32 texty; // 74
 //
-//			// 154
 //			if (g_Vars.currentplayer->lookingatprop.prop == NULL) {
 //				colour = 0x00ff0028;
-//				s1 = 8;
-//				sp90 = 5;
+//				radius = 8;
+//				cornergap = 5;
 //			} else {
-//				// 164
 //				colour = sightIsPropFriendly(NULL) ? 0x0000ff60 : 0xff000060;
-//				s1 = 6;
-//				sp90 = 3;
+//				radius = 6;
+//				cornergap = 3;
 //			}
 //
 //			var80070f98 += g_Vars.lvupdate240;
@@ -4065,46 +4062,46 @@ glabel var7f1ade50
 //						viGetWidth(), viGetHeight(), 0, 0);
 //			}
 //
-//			gdl = func0f0d7f54(gdl, x, y, s1, sp90, colour);
+//			gdl = sightDrawAimer(gdl, x, y, radius, cornergap, colour);
 //
 //			if (g_Vars.currentplayer->lookingatprop.prop) {
 //				gdl = sightDrawTargetBox(gdl, &g_Vars.currentplayer->lookingatprop, 1, g_Vars.currentplayer->targetset[0]);
 //			}
 //		}
 //		break;
-//	case SIGHTTARGET_3: // f0d9288
+//	case SIGHTTARGET_ROCKETLAUNCHER: // f0d9288
 //		for (i = 0; i < 1; i++) {
-//			if (g_Vars.currentplayer->cmpfollowprops[i].prop) {
-//				gdl = sightDrawTargetBox(gdl, &g_Vars.currentplayer->cmpfollowprops[i], 0,
-//						g_Vars.currentplayer->targetset[i]);
+//			trackedprop = &g_Vars.currentplayer->trackedprops[i];
+//
+//			if (trackedprop->prop) {
+//				gdl = sightDrawTargetBox(gdl, trackedprop, 0, g_Vars.currentplayer->targetset[i]);
 //			}
 //		}
 //
 //		if (sighton) {
 //			if (g_Vars.currentplayer->lookingatprop.prop == NULL) {
 //				colour = 0x00ff0028;
-//				s1 = 8;
-//				sp90 = 5;
+//				radius = 8;
+//				cornergap = 5;
 //			} else {
 //				colour = sightIsPropFriendly(NULL) ? 0x0000ff60 : 0xff000060;
-//				s1 = 6;
-//				sp90 = 3;
+//				radius = 6;
+//				cornergap = 3;
 //			}
 //
-//			gdl = func0f0d7f54(gdl, x, y, s1, sp90, colour);
+//			gdl = sightDrawAimer(gdl, x, y, radius, cornergap, colour);
 //		}
 //		break;
-//	case SIGHTTARGET_4: // f0d9350
-//	case SIGHTTARGET_5: // f0d9350
+//	case SIGHTTARGET_CMP150: // f0d9350
+//	case SIGHTTARGET_THREATDETECTOR: // f0d9350
 //		for (i = 0; i < 4; i++) {
-//			struct threat *threat = &g_Vars.currentplayer->cmpfollowprops[i];
-//			struct prop *prop = threat->prop;
+//			struct trackedprop *trackedprop = &g_Vars.currentplayer->trackedprops[i];
 //
 //			// 36c
-//			if (prop) {
+//			if (trackedprop->prop) {
 //				// 380
-//				if (g_Vars.currentplayer->target == SIGHTTARGET_5) {
-//					struct defaultobj *obj = prop->obj;
+//				if (g_Vars.currentplayer->target == SIGHTTARGET_THREATDETECTOR) {
+//					struct defaultobj *obj = trackedprop->prop->obj;
 //					struct weaponobj *weapon;
 //					u32 textid = 0;
 //
@@ -4117,7 +4114,7 @@ glabel var7f1ade50
 //						textid = L_GUN_215; // "AUTOGUN"
 //					}
 //
-//					weapon = prop->weapon;
+//					weapon = trackedprop->prop->weapon;
 //
 //					if (weapon && weapon->base.type == OBJTYPE_WEAPON) {
 //						switch (weapon->weaponnum) {
@@ -4152,14 +4149,10 @@ glabel var7f1ade50
 //						}
 //					}
 //
-//					gdl = sightDrawTargetBox(gdl, &g_Vars.currentplayer->cmpfollowprops[i], textid,
-//							g_Vars.currentplayer->targetset[i]);
+//					gdl = sightDrawTargetBox(gdl, trackedprop, textid, g_Vars.currentplayer->targetset[i]);
 //				} else {
-//					// CMP150-tracked prop - render with index number
-//					// For some reason i + 2 is passed instead of i + 1,
-//					// but this is compensated for in sightDrawTargetBox.
-//					gdl = sightDrawTargetBox(gdl, &g_Vars.currentplayer->cmpfollowprops[i], i + 2,
-//							g_Vars.currentplayer->targetset[i]);
+//					// CMP150-tracked prop
+//					gdl = sightDrawTargetBox(gdl, trackedprop, i + 2, g_Vars.currentplayer->targetset[i]);
 //				}
 //			}
 //		}
@@ -4167,15 +4160,15 @@ glabel var7f1ade50
 //		if (sighton) {
 //			if (g_Vars.currentplayer->lookingatprop.prop == NULL) {
 //				colour = 0x00ff0028;
-//				s1 = 8;
-//				sp90 = 5;
+//				radius = 8;
+//				cornergap = 5;
 //			} else {
 //				colour = sightIsPropFriendly(NULL) ? 0x0000ff60 : 0xff000060;
-//				s1 = 6;
-//				sp90 = 3;
+//				radius = 6;
+//				cornergap = 3;
 //			}
 //
-//			gdl = func0f0d7f54(gdl, x, y, s1, sp90, colour);
+//			gdl = sightDrawAimer(gdl, x, y, radius, cornergap, colour);
 //		}
 //		break;
 //	}
@@ -7957,6 +7950,9 @@ bool sightHasTargetWhileAiming(s32 sight)
 	return false;
 }
 
+/**
+ * sighton is true if the player is using the aimer (ie. holding R).
+ */
 Gfx *sightDraw(Gfx *gdl, bool sighton, s32 sight)
 {
 	if (sight);

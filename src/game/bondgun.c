@@ -12703,7 +12703,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 							weapon->base.projectile->flags |= PROJECTILEFLAG_00000010;
 						}
 
-						weapon->base.projectile->targetprop = g_Vars.currentplayer->cmpfollowprops[0].prop;
+						weapon->base.projectile->targetprop = g_Vars.currentplayer->trackedprops[0].prop;
 
 						if (funcdef->scale != 1.0f) {
 							weapon->base.model->scale *= funcdef->scale;
@@ -12779,7 +12779,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 						weapon->base.projectile->flags |= PROJECTILEFLAG_00000010;
 					}
 
-					weapon->base.projectile->targetprop = g_Vars.currentplayer->cmpfollowprops[0].prop;
+					weapon->base.projectile->targetprop = g_Vars.currentplayer->trackedprops[0].prop;
 
 					if (funcdef->scale != 1.0f) {
 						weapon->base.model->scale *= funcdef->scale;
@@ -33020,6 +33020,15 @@ void bgunTickBoost(void)
 	}
 }
 
+/**
+ * gunsightoff is 0 if the full sight is visible, ie. player is holding R.
+ *
+ * Otherwise, gunsightoff holds bit values for reasons why the sight is off.
+ * This is typically 2, which is GUNSIGHTREASON_NOTAIMING.
+ *
+ * If the visible argument is true, it removes the reason from the field, thus
+ * making the sight visible if there are no other reasons.
+ */
 void bgunSetSightVisible(u32 reason, bool visible)
 {
 	if (visible) {
@@ -33032,7 +33041,8 @@ void bgunSetSightVisible(u32 reason, bool visible)
 
 Gfx *bgunDrawSight(Gfx *gdl)
 {
-	if (g_Vars.currentplayer->gunsightoff == false && !g_Vars.currentplayer->mpmenuon) {
+	if (g_Vars.currentplayer->gunsightoff == 0 && !g_Vars.currentplayer->mpmenuon) {
+		// Player is aiming with R
 		gdl = sightDraw(gdl, true, currentPlayerGetSight());
 	} else {
 		gdl = sightDraw(gdl, false, currentPlayerGetSight());

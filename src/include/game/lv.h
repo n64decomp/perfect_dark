@@ -13,7 +13,7 @@ void lvUpdateMiscSfx(void);
 void lvReset(s32 stagenum);
 Gfx *lvRenderFade(Gfx *gdl);
 void lvFadeReset(void);
-bool lvCheckCmpFollowThreat(struct threat *threat, s32 index);
+bool lvUpdateTrackedProp(struct trackedprop *trackedprop, s32 index);
 void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerpos, s32 *activeslots, f32 *param_5);
 void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 *activeslots, f32 *distances);
 void lvFindThreats(void);

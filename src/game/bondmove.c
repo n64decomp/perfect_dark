@@ -538,8 +538,8 @@ void bmoveResetMoveData(struct movedata *data)
 	data->weaponbackoffset = 0;
 	data->weaponforwardoffset = 0;
 	data->unk50 = 0;
-	data->unk54 = 0;
-	data->unk58 = 0;
+	data->aiming = false;
+	data->zooming = false;
 	data->crouchdown = false;
 	data->crouchup = false;
 	data->rleanleft = false;
@@ -1039,8 +1039,8 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 							&& (c2stickx < -30 || c2stickx > 30);
 					}
 
-					movedata.rleanleft = 0;
-					movedata.rleanright = 0;
+					movedata.rleanleft = false;
+					movedata.rleanright = false;
 
 					// Handle mine detonation
 					if ((((c1buttons & A_BUTTON) && (c1buttonsthisframe & B_BUTTON))
@@ -1057,8 +1057,8 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 					}
 				}
 
-				movedata.unk54 = g_Vars.currentplayer->insightaimmode;
-				movedata.unk58 = g_Vars.currentplayer->insightaimmode;
+				movedata.aiming = g_Vars.currentplayer->insightaimmode;
+				movedata.zooming = g_Vars.currentplayer->insightaimmode;
 
 				if (g_Vars.currentplayer->waitforzrelease
 						&& joyGetButtons(shootpad, shootallowedbuttons & Z_TRIG) == 0) {
@@ -1409,8 +1409,8 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 					}
 				}
 
-				movedata.unk54 = g_Vars.currentplayer->insightaimmode;
-				movedata.unk58 = g_Vars.currentplayer->insightaimmode;
+				movedata.aiming = g_Vars.currentplayer->insightaimmode;
+				movedata.zooming = g_Vars.currentplayer->insightaimmode;
 
 				if (g_Vars.currentplayer->waitforzrelease
 						&& (c1buttons & shootbuttons) == 0) {
@@ -1470,7 +1470,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 		chrsCheckForNoise(noiseradius);
 	}
 
-	bgunSetSightVisible(GUNSIGHTREASON_AIMING, movedata.unk54);
+	bgunSetSightVisible(GUNSIGHTREASON_NOTAIMING, movedata.aiming);
 
 	if (movedata.zoomoutfovpersec > 0) {
 		currentPlayerZoomOut(movedata.zoomoutfovpersec);
@@ -1517,7 +1517,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 			}
 		}
 
-		if (movedata.unk58) {
+		if (movedata.zooming) {
 			zoomfov = currentPlayerGetGunZoomFov();
 		}
 

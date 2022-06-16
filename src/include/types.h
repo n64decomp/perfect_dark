@@ -2040,12 +2040,12 @@ struct playerbond {
 	/*0x0360 0x0394*/ struct coord unk28;
 };
 
-struct threat {
+struct trackedprop {
 	struct prop *prop;
-	s16 x1; // x1
-	s16 y1; // y1
-	s16 x2; // x2
-	s16 y2; // y2
+	s16 x1;
+	s16 y1;
+	s16 x2;
+	s16 y2;
 };
 
 struct beam {
@@ -2549,8 +2549,8 @@ struct player {
 	/*0x161c*/ u16 floorflags;
 	/*0x161e*/ u8 floortype;
 	/*0x1620*/ u32 aimtype;
-	/*0x1624*/ struct threat lookingatprop;
-	/*0x1630*/ struct threat cmpfollowprops[4];
+	/*0x1624*/ struct trackedprop lookingatprop;
+	/*0x1630*/ struct trackedprop trackedprops[4];
 	/*0x1660*/ f32 crosspos[2];
 	/*0x1668*/ f32 crosspossum[2];
 	/*0x1670*/ f32 guncrossdamp;
@@ -2726,7 +2726,7 @@ struct player {
 	/*0x1b84*/ bool tickdiefinished;
 	/*0x1b88*/ s32 introanimnum;
 	/*0x1b8c*/ s32 lastsighton;
-	/*0x1b90*/ u16 targetset[4]; // related to cmpfollowprops
+	/*0x1b90*/ u16 targetset[4]; // related to trackedprops
 	/*0x1b98*/ u8 target;
 	/*0x1b9c*/ f32 speedthetacontrol;
 	/*0x1ba0*/ s32 cam_room;
@@ -5233,18 +5233,18 @@ struct mpconfigfull {
 };
 
 struct movedata {
-	/*0x00*/ s32 canswivelgun;
-	/*0x04*/ s32 canmanualaim;
-	/*0x08*/ s32 triggeron;
+	/*0x00*/ bool canswivelgun;
+	/*0x04*/ bool canmanualaim;
+	/*0x08*/ bool triggeron;
 	/*0x0c*/ s32 btapcount;
-	/*0x10*/ s32 canlookahead;
+	/*0x10*/ bool canlookahead;
 	/*0x14*/ s32 unk14;
-	/*0x18*/ s32 cannaturalturn;
-	/*0x1c*/ s32 cannaturalpitch;
-	/*0x20*/ s32 digitalstepforward;
-	/*0x24*/ s32 digitalstepback;
-	/*0x28*/ s32 digitalstepleft;
-	/*0x2c*/ s32 digitalstepright;
+	/*0x18*/ bool cannaturalturn;
+	/*0x1c*/ bool cannaturalpitch;
+	/*0x20*/ bool digitalstepforward;
+	/*0x24*/ bool digitalstepback;
+	/*0x28*/ bool digitalstepleft;
+	/*0x2c*/ bool digitalstepright;
 	/*0x30*/ f32 unk30;
 	/*0x34*/ f32 unk34;
 	/*0x38*/ f32 speedvertadown;
@@ -5254,20 +5254,20 @@ struct movedata {
 	/*0x48*/ s32 weaponbackoffset;
 	/*0x4c*/ s32 weaponforwardoffset;
 	/*0x50*/ u32 unk50;
-	/*0x54*/ u32 unk54;
-	/*0x58*/ u32 unk58;
+	/*0x54*/ bool aiming;
+	/*0x58*/ bool zooming;
 	/*0x5c*/ f32 zoomoutfovpersec;
 	/*0x60*/ f32 zoominfovpersec;
 	/*0x64*/ s32 crouchdown;
 	/*0x68*/ s32 crouchup;
-	/*0x6c*/ s32 rleanleft;
-	/*0x70*/ s32 rleanright;
-	/*0x74*/ s32 detonating;
-	/*0x78*/ s32 canautoaim;
-	/*0x7c*/ s32 farsighttempautoseek;
-	/*0x80*/ s32 eyesshut;
-	/*0x84*/ s32 invertpitch;
-	/*0x88*/ s32 disablelookahead;
+	/*0x6c*/ bool rleanleft;
+	/*0x70*/ bool rleanright;
+	/*0x74*/ bool detonating;
+	/*0x78*/ bool canautoaim;
+	/*0x7c*/ bool farsighttempautoseek;
+	/*0x80*/ bool eyesshut;
+	/*0x84*/ bool invertpitch;
+	/*0x88*/ bool disablelookahead;
 	/*0x8c*/ s32 c1stickxsafe; // raw values but adjusted to remove dead zone
 	/*0x90*/ s32 c1stickysafe;
 	/*0x94*/ s32 c1stickxraw; // raw values from control stick

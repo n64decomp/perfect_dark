@@ -433,7 +433,7 @@ void playermgrAllocatePlayer(s32 index)
 	g_Vars.players[index]->lookingatprop.prop = NULL;
 
 	for (i = 0; i < 4; i++) {
-		g_Vars.players[index]->cmpfollowprops[i].prop = NULL;
+		g_Vars.players[index]->trackedprops[i].prop = NULL;
 	}
 
 	g_Vars.players[index]->crosspos[0] = 0;

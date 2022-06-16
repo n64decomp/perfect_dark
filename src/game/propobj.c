@@ -1273,7 +1273,7 @@ void func0f067d88(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg
 	func0f067bc4(model, arg3, arg4, 1);
 }
 
-bool func0f067dc4(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4)
+bool modelGetScreenCoords2(struct model *model, f32 *x2, f32 *x1, f32 *y2, f32 *y1)
 {
 	bool first = true;
 
@@ -1307,20 +1307,20 @@ bool func0f067dc4(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg
 
 						func0f06803c(&sp50, sp64, sp5c, sp74, sp6c);
 
-						if (first || sp74[0] < *arg2) {
-							*arg2 = sp74[0];
+						if (first || sp74[0] < *x1) {
+							*x1 = sp74[0];
 						}
 
-						if (first || sp6c[0] > *arg1) {
-							*arg1 = sp6c[0];
+						if (first || sp6c[0] > *x2) {
+							*x2 = sp6c[0];
 						}
 
-						if (first || sp74[1] < *arg4) {
-							*arg4 = sp74[1];
+						if (first || sp74[1] < *y1) {
+							*y1 = sp74[1];
 						}
 
-						if (first || sp6c[1] > *arg3) {
-							*arg3 = sp6c[1];
+						if (first || sp6c[1] > *y2) {
+							*y2 = sp6c[1];
 						}
 
 						first = false;
@@ -1348,9 +1348,9 @@ bool func0f067dc4(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg
 	return first ? false : true;
 }
 
-bool modelSetRedBox(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4)
+bool modelGetScreenCoords(struct model *model, f32 *x2, f32 *x1, f32 *y2, f32 *y1)
 {
-	return func0f067dc4(model, arg1, arg2, arg3, arg4);
+	return modelGetScreenCoords2(model, x2, x1, y2, y1);
 }
 
 void func0f06803c(struct coord *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4)

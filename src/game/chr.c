@@ -1508,8 +1508,8 @@ void chrClearReferences(s32 propnum)
 		}
 
 		for (j = 0; j != 4; j++) {
-			if (g_Vars.players[i]->cmpfollowprops[j].prop == prop) {
-				g_Vars.players[i]->cmpfollowprops[j].prop = NULL;
+			if (g_Vars.players[i]->trackedprops[j].prop == prop) {
+				g_Vars.players[i]->trackedprops[j].prop = NULL;
 			}
 		}
 	}

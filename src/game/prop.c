@@ -6497,12 +6497,12 @@ void autoaimTick(void)
 
 	if (iscmpsec) {
 		// For CMP on secondary mode, find the first prop that is within the aim limits
-		for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->cmpfollowprops); i++) {
-			struct threat *threat = &g_Vars.currentplayer->cmpfollowprops[i];
+		for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->trackedprops); i++) {
+			struct trackedprop *trackedprop = &g_Vars.currentplayer->trackedprops[i];
 
-			if (threat->prop
-					&& (threat->x1 >= 0 || threat->x2 >= 0)
-					&& (threat->y1 >= 0 || threat->y2 >= 0)) {
+			if (trackedprop->prop
+					&& (trackedprop->x1 >= 0 || trackedprop->x2 >= 0)
+					&& (trackedprop->y1 >= 0 || trackedprop->y2 >= 0)) {
 				// Define the aim limits
 				f32 top = camGetScreenTop() + camGetScreenHeight() * 0.125f;
 				f32 bottom = camGetScreenTop() + camGetScreenHeight() * 0.875f;
@@ -6510,14 +6510,14 @@ void autoaimTick(void)
 				f32 right = camGetScreenLeft() + camGetScreenWidth() * 0.875f;
 				struct chrdata *chr = NULL;
 
-				bestprop = threat->prop;
+				bestprop = trackedprop->prop;
 
 				if (bestprop->type == PROPTYPE_OBJ
 						|| bestprop->type == PROPTYPE_WEAPON
 						|| bestprop->type == PROPTYPE_DOOR) {
-					// Threat is an object
-					aimpos[0] = (threat->x2 + threat->x1) / 2;
-					aimpos[1] = (threat->y2 + threat->y1) / 2;
+					// trackedprop is an object
+					aimpos[0] = (trackedprop->x2 + trackedprop->x1) / 2;
+					aimpos[1] = (trackedprop->y2 + trackedprop->y1) / 2;
 
 					if (bestprop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 						struct defaultobj *obj = bestprop->obj;
@@ -6532,15 +6532,15 @@ void autoaimTick(void)
 						}
 					}
 				} else {
-					// Threat is a chr
+					// trackedprop is a chr
 					chr = bestprop->chr;
-					aimpos[0] = (threat->x2 + threat->x1) / 2;
+					aimpos[0] = (trackedprop->x2 + trackedprop->x1) / 2;
 
 					if (chr && chr->race == RACE_EYESPY) {
-						aimpos[1] = (threat->y2 + threat->y1) >> 1;
+						aimpos[1] = (trackedprop->y2 + trackedprop->y1) >> 1;
 					} else {
 						// Aim 2/3 up the chr, so about their chest
-						aimpos[1] = (threat->y2 + threat->y1 * 2) / 3;
+						aimpos[1] = (trackedprop->y2 + trackedprop->y1 * 2) / 3;
 					}
 				}
 
@@ -6562,7 +6562,7 @@ void autoaimTick(void)
 				}
 
 				// Don't use this prop if it's an undeployed eyespy, or if
-				// the threat is outside of the aim limits
+				// the trackedprop is outside of the aim limits
 				if (chr && chr->race == RACE_EYESPY) {
 					struct eyespy *eyespy = chrToEyespy(chr);
 
@@ -6570,10 +6570,10 @@ void autoaimTick(void)
 						bestprop = NULL;
 						aimpos[0] = aimpos[1] = 0;
 					}
-				} else if (aimpos[0] > threat->x2
-						|| aimpos[0] < threat->x1
-						|| aimpos[1] > threat->y2
-						|| aimpos[1] < threat->y1) {
+				} else if (aimpos[0] > trackedprop->x2
+						|| aimpos[0] < trackedprop->x1
+						|| aimpos[1] > trackedprop->y2
+						|| aimpos[1] < trackedprop->y1) {
 					bestprop = NULL;
 					aimpos[0] = aimpos[1] = 0;
 				}
