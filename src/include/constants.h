@@ -918,6 +918,7 @@
 #define FRCMD_IFBRONZE            0xfb
 #define FRCMD_IFSILVER            0xfc
 #define FRCMD_IFGOLD              0xfd
+#define FRCMD_START               0xfe
 
 #define FRDIFFICULTY_BRONZE 0
 #define FRDIFFICULTY_SILVER 1

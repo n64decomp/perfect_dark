@@ -2054,149 +2054,48 @@ void frUnlockDoor(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel frLoadData
-/*  f19e7a8:	3c028009 */ 	lui	$v0,%hi(g_FrDataLoaded)
-/*  f19e7ac:	24428808 */ 	addiu	$v0,$v0,%lo(g_FrDataLoaded)
-/*  f19e7b0:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f19e7b4:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f19e7b8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19e7bc:	15c0004c */ 	bnez	$t6,.L0f19e8f0
-/*  f19e7c0:	3c0f007f */ 	lui	$t7,%hi(_firingrangeSegmentRomEnd)
-/*  f19e7c4:	3c18007f */ 	lui	$t8,%hi(_firingrangeSegmentRomStart)
-/*  f19e7c8:	27189d20 */ 	addiu	$t8,$t8,%lo(_firingrangeSegmentRomStart)
-/*  f19e7cc:	25efb270 */ 	addiu	$t7,$t7,%lo(_firingrangeSegmentRomEnd)
-/*  f19e7d0:	01f82023 */ 	subu	$a0,$t7,$t8
-/*  f19e7d4:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f19e7d8:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f19e7dc:	a0590000 */ 	sb	$t9,0x0($v0)
-/*  f19e7e0:	afa70020 */ 	sw	$a3,0x20($sp)
-/*  f19e7e4:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f19e7e8:	afa4002c */ 	sw	$a0,0x2c($sp)
-/*  f19e7ec:	0fc67558 */ 	jal	frLoadRomData
-/*  f19e7f0:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f19e7f4:	8faa0018 */ 	lw	$t2,0x18($sp)
-/*  f19e7f8:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f19e7fc:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f19e800:	2d410013 */ 	sltiu	$at,$t2,0x13
-/*  f19e804:	8fa9002c */ 	lw	$t1,0x2c($sp)
-/*  f19e808:	1420000c */ 	bnez	$at,.L0f19e83c
-/*  f19e80c:	24030012 */ 	addiu	$v1,$zero,0x12
-/*  f19e810:	3c028009 */ 	lui	$v0,%hi(g_FrRomData)
-/*  f19e814:	8c428810 */ 	lw	$v0,%lo(g_FrRomData)($v0)
-/*  f19e818:	240800fe */ 	addiu	$t0,$zero,0xfe
-/*  f19e81c:	24420012 */ 	addiu	$v0,$v0,0x12
-.L0f19e820:
-/*  f19e820:	904b0000 */ 	lbu	$t3,0x0($v0)
-/*  f19e824:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f19e828:	150b0002 */ 	bne	$t0,$t3,.L0f19e834
-/*  f19e82c:	00000000 */ 	nop
-/*  f19e830:	24e70001 */ 	addiu	$a3,$a3,0x1
-.L0f19e834:
-/*  f19e834:	1469fffa */ 	bne	$v1,$t1,.L0f19e820
-/*  f19e838:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f19e83c:
-/*  f19e83c:	00072040 */ 	sll	$a0,$a3,0x1
-/*  f19e840:	2484000f */ 	addiu	$a0,$a0,0xf
-/*  f19e844:	348c000f */ 	ori	$t4,$a0,0xf
-/*  f19e848:	3984000f */ 	xori	$a0,$t4,0xf
-/*  f19e84c:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f19e850:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f19e854:	afa70020 */ 	sw	$a3,0x20($sp)
-/*  f19e858:	0c0048f2 */ 	jal	mempAlloc
-/*  f19e85c:	afa9002c */ 	sw	$t1,0x2c($sp)
-/*  f19e860:	3c048009 */ 	lui	$a0,%hi(g_FrScriptOffsets)
-/*  f19e864:	24848800 */ 	addiu	$a0,$a0,%lo(g_FrScriptOffsets)
-/*  f19e868:	ac820000 */ 	sw	$v0,0x0($a0)
-/*  f19e86c:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f19e870:	240800fe */ 	addiu	$t0,$zero,0xfe
-/*  f19e874:	10400015 */ 	beqz	$v0,.L0f19e8cc
-/*  f19e878:	8fa9002c */ 	lw	$t1,0x2c($sp)
-/*  f19e87c:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*  f19e880:	3c028009 */ 	lui	$v0,%hi(g_FrRomData)
-/*  f19e884:	24428810 */ 	addiu	$v0,$v0,%lo(g_FrRomData)
-/*  f19e888:	2de10013 */ 	sltiu	$at,$t7,0x13
-/*  f19e88c:	1420000f */ 	bnez	$at,.L0f19e8cc
-/*  f19e890:	24030012 */ 	addiu	$v1,$zero,0x12
-/*  f19e894:	8c580000 */ 	lw	$t8,0x0($v0)
-.L0f19e898:
-/*  f19e898:	246b0001 */ 	addiu	$t3,$v1,0x1
-/*  f19e89c:	0303c821 */ 	addu	$t9,$t8,$v1
-/*  f19e8a0:	932a0000 */ 	lbu	$t2,0x0($t9)
-/*  f19e8a4:	550a0007 */ 	bnel	$t0,$t2,.L0f19e8c4
-/*  f19e8a8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f19e8ac:	8c8c0000 */ 	lw	$t4,0x0($a0)
-/*  f19e8b0:	00066840 */ 	sll	$t5,$a2,0x1
-/*  f19e8b4:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f19e8b8:	018d7021 */ 	addu	$t6,$t4,$t5
-/*  f19e8bc:	a5cb0000 */ 	sh	$t3,0x0($t6)
-/*  f19e8c0:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f19e8c4:
-/*  f19e8c4:	5469fff4 */ 	bnel	$v1,$t1,.L0f19e898
-/*  f19e8c8:	8c580000 */ 	lw	$t8,0x0($v0)
-.L0f19e8cc:
-/*  f19e8cc:	0fc67789 */ 	jal	frSetTargetProps
-/*  f19e8d0:	00000000 */ 	nop
-/*  f19e8d4:	3c02800b */ 	lui	$v0,%hi(g_FrData)
-/*  f19e8d8:	2442cd20 */ 	addiu	$v0,$v0,%lo(g_FrData)
-/*  f19e8dc:	904f0465 */ 	lbu	$t7,0x465($v0)
-/*  f19e8e0:	a4400456 */ 	sh	$zero,0x456($v0)
-/*  f19e8e4:	a0400448 */ 	sb	$zero,0x448($v0)
-/*  f19e8e8:	31f8ffef */ 	andi	$t8,$t7,0xffef
-/*  f19e8ec:	a0580465 */ 	sb	$t8,0x465($v0)
-.L0f19e8f0:
-/*  f19e8f0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19e8f4:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f19e8f8:	03e00008 */ 	jr	$ra
-/*  f19e8fc:	00000000 */ 	nop
-);
+void frLoadData(void)
+{
+	if (!g_FrDataLoaded) {
+		s32 len = (s32)&_firingrangeSegmentRomEnd - (s32)&_firingrangeSegmentRomStart;
+		s32 index = 0;
+		u32 i;
+		u32 numscripts = 1;
+		s32 size;
 
-//void frLoadData(void)
-//{
-//	// 7bc
-//	if (g_FrDataLoaded == false) {
-//		u32 len = (u32)&_firingrangeSegmentRomEnd - (u32)&_firingrangeSegmentRomStart;
-//		u32 index = 0;
-//		s32 i;
-//		s32 count = 1;
-//		s32 j;
-//		u32 len2 = (u32)&_firingrangeSegmentRomEnd - (u32)&_firingrangeSegmentRomStart;
-//
-//		g_FrDataLoaded = true;
-//
-//		// 7ec
-//		frLoadRomData(len2);
-//
-//		if (len > 0x12) {
-//			for (i = 0x12; i != len2; i++) {
-//				if (g_FrRomData[i] == 0xfe) {
-//					count++;
-//				}
-//			}
-//		}
-//
-//		// 83c
-//		g_FrScriptOffsets = mempAlloc(ALIGN16(count * 2), MEMPOOL_STAGE);
-//
-//		// 860
-//		if (g_FrScriptOffsets) {
-//			if (len > 0x12) {
-//				for (j = 0x12; j != len; j++) {
-//					if (g_FrRomData[j] == 0xfe) {
-//						g_FrScriptOffsets[index++] = j + 1;
-//					}
-//				}
-//			}
-//		}
-//
-//		// 8cc
-//		frSetTargetProps();
-//
-//		g_FrData.slot = 0;
-//		g_FrData.difficulty = FRDIFFICULTY_BRONZE;
-//		g_FrData.donelighting = false;
-//	}
-//}
+		if (index);
+
+		g_FrDataLoaded = true;
+
+		frLoadRomData(len);
+
+		for (i = 0x12; i < len; i++) {
+			if (g_FrRomData[i] == FRCMD_START) {
+				numscripts++;
+			}
+		}
+
+		size = numscripts * sizeof(*g_FrScriptOffsets);
+		g_FrScriptOffsets = mempAlloc(ALIGN16(size), MEMPOOL_STAGE);
+
+		if (numscripts < 0);
+
+		if (g_FrScriptOffsets) {
+			for (i = 0x12; i < len; i++) {
+				if (g_FrRomData[i] == FRCMD_START) {
+					g_FrScriptOffsets[index] = i + 1;
+					index++;
+				}
+			}
+		}
+
+		frSetTargetProps();
+
+		g_FrData.slot = 0;
+		g_FrData.difficulty = FRDIFFICULTY_BRONZE;
+		g_FrData.donelighting = false;
+	}
+}
 
 u32 frInitAmmo(s32 weaponnum)
 {
