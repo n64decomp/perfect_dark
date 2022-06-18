@@ -366,169 +366,50 @@ bool challengeIsCompletedByChrWithNumPlayersBySlot(s32 mpchrnum, s32 slot, s32 n
 	return false;
 }
 
-extern u32 _mpstringsESegmentRomStart;
-extern u32 _mpstringsJSegmentRomStart;
-extern u32 _mpstringsPSegmentRomStart;
-extern u32 _mpstringsGSegmentRomStart;
-extern u32 _mpstringsFSegmentRomStart;
-extern u32 _mpstringsSSegmentRomStart;
-extern u32 _mpstringsISegmentRomStart;
-extern u32 _mpstringsESegmentRomEnd;
-extern u32 _mpstringsJSegmentRomEnd;
-extern u32 _mpstringsPSegmentRomEnd;
-extern u32 _mpstringsGSegmentRomEnd;
-extern u32 _mpstringsFSegmentRomEnd;
-extern u32 _mpstringsSSegmentRomEnd;
-extern u32 _mpstringsISegmentRomEnd;
+struct mpconfigfull *challengeLoadConfig(s32 confignum, u8 *buffer, s32 len)
+{
+	struct mpconfigfull *mpconfig;
+	u8 buffer2[sizeof(struct mpstrings) + 40];
+	struct mpstrings *loadedstrings;
+	s32 bank;
+	u32 language_id = langGetFileNumOffset();
+	extern struct mpconfig _mpconfigsSegmentRomStart[];
+	extern struct mpstrings _mpstringsESegmentRomStart;
+	extern struct mpstrings _mpstringsJSegmentRomStart;
+	extern struct mpstrings _mpstringsPSegmentRomStart;
+	extern struct mpstrings _mpstringsGSegmentRomStart;
+	extern struct mpstrings _mpstringsFSegmentRomStart;
+	extern struct mpstrings _mpstringsSSegmentRomStart;
+	extern struct mpstrings _mpstringsISegmentRomStart;
+	extern struct mpstrings _mpstringsESegmentRomEnd;
+	extern struct mpstrings _mpstringsJSegmentRomEnd;
+	extern struct mpstrings _mpstringsPSegmentRomEnd;
+	extern struct mpstrings _mpstringsGSegmentRomEnd;
+	extern struct mpstrings _mpstringsFSegmentRomEnd;
+	extern struct mpstrings _mpstringsSSegmentRomEnd;
+	extern struct mpstrings _mpstringsISegmentRomEnd;
 
-u32 *var800887c4 = &_mpstringsESegmentRomStart;
-u32 *var800887c8 = &_mpstringsESegmentRomEnd;
-u32 *var800887cc = &_mpstringsJSegmentRomStart;
-u32 *var800887d0 = &_mpstringsJSegmentRomEnd;
-u32 *var800887d4 = &_mpstringsPSegmentRomStart;
-u32 *var800887d8 = &_mpstringsPSegmentRomEnd;
-u32 *var800887dc = &_mpstringsGSegmentRomStart;
-u32 *var800887e0 = &_mpstringsGSegmentRomEnd;
-u32 *var800887e4 = &_mpstringsFSegmentRomStart;
-u32 *var800887e8 = &_mpstringsFSegmentRomEnd;
-u32 *var800887ec = &_mpstringsSSegmentRomStart;
-u32 *var800887f0 = &_mpstringsSSegmentRomEnd;
-u32 *var800887f4 = &_mpstringsISegmentRomStart;
-u32 *var800887f8 = &_mpstringsISegmentRomEnd;
+	s32 banks[][2] = {
+		{ (s32)&_mpstringsESegmentRomStart, (s32)&_mpstringsESegmentRomEnd },
+		{ (s32)&_mpstringsJSegmentRomStart, (s32)&_mpstringsJSegmentRomEnd },
+		{ (s32)&_mpstringsPSegmentRomStart, (s32)&_mpstringsPSegmentRomEnd },
+		{ (s32)&_mpstringsGSegmentRomStart, (s32)&_mpstringsGSegmentRomEnd },
+		{ (s32)&_mpstringsFSegmentRomStart, (s32)&_mpstringsFSegmentRomEnd },
+		{ (s32)&_mpstringsSSegmentRomStart, (s32)&_mpstringsSSegmentRomEnd },
+		{ (s32)&_mpstringsISegmentRomStart, (s32)&_mpstringsISegmentRomEnd },
+	};
 
-GLOBAL_ASM(
-glabel challengeLoadConfig
-/*  f19b914:	27bdfe38 */ 	addiu	$sp,$sp,-456
-/*  f19b918:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19b91c:	afa401c8 */ 	sw	$a0,0x1c8($sp)
-/*  f19b920:	afa501cc */ 	sw	$a1,0x1cc($sp)
-/*  f19b924:	0fc5b9b5 */ 	jal	langGetFileNumOffset
-/*  f19b928:	afa601d0 */ 	sw	$a2,0x1d0($sp)
-/*  f19b92c:	3c0f8009 */ 	lui	$t7,%hi(var800887c4)
-/*  f19b930:	25ef87c4 */ 	addiu	$t7,$t7,%lo(var800887c4)
-/*  f19b934:	afa20050 */ 	sw	$v0,0x50($sp)
-/*  f19b938:	25e80030 */ 	addiu	$t0,$t7,0x30
-/*  f19b93c:	27ae0018 */ 	addiu	$t6,$sp,0x18
-.L0f19b940:
-/*  f19b940:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f19b944:	25ef000c */ 	addiu	$t7,$t7,0xc
-/*  f19b948:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f19b94c:	adc1fff4 */ 	sw	$at,-0xc($t6)
-/*  f19b950:	8de1fff8 */ 	lw	$at,-0x8($t7)
-/*  f19b954:	adc1fff8 */ 	sw	$at,-0x8($t6)
-/*  f19b958:	8de1fffc */ 	lw	$at,-0x4($t7)
-/*  f19b95c:	15e8fff8 */ 	bne	$t7,$t0,.L0f19b940
-/*  f19b960:	adc1fffc */ 	sw	$at,-0x4($t6)
-/*  f19b964:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f19b968:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f19b96c:	3c0b007d */ 	lui	$t3,%hi(_mpconfigsSegmentRomStart)
-/*  f19b970:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f19b974:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f19b978:	8fa901c8 */ 	lw	$t1,0x1c8($sp)
-/*  f19b97c:	256b0a40 */ 	addiu	$t3,$t3,%lo(_mpconfigsSegmentRomStart)
-/*  f19b980:	8fa401cc */ 	lw	$a0,0x1cc($sp)
-/*  f19b984:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f19b988:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f19b98c:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f19b990:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f19b994:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*  f19b998:	014b2821 */ 	addu	$a1,$t2,$t3
-/*  f19b99c:	0c003522 */ 	jal	dmaExecWithAutoAlign
-/*  f19b9a0:	24060068 */ 	addiu	$a2,$zero,0x68
-/*  f19b9a4:	8fac0050 */ 	lw	$t4,0x50($sp)
-/*  f19b9a8:	8fb901c8 */ 	lw	$t9,0x1c8($sp)
-/*  f19b9ac:	27a4005c */ 	addiu	$a0,$sp,0x5c
-/*  f19b9b0:	000c68c0 */ 	sll	$t5,$t4,0x3
-/*  f19b9b4:	03ad1821 */ 	addu	$v1,$sp,$t5
-/*  f19b9b8:	0019c080 */ 	sll	$t8,$t9,0x2
-/*  f19b9bc:	8c630018 */ 	lw	$v1,0x18($v1)
-/*  f19b9c0:	0319c021 */ 	addu	$t8,$t8,$t9
-/*  f19b9c4:	0018c180 */ 	sll	$t8,$t8,0x6
-/*  f19b9c8:	afa201c4 */ 	sw	$v0,0x1c4($sp)
-/*  f19b9cc:	24060140 */ 	addiu	$a2,$zero,0x140
-/*  f19b9d0:	0c003522 */ 	jal	dmaExecWithAutoAlign
-/*  f19b9d4:	00782821 */ 	addu	$a1,$v1,$t8
-/*  f19b9d8:	8fa701c4 */ 	lw	$a3,0x1c4($sp)
-/*  f19b9dc:	00404825 */ 	or	$t1,$v0,$zero
-/*  f19b9e0:	244e0138 */ 	addiu	$t6,$v0,0x138
-/*  f19b9e4:	00e05025 */ 	or	$t2,$a3,$zero
-.L0f19b9e8:
-/*  f19b9e8:	89210000 */ 	lwl	$at,0x0($t1)
-/*  f19b9ec:	99210003 */ 	lwr	$at,0x3($t1)
-/*  f19b9f0:	2529000c */ 	addiu	$t1,$t1,0xc
-/*  f19b9f4:	254a000c */ 	addiu	$t2,$t2,0xc
-/*  f19b9f8:	a941005c */ 	swl	$at,0x5c($t2)
-/*  f19b9fc:	b941005f */ 	swr	$at,0x5f($t2)
-/*  f19ba00:	8921fff8 */ 	lwl	$at,-0x8($t1)
-/*  f19ba04:	9921fffb */ 	lwr	$at,-0x5($t1)
-/*  f19ba08:	a9410060 */ 	swl	$at,0x60($t2)
-/*  f19ba0c:	b9410063 */ 	swr	$at,0x63($t2)
-/*  f19ba10:	8921fffc */ 	lwl	$at,-0x4($t1)
-/*  f19ba14:	9921ffff */ 	lwr	$at,-0x1($t1)
-/*  f19ba18:	a9410064 */ 	swl	$at,0x64($t2)
-/*  f19ba1c:	152efff2 */ 	bne	$t1,$t6,.L0f19b9e8
-/*  f19ba20:	b9410067 */ 	swr	$at,0x67($t2)
-/*  f19ba24:	89210000 */ 	lwl	$at,0x0($t1)
-/*  f19ba28:	99210003 */ 	lwr	$at,0x3($t1)
-/*  f19ba2c:	00e01025 */ 	or	$v0,$a3,$zero
-/*  f19ba30:	a9410068 */ 	swl	$at,0x68($t2)
-/*  f19ba34:	b941006b */ 	swr	$at,0x6b($t2)
-/*  f19ba38:	892e0004 */ 	lwl	$t6,0x4($t1)
-/*  f19ba3c:	992e0007 */ 	lwr	$t6,0x7($t1)
-/*  f19ba40:	a94e006c */ 	swl	$t6,0x6c($t2)
-/*  f19ba44:	b94e006f */ 	swr	$t6,0x6f($t2)
-/*  f19ba48:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ba4c:	27bd01c8 */ 	addiu	$sp,$sp,0x1c8
-/*  f19ba50:	03e00008 */ 	jr	$ra
-/*  f19ba54:	00000000 */ 	nop
-);
+	// Load mpconfigs
+	mpconfig = dmaExecWithAutoAlign(buffer, (s32)&_mpconfigsSegmentRomStart[confignum], sizeof(struct mpconfig));
 
-// Mismatch because the arguments to an addu instruction are swapped.
-// It's the addu for calculating &bank[confignum].
-//struct mpconfigfull *challengeLoadConfig(s32 confignum, u8 *buffer, s32 len)
-//{
-//	struct mpconfigfull *mpconfig;
-//	u8 buffer2[sizeof(struct mpstrings) + 40];
-//	struct mpstrings *loadedstrings;
-//	struct mpstrings *bank;
-//	u32 language_id = langGetFileNumOffset();
-//	extern struct mpconfig _mpconfigsSegmentRomStart[];
-//	extern struct mpstrings _mpstringsESegmentRomStart;
-//	extern struct mpstrings _mpstringsJSegmentRomStart;
-//	extern struct mpstrings _mpstringsPSegmentRomStart;
-//	extern struct mpstrings _mpstringsGSegmentRomStart;
-//	extern struct mpstrings _mpstringsFSegmentRomStart;
-//	extern struct mpstrings _mpstringsSSegmentRomStart;
-//	extern struct mpstrings _mpstringsISegmentRomStart;
-//	extern struct mpstrings _mpstringsESegmentRomEnd;
-//	extern struct mpstrings _mpstringsJSegmentRomEnd;
-//	extern struct mpstrings _mpstringsPSegmentRomEnd;
-//	extern struct mpstrings _mpstringsGSegmentRomEnd;
-//	extern struct mpstrings _mpstringsFSegmentRomEnd;
-//	extern struct mpstrings _mpstringsSSegmentRomEnd;
-//	extern struct mpstrings _mpstringsISegmentRomEnd;
-//
-//	struct mpstrings *banks[][2] = {
-//		{ &_mpstringsESegmentRomStart, &_mpstringsESegmentRomEnd },
-//		{ &_mpstringsJSegmentRomStart, &_mpstringsJSegmentRomEnd },
-//		{ &_mpstringsPSegmentRomStart, &_mpstringsPSegmentRomEnd },
-//		{ &_mpstringsGSegmentRomStart, &_mpstringsGSegmentRomEnd },
-//		{ &_mpstringsFSegmentRomStart, &_mpstringsFSegmentRomEnd },
-//		{ &_mpstringsSSegmentRomStart, &_mpstringsSSegmentRomEnd },
-//		{ &_mpstringsISegmentRomStart, &_mpstringsISegmentRomEnd },
-//	};
-//
-//	// Load mpconfigs
-//	mpconfig = dmaExecWithAutoAlign(buffer, &_mpconfigsSegmentRomStart[confignum], sizeof(struct mpconfig));
-//
-//	// Load mpstrings
-//	bank = banks[language_id][0];
-//	loadedstrings = dmaExecWithAutoAlign(buffer2, &bank[confignum], sizeof(struct mpstrings));
-//
-//	mpconfig->strings = *loadedstrings;
-//
-//	return mpconfig;
-//}
+	// Load mpstrings
+	bank = banks[language_id][0];
+	loadedstrings = dmaExecWithAutoAlign(buffer2, bank + confignum * sizeof(struct mpstrings), sizeof(struct mpstrings));
+
+	mpconfig->strings = *loadedstrings;
+
+	return mpconfig;
+}
 
 struct mpconfigfull *challengeLoad(s32 challengeindex, u8 *buffer, s32 len)
 {
