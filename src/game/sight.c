@@ -4635,6 +4635,152 @@ glabel var7f1ade54
 /*  f0dc16c:	00000000 */ 	nop
 );
 
+// Mismatch: Goal loads 1.0f into $at earlier
+//Gfx *sightDrawZoom(Gfx *gdl, bool sighton)
+//{
+//	s32 viewleft; // fc
+//	s32 viewtop; // f8
+//	s32 halfwidth; // f4
+//	s32 halfheight; // f0
+//	s32 viewright;
+//	s32 viewbottom; // e8
+//	f32 maxfovy;
+//	s32 availableabove; // e0
+//	s32 availablebelow; // dc
+//	s32 availableleft;
+//	s32 availableright;
+//	f32 zoominfovy;
+//	f32 frac; // cc
+//
+//	f32 boxright; // 50
+//	f32 boxtop; // 4c
+//	f32 boxbottom; // 48
+//	f32 boxleft;
+//
+//	s32 outerwidth;
+//	s32 outerheight; // b4
+//	s32 weaponnum; // b0
+//	u8 showzoomrange;  // af
+//
+//	s32 innerwidth;
+//	s32 innerheight;
+//
+//	viewleft = viGetViewLeft() / g_ScaleX;
+//	viewtop = viGetViewTop();
+//	halfwidth = (viGetViewWidth() / g_ScaleX) >> 1;
+//	halfheight = viGetViewHeight() >> 1;
+//	viewright = viewleft + halfwidth * 2 - 1;
+//	viewbottom = viewtop + halfheight * 2 - 1;
+//
+//	availableleft = halfwidth - 48;
+//	availableright = halfwidth - 49;
+//	availableabove = halfheight - 10;
+//	availablebelow = halfheight - 10;
+//	frac = 1.0f;
+//	weaponnum = g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponnum;
+//	outerwidth = (halfwidth >> 1) - 60;
+//	outerheight = (halfheight >> 1) - 22;
+//
+//	showzoomrange = optionsGetShowZoomRange(g_Vars.currentplayerstats->mpindex)
+//		&& optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex);
+//
+//	maxfovy = currentPlayerGetGunZoomFov();
+//	zoominfovy = g_Vars.currentplayer->zoominfovy;
+//
+//	if (maxfovy == 0.0f || maxfovy == 60.0f) {
+//		if (weaponnum != WEAPON_SNIPERRIFLE) {
+//			showzoomrange = false;
+//		}
+//	} else {
+//		frac = maxfovy / zoominfovy;
+//	}
+//
+//	if (showzoomrange) {
+//		gdl = func0f153628(gdl);
+//		gdl = gfxSetPrimColour(gdl, 0x00ff0028);
+//
+//		if (frac < 0.2f) {
+//			outerwidth *= 0.2f;
+//			outerheight *= 0.2f;
+//		} else {
+//			outerwidth *= frac;
+//			outerheight *= frac;
+//		}
+//
+//		if (PLAYERCOUNT() >= 2) {
+//			outerheight *= 2;
+//		}
+//
+//		if (outerwidth < 5) {
+//			outerwidth = 5;
+//		}
+//
+//		if (outerheight < 5) {
+//			outerheight = 5;
+//		}
+//
+//		// a600
+//		boxtop = viewtop + (halfheight - availableabove * frac);
+//		boxleft = viewleft + (halfwidth - availableleft * frac);
+//		boxright = viewright - (halfwidth - availableright * frac);
+//		boxbottom = viewbottom - (halfheight - availablebelow * frac);
+//
+//		// Goal loads 1.0f into $at around here
+//		// (The +1s in the GBI macros are floats)
+//
+//		if (outerwidth > boxright - boxleft) {
+//			outerwidth = boxright - boxleft;
+//		}
+//
+//		if (outerheight > boxbottom - boxtop) {
+//			outerheight = boxbottom - boxtop;
+//		}
+//
+//		// a72c
+//		// Top left outer
+//		gDPFillRectangleScaled(gdl++, boxleft + 1, boxtop, boxleft + outerwidth - 1 + 1, boxtop + 1);
+//		gDPFillRectangleScaled(gdl++, boxleft, boxtop, boxleft + 1, boxtop + outerheight - 1 + 1);
+//
+//		// Top right outer
+//		gDPFillRectangleScaled(gdl++, boxright - outerwidth + 2, boxtop, boxright - 1 + 1, boxtop + 1);
+//		gDPFillRectangleScaled(gdl++, boxright, boxtop, boxright + 1, boxtop + outerheight - 1 + 1);
+//
+//		// Bottom left outer
+//		gDPFillRectangleScaled(gdl++, boxleft + 1, boxbottom, boxleft + outerwidth - 1 + 1, boxbottom + 1);
+//		gDPFillRectangleScaled(gdl++, boxleft, boxbottom - outerheight + 1, boxleft + 1, boxbottom + 1);
+//
+//		// Bottom right outer
+//		gDPFillRectangleScaled(gdl++, boxright - outerwidth + 2, boxbottom, boxright - 1 + 1, boxbottom + 1);
+//		gDPFillRectangleScaled(gdl++, boxright, boxbottom - outerheight + 1, boxright + 1, boxbottom + 1);
+//
+//		innerwidth = outerwidth >> 1;
+//		innerheight = outerheight >> 1;
+//
+//		// Top left inner
+//		gDPFillRectangleScaled(gdl++, boxleft, boxtop, boxleft + innerwidth + 1, boxtop + 1);
+//		gDPFillRectangleScaled(gdl++, boxleft, boxtop, boxleft + 1, boxtop + innerheight + 1);
+//
+//		// Top right inner
+//		gDPFillRectangleScaled(gdl++, boxright - innerwidth, boxtop, boxright + 1, boxtop + 1);
+//		gDPFillRectangleScaled(gdl++, boxright, boxtop, boxright + 1, boxtop + innerheight + 1);
+//
+//		// Bottom left inner
+//		gDPFillRectangleScaled(gdl++, boxleft, boxbottom, boxleft + innerwidth + 1, boxbottom + 1);
+//		gDPFillRectangleScaled(gdl++, boxleft, boxbottom - innerheight, boxleft + 1, boxbottom + 1);
+//
+//		// Bottom right inner
+//		gDPFillRectangleScaled(gdl++, boxright - innerwidth, boxbottom, boxright + 1, boxbottom + 1);
+//		gDPFillRectangleScaled(gdl++, boxright, boxbottom - innerheight, boxright + 1, boxbottom + 1);
+//
+//		gdl = func0f153838(gdl);
+//		gdl = func0f153780(gdl);
+//	}
+//
+//	gdl = sightDrawDefault(gdl, sighton);
+//
+//	return gdl;
+//}
+
 Gfx *sightDrawMaian(Gfx *gdl, bool sighton)
 {
 	s32 viewleft = viGetViewLeft() / g_ScaleX;
