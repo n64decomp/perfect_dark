@@ -638,8 +638,8 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 	canmanualzoom = weaponHasClassFlag(weaponnum, WEAPONCLASSFLAG_MANUALZOOM);
 	contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
 
-	c1stickx = allowc1x ? (s8) joyGetStickX(contpad1) : 0;
-	c1sticky = allowc1y ? (s8) joyGetStickY(contpad1) : 0;
+	c1stickx = allowc1x ? joyGetStickX(contpad1) : 0;
+	c1sticky = allowc1y ? joyGetStickY(contpad1) : 0;
 
 	c1buttons = allowc1buttons ? joyGetButtons(contpad1, 0xffff) : 0;
 	c1buttonsthisframe = allowc1buttons ? joyGetButtonsPressedThisFrame(contpad1, 0xffff) : 0;
@@ -717,7 +717,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 				// 2.4: ctrl1 stick = look,      z = aim,  ctrl2 stick = walk/strafe, z = fire
 				contpad2 = (s8) optionsGetContpadNum2(g_Vars.currentplayerstats->mpindex);
 				c2stickx = (s8) joyGetStickX(contpad2);
-				c2sticky = (s8) joyGetStickY(contpad2);
+				c2sticky = (joyGetStickY(contpad2) << 24) >> 24;
 				c2buttons = joyGetButtons(contpad2, 0xffff);
 				c2buttonsthisframe = joyGetButtonsPressedThisFrame(contpad2, 0xffff);
 
