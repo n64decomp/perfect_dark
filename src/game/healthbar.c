@@ -18,138 +18,63 @@ struct marker {
 	f32 frac;
 };
 
-s32 healthbarMaybeInsertMarker(struct marker *markers, s32 *indexes, s32 len, f32 fillfrac);
+s32 healthbarMaybeInsertMarker(struct marker *markers, s32 *indexes, s32 maxlen, f32 fillfrac)
+{
+	s32 len = 0;
+	s32 i;
+	s32 j;
 
-GLOBAL_ASM(
-glabel healthbarMaybeInsertMarker
-/*  f0d5a90:	44876000 */ 	mtc1	$a3,$f12
-/*  f0d5a94:	44800000 */ 	mtc1	$zero,$f0
-/*  f0d5a98:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0d5a9c:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f0d5aa0:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f0d5aa4:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0d5aa8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0d5aac:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0d5ab0:	45000002 */ 	bc1f	.L0f0d5abc
-/*  f0d5ab4:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f0d5ab8:	46000306 */ 	mov.s	$f12,$f0
-.L0f0d5abc:
-/*  f0d5abc:	44810000 */ 	mtc1	$at,$f0
-/*  f0d5ac0:	24090014 */ 	addiu	$t1,$zero,0x14
-/*  f0d5ac4:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0d5ac8:	00000000 */ 	nop
-/*  f0d5acc:	45000002 */ 	bc1f	.L0f0d5ad8
-/*  f0d5ad0:	00000000 */ 	nop
-/*  f0d5ad4:	46000306 */ 	mov.s	$f12,$f0
-.L0f0d5ad8:
-/*  f0d5ad8:	18c0000a */ 	blez	$a2,.L0f0d5b04
-/*  f0d5adc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0d5ae0:
-/*  f0d5ae0:	8c870000 */ 	lw	$a3,0x0($a0)
-/*  f0d5ae4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0d5ae8:	0067082a */ 	slt	$at,$v1,$a3
-/*  f0d5aec:	10200002 */ 	beqz	$at,.L0f0d5af8
-/*  f0d5af0:	00000000 */ 	nop
-/*  f0d5af4:	00e01825 */ 	or	$v1,$a3,$zero
-.L0f0d5af8:
-/*  f0d5af8:	1446fff9 */ 	bne	$v0,$a2,.L0f0d5ae0
-/*  f0d5afc:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f0d5b00:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0d5b04:
-/*  f0d5b04:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0d5b08:	18600051 */ 	blez	$v1,.L0f0d5c50
-/*  f0d5b0c:	00a02025 */ 	or	$a0,$a1,$zero
-.L0f0d5b10:
-/*  f0d5b10:	8c860000 */ 	lw	$a2,0x0($a0)
-/*  f0d5b14:	8c870004 */ 	lw	$a3,0x4($a0)
-/*  f0d5b18:	00c90019 */ 	multu	$a2,$t1
-/*  f0d5b1c:	00007012 */ 	mflo	$t6
-/*  f0d5b20:	020e4021 */ 	addu	$t0,$s0,$t6
-/*  f0d5b24:	c5000010 */ 	lwc1	$f0,0x10($t0)
-/*  f0d5b28:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0d5b2c:	00000000 */ 	nop
-/*  f0d5b30:	45020045 */ 	bc1fl	.L0f0d5c48
-/*  f0d5b34:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0d5b38:	00e90019 */ 	multu	$a3,$t1
-/*  f0d5b3c:	00007812 */ 	mflo	$t7
-/*  f0d5b40:	020f3021 */ 	addu	$a2,$s0,$t7
-/*  f0d5b44:	c4c20010 */ 	lwc1	$f2,0x10($a2)
-/*  f0d5b48:	4602603c */ 	c.lt.s	$f12,$f2
-/*  f0d5b4c:	00000000 */ 	nop
-/*  f0d5b50:	4502003d */ 	bc1fl	.L0f0d5c48
-/*  f0d5b54:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0d5b58:	c5100000 */ 	lwc1	$f16,0x0($t0)
-/*  f0d5b5c:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*  f0d5b60:	c4c60004 */ 	lwc1	$f6,0x4($a2)
-/*  f0d5b64:	c5080004 */ 	lwc1	$f8,0x4($t0)
-/*  f0d5b68:	46102381 */ 	sub.s	$f14,$f4,$f16
-/*  f0d5b6c:	c5040008 */ 	lwc1	$f4,0x8($t0)
-/*  f0d5b70:	c4ca0008 */ 	lwc1	$f10,0x8($a2)
-/*  f0d5b74:	46083481 */ 	sub.s	$f18,$f6,$f8
-/*  f0d5b78:	00690019 */ 	multu	$v1,$t1
-/*  f0d5b7c:	2469ffff */ 	addiu	$t1,$v1,-1
-/*  f0d5b80:	46045181 */ 	sub.s	$f6,$f10,$f4
-/*  f0d5b84:	0049082a */ 	slt	$at,$v0,$t1
-/*  f0d5b88:	01203825 */ 	or	$a3,$t1,$zero
-/*  f0d5b8c:	0009c880 */ 	sll	$t9,$t1,0x2
-/*  f0d5b90:	e7a6002c */ 	swc1	$f6,0x2c($sp)
-/*  f0d5b94:	46001181 */ 	sub.s	$f6,$f2,$f0
-/*  f0d5b98:	c4c8000c */ 	lwc1	$f8,0xc($a2)
-/*  f0d5b9c:	c50a000c */ 	lwc1	$f10,0xc($t0)
-/*  f0d5ba0:	46006081 */ 	sub.s	$f2,$f12,$f0
-/*  f0d5ba4:	e7a60020 */ 	swc1	$f6,0x20($sp)
-/*  f0d5ba8:	0000c012 */ 	mflo	$t8
-/*  f0d5bac:	460a4101 */ 	sub.s	$f4,$f8,$f10
-/*  f0d5bb0:	c7a80020 */ 	lwc1	$f8,0x20($sp)
-/*  f0d5bb4:	02183021 */ 	addu	$a2,$s0,$t8
-/*  f0d5bb8:	46081283 */ 	div.s	$f10,$f2,$f8
-/*  f0d5bbc:	e7a40024 */ 	swc1	$f4,0x24($sp)
-/*  f0d5bc0:	e7aa0008 */ 	swc1	$f10,0x8($sp)
-/*  f0d5bc4:	c7a40008 */ 	lwc1	$f4,0x8($sp)
-/*  f0d5bc8:	460e2182 */ 	mul.s	$f6,$f4,$f14
-/*  f0d5bcc:	46068200 */ 	add.s	$f8,$f16,$f6
-/*  f0d5bd0:	e4c80000 */ 	swc1	$f8,0x0($a2)
-/*  f0d5bd4:	c7a40008 */ 	lwc1	$f4,0x8($sp)
-/*  f0d5bd8:	c50a0004 */ 	lwc1	$f10,0x4($t0)
-/*  f0d5bdc:	46122182 */ 	mul.s	$f6,$f4,$f18
-/*  f0d5be0:	46065200 */ 	add.s	$f8,$f10,$f6
-/*  f0d5be4:	e4c80004 */ 	swc1	$f8,0x4($a2)
-/*  f0d5be8:	c7a40008 */ 	lwc1	$f4,0x8($sp)
-/*  f0d5bec:	c7aa002c */ 	lwc1	$f10,0x2c($sp)
-/*  f0d5bf0:	c5080008 */ 	lwc1	$f8,0x8($t0)
-/*  f0d5bf4:	460a2182 */ 	mul.s	$f6,$f4,$f10
-/*  f0d5bf8:	46064100 */ 	add.s	$f4,$f8,$f6
-/*  f0d5bfc:	e4c40008 */ 	swc1	$f4,0x8($a2)
-/*  f0d5c00:	c7a80024 */ 	lwc1	$f8,0x24($sp)
-/*  f0d5c04:	c7aa0008 */ 	lwc1	$f10,0x8($sp)
-/*  f0d5c08:	c504000c */ 	lwc1	$f4,0xc($t0)
-/*  f0d5c0c:	e4cc0010 */ 	swc1	$f12,0x10($a2)
-/*  f0d5c10:	46085182 */ 	mul.s	$f6,$f10,$f8
-/*  f0d5c14:	46062280 */ 	add.s	$f10,$f4,$f6
-/*  f0d5c18:	10200007 */ 	beqz	$at,.L0f0d5c38
-/*  f0d5c1c:	e4ca000c */ 	swc1	$f10,0xc($a2)
-/*  f0d5c20:	00b93021 */ 	addu	$a2,$a1,$t9
-.L0f0d5c24:
-/*  f0d5c24:	8cca0000 */ 	lw	$t2,0x0($a2)
-/*  f0d5c28:	24e7ffff */ 	addiu	$a3,$a3,-1
-/*  f0d5c2c:	24c6fffc */ 	addiu	$a2,$a2,-4
-/*  f0d5c30:	1447fffc */ 	bne	$v0,$a3,.L0f0d5c24
-/*  f0d5c34:	acca0008 */ 	sw	$t2,0x8($a2)
-.L0f0d5c38:
-/*  f0d5c38:	ac830004 */ 	sw	$v1,0x4($a0)
-/*  f0d5c3c:	10000005 */ 	b	.L0f0d5c54
-/*  f0d5c40:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0d5c44:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f0d5c48:
-/*  f0d5c48:	1443ffb1 */ 	bne	$v0,$v1,.L0f0d5b10
-/*  f0d5c4c:	24840004 */ 	addiu	$a0,$a0,0x4
-.L0f0d5c50:
-/*  f0d5c50:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0d5c54:
-/*  f0d5c54:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f0d5c58:	03e00008 */ 	jr	$ra
-/*  f0d5c5c:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+	if (fillfrac < 0.0f) {
+		fillfrac = 0.0f;
+	}
+
+	if (fillfrac > 1.0f) {
+		fillfrac = 1.0f;
+	}
+
+	for (i = 0; i < maxlen; i++) {
+		if (indexes[i] > len) {
+			len = indexes[i];
+		}
+	}
+
+	len++;
+
+	for (i = 0; i < len; i++) {
+		s32 index1 = indexes[i];
+		s32 index2 = indexes[i + 1];
+		f32 x1;
+		f32 x2;
+		f32 y1;
+		f32 y2;
+		f32 tmp1;
+		f32 tmp2;
+
+		if (markers[index1].frac < fillfrac && markers[index2].frac > fillfrac) {
+			x1 = markers[index2].x1 - markers[index1].x1;
+			y1 = markers[index2].y1 - markers[index1].y1;
+			x2 = markers[index2].x2 - markers[index1].x2;
+			y2 = markers[index2].y2 - markers[index1].y2;
+			tmp1 = markers[index2].frac - markers[index1].frac;
+			tmp2 = fillfrac - markers[index1].frac;
+
+			markers[len].x1 = markers[index1].x1 + tmp2 / tmp1 * x1;
+			markers[len].y1 = markers[index1].y1 + tmp2 / tmp1 * y1;
+			markers[len].x2 = markers[index1].x2 + tmp2 / tmp1 * x2;
+			markers[len].y2 = markers[index1].y2 + tmp2 / tmp1 * y2;
+			markers[len].frac = fillfrac;
+
+			for (j = len - 1; j > i; j--) {
+				indexes[j + 1] = indexes[j];
+			}
+
+			indexes[i + 1] = len;
+			return 1;
+		}
+	}
+
+	return 0;
+}
 
 u32 healthbarChooseColour(u32 fillcol, u32 bgcol, f32 fillexcfade, f32 fillincfade, f32 frac)
 {
