@@ -2917,7 +2917,7 @@ Gfx *playerRenderHealthBar(Gfx *gdl)
 	gDPSetPrimColorViaWord(gdl++, 0, 0, 0xe6e6e600);
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 
-	gdl = healthbarRender(gdl, 0, 0, 0);
+	gdl = healthbarDraw(gdl, NULL, 0, 0);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 

@@ -12,20 +12,23 @@
  *
  * upper word
  * 00F00000	number of points
- * 000FFFFF	number of bytes to grab
+ * 0000FFFF	number of bytes to grab
  *
  * lower word
  * 0f000000	segment
  * 00ffffff	offset in point table
  */
-#define	gDPSetVerticeArray(pkt, ptr, numvertices)                   \
-{                                                                   \
-	Gfx *_g = (Gfx *)(pkt);                                         \
-	_g->words.w0 = (_SHIFTL(G_VTX, 24, 8)                            \
-			| _SHIFTL(numvertices - 1, 20, 4)                       \
-			| _SHIFTL(numvertices * sizeof(struct gfxvtx), 0, 20)); \
-	_g->words.w1 = (unsigned int)(ptr);                             \
+#define	gDPSetVerticeArrayRaw(pkt, ptr, count, size) \
+{                                                    \
+	Gfx *_g = (Gfx *)(pkt);                          \
+	_g->words.w0 = (_SHIFTL(G_VTX, 24, 8)            \
+			| _SHIFTL((count), 16, 8)                \
+			| _SHIFTL((size), 0, 16));               \
+	_g->words.w1 = (unsigned int)(ptr);              \
 }
+
+#define	gDPSetVerticeArray(pkt, ptr, numvertices) \
+	gDPSetVerticeArrayRaw(pkt, ptr, ((numvertices) - 1) << 4, (numvertices) * sizeof(struct gfxvtx))
 
 /**
  * 07	rsp_color
@@ -39,13 +42,13 @@
  * 0f000000	segment
  * 00ffffff	address or offset in file
  */
-#define	gDPSetColorArray(pkt, ptr, numcolors)     \
-{                                                 \
-	Gfx *_g = (Gfx *)(pkt);                       \
-	_g->words.w0 = (_SHIFTL(G_SETCOLOR, 24, 8)          \
-			| _SHIFTL((numcolors - 1) * 4, 16, 8) \
-			| _SHIFTL(numcolors * 4, 0, 16));     \
-	_g->words.w1 = (unsigned int)(ptr);           \
+#define	gDPSetColorArray(pkt, ptr, numcolors)        \
+{                                                    \
+	Gfx *_g = (Gfx *)(pkt);                          \
+	_g->words.w0 = (_SHIFTL(G_SETCOLOR, 24, 8)       \
+			| _SHIFTL(((numcolors) - 1) << 2, 16, 8) \
+			| _SHIFTL((numcolors) * 4, 0, 16));      \
+	_g->words.w1 = (unsigned int)(ptr);              \
 }
 
 /**
