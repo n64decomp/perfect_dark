@@ -151,88 +151,36 @@ glabel healthbarMaybeInsertMarker
 /*  f0d5c5c:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-u32 healthbarChooseColour(u32 fillcol, u32 bgcol, f32 fillexcfade, f32 fillincfade, f32 frac);
+u32 healthbarChooseColour(u32 fillcol, u32 bgcol, f32 fillexcfade, f32 fillincfade, f32 frac)
+{
+	f32 mult;
+	u32 r;
+	u32 g;
+	u32 b;
+	u32 a;
 
-GLOBAL_ASM(
-glabel healthbarChooseColour
-/*  f0d5c60:	44877000 */ 	mtc1	$a3,$f14
-/*  f0d5c64:	c7ac0010 */ 	lwc1	$f12,0x10($sp)
-/*  f0d5c68:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f0d5c6c:	c7a40008 */ 	lwc1	$f4,0x8($sp)
-/*  f0d5c70:	460c703e */ 	c.le.s	$f14,$f12
-/*  f0d5c74:	00000000 */ 	nop
-/*  f0d5c78:	45020004 */ 	bc1fl	.L0f0d5c8c
-/*  f0d5c7c:	4604603e */ 	c.le.s	$f12,$f4
-/*  f0d5c80:	03e00008 */ 	jr	$ra
-/*  f0d5c84:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f0d5c88:	4604603e */ 	c.le.s	$f12,$f4
-.L0f0d5c8c:
-/*  f0d5c8c:	00000000 */ 	nop
-/*  f0d5c90:	45020004 */ 	bc1fl	.L0f0d5ca4
-/*  f0d5c94:	c7a60008 */ 	lwc1	$f6,0x8($sp)
-/*  f0d5c98:	03e00008 */ 	jr	$ra
-/*  f0d5c9c:	00801025 */ 	or	$v0,$a0,$zero
-/*  f0d5ca0:	c7a60008 */ 	lwc1	$f6,0x8($sp)
-.L0f0d5ca4:
-/*  f0d5ca4:	00041e02 */ 	srl	$v1,$a0,0x18
-/*  f0d5ca8:	0005ce02 */ 	srl	$t9,$a1,0x18
-/*  f0d5cac:	46066201 */ 	sub.s	$f8,$f12,$f6
-/*  f0d5cb0:	332900ff */ 	andi	$t1,$t9,0xff
-/*  f0d5cb4:	306e00ff */ 	andi	$t6,$v1,0xff
-/*  f0d5cb8:	46067281 */ 	sub.s	$f10,$f14,$f6
-/*  f0d5cbc:	00043402 */ 	srl	$a2,$a0,0x10
-/*  f0d5cc0:	30cf00ff */ 	andi	$t7,$a2,0xff
-/*  f0d5cc4:	012e5023 */ 	subu	$t2,$t1,$t6
-/*  f0d5cc8:	460a4003 */ 	div.s	$f0,$f8,$f10
-/*  f0d5ccc:	00043a02 */ 	srl	$a3,$a0,0x8
-/*  f0d5cd0:	448a8000 */ 	mtc1	$t2,$f16
-/*  f0d5cd4:	30f800ff */ 	andi	$t8,$a3,0xff
-/*  f0d5cd8:	01e03025 */ 	or	$a2,$t7,$zero
-/*  f0d5cdc:	00057c02 */ 	srl	$t7,$a1,0x10
-/*  f0d5ce0:	03003825 */ 	or	$a3,$t8,$zero
-/*  f0d5ce4:	31f800ff */ 	andi	$t8,$t7,0xff
-/*  f0d5ce8:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f0d5cec:	0306c823 */ 	subu	$t9,$t8,$a2
-/*  f0d5cf0:	44994000 */ 	mtc1	$t9,$f8
-/*  f0d5cf4:	00057a02 */ 	srl	$t7,$a1,0x8
-/*  f0d5cf8:	31f800ff */ 	andi	$t8,$t7,0xff
-/*  f0d5cfc:	0307c823 */ 	subu	$t9,$t8,$a3
-/*  f0d5d00:	30af00ff */ 	andi	$t7,$a1,0xff
-/*  f0d5d04:	308800ff */ 	andi	$t0,$a0,0xff
-/*  f0d5d08:	01e8c023 */ 	subu	$t8,$t7,$t0
-/*  f0d5d0c:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f0d5d10:	46009102 */ 	mul.s	$f4,$f18,$f0
-/*  f0d5d14:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f0d5d18:	46005402 */ 	mul.s	$f16,$f10,$f0
-/*  f0d5d1c:	44992000 */ 	mtc1	$t9,$f4
-/*  f0d5d20:	440c3000 */ 	mfc1	$t4,$f6
-/*  f0d5d24:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f0d5d28:	01cc6821 */ 	addu	$t5,$t6,$t4
-/*  f0d5d2c:	000d7600 */ 	sll	$t6,$t5,0x18
-/*  f0d5d30:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f0d5d34:	44988000 */ 	mtc1	$t8,$f16
-/*  f0d5d38:	46003202 */ 	mul.s	$f8,$f6,$f0
-/*  f0d5d3c:	440a9000 */ 	mfc1	$t2,$f18
-/*  f0d5d40:	00000000 */ 	nop
-/*  f0d5d44:	00ca5821 */ 	addu	$t3,$a2,$t2
-/*  f0d5d48:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f0d5d4c:	000b6400 */ 	sll	$t4,$t3,0x10
-/*  f0d5d50:	01cc6825 */ 	or	$t5,$t6,$t4
-/*  f0d5d54:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f0d5d58:	46009102 */ 	mul.s	$f4,$f18,$f0
-/*  f0d5d5c:	440a5000 */ 	mfc1	$t2,$f10
-/*  f0d5d60:	00000000 */ 	nop
-/*  f0d5d64:	00ea5821 */ 	addu	$t3,$a3,$t2
-/*  f0d5d68:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f0d5d6c:	000b7200 */ 	sll	$t6,$t3,0x8
-/*  f0d5d70:	01ae6025 */ 	or	$t4,$t5,$t6
-/*  f0d5d74:	44093000 */ 	mfc1	$t1,$f6
-/*  f0d5d78:	00000000 */ 	nop
-/*  f0d5d7c:	01095021 */ 	addu	$t2,$t0,$t1
-/*  f0d5d80:	018a1025 */ 	or	$v0,$t4,$t2
-/*  f0d5d84:	03e00008 */ 	jr	$ra
-/*  f0d5d88:	00000000 */ 	nop
-);
+	if (frac >= fillincfade) {
+		return bgcol;
+	}
+
+	if (frac <= fillexcfade) {
+		return fillcol;
+	}
+
+	mult = (frac - fillexcfade) / (fillincfade - fillexcfade);
+
+	r = (fillcol >> 24) & 0xff;
+	g = (fillcol >> 16) & 0xff;
+	b = (fillcol >> 8) & 0xff;
+	a = fillcol & 0xff;
+
+	r += (s32) ((s32) (((bgcol >> 24) & 0xff) - r) * mult);
+	g += (s32) ((s32) (((bgcol >> 16) & 0xff) - g) * mult);
+	b += (s32) ((s32) (((bgcol >> 8) & 0xff) - b) * mult);
+	a += (s32) ((s32) ((bgcol & 0xff) - a) * mult);
+
+	return r << 24 | g << 16 | b << 8 | a;
+}
 
 /**
  * Terminology used in this function:
