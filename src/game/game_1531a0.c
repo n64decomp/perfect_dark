@@ -51,14 +51,14 @@ u32 var80080104jf = 0;
 s32 var8007fac4 = 0;
 bool g_TextRotated90 = false;
 u32 var8007facc = 0;
-u32 var8007fad0 = 1;
-u32 var80080108jf = 1;
+s32 var8007fad0 = 1;
+s32 var80080108jf = 1;
 #else
 s32 g_ScaleX = 1;
 s32 var8007fac4 = 0;
 bool g_TextRotated90 = false;
 u32 var8007facc = 0;
-u32 var8007fad0 = 1;
+s32 var8007fad0 = 1;
 #endif
 
 u32 var8007fad4 = 0xffffffff;
