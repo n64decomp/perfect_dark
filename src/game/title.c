@@ -36,7 +36,9 @@ u32 *var8009ccb0[2];
 u32 var8009ccb8;
 
 #if VERSION == VERSION_JPN_FINAL
-u8 jpnfill[0x20];
+f32 var8009d34cjf;
+f32 var8009d350jf;
+f32 var8009d358jf[4];
 #endif
 
 s16 g_TitleViewHeight = 480;
@@ -70,9 +72,9 @@ struct model *g_TitleModelPdThree = NULL;
 
 #if VERSION == VERSION_JPN_FINAL
 u32 var800623f0jf = 0;
-struct model *var800623f4jf = NULL;
-struct model *var800623f8jf = NULL;
-struct model *var800623fcjf = NULL;
+struct model *g_TitleModelJpnLogo1 = NULL;
+struct model *g_TitleModelJpnLogo2 = NULL;
+struct model *g_TitleModelJpnPd = NULL;
 #endif
 
 u32 var80062510 = 0x00000000;
@@ -1450,663 +1452,151 @@ bool g_LegalEnabled = true;
 bool g_PdLogoIsFirstTick = true;
 bool g_PdLogoTriggerExit = false;
 
-u32 var80062738 = 0;
-u32 var8006273c = 0;
-u32 var80062740 = 0;
-u32 var80062744 = 0;
-u32 var80062748 = 0;
-u32 var8006274c = 0;
-u32 var80062750 = 0;
-u32 var80062754 = 0;
-u32 var80062758 = 0;
-u32 var8006275c = 0;
-u32 var80062760 = 0;
-u32 var80062764 = 0;
+void titleInitPdLogo(void)
+{
+	u8 *nextaddr = var8009cca0;
+	u32 remaining;
+	u32 size;
 
-#if VERSION >= VERSION_JPN_FINAL
-struct coord var800624a4jf = {0};
+	g_TitleTimer = 0;
 
-GLOBAL_ASM(
-glabel titleInitPdLogo
-.late_rodata
-glabel var7f1a8f68jf
-.word 0x3c23d70a
-.word 0x3f7d70a4
-.text
-/*  f016f0c:	3c018006 */ 	lui	$at,0x8006
-/*  f016f10:	ac2023a4 */ 	sw	$zero,0x23a4($at)
-/*  f016f14:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f016f18:	3c014110 */ 	lui	$at,0x4110
-/*  f016f1c:	44812000 */ 	mtc1	$at,$f4
-/*  f016f20:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f016f24:	3c09800a */ 	lui	$t1,0x800a
-/*  f016f28:	3c11800a */ 	lui	$s1,0x800a
-/*  f016f2c:	2529d350 */ 	addiu	$t1,$t1,-11440
-/*  f016f30:	8e31d330 */ 	lw	$s1,-0x2cd0($s1)
-/*  f016f34:	e5240000 */ 	swc1	$f4,0x0($t1)
-/*  f016f38:	c5260000 */ 	lwc1	$f6,0x0($t1)
-/*  f016f3c:	3c04800a */ 	lui	$a0,0x800a
-/*  f016f40:	2484d34c */ 	addiu	$a0,$a0,-11444
-/*  f016f44:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f016f48:	e4860000 */ 	swc1	$f6,0x0($a0)
-/*  f016f4c:	c4228f68 */ 	lwc1	$f2,-0x7098($at)
-/*  f016f50:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f016f54:	3c08800a */ 	lui	$t0,0x800a
-/*  f016f58:	3c05800a */ 	lui	$a1,0x800a
-/*  f016f5c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f016f60:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f016f64:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f016f68:	24a5d364 */ 	addiu	$a1,$a1,-11420
-/*  f016f6c:	2508d358 */ 	addiu	$t0,$t0,-11432
-/*  f016f70:	c4208f6c */ 	lwc1	$f0,-0x7094($at)
-/*  f016f74:	00003025 */ 	move	$a2,$zero
-/*  f016f78:	24070004 */ 	li	$a3,0x4
-.JF0f016f7c:
-/*  f016f7c:	00001825 */ 	move	$v1,$zero
-.JF0f016f80:
-/*  f016f80:	c4880000 */ 	lwc1	$f8,0x0($a0)
-/*  f016f84:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f016f88:	28610014 */ 	slti	$at,$v1,0x14
-/*  f016f8c:	46080282 */ 	mul.s	$f10,$f0,$f8
-/*  f016f90:	46025400 */ 	add.s	$f16,$f10,$f2
-/*  f016f94:	1420fffa */ 	bnez	$at,.JF0f016f80
-/*  f016f98:	e4900000 */ 	swc1	$f16,0x0($a0)
-/*  f016f9c:	3c02800a */ 	lui	$v0,0x800a
-/*  f016fa0:	2442d358 */ 	addiu	$v0,$v0,-11432
-.JF0f016fa4:
-/*  f016fa4:	c4520004 */ 	lwc1	$f18,0x4($v0)
-/*  f016fa8:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f016fac:	1445fffd */ 	bne	$v0,$a1,.JF0f016fa4
-/*  f016fb0:	e452fffc */ 	swc1	$f18,-0x4($v0)
-/*  f016fb4:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f016fb8:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f016fbc:	14c7ffef */ 	bne	$a2,$a3,.JF0f016f7c
-/*  f016fc0:	e504000c */ 	swc1	$f4,0xc($t0)
-/*  f016fc4:	c5060004 */ 	lwc1	$f6,0x4($t0)
-/*  f016fc8:	3c0f8006 */ 	lui	$t7,0x8006
-/*  f016fcc:	25ef2670 */ 	addiu	$t7,$t7,0x2670
-/*  f016fd0:	e5260000 */ 	swc1	$f6,0x0($t1)
-/*  f016fd4:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f016fd8:	27ae0060 */ 	addiu	$t6,$sp,0x60
-/*  f016fdc:	8df90004 */ 	lw	$t9,0x4($t7)
-/*  f016fe0:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f016fe4:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f016fe8:	3c108008 */ 	lui	$s0,0x8008
-/*  f016fec:	2610b65c */ 	addiu	$s0,$s0,-18852
-/*  f016ff0:	3c060004 */ 	lui	$a2,0x4
-/*  f016ff4:	add90004 */ 	sw	$t9,0x4($t6)
-/*  f016ff8:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f016ffc:	96040244 */ 	lhu	$a0,0x244($s0)
-/*  f017000:	34c67800 */ 	ori	$a2,$a2,0x7800
-/*  f017004:	02202825 */ 	move	$a1,$s1
-/*  f017008:	0fc6a0c5 */ 	jal	modeldefLoad
-/*  f01700c:	00003825 */ 	move	$a3,$zero
-/*  f017010:	ae020240 */ 	sw	$v0,0x240($s0)
-/*  f017014:	0fc59da4 */ 	jal	fileGetLoadedSize
-/*  f017018:	96040244 */ 	lhu	$a0,0x244($s0)
-/*  f01701c:	2443003f */ 	addiu	$v1,$v0,0x3f
-/*  f017020:	346a003f */ 	ori	$t2,$v1,0x3f
-/*  f017024:	3c0c0004 */ 	lui	$t4,0x4
-/*  f017028:	394b003f */ 	xori	$t3,$t2,0x3f
-/*  f01702c:	358c7800 */ 	ori	$t4,$t4,0x7800
-/*  f017030:	022b8821 */ 	addu	$s1,$s1,$t3
-/*  f017034:	018b9023 */ 	subu	$s2,$t4,$t3
-/*  f017038:	0c008a0e */ 	jal	modelCalculateRwDataLen
-/*  f01703c:	8e040240 */ 	lw	$a0,0x240($s0)
-/*  f017040:	0fc2d0c0 */ 	jal	modelInstantiateWithAnim
-/*  f017044:	8e040240 */ 	lw	$a0,0x240($s0)
-/*  f017048:	3c038006 */ 	lui	$v1,0x8006
-/*  f01704c:	246323d8 */ 	addiu	$v1,$v1,0x23d8
-/*  f017050:	ac620000 */ 	sw	$v0,0x0($v1)
-/*  f017054:	00402025 */ 	move	$a0,$v0
-/*  f017058:	0c006bbe */ 	jal	modelSetScale
-/*  f01705c:	3c053f80 */ 	lui	$a1,0x3f80
-/*  f017060:	3c048006 */ 	lui	$a0,0x8006
-/*  f017064:	8c8423d8 */ 	lw	$a0,0x23d8($a0)
-/*  f017068:	0c006b35 */ 	jal	modelSetRootPosition
-/*  f01706c:	27a50060 */ 	addiu	$a1,$sp,0x60
-/*  f017070:	3c188006 */ 	lui	$t8,0x8006
-/*  f017074:	2718267c */ 	addiu	$t8,$t8,0x267c
-/*  f017078:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f01707c:	27ad0054 */ 	addiu	$t5,$sp,0x54
-/*  f017080:	8f0f0004 */ 	lw	$t7,0x4($t8)
-/*  f017084:	ada10000 */ 	sw	$at,0x0($t5)
-/*  f017088:	8f010008 */ 	lw	$at,0x8($t8)
-/*  f01708c:	adaf0004 */ 	sw	$t7,0x4($t5)
-/*  f017090:	02202825 */ 	move	$a1,$s1
-/*  f017094:	ada10008 */ 	sw	$at,0x8($t5)
-/*  f017098:	9604024c */ 	lhu	$a0,0x24c($s0)
-/*  f01709c:	02403025 */ 	move	$a2,$s2
-/*  f0170a0:	0fc6a0c5 */ 	jal	modeldefLoad
-/*  f0170a4:	00003825 */ 	move	$a3,$zero
-/*  f0170a8:	ae020248 */ 	sw	$v0,0x248($s0)
-/*  f0170ac:	0fc59da4 */ 	jal	fileGetLoadedSize
-/*  f0170b0:	9604024c */ 	lhu	$a0,0x24c($s0)
-/*  f0170b4:	2443003f */ 	addiu	$v1,$v0,0x3f
-/*  f0170b8:	3479003f */ 	ori	$t9,$v1,0x3f
-/*  f0170bc:	3b2a003f */ 	xori	$t2,$t9,0x3f
-/*  f0170c0:	022a8821 */ 	addu	$s1,$s1,$t2
-/*  f0170c4:	024a9023 */ 	subu	$s2,$s2,$t2
-/*  f0170c8:	0c008a0e */ 	jal	modelCalculateRwDataLen
-/*  f0170cc:	8e040248 */ 	lw	$a0,0x248($s0)
-/*  f0170d0:	0fc2d0c0 */ 	jal	modelInstantiateWithAnim
-/*  f0170d4:	8e040248 */ 	lw	$a0,0x248($s0)
-/*  f0170d8:	3c038006 */ 	lui	$v1,0x8006
-/*  f0170dc:	246323dc */ 	addiu	$v1,$v1,0x23dc
-/*  f0170e0:	ac620000 */ 	sw	$v0,0x0($v1)
-/*  f0170e4:	00402025 */ 	move	$a0,$v0
-/*  f0170e8:	0c006bbe */ 	jal	modelSetScale
-/*  f0170ec:	3c053f80 */ 	lui	$a1,0x3f80
-/*  f0170f0:	3c048006 */ 	lui	$a0,0x8006
-/*  f0170f4:	8c8423dc */ 	lw	$a0,0x23dc($a0)
-/*  f0170f8:	0c006b35 */ 	jal	modelSetRootPosition
-/*  f0170fc:	27a50054 */ 	addiu	$a1,$sp,0x54
-/*  f017100:	3c0c8006 */ 	lui	$t4,0x8006
-/*  f017104:	258c2688 */ 	addiu	$t4,$t4,0x2688
-/*  f017108:	8d810000 */ 	lw	$at,0x0($t4)
-/*  f01710c:	27ab0048 */ 	addiu	$t3,$sp,0x48
-/*  f017110:	8d8d0004 */ 	lw	$t5,0x4($t4)
-/*  f017114:	ad610000 */ 	sw	$at,0x0($t3)
-/*  f017118:	8d810008 */ 	lw	$at,0x8($t4)
-/*  f01711c:	ad6d0004 */ 	sw	$t5,0x4($t3)
-/*  f017120:	02202825 */ 	move	$a1,$s1
-/*  f017124:	ad610008 */ 	sw	$at,0x8($t3)
-/*  f017128:	9604026c */ 	lhu	$a0,0x26c($s0)
-/*  f01712c:	02403025 */ 	move	$a2,$s2
-/*  f017130:	0fc6a0c5 */ 	jal	modeldefLoad
-/*  f017134:	00003825 */ 	move	$a3,$zero
-/*  f017138:	ae020268 */ 	sw	$v0,0x268($s0)
-/*  f01713c:	0fc59da4 */ 	jal	fileGetLoadedSize
-/*  f017140:	9604026c */ 	lhu	$a0,0x26c($s0)
-/*  f017144:	2443003f */ 	addiu	$v1,$v0,0x3f
-/*  f017148:	3478003f */ 	ori	$t8,$v1,0x3f
-/*  f01714c:	3b0f003f */ 	xori	$t7,$t8,0x3f
-/*  f017150:	022f8821 */ 	addu	$s1,$s1,$t7
-/*  f017154:	024f9023 */ 	subu	$s2,$s2,$t7
-/*  f017158:	0c008a0e */ 	jal	modelCalculateRwDataLen
-/*  f01715c:	8e040268 */ 	lw	$a0,0x268($s0)
-/*  f017160:	0fc2d04b */ 	jal	modelInstantiateWithoutAnim
-/*  f017164:	8e040268 */ 	lw	$a0,0x268($s0)
-/*  f017168:	3c038006 */ 	lui	$v1,0x8006
-/*  f01716c:	246323e8 */ 	addiu	$v1,$v1,0x23e8
-/*  f017170:	ac620000 */ 	sw	$v0,0x0($v1)
-/*  f017174:	00402025 */ 	move	$a0,$v0
-/*  f017178:	0c006bbe */ 	jal	modelSetScale
-/*  f01717c:	3c053f80 */ 	lui	$a1,0x3f80
-/*  f017180:	3c048006 */ 	lui	$a0,0x8006
-/*  f017184:	8c8423e8 */ 	lw	$a0,0x23e8($a0)
-/*  f017188:	0c006b35 */ 	jal	modelSetRootPosition
-/*  f01718c:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*  f017190:	3c0a8006 */ 	lui	$t2,0x8006
-/*  f017194:	254a2694 */ 	addiu	$t2,$t2,0x2694
-/*  f017198:	8d410000 */ 	lw	$at,0x0($t2)
-/*  f01719c:	27b9003c */ 	addiu	$t9,$sp,0x3c
-/*  f0171a0:	8d4b0004 */ 	lw	$t3,0x4($t2)
-/*  f0171a4:	af210000 */ 	sw	$at,0x0($t9)
-/*  f0171a8:	8d410008 */ 	lw	$at,0x8($t2)
-/*  f0171ac:	af2b0004 */ 	sw	$t3,0x4($t9)
-/*  f0171b0:	02202825 */ 	move	$a1,$s1
-/*  f0171b4:	af210008 */ 	sw	$at,0x8($t9)
-/*  f0171b8:	96040dcc */ 	lhu	$a0,0xdcc($s0)
-/*  f0171bc:	02403025 */ 	move	$a2,$s2
-/*  f0171c0:	0fc6a0c5 */ 	jal	modeldefLoad
-/*  f0171c4:	00003825 */ 	move	$a3,$zero
-/*  f0171c8:	ae020dc8 */ 	sw	$v0,0xdc8($s0)
-/*  f0171cc:	0fc59da4 */ 	jal	fileGetLoadedSize
-/*  f0171d0:	96040dcc */ 	lhu	$a0,0xdcc($s0)
-/*  f0171d4:	2443003f */ 	addiu	$v1,$v0,0x3f
-/*  f0171d8:	346c003f */ 	ori	$t4,$v1,0x3f
-/*  f0171dc:	398d003f */ 	xori	$t5,$t4,0x3f
-/*  f0171e0:	022d8821 */ 	addu	$s1,$s1,$t5
-/*  f0171e4:	024d9023 */ 	subu	$s2,$s2,$t5
-/*  f0171e8:	0c008a0e */ 	jal	modelCalculateRwDataLen
-/*  f0171ec:	8e040dc8 */ 	lw	$a0,0xdc8($s0)
-/*  f0171f0:	0fc2d04b */ 	jal	modelInstantiateWithoutAnim
-/*  f0171f4:	8e040dc8 */ 	lw	$a0,0xdc8($s0)
-/*  f0171f8:	3c018006 */ 	lui	$at,0x8006
-/*  f0171fc:	ac2223f4 */ 	sw	$v0,0x23f4($at)
-/*  f017200:	0fc2d04b */ 	jal	modelInstantiateWithoutAnim
-/*  f017204:	8e040dc8 */ 	lw	$a0,0xdc8($s0)
-/*  f017208:	3c018006 */ 	lui	$at,0x8006
-/*  f01720c:	3c048006 */ 	lui	$a0,0x8006
-/*  f017210:	ac2223f8 */ 	sw	$v0,0x23f8($at)
-/*  f017214:	8c8423f4 */ 	lw	$a0,0x23f4($a0)
-/*  f017218:	0c006bbe */ 	jal	modelSetScale
-/*  f01721c:	3c053f80 */ 	lui	$a1,0x3f80
-/*  f017220:	3c048006 */ 	lui	$a0,0x8006
-/*  f017224:	8c8423f8 */ 	lw	$a0,0x23f8($a0)
-/*  f017228:	0c006bbe */ 	jal	modelSetScale
-/*  f01722c:	3c053f80 */ 	lui	$a1,0x3f80
-/*  f017230:	3c048006 */ 	lui	$a0,0x8006
-/*  f017234:	8c8423f4 */ 	lw	$a0,0x23f4($a0)
-/*  f017238:	0c006b35 */ 	jal	modelSetRootPosition
-/*  f01723c:	27a5003c */ 	addiu	$a1,$sp,0x3c
-/*  f017240:	3c048006 */ 	lui	$a0,0x8006
-/*  f017244:	8c8423f8 */ 	lw	$a0,0x23f8($a0)
-/*  f017248:	0c006b35 */ 	jal	modelSetRootPosition
-/*  f01724c:	27a5003c */ 	addiu	$a1,$sp,0x3c
-/*  f017250:	96040dd4 */ 	lhu	$a0,0xdd4($s0)
-/*  f017254:	02202825 */ 	move	$a1,$s1
-/*  f017258:	02403025 */ 	move	$a2,$s2
-/*  f01725c:	0fc6a0c5 */ 	jal	modeldefLoad
-/*  f017260:	00003825 */ 	move	$a3,$zero
-/*  f017264:	ae020dd0 */ 	sw	$v0,0xdd0($s0)
-/*  f017268:	0fc59da4 */ 	jal	fileGetLoadedSize
-/*  f01726c:	96040dd4 */ 	lhu	$a0,0xdd4($s0)
-/*  f017270:	2443003f */ 	addiu	$v1,$v0,0x3f
-/*  f017274:	3478003f */ 	ori	$t8,$v1,0x3f
-/*  f017278:	3b0f003f */ 	xori	$t7,$t8,0x3f
-/*  f01727c:	022f8821 */ 	addu	$s1,$s1,$t7
-/*  f017280:	024f9023 */ 	subu	$s2,$s2,$t7
-/*  f017284:	0c008a0e */ 	jal	modelCalculateRwDataLen
-/*  f017288:	8e040dd0 */ 	lw	$a0,0xdd0($s0)
-/*  f01728c:	0fc2d04b */ 	jal	modelInstantiateWithoutAnim
-/*  f017290:	8e040dd0 */ 	lw	$a0,0xdd0($s0)
-/*  f017294:	3c038006 */ 	lui	$v1,0x8006
-/*  f017298:	246323fc */ 	addiu	$v1,$v1,0x23fc
-/*  f01729c:	ac620000 */ 	sw	$v0,0x0($v1)
-/*  f0172a0:	00402025 */ 	move	$a0,$v0
-/*  f0172a4:	0c006bbe */ 	jal	modelSetScale
-/*  f0172a8:	3c053f80 */ 	lui	$a1,0x3f80
-/*  f0172ac:	3c048006 */ 	lui	$a0,0x8006
-/*  f0172b0:	8c8423fc */ 	lw	$a0,0x23fc($a0)
-/*  f0172b4:	0c006b35 */ 	jal	modelSetRootPosition
-/*  f0172b8:	27a5003c */ 	addiu	$a1,$sp,0x3c
-/*  f0172bc:	3c198006 */ 	lui	$t9,0x8006
-/*  f0172c0:	273926a0 */ 	addiu	$t9,$t9,0x26a0
-/*  f0172c4:	8f210000 */ 	lw	$at,0x0($t9)
-/*  f0172c8:	27ae0030 */ 	addiu	$t6,$sp,0x30
-/*  f0172cc:	8f2b0004 */ 	lw	$t3,0x4($t9)
-/*  f0172d0:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f0172d4:	8f210008 */ 	lw	$at,0x8($t9)
-/*  f0172d8:	adcb0004 */ 	sw	$t3,0x4($t6)
-/*  f0172dc:	02202825 */ 	move	$a1,$s1
-/*  f0172e0:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f0172e4:	96040274 */ 	lhu	$a0,0x274($s0)
-/*  f0172e8:	02403025 */ 	move	$a2,$s2
-/*  f0172ec:	0fc6a0c5 */ 	jal	modeldefLoad
-/*  f0172f0:	00003825 */ 	move	$a3,$zero
-/*  f0172f4:	ae020270 */ 	sw	$v0,0x270($s0)
-/*  f0172f8:	0fc59da4 */ 	jal	fileGetLoadedSize
-/*  f0172fc:	96040274 */ 	lhu	$a0,0x274($s0)
-/*  f017300:	2443003f */ 	addiu	$v1,$v0,0x3f
-/*  f017304:	346c003f */ 	ori	$t4,$v1,0x3f
-/*  f017308:	398d003f */ 	xori	$t5,$t4,0x3f
-/*  f01730c:	022d8821 */ 	addu	$s1,$s1,$t5
-/*  f017310:	024d9023 */ 	subu	$s2,$s2,$t5
-/*  f017314:	0c008a0e */ 	jal	modelCalculateRwDataLen
-/*  f017318:	8e040270 */ 	lw	$a0,0x270($s0)
-/*  f01731c:	0fc2d04b */ 	jal	modelInstantiateWithoutAnim
-/*  f017320:	8e040270 */ 	lw	$a0,0x270($s0)
-/*  f017324:	3c038006 */ 	lui	$v1,0x8006
-/*  f017328:	246323ec */ 	addiu	$v1,$v1,0x23ec
-/*  f01732c:	ac620000 */ 	sw	$v0,0x0($v1)
-/*  f017330:	00402025 */ 	move	$a0,$v0
-/*  f017334:	0c006bbe */ 	jal	modelSetScale
-/*  f017338:	3c053f80 */ 	lui	$a1,0x3f80
-/*  f01733c:	3c048006 */ 	lui	$a0,0x8006
-/*  f017340:	8c8423ec */ 	lw	$a0,0x23ec($a0)
-/*  f017344:	0c006b35 */ 	jal	modelSetRootPosition
-/*  f017348:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*  f01734c:	8e040268 */ 	lw	$a0,0x268($s0)
-/*  f017350:	0c006a57 */ 	jal	modelGetPartRodata
-/*  f017354:	24050002 */ 	li	$a1,0x2
-/*  f017358:	84430010 */ 	lh	$v1,0x10($v0)
-/*  f01735c:	3c04800a */ 	lui	$a0,0x800a
-/*  f017360:	2484d338 */ 	addiu	$a0,$a0,-11464
-/*  f017364:	0003c080 */ 	sll	$t8,$v1,0x2
-/*  f017368:	0303c023 */ 	subu	$t8,$t8,$v1
-/*  f01736c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f017370:	27030007 */ 	addiu	$v1,$t8,0x7
-/*  f017374:	346f0007 */ 	ori	$t7,$v1,0x7
-/*  f017378:	39ea0007 */ 	xori	$t2,$t7,0x7
-/*  f01737c:	ac910000 */ 	sw	$s1,0x0($a0)
-/*  f017380:	022a8821 */ 	addu	$s1,$s1,$t2
-/*  f017384:	ac910004 */ 	sw	$s1,0x4($a0)
-/*  f017388:	94430016 */ 	lhu	$v1,0x16($v0)
-/*  f01738c:	3c05800a */ 	lui	$a1,0x800a
-/*  f017390:	24a5d340 */ 	addiu	$a1,$a1,-11456
-/*  f017394:	00037080 */ 	sll	$t6,$v1,0x2
-/*  f017398:	25c30007 */ 	addiu	$v1,$t6,0x7
-/*  f01739c:	022a8821 */ 	addu	$s1,$s1,$t2
-/*  f0173a0:	34790007 */ 	ori	$t9,$v1,0x7
-/*  f0173a4:	3b2b0007 */ 	xori	$t3,$t9,0x7
-/*  f0173a8:	acb10000 */ 	sw	$s1,0x0($a1)
-/*  f0173ac:	022b8821 */ 	addu	$s1,$s1,$t3
-/*  f0173b0:	acb10004 */ 	sw	$s1,0x4($a1)
-/*  f0173b4:	3c01800a */ 	lui	$at,0x800a
-/*  f0173b8:	ac20d348 */ 	sw	$zero,-0x2cb8($at)
-/*  f0173bc:	24100001 */ 	li	$s0,0x1
-/*  f0173c0:	3c018006 */ 	lui	$at,0x8006
-/*  f0173c4:	ac3023d4 */ 	sw	$s0,0x23d4($at)
-/*  f0173c8:	0c0051ea */ 	jal	joy00014810
-/*  f0173cc:	00002025 */ 	move	$a0,$zero
-/*  f0173d0:	3c0c8006 */ 	lui	$t4,0x8006
-/*  f0173d4:	8d8c2388 */ 	lw	$t4,0x2388($t4)
-/*  f0173d8:	3c018006 */ 	lui	$at,0x8006
-/*  f0173dc:	ac302668 */ 	sw	$s0,0x2668($at)
-/*  f0173e0:	3c018006 */ 	lui	$at,0x8006
-/*  f0173e4:	11800003 */ 	beqz	$t4,.JF0f0173f4
-/*  f0173e8:	ac20266c */ 	sw	$zero,0x266c($at)
-/*  f0173ec:	0fc05f58 */ 	jal	titleSkipToPdTitle
-/*  f0173f0:	00000000 */ 	nop
-.JF0f0173f4:
-/*  f0173f4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0173f8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0173fc:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f017400:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f017404:	03e00008 */ 	jr	$ra
-/*  f017408:	27bd0080 */ 	addiu	$sp,$sp,0x80
-);
-#else
-GLOBAL_ASM(
-glabel titleInitPdLogo
-/*  f016d34:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f016d38:	3c018006 */ 	lui	$at,%hi(g_TitleTimer)
-/*  f016d3c:	3c0f8006 */ 	lui	$t7,%hi(var80062738)
-/*  f016d40:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f016d44:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f016d48:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f016d4c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f016d50:	ac2024c4 */ 	sw	$zero,%lo(g_TitleTimer)($at)
-/*  f016d54:	25ef2738 */ 	addiu	$t7,$t7,%lo(var80062738)
-/*  f016d58:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f016d5c:	3c10800a */ 	lui	$s0,%hi(var8009cca0)
-/*  f016d60:	8e10cca0 */ 	lw	$s0,%lo(var8009cca0)($s0)
-/*  f016d64:	27ae0058 */ 	addiu	$t6,$sp,0x58
-/*  f016d68:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f016d6c:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f016d70:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f016d74:	3c118008 */ 	lui	$s1,%hi(g_ModelStates)
-/*  f016d78:	2631b06c */ 	addiu	$s1,$s1,%lo(g_ModelStates)
-/*  f016d7c:	3c060004 */ 	lui	$a2,0x4
-/*  f016d80:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f016d84:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f016d88:	96240244 */ 	lhu	$a0,0x244($s1)
-/*  f016d8c:	34c67800 */ 	ori	$a2,$a2,0x7800
-/*  f016d90:	00003825 */ 	or	$a3,$zero,$zero
-/*  f016d94:	0fc69de5 */ 	jal	modeldefLoad
-/*  f016d98:	02002825 */ 	or	$a1,$s0,$zero
-/*  f016d9c:	ae220240 */ 	sw	$v0,0x240($s1)
-/*  f016da0:	0fc59ca0 */ 	jal	fileGetLoadedSize
-/*  f016da4:	96240244 */ 	lhu	$a0,0x244($s1)
-/*  f016da8:	2443003f */ 	addiu	$v1,$v0,0x3f
-/*  f016dac:	3469003f */ 	ori	$t1,$v1,0x3f
-/*  f016db0:	3c0b0004 */ 	lui	$t3,0x4
-/*  f016db4:	392a003f */ 	xori	$t2,$t1,0x3f
-/*  f016db8:	356b7800 */ 	ori	$t3,$t3,0x7800
-/*  f016dbc:	020a8021 */ 	addu	$s0,$s0,$t2
-/*  f016dc0:	016a9023 */ 	subu	$s2,$t3,$t2
-/*  f016dc4:	0c008b49 */ 	jal	modelCalculateRwDataLen
-/*  f016dc8:	8e240240 */ 	lw	$a0,0x240($s1)
-/*  f016dcc:	0fc2cca0 */ 	jal	modelInstantiateWithAnim
-/*  f016dd0:	8e240240 */ 	lw	$a0,0x240($s1)
-/*  f016dd4:	3c038006 */ 	lui	$v1,%hi(g_TitleModel)
-/*  f016dd8:	246324f8 */ 	addiu	$v1,$v1,%lo(g_TitleModel)
-/*  f016ddc:	ac620000 */ 	sw	$v0,0x0($v1)
-/*  f016de0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f016de4:	0c006bd6 */ 	jal	modelSetScale
-/*  f016de8:	3c053f80 */ 	lui	$a1,0x3f80
-/*  f016dec:	3c048006 */ 	lui	$a0,%hi(g_TitleModel)
-/*  f016df0:	8c8424f8 */ 	lw	$a0,%lo(g_TitleModel)($a0)
-/*  f016df4:	0c006b4d */ 	jal	modelSetRootPosition
-/*  f016df8:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f016dfc:	3c0d8006 */ 	lui	$t5,%hi(var80062744)
-/*  f016e00:	25ad2744 */ 	addiu	$t5,$t5,%lo(var80062744)
-/*  f016e04:	8da10000 */ 	lw	$at,0x0($t5)
-/*  f016e08:	27ac004c */ 	addiu	$t4,$sp,0x4c
-/*  f016e0c:	8db80004 */ 	lw	$t8,0x4($t5)
-/*  f016e10:	ad810000 */ 	sw	$at,0x0($t4)
-/*  f016e14:	8da10008 */ 	lw	$at,0x8($t5)
-/*  f016e18:	ad980004 */ 	sw	$t8,0x4($t4)
-/*  f016e1c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f016e20:	ad810008 */ 	sw	$at,0x8($t4)
-/*  f016e24:	9624024c */ 	lhu	$a0,0x24c($s1)
-/*  f016e28:	02403025 */ 	or	$a2,$s2,$zero
-/*  f016e2c:	0fc69de5 */ 	jal	modeldefLoad
-/*  f016e30:	00003825 */ 	or	$a3,$zero,$zero
-/*  f016e34:	ae220248 */ 	sw	$v0,0x248($s1)
-/*  f016e38:	0fc59ca0 */ 	jal	fileGetLoadedSize
-/*  f016e3c:	9624024c */ 	lhu	$a0,0x24c($s1)
-/*  f016e40:	2443003f */ 	addiu	$v1,$v0,0x3f
-/*  f016e44:	346e003f */ 	ori	$t6,$v1,0x3f
-/*  f016e48:	39cf003f */ 	xori	$t7,$t6,0x3f
-/*  f016e4c:	020f8021 */ 	addu	$s0,$s0,$t7
-/*  f016e50:	024f9023 */ 	subu	$s2,$s2,$t7
-/*  f016e54:	0c008b49 */ 	jal	modelCalculateRwDataLen
-/*  f016e58:	8e240248 */ 	lw	$a0,0x248($s1)
-/*  f016e5c:	0fc2cca0 */ 	jal	modelInstantiateWithAnim
-/*  f016e60:	8e240248 */ 	lw	$a0,0x248($s1)
-/*  f016e64:	3c038006 */ 	lui	$v1,%hi(g_TitleModelNLogo2)
-/*  f016e68:	246324fc */ 	addiu	$v1,$v1,%lo(g_TitleModelNLogo2)
-/*  f016e6c:	ac620000 */ 	sw	$v0,0x0($v1)
-/*  f016e70:	00402025 */ 	or	$a0,$v0,$zero
-/*  f016e74:	0c006bd6 */ 	jal	modelSetScale
-/*  f016e78:	3c053f80 */ 	lui	$a1,0x3f80
-/*  f016e7c:	3c048006 */ 	lui	$a0,%hi(g_TitleModelNLogo2)
-/*  f016e80:	8c8424fc */ 	lw	$a0,%lo(g_TitleModelNLogo2)($a0)
-/*  f016e84:	0c006b4d */ 	jal	modelSetRootPosition
-/*  f016e88:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f016e8c:	3c098006 */ 	lui	$t1,%hi(var80062750)
-/*  f016e90:	25292750 */ 	addiu	$t1,$t1,%lo(var80062750)
-/*  f016e94:	8d210000 */ 	lw	$at,0x0($t1)
-/*  f016e98:	27a80040 */ 	addiu	$t0,$sp,0x40
-/*  f016e9c:	8d2b0004 */ 	lw	$t3,0x4($t1)
-/*  f016ea0:	ad010000 */ 	sw	$at,0x0($t0)
-/*  f016ea4:	8d210008 */ 	lw	$at,0x8($t1)
-/*  f016ea8:	ad0b0004 */ 	sw	$t3,0x4($t0)
-/*  f016eac:	02002825 */ 	or	$a1,$s0,$zero
-/*  f016eb0:	ad010008 */ 	sw	$at,0x8($t0)
-/*  f016eb4:	9624026c */ 	lhu	$a0,0x26c($s1)
-/*  f016eb8:	02403025 */ 	or	$a2,$s2,$zero
-/*  f016ebc:	0fc69de5 */ 	jal	modeldefLoad
-/*  f016ec0:	00003825 */ 	or	$a3,$zero,$zero
-/*  f016ec4:	ae220268 */ 	sw	$v0,0x268($s1)
-/*  f016ec8:	0fc59ca0 */ 	jal	fileGetLoadedSize
-/*  f016ecc:	9624026c */ 	lhu	$a0,0x26c($s1)
-/*  f016ed0:	2443003f */ 	addiu	$v1,$v0,0x3f
-/*  f016ed4:	3479003f */ 	ori	$t9,$v1,0x3f
-/*  f016ed8:	3b2c003f */ 	xori	$t4,$t9,0x3f
-/*  f016edc:	020c8021 */ 	addu	$s0,$s0,$t4
-/*  f016ee0:	024c9023 */ 	subu	$s2,$s2,$t4
-/*  f016ee4:	0c008b49 */ 	jal	modelCalculateRwDataLen
-/*  f016ee8:	8e240268 */ 	lw	$a0,0x268($s1)
-/*  f016eec:	0fc2cc2b */ 	jal	modelInstantiateWithoutAnim
-/*  f016ef0:	8e240268 */ 	lw	$a0,0x268($s1)
-/*  f016ef4:	3c038006 */ 	lui	$v1,%hi(g_TitleModelPdTwo)
-/*  f016ef8:	24632508 */ 	addiu	$v1,$v1,%lo(g_TitleModelPdTwo)
-/*  f016efc:	ac620000 */ 	sw	$v0,0x0($v1)
-/*  f016f00:	00402025 */ 	or	$a0,$v0,$zero
-/*  f016f04:	0c006bd6 */ 	jal	modelSetScale
-/*  f016f08:	3c053f80 */ 	lui	$a1,0x3f80
-/*  f016f0c:	3c048006 */ 	lui	$a0,%hi(g_TitleModelPdTwo)
-/*  f016f10:	8c842508 */ 	lw	$a0,%lo(g_TitleModelPdTwo)($a0)
-/*  f016f14:	0c006b4d */ 	jal	modelSetRootPosition
-/*  f016f18:	27a50040 */ 	addiu	$a1,$sp,0x40
-/*  f016f1c:	3c188006 */ 	lui	$t8,%hi(var8006275c)
-/*  f016f20:	2718275c */ 	addiu	$t8,$t8,%lo(var8006275c)
-/*  f016f24:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f016f28:	27ad0034 */ 	addiu	$t5,$sp,0x34
-/*  f016f2c:	8f0f0004 */ 	lw	$t7,0x4($t8)
-/*  f016f30:	ada10000 */ 	sw	$at,0x0($t5)
-/*  f016f34:	8f010008 */ 	lw	$at,0x8($t8)
-/*  f016f38:	adaf0004 */ 	sw	$t7,0x4($t5)
-/*  f016f3c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f016f40:	ada10008 */ 	sw	$at,0x8($t5)
-/*  f016f44:	96240274 */ 	lhu	$a0,0x274($s1)
-/*  f016f48:	02403025 */ 	or	$a2,$s2,$zero
-/*  f016f4c:	0fc69de5 */ 	jal	modeldefLoad
-/*  f016f50:	00003825 */ 	or	$a3,$zero,$zero
-/*  f016f54:	ae220270 */ 	sw	$v0,0x270($s1)
-/*  f016f58:	0fc59ca0 */ 	jal	fileGetLoadedSize
-/*  f016f5c:	96240274 */ 	lhu	$a0,0x274($s1)
-/*  f016f60:	2443003f */ 	addiu	$v1,$v0,0x3f
-/*  f016f64:	346a003f */ 	ori	$t2,$v1,0x3f
-/*  f016f68:	3948003f */ 	xori	$t0,$t2,0x3f
-/*  f016f6c:	02088021 */ 	addu	$s0,$s0,$t0
-/*  f016f70:	02489023 */ 	subu	$s2,$s2,$t0
-/*  f016f74:	0c008b49 */ 	jal	modelCalculateRwDataLen
-/*  f016f78:	8e240270 */ 	lw	$a0,0x270($s1)
-/*  f016f7c:	0fc2cc2b */ 	jal	modelInstantiateWithoutAnim
-/*  f016f80:	8e240270 */ 	lw	$a0,0x270($s1)
-/*  f016f84:	3c038006 */ 	lui	$v1,%hi(g_TitleModelPdThree)
-/*  f016f88:	2463250c */ 	addiu	$v1,$v1,%lo(g_TitleModelPdThree)
-/*  f016f8c:	ac620000 */ 	sw	$v0,0x0($v1)
-/*  f016f90:	00402025 */ 	or	$a0,$v0,$zero
-/*  f016f94:	0c006bd6 */ 	jal	modelSetScale
-/*  f016f98:	3c053f80 */ 	lui	$a1,0x3f80
-/*  f016f9c:	3c048006 */ 	lui	$a0,%hi(g_TitleModelPdThree)
-/*  f016fa0:	8c84250c */ 	lw	$a0,%lo(g_TitleModelPdThree)($a0)
-/*  f016fa4:	0c006b4d */ 	jal	modelSetRootPosition
-/*  f016fa8:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f016fac:	8e240268 */ 	lw	$a0,0x268($s1)
-/*  f016fb0:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f016fb4:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f016fb8:	84430010 */ 	lh	$v1,0x10($v0)
-/*  f016fbc:	3c04800a */ 	lui	$a0,%hi(var8009cca8)
-/*  f016fc0:	2484cca8 */ 	addiu	$a0,$a0,%lo(var8009cca8)
-/*  f016fc4:	00034880 */ 	sll	$t1,$v1,0x2
-/*  f016fc8:	01234823 */ 	subu	$t1,$t1,$v1
-/*  f016fcc:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f016fd0:	25230007 */ 	addiu	$v1,$t1,0x7
-/*  f016fd4:	346b0007 */ 	ori	$t3,$v1,0x7
-/*  f016fd8:	39790007 */ 	xori	$t9,$t3,0x7
-/*  f016fdc:	ac900000 */ 	sw	$s0,0x0($a0)
-/*  f016fe0:	02198021 */ 	addu	$s0,$s0,$t9
-/*  f016fe4:	ac900004 */ 	sw	$s0,0x4($a0)
-/*  f016fe8:	94430016 */ 	lhu	$v1,0x16($v0)
-/*  f016fec:	3c05800a */ 	lui	$a1,%hi(var8009ccb0)
-/*  f016ff0:	24a5ccb0 */ 	addiu	$a1,$a1,%lo(var8009ccb0)
-/*  f016ff4:	00036080 */ 	sll	$t4,$v1,0x2
-/*  f016ff8:	25830007 */ 	addiu	$v1,$t4,0x7
-/*  f016ffc:	02198021 */ 	addu	$s0,$s0,$t9
-/*  f017000:	346e0007 */ 	ori	$t6,$v1,0x7
-/*  f017004:	39cd0007 */ 	xori	$t5,$t6,0x7
-/*  f017008:	acb00000 */ 	sw	$s0,0x0($a1)
-/*  f01700c:	020d8021 */ 	addu	$s0,$s0,$t5
-/*  f017010:	acb00004 */ 	sw	$s0,0x4($a1)
-/*  f017014:	3c01800a */ 	lui	$at,%hi(var8009ccb8)
-/*  f017018:	ac20ccb8 */ 	sw	$zero,%lo(var8009ccb8)($at)
-/*  f01701c:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f017020:	3c018006 */ 	lui	$at,%hi(var800624f4)
-/*  f017024:	ac3024f4 */ 	sw	$s0,%lo(var800624f4)($at)
-/*  f017028:	0c005204 */ 	jal	joy00014810
-/*  f01702c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f017030:	3c188006 */ 	lui	$t8,%hi(g_TitleButtonPressed)
-/*  f017034:	8f1824a8 */ 	lw	$t8,%lo(g_TitleButtonPressed)($t8)
-/*  f017038:	3c018006 */ 	lui	$at,%hi(g_PdLogoIsFirstTick)
-/*  f01703c:	ac302730 */ 	sw	$s0,%lo(g_PdLogoIsFirstTick)($at)
-/*  f017040:	3c018006 */ 	lui	$at,%hi(g_PdLogoTriggerExit)
-/*  f017044:	13000003 */ 	beqz	$t8,.L0f017054
-/*  f017048:	ac202734 */ 	sw	$zero,%lo(g_PdLogoTriggerExit)($at)
-/*  f01704c:	0fc05e60 */ 	jal	titleSkipToPdTitle
-/*  f017050:	00000000 */ 	nop
-.L0f017054:
-/*  f017054:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f017058:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f01705c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f017060:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f017064:	03e00008 */ 	jr	$ra
-/*  f017068:	27bd0070 */ 	addiu	$sp,$sp,0x70
-);
+#if VERSION == VERSION_JPN_FINAL
+	{
+		s32 i;
+		s32 j;
 
-// Mismatch due to regalloc in lat block
-//void titleInitPdLogo(void)
-//{
-//	u8 *nextaddr = var8009cca0;
-//	u32 remaining;
-//	u32 size;
-//
-//	g_TitleTimer = 0;
-//
-//	{
-//		struct coord coord = {0, 0, 0}; // var80062738
-//		g_ModelStates[MODEL_NLOGO].filedata = modeldefLoad(g_ModelStates[MODEL_NLOGO].fileid, nextaddr, 0x47800, 0);
-//		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_NLOGO].fileid));
-//		nextaddr += size;
-//		remaining = 0x47800 - size;
-//		modelCalculateRwDataLen(g_ModelStates[MODEL_NLOGO].filedata);
-//
-//		g_TitleModel = modelInstantiateWithAnim(g_ModelStates[MODEL_NLOGO].filedata);
-//		modelSetScale(g_TitleModel, 1);
-//		modelSetRootPosition(g_TitleModel, &coord);
-//	}
-//
-//	{
-//		struct coord coord = {0, 0, 0}; // var80062744
-//		g_ModelStates[MODEL_NLOGO2].filedata = modeldefLoad(g_ModelStates[MODEL_NLOGO2].fileid, nextaddr, remaining, 0);
-//		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_NLOGO2].fileid));
-//		nextaddr += size;
-//		remaining -= size;
-//		modelCalculateRwDataLen(g_ModelStates[MODEL_NLOGO2].filedata);
-//
-//		g_TitleModelNLogo2 = modelInstantiateWithAnim(g_ModelStates[MODEL_NLOGO2].filedata);
-//		modelSetScale(g_TitleModelNLogo2, 1);
-//		modelSetRootPosition(g_TitleModelNLogo2, &coord);
-//	}
-//
-//	{
-//		struct coord coord = {0, 0, 0}; // var80062750
-//		g_ModelStates[MODEL_PDTWO].filedata = modeldefLoad(g_ModelStates[MODEL_PDTWO].fileid, nextaddr, remaining, 0);
-//		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_PDTWO].fileid));
-//		nextaddr += size;
-//		remaining -= size;
-//		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTWO].filedata);
-//
-//		g_TitleModelPdTwo = modelInstantiateWithoutAnim(g_ModelStates[MODEL_PDTWO].filedata);
-//		modelSetScale(g_TitleModelPdTwo, 1);
-//		modelSetRootPosition(g_TitleModelPdTwo, &coord);
-//	}
-//
-//	{
-//		struct coord coord = {0, 0, 0}; // var8006275c
-//		g_ModelStates[MODEL_PDTHREE].filedata = modeldefLoad(g_ModelStates[MODEL_PDTHREE].fileid, nextaddr, remaining, 0);
-//		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_PDTHREE].fileid));
-//		nextaddr += size;
-//		remaining -= size;
-//		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTHREE].filedata);
-//
-//		g_TitleModelPdThree = modelInstantiateWithoutAnim(g_ModelStates[MODEL_PDTHREE].filedata);
-//		modelSetScale(g_TitleModelPdThree, 1);
-//		modelSetRootPosition(g_TitleModelPdThree, &coord);
-//	}
-//
-//	{
-//		// fb0
-//		struct modelrodata_dl *rodata = (struct modelrodata_dl *)modelGetPartRodata(g_ModelStates[MODEL_PDTWO].filedata, MODELPART_LOGO_0002);
-//		u32 size2;
-//
-//		size = ALIGN8(rodata->numvertices * sizeof(struct gfxvtx));
-//
-//		var8009cca8[0] = nextaddr;
-//
-//		nextaddr += size;
-//		remaining -= size;
-//		var8009cca8[1] = nextaddr;
-//
-//		nextaddr += size;
-//		remaining -= size;
-//		size2 = ALIGN8(rodata->numcolours * sizeof(struct colour));
-//		var8009ccb0[0] = nextaddr;
-//
-//		nextaddr += size2;
-//		remaining -= size2;
-//		var8009ccb0[1] = nextaddr;
-//
-//		var8009ccb8 = 0;
-//		var800624f4 = 1;
-//
-//		joy00014810(false);
-//
-//		g_PdLogoIsFirstTick = true;
-//		g_PdLogoTriggerExit = false;
-//
-//		if (g_TitleButtonPressed) {
-//			titleSkipToPdTitle();
-//		}
-//	}
-//}
+		var8009d34cjf = var8009d350jf = 9.0f;
+
+		for (i = 0; i < 4; i++) {
+			for (j = 0; j < 20; j++) {
+				var8009d34cjf = 0.99f * var8009d34cjf + 0.01f;
+			}
+
+			for (j = 0; j < 3; j++) {
+				var8009d358jf[j] = var8009d358jf[j + 1];
+			}
+
+			var8009d358jf[3] = var8009d34cjf;
+		}
+
+		var8009d350jf = var8009d358jf[1];
+	}
 #endif
+
+	{
+		struct coord coord = {0, 0, 0};
+		g_ModelStates[MODEL_NLOGO].filedata = modeldefLoad(g_ModelStates[MODEL_NLOGO].fileid, nextaddr, 0x47800, 0);
+		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_NLOGO].fileid));
+		nextaddr += size;
+		remaining = 0x47800 - size;
+		modelCalculateRwDataLen(g_ModelStates[MODEL_NLOGO].filedata);
+
+		g_TitleModel = modelInstantiateWithAnim(g_ModelStates[MODEL_NLOGO].filedata);
+		modelSetScale(g_TitleModel, 1);
+		modelSetRootPosition(g_TitleModel, &coord);
+	}
+
+	{
+		struct coord coord = {0, 0, 0};
+		g_ModelStates[MODEL_NLOGO2].filedata = modeldefLoad(g_ModelStates[MODEL_NLOGO2].fileid, nextaddr, remaining, 0);
+		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_NLOGO2].fileid));
+		nextaddr += size;
+		remaining -= size;
+		modelCalculateRwDataLen(g_ModelStates[MODEL_NLOGO2].filedata);
+
+		g_TitleModelNLogo2 = modelInstantiateWithAnim(g_ModelStates[MODEL_NLOGO2].filedata);
+		modelSetScale(g_TitleModelNLogo2, 1);
+		modelSetRootPosition(g_TitleModelNLogo2, &coord);
+	}
+
+	{
+		struct coord coord = {0, 0, 0};
+		g_ModelStates[MODEL_PDTWO].filedata = modeldefLoad(g_ModelStates[MODEL_PDTWO].fileid, nextaddr, remaining, 0);
+		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_PDTWO].fileid));
+		nextaddr += size;
+		remaining -= size;
+		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTWO].filedata);
+
+		g_TitleModelPdTwo = modelInstantiateWithoutAnim(g_ModelStates[MODEL_PDTWO].filedata);
+		modelSetScale(g_TitleModelPdTwo, 1);
+		modelSetRootPosition(g_TitleModelPdTwo, &coord);
+	}
+
+#if VERSION == VERSION_JPN_FINAL
+	{
+		struct coord coord = {0, 0, 0};
+		g_ModelStates[MODEL_JPNLOGO].filedata = modeldefLoad(g_ModelStates[MODEL_JPNLOGO].fileid, nextaddr, remaining, 0);
+		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_JPNLOGO].fileid));
+		nextaddr += size;
+		remaining -= size;
+		modelCalculateRwDataLen(g_ModelStates[MODEL_JPNLOGO].filedata);
+
+		g_TitleModelJpnLogo1 = modelInstantiateWithoutAnim(g_ModelStates[MODEL_JPNLOGO].filedata);
+		g_TitleModelJpnLogo2 = modelInstantiateWithoutAnim(g_ModelStates[MODEL_JPNLOGO].filedata);
+		modelSetScale(g_TitleModelJpnLogo1, 1);
+		modelSetScale(g_TitleModelJpnLogo2, 1);
+		modelSetRootPosition(g_TitleModelJpnLogo1, &coord);
+		modelSetRootPosition(g_TitleModelJpnLogo2, &coord);
+
+		g_ModelStates[MODEL_JPNPD].filedata = modeldefLoad(g_ModelStates[MODEL_JPNPD].fileid, nextaddr, remaining, 0);
+		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_JPNPD].fileid));
+		nextaddr += size;
+		remaining -= size;
+		modelCalculateRwDataLen(g_ModelStates[MODEL_JPNPD].filedata);
+
+		g_TitleModelJpnPd = modelInstantiateWithoutAnim(g_ModelStates[MODEL_JPNPD].filedata);
+		modelSetScale(g_TitleModelJpnPd, 1);
+		modelSetRootPosition(g_TitleModelJpnPd, &coord);
+	}
+#endif
+
+	{
+		struct coord coord = {0, 0, 0};
+		g_ModelStates[MODEL_PDTHREE].filedata = modeldefLoad(g_ModelStates[MODEL_PDTHREE].fileid, nextaddr, remaining, 0);
+		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_PDTHREE].fileid));
+		nextaddr += size;
+		remaining -= size;
+		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTHREE].filedata);
+
+		g_TitleModelPdThree = modelInstantiateWithoutAnim(g_ModelStates[MODEL_PDTHREE].filedata);
+		modelSetScale(g_TitleModelPdThree, 1);
+		modelSetRootPosition(g_TitleModelPdThree, &coord);
+	}
+
+	{
+		struct modelrodata_dl *rodata = (struct modelrodata_dl *)modelGetPartRodata(g_ModelStates[MODEL_PDTWO].filedata, MODELPART_LOGO_0002);
+
+		size = ALIGN8(rodata->numvertices * sizeof(struct gfxvtx));
+
+		var8009cca8[0] = (void *)nextaddr;
+
+		nextaddr += size;
+		remaining -= size;
+		var8009cca8[1] = (void *)nextaddr;
+
+		nextaddr += size;
+		remaining -= size;
+		size = ALIGN8(rodata->numcolours * sizeof(struct colour));
+		var8009ccb0[0] = (void *)nextaddr;
+
+		nextaddr += size;
+		remaining -= size;
+		var8009ccb0[1] = (void *)nextaddr;
+
+		if (1);
+		var8009ccb8 = 0;
+		var800624f4 = 1;
+
+		joy00014810(false);
+
+		g_PdLogoIsFirstTick = true;
+		g_PdLogoTriggerExit = false;
+
+		if (g_TitleButtonPressed) {
+			titleSkipToPdTitle();
+		}
+	}
+}
 
 void titleExitPdLogo(void)
 {
@@ -2116,9 +1606,9 @@ void titleExitPdLogo(void)
 	modelFree(g_TitleModelPdThree);
 
 #if VERSION == VERSION_JPN_FINAL
-	modelFree(var800623f4jf);
-	modelFree(var800623f8jf);
-	modelFree(var800623fcjf);
+	modelFree(g_TitleModelJpnLogo1);
+	modelFree(g_TitleModelJpnLogo2);
+	modelFree(g_TitleModelJpnPd);
 #endif
 
 	joy00014810(true);
