@@ -9814,469 +9814,103 @@ void titleTickNoController(void)
 	g_TitleTimer += g_Vars.lvupdate240_60;
 }
 
-#if VERSION >= VERSION_JPN_FINAL
-GLOBAL_ASM(
-glabel titleRenderNoController
-/*  f01b2ec:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f01b2f0:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f01b2f4:	afb10038 */ 	sw	$s1,0x38($sp)
-/*  f01b2f8:	00808825 */ 	move	$s1,$a0
-/*  f01b2fc:	0c004ff9 */ 	jal	joyGetConnectedControllers
-/*  f01b300:	afb00034 */ 	sw	$s0,0x34($sp)
-/*  f01b304:	0fc07058 */ 	jal	titleClear
-/*  f01b308:	02202025 */ 	move	$a0,$s1
-/*  f01b30c:	0fc54b55 */ 	jal	func0f153628
-/*  f01b310:	00402025 */ 	move	$a0,$v0
-/*  f01b314:	3c0e8006 */ 	lui	$t6,0x8006
-/*  f01b318:	85ce2380 */ 	lh	$t6,0x2380($t6)
-/*  f01b31c:	24030002 */ 	li	$v1,0x2
-/*  f01b320:	00408825 */ 	move	$s1,$v0
-/*  f01b324:	05c10003 */ 	bgez	$t6,.JF0f01b334
-/*  f01b328:	000e7843 */ 	sra	$t7,$t6,0x1
-/*  f01b32c:	25c10001 */ 	addiu	$at,$t6,0x1
-/*  f01b330:	00017843 */ 	sra	$t7,$at,0x1
-.JF0f01b334:
-/*  f01b334:	3c018008 */ 	lui	$at,0x8008
-/*  f01b338:	ac230108 */ 	sw	$v1,0x108($at)
-/*  f01b33c:	25f8ffce */ 	addiu	$t8,$t7,-50
-/*  f01b340:	3c018008 */ 	lui	$at,0x8008
-/*  f01b344:	afb80058 */ 	sw	$t8,0x58($sp)
-/*  f01b348:	ac23010c */ 	sw	$v1,0x10c($at)
-/*  f01b34c:	0fc5baa5 */ 	jal	langGet
-/*  f01b350:	2404551d */ 	li	$a0,0x551d
-/*  f01b354:	3c198008 */ 	lui	$t9,0x8008
-/*  f01b358:	8f390158 */ 	lw	$t9,0x158($t9)
-/*  f01b35c:	3c078008 */ 	lui	$a3,0x8008
-/*  f01b360:	afa20054 */ 	sw	$v0,0x54($sp)
-/*  f01b364:	8ce7015c */ 	lw	$a3,0x15c($a3)
-/*  f01b368:	27a40064 */ 	addiu	$a0,$sp,0x64
-/*  f01b36c:	27a50060 */ 	addiu	$a1,$sp,0x60
-/*  f01b370:	00403025 */ 	move	$a2,$v0
-/*  f01b374:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f01b378:	0fc55d49 */ 	jal	textMeasure
-/*  f01b37c:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f01b380:	8fa80060 */ 	lw	$t0,0x60($sp)
-/*  f01b384:	24090120 */ 	li	$t1,0x120
-/*  f01b388:	01285023 */ 	subu	$t2,$t1,$t0
-/*  f01b38c:	0c002eeb */ 	jal	viGetWidth
-/*  f01b390:	afaa005c */ 	sw	$t2,0x5c($sp)
-/*  f01b394:	00028400 */ 	sll	$s0,$v0,0x10
-/*  f01b398:	00105c03 */ 	sra	$t3,$s0,0x10
-/*  f01b39c:	0c002eef */ 	jal	viGetHeight
-/*  f01b3a0:	01608025 */ 	move	$s0,$t3
-/*  f01b3a4:	3c0c8008 */ 	lui	$t4,0x8008
-/*  f01b3a8:	3c0d8008 */ 	lui	$t5,0x8008
-/*  f01b3ac:	8dad0158 */ 	lw	$t5,0x158($t5)
-/*  f01b3b0:	8d8c015c */ 	lw	$t4,0x15c($t4)
-/*  f01b3b4:	240effff */ 	li	$t6,-1
-/*  f01b3b8:	afae0018 */ 	sw	$t6,0x18($sp)
-/*  f01b3bc:	02202025 */ 	move	$a0,$s1
-/*  f01b3c0:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f01b3c4:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f01b3c8:	8fa70054 */ 	lw	$a3,0x54($sp)
-/*  f01b3cc:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f01b3d0:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f01b3d4:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f01b3d8:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f01b3dc:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f01b3e0:	0fc55886 */ 	jal	textRenderProjected
-/*  f01b3e4:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f01b3e8:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*  f01b3ec:	00408825 */ 	move	$s1,$v0
-/*  f01b3f0:	2404551e */ 	li	$a0,0x551e
-/*  f01b3f4:	25f80012 */ 	addiu	$t8,$t7,0x12
-/*  f01b3f8:	0fc5baa5 */ 	jal	langGet
-/*  f01b3fc:	afb80058 */ 	sw	$t8,0x58($sp)
-/*  f01b400:	3c198008 */ 	lui	$t9,0x8008
-/*  f01b404:	8f390158 */ 	lw	$t9,0x158($t9)
-/*  f01b408:	3c078008 */ 	lui	$a3,0x8008
-/*  f01b40c:	afa20054 */ 	sw	$v0,0x54($sp)
-/*  f01b410:	8ce7015c */ 	lw	$a3,0x15c($a3)
-/*  f01b414:	27a40064 */ 	addiu	$a0,$sp,0x64
-/*  f01b418:	27a50060 */ 	addiu	$a1,$sp,0x60
-/*  f01b41c:	00403025 */ 	move	$a2,$v0
-/*  f01b420:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f01b424:	0fc55d49 */ 	jal	textMeasure
-/*  f01b428:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f01b42c:	8fa90060 */ 	lw	$t1,0x60($sp)
-/*  f01b430:	24080120 */ 	li	$t0,0x120
-/*  f01b434:	01095023 */ 	subu	$t2,$t0,$t1
-/*  f01b438:	0c002eeb */ 	jal	viGetWidth
-/*  f01b43c:	afaa005c */ 	sw	$t2,0x5c($sp)
-/*  f01b440:	00028400 */ 	sll	$s0,$v0,0x10
-/*  f01b444:	00105c03 */ 	sra	$t3,$s0,0x10
-/*  f01b448:	0c002eef */ 	jal	viGetHeight
-/*  f01b44c:	01608025 */ 	move	$s0,$t3
-/*  f01b450:	3c0c8008 */ 	lui	$t4,0x8008
-/*  f01b454:	3c0d8008 */ 	lui	$t5,0x8008
-/*  f01b458:	8dad0158 */ 	lw	$t5,0x158($t5)
-/*  f01b45c:	8d8c015c */ 	lw	$t4,0x15c($t4)
-/*  f01b460:	240effff */ 	li	$t6,-1
-/*  f01b464:	afae0018 */ 	sw	$t6,0x18($sp)
-/*  f01b468:	02202025 */ 	move	$a0,$s1
-/*  f01b46c:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f01b470:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f01b474:	8fa70054 */ 	lw	$a3,0x54($sp)
-/*  f01b478:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f01b47c:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f01b480:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f01b484:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f01b488:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f01b48c:	0fc55886 */ 	jal	textRenderProjected
-/*  f01b490:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f01b494:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*  f01b498:	00408825 */ 	move	$s1,$v0
-/*  f01b49c:	2404551f */ 	li	$a0,0x551f
-/*  f01b4a0:	25f8001c */ 	addiu	$t8,$t7,0x1c
-/*  f01b4a4:	0fc5baa5 */ 	jal	langGet
-/*  f01b4a8:	afb80058 */ 	sw	$t8,0x58($sp)
-/*  f01b4ac:	3c198008 */ 	lui	$t9,0x8008
-/*  f01b4b0:	8f390158 */ 	lw	$t9,0x158($t9)
-/*  f01b4b4:	3c078008 */ 	lui	$a3,0x8008
-/*  f01b4b8:	afa20054 */ 	sw	$v0,0x54($sp)
-/*  f01b4bc:	8ce7015c */ 	lw	$a3,0x15c($a3)
-/*  f01b4c0:	27a40064 */ 	addiu	$a0,$sp,0x64
-/*  f01b4c4:	27a50060 */ 	addiu	$a1,$sp,0x60
-/*  f01b4c8:	00403025 */ 	move	$a2,$v0
-/*  f01b4cc:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f01b4d0:	0fc55d49 */ 	jal	textMeasure
-/*  f01b4d4:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f01b4d8:	8fa80060 */ 	lw	$t0,0x60($sp)
-/*  f01b4dc:	24090120 */ 	li	$t1,0x120
-/*  f01b4e0:	01285023 */ 	subu	$t2,$t1,$t0
-/*  f01b4e4:	0c002eeb */ 	jal	viGetWidth
-/*  f01b4e8:	afaa005c */ 	sw	$t2,0x5c($sp)
-/*  f01b4ec:	00028400 */ 	sll	$s0,$v0,0x10
-/*  f01b4f0:	00105c03 */ 	sra	$t3,$s0,0x10
-/*  f01b4f4:	0c002eef */ 	jal	viGetHeight
-/*  f01b4f8:	01608025 */ 	move	$s0,$t3
-/*  f01b4fc:	3c0c8008 */ 	lui	$t4,0x8008
-/*  f01b500:	3c0d8008 */ 	lui	$t5,0x8008
-/*  f01b504:	8dad0158 */ 	lw	$t5,0x158($t5)
-/*  f01b508:	8d8c015c */ 	lw	$t4,0x15c($t4)
-/*  f01b50c:	240effff */ 	li	$t6,-1
-/*  f01b510:	afae0018 */ 	sw	$t6,0x18($sp)
-/*  f01b514:	02202025 */ 	move	$a0,$s1
-/*  f01b518:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f01b51c:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f01b520:	8fa70054 */ 	lw	$a3,0x54($sp)
-/*  f01b524:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f01b528:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f01b52c:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f01b530:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f01b534:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f01b538:	0fc55886 */ 	jal	textRenderProjected
-/*  f01b53c:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f01b540:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*  f01b544:	00408825 */ 	move	$s1,$v0
-/*  f01b548:	24045520 */ 	li	$a0,0x5520
-/*  f01b54c:	25f80012 */ 	addiu	$t8,$t7,0x12
-/*  f01b550:	0fc5baa5 */ 	jal	langGet
-/*  f01b554:	afb80058 */ 	sw	$t8,0x58($sp)
-/*  f01b558:	3c198008 */ 	lui	$t9,0x8008
-/*  f01b55c:	8f390158 */ 	lw	$t9,0x158($t9)
-/*  f01b560:	3c078008 */ 	lui	$a3,0x8008
-/*  f01b564:	afa20054 */ 	sw	$v0,0x54($sp)
-/*  f01b568:	8ce7015c */ 	lw	$a3,0x15c($a3)
-/*  f01b56c:	27a40064 */ 	addiu	$a0,$sp,0x64
-/*  f01b570:	27a50060 */ 	addiu	$a1,$sp,0x60
-/*  f01b574:	00403025 */ 	move	$a2,$v0
-/*  f01b578:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f01b57c:	0fc55d49 */ 	jal	textMeasure
-/*  f01b580:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f01b584:	8fa90060 */ 	lw	$t1,0x60($sp)
-/*  f01b588:	24080120 */ 	li	$t0,0x120
-/*  f01b58c:	01095023 */ 	subu	$t2,$t0,$t1
-/*  f01b590:	0c002eeb */ 	jal	viGetWidth
-/*  f01b594:	afaa005c */ 	sw	$t2,0x5c($sp)
-/*  f01b598:	00028400 */ 	sll	$s0,$v0,0x10
-/*  f01b59c:	00105c03 */ 	sra	$t3,$s0,0x10
-/*  f01b5a0:	0c002eef */ 	jal	viGetHeight
-/*  f01b5a4:	01608025 */ 	move	$s0,$t3
-/*  f01b5a8:	3c0c8008 */ 	lui	$t4,0x8008
-/*  f01b5ac:	3c0d8008 */ 	lui	$t5,0x8008
-/*  f01b5b0:	8dad0158 */ 	lw	$t5,0x158($t5)
-/*  f01b5b4:	8d8c015c */ 	lw	$t4,0x15c($t4)
-/*  f01b5b8:	240effff */ 	li	$t6,-1
-/*  f01b5bc:	afae0018 */ 	sw	$t6,0x18($sp)
-/*  f01b5c0:	02202025 */ 	move	$a0,$s1
-/*  f01b5c4:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f01b5c8:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f01b5cc:	8fa70054 */ 	lw	$a3,0x54($sp)
-/*  f01b5d0:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f01b5d4:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f01b5d8:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f01b5dc:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f01b5e0:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f01b5e4:	0fc55886 */ 	jal	textRenderProjected
-/*  f01b5e8:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f01b5ec:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*  f01b5f0:	24030001 */ 	li	$v1,0x1
-/*  f01b5f4:	3c018008 */ 	lui	$at,0x8008
-/*  f01b5f8:	ac230108 */ 	sw	$v1,0x108($at)
-/*  f01b5fc:	3c018008 */ 	lui	$at,0x8008
-/*  f01b600:	25f80012 */ 	addiu	$t8,$t7,0x12
-/*  f01b604:	afb80058 */ 	sw	$t8,0x58($sp)
-/*  f01b608:	ac23010c */ 	sw	$v1,0x10c($at)
-/*  f01b60c:	0fc54bb7 */ 	jal	func0f153780
-/*  f01b610:	00402025 */ 	move	$a0,$v0
-/*  f01b614:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f01b618:	8fb00034 */ 	lw	$s0,0x34($sp)
-/*  f01b61c:	8fb10038 */ 	lw	$s1,0x38($sp)
-/*  f01b620:	03e00008 */ 	jr	$ra
-/*  f01b624:	27bd0068 */ 	addiu	$sp,$sp,0x68
-);
-#else
-GLOBAL_ASM(
-glabel titleRenderNoController
-/*  f01a510:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f01a514:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f01a518:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f01a51c:	0c005013 */ 	jal	joyGetConnectedControllers
-/*  f01a520:	00808025 */ 	or	$s0,$a0,$zero
-/*  f01a524:	0fc06bf0 */ 	jal	titleClear
-/*  f01a528:	02002025 */ 	or	$a0,$s0,$zero
-/*  f01a52c:	0fc54d8a */ 	jal	func0f153628
-/*  f01a530:	00402025 */ 	or	$a0,$v0,$zero
-/*  f01a534:	00408025 */ 	or	$s0,$v0,$zero
-/*  f01a538:	0fc5b9f1 */ 	jal	langGet
-/*  f01a53c:	24045647 */ 	addiu	$a0,$zero,0x5647
-/*  f01a540:	3c0e8008 */ 	lui	$t6,%hi(g_FontHandelGothicLg)
-/*  f01a544:	8dcefb1c */ 	lw	$t6,%lo(g_FontHandelGothicLg)($t6)
-/*  f01a548:	3c078008 */ 	lui	$a3,%hi(g_CharsHandelGothicLg)
-/*  f01a54c:	afa20054 */ 	sw	$v0,0x54($sp)
-/*  f01a550:	8ce7fb20 */ 	lw	$a3,%lo(g_CharsHandelGothicLg)($a3)
-/*  f01a554:	27a40064 */ 	addiu	$a0,$sp,0x64
-/*  f01a558:	27a50060 */ 	addiu	$a1,$sp,0x60
-/*  f01a55c:	00403025 */ 	or	$a2,$v0,$zero
-/*  f01a560:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f01a564:	0fc55cbe */ 	jal	textMeasure
-/*  f01a568:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f01a56c:	8faf0060 */ 	lw	$t7,0x60($sp)
-/*  f01a570:	3c098006 */ 	lui	$t1,%hi(g_TitleViewHeight)
-/*  f01a574:	852924a0 */ 	lh	$t1,%lo(g_TitleViewHeight)($t1)
-/*  f01a578:	8fab0064 */ 	lw	$t3,0x64($sp)
-/*  f01a57c:	000fc043 */ 	sra	$t8,$t7,0x1
-/*  f01a580:	3c0f8008 */ 	lui	$t7,%hi(g_Jpn)
-/*  f01a584:	8def4120 */ 	lw	$t7,%lo(g_Jpn)($t7)
-/*  f01a588:	000b6043 */ 	sra	$t4,$t3,0x1
-/*  f01a58c:	24190120 */ 	addiu	$t9,$zero,0x120
-/*  f01a590:	03384023 */ 	subu	$t0,$t9,$t8
-/*  f01a594:	afa8005c */ 	sw	$t0,0x5c($sp)
-/*  f01a598:	05210003 */ 	bgez	$t1,.L0f01a5a8
-/*  f01a59c:	00095043 */ 	sra	$t2,$t1,0x1
-/*  f01a5a0:	25210001 */ 	addiu	$at,$t1,0x1
-/*  f01a5a4:	00015043 */ 	sra	$t2,$at,0x1
-.L0f01a5a8:
-/*  f01a5a8:	014c6823 */ 	subu	$t5,$t2,$t4
-/*  f01a5ac:	25aefff4 */ 	addiu	$t6,$t5,-12
-/*  f01a5b0:	11e0001c */ 	beqz	$t7,.L0f01a624
-/*  f01a5b4:	afae0058 */ 	sw	$t6,0x58($sp)
-/*  f01a5b8:	0c002f02 */ 	jal	viGetWidth
-/*  f01a5bc:	00000000 */ 	nop
-/*  f01a5c0:	0c002f06 */ 	jal	viGetHeight
-/*  f01a5c4:	a7a20048 */ 	sh	$v0,0x48($sp)
-/*  f01a5c8:	3c198008 */ 	lui	$t9,%hi(g_CharsHandelGothicLg)
-/*  f01a5cc:	3c188008 */ 	lui	$t8,%hi(g_FontHandelGothicLg)
-/*  f01a5d0:	8f18fb1c */ 	lw	$t8,%lo(g_FontHandelGothicLg)($t8)
-/*  f01a5d4:	8f39fb20 */ 	lw	$t9,%lo(g_CharsHandelGothicLg)($t9)
-/*  f01a5d8:	87ab0048 */ 	lh	$t3,0x48($sp)
-/*  f01a5dc:	3c090080 */ 	lui	$t1,0x80
-/*  f01a5e0:	352900ff */ 	ori	$t1,$t1,0xff
-/*  f01a5e4:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f01a5e8:	afa80018 */ 	sw	$t0,0x18($sp)
-/*  f01a5ec:	afa9001c */ 	sw	$t1,0x1c($sp)
-/*  f01a5f0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f01a5f4:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f01a5f8:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f01a5fc:	8fa70054 */ 	lw	$a3,0x54($sp)
-/*  f01a600:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f01a604:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f01a608:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f01a60c:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f01a610:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f01a614:	0fc55b92 */ 	jal	textRender
-/*  f01a618:	afab0020 */ 	sw	$t3,0x20($sp)
-/*  f01a61c:	10000018 */ 	b	.L0f01a680
-/*  f01a620:	00408025 */ 	or	$s0,$v0,$zero
-.L0f01a624:
-/*  f01a624:	0c002f02 */ 	jal	viGetWidth
-/*  f01a628:	00000000 */ 	nop
-/*  f01a62c:	0c002f06 */ 	jal	viGetHeight
-/*  f01a630:	a7a20048 */ 	sh	$v0,0x48($sp)
-/*  f01a634:	3c0a8008 */ 	lui	$t2,%hi(g_CharsHandelGothicLg)
-/*  f01a638:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicLg)
-/*  f01a63c:	8d8cfb1c */ 	lw	$t4,%lo(g_FontHandelGothicLg)($t4)
-/*  f01a640:	8d4afb20 */ 	lw	$t2,%lo(g_CharsHandelGothicLg)($t2)
-/*  f01a644:	87ae0048 */ 	lh	$t6,0x48($sp)
-/*  f01a648:	240dffff */ 	addiu	$t5,$zero,-1
-/*  f01a64c:	afad0018 */ 	sw	$t5,0x18($sp)
-/*  f01a650:	02002025 */ 	or	$a0,$s0,$zero
-/*  f01a654:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f01a658:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f01a65c:	8fa70054 */ 	lw	$a3,0x54($sp)
-/*  f01a660:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f01a664:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f01a668:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f01a66c:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f01a670:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f01a674:	0fc5580f */ 	jal	textRenderProjected
-/*  f01a678:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f01a67c:	00408025 */ 	or	$s0,$v0,$zero
-.L0f01a680:
-/*  f01a680:	0fc5b9f1 */ 	jal	langGet
-/*  f01a684:	24045648 */ 	addiu	$a0,$zero,0x5648
-/*  f01a688:	3c0f8008 */ 	lui	$t7,%hi(g_FontHandelGothicLg)
-/*  f01a68c:	8deffb1c */ 	lw	$t7,%lo(g_FontHandelGothicLg)($t7)
-/*  f01a690:	3c078008 */ 	lui	$a3,%hi(g_CharsHandelGothicLg)
-/*  f01a694:	afa20054 */ 	sw	$v0,0x54($sp)
-/*  f01a698:	8ce7fb20 */ 	lw	$a3,%lo(g_CharsHandelGothicLg)($a3)
-/*  f01a69c:	27a40064 */ 	addiu	$a0,$sp,0x64
-/*  f01a6a0:	27a50060 */ 	addiu	$a1,$sp,0x60
-/*  f01a6a4:	00403025 */ 	or	$a2,$v0,$zero
-/*  f01a6a8:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f01a6ac:	0fc55cbe */ 	jal	textMeasure
-/*  f01a6b0:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f01a6b4:	8fb90060 */ 	lw	$t9,0x60($sp)
-/*  f01a6b8:	3c0b8006 */ 	lui	$t3,%hi(g_TitleViewHeight)
-/*  f01a6bc:	856b24a0 */ 	lh	$t3,%lo(g_TitleViewHeight)($t3)
-/*  f01a6c0:	8fac0064 */ 	lw	$t4,0x64($sp)
-/*  f01a6c4:	0019c043 */ 	sra	$t8,$t9,0x1
-/*  f01a6c8:	3c198008 */ 	lui	$t9,%hi(g_Jpn)
-/*  f01a6cc:	8f394120 */ 	lw	$t9,%lo(g_Jpn)($t9)
-/*  f01a6d0:	000c6843 */ 	sra	$t5,$t4,0x1
-/*  f01a6d4:	24080120 */ 	addiu	$t0,$zero,0x120
-/*  f01a6d8:	01184823 */ 	subu	$t1,$t0,$t8
-/*  f01a6dc:	afa9005c */ 	sw	$t1,0x5c($sp)
-/*  f01a6e0:	05610003 */ 	bgez	$t3,.L0f01a6f0
-/*  f01a6e4:	000b5043 */ 	sra	$t2,$t3,0x1
-/*  f01a6e8:	25610001 */ 	addiu	$at,$t3,0x1
-/*  f01a6ec:	00015043 */ 	sra	$t2,$at,0x1
-.L0f01a6f0:
-/*  f01a6f0:	014d7023 */ 	subu	$t6,$t2,$t5
-/*  f01a6f4:	25cf000c */ 	addiu	$t7,$t6,0xc
-/*  f01a6f8:	1320001c */ 	beqz	$t9,.L0f01a76c
-/*  f01a6fc:	afaf0058 */ 	sw	$t7,0x58($sp)
-/*  f01a700:	0c002f02 */ 	jal	viGetWidth
-/*  f01a704:	00000000 */ 	nop
-/*  f01a708:	0c002f06 */ 	jal	viGetHeight
-/*  f01a70c:	a7a20048 */ 	sh	$v0,0x48($sp)
-/*  f01a710:	3c088008 */ 	lui	$t0,%hi(g_CharsHandelGothicLg)
-/*  f01a714:	3c188008 */ 	lui	$t8,%hi(g_FontHandelGothicLg)
-/*  f01a718:	8f18fb1c */ 	lw	$t8,%lo(g_FontHandelGothicLg)($t8)
-/*  f01a71c:	8d08fb20 */ 	lw	$t0,%lo(g_CharsHandelGothicLg)($t0)
-/*  f01a720:	87ac0048 */ 	lh	$t4,0x48($sp)
-/*  f01a724:	3c0b0080 */ 	lui	$t3,0x80
-/*  f01a728:	356b00ff */ 	ori	$t3,$t3,0xff
-/*  f01a72c:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f01a730:	afa90018 */ 	sw	$t1,0x18($sp)
-/*  f01a734:	afab001c */ 	sw	$t3,0x1c($sp)
-/*  f01a738:	02002025 */ 	or	$a0,$s0,$zero
-/*  f01a73c:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f01a740:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f01a744:	8fa70054 */ 	lw	$a3,0x54($sp)
-/*  f01a748:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f01a74c:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f01a750:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f01a754:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f01a758:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f01a75c:	0fc55b92 */ 	jal	textRender
-/*  f01a760:	afac0020 */ 	sw	$t4,0x20($sp)
-/*  f01a764:	10000018 */ 	b	.L0f01a7c8
-/*  f01a768:	00408025 */ 	or	$s0,$v0,$zero
-.L0f01a76c:
-/*  f01a76c:	0c002f02 */ 	jal	viGetWidth
-/*  f01a770:	00000000 */ 	nop
-/*  f01a774:	0c002f06 */ 	jal	viGetHeight
-/*  f01a778:	a7a20048 */ 	sh	$v0,0x48($sp)
-/*  f01a77c:	3c0a8008 */ 	lui	$t2,%hi(g_CharsHandelGothicLg)
-/*  f01a780:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicLg)
-/*  f01a784:	8dadfb1c */ 	lw	$t5,%lo(g_FontHandelGothicLg)($t5)
-/*  f01a788:	8d4afb20 */ 	lw	$t2,%lo(g_CharsHandelGothicLg)($t2)
-/*  f01a78c:	87af0048 */ 	lh	$t7,0x48($sp)
-/*  f01a790:	240effff */ 	addiu	$t6,$zero,-1
-/*  f01a794:	afae0018 */ 	sw	$t6,0x18($sp)
-/*  f01a798:	02002025 */ 	or	$a0,$s0,$zero
-/*  f01a79c:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f01a7a0:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f01a7a4:	8fa70054 */ 	lw	$a3,0x54($sp)
-/*  f01a7a8:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f01a7ac:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f01a7b0:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f01a7b4:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f01a7b8:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f01a7bc:	0fc5580f */ 	jal	textRenderProjected
-/*  f01a7c0:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*  f01a7c4:	00408025 */ 	or	$s0,$v0,$zero
-.L0f01a7c8:
-/*  f01a7c8:	0fc54de0 */ 	jal	func0f153780
-/*  f01a7cc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f01a7d0:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f01a7d4:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f01a7d8:	27bd0068 */ 	addiu	$sp,$sp,0x68
-/*  f01a7dc:	03e00008 */ 	jr	$ra
-/*  f01a7e0:	00000000 */ 	nop
-);
+Gfx *titleRenderNoController(Gfx *gdl)
+{
+	s32 textheight;
+	s32 textwidth;
+	s32 x;
+	s32 y;
+	char *text;
+	u32 stack[2];
+	s16 tmp;
+	s16 width;
 
-// Mismatch because goal uses an implicit stack address for viGetWidth's
-// return value while mine uses s0, or multiple stack addresses.
-//
-// Each time func000bc08 is called, goal puts the result in sp72 to preserve it
-// past the call to func000bc18. It uses the same stack address each time.
-// However, if the below is changed to call the final func000bc08 like the
-// others, it uses s0 instead. Likewise, changing all calls to load their return
-// values into variables also makes it use s0. And a mix between the two
-// (as shown below) causes it to use different stack addresses.
-//Gfx *titleRenderNoController(Gfx *gdl)
-//{
-//	s32 textheight; // sp100
-//	s32 textwidth; // sp96
-//	s32 x; // sp92
-//	s32 y; // sp88
-//	char *text; // sp84
-//	u16 stack[6];
-//
-//	// This was likely printed to console
-//	joyGetConnectedControllers();
-//
-//	gdl = titleClear(gdl);
-//	gdl = func0f153628(gdl);
-//
-//	// First line
-//	text = langGet(L_OPTIONS_071); // "- no controller in controller socket 1 -"
-//	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
-//
-//	x = 288 - (textwidth >> 1);
-//	y = ((g_TitleViewHeight / 2) - (textheight >> 1)) - 12;
-//
-//	if (g_Jpn) {
-//		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg,
-//				-1, 0x008000ff, viGetWidth(), viGetHeight(), 0, 0);
-//	} else {
-//		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg,
-//				-1, viGetWidth(), viGetHeight(), 0, 0);
-//	}
-//
-//	// Second line
-//	text = langGet(L_OPTIONS_072); // "please power off and attach a controller"
-//	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
-//
-//	x = 288 - (textwidth >> 1);
-//	y = ((g_TitleViewHeight / 2) - (textheight >> 1)) + 12;
-//
-//	if (g_Jpn) {
-//		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg,
-//				-1, 0x008000ff, viGetWidth(), viGetHeight(), 0, 0);
-//	} else {
-//		s16 a = viGetWidth();
-//		s16 b = viGetHeight();
-//		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg,
-//				-1, a, b, 0, 0);
-//	}
-//
-//	return func0f153780(gdl);
-//}
+	if (1);
+	if (1);
+	if (1);
+
+	// This was likely printed to console
+	joyGetConnectedControllers();
+
+	gdl = titleClear(gdl);
+	gdl = func0f153628(gdl);
+
+#if VERSION >= VERSION_JPN_FINAL
+	y = g_TitleViewHeight / 2 - 50;
+
+	var8007fad0 = 2;
+	var80080108jf = 2;
+
+	// Line 1
+	text = langGet(L_MPWEAPONS_285);
+	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+
+	x = 288 - textwidth;
+	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
+	y += 18;
+
+	// Line 2
+	text = langGet(L_MPWEAPONS_286);
+	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+
+	x = 288 - textwidth;
+	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
+	y += 28;
+
+	// Line 3
+	text = langGet(L_MPWEAPONS_287);
+	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+
+	x = 288 - textwidth;
+	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
+	y += 18;
+
+	// Line 4
+	text = langGet(L_MPWEAPONS_288);
+	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+
+	x = 288 - textwidth;
+	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
+	y += 18;
+
+	var8007fad0 = 1;
+	var80080108jf = 1;
+#else
+	// Line 1
+	text = langGet(L_OPTIONS_071); // "- no controller in controller socket 1 -"
+	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+
+	x = 288 - (textwidth >> 1);
+	y = (g_TitleViewHeight / 2) - (textheight >> 1) - 12;
+
+	if (g_Jpn) {
+		width = viGetWidth();
+		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, 0x008000ff, width, viGetHeight(), 0, 0);
+	} else {
+		width = viGetWidth();
+		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
+	}
+
+	// Line 2
+	text = langGet(L_OPTIONS_072); // "please power off and attach a controller"
+	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+
+	x = 288 - (textwidth >> 1);
+	y = (g_TitleViewHeight / 2) - (textheight >> 1) + 12;
+
+	if (g_Jpn) {
+		width = viGetWidth();
+		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, 0x008000ff, width, viGetHeight(), 0, 0);
+	} else {
+		width = viGetWidth();
+		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
+	}
 #endif
+
+	gdl = func0f153780(gdl);
+
+	return gdl;
+}
 
 #if VERSION >= VERSION_JPN_FINAL
 void titleInitNoExpansion(void)
