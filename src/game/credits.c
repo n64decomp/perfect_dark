@@ -590,111 +590,25 @@ f32 func0f1382e0(f32 range)
 	return value;
 }
 
-GLOBAL_ASM(
-glabel creditsCreatePendingBgLayers
-.late_rodata
-glabel var7f1b5804
-.word 0x3b122531
-.text
-/*  f13838c:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f138390:	afb20024 */ 	sw	$s2,0x24($sp)
-/*  f138394:	afb70038 */ 	sw	$s7,0x38($sp)
-/*  f138398:	afb60034 */ 	sw	$s6,0x34($sp)
-/*  f13839c:	afb50030 */ 	sw	$s5,0x30($sp)
-/*  f1383a0:	afb4002c */ 	sw	$s4,0x2c($sp)
-/*  f1383a4:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f1383a8:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f1383ac:	3c12800a */ 	lui	$s2,%hi(g_CreditsData)
-/*  f1383b0:	3c017f1b */ 	lui	$at,%hi(var7f1b5804)
-/*  f1383b4:	0080a025 */ 	or	$s4,$a0,$zero
-/*  f1383b8:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f1383bc:	afb30028 */ 	sw	$s3,0x28($sp)
-/*  f1383c0:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f1383c4:	c4345804 */ 	lwc1	$f20,%lo(var7f1b5804)($at)
-/*  f1383c8:	26524170 */ 	addiu	$s2,$s2,%lo(g_CreditsData)
-/*  f1383cc:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1383d0:	2415000c */ 	addiu	$s5,$zero,0xc
-/*  f1383d4:	24160006 */ 	addiu	$s6,$zero,0x6
-/*  f1383d8:	24170002 */ 	addiu	$s7,$zero,0x2
-/*  f1383dc:	8e4e0000 */ 	lw	$t6,0x0($s2)
-.L0f1383e0:
-/*  f1383e0:	001098c0 */ 	sll	$s3,$s0,0x3
-/*  f1383e4:	01d07821 */ 	addu	$t7,$t6,$s0
-/*  f1383e8:	81f841b0 */ 	lb	$t8,0x41b0($t7)
-/*  f1383ec:	57000023 */ 	bnezl	$t8,.L0f13847c
-/*  f1383f0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1383f4:	0c004b70 */ 	jal	random
-/*  f1383f8:	00108900 */ 	sll	$s1,$s0,0x4
-/*  f1383fc:	0055001b */ 	divu	$zero,$v0,$s5
-/*  f138400:	8e480000 */ 	lw	$t0,0x0($s2)
-/*  f138404:	0000c810 */ 	mfhi	$t9
-/*  f138408:	4600a306 */ 	mov.s	$f12,$f20
-/*  f13840c:	16a00002 */ 	bnez	$s5,.L0f138418
-/*  f138410:	00000000 */ 	nop
-/*  f138414:	0007000d */ 	break	0x7
-.L0f138418:
-/*  f138418:	01114821 */ 	addu	$t1,$t0,$s1
-/*  f13841c:	0fc4e0b8 */ 	jal	func0f1382e0
-/*  f138420:	ad3941d4 */ 	sw	$t9,0x41d4($t1)
-/*  f138424:	8e4a0000 */ 	lw	$t2,0x0($s2)
-/*  f138428:	4600a306 */ 	mov.s	$f12,$f20
-/*  f13842c:	01515821 */ 	addu	$t3,$t2,$s1
-/*  f138430:	0fc4e0b8 */ 	jal	func0f1382e0
-/*  f138434:	e56041d8 */ 	swc1	$f0,0x41d8($t3)
-/*  f138438:	8e4c0000 */ 	lw	$t4,0x0($s2)
-/*  f13843c:	02747806 */ 	srlv	$t7,$s4,$s3
-/*  f138440:	31f80002 */ 	andi	$t8,$t7,0x2
-/*  f138444:	01916821 */ 	addu	$t5,$t4,$s1
-/*  f138448:	1300000b */ 	beqz	$t8,.L0f138478
-/*  f13844c:	e5a041dc */ 	swc1	$f0,0x41dc($t5)
-/*  f138450:	0c004b70 */ 	jal	random
-/*  f138454:	00000000 */ 	nop
-/*  f138458:	0056001b */ 	divu	$zero,$v0,$s6
-/*  f13845c:	8e590000 */ 	lw	$t9,0x0($s2)
-/*  f138460:	00004010 */ 	mfhi	$t0
-/*  f138464:	03314821 */ 	addu	$t1,$t9,$s1
-/*  f138468:	ad2841e0 */ 	sw	$t0,0x41e0($t1)
-/*  f13846c:	16c00002 */ 	bnez	$s6,.L0f138478
-/*  f138470:	00000000 */ 	nop
-/*  f138474:	0007000d */ 	break	0x7
-.L0f138478:
-/*  f138478:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f13847c:
-/*  f13847c:	5617ffd8 */ 	bnel	$s0,$s7,.L0f1383e0
-/*  f138480:	8e4e0000 */ 	lw	$t6,0x0($s2)
-/*  f138484:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f138488:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f13848c:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f138490:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f138494:	8fb20024 */ 	lw	$s2,0x24($sp)
-/*  f138498:	8fb30028 */ 	lw	$s3,0x28($sp)
-/*  f13849c:	8fb4002c */ 	lw	$s4,0x2c($sp)
-/*  f1384a0:	8fb50030 */ 	lw	$s5,0x30($sp)
-/*  f1384a4:	8fb60034 */ 	lw	$s6,0x34($sp)
-/*  f1384a8:	8fb70038 */ 	lw	$s7,0x38($sp)
-/*  f1384ac:	03e00008 */ 	jr	$ra
-/*  f1384b0:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+void creditsCreatePendingBgLayers(u32 mask)
+{
+	s32 i;
 
-// Mismatch: regalloc
-//void creditsCreatePendingBgLayers(u32 arg0)
-//{
-//	s32 i;
-//
-//	for (i = 0; i < 2; i++) {
-//		s32 tmp = i * 8;
-//
-//		if (g_CreditsData->unk41b0[i] == 0) {
-//			g_CreditsData->bglayers[i + 2].type = random() % 12;
-//			g_CreditsData->bglayers[i + 2].rotatespeed = func0f1382e0(0.00223f);
-//			g_CreditsData->bglayers[i + 2].unk08 = func0f1382e0(0.00223f);
-//
-//			if ((arg0 >> tmp) & 2) {
-//				g_CreditsData->bglayers[i + 2].unk0c = random() % 6;
-//			}
-//		}
-//	}
-//}
+	for (i = 0; i < 2; i++) {
+		s32 shift = i * 8;
+
+		if (g_CreditsData->unk41b0[i] == 0) {
+			g_CreditsData->bglayers[i + 2].type = random() % 12;
+			g_CreditsData->bglayers[i + 2].rotatespeed = func0f1382e0(0.00223f);
+			g_CreditsData->bglayers[i + 2].unk08 = func0f1382e0(0.00223f);
+
+
+			if (((u8)(mask >> shift) & 2)) {
+				g_CreditsData->bglayers[i + 2].unk0c = random() % 6;
+			}
+		}
+	}
+}
 
 Gfx *creditsClearFramebuffer(Gfx *gdl, u32 colour)
 {
