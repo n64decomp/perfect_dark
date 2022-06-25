@@ -1278,6 +1278,175 @@ glabel titleRenderPdLogoModel
 /*  f01797c:	27bd0150 */ 	addiu	$sp,$sp,0x150
 );
 
+// Mismatch: Minor reordering in the sp100 loop
+//Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, s32 arg4, f32 arg5, Mtxf *arg6, struct gfxvtx *vertices, u32 *colours)
+//{
+//	struct modelrenderdata renderdata = {NULL, true, 3}; // 110
+//	s16 tmp2;
+//	s32 i; // 108
+//	s32 j;
+//	struct gfxvtx *sp100;
+//	struct colour *spfc;
+//	union modelrwdata *tmp;
+//	struct modelrwdata_dl *rwdata;
+//	struct modelnode *node1;
+//	struct modelnode *node2;
+//	s32 s6;
+//	s32 k;
+//	struct modelrodata_dl *s5rodata;
+//	struct modelrodata_dl *s1rodata;
+//	s32 alpha1; // d8
+//	s32 spcc[3];
+//	f32 spc0[3];
+//	struct gfxvtx *a3;
+//	s32 alpha2; // b8
+//	Mtxf sp6c;
+//	struct gfxvtx *t0;
+//	struct colour *s1;
+//	struct colour *s2;
+//
+//	tmp = modelGetNodeRwData(model, modelGetPart(model->filedata, MODELPART_LOGO_0000));
+//	tmp->toggle.visible = arg2;
+//
+//	tmp = modelGetNodeRwData(model, modelGetPart(model->filedata, MODELPART_LOGO_0001));
+//	tmp->toggle.visible = !arg2;
+//
+//	s6 = arg3 * 65536.0f;
+//
+//	if (s6 < 0) {
+//		s6 = 0;
+//	} else if (s6 > 65536) {
+//		s6 = 65536;
+//	}
+//
+//	alpha1 = s6 / 256;
+//
+//	if (alpha1 > arg4) {
+//		alpha1 = arg4;
+//	}
+//
+//	if (!arg2) {
+//		s6 = 65536 - s6;
+//		alpha1 = 256 - alpha1;
+//	}
+//
+//	if (alpha1 < 0) {
+//		alpha1 = 0;
+//	} else if (alpha1 > 255) {
+//		alpha1 = 255;
+//	}
+//
+//	alpha2 = arg5 * 256.0f;
+//
+//	if (alpha2 < 0) {
+//		alpha2 = 0;
+//	} else if (alpha2 > 255) {
+//		alpha2 = 255;
+//	}
+//
+//	sp100 = vertices;
+//	spfc = (void *)colours;
+//
+//	for (i = 0; i < 4; i++) {
+//		if (i == 0) {
+//			node1 = modelGetPart(model->filedata, MODELPART_LOGO_0002);
+//			node2 = modelGetPart(model->filedata, MODELPART_LOGO_0003);
+//		} else if (i == 1) {
+//			node1 = modelGetPart(model->filedata, MODELPART_LOGO_0004);
+//			node2 = modelGetPart(model->filedata, MODELPART_LOGO_0005);
+//		} else if (i == 2) {
+//			node1 = modelGetPart(model->filedata, MODELPART_LOGO_0006);
+//			node2 = modelGetPart(model->filedata, MODELPART_LOGO_0007);
+//		} else {
+//			node1 = modelGetPart(model->filedata, MODELPART_LOGO_0008);
+//			node2 = modelGetPart(model->filedata, MODELPART_LOGO_0009);
+//		}
+//
+//		if (node1 && node2) {
+//			if (arg2) {
+//				s5rodata = &node1->rodata->dl;
+//				s1rodata = &node2->rodata->dl;
+//				rwdata = modelGetNodeRwData(model, node1);
+//			} else {
+//				s5rodata = &node2->rodata->dl;
+//				s1rodata = &node1->rodata->dl;
+//				rwdata = modelGetNodeRwData(model, node2);
+//			}
+//
+//			s1 = (struct colour *)ALIGN8(s5rodata->numvertices * sizeof(struct gfxvtx) + (s32)s5rodata->vertices);
+//			if (1);
+//			s2 = (struct colour *)ALIGN8(s1rodata->numvertices * sizeof(struct gfxvtx) + (s32)s1rodata->vertices);
+//
+//			a3 = s5rodata->vertices;
+//			t0 = s1rodata->vertices;
+//
+//			rwdata->vertices = sp100;
+//			rwdata->colours = spfc;
+//
+//			for (j = 0; j < s5rodata->numvertices; j++) {
+//				sp100[j] = a3[j];
+//
+//				tmp2 = (t0[j].x - a3[j].x) * s6 / 65536;
+//				sp100[j].x += tmp2;
+//
+//				tmp2 = (t0[j].y - a3[j].y) * s6 / 65536;
+//				sp100[j].y += tmp2;
+//
+//				tmp2 = (t0[j].z - a3[j].z) * s6 / 65536;
+//				sp100[j].z += tmp2;
+//			}
+//
+//			for (j = 0; j < s5rodata->numcolours; j++) {
+//				spcc[0] = (s32)((s1[j].r * (65536 - s6) + s2[j].r * s6) / 65536);
+//				spcc[1] = (s32)((s1[j].g * (65536 - s6) + s2[j].g * s6) / 65536);
+//				spcc[2] = (s32)((s1[j].b * (65536 - s6) + s2[j].b * s6) / 65536);
+//
+//				spc0[0] = spcc[0];
+//				spc0[1] = spcc[1];
+//				spc0[2] = spcc[2];
+//
+//				if (spc0[0] != 0.0f || spc0[1] != 0.0f || spc0[2] != 0.0f) {
+//					guNormalize(&spc0[0], &spc0[1], &spc0[2]);
+//				}
+//
+//				spfc[j].r = (s32)(spc0[0] * 127.0f);
+//				spfc[j].g = (s32)(spc0[1] * 127.0f);
+//				spfc[j].b = (s32)(spc0[2] * 127.0f);
+//				spfc[j].a = alpha2;
+//			}
+//
+//			sp100 = (void *)ALIGN8(s5rodata->numvertices * sizeof(struct gfxvtx) + (s32)sp100);
+//			spfc = (void *)ALIGN8(s5rodata->numcolours * sizeof(u32) + (s32)spfc);
+//		}
+//	}
+//
+//	gDPSetPrimColor(gdl++, 0, 0, 0x00, 0x00, 0x00, alpha1);
+//
+//	renderdata.unk00 = arg6;
+//	renderdata.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
+//
+//	mtx4Copy(arg6, renderdata.unk10);
+//
+//	model->matrices = renderdata.unk10;
+//
+//	model0001cc20(model);
+//
+//	renderdata.flags = 3;
+//	renderdata.zbufferenabled = false;
+//	renderdata.gdl = gdl;
+//
+//	modelRender(&renderdata, model);
+//
+//	gdl = renderdata.gdl;
+//
+//	for (k = 0, j = 0; k < model->filedata->nummatrices; k++, j += sizeof(Mtxf)) {
+//		mtx4Copy((Mtxf *)((u32)model->matrices + j), &sp6c);
+//		mtx00016054(&sp6c, model->matrices + k);
+//	}
+//
+//	return gdl;
+//}
+
 /**
  * Skip immediately to the "PERFECT DARK" part of the PdLogo mode.
  *
