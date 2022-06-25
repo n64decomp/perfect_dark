@@ -3129,10 +3129,6 @@ void creditsTickSlide(void)
 
 u32 var8007f6d4 = 0x00000000;
 
-#if VERSION < VERSION_NTSC_1_0
-u32 var80081f2c = 0xffff;
-#endif
-
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
 glabel func0f13a3ec
@@ -5498,15 +5494,16 @@ void credits0f13ae04(Mtxf *mtx)
 	// empty
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void creditsTick(void)
 {
 	s32 i;
 	static u32 var8007f6d8 = 0xffff;
 
+#if VERSION >= VERSION_NTSC_1_0
 	if (joyGetButtonsPressedThisFrame(0, L_TRIG)) {
 		creditsCreatePendingBgLayers(0xffffffff);
 	}
+#endif
 
 	mainOverrideVariable("for", &var8007f6d8);
 
@@ -5533,6 +5530,7 @@ void creditsTick(void)
 		}
 	}
 
+#if VERSION >= VERSION_NTSC_1_0
 	var800a4168 = var800a4164;
 	var800a4164 += g_Vars.diffframe240;
 	var800a416c += g_Vars.diffframe240;
@@ -5549,178 +5547,32 @@ void creditsTick(void)
 	if (!g_CreditsData->slidesenabled && g_CreditsData->unk4204 < (PAL ? 1150 : 1360)) {
 		g_CreditsData->unk4204 += g_Vars.diffframe60;
 	}
-}
 #else
-const char var7f1afd10nb[] = "for";
-const char var7f1afd14nb[] = "flick";
+	if (joyGetButtons(0, R_TRIG) == 0) {
+		var800a4168 = var800a4164;
+		var800a4164 += g_Vars.diffframe240;
+		var800a416c += g_Vars.diffframe240;
+	}
 
-GLOBAL_ASM(
-glabel creditsTick
-.late_rodata
-glabel var7f1afe70nb
-.word 0x3c23d70a
-.text
-/*  f135914:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f135918:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f13591c:	3c047f1b */ 	lui	$a0,0x7f1b
-/*  f135920:	3c058008 */ 	lui	$a1,0x8008
-/*  f135924:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f135928:	24a51f2c */ 	addiu	$a1,$a1,0x1f2c
-/*  f13592c:	0c00381c */ 	jal	mainOverrideVariable
-/*  f135930:	2484fd10 */ 	addiu	$a0,$a0,-752
-/*  f135934:	3c0e8008 */ 	lui	$t6,0x8008
-/*  f135938:	8dce1f2c */ 	lw	$t6,0x1f2c($t6)
-/*  f13593c:	3401ffff */ 	dli	$at,0xffff
-/*  f135940:	3c047f1b */ 	lui	$a0,0x7f1b
-/*  f135944:	01c1082b */ 	sltu	$at,$t6,$at
-/*  f135948:	1020000c */ 	beqz	$at,.NB0f13597c
-/*  f13594c:	2484fd14 */ 	addiu	$a0,$a0,-748
-/*  f135950:	3c10800b */ 	lui	$s0,0x800b
-/*  f135954:	26108730 */ 	addiu	$s0,$s0,-30928
-/*  f135958:	00001025 */ 	or	$v0,$zero,$zero
-/*  f13595c:	24030040 */ 	addiu	$v1,$zero,0x40
-.NB0f135960:
-/*  f135960:	8e180000 */ 	lw	$t8,0x0($s0)
-/*  f135964:	3c0f8008 */ 	lui	$t7,0x8008
-/*  f135968:	8def1f2c */ 	lw	$t7,0x1f2c($t7)
-/*  f13596c:	0302c821 */ 	addu	$t9,$t8,$v0
-/*  f135970:	24420010 */ 	addiu	$v0,$v0,0x10
-/*  f135974:	1443fffa */ 	bne	$v0,$v1,.NB0f135960
-/*  f135978:	af2f41b4 */ 	sw	$t7,0x41b4($t9)
-.NB0f13597c:
-/*  f13597c:	3c10800b */ 	lui	$s0,0x800b
-/*  f135980:	3c058008 */ 	lui	$a1,0x8008
-/*  f135984:	26108730 */ 	addiu	$s0,$s0,-30928
-/*  f135988:	0c00381c */ 	jal	mainOverrideVariable
-/*  f13598c:	24a51f28 */ 	addiu	$a1,$a1,0x1f28
-/*  f135990:	3c088008 */ 	lui	$t0,0x8008
-/*  f135994:	8d081f28 */ 	lw	$t0,0x1f28($t0)
-/*  f135998:	11000005 */ 	beqz	$t0,.NB0f1359b0
-/*  f13599c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1359a0:	0fc4cbc7 */ 	jal	creditsCreatePendingBgLayers
-/*  f1359a4:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f1359a8:	3c018008 */ 	lui	$at,0x8008
-/*  f1359ac:	ac201f28 */ 	sw	$zero,0x1f28($at)
-.NB0f1359b0:
-/*  f1359b0:	3c09800b */ 	lui	$t1,0x800b
-/*  f1359b4:	8d29872c */ 	lw	$t1,-0x78d4($t1)
-/*  f1359b8:	3c0a8008 */ 	lui	$t2,0x8008
-/*  f1359bc:	55200010 */ 	bnezl	$t1,.NB0f135a00
-/*  f1359c0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1359c4:	8d4a1998 */ 	lw	$t2,0x1998($t2)
-/*  f1359c8:	11400008 */ 	beqz	$t2,.NB0f1359ec
-/*  f1359cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1359d0:	0fc5a1ab */ 	jal	musicSetStage
-/*  f1359d4:	2404005c */ 	addiu	$a0,$zero,0x5c
-/*  f1359d8:	44806000 */ 	mtc1	$zero,$f12
-/*  f1359dc:	0fc5a063 */ 	jal	musicStartPrimary
-/*  f1359e0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1359e4:	10000006 */ 	beqz	$zero,.NB0f135a00
-/*  f1359e8:	00002025 */ 	or	$a0,$zero,$zero
-.NB0f1359ec:
-/*  f1359ec:	0fc5a1ab */ 	jal	musicSetStage
-/*  f1359f0:	2404005c */ 	addiu	$a0,$zero,0x5c
-/*  f1359f4:	0fc5a176 */ 	jal	musicStartTrackAsMenu
-/*  f1359f8:	24040058 */ 	addiu	$a0,$zero,0x58
-/*  f1359fc:	00002025 */ 	or	$a0,$zero,$zero
-.NB0f135a00:
-/*  f135a00:	0c005790 */ 	jal	joyGetButtons
-/*  f135a04:	24050010 */ 	addiu	$a1,$zero,0x10
-/*  f135a08:	1440000f */ 	bnez	$v0,.NB0f135a48
-/*  f135a0c:	24052000 */ 	addiu	$a1,$zero,0x2000
-/*  f135a10:	3c04800b */ 	lui	$a0,0x800b
-/*  f135a14:	24848724 */ 	addiu	$a0,$a0,-30940
-/*  f135a18:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f135a1c:	3c03800a */ 	lui	$v1,0x800a
-/*  f135a20:	8c63e700 */ 	lw	$v1,-0x1900($v1)
-/*  f135a24:	3c01800b */ 	lui	$at,0x800b
-/*  f135a28:	ac228728 */ 	sw	$v0,-0x78d8($at)
-/*  f135a2c:	00435821 */ 	addu	$t3,$v0,$v1
-/*  f135a30:	ac8b0000 */ 	sw	$t3,0x0($a0)
-/*  f135a34:	3c0c800b */ 	lui	$t4,0x800b
-/*  f135a38:	8d8c872c */ 	lw	$t4,-0x78d4($t4)
-/*  f135a3c:	3c01800b */ 	lui	$at,0x800b
-/*  f135a40:	01836821 */ 	addu	$t5,$t4,$v1
-/*  f135a44:	ac2d872c */ 	sw	$t5,-0x78d4($at)
-.NB0f135a48:
-/*  f135a48:	0c0057c0 */ 	jal	joyGetButtonsPressedThisFrame
-/*  f135a4c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f135a50:	3c0e800b */ 	lui	$t6,0x800b
-/*  f135a54:	8dce872c */ 	lw	$t6,-0x78d4($t6)
-/*  f135a58:	240112c0 */ 	addiu	$at,$zero,0x12c0
-/*  f135a5c:	01c1001b */ 	divu	$zero,$t6,$at
-/*  f135a60:	0000c010 */ 	mfhi	$t8
-/*  f135a64:	44982000 */ 	mtc1	$t8,$f4
-/*  f135a68:	3c014f80 */ 	lui	$at,0x4f80
-/*  f135a6c:	07010004 */ 	bgez	$t8,.NB0f135a80
-/*  f135a70:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f135a74:	44814000 */ 	mtc1	$at,$f8
-/*  f135a78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f135a7c:	46083180 */ 	add.s	$f6,$f6,$f8
-.NB0f135a80:
-/*  f135a80:	3c014596 */ 	lui	$at,0x4596
-/*  f135a84:	44815000 */ 	mtc1	$at,$f10
-/*  f135a88:	3c01800b */ 	lui	$at,0x800b
-/*  f135a8c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f135a90:	460a3403 */ 	div.s	$f16,$f6,$f10
-/*  f135a94:	24050010 */ 	addiu	$a1,$zero,0x10
-/*  f135a98:	0c005790 */ 	jal	joyGetButtons
-/*  f135a9c:	e4308720 */ 	swc1	$f16,-0x78e0($at)
-/*  f135aa0:	5440002c */ 	bnezl	$v0,.NB0f135b54
-/*  f135aa4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f135aa8:	0fc4cd4b */ 	jal	func0f13899c
-/*  f135aac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f135ab0:	8e0f0000 */ 	lw	$t7,0x0($s0)
-/*  f135ab4:	91f941f4 */ 	lbu	$t9,0x41f4($t7)
-/*  f135ab8:	13200005 */ 	beqz	$t9,.NB0f135ad0
-/*  f135abc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f135ac0:	0fc4d31b */ 	jal	creditsTickSlide
-/*  f135ac4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f135ac8:	10000016 */ 	beqz	$zero,.NB0f135b24
-/*  f135acc:	8e020000 */ 	lw	$v0,0x0($s0)
-.NB0f135ad0:
-/*  f135ad0:	0c004d84 */ 	jal	random
-/*  f135ad4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f135ad8:	44829000 */ 	mtc1	$v0,$f18
-/*  f135adc:	3c014f80 */ 	lui	$at,0x4f80
-/*  f135ae0:	04410004 */ 	bgez	$v0,.NB0f135af4
-/*  f135ae4:	46809120 */ 	cvt.s.w	$f4,$f18
-/*  f135ae8:	44814000 */ 	mtc1	$at,$f8
-/*  f135aec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f135af0:	46082100 */ 	add.s	$f4,$f4,$f8
-.NB0f135af4:
-/*  f135af4:	3c012f80 */ 	lui	$at,0x2f80
-/*  f135af8:	44813000 */ 	mtc1	$at,$f6
-/*  f135afc:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f135b00:	c430fe70 */ 	lwc1	$f16,-0x190($at)
-/*  f135b04:	46062282 */ 	mul.s	$f10,$f4,$f6
-/*  f135b08:	4610503c */ 	c.lt.s	$f10,$f16
-/*  f135b0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f135b10:	45020004 */ 	bc1fl	.NB0f135b24
-/*  f135b14:	8e020000 */ 	lw	$v0,0x0($s0)
-/*  f135b18:	0fc4cbc7 */ 	jal	creditsCreatePendingBgLayers
-/*  f135b1c:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f135b20:	8e020000 */ 	lw	$v0,0x0($s0)
-.NB0f135b24:
-/*  f135b24:	904841f4 */ 	lbu	$t0,0x41f4($v0)
-/*  f135b28:	5500000a */ 	bnezl	$t0,.NB0f135b54
-/*  f135b2c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f135b30:	8c434204 */ 	lw	$v1,0x4204($v0)
-/*  f135b34:	3c09800a */ 	lui	$t1,0x800a
-/*  f135b38:	2c610550 */ 	sltiu	$at,$v1,0x550
-/*  f135b3c:	50200005 */ 	beqzl	$at,.NB0f135b54
-/*  f135b40:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f135b44:	8d29e6c0 */ 	lw	$t1,-0x1940($t1)
-/*  f135b48:	00695021 */ 	addu	$t2,$v1,$t1
-/*  f135b4c:	ac4a4204 */ 	sw	$t2,0x4204($v0)
-/*  f135b50:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.NB0f135b54:
-/*  f135b54:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f135b58:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f135b5c:	03e00008 */ 	jr	$ra
-/*  f135b60:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	joyGetButtonsPressedThisFrame(0, Z_TRIG);
+
+	var800a4160 = (var800a416c % TICKS(4800)) / TICKS(4800.0f);
+
+	if (joyGetButtons(0, R_TRIG) == 0) {
+		func0f13899c();
+
+		if (g_CreditsData->slidesenabled) {
+			creditsTickSlide();
+		} else if (RANDOMFRAC() < 0.01f) {
+			creditsCreatePendingBgLayers(0xffffffff);
+		}
+
+		if (!g_CreditsData->slidesenabled && g_CreditsData->unk4204 < (PAL ? 1150 : 1360)) {
+			g_CreditsData->unk4204 += g_Vars.diffframe60;
+		}
+	}
 #endif
+}
 
 Gfx *creditsRender(Gfx *gdl)
 {
