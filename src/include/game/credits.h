@@ -4,38 +4,13 @@
 #include "data.h"
 #include "types.h"
 
-void func0f137430(struct gfxvtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6);
-void creditsInitVertices(struct gfxvtx *vertices, s32 z);
-void func0f137874(struct gfxvtx *vertices, u32 *colours, s32 arg2, s32 alpha, s32 arg4);
-Gfx *creditsRenderBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 alpha, s32 arg5);
-void creditsCopyBackgroundLayer(s32 srcindex, s32 dstindex, bool move);
-Gfx *creditsRenderBackground(Gfx *gdl);
-f32 func0f1382e0(f32 range);
-void creditsCreatePendingBgLayers(u32 mask);
-Gfx *creditsClearFramebuffer(Gfx *gdl, u32 colour);
-void func0f13870c(void);
-void func0f13899c(void);
-u32 func0f138e6c(void);
-Gfx *creditsRenderSprites(Gfx *gdl);
-u32 func0f1399d0(void);
-u32 func0f139d9c(void);
-void creditsInitSlides(void);
-struct credit *creditGetByRow(s32 row);
-void creditsTickSlide(void);
-Gfx *func0f13a3ec(Gfx *gdl);
-void credits0f13ae04(Mtxf *mtx);
-void creditsTick(void);
-Gfx *creditsRender(Gfx *gdl);
-void creditsReset(void);
-void creditsRequestAltTitle(void);
-
-struct credits000c {
+struct creditssprite {
 	f32 unk00;
 	f32 unk04;
 	f32 unk08;
-	f32 unk0c;
+	f32 rotation;
 	u8 unk10;
-	u8 unk11;
+	u8 confignum;
 	u8 unk12;
 	u8 unk13;
 	u8 unk14;
@@ -61,7 +36,7 @@ struct creditsdata {
 	/*0x0000*/ u32 unk0000;
 	/*0x0004*/ u32 unk0004;
 	/*0x0008*/ u32 unk0008;
-	/*0x000c*/ struct credits000c unk000c[500];
+	/*0x000c*/ struct creditssprite sprites[500];
 	/*0x2eec*/ u8 unk2eec;
 	/*0x2eed*/ u8 unk2eed;
 	/*0x2eee*/ u8 unk2eee;
@@ -904,7 +879,7 @@ struct creditsdata {
 	/*0x41b4*/ struct creditsbglayer bglayers[4];
 	/*0x41f4*/ u8 slidesenabled;
 	/*0x41f5*/ s8 unk41f5;
-	/*0x41f6*/ u8 unk41f6;
+	/*0x41f6*/ s8 unk41f6;
 	/*0x41f8*/ f32 unk41f8;
 	/*0x41fc*/ u8 unk41fc;
 	/*0x41fd*/ u8 unk41fd;
@@ -927,5 +902,30 @@ struct creditsdata {
 	/*0x4238*/ u32 unk4238;
 	/*0x423c*/ u32 unk423c;
 };
+
+void func0f137430(struct gfxvtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6);
+void creditsInitVertices(struct gfxvtx *vertices, s32 z);
+void func0f137874(struct gfxvtx *vertices, u32 *colours, s32 arg2, s32 alpha, s32 arg4);
+Gfx *creditsRenderBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 alpha, s32 arg5);
+void creditsCopyBackgroundLayer(s32 srcindex, s32 dstindex, bool move);
+Gfx *creditsRenderBackground(Gfx *gdl);
+f32 func0f1382e0(f32 range);
+void creditsCreatePendingBgLayers(u32 mask);
+Gfx *creditsClearFramebuffer(Gfx *gdl, u32 colour);
+void creditsResetSprites(void);
+void func0f13899c(void);
+void func0f138e6c(struct coord *pos, struct creditssprite *sprite, s32 spritenum);
+Gfx *creditsRenderSprites(Gfx *gdl);
+u32 func0f1399d0(void);
+u32 func0f139d9c(void);
+void creditsResetSlides(void);
+struct credit *creditGetByRow(s32 row);
+void creditsTickSlide(void);
+Gfx *func0f13a3ec(Gfx *gdl);
+void credits0f13ae04(Mtxf *mtx);
+void creditsTick(void);
+Gfx *creditsRender(Gfx *gdl);
+void creditsReset(void);
+void creditsRequestAltTitle(void);
 
 #endif
