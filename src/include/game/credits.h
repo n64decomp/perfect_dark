@@ -913,7 +913,7 @@ f32 func0f1382e0(f32 range);
 void creditsCreatePendingBgLayers(u32 mask);
 Gfx *creditsClearFramebuffer(Gfx *gdl, u32 colour);
 void creditsResetSprites(void);
-void func0f13899c(void);
+void creditsTickSprites(void);
 void creditsGetSpritePos(struct coord *pos, struct creditssprite *sprite, s32 spritenum);
 Gfx *creditsRenderSprites(Gfx *gdl);
 u32 func0f1399d0(void);
