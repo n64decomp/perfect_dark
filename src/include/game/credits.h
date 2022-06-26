@@ -917,7 +917,7 @@ void creditsTickSprites(void);
 void creditsGetSpritePos(struct coord *pos, struct creditssprite *sprite, s32 spritenum);
 Gfx *creditsDrawSprites(Gfx *gdl);
 Gfx *func0f1399d0(Gfx *gdl, s32 x, s32 y, char *text, struct fontchar *chars, struct font *font, f32 opacity, f32 speed, f32 spread);
-Gfx *func0f139d9c(Gfx *gdl, s32 x, s32 y, char *text, struct fontchar *chars, struct font *font, f32 transfrac, s32 hdir, s32 vdir, s32 stretch);
+Gfx *creditsDrawForegroundText(Gfx *gdl, s32 x, s32 y, char *text, struct fontchar *chars, struct font *font, f32 transfrac, s32 hdir, s32 vdir, s32 stretch);
 void creditsResetSlides(void);
 struct credit *creditGetByRow(s32 row);
 void creditsTickSlide(void);
