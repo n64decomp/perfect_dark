@@ -7,7 +7,7 @@
 void func0f13c510(void);
 void func0f13c54c(void);
 u16 func0f13c574(f32 arg0);
-u32 func0f13c710(void);
+s32 func0f13c710(f32 arg0);
 void func0f13c780(s32 arg0);
 u8 func0f13d3c4(u8 arg0, u8 arg1);
 Gfx *func0f13d40c(Gfx *gdl);

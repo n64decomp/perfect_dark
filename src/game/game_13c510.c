@@ -15,39 +15,6 @@
 #include "data.h"
 #include "types.h"
 
-const u32 var7f1b5990[] = {0x4effffff};
-const u32 var7f1b5994[] = {0x4effffff};
-const u32 var7f1b5998[] = {0xceffffff};
-const u32 var7f1b599c[] = {0x38d1b717};
-const u32 var7f1b59a0[] = {0x38d1b717};
-const u32 var7f1b59a4[] = {0x3ecccccd};
-const u32 var7f1b59a8[] = {0x38d1b717};
-const u32 var7f1b59ac[] = {0x43ff8000};
-const u32 var7f1b59b0[] = {0x46fe8000};
-const u32 var7f1b59b4[] = {0x46fc5800};
-const u32 var7f1b59b8[] = {0x44a28000};
-const u32 var7f1b59bc[] = {0x44a28000};
-const u32 var7f1b59c0[] = {0x3a49a634};
-const u32 var7f1b59c4[] = {0x3f19999a};
-const u32 var7f1b59c8[] = {0x461c3c00};
-const u32 var7f1b59cc[] = {0x461c3c00};
-const u32 var7f1b59d0[] = {0xc61c3c00};
-const u32 var7f1b59d4[] = {0xc61c3c00};
-const u32 var7f1b59d8[] = {0x43ff8000};
-const u32 var7f1b59dc[] = {0x46fe8000};
-const u32 var7f1b59e0[] = {0x3c8efa35};
-const u32 var7f1b59e4[] = {0x4169999a};
-const u32 var7f1b59e8[] = {0x3ecccccd};
-const u32 var7f1b59ec[] = {0x3b808081};
-const u32 var7f1b59f0[] = {0x46d6d800};
-const u32 var7f1b59f4[] = {0x3b808081};
-const u32 var7f1b59f8[] = {0x443b8000};
-const u32 var7f1b59fc[] = {0x3c23d70a};
-const u32 var7f1b5a00[] = {0x3c23d70a};
-const u32 var7f1b5a04[] = {0x3b888889};
-const u32 var7f1b5a08[] = {0x3b888889};
-const u32 var7f1b5a0c[] = {0x3ecccccd};
-
 u8 *var800a41a0;
 u32 var800a41a4;
 u32 var800a41a8;
@@ -112,42 +79,59 @@ u16 func0f13c574(f32 arg0)
 	return left << 13 | (right << 2);
 }
 
-GLOBAL_ASM(
-glabel func0f13c710
-/*  f13c710:	44802000 */ 	mtc1	$zero,$f4
-/*  f13c714:	3c017f1b */ 	lui	$at,%hi(var7f1b5998)
-/*  f13c718:	460c203c */ 	c.lt.s	$f4,$f12
-/*  f13c71c:	00000000 */ 	nop
-/*  f13c720:	4500000d */ 	bc1f	.L0f13c758
-/*  f13c724:	00000000 */ 	nop
-/*  f13c728:	3c017f1b */ 	lui	$at,%hi(var7f1b5990)
-/*  f13c72c:	c4265990 */ 	lwc1	$f6,%lo(var7f1b5990)($at)
-/*  f13c730:	3c017f1b */ 	lui	$at,%hi(var7f1b5994)
-/*  f13c734:	460c303c */ 	c.lt.s	$f6,$f12
-/*  f13c738:	00000000 */ 	nop
-/*  f13c73c:	4502000d */ 	bc1fl	.L0f13c774
-/*  f13c740:	4600620d */ 	trunc.w.s	$f8,$f12
-/*  f13c744:	c42c5994 */ 	lwc1	$f12,%lo(var7f1b5994)($at)
-/*  f13c748:	4600620d */ 	trunc.w.s	$f8,$f12
-/*  f13c74c:	44024000 */ 	mfc1	$v0,$f8
-/*  f13c750:	03e00008 */ 	jr	$ra
-/*  f13c754:	00000000 */ 	nop
-.L0f13c758:
-/*  f13c758:	c4205998 */ 	lwc1	$f0,%lo(var7f1b5998)($at)
-/*  f13c75c:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f13c760:	00000000 */ 	nop
-/*  f13c764:	45020003 */ 	bc1fl	.L0f13c774
-/*  f13c768:	4600620d */ 	trunc.w.s	$f8,$f12
-/*  f13c76c:	46000306 */ 	mov.s	$f12,$f0
-/*  f13c770:	4600620d */ 	trunc.w.s	$f8,$f12
-.L0f13c774:
-/*  f13c774:	44024000 */ 	mfc1	$v0,$f8
-/*  f13c778:	03e00008 */ 	jr	$ra
-/*  f13c77c:	00000000 */ 	nop
-);
+s32 func0f13c710(f32 arg0)
+{
+	if (arg0 > 0.0f) {
+		if (arg0 > 2147483520.0f) {
+			arg0 = 2147483520;
+		}
+	} else {
+		if (arg0 < -2147483520) {
+			arg0 = -2147483520;
+		}
+	}
+
+	return arg0;
+}
 
 GLOBAL_ASM(
 glabel func0f13c780
+.late_rodata
+glabel var7f1b599c
+.word 0x38d1b717
+glabel var7f1b59a0
+.word 0x38d1b717
+glabel var7f1b59a4
+.word 0x3ecccccd
+glabel var7f1b59a8
+.word 0x38d1b717
+glabel var7f1b59ac
+.word 0x43ff8000
+glabel var7f1b59b0
+.word 0x46fe8000
+glabel var7f1b59b4
+.word 0x46fc5800
+glabel var7f1b59b8
+.word 0x44a28000
+glabel var7f1b59bc
+.word 0x44a28000
+glabel var7f1b59c0
+.word 0x3a49a634
+glabel var7f1b59c4
+.word 0x3f19999a
+glabel var7f1b59c8
+.word 0x461c3c00
+glabel var7f1b59cc
+.word 0x461c3c00
+glabel var7f1b59d0
+.word 0xc61c3c00
+glabel var7f1b59d4
+.word 0xc61c3c00
+glabel var7f1b59d8
+.word 0x43ff8000
+glabel var7f1b59dc
+.word 0x46fe8000
+.text
 /*  f13c780:	27bdfe28 */ 	addiu	$sp,$sp,-472
 /*  f13c784:	afbf006c */ 	sw	$ra,0x6c($sp)
 /*  f13c788:	afbe0068 */ 	sw	$s8,0x68($sp)
@@ -1018,6 +1002,32 @@ Gfx *func0f13d54c(Gfx *gdl)
 
 GLOBAL_ASM(
 glabel func0f13d568
+.late_rodata
+glabel var7f1b59e0
+.word 0x3c8efa35
+glabel var7f1b59e4
+.word 0x4169999a
+glabel var7f1b59e8
+.word 0x3ecccccd
+glabel var7f1b59ec
+.word 0x3b808081
+glabel var7f1b59f0
+.word 0x46d6d800
+glabel var7f1b59f4
+.word 0x3b808081
+glabel var7f1b59f8
+.word 0x443b8000
+glabel var7f1b59fc
+.word 0x3c23d70a
+glabel var7f1b5a00
+.word 0x3c23d70a
+glabel var7f1b5a04
+.word 0x3b888889
+glabel var7f1b5a08
+.word 0x3b888889
+glabel var7f1b5a0c
+.word 0x3ecccccd
+.text
 /*  f13d568:	27bdfea0 */ 	addiu	$sp,$sp,-352
 /*  f13d56c:	afbf0084 */ 	sw	$ra,0x84($sp)
 /*  f13d570:	afbe0080 */ 	sw	$s8,0x80($sp)
