@@ -69,159 +69,48 @@ void func0f13c54c(void)
 	bbufIncIndex1();
 }
 
-GLOBAL_ASM(
-glabel func0f13c574
-/*  f13c574:	3c014100 */ 	lui	$at,0x4100
-/*  f13c578:	44812000 */ 	mtc1	$at,$f4
-/*  f13c57c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f13c580:	3c014f00 */ 	lui	$at,0x4f00
-/*  f13c584:	46046182 */ 	mul.s	$f6,$f12,$f4
-/*  f13c588:	24040007 */ 	addiu	$a0,$zero,0x7
-/*  f13c58c:	444ef800 */ 	cfc1	$t6,$31
-/*  f13c590:	44c2f800 */ 	ctc1	$v0,$31
-/*  f13c594:	00000000 */ 	nop
-/*  f13c598:	46003224 */ 	cvt.w.s	$f8,$f6
-/*  f13c59c:	4442f800 */ 	cfc1	$v0,$31
-/*  f13c5a0:	00000000 */ 	nop
-/*  f13c5a4:	30420078 */ 	andi	$v0,$v0,0x78
-/*  f13c5a8:	50400013 */ 	beqzl	$v0,.L0f13c5f8
-/*  f13c5ac:	44024000 */ 	mfc1	$v0,$f8
-/*  f13c5b0:	44814000 */ 	mtc1	$at,$f8
-/*  f13c5b4:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f13c5b8:	46083201 */ 	sub.s	$f8,$f6,$f8
-/*  f13c5bc:	44c2f800 */ 	ctc1	$v0,$31
-/*  f13c5c0:	00000000 */ 	nop
-/*  f13c5c4:	46004224 */ 	cvt.w.s	$f8,$f8
-/*  f13c5c8:	4442f800 */ 	cfc1	$v0,$31
-/*  f13c5cc:	00000000 */ 	nop
-/*  f13c5d0:	30420078 */ 	andi	$v0,$v0,0x78
-/*  f13c5d4:	14400005 */ 	bnez	$v0,.L0f13c5ec
-/*  f13c5d8:	00000000 */ 	nop
-/*  f13c5dc:	44024000 */ 	mfc1	$v0,$f8
-/*  f13c5e0:	3c018000 */ 	lui	$at,0x8000
-/*  f13c5e4:	10000007 */ 	b	.L0f13c604
-/*  f13c5e8:	00411025 */ 	or	$v0,$v0,$at
-.L0f13c5ec:
-/*  f13c5ec:	10000005 */ 	b	.L0f13c604
-/*  f13c5f0:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f13c5f4:	44024000 */ 	mfc1	$v0,$f8
-.L0f13c5f8:
-/*  f13c5f8:	00000000 */ 	nop
-/*  f13c5fc:	0440fffb */ 	bltz	$v0,.L0f13c5ec
-/*  f13c600:	00000000 */ 	nop
-.L0f13c604:
-/*  f13c604:	3c010003 */ 	lui	$at,0x3
-/*  f13c608:	3421f801 */ 	ori	$at,$at,0xf801
-/*  f13c60c:	0041082b */ 	sltu	$at,$v0,$at
-/*  f13c610:	44cef800 */ 	ctc1	$t6,$31
-/*  f13c614:	14200004 */ 	bnez	$at,.L0f13c628
-/*  f13c618:	00401825 */ 	or	$v1,$v0,$zero
-/*  f13c61c:	306f07ff */ 	andi	$t7,$v1,0x7ff
-/*  f13c620:	10000035 */ 	b	.L0f13c6f8
-/*  f13c624:	01e01825 */ 	or	$v1,$t7,$zero
-.L0f13c628:
-/*  f13c628:	3c010003 */ 	lui	$at,0x3
-/*  f13c62c:	3421f001 */ 	ori	$at,$at,0xf001
-/*  f13c630:	0041082b */ 	sltu	$at,$v0,$at
-/*  f13c634:	14200005 */ 	bnez	$at,.L0f13c64c
-/*  f13c638:	00401825 */ 	or	$v1,$v0,$zero
-/*  f13c63c:	307807ff */ 	andi	$t8,$v1,0x7ff
-/*  f13c640:	03001825 */ 	or	$v1,$t8,$zero
-/*  f13c644:	1000002c */ 	b	.L0f13c6f8
-/*  f13c648:	24040006 */ 	addiu	$a0,$zero,0x6
-.L0f13c64c:
-/*  f13c64c:	3c010003 */ 	lui	$at,0x3
-/*  f13c650:	3421e001 */ 	ori	$at,$at,0xe001
-/*  f13c654:	0041082b */ 	sltu	$at,$v0,$at
-/*  f13c658:	14200004 */ 	bnez	$at,.L0f13c66c
-/*  f13c65c:	0002c842 */ 	srl	$t9,$v0,0x1
-/*  f13c660:	332307ff */ 	andi	$v1,$t9,0x7ff
-/*  f13c664:	10000024 */ 	b	.L0f13c6f8
-/*  f13c668:	24040005 */ 	addiu	$a0,$zero,0x5
-.L0f13c66c:
-/*  f13c66c:	3c010003 */ 	lui	$at,0x3
-/*  f13c670:	3421c001 */ 	ori	$at,$at,0xc001
-/*  f13c674:	0041082b */ 	sltu	$at,$v0,$at
-/*  f13c678:	14200004 */ 	bnez	$at,.L0f13c68c
-/*  f13c67c:	00024882 */ 	srl	$t1,$v0,0x2
-/*  f13c680:	312307ff */ 	andi	$v1,$t1,0x7ff
-/*  f13c684:	1000001c */ 	b	.L0f13c6f8
-/*  f13c688:	24040004 */ 	addiu	$a0,$zero,0x4
-.L0f13c68c:
-/*  f13c68c:	3c010003 */ 	lui	$at,0x3
-/*  f13c690:	34218001 */ 	ori	$at,$at,0x8001
-/*  f13c694:	0041082b */ 	sltu	$at,$v0,$at
-/*  f13c698:	14200004 */ 	bnez	$at,.L0f13c6ac
-/*  f13c69c:	000258c2 */ 	srl	$t3,$v0,0x3
-/*  f13c6a0:	316307ff */ 	andi	$v1,$t3,0x7ff
-/*  f13c6a4:	10000014 */ 	b	.L0f13c6f8
-/*  f13c6a8:	24040003 */ 	addiu	$a0,$zero,0x3
-.L0f13c6ac:
-/*  f13c6ac:	3c010003 */ 	lui	$at,0x3
-/*  f13c6b0:	34210001 */ 	ori	$at,$at,0x1
-/*  f13c6b4:	0041082b */ 	sltu	$at,$v0,$at
-/*  f13c6b8:	14200004 */ 	bnez	$at,.L0f13c6cc
-/*  f13c6bc:	00026902 */ 	srl	$t5,$v0,0x4
-/*  f13c6c0:	31a307ff */ 	andi	$v1,$t5,0x7ff
-/*  f13c6c4:	1000000c */ 	b	.L0f13c6f8
-/*  f13c6c8:	24040002 */ 	addiu	$a0,$zero,0x2
-.L0f13c6cc:
-/*  f13c6cc:	3c010002 */ 	lui	$at,0x2
-/*  f13c6d0:	34210001 */ 	ori	$at,$at,0x1
-/*  f13c6d4:	0041082b */ 	sltu	$at,$v0,$at
-/*  f13c6d8:	14200005 */ 	bnez	$at,.L0f13c6f0
-/*  f13c6dc:	0002c982 */ 	srl	$t9,$v0,0x6
-/*  f13c6e0:	00027942 */ 	srl	$t7,$v0,0x5
-/*  f13c6e4:	31e307ff */ 	andi	$v1,$t7,0x7ff
-/*  f13c6e8:	10000003 */ 	b	.L0f13c6f8
-/*  f13c6ec:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f13c6f0:
-/*  f13c6f0:	332307ff */ 	andi	$v1,$t9,0x7ff
-/*  f13c6f4:	00002025 */ 	or	$a0,$zero,$zero
-.L0f13c6f8:
-/*  f13c6f8:	00044b40 */ 	sll	$t1,$a0,0xd
-/*  f13c6fc:	00035080 */ 	sll	$t2,$v1,0x2
-/*  f13c700:	012a1025 */ 	or	$v0,$t1,$t2
-/*  f13c704:	304bffff */ 	andi	$t3,$v0,0xffff
-/*  f13c708:	03e00008 */ 	jr	$ra
-/*  f13c70c:	01601025 */ 	or	$v0,$t3,$zero
-);
+u16 func0f13c574(f32 arg0)
+{
+	u32 value = arg0 * 8.0f;
+	u32 left;
+	u32 right = value;
 
-// Mismatch: Register usage for "right" is different
-//u16 func0f13c574(f32 arg0)
-//{
-//	u32 value = arg0 * 8.0f;
-//	u32 left;
-//	u32 right;
-//
-//	if (value > 0x3f800) {
-//		right = value & 0x7ff;
-//		left = 7;
-//	} else if (value > 0x3f000) {
-//		right = value & 0x7ff;
-//		left = 6;
-//	} else if (value > 0x3e000) {
-//		right = value >> 1 & 0x7ff;
-//		left = 5;
-//	} else if (value > 0x3c000) {
-//		right = value >> 2 & 0x7ff;
-//		left = 4;
-//	} else if (value > 0x38000) {
-//		right = value >> 3 & 0x7ff;
-//		left = 3;
-//	} else if (value > 0x30000) {
-//		right = value >> 4 & 0x7ff;
-//		left = 2;
-//	} else if (value > 0x20000) {
-//		right = value >> 5 & 0x7ff;
-//		left = 1;
-//	} else {
-//		right = value >> 6 & 0x7ff;
-//		left = 0;
-//	}
-//
-//	return left << 13 | right << 2;
-//}
+	if (value > 0x3f800) {
+		right = value & 0x7ff;
+		right &= 0x7ff;
+		left = 7;
+	} else if (value > 0x3f000) {
+		right = value & 0x7ff;
+		right &= 0x7ff;
+		left = 6;
+	} else if (value > 0x3e000) {
+		right = (value >> 1) & 0x7ff;
+		right &= 0x7ff;
+		left = 5;
+	} else if (value > 0x3c000) {
+		right = (value >> 2) & 0x7ff;
+		right &= 0x7ff;
+		left = 4;
+	} else if (value > 0x38000) {
+		right = (value >> 3) & 0x7ff;
+		right &= 0x7ff;
+		left = 3;
+	} else if (value > 0x30000) {
+		right = (value >> 4) & 0x7ff;
+		right &= 0x7ff;
+		left = 2;
+	} else if (value > 0x20000) {
+		right = (value >> 5) & 0x7ff;
+		right &= 0x7ff;
+		left = 1;
+	} else {
+		right = (value >> 6) & 0x7ff;
+		right &= 0x7ff;
+		left = 0;
+	}
+
+	return left << 13 | (right << 2);
+}
 
 GLOBAL_ASM(
 glabel func0f13c710
