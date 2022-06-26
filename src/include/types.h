@@ -6601,9 +6601,9 @@ struct texcacheitem {
 };
 
 struct var800a418c {
-	u16 unk00;
-	u16 unk02;
-	u16 unk04;
+	u16 offset;
+	s16 s;
+	s16 t;
 };
 
 struct var800a4190 {
@@ -6617,7 +6617,7 @@ struct var800a4194 {
 	u16 roomnum;
 	u16 unk02;
 	u16 unk04;
-	s32 unk08;
+	s32 framenum;
 };
 
 struct skything18 {
