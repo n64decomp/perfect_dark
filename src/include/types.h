@@ -3476,8 +3476,7 @@ struct bootbufferthing {
 
 struct credit {
 	u8 more : 1;
-	u8 notranin : 1;
-	u8 notranout : 1;
+	u8 retain : 2;
 	u8 durationindex : 2;
 	u8 style;
 	u16 text1;

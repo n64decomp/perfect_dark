@@ -683,17 +683,19 @@
 #define COVERFLAG_0100            0x0100
 
 // L/C/R = left/centered/right
-// big/med/sml is the font size
-#define CREDITSTYLE_R_BIG_R_MED 1
-#define CREDITSTYLE_C_BIG       2
-#define CREDITSTYLE_C_MED       3
-#define CREDITSTYLE_04          4
-#define CREDITSTYLE_C_SML       5
-#define CREDITSTYLE_L_BIG       7
-#define CREDITSTYLE_R_MED       9
-#define CREDITSTYLE_11          11
-#define CREDITSTYLE_12          12
-#define CREDITSTYLE_C_BIG_C_BIG 10
+// SM/MD/LG = small/medium/large
+#define CREDITSTYLE_CORETEAM    1  // LG C, MD R
+#define CREDITSTYLE_HEADING1    2  // LG C, LG C
+#define CREDITSTYLE_NAME1       3  // LG C, LG C
+#define CREDITSTYLE_ASSISTANT   4  // MD C, MD C
+#define CREDITSTYLE_COPYRIGHT   5  // SM C, SM C
+#define CREDITSTYLE_UNUSED_06   6  // MD C, SM C
+#define CREDITSTYLE_HEADING2    7  // LG L, LG L
+#define CREDITSTYLE_UNUSED_08   8  // LG R, LG R
+#define CREDITSTYLE_NAME2       9  // MD R, MD R
+#define CREDITSTYLE_RAREDESIGNS 10 // LG C, LG C
+#define CREDITSTYLE_SUPERVISOR  11 // MD L, MD R
+#define CREDITSTYLE_EDITOR      12 // MD C, MD C
 #define CREDITSTYLE_TERMINATOR  20
 
 #define CROUCHPOS_SQUAT 0

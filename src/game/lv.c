@@ -1058,7 +1058,7 @@ Gfx *lvRender(Gfx *gdl)
 		gdl = vi0000b1a8(gdl);
 		gdl = vi0000b1d0(gdl);
 		gdl = viRenderViewportEdges(gdl);
-		gdl = creditsRender(gdl);
+		gdl = creditsDraw(gdl);
 	} else {
 		// Normal stages
 		s32 i;
