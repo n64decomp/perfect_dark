@@ -91,7 +91,6 @@ u32 var8007f72c = 0x00000012;
 u32 var8007f730 = 0x00000012;
 
 void dyntexUpdateOcean(struct gfxvtx *vertices, struct dyntextype *type);
-void dyntexUpdateArrows(struct gfxvtx *vertices, struct dyntextype *type);
 
 void dyntexUpdateLinear(struct gfxvtx *vertices, struct dyntextype *type)
 {
@@ -324,71 +323,18 @@ glabel var7f1b5970
 /*  f13bb58:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-GLOBAL_ASM(
-glabel dyntexUpdateArrows
-/*  f13bb5c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f13bb60:	44812000 */ 	mtc1	$at,$f4
-/*  f13bb64:	3c018006 */ 	lui	$at,%hi(var80061634)
-/*  f13bb68:	c4261634 */ 	lwc1	$f6,%lo(var80061634)($at)
-/*  f13bb6c:	3c014270 */ 	lui	$at,0x4270
-/*  f13bb70:	44815000 */ 	mtc1	$at,$f10
-/*  f13bb74:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f13bb78:	3c014100 */ 	lui	$at,0x4100
-/*  f13bb7c:	44819000 */ 	mtc1	$at,$f18
-/*  f13bb80:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f13bb84:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f13bb88:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f13bb8c:	90b90001 */ 	lbu	$t9,0x1($a1)
-/*  f13bb90:	3c08800a */ 	lui	$t0,%hi(g_DyntexVertices)
-/*  f13bb94:	00808025 */ 	or	$s0,$a0,$zero
-/*  f13bb98:	2508418c */ 	addiu	$t0,$t0,%lo(g_DyntexVertices)
-/*  f13bb9c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f13bba0:	46128102 */ 	mul.s	$f4,$f16,$f18
-/*  f13bba4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f13bba8:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f13bbac:	44023000 */ 	mfc1	$v0,$f6
-/*  f13bbb0:	00000000 */ 	nop
-/*  f13bbb4:	04410004 */ 	bgez	$v0,.L0f13bbc8
-/*  f13bbb8:	304f0007 */ 	andi	$t7,$v0,0x7
-/*  f13bbbc:	11e00002 */ 	beqz	$t7,.L0f13bbc8
-/*  f13bbc0:	00000000 */ 	nop
-/*  f13bbc4:	25effff8 */ 	addiu	$t7,$t7,-8
-.L0f13bbc8:
-/*  f13bbc8:	1b20001c */ 	blez	$t9,.L0f13bc3c
-/*  f13bbcc:	000f1200 */ 	sll	$v0,$t7,0x8
-/*  f13bbd0:	94aa0002 */ 	lhu	$t2,0x2($a1)
-.L0f13bbd4:
-/*  f13bbd4:	8d090000 */ 	lw	$t1,0x0($t0)
-/*  f13bbd8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f13bbdc:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f13bbe0:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f13bbe4:	000b5840 */ 	sll	$t3,$t3,0x1
-/*  f13bbe8:	012b6021 */ 	addu	$t4,$t1,$t3
-/*  f13bbec:	01863821 */ 	addu	$a3,$t4,$a2
-/*  f13bbf0:	94ed0000 */ 	lhu	$t5,0x0($a3)
-/*  f13bbf4:	84ee0002 */ 	lh	$t6,0x2($a3)
-/*  f13bbf8:	01b02021 */ 	addu	$a0,$t5,$s0
-/*  f13bbfc:	01c27821 */ 	addu	$t7,$t6,$v0
-/*  f13bc00:	a48f0008 */ 	sh	$t7,0x8($a0)
-/*  f13bc04:	94b90002 */ 	lhu	$t9,0x2($a1)
-/*  f13bc08:	8d180000 */ 	lw	$t8,0x0($t0)
-/*  f13bc0c:	00195080 */ 	sll	$t2,$t9,0x2
-/*  f13bc10:	01595023 */ 	subu	$t2,$t2,$t9
-/*  f13bc14:	000a5040 */ 	sll	$t2,$t2,0x1
-/*  f13bc18:	030a4821 */ 	addu	$t1,$t8,$t2
-/*  f13bc1c:	01265821 */ 	addu	$t3,$t1,$a2
-/*  f13bc20:	856c0004 */ 	lh	$t4,0x4($t3)
-/*  f13bc24:	24c60006 */ 	addiu	$a2,$a2,0x6
-/*  f13bc28:	a48c000a */ 	sh	$t4,0xa($a0)
-/*  f13bc2c:	90ad0001 */ 	lbu	$t5,0x1($a1)
-/*  f13bc30:	006d082a */ 	slt	$at,$v1,$t5
-/*  f13bc34:	5420ffe7 */ 	bnezl	$at,.L0f13bbd4
-/*  f13bc38:	94aa0002 */ 	lhu	$t2,0x2($a1)
-.L0f13bc3c:
-/*  f13bc3c:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f13bc40:	03e00008 */ 	jr	$ra
-/*  f13bc44:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+void dyntexUpdateArrows(struct gfxvtx *vertices, struct dyntextype *type)
+{
+	s32 tmp = ((s32) ((1.0f - var80061634) * 60.0f * 8.0f) % 8) * 256;
+	s32 i;
+
+	for (i = 0; i < type->numvertices; i++) {
+		struct gfxvtx *vertex = (struct gfxvtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
+
+		vertex->unk08 = g_DyntexVertices[type->vertexlistoffset + i].s + tmp;
+		vertex->unk0a = g_DyntexVertices[type->vertexlistoffset + i].t;
+	}
+}
 
 void dyntexTickRoom(s32 roomnum, struct gfxvtx *vertices)
 {
