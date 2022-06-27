@@ -831,7 +831,7 @@ glabel jtbl_var7f1b7c70
 /*  f175720:	00c0b025 */ 	or	$s6,$a2,$zero
 /*  f175724:	0fc5ce82 */ 	jal	tex0f173a08
 /*  f175728:	afb00128 */ 	sw	$s0,0x128($sp)
-/*  f17572c:	0fc4f13c */ 	jal	func0f13c4f0
+/*  f17572c:	0fc4f13c */ 	jal	dyntexHasRoom
 /*  f175730:	00000000 */ 	nop
 /*  f175734:	10400006 */ 	beqz	$v0,.L0f175750
 /*  f175738:	afa200e0 */ 	sw	$v0,0xe0($sp)
@@ -1043,26 +1043,26 @@ glabel jtbl_var7f1b7c70
 /*  f175a30:	00000000 */ 	nop
 /*  f175a34:	56410005 */ 	bnel	$s2,$at,.L0f175a4c
 /*  f175a38:	24010a6a */ 	addiu	$at,$zero,0xa6a
-/*  f175a3c:	0fc4f0ba */ 	jal	func0f13c2e8
+/*  f175a3c:	0fc4f0ba */ 	jal	dyntexSetCurrentType
 /*  f175a40:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f175a44:	241e0001 */ 	addiu	$s8,$zero,0x1
 /*  f175a48:	24010a6a */ 	addiu	$at,$zero,0xa6a
 .L0f175a4c:
 /*  f175a4c:	16410003 */ 	bne	$s2,$at,.L0f175a5c
 /*  f175a50:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f175a54:	0fc4f0ba */ 	jal	func0f13c2e8
+/*  f175a54:	0fc4f0ba */ 	jal	dyntexSetCurrentType
 /*  f175a58:	241e0001 */ 	addiu	$s8,$zero,0x1
 .L0f175a5c:
 /*  f175a5c:	24010a69 */ 	addiu	$at,$zero,0xa69
 /*  f175a60:	16410003 */ 	bne	$s2,$at,.L0f175a70
 /*  f175a64:	24040007 */ 	addiu	$a0,$zero,0x7
-/*  f175a68:	0fc4f0ba */ 	jal	func0f13c2e8
+/*  f175a68:	0fc4f0ba */ 	jal	dyntexSetCurrentType
 /*  f175a6c:	241e0001 */ 	addiu	$s8,$zero,0x1
 .L0f175a70:
 /*  f175a70:	240106e2 */ 	addiu	$at,$zero,0x6e2
 /*  f175a74:	16410003 */ 	bne	$s2,$at,.L0f175a84
 /*  f175a78:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f175a7c:	0fc4f0ba */ 	jal	func0f13c2e8
+/*  f175a7c:	0fc4f0ba */ 	jal	dyntexSetCurrentType
 /*  f175a80:	241e0001 */ 	addiu	$s8,$zero,0x1
 .L0f175a84:
 /*  f175a84:	240101c7 */ 	addiu	$at,$zero,0x1c7
@@ -1072,25 +1072,25 @@ glabel jtbl_var7f1b7c70
 /*  f175a94:	56410004 */ 	bnel	$s2,$at,.L0f175aa8
 /*  f175a98:	2401029b */ 	addiu	$at,$zero,0x29b
 .L0f175a9c:
-/*  f175a9c:	0fc4f0ba */ 	jal	func0f13c2e8
+/*  f175a9c:	0fc4f0ba */ 	jal	dyntexSetCurrentType
 /*  f175aa0:	241e0001 */ 	addiu	$s8,$zero,0x1
 /*  f175aa4:	2401029b */ 	addiu	$at,$zero,0x29b
 .L0f175aa8:
 /*  f175aa8:	16410003 */ 	bne	$s2,$at,.L0f175ab8
 /*  f175aac:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f175ab0:	0fc4f0ba */ 	jal	func0f13c2e8
+/*  f175ab0:	0fc4f0ba */ 	jal	dyntexSetCurrentType
 /*  f175ab4:	241e0001 */ 	addiu	$s8,$zero,0x1
 .L0f175ab8:
 /*  f175ab8:	2401090f */ 	addiu	$at,$zero,0x90f
 /*  f175abc:	16410003 */ 	bne	$s2,$at,.L0f175acc
 /*  f175ac0:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f175ac4:	0fc4f0ba */ 	jal	func0f13c2e8
+/*  f175ac4:	0fc4f0ba */ 	jal	dyntexSetCurrentType
 /*  f175ac8:	241e0001 */ 	addiu	$s8,$zero,0x1
 .L0f175acc:
 /*  f175acc:	24010a42 */ 	addiu	$at,$zero,0xa42
 /*  f175ad0:	16410003 */ 	bne	$s2,$at,.L0f175ae0
 /*  f175ad4:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f175ad8:	0fc4f0ba */ 	jal	func0f13c2e8
+/*  f175ad8:	0fc4f0ba */ 	jal	dyntexSetCurrentType
 /*  f175adc:	241e0001 */ 	addiu	$s8,$zero,0x1
 .L0f175ae0:
 /*  f175ae0:	100000d7 */ 	b	.L0f175e40
@@ -1119,7 +1119,7 @@ glabel jtbl_var7f1b7c70
 /*  f175b34:	920e0000 */ 	lbu	$t6,0x0($s0)
 /*  f175b38:	51c00005 */ 	beqzl	$t6,.L0f175b50
 /*  f175b3c:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f175b40:	0fc4f01f */ 	jal	func0f13c07c
+/*  f175b40:	0fc4f01f */ 	jal	dyntexAddVertex
 /*  f175b44:	8e440000 */ 	lw	$a0,0x0($s2)
 /*  f175b48:	a2000000 */ 	sb	$zero,0x0($s0)
 .L0f175b4c:
@@ -1358,7 +1358,7 @@ glabel jtbl_var7f1b7c70
 /*  f175e88:	03ae2021 */ 	addu	$a0,$sp,$t6
 /*  f175e8c:	51800005 */ 	beqzl	$t4,.L0f175ea4
 /*  f175e90:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f175e94:	0fc4f01f */ 	jal	func0f13c07c
+/*  f175e94:	0fc4f01f */ 	jal	dyntexAddVertex
 /*  f175e98:	8c8400a0 */ 	lw	$a0,0xa0($a0)
 /*  f175e9c:	a2200000 */ 	sb	$zero,0x0($s1)
 /*  f175ea0:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -1431,7 +1431,7 @@ glabel jtbl_var7f1b7c70
 //
 //	tex0f173a08();
 //
-//	spe0 = func0f13c4f0();
+//	spe0 = dyntexHasRoom();
 //
 //	if (spe0) {
 //		for (j = 0; j < 16; j++) {
@@ -1521,43 +1521,58 @@ glabel jtbl_var7f1b7c70
 //				}
 //
 //				if (spe0 != 0) {
+//					// Deep Sea - green river under floor
 //					if (texturenum == TEXTURE_06CB) {
-//						func0f13c2e8(1);
+//						dyntexSetCurrentType(DYNTEXTYPE_RIVER);
 //						animated = true;
 //					}
 //
+//					// Deep Sea - juice that flows inside SA megaweapon
+//					// Attack Ship - juice that flows inside engine power node
 //					if (texturenum == TEXTURE_0A6A) {
-//						func0f13c2e8(6);
+//						dyntexSetCurrentType(DYNTEXTYPE_POWERJUICE);
 //						animated = true;
 //					}
 //
+//					// Deep Sea - white rings around SA megaweapon node
+//					// Attack Ship - white rings around engine power node
 //					if (texturenum == TEXTURE_0A69) {
-//						func0f13c2e8(7);
+//						dyntexSetCurrentType(DYNTEXTYPE_POWERRING);
 //						animated = true;
 //					}
 //
+//					// Deep Sea - teleport
 //					if (texturenum == TEXTURE_06E2) {
-//						func0f13c2e8(3);
+//						dyntexSetCurrentType(DYNTEXTYPE_TELEPORTAL);
 //						animated = true;
 //					}
 //
+//					// 01c7 - Air Base - distant water
+//					// 01c7 - Investigation - puddle behind glass near shield
+//					// 0dae - Chicago - canal
+//					// 0dae - Villa - shallow water
+//					// 0dae - Sewers (MP)
 //					if (texturenum == TEXTURE_01C7 || texturenum == TEXTURE_0DAE) {
-//						func0f13c2e8(1);
+//						dyntexSetCurrentType(DYNTEXTYPE_RIVER);
 //						animated = true;
 //					}
 //
+//					// Air Force One - Monitor
 //					if (texturenum == TEXTURE_029B) {
-//						func0f13c2e8(4);
+//						dyntexSetCurrentType(DYNTEXTYPE_MONITOR);
 //						animated = true;
 //					}
 //
+//					// Villa - deep water
+//					// Complex - water
 //					if (texturenum == TEXTURE_090F) {
-//						func0f13c2e8(5);
+//						dyntexSetCurrentType(DYNTEXTYPE_OCEAN);
 //						animated = true;
 //					}
 //
+//					// Attack Ship - triangular arrows
 //					if (texturenum == TEXTURE_0A42) {
-//						func0f13c2e8(2);
+//						dyntexSetCurrentType(DYNTEXTYPE_ARROWS);
 //						animated = true;
 //					}
 //				}
@@ -1579,7 +1594,7 @@ glabel jtbl_var7f1b7c70
 //
 //					for (i = start; i < start + count; i++) {
 //						if (animated && sp90[i]) {
-//							func0f13c07c(spA0[i]);
+//							dyntexAddVertex(spA0[i]);
 //							sp90[i] = 0;
 //						}
 //
@@ -1701,7 +1716,7 @@ glabel jtbl_var7f1b7c70
 //
 //				for (i = 0; i < 16; i++) {
 //					if (sp90[i]) {
-//						func0f13c07c(spA0[i]);
+//						dyntexAddVertex(spA0[i]);
 //						sp90[i] = 0;
 //					}
 //				}

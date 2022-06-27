@@ -9,25 +9,72 @@
 #include "data.h"
 #include "types.h"
 
+/**
+ * dyntex - dynamic textures
+ *
+ * This file handles textures which animate automatically, such as water.
+ *
+ * The dyntex system maintains three conceptually nested arrays: rooms, types
+ * and vertices.
+ *
+ * Rooms are the first tier. Rooms will only exist in the array if they contain
+ * animated textures. Rooms contain types.
+ *
+ * Types are a type of animation. Linear is the most common, but there's also
+ * ocean waves, and some specific types such as Attack Ship triangular arrows.
+ * Types contain vertices.
+ *
+ * Vertices contain an offset to the graphics vertex, as well as a copy of its
+ * S and T values.
+ *
+ * The caller should call dyntexSetCurrentRoom and dyntexSetCurrentType, then
+ * add vertices with dyntexAddVertex. Lastly, dyntexTickRoom should be called
+ * on each tick for each nearby room. dyntexTickRoom can be called multiple
+ * times on the same frame (such as if there's two players), as dyntex will
+ * ensure it's only updated once per frame.
+ *
+ * Data is added to dyntex during gameplay as rooms are loaded. When a room is
+ * unloaded the data remains in the dyntex arrays. When a room is loaded again
+ * dyntex will not add it a second time.
+ */
+
+struct dyntexroom {
+	u16 roomnum;
+	u16 typelistoffset;
+	u16 numtypes;
+	s32 updatedframe;
+};
+
+struct dyntextype {
+	u16 type : 7;
+	u16 initialised : 1;
+	u8 numvertices;
+	u16 vertexlistoffset;
+};
+
+struct dyntexvtx {
+	u16 offset;
+	s16 s;
+	s16 t;
+};
+
 const char var7f1b5960[] = "modula";
 const char var7f1b5968[] = "ripsize";
 
-s32 var800a4180;
-s32 var800a4184;
-s32 var800a4188;
-struct var800a418c *var800a418c;
-struct var800a4190 *var800a4190;
-struct var800a4194 *var800a4194;
-s32 var800a4198;
-s32 var800a419c;
+s32 g_DyntexVerticesMax;
+s32 g_DyntexTypesMax;
+s32 g_DyntexRoomsMax;
+struct dyntexvtx *g_DyntexVertices;
+struct dyntextype *g_DyntexTypes;
+struct dyntexroom *g_DyntexRooms;
 
-s32 var8007f6e0 = -1;
-s32 var8007f6e4 = -1;
-s32 var8007f6e8 = 0x00000000;
-s32 var8007f6ec = 0x00000000;
-s32 var8007f6f0 = 0x00000000;
-s32 var8007f6f4 = 0x00000000;
-s32 var8007f6f8 = 0x00000000;
+s32 g_DyntexCurRoom = -1;
+s32 g_DyntexCurType = -1;
+bool g_DyntexRoomPopulated = false;
+bool g_DyntexTypePopulated = false;
+s32 g_DyntexRoomsCount = 0;
+s32 g_DyntexTypesCount = 0;
+s32 g_DyntexVerticesCount = 0;
 u32 var8007f6fc = 0x00000041;
 u32 var8007f700 = 0x00000016;
 u32 var8007f704 = 0x0000001d;
@@ -42,12 +89,15 @@ u32 var8007f724 = 0x00000034;
 u32 var8007f728 = 0x000002f7;
 u32 var8007f72c = 0x00000012;
 u32 var8007f730 = 0x00000012;
-u32 var8007f734 = 0x00000000;
-u32 var8007f738 = 0x00000000;
-u32 var8007f73c = 0x00000000;
+
+void dyntexUpdateLinear(struct gfxvtx *vertices, struct dyntextype *type);
+void dyntexUpdateReset(struct gfxvtx *vertices, struct dyntextype *type);
+void dyntexUpdateMonitor(struct gfxvtx *vertices, struct dyntextype *type);
+void dyntexUpdateOcean(struct gfxvtx *vertices, struct dyntextype *type);
+void dyntexUpdateArrows(struct gfxvtx *vertices, struct dyntextype *type);
 
 GLOBAL_ASM(
-glabel func0f13b670
+glabel dyntexUpdateLinear
 /*  f13b670:	3c018006 */ 	lui	$at,%hi(var80061634)
 /*  f13b674:	c4241634 */ 	lwc1	$f4,%lo(var80061634)($at)
 /*  f13b678:	3c014120 */ 	lui	$at,0x4120
@@ -58,9 +108,9 @@ glabel func0f13b670
 /*  f13b68c:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*  f13b690:	afb00004 */ 	sw	$s0,0x4($sp)
 /*  f13b694:	90a90001 */ 	lbu	$t1,0x1($a1)
-/*  f13b698:	3c08800a */ 	lui	$t0,%hi(var800a418c)
+/*  f13b698:	3c08800a */ 	lui	$t0,%hi(g_DyntexVertices)
 /*  f13b69c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f13b6a0:	2508418c */ 	addiu	$t0,$t0,%lo(var800a418c)
+/*  f13b6a0:	2508418c */ 	addiu	$t0,$t0,%lo(g_DyntexVertices)
 /*  f13b6a4:	460a4402 */ 	mul.s	$f16,$f8,$f10
 /*  f13b6a8:	00001825 */ 	or	$v1,$zero,$zero
 /*  f13b6ac:	00003025 */ 	or	$a2,$zero,$zero
@@ -110,40 +160,19 @@ glabel func0f13b670
 /*  f13b750:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-GLOBAL_ASM(
-glabel func0f13b754
-/*  f13b754:	90ae0001 */ 	lbu	$t6,0x1($a1)
-/*  f13b758:	00803025 */ 	or	$a2,$a0,$zero
-/*  f13b75c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f13b760:	19c00014 */ 	blez	$t6,.L0f13b7b4
-/*  f13b764:	00001025 */ 	or	$v0,$zero,$zero
-/*  f13b768:	3c07800a */ 	lui	$a3,%hi(var800a418c)
-/*  f13b76c:	24e7418c */ 	addiu	$a3,$a3,%lo(var800a418c)
-/*  f13b770:	94b80002 */ 	lhu	$t8,0x2($a1)
-.L0f13b774:
-/*  f13b774:	8cef0000 */ 	lw	$t7,0x0($a3)
-/*  f13b778:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f13b77c:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f13b780:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f13b784:	0019c840 */ 	sll	$t9,$t9,0x1
-/*  f13b788:	01f94021 */ 	addu	$t0,$t7,$t9
-/*  f13b78c:	01044821 */ 	addu	$t1,$t0,$a0
-/*  f13b790:	952a0000 */ 	lhu	$t2,0x0($t1)
-/*  f13b794:	24840006 */ 	addiu	$a0,$a0,0x6
-/*  f13b798:	01461821 */ 	addu	$v1,$t2,$a2
-/*  f13b79c:	a4600008 */ 	sh	$zero,0x8($v1)
-/*  f13b7a0:	a460000a */ 	sh	$zero,0xa($v1)
-/*  f13b7a4:	90ab0001 */ 	lbu	$t3,0x1($a1)
-/*  f13b7a8:	004b082a */ 	slt	$at,$v0,$t3
-/*  f13b7ac:	5420fff1 */ 	bnezl	$at,.L0f13b774
-/*  f13b7b0:	94b80002 */ 	lhu	$t8,0x2($a1)
-.L0f13b7b4:
-/*  f13b7b4:	03e00008 */ 	jr	$ra
-/*  f13b7b8:	00000000 */ 	nop
-);
+void dyntexUpdateReset(struct gfxvtx *vertices, struct dyntextype *type)
+{
+	s32 i;
+
+	for (i = 0; i < type->numvertices; i++) {
+		struct gfxvtx *vertex = (struct gfxvtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
+		vertex->unk08 = 0;
+		vertex->unk0a = 0;
+	}
+}
 
 GLOBAL_ASM(
-glabel func0f13b7bc
+glabel dyntexUpdateMonitor
 /*  f13b7bc:	3c018006 */ 	lui	$at,%hi(var80061634)
 /*  f13b7c0:	c4241634 */ 	lwc1	$f4,%lo(var80061634)($at)
 /*  f13b7c4:	3c014080 */ 	lui	$at,0x4080
@@ -154,9 +183,9 @@ glabel func0f13b7bc
 /*  f13b7d8:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*  f13b7dc:	afb00004 */ 	sw	$s0,0x4($sp)
 /*  f13b7e0:	90a90001 */ 	lbu	$t1,0x1($a1)
-/*  f13b7e4:	3c08800a */ 	lui	$t0,%hi(var800a418c)
+/*  f13b7e4:	3c08800a */ 	lui	$t0,%hi(g_DyntexVertices)
 /*  f13b7e8:	00808025 */ 	or	$s0,$a0,$zero
-/*  f13b7ec:	2508418c */ 	addiu	$t0,$t0,%lo(var800a418c)
+/*  f13b7ec:	2508418c */ 	addiu	$t0,$t0,%lo(g_DyntexVertices)
 /*  f13b7f0:	460a4402 */ 	mul.s	$f16,$f8,$f10
 /*  f13b7f4:	00001825 */ 	or	$v1,$zero,$zero
 /*  f13b7f8:	00003025 */ 	or	$a2,$zero,$zero
@@ -207,7 +236,7 @@ glabel func0f13b7bc
 );
 
 GLOBAL_ASM(
-glabel func0f13b8a0
+glabel dyntexUpdateOcean
 .late_rodata
 glabel var7f1b5970
 .word 0x40c907a9
@@ -245,8 +274,8 @@ glabel var7f1b5970
 /*  f13b918:	00008025 */ 	or	$s0,$zero,$zero
 /*  f13b91c:	19c00083 */ 	blez	$t6,.L0f13bb2c
 /*  f13b920:	3c017f1b */ 	lui	$at,%hi(var7f1b5970)
-/*  f13b924:	3c11800a */ 	lui	$s1,%hi(var800a418c)
-/*  f13b928:	2631418c */ 	addiu	$s1,$s1,%lo(var800a418c)
+/*  f13b924:	3c11800a */ 	lui	$s1,%hi(g_DyntexVertices)
+/*  f13b928:	2631418c */ 	addiu	$s1,$s1,%lo(g_DyntexVertices)
 /*  f13b92c:	c4365970 */ 	lwc1	$f22,%lo(var7f1b5970)($at)
 /*  f13b930:	96580002 */ 	lhu	$t8,0x2($s2)
 .L0f13b934:
@@ -400,7 +429,7 @@ glabel var7f1b5970
 );
 
 GLOBAL_ASM(
-glabel func0f13bb5c
+glabel dyntexUpdateArrows
 /*  f13bb5c:	3c013f80 */ 	lui	$at,0x3f80
 /*  f13bb60:	44812000 */ 	mtc1	$at,$f4
 /*  f13bb64:	3c018006 */ 	lui	$at,%hi(var80061634)
@@ -414,9 +443,9 @@ glabel func0f13bb5c
 /*  f13bb84:	460a4402 */ 	mul.s	$f16,$f8,$f10
 /*  f13bb88:	afb00004 */ 	sw	$s0,0x4($sp)
 /*  f13bb8c:	90b90001 */ 	lbu	$t9,0x1($a1)
-/*  f13bb90:	3c08800a */ 	lui	$t0,%hi(var800a418c)
+/*  f13bb90:	3c08800a */ 	lui	$t0,%hi(g_DyntexVertices)
 /*  f13bb94:	00808025 */ 	or	$s0,$a0,$zero
-/*  f13bb98:	2508418c */ 	addiu	$t0,$t0,%lo(var800a418c)
+/*  f13bb98:	2508418c */ 	addiu	$t0,$t0,%lo(g_DyntexVertices)
 /*  f13bb9c:	00001825 */ 	or	$v1,$zero,$zero
 /*  f13bba0:	46128102 */ 	mul.s	$f4,$f16,$f18
 /*  f13bba4:	00003025 */ 	or	$a2,$zero,$zero
@@ -465,13 +494,13 @@ glabel func0f13bb5c
 /*  f13bc44:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-void func0f13bc48(s32 roomnum, struct gfxvtx *vertices)
+void dyntexTickRoom(s32 roomnum, struct gfxvtx *vertices)
 {
 	s32 index = -1;
 	s32 i;
 
-	for (i = 0; i < var8007f6f0; i++) {
-		if (var800a4194[i].roomnum == roomnum) {
+	for (i = 0; i < g_DyntexRoomsCount; i++) {
+		if (g_DyntexRooms[i].roomnum == roomnum) {
 			index = i;
 			break;
 		}
@@ -481,29 +510,29 @@ void func0f13bc48(s32 roomnum, struct gfxvtx *vertices)
 		return;
 	}
 
-	if (g_Vars.lvframenum == var800a4194[index].framenum) {
+	if (g_Vars.lvframenum == g_DyntexRooms[index].updatedframe) {
 		return;
 	}
 
-	for (i = 0; i < var800a4194[index].unk04; i++) {
-		struct var800a4190 *thing = &var800a4190[var800a4194[index].unk02 + i];
+	for (i = 0; i < g_DyntexRooms[index].numtypes; i++) {
+		struct dyntextype *type = &g_DyntexTypes[g_DyntexRooms[index].typelistoffset + i];
 		s32 mins = 32767;
 		s32 maxs = -32766;
 		s32 mint = 32767;
 		s32 maxt = -32766;
 
-		if (!thing->unk00_07) {
+		if (!type->initialised) {
 			s32 adds = 0;
 			s32 addt = 0;
 
 			if (1);
 
 			// @bug: Using i for both outer and inner loops
-			for (i = 0; i < thing->unk01; i++) {
-				struct gfxvtx *vertex = (struct gfxvtx *)((s32)vertices + var800a418c[thing->unk02 + i].offset);
+			for (i = 0; i < type->numvertices; i++) {
+				struct gfxvtx *vertex = (struct gfxvtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
 
-				var800a418c[thing->unk02 + i].s = vertex->unk08;
-				var800a418c[thing->unk02 + i].t = vertex->unk0a;
+				g_DyntexVertices[type->vertexlistoffset + i].s = vertex->unk08;
+				g_DyntexVertices[type->vertexlistoffset + i].t = vertex->unk0a;
 
 				if (vertex->unk08 < mins) {
 					mins = vertex->unk08;
@@ -522,7 +551,7 @@ void func0f13bc48(s32 roomnum, struct gfxvtx *vertices)
 				}
 			}
 
-			thing->unk00_07 = true;
+			type->initialised = true;
 
 			if (mins < -0x5d00) {
 				adds = 0x2000;
@@ -541,169 +570,194 @@ void func0f13bc48(s32 roomnum, struct gfxvtx *vertices)
 			}
 
 			if (adds || addt) {
-				for (i = 0; i < thing->unk01; i++) {
-					var800a418c[thing->unk02 + i].s += adds;
-					var800a418c[thing->unk02 + i].t += addt;
+				for (i = 0; i < type->numvertices; i++) {
+					g_DyntexVertices[type->vertexlistoffset + i].s += adds;
+					g_DyntexVertices[type->vertexlistoffset + i].t += addt;
 				}
 			}
 		}
 
-		switch (var800a4190[var800a4194[index].unk02 + i].unk00_00) {
-		case 1:
-			func0f13b670(vertices, thing);
+		switch (g_DyntexTypes[g_DyntexRooms[index].typelistoffset + i].type) {
+		case DYNTEXTYPE_RIVER:
+			dyntexUpdateLinear(vertices, type);
 			break;
-		case 4:
-			func0f13b7bc(vertices, thing);
+		case DYNTEXTYPE_MONITOR:
+			dyntexUpdateMonitor(vertices, type);
 			break;
-		case 5:
-			func0f13b8a0(vertices, thing);
+		case DYNTEXTYPE_OCEAN:
+			dyntexUpdateOcean(vertices, type);
 			break;
-		case 2:
-			func0f13bb5c(vertices, thing);
+		case DYNTEXTYPE_ARROWS:
+			dyntexUpdateArrows(vertices, type);
 			break;
-		case 3:
+		case DYNTEXTYPE_TELEPORTAL:
+			// Deep Sea - teleports enabled and not SA disabled
 			if (chrHasStageFlag(0, 0x00000100) && !chrHasStageFlag(0, 0x00010000)) {
-				func0f13b670(vertices, thing);
+				dyntexUpdateLinear(vertices, type);
 			}
 			break;
-		case 7:
+		case DYNTEXTYPE_POWERRING:
 			if (chrHasStageFlag(0, 0x00010000)) {
-				func0f13b754(vertices, thing);
+				// Attack Ship engines are destroyed
+				dyntexUpdateReset(vertices, type);
 			} else {
-				func0f13b670(vertices, thing);
+				// Attack Ship engines are healthy
+				dyntexUpdateLinear(vertices, type);
 			}
 			break;
-		case 6:
+		case DYNTEXTYPE_POWERJUICE:
 			if (!chrHasStageFlag(0, 0x00010000)) {
-				func0f13b670(vertices, thing);
+				// Attack Ship engines are healthy
+				dyntexUpdateLinear(vertices, type);
 			}
 			break;
 		}
 	}
 
-	var800a4194[index].framenum = g_Vars.lvframenum;
+	g_DyntexRooms[index].updatedframe = g_Vars.lvframenum;
 }
 
-void func0f13c07c(struct gfxvtx *vertex)
+void dyntexAddVertex(struct gfxvtx *vertex)
 {
-	if (var8007f6e0 >= 0 && var8007f6f8 != var800a4180) {
-		if (var8007f6e8 == 0) {
-			if (var8007f6f4 >= var800a4184 || var8007f6f0 >= var800a4188) {
-				return;
-			}
-
-			var800a4194[var8007f6f0].roomnum = var8007f6e0;
-			var800a4194[var8007f6f0].unk02 = var8007f6f4;
-			var800a4194[var8007f6f0].unk04 = 0;
-			var800a4194[var8007f6f0].framenum = 0;
-
-			g_Rooms[var8007f6e0].flags |= ROOMFLAG_0002;
-
-			var8007f6f0++;
-			var8007f6e8 = 1;
-		}
-
-		if (var8007f6ec == 0) {
-			if (var8007f6f4 >= var800a4184) {
-				return;
-			}
-
-			var800a4190[var8007f6f4].unk00_00 = var8007f6e4;
-			var800a4190[var8007f6f4].unk00_07 = 0;
-			var800a4190[var8007f6f4].unk01 = 0;
-			var800a4190[var8007f6f4].unk02 = var8007f6f8;
-			var8007f6f4++;
-
-			var800a4194[var8007f6f0 - 1].unk04++;
-			var8007f6ec = 1;
-		}
-
-		var800a418c[var8007f6f8].offset = (u16)vertex;
-		var8007f6f8++;
-
-		var800a4190[var8007f6f4 - 1].unk01++;
+	if (g_DyntexCurRoom < 0) {
+		return;
 	}
+
+	if (g_DyntexVerticesCount == g_DyntexVerticesMax) {
+		return;
+	}
+
+	if (!g_DyntexRoomPopulated) {
+		if (g_DyntexTypesCount >= g_DyntexTypesMax || g_DyntexRoomsCount >= g_DyntexRoomsMax) {
+			return;
+		}
+
+		g_DyntexRooms[g_DyntexRoomsCount].roomnum = g_DyntexCurRoom;
+		g_DyntexRooms[g_DyntexRoomsCount].typelistoffset = g_DyntexTypesCount;
+		g_DyntexRooms[g_DyntexRoomsCount].numtypes = 0;
+		g_DyntexRooms[g_DyntexRoomsCount].updatedframe = 0;
+
+		g_Rooms[g_DyntexCurRoom].flags |= ROOMFLAG_HASDYNTEX;
+
+		g_DyntexRoomsCount++;
+		g_DyntexRoomPopulated = true;
+	}
+
+	if (!g_DyntexTypePopulated) {
+		if (g_DyntexTypesCount >= g_DyntexTypesMax) {
+			return;
+		}
+
+		g_DyntexTypes[g_DyntexTypesCount].type = g_DyntexCurType;
+		g_DyntexTypes[g_DyntexTypesCount].initialised = false;
+		g_DyntexTypes[g_DyntexTypesCount].numvertices = 0;
+		g_DyntexTypes[g_DyntexTypesCount].vertexlistoffset = g_DyntexVerticesCount;
+		g_DyntexTypesCount++;
+
+		g_DyntexRooms[g_DyntexRoomsCount - 1].numtypes++;
+		g_DyntexTypePopulated = true;
+	}
+
+	g_DyntexVertices[g_DyntexVerticesCount].offset = (u16)vertex;
+	g_DyntexVerticesCount++;
+
+	g_DyntexTypes[g_DyntexTypesCount - 1].numvertices++;
 }
 
-/**
- * Related to moving textures.
- *
- * With this function nopped, Villa water does not animate.
- */
-void func0f13c2e8(s16 arg0)
+void dyntexSetCurrentType(s16 type)
 {
-	if (g_StageIndex != STAGEINDEX_AIRBASE
-			&& (g_StageIndex != STAGEINDEX_INVESTIGATION || arg0 != 1)
-			&& (g_StageIndex != STAGEINDEX_VILLA || arg0 != 1)) {
-		if (g_StageIndex != STAGEINDEX_ATTACKSHIP && (arg0 == 6 || arg0 == 7)) {
-			arg0 = 1;
-		}
-
-		if (var8007f6e4 != arg0) {
-			var8007f6ec = 0;
-		}
-
-		var8007f6e4 = arg0;
+	// Air Base - don't animate anything (exterior water)
+	if (g_StageIndex == STAGEINDEX_AIRBASE) {
+		return;
 	}
+
+	// Investigation - don't animate the puddle of water behind the glass
+	if (g_StageIndex == STAGEINDEX_INVESTIGATION && type == DYNTEXTYPE_RIVER) {
+		return;
+	}
+
+	// Villa - don't animate shallow water
+	if (g_StageIndex == STAGEINDEX_VILLA && type == DYNTEXTYPE_RIVER) {
+		return;
+	}
+
+	// Power juice and power rings exist on Deep Sea and Attack Ship.
+	//
+	// Deep Sea - in the SA megaweapon
+	// Attack Ship - in the engine's power node
+	//
+	// These both use a linear animation, but Attack Ship's are conditional on
+	// the ship's engines running. To avoid doing a stage check on every tick,
+	// Deep Sea's are retyped to the river type which uses an unconditional
+	// linear animation. Attack Ship's remains as is.
+	if (g_StageIndex != STAGEINDEX_ATTACKSHIP && (type == DYNTEXTYPE_POWERJUICE || type == DYNTEXTYPE_POWERRING)) {
+		type = DYNTEXTYPE_RIVER;
+	}
+
+	if (type != g_DyntexCurType) {
+		g_DyntexTypePopulated = false;
+	}
+
+	g_DyntexCurType = type;
 }
 
-void func0f13c370(s16 roomnum)
+void dyntexSetCurrentRoom(s16 roomnum)
 {
 	s32 i;
 
 	if (roomnum >= 0) {
-		for (i = 0; i < var8007f6f0; i++) {
-			if (var800a4194[i].roomnum == roomnum) {
+		for (i = 0; i < g_DyntexRoomsCount; i++) {
+			if (g_DyntexRooms[i].roomnum == roomnum) {
 				return;
 			}
 		}
 	}
 
-	if (var800a4194 != NULL) {
-		var8007f6e8 = 0;
-		var8007f6ec = 0;
-		var8007f6e0 = roomnum;
-		var8007f6e4 = -1;
+	if (g_DyntexRooms != NULL) {
+		g_DyntexRoomPopulated = false;
+		g_DyntexTypePopulated = false;
+		g_DyntexCurRoom = roomnum;
+		g_DyntexCurType = -1;
 	}
 }
 
-void func0f13c3f4(void)
+void dyntexReset(void)
 {
 	u32 size3;
 	u32 size2;
 	u32 size1;
 
-	var8007f6e0 = -1;
-	var8007f6e4 = -1;
-	var8007f6e8 = 0;
-	var8007f6f0 = 0;
-	var8007f6f4 = 0;
-	var8007f6f8 = 0;
+	g_DyntexCurRoom = -1;
+	g_DyntexCurType = -1;
+	g_DyntexRoomPopulated = false;
+	g_DyntexRoomsCount = 0;
+	g_DyntexTypesCount = 0;
+	g_DyntexVerticesCount = 0;
 
-	var800a4180 = 1200;
-	var800a4184 = 50;
-	var800a4188 = 50;
+	g_DyntexVerticesMax = 1200;
+	g_DyntexTypesMax = 50;
+	g_DyntexRoomsMax = 50;
 
-	size1 = ALIGN64(var800a4184 * sizeof(struct var800a4190));
-	var800a4190 = mempAlloc(size1, MEMPOOL_STAGE);
+	size1 = ALIGN64(g_DyntexTypesMax * sizeof(struct dyntextype));
+	g_DyntexTypes = mempAlloc(size1, MEMPOOL_STAGE);
 
-	size2 = ALIGN64(var800a4180 * sizeof(struct var800a418c));
-	var800a418c = mempAlloc(size2, MEMPOOL_STAGE);
+	size2 = ALIGN64(g_DyntexVerticesMax * sizeof(struct dyntexvtx));
+	g_DyntexVertices = mempAlloc(size2, MEMPOOL_STAGE);
 
-	size3 = ALIGN64(var800a4188 * sizeof(struct var800a4194));
-	var800a4194 = mempAlloc(size3, MEMPOOL_STAGE);
+	size3 = ALIGN64(g_DyntexRoomsMax * sizeof(struct dyntexroom));
+	g_DyntexRooms = mempAlloc(size3, MEMPOOL_STAGE);
 
-	if (var800a4180);
-	if (var800a4184);
+	if (g_DyntexVerticesMax);
+	if (g_DyntexTypesMax);
 	if (size1);
 }
 
-void func0f13c4e8(void)
+void dyntex0f13c4e8(void)
 {
 	// empty
 }
 
-bool func0f13c4f0(void)
+bool dyntexHasRoom(void)
 {
-	return var8007f6e0 >= 0;
+	return g_DyntexCurRoom >= 0;
 }

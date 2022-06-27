@@ -4793,7 +4793,7 @@ glabel var7f1b75d0
 /*  f15c2c0:	8eaf0000 */ 	lw	$t7,0x0($s5)
 /*  f15c2c4:	e5f00028 */ 	swc1	$f16,0x28($t7)
 /*  f15c2c8:	8eb90000 */ 	lw	$t9,0x0($s5)
-/*  f15c2cc:	0fc4f0fd */ 	jal	func0f13c3f4
+/*  f15c2cc:	0fc4f0fd */ 	jal	dyntexReset
 /*  f15c2d0:	e730002c */ 	swc1	$f16,0x2c($t9)
 /*  f15c2d4:	03a08025 */ 	or	$s0,$sp,$zero
 /*  f15c2d8:	261000b3 */ 	addiu	$s0,$s0,0xb3
@@ -5857,7 +5857,7 @@ glabel var7f1b75d0
 /*  f15c084:	8eaf0000 */ 	lw	$t7,0x0($s5)
 /*  f15c088:	e5f00028 */ 	swc1	$f16,0x28($t7)
 /*  f15c08c:	8eb90000 */ 	lw	$t9,0x0($s5)
-/*  f15c090:	0fc4f071 */ 	jal	func0f13c3f4
+/*  f15c090:	0fc4f071 */ 	jal	dyntexReset
 /*  f15c094:	e730002c */ 	swc1	$f16,0x2c($t9)
 /*  f15c098:	03a08025 */ 	or	$s0,$sp,$zero
 /*  f15c09c:	261000b3 */ 	addiu	$s0,$s0,0xb3
@@ -6919,7 +6919,7 @@ glabel var7f1b75d0
 /*  f156a18:	8eaf0000 */ 	lw	$t7,0x0($s5)
 /*  f156a1c:	e5f00028 */ 	swc1	$f16,0x28($t7)
 /*  f156a20:	8eb90000 */ 	lw	$t9,0x0($s5)
-/*  f156a24:	0fc4dbbd */ 	jal	func0f13c3f4
+/*  f156a24:	0fc4dbbd */ 	jal	dyntexReset
 /*  f156a28:	e730002c */ 	swc1	$f16,0x2c($t9)
 /*  f156a2c:	03a08025 */ 	or	$s0,$sp,$zero
 /*  f156a30:	261000b3 */ 	addiu	$s0,$s0,0xb3
@@ -7595,7 +7595,7 @@ glabel var7f1b75d0
 //		g_Rooms[0].bbmax[2] = 0;
 //
 //		// 2cc
-//		func0f13c3f4();
+//		dyntexReset();
 //
 //		header = (u8 *)ALIGN16((u32)headerbuffer);
 //		bgLoadFile(header, g_BgSection3, 0x40);
@@ -8422,7 +8422,7 @@ glabel roomLoad
 /*  f15dd00:	8fa402f4 */ 	lw	$a0,0x2f4($sp)
 /*  f15dd04:	104001d3 */ 	beqz	$v0,.L0f15e454
 /*  f15dd08:	0040a025 */ 	or	$s4,$v0,$zero
-/*  f15dd0c:	0fc4f0dc */ 	jal	func0f13c370
+/*  f15dd0c:	0fc4f0dc */ 	jal	dyntexSetCurrentRoom
 /*  f15dd10:	87a402fa */ 	lh	$a0,0x2fa($sp)
 /*  f15dd14:	8fb002f8 */ 	lw	$s0,0x2f8($sp)
 /*  f15dd18:	3c11800a */ 	lui	$s1,%hi(g_BgRooms)
@@ -8451,7 +8451,7 @@ glabel roomLoad
 /*  f15dd74:	03209025 */ 	or	$s2,$t9,$zero
 /*  f15dd78:	10200005 */ 	beqz	$at,.L0f15dd90
 /*  f15dd7c:	00ac2823 */ 	subu	$a1,$a1,$t4
-/*  f15dd80:	0fc4f0dc */ 	jal	func0f13c370
+/*  f15dd80:	0fc4f0dc */ 	jal	dyntexSetCurrentRoom
 /*  f15dd84:	2404ffff */ 	addiu	$a0,$zero,-1
 /*  f15dd88:	100001b3 */ 	b	.L0f15e458
 /*  f15dd8c:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -8469,7 +8469,7 @@ glabel roomLoad
 /*  f15ddb8:	01cf082a */ 	slt	$at,$t6,$t7
 /*  f15ddbc:	50200006 */ 	beqzl	$at,.L0f15ddd8
 /*  f15ddc0:	8e380000 */ 	lw	$t8,0x0($s1)
-/*  f15ddc4:	0fc4f0dc */ 	jal	func0f13c370
+/*  f15ddc4:	0fc4f0dc */ 	jal	dyntexSetCurrentRoom
 /*  f15ddc8:	2404ffff */ 	addiu	$a0,$zero,-1
 /*  f15ddcc:	100001a2 */ 	b	.L0f15e458
 /*  f15ddd0:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -8923,7 +8923,7 @@ glabel roomLoad
 /*  f15e440:	8fae0054 */ 	lw	$t6,0x54($sp)
 /*  f15e444:	8dad4928 */ 	lw	$t5,%lo(g_Rooms)($t5)
 /*  f15e448:	01aec021 */ 	addu	$t8,$t5,$t6
-/*  f15e44c:	0fc4f0dc */ 	jal	func0f13c370
+/*  f15e44c:	0fc4f0dc */ 	jal	dyntexSetCurrentRoom
 /*  f15e450:	af000058 */ 	sw	$zero,0x58($t8)
 .L0f15e454:
 /*  f15e454:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -8991,7 +8991,7 @@ glabel roomLoad
 /*  f1584ac:	8fa402f4 */ 	lw	$a0,0x2f4($sp)
 /*  f1584b0:	104001ea */ 	beqz	$v0,.NB0f158c5c
 /*  f1584b4:	00409825 */ 	or	$s3,$v0,$zero
-/*  f1584b8:	0fc4db9c */ 	jal	func0f13c370
+/*  f1584b8:	0fc4db9c */ 	jal	dyntexSetCurrentRoom
 /*  f1584bc:	87a402fa */ 	lh	$a0,0x2fa($sp)
 /*  f1584c0:	8fb002f8 */ 	lw	$s0,0x2f8($sp)
 /*  f1584c4:	3c11800b */ 	lui	$s1,0x800b
@@ -9020,7 +9020,7 @@ glabel roomLoad
 /*  f158520:	03209025 */ 	or	$s2,$t9,$zero
 /*  f158524:	10200005 */ 	beqz	$at,.NB0f15853c
 /*  f158528:	00ac2823 */ 	subu	$a1,$a1,$t4
-/*  f15852c:	0fc4db9c */ 	jal	func0f13c370
+/*  f15852c:	0fc4db9c */ 	jal	dyntexSetCurrentRoom
 /*  f158530:	2404ffff */ 	addiu	$a0,$zero,-1
 /*  f158534:	100001ca */ 	beqz	$zero,.NB0f158c60
 /*  f158538:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -9038,7 +9038,7 @@ glabel roomLoad
 /*  f158564:	01cf082a */ 	slt	$at,$t6,$t7
 /*  f158568:	50200006 */ 	beqzl	$at,.NB0f158584
 /*  f15856c:	8e380000 */ 	lw	$t8,0x0($s1)
-/*  f158570:	0fc4db9c */ 	jal	func0f13c370
+/*  f158570:	0fc4db9c */ 	jal	dyntexSetCurrentRoom
 /*  f158574:	2404ffff */ 	addiu	$a0,$zero,-1
 /*  f158578:	100001b9 */ 	beqz	$zero,.NB0f158c60
 /*  f15857c:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -9512,7 +9512,7 @@ glabel roomLoad
 /*  f158c38:	8fab0050 */ 	lw	$t3,0x50($sp)
 /*  f158c3c:	8f3990a8 */ 	lw	$t9,-0x6f58($t9)
 /*  f158c40:	032b6021 */ 	addu	$t4,$t9,$t3
-/*  f158c44:	0fc4db9c */ 	jal	func0f13c370
+/*  f158c44:	0fc4db9c */ 	jal	dyntexSetCurrentRoom
 /*  f158c48:	ad800058 */ 	sw	$zero,0x58($t4)
 /*  f158c4c:	3c047f1b */ 	lui	$a0,0x7f1b
 /*  f158c50:	24841a60 */ 	addiu	$a0,$a0,0x1a60
@@ -9582,14 +9582,14 @@ const char var7f1b1a60nb[] = "bg.c";
 //	allocation = memaAlloc(size);
 //
 //	if (allocation != NULL) {
-//		func0f13c370(roomnum);
+//		dyntexSetCurrentRoom(roomnum);
 //
 //		readlen = ((g_BgRooms[roomnum + 1].unk00 - g_BgRooms[roomnum].unk00) + 0xf) & ~0xf;
 //		fileoffset = (g_BgPrimaryData + g_BgRooms[roomnum].unk00 - g_BgPrimaryData) + 0xf1000000;
 //		fileoffset -= var8007fc54;
 //
 //		if (size < readlen) {
-//			func0f13c370(-1);
+//			dyntexSetCurrentRoom(-1);
 //			return;
 //		}
 //
@@ -9597,7 +9597,7 @@ const char var7f1b1a60nb[] = "bg.c";
 //		bgLoadFile(memaddr, fileoffset, readlen);
 //
 //		if (rzipIs1173(memaddr) && size < readlen + 0x20) {
-//			func0f13c370(-1);
+//			dyntexSetCurrentRoom(-1);
 //			return;
 //		}
 //
@@ -9750,7 +9750,7 @@ const char var7f1b1a60nb[] = "bg.c";
 //		g_Rooms[roomnum].flags |= ROOMFLAG_0200;
 //		g_Rooms[roomnum].colours = NULL;
 //
-//		func0f13c370(-1);
+//		dyntexSetCurrentRoom(-1);
 //	}
 //
 //#if VERSION < VERSION_NTSC_1_0
@@ -9922,8 +9922,8 @@ Gfx *room0f15e85c(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool arg3)
 
 	switch (arg2->type) {
 	case 0:
-		if (g_Rooms[roomnum].flags & ROOMFLAG_0002) {
-			func0f13bc48(roomnum, arg2->vertices);
+		if (g_Rooms[roomnum].flags & ROOMFLAG_HASDYNTEX) {
+			dyntexTickRoom(roomnum, arg2->vertices);
 		}
 
 		gSPSegment(gdl++, 0xe, OS_PHYSICAL_TO_K0(arg2->vertices));
