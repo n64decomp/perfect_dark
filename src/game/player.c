@@ -6485,79 +6485,19 @@ Gfx *playerLoadMatrix(Gfx *gdl)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel player0f0c3320
-/*  f0c3320:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f0c3324:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f0c3328:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f0c332c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0c3330:	00a0a025 */ 	or	$s4,$a1,$zero
-/*  f0c3334:	0080a825 */ 	or	$s5,$a0,$zero
-/*  f0c3338:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0c333c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0c3340:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0c3344:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0c3348:	18a0001f */ 	blez	$a1,.L0f0c33c8
-/*  f0c334c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0c3350:	3c13800a */ 	lui	$s3,%hi(g_Vars)
-/*  f0c3354:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
-/*  f0c3358:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0c335c:	27b20040 */ 	addiu	$s2,$sp,0x40
-.L0f0c3360:
-/*  f0c3360:	0fc2d5de */ 	jal	camGetUnk174c
-/*  f0c3364:	00000000 */ 	nop
-/*  f0c3368:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0c336c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0c3370:	0c0056f9 */ 	jal	mtx00015be4
-/*  f0c3374:	02403025 */ 	or	$a2,$s2,$zero
-/*  f0c3378:	8e620284 */ 	lw	$v0,0x284($s3)
-/*  f0c337c:	c7a40070 */ 	lwc1	$f4,0x70($sp)
-/*  f0c3380:	c7aa0074 */ 	lwc1	$f10,0x74($sp)
-/*  f0c3384:	c4460038 */ 	lwc1	$f6,0x38($v0)
-/*  f0c3388:	00117180 */ 	sll	$t6,$s1,0x6
-/*  f0c338c:	01d52821 */ 	addu	$a1,$t6,$s5
-/*  f0c3390:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0c3394:	c7a40078 */ 	lwc1	$f4,0x78($sp)
-/*  f0c3398:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0c339c:	e7a80070 */ 	swc1	$f8,0x70($sp)
-/*  f0c33a0:	c450003c */ 	lwc1	$f16,0x3c($v0)
-/*  f0c33a4:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f0c33a8:	e7b20074 */ 	swc1	$f18,0x74($sp)
-/*  f0c33ac:	c4460040 */ 	lwc1	$f6,0x40($v0)
-/*  f0c33b0:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0c33b4:	0c005815 */ 	jal	mtx00016054
-/*  f0c33b8:	e7a80078 */ 	swc1	$f8,0x78($sp)
-/*  f0c33bc:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0c33c0:	1634ffe7 */ 	bne	$s1,$s4,.L0f0c3360
-/*  f0c33c4:	26100040 */ 	addiu	$s0,$s0,0x40
-.L0f0c33c8:
-/*  f0c33c8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0c33cc:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0c33d0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0c33d4:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0c33d8:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0c33dc:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f0c33e0:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f0c33e4:	03e00008 */ 	jr	$ra
-/*  f0c33e8:	27bd0080 */ 	addiu	$sp,$sp,0x80
-);
+void player0f0c3320(Mtxf *matrices, s32 count)
+{
+	Mtxf sp40;
+	s32 i;
+	s32 j;
 
-// Mismatch: goal stores matrices in both s5 and s0, increments s0 for the first
-// &matrices[i], and calculates s5 + i * 0x40 for the second &matrices[i].
-// The below stores matrices in s5, calculates s5 + i * 0x40 for the first
-// &matrices[i], then puts that value in s0 for the second &matrices[i].
-//void player0f0c3320(Mtxf *matrices, s32 count)
-//{
-//	Mtxf sp40;
-//	s32 i;
-//
-//	for (i = 0; i < count; i++) {
-//		mtx00015be4(camGetUnk174c(), &matrices[i], &sp40);
-//
-//		sp40.m[3][0] -= g_Vars.currentplayer->globaldrawworldoffset.x;
-//		sp40.m[3][1] -= g_Vars.currentplayer->globaldrawworldoffset.y;
-//		sp40.m[3][2] -= g_Vars.currentplayer->globaldrawworldoffset.z;
-//
-//		mtx00016054(&sp40, &matrices[i]);
-//	}
-//}
+	for (i = 0, j = 0; i < count; i++, j += sizeof(Mtxf)) {
+		mtx00015be4(camGetUnk174c(), (Mtxf *)((u32)matrices + j), &sp40);
+
+		sp40.m[3][0] -= g_Vars.currentplayer->globaldrawworldoffset.x;
+		sp40.m[3][1] -= g_Vars.currentplayer->globaldrawworldoffset.y;
+		sp40.m[3][2] -= g_Vars.currentplayer->globaldrawworldoffset.z;
+
+		mtx00016054(&sp40, matrices + i);
+	}
+}
