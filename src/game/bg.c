@@ -13,7 +13,7 @@
 #include "game/player.h"
 #include "game/sky.h"
 #include "game/stars.h"
-#include "game/game_13b670.h"
+#include "game/dyntex.h"
 #include "game/game_13c510.h"
 #include "game/game_1531a0.h"
 #include "game/gfxmemory.h"

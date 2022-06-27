@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/chraction.h"
-#include "game/game_13b670.h"
+#include "game/dyntex.h"
 #include "bss.h"
 #include "lib/main.h"
 #include "lib/memp.h"

@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_13b670.h"
+#include "game/dyntex.h"
 #include "game/tex.h"
 #include "game/texdecompress.h"
 #include "bss.h"
