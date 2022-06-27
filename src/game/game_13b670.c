@@ -91,8 +91,6 @@ u32 var8007f72c = 0x00000012;
 u32 var8007f730 = 0x00000012;
 
 void dyntexUpdateLinear(struct gfxvtx *vertices, struct dyntextype *type);
-void dyntexUpdateReset(struct gfxvtx *vertices, struct dyntextype *type);
-void dyntexUpdateMonitor(struct gfxvtx *vertices, struct dyntextype *type);
 void dyntexUpdateOcean(struct gfxvtx *vertices, struct dyntextype *type);
 void dyntexUpdateArrows(struct gfxvtx *vertices, struct dyntextype *type);
 
@@ -166,74 +164,24 @@ void dyntexUpdateReset(struct gfxvtx *vertices, struct dyntextype *type)
 
 	for (i = 0; i < type->numvertices; i++) {
 		struct gfxvtx *vertex = (struct gfxvtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
+
 		vertex->unk08 = 0;
 		vertex->unk0a = 0;
 	}
 }
 
-GLOBAL_ASM(
-glabel dyntexUpdateMonitor
-/*  f13b7bc:	3c018006 */ 	lui	$at,%hi(var80061634)
-/*  f13b7c0:	c4241634 */ 	lwc1	$f4,%lo(var80061634)($at)
-/*  f13b7c4:	3c014080 */ 	lui	$at,0x4080
-/*  f13b7c8:	44813000 */ 	mtc1	$at,$f6
-/*  f13b7cc:	3c014580 */ 	lui	$at,0x4580
-/*  f13b7d0:	44815000 */ 	mtc1	$at,$f10
-/*  f13b7d4:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f13b7d8:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f13b7dc:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f13b7e0:	90a90001 */ 	lbu	$t1,0x1($a1)
-/*  f13b7e4:	3c08800a */ 	lui	$t0,%hi(g_DyntexVertices)
-/*  f13b7e8:	00808025 */ 	or	$s0,$a0,$zero
-/*  f13b7ec:	2508418c */ 	addiu	$t0,$t0,%lo(g_DyntexVertices)
-/*  f13b7f0:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f13b7f4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f13b7f8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f13b7fc:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f13b800:	44029000 */ 	mfc1	$v0,$f18
-/*  f13b804:	00000000 */ 	nop
-/*  f13b808:	04410004 */ 	bgez	$v0,.L0f13b81c
-/*  f13b80c:	304f0fff */ 	andi	$t7,$v0,0xfff
-/*  f13b810:	11e00002 */ 	beqz	$t7,.L0f13b81c
-/*  f13b814:	00000000 */ 	nop
-/*  f13b818:	25eff000 */ 	addiu	$t7,$t7,-4096
-.L0f13b81c:
-/*  f13b81c:	000fc400 */ 	sll	$t8,$t7,0x10
-/*  f13b820:	1920001c */ 	blez	$t1,.L0f13b894
-/*  f13b824:	00181403 */ 	sra	$v0,$t8,0x10
-/*  f13b828:	94ab0002 */ 	lhu	$t3,0x2($a1)
-.L0f13b82c:
-/*  f13b82c:	8d0a0000 */ 	lw	$t2,0x0($t0)
-/*  f13b830:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f13b834:	000b6080 */ 	sll	$t4,$t3,0x2
-/*  f13b838:	018b6023 */ 	subu	$t4,$t4,$t3
-/*  f13b83c:	000c6040 */ 	sll	$t4,$t4,0x1
-/*  f13b840:	014c6821 */ 	addu	$t5,$t2,$t4
-/*  f13b844:	01a63821 */ 	addu	$a3,$t5,$a2
-/*  f13b848:	94ee0000 */ 	lhu	$t6,0x0($a3)
-/*  f13b84c:	84ef0004 */ 	lh	$t7,0x4($a3)
-/*  f13b850:	01d02021 */ 	addu	$a0,$t6,$s0
-/*  f13b854:	01e2c023 */ 	subu	$t8,$t7,$v0
-/*  f13b858:	a498000a */ 	sh	$t8,0xa($a0)
-/*  f13b85c:	94a90002 */ 	lhu	$t1,0x2($a1)
-/*  f13b860:	8d190000 */ 	lw	$t9,0x0($t0)
-/*  f13b864:	00095880 */ 	sll	$t3,$t1,0x2
-/*  f13b868:	01695823 */ 	subu	$t3,$t3,$t1
-/*  f13b86c:	000b5840 */ 	sll	$t3,$t3,0x1
-/*  f13b870:	032b5021 */ 	addu	$t2,$t9,$t3
-/*  f13b874:	01466021 */ 	addu	$t4,$t2,$a2
-/*  f13b878:	858d0002 */ 	lh	$t5,0x2($t4)
-/*  f13b87c:	24c60006 */ 	addiu	$a2,$a2,0x6
-/*  f13b880:	a48d0008 */ 	sh	$t5,0x8($a0)
-/*  f13b884:	90ae0001 */ 	lbu	$t6,0x1($a1)
-/*  f13b888:	006e082a */ 	slt	$at,$v1,$t6
-/*  f13b88c:	5420ffe7 */ 	bnezl	$at,.L0f13b82c
-/*  f13b890:	94ab0002 */ 	lhu	$t3,0x2($a1)
-.L0f13b894:
-/*  f13b894:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f13b898:	03e00008 */ 	jr	$ra
-/*  f13b89c:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+void dyntexUpdateMonitor(struct gfxvtx *vertices, struct dyntextype *type)
+{
+	s16 tmp = (s32) (var80061634 * 4.0f * 4096.0f) % 4096;
+	s32 i;
+
+	for (i = 0; i < type->numvertices; i++) {
+		struct gfxvtx *vertex = (struct gfxvtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
+
+		vertex->unk0a = g_DyntexVertices[type->vertexlistoffset + i].t - tmp;
+		vertex->unk08 = g_DyntexVertices[type->vertexlistoffset + i].s;
+	}
+}
 
 GLOBAL_ASM(
 glabel dyntexUpdateOcean
