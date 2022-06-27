@@ -1528,8 +1528,8 @@ void func0f0e0cbc(s32 arg0, s32 arg1, s16 arg2, s16 arg3, struct gfxvtx *vertex,
 
 	mtx4TransformVecInPlace(arg5, &sp24);
 
-	vertex->unk08 = sp24.x * 32;
-	vertex->unk0a = sp24.y * 32;
+	vertex->s = sp24.x * 32;
+	vertex->t = sp24.y * 32;
 }
 
 Gfx *menugfxRenderDialogBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, struct menudialog *dialog, u32 colour1, u32 colour2, f32 arg8)

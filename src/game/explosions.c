@@ -1516,26 +1516,26 @@ Gfx *explosionRenderPart(struct explosion *exp, struct explosionpart *part, Gfx 
 	vertices[0].x = x - spbc.f[0] - sp98.f[0] - coord->f[0];
 	vertices[0].y = y - spbc.f[1] - sp98.f[1] - coord->f[1];
 	vertices[0].z = z - spbc.f[2] - sp98.f[2] - coord->f[2];
-	vertices[0].unk08 = 1760;
-	vertices[0].unk0a = 0;
+	vertices[0].s = 1760;
+	vertices[0].t = 0;
 
 	vertices[1].x = x + spb0.f[0] - spa4.f[0] - coord->f[0];
 	vertices[1].y = y + spb0.f[1] - spa4.f[1] - coord->f[1];
 	vertices[1].z = z + spb0.f[2] - spa4.f[2] - coord->f[2];
-	vertices[1].unk08 = 0;
-	vertices[1].unk0a = 0;
+	vertices[1].s = 0;
+	vertices[1].t = 0;
 
 	vertices[2].x = x + spbc.f[0] + sp98.f[0] - coord->f[0];
 	vertices[2].y = y + spbc.f[1] + sp98.f[1] - coord->f[1];
 	vertices[2].z = z + spbc.f[2] + sp98.f[2] - coord->f[2];
-	vertices[2].unk08 = 0;
-	vertices[2].unk0a = 1760;
+	vertices[2].s = 0;
+	vertices[2].t = 1760;
 
 	vertices[3].x = x - spb0.f[0] + spa4.f[0] - coord->f[0];
 	vertices[3].y = y - spb0.f[1] + spa4.f[1] - coord->f[1];
 	vertices[3].z = z - spb0.f[2] + spa4.f[2] - coord->f[2];
-	vertices[3].unk08 = 1760;
-	vertices[3].unk0a = 1760;
+	vertices[3].s = 1760;
+	vertices[3].t = 1760;
 
 	for (j = 0; j < 4; j++) {
 		vertices[j].colour = 0;

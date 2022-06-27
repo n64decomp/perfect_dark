@@ -6483,14 +6483,14 @@ glabel var70054454
 //
 //			centre = tconfig->width << 4;
 //
-//			vertices[0].unk08 = centre - sp5c;
-//			vertices[0].unk0a = centre - sp58;
-//			vertices[1].unk08 = centre + sp58;
-//			vertices[1].unk0a = centre - sp5c;
-//			vertices[2].unk08 = centre + sp5c;
-//			vertices[2].unk0a = centre + sp58;
-//			vertices[3].unk08 = centre - sp58;
-//			vertices[3].unk0a = centre + sp5c;
+//			vertices[0].s = centre - sp5c;
+//			vertices[0].t = centre - sp58;
+//			vertices[1].s = centre + sp58;
+//			vertices[1].t = centre - sp5c;
+//			vertices[2].s = centre + sp5c;
+//			vertices[2].t = centre + sp58;
+//			vertices[3].s = centre - sp58;
+//			vertices[3].t = centre + sp5c;
 //
 //			model000216cc(renderdata, tconfig, 4);
 //		} else {

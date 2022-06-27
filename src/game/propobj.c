@@ -52223,14 +52223,14 @@ glabel var7f1aa824
 //				f16 *= f22;
 //			}
 //
-//			vertices[0].unk08 = tconfig->width * (screen->xmid + f20) * 32;
-//			vertices[0].unk0a = tconfig->height * (screen->ymid + f24) * 32;
-//			vertices[1].unk08 = tconfig->width * (screen->xmid - f14) * 32;
-//			vertices[1].unk0a = tconfig->height * (screen->ymid + f16) * 32;
-//			vertices[2].unk08 = tconfig->width * (screen->xmid - f20) * 32;
-//			vertices[2].unk0a = tconfig->height * (screen->ymid - f24) * 32;
-//			vertices[3].unk08 = tconfig->width * (screen->xmid + f14) * 32;
-//			vertices[3].unk0a = tconfig->height * (screen->ymid - f16) * 32;
+//			vertices[0].s = tconfig->width * (screen->xmid + f20) * 32;
+//			vertices[0].t = tconfig->height * (screen->ymid + f24) * 32;
+//			vertices[1].s = tconfig->width * (screen->xmid - f14) * 32;
+//			vertices[1].t = tconfig->height * (screen->ymid + f16) * 32;
+//			vertices[2].s = tconfig->width * (screen->xmid - f20) * 32;
+//			vertices[2].t = tconfig->height * (screen->ymid - f24) * 32;
+//			vertices[3].s = tconfig->width * (screen->xmid + f14) * 32;
+//			vertices[3].t = tconfig->height * (screen->ymid - f16) * 32;
 //		}
 //
 //		if (tconfig);
@@ -52458,14 +52458,14 @@ Gfx *gfxRenderRadialShadow(Gfx *gdl, f32 x, f32 y, f32 z, f32 angle, f32 radius,
 	vertices[3].z = base3 - radius;
 
 	if (tconfig) {
-		vertices[0].unk08 = 0;
-		vertices[0].unk0a = 0;
-		vertices[1].unk08 = tconfig->width * 32 - 1;
-		vertices[1].unk0a = 0;
-		vertices[2].unk08 = tconfig->width * 32 - 1;
-		vertices[2].unk0a = tconfig->height * 32 - 1;
-		vertices[3].unk08 = 0;
-		vertices[3].unk0a = tconfig->height * 32 - 1;
+		vertices[0].s = 0;
+		vertices[0].t = 0;
+		vertices[1].s = tconfig->width * 32 - 1;
+		vertices[1].t = 0;
+		vertices[2].s = tconfig->width * 32 - 1;
+		vertices[2].t = tconfig->height * 32 - 1;
+		vertices[3].s = 0;
+		vertices[3].t = tconfig->height * 32 - 1;
 
 		texSelect(&gdl, tconfig, 4, 1, 2, 1, NULL);
 	} else {

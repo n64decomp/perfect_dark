@@ -2768,11 +2768,11 @@ Gfx *nbombCreateGdl(void)
 	vertices = gfxAllocateVertices(1);
 
 	vertices[0].z = 0;
-	vertices[0].unk0a = 0;
+	vertices[0].t = 0;
 	vertices[0].colour = 0;
 	vertices[0].y = vertices[0].z;
 	vertices[0].x = vertices[0].z;
-	vertices[0].unk08 = vertices[0].unk0a;
+	vertices[0].s = vertices[0].t;
 
 	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 1);
 
@@ -4602,14 +4602,14 @@ glabel nbombRenderOverlay
 //		vertices[3].x = viewleft;
 //		vertices[3].y = viewbottom;
 //
-//		vertices[0].unk08 = s2;
-//		vertices[0].unk0a = sp5e;
-//		vertices[1].unk08 = s2 + 160;
-//		vertices[1].unk0a = sp5e;
-//		vertices[2].unk08 = s2 + 160;
-//		vertices[2].unk0a = sp5e + 960;
-//		vertices[3].unk08 = s2;
-//		vertices[3].unk0a = sp5e + 960;
+//		vertices[0].s = s2;
+//		vertices[0].t = sp5e;
+//		vertices[1].s = s2 + 160;
+//		vertices[1].t = sp5e;
+//		vertices[2].s = s2 + 160;
+//		vertices[2].t = sp5e + 960;
+//		vertices[3].s = s2;
+//		vertices[3].t = sp5e + 960;
 //
 //		vertices[0].colour = 0;
 //		vertices[1].colour = 0;
@@ -5356,8 +5356,8 @@ const u32 var7f1a7eac[] = {0x00000090};
 //			vertices[5].z = -10;
 //			vertices[6].z = -10;
 //			vertices[7].z = -10;
-//			vertices[0].unk08 = sVar15;
-//			vertices[0].unk0a = sp72;
+//			vertices[0].s = sVar15;
+//			vertices[0].t = sp72;
 //			vertices[1].y = viewtop;
 //			vertices[4].y = viewtop;
 //			vertices[5].y = viewtop;
@@ -5372,28 +5372,28 @@ const u32 var7f1a7eac[] = {0x00000090};
 //			vertices[2].x = viewright;
 //			vertices[5].x = viewright;
 //			vertices[6].x = viewright;
-//			vertices[1].unk08 = sVar15 + 960;
-//			vertices[2].unk08 = sVar15 + 960;
-//			vertices[2].unk0a = sp72 + 640;
-//			vertices[3].unk08 = sVar15;
-//			vertices[3].unk0a = sp72 + 640;
+//			vertices[1].s = sVar15 + 960;
+//			vertices[2].s = sVar15 + 960;
+//			vertices[2].t = sp72 + 640;
+//			vertices[3].s = sVar15;
+//			vertices[3].t = sp72 + 640;
 //			vertices[0].colour = 0;
 //			vertices[1].colour = 0;
 //			vertices[2].colour = 0;
 //			vertices[3].colour = 0;
-//			vertices[1].unk0a = sp72;
-//			vertices[4].unk0a = spfa;
-//			vertices[4].unk08 = sp76;
-//			vertices[5].unk08 = sp76 + 640;
-//			vertices[6].unk08 = sp76 + 640;
-//			vertices[6].unk0a = spfa + 480;
-//			vertices[7].unk0a = spfa + 480;
+//			vertices[1].t = sp72;
+//			vertices[4].t = spfa;
+//			vertices[4].s = sp76;
+//			vertices[5].s = sp76 + 640;
+//			vertices[6].s = sp76 + 640;
+//			vertices[6].t = spfa + 480;
+//			vertices[7].t = spfa + 480;
 //			vertices[4].colour = 0;
 //			vertices[5].colour = 0;
 //			vertices[6].colour = 0;
 //			vertices[7].colour = 0;
-//			vertices[5].unk0a = spfa;
-//			vertices[7].unk08 = sp76;
+//			vertices[5].t = spfa;
+//			vertices[7].s = sp76;
 //
 //			colours[0] = 0x3faf1100 | (u32)(alphafrac * 127.0f);
 //

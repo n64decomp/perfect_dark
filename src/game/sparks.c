@@ -449,8 +449,8 @@ Gfx *sparksRender(Gfx *gdl)
 							f32 f2;
 
 							for (k = 0; k < 3U; k++) {
-								vertices[k].unk08 = 0;
-								vertices[k].unk0a = 0;
+								vertices[k].s = 0;
+								vertices[k].t = 0;
 							}
 
 							f2 = sqrtf(spark->speed.f[0] * spark->speed.f[0] + spark->speed.f[1] * spark->speed.f[1] + spark->speed.f[2] * spark->speed.f[2]);
@@ -471,12 +471,12 @@ Gfx *sparksRender(Gfx *gdl)
 							vertices[2].z = spark->pos.z + spark->speed.f[2] * f2;
 							vertices[2].colour = 0;
 
-							vertices[0].unk08 = 128;
-							vertices[0].unk0a = -256;
-							vertices[1].unk08 = -32;
-							vertices[1].unk0a = 496;
-							vertices[2].unk08 = 288;
-							vertices[2].unk0a = 496;
+							vertices[0].s = 128;
+							vertices[0].t = -256;
+							vertices[1].s = -32;
+							vertices[1].t = 496;
+							vertices[2].s = 288;
+							vertices[2].t = 496;
 
 							switch (axis) {
 							case 0:

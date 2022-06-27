@@ -21381,11 +21381,11 @@ glabel var7f1aca90
 //						s32 stack[2];
 //						s32 k;
 //
-//						(rodata->vertices + j)->unk0a -= g_Vars.lvupdate240 * PALUP(25);
+//						(rodata->vertices + j)->t -= g_Vars.lvupdate240 * PALUP(25);
 //
-//						if ((rodata->vertices + j)->unk0a < -0x6000) {
+//						if ((rodata->vertices + j)->t < -0x6000) {
 //							for (k = 0; k < rodata->numvertices; k++) {
-//								(rodata->vertices + k)->unk0a += 0x2000;
+//								(rodata->vertices + k)->t += 0x2000;
 //							}
 //						}
 //					}

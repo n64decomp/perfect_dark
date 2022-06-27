@@ -4544,14 +4544,14 @@ glabel var7f1acd8c
 //
 //					vertices[0].colour = vertices[1].colour = vertices[2].colour = vertices[3].colour = 0;
 //
-//					vertices[0].unk08 = 0;
-//					vertices[0].unk0a = 0;
-//					vertices[1].unk08 = 512;
-//					vertices[1].unk0a = 0;
-//					vertices[2].unk08 = 512;
-//					vertices[2].unk0a = 512;
-//					vertices[3].unk08 = 0;
-//					vertices[3].unk0a = 512;
+//					vertices[0].s = 0;
+//					vertices[0].t = 0;
+//					vertices[1].s = 512;
+//					vertices[1].t = 0;
+//					vertices[2].s = 512;
+//					vertices[2].t = 512;
+//					vertices[3].s = 0;
+//					vertices[3].t = 512;
 //
 //					vertices[0].x = pos.f[0] + ((-f20 * f22) + (f20 * f14));
 //					vertices[0].y = pos.f[1] + 0.0f + (f20 * f16);
@@ -5217,18 +5217,18 @@ glabel var7f1acd90
 //			vertices[4].colour = 4;
 //			vertices[5].colour = 4;
 //
-//			vertices[0].unk08 = 0;
-//			vertices[0].unk0a = 0;
-//			vertices[1].unk08 = 0;
-//			vertices[1].unk0a = 256;
-//			vertices[2].unk08 = 32;
-//			vertices[2].unk0a = 0;
-//			vertices[3].unk08 = 32;
-//			vertices[3].unk0a = 256;
-//			vertices[4].unk08 = 0;
-//			vertices[4].unk0a = 0;
-//			vertices[5].unk08 = 0;
-//			vertices[5].unk0a = 256;
+//			vertices[0].s = 0;
+//			vertices[0].t = 0;
+//			vertices[1].s = 0;
+//			vertices[1].t = 256;
+//			vertices[2].s = 32;
+//			vertices[2].t = 0;
+//			vertices[3].s = 32;
+//			vertices[3].t = 256;
+//			vertices[4].s = 0;
+//			vertices[4].t = 0;
+//			vertices[5].s = 0;
+//			vertices[5].t = 256;
 //
 //			vertices[0].x = spcc.f[0] - spa8.f[0] * 15;
 //			vertices[0].y = spcc.f[1] - spa8.f[1] * 15;

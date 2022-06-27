@@ -753,14 +753,14 @@ glabel func0f0d4d0c
 //		a1_2 = var80061630 * sp30 * 64.0f * 32.0f;
 //	}
 //
-//	vertices[0].unk08 = sp2e + t1;
-//	vertices[0].unk0a = sp2a + a1_2;
-//	vertices[1].unk08 = sp2c + t1;
-//	vertices[1].unk0a = sp2a + a1_2;
-//	vertices[3].unk08 = sp2c + t1;
-//	vertices[3].unk0a = sp28 + a1_2;
-//	vertices[2].unk08 = sp2e + t1;
-//	vertices[2].unk0a = sp28 + a1_2;
+//	vertices[0].s = sp2e + t1;
+//	vertices[0].t = sp2a + a1_2;
+//	vertices[1].s = sp2c + t1;
+//	vertices[1].t = sp2a + a1_2;
+//	vertices[3].s = sp2c + t1;
+//	vertices[3].t = sp28 + a1_2;
+//	vertices[2].s = sp2e + t1;
+//	vertices[2].t = sp28 + a1_2;
 //
 //	if (type == 7) {
 //		vertices[0].colour = 0;

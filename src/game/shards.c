@@ -139,8 +139,8 @@ void shardCreate(s16 room, struct coord *pos, f32 rotx, f32 size, s32 type)
 
 	for (i = 0; i < 3; i++) {
 		g_Shards[g_NextShardNum].vertices[i].z = 0;
-		g_Shards[g_NextShardNum].vertices[i].unk08 = 0;
-		g_Shards[g_NextShardNum].vertices[i].unk0a = 0;
+		g_Shards[g_NextShardNum].vertices[i].s = 0;
+		g_Shards[g_NextShardNum].vertices[i].t = 0;
 		g_Shards[g_NextShardNum].vertices[i].colour = i * 4;
 	}
 

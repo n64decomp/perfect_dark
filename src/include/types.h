@@ -5927,8 +5927,8 @@ struct gfxvtx {
 	};
 	/*0x06*/ u8 flags;
 	/*0x07*/ u8 colour;
-	/*0x08*/ s16 unk08;
-	/*0x0a*/ s16 unk0a;
+	/*0x08*/ s16 s;
+	/*0x0a*/ s16 t;
 };
 
 struct shard {

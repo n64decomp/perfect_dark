@@ -67,17 +67,17 @@ void func0f1371b0(struct gfxvtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg
 	f32 a = arg2 * sinf(arg1) + arg3 * cosf(arg1);
 	f32 b = arg2 * cosf(arg1) - arg3 * sinf(arg1);
 
-	vertices[0].unk08 = (sinf(arg4) + cosf(arg4)) * arg5 + a;
-	vertices[0].unk0a = (cosf(arg4) - sinf(arg4)) * arg6 + b;
+	vertices[0].s = (sinf(arg4) + cosf(arg4)) * arg5 + a;
+	vertices[0].t = (cosf(arg4) - sinf(arg4)) * arg6 + b;
 
-	vertices[1].unk08 = (sinf(arg4 + 1.5707963705063f) + cosf(arg4 + 1.5707963705063f)) * arg5 + a;
-	vertices[1].unk0a = (cosf(arg4 + 1.5707963705063f) - sinf(arg4 + 1.5707963705063f)) * arg6 + b;
+	vertices[1].s = (sinf(arg4 + 1.5707963705063f) + cosf(arg4 + 1.5707963705063f)) * arg5 + a;
+	vertices[1].t = (cosf(arg4 + 1.5707963705063f) - sinf(arg4 + 1.5707963705063f)) * arg6 + b;
 
-	vertices[2].unk08 = (sinf(arg4 + 3.1415927410126f) + cosf(arg4 + 3.1415927410126f)) * arg5 + a;
-	vertices[2].unk0a = (cosf(arg4 + 3.1415927410126f) - sinf(arg4 + 3.1415927410126f)) * arg6 + b;
+	vertices[2].s = (sinf(arg4 + 3.1415927410126f) + cosf(arg4 + 3.1415927410126f)) * arg5 + a;
+	vertices[2].t = (cosf(arg4 + 3.1415927410126f) - sinf(arg4 + 3.1415927410126f)) * arg6 + b;
 
-	vertices[3].unk08 = (sinf(arg4 + 4.7123889923096f) + cosf(arg4 + 4.7123889923096f)) * arg5 + a;
-	vertices[3].unk0a = (cosf(arg4 + 4.7123889923096f) - sinf(arg4 + 4.7123889923096f)) * arg6 + b;
+	vertices[3].s = (sinf(arg4 + 4.7123889923096f) + cosf(arg4 + 4.7123889923096f)) * arg5 + a;
+	vertices[3].t = (cosf(arg4 + 4.7123889923096f) - sinf(arg4 + 4.7123889923096f)) * arg6 + b;
 }
 
 void func0f137430(struct gfxvtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6)
@@ -85,32 +85,32 @@ void func0f137430(struct gfxvtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg
 	f32 a = arg2 * sinf(arg1) + arg3 * cosf(arg1);
 	f32 b = arg2 * cosf(arg1) - arg3 * sinf(arg1);
 
-	vertices[0].unk08 = (sinf(arg4) + cosf(arg4)) * arg5 + a;
-	vertices[0].unk0a = (cosf(arg4) - sinf(arg4)) * arg6 + b;
+	vertices[0].s = (sinf(arg4) + cosf(arg4)) * arg5 + a;
+	vertices[0].t = (cosf(arg4) - sinf(arg4)) * arg6 + b;
 
-	vertices[2].unk08 = (sinf(arg4 + 1.5707963705063f) + cosf(arg4 + 1.5707963705063f)) * arg5 + a;
-	vertices[2].unk0a = (cosf(arg4 + 1.5707963705063f) - sinf(arg4 + 1.5707963705063f)) * arg6 + b;
+	vertices[2].s = (sinf(arg4 + 1.5707963705063f) + cosf(arg4 + 1.5707963705063f)) * arg5 + a;
+	vertices[2].t = (cosf(arg4 + 1.5707963705063f) - sinf(arg4 + 1.5707963705063f)) * arg6 + b;
 
-	vertices[8].unk08 = (sinf(arg4 + 3.1415927410126f) + cosf(arg4 + 3.1415927410126f)) * arg5 + a;
-	vertices[8].unk0a = (cosf(arg4 + 3.1415927410126f) - sinf(arg4 + 3.1415927410126f)) * arg6 + b;
+	vertices[8].s = (sinf(arg4 + 3.1415927410126f) + cosf(arg4 + 3.1415927410126f)) * arg5 + a;
+	vertices[8].t = (cosf(arg4 + 3.1415927410126f) - sinf(arg4 + 3.1415927410126f)) * arg6 + b;
 
-	vertices[6].unk08 = (sinf(arg4 + 4.7123889923096f) + cosf(arg4 + 4.7123889923096f)) * arg5 + a;
-	vertices[6].unk0a = (cosf(arg4 + 4.7123889923096f) - sinf(arg4 + 4.7123889923096f)) * arg6 + b;
+	vertices[6].s = (sinf(arg4 + 4.7123889923096f) + cosf(arg4 + 4.7123889923096f)) * arg5 + a;
+	vertices[6].t = (cosf(arg4 + 4.7123889923096f) - sinf(arg4 + 4.7123889923096f)) * arg6 + b;
 
-	vertices[1].unk08 = (vertices[0].unk08 + vertices[2].unk08) / 2;
-	vertices[1].unk0a = (vertices[0].unk0a + vertices[2].unk0a) / 2;
+	vertices[1].s = (vertices[0].s + vertices[2].s) / 2;
+	vertices[1].t = (vertices[0].t + vertices[2].t) / 2;
 
-	vertices[3].unk08 = (vertices[0].unk08 + vertices[6].unk08) / 2;
-	vertices[3].unk0a = (vertices[0].unk0a + vertices[6].unk0a) / 2;
+	vertices[3].s = (vertices[0].s + vertices[6].s) / 2;
+	vertices[3].t = (vertices[0].t + vertices[6].t) / 2;
 
-	vertices[5].unk08 = (vertices[8].unk08 + vertices[2].unk08) / 2;
-	vertices[5].unk0a = (vertices[8].unk0a + vertices[2].unk0a) / 2;
+	vertices[5].s = (vertices[8].s + vertices[2].s) / 2;
+	vertices[5].t = (vertices[8].t + vertices[2].t) / 2;
 
-	vertices[7].unk08 = (vertices[6].unk08 + vertices[8].unk08) / 2;
-	vertices[7].unk0a = (vertices[6].unk0a + vertices[8].unk0a) / 2;
+	vertices[7].s = (vertices[6].s + vertices[8].s) / 2;
+	vertices[7].t = (vertices[6].t + vertices[8].t) / 2;
 
-	vertices[4].unk08 = (vertices[3].unk08 + vertices[5].unk08) / 2;
-	vertices[4].unk0a = (vertices[3].unk0a + vertices[5].unk0a) / 2;
+	vertices[4].s = (vertices[3].s + vertices[5].s) / 2;
+	vertices[4].t = (vertices[3].t + vertices[5].t) / 2;
 }
 
 /**
@@ -821,14 +821,14 @@ Gfx *creditsDrawSprites(Gfx *gdl)
 				vertices[3].y = pos.f[1] + f20 * (f2 + f0);
 				vertices[3].z = pos.f[2];
 
-				vertices[0].unk08 = g_CreditSpriteConfigs[confignum].unk04 * 32;
-				vertices[0].unk0a = g_CreditSpriteConfigs[confignum].unk06 * 32;
-				vertices[1].unk08 = g_CreditSpriteConfigs[confignum].unk04 * 32;
-				vertices[1].unk0a = g_CreditSpriteConfigs[confignum].unk0a * 32;
-				vertices[2].unk08 = g_CreditSpriteConfigs[confignum].unk08 * 32;
-				vertices[2].unk0a = g_CreditSpriteConfigs[confignum].unk0a * 32;
-				vertices[3].unk08 = g_CreditSpriteConfigs[confignum].unk08 * 32;
-				vertices[3].unk0a = g_CreditSpriteConfigs[confignum].unk06 * 32;
+				vertices[0].s = g_CreditSpriteConfigs[confignum].unk04 * 32;
+				vertices[0].t = g_CreditSpriteConfigs[confignum].unk06 * 32;
+				vertices[1].s = g_CreditSpriteConfigs[confignum].unk04 * 32;
+				vertices[1].t = g_CreditSpriteConfigs[confignum].unk0a * 32;
+				vertices[2].s = g_CreditSpriteConfigs[confignum].unk08 * 32;
+				vertices[2].t = g_CreditSpriteConfigs[confignum].unk0a * 32;
+				vertices[3].s = g_CreditSpriteConfigs[confignum].unk08 * 32;
+				vertices[3].t = g_CreditSpriteConfigs[confignum].unk06 * 32;
 
 				if (1);
 				offset = (g_CreditsData->sprites[i].unk14 + ((s32) (frac * 14.99f) * 4)) * 4;
