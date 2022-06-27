@@ -4594,11 +4594,13 @@ struct explosion {
 
 struct smoketype {
 	/*0x00*/ s16 duration;
-	/*0x02*/ u16 fadespeed;
+	/*0x02*/ s16 fadespeed;
 	/*0x04*/ s16 spreadspeed;
 	/*0x06*/ s16 size;
 	/*0x08*/ f32 bgrotatespeed;
-	/*0x0c*/ u32 colour;
+	/*0x0c*/ u8 r;
+	/*0x0c*/ u8 g;
+	/*0x0c*/ u8 b;
 	/*0x10*/ f32 fgrotatespeed;
 	/*0x14*/ s16 numclouds;
 	/*0x18*/ f32 unk18;
