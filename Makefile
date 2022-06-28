@@ -312,7 +312,7 @@ default: rom
 # lib and data segments are uncompressed and placed past the end of the ROM.
 $(B_DIR)/stage1.elf: $(O_FILES) ld/pd.ld
 	cpp -DROMID=$(ROMID) -DVERSION=$(VERSION) -P ld/pd.ld -o $(B_DIR)/pd.ld
-	$(TOOLCHAIN)-ld --no-check-sections -T $(B_DIR)/pd.ld --print-map -o $@ > $(B_DIR)/pd.map
+	$(TOOLCHAIN)-ld --no-check-sections -z muldefs -T $(B_DIR)/pd.ld --print-map -o $@ > $(B_DIR)/pd.map
 
 $(B_DIR)/stage1.bin: $(B_DIR)/stage1.elf
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
