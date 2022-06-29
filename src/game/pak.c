@@ -8614,44 +8614,17 @@ PakErr1 pakWriteEeprom(u8 address, u8 *buffer, u32 len)
 	return result == PAK_ERR1_OK ? PAK_ERR1_OK : PAK_ERR1_EEPROMWRITEFAILED;
 }
 
-GLOBAL_ASM(
-glabel pakSetBitflag
-/*  f11e530:	10c0000a */ 	beqz	$a2,.L0f11e55c
-/*  f11e534:	000458c2 */ 	srl	$t3,$a0,0x3
-/*  f11e538:	000470c2 */ 	srl	$t6,$a0,0x3
-/*  f11e53c:	00ae1021 */ 	addu	$v0,$a1,$t6
-/*  f11e540:	904f0000 */ 	lbu	$t7,0x0($v0)
-/*  f11e544:	30980007 */ 	andi	$t8,$a0,0x7
-/*  f11e548:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f11e54c:	03194804 */ 	sllv	$t1,$t9,$t8
-/*  f11e550:	01e95025 */ 	or	$t2,$t7,$t1
-/*  f11e554:	03e00008 */ 	jr	$ra
-/*  f11e558:	a04a0000 */ 	sb	$t2,0x0($v0)
-.L0f11e55c:
-/*  f11e55c:	00ab1021 */ 	addu	$v0,$a1,$t3
-/*  f11e560:	904c0000 */ 	lbu	$t4,0x0($v0)
-/*  f11e564:	308d0007 */ 	andi	$t5,$a0,0x7
-/*  f11e568:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f11e56c:	01aec004 */ 	sllv	$t8,$t6,$t5
-/*  f11e570:	03007827 */ 	nor	$t7,$t8,$zero
-/*  f11e574:	018f4824 */ 	and	$t1,$t4,$t7
-/*  f11e578:	a0490000 */ 	sb	$t1,0x0($v0)
-/*  f11e57c:	03e00008 */ 	jr	$ra
-/*  f11e580:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void pakSetBitflag(u32 flagnum, u8 *bitstream, bool set)
+{
+	u32 byteindex = flagnum / 8;
+	u8 mask = 1 << (flagnum % 8);
 
-// Mismatch: regalloc
-//void pakSetBitflag(u32 flagnum, u8 *bitstream, bool set)
-//{
-//	u32 byteindex = flagnum / 8;
-//	u8 mask = 1 << (flagnum % 8);
-//
-//	if (set) {
-//		bitstream[byteindex] |= mask;
-//	} else {
-//		bitstream[byteindex] &= ~mask;
-//	}
-//}
+	if (set) {
+		bitstream[byteindex] |= mask;
+	} else {
+		bitstream[byteindex] &= (u8)~mask;
+	}
+}
 
 bool pakHasBitflag(u32 flagnum, u8 *bitstream)
 {
