@@ -7,8 +7,8 @@
 void wallhitReset(void);
 
 s16 func0f13e0e0(f32 arg0);
-void wallhitRemove(struct wallhit *wallhit);
-void wallhitsRemoveByProp(struct prop *prop, s8 layer);
+void wallhitFree(struct wallhit *wallhit);
+void wallhitsFreeByProp(struct prop *prop, s8 layer);
 bool chrIsUsingPaintball(struct chrdata *chr);
 void func0f13e5c8(struct prop *prop);
 void func0f13e640(struct wallhit *wallhit, u32 arg1);

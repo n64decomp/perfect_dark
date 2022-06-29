@@ -139,7 +139,7 @@ void pak0f11e3bc(s8 device);
 void pakProbeEeprom(void);
 PakErr1 pakReadEeprom(u8 address, u8 *buffer, u32 len);
 PakErr1 pakWriteEeprom(u8 address, u8 *buffer, u32 len);
-void pakSetBitflag(u32 flagnum, u8 *bitstream, bool set);
+void pakSetBitflag(s32 flagnum, u8 *bitstream, bool set);
 bool pakHasBitflag(u32 flagnum, u8 *stream);
 void pakClearAllBitflags(u8 *flags);
 void pakN64FontCodeToAscii(char *src, char *dst, s32 len);

@@ -6016,22 +6016,19 @@ struct stageheadlimit {
 
 struct wallhit {
 	/*0x00*/ struct gfxvtx vertices[4];
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
+	/*0x30*/ struct colour unk30[4];
 	/*0x40*/ struct colour colours[4];
 	/*0x50*/ struct coord unk50;
 	/*0x5c*/ struct prop *prop;
-	/*0x60*/ u32 unk60;
+	/*0x60*/ struct prop *prop60;
 	/*0x64*/ struct gfxvtx *verticesptr;
-	/*0x68*/ s16 unk68;
+	/*0x68*/ s16 roomnum;
 	/*0x6a*/ u8 texturenum;
 	/*0x6b*/ u8 unk6b;
 	/*0x6c*/ u8 mtxindex;
 	/*0x6d*/ u8 unk6d;
 	/*0x6e*/ u8 unk6e;
-	/*0x6f*/ u8 unk6f_00 : 1;
+	/*0x6f*/ u8 inuse : 1;
 	/*0x6f*/ u8 unk6f_01 : 1;
 	/*0x6f*/ u8 unk6f_02 : 1;
 	/*0x6f*/ u8 unk6f_03 : 1;
@@ -6039,8 +6036,8 @@ struct wallhit {
 	/*0x6f*/ u8 unk6f_05 : 1;
 	/*0x70*/ u32 unk70_00 : 28;
 	/*0x70*/ u32 unk70_28 : 4;
-	/*0x74*/ struct wallhit *prev;
-	/*0x78*/ struct wallhit *next;
+	/*0x74*/ struct wallhit *globalnext; // for the used/free linked lists
+	/*0x78*/ struct wallhit *localnext; // for the room/prop specific linked list
 };
 
 /**

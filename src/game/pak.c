@@ -8614,10 +8614,10 @@ PakErr1 pakWriteEeprom(u8 address, u8 *buffer, u32 len)
 	return result == PAK_ERR1_OK ? PAK_ERR1_OK : PAK_ERR1_EEPROMWRITEFAILED;
 }
 
-void pakSetBitflag(u32 flagnum, u8 *bitstream, bool set)
+void pakSetBitflag(s32 flagnum, u8 *bitstream, bool set)
 {
-	u32 byteindex = flagnum / 8;
-	u8 mask = 1 << (flagnum % 8);
+	u32 byteindex = (u32)flagnum / 8;
+	u8 mask = 1 << ((u32)flagnum % 8);
 
 	if (set) {
 		bitstream[byteindex] |= mask;

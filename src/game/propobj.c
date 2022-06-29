@@ -5302,8 +5302,8 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 		chrClearReferences(obj->prop - g_Vars.props);
 		projectilesUnrefOwner(obj->prop);
 
-		wallhitsRemoveByProp(obj->prop, 0);
-		wallhitsRemoveByProp(obj->prop, 1);
+		wallhitsFreeByProp(obj->prop, 0);
+		wallhitsFreeByProp(obj->prop, 1);
 		func0f06ac90(obj->prop);
 
 		child = obj->prop->child;
@@ -52815,7 +52815,7 @@ void objDeform(struct defaultobj *obj, s32 level)
 		salt &= 0xffff;
 	}
 
-	wallhitsRemoveByProp(obj->prop, 1);
+	wallhitsFreeByProp(obj->prop, 1);
 
 	swap = false;
 	axis = 1;
@@ -54038,8 +54038,8 @@ void glassDestroy(struct defaultobj *obj)
 	struct prop *prop = obj->prop;
 	struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
 
-	wallhitsRemoveByProp(prop, 0);
-	wallhitsRemoveByProp(prop, 1);
+	wallhitsFreeByProp(prop, 0);
+	wallhitsFreeByProp(prop, 1);
 
 	if (obj->modelnum == MODEL_AIVILLABOT1
 			|| obj->modelnum == MODEL_AIVILLABOT2
@@ -54101,7 +54101,7 @@ void doorDestroyGlass(struct doorobj *door)
 	shardsCreate((struct coord *) &matrix.m[3][0], &matrix.m[0][0], &matrix.m[1][0], &matrix.m[2][0],
 			rodata->bbox.xmin, rodata->bbox.xmax, rodata->bbox.ymin, rodata->bbox.ymax,
 			SHARDTYPE_GLASS, prop);
-	wallhitsRemoveByProp(prop, 1);
+	wallhitsFreeByProp(prop, 1);
 
 	node = modelGetPart(model->filedata, 1);
 	rwdata = modelGetNodeRwData(model, node);
@@ -54127,7 +54127,7 @@ void cctvHandleLensShot(struct defaultobj *obj)
 				SHARDTYPE_GLASS, prop);
 	}
 
-	wallhitsRemoveByProp(prop, 1);
+	wallhitsFreeByProp(prop, 1);
 	rwdata = modelGetNodeRwData(model, modelGetPart(model->filedata, MODELPART_CCTV_0003));
 	rwdata->toggle.visible = false;
 }
