@@ -31,7 +31,7 @@ Gfx *wallhitRenderBgHitsLayer1(s32 roomnum, Gfx *gdl);
 Gfx *wallhitRenderBgHitsLayer2(s32 roomnum, Gfx *gdl);
 Gfx *wallhitRenderPropHits(Gfx *gdl, struct prop *prop, bool withalpha);
 Gfx *wallhitRenderBgHits(s32 roomnum, Gfx *gdl);
-void func0f141234(void);
+void wallhitsRecolour(void);
 void func0f14159c(struct prop *prop);
 void func0f141704(struct prop *prop);
 

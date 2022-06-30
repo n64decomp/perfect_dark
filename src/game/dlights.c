@@ -1731,7 +1731,7 @@ void lightingTick(void)
 	func0f0037ac();
 
 	if (g_Vars.remakewallhitvtx) {
-		func0f141234();
+		wallhitsRecolour();
 
 		g_Vars.remakewallhitvtx = false;
 
