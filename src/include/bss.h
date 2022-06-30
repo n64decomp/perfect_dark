@@ -75,7 +75,7 @@ extern u32 g_WallhitsNumFree;
 extern u32 g_WallhitsNumUsed;
 extern u32 var8009cc54;
 extern u32 var8009cc58;
-extern u32 var8009cc5c;
+extern s32 var8009cc5c;
 extern u32 var8009cc60;
 extern s32 var8009cc64;
 extern u32 var8009cc68;
