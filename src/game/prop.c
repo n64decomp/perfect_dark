@@ -828,15 +828,16 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 
 			bgunSetHitPos(&sp694.unk00);
 
-			if (surfacetype->num04 > 0 && (!func || (func->type & 0xff) != INVENTORYFUNCTYPE_CLOSE)) {
+			if (surfacetype->numwallhittexes > 0 && (!func || (func->type & 0xff) != INVENTORYFUNCTYPE_CLOSE)) {
 				if (shotdata.gset.weaponnum != WEAPON_UNARMED
 						&& shotdata.gset.weaponnum != WEAPON_LASER
 						&& shotdata.gset.weaponnum != WEAPON_TRANQUILIZER
 						&& shotdata.gset.weaponnum != WEAPON_FARSIGHT) {
-					uVar6 = random() % surfacetype->num04;
-					uVar6 = surfacetype->unk04[uVar6];
+					uVar6 = random() % surfacetype->numwallhittexes;
+					uVar6 = surfacetype->wallhittexes[uVar6];
 
-					if (uVar6 >= 3 && uVar6 <= 5) {
+					if (uVar6 >= WALLHITTEX_GLASS1 && uVar6 <= WALLHITTEX_GLASS3) {
+						// Use bulletproof glass hit textures instead
 						uVar6 += 10;
 					}
 

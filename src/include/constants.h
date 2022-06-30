@@ -4160,6 +4160,25 @@
 #define VTXSTORETYPE_CHRCOL 2
 #define VTXSTORETYPE_OBJCOL 3
 
+#define WALLHITTEX_WATER        0x00 // Assigned to water surfaces, but same texture as glass. Likely unused
+#define WALLHITTEX_BULLET1      0x01
+#define WALLHITTEX_SOFT         0x02
+#define WALLHITTEX_GLASS1       0x03
+#define WALLHITTEX_GLASS2       0x04
+#define WALLHITTEX_GLASS3       0x05
+#define WALLHITTEX_BULLET2      0x06
+#define WALLHITTEX_SCORCH       0x07
+#define WALLHITTEX_PAINT        0x08
+#define WALLHITTEX_BLOOD1       0x09
+#define WALLHITTEX_BLOOD2       0x0a
+#define WALLHITTEX_BLOOD3       0x0b
+#define WALLHITTEX_BLOOD4       0x0c
+#define WALLHITTEX_BPGLASS1     0x0d
+#define WALLHITTEX_BPGLASS2     0x0e
+#define WALLHITTEX_BPGLASS3     0x0f
+#define WALLHITTEX_WOOD         0x10
+#define WALLHITTEX_METAL        0x11
+
 #define WAYMODE_INIT        0
 #define WAYMODE_LOST1       1
 #define WAYMODE_RETRY       2

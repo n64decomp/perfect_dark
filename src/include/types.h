@@ -3413,9 +3413,9 @@ struct menudialogdef {
 
 struct surfacetype {
 	u16 *sounds;
-	u8 *unk04;
+	u8 *wallhittexes;
 	s16 numsounds;
-	s16 num04;
+	s16 numwallhittexes;
 };
 
 union soundnumhack {

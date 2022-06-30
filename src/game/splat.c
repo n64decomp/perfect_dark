@@ -84,7 +84,7 @@ void splatTick(struct prop *prop)
 			}
 
 			if (chr->woundedsplatsadded >= 40) {
-				func0f141704(prop);
+				wallhit0f141704(prop);
 				chr->woundedsplatsadded--;
 			}
 
@@ -863,7 +863,7 @@ glabel var7f1b6048
 /*  f149b30:	46002202 */ 	mul.s	$f8,$f4,$f0
 /*  f149b34:	e7a80098 */ 	swc1	$f8,0x98($sp)
 /*  f149b38:	8e040038 */ 	lw	$a0,0x38($s0)
-/*  f149b3c:	0fc4f972 */ 	jal	func0f13e5c8
+/*  f149b3c:	0fc4f972 */ 	jal	wallhit0f13e5c8
 /*  f149b40:	e7ae0094 */ 	swc1	$f14,0x94($sp)
 /*  f149b44:	8e02003c */ 	lw	$v0,0x3c($s0)
 /*  f149b48:	c7ae0094 */ 	lwc1	$f14,0x94($sp)
@@ -912,7 +912,7 @@ glabel var7f1b6048
 /*  f149bf0:	afaf0044 */ 	sw	$t7,0x44($sp)
 /*  f149bf4:	8e180058 */ 	lw	$t8,0x58($s0)
 /*  f149bf8:	afb9004c */ 	sw	$t9,0x4c($sp)
-/*  f149bfc:	0fc4fd41 */ 	jal	func0f13f504
+/*  f149bfc:	0fc4fd41 */ 	jal	wallhit0f13f504
 /*  f149c00:	afb80048 */ 	sw	$t8,0x48($sp)
 /*  f149c04:	8fa20088 */ 	lw	$v0,0x88($sp)
 /*  f149c08:	8fa80084 */ 	lw	$t0,0x84($sp)

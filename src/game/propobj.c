@@ -52291,7 +52291,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool w
 				if (obj->flags2 & OBJFLAG2_DRAWONTOP) {
 					sp60 = 0;
 				} else if (obj->flags & OBJFLAG_DEACTIVATED) {
-					sp60 = func0f140750(&prop->pos);
+					sp60 = wallhit0f140750(&prop->pos);
 				} else {
 					sp60 = 1;
 				}
@@ -52305,7 +52305,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool w
 				if (obj->flags2 & OBJFLAG2_DRAWONTOP) {
 					sp60 = 0;
 				} else if (obj->flags & OBJFLAG_DEACTIVATED) {
-					sp60 = func0f140750(&prop->pos);
+					sp60 = wallhit0f140750(&prop->pos);
 				} else {
 					sp60 = 1;
 				}
@@ -52315,7 +52315,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool w
 				if (obj->flags2 & OBJFLAG2_DRAWONTOP) {
 					sp60 = 0;
 				} else if (obj->flags & (OBJFLAG_DEACTIVATED | OBJFLAG_20000000)) {
-					sp60 = func0f140750(&prop->pos);
+					sp60 = wallhit0f140750(&prop->pos);
 				} else {
 					sp60 = 1;
 				}
@@ -54710,11 +54710,12 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 			struct prop *hitprop = hit->prop;
 			s8 iswindoweddoor = obj->model->filedata->skel == &g_SkelWindowedDoor ? true : false;
 
-			textureindex = (random() % 3) + 3;
+			textureindex = WALLHITTEX_GLASS1 + (random() % 3);
 
 			if ((obj->type == OBJTYPE_DOOR && !iswindoweddoor)
 					|| (obj->flags & OBJFLAG_INVINCIBLE)
 					|| (obj->flags2 & OBJFLAG2_IMMUNETOGUNFIRE)) {
+				// Use a bulletproof glass texture
 				textureindex += 10;
 			}
 
@@ -54735,21 +54736,22 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 				surfacetype = g_SurfaceTypes[0];
 			}
 
-			if (surfacetype->num04 > 0) {
+			if (surfacetype->numwallhittexes > 0) {
 				spc4 = false;
-				spcc = random() % surfacetype->num04;
+				spcc = random() % surfacetype->numwallhittexes;
 
 				if ((obj->model->filedata->skel == &g_SkelWindowedDoor && hit->unk44 == modelGetPart(obj->model->filedata, MODELPART_WINDOWEDDOOR_0003))
 						|| (obj->model->filedata->skel == &g_SkelCctv && hit->unk44 == modelGetPart(obj->model->filedata, MODELPART_CCTV_LENS))) {
 					spcb = true;
 				}
 
-				textureindex = surfacetype->unk04[spcc];
+				textureindex = surfacetype->wallhittexes[spcc];
 
-				if (textureindex >= 3 && textureindex <= 5) {
+				if (textureindex >= WALLHITTEX_GLASS1 && textureindex <= WALLHITTEX_GLASS3) {
 					if (obj->type == OBJTYPE_DOOR
 							|| (obj->flags & OBJFLAG_INVINCIBLE)
 							|| (obj->flags2 & OBJFLAG2_IMMUNETOGUNFIRE)) {
+						// Use a bulletproof glass texture
 						textureindex += 10;
 					}
 

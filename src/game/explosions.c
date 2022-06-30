@@ -1219,7 +1219,7 @@ u32 explosionTick(struct prop *prop)
 					s3 = spb0.unk2c == 2;
 				}
 
-				func0f13f504(&exp->unk3d0, &exp->unk3dc, &prop->pos, 0, 0, 7, exp->room, 0, 0, -1, 0, chr, scorchsize, scorchsize, 0xff, 0xff, 0, 0, 0, s3);
+				wallhit0f13f504(&exp->unk3d0, &exp->unk3dc, &prop->pos, 0, 0, 7, exp->room, 0, 0, -1, 0, chr, scorchsize, scorchsize, 0xff, 0xff, 0, 0, 0, s3);
 			}
 		}
 	}

@@ -15,15 +15,15 @@ struct var800ab718 var800ab718[8];
 
 // Default
 u16 g_SurfaceTypeDefaultSounds[] = { SFX_HIT_STONE_8087, SFX_HIT_STONE_8088 };
-u8 var80084334[] = { 6 };
+u8 g_SurfaceTypeDefaultTexes[] = { WALLHITTEX_BULLET2 };
 
 struct surfacetype g_SurfaceTypeDefault = {
-	g_SurfaceTypeDefaultSounds, var80084334, 2, 1,
+	g_SurfaceTypeDefaultSounds, g_SurfaceTypeDefaultTexes, 2, 1,
 };
 
 // Stone
 u16 var80084344[] = { SFX_HIT_STONE_8087, SFX_HIT_STONE_8088 };
-u8 var80084348[] = { 1 };
+u8 var80084348[] = { WALLHITTEX_BULLET1 };
 
 struct surfacetype g_SurfaceTypeStone = {
 	var80084344, var80084348, 2, 1,
@@ -31,7 +31,7 @@ struct surfacetype g_SurfaceTypeStone = {
 
 // Wood
 u16 g_SurfaceTypeWoodSounds[] = { SFX_HIT_WOOD_807E, SFX_HIT_WOOD_807F };
-u8 var8008435c[] = { 0x10 };
+u8 var8008435c[] = { WALLHITTEX_WOOD };
 
 struct surfacetype g_SurfaceTypeWood = {
 	g_SurfaceTypeWoodSounds, var8008435c, 2, 1,
@@ -39,7 +39,7 @@ struct surfacetype g_SurfaceTypeWood = {
 
 // Metal
 u16 g_SurfaceTypeMetalSounds[] = { SFX_HIT_METAL_8079, SFX_HIT_METAL_807B };
-u8 var80084370[] = { 0x11 };
+u8 var80084370[] = { WALLHITTEX_METAL };
 
 struct surfacetype g_SurfaceTypeMetal = {
 	g_SurfaceTypeMetalSounds, var80084370, 2, 1,
@@ -47,7 +47,7 @@ struct surfacetype g_SurfaceTypeMetal = {
 
 // Glass
 u16 g_SurfaceTypeGlassSounds[] = { SFX_HIT_GLASS };
-u8 var80084384[] = { 3, 4, 5 };
+u8 var80084384[] = { WALLHITTEX_GLASS1, WALLHITTEX_GLASS2, WALLHITTEX_GLASS3 };
 
 struct surfacetype g_SurfaceTypeGlass = {
 	g_SurfaceTypeGlassSounds, var80084384, 1, 3,
@@ -55,7 +55,7 @@ struct surfacetype g_SurfaceTypeGlass = {
 
 // Snow
 u16 g_SurfaceTypeSnowSounds[] = { SFX_HIT_SNOW };
-u8 var80084398[] = { 1 };
+u8 var80084398[] = { WALLHITTEX_BULLET1 };
 
 struct surfacetype g_SurfaceTypeSnow = {
 	g_SurfaceTypeSnowSounds, var80084398, 1, 1,
@@ -63,7 +63,7 @@ struct surfacetype g_SurfaceTypeSnow = {
 
 // Dirt
 u16 g_SurfaceTypeDirtSounds[] = { SFX_HIT_DIRT_8084, SFX_HIT_DIRT_8085 };
-u8 var800843ac[] = { 2 };
+u8 var800843ac[] = { WALLHITTEX_SOFT };
 
 struct surfacetype g_SurfaceTypeDirt = {
 	g_SurfaceTypeDirtSounds, var800843ac, 2, 1,
@@ -71,7 +71,7 @@ struct surfacetype g_SurfaceTypeDirt = {
 
 // Mud
 u16 g_SurfaceTypeMudSounds[] = { SFX_HIT_MUD_8081, SFX_HIT_MUD_8082, SFX_HIT_MUD_8083 };
-u8 var800843c4[] = { 2 };
+u8 var800843c4[] = { WALLHITTEX_SOFT };
 
 struct surfacetype g_SurfaceTypeMud = {
 	g_SurfaceTypeMudSounds, var800843c4, 3, 1,
@@ -79,7 +79,7 @@ struct surfacetype g_SurfaceTypeMud = {
 
 // Tile
 u16 g_SurfaceTypeTileSounds[] = { SFX_HIT_TILE };
-u8 var800843d8[] = { 1 };
+u8 var800843d8[] = { WALLHITTEX_BULLET1 };
 
 struct surfacetype g_SurfaceTypeTile = {
 	g_SurfaceTypeTileSounds, var800843d8, 1, 1,
@@ -87,7 +87,7 @@ struct surfacetype g_SurfaceTypeTile = {
 
 // Metal obj
 u16 g_SurfaceTypeMetalObjSounds[] = { SFX_HIT_METALOBJ_8089, SFX_HIT_METALOBJ_808A };
-u8 var800843ec[] = { 1, 6 };
+u8 var800843ec[] = { WALLHITTEX_BULLET1, WALLHITTEX_BULLET2 };
 
 struct surfacetype g_SurfaceTypeMetalObj = {
 	g_SurfaceTypeMetalObjSounds, var800843ec, 2, 2,
@@ -95,7 +95,7 @@ struct surfacetype g_SurfaceTypeMetalObj = {
 
 // Chr
 u16 g_SurfaceTypeChrSounds[] = { SFX_HIT_CHR };
-u8 var80084400[] = { 2 };
+u8 var80084400[] = { WALLHITTEX_SOFT };
 
 struct surfacetype g_SurfaceTypeChr = {
 	g_SurfaceTypeChrSounds, var80084400, 1, 1,
@@ -103,7 +103,7 @@ struct surfacetype g_SurfaceTypeChr = {
 
 // Glass XLU
 u16 g_SurfaceTypeGlassXluSounds[] = { SFX_HIT_GLASS };
-u8 var80084414[] = { 3, 4, 5 };
+u8 var80084414[] = { WALLHITTEX_GLASS1, WALLHITTEX_GLASS2, WALLHITTEX_GLASS3 };
 
 struct surfacetype g_SurfaceTypeGlassXlu = {
 	g_SurfaceTypeGlassXluSounds, var80084414, 1, 3,
@@ -116,7 +116,7 @@ struct surfacetype g_SurfaceTypeNone = {
 
 // Shallow water
 u16 g_SurfaceTypeShallowWaterSounds[] = { SFX_HIT_WATER };
-u8 var80084434[] = { 0 };
+u8 var80084434[] = { WALLHITTEX_WATER };
 
 struct surfacetype g_SurfaceTypeShallowWater = {
 	g_SurfaceTypeShallowWaterSounds, var80084434, 1, 1,
@@ -124,7 +124,7 @@ struct surfacetype g_SurfaceTypeShallowWater = {
 
 // Deep water
 u16 g_SurfaceTypeDeepWaterSounds[] = { SFX_HIT_WATER };
-u8 var80084448[] = { 0 };
+u8 var80084448[] = { WALLHITTEX_WATER };
 
 struct surfacetype g_SurfaceTypeDeepWater = {
 	g_SurfaceTypeDeepWaterSounds, var80084448, 1, 1,

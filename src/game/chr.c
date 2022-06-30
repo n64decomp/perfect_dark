@@ -1429,7 +1429,7 @@ void chrRemove(struct prop *prop, bool delete)
 		chair->hidden &= ~OBJHFLAG_OCCUPIEDCHAIR;
 	}
 
-	func0f14159c(prop);
+	wallhit0f14159c(prop);
 	func0f0926bc(prop, 1, 0xffff);
 	shieldhitsRemoveByProp(prop);
 	modelFreeVertices(VTXSTORETYPE_CHRVTX, model);
@@ -5336,8 +5336,8 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 				if (surfacetype >= 0 && surfacetype < 15) {
 					type = g_SurfaceTypes[surfacetype];
 
-					if (type->num04 > 0) {
-						index = random() % type->num04;
+					if (type->numwallhittexes > 0) {
+						index = random() % type->numwallhittexes;
 
 						wallhitCreate(
 								&hit->hitthing.unk00,
@@ -5345,7 +5345,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 								&shotdata->gunpos,
 								0,
 								0,
-								type->unk04[index],
+								type->wallhittexes[index],
 								1,
 								hit->prop,
 								hit->mtxindex,
@@ -5373,7 +5373,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 					type = g_SurfaceTypes[g_Textures[hit->hitthing.texturenum].surfacetype];
 				}
 
-				index = random() % type->num04;
+				index = random() % type->numwallhittexes;
 
 				wallhitCreate(
 						&hit->hitthing.unk00,
@@ -5381,7 +5381,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 						&shotdata->gunpos,
 						0,
 						0,
-						type->unk04[index],
+						type->wallhittexes[index],
 						1,
 						chr->weapons_held[2],
 						hit->mtxindex,

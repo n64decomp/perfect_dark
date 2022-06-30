@@ -18,6 +18,12 @@
 #include "data.h"
 #include "types.h"
 
+#define WALLHITTYPE_SOFT   0
+#define WALLHITTYPE_BULLET 1
+#define WALLHITTYPE_SCORCH 2
+#define WALLHITTYPE_BLOOD  3
+#define WALLHITTYPE_PAINT  4
+
 const char var7f1b5a10[] = "WallHit_MakeSpaceRoom : ERROR - Couldn't find any space in room %d\n";
 
 struct wallhit *g_Wallhits;
@@ -32,34 +38,34 @@ u32 var8007f750 = 0;
 f32 var8007f754 = 0;
 f32 var8007f758 = 0;
 
-struct var8007f75c {
-	f32 unk00;
-	f32 unk04;
-	u8 unk08;
+struct wallhittex {
+	f32 width;
+	f32 height;
+	u8 type;
 };
 
-struct var8007f75c var8007f75c[] = {
-	/*0x00*/ { 10,  10,  1 },
-	/*0x01*/ { 6,   6,   1 },
-	/*0x02*/ { 8,   8,   0 },
-	/*0x03*/ { 6,   6,   1 },
-	/*0x04*/ { 8,   8,   1 },
-	/*0x05*/ { 12,  12,  1 },
-	/*0x06*/ { 6,   6,   1 },
-	/*0x07*/ { 100, 100, 2 },
-	/*0x08*/ { 24,  24,  4 },
-	/*0x09*/ { 20,  20,  3 },
-	/*0x0a*/ { 20,  20,  3 },
-	/*0x0b*/ { 20,  20,  3 },
-	/*0x0c*/ { 20,  20,  3 },
-	/*0x0d*/ { 6,   6,   1 },
-	/*0x0e*/ { 8,   8,   1 },
-	/*0x0f*/ { 12,  12,  1 },
-	/*0x10*/ { 4,   4,   1 },
-	/*0x11*/ { 6,   6,   1 },
+struct wallhittex g_WallhitTexes[] = {
+	/*0x00*/ { 10,  10,  WALLHITTYPE_BULLET }, // WALLHITTEX_WATER
+	/*0x01*/ { 6,   6,   WALLHITTYPE_BULLET }, // WALLHITTEX_BULLET1
+	/*0x02*/ { 8,   8,   WALLHITTYPE_SOFT   }, // WALLHITTEX_SOFT
+	/*0x03*/ { 6,   6,   WALLHITTYPE_BULLET }, // WALLHITTEX_GLASS1
+	/*0x04*/ { 8,   8,   WALLHITTYPE_BULLET }, // WALLHITTEX_GLASS2
+	/*0x05*/ { 12,  12,  WALLHITTYPE_BULLET }, // WALLHITTEX_GLASS3
+	/*0x06*/ { 6,   6,   WALLHITTYPE_BULLET }, // WALLHITTEX_BULLET2
+	/*0x07*/ { 100, 100, WALLHITTYPE_SCORCH }, // WALLHITTEX_SCORCH
+	/*0x08*/ { 24,  24,  WALLHITTYPE_PAINT  }, // WALLHITTEX_PAINT
+	/*0x09*/ { 20,  20,  WALLHITTYPE_BLOOD  }, // WALLHITTEX_BLOOD1
+	/*0x0a*/ { 20,  20,  WALLHITTYPE_BLOOD  }, // WALLHITTEX_BLOOD2
+	/*0x0b*/ { 20,  20,  WALLHITTYPE_BLOOD  }, // WALLHITTEX_BLOOD3
+	/*0x0c*/ { 20,  20,  WALLHITTYPE_BLOOD  }, // WALLHITTEX_BLOOD4
+	/*0x0d*/ { 6,   6,   WALLHITTYPE_BULLET }, // WALLHITTEX_BPGLASS1
+	/*0x0e*/ { 8,   8,   WALLHITTYPE_BULLET }, // WALLHITTEX_BPGLASS2
+	/*0x0f*/ { 12,  12,  WALLHITTYPE_BULLET }, // WALLHITTEX_BPGLASS3
+	/*0x10*/ { 4,   4,   WALLHITTYPE_BULLET }, // WALLHITTEX_WOOD
+	/*0x11*/ { 6,   6,   WALLHITTYPE_BULLET }, // WALLHITTEX_METAL
 };
 
-s16 func0f13e0e0(f32 value)
+s16 wallhit0f13e0e0(f32 value)
 {
 	if (value > var8007f754) {
 		var8007f754 = value;
@@ -190,12 +196,12 @@ void wallhitsFreeByProp(struct prop *prop, s8 layer)
 
 	if (layer) {
 		while (copy->wallhits2) {
-			func0f13e640(copy->wallhits2, 1);
+			wallhit0f13e640(copy->wallhits2, 1);
 			wallhitFree(copy->wallhits2);
 		}
 	} else {
 		while (copy->wallhits1) {
-			func0f13e640(copy->wallhits1, 1);
+			wallhit0f13e640(copy->wallhits1, 1);
 			wallhitFree(copy->wallhits1);
 		}
 	}
@@ -219,7 +225,7 @@ bool chrIsUsingPaintball(struct chrdata *chr)
 	return paintball;
 }
 
-void func0f13e5c8(struct prop *prop)
+void wallhit0f13e5c8(struct prop *prop)
 {
 	if (prop && prop->chr && (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER)) {
 		struct chrdata *chr = prop->chr;
@@ -231,7 +237,7 @@ void func0f13e5c8(struct prop *prop)
 	}
 }
 
-void func0f13e640(struct wallhit *hit, u32 arg1)
+void wallhit0f13e640(struct wallhit *hit, u32 arg1)
 {
 	if (hit->unk6f_02 == 0) {
 		if (hit->prop60) {
@@ -250,7 +256,7 @@ void func0f13e640(struct wallhit *hit, u32 arg1)
 		var8009cc48--;
 		g_WallhitsNumUsed++;
 
-		if (var8007f75c[hit->texturenum].unk08 == 3) {
+		if (g_WallhitTexes[hit->texturenum].type == WALLHITTYPE_BLOOD) {
 			var8009cc54--;
 		} else {
 			var8009cc58--;
@@ -281,10 +287,10 @@ bool wallhit0f13e744(s32 room)
 					&& (room == -1
 						|| (room == 0 && g_Wallhits[i].prop60 != NULL)
 						|| (room && room == g_Wallhits[i].roomnum))) {
-				if (var8007f75c[g_Wallhits[i].texturenum].unk08 == 3) {
+				if (g_WallhitTexes[g_Wallhits[i].texturenum].type == WALLHITTYPE_BLOOD) {
 					count1and2++;
 
-					if (g_Wallhits[i].texturenum >= 12 && g_Wallhits[i].texturenum <= 12) {
+					if (g_Wallhits[i].texturenum >= WALLHITTEX_BLOOD4 && g_Wallhits[i].texturenum <= WALLHITTEX_BLOOD4) {
 						if (g_Wallhits[i].unk70_00 < bestvalue1) {
 							bestvalue1 = g_Wallhits[i].unk70_00;
 							bestindex1 = i;
@@ -314,14 +320,14 @@ bool wallhit0f13e744(s32 room)
 
 		if (f0 > var8009cc78 && (bestindex1 != -1 || bestindex2 != -1)) {
 			if (bestindex1 != -1) {
-				func0f13e640(&g_Wallhits[bestindex1], TICKS(30));
+				wallhit0f13e640(&g_Wallhits[bestindex1], TICKS(30));
 				return true;
 			} else {
-				func0f13e640(&g_Wallhits[bestindex2], TICKS(30));
+				wallhit0f13e640(&g_Wallhits[bestindex2], TICKS(30));
 				return true;
 			}
 		} else if (bestindex3 != -1) {
-			func0f13e640(&g_Wallhits[bestindex3], TICKS(30));
+			wallhit0f13e640(&g_Wallhits[bestindex3], TICKS(30));
 			return true;
 		}
 	}
@@ -489,16 +495,16 @@ glabel var7f1b5d18
 /*  f13eca0:	8d29cc74 */ 	lw	$t1,%lo(var8009cc74)($t1)
 /*  f13eca4:	0049082a */ 	slt	$at,$v0,$t1
 /*  f13eca8:	1020000a */ 	beqz	$at,.L0f13ecd4
-/*  f13ecac:	3c028008 */ 	lui	$v0,%hi(var8007f75c+0xd8)
-/*  f13ecb0:	8c42f834 */ 	lw	$v0,%lo(var8007f75c+0xd8)($v0)
-/*  f13ecb4:	3c018008 */ 	lui	$at,%hi(var8007f75c+0xd8)
+/*  f13ecac:	3c028008 */ 	lui	$v0,%hi(g_WallhitTexes+0xd8)
+/*  f13ecb0:	8c42f834 */ 	lw	$v0,%lo(g_WallhitTexes+0xd8)($v0)
+/*  f13ecb4:	3c018008 */ 	lui	$at,%hi(g_WallhitTexes+0xd8)
 /*  f13ecb8:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f13ecbc:	ac22f834 */ 	sw	$v0,%lo(var8007f75c+0xd8)($at)
+/*  f13ecbc:	ac22f834 */ 	sw	$v0,%lo(g_WallhitTexes+0xd8)($at)
 /*  f13ecc0:	24010008 */ 	addiu	$at,$zero,0x8
 /*  f13ecc4:	14410003 */ 	bne	$v0,$at,.L0f13ecd4
-/*  f13ecc8:	3c018008 */ 	lui	$at,%hi(var8007f75c+0xd8)
+/*  f13ecc8:	3c018008 */ 	lui	$at,%hi(g_WallhitTexes+0xd8)
 /*  f13eccc:	0fc4fa65 */ 	jal	wallhit0f13e994
-/*  f13ecd0:	ac20f834 */ 	sw	$zero,%lo(var8007f75c+0xd8)($at)
+/*  f13ecd0:	ac20f834 */ 	sw	$zero,%lo(g_WallhitTexes+0xd8)($at)
 .L0f13ecd4:
 /*  f13ecd4:	3c02800a */ 	lui	$v0,%hi(g_WallhitsMax)
 /*  f13ecd8:	8c42cc44 */ 	lw	$v0,%lo(g_WallhitsMax)($v0)
@@ -1239,10 +1245,10 @@ const char var7f1b5cd0[] = "Wallhit colour %d not implemented, substituting blac
 void wallhitCreate(struct coord *arg0, struct coord *arg1, struct coord *arg2, u32 arg3, u32 arg4, s16 arg5, s16 room, struct prop *arg7, s8 arg8, s8 arg9, struct chrdata *chr, bool arg11)
 {
 	f32 f0 = RANDOMFRAC() * 0.1f + 0.6f;
-	f32 a = var8007f75c[arg5].unk00 * f0;
-	f32 b = var8007f75c[arg5].unk04 * f0;
+	f32 a = g_WallhitTexes[arg5].width * f0;
+	f32 b = g_WallhitTexes[arg5].height * f0;
 
-	func0f13f504(arg0, arg1, arg2, arg3,
+	wallhit0f13f504(arg0, arg1, arg2, arg3,
 			arg4, arg5, room, arg7,
 			0, arg8, arg9, chr,
 			a, b, 0xff, 0xff,
@@ -1251,46 +1257,46 @@ void wallhitCreate(struct coord *arg0, struct coord *arg1, struct coord *arg2, u
 
 #if PAL
 GLOBAL_ASM(
-glabel func0f13f504
+glabel wallhit0f13f504
 .late_rodata
 glabel var7f1b5d24
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d28
-.word func0f13f504+0xe8 # f13f5ec
+.word wallhit0f13f504+0xe8 # f13f5ec
 glabel var7f1b5d2c
-.word func0f13f504+0xe8 # f13f5ec
+.word wallhit0f13f504+0xe8 # f13f5ec
 glabel var7f1b5d30
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d34
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d38
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d3c
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d40
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d44
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d48
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d4c
-.word func0f13f504+0xe8 # f13f5ec
+.word wallhit0f13f504+0xe8 # f13f5ec
 glabel var7f1b5d50
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d54
 .word 0x3c8efa35
 glabel var7f1b5d58
 .word 0x3b808081
 glabel var7f1b5d5c
-.word func0f13f504+0xe48 # f14034c
+.word wallhit0f13f504+0xe48 # f14034c
 glabel var7f1b5d60
-.word func0f13f504+0xdfc # f140300
+.word wallhit0f13f504+0xdfc # f140300
 glabel var7f1b5d64
-.word func0f13f504+0xec0 # f1403c4
+.word wallhit0f13f504+0xec0 # f1403c4
 glabel var7f1b5d68
-.word func0f13f504+0xf38 # f14043c
+.word wallhit0f13f504+0xf38 # f14043c
 glabel var7f1b5d6c
-.word func0f13f504+0xf58 # f14045c
+.word wallhit0f13f504+0xf58 # f14045c
 .text
 /*  f13f504:	27bdfe00 */ 	addiu	$sp,$sp,-512
 /*  f13f508:	afbf0024 */ 	sw	$ra,0x24($sp)
@@ -1319,17 +1325,17 @@ glabel var7f1b5d6c
 /*  f13f564:	10400017 */ 	beqz	$v0,.L0f13f5c4
 /*  f13f568:	00408025 */ 	or	$s0,$v0,$zero
 /*  f13f56c:	87aa0216 */ 	lh	$t2,0x216($sp)
-/*  f13f570:	3c0e8008 */ 	lui	$t6,%hi(var8007f75c)
-/*  f13f574:	25cef75c */ 	addiu	$t6,$t6,%lo(var8007f75c)
+/*  f13f570:	3c0e8008 */ 	lui	$t6,%hi(g_WallhitTexes)
+/*  f13f574:	25cef75c */ 	addiu	$t6,$t6,%lo(g_WallhitTexes)
 /*  f13f578:	000a4880 */ 	sll	$t1,$t2,0x2
 /*  f13f57c:	012a4823 */ 	subu	$t1,$t1,$t2
 /*  f13f580:	00094880 */ 	sll	$t1,$t1,0x2
 /*  f13f584:	012e1021 */ 	addu	$v0,$t1,$t6
 /*  f13f588:	904d0008 */ 	lbu	$t5,0x8($v0)
 /*  f13f58c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f13f590:	3c0b8008 */ 	lui	$t3,%hi(var8007f75c+0x54)
+/*  f13f590:	3c0b8008 */ 	lui	$t3,%hi(g_WallhitTexes+0x54)
 /*  f13f594:	11a1000b */ 	beq	$t5,$at,.L0f13f5c4
-/*  f13f598:	256bf7b0 */ 	addiu	$t3,$t3,%lo(var8007f75c+0x54)
+/*  f13f598:	256bf7b0 */ 	addiu	$t3,$t3,%lo(g_WallhitTexes+0x54)
 /*  f13f59c:	104b0006 */ 	beq	$v0,$t3,.L0f13f5b8
 /*  f13f5a0:	24180008 */ 	addiu	$t8,$zero,0x8
 /*  f13f5a4:	3c014170 */ 	lui	$at,0x4170
@@ -1367,12 +1373,12 @@ glabel var7f1b5d6c
 /*  f13f618:	afaa0178 */ 	sw	$t2,0x178($sp)
 .L0f13f61c:
 /*  f13f61c:	87a90216 */ 	lh	$t1,0x216($sp)
-/*  f13f620:	3c0d8008 */ 	lui	$t5,%hi(var8007f75c+0x8)
+/*  f13f620:	3c0d8008 */ 	lui	$t5,%hi(g_WallhitTexes+0x8)
 /*  f13f624:	00097080 */ 	sll	$t6,$t1,0x2
 /*  f13f628:	01c97023 */ 	subu	$t6,$t6,$t1
 /*  f13f62c:	000e7080 */ 	sll	$t6,$t6,0x2
 /*  f13f630:	01ae6821 */ 	addu	$t5,$t5,$t6
-/*  f13f634:	91adf764 */ 	lbu	$t5,%lo(var8007f75c+0x8)($t5)
+/*  f13f634:	91adf764 */ 	lbu	$t5,%lo(g_WallhitTexes+0x8)($t5)
 /*  f13f638:	afad0178 */ 	sw	$t5,0x178($sp)
 .L0f13f63c:
 /*  f13f63c:	24a541b4 */ 	addiu	$a1,$a1,%lo(var800a41b4)
@@ -1439,13 +1445,13 @@ glabel var7f1b5d6c
 /*  f13f71c:	00194880 */ 	sll	$t1,$t9,0x2
 /*  f13f720:	01394823 */ 	subu	$t1,$t1,$t9
 /*  f13f724:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f13f728:	3c0c8008 */ 	lui	$t4,%hi(var8007f75c+0x8)
+/*  f13f728:	3c0c8008 */ 	lui	$t4,%hi(g_WallhitTexes+0x8)
 /*  f13f72c:	270fffff */ 	addiu	$t7,$t8,-1
 /*  f13f730:	250a0001 */ 	addiu	$t2,$t0,0x1
 /*  f13f734:	ac6f0000 */ 	sw	$t7,0x0($v1)
 /*  f13f738:	ac8a0000 */ 	sw	$t2,0x0($a0)
 /*  f13f73c:	01896021 */ 	addu	$t4,$t4,$t1
-/*  f13f740:	918cf764 */ 	lbu	$t4,%lo(var8007f75c+0x8)($t4)
+/*  f13f740:	918cf764 */ 	lbu	$t4,%lo(g_WallhitTexes+0x8)($t4)
 /*  f13f744:	3c05800a */ 	lui	$a1,%hi(var800a41b4)
 /*  f13f748:	24010003 */ 	addiu	$at,$zero,0x3
 /*  f13f74c:	24a541b4 */ 	addiu	$a1,$a1,%lo(var800a41b4)
@@ -2124,13 +2130,13 @@ glabel var7f1b5d6c
 /*  f14013c:	afa40040 */ 	sw	$a0,0x40($sp)
 /*  f140140:	afa3003c */ 	sw	$v1,0x3c($sp)
 /*  f140144:	46082280 */ 	add.s	$f10,$f4,$f8
-/*  f140148:	0fc4f838 */ 	jal	func0f13e0e0
+/*  f140148:	0fc4f838 */ 	jal	wallhit0f13e0e0
 /*  f14014c:	e7aa0060 */ 	swc1	$f10,0x60($sp)
 /*  f140150:	a7a20056 */ 	sh	$v0,0x56($sp)
-/*  f140154:	0fc4f838 */ 	jal	func0f13e0e0
+/*  f140154:	0fc4f838 */ 	jal	wallhit0f13e0e0
 /*  f140158:	c7ac005c */ 	lwc1	$f12,0x5c($sp)
 /*  f14015c:	a7a20054 */ 	sh	$v0,0x54($sp)
-/*  f140160:	0fc4f838 */ 	jal	func0f13e0e0
+/*  f140160:	0fc4f838 */ 	jal	wallhit0f13e0e0
 /*  f140164:	c7ac0060 */ 	lwc1	$f12,0x60($sp)
 /*  f140168:	8fa3003c */ 	lw	$v1,0x3c($sp)
 /*  f14016c:	87b90056 */ 	lh	$t9,0x56($sp)
@@ -2550,46 +2556,46 @@ glabel var7f1b5d6c
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f13f504
+glabel wallhit0f13f504
 .late_rodata
 glabel var7f1b5d24
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d28
-.word func0f13f504+0xe8 # f13f5ec
+.word wallhit0f13f504+0xe8 # f13f5ec
 glabel var7f1b5d2c
-.word func0f13f504+0xe8 # f13f5ec
+.word wallhit0f13f504+0xe8 # f13f5ec
 glabel var7f1b5d30
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d34
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d38
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d3c
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d40
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d44
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d48
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d4c
-.word func0f13f504+0xe8 # f13f5ec
+.word wallhit0f13f504+0xe8 # f13f5ec
 glabel var7f1b5d50
-.word func0f13f504+0x104 # f13f608
+.word wallhit0f13f504+0x104 # f13f608
 glabel var7f1b5d54
 .word 0x3c8efa35
 glabel var7f1b5d58
 .word 0x3b808081
 glabel var7f1b5d5c
-.word func0f13f504+0xe48 # f14034c
+.word wallhit0f13f504+0xe48 # f14034c
 glabel var7f1b5d60
-.word func0f13f504+0xdfc # f140300
+.word wallhit0f13f504+0xdfc # f140300
 glabel var7f1b5d64
-.word func0f13f504+0xec0 # f1403c4
+.word wallhit0f13f504+0xec0 # f1403c4
 glabel var7f1b5d68
-.word func0f13f504+0xf38 # f14043c
+.word wallhit0f13f504+0xf38 # f14043c
 glabel var7f1b5d6c
-.word func0f13f504+0xf58 # f14045c
+.word wallhit0f13f504+0xf58 # f14045c
 .text
 /*  f13f504:	27bdfe00 */ 	addiu	$sp,$sp,-512
 /*  f13f508:	afbf0024 */ 	sw	$ra,0x24($sp)
@@ -2618,17 +2624,17 @@ glabel var7f1b5d6c
 /*  f13f564:	10400017 */ 	beqz	$v0,.L0f13f5c4
 /*  f13f568:	00408025 */ 	or	$s0,$v0,$zero
 /*  f13f56c:	87aa0216 */ 	lh	$t2,0x216($sp)
-/*  f13f570:	3c0e8008 */ 	lui	$t6,%hi(var8007f75c)
-/*  f13f574:	25cef75c */ 	addiu	$t6,$t6,%lo(var8007f75c)
+/*  f13f570:	3c0e8008 */ 	lui	$t6,%hi(g_WallhitTexes)
+/*  f13f574:	25cef75c */ 	addiu	$t6,$t6,%lo(g_WallhitTexes)
 /*  f13f578:	000a4880 */ 	sll	$t1,$t2,0x2
 /*  f13f57c:	012a4823 */ 	subu	$t1,$t1,$t2
 /*  f13f580:	00094880 */ 	sll	$t1,$t1,0x2
 /*  f13f584:	012e1021 */ 	addu	$v0,$t1,$t6
 /*  f13f588:	904d0008 */ 	lbu	$t5,0x8($v0)
 /*  f13f58c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f13f590:	3c0b8008 */ 	lui	$t3,%hi(var8007f75c+0x54)
+/*  f13f590:	3c0b8008 */ 	lui	$t3,%hi(g_WallhitTexes+0x54)
 /*  f13f594:	11a1000b */ 	beq	$t5,$at,.L0f13f5c4
-/*  f13f598:	256bf7b0 */ 	addiu	$t3,$t3,%lo(var8007f75c+0x54)
+/*  f13f598:	256bf7b0 */ 	addiu	$t3,$t3,%lo(g_WallhitTexes+0x54)
 /*  f13f59c:	104b0006 */ 	beq	$v0,$t3,.L0f13f5b8
 /*  f13f5a0:	24180008 */ 	addiu	$t8,$zero,0x8
 /*  f13f5a4:	3c014170 */ 	lui	$at,0x4170
@@ -2666,12 +2672,12 @@ glabel var7f1b5d6c
 /*  f13f618:	afaa0178 */ 	sw	$t2,0x178($sp)
 .L0f13f61c:
 /*  f13f61c:	87a90216 */ 	lh	$t1,0x216($sp)
-/*  f13f620:	3c0d8008 */ 	lui	$t5,%hi(var8007f75c+0x8)
+/*  f13f620:	3c0d8008 */ 	lui	$t5,%hi(g_WallhitTexes+0x8)
 /*  f13f624:	00097080 */ 	sll	$t6,$t1,0x2
 /*  f13f628:	01c97023 */ 	subu	$t6,$t6,$t1
 /*  f13f62c:	000e7080 */ 	sll	$t6,$t6,0x2
 /*  f13f630:	01ae6821 */ 	addu	$t5,$t5,$t6
-/*  f13f634:	91adf764 */ 	lbu	$t5,%lo(var8007f75c+0x8)($t5)
+/*  f13f634:	91adf764 */ 	lbu	$t5,%lo(g_WallhitTexes+0x8)($t5)
 /*  f13f638:	afad0178 */ 	sw	$t5,0x178($sp)
 .L0f13f63c:
 /*  f13f63c:	24a541b4 */ 	addiu	$a1,$a1,%lo(var800a41b4)
@@ -2738,13 +2744,13 @@ glabel var7f1b5d6c
 /*  f13f71c:	00194880 */ 	sll	$t1,$t9,0x2
 /*  f13f720:	01394823 */ 	subu	$t1,$t1,$t9
 /*  f13f724:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f13f728:	3c0c8008 */ 	lui	$t4,%hi(var8007f75c+0x8)
+/*  f13f728:	3c0c8008 */ 	lui	$t4,%hi(g_WallhitTexes+0x8)
 /*  f13f72c:	270fffff */ 	addiu	$t7,$t8,-1
 /*  f13f730:	250a0001 */ 	addiu	$t2,$t0,0x1
 /*  f13f734:	ac6f0000 */ 	sw	$t7,0x0($v1)
 /*  f13f738:	ac8a0000 */ 	sw	$t2,0x0($a0)
 /*  f13f73c:	01896021 */ 	addu	$t4,$t4,$t1
-/*  f13f740:	918cf764 */ 	lbu	$t4,%lo(var8007f75c+0x8)($t4)
+/*  f13f740:	918cf764 */ 	lbu	$t4,%lo(g_WallhitTexes+0x8)($t4)
 /*  f13f744:	3c05800a */ 	lui	$a1,%hi(var800a41b4)
 /*  f13f748:	24010003 */ 	addiu	$at,$zero,0x3
 /*  f13f74c:	24a541b4 */ 	addiu	$a1,$a1,%lo(var800a41b4)
@@ -3423,13 +3429,13 @@ glabel var7f1b5d6c
 /*  f14013c:	afa40040 */ 	sw	$a0,0x40($sp)
 /*  f140140:	afa3003c */ 	sw	$v1,0x3c($sp)
 /*  f140144:	46082280 */ 	add.s	$f10,$f4,$f8
-/*  f140148:	0fc4f838 */ 	jal	func0f13e0e0
+/*  f140148:	0fc4f838 */ 	jal	wallhit0f13e0e0
 /*  f14014c:	e7aa0060 */ 	swc1	$f10,0x60($sp)
 /*  f140150:	a7a20056 */ 	sh	$v0,0x56($sp)
-/*  f140154:	0fc4f838 */ 	jal	func0f13e0e0
+/*  f140154:	0fc4f838 */ 	jal	wallhit0f13e0e0
 /*  f140158:	c7ac005c */ 	lwc1	$f12,0x5c($sp)
 /*  f14015c:	a7a20054 */ 	sh	$v0,0x54($sp)
-/*  f140160:	0fc4f838 */ 	jal	func0f13e0e0
+/*  f140160:	0fc4f838 */ 	jal	wallhit0f13e0e0
 /*  f140164:	c7ac0060 */ 	lwc1	$f12,0x60($sp)
 /*  f140168:	8fa3003c */ 	lw	$v1,0x3c($sp)
 /*  f14016c:	87b90056 */ 	lh	$t9,0x56($sp)
@@ -3849,46 +3855,46 @@ glabel var7f1b5d6c
 );
 #else
 GLOBAL_ASM(
-glabel func0f13f504
+glabel wallhit0f13f504
 .late_rodata
 glabel var7f1b0264nb
-.word func0f13f504+0xa0
+.word wallhit0f13f504+0xa0
 glabel var7f1b0268nb
-.word func0f13f504+0x84
+.word wallhit0f13f504+0x84
 glabel var7f1b026cnb
-.word func0f13f504+0xa0
+.word wallhit0f13f504+0xa0
 glabel var7f1b0270nb
-.word func0f13f504+0xa0
+.word wallhit0f13f504+0xa0
 glabel var7f1b0274nb
-.word func0f13f504+0xa0
+.word wallhit0f13f504+0xa0
 glabel var7f1b0278nb
-.word func0f13f504+0xa0
+.word wallhit0f13f504+0xa0
 glabel var7f1b027cnb
-.word func0f13f504+0xa0
+.word wallhit0f13f504+0xa0
 glabel var7f1b0280nb
-.word func0f13f504+0xa0
+.word wallhit0f13f504+0xa0
 glabel var7f1b0284nb
-.word func0f13f504+0xa0
+.word wallhit0f13f504+0xa0
 glabel var7f1b0288nb
-.word func0f13f504+0xa0
+.word wallhit0f13f504+0xa0
 glabel var7f1b028cnb
-.word func0f13f504+0x84
+.word wallhit0f13f504+0x84
 glabel var7f1b0290nb
-.word func0f13f504+0xa0
+.word wallhit0f13f504+0xa0
 glabel var7f1b5d54
 .word 0x3c8efa35
 glabel var7f1b5d58
 .word 0x3b808081
 glabel var7f1b029cnb
-.word func0f13f504+0xe44
+.word wallhit0f13f504+0xe44
 glabel var7f1b02a0nb
-.word func0f13f504+0xdf8
+.word wallhit0f13f504+0xdf8
 glabel var7f1b02a4nb
-.word func0f13f504+0xebc
+.word wallhit0f13f504+0xebc
 glabel var7f1b02a8nb
-.word func0f13f504+0xf34
+.word wallhit0f13f504+0xf34
 glabel var7f1b02acnb
-.word func0f13f504+0xf54
+.word wallhit0f13f504+0xf54
 .text
 /*  f13a004:	27bdfe00 */ 	addiu	$sp,$sp,-512
 /*  f13a008:	afbf0024 */ 	sw	$ra,0x24($sp)
@@ -4720,13 +4726,13 @@ glabel var7f1b02acnb
 /*  f13ac38:	afa40044 */ 	sw	$a0,0x44($sp)
 /*  f13ac3c:	afa30040 */ 	sw	$v1,0x40($sp)
 /*  f13ac40:	46082280 */ 	add.s	$f10,$f4,$f8
-/*  f13ac44:	0fc4e2f8 */ 	jal	func0f13e0e0
+/*  f13ac44:	0fc4e2f8 */ 	jal	wallhit0f13e0e0
 /*  f13ac48:	e7aa0064 */ 	swc1	$f10,0x64($sp)
 /*  f13ac4c:	a7a2005a */ 	sh	$v0,0x5a($sp)
-/*  f13ac50:	0fc4e2f8 */ 	jal	func0f13e0e0
+/*  f13ac50:	0fc4e2f8 */ 	jal	wallhit0f13e0e0
 /*  f13ac54:	c7ac0060 */ 	lwc1	$f12,0x60($sp)
 /*  f13ac58:	a7a20058 */ 	sh	$v0,0x58($sp)
-/*  f13ac5c:	0fc4e2f8 */ 	jal	func0f13e0e0
+/*  f13ac5c:	0fc4e2f8 */ 	jal	wallhit0f13e0e0
 /*  f13ac60:	c7ac0064 */ 	lwc1	$f12,0x64($sp)
 /*  f13ac64:	8fa30040 */ 	lw	$v1,0x40($sp)
 /*  f13ac68:	87b8005a */ 	lh	$t8,0x5a($sp)
@@ -5149,7 +5155,7 @@ glabel var7f1b02acnb
 /**
  * Maybe a LOD calculation?
  */
-s32 func0f140750(struct coord *coord)
+s32 wallhit0f140750(struct coord *coord)
 {
 	f32 x;
 	f32 y;
@@ -5234,7 +5240,7 @@ Gfx *wallhitRenderBgHitsLayer1(s32 roomnum, Gfx *gdl)
 			if (hit->unk6f_04) {
 				hit->unk6b = 1;
 			} else {
-				hit->unk6b = func0f140750(&hit->unk50);
+				hit->unk6b = wallhit0f140750(&hit->unk50);
 			}
 
 			if (hit->texturenum != prevtexturenum || hit->unk6b != prev6b) {
@@ -5376,7 +5382,7 @@ Gfx *wallhitRenderPropHits(Gfx *gdl, struct prop *prop, bool withalpha)
 					sp74.y = hit->unk50.y + prop->pos.y;
 					sp74.z = hit->unk50.z + prop->pos.z;
 
-					hit->unk6b = func0f140750(&sp74);
+					hit->unk6b = wallhit0f140750(&sp74);
 				}
 			} else {
 				hit->unk6b = 1;
@@ -5486,7 +5492,7 @@ void wallhitsRecolour(void)
 	}
 }
 
-void func0f14159c(struct prop *prop)
+void wallhit0f14159c(struct prop *prop)
 {
 	s32 i;
 
@@ -5496,9 +5502,10 @@ void func0f14159c(struct prop *prop)
 		if (hit->prop
 				&& hit->roomnum > 0
 				&& hit->prop == prop
-				&& var8007f75c[hit->texturenum].unk08 == 3) {
-			if ((hit->texturenum >= 12 && hit->texturenum <= 12) || (random() % 100) < 35) {
-				func0f13e640(hit, TICKS(120));
+				&& g_WallhitTexes[hit->texturenum].type == WALLHITTYPE_BLOOD) {
+			if ((hit->texturenum >= WALLHITTEX_BLOOD4 && hit->texturenum <= WALLHITTEX_BLOOD4)
+					|| (random() % 100) < 35) {
+				wallhit0f13e640(hit, TICKS(120));
 			} else {
 				hit->unk70_00 = g_Vars.lvframenum;
 			}
@@ -5506,10 +5513,7 @@ void func0f14159c(struct prop *prop)
 	}
 }
 
-/**
- * Find a splat and free it, I think.
- */
-void func0f141704(struct prop *prop)
+void wallhit0f141704(struct prop *prop)
 {
 	s32 bestvalue = 0x0fffffff;
 	s32 index = -1;
@@ -5522,9 +5526,9 @@ void func0f141704(struct prop *prop)
 				&& hit->roomnum > 0
 				&& hit->prop == prop
 				&& hit->unk6f_02 == 0
-				&& var8007f75c[hit->texturenum].unk08 == 3
-				&& hit->texturenum >= 12
-				&& hit->texturenum <= 12
+				&& g_WallhitTexes[hit->texturenum].type == WALLHITTYPE_BLOOD
+				&& hit->texturenum >= WALLHITTEX_BLOOD4
+				&& hit->texturenum <= WALLHITTEX_BLOOD4
 				&& hit->unk70_00 < bestvalue) {
 			bestvalue = hit->unk70_00;
 			index = i;
@@ -5532,11 +5536,11 @@ void func0f141704(struct prop *prop)
 	}
 
 	if (index != -1) {
-		func0f13e640(&g_Wallhits[index], TICKS(120));
+		wallhit0f13e640(&g_Wallhits[index], TICKS(120));
 	}
 }
 
-s32 func0f141814(s32 arg0, s32 arg1)
+Gfx *wallhit0f141814(Gfx *gdl, s32 arg1)
 {
-	return arg0;
+	return gdl;
 }
