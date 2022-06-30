@@ -12,7 +12,7 @@ u32 g_WallhitsNumFree;
 u32 g_WallhitsNumUsed;
 u32 var8009cc54;
 u32 var8009cc58;
-u32 var8009cc5c;
+s32 var8009cc5c;
 u32 var8009cc60;
 s32 var8009cc64;
 u32 var8009cc68;

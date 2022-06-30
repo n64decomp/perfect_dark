@@ -12,7 +12,7 @@ void wallhitsFreeByProp(struct prop *prop, s8 layer);
 bool chrIsUsingPaintball(struct chrdata *chr);
 void func0f13e5c8(struct prop *prop);
 void func0f13e640(struct wallhit *wallhit, u32 arg1);
-bool func0f13e744(s32 arg0);
+bool wallhit0f13e744(s32 arg0);
 void wallhit0f13e994(void);
 void wallhitsTick(void);
 

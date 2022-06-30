@@ -1724,7 +1724,7 @@ void creditsTick(void)
 		creditsCreatePendingBgLayers(0xffffffff);
 	}
 
-	if (!g_CreditsData->slidesenabled && g_CreditsData->blacktimer60 < TICKS(1360)) {
+	if (!g_CreditsData->slidesenabled && g_CreditsData->blacktimer60 < (PAL ? 1150 : 1360)) {
 		g_CreditsData->blacktimer60 += g_Vars.diffframe60;
 	}
 #else
