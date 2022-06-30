@@ -17,8 +17,8 @@ u32 var8009cc60;
 s32 var8009cc64;
 u32 var8009cc68;
 u32 var8009cc6c;
-u32 var8009cc70;
-u32 var8009cc74;
+s32 var8009cc70;
+s32 var8009cc74;
 f32 var8009cc78;
 
 /**

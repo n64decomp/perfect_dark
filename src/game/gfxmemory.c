@@ -121,7 +121,7 @@ Gfx *gfxGetMasterDisplayList(void)
 	return (Gfx *)g_GfxBuffers[g_GfxActiveBufferIndex];
 }
 
-struct gfxvtx *gfxAllocateVertices(s32 count)
+struct gfxvtx *gfxAllocateVertices(u32 count)
 {
 	void *ptr = g_GfxMemPos;
 	g_GfxMemPos += count * sizeof(struct gfxvtx);

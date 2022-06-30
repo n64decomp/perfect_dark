@@ -448,7 +448,7 @@ Gfx *sparksRender(Gfx *gdl)
 							struct gfxvtx *vertices = gfxAllocateVertices(3);
 							f32 f2;
 
-							for (k = 0; k < 3U; k++) {
+							for (k = 0; k < 3; k++) {
 								vertices[k].s = 0;
 								vertices[k].t = 0;
 							}

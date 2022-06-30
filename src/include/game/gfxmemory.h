@@ -8,7 +8,7 @@ extern u8 *g_GfxBuffers[3];
 
 void gfxReset(void);
 Gfx *gfxGetMasterDisplayList(void);
-struct gfxvtx *gfxAllocateVertices(s32 count);
+struct gfxvtx *gfxAllocateVertices(u32 count);
 void *gfxAllocateMatrix(void);
 void *gfxAllocateLookAt(s32 count);
 void *gfxAllocateColours(s32 count);

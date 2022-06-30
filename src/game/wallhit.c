@@ -19,56 +19,16 @@
 #include "types.h"
 
 const char var7f1b5a10[] = "WallHit_MakeSpaceRoom : ERROR - Couldn't find any space in room %d\n";
-const char var7f1b5a54[] = "wallhit";
-const char var7f1b5a5c[] = "g_MaxRound = %s%s%f";
-const char var7f1b5a70[] = "";
-const char var7f1b5a74[] = "";
-const char var7f1b5a78[] = "g_MinRound = %s%s%f";
-const char var7f1b5a8c[] = "";
-const char var7f1b5a90[] = "";
-const char var7f1b5a94[] = "Done %d Z buffer calcs";
-const char var7f1b5aac[] = "ZOOM : g_ZoomFactor=%s%s%f";
-const char var7f1b5ac8[] = "";
-const char var7f1b5acc[] = "";
-const char var7f1b5ad0[] = "ZOOM : g_ZoomScalar=%s%s%f";
-const char var7f1b5aec[] = "";
-const char var7f1b5af0[] = "";
-const char var7f1b5af4[] = "ZOOM : scale=%s%s%f";
-const char var7f1b5b08[] = "";
-const char var7f1b5b0c[] = "";
-const char var7f1b5b10[] = "WallHit_Tick : Status - RED";
-const char var7f1b5b2c[] = "WallHit_Tick : Status - YELLOW (%u)";
-const char var7f1b5b50[] = "WallHit_Tick : Status - GREEN";
-const char var7f1b5b70[] = "WallHit_Tick : %d Used";
-const char var7f1b5b88[] = "WallHit_Tick : %d Free";
-const char var7f1b5ba0[] = "WallHit_Tick : %d Pending";
-const char var7f1b5bbc[] = "WallHit_Tick : %d Blood";
-const char var7f1b5bd4[] = "WallHit_Tick : %d Other";
-const char var7f1b5bec[] = "WallHit_Tick : %d Ratio";
-const char var7f1b5c04[] = "WallHit_Tick : %d(%d) Prop Hits";
-const char var7f1b5c24[] = "tLifeTime=%s%s%f, tScalarGbl=%f";
-const char var7f1b5c44[] = "";
-const char var7f1b5c48[] = "";
-const char var7f1b5c4c[] = "wallhit.c";
-const char var7f1b5c58[] = "wallhit.c";
-const char var7f1b5c64[] = "wallhit.c";
-const char var7f1b5c70[] = "AFT : tVecU (along) = (%s%s%f,%f,%f)\n";
-const char var7f1b5c98[] = "";
-const char var7f1b5c9c[] = "";
-const char var7f1b5ca0[] = "AFT : tVecV (up)    = (%s%s%f,%f,%f)\n";
-const char var7f1b5cc8[] = "";
-const char var7f1b5ccc[] = "";
-const char var7f1b5cd0[] = "Wallhit colour %d not implemented, substituting black\n";
 
 struct wallhit *g_Wallhits;
 struct wallhit *var800a41b4;
 struct wallhit *var800a41b8;
 
-u32 var8007f740 = 0x00000000;
+s32 var8007f740 = 0;
 u8 var8007f744[4] = {0x40, 0x0a, 0x0a, 0x00};
-u32 var8007f748 = 0x3f800000;
+f32 var8007f748 = 1;
 f32 var8007f74c = 1;
-u32 var8007f750 = 0x00000000;
+u32 var8007f750 = 0;
 f32 var8007f754 = 0;
 f32 var8007f758 = 0;
 
@@ -1381,6 +1341,245 @@ glabel var7f1b5d18
 /*  f13f3ec:	03e00008 */ 	jr	$ra
 /*  f13f3f0:	27bd0130 */ 	addiu	$sp,$sp,0x130
 );
+
+const char var7f1b5a54[] = "wallhit";
+
+s32 var8007f834 = 0;
+
+// Mismatch: float regalloc for midx, midy and midz
+//void wallhitsTick(void)
+//{
+//	f32 sp12c;
+//	f32 fov;
+//	s32 numallocated;
+//	s32 i;
+//	s32 j;
+//	u32 stack[3];
+//	f32 midx;
+//	f32 midy;
+//	f32 midz;
+//	f32 f22;
+//	f32 f24;
+//	struct wallhit *wallhit;
+//	struct coord spc8[4];
+//	u32 stack2[4];
+//
+//	static s32 var8007f834 = 0;
+//
+//	sp12c = (g_Vars.lvupdate240 + 2.0f) * 0.25f;
+//	fov = currentPlayerGetGunZoomFov();
+//
+//	mainOverrideVariable("wallhit", &var8007f750);
+//
+//	var8007f740 = 0;
+//
+//	if (fov == 0.0f || fov == 60.0f) {
+//		var8007f748 = 1;
+//	} else {
+//		f32 tmp = fov / g_Vars.currentplayer->zoominfovy;
+//		var8007f748 = 60.0f / fov - 1.00f / tmp + 1;
+//	}
+//
+//	var8007f74c = 1.0f / var8007f748;
+//
+//	numallocated = g_WallhitsNumFree + g_WallhitsNumUsed;
+//
+//	if (numallocated < var8009cc70) {
+//		func0f13e994();
+//	} else if (numallocated < var8009cc74) {
+//		var8007f834++;
+//
+//		if (var8007f834 == 8) {
+//			var8007f834 = 0;
+//			func0f13e994();
+//		}
+//	}
+//
+//	wallhit = g_Wallhits;
+//
+//	for (i = 0; i < g_WallhitsMax; i++) {
+//		f32 f0 = sp12c;
+//
+//		if (wallhit->inuse) {
+//			if (wallhit->unk70_28 != 8) {
+//				f0 *= 0.6f * ((wallhit->unk70_28 - 8.0f) * 0.125f);
+//			}
+//
+//			if (wallhit->unk6d) {
+//				u32 amount = (u32)(f0 + 0.5f);
+//
+//				if (wallhit->unk6f_03) {
+//					if (wallhit->unk6e > wallhit->unk6d) {
+//						wallhit->unk6d = 0;
+//						wallhit->unk6e = 0;
+//						wallhit->inuse = true;
+//					}
+//
+//					wallhit->unk6e += amount;
+//				} else {
+//					if (amount < wallhit->unk6e) {
+//						wallhit->unk6e -= amount;
+//					} else {
+//						wallhitFree(wallhit);
+//					}
+//				}
+//
+//				if (wallhit->unk6d) {
+//					f24 = (f32) wallhit->unk6e / wallhit->unk6d;
+//
+//					if (f24 > 1.0f) {
+//						f24 = 1.0f;
+//					}
+//
+//					f22 = f24;
+//
+//					if (wallhit->unk6f_03) {
+//						f32 frac = 0.2f;
+//						f32 sizefrac;
+//						f32 f30;
+//						s32 minindex;
+//						f32 tmp;
+//						s32 j;
+//
+//						tmp = 1.5707964f * f24;
+//						f30 = (1.0f - frac) * sinf(tmp);
+//						f22 = 1.0f - tmp + 0.6f;
+//
+//						wallhit->verticesptr = gfxAllocateVertices(4);
+//
+//						midx = var800845dc.x; \
+//						midy = var800845dc.y; \
+//						midz = var800845dc.z;
+//
+//						// Copy the vertices into a float array
+//						for (j = 0; j < 4; j++) {
+//							spc8[j].x = wallhit->vertices[j].x;
+//							spc8[j].y = wallhit->vertices[j].y;
+//							spc8[j].z = wallhit->vertices[j].z;
+//						}
+//
+//						// Sum the vertices and divide them by 4 to get the centre
+//						minindex = 0;
+//
+//						for (j = 0; j < 4; j++) {
+//							midx = midx + spc8[j].x;
+//							midy = midy + spc8[j].y;
+//							midz = midz + spc8[j].z;
+//
+//							// This should be j != 0, but minindex is unused
+//							// so it doesn't affect anything
+//							if (minindex != 0 && spc8[j].y < spc8[minindex].y) {
+//								minindex = j;
+//							}
+//						}
+//
+//						midx = 0.25f * midx;
+//						midy = 0.25f * midy;
+//						midz = 0.25f * midz;
+//
+//						sizefrac = frac + f30;
+//
+//						// Calculate and apply the new size
+//						for (j = 0; j < 4; j++) {
+//							f32 xradius = spc8[j].x - midx;
+//							f32 yradius = spc8[j].y - midy;
+//							f32 zradius = spc8[j].z - midz;
+//
+//							wallhit->verticesptr[j].x = midx + xradius * sizefrac;
+//							wallhit->verticesptr[j].y = midy + yradius * sizefrac;
+//							wallhit->verticesptr[j].z = midz + zradius * sizefrac;
+//							wallhit->verticesptr[j].s = wallhit->vertices[j].s;
+//							wallhit->verticesptr[j].t = wallhit->vertices[j].t;
+//							wallhit->verticesptr[j].colour = wallhit->vertices[j].colour;
+//						}
+//
+//						if (1);
+//
+//						f24 *= 2.0f;
+//
+//						if (f24 > 1.0f) {
+//							f24 = 1.0f;
+//						}
+//
+//						if (1);
+//					}
+//
+//					for (j = 0; j < 4; j++) {
+//						u32 alpha;
+//
+//						if (f22 > 1.0f) {
+//							f22 = 1.0f;
+//						}
+//
+//						alpha = wallhit->unk30[j].a * f24;
+//
+//						if (alpha > 255) {
+//							alpha = 255;
+//						}
+//
+//						wallhit->colours[j].a = alpha;
+//					}
+//				} else {
+//					if (wallhit->inuse) {
+//						wallhit->verticesptr = NULL;
+//
+//						for (j = 0; j < 4; j++) {
+//							wallhit->colours[j].a = wallhit->unk30[j].a;
+//						}
+//					} else {
+//						wallhit->verticesptr = NULL;
+//					}
+//				}
+//			}
+//
+//			wallhit->unk6f_05 = true;
+//		}
+//
+//		wallhit++;
+//
+//		if (1);
+//	}
+//}
+
+const char var7f1b5a5c[] = "g_MaxRound = %s%s%f";
+const char var7f1b5a70[] = "";
+const char var7f1b5a74[] = "";
+const char var7f1b5a78[] = "g_MinRound = %s%s%f";
+const char var7f1b5a8c[] = "";
+const char var7f1b5a90[] = "";
+const char var7f1b5a94[] = "Done %d Z buffer calcs";
+const char var7f1b5aac[] = "ZOOM : g_ZoomFactor=%s%s%f";
+const char var7f1b5ac8[] = "";
+const char var7f1b5acc[] = "";
+const char var7f1b5ad0[] = "ZOOM : g_ZoomScalar=%s%s%f";
+const char var7f1b5aec[] = "";
+const char var7f1b5af0[] = "";
+const char var7f1b5af4[] = "ZOOM : scale=%s%s%f";
+const char var7f1b5b08[] = "";
+const char var7f1b5b0c[] = "";
+const char var7f1b5b10[] = "WallHit_Tick : Status - RED";
+const char var7f1b5b2c[] = "WallHit_Tick : Status - YELLOW (%u)";
+const char var7f1b5b50[] = "WallHit_Tick : Status - GREEN";
+const char var7f1b5b70[] = "WallHit_Tick : %d Used";
+const char var7f1b5b88[] = "WallHit_Tick : %d Free";
+const char var7f1b5ba0[] = "WallHit_Tick : %d Pending";
+const char var7f1b5bbc[] = "WallHit_Tick : %d Blood";
+const char var7f1b5bd4[] = "WallHit_Tick : %d Other";
+const char var7f1b5bec[] = "WallHit_Tick : %d Ratio";
+const char var7f1b5c04[] = "WallHit_Tick : %d(%d) Prop Hits";
+const char var7f1b5c24[] = "tLifeTime=%s%s%f, tScalarGbl=%f";
+const char var7f1b5c44[] = "";
+const char var7f1b5c48[] = "";
+const char var7f1b5c4c[] = "wallhit.c";
+const char var7f1b5c58[] = "wallhit.c";
+const char var7f1b5c64[] = "wallhit.c";
+const char var7f1b5c70[] = "AFT : tVecU (along) = (%s%s%f,%f,%f)\n";
+const char var7f1b5c98[] = "";
+const char var7f1b5c9c[] = "";
+const char var7f1b5ca0[] = "AFT : tVecV (up)    = (%s%s%f,%f,%f)\n";
+const char var7f1b5cc8[] = "";
+const char var7f1b5ccc[] = "";
+const char var7f1b5cd0[] = "Wallhit colour %d not implemented, substituting black\n";
 
 void wallhitCreate(struct coord *arg0, struct coord *arg1, struct coord *arg2, u32 arg3, u32 arg4, s16 arg5, s16 room, struct prop *arg7, s8 arg8, s8 arg9, struct chrdata *chr, bool arg11)
 {
@@ -5835,7 +6034,7 @@ void func0f14159c(struct prop *prop)
 				&& hit->prop == prop
 				&& var8007f75c[hit->texturenum].unk08 == 3) {
 			if ((hit->texturenum >= 12 && hit->texturenum <= 12) || (random() % 100) < 35) {
-				func0f13e640(hit, (PAL ? 100 : 120));
+				func0f13e640(hit, TICKS(120));
 			} else {
 				hit->unk70_00 = g_Vars.lvframenum;
 			}
