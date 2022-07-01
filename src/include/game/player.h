@@ -78,7 +78,7 @@ s32 playerGetMissionTime(void);
 s32 playerTickBeams(struct prop *prop);
 s32 playerTickThirdPerson(struct prop *prop);
 void playerChooseThirdPersonAnimation(struct chrdata *chr, s32 crouchpos, f32 speedsideways, f32 speedforwards, f32 speedtheta, f32 *angleoffset, struct attackanimconfig **animcfg);
-Gfx *playerRender(struct prop *prop, Gfx *gdl, bool withalpha);
+Gfx *playerRender(struct prop *prop, Gfx *gdl, bool xlupass);
 Gfx *playerLoadMatrix(Gfx *gdl);
 void player0f0c3320(Mtxf *matrices, s32 count);
 void playerSetTickMode(s32 tickmode);

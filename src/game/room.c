@@ -127,7 +127,7 @@ Gfx *room0f166d7c(Gfx *gdl, s32 roomnum)
 	return gdl;
 }
 
-struct coord *room0f166dd0(s32 room)
+struct coord *roomGetPos(s32 room)
 {
 	return &g_BgRooms[room].pos;
 }

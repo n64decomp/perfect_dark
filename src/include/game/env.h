@@ -12,7 +12,7 @@ void envApplyType2(struct envtype2 *sky);
 void envSetStageNum(s32 stagenum);
 void envChooseAndApply(s32 stagenum, bool allowoverride);
 void envApplyTransitionFrac(f32 arg0);
-Gfx *envStartFog(Gfx *gdl, bool withalpha);
+Gfx *envStartFog(Gfx *gdl, bool xlupass);
 Gfx *envStopFog(Gfx *gdl);
 bool env0f1666f8(struct coord *pos, f32 arg1);
 struct coord *env0f1667e8(void);

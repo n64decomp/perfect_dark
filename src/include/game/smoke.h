@@ -20,7 +20,7 @@ void smokeClearForProp(struct prop *prop);
 struct smoke *smokeCreateSimple(struct coord *pos, s16 *rooms, s16 type);
 u32 smokeTick(struct prop *prop);
 u32 smokeTickPlayer(struct prop *prop);
-Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool withalpha);
+Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool xlupass);
 void smokeClearSomeTypes(void);
 
 #endif

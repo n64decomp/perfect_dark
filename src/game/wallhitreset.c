@@ -5,21 +5,21 @@
 #include "data.h"
 #include "types.h"
 
-u16 *var8009cc40;
+u16 *g_WallhitCountsPerRoom;
 s32 g_WallhitsMax;
 u32 var8009cc48;
 u32 g_WallhitsNumFree;
 u32 g_WallhitsNumUsed;
 u32 var8009cc54;
 u32 var8009cc58;
-s32 var8009cc5c;
-u32 var8009cc60;
-s32 var8009cc64;
-u32 var8009cc68;
+s32 g_MinPropWallhits;
+u32 g_MaxPropWallhits;
+s32 g_MinBgWallhitsPerRoom;
+s32 g_MaxBgWallhitsPerRoom;
 u32 var8009cc6c;
 s32 var8009cc70;
 s32 var8009cc74;
-f32 var8009cc78;
+f32 g_WallhitTargetBloodRatio;
 
 /**
  * Initialises an array of room numbers and a linked list of structs.
@@ -45,43 +45,43 @@ void wallhitReset(void)
 	case 0:
 		// 4MB or MP with 2+ players
 		g_WallhitsMax = 80;
-		var8009cc5c = 10;
-		var8009cc60 = 40;
-		var8009cc64 = 1;
-		var8009cc68 = 25;
+		g_MinPropWallhits = 10;
+		g_MaxPropWallhits = 40;
+		g_MinBgWallhitsPerRoom = 1;
+		g_MaxBgWallhitsPerRoom = 25;
 		var8009cc6c = 20;
 		var8009cc70 = 5;
 		var8009cc74 = 15;
-		var8009cc78 = 0.3f;
+		g_WallhitTargetBloodRatio = 0.3f;
 		break;
 	case 1:
 		// 2 player coop/anti
 		g_WallhitsMax = 200;
-		var8009cc5c = 25;
-		var8009cc60 = 100;
-		var8009cc64 = 4;
-		var8009cc68 = 40;
+		g_MinPropWallhits = 25;
+		g_MaxPropWallhits = 100;
+		g_MinBgWallhitsPerRoom = 4;
+		g_MaxBgWallhitsPerRoom = 40;
 		var8009cc6c = 80;
 		var8009cc70 = 20;
 		var8009cc74 = 30;
-		var8009cc78 = 0.4f;
+		g_WallhitTargetBloodRatio = 0.4f;
 		break;
 	case 2:
 	default:
 		// 1 player 8MB
 		g_WallhitsMax = 360;
-		var8009cc5c = 50;
-		var8009cc60 = 120;
-		var8009cc64 = 10;
-		var8009cc68 = 60; // max bullet holes
+		g_MinPropWallhits = 50;
+		g_MaxPropWallhits = 120;
+		g_MinBgWallhitsPerRoom = 10;
+		g_MaxBgWallhitsPerRoom = 60;
 		var8009cc6c = 180;
 		var8009cc70 = 25;
 		var8009cc74 = 40;
-		var8009cc78 = 0.5f;
+		g_WallhitTargetBloodRatio = 0.5f;
 		break;
 	}
 
-	var8009cc40 = 0;
+	g_WallhitCountsPerRoom = NULL;
 	var8009cc48 = 0;
 	g_WallhitsNumFree = 0;
 	g_WallhitsNumUsed = 0;
@@ -110,30 +110,30 @@ void wallhitReset(void)
 
 		ptr = mempAlloc(structssize + numberssize, MEMPOOL_STAGE);
 
-		var8009cc40 = ptr;
+		g_WallhitCountsPerRoom = ptr;
 		g_Wallhits = (struct wallhit *)((u32)ptr + numberssize);
-		var800a41b4 = NULL;
-		var800a41b8 = 0;
+		g_FreeWallhits = NULL;
+		g_ActiveWallhits = 0;
 
 		// Initialise structs
 		for (i = 0; i < g_WallhitsMax; i++) {
-			g_Wallhits[i].unk6d = 0;
-			g_Wallhits[i].unk6e = 0;
-			g_Wallhits[i].unk70_00 = 0;
+			g_Wallhits[i].timermax = 0;
+			g_Wallhits[i].timercur = 0;
+			g_Wallhits[i].createdframe = 0;
 			g_Wallhits[i].inuse = false;
 			g_Wallhits[i].roomnum = -1;
-			g_Wallhits[i].prop = NULL;
-			g_Wallhits[i].prop60 = NULL;
+			g_Wallhits[i].chrprop = NULL;
+			g_Wallhits[i].objprop = NULL;
 
 			g_WallhitsNumFree++;
 
-			g_Wallhits[i].globalnext = var800a41b4;
-			var800a41b4 = &g_Wallhits[i];
+			g_Wallhits[i].globalnext = g_FreeWallhits;
+			g_FreeWallhits = &g_Wallhits[i];
 		}
 
 		// Initialise room numbers
 		for (i = 0; i < g_Vars.roomcount; i++) {
-			var8009cc40[i] = 0;
+			g_WallhitCountsPerRoom[i] = 0;
 		}
 	}
 }

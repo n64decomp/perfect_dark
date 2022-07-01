@@ -288,8 +288,8 @@ struct prop {
 	/*0x3f*/ u8 backgrounded : 1;
 	/*0x3f*/ u8 forcetick : 1;
 	/*0x3f*/ u8 active : 1;
-	/*0x40*/ struct wallhit *wallhits1;
-	/*0x44*/ struct wallhit *wallhits2;
+	/*0x40*/ struct wallhit *opawallhits; // opaque
+	/*0x44*/ struct wallhit *xluwallhits; // translucent
 };
 
 struct packedpad {
@@ -3610,8 +3610,8 @@ struct room {
 	/*0x78*/ f32 unk78;
 	/*0x7c*/ f32 unk7c;
 	/*0x80*/ s32 gfxdatalen; // when inflated
-	/*0x84*/ struct wallhit *wallhits1;
-	/*0x88*/ struct wallhit *wallhits2;
+	/*0x84*/ struct wallhit *opawallhits; // opaque
+	/*0x88*/ struct wallhit *xluwallhits; // translucent
 };
 
 struct fireslotthing {
@@ -6016,26 +6016,26 @@ struct stageheadlimit {
 
 struct wallhit {
 	/*0x00*/ struct gfxvtx vertices[4];
-	/*0x30*/ struct colour unk30[4];
-	/*0x40*/ struct colour colours[4];
-	/*0x50*/ struct coord unk50;
-	/*0x5c*/ struct prop *prop;
-	/*0x60*/ struct prop *prop60;
-	/*0x64*/ struct gfxvtx *verticesptr;
+	/*0x30*/ struct colour basecolours[4];  // without room lighting applied
+	/*0x40*/ struct colour finalcolours[4]; // with room lighting applied
+	/*0x50*/ struct coord relpos; // position relative to room or prop's pos
+	/*0x5c*/ struct prop *chrprop;
+	/*0x60*/ struct prop *objprop;
+	/*0x64*/ struct gfxvtx *vertices2; // overridden vertices for when blood is expanding
 	/*0x68*/ s16 roomnum;
 	/*0x6a*/ u8 texturenum;
 	/*0x6b*/ u8 unk6b;
 	/*0x6c*/ u8 mtxindex;
-	/*0x6d*/ u8 unk6d;
-	/*0x6e*/ u8 unk6e;
+	/*0x6d*/ u8 timermax;
+	/*0x6e*/ u8 timercur;
 	/*0x6f*/ u8 inuse : 1;
 	/*0x6f*/ u8 unk6f_01 : 1;
-	/*0x6f*/ u8 unk6f_02 : 1;
-	/*0x6f*/ u8 unk6f_03 : 1;
-	/*0x6f*/ u8 unk6f_04 : 1;
+	/*0x6f*/ u8 fading : 1;
+	/*0x6f*/ u8 expanding : 1;
+	/*0x6f*/ u8 xlu : 1;
 	/*0x6f*/ u8 unk6f_05 : 1;
-	/*0x70*/ u32 unk70_00 : 28;
-	/*0x70*/ u32 unk70_28 : 4;
+	/*0x70*/ u32 createdframe : 28;
+	/*0x70*/ u32 timerspeed : 4;
 	/*0x74*/ struct wallhit *globalnext; // for the used/free linked lists
 	/*0x78*/ struct wallhit *localnext; // for the room/prop specific linked list
 };

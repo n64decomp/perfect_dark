@@ -1429,7 +1429,7 @@ void chrRemove(struct prop *prop, bool delete)
 		chair->hidden &= ~OBJHFLAG_OCCUPIEDCHAIR;
 	}
 
-	wallhit0f14159c(prop);
+	wallhitFadeSplatsForRemovedChr(prop);
 	func0f0926bc(prop, 1, 0xffff);
 	shieldhitsRemoveByProp(prop);
 	modelFreeVertices(VTXSTORETYPE_CHRVTX, model);
@@ -3292,7 +3292,7 @@ bool chr0f024b18(struct model *model, struct modelnode *node)
  * This function is recursive. The chr's gun can have mines placed on it, and
  * mines can also have further mines placed on them.
  */
-void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderdata, bool withalpha, struct chrdata *chr)
+void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderdata, bool xlupass, struct chrdata *chr)
 {
 	if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 		u32 stack;
@@ -3302,20 +3302,20 @@ void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderda
 
 		modelRender(renderdata, model);
 
-		// Note: OBJH2FLAG_RENDEROPAQUE << 1 is OBJH2FLAG_RENDERALPHA
+		// Note: OBJH2FLAG_HASOPA << 1 is OBJH2FLAG_HASXLU
 		// so this is just checking if the appropriate flag is enabled
-		if (obj->hidden2 & OBJH2FLAG_RENDEROPAQUE << withalpha) {
-			renderdata->gdl = wallhitRenderPropHits(renderdata->gdl, prop, withalpha);
+		if (obj->hidden2 & (OBJH2FLAG_HASOPA << xlupass)) {
+			renderdata->gdl = wallhitRenderPropHits(renderdata->gdl, prop, xlupass);
 		}
 
 		child = prop->child;
 
 		while (child) {
-			chrRenderAttachedObject(child, renderdata, withalpha, chr);
+			chrRenderAttachedObject(child, renderdata, xlupass, chr);
 			child = child->next;
 		}
 
-		if (withalpha) {
+		if (xlupass) {
 			func0f0c33f0(model->matrices, model->filedata->nummatrices);
 		}
 	}
@@ -3382,7 +3382,7 @@ void chrGetBloodColour(s16 bodynum, u8 *colour1, u32 *colour2)
 	}
 }
 
-Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
+Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 {
 	struct chrdata *chr = prop->chr;
 	struct model *model = chr->model;
@@ -3452,13 +3452,13 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 	}
 
 	if (alpha < 0xff) {
-		if (!withalpha) {
+		if (!xlupass) {
 			return gdl;
 		}
 
 		sp100 = 3;
 	} else {
-		if (!withalpha) {
+		if (!xlupass) {
 			sp100 = 1;
 		} else {
 			sp100 = 2;
@@ -3478,7 +3478,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		s32 colour[4]; // rgba levels, but allowing > 256 temporarily
 		u32 stack;
 
-		if (withalpha && chr->cloakfadefrac > 0 && !chr->cloakfadefinished) {
+		if (xlupass && chr->cloakfadefrac > 0 && !chr->cloakfadefinished) {
 			gdl = chrRenderCloak(gdl, chr->prop, chr->prop);
 		}
 
@@ -3607,7 +3607,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		child = prop->child;
 
 		while (child) {
-			chrRenderAttachedObject(child, &renderdata, withalpha, chr);
+			chrRenderAttachedObject(child, &renderdata, xlupass, chr);
 			child = child->next;
 		}
 
@@ -3616,7 +3616,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		var8005efc4 = NULL;
 
 		// Render shadow
-		if (withalpha) {
+		if (xlupass) {
 			if (!chr->onladder && chr->actiontype != ACT_SKJUMP) {
 				s32 shadowalpha = 0;
 

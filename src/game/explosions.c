@@ -1027,10 +1027,10 @@ u32 explosionTick(struct prop *prop)
 	struct coord spfc;
 	struct coord spf0;
 	s32 bb;
-	bool s3;
+	bool xlu;
 	struct chrdata *chr;
 	f32 scorchsize;
-	struct hitthing spb0;
+	struct hitthing hitthing;
 
 	maxage = TICKS(type->duration);
 
@@ -1194,7 +1194,7 @@ u32 explosionTick(struct prop *prop)
 
 		// Make scorch at half duration
 		if (exp->age == (maxage >> 1) && exp->makescorch) {
-			s3 = false;
+			xlu = false;
 			scorchsize = 2.0f * type->innersize;
 
 			if (scorchsize > 100.0f) {
@@ -1214,12 +1214,15 @@ u32 explosionTick(struct prop *prop)
 			}
 
 			if (g_Rooms[exp->room].gfxdata) {
-				// Not 100% sure about spb0 being a struct hitthing, but it's likely
-				if (g_Rooms[exp->room].gfxdata->unk0c && func0f161520(&prop->pos, &exp->unk3d0, exp->room, &spb0)) {
-					s3 = spb0.unk2c == 2;
+				if (g_Rooms[exp->room].gfxdata->unk0c && func0f161520(&prop->pos, &exp->unk3d0, exp->room, &hitthing)) {
+					xlu = hitthing.unk2c == 2;
 				}
 
-				wallhit0f13f504(&exp->unk3d0, &exp->unk3dc, &prop->pos, 0, 0, 7, exp->room, 0, 0, -1, 0, chr, scorchsize, scorchsize, 0xff, 0xff, 0, 0, 0, s3);
+				wallhitCreateWith20Args(&exp->unk3d0, &exp->unk3dc, &prop->pos, NULL,
+						0, WALLHITTEX_SCORCH, exp->room, 0,
+						0, -1, 0, chr,
+						scorchsize, scorchsize, 0xff, 0xff,
+						0, 0, 0, xlu);
 			}
 		}
 	}
@@ -1259,14 +1262,14 @@ u32 explosionTickPlayer(struct prop *prop)
 	return TICKOP_NONE;
 }
 
-Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool withalpha)
+Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 {
 	struct explosion *exp = prop->explosion;
 	s32 roomnum;
 	s32 i;
 	s32 j;
 
-	if (!withalpha) {
+	if (!xlupass) {
 		return gdl;
 	}
 
@@ -1286,7 +1289,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool withalpha)
 
 	if (roomnum != -1) {
 		struct screenbox screenbox;
-		struct coord *coord = room0f166dd0(roomnum);
+		struct coord *coord = roomGetPos(roomnum);
 		u32 *colour;
 		s32 tmp;
 

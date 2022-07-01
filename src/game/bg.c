@@ -2518,10 +2518,10 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 
 				if (debugIsPropRenderingEnabled() && getVar80084040()) {
 					if (thing->roomnum == -1) {
-						gdl = propsRender(gdl, 0, RENDERPASS_ALPHA, roomnumsbyprop);
+						gdl = propsRender(gdl, 0, RENDERPASS_XLU, roomnumsbyprop);
 					}
 
-					gdl = propsRender(gdl, thing->roomnum, RENDERPASS_ALPHA, roomnumsbyprop);
+					gdl = propsRender(gdl, thing->roomnum, RENDERPASS_XLU, roomnumsbyprop);
 				}
 
 				if (1);
@@ -2696,10 +2696,10 @@ Gfx *bgRenderScene(Gfx *gdl)
 
 		if (debugIsPropRenderingEnabled() && getVar80084040()) {
 			if (firstroomnum == thing->roomnum) {
-				gdl = propsRender(gdl, 0, RENDERPASS_OPAQUE_PREBG, roomnumsbyprop);
+				gdl = propsRender(gdl, 0, RENDERPASS_OPA_PREBG, roomnumsbyprop);
 			}
 
-			gdl = propsRender(gdl, thing->roomnum, RENDERPASS_OPAQUE_PREBG, roomnumsbyprop);
+			gdl = propsRender(gdl, thing->roomnum, RENDERPASS_OPA_PREBG, roomnumsbyprop);
 		}
 
 		// Render BG opaque components
@@ -2721,10 +2721,10 @@ Gfx *bgRenderScene(Gfx *gdl)
 
 		if (debugIsPropRenderingEnabled() && getVar80084040()) {
 			if (firstroomnum == thing->roomnum) {
-				gdl = propsRender(gdl, 0, RENDERPASS_OPAQUE_POSTBG, roomnumsbyprop);
+				gdl = propsRender(gdl, 0, RENDERPASS_OPA_POSTBG, roomnumsbyprop);
 			}
 
-			gdl = propsRender(gdl, thing->roomnum, RENDERPASS_OPAQUE_POSTBG, roomnumsbyprop);
+			gdl = propsRender(gdl, thing->roomnum, RENDERPASS_OPA_POSTBG, roomnumsbyprop);
 		}
 	}
 
@@ -2770,10 +2770,10 @@ Gfx *bgRenderScene(Gfx *gdl)
 		// Render prop alpha components
 		if (debugIsPropRenderingEnabled() && getVar80084040()) {
 			if (firstroomnum == thing->roomnum) {
-				gdl = propsRender(gdl, 0, RENDERPASS_ALPHA, roomnumsbyprop);
+				gdl = propsRender(gdl, 0, RENDERPASS_XLU, roomnumsbyprop);
 			}
 
-			gdl = propsRender(gdl, thing->roomnum, RENDERPASS_ALPHA, roomnumsbyprop);
+			gdl = propsRender(gdl, thing->roomnum, RENDERPASS_XLU, roomnumsbyprop);
 		}
 
 		if (!g_Vars.mplayerisrunning) {

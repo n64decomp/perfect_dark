@@ -16,7 +16,7 @@ void propActivateThisFrame(struct prop *prop);
 void propDelist(struct prop *prop);
 void propReparent(struct prop *mover, struct prop *adopter);
 void propDetach(struct prop *prop);
-Gfx *propRender(Gfx *gdl, struct prop *prop, bool withalpha);
+Gfx *propRender(Gfx *gdl, struct prop *prop, bool xlupass);
 Gfx *propsRender(Gfx *gdl, s16 renderroomnum, s32 renderpass, s16 *roomnumsbyprop);
 void weaponPlayWhooshSound(s32 weaponnum, struct prop *prop);
 void func0f060bac(s32 weaponnum, struct prop *prop);

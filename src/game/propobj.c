@@ -52269,7 +52269,7 @@ glabel var7f1aa824
 //	return gdl;
 //}
 
-void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool withalpha)
+void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool xlupass)
 {
 	if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 		struct defaultobj *obj = prop->obj;
@@ -52377,8 +52377,8 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool w
 			gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 		}
 
-		if (obj->hidden2 & (OBJH2FLAG_RENDEROPAQUE << withalpha)) {
-			gdl = wallhitRenderPropHits(gdl, prop, withalpha);
+		if (obj->hidden2 & (OBJH2FLAG_HASOPA << xlupass)) {
+			gdl = wallhitRenderPropHits(gdl, prop, xlupass);
 		}
 
 		if (sp6c) {
@@ -52390,11 +52390,11 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool w
 		child = prop->child;
 
 		while (child) {
-			objRenderProp(child, renderdata, withalpha);
+			objRenderProp(child, renderdata, xlupass);
 			child = child->next;
 		}
 
-		if (withalpha) {
+		if (xlupass) {
 			if (sp6c) {
 				player0f0c3320(model->matrices, model->filedata->nummatrices);
 			} else {
@@ -52504,7 +52504,7 @@ Gfx *objRenderShadow(struct defaultobj *obj, Gfx *gdl)
 	return gdl;
 }
 
-Gfx *objRender(struct prop *prop, Gfx *gdl, bool withalpha)
+Gfx *objRender(struct prop *prop, Gfx *gdl, bool xlupass)
 {
 	u32 stack;
 	u32 stack2;
@@ -52595,13 +52595,13 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool withalpha)
 	}
 
 	if (alpha < 0xff || (obj->flags2 & OBJFLAG2_DRAWONTOP)) {
-		if (!withalpha) {
+		if (!xlupass) {
 			return gdl;
 		}
 
 		sp84 = 3;
 	} else {
-		if (!withalpha) {
+		if (!xlupass) {
 			sp84 = 1;
 		} else {
 			sp84 = 2;
@@ -52734,11 +52734,11 @@ Gfx *objRender(struct prop *prop, Gfx *gdl, bool withalpha)
 	}
 
 	renderdata.fogcolour = colour[0] << 24 | colour[1] << 16 | colour[2] << 8 | colour[3];
-	objRenderProp(prop, &renderdata, withalpha);
+	objRenderProp(prop, &renderdata, xlupass);
 
 	gdl = renderdata.gdl;
 
-	if (withalpha) {
+	if (xlupass) {
 		if (obj->type == OBJTYPE_HOVERPROP
 				|| obj->type == OBJTYPE_HOVERBIKE
 				|| obj->modelnum == MODEL_HOOVERBOT

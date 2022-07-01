@@ -20,7 +20,7 @@ bool explosionOverlapsProp(struct explosion *exp, struct prop *prop, struct coor
 void explosionInflictDamage(struct prop *prop);
 u32 explosionTick(struct prop *prop);
 u32 explosionTickPlayer(struct prop *prop);
-Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool withalpha);
+Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass);
 Gfx *explosionRenderPart(struct explosion *exp, struct explosionpart *part, Gfx *gdl, struct coord *coord, s32 arg4);
 
 #endif

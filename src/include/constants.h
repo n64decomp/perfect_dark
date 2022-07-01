@@ -3096,8 +3096,8 @@
 #define OBJHFLAG_20000000           0x20000000 // upper nibble might be a single 4-bit value
 
 // obj->hidden2
-#define OBJH2FLAG_RENDEROPAQUE 0x01
-#define OBJH2FLAG_RENDERALPHA  0x02 // must be immediately after OBJH2FLAG_RENDEROPAQUE
+#define OBJH2FLAG_HASOPA       0x01 // obj has opaque polygons (ie. most objects)
+#define OBJH2FLAG_HASXLU       0x02 // obj has translucent polygons
 #define OBJH2FLAG_CANREGEN     0x04
 #define OBJH2FLAG_08           0x08
 #define OBJH2FLAG_10           0x10
@@ -3464,9 +3464,9 @@
 #define RACE_EYESPY   3
 #define RACE_ROBOT    4
 
-#define RENDERPASS_OPAQUE_PREBG  0
-#define RENDERPASS_ALPHA         1
-#define RENDERPASS_OPAQUE_POSTBG 2
+#define RENDERPASS_OPA_PREBG  0
+#define RENDERPASS_XLU         1
+#define RENDERPASS_OPA_POSTBG 2
 
 #define ROOMFLAG_FORCEDISABLED    0x0001
 #define ROOMFLAG_HASDYNTEX        0x0002

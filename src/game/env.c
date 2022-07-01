@@ -356,13 +356,13 @@ void envApplyTransitionFrac(f32 frac)
 	envApplyType1(&tmp);
 }
 
-Gfx *envStartFog(Gfx *gdl, bool withalpha)
+Gfx *envStartFog(Gfx *gdl, bool xlupass)
 {
 	if (!g_FogEnabled) {
 		return gdl;
 	}
 
-	if (withalpha) {
+	if (xlupass) {
 		gDPSetFogColor(gdl++, g_Env.sky_r, g_Env.sky_g, g_Env.sky_b, 0xff);
 		gSPFogPosition(gdl++, g_Env.fogmin, g_Env.fogmax);
 	} else {

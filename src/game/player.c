@@ -6470,10 +6470,10 @@ void playerChooseThirdPersonAnimation(struct chrdata *chr, s32 crouchpos, f32 sp
 	*animcfgptr = animcfg;
 }
 
-Gfx *playerRender(struct prop *prop, Gfx *gdl, bool withalpha)
+Gfx *playerRender(struct prop *prop, Gfx *gdl, bool xlupass)
 {
 	if (g_Vars.players[playermgrGetPlayerNumByProp(prop)]->haschrbody) {
-		gdl = chrRender(prop, gdl, withalpha);
+		gdl = chrRender(prop, gdl, xlupass);
 	}
 
 	return gdl;

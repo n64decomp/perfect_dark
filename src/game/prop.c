@@ -162,8 +162,8 @@ struct prop *propAllocate(void)
 		prop->lastupdateframe = 0xffff;
 		prop->propupdate240 = 0;
 		prop->propupdate60err = 2;
-		prop->wallhits1 = NULL;
-		prop->wallhits2 = NULL;
+		prop->opawallhits = NULL;
+		prop->xluwallhits = NULL;
 		g_Vars.propstates[prop->propstateindex].propcount++;
 
 		g_Vars.allocstateindex++;
@@ -343,7 +343,7 @@ void propDetach(struct prop *prop)
 	}
 }
 
-Gfx *propRender(Gfx *gdl, struct prop *prop, bool withalpha)
+Gfx *propRender(Gfx *gdl, struct prop *prop, bool xlupass)
 {
 	switch (prop->type) {
 	case 0:
@@ -351,19 +351,19 @@ Gfx *propRender(Gfx *gdl, struct prop *prop, bool withalpha)
 	case PROPTYPE_OBJ:
 	case PROPTYPE_DOOR:
 	case PROPTYPE_WEAPON:
-		gdl = objRender(prop, gdl, withalpha);
+		gdl = objRender(prop, gdl, xlupass);
 		break;
 	case PROPTYPE_CHR:
-		gdl = chrRender(prop, gdl, withalpha);
+		gdl = chrRender(prop, gdl, xlupass);
 		break;
 	case PROPTYPE_PLAYER:
-		gdl = playerRender(prop, gdl, withalpha);
+		gdl = playerRender(prop, gdl, xlupass);
 		break;
 	case PROPTYPE_EXPLOSION:
-		gdl = explosionRender(prop, gdl, withalpha);
+		gdl = explosionRender(prop, gdl, xlupass);
 		break;
 	case PROPTYPE_SMOKE:
-		gdl = smokeRender(prop, gdl, withalpha);
+		gdl = smokeRender(prop, gdl, xlupass);
 		break;
 	}
 
@@ -378,8 +378,8 @@ Gfx *propRender(Gfx *gdl, struct prop *prop, bool withalpha)
  * - Opaque components of BG
  * - Opaque components of props (post-BG)
  * - Wall hits
- * - Alpha components of BG
- * - Alpha components of props
+ * - Translucent components of BG
+ * - Translucent components of props
  *
  * Most props are rendered in the pre-bg pass for performance reasons, as there
  * is less BG to draw if it's being obscured by props.
@@ -394,7 +394,7 @@ Gfx *propsRender(Gfx *gdl, s16 renderroomnum, s32 renderpass, s16 *roomnumsbypro
 	struct prop *prop;
 	s16 *proprooms;
 
-	if (renderpass == RENDERPASS_OPAQUE_PREBG || renderpass == RENDERPASS_OPAQUE_POSTBG) {
+	if (renderpass == RENDERPASS_OPA_PREBG || renderpass == RENDERPASS_OPA_POSTBG) {
 		// Iterate onscreen props near to far
 		ptr = g_Vars.endonscreenprops - 1;
 
@@ -406,8 +406,8 @@ Gfx *propsRender(Gfx *gdl, s16 renderroomnum, s32 renderpass, s16 *roomnumsbypro
 				prop = *ptr;
 
 				if (prop) {
-					if ((renderpass == RENDERPASS_OPAQUE_PREBG && (prop->flags & (PROPFLAG_DRAWONTOP | PROPFLAG_RENDERPOSTBG)) == 0)
-							|| (renderpass == RENDERPASS_OPAQUE_POSTBG && (prop->flags & (PROPFLAG_DRAWONTOP | PROPFLAG_RENDERPOSTBG)) == PROPFLAG_RENDERPOSTBG)) {
+					if ((renderpass == RENDERPASS_OPA_PREBG && (prop->flags & (PROPFLAG_DRAWONTOP | PROPFLAG_RENDERPOSTBG)) == 0)
+							|| (renderpass == RENDERPASS_OPA_POSTBG && (prop->flags & (PROPFLAG_DRAWONTOP | PROPFLAG_RENDERPOSTBG)) == PROPFLAG_RENDERPOSTBG)) {
 						gdl = propRender(gdl, prop, false);
 					}
 				}

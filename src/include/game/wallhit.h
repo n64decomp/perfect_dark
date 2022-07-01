@@ -6,33 +6,31 @@
 
 void wallhitReset(void);
 
-s16 wallhit0f13e0e0(f32 arg0);
+s16 wallhitFinaliseAxis(f32 arg0);
 void wallhitFree(struct wallhit *wallhit);
 void wallhitsFreeByProp(struct prop *prop, s8 layer);
 bool chrIsUsingPaintball(struct chrdata *chr);
-void wallhit0f13e5c8(struct prop *prop);
-void wallhit0f13e640(struct wallhit *wallhit, u32 arg1);
-bool wallhit0f13e744(s32 arg0);
-void wallhit0f13e994(void);
+void wallhitChooseBloodColour(struct prop *prop);
+void wallhitFade(struct wallhit *wallhit, u32 arg1);
+bool wallhitReapOneInRoom(s32 arg0);
+void wallhitReapOne(void);
 void wallhitsTick(void);
 
-void wallhitCreate(struct coord *arg0, struct coord *arg1, struct coord *arg2, u32 arg3,
-		u32 arg4, s16 arg5, s16 room, struct prop *arg7,
-		s8 arg8, s8 arg9, struct chrdata *chr, bool arg11);
+void wallhitCreate(struct coord *relpos, struct coord *arg1, struct coord *arg2, s16 arg3[3],
+		s16 arg4[3], s16 texnum, s16 room, struct prop *objprop,
+		s8 mtxindex, s8 arg9, struct chrdata *chr, bool xlu);
 
-void wallhit0f13f504(struct coord *arg0, struct coord *arg1, struct coord *arg2, u32 arg3,
-		u32 arg4, s16 arg5, s16 room, struct prop *arg7,
-		u32 arg8, s8 arg9, s8 arg10, struct chrdata *chr,
-		f32 arg12, f32 arg13, u8 arg14, u8 arg15,
-		u32 arg16, u32 arg17, u32 arg18, bool arg19);
+void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct coord *arg2, s16 arg3[3],
+		s16 arg4[3], s16 texnum, s16 room, struct prop *objprop,
+		struct prop *chrprop, s8 mtxindex, s8 arg10, struct chrdata *chr,
+		f32 width, f32 height, u8 minalpha, u8 maxalpha,
+		s32 rotdeg, u32 timermax, u32 timerspeed, bool xlu);
 
 s32 wallhit0f140750(struct coord *coord);
-Gfx *wallhitRenderBgHitsLayer1(s32 roomnum, Gfx *gdl);
-Gfx *wallhitRenderBgHitsLayer2(s32 roomnum, Gfx *gdl);
-Gfx *wallhitRenderPropHits(Gfx *gdl, struct prop *prop, bool withalpha);
+Gfx *wallhitRenderPropHits(Gfx *gdl, struct prop *prop, bool xlupass);
 Gfx *wallhitRenderBgHits(s32 roomnum, Gfx *gdl);
 void wallhitsRecolour(void);
-void wallhit0f14159c(struct prop *prop);
-void wallhit0f141704(struct prop *prop);
+void wallhitFadeSplatsForRemovedChr(struct prop *chrprop);
+void wallhitRemoveOldestWoundedSplatByChr(struct prop *chrprop);
 
 #endif

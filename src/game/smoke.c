@@ -603,7 +603,7 @@ u32 smokeTickPlayer(struct prop *prop)
 	return TICKOP_NONE;
 }
 
-Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool withalpha)
+Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool xlupass)
 {
 	struct smoke *smoke = prop->smoke;
 	s32 roomnum;
@@ -615,7 +615,7 @@ Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool withalpha)
 	struct coord worldoffset;
 	bool near = true;
 
-	if (!withalpha) {
+	if (!xlupass) {
 		return gdl;
 	}
 
@@ -634,7 +634,7 @@ Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool withalpha)
 	}
 
 	if (roomnum != -1) {
-		coord = room0f166dd0(roomnum);
+		coord = roomGetPos(roomnum);
 
 		room0f166df0(roomnum, &worldoffset);
 
