@@ -53,12 +53,12 @@ u8 *g_LangBuffer = NULL;
 u8 *g_LangBufferPos = NULL;
 s32 g_LangBufferSize = 0;
 u32 *g_LangBanks[69];
-void *var800aabb4;
+struct var800aabb4 *var800aabb4;
 struct var800aabb8 *var800aabb8;
 s32 g_LanguageId = LANGUAGE_NTSC_EN;
 #else
 u32 *g_LangBanks[69];
-void *var800aabb4;
+struct var800aabb4 *var800aabb4;
 struct var800aabb8 *var800aabb8;
 bool g_Jpn = false;
 #endif
@@ -217,7 +217,7 @@ u32 var80084810jf = 0;
 u32 var80084814jf = 8;
 
 GLOBAL_ASM(
-glabel func0f16e3fc
+glabel lang0f16e3fc
 /*  f16e59c:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f16e5a0:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f16e5a4:	308e2000 */ 	andi	$t6,$a0,0x2000
@@ -456,7 +456,7 @@ glabel func0f16e3fc
 );
 #else
 GLOBAL_ASM(
-glabel func0f16e3fc
+glabel lang0f16e3fc
 /*  f16e3fc:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f16e400:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f16e404:	308e2000 */ 	andi	$t6,$a0,0x2000
@@ -657,6 +657,76 @@ glabel func0f16e3fc
 /*  f16e6d0:	00000000 */ 	nop
 );
 #endif
+
+extern u8 _jpndata1;
+extern u8 _jpndata2;
+
+// Mismatch: Regalloc. The if (1) solves a-regalloc but not t-regalloc,
+// and moving it down one line solves t-regalloc but not a-regalloc.
+//struct var800aabb4 *lang0f16e3fc(s32 arg0)
+//{
+//	s32 i;
+//	s32 t2 = -1;
+//	s32 t3 = -1;
+//	bool t0 = false;
+//
+//	if (arg0 & 0x2000) {
+//		t0 = true;
+//	}
+//
+//	for (i = 0; i < 0x7c; i++) {
+//		if ((t0 || (arg0 >> 1) != var800aabb8[i].unk00_02)
+//				&& (!t0 || i + 1 >= 0x7c
+//					|| (arg0 >> 1) != var800aabb8[i + 0].unk00_02
+//					|| (arg0 >> 1) != var800aabb8[i + 1].unk00_02)) {
+//			if (var800aabb8[i].unk00_00 == 0) {
+//				if (1);
+//				t2 = i;
+//			}
+//
+//			if (var800aabb8[i].unk00_00 == 0 && var800aabb8[i + 1].unk00_00 == 0 && i + 1 < 0x7c) {
+//				t3 = i;
+//			}
+//		} else {
+//			break;
+//		}
+//	}
+//
+//	if (i < 0x7c) {
+//		if (!t0) {
+//			var800aabb8[i].unk00_00 = 2;
+//
+//			return &var800aabb4[i];
+//		} else {
+//			var800aabb8[i + 0].unk00_00 = 2;
+//			var800aabb8[i + 1].unk00_00 = 2;
+//
+//			return &var800aabb4[i];
+//		}
+//	}
+//
+//	if (!t0 && t2 >= 0) {
+//		var800aabb8[t2].unk00_00 = 2;
+//		var800aabb8[t2].unk00_02 = arg0 >> 1;
+//
+//		dmaExec(&var800aabb4[t2], (u32)&_jpndata1 + (arg0 >> 1) * 0x60, 0x60);
+//
+//		return &var800aabb4[t2];
+//	}
+//
+//	if (t0 && t3 >= 0) {
+//		var800aabb8[t3 + 0].unk00_00 = 2;
+//		var800aabb8[t3 + 1].unk00_00 = 2;
+//		var800aabb8[t3 + 0].unk00_02 = arg0 >> 1;
+//		var800aabb8[t3 + 1].unk00_02 = arg0 >> 1;
+//
+//		dmaExec(&var800aabb4[t3], (u32)&_jpndata2 + ((arg0 & 0x1fff) >> 1) * 0x80, 0x80);
+//
+//		return &var800aabb4[t3];
+//	}
+//
+//	return &var800aabb4[0];
+//}
 
 /**
  * NTSC only supports English, while PAL supports 4 languages and JPN has its

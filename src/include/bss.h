@@ -248,7 +248,7 @@ extern u32 g_AudioXReasonsActive[4];
 extern s32 g_MusicXReasonMinDurations[4];
 extern s32 g_MusicXReasonMaxDurations[4];
 extern u32 *g_LangBanks[69];
-extern void *var800aabb4;
+extern struct var800aabb4 *var800aabb4;
 extern struct var800aabb8 *var800aabb8;
 extern struct texture *g_Textures;
 extern struct texturething var800aabc8;

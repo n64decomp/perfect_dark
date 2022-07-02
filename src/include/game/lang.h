@@ -8,7 +8,7 @@ void langInit(void);
 void langTick(void);
 
 u32 langGetLangBankIndexFromStagenum(s32 stagenum);
-u32 func0f16e3fc(void);
+struct var800aabb4 *lang0f16e3fc(s32 arg0);
 s32 langGetFileNumOffset(void);
 s32 langGetFileId(s32 bank);
 void langLoad(s32 bank);
