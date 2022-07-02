@@ -87,6 +87,7 @@ void func0f14ff94(struct var8007f8e0 *arg0);
 u32 func0f150068(void);
 bool func0f15015c(s8 device, s32 filenum, u8 *arg2);
 void phGetGuid(s32 index, struct fileguid *guid);
+void pheadInit2(void);
 
 extern const char var7f1b6050[];
 extern const char var7f1b6058[];
