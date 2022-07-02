@@ -240,7 +240,7 @@ void botSpawn(struct chrdata *chr, u8 respawning)
 
 	if (aibot) {
 		botReset(chr, respawning);
-		chrInitSplats(chr);
+		splatResetChr(chr);
 		thing = scenarioChooseSpawnLocation(chr->chrwidth, &pos, rooms, chr->prop);
 		chr->hidden |= CHRHFLAG_00100000;
 		chrMoveToPos(chr, &pos, rooms, thing, true);

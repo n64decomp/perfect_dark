@@ -506,7 +506,7 @@ void playerStartNewLife(void)
 		}
 	}
 
-	chrInitSplats(g_Vars.currentplayer->prop->chr);
+	splatResetChr(g_Vars.currentplayer->prop->chr);
 	playerLoadDefaults();
 	g_Vars.currentplayer->isdead = false;
 	g_Vars.currentplayer->healthdamagetype = DAMAGETYPE_7;

@@ -1335,7 +1335,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->goposhitcount = 0;
 #endif
 
-	chrInitSplats(chr);
+	splatResetChr(chr);
 }
 
 struct prop *chr0f020b14(struct prop *prop, struct model *model,
@@ -5417,7 +5417,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 						chrBruise(hit->model, hit->hitpart, hit->node, &sp5c);
 					}
 
-					splatsCreateForChrHit(prop, (struct splat *)shotdata, &sp98, &hitpos, darker, 0, g_Vars.currentplayer->prop->chr);
+					splatsCreateForChrHit(prop, shotdata, &sp98, &hitpos, darker, 0, g_Vars.currentplayer->prop->chr);
 				}
 #else
 				// NTSC beta wraps all the blood logic in this paintball check.
@@ -5439,7 +5439,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 
 					chrBruise(hit->model, hit->hitpart, hit->node, &sp5c);
 
-					splatsCreateForChrHit(prop, (struct splat *)shotdata, &sp98, &hitpos, darker, 0, g_Vars.currentplayer->prop->chr);
+					splatsCreateForChrHit(prop, shotdata, &sp98, &hitpos, darker, 0, g_Vars.currentplayer->prop->chr);
 				}
 #endif
 			}

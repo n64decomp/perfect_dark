@@ -25,7 +25,7 @@ u32 var8007f8b0 = 0x43340000;
 u32 var8007f8b4 = 0x40a00000;
 u32 var8007f8b8 = 0x42480000;
 
-void splatTick(struct prop *prop)
+void splatTickChr(struct prop *prop)
 {
 	struct chrdata *chr = prop->chr;
 	struct chrdata *attacker = chr->lastattacker;
@@ -64,6 +64,7 @@ void splatTick(struct prop *prop)
 				chr->deaddropsplatsadded += splatsCreate(1, 1.1f, prop, NULL, 0, 0, isskedar, 1, TICKS(150), attacker, random() & 8);
 			}
 		} else {
+			// Consider creating a wounded drop
 			u32 value = chr->bulletstaken * chr->tickssincesplat;
 
 			if (value > TICKS(240)) {
@@ -72,10 +73,10 @@ void splatTick(struct prop *prop)
 
 				if (dist > 40) {
 					addmore = true;
-					chr->splatsdroppedhe = 0;
-				} else if (chr->splatsdroppedhe < 8) {
+					chr->splatsdroppedhere = 0;
+				} else if (chr->splatsdroppedhere < 8) {
 					addmore = true;
-					chr->splatsdroppedhe++;
+					chr->splatsdroppedhere++;
 				}
 
 				if (addmore) {
@@ -95,7 +96,7 @@ void splatTick(struct prop *prop)
 	chr->tickssincesplat += g_Vars.lvupdate240_60;
 }
 
-void splatsCreateForChrHit(struct prop *prop, struct splat *arg1, struct coord *arg2, struct coord *arg3, s32 arg4, s32 arg5, struct chrdata *arg6)
+void splatsCreateForChrHit(struct prop *prop, struct shotdata *arg1, struct coord *arg2, struct coord *arg3, s32 arg4, s32 arg5, struct chrdata *arg6)
 {
 #if VERSION != VERSION_JPN_FINAL
 	struct chrdata *chr = prop->chr;
@@ -114,30 +115,30 @@ void splatsCreateForChrHit(struct prop *prop, struct splat *arg1, struct coord *
 #endif
 }
 
-s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct splat *arg3, struct coord *arg4, struct coord *arg5, s32 arg6, s32 arg7, s32 arg8, struct chrdata *arg9, s32 arg10)
+s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *arg3, struct coord *arg4, struct coord *arg5, s32 arg6, s32 arg7, s32 arg8, struct chrdata *arg9, s32 arg10)
 {
 #if VERSION == VERSION_JPN_FINAL
 	return 0;
 #else
-	s32 i;
-	s32 j;
-	struct splat stacksplat;
-	struct splat *splat = arg7 == 0 ? arg3 : &stacksplat;
-	f32 spfc[3];
-	f32 spf0[3];
-	f32 spe4[3];
+	struct shotdata stackshotdata;
+	struct shotdata *shotdata = arg7 == 0 ? arg3 : &stackshotdata;
+	struct coord spfc;
+	struct coord spf0;
+	struct coord spe4;
 	Mtxf spa4;
 	s32 numdropped = 0;
 	f32 dist;
+	s32 i;
+	s32 j;
 
 	if (arg7 == 0) {
-		dist = coordsGetDistance(&splat->unk01c, arg5);
+		dist = coordsGetDistance(&shotdata->gunpos, arg5);
 
 		for (i = 0; i < 3; i++) {
-			spfc[i] = ((f32 *)&splat->unk028)[i];
-			spf0[i] = ((f32 *)&splat->unk00c)[i];
-			((f32 *)&splat->unk01c)[i] = ((f32 *)arg5)[i];
-			((f32 *)&splat->unk000)[i] = ((f32 *)arg4)[i];
+			spfc.f[i] = shotdata->dir.f[i];
+			spf0.f[i] = shotdata->unk0c.f[i];
+			shotdata->gunpos.f[i] = arg5->f[i];
+			shotdata->unk00.f[i] = arg4->f[i];
 		}
 	} else {
 		f32 extraheight;
@@ -150,42 +151,41 @@ s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct splat *arg3, struc
 
 		dist = 0.7f;
 
-		splat->unk028.x = 0;  spfc[0] = 0;
-		splat->unk028.y = -1; spfc[1] = -1;
-		splat->unk028.z = 0;  spfc[2] = 0;
+		spfc.x = shotdata->dir.x = 0;
+		spfc.y = shotdata->dir.y = -1;
+		spfc.z = shotdata->dir.z = 0;
 
-		splat->unk00c.x = 0;  spf0[0] = 0;
-		splat->unk00c.y = -1; spf0[1] = -1;
-		splat->unk00c.z = 0;  spf0[2] = 0;
+		spf0.x = shotdata->unk0c.x = 0;
+		spf0.y = shotdata->unk0c.y = -1;
+		spf0.z = shotdata->unk0c.z = 0;
 
-		splat->unk01c.x = prop->pos.x;
-		splat->unk01c.y = prop->pos.y + extraheight;
-		splat->unk01c.z = prop->pos.z;
+		shotdata->gunpos.x = prop->pos.x;
+		shotdata->gunpos.y = prop->pos.y + extraheight;
+		shotdata->gunpos.z = prop->pos.z;
 
-		splat->unk000.x = prop->pos.x;
-		splat->unk000.y = prop->pos.y + extraheight;
-		splat->unk000.z = prop->pos.z;
+		shotdata->unk00.x = prop->pos.x;
+		shotdata->unk00.y = prop->pos.y + extraheight;
+		shotdata->unk00.z = prop->pos.z;
 	}
 
 	for (i = 0; i < qty; i++) {
 		for (j = 0; j < 3; j++) {
-			f32 rand = RANDOMFRAC();
-			spe4[j] = (rand * var8007f8a8 + rand * var8007f8a8 - var8007f8a8) * 0.017453292384744f;
+			spe4.f[j] = (RANDOMFRAC() * var8007f8a8 * 2.0f - var8007f8a8) * 0.017453292384744f;
 		}
 
-		mtx4LoadRotation((struct coord *)spe4, &spa4);
-		mtx4RotateVec(&spa4, (struct coord *)spfc, &splat->unk028);
-		mtx4RotateVec(&spa4, (struct coord *)spf0, &splat->unk00c);
+		mtx4LoadRotation(&spe4, &spa4);
+		mtx4RotateVec(&spa4, &spfc, &shotdata->dir);
+		mtx4RotateVec(&spa4, &spf0, &shotdata->unk0c);
 
 #if VERSION >= VERSION_NTSC_1_0
-		func0f177164(&splat->unk028, &splat->unk028, 403, "splat.c");
-		func0f177164(&splat->unk00c, &splat->unk00c, 404, "splat.c");
+		func0f177164(&shotdata->dir, &shotdata->dir, 403, "splat.c");
+		func0f177164(&shotdata->unk0c, &shotdata->unk0c, 404, "splat.c");
 #else
-		func0f177164(&splat->unk028, &splat->unk028, 405, "splat.c");
-		func0f177164(&splat->unk00c, &splat->unk00c, 406, "splat.c");
+		func0f177164(&shotdata->dir, &shotdata->dir, 405, "splat.c");
+		func0f177164(&shotdata->unk0c, &shotdata->unk0c, 406, "splat.c");
 #endif
 
-		if (func0f149274(arg1, prop, splat, dist, arg6, arg7, arg8, arg9, arg10)) {
+		if (func0f149274(arg1, prop, shotdata, dist, arg6, arg7, arg8, arg9, arg10)) {
 			numdropped++;
 		}
 	}
@@ -204,7 +204,6 @@ s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct splat *arg3, struc
 }
 
 const char var7f1b5fe0[] = "Splat : Out of range\n";
-const char var7f1b5ff8[] = "Splat_ResetChr : Reset One Char : chrdata = %x\n";
 
 #if VERSION == VERSION_JPN_FINAL
 void func0f149250jf(void);
@@ -945,14 +944,16 @@ glabel var7f1b6048
 );
 #endif
 
-void chrInitSplats(struct chrdata *chr)
+void splatResetChr(struct chrdata *chr)
 {
+	osSyncPrintf("Splat_ResetChr : Reset One Char : chrdata = %x\n", (u32)chr);
+
 	chr->bulletstaken = 0;
 	chr->tickssincesplat = 0;
 	chr->stdsplatsadded = 0;
 	chr->woundedsplatsadded = 0;
 	chr->deaddropsplatsadded = 0;
-	chr->splatsdroppedhe = 0;
+	chr->splatsdroppedhere = 0;
 	chr->lastdroppos.x = 0;
 	chr->lastdroppos.y = 0;
 	chr->lastdroppos.z = 0;
