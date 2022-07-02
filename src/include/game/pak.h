@@ -119,8 +119,8 @@ bool pak0f11d4dc(s8 device);
 s32 pak0f11d540(s8 device, s32 arg1);
 s32 pak0f11d5b0(s8 device);
 void pak0f11d620(s8 device);
-u32 pak0f11d8b4(void);
-void pak0f11d9c4(s8 arg0, u8 *arg1, u8 *arg2, u32 arg3);
+void pak0f11d8b4(u8 *arg0, u8 *arg1);
+void pak0f11d9c4(s8 device, u8 *arg1, u8 *arg2, u32 arg3);
 
 #if VERSION >= VERSION_NTSC_1_0
 void pakRumble(s32 device, f32 numsecs, s32 onduration, s32 offduration);
