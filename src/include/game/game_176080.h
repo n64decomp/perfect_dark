@@ -4,13 +4,12 @@
 #include "data.h"
 #include "types.h"
 
-void *func0f176080(void);
-void func0f17608c(s32 stagenum);
-void func0f1760c4(void);
-void func0f176298(void);
-Gfx *func0f1762ac(Gfx *gdl);
-Gfx *func0f1763f4(Gfx *gdl);
-void *func0f176668(s32 arg0);
-Gfx *func0f1766b4(Gfx *gdl);
+void *mblurGetAllocation(void);
+void mblurReset(s32 stagenum);
+void mblurAllocate(void);
+void mblur0f176298(void);
+Gfx *mblur0f1762ac(Gfx *gdl);
+Gfx *mblur0f1763f4(Gfx *gdl);
+Gfx *mblurRender(Gfx *gdl);
 
 #endif

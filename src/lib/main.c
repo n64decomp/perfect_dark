@@ -2753,7 +2753,7 @@ void mainLoop(void)
 		gfxReset();
 		joyReset();
 		dhudReset();
-		func0f17608c(g_StageNum);
+		mblurReset(g_StageNum);
 		lvReset(g_StageNum);
 		viReset(g_StageNum);
 		frametimeCalculate();
@@ -3292,7 +3292,7 @@ glabel mainLoop
 /*     e718:	0c005049 */ 	jal	dhudReset
 /*     e71c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e720:	3c048006 */ 	lui	$a0,0x8006
-/*     e724:	0fc5c34b */ 	jal	func0f17608c
+/*     e724:	0fc5c34b */ 	jal	mblurReset
 /*     e728:	8c84f2d4 */ 	lw	$a0,-0xd2c($a0)
 /*     e72c:	3c048006 */ 	lui	$a0,0x8006
 /*     e730:	0fc589ee */ 	jal	lvReset

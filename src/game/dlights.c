@@ -597,7 +597,7 @@ void func0f001c0c(void)
 
 	mempGetStageFree();
 
-	ptr = func0f176080();
+	ptr = mblurGetAllocation();
 
 	var80061434 = (f32 *)ptr;
 	ptr += table1size;

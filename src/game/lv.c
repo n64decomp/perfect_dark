@@ -1136,7 +1136,7 @@ Gfx *lvRender(Gfx *gdl)
 					g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 			mtx00016748(g_Vars.currentplayerstats->scale_bg2gfx);
 			env0f1657f8();
-			func0f176298();
+			mblur0f176298();
 			gdl = vi0000b280(gdl);
 			gdl = vi0000b1d0(gdl);
 			gdl = currentPlayerScissorToViewport(gdl);

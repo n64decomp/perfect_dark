@@ -2503,8 +2503,8 @@ Gfx *vi0000b1d0(Gfx *gdl)
 Gfx *vi0000b280(Gfx *gdl)
 {
 	if (g_ViBackData->usezbuf) {
-		gdl = func0f1762ac(gdl);
-		gdl = func0f1763f4(gdl);
+		gdl = mblur0f1762ac(gdl);
+		gdl = mblur0f1763f4(gdl);
 	}
 
 	return gdl;
