@@ -7097,7 +7097,7 @@ bool pak0f11d7c4(s8 device)
 }
 
 GLOBAL_ASM(
-glabel pak0f11d8b4
+glabel pakConvertFromGbcImage
 /*  f11d8b4:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f11d8b8:	afb6001c */ 	sw	$s6,0x1c($sp)
 /*  f11d8bc:	afb50018 */ 	sw	$s5,0x18($sp)
@@ -7175,6 +7175,55 @@ glabel pak0f11d8b4
 );
 
 /**
+ * Convert camera pixel data from the Game Boy Camera's format and write it to
+ * a 128x128 byte array.
+ *
+ * The GBC's format is 128x112 pixels at 2 bits per pixel. The bits are not
+ * linear; the two bits for each pixel are in neighbouring bytes using the same
+ * bit index. It also appears that the the GBC format is column major.
+ */
+//void pakConvertFromGbcImage(u8 *src, u8 *dst)
+//{
+//	s32 i;
+//	s32 j;
+//	s32 byte;
+//	s32 bit;
+//	s32 a0;
+//	s32 a3;
+//	s32 t2;
+//	u8 *s2;
+//
+//	for (i = 0; i < 16; i++) {
+//		a0 = (i * 16) << 4;
+//
+//		for (j = 0; j < 16; j++) {
+//			s2 = &src[a0];
+//
+//			for (byte = 0; byte < 8; byte++) {
+//				t2 = (i * 8 + byte) << 7;
+//				a3 = j * 8;
+//
+//				for (bit = 0; bit < 8; bit++) {
+//					dst[t2 + a3] = 0;
+//
+//					if ((s2[byte * 2 + 0] & (0x80 >> bit)) == 0) {
+//						dst[t2 + a3] += 0x40;
+//					}
+//
+//					if ((s2[byte * 2 + 1] & (0x80 >> bit)) == 0) {
+//						dst[t2 + a3] += 0x80;
+//					}
+//
+//					a3++;
+//				}
+//			}
+//
+//			a0 += 16;
+//		}
+//	}
+//}
+
+/**
  * Perform operations on a 128 x 128 image.
  */
 void pak0f11d9c4(s8 device, u8 *arg1, u8 *arg2, u32 arg3)
@@ -7196,7 +7245,7 @@ void pak0f11d9c4(s8 device, u8 *arg1, u8 *arg2, u32 arg3)
 		break;
 	case 1:
 		if (arg1 != NULL) {
-			pak0f11d8b4(g_Paks[device].unk2c4, sp60);
+			pakConvertFromGbcImage(g_Paks[device].unk2c4, sp60);
 
 			for (i = 0; i < 128; i++) {
 				for (j = 0; j < 128; j++) {
@@ -7207,7 +7256,7 @@ void pak0f11d9c4(s8 device, u8 *arg1, u8 *arg2, u32 arg3)
 		break;
 	case 2:
 		if (arg1 != NULL) {
-			pak0f11d8b4(g_Paks[device].unk2c4, sp60);
+			pakConvertFromGbcImage(g_Paks[device].unk2c4, sp60);
 
 			for (i = 0; i < 128; i++) {
 				for (j = 0; j < 128; j++) {
@@ -7218,7 +7267,7 @@ void pak0f11d9c4(s8 device, u8 *arg1, u8 *arg2, u32 arg3)
 		break;
 	case 3:
 		if (arg1 != NULL) {
-			pak0f11d8b4(g_Paks[device].unk2c4, arg1);
+			pakConvertFromGbcImage(g_Paks[device].unk2c4, arg1);
 		}
 		break;
 	}
