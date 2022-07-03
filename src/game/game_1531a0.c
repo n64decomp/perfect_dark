@@ -2882,164 +2882,85 @@ glabel var7f1b8a14pf
 /*  f15608c:	00000000 */ 	nop
 );
 #elif VERSION >= VERSION_PAL_BETA
-GLOBAL_ASM(
-glabel func0f155d2cpf
-.late_rodata
-glabel var7f1b88a8pf
-.word 0x7f15641c
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f15641c
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f15641c
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f15641c
-.word 0x7f156374
-.word 0x7f156374
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156374
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156380
-.word 0x7f156380
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f15638c
-.word 0x7f15638c
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f1563ec
-.word 0x7f156398
-.word 0x7f156398
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156398
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f1563a4
-.word 0x7f1563a4
-.word 0x7f156424
-.word 0x7f1563a4
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156410
-.word 0x7f1563b0
-.word 0x7f1563b0
-.word 0x7f1563b0
-.word 0x7f156424
-.word 0x7f1563b0
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f156404
-.word 0x7f1563bc
-.word 0x7f1563bc
-.word 0x7f1563bc
-.word 0x7f1563bc
-.word 0x7f1563c8
-.word 0x7f1563c8
-.word 0x7f1563c8
-.word 0x7f1563c8
-.word 0x7f156424
-.word 0x7f1563f8
-.word 0x7f1563d4
-.word 0x7f1563d4
-.word 0x7f1563d4
-.word 0x7f156424
-.word 0x7f1563d4
-.word 0x7f156424
-.word 0x7f156424
-.word 0x7f1563e0
-.word 0x7f1563e0
-.word 0x7f1563e0
-.word 0x7f1563e0
-.text
-/*  f15634c:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f156350:	25cfff5f */ 	addiu	$t7,$t6,-161
-/*  f156354:	2de1005c */ 	sltiu	$at,$t7,0x5c
-/*  f156358:	10200032 */ 	beqz	$at,.PB0f156424
-/*  f15635c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f156360:	3c017f1c */ 	lui	$at,0x7f1c
-/*  f156364:	002f0821 */ 	addu	$at,$at,$t7
-/*  f156368:	8c2f9438 */ 	lw	$t7,-0x6bc8($at)
-/*  f15636c:	01e00008 */ 	jr	$t7
-/*  f156370:	00000000 */ 	nop
-/*  f156374:	24180041 */ 	li	$t8,0x41
-/*  f156378:	03e00008 */ 	jr	$ra
-/*  f15637c:	a0980000 */ 	sb	$t8,0x0($a0)
-/*  f156380:	24190045 */ 	li	$t9,0x45
-/*  f156384:	03e00008 */ 	jr	$ra
-/*  f156388:	a0990000 */ 	sb	$t9,0x0($a0)
-/*  f15638c:	24080049 */ 	li	$t0,0x49
-/*  f156390:	03e00008 */ 	jr	$ra
-/*  f156394:	a0880000 */ 	sb	$t0,0x0($a0)
-/*  f156398:	2409004f */ 	li	$t1,0x4f
-/*  f15639c:	03e00008 */ 	jr	$ra
-/*  f1563a0:	a0890000 */ 	sb	$t1,0x0($a0)
-/*  f1563a4:	240a0055 */ 	li	$t2,0x55
-/*  f1563a8:	03e00008 */ 	jr	$ra
-/*  f1563ac:	a08a0000 */ 	sb	$t2,0x0($a0)
-/*  f1563b0:	240b0061 */ 	li	$t3,0x61
-/*  f1563b4:	03e00008 */ 	jr	$ra
-/*  f1563b8:	a08b0000 */ 	sb	$t3,0x0($a0)
-/*  f1563bc:	240c0065 */ 	li	$t4,0x65
-/*  f1563c0:	03e00008 */ 	jr	$ra
-/*  f1563c4:	a08c0000 */ 	sb	$t4,0x0($a0)
-/*  f1563c8:	240d0069 */ 	li	$t5,0x69
-/*  f1563cc:	03e00008 */ 	jr	$ra
-/*  f1563d0:	a08d0000 */ 	sb	$t5,0x0($a0)
-/*  f1563d4:	240e006f */ 	li	$t6,0x6f
-/*  f1563d8:	03e00008 */ 	jr	$ra
-/*  f1563dc:	a08e0000 */ 	sb	$t6,0x0($a0)
-/*  f1563e0:	240f0075 */ 	li	$t7,0x75
-/*  f1563e4:	03e00008 */ 	jr	$ra
-/*  f1563e8:	a08f0000 */ 	sb	$t7,0x0($a0)
-/*  f1563ec:	2418004e */ 	li	$t8,0x4e
-/*  f1563f0:	03e00008 */ 	jr	$ra
-/*  f1563f4:	a0980000 */ 	sb	$t8,0x0($a0)
-/*  f1563f8:	2419006e */ 	li	$t9,0x6e
-/*  f1563fc:	03e00008 */ 	jr	$ra
-/*  f156400:	a0990000 */ 	sb	$t9,0x0($a0)
-/*  f156404:	24080063 */ 	li	$t0,0x63
-/*  f156408:	03e00008 */ 	jr	$ra
-/*  f15640c:	a0880000 */ 	sb	$t0,0x0($a0)
-/*  f156410:	24090042 */ 	li	$t1,0x42
-/*  f156414:	03e00008 */ 	jr	$ra
-/*  f156418:	a0890000 */ 	sb	$t1,0x0($a0)
-/*  f15641c:	240a0020 */ 	li	$t2,0x20
-/*  f156420:	a08a0000 */ 	sb	$t2,0x0($a0)
-.PB0f156424:
-/*  f156424:	03e00008 */ 	jr	$ra
-/*  f156428:	00000000 */ 	nop
-);
+void textMapCodeUnitToChar2(u8 *c)
+{
+	switch (*c) {
+	case 0xc0:
+	case 0xc1:
+	case 0xc4:
+		*c = 0x41;
+		break;
+	case 0xc8:
+	case 0xc9:
+		*c = 0x45;
+		break;
+	case 0xcc:
+	case 0xcd:
+		*c = 0x49;
+		break;
+	case 0xd2:
+	case 0xd3:
+	case 0xd6:
+		*c = 0x4f;
+		break;
+	case 0xd9:
+	case 0xda:
+	case 0xdc:
+		*c = 0x55;
+		break;
+	case 0xe0:
+	case 0xe1:
+	case 0xe2:
+	case 0xe4:
+		*c = 0x61;
+		break;
+	case 0xe8:
+	case 0xe9:
+	case 0xea:
+	case 0xeb:
+		*c = 0x65;
+		break;
+	case 0xec:
+	case 0xed:
+	case 0xee:
+	case 0xef:
+		*c = 0x69;
+		break;
+	case 0xf2:
+	case 0xf3:
+	case 0xf4:
+	case 0xf6:
+		*c = 0x6f;
+		break;
+	case 0xf9:
+	case 0xfa:
+	case 0xfb:
+	case 0xfc:
+		*c = 0x75;
+		break;
+	case 0xd1:
+		*c = 0x4e;
+		break;
+	case 0xf1:
+		*c = 0x6e;
+		break;
+	case 0xe7:
+		*c = 0x63;
+		break;
+	case 0xdf:
+		*c = 0x42;
+		break;
+	case 0xa1:
+	case 0xaa:
+	case 0xb0:
+	case 0xbf:
+		*c = 0x20;
+		break;
+	}
+}
 #endif
 
-void func0f155d2cpf(void *c);
+void textMapCodeUnitToChar2(u8 *c);
 void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar **arg2, struct fontchar *chars, u8 *prevchar);
 
 #if VERSION == VERSION_JPN_FINAL
@@ -3256,7 +3177,7 @@ void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar 
 		case 0xaa: index = 0x86; break;
 		}
 	} else {
-		func0f155d2cpf(&c);
+		textMapCodeUnitToChar2(&c);
 	}
 
 	if (index > 0) {
@@ -3276,7 +3197,7 @@ void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar 
 	*arg2 = &chars[*prevchar - 0x21];
 
 	if (index > 0) {
-		func0f155d2cpf(&c);
+		textMapCodeUnitToChar2(&c);
 	}
 
 	*prevchar = c;
