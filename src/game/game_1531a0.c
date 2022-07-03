@@ -45,7 +45,7 @@ u32 var8007facc = 0;
 s32 var8007fad0 = 1;
 #endif
 
-u32 var8007fad4 = 0xffffffff;
+s32 var8007fad4 = -1;
 u32 var8007fad8 = 0x00000000;
 u32 var8007fadc = 0x00000000;
 u32 var8007fae0 = 0x00000000;
@@ -534,7 +534,7 @@ void fontsReset(void)
 	var8007fac4 = 0;
 	g_TextRotated90 = false;
 	var8007facc = 0;
-	var8007fad4 = 0xffffffff;
+	var8007fad4 = -1;
 	var8007fad8 = 0;
 	var8007fadc = 0;
 	var8007fae0 = 0;
@@ -3971,6 +3971,135 @@ glabel func0f1552d4
 /*  f155688:	27bd00d8 */ 	addiu	$sp,$sp,0xd8
 );
 #endif
+
+// Mismatch: Can't match the fx and fy calculations
+//Gfx *func0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
+//		char *text, struct fontchar *chars, struct font *font, u32 colour, s32 hdir, s32 vdir)
+//{
+//	s32 s2;
+//	u8 prevchar;
+//	s32 textwidth; // cc
+//	s32 textheight; // c8
+//	s32 spc4;
+//	s32 spc0;
+//	f32 fx;
+//	f32 fy;
+//
+//	s2 = 0;
+//	spc0 = 0;
+//	prevchar = 'H';
+//
+//#if VERSION >= VERSION_JPN_FINAL
+//	spc4 = 13;
+//#else
+//	spc4 = chars['['].height + chars['['].baseline;
+//
+//	if (g_Jpn && spc4 < 14) {
+//		spc4 = 14;
+//	}
+//#endif
+//
+//	textMeasure(&textheight, &textwidth, text, chars, font, 0);
+//
+//	fx = x - (widthscale - 1.0f) * textwidth * 0.5f * hdir;
+//	fy = y - (heightscale - 1.0f) * spc4 * 0.5f * vdir;
+//
+//	if (fx);
+//	if (fy);
+//
+//	gDPPipeSync(gdl++);
+//	gDPSetTextureLUT(gdl++, G_TT_IA16);
+//	gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(&var8007fb3c));
+//
+//#if VERSION >= VERSION_JPN_FINAL
+//	var80080104jf = true;
+//#endif
+//
+//	gDPLoadSync(gdl++);
+//	gDPLoadTLUTCmd(gdl++, 6, 15);
+//	gDPSetTile(gdl++, G_IM_FMT_CI, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+//	gDPSetTileSize(gdl++, G_TX_RENDERTILE, 0, 0, 0x007c, 0x007c);
+//	gDPSetPrimColorViaWord(gdl++, 0, 0, colour);
+//	gDPPipeSync(gdl++);
+//
+//#if VERSION >= VERSION_PAL_BETA
+//	if (text != NULL) {
+//		while (*text != '\0') {
+//			if (*text == ' ') {
+//				prevchar = 'H';
+//				text += 1;
+//				spc0 = spc0 + var8007fad0 * 5;
+//			} else if (*text == '\n') {
+//				if (var8007fad4 >= 0 && spc0 == 0) {
+//					s2 += var8007fad4;
+//					spc0 = 0;
+//				} else {
+//					spc0 = 0;
+//#if VERSION >= VERSION_JPN_FINAL
+//					s2 = s2 + spc4 * var80080108jf;
+//#else
+//					s2 += spc4;
+//#endif
+//				}
+//
+//				prevchar = 'H';
+//				text += 1;
+//			} else {
+//				struct fontchar *sp84;
+//				struct fontchar *sp80;
+//
+//				textMapCodeUnitToChar(&text, &sp84, &sp80, chars, &prevchar);
+//				gdl = func0f154f38(gdl, &spc0, sp84, sp80, font, widthscale, heightscale, fx, fy);
+//			}
+//		}
+//	}
+//#else
+//	if (text != NULL) {
+//		while (*text != '\0') {
+//			if (*text == ' ') {
+//				prevchar = 'H';
+//				text += 1;
+//				spc0 = spc0 + var8007fad0 * 5;
+//			} else if (*text == '\n') {
+//				prevchar = 'H';
+//				text += 1;
+//
+//				if (var8007fad4 >= 0 && spc0 == 0) {
+//					s2 += var8007fad4;
+//					spc0 = 0;
+//				} else {
+//					spc0 = 0;
+//					s2 += spc4;
+//				}
+//			} else if (*text < 0x80) {
+//				gdl = func0f154f38(gdl, &spc0, &chars[*text - 0x21], &chars[prevchar - 0x21], font,
+//						widthscale, heightscale, fx, fy);
+//				prevchar = *text;
+//				text += 1;
+//			} else {
+//				u16 codepoint = ((*text & 0x7f) << 7) | (text[1] & 0x7f);
+//				struct fontchar tmpchar = {0, 0, 12, 13}; // var8007fbcc
+//
+//				if (codepoint & 0x2000) {
+//					tmpchar.width = 15;
+//					tmpchar.height = 16;
+//				}
+//
+//				if ((codepoint & 0x1fff) >= 0x3c8) {
+//					codepoint = 2;
+//				}
+//
+//				tmpchar.index = codepoint + 0x80;
+//				tmpchar.pixeldata = (void *)lang0f16e3fc(codepoint);
+//
+//				text += 2;
+//			}
+//		}
+//	}
+//#endif
+//
+//	return gdl;
+//}
 
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
