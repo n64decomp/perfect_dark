@@ -43,9 +43,8 @@ void func0f156024(s32 arg0);
 void func0f156030(u32 colour);
 Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *font1, struct font *font2, s32 colour, s16 width, s16 height, s32 arg9, u32 arg10);
 Gfx *func0f1566cc(Gfx *gdl, u32 arg1, u32 arg2);
-u32 func0f156790(void);
 u32 func0f156a24(void);
-Gfx *textRender(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *font1, struct font *font2, u32 arg6, u32 colour, s16 arg8, s16 arg9, u32 arg10, u32 arg11);
+Gfx *textRender(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *font1, struct font *font2, u32 arg6, u32 colour, s32 arg8, s32 arg9, u32 arg10, s32 arg11);
 void textMeasure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *font1, struct font *font2, s32 lineheight);
 void textWrap(s32 width, char *in, char *out, struct fontchar *font1, struct font *font2);
 
