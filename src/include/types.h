@@ -5833,9 +5833,10 @@ struct fontchar {
 	s8 baseline;
 	u8 height;
 	u8 width;
-	u8 unk04;
 #if VERSION == VERSION_JPN_FINAL
-	s16 unk06;
+	s16 unk04;
+#else
+	u32 unk04;
 #endif
 	u8 *pixeldata;
 };
