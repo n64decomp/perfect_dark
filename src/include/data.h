@@ -423,7 +423,7 @@ extern s32 g_SparksAreActive;
 extern struct weatherdata *g_WeatherData;
 extern s32 g_NextShardNum;
 extern bool g_ShardsActive;
-extern u32 var800800f0jf;
+extern s32 var800800f0jf;
 extern s32 g_ScaleX;
 extern s32 var80080108jf;
 extern s32 var8007fad0;

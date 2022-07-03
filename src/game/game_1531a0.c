@@ -16,22 +16,6 @@
 
 const char var7f1b73b0[] = "burncol";
 
-#if VERSION >= VERSION_JPN_FINAL
-const char var7f1b8068jf[] = "ope";
-#endif
-
-const char var7f1b73b8[] = "sbrd";
-const char var7f1b73c0[] = "lalpha";
-const char var7f1b73c8[] = "subtlety";
-const char var7f1b73d4[] = "subtletx";
-const char var7f1b73e0[] = "coly";
-const char var7f1b73e8[] = "colx";
-const char var7f1b73f0[] = "lfade";
-const char var7f1b73f8[] = "llimbo";
-
-const u32 var7f1b7400[] = {0x453b8000};
-const u32 var7f1b7404[] = {0x453b8000};
-
 #if VERSION == VERSION_JPN_FINAL
 u8 jpnfill5[0x2a8];
 #endif
@@ -40,12 +24,12 @@ struct var800a45d0 var800a45d0;
 Gfx *var800a4634;
 Gfx *var800a4638;
 #if VERSION == VERSION_JPN_FINAL
-u8 jpnfill6[0x0c];
+struct fontchar g_TmpJpnChar;
 #endif
 u32 var800a463c;
 
 #if VERSION == VERSION_JPN_FINAL
-u32 var800800f0jf = 0;
+s32 var800800f0jf = 0;
 s32 g_ScaleX = 1;
 u32 var80080104jf = 0;
 s32 var8007fac4 = 0;
@@ -139,7 +123,7 @@ u32 var8007fbc4 = 0xffffff00;
 u32 var8007fbc8 = 0xffffff00;
 
 #if VERSION >= VERSION_JPN_FINAL
-u32 jpnfill8 = 0;
+u32 ope = 0;
 u32 var8007fbd8 = 0x00000000;
 u32 var80080130pf[3] = {0};
 #elif VERSION >= VERSION_PAL_BETA
@@ -841,6 +825,10 @@ s32 func0f153e58(void)
 
 GLOBAL_ASM(
 glabel func0f153e94
+.late_rodata
+glabel var7f1b7400
+.word 0x453b8000
+.text
 /*  f153e94:	3c09800a */ 	lui	$t1,%hi(var800a45d0)
 /*  f153e98:	252945d0 */ 	addiu	$t1,$t1,%lo(var800a45d0)
 /*  f153e9c:	912e0000 */ 	lbu	$t6,0x0($t1)
@@ -1197,6 +1185,10 @@ glabel func0f153e94
 
 GLOBAL_ASM(
 glabel func0f1543ac
+.late_rodata
+glabel var7f1b7404
+.word 0x453b8000
+.text
 /*  f1543ac:	3c09800a */ 	lui	$t1,%hi(var800a45d0)
 /*  f1543b0:	252945d0 */ 	addiu	$t1,$t1,%lo(var800a45d0)
 /*  f1543b4:	91280000 */ 	lbu	$t0,0x0($t1)
@@ -2138,6 +2130,8 @@ glabel var7f1b8738pf
 );
 #endif
 
+u8 func0f154784jf(s32 arg0);
+
 #if VERSION == VERSION_JPN_FINAL
 GLOBAL_ASM(
 glabel func0f154784jf
@@ -2307,6 +2301,8 @@ glabel var7f1b822cjf
 /*  f154964:	00601025 */ 	move	$v0,$v1
 );
 #endif
+
+u16 func0f155d2cpf(u8 arg0);
 
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
@@ -3108,6 +3104,79 @@ glabel textMapCodeUnitToChar
 /*  f154d08:	03e00008 */ 	jr	$ra
 /*  f154d0c:	00000000 */ 	nop
 );
+
+#if VERSION >= VERSION_JPN_FINAL
+const char var7f1b8068jf[] = "ope";
+#endif
+
+//void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar **arg2, struct fontchar *chars, u8 *prevchar)
+//{
+//	u16 c;
+//	u8 c1;
+//	u8 c2;
+//	u16 sp2a;
+//	u8 sp29;
+//
+//	c = **text;
+//
+//	if (c < 0x80) {
+//		if (chars == NULL || var800800f0jf) {
+//			g_TmpJpnChar.index = 0;
+//			g_TmpJpnChar.baseline = 0;
+//			g_TmpJpnChar.height = 12;
+//			g_TmpJpnChar.width = 12;
+//			g_TmpJpnChar.unk06 = 0;
+//			g_TmpJpnChar.pixeldata = NULL;
+//
+//			g_TmpJpnChar.index = 0x80 + func0f155d2cpf(c);
+//
+//			*arg1 = &g_TmpJpnChar;
+//			*arg2 = &g_TmpJpnChar;
+//		} else {
+//			*arg1 = &chars[c - 0x21];
+//			*arg2 = &chars[*prevchar - 0x21];
+//		}
+//
+//		*prevchar = **text;
+//		*text += 1;
+//		return;
+//	}
+//
+//	g_TmpJpnChar.index = 0;
+//	g_TmpJpnChar.baseline = 0;
+//	g_TmpJpnChar.height = 11;
+//	g_TmpJpnChar.width = 11;
+//	g_TmpJpnChar.unk06 = 0;
+//	g_TmpJpnChar.pixeldata = NULL;
+//
+//	c1 = **text;
+//	*text = *text + 1;
+//	c2 = **text;
+//	*text = *text + 1;
+//
+//	sp2a = ((c1 & 0x7f) << 7) | (c2 & 0x7f);
+//	sp29 = 0;
+//
+//	mainOverrideVariable("ope", &ope);
+//
+//	if (ope) {
+//		sp29 = func0f154784jf(sp2a);
+//	}
+//
+//	if (sp29 == 0 || chars == NULL) {
+//		if ((sp2a & 0x1fff) >= 0x400) {
+//			sp2a = 2;
+//		}
+//
+//		g_TmpJpnChar.index = sp2a + 0x80;
+//
+//		*arg1 = &g_TmpJpnChar;
+//		*arg2 = &g_TmpJpnChar;
+//	} else {
+//		*arg1 = &chars[sp29 - 0x21];
+//		*arg2 = &g_TmpJpnChar;
+//	}
+//}
 #elif VERSION == VERSION_PAL_BETA
 void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar **arg2, struct fontchar *chars, u8 *prevchar)
 {
@@ -7513,6 +7582,15 @@ void func0f156030(u32 colour)
 {
 	var800a463c = colour;
 }
+
+const char var7f1b73b8[] = "sbrd";
+const char var7f1b73c0[] = "lalpha";
+const char var7f1b73c8[] = "subtlety";
+const char var7f1b73d4[] = "subtletx";
+const char var7f1b73e0[] = "coly";
+const char var7f1b73e8[] = "colx";
+const char var7f1b73f0[] = "lfade";
+const char var7f1b73f8[] = "llimbo";
 
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
