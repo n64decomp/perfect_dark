@@ -47,8 +47,8 @@ s32 var8007fad0 = 1;
 
 s32 var8007fad4 = -1;
 u32 var8007fad8 = 0x00000000;
-u32 var8007fadc = 0x00000000;
-u32 var8007fae0 = 0x00000000;
+s32 var8007fadc = 0;
+s32 var8007fae0 = 0;
 u32 var8007fae4 = 0x00000000;
 u32 var8007fae8 = 0x00000000;
 u32 var8007faec = 0x00000000;
@@ -3036,6 +3036,111 @@ glabel func0f154f38
 /*  f1552d0:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 #endif
+
+// Mismatch: Regalloc, an extra move instruction and some minor reordering.
+// Related to type casting.
+//Gfx *func0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar *prevchar,
+//		struct font *font, f32 widthscale, f32 heightscale, f32 x, f32 y)
+//{
+//	s32 tmp;
+//	u32 stack;
+//	s16 sp3e;
+//	s16 sp3c;
+//	s16 sp3a;
+//	s16 sp38;
+//	s16 sp36;
+//	s16 sp34;
+//	s16 sp32;
+//	s16 sp30;
+//	struct gfxvtx *vertices; // 2c
+//	u32 *colours;
+//#if VERSION < VERSION_JPN_FINAL
+//	s32 stack2;
+//#endif
+//
+//	tmp = font->unk000[prevchar->unk04 * 13 + curchar->unk04] + var8007fac4;
+//	*arg1 = *arg1 - tmp + 1;
+//
+//#if VERSION >= VERSION_JPN_FINAL
+//	if (curchar->pixeldata == 0) {
+//		curchar->pixeldata = (void *)lang0f16e3fc(curchar->index - 0x80);
+//	}
+//
+//	if (curchar->index >= 0x80) {
+//		if (!var80080104jf) {
+//			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(&var800801d8jf));
+//			var80080104jf = 1;
+//			gDPLoadSync(gdl++);
+//			gDPLoadTLUTCmd(gdl++, 6, 15);
+//		}
+//	} else {
+//		if (var80080104jf) {
+//			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, osVirtualToPhysical(&var8007fb3c));
+//			var80080104jf = 0;
+//			gDPLoadSync(gdl++);
+//			gDPLoadTLUTCmd(gdl++, 6, 15);
+//		}
+//	}
+//#endif
+//
+//	gDPSetTextureImage(gdl++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, curchar->pixeldata);
+//	gDPLoadSync(gdl++);
+//	gDPLoadBlock(gdl++, G_TX_LOADTILE, 0, 0, (((s32)((u32)curchar->height * 8) + 17) >> 1) - 1, 2048);
+//	gDPPipeSync(gdl++);
+//
+//	sp3e = ((s32)var8007fadc + (*arg1 * 4)) * widthscale * 10.0f + 40.0f * x;
+//	sp3c = ((s32)var8007fae0 + (curchar->baseline * 4)) * heightscale * 10.0f + 40.0f * y;
+//	sp3a = ((s32)var8007fadc + ((*arg1 + (curchar->width + 1)) * 4)) * widthscale * 10.0f + 40.0f * x;
+//	sp38 = ((s32)var8007fae0 + ((curchar->baseline + (curchar->height + 1)) * 4)) * heightscale * 10.0f + 40.0f * y;
+//
+//	sp36 = 1;
+//	sp34 = sp36 + ((curchar->width + 1) << 6);
+//	sp32 = 1;
+//	sp30 = sp32 + ((curchar->height + 1) << 6);
+//
+//	if (1);
+//
+//	vertices = gfxAllocateVertices(4);
+//
+//	colours = gfxAllocateColours(1);
+//	colours[0] = 0xff0000ff;
+//
+//	vertices[0].z = -10;
+//	vertices[1].z = -10;
+//	vertices[2].z = -10;
+//	vertices[3].z = -10;
+//
+//	vertices[0].colour = 0;
+//	vertices[1].colour = 0;
+//	vertices[2].colour = 0;
+//	vertices[3].colour = 0;
+//
+//	vertices[0].x = sp3e / 4;
+//	vertices[0].y = sp3c / 4;
+//	vertices[0].s = sp36;
+//	vertices[0].t = sp32;
+//	vertices[1].x = sp3a / 4;
+//	vertices[1].y = sp3c / 4;
+//	vertices[1].s = sp34;
+//	vertices[1].t = sp32;
+//	vertices[2].x = sp3a / 4;
+//	vertices[2].y = sp38 / 4;
+//	vertices[2].s = sp34;
+//	vertices[2].t = sp30;
+//	vertices[3].x = sp3e / 4;
+//	vertices[3].y = sp38 / 4;
+//	vertices[3].s = sp36;
+//	vertices[3].t = sp30;
+//
+//	gDPSetColorArray(gdl++, colours, 1);
+//	gDPSetVerticeArray(gdl++, vertices, 4);
+//
+//	gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
+//
+//	*arg1 += curchar->width;
+//
+//	return gdl;
+//}
 
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
