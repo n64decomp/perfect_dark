@@ -6,7 +6,7 @@
 
 void fontsInit(void);
 void textSetRotation90(bool rotated);
-void func0f1531c4(s32 arg0);
+void textSetWrapIndent(s32 count);
 void func0f1531d0(s32 arg0);
 void func0f1531dc(bool arg0);
 void fontLoad(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar **charsptr, bool monospace);
