@@ -9,10 +9,9 @@
 
 struct model *var8009dd00;
 struct anim *var8009dd04;
-u32 var8009dd08;
-u32 var8009dd0c;
+s32 var8009dd08;
+s32 var8009dd0c;
 struct var8009dd10 *var8009dd10[3];
-u32 var8009dd1c;
 
 s32 var800705a0 = 0;
 s32 var800705a4 = 0;

@@ -24,6 +24,11 @@
 #include "data.h"
 #include "types.h"
 
+#define NUMTHINGS1() (IS4MB() ? 0 : 35)
+#define NUMTHINGS2() (IS4MB() ? 24 : 25)
+#define NUMTHINGS3() (IS4MB() ? 0 : 20)
+#define NUMTHINGS4() (IS4MB() ? 40 : 60)
+
 void func0f011110(void)
 {
 	var800705a4 = 0;
@@ -351,6 +356,105 @@ glabel func0f011130
 /*  f011558:	03e00008 */ 	jr	$ra
 /*  f01155c:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
+
+extern s32 var800705a0_2;
+extern s32 var800705a4_2;
+
+// Mismatch: Regalloc, although the _2 trick is certainly fake (they're the same
+// variables as used earlier, but we need to force address recalculations)
+//void func0f011130(s32 arg0, s32 numchrs)
+//{
+//	s32 v1;
+//	s32 v0;
+//	s32 a2;
+//	s32 tmp;
+//	u8 *ptr;
+//	s32 i;
+//	s32 totalsize;
+//	s32 modelssize; // 20
+//	s32 animssize; // 1c
+//	s32 rwdatasize1 = 0x10;
+//	s32 rwdatasize2 = 0xd0;
+//	s32 rwdatasize3 = 0;
+//
+//	var8009dd08 = arg0;
+//	var8009dd0c = numchrs;
+//
+//	var800705a0 = arg0 + NUMTHINGS4() + numchrs + 20;
+//	var800705a4 = numchrs + 20;
+//
+//	a2 = (NUMTHINGS1() + NUMTHINGS2() + NUMTHINGS3()) * sizeof(struct var8009dd10);
+//	v0 = NUMTHINGS1() * rwdatasize1;
+//	v1 = NUMTHINGS2() * rwdatasize2;
+//	tmp = NUMTHINGS3() * rwdatasize3;
+//
+//	modelssize = ALIGN16(var800705a0_2 * sizeof(struct model));
+//	animssize = ALIGN16(var800705a4_2 * sizeof(struct anim));
+//
+//	totalsize = ALIGN16(a2 + v0 + v1 + tmp + modelssize + animssize);
+//
+//	var8009dd10[0] = NULL;
+//	var8009dd10[1] = NULL;
+//	var8009dd10[2] = NULL;
+//
+//	ptr = mempAlloc(totalsize, MEMPOOL_STAGE);
+//
+//	if (NUMTHINGS1()) {
+//		var8009dd10[0] = (struct var8009dd10 *)ptr;
+//		ptr += NUMTHINGS1() * 8;
+//	}
+//
+//	if (NUMTHINGS2()) {
+//		var8009dd10[1] = (struct var8009dd10 *)ptr;
+//		ptr += NUMTHINGS2() * 8;
+//	}
+//
+//	if (NUMTHINGS3()) {
+//		var8009dd10[2] = (struct var8009dd10 *)ptr;
+//		ptr += NUMTHINGS3() * 8;
+//	}
+//
+//	var8009dd00 = (struct model *)ptr;
+//	ptr += modelssize;
+//	var8009dd04 = (struct anim *)ptr;
+//	ptr += animssize;
+//
+//	for (i = 0; i < NUMTHINGS1(); i++) {
+//		var8009dd10[0][i].rwdata = ptr;
+//		var8009dd10[0][i].model = NULL;
+//
+//		ptr += rwdatasize1;
+//	}
+//
+//	for (i = 0; i < NUMTHINGS2(); i++) {
+//		var8009dd10[1][i].rwdata = ptr;
+//		var8009dd10[1][i].model = NULL;
+//
+//		ptr += rwdatasize2;
+//	}
+//
+//	for (i = 0; i < NUMTHINGS3(); i++) {
+//		var8009dd10[2][i].rwdata = NULL;
+//		var8009dd10[2][i].model = NULL;
+//
+//		ptr += rwdatasize3;
+//	}
+//
+//	for (i = 0; i < var800705a0_2; i++) {
+//		var8009dd00[i].filedata = NULL;
+//		var8009dd00[i].rwdatas = NULL;
+//	}
+//
+//	for (i = 0; i < var800705a4_2; i++) {
+//		var8009dd04[i].animnum = -1;
+//	}
+//
+//	var800705ac = 0;
+//	var800705b0 = 0;
+//	var800705b4 = 0;
+//	var800705b8 = 0;
+//	var800705bc = 0;
+//}
 
 bool weaponLoadProjectileModels(s32 weaponnum)
 {
