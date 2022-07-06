@@ -152,9 +152,9 @@ s32 frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerd
 		y++;
 #endif
 
-		gdl = func0f153628(gdl);
+		gdl = text0f153628(gdl);
 		gdl = textRenderProjected(gdl, &x, &y, bgunGetName(weaponnum2), g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
-		gdl = func0f153780(gdl);
+		gdl = text0f153780(gdl);
 
 		// Prepare the star texture for the difficulties
 		gDPPipeSync(gdl++);
@@ -668,10 +668,10 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 				G_TX_RENDERTILE, 16, 1024, -1024 / g_ScaleX, 1024);
 
 #if VERSION >= VERSION_NTSC_1_0
-		gdl = gfxSetPrimColour(gdl, (failed ? 0xff000055 : 0x00ff0055) & 0xffffff00 | ((failed ? 0xff000055 : 0x00ff0055) & 0xff) * (renderdata->colour & 0xff) >> 8);
+		gdl = textSetPrimColour(gdl, (failed ? 0xff000055 : 0x00ff0055) & 0xffffff00 | ((failed ? 0xff000055 : 0x00ff0055) & 0xff) * (renderdata->colour & 0xff) >> 8);
 		colour = (failed ? 0xff6969aa : renderdata->colour) & 0xffffff00 | (((failed ? 0xff6969aa : renderdata->colour) & 0xff) * (renderdata->colour & 0xff)) >> 8;
 #else
-		gdl = gfxSetPrimColour(gdl, failed ? 0xff000055 : 0x00ff0055);
+		gdl = textSetPrimColour(gdl, failed ? 0xff000055 : 0x00ff0055);
 #endif
 
 		// NTSC beta uses a static alpha channel, while newer versions take the
@@ -691,14 +691,14 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		sprintf(text, "%d\n", frdata->numhitsbullseye);
 		x = renderdata->x + 93;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 15 : 14);
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// "Bull's-eye"
 		sprintf(text, langGet(L_MPMENU_461));
 		x = renderdata->x + 122;
 		y = renderdata->y + 14;
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Bull's-eye score
@@ -706,21 +706,21 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 15 : 14);
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 1 count
 		sprintf(text, "%d\n", frdata->numhitsring1);
 		x = renderdata->x + 93;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 27 : 25);
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// "Zone 1"
 		sprintf(text, langGet(L_MPMENU_462));
 		x = renderdata->x + 122;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 26 : 25);
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 1 score
@@ -728,21 +728,21 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 27 : 25);
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 2 count
 		sprintf(text, "%d\n", frdata->numhitsring2);
 		x = renderdata->x + 93;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 39 : 36);
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// "Zone 2"
 		sprintf(text, langGet(L_MPMENU_463));
 		x = renderdata->x + 122;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 38 : 36);
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 2 score
@@ -750,14 +750,14 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 39 : 36);
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 3 count
 		sprintf(text, "%d\n", frdata->numhitsring3);
 		x = renderdata->x + 93;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 51 : 47);
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// "Zone 3"
@@ -765,7 +765,7 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		sprintf(text, langGet(L_MPMENU_464), frdata->numhitsring3);
 		x = renderdata->x + 122;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 50 : 47);
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Zone 3 score
@@ -773,7 +773,7 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 51 : 47);
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// "Hit total"
@@ -786,7 +786,7 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		y += 3;
 #endif
 
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// Hit total count
@@ -800,45 +800,45 @@ s32 frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata
 		y += 3;
 #endif
 
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// "Scoring"
 		sprintf(text, langGet(L_MPMENU_466));
 		x = renderdata->x + 83;
 		y = renderdata->y + 1;
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// "10"
 		sprintf(text, langGet(L_MPMENU_467));
 		x = renderdata->x + 38;
 		y = renderdata->y + 35;
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// "5"
 		sprintf(text, langGet(L_MPMENU_468));
 		x = renderdata->x + 32;
 		y = renderdata->y + 26;
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// "2"
 		sprintf(text, langGet(L_MPMENU_469));
 		x = renderdata->x + 24;
 		y = renderdata->y + 16;
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), viGetWidth(), viGetHeight(), 0, 0);
 
 		// "1"
 		sprintf(text, langGet(L_MPMENU_470));
 		x = renderdata->x + 14;
 		y = renderdata->y + 4;
-		gdl = func0f153858(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), viGetWidth(), viGetHeight(), 0, 0);
 
-		gdl = func0f153838(gdl);
+		gdl = text0f153838(gdl);
 
 		// Render lines between the score table and the target texture
 
@@ -1880,7 +1880,7 @@ s32 ciHangarTitleMenuHandler(s32 operation, struct menuitem *item, union handler
 			leftmargin = item->param2 / 2;
 		}
 
-		gdl = func0f153628(gdl);
+		gdl = text0f153628(gdl);
 
 		// Render title
 		text = bioMenuTextName(NULL);
@@ -1908,7 +1908,7 @@ s32 ciHangarTitleMenuHandler(s32 operation, struct menuitem *item, union handler
 		textheight = renderdata->y + 25;
 		gdl = textRenderProjected(gdl, &textwidth, &textheight, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
 
-		gdl = func0f153780(gdl);
+		gdl = text0f153780(gdl);
 
 		return (s32)gdl;
 	}

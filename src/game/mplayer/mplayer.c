@@ -1212,7 +1212,7 @@ Gfx *mpRenderModalText(Gfx *gdl)
 		s32 red = (s32) ((1.0f - var80061630) * 20.0f * 255.0f) % 255;
 		s32 stack2;
 
-		gdl = func0f153628(gdl);
+		gdl = text0f153628(gdl);
 
 		strcpy(text, langGet(L_MPWEAPONS_040)); // "Paused"
 
@@ -1251,7 +1251,7 @@ Gfx *mpRenderModalText(Gfx *gdl)
 		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicMd, g_FontHandelGothicMd, (red << 24) | 0x00ff00ff, 0x000000ff, viGetWidth(), viGetWidth(), 0, 0);
 #endif
 
-		gdl = func0f153780(gdl);
+		gdl = text0f153780(gdl);
 	} else if (!g_MainIsEndscreen
 			&& g_MpSetup.paused == MPPAUSEMODE_UNPAUSED
 			&& g_Vars.currentplayer->isdead
@@ -1261,7 +1261,7 @@ Gfx *mpRenderModalText(Gfx *gdl)
 			&& !(g_Vars.antiplayernum >= 0 && ((g_Vars.currentplayer != g_Vars.anti || g_InCutscene)))
 			&& g_NumReasonsToEndMpMatch == 0) {
 		// Render "Press START" text
-		gdl = func0f153628(gdl);
+		gdl = text0f153628(gdl);
 
 		strcpy(text, langGet(L_MPWEAPONS_039));
 
@@ -1303,7 +1303,7 @@ Gfx *mpRenderModalText(Gfx *gdl)
 #endif
 		}
 
-		gdl = func0f153780(gdl);
+		gdl = text0f153780(gdl);
 
 		g_Menus[g_Vars.currentplayerstats->mpindex].openinhibit = 10;
 	}

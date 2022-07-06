@@ -679,7 +679,7 @@ s32 mpChallengesListHandler(s32 operation, struct menuitem *item, union handlerd
 		x = renderdata->x + 10;
 		y = renderdata->y + 1;
 
-		gdl = func0f153628(gdl);
+		gdl = text0f153628(gdl);
 
 		name = xhallengeGetName(g_MpPlayerNum, challengeindex);
 
@@ -687,7 +687,7 @@ s32 mpChallengesListHandler(s32 operation, struct menuitem *item, union handlerd
 				g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour,
 				viGetWidth(), viGetHeight(), 0, 0);
 
-		gdl = func0f153780(gdl);
+		gdl = text0f153780(gdl);
 
 		gDPPipeSync(gdl++);
 		gDPSetTexturePersp(gdl++, G_TP_NONE);
@@ -3061,9 +3061,9 @@ s32 mpChallengesListMenuHandler(s32 operation, struct menuitem *item, union hand
 		x = renderdata->x + 10;
 		y = renderdata->y + 1;
 
-		gdl = func0f153628(gdl);
+		gdl = text0f153628(gdl);
 		gdl = textRenderProjected(gdl, &x, &y, challengeGetNameBySlot(data->type19.unk04), g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
-		gdl = func0f153780(gdl);
+		gdl = text0f153780(gdl);
 
 		gDPPipeSync(gdl++);
 		gDPSetTexturePersp(gdl++, G_TP_NONE);

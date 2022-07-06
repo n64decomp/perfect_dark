@@ -332,7 +332,7 @@ Gfx *htbRenderHud(Gfx *gdl)
 		sprintf(text, "%d:%02d", mins, secs);
 #endif
 
-		gdl = func0f153628(gdl);
+		gdl = text0f153628(gdl);
 		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 
 		x -= textwidth / 2;
@@ -340,14 +340,14 @@ Gfx *htbRenderHud(Gfx *gdl)
 		textheight += y;
 
 #if VERSION >= VERSION_NTSC_1_0
-		gdl = func0f153990(gdl, x, y, textwidth, textheight);
+		gdl = text0f153990(gdl, x, y, textwidth, textheight);
 		gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0xa0, viGetWidth(), viGetHeight(), 0, 0);
 #else
-		gdl = func0f153858(gdl, &x, &y, &textwidth, &textheight);
+		gdl = text0f153858(gdl, &x, &y, &textwidth, &textheight);
 		gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0x88, viGetWidth(), viGetHeight(), 0, 0);
 #endif
 
-		gdl = func0f153780(gdl);
+		gdl = text0f153780(gdl);
 	}
 
 	return gdl;

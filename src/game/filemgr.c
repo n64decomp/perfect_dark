@@ -1795,7 +1795,7 @@ s32 filemgrFileToCopyOrDeleteListMenuHandler(s32 operation, struct menuitem *ite
 				x = renderdata->x + 2;
 				y = renderdata->y + 2;
 
-				gdl = func0f153628(gdl);
+				gdl = text0f153628(gdl);
 
 				if (file) {
 					filemgrGetSelectName(text, file, g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1);
@@ -1805,7 +1805,7 @@ s32 filemgrFileToCopyOrDeleteListMenuHandler(s32 operation, struct menuitem *ite
 					x = renderdata->x + 2;
 				}
 
-				gdl = func0f153780(gdl);
+				gdl = text0f153780(gdl);
 			}
 
 			return (u32)gdl;
@@ -2400,7 +2400,7 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 
 		x = renderdata->x + 62;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 3 : 4);
-		gdl = func0f153628(gdl);
+		gdl = text0f153628(gdl);
 
 		if (data->list.unk04 == g_FileLists[0]->numfiles) {
 			// "New Agent..."
@@ -2461,7 +2461,7 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 			gdl = textRenderProjected(gdl, &x, &y, buffer,
 					g_CharsHandelGothicXs, g_FontHandelGothicXs, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
 		}
-		gdl = func0f153780(gdl);
+		gdl = text0f153780(gdl);
 		return (u32) gdl;
 	case MENUOP_GETOPTIONHEIGHT:
 		data->list.value = 40;

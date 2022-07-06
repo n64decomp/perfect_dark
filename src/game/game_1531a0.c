@@ -16,11 +16,47 @@
 
 #define SPACE_WIDTH 5
 
+#define BLENDTYPE_DIAGONAL   0x01
+#define BLENDTYPE_VERTICAL   0x02
+#define BLENDTYPE_WAVE       0x04
+#define BLENDTYPE_MENU       0x08
+#define BLENDTYPE_HORIZONTAL 0x10
+
+struct blendsettings {
+	/*0x00*/ u8 types;
+	/*0x04*/ u32 colour04;
+	/*0x08*/ u32 colour08;
+	/*0x0c*/ s32 diagrefx;
+	/*0x10*/ s32 diagrefy;
+	/*0x14*/ f32 diagtimer;
+	/*0x18*/ u8 diagmode;
+	/*0x1c*/ s32 backupdiagrefx;
+	/*0x20*/ s32 backupdiagrefy;
+	/*0x24*/ f32 backupdiagtimer;
+	/*0x28*/ u8 backupdiagmode;
+	/*0x29*/ u8 backupdiagtypes;
+	/*0x2a*/ u8 backuptypes;
+	/*0x2c*/ s32 vertrefy1;
+	/*0x30*/ s32 vertrefy2;
+	/*0x34*/ s32 vert34;
+	/*0x38*/ s32 horizrefx1;
+	/*0x3c*/ s32 horizrefx2;
+	/*0x40*/ s32 horiz40;
+	/*0x44*/ u32 colour44;
+	/*0x48*/ u32 colour48;
+	/*0x4c*/ s32 wave4c;
+	/*0x50*/ s32 wave50;
+	/*0x54*/ s32 wave54;
+	/*0x58*/ u32 wavecolour1;
+	/*0x5c*/ u32 wavecolour2;
+	/*0x60*/ u32 menuweight;
+};
+
 #if VERSION == VERSION_JPN_FINAL
 u8 jpnfill5[0x2a8];
 #endif
 
-struct var800a45d0 var800a45d0;
+struct blendsettings g_Blend;
 Gfx *var800a4634;
 Gfx *var800a4638;
 #if VERSION == VERSION_JPN_FINAL
@@ -122,12 +158,12 @@ u32 var8007fbbc = 0x0000003c;
 u32 var8007fbc0 = 0x44444400;
 u32 var8007fbc4 = 0xffffff00;
 
-void fontsInit(void)
+void textInit(void)
 {
 	// empty
 }
 
-void func0f1531a8(s32 arg0)
+void text0f1531a8(s32 arg0)
 {
 	var8007fac4 = -arg0;
 }
@@ -142,12 +178,12 @@ void textSetWrapIndent(s32 count)
 	g_WrapIndentCount = count;
 }
 
-void func0f1531d0(s32 arg0)
+void text0f1531d0(s32 arg0)
 {
 	var8007fad4 = arg0;
 }
 
-void func0f1531dc(bool arg0)
+void text0f1531dc(bool arg0)
 {
 	if (arg0) {
 		var8007fad0 = 2;
@@ -160,7 +196,7 @@ void func0f1531dc(bool arg0)
 #endif
 }
 
-void fontLoad(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar **charsptr, bool monospace)
+void textLoadFont(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar **charsptr, bool monospace)
 {
 	extern u8 _fonthandelgothicsmSegmentRomStart;
 	extern u8 _fonthandelgothicxsSegmentRomStart;
@@ -242,7 +278,7 @@ void fontLoad(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar *
 
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
-glabel fontsReset
+glabel textReset
 /*  f1529d4:	3c018008 */ 	lui	$at,0x8008
 /*  f1529d8:	ac200128 */ 	sw	$zero,0x128($at)
 /*  f1529dc:	3c018008 */ 	lui	$at,0x8008
@@ -318,7 +354,7 @@ glabel fontsReset
 /*  f152af4:	24c60148 */ 	addiu	$a2,$a2,0x148
 /*  f152af8:	24a5c640 */ 	addiu	$a1,$a1,-14784
 /*  f152afc:	248493c0 */ 	addiu	$a0,$a0,-27712
-/*  f152b00:	0fc54a2f */ 	jal	fontLoad
+/*  f152b00:	0fc54a2f */ 	jal	textLoadFont
 /*  f152b04:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f152b08:	3c04007f */ 	lui	$a0,0x7f
 /*  f152b0c:	3c05007f */ 	lui	$a1,0x7f
@@ -328,7 +364,7 @@ glabel fontsReset
 /*  f152b1c:	24c60150 */ 	addiu	$a2,$a2,0x150
 /*  f152b20:	24a52d00 */ 	addiu	$a1,$a1,0x2d00
 /*  f152b24:	2484ecb0 */ 	addiu	$a0,$a0,-4944
-/*  f152b28:	0fc54a2f */ 	jal	fontLoad
+/*  f152b28:	0fc54a2f */ 	jal	textLoadFont
 /*  f152b2c:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f152b30:	3c04007f */ 	lui	$a0,0x7f
 /*  f152b34:	3c05007f */ 	lui	$a1,0x7f
@@ -338,7 +374,7 @@ glabel fontsReset
 /*  f152b44:	24c60158 */ 	addiu	$a2,$a2,0x158
 /*  f152b48:	24a561c0 */ 	addiu	$a1,$a1,0x61c0
 /*  f152b4c:	24842d00 */ 	addiu	$a0,$a0,0x2d00
-/*  f152b50:	0fc54a2f */ 	jal	fontLoad
+/*  f152b50:	0fc54a2f */ 	jal	textLoadFont
 /*  f152b54:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f152b58:	1000007b */ 	b	.JF0f152d48
 /*  f152b5c:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -354,7 +390,7 @@ glabel fontsReset
 /*  f152b80:	24c60140 */ 	addiu	$a2,$a2,0x140
 /*  f152b84:	24a5ecb0 */ 	addiu	$a1,$a1,-4944
 /*  f152b88:	2484c640 */ 	addiu	$a0,$a0,-14784
-/*  f152b8c:	0fc54a2f */ 	jal	fontLoad
+/*  f152b8c:	0fc54a2f */ 	jal	textLoadFont
 /*  f152b90:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f152b94:	3c068008 */ 	lui	$a2,0x8008
 /*  f152b98:	3c04007f */ 	lui	$a0,0x7f
@@ -364,7 +400,7 @@ glabel fontsReset
 /*  f152ba8:	24e7014c */ 	addiu	$a3,$a3,0x14c
 /*  f152bac:	24a5c640 */ 	addiu	$a1,$a1,-14784
 /*  f152bb0:	248493c0 */ 	addiu	$a0,$a0,-27712
-/*  f152bb4:	0fc54a2f */ 	jal	fontLoad
+/*  f152bb4:	0fc54a2f */ 	jal	textLoadFont
 /*  f152bb8:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f152bbc:	3c04007f */ 	lui	$a0,0x7f
 /*  f152bc0:	3c05007f */ 	lui	$a1,0x7f
@@ -374,7 +410,7 @@ glabel fontsReset
 /*  f152bd0:	24c60150 */ 	addiu	$a2,$a2,0x150
 /*  f152bd4:	24a52d00 */ 	addiu	$a1,$a1,0x2d00
 /*  f152bd8:	2484ecb0 */ 	addiu	$a0,$a0,-4944
-/*  f152bdc:	0fc54a2f */ 	jal	fontLoad
+/*  f152bdc:	0fc54a2f */ 	jal	textLoadFont
 /*  f152be0:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f152be4:	3c04007f */ 	lui	$a0,0x7f
 /*  f152be8:	3c05007f */ 	lui	$a1,0x7f
@@ -384,7 +420,7 @@ glabel fontsReset
 /*  f152bf8:	24c60158 */ 	addiu	$a2,$a2,0x158
 /*  f152bfc:	24a561c0 */ 	addiu	$a1,$a1,0x61c0
 /*  f152c00:	24842d00 */ 	addiu	$a0,$a0,0x2d00
-/*  f152c04:	0fc54a2f */ 	jal	fontLoad
+/*  f152c04:	0fc54a2f */ 	jal	textLoadFont
 /*  f152c08:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f152c0c:	1000004e */ 	b	.JF0f152d48
 /*  f152c10:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -392,7 +428,7 @@ glabel fontsReset
 /*  f152c14:	3c05007f */ 	lui	$a1,0x7f
 /*  f152c18:	24a593c0 */ 	addiu	$a1,$a1,-27712
 /*  f152c1c:	248481b0 */ 	addiu	$a0,$a0,-32336
-/*  f152c20:	0fc54a2f */ 	jal	fontLoad
+/*  f152c20:	0fc54a2f */ 	jal	textLoadFont
 /*  f152c24:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f152c28:	3c0f800a */ 	lui	$t7,0x800a
 /*  f152c2c:	8defa948 */ 	lw	$t7,-0x56b8($t7)
@@ -424,7 +460,7 @@ glabel fontsReset
 /*  f152c8c:	24e7014c */ 	addiu	$a3,$a3,0x14c
 /*  f152c90:	24a5c640 */ 	addiu	$a1,$a1,-14784
 /*  f152c94:	248493c0 */ 	addiu	$a0,$a0,-27712
-/*  f152c98:	0fc54a2f */ 	jal	fontLoad
+/*  f152c98:	0fc54a2f */ 	jal	textLoadFont
 /*  f152c9c:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f152ca0:	3c09800a */ 	lui	$t1,0x800a
 /*  f152ca4:	8d29a948 */ 	lw	$t1,-0x56b8($t1)
@@ -442,7 +478,7 @@ glabel fontsReset
 /*  f152cd0:	24e70154 */ 	addiu	$a3,$a3,0x154
 /*  f152cd4:	24c60150 */ 	addiu	$a2,$a2,0x150
 /*  f152cd8:	24a52d00 */ 	addiu	$a1,$a1,0x2d00
-/*  f152cdc:	0fc54a2f */ 	jal	fontLoad
+/*  f152cdc:	0fc54a2f */ 	jal	textLoadFont
 /*  f152ce0:	afa00010 */ 	sw	$zero,0x10($sp)
 .JF0f152ce4:
 /*  f152ce4:	3c0b800a */ 	lui	$t3,0x800a
@@ -457,7 +493,7 @@ glabel fontsReset
 /*  f152d08:	24e7015c */ 	addiu	$a3,$a3,0x15c
 /*  f152d0c:	24c60158 */ 	addiu	$a2,$a2,0x158
 /*  f152d10:	24a561c0 */ 	addiu	$a1,$a1,0x61c0
-/*  f152d14:	0fc54a2f */ 	jal	fontLoad
+/*  f152d14:	0fc54a2f */ 	jal	textLoadFont
 /*  f152d18:	afa00010 */ 	sw	$zero,0x10($sp)
 .JF0f152d1c:
 /*  f152d1c:	3c04007f */ 	lui	$a0,0x7f
@@ -468,7 +504,7 @@ glabel fontsReset
 /*  f152d30:	24c60140 */ 	addiu	$a2,$a2,0x140
 /*  f152d34:	24a5ecb0 */ 	addiu	$a1,$a1,-4944
 /*  f152d38:	2484c640 */ 	addiu	$a0,$a0,-14784
-/*  f152d3c:	0fc54a2f */ 	jal	fontLoad
+/*  f152d3c:	0fc54a2f */ 	jal	textLoadFont
 /*  f152d40:	afa00010 */ 	sw	$zero,0x10($sp)
 .JF0f152d44:
 /*  f152d44:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -478,7 +514,7 @@ glabel fontsReset
 /*  f152d50:	00000000 */ 	nop
 );
 #else
-void fontsReset(void)
+void textReset(void)
 {
 	extern u8 _fontbankgothicSegmentRomStart,     _fontbankgothicSegmentRomEnd;
 	extern u8 _fontzurichSegmentRomStart,         _fontzurichSegmentRomEnd;
@@ -524,40 +560,40 @@ void fontsReset(void)
 	var8007fae8 = 0;
 
 	if (g_Vars.stagenum == STAGE_TITLE) {
-		fontLoad(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
-		fontLoad(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
-		fontLoad(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
+		textLoadFont(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
+		textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
+		textLoadFont(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
 	} else if (g_Vars.stagenum == STAGE_CREDITS) {
-		fontLoad(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
-		fontLoad(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
-		fontLoad(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
-		fontLoad(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
+		textLoadFont(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
+		textLoadFont(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
+		textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
+		textLoadFont(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
 	} else {
 #if !PAL
 		// This unused GE font exists in NTSC but was removed in the PAL version
-		fontLoad(&_fonttahomaSegmentRomStart, &_fonttahomaSegmentRomEnd, &g_FontTahoma2, &g_FontTahoma1, false);
+		textLoadFont(&_fonttahomaSegmentRomStart, &_fonttahomaSegmentRomEnd, &g_FontTahoma2, &g_FontTahoma1, false);
 #endif
 
-		fontLoad(&_fontnumericSegmentRomStart, &_fontnumericSegmentRomEnd, &g_FontNumeric, &g_CharsNumeric, false);
-		fontLoad(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
-		fontLoad(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
+		textLoadFont(&_fontnumericSegmentRomStart, &_fontnumericSegmentRomEnd, &g_FontNumeric, &g_CharsNumeric, false);
+		textLoadFont(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
+		textLoadFont(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
 
 #if PAL
 		if (!g_Vars.normmplayerisrunning) {
-			fontLoad(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
+			textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
 		}
 #else
-		fontLoad(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
+		textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
 #endif
 
 		if (g_Vars.stagenum == STAGE_TEST_OLD) {
-			fontLoad(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
+			textLoadFont(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
 		}
 	}
 }
 #endif
 
-Gfx *func0f153628(Gfx *gdl)
+Gfx *text0f153628(Gfx *gdl)
 {
 	gDPPipeSync(gdl++);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -587,7 +623,7 @@ Gfx *func0f153628(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *func0f153780(Gfx *gdl)
+Gfx *text0f153780(Gfx *gdl)
 {
 	gDPPipeSync(gdl++);
 	gDPSetColorDither(gdl++, G_CD_BAYER);
@@ -597,7 +633,7 @@ Gfx *func0f153780(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *gfxSetPrimColour(Gfx *gdl, u32 colour)
+Gfx *textSetPrimColour(Gfx *gdl, u32 colour)
 {
 	gDPPipeSync(gdl++);
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
@@ -608,39 +644,39 @@ Gfx *gfxSetPrimColour(Gfx *gdl, u32 colour)
 	return gdl;
 }
 
-Gfx *func0f153838(Gfx *gdl)
+Gfx *text0f153838(Gfx *gdl)
 {
 	gDPSetCombineLERP(gdl++, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0);
 
 	return gdl;
 }
 
-Gfx *func0f153858(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2)
+Gfx *text0f153858(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2)
 {
-	gdl = gfxSetPrimColour(gdl, 0x00000000);
+	gdl = textSetPrimColour(gdl, 0x00000000);
 
 	gDPFillRectangle(gdl++, *x1, *y1, *x2, *y2);
 
-	gdl = func0f153838(gdl);
+	gdl = text0f153838(gdl);
 
 	return gdl;
 }
 
-Gfx *func0f1538e4(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2)
+Gfx *text0f1538e4(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2)
 {
-	gdl = gfxSetPrimColour(gdl, 0x00000000);
+	gdl = textSetPrimColour(gdl, 0x00000000);
 
 	gDPFillRectangleScaled(gdl++, *x1, *y1, *x2, *y2);
 
-	gdl = func0f153838(gdl);
+	gdl = text0f153838(gdl);
 
 	return gdl;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-Gfx *func0f153990(Gfx *gdl, s32 left, s32 top, s32 width, s32 height)
+Gfx *text0f153990(Gfx *gdl, s32 left, s32 top, s32 width, s32 height)
 {
-	gdl = gfxSetPrimColour(gdl, 0x00000000);
+	gdl = textSetPrimColour(gdl, 0x00000000);
 
 #if VERSION >= VERSION_JPN_FINAL
 	gDPFillRectangle(gdl++, left - 1, top - 1, width * var8007fad0 + left + 1, top + height * var80080108jf + 1);
@@ -648,24 +684,24 @@ Gfx *func0f153990(Gfx *gdl, s32 left, s32 top, s32 width, s32 height)
 	gDPFillRectangle(gdl++, left - 1, top - 1, width * var8007fad0 + left + 1, top + height + 1);
 #endif
 
-	gdl = func0f153838(gdl);
+	gdl = text0f153838(gdl);
 
 	return gdl;
 }
 #endif
 
-Gfx *func0f153a34(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour)
+Gfx *text0f153a34(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour)
 {
-	gdl = gfxSetPrimColour(gdl, colour);
+	gdl = textSetPrimColour(gdl, colour);
 
 	gDPFillRectangle(gdl++, x1, y1, x2, y2);
 
-	gdl = func0f153838(gdl);
+	gdl = text0f153838(gdl);
 
 	return gdl;
 }
 
-Gfx *func0f153ab0(Gfx *gdl)
+Gfx *text0f153ab0(Gfx *gdl)
 {
 	Gfx *allocation;
 
@@ -686,20 +722,20 @@ Gfx *func0f153ab0(Gfx *gdl)
 	return gdl;
 }
 
-void func0f153b40(void)
+void text0f153b40(void)
 {
 	var8007fb9c = 0;
 
 	gSPEndDisplayList(var800a4634++);
 }
 
-void func0f153b6c(s32 arg0)
+void text0f153b6c(s32 arg0)
 {
 	if (arg0 != var8007fba4) {
-		f32 tmp = var800a45d0.unk14 * var800a45d0.unk14 - (f32)((arg0 - var800a45d0.unk10) * (arg0 - var800a45d0.unk10));
+		f32 tmp = g_Blend.diagtimer * g_Blend.diagtimer - (f32)((arg0 - g_Blend.diagrefy) * (arg0 - g_Blend.diagrefy));
 
 		if (tmp > 0.0f) {
-			var8007fba0 = sqrtf(tmp) + var800a45d0.unk0c;
+			var8007fba0 = sqrtf(tmp) + g_Blend.diagrefx;
 		} else {
 			var8007fba0 = 0;
 		}
@@ -708,118 +744,118 @@ void func0f153b6c(s32 arg0)
 	}
 }
 
-void func0f153c20(s32 x, s32 y, f32 arg2, u8 arg3)
+void textSetDiagonalBlend(s32 x, s32 y, f32 timer, u8 mode)
 {
-	var800a45d0.unk00 |= 0x01;
-	var800a45d0.unk0c = x;
-	var800a45d0.unk10 = y;
-	var800a45d0.unk14 = arg2;
-	var800a45d0.unk18 = arg3;
+	g_Blend.types |= BLENDTYPE_DIAGONAL;
+	g_Blend.diagrefx = x;
+	g_Blend.diagrefy = y;
+	g_Blend.diagtimer = timer;
+	g_Blend.diagmode = mode;
 }
 
-void func0f153c50(void)
+void textBackupDiagonalBlendSettings(void)
 {
-	var800a45d0.unk1c = var800a45d0.unk0c;
-	var800a45d0.unk20 = var800a45d0.unk10;
-	var800a45d0.unk24 = var800a45d0.unk14;
-	var800a45d0.unk28 = var800a45d0.unk18;
-	var800a45d0.unk29 = var800a45d0.unk00 & 1;
+	g_Blend.backupdiagrefx = g_Blend.diagrefx;
+	g_Blend.backupdiagrefy = g_Blend.diagrefy;
+	g_Blend.backupdiagtimer = g_Blend.diagtimer;
+	g_Blend.backupdiagmode = g_Blend.diagmode;
+	g_Blend.backupdiagtypes = g_Blend.types & BLENDTYPE_DIAGONAL;
 }
 
-void func0f153c88(void)
+void textRestoreDiagonalBlendSettings(void)
 {
-	var800a45d0.unk0c = var800a45d0.unk1c;
-	var800a45d0.unk10 = var800a45d0.unk20;
-	var800a45d0.unk14 = var800a45d0.unk24;
-	var800a45d0.unk18 = var800a45d0.unk28;
-	var800a45d0.unk00 |= var800a45d0.unk29;
+	g_Blend.diagrefx = g_Blend.backupdiagrefx;
+	g_Blend.diagrefy = g_Blend.backupdiagrefy;
+	g_Blend.diagtimer = g_Blend.backupdiagtimer;
+	g_Blend.diagmode = g_Blend.backupdiagmode;
+	g_Blend.types |= g_Blend.backupdiagtypes;
 }
 
-void func0f153cc4(s32 arg0, s32 arg1, u32 arg2)
+void textSetVerticalBlend(s32 y1, s32 y2, u32 arg2)
 {
-	var800a45d0.unk00 |= 0x02;
-	var800a45d0.unk2c = arg0;
-	var800a45d0.unk30 = arg1;
-	var800a45d0.unk34 = arg2;
+	g_Blend.types |= BLENDTYPE_VERTICAL;
+	g_Blend.vertrefy1 = y1;
+	g_Blend.vertrefy2 = y2;
+	g_Blend.vert34 = arg2;
 }
 
-void func0f153ce8(s32 x1, s32 x2, u32 arg2)
+void textSetHorizontalBlend(s32 x1, s32 x2, u32 arg2)
 {
-	var800a45d0.unk00 |= 0x10;
-	var800a45d0.x1 = x1;
-	var800a45d0.x2 = x2;
-	var800a45d0.unk40 = arg2;
+	g_Blend.types |= BLENDTYPE_HORIZONTAL;
+	g_Blend.horizrefx1 = x1;
+	g_Blend.horizrefx2 = x2;
+	g_Blend.horiz40 = arg2;
 }
 
-void func0f153d0c(void)
+void textResetBlends2(void)
 {
-	var800a45d0.unk00 = 0;
+	g_Blend.types = 0;
 }
 
-void func0f153d18(void)
+void textResetBlends3(void)
 {
-	var800a45d0.unk00 = 0;
+	g_Blend.types = 0;
 }
 
-void func0f153d24(void)
+void textBackupAndResetBlends(void)
 {
-	var800a45d0.unk2a = var800a45d0.unk00;
-	var800a45d0.unk00 = 0;
+	g_Blend.backuptypes = g_Blend.types;
+	g_Blend.types = 0;
 }
 
-void func0f153d3c(void)
+void textRestoreBlends(void)
 {
-	var800a45d0.unk00 = var800a45d0.unk2a;
+	g_Blend.types = g_Blend.backuptypes;
 }
 
-void func0f153d50(s32 arg0, s32 arg1, s32 cthresh)
+void textSetWaveBlend(s32 arg0, s32 arg1, s32 cthresh)
 {
-	var800a45d0.unk00 |= 0x04;
-	var800a45d0.unk4c = arg0;
-	var800a45d0.unk50 = arg1;
-	var800a45d0.cthresh = cthresh;
-	var800a45d0.colour58 = 0x44444400;
-	var800a45d0.colour5c = 0xffffff00;
+	g_Blend.types |= BLENDTYPE_WAVE;
+	g_Blend.wave4c = arg0;
+	g_Blend.wave50 = arg1;
+	g_Blend.wave54 = cthresh;
+	g_Blend.wavecolour1 = 0x44444400;
+	g_Blend.wavecolour2 = 0xffffff00;
 }
 
-void func0f153d88(f32 arg0)
+void textSetMenuBlend(f32 arg0)
 {
-	var800a45d0.unk00 |= 0x08;
-	var800a45d0.unk60 = arg0 * arg0 * 110.0f;
+	g_Blend.types |= BLENDTYPE_MENU;
+	g_Blend.menuweight = arg0 * arg0 * 110.0f;
 }
 
-void func0f153e38(u32 colour51, u32 colour2)
+void textSetWaveColours(u32 colour1, u32 colour2)
 {
-	var800a45d0.colour58 = colour51;
-	var800a45d0.colour5c = colour2;
+	g_Blend.wavecolour1 = colour1;
+	g_Blend.wavecolour2 = colour2;
 }
 
-void func0f153e4c(void)
+void textResetBlends(void)
 {
-	var800a45d0.unk00 = 0;
+	g_Blend.types = 0;
 }
 
-s32 func0f153e58(void)
+bool textHasDiagonalBlend(void)
 {
-	return (var800a45d0.unk00 & 1)
-		&& (var800a45d0.unk18 == 0 || var800a45d0.unk18 == 2);
+	return (g_Blend.types & BLENDTYPE_DIAGONAL)
+		&& (g_Blend.diagmode == DIAGMODE_FADEIN || g_Blend.diagmode == DIAGMODE_FADEOUT);
 }
 
-u32 func0f153e94(s32 x, s32 y, u32 colour)
+u32 text0f153e94(s32 x, s32 y, u32 colour)
 {
 	u32 stack[3];
 	u32 result = colour;
 
-	if (var800a45d0.unk00 & 1) {
+	if (g_Blend.types & BLENDTYPE_DIAGONAL) {
 		f32 weightf;
 		f32 f12;
 		f32 f14;
 		f32 f16;
 		f32 f18;
 
-		if (x - var800a45d0.unk0c > -3000 && x - var800a45d0.unk0c < 3000
-				&& y - var800a45d0.unk10 > -3000 && y - var800a45d0.unk10 < 3000) {
-			f12 = sqrtf((x - var800a45d0.unk0c) * (x - var800a45d0.unk0c) + (y - var800a45d0.unk10) * (y - var800a45d0.unk10));
+		if (x - g_Blend.diagrefx > -3000 && x - g_Blend.diagrefx < 3000
+				&& y - g_Blend.diagrefy > -3000 && y - g_Blend.diagrefy < 3000) {
+			f12 = sqrtf((x - g_Blend.diagrefx) * (x - g_Blend.diagrefx) + (y - g_Blend.diagrefy) * (y - g_Blend.diagrefy));
 		} else {
 			f12 = 3000.0f;
 		}
@@ -828,33 +864,33 @@ u32 func0f153e94(s32 x, s32 y, u32 colour)
 		f18 = var8007fbb0;
 		f16 = var8007fbb4;
 
-		if (var800a45d0.unk18 == 0) {
-			if (var800a45d0.unk14 < f12) {
+		if (g_Blend.diagmode == 0) {
+			if (g_Blend.diagtimer < f12) {
 				result = 0;
-			} else if (var800a45d0.unk14 - f14 < f12) {
+			} else if (g_Blend.diagtimer - f14 < f12) {
 				u32 intensity;
-				weightf = (f12 - (var800a45d0.unk14 - f14)) / f14 * 255.0f;
+				weightf = (f12 - (g_Blend.diagtimer - f14)) / f14 * 255.0f;
 				intensity = 255 - (u32) weightf;
 				result = intensity << 8 | intensity | intensity << 16 | intensity << 24;
-			} else if (var800a45d0.unk14 - (f14 + f16) < f12) {
+			} else if (g_Blend.diagtimer - (f14 + f16) < f12) {
 				result = ((colour & 0xff) + 0xff) >> 1 | colour & 0xffffff00;
-			} else if ((var800a45d0.unk14 - (f14 + f18 + f16)) < f12) {
+			} else if ((g_Blend.diagtimer - (f14 + f18 + f16)) < f12) {
 				u32 colour2 = (((colour & 0xff) + 0xff) / 2) | (colour & 0xffffff00);
-				weightf = (f12 - (var800a45d0.unk14 - (f14 + f18 + f16))) / f18 * 255.0f;
+				weightf = (f12 - (g_Blend.diagtimer - (f14 + f18 + f16))) / f18 * 255.0f;
 				result = colourBlend(colour, colour2, 0xff - (u32) weightf);
 			}
-		} else if (var800a45d0.unk18 == 2) {
+		} else if (g_Blend.diagmode == 2) {
 			f16 = 0.0f;
 
-			if (var800a45d0.unk14 < f12) {
+			if (g_Blend.diagtimer < f12) {
 				result = 0x00000000;
-			} else if (var800a45d0.unk14 - f14 < f12) {
-				weightf = (f12 - (var800a45d0.unk14 - f14)) / f14 * 255.0f;
+			} else if (g_Blend.diagtimer - f14 < f12) {
+				weightf = (f12 - (g_Blend.diagtimer - f14)) / f14 * 255.0f;
 				result = colourBlend(0x00000000, colour & 0xff, weightf);
-			} else if (var800a45d0.unk14 - (f14 + f16) < f12) {
+			} else if (g_Blend.diagtimer - (f14 + f16) < f12) {
 				result = colour & 0xff;
-			} else if ((var800a45d0.unk14 - (f14 + f18 + f16)) < f12) {
-				weightf = (f12 - (var800a45d0.unk14 - (f14 + f18 + f16))) / f18 * 255.0f;
+			} else if ((g_Blend.diagtimer - (f14 + f18 + f16)) < f12) {
+				weightf = (f12 - (g_Blend.diagtimer - (f14 + f18 + f16))) / f18 * 255.0f;
 				result = colourBlend(colour & 0xff, colour, weightf);
 			}
 		}
@@ -863,20 +899,20 @@ u32 func0f153e94(s32 x, s32 y, u32 colour)
 	return result;
 }
 
-u32 func0f1543ac(s32 x, s32 y, u32 colourarg)
+u32 text0f1543ac(s32 x, s32 y, u32 colourarg)
 {
 	f32 f14;
 	f32 f18;
 	f32 f16;
 	u32 colour = colourarg;
 
-	if (var800a45d0.unk00 & 0x08) {
-		colour = (colourBlend(0x00000000, colour, var800a45d0.unk60) & 0xffffff00) | (colour & 0xff);
+	if (g_Blend.types & BLENDTYPE_MENU) {
+		colour = (colourBlend(0x00000000, colour, g_Blend.menuweight) & 0xffffff00) | (colour & 0xff);
 	}
 
-	if (var800a45d0.unk00 & 0x02) {
-		s32 v0 = y - var800a45d0.unk2c;
-		s32 v1 = y - var800a45d0.unk30;
+	if (g_Blend.types & BLENDTYPE_VERTICAL) {
+		s32 v0 = y - g_Blend.vertrefy1;
+		s32 v1 = y - g_Blend.vertrefy2;
 
 		if (v0 < 0) {
 			v0 = -v0;
@@ -890,14 +926,14 @@ u32 func0f1543ac(s32 x, s32 y, u32 colourarg)
 			v0 = v1;
 		}
 
-		if (var800a45d0.unk34 >= v0) {
-			colour = colourBlend(colour, 0x00000000, v0 * 255 / var800a45d0.unk34);
+		if (g_Blend.vert34 >= v0) {
+			colour = colourBlend(colour, 0x00000000, v0 * 255 / g_Blend.vert34);
 		}
 	}
 
-	if (var800a45d0.unk00 & 0x10) {
-		s32 v0 = x - var800a45d0.x1;
-		s32 v1 = x - var800a45d0.x2;
+	if (g_Blend.types & BLENDTYPE_HORIZONTAL) {
+		s32 v0 = x - g_Blend.horizrefx1;
+		s32 v1 = x - g_Blend.horizrefx2;
 
 		if (v0 < 0) {
 			v0 = 0;
@@ -911,19 +947,19 @@ u32 func0f1543ac(s32 x, s32 y, u32 colourarg)
 			v0 = v1;
 		}
 
-		if (var800a45d0.unk40 >= v0) {
-			colour = colourBlend(colour, 0x00000000, v0 * 255 / var800a45d0.unk40);
+		if (g_Blend.horiz40 >= v0) {
+			colour = colourBlend(colour, 0x00000000, v0 * 255 / g_Blend.horiz40);
 		}
 	}
 
-	if (var800a45d0.unk00 & 0x01) {
+	if (g_Blend.types & BLENDTYPE_DIAGONAL) {
 		f32 f12;
 		u32 stack[3];
 		f32 weightf;
 
-		if (x - var800a45d0.unk0c > -3000 && x - var800a45d0.unk0c < 3000
-				&& y - var800a45d0.unk10 > -3000 && y - var800a45d0.unk10 < 3000) {
-			f12 = sqrtf((x - var800a45d0.unk0c) * (x - var800a45d0.unk0c) + (y - var800a45d0.unk10) * (y - var800a45d0.unk10));
+		if (x - g_Blend.diagrefx > -3000 && x - g_Blend.diagrefx < 3000
+				&& y - g_Blend.diagrefy > -3000 && y - g_Blend.diagrefy < 3000) {
+			f12 = sqrtf((x - g_Blend.diagrefx) * (x - g_Blend.diagrefx) + (y - g_Blend.diagrefy) * (y - g_Blend.diagrefy));
 		} else {
 			f12 = 3000.0f;
 		}
@@ -932,21 +968,21 @@ u32 func0f1543ac(s32 x, s32 y, u32 colourarg)
 		f18 = var8007fbb0;
 		f16 = var8007fbb4;
 
-		if (var800a45d0.unk18 == 0) {
-			if (var800a45d0.unk14 < f12) {
+		if (g_Blend.diagmode == 0) {
+			if (g_Blend.diagtimer < f12) {
 				colour = 0;
-			} else if (var800a45d0.unk14 - f14 < f12) {
+			} else if (g_Blend.diagtimer - f14 < f12) {
 				u32 intensity;
-				weightf = (f12 - (var800a45d0.unk14 - f14)) / f14 * 255.0f;
+				weightf = (f12 - (g_Blend.diagtimer - f14)) / f14 * 255.0f;
 				intensity = 255 - (u32) weightf;
 				colour = intensity << 8 | intensity | intensity << 16 | intensity << 24;
-			} else if (var800a45d0.unk14 - (f14 + f16) < f12) {
+			} else if (g_Blend.diagtimer - (f14 + f16) < f12) {
 				colour = 0xffffffff;
-			} else if (var800a45d0.unk14 - (f14 + f18 + f16) < f12) {
+			} else if (g_Blend.diagtimer - (f14 + f18 + f16) < f12) {
 				u32 add;
 				u32 mult;
 
-				weightf = (f12 - (var800a45d0.unk14 - (f14 + f18 + f16))) / f18 * 255.0f;
+				weightf = (f12 - (g_Blend.diagtimer - (f14 + f18 + f16))) / f18 * 255.0f;
 				add = (u32) weightf * 255;
 				mult = 255 - (u32) weightf;
 
@@ -955,20 +991,20 @@ u32 func0f1543ac(s32 x, s32 y, u32 colourarg)
 					| ((((colour >> 8) & 0xff) * mult + add) >> 8) << 8
 					| ((colour & 0xff) * mult + add) >> 8;
 			}
-		} else if (var800a45d0.unk18 == 2) {
+		} else if (g_Blend.diagmode == 2) {
 			f14 = 0.00f;
 			f18 = 66.0f;
 			f16 = 0.0f;
 
-			if (var800a45d0.unk14 < f12) {
+			if (g_Blend.diagtimer < f12) {
 				colour = 0x00000000;
-			} else if (var800a45d0.unk14 - f14 < f12) {
-				f32 weightf = (f12 - (var800a45d0.unk14 - f14)) / f14 * 255.0f;
+			} else if (g_Blend.diagtimer - f14 < f12) {
+				f32 weightf = (f12 - (g_Blend.diagtimer - f14)) / f14 * 255.0f;
 				colour = colourBlend(0x00000000, colour & 0xff, weightf);
-			} else if (var800a45d0.unk14 - (f14 + f16) < f12) {
+			} else if (g_Blend.diagtimer - (f14 + f16) < f12) {
 				colour &= 0xff;
-			} else if (var800a45d0.unk14 - (f14 + f18 + f16) < f12) {
-				f32 weightf = (f12 - (var800a45d0.unk14 - (f14 + f18 + f16))) / f18 * 255.0f;
+			} else if (g_Blend.diagtimer - (f14 + f18 + f16) < f12) {
+				f32 weightf = (f12 - (g_Blend.diagtimer - (f14 + f18 + f16))) / f18 * 255.0f;
 				colour = colourBlend(0x00000000, colour, weightf);
 			}
 		} else {
@@ -982,19 +1018,19 @@ u32 func0f1543ac(s32 x, s32 y, u32 colourarg)
 
 			mainOverrideVariable("burncol", &burncol);
 
-			if (var800a45d0.unk14 < f12) {
+			if (g_Blend.diagtimer < f12) {
 				colour = colourBlend(alpha[0], colour, 110);
-			} else if (var800a45d0.unk14 - f14 < f12) {
-				f32 weightf = (f12 - (var800a45d0.unk14 - f14)) / f14 * 255.0f;
+			} else if (g_Blend.diagtimer - f14 < f12) {
+				f32 weightf = (f12 - (g_Blend.diagtimer - f14)) / f14 * 255.0f;
 				colour = colourBlend(
 						colourBlend(burncol | (colour & 0xff), colour, 0xc0),
 						colourBlend(alpha[0], colour, 110),
 						255 - (u32) weightf);
-			} else if (var800a45d0.unk14 - (f14 + f16) < f12) {
+			} else if (g_Blend.diagtimer - (f14 + f16) < f12) {
 				u32 stack;
 				colour = colourBlend(burncol | (colour & 0xff), colour, 0xc0);
-			} else if (var800a45d0.unk14 - (f14 + f18 + f16) < f12) {
-				f32 weightf = (f12 - (var800a45d0.unk14 - (f14 + f18 + f16))) / f18 * 255.0f;
+			} else if (g_Blend.diagtimer - (f14 + f18 + f16) < f12) {
+				f32 weightf = (f12 - (g_Blend.diagtimer - (f14 + f18 + f16))) / f18 * 255.0f;
 				colour = colourBlend(
 						colour,
 						colourBlend(burncol | (colour & 0xff), colour, 0xc0),
@@ -1003,10 +1039,10 @@ u32 func0f1543ac(s32 x, s32 y, u32 colourarg)
 		}
 	}
 
-	if (var800a45d0.unk00 & 0x04) {
+	if (g_Blend.types & BLENDTYPE_WAVE) {
 		u32 stack[2];
-		f32 f0 = (s32)(var800a45d0.unk4c - x + var800a45d0.unk50 - y + 800);
-		f0 = 4.0f * f0 / var800a45d0.cthresh;
+		f32 f0 = (s32)(g_Blend.wave4c - x + g_Blend.wave50 - y + 800);
+		f0 = 4.0f * f0 / g_Blend.wave54;
 		f0 -= (s32) (f0 * 0.25f) * 4.0f;
 		f0 -= 1.0f;
 
@@ -1016,25 +1052,25 @@ u32 func0f1543ac(s32 x, s32 y, u32 colourarg)
 
 		if (f0 < 0.0f) {
 			s32 weight = var8007fbbc * (0 - f0);
-			colour = colourBlend(var800a45d0.colour58 | (colour & 0xff), colour, weight);
+			colour = colourBlend(g_Blend.wavecolour1 | (colour & 0xff), colour, weight);
 		} else {
 			s32 weight = var8007fbb8 * f0;
-			colour = colourBlend(var800a45d0.colour5c | (colour & 0xff), colour, weight);
+			colour = colourBlend(g_Blend.wavecolour2 | (colour & 0xff), colour, weight);
 		}
 	}
 
 	return colour;
 }
 
-Gfx *func0f154ecc(Gfx *gdl, u32 arg1, u32 arg2)
+Gfx *text0f154ecc(Gfx *gdl, u32 arg1, u32 arg2)
 {
-	u32 colour = func0f1543ac(arg1, arg2, var800a45d0.colour04);
+	u32 colour = text0f1543ac(arg1, arg2, g_Blend.colour04);
 
-	if (colour != var800a45d0.colour44) {
+	if (colour != g_Blend.colour44) {
 		gDPSetPrimColorViaWord(gdl++, 0, 0, colour);
 	}
 
-	var800a45d0.colour44 = colour;
+	g_Blend.colour44 = colour;
 
 	return gdl;
 }
@@ -1560,7 +1596,7 @@ void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar 
 
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
-glabel func0f154f38
+glabel text0f154f38
 /*  f154d10:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f154d14:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f154d18:	afb10018 */ 	sw	$s1,0x18($sp)
@@ -1873,7 +1909,7 @@ glabel func0f154f38
 );
 #else
 GLOBAL_ASM(
-glabel func0f154f38
+glabel text0f154f38
 /*  f154f38:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f154f3c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f154f40:	afb20020 */ 	sw	$s2,0x20($sp)
@@ -2116,7 +2152,7 @@ glabel func0f154f38
 
 // Mismatch: Regalloc, an extra move instruction and some minor reordering.
 // Related to type casting.
-//Gfx *func0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar *prevchar,
+//Gfx *text0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar *prevchar,
 //		struct font *font, f32 widthscale, f32 heightscale, f32 x, f32 y)
 //{
 //	s32 tmp;
@@ -2221,7 +2257,7 @@ glabel func0f154f38
 
 #if VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
-glabel func0f1552d4
+glabel text0f1552d4
 /*  f1551c0:	27bdff30 */ 	addiu	$sp,$sp,-208
 /*  f1551c4:	8faf00ec */ 	lw	$t7,0xec($sp)
 /*  f1551c8:	afb00050 */ 	sw	$s0,0x50($sp)
@@ -2413,7 +2449,7 @@ glabel func0f1552d4
 /*  f155498:	e7b80018 */ 	swc1	$f24,0x18($sp)
 /*  f15549c:	e7b4001c */ 	swc1	$f20,0x1c($sp)
 /*  f1554a0:	e7b60020 */ 	swc1	$f22,0x20($sp)
-/*  f1554a4:	0fc55344 */ 	jal	func0f154f38
+/*  f1554a4:	0fc55344 */ 	jal	text0f154f38
 /*  f1554a8:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f1554ac:	00408025 */ 	move	$s0,$v0
 .JF0f1554b0:
@@ -2443,7 +2479,7 @@ glabel func0f1552d4
 );
 #elif VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f1552d4
+glabel text0f1552d4
 /*  f15642c:	27bdff30 */ 	addiu	$sp,$sp,-208
 /*  f156430:	f7ba0048 */ 	sdc1	$f26,0x48($sp)
 /*  f156434:	4487d000 */ 	mtc1	$a3,$f26
@@ -2641,7 +2677,7 @@ glabel func0f1552d4
 /*  f156714:	e7b80018 */ 	swc1	$f24,0x18($sp)
 /*  f156718:	e7b4001c */ 	swc1	$f20,0x1c($sp)
 /*  f15671c:	e7b60020 */ 	swc1	$f22,0x20($sp)
-/*  f156720:	0fc55824 */ 	jal	func0f154f38
+/*  f156720:	0fc55824 */ 	jal	text0f154f38
 /*  f156724:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f156728:	00408025 */ 	move	$s0,$v0
 .PF0f15672c:
@@ -2671,7 +2707,7 @@ glabel func0f1552d4
 );
 #elif VERSION >= VERSION_PAL_BETA
 GLOBAL_ASM(
-glabel func0f1552d4
+glabel text0f1552d4
 /*  f156b2c:	27bdff30 */ 	addiu	$sp,$sp,-208
 /*  f156b30:	f7ba0048 */ 	sdc1	$f26,0x48($sp)
 /*  f156b34:	4487d000 */ 	mtc1	$a3,$f26
@@ -2869,7 +2905,7 @@ glabel func0f1552d4
 /*  f156e14:	e7b80018 */ 	swc1	$f24,0x18($sp)
 /*  f156e18:	e7b4001c */ 	swc1	$f20,0x1c($sp)
 /*  f156e1c:	e7b60020 */ 	swc1	$f22,0x20($sp)
-/*  f156e20:	0fc559e4 */ 	jal	func0f154f38
+/*  f156e20:	0fc559e4 */ 	jal	text0f154f38
 /*  f156e24:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f156e28:	00408025 */ 	move	$s0,$v0
 .PB0f156e2c:
@@ -2899,7 +2935,7 @@ glabel func0f1552d4
 );
 #else
 GLOBAL_ASM(
-glabel func0f1552d4
+glabel text0f1552d4
 /*  f1552d4:	27bdff28 */ 	addiu	$sp,$sp,-216
 /*  f1552d8:	afb50064 */ 	sw	$s5,0x64($sp)
 /*  f1552dc:	8fb500f0 */ 	lw	$s5,0xf0($sp)
@@ -3090,7 +3126,7 @@ glabel func0f1552d4
 /*  f1555a0:	02740019 */ 	multu	$s3,$s4
 /*  f1555a4:	0000c812 */ 	mflo	$t9
 /*  f1555a8:	03353821 */ 	addu	$a3,$t9,$s5
-/*  f1555ac:	0fc553ce */ 	jal	func0f154f38
+/*  f1555ac:	0fc553ce */ 	jal	text0f154f38
 /*  f1555b0:	24e7fe74 */ 	addiu	$a3,$a3,-396
 /*  f1555b4:	00408825 */ 	or	$s1,$v0,$zero
 /*  f1555b8:	92130000 */ 	lbu	$s3,0x0($s0)
@@ -3155,7 +3191,7 @@ glabel func0f1552d4
 #endif
 
 // Mismatch: Can't match the fx and fy calculations
-//Gfx *func0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
+//Gfx *text0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
 //		char *text, struct fontchar *chars, struct font *font, u32 colour, s32 hdir, s32 vdir)
 //{
 //	s32 s2;
@@ -3231,7 +3267,7 @@ glabel func0f1552d4
 //				struct fontchar *sp80;
 //
 //				textMapCodeUnitToChar(&text, &sp84, &sp80, chars, &prevchar);
-//				gdl = func0f154f38(gdl, &spc0, sp84, sp80, font, widthscale, heightscale, fx, fy);
+//				gdl = text0f154f38(gdl, &spc0, sp84, sp80, font, widthscale, heightscale, fx, fy);
 //			}
 //		}
 //	}
@@ -3254,7 +3290,7 @@ glabel func0f1552d4
 //					s2 += spc4;
 //				}
 //			} else if (*text < 0x80) {
-//				gdl = func0f154f38(gdl, &spc0, &chars[*text - 0x21], &chars[prevchar - 0x21], font,
+//				gdl = text0f154f38(gdl, &spc0, &chars[*text - 0x21], &chars[prevchar - 0x21], font,
 //						widthscale, heightscale, fx, fy);
 //				prevchar = *text;
 //				text += 1;
@@ -3283,7 +3319,7 @@ glabel func0f1552d4
 //	return gdl;
 //}
 
-Gfx *func0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fontchar *prevchar,
+Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fontchar *prevchar,
 		struct font *font, s32 savedx, s32 savedy, s32 width, s32 height, s32 arg10)
 {
 #if VERSION >= VERSION_JPN_FINAL
@@ -3339,8 +3375,8 @@ Gfx *func0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 			gDPLoadBlock(gdl++, G_TX_LOADTILE, 0, 0, ((curchar->height * 8 + 17) >> 1) - 1, 2048);
 			gDPPipeSync(gdl++);
 
-			if (var800a45d0.unk00) {
-				gdl = func0f154ecc(gdl, *x / g_ScaleX, *y + arg10);
+			if (g_Blend.types) {
+				gdl = text0f154ecc(gdl, *x / g_ScaleX, *y + arg10);
 			}
 
 			if (1);
@@ -3372,7 +3408,7 @@ Gfx *func0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 									1024 / var80080108jf);
 
 							if (var8007fb9c) {
-								func0f153b6c(*y + arg10);
+								text0f153b6c(*y + arg10);
 
 								if (var8007fba0 >= *x / g_ScaleX && *x / g_ScaleX + curchar->width * var8007fad0 >= var8007fba0) {
 									var800a4634 = func0f0d4d0c(var800a4634,
@@ -3380,8 +3416,8 @@ Gfx *func0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 											curchar->baseline * var80080108jf + sp90,
 											var8007fba0,
 											curchar->baseline * var80080108jf + sp90 + curchar->height * var80080108jf,
-											var800a45d0.colour04,
-											var800a45d0.colour04,
+											g_Blend.colour04,
+											g_Blend.colour04,
 											0);
 								}
 
@@ -3391,8 +3427,8 @@ Gfx *func0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 											curchar->baseline * var80080108jf + sp90,
 											var8007fba0,
 											curchar->baseline * var80080108jf + sp90 + curchar->height * var80080108jf,
-											var800a45d0.colour04,
-											var800a45d0.colour04,
+											g_Blend.colour04,
+											g_Blend.colour04,
 											0);
 								}
 							}
@@ -3454,8 +3490,8 @@ Gfx *func0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 			gDPLoadBlock(gdl++, G_TX_LOADTILE, 0, 0, ((curchar->height * 8 + 17) >> 1) - 1, 2048);
 			gDPPipeSync(gdl++);
 
-			if (var800a45d0.unk00) {
-				gdl = func0f154ecc(gdl, *x / g_ScaleX, *y + arg10);
+			if (g_Blend.types) {
+				gdl = text0f154ecc(gdl, *x / g_ScaleX, *y + arg10);
 			}
 
 			if (1);
@@ -3487,7 +3523,7 @@ Gfx *func0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 									1024);
 
 							if (var8007fb9c) {
-								func0f153b6c(*y + arg10);
+								text0f153b6c(*y + arg10);
 
 								if (var8007fba0 >= *x / g_ScaleX && *x / g_ScaleX + curchar->width * var8007fad0 >= var8007fba0) {
 									var800a4634 = func0f0d4d0c(var800a4634,
@@ -3495,8 +3531,8 @@ Gfx *func0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 											curchar->baseline + sp90,
 											var8007fba0,
 											curchar->baseline + sp90 + curchar->height,
-											var800a45d0.colour04,
-											var800a45d0.colour04,
+											g_Blend.colour04,
+											g_Blend.colour04,
 											0);
 								}
 
@@ -3506,8 +3542,8 @@ Gfx *func0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 											curchar->baseline + sp90,
 											var8007fba0,
 											curchar->baseline + sp90 + curchar->height,
-											var800a45d0.colour04,
-											var800a45d0.colour04,
+											g_Blend.colour04,
+											g_Blend.colour04,
 											0);
 								}
 							}
@@ -3548,12 +3584,12 @@ Gfx *func0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 	return gdl;
 }
 
-void func0f156024(s32 arg0)
+void text0f156024(s32 arg0)
 {
 	var8007fbd8 = arg0;
 }
 
-void func0f156030(u32 colour)
+void text0f156030(u32 colour)
 {
 	var800a463c = colour;
 }
@@ -3570,8 +3606,8 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 	s32 newx;
 	s32 newy;
 #if VERSION >= VERSION_JPN_FINAL
-	s32 saved18;
-	s32 saved00;
+	s32 savedmode;
+	s32 savedtypes;
 #endif
 	f32 alpha;
 
@@ -3592,8 +3628,8 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 		newx = *x / g_ScaleX;
 		newy = *y;
 		tmpcolour = var800a463c;
-		saved18 = var800a45d0.unk18;
-		saved00 = var800a45d0.unk00;
+		savedmode = g_Blend.diagmode;
+		savedtypes = g_Blend.types;
 
 		if (!g_TextRotated90) {
 			newy--;
@@ -3605,12 +3641,12 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 			tmpcolour = sbrd;
 		}
 
-		var800a45d0.unk00 &= ~4;
+		g_Blend.types &= ~BLENDTYPE_WAVE;
 
-		if (var800a45d0.unk18 != 0) {
-			var800a45d0.unk00 &= ~1;
+		if (g_Blend.diagmode != DIAGMODE_FADEIN) {
+			g_Blend.types &= ~BLENDTYPE_DIAGONAL;
 		} else {
-			var800a45d0.unk18 = 2;
+			g_Blend.diagmode = DIAGMODE_FADEOUT;
 		}
 
 		var8007fbd8 = 0;
@@ -3633,8 +3669,8 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 
 		var8007fbd8 = 1;
 
-		var800a45d0.unk00 = saved00;
-		var800a45d0.unk18 = saved18;
+		g_Blend.types = savedtypes;
+		g_Blend.diagmode = savedmode;
 #else
 		alpha = (1.0f - func0f006b08(40.0f)) * 100.0f + 150.0f;
 		newx = *x / g_ScaleX;
@@ -3703,8 +3739,8 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 	gDPSetPrimColorViaWord(gdl++, 0, 0, colour);
 	gDPPipeSync(gdl++);
 
-	var800a45d0.colour04 = colour;
-	var800a45d0.colour44 = colour;
+	g_Blend.colour04 = colour;
+	g_Blend.colour44 = colour;
 
 #if VERSION >= VERSION_PAL_BETA
 	if (text != NULL) {
@@ -3729,7 +3765,7 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 
 				textMapCodeUnitToChar(&text, &sp78, &sp74, chars, &prevchar);
 
-				gdl = func0f15568c(gdl, x, y, sp78, sp74, font, savedx, savedy, width, height, arg9);
+				gdl = text0f15568c(gdl, x, y, sp78, sp74, font, savedx, savedy, width, height, arg9);
 			}
 		}
 	}
@@ -3752,7 +3788,7 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 
 				*x = savedx;
 			} else if (*text < 0x80) {
-				gdl = func0f15568c(gdl, x, y, &chars[*text - 0x21], &chars[prevchar - 0x21], font, savedx, savedy, width, height, arg9);
+				gdl = text0f15568c(gdl, x, y, &chars[*text - 0x21], &chars[prevchar - 0x21], font, savedx, savedy, width, height, arg9);
 				prevchar = *text;
 				text++;
 			} else {
@@ -3771,7 +3807,7 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 				tmpchar.index = codepoint + 0x80;
 				tmpchar.pixeldata = (void *)lang0f16e3fc(codepoint);
 
-				gdl = func0f15568c(gdl, x, y, &tmpchar, &tmpchar, font, savedx, savedy, width, height, arg9);
+				gdl = text0f15568c(gdl, x, y, &tmpchar, &tmpchar, font, savedx, savedy, width, height, arg9);
 
 				text += 2;
 			}
@@ -3788,23 +3824,23 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 	return gdl;
 }
 
-Gfx *func0f1566cc(Gfx *gdl, u32 arg1, u32 arg2)
+Gfx *text0f1566cc(Gfx *gdl, u32 arg1, u32 arg2)
 {
-	u32 colour = func0f1543ac(arg1, arg2, var800a45d0.colour04);
+	u32 colour = text0f1543ac(arg1, arg2, g_Blend.colour04);
 
-	if (colour != var800a45d0.colour44) {
+	if (colour != g_Blend.colour44) {
 		gDPSetColor(gdl++, G_SETENVCOLOR, colour);
 	}
 
-	var800a45d0.colour44 = colour;
+	g_Blend.colour44 = colour;
 
-	colour = (var800a45d0.colour08 & 0xffffff00) | (func0f1543ac(arg1, arg2, var800a45d0.colour08) & 0xff);
+	colour = (g_Blend.colour08 & 0xffffff00) | (text0f1543ac(arg1, arg2, g_Blend.colour08) & 0xff);
 
-	if (colour != var800a45d0.colour48) {
+	if (colour != g_Blend.colour48) {
 		gDPSetPrimColorViaWord(gdl++, 0, 0, colour);
 	}
 
-	var800a45d0.colour48 = colour;
+	g_Blend.colour48 = colour;
 
 	return gdl;
 }
@@ -3832,8 +3868,8 @@ Gfx *textRenderChar(Gfx *gdl, s32 *x, s32 *y, struct fontchar *char1, struct fon
 			char1->pixeldata = (void *)lang0f16e3fc(char1->index - 0x80);
 		}
 #else
-		if (var800a45d0.unk00 != 0) {
-			gdl = func0f1566cc(gdl, *x / g_ScaleX, *y + arg10);
+		if (g_Blend.types) {
+			gdl = text0f1566cc(gdl, *x / g_ScaleX, *y + arg10);
 		}
 #endif
 
@@ -3842,7 +3878,7 @@ Gfx *textRenderChar(Gfx *gdl, s32 *x, s32 *y, struct fontchar *char1, struct fon
 		gDPLoadBlock(gdl++, G_TX_LOADTILE, 0, 0, ((char1->height * 8 + 17) >> 1) - 1, 2048);
 		gDPPipeSync(gdl++);
 
-		gdl = func0f156a24(gdl, *x - var8007fad0, sp38 - 1, char1, arg6, arg7 - 1, arg8, arg9);
+		gdl = text0f156a24(gdl, *x - var8007fad0, sp38 - 1, char1, arg6, arg7 - 1, arg8, arg9);
 	}
 
 	*x += char1->width * var8007fad0;
@@ -3850,7 +3886,7 @@ Gfx *textRenderChar(Gfx *gdl, s32 *x, s32 *y, struct fontchar *char1, struct fon
 	return gdl;
 }
 
-Gfx *func0f156a24(Gfx *gdl, s32 x, s32 y, struct fontchar *char1, s32 arg4, s32 arg5, s32 arg6, s32 arg7)
+Gfx *text0f156a24(Gfx *gdl, s32 x, s32 y, struct fontchar *char1, s32 arg4, s32 arg5, s32 arg6, s32 arg7)
 {
 	if (arg4 + arg6 >= char1->width + x + 2) {
 		if (y + char1->baseline >= arg5) {
@@ -3972,10 +4008,10 @@ Gfx *textRender(Gfx *gdl, s32 *x, s32 *y, char *text,
 	gDPSetEnvColorViaWord(gdl++, arg6);
 	gDPPipeSync(gdl++);
 
-	var800a45d0.colour08 = colour;
-	var800a45d0.colour48 = colour;
-	var800a45d0.colour04 = arg6;
-	var800a45d0.colour44 = arg6;
+	g_Blend.colour08 = colour;
+	g_Blend.colour48 = colour;
+	g_Blend.colour04 = arg6;
+	g_Blend.colour44 = arg6;
 
 #if VERSION >= VERSION_PAL_BETA
 	while (*text != '\0') {

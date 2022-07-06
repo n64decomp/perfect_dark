@@ -568,11 +568,11 @@ Gfx *creditsFillFramebuffer(Gfx *gdl, u32 colour)
 {
 	gSPDisplayList(gdl++, &var800613a0);
 
-	gdl = gfxSetPrimColour(gdl, colour);
+	gdl = textSetPrimColour(gdl, colour);
 
 	gDPFillRectangle(gdl++, 0, 0, viGetWidth(), viGetHeight());
 
-	gdl = func0f153838(gdl);
+	gdl = text0f153838(gdl);
 
 	return gdl;
 }
@@ -1009,7 +1009,7 @@ Gfx *creditsDrawBackgroundText(Gfx *gdl, s32 x, s32 y, char *text, struct fontch
 			f32 value = (i * 0.3f * (spread + 0.5f)) + 1.0f;
 			u32 stack[2];
 
-			gdl = func0f1552d4(gdl, x + sinf(f24) * mult, y + cosf(f24) * mult, f26, value, text, chars, font, colour3, 0, 1);
+			gdl = text0f1552d4(gdl, x + sinf(f24) * mult, y + cosf(f24) * mult, f26, value, text, chars, font, colour3, 0, 1);
 		}
 	}
 
@@ -1058,7 +1058,7 @@ Gfx *creditsDrawForegroundText(Gfx *gdl, s32 x, s32 y, char *text, struct fontch
 
 	colour = 0xffffff00 | (u32) (255.0f * opacityfrac);
 
-	gdl = func0f1552d4(gdl, x, y, widthscale, heightscale, text, chars, font, colour, hdir, vdir);
+	gdl = text0f1552d4(gdl, x, y, widthscale, heightscale, text, chars, font, colour, hdir, vdir);
 
 	return gdl;
 }
@@ -1510,7 +1510,7 @@ Gfx *creditsDrawSlide(Gfx *gdl)
 #endif
 	}
 
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 
 	// Draw text repetitions
 	for (i = 0; i < g_CreditsData->numthisslide * 2; i++) {
@@ -1663,7 +1663,7 @@ Gfx *creditsDrawSlide(Gfx *gdl)
 		}
 	}
 
-	gdl = func0f153780(gdl);
+	gdl = text0f153780(gdl);
 
 	return gdl;
 }
@@ -1763,7 +1763,7 @@ Gfx *creditsDraw(Gfx *gdl)
 
 	static u32 scrolltimer240 = 0;
 
-	func0f1531dc(false);
+	text0f1531dc(false);
 
 #if VERSION >= VERSION_JPN_FINAL
 	var800800f0jf = 0;

@@ -353,7 +353,7 @@ Gfx *titleRenderLegal(Gfx *gdl)
 #if VERSION == VERSION_JPN_FINAL
 		gdl = func0f0d479c(gdl);
 #endif
-		gdl = func0f153628(gdl);
+		gdl = text0f153628(gdl);
 
 		elem = g_LegalElements;
 		end = &g_LegalElements[ARRAYCOUNT(g_LegalElements)];
@@ -403,15 +403,15 @@ Gfx *titleRenderLegal(Gfx *gdl)
 			}
 
 			if (elem->type == LEGALELEMENTTYPE_LINE) {
-				gdl = func0f153780(gdl);
+				gdl = text0f153780(gdl);
 #if VERSION == VERSION_JPN_FINAL
-				gdl = func0f153a34(gdl, elem->x, elem->y - 1, viGetWidth(), elem->y + 1, 0x7f7fff7f);
+				gdl = text0f153a34(gdl, elem->x, elem->y - 1, viGetWidth(), elem->y + 1, 0x7f7fff7f);
 #else
-				gdl = func0f153a34(gdl, elem->x, elem->y, viGetWidth(), elem->y + 2, 0x7f7fff7f);
+				gdl = text0f153a34(gdl, elem->x, elem->y, viGetWidth(), elem->y + 2, 0x7f7fff7f);
 #endif
-				gdl = func0f153628(gdl);
+				gdl = text0f153628(gdl);
 			} else if (elem->type == LEGALELEMENTTYPE_DOLBYLOGO) {
-				gdl = func0f153780(gdl);
+				gdl = text0f153780(gdl);
 
 				gDPPipeSync(gdl++);
 				gDPSetTexturePersp(gdl++, G_TP_NONE);
@@ -432,9 +432,9 @@ Gfx *titleRenderLegal(Gfx *gdl)
 						(elem->y + 24) << 2,
 						G_TX_RENDERTILE, 0, 0x0300, 0x0400, -0x0400);
 
-				gdl = func0f153628(gdl);
+				gdl = text0f153628(gdl);
 			} else if (elem->type == LEGALELEMENTTYPE_RARELOGO) {
-				gdl = func0f153780(gdl);
+				gdl = text0f153780(gdl);
 
 				gDPPipeSync(gdl++);
 				gDPSetTexturePersp(gdl++, G_TP_NONE);
@@ -455,7 +455,7 @@ Gfx *titleRenderLegal(Gfx *gdl)
 						(elem->y + 42) << 2,
 						G_TX_RENDERTILE, 0, 0x0540, 0x0400, -0x0400);
 
-				gdl = func0f153628(gdl);
+				gdl = text0f153628(gdl);
 			} else {
 #if VERSION == VERSION_JPN_FINAL
 				u32 stack;
@@ -511,7 +511,7 @@ Gfx *titleRenderLegal(Gfx *gdl)
 			}
 		}
 
-		gdl = func0f153780(gdl);
+		gdl = text0f153780(gdl);
 	}
 
 	return gdl;
@@ -8000,7 +8000,7 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 	s32 colourcomponent = 255;
 
 	gdl = titleClear(gdl);
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 
 	x = viGetViewLeft() + 50;
 	y = viGetViewTop() + viGetViewHeight() - 80;
@@ -8019,7 +8019,7 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 		gdl = titleRenderTypewriterText(gdl, &x, &y, L_OPTIONS_007, g_TitleTimer - 35, &colourcomponent); // "rare presents"
 	}
 
-	gdl = func0f153780(gdl);
+	gdl = text0f153780(gdl);
 
 	if (g_TitleTypewriterFinishing) {
 		if (g_TitleAudioHandle == NULL) {
@@ -8035,7 +8035,7 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 
 	if (((s32)(var80061630 * 80.0f) % 2) == 0) {
 		u32 colour = (colourcomponent << 8) | 0x7f7fffff | (colourcomponent << 16);
-		gdl = func0f153a34(gdl, x + 2, y, x + 12, y + 20, colour);
+		gdl = text0f153a34(gdl, x + 2, y, x + 12, y + 20, colour);
 	}
 
 	gdl = bviewDrawIntroText(gdl);
@@ -8044,7 +8044,7 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 		f32 alpha = ((g_TitleTimer - TICKS(222.0f)) / TICKS(78.0f));
 		u32 stack;
 
-		gdl = func0f153a34(gdl, viGetViewLeft(), viGetViewTop(),
+		gdl = text0f153a34(gdl, viGetViewLeft(), viGetViewTop(),
 				viGetViewLeft() + viGetViewWidth(),
 				viGetViewTop() + viGetViewHeight(),
 				255.0f * alpha);
@@ -8561,7 +8561,7 @@ Gfx *titleRenderNoController(Gfx *gdl)
 	joyGetConnectedControllers();
 
 	gdl = titleClear(gdl);
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 
 #if VERSION >= VERSION_JPN_FINAL
 	y = g_TitleViewHeight / 2 - 50;
@@ -8635,7 +8635,7 @@ Gfx *titleRenderNoController(Gfx *gdl)
 	}
 #endif
 
-	gdl = func0f153780(gdl);
+	gdl = text0f153780(gdl);
 
 	return gdl;
 }
@@ -8685,7 +8685,7 @@ Gfx *titleRenderNoExpansion(Gfx *gdl)
 	joyGetConnectedControllers();
 
 	gdl = titleClear(gdl);
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 
 	x = 50;
 	y = g_TitleViewHeight / 2 - 36;
@@ -8717,7 +8717,7 @@ Gfx *titleRenderNoExpansion(Gfx *gdl)
 	var8007fad0 = 1;
 	var80080108jf = 1;
 
-	gdl = func0f153780(gdl);
+	gdl = text0f153780(gdl);
 
 	return gdl;
 }

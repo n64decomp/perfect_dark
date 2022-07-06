@@ -2632,14 +2632,14 @@ Gfx *bgRenderScene(Gfx *gdl)
 					|| stagenum == STAGE_INFILTRATION
 					|| stagenum == STAGE_ESCAPE
 					|| stagenum == STAGE_ATTACKSHIP)) {
-			gdl = func0f153628(gdl);
+			gdl = text0f153628(gdl);
 
 			gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 			gdl = playerLoadMatrix(gdl);
 			gdl = envStopFog(gdl);
 			gdl = starsRender(gdl);
-			gdl = func0f153780(gdl);
+			gdl = text0f153780(gdl);
 			gdl = vi0000ab78(gdl);
 		}
 
@@ -3063,7 +3063,7 @@ glabel bgRenderScene
 /*  f155114:	56610018 */ 	bnel	$s3,$at,.NB0f155178
 /*  f155118:	2406ffff */ 	addiu	$a2,$zero,-1
 .NB0f15511c:
-/*  f15511c:	0fc5374a */ 	jal	func0f153628
+/*  f15511c:	0fc5374a */ 	jal	text0f153628
 /*  f155120:	02202025 */ 	or	$a0,$s1,$zero
 /*  f155124:	3c0f0103 */ 	lui	$t7,0x103
 /*  f155128:	35ef0040 */ 	ori	$t7,$t7,0x40
@@ -3080,7 +3080,7 @@ glabel bgRenderScene
 /*  f155154:	00402025 */ 	or	$a0,$v0,$zero
 /*  f155158:	0fc4c503 */ 	jal	starsRender
 /*  f15515c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f155160:	0fc537a0 */ 	jal	func0f153780
+/*  f155160:	0fc537a0 */ 	jal	text0f153780
 /*  f155164:	00402025 */ 	or	$a0,$v0,$zero
 /*  f155168:	0c002b3e */ 	jal	vi0000ab78
 /*  f15516c:	00402025 */ 	or	$a0,$v0,$zero

@@ -3667,7 +3667,7 @@ glabel frRenderHudElement
 /*  f1a37f4:	27a5006c */ 	addiu	$a1,$sp,0x6c
 /*  f1a37f8:	27a60068 */ 	addiu	$a2,$sp,0x68
 /*  f1a37fc:	27a70070 */ 	addiu	$a3,$sp,0x70
-/*  f1a3800:	0fc54bed */ 	jal	func0f153858
+/*  f1a3800:	0fc54bed */ 	jal	text0f153858
 /*  f1a3804:	afa30068 */ 	sw	$v1,0x68($sp)
 /*  f1a3808:	0c002eeb */ 	jal	viGetWidth
 /*  f1a380c:	00408025 */ 	move	$s0,$v0
@@ -3741,7 +3741,7 @@ glabel frRenderHudElement
 /*  f1a391c:	27a5006c */ 	addiu	$a1,$sp,0x6c
 /*  f1a3920:	27a60068 */ 	addiu	$a2,$sp,0x68
 /*  f1a3924:	27a70070 */ 	addiu	$a3,$sp,0x70
-/*  f1a3928:	0fc54bed */ 	jal	func0f153858
+/*  f1a3928:	0fc54bed */ 	jal	text0f153858
 /*  f1a392c:	afaa0074 */ 	sw	$t2,0x74($sp)
 /*  f1a3930:	0c002eeb */ 	jal	viGetWidth
 /*  f1a3934:	00408025 */ 	move	$s0,$v0
@@ -3823,7 +3823,7 @@ glabel frRenderHudElement
 //
 //	x2 = x - (textwidth >> 1);
 //	y2 = y;
-//	gdl = func0f153858(gdl, &x2, &y2, &textwidth, &textheight);
+//	gdl = text0f153858(gdl, &x2, &y2, &textwidth, &textheight);
 //
 //	gdl = textRender(gdl, &x2, &y2, string1,
 //			g_CharsHandelGothicMd, g_FontHandelGothicMd, fullcolour, halfalpha, viGetWidth(), viGetHeight(), 0, 0);
@@ -3842,7 +3842,7 @@ glabel frRenderHudElement
 //		x2 = x - (textwidth >> 1);
 //		y2 = y + 17;
 //
-//		gdl = func0f153858(gdl, &x2, &y2, &textwidth, &textheight);
+//		gdl = text0f153858(gdl, &x2, &y2, &textwidth, &textheight);
 //
 //		gdl = func0f1574d0jf(gdl, &x2, &y2, string2,
 //			g_CharsHandelGothicXs, g_FontHandelGothicXs, fullcolour, halfalpha, viGetWidth(), viGetHeight(), 0, 0);
@@ -3871,7 +3871,7 @@ Gfx *frRenderHudElement(Gfx *gdl, s32 x, s32 y, char *string1, char *string2, u3
 
 	x2 = x - (textwidth >> 1);
 	y2 = y;
-	gdl = func0f153858(gdl, &x2, &y2, &textwidth, &textheight);
+	gdl = text0f153858(gdl, &x2, &y2, &textwidth, &textheight);
 
 	gdl = textRender(gdl, &x2, &y2, string1,
 			g_CharsHandelGothicMd, g_FontHandelGothicMd, fullcolour, halfalpha, viGetWidth(), viGetHeight(), 0, 0);
@@ -3881,7 +3881,7 @@ Gfx *frRenderHudElement(Gfx *gdl, s32 x, s32 y, char *string1, char *string2, u3
 
 		x2 = x - (textwidth >> 1);
 		y2 = y + 17;
-		gdl = func0f153858(gdl, &x2, &y2, &textwidth, &textheight);
+		gdl = text0f153858(gdl, &x2, &y2, &textwidth, &textheight);
 
 		gdl = textRender(gdl, &x2, &y2, string2,
 			g_CharsHandelGothicXs, g_FontHandelGothicXs, fullcolour, halfalpha, viGetWidth(), viGetHeight(), 0, 0);
@@ -3916,7 +3916,7 @@ Gfx *frRenderHud(Gfx *gdl)
 		alpha = (f32)(g_FrData.menucountdown * 160) / TICKS(60.0f);
 	}
 
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 
 	// Time
 	red = frFormatTime(string1);
@@ -3960,7 +3960,7 @@ Gfx *frRenderHud(Gfx *gdl)
 				string1, string2, string3, 0x00ff00a0, alpha);
 	}
 
-	return func0f153780(gdl);
+	return text0f153780(gdl);
 }
 #else
 Gfx *frRenderHud(Gfx *gdl)
@@ -3986,7 +3986,7 @@ Gfx *frRenderHud(Gfx *gdl)
 		alpha = (f32)(g_FrData.menucountdown * 160) / TICKS(60.0f);
 	}
 
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 
 	// Time
 	red = frFormatTime(string1);
@@ -4028,6 +4028,6 @@ Gfx *frRenderHud(Gfx *gdl)
 				string1, string2, 0x00ff00a0, alpha);
 	}
 
-	return func0f153780(gdl);
+	return text0f153780(gdl);
 }
 #endif

@@ -631,7 +631,7 @@ glabel mainInit
 /*  d99c:	00000000 */ 	nop
 /*  d9a0:	0c003a58 */ 	jal	func0000e9c0
 /*  d9a4:	00000000 */ 	nop
-/*  d9a8:	0fc54a14 */ 	jal	fontsInit
+/*  d9a8:	0fc54a14 */ 	jal	textInit
 /*  d9ac:	00000000 */ 	nop
 /*  d9b0:	0c004dcc */ 	jal	dhudInit
 /*  d9b4:	00000000 */ 	nop
@@ -1026,7 +1026,7 @@ glabel mainInit
 /*     d730:	00000000 */ 	nop
 /*     d734:	0c0039c8 */ 	jal	func0000e9c0
 /*     d738:	00000000 */ 	nop
-/*     d73c:	0fc54f94 */ 	jal	fontsInit
+/*     d73c:	0fc54f94 */ 	jal	textInit
 /*     d740:	00000000 */ 	nop
 /*     d744:	0c004d48 */ 	jal	dhudInit
 /*     d748:	00000000 */ 	nop
@@ -1451,7 +1451,7 @@ glabel mainInit
 /*  d7d0:	00000000 */ 	nop
 /*  d7d4:	0c003a7d */ 	jal	func0000e9c0
 /*  d7d8:	00000000 */ 	nop
-/*  d7dc:	0fc55154 */ 	jal	fontsInit
+/*  d7dc:	0fc55154 */ 	jal	textInit
 /*  d7e0:	00000000 */ 	nop
 /*  d7e4:	0c004e5e */ 	jal	dhudInit
 /*  d7e8:	00000000 */ 	nop
@@ -1854,7 +1854,7 @@ glabel mainInit
 /*     d9f4:	00000000 */ 	nop
 /*     d9f8:	0c003a70 */ 	jal	func0000e9c0
 /*     d9fc:	00000000 */ 	nop
-/*     da00:	0fc54c68 */ 	jal	fontsInit
+/*     da00:	0fc54c68 */ 	jal	textInit
 /*     da04:	00000000 */ 	nop
 /*     da08:	0c004de4 */ 	jal	dhudInit
 /*     da0c:	00000000 */ 	nop
@@ -2227,7 +2227,7 @@ glabel mainInit
 /*     df04:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df08:	0c003c68 */ 	jal	func0000e9c0
 /*     df0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df10:	0fc53628 */ 	jal	fontsInit
+/*     df10:	0fc53628 */ 	jal	textInit
 /*     df14:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df18:	0c005002 */ 	jal	dhudInit
 /*     df1c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2472,7 +2472,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	lvInit();
 //	cheatsInit();
 //	func0000e9c0();
-//	fontsInit();
+//	textInit();
 //	dhudInit();
 //	playermgrInit();
 //	frametimeInit();

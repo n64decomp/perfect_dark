@@ -1539,11 +1539,11 @@ Gfx *menugfxRenderDialogBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, str
 	u32 rightcolour;
 
 	// Render the dialog's background fill
-	gdl = gfxSetPrimColour(gdl, colour1);
+	gdl = textSetPrimColour(gdl, colour1);
 
 	gDPFillRectangleScaled(gdl++, x1, y1, x2, y2);
 
-	gdl = func0f153838(gdl);
+	gdl = text0f153838(gdl);
 
 	if (dialog->transitionfrac < 0.0f) {
 		leftcolour = g_MenuColourPalettes[dialog->type].unk00;
@@ -2290,13 +2290,13 @@ glabel menugfx0f0e1668
 .L0f0e1878:
 /*  f0e1878:	01c02025 */ 	or	$a0,$t6,$zero
 /*  f0e187c:	afae003c */ 	sw	$t6,0x3c($sp)
-/*  f0e1880:	0fc550eb */ 	jal	func0f1543ac
+/*  f0e1880:	0fc550eb */ 	jal	text0f1543ac
 /*  f0e1884:	afa70034 */ 	sw	$a3,0x34($sp)
 /*  f0e1888:	304300ff */ 	andi	$v1,$v0,0xff
 /*  f0e188c:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f0e1890:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*  f0e1894:	afa3006c */ 	sw	$v1,0x6c($sp)
-/*  f0e1898:	0fc550eb */ 	jal	func0f1543ac
+/*  f0e1898:	0fc550eb */ 	jal	text0f1543ac
 /*  f0e189c:	2406ff7f */ 	addiu	$a2,$zero,-129
 /*  f0e18a0:	8fa3006c */ 	lw	$v1,0x6c($sp)
 /*  f0e18a4:	305800ff */ 	andi	$t8,$v0,0xff
@@ -2409,8 +2409,8 @@ Gfx *menugfxDrawListGroupHeader(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3
 	alpha1 = alpha;
 	alpha2 = alpha;
 #else
-	alpha1 = func0f1543ac((x2 + x1) / 2, (y2 + y1) / 2, 0xffffffff) & 0xff;
-	alpha2 = func0f1543ac((x2 + x1) / 2, (y2 + y1) / 2, 0xffffff7f) & 0xff;
+	alpha1 = text0f1543ac((x2 + x1) / 2, (y2 + y1) / 2, 0xffffffff) & 0xff;
+	alpha2 = text0f1543ac((x2 + x1) / 2, (y2 + y1) / 2, 0xffffff7f) & 0xff;
 #endif
 
 	colours[0] = 0x00006f00 | alpha1;
@@ -2591,12 +2591,12 @@ glabel menugfxDrawListGroupHeader
 /*  f0defe8:	afaf0050 */ 	sw	$t7,0x50($sp)
 /*  f0defec:	afb20044 */ 	sw	$s2,0x44($sp)
 /*  f0deff0:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0deff4:	0fc53a82 */ 	jal	func0f1543ac
+/*  f0deff4:	0fc53a82 */ 	jal	text0f1543ac
 /*  f0deff8:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f0deffc:	8fa40050 */ 	lw	$a0,0x50($sp)
 /*  f0df000:	305200ff */ 	andi	$s2,$v0,0xff
 /*  f0df004:	8fa50044 */ 	lw	$a1,0x44($sp)
-/*  f0df008:	0fc53a82 */ 	jal	func0f1543ac
+/*  f0df008:	0fc53a82 */ 	jal	text0f1543ac
 /*  f0df00c:	2406ff7f */ 	addiu	$a2,$zero,-129
 /*  f0df010:	2406ff00 */ 	addiu	$a2,$zero,-256
 /*  f0df014:	36586f00 */ 	ori	$t8,$s2,0x6f00
@@ -3127,7 +3127,7 @@ glabel menugfxDrawTessellatedRect
 /*  f0e2770:	afb1002c */ 	sw	$s1,0x2c($sp)
 /*  f0e2774:	afb00028 */ 	sw	$s0,0x28($sp)
 /*  f0e2778:	afa40098 */ 	sw	$a0,0x98($sp)
-/*  f0e277c:	0fc54f96 */ 	jal	func0f153e58
+/*  f0e277c:	0fc54f96 */ 	jal	textHasDiagonalBlend
 /*  f0e2780:	afa5009c */ 	sw	$a1,0x9c($sp)
 /*  f0e2784:	104000ae */ 	beqz	$v0,.L0f0e2a40
 /*  f0e2788:	8fb500b0 */ 	lw	$s5,0xb0($sp)
@@ -3145,7 +3145,7 @@ glabel menugfxDrawTessellatedRect
 /*  f0e27b8:	afb60080 */ 	sw	$s6,0x80($sp)
 /*  f0e27bc:	02c02825 */ 	or	$a1,$s6,$zero
 /*  f0e27c0:	8fa600ac */ 	lw	$a2,0xac($sp)
-/*  f0e27c4:	0fc54fa5 */ 	jal	func0f153e94
+/*  f0e27c4:	0fc54fa5 */ 	jal	text0f153e94
 /*  f0e27c8:	afa30050 */ 	sw	$v1,0x50($sp)
 /*  f0e27cc:	afa2008c */ 	sw	$v0,0x8c($sp)
 /*  f0e27d0:	1a000038 */ 	blez	$s0,.L0f0e28b4
@@ -3160,7 +3160,7 @@ glabel menugfxDrawTessellatedRect
 /*  f0e27f0:	02e09025 */ 	or	$s2,$s7,$zero
 /*  f0e27f4:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f0e27f8:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f0e27fc:	0fc54fa5 */ 	jal	func0f153e94
+/*  f0e27fc:	0fc54fa5 */ 	jal	text0f153e94
 /*  f0e2800:	02a03025 */ 	or	$a2,$s5,$zero
 /*  f0e2804:	10000019 */ 	b	.L0f0e286c
 /*  f0e2808:	00408025 */ 	or	$s0,$v0,$zero
@@ -3188,7 +3188,7 @@ glabel menugfxDrawTessellatedRect
 /*  f0e2854:	00000000 */ 	nop
 /*  f0e2858:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f0e285c:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0e2860:	0fc54fa5 */ 	jal	func0f153e94
+/*  f0e2860:	0fc54fa5 */ 	jal	text0f153e94
 /*  f0e2864:	00403025 */ 	or	$a2,$v0,$zero
 /*  f0e2868:	00408025 */ 	or	$s0,$v0,$zero
 .L0f0e286c:
@@ -3213,7 +3213,7 @@ glabel menugfxDrawTessellatedRect
 .L0f0e28b4:
 /*  f0e28b4:	8fa600b0 */ 	lw	$a2,0xb0($sp)
 /*  f0e28b8:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f0e28bc:	0fc54fa5 */ 	jal	func0f153e94
+/*  f0e28bc:	0fc54fa5 */ 	jal	text0f153e94
 /*  f0e28c0:	02e02825 */ 	or	$a1,$s7,$zero
 /*  f0e28c4:	8fa9008c */ 	lw	$t1,0x8c($sp)
 /*  f0e28c8:	8fa40098 */ 	lw	$a0,0x98($sp)
@@ -3234,7 +3234,7 @@ glabel menugfxDrawTessellatedRect
 /*  f0e2900:	afb00074 */ 	sw	$s0,0x74($sp)
 /*  f0e2904:	afa40060 */ 	sw	$a0,0x60($sp)
 /*  f0e2908:	8fa600ac */ 	lw	$a2,0xac($sp)
-/*  f0e290c:	0fc54fa5 */ 	jal	func0f153e94
+/*  f0e290c:	0fc54fa5 */ 	jal	text0f153e94
 /*  f0e2910:	afa20054 */ 	sw	$v0,0x54($sp)
 /*  f0e2914:	afa2006c */ 	sw	$v0,0x6c($sp)
 /*  f0e2918:	1a000039 */ 	blez	$s0,.L0f0e2a00
@@ -3249,7 +3249,7 @@ glabel menugfxDrawTessellatedRect
 /*  f0e2938:	03c09025 */ 	or	$s2,$s8,$zero
 /*  f0e293c:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f0e2940:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f0e2944:	0fc54fa5 */ 	jal	func0f153e94
+/*  f0e2944:	0fc54fa5 */ 	jal	text0f153e94
 /*  f0e2948:	02a03025 */ 	or	$a2,$s5,$zero
 /*  f0e294c:	1000001a */ 	b	.L0f0e29b8
 /*  f0e2950:	00408025 */ 	or	$s0,$v0,$zero
@@ -3278,7 +3278,7 @@ glabel menugfxDrawTessellatedRect
 /*  f0e29a0:	00000000 */ 	nop
 /*  f0e29a4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0e29a8:	02c02825 */ 	or	$a1,$s6,$zero
-/*  f0e29ac:	0fc54fa5 */ 	jal	func0f153e94
+/*  f0e29ac:	0fc54fa5 */ 	jal	text0f153e94
 /*  f0e29b0:	00403025 */ 	or	$a2,$v0,$zero
 /*  f0e29b4:	00408025 */ 	or	$s0,$v0,$zero
 .L0f0e29b8:
@@ -3303,7 +3303,7 @@ glabel menugfxDrawTessellatedRect
 .L0f0e2a00:
 /*  f0e2a00:	8fa600b0 */ 	lw	$a2,0xb0($sp)
 /*  f0e2a04:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f0e2a08:	0fc54fa5 */ 	jal	func0f153e94
+/*  f0e2a08:	0fc54fa5 */ 	jal	text0f153e94
 /*  f0e2a0c:	02e02825 */ 	or	$a1,$s7,$zero
 /*  f0e2a10:	8fb8006c */ 	lw	$t8,0x6c($sp)
 /*  f0e2a14:	8fa40098 */ 	lw	$a0,0x98($sp)
@@ -3349,7 +3349,7 @@ glabel menugfxDrawTessellatedRect
 // Mismatch: Uses callee-save registers differently
 //Gfx *menugfxDrawTessellatedRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
 //{
-//	if (func0f153e58()) {
+//	if (textHasDiagonalBlend()) {
 //		if (y2 - y1 > x2 - x1) {
 //			// Portrait
 //			s32 numfullparts; // 94
@@ -3361,7 +3361,7 @@ glabel menugfxDrawTessellatedRect
 //			u32 stack[2];
 //
 //			numfullparts = (y2 - y1) / 15;
-//			thiscolour = func0f153e94(x1, y1, colour1);
+//			thiscolour = text0f153e94(x1, y1, colour1);
 //			thisy = y1;
 //
 //			for (i = 0; i < numfullparts; i++) {
@@ -3369,11 +3369,11 @@ glabel menugfxDrawTessellatedRect
 //
 //				if (y2 - nexty < 3) {
 //					nexty = y2;
-//					nextcolour = func0f153e94(x2, y2, colour2);
+//					nextcolour = text0f153e94(x2, y2, colour2);
 //				} else {
 //					nextcolour = colourBlend(colour2, colour1, (nexty - y1) * 255 / (y2 - y1));
 //					// @bug? Should y1 be x1?
-//					nextcolour = func0f153e94(y1, thisy, nextcolour);
+//					nextcolour = text0f153e94(y1, thisy, nextcolour);
 //				}
 //
 //				gdl = menugfxDrawTri2(gdl, x1, thisy, x2, nexty, thiscolour, nextcolour, false);
@@ -3382,7 +3382,7 @@ glabel menugfxDrawTessellatedRect
 //				thiscolour = nextcolour;
 //			}
 //
-//			nextcolour = func0f153e94(x2, y2, colour2);
+//			nextcolour = text0f153e94(x2, y2, colour2);
 //			gdl = menugfxDrawTri2(gdl, x1, thisy, x2, y2, thiscolour, nextcolour, false);
 //		} else {
 //			// Landscape
@@ -3396,7 +3396,7 @@ glabel menugfxDrawTessellatedRect
 //			u32 stack[1];
 //
 //			numfullparts = (x2 - x1) / 15;
-//			thiscolour = func0f153e94(x1, y1, colour1);
+//			thiscolour = text0f153e94(x1, y1, colour1);
 //			thisx = x1;
 //
 //			for (i = 0; i < numfullparts; i++) {
@@ -3404,10 +3404,10 @@ glabel menugfxDrawTessellatedRect
 //
 //				if (x2 - nextx < 3) {
 //					nextx = x2;
-//					nextcolour = func0f153e94(x2, y2, colour2);
+//					nextcolour = text0f153e94(x2, y2, colour2);
 //				} else {
 //					nextcolour = colourBlend(colour2, colour1, (nextx - x1) * 255 / (x2 - x1));
-//					nextcolour = func0f153e94(thisx, y1, nextcolour);
+//					nextcolour = text0f153e94(thisx, y1, nextcolour);
 //				}
 //
 //				gdl = menugfxDrawTri2(gdl, thisx, y1, nextx, y2, thiscolour, nextcolour, false);
@@ -3416,7 +3416,7 @@ glabel menugfxDrawTessellatedRect
 //				thiscolour = nextcolour;
 //			}
 //
-//			nextcolour = func0f153e94(x2, y2, colour2);
+//			nextcolour = text0f153e94(x2, y2, colour2);
 //			gdl = menugfxDrawTri2(gdl, thisx, y1, x2, y2, thiscolour, nextcolour, false);
 //		}
 //	} else {
@@ -3744,19 +3744,19 @@ Gfx *menugfxDrawDialogChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u
 Gfx *menugfxDrawCheckbox(Gfx *gdl, s32 x, s32 y, s32 size, bool fill, u32 bordercolour, u32 fillcolour)
 {
 	if (fill) {
-		gdl = gfxSetPrimColour(gdl, fillcolour);
+		gdl = textSetPrimColour(gdl, fillcolour);
 		gDPFillRectangleScaled(gdl++, x, y, x + size, y + size);
-		gdl = func0f153838(gdl);
+		gdl = text0f153838(gdl);
 	}
 
-	gdl = gfxSetPrimColour(gdl, bordercolour);
+	gdl = textSetPrimColour(gdl, bordercolour);
 
 	gDPFillRectangleScaled(gdl++, x, y, x + size + 1, y + 1);
 	gDPFillRectangleScaled(gdl++, x, y + size, x + size + 1, y + size + 1);
 	gDPFillRectangleScaled(gdl++, x, y + 1, x + 1, y + size);
 	gDPFillRectangleScaled(gdl++, x + size, y + 1, x + size + 1, y + size);
 
-	gdl = func0f153838(gdl);
+	gdl = text0f153838(gdl);
 
 	return gdl;
 }

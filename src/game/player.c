@@ -3676,7 +3676,7 @@ void playerConfigureVi(void)
 	f32 ratio = player0f0bd358();
 	g_ViRes = VIRES_LO;
 
-	func0f1531dc(false);
+	text0f1531dc(false);
 
 #if VERSION >= VERSION_JPN_FINAL
 	var800800f0jf = 0;
@@ -3708,12 +3708,12 @@ void playerTick(bool arg0)
 	}
 
 #if PAL
-	func0f1531dc(false);
+	text0f1531dc(false);
 #else
 	if (g_ViRes == VIRES_HI) {
-		func0f1531dc(true);
+		text0f1531dc(true);
 	} else {
-		func0f1531dc(false);
+		text0f1531dc(false);
 	}
 #endif
 
@@ -5305,9 +5305,9 @@ Gfx *playerRenderHud(Gfx *gdl)
 		s32 c = viGetViewLeft() + viGetViewWidth();
 		s32 d = viGetViewTop() + viGetViewHeight();
 
-		gdl = func0f153628(gdl);
-		gdl = func0f153a34(gdl, a, b, c, d, 0x000000a0);
-		gdl = func0f153780(gdl);
+		gdl = text0f153628(gdl);
+		gdl = text0f153a34(gdl, a, b, c, d, 0x000000a0);
+		gdl = text0f153780(gdl);
 	}
 
 	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY
@@ -5555,9 +5555,9 @@ Gfx *playerRenderHud(Gfx *gdl)
 			s32 c = viGetViewLeft() + viGetViewWidth();
 			s32 d = viGetViewTop() + viGetViewHeight();
 
-			gdl = func0f153628(gdl);
-			gdl = func0f153a34(gdl, a, b, c, d, 0x000000a0);
-			gdl = func0f153780(gdl);
+			gdl = text0f153628(gdl);
+			gdl = text0f153a34(gdl, a, b, c, d, 0x000000a0);
+			gdl = text0f153780(gdl);
 		}
 
 		gdl = hudmsgsRender(gdl);

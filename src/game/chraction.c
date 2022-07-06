@@ -26225,7 +26225,7 @@ Gfx *chrsRenderChrStats(Gfx *gdl, s16 *rooms)
 	s32 i;
 	s32 numchrs = chrsGetNumSlots();
 
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 
 	for (i = 0; i < numchrs; i++) {
 		struct chrdata *chr = &g_ChrSlots[i];
@@ -26260,7 +26260,7 @@ Gfx *chrsRenderChrStats(Gfx *gdl, s16 *rooms)
 				x2 = x + textwidth;
 				y2 = y + textheight;
 
-				gdl = func0f153858(gdl, &x, &y, &x2, &y2);
+				gdl = text0f153858(gdl, &x, &y, &x2, &y2);
 				gdl = textRender(gdl, &x, &y, fullbuffer,
 						g_CharsHandelGothicXs, g_FontHandelGothicXs,
 						0xff8800aa, 0x00000088, viGetWidth(), viGetHeight(), 0, 0);
@@ -26268,7 +26268,7 @@ Gfx *chrsRenderChrStats(Gfx *gdl, s16 *rooms)
 		}
 	}
 
-	gdl = func0f153780(gdl);
+	gdl = text0f153780(gdl);
 
 	return gdl;
 }

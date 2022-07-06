@@ -63675,7 +63675,7 @@ Gfx *countdownTimerRender(Gfx *gdl)
 		secs = (s32)floorf(value60 * (1.0f / 60.0f)) - mins * 60;
 		ms = (s32)floorf(value60 * 1.6666666269302f) - mins * 6000 - secs * 100;
 
-		gdl = func0f153628(gdl);
+		gdl = text0f153628(gdl);
 		gdl = bgunRenderHudInteger(gdl, (mins % 100) / 10, viewright - 18, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
 		gdl = bgunRenderHudInteger(gdl, mins % 10, viewright - 14, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
 		gdl = bgunRenderHudString(gdl, fmt, viewright - 8, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
@@ -63684,7 +63684,7 @@ Gfx *countdownTimerRender(Gfx *gdl)
 		gdl = bgunRenderHudString(gdl, fmt, viewright + 8, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
 		gdl = bgunRenderHudInteger(gdl, (ms % 100) / 10, viewright + 14, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
 		gdl = bgunRenderHudInteger(gdl, ms % 10, viewright + 18, HUDHALIGN_MIDDLE, y, HUDVALIGN_MIDDLE, 0x00ff00a0);
-		gdl = func0f153780(gdl);
+		gdl = text0f153780(gdl);
 	}
 
 	return gdl;

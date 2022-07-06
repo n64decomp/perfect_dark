@@ -291,7 +291,7 @@ void lvReset(s32 stagenum)
 	func0f011124(true);
 	surfaceReset();
 	texReset();
-	fontsReset();
+	textReset();
 	hudmsgsReset();
 
 	if (stagenum == STAGE_TEST_OLD) {
@@ -549,7 +549,7 @@ Gfx *lvRenderFade(Gfx *gdl)
 			viGetViewLeft() + viGetViewWidth() + 1,
 			viGetViewTop() + viGetViewHeight() - inset + 2);
 
-	return func0f153838(gdl);
+	return text0f153838(gdl);
 }
 
 bool lvIsFadeActive(void)
@@ -689,8 +689,8 @@ Gfx *lvRenderManPosIfEnabled(Gfx *gdl)
 		x = viGetViewLeft() + 17;
 		y = viGetViewTop() + 17;
 		y2 = y + 10;
-		gdl = func0f153628(gdl);
-		gdl = func0f153a34(gdl, 0, y - 1, viGetWidth(), y2 + 1, 0x00000064);
+		gdl = text0f153628(gdl);
+		gdl = text0f153a34(gdl, 0, y - 1, viGetWidth(), y2 + 1, 0x00000064);
 
 		gdl = textRenderProjected(gdl, &x, &y, bufroom, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
 
@@ -706,7 +706,7 @@ Gfx *lvRenderManPosIfEnabled(Gfx *gdl)
 		x = viGetViewLeft() + 249;
 		gdl = textRenderProjected(gdl, &x, &y, bufdir, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
 
-		gdl = func0f153780(gdl);
+		gdl = text0f153780(gdl);
 	}
 
 	return gdl;
@@ -1362,7 +1362,7 @@ Gfx *lvRender(Gfx *gdl)
 									viGetViewLeft() + viGetViewWidth(),
 									viGetViewTop() + viGetViewHeight());
 
-								gdl = func0f153838(gdl);
+								gdl = text0f153838(gdl);
 							}
 						}
 #endif
@@ -1569,12 +1569,12 @@ Gfx *lvRender(Gfx *gdl)
 						}
 
 						if (alpha) {
-							gdl = func0f153628(gdl);
-							gdl = func0f153a34(gdl,
+							gdl = text0f153628(gdl);
+							gdl = text0f153a34(gdl,
 									viGetViewLeft(), viGetViewTop(),
 									viGetViewLeft() + viGetViewWidth(),
 									viGetViewTop() + viGetViewHeight(), 0xffffff00 | alpha);
-							gdl = func0f153780(gdl);
+							gdl = text0f153780(gdl);
 						}
 					}
 				}

@@ -23396,7 +23396,7 @@ Gfx *bgunRenderHudString(Gfx *gdl, char *text, s32 x, bool halign, s32 y, s32 va
 		y1 = y2 - textheight;
 	}
 
-	gdl = func0f153858(gdl, &x1, &y1, &x2, &y2);
+	gdl = text0f153858(gdl, &x1, &y1, &x2, &y2);
 	gdl = textRender(gdl, &x1, &y1, text, g_CharsNumeric, g_FontNumeric, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 
 	return gdl;
@@ -23607,7 +23607,7 @@ glabel bgunRenderHudGauge
 /*  f0ab1cc:	00d2082a */ 	slt	$at,$a2,$s2
 /*  f0ab1d0:	1020003e */ 	beqz	$at,.JF0f0ab2cc
 /*  f0ab1d4:	00000000 */ 	nop
-/*  f0ab1d8:	0fc54bce */ 	jal	gfxSetPrimColour
+/*  f0ab1d8:	0fc54bce */ 	jal	textSetPrimColour
 /*  f0ab1dc:	afa600bc */ 	sw	$a2,0xbc($sp)
 /*  f0ab1e0:	8fae00f8 */ 	lw	$t6,0xf8($sp)
 /*  f0ab1e4:	8fa600bc */ 	lw	$a2,0xbc($sp)
@@ -23667,14 +23667,14 @@ glabel bgunRenderHudGauge
 /*  f0ab2b8:	01eec825 */ 	or	$t9,$t7,$t6
 /*  f0ab2bc:	ac590004 */ 	sw	$t9,0x4($v0)
 .JF0f0ab2c0:
-/*  f0ab2c0:	0fc54be5 */ 	jal	func0f153838
+/*  f0ab2c0:	0fc54be5 */ 	jal	text0f153838
 /*  f0ab2c4:	02202025 */ 	move	$a0,$s1
 /*  f0ab2c8:	00408825 */ 	move	$s1,$v0
 .JF0f0ab2cc:
 /*  f0ab2cc:	3c138008 */ 	lui	$s3,0x8008
 /*  f0ab2d0:	267300f4 */ 	addiu	$s3,$s3,0xf4
 /*  f0ab2d4:	02202025 */ 	move	$a0,$s1
-/*  f0ab2d8:	0fc54bce */ 	jal	gfxSetPrimColour
+/*  f0ab2d8:	0fc54bce */ 	jal	textSetPrimColour
 /*  f0ab2dc:	8fa500f4 */ 	lw	$a1,0xf4($sp)
 /*  f0ab2e0:	8fb800f8 */ 	lw	$t8,0xf8($sp)
 /*  f0ab2e4:	3c0af600 */ 	lui	$t2,0xf600
@@ -23732,7 +23732,7 @@ glabel bgunRenderHudGauge
 .JF0f0ab3b0:
 /*  f0ab3b0:	8fa500f0 */ 	lw	$a1,0xf0($sp)
 /*  f0ab3b4:	afa600bc */ 	sw	$a2,0xbc($sp)
-/*  f0ab3b8:	0fc54bce */ 	jal	gfxSetPrimColour
+/*  f0ab3b8:	0fc54bce */ 	jal	textSetPrimColour
 /*  f0ab3bc:	e7a000b8 */ 	swc1	$f0,0xb8($sp)
 /*  f0ab3c0:	8fb900b4 */ 	lw	$t9,0xb4($sp)
 /*  f0ab3c4:	8fa600bc */ 	lw	$a2,0xbc($sp)
@@ -24070,7 +24070,7 @@ glabel bgunRenderHudGauge
 /*  f0ab894:	03387025 */ 	or	$t6,$t9,$t8
 /*  f0ab898:	ac4e0004 */ 	sw	$t6,0x4($v0)
 .JF0f0ab89c:
-/*  f0ab89c:	0fc54be5 */ 	jal	func0f153838
+/*  f0ab89c:	0fc54be5 */ 	jal	text0f153838
 /*  f0ab8a0:	02202025 */ 	move	$a0,$s1
 /*  f0ab8a4:	3c0fb900 */ 	lui	$t7,0xb900
 /*  f0ab8a8:	3c190050 */ 	lui	$t9,0x50
@@ -24203,7 +24203,7 @@ glabel bgunRenderHudGauge
 /*  f0aa5a4:	00d2082a */ 	slt	$at,$a2,$s2
 /*  f0aa5a8:	1020003e */ 	beqz	$at,.PF0f0aa6a4
 /*  f0aa5ac:	00000000 */ 	nop
-/*  f0aa5b0:	0fc5513c */ 	jal	gfxSetPrimColour
+/*  f0aa5b0:	0fc5513c */ 	jal	textSetPrimColour
 /*  f0aa5b4:	afa600c4 */ 	sw	$a2,0xc4($sp)
 /*  f0aa5b8:	8fb90100 */ 	lw	$t9,0x100($sp)
 /*  f0aa5bc:	8fa600c4 */ 	lw	$a2,0xc4($sp)
@@ -24263,14 +24263,14 @@ glabel bgunRenderHudGauge
 /*  f0aa690:	01d96825 */ 	or	$t5,$t6,$t9
 /*  f0aa694:	ac4d0004 */ 	sw	$t5,0x4($v0)
 .PF0f0aa698:
-/*  f0aa698:	0fc55153 */ 	jal	func0f153838
+/*  f0aa698:	0fc55153 */ 	jal	text0f153838
 /*  f0aa69c:	02202025 */ 	move	$a0,$s1
 /*  f0aa6a0:	00408825 */ 	move	$s1,$v0
 .PF0f0aa6a4:
 /*  f0aa6a4:	3c138008 */ 	lui	$s3,0x8008
 /*  f0aa6a8:	26730020 */ 	addiu	$s3,$s3,0x20
 /*  f0aa6ac:	02202025 */ 	move	$a0,$s1
-/*  f0aa6b0:	0fc5513c */ 	jal	gfxSetPrimColour
+/*  f0aa6b0:	0fc5513c */ 	jal	textSetPrimColour
 /*  f0aa6b4:	8fa500fc */ 	lw	$a1,0xfc($sp)
 /*  f0aa6b8:	8fb80100 */ 	lw	$t8,0x100($sp)
 /*  f0aa6bc:	3c09f600 */ 	lui	$t1,0xf600
@@ -24328,7 +24328,7 @@ glabel bgunRenderHudGauge
 .PF0f0aa788:
 /*  f0aa788:	8fa500f8 */ 	lw	$a1,0xf8($sp)
 /*  f0aa78c:	afa600c4 */ 	sw	$a2,0xc4($sp)
-/*  f0aa790:	0fc5513c */ 	jal	gfxSetPrimColour
+/*  f0aa790:	0fc5513c */ 	jal	textSetPrimColour
 /*  f0aa794:	e7a000c0 */ 	swc1	$f0,0xc0($sp)
 /*  f0aa798:	8faf00bc */ 	lw	$t7,0xbc($sp)
 /*  f0aa79c:	8fa600c4 */ 	lw	$a2,0xc4($sp)
@@ -24693,7 +24693,7 @@ glabel bgunRenderHudGauge
 /*  f0aacd8:	01af7025 */ 	or	$t6,$t5,$t7
 /*  f0aacdc:	ac4e0004 */ 	sw	$t6,0x4($v0)
 .PF0f0aace0:
-/*  f0aace0:	0fc55153 */ 	jal	func0f153838
+/*  f0aace0:	0fc55153 */ 	jal	text0f153838
 /*  f0aace4:	02202025 */ 	move	$a0,$s1
 /*  f0aace8:	3c19b900 */ 	lui	$t9,0xb900
 /*  f0aacec:	3c180050 */ 	lui	$t8,0x50
@@ -24826,7 +24826,7 @@ glabel bgunRenderHudGauge
 /*  f0aa4f4:	00d2082a */ 	slt	$at,$a2,$s2
 /*  f0aa4f8:	1020003e */ 	beqz	$at,.PB0f0aa5f4
 /*  f0aa4fc:	00000000 */ 	nop
-/*  f0aa500:	0fc552fc */ 	jal	gfxSetPrimColour
+/*  f0aa500:	0fc552fc */ 	jal	textSetPrimColour
 /*  f0aa504:	afa600c4 */ 	sw	$a2,0xc4($sp)
 /*  f0aa508:	8fb90100 */ 	lw	$t9,0x100($sp)
 /*  f0aa50c:	8fa600c4 */ 	lw	$a2,0xc4($sp)
@@ -24886,14 +24886,14 @@ glabel bgunRenderHudGauge
 /*  f0aa5e0:	01d96825 */ 	or	$t5,$t6,$t9
 /*  f0aa5e4:	ac4d0004 */ 	sw	$t5,0x4($v0)
 .PB0f0aa5e8:
-/*  f0aa5e8:	0fc55313 */ 	jal	func0f153838
+/*  f0aa5e8:	0fc55313 */ 	jal	text0f153838
 /*  f0aa5ec:	02202025 */ 	move	$a0,$s1
 /*  f0aa5f0:	00408825 */ 	move	$s1,$v0
 .PB0f0aa5f4:
 /*  f0aa5f4:	3c138008 */ 	lui	$s3,0x8008
 /*  f0aa5f8:	26731f90 */ 	addiu	$s3,$s3,0x1f90
 /*  f0aa5fc:	02202025 */ 	move	$a0,$s1
-/*  f0aa600:	0fc552fc */ 	jal	gfxSetPrimColour
+/*  f0aa600:	0fc552fc */ 	jal	textSetPrimColour
 /*  f0aa604:	8fa500fc */ 	lw	$a1,0xfc($sp)
 /*  f0aa608:	8fb80100 */ 	lw	$t8,0x100($sp)
 /*  f0aa60c:	3c09f600 */ 	lui	$t1,0xf600
@@ -24951,7 +24951,7 @@ glabel bgunRenderHudGauge
 .PB0f0aa6d8:
 /*  f0aa6d8:	8fa500f8 */ 	lw	$a1,0xf8($sp)
 /*  f0aa6dc:	afa600c4 */ 	sw	$a2,0xc4($sp)
-/*  f0aa6e0:	0fc552fc */ 	jal	gfxSetPrimColour
+/*  f0aa6e0:	0fc552fc */ 	jal	textSetPrimColour
 /*  f0aa6e4:	e7a000c0 */ 	swc1	$f0,0xc0($sp)
 /*  f0aa6e8:	8faf00bc */ 	lw	$t7,0xbc($sp)
 /*  f0aa6ec:	8fa600c4 */ 	lw	$a2,0xc4($sp)
@@ -25316,7 +25316,7 @@ glabel bgunRenderHudGauge
 /*  f0aac28:	01af7025 */ 	or	$t6,$t5,$t7
 /*  f0aac2c:	ac4e0004 */ 	sw	$t6,0x4($v0)
 .PB0f0aac30:
-/*  f0aac30:	0fc55313 */ 	jal	func0f153838
+/*  f0aac30:	0fc55313 */ 	jal	text0f153838
 /*  f0aac34:	02202025 */ 	move	$a0,$s1
 /*  f0aac38:	3c19b900 */ 	lui	$t9,0xb900
 /*  f0aac3c:	3c180050 */ 	lui	$t8,0x50
@@ -25450,7 +25450,7 @@ glabel bgunRenderHudGauge
 /*  f0aa14c:	00d2082a */ 	slt	$at,$a2,$s2
 /*  f0aa150:	1020003f */ 	beqz	$at,.L0f0aa250
 /*  f0aa154:	00000000 */ 	nop
-/*  f0aa158:	0fc54df7 */ 	jal	gfxSetPrimColour
+/*  f0aa158:	0fc54df7 */ 	jal	textSetPrimColour
 /*  f0aa15c:	afa600bc */ 	sw	$a2,0xbc($sp)
 /*  f0aa160:	8faf00f8 */ 	lw	$t7,0xf8($sp)
 /*  f0aa164:	8fa600bc */ 	lw	$a2,0xbc($sp)
@@ -25511,14 +25511,14 @@ glabel bgunRenderHudGauge
 /*  f0aa23c:	030f7025 */ 	or	$t6,$t8,$t7
 /*  f0aa240:	ac4e0004 */ 	sw	$t6,0x4($v0)
 .L0f0aa244:
-/*  f0aa244:	0fc54e0e */ 	jal	func0f153838
+/*  f0aa244:	0fc54e0e */ 	jal	text0f153838
 /*  f0aa248:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0aa24c:	00408025 */ 	or	$s0,$v0,$zero
 .L0f0aa250:
 /*  f0aa250:	3c138008 */ 	lui	$s3,%hi(g_ScaleX)
 /*  f0aa254:	2673fac0 */ 	addiu	$s3,$s3,%lo(g_ScaleX)
 /*  f0aa258:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0aa25c:	0fc54df7 */ 	jal	gfxSetPrimColour
+/*  f0aa25c:	0fc54df7 */ 	jal	textSetPrimColour
 /*  f0aa260:	8fa500f4 */ 	lw	$a1,0xf4($sp)
 /*  f0aa264:	8fb900f8 */ 	lw	$t9,0xf8($sp)
 /*  f0aa268:	8fa900e0 */ 	lw	$t1,0xe0($sp)
@@ -25577,7 +25577,7 @@ glabel bgunRenderHudGauge
 .L0f0aa338:
 /*  f0aa338:	8fa500f0 */ 	lw	$a1,0xf0($sp)
 /*  f0aa33c:	afa600bc */ 	sw	$a2,0xbc($sp)
-/*  f0aa340:	0fc54df7 */ 	jal	gfxSetPrimColour
+/*  f0aa340:	0fc54df7 */ 	jal	textSetPrimColour
 /*  f0aa344:	e7a000b8 */ 	swc1	$f0,0xb8($sp)
 /*  f0aa348:	8fae00b4 */ 	lw	$t6,0xb4($sp)
 /*  f0aa34c:	8fa600bc */ 	lw	$a2,0xbc($sp)
@@ -25911,7 +25911,7 @@ glabel bgunRenderHudGauge
 /*  f0aa810:	01d97825 */ 	or	$t7,$t6,$t9
 /*  f0aa814:	ac4f0004 */ 	sw	$t7,0x4($v0)
 .L0f0aa818:
-/*  f0aa818:	0fc54e0e */ 	jal	func0f153838
+/*  f0aa818:	0fc54e0e */ 	jal	text0f153838
 /*  f0aa81c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0aa820:	3c18b900 */ 	lui	$t8,0xb900
 /*  f0aa824:	3c0e0050 */ 	lui	$t6,0x50
@@ -26026,7 +26026,7 @@ glabel bgunRenderHudGauge
 //		// 150
 //		if (partitiony > gaugetop) {
 //			// Render empty partition
-//			gdl = gfxSetPrimColour(gdl, emptycolour);
+//			gdl = textSetPrimColour(gdl, emptycolour);
 //
 //			if (flip) {
 //				gDPFillRectangleScaled(gdl++, x1, y2 - partitiony + y1, x2, gaugeheight + y1);
@@ -26034,12 +26034,12 @@ glabel bgunRenderHudGauge
 //				gDPFillRectangleScaled(gdl++, x1, gaugetop, x2, partitiony);
 //			}
 //
-//			gdl = func0f153838(gdl);
+//			gdl = text0f153838(gdl);
 //		}
 //
 //		// 25c
 //		// Render filled partition
-//		gdl = gfxSetPrimColour(gdl, filledcolour);
+//		gdl = textSetPrimColour(gdl, filledcolour);
 //
 //		// 278
 //		if (flip) {
@@ -26054,7 +26054,7 @@ glabel bgunRenderHudGauge
 //		s32 unittop;
 //		s32 unitbottom;
 //
-//		gdl = gfxSetPrimColour(gdl, emptycolour);
+//		gdl = textSetPrimColour(gdl, emptycolour);
 //
 //		unittop = gaugetop; // s5
 //		unitbottom = -1;
@@ -26199,7 +26199,7 @@ glabel bgunRenderHudGauge
 //		}
 //	}
 //
-//	gdl = func0f153838(gdl);
+//	gdl = text0f153838(gdl);
 //
 //	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
 //
@@ -26305,7 +26305,7 @@ glabel bgunRenderHud
 /*  f0aa9bc:	3c018008 */ 	lui	$at,%hi(g_ScaleX)
 /*  f0aa9c0:	ac22fac0 */ 	sw	$v0,%lo(g_ScaleX)($at)
 .L0f0aa9c4:
-/*  f0aa9c4:	0fc54d8a */ 	jal	func0f153628
+/*  f0aa9c4:	0fc54d8a */ 	jal	text0f153628
 /*  f0aa9c8:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0aa9cc:	8fb90060 */ 	lw	$t9,0x60($sp)
 /*  f0aa9d0:	afa20130 */ 	sw	$v0,0x130($sp)
@@ -26501,7 +26501,7 @@ glabel bgunRenderHud
 .L0f0aac7c:
 /*  f0aac7c:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0aac80:	8fa500f4 */ 	lw	$a1,0xf4($sp)
-/*  f0aac84:	0fc54df7 */ 	jal	gfxSetPrimColour
+/*  f0aac84:	0fc54df7 */ 	jal	textSetPrimColour
 /*  f0aac88:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0aac8c:	3c068008 */ 	lui	$a2,%hi(g_ScaleX)
 /*  f0aac90:	8faf0100 */ 	lw	$t7,0x100($sp)
@@ -26533,7 +26533,7 @@ glabel bgunRenderHud
 /*  f0aacf8:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f0aacfc:	030fc825 */ 	or	$t9,$t8,$t7
 /*  f0aad00:	ac590004 */ 	sw	$t9,0x4($v0)
-/*  f0aad04:	0fc54e0e */ 	jal	func0f153838
+/*  f0aad04:	0fc54e0e */ 	jal	text0f153838
 /*  f0aad08:	afa30060 */ 	sw	$v1,0x60($sp)
 /*  f0aad0c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x288)
 /*  f0aad10:	8dcea248 */ 	lw	$t6,%lo(g_Vars+0x288)($t6)
@@ -26645,7 +26645,7 @@ glabel bgunRenderHud
 /*  f0aaea0:	afb800d0 */ 	sw	$t8,0xd0($sp)
 .L0f0aaea4:
 /*  f0aaea4:	8fa40130 */ 	lw	$a0,0x130($sp)
-/*  f0aaea8:	0fc54df7 */ 	jal	gfxSetPrimColour
+/*  f0aaea8:	0fc54df7 */ 	jal	textSetPrimColour
 /*  f0aaeac:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0aaeb0:	3c038008 */ 	lui	$v1,%hi(g_ScaleX)
 /*  f0aaeb4:	8fb90100 */ 	lw	$t9,0x100($sp)
@@ -26674,7 +26674,7 @@ glabel bgunRenderHud
 /*  f0aaf10:	332e03ff */ 	andi	$t6,$t9,0x3ff
 /*  f0aaf14:	000ec080 */ 	sll	$t8,$t6,0x2
 /*  f0aaf18:	01f8c825 */ 	or	$t9,$t7,$t8
-/*  f0aaf1c:	0fc54e0e */ 	jal	func0f153838
+/*  f0aaf1c:	0fc54e0e */ 	jal	text0f153838
 /*  f0aaf20:	ac590004 */ 	sw	$t9,0x4($v0)
 /*  f0aaf24:	3c018006 */ 	lui	$at,%hi(var80061630)
 /*  f0aaf28:	c4241630 */ 	lwc1	$f4,%lo(var80061630)($at)
@@ -26686,10 +26686,10 @@ glabel bgunRenderHud
 /*  f0aaf40:	24060032 */ 	addiu	$a2,$zero,0x32
 /*  f0aaf44:	4600428d */ 	trunc.w.s	$f10,$f8
 /*  f0aaf48:	44045000 */ 	mfc1	$a0,$f10
-/*  f0aaf4c:	0fc54f54 */ 	jal	func0f153d50
+/*  f0aaf4c:	0fc54f54 */ 	jal	textSetWaveBlend
 /*  f0aaf50:	00000000 */ 	nop
 /*  f0aaf54:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f0aaf58:	0fc54f8e */ 	jal	func0f153e38
+/*  f0aaf58:	0fc54f8e */ 	jal	textSetWaveColours
 /*  f0aaf5c:	2405ffff */ 	addiu	$a1,$zero,-1
 /*  f0aaf60:	3c0f8008 */ 	lui	$t7,%hi(g_CharsHandelGothicXs)
 /*  f0aaf64:	8deffb08 */ 	lw	$t7,%lo(g_CharsHandelGothicXs)($t7)
@@ -26710,7 +26710,7 @@ glabel bgunRenderHud
 /*  f0aafa0:	afb90018 */ 	sw	$t9,0x18($sp)
 /*  f0aafa4:	0fc5580f */ 	jal	textRenderProjected
 /*  f0aafa8:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f0aafac:	0fc54f93 */ 	jal	func0f153e4c
+/*  f0aafac:	0fc54f93 */ 	jal	textResetBlends
 /*  f0aafb0:	afa20130 */ 	sw	$v0,0x130($sp)
 /*  f0aafb4:	8faa0058 */ 	lw	$t2,0x58($sp)
 /*  f0aafb8:	8fa200bc */ 	lw	$v0,0xbc($sp)
@@ -26843,7 +26843,7 @@ glabel bgunRenderHud
 /*  f0ab190:	afb800d0 */ 	sw	$t8,0xd0($sp)
 .L0f0ab194:
 /*  f0ab194:	8fa40130 */ 	lw	$a0,0x130($sp)
-/*  f0ab198:	0fc54df7 */ 	jal	gfxSetPrimColour
+/*  f0ab198:	0fc54df7 */ 	jal	textSetPrimColour
 /*  f0ab19c:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0ab1a0:	3c038008 */ 	lui	$v1,%hi(g_ScaleX)
 /*  f0ab1a4:	2463fac0 */ 	addiu	$v1,$v1,%lo(g_ScaleX)
@@ -26874,7 +26874,7 @@ glabel bgunRenderHud
 /*  f0ab208:	331903ff */ 	andi	$t9,$t8,0x3ff
 /*  f0ab20c:	00197080 */ 	sll	$t6,$t9,0x2
 /*  f0ab210:	01eec025 */ 	or	$t8,$t7,$t6
-/*  f0ab214:	0fc54e0e */ 	jal	func0f153838
+/*  f0ab214:	0fc54e0e */ 	jal	text0f153838
 /*  f0ab218:	ac580004 */ 	sw	$t8,0x4($v0)
 /*  f0ab21c:	3c018006 */ 	lui	$at,%hi(var80061630)
 /*  f0ab220:	c4301630 */ 	lwc1	$f16,%lo(var80061630)($at)
@@ -26886,10 +26886,10 @@ glabel bgunRenderHud
 /*  f0ab238:	24060032 */ 	addiu	$a2,$zero,0x32
 /*  f0ab23c:	4600218d */ 	trunc.w.s	$f6,$f4
 /*  f0ab240:	44043000 */ 	mfc1	$a0,$f6
-/*  f0ab244:	0fc54f54 */ 	jal	func0f153d50
+/*  f0ab244:	0fc54f54 */ 	jal	textSetWaveBlend
 /*  f0ab248:	00000000 */ 	nop
 /*  f0ab24c:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f0ab250:	0fc54f8e */ 	jal	func0f153e38
+/*  f0ab250:	0fc54f8e */ 	jal	textSetWaveColours
 /*  f0ab254:	2405ffff */ 	addiu	$a1,$zero,-1
 /*  f0ab258:	3c0f8008 */ 	lui	$t7,%hi(g_CharsHandelGothicXs)
 /*  f0ab25c:	8deffb08 */ 	lw	$t7,%lo(g_CharsHandelGothicXs)($t7)
@@ -26910,7 +26910,7 @@ glabel bgunRenderHud
 /*  f0ab298:	afb80018 */ 	sw	$t8,0x18($sp)
 /*  f0ab29c:	0fc5580f */ 	jal	textRenderProjected
 /*  f0ab2a0:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f0ab2a4:	0fc54f93 */ 	jal	func0f153e4c
+/*  f0ab2a4:	0fc54f93 */ 	jal	textResetBlends
 /*  f0ab2a8:	afa20130 */ 	sw	$v0,0x130($sp)
 /*  f0ab2ac:	8faa0058 */ 	lw	$t2,0x58($sp)
 .L0f0ab2b0:
@@ -26946,7 +26946,7 @@ glabel bgunRenderHud
 .L0f0ab31c:
 /*  f0ab31c:	55c30008 */ 	bnel	$t6,$v1,.L0f0ab340
 /*  f0ab320:	8fb90110 */ 	lw	$t9,0x110($sp)
-/*  f0ab324:	0fc54de0 */ 	jal	func0f153780
+/*  f0ab324:	0fc54de0 */ 	jal	text0f153780
 /*  f0ab328:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0ab32c:	24180001 */ 	addiu	$t8,$zero,0x1
 /*  f0ab330:	3c018008 */ 	lui	$at,%hi(g_ScaleX)
@@ -27463,7 +27463,7 @@ glabel bgunRenderHud
 /*  f0abaa4:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0abaa8:	afa20130 */ 	sw	$v0,0x130($sp)
 .L0f0abaac:
-/*  f0abaac:	0fc54de0 */ 	jal	func0f153780
+/*  f0abaac:	0fc54de0 */ 	jal	text0f153780
 /*  f0abab0:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0abab4:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f0abab8:	3c018008 */ 	lui	$at,%hi(g_ScaleX)
@@ -27564,7 +27564,7 @@ glabel bgunRenderHud
 .PF0f0aae68:
 /*  f0aae68:	3c018008 */ 	lui	$at,0x8008
 /*  f0aae6c:	ac2f0020 */ 	sw	$t7,0x20($at)
-/*  f0aae70:	0fc550cf */ 	jal	func0f153628
+/*  f0aae70:	0fc550cf */ 	jal	text0f153628
 /*  f0aae74:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0aae78:	8fb80060 */ 	lw	$t8,0x60($sp)
 /*  f0aae7c:	afa20130 */ 	sw	$v0,0x130($sp)
@@ -27765,7 +27765,7 @@ glabel bgunRenderHud
 .PF0f0ab13c:
 /*  f0ab13c:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0ab140:	8fa500f4 */ 	lw	$a1,0xf4($sp)
-/*  f0ab144:	0fc5513c */ 	jal	gfxSetPrimColour
+/*  f0ab144:	0fc5513c */ 	jal	textSetPrimColour
 /*  f0ab148:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0ab14c:	3c068008 */ 	lui	$a2,0x8008
 /*  f0ab150:	8fa70100 */ 	lw	$a3,0x100($sp)
@@ -27796,7 +27796,7 @@ glabel bgunRenderHud
 /*  f0ab1b4:	0018c880 */ 	sll	$t9,$t8,0x2
 /*  f0ab1b8:	01d97825 */ 	or	$t7,$t6,$t9
 /*  f0ab1bc:	ac4f0004 */ 	sw	$t7,0x4($v0)
-/*  f0ab1c0:	0fc55153 */ 	jal	func0f153838
+/*  f0ab1c0:	0fc55153 */ 	jal	text0f153838
 /*  f0ab1c4:	afa30060 */ 	sw	$v1,0x60($sp)
 /*  f0ab1c8:	3c18800a */ 	lui	$t8,0x800a
 /*  f0ab1cc:	8f18a798 */ 	lw	$t8,-0x5868($t8)
@@ -27908,7 +27908,7 @@ glabel bgunRenderHud
 /*  f0ab35c:	afae00d0 */ 	sw	$t6,0xd0($sp)
 .PF0f0ab360:
 /*  f0ab360:	8fa40130 */ 	lw	$a0,0x130($sp)
-/*  f0ab364:	0fc5513c */ 	jal	gfxSetPrimColour
+/*  f0ab364:	0fc5513c */ 	jal	textSetPrimColour
 /*  f0ab368:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0ab36c:	3c038008 */ 	lui	$v1,0x8008
 /*  f0ab370:	8faf0100 */ 	lw	$t7,0x100($sp)
@@ -27937,7 +27937,7 @@ glabel bgunRenderHud
 /*  f0ab3cc:	31f803ff */ 	andi	$t8,$t7,0x3ff
 /*  f0ab3d0:	00187080 */ 	sll	$t6,$t8,0x2
 /*  f0ab3d4:	032e7825 */ 	or	$t7,$t9,$t6
-/*  f0ab3d8:	0fc55153 */ 	jal	func0f153838
+/*  f0ab3d8:	0fc55153 */ 	jal	text0f153838
 /*  f0ab3dc:	ac4f0004 */ 	sw	$t7,0x4($v0)
 /*  f0ab3e0:	3c018006 */ 	lui	$at,0x8006
 /*  f0ab3e4:	c4241300 */ 	lwc1	$f4,0x1300($at)
@@ -27949,10 +27949,10 @@ glabel bgunRenderHud
 /*  f0ab3fc:	24060032 */ 	li	$a2,0x32
 /*  f0ab400:	4600428d */ 	trunc.w.s	$f10,$f8
 /*  f0ab404:	44045000 */ 	mfc1	$a0,$f10
-/*  f0ab408:	0fc55299 */ 	jal	func0f153d50
+/*  f0ab408:	0fc55299 */ 	jal	textSetWaveBlend
 /*  f0ab40c:	00000000 */ 	nop
 /*  f0ab410:	2404ffff */ 	li	$a0,-1
-/*  f0ab414:	0fc552d3 */ 	jal	func0f153e38
+/*  f0ab414:	0fc552d3 */ 	jal	textSetWaveColours
 /*  f0ab418:	2405ffff */ 	li	$a1,-1
 /*  f0ab41c:	3c198008 */ 	lui	$t9,0x8008
 /*  f0ab420:	8f390068 */ 	lw	$t9,0x68($t9)
@@ -27973,7 +27973,7 @@ glabel bgunRenderHud
 /*  f0ab45c:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f0ab460:	0fc55c50 */ 	jal	textRenderProjected
 /*  f0ab464:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*  f0ab468:	0fc552d8 */ 	jal	func0f153e4c
+/*  f0ab468:	0fc552d8 */ 	jal	textResetBlends
 /*  f0ab46c:	afa20130 */ 	sw	$v0,0x130($sp)
 /*  f0ab470:	8faa0058 */ 	lw	$t2,0x58($sp)
 /*  f0ab474:	8fa200bc */ 	lw	$v0,0xbc($sp)
@@ -28106,7 +28106,7 @@ glabel bgunRenderHud
 /*  f0ab64c:	afae00d0 */ 	sw	$t6,0xd0($sp)
 .PF0f0ab650:
 /*  f0ab650:	8fa40130 */ 	lw	$a0,0x130($sp)
-/*  f0ab654:	0fc5513c */ 	jal	gfxSetPrimColour
+/*  f0ab654:	0fc5513c */ 	jal	textSetPrimColour
 /*  f0ab658:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0ab65c:	3c038008 */ 	lui	$v1,0x8008
 /*  f0ab660:	24630020 */ 	addiu	$v1,$v1,0x20
@@ -28137,7 +28137,7 @@ glabel bgunRenderHud
 /*  f0ab6c4:	31cf03ff */ 	andi	$t7,$t6,0x3ff
 /*  f0ab6c8:	000fc080 */ 	sll	$t8,$t7,0x2
 /*  f0ab6cc:	03387025 */ 	or	$t6,$t9,$t8
-/*  f0ab6d0:	0fc55153 */ 	jal	func0f153838
+/*  f0ab6d0:	0fc55153 */ 	jal	text0f153838
 /*  f0ab6d4:	ac4e0004 */ 	sw	$t6,0x4($v0)
 /*  f0ab6d8:	3c018006 */ 	lui	$at,0x8006
 /*  f0ab6dc:	c4301300 */ 	lwc1	$f16,0x1300($at)
@@ -28149,10 +28149,10 @@ glabel bgunRenderHud
 /*  f0ab6f4:	24060032 */ 	li	$a2,0x32
 /*  f0ab6f8:	4600218d */ 	trunc.w.s	$f6,$f4
 /*  f0ab6fc:	44043000 */ 	mfc1	$a0,$f6
-/*  f0ab700:	0fc55299 */ 	jal	func0f153d50
+/*  f0ab700:	0fc55299 */ 	jal	textSetWaveBlend
 /*  f0ab704:	00000000 */ 	nop
 /*  f0ab708:	2404ffff */ 	li	$a0,-1
-/*  f0ab70c:	0fc552d3 */ 	jal	func0f153e38
+/*  f0ab70c:	0fc552d3 */ 	jal	textSetWaveColours
 /*  f0ab710:	2405ffff */ 	li	$a1,-1
 /*  f0ab714:	3c198008 */ 	lui	$t9,0x8008
 /*  f0ab718:	8f390068 */ 	lw	$t9,0x68($t9)
@@ -28173,7 +28173,7 @@ glabel bgunRenderHud
 /*  f0ab754:	afae0018 */ 	sw	$t6,0x18($sp)
 /*  f0ab758:	0fc55c50 */ 	jal	textRenderProjected
 /*  f0ab75c:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*  f0ab760:	0fc552d8 */ 	jal	func0f153e4c
+/*  f0ab760:	0fc552d8 */ 	jal	textResetBlends
 /*  f0ab764:	afa20130 */ 	sw	$v0,0x130($sp)
 /*  f0ab768:	8faa0058 */ 	lw	$t2,0x58($sp)
 .PF0f0ab76c:
@@ -28209,7 +28209,7 @@ glabel bgunRenderHud
 .PF0f0ab7d8:
 /*  f0ab7d8:	57030008 */ 	bnel	$t8,$v1,.PF0f0ab7fc
 /*  f0ab7dc:	8faf0110 */ 	lw	$t7,0x110($sp)
-/*  f0ab7e0:	0fc55125 */ 	jal	func0f153780
+/*  f0ab7e0:	0fc55125 */ 	jal	text0f153780
 /*  f0ab7e4:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0ab7e8:	240e0001 */ 	li	$t6,0x1
 /*  f0ab7ec:	3c018008 */ 	lui	$at,0x8008
@@ -28726,7 +28726,7 @@ glabel bgunRenderHud
 /*  f0abf60:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f0abf64:	afa20130 */ 	sw	$v0,0x130($sp)
 .PF0f0abf68:
-/*  f0abf68:	0fc55125 */ 	jal	func0f153780
+/*  f0abf68:	0fc55125 */ 	jal	text0f153780
 /*  f0abf6c:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0abf70:	24180001 */ 	li	$t8,0x1
 /*  f0abf74:	3c018008 */ 	lui	$at,0x8008
@@ -28827,7 +28827,7 @@ glabel bgunRenderHud
 .PB0f0aadb8:
 /*  f0aadb8:	3c018008 */ 	lui	$at,0x8008
 /*  f0aadbc:	ac2f1f90 */ 	sw	$t7,0x1f90($at)
-/*  f0aadc0:	0fc5528f */ 	jal	func0f153628
+/*  f0aadc0:	0fc5528f */ 	jal	text0f153628
 /*  f0aadc4:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0aadc8:	8fb80060 */ 	lw	$t8,0x60($sp)
 /*  f0aadcc:	afa20130 */ 	sw	$v0,0x130($sp)
@@ -29028,7 +29028,7 @@ glabel bgunRenderHud
 .PB0f0ab08c:
 /*  f0ab08c:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0ab090:	8fa500f4 */ 	lw	$a1,0xf4($sp)
-/*  f0ab094:	0fc552fc */ 	jal	gfxSetPrimColour
+/*  f0ab094:	0fc552fc */ 	jal	textSetPrimColour
 /*  f0ab098:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0ab09c:	3c068008 */ 	lui	$a2,0x8008
 /*  f0ab0a0:	8fa70100 */ 	lw	$a3,0x100($sp)
@@ -29059,7 +29059,7 @@ glabel bgunRenderHud
 /*  f0ab104:	0018c880 */ 	sll	$t9,$t8,0x2
 /*  f0ab108:	01d97825 */ 	or	$t7,$t6,$t9
 /*  f0ab10c:	ac4f0004 */ 	sw	$t7,0x4($v0)
-/*  f0ab110:	0fc55313 */ 	jal	func0f153838
+/*  f0ab110:	0fc55313 */ 	jal	text0f153838
 /*  f0ab114:	afa30060 */ 	sw	$v1,0x60($sp)
 /*  f0ab118:	3c18800a */ 	lui	$t8,0x800a
 /*  f0ab11c:	8f18e758 */ 	lw	$t8,-0x18a8($t8)
@@ -29171,7 +29171,7 @@ glabel bgunRenderHud
 /*  f0ab2ac:	afae00d0 */ 	sw	$t6,0xd0($sp)
 .PB0f0ab2b0:
 /*  f0ab2b0:	8fa40130 */ 	lw	$a0,0x130($sp)
-/*  f0ab2b4:	0fc552fc */ 	jal	gfxSetPrimColour
+/*  f0ab2b4:	0fc552fc */ 	jal	textSetPrimColour
 /*  f0ab2b8:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0ab2bc:	3c038008 */ 	lui	$v1,0x8008
 /*  f0ab2c0:	8faf0100 */ 	lw	$t7,0x100($sp)
@@ -29200,7 +29200,7 @@ glabel bgunRenderHud
 /*  f0ab31c:	31f803ff */ 	andi	$t8,$t7,0x3ff
 /*  f0ab320:	00187080 */ 	sll	$t6,$t8,0x2
 /*  f0ab324:	032e7825 */ 	or	$t7,$t9,$t6
-/*  f0ab328:	0fc55313 */ 	jal	func0f153838
+/*  f0ab328:	0fc55313 */ 	jal	text0f153838
 /*  f0ab32c:	ac4f0004 */ 	sw	$t7,0x4($v0)
 /*  f0ab330:	3c018006 */ 	lui	$at,0x8006
 /*  f0ab334:	c4242cf0 */ 	lwc1	$f4,0x2cf0($at)
@@ -29212,10 +29212,10 @@ glabel bgunRenderHud
 /*  f0ab34c:	24060032 */ 	li	$a2,0x32
 /*  f0ab350:	4600428d */ 	trunc.w.s	$f10,$f8
 /*  f0ab354:	44045000 */ 	mfc1	$a0,$f10
-/*  f0ab358:	0fc55459 */ 	jal	func0f153d50
+/*  f0ab358:	0fc55459 */ 	jal	textSetWaveBlend
 /*  f0ab35c:	00000000 */ 	nop
 /*  f0ab360:	2404ffff */ 	li	$a0,-1
-/*  f0ab364:	0fc55493 */ 	jal	func0f153e38
+/*  f0ab364:	0fc55493 */ 	jal	textSetWaveColours
 /*  f0ab368:	2405ffff */ 	li	$a1,-1
 /*  f0ab36c:	3c198008 */ 	lui	$t9,0x8008
 /*  f0ab370:	8f391fd8 */ 	lw	$t9,0x1fd8($t9)
@@ -29236,7 +29236,7 @@ glabel bgunRenderHud
 /*  f0ab3ac:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f0ab3b0:	0fc55e10 */ 	jal	textRenderProjected
 /*  f0ab3b4:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*  f0ab3b8:	0fc55498 */ 	jal	func0f153e4c
+/*  f0ab3b8:	0fc55498 */ 	jal	textResetBlends
 /*  f0ab3bc:	afa20130 */ 	sw	$v0,0x130($sp)
 /*  f0ab3c0:	8faa0058 */ 	lw	$t2,0x58($sp)
 /*  f0ab3c4:	8fa200bc */ 	lw	$v0,0xbc($sp)
@@ -29369,7 +29369,7 @@ glabel bgunRenderHud
 /*  f0ab59c:	afae00d0 */ 	sw	$t6,0xd0($sp)
 .PB0f0ab5a0:
 /*  f0ab5a0:	8fa40130 */ 	lw	$a0,0x130($sp)
-/*  f0ab5a4:	0fc552fc */ 	jal	gfxSetPrimColour
+/*  f0ab5a4:	0fc552fc */ 	jal	textSetPrimColour
 /*  f0ab5a8:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0ab5ac:	3c038008 */ 	lui	$v1,0x8008
 /*  f0ab5b0:	24631f90 */ 	addiu	$v1,$v1,0x1f90
@@ -29400,7 +29400,7 @@ glabel bgunRenderHud
 /*  f0ab614:	31cf03ff */ 	andi	$t7,$t6,0x3ff
 /*  f0ab618:	000fc080 */ 	sll	$t8,$t7,0x2
 /*  f0ab61c:	03387025 */ 	or	$t6,$t9,$t8
-/*  f0ab620:	0fc55313 */ 	jal	func0f153838
+/*  f0ab620:	0fc55313 */ 	jal	text0f153838
 /*  f0ab624:	ac4e0004 */ 	sw	$t6,0x4($v0)
 /*  f0ab628:	3c018006 */ 	lui	$at,0x8006
 /*  f0ab62c:	c4302cf0 */ 	lwc1	$f16,0x2cf0($at)
@@ -29412,10 +29412,10 @@ glabel bgunRenderHud
 /*  f0ab644:	24060032 */ 	li	$a2,0x32
 /*  f0ab648:	4600218d */ 	trunc.w.s	$f6,$f4
 /*  f0ab64c:	44043000 */ 	mfc1	$a0,$f6
-/*  f0ab650:	0fc55459 */ 	jal	func0f153d50
+/*  f0ab650:	0fc55459 */ 	jal	textSetWaveBlend
 /*  f0ab654:	00000000 */ 	nop
 /*  f0ab658:	2404ffff */ 	li	$a0,-1
-/*  f0ab65c:	0fc55493 */ 	jal	func0f153e38
+/*  f0ab65c:	0fc55493 */ 	jal	textSetWaveColours
 /*  f0ab660:	2405ffff */ 	li	$a1,-1
 /*  f0ab664:	3c198008 */ 	lui	$t9,0x8008
 /*  f0ab668:	8f391fd8 */ 	lw	$t9,0x1fd8($t9)
@@ -29436,7 +29436,7 @@ glabel bgunRenderHud
 /*  f0ab6a4:	afae0018 */ 	sw	$t6,0x18($sp)
 /*  f0ab6a8:	0fc55e10 */ 	jal	textRenderProjected
 /*  f0ab6ac:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*  f0ab6b0:	0fc55498 */ 	jal	func0f153e4c
+/*  f0ab6b0:	0fc55498 */ 	jal	textResetBlends
 /*  f0ab6b4:	afa20130 */ 	sw	$v0,0x130($sp)
 /*  f0ab6b8:	8faa0058 */ 	lw	$t2,0x58($sp)
 .PB0f0ab6bc:
@@ -29472,7 +29472,7 @@ glabel bgunRenderHud
 .PB0f0ab728:
 /*  f0ab728:	57030008 */ 	bnel	$t8,$v1,.PB0f0ab74c
 /*  f0ab72c:	8faf0110 */ 	lw	$t7,0x110($sp)
-/*  f0ab730:	0fc552e5 */ 	jal	func0f153780
+/*  f0ab730:	0fc552e5 */ 	jal	text0f153780
 /*  f0ab734:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0ab738:	240e0001 */ 	li	$t6,0x1
 /*  f0ab73c:	3c018008 */ 	lui	$at,0x8008
@@ -29989,7 +29989,7 @@ glabel bgunRenderHud
 /*  f0abeb0:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f0abeb4:	afa20130 */ 	sw	$v0,0x130($sp)
 .PB0f0abeb8:
-/*  f0abeb8:	0fc552e5 */ 	jal	func0f153780
+/*  f0abeb8:	0fc552e5 */ 	jal	text0f153780
 /*  f0abebc:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0abec0:	24180001 */ 	li	$t8,0x1
 /*  f0abec4:	3c018008 */ 	lui	$at,0x8008
@@ -30099,7 +30099,7 @@ glabel bgunRenderHud
 /*  f0aa9bc:	3c018008 */ 	lui	$at,%hi(g_ScaleX)
 /*  f0aa9c0:	ac22fac0 */ 	sw	$v0,%lo(g_ScaleX)($at)
 .L0f0aa9c4:
-/*  f0aa9c4:	0fc54d8a */ 	jal	func0f153628
+/*  f0aa9c4:	0fc54d8a */ 	jal	text0f153628
 /*  f0aa9c8:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0aa9cc:	8fb90060 */ 	lw	$t9,0x60($sp)
 /*  f0aa9d0:	afa20130 */ 	sw	$v0,0x130($sp)
@@ -30295,7 +30295,7 @@ glabel bgunRenderHud
 .L0f0aac7c:
 /*  f0aac7c:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0aac80:	8fa500f4 */ 	lw	$a1,0xf4($sp)
-/*  f0aac84:	0fc54df7 */ 	jal	gfxSetPrimColour
+/*  f0aac84:	0fc54df7 */ 	jal	textSetPrimColour
 /*  f0aac88:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0aac8c:	3c068008 */ 	lui	$a2,%hi(g_ScaleX)
 /*  f0aac90:	8faf0100 */ 	lw	$t7,0x100($sp)
@@ -30327,7 +30327,7 @@ glabel bgunRenderHud
 /*  f0aacf8:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f0aacfc:	030fc825 */ 	or	$t9,$t8,$t7
 /*  f0aad00:	ac590004 */ 	sw	$t9,0x4($v0)
-/*  f0aad04:	0fc54e0e */ 	jal	func0f153838
+/*  f0aad04:	0fc54e0e */ 	jal	text0f153838
 /*  f0aad08:	afa30060 */ 	sw	$v1,0x60($sp)
 /*  f0aad0c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x288)
 /*  f0aad10:	8dcea248 */ 	lw	$t6,%lo(g_Vars+0x288)($t6)
@@ -30439,7 +30439,7 @@ glabel bgunRenderHud
 /*  f0aaea0:	afb800d0 */ 	sw	$t8,0xd0($sp)
 .L0f0aaea4:
 /*  f0aaea4:	8fa40130 */ 	lw	$a0,0x130($sp)
-/*  f0aaea8:	0fc54df7 */ 	jal	gfxSetPrimColour
+/*  f0aaea8:	0fc54df7 */ 	jal	textSetPrimColour
 /*  f0aaeac:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0aaeb0:	3c038008 */ 	lui	$v1,%hi(g_ScaleX)
 /*  f0aaeb4:	8fb90100 */ 	lw	$t9,0x100($sp)
@@ -30468,7 +30468,7 @@ glabel bgunRenderHud
 /*  f0aaf10:	332e03ff */ 	andi	$t6,$t9,0x3ff
 /*  f0aaf14:	000ec080 */ 	sll	$t8,$t6,0x2
 /*  f0aaf18:	01f8c825 */ 	or	$t9,$t7,$t8
-/*  f0aaf1c:	0fc54e0e */ 	jal	func0f153838
+/*  f0aaf1c:	0fc54e0e */ 	jal	text0f153838
 /*  f0aaf20:	ac590004 */ 	sw	$t9,0x4($v0)
 /*  f0aaf24:	3c018006 */ 	lui	$at,%hi(var80061630)
 /*  f0aaf28:	c4241630 */ 	lwc1	$f4,%lo(var80061630)($at)
@@ -30480,10 +30480,10 @@ glabel bgunRenderHud
 /*  f0aaf40:	24060032 */ 	addiu	$a2,$zero,0x32
 /*  f0aaf44:	4600428d */ 	trunc.w.s	$f10,$f8
 /*  f0aaf48:	44045000 */ 	mfc1	$a0,$f10
-/*  f0aaf4c:	0fc54f54 */ 	jal	func0f153d50
+/*  f0aaf4c:	0fc54f54 */ 	jal	textSetWaveBlend
 /*  f0aaf50:	00000000 */ 	nop
 /*  f0aaf54:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f0aaf58:	0fc54f8e */ 	jal	func0f153e38
+/*  f0aaf58:	0fc54f8e */ 	jal	textSetWaveColours
 /*  f0aaf5c:	2405ffff */ 	addiu	$a1,$zero,-1
 /*  f0aaf60:	3c0f8008 */ 	lui	$t7,%hi(g_CharsHandelGothicXs)
 /*  f0aaf64:	8deffb08 */ 	lw	$t7,%lo(g_CharsHandelGothicXs)($t7)
@@ -30504,7 +30504,7 @@ glabel bgunRenderHud
 /*  f0aafa0:	afb90018 */ 	sw	$t9,0x18($sp)
 /*  f0aafa4:	0fc5580f */ 	jal	textRenderProjected
 /*  f0aafa8:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f0aafac:	0fc54f93 */ 	jal	func0f153e4c
+/*  f0aafac:	0fc54f93 */ 	jal	textResetBlends
 /*  f0aafb0:	afa20130 */ 	sw	$v0,0x130($sp)
 /*  f0aafb4:	8faa0058 */ 	lw	$t2,0x58($sp)
 /*  f0aafb8:	8fa200bc */ 	lw	$v0,0xbc($sp)
@@ -30637,7 +30637,7 @@ glabel bgunRenderHud
 /*  f0ab190:	afb800d0 */ 	sw	$t8,0xd0($sp)
 .L0f0ab194:
 /*  f0ab194:	8fa40130 */ 	lw	$a0,0x130($sp)
-/*  f0ab198:	0fc54df7 */ 	jal	gfxSetPrimColour
+/*  f0ab198:	0fc54df7 */ 	jal	textSetPrimColour
 /*  f0ab19c:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0ab1a0:	3c038008 */ 	lui	$v1,%hi(g_ScaleX)
 /*  f0ab1a4:	2463fac0 */ 	addiu	$v1,$v1,%lo(g_ScaleX)
@@ -30668,7 +30668,7 @@ glabel bgunRenderHud
 /*  f0ab208:	331903ff */ 	andi	$t9,$t8,0x3ff
 /*  f0ab20c:	00197080 */ 	sll	$t6,$t9,0x2
 /*  f0ab210:	01eec025 */ 	or	$t8,$t7,$t6
-/*  f0ab214:	0fc54e0e */ 	jal	func0f153838
+/*  f0ab214:	0fc54e0e */ 	jal	text0f153838
 /*  f0ab218:	ac580004 */ 	sw	$t8,0x4($v0)
 /*  f0ab21c:	3c018006 */ 	lui	$at,%hi(var80061630)
 /*  f0ab220:	c4301630 */ 	lwc1	$f16,%lo(var80061630)($at)
@@ -30680,10 +30680,10 @@ glabel bgunRenderHud
 /*  f0ab238:	24060032 */ 	addiu	$a2,$zero,0x32
 /*  f0ab23c:	4600218d */ 	trunc.w.s	$f6,$f4
 /*  f0ab240:	44043000 */ 	mfc1	$a0,$f6
-/*  f0ab244:	0fc54f54 */ 	jal	func0f153d50
+/*  f0ab244:	0fc54f54 */ 	jal	textSetWaveBlend
 /*  f0ab248:	00000000 */ 	nop
 /*  f0ab24c:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f0ab250:	0fc54f8e */ 	jal	func0f153e38
+/*  f0ab250:	0fc54f8e */ 	jal	textSetWaveColours
 /*  f0ab254:	2405ffff */ 	addiu	$a1,$zero,-1
 /*  f0ab258:	3c0f8008 */ 	lui	$t7,%hi(g_CharsHandelGothicXs)
 /*  f0ab25c:	8deffb08 */ 	lw	$t7,%lo(g_CharsHandelGothicXs)($t7)
@@ -30704,7 +30704,7 @@ glabel bgunRenderHud
 /*  f0ab298:	afb80018 */ 	sw	$t8,0x18($sp)
 /*  f0ab29c:	0fc5580f */ 	jal	textRenderProjected
 /*  f0ab2a0:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f0ab2a4:	0fc54f93 */ 	jal	func0f153e4c
+/*  f0ab2a4:	0fc54f93 */ 	jal	textResetBlends
 /*  f0ab2a8:	afa20130 */ 	sw	$v0,0x130($sp)
 /*  f0ab2ac:	8faa0058 */ 	lw	$t2,0x58($sp)
 .L0f0ab2b0:
@@ -30740,7 +30740,7 @@ glabel bgunRenderHud
 .L0f0ab31c:
 /*  f0ab31c:	55c30008 */ 	bnel	$t6,$v1,.L0f0ab340
 /*  f0ab320:	8fb90110 */ 	lw	$t9,0x110($sp)
-/*  f0ab324:	0fc54de0 */ 	jal	func0f153780
+/*  f0ab324:	0fc54de0 */ 	jal	text0f153780
 /*  f0ab328:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0ab32c:	24180001 */ 	addiu	$t8,$zero,0x1
 /*  f0ab330:	3c018008 */ 	lui	$at,%hi(g_ScaleX)
@@ -31257,7 +31257,7 @@ glabel bgunRenderHud
 /*  f0abaa4:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0abaa8:	afa20130 */ 	sw	$v0,0x130($sp)
 .L0f0abaac:
-/*  f0abaac:	0fc54de0 */ 	jal	func0f153780
+/*  f0abaac:	0fc54de0 */ 	jal	text0f153780
 /*  f0abab0:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0abab4:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f0abab8:	3c018008 */ 	lui	$at,%hi(g_ScaleX)
@@ -31367,7 +31367,7 @@ glabel bgunRenderHud
 /*  f0a875c:	3c018008 */ 	lui	$at,0x8008
 /*  f0a8760:	ac222320 */ 	sw	$v0,0x2320($at)
 .NB0f0a8764:
-/*  f0a8764:	0fc5374a */ 	jal	func0f153628
+/*  f0a8764:	0fc5374a */ 	jal	text0f153628
 /*  f0a8768:	8fa40120 */ 	lw	$a0,0x120($sp)
 /*  f0a876c:	8fb90060 */ 	lw	$t9,0x60($sp)
 /*  f0a8770:	afa20120 */ 	sw	$v0,0x120($sp)
@@ -31547,7 +31547,7 @@ glabel bgunRenderHud
 .NB0f0a89e0:
 /*  f0a89e0:	8fa40120 */ 	lw	$a0,0x120($sp)
 /*  f0a89e4:	8fa500e4 */ 	lw	$a1,0xe4($sp)
-/*  f0a89e8:	0fc537b7 */ 	jal	gfxSetPrimColour
+/*  f0a89e8:	0fc537b7 */ 	jal	textSetPrimColour
 /*  f0a89ec:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0a89f0:	3c068008 */ 	lui	$a2,0x8008
 /*  f0a89f4:	8fae00f0 */ 	lw	$t6,0xf0($sp)
@@ -31579,7 +31579,7 @@ glabel bgunRenderHud
 /*  f0a8a5c:	00197080 */ 	sll	$t6,$t9,0x2
 /*  f0a8a60:	01eec025 */ 	or	$t8,$t7,$t6
 /*  f0a8a64:	ac580004 */ 	sw	$t8,0x4($v0)
-/*  f0a8a68:	0fc537ce */ 	jal	func0f153838
+/*  f0a8a68:	0fc537ce */ 	jal	text0f153838
 /*  f0a8a6c:	afa30060 */ 	sw	$v1,0x60($sp)
 /*  f0a8a70:	3c19800a */ 	lui	$t9,0x800a
 /*  f0a8a74:	8f39e948 */ 	lw	$t9,-0x16b8($t9)
@@ -31691,7 +31691,7 @@ glabel bgunRenderHud
 /*  f0a8c04:	afb900d0 */ 	sw	$t9,0xd0($sp)
 .NB0f0a8c08:
 /*  f0a8c08:	8fa40120 */ 	lw	$a0,0x120($sp)
-/*  f0a8c0c:	0fc537b7 */ 	jal	gfxSetPrimColour
+/*  f0a8c0c:	0fc537b7 */ 	jal	textSetPrimColour
 /*  f0a8c10:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0a8c14:	3c038008 */ 	lui	$v1,0x8008
 /*  f0a8c18:	8fae00f0 */ 	lw	$t6,0xf0($sp)
@@ -31720,7 +31720,7 @@ glabel bgunRenderHud
 /*  f0a8c74:	31d803ff */ 	andi	$t8,$t6,0x3ff
 /*  f0a8c78:	0018c880 */ 	sll	$t9,$t8,0x2
 /*  f0a8c7c:	01f97025 */ 	or	$t6,$t7,$t9
-/*  f0a8c80:	0fc537ce */ 	jal	func0f153838
+/*  f0a8c80:	0fc537ce */ 	jal	text0f153838
 /*  f0a8c84:	ac4e0004 */ 	sw	$t6,0x4($v0)
 /*  f0a8c88:	3c018006 */ 	lui	$at,0x8006
 /*  f0a8c8c:	c4243b40 */ 	lwc1	$f4,0x3b40($at)
@@ -31732,10 +31732,10 @@ glabel bgunRenderHud
 /*  f0a8ca4:	24060032 */ 	addiu	$a2,$zero,0x32
 /*  f0a8ca8:	4600428d */ 	trunc.w.s	$f10,$f8
 /*  f0a8cac:	44045000 */ 	mfc1	$a0,$f10
-/*  f0a8cb0:	0fc538eb */ 	jal	func0f153d50
+/*  f0a8cb0:	0fc538eb */ 	jal	textSetWaveBlend
 /*  f0a8cb4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a8cb8:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f0a8cbc:	0fc53925 */ 	jal	func0f153e38
+/*  f0a8cbc:	0fc53925 */ 	jal	textSetWaveColours
 /*  f0a8cc0:	2405ffff */ 	addiu	$a1,$zero,-1
 /*  f0a8cc4:	3c0f8008 */ 	lui	$t7,0x8008
 /*  f0a8cc8:	8def2368 */ 	lw	$t7,0x2368($t7)
@@ -31756,7 +31756,7 @@ glabel bgunRenderHud
 /*  f0a8d04:	afae0018 */ 	sw	$t6,0x18($sp)
 /*  f0a8d08:	0fc541a6 */ 	jal	textRenderProjected
 /*  f0a8d0c:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*  f0a8d10:	0fc5392a */ 	jal	func0f153e4c
+/*  f0a8d10:	0fc5392a */ 	jal	textResetBlends
 /*  f0a8d14:	afa20120 */ 	sw	$v0,0x120($sp)
 /*  f0a8d18:	8faa0058 */ 	lw	$t2,0x58($sp)
 /*  f0a8d1c:	8fa200bc */ 	lw	$v0,0xbc($sp)
@@ -31888,7 +31888,7 @@ glabel bgunRenderHud
 /*  f0a8ef0:	afb800d0 */ 	sw	$t8,0xd0($sp)
 .NB0f0a8ef4:
 /*  f0a8ef4:	8fa40120 */ 	lw	$a0,0x120($sp)
-/*  f0a8ef8:	0fc537b7 */ 	jal	gfxSetPrimColour
+/*  f0a8ef8:	0fc537b7 */ 	jal	textSetPrimColour
 /*  f0a8efc:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0a8f00:	3c038008 */ 	lui	$v1,0x8008
 /*  f0a8f04:	24632320 */ 	addiu	$v1,$v1,0x2320
@@ -31919,7 +31919,7 @@ glabel bgunRenderHud
 /*  f0a8f68:	330f03ff */ 	andi	$t7,$t8,0x3ff
 /*  f0a8f6c:	000f7080 */ 	sll	$t6,$t7,0x2
 /*  f0a8f70:	032ec025 */ 	or	$t8,$t9,$t6
-/*  f0a8f74:	0fc537ce */ 	jal	func0f153838
+/*  f0a8f74:	0fc537ce */ 	jal	text0f153838
 /*  f0a8f78:	ac580004 */ 	sw	$t8,0x4($v0)
 /*  f0a8f7c:	3c018006 */ 	lui	$at,0x8006
 /*  f0a8f80:	c4303b40 */ 	lwc1	$f16,0x3b40($at)
@@ -31931,10 +31931,10 @@ glabel bgunRenderHud
 /*  f0a8f98:	24060032 */ 	addiu	$a2,$zero,0x32
 /*  f0a8f9c:	4600218d */ 	trunc.w.s	$f6,$f4
 /*  f0a8fa0:	44043000 */ 	mfc1	$a0,$f6
-/*  f0a8fa4:	0fc538eb */ 	jal	func0f153d50
+/*  f0a8fa4:	0fc538eb */ 	jal	textSetWaveBlend
 /*  f0a8fa8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a8fac:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f0a8fb0:	0fc53925 */ 	jal	func0f153e38
+/*  f0a8fb0:	0fc53925 */ 	jal	textSetWaveColours
 /*  f0a8fb4:	2405ffff */ 	addiu	$a1,$zero,-1
 /*  f0a8fb8:	3c198008 */ 	lui	$t9,0x8008
 /*  f0a8fbc:	8f392368 */ 	lw	$t9,0x2368($t9)
@@ -31955,7 +31955,7 @@ glabel bgunRenderHud
 /*  f0a8ff8:	afb80018 */ 	sw	$t8,0x18($sp)
 /*  f0a8ffc:	0fc541a6 */ 	jal	textRenderProjected
 /*  f0a9000:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*  f0a9004:	0fc5392a */ 	jal	func0f153e4c
+/*  f0a9004:	0fc5392a */ 	jal	textResetBlends
 /*  f0a9008:	afa20120 */ 	sw	$v0,0x120($sp)
 /*  f0a900c:	8faa0058 */ 	lw	$t2,0x58($sp)
 .NB0f0a9010:
@@ -31991,7 +31991,7 @@ glabel bgunRenderHud
 .NB0f0a907c:
 /*  f0a907c:	55c30008 */ 	bnel	$t6,$v1,.NB0f0a90a0
 /*  f0a9080:	8faf0100 */ 	lw	$t7,0x100($sp)
-/*  f0a9084:	0fc537a0 */ 	jal	func0f153780
+/*  f0a9084:	0fc537a0 */ 	jal	text0f153780
 /*  f0a9088:	8fa40120 */ 	lw	$a0,0x120($sp)
 /*  f0a908c:	24180001 */ 	addiu	$t8,$zero,0x1
 /*  f0a9090:	3c018008 */ 	lui	$at,0x8008
@@ -32508,7 +32508,7 @@ glabel bgunRenderHud
 /*  f0a9804:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0a9808:	afa20120 */ 	sw	$v0,0x120($sp)
 .NB0f0a980c:
-/*  f0a980c:	0fc537a0 */ 	jal	func0f153780
+/*  f0a980c:	0fc537a0 */ 	jal	text0f153780
 /*  f0a9810:	8fa40120 */ 	lw	$a0,0x120($sp)
 /*  f0a9814:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f0a9818:	3c018008 */ 	lui	$at,0x8008
@@ -32604,7 +32604,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //	}
 //#endif
 //
-//	gdl = func0f153628(gdl);
+//	gdl = text0f153628(gdl);
 //
 //	// 9d8
 //	if (playercount >= 2) {
@@ -32678,11 +32678,11 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //		fncolour = ((ctrl->fnfader * 2) - 256) << 16 | 0xff000040;
 //	}
 //
-//	gdl = gfxSetPrimColour(gdl, fncolour);
+//	gdl = textSetPrimColour(gdl, fncolour);
 //
 //	gDPFillRectangleScaled(gdl++, xpos - 13, bottom - 11, xpos - 2, bottom);
 //
-//	gdl = func0f153838(gdl);
+//	gdl = text0f153838(gdl);
 //
 //	// d20
 //	// Render weapon name and function name
@@ -32735,15 +32735,15 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //				colour = (colour & 0xfffffff00) | alpha;
 //			}
 //
-//			gdl = gfxSetPrimColour(gdl, 0);
+//			gdl = textSetPrimColour(gdl, 0);
 //
 //			gDPFillRectangleScaled(gdl++, x - 1, y - 1, xpos - 11, bottom);
 //
-//			gdl = func0f153838(gdl);
-//			func0f153d50(var80061630 * 50.0f, 0, 50);
-//			func0f153e38(0xffffffff, 0xffffffff);
+//			gdl = text0f153838(gdl);
+//			textSetWaveBlend(var80061630 * 50.0f, 0, 50);
+//			textSetWaveColours(0xffffffff, 0xffffffff);
 //			gdl = textRenderProjected(gdl, &x, &y, str, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, textwidth, 1000, 0, 0);
-//			func0f153e4c();
+//			textResetBlends();
 //		}
 //
 //		// fbc
@@ -32803,20 +32803,20 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //					colour = (colour & 0xffffff00) | alpha;
 //				}
 //
-//				gdl = gfxSetPrimColour(gdl, 0);
+//				gdl = textSetPrimColour(gdl, 0);
 //
 //				gDPFillRectangleScaled(gdl++, x - 1, y - 1, xpos - 11, bottom + 3);
 //
-//				gdl = func0f153838(gdl);
+//				gdl = text0f153838(gdl);
 //
-//				func0f153d50(var80061630 * 50.0f, 0, 50);
-//				func0f153e38(0xffffffff, 0xffffffff);
+//				textSetWaveBlend(var80061630 * 50.0f, 0, 50);
+//				textSetWaveColours(0xffffffff, 0xffffffff);
 //
 //				gdl = textRenderProjected(gdl, &x, &y, str,
 //						g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, textwidth,
 //						1000, 0, 0);
 //
-//				func0f153e4c();
+//				textResetBlends();
 //			}
 //		}
 //	}
@@ -32832,7 +32832,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //		}
 //
 //		if (ammoindex == -1) {
-//			gdl = func0f153780(gdl);
+//			gdl = text0f153780(gdl);
 //			g_ScaleX = 1;
 //			return gdl;
 //		}
@@ -32950,7 +32950,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //	}
 //
 //	// aac
-//	gdl = func0f153780(gdl);
+//	gdl = text0f153780(gdl);
 //	g_ScaleX = 1;
 //
 //	return gdl;

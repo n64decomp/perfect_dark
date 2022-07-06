@@ -370,7 +370,7 @@ Gfx *sightDrawTargetBox(Gfx *gdl, struct trackedprop *trackedprop, s32 textid, s
 	if (trackedprop->prop) {
 		colour = sightIsPropFriendly(trackedprop->prop) ? 0x000ff60 : 0xff000060;
 
-		gdl = gfxSetPrimColour(gdl, colour);
+		gdl = textSetPrimColour(gdl, colour);
 
 		// Left
 		if (boxleft >= viewleft && boxleft <= viewright && boxtop <= viewbottom && boxbottom >= viewtop) {
@@ -404,7 +404,7 @@ Gfx *sightDrawTargetBox(Gfx *gdl, struct trackedprop *trackedprop, s32 textid, s
 					(boxright < viewright ? boxright : viewright) + 1, boxbottom + 1);
 		}
 
-		gdl = func0f153838(gdl);
+		gdl = text0f153838(gdl);
 
 		if (textid != 0 && textonscreen) {
 			s32 x = boxright + 3;
@@ -440,7 +440,7 @@ Gfx *sightDrawAimer(Gfx *gdl, s32 x, s32 y, s32 radius, s32 cornergap, u32 colou
 	s32 viewright = viewleft + viewwidth - 1;
 	s32 viewbottom = viewtop + viewheight - 1;
 
-	gdl = gfxSetPrimColour(gdl, 0x00ff0028);
+	gdl = textSetPrimColour(gdl, 0x00ff0028);
 
 	// Draw the lines that span most of the viewport
 	if (PLAYERCOUNT() == 1) {
@@ -455,8 +455,8 @@ Gfx *sightDrawAimer(Gfx *gdl, s32 x, s32 y, s32 radius, s32 cornergap, u32 colou
 		gDPFillRectangleScaled(gdl++, x, y + radius - 2, x + 1, viewbottom + 1);
 	}
 
-	gdl = func0f153838(gdl);
-	gdl = gfxSetPrimColour(gdl, colour);
+	gdl = text0f153838(gdl);
+	gdl = textSetPrimColour(gdl, colour);
 
 	// Draw the box
 	gDPFillRectangleScaled(gdl++, x - radius, y - radius, x - radius + 1, y + radius + 1);
@@ -474,7 +474,7 @@ Gfx *sightDrawAimer(Gfx *gdl, s32 x, s32 y, s32 radius, s32 cornergap, u32 colou
 	gDPFillRectangleScaled(gdl++, x - radius, y + radius, x - cornergap + 1, y + radius + 1);
 	gDPFillRectangleScaled(gdl++, x + cornergap, y + radius, x + radius + 1, y + radius + 1);
 
-	gdl = func0f153838(gdl);
+	gdl = text0f153838(gdl);
 
 	return gdl;
 }
@@ -586,16 +586,16 @@ Gfx *sightDrawDelayedAimer(Gfx *gdl, s32 x, s32 y, s32 radius, s32 cornergap, u3
 	boxx = xpos;
 	boxy = ypos;
 
-	gdl = gfxSetPrimColour(gdl, 0x00ff0028);
+	gdl = textSetPrimColour(gdl, 0x00ff0028);
 
 	// Fill a 3x3 box at the live crosshair
 	gDPFillRectangleScaled(gdl++, x - 1, y - 1, x + 2, y);
 	gDPFillRectangleScaled(gdl++, x - 1, y, x + 2, y + 1);
 	gDPFillRectangleScaled(gdl++, x - 1, y + 1, x + 2, y + 2);
 
-	gdl = func0f153838(gdl);
+	gdl = text0f153838(gdl);
 
-	gdl = gfxSetPrimColour(gdl, colour);
+	gdl = textSetPrimColour(gdl, colour);
 
 	// Draw the box
 	gDPFillRectangleScaled(gdl++, boxx - radius, boxy - radius, boxx - radius + 1, boxy + radius + 1);
@@ -613,7 +613,7 @@ Gfx *sightDrawDelayedAimer(Gfx *gdl, s32 x, s32 y, s32 radius, s32 cornergap, u3
 	gDPFillRectangleScaled(gdl++, boxx - radius, boxy + radius, boxx - cornergap + 1, boxy + radius + 1);
 	gDPFillRectangleScaled(gdl++, boxx + cornergap, boxy + radius, boxx + radius + 1, boxy + radius + 1);
 
-	gdl = func0f153838(gdl);
+	gdl = text0f153838(gdl);
 
 	return gdl;
 }
@@ -709,7 +709,7 @@ glabel var7f1ade50
 .L0f0d8ff0:
 /*  f0d8ff0:	4600428d */ 	trunc.w.s	$f10,$f8
 /*  f0d8ff4:	440c5000 */ 	mfc1	$t4,$f10
-/*  f0d8ff8:	0fc54d8a */ 	jal	func0f153628
+/*  f0d8ff8:	0fc54d8a */ 	jal	text0f153628
 /*  f0d8ffc:	afac0084 */ 	sw	$t4,0x84($sp)
 /*  f0d9000:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f0d9004:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
@@ -1070,7 +1070,7 @@ glabel var7f1ade50
 /*  f0d9518:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d951c:	00409825 */ 	or	$s3,$v0,$zero
 .L0f0d9520:
-/*  f0d9520:	0fc54de0 */ 	jal	func0f153780
+/*  f0d9520:	0fc54de0 */ 	jal	text0f153780
 /*  f0d9524:	02602025 */ 	or	$a0,$s3,$zero
 /*  f0d9528:	8fbf0044 */ 	lw	$ra,0x44($sp)
 /*  f0d952c:	8fb00034 */ 	lw	$s0,0x34($sp)
@@ -1171,7 +1171,7 @@ glabel var7f1ade50
 .L0f0d8ff0:
 /*  f0d8ff0:	4600428d */ 	trunc.w.s	$f10,$f8
 /*  f0d8ff4:	440c5000 */ 	mfc1	$t4,$f10
-/*  f0d8ff8:	0fc54d8a */ 	jal	func0f153628
+/*  f0d8ff8:	0fc54d8a */ 	jal	text0f153628
 /*  f0d8ffc:	afac0084 */ 	sw	$t4,0x84($sp)
 /*  f0d9000:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f0d9004:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
@@ -1532,7 +1532,7 @@ glabel var7f1ade50
 /*  f0d9518:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d951c:	00409825 */ 	or	$s3,$v0,$zero
 .L0f0d9520:
-/*  f0d9520:	0fc54de0 */ 	jal	func0f153780
+/*  f0d9520:	0fc54de0 */ 	jal	text0f153780
 /*  f0d9524:	02602025 */ 	or	$a0,$s3,$zero
 /*  f0d9528:	8fbf0044 */ 	lw	$ra,0x44($sp)
 /*  f0d952c:	8fb00034 */ 	lw	$s0,0x34($sp)
@@ -1609,7 +1609,7 @@ glabel jtbl_var7f1ade04
 .L0f0d8ff0:
 /*  f0d8ff0:	4600428d */ 	trunc.w.s	$f10,$f8
 /*  f0d8ff4:	440c5000 */ 	mfc1	$t4,$f10
-/*  f0d8ff8:	0fc54d8a */ 	jal	func0f153628
+/*  f0d8ff8:	0fc54d8a */ 	jal	text0f153628
 /*  f0d8ffc:	afac0084 */ 	sw	$t4,0x84($sp)
 /*  f0d9000:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f0d9004:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
@@ -1981,7 +1981,7 @@ glabel jtbl_var7f1ade04
 /*  f0d9518:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0d951c:	00409825 */ 	or	$s3,$v0,$zero
 .L0f0d9520:
-/*  f0d9520:	0fc54de0 */ 	jal	func0f153780
+/*  f0d9520:	0fc54de0 */ 	jal	text0f153780
 /*  f0d9524:	02602025 */ 	or	$a0,$s3,$zero
 /*  f0d9528:	8fbf0044 */ 	lw	$ra,0x44($sp)
 /*  f0d952c:	8fb00034 */ 	lw	$s0,0x34($sp)
@@ -2009,7 +2009,7 @@ s32 var80070f98 = 0;
 //
 //	static s32 var80070f98 = 0;
 //
-//	gdl = func0f153628(gdl);
+//	gdl = text0f153628(gdl);
 //
 //	switch (g_Vars.currentplayer->target) {
 //	case SIGHTTARGET_NONE: // f0d9034
@@ -2190,7 +2190,7 @@ s32 var80070f98 = 0;
 //		break;
 //	}
 //
-//	gdl = func0f153780(gdl);
+//	gdl = text0f153780(gdl);
 //
 //	return gdl;
 //}
@@ -2655,11 +2655,11 @@ glabel var7f1ade54
 .L0f0da490:
 /*  f0da490:	10400730 */ 	beqz	$v0,.L0f0dc154
 /*  f0da494:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0da498:	0fc54d8a */ 	jal	func0f153628
+/*  f0da498:	0fc54d8a */ 	jal	text0f153628
 /*  f0da49c:	afad00b4 */ 	sw	$t5,0xb4($sp)
 /*  f0da4a0:	3c0500ff */ 	lui	$a1,0xff
 /*  f0da4a4:	34a50028 */ 	ori	$a1,$a1,0x28
-/*  f0da4a8:	0fc54df7 */ 	jal	gfxSetPrimColour
+/*  f0da4a8:	0fc54df7 */ 	jal	textSetPrimColour
 /*  f0da4ac:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0da4b0:	3c017f1b */ 	lui	$at,%hi(var7f1ade54)
 /*  f0da4b4:	c420de54 */ 	lwc1	$f0,%lo(var7f1ade54)($at)
@@ -4620,9 +4620,9 @@ glabel var7f1ade54
 /*  f0dc134:	00197b80 */ 	sll	$t7,$t9,0xe
 /*  f0dc138:	44d8f800 */ 	ctc1	$t8,$31
 /*  f0dc13c:	01eac025 */ 	or	$t8,$t7,$t2
-/*  f0dc140:	0fc54e0e */ 	jal	func0f153838
+/*  f0dc140:	0fc54e0e */ 	jal	text0f153838
 /*  f0dc144:	ac580004 */ 	sw	$t8,0x4($v0)
-/*  f0dc148:	0fc54de0 */ 	jal	func0f153780
+/*  f0dc148:	0fc54de0 */ 	jal	text0f153780
 /*  f0dc14c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0dc150:	00403025 */ 	or	$a2,$v0,$zero
 .L0f0dc154:
@@ -4696,8 +4696,8 @@ glabel var7f1ade54
 //	}
 //
 //	if (showzoomrange) {
-//		gdl = func0f153628(gdl);
-//		gdl = gfxSetPrimColour(gdl, 0x00ff0028);
+//		gdl = text0f153628(gdl);
+//		gdl = textSetPrimColour(gdl, 0x00ff0028);
 //
 //		if (frac < 0.2f) {
 //			outerwidth *= 0.2f;
@@ -4772,8 +4772,8 @@ glabel var7f1ade54
 //		gDPFillRectangleScaled(gdl++, boxright - innerwidth, boxbottom, boxright + 1, boxbottom + 1);
 //		gDPFillRectangleScaled(gdl++, boxright, boxbottom - innerheight, boxright + 1, boxbottom + 1);
 //
-//		gdl = func0f153838(gdl);
-//		gdl = func0f153780(gdl);
+//		gdl = text0f153838(gdl);
+//		gdl = text0f153780(gdl);
 //	}
 //
 //	gdl = sightDrawDefault(gdl, sighton);
@@ -4865,7 +4865,7 @@ Gfx *sightDrawMaian(Gfx *gdl, bool sighton)
 	gDPTri4(gdl++, 0, 4, 5, 5, 3, 6, 7, 6, 1, 4, 7, 2);
 
 	gdl = func0f0d49c8(gdl);
-	gdl = gfxSetPrimColour(gdl, 0x00ff0028);
+	gdl = textSetPrimColour(gdl, 0x00ff0028);
 
 	// Draw border over inner points
 	gDPFillRectangleScaled(gdl++, x - 4, y - 4, x - 3, y + 5); // left
@@ -4873,7 +4873,7 @@ Gfx *sightDrawMaian(Gfx *gdl, bool sighton)
 	gDPFillRectangleScaled(gdl++, x - 4, y - 4, x + 5, y - 3); // top
 	gDPFillRectangleScaled(gdl++, x - 4, y + 4, x + 5, y + 5); // bottom
 
-	gdl = func0f153838(gdl);
+	gdl = text0f153838(gdl);
 
 	return gdl;
 }
@@ -4889,7 +4889,7 @@ Gfx *sightDrawTarget(Gfx *gdl)
 	mainOverrideVariable("sout", &var80070f9c);
 	mainOverrideVariable("sin", &var80070fa0);
 
-	gdl = gfxSetPrimColour(gdl, 0x00ff0028);
+	gdl = textSetPrimColour(gdl, 0x00ff0028);
 
 	gDPFillRectangleScaled(gdl++, x + 2, y + 0, x + 7, y + 1);
 	gDPFillRectangleScaled(gdl++, x + 2, y + 0, x + 5, y + 1);
@@ -4900,7 +4900,7 @@ Gfx *sightDrawTarget(Gfx *gdl)
 	gDPFillRectangleScaled(gdl++, x + 0, y - 6, x + 1, y - 1);
 	gDPFillRectangleScaled(gdl++, x + 0, y - 4, x + 1, y - 1);
 
-	gdl = func0f153838(gdl);
+	gdl = text0f153838(gdl);
 
 	return gdl;
 }

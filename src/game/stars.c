@@ -815,7 +815,7 @@ Gfx *starsRender(Gfx *gdl)
 	sp148.f[1] = g_Vars.currentplayer->cam_look.f[1];
 	sp148.f[2] = g_Vars.currentplayer->cam_look.f[2];
 
-	gdl = gfxSetPrimColour(gdl, 0xffffffff);
+	gdl = textSetPrimColour(gdl, 0xffffffff);
 
 	gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
 
@@ -883,7 +883,7 @@ Gfx *starsRender(Gfx *gdl)
 		}
 	}
 
-	gdl = func0f153838(gdl);
+	gdl = text0f153838(gdl);
 
 	return gdl;
 }

@@ -167,13 +167,13 @@ Gfx *menuitemListRenderHeader(Gfx *gdl, s16 x1, s16 y1, s16 width, s16 arg4, s16
 		colour = (colourBlend(colour, 0, 0x2c) & 0xffffff00) | (colour & 0xff);
 	}
 
-	gdl = func0f153780(gdl);
+	gdl = text0f153780(gdl);
 #if VERSION >= VERSION_NTSC_1_0
 	gdl = menugfxDrawListGroupHeader(gdl, x1, y1, x1 + width, y1 + height, x1 + arg4, colour & 0xff);
 #else
 	gdl = menugfxDrawListGroupHeader(gdl, x1, y1, x1 + width, y1 + height, x1 + arg4);
 #endif
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 
 	x = x1 + 3;
 	y = y1 + 2;
@@ -184,7 +184,7 @@ Gfx *menuitemListRenderHeader(Gfx *gdl, s16 x1, s16 y1, s16 width, s16 arg4, s16
 		colour = (colourBlend(colour, 0, 0x2c) & 0xffffff00) | (colour & 0xff);
 	}
 
-	func0f153e38(g_MenuColourPalettes3[dialog->type].unk30, g_MenuColourPalettes2[dialog->type].unk30);
+	textSetWaveColours(g_MenuColourPalettes3[dialog->type].unk30, g_MenuColourPalettes2[dialog->type].unk30);
 
 	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, width, height, 0, 0);
 
@@ -555,7 +555,7 @@ glabel menuitemListRender
 /*  f0e7604:	0040a825 */ 	move	$s5,$v0
 /*  f0e7608:	02402025 */ 	move	$a0,$s2
 /*  f0e760c:	01506821 */ 	addu	$t5,$t2,$s0
-/*  f0e7610:	0fc54b55 */ 	jal	func0f153628
+/*  f0e7610:	0fc54b55 */ 	jal	text0f153628
 /*  f0e7614:	afad012c */ 	sw	$t5,0x12c($sp)
 /*  f0e7618:	00152400 */ 	sll	$a0,$s5,0x10
 /*  f0e761c:	afa00160 */ 	sw	$zero,0x160($sp)
@@ -743,7 +743,7 @@ glabel menuitemListRender
 /*  f0e78c0:	00822021 */ 	addu	$a0,$a0,$v0
 /*  f0e78c4:	00a22821 */ 	addu	$a1,$a1,$v0
 /*  f0e78c8:	8ca52e60 */ 	lw	$a1,0x2e60($a1)
-/*  f0e78cc:	0fc54d69 */ 	jal	func0f153e38
+/*  f0e78cc:	0fc54d69 */ 	jal	textSetWaveColours
 /*  f0e78d0:	8c842fc8 */ 	lw	$a0,0x2fc8($a0)
 /*  f0e78d4:	8fb800fc */ 	lw	$t8,0xfc($sp)
 /*  f0e78d8:	8faa0108 */ 	lw	$t2,0x108($sp)
@@ -934,7 +934,7 @@ glabel menuitemListRender
 /*  f0e7b90:	51800006 */ 	beqzl	$t4,.JF0f0e7bac
 /*  f0e7b94:	8e2e0008 */ 	lw	$t6,0x8($s1)
 .JF0f0e7b98:
-/*  f0e7b98:	0fc55880 */ 	jal	func0f156024
+/*  f0e7b98:	0fc55880 */ 	jal	text0f156024
 /*  f0e7b9c:	24040001 */ 	li	$a0,0x1
 /*  f0e7ba0:	24190001 */ 	li	$t9,0x1
 /*  f0e7ba4:	afb900b4 */ 	sw	$t9,0xb4($sp)
@@ -1342,7 +1342,7 @@ glabel menuitemListRender
 /*  f0e8168:	8faa00b4 */ 	lw	$t2,0xb4($sp)
 /*  f0e816c:	51400004 */ 	beqzl	$t2,.JF0f0e8180
 /*  f0e8170:	8fb80108 */ 	lw	$t8,0x108($sp)
-/*  f0e8174:	0fc55880 */ 	jal	func0f156024
+/*  f0e8174:	0fc55880 */ 	jal	text0f156024
 /*  f0e8178:	00002025 */ 	move	$a0,$zero
 /*  f0e817c:	8fb80108 */ 	lw	$t8,0x108($sp)
 .JF0f0e8180:
@@ -1455,7 +1455,7 @@ glabel menuitemListRender
 /*  f0e830c:	afa80024 */ 	sw	$t0,0x24($sp)
 /*  f0e8310:	00409025 */ 	move	$s2,$v0
 .JF0f0e8314:
-/*  f0e8314:	0fc54bb7 */ 	jal	func0f153780
+/*  f0e8314:	0fc54bb7 */ 	jal	text0f153780
 /*  f0e8318:	02402025 */ 	move	$a0,$s2
 .JF0f0e831c:
 /*  f0e831c:	8fbf005c */ 	lw	$ra,0x5c($sp)
@@ -1829,7 +1829,7 @@ glabel menuitemListRender
 /*  f0e6858:	0040a825 */ 	or	$s5,$v0,$zero
 /*  f0e685c:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0e6860:	01506821 */ 	addu	$t5,$t2,$s0
-/*  f0e6864:	0fc54d8a */ 	jal	func0f153628
+/*  f0e6864:	0fc54d8a */ 	jal	text0f153628
 /*  f0e6868:	afad012c */ 	sw	$t5,0x12c($sp)
 /*  f0e686c:	00152400 */ 	sll	$a0,$s5,0x10
 /*  f0e6870:	afa00160 */ 	sw	$zero,0x160($sp)
@@ -2017,7 +2017,7 @@ glabel menuitemListRender
 /*  f0e6b14:	00822021 */ 	addu	$a0,$a0,$v0
 /*  f0e6b18:	00a22821 */ 	addu	$a1,$a1,$v0
 /*  f0e6b1c:	8ca52130 */ 	lw	$a1,%lo(g_MenuColourPalettes2+0x18)($a1)
-/*  f0e6b20:	0fc54f8e */ 	jal	func0f153e38
+/*  f0e6b20:	0fc54f8e */ 	jal	textSetWaveColours
 /*  f0e6b24:	8c842298 */ 	lw	$a0,%lo(g_MenuColourPalettes3+0x18)($a0)
 /*  f0e6b28:	8fb800fc */ 	lw	$t8,0xfc($sp)
 /*  f0e6b2c:	8faa0108 */ 	lw	$t2,0x108($sp)
@@ -2208,7 +2208,7 @@ glabel menuitemListRender
 /*  f0e6de4:	51800006 */ 	beqzl	$t4,.L0f0e6e00
 /*  f0e6de8:	8e2e0008 */ 	lw	$t6,0x8($s1)
 .L0f0e6dec:
-/*  f0e6dec:	0fc55809 */ 	jal	func0f156024
+/*  f0e6dec:	0fc55809 */ 	jal	text0f156024
 /*  f0e6df0:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0e6df4:	24190001 */ 	addiu	$t9,$zero,0x1
 /*  f0e6df8:	afb900b4 */ 	sw	$t9,0xb4($sp)
@@ -2616,7 +2616,7 @@ glabel menuitemListRender
 /*  f0e73bc:	8faa00b4 */ 	lw	$t2,0xb4($sp)
 /*  f0e73c0:	51400004 */ 	beqzl	$t2,.L0f0e73d4
 /*  f0e73c4:	8fb80108 */ 	lw	$t8,0x108($sp)
-/*  f0e73c8:	0fc55809 */ 	jal	func0f156024
+/*  f0e73c8:	0fc55809 */ 	jal	text0f156024
 /*  f0e73cc:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0e73d0:	8fb80108 */ 	lw	$t8,0x108($sp)
 .L0f0e73d4:
@@ -2729,7 +2729,7 @@ glabel menuitemListRender
 /*  f0e7560:	afa80024 */ 	sw	$t0,0x24($sp)
 /*  f0e7564:	00409025 */ 	or	$s2,$v0,$zero
 .L0f0e7568:
-/*  f0e7568:	0fc54de0 */ 	jal	func0f153780
+/*  f0e7568:	0fc54de0 */ 	jal	text0f153780
 /*  f0e756c:	02402025 */ 	or	$a0,$s2,$zero
 .L0f0e7570:
 /*  f0e7570:	8fbf005c */ 	lw	$ra,0x5c($sp)
@@ -3022,7 +3022,7 @@ glabel menuitemListRender
 /*  f0e3bb4:	00409825 */ 	or	$s3,$v0,$zero
 /*  f0e3bb8:	02802025 */ 	or	$a0,$s4,$zero
 /*  f0e3bbc:	01f0c021 */ 	addu	$t8,$t7,$s0
-/*  f0e3bc0:	0fc5374a */ 	jal	func0f153628
+/*  f0e3bc0:	0fc5374a */ 	jal	text0f153628
 /*  f0e3bc4:	afb8012c */ 	sw	$t8,0x12c($sp)
 /*  f0e3bc8:	00132400 */ 	sll	$a0,$s3,0x10
 /*  f0e3bcc:	afa00160 */ 	sw	$zero,0x160($sp)
@@ -3207,7 +3207,7 @@ glabel menuitemListRender
 /*  f0e3e64:	00822021 */ 	addu	$a0,$a0,$v0
 /*  f0e3e68:	00a22821 */ 	addu	$a1,$a1,$v0
 /*  f0e3e6c:	8ca5c460 */ 	lw	$a1,-0x3ba0($a1)
-/*  f0e3e70:	0fc53925 */ 	jal	func0f153e38
+/*  f0e3e70:	0fc53925 */ 	jal	textSetWaveColours
 /*  f0e3e74:	8c84c5c8 */ 	lw	$a0,-0x3a38($a0)
 /*  f0e3e78:	8fad00fc */ 	lw	$t5,0xfc($sp)
 /*  f0e3e7c:	8faf0108 */ 	lw	$t7,0x108($sp)
@@ -3376,7 +3376,7 @@ glabel menuitemListRender
 /*  f0e40e0:	0fc01990 */ 	jal	colourBlend
 /*  f0e40e4:	02403025 */ 	or	$a2,$s2,$zero
 /*  f0e40e8:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0e40ec:	0fc541a0 */ 	jal	func0f156024
+/*  f0e40ec:	0fc541a0 */ 	jal	text0f156024
 /*  f0e40f0:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0e40f4:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f0e40f8:	afaf00b4 */ 	sw	$t7,0xb4($sp)
@@ -3683,7 +3683,7 @@ glabel menuitemListRender
 /*  f0e4550:	8fab00b4 */ 	lw	$t3,0xb4($sp)
 /*  f0e4554:	51600004 */ 	beqzl	$t3,.NB0f0e4568
 /*  f0e4558:	8fad0108 */ 	lw	$t5,0x108($sp)
-/*  f0e455c:	0fc541a0 */ 	jal	func0f156024
+/*  f0e455c:	0fc541a0 */ 	jal	text0f156024
 /*  f0e4560:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0e4564:	8fad0108 */ 	lw	$t5,0x108($sp)
 .NB0f0e4568:
@@ -3796,7 +3796,7 @@ glabel menuitemListRender
 /*  f0e46f4:	afb20024 */ 	sw	$s2,0x24($sp)
 /*  f0e46f8:	0040a025 */ 	or	$s4,$v0,$zero
 .NB0f0e46fc:
-/*  f0e46fc:	0fc537a0 */ 	jal	func0f153780
+/*  f0e46fc:	0fc537a0 */ 	jal	text0f153780
 /*  f0e4700:	02802025 */ 	or	$a0,$s4,$zero
 .NB0f0e4704:
 /*  f0e4704:	8fbf0064 */ 	lw	$ra,0x64($sp)
@@ -4025,9 +4025,9 @@ Gfx *menuitemDropdownRender(Gfx *gdl, struct menurendercontext *context)
 			colour = colourBlend(colour, tmpcolour, weight);
 		}
 
-		func0f153e38(g_MenuColourPalettes3[context->dialog->type].focused, g_MenuColourPalettes2[context->dialog->type].focused);
+		textSetWaveColours(g_MenuColourPalettes3[context->dialog->type].focused, g_MenuColourPalettes2[context->dialog->type].focused);
 	} else {
-		func0f153e38(g_MenuColourPalettes3[context->dialog->type].unfocused, g_MenuColourPalettes2[context->dialog->type].unfocused);
+		textSetWaveColours(g_MenuColourPalettes3[context->dialog->type].unfocused, g_MenuColourPalettes2[context->dialog->type].unfocused);
 	}
 
 	if (menuIsItemDisabled(context->item, context->dialog)) {
@@ -4037,10 +4037,10 @@ Gfx *menuitemDropdownRender(Gfx *gdl, struct menurendercontext *context)
 			colour = (colourBlend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
 		}
 
-		func0f153e38(g_MenuColourPalettes3[context->dialog->type].disabled, g_MenuColourPalettes2[context->dialog->type].disabled);
+		textSetWaveColours(g_MenuColourPalettes3[context->dialog->type].disabled, g_MenuColourPalettes2[context->dialog->type].disabled);
 	}
 
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 
 	x = context->x + 10;
 	y = context->y + 2;
@@ -4074,7 +4074,7 @@ Gfx *menuitemDropdownRender(Gfx *gdl, struct menurendercontext *context)
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
 	}
 
-	gdl = func0f153780(gdl);
+	gdl = text0f153780(gdl);
 
 	return gdl;
 }
@@ -4265,12 +4265,12 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 	label[1] = '\n';
 	label[2] = '\0';
 
-	func0f153e38(
+	textSetWaveColours(
 			g_MenuColourPalettes3[context->dialog->type].unfocused,
 			g_MenuColourPalettes2[context->dialog->type].unfocused);
 
 	// Draw input field background
-	gdl = gfxSetPrimColour(gdl, 0x0000ff7f);
+	gdl = textSetPrimColour(gdl, 0x0000ff7f);
 
 	if (context->item->param3 == 0) {
 		// Half width
@@ -4285,14 +4285,14 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	// Render text value
-	gdl = func0f153838(gdl);
+	gdl = text0f153838(gdl);
 
 	x = context->x + 4;
 	y = context->y + 2;
 
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 	gdl = textRenderProjected(gdl, &x, &y, data->string, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, context->width, context->height, 0, 0);
-	gdl = func0f153780(gdl);
+	gdl = text0f153780(gdl);
 
 	// Render cursor
 	alpha = func0f006b08(40) * 255;
@@ -4308,11 +4308,11 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 
 	cursorcolour = colourBlend(colourBlend(0x0000ffff, 0x000000ff, 127), cursorcolour, alpha);
 
-	gdl = gfxSetPrimColour(gdl, cursorcolour);
+	gdl = textSetPrimColour(gdl, cursorcolour);
 
 	gDPFillRectangleScaled(gdl++, x + 1, context->y + 2, x + 3, context->y + 9);
 
-	gdl = func0f153838(gdl);
+	gdl = text0f153838(gdl);
 
 	// Render horizontal grid lines
 	for (row = 0; row < 6; row++) {
@@ -4332,7 +4332,7 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 				context->x + col * 12 + 5, context->y + rowspan * 11 + 14, 0x00ffff7f, 0x00ffff7f);
 	}
 
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 
 	x = context->x + 10;
 	y = context->y + 2;
@@ -4428,7 +4428,7 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 							textcolour = colourBlend(textcolour, 0, 127) & 0xffffff00 | textcolour & 0xff;
 						}
 
-						func0f153e38(
+						textSetWaveColours(
 								g_MenuColourPalettes3[context->dialog->type].disabled,
 								g_MenuColourPalettes2[context->dialog->type].disabled);
 					}
@@ -4436,7 +4436,7 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 					gdl = textRenderProjected(gdl, &x, &y, langGet(labels[index]), g_CharsHandelGothicXs, g_FontHandelGothicXs, textcolour, context->width, context->height, 0, 0);
 
 					if (index == 3 && menuitemKeyboardIsStringEmptyOrSpaces(data->string)) {
-						func0f153e38(
+						textSetWaveColours(
 								g_MenuColourPalettes3[context->dialog->type].unfocused,
 								g_MenuColourPalettes2[context->dialog->type].unfocused);
 					}
@@ -4457,7 +4457,7 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 		}
 	}
 
-	gdl = func0f153780(gdl);
+	gdl = text0f153780(gdl);
 
 	// Highlight border of focused button
 	{
@@ -4840,10 +4840,10 @@ glabel menuitemObjectivesRenderOne
 /*  f0ea78c:	00822021 */ 	addu	$a0,$a0,$v0
 /*  f0ea790:	00a22821 */ 	addu	$a1,$a1,$v0
 /*  f0ea794:	8ca52e60 */ 	lw	$a1,0x2e60($a1)
-/*  f0ea798:	0fc54d69 */ 	jal	func0f153e38
+/*  f0ea798:	0fc54d69 */ 	jal	textSetWaveColours
 /*  f0ea79c:	8c842fc8 */ 	lw	$a0,0x2fc8($a0)
 /*  f0ea7a0:	a3a000d0 */ 	sb	$zero,0xd0($sp)
-/*  f0ea7a4:	0fc54b55 */ 	jal	func0f153628
+/*  f0ea7a4:	0fc54b55 */ 	jal	text0f153628
 /*  f0ea7a8:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0ea7ac:	27b000d0 */ 	addiu	$s0,$sp,0xd0
 /*  f0ea7b0:	3c057f1b */ 	lui	$a1,0x7f1b
@@ -5058,7 +5058,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eaad4:	24c6fff3 */ 	addiu	$a2,$a2,-13
 /*  f0eaad8:	25080009 */ 	addiu	$t0,$t0,0x9
 /*  f0eaadc:	afa80124 */ 	sw	$t0,0x124($sp)
-/*  f0eaae0:	0fc54bb7 */ 	jal	func0f153780
+/*  f0eaae0:	0fc54bb7 */ 	jal	text0f153780
 /*  f0eaae4:	afa60128 */ 	sw	$a2,0x128($sp)
 /*  f0eaae8:	87a50142 */ 	lh	$a1,0x142($sp)
 /*  f0eaaec:	8fa60128 */ 	lw	$a2,0x128($sp)
@@ -5281,7 +5281,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0eae48:	25ab0019 */ 	addiu	$t3,$t5,0x19
 /*  f0eae4c:	2549fffe */ 	addiu	$t1,$t2,-2
 /*  f0eae50:	afa90074 */ 	sw	$t1,0x74($sp)
-/*  f0eae54:	0fc54bb7 */ 	jal	func0f153780
+/*  f0eae54:	0fc54bb7 */ 	jal	text0f153780
 /*  f0eae58:	afab006c */ 	sw	$t3,0x6c($sp)
 /*  f0eae5c:	0fc38c93 */ 	jal	menugfx0f0e2498
 /*  f0eae60:	00402025 */ 	move	$a0,$v0
@@ -5469,10 +5469,10 @@ glabel menuitemObjectivesRenderOne
 /*  f0e99e4:	00822021 */ 	addu	$a0,$a0,$v0
 /*  f0e99e8:	00a22821 */ 	addu	$a1,$a1,$v0
 /*  f0e99ec:	8ca52130 */ 	lw	$a1,%lo(g_MenuColourPalettes2+0x18)($a1)
-/*  f0e99f0:	0fc54f8e */ 	jal	func0f153e38
+/*  f0e99f0:	0fc54f8e */ 	jal	textSetWaveColours
 /*  f0e99f4:	8c842298 */ 	lw	$a0,%lo(g_MenuColourPalettes3+0x18)($a0)
 /*  f0e99f8:	a3a000d0 */ 	sb	$zero,0xd0($sp)
-/*  f0e99fc:	0fc54d8a */ 	jal	func0f153628
+/*  f0e99fc:	0fc54d8a */ 	jal	text0f153628
 /*  f0e9a00:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0e9a04:	27b000d0 */ 	addiu	$s0,$sp,0xd0
 /*  f0e9a08:	3c057f1b */ 	lui	$a1,%hi(var7f1adfa8)
@@ -5715,7 +5715,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0e9d9c:	24c6fff3 */ 	addiu	$a2,$a2,-13
 /*  f0e9da0:	27290009 */ 	addiu	$t1,$t9,0x9
 /*  f0e9da4:	afa90124 */ 	sw	$t1,0x124($sp)
-/*  f0e9da8:	0fc54de0 */ 	jal	func0f153780
+/*  f0e9da8:	0fc54de0 */ 	jal	text0f153780
 /*  f0e9dac:	afa60128 */ 	sw	$a2,0x128($sp)
 /*  f0e9db0:	87a50142 */ 	lh	$a1,0x142($sp)
 /*  f0e9db4:	87ae0146 */ 	lh	$t6,0x146($sp)
@@ -5934,7 +5934,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0ea100:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0ea104:	01cd7821 */ 	addu	$t7,$t6,$t5
 /*  f0ea108:	25f90019 */ 	addiu	$t9,$t7,0x19
-/*  f0ea10c:	0fc54de0 */ 	jal	func0f153780
+/*  f0ea10c:	0fc54de0 */ 	jal	text0f153780
 /*  f0ea110:	afb9006c */ 	sw	$t9,0x6c($sp)
 /*  f0ea114:	0fc38926 */ 	jal	menugfx0f0e2498
 /*  f0ea118:	00402025 */ 	or	$a0,$v0,$zero
@@ -6122,10 +6122,10 @@ glabel menuitemObjectivesRenderOne
 /*  f0e99e4:	00822021 */ 	addu	$a0,$a0,$v0
 /*  f0e99e8:	00a22821 */ 	addu	$a1,$a1,$v0
 /*  f0e99ec:	8ca52130 */ 	lw	$a1,%lo(g_MenuColourPalettes2+0x18)($a1)
-/*  f0e99f0:	0fc54f8e */ 	jal	func0f153e38
+/*  f0e99f0:	0fc54f8e */ 	jal	textSetWaveColours
 /*  f0e99f4:	8c842298 */ 	lw	$a0,%lo(g_MenuColourPalettes3+0x18)($a0)
 /*  f0e99f8:	a3a000d0 */ 	sb	$zero,0xd0($sp)
-/*  f0e99fc:	0fc54d8a */ 	jal	func0f153628
+/*  f0e99fc:	0fc54d8a */ 	jal	text0f153628
 /*  f0e9a00:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0e9a04:	27b000d0 */ 	addiu	$s0,$sp,0xd0
 /*  f0e9a08:	3c057f1b */ 	lui	$a1,%hi(var7f1adfa8)
@@ -6368,7 +6368,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0e9d9c:	24c6fff3 */ 	addiu	$a2,$a2,-13
 /*  f0e9da0:	27290009 */ 	addiu	$t1,$t9,0x9
 /*  f0e9da4:	afa90124 */ 	sw	$t1,0x124($sp)
-/*  f0e9da8:	0fc54de0 */ 	jal	func0f153780
+/*  f0e9da8:	0fc54de0 */ 	jal	text0f153780
 /*  f0e9dac:	afa60128 */ 	sw	$a2,0x128($sp)
 /*  f0e9db0:	87a50142 */ 	lh	$a1,0x142($sp)
 /*  f0e9db4:	87ae0146 */ 	lh	$t6,0x146($sp)
@@ -6587,7 +6587,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0ea100:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0ea104:	01cd7821 */ 	addu	$t7,$t6,$t5
 /*  f0ea108:	25f90019 */ 	addiu	$t9,$t7,0x19
-/*  f0ea10c:	0fc54de0 */ 	jal	func0f153780
+/*  f0ea10c:	0fc54de0 */ 	jal	text0f153780
 /*  f0ea110:	afb9006c */ 	sw	$t9,0x6c($sp)
 /*  f0ea114:	0fc38926 */ 	jal	menugfx0f0e2498
 /*  f0ea118:	00402025 */ 	or	$a0,$v0,$zero
@@ -6775,10 +6775,10 @@ glabel menuitemObjectivesRenderOne
 /*  f0e6b58:	00822021 */ 	addu	$a0,$a0,$v0
 /*  f0e6b5c:	00a22821 */ 	addu	$a1,$a1,$v0
 /*  f0e6b60:	8ca5c460 */ 	lw	$a1,-0x3ba0($a1)
-/*  f0e6b64:	0fc53925 */ 	jal	func0f153e38
+/*  f0e6b64:	0fc53925 */ 	jal	textSetWaveColours
 /*  f0e6b68:	8c84c5c8 */ 	lw	$a0,-0x3a38($a0)
 /*  f0e6b6c:	a3a000d0 */ 	sb	$zero,0xd0($sp)
-/*  f0e6b70:	0fc5374a */ 	jal	func0f153628
+/*  f0e6b70:	0fc5374a */ 	jal	text0f153628
 /*  f0e6b74:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0e6b78:	27b000d0 */ 	addiu	$s0,$sp,0xd0
 /*  f0e6b7c:	3c057f1b */ 	lui	$a1,0x7f1b
@@ -7021,7 +7021,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0e6f10:	24c6fff3 */ 	addiu	$a2,$a2,-13
 /*  f0e6f14:	27290009 */ 	addiu	$t1,$t9,0x9
 /*  f0e6f18:	afa90124 */ 	sw	$t1,0x124($sp)
-/*  f0e6f1c:	0fc537a0 */ 	jal	func0f153780
+/*  f0e6f1c:	0fc537a0 */ 	jal	text0f153780
 /*  f0e6f20:	afa60128 */ 	sw	$a2,0x128($sp)
 /*  f0e6f24:	87a50142 */ 	lh	$a1,0x142($sp)
 /*  f0e6f28:	87ae0146 */ 	lh	$t6,0x146($sp)
@@ -7240,7 +7240,7 @@ glabel menuitemObjectivesRenderOne
 /*  f0e7274:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0e7278:	01cd7821 */ 	addu	$t7,$t6,$t5
 /*  f0e727c:	25f90019 */ 	addiu	$t9,$t7,0x19
-/*  f0e7280:	0fc537a0 */ 	jal	func0f153780
+/*  f0e7280:	0fc537a0 */ 	jal	text0f153780
 /*  f0e7284:	afb9006c */ 	sw	$t9,0x6c($sp)
 /*  f0e7288:	0fc37e4b */ 	jal	menugfx0f0e2498
 /*  f0e728c:	00402025 */ 	or	$a0,$v0,$zero
@@ -7395,11 +7395,11 @@ const char var7f1adfb0[] = "%s";
 //		sp12c = (colourBlend(sp12c, 0, 0x2c) & 0xffffff00) | (sp12c & 0xff);
 //	}
 //
-//	func0f153e38(g_MenuColourPalettes3[dialog->type].unfocused, g_MenuColourPalettes2[dialog->type].unfocused);
+//	textSetWaveColours(g_MenuColourPalettes3[dialog->type].unfocused, g_MenuColourPalettes2[dialog->type].unfocused);
 //	buffer[0] = '\0';
 //
 //	// Render objective number
-//	gdl = func0f153628(gdl);
+//	gdl = text0f153628(gdl);
 //	sprintf(buffer, "%d: ", position);
 //	textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 //	x = objx - textwidth + 25;
@@ -7454,7 +7454,7 @@ const char var7f1adfb0[] = "%s";
 //		x = objx + width - textwidth - 13;
 //		y = objy + 9;
 //
-//		gdl = func0f153780(gdl);
+//		gdl = text0f153780(gdl);
 //
 //		spb4 = objx + 22;
 //		spb0 = objy - 2;
@@ -7497,7 +7497,7 @@ const char var7f1adfb0[] = "%s";
 //		sp6c = objx + textwidth + 25;
 //		sp58 = (objx * 3 + objx + 66) / 4 - 1;
 //
-//		gdl = func0f153780(gdl);
+//		gdl = text0f153780(gdl);
 //		gdl = menugfx0f0e2498(gdl);
 //
 //		gdl = menugfxDrawTessellatedRect(gdl, objx, sp7c, sp80, sp7c + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
@@ -7641,7 +7641,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 			colour1 = (colourBlend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
 		}
 
-		func0f153e38(
+		textSetWaveColours(
 				g_MenuColourPalettes3[context->dialog->type].checkedunfocused,
 				g_MenuColourPalettes2[context->dialog->type].checkedunfocused);
 	} else {
@@ -7658,7 +7658,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 			colour1 = (colourBlend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
 		}
 
-		func0f153e38(
+		textSetWaveColours(
 				g_MenuColourPalettes3[context->dialog->type].unfocused,
 				g_MenuColourPalettes2[context->dialog->type].unfocused);
 	}
@@ -7677,7 +7677,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 			colour1 = (colourBlend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
 		}
 
-		func0f153e38(
+		textSetWaveColours(
 				g_MenuColourPalettes3[context->dialog->type].disabled,
 				g_MenuColourPalettes2[context->dialog->type].disabled);
 	}
@@ -7689,8 +7689,8 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 			return gdl;
 		}
 
-		func0f153c50();
-		func0f153c20(x, y, menudfc->unk04 * 300, 0);
+		textBackupDiagonalBlendSettings();
+		textSetDiagonalBlend(x, y, menudfc->unk04 * 300, 0);
 		var8007fb9c = 1;
 	}
 
@@ -7712,7 +7712,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 		colour1 = data.label.colour1;
 	}
 
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 	gdl = textRenderProjected(gdl, &x, &y, text,
 			font1, font2, colour1, context->width, context->height, 0, 0);
 
@@ -7745,7 +7745,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 		}
 	}
 
-	gdl = func0f153780(gdl);
+	gdl = text0f153780(gdl);
 
 	if (menudfc) {
 		if (context->width + 200 < menudfc->unk04 * 300 && context->dialog->redrawtimer < 0) {
@@ -7754,7 +7754,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 
 		var8007fb9c = savedvalue;
 
-		func0f153c88();
+		textRestoreDiagonalBlendSettings();
 	}
 
 	if (context->item->flags & MENUITEMFLAG_00200000) {
@@ -7814,23 +7814,23 @@ Gfx *menuitemMeterRender(Gfx *gdl, struct menurendercontext *context)
 	x2 = x1 + a;
 	x3 = x2 + 6;
 
-	gdl = gfxSetPrimColour(gdl, colour1);
+	gdl = textSetPrimColour(gdl, colour1);
 	gDPFillRectangleScaled(gdl++, x1, context->y, x2, context->y + 5);
-	gdl = func0f153838(gdl);
+	gdl = text0f153838(gdl);
 
-	gdl = gfxSetPrimColour(gdl, colour2);
+	gdl = textSetPrimColour(gdl, colour2);
 	gDPFillRectangleScaled(gdl++, x2, context->y, x3, context->y + 5);
-	gdl = func0f153838(gdl);
+	gdl = text0f153838(gdl);
 
 	text = menuResolveParam2Text(context->item);
 
 	if (text) {
-		gdl = func0f153628(gdl);
+		gdl = text0f153628(gdl);
 		x = context->x;
 		y = context->y - 1;
 		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				colour2 & 0xffffff7f, context->width, context->height, 0, 0);
-		gdl = func0f153780(gdl);
+		gdl = text0f153780(gdl);
 	}
 
 	return gdl;
@@ -7890,11 +7890,11 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 
 		leftcolour = colourBlend(colourBlend(leftcolour, leftcolour & 0x000000ff, 127), colour2, weight);
 
-		func0f153e38(
+		textSetWaveColours(
 				g_MenuColourPalettes3[context->dialog->type].focused,
 				g_MenuColourPalettes2[context->dialog->type].focused);
 	} else {
-		func0f153e38(
+		textSetWaveColours(
 				g_MenuColourPalettes3[context->dialog->type].unfocused,
 				g_MenuColourPalettes2[context->dialog->type].unfocused);
 	}
@@ -7915,7 +7915,7 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 
 		rightcolour = leftcolour;
 
-		func0f153e38(
+		textSetWaveColours(
 				g_MenuColourPalettes3[context->dialog->type].disabled,
 				g_MenuColourPalettes2[context->dialog->type].disabled);
 	}
@@ -7933,7 +7933,7 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 		y += 6;
 	}
 
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 	gdl = textRenderProjected(gdl, &x, &y, text, font1, font2,
 			leftcolour, context->width, context->height, 0, 0);
 
@@ -7955,7 +7955,7 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 		}
 	}
 
-	return func0f153780(gdl);
+	return text0f153780(gdl);
 }
 
 bool menuitemSelectableTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
@@ -8036,9 +8036,9 @@ Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 			colour = colourBlend(colour, tmpcolour, weight) | 0xff;
 		}
 
-		func0f153e38(g_MenuColourPalettes3[context->dialog->type].focused, g_MenuColourPalettes2[context->dialog->type].focused);
+		textSetWaveColours(g_MenuColourPalettes3[context->dialog->type].focused, g_MenuColourPalettes2[context->dialog->type].focused);
 	} else {
-		func0f153e38(g_MenuColourPalettes3[context->dialog->type].unfocused, g_MenuColourPalettes2[context->dialog->type].unfocused);
+		textSetWaveColours(g_MenuColourPalettes3[context->dialog->type].unfocused, g_MenuColourPalettes2[context->dialog->type].unfocused);
 	}
 
 	gdl = menugfxRenderSlider(gdl, context->x + context->width - 82, context->y + extray + 5, context->x + context->width - 7, context->y + extray + 11, markerx, colour);
@@ -8066,12 +8066,12 @@ Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 			colour = colourBlend(colour, tmpcolour, weight);
 		}
 
-		func0f153e38(g_MenuColourPalettes3[context->dialog->type].focused, g_MenuColourPalettes2[context->dialog->type].focused);
+		textSetWaveColours(g_MenuColourPalettes3[context->dialog->type].focused, g_MenuColourPalettes2[context->dialog->type].focused);
 	} else {
-		func0f153e38(g_MenuColourPalettes3[context->dialog->type].unfocused, g_MenuColourPalettes2[context->dialog->type].unfocused);
+		textSetWaveColours(g_MenuColourPalettes3[context->dialog->type].unfocused, g_MenuColourPalettes2[context->dialog->type].unfocused);
 	}
 
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 	gdl = textRenderProjected(gdl, &x, &y, label, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
 
 	if ((context->item->flags & MENUITEMFLAG_00002000) == 0) {
@@ -8096,13 +8096,13 @@ Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 			colour = (colourBlend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
 		}
 
-		func0f153e38(g_MenuColourPalettes3[context->dialog->type].unfocused, g_MenuColourPalettes2[context->dialog->type].unfocused);
+		textSetWaveColours(g_MenuColourPalettes3[context->dialog->type].unfocused, g_MenuColourPalettes2[context->dialog->type].unfocused);
 
 		colour = (colour & 0xffffff00) | ((colour & 0xff) >> 1);
 		gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
 	}
 
-	gdl = func0f153780(gdl);
+	gdl = text0f153780(gdl);
 
 	return gdl;
 }
@@ -8365,7 +8365,7 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
 		}
 
-		func0f153e38(
+		textSetWaveColours(
 				g_MenuColourPalettes3[context->dialog->type].checkedunfocused,
 				g_MenuColourPalettes2[context->dialog->type].checkedunfocused);
 	} else {
@@ -8382,12 +8382,12 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
 		}
 
-		func0f153e38(
+		textSetWaveColours(
 				g_MenuColourPalettes3[context->dialog->type].unfocused,
 				g_MenuColourPalettes2[context->dialog->type].unfocused);
 	}
 
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 
 	if (context->focused) {
 		// Mismatch: The addiu and lui at ec8fc and ec900 are swapped. The addiu
@@ -8407,7 +8407,7 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 
 		maincolour = colourBlend(colourBlend(maincolour, maincolour & 0xff, 127), focuscolour, weight);
 
-		func0f153e38(
+		textSetWaveColours(
 				g_MenuColourPalettes3[context->dialog->type].focused,
 				g_MenuColourPalettes2[context->dialog->type].focused);
 	}
@@ -8426,7 +8426,7 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
 		}
 
-		func0f153e38(
+		textSetWaveColours(
 				g_MenuColourPalettes3[context->dialog->type].disabled,
 				g_MenuColourPalettes2[context->dialog->type].disabled);
 
@@ -8444,7 +8444,7 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 	gdl = textRenderProjected(gdl, &x, &y, text, font1, font2,
 			maincolour, context->width, context->height, 0, 0);
 
-	return func0f153780(gdl);
+	return text0f153780(gdl);
 }
 
 bool menuitemCheckboxTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
@@ -8587,11 +8587,11 @@ Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context)
 		colour = colourBlend(colour, 0, 0x7f) & 0xffffff00 | colour & 0xff;
 	}
 
-	func0f153e38(
+	textSetWaveColours(
 			g_MenuColourPalettes3[context->dialog->type].unfocused,
 			g_MenuColourPalettes2[context->dialog->type].unfocused);
 
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 
 	// Heading text shadow
 	x = context->x + 3;
@@ -8612,7 +8612,7 @@ Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context)
 	gdl = textRenderProjected(gdl, &x, &y, bodytext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			colour, context->width - 4, context->height - 1, -data->unk00, 0);
 
-	return func0f153780(gdl);
+	return text0f153780(gdl);
 }
 
 bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
@@ -9020,7 +9020,7 @@ glabel menuitemMarqueeRender
 /*  f0ee694:	330b0fff */ 	andi	$t3,$t8,0xfff
 /*  f0ee698:	01eb6025 */ 	or	$t4,$t7,$t3
 /*  f0ee69c:	ac4c0004 */ 	sw	$t4,0x4($v0)
-/*  f0ee6a0:	0fc54d24 */ 	jal	func0f153d24
+/*  f0ee6a0:	0fc54d24 */ 	jal	textBackupAndResetBlends
 /*  f0ee6a4:	afa50088 */ 	sw	$a1,0x88($sp)
 /*  f0ee6a8:	8e2e0008 */ 	lw	$t6,0x8($s1)
 /*  f0ee6ac:	8dcd0004 */ 	lw	$t5,0x4($t6)
@@ -9030,17 +9030,17 @@ glabel menuitemMarqueeRender
 /*  f0ee6bc:	86240000 */ 	lh	$a0,0x0($s1)
 /*  f0ee6c0:	86390004 */ 	lh	$t9,0x4($s1)
 /*  f0ee6c4:	2406001c */ 	li	$a2,0x1c
-/*  f0ee6c8:	0fc54d15 */ 	jal	func0f153ce8
+/*  f0ee6c8:	0fc54d15 */ 	jal	textSetHorizontalBlend
 /*  f0ee6cc:	00992821 */ 	addu	$a1,$a0,$t9
 /*  f0ee6d0:	10000005 */ 	b	.JF0f0ee6e8
 /*  f0ee6d4:	00000000 */ 	nop
 /*  f0ee6d8:	86240000 */ 	lh	$a0,0x0($s1)
 .JF0f0ee6dc:
 /*  f0ee6dc:	2406000e */ 	li	$a2,0xe
-/*  f0ee6e0:	0fc54d15 */ 	jal	func0f153ce8
+/*  f0ee6e0:	0fc54d15 */ 	jal	textSetHorizontalBlend
 /*  f0ee6e4:	00802825 */ 	move	$a1,$a0
 .JF0f0ee6e8:
-/*  f0ee6e8:	0fc54b55 */ 	jal	func0f153628
+/*  f0ee6e8:	0fc54b55 */ 	jal	text0f153628
 /*  f0ee6ec:	8fa40088 */ 	lw	$a0,0x88($sp)
 /*  f0ee6f0:	8faa0058 */ 	lw	$t2,0x58($sp)
 /*  f0ee6f4:	8fa9005c */ 	lw	$t1,0x5c($sp)
@@ -9063,11 +9063,11 @@ glabel menuitemMarqueeRender
 /*  f0ee738:	02003825 */ 	move	$a3,$s0
 /*  f0ee73c:	0fc55886 */ 	jal	textRenderProjected
 /*  f0ee740:	afa80020 */ 	sw	$t0,0x20($sp)
-/*  f0ee744:	0fc54bb7 */ 	jal	func0f153780
+/*  f0ee744:	0fc54bb7 */ 	jal	text0f153780
 /*  f0ee748:	00402025 */ 	move	$a0,$v0
 /*  f0ee74c:	0fc3d768 */ 	jal	menuApplyScissor
 /*  f0ee750:	00402025 */ 	move	$a0,$v0
-/*  f0ee754:	0fc54d2a */ 	jal	func0f153d3c
+/*  f0ee754:	0fc54d2a */ 	jal	textRestoreBlends
 /*  f0ee758:	afa20088 */ 	sw	$v0,0x88($sp)
 /*  f0ee75c:	86390004 */ 	lh	$t9,0x4($s1)
 /*  f0ee760:	8faa0084 */ 	lw	$t2,0x84($sp)
@@ -9369,7 +9369,7 @@ glabel menuitemMarqueeRender
 /*  f0ed948:	31c80fff */ 	andi	$t0,$t6,0xfff
 /*  f0ed94c:	01e84825 */ 	or	$t1,$t7,$t0
 /*  f0ed950:	ac490004 */ 	sw	$t1,0x4($v0)
-/*  f0ed954:	0fc54f49 */ 	jal	func0f153d24
+/*  f0ed954:	0fc54f49 */ 	jal	textBackupAndResetBlends
 /*  f0ed958:	afa50088 */ 	sw	$a1,0x88($sp)
 /*  f0ed95c:	8e2b0008 */ 	lw	$t3,0x8($s1)
 /*  f0ed960:	8d6a0004 */ 	lw	$t2,0x4($t3)
@@ -9379,17 +9379,17 @@ glabel menuitemMarqueeRender
 /*  f0ed970:	86240000 */ 	lh	$a0,0x0($s1)
 /*  f0ed974:	862d0004 */ 	lh	$t5,0x4($s1)
 /*  f0ed978:	2406000e */ 	addiu	$a2,$zero,0xe
-/*  f0ed97c:	0fc54f3a */ 	jal	func0f153ce8
+/*  f0ed97c:	0fc54f3a */ 	jal	textSetHorizontalBlend
 /*  f0ed980:	008d2821 */ 	addu	$a1,$a0,$t5
 /*  f0ed984:	10000005 */ 	b	.L0f0ed99c
 /*  f0ed988:	00000000 */ 	nop
 /*  f0ed98c:	86240000 */ 	lh	$a0,0x0($s1)
 .L0f0ed990:
 /*  f0ed990:	2406000e */ 	addiu	$a2,$zero,0xe
-/*  f0ed994:	0fc54f3a */ 	jal	func0f153ce8
+/*  f0ed994:	0fc54f3a */ 	jal	textSetHorizontalBlend
 /*  f0ed998:	00802825 */ 	or	$a1,$a0,$zero
 .L0f0ed99c:
-/*  f0ed99c:	0fc54d8a */ 	jal	func0f153628
+/*  f0ed99c:	0fc54d8a */ 	jal	text0f153628
 /*  f0ed9a0:	8fa40088 */ 	lw	$a0,0x88($sp)
 /*  f0ed9a4:	8fb80058 */ 	lw	$t8,0x58($sp)
 /*  f0ed9a8:	8fb9005c */ 	lw	$t9,0x5c($sp)
@@ -9412,11 +9412,11 @@ glabel menuitemMarqueeRender
 /*  f0ed9ec:	02003825 */ 	or	$a3,$s0,$zero
 /*  f0ed9f0:	0fc5580f */ 	jal	textRenderProjected
 /*  f0ed9f4:	afac0020 */ 	sw	$t4,0x20($sp)
-/*  f0ed9f8:	0fc54de0 */ 	jal	func0f153780
+/*  f0ed9f8:	0fc54de0 */ 	jal	text0f153780
 /*  f0ed9fc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0eda00:	0fc3d43f */ 	jal	menuApplyScissor
 /*  f0eda04:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0eda08:	0fc54f4f */ 	jal	func0f153d3c
+/*  f0eda08:	0fc54f4f */ 	jal	textRestoreBlends
 /*  f0eda0c:	afa20088 */ 	sw	$v0,0x88($sp)
 /*  f0eda10:	862d0004 */ 	lh	$t5,0x4($s1)
 /*  f0eda14:	8fb80084 */ 	lw	$t8,0x84($sp)
@@ -9625,7 +9625,7 @@ glabel menuitemMarqueeRender
 /*  f0ea964:	330f0fff */ 	andi	$t7,$t8,0xfff
 /*  f0ea968:	014f4025 */ 	or	$t0,$t2,$t7
 /*  f0ea96c:	ac480004 */ 	sw	$t0,0x4($v0)
-/*  f0ea970:	0fc538e0 */ 	jal	func0f153d24
+/*  f0ea970:	0fc538e0 */ 	jal	textBackupAndResetBlends
 /*  f0ea974:	afa40098 */ 	sw	$a0,0x98($sp)
 /*  f0ea978:	8e390008 */ 	lw	$t9,0x8($s1)
 /*  f0ea97c:	8f290004 */ 	lw	$t1,0x4($t9)
@@ -9635,17 +9635,17 @@ glabel menuitemMarqueeRender
 /*  f0ea98c:	86240000 */ 	lh	$a0,0x0($s1)
 /*  f0ea990:	862c0004 */ 	lh	$t4,0x4($s1)
 /*  f0ea994:	2406000e */ 	addiu	$a2,$zero,0xe
-/*  f0ea998:	0fc538d1 */ 	jal	func0f153ce8
+/*  f0ea998:	0fc538d1 */ 	jal	textSetHorizontalBlend
 /*  f0ea99c:	008c2821 */ 	addu	$a1,$a0,$t4
 /*  f0ea9a0:	10000005 */ 	beqz	$zero,.NB0f0ea9b8
 /*  f0ea9a4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0ea9a8:	86240000 */ 	lh	$a0,0x0($s1)
 .NB0f0ea9ac:
 /*  f0ea9ac:	2406000e */ 	addiu	$a2,$zero,0xe
-/*  f0ea9b0:	0fc538d1 */ 	jal	func0f153ce8
+/*  f0ea9b0:	0fc538d1 */ 	jal	textSetHorizontalBlend
 /*  f0ea9b4:	00802825 */ 	or	$a1,$a0,$zero
 .NB0f0ea9b8:
-/*  f0ea9b8:	0fc5374a */ 	jal	func0f153628
+/*  f0ea9b8:	0fc5374a */ 	jal	text0f153628
 /*  f0ea9bc:	8fa40098 */ 	lw	$a0,0x98($sp)
 /*  f0ea9c0:	8fae0084 */ 	lw	$t6,0x84($sp)
 /*  f0ea9c4:	afb70010 */ 	sw	$s7,0x10($sp)
@@ -9666,11 +9666,11 @@ glabel menuitemMarqueeRender
 /*  f0eaa00:	02003825 */ 	or	$a3,$s0,$zero
 /*  f0eaa04:	0fc541a6 */ 	jal	textRenderProjected
 /*  f0eaa08:	afb90020 */ 	sw	$t9,0x20($sp)
-/*  f0eaa0c:	0fc537a0 */ 	jal	func0f153780
+/*  f0eaa0c:	0fc537a0 */ 	jal	text0f153780
 /*  f0eaa10:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0eaa14:	0fc3c728 */ 	jal	menuApplyScissor
 /*  f0eaa18:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0eaa1c:	0fc538e6 */ 	jal	func0f153d3c
+/*  f0eaa1c:	0fc538e6 */ 	jal	textRestoreBlends
 /*  f0eaa20:	afa20098 */ 	sw	$v0,0x98($sp)
 /*  f0eaa24:	86290004 */ 	lh	$t1,0x4($s1)
 /*  f0eaa28:	8fab0094 */ 	lw	$t3,0x94($sp)
@@ -9805,21 +9805,21 @@ u32 var800711ec = 0x20000000;
 //
 //	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, g_ScissorX1, g_ScissorY1, g_ScissorX2, g_ScissorY2);
 //
-//	func0f153d24();
+//	textBackupAndResetBlends();
 //
 //	if (context->item->flags & MENUITEMFLAG_00000800) {
-//		func0f153ce8(context->x, context->x + context->width, 0xe);
+//		textSetHorizontalBlend(context->x, context->x + context->width, 0xe);
 //	} else {
-//		func0f153ce8(context->x, context->x, 0xe);
+//		textSetHorizontalBlend(context->x, context->x, 0xe);
 //	}
 //
-//	gdl = func0f153628(gdl);
+//	gdl = text0f153628(gdl);
 //	gdl = textRenderProjected(gdl, &x, &y, &text[i], font1, font2,
 //			colour, context->width + context->x - x, context->height, 0, 0);
-//	gdl = func0f153780(gdl);
+//	gdl = text0f153780(gdl);
 //	gdl = menuApplyScissor(gdl);
 //
-//	func0f153d3c();
+//	textRestoreBlends();
 //
 //	unk14[2] = context->width;
 //
@@ -9922,7 +9922,7 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 		numrows = mpGetPlayerRankings(rankings);
 	}
 
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 
 	// Gap from last item to bottom of dialog + header height
 #if VERSION >= VERSION_JPN_FINAL
@@ -9967,7 +9967,7 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 	y = context->y + 1;
 	gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_278), g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			textcolour, context->width, context->height, 0, 0);
-	gdl = func0f153780(gdl);
+	gdl = text0f153780(gdl);
 
 	dialog = context->dialog;
 
@@ -9997,8 +9997,8 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 		linecolour2 = colourBlend(linecolour2, 0, 44) & 0xffffff00 | linecolour2 & 0xff;
 	}
 
-	linecolour1 = func0f153e94(context->x, context->y + 2, -129) & 0xff | linecolour1 & 0xffffff00;
-	linecolour2 = func0f153e94(context->x + context->width, context->y + 2, -129) & 0xff | linecolour2 & 0xffffff00;
+	linecolour1 = text0f153e94(context->x, context->y + 2, -129) & 0xff | linecolour1 & 0xffffff00;
+	linecolour2 = text0f153e94(context->x + context->width, context->y + 2, -129) & 0xff | linecolour2 & 0xffffff00;
 
 	// Horizontal line between header and body
 #if VERSION == VERSION_JPN_FINAL
@@ -10064,7 +10064,7 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 			context->y + context->height - 1);
 #endif
 
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 
 	for (i = 0; i < numrows; i++) {
 		struct ranking *ranking = &rankings[i];
@@ -10124,7 +10124,7 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 				textcolour, context->width, context->height, 0, 0);
 	}
 
-	return func0f153780(gdl);
+	return text0f153780(gdl);
 }
 
 bool menuitemRankingTick(struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
@@ -10187,7 +10187,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 
 	mpchr = MPCHR(playernum);
 
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 
 	// Write selected player's name
 	weight = func0f006b08(40) * 255;
@@ -10419,7 +10419,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 		}
 	}
 
-	return func0f153780(gdl);
+	return text0f153780(gdl);
 }
 
 bool menuitemPlayerStatsTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
@@ -10964,7 +10964,7 @@ Gfx *menuitemControllerRenderText(Gfx *gdl, s32 curmode, struct menurendercontex
 
 	s32 i;
 
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 
 	for (i = 0; i < ARRAYCOUNT(labels); i++) {
 #if VERSION == VERSION_JPN_FINAL
@@ -11021,7 +11021,7 @@ Gfx *menuitemControllerRenderText(Gfx *gdl, s32 curmode, struct menurendercontex
 				g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, viGetWidth(), viGetHeight(), 0, 0);
 	}
 
-	return func0f153780(gdl);
+	return text0f153780(gdl);
 }
 
 Gfx *menuitemControllerRenderPad(Gfx *gdl, struct menurendercontext *context, s32 padx, s32 pady, s32 curmode, u32 alpha, u32 colour1, u32 colour2, s8 prevmode)
@@ -11064,7 +11064,7 @@ Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
 	u32 contalpha;
 	u32 textalpha;
 
-	func0f153d24();
+	textBackupAndResetBlends();
 
 	// If changing modes within the same group (eg. within 1.x)
 	if (data->curmode != (g_Menus[g_MpPlayerNum].main.controlmode & 0xff)) {
@@ -11112,7 +11112,7 @@ Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
 
 	textalpha = data->textfadetimer;
 	contalpha = data->contfadetimer;
-	gdl = func0f153628(gdl);
+	gdl = text0f153628(gdl);
 
 	if (dialog->transitionfrac < 0) {
 		colour = g_MenuColourPalettes[dialog->type].unfocused;
@@ -11127,7 +11127,7 @@ Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
 		colour = colourBlend(colour, 0, 44) & 0xffffff00 | colour & 0xff;
 	}
 
-	func0f153e38(
+	textSetWaveColours(
 			g_MenuColourPalettes3[dialog->type].unfocused,
 			g_MenuColourPalettes2[dialog->type].unfocused);
 
@@ -11145,7 +11145,7 @@ Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
 	y = context->y + 2;
 	gdl = textRenderProjected(gdl, &x, &y, text,
 			g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, viGetWidth(), viGetHeight(), 0, 0);
-	gdl = func0f153780(gdl);
+	gdl = text0f153780(gdl);
 
 	textcolour = colourBlend(colour, colour & 0xffffff00, textalpha);
 	colour = colourBlend(colour, colour & 0xffffff00, contalpha);
@@ -11169,13 +11169,13 @@ Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
 		y += 34;
 #endif
 
-		gdl = func0f153628(gdl);
+		gdl = text0f153628(gdl);
 		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPWEAPONS_216), // "Hold weapon button for ..."
 				g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, viGetWidth(), viGetHeight(), 0, 0);
-		gdl = func0f153780(gdl);
+		gdl = text0f153780(gdl);
 	}
 
-	func0f153d3c();
+	textRestoreBlends();
 
 	return gdl;
 }

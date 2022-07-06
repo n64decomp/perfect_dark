@@ -2422,7 +2422,7 @@ glabel jtbl_var7f1b2d9c
 /*  f10543c:	8d4f0004 */ 	lw	$t7,0x4($t2)
 /*  f105440:	afaa0134 */ 	sw	$t2,0x134($sp)
 /*  f105444:	25ee0003 */ 	addiu	$t6,$t7,0x3
-/*  f105448:	0fc54d8a */ 	jal	func0f153628
+/*  f105448:	0fc54d8a */ 	jal	text0f153628
 /*  f10544c:	afae012c */ 	sw	$t6,0x12c($sp)
 /*  f105450:	8fb90050 */ 	lw	$t9,0x50($sp)
 /*  f105454:	3c188007 */ 	lui	$t8,%hi(g_StageNames)
@@ -2495,7 +2495,7 @@ glabel jtbl_var7f1b2d9c
 /*  f105560:	0fc5580f */ 	jal	textRenderProjected
 /*  f105564:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f105568:	afa20138 */ 	sw	$v0,0x138($sp)
-/*  f10556c:	0fc54de0 */ 	jal	func0f153780
+/*  f10556c:	0fc54de0 */ 	jal	text0f153780
 /*  f105570:	00402025 */ 	or	$a0,$v0,$zero
 /*  f105574:	10000005 */ 	b	.L0f10558c
 /*  f105578:	8fbf003c */ 	lw	$ra,0x3c($sp)
@@ -3367,7 +3367,7 @@ glabel jtbl_var7f1ad09cnb
 /*  f10118c:	8d4f0004 */ 	lw	$t7,0x4($t2)
 /*  f101190:	afaa012c */ 	sw	$t2,0x12c($sp)
 /*  f101194:	25f80003 */ 	addiu	$t8,$t7,0x3
-/*  f101198:	0fc5374a */ 	jal	func0f153628
+/*  f101198:	0fc5374a */ 	jal	text0f153628
 /*  f10119c:	afb80124 */ 	sw	$t8,0x124($sp)
 /*  f1011a0:	8fb9004c */ 	lw	$t9,0x4c($sp)
 /*  f1011a4:	3c0e8007 */ 	lui	$t6,0x8007
@@ -3440,7 +3440,7 @@ glabel jtbl_var7f1ad09cnb
 /*  f1012b0:	0fc541a6 */ 	jal	textRenderProjected
 /*  f1012b4:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f1012b8:	afa20130 */ 	sw	$v0,0x130($sp)
-/*  f1012bc:	0fc537a0 */ 	jal	func0f153780
+/*  f1012bc:	0fc537a0 */ 	jal	text0f153780
 /*  f1012c0:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1012c4:	10000005 */ 	beqz	$zero,.NB0f1012dc
 /*  f1012c8:	8fbf003c */ 	lw	$ra,0x3c($sp)
@@ -3748,7 +3748,7 @@ struct optiongroup missions[] = {
 //		x = renderdata->x + 62;
 //		y = renderdata->y + 3;
 //
-//		gdl = func0f153628(gdl);
+//		gdl = text0f153628(gdl);
 //
 //		// Draw first part of name
 //		strcpy(text, langGet(g_StageNames[stageindex].name1));
@@ -3763,7 +3763,7 @@ struct optiongroup missions[] = {
 //		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 //				renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
 //
-//		gdl = func0f153780(gdl);
+//		gdl = text0f153780(gdl);
 //
 //		return (s32)gdl;
 //	case MENUOP_GETOPTIONHEIGHT:

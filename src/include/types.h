@@ -5544,36 +5544,6 @@ struct menucolourpalette {
 	/*0x38*/ u32 unk38;
 };
 
-struct var800a45d0 {
-	/*0x00*/ u8 unk00;
-	/*0x04*/ u32 colour04;
-	/*0x08*/ u32 colour08;
-	/*0x0c*/ s32 unk0c;
-	/*0x10*/ s32 unk10;
-	/*0x14*/ f32 unk14;
-	/*0x18*/ u8 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ f32 unk24;
-	/*0x28*/ u8 unk28;
-	/*0x29*/ u8 unk29;
-	/*0x2a*/ u8 unk2a;
-	/*0x2c*/ s32 unk2c;
-	/*0x30*/ s32 unk30;
-	/*0x34*/ s32 unk34;
-	/*0x38*/ s32 x1;
-	/*0x3c*/ s32 x2;
-	/*0x40*/ s32 unk40;
-	/*0x44*/ u32 colour44;
-	/*0x48*/ u32 colour48;
-	/*0x4c*/ u32 unk4c;
-	/*0x50*/ u32 unk50;
-	/*0x54*/ s32 cthresh;
-	/*0x58*/ u32 colour58;
-	/*0x5c*/ u32 colour5c;
-	/*0x60*/ u32 unk60;
-};
-
 struct bytelist {
 	u8 b0;
 	u8 b1;

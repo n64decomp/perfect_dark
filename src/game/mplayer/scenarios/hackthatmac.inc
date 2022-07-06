@@ -508,13 +508,13 @@ Gfx *htmRenderHud(Gfx *gdl)
 		barright = t6 + a1 / 2;
 		s1 = barleft + (s32) (a1 * (dltime / TICKS(4800.0f)));
 
-		gdl = func0f153628(gdl);
-		gdl = gfxSetPrimColour(gdl, 0x60000060);
+		gdl = text0f153628(gdl);
+		gdl = textSetPrimColour(gdl, 0x60000060);
 
 		gDPFillRectangle(gdl++, barleft, viewtop + 8, barright, viewtop + 16);
 
-		gdl = func0f153838(gdl);
-		gdl = gfxSetPrimColour(gdl, 0xc00000d0);
+		gdl = text0f153838(gdl);
+		gdl = textSetPrimColour(gdl, 0xc00000d0);
 
 		v1 = barleft + 1;
 		a0 = barleft;
@@ -525,8 +525,8 @@ Gfx *htmRenderHud(Gfx *gdl)
 			a0 += 2;
 		}
 
-		gdl = func0f153838(gdl);
-		gdl = func0f153780(gdl);
+		gdl = text0f153838(gdl);
+		gdl = text0f153780(gdl);
 	}
 
 	return gdl;
