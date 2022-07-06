@@ -53221,9 +53221,9 @@ extern u8 _blankSegmentRomStart;
  * all the piracy checks are, or perhaps they never got around to implementing
  * the generation of the payload list into their build system.
  *
- * The the segment being read is expected to start with a table of word-pairs
- * for the destination RAM address and copy length. 0x40 bytes are reserved for
- * the table but it can be terminated early with a zero RAM address.
+ * The segment being read is expected to start with a table of word-pairs for
+ * the destination RAM address and copy length. 0x40 bytes are reserved for the
+ * table but it can be terminated early with a zero RAM address.
  *
  * From 0x40 onwards are the payloads in order. To calculate the read offset for
  * a particular payload, the function must sum the lengths of the payloads

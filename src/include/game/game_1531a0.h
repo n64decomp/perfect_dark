@@ -34,7 +34,7 @@ void func0f153e38(u32 colour1, u32 colour2);
 void func0f153e4c(void);
 bool func0f153e58(void);
 u32 func0f153e94(s32 x, s32 y, u32 colour);
-u32 func0f1543ac(s32 arg0, s32 arg1, u32 colour);
+u32 func0f1543ac(s32 x, s32 y, u32 colour);
 Gfx *func0f154ecc(Gfx *gdl, u32 arg1, u32 arg2);
 Gfx *func0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar *prevchar, struct font *font, f32 widthscale, f32 heightscale, f32 x, f32 y);
 Gfx *func0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale, char *text, struct fontchar *chars, struct font *font, u32 colour, s32 hdir, s32 vdir);
