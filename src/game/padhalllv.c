@@ -5,13 +5,12 @@
 #include "game/pad.h"
 #include "game/padhalllv.h"
 #include "bss.h"
+#include "lib/collision.h"
 #include "lib/rng.h"
 #include "lib/anim.h"
 #include "lib/libc/ll.h"
 #include "data.h"
 #include "types.h"
-
-const char var7f1b3a80[] = "padhalllv.c";
 
 u32 g_WaypointHashes[2] = {0};
 
@@ -21,407 +20,183 @@ void waypointSetHashThing(s32 hash1, s32 hash2)
 	g_WaypointHashes[1] = hash2;
 }
 
-GLOBAL_ASM(
-glabel waypointFindClosestToPos
-/*  f114254:	27bdfc60 */ 	addiu	$sp,$sp,-928
-/*  f114258:	afbf0054 */ 	sw	$ra,0x54($sp)
-/*  f11425c:	afbe0050 */ 	sw	$s8,0x50($sp)
-/*  f114260:	afb7004c */ 	sw	$s7,0x4c($sp)
-/*  f114264:	afb60048 */ 	sw	$s6,0x48($sp)
-/*  f114268:	afb50044 */ 	sw	$s5,0x44($sp)
-/*  f11426c:	afb40040 */ 	sw	$s4,0x40($sp)
-/*  f114270:	afb3003c */ 	sw	$s3,0x3c($sp)
-/*  f114274:	afb20038 */ 	sw	$s2,0x38($sp)
-/*  f114278:	afb10034 */ 	sw	$s1,0x34($sp)
-/*  f11427c:	afb00030 */ 	sw	$s0,0x30($sp)
-/*  f114280:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f114284:	afa503a4 */ 	sw	$a1,0x3a4($sp)
-/*  f114288:	afa0039c */ 	sw	$zero,0x39c($sp)
-/*  f11428c:	84af0000 */ 	lh	$t7,0x0($a1)
-/*  f114290:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f114294:	0080b025 */ 	or	$s6,$a0,$zero
-/*  f114298:	00008825 */ 	or	$s1,$zero,$zero
-/*  f11429c:	10ef000a */ 	beq	$a3,$t7,.L0f1142c8
-/*  f1142a0:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f1142a4:	27b50360 */ 	addiu	$s5,$sp,0x360
-/*  f1142a8:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f1142ac:	84a40000 */ 	lh	$a0,0x0($a1)
-.L0f1142b0:
-/*  f1142b0:	a6a40000 */ 	sh	$a0,0x0($s5)
-/*  f1142b4:	86040002 */ 	lh	$a0,0x2($s0)
-/*  f1142b8:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f1142bc:	26b50002 */ 	addiu	$s5,$s5,0x2
-/*  f1142c0:	14e4fffb */ 	bne	$a3,$a0,.L0f1142b0
-/*  f1142c4:	26100002 */ 	addiu	$s0,$s0,0x2
-.L0f1142c8:
-/*  f1142c8:	27b30360 */ 	addiu	$s3,$sp,0x360
-/*  f1142cc:	0014c040 */ 	sll	$t8,$s4,0x1
-/*  f1142d0:	0278c821 */ 	addu	$t9,$s3,$t8
-/*  f1142d4:	a7270000 */ 	sh	$a3,0x0($t9)
-/*  f1142d8:	8fa903a4 */ 	lw	$t1,0x3a4($sp)
-/*  f1142dc:	27b20348 */ 	addiu	$s2,$sp,0x348
-/*  f1142e0:	852a0000 */ 	lh	$t2,0x0($t1)
-/*  f1142e4:	01208025 */ 	or	$s0,$t1,$zero
-/*  f1142e8:	10ea000f */ 	beq	$a3,$t2,.L0f114328
-/*  f1142ec:	00000000 */ 	nop
-/*  f1142f0:	85240000 */ 	lh	$a0,0x0($t1)
-/*  f1142f4:	02402825 */ 	or	$a1,$s2,$zero
-.L0f1142f8:
-/*  f1142f8:	0fc5916a */ 	jal	roomGetNeighbours
-/*  f1142fc:	2406000a */ 	addiu	$a2,$zero,0xa
-/*  f114300:	02402025 */ 	or	$a0,$s2,$zero
-/*  f114304:	02602825 */ 	or	$a1,$s3,$zero
-/*  f114308:	0fc195f6 */ 	jal	roomsAppend
-/*  f11430c:	2406001e */ 	addiu	$a2,$zero,0x1e
-/*  f114310:	86040002 */ 	lh	$a0,0x2($s0)
-/*  f114314:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f114318:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f11431c:	5481fff6 */ 	bnel	$a0,$at,.L0f1142f8
-/*  f114320:	02402825 */ 	or	$a1,$s2,$zero
-/*  f114324:	2407ffff */ 	addiu	$a3,$zero,-1
-.L0f114328:
-/*  f114328:	3c1e800a */ 	lui	$s8,%hi(g_StageSetup)
-/*  f11432c:	27ded030 */ 	addiu	$s8,$s8,%lo(g_StageSetup)
-/*  f114330:	8fcb0000 */ 	lw	$t3,0x0($s8)
-/*  f114334:	87ac0360 */ 	lh	$t4,0x360($sp)
-/*  f114338:	51600128 */ 	beqzl	$t3,.L0f1147dc
-/*  f11433c:	8fbf0054 */ 	lw	$ra,0x54($sp)
-/*  f114340:	10ec0068 */ 	beq	$a3,$t4,.L0f1144e4
-/*  f114344:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f114348:	27b50360 */ 	addiu	$s5,$sp,0x360
-/*  f11434c:	3c03800a */ 	lui	$v1,%hi(g_Rooms)
-/*  f114350:	8c634928 */ 	lw	$v1,%lo(g_Rooms)($v1)
-/*  f114354:	86a40000 */ 	lh	$a0,0x0($s5)
-/*  f114358:	2417008c */ 	addiu	$s7,$zero,0x8c
-.L0f11435c:
-/*  f11435c:	00970019 */ 	multu	$a0,$s7
-/*  f114360:	00007812 */ 	mflo	$t7
-/*  f114364:	006f1021 */ 	addu	$v0,$v1,$t7
-/*  f114368:	90450009 */ 	lbu	$a1,0x9($v0)
-/*  f11436c:	50a00058 */ 	beqzl	$a1,.L0f1144d0
-/*  f114370:	86a40002 */ 	lh	$a0,0x2($s5)
-/*  f114374:	18a00055 */ 	blez	$a1,.L0f1144cc
-/*  f114378:	00009825 */ 	or	$s3,$zero,$zero
-/*  f11437c:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f114380:	9458000c */ 	lhu	$t8,0xc($v0)
-.L0f114384:
-/*  f114384:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x60)
-/*  f114388:	8dcea020 */ 	lw	$t6,%lo(g_Vars+0x60)($t6)
-/*  f11438c:	0018c840 */ 	sll	$t9,$t8,0x1
-/*  f114390:	8fcc0000 */ 	lw	$t4,0x0($s8)
-/*  f114394:	01d95021 */ 	addu	$t2,$t6,$t9
-/*  f114398:	01544821 */ 	addu	$t1,$t2,$s4
-/*  f11439c:	85300000 */ 	lh	$s0,0x0($t1)
-/*  f1143a0:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f1143a4:	27a60170 */ 	addiu	$a2,$sp,0x170
-/*  f1143a8:	00105900 */ 	sll	$t3,$s0,0x4
-/*  f1143ac:	016c9021 */ 	addu	$s2,$t3,$t4
-/*  f1143b0:	0fc456ac */ 	jal	padUnpack
-/*  f1143b4:	8e440000 */ 	lw	$a0,0x0($s2)
-/*  f1143b8:	c6c80000 */ 	lwc1	$f8,0x0($s6)
-/*  f1143bc:	c7aa0170 */ 	lwc1	$f10,0x170($sp)
-/*  f1143c0:	c6c40008 */ 	lwc1	$f4,0x8($s6)
-/*  f1143c4:	c7a60178 */ 	lwc1	$f6,0x178($sp)
-/*  f1143c8:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f1143cc:	c6d00004 */ 	lwc1	$f16,0x4($s6)
-/*  f1143d0:	c7b20174 */ 	lwc1	$f18,0x174($sp)
-/*  f1143d4:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f1143d8:	46021102 */ 	mul.s	$f4,$f2,$f2
-/*  f1143dc:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1143e0:	46128301 */ 	sub.s	$f12,$f16,$f18
-/*  f1143e4:	27a402f0 */ 	addiu	$a0,$sp,0x2f0
-/*  f1143e8:	2626ffff */ 	addiu	$a2,$s1,-1
-/*  f1143ec:	27ad02f0 */ 	addiu	$t5,$sp,0x2f0
-/*  f1143f0:	460c6182 */ 	mul.s	$f6,$f12,$f12
-/*  f1143f4:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f1143f8:	46000282 */ 	mul.s	$f10,$f0,$f0
-/*  f1143fc:	1a200009 */ 	blez	$s1,.L0f114424
-/*  f114400:	46085380 */ 	add.s	$f14,$f10,$f8
-.L0f114404:
-/*  f114404:	c4900000 */ 	lwc1	$f16,0x0($a0)
-/*  f114408:	4610703c */ 	c.lt.s	$f14,$f16
-/*  f11440c:	00000000 */ 	nop
-/*  f114410:	45030005 */ 	bc1tl	.L0f114428
-/*  f114414:	2a01000a */ 	slti	$at,$s0,0xa
-/*  f114418:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f11441c:	1611fff9 */ 	bne	$s0,$s1,.L0f114404
-/*  f114420:	24840004 */ 	addiu	$a0,$a0,0x4
-.L0f114424:
-/*  f114424:	2a01000a */ 	slti	$at,$s0,0xa
-.L0f114428:
-/*  f114428:	1020001c */ 	beqz	$at,.L0f11449c
-/*  f11442c:	00104080 */ 	sll	$t0,$s0,0x2
-/*  f114430:	28c10009 */ 	slti	$at,$a2,0x9
-/*  f114434:	14200002 */ 	bnez	$at,.L0f114440
-/*  f114438:	010d2021 */ 	addu	$a0,$t0,$t5
-/*  f11443c:	24060008 */ 	addiu	$a2,$zero,0x8
-.L0f114440:
-/*  f114440:	00d0082a */ 	slt	$at,$a2,$s0
-/*  f114444:	14200010 */ 	bnez	$at,.L0f114488
-/*  f114448:	03a85021 */ 	addu	$t2,$sp,$t0
-/*  f11444c:	00063880 */ 	sll	$a3,$a2,0x2
-/*  f114450:	27b802f0 */ 	addiu	$t8,$sp,0x2f0
-/*  f114454:	27af0318 */ 	addiu	$t7,$sp,0x318
-/*  f114458:	00107080 */ 	sll	$t6,$s0,0x2
-/*  f11445c:	01d82821 */ 	addu	$a1,$t6,$t8
-/*  f114460:	00ef1821 */ 	addu	$v1,$a3,$t7
-/*  f114464:	00f81021 */ 	addu	$v0,$a3,$t8
-.L0f114468:
-/*  f114468:	8c790000 */ 	lw	$t9,0x0($v1)
-/*  f11446c:	c4520000 */ 	lwc1	$f18,0x0($v0)
-/*  f114470:	2442fffc */ 	addiu	$v0,$v0,-4
-/*  f114474:	0045082b */ 	sltu	$at,$v0,$a1
-/*  f114478:	2463fffc */ 	addiu	$v1,$v1,-4
-/*  f11447c:	ac790008 */ 	sw	$t9,0x8($v1)
-/*  f114480:	1020fff9 */ 	beqz	$at,.L0f114468
-/*  f114484:	e4520008 */ 	swc1	$f18,0x8($v0)
-.L0f114488:
-/*  f114488:	ad520318 */ 	sw	$s2,0x318($t2)
-/*  f11448c:	2a21000a */ 	slti	$at,$s1,0xa
-/*  f114490:	10200002 */ 	beqz	$at,.L0f11449c
-/*  f114494:	e48e0000 */ 	swc1	$f14,0x0($a0)
-/*  f114498:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f11449c:
-/*  f11449c:	86a90000 */ 	lh	$t1,0x0($s5)
-/*  f1144a0:	3c03800a */ 	lui	$v1,%hi(g_Rooms)
-/*  f1144a4:	8c634928 */ 	lw	$v1,%lo(g_Rooms)($v1)
-/*  f1144a8:	01370019 */ 	multu	$t1,$s7
-/*  f1144ac:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f1144b0:	26940002 */ 	addiu	$s4,$s4,0x2
-/*  f1144b4:	00005812 */ 	mflo	$t3
-/*  f1144b8:	006b1021 */ 	addu	$v0,$v1,$t3
-/*  f1144bc:	904c0009 */ 	lbu	$t4,0x9($v0)
-/*  f1144c0:	026c082a */ 	slt	$at,$s3,$t4
-/*  f1144c4:	5420ffaf */ 	bnezl	$at,.L0f114384
-/*  f1144c8:	9458000c */ 	lhu	$t8,0xc($v0)
-.L0f1144cc:
-/*  f1144cc:	86a40002 */ 	lh	$a0,0x2($s5)
-.L0f1144d0:
-/*  f1144d0:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f1144d4:	26b50002 */ 	addiu	$s5,$s5,0x2
-/*  f1144d8:	14e4ffa0 */ 	bne	$a3,$a0,.L0f11435c
-/*  f1144dc:	00000000 */ 	nop
-/*  f1144e0:	0000a025 */ 	or	$s4,$zero,$zero
-.L0f1144e4:
-/*  f1144e4:	1a200042 */ 	blez	$s1,.L0f1145f0
-/*  f1144e8:	00009825 */ 	or	$s3,$zero,$zero
-/*  f1144ec:	4480a000 */ 	mtc1	$zero,$f20
-/*  f1144f0:	27b70318 */ 	addiu	$s7,$sp,0x318
-/*  f1144f4:	241e0001 */ 	addiu	$s8,$zero,0x1
-/*  f1144f8:	27b5010c */ 	addiu	$s5,$sp,0x10c
-/*  f1144fc:	27b202c8 */ 	addiu	$s2,$sp,0x2c8
-/*  f114500:	27b0011c */ 	addiu	$s0,$sp,0x11c
-.L0f114504:
-/*  f114504:	8eed0000 */ 	lw	$t5,0x0($s7)
-/*  f114508:	24050042 */ 	addiu	$a1,$zero,0x42
-/*  f11450c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f114510:	0fc456ac */ 	jal	padUnpack
-/*  f114514:	8da40000 */ 	lw	$a0,0x0($t5)
-/*  f114518:	8faf0164 */ 	lw	$t7,0x164($sp)
-/*  f11451c:	240effff */ 	addiu	$t6,$zero,-1
-/*  f114520:	24180020 */ 	addiu	$t8,$zero,0x20
-/*  f114524:	24190003 */ 	addiu	$t9,$zero,0x3
-/*  f114528:	a7ae010e */ 	sh	$t6,0x10e($sp)
-/*  f11452c:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f114530:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f114534:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f114538:	8fa503a4 */ 	lw	$a1,0x3a4($sp)
-/*  f11453c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f114540:	02a03825 */ 	or	$a3,$s5,$zero
-/*  f114544:	0c00b70f */ 	jal	cdHasLineOfSight
-/*  f114548:	a7af010c */ 	sh	$t7,0x10c($sp)
-/*  f11454c:	10400023 */ 	beqz	$v0,.L0f1145dc
-/*  f114550:	02537021 */ 	addu	$t6,$s2,$s3
-/*  f114554:	240a0030 */ 	addiu	$t2,$zero,0x30
-/*  f114558:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f11455c:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f114560:	8fa503a4 */ 	lw	$a1,0x3a4($sp)
-/*  f114564:	02003025 */ 	or	$a2,$s0,$zero
-/*  f114568:	02a03825 */ 	or	$a3,$s5,$zero
-/*  f11456c:	afbe0014 */ 	sw	$s8,0x14($sp)
-/*  f114570:	e7b40018 */ 	swc1	$f20,0x18($sp)
-/*  f114574:	0c00b62e */ 	jal	cd0002d8b8
-/*  f114578:	e7b4001c */ 	swc1	$f20,0x1c($sp)
-/*  f11457c:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f114580:	14410003 */ 	bne	$v0,$at,.L0f114590
-/*  f114584:	02534821 */ 	addu	$t1,$s2,$s3
-/*  f114588:	10000015 */ 	b	.L0f1145e0
-/*  f11458c:	ad200000 */ 	sw	$zero,0x0($t1)
-.L0f114590:
-/*  f114590:	1440000f */ 	bnez	$v0,.L0f1145d0
-/*  f114594:	02535821 */ 	addu	$t3,$s2,$s3
-/*  f114598:	00141080 */ 	sll	$v0,$s4,0x2
-/*  f11459c:	00541023 */ 	subu	$v0,$v0,$s4
-/*  f1145a0:	00021080 */ 	sll	$v0,$v0,0x2
-/*  f1145a4:	27ac0250 */ 	addiu	$t4,$sp,0x250
-/*  f1145a8:	27ad01d8 */ 	addiu	$t5,$sp,0x1d8
-/*  f1145ac:	3c077f1b */ 	lui	$a3,%hi(var7f1b3a80)
-/*  f1145b0:	ad7e0000 */ 	sw	$s8,0x0($t3)
-/*  f1145b4:	24e73a80 */ 	addiu	$a3,$a3,%lo(var7f1b3a80)
-/*  f1145b8:	004d2821 */ 	addu	$a1,$v0,$t5
-/*  f1145bc:	004c2021 */ 	addu	$a0,$v0,$t4
-/*  f1145c0:	0c009393 */ 	jal	cd00024e4c
-/*  f1145c4:	240601b9 */ 	addiu	$a2,$zero,0x1b9
-/*  f1145c8:	10000006 */ 	b	.L0f1145e4
-/*  f1145cc:	26940001 */ 	addiu	$s4,$s4,0x1
-.L0f1145d0:
-/*  f1145d0:	8eef0000 */ 	lw	$t7,0x0($s7)
-/*  f1145d4:	10000006 */ 	b	.L0f1145f0
-/*  f1145d8:	afaf039c */ 	sw	$t7,0x39c($sp)
-.L0f1145dc:
-/*  f1145dc:	adc00000 */ 	sw	$zero,0x0($t6)
-.L0f1145e0:
-/*  f1145e0:	26940001 */ 	addiu	$s4,$s4,0x1
-.L0f1145e4:
-/*  f1145e4:	26730004 */ 	addiu	$s3,$s3,0x4
-/*  f1145e8:	1691ffc6 */ 	bne	$s4,$s1,.L0f114504
-/*  f1145ec:	26f70004 */ 	addiu	$s7,$s7,0x4
-.L0f1145f0:
-/*  f1145f0:	8fb8039c */ 	lw	$t8,0x39c($sp)
-/*  f1145f4:	4480a000 */ 	mtc1	$zero,$f20
-/*  f1145f8:	57000078 */ 	bnezl	$t8,.L0f1147dc
-/*  f1145fc:	8fbf0054 */ 	lw	$ra,0x54($sp)
-/*  f114600:	1a20006f */ 	blez	$s1,.L0f1147c0
-/*  f114604:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f114608:	00009825 */ 	or	$s3,$zero,$zero
-/*  f11460c:	27b502c8 */ 	addiu	$s5,$sp,0x2c8
-/*  f114610:	27be008c */ 	addiu	$s8,$sp,0x8c
-.L0f114614:
-/*  f114614:	8eb90000 */ 	lw	$t9,0x0($s5)
-/*  f114618:	00141080 */ 	sll	$v0,$s4,0x2
-/*  f11461c:	00541023 */ 	subu	$v0,$v0,$s4
-/*  f114620:	13200063 */ 	beqz	$t9,.L0f1147b0
-/*  f114624:	00021080 */ 	sll	$v0,$v0,0x2
-/*  f114628:	27aa0250 */ 	addiu	$t2,$sp,0x250
-/*  f11462c:	27a901d8 */ 	addiu	$t1,$sp,0x1d8
-/*  f114630:	00499021 */ 	addu	$s2,$v0,$t1
-/*  f114634:	004a8021 */ 	addu	$s0,$v0,$t2
-/*  f114638:	c6040000 */ 	lwc1	$f4,0x0($s0)
-/*  f11463c:	c6460000 */ 	lwc1	$f6,0x0($s2)
-/*  f114640:	27ab0318 */ 	addiu	$t3,$sp,0x318
-/*  f114644:	026bb821 */ 	addu	$s7,$s3,$t3
-/*  f114648:	46062032 */ 	c.eq.s	$f4,$f6
-/*  f11464c:	24050042 */ 	addiu	$a1,$zero,0x42
-/*  f114650:	45020008 */ 	bc1fl	.L0f114674
-/*  f114654:	8eec0000 */ 	lw	$t4,0x0($s7)
-/*  f114658:	c60a0008 */ 	lwc1	$f10,0x8($s0)
-/*  f11465c:	c6480008 */ 	lwc1	$f8,0x8($s2)
-/*  f114660:	46085032 */ 	c.eq.s	$f10,$f8
-/*  f114664:	00000000 */ 	nop
-/*  f114668:	45030052 */ 	bc1tl	.L0f1147b4
-/*  f11466c:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f114670:	8eec0000 */ 	lw	$t4,0x0($s7)
-.L0f114674:
-/*  f114674:	27a600b4 */ 	addiu	$a2,$sp,0xb4
-/*  f114678:	0fc456ac */ 	jal	padUnpack
-/*  f11467c:	8d840000 */ 	lw	$a0,0x0($t4)
-/*  f114680:	8fad00fc */ 	lw	$t5,0xfc($sp)
-/*  f114684:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f114688:	a7af00a6 */ 	sh	$t7,0xa6($sp)
-/*  f11468c:	a7ad00a4 */ 	sh	$t5,0xa4($sp)
-/*  f114690:	c6520000 */ 	lwc1	$f18,0x0($s2)
-/*  f114694:	c6100000 */ 	lwc1	$f16,0x0($s0)
-/*  f114698:	e7b4009c */ 	swc1	$f20,0x9c($sp)
-/*  f11469c:	c6460008 */ 	lwc1	$f6,0x8($s2)
-/*  f1146a0:	c6040008 */ 	lwc1	$f4,0x8($s0)
-/*  f1146a4:	46128001 */ 	sub.s	$f0,$f16,$f18
-/*  f1146a8:	46062081 */ 	sub.s	$f2,$f4,$f6
-/*  f1146ac:	e7a00098 */ 	swc1	$f0,0x98($sp)
-/*  f1146b0:	46021282 */ 	mul.s	$f10,$f2,$f2
-/*  f1146b4:	e7a200a0 */ 	swc1	$f2,0xa0($sp)
-/*  f1146b8:	46000202 */ 	mul.s	$f8,$f0,$f0
-/*  f1146bc:	0c012974 */ 	jal	sqrtf
-/*  f1146c0:	46085300 */ 	add.s	$f12,$f10,$f8
-/*  f1146c4:	3c014120 */ 	lui	$at,0x4120
-/*  f1146c8:	44818000 */ 	mtc1	$at,$f16
-/*  f1146cc:	c7b20098 */ 	lwc1	$f18,0x98($sp)
-/*  f1146d0:	c7a600a0 */ 	lwc1	$f6,0xa0($sp)
-/*  f1146d4:	46008083 */ 	div.s	$f2,$f16,$f0
-/*  f1146d8:	240e0030 */ 	addiu	$t6,$zero,0x30
-/*  f1146dc:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f1146e0:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f1146e4:	8fa503a4 */ 	lw	$a1,0x3a4($sp)
-/*  f1146e8:	03c03025 */ 	or	$a2,$s8,$zero
-/*  f1146ec:	27a7007c */ 	addiu	$a3,$sp,0x7c
-/*  f1146f0:	46029102 */ 	mul.s	$f4,$f18,$f2
-/*  f1146f4:	00000000 */ 	nop
-/*  f1146f8:	46023282 */ 	mul.s	$f10,$f6,$f2
-/*  f1146fc:	e7a40098 */ 	swc1	$f4,0x98($sp)
-/*  f114700:	e7aa00a0 */ 	swc1	$f10,0xa0($sp)
-/*  f114704:	c6080000 */ 	lwc1	$f8,0x0($s0)
-/*  f114708:	46082400 */ 	add.s	$f16,$f4,$f8
-/*  f11470c:	e7b0008c */ 	swc1	$f16,0x8c($sp)
-/*  f114710:	c6d20004 */ 	lwc1	$f18,0x4($s6)
-/*  f114714:	e7b20090 */ 	swc1	$f18,0x90($sp)
-/*  f114718:	c6060008 */ 	lwc1	$f6,0x8($s0)
-/*  f11471c:	e7b4001c */ 	swc1	$f20,0x1c($sp)
-/*  f114720:	e7b40018 */ 	swc1	$f20,0x18($sp)
-/*  f114724:	46065100 */ 	add.s	$f4,$f10,$f6
-/*  f114728:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f11472c:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f114730:	0c00b610 */ 	jal	cd0002d840
-/*  f114734:	e7a40094 */ 	swc1	$f4,0x94($sp)
-/*  f114738:	10400004 */ 	beqz	$v0,.L0f11474c
-/*  f11473c:	c7b00098 */ 	lwc1	$f16,0x98($sp)
-/*  f114740:	8ef90000 */ 	lw	$t9,0x0($s7)
-/*  f114744:	1000001e */ 	b	.L0f1147c0
-/*  f114748:	afb9039c */ 	sw	$t9,0x39c($sp)
-.L0f11474c:
-/*  f11474c:	c6480000 */ 	lwc1	$f8,0x0($s2)
-/*  f114750:	c7a400a0 */ 	lwc1	$f4,0xa0($sp)
-/*  f114754:	240a0030 */ 	addiu	$t2,$zero,0x30
-/*  f114758:	46104481 */ 	sub.s	$f18,$f8,$f16
-/*  f11475c:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f114760:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f114764:	8fa503a4 */ 	lw	$a1,0x3a4($sp)
-/*  f114768:	e7b2008c */ 	swc1	$f18,0x8c($sp)
-/*  f11476c:	c6ca0004 */ 	lwc1	$f10,0x4($s6)
-/*  f114770:	03c03025 */ 	or	$a2,$s8,$zero
-/*  f114774:	27a7007c */ 	addiu	$a3,$sp,0x7c
-/*  f114778:	e7aa0090 */ 	swc1	$f10,0x90($sp)
-/*  f11477c:	c6460008 */ 	lwc1	$f6,0x8($s2)
-/*  f114780:	e7b4001c */ 	swc1	$f20,0x1c($sp)
-/*  f114784:	e7b40018 */ 	swc1	$f20,0x18($sp)
-/*  f114788:	46043201 */ 	sub.s	$f8,$f6,$f4
-/*  f11478c:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f114790:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f114794:	0c00b610 */ 	jal	cd0002d840
-/*  f114798:	e7a80094 */ 	swc1	$f8,0x94($sp)
-/*  f11479c:	50400005 */ 	beqzl	$v0,.L0f1147b4
-/*  f1147a0:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f1147a4:	8eeb0000 */ 	lw	$t3,0x0($s7)
-/*  f1147a8:	10000005 */ 	b	.L0f1147c0
-/*  f1147ac:	afab039c */ 	sw	$t3,0x39c($sp)
-.L0f1147b0:
-/*  f1147b0:	26940001 */ 	addiu	$s4,$s4,0x1
-.L0f1147b4:
-/*  f1147b4:	26730004 */ 	addiu	$s3,$s3,0x4
-/*  f1147b8:	1691ff96 */ 	bne	$s4,$s1,.L0f114614
-/*  f1147bc:	26b50004 */ 	addiu	$s5,$s5,0x4
-.L0f1147c0:
-/*  f1147c0:	8fac039c */ 	lw	$t4,0x39c($sp)
-/*  f1147c4:	55800005 */ 	bnezl	$t4,.L0f1147dc
-/*  f1147c8:	8fbf0054 */ 	lw	$ra,0x54($sp)
-/*  f1147cc:	1a200002 */ 	blez	$s1,.L0f1147d8
-/*  f1147d0:	8fad0318 */ 	lw	$t5,0x318($sp)
-/*  f1147d4:	afad039c */ 	sw	$t5,0x39c($sp)
-.L0f1147d8:
-/*  f1147d8:	8fbf0054 */ 	lw	$ra,0x54($sp)
-.L0f1147dc:
-/*  f1147dc:	8fa2039c */ 	lw	$v0,0x39c($sp)
-/*  f1147e0:	d7b40028 */ 	ldc1	$f20,0x28($sp)
-/*  f1147e4:	8fb00030 */ 	lw	$s0,0x30($sp)
-/*  f1147e8:	8fb10034 */ 	lw	$s1,0x34($sp)
-/*  f1147ec:	8fb20038 */ 	lw	$s2,0x38($sp)
-/*  f1147f0:	8fb3003c */ 	lw	$s3,0x3c($sp)
-/*  f1147f4:	8fb40040 */ 	lw	$s4,0x40($sp)
-/*  f1147f8:	8fb50044 */ 	lw	$s5,0x44($sp)
-/*  f1147fc:	8fb60048 */ 	lw	$s6,0x48($sp)
-/*  f114800:	8fb7004c */ 	lw	$s7,0x4c($sp)
-/*  f114804:	8fbe0050 */ 	lw	$s8,0x50($sp)
-/*  f114808:	03e00008 */ 	jr	$ra
-/*  f11480c:	27bd03a0 */ 	addiu	$sp,$sp,0x3a0
-);
+/**
+ * Given a position and the rooms it's in, find the closest waypoint, taking
+ * into consideration neighbouring rooms and line of sight tests.
+ *
+ * This is typically called twice prior to route finding; once with the chr's
+ * pos to get their starting waypoint and once with the player's pos to get the
+ * ending waypoint.
+ *
+ * Only waypoints within the position's room and its neighbouring rooms are
+ * considered. Because of this, any two directly connected waypoints must be
+ * in the same or neighbouring rooms.
+ *
+ * The function will return NULL if there are no waypoints at all within the
+ * position's room or its neighbours.
+ */
+struct waypoint *waypointFindClosestToPos(struct coord *pos, s16 *rooms)
+{
+	struct waypoint *closest = NULL;
+	s16 allrooms[30];
+	s32 candlen = 0;
+	s16 neighbours[10];
+	s32 i;
+	s32 j;
+	struct waypoint *candwaypoints[10];
+	f32 candsqdists[10];
+	bool checkmore[10];
+	struct coord sp250[10];
+	struct coord sp1d8[10];
+
+	for (i = 0; rooms[i] != -1; i++) {
+		allrooms[i] = rooms[i];
+	}
+
+	allrooms[i] = -1;
+
+	for (i = 0; rooms[i] != -1; i++) {
+		roomGetNeighbours(rooms[i], neighbours, ARRAYCOUNT(neighbours));
+		roomsAppend(neighbours, allrooms, ARRAYCOUNT(allrooms));
+	}
+
+	if (g_StageSetup.waypoints != NULL) {
+		// Build the candidates list, sorted by distance (closest first)
+		for (i = 0; allrooms[i] != -1; i++) {
+			if (g_Rooms[allrooms[i]].numwaypoints != 0) {
+				for (j = 0; j < g_Rooms[allrooms[i]].numwaypoints; j++) {
+					s32 index = g_Vars.waypointnums[g_Rooms[allrooms[i]].firstwaypoint + j];
+					struct waypoint *waypoint = g_StageSetup.waypoints + index;
+					f32 sqdist;
+					s32 k;
+					u32 stack;
+					struct pad pad;
+
+					padUnpack(waypoint->padnum, PADFIELD_POS, &pad);
+
+					sqdist = (pos->f[0] - pad.pos.f[0]) * (pos->f[0] - pad.pos.f[0])
+						+ (pos->f[1] - pad.pos.f[1]) * (pos->f[1] - pad.pos.f[1])
+						+ (pos->f[2] - pad.pos.f[2]) * (pos->f[2] - pad.pos.f[2]);
+
+					// Find the index where this waypoint should go
+					// into the candidates list
+					for (index = 0; index < candlen; index++) {
+						if (sqdist < candsqdists[index]) {
+							break;
+						}
+					}
+
+					// Insert the new candidate
+					if (index < ARRAYCOUNT(candwaypoints)) {
+						k = candlen - 1;
+
+						if (k > ARRAYCOUNT(candwaypoints) - 2) {
+							k = ARRAYCOUNT(candwaypoints) - 2;
+						}
+
+						while (k >= index) {
+							candwaypoints[k + 1] = candwaypoints[k];
+							candsqdists[k + 1] = candsqdists[k];
+							k--;
+						}
+
+						candwaypoints[index] = waypoint;
+						candsqdists[index] = sqdist;
+
+						if (candlen < ARRAYCOUNT(candwaypoints)) {
+							candlen++;
+						}
+					}
+				}
+			}
+		}
+
+		// Check which candidates have line of sight
+		for (i = 0; i < candlen; i++) {
+			struct pad pad;
+			s16 padrooms[8];
+
+			padUnpack(candwaypoints[i]->padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
+
+			padrooms[0] = pad.room;
+			padrooms[1] = -1;
+
+			if (cdHasLineOfSight(pos, rooms, &pad.pos, padrooms, CDTYPE_BG, 3) != CDRESULT_COLLISION) {
+				s32 cdresult = cd0002d8b8(pos, rooms, &pad.pos, padrooms, CDTYPE_BG | CDTYPE_PATHBLOCKER, true, 0.0f, 0.0f);
+
+				if (cdresult == CDRESULT_ERROR) {
+					checkmore[i] = false;
+				} else if (cdresult == CDRESULT_COLLISION) {
+					checkmore[i] = true;
+					cd00024e4c(&sp250[i], &sp1d8[i], 441, "padhalllv.c");
+				} else {
+					closest = candwaypoints[i];
+					break;
+				}
+			} else {
+				checkmore[i] = false;
+			}
+		}
+
+		if (closest == NULL) {
+			// If this is reached, the chr has no line of sight to any waypoint.
+			// This should be pretty rare, but it can happen if the pos is
+			// inside a lift or out of bounds.
+			// This is selecting the first (closest) waypoint that matches some
+			// crtieria relating to collisions.
+			for (i = 0; i < candlen; i++) {
+				if (checkmore[i] && (sp250[i].x != sp1d8[i].x || sp250[i].z != sp1d8[i].z)) {
+					struct pad pad;
+					s16 padrooms[8];
+					struct coord sp98;
+					struct coord tmppos;
+					s16 tmprooms[8];
+					f32 mult;
+
+					padUnpack(candwaypoints[i]->padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
+
+					padrooms[0] = pad.room;
+					padrooms[1] = -1;
+
+					sp98.f[0] = sp250[i].x - sp1d8[i].x;
+					sp98.f[1] = 0.0f;
+					sp98.f[2] = sp250[i].z - sp1d8[i].z;
+
+					mult = 10.0f / sqrtf(sp98.f[0] * sp98.f[0] + sp98.f[2] * sp98.f[2]);
+
+					sp98.x *= mult;
+					sp98.z *= mult;
+
+					tmppos.x = sp250[i].f[0] + sp98.f[0];
+					tmppos.y = pos->y;
+					tmppos.z = sp250[i].f[2] + sp98.f[2];
+
+					if (cd0002d840(pos, rooms, &tmppos, tmprooms, CDTYPE_BG | CDTYPE_PATHBLOCKER, 1, 0.0f, 0.0f) != CDRESULT_COLLISION) {
+						closest = candwaypoints[i];
+						break;
+					}
+
+					tmppos.x = sp1d8[i].x - sp98.x;
+					tmppos.y = pos->y;
+					tmppos.z = sp1d8[i].z - sp98.z;
+
+					if (cd0002d840(pos, rooms, &tmppos, tmprooms, CDTYPE_BG | CDTYPE_PATHBLOCKER, 1, 0.0f, 0.0f) != CDRESULT_COLLISION) {
+						closest = candwaypoints[i];
+						break;
+					}
+				}
+			}
+
+			// If the above criteria didn't match anything,
+			// just choose the closest waypoint
+			if (closest == NULL && candlen > 0) {
+				closest = candwaypoints[0];
+			}
+		}
+	}
+
+	return closest;
+}
 
 struct waygroup *func0f114810(s32 *groupnums, s32 value, u32 mask)
 {
