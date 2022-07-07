@@ -4531,73 +4531,33 @@ void func0f14ff94(struct var8007f8e0 *arg0)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f150068
-/*  f150068:	27bdfe90 */ 	addiu	$sp,$sp,-368
-/*  f15006c:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f150070:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f150074:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f150078:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f15007c:	00809025 */ 	or	$s2,$a0,$zero
-/*  f150080:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f150084:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f150088:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f15008c:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f150090:	0fc53d39 */ 	jal	func0f14f4e4
-/*  f150094:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f150098:	0fc53d44 */ 	jal	func0f14f510
-/*  f15009c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1500a0:	02402025 */ 	or	$a0,$s2,$zero
-/*  f1500a4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1500a8:	0fc53dc0 */ 	jal	func0f14f700
-/*  f1500ac:	24060008 */ 	addiu	$a2,$zero,0x8
-/*  f1500b0:	27b10064 */ 	addiu	$s1,$sp,0x64
-/*  f1500b4:	02209825 */ 	or	$s3,$s1,$zero
-/*  f1500b8:	0000b025 */ 	or	$s6,$zero,$zero
-/*  f1500bc:	27b50044 */ 	addiu	$s5,$sp,0x44
-/*  f1500c0:	24140040 */ 	addiu	$s4,$zero,0x40
-/*  f1500c4:	00008025 */ 	or	$s0,$zero,$zero
-.L0f1500c8:
-/*  f1500c8:	27a20044 */ 	addiu	$v0,$sp,0x44
-.L0f1500cc:
-/*  f1500cc:	00161980 */ 	sll	$v1,$s6,0x6
-.L0f1500d0:
-/*  f1500d0:	8e4f001c */ 	lw	$t7,0x1c($s2)
-/*  f1500d4:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f1500d8:	01e3c021 */ 	addu	$t8,$t7,$v1
-/*  f1500dc:	0310c821 */ 	addu	$t9,$t8,$s0
-/*  f1500e0:	24630040 */ 	addiu	$v1,$v1,0x40
-/*  f1500e4:	1451fffa */ 	bne	$v0,$s1,.L0f1500d0
-/*  f1500e8:	ac59fffc */ 	sw	$t9,-0x4($v0)
-/*  f1500ec:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f1500f0:	0fc53eff */ 	jal	func0f14fbfc
-/*  f1500f4:	02602825 */ 	or	$a1,$s3,$zero
-/*  f1500f8:	02402025 */ 	or	$a0,$s2,$zero
-/*  f1500fc:	0fc53ebe */ 	jal	func0f14faf8
-/*  f150100:	02602825 */ 	or	$a1,$s3,$zero
-/*  f150104:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f150108:	5614fff0 */ 	bnel	$s0,$s4,.L0f1500cc
-/*  f15010c:	27a20044 */ 	addiu	$v0,$sp,0x44
-/*  f150110:	26d60008 */ 	addiu	$s6,$s6,0x8
-/*  f150114:	56d4ffec */ 	bnel	$s6,$s4,.L0f1500c8
-/*  f150118:	00008025 */ 	or	$s0,$zero,$zero
-/*  f15011c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f150120:	0fc53e5d */ 	jal	func0f14f974
-/*  f150124:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f150128:	8e48002c */ 	lw	$t0,0x2c($s2)
-/*  f15012c:	000848c2 */ 	srl	$t1,$t0,0x3
-/*  f150130:	a6490034 */ 	sh	$t1,0x34($s2)
-/*  f150134:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f150138:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f15013c:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f150140:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f150144:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f150148:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f15014c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f150150:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f150154:	03e00008 */ 	jr	$ra
-/*  f150158:	27bd0170 */ 	addiu	$sp,$sp,0x170
-);
+void func0f150068(struct var8007f8e0 *arg0, s32 arg1)
+{
+	s32 i;
+	s32 j;
+	s32 k;
+	u8 sp64[0x100];
+	u8 *sp44[8];
+
+	func0f14f4e4(arg0);
+	func0f14f510(arg1);
+	func0f14f700(arg0, arg1, 8);
+
+	for (i = 0; i < 0x40; i += 8) {
+		for (j = 0; j < 0x40; j += 8) {
+			for (k = 0; k < 8; k++) {
+				sp44[k] = &arg0->unk01c[(i + k) * 0x40 + j];
+			}
+
+			func0f14fbfc(sp44, sp64);
+			func0f14faf8(arg0, sp64);
+		}
+	}
+
+	func0f14f974(arg0, 1);
+
+	arg0->unk034 = arg0->unk02c / 8;
+}
 
 const char var7f1b7158[] = "camdraw.c";
 const char var7f1b7164[] = "camdraw.c";
