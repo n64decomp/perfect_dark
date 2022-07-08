@@ -60,7 +60,7 @@ void func0f14d8d8(f32 *arg0, f32 *arg1, s32 arg2, f32 *arg3, s32 arg4);
 void phead0f14dac0(u8 *arg0, struct textureconfig *arg1);
 void func0f14dc30(s32 index, bool arg1);
 void func0f14def0(s32 arg0, u32 line, char *file);
-u32 func0f14dfc0(void);
+s32 func0f14dfc0(struct var8007f8e0 *arg0, s32 arg1, s32 arg2);
 void func0f14e1c4(struct var8007f8e0 *arg0);
 f32 func0f14e4ac(u32 arg0, s32 *arg1, s32 *arg2);
 void func0f14e790(u8 *arg0);
