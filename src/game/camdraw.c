@@ -805,16 +805,6 @@ s32 func0f14ad38(s32 device)
 const char var7f1b6688[] = "Cam_ClearCameraLoadBuffer -> Camera=%d\n";
 const char var7f1b66b0[] = "Cam_StartTemp : Need %u bytes for temp cam images buffer\n";
 
-u32 var8007f9d8 = 0x3f800000;
-u32 var8007f9dc = 0x3f800000;
-u32 var8007f9e0 = 0x3f800000;
-u32 var8007f9e4 = 0x3f800000;
-u32 var8007f9e8 = 0x3f800000;
-u32 var8007f9ec = 0x3f800000;
-u32 var8007f9f0 = 0x3f800000;
-u32 var8007f9f4 = 0x3f800000;
-u32 var8007f9f8 = 0x3f800000;
-
 GLOBAL_ASM(
 glabel func0f14ad58
 .late_rodata
@@ -2315,6 +2305,57 @@ glabel func0f14d2c8
 /*  f14d4e8:	03e00008 */ 	jr	$ra
 /*  f14d4ec:	27bd0090 */ 	addiu	$sp,$sp,0x90
 );
+
+f32 var8007f9d8 = 1;
+f32 var8007f9dc = 1;
+f32 var8007f9e0 = 1;
+f32 var8007f9e4 = 1;
+f32 var8007f9e8 = 1;
+f32 var8007f9ec = 1;
+f32 var8007f9f0 = 1;
+f32 var8007f9f4 = 1;
+f32 var8007f9f8 = 1;
+
+// Mismatch: Regalloc and some swapped instructions
+//void func0f14d2c8(u8 *arg0, u8 *arg1)
+//{
+//	f32 *s1 = (f32 *)var800a45a0->unk474;
+//	f32 *s0 = (f32 *)var800a45a0->unk478;
+//	s32 size = 128;
+//	s32 i;
+//	s32 j;
+//	s32 k;
+//	s32 l;
+//	f32 sp50[] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
+//
+//	for (i = 0; i < size; i++) {
+//		for (j = 0; j < size; j++) {
+//			s1[i * size + j] = *(j + arg0 + i * size);
+//		}
+//	}
+//
+//	func0f14d84c(sp50, 3);
+//	func0f14d8d8(s1, s0, 128, sp50, 3);
+//
+//	for (k = 0; k < 63 * 64; k += 64) {
+//		for (l = 0; l < 63; l++) {
+//			f32 *ptr = &s0[k * 4 + l * 2];
+//			f32 f0;
+//
+//			f0 = (ptr[0] + ptr[1] + ptr[128] + ptr[129]) / 4.0f;
+//
+//			if (f0 < 0.0f) {
+//				f0 = 0.0f;
+//			}
+//
+//			if (f0 > 255.0f) {
+//				f0 = 255.0f;
+//			}
+//
+//			arg1[k + l] = f0;
+//		}
+//	}
+//}
 
 GLOBAL_ASM(
 glabel func0f14d4f0
