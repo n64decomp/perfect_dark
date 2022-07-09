@@ -2280,8 +2280,8 @@ struct hand {
 	/*0x0dbc*/ u32 fspare7;
 	/*0x0dc0*/ u32 fspare8;
 	/*0x0dc4*/ struct abmag abmag;
-	/*0x0dcc*/ u32 unk0dcc;
-	/*0x0dd0*/ u32 unk0dd0;
+	/*0x0dcc*/ s32 *unk0dcc;
+	/*0x0dd0*/ s32 *unk0dd0;
 	/*0x0dd4*/ s32 unk0dd4;
 	/*0x0dd8*/ Mtxf *unk0dd8;
 };

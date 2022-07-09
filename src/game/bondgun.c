@@ -14370,85 +14370,57 @@ void bgunLoseGun(struct prop *attackerprop)
 	}
 }
 
-GLOBAL_ASM(
-glabel bgun0f0a2da8
-.late_rodata
-glabel var7f1ac76c
-.word bgun0f0a2da8+0x38 # f0a2de0
-glabel var7f1ac770
-.word bgun0f0a2da8+0x58 # f0a2e00
-glabel var7f1ac774
-.word bgun0f0a2da8+0x78 # f0a2e20
-glabel var7f1ac778
-.word bgun0f0a2da8+0x90 # f0a2e38
-glabel var7f1ac77c
-.word bgun0f0a2da8+0xa4 # f0a2e4c
-glabel var7f1ac780
-.word bgun0f0a2da8+0xb8 # f0a2e60
-.text
-/*  f0a2da8:	10800038 */ 	beqz	$a0,.L0f0a2e8c
-/*  f0a2dac:	00000000 */ 	nop
-/*  f0a2db0:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f0a2db4:	24060006 */ 	addiu	$a2,$zero,0x6
-/*  f0a2db8:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f0a2dbc:	10c20033 */ 	beq	$a2,$v0,.L0f0a2e8c
-/*  f0a2dc0:	2c410006 */ 	sltiu	$at,$v0,0x6
-.L0f0a2dc4:
-/*  f0a2dc4:	1020002f */ 	beqz	$at,.L0f0a2e84
-/*  f0a2dc8:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f0a2dcc:	3c017f1b */ 	lui	$at,%hi(var7f1ac76c)
-/*  f0a2dd0:	002e0821 */ 	addu	$at,$at,$t6
-/*  f0a2dd4:	8c2ec76c */ 	lw	$t6,%lo(var7f1ac76c)($at)
-/*  f0a2dd8:	01c00008 */ 	jr	$t6
-/*  f0a2ddc:	00000000 */ 	nop
-/*  f0a2de0:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f0a2de4:	8c850008 */ 	lw	$a1,0x8($a0)
-/*  f0a2de8:	24840010 */ 	addiu	$a0,$a0,0x10
-/*  f0a2dec:	ac600000 */ 	sw	$zero,0x0($v1)
-/*  f0a2df0:	8c8ffffc */ 	lw	$t7,-0x4($a0)
-/*  f0a2df4:	acaf0014 */ 	sw	$t7,0x14($a1)
-/*  f0a2df8:	10000022 */ 	b	.L0f0a2e84
-/*  f0a2dfc:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f0a2e00:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f0a2e04:	8c850008 */ 	lw	$a1,0x8($a0)
-/*  f0a2e08:	24840010 */ 	addiu	$a0,$a0,0x10
-/*  f0a2e0c:	ac670000 */ 	sw	$a3,0x0($v1)
-/*  f0a2e10:	8c98fffc */ 	lw	$t8,-0x4($a0)
-/*  f0a2e14:	acb80014 */ 	sw	$t8,0x14($a1)
-/*  f0a2e18:	1000001a */ 	b	.L0f0a2e84
-/*  f0a2e1c:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f0a2e20:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f0a2e24:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f0a2e28:	ac600000 */ 	sw	$zero,0x0($v1)
-/*  f0a2e2c:	ac600004 */ 	sw	$zero,0x4($v1)
-/*  f0a2e30:	10000014 */ 	b	.L0f0a2e84
-/*  f0a2e34:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f0a2e38:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f0a2e3c:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f0a2e40:	a4600000 */ 	sh	$zero,0x0($v1)
-/*  f0a2e44:	1000000f */ 	b	.L0f0a2e84
-/*  f0a2e48:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f0a2e4c:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f0a2e50:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f0a2e54:	a4600000 */ 	sh	$zero,0x0($v1)
-/*  f0a2e58:	1000000a */ 	b	.L0f0a2e84
-/*  f0a2e5c:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f0a2e60:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f0a2e64:	8c990008 */ 	lw	$t9,0x8($a0)
-/*  f0a2e68:	24840014 */ 	addiu	$a0,$a0,0x14
-/*  f0a2e6c:	ac790000 */ 	sw	$t9,0x0($v1)
-/*  f0a2e70:	8c88fff8 */ 	lw	$t0,-0x8($a0)
-/*  f0a2e74:	ac680004 */ 	sw	$t0,0x4($v1)
-/*  f0a2e78:	8c89fffc */ 	lw	$t1,-0x4($a0)
-/*  f0a2e7c:	ac690008 */ 	sw	$t1,0x8($v1)
-/*  f0a2e80:	8c820000 */ 	lw	$v0,0x0($a0)
-.L0f0a2e84:
-/*  f0a2e84:	54c2ffcf */ 	bnel	$a2,$v0,.L0f0a2dc4
-/*  f0a2e88:	2c410006 */ 	sltiu	$at,$v0,0x6
-.L0f0a2e8c:
-/*  f0a2e8c:	03e00008 */ 	jr	$ra
-/*  f0a2e90:	00000000 */ 	nop
-);
+// With this function stubbed, part of the CMP150 model does not render.
+void bgun0f0a2da8(s32 *arg0)
+{
+	s32 *ptr1;
+	s32 *ptr2;
+	s16 *ptr3;
+
+	if (arg0 != NULL) {
+		while (*arg0 != 6) {
+			switch (*arg0) {
+			case 0:
+				ptr1 = (s32 *)arg0[1];
+				ptr2 = (s32 *)arg0[2];
+				ptr1[0] = 0;
+				ptr2[5] = arg0[3];
+				arg0 += 4;
+				break;
+			case 1:
+				ptr1 = (s32 *)arg0[1];
+				ptr2 = (s32 *)arg0[2];
+				ptr1[0] = 1;
+				ptr2[5] = arg0[3];
+				arg0 += 4;
+				break;
+			case 2:
+				ptr1 = (s32 *)arg0[1];
+				ptr1[0] = 0;
+				ptr1[1] = 0;
+				arg0 += 2;
+				break;
+			case 3:
+				ptr3 = (s16 *)arg0[1];
+				ptr3[0] = 0;
+				arg0 += 2;
+				break;
+			case 4:
+				ptr3 = (s16 *)arg0[1];
+				ptr3[0] = 0;
+				arg0 += 2;
+				break;
+			case 5:
+				ptr1 = (s32 *)arg0[1];
+				ptr1[0] = arg0[2];
+				ptr1[1] = arg0[3];
+				ptr1[2] = arg0[4];
+				arg0 += 5;
+				break;
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel bgun0f0a2e94
