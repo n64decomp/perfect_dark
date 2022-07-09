@@ -2818,213 +2818,124 @@ void func0f14e1c4(struct var8007f8e0 *arg0)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f14e4ac
-/*  f14e4ac:	27bdff58 */ 	addiu	$sp,$sp,-168
-/*  f14e4b0:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f14e4b4:	afa400a8 */ 	sw	$a0,0xa8($sp)
-/*  f14e4b8:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f14e4bc:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f14e4c0:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f14e4c4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f14e4c8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f14e4cc:	afa500ac */ 	sw	$a1,0xac($sp)
-/*  f14e4d0:	afa600b0 */ 	sw	$a2,0xb0($sp)
-/*  f14e4d4:	0fc5281b */ 	jal	func0f14a06c
-/*  f14e4d8:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14e4dc:	27a40098 */ 	addiu	$a0,$sp,0x98
-/*  f14e4e0:	27a50094 */ 	addiu	$a1,$sp,0x94
-/*  f14e4e4:	27a60090 */ 	addiu	$a2,$sp,0x90
-/*  f14e4e8:	27a7008c */ 	addiu	$a3,$sp,0x8c
-/*  f14e4ec:	0fc53b36 */ 	jal	func0f14ecd8
-/*  f14e4f0:	afa200a4 */ 	sw	$v0,0xa4($sp)
-/*  f14e4f4:	8fa700ac */ 	lw	$a3,0xac($sp)
-/*  f14e4f8:	44807000 */ 	mtc1	$zero,$f14
-/*  f14e4fc:	8fad00a4 */ 	lw	$t5,0xa4($sp)
-/*  f14e500:	10e00002 */ 	beqz	$a3,.L0f14e50c
-/*  f14e504:	00005825 */ 	or	$t3,$zero,$zero
-/*  f14e508:	ace00000 */ 	sw	$zero,0x0($a3)
-.L0f14e50c:
-/*  f14e50c:	8fa600b0 */ 	lw	$a2,0xb0($sp)
-/*  f14e510:	00004025 */ 	or	$t0,$zero,$zero
-/*  f14e514:	00004825 */ 	or	$t1,$zero,$zero
-/*  f14e518:	10c00002 */ 	beqz	$a2,.L0f14e524
-/*  f14e51c:	46007086 */ 	mov.s	$f2,$f14
-/*  f14e520:	acc00000 */ 	sw	$zero,0x0($a2)
-.L0f14e524:
-/*  f14e524:	8fa40090 */ 	lw	$a0,0x90($sp)
-/*  f14e528:	8fa50098 */ 	lw	$a1,0x98($sp)
-/*  f14e52c:	46007306 */ 	mov.s	$f12,$f14
-/*  f14e530:	00851823 */ 	subu	$v1,$a0,$a1
-/*  f14e534:	28610020 */ 	slti	$at,$v1,0x20
-/*  f14e538:	10200009 */ 	beqz	$at,.L0f14e560
-/*  f14e53c:	00857821 */ 	addu	$t7,$a0,$a1
-/*  f14e540:	00851021 */ 	addu	$v0,$a0,$a1
-/*  f14e544:	00027043 */ 	sra	$t6,$v0,0x1
-/*  f14e548:	25d3fff0 */ 	addiu	$s3,$t6,-16
-/*  f14e54c:	06610002 */ 	bgez	$s3,.L0f14e558
-/*  f14e550:	00000000 */ 	nop
-/*  f14e554:	00009825 */ 	or	$s3,$zero,$zero
-.L0f14e558:
-/*  f14e558:	10000005 */ 	b	.L0f14e570
-/*  f14e55c:	26740020 */ 	addiu	$s4,$s3,0x20
-.L0f14e560:
-/*  f14e560:	000fc043 */ 	sra	$t8,$t7,0x1
-/*  f14e564:	0003c843 */ 	sra	$t9,$v1,0x1
-/*  f14e568:	03199823 */ 	subu	$s3,$t8,$t9
-/*  f14e56c:	0263a021 */ 	addu	$s4,$s3,$v1
-.L0f14e570:
-/*  f14e570:	8fa4008c */ 	lw	$a0,0x8c($sp)
-/*  f14e574:	8fa50094 */ 	lw	$a1,0x94($sp)
-/*  f14e578:	02938823 */ 	subu	$s1,$s4,$s3
-/*  f14e57c:	00851823 */ 	subu	$v1,$a0,$a1
-/*  f14e580:	28610020 */ 	slti	$at,$v1,0x20
-/*  f14e584:	10200009 */ 	beqz	$at,.L0f14e5ac
-/*  f14e588:	00857821 */ 	addu	$t7,$a0,$a1
-/*  f14e58c:	00851021 */ 	addu	$v0,$a0,$a1
-/*  f14e590:	00027043 */ 	sra	$t6,$v0,0x1
-/*  f14e594:	25d0fff0 */ 	addiu	$s0,$t6,-16
-/*  f14e598:	06010002 */ 	bgez	$s0,.L0f14e5a4
-/*  f14e59c:	00000000 */ 	nop
-/*  f14e5a0:	00008025 */ 	or	$s0,$zero,$zero
-.L0f14e5a4:
-/*  f14e5a4:	10000005 */ 	b	.L0f14e5bc
-/*  f14e5a8:	261f0020 */ 	addiu	$ra,$s0,0x20
-.L0f14e5ac:
-/*  f14e5ac:	000fc043 */ 	sra	$t8,$t7,0x1
-/*  f14e5b0:	0003c843 */ 	sra	$t9,$v1,0x1
-/*  f14e5b4:	03198023 */ 	subu	$s0,$t8,$t9
-/*  f14e5b8:	0203f821 */ 	addu	$ra,$s0,$v1
-.L0f14e5bc:
-/*  f14e5bc:	03f01023 */ 	subu	$v0,$ra,$s0
-/*  f14e5c0:	00117043 */ 	sra	$t6,$s1,0x1
-/*  f14e5c4:	00029043 */ 	sra	$s2,$v0,0x1
-/*  f14e5c8:	01c08825 */ 	or	$s1,$t6,$zero
-/*  f14e5cc:	1a40003e */ 	blez	$s2,.L0f14e6c8
-/*  f14e5d0:	01c05025 */ 	or	$t2,$t6,$zero
-/*  f14e5d4:	25ccfff0 */ 	addiu	$t4,$t6,-16
-.L0f14e5d8:
-/*  f14e5d8:	05810002 */ 	bgez	$t4,.L0f14e5e4
-/*  f14e5dc:	01801825 */ 	or	$v1,$t4,$zero
-/*  f14e5e0:	00001825 */ 	or	$v1,$zero,$zero
-.L0f14e5e4:
-/*  f14e5e4:	0071082a */ 	slt	$at,$v1,$s1
-/*  f14e5e8:	10200033 */ 	beqz	$at,.L0f14e6b8
-/*  f14e5ec:	00601025 */ 	or	$v0,$v1,$zero
-/*  f14e5f0:	02741821 */ 	addu	$v1,$s3,$s4
-/*  f14e5f4:	021f2021 */ 	addu	$a0,$s0,$ra
-/*  f14e5f8:	8dae001c */ 	lw	$t6,0x1c($t5)
-/*  f14e5fc:	0004c843 */ 	sra	$t9,$a0,0x1
-/*  f14e600:	0003c043 */ 	sra	$t8,$v1,0x1
-/*  f14e604:	03001825 */ 	or	$v1,$t8,$zero
-/*  f14e608:	032b7823 */ 	subu	$t7,$t9,$t3
-/*  f14e60c:	000fc180 */ 	sll	$t8,$t7,0x6
-/*  f14e610:	03202025 */ 	or	$a0,$t9,$zero
-/*  f14e614:	01d8c821 */ 	addu	$t9,$t6,$t8
-/*  f14e618:	01c07825 */ 	or	$t7,$t6,$zero
-/*  f14e61c:	008b7021 */ 	addu	$t6,$a0,$t3
-/*  f14e620:	000ec180 */ 	sll	$t8,$t6,0x6
-/*  f14e624:	03233021 */ 	addu	$a2,$t9,$v1
-/*  f14e628:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f14e62c:	03233821 */ 	addu	$a3,$t9,$v1
-/*  f14e630:	00c27023 */ 	subu	$t6,$a2,$v0
-.L0f14e634:
-/*  f14e634:	91c30000 */ 	lbu	$v1,0x0($t6)
-/*  f14e638:	00e27821 */ 	addu	$t7,$a3,$v0
-/*  f14e63c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f14e640:	28610015 */ 	slti	$at,$v1,0x15
-/*  f14e644:	1420001a */ 	bnez	$at,.L0f14e6b0
-/*  f14e648:	91e40000 */ 	lbu	$a0,0x0($t7)
-/*  f14e64c:	286100c8 */ 	slti	$at,$v1,0xc8
-/*  f14e650:	10200017 */ 	beqz	$at,.L0f14e6b0
-/*  f14e654:	28810015 */ 	slti	$at,$a0,0x15
-/*  f14e658:	14200015 */ 	bnez	$at,.L0f14e6b0
-/*  f14e65c:	288100c8 */ 	slti	$at,$a0,0xc8
-/*  f14e660:	10200013 */ 	beqz	$at,.L0f14e6b0
-/*  f14e664:	00000000 */ 	nop
-/*  f14e668:	44832000 */ 	mtc1	$v1,$f4
-/*  f14e66c:	44845000 */ 	mtc1	$a0,$f10
-/*  f14e670:	04610005 */ 	bgez	$v1,.L0f14e688
-/*  f14e674:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f14e678:	3c014f80 */ 	lui	$at,0x4f80
-/*  f14e67c:	44814000 */ 	mtc1	$at,$f8
-/*  f14e680:	00000000 */ 	nop
-/*  f14e684:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f14e688:
-/*  f14e688:	46061080 */ 	add.s	$f2,$f2,$f6
-/*  f14e68c:	25080001 */ 	addiu	$t0,$t0,0x1
-/*  f14e690:	04810005 */ 	bgez	$a0,.L0f14e6a8
-/*  f14e694:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f14e698:	3c014f80 */ 	lui	$at,0x4f80
-/*  f14e69c:	44819000 */ 	mtc1	$at,$f18
-/*  f14e6a0:	00000000 */ 	nop
-/*  f14e6a4:	46128400 */ 	add.s	$f16,$f16,$f18
-.L0f14e6a8:
-/*  f14e6a8:	46106300 */ 	add.s	$f12,$f12,$f16
-/*  f14e6ac:	25290001 */ 	addiu	$t1,$t1,0x1
-.L0f14e6b0:
-/*  f14e6b0:	544affe0 */ 	bnel	$v0,$t2,.L0f14e634
-/*  f14e6b4:	00c27023 */ 	subu	$t6,$a2,$v0
-.L0f14e6b8:
-/*  f14e6b8:	256b0001 */ 	addiu	$t3,$t3,0x1
-/*  f14e6bc:	0172082a */ 	slt	$at,$t3,$s2
-/*  f14e6c0:	1420ffc5 */ 	bnez	$at,.L0f14e5d8
-/*  f14e6c4:	00000000 */ 	nop
-.L0f14e6c8:
-/*  f14e6c8:	51000029 */ 	beqzl	$t0,.L0f14e770
-/*  f14e6cc:	46007006 */ 	mov.s	$f0,$f14
-/*  f14e6d0:	51200027 */ 	beqzl	$t1,.L0f14e770
-/*  f14e6d4:	46007006 */ 	mov.s	$f0,$f14
-/*  f14e6d8:	44882000 */ 	mtc1	$t0,$f4
-/*  f14e6dc:	44895000 */ 	mtc1	$t1,$f10
-/*  f14e6e0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f14e6e4:	46802220 */ 	cvt.s.w	$f8,$f4
-/*  f14e6e8:	44810000 */ 	mtc1	$at,$f0
-/*  f14e6ec:	8fb800ac */ 	lw	$t8,0xac($sp)
-/*  f14e6f0:	0274c821 */ 	addu	$t9,$s3,$s4
-/*  f14e6f4:	00197043 */ 	sra	$t6,$t9,0x1
-/*  f14e6f8:	468054a0 */ 	cvt.s.w	$f18,$f10
-/*  f14e6fc:	3c013f00 */ 	lui	$at,0x3f00
-/*  f14e700:	46080183 */ 	div.s	$f6,$f0,$f8
-/*  f14e704:	46120403 */ 	div.s	$f16,$f0,$f18
-/*  f14e708:	46061082 */ 	mul.s	$f2,$f2,$f6
-/*  f14e70c:	00000000 */ 	nop
-/*  f14e710:	46106302 */ 	mul.s	$f12,$f12,$f16
-/*  f14e714:	13000002 */ 	beqz	$t8,.L0f14e720
-/*  f14e718:	00000000 */ 	nop
-/*  f14e71c:	af0e0000 */ 	sw	$t6,0x0($t8)
-.L0f14e720:
-/*  f14e720:	460c1100 */ 	add.s	$f4,$f2,$f12
-/*  f14e724:	44814000 */ 	mtc1	$at,$f8
-/*  f14e728:	8faf00b0 */ 	lw	$t7,0xb0($sp)
-/*  f14e72c:	46082182 */ 	mul.s	$f6,$f4,$f8
-/*  f14e730:	51e00003 */ 	beqzl	$t7,.L0f14e740
-/*  f14e734:	46023001 */ 	sub.s	$f0,$f6,$f2
-/*  f14e738:	adf10000 */ 	sw	$s1,0x0($t7)
-/*  f14e73c:	46023001 */ 	sub.s	$f0,$f6,$f2
-.L0f14e740:
-/*  f14e740:	8faf00a8 */ 	lw	$t7,0xa8($sp)
-/*  f14e744:	3c188008 */ 	lui	$t8,%hi(var8007f8dc)
-/*  f14e748:	8f18f8dc */ 	lw	$t8,%lo(var8007f8dc)($t8)
-/*  f14e74c:	4600028d */ 	trunc.w.s	$f10,$f0
-/*  f14e750:	000fc980 */ 	sll	$t9,$t7,0x6
-/*  f14e754:	032fc821 */ 	addu	$t9,$t9,$t7
-/*  f14e758:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f14e75c:	440e5000 */ 	mfc1	$t6,$f10
-/*  f14e760:	03197821 */ 	addu	$t7,$t8,$t9
-/*  f14e764:	10000002 */ 	b	.L0f14e770
-/*  f14e768:	adee0090 */ 	sw	$t6,0x90($t7)
-/*  f14e76c:	46007006 */ 	mov.s	$f0,$f14
-.L0f14e770:
-/*  f14e770:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f14e774:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f14e778:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f14e77c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f14e780:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f14e784:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f14e788:	03e00008 */ 	jr	$ra
-/*  f14e78c:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
-);
+f32 func0f14e4ac(s32 arg0, s32 *arg1, s32 *arg2)
+{
+	struct var8007f8e0 *spa4 = func0f14a06c(-1);
+	s32 i;
+	s32 j;
+	s32 sp98;
+	s32 sp94;
+	s32 sp90;
+	s32 sp8c;
+	s32 range;
+	s32 count1;
+	s32 count2;
+	f32 sum1;
+	f32 sum2;
+	s32 avg1;
+	s32 avg2;
+	s32 upper1;
+	s32 upper2;
+	s32 lower1;
+	s32 lower2;
+	s32 halfdiff1;
+	s32 halfdiff2;
+	f32 result;
+
+	func0f14ecd8(&sp98, &sp94, &sp90, &sp8c);
+
+	if (arg1 != NULL) {
+		*arg1 = 0;
+	}
+
+	count1 = 0;
+	count2 = 0;
+	sum1 = 0.0f;
+
+	if (arg2 != NULL) {
+		*arg2 = 0;
+	}
+
+	sum2 = 0.0f;
+	range = sp90 - sp98;
+
+	if (range < 32) {
+		lower1 = ((sp90 + sp98) >> 1) - 16;
+
+		if (lower1 < 0) {
+			lower1 = 0;
+		}
+
+		upper1 = lower1 + 32;
+	} else {
+		lower1 = ((sp90 + sp98) >> 1) - (range >> 1);
+		upper1 = lower1 + range;
+	}
+
+	range = sp8c - sp94;
+
+	if (range < 32) {
+		lower2 = ((sp8c + sp94) >> 1) - 16;
+
+		if (lower2 < 0) {
+			lower2 = 0;
+		}
+
+		upper2 = lower2 + 32;
+	} else {
+		lower2 = ((sp8c + sp94) >> 1) - (range >> 1);
+		upper2 = lower2 + range;
+	}
+
+	halfdiff1 = (upper1 - lower1) >> 1;
+	halfdiff2 = (upper2 - lower2) >> 1;
+
+	for (i = 0; i < halfdiff2; i++) {
+		s32 start = halfdiff1 - 16;
+
+		if (start < 0) {
+			start = 0;
+		}
+
+		avg1 = (lower1 + upper1) >> 1;
+		avg2 = (lower2 + upper2) >> 1;
+
+		for (j = start; j < halfdiff1; j++) {
+			u8 value1 = spa4->unk01c[(avg2 - i) * 64 + avg1 - j];
+			u8 value2 = spa4->unk01c[(avg2 + i) * 64 + avg1 + j];
+
+			if (value1 >= 21 && value1 < 200 && value2 >= 21 && value2 < 200) {
+				sum1 += value1;
+				sum2 += value2;
+				count1++;
+				count2++;
+			}
+		}
+	}
+
+	if (count1 != 0 && count2 != 0) {
+		sum1 *= 1.0f / count1;
+		sum2 *= 1.0f / count2;
+
+		if (arg1 != NULL) {
+			*arg1 = (lower1 + upper1) >> 1;
+		}
+
+		if (arg2 != NULL) {
+			*arg2 = halfdiff1;
+		}
+
+		result = (sum1 + sum2) * 0.5f - sum1;
+
+		if (1);
+
+		var8007f8dc[arg0].unk090 = result;
+
+		return result;
+	}
+
+	return 0.0f;
+}
 
 void func0f14e790(u8 *arg0)
 {
