@@ -994,181 +994,79 @@ void func0f14aed8(void)
 	// empty
 }
 
-const char var7f1b66ec[] = "camdraw.c";
-const char var7f1b66f8[] = "camdraw.c";
-const char var7f1b6704[] = "camdraw.c";
-const char var7f1b6710[] = "camdraw.c";
-const char var7f1b671c[] = "camdraw.c";
+void func0f14aee0(void)
+{
+	s32 i;
+	s32 j;
+
+	if (var800a45a0->unk484 == NULL) {
+		struct textureconfig tconfig;
+		u8 *ptr;
+		s32 texturesize;
+		s32 count = 33;
+		s32 totalsize;
+		u32 stack[2];
+
+		func0f14c7dc(&tconfig);
+
+		texturesize = align32(func0f14c814(&tconfig));
+
+		totalsize = align16(sizeof(struct textureconfig) * count);
+		totalsize += align16(texturesize * count);
+
+		ptr = mempAlloc(totalsize, MEMPOOL_STAGE);
+
+		var800a45a0->unk484 = (struct textureconfig *)ptr;
+		ptr += sizeof(struct textureconfig) * count;
+
+		for (i = 0; i < count; i++) {
+			func0f14c7dc(&var800a45a0->unk484[i]);
+			var800a45a0->unk484[i].textureptr = ptr;
+			ptr += texturesize;
+		}
+
+		for (i = 0; i < count; i++) {
+			func0f149c90(&var800a45a0->unk484[i]);
+		}
+
+		var800a45a0->unk488 = var800a45a0->unk484 + 32;
+	}
+
+	var800a45a0->unk37c = 0;
+
+	var800a45a0->unk470 = func0f149d58(0x4000, 1915, "camdraw.c");
+	var800a45a0->unk474 = func0f149d58(0x10000, 1916, "camdraw.c");
+	var800a45a0->unk478 = func0f149d58(0x10000, 1917, "camdraw.c");
+	var800a45a0->unk47c = func0f149d58(0x78, 1918, "camdraw.c");
+	var800a45a0->unk480 = func0f149d58(0x1000, 1919, "camdraw.c");
+
+	for (i = 0; i < 4; i++) {
+		struct var8007f8dc *thing = &var8007f8dc[i];
+		thing->unk0dc = (u32 *)var800a45a0->unk47c;
+		thing->unk0d8 = var800a45a0->unk480;
+		thing->unk07c = -1;
+		thing->unk078 = 0;
+
+		pak0f117150(i, thing->unk0d8);
+		pak0f1171b4(SAVEDEVICE_CONTROLLERPAK1, 3, 0);
+		func0f14aed0(i);
+
+		thing->unk094 = 0;
+
+		for (j = 0; j < ARRAYCOUNT(thing->unk098); j++) {
+			thing->unk098[j] = 0xff;
+			thing->unk0b6[j] = 0xff;
+		}
+	}
+
+	func0f14a594(0);
+}
+
 const char var7f1b6728[] = "Camera -> Cam_Start for Camera %d\n";
 const char var7f1b674c[] = "Camera -> Cam_Stop\n";
 const char var7f1b6760[] = "Camera -> Cam_Finish - Done\n";
 const char var7f1b6780[] = "Camera ->Created a new slot - Id=%d\n";
 const char var7f1b67a8[] = "Camera -> CD_DeleteSlot - Dumping slot %d\n";
-
-GLOBAL_ASM(
-glabel func0f14aee0
-/*  f14aee0:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f14aee4:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f14aee8:	3c15800a */ 	lui	$s5,%hi(var800a45a0)
-/*  f14aeec:	26b545a0 */ 	addiu	$s5,$s5,%lo(var800a45a0)
-/*  f14aef0:	8ea20000 */ 	lw	$v0,0x0($s5)
-/*  f14aef4:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f14aef8:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f14aefc:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f14af00:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f14af04:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f14af08:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f14af0c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f14af10:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f14af14:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f14af18:	8c4e0484 */ 	lw	$t6,0x484($v0)
-/*  f14af1c:	27b0006c */ 	addiu	$s0,$sp,0x6c
-/*  f14af20:	24120021 */ 	addiu	$s2,$zero,0x21
-/*  f14af24:	15c00030 */ 	bnez	$t6,.L0f14afe8
-/*  f14af28:	00000000 */ 	nop
-/*  f14af2c:	0fc531f7 */ 	jal	func0f14c7dc
-/*  f14af30:	02002025 */ 	or	$a0,$s0,$zero
-/*  f14af34:	0fc53205 */ 	jal	func0f14c814
-/*  f14af38:	02002025 */ 	or	$a0,$s0,$zero
-/*  f14af3c:	0fc5db70 */ 	jal	align32
-/*  f14af40:	00402025 */ 	or	$a0,$v0,$zero
-/*  f14af44:	0040a025 */ 	or	$s4,$v0,$zero
-/*  f14af48:	0fc5db69 */ 	jal	align16
-/*  f14af4c:	2404018c */ 	addiu	$a0,$zero,0x18c
-/*  f14af50:	00142140 */ 	sll	$a0,$s4,0x5
-/*  f14af54:	00408025 */ 	or	$s0,$v0,$zero
-/*  f14af58:	0fc5db69 */ 	jal	align16
-/*  f14af5c:	00942021 */ 	addu	$a0,$a0,$s4
-/*  f14af60:	02022021 */ 	addu	$a0,$s0,$v0
-/*  f14af64:	0c0048f2 */ 	jal	mempAlloc
-/*  f14af68:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f14af6c:	8eaf0000 */ 	lw	$t7,0x0($s5)
-/*  f14af70:	2451018c */ 	addiu	$s1,$v0,0x18c
-/*  f14af74:	00009825 */ 	or	$s3,$zero,$zero
-/*  f14af78:	00008025 */ 	or	$s0,$zero,$zero
-/*  f14af7c:	ade20484 */ 	sw	$v0,0x484($t7)
-.L0f14af80:
-/*  f14af80:	8eb80000 */ 	lw	$t8,0x0($s5)
-/*  f14af84:	8f190484 */ 	lw	$t9,0x484($t8)
-/*  f14af88:	0fc531f7 */ 	jal	func0f14c7dc
-/*  f14af8c:	03302021 */ 	addu	$a0,$t9,$s0
-/*  f14af90:	8ea80000 */ 	lw	$t0,0x0($s5)
-/*  f14af94:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f14af98:	8d090484 */ 	lw	$t1,0x484($t0)
-/*  f14af9c:	01305021 */ 	addu	$t2,$t1,$s0
-/*  f14afa0:	ad510000 */ 	sw	$s1,0x0($t2)
-/*  f14afa4:	2610000c */ 	addiu	$s0,$s0,0xc
-/*  f14afa8:	1672fff5 */ 	bne	$s3,$s2,.L0f14af80
-/*  f14afac:	02348821 */ 	addu	$s1,$s1,$s4
-/*  f14afb0:	00009825 */ 	or	$s3,$zero,$zero
-/*  f14afb4:	00008025 */ 	or	$s0,$zero,$zero
-.L0f14afb8:
-/*  f14afb8:	8eab0000 */ 	lw	$t3,0x0($s5)
-/*  f14afbc:	8d6c0484 */ 	lw	$t4,0x484($t3)
-/*  f14afc0:	0fc52724 */ 	jal	func0f149c90
-/*  f14afc4:	01902021 */ 	addu	$a0,$t4,$s0
-/*  f14afc8:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f14afcc:	1672fffa */ 	bne	$s3,$s2,.L0f14afb8
-/*  f14afd0:	2610000c */ 	addiu	$s0,$s0,0xc
-/*  f14afd4:	8ea20000 */ 	lw	$v0,0x0($s5)
-/*  f14afd8:	8c4d0484 */ 	lw	$t5,0x484($v0)
-/*  f14afdc:	25ae0180 */ 	addiu	$t6,$t5,0x180
-/*  f14afe0:	ac4e0488 */ 	sw	$t6,0x488($v0)
-/*  f14afe4:	8ea20000 */ 	lw	$v0,0x0($s5)
-.L0f14afe8:
-/*  f14afe8:	3c067f1b */ 	lui	$a2,%hi(var7f1b66ec)
-/*  f14afec:	ac40037c */ 	sw	$zero,0x37c($v0)
-/*  f14aff0:	24c666ec */ 	addiu	$a2,$a2,%lo(var7f1b66ec)
-/*  f14aff4:	24044000 */ 	addiu	$a0,$zero,0x4000
-/*  f14aff8:	2405077b */ 	addiu	$a1,$zero,0x77b
-/*  f14affc:	0fc52756 */ 	jal	func0f149d58
-/*  f14b000:	00009825 */ 	or	$s3,$zero,$zero
-/*  f14b004:	8eaf0000 */ 	lw	$t7,0x0($s5)
-/*  f14b008:	3c100001 */ 	lui	$s0,0x1
-/*  f14b00c:	3c067f1b */ 	lui	$a2,%hi(var7f1b66f8)
-/*  f14b010:	24c666f8 */ 	addiu	$a2,$a2,%lo(var7f1b66f8)
-/*  f14b014:	02002025 */ 	or	$a0,$s0,$zero
-/*  f14b018:	2405077c */ 	addiu	$a1,$zero,0x77c
-/*  f14b01c:	0fc52756 */ 	jal	func0f149d58
-/*  f14b020:	ade20470 */ 	sw	$v0,0x470($t7)
-/*  f14b024:	8eb80000 */ 	lw	$t8,0x0($s5)
-/*  f14b028:	3c067f1b */ 	lui	$a2,%hi(var7f1b6704)
-/*  f14b02c:	24c66704 */ 	addiu	$a2,$a2,%lo(var7f1b6704)
-/*  f14b030:	02002025 */ 	or	$a0,$s0,$zero
-/*  f14b034:	2405077d */ 	addiu	$a1,$zero,0x77d
-/*  f14b038:	0fc52756 */ 	jal	func0f149d58
-/*  f14b03c:	af020474 */ 	sw	$v0,0x474($t8)
-/*  f14b040:	8eb90000 */ 	lw	$t9,0x0($s5)
-/*  f14b044:	3c067f1b */ 	lui	$a2,%hi(var7f1b6710)
-/*  f14b048:	24c66710 */ 	addiu	$a2,$a2,%lo(var7f1b6710)
-/*  f14b04c:	24040078 */ 	addiu	$a0,$zero,0x78
-/*  f14b050:	2405077e */ 	addiu	$a1,$zero,0x77e
-/*  f14b054:	0fc52756 */ 	jal	func0f149d58
-/*  f14b058:	af220478 */ 	sw	$v0,0x478($t9)
-/*  f14b05c:	8ea80000 */ 	lw	$t0,0x0($s5)
-/*  f14b060:	3c067f1b */ 	lui	$a2,%hi(var7f1b671c)
-/*  f14b064:	24c6671c */ 	addiu	$a2,$a2,%lo(var7f1b671c)
-/*  f14b068:	24041000 */ 	addiu	$a0,$zero,0x1000
-/*  f14b06c:	2405077f */ 	addiu	$a1,$zero,0x77f
-/*  f14b070:	0fc52756 */ 	jal	func0f149d58
-/*  f14b074:	ad02047c */ 	sw	$v0,0x47c($t0)
-/*  f14b078:	8ea90000 */ 	lw	$t1,0x0($s5)
-/*  f14b07c:	3c168008 */ 	lui	$s6,%hi(var8007f8dc)
-/*  f14b080:	26d6f8dc */ 	addiu	$s6,$s6,%lo(var8007f8dc)
-/*  f14b084:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f14b088:	241e0004 */ 	addiu	$s8,$zero,0x4
-/*  f14b08c:	2417ffff */ 	addiu	$s7,$zero,-1
-/*  f14b090:	2412001e */ 	addiu	$s2,$zero,0x1e
-/*  f14b094:	241000ff */ 	addiu	$s0,$zero,0xff
-/*  f14b098:	ad220480 */ 	sw	$v0,0x480($t1)
-.L0f14b09c:
-/*  f14b09c:	8eab0000 */ 	lw	$t3,0x0($s5)
-/*  f14b0a0:	8eca0000 */ 	lw	$t2,0x0($s6)
-/*  f14b0a4:	00132600 */ 	sll	$a0,$s3,0x18
-/*  f14b0a8:	8d6c047c */ 	lw	$t4,0x47c($t3)
-/*  f14b0ac:	028a8821 */ 	addu	$s1,$s4,$t2
-/*  f14b0b0:	00047e03 */ 	sra	$t7,$a0,0x18
-/*  f14b0b4:	ae2c00dc */ 	sw	$t4,0xdc($s1)
-/*  f14b0b8:	8ead0000 */ 	lw	$t5,0x0($s5)
-/*  f14b0bc:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f14b0c0:	8da50480 */ 	lw	$a1,0x480($t5)
-/*  f14b0c4:	ae37007c */ 	sw	$s7,0x7c($s1)
-/*  f14b0c8:	ae200078 */ 	sw	$zero,0x78($s1)
-/*  f14b0cc:	0fc45c54 */ 	jal	pak0f117150
-/*  f14b0d0:	ae2500d8 */ 	sw	$a1,0xd8($s1)
-/*  f14b0d4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f14b0d8:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f14b0dc:	0fc45c6d */ 	jal	pak0f1171b4
-/*  f14b0e0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f14b0e4:	0fc52bb4 */ 	jal	func0f14aed0
-/*  f14b0e8:	02602025 */ 	or	$a0,$s3,$zero
-/*  f14b0ec:	ae200094 */ 	sw	$zero,0x94($s1)
-/*  f14b0f0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f14b0f4:	02201025 */ 	or	$v0,$s1,$zero
-.L0f14b0f8:
-/*  f14b0f8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f14b0fc:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f14b100:	a0500097 */ 	sb	$s0,0x97($v0)
-/*  f14b104:	1472fffc */ 	bne	$v1,$s2,.L0f14b0f8
-/*  f14b108:	a05000b5 */ 	sb	$s0,0xb5($v0)
-/*  f14b10c:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f14b110:	167effe2 */ 	bne	$s3,$s8,.L0f14b09c
-/*  f14b114:	26940104 */ 	addiu	$s4,$s4,0x104
-/*  f14b118:	0fc52965 */ 	jal	func0f14a594
-/*  f14b11c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f14b120:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f14b124:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f14b128:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f14b12c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f14b130:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f14b134:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f14b138:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f14b13c:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f14b140:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f14b144:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f14b148:	03e00008 */ 	jr	$ra
-/*  f14b14c:	27bd0080 */ 	addiu	$sp,$sp,0x80
-);
 
 void func0f14b150(void)
 {
@@ -1191,7 +1089,7 @@ void func0f14b178(void)
 		struct var8007f8dc *thing = &var8007f8dc[i];
 
 		thing->unk0d4_03 = false;
-		thing->unk0dc = 0;
+		thing->unk0dc = NULL;
 		thing->unk0d8 = 0;
 	}
 }
@@ -1535,7 +1433,7 @@ void func0f14bdbc(s32 index)
 	s32 value;
 
 	for (i = 0; i < 30; i++) {
-		thing->unk0dc[i] = 0;
+		thing->unk0dc[i] = NULL;
 	}
 
 	thing->unk094 = 0;

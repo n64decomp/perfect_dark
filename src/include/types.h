@@ -6197,7 +6197,7 @@ struct var8007f8dc {
 	/*0x070*/ u32 unk070;
 	/*0x074*/ s32 unk074;
 	/*0x078*/ u32 unk078;
-	/*0x07c*/ u32 unk07c;
+	/*0x07c*/ s32 unk07c;
 	/*0x080*/ s32 unk080;
 	/*0x084*/ u32 unk084;
 	/*0x088*/ s32 unk088;
@@ -6211,7 +6211,7 @@ struct var8007f8dc {
 	/*0x0d4*/ u8 unk0d4_02 : 1;
 	/*0x0d4*/ u8 unk0d4_03 : 1;
 	/*0x0d4*/ u8 unk0d4_04 : 1;
-	/*0x0d8*/ u32 unk0d8;
+	/*0x0d8*/ void *unk0d8;
 	/*0x0dc*/ u32 *unk0dc;
 	/*0x0e0*/ u32 unk0e0;
 	/*0x0e4*/ u32 unk0e4;
