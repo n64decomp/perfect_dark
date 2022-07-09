@@ -3862,91 +3862,36 @@ void func0f150068(struct var8007f8e0 *arg0, s32 arg1)
 	arg0->unk034 = arg0->unk02c / 8;
 }
 
-GLOBAL_ASM(
-glabel func0f15015c
-/*  f15015c:	27bdfb20 */ 	addiu	$sp,$sp,-1248
-/*  f150160:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f150164:	afa404e0 */ 	sw	$a0,0x4e0($sp)
-/*  f150168:	afa604e8 */ 	sw	$a2,0x4e8($sp)
-/*  f15016c:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f150170:	000e2603 */ 	sra	$a0,$t6,0x18
-/*  f150174:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f150178:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f15017c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f150180:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f150184:	0fc45a00 */ 	jal	pakReadBodyAtGuid
-/*  f150188:	24070080 */ 	addiu	$a3,$zero,0x80
-/*  f15018c:	1440000b */ 	bnez	$v0,.L0f1501bc
-/*  f150190:	8fa504e8 */ 	lw	$a1,0x4e8($sp)
-/*  f150194:	00a01825 */ 	or	$v1,$a1,$zero
-/*  f150198:	27a20040 */ 	addiu	$v0,$sp,0x40
-/*  f15019c:	27a400c0 */ 	addiu	$a0,$sp,0xc0
-.L0f1501a0:
-/*  f1501a0:	90580000 */ 	lbu	$t8,0x0($v0)
-/*  f1501a4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f1501a8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f1501ac:	1444fffc */ 	bne	$v0,$a0,.L0f1501a0
-/*  f1501b0:	a078ffff */ 	sb	$t8,-0x1($v1)
-/*  f1501b4:	10000010 */ 	b	.L0f1501f8
-/*  f1501b8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1501bc:
-/*  f1501bc:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f1501c0:	1441000c */ 	bne	$v0,$at,.L0f1501f4
-/*  f1501c4:	24120080 */ 	addiu	$s2,$zero,0x80
-/*  f1501c8:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1501cc:	00a08825 */ 	or	$s1,$a1,$zero
-.L0f1501d0:
-/*  f1501d0:	0c004b70 */ 	jal	random
-/*  f1501d4:	00000000 */ 	nop
-/*  f1501d8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1501dc:	0212082a */ 	slt	$at,$s0,$s2
-/*  f1501e0:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f1501e4:	1420fffa */ 	bnez	$at,.L0f1501d0
-/*  f1501e8:	a222ffff */ 	sb	$v0,-0x1($s1)
-/*  f1501ec:	10000002 */ 	b	.L0f1501f8
-/*  f1501f0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1501f4:
-/*  f1501f4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1501f8:
-/*  f1501f8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1501fc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f150200:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f150204:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f150208:	03e00008 */ 	jr	$ra
-/*  f15020c:	27bd04e0 */ 	addiu	$sp,$sp,0x4e0
-);
+bool func0f15015c(s8 device, s32 filenum, u8 *arg2)
+{
+	u8 stack[0x420];
+	u8 buffer[128];
+	s32 ret;
+	s32 i;
 
-// Mismatch: Goal stores arg2 to the stack then loads it after the call to
-// pakReadBodyAtGuid. The below stores it in s2.
-//bool func0f15015c(s8 device, s32 filenum, u8 *arg2)
-//{
-//	u8 stack[0x420];
-//	u8 buffer[128];
-//	s32 ret;
-//	s32 i;
-//
-//	ret = pakReadBodyAtGuid(device, filenum, buffer, 128);
-//
-//	if (ret == 0) {
-//		for (i = 0; i < 128; i++) {
-//			arg2[i] = buffer[i];
-//		}
-//
-//		return true;
-//	}
-//
-//	if (ret == 10) {
-//		s32 i;
-//
-//		for (i = 0; i < 128; i++) {
-//			arg2[i] = random();
-//		}
-//
-//		return true;
-//	}
-//
-//	return false;
-//}
+	ret = pakReadBodyAtGuid(device, filenum, buffer, 128);
+
+	if (ret == 0) {
+		for (i = 0; i < sizeof(buffer); i++) {
+			arg2[i] = buffer[i];
+		}
+
+		return true;
+	}
+
+	if (ret == 10) {
+		s32 i;
+		s32 size = 128;
+
+		for (i = 0; i < size; i++) {
+			arg2[i] = random();
+		}
+
+		return true;
+	}
+
+	return false;
+}
 
 bool pheadLoadFile(s8 device, s32 fileid, u16 serial, s32 arg3)
 {
