@@ -22,8 +22,7 @@
 
 struct camerafile {
 	u8 unk00[128];
-	u8 unk80;
-	u8 unk81;
+	u16 unk80;
 	u16 unk82;
 	u16 unk84;
 	u8 unk86;
@@ -3972,7 +3971,7 @@ const char var7f1b72ac[] = "Camera Save Error Result: %d\n";
 const char var7f1b72cc[] = "Magic Guid set to %d\n";
 
 GLOBAL_ASM(
-glabel func0f150468
+glabel pheadSaveFile
 /*  f150468:	27bdeb08 */ 	addiu	$sp,$sp,-5368
 /*  f15046c:	afb0001c */ 	sw	$s0,0x1c($sp)
 /*  f150470:	00048600 */ 	sll	$s0,$a0,0x18
@@ -4201,6 +4200,106 @@ glabel func0f150468
 /*  f1507ac:	03e00008 */ 	jr	$ra
 /*  f1507b0:	27bd14f8 */ 	addiu	$sp,$sp,0x14f8
 );
+
+// Mismatch: Regalloc
+//s32 pheadSaveFile(s8 device, s32 fileid, u16 serial)
+//{
+//	u32 stack[2];
+//	struct camerafile file; // 1050
+//	struct var8007f8e0 *thing = func0f14a06c(-1);
+//	s32 ret;
+//	s32 writtenfileid; // 1044
+//	u8 sp44[0x1000];
+//	s32 i;
+//
+//	if (!thing->unk3f4_03) {
+//		thing->unk036 = 1;
+//		thing->unk024 = sp44;
+//
+//		while (true) {
+//			func0f150068(thing, thing->unk036);
+//
+//			file.unk80 = thing->unk02c / 8;
+//
+//			if ((u32)file.unk80 >= 1024) {
+//				thing->unk036++;
+//
+//				if (thing->unk036 >= 12) {
+//					return -1;
+//				}
+//			} else {
+//				break;
+//			}
+//		}
+//
+//		for (i = 0; i < (u32)file.unk80; i++) {
+//			thing->unk020[i] = thing->unk024[i];
+//		}
+//
+//		for (i = file.unk80; i < 1024; i++) {
+//			thing->unk020[i] = 0;
+//		}
+//
+//		thing->unk3f4_03 = true;
+//	}
+//
+//	file.unk8e_00 = thing->unk3f4_01;
+//	file.unk8e_01 = thing->unk3f4_02;
+//	file.unk8e_02 = thing->unk3a4;
+//
+//	file.unk82 = thing->unk3bc;
+//	file.unk84 = thing->unk3b8;
+//	file.unk8c = thing->colournum;
+//	file.unk8d = thing->stylenum;
+//	file.unk86 = thing->unk3c0;
+//	file.unk87 = thing->unk3c4;
+//	file.unk88 = thing->unk3c8;
+//	file.unk89 = thing->unk3cc;
+//	file.unk8a = thing->unk3ec;
+//	file.unk8b = thing->unk3f0;
+//
+//	for (i = 0; i != ARRAYCOUNT(file.unk90); i++) {
+//		file.unk90[i] = thing->unk3d0[i] * 1000.0f;
+//	}
+//
+//	for (i = 0; i < ARRAYCOUNT(file.unk00); i++) {
+//		file.unk00[i] = thing->unk010.textureptr[i];
+//	}
+//
+//	for (i = 0; i < ARRAYCOUNT(file.unk9e); i++) {
+//		file.unk9e[i] = thing->unk020[i];
+//	}
+//
+//	var80075bd0[3] = true;
+//
+//	ret = pakSaveAtGuid(device, fileid, PAKFILETYPE_CAMERA, (u8 *)&file, &writtenfileid, NULL);
+//
+//	if (ret == 0) {
+//		s32 i;
+//		for (i = 0; i < 18; i++) {
+//			struct var8007f8e0 *thing2 = func0f14a06c(i);
+//
+//			if (thing2->fileguid.fileid == thing->fileguid.fileid
+//					&& thing2->fileguid.deviceserial == thing->fileguid.deviceserial) {
+//				thing2->fileguid.fileid = writtenfileid;
+//				thing2->fileguid.deviceserial = serial;
+//
+//				if (i >= 12) {
+//					g_Vars.modifiedfiles |= MODFILE_GAME;
+//				}
+//			}
+//		}
+//
+//		thing->fileguid.fileid = writtenfileid;
+//		thing->fileguid.deviceserial = serial;
+//
+//		return 0;
+//	}
+//
+//	g_FilemgrLastPakError = ret;
+//
+//	return -1;
+//}
 
 void phGetGuid(s32 index, struct fileguid *guid)
 {
