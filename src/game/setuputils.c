@@ -198,7 +198,7 @@ void setup0f09233c(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3],
 		b.y += 1;
 		b.z += 1;
 
-		func0f1650d0(&a, &b, rooms, 7, 0);
+		bgFindEnteredRooms(&a, &b, rooms, 7, false);
 	}
 }
 

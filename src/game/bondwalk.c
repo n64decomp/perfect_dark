@@ -206,7 +206,7 @@ s32 bwalkTryMoveUpwards(f32 amount)
 
 	playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &newpos, rooms);
-	bmove0f0cb79c(g_Vars.currentplayer, &newpos, rooms);
+	bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &newpos, rooms);
 	propSetPerimEnabled(g_Vars.currentplayer->prop, false);
 
 	ymin -= 0.1f;
@@ -283,7 +283,7 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 		}
 #endif
 
-		bmove0f0cb79c(g_Vars.currentplayer, &dstpos, dstrooms);
+		bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &dstpos, dstrooms);
 
 		copyrooms = true;
 
@@ -761,7 +761,7 @@ void bwalkUpdateVertical(void)
 		testpos.y = g_Vars.currentplayer->prop->pos.y - 10;
 		testpos.z = g_Vars.currentplayer->prop->pos.z;
 		roomsCopy(g_Vars.currentplayer->prop->rooms, rooms);
-		bmove0f0cb79c(g_Vars.currentplayer, &testpos, rooms);
+		bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &testpos, rooms);
 		onladder2 = cd00029ffc(&g_Vars.currentplayer->prop->pos,
 				width * 1.1f, ymax - g_Vars.currentplayer->prop->pos.y,
 				g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y - 10,
@@ -777,7 +777,7 @@ void bwalkUpdateVertical(void)
 	}
 
 	roomsCopy(g_Vars.currentplayer->prop->rooms, rooms);
-	bmove0f0cb79c(g_Vars.currentplayer, &testpos, rooms);
+	bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &testpos, rooms);
 	ground = cdFindGroundY(&testpos, g_Vars.currentplayer->bond2.width, rooms,
 			&g_Vars.currentplayer->floorcol, &g_Vars.currentplayer->floortype,
 			&g_Vars.currentplayer->floorflags, &g_Vars.currentplayer->floorroom,
@@ -1758,7 +1758,7 @@ void bwalkTick(void)
 	}
 #endif
 
-	bmove0f0cb8c4(g_Vars.currentplayer);
+	bmoveUpdateRooms(g_Vars.currentplayer);
 	objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);
 
 	if (g_Vars.currentplayer->walkinitmove) {

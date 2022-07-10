@@ -35167,7 +35167,7 @@ void platformDisplaceProps(struct prop *platform, s16 *propnums, struct coord *p
 						setCurrentPlayerNum(playernum);
 						bwalk0f0c63bc(&sp8c, 1, CDTYPE_BG);
 						playerUpdatePerimInfo();
-						bmove0f0cb8c4(g_Vars.players[playernum]);
+						bmoveUpdateRooms(g_Vars.players[playernum]);
 						setCurrentPlayerNum(prevplayernum);
 					}
 
@@ -35207,7 +35207,7 @@ void platformDisplaceProps(struct prop *platform, s16 *propnums, struct coord *p
 							}
 
 							playerUpdatePerimInfo();
-							bmove0f0cb8c4(g_Vars.players[playernum]);
+							bmoveUpdateRooms(g_Vars.players[playernum]);
 							setCurrentPlayerNum(prevplayernum);
 
 							if (g_Vars.players[playernum]->walkinitmove) {
@@ -35240,7 +35240,7 @@ void platformDisplaceProps(struct prop *platform, s16 *propnums, struct coord *p
 					g_Vars.players[playernum]->sumground = g_Vars.players[playernum]->vv_manground / (PAL ? 0.054400026798248f : 0.045499980449677f);
 
 					playerUpdatePerimInfo();
-					bmove0f0cb8c4(g_Vars.players[playernum]);
+					bmoveUpdateRooms(g_Vars.players[playernum]);
 					setCurrentPlayerNum(prevplayernum);
 				}
 #endif

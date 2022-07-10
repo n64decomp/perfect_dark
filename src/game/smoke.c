@@ -563,7 +563,7 @@ u32 smokeTick(struct prop *prop)
 		}
 	}
 
-	func0f1650d0(&bbmin, &bbmax, prop->rooms, 7, 0);
+	bgFindEnteredRooms(&bbmin, &bbmax, prop->rooms, 7, false);
 
 	if (smoke->age > g_SmokeTypes[smoke->type].spreadspeed) {
 		free = true;

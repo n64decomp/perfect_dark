@@ -648,7 +648,7 @@ void playerStartNewLife(void)
 		g_Vars.currentplayer->apparentarmour = 0;
 	}
 
-	bmove0f0cb8c4(g_Vars.currentplayer);
+	bmoveUpdateRooms(g_Vars.currentplayer);
 	playerSpawn();
 
 	if (g_Vars.normmplayerisrunning) {
@@ -1513,7 +1513,7 @@ void playerTickChrBody(void)
 
 		chr->fireslots[0] = bgunAllocateFireslot();
 		func0f02e9a0(chr, 0);
-		bmove0f0cb8c4(g_Vars.currentplayer);
+		bmoveUpdateRooms(g_Vars.currentplayer);
 	} else {
 		struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 
@@ -1522,7 +1522,7 @@ void playerTickChrBody(void)
 			func0f02e9a0(chr, 0);
 			modelSetRootPosition(g_Vars.currentplayer->model00d4, &g_Vars.currentplayer->prop->pos);
 			chrSetLookAngle(g_Vars.currentplayer->prop->chr, turnangle);
-			bmove0f0cb8c4(g_Vars.currentplayer);
+			bmoveUpdateRooms(g_Vars.currentplayer);
 		}
 	}
 }
@@ -1534,7 +1534,7 @@ void playerRemoveChrBody(void)
 			g_Vars.currentplayer->haschrbody = false;
 			chrRemove(g_Vars.currentplayer->prop, false);
 			g_Vars.currentplayer->model00d4 = NULL;
-			bmove0f0cb8c4(g_Vars.currentplayer);
+			bmoveUpdateRooms(g_Vars.currentplayer);
 			bgunFreeGunMem();
 			g_Vars.currentplayer->gunmem2 = NULL;
 		}

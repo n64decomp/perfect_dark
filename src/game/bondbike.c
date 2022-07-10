@@ -133,7 +133,7 @@ void bbikeTryDismountAngle(f32 relativeangle, f32 distance)
 		propSetPerimEnabled(g_Vars.currentplayer->prop, false);
 
 		func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &pos, rooms);
-		bmove0f0cb79c(g_Vars.currentplayer, &pos, rooms);
+		bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &pos, rooms);
 
 		result = cdTestAToB2(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
 				&pos, rooms, CDTYPE_ALL, true,
@@ -1206,7 +1206,7 @@ s32 bbikeCalculateNewPositionWithPush(struct coord *arg0, f32 arg1)
 	return result;
 }
 
-void bbikeUpdateVertical(struct coord *arg0)
+void bbikeUpdateVertical(struct coord *pos)
 {
 	struct defaultobj *bike = g_Vars.currentplayer->hoverbike->obj;
 	f32 angle;
@@ -1217,7 +1217,7 @@ void bbikeUpdateVertical(struct coord *arg0)
 
 	angle = hoverpropGetTurnAngle(bike);
 
-	func0f065e74(&bike->prop->pos, bike->prop->rooms, arg0, newrooms);
+	func0f065e74(&bike->prop->pos, bike->prop->rooms, pos, newrooms);
 
 #if VERSION < VERSION_NTSC_1_0
 	{
@@ -1233,15 +1233,15 @@ void bbikeUpdateVertical(struct coord *arg0)
 	}
 #endif
 
-	bmove0f0cb79c(g_Vars.currentplayer, arg0, newrooms);
+	bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, pos, newrooms);
 	propDeregisterRooms(g_Vars.currentplayer->prop);
 	roomsCopy(newrooms, g_Vars.currentplayer->prop->rooms);
 
 	g_Vars.currentplayer->vv_theta = (M_BADTAU - angle) * 360.0f / M_BADTAU;
 
-	g_Vars.currentplayer->prop->pos.x = arg0->x;
-	g_Vars.currentplayer->prop->pos.y = arg0->y;
-	g_Vars.currentplayer->prop->pos.z = arg0->z;
+	g_Vars.currentplayer->prop->pos.x = pos->x;
+	g_Vars.currentplayer->prop->pos.y = pos->y;
+	g_Vars.currentplayer->prop->pos.z = pos->z;
 
 	ground = cdFindGroundY(&g_Vars.currentplayer->prop->pos,
 			g_Vars.currentplayer->bond2.width,
@@ -1696,7 +1696,7 @@ void bbikeTick(void)
 	bgun0f09d8dc(breathing, 0, sp70, 0.0f, g_Vars.currentplayer->speedsideways);
 	bgunSetAdjustPos(g_Vars.currentplayer->vv_verta360 * 0.017450513318181f);
 	playerUpdatePerimInfo();
-	bmove0f0cb8c4(g_Vars.currentplayer);
+	bmoveUpdateRooms(g_Vars.currentplayer);
 	objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);
 	doorsCheckAutomatic();
 }

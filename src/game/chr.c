@@ -1950,7 +1950,7 @@ void chr0f021fa8(struct chrdata *chr, struct coord *pos, s16 *rooms)
 	upper.y = pos->y + height;
 	upper.z = pos->z + 50.0f;
 
-	func0f1650d0(&lower, &upper, rooms, 7, 1);
+	bgFindEnteredRooms(&lower, &upper, rooms, 7, true);
 }
 
 void chr0f022084(struct chrdata *chr, s16 *room)

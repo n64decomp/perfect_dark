@@ -99,8 +99,8 @@ void func0f164ab8(s32 portalnum);
 void room0f164c64(s32 roomnum);
 void portalSetEnabled(s32 portal, bool enable);
 s32 func0f164e8c(struct coord *arg0, struct coord *arg1);
-bool func0f164f9c(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3);
+bool bgIsBboxOverlapping(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3);
 void portalFindBbox(s32 portalnum, struct coord *bbmin, struct coord *bbmax);
-void func0f1650d0(struct coord *lower, struct coord *upper, s16 *rooms, s32 arg3, s32 arg4);
+void bgFindEnteredRooms(struct coord *bbmin, struct coord *upper, s16 *rooms, s32 maxlen, bool arg4);
 
 #endif

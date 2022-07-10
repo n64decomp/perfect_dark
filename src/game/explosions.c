@@ -391,7 +391,7 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, s16 *exproom
 
 					portalFindBbox(portalnum, &portalbbmin, &portalbbmax);
 
-					if (func0f164f9c(&portalbbmin, &portalbbmax, &spd4, &spc8)) {
+					if (bgIsBboxOverlapping(&portalbbmin, &portalbbmax, &spd4, &spc8)) {
 						otherroom2 = -1;
 						index = 0;
 
@@ -1164,7 +1164,7 @@ u32 explosionTick(struct prop *prop)
 	}
 
 	explosionGetBboxAtFrame(&bbmin, &bbmax, exp->age, prop);
-	func0f1650d0(&bbmin, &bbmax, prop->rooms, 7, 0);
+	bgFindEnteredRooms(&bbmin, &bbmax, prop->rooms, 7, false);
 	explosionInflictDamage(prop);
 
 	// Play boom sound if this is the first frame

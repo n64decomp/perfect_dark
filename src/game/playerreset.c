@@ -911,7 +911,7 @@ void playerReset(void)
 		}
 	}
 
-	bmove0f0cb8c4(g_Vars.currentplayer);
+	bmoveUpdateRooms(g_Vars.currentplayer);
 
 	if (g_Vars.normmplayerisrunning) {
 		playersBeginMpSwirl();

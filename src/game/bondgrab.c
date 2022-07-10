@@ -295,7 +295,7 @@ bool bgrabTryMoveUpwards(f32 y)
 
 	playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &newpos, rooms);
-	bmove0f0cb79c(g_Vars.currentplayer, &newpos, rooms);
+	bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &newpos, rooms);
 	propSetPerimEnabled(g_Vars.currentplayer->prop, false);
 
 	ymin -= 0.1f;
@@ -365,7 +365,7 @@ s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2)
 		}
 #endif
 
-		bmove0f0cb79c(g_Vars.currentplayer, &pos, rooms);
+		bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &pos, rooms);
 
 		ismoving = true;
 
@@ -1198,7 +1198,7 @@ void bgrabTick(void)
 			func0f0714b8(obj, hov);
 		}
 
-		bmove0f0cb8c4(g_Vars.currentplayer);
+		bmoveUpdateRooms(g_Vars.currentplayer);
 		objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);
 		bmove0f0cc19c(&g_Vars.currentplayer->prop->pos);
 		playerUpdatePerimInfo();

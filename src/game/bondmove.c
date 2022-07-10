@@ -1803,33 +1803,33 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 	}
 }
 
-void bmove0f0cb79c(struct player *player, struct coord *mid, s16 *rooms)
+void bmoveFindEnteredRoomsByPos(struct player *player, struct coord *mid, s16 *rooms)
 {
-	struct coord lower;
-	struct coord upper;
+	struct coord bbmin;
+	struct coord bbmax;
 	f32 eyeheight = g_Vars.players[playermgrGetPlayerNumByProp(player->prop)]->vv_eyeheight;
 	f32 headheight = g_Vars.players[playermgrGetPlayerNumByProp(player->prop)]->vv_headheight;
 
-	lower.x = mid->x - 50;
-	lower.y = mid->y - player->crouchheight - eyeheight - 10;
-	lower.z = mid->z - 50;
+	bbmin.x = mid->x - 50;
+	bbmin.y = mid->y - player->crouchheight - eyeheight - 10;
+	bbmin.z = mid->z - 50;
 
-	upper.x = mid->x + 50;
-	upper.y = mid->y - player->crouchheight - eyeheight + headheight + 10;
-	upper.z = mid->z + 50;
+	bbmax.x = mid->x + 50;
+	bbmax.y = mid->y - player->crouchheight - eyeheight + headheight + 10;
+	bbmax.z = mid->z + 50;
 
-	func0f1650d0(&lower, &upper, rooms, 7, 0);
+	bgFindEnteredRooms(&bbmin, &bbmax, rooms, 7, false);
 }
 
-void bmove0f0cb89c(struct player *player, s16 *rooms)
+void bmoveFindEnteredRooms(struct player *player, s16 *rooms)
 {
-	bmove0f0cb79c(player, &player->prop->pos, rooms);
+	bmoveFindEnteredRoomsByPos(player, &player->prop->pos, rooms);
 }
 
-void bmove0f0cb8c4(struct player *player)
+void bmoveUpdateRooms(struct player *player)
 {
 	propDeregisterRooms(player->prop);
-	bmove0f0cb89c(player, player->prop->rooms);
+	bmoveFindEnteredRooms(player, player->prop->rooms);
 	propRegisterRooms(player->prop);
 }
 
