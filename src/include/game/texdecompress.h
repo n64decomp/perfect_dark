@@ -32,7 +32,7 @@ struct texloadthing *tex0f172e8c(s32 texturenum, struct texturething *arg1);
 s32 func0f172f44(struct texturething *arg0);
 struct texloadthing *func0f172f54(struct texturething *arg0);
 void texLoadFromDisplayList(Gfx *gdl, struct texturething *arg1, s32 arg2);
-void texLoad(u32 *texturenum, struct texturething *arg1, s32 arg2);
+void texLoad(s32 *texturenum, struct texturething *arg1, s32 arg2);
 void texLoadFromConfigs(struct textureconfig *configs, s32 numconfigs, struct texturething *arg2, s32 arg3);
 void texLoadFromTextureNum(u32 arg0, struct texturething *arg1);
 

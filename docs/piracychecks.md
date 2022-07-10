@@ -114,7 +114,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 ---
 
-### tagsAllocatePtrs
+### tagsReset
 
 **When Called:** When loading a normal stage (eg. CI Training).
 
@@ -122,13 +122,13 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **Payload:** Copies 4KB from a random location in ROM to a random location in RAM.
 
-### bgun0f09e144
+### bgunTickGunLoad
 
-**When Called:** Unknown.
+**When Called:** When equipping any weapon.
 
 **What It Checks:** Checksums `tagsReset` to make sure it hasn't been modified.
 
-**Payload:** Corrupts `tagsReset` by writing 28 bytes of 0xff.
+**Payload:** Corrupts `tagsReset` by writing 7 bytes of 0xff.
 
 ---
 

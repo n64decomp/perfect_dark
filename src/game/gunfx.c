@@ -2018,7 +2018,7 @@ glabel var7f1acd60
 /*  f0adf50:	8fa40148 */ 	lw	$a0,0x148($sp)
 /*  f0adf54:	0c005746 */ 	jal	mtx4Copy
 /*  f0adf58:	27a500ec */ 	addiu	$a1,$sp,0xec
-/*  f0adf5c:	0fc27aef */ 	jal	bgun0f09ebbc
+/*  f0adf5c:	0fc27aef */ 	jal	bgunGetCartModeldef
 /*  f0adf60:	00000000 */ 	nop
 /*  f0adf64:	10400004 */ 	beqz	$v0,.L0f0adf78
 /*  f0adf68:	00402025 */ 	or	$a0,$v0,$zero
@@ -2849,7 +2849,7 @@ glabel var7f1acd60
 /*  f0adf50:	8fa40148 */ 	lw	$a0,0x148($sp)
 /*  f0adf54:	0c005746 */ 	jal	mtx4Copy
 /*  f0adf58:	27a500ec */ 	addiu	$a1,$sp,0xec
-/*  f0adf5c:	0fc27aef */ 	jal	bgun0f09ebbc
+/*  f0adf5c:	0fc27aef */ 	jal	bgunGetCartModeldef
 /*  f0adf60:	00000000 */ 	nop
 /*  f0adf64:	10400004 */ 	beqz	$v0,.L0f0adf78
 /*  f0adf68:	00402025 */ 	or	$a0,$v0,$zero

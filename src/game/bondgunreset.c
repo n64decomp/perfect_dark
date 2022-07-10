@@ -151,8 +151,8 @@ void bgunReset(void)
 	g_Vars.currentplayer->gunctrl.handfilenum = 0;
 	g_Vars.currentplayer->gunctrl.unk15a0 = 0;
 	g_Vars.currentplayer->gunctrl.unk15a4 = 0;
-	g_Vars.currentplayer->gunctrl.unk15b0 = 0;
-	g_Vars.currentplayer->gunctrl.unk15b1 = 0;
+	g_Vars.currentplayer->gunctrl.masterloadstate = 0;
+	g_Vars.currentplayer->gunctrl.gunloadstate = 0;
 	g_Vars.currentplayer->gunctrl.gunmemtype = 0;
 	g_Vars.currentplayer->gunctrl.gunmemnew = -1;
 	g_Vars.currentplayer->gunctrl.gunmemowner = GUNMEMOWNER_CHRBODY;

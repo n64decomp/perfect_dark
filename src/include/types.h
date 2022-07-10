@@ -2286,6 +2286,18 @@ struct hand {
 	/*0x0dd8*/ Mtxf *unk0dd8;
 };
 
+struct texturething {
+	struct texloadthing *unk00;
+	struct texloadthing *unk04;
+	struct texloadthing *unk08;
+	struct texloadthing *unk0c;
+};
+
+struct fileinfo {
+	u32 loadedsize;
+	u32 allocsize;
+};
+
 struct gunctrl {
 	/*0x1580*/ s8 weaponnum;
 	/*0x1581*/ s8 prevweaponnum; // previously drawn weapon, switched to when throwing Dragon/Laptop or when ammo depleted
@@ -2303,25 +2315,21 @@ struct gunctrl {
 	/*0x158c*/ u8 *gunmem;
 	/*0x1590*/ struct modelfiledata *gunmodeldef;
 	/*0x1594*/ struct modelfiledata *handmodeldef;
-	/*0x1598*/ struct modelfiledata *unk1598;
+	/*0x1598*/ struct modelfiledata *cartmodeldef;
 	/*0x159c*/ u16 handfilenum;
 	/*0x15a0*/ u8 *unk15a0;
 	/*0x15a4*/ s32 unk15a4;
 	/*0x15a8*/ s32 unk15a8;
 	/*0x15ac*/ s32 unk15ac;
-	/*0x15b0*/ u8 unk15b0;
-	/*0x15b1*/ u8 unk15b1;
-	/*0x15b2*/ u16 unk15b2;
-	/*0x15b4*/ struct modelfiledata **unk15b4;
-	/*0x15b8*/ void *unk15b8;
-	/*0x15bc*/ void *unk15bc;
-	/*0x15c0*/ u32 unk15c0;
-	/*0x15c4*/ u32 unk15c4;
-	/*0x15c8*/ u32 unk15c8;
-	/*0x15cc*/ u32 unk15cc;
-	/*0x15d0*/ u32 unk15d0;
-	/*0x15d4*/ u32 unk15d4;
-	/*0x15d8*/ u32 unk15d8;
+	/*0x15b0*/ u8 masterloadstate;
+	/*0x15b1*/ u8 gunloadstate;
+	/*0x15b2*/ u16 loadfilenum;
+	/*0x15b4*/ struct modelfiledata **loadtomodeldef;
+	/*0x15b8*/ u32 *loadmemptr;
+	/*0x15bc*/ u32 *loadmemremaining;
+	/*0x15c0*/ struct texturething unk15c0;
+	/*0x15d0*/ u32 nexttexturetoload;
+	/*0x15d4*/ struct fileinfo fileinfo;
 	/*0x15dc*/ struct abmag abmag;
 	/*0x15e4*/ s8 ammotypes[2];
 	/*0x15e6*/ u8 action;
@@ -3779,7 +3787,7 @@ struct menudata_training {
 
 struct textureconfig {
 	union {
-		u32 texturenum;
+		s32 texturenum;
 		u8 *textureptr;
 	};
 	u8 width;
@@ -5131,11 +5139,6 @@ struct var800aabb8 {
 	u16 unk00_02 : 14;
 };
 
-struct fileinfo {
-	u32 loadedsize;
-	u32 allocsize;
-};
-
 struct portalcmd {
 	u8 type;
 	u8 len;
@@ -5777,8 +5780,8 @@ struct var8009dd78 {
 };
 
 struct texturepair {
-	u32 texturenum1;
-	u32 texturenum2;
+	s32 texturenum1;
+	s32 texturenum2;
 };
 
 struct collisionthing {
@@ -6270,13 +6273,6 @@ struct awardmetrics {
 	/*0x30*/ s32 longestlife;
 	/*0x34*/ s32 shortestlife;
 	/*0x38*/ f32 accuracyfrac;
-};
-
-struct texturething {
-	struct texloadthing *unk00;
-	struct texloadthing *unk04;
-	struct texloadthing *unk08;
-	struct texloadthing *unk0c;
 };
 
 struct texloadthing {

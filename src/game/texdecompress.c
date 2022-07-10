@@ -3214,7 +3214,7 @@ void texLoadFromDisplayList(Gfx *gdl, struct texturething *arg1, s32 arg2)
 	while (bytes[0] != (u8)G_ENDDL) {
 		// Look for GBI sequence: fd...... abcd....
 		if (bytes[0] == G_SETTIMG && bytes[4] == 0xab && bytes[5] == 0xcd) {
-			texLoad((u32 *)((s32)bytes + 4), arg1, arg2);
+			texLoad((s32 *)((s32)bytes + 4), arg1, arg2);
 		}
 
 		bytes += 8;
@@ -3701,11 +3701,11 @@ void texLoadFromConfigs(struct textureconfig *configs, s32 numconfigs, struct te
 	}
 }
 
-void texLoadFromTextureNum(u32 arg0, struct texturething *arg1)
+void texLoadFromTextureNum(u32 texturenum, struct texturething *arg1)
 {
-	u32 sp1c = arg0;
+	s32 texturenumcopy = texturenum;
 
-	texLoad(&sp1c, arg1, 1);
+	texLoad(&texturenumcopy, arg1, 1);
 }
 
 s32 func0f173510(s32 arg0, s32 arg1, s32 arg3)

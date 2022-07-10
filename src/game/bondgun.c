@@ -37,6 +37,7 @@
 #include "game/pak.h"
 #include "game/options.h"
 #include "game/propobj.h"
+#include "game/objectives.h"
 #include "bss.h"
 #include "lib/vi.h"
 #include "lib/joy.h"
@@ -49,6 +50,18 @@
 #include "lib/lib_317f0.h"
 #include "data.h"
 #include "types.h"
+
+#define GUNLOADSTATE_FLUX     0
+#define GUNLOADSTATE_MODEL    1
+#define GUNLOADSTATE_TEXTURES 2
+#define GUNLOADSTATE_DLS      3
+#define GUNLOADSTATE_LOADED   4
+
+#define MASTERLOADSTATE_FLUX   0
+#define MASTERLOADSTATE_HANDS  1
+#define MASTERLOADSTATE_GUN    2
+#define MASTERLOADSTATE_CARTS  3
+#define MASTERLOADSTATE_LOADED 4
 
 #if VERSION >= VERSION_PAL_BETA
 struct sndstate *g_CasingAudioHandles[2];
@@ -9101,54 +9114,6 @@ const char var7f1ab8ac[] = "changegunmem type %d CurrentPlayer->gunctrl.gunmemty
 const char var7f1ab8e8[] = "LockTimer: %d\n";
 const char var7f1ab8f8[] = "BriGun: Releasing gunmem - current gunmemtype %d gunmemnew %d\n";
 const char var7f1ab938[] = "GiveMem: %d\n";
-const char var7f1ab948[] = "BriGun:  BriGunLoadTick process GUN_LOADSTATE_LOAD_OBJ\n";
-const char var7f1ab980[] = "BriGun:  Loading - %s, pMem 0x%08x Size %d\n";
-const char var7f1ab9ac[] = "BriGun:  Warning: LoadSize > MemSize, clamping decomp. buffer from %d to %d (%d Bytes)\n";
-const char var7f1aba04[] = "BriGun:  obLoadto at 0x%08x, size %d\n";
-const char var7f1aba2c[] = "BriGun:  Used size %d (Ob Size %d)\n";
-const char var7f1aba50[] = "BriGun:  block len %d usedsize %d\n";
-const char var7f1aba74[] = "BriGun:  obln ram_len %d block_len %d\n";
-const char var7f1aba9c[] = "BriGun:  new used size %d\n";
-const char var7f1abab8[] = "BriGun:  Texture Block at 0x%08x size %d, endp 0x%08x\n";
-const char var7f1abaf0[] = "BriGun:  Set Load State: GUN_LOADSTATE_DECOMPRESS_TEXTURES\n";
-const char var7f1abb2c[] = "BriGun:  BriGunLoadTick process GUN_LOADSTATE_DECOMPRESS_TEXTURES\n";
-const char var7f1abb70[] = "BriGun:  at texture %d\n";
-const char var7f1abb88[] = "BriGun:  Uncompress %d of %d\n";
-const char var7f1abba8[] = "BriGun:  Set Load State: GUN_LOADSTATE_DECOMPRESS_DLS\n";
-const char var7f1abbe0[] = "BriGun:  BriGunLoadTick process GUN_LOADSTATE_DECOMPRESS_DLS\n";
-const char var7f1abc20[] = "BriGun:  propgfx_decompress 0x%08x\n";
-const char var7f1abc44[] = "BriGun:  DL waste space %d from %d (Used %d, Ramlen %d, ObSize %d)\n";
-const char var7f1abc88[] = "Increase GUNSAVESIZE to %d!!!\n";
-const char var7f1abca8[] = "BriGun:  Set Load State: GUN_LOADSTATE_LOADED\n";
-const char var7f1abcd8[] = "need a new gun loading (lock %d gunmemnew %d)\n";
-const char var7f1abd08[] = "loading gun file: %d type: %d\n";
-const char var7f1abd28[] = "BriGun: Process MASTER_GUN_LOADSTATE_FLUX\n";
-const char var7f1abd54[] = "BriGun: Set Master State: MASTER_GUN_LOADSTATE_HANDS\n";
-const char var7f1abd8c[] = "BriGun: Process MASTER_GUN_LOADSTATE_HANDS\n";
-const char var7f1abdb8[] = "BriGun: Setup Hand Load\n";
-const char var7f1abdd4[] = "Hand  : Using cached hands\n";
-const char var7f1abdf0[] = "Hand  : Look ma no hands!\n";
-const char var7f1abe0c[] = "BriGun: Set Master State: MASTER_GUN_LOADSTATE_GUN\n";
-const char var7f1abe40[] = "BriGun: Process MASTER_GUN_LOADSTATE_GUN\n";
-const char var7f1abe6c[] = "BriGun: Setup Gun Load\n";
-const char var7f1abe84[] = "BriGun: Set Master State: MASTER_GUN_LOADSTATE_CARTS\n";
-const char var7f1abebc[] = "BriGun: Process MASTER_GUN_LOADSTATE_CARTS\n";
-const char var7f1abee8[] = "BriGun: Cart Loaded setting GUN_LOADSTATE_FLUX\n";
-const char var7f1abf18[] = "BriGun: Cart loading - looking for carts\n";
-const char var7f1abf44[] = "BriGun: Loading cart %d\n";
-const char var7f1abf60[] = "BriGun: Request for cart %d ignored - cart already loaded\n";
-const char var7f1abf9c[] = "BriGun: Compile Hand 0x%08x Gun 0x%0x8\n";
-const char var7f1abfc4[] = "Gun   : Compiled Gun 0x%08x\n";
-const char var7f1abfe4[] = "Gun   : Compiled Size %d\n";
-const char var7f1ac000[] = "Hand  : Compiled Hand 0x%08x\n";
-const char var7f1ac020[] = "Hand  : Compiled Size %d\n";
-const char var7f1ac03c[] = "Gun   : Compile overhead %d bytes\n";
-const char var7f1ac060[] = "Hand  : Hand Obj 0x%08x Gun Obj 0x%08x \n";
-const char var7f1ac08c[] = "Gun   : After Comp : Base 0x%08x Free %d\n";
-const char var7f1ac0b8[] = "Gun   : After Cached Setup : Base 0x%08x Free %d\n";
-const char var7f1ac0ec[] = "Gun   : TotalUsed %d, Free %d\n";
-const char var7f1ac10c[] = "BriGun: Set Master State: MASTER_GUN_LOADSTATE_LOADED\n";
-const char var7f1ac144[] = "GunLockTimer: %d\n";
 
 u32 var8007012c = 0x00000000;
 u32 var80070130 = 0x00000000;
@@ -10375,7 +10340,8 @@ bool bgun0f09dd7c(void)
 	}
 
 	return g_Vars.currentplayer->gunctrl.gunmemtype == 0
-		|| (g_Vars.currentplayer->gunctrl.gunmemnew < 0 && g_Vars.currentplayer->gunctrl.unk15b0 == 4);
+		|| (g_Vars.currentplayer->gunctrl.gunmemnew < 0
+				&& g_Vars.currentplayer->gunctrl.masterloadstate == MASTERLOADSTATE_LOADED);
 }
 
 u32 bgunGetGunMemType(void)
@@ -10423,8 +10389,8 @@ void bgunSetGunMemWeapon(s32 weaponnum)
 	struct player *player = g_Vars.currentplayer;
 
 	if (player->gunctrl.gunmemowner == GUNMEMOWNER_BONDGUN) {
-		player->gunctrl.unk15b0 = 0;
-		player->gunctrl.unk15b1 = 0;
+		player->gunctrl.masterloadstate = MASTERLOADSTATE_FLUX;
+		player->gunctrl.gunloadstate = GUNLOADSTATE_FLUX;
 		player->gunctrl.gunmemnew = weaponnum;
 		player->gunctrl.gunlocktimer = -1;
 	} else {
@@ -10442,8 +10408,8 @@ void bgun0f09df9c(void)
 	g_Vars.currentplayer->gunctrl.handmodeldef = NULL;
 	g_Vars.currentplayer->gunctrl.unk15a0 = 0;
 	g_Vars.currentplayer->gunctrl.unk15a4 = 0;
-	g_Vars.currentplayer->gunctrl.unk15b0 = 0;
-	g_Vars.currentplayer->gunctrl.unk15b1 = 0;
+	g_Vars.currentplayer->gunctrl.masterloadstate = MASTERLOADSTATE_FLUX;
+	g_Vars.currentplayer->gunctrl.gunloadstate = GUNLOADSTATE_FLUX;
 
 	end = g_Casings + ARRAYCOUNT(g_Casings);
 	casing = g_Casings;
@@ -10518,474 +10484,241 @@ bool bgun0f09e004(s32 newowner)
 	return false;
 }
 
+/**
+ * This function loads resources for a gun change.
+ *
+ * The caller sets properties in the player's gunctrl struct which tell this
+ * function what to load, where the gunmem is that it can use, and how much
+ * gunmem there is. This function is then called a couple of times on subsequent
+ * ticks, loading data incrementally to avoid a significant lag spike.
+ *
+ * The function keeps track of its progress in the gunloadstate property, and
+ * updates the gunmem properties to reflect its usage.
+ *
+ * The first call loads the model definition from the ROM and decompresses it.
+ * The second call loads and decompress to 3 textures.
+ * This continues on further calls until all textures are loaded.
+ * The final call does some one-off processing on the model's display lists.
+ *
+ * Although the name contains "Gun", it's used for more than just the gun model.
+ * It's used for the hand model, the gun model and the cartridge model.
+ */
+void bgunTickGunLoad(void)
+{
+	s32 i;
+	s32 numthistick;
+	u32 remaining;
+	s32 padding;
+	u32 allocsize;
+	u32 loadsize;
+	u32 ptr;
+	struct player *player = g_Vars.currentplayer;
+	struct modelfiledata *modeldef;
+	struct fileinfo *fileinfo;
+	struct fileinfo *gunfileinfo;
+	s32 newvalue;
+	u32 end;
+	u32 stack;
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel bgun0f09e144
-/*  f09e144:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f09e148:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f09e14c:	3c12800a */ 	lui	$s2,%hi(g_Vars+0x284)
-/*  f09e150:	8e52a244 */ 	lw	$s2,%lo(g_Vars+0x284)($s2)
-/*  f09e154:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f09e158:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f09e15c:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f09e160:	924215b1 */ 	lbu	$v0,0x15b1($s2)
-/*  f09e164:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f09e168:	5441004a */ 	bnel	$v0,$at,.L0f09e294
-/*  f09e16c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f09e170:	8e4615b8 */ 	lw	$a2,0x15b8($s2)
-/*  f09e174:	8e4e15bc */ 	lw	$t6,0x15bc($s2)
-/*  f09e178:	240f0010 */ 	addiu	$t7,$zero,0x10
-/*  f09e17c:	8cc30000 */ 	lw	$v1,0x0($a2)
-/*  f09e180:	8dd00000 */ 	lw	$s0,0x0($t6)
-/*  f09e184:	3065000f */ 	andi	$a1,$v1,0xf
-/*  f09e188:	10a00003 */ 	beqz	$a1,.L0f09e198
-/*  f09e18c:	01e51023 */ 	subu	$v0,$t7,$a1
-/*  f09e190:	00621821 */ 	addu	$v1,$v1,$v0
-/*  f09e194:	02028023 */ 	subu	$s0,$s0,$v0
-.L0f09e198:
-/*  f09e198:	acc30000 */ 	sw	$v1,0x0($a2)
-/*  f09e19c:	8e5815bc */ 	lw	$t8,0x15bc($s2)
-/*  f09e1a0:	af100000 */ 	sw	$s0,0x0($t8)
-/*  f09e1a4:	964415b2 */ 	lhu	$a0,0x15b2($s2)
-/*  f09e1a8:	0fc59c15 */ 	jal	fileGetInflatedSize
-/*  f09e1ac:	afa30064 */ 	sw	$v1,0x64($sp)
-/*  f09e1b0:	2443003f */ 	addiu	$v1,$v0,0x3f
-/*  f09e1b4:	3479003f */ 	ori	$t9,$v1,0x3f
-/*  f09e1b8:	3b23003f */ 	xori	$v1,$t9,0x3f
-/*  f09e1bc:	34018000 */ 	dli	$at,0x8000
-/*  f09e1c0:	00613821 */ 	addu	$a3,$v1,$at
-/*  f09e1c4:	0207082b */ 	sltu	$at,$s0,$a3
-/*  f09e1c8:	10200002 */ 	beqz	$at,.L0f09e1d4
-/*  f09e1cc:	240b0007 */ 	addiu	$t3,$zero,0x7
-/*  f09e1d0:	02003825 */ 	or	$a3,$s0,$zero
-.L0f09e1d4:
-/*  f09e1d4:	3c018006 */ 	lui	$at,%hi(g_LoadType)
-/*  f09e1d8:	a02bd9a0 */ 	sb	$t3,%lo(g_LoadType)($at)
-/*  f09e1dc:	964415b2 */ 	lhu	$a0,0x15b2($s2)
-/*  f09e1e0:	24050011 */ 	addiu	$a1,$zero,0x11
-/*  f09e1e4:	0fc59c80 */ 	jal	fileLoadToAddr
-/*  f09e1e8:	8fa60064 */ 	lw	$a2,0x64($sp)
-/*  f09e1ec:	00408825 */ 	or	$s1,$v0,$zero
-/*  f09e1f0:	0fc59ca0 */ 	jal	fileGetLoadedSize
-/*  f09e1f4:	964415b2 */ 	lhu	$a0,0x15b2($s2)
-/*  f09e1f8:	24470e00 */ 	addiu	$a3,$v0,0xe00
-/*  f09e1fc:	964415b2 */ 	lhu	$a0,0x15b2($s2)
-/*  f09e200:	0fc59ca0 */ 	jal	fileGetLoadedSize
-/*  f09e204:	afa7006c */ 	sw	$a3,0x6c($sp)
-/*  f09e208:	964c15b2 */ 	lhu	$t4,0x15b2($s2)
-/*  f09e20c:	8fa7006c */ 	lw	$a3,0x6c($sp)
-/*  f09e210:	3c0e800a */ 	lui	$t6,%hi(g_FileInfo)
-/*  f09e214:	25ce6680 */ 	addiu	$t6,$t6,%lo(g_FileInfo)
-/*  f09e218:	000c68c0 */ 	sll	$t5,$t4,0x3
-/*  f09e21c:	01ae4021 */ 	addu	$t0,$t5,$t6
-/*  f09e220:	ad070004 */ 	sw	$a3,0x4($t0)
-/*  f09e224:	8faf0064 */ 	lw	$t7,0x64($sp)
-/*  f09e228:	afa80058 */ 	sw	$t0,0x58($sp)
-/*  f09e22c:	264415c0 */ 	addiu	$a0,$s2,0x15c0
-/*  f09e230:	01e71821 */ 	addu	$v1,$t7,$a3
-/*  f09e234:	2463000f */ 	addiu	$v1,$v1,0xf
-/*  f09e238:	3478000f */ 	ori	$t8,$v1,0xf
-/*  f09e23c:	3b05000f */ 	xori	$a1,$t8,0xf
-/*  f09e240:	00af3823 */ 	subu	$a3,$a1,$t7
-/*  f09e244:	0fc5cb9c */ 	jal	tex0f172e70
-/*  f09e248:	02073023 */ 	subu	$a2,$s0,$a3
-/*  f09e24c:	0fc69dcc */ 	jal	modelPromoteTypeToPointer
-/*  f09e250:	02202025 */ 	or	$a0,$s1,$zero
-/*  f09e254:	02202025 */ 	or	$a0,$s1,$zero
-/*  f09e258:	3c050500 */ 	lui	$a1,0x500
-/*  f09e25c:	0c008a89 */ 	jal	modelPromoteOffsetsToPointers
-/*  f09e260:	02203025 */ 	or	$a2,$s1,$zero
-/*  f09e264:	8e4a15b4 */ 	lw	$t2,0x15b4($s2)
-/*  f09e268:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*  f09e26c:	ad510000 */ 	sw	$s1,0x0($t2)
-/*  f09e270:	ae4015d0 */ 	sw	$zero,0x15d0($s2)
-/*  f09e274:	8fab0058 */ 	lw	$t3,0x58($sp)
-/*  f09e278:	8d610000 */ 	lw	$at,0x0($t3)
-/*  f09e27c:	ae4115d4 */ 	sw	$at,0x15d4($s2)
-/*  f09e280:	8d6d0004 */ 	lw	$t5,0x4($t3)
-/*  f09e284:	a24e15b1 */ 	sb	$t6,0x15b1($s2)
-/*  f09e288:	1000008f */ 	b	.L0f09e4c8
-/*  f09e28c:	ae4d15d8 */ 	sw	$t5,0x15d8($s2)
-/*  f09e290:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f09e294:
-/*  f09e294:	1441003f */ 	bne	$v0,$at,.L0f09e394
-/*  f09e298:	3c0f800a */ 	lui	$t7,%hi(g_FileInfo)
-/*  f09e29c:	965815b2 */ 	lhu	$t8,0x15b2($s2)
-/*  f09e2a0:	25ef6680 */ 	addiu	$t7,$t7,%lo(g_FileInfo)
-/*  f09e2a4:	264c15d4 */ 	addiu	$t4,$s2,0x15d4
-/*  f09e2a8:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f09e2ac:	032f5021 */ 	addu	$t2,$t9,$t7
-/*  f09e2b0:	afaa0058 */ 	sw	$t2,0x58($sp)
-/*  f09e2b4:	afac0034 */ 	sw	$t4,0x34($sp)
-/*  f09e2b8:	8d810000 */ 	lw	$at,0x0($t4)
-/*  f09e2bc:	00003825 */ 	or	$a3,$zero,$zero
-/*  f09e2c0:	ad410000 */ 	sw	$at,0x0($t2)
-/*  f09e2c4:	8d980004 */ 	lw	$t8,0x4($t4)
-/*  f09e2c8:	ad580004 */ 	sw	$t8,0x4($t2)
-/*  f09e2cc:	8e5915b4 */ 	lw	$t9,0x15b4($s2)
-/*  f09e2d0:	8e4315d0 */ 	lw	$v1,0x15d0($s2)
-/*  f09e2d4:	8f310000 */ 	lw	$s1,0x0($t9)
-/*  f09e2d8:	00038080 */ 	sll	$s0,$v1,0x2
-/*  f09e2dc:	02038023 */ 	subu	$s0,$s0,$v1
-/*  f09e2e0:	862f0016 */ 	lh	$t7,0x16($s1)
-/*  f09e2e4:	00108080 */ 	sll	$s0,$s0,0x2
-/*  f09e2e8:	006f082a */ 	slt	$at,$v1,$t7
-/*  f09e2ec:	50200021 */ 	beqzl	$at,.L0f09e374
-/*  f09e2f0:	8fae0058 */ 	lw	$t6,0x58($sp)
-/*  f09e2f4:	8e220018 */ 	lw	$v0,0x18($s1)
-.L0f09e2f8:
-/*  f09e2f8:	264515c0 */ 	addiu	$a1,$s2,0x15c0
-/*  f09e2fc:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f09e300:	00506021 */ 	addu	$t4,$v0,$s0
-/*  f09e304:	8d8e0000 */ 	lw	$t6,0x0($t4)
-/*  f09e308:	00502021 */ 	addu	$a0,$v0,$s0
-/*  f09e30c:	29c10daf */ 	slti	$at,$t6,_numtextures
-/*  f09e310:	5020000b */ 	beqzl	$at,.L0f09e340
-/*  f09e314:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f09e318:	afa3007c */ 	sw	$v1,0x7c($sp)
-/*  f09e31c:	0fc5cc04 */ 	jal	texLoad
-/*  f09e320:	afa70078 */ 	sw	$a3,0x78($sp)
-/*  f09e324:	8e2a0018 */ 	lw	$t2,0x18($s1)
-/*  f09e328:	8fa3007c */ 	lw	$v1,0x7c($sp)
-/*  f09e32c:	8fa70078 */ 	lw	$a3,0x78($sp)
-/*  f09e330:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f09e334:	01505821 */ 	addu	$t3,$t2,$s0
-/*  f09e338:	a16d000b */ 	sb	$t5,0xb($t3)
-/*  f09e33c:	24e70001 */ 	addiu	$a3,$a3,0x1
-.L0f09e340:
-/*  f09e340:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f09e344:	50e10061 */ 	beql	$a3,$at,.L0f09e4cc
-/*  f09e348:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f09e34c:	8e5815d0 */ 	lw	$t8,0x15d0($s2)
-/*  f09e350:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f09e354:	2610000c */ 	addiu	$s0,$s0,0xc
-/*  f09e358:	27190001 */ 	addiu	$t9,$t8,0x1
-/*  f09e35c:	ae5915d0 */ 	sw	$t9,0x15d0($s2)
-/*  f09e360:	862f0016 */ 	lh	$t7,0x16($s1)
-/*  f09e364:	006f082a */ 	slt	$at,$v1,$t7
-/*  f09e368:	5420ffe3 */ 	bnezl	$at,.L0f09e2f8
-/*  f09e36c:	8e220018 */ 	lw	$v0,0x18($s1)
-/*  f09e370:	8fae0058 */ 	lw	$t6,0x58($sp)
-.L0f09e374:
-/*  f09e374:	8fac0034 */ 	lw	$t4,0x34($sp)
-/*  f09e378:	240b0003 */ 	addiu	$t3,$zero,0x3
-/*  f09e37c:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f09e380:	ad810000 */ 	sw	$at,0x0($t4)
-/*  f09e384:	8dcd0004 */ 	lw	$t5,0x4($t6)
-/*  f09e388:	ad8d0004 */ 	sw	$t5,0x4($t4)
-/*  f09e38c:	1000004e */ 	b	.L0f09e4c8
-/*  f09e390:	a24b15b1 */ 	sb	$t3,0x15b1($s2)
-.L0f09e394:
-/*  f09e394:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f09e398:	5441004c */ 	bnel	$v0,$at,.L0f09e4cc
-/*  f09e39c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f09e3a0:	965815b2 */ 	lhu	$t8,0x15b2($s2)
-/*  f09e3a4:	3c0f800a */ 	lui	$t7,%hi(g_FileInfo)
-/*  f09e3a8:	25ef6680 */ 	addiu	$t7,$t7,%lo(g_FileInfo)
-/*  f09e3ac:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f09e3b0:	032f5021 */ 	addu	$t2,$t9,$t7
-/*  f09e3b4:	afaa0058 */ 	sw	$t2,0x58($sp)
-/*  f09e3b8:	8e4115d4 */ 	lw	$at,0x15d4($s2)
-/*  f09e3bc:	265015c0 */ 	addiu	$s0,$s2,0x15c0
-/*  f09e3c0:	3c060500 */ 	lui	$a2,0x500
-/*  f09e3c4:	ad410000 */ 	sw	$at,0x0($t2)
-/*  f09e3c8:	8e4d15d8 */ 	lw	$t5,0x15d8($s2)
-/*  f09e3cc:	ad4d0004 */ 	sw	$t5,0x4($t2)
-/*  f09e3d0:	8e4b15b4 */ 	lw	$t3,0x15b4($s2)
-/*  f09e3d4:	964515b2 */ 	lhu	$a1,0x15b2($s2)
-/*  f09e3d8:	8d710000 */ 	lw	$s1,0x0($t3)
-/*  f09e3dc:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f09e3e0:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f09e3e4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f09e3e8:	0fc69d58 */ 	jal	modeldef0f1a7560
-/*  f09e3ec:	02203825 */ 	or	$a3,$s1,$zero
-/*  f09e3f0:	0fc59c15 */ 	jal	fileGetInflatedSize
-/*  f09e3f4:	964415b2 */ 	lhu	$a0,0x15b2($s2)
-/*  f09e3f8:	0fc59ca0 */ 	jal	fileGetLoadedSize
-/*  f09e3fc:	964415b2 */ 	lhu	$a0,0x15b2($s2)
-/*  f09e400:	0fc59ca0 */ 	jal	fileGetLoadedSize
-/*  f09e404:	964415b2 */ 	lhu	$a0,0x15b2($s2)
-/*  f09e408:	0fc59ca0 */ 	jal	fileGetLoadedSize
-/*  f09e40c:	964415b2 */ 	lhu	$a0,0x15b2($s2)
-/*  f09e410:	0c008b49 */ 	jal	modelCalculateRwDataLen
-/*  f09e414:	02202025 */ 	or	$a0,$s1,$zero
-/*  f09e418:	0fc5cbd5 */ 	jal	func0f172f54
-/*  f09e41c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f09e420:	8e4615b8 */ 	lw	$a2,0x15b8($s2)
-/*  f09e424:	8e5815bc */ 	lw	$t8,0x15bc($s2)
-/*  f09e428:	2447003f */ 	addiu	$a3,$v0,0x3f
-/*  f09e42c:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*  f09e430:	34f9003f */ 	ori	$t9,$a3,0x3f
-/*  f09e434:	8f100000 */ 	lw	$s0,0x0($t8)
-/*  f09e438:	3b2f003f */ 	xori	$t7,$t9,0x3f
-/*  f09e43c:	accf0000 */ 	sw	$t7,0x0($a2)
-/*  f09e440:	8e4a15bc */ 	lw	$t2,0x15bc($s2)
-/*  f09e444:	3c097f09 */ 	lui	$t1,%hi(tagsReset)
-/*  f09e448:	3c087f09 */ 	lui	$t0,%hi(tagFindById)
-/*  f09e44c:	01ee6023 */ 	subu	$t4,$t7,$t6
-/*  f09e450:	252953cc */ 	addiu	$t1,$t1,%lo(tagsReset)
-/*  f09e454:	25055528 */ 	addiu	$a1,$t0,%lo(tagFindById)
-/*  f09e458:	020c8023 */ 	subu	$s0,$s0,$t4
-/*  f09e45c:	240d0004 */ 	addiu	$t5,$zero,0x4
-/*  f09e460:	0125082b */ 	sltu	$at,$t1,$a1
-/*  f09e464:	ad500000 */ 	sw	$s0,0x0($t2)
-/*  f09e468:	a24d15b1 */ 	sb	$t5,0x15b1($s2)
-/*  f09e46c:	01201825 */ 	or	$v1,$t1,$zero
-/*  f09e470:	10200007 */ 	beqz	$at,.L0f09e490
-/*  f09e474:	00002025 */ 	or	$a0,$zero,$zero
-.L0f09e478:
-/*  f09e478:	8c6b0000 */ 	lw	$t3,0x0($v1)
-/*  f09e47c:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f09e480:	0065082b */ 	sltu	$at,$v1,$a1
-/*  f09e484:	0160c027 */ 	nor	$t8,$t3,$zero
-/*  f09e488:	1420fffb */ 	bnez	$at,.L0f09e478
-/*  f09e48c:	00982023 */ 	subu	$a0,$a0,$t8
-.L0f09e490:
-/*  f09e490:	3c01f310 */ 	lui	$at,0x99aa
-/*  f09e494:	3421c53a */ 	ori	$at,$at,0xbbcc
-/*  f09e498:	1081000b */ 	beq	$a0,$at,.L0f09e4c8
-/*  f09e49c:	2523000c */ 	addiu	$v1,$t1,0xc
-/*  f09e4a0:	2465001c */ 	addiu	$a1,$v1,0x1c
-/*  f09e4a4:	0065082b */ 	sltu	$at,$v1,$a1
-/*  f09e4a8:	50200008 */ 	beqzl	$at,.L0f09e4cc
-/*  f09e4ac:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f09e4b0:
-/*  f09e4b0:	8c790000 */ 	lw	$t9,0x0($v1)
-/*  f09e4b4:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f09e4b8:	0065082b */ 	sltu	$at,$v1,$a1
-/*  f09e4bc:	372f00ff */ 	ori	$t7,$t9,0xff
-/*  f09e4c0:	1420fffb */ 	bnez	$at,.L0f09e4b0
-/*  f09e4c4:	ac6ffffc */ 	sw	$t7,-0x4($v1)
-.L0f09e4c8:
-/*  f09e4c8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f09e4cc:
-/*  f09e4cc:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f09e4d0:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f09e4d4:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f09e4d8:	03e00008 */ 	jr	$ra
-/*  f09e4dc:	27bd0080 */ 	addiu	$sp,$sp,0x80
-);
-#else
-GLOBAL_ASM(
-glabel bgun0f09e144
-/*  f09c060:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f09c064:	afb40030 */ 	sw	$s4,0x30($sp)
-/*  f09c068:	3c14800a */ 	lui	$s4,0x800a
-/*  f09c06c:	8e94e944 */ 	lw	$s4,-0x16bc($s4)
-/*  f09c070:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f09c074:	afb60038 */ 	sw	$s6,0x38($sp)
-/*  f09c078:	afb50034 */ 	sw	$s5,0x34($sp)
-/*  f09c07c:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*  f09c080:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f09c084:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f09c088:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f09c08c:	928215b1 */ 	lbu	$v0,0x15b1($s4)
-/*  f09c090:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f09c094:	54410046 */ 	bnel	$v0,$at,.NB0f09c1b0
-/*  f09c098:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f09c09c:	8e8315b8 */ 	lw	$v1,0x15b8($s4)
-/*  f09c0a0:	8e8e15bc */ 	lw	$t6,0x15bc($s4)
-/*  f09c0a4:	240f0010 */ 	addiu	$t7,$zero,0x10
-/*  f09c0a8:	8c710000 */ 	lw	$s1,0x0($v1)
-/*  f09c0ac:	8dd00000 */ 	lw	$s0,0x0($t6)
-/*  f09c0b0:	3225000f */ 	andi	$a1,$s1,0xf
-/*  f09c0b4:	10a00003 */ 	beqz	$a1,.NB0f09c0c4
-/*  f09c0b8:	01e51023 */ 	subu	$v0,$t7,$a1
-/*  f09c0bc:	02228821 */ 	addu	$s1,$s1,$v0
-/*  f09c0c0:	02028023 */ 	subu	$s0,$s0,$v0
-.NB0f09c0c4:
-/*  f09c0c4:	ac710000 */ 	sw	$s1,0x0($v1)
-/*  f09c0c8:	8e9815bc */ 	lw	$t8,0x15bc($s4)
-/*  f09c0cc:	af100000 */ 	sw	$s0,0x0($t8)
-/*  f09c0d0:	0fc58635 */ 	jal	fileGetInflatedSize
-/*  f09c0d4:	968415b2 */ 	lhu	$a0,0x15b2($s4)
-/*  f09c0d8:	2443003f */ 	addiu	$v1,$v0,0x3f
-/*  f09c0dc:	3479003f */ 	ori	$t9,$v1,0x3f
-/*  f09c0e0:	3b23003f */ 	xori	$v1,$t9,0x3f
-/*  f09c0e4:	34018000 */ 	dli	$at,0x8000
-/*  f09c0e8:	00613821 */ 	addu	$a3,$v1,$at
-/*  f09c0ec:	0207082b */ 	sltu	$at,$s0,$a3
-/*  f09c0f0:	10200002 */ 	beqz	$at,.NB0f09c0fc
-/*  f09c0f4:	24090007 */ 	addiu	$t1,$zero,0x7
-/*  f09c0f8:	02003825 */ 	or	$a3,$s0,$zero
-.NB0f09c0fc:
-/*  f09c0fc:	3c018006 */ 	lui	$at,0x8006
-/*  f09c100:	a029f2c0 */ 	sb	$t1,-0xd40($at)
-/*  f09c104:	968415b2 */ 	lhu	$a0,0x15b2($s4)
-/*  f09c108:	24050011 */ 	addiu	$a1,$zero,0x11
-/*  f09c10c:	0fc586cd */ 	jal	fileLoadToAddr
-/*  f09c110:	02203025 */ 	or	$a2,$s1,$zero
-/*  f09c114:	00409825 */ 	or	$s3,$v0,$zero
-/*  f09c118:	0fc586ed */ 	jal	fileGetLoadedSize
-/*  f09c11c:	968415b2 */ 	lhu	$a0,0x15b2($s4)
-/*  f09c120:	24520e00 */ 	addiu	$s2,$v0,0xe00
-/*  f09c124:	0fc586ed */ 	jal	fileGetLoadedSize
-/*  f09c128:	968415b2 */ 	lhu	$a0,0x15b2($s4)
-/*  f09c12c:	968a15b2 */ 	lhu	$t2,0x15b2($s4)
-/*  f09c130:	3c0c800b */ 	lui	$t4,0x800b
-/*  f09c134:	02321821 */ 	addu	$v1,$s1,$s2
-/*  f09c138:	258caf40 */ 	addiu	$t4,$t4,-20672
-/*  f09c13c:	2463000f */ 	addiu	$v1,$v1,0xf
-/*  f09c140:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f09c144:	016c3821 */ 	addu	$a3,$t3,$t4
-/*  f09c148:	346d000f */ 	ori	$t5,$v1,0xf
-/*  f09c14c:	acf20004 */ 	sw	$s2,0x4($a3)
-/*  f09c150:	39a5000f */ 	xori	$a1,$t5,0xf
-/*  f09c154:	00b19023 */ 	subu	$s2,$a1,$s1
-/*  f09c158:	02123023 */ 	subu	$a2,$s0,$s2
-/*  f09c15c:	afa70058 */ 	sw	$a3,0x58($sp)
-/*  f09c160:	0fc5b6c2 */ 	jal	tex0f172e70
-/*  f09c164:	268415c0 */ 	addiu	$a0,$s4,0x15c0
-/*  f09c168:	0c009188 */ 	jal	modelPromoteTypeToPointer
-/*  f09c16c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f09c170:	02602025 */ 	or	$a0,$s3,$zero
-/*  f09c174:	3c050500 */ 	lui	$a1,0x500
-/*  f09c178:	0c008eaf */ 	jal	modelPromoteOffsetsToPointers
-/*  f09c17c:	02603025 */ 	or	$a2,$s3,$zero
-/*  f09c180:	8e8f15b4 */ 	lw	$t7,0x15b4($s4)
-/*  f09c184:	24090002 */ 	addiu	$t1,$zero,0x2
-/*  f09c188:	adf30000 */ 	sw	$s3,0x0($t7)
-/*  f09c18c:	ae8015d0 */ 	sw	$zero,0x15d0($s4)
-/*  f09c190:	8fb80058 */ 	lw	$t8,0x58($sp)
-/*  f09c194:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f09c198:	ae8115d4 */ 	sw	$at,0x15d4($s4)
-/*  f09c19c:	8f080004 */ 	lw	$t0,0x4($t8)
-/*  f09c1a0:	a28915b1 */ 	sb	$t1,0x15b1($s4)
-/*  f09c1a4:	1000006f */ 	beqz	$zero,.NB0f09c364
-/*  f09c1a8:	ae8815d8 */ 	sw	$t0,0x15d8($s4)
-/*  f09c1ac:	24010002 */ 	addiu	$at,$zero,0x2
-.NB0f09c1b0:
-/*  f09c1b0:	1441003c */ 	bne	$v0,$at,.NB0f09c2a4
-/*  f09c1b4:	24160003 */ 	addiu	$s6,$zero,0x3
-/*  f09c1b8:	968a15b2 */ 	lhu	$t2,0x15b2($s4)
-/*  f09c1bc:	3c0c800b */ 	lui	$t4,0x800b
-/*  f09c1c0:	258caf40 */ 	addiu	$t4,$t4,-20672
-/*  f09c1c4:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f09c1c8:	016c6821 */ 	addu	$t5,$t3,$t4
-/*  f09c1cc:	268e15d4 */ 	addiu	$t6,$s4,0x15d4
-/*  f09c1d0:	afad0058 */ 	sw	$t5,0x58($sp)
-/*  f09c1d4:	afae0044 */ 	sw	$t6,0x44($sp)
-/*  f09c1d8:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f09c1dc:	00009025 */ 	or	$s2,$zero,$zero
-/*  f09c1e0:	24160003 */ 	addiu	$s6,$zero,0x3
-/*  f09c1e4:	ada10000 */ 	sw	$at,0x0($t5)
-/*  f09c1e8:	8dc80004 */ 	lw	$t0,0x4($t6)
-/*  f09c1ec:	24150001 */ 	addiu	$s5,$zero,0x1
-/*  f09c1f0:	ada80004 */ 	sw	$t0,0x4($t5)
-/*  f09c1f4:	8e8915b4 */ 	lw	$t1,0x15b4($s4)
-/*  f09c1f8:	8e9115d0 */ 	lw	$s1,0x15d0($s4)
-/*  f09c1fc:	8d330000 */ 	lw	$s3,0x0($t1)
-/*  f09c200:	00118080 */ 	sll	$s0,$s1,0x2
-/*  f09c204:	02118023 */ 	subu	$s0,$s0,$s1
-/*  f09c208:	866a0016 */ 	lh	$t2,0x16($s3)
-/*  f09c20c:	00108080 */ 	sll	$s0,$s0,0x2
-/*  f09c210:	022a082a */ 	slt	$at,$s1,$t2
-/*  f09c214:	5020001b */ 	beqzl	$at,.NB0f09c284
-/*  f09c218:	8fa90058 */ 	lw	$t1,0x58($sp)
-/*  f09c21c:	8e620018 */ 	lw	$v0,0x18($s3)
-.NB0f09c220:
-/*  f09c220:	268515c0 */ 	addiu	$a1,$s4,0x15c0
-/*  f09c224:	00505821 */ 	addu	$t3,$v0,$s0
-/*  f09c228:	8d6c0000 */ 	lw	$t4,0x0($t3)
-/*  f09c22c:	00502021 */ 	addu	$a0,$v0,$s0
-/*  f09c230:	29810daf */ 	slti	$at,$t4,_numtextures
-/*  f09c234:	50200007 */ 	beqzl	$at,.NB0f09c254
-/*  f09c238:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f09c23c:	0fc5b72a */ 	jal	texLoad
-/*  f09c240:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f09c244:	8e6e0018 */ 	lw	$t6,0x18($s3)
-/*  f09c248:	01d0c021 */ 	addu	$t8,$t6,$s0
-/*  f09c24c:	a315000b */ 	sb	$s5,0xb($t8)
-/*  f09c250:	26520001 */ 	addiu	$s2,$s2,0x1
-.NB0f09c254:
-/*  f09c254:	52560044 */ 	beql	$s2,$s6,.NB0f09c368
-/*  f09c258:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f09c25c:	8e9915d0 */ 	lw	$t9,0x15d0($s4)
-/*  f09c260:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f09c264:	2610000c */ 	addiu	$s0,$s0,0xc
-/*  f09c268:	272d0001 */ 	addiu	$t5,$t9,0x1
-/*  f09c26c:	ae8d15d0 */ 	sw	$t5,0x15d0($s4)
-/*  f09c270:	866f0016 */ 	lh	$t7,0x16($s3)
-/*  f09c274:	022f082a */ 	slt	$at,$s1,$t7
-/*  f09c278:	5420ffe9 */ 	bnezl	$at,.NB0f09c220
-/*  f09c27c:	8e620018 */ 	lw	$v0,0x18($s3)
-/*  f09c280:	8fa90058 */ 	lw	$t1,0x58($sp)
-.NB0f09c284:
-/*  f09c284:	8fa80044 */ 	lw	$t0,0x44($sp)
-/*  f09c288:	240c0003 */ 	addiu	$t4,$zero,0x3
-/*  f09c28c:	8d210000 */ 	lw	$at,0x0($t1)
-/*  f09c290:	ad010000 */ 	sw	$at,0x0($t0)
-/*  f09c294:	8d2b0004 */ 	lw	$t3,0x4($t1)
-/*  f09c298:	ad0b0004 */ 	sw	$t3,0x4($t0)
-/*  f09c29c:	10000031 */ 	beqz	$zero,.NB0f09c364
-/*  f09c2a0:	a28c15b1 */ 	sb	$t4,0x15b1($s4)
-.NB0f09c2a4:
-/*  f09c2a4:	56c20030 */ 	bnel	$s6,$v0,.NB0f09c368
-/*  f09c2a8:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f09c2ac:	968e15b2 */ 	lhu	$t6,0x15b2($s4)
-/*  f09c2b0:	3c19800b */ 	lui	$t9,0x800b
-/*  f09c2b4:	2739af40 */ 	addiu	$t9,$t9,-20672
-/*  f09c2b8:	000ec0c0 */ 	sll	$t8,$t6,0x3
-/*  f09c2bc:	03196821 */ 	addu	$t5,$t8,$t9
-/*  f09c2c0:	afad0058 */ 	sw	$t5,0x58($sp)
-/*  f09c2c4:	8e8115d4 */ 	lw	$at,0x15d4($s4)
-/*  f09c2c8:	269015c0 */ 	addiu	$s0,$s4,0x15c0
-/*  f09c2cc:	3c060500 */ 	lui	$a2,0x500
-/*  f09c2d0:	ada10000 */ 	sw	$at,0x0($t5)
-/*  f09c2d4:	8e8815d8 */ 	lw	$t0,0x15d8($s4)
-/*  f09c2d8:	ada80004 */ 	sw	$t0,0x4($t5)
-/*  f09c2dc:	8e8915b4 */ 	lw	$t1,0x15b4($s4)
-/*  f09c2e0:	968515b2 */ 	lhu	$a1,0x15b2($s4)
-/*  f09c2e4:	8d330000 */ 	lw	$s3,0x0($t1)
-/*  f09c2e8:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f09c2ec:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f09c2f0:	02602025 */ 	or	$a0,$s3,$zero
-/*  f09c2f4:	0c009114 */ 	jal	modeldef0f1a7560
-/*  f09c2f8:	02603825 */ 	or	$a3,$s3,$zero
-/*  f09c2fc:	0fc58635 */ 	jal	fileGetInflatedSize
-/*  f09c300:	968415b2 */ 	lhu	$a0,0x15b2($s4)
-/*  f09c304:	0fc586ed */ 	jal	fileGetLoadedSize
-/*  f09c308:	968415b2 */ 	lhu	$a0,0x15b2($s4)
-/*  f09c30c:	0fc586ed */ 	jal	fileGetLoadedSize
-/*  f09c310:	968415b2 */ 	lhu	$a0,0x15b2($s4)
-/*  f09c314:	0fc586ed */ 	jal	fileGetLoadedSize
-/*  f09c318:	968415b2 */ 	lhu	$a0,0x15b2($s4)
-/*  f09c31c:	0c008f6f */ 	jal	modelCalculateRwDataLen
-/*  f09c320:	02602025 */ 	or	$a0,$s3,$zero
-/*  f09c324:	0fc5b6fb */ 	jal	func0f172f54
-/*  f09c328:	02002025 */ 	or	$a0,$s0,$zero
-/*  f09c32c:	8e8315b8 */ 	lw	$v1,0x15b8($s4)
-/*  f09c330:	8e8b15bc */ 	lw	$t3,0x15bc($s4)
-/*  f09c334:	2444003f */ 	addiu	$a0,$v0,0x3f
-/*  f09c338:	8c780000 */ 	lw	$t8,0x0($v1)
-/*  f09c33c:	348c003f */ 	ori	$t4,$a0,0x3f
-/*  f09c340:	8d700000 */ 	lw	$s0,0x0($t3)
-/*  f09c344:	398e003f */ 	xori	$t6,$t4,0x3f
-/*  f09c348:	ac6e0000 */ 	sw	$t6,0x0($v1)
-/*  f09c34c:	8e8a15bc */ 	lw	$t2,0x15bc($s4)
-/*  f09c350:	01d8c823 */ 	subu	$t9,$t6,$t8
-/*  f09c354:	02198023 */ 	subu	$s0,$s0,$t9
-/*  f09c358:	240f0004 */ 	addiu	$t7,$zero,0x4
-/*  f09c35c:	ad500000 */ 	sw	$s0,0x0($t2)
-/*  f09c360:	a28f15b1 */ 	sb	$t7,0x15b1($s4)
-.NB0f09c364:
-/*  f09c364:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.NB0f09c368:
-/*  f09c368:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f09c36c:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f09c370:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f09c374:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*  f09c378:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*  f09c37c:	8fb50034 */ 	lw	$s5,0x34($sp)
-/*  f09c380:	8fb60038 */ 	lw	$s6,0x38($sp)
-/*  f09c384:	03e00008 */ 	jr	$ra
-/*  f09c388:	27bd0080 */ 	addiu	$sp,$sp,0x80
-);
+	u32 stack2;
 #endif
+
+	if (player->gunctrl.gunloadstate == GUNLOADSTATE_MODEL) {
+		osSyncPrintf("BriGun:  BriGunLoadTick process GUN_LOADSTATE_LOAD_OBJ\n");
+
+		ptr = *player->gunctrl.loadmemptr;
+		remaining = *player->gunctrl.loadmemremaining;
+
+		// Align ptr to the next 16 byte boundary
+		if (ptr % 16) {
+			padding = 16 - (ptr % 16);
+			ptr += padding;
+			remaining -= padding;
+		}
+
+		*player->gunctrl.loadmemptr = ptr;
+		*player->gunctrl.loadmemremaining = remaining;
+
+		loadsize = ALIGN64(fileGetInflatedSize(player->gunctrl.loadfilenum)) + 0x8000;
+
+		osSyncPrintf("BriGun:  Loading - %s, pMem 0x%08x Size %d\n");
+
+		if (loadsize > remaining) {
+			osSyncPrintf("BriGun:  Warning: LoadSize > MemSize, clamping decomp. buffer from %d to %d (%d Bytes)\n", allocsize, remaining, remaining);
+			loadsize = remaining;
+		}
+
+		// Load the model file to ptr
+		g_LoadType = LOADTYPE_GUN;
+
+		osSyncPrintf("BriGun:  obLoadto at 0x%08x, size %d\n", ptr, loadsize);
+
+		modeldef = fileLoadToAddr(player->gunctrl.loadfilenum, FILELOADMETHOD_EXTRAMEM, (u8 *)ptr, loadsize);
+
+		// Reserve some space for textures
+		allocsize = fileGetLoadedSize(player->gunctrl.loadfilenum) + 0xe00;
+
+		osSyncPrintf("BriGun:  Used size %d (Ob Size %d)\n");
+		osSyncPrintf("BriGun:  block len %d usedsize %d\n");
+		osSyncPrintf("BriGun:  obln ram_len %d block_len %d\n");
+		osSyncPrintf("BriGun:  new used size %d\n");
+
+		fileGetLoadedSize(player->gunctrl.loadfilenum);
+
+		fileinfo = &g_FileInfo[player->gunctrl.loadfilenum];
+		fileinfo->allocsize = allocsize;
+		end = ALIGN16((s32)ptr + allocsize);
+		allocsize = end - ptr;
+		if (1);
+		remaining -= allocsize;
+
+		osSyncPrintf("BriGun:  Texture Block at 0x%08x size %d, endp 0x%08x\n");
+
+		tex0f172e70(&player->gunctrl.unk15c0, (u8 *)end, remaining);
+
+		// Tidy up the model
+		modelPromoteTypeToPointer(modeldef);
+		modelPromoteOffsetsToPointers(modeldef, 0x05000000, (u32)modeldef);
+
+		*player->gunctrl.loadtomodeldef = modeldef;
+
+		player->gunctrl.nexttexturetoload = 0;
+		player->gunctrl.fileinfo = *fileinfo;
+
+		osSyncPrintf("BriGun:  Set Load State: GUN_LOADSTATE_DECOMPRESS_TEXTURES\n");
+		player->gunctrl.gunloadstate = GUNLOADSTATE_TEXTURES;
+		return;
+	}
+
+	if (player->gunctrl.gunloadstate == GUNLOADSTATE_TEXTURES) {
+		osSyncPrintf("BriGun:  BriGunLoadTick process GUN_LOADSTATE_DECOMPRESS_TEXTURES\n");
+
+		gunfileinfo = &player->gunctrl.fileinfo;
+		fileinfo = &g_FileInfo[player->gunctrl.loadfilenum];
+		*fileinfo = *gunfileinfo;
+		modeldef = *player->gunctrl.loadtomodeldef;
+
+		// Load textures - up to 3 per call
+		numthistick = 0;
+
+		for (i = player->gunctrl.nexttexturetoload; i < modeldef->numtexconfigs; i++) {
+			osSyncPrintf("BriGun:  at texture %d\n", i);
+
+			if (modeldef->texconfigs[i].texturenum < NUM_TEXTURES) {
+				osSyncPrintf("BriGun:  Uncompress %d of %d\n", i, modeldef->numtexconfigs);
+				texLoad(&modeldef->texconfigs[i].texturenum, &player->gunctrl.unk15c0, 1);
+				modeldef->texconfigs[i].unk0b = 1;
+			}
+
+			numthistick++;
+
+			if (numthistick == 3) {
+				return;
+			}
+
+			// @bug: This should be incremented prior to the return, otherwise
+			// subsequent ticks will waste time loading a texture that's already
+			// been loaded.
+			player->gunctrl.nexttexturetoload++;
+		}
+
+		*gunfileinfo = *fileinfo;
+
+		osSyncPrintf("BriGun:  Set Load State: GUN_LOADSTATE_DECOMPRESS_DLS\n");
+		player->gunctrl.gunloadstate = GUNLOADSTATE_DLS;
+		return;
+	}
+
+	if (player->gunctrl.gunloadstate == GUNLOADSTATE_DLS) {
+		osSyncPrintf("BriGun:  BriGunLoadTick process GUN_LOADSTATE_DECOMPRESS_DLS\n");
+
+		fileinfo = &g_FileInfo[player->gunctrl.loadfilenum];
+		*fileinfo = player->gunctrl.fileinfo;
+		modeldef = *player->gunctrl.loadtomodeldef;
+
+		modeldef0f1a7560(modeldef, player->gunctrl.loadfilenum, 0x05000000, modeldef, &player->gunctrl.unk15c0, false);
+
+		fileGetInflatedSize(player->gunctrl.loadfilenum);
+		fileGetLoadedSize(player->gunctrl.loadfilenum);
+		fileGetLoadedSize(player->gunctrl.loadfilenum);
+		fileGetLoadedSize(player->gunctrl.loadfilenum);
+
+		modelCalculateRwDataLen(modeldef);
+
+		osSyncPrintf("BriGun:  propgfx_decompress 0x%08x\n");
+		osSyncPrintf("BriGun:  DL waste space %d from %d (Used %d, Ramlen %d, ObSize %d)\n");
+		osSyncPrintf("Increase GUNSAVESIZE to %d!!!\n");
+
+		newvalue = ALIGN64(func0f172f54(&player->gunctrl.unk15c0));
+		remaining = *player->gunctrl.loadmemremaining;
+		remaining -= (s32)(newvalue - *player->gunctrl.loadmemptr);
+
+		*player->gunctrl.loadmemptr = newvalue;
+		*player->gunctrl.loadmemremaining = remaining;
+
+		osSyncPrintf("BriGun:  Set Load State: GUN_LOADSTATE_LOADED\n");
+		player->gunctrl.gunloadstate = GUNLOADSTATE_LOADED;
+
+#if PIRACYCHECKS
+		{
+			s32 *ptr = (s32 *)&tagsReset;
+			s32 *end = (s32 *)&tagFindById;
+			u32 checksum = 0;
+
+			while (ptr < end) {
+				checksum -= ~*ptr;
+				ptr++;
+			}
+
+			if (checksum != CHECKSUM_PLACEHOLDER) {
+				ptr = (s32 *)&tagsReset + 3;
+
+				if (1);
+				end = &ptr[7];
+
+				while (ptr < end) {
+					*ptr |= 0xff;
+					ptr++;
+				}
+			}
+		}
+#endif
+	}
+}
+
+const char var7f1abcd8[] = "need a new gun loading (lock %d gunmemnew %d)\n";
+const char var7f1abd08[] = "loading gun file: %d type: %d\n";
+const char var7f1abd28[] = "BriGun: Process MASTER_GUN_LOADSTATE_FLUX\n";
+const char var7f1abd54[] = "BriGun: Set Master State: MASTER_GUN_LOADSTATE_HANDS\n";
+const char var7f1abd8c[] = "BriGun: Process MASTER_GUN_LOADSTATE_HANDS\n";
+const char var7f1abdb8[] = "BriGun: Setup Hand Load\n";
+const char var7f1abdd4[] = "Hand  : Using cached hands\n";
+const char var7f1abdf0[] = "Hand  : Look ma no hands!\n";
+const char var7f1abe0c[] = "BriGun: Set Master State: MASTER_GUN_LOADSTATE_GUN\n";
+const char var7f1abe40[] = "BriGun: Process MASTER_GUN_LOADSTATE_GUN\n";
+const char var7f1abe6c[] = "BriGun: Setup Gun Load\n";
+const char var7f1abe84[] = "BriGun: Set Master State: MASTER_GUN_LOADSTATE_CARTS\n";
+const char var7f1abebc[] = "BriGun: Process MASTER_GUN_LOADSTATE_CARTS\n";
+const char var7f1abee8[] = "BriGun: Cart Loaded setting GUN_LOADSTATE_FLUX\n";
+const char var7f1abf18[] = "BriGun: Cart loading - looking for carts\n";
+const char var7f1abf44[] = "BriGun: Loading cart %d\n";
+const char var7f1abf60[] = "BriGun: Request for cart %d ignored - cart already loaded\n";
+const char var7f1abf9c[] = "BriGun: Compile Hand 0x%08x Gun 0x%0x8\n";
+const char var7f1abfc4[] = "Gun   : Compiled Gun 0x%08x\n";
+const char var7f1abfe4[] = "Gun   : Compiled Size %d\n";
+const char var7f1ac000[] = "Hand  : Compiled Hand 0x%08x\n";
+const char var7f1ac020[] = "Hand  : Compiled Size %d\n";
+const char var7f1ac03c[] = "Gun   : Compile overhead %d bytes\n";
+const char var7f1ac060[] = "Hand  : Hand Obj 0x%08x Gun Obj 0x%08x \n";
+const char var7f1ac08c[] = "Gun   : After Comp : Base 0x%08x Free %d\n";
+const char var7f1ac0b8[] = "Gun   : After Cached Setup : Base 0x%08x Free %d\n";
+const char var7f1ac0ec[] = "Gun   : TotalUsed %d, Free %d\n";
+const char var7f1ac10c[] = "BriGun: Set Master State: MASTER_GUN_LOADSTATE_LOADED\n";
+const char var7f1ac144[] = "GunLockTimer: %d\n";
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel bgunTickIncLoad
+glabel bgunTickMasterLoad
 /*  f09e4e0:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f09e4e4:	afb5002c */ 	sw	$s5,0x2c($sp)
 /*  f09e4e8:	3c15800a */ 	lui	$s5,%hi(g_Vars)
@@ -11118,7 +10851,7 @@ glabel bgunTickIncLoad
 /*  f09e6bc:	ae4a15b8 */ 	sw	$t2,0x15b8($s2)
 /*  f09e6c0:	ae4b15bc */ 	sw	$t3,0x15bc($s2)
 .L0f09e6c4:
-/*  f09e6c4:	0fc27851 */ 	jal	bgun0f09e144
+/*  f09e6c4:	0fc27851 */ 	jal	bgunTickGunLoad
 /*  f09e6c8:	00000000 */ 	nop
 /*  f09e6cc:	924c15b1 */ 	lbu	$t4,0x15b1($s2)
 /*  f09e6d0:	568c00e6 */ 	bnel	$s4,$t4,.L0f09ea6c
@@ -11157,7 +10890,7 @@ glabel bgunTickIncLoad
 /*  f09e744:	ae4f15a8 */ 	sw	$t7,0x15a8($s2)
 /*  f09e748:	ae5815ac */ 	sw	$t8,0x15ac($s2)
 .L0f09e74c:
-/*  f09e74c:	0fc27851 */ 	jal	bgun0f09e144
+/*  f09e74c:	0fc27851 */ 	jal	bgunTickGunLoad
 /*  f09e750:	00000000 */ 	nop
 /*  f09e754:	924b15b1 */ 	lbu	$t3,0x15b1($s2)
 /*  f09e758:	240c0003 */ 	addiu	$t4,$zero,0x3
@@ -11277,7 +11010,7 @@ glabel bgunTickIncLoad
 .L0f09e8ec:
 /*  f09e8ec:	10600005 */ 	beqz	$v1,.L0f09e904
 /*  f09e8f0:	00008825 */ 	or	$s1,$zero,$zero
-/*  f09e8f4:	0fc27851 */ 	jal	bgun0f09e144
+/*  f09e8f4:	0fc27851 */ 	jal	bgunTickGunLoad
 /*  f09e8f8:	00000000 */ 	nop
 /*  f09e8fc:	1000005b */ 	b	.L0f09ea6c
 /*  f09e900:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -11392,7 +11125,7 @@ glabel bgunTickIncLoad
 );
 #else
 GLOBAL_ASM(
-glabel bgunTickIncLoad
+glabel bgunTickMasterLoad
 /*  f09c38c:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f09c390:	afb5002c */ 	sw	$s5,0x2c($sp)
 /*  f09c394:	3c15800a */ 	lui	$s5,0x800a
@@ -11525,7 +11258,7 @@ glabel bgunTickIncLoad
 /*  f09c568:	ae4b15b8 */ 	sw	$t3,0x15b8($s2)
 /*  f09c56c:	ae4c15bc */ 	sw	$t4,0x15bc($s2)
 .NB0f09c570:
-/*  f09c570:	0fc27018 */ 	jal	bgun0f09e144
+/*  f09c570:	0fc27018 */ 	jal	bgunTickGunLoad
 /*  f09c574:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f09c578:	924d15b1 */ 	lbu	$t5,0x15b1($s2)
 /*  f09c57c:	568d00e0 */ 	bnel	$s4,$t5,.NB0f09c900
@@ -11564,7 +11297,7 @@ glabel bgunTickIncLoad
 /*  f09c5f0:	ae5815a8 */ 	sw	$t8,0x15a8($s2)
 /*  f09c5f4:	ae5915ac */ 	sw	$t9,0x15ac($s2)
 .NB0f09c5f8:
-/*  f09c5f8:	0fc27018 */ 	jal	bgun0f09e144
+/*  f09c5f8:	0fc27018 */ 	jal	bgunTickGunLoad
 /*  f09c5fc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f09c600:	924c15b1 */ 	lbu	$t4,0x15b1($s2)
 /*  f09c604:	240d0003 */ 	addiu	$t5,$zero,0x3
@@ -11684,7 +11417,7 @@ glabel bgunTickIncLoad
 .NB0f09c798:
 /*  f09c798:	10600005 */ 	beqz	$v1,.NB0f09c7b0
 /*  f09c79c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f09c7a0:	0fc27018 */ 	jal	bgun0f09e144
+/*  f09c7a0:	0fc27018 */ 	jal	bgunTickGunLoad
 /*  f09c7a4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f09c7a8:	10000055 */ 	beqz	$zero,.NB0f09c900
 /*  f09c7ac:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -11792,7 +11525,7 @@ glabel bgunTickIncLoad
 );
 #endif
 
-//void bgunTickIncLoad(void)
+//void bgunTickMasterLoad(void)
 //{
 //	s32 spa4;
 //	s32 bodynum;
@@ -11818,7 +11551,7 @@ glabel bgunTickIncLoad
 //
 //			gunfilenum = weaponGetModelNum(spa4);
 //
-//			if (player->gunctrl.unk15b0 != 4 || spa4 != player->gunctrl.gunmemtype) {
+//			if (player->gunctrl.masterloadstate != MASTERLOADSTATE_LOADED || spa4 != player->gunctrl.gunmemtype) {
 //				if (gunfilenum) {
 //					bool hashands = false;
 //
@@ -11834,11 +11567,11 @@ glabel bgunTickIncLoad
 //						hashands = false;
 //					}
 //
-//					if (player->gunctrl.unk15b0 == 0) {
+//					if (player->gunctrl.masterloadstate == MASTERLOADSTATE_FLUX) {
 //						struct casing *casing = g_Casings;
 //
 //						while (casing < &g_Casings[ARRAYCOUNT(g_Casings)]) {
-//							if (casing->modeldef == player->gunctrl.unk1598) {
+//							if (casing->modeldef == player->gunctrl.cartmodeldef) {
 //								casing->modeldef = NULL;
 //							}
 //
@@ -11857,24 +11590,24 @@ glabel bgunTickIncLoad
 //							casing++;
 //						}
 //
-//						player->gunctrl.unk1598 = NULL;
-//						player->gunctrl.unk15b0 = 1;
-//					} else if (player->gunctrl.unk15b0 == 1) {
+//						player->gunctrl.cartmodeldef = NULL;
+//						player->gunctrl.masterloadstate = MASTERLOADSTATE_HANDS;
+//					} else if (player->gunctrl.masterloadstate == MASTERLOADSTATE_HANDS) {
 //						if (hashands) {
 //							if (handfilenum != player->gunctrl.handfilenum) {
-//								if (player->gunctrl.unk15b1 == 0) {
+//								if (player->gunctrl.gunloadstate == GUNLOADSTATE_FLUX) {
 //									player->gunctrl.unk15a0 = bgunGetGunMem();
 //									player->gunctrl.unk15a4 = bgunCalculateGunMemCapacity();
-//									player->gunctrl.unk15b1 = 1;
-//									player->gunctrl.unk15b2 = handfilenum;
-//									player->gunctrl.unk15b4 = &player->gunctrl.handmodeldef;
-//									player->gunctrl.unk15b8 = &player->gunctrl.unk15a0;
-//									player->gunctrl.unk15bc = &player->gunctrl.unk15a4;
+//									player->gunctrl.gunloadstate = GUNLOADSTATE_MODEL;
+//									player->gunctrl.loadfilenum = handfilenum;
+//									player->gunctrl.loadtomodeldef = &player->gunctrl.handmodeldef;
+//									player->gunctrl.loadmemptr = &player->gunctrl.unk15a0;
+//									player->gunctrl.loadmemremaining = &player->gunctrl.unk15a4;
 //								}
 //
-//								bgun0f09e144();
+//								bgunTickGunLoad();
 //
-//								if (player->gunctrl.unk15b1 == 4) {
+//								if (player->gunctrl.gunloadstate == GUNLOADSTATE_LOADED) {
 //									player->gunctrl.handfilenum = handfilenum;
 //								} else {
 //									return;
@@ -11887,33 +11620,33 @@ glabel bgunTickIncLoad
 //							player->gunctrl.unk15a4 = bgunCalculateGunMemCapacity();
 //						}
 //
-//						player->gunctrl.unk15b0 = 2;
-//						player->gunctrl.unk15b1 = 0;
-//					} else if (player->gunctrl.unk15b0 == 2) {
-//						if (player->gunctrl.unk15b1 == 0) {
-//							player->gunctrl.unk15b1 = 1;
-//							player->gunctrl.unk15b2 = gunfilenum;
-//							player->gunctrl.unk15b4 = &player->gunctrl.gunmodeldef;
-//							player->gunctrl.unk15b8 = &player->gunctrl.unk15a8;
-//							player->gunctrl.unk15bc = &player->gunctrl.unk15ac;
+//						player->gunctrl.masterloadstate = MASTERLOADSTATE_GUN;
+//						player->gunctrl.gunloadstate = GUNLOADSTATE_FLUX;
+//					} else if (player->gunctrl.masterloadstate == MASTERLOADSTATE_GUN) {
+//						if (player->gunctrl.gunloadstate == GUNLOADSTATE_FLUX) {
+//							player->gunctrl.gunloadstate = GUNLOADSTATE_MODEL;
+//							player->gunctrl.loadfilenum = gunfilenum;
+//							player->gunctrl.loadtomodeldef = &player->gunctrl.gunmodeldef;
+//							player->gunctrl.loadmemptr = &player->gunctrl.unk15a8;
+//							player->gunctrl.loadmemremaining = &player->gunctrl.unk15ac;
 //							player->gunctrl.unk15a8 = (u32)player->gunctrl.unk15a0;
 //							player->gunctrl.unk15ac = player->gunctrl.unk15a4;
 //						}
 //
-//						bgun0f09e144();
+//						bgunTickGunLoad();
 //
-//						if (player->gunctrl.unk15b1 == 4) {
-//							player->gunctrl.unk15b0 = 3;
-//							player->gunctrl.unk15b1 = 0;
+//						if (player->gunctrl.gunloadstate == GUNLOADSTATE_LOADED) {
+//							player->gunctrl.masterloadstate = MASTERLOADSTATE_CARTS;
+//							player->gunctrl.gunloadstate = GUNLOADSTATE_FLUX;
 //						}
-//					} else if (player->gunctrl.unk15b0 == 3) {
+//					} else if (player->gunctrl.masterloadstate == MASTERLOADSTATE_CARTS) {
 //						struct hand *hand;
 //
-//						if (player->gunctrl.unk15b1 == 4) {
-//							player->gunctrl.unk15b1 = 0;
+//						if (player->gunctrl.gunloadstate == GUNLOADSTATE_LOADED) {
+//							player->gunctrl.gunloadstate = GUNLOADSTATE_FLUX;
 //						}
 //
-//						if (player->gunctrl.unk15b1 == 0 && player->gunctrl.unk1598 == 0 && PLAYERCOUNT() == 1) {
+//						if (player->gunctrl.gunloadstate == GUNLOADSTATE_FLUX && player->gunctrl.cartmodeldef == NULL && PLAYERCOUNT() == 1) {
 //							for (i = 0; i < 2; i++) {
 //								struct weaponfunc *func;
 //								struct weapon *weapondef;
@@ -11938,12 +11671,12 @@ glabel bgunTickIncLoad
 //									}
 //
 //									if (casingindex >= 0) {
-//										if (player->gunctrl.unk1598 == 0) {
-//											player->gunctrl.unk15b2 = var800700b0[casingindex];
-//											player->gunctrl.unk15b1 = 1;
-//											player->gunctrl.unk15b4 = &player->gunctrl.unk1598;
-//											player->gunctrl.unk15b8 = &player->gunctrl.unk15a8;
-//											player->gunctrl.unk15bc = &player->gunctrl.unk15ac;
+//										if (player->gunctrl.cartmodeldef == NULL) {
+//											player->gunctrl.loadfilenum = var800700b0[casingindex];
+//											player->gunctrl.gunloadstate = GUNLOADSTATE_MODEL;
+//											player->gunctrl.loadtomodeldef = &player->gunctrl.cartmodeldef;
+//											player->gunctrl.loadmemptr = &player->gunctrl.unk15a8;
+//											player->gunctrl.loadmemremaining = &player->gunctrl.unk15ac;
 //											break;
 //										}
 //
@@ -11953,8 +11686,8 @@ glabel bgunTickIncLoad
 //							}
 //						}
 //
-//						if (player->gunctrl.unk15b1 != 0) {
-//							bgun0f09e144();
+//						if (player->gunctrl.gunloadstate != GUNLOADSTATE_FLUX) {
+//							bgunTickGunLoad();
 //							return;
 //						}
 //
@@ -12002,14 +11735,14 @@ glabel bgunTickIncLoad
 //
 //						bgunCalculateGunMemCapacity();
 //
-//						player->gunctrl.unk15b0 = 4;
+//						player->gunctrl.masterloadstate = MASTERLOADSTATE_LOADED;
 //						player->gunctrl.gunmemtype = spa4;
 //						player->gunctrl.gunmemnew = -1;
 //					}
 //				}
 //#if VERSION >= VERSION_NTSC_1_0
 //				else {
-//					player->gunctrl.unk15b0 = 4;
+//					player->gunctrl.masterloadstate = MASTERLOADSTATE_LOADED;
 //					player->gunctrl.gunmemtype = spa4;
 //					player->gunctrl.gunmemnew = -1;
 //				}
@@ -12030,7 +11763,7 @@ void bgunTickLoad(void)
 	s32 i;
 
 	for (i = 0; i < g_Vars.lvupdate240; i += 8) {
-		bgunTickIncLoad();
+		bgunTickMasterLoad();
 	}
 }
 
@@ -12068,7 +11801,7 @@ bool bgun0f09eae4(void)
 	bgun0f09df9c();
 
 	do {
-		bgunTickIncLoad();
+		bgunTickMasterLoad();
 	} while (!bgun0f09dd7c());
 
 	g_Vars.currentplayer->gunctrl.unk1583_06 = false;
@@ -12076,9 +11809,9 @@ bool bgun0f09eae4(void)
 	return false;
 }
 
-struct modelfiledata *bgun0f09ebbc(void)
+struct modelfiledata *bgunGetCartModeldef(void)
 {
-	return g_Vars.currentplayer->gunctrl.unk1598;
+	return g_Vars.currentplayer->gunctrl.cartmodeldef;
 }
 
 void bgun0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf *matrix1, struct coord *velocity, Mtxf *matrix2, struct prop *prop, struct coord *pos)

@@ -1377,6 +1377,7 @@
 #define LOADTYPE_SETUP 4
 #define LOADTYPE_PADS  5
 #define LOADTYPE_MODEL 6
+#define LOADTYPE_GUN   7
 
 // These actions are assigned to chr->myaction
 #define MA_NONE            0

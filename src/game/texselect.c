@@ -282,7 +282,7 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 
 		s4 = NULL;
 
-		if (tconfig->texturenum < NUM_TEXTURES) {
+		if ((u32)tconfig->texturenum < NUM_TEXTURES) {
 			texLoadFromConfigs(tconfig, 1, arg6, 0);
 		}
 

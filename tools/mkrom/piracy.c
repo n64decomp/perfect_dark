@@ -163,7 +163,7 @@ void piracy_patch(void)
 	patch(algo06, "lvReset", "lvGetSlowMotionType");
 	patch(algo07, "bodyAllocateEyespy", "lvReset");
 	patch(algo08, "chrConsiderGrenadeThrow", "bgReset");
-	patch(algo09, "bgun0f09e144", "tagsReset");
+	patch(algo09, "bgunTickGunLoad", "tagsReset");
 	patch(algo10, "explosionAlertChrs", "glassDestroy");
 	patch(algo11, "func0f0069dc", "mtxGetObfuscatedRomBase");
 	patch(algo12, "func0f15c920", "func0f0069dc");
