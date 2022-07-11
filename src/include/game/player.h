@@ -54,7 +54,7 @@ void playerUpdateShake(void);
 void playerTickTeleport(f32 *arg0);
 void playerConfigureVi(void);
 void playerTick(bool arg0);
-void player0f0bfc7c(struct coord *cam_pos, struct coord *cam_look, struct coord *cam_up);
+void playerAllocateMatrices(struct coord *cam_pos, struct coord *cam_look, struct coord *cam_up);
 Gfx *playerUpdateShootRot(Gfx *gdl);
 void playerDisplayShield(void);
 Gfx *playerRenderShield(Gfx *gdl);

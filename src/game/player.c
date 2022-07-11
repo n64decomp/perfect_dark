@@ -4763,309 +4763,85 @@ void playerSetGlobalDrawCameraOffset(void)
 	mtx4RotateVecInPlace(camGetWorldToScreenMtxf(), &g_Vars.currentplayer->globaldrawcameraoffset);
 }
 
-GLOBAL_ASM(
-glabel player0f0bfc7c
-/*  f0bfc7c:	27bdfef0 */ 	addiu	$sp,$sp,-272
-/*  f0bfc80:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f0bfc84:	afb1003c */ 	sw	$s1,0x3c($sp)
-/*  f0bfc88:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f0bfc8c:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f0bfc90:	00c08825 */ 	or	$s1,$a2,$zero
-/*  f0bfc94:	afb20040 */ 	sw	$s2,0x40($sp)
-/*  f0bfc98:	0fc5722e */ 	jal	currentPlayerGetScaleBg2Gfx
-/*  f0bfc9c:	afa40110 */ 	sw	$a0,0x110($sp)
-/*  f0bfca0:	3c12800a */ 	lui	$s2,%hi(g_Vars)
-/*  f0bfca4:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
-/*  f0bfca8:	8e4e0284 */ 	lw	$t6,0x284($s2)
-/*  f0bfcac:	e7a00070 */ 	swc1	$f0,0x70($sp)
-/*  f0bfcb0:	0fc2feee */ 	jal	playerSetGlobalDrawWorldOffset
-/*  f0bfcb4:	8dc41ba0 */ 	lw	$a0,0x1ba0($t6)
-/*  f0bfcb8:	0fc59e66 */ 	jal	gfxAllocateMatrix
-/*  f0bfcbc:	00000000 */ 	nop
-/*  f0bfcc0:	8e4f0284 */ 	lw	$t7,0x284($s2)
-/*  f0bfcc4:	0fc59e66 */ 	jal	gfxAllocateMatrix
-/*  f0bfcc8:	ade2005c */ 	sw	$v0,0x5c($t7)
-/*  f0bfccc:	8e580284 */ 	lw	$t8,0x284($s2)
-/*  f0bfcd0:	0fc59e66 */ 	jal	gfxAllocateMatrix
-/*  f0bfcd4:	af020060 */ 	sw	$v0,0x60($t8)
-/*  f0bfcd8:	8e590284 */ 	lw	$t9,0x284($s2)
-/*  f0bfcdc:	0fc59e66 */ 	jal	gfxAllocateMatrix
-/*  f0bfce0:	af220064 */ 	sw	$v0,0x64($t9)
-/*  f0bfce4:	8e490284 */ 	lw	$t1,0x284($s2)
-/*  f0bfce8:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f0bfcec:	0fc59e6c */ 	jal	gfxAllocateLookAt
-/*  f0bfcf0:	ad220068 */ 	sw	$v0,0x68($t1)
-/*  f0bfcf4:	8fa80110 */ 	lw	$t0,0x110($sp)
-/*  f0bfcf8:	8e430284 */ 	lw	$v1,0x284($s2)
-/*  f0bfcfc:	afa200cc */ 	sw	$v0,0xcc($sp)
-/*  f0bfd00:	c5040000 */ 	lwc1	$f4,0x0($t0)
-/*  f0bfd04:	c4660038 */ 	lwc1	$f6,0x38($v1)
-/*  f0bfd08:	c7a00070 */ 	lwc1	$f0,0x70($sp)
-/*  f0bfd0c:	27a4008c */ 	addiu	$a0,$sp,0x8c
-/*  f0bfd10:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0bfd14:	46004282 */ 	mul.s	$f10,$f8,$f0
-/*  f0bfd18:	e7aa0074 */ 	swc1	$f10,0x74($sp)
-/*  f0bfd1c:	c5100004 */ 	lwc1	$f16,0x4($t0)
-/*  f0bfd20:	c472003c */ 	lwc1	$f18,0x3c($v1)
-/*  f0bfd24:	44055000 */ 	mfc1	$a1,$f10
-/*  f0bfd28:	46128101 */ 	sub.s	$f4,$f16,$f18
-/*  f0bfd2c:	46002182 */ 	mul.s	$f6,$f4,$f0
-/*  f0bfd30:	e7a60078 */ 	swc1	$f6,0x78($sp)
-/*  f0bfd34:	c5080008 */ 	lwc1	$f8,0x8($t0)
-/*  f0bfd38:	c4700040 */ 	lwc1	$f16,0x40($v1)
-/*  f0bfd3c:	44063000 */ 	mfc1	$a2,$f6
-/*  f0bfd40:	46104481 */ 	sub.s	$f18,$f8,$f16
-/*  f0bfd44:	46009102 */ 	mul.s	$f4,$f18,$f0
-/*  f0bfd48:	e7a4007c */ 	swc1	$f4,0x7c($sp)
-/*  f0bfd4c:	c6080000 */ 	lwc1	$f8,0x0($s0)
-/*  f0bfd50:	44072000 */ 	mfc1	$a3,$f4
-/*  f0bfd54:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f0bfd58:	e7b00080 */ 	swc1	$f16,0x80($sp)
-/*  f0bfd5c:	c6120004 */ 	lwc1	$f18,0x4($s0)
-/*  f0bfd60:	46069200 */ 	add.s	$f8,$f18,$f6
-/*  f0bfd64:	e7a80084 */ 	swc1	$f8,0x84($sp)
-/*  f0bfd68:	c6100008 */ 	lwc1	$f16,0x8($s0)
-/*  f0bfd6c:	46048480 */ 	add.s	$f18,$f16,$f4
-/*  f0bfd70:	e7b20088 */ 	swc1	$f18,0x88($sp)
-/*  f0bfd74:	c6080000 */ 	lwc1	$f8,0x0($s0)
-/*  f0bfd78:	e7a80010 */ 	swc1	$f8,0x10($sp)
-/*  f0bfd7c:	c6100004 */ 	lwc1	$f16,0x4($s0)
-/*  f0bfd80:	e7b00014 */ 	swc1	$f16,0x14($sp)
-/*  f0bfd84:	c6120008 */ 	lwc1	$f18,0x8($s0)
-/*  f0bfd88:	e7b20018 */ 	swc1	$f18,0x18($sp)
-/*  f0bfd8c:	c62a0000 */ 	lwc1	$f10,0x0($s1)
-/*  f0bfd90:	e7aa001c */ 	swc1	$f10,0x1c($sp)
-/*  f0bfd94:	c6260004 */ 	lwc1	$f6,0x4($s1)
-/*  f0bfd98:	e7a60020 */ 	swc1	$f6,0x20($sp)
-/*  f0bfd9c:	c6240008 */ 	lwc1	$f4,0x8($s1)
-/*  f0bfda0:	0c005a1d */ 	jal	mtx00016874
-/*  f0bfda4:	e7a40024 */ 	swc1	$f4,0x24($sp)
-/*  f0bfda8:	c7a8007c */ 	lwc1	$f8,0x7c($sp)
-/*  f0bfdac:	c7b00080 */ 	lwc1	$f16,0x80($sp)
-/*  f0bfdb0:	c7b20084 */ 	lwc1	$f18,0x84($sp)
-/*  f0bfdb4:	c7aa0088 */ 	lwc1	$f10,0x88($sp)
-/*  f0bfdb8:	e7a80010 */ 	swc1	$f8,0x10($sp)
-/*  f0bfdbc:	e7b00014 */ 	swc1	$f16,0x14($sp)
-/*  f0bfdc0:	e7b20018 */ 	swc1	$f18,0x18($sp)
-/*  f0bfdc4:	e7aa001c */ 	swc1	$f10,0x1c($sp)
-/*  f0bfdc8:	c6260000 */ 	lwc1	$f6,0x0($s1)
-/*  f0bfdcc:	27a400d0 */ 	addiu	$a0,$sp,0xd0
-/*  f0bfdd0:	8fa500cc */ 	lw	$a1,0xcc($sp)
-/*  f0bfdd4:	e7a60020 */ 	swc1	$f6,0x20($sp)
-/*  f0bfdd8:	c6240004 */ 	lwc1	$f4,0x4($s1)
-/*  f0bfddc:	8fa60074 */ 	lw	$a2,0x74($sp)
-/*  f0bfde0:	8fa70078 */ 	lw	$a3,0x78($sp)
-/*  f0bfde4:	e7a40024 */ 	swc1	$f4,0x24($sp)
-/*  f0bfde8:	c6280008 */ 	lwc1	$f8,0x8($s1)
-/*  f0bfdec:	0c0011c3 */ 	jal	guLookAtReflect
-/*  f0bfdf0:	e7a80028 */ 	swc1	$f8,0x28($sp)
-/*  f0bfdf4:	8fa20110 */ 	lw	$v0,0x110($sp)
-/*  f0bfdf8:	8e4a0284 */ 	lw	$t2,0x284($s2)
-/*  f0bfdfc:	c6100000 */ 	lwc1	$f16,0x0($s0)
-/*  f0bfe00:	8c450000 */ 	lw	$a1,0x0($v0)
-/*  f0bfe04:	8c460004 */ 	lw	$a2,0x4($v0)
-/*  f0bfe08:	8c470008 */ 	lw	$a3,0x8($v0)
-/*  f0bfe0c:	8d440064 */ 	lw	$a0,0x64($t2)
-/*  f0bfe10:	e7b00010 */ 	swc1	$f16,0x10($sp)
-/*  f0bfe14:	c6120004 */ 	lwc1	$f18,0x4($s0)
-/*  f0bfe18:	e7b20014 */ 	swc1	$f18,0x14($sp)
-/*  f0bfe1c:	c60a0008 */ 	lwc1	$f10,0x8($s0)
-/*  f0bfe20:	e7aa0018 */ 	swc1	$f10,0x18($sp)
-/*  f0bfe24:	c6260000 */ 	lwc1	$f6,0x0($s1)
-/*  f0bfe28:	e7a6001c */ 	swc1	$f6,0x1c($sp)
-/*  f0bfe2c:	c6240004 */ 	lwc1	$f4,0x4($s1)
-/*  f0bfe30:	e7a40020 */ 	swc1	$f4,0x20($sp)
-/*  f0bfe34:	c6280008 */ 	lwc1	$f8,0x8($s1)
-/*  f0bfe38:	0c005a1d */ 	jal	mtx00016874
-/*  f0bfe3c:	e7a80024 */ 	swc1	$f8,0x24($sp)
-/*  f0bfe40:	8fac0110 */ 	lw	$t4,0x110($sp)
-/*  f0bfe44:	8e4b0284 */ 	lw	$t3,0x284($s2)
-/*  f0bfe48:	c6100000 */ 	lwc1	$f16,0x0($s0)
-/*  f0bfe4c:	8d850000 */ 	lw	$a1,0x0($t4)
-/*  f0bfe50:	8d860004 */ 	lw	$a2,0x4($t4)
-/*  f0bfe54:	8d870008 */ 	lw	$a3,0x8($t4)
-/*  f0bfe58:	8d640068 */ 	lw	$a0,0x68($t3)
-/*  f0bfe5c:	e7b00010 */ 	swc1	$f16,0x10($sp)
-/*  f0bfe60:	c6120004 */ 	lwc1	$f18,0x4($s0)
-/*  f0bfe64:	e7b20014 */ 	swc1	$f18,0x14($sp)
-/*  f0bfe68:	c60a0008 */ 	lwc1	$f10,0x8($s0)
-/*  f0bfe6c:	e7aa0018 */ 	swc1	$f10,0x18($sp)
-/*  f0bfe70:	c6260000 */ 	lwc1	$f6,0x0($s1)
-/*  f0bfe74:	e7a6001c */ 	swc1	$f6,0x1c($sp)
-/*  f0bfe78:	c6240004 */ 	lwc1	$f4,0x4($s1)
-/*  f0bfe7c:	e7a40020 */ 	swc1	$f4,0x20($sp)
-/*  f0bfe80:	c6280008 */ 	lwc1	$f8,0x8($s1)
-/*  f0bfe84:	0c005ad6 */ 	jal	mtx00016b58
-/*  f0bfe88:	e7a80024 */ 	swc1	$f8,0x24($sp)
-/*  f0bfe8c:	0fc59e66 */ 	jal	gfxAllocateMatrix
-/*  f0bfe90:	00000000 */ 	nop
-/*  f0bfe94:	0fc59e66 */ 	jal	gfxAllocateMatrix
-/*  f0bfe98:	00408825 */ 	or	$s1,$v0,$zero
-/*  f0bfe9c:	0fc2d5c6 */ 	jal	camGetMtxF1754
-/*  f0bfea0:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0bfea4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0bfea8:	27a5008c */ 	addiu	$a1,$sp,0x8c
-/*  f0bfeac:	0c005680 */ 	jal	mtx4MultMtx4
-/*  f0bfeb0:	02003025 */ 	or	$a2,$s0,$zero
-/*  f0bfeb4:	3c01c6fa */ 	lui	$at,0xc6fa
-/*  f0bfeb8:	44816000 */ 	mtc1	$at,$f12
-/*  f0bfebc:	3c0146fa */ 	lui	$at,0x46fa
-/*  f0bfec0:	44811000 */ 	mtc1	$at,$f2
-/*  f0bfec4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0bfec8:	02003025 */ 	or	$a2,$s0,$zero
-/*  f0bfecc:	24080004 */ 	addiu	$t0,$zero,0x4
-/*  f0bfed0:	24040010 */ 	addiu	$a0,$zero,0x10
-.L0f0bfed4:
-/*  f0bfed4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0bfed8:	00c01025 */ 	or	$v0,$a2,$zero
-.L0f0bfedc:
-/*  f0bfedc:	c4400000 */ 	lwc1	$f0,0x0($v0)
-/*  f0bfee0:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f0bfee4:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0bfee8:	00000000 */ 	nop
-/*  f0bfeec:	45020004 */ 	bc1fl	.L0f0bff00
-/*  f0bfef0:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0bfef4:	10000006 */ 	b	.L0f0bff10
-/*  f0bfef8:	e4420000 */ 	swc1	$f2,0x0($v0)
-/*  f0bfefc:	460c003c */ 	c.lt.s	$f0,$f12
-.L0f0bff00:
-/*  f0bff00:	00000000 */ 	nop
-/*  f0bff04:	45000002 */ 	bc1f	.L0f0bff10
-/*  f0bff08:	00000000 */ 	nop
-/*  f0bff0c:	e44c0000 */ 	swc1	$f12,0x0($v0)
-.L0f0bff10:
-/*  f0bff10:	1464fff2 */ 	bne	$v1,$a0,.L0f0bfedc
-/*  f0bff14:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f0bff18:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f0bff1c:	14a8ffed */ 	bne	$a1,$t0,.L0f0bfed4
-/*  f0bff20:	24c60010 */ 	addiu	$a2,$a2,0x10
-/*  f0bff24:	0fc2d3ee */ 	jal	camSetMtxF006c
-/*  f0bff28:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0bff2c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0bff30:	0c0128d8 */ 	jal	guMtxF2L
-/*  f0bff34:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0bff38:	0fc2d3fe */ 	jal	camSetOrthogonalMtxL
-/*  f0bff3c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0bff40:	c7ac0070 */ 	lwc1	$f12,0x70($sp)
-/*  f0bff44:	0c0057c1 */ 	jal	mtx00015f04
-/*  f0bff48:	27a5008c */ 	addiu	$a1,$sp,0x8c
-/*  f0bff4c:	8e4d0284 */ 	lw	$t5,0x284($s2)
-/*  f0bff50:	27a4008c */ 	addiu	$a0,$sp,0x8c
-/*  f0bff54:	0c0128d8 */ 	jal	guMtxF2L
-/*  f0bff58:	8da5005c */ 	lw	$a1,0x5c($t5)
-/*  f0bff5c:	8e430284 */ 	lw	$v1,0x284($s2)
-/*  f0bff60:	8c64005c */ 	lw	$a0,0x5c($v1)
-/*  f0bff64:	0c005a08 */ 	jal	mtx00016820
-/*  f0bff68:	8c650060 */ 	lw	$a1,0x60($v1)
-/*  f0bff6c:	8e4e0284 */ 	lw	$t6,0x284($s2)
-/*  f0bff70:	0fc2d3e6 */ 	jal	camSetMtxL173c
-/*  f0bff74:	8dc4005c */ 	lw	$a0,0x5c($t6)
-/*  f0bff78:	8e4f0284 */ 	lw	$t7,0x284($s2)
-/*  f0bff7c:	0fc2d3de */ 	jal	camSetMtxL1738
-/*  f0bff80:	8de40060 */ 	lw	$a0,0x60($t7)
-/*  f0bff84:	8e580284 */ 	lw	$t8,0x284($s2)
-/*  f0bff88:	0fc2d406 */ 	jal	camSetWorldToScreenMtxf
-/*  f0bff8c:	8f040064 */ 	lw	$a0,0x64($t8)
-/*  f0bff90:	8e590284 */ 	lw	$t9,0x284($s2)
-/*  f0bff94:	0fc2d5d6 */ 	jal	camSetProjectionMtxF
-/*  f0bff98:	8f240068 */ 	lw	$a0,0x68($t9)
-/*  f0bff9c:	0fc2d5e6 */ 	jal	camSetLookAt
-/*  f0bffa0:	8fa400cc */ 	lw	$a0,0xcc($sp)
-/*  f0bffa4:	0fc2d60e */ 	jal	cam0f0b5838
-/*  f0bffa8:	00000000 */ 	nop
-/*  f0bffac:	0fc2ff07 */ 	jal	playerSetGlobalDrawCameraOffset
-/*  f0bffb0:	00000000 */ 	nop
-/*  f0bffb4:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f0bffb8:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f0bffbc:	8fb1003c */ 	lw	$s1,0x3c($sp)
-/*  f0bffc0:	8fb20040 */ 	lw	$s2,0x40($sp)
-/*  f0bffc4:	03e00008 */ 	jr	$ra
-/*  f0bffc8:	27bd0110 */ 	addiu	$sp,$sp,0x110
-);
+void playerAllocateMatrices(struct coord *cam_pos, struct coord *cam_look, struct coord *cam_up)
+{
+	Mtx spd0;
+	LookAt *lookat;
+	Mtxf sp8c;
+	struct coord sp80;
+	struct coord sp74;
+	f32 scale;
+	Mtxf *s0;
+	Mtx *s1;
+	s32 i;
+	s32 j;
 
-// Mismatch near first call to mtx00016874:
-// - Goal seems to have less float registers available which causes it to
-// reload cam_look properties for the function call
-// - Because it has to reload, it then stores cam_look in a callee-save register
-//void player0f0bfc7c(struct coord *cam_pos, struct coord *cam_look, struct coord *cam_up)
-//{
-//	f32 spd0[16];
-//	void *spcc;
-//	Mtxf sp8c;
-//	struct coord sp80;
-//	struct coord sp74;
-//	f32 scale;
-//	Mtxf *s0;
-//	Mtx *s1;
-//	s32 i;
-//	s32 j;
-//
-//	scale = currentPlayerGetScaleBg2Gfx();
-//	playerSetGlobalDrawWorldOffset(g_Vars.currentplayer->cam_room);
-//
-//	g_Vars.currentplayer->mtxl005c = gfxAllocateMatrix();
-//	g_Vars.currentplayer->mtxl0060 = gfxAllocateMatrix();
-//	g_Vars.currentplayer->mtxf0064 = gfxAllocateMatrix();
-//	g_Vars.currentplayer->mtxf0068 = gfxAllocateMatrix();
-//
-//	spcc = gfxAllocateLookAt(2);
-//
-//	sp74.x = (cam_pos->x - g_Vars.currentplayer->globaldrawworldoffset.x) * scale;
-//	sp74.y = (cam_pos->y - g_Vars.currentplayer->globaldrawworldoffset.y) * scale;
-//	sp74.z = (cam_pos->z - g_Vars.currentplayer->globaldrawworldoffset.z) * scale;
-//
-//	sp80.x = (cam_pos->x - g_Vars.currentplayer->globaldrawworldoffset.x) * scale + cam_look->x;
-//	sp80.y = (cam_pos->y - g_Vars.currentplayer->globaldrawworldoffset.y) * scale + cam_look->y;
-//	sp80.z = (cam_pos->z - g_Vars.currentplayer->globaldrawworldoffset.z) * scale + cam_look->z;
-//
-//	mtx00016874(&sp8c,
-//			sp74.x, sp74.y, sp74.z,
-//			cam_look->x, cam_look->y, cam_look->z,
-//			cam_up->x, cam_up->y, cam_up->z);
-//
-//	guLookAtReflect(spd0, spcc,
-//			sp74.x, sp74.y, sp74.z,
-//			sp80.x, sp80.y, sp80.z,
-//			cam_up->x, cam_up->y, cam_up->z);
-//
-//	mtx00016874(g_Vars.currentplayer->mtxf0064,
-//			cam_pos->x, cam_pos->y, cam_pos->z,
-//			cam_look->x, cam_look->y, cam_look->z,
-//			cam_up->x, cam_up->y, cam_up->z);
-//
-//	mtx00016b58(g_Vars.currentplayer->mtxf0068,
-//			cam_pos->x, cam_pos->y, cam_pos->z,
-//			cam_look->x, cam_look->y, cam_look->z,
-//			cam_up->x, cam_up->y, cam_up->z);
-//
-//	s1 = gfxAllocateMatrix();
-//	s0 = gfxAllocateMatrix();
-//	mtx4MultMtx4(camGetMtxF1754(), &sp8c, s0);
-//
-//	for (i = 0; i < 4; i++) {
-//		for (j = 0; j < 4; j++) {
-//			if (s0->m[i][j] > 32000.0f) {
-//				s0->m[i][j] = 32000.0f;
-//			} else if (s0->m[i][j] < -32000.0f) {
-//				s0->m[i][j] = -32000.0f;
-//			}
-//		}
-//	}
-//
-//	camSetMtxF006c(s0);
-//	guMtxF2L(s0, s1);
-//	camSetOrthogonalMtxL(s1);
-//	mtx00015f04(scale, &sp8c);
-//	guMtxF2L(&sp8c, g_Vars.currentplayer->mtxl005c);
-//	mtx00016820(g_Vars.currentplayer->mtxl005c, g_Vars.currentplayer->mtxl0060);
-//	camSetMtxL173c(g_Vars.currentplayer->mtxl005c);
-//	camSetMtxL1738(g_Vars.currentplayer->mtxl0060);
-//	camSetWorldToScreenMtxf(g_Vars.currentplayer->mtxf0064);
-//	camSetProjectionMtxF(g_Vars.currentplayer->mtxf0068);
-//	camSetLookAt(spcc);
-//	cam0f0b5838();
-//	playerSetGlobalDrawCameraOffset();
-//}
+	scale = currentPlayerGetScaleBg2Gfx();
+	playerSetGlobalDrawWorldOffset(g_Vars.currentplayer->cam_room);
+
+	g_Vars.currentplayer->mtxl005c = gfxAllocateMatrix();
+	g_Vars.currentplayer->mtxl0060 = gfxAllocateMatrix();
+	g_Vars.currentplayer->mtxf0064 = gfxAllocateMatrix();
+	g_Vars.currentplayer->mtxf0068 = gfxAllocateMatrix();
+
+	lookat = gfxAllocateLookAt(2);
+
+	sp74.x = (cam_pos->x - g_Vars.currentplayer->globaldrawworldoffset.x) * scale;
+	sp74.y = (cam_pos->y - g_Vars.currentplayer->globaldrawworldoffset.y) * scale;
+	sp74.z = (cam_pos->z - g_Vars.currentplayer->globaldrawworldoffset.z) * scale;
+
+	sp80.f[0] = sp74.f[0] + cam_look->f[0];
+	sp80.f[1] = sp74.f[1] + cam_look->f[1];
+	sp80.f[2] = sp74.f[2] + cam_look->f[2];
+
+	mtx00016874(&sp8c,
+			sp74.x, sp74.y, sp74.z,
+			cam_look->x, cam_look->y, cam_look->z,
+			cam_up->x, cam_up->y, cam_up->z);
+
+	guLookAtReflect(&spd0, lookat,
+			sp74.x, sp74.y, sp74.z,
+			sp80.x, sp80.y, sp80.z,
+			cam_up->x, cam_up->y, cam_up->z);
+
+	mtx00016874(g_Vars.currentplayer->mtxf0064,
+			cam_pos->x, cam_pos->y, cam_pos->z,
+			cam_look->x, cam_look->y, cam_look->z,
+			cam_up->x, cam_up->y, cam_up->z);
+
+	mtx00016b58(g_Vars.currentplayer->mtxf0068,
+			cam_pos->x, cam_pos->y, cam_pos->z,
+			cam_look->x, cam_look->y, cam_look->z,
+			cam_up->x, cam_up->y, cam_up->z);
+
+	s1 = gfxAllocateMatrix();
+	s0 = gfxAllocateMatrix();
+	mtx4MultMtx4(camGetMtxF1754(), &sp8c, s0);
+
+	for (i = 0; i < 4; i++) {
+		for (j = 0; j < 4; j++) {
+			if (s0->m[i][j] > 32000.0f) {
+				s0->m[i][j] = 32000.0f;
+			} else if (s0->m[i][j] < -32000.0f) {
+				s0->m[i][j] = -32000.0f;
+			}
+		}
+	}
+
+	camSetMtxF006c(s0);
+	guMtxF2L(s0->m, s1);
+	camSetOrthogonalMtxL(s1);
+	mtx00015f04(scale, &sp8c);
+	guMtxF2L(sp8c.m, g_Vars.currentplayer->mtxl005c);
+	mtx00016820(g_Vars.currentplayer->mtxl005c, g_Vars.currentplayer->mtxl0060);
+	camSetMtxL173c(g_Vars.currentplayer->mtxl005c);
+	camSetMtxL1738(g_Vars.currentplayer->mtxl0060);
+	camSetWorldToScreenMtxf(g_Vars.currentplayer->mtxf0064);
+	camSetProjectionMtxF(g_Vars.currentplayer->mtxf0068);
+	camSetLookAt(lookat);
+	cam0f0b5838();
+	playerSetGlobalDrawCameraOffset();
+}
 
 Gfx *playerUpdateShootRot(Gfx *gdl)
 {
@@ -5076,7 +4852,7 @@ Gfx *playerUpdateShootRot(Gfx *gdl)
 	f32 rotx;
 	f32 roty;
 
-	player0f0bfc7c(&g_Vars.currentplayer->cam_pos,
+	playerAllocateMatrices(&g_Vars.currentplayer->cam_pos,
 			&g_Vars.currentplayer->cam_look,
 			&g_Vars.currentplayer->cam_up);
 	bgun0f0a0c08(&sp30, &sp3c);
