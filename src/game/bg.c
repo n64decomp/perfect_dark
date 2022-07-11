@@ -2678,19 +2678,19 @@ Gfx *bgRenderScene(Gfx *gdl)
 
 		thing = &var800a4640.unk000[roomnum];
 
-		// Render BG alpha components
+		// Render BG translucent components
 		gdl = currentPlayerScissorWithinViewportF(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
 		gdl = envStartFog(gdl, true);
 
 		if (debugIsBgRenderingEnabled() && getVar80084040()) {
-			gdl = bgRenderRoomAlpha(gdl, thing->roomnum);
+			gdl = bgRenderRoomXlu(gdl, thing->roomnum);
 		}
 
 		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		gdl = envStopFog(gdl);
 
-		// Render prop alpha components
+		// Render prop translucent components
 		if (debugIsPropRenderingEnabled() && getVar80084040()) {
 			if (firstroomnum == thing->roomnum) {
 				gdl = propsRender(gdl, 0, RENDERPASS_XLU, roomnumsbyprop);
@@ -3344,7 +3344,7 @@ glabel bgRenderScene
 /*  f15564c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f155650:	10400004 */ 	beqz	$v0,.NB0f155664
 /*  f155654:	02202025 */ 	or	$a0,$s1,$zero
-/*  f155658:	0fc564f5 */ 	jal	bgRenderRoomAlpha
+/*  f155658:	0fc564f5 */ 	jal	bgRenderRoomXlu
 /*  f15565c:	86050000 */ 	lh	$a1,0x0($s0)
 /*  f155660:	00408825 */ 	or	$s1,$v0,$zero
 .NB0f155664:
@@ -9930,111 +9930,37 @@ Gfx *bgRenderRoomOpaque(Gfx *gdl, s32 roomnum)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel bgRenderRoomAlpha
-/*  f15ebd4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f15ebd8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f15ebdc:	10a00008 */ 	beqz	$a1,.L0f15ec00
-/*  f15ebe0:	00803025 */ 	or	$a2,$a0,$zero
-/*  f15ebe4:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x2bc)
-/*  f15ebe8:	8dcea27c */ 	lw	$t6,%lo(g_Vars+0x2bc)($t6)
-/*  f15ebec:	000518c0 */ 	sll	$v1,$a1,0x3
-/*  f15ebf0:	00651821 */ 	addu	$v1,$v1,$a1
-/*  f15ebf4:	00ae082a */ 	slt	$at,$a1,$t6
-/*  f15ebf8:	14200003 */ 	bnez	$at,.L0f15ec08
-/*  f15ebfc:	00031880 */ 	sll	$v1,$v1,0x2
-.L0f15ec00:
-/*  f15ec00:	10000031 */ 	b	.L0f15ecc8
-/*  f15ec04:	00c01025 */ 	or	$v0,$a2,$zero
-.L0f15ec08:
-/*  f15ec08:	3c0f800a */ 	lui	$t7,%hi(g_Rooms)
-/*  f15ec0c:	8def4928 */ 	lw	$t7,%lo(g_Rooms)($t7)
-/*  f15ec10:	00651823 */ 	subu	$v1,$v1,$a1
-/*  f15ec14:	00031880 */ 	sll	$v1,$v1,0x2
-/*  f15ec18:	01e31021 */ 	addu	$v0,$t7,$v1
-/*  f15ec1c:	84580002 */ 	lh	$t8,0x2($v0)
-/*  f15ec20:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f15ec24:	13000024 */ 	beqz	$t8,.L0f15ecb8
-/*  f15ec28:	00000000 */ 	nop
-/*  f15ec2c:	8c590014 */ 	lw	$t9,0x14($v0)
-/*  f15ec30:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f15ec34:	8f28000c */ 	lw	$t0,0xc($t9)
-/*  f15ec38:	55000004 */ 	bnezl	$t0,.L0f15ec4c
-/*  f15ec3c:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f15ec40:	10000021 */ 	b	.L0f15ecc8
-/*  f15ec44:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f15ec48:	afa30018 */ 	sw	$v1,0x18($sp)
-.L0f15ec4c:
-/*  f15ec4c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f15ec50:	0fc01181 */ 	jal	roomHighlight
-/*  f15ec54:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f15ec58:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f15ec5c:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f15ec60:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f15ec64:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f15ec68:	0fc59b5f */ 	jal	room0f166d7c
-/*  f15ec6c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f15ec70:	3c0b800a */ 	lui	$t3,%hi(g_Rooms)
-/*  f15ec74:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f15ec78:	8d6b4928 */ 	lw	$t3,%lo(g_Rooms)($t3)
-/*  f15ec7c:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f15ec80:	00402025 */ 	or	$a0,$v0,$zero
-/*  f15ec84:	01636021 */ 	addu	$t4,$t3,$v1
-/*  f15ec88:	8d8d0014 */ 	lw	$t5,0x14($t4)
-/*  f15ec8c:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f15ec90:	0fc57a17 */ 	jal	room0f15e85c
-/*  f15ec94:	8da6000c */ 	lw	$a2,0xc($t5)
-/*  f15ec98:	3c0f800a */ 	lui	$t7,%hi(g_Rooms)
-/*  f15ec9c:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f15eca0:	8def4928 */ 	lw	$t7,%lo(g_Rooms)($t7)
-/*  f15eca4:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f15eca8:	00403025 */ 	or	$a2,$v0,$zero
-/*  f15ecac:	01e3c021 */ 	addu	$t8,$t7,$v1
-/*  f15ecb0:	10000004 */ 	b	.L0f15ecc4
-/*  f15ecb4:	a70e0002 */ 	sh	$t6,0x2($t8)
-.L0f15ecb8:
-/*  f15ecb8:	0fc57716 */ 	jal	roomLoad
-/*  f15ecbc:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f15ecc0:	8fa60020 */ 	lw	$a2,0x20($sp)
-.L0f15ecc4:
-/*  f15ecc4:	00c01025 */ 	or	$v0,$a2,$zero
-.L0f15ecc8:
-/*  f15ecc8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f15eccc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f15ecd0:	03e00008 */ 	jr	$ra
-/*  f15ecd4:	00000000 */ 	nop
-);
+/**
+ * Render the transparency layer of the room.
+ */
+Gfx *bgRenderRoomXlu(Gfx *gdl, s32 roomnum)
+{
+	u32 stack;
 
-// regalloc
-//Gfx *bgRenderRoomAlpha(Gfx *gdl, s32 roomnum)
-//{
-//	u32 stack;
-//
-//	if (roomnum == 0 || roomnum >= g_Vars.roomcount) {
-//		return gdl;
-//	}
-//
-//	if (g_Rooms[roomnum].loaded240) {
-//		if (!g_Rooms[roomnum].gfxdata->unk0c) {
-//			return gdl;
-//		}
-//
-//		roomHighlight(roomnum);
-//
-//		if (g_Rooms[roomnum].gfxdata->unk0c) {
-//			// empty
-//		}
-//
-//		gdl = room0f166d7c(gdl, roomnum);
-//		gdl = room0f15e85c(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk0c, 1);
-//
-//		g_Rooms[roomnum].loaded240 = 1;
-//	} else {
-//		roomLoad(roomnum);
-//	}
-//
-//	return gdl;
-//}
+	if (roomnum == 0 || roomnum >= g_Vars.roomcount) {
+		return gdl;
+	}
+
+	if (g_Rooms[roomnum].loaded240) {
+		if (!g_Rooms[roomnum].gfxdata->unk0c) {
+			return gdl;
+		}
+
+		roomHighlight(roomnum);
+
+		if (g_Rooms[roomnum].gfxdata);
+		if (g_Rooms[roomnum].gfxdata);
+
+		gdl = room0f166d7c(gdl, roomnum);
+		gdl = room0f15e85c(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk0c, 1);
+
+		g_Rooms[roomnum].loaded240 = 1;
+	} else {
+		roomLoad(roomnum);
+	}
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f15ecd8
