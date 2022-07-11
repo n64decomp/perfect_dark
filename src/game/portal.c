@@ -70,59 +70,59 @@ const char var7f1ad2bc[] = "ACOUSTIC -> DGD WARNING: portalAVReset no portals!\n
 struct roomacousticdata *g_RoomAcousticData;
 u32 var8009dd74;
 struct var8009dd78 var8009dd78[10];
-u16 *var8009ddc8;
-s32 var8009ddcc;
+u16 *g_PortalXluFracs;
+s32 g_NumPortalXluFracs;
 
-void portal0f0b63b0(s32 portalnum, f32 frac)
+void portalSetXluFrac2(s32 portalnum, f32 frac)
 {
 	if (portalnum >= 0) {
 		u8 value = (u32)(255 * frac);
 		value <<= 0;
-		var8009ddc8[portalnum] = (var8009ddc8[portalnum] & 0xff00) | value;
+		g_PortalXluFracs[portalnum] = (g_PortalXluFracs[portalnum] & 0xff00) | value;
 	}
 }
 
-void portal0f0b6470(s32 portalnum, f32 frac)
+void portalSetXluFrac(s32 portalnum, f32 frac)
 {
 	if (portalnum >= 0) {
 		u8 value = (u32)(15 * frac) & 0xf;
-		var8009ddc8[portalnum] = (var8009ddc8[portalnum] & 0xf0ff) | (value << 8);
+		g_PortalXluFracs[portalnum] = (g_PortalXluFracs[portalnum] & 0xf0ff) | (value << 8);
 	}
 }
 
-f32 portal0f0b6534(s32 arg0)
+f32 portalGetXluFrac2(s32 arg0)
 {
-	f32 value = (var8009ddc8[arg0] & 0xff) * 0.0039215688593686f;
+	f32 value = (g_PortalXluFracs[arg0] & 0xff) * 0.0039215688593686f;
 
 	return value;
 }
 
-f32 portal0f0b656c(s32 arg0)
+f32 portalGetXluFrac(s32 arg0)
 {
-	f32 value = ((var8009ddc8[arg0] & 0xf00) >> 8) * 0.06666667f;
+	f32 value = ((g_PortalXluFracs[arg0] & 0xf00) >> 8) * 0.06666667f;
 
 	return value;
 }
 
-void portal0f0b65a8(s32 arg0)
+void portal0f0b65a8(s32 numportals)
 {
-	if (arg0 > 0) {
-		var8009ddcc = arg0;
-		var8009ddc8 = mempAlloc(ALIGN16(arg0 * 2), MEMPOOL_STAGE);
+	if (numportals > 0) {
+		g_NumPortalXluFracs = numportals;
+		g_PortalXluFracs = mempAlloc(ALIGN16(numportals * 2), MEMPOOL_STAGE);
 	} else {
-		var8009ddc8 = NULL;
+		g_PortalXluFracs = NULL;
 	}
 }
 
 void portalsReset(void)
 {
-	if (var8009ddc8) {
+	if (g_PortalXluFracs) {
 		struct prop *prop;
 		s32 i;
 
-		for (i = 0; i < var8009ddcc; i++) {
-			portal0f0b6470(i, 1);
-			portal0f0b63b0(i, 1);
+		for (i = 0; i < g_NumPortalXluFracs; i++) {
+			portalSetXluFrac(i, 1);
+			portalSetXluFrac2(i, 1);
 		}
 
 		prop = g_Vars.activeprops;
@@ -136,13 +136,13 @@ void portalsReset(void)
 						struct tintedglassobj *glass = (struct tintedglassobj *)obj;
 
 						if (glass->portalnum >= 0) {
-							portal0f0b6470(glass->portalnum, 0);
+							portalSetXluFrac(glass->portalnum, 0);
 						}
 					} else if (obj->type == OBJTYPE_GLASS) {
 						struct glassobj *glass = (struct glassobj *)obj;
 
 						if (glass->portalnum >= 0) {
-							portal0f0b6470(glass->portalnum, 0);
+							portalSetXluFrac(glass->portalnum, 0);
 						}
 					}
 				}
@@ -151,9 +151,9 @@ void portalsReset(void)
 			prop = prop->next;
 		}
 
-		for (i = 0; i < var8009ddcc; i++) {
-			portal0f0b656c(i);
-			portal0f0b6534(i);
+		for (i = 0; i < g_NumPortalXluFracs; i++) {
+			portalGetXluFrac(i);
+			portalGetXluFrac2(i);
 		}
 	}
 }

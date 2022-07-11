@@ -2808,7 +2808,7 @@ u32 var8007f0fc = 22000;
 //			for (j2 = 0; j2 < numneighbours; j2++) {
 //				a0 = true;
 //
-//				if (g_Rooms[sp128[j2]].flags & ROOMFLAG_VISIBLEBYPLAYER) {
+//				if (g_Rooms[sp128[j2]].flags & ROOMFLAG_ONSCREEN) {
 //					for (k = 0; k < s4; k++) {
 //						if (spcb8[k] == sp128[j2]) {
 //							a0 = false;
@@ -4740,7 +4740,7 @@ u32 var8007f110 = 0xffffff7f;
 //		for (j2 = 0; j2 < numneighbours; j2++) {
 //			a0 = true;
 //
-//			if (g_Rooms[sp144[j2]].flags & ROOMFLAG_VISIBLEBYPLAYER) {
+//			if (g_Rooms[sp144[j2]].flags & ROOMFLAG_ONSCREEN) {
 //				for (k = 0; k < sp1268; k++) {
 //					if (sp126c[k] == sp144[j2]) {
 //						a0 = false;

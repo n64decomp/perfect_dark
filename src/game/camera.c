@@ -692,7 +692,7 @@ glabel camIsPosInFovAndVisibleRoom
 //	struct var800a4640_00 thing; // 34
 //
 //	for (i = 0, room = rooms[0]; room != -1; i++, room = rooms[i]) {
-//		if (g_Rooms[room].flags & ROOMFLAG_VISIBLEBYPLAYER) {
+//		if (g_Rooms[room].flags & ROOMFLAG_ONSCREEN) {
 //			thisthing = func0f158140(room);
 //
 //			if (hasdata == false) {

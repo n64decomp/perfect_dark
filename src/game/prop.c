@@ -5752,7 +5752,7 @@ glabel propsTickPlayer
 //		rooms = prop->rooms;
 //
 //		for (i = 0; *rooms != -1; i++) {
-//			if (g_Rooms[*rooms].flags & ROOMFLAG_VISIBLEBYPLAYER) {
+//			if (g_Rooms[*rooms].flags & ROOMFLAG_ONSCREEN) {
 //				score++;
 //			}
 //			rooms++;
@@ -5779,7 +5779,7 @@ glabel propsTickPlayer
 //					rooms = prop->rooms;
 //
 //					for (i = 0; *rooms != -1; i++) {
-//						if (g_Rooms[*rooms].flags & ROOMFLAG_VISIBLEBYAIBOT) {
+//						if (g_Rooms[*rooms].flags & ROOMFLAG_STANDBY) {
 //							break;
 //						}
 //
@@ -6150,7 +6150,7 @@ void propsTickPadEffects(void)
 
 			padUnpack(effect->pad, PADFIELD_ROOM, &pad);
 
-			if (roomIsVisibleByAnyPlayer(pad.room)) {
+			if (roomIsOnScreen(pad.room)) {
 				switch (effect->effect) {
 				case PADEFFECT_SPARKS:
 				case PADEFFECT_SPARKS2:

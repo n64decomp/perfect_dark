@@ -264,15 +264,11 @@ f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms,
 					bestsqdist = sqdist;
 				}
 
-				if (roomIsVisibleByPlayer(pad.room, i)) {
+				if (roomIsOnPlayerScreen(pad.room, i)) {
 					verybadpads[p] = true;
 				}
 
-				// @bug: The aibot check should be in the aibot loop. As it
-				// stands it's using the playernum iterator as the AI bot num,
-				// so if there's more AI bots than players then some AI bots
-				// will be excluded from the room visibility check.
-				if (verybadpads[p] || roomIsVisibleByAibot(pad.room, i)) {
+				if (verybadpads[p] || roomIsOnPlayerStandby(pad.room, i)) {
 					badpads[p] = true;
 				}
 			}
@@ -318,7 +314,8 @@ f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms,
 	// are at least 10m away. For each pad added, set their distance to -1 so
 	// they don't get reused later.
 	i = random() % numpads;
-	p = i; while (sllen < 4) {
+	p = i; \
+	while (sllen < 4) {
 		if (padsqdists[p] > 1000 * 1000 && !badpads[p]) {
 			padUnpack(pads[p], PADFIELD_POS | PADFIELD_ROOM | PADFIELD_LOOK, &pad);
 

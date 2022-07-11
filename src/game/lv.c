@@ -2066,7 +2066,7 @@ void lvTick(void)
 								for (otherplayernum = 0; otherplayernum < PLAYERCOUNT(); otherplayernum++) {
 									if (playernum != otherplayernum
 											&& g_Vars.players[otherplayernum]->isdead == false
-											&& roomIsVisibleByPlayer(rooms[r], otherplayernum)) {
+											&& roomIsOnPlayerScreen(rooms[r], otherplayernum)) {
 										foundnearbychr = true;
 									}
 								}

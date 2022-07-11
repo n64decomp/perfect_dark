@@ -5332,7 +5332,7 @@ bool chrIsRoomOffScreen(struct chrdata *chr, struct coord *waypos, s16 *wayrooms
 			}
 		} else {
 			for (i = 0; sp7c[i] != -1; i++) {
-				if (g_Rooms[sp7c[i]].flags & ROOMFLAG_VISIBLEBYPLAYER) {
+				if (g_Rooms[sp7c[i]].flags & ROOMFLAG_ONSCREEN) {
 					offscreen = false;
 					break;
 				}
@@ -25104,25 +25104,25 @@ bool chrSetPadPresetToPadOnRouteToTarget(struct chrdata *chr)
 	return false;
 }
 
-bool func0f04aeb0(struct coord *pos, s16 *rooms)
+bool chrIsPosOffScreen(struct coord *pos, s16 *rooms)
 {
-	bool result = true;
+	bool offscreen = true;
 	s32 i;
 
 	if (env0f1666f8(pos, 0)) {
 		for (i = 0; rooms[i] != -1; i++) {
-			if (roomIsVisibleByAnyPlayer(rooms[i])) {
+			if (roomIsOnScreen(rooms[i])) {
 				break;
 			}
 		}
 
 		if (rooms[i] != -1) {
 			// Room is visible by player
-			result = !camIsPosInScreenBox(pos, 200, func0f158140(rooms[i]));
+			offscreen = !camIsPosInScreenBox(pos, 200, func0f158140(rooms[i]));
 		}
 	}
 
-	return result;
+	return offscreen;
 }
 
 /**
@@ -25135,7 +25135,7 @@ bool func0f04aeb0(struct coord *pos, s16 *rooms)
  * If the spawn cannot happen, the function return false.
  */
 #if VERSION >= VERSION_NTSC_1_0
-bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool ignorebg, bool arg6)
+bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen, bool ignorebg, bool arg6)
 {
 	struct coord testpos;
 	s32 i;
@@ -25148,7 +25148,7 @@ bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, b
 
 	if (ignorebg) {
 		types = CDTYPE_ALL & ~CDTYPE_BG;
-		arg4 = true;
+		allowonscreen = true;
 	} else {
 		types = CDTYPE_ALL;
 	}
@@ -25176,7 +25176,7 @@ bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, b
 		}
 
 		if (cdTestVolume(pos, width, rooms, types, 1, ymax, ymin) != CDRESULT_COLLISION
-				&& (arg4 || func0f04aeb0(pos, rooms))) {
+				&& (allowonscreen || chrIsPosOffScreen(pos, rooms))) {
 			return true;
 		}
 	}
@@ -25198,7 +25198,7 @@ bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, b
 			}
 
 			if (cdTestVolume(&testpos, width, testrooms, CDTYPE_ALL, 1, ymax, ymin) != CDRESULT_COLLISION
-					&& (arg4 || func0f04aeb0(&testpos, testrooms))
+					&& (allowonscreen || chrIsPosOffScreen(&testpos, testrooms))
 					&& (!arg6 || ground > -100000)) {
 				pos->x = testpos.x;
 				pos->y = testpos.y;
@@ -25222,7 +25222,7 @@ bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, b
  * ntsc-beta's version of this function doesn't have the arg6 argument
  * nor out of bounds checking, and lacks the reduction for the volume test.
  */
-bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool ignorebg)
+bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen, bool ignorebg)
 {
 	struct coord testpos;
 	s32 i;
@@ -25232,13 +25232,13 @@ bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, b
 
 	if (ignorebg) {
 		types = CDTYPE_ALL & ~CDTYPE_BG;
-		arg4 = true;
+		allowonscreen = true;
 	} else {
 		types = CDTYPE_ALL;
 	}
 
 	if (cdTestVolume(pos, width, rooms, types, 1, 200, -200) != CDRESULT_COLLISION
-			&& (arg4 || func0f04aeb0(pos, rooms))) {
+			&& (allowonscreen || chrIsPosOffScreen(pos, rooms))) {
 		return true;
 	}
 
@@ -25249,7 +25249,7 @@ bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, b
 
 		if (cd0002deac(pos, rooms, &testpos, testrooms, CDTYPE_BG)
 				&& cdTestVolume(&testpos, width, testrooms, CDTYPE_ALL, 1, 200, -200.0f) != CDRESULT_COLLISION
-				&& (arg4 || func0f04aeb0(&testpos, testrooms))) {
+				&& (allowonscreen || chrIsPosOffScreen(&testpos, testrooms))) {
 			pos->x = testpos.x;
 			pos->y = testpos.y;
 			pos->z = testpos.z;

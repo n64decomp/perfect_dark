@@ -353,8 +353,10 @@ Gfx *sparksRender(Gfx *gdl)
 					if ((group->prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) == 0) {
 						render = false;
 					}
-				} else if ((g_Rooms[group->room].flags & ROOMFLAG_VISIBLEBYPLAYER) == 0) {
-					render = false;
+				} else {
+					if ((g_Rooms[group->room].flags & ROOMFLAG_ONSCREEN) == 0) {
+						render = false;
+					}
 				}
 
 				if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {

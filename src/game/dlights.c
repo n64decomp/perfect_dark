@@ -616,7 +616,7 @@ void func0f001c0c(void)
 	var80061420 = mempAlloc(sp68, MEMPOOL_STAGE);
 
 	for (i = 0; i < g_NumPortals; i++) {
-		if ((g_BgPortals[i].flags & PORTALFLAG_ENABLED) && (g_BgPortals[i].flags & PORTALFLAG_04) == 0) {
+		if ((g_BgPortals[i].flags & PORTALFLAG_BLOCKED) && (g_BgPortals[i].flags & PORTALFLAG_FORCEUNBLOCKED) == 0) {
 			var80061438[i] = false;
 		} else {
 			var80061438[i] = true;
@@ -678,13 +678,13 @@ void func0f001c0c(void)
 	}
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
-		g_Rooms[i].flags |= ROOMFLAG_VISIBLEBYPLAYER;
+		g_Rooms[i].flags |= ROOMFLAG_ONSCREEN;
 	}
 
 	lightingTick();
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
-		g_Rooms[i].flags &= ~ROOMFLAG_VISIBLEBYPLAYER;
+		g_Rooms[i].flags &= ~ROOMFLAG_ONSCREEN;
 	}
 
 	osGetCount();
@@ -2012,7 +2012,7 @@ void func0f0037ac(void)
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
 		if (i != 0) {
-			if ((g_Rooms[i].flags & ROOMFLAG_RENDERALWAYS) || (g_Rooms[i].flags & (ROOMFLAG_VISIBLEBYPLAYER | ROOMFLAG_VISIBLEBYAIBOT))) {
+			if ((g_Rooms[i].flags & ROOMFLAG_RENDERALWAYS) || (g_Rooms[i].flags & (ROOMFLAG_ONSCREEN | ROOMFLAG_STANDBY))) {
 				if (g_Rooms[i].flags & (ROOMFLAG_0200 | ROOMFLAG_0400)) {
 					s32 sum = 0;
 					s32 sp90 = 0;
@@ -2148,7 +2148,7 @@ void roomAdjustLighting(s32 roomnum, s32 start, s32 limit)
 void func0f004558(s32 roomnum, s32 increment, s32 limit)
 {
 	if (roomnum) {
-		if (g_Rooms[roomnum].flags & ROOMFLAG_VISIBLEBYPLAYER) {
+		if (g_Rooms[roomnum].flags & ROOMFLAG_ONSCREEN) {
 			if (increment > 0) {
 				// Increasing
 				if (g_Rooms[roomnum].unk52 < limit) {
@@ -2380,7 +2380,7 @@ void func0f004c6c(void)
 	}
 
 	for (i = 0; i < g_NumPortals; i++) {
-		var8009cad8[i] = portal0f0b656c(i) > 0.5f;
+		var8009cad8[i] = portalGetXluFrac(i) > 0.5f;
 
 		portalGetAvgVertexPos(i, &var80061428[i]);
 	}

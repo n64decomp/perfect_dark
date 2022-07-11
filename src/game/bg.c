@@ -86,7 +86,7 @@ s32 var8007fc28 = 0;
 s32 var8007fc2c = 0;
 s32 var8007fc30 = 0x00000000;
 s32 var8007fc34 = 0x00000000;
-u32 var8007fc38 = 0x00000000;
+u32 g_BgNumRoomLoadCandidates = 0x00000000;
 u16 var8007fc3c = 0xfffe;
 s32 g_NumPortalThings = 0;
 u32 var8007fc44 = 0xffffffff;
@@ -144,12 +144,12 @@ void func0f157e94(s32 roomnum, s32 draworder, struct screenbox *box)
 	s32 index;
 
 #if VERSION < VERSION_NTSC_1_0
-	g_Rooms[roomnum].flags |= ROOMFLAG_VISIBLEBYPLAYER;
+	g_Rooms[roomnum].flags |= ROOMFLAG_ONSCREEN;
 #endif
 
-	if ((g_Rooms[roomnum].flags & ROOMFLAG_FORCEDISABLED) == 0) {
+	if ((g_Rooms[roomnum].flags & ROOMFLAG_DISABLEDBYSCRIPT) == 0) {
 #if VERSION >= VERSION_NTSC_1_0
-		g_Rooms[roomnum].flags |= ROOMFLAG_VISIBLEBYPLAYER;
+		g_Rooms[roomnum].flags |= ROOMFLAG_ONSCREEN;
 #endif
 
 		if (g_Rooms[roomnum].flags & ROOMFLAG_0800) {
@@ -2381,7 +2381,7 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 			room = prop->rooms;
 
 			while (*room != -1) {
-				if (g_Rooms[*room].flags & ROOMFLAG_VISIBLEBYPLAYER) {
+				if (g_Rooms[*room].flags & ROOMFLAG_ONSCREEN) {
 					*roomnumptr = *room;
 					break;
 				}
@@ -2580,7 +2580,8 @@ Gfx *bgRenderScene(Gfx *gdl)
 
 	// Build an array of room numbers per onscreen prop.
 	// For each onscreen prop there is exactly one entry in the roomnumsbyprop array.
-	roomnumptr = roomnumsbyprop; if (var8007fc2c);
+	roomnumptr = roomnumsbyprop; \
+	if (var8007fc2c);
 
 	for (ptr = g_Vars.onscreenprops; ptr < g_Vars.endonscreenprops; ptr++) {
 		*roomnumptr = 0;
@@ -2590,7 +2591,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 			room = prop->rooms;
 
 			while (*room != -1) {
-				if (g_Rooms[*room].flags & ROOMFLAG_VISIBLEBYPLAYER) {
+				if (g_Rooms[*room].flags & ROOMFLAG_ONSCREEN) {
 					*roomnumptr = *room;
 					break;
 				}
@@ -8081,40 +8082,40 @@ void boxCopy(struct screenbox *dst, struct screenbox *src)
 	dst->ymax = src->ymax;
 }
 
-bool roomIsVisibleByAnyPlayer(s32 room)
+bool roomIsOnScreen(s32 room)
 {
 	if (g_Vars.mplayerisrunning) {
 		return (g_MpRoomVisibility[room] & 0xf) != 0;
 	}
 
-	return g_Rooms[room].flags & ROOMFLAG_VISIBLEBYPLAYER;
+	return g_Rooms[room].flags & ROOMFLAG_ONSCREEN;
 }
 
-bool roomIsVisibleByAnyAibot(s32 room)
+bool roomIsOnStandby(s32 room)
 {
 	if (g_Vars.mplayerisrunning) {
 		return (g_MpRoomVisibility[room] & 0xf0) != 0;
 	}
 
-	return g_Rooms[room].flags & ROOMFLAG_VISIBLEBYAIBOT;
+	return g_Rooms[room].flags & ROOMFLAG_STANDBY;
 }
 
-bool roomIsVisibleByPlayer(s32 room, u32 playernum)
+bool roomIsOnPlayerScreen(s32 room, u32 playernum)
 {
 	if (g_Vars.mplayerisrunning) {
 		return (g_MpRoomVisibility[room] & (1 << playernum)) != 0;
 	}
 
-	return g_Rooms[room].flags & ROOMFLAG_VISIBLEBYPLAYER;
+	return g_Rooms[room].flags & ROOMFLAG_ONSCREEN;
 }
 
-bool roomIsVisibleByAibot(s32 room, u32 aibotindex)
+bool roomIsOnPlayerStandby(s32 room, u32 playernum)
 {
 	if (g_Vars.mplayerisrunning) {
-		return (g_MpRoomVisibility[room] & (0x10 << aibotindex)) != 0;
+		return (g_MpRoomVisibility[room] & (0x10 << playernum)) != 0;
 	}
 
-	return g_Rooms[room].flags & ROOMFLAG_VISIBLEBYAIBOT;
+	return g_Rooms[room].flags & ROOMFLAG_STANDBY;
 }
 
 s32 portalFindNumByVertices(struct portalvertices *arg0)
@@ -9819,7 +9820,7 @@ void bgTickRooms(void)
 				g_Rooms[i].loaded240 = g_BgUnloadDelay240;
 			}
 
-			if (g_Rooms[i].flags & ROOMFLAG_VISIBLEBYPLAYER) {
+			if (g_Rooms[i].flags & ROOMFLAG_ONSCREEN) {
 				g_Rooms[i].loaded240 = 1;
 			}
 
@@ -14216,8 +14217,8 @@ glabel var7f1b76bc
 //			break;
 //		case PORTALCMD_1F: // 1f - f162858 - set visibility to same as portal X
 //			if (execute) {
-//				if ((g_BgPortals[cmd[1].param].flags & PORTALFLAG_ENABLED) == 0
-//						|| (g_BgPortals[cmd[1].param].flags & PORTALFLAG_04)) {
+//				if ((g_BgPortals[cmd[1].param].flags & PORTALFLAG_BLOCKED) == 0
+//						|| (g_BgPortals[cmd[1].param].flags & PORTALFLAG_FORCEUNBLOCKED)) {
 //					if (portal0f15d10c(cmd[1].param, &var800a65c8) == 0) {
 //						g_PortalMode = PORTALMODE_HIDE;
 //					} else if (boxGetIntersection(&var800a65c0, &var800a65c8) == 0) {
@@ -14231,8 +14232,8 @@ glabel var7f1b76bc
 //			break;
 //		case PORTALCMD_22: // 22 - f1628d4 - make visible if portal can view room
 //			if (execute) {
-//				if ((g_BgPortals[cmd[1].param].flags & PORTALFLAG_ENABLED) == 0
-//						|| (g_BgPortals[cmd[1].param].flags & PORTALFLAG_04)) {
+//				if ((g_BgPortals[cmd[1].param].flags & PORTALFLAG_BLOCKED) == 0
+//						|| (g_BgPortals[cmd[1].param].flags & PORTALFLAG_FORCEUNBLOCKED)) {
 //					struct screenbox box1;
 //					if (portal0f15d10c(cmd[1].param, &box1) && boxGetIntersection(&var800a65c0, &box1)) {
 //						if (g_PortalMode != PORTALMODE_SHOW) {
@@ -14250,8 +14251,8 @@ glabel var7f1b76bc
 //			if (execute) {
 //				if (g_PortalMode == PORTALMODE_SHOW) {
 //					struct screenbox box2;
-//					if ((g_BgPortals[cmd[1].param].flags & PORTALFLAG_ENABLED)
-//							&& (g_BgPortals[cmd[1].param].flags & PORTALFLAG_04) == 0) {
+//					if ((g_BgPortals[cmd[1].param].flags & PORTALFLAG_BLOCKED)
+//							&& (g_BgPortals[cmd[1].param].flags & PORTALFLAG_FORCEUNBLOCKED) == 0) {
 //						g_PortalMode = PORTALMODE_HIDE;
 //					} else if (portal0f15d10c(cmd[1].param, &box2) == 0) {
 //						g_PortalMode = PORTALMODE_HIDE;
@@ -14275,7 +14276,7 @@ glabel var7f1b76bc
 //			break;
 //		case PORTALCMD_DISABLEROOM: // 24 - f162a70
 //			if (execute) {
-//				g_Rooms[cmd[1].param].flags |= ROOMFLAG_FORCEDISABLED;
+//				g_Rooms[cmd[1].param].flags |= ROOMFLAG_DISABLEDBYSCRIPT;
 //			}
 //			cmd += cmd->len;
 //			break;
@@ -14284,7 +14285,7 @@ glabel var7f1b76bc
 //				s32 i;
 //
 //				for (i = cmd[1].param; i <= cmd[2].param; i++) {
-//					g_Rooms[i].flags |= ROOMFLAG_FORCEDISABLED;
+//					g_Rooms[i].flags |= ROOMFLAG_DISABLEDBYSCRIPT;
 //				}
 //			}
 //			cmd += cmd->len;
@@ -14303,8 +14304,8 @@ glabel var7f1b76bc
 //			break;
 //		case PORTALCMD_29: // 29 - f162b58 - copy visible state (true/false) of portal X to stack
 //			if (execute) {
-//				portalPushValue((g_BgPortals[cmd[1].param].flags & PORTALFLAG_ENABLED) == 0
-//						|| !((g_BgPortals[cmd[1].param].flags & PORTALFLAG_04) == 0));
+//				portalPushValue((g_BgPortals[cmd[1].param].flags & PORTALFLAG_BLOCKED) == 0
+//						|| !((g_BgPortals[cmd[1].param].flags & PORTALFLAG_FORCEUNBLOCKED) == 0));
 //			}
 //			cmd += cmd->len;
 //			break;
@@ -14711,7 +14712,7 @@ glabel func0f162d9c
 /*  f163290:	1420ff60 */ 	bnez	$at,.L0f163014
 /*  f163294:	2673008c */ 	addiu	$s3,$s3,0x8c
 .L0f163298:
-/*  f163298:	0fc58e5f */ 	jal	func0f16397c
+/*  f163298:	0fc58e5f */ 	jal	bgChooseRoomsToLoad
 /*  f16329c:	00000000 */ 	nop
 /*  f1632a0:	8fbf0044 */ 	lw	$ra,0x44($sp)
 /*  f1632a4:	d7b40018 */ 	ldc1	$f20,0x18($sp)
@@ -14734,7 +14735,7 @@ void func0f1632d4(s16 roomnum1, s16 roomnum2, s16 draworder, struct screenbox *b
 	s32 i;
 	s32 j;
 
-	if (g_Rooms[roomnum2].flags & ROOMFLAG_FORCEDISABLED) {
+	if (g_Rooms[roomnum2].flags & ROOMFLAG_DISABLEDBYSCRIPT) {
 		return;
 	}
 
@@ -14875,8 +14876,8 @@ void func0f163528(struct var800a4d00 *arg0)
 			s6 = s0;
 		}
 
-		if ((g_BgPortals[portalnum].flags & PORTALFLAG_ENABLED)
-				&& (g_BgPortals[portalnum].flags & PORTALFLAG_04) == 0) {
+		if ((g_BgPortals[portalnum].flags & PORTALFLAG_BLOCKED)
+				&& (g_BgPortals[portalnum].flags & PORTALFLAG_FORCEUNBLOCKED) == 0) {
 			continue;
 		}
 
@@ -14939,332 +14940,114 @@ bool func0f163904(void)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f16397c
-/*  f16397c:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f163980:	afb70030 */ 	sw	$s7,0x30($sp)
-/*  f163984:	3c17800a */ 	lui	$s7,%hi(g_BgPortals)
-/*  f163988:	26f74cc8 */ 	addiu	$s7,$s7,%lo(g_BgPortals)
-/*  f16398c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f163990:	8eea0000 */ 	lw	$t2,0x0($s7)
-/*  f163994:	3c108008 */ 	lui	$s0,%hi(var8007fc38)
-/*  f163998:	2610fc38 */ 	addiu	$s0,$s0,%lo(var8007fc38)
-/*  f16399c:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f1639a0:	afb6002c */ 	sw	$s6,0x2c($sp)
-/*  f1639a4:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f1639a8:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f1639ac:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f1639b0:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f1639b4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f1639b8:	ae000000 */ 	sw	$zero,0x0($s0)
-/*  f1639bc:	954e0000 */ 	lhu	$t6,0x0($t2)
-/*  f1639c0:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f1639c4:	3c16800a */ 	lui	$s6,%hi(g_Rooms)
-/*  f1639c8:	11c000d0 */ 	beqz	$t6,.L0f163d0c
-/*  f1639cc:	01401825 */ 	or	$v1,$t2,$zero
-/*  f1639d0:	3c14800a */ 	lui	$s4,%hi(g_RoomPortals)
-/*  f1639d4:	26944ce0 */ 	addiu	$s4,$s4,%lo(g_RoomPortals)
-/*  f1639d8:	26d64928 */ 	addiu	$s6,$s6,%lo(g_Rooms)
-/*  f1639dc:	2411008c */ 	addiu	$s1,$zero,0x8c
-/*  f1639e0:	906f0006 */ 	lbu	$t7,0x6($v1)
-.L0f1639e4:
-/*  f1639e4:	31f80008 */ 	andi	$t8,$t7,0x8
-/*  f1639e8:	570000c4 */ 	bnezl	$t8,.L0f163cfc
-/*  f1639ec:	946e0008 */ 	lhu	$t6,0x8($v1)
-/*  f1639f0:	84730002 */ 	lh	$s3,0x2($v1)
-/*  f1639f4:	8ec50000 */ 	lw	$a1,0x0($s6)
-/*  f1639f8:	84720004 */ 	lh	$s2,0x4($v1)
-/*  f1639fc:	02710019 */ 	multu	$s3,$s1
-/*  f163a00:	00006012 */ 	mflo	$t4
-/*  f163a04:	00ac4021 */ 	addu	$t0,$a1,$t4
-/*  f163a08:	95020000 */ 	lhu	$v0,0x0($t0)
-/*  f163a0c:	30440004 */ 	andi	$a0,$v0,0x4
-/*  f163a10:	1080005b */ 	beqz	$a0,.L0f163b80
-/*  f163a14:	00000000 */ 	nop
-/*  f163a18:	02510019 */ 	multu	$s2,$s1
-/*  f163a1c:	00005812 */ 	mflo	$t3
-/*  f163a20:	00ab3021 */ 	addu	$a2,$a1,$t3
-/*  f163a24:	94c70000 */ 	lhu	$a3,0x0($a2)
-/*  f163a28:	30f90004 */ 	andi	$t9,$a3,0x4
-/*  f163a2c:	17200054 */ 	bnez	$t9,.L0f163b80
-/*  f163a30:	34ed0008 */ 	ori	$t5,$a3,0x8
-/*  f163a34:	a4cd0000 */ 	sh	$t5,0x0($a2)
-/*  f163a38:	8ece0000 */ 	lw	$t6,0x0($s6)
-/*  f163a3c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f163a40:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f163a44:	01cb3021 */ 	addu	$a2,$t6,$t3
-/*  f163a48:	84cf0002 */ 	lh	$t7,0x2($a2)
-/*  f163a4c:	15e00007 */ 	bnez	$t7,.L0f163a6c
-/*  f163a50:	00000000 */ 	nop
-/*  f163a54:	94d80000 */ 	lhu	$t8,0x0($a2)
-/*  f163a58:	37190020 */ 	ori	$t9,$t8,0x20
-/*  f163a5c:	a4d90000 */ 	sh	$t9,0x0($a2)
-/*  f163a60:	8e0d0000 */ 	lw	$t5,0x0($s0)
-/*  f163a64:	25ae0001 */ 	addiu	$t6,$t5,0x1
-/*  f163a68:	ae0e0000 */ 	sw	$t6,0x0($s0)
-.L0f163a6c:
-/*  f163a6c:	0fc55f6c */ 	jal	roomUnpauseProps
-/*  f163a70:	afab003c */ 	sw	$t3,0x3c($sp)
-/*  f163a74:	8eea0000 */ 	lw	$t2,0x0($s7)
-/*  f163a78:	8fab003c */ 	lw	$t3,0x3c($sp)
-/*  f163a7c:	01551821 */ 	addu	$v1,$t2,$s5
-/*  f163a80:	90620006 */ 	lbu	$v0,0x6($v1)
-/*  f163a84:	304f0001 */ 	andi	$t7,$v0,0x1
-/*  f163a88:	11e0009b */ 	beqz	$t7,.L0f163cf8
-/*  f163a8c:	30580004 */ 	andi	$t8,$v0,0x4
-/*  f163a90:	5700009a */ 	bnezl	$t8,.L0f163cfc
-/*  f163a94:	946e0008 */ 	lhu	$t6,0x8($v1)
-/*  f163a98:	8ec50000 */ 	lw	$a1,0x0($s6)
-/*  f163a9c:	00004825 */ 	or	$t1,$zero,$zero
-/*  f163aa0:	00003825 */ 	or	$a3,$zero,$zero
-/*  f163aa4:	00ab3021 */ 	addu	$a2,$a1,$t3
-/*  f163aa8:	80c80005 */ 	lb	$t0,0x5($a2)
-/*  f163aac:	59000093 */ 	blezl	$t0,.L0f163cfc
-/*  f163ab0:	946e0008 */ 	lhu	$t6,0x8($v1)
-.L0f163ab4:
-/*  f163ab4:	84cd000e */ 	lh	$t5,0xe($a2)
-/*  f163ab8:	8e990000 */ 	lw	$t9,0x0($s4)
-/*  f163abc:	25290001 */ 	addiu	$t1,$t1,0x1
-/*  f163ac0:	000d7040 */ 	sll	$t6,$t5,0x1
-/*  f163ac4:	032e7821 */ 	addu	$t7,$t9,$t6
-/*  f163ac8:	01e7c021 */ 	addu	$t8,$t7,$a3
-/*  f163acc:	87020000 */ 	lh	$v0,0x0($t8)
-/*  f163ad0:	000268c0 */ 	sll	$t5,$v0,0x3
-/*  f163ad4:	014d2021 */ 	addu	$a0,$t2,$t5
-/*  f163ad8:	84830002 */ 	lh	$v1,0x2($a0)
-/*  f163adc:	16430013 */ 	bne	$s2,$v1,.L0f163b2c
-/*  f163ae0:	00000000 */ 	nop
-/*  f163ae4:	84990004 */ 	lh	$t9,0x4($a0)
-/*  f163ae8:	03310019 */ 	multu	$t9,$s1
-/*  f163aec:	00007012 */ 	mflo	$t6
-/*  f163af0:	00ae1021 */ 	addu	$v0,$a1,$t6
-/*  f163af4:	844f0002 */ 	lh	$t7,0x2($v0)
-/*  f163af8:	55e0001d */ 	bnezl	$t7,.L0f163b70
-/*  f163afc:	0128082a */ 	slt	$at,$t1,$t0
-/*  f163b00:	94580000 */ 	lhu	$t8,0x0($v0)
-/*  f163b04:	370d0020 */ 	ori	$t5,$t8,0x20
-/*  f163b08:	a44d0000 */ 	sh	$t5,0x0($v0)
-/*  f163b0c:	8e190000 */ 	lw	$t9,0x0($s0)
-/*  f163b10:	8ec50000 */ 	lw	$a1,0x0($s6)
-/*  f163b14:	8eea0000 */ 	lw	$t2,0x0($s7)
-/*  f163b18:	272e0001 */ 	addiu	$t6,$t9,0x1
-/*  f163b1c:	ae0e0000 */ 	sw	$t6,0x0($s0)
-/*  f163b20:	00ab3021 */ 	addu	$a2,$a1,$t3
-/*  f163b24:	10000011 */ 	b	.L0f163b6c
-/*  f163b28:	80c80005 */ 	lb	$t0,0x5($a2)
-.L0f163b2c:
-/*  f163b2c:	00710019 */ 	multu	$v1,$s1
-/*  f163b30:	00007812 */ 	mflo	$t7
-/*  f163b34:	00af1021 */ 	addu	$v0,$a1,$t7
-/*  f163b38:	84580002 */ 	lh	$t8,0x2($v0)
-/*  f163b3c:	5700000c */ 	bnezl	$t8,.L0f163b70
-/*  f163b40:	0128082a */ 	slt	$at,$t1,$t0
-/*  f163b44:	944d0000 */ 	lhu	$t5,0x0($v0)
-/*  f163b48:	35b90020 */ 	ori	$t9,$t5,0x20
-/*  f163b4c:	a4590000 */ 	sh	$t9,0x0($v0)
-/*  f163b50:	8e0e0000 */ 	lw	$t6,0x0($s0)
-/*  f163b54:	8ec50000 */ 	lw	$a1,0x0($s6)
-/*  f163b58:	8eea0000 */ 	lw	$t2,0x0($s7)
-/*  f163b5c:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f163b60:	ae0f0000 */ 	sw	$t7,0x0($s0)
-/*  f163b64:	00ab3021 */ 	addu	$a2,$a1,$t3
-/*  f163b68:	80c80005 */ 	lb	$t0,0x5($a2)
-.L0f163b6c:
-/*  f163b6c:	0128082a */ 	slt	$at,$t1,$t0
-.L0f163b70:
-/*  f163b70:	1420ffd0 */ 	bnez	$at,.L0f163ab4
-/*  f163b74:	24e70002 */ 	addiu	$a3,$a3,0x2
-/*  f163b78:	1000005f */ 	b	.L0f163cf8
-/*  f163b7c:	01551821 */ 	addu	$v1,$t2,$s5
-.L0f163b80:
-/*  f163b80:	02510019 */ 	multu	$s2,$s1
-/*  f163b84:	0000c012 */ 	mflo	$t8
-/*  f163b88:	00b86821 */ 	addu	$t5,$a1,$t8
-/*  f163b8c:	95b90000 */ 	lhu	$t9,0x0($t5)
-/*  f163b90:	332e0004 */ 	andi	$t6,$t9,0x4
-/*  f163b94:	51c00059 */ 	beqzl	$t6,.L0f163cfc
-/*  f163b98:	946e0008 */ 	lhu	$t6,0x8($v1)
-/*  f163b9c:	14800056 */ 	bnez	$a0,.L0f163cf8
-/*  f163ba0:	344f0008 */ 	ori	$t7,$v0,0x8
-/*  f163ba4:	a50f0000 */ 	sh	$t7,0x0($t0)
-/*  f163ba8:	8ed80000 */ 	lw	$t8,0x0($s6)
-/*  f163bac:	02602025 */ 	or	$a0,$s3,$zero
-/*  f163bb0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f163bb4:	030c4021 */ 	addu	$t0,$t8,$t4
-/*  f163bb8:	850d0002 */ 	lh	$t5,0x2($t0)
-/*  f163bbc:	15a00007 */ 	bnez	$t5,.L0f163bdc
-/*  f163bc0:	00000000 */ 	nop
-/*  f163bc4:	95190000 */ 	lhu	$t9,0x0($t0)
-/*  f163bc8:	372e0020 */ 	ori	$t6,$t9,0x20
-/*  f163bcc:	a50e0000 */ 	sh	$t6,0x0($t0)
-/*  f163bd0:	8e0f0000 */ 	lw	$t7,0x0($s0)
-/*  f163bd4:	25f80001 */ 	addiu	$t8,$t7,0x1
-/*  f163bd8:	ae180000 */ 	sw	$t8,0x0($s0)
-.L0f163bdc:
-/*  f163bdc:	0fc55f6c */ 	jal	roomUnpauseProps
-/*  f163be0:	afac0048 */ 	sw	$t4,0x48($sp)
-/*  f163be4:	8eea0000 */ 	lw	$t2,0x0($s7)
-/*  f163be8:	8fac0048 */ 	lw	$t4,0x48($sp)
-/*  f163bec:	01551821 */ 	addu	$v1,$t2,$s5
-/*  f163bf0:	90620006 */ 	lbu	$v0,0x6($v1)
-/*  f163bf4:	304d0001 */ 	andi	$t5,$v0,0x1
-/*  f163bf8:	11a0003f */ 	beqz	$t5,.L0f163cf8
-/*  f163bfc:	30590004 */ 	andi	$t9,$v0,0x4
-/*  f163c00:	5720003e */ 	bnezl	$t9,.L0f163cfc
-/*  f163c04:	946e0008 */ 	lhu	$t6,0x8($v1)
-/*  f163c08:	8ec50000 */ 	lw	$a1,0x0($s6)
-/*  f163c0c:	00004825 */ 	or	$t1,$zero,$zero
-/*  f163c10:	00003825 */ 	or	$a3,$zero,$zero
-/*  f163c14:	00ac4021 */ 	addu	$t0,$a1,$t4
-/*  f163c18:	81060005 */ 	lb	$a2,0x5($t0)
-/*  f163c1c:	58c00037 */ 	blezl	$a2,.L0f163cfc
-/*  f163c20:	946e0008 */ 	lhu	$t6,0x8($v1)
-.L0f163c24:
-/*  f163c24:	850f000e */ 	lh	$t7,0xe($t0)
-/*  f163c28:	8e8e0000 */ 	lw	$t6,0x0($s4)
-/*  f163c2c:	25290001 */ 	addiu	$t1,$t1,0x1
-/*  f163c30:	000fc040 */ 	sll	$t8,$t7,0x1
-/*  f163c34:	01d86821 */ 	addu	$t5,$t6,$t8
-/*  f163c38:	01a7c821 */ 	addu	$t9,$t5,$a3
-/*  f163c3c:	87220000 */ 	lh	$v0,0x0($t9)
-/*  f163c40:	000278c0 */ 	sll	$t7,$v0,0x3
-/*  f163c44:	014f2021 */ 	addu	$a0,$t2,$t7
-/*  f163c48:	84830002 */ 	lh	$v1,0x2($a0)
-/*  f163c4c:	16630012 */ 	bne	$s3,$v1,.L0f163c98
-/*  f163c50:	00000000 */ 	nop
-/*  f163c54:	00710019 */ 	multu	$v1,$s1
-/*  f163c58:	00007012 */ 	mflo	$t6
-/*  f163c5c:	00ae1021 */ 	addu	$v0,$a1,$t6
-/*  f163c60:	84580002 */ 	lh	$t8,0x2($v0)
-/*  f163c64:	57000021 */ 	bnezl	$t8,.L0f163cec
-/*  f163c68:	0126082a */ 	slt	$at,$t1,$a2
-/*  f163c6c:	944d0000 */ 	lhu	$t5,0x0($v0)
-/*  f163c70:	35b90020 */ 	ori	$t9,$t5,0x20
-/*  f163c74:	a4590000 */ 	sh	$t9,0x0($v0)
-/*  f163c78:	8e0f0000 */ 	lw	$t7,0x0($s0)
-/*  f163c7c:	8ec50000 */ 	lw	$a1,0x0($s6)
-/*  f163c80:	8eea0000 */ 	lw	$t2,0x0($s7)
-/*  f163c84:	25ee0001 */ 	addiu	$t6,$t7,0x1
-/*  f163c88:	ae0e0000 */ 	sw	$t6,0x0($s0)
-/*  f163c8c:	00ac4021 */ 	addu	$t0,$a1,$t4
-/*  f163c90:	10000015 */ 	b	.L0f163ce8
-/*  f163c94:	81060005 */ 	lb	$a2,0x5($t0)
-.L0f163c98:
-/*  f163c98:	00710019 */ 	multu	$v1,$s1
-/*  f163c9c:	0000c012 */ 	mflo	$t8
-/*  f163ca0:	00b86821 */ 	addu	$t5,$a1,$t8
-/*  f163ca4:	85b90002 */ 	lh	$t9,0x2($t5)
-/*  f163ca8:	57200010 */ 	bnezl	$t9,.L0f163cec
-/*  f163cac:	0126082a */ 	slt	$at,$t1,$a2
-/*  f163cb0:	848f0004 */ 	lh	$t7,0x4($a0)
-/*  f163cb4:	01f10019 */ 	multu	$t7,$s1
-/*  f163cb8:	00007012 */ 	mflo	$t6
-/*  f163cbc:	00ae1021 */ 	addu	$v0,$a1,$t6
-/*  f163cc0:	94580000 */ 	lhu	$t8,0x0($v0)
-/*  f163cc4:	370d0020 */ 	ori	$t5,$t8,0x20
-/*  f163cc8:	a44d0000 */ 	sh	$t5,0x0($v0)
-/*  f163ccc:	8e190000 */ 	lw	$t9,0x0($s0)
-/*  f163cd0:	8ec50000 */ 	lw	$a1,0x0($s6)
-/*  f163cd4:	8eea0000 */ 	lw	$t2,0x0($s7)
-/*  f163cd8:	272f0001 */ 	addiu	$t7,$t9,0x1
-/*  f163cdc:	ae0f0000 */ 	sw	$t7,0x0($s0)
-/*  f163ce0:	00ac4021 */ 	addu	$t0,$a1,$t4
-/*  f163ce4:	81060005 */ 	lb	$a2,0x5($t0)
-.L0f163ce8:
-/*  f163ce8:	0126082a */ 	slt	$at,$t1,$a2
-.L0f163cec:
-/*  f163cec:	1420ffcd */ 	bnez	$at,.L0f163c24
-/*  f163cf0:	24e70002 */ 	addiu	$a3,$a3,0x2
-/*  f163cf4:	01551821 */ 	addu	$v1,$t2,$s5
-.L0f163cf8:
-/*  f163cf8:	946e0008 */ 	lhu	$t6,0x8($v1)
-.L0f163cfc:
-/*  f163cfc:	26b50008 */ 	addiu	$s5,$s5,0x8
-/*  f163d00:	24630008 */ 	addiu	$v1,$v1,0x8
-/*  f163d04:	55c0ff37 */ 	bnezl	$t6,.L0f1639e4
-/*  f163d08:	906f0006 */ 	lbu	$t7,0x6($v1)
-.L0f163d0c:
-/*  f163d0c:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f163d10:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f163d14:	8d180314 */ 	lw	$t8,0x314($t0)
-/*  f163d18:	3c16800a */ 	lui	$s6,%hi(g_Rooms)
-/*  f163d1c:	26d64928 */ 	addiu	$s6,$s6,%lo(g_Rooms)
-/*  f163d20:	13000039 */ 	beqz	$t8,.L0f163e08
-/*  f163d24:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f163d28:	8d02028c */ 	lw	$v0,0x28c($t0)
-/*  f163d2c:	8d1802bc */ 	lw	$t8,0x2bc($t0)
-/*  f163d30:	240f0010 */ 	addiu	$t7,$zero,0x10
-/*  f163d34:	004d2804 */ 	sllv	$a1,$t5,$v0
-/*  f163d38:	004f4804 */ 	sllv	$t1,$t7,$v0
-/*  f163d3c:	30b900ff */ 	andi	$t9,$a1,0xff
-/*  f163d40:	312e00ff */ 	andi	$t6,$t1,0xff
-/*  f163d44:	1b000030 */ 	blez	$t8,.L0f163e08
-/*  f163d48:	00001825 */ 	or	$v1,$zero,$zero
-/*  f163d4c:	3c05800a */ 	lui	$a1,%hi(g_MpRoomVisibility)
-/*  f163d50:	24a5492c */ 	addiu	$a1,$a1,%lo(g_MpRoomVisibility)
-/*  f163d54:	00002025 */ 	or	$a0,$zero,$zero
-/*  f163d58:	03203025 */ 	or	$a2,$t9,$zero
-/*  f163d5c:	01c03825 */ 	or	$a3,$t6,$zero
-/*  f163d60:	8ecd0000 */ 	lw	$t5,0x0($s6)
-.L0f163d64:
-/*  f163d64:	01a4c821 */ 	addu	$t9,$t5,$a0
-/*  f163d68:	972f0000 */ 	lhu	$t7,0x0($t9)
-/*  f163d6c:	31ee0004 */ 	andi	$t6,$t7,0x4
-/*  f163d70:	51c00008 */ 	beqzl	$t6,.L0f163d94
-/*  f163d74:	8caf0000 */ 	lw	$t7,0x0($a1)
-/*  f163d78:	8cb80000 */ 	lw	$t8,0x0($a1)
-/*  f163d7c:	03031021 */ 	addu	$v0,$t8,$v1
-/*  f163d80:	904d0000 */ 	lbu	$t5,0x0($v0)
-/*  f163d84:	01a6c825 */ 	or	$t9,$t5,$a2
-/*  f163d88:	10000007 */ 	b	.L0f163da8
-/*  f163d8c:	a0590000 */ 	sb	$t9,0x0($v0)
-/*  f163d90:	8caf0000 */ 	lw	$t7,0x0($a1)
-.L0f163d94:
-/*  f163d94:	00c0c027 */ 	nor	$t8,$a2,$zero
-/*  f163d98:	01e31021 */ 	addu	$v0,$t7,$v1
-/*  f163d9c:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f163da0:	01d86824 */ 	and	$t5,$t6,$t8
-/*  f163da4:	a04d0000 */ 	sb	$t5,0x0($v0)
-.L0f163da8:
-/*  f163da8:	8ed90000 */ 	lw	$t9,0x0($s6)
-/*  f163dac:	03247821 */ 	addu	$t7,$t9,$a0
-/*  f163db0:	95ee0000 */ 	lhu	$t6,0x0($t7)
-/*  f163db4:	31d80008 */ 	andi	$t8,$t6,0x8
-/*  f163db8:	53000008 */ 	beqzl	$t8,.L0f163ddc
-/*  f163dbc:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*  f163dc0:	8cad0000 */ 	lw	$t5,0x0($a1)
-/*  f163dc4:	01a31021 */ 	addu	$v0,$t5,$v1
-/*  f163dc8:	90590000 */ 	lbu	$t9,0x0($v0)
-/*  f163dcc:	03277825 */ 	or	$t7,$t9,$a3
-/*  f163dd0:	10000007 */ 	b	.L0f163df0
-/*  f163dd4:	a04f0000 */ 	sb	$t7,0x0($v0)
-/*  f163dd8:	8cae0000 */ 	lw	$t6,0x0($a1)
-.L0f163ddc:
-/*  f163ddc:	00e06827 */ 	nor	$t5,$a3,$zero
-/*  f163de0:	01c31021 */ 	addu	$v0,$t6,$v1
-/*  f163de4:	90580000 */ 	lbu	$t8,0x0($v0)
-/*  f163de8:	030dc824 */ 	and	$t9,$t8,$t5
-/*  f163dec:	a0590000 */ 	sb	$t9,0x0($v0)
-.L0f163df0:
-/*  f163df0:	8d0f02bc */ 	lw	$t7,0x2bc($t0)
-/*  f163df4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f163df8:	2484008c */ 	addiu	$a0,$a0,0x8c
-/*  f163dfc:	006f082a */ 	slt	$at,$v1,$t7
-/*  f163e00:	5420ffd8 */ 	bnezl	$at,.L0f163d64
-/*  f163e04:	8ecd0000 */ 	lw	$t5,0x0($s6)
-.L0f163e08:
-/*  f163e08:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f163e0c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f163e10:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f163e14:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f163e18:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f163e1c:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f163e20:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f163e24:	8fb6002c */ 	lw	$s6,0x2c($sp)
-/*  f163e28:	8fb70030 */ 	lw	$s7,0x30($sp)
-/*  f163e2c:	03e00008 */ 	jr	$ra
-/*  f163e30:	27bd0078 */ 	addiu	$sp,$sp,0x78
-);
+/**
+ * Choose which rooms should be placed on standby and which are candidates for
+ * loading.
+ *
+ * All offscreen neighbours of onscreen rooms are placed on standby and are
+ * nominated for loading. Any tinted glass in these rooms will be unpaused.
+ *
+ * If the portal between the onscreen room and the offscreen room is blocked
+ * (ie. a closed door or opaque glass) then nominate the neighbours of the
+ * offscreen room for loading too. This is necessary because opening the door or
+ * destroying the glass may make many rooms visible at once, and only one room
+ * is loaded per tick.
+ */
+void bgChooseRoomsToLoad(void)
+{
+	s32 i;
+	s32 j;
+	u32 stack;
+
+	g_BgNumRoomLoadCandidates = 0;
+
+	for (i = 0; g_BgPortals[i].verticesoffset != 0; i++) {
+		if ((g_BgPortals[i].flags & PORTALFLAG_SKIP) == 0) {
+			s32 roomnum1 = g_BgPortals[i].roomnum1;
+			s32 roomnum2 = g_BgPortals[i].roomnum2;
+			s32 portalnum;
+
+			if ((g_Rooms[roomnum1].flags & ROOMFLAG_ONSCREEN) && (g_Rooms[roomnum2].flags & ROOMFLAG_ONSCREEN) == 0) {
+				// From room1 to room2
+				g_Rooms[roomnum2].flags |= ROOMFLAG_STANDBY;
+
+				if (g_Rooms[roomnum2].loaded240 == 0) {
+					g_Rooms[roomnum2].flags |= ROOMFLAG_LOADCANDIDATE;
+					g_BgNumRoomLoadCandidates++;
+				}
+
+				roomUnpauseProps(roomnum2, true);
+
+				if ((g_BgPortals[i].flags & PORTALFLAG_BLOCKED) && (g_BgPortals[i].flags & PORTALFLAG_FORCEUNBLOCKED) == 0) {
+					for (j = 0; j < g_Rooms[roomnum2].numportals; j++) {
+						portalnum = g_RoomPortals[g_Rooms[roomnum2].roomportallistoffset + j];
+
+						if (roomnum2 == g_BgPortals[portalnum].roomnum1) {
+							if (g_Rooms[g_BgPortals[portalnum].roomnum2].loaded240 == 0) {
+								g_Rooms[g_BgPortals[portalnum].roomnum2].flags |= ROOMFLAG_LOADCANDIDATE;
+								g_BgNumRoomLoadCandidates++;
+							}
+						} else {
+							if (g_Rooms[g_BgPortals[portalnum].roomnum1].loaded240 == 0) {
+								g_Rooms[g_BgPortals[portalnum].roomnum1].flags |= ROOMFLAG_LOADCANDIDATE;
+								g_BgNumRoomLoadCandidates++;
+							}
+						}
+					}
+				}
+			} else if ((g_Rooms[roomnum2].flags & ROOMFLAG_ONSCREEN)
+					&& (g_Rooms[roomnum1].flags & ROOMFLAG_ONSCREEN) == 0) {
+				// From room2 to room1
+				g_Rooms[roomnum1].flags |= ROOMFLAG_STANDBY;
+
+				if (g_Rooms[roomnum1].loaded240 == 0) {
+					g_Rooms[roomnum1].flags |= ROOMFLAG_LOADCANDIDATE;
+					g_BgNumRoomLoadCandidates++;
+				}
+
+				roomUnpauseProps(roomnum1, true);
+
+				if ((g_BgPortals[i].flags & PORTALFLAG_BLOCKED) && (g_BgPortals[i].flags & PORTALFLAG_FORCEUNBLOCKED) == 0) {
+					for (j = 0; j < g_Rooms[roomnum1].numportals; j++) {
+						portalnum = g_RoomPortals[g_Rooms[roomnum1].roomportallistoffset + j];
+
+						if (roomnum1 == g_BgPortals[portalnum].roomnum1) {
+							if (g_Rooms[g_BgPortals[portalnum].roomnum1].loaded240 == 0) {
+								g_Rooms[g_BgPortals[portalnum].roomnum1].flags |= ROOMFLAG_LOADCANDIDATE;
+								g_BgNumRoomLoadCandidates++;
+							}
+						} else {
+							if (g_Rooms[g_BgPortals[portalnum].roomnum1].loaded240 == 0) {
+								g_Rooms[g_BgPortals[portalnum].roomnum2].flags |= ROOMFLAG_LOADCANDIDATE;
+								g_BgNumRoomLoadCandidates++;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Update visibility per player
+	if (g_Vars.mplayerisrunning) {
+		u8 flag1 = 0x01 << g_Vars.currentplayernum;
+		u8 flag2 = 0x10 << g_Vars.currentplayernum;
+
+		for (i = 0; i < g_Vars.roomcount; i++) {
+			if (g_Rooms[i].flags & ROOMFLAG_ONSCREEN) {
+				g_MpRoomVisibility[i] |= flag1;
+			} else {
+				g_MpRoomVisibility[i] &= ~flag1;
+			}
+
+			if (g_Rooms[i].flags & ROOMFLAG_STANDBY) {
+				g_MpRoomVisibility[i] |= flag2;
+			} else {
+				g_MpRoomVisibility[i] &= ~flag2;
+			}
+		}
+	}
+}
 
 void bgTickPortals(void)
 {
@@ -15284,7 +15067,7 @@ void bgTickPortals(void)
 	var800a4cf0.zrange.far = var800a4cf0.zrange.far / g_Vars.currentplayerstats->scale_bg2gfx;
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
-		g_Rooms[i].flags &= ~(ROOMFLAG_FORCEDISABLED | ROOMFLAG_VISIBLEBYPLAYER | ROOMFLAG_VISIBLEBYAIBOT | ROOMFLAG_0020);
+		g_Rooms[i].flags &= ~(ROOMFLAG_DISABLEDBYSCRIPT | ROOMFLAG_ONSCREEN | ROOMFLAG_STANDBY | ROOMFLAG_LOADCANDIDATE);
 		g_Rooms[i].portalrecursioncount = 0;
 		g_Rooms[i].unk06 = 0;
 		g_Rooms[i].unk07 = 1;
@@ -15336,7 +15119,7 @@ void bgTickPortals(void)
 			}
 		}
 
-		func0f16397c();
+		bgChooseRoomsToLoad();
 	}
 }
 
@@ -15353,6 +15136,7 @@ Gfx *func0f164150(Gfx *gdl)
 		var8007fc28 = 0;
 	}
 
+	// Consider loading one room by finding the load candidate that is closest to the player
 	if (var8007fc28 == 0 && var8007fc10 == 4 && g_Vars.tickmode == TICKMODE_NORMAL && IS8MB()) {
 		struct player *player = g_Vars.currentplayer;
 		s32 i;
@@ -15362,9 +15146,9 @@ Gfx *func0f164150(Gfx *gdl)
 		s32 bestroomnum = 0;
 		f32 radius;
 
-		if (var8007fc38) {
+		if (g_BgNumRoomLoadCandidates) {
 			for (i = 1; i < g_Vars.roomcount; i++) {
-				if (!g_Rooms[i].loaded240 && (g_Rooms[i].flags & ROOMFLAG_0020)) {
+				if (!g_Rooms[i].loaded240 && (g_Rooms[i].flags & ROOMFLAG_LOADCANDIDATE)) {
 					dist.x = g_Vars.currentplayer->prop->pos.x - g_Rooms[i].centre.x;
 					dist.y = g_Vars.currentplayer->prop->pos.y - g_Rooms[i].centre.y;
 					dist.z = g_Vars.currentplayer->prop->pos.z - g_Rooms[i].centre.z;
@@ -15705,9 +15489,9 @@ void room0f164c64(s32 roomnum)
 	}
 }
 
-void portalSetEnabled(s32 portal, bool enable)
+void portalSetUnblocked(s32 portal, bool unblocked)
 {
-	g_BgPortals[portal].flags = (g_BgPortals[portal].flags | PORTALFLAG_ENABLED) ^ (enable != false);
+	g_BgPortals[portal].flags = (g_BgPortals[portal].flags | PORTALFLAG_BLOCKED) ^ (unblocked != false);
 }
 
 s32 func0f164e70(s32 arg0, s32 arg1, s32 arg2)
@@ -15919,8 +15703,8 @@ void bgFindEnteredRooms(struct coord *bbmin, struct coord *bbmax, s16 *rooms, s3
 				portalnum = g_RoomPortals[g_Rooms[room].roomportallistoffset + j];
 
 				if (arg4
-						&& (g_BgPortals[portalnum].flags & PORTALFLAG_ENABLED)
-						&& (g_BgPortals[portalnum].flags & PORTALFLAG_04) == 0) {
+						&& (g_BgPortals[portalnum].flags & PORTALFLAG_BLOCKED)
+						&& (g_BgPortals[portalnum].flags & PORTALFLAG_FORCEUNBLOCKED) == 0) {
 					continue;
 				}
 

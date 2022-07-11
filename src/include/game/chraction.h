@@ -203,7 +203,7 @@ bool chrSetPadPresetToWaypointWithinTargetQuadrant(struct chrdata *chr, u8 arg1)
 bool chrSetChrPresetToChrNearPad(u32 checktype, struct chrdata *chr, f32 distance, s32 padnum);
 bool chrSetChrPresetToChrNearPos(u8 checktype, struct chrdata *chr, f32 distance, struct coord *pos, s16 *room);
 bool chrSetPadPresetToPadOnRouteToTarget(struct chrdata *chr);
-bool func0f04aeb0(struct coord *pos, s16 *rooms);
+bool chrIsPosOffScreen(struct coord *pos, s16 *rooms);
 
 #if VERSION >= VERSION_NTSC_1_0
 bool chrAdjustPosForSpawn(f32 chrwidth, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool arg5, bool arg6);

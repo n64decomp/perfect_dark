@@ -353,10 +353,9 @@ bool wallhitReapOneInRoom(s32 room)
 /**
  * Remove a single wallhit.
  *
- * The wallhit will be removed from a room that's out of sight of both players
- * and bots if possible, otherwise a room that's only out of sight of players.
- * If none of those are possible then all rooms are considered, and prop hits
- * too.
+ * The wallhit will be removed from a room that's offscreen and not in standby
+ * if possible, otherwise a room that's in standby. If wallhits only exist in
+ * onscreen rooms then all rooms are considered, and prop hits too.
  *
  * The chosen room will be the one with the most wallhits within one of those
  * three categories.
@@ -372,14 +371,14 @@ void wallhitReapOne(void)
 		s32 bestvalue = -1;
 
 		for (room = 0; room < g_Vars.roomcount; room++) {
-			s32 visiblebyplayer = room == 0 ? 1 : (g_Rooms[room].flags & ROOMFLAG_VISIBLEBYPLAYER);
-			s32 visiblebybot = room == 0 ? 1 : (g_Rooms[room].flags & ROOMFLAG_VISIBLEBYAIBOT);
+			s32 onscreen = room == 0 ? 1 : (g_Rooms[room].flags & ROOMFLAG_ONSCREEN);
+			s32 standby = room == 0 ? 1 : (g_Rooms[room].flags & ROOMFLAG_STANDBY);
 			bool consider;
 
 			if (i == 0) {
-				consider = !visiblebyplayer && !visiblebybot;
+				consider = !onscreen && !standby;
 			} else if (i == 1) {
-				consider = !visiblebyplayer;
+				consider = !onscreen;
 			} else {
 				consider = true;
 			}

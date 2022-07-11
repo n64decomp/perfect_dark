@@ -4,11 +4,11 @@
 #include "data.h"
 #include "types.h"
 
-void portal0f0b63b0(s32 portalnum, f32 frac);
-void portal0f0b6470(s32 portalnum, f32 frac);
-f32 portal0f0b6534(s32 arg0);
-f32 portal0f0b656c(s32 arg0);
-void portal0f0b65a8(s32 arg0);
+void portalSetXluFrac2(s32 portalnum, f32 frac);
+void portalSetXluFrac(s32 portalnum, f32 frac);
+f32 portalGetXluFrac2(s32 arg0);
+f32 portalGetXluFrac(s32 arg0);
+void portal0f0b65a8(s32 numportals);
 void portalsReset(void);
 void acousticReset(void);
 

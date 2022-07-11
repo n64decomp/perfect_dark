@@ -3923,9 +3923,13 @@ u8 func1025_unlock_doors_for_buddy[] = {
 	endlist
 };
 
+/**
+ * Unblock the portal in the explosive wall to prevent a flicker
+ * where the room isn't rendered on the first frame after exploding.
+ */
 u8 func1426_setup_portals[] = {
 	yield
-	set_portal_flag(0x0072, 0x04)
+	set_portal_flag(0x0072, PORTALFLAG_FORCEUNBLOCKED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

@@ -1277,9 +1277,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 	roomnum = prop->rooms[j];
 
 	while (roomnum != -1) {
-		if (g_Rooms[roomnum].gfxdata
-				&& g_Rooms[roomnum].loaded240
-				&& (g_Rooms[roomnum].flags & ROOMFLAG_VISIBLEBYPLAYER)) {
+		if (g_Rooms[roomnum].gfxdata && g_Rooms[roomnum].loaded240 && (g_Rooms[roomnum].flags & ROOMFLAG_ONSCREEN)) {
 			break;
 		}
 

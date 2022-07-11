@@ -5228,15 +5228,15 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 		struct tintedglassobj *glass = (struct tintedglassobj *) obj;
 
 		if (glass->portalnum >= 0) {
-			portal0f0b6470(glass->portalnum, 1);
-			portalSetEnabled(glass->portalnum, true);
-			g_BgPortals[glass->portalnum].flags |= PORTALFLAG_04;
+			portalSetXluFrac(glass->portalnum, 1);
+			portalSetUnblocked(glass->portalnum, true);
+			g_BgPortals[glass->portalnum].flags |= PORTALFLAG_FORCEUNBLOCKED;
 		}
 	} else if (obj->type == OBJTYPE_GLASS) {
 		struct glassobj *glass = (struct glassobj *) obj;
 
 		if (glass->portalnum >= 0) {
-			portal0f0b6470(glass->portalnum, 1);
+			portalSetXluFrac(glass->portalnum, 1);
 		}
 	} else if (obj->type == OBJTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
@@ -5244,7 +5244,7 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 		doorActivatePortal(door);
 
 		if (door->portalnum >= 0) {
-			g_BgPortals[door->portalnum].flags |= PORTALFLAG_04;
+			g_BgPortals[door->portalnum].flags |= PORTALFLAG_FORCEUNBLOCKED;
 		}
 	}
 
@@ -49705,9 +49705,9 @@ void glassUpdatePortal(struct prop *prop, s32 playercount, bool *arg2)
 
 	if (glass->portalnum >= 0 && playercount == 1) {
 		if (glass->opacity == 255) {
-			portalSetEnabled(glass->portalnum, false);
+			portalSetUnblocked(glass->portalnum, false);
 		} else {
-			portalSetEnabled(glass->portalnum, true);
+			portalSetUnblocked(glass->portalnum, true);
 		}
 	}
 
@@ -49947,15 +49947,17 @@ s32 objTickPlayer(struct prop *prop)
 			struct tintedglassobj *glass = (struct tintedglassobj *)obj;
 
 			if (glass->portalnum >= 0) {
-				pass = (g_BgPortals[glass->portalnum].flags & PORTALFLAG_ENABLED) && (g_BgPortals[glass->portalnum].flags & PORTALFLAG_04) == 0;
-				g_BgPortals[glass->portalnum].flags |= PORTALFLAG_04;
+				pass = (g_BgPortals[glass->portalnum].flags & PORTALFLAG_BLOCKED)
+					&& (g_BgPortals[glass->portalnum].flags & PORTALFLAG_FORCEUNBLOCKED) == 0;
+				g_BgPortals[glass->portalnum].flags |= PORTALFLAG_FORCEUNBLOCKED;
 			}
 		} else if (obj->type == OBJTYPE_DOOR) {
 			struct doorobj *door = (struct doorobj *)obj;
 
 			if (door->portalnum >= 0) {
-				pass = (g_BgPortals[door->portalnum].flags & PORTALFLAG_ENABLED) && (g_BgPortals[door->portalnum].flags & PORTALFLAG_04) == 0;
-				g_BgPortals[door->portalnum].flags |= PORTALFLAG_04;
+				pass = (g_BgPortals[door->portalnum].flags & PORTALFLAG_BLOCKED)
+					&& (g_BgPortals[door->portalnum].flags & PORTALFLAG_FORCEUNBLOCKED) == 0;
+				g_BgPortals[door->portalnum].flags |= PORTALFLAG_FORCEUNBLOCKED;
 			}
 		}
 
@@ -54087,10 +54089,17 @@ void doorDestroyGlass(struct doorobj *door)
 	rodata = modelGetPartRodata(model->filedata, 2);
 
 	if (door->portalnum >= 0) {
-		bail = (g_BgPortals[door->portalnum].flags & PORTALFLAG_ENABLED) != 0
-			&& (g_BgPortals[door->portalnum].flags & PORTALFLAG_04) == 0;
+		// @bug: Firing three shots at door glass is supposed to destroy it,
+		// and this function is called when the third shot happens, but if it's
+		// shot from a long distance (such that the glass is opaque) then this
+		// function returns early and the glass remains in place, despite
+		// setting the portal as unblocked. On the fourth shot
+		// PORTALFLAG_FORCEUNBLOCKED is already set, so bail is false and the
+		// glass is destroyed.
+		bail = (g_BgPortals[door->portalnum].flags & PORTALFLAG_BLOCKED)
+			&& (g_BgPortals[door->portalnum].flags & PORTALFLAG_FORCEUNBLOCKED) == 0;
 
-		g_BgPortals[door->portalnum].flags |= PORTALFLAG_04;
+		g_BgPortals[door->portalnum].flags |= PORTALFLAG_FORCEUNBLOCKED;
 
 		if (bail) {
 			return;
@@ -61839,14 +61848,14 @@ void func0f08d460(struct doorobj *door)
 void doorActivatePortal(struct doorobj *door)
 {
 	if (door->portalnum >= 0) {
-		portalSetEnabled(door->portalnum, true);
+		portalSetUnblocked(door->portalnum, true);
 	}
 }
 
 void doorDeactivatePortal(struct doorobj *door)
 {
 	if (door->portalnum >= 0) {
-		portalSetEnabled(door->portalnum, false);
+		portalSetUnblocked(door->portalnum, false);
 	}
 }
 
@@ -62461,7 +62470,7 @@ bool func0f08e8ac(struct prop *prop, struct coord *pos, f32 arg2, bool arg3)
 	roomnum = *rooms;
 
 	while (roomnum != -1) {
-		if (g_Rooms[roomnum].flags & ROOMFLAG_VISIBLEBYPLAYER) {
+		if (g_Rooms[roomnum].flags & ROOMFLAG_ONSCREEN) {
 			if (env0f1666f8(pos, arg2) && (!arg3 || func0f08e794(pos, arg2))) {
 				result = camIsPosInFovAndVisibleRoom(prop->rooms, pos, arg2);
 
@@ -62833,8 +62842,8 @@ void doorsCalcFrac(struct doorobj *door)
 			}
 		}
 
-		portal0f0b6470(door->portalnum, frac / numsameportal);
-		portal0f0b63b0(door->portalnum, frac / numsameportal);
+		portalSetXluFrac(door->portalnum, frac / numsameportal);
+		portalSetXluFrac2(door->portalnum, frac / numsameportal);
 	}
 }
 

@@ -3351,9 +3351,10 @@
 #define PORTALCMD_64               0x64
 #define PORTALCMD_TRAILER          0x65
 
-#define PORTALFLAG_ENABLED 0x01
-#define PORTALFLAG_02      0x02
-#define PORTALFLAG_04      0x04
+#define PORTALFLAG_BLOCKED        0x01 // Due to door being closed, or player is too far from glass
+#define PORTALFLAG_02             0x02
+#define PORTALFLAG_FORCEUNBLOCKED 0x04 // Glass is destroyed, or door is freed
+#define PORTALFLAG_SKIP           0x08 // DD tower exterior - don't bother processing these
 
 #define PORTALMODE_SHOW 0
 #define PORTALMODE_HIDE 1
@@ -3469,12 +3470,12 @@
 #define RENDERPASS_XLU         1
 #define RENDERPASS_OPA_POSTBG 2
 
-#define ROOMFLAG_FORCEDISABLED    0x0001
-#define ROOMFLAG_HASDYNTEX        0x0002
-#define ROOMFLAG_VISIBLEBYPLAYER  0x0004
-#define ROOMFLAG_VISIBLEBYAIBOT   0x0008
+#define ROOMFLAG_DISABLEDBYSCRIPT 0x0001
+#define ROOMFLAG_HASDYNTEX        0x0002 // Has dynamic textures such as water
+#define ROOMFLAG_ONSCREEN         0x0004
+#define ROOMFLAG_STANDBY          0x0008 // Neighbour of an onscreen room - usually loaded as well
 #define ROOMFLAG_0010             0x0010
-#define ROOMFLAG_0020             0x0020
+#define ROOMFLAG_LOADCANDIDATE    0x0020 // Room is a good candidate for loading on this tick
 #define ROOMFLAG_0040             0x0040
 #define ROOMFLAG_RENDERALWAYS     0x0080
 #define ROOMFLAG_DIRTY            0x0100

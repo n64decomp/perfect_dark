@@ -1498,7 +1498,7 @@ bool aiIfOnScreen(void)
 /**
  * @cmd 0048
  */
-bool aiIfChrInActiveRoom(void)
+bool aiIfChrInOnScreenRoom(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
@@ -1507,7 +1507,7 @@ bool aiIfChrInActiveRoom(void)
 
 	if (chr && chr->prop) {
 		for (i = 0; chr->prop->rooms[i] != -1; i++) {
-			if (roomIsVisibleByAnyPlayer(chr->prop->rooms[i])) {
+			if (roomIsOnScreen(chr->prop->rooms[i])) {
 				pass = true;
 			}
 		}
@@ -1526,13 +1526,13 @@ bool aiIfChrInActiveRoom(void)
 /**
  * @cmd 0049
  */
-bool aiIfRoomActive(void)
+bool aiIfRoomIsOnScreen(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
 	s32 room_id = chrGetPadRoom(g_Vars.chrdata, pad_id);
 
-	if (room_id >= 0 && roomIsVisibleByAnyPlayer(room_id)) {
+	if (room_id >= 0 && roomIsOnScreen(room_id)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;
