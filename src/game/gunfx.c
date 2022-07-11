@@ -121,7 +121,7 @@ void beamCreateForHand(s32 handnum)
 {
 	struct player *player = g_Vars.currentplayer;
 	struct hand *hand = player->hands + handnum;
-	Mtxf *mtx = camGetMatrix1740();
+	Mtxf *mtx = camGetWorldToScreenMtxf();
 	f32 tmp;
 
 	tmp = hand->hitpos.f[0] * mtx->m[0][2] + hand->hitpos.f[1] * mtx->m[1][2] + hand->hitpos.f[2] * mtx->m[2][2] + mtx->m[3][2];
@@ -213,7 +213,7 @@ glabel var7f1acc68
 /*  f0ac4dc:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f0ac4e0:	0fc59e73 */ 	jal	gfxAllocateColours
 /*  f0ac4e4:	26101bb0 */ 	addiu	$s0,$s0,7088
-/*  f0ac4e8:	0fc2d5be */ 	jal	camGetMatrix1740
+/*  f0ac4e8:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
 /*  f0ac4ec:	afa200c4 */ 	sw	$v0,0xc4($sp)
 /*  f0ac4f0:	3c0c8007 */ 	lui	$t4,%hi(var80070500)
 /*  f0ac4f4:	afa20080 */ 	sw	$v0,0x80($sp)
@@ -272,7 +272,7 @@ glabel var7f1acc68
 /*  f0ac5c4:	e7a800e4 */ 	swc1	$f8,0xe4($sp)
 /*  f0ac5c8:	46023283 */ 	div.s	$f10,$f6,$f2
 /*  f0ac5cc:	e7a400e8 */ 	swc1	$f4,0xe8($sp)
-/*  f0ac5d0:	0fc2d5be */ 	jal	camGetMatrix1740
+/*  f0ac5d0:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
 /*  f0ac5d4:	e7aa00ec */ 	swc1	$f10,0xec($sp)
 /*  f0ac5d8:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0ac5dc:	8fa500fc */ 	lw	$a1,0xfc($sp)
@@ -324,7 +324,7 @@ glabel var7f1acc68
 /*  f0ac680:	1000013e */ 	b	.L0f0acb7c
 /*  f0ac684:	8fa200f0 */ 	lw	$v0,0xf0($sp)
 .L0f0ac688:
-/*  f0ac688:	0fc2d5be */ 	jal	camGetMatrix1740
+/*  f0ac688:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
 /*  f0ac68c:	00000000 */ 	nop
 /*  f0ac690:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0ac694:	8fa50108 */ 	lw	$a1,0x108($sp)
@@ -785,7 +785,7 @@ glabel var7f1accf4
 /*  f0acc54:	01cf6821 */ 	addu	$t5,$t6,$t7
 /*  f0acc58:	afad00ec */ 	sw	$t5,0xec($sp)
 /*  f0acc5c:	e7a20124 */ 	swc1	$f2,0x124($sp)
-/*  f0acc60:	0fc2d5be */ 	jal	camGetMatrix1740
+/*  f0acc60:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
 /*  f0acc64:	e7aa00f0 */ 	swc1	$f10,0xf0($sp)
 /*  f0acc68:	afa200e4 */ 	sw	$v0,0xe4($sp)
 /*  f0acc6c:	82230001 */ 	lb	$v1,0x1($s1)
@@ -1256,7 +1256,7 @@ glabel var7f1accf4
 /*  f0ad348:	e7ae00d0 */ 	swc1	$f14,0xd0($sp)
 /*  f0ad34c:	e7aa00d4 */ 	swc1	$f10,0xd4($sp)
 .L0f0ad350:
-/*  f0ad350:	0fc2d5de */ 	jal	camGetUnk174c
+/*  f0ad350:	0fc2d5de */ 	jal	camGetProjectionMtxF
 /*  f0ad354:	00000000 */ 	nop
 /*  f0ad358:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0ad35c:	0c0056d9 */ 	jal	mtx4TransformVecInPlace
@@ -3563,7 +3563,7 @@ void casingRender(struct casing *casing, Gfx **gdlptr)
 
 	mtx00015f04(0.1000000089407f, &mtx);
 	mtx4SetTranslation(&casing->pos, &mtx);
-	mtx00015be4(camGetMatrix1740(), &mtx, model.matrices);
+	mtx00015be4(camGetWorldToScreenMtxf(), &mtx, model.matrices);
 
 	// Check if any coordinate is out of range
 	for (i = 0; i < 3; i++) {
@@ -3902,7 +3902,7 @@ glabel var7f1acd8c
 /*  f0af32c:	af090004 */ 	sw	$t1,0x4($t8)
 /*  f0af330:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f0af334:	af080000 */ 	sw	$t0,0x0($t8)
-/*  f0af338:	0fc2d5be */ 	jal	camGetMatrix1740
+/*  f0af338:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
 /*  f0af33c:	00000000 */ 	nop
 /*  f0af340:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0af344:	0c0056f8 */ 	jal	mtx00015be0
@@ -3910,7 +3910,7 @@ glabel var7f1acd8c
 /*  f0af34c:	27b10124 */ 	addiu	$s1,$sp,0x124
 /*  f0af350:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f0af354:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0af358:	0fc2d5de */ 	jal	camGetUnk174c
+/*  f0af358:	0fc2d5de */ 	jal	camGetProjectionMtxF
 /*  f0af35c:	00000000 */ 	nop
 /*  f0af360:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0af364:	0c0056f8 */ 	jal	mtx00015be0
@@ -3922,7 +3922,7 @@ glabel var7f1acd8c
 /*  f0af37c:	e7a00154 */ 	swc1	$f0,0x154($sp)
 /*  f0af380:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f0af384:	e7a0015c */ 	swc1	$f0,0x15c($sp)
-/*  f0af388:	0fc2d5be */ 	jal	camGetMatrix1740
+/*  f0af388:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
 /*  f0af38c:	00000000 */ 	nop
 /*  f0af390:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0af394:	0c0056f8 */ 	jal	mtx00015be0
@@ -4412,16 +4412,16 @@ glabel var7f1acd8c
 //	gDPSetCombineMode(gdl++, G_CC_BLENDIA, G_CC_BLENDIA);
 //
 //	mtx4LoadIdentity(&sp164);
-//	mtx00015be0(camGetMatrix1740(), &sp164);
+//	mtx00015be0(camGetWorldToScreenMtxf(), &sp164);
 //	mtx4LoadIdentity(&sp124);
-//	mtx00015be0(camGetUnk174c(), &sp124);
+//	mtx00015be0(camGetProjectionMtxF(), &sp124);
 //
 //	sp124.m[3][1] = 0;
 //	sp124.m[3][0] = 0;
 //	sp124.m[3][2] = 0;
 //
 //	mtx4LoadIdentity(&sp1b0);
-//	mtx00015be0(camGetMatrix1740(), &sp1b0);
+//	mtx00015be0(camGetWorldToScreenMtxf(), &sp1b0);
 //
 //	campos.x = player->cam_pos.x;
 //	campos.y = player->cam_pos.y;
@@ -4704,14 +4704,14 @@ glabel var7f1acd90
 /*  f0afc18:	24a50024 */ 	addiu	$a1,$a1,0x0024
 /*  f0afc1c:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f0afc20:	27a4014c */ 	addiu	$a0,$sp,0x14c
-/*  f0afc24:	0fc2d5be */ 	jal	camGetMatrix1740
+/*  f0afc24:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
 /*  f0afc28:	00000000 */ 	nop
 /*  f0afc2c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0afc30:	0c0056f8 */ 	jal	mtx00015be0
 /*  f0afc34:	27a5014c */ 	addiu	$a1,$sp,0x14c
 /*  f0afc38:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f0afc3c:	27a4010c */ 	addiu	$a0,$sp,0x10c
-/*  f0afc40:	0fc2d5de */ 	jal	camGetUnk174c
+/*  f0afc40:	0fc2d5de */ 	jal	camGetProjectionMtxF
 /*  f0afc44:	00000000 */ 	nop
 /*  f0afc48:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0afc4c:	0c0056f8 */ 	jal	mtx00015be0
@@ -4723,7 +4723,7 @@ glabel var7f1acd90
 /*  f0afc64:	e7b4013c */ 	swc1	$f20,0x13c($sp)
 /*  f0afc68:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f0afc6c:	e7b40144 */ 	swc1	$f20,0x144($sp)
-/*  f0afc70:	0fc2d5be */ 	jal	camGetMatrix1740
+/*  f0afc70:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
 /*  f0afc74:	00000000 */ 	nop
 /*  f0afc78:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0afc7c:	0c0056f8 */ 	jal	mtx00015be0
@@ -5138,16 +5138,16 @@ glabel var7f1acd90
 //	texSelect(&gdl, &g_TexGeneralConfigs[3], 4, 0, 2, 1, NULL);
 //	mtx4LoadIdentity(&sp14c);
 //
-//	mtx00015be0(camGetMatrix1740(), &sp14c);
+//	mtx00015be0(camGetWorldToScreenMtxf(), &sp14c);
 //	mtx4LoadIdentity(&sp10c);
-//	mtx00015be0(camGetUnk174c(), &sp10c);
+//	mtx00015be0(camGetProjectionMtxF(), &sp10c);
 //
 //	sp10c.m[3][1] = 0;
 //	sp10c.m[3][0] = 0;
 //	sp10c.m[3][2] = 0;
 //
 //	mtx4LoadIdentity(&sp198);
-//	mtx00015be0(camGetMatrix1740(), &sp198);
+//	mtx00015be0(camGetWorldToScreenMtxf(), &sp198);
 //
 //	campos.x = player->cam_pos.x;
 //	campos.y = player->cam_pos.y;

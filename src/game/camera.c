@@ -182,78 +182,78 @@ void cam0f0b4eb8(struct coord *arg0, f32 arg1[2], f32 zoom, f32 aspect)
 	arg1[0] = player->c_screenleft + player->c_halfwidth - f14 * arg0->f[0];
 }
 
-void camSetUnk1738(void *value)
+void camSetMtxL1738(Mtx *mtx)
 {
-	g_Vars.currentplayer->unk1738 = value;
+	g_Vars.currentplayer->mtxl1738 = mtx;
 }
 
-void *camGetUnk1738(void)
+Mtx *camGetMtxL1738(void)
 {
-	return g_Vars.currentplayer->unk1738;
+	return g_Vars.currentplayer->mtxl1738;
 }
 
-void camSetUnk173c(Mtx *matrix)
+void camSetMtxL173c(Mtx *mtx)
 {
-	g_Vars.currentplayer->unk173c = matrix;
+	g_Vars.currentplayer->mtxl173c = mtx;
 }
 
-Mtx *camGetUnk173c(void)
+Mtx *camGetMtxL173c(void)
 {
-	return g_Vars.currentplayer->unk173c;
+	return g_Vars.currentplayer->mtxl173c;
 }
 
-void camSetUnk006c(Mtxf *matrix)
+void camSetMtxF006c(Mtxf *mtx)
 {
-	g_Vars.currentplayer->matrix6c = matrix;
+	g_Vars.currentplayer->mtxf006c = mtx;
 }
 
-Mtxf *camGetUnk006c(void)
+Mtxf *camGetMtxF006c(void)
 {
-	return g_Vars.currentplayer->matrix6c;
+	return g_Vars.currentplayer->mtxf006c;
 }
 
-void camSetUnk1750(void *value)
+void camSetPerspectiveMtxL(Mtx *mtx)
 {
-	g_Vars.currentplayer->unk1750 = value;
+	g_Vars.currentplayer->perspmtxl = mtx;
 }
 
-void *camGetUnk1750(void)
+Mtx *camGetPerspectiveMtxL(void)
 {
-	return g_Vars.currentplayer->unk1750;
+	return g_Vars.currentplayer->perspmtxl;
 }
 
-void camSetUnk1758(Mtx *matrix)
+void camSetOrthogonalMtxL(Mtx *mtx)
 {
-	g_Vars.currentplayer->unk1758 = matrix;
+	g_Vars.currentplayer->orthomtxl = mtx;
 }
 
-Mtx *camGetUnk1758(void)
+Mtx *camGetOrthogonalMtxL(void)
 {
-	return g_Vars.currentplayer->unk1758;
+	return g_Vars.currentplayer->orthomtxl;
 }
 
-void camSetMatrix1740(Mtxf *matrix)
+void camSetWorldToScreenMtxf(Mtxf *mtx)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	player->prev1740 = player->matrix1740;
-	player->matrix1740 = matrix;
+	player->prevworldtoscreenmtx = player->worldtoscreenmtx;
+	player->worldtoscreenmtx = mtx;
 	player->c_viewfmdynticknum = g_GfxNumSwaps;
 	player->unk0488 = player->unk0484;
 	player->unk0484 = g_GfxMemPos;
 }
 
-void *cam0f0b5050(u8 *arg0)
+Mtxf *cam0f0b5050(u8 *arg0)
 {
-	u8 *result = NULL;
+	Mtxf *result = NULL;
 	s32 i;
 
 	if (arg0 >= g_VtxBuffers[g_GfxActiveBufferIndex] && arg0 < g_VtxBuffers[g_GfxActiveBufferIndex + 1]) {
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			if (g_Vars.currentplayerindex >= playermgrGetOrderOfPlayer(i)) {
 				if (g_GfxNumSwaps == g_Vars.players[i]->c_viewfmdynticknum) {
-					if (arg0 >= g_Vars.players[i]->unk0484 && result < g_Vars.players[i]->unk0484) {
-						result = (u8 *)g_Vars.players[i]->matrix1740;
+					if (arg0 >= g_Vars.players[i]->unk0484 && (u8 *)result < g_Vars.players[i]->unk0484) {
+						result = g_Vars.players[i]->worldtoscreenmtx;
 					}
 				}
 			}
@@ -262,14 +262,14 @@ void *cam0f0b5050(u8 *arg0)
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			if (g_Vars.currentplayerindex >= playermgrGetOrderOfPlayer(i)) {
 				if (g_GfxNumSwaps == g_Vars.players[i]->c_prevviewfmdynticknum + 1) {
-					if (arg0 >= g_Vars.players[i]->unk0488 && result < g_Vars.players[i]->unk0488) {
-						result = (u8 *)g_Vars.players[i]->prev1740;
+					if (arg0 >= g_Vars.players[i]->unk0488 && (u8 *)result < g_Vars.players[i]->unk0488) {
+						result = g_Vars.players[i]->prevworldtoscreenmtx;
 					}
 				}
 			} else {
 				if (g_GfxNumSwaps == g_Vars.players[i]->c_viewfmdynticknum + 1) {
-					if (arg0 >= g_Vars.players[i]->unk0484 && result < g_Vars.players[i]->unk0484) {
-						result = (u8 *)g_Vars.players[i]->matrix1740;
+					if (arg0 >= g_Vars.players[i]->unk0484 && (u8 *)result < g_Vars.players[i]->unk0484) {
+						result = g_Vars.players[i]->worldtoscreenmtx;
 					}
 				}
 			}
@@ -289,7 +289,7 @@ Mtxf *cam0f0b53a4(u8 *arg0)
 			if (g_Vars.currentplayerindex >= playermgrGetOrderOfPlayer(i)) {
 				if (g_GfxNumSwaps == g_Vars.players[i]->c_viewfmdynticknum) {
 					if (arg0 >= g_Vars.players[i]->unk0484 && (u8 *)result < g_Vars.players[i]->unk0484) {
-						result = g_Vars.players[i]->unk174c;
+						result = g_Vars.players[i]->projectionmtx;
 					}
 				}
 			}
@@ -299,13 +299,13 @@ Mtxf *cam0f0b53a4(u8 *arg0)
 			if (g_Vars.currentplayerindex >= playermgrGetOrderOfPlayer(i)) {
 				if (g_GfxNumSwaps == g_Vars.players[i]->c_prevviewfmdynticknum + 1) {
 					if (arg0 >= g_Vars.players[i]->unk0488 && (u8 *)result < g_Vars.players[i]->unk0488) {
-						result = g_Vars.players[i]->unk1768;
+						result = g_Vars.players[i]->prevprojectionmtx;
 					}
 				}
 			} else {
 				if (g_GfxNumSwaps == g_Vars.players[i]->c_viewfmdynticknum + 1) {
 					if (arg0 >= g_Vars.players[i]->unk0484 && (u8 *)result < g_Vars.players[i]->unk0484) {
-						result = g_Vars.players[i]->unk174c;
+						result = g_Vars.players[i]->projectionmtx;
 					}
 				}
 			}
@@ -315,63 +315,63 @@ Mtxf *cam0f0b53a4(u8 *arg0)
 	return result;
 }
 
-Mtxf *camGetMatrix1740(void)
+Mtxf *camGetWorldToScreenMtxf(void)
 {
-	return g_Vars.currentplayer->matrix1740;
+	return g_Vars.currentplayer->worldtoscreenmtx;
 }
 
-void camSetUnk1754(Mtxf *matrix)
+void camSetMtxF1754(Mtxf *mtx)
 {
-	g_Vars.currentplayer->unk1754 = matrix;
+	g_Vars.currentplayer->mtxf1754 = mtx;
 }
 
-Mtxf *camGetUnk1754(void)
+Mtxf *camGetMtxF1754(void)
 {
-	return g_Vars.currentplayer->unk1754;
+	return g_Vars.currentplayer->mtxf1754;
 }
 
-Mtxf *camGetPrevMatrix(void)
+Mtxf *camGetPrevWorldToScreenMtxf(void)
 {
-	return g_Vars.currentplayer->prev1740;
+	return g_Vars.currentplayer->prevworldtoscreenmtx;
 }
 
-void camSetUnk1748(u32 value)
+void camSetMtxF1748(Mtxf *mtx)
 {
-	g_Vars.currentplayer->unk1748 = value;
+	g_Vars.currentplayer->mtxf1748 = mtx;
 }
 
-u32 camGetUnk1748(void)
+Mtxf *camGetMtxF1748(void)
 {
-	return g_Vars.currentplayer->unk1748;
+	return g_Vars.currentplayer->mtxf1748;
 }
 
-void camSetUnk174c(Mtxf *matrix)
+void camSetProjectionMtxF(Mtxf *mtx)
 {
 	struct player *player = g_Vars.currentplayer;
 
 	player->c_prevviewfmdynticknum = player->c_viewfmdynticknum;
-	player->unk1768 = player->unk174c;
-	player->unk174c = matrix;
+	player->prevprojectionmtx = player->projectionmtx;
+	player->projectionmtx = mtx;
 }
 
-Mtxf *camGetUnk174c(void)
+Mtxf *camGetProjectionMtxF(void)
 {
-	return g_Vars.currentplayer->unk174c;
+	return g_Vars.currentplayer->projectionmtx;
 }
 
-Mtxf *camGetUnk1768(void)
+Mtxf *camGetPrevProjectionMtxF(void)
 {
-	return g_Vars.currentplayer->unk1768;
+	return g_Vars.currentplayer->prevprojectionmtx;
 }
 
-void camSetUnk175c(Mtxf *mtx)
+void camSetLookAt(LookAt *lookat)
 {
-	g_Vars.currentplayer->unk175c = mtx;
+	g_Vars.currentplayer->lookat = lookat;
 }
 
-Mtxf *camGetUnk175c(void)
+LookAt *camGetLookAt(void)
 {
-	return g_Vars.currentplayer->unk175c;
+	return g_Vars.currentplayer->lookat;
 }
 
 f32 camGetLodScaleZ(void)
@@ -427,7 +427,7 @@ void cam0f0b5838(void)
 
 	player = g_Vars.currentplayer;
 	sp24 = player->c_halfheight * player->c_scaley;
-	mtx = player->unk174c;
+	mtx = player->projectionmtx;
 
 	sp2c = 1.0f / sqrtf(sp24 * sp24 + 1.0f);
 	sp24 *= sp2c;
@@ -472,7 +472,7 @@ void cam0f0b5838(void)
 
 bool cam0f0b5b9c(struct coord *arg0, f32 arg1)
 {
-	Mtxf *mtx = g_Vars.currentplayer->unk174c;
+	Mtxf *mtx = g_Vars.currentplayer->projectionmtx;
 
 	if (var8009dd6c + arg1 < mtx->m[2][0] * arg0->f[0] + mtx->m[2][1] * arg0->f[1] + mtx->m[2][2] * arg0->f[2]) {
 		return false;
@@ -518,7 +518,7 @@ bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct var800a4640_00 *arg
 	f32 sp1c;
 	f32 sp18;
 
-	if (var8009dd6c + arg1 < g_Vars.currentplayer->unk174c->m[2][0] * pos->f[0] + g_Vars.currentplayer->unk174c->m[2][1] * pos->f[1] + g_Vars.currentplayer->unk174c->m[2][2] * pos->f[2]) {
+	if (var8009dd6c + arg1 < g_Vars.currentplayer->projectionmtx->m[2][0] * pos->f[0] + g_Vars.currentplayer->projectionmtx->m[2][1] * pos->f[1] + g_Vars.currentplayer->projectionmtx->m[2][2] * pos->f[2]) {
 		return false;
 	}
 
@@ -528,11 +528,11 @@ bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct var800a4640_00 *arg
 	sp38 *= sp3c;
 	sp24 = -sp3c;
 
-	sp54.f[0] = sp24 * g_Vars.currentplayer->unk174c->m[0][0] - sp38 * g_Vars.currentplayer->unk174c->m[2][0];
-	sp54.f[1] = sp24 * g_Vars.currentplayer->unk174c->m[0][1] - sp38 * g_Vars.currentplayer->unk174c->m[2][1];
-	sp54.f[2] = sp24 * g_Vars.currentplayer->unk174c->m[0][2] - sp38 * g_Vars.currentplayer->unk174c->m[2][2];
+	sp54.f[0] = sp24 * g_Vars.currentplayer->projectionmtx->m[0][0] - sp38 * g_Vars.currentplayer->projectionmtx->m[2][0];
+	sp54.f[1] = sp24 * g_Vars.currentplayer->projectionmtx->m[0][1] - sp38 * g_Vars.currentplayer->projectionmtx->m[2][1];
+	sp54.f[2] = sp24 * g_Vars.currentplayer->projectionmtx->m[0][2] - sp38 * g_Vars.currentplayer->projectionmtx->m[2][2];
 
-	sp50 = sp54.f[0] * g_Vars.currentplayer->unk174c->m[3][0] + sp54.f[1] * g_Vars.currentplayer->unk174c->m[3][1] + sp54.f[2] * g_Vars.currentplayer->unk174c->m[3][2];
+	sp50 = sp54.f[0] * g_Vars.currentplayer->projectionmtx->m[3][0] + sp54.f[1] * g_Vars.currentplayer->projectionmtx->m[3][1] + sp54.f[2] * g_Vars.currentplayer->projectionmtx->m[3][2];
 
 	if (sp50 + arg1 < sp54.f[0] * pos->f[0] + sp54.f[1] * pos->f[1] + sp54.f[2] * pos->f[2]) {
 		return false;
@@ -543,11 +543,11 @@ bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct var800a4640_00 *arg
 	sp38 *= sp30;
 	sp20 = -sp30;
 
-	sp44.f[0] = -sp20 * g_Vars.currentplayer->unk174c->m[0][0] - sp38 * g_Vars.currentplayer->unk174c->m[2][0];
-	sp44.f[1] = -sp20 * g_Vars.currentplayer->unk174c->m[0][1] - sp38 * g_Vars.currentplayer->unk174c->m[2][1];
-	sp44.f[2] = -sp20 * g_Vars.currentplayer->unk174c->m[0][2] - sp38 * g_Vars.currentplayer->unk174c->m[2][2];
+	sp44.f[0] = -sp20 * g_Vars.currentplayer->projectionmtx->m[0][0] - sp38 * g_Vars.currentplayer->projectionmtx->m[2][0];
+	sp44.f[1] = -sp20 * g_Vars.currentplayer->projectionmtx->m[0][1] - sp38 * g_Vars.currentplayer->projectionmtx->m[2][1];
+	sp44.f[2] = -sp20 * g_Vars.currentplayer->projectionmtx->m[0][2] - sp38 * g_Vars.currentplayer->projectionmtx->m[2][2];
 
-	sp40 = sp44.f[0] * g_Vars.currentplayer->unk174c->m[3][0] + sp44.f[1] * g_Vars.currentplayer->unk174c->m[3][1] + sp44.f[2] * g_Vars.currentplayer->unk174c->m[3][2];
+	sp40 = sp44.f[0] * g_Vars.currentplayer->projectionmtx->m[3][0] + sp44.f[1] * g_Vars.currentplayer->projectionmtx->m[3][1] + sp44.f[2] * g_Vars.currentplayer->projectionmtx->m[3][2];
 
 	if (sp40 + arg1 < sp44.f[0] * pos->f[0] + sp44.f[1] * pos->f[1] + sp44.f[2] * pos->f[2]) {
 		return false;
@@ -558,11 +558,11 @@ bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct var800a4640_00 *arg
 	sp34 *= sp2c;
 	sp1c = -sp2c;
 
-	sp74.f[0] = -sp1c * g_Vars.currentplayer->unk174c->m[1][0] + sp34 * g_Vars.currentplayer->unk174c->m[2][0];
-	sp74.f[1] = -sp1c * g_Vars.currentplayer->unk174c->m[1][1] + sp34 * g_Vars.currentplayer->unk174c->m[2][1];
-	sp74.f[2] = -sp1c * g_Vars.currentplayer->unk174c->m[1][2] + sp34 * g_Vars.currentplayer->unk174c->m[2][2];
+	sp74.f[0] = -sp1c * g_Vars.currentplayer->projectionmtx->m[1][0] + sp34 * g_Vars.currentplayer->projectionmtx->m[2][0];
+	sp74.f[1] = -sp1c * g_Vars.currentplayer->projectionmtx->m[1][1] + sp34 * g_Vars.currentplayer->projectionmtx->m[2][1];
+	sp74.f[2] = -sp1c * g_Vars.currentplayer->projectionmtx->m[1][2] + sp34 * g_Vars.currentplayer->projectionmtx->m[2][2];
 
-	sp70 = sp74.f[0] * g_Vars.currentplayer->unk174c->m[3][0] + sp74.f[1] * g_Vars.currentplayer->unk174c->m[3][1] + sp74.f[2] * g_Vars.currentplayer->unk174c->m[3][2];
+	sp70 = sp74.f[0] * g_Vars.currentplayer->projectionmtx->m[3][0] + sp74.f[1] * g_Vars.currentplayer->projectionmtx->m[3][1] + sp74.f[2] * g_Vars.currentplayer->projectionmtx->m[3][2];
 
 	if (sp70 + arg1 < sp74.f[0] * pos->f[0] + sp74.f[1] * pos->f[1] + sp74.f[2] * pos->f[2]) {
 		return false;
@@ -573,11 +573,11 @@ bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct var800a4640_00 *arg
 	sp34 *= sp28;
 	sp18 = -sp28;
 
-	sp64.f[0] = sp18 * g_Vars.currentplayer->unk174c->m[1][0] + sp34 * g_Vars.currentplayer->unk174c->m[2][0];
-	sp64.f[1] = sp18 * g_Vars.currentplayer->unk174c->m[1][1] + sp34 * g_Vars.currentplayer->unk174c->m[2][1];
-	sp64.f[2] = sp18 * g_Vars.currentplayer->unk174c->m[1][2] + sp34 * g_Vars.currentplayer->unk174c->m[2][2];
+	sp64.f[0] = sp18 * g_Vars.currentplayer->projectionmtx->m[1][0] + sp34 * g_Vars.currentplayer->projectionmtx->m[2][0];
+	sp64.f[1] = sp18 * g_Vars.currentplayer->projectionmtx->m[1][1] + sp34 * g_Vars.currentplayer->projectionmtx->m[2][1];
+	sp64.f[2] = sp18 * g_Vars.currentplayer->projectionmtx->m[1][2] + sp34 * g_Vars.currentplayer->projectionmtx->m[2][2];
 
-	sp60 = sp64.f[0] * g_Vars.currentplayer->unk174c->m[3][0] + sp64.f[1] * g_Vars.currentplayer->unk174c->m[3][1] + sp64.f[2] * g_Vars.currentplayer->unk174c->m[3][2];
+	sp60 = sp64.f[0] * g_Vars.currentplayer->projectionmtx->m[3][0] + sp64.f[1] * g_Vars.currentplayer->projectionmtx->m[3][1] + sp64.f[2] * g_Vars.currentplayer->projectionmtx->m[3][2];
 
 	if (sp60 + arg1 < sp64.f[0] * pos->f[0] + sp64.f[1] * pos->f[1] + sp64.f[2] * pos->f[2]) {
 		return false;

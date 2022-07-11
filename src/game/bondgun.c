@@ -12055,7 +12055,7 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 	playerSetPerimEnabled(playerprop, true);
 
 	bgunCalculatePlayerShotSpread(&sp1e8, &sp1dc, handnum, true);
-	mtx4RotateVecInPlace(camGetUnk174c(), &sp1dc);
+	mtx4RotateVecInPlace(camGetProjectionMtxF(), &sp1dc);
 
 	if (droppinggrenade) {
 		// Dropping a grenade because player is in an nbomb storm
@@ -12292,7 +12292,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 
 			mtx4LoadIdentity(&sp270);
 			bgunCalculatePlayerShotSpread(&sp204, &sp1f8, handnum, true);
-			mtx4RotateVecInPlace(camGetUnk174c(), &sp1f8);
+			mtx4RotateVecInPlace(camGetProjectionMtxF(), &sp1f8);
 
 			spawnpos.x = hand->muzzlepos.x;
 			spawnpos.y = hand->muzzlepos.y;
@@ -12616,7 +12616,7 @@ void bgunSwivel(f32 screenx, f32 screeny, f32 crossdamp, f32 aimdamp)
 				sp94.y = hand->dotpos.y;
 				sp94.z = hand->dotpos.z;
 
-				mtx4TransformVecInPlace(camGetMatrix1740(), &sp94);
+				mtx4TransformVecInPlace(camGetWorldToScreenMtxf(), &sp94);
 
 				if (!(sp94.z < 0.0000001f) || !(sp94.z > -0.0000001f)) {
 					if (sp94.z > -6000.0f) {
@@ -14533,7 +14533,7 @@ void bgunUpdateLasersight(struct hand *hand, struct modelfiledata *modeldef, s32
 		beamnear.y = ((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][1];
 		beamnear.z = ((Mtxf *)((u32)allocation + mtxindex * sizeof(Mtxf)))->m[3][2];
 
-		mtx4TransformVecInPlace(camGetUnk174c(), &beamnear);
+		mtx4TransformVecInPlace(camGetProjectionMtxF(), &beamnear);
 
 		if (hand->useposrot
 				|| (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_XRAYSCANNER)) {
@@ -14551,14 +14551,14 @@ void bgunUpdateLasersight(struct hand *hand, struct modelfiledata *modeldef, s32
 			sp3c.y = beamnear.y;
 			sp3c.z = beamnear.z;
 
-			mtx4TransformVec(camGetMatrix1740(), &sp3c, &sp54);
-			mtx4RotateVec(camGetUnk174c(), &sp48, &sp30);
+			mtx4TransformVec(camGetWorldToScreenMtxf(), &sp3c, &sp54);
+			mtx4RotateVec(camGetProjectionMtxF(), &sp48, &sp30);
 
 			beamfar.x *= 500.0f;
 			beamfar.y *= 500.0f;
 			beamfar.z *= 500.0f;
 
-			mtx4RotateVecInPlace(camGetUnk174c(), &beamfar);
+			mtx4RotateVecInPlace(camGetProjectionMtxF(), &beamfar);
 
 			beamfar.x += beamnear.x;
 			beamfar.y += beamnear.y;
@@ -14590,7 +14590,7 @@ void bgunUpdateLasersight(struct hand *hand, struct modelfiledata *modeldef, s32
 			beamfar.z *= 500.0f;
 		}
 
-		mtx4TransformVecInPlace(camGetUnk174c(), &beamfar);
+		mtx4TransformVecInPlace(camGetProjectionMtxF(), &beamfar);
 		lasersightSetBeam(handnum, 1, &beamnear, &beamfar);
 
 		if (handnum == HAND_RIGHT && hand->hasdotinfo && !busy) {
@@ -14854,7 +14854,7 @@ void bgunUpdateMagnum(struct hand *hand, s32 handnum, struct modelfiledata *mode
 
 				mtx4Copy(tmp, &sp4c);
 				mtx00015f04(9.999999f, &sp4c);
-				mtx4MultMtx4InPlace(camGetUnk174c(), &sp4c);
+				mtx4MultMtx4InPlace(camGetProjectionMtxF(), &sp4c);
 
 				casingCreateForHand(handnum, ground, &sp4c);
 			}
@@ -17339,7 +17339,7 @@ void bgunCreateFx(struct hand *hand, s32 handnum, struct weaponfunc *funcdef, s3
 
 				mtx4Copy(mtx, &sp24);
 				mtx00015f04(9.999999f, &sp24);
-				mtx4MultMtx4InPlace(camGetUnk174c(), &sp24);
+				mtx4MultMtx4InPlace(camGetProjectionMtxF(), &sp24);
 
 				casingCreateForHand(handnum, ground, &sp24);
 			} else {
@@ -17614,7 +17614,7 @@ void bgun0f0a5550(s32 handnum)
 	mtx4Copy(&sp2c4, &hand->cammtx);
 	mtx4Copy(&hand->posmtx, &hand->prevmtx);
 
-	mtx00015be4(camGetUnk174c(), &hand->cammtx, &hand->posmtx);
+	mtx00015be4(camGetProjectionMtxF(), &hand->cammtx, &hand->posmtx);
 
 	if (hand->visible) {
 		for (j = 0x5a; j < 0x5d; j++) {
@@ -17881,7 +17881,7 @@ void bgun0f0a5550(s32 handnum)
 				hand->muzzlepos.f[2] = mtx->m[3][2];
 
 				mtx4Copy(mtx, &hand->muzzlemat);
-				mtx4TransformVecInPlace(camGetUnk174c(), &hand->muzzlepos);
+				mtx4TransformVecInPlace(camGetProjectionMtxF(), &hand->muzzlepos);
 
 				hand->muzzlez = -((Mtxf *)((u32)mtxallocation + sp6c * sizeof(Mtxf)))->m[3][2];
 
@@ -17903,7 +17903,7 @@ void bgun0f0a5550(s32 handnum)
 				hand->muzzlepos.z = mtx->m[3][2];
 
 				mtx4Copy(mtx, &hand->muzzlemat);
-				mtx4TransformVecInPlace(camGetUnk174c(), &hand->muzzlepos);
+				mtx4TransformVecInPlace(camGetProjectionMtxF(), &hand->muzzlepos);
 
 				hand->muzzlez = -((Mtxf *)((u32)mtxallocation + sp6c * sizeof(Mtxf)))->m[3][2];
 			} else {
@@ -18532,7 +18532,7 @@ glabel var7f1aca90
 /*  f0a74d4:	25ae0008 */ 	addiu	$t6,$t5,0x8
 /*  f0a74d8:	afae014c */ 	sw	$t6,0x14c($sp)
 /*  f0a74dc:	adaf0000 */ 	sw	$t7,0x0($t5)
-/*  f0a74e0:	0fc2d5ea */ 	jal	camGetUnk175c
+/*  f0a74e0:	0fc2d5ea */ 	jal	camGetLookAt
 /*  f0a74e4:	afad00d4 */ 	sw	$t5,0xd4($sp)
 /*  f0a74e8:	8fa500d4 */ 	lw	$a1,0xd4($sp)
 /*  f0a74ec:	3c080382 */ 	lui	$t0,0x382
@@ -18542,7 +18542,7 @@ glabel var7f1aca90
 /*  f0a74fc:	25890008 */ 	addiu	$t1,$t4,0x8
 /*  f0a7500:	afa9014c */ 	sw	$t1,0x14c($sp)
 /*  f0a7504:	ad880000 */ 	sw	$t0,0x0($t4)
-/*  f0a7508:	0fc2d5ea */ 	jal	camGetUnk175c
+/*  f0a7508:	0fc2d5ea */ 	jal	camGetLookAt
 /*  f0a750c:	afac00d0 */ 	sw	$t4,0xd0($sp)
 /*  f0a7510:	8fa300d0 */ 	lw	$v1,0xd0($sp)
 /*  f0a7514:	244a0010 */ 	addiu	$t2,$v0,0x10
@@ -19373,7 +19373,7 @@ glabel var7f1aca90
 /*  f0a74d4:	25ae0008 */ 	addiu	$t6,$t5,0x8
 /*  f0a74d8:	afae014c */ 	sw	$t6,0x14c($sp)
 /*  f0a74dc:	adaf0000 */ 	sw	$t7,0x0($t5)
-/*  f0a74e0:	0fc2d5ea */ 	jal	camGetUnk175c
+/*  f0a74e0:	0fc2d5ea */ 	jal	camGetLookAt
 /*  f0a74e4:	afad00d4 */ 	sw	$t5,0xd4($sp)
 /*  f0a74e8:	8fa500d4 */ 	lw	$a1,0xd4($sp)
 /*  f0a74ec:	3c080382 */ 	lui	$t0,0x382
@@ -19383,7 +19383,7 @@ glabel var7f1aca90
 /*  f0a74fc:	25890008 */ 	addiu	$t1,$t4,0x8
 /*  f0a7500:	afa9014c */ 	sw	$t1,0x14c($sp)
 /*  f0a7504:	ad880000 */ 	sw	$t0,0x0($t4)
-/*  f0a7508:	0fc2d5ea */ 	jal	camGetUnk175c
+/*  f0a7508:	0fc2d5ea */ 	jal	camGetLookAt
 /*  f0a750c:	afac00d0 */ 	sw	$t4,0xd0($sp)
 /*  f0a7510:	8fa300d0 */ 	lw	$v1,0xd0($sp)
 /*  f0a7514:	244a0010 */ 	addiu	$t2,$v0,0x10
@@ -20214,7 +20214,7 @@ glabel var7f1aca90
 /*  f0a5220:	25ae0008 */ 	addiu	$t6,$t5,0x8
 /*  f0a5224:	afae0144 */ 	sw	$t6,0x144($sp)
 /*  f0a5228:	adaf0000 */ 	sw	$t7,0x0($t5)
-/*  f0a522c:	0fc2cd42 */ 	jal	camGetUnk175c
+/*  f0a522c:	0fc2cd42 */ 	jal	camGetLookAt
 /*  f0a5230:	afad00cc */ 	sw	$t5,0xcc($sp)
 /*  f0a5234:	8fa500cc */ 	lw	$a1,0xcc($sp)
 /*  f0a5238:	3c080382 */ 	lui	$t0,0x382
@@ -20224,7 +20224,7 @@ glabel var7f1aca90
 /*  f0a5248:	25890008 */ 	addiu	$t1,$t4,0x8
 /*  f0a524c:	afa90144 */ 	sw	$t1,0x144($sp)
 /*  f0a5250:	ad880000 */ 	sw	$t0,0x0($t4)
-/*  f0a5254:	0fc2cd42 */ 	jal	camGetUnk175c
+/*  f0a5254:	0fc2cd42 */ 	jal	camGetLookAt
 /*  f0a5258:	afac00c8 */ 	sw	$t4,0xc8($sp)
 /*  f0a525c:	8fa300c8 */ 	lw	$v1,0xc8($sp)
 /*  f0a5260:	244a0010 */ 	addiu	$t2,$v0,0x10
@@ -20856,7 +20856,7 @@ glabel var7f1aca90
 //				gSPNumLights(gdl++, 1);
 //				gSPLight(gdl++, &var80070098, 1);
 //				gSPLight(gdl++, &var80070090, 2);
-//				gSPLookAt(gdl++, camGetUnk175c());
+//				gSPLookAt(gdl++, camGetLookAt());
 //			}
 //
 //			gSPPerspNormalize(gdl++, mtx00016dcc(0, 300));

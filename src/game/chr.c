@@ -1660,7 +1660,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 			return;
 		}
 
-		mtx00015be0(camGetUnk174c(), mtx);
+		mtx00015be0(camGetProjectionMtxF(), mtx);
 
 		sp138.x = mtx->m[3][0];
 		sp138.y = mtx->m[3][1];
@@ -1706,7 +1706,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 		mtx->m[3][1] = sp138.y;
 		mtx->m[3][2] = sp138.z;
 
-		mtx00015be0(camGetMatrix1740(), mtx);
+		mtx00015be0(camGetWorldToScreenMtxf(), mtx);
 	} else {
 		if (g_CurModelChr->model->filedata->skel == &g_SkelChr) {
 			lshoulderjoint = 2;
@@ -1869,7 +1869,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 					yrot += M_BADTAU;
 				}
 
-				mtx00015be0(camGetUnk174c(), mtx);
+				mtx00015be0(camGetProjectionMtxF(), mtx);
 
 				sp70.x = mtx->m[3][0];
 				sp70.y = mtx->m[3][1];
@@ -1914,7 +1914,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 				mtx->m[3][1] = sp70.y;
 				mtx->m[3][2] = sp70.z;
 
-				mtx00015be0(camGetMatrix1740(), mtx);
+				mtx00015be0(camGetWorldToScreenMtxf(), mtx);
 			}
 		}
 	}
@@ -2720,7 +2720,7 @@ s32 chrTick(struct prop *prop)
 			sp190.z = cosf(angle) * 19;
 
 			mtx4LoadTranslation(&sp190, &sp1a8);
-			mtx4MultMtx4InPlace(camGetMatrix1740(), &sp1a8);
+			mtx4MultMtx4InPlace(camGetWorldToScreenMtxf(), &sp1a8);
 			sp210.unk00 = &sp1a8;
 		} else if (prop->type == PROPTYPE_PLAYER) {
 			u8 stack[0x14];
@@ -2737,13 +2737,13 @@ s32 chrTick(struct prop *prop)
 				sp17c.z = sinf(-sp178) * sp130;
 
 				mtx4LoadTranslation(&sp17c, &sp1a8);
-				mtx4MultMtx4InPlace(camGetMatrix1740(), &sp1a8);
+				mtx4MultMtx4InPlace(camGetWorldToScreenMtxf(), &sp1a8);
 				sp210.unk00 = &sp1a8;
 			} else {
-				sp210.unk00 = camGetMatrix1740();
+				sp210.unk00 = camGetWorldToScreenMtxf();
 			}
 		} else {
-			sp210.unk00 = camGetMatrix1740();
+			sp210.unk00 = camGetWorldToScreenMtxf();
 		}
 
 		sp210.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
@@ -3082,7 +3082,7 @@ bool chr0f024738(struct chrdata *chr)
 								+ thing->unk06c.m[1][2] * campos->f[1]
 								+ thing->unk06c.m[2][2] * campos->f[2]) + thing->unk06c.m[3][2];
 
-						mtx00015be4(&thing->unk06c, camGetUnk174c(), &thing->unk0ac);
+						mtx00015be4(&thing->unk06c, camGetProjectionMtxF(), &thing->unk0ac);
 						thing->unk00c = true;
 					}
 
@@ -3190,7 +3190,7 @@ bool chr0f024b18(struct model *model, struct modelnode *node)
 							sp88.z = thing->bbox.zmin;
 						}
 
-						mtx00015be4(camGetMatrix1740(), &thing->unk02c, &thing->unk0ec);
+						mtx00015be4(camGetWorldToScreenMtxf(), &thing->unk02c, &thing->unk0ec);
 						mtx4TransformVec(&thing->unk0ec, &spa0, &sp70);
 						cam0f0b4dec(&sp70, thing->unk134);
 						mtx4TransformVec(&thing->unk0ec, &sp94, &sp70);
@@ -5190,9 +5190,9 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 					while (spc0 > 0) {
 						if (func0f084594(model, node, &shotdata->unk00, &shotdata->unk0c, &sp88, &sp84, &sp80)) {
 							mtx4TransformVec(&model->matrices[sp84], &sp88.unk00, &spdc);
-							mtx4TransformVecInPlace(camGetUnk174c(), &spdc);
+							mtx4TransformVecInPlace(camGetProjectionMtxF(), &spdc);
 							mtx4RotateVec(&model->matrices[sp84], &sp88.unk0c, &spd0);
-							mtx4RotateVecInPlace(camGetUnk174c(), &spd0);
+							mtx4RotateVecInPlace(camGetProjectionMtxF(), &spd0);
 							break;
 						}
 
@@ -5204,8 +5204,8 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 					if (spc0 > 0) {
 						if (func0f06bea0(model, model->filedata->rootnode, model->filedata->rootnode, &shotdata->unk00,
 									&shotdata->unk0c, &sp88.unk00, &sp70, &node, &spc0, &sp84, &sp80)) {
-							mtx4TransformVec(camGetUnk174c(), &sp88.unk00, &spdc);
-							mtx4RotateVec(camGetUnk174c(), &sp88.unk0c, &spd0);
+							mtx4TransformVec(camGetProjectionMtxF(), &sp88.unk00, &spdc);
+							mtx4RotateVec(camGetProjectionMtxF(), &sp88.unk0c, &spd0);
 						} else {
 							spc0 = 0;
 						}
@@ -5218,7 +5218,7 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 			}
 
 			if (spc0 > 0) {
-				mtx = camGetMatrix1740();
+				mtx = camGetWorldToScreenMtxf();
 				sp68 = spdc.x * mtx->m[0][2] + spdc.y * mtx->m[1][2] + spdc.z * mtx->m[2][2] + mtx->m[3][2];
 				sp68 = -sp68;
 
@@ -5272,7 +5272,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 		sp98.y = shotdata->unk00.y - (hit->distance * shotdata->unk0c.y) / shotdata->unk0c.z;
 		sp98.z = shotdata->unk00.z - hit->distance;
 
-		mtx4TransformVec(camGetUnk174c(), &sp98, &hitpos);
+		mtx4TransformVec(camGetProjectionMtxF(), &sp98, &hitpos);
 		bgunSetHitPos(&hitpos);
 		bgunPlayPropHitSound(&shotdata->gset, hit->prop, -1);
 

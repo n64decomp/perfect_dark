@@ -1825,7 +1825,7 @@ Gfx *creditsDraw(Gfx *gdl)
 
 		mtx4LoadIdentity(&sp68);
 		mtx00016054(&sp68, matrix);
-		camSetMatrix1740(&sp68);
+		camSetWorldToScreenMtxf(&sp68);
 
 		gSPMatrix(gdl++, osVirtualToPhysical(matrix), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 

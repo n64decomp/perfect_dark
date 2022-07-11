@@ -975,8 +975,8 @@ void playerSpawn(void)
 				s32 prevplayernum = g_Vars.currentplayernum;
 				setCurrentPlayerNum(g_Vars.bondplayernum);
 				bgun0f0a0c08(&sp84, &sp9c);
-				mtx4RotateVec(camGetUnk174c(), &sp9c, &sp90);
-				mtx4TransformVec(camGetUnk174c(), &sp84, &sp78);
+				mtx4RotateVec(camGetProjectionMtxF(), &sp9c, &sp90);
+				mtx4TransformVec(camGetProjectionMtxF(), &sp84, &sp78);
 				setCurrentPlayerNum(prevplayernum);
 			}
 
@@ -2919,7 +2919,7 @@ Gfx *playerRenderHealthBar(Gfx *gdl)
 
 	gdl = healthbarDraw(gdl, NULL, 0, 0);
 
-	gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 	return gdl;
 }
@@ -4760,7 +4760,7 @@ void playerSetGlobalDrawCameraOffset(void)
 	g_Vars.currentplayer->globaldrawcameraoffset.y = g_Vars.currentplayer->globaldrawworldoffset.y;
 	g_Vars.currentplayer->globaldrawcameraoffset.z = g_Vars.currentplayer->globaldrawworldoffset.z;
 
-	mtx4RotateVecInPlace(camGetMatrix1740(), &g_Vars.currentplayer->globaldrawcameraoffset);
+	mtx4RotateVecInPlace(camGetWorldToScreenMtxf(), &g_Vars.currentplayer->globaldrawcameraoffset);
 }
 
 GLOBAL_ASM(
@@ -4901,7 +4901,7 @@ glabel player0f0bfc7c
 /*  f0bfe90:	00000000 */ 	nop
 /*  f0bfe94:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f0bfe98:	00408825 */ 	or	$s1,$v0,$zero
-/*  f0bfe9c:	0fc2d5c6 */ 	jal	camGetUnk1754
+/*  f0bfe9c:	0fc2d5c6 */ 	jal	camGetMtxF1754
 /*  f0bfea0:	00408025 */ 	or	$s0,$v0,$zero
 /*  f0bfea4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0bfea8:	27a5008c */ 	addiu	$a1,$sp,0x8c
@@ -4939,12 +4939,12 @@ glabel player0f0bfc7c
 /*  f0bff18:	24a50001 */ 	addiu	$a1,$a1,0x1
 /*  f0bff1c:	14a8ffed */ 	bne	$a1,$t0,.L0f0bfed4
 /*  f0bff20:	24c60010 */ 	addiu	$a2,$a2,0x10
-/*  f0bff24:	0fc2d3ee */ 	jal	camSetUnk006c
+/*  f0bff24:	0fc2d3ee */ 	jal	camSetMtxF006c
 /*  f0bff28:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bff2c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bff30:	0c0128d8 */ 	jal	guMtxF2L
 /*  f0bff34:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0bff38:	0fc2d3fe */ 	jal	camSetUnk1758
+/*  f0bff38:	0fc2d3fe */ 	jal	camSetOrthogonalMtxL
 /*  f0bff3c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0bff40:	c7ac0070 */ 	lwc1	$f12,0x70($sp)
 /*  f0bff44:	0c0057c1 */ 	jal	mtx00015f04
@@ -4958,18 +4958,18 @@ glabel player0f0bfc7c
 /*  f0bff64:	0c005a08 */ 	jal	mtx00016820
 /*  f0bff68:	8c650060 */ 	lw	$a1,0x60($v1)
 /*  f0bff6c:	8e4e0284 */ 	lw	$t6,0x284($s2)
-/*  f0bff70:	0fc2d3e6 */ 	jal	camSetUnk173c
+/*  f0bff70:	0fc2d3e6 */ 	jal	camSetMtxL173c
 /*  f0bff74:	8dc4005c */ 	lw	$a0,0x5c($t6)
 /*  f0bff78:	8e4f0284 */ 	lw	$t7,0x284($s2)
-/*  f0bff7c:	0fc2d3de */ 	jal	camSetUnk1738
+/*  f0bff7c:	0fc2d3de */ 	jal	camSetMtxL1738
 /*  f0bff80:	8de40060 */ 	lw	$a0,0x60($t7)
 /*  f0bff84:	8e580284 */ 	lw	$t8,0x284($s2)
-/*  f0bff88:	0fc2d406 */ 	jal	camSetMatrix1740
+/*  f0bff88:	0fc2d406 */ 	jal	camSetWorldToScreenMtxf
 /*  f0bff8c:	8f040064 */ 	lw	$a0,0x64($t8)
 /*  f0bff90:	8e590284 */ 	lw	$t9,0x284($s2)
-/*  f0bff94:	0fc2d5d6 */ 	jal	camSetUnk174c
+/*  f0bff94:	0fc2d5d6 */ 	jal	camSetProjectionMtxF
 /*  f0bff98:	8f240068 */ 	lw	$a0,0x68($t9)
-/*  f0bff9c:	0fc2d5e6 */ 	jal	camSetUnk175c
+/*  f0bff9c:	0fc2d5e6 */ 	jal	camSetLookAt
 /*  f0bffa0:	8fa400cc */ 	lw	$a0,0xcc($sp)
 /*  f0bffa4:	0fc2d60e */ 	jal	cam0f0b5838
 /*  f0bffa8:	00000000 */ 	nop
@@ -5003,10 +5003,10 @@ glabel player0f0bfc7c
 //	scale = currentPlayerGetScaleBg2Gfx();
 //	playerSetGlobalDrawWorldOffset(g_Vars.currentplayer->cam_room);
 //
-//	g_Vars.currentplayer->matrix5c = gfxAllocateMatrix();
-//	g_Vars.currentplayer->matrix60 = gfxAllocateMatrix();
-//	g_Vars.currentplayer->matrix64 = gfxAllocateMatrix();
-//	g_Vars.currentplayer->matrix68 = gfxAllocateMatrix();
+//	g_Vars.currentplayer->mtxl005c = gfxAllocateMatrix();
+//	g_Vars.currentplayer->mtxl0060 = gfxAllocateMatrix();
+//	g_Vars.currentplayer->mtxf0064 = gfxAllocateMatrix();
+//	g_Vars.currentplayer->mtxf0068 = gfxAllocateMatrix();
 //
 //	spcc = gfxAllocateLookAt(2);
 //
@@ -5028,19 +5028,19 @@ glabel player0f0bfc7c
 //			sp80.x, sp80.y, sp80.z,
 //			cam_up->x, cam_up->y, cam_up->z);
 //
-//	mtx00016874(g_Vars.currentplayer->matrix64,
+//	mtx00016874(g_Vars.currentplayer->mtxf0064,
 //			cam_pos->x, cam_pos->y, cam_pos->z,
 //			cam_look->x, cam_look->y, cam_look->z,
 //			cam_up->x, cam_up->y, cam_up->z);
 //
-//	mtx00016b58(g_Vars.currentplayer->matrix68,
+//	mtx00016b58(g_Vars.currentplayer->mtxf0068,
 //			cam_pos->x, cam_pos->y, cam_pos->z,
 //			cam_look->x, cam_look->y, cam_look->z,
 //			cam_up->x, cam_up->y, cam_up->z);
 //
 //	s1 = gfxAllocateMatrix();
 //	s0 = gfxAllocateMatrix();
-//	mtx4MultMtx4(camGetUnk1754(), &sp8c, s0);
+//	mtx4MultMtx4(camGetMtxF1754(), &sp8c, s0);
 //
 //	for (i = 0; i < 4; i++) {
 //		for (j = 0; j < 4; j++) {
@@ -5052,17 +5052,17 @@ glabel player0f0bfc7c
 //		}
 //	}
 //
-//	camSetUnk006c(s0);
+//	camSetMtxF006c(s0);
 //	guMtxF2L(s0, s1);
-//	camSetUnk1758(s1);
+//	camSetOrthogonalMtxL(s1);
 //	mtx00015f04(scale, &sp8c);
-//	guMtxF2L(&sp8c, g_Vars.currentplayer->matrix5c);
-//	mtx00016820(g_Vars.currentplayer->matrix5c, g_Vars.currentplayer->matrix60);
-//	camSetUnk173c(g_Vars.currentplayer->matrix5c);
-//	camSetUnk1738(g_Vars.currentplayer->matrix60);
-//	camSetMatrix1740(g_Vars.currentplayer->matrix64);
-//	camSetUnk174c(g_Vars.currentplayer->matrix68);
-//	camSetUnk175c(spcc);
+//	guMtxF2L(&sp8c, g_Vars.currentplayer->mtxl005c);
+//	mtx00016820(g_Vars.currentplayer->mtxl005c, g_Vars.currentplayer->mtxl0060);
+//	camSetMtxL173c(g_Vars.currentplayer->mtxl005c);
+//	camSetMtxL1738(g_Vars.currentplayer->mtxl0060);
+//	camSetWorldToScreenMtxf(g_Vars.currentplayer->mtxf0064);
+//	camSetProjectionMtxF(g_Vars.currentplayer->mtxf0068);
+//	camSetLookAt(spcc);
 //	cam0f0b5838();
 //	playerSetGlobalDrawCameraOffset();
 //}
@@ -6084,7 +6084,7 @@ s32 playerTickThirdPerson(struct prop *prop)
 					spe8 = player->model00d4->matrices;
 				}
 
-				mtx00015be4(camGetUnk174c(), spe8, &spa8);
+				mtx00015be4(camGetProjectionMtxF(), spe8, &spa8);
 
 				sp9c.x = spa8.m[3][0] + spa8.m[1][0] * 7;
 				sp9c.y = spa8.m[3][1] + spa8.m[1][1] * 7;
@@ -6481,7 +6481,7 @@ Gfx *playerRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 Gfx *playerLoadMatrix(Gfx *gdl)
 {
-	gSPMatrix(gdl++, g_Vars.currentplayer->matrix5c, G_MTX_LOAD);
+	gSPMatrix(gdl++, g_Vars.currentplayer->mtxl005c, G_MTX_LOAD);
 	return gdl;
 }
 
@@ -6492,7 +6492,7 @@ void player0f0c3320(Mtxf *matrices, s32 count)
 	s32 j;
 
 	for (i = 0, j = 0; i < count; i++, j += sizeof(Mtxf)) {
-		mtx00015be4(camGetUnk174c(), (Mtxf *)((u32)matrices + j), &sp40);
+		mtx00015be4(camGetProjectionMtxF(), (Mtxf *)((u32)matrices + j), &sp40);
 
 		sp40.m[3][0] -= g_Vars.currentplayer->globaldrawworldoffset.x;
 		sp40.m[3][1] -= g_Vars.currentplayer->globaldrawworldoffset.y;

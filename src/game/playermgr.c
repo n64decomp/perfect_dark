@@ -490,19 +490,19 @@ void playermgrAllocatePlayer(s32 index)
 	g_Vars.players[index]->c_recipscalex = 1;
 	g_Vars.players[index]->c_recipscaley = 1;
 
-	g_Vars.players[index]->unk1738 = NULL;
-	g_Vars.players[index]->unk173c = NULL;
-	g_Vars.players[index]->matrix1740 = NULL;
+	g_Vars.players[index]->mtxl1738 = NULL;
+	g_Vars.players[index]->mtxl173c = NULL;
+	g_Vars.players[index]->worldtoscreenmtx = NULL;
 	g_Vars.players[index]->c_viewfmdynticknum = -1;
-	g_Vars.players[index]->unk1748 = 0;
-	g_Vars.players[index]->unk174c = NULL;
-	g_Vars.players[index]->unk1750 = NULL;
-	g_Vars.players[index]->unk1754 = NULL;
-	g_Vars.players[index]->unk1758 = NULL;
-	g_Vars.players[index]->unk175c = NULL;
-	g_Vars.players[index]->prev1740 = NULL;
+	g_Vars.players[index]->mtxf1748 = NULL;
+	g_Vars.players[index]->projectionmtx = NULL;
+	g_Vars.players[index]->perspmtxl = NULL;
+	g_Vars.players[index]->mtxf1754 = NULL;
+	g_Vars.players[index]->orthomtxl = NULL;
+	g_Vars.players[index]->lookat = NULL;
+	g_Vars.players[index]->prevworldtoscreenmtx = NULL;
 	g_Vars.players[index]->c_prevviewfmdynticknum = -1;
-	g_Vars.players[index]->unk1768 = NULL;
+	g_Vars.players[index]->prevprojectionmtx = NULL;
 
 	g_Vars.players[index]->unk0484 = NULL;
 	g_Vars.players[index]->unk0488 = NULL;

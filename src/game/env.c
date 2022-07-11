@@ -404,7 +404,7 @@ bool env0f1666f8(struct coord *pos, f32 arg1)
 		return true;
 	}
 
-	mtx = camGetMatrix1740();
+	mtx = camGetWorldToScreenMtxf();
 
 	sp24.x = pos->x - campos->x;
 	sp24.y = pos->y - campos->y;

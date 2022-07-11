@@ -2360,11 +2360,11 @@ struct player {
 	/*0x0038*/ struct coord globaldrawworldoffset;
 	/*0x0044*/ struct coord globaldrawcameraoffset;
 	/*0x0050*/ struct coord globaldrawworldbgoffset;
-	/*0x005c*/ Mtx *matrix5c;
-	/*0x0060*/ Mtx *matrix60;
-	/*0x0064*/ Mtxf *matrix64;
-	/*0x0068*/ Mtxf *matrix68;
-	/*0x006c*/ Mtxf *matrix6c;
+	/*0x005c*/ Mtx *mtxl005c;
+	/*0x0060*/ Mtx *mtxl0060;
+	/*0x0064*/ Mtxf *mtxf0064;
+	/*0x0068*/ Mtxf *mtxf0068;
+	/*0x006c*/ Mtxf *mtxf006c;
 	/*0x0070*/ f32 sumground;
 	/*0x0074*/ f32 vv_manground; // Feet Y value in absolute coordinates
 	/*0x0078*/ f32 vv_ground; // Ground Y value in absolute coordinates
@@ -2590,19 +2590,19 @@ struct player {
 	/*0x172c*/ f32 c_scaley;
 	/*0x1730*/ f32 c_recipscalex;
 	/*0x1734*/ f32 c_recipscaley;
-	/*0x1738*/ void *unk1738;
-	/*0x173c*/ Mtx *unk173c;
-	/*0x1740*/ Mtxf *matrix1740;
+	/*0x1738*/ Mtx *mtxl1738;
+	/*0x173c*/ Mtx *mtxl173c;
+	/*0x1740*/ Mtxf *worldtoscreenmtx;
 	/*0x1744*/ s32 c_viewfmdynticknum;
-	/*0x1748*/ u32 unk1748;
-	/*0x174c*/ Mtxf *unk174c;
-	/*0x1750*/ void *unk1750;
-	/*0x1754*/ Mtxf *unk1754;
-	/*0x1758*/ Mtx *unk1758;
-	/*0x175c*/ Mtxf *unk175c;
-	/*0x1760*/ Mtxf *prev1740;
+	/*0x1748*/ Mtxf *mtxf1748;
+	/*0x174c*/ Mtxf *projectionmtx;
+	/*0x1750*/ Mtx *perspmtxl;
+	/*0x1754*/ Mtxf *mtxf1754;
+	/*0x1758*/ Mtx *orthomtxl;
+	/*0x175c*/ LookAt *lookat;
+	/*0x1760*/ Mtxf *prevworldtoscreenmtx;
 	/*0x1764*/ s32 c_prevviewfmdynticknum;
-	/*0x1768*/ Mtxf *unk1768;
+	/*0x1768*/ Mtxf *prevprojectionmtx;
 	/*0x176c*/ f32 c_scalelod60;
 	/*0x1770*/ f32 c_scalelod;
 	/*0x1774*/ f32 c_lodscalez;

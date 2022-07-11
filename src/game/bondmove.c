@@ -1500,7 +1500,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 
 			g_Vars.currentplayer->gunzoomfovs[1] = eraserfov;
 
-			mtx4TransformVec(camGetMatrix1740(), &g_Vars.currentplayer->autoerasertarget->pos, &spa0);
+			mtx4TransformVec(camGetWorldToScreenMtxf(), &g_Vars.currentplayer->autoerasertarget->pos, &spa0);
 
 			cam0f0b4eb8(&spa0, crosspos, eraserfov, g_Vars.currentplayer->c_perspaspect);
 

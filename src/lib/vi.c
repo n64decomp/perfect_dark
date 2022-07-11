@@ -2380,7 +2380,7 @@ Gfx *vi0000ab78(Gfx *gdl)
 	u16 sp46;
 
 	guPerspectiveF(sp110.m, &sp46, g_ViBackData->fovy, g_ViBackData->aspect, g_ViBackData->znear, g_ViBackData->zfar + g_ViBackData->zfar, 1);
-	mtx4Copy(camGetMatrix1740(), &sp90);
+	mtx4Copy(camGetWorldToScreenMtxf(), &sp90);
 
 	sp90.m[3][0] = 0;
 	sp90.m[3][1] = 0;
@@ -2433,8 +2433,8 @@ Gfx *vi0000ad5c(Gfx *gdl, Vp *vp)
 	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(var80092870), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 	gSPPerspNormalize(gdl++, g_ViPerspScale);
 
-	camSetUnk1750(var80092870);
-	camSetUnk1754(&var80092830);
+	camSetPerspectiveMtxL(var80092870);
+	camSetMtxF1754(&var80092830);
 
 	return gdl;
 }
@@ -2462,8 +2462,8 @@ Gfx *vi0000af00(Gfx *gdl, Vp *vp)
 	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(var80092870), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 	gSPPerspNormalize(gdl++, g_ViPerspScale);
 
-	camSetUnk1750(var80092870);
-	camSetUnk1754(&var80092830);
+	camSetPerspectiveMtxL(var80092870);
+	camSetMtxF1754(&var80092830);
 
 	return gdl;
 }

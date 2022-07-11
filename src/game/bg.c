@@ -2401,7 +2401,7 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
-	gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 	texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
 
@@ -2423,7 +2423,7 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 	// Render props
 	gdl = currentPlayerScissorToViewport(gdl);
 
-	gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 	if (var800a4ce4); \
 	if (var8007fc2c); \
@@ -2432,11 +2432,11 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 			struct var800a4640_00 *thing = &var800a4640.unk000[k];
 
 			if (thing->draworder == i) {
-				gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+				gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 				gdl = currentPlayerScissorWithinViewportF(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
 
-				gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+				gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 				if (debugIsPropRenderingEnabled() && getVar80084040()) {
 					if (thing->roomnum == -1) {
@@ -2556,7 +2556,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 					|| stagenum == STAGE_ATTACKSHIP)) {
 			gdl = text0f153628(gdl);
 
-			gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+			gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 			gdl = playerLoadMatrix(gdl);
 			gdl = envStopFog(gdl);
@@ -2613,7 +2613,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 		thing = &var800a4640.unk000[roomnum];
 
 		// Render prop opaque components - pre BG pass
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 		gdl = envStopFog(gdl);
 
 		if (debugIsPropRenderingEnabled() && getVar80084040()) {
@@ -2625,7 +2625,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 		}
 
 		// Render BG opaque components
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		gdl = currentPlayerScissorWithinViewportF(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
 		gdl = envStartFog(gdl, false);
@@ -2637,7 +2637,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 		}
 
 		// Render prop opaque components - post BG pass
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		gdl = envStopFog(gdl);
 
@@ -2654,7 +2654,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 	gdl = currentPlayerScissorToViewport(gdl);
 
 	// Render wall hits
-	gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 	if (getVar80084040() && g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
 		for (i = 0; i < var8007fc2c; i++) {
@@ -2673,7 +2673,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 	for (i = var8007fc2c - 1; i >= 0; i--) {
 		roomnum = roomnums[i];
 
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		thing = &var800a4640.unk000[roomnum];
 
@@ -2685,7 +2685,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 			gdl = bgRenderRoomAlpha(gdl, thing->roomnum);
 		}
 
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		gdl = envStopFog(gdl);
 
@@ -2991,7 +2991,7 @@ glabel bgRenderScene
 /*  f155128:	35ef0040 */ 	ori	$t7,$t7,0x40
 /*  f15512c:	ac4f0000 */ 	sw	$t7,0x0($v0)
 /*  f155130:	00408025 */ 	or	$s0,$v0,$zero
-/*  f155134:	0fc2cb5a */ 	jal	camGetUnk1758
+/*  f155134:	0fc2cb5a */ 	jal	camGetOrthogonalMtxL
 /*  f155138:	24510008 */ 	addiu	$s1,$v0,0x8
 /*  f15513c:	0c013100 */ 	jal	osVirtualToPhysical
 /*  f155140:	00402025 */ 	or	$a0,$v0,$zero
@@ -3114,7 +3114,7 @@ glabel bgRenderScene
 /*  f1552e0:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f1552e4:	030b8021 */ 	addu	$s0,$t8,$t3
 /*  f1552e8:	afa20084 */ 	sw	$v0,0x84($sp)
-/*  f1552ec:	0fc2cb52 */ 	jal	camGetUnk1750
+/*  f1552ec:	0fc2cb52 */ 	jal	camGetPerspectiveMtxL
 /*  f1552f0:	26310008 */ 	addiu	$s1,$s1,0x8
 /*  f1552f4:	0c013100 */ 	jal	osVirtualToPhysical
 /*  f1552f8:	00402025 */ 	or	$a0,$v0,$zero
@@ -3151,7 +3151,7 @@ glabel bgRenderScene
 /*  f15536c:	02201025 */ 	or	$v0,$s1,$zero
 /*  f155370:	ac4c0000 */ 	sw	$t4,0x0($v0)
 /*  f155374:	afa20080 */ 	sw	$v0,0x80($sp)
-/*  f155378:	0fc2cb5a */ 	jal	camGetUnk1758
+/*  f155378:	0fc2cb5a */ 	jal	camGetOrthogonalMtxL
 /*  f15537c:	26310008 */ 	addiu	$s1,$s1,0x8
 /*  f155380:	0c013100 */ 	jal	osVirtualToPhysical
 /*  f155384:	00402025 */ 	or	$a0,$v0,$zero
@@ -3201,7 +3201,7 @@ glabel bgRenderScene
 /*  f15542c:	02201025 */ 	or	$v0,$s1,$zero
 /*  f155430:	ac4c0000 */ 	sw	$t4,0x0($v0)
 /*  f155434:	afa2007c */ 	sw	$v0,0x7c($sp)
-/*  f155438:	0fc2cb52 */ 	jal	camGetUnk1750
+/*  f155438:	0fc2cb52 */ 	jal	camGetPerspectiveMtxL
 /*  f15543c:	26310008 */ 	addiu	$s1,$s1,0x8
 /*  f155440:	0c013100 */ 	jal	osVirtualToPhysical
 /*  f155444:	00402025 */ 	or	$a0,$v0,$zero
@@ -3249,7 +3249,7 @@ glabel bgRenderScene
 /*  f1554e0:	35ef0040 */ 	ori	$t7,$t7,0x40
 /*  f1554e4:	ac4f0000 */ 	sw	$t7,0x0($v0)
 /*  f1554e8:	00408025 */ 	or	$s0,$v0,$zero
-/*  f1554ec:	0fc2cb5a */ 	jal	camGetUnk1758
+/*  f1554ec:	0fc2cb5a */ 	jal	camGetOrthogonalMtxL
 /*  f1554f0:	24510008 */ 	addiu	$s1,$v0,0x8
 /*  f1554f4:	0c013100 */ 	jal	osVirtualToPhysical
 /*  f1554f8:	00402025 */ 	or	$a0,$v0,$zero
@@ -3302,7 +3302,7 @@ glabel bgRenderScene
 /*  f1555a8:	02201025 */ 	or	$v0,$s1,$zero
 /*  f1555ac:	ac580000 */ 	sw	$t8,0x0($v0)
 /*  f1555b0:	afa20074 */ 	sw	$v0,0x74($sp)
-/*  f1555b4:	0fc2cb5a */ 	jal	camGetUnk1758
+/*  f1555b4:	0fc2cb5a */ 	jal	camGetOrthogonalMtxL
 /*  f1555b8:	26310008 */ 	addiu	$s1,$s1,0x8
 /*  f1555bc:	0c013100 */ 	jal	osVirtualToPhysical
 /*  f1555c0:	00402025 */ 	or	$a0,$v0,$zero
@@ -3353,7 +3353,7 @@ glabel bgRenderScene
 /*  f15566c:	02201025 */ 	or	$v0,$s1,$zero
 /*  f155670:	ac4b0000 */ 	sw	$t3,0x0($v0)
 /*  f155674:	afa20070 */ 	sw	$v0,0x70($sp)
-/*  f155678:	0fc2cb52 */ 	jal	camGetUnk1750
+/*  f155678:	0fc2cb52 */ 	jal	camGetPerspectiveMtxL
 /*  f15567c:	26310008 */ 	addiu	$s1,$s1,0x8
 /*  f155680:	0c013100 */ 	jal	osVirtualToPhysical
 /*  f155684:	00402025 */ 	or	$a0,$v0,$zero
@@ -7909,7 +7909,7 @@ bool func0f15cd90(u32 room, struct screenbox *screen)
 
 bool func0f15d08c(struct coord *a, struct coord *b)
 {
-	Mtxf *matrix = camGetMatrix1740();
+	Mtxf *matrix = camGetWorldToScreenMtxf();
 
 	b->x = a->x;
 	b->y = a->y;
@@ -14452,7 +14452,7 @@ glabel func0f162d9c
 /*  f162ea4:	e7a00094 */ 	swc1	$f0,0x94($sp)
 /*  f162ea8:	e7a00098 */ 	swc1	$f0,0x98($sp)
 /*  f162eac:	c6d2002c */ 	lwc1	$f18,0x2c($s6)
-/*  f162eb0:	0fc2d5de */ 	jal	camGetUnk174c
+/*  f162eb0:	0fc2d5de */ 	jal	camGetProjectionMtxF
 /*  f162eb4:	e7b2009c */ 	swc1	$f18,0x9c($sp)
 /*  f162eb8:	00402025 */ 	or	$a0,$v0,$zero
 /*  f162ebc:	0c0056d9 */ 	jal	mtx4TransformVecInPlace
@@ -15373,9 +15373,9 @@ Gfx *func0f164150(Gfx *gdl)
 
 					radius = g_Rooms[i].radius;
 
-					if (var8009dd6c + radius < player->unk174c->m[2][0] * g_Rooms[i].centre.f[0]
-							+ player->unk174c->m[2][1] * g_Rooms[i].centre.f[1]
-							+ player->unk174c->m[2][2] * g_Rooms[i].centre.f[2]) {
+					if (var8009dd6c + radius < player->projectionmtx->m[2][0] * g_Rooms[i].centre.f[0]
+							+ player->projectionmtx->m[2][1] * g_Rooms[i].centre.f[1]
+							+ player->projectionmtx->m[2][2] * g_Rooms[i].centre.f[2]) {
 						value *= 3.0f;
 					}
 

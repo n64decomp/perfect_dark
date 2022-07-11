@@ -50,7 +50,7 @@ struct coord g_TeleportToLook = {0, 1, 0};
 
 void sky0f11f000(f32 left, f32 top, struct coord *arg2)
 {
-	Mtxf *mtx = camGetUnk174c();
+	Mtxf *mtx = camGetProjectionMtxF();
 	f32 pos[2];
 
 	pos[0] = left + camGetScreenLeft();
@@ -1967,9 +1967,9 @@ glabel var7f1b50c8
 .L0f120df0:
 /*  f120df0:	5a200153 */ 	blezl	$s1,.L0f121340
 /*  f120df4:	8fae0068 */ 	lw	$t6,0x68($sp)
-/*  f120df8:	0fc2d5c6 */ 	jal	camGetUnk1754
+/*  f120df8:	0fc2d5c6 */ 	jal	camGetMtxF1754
 /*  f120dfc:	00000000 */ 	nop
-/*  f120e00:	0fc2d5be */ 	jal	camGetMatrix1740
+/*  f120e00:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
 /*  f120e04:	00408025 */ 	or	$s0,$v0,$zero
 /*  f120e08:	02002025 */ 	or	$a0,$s0,$zero
 /*  f120e0c:	00402825 */ 	or	$a1,$v0,$zero
@@ -3423,9 +3423,9 @@ glabel var7f1b50c8
 /*  f122430:	27090008 */ 	addiu	$t1,$t8,0x8
 /*  f122434:	afa906b0 */ 	sw	$t1,0x6b0($sp)
 /*  f122438:	af0b0004 */ 	sw	$t3,0x4($t8)
-/*  f12243c:	0fc2d5c6 */ 	jal	camGetUnk1754
+/*  f12243c:	0fc2d5c6 */ 	jal	camGetMtxF1754
 /*  f122440:	af190000 */ 	sw	$t9,0x0($t8)
-/*  f122444:	0fc2d5be */ 	jal	camGetMatrix1740
+/*  f122444:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
 /*  f122448:	00408025 */ 	or	$s0,$v0,$zero
 /*  f12244c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f122450:	00402825 */ 	or	$a1,$v0,$zero
@@ -4282,7 +4282,7 @@ glabel var7f1b50c8
 //		struct skything38 sp274[5];
 //		s32 i; // 270
 //
-//		mtx4MultMtx4(camGetUnk1754(), camGetMatrix1740(), &sp3cc);
+//		mtx4MultMtx4(camGetMtxF1754(), camGetWorldToScreenMtxf(), &sp3cc);
 //		guScaleF(var800a33a8.m, 1.0f / scale, 1.0f / scale, 1.0f / scale);
 //		mtx4MultMtx4(&sp3cc, &var800a33a8, &sp38c);
 //
@@ -4746,7 +4746,7 @@ glabel var7f1b50c8
 //				SHADE, ENVIRONMENT, TEXEL0, ENVIRONMENT, 0, 0, 0, SHADE,
 //				SHADE, ENVIRONMENT, TEXEL0, ENVIRONMENT, 0, 0, 0, SHADE);
 //
-//		mtx4MultMtx4(camGetUnk1754(), camGetMatrix1740(), &sp1ec);
+//		mtx4MultMtx4(camGetMtxF1754(), camGetWorldToScreenMtxf(), &sp1ec);
 //		guScaleF(var800a33a8.m, 1.0f / scale, 1.0f / scale, 1.0f / scale);
 //		mtx4MultMtx4(&sp1ec, &var800a33a8, &sp1ac);
 //
@@ -8129,8 +8129,8 @@ Gfx *skyRenderSuns(Gfx *gdl, bool xray)
 	bool onscreen;
 	f32 radius;
 
-	sp16c = camGetMatrix1740();
-	sp168 = camGetUnk1754();
+	sp16c = camGetWorldToScreenMtxf();
+	sp168 = camGetMtxF1754();
 	env = envGetCurrent();
 
 	xscale = 1;
@@ -10199,8 +10199,8 @@ Gfx *sky0f126c3c(Gfx *gdl, f32 x, f32 y, f32 z, f32 arg4, f32 arg5)
 	sp64.y = y;
 	sp64.z = z;
 
-	mtx4TransformVecInPlace(camGetMatrix1740(), &sp64);
-	mtx4TransformVecInPlace(camGetUnk1754(), &sp64);
+	mtx4TransformVecInPlace(camGetWorldToScreenMtxf(), &sp64);
+	mtx4TransformVecInPlace(camGetMtxF1754(), &sp64);
 
 	if (sp64.z > 1.0f) {
 		f32 xpos;

@@ -5484,8 +5484,8 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 
 							*arg9 = sum2;
 
-							mtx4TransformVec(camGetUnk174c(), &spfc, arg7);
-							mtx4RotateVec(camGetUnk174c(), &spf0, arg8);
+							mtx4TransformVec(camGetProjectionMtxF(), &spfc, arg7);
+							mtx4RotateVec(camGetProjectionMtxF(), &spf0, arg8);
 
 							if (arg8->x != 0.0f || arg8->y != 0.0f || arg8->z != 0.0f) {
 								guNormalize(&arg8->x, &arg8->y, &arg8->z);
@@ -5555,7 +5555,7 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 
 						*arg9 = sum1;
 
-						mtx4TransformVec(camGetUnk174c(), &spfc, arg7);
+						mtx4TransformVec(camGetProjectionMtxF(), &spfc, arg7);
 
 						if (spf0.f[0] * arg6->f[0] + spf0.f[1] * arg6->f[1] + spf0.f[2] * arg6->f[2] > 0.0f) {
 							spf0.f[0] = -spf0.f[0];
@@ -5563,7 +5563,7 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 							spf0.f[2] = -spf0.f[2];
 						}
 
-						mtx4RotateVec(camGetUnk174c(), &spf0, arg8);
+						mtx4RotateVec(camGetProjectionMtxF(), &spf0, arg8);
 
 						if (arg8->f[0] != 0.0f || arg8->f[1] != 0.0f || arg8->f[2] != 0.0f) {
 							guNormalize(&arg8->x, &arg8->y, &arg8->z);
@@ -5816,8 +5816,8 @@ bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, s
 
 							*arg9 = spec;
 
-							mtx4TransformVec(camGetUnk174c(), &spb8, arg7);
-							mtx4RotateVec(camGetUnk174c(), &spac, arg8);
+							mtx4TransformVec(camGetProjectionMtxF(), &spb8, arg7);
+							mtx4RotateVec(camGetProjectionMtxF(), &spac, arg8);
 
 							if (arg8->x != 0.0f || arg8->y != 0.0f || arg8->z != 0.0f) {
 								guNormalize(&arg8->x, &arg8->y, &arg8->z);
@@ -5848,8 +5848,8 @@ bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, s
 						&& func0f06bea0(model, model->filedata->rootnode, model->filedata->rootnode, arg5, arg6, &sp7c.unk00, &spec, &spcc, &hitpart, &sp78, &sp74)
 						&& spec < *arg9) {
 					*arg9 = spec;
-					mtx4TransformVec(camGetUnk174c(), &sp7c.unk00, arg7);
-					mtx4RotateVec(camGetUnk174c(), &sp7c.unk0c, arg8);
+					mtx4TransformVec(camGetProjectionMtxF(), &sp7c.unk00, arg7);
+					mtx4RotateVec(camGetProjectionMtxF(), &sp7c.unk0c, arg8);
 
 					if (arg8->x != 0.0f || arg8->y != 0.0f || arg8->z != 0.0f) {
 						guNormalize(&arg8->x, &arg8->y, &arg8->z);
@@ -5926,13 +5926,13 @@ bool projectileFindCollidingProp(struct prop *prop, struct coord *pos1, struct c
 	sp88.y = pos1->y;
 	sp88.z = pos1->z;
 
-	mtx4TransformVecInPlace(camGetMatrix1740(), &sp88);
+	mtx4TransformVecInPlace(camGetWorldToScreenMtxf(), &sp88);
 
 	sp7c.x = sp98.x;
 	sp7c.y = sp98.y;
 	sp7c.z = sp98.z;
 
-	mtx4RotateVecInPlace(camGetMatrix1740(), &sp7c);
+	mtx4RotateVecInPlace(camGetWorldToScreenMtxf(), &sp7c);
 
 	spa8 = dist;
 
@@ -7526,7 +7526,7 @@ bool objEmbed(struct prop *prop, struct prop *parent, struct model *model, struc
 			mtx3ToMtx4(obj->realrot, &sp34);
 			mtx4SetTranslation(&prop->pos, &sp34);
 			mtx00015be4(&sp34, &sp74, &sp134);
-			mtx00015be4(camGetUnk174c(), sp24, &spf4);
+			mtx00015be4(camGetProjectionMtxF(), sp24, &spf4);
 			mtx000172f0(spf4.m, spb4.m);
 			mtx00015be4(&spb4, &sp134, &obj->embedment->matrix);
 
@@ -7630,7 +7630,7 @@ bool propExplode(struct prop *prop, s32 exptype)
 			pos.y = mtx->m[3][1];
 			pos.z = mtx->m[3][2];
 
-			mtx4TransformVecInPlace(camGetUnk174c(), &pos);
+			mtx4TransformVecInPlace(camGetProjectionMtxF(), &pos);
 		} else {
 			pos.x = parent->pos.x;
 			pos.y = parent->pos.y;
@@ -19094,7 +19094,7 @@ glabel var7f1ab110jf
 /*  f076a04:	8ca5d534 */ 	lw	$a1,-0x2acc($a1)
 /*  f076a08:	0c00695b */ 	jal	model0001a5cc
 /*  f076a0c:	00003025 */ 	move	$a2,$zero
-/*  f076a10:	0fc2d9de */ 	jal	camGetMatrix1740
+/*  f076a10:	0fc2d9de */ 	jal	camGetWorldToScreenMtxf
 /*  f076a14:	afa20184 */ 	sw	$v0,0x184($sp)
 /*  f076a18:	00402025 */ 	move	$a0,$v0
 /*  f076a1c:	27a505e8 */ 	addiu	$a1,$sp,0x5e8
@@ -22633,7 +22633,7 @@ glabel var7f1ab6dcpf
 /*  f075b64:	8ca5d3d4 */ 	lw	$a1,-0x2c2c($a1)
 /*  f075b68:	0c0068d7 */ 	jal	model0001a5cc
 /*  f075b6c:	00003025 */ 	move	$a2,$zero
-/*  f075b70:	0fc2d706 */ 	jal	camGetMatrix1740
+/*  f075b70:	0fc2d706 */ 	jal	camGetWorldToScreenMtxf
 /*  f075b74:	afa20184 */ 	sw	$v0,0x184($sp)
 /*  f075b78:	00402025 */ 	move	$a0,$v0
 /*  f075b7c:	27a505e8 */ 	addiu	$a1,$sp,0x5e8
@@ -26178,7 +26178,7 @@ glabel var7f1ab6dcpf
 /*  f075ab4:	8ca51394 */ 	lw	$a1,0x1394($a1)
 /*  f075ab8:	0c006c07 */ 	jal	model0001a5cc
 /*  f075abc:	00003025 */ 	move	$a2,$zero
-/*  f075ac0:	0fc2d6c2 */ 	jal	camGetMatrix1740
+/*  f075ac0:	0fc2d6c2 */ 	jal	camGetWorldToScreenMtxf
 /*  f075ac4:	afa20184 */ 	sw	$v0,0x184($sp)
 /*  f075ac8:	00402025 */ 	move	$a0,$v0
 /*  f075acc:	27a505e8 */ 	addiu	$a1,$sp,0x5e8
@@ -29716,7 +29716,7 @@ glabel var7f1aa438
 /*  f0758e0:	8ca5ce74 */ 	lw	$a1,%lo(g_EmbedNode)($a1)
 /*  f0758e4:	0c006973 */ 	jal	model0001a5cc
 /*  f0758e8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0758ec:	0fc2d5be */ 	jal	camGetMatrix1740
+/*  f0758ec:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
 /*  f0758f0:	afa20184 */ 	sw	$v0,0x184($sp)
 /*  f0758f4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0758f8:	27a505e8 */ 	addiu	$a1,$sp,0x5e8
@@ -33218,7 +33218,7 @@ glabel var7f1aa438
 /*  f07460c:	8ca515a4 */ 	lw	$a1,0x15a4($a1)
 /*  f074610:	0c006dcf */ 	jal	model0001a5cc
 /*  f074614:	00003025 */ 	or	$a2,$zero,$zero
-/*  f074618:	0fc2cd16 */ 	jal	camGetMatrix1740
+/*  f074618:	0fc2cd16 */ 	jal	camGetWorldToScreenMtxf
 /*  f07461c:	afa20188 */ 	sw	$v0,0x188($sp)
 /*  f074620:	00402025 */ 	or	$a0,$v0,$zero
 /*  f074624:	27a505e8 */ 	addiu	$a1,$sp,0x5e8
@@ -34906,7 +34906,7 @@ glabel var7f1aa44c
 /*  f077484:	8ed5000c */ 	lw	$s5,0xc($s6)
 /*  f077488:	0fc23109 */ 	jal	func0f08c424
 /*  f07748c:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f077490:	0fc2d5be */ 	jal	camGetMatrix1740
+/*  f077490:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
 /*  f077494:	00000000 */ 	nop
 /*  f077498:	00402025 */ 	or	$a0,$v0,$zero
 /*  f07749c:	0c0056f8 */ 	jal	mtx00015be0
@@ -35041,7 +35041,7 @@ glabel var7f1aa44c
 //	union modelrodata *rodata;
 //
 //	func0f08c424(door, matrices);
-//	mtx00015be0(camGetMatrix1740(), matrices);
+//	mtx00015be0(camGetWorldToScreenMtxf(), matrices);
 //
 //	if (model->filedata->type == &g_Skel11) {
 //		f32 xrot = M_BADTAU - door->frac * 0.017450513318181f;
@@ -35675,7 +35675,7 @@ void cctvInitMatrices(struct prop *prop, Mtxf *mtx)
 
 	mtx4TransformVecInPlace(mtx, &sp64);
 	mtx4SetTranslation(&sp64, &matrices[1]);
-	mtx00015be0(camGetMatrix1740(), &matrices[1]);
+	mtx00015be0(camGetWorldToScreenMtxf(), &matrices[1]);
 }
 
 void fanTick(struct prop *prop)
@@ -38648,7 +38648,7 @@ void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
 	mtx4LoadYRotation(yrot, &matrices[1]);
 	mtx4SetTranslation(&sp4c, &matrices[1]);
 	mtx00015f04(autogun->base.model->scale, &matrices[1]);
-	mtx00015be0(camGetMatrix1740(), &matrices[1]);
+	mtx00015be0(camGetWorldToScreenMtxf(), &matrices[1]);
 
 	node2 = modelGetPart(model->filedata, MODELPART_AUTOGUN_0002);
 	rodata = node2->rodata;
@@ -38867,7 +38867,7 @@ glabel var7f1aa5a8
 /*  f07a14c:	e7b0016c */ 	swc1	$f16,0x16c($sp)
 /*  f07a150:	e7b20170 */ 	swc1	$f18,0x170($sp)
 .L0f07a154:
-/*  f07a154:	0fc2d5de */ 	jal	camGetUnk174c
+/*  f07a154:	0fc2d5de */ 	jal	camGetProjectionMtxF
 /*  f07a158:	afa50108 */ 	sw	$a1,0x108($sp)
 /*  f07a15c:	8fa50108 */ 	lw	$a1,0x108($sp)
 /*  f07a160:	00402025 */ 	or	$a0,$v0,$zero
@@ -39829,7 +39829,7 @@ glabel var7f1aa5a8
 /*  f07a2ec:	e7b0016c */ 	swc1	$f16,0x16c($sp)
 /*  f07a2f0:	e7b20170 */ 	swc1	$f18,0x170($sp)
 .PB0f07a2f4:
-/*  f07a2f4:	0fc2d6e2 */ 	jal	camGetUnk174c
+/*  f07a2f4:	0fc2d6e2 */ 	jal	camGetProjectionMtxF
 /*  f07a2f8:	afa50108 */ 	sw	$a1,0x108($sp)
 /*  f07a2fc:	8fa50108 */ 	lw	$a1,0x108($sp)
 /*  f07a300:	00402025 */ 	move	$a0,$v0
@@ -40791,7 +40791,7 @@ glabel var7f1aa5a8
 /*  f07a14c:	e7b0016c */ 	swc1	$f16,0x16c($sp)
 /*  f07a150:	e7b20170 */ 	swc1	$f18,0x170($sp)
 .L0f07a154:
-/*  f07a154:	0fc2d5de */ 	jal	camGetUnk174c
+/*  f07a154:	0fc2d5de */ 	jal	camGetProjectionMtxF
 /*  f07a158:	afa50108 */ 	sw	$a1,0x108($sp)
 /*  f07a15c:	8fa50108 */ 	lw	$a1,0x108($sp)
 /*  f07a160:	00402025 */ 	or	$a0,$v0,$zero
@@ -41753,7 +41753,7 @@ glabel var7f1aa5a8
 /*  f07a14c:	e7b0016c */ 	swc1	$f16,0x16c($sp)
 /*  f07a150:	e7b20170 */ 	swc1	$f18,0x170($sp)
 .L0f07a154:
-/*  f07a154:	0fc2d5de */ 	jal	camGetUnk174c
+/*  f07a154:	0fc2d5de */ 	jal	camGetProjectionMtxF
 /*  f07a158:	afa50108 */ 	sw	$a1,0x108($sp)
 /*  f07a15c:	8fa50108 */ 	lw	$a1,0x108($sp)
 /*  f07a160:	00402025 */ 	or	$a0,$v0,$zero
@@ -49771,7 +49771,7 @@ void objInitMatrices(struct prop *prop)
 	} else {
 		mtx3ToMtx4(obj->realrot, &mtx);
 		mtx4SetTranslation(&prop->pos, &mtx);
-		mtx00015be4(camGetMatrix1740(), &mtx, obj->model->matrices);
+		mtx00015be4(camGetWorldToScreenMtxf(), &mtx, obj->model->matrices);
 
 		if (obj->type == OBJTYPE_CCTV) {
 			cctvInitMatrices(prop, &mtx);
@@ -50015,11 +50015,11 @@ s32 objTickPlayer(struct prop *prop)
 
 					sp556 = true;
 					sp476.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
-					sp476.unk00 = camGetMatrix1740();
+					sp476.unk00 = camGetWorldToScreenMtxf();
 					model0001cebc(&sp476, model);
 
 					if (fulltick) {
-						mtx00015be4(camGetUnk174c(), model->matrices, &sp412);
+						mtx00015be4(camGetProjectionMtxF(), model->matrices, &sp412);
 						mtx4ToMtx3(&sp412, obj->realrot);
 
 						sp400.x = sp412.m[3][0];
@@ -50109,7 +50109,7 @@ s32 objTickPlayer(struct prop *prop)
 
 			mtx3ToMtx4(obj->realrot, &sp248);
 			mtx4SetTranslation(&prop->pos, &sp248);
-			mtx4MultMtx4(camGetMatrix1740(), &sp248, &sp152);
+			mtx4MultMtx4(camGetWorldToScreenMtxf(), &sp248, &sp152);
 
 			sp556 = true;
 			sp312.unk10 = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
@@ -50130,7 +50130,7 @@ s32 objTickPlayer(struct prop *prop)
 				if (modelGetCurAnimFrame(model) >= modelGetNumAnimFrames(model) - 1) {
 					animTurnOff(model->anim);
 					model->anim = NULL;
-					mtx00015be4(camGetUnk174c(), model->matrices, &sp248);
+					mtx00015be4(camGetProjectionMtxF(), model->matrices, &sp248);
 					mtx4ToMtx3(&sp248, obj->realrot);
 					tagnum = objGetTagNum(obj);
 
@@ -52280,7 +52280,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool x
 		s32 sp60;
 
 		sp6c = 0;
-		sp6c += (obj->flags & OBJFLAG_00000200) && camGetUnk1758();
+		sp6c += (obj->flags & OBJFLAG_00000200) && camGetOrthogonalMtxL();
 
 		gdl = renderdata->gdl;
 
@@ -52366,7 +52366,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool x
 		}
 
 		if (sp6c) {
-			gSPMatrix(gdl++, camGetUnk1758(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+			gSPMatrix(gdl++, camGetOrthogonalMtxL(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 		}
 
 		renderdata->gdl = gdl;
@@ -52382,7 +52382,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool x
 		}
 
 		if (sp6c) {
-			gSPMatrix(gdl++, camGetUnk1750(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+			gSPMatrix(gdl++, camGetPerspectiveMtxL(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 		}
 
 		renderdata->gdl = gdl;
@@ -52440,7 +52440,7 @@ Gfx *gfxRenderRadialShadow(Gfx *gdl, f32 x, f32 y, f32 z, f32 angle, f32 radius,
 
 	mtx = gfxAllocateMatrix();
 	mtx4LoadYRotationWithTranslation(&pos, angle, &spc0);
-	mtx4MultMtx4(camGetMatrix1740(), &spc0, &sp80);
+	mtx4MultMtx4(camGetWorldToScreenMtxf(), &spc0, &sp80);
 	mtx00016054(&sp80, mtx);
 
 	for (i = 0; i < 4; i++) {
@@ -53089,7 +53089,7 @@ void objBounce(struct defaultobj *obj, struct coord *arg1)
 		dir.y = arg1->y;
 		dir.z = arg1->z;
 
-		mtx4RotateVecInPlace(camGetUnk174c(), &dir);
+		mtx4RotateVecInPlace(camGetProjectionMtxF(), &dir);
 
 		projectile->speed.x += 3.3333333f * dir.x;
 		projectile->speed.z += 3.3333333f * dir.z;
@@ -53487,7 +53487,7 @@ bool objDrop(struct prop *prop, bool lazy)
 			if (!lazy && (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
 				// Do collision checks
 				Mtxf *sp48 = model0001a60c(model);
-				mtx00015be4(camGetUnk174c(), sp48, &spf0);
+				mtx00015be4(camGetProjectionMtxF(), sp48, &spf0);
 				propSetPerimEnabled(root, false);
 
 				spe4.x = spf0.m[3][0];
@@ -54120,7 +54120,7 @@ void cctvHandleLensShot(struct defaultobj *obj)
 	if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 		rodata = modelGetPartRodata(model->filedata, MODELPART_CCTV_0002);
 		sp7c = model0001a5cc(model, modelGetPart(model->filedata, MODELPART_CCTV_LENS), 0);
-		mtx00015be4(camGetUnk174c(), sp7c, &matrix);
+		mtx00015be4(camGetProjectionMtxF(), sp7c, &matrix);
 
 		shardsCreate((struct coord *) matrix.m[3], matrix.m[0], matrix.m[1], matrix.m[2],
 				rodata->bbox.xmin, rodata->bbox.xmax, rodata->bbox.ymin, rodata->bbox.ymax,
@@ -54565,9 +54565,9 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 				}
 			}
 
-			mtx4TransformVec(camGetUnk174c(), &spd8, &sp7c);
+			mtx4TransformVec(camGetProjectionMtxF(), &spd8, &sp7c);
 			mtx4RotateVec(&model->matrices[spe4], &hitthing1.unk0c, &sp70);
-			mtx4RotateVecInPlace(camGetUnk174c(), &sp70);
+			mtx4RotateVecInPlace(camGetProjectionMtxF(), &sp70);
 
 			func0f061fa8(shotdata, prop, spd4, lVar3,
 					node1, &hitthing1, spe4, node2,
@@ -54636,7 +54636,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 	sp110.y = shotdata->unk00.y - hit->distance * shotdata->unk0c.y / shotdata->unk0c.z;
 	sp110.z = shotdata->unk00.z - hit->distance;
 
-	mtx4TransformVecInPlace(camGetUnk174c(), &sp110);
+	mtx4TransformVecInPlace(camGetProjectionMtxF(), &sp110);
 
 	if (!spfc && chrIsUsingPaintball(g_Vars.currentplayer->prop->chr)) {
 		spfc = true;
@@ -54814,7 +54814,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 				spb0.y = shotdata->dir.y * 3.0f;
 				spb0.z = shotdata->dir.z * 3.0f;
 
-				mtx4MultMtx4(camGetUnk174c(), &obj->model->matrices[hit->mtxindex], &sp58);
+				mtx4MultMtx4(camGetProjectionMtxF(), &obj->model->matrices[hit->mtxindex], &sp58);
 				mtx4TransformVec(&sp58, &hit->hitthing.unk00, &spa4);
 
 				pushdir.x = shotdata->dir.x;
@@ -62429,7 +62429,7 @@ bool func0f08e794(struct coord *coord, f32 arg1)
 
 	if (ptr != NULL) {
 		struct coord *campos = &g_Vars.currentplayer->cam_pos;
-		Mtxf *mtx = camGetMatrix1740();
+		Mtxf *mtx = camGetWorldToScreenMtxf();
 
 		tmp.x = coord->x - campos->x;
 		tmp.y = coord->y - campos->y;

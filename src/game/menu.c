@@ -4994,7 +4994,7 @@ glabel var7f1b3658jf
 /*  f0f53f8:	37180040 */ 	ori	$t8,$t8,0x40
 /*  f0f53fc:	afa90440 */ 	sw	$t1,0x440($sp)
 /*  f0f5400:	ac580000 */ 	sw	$t8,0x0($v0)
-/*  f0f5404:	0fc2d81a */ 	jal	camGetUnk1750
+/*  f0f5404:	0fc2d81a */ 	jal	camGetPerspectiveMtxL
 /*  f0f5408:	00408825 */ 	move	$s1,$v0
 /*  f0f540c:	0c012b34 */ 	jal	osVirtualToPhysical
 /*  f0f5410:	00402025 */ 	move	$a0,$v0
@@ -5418,7 +5418,7 @@ glabel var7f1b3658jf
 /*  f0f5a2c:	25ec0008 */ 	addiu	$t4,$t7,0x8
 /*  f0f5a30:	afac0440 */ 	sw	$t4,0x440($sp)
 /*  f0f5a34:	adf90000 */ 	sw	$t9,0x0($t7)
-/*  f0f5a38:	0fc2da0a */ 	jal	camGetUnk175c
+/*  f0f5a38:	0fc2da0a */ 	jal	camGetLookAt
 /*  f0f5a3c:	afaf00b8 */ 	sw	$t7,0xb8($sp)
 /*  f0f5a40:	8fa500b8 */ 	lw	$a1,0xb8($sp)
 /*  f0f5a44:	3c180382 */ 	lui	$t8,0x382
@@ -5428,7 +5428,7 @@ glabel var7f1b3658jf
 /*  f0f5a54:	25cd0008 */ 	addiu	$t5,$t6,0x8
 /*  f0f5a58:	afad0440 */ 	sw	$t5,0x440($sp)
 /*  f0f5a5c:	add80000 */ 	sw	$t8,0x0($t6)
-/*  f0f5a60:	0fc2da0a */ 	jal	camGetUnk175c
+/*  f0f5a60:	0fc2da0a */ 	jal	camGetLookAt
 /*  f0f5a64:	afae00b4 */ 	sw	$t6,0xb4($sp)
 /*  f0f5a68:	8fa600b4 */ 	lw	$a2,0xb4($sp)
 /*  f0f5a6c:	24490010 */ 	addiu	$t1,$v0,0x10
@@ -6600,7 +6600,7 @@ glabel var7f1b3c40pf
 /*  f0f4e98:	35290040 */ 	ori	$t1,$t1,0x40
 /*  f0f4e9c:	afad0440 */ 	sw	$t5,0x440($sp)
 /*  f0f4ea0:	ac490000 */ 	sw	$t1,0x0($v0)
-/*  f0f4ea4:	0fc2d542 */ 	jal	camGetUnk1750
+/*  f0f4ea4:	0fc2d542 */ 	jal	camGetPerspectiveMtxL
 /*  f0f4ea8:	00408825 */ 	move	$s1,$v0
 /*  f0f4eac:	0c012ab0 */ 	jal	osVirtualToPhysical
 /*  f0f4eb0:	00402025 */ 	move	$a0,$v0
@@ -7024,7 +7024,7 @@ glabel var7f1b3c40pf
 /*  f0f54cc:	258b0008 */ 	addiu	$t3,$t4,0x8
 /*  f0f54d0:	afab0440 */ 	sw	$t3,0x440($sp)
 /*  f0f54d4:	ad8f0000 */ 	sw	$t7,0x0($t4)
-/*  f0f54d8:	0fc2d732 */ 	jal	camGetUnk175c
+/*  f0f54d8:	0fc2d732 */ 	jal	camGetLookAt
 /*  f0f54dc:	afac00b8 */ 	sw	$t4,0xb8($sp)
 /*  f0f54e0:	8fa500b8 */ 	lw	$a1,0xb8($sp)
 /*  f0f54e4:	3c090382 */ 	lui	$t1,0x382
@@ -7034,7 +7034,7 @@ glabel var7f1b3c40pf
 /*  f0f54f4:	272e0008 */ 	addiu	$t6,$t9,0x8
 /*  f0f54f8:	afae0440 */ 	sw	$t6,0x440($sp)
 /*  f0f54fc:	af290000 */ 	sw	$t1,0x0($t9)
-/*  f0f5500:	0fc2d732 */ 	jal	camGetUnk175c
+/*  f0f5500:	0fc2d732 */ 	jal	camGetLookAt
 /*  f0f5504:	afb900b4 */ 	sw	$t9,0xb4($sp)
 /*  f0f5508:	8fa600b4 */ 	lw	$a2,0xb4($sp)
 /*  f0f550c:	244d0010 */ 	addiu	$t5,$v0,0x10
@@ -8206,7 +8206,7 @@ glabel var7f1b3c40pf
 /*  f0f4cb0:	35290040 */ 	ori	$t1,$t1,0x40
 /*  f0f4cb4:	afad0440 */ 	sw	$t5,0x440($sp)
 /*  f0f4cb8:	ac490000 */ 	sw	$t1,0x0($v0)
-/*  f0f4cbc:	0fc2d4fe */ 	jal	camGetUnk1750
+/*  f0f4cbc:	0fc2d4fe */ 	jal	camGetPerspectiveMtxL
 /*  f0f4cc0:	00408825 */ 	move	$s1,$v0
 /*  f0f4cc4:	0c012de0 */ 	jal	osVirtualToPhysical
 /*  f0f4cc8:	00402025 */ 	move	$a0,$v0
@@ -8630,7 +8630,7 @@ glabel var7f1b3c40pf
 /*  f0f52e4:	258b0008 */ 	addiu	$t3,$t4,0x8
 /*  f0f52e8:	afab0440 */ 	sw	$t3,0x440($sp)
 /*  f0f52ec:	ad8f0000 */ 	sw	$t7,0x0($t4)
-/*  f0f52f0:	0fc2d6ee */ 	jal	camGetUnk175c
+/*  f0f52f0:	0fc2d6ee */ 	jal	camGetLookAt
 /*  f0f52f4:	afac00b8 */ 	sw	$t4,0xb8($sp)
 /*  f0f52f8:	8fa500b8 */ 	lw	$a1,0xb8($sp)
 /*  f0f52fc:	3c090382 */ 	lui	$t1,0x382
@@ -8640,7 +8640,7 @@ glabel var7f1b3c40pf
 /*  f0f530c:	272e0008 */ 	addiu	$t6,$t9,0x8
 /*  f0f5310:	afae0440 */ 	sw	$t6,0x440($sp)
 /*  f0f5314:	af290000 */ 	sw	$t1,0x0($t9)
-/*  f0f5318:	0fc2d6ee */ 	jal	camGetUnk175c
+/*  f0f5318:	0fc2d6ee */ 	jal	camGetLookAt
 /*  f0f531c:	afb900b4 */ 	sw	$t9,0xb4($sp)
 /*  f0f5320:	8fa600b4 */ 	lw	$a2,0xb4($sp)
 /*  f0f5324:	244d0010 */ 	addiu	$t5,$v0,0x10
@@ -9819,7 +9819,7 @@ glabel var7f1b2948
 /*  f0f4768:	35ef0040 */ 	ori	$t7,$t7,0x40
 /*  f0f476c:	afac0440 */ 	sw	$t4,0x440($sp)
 /*  f0f4770:	ac4f0000 */ 	sw	$t7,0x0($v0)
-/*  f0f4774:	0fc2d3fa */ 	jal	camGetUnk1750
+/*  f0f4774:	0fc2d3fa */ 	jal	camGetPerspectiveMtxL
 /*  f0f4778:	00408825 */ 	or	$s1,$v0,$zero
 /*  f0f477c:	0c012d20 */ 	jal	osVirtualToPhysical
 /*  f0f4780:	00402025 */ 	or	$a0,$v0,$zero
@@ -10240,7 +10240,7 @@ glabel var7f1b2948
 /*  f0f4d8c:	25ae0008 */ 	addiu	$t6,$t5,0x8
 /*  f0f4d90:	afae0440 */ 	sw	$t6,0x440($sp)
 /*  f0f4d94:	adac0000 */ 	sw	$t4,0x0($t5)
-/*  f0f4d98:	0fc2d5ea */ 	jal	camGetUnk175c
+/*  f0f4d98:	0fc2d5ea */ 	jal	camGetLookAt
 /*  f0f4d9c:	afad00b8 */ 	sw	$t5,0xb8($sp)
 /*  f0f4da0:	8fa500b8 */ 	lw	$a1,0xb8($sp)
 /*  f0f4da4:	3c0a0382 */ 	lui	$t2,0x382
@@ -10250,7 +10250,7 @@ glabel var7f1b2948
 /*  f0f4db4:	25f80008 */ 	addiu	$t8,$t7,0x8
 /*  f0f4db8:	afb80440 */ 	sw	$t8,0x440($sp)
 /*  f0f4dbc:	adea0000 */ 	sw	$t2,0x0($t7)
-/*  f0f4dc0:	0fc2d5ea */ 	jal	camGetUnk175c
+/*  f0f4dc0:	0fc2d5ea */ 	jal	camGetLookAt
 /*  f0f4dc4:	afaf00b4 */ 	sw	$t7,0xb4($sp)
 /*  f0f4dc8:	8fa600b4 */ 	lw	$a2,0xb4($sp)
 /*  f0f4dcc:	24590010 */ 	addiu	$t9,$v0,0x10
@@ -11453,7 +11453,7 @@ glabel var7f1b2948
 /*  f0f130c:	35ad0040 */ 	ori	$t5,$t5,0x40
 /*  f0f1310:	afab0468 */ 	sw	$t3,0x468($sp)
 /*  f0f1314:	ac4d0000 */ 	sw	$t5,0x0($v0)
-/*  f0f1318:	0fc2cb52 */ 	jal	camGetUnk1750
+/*  f0f1318:	0fc2cb52 */ 	jal	camGetPerspectiveMtxL
 /*  f0f131c:	00408025 */ 	or	$s0,$v0,$zero
 /*  f0f1320:	0c013100 */ 	jal	osVirtualToPhysical
 /*  f0f1324:	00402025 */ 	or	$a0,$v0,$zero
@@ -11874,7 +11874,7 @@ glabel var7f1b2948
 /*  f0f1930:	25590008 */ 	addiu	$t9,$t2,0x8
 /*  f0f1934:	afb90468 */ 	sw	$t9,0x468($sp)
 /*  f0f1938:	ad4b0000 */ 	sw	$t3,0x0($t2)
-/*  f0f193c:	0fc2cd42 */ 	jal	camGetUnk175c
+/*  f0f193c:	0fc2cd42 */ 	jal	camGetLookAt
 /*  f0f1940:	afaa00bc */ 	sw	$t2,0xbc($sp)
 /*  f0f1944:	8fa500bc */ 	lw	$a1,0xbc($sp)
 /*  f0f1948:	3c0f0382 */ 	lui	$t7,0x382
@@ -11884,7 +11884,7 @@ glabel var7f1b2948
 /*  f0f1958:	25ae0008 */ 	addiu	$t6,$t5,0x8
 /*  f0f195c:	afae0468 */ 	sw	$t6,0x468($sp)
 /*  f0f1960:	adaf0000 */ 	sw	$t7,0x0($t5)
-/*  f0f1964:	0fc2cd42 */ 	jal	camGetUnk175c
+/*  f0f1964:	0fc2cd42 */ 	jal	camGetLookAt
 /*  f0f1968:	afad00b8 */ 	sw	$t5,0xb8($sp)
 /*  f0f196c:	8fa600b8 */ 	lw	$a2,0xb8($sp)
 /*  f0f1970:	244c0010 */ 	addiu	$t4,$v0,0x10
@@ -12473,7 +12473,7 @@ glabel var7f1b2948
 //		if (arg2 < 3) {
 //			if (arg2 != 0) {
 //				gdl = func0f0d49c8(gdl);
-//				gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+//				gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 //			} else {
 //				static u32 znear = 10;
 //				static u32 zfar = 300;
@@ -12586,8 +12586,8 @@ glabel var7f1b2948
 //		gSPNumLights(gdl++, 1);
 //		gSPLight(gdl++, &var80071470, 1);
 //		gSPLight(gdl++, &var80071468, 2);
-//		gSPLookAtX(gdl++, camGetUnk175c()->m[0]);
-//		gSPLookAtY(gdl++, camGetUnk175c()->m[1]);
+//		gSPLookAtX(gdl++, camGetLookAt()->m[0]);
+//		gSPLookAtY(gdl++, camGetLookAt()->m[1]);
 //
 //		renderdata.unk30 = 1;
 //		renderdata.envcolour = 0xffffffff;
@@ -28268,7 +28268,7 @@ glabel var7f1b381cjf
 /*  f0fce98:	356b0040 */ 	ori	$t3,$t3,0x40
 /*  f0fce9c:	02a08025 */ 	move	$s0,$s5
 /*  f0fcea0:	ae0b0000 */ 	sw	$t3,0x0($s0)
-/*  f0fcea4:	0fc2d81a */ 	jal	camGetUnk1750
+/*  f0fcea4:	0fc2d81a */ 	jal	camGetPerspectiveMtxL
 /*  f0fcea8:	26b50008 */ 	addiu	$s5,$s5,0x8
 /*  f0fceac:	0c012b34 */ 	jal	osVirtualToPhysical
 /*  f0fceb0:	00402025 */ 	move	$a0,$v0
@@ -29004,7 +29004,7 @@ Gfx *menuRender(Gfx *gdl)
 
 		g_MpPlayerNum = 0;
 
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 		gSPDisplayList(gdl++, var800613a0);
 
 		text0f153b40();
@@ -29602,7 +29602,7 @@ void func0f0fd494(struct coord *pos)
 
 	g_MenuData.unk5d5_04 = true;
 
-	matrix = camGetMatrix1740();
+	matrix = camGetWorldToScreenMtxf();
 
 	mtx4TransformVec(matrix, pos, &coord);
 	cam0f0b4d04(&coord, xy);

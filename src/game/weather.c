@@ -951,7 +951,7 @@ glabel var7f1b5780
 /*  f133070:	afa00194 */ 	sw	$zero,0x194($sp)
 /*  f133074:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f133078:	02002025 */ 	or	$a0,$s0,$zero
-/*  f13307c:	0fc2d5be */ 	jal	camGetMatrix1740
+/*  f13307c:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
 /*  f133080:	00000000 */ 	nop
 /*  f133084:	00402025 */ 	or	$a0,$v0,$zero
 /*  f133088:	0c0056f8 */ 	jal	mtx00015be0
@@ -2592,7 +2592,7 @@ u32 var8007f0fc = 22000;
 //	sp194 = 0;
 //
 //	mtx4LoadIdentity(&sp1c8);
-//	mtx00015be0(camGetMatrix1740(), &sp1c8);
+//	mtx00015be0(camGetWorldToScreenMtxf(), &sp1c8);
 //
 //	sp1c8.m[3][0] = 0.0f;
 //	sp1c8.m[3][1] = 0.0f;
@@ -3220,7 +3220,7 @@ glabel var7f1b5790
 /*  f134878:	afa00198 */ 	sw	$zero,0x198($sp)
 /*  f13487c:	0c00566c */ 	jal	mtx4LoadIdentity
 /*  f134880:	02002025 */ 	or	$a0,$s0,$zero
-/*  f134884:	0fc2d5be */ 	jal	camGetMatrix1740
+/*  f134884:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
 /*  f134888:	00000000 */ 	nop
 /*  f13488c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f134890:	0c0056f8 */ 	jal	mtx00015be0
@@ -4644,7 +4644,7 @@ u32 var8007f110 = 0xffffff7f;
 //	sp198 = 0;
 //
 //	mtx4LoadIdentity(&sp1cc);
-//	mtx00015be0(camGetMatrix1740(), &sp1cc);
+//	mtx00015be0(camGetWorldToScreenMtxf(), &sp1cc);
 //
 //	sp1cc.m[3][0] = 0.0f;
 //	sp1cc.m[3][1] = 0.0f;

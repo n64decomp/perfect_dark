@@ -795,7 +795,7 @@ Gfx *starsRender(Gfx *gdl)
 	sp154 = cosf(0.017453199252486f * (90.0f - viGetFovY() / viGetAspect() * 0.5f));
 
 	mtx4LoadIdentity(&mtx);
-	mtx00015be0(camGetMatrix1740(), &mtx);
+	mtx00015be0(camGetWorldToScreenMtxf(), &mtx);
 
 	mtx.m[3][0] = 0.0f;
 	mtx.m[3][1] = 0.0f;

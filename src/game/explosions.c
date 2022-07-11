@@ -1247,7 +1247,7 @@ u32 explosionTick(struct prop *prop)
 
 u32 explosionTickPlayer(struct prop *prop)
 {
-	Mtxf *matrix = camGetMatrix1740();
+	Mtxf *matrix = camGetWorldToScreenMtxf();
 
 	prop->z = -(matrix->m[0][2] * prop->pos.x + matrix->m[1][2] * prop->pos.y + matrix->m[2][2] * prop->pos.z + matrix->m[3][2]);
 
@@ -1300,7 +1300,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 
 		gSPClearGeometryMode(gdl++, G_CULL_BOTH | G_FOG);
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1758()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		gdl = room0f166d7c(gdl, roomnum);
 
@@ -1369,7 +1369,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 			}
 		}
 
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 #if PAL
 		tmp = (g_ExplosionTypes[exp->type].flarespeed * 15.0f) * 0.83333331346512f;
@@ -1390,7 +1390,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 Gfx *explosionRenderPart(struct explosion *exp, struct explosionpart *part, Gfx *gdl, struct coord *coord, s32 arg4)
 {
 	struct gfxvtx *vertices = gfxAllocateVertices(4);
-	Mtxf *mtx = camGetUnk174c();
+	Mtxf *mtx = camGetProjectionMtxF();
 	struct coord spbc;
 	struct coord spb0;
 	struct coord spa4;

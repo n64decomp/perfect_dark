@@ -611,7 +611,7 @@ glabel var7f1a7ee8
 /*  f007440:	8fa40154 */ 	lw	$a0,0x154($sp)
 /*  f007444:	0c0059b7 */ 	jal	mtx4LoadTranslation
 /*  f007448:	02002825 */ 	or	$a1,$s0,$zero
-/*  f00744c:	0fc2d5be */ 	jal	camGetMatrix1740
+/*  f00744c:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
 /*  f007450:	00000000 */ 	nop
 /*  f007454:	00402025 */ 	or	$a0,$v0,$zero
 /*  f007458:	0c0056f8 */ 	jal	mtx00015be0
@@ -2826,7 +2826,7 @@ Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl)
 	mtx00015f04(nbomb->radius / 2000.0f, &sp88);
 	mtx4MultMtx4(&sp48, &sp88, &spc8);
 
-	mtx00015be0(camGetMatrix1740(), &spc8);
+	mtx00015be0(camGetWorldToScreenMtxf(), &spc8);
 	mtx00016054(&spc8, mtx);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);

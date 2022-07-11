@@ -432,7 +432,7 @@ Gfx *sparksRender(Gfx *gdl)
 					spd4.m[3][3] = 0.05f;
 
 					mtx4SetTranslation(&group->pos, &spd4);
-					mtx00015be0(camGetMatrix1740(), &spd4);
+					mtx00015be0(camGetWorldToScreenMtxf(), &spd4);
 
 					mtx = gfxAllocateMatrix();
 					mtx00016054(&spd4, mtx);

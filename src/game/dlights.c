@@ -340,8 +340,8 @@ Gfx *func0f001138(Gfx *gdl, s16 roomnum)
 
 	gSPSetLights1(gdl++, (*lights));
 
-	gSPLookAtX(gdl++, camGetUnk175c()->m[0]);
-	gSPLookAtY(gdl++, camGetUnk175c()->m[1]);
+	gSPLookAtX(gdl++, &camGetLookAt()->l[0]);
+	gSPLookAtY(gdl++, &camGetLookAt()->l[1]);
 
 	return gdl;
 }
@@ -350,8 +350,8 @@ Gfx *func0f001300(Gfx *gdl)
 {
 	gSPSetLights1(gdl++, var80061460);
 
-	gSPLookAtX(gdl++, camGetUnk175c()->m[0]);
-	gSPLookAtY(gdl++, camGetUnk175c()->m[1]);
+	gSPLookAtX(gdl++, &camGetLookAt()->l[0]);
+	gSPLookAtY(gdl++, &camGetLookAt()->l[1]);
 
 	return gdl;
 }

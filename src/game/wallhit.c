@@ -1771,9 +1771,9 @@ s32 wallhit0f140750(struct coord *coord)
 	f32 z;
 	f32 tmp;
 
-	x = g_Vars.currentplayer->unk174c->m[3][0] - coord->f[0];
-	y = g_Vars.currentplayer->unk174c->m[3][1] - coord->f[1];
-	z = g_Vars.currentplayer->unk174c->m[3][2] - coord->f[2];
+	x = g_Vars.currentplayer->projectionmtx->m[3][0] - coord->f[0];
+	y = g_Vars.currentplayer->projectionmtx->m[3][1] - coord->f[1];
+	z = g_Vars.currentplayer->projectionmtx->m[3][2] - coord->f[2];
 
 	var8007f740++;
 

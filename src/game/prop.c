@@ -716,7 +716,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 	}
 
 	if (hitbg && shotdata.gset.weaponnum != WEAPON_FARSIGHT) {
-		mtx4TransformVec(camGetMatrix1740(), &sp694.unk00, &sp658);
+		mtx4TransformVec(camGetWorldToScreenMtxf(), &sp694.unk00, &sp658);
 
 		if (shotdata.unk34 > -sp658.z) {
 			shotdata.unk34 = -sp658.z;
@@ -987,8 +987,8 @@ struct prop *func0f061d54(s32 handnum, u32 arg1, u32 arg2)
 		sp58.y -= 15 * RANDOMFRAC();
 	}
 
-	mtx4TransformVec(camGetUnk174c(), &sp58, &sp40);
-	mtx4RotateVec(camGetUnk174c(), &sp64, &sp4c);
+	mtx4TransformVec(camGetProjectionMtxF(), &sp58, &sp40);
+	mtx4RotateVec(camGetProjectionMtxF(), &sp64, &sp4c);
 
 	shotCalculateHits(handnum, arg1, &sp58, &sp64, &sp40, &sp4c, 0, 4294836224, PLAYERCOUNT() >= 2);
 }
@@ -1003,8 +1003,8 @@ void handCreateBulletRaycast(s32 handnum, bool arg1, bool dorandom, s32 arg3, bo
 	bgunCalculatePlayerShotSpread(&sp38, &sp44, handnum, dorandom);
 
 	if (arg3 > 0) {
-		mtx4TransformVec(camGetUnk174c(), &sp38, &shootpos);
-		mtx4RotateVec(camGetUnk174c(), &sp44, &shootdir);
+		mtx4TransformVec(camGetProjectionMtxF(), &sp38, &shootpos);
+		mtx4RotateVec(camGetProjectionMtxF(), &sp44, &shootdir);
 
 		shotCalculateHits(handnum, arg1, &sp38, &sp44, &shootpos, &shootdir, 0, 4294836224, arg4);
 
@@ -1225,7 +1225,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 							if (!chrIsAvoiding(chr)) {
 								bgunCalculatePlayerShotSpread(&spb8, &vector, handnum, true);
 								skipthething = true;
-								mtx4RotateVecInPlace(camGetUnk174c(), &vector);
+								mtx4RotateVecInPlace(camGetProjectionMtxF(), &vector);
 								bgunPlayPropHitSound(gset, prop, -1);
 
 								if (chr->model && chrGetShield(chr) > 0) {

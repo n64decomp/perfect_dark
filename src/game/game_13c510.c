@@ -195,7 +195,7 @@ glabel var7f1b59dc
 /*  f13c870:	46000306 */ 	mov.s	$f12,$f0
 /*  f13c874:	0c0057e2 */ 	jal	mtx00015f88
 /*  f13c878:	02002825 */ 	or	$a1,$s0,$zero
-/*  f13c87c:	0fc2d3f2 */ 	jal	camGetUnk006c
+/*  f13c87c:	0fc2d3f2 */ 	jal	camGetMtxF006c
 /*  f13c880:	00000000 */ 	nop
 /*  f13c884:	00402025 */ 	or	$a0,$v0,$zero
 /*  f13c888:	02002825 */ 	or	$a1,$s0,$zero
@@ -1409,7 +1409,7 @@ glabel var7f1b5a0c
 /*  f13dae4:	460a3481 */ 	sub.s	$f18,$f6,$f10
 /*  f13dae8:	14a8ffe4 */ 	bne	$a1,$t0,.L0f13da7c
 /*  f13daec:	e4b2fffc */ 	swc1	$f18,-0x4($a1)
-/*  f13daf0:	0fc2d5be */ 	jal	camGetMatrix1740
+/*  f13daf0:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
 /*  f13daf4:	00000000 */ 	nop
 /*  f13daf8:	00402025 */ 	or	$a0,$v0,$zero
 /*  f13dafc:	0c0056c4 */ 	jal	mtx4RotateVecInPlace

@@ -9606,13 +9606,13 @@ bool chrGetGunPos(struct chrdata *chr, s32 handnum, struct coord *gunpos)
 				gunpos->y = rodata->pos.y;
 				gunpos->z = rodata->pos.z;
 
-				mtx00015be4(camGetUnk174c(), spac, &sp6c);
+				mtx00015be4(camGetProjectionMtxF(), spac, &sp6c);
 				mtx4TransformVecInPlace(&sp6c, gunpos);
 				result = true;
 			} else if ((part1 = modelGetPart(model->filedata, MODELPART_0001))) {
 				sp64 = model0001a5cc(model, part1, 0);
 
-				mtx00015be4(camGetUnk174c(), sp64, &sp24);
+				mtx00015be4(camGetProjectionMtxF(), sp64, &sp24);
 
 				gunpos->x = sp24.m[3][0];
 				gunpos->y = sp24.m[3][1];
@@ -9653,7 +9653,7 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 	u32 stack2[2];
 	Mtxf spc8;
 	f32 bestvolume;
-	Mtxf *lVar4;
+	Mtxf *worldtoscreenmtx;
 	struct modelnode *node;
 	f32 x;
 	f32 y;
@@ -9668,13 +9668,13 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 		if (prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) {
 			bestnode = NULL;
 			bestvolume = MAXFLOAT;
-			lVar4 = cam0f0b5050((u8 *)chr->model->matrices);
+			worldtoscreenmtx = cam0f0b5050((u8 *)chr->model->matrices);
 
-			if (lVar4) {
-				mtx4TransformVec(lVar4, pos, &sp124);
-				mtx4RotateVec(lVar4, vector, &sp118);
+			if (worldtoscreenmtx) {
+				mtx4TransformVec(worldtoscreenmtx, pos, &sp124);
+				mtx4RotateVec(worldtoscreenmtx, vector, &sp118);
 
-				isdifferentmtx = (camGetMatrix1740() != lVar4);
+				isdifferentmtx = (camGetWorldToScreenMtxf() != worldtoscreenmtx);
 				node = chr->model->filedata->rootnode;
 
 				while (node) {
@@ -24637,7 +24637,7 @@ bool chrCanSeeTargetWithExtraCheck(struct chrdata *chr)
 
 				bgun0f0a0c08(&sp68, &sp56);
 				modelGetRootPosition(model, &sp44);
-				mtx4TransformVecInPlace(camGetMatrix1740(), &sp44);
+				mtx4TransformVecInPlace(camGetWorldToScreenMtxf(), &sp44);
 
 				if (func0f06b39c(&sp68, &sp56, &sp44, somefloat)) {
 					return true;
@@ -26235,7 +26235,7 @@ Gfx *chrsRenderChrStats(Gfx *gdl, s16 *rooms)
 			sp20c.y = chr->ground + chr->chrheight - 30;
 			sp20c.z = chr->prop->pos.z;
 
-			mtx4TransformVecInPlace(g_Vars.currentplayer->matrix1740, &sp20c);
+			mtx4TransformVecInPlace(g_Vars.currentplayer->worldtoscreenmtx, &sp20c);
 
 			if (sp20c.z < -100 && sp20c.z > -1000) {
 				cam0f0b4eb8(&sp20c, sp204, g_Vars.currentplayer->c_perspfovy, g_Vars.currentplayer->c_perspaspect);
