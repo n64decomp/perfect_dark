@@ -1300,7 +1300,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		gSPClearGeometryMode(gdl++, G_CULL_BOTH | G_FOG);
 		gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-		gdl = room0f166d7c(gdl, roomnum);
+		gdl = roomPushMtx(gdl, roomnum);
 
 		gSPDisplayList(gdl++, g_TexGdl2);
 

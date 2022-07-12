@@ -118,7 +118,7 @@ s32 room0f166c20(s32 roomnum)
 	return index;
 }
 
-Gfx *room0f166d7c(Gfx *gdl, s32 roomnum)
+Gfx *roomPushMtx(Gfx *gdl, s32 roomnum)
 {
 	s32 index = room0f166c20(roomnum);
 

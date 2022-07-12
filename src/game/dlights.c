@@ -314,7 +314,7 @@ void roomSetDefaults(struct room *room)
 	room->unk68 = 0;
 }
 
-Gfx *func0f001138(Gfx *gdl, s16 roomnum)
+Gfx *lightsSetForRoom(Gfx *gdl, s16 roomnum)
 {
 	Lights1 *lights = gfxAllocate(sizeof(Lights1));
 
@@ -346,7 +346,7 @@ Gfx *func0f001138(Gfx *gdl, s16 roomnum)
 	return gdl;
 }
 
-Gfx *func0f001300(Gfx *gdl)
+Gfx *lightsSetDefault(Gfx *gdl)
 {
 	gSPSetLights1(gdl++, var80061460);
 

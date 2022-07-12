@@ -304,7 +304,7 @@ Gfx *shardsRenderWood(Gfx *gdl)
 							gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 3);
 						} else {
 							if (g_Shards[i].room != prevroom) {
-								gdl = func0f001138(gdl, g_Shards[i].room);
+								gdl = lightsSetForRoom(gdl, g_Shards[i].room);
 								prevroom = g_Shards[i].room;
 							}
 
@@ -319,7 +319,7 @@ Gfx *shardsRenderWood(Gfx *gdl)
 		}
 
 		if (prevroom == 0) {
-			gdl = func0f001300(gdl);
+			gdl = lightsSetDefault(gdl);
 		}
 
 		gSPClearGeometryMode(gdl++, G_LIGHTING | G_TEXTURE_GEN);
@@ -706,7 +706,7 @@ glabel shardsRenderWood
 /*  f14c4cc:	85c50000 */ 	lh	$a1,0x0($t6)
 /*  f14c4d0:	51a50009 */ 	beql	$t5,$a1,.NB0f14c4f8
 /*  f14c4d4:	3c080708 */ 	lui	$t0,0x708
-/*  f14c4d8:	0fc0044e */ 	jal	func0f001138
+/*  f14c4d8:	0fc0044e */ 	jal	lightsSetForRoom
 /*  f14c4dc:	02602025 */ 	or	$a0,$s3,$zero
 /*  f14c4e0:	8e4f0000 */ 	lw	$t7,0x0($s2)
 /*  f14c4e4:	00409825 */ 	or	$s3,$v0,$zero
@@ -754,7 +754,7 @@ glabel shardsRenderWood
 /*  f14c57c:	87af0126 */ 	lh	$t7,0x126($sp)
 /*  f14c580:	55e00005 */ 	bnezl	$t7,.NB0f14c598
 /*  f14c584:	02601025 */ 	or	$v0,$s3,$zero
-/*  f14c588:	0fc004c0 */ 	jal	func0f001300
+/*  f14c588:	0fc004c0 */ 	jal	lightsSetDefault
 /*  f14c58c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f14c590:	00409825 */ 	or	$s3,$v0,$zero
 /*  f14c594:	02601025 */ 	or	$v0,$s3,$zero
@@ -898,7 +898,7 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 							gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 3);
 						} else {
 							if (g_Shards[i].room != prevroom) {
-								gdl = func0f001138(gdl, g_Shards[i].room);
+								gdl = lightsSetForRoom(gdl, g_Shards[i].room);
 								prevroom = g_Shards[i].room;
 							}
 
@@ -913,7 +913,7 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 		}
 
 		if (prevroom == 0) {
-			gdl = func0f001300(gdl);
+			gdl = lightsSetDefault(gdl);
 		}
 
 		gSPClearGeometryMode(gdl++, G_LIGHTING | G_TEXTURE_GEN);
@@ -1346,7 +1346,7 @@ glabel shardsRenderGlass
 /*  f14cc54:	85250000 */ 	lh	$a1,0x0($t1)
 /*  f14cc58:	51450009 */ 	beql	$t2,$a1,.NB0f14cc80
 /*  f14cc5c:	8fb00138 */ 	lw	$s0,0x138($sp)
-/*  f14cc60:	0fc0044e */ 	jal	func0f001138
+/*  f14cc60:	0fc0044e */ 	jal	lightsSetForRoom
 /*  f14cc64:	8fa40138 */ 	lw	$a0,0x138($sp)
 /*  f14cc68:	8e4b0000 */ 	lw	$t3,0x0($s2)
 /*  f14cc6c:	afa20138 */ 	sw	$v0,0x138($sp)
@@ -1397,7 +1397,7 @@ glabel shardsRenderGlass
 /*  f14cd10:	87a80136 */ 	lh	$t0,0x136($sp)
 /*  f14cd14:	55000005 */ 	bnezl	$t0,.NB0f14cd2c
 /*  f14cd18:	8fb90138 */ 	lw	$t9,0x138($sp)
-/*  f14cd1c:	0fc004c0 */ 	jal	func0f001300
+/*  f14cd1c:	0fc004c0 */ 	jal	lightsSetDefault
 /*  f14cd20:	8fa40138 */ 	lw	$a0,0x138($sp)
 /*  f14cd24:	afa20138 */ 	sw	$v0,0x138($sp)
 /*  f14cd28:	8fb90138 */ 	lw	$t9,0x138($sp)

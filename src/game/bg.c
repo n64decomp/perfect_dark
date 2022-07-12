@@ -73,6 +73,9 @@
 #define BGRESULT_TRUE  0
 #define BGRESULT_FALSE 1
 
+#define VTXBATCHTYPE_OPA 0x01
+#define VTXBATCHTYPE_XLU 0x02
+
 struct var800a4640 var800a4640;
 u8 *g_BgPrimaryData;
 u32 var800a4920;
@@ -244,7 +247,7 @@ void roomSetOnscreen(s32 roomnum, s32 draworder, struct screenbox *box)
 
 			if (g_Rooms[roomnum].loaded240 == 0 && var8007fc10 > 0) {
 				var8007fc10--;
-				roomLoad(roomnum);
+				bgLoadRoom(roomnum);
 			} else if (g_Rooms[roomnum].loaded240 == 0) {
 				var8007fc10--;
 			}
@@ -2292,7 +2295,7 @@ glabel var7f1b75c4
 /*  f159f18:	27bd03d8 */ 	addiu	$sp,$sp,0x3d8
 );
 
-Gfx *bg0f159f1c(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool recurse, s16 arg4[3])
+Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool recurse, s16 arg4[3])
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -2305,7 +2308,7 @@ Gfx *bg0f159f1c(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool recurse,
 		gdl = func0f1598b4(gdl, arg2->gdl, arg2->vertices, arg4);
 
 		if (recurse) {
-			gdl = bg0f159f1c(gdl, roomnum, arg2->next, true, arg4);
+			gdl = bgRenderRoomXrayPass(gdl, roomnum, arg2->next, true, arg4);
 		}
 		break;
 	case 1:
@@ -2328,15 +2331,15 @@ Gfx *bg0f159f1c(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool recurse,
 			sum = sp34.f[0] * sp28.f[0] + sp34.f[1] * sp28.f[1] + sp34.f[2] * sp28.f[2];
 
 			if (sum < 0.0f) {
-				gdl = bg0f159f1c(gdl, roomnum, child1, false, arg4);
-				gdl = bg0f159f1c(gdl, roomnum, child2, false, arg4);
+				gdl = bgRenderRoomXrayPass(gdl, roomnum, child1, false, arg4);
+				gdl = bgRenderRoomXrayPass(gdl, roomnum, child2, false, arg4);
 			} else {
-				gdl = bg0f159f1c(gdl, roomnum, child2, false, arg4);
-				gdl = bg0f159f1c(gdl, roomnum, child1, false, arg4);
+				gdl = bgRenderRoomXrayPass(gdl, roomnum, child2, false, arg4);
+				gdl = bgRenderRoomXrayPass(gdl, roomnum, child1, false, arg4);
 			}
 
 			if (recurse) {
-				gdl = bg0f159f1c(gdl, roomnum, arg2->next, true, arg4);
+				gdl = bgRenderRoomXrayPass(gdl, roomnum, arg2->next, true, arg4);
 			}
 		}
 		break;
@@ -2362,7 +2365,7 @@ Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum)
 	if (g_Rooms[roomnum].loaded240 == 0) {
 		if (var8007fc10 > 0) {
 			var8007fc10--;
-			roomLoad(roomnum);
+			bgLoadRoom(roomnum);
 		}
 	}
 
@@ -2384,9 +2387,9 @@ Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum)
 	sp40[1] = sp54.f[1];
 	sp40[2] = sp54.f[2];
 
-	gdl = room0f166d7c(gdl, roomnum);
-	gdl = bg0f159f1c(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk08, true, sp40);
-	gdl = bg0f159f1c(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk0c, true, sp40);
+	gdl = roomPushMtx(gdl, roomnum);
+	gdl = bgRenderRoomXrayPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk08, true, sp40);
+	gdl = bgRenderRoomXrayPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk0c, true, sp40);
 
 	g_Rooms[roomnum].loaded240 = 1;
 
@@ -2600,7 +2603,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 
 		if (roomnum != -1) {
 			if (!g_Rooms[roomnum].loaded240) {
-				roomLoad(roomnum);
+				bgLoadRoom(roomnum);
 			}
 
 			gdl = bgRenderRoomOpaque(gdl, roomnum);
@@ -3054,7 +3057,7 @@ glabel bgRenderScene
 /*  f155194:	872c0002 */ 	lh	$t4,0x2($t9)
 /*  f155198:	55800004 */ 	bnezl	$t4,.NB0f1551ac
 /*  f15519c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f1551a0:	0fc560fc */ 	jal	roomLoad
+/*  f1551a0:	0fc560fc */ 	jal	bgLoadRoom
 /*  f1551a4:	02402025 */ 	or	$a0,$s2,$zero
 /*  f1551a8:	02202025 */ 	or	$a0,$s1,$zero
 .NB0f1551ac:
@@ -7786,7 +7789,7 @@ void bgTick(void)
 
 Gfx *bgRender(Gfx *gdl)
 {
-	gdl = func0f001300(gdl);
+	gdl = lightsSetDefault(gdl);
 
 	gSPSegment(gdl++, 0x0f, g_BgPrimaryData);
 
@@ -8269,25 +8272,25 @@ Gfx *func0f15da00(struct roomgfxdata18 *arg0, Gfx *arg1, Gfx *arg2)
 	return arg2;
 }
 
-Gfx *room0f15dab4(s32 roomnum, Gfx *arg1, u32 arg2)
+Gfx *room0f15dab4(s32 roomnum, Gfx *gdl, u32 types)
 {
 	struct roomgfxdata18 *thing1 = g_Rooms[roomnum].gfxdata->unk08;
 	struct roomgfxdata18 *thing2 = g_Rooms[roomnum].gfxdata->unk0c;
 	Gfx *sp1c = NULL;
 	Gfx *sp18 = NULL;
 
-	if ((arg2 & 1) && thing1) {
-		sp1c = func0f15da00(thing1, arg1, NULL);
+	if ((types & VTXBATCHTYPE_OPA) && thing1) {
+		sp1c = func0f15da00(thing1, gdl, NULL);
 
-		if (arg2 == 1) {
+		if (types == VTXBATCHTYPE_OPA) {
 			return sp1c;
 		}
 	}
 
-	if ((arg2 & 2) && thing2) {
-		sp18 = func0f15da00(thing2, arg1, NULL);
+	if ((types & VTXBATCHTYPE_XLU) && thing2) {
+		sp18 = func0f15da00(thing2, gdl, NULL);
 
-		if (arg2 == 2) {
+		if (types == VTXBATCHTYPE_XLU) {
 			return sp18;
 		}
 	}
@@ -8330,7 +8333,7 @@ struct gfxvtx *room0f15dbb4(s32 roomnum, Gfx *gdl)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel roomLoad
+glabel bgLoadRoom
 /*  f15dc58:	27bdfd08 */ 	addiu	$sp,$sp,-760
 /*  f15dc5c:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f15dc60:	afb40030 */ 	sw	$s4,0x30($sp)
@@ -8858,7 +8861,7 @@ glabel roomLoad
 /*  f15e3f0:	0fc595ca */ 	jal	gfxReplaceGbiCommandsRecursively
 /*  f15e3f4:	8d64000c */ 	lw	$a0,0xc($t3)
 .L0f15e3f8:
-/*  f15e3f8:	0fc57be7 */ 	jal	room0f15ef9c
+/*  f15e3f8:	0fc57be7 */ 	jal	bgFindRoomVtxBatches
 /*  f15e3fc:	8fa402f8 */ 	lw	$a0,0x2f8($sp)
 /*  f15e400:	3c0c800a */ 	lui	$t4,%hi(g_Rooms)
 /*  f15e404:	8d8c4928 */ 	lw	$t4,%lo(g_Rooms)($t4)
@@ -8894,7 +8897,7 @@ glabel roomLoad
 );
 #else
 GLOBAL_ASM(
-glabel roomLoad
+glabel bgLoadRoom
 /*  f1583f0:	27bdfd08 */ 	addiu	$sp,$sp,-760
 /*  f1583f4:	afa402f8 */ 	sw	$a0,0x2f8($sp)
 /*  f1583f8:	afbf002c */ 	sw	$ra,0x2c($sp)
@@ -9447,7 +9450,7 @@ glabel roomLoad
 /*  f158be8:	0fc57fca */ 	jal	gfxReplaceGbiCommandsRecursively
 /*  f158bec:	8f04000c */ 	lw	$a0,0xc($t8)
 .NB0f158bf0:
-/*  f158bf0:	0fc565e7 */ 	jal	room0f15ef9c
+/*  f158bf0:	0fc565e7 */ 	jal	bgFindRoomVtxBatches
 /*  f158bf4:	8fa402f8 */ 	lw	$a0,0x2f8($sp)
 /*  f158bf8:	3c0f800b */ 	lui	$t7,0x800b
 /*  f158bfc:	8def90a8 */ 	lw	$t7,-0x6f58($t7)
@@ -9494,7 +9497,7 @@ const char var7f1b1a60nb[] = "bg.c";
 
 // Mismatch: The below stores len * 4 into s1 which causes further codegen
 // differences.
-//void roomLoad(s32 roomnum)
+//void bgLoadRoom(s32 roomnum)
 //{
 //	s32 size; // 2f4
 //	s32 inflatedlen; // 2f0
@@ -9618,17 +9621,17 @@ const char var7f1b1a60nb[] = "bg.c";
 //		}
 //
 //		g_Rooms[roomnum].gfxdata->numvertices = ((u32)g_Rooms[roomnum].gfxdata->colours - (u32)g_Rooms[roomnum].gfxdata->vertices) / sizeof(struct gfxvtx);
-//		g_Rooms[roomnum].gfxdata->numcolours = ((u32)room0f15dab4(roomnum, 0, 3) - (u32)g_Rooms[roomnum].gfxdata->colours) / sizeof(u32);
+//		g_Rooms[roomnum].gfxdata->numcolours = ((u32)room0f15dab4(roomnum, 0, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU) - (u32)g_Rooms[roomnum].gfxdata->colours) / sizeof(u32);
 //
 //		len = 0;
-//		v0 = room0f15dab4(roomnum, NULL, 3);
+//		v0 = room0f15dab4(roomnum, NULL, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU);
 //
 //		while (v0) {
 //			sp208[len] = v0;
 //			sp140[len] = room0f15dbb4(roomnum, v0);
 //			len++;
 //
-//			v0 = room0f15dab4(roomnum, v0, 3);
+//			v0 = room0f15dab4(roomnum, v0, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU);
 //		}
 //
 //		sp208[len] = (s32)allocation + inflatedlen;
@@ -9700,7 +9703,7 @@ const char var7f1b1a60nb[] = "bg.c";
 //			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->unk0c, 7);
 //		}
 //
-//		room0f15ef9c(roomnum);
+//		bgFindRoomVtxBatches(roomnum);
 //
 //		g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
 //		g_Rooms[roomnum].flags |= ROOMFLAG_0200;
@@ -9739,15 +9742,14 @@ const char var7f1b7584[] = " Failed 1 - Crossed portal %d";
 const char var7f1b75a4[] = " Passed";
 const char var7f1b75ac[] = "edist";
 
-
-void roomUnload(s32 roomnum)
+void bgUnloadRoom(s32 roomnum)
 {
 	u32 size;
 
-	if (g_Rooms[roomnum].unk44) {
-		size = ((g_Rooms[roomnum].unk40 << 5) + 0xf) & ~0xf;
-		memaFree(g_Rooms[roomnum].unk44, size);
-		g_Rooms[roomnum].unk44 = NULL;
+	if (g_Rooms[roomnum].vtxbatches) {
+		size = ((g_Rooms[roomnum].numvtxbatches) * sizeof(struct vtxbatch) + 0xf) & ~0xf;
+		memaFree(g_Rooms[roomnum].vtxbatches, size);
+		g_Rooms[roomnum].vtxbatches = NULL;
 	}
 
 	if (g_Rooms[roomnum].gfxdatalen > 0) {
@@ -9765,7 +9767,7 @@ void bgUnloadAllRooms(void)
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
 		if (g_Rooms[i].loaded240) {
-			roomUnload(i);
+			bgUnloadRoom(i);
 		}
 	}
 }
@@ -9800,7 +9802,7 @@ void bgGarbageCollectRooms(s32 bytesneeded, bool desparate)
 		}
 
 		if (oldestroom != 0) {
-			roomUnload(oldestroom);
+			bgUnloadRoom(oldestroom);
 			memaDefrag();
 		}
 
@@ -9816,7 +9818,7 @@ void bgGarbageCollectRooms(s32 bytesneeded, bool desparate)
 					if (g_Rooms[i].loaded240)
 #endif
 					{
-						roomUnload(i);
+						bgUnloadRoom(i);
 						memaDefrag();
 
 						if (memaGetLongestFree() >= bytesneeded) {
@@ -9858,7 +9860,7 @@ void bgTickRooms(void)
 			}
 
 			if (numunloaded < 2 && g_Rooms[i].loaded240 == g_BgUnloadDelay240_2) {
-				roomUnload(i);
+				bgUnloadRoom(i);
 #if VERSION >= VERSION_NTSC_1_0
 				memaDefrag();
 #endif
@@ -9868,7 +9870,7 @@ void bgTickRooms(void)
 	}
 }
 
-Gfx *room0f15e85c(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool arg3)
+Gfx *bgRenderRoomPass(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool arg3)
 {
 	u32 v0;
 
@@ -9900,7 +9902,7 @@ Gfx *room0f15e85c(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool arg3)
 		gSPDisplayList(gdl++, OS_PHYSICAL_TO_K0(arg2->gdl));
 
 		if (arg3) {
-			gdl = room0f15e85c(gdl, roomnum, arg2->next, true);
+			gdl = bgRenderRoomPass(gdl, roomnum, arg2->next, true);
 		}
 		break;
 	case 1:
@@ -9927,15 +9929,15 @@ Gfx *room0f15e85c(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool arg3)
 			sum = sp40[0] * sp34[0] + sp40[1] * sp34[1] + sp40[2] * sp34[2];
 
 			if (sum < 0.0f) {
-				gdl = room0f15e85c(gdl, roomnum, sp58, false);
-				gdl = room0f15e85c(gdl, roomnum, sp54, false);
+				gdl = bgRenderRoomPass(gdl, roomnum, sp58, false);
+				gdl = bgRenderRoomPass(gdl, roomnum, sp54, false);
 			} else {
-				gdl = room0f15e85c(gdl, roomnum, sp54, false);
-				gdl = room0f15e85c(gdl, roomnum, sp58, false);
+				gdl = bgRenderRoomPass(gdl, roomnum, sp54, false);
+				gdl = bgRenderRoomPass(gdl, roomnum, sp58, false);
 			}
 
 			if (arg3) {
-				gdl = room0f15e85c(gdl, roomnum, arg2->next, true);
+				gdl = bgRenderRoomPass(gdl, roomnum, arg2->next, true);
 			}
 		}
 		break;
@@ -9953,10 +9955,11 @@ Gfx *bgRenderRoomOpaque(Gfx *gdl, s32 roomnum)
 		return gdl;
 	}
 
-	gdl = room0f166d7c(gdl, roomnum);
-	gdl = func0f001138(gdl, roomnum);
-	gdl = room0f15e85c(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk08, true);
-	gdl = func0f001300(gdl);
+	gdl = roomPushMtx(gdl, roomnum);
+
+	gdl = lightsSetForRoom(gdl, roomnum);
+	gdl = bgRenderRoomPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk08, true);
+	gdl = lightsSetDefault(gdl);
 
 	g_Rooms[roomnum].loaded240 = 1;
 
@@ -9984,282 +9987,160 @@ Gfx *bgRenderRoomXlu(Gfx *gdl, s32 roomnum)
 		if (g_Rooms[roomnum].gfxdata);
 		if (g_Rooms[roomnum].gfxdata);
 
-		gdl = room0f166d7c(gdl, roomnum);
-		gdl = room0f15e85c(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk0c, 1);
+		gdl = roomPushMtx(gdl, roomnum);
+		gdl = bgRenderRoomPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->unk0c, true);
 
 		g_Rooms[roomnum].loaded240 = 1;
 	} else {
-		roomLoad(roomnum);
+		bgLoadRoom(roomnum);
 	}
 
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f15ecd8
-.late_rodata
-glabel var7f1b75d4
-.word 0x46fffe00
-.text
-/*  f15ecd8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f15ecdc:	afb5001c */ 	sw	$s5,0x1c($sp)
-/*  f15ece0:	afb40018 */ 	sw	$s4,0x18($sp)
-/*  f15ece4:	afb30014 */ 	sw	$s3,0x14($sp)
-/*  f15ece8:	afb20010 */ 	sw	$s2,0x10($sp)
-/*  f15ecec:	afb1000c */ 	sw	$s1,0xc($sp)
-/*  f15ecf0:	afb00008 */ 	sw	$s0,0x8($sp)
-/*  f15ecf4:	80ce0000 */ 	lb	$t6,0x0($a2)
-/*  f15ecf8:	2412ffb8 */ 	addiu	$s2,$zero,-72
-/*  f15ecfc:	00808025 */ 	or	$s0,$a0,$zero
-/*  f15ed00:	124e009d */ 	beq	$s2,$t6,.L0f15ef78
-/*  f15ed04:	00001025 */ 	or	$v0,$zero,$zero
-/*  f15ed08:	3c013f80 */ 	lui	$at,0x3f80
-/*  f15ed0c:	44819000 */ 	mtc1	$at,$f18
-/*  f15ed10:	3c01c700 */ 	lui	$at,0xc700
-/*  f15ed14:	44818000 */ 	mtc1	$at,$f16
-/*  f15ed18:	3c017f1b */ 	lui	$at,%hi(var7f1b75d4)
-/*  f15ed1c:	3c15800a */ 	lui	$s5,%hi(g_BgRooms)
-/*  f15ed20:	3c1400ff */ 	lui	$s4,0xff
-/*  f15ed24:	3694ffff */ 	ori	$s4,$s4,0xffff
-/*  f15ed28:	26b54cc4 */ 	addiu	$s5,$s5,%lo(g_BgRooms)
-/*  f15ed2c:	c42e75d4 */ 	lwc1	$f14,%lo(var7f1b75d4)($at)
-/*  f15ed30:	00c01825 */ 	or	$v1,$a2,$zero
-/*  f15ed34:	80c40000 */ 	lb	$a0,0x0($a2)
-/*  f15ed38:	24130004 */ 	addiu	$s3,$zero,0x4
-/*  f15ed3c:	8fac0030 */ 	lw	$t4,0x30($sp)
-/*  f15ed40:	8fa80034 */ 	lw	$t0,0x34($sp)
-.L0f15ed44:
-/*  f15ed44:	16640087 */ 	bne	$s3,$a0,.L0f15ef64
-/*  f15ed48:	00077940 */ 	sll	$t7,$a3,0x5
-/*  f15ed4c:	00af2021 */ 	addu	$a0,$a1,$t7
-/*  f15ed50:	00108880 */ 	sll	$s1,$s0,0x2
-/*  f15ed54:	02308821 */ 	addu	$s1,$s1,$s0
-/*  f15ed58:	0007c140 */ 	sll	$t8,$a3,0x5
-/*  f15ed5c:	ac860004 */ 	sw	$a2,0x4($a0)
-/*  f15ed60:	a4820000 */ 	sh	$v0,0x0($a0)
-/*  f15ed64:	a4880002 */ 	sh	$t0,0x2($a0)
-/*  f15ed68:	00b85021 */ 	addu	$t2,$a1,$t8
-/*  f15ed6c:	00118880 */ 	sll	$s1,$s1,0x2
-/*  f15ed70:	00004825 */ 	or	$t1,$zero,$zero
-.L0f15ed74:
-/*  f15ed74:	25290001 */ 	addiu	$t1,$t1,0x1
-/*  f15ed78:	29210003 */ 	slti	$at,$t1,0x3
-/*  f15ed7c:	254a0004 */ 	addiu	$t2,$t2,0x4
-/*  f15ed80:	e54e0004 */ 	swc1	$f14,0x4($t2)
-/*  f15ed84:	1420fffb */ 	bnez	$at,.L0f15ed74
-/*  f15ed88:	e5500010 */ 	swc1	$f16,0x10($t2)
-/*  f15ed8c:	906a0001 */ 	lbu	$t2,0x1($v1)
-/*  f15ed90:	8c6f0004 */ 	lw	$t7,0x4($v1)
-/*  f15ed94:	00004825 */ 	or	$t1,$zero,$zero
-/*  f15ed98:	000ac902 */ 	srl	$t9,$t2,0x4
-/*  f15ed9c:	332e000f */ 	andi	$t6,$t9,0xf
-/*  f15eda0:	25ca0001 */ 	addiu	$t2,$t6,0x1
-/*  f15eda4:	01f4c024 */ 	and	$t8,$t7,$s4
-/*  f15eda8:	19400031 */ 	blez	$t2,.L0f15ee70
-/*  f15edac:	030c5821 */ 	addu	$t3,$t8,$t4
-/*  f15edb0:	01606825 */ 	or	$t5,$t3,$zero
-.L0f15edb4:
-/*  f15edb4:	85b90000 */ 	lh	$t9,0x0($t5)
-/*  f15edb8:	c48a0008 */ 	lwc1	$f10,0x8($a0)
-/*  f15edbc:	85ae0002 */ 	lh	$t6,0x2($t5)
-/*  f15edc0:	44992000 */ 	mtc1	$t9,$f4
-/*  f15edc4:	85af0004 */ 	lh	$t7,0x4($t5)
-/*  f15edc8:	448e3000 */ 	mtc1	$t6,$f6
-/*  f15edcc:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f15edd0:	448f4000 */ 	mtc1	$t7,$f8
-/*  f15edd4:	25290001 */ 	addiu	$t1,$t1,0x1
-/*  f15edd8:	468030a0 */ 	cvt.s.w	$f2,$f6
-/*  f15eddc:	460a003c */ 	c.lt.s	$f0,$f10
-/*  f15ede0:	46804320 */ 	cvt.s.w	$f12,$f8
-/*  f15ede4:	45020003 */ 	bc1fl	.L0f15edf4
-/*  f15ede8:	c484000c */ 	lwc1	$f4,0xc($a0)
-/*  f15edec:	e4800008 */ 	swc1	$f0,0x8($a0)
-/*  f15edf0:	c484000c */ 	lwc1	$f4,0xc($a0)
-.L0f15edf4:
-/*  f15edf4:	4604103c */ 	c.lt.s	$f2,$f4
-/*  f15edf8:	00000000 */ 	nop
-/*  f15edfc:	45020003 */ 	bc1fl	.L0f15ee0c
-/*  f15ee00:	c4860010 */ 	lwc1	$f6,0x10($a0)
-/*  f15ee04:	e482000c */ 	swc1	$f2,0xc($a0)
-/*  f15ee08:	c4860010 */ 	lwc1	$f6,0x10($a0)
-.L0f15ee0c:
-/*  f15ee0c:	4606603c */ 	c.lt.s	$f12,$f6
-/*  f15ee10:	00000000 */ 	nop
-/*  f15ee14:	45020003 */ 	bc1fl	.L0f15ee24
-/*  f15ee18:	c4880014 */ 	lwc1	$f8,0x14($a0)
-/*  f15ee1c:	e48c0010 */ 	swc1	$f12,0x10($a0)
-/*  f15ee20:	c4880014 */ 	lwc1	$f8,0x14($a0)
-.L0f15ee24:
-/*  f15ee24:	4600403c */ 	c.lt.s	$f8,$f0
-/*  f15ee28:	00000000 */ 	nop
-/*  f15ee2c:	45020003 */ 	bc1fl	.L0f15ee3c
-/*  f15ee30:	c48a0018 */ 	lwc1	$f10,0x18($a0)
-/*  f15ee34:	e4800014 */ 	swc1	$f0,0x14($a0)
-/*  f15ee38:	c48a0018 */ 	lwc1	$f10,0x18($a0)
-.L0f15ee3c:
-/*  f15ee3c:	4602503c */ 	c.lt.s	$f10,$f2
-/*  f15ee40:	00000000 */ 	nop
-/*  f15ee44:	45020003 */ 	bc1fl	.L0f15ee54
-/*  f15ee48:	c484001c */ 	lwc1	$f4,0x1c($a0)
-/*  f15ee4c:	e4820018 */ 	swc1	$f2,0x18($a0)
-/*  f15ee50:	c484001c */ 	lwc1	$f4,0x1c($a0)
-.L0f15ee54:
-/*  f15ee54:	460c203c */ 	c.lt.s	$f4,$f12
-/*  f15ee58:	00000000 */ 	nop
-/*  f15ee5c:	45000002 */ 	bc1f	.L0f15ee68
-/*  f15ee60:	00000000 */ 	nop
-/*  f15ee64:	e48c001c */ 	swc1	$f12,0x1c($a0)
-.L0f15ee68:
-/*  f15ee68:	152affd2 */ 	bne	$t1,$t2,.L0f15edb4
-/*  f15ee6c:	25ad000c */ 	addiu	$t5,$t5,0xc
-.L0f15ee70:
-/*  f15ee70:	c4800014 */ 	lwc1	$f0,0x14($a0)
-/*  f15ee74:	c4860008 */ 	lwc1	$f6,0x8($a0)
-/*  f15ee78:	46003032 */ 	c.eq.s	$f6,$f0
-/*  f15ee7c:	00000000 */ 	nop
-/*  f15ee80:	45020004 */ 	bc1fl	.L0f15ee94
-/*  f15ee84:	c4800018 */ 	lwc1	$f0,0x18($a0)
-/*  f15ee88:	46120200 */ 	add.s	$f8,$f0,$f18
-/*  f15ee8c:	e4880014 */ 	swc1	$f8,0x14($a0)
-/*  f15ee90:	c4800018 */ 	lwc1	$f0,0x18($a0)
-.L0f15ee94:
-/*  f15ee94:	c48a000c */ 	lwc1	$f10,0xc($a0)
-/*  f15ee98:	46005032 */ 	c.eq.s	$f10,$f0
-/*  f15ee9c:	00000000 */ 	nop
-/*  f15eea0:	45020004 */ 	bc1fl	.L0f15eeb4
-/*  f15eea4:	c4800010 */ 	lwc1	$f0,0x10($a0)
-/*  f15eea8:	46120100 */ 	add.s	$f4,$f0,$f18
-/*  f15eeac:	e4840018 */ 	swc1	$f4,0x18($a0)
-/*  f15eeb0:	c4800010 */ 	lwc1	$f0,0x10($a0)
-.L0f15eeb4:
-/*  f15eeb4:	c482001c */ 	lwc1	$f2,0x1c($a0)
-/*  f15eeb8:	46020032 */ 	c.eq.s	$f0,$f2
-/*  f15eebc:	00000000 */ 	nop
-/*  f15eec0:	45020005 */ 	bc1fl	.L0f15eed8
-/*  f15eec4:	8eb80000 */ 	lw	$t8,0x0($s5)
-/*  f15eec8:	46121180 */ 	add.s	$f6,$f2,$f18
-/*  f15eecc:	c4800010 */ 	lwc1	$f0,0x10($a0)
-/*  f15eed0:	e486001c */ 	swc1	$f6,0x1c($a0)
-/*  f15eed4:	8eb80000 */ 	lw	$t8,0x0($s5)
-.L0f15eed8:
-/*  f15eed8:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*  f15eedc:	c486000c */ 	lwc1	$f6,0xc($a0)
-/*  f15eee0:	0311c821 */ 	addu	$t9,$t8,$s1
-/*  f15eee4:	c72a0004 */ 	lwc1	$f10,0x4($t9)
-/*  f15eee8:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f15eeec:	460a4100 */ 	add.s	$f4,$f8,$f10
-/*  f15eef0:	e4840008 */ 	swc1	$f4,0x8($a0)
-/*  f15eef4:	8eae0000 */ 	lw	$t6,0x0($s5)
-/*  f15eef8:	01d17821 */ 	addu	$t7,$t6,$s1
-/*  f15eefc:	c5e80008 */ 	lwc1	$f8,0x8($t7)
-/*  f15ef00:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f15ef04:	c4880014 */ 	lwc1	$f8,0x14($a0)
-/*  f15ef08:	e48a000c */ 	swc1	$f10,0xc($a0)
-/*  f15ef0c:	8eb80000 */ 	lw	$t8,0x0($s5)
-/*  f15ef10:	0311c821 */ 	addu	$t9,$t8,$s1
-/*  f15ef14:	c724000c */ 	lwc1	$f4,0xc($t9)
-/*  f15ef18:	46040180 */ 	add.s	$f6,$f0,$f4
-/*  f15ef1c:	e4860010 */ 	swc1	$f6,0x10($a0)
-/*  f15ef20:	8eae0000 */ 	lw	$t6,0x0($s5)
-/*  f15ef24:	c4860018 */ 	lwc1	$f6,0x18($a0)
-/*  f15ef28:	01d17821 */ 	addu	$t7,$t6,$s1
-/*  f15ef2c:	c5ea0004 */ 	lwc1	$f10,0x4($t7)
-/*  f15ef30:	460a4100 */ 	add.s	$f4,$f8,$f10
-/*  f15ef34:	e4840014 */ 	swc1	$f4,0x14($a0)
-/*  f15ef38:	8eb80000 */ 	lw	$t8,0x0($s5)
-/*  f15ef3c:	c484001c */ 	lwc1	$f4,0x1c($a0)
-/*  f15ef40:	0311c821 */ 	addu	$t9,$t8,$s1
-/*  f15ef44:	c7280008 */ 	lwc1	$f8,0x8($t9)
-/*  f15ef48:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f15ef4c:	e48a0018 */ 	swc1	$f10,0x18($a0)
-/*  f15ef50:	8eae0000 */ 	lw	$t6,0x0($s5)
-/*  f15ef54:	01d17821 */ 	addu	$t7,$t6,$s1
-/*  f15ef58:	c5e6000c */ 	lwc1	$f6,0xc($t7)
-/*  f15ef5c:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f15ef60:	e488001c */ 	swc1	$f8,0x1c($a0)
-.L0f15ef64:
-/*  f15ef64:	80640008 */ 	lb	$a0,0x8($v1)
-/*  f15ef68:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f15ef6c:	24630008 */ 	addiu	$v1,$v1,0x8
-/*  f15ef70:	1644ff74 */ 	bne	$s2,$a0,.L0f15ed44
-/*  f15ef74:	00000000 */ 	nop
-.L0f15ef78:
-/*  f15ef78:	8fb00008 */ 	lw	$s0,0x8($sp)
-/*  f15ef7c:	8fb1000c */ 	lw	$s1,0xc($sp)
-/*  f15ef80:	8fb20010 */ 	lw	$s2,0x10($sp)
-/*  f15ef84:	8fb30014 */ 	lw	$s3,0x14($sp)
-/*  f15ef88:	8fb40018 */ 	lw	$s4,0x18($sp)
-/*  f15ef8c:	8fb5001c */ 	lw	$s5,0x1c($sp)
-/*  f15ef90:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f15ef94:	03e00008 */ 	jr	$ra
-/*  f15ef98:	00e01025 */ 	or	$v0,$a3,$zero
-);
-
-void room0f15ef9c(s32 roomnum)
+s32 bgPopulateVtxBatchType(s32 roomnum, struct vtxbatch *batches, Gfx *gdl, s32 batchindex, struct gfxvtx *vertices, s32 type)
 {
 	s32 i;
-	s32 s3 = 0;
-	s32 s2;
-	Gfx *gdl;
-	void *allocation;
+	s32 j;
+	s32 numvertices;
+	struct gfxvtx *batchvertices;
 
-	if (g_Rooms[roomnum].unk44 == NULL) {
-		gdl = room0f15dab4(roomnum, NULL, 1);
+	for (i = 0; gdl[i].dma.cmd != G_ENDDL; i++) {
+		if (gdl[i].dma.cmd == G_VTX) {
+			batches[batchindex].gdl = gdl;
+			batches[batchindex].gbicmdindex = i;
+			batches[batchindex].type = type;
+
+			for (j = 0; j < 3; j++) {
+				batches[batchindex].bbmin.f[j] = 32767.0f;
+				batches[batchindex].bbmax.f[j] = -32768.0f;
+			}
+
+			numvertices = (((u32)gdl[i].bytes[1] >> 4) & 0xf) + 1;
+			batchvertices = (struct gfxvtx *)((u32)vertices + (gdl[i].words.w1 & 0xffffff));
+
+			for (j = 0; j < numvertices; j++) {
+				f32 x = batchvertices[j].x;
+				f32 y = batchvertices[j].y;
+				f32 z = batchvertices[j].z;
+
+				if (x < batches[batchindex].bbmin.x) {
+					batches[batchindex].bbmin.x = x;
+				}
+
+				if (y < batches[batchindex].bbmin.y) {
+					batches[batchindex].bbmin.y = y;
+				}
+
+				if (z < batches[batchindex].bbmin.z) {
+					batches[batchindex].bbmin.z = z;
+				}
+
+				if (x > batches[batchindex].bbmax.x) {
+					batches[batchindex].bbmax.x = x;
+				}
+
+				if (y > batches[batchindex].bbmax.y) {
+					batches[batchindex].bbmax.y = y;
+				}
+
+				if (z > batches[batchindex].bbmax.z) {
+					batches[batchindex].bbmax.z = z;
+				}
+			}
+
+			if (batches[batchindex].bbmin.x == batches[batchindex].bbmax.x) {
+				batches[batchindex].bbmax.x++;
+			}
+
+			if (batches[batchindex].bbmin.y == batches[batchindex].bbmax.y) {
+				batches[batchindex].bbmax.y++;
+			}
+
+			if (batches[batchindex].bbmin.z == batches[batchindex].bbmax.z) {
+				batches[batchindex].bbmax.z++;
+			}
+
+			batches[batchindex].bbmin.x += g_BgRooms[roomnum].pos.x;
+			batches[batchindex].bbmin.y += g_BgRooms[roomnum].pos.y;
+			batches[batchindex].bbmin.z += g_BgRooms[roomnum].pos.z;
+
+			batches[batchindex].bbmax.x += g_BgRooms[roomnum].pos.x;
+			batches[batchindex].bbmax.y += g_BgRooms[roomnum].pos.y;
+			batches[batchindex].bbmax.z += g_BgRooms[roomnum].pos.z;
+
+			batchindex++;
+		}
+	}
+
+	return batchindex;
+}
+
+void bgFindRoomVtxBatches(s32 roomnum)
+{
+	s32 i;
+	s32 batchindex = 0;
+	s32 xlucount;
+	Gfx *gdl;
+	struct vtxbatch *batches;
+
+	if (g_Rooms[roomnum].vtxbatches == NULL) {
+		gdl = room0f15dab4(roomnum, NULL, VTXBATCHTYPE_OPA);
 
 		if (gdl != NULL) {
 			while (gdl) {
 				for (i = 0; gdl[i].dma.cmd != G_ENDDL; i++) {
 					// if gDPSetVerticeArray
-					if (gdl[i].dma.cmd == 0x04) {
-						s3++;
+					if (gdl[i].dma.cmd == G_VTX) {
+						batchindex++;
 					}
 				}
 
-				gdl = room0f15dab4(roomnum, gdl, 1);
+				gdl = room0f15dab4(roomnum, gdl, VTXBATCHTYPE_OPA);
 			}
 
-			s2 = 0;
+			xlucount = 0;
 
-			gdl = room0f15dab4(roomnum, NULL, 2);
+			gdl = room0f15dab4(roomnum, NULL, VTXBATCHTYPE_XLU);
 
 			while (gdl) {
 				for (i = 0; gdl[i].dma.cmd != G_ENDDL; i++) {
 					// if gDPSetVerticeArray
-					if (gdl[i].dma.cmd == 0x04) {
-						s2++;
+					if (gdl[i].dma.cmd == G_VTX) {
+						xlucount++;
 					}
 				}
 
-				gdl = room0f15dab4(roomnum, gdl, 2);
+				gdl = room0f15dab4(roomnum, gdl, VTXBATCHTYPE_XLU);
 			}
 
-			s3 += s2;
+			batchindex += xlucount;
 
-			allocation = memaAlloc((s3 * 0x20 + 0xf) & ~0xf);
+			batches = memaAlloc((batchindex * sizeof(struct vtxbatch) + 0xf) & ~0xf);
 
-			if (allocation != NULL) {
-				gdl = room0f15dab4(roomnum, NULL, 1);
-				s3 = 0;
+			if (batches != NULL) {
+				gdl = room0f15dab4(roomnum, NULL, VTXBATCHTYPE_OPA);
+				batchindex = 0;
 
-				g_Rooms[roomnum].unk44 = allocation;
+				g_Rooms[roomnum].vtxbatches = batches;
 
 				while (gdl) {
-					struct gfxvtx *vtx = room0f15dbb4(roomnum, gdl);
-					s3 = func0f15ecd8(roomnum, allocation, gdl, s3, vtx, 1);
-					gdl = room0f15dab4(roomnum, gdl, 1);
+					struct gfxvtx *vertices = room0f15dbb4(roomnum, gdl);
+					batchindex = bgPopulateVtxBatchType(roomnum, batches, gdl, batchindex, vertices, VTXBATCHTYPE_OPA);
+					gdl = room0f15dab4(roomnum, gdl, VTXBATCHTYPE_OPA);
 				}
 
-				if (s2) {
-					gdl = room0f15dab4(roomnum, NULL, 2);
+				if (xlucount) {
+					gdl = room0f15dab4(roomnum, NULL, VTXBATCHTYPE_XLU);
 
 					while (gdl) {
-						struct gfxvtx *vtx = room0f15dbb4(roomnum, gdl);
-						s3 = func0f15ecd8(roomnum, allocation, gdl, s3, vtx, 2);
-						gdl = room0f15dab4(roomnum, gdl, 2);
+						struct gfxvtx *vertices = room0f15dbb4(roomnum, gdl);
+						batchindex = bgPopulateVtxBatchType(roomnum, batches, gdl, batchindex, vertices, VTXBATCHTYPE_XLU);
+						gdl = room0f15dab4(roomnum, gdl, VTXBATCHTYPE_XLU);
 					}
 				}
 
-				g_Rooms[roomnum].unk40 = (s16)s3;
+				g_Rooms[roomnum].numvtxbatches = (s16)batchindex;
 			}
 		}
 	}
@@ -12482,7 +12363,7 @@ glabel var7f1b75dc
 /*  f1612e0:	01a01025 */ 	or	$v0,$t5,$zero
 );
 
-s32 bg0f1612e4(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4, struct coord *arg5)
+s32 bg0f1612e4(struct coord *bbmin, struct coord *bbmax, struct coord *arg2, struct coord *arg3, struct coord *arg4, struct coord *arg5)
 {
 	s32 i;
 	u8 bail = true;
@@ -12492,13 +12373,13 @@ s32 bg0f1612e4(struct coord *arg0, struct coord *arg1, struct coord *arg2, struc
 	f32 sp2c[3];
 
 	for (i = 0; i < 3; i++) {
-		if (arg2->f[i] < arg0->f[i]) {
+		if (arg2->f[i] < bbmin->f[i]) {
 			sp48[i] = 1;
-			sp38[i] = arg0->f[i];
+			sp38[i] = bbmin->f[i];
 			bail = false;
-		} else if (arg1->f[i] < arg2->f[i]) {
+		} else if (bbmax->f[i] < arg2->f[i]) {
 			sp48[i] = 0;
-			sp38[i] = arg1->f[i];
+			sp38[i] = bbmax->f[i];
 			bail = false;
 		} else {
 			sp48[i] = 2;
@@ -12534,7 +12415,7 @@ s32 bg0f1612e4(struct coord *arg0, struct coord *arg1, struct coord *arg2, struc
 		if (bestindex != i) {
 			arg5->f[i] = arg2->f[i] + sp2c[bestindex] * arg3->f[i];
 
-			if (arg5->f[i] < arg0->f[i] || arg5->f[i] > arg1->f[i]) {
+			if (arg5->f[i] < bbmin->f[i] || arg5->f[i] > bbmax->f[i]) {
 				return 0;
 			}
 		} else {
@@ -12551,7 +12432,7 @@ bool func0f161520(struct coord *arg0, struct coord *arg1, s32 roomnum, struct hi
 	s32 count;
 	f32 f20;
 	s32 a0;
-	s32 spd4;
+	s32 numbatches;
 	s32 j;
 	f32 f0;
 	f32 spc8;
@@ -12560,9 +12441,9 @@ bool func0f161520(struct coord *arg0, struct coord *arg1, s32 roomnum, struct hi
 	struct coord spac;
 	struct coord spa0;
 	struct coord sp94;
-	struct room44 *sp90;
+	struct vtxbatch *batch;
 	struct hitthing sp60;
-	s32 tmp00;
+	s32 tmpindex;
 
 	count = 0;
 
@@ -12586,16 +12467,16 @@ bool func0f161520(struct coord *arg0, struct coord *arg1, s32 roomnum, struct hi
 		return false;
 	}
 
-	sp90 = g_Rooms[roomnum].unk44;
+	batch = g_Rooms[roomnum].vtxbatches;
 
-	if (sp90 == NULL) {
+	if (batch == NULL) {
 		return false;
 	}
 
-	spd4 = g_Rooms[roomnum].unk40;
+	numbatches = g_Rooms[roomnum].numvtxbatches;
 
-	for (i = 0; i < spd4; sp90++, i++) {
-		j = bg0f1612e4(&sp90->unk08, &sp90->unk14, &spb8, &spa0, &sp94, &hitthing->unk00);
+	for (i = 0; i < numbatches; batch++, i++) {
+		j = bg0f1612e4(&batch->bbmin, &batch->bbmax, &spb8, &spa0, &sp94, &hitthing->unk00);
 
 		if (j == 0) {
 			continue;
@@ -12621,23 +12502,23 @@ bool func0f161520(struct coord *arg0, struct coord *arg1, s32 roomnum, struct hi
 				f2 = var800a6538[j].unk04;
 
 				if (f2 > f20) {
-					tmp00 = var800a6538[j].unk00;
-					var800a6538[j].unk00 = a0;
-					a0 = tmp00;
+					tmpindex = var800a6538[j].vtxbatchindex;
+					var800a6538[j].vtxbatchindex = a0;
+					a0 = tmpindex;
 
 					var800a6538[j].unk04 = f20;
 					f20 = f2;
 				}
 			}
 
-			var800a6538[j].unk00 = a0;
+			var800a6538[j].vtxbatchindex = a0;
 			var800a6538[j].unk04 = f20;
 			count++;
 		} else {
 			count = 0;
 
 			for (j = 0; j < ARRAYCOUNT(var800a6538); j++) {
-				if (func0f160a38(&spb8, &spac, &spa0, &g_Rooms[roomnum].unk44[var800a6538[j].unk00], roomnum, hitthing)) {
+				if (func0f160a38(&spb8, &spac, &spa0, &g_Rooms[roomnum].vtxbatches[var800a6538[j].vtxbatchindex], roomnum, hitthing)) {
 					f0 = spb8.x - hitthing->unk00.x;
 					f2 = f0 * f0;
 
@@ -12648,11 +12529,11 @@ bool func0f161520(struct coord *arg0, struct coord *arg1, s32 roomnum, struct hi
 					f2 += f0 * f0;
 
 					if (count == 0) {
-						var800a6538[0].unk00 = var800a6538[j].unk00;
+						var800a6538[0].vtxbatchindex = var800a6538[j].vtxbatchindex;
 						var800a6538[0].unk04 = f2;
 						count = 1;
 					} else if (f2 < var800a6538[0].unk04) {
-						var800a6538[0].unk00 = var800a6538[j].unk00;
+						var800a6538[0].vtxbatchindex = var800a6538[j].vtxbatchindex;
 						var800a6538[0].unk04 = f2;
 						count = 1;
 					}
@@ -12663,16 +12544,16 @@ bool func0f161520(struct coord *arg0, struct coord *arg1, s32 roomnum, struct hi
 				if (f20 < var800a6538[0].unk04) {
 					var800a6538[1].unk04 = var800a6538[0].unk04;
 					var800a6538[0].unk04 = f20;
-					var800a6538[1].unk00 = var800a6538[0].unk00;
-					var800a6538[0].unk00 = i;
+					var800a6538[1].vtxbatchindex = var800a6538[0].vtxbatchindex;
+					var800a6538[0].vtxbatchindex = i;
 				} else {
-					var800a6538[1].unk00 = i;
+					var800a6538[1].vtxbatchindex = i;
 					var800a6538[1].unk04 = f20;
 				}
 
 				count = 2;
 			} else {
-				var800a6538[0].unk00 = i;
+				var800a6538[0].vtxbatchindex = i;
 				var800a6538[0].unk04 = f20;
 				count = 1;
 			}
@@ -12683,10 +12564,10 @@ bool func0f161520(struct coord *arg0, struct coord *arg1, s32 roomnum, struct hi
 		return false;
 	}
 
-	sp90 = g_Rooms[roomnum].unk44;
+	batch = g_Rooms[roomnum].vtxbatches;
 
 	for (i = 0; i < count; i++) {
-		if (func0f160a38(&spb8, &spac, &spa0, &sp90[var800a6538[i].unk00], roomnum, hitthing)) {
+		if (func0f160a38(&spb8, &spac, &spa0, &batch[var800a6538[i].vtxbatchindex], roomnum, hitthing)) {
 			i++;
 
 			if (i < count) {
@@ -12701,7 +12582,7 @@ bool func0f161520(struct coord *arg0, struct coord *arg1, s32 roomnum, struct hi
 
 				for (; i < count; i++) {
 					if (var800a6538[i].unk04 <= spc8) {
-						if (func0f160a38(&spb8, &spac, &spa0, &sp90[var800a6538[i].unk00], roomnum, &sp60)) {
+						if (func0f160a38(&spb8, &spac, &spa0, &batch[var800a6538[i].vtxbatchindex], roomnum, &sp60)) {
 							f0 = spb8.f[0] - sp60.unk00.f[0];
 							f20 = f0 * f0;
 
@@ -14419,7 +14300,7 @@ Gfx *func0f164150(Gfx *gdl)
 		}
 
 		if (bestroomnum != 0) {
-			roomLoad(bestroomnum);
+			bgLoadRoom(bestroomnum);
 			var8007fc28 = 64;
 		}
 	}

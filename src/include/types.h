@@ -3555,20 +3555,20 @@ struct roomgfxdata18 {
 struct roomgfxdata {
 	/*0x00*/ struct gfxvtx *vertices;
 	/*0x04*/ u32 *colours;
-	/*0x08*/ struct roomgfxdata18 *unk08;
-	/*0x0c*/ struct roomgfxdata18 *unk0c;
-	/*0x10*/ s16 unk10;
-	/*0x10*/ s16 unk12;
+	/*0x08*/ struct roomgfxdata18 *unk08; // opa
+	/*0x0c*/ struct roomgfxdata18 *unk0c; // xlu
+	/*0x10*/ s32 unk10;
 	/*0x14*/ s16 numvertices;
 	/*0x16*/ s16 numcolours;
 	/*0x18*/ struct roomgfxdata18 unk18[1];
 };
 
-struct room44 {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ struct coord unk08;
-	/*0x14*/ struct coord unk14;
+struct vtxbatch {
+	/*0x00*/ s16 gbicmdindex;
+	/*0x02*/ s16 type;
+	/*0x04*/ Gfx *gdl;
+	/*0x08*/ struct coord bbmin;
+	/*0x14*/ struct coord bbmax;
 };
 
 struct room {
@@ -3589,8 +3589,8 @@ struct room {
 	/*0x24*/ f32 bbmax[3];
 	/*0x30*/ struct coord centre;
 	/*0x3c*/ f32 radius; // from volume centre to the corner in 3D
-	/*0x40*/ s32 unk40;
-	/*0x44*/ struct room44 *unk44;
+	/*0x40*/ s32 numvtxbatches;
+	/*0x44*/ struct vtxbatch *vtxbatches;
 	/*0x48*/ u8 unk48;
 	/*0x49*/ u8 unk49;
 	/*0x4a*/ u8 unk4a;
@@ -6346,7 +6346,7 @@ struct portalthing2 {
 };
 
 struct var800a6538 {
-	s32 unk00;
+	s32 vtxbatchindex;
 	f32 unk04;
 };
 

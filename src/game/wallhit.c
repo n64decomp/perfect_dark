@@ -1839,7 +1839,7 @@ Gfx *wallhitRenderOpaBgHits(s32 roomnum, Gfx *gdl)
 	prevtexturenum = -1;
 	prev6b = -1;
 
-	gdl = room0f166d7c(gdl, roomnum);
+	gdl = roomPushMtx(gdl, roomnum);
 
 	wallhit = g_Rooms[roomnum].opawallhits;
 
@@ -1901,7 +1901,7 @@ Gfx *wallhitRenderXluBgHits(s32 roomnum, Gfx *gdl)
 	prevtexturenum = -1;
 	prev6b = -1;
 
-	gdl = room0f166d7c(gdl, roomnum);
+	gdl = roomPushMtx(gdl, roomnum);
 
 	wallhit = g_Rooms[roomnum].xluwallhits;
 
