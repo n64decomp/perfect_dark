@@ -5,7 +5,7 @@
 #include "types.h"
 
 void roomUnpauseProps(u32 roomnum, bool tintedglassonly);
-void func0f157e94(s32 room, s32 draworder, struct screenbox *arg2);
+void roomSetOnscreen(s32 room, s32 draworder, struct screenbox *arg2);
 void func0f158108(s32 roomnum, u8 *arg1, u8 *arg2);
 struct var800a4640_00 *func0f158140(s32 roomnum);
 u32 func0f158184(void);
@@ -40,13 +40,13 @@ Gfx *currentPlayerScissorWithinViewport(Gfx *gdl, s32 viewleft, s32 viewtop, s32
 void func0f15cd28(void);
 bool func0f15cd90(u32 room, struct screenbox *arg1);
 bool func0f15d08c(struct coord *a, struct coord *b);
-bool portal0f15d10c(s32 portal, struct screenbox *arg1);
+bool g_PortalGetScreenBbox(s32 portal, struct screenbox *arg1);
 Gfx *boxRenderBorder(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2);
 bool boxGetIntersection(struct screenbox *a, struct screenbox *b);
 void boxExpand(struct screenbox *a, struct screenbox *b);
 void boxCopy(struct screenbox *dst, struct screenbox *src);
-bool roomIsOnScreen(s32 room);
-bool roomIsOnStandby(s32 room);
+bool roomIsOnscreen(s32 room);
+bool roomIsStandby(s32 room);
 bool roomIsOnPlayerScreen(s32 room, u32 playernum);
 bool roomIsOnPlayerStandby(s32 room, u32 aibotindex);
 s32 portalFindNumByVertices(struct portalvertices *pvertices);
@@ -77,11 +77,11 @@ bool func0f161c08(struct coord *arg0, s16 roomnum);
 bool func0f161d30(struct coord *arg0, s16 roomnum);
 bool func0f162128(struct coord *arg0, s16 roomnum);
 void bgFindRoomsByPos(struct coord *pos, s16 *inrooms, s16 *aboverooms, s32 max, s16 *bestroom);
-bool portalPushValue(bool value);
-bool portalPopValue(void);
-bool portalGetNthValueFromEnd(s32 offset);
-struct portalcmd *portalCommandsExecute(struct portalcmd *cmd, bool s2);
-struct portalcmd *portalCommandsExecuteForCurrentPlayer(struct portalcmd *cmd);
+bool bgPushValue(bool value);
+bool bgPopValue(void);
+bool bgGetNthValueFromEnd(s32 offset);
+struct bgcmd *bgExecuteCommandsBranch(struct bgcmd *cmd, bool s2);
+struct bgcmd *bgExecuteCommands(struct bgcmd *cmd);
 u32 func0f162d9c(void);
 void func0f1632d4(s16 roomnum1, s16 roomnum2, s16 draworder, struct screenbox *box);
 void func0f163528(struct var800a4d00 *arg0);

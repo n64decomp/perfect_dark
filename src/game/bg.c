@@ -40,6 +40,39 @@
 #include "data.h"
 #include "types.h"
 
+#define BGCMD_END                               0x00
+#define BGCMD_PUSH                              0x01
+#define BGCMD_POP                               0x02
+#define BGCMD_AND                               0x03
+#define BGCMD_OR                                0x04
+#define BGCMD_NOT                               0x05
+#define BGCMD_XOR                               0x06
+#define BGCMD_PUSH_CAMINROOMRANGE               0x14
+#define BGCMD_SETRESULT_TRUE                    0x1e
+#define BGCMD_SETRESULT_IFPORTALINFOV           0x1f
+#define BGCMD_IFRESULT_SHOWROOM                 0x20
+#define BGCMD_SETRESULT_FALSE                   0x21
+#define BGCMD_SETRESULT_TRUEIFTHROUGHPORTAL     0x22
+#define BGCMD_SETRESULT_FALSEIFNOTTHROUGHPORTAL 0x23
+#define BGCMD_DISABLEROOM                       0x24
+#define BGCMD_DISABLEROOMRANGE                  0x25
+#define BGCMD_LOADROOM                          0x26
+#define BGCMD_LOADROOMRANGE                     0x27
+#define BGCMD_SETROOMTESTSDISABLED              0x28
+#define BGCMD_PUSH_PORTALISOPEN                 0x29
+#define BGCMD_2A                                0x2a
+#define BGCMD_BRANCH                            0x50
+#define BGCMD_THROW                             0x51
+#define BGCMD_CATCH                             0x52
+#define BGCMD_IF                                0x5a
+#define BGCMD_ELSE                              0x5b
+#define BGCMD_ENDIF                             0x5c
+#define BGCMD_PORTALARG                         0x64
+#define BGCMD_ROOMARG                           0x65
+
+#define BGRESULT_TRUE  0
+#define BGRESULT_FALSE 1
+
 struct var800a4640 var800a4640;
 u8 *g_BgPrimaryData;
 u32 var800a4920;
@@ -57,7 +90,7 @@ struct bgroom *g_BgRooms;
 struct bgportal *g_BgPortals;
 struct var800a4ccc *var800a4ccc;
 u8 *var800a4cd0;
-struct portalcmd *g_BgPortalCommands;
+struct bgcmd *g_BgCommands;
 u8 *g_BgLightsFileData;
 f32 *g_BgTable5;
 s16 *g_RoomPortals;
@@ -94,9 +127,9 @@ u32 var8007fc48 = 0xffff0000;
 u32 var8007fc4c = 0x00000000;
 u32 var8007fc50 = 0x00000000;
 u32 var8007fc54 = 0x00000000;
-bool g_PortalStack[20] = {0};
-s32 g_PortalStackIndex = 0x00000000;
-u32 g_PortalMode = 0x00000000;
+bool g_BgCmdStack[20] = {0};
+s32 g_BgCmdStackIndex = 0;
+u32 g_BgCmdResult = BGRESULT_TRUE;
 u32 var8007fcb0 = 0x00000190;
 f32 var8007fcb4 = 0;
 
@@ -139,7 +172,7 @@ void roomUnpauseProps(u32 roomnum, bool tintedglassonly)
 	}
 }
 
-void func0f157e94(s32 roomnum, s32 draworder, struct screenbox *box)
+void roomSetOnscreen(s32 roomnum, s32 draworder, struct screenbox *box)
 {
 	s32 index;
 
@@ -3780,9 +3813,9 @@ void bgReset(s32 stagenum)
 		g_BgPortals = (struct bgportal *)(g_BgPrimaryData2[2] + g_BgPrimaryData + 0xf1000000);
 
 		if (g_BgPrimaryData2[3] == 0) {
-			g_BgPortalCommands = NULL;
+			g_BgCommands = NULL;
 		} else {
-			g_BgPortalCommands = (struct portalcmd *)(g_BgPrimaryData2[3] + g_BgPrimaryData + 0xf1000000);
+			g_BgCommands = (struct bgcmd *)(g_BgPrimaryData2[3] + g_BgPrimaryData + 0xf1000000);
 		}
 
 		if (g_BgPrimaryData2[4] == 0) {
@@ -4628,8 +4661,8 @@ glabel var7f1b75d0
 .L0f15c178:
 /*  f15c178:	0fc2d96a */ 	jal	portal0f0b65a8
 /*  f15c17c:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f15c180:	3c1e800a */ 	lui	$s8,%hi(g_BgPortalCommands)
-/*  f15c184:	27de4cd4 */ 	addiu	$s8,$s8,%lo(g_BgPortalCommands)
+/*  f15c180:	3c1e800a */ 	lui	$s8,%hi(g_BgCommands)
+/*  f15c184:	27de4cd4 */ 	addiu	$s8,$s8,%lo(g_BgCommands)
 /*  f15c188:	8fc30000 */ 	lw	$v1,0x0($s8)
 /*  f15c18c:	1060001c */ 	beqz	$v1,.L0f15c200
 /*  f15c190:	00000000 */ 	nop
@@ -5692,8 +5725,8 @@ glabel var7f1b75d0
 .L0f15bf3c:
 /*  f15bf3c:	0fc2d96a */ 	jal	portal0f0b65a8
 /*  f15bf40:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f15bf44:	3c1e800a */ 	lui	$s8,%hi(g_BgPortalCommands)
-/*  f15bf48:	27de4cd4 */ 	addiu	$s8,$s8,%lo(g_BgPortalCommands)
+/*  f15bf44:	3c1e800a */ 	lui	$s8,%hi(g_BgCommands)
+/*  f15bf48:	27de4cd4 */ 	addiu	$s8,$s8,%lo(g_BgCommands)
 /*  f15bf4c:	8fc30000 */ 	lw	$v1,0x0($s8)
 /*  f15bf50:	1060001c */ 	beqz	$v1,.L0f15bfc4
 /*  f15bf54:	00000000 */ 	nop
@@ -7487,10 +7520,10 @@ glabel var7f1b75d0
 //		portal0f0b65a8(numportals);
 //
 //		// 1a0
-//		if (g_BgPortalCommands != NULL) {
-//			for (s4 = 0; g_BgPortalCommands[s4].type != PORTALCMD_END; s4++) { // might not be s4
-//				if (g_BgPortalCommands[s4].type == PORTALCMD_64) {
-//					g_BgPortalCommands[s4].param = portalFindNumByVertices((void *)(g_BgPortalCommands[s4].param + (u32)g_BgPrimaryData + 0xf1000000));
+//		if (g_BgCommands != NULL) {
+//			for (s4 = 0; g_BgCommands[s4].type != BGCMD_END; s4++) { // might not be s4
+//				if (g_BgCommands[s4].type == BGCMD_PORTALARG) {
+//					g_BgCommands[s4].param = portalFindNumByVertices((void *)(g_BgCommands[s4].param + (u32)g_BgPrimaryData + 0xf1000000));
 //				}
 //			}
 //		}
@@ -7926,7 +7959,7 @@ bool func0f15d08c(struct coord *a, struct coord *b)
 	return true;
 }
 
-bool portal0f15d10c(s32 portalnum, struct screenbox *box)
+bool g_PortalGetScreenBbox(s32 portalnum, struct screenbox *box)
 {
 	s32 i;
 	s32 j;
@@ -8082,7 +8115,7 @@ void boxCopy(struct screenbox *dst, struct screenbox *src)
 	dst->ymax = src->ymax;
 }
 
-bool roomIsOnScreen(s32 room)
+bool roomIsOnscreen(s32 room)
 {
 	if (g_Vars.mplayerisrunning) {
 		return (g_MpRoomVisibility[room] & 0xf) != 0;
@@ -8091,7 +8124,7 @@ bool roomIsOnScreen(s32 room)
 	return g_Rooms[room].flags & ROOMFLAG_ONSCREEN;
 }
 
-bool roomIsOnStandby(s32 room)
+bool roomIsStandby(s32 room)
 {
 	if (g_Vars.mplayerisrunning) {
 		return (g_MpRoomVisibility[room] & 0xf0) != 0;
@@ -13450,859 +13483,294 @@ void bgFindRoomsByPos(struct coord *posarg, s16 *inrooms, s16 *aboverooms, s32 m
 	}
 }
 
-bool portalPushValue(bool value)
+bool bgPushValue(bool value)
 {
-	g_PortalStack[g_PortalStackIndex] = value;
-	g_PortalStackIndex = (g_PortalStackIndex + 1) % 20;
+	g_BgCmdStack[g_BgCmdStackIndex] = value;
+	g_BgCmdStackIndex = (g_BgCmdStackIndex + 1) % 20;
 
 	return value;
 }
 
-bool portalPopValue(void)
+bool bgPopValue(void)
 {
-	bool val = g_PortalStack[g_PortalStackIndex = (g_PortalStackIndex + 19) % 20];
+	bool val = g_BgCmdStack[g_BgCmdStackIndex = (g_BgCmdStackIndex + 19) % 20];
 	return val;
 }
 
-bool portalGetNthValueFromEnd(s32 n)
+bool bgGetNthValueFromEnd(s32 n)
 {
-	return g_PortalStack[((g_PortalStackIndex - n) + 19) % 20];
+	return g_BgCmdStack[((g_BgCmdStackIndex - n) + 19) % 20];
 }
 
-GLOBAL_ASM(
-glabel portalCommandsExecute
-.late_rodata
-glabel var7f1b75e0
-.word portalCommandsExecute+0x614 # f162c00
-glabel var7f1b75e4
-.word portalCommandsExecute+0x650 # f162c3c
-glabel var7f1b75e8
-.word portalCommandsExecute+0x638 # f162c24
-glabel var7f1b75ec
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b75f0
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b75f4
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b75f8
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b75fc
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7600
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7604
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7608
-.word portalCommandsExecute+0x674 # f162c60
-glabel var7f1b760c
-.word portalCommandsExecute+0x6ac # f162c98
-glabel var7f1b7610
-.word portalCommandsExecute+0x6c4 # f162cb0
-glabel var7f1b7614
-.word portalCommandsExecute+0xb8 # f1626a4
-glabel var7f1b7618
-.word portalCommandsExecute+0xc0 # f1626ac
-glabel var7f1b761c
-.word portalCommandsExecute+0xe0 # f1626cc
-glabel var7f1b7620
-.word portalCommandsExecute+0x100 # f1626ec
-glabel var7f1b7624
-.word portalCommandsExecute+0x130 # f16271c
-glabel var7f1b7628
-.word portalCommandsExecute+0x160 # f16274c
-glabel var7f1b762c
-.word portalCommandsExecute+0x188 # f162774
-glabel var7f1b7630
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7634
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7638
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b763c
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7640
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7644
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7648
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b764c
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7650
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7654
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7658
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b765c
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7660
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7664
-.word portalCommandsExecute+0x1b8 # f1627a4
-glabel var7f1b7668
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b766c
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7670
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7674
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7678
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b767c
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7680
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7684
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b7688
-.word portalCommandsExecute+0x6d4 # f162cc0
-glabel var7f1b768c
-.word portalCommandsExecute+0x1fc # f1627e8
-glabel var7f1b7690
-.word portalCommandsExecute+0x26c # f162858
-glabel var7f1b7694
-.word portalCommandsExecute+0x418 # f162a04
-glabel var7f1b7698
-.word portalCommandsExecute+0x5f8 # f162be4
-glabel var7f1b769c
-.word portalCommandsExecute+0x2e8 # f1628d4
-glabel var7f1b76a0
-.word portalCommandsExecute+0x374 # f162960
-glabel var7f1b76a4
-.word portalCommandsExecute+0x484 # f162a70
-glabel var7f1b76a8
-.word portalCommandsExecute+0x4c8 # f162ab4
-glabel var7f1b76ac
-.word portalCommandsExecute+0x530 # f162b1c
-glabel var7f1b76b0
-.word portalCommandsExecute+0x540 # f162b2c
-glabel var7f1b76b4
-.word portalCommandsExecute+0x550 # f162b3c
-glabel var7f1b76b8
-.word portalCommandsExecute+0x56c # f162b58
-glabel var7f1b76bc
-.word portalCommandsExecute+0x5bc # f162ba8
-.text
-/*  f1625ec:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f1625f0:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f1625f4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f1625f8:	3c01800a */ 	lui	$at,%hi(g_PortalDisableParentExec)
-/*  f1625fc:	00808025 */ 	or	$s0,$a0,$zero
-/*  f162600:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f162604:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f162608:	afb70030 */ 	sw	$s7,0x30($sp)
-/*  f16260c:	afb6002c */ 	sw	$s6,0x2c($sp)
-/*  f162610:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f162614:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f162618:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f16261c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f162620:	14800003 */ 	bnez	$a0,.L0f162630
-/*  f162624:	ac2065d0 */ 	sw	$zero,%lo(g_PortalDisableParentExec)($at)
-/*  f162628:	100001a6 */ 	b	.L0f162cc4
-/*  f16262c:	00801025 */ 	or	$v0,$a0,$zero
-.L0f162630:
-/*  f162630:	3c17800a */ 	lui	$s7,%hi(g_BgPortals)
-/*  f162634:	3c15800a */ 	lui	$s5,%hi(var800a65c0)
-/*  f162638:	3c14800a */ 	lui	$s4,%hi(g_Rooms)
-/*  f16263c:	3c138008 */ 	lui	$s3,%hi(g_PortalMode)
-/*  f162640:	2673fcac */ 	addiu	$s3,$s3,%lo(g_PortalMode)
-/*  f162644:	26944928 */ 	addiu	$s4,$s4,%lo(g_Rooms)
-/*  f162648:	26b565c0 */ 	addiu	$s5,$s5,%lo(var800a65c0)
-/*  f16264c:	26f74cc8 */ 	addiu	$s7,$s7,%lo(g_BgPortals)
-/*  f162650:	24160001 */ 	addiu	$s6,$zero,0x1
-.L0f162654:
-/*  f162654:	92040000 */ 	lbu	$a0,0x0($s0)
-.L0f162658:
-/*  f162658:	2881002b */ 	slti	$at,$a0,0x2b
-/*  f16265c:	14200009 */ 	bnez	$at,.L0f162684
-/*  f162660:	248effb0 */ 	addiu	$t6,$a0,-80
-/*  f162664:	2dc1000d */ 	sltiu	$at,$t6,0xd
-/*  f162668:	10200195 */ 	beqz	$at,.L0f162cc0
-/*  f16266c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f162670:	3c017f1b */ 	lui	$at,%hi(var7f1b75e0)
-/*  f162674:	002e0821 */ 	addu	$at,$at,$t6
-/*  f162678:	8c2e75e0 */ 	lw	$t6,%lo(var7f1b75e0)($at)
-/*  f16267c:	01c00008 */ 	jr	$t6
-/*  f162680:	00000000 */ 	nop
-.L0f162684:
-/*  f162684:	2c81002b */ 	sltiu	$at,$a0,0x2b
-/*  f162688:	1020018d */ 	beqz	$at,.L0f162cc0
-/*  f16268c:	00047880 */ 	sll	$t7,$a0,0x2
-/*  f162690:	3c017f1b */ 	lui	$at,%hi(var7f1b7614)
-/*  f162694:	002f0821 */ 	addu	$at,$at,$t7
-/*  f162698:	8c2f7614 */ 	lw	$t7,%lo(var7f1b7614)($at)
-/*  f16269c:	01e00008 */ 	jr	$t7
-/*  f1626a0:	00000000 */ 	nop
-/*  f1626a4:	10000187 */ 	b	.L0f162cc4
-/*  f1626a8:	02001025 */ 	or	$v0,$s0,$zero
-/*  f1626ac:	52400004 */ 	beqzl	$s2,.L0f1626c0
-/*  f1626b0:	92180001 */ 	lbu	$t8,0x1($s0)
-/*  f1626b4:	0fc58953 */ 	jal	portalPushValue
-/*  f1626b8:	8e040004 */ 	lw	$a0,0x4($s0)
-/*  f1626bc:	92180001 */ 	lbu	$t8,0x1($s0)
-.L0f1626c0:
-/*  f1626c0:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f1626c4:	1000ffe3 */ 	b	.L0f162654
-/*  f1626c8:	02198021 */ 	addu	$s0,$s0,$t9
-/*  f1626cc:	52400004 */ 	beqzl	$s2,.L0f1626e0
-/*  f1626d0:	92080001 */ 	lbu	$t0,0x1($s0)
-/*  f1626d4:	0fc58962 */ 	jal	portalPopValue
-/*  f1626d8:	00000000 */ 	nop
-/*  f1626dc:	92080001 */ 	lbu	$t0,0x1($s0)
-.L0f1626e0:
-/*  f1626e0:	000848c0 */ 	sll	$t1,$t0,0x3
-/*  f1626e4:	1000ffdb */ 	b	.L0f162654
-/*  f1626e8:	02098021 */ 	addu	$s0,$s0,$t1
-/*  f1626ec:	52400008 */ 	beqzl	$s2,.L0f162710
-/*  f1626f0:	920a0001 */ 	lbu	$t2,0x1($s0)
-/*  f1626f4:	0fc58962 */ 	jal	portalPopValue
-/*  f1626f8:	00000000 */ 	nop
-/*  f1626fc:	0fc58962 */ 	jal	portalPopValue
-/*  f162700:	00408825 */ 	or	$s1,$v0,$zero
-/*  f162704:	0fc58953 */ 	jal	portalPushValue
-/*  f162708:	00512024 */ 	and	$a0,$v0,$s1
-/*  f16270c:	920a0001 */ 	lbu	$t2,0x1($s0)
-.L0f162710:
-/*  f162710:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f162714:	1000ffcf */ 	b	.L0f162654
-/*  f162718:	020b8021 */ 	addu	$s0,$s0,$t3
-/*  f16271c:	52400008 */ 	beqzl	$s2,.L0f162740
-/*  f162720:	920c0001 */ 	lbu	$t4,0x1($s0)
-/*  f162724:	0fc58962 */ 	jal	portalPopValue
-/*  f162728:	00000000 */ 	nop
-/*  f16272c:	0fc58962 */ 	jal	portalPopValue
-/*  f162730:	00408825 */ 	or	$s1,$v0,$zero
-/*  f162734:	0fc58953 */ 	jal	portalPushValue
-/*  f162738:	00512025 */ 	or	$a0,$v0,$s1
-/*  f16273c:	920c0001 */ 	lbu	$t4,0x1($s0)
-.L0f162740:
-/*  f162740:	000c68c0 */ 	sll	$t5,$t4,0x3
-/*  f162744:	1000ffc3 */ 	b	.L0f162654
-/*  f162748:	020d8021 */ 	addu	$s0,$s0,$t5
-/*  f16274c:	52400006 */ 	beqzl	$s2,.L0f162768
-/*  f162750:	920e0001 */ 	lbu	$t6,0x1($s0)
-/*  f162754:	0fc58962 */ 	jal	portalPopValue
-/*  f162758:	00000000 */ 	nop
-/*  f16275c:	0fc58953 */ 	jal	portalPushValue
-/*  f162760:	2c440001 */ 	sltiu	$a0,$v0,0x1
-/*  f162764:	920e0001 */ 	lbu	$t6,0x1($s0)
-.L0f162768:
-/*  f162768:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f16276c:	1000ffb9 */ 	b	.L0f162654
-/*  f162770:	020f8021 */ 	addu	$s0,$s0,$t7
-/*  f162774:	52400008 */ 	beqzl	$s2,.L0f162798
-/*  f162778:	92180001 */ 	lbu	$t8,0x1($s0)
-/*  f16277c:	0fc58962 */ 	jal	portalPopValue
-/*  f162780:	00000000 */ 	nop
-/*  f162784:	0fc58962 */ 	jal	portalPopValue
-/*  f162788:	00408825 */ 	or	$s1,$v0,$zero
-/*  f16278c:	0fc58953 */ 	jal	portalPushValue
-/*  f162790:	00512026 */ 	xor	$a0,$v0,$s1
-/*  f162794:	92180001 */ 	lbu	$t8,0x1($s0)
-.L0f162798:
-/*  f162798:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f16279c:	1000ffad */ 	b	.L0f162654
-/*  f1627a0:	02198021 */ 	addu	$s0,$s0,$t9
-/*  f1627a4:	1240000c */ 	beqz	$s2,.L0f1627d8
-/*  f1627a8:	3c028008 */ 	lui	$v0,%hi(g_CamRoom)
-/*  f1627ac:	8c42fc20 */ 	lw	$v0,%lo(g_CamRoom)($v0)
-/*  f1627b0:	8e08000c */ 	lw	$t0,0xc($s0)
-/*  f1627b4:	0048202a */ 	slt	$a0,$v0,$t0
-/*  f1627b8:	38840001 */ 	xori	$a0,$a0,0x1
-/*  f1627bc:	10800004 */ 	beqz	$a0,.L0f1627d0
-/*  f1627c0:	00000000 */ 	nop
-/*  f1627c4:	8e090014 */ 	lw	$t1,0x14($s0)
-/*  f1627c8:	0122202a */ 	slt	$a0,$t1,$v0
-/*  f1627cc:	38840001 */ 	xori	$a0,$a0,0x1
-.L0f1627d0:
-/*  f1627d0:	0fc58953 */ 	jal	portalPushValue
-/*  f1627d4:	00000000 */ 	nop
-.L0f1627d8:
-/*  f1627d8:	920a0001 */ 	lbu	$t2,0x1($s0)
-/*  f1627dc:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f1627e0:	1000ff9c */ 	b	.L0f162654
-/*  f1627e4:	020b8021 */ 	addu	$s0,$s0,$t3
-/*  f1627e8:	12400017 */ 	beqz	$s2,.L0f162848
-/*  f1627ec:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f1627f0:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f1627f4:	c4441794 */ 	lwc1	$f4,0x1794($v0)
-/*  f1627f8:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f1627fc:	440d3000 */ 	mfc1	$t5,$f6
-/*  f162800:	00000000 */ 	nop
-/*  f162804:	a6ad0000 */ 	sh	$t5,0x0($s5)
-/*  f162808:	c4481798 */ 	lwc1	$f8,0x1798($v0)
-/*  f16280c:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f162810:	440f5000 */ 	mfc1	$t7,$f10
-/*  f162814:	00000000 */ 	nop
-/*  f162818:	a6af0002 */ 	sh	$t7,0x2($s5)
-/*  f16281c:	c450179c */ 	lwc1	$f16,0x179c($v0)
-/*  f162820:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f162824:	44199000 */ 	mfc1	$t9,$f18
-/*  f162828:	00000000 */ 	nop
-/*  f16282c:	a6b90004 */ 	sh	$t9,0x4($s5)
-/*  f162830:	c44417a0 */ 	lwc1	$f4,0x17a0($v0)
-/*  f162834:	ae600000 */ 	sw	$zero,0x0($s3)
-/*  f162838:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f16283c:	44093000 */ 	mfc1	$t1,$f6
-/*  f162840:	00000000 */ 	nop
-/*  f162844:	a6a90006 */ 	sh	$t1,0x6($s5)
-.L0f162848:
-/*  f162848:	920a0001 */ 	lbu	$t2,0x1($s0)
-/*  f16284c:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f162850:	1000ff80 */ 	b	.L0f162654
-/*  f162854:	020b8021 */ 	addu	$s0,$s0,$t3
-/*  f162858:	5240001b */ 	beqzl	$s2,.L0f1628c8
-/*  f16285c:	92190001 */ 	lbu	$t9,0x1($s0)
-/*  f162860:	8e04000c */ 	lw	$a0,0xc($s0)
-/*  f162864:	8eec0000 */ 	lw	$t4,0x0($s7)
-/*  f162868:	3c05800a */ 	lui	$a1,%hi(var800a65c8)
-/*  f16286c:	000468c0 */ 	sll	$t5,$a0,0x3
-/*  f162870:	018d7021 */ 	addu	$t6,$t4,$t5
-/*  f162874:	91c20006 */ 	lbu	$v0,0x6($t6)
-/*  f162878:	304f0001 */ 	andi	$t7,$v0,0x1
-/*  f16287c:	11e00003 */ 	beqz	$t7,.L0f16288c
-/*  f162880:	30580004 */ 	andi	$t8,$v0,0x4
-/*  f162884:	53000010 */ 	beqzl	$t8,.L0f1628c8
-/*  f162888:	92190001 */ 	lbu	$t9,0x1($s0)
-.L0f16288c:
-/*  f16288c:	0fc57443 */ 	jal	portal0f15d10c
-/*  f162890:	24a565c8 */ 	addiu	$a1,$a1,%lo(var800a65c8)
-/*  f162894:	14400003 */ 	bnez	$v0,.L0f1628a4
-/*  f162898:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f16289c:	10000009 */ 	b	.L0f1628c4
-/*  f1628a0:	ae760000 */ 	sw	$s6,0x0($s3)
-.L0f1628a4:
-/*  f1628a4:	3c05800a */ 	lui	$a1,%hi(var800a65c8)
-/*  f1628a8:	0fc5755c */ 	jal	boxGetIntersection
-/*  f1628ac:	24a565c8 */ 	addiu	$a1,$a1,%lo(var800a65c8)
-/*  f1628b0:	54400004 */ 	bnezl	$v0,.L0f1628c4
-/*  f1628b4:	ae600000 */ 	sw	$zero,0x0($s3)
-/*  f1628b8:	10000002 */ 	b	.L0f1628c4
-/*  f1628bc:	ae760000 */ 	sw	$s6,0x0($s3)
-/*  f1628c0:	ae600000 */ 	sw	$zero,0x0($s3)
-.L0f1628c4:
-/*  f1628c4:	92190001 */ 	lbu	$t9,0x1($s0)
-.L0f1628c8:
-/*  f1628c8:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f1628cc:	1000ff61 */ 	b	.L0f162654
-/*  f1628d0:	02088021 */ 	addu	$s0,$s0,$t0
-/*  f1628d4:	5240001f */ 	beqzl	$s2,.L0f162954
-/*  f1628d8:	920f0001 */ 	lbu	$t7,0x1($s0)
-/*  f1628dc:	8e04000c */ 	lw	$a0,0xc($s0)
-/*  f1628e0:	8ee90000 */ 	lw	$t1,0x0($s7)
-/*  f1628e4:	000450c0 */ 	sll	$t2,$a0,0x3
-/*  f1628e8:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f1628ec:	91620006 */ 	lbu	$v0,0x6($t3)
-/*  f1628f0:	304c0001 */ 	andi	$t4,$v0,0x1
-/*  f1628f4:	11800003 */ 	beqz	$t4,.L0f162904
-/*  f1628f8:	304d0004 */ 	andi	$t5,$v0,0x4
-/*  f1628fc:	51a00015 */ 	beqzl	$t5,.L0f162954
-/*  f162900:	920f0001 */ 	lbu	$t7,0x1($s0)
-.L0f162904:
-/*  f162904:	0fc57443 */ 	jal	portal0f15d10c
-/*  f162908:	27a50054 */ 	addiu	$a1,$sp,0x54
-/*  f16290c:	10400010 */ 	beqz	$v0,.L0f162950
-/*  f162910:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f162914:	0fc5755c */ 	jal	boxGetIntersection
-/*  f162918:	27a50054 */ 	addiu	$a1,$sp,0x54
-/*  f16291c:	5040000d */ 	beqzl	$v0,.L0f162954
-/*  f162920:	920f0001 */ 	lbu	$t7,0x1($s0)
-/*  f162924:	8e6e0000 */ 	lw	$t6,0x0($s3)
-/*  f162928:	27a50054 */ 	addiu	$a1,$sp,0x54
-/*  f16292c:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f162930:	11c00005 */ 	beqz	$t6,.L0f162948
-/*  f162934:	00000000 */ 	nop
-/*  f162938:	0fc575b1 */ 	jal	boxCopy
-/*  f16293c:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f162940:	10000003 */ 	b	.L0f162950
-/*  f162944:	ae600000 */ 	sw	$zero,0x0($s3)
-.L0f162948:
-/*  f162948:	0fc5758f */ 	jal	boxExpand
-/*  f16294c:	27a50054 */ 	addiu	$a1,$sp,0x54
-.L0f162950:
-/*  f162950:	920f0001 */ 	lbu	$t7,0x1($s0)
-.L0f162954:
-/*  f162954:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f162958:	1000ff3e */ 	b	.L0f162654
-/*  f16295c:	02188021 */ 	addu	$s0,$s0,$t8
-/*  f162960:	52400025 */ 	beqzl	$s2,.L0f1629f8
-/*  f162964:	920d0001 */ 	lbu	$t5,0x1($s0)
-/*  f162968:	8e790000 */ 	lw	$t9,0x0($s3)
-/*  f16296c:	57200022 */ 	bnezl	$t9,.L0f1629f8
-/*  f162970:	920d0001 */ 	lbu	$t5,0x1($s0)
-/*  f162974:	8e04000c */ 	lw	$a0,0xc($s0)
-/*  f162978:	8ee80000 */ 	lw	$t0,0x0($s7)
-/*  f16297c:	000448c0 */ 	sll	$t1,$a0,0x3
-/*  f162980:	01095021 */ 	addu	$t2,$t0,$t1
-/*  f162984:	91420006 */ 	lbu	$v0,0x6($t2)
-/*  f162988:	304b0001 */ 	andi	$t3,$v0,0x1
-/*  f16298c:	11600005 */ 	beqz	$t3,.L0f1629a4
-/*  f162990:	304c0004 */ 	andi	$t4,$v0,0x4
-/*  f162994:	15800003 */ 	bnez	$t4,.L0f1629a4
-/*  f162998:	00000000 */ 	nop
-/*  f16299c:	10000015 */ 	b	.L0f1629f4
-/*  f1629a0:	ae760000 */ 	sw	$s6,0x0($s3)
-.L0f1629a4:
-/*  f1629a4:	0fc57443 */ 	jal	portal0f15d10c
-/*  f1629a8:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f1629ac:	14400003 */ 	bnez	$v0,.L0f1629bc
-/*  f1629b0:	3c05800a */ 	lui	$a1,%hi(g_Vars+0x284)
-/*  f1629b4:	1000000f */ 	b	.L0f1629f4
-/*  f1629b8:	ae760000 */ 	sw	$s6,0x0($s3)
-.L0f1629bc:
-/*  f1629bc:	8ca5a244 */ 	lw	$a1,%lo(g_Vars+0x284)($a1)
-/*  f1629c0:	27a4004c */ 	addiu	$a0,$sp,0x4c
-/*  f1629c4:	0fc5755c */ 	jal	boxGetIntersection
-/*  f1629c8:	24a51794 */ 	addiu	$a1,$a1,6036
-/*  f1629cc:	14400003 */ 	bnez	$v0,.L0f1629dc
-/*  f1629d0:	3c04800a */ 	lui	$a0,%hi(var800a65c8)
-/*  f1629d4:	10000007 */ 	b	.L0f1629f4
-/*  f1629d8:	ae760000 */ 	sw	$s6,0x0($s3)
-.L0f1629dc:
-/*  f1629dc:	248465c8 */ 	addiu	$a0,$a0,%lo(var800a65c8)
-/*  f1629e0:	0fc5755c */ 	jal	boxGetIntersection
-/*  f1629e4:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f1629e8:	54400003 */ 	bnezl	$v0,.L0f1629f8
-/*  f1629ec:	920d0001 */ 	lbu	$t5,0x1($s0)
-/*  f1629f0:	ae760000 */ 	sw	$s6,0x0($s3)
-.L0f1629f4:
-/*  f1629f4:	920d0001 */ 	lbu	$t5,0x1($s0)
-.L0f1629f8:
-/*  f1629f8:	000d70c0 */ 	sll	$t6,$t5,0x3
-/*  f1629fc:	1000ff15 */ 	b	.L0f162654
-/*  f162a00:	020e8021 */ 	addu	$s0,$s0,$t6
-/*  f162a04:	52400017 */ 	beqzl	$s2,.L0f162a64
-/*  f162a08:	92090001 */ 	lbu	$t1,0x1($s0)
-/*  f162a0c:	8e6f0000 */ 	lw	$t7,0x0($s3)
-/*  f162a10:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f162a14:	55e00013 */ 	bnezl	$t7,.L0f162a64
-/*  f162a18:	92090001 */ 	lbu	$t1,0x1($s0)
-/*  f162a1c:	0fc57364 */ 	jal	func0f15cd90
-/*  f162a20:	8e04000c */ 	lw	$a0,0xc($s0)
-/*  f162a24:	1040000e */ 	beqz	$v0,.L0f162a60
-/*  f162a28:	00002825 */ 	or	$a1,$zero,$zero
-/*  f162a2c:	8e04000c */ 	lw	$a0,0xc($s0)
-/*  f162a30:	0fc55fa5 */ 	jal	func0f157e94
-/*  f162a34:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f162a38:	3c02800a */ 	lui	$v0,%hi(g_NumActiveRooms)
-/*  f162a3c:	8c424bec */ 	lw	$v0,%lo(g_NumActiveRooms)($v0)
-/*  f162a40:	8e18000c */ 	lw	$t8,0xc($s0)
-/*  f162a44:	3c01800a */ 	lui	$at,%hi(g_ActiveRoomNums)
-/*  f162a48:	0002c840 */ 	sll	$t9,$v0,0x1
-/*  f162a4c:	00390821 */ 	addu	$at,$at,$t9
-/*  f162a50:	a4384930 */ 	sh	$t8,%lo(g_ActiveRoomNums)($at)
-/*  f162a54:	3c01800a */ 	lui	$at,%hi(g_NumActiveRooms)
-/*  f162a58:	24480001 */ 	addiu	$t0,$v0,0x1
-/*  f162a5c:	ac284bec */ 	sw	$t0,%lo(g_NumActiveRooms)($at)
-.L0f162a60:
-/*  f162a60:	92090001 */ 	lbu	$t1,0x1($s0)
-.L0f162a64:
-/*  f162a64:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f162a68:	1000fefa */ 	b	.L0f162654
-/*  f162a6c:	020a8021 */ 	addu	$s0,$s0,$t2
-/*  f162a70:	5240000d */ 	beqzl	$s2,.L0f162aa8
-/*  f162a74:	92180001 */ 	lbu	$t8,0x1($s0)
-/*  f162a78:	8e0c000c */ 	lw	$t4,0xc($s0)
-/*  f162a7c:	8e8b0000 */ 	lw	$t3,0x0($s4)
-/*  f162a80:	000c68c0 */ 	sll	$t5,$t4,0x3
-/*  f162a84:	01ac6821 */ 	addu	$t5,$t5,$t4
-/*  f162a88:	000d6880 */ 	sll	$t5,$t5,0x2
-/*  f162a8c:	01ac6823 */ 	subu	$t5,$t5,$t4
-/*  f162a90:	000d6880 */ 	sll	$t5,$t5,0x2
-/*  f162a94:	016d1021 */ 	addu	$v0,$t3,$t5
-/*  f162a98:	944e0000 */ 	lhu	$t6,0x0($v0)
-/*  f162a9c:	35cf0001 */ 	ori	$t7,$t6,0x1
-/*  f162aa0:	a44f0000 */ 	sh	$t7,0x0($v0)
-/*  f162aa4:	92180001 */ 	lbu	$t8,0x1($s0)
-.L0f162aa8:
-/*  f162aa8:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f162aac:	1000fee9 */ 	b	.L0f162654
-/*  f162ab0:	02198021 */ 	addu	$s0,$s0,$t9
-/*  f162ab4:	52400016 */ 	beqzl	$s2,.L0f162b10
-/*  f162ab8:	920d0001 */ 	lbu	$t5,0x1($s0)
-/*  f162abc:	8e03000c */ 	lw	$v1,0xc($s0)
-/*  f162ac0:	8e080014 */ 	lw	$t0,0x14($s0)
-/*  f162ac4:	000320c0 */ 	sll	$a0,$v1,0x3
-/*  f162ac8:	0103082a */ 	slt	$at,$t0,$v1
-/*  f162acc:	1420000f */ 	bnez	$at,.L0f162b0c
-/*  f162ad0:	00832021 */ 	addu	$a0,$a0,$v1
-/*  f162ad4:	00042080 */ 	sll	$a0,$a0,0x2
-/*  f162ad8:	00832023 */ 	subu	$a0,$a0,$v1
-/*  f162adc:	00042080 */ 	sll	$a0,$a0,0x2
-/*  f162ae0:	8e890000 */ 	lw	$t1,0x0($s4)
-.L0f162ae4:
-/*  f162ae4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f162ae8:	01241021 */ 	addu	$v0,$t1,$a0
-/*  f162aec:	944a0000 */ 	lhu	$t2,0x0($v0)
-/*  f162af0:	2484008c */ 	addiu	$a0,$a0,0x8c
-/*  f162af4:	354c0001 */ 	ori	$t4,$t2,0x1
-/*  f162af8:	a44c0000 */ 	sh	$t4,0x0($v0)
-/*  f162afc:	8e0b0014 */ 	lw	$t3,0x14($s0)
-/*  f162b00:	0163082a */ 	slt	$at,$t3,$v1
-/*  f162b04:	5020fff7 */ 	beqzl	$at,.L0f162ae4
-/*  f162b08:	8e890000 */ 	lw	$t1,0x0($s4)
-.L0f162b0c:
-/*  f162b0c:	920d0001 */ 	lbu	$t5,0x1($s0)
-.L0f162b10:
-/*  f162b10:	000d70c0 */ 	sll	$t6,$t5,0x3
-/*  f162b14:	1000fecf */ 	b	.L0f162654
-/*  f162b18:	020e8021 */ 	addu	$s0,$s0,$t6
-/*  f162b1c:	920f0001 */ 	lbu	$t7,0x1($s0)
-/*  f162b20:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f162b24:	1000fecb */ 	b	.L0f162654
-/*  f162b28:	02188021 */ 	addu	$s0,$s0,$t8
-/*  f162b2c:	92190001 */ 	lbu	$t9,0x1($s0)
-/*  f162b30:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f162b34:	1000fec7 */ 	b	.L0f162654
-/*  f162b38:	02088021 */ 	addu	$s0,$s0,$t0
-/*  f162b3c:	12400002 */ 	beqz	$s2,.L0f162b48
-/*  f162b40:	3c01800a */ 	lui	$at,%hi(var800a65b8)
-/*  f162b44:	ac3665b8 */ 	sw	$s6,%lo(var800a65b8)($at)
-.L0f162b48:
-/*  f162b48:	92090001 */ 	lbu	$t1,0x1($s0)
-/*  f162b4c:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f162b50:	1000fec0 */ 	b	.L0f162654
-/*  f162b54:	020a8021 */ 	addu	$s0,$s0,$t2
-/*  f162b58:	52400010 */ 	beqzl	$s2,.L0f162b9c
-/*  f162b5c:	92190001 */ 	lbu	$t9,0x1($s0)
-/*  f162b60:	8e0b000c */ 	lw	$t3,0xc($s0)
-/*  f162b64:	8eec0000 */ 	lw	$t4,0x0($s7)
-/*  f162b68:	000b68c0 */ 	sll	$t5,$t3,0x3
-/*  f162b6c:	018d7021 */ 	addu	$t6,$t4,$t5
-/*  f162b70:	91c20006 */ 	lbu	$v0,0x6($t6)
-/*  f162b74:	30440001 */ 	andi	$a0,$v0,0x1
-/*  f162b78:	2c8f0001 */ 	sltiu	$t7,$a0,0x1
-/*  f162b7c:	15e00004 */ 	bnez	$t7,.L0f162b90
-/*  f162b80:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f162b84:	30440004 */ 	andi	$a0,$v0,0x4
-/*  f162b88:	2c980001 */ 	sltiu	$t8,$a0,0x1
-/*  f162b8c:	2f040001 */ 	sltiu	$a0,$t8,0x1
-.L0f162b90:
-/*  f162b90:	0fc58953 */ 	jal	portalPushValue
-/*  f162b94:	00000000 */ 	nop
-/*  f162b98:	92190001 */ 	lbu	$t9,0x1($s0)
-.L0f162b9c:
-/*  f162b9c:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f162ba0:	1000feac */ 	b	.L0f162654
-/*  f162ba4:	02088021 */ 	addu	$s0,$s0,$t0
-/*  f162ba8:	5240000b */ 	beqzl	$s2,.L0f162bd8
-/*  f162bac:	920d0001 */ 	lbu	$t5,0x1($s0)
-/*  f162bb0:	8e0a000c */ 	lw	$t2,0xc($s0)
-/*  f162bb4:	8e890000 */ 	lw	$t1,0x0($s4)
-/*  f162bb8:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f162bbc:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f162bc0:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f162bc4:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f162bc8:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f162bcc:	012b6021 */ 	addu	$t4,$t1,$t3
-/*  f162bd0:	a1800007 */ 	sb	$zero,0x7($t4)
-/*  f162bd4:	920d0001 */ 	lbu	$t5,0x1($s0)
-.L0f162bd8:
-/*  f162bd8:	000d70c0 */ 	sll	$t6,$t5,0x3
-/*  f162bdc:	1000fe9d */ 	b	.L0f162654
-/*  f162be0:	020e8021 */ 	addu	$s0,$s0,$t6
-/*  f162be4:	52400003 */ 	beqzl	$s2,.L0f162bf4
-/*  f162be8:	920f0001 */ 	lbu	$t7,0x1($s0)
-/*  f162bec:	ae760000 */ 	sw	$s6,0x0($s3)
-/*  f162bf0:	920f0001 */ 	lbu	$t7,0x1($s0)
-.L0f162bf4:
-/*  f162bf4:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f162bf8:	1000fe96 */ 	b	.L0f162654
-/*  f162bfc:	02188021 */ 	addu	$s0,$s0,$t8
-/*  f162c00:	92190001 */ 	lbu	$t9,0x1($s0)
-/*  f162c04:	02402825 */ 	or	$a1,$s2,$zero
-/*  f162c08:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f162c0c:	0fc5897b */ 	jal	portalCommandsExecute
-/*  f162c10:	01102021 */ 	addu	$a0,$t0,$s0
-/*  f162c14:	904a0001 */ 	lbu	$t2,0x1($v0)
-/*  f162c18:	000a48c0 */ 	sll	$t1,$t2,0x3
-/*  f162c1c:	1000fe8d */ 	b	.L0f162654
-/*  f162c20:	00498021 */ 	addu	$s0,$v0,$t1
-/*  f162c24:	920b0001 */ 	lbu	$t3,0x1($s0)
-/*  f162c28:	3c01800a */ 	lui	$at,%hi(g_PortalDisableParentExec)
-/*  f162c2c:	ac2065d0 */ 	sw	$zero,%lo(g_PortalDisableParentExec)($at)
-/*  f162c30:	000b60c0 */ 	sll	$t4,$t3,0x3
-/*  f162c34:	10000023 */ 	b	.L0f162cc4
-/*  f162c38:	020c1021 */ 	addu	$v0,$s0,$t4
-/*  f162c3c:	920d0001 */ 	lbu	$t5,0x1($s0)
-/*  f162c40:	0012102b */ 	sltu	$v0,$zero,$s2
-/*  f162c44:	00009025 */ 	or	$s2,$zero,$zero
-/*  f162c48:	000d70c0 */ 	sll	$t6,$t5,0x3
-/*  f162c4c:	1040fe81 */ 	beqz	$v0,.L0f162654
-/*  f162c50:	020e8021 */ 	addu	$s0,$s0,$t6
-/*  f162c54:	3c01800a */ 	lui	$at,%hi(g_PortalDisableParentExec)
-/*  f162c58:	1000fe7e */ 	b	.L0f162654
-/*  f162c5c:	ac3665d0 */ 	sw	$s6,%lo(g_PortalDisableParentExec)($at)
-/*  f162c60:	0fc58962 */ 	jal	portalPopValue
-/*  f162c64:	00000000 */ 	nop
-/*  f162c68:	920f0001 */ 	lbu	$t7,0x1($s0)
-/*  f162c6c:	00522824 */ 	and	$a1,$v0,$s2
-/*  f162c70:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f162c74:	0fc5897b */ 	jal	portalCommandsExecute
-/*  f162c78:	03102021 */ 	addu	$a0,$t8,$s0
-/*  f162c7c:	3c19800a */ 	lui	$t9,%hi(g_PortalDisableParentExec)
-/*  f162c80:	8f3965d0 */ 	lw	$t9,%lo(g_PortalDisableParentExec)($t9)
-/*  f162c84:	00408025 */ 	or	$s0,$v0,$zero
-/*  f162c88:	5320fe73 */ 	beqzl	$t9,.L0f162658
-/*  f162c8c:	92040000 */ 	lbu	$a0,0x0($s0)
-/*  f162c90:	1000fe70 */ 	b	.L0f162654
-/*  f162c94:	00009025 */ 	or	$s2,$zero,$zero
-/*  f162c98:	920a0001 */ 	lbu	$t2,0x1($s0)
-/*  f162c9c:	3a480001 */ 	xori	$t0,$s2,0x1
-/*  f162ca0:	01009025 */ 	or	$s2,$t0,$zero
-/*  f162ca4:	000a48c0 */ 	sll	$t1,$t2,0x3
-/*  f162ca8:	1000fe6a */ 	b	.L0f162654
-/*  f162cac:	02098021 */ 	addu	$s0,$s0,$t1
-/*  f162cb0:	920b0001 */ 	lbu	$t3,0x1($s0)
-/*  f162cb4:	000b60c0 */ 	sll	$t4,$t3,0x3
-/*  f162cb8:	10000002 */ 	b	.L0f162cc4
-/*  f162cbc:	020c1021 */ 	addu	$v0,$s0,$t4
-.L0f162cc0:
-/*  f162cc0:	02001025 */ 	or	$v0,$s0,$zero
-.L0f162cc4:
-/*  f162cc4:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f162cc8:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f162ccc:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f162cd0:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f162cd4:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f162cd8:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f162cdc:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f162ce0:	8fb6002c */ 	lw	$s6,0x2c($sp)
-/*  f162ce4:	8fb70030 */ 	lw	$s7,0x30($sp)
-/*  f162ce8:	03e00008 */ 	jr	$ra
-/*  f162cec:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
+/**
+ * BG files contain bytecode that is used to override the default portal
+ * behaviour. They can be used to check if the camera is in particular rooms
+ * and then force other rooms to show or hide.
+ *
+ * Only six BG files use of this feature. They are Villa, Chicago, Area 51,
+ * Pelagic II, Deep Sea and Skedar Ruins. All other BG files contain a single
+ * "end" instruction in their bytecode.
+ *
+ * The scripting language supports if-statements with an infinite nesting level.
+ * The interpreter maintains a stack of boolean values which can be pushed to
+ * or popped from the end. This can be used to build complex conditions that
+ * combine "AND" and "OR" operations.
+ *
+ * All commands are interpreted in order. There is no support for loops.
+ *
+ * When processing conditional code the function calls itself recursively for
+ * that branch. The execute argument denotes whether the condition passed and
+ * these statements should be executed, or whether the condition failed and
+ * it's just passing over them to get to the endif command.
+ */
+struct bgcmd *bgExecuteCommandsBranch(struct bgcmd *cmd, bool execute)
+{
+	s32 i;
 
-// Mismatch because this uses s8 to store the address of box1,
-// while goal just references the address directly without the register.
-//struct portalcmd *portalCommandsExecute(struct portalcmd *cmd, bool execute)
-//{
-//	g_PortalDisableParentExec = false;
-//
-//	if (!cmd) {
-//		return cmd;
-//	}
-//
-//	while (true) {
-//		switch (cmd->type) {
-//		case PORTALCMD_END: // 00 - f1626a4
-//			return cmd;
-//		case PORTALCMD_PUSH: // 01 - f1626ac
-//			if (execute) {
-//				portalPushValue(cmd->param);
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_POP: // 02 - f1626cc
-//			if (execute) {
-//				portalPopValue();
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_AND: // 03 - f1626ec
-//			if (execute) {
-//				portalPushValue(portalPopValue() & portalPopValue());
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_OR: // 04 - f16271c
-//			if (execute) {
-//				portalPushValue(portalPopValue() | portalPopValue());
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_NOT: // 07 - f16274c
-//			if (execute) {
-//				portalPushValue(portalPopValue() == 0);
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_XOR: // 06 - f162774
-//			if (execute) {
-//				portalPushValue(portalPopValue() ^ portalPopValue());
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_14: // 14 - f1627a4 - check if player is in room range
-//			if (execute) {
-//				portalPushValue(g_CamRoom >= cmd[1].param && g_CamRoom <= cmd[2].param);
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_SETMODEVIS: // 1e - f1627e8
-//			if (execute) {
-//				var800a65c0.xmin = g_Vars.currentplayer->screenxminf;
-//				var800a65c0.ymin = g_Vars.currentplayer->screenyminf;
-//				var800a65c0.xmax = g_Vars.currentplayer->screenxmaxf;
-//				var800a65c0.ymax = g_Vars.currentplayer->screenymaxf;
-//				g_PortalMode = PORTALMODE_SHOW;
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_1F: // 1f - f162858 - set visibility to same as portal X
-//			if (execute) {
-//				if ((g_BgPortals[cmd[1].param].flags & PORTALFLAG_BLOCKED) == 0
-//						|| (g_BgPortals[cmd[1].param].flags & PORTALFLAG_FORCEUNBLOCKED)) {
-//					if (portal0f15d10c(cmd[1].param, &var800a65c8) == 0) {
-//						g_PortalMode = PORTALMODE_HIDE;
-//					} else if (boxGetIntersection(&var800a65c0, &var800a65c8) == 0) {
-//						g_PortalMode = PORTALMODE_HIDE;
-//					} else {
-//						g_PortalMode = PORTALMODE_SHOW;
-//					}
-//				}
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_22: // 22 - f1628d4 - make visible if portal can view room
-//			if (execute) {
-//				if ((g_BgPortals[cmd[1].param].flags & PORTALFLAG_BLOCKED) == 0
-//						|| (g_BgPortals[cmd[1].param].flags & PORTALFLAG_FORCEUNBLOCKED)) {
-//					struct screenbox box1;
-//					if (portal0f15d10c(cmd[1].param, &box1) && boxGetIntersection(&var800a65c0, &box1)) {
-//						if (g_PortalMode != PORTALMODE_SHOW) {
-//							boxCopy(&var800a65c0, &box1);
-//							g_PortalMode = PORTALMODE_SHOW;
-//						} else {
-//							boxExpand(&var800a65c0, &box1);
-//						}
-//					}
-//				}
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_23: // 23 - f162960 - remove visibility if portal can not view room
-//			if (execute) {
-//				if (g_PortalMode == PORTALMODE_SHOW) {
-//					struct screenbox box2;
-//					if ((g_BgPortals[cmd[1].param].flags & PORTALFLAG_BLOCKED)
-//							&& (g_BgPortals[cmd[1].param].flags & PORTALFLAG_FORCEUNBLOCKED) == 0) {
-//						g_PortalMode = PORTALMODE_HIDE;
-//					} else if (portal0f15d10c(cmd[1].param, &box2) == 0) {
-//						g_PortalMode = PORTALMODE_HIDE;
-//					} else if (boxGetIntersection(&box2, (struct screenbox *)&g_Vars.currentplayer->screenxminf) == 0) {
-//						g_PortalMode = PORTALMODE_HIDE;
-//					} else if (boxGetIntersection(&var800a65c8, &box2) == 0) {
-//						g_PortalMode = PORTALMODE_HIDE;
-//					}
-//				}
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_20: // 20 - f162a04 - enable room X
-//			if (execute) {
-//				if (g_PortalMode == PORTALMODE_SHOW && func0f15cd90(cmd[1].param, &var800a65c0)) {
-//					func0f157e94(cmd[1].param, 0, &var800a65c0);
-//					g_ActiveRoomNums[g_NumActiveRooms++] = cmd[1].param;
-//				}
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_DISABLEROOM: // 24 - f162a70
-//			if (execute) {
-//				g_Rooms[cmd[1].param].flags |= ROOMFLAG_DISABLEDBYSCRIPT;
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_DISABLEROOMRANGE: // 25 - f162ab4
-//			if (execute) {
-//				s32 i;
-//
-//				for (i = cmd[1].param; i <= cmd[2].param; i++) {
-//					g_Rooms[i].flags |= ROOMFLAG_DISABLEDBYSCRIPT;
-//				}
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_LOADROOM: // 26 - f162b1c
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_LOADROOMRANGE: // 27 - f162b2c
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_28: // 28 - f162b3c
-//			if (execute) {
-//				var800a65b8 = true;
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_29: // 29 - f162b58 - copy visible state (true/false) of portal X to stack
-//			if (execute) {
-//				portalPushValue((g_BgPortals[cmd[1].param].flags & PORTALFLAG_BLOCKED) == 0
-//						|| !((g_BgPortals[cmd[1].param].flags & PORTALFLAG_FORCEUNBLOCKED) == 0));
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_2A: // 2a - f162ba8
-//			if (execute) {
-//				g_Rooms[cmd[1].param].unk07 = 0;
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_SETMODEINVIS: // 21 - f162be4
-//			if (execute) {
-//				g_PortalMode = PORTALMODE_HIDE;
-//			}
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_50: // 50 - f162c00
-//			cmd = portalCommandsExecute(cmd + cmd->len, execute);
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_ENABLEPARENTEXEC: // 52 - f162c24
-//			cmd += cmd->len;
-//			g_PortalDisableParentExec = false;
-//			return cmd;
-//		case PORTALCMD_51: // 51 - f162c3c
-//			cmd += cmd->len;
-//			if (execute) {
-//				g_PortalDisableParentExec = true;
-//			}
-//			execute = false;
-//			break;
-//		case PORTALCMD_IF: // 5a - f162c60
-//			cmd = portalCommandsExecute(cmd + cmd->len, portalPopValue() & execute);
-//			if (g_PortalDisableParentExec) {
-//				execute = false;
-//			}
-//			break;
-//		case PORTALCMD_TOGGLEEXEC: // 5b - f162c98
-//			execute ^= 1;
-//			cmd += cmd->len;
-//			break;
-//		case PORTALCMD_ENDIF: // 5c - f162cb0
-//			cmd += cmd->len;
-//			return cmd;
-//		default:
-//			return cmd;
-//		}
-//	}
-//
-//	g_PortalDisableParentExec = false;
-//
-//	return cmd;
-//}
+	g_BgCmdThrowing = false;
 
-struct portalcmd *portalCommandsExecuteForCurrentPlayer(struct portalcmd *cmd)
+	if (!cmd) {
+		return cmd;
+	}
+
+	while (true) {
+		switch (cmd->type) {
+		case BGCMD_END:
+			return cmd;
+		case BGCMD_PUSH:
+			if (execute) {
+				bgPushValue(cmd->param);
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_POP:
+			if (execute) {
+				bgPopValue();
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_AND:
+			if (execute) {
+				bgPushValue(bgPopValue() & bgPopValue());
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_OR:
+			if (execute) {
+				bgPushValue(bgPopValue() | bgPopValue());
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_NOT:
+			if (execute) {
+				bgPushValue(bgPopValue() == 0);
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_XOR:
+			if (execute) {
+				bgPushValue(bgPopValue() ^ bgPopValue());
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_PUSH_CAMINROOMRANGE:
+			if (execute) {
+				bgPushValue(g_CamRoom >= cmd[1].param && g_CamRoom <= cmd[2].param);
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_SETRESULT_TRUE:
+			if (execute) {
+				var800a65c0.xmin = g_Vars.currentplayer->screenxminf;
+				var800a65c0.ymin = g_Vars.currentplayer->screenyminf;
+				var800a65c0.xmax = g_Vars.currentplayer->screenxmaxf;
+				var800a65c0.ymax = g_Vars.currentplayer->screenymaxf;
+				g_BgCmdResult = BGRESULT_TRUE;
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_SETRESULT_IFPORTALINFOV:
+			if (execute) {
+				if (!PORTAL_IS_CLOSED(cmd[1].param)) {
+					if (g_PortalGetScreenBbox(cmd[1].param, &g_PortalScreenBbox) == 0) {
+						g_BgCmdResult = BGRESULT_FALSE;
+					} else if (boxGetIntersection(&var800a65c0, &g_PortalScreenBbox) == 0) {
+						g_BgCmdResult = BGRESULT_FALSE;
+					} else {
+						g_BgCmdResult = BGRESULT_TRUE;
+					}
+				}
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_SETRESULT_TRUEIFTHROUGHPORTAL:
+			if (execute) {
+				struct screenbox portalbox;
+
+				if (!PORTAL_IS_CLOSED(cmd[1].param)) {
+					if (g_PortalGetScreenBbox(cmd[1].param, &portalbox) && boxGetIntersection(&var800a65c0, &portalbox)) {
+						if (g_BgCmdResult != BGRESULT_TRUE) {
+							boxCopy(&var800a65c0, &portalbox);
+							g_BgCmdResult = BGRESULT_TRUE;
+						} else {
+							boxExpand(&var800a65c0, &portalbox);
+						}
+					}
+				}
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_SETRESULT_FALSEIFNOTTHROUGHPORTAL:
+			if (execute) {
+				if (g_BgCmdResult == BGRESULT_TRUE) {
+					struct screenbox portalbox;
+
+					if (PORTAL_IS_CLOSED(cmd[1].param)) {
+						g_BgCmdResult = BGRESULT_FALSE;
+					} else if (g_PortalGetScreenBbox(cmd[1].param, &portalbox) == 0) {
+						g_BgCmdResult = BGRESULT_FALSE;
+					} else if (boxGetIntersection(&portalbox, (struct screenbox *)&g_Vars.currentplayer->screenxminf) == 0) {
+						g_BgCmdResult = BGRESULT_FALSE;
+					} else if (boxGetIntersection(&g_PortalScreenBbox, &portalbox) == 0) {
+						g_BgCmdResult = BGRESULT_FALSE;
+					}
+				}
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_IFRESULT_SHOWROOM:
+			if (execute) {
+				if (g_BgCmdResult == BGRESULT_TRUE && func0f15cd90(cmd[1].param, &var800a65c0)) {
+					roomSetOnscreen(cmd[1].param, 0, &var800a65c0);
+					g_ActiveRoomNums[g_NumActiveRooms++] = cmd[1].param;
+				}
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_DISABLEROOM:
+			if (execute) {
+				g_Rooms[cmd[1].param].flags |= ROOMFLAG_DISABLEDBYSCRIPT;
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_DISABLEROOMRANGE:
+			if (execute) {
+				for (i = cmd[1].param; i <= cmd[2].param; i++) {
+					g_Rooms[i].flags |= ROOMFLAG_DISABLEDBYSCRIPT;
+				}
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_LOADROOM:
+			cmd += cmd->len;
+			break;
+		case BGCMD_LOADROOMRANGE:
+			cmd += cmd->len;
+			break;
+		case BGCMD_SETROOMTESTSDISABLED:
+			if (execute) {
+				g_BgRoomTestsDisabled = true;
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_PUSH_PORTALISOPEN:
+			if (execute) {
+				bgPushValue(!PORTAL_IS_CLOSED(cmd[1].param));
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_2A:
+			if (execute) {
+				g_Rooms[cmd[1].param].unk07 = 0;
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_SETRESULT_FALSE:
+			if (execute) {
+				g_BgCmdResult = BGRESULT_FALSE;
+			}
+			cmd += cmd->len;
+			break;
+		case BGCMD_BRANCH:
+			cmd = bgExecuteCommandsBranch(cmd + cmd->len, execute);
+			cmd += cmd->len;
+			break;
+		case BGCMD_CATCH:
+			cmd += cmd->len;
+			g_BgCmdThrowing = false;
+			return cmd;
+		case BGCMD_THROW:
+			cmd += cmd->len;
+			if (execute) {
+				g_BgCmdThrowing = true;
+			}
+			execute = false;
+			break;
+		case BGCMD_IF:
+			cmd = bgExecuteCommandsBranch(cmd + cmd->len, bgPopValue() & execute);
+			if (g_BgCmdThrowing) {
+				execute = false;
+			}
+			break;
+		case BGCMD_ELSE:
+			/**
+			 * Assuming this is indeed an else command, it's not safe to assume
+			 * that the execution state can be unconditionally toggled.
+			 * For example, given the following portal code:
+			 *
+			 * if (a false condition)
+			 *     if (any condition)
+			 *         branch 1
+			 *     else
+			 *         branch 2
+			 *     endif
+			 * endif
+			 *
+			 * ...when reaching the else, execution would be turned on.
+			 *
+			 * However, this command isn't even used.
+			 */
+			execute ^= 1;
+			cmd += cmd->len;
+			break;
+		case BGCMD_ENDIF:
+			/**
+			 * Note the return here rather than break.
+			 */
+			cmd += cmd->len;
+			return cmd;
+		default:
+			if (1);
+			if (1);
+			if (1);
+			if (1);
+			return cmd;
+		}
+	}
+
+	g_BgCmdThrowing = false;
+
+	return cmd;
+}
+
+struct bgcmd *bgExecuteCommands(struct bgcmd *cmd)
 {
 	struct player *player = g_Vars.currentplayer;
-	g_PortalMode = PORTALMODE_SHOW;
+	g_BgCmdResult = BGRESULT_TRUE;
 
 	if (!cmd) {
 		return cmd;
 	}
 
 	// This may have been used in an osSyncPrintf call
-	portalGetNthValueFromEnd(0);
+	bgGetNthValueFromEnd(0);
 
 	var800a65c0.xmin = player->screenxminf;
 	var800a65c0.ymin = player->screenyminf;
 	var800a65c0.xmax = player->screenxmaxf;
 	var800a65c0.ymax = player->screenymaxf;
 
-	return portalCommandsExecute(cmd, true);
+	return bgExecuteCommandsBranch(cmd, true);
 }
 
 GLOBAL_ASM(
@@ -14795,15 +14263,14 @@ void func0f163528(struct var800a4d00 *arg0)
 			s4 = 0;
 
 			if (pass) {
-				func0f157e94(s6, arg0->draworder, &box1);
+				roomSetOnscreen(s6, arg0->draworder, &box1);
 				func0f1632d4(arg0->roomnum, s6, arg0->draworder + 1, &box1);
 			}
 
 			s6 = s0;
 		}
 
-		if ((g_BgPortals[portalnum].flags & PORTALFLAG_BLOCKED)
-				&& (g_BgPortals[portalnum].flags & PORTALFLAG_FORCEUNBLOCKED) == 0) {
+		if (PORTAL_IS_CLOSED(portalnum)) {
 			continue;
 		}
 
@@ -14822,7 +14289,7 @@ void func0f163528(struct var800a4d00 *arg0)
 			box2.ymax = arg0->screenbox.ymax;
 			unk02 = true;
 		} else {
-			unk02 = portal0f15d10c(portalnum, &box2);
+			unk02 = g_PortalGetScreenBbox(portalnum, &box2);
 		}
 
 		if (unk02) {
@@ -14844,7 +14311,7 @@ void func0f163528(struct var800a4d00 *arg0)
 	}
 
 	if (s4 != 0) {
-		func0f157e94(s6, arg0->draworder, &box1);
+		roomSetOnscreen(s6, arg0->draworder, &box1);
 		func0f1632d4(arg0->roomnum, s6, arg0->draworder + 1, &box1);
 	}
 }
@@ -14904,7 +14371,7 @@ void bgChooseRoomsToLoad(void)
 
 				roomUnpauseProps(roomnum2, true);
 
-				if ((g_BgPortals[i].flags & PORTALFLAG_BLOCKED) && (g_BgPortals[i].flags & PORTALFLAG_FORCEUNBLOCKED) == 0) {
+				if (PORTAL_IS_CLOSED(i)) {
 					for (j = 0; j < g_Rooms[roomnum2].numportals; j++) {
 						portalnum = g_RoomPortals[g_Rooms[roomnum2].roomportallistoffset + j];
 
@@ -14933,7 +14400,7 @@ void bgChooseRoomsToLoad(void)
 
 				roomUnpauseProps(roomnum1, true);
 
-				if ((g_BgPortals[i].flags & PORTALFLAG_BLOCKED) && (g_BgPortals[i].flags & PORTALFLAG_FORCEUNBLOCKED) == 0) {
+				if (PORTAL_IS_CLOSED(i)) {
 					for (j = 0; j < g_Rooms[roomnum1].numportals; j++) {
 						portalnum = g_RoomPortals[g_Rooms[roomnum1].roomportallistoffset + j];
 
@@ -15015,15 +14482,15 @@ void bgTickPortals(void)
 		var800a4cf0.unk00 = 0;
 		var800a4cf0.index = 0;
 		var800a4cf0.unk04 = 0;
-		var800a65b8 = 0;
+		g_BgRoomTestsDisabled = false;
 		var800a4640.unk2d0.box.xmin = box.xmin;
 		var800a4640.unk2d0.box.ymin = box.ymin;
 		var800a4640.unk2d0.box.xmax = box.xmax;
 		var800a4640.unk2d0.box.ymax = box.ymax;
 
-		portalCommandsExecuteForCurrentPlayer(g_BgPortalCommands);
+		bgExecuteCommands(g_BgCommands);
 
-		if (var800a65b8 == 0) {
+		if (!g_BgRoomTestsDisabled) {
 			if (g_BgPortals[0].verticesoffset == 0) {
 				for (room = 1; room < g_Vars.roomcount; room++) {
 					if (func0f15cd90(room, &box)
@@ -15031,11 +14498,11 @@ void bgTickPortals(void)
 							&& (g_StageIndex != STAGEINDEX_SKEDARRUINS || room != 0x02)
 							&& ((g_StageIndex != STAGEINDEX_DEFECTION && g_StageIndex != STAGEINDEX_EXTRACTION) || room != 0x01)
 							&& (g_StageIndex != STAGEINDEX_ATTACKSHIP || room != 0x71)) {
-						func0f157e94(room, 0, &box);
+						roomSetOnscreen(room, 0, &box);
 					}
 				}
 			} else {
-				func0f157e94(g_CamRoom, 0, &box);
+				roomSetOnscreen(g_CamRoom, 0, &box);
 				var800a4cf0.unk00 = 0;
 				var800a4cf0.index = 0;
 				var800a4cf0.unk04 = 0;
@@ -15417,7 +14884,7 @@ void room0f164c64(s32 roomnum)
 
 void portalSetUnblocked(s32 portal, bool unblocked)
 {
-	g_BgPortals[portal].flags = (g_BgPortals[portal].flags | PORTALFLAG_BLOCKED) ^ (unblocked != false);
+	g_BgPortals[portal].flags = (g_BgPortals[portal].flags | PORTALFLAG_CLOSED) ^ (unblocked != false);
 }
 
 s32 func0f164e70(s32 arg0, s32 arg1, s32 arg2)
@@ -15628,9 +15095,7 @@ void bgFindEnteredRooms(struct coord *bbmin, struct coord *bbmax, s16 *rooms, s3
 			for (j = 0; j < g_Rooms[room].numportals; j++) {
 				portalnum = g_RoomPortals[g_Rooms[room].roomportallistoffset + j];
 
-				if (arg4
-						&& (g_BgPortals[portalnum].flags & PORTALFLAG_BLOCKED)
-						&& (g_BgPortals[portalnum].flags & PORTALFLAG_FORCEUNBLOCKED) == 0) {
+				if (arg4 && PORTAL_IS_CLOSED(portalnum)) {
 					continue;
 				}
 

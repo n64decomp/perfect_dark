@@ -616,7 +616,7 @@ void func0f001c0c(void)
 	var80061420 = mempAlloc(sp68, MEMPOOL_STAGE);
 
 	for (i = 0; i < g_NumPortals; i++) {
-		if ((g_BgPortals[i].flags & PORTALFLAG_BLOCKED) && (g_BgPortals[i].flags & PORTALFLAG_FORCEUNBLOCKED) == 0) {
+		if (PORTAL_IS_CLOSED(i)) {
 			var80061438[i] = false;
 		} else {
 			var80061438[i] = true;

@@ -80,6 +80,8 @@
 // N64 font code uses 0x0f for space, 0x10-0x19 for 0-9 and 0x1a-0x33 for A-Z.
 #define N64CHAR(c)          (c == ' ' ? 0x0f : (c >= 'A' && c <= 'Z' ? c - 0x27 : c - 0x20))
 
+#define PORTAL_IS_CLOSED(portalnum) ((g_BgPortals[portalnum].flags & PORTALFLAG_CLOSED) && (g_BgPortals[portalnum].flags & PORTALFLAG_FORCEOPEN) == 0)
+
 #if VERSION >= VERSION_NTSC_1_0
 #define ROM_COMPANYCODE 0x3459
 #else
@@ -3321,43 +3323,10 @@
 #define PDMODEPROP_DAMAGE   2
 #define PDMODEPROP_ACCURACY 3
 
-#define PORTALCMD_END              0x00
-#define PORTALCMD_PUSH             0x01
-#define PORTALCMD_POP              0x02
-#define PORTALCMD_AND              0x03
-#define PORTALCMD_OR               0x04
-#define PORTALCMD_NOT              0x05
-#define PORTALCMD_XOR              0x06
-#define PORTALCMD_14               0x14
-#define PORTALCMD_SETMODEVIS       0x1e
-#define PORTALCMD_1F               0x1f
-#define PORTALCMD_20               0x20
-#define PORTALCMD_SETMODEINVIS     0x21
-#define PORTALCMD_22               0x22
-#define PORTALCMD_23               0x23
-#define PORTALCMD_DISABLEROOM      0x24
-#define PORTALCMD_DISABLEROOMRANGE 0x25
-#define PORTALCMD_LOADROOM         0x26
-#define PORTALCMD_LOADROOMRANGE    0x27
-#define PORTALCMD_28               0x28
-#define PORTALCMD_29               0x29
-#define PORTALCMD_2A               0x2a
-#define PORTALCMD_50               0x50
-#define PORTALCMD_51               0x51
-#define PORTALCMD_ENABLEPARENTEXEC 0x52
-#define PORTALCMD_IF               0x5a
-#define PORTALCMD_TOGGLEEXEC       0x5b
-#define PORTALCMD_ENDIF            0x5c
-#define PORTALCMD_64               0x64
-#define PORTALCMD_TRAILER          0x65
-
-#define PORTALFLAG_BLOCKED        0x01 // Due to door being closed, or player is too far from glass
-#define PORTALFLAG_02             0x02
-#define PORTALFLAG_FORCEUNBLOCKED 0x04 // Glass is destroyed, or door is freed
-#define PORTALFLAG_SKIP           0x08 // DD tower exterior - don't bother processing these
-
-#define PORTALMODE_SHOW 0
-#define PORTALMODE_HIDE 1
+#define PORTALFLAG_CLOSED    0x01 // Due to door being closed, or player is too far from glass
+#define PORTALFLAG_02        0x02
+#define PORTALFLAG_FORCEOPEN 0x04 // Glass is destroyed, or door is freed
+#define PORTALFLAG_SKIP      0x08 // DD tower exterior - don't bother processing these
 
 #define PRESETANIM_TALK0      0
 #define PRESETANIM_TALK1      1

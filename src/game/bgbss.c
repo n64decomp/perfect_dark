@@ -60,11 +60,11 @@ u8 var800aacb8nb[0x140];
 #endif
 
 struct var800a6538 var800a6538[16];
-u32 var800a65b8;
+u32 g_BgRoomTestsDisabled;
 u32 var800a65bc;
 struct screenbox var800a65c0;
-struct screenbox var800a65c8;
-u32 g_PortalDisableParentExec;
+struct screenbox g_PortalScreenBbox;
+u32 g_BgCmdThrowing;
 s32 g_BgNumLightsChecksum;
 s32 g_BgLightsOffsetChecksum;
 u32 var800a65dc;

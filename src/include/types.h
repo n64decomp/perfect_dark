@@ -5139,7 +5139,7 @@ struct var800aabb8 {
 	u16 unk00_02 : 14;
 };
 
-struct portalcmd {
+struct bgcmd {
 	u8 type;
 	u8 len;
 	s32 param;

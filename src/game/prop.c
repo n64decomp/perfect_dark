@@ -6150,7 +6150,7 @@ void propsTickPadEffects(void)
 
 			padUnpack(effect->pad, PADFIELD_ROOM, &pad);
 
-			if (roomIsOnScreen(pad.room)) {
+			if (roomIsOnscreen(pad.room)) {
 				switch (effect->effect) {
 				case PADEFFECT_SPARKS:
 				case PADEFFECT_SPARKS2:

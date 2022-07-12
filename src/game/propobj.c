@@ -5230,7 +5230,7 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 		if (glass->portalnum >= 0) {
 			portalSetXluFrac(glass->portalnum, 1);
 			portalSetUnblocked(glass->portalnum, true);
-			g_BgPortals[glass->portalnum].flags |= PORTALFLAG_FORCEUNBLOCKED;
+			g_BgPortals[glass->portalnum].flags |= PORTALFLAG_FORCEOPEN;
 		}
 	} else if (obj->type == OBJTYPE_GLASS) {
 		struct glassobj *glass = (struct glassobj *) obj;
@@ -5244,7 +5244,7 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 		doorActivatePortal(door);
 
 		if (door->portalnum >= 0) {
-			g_BgPortals[door->portalnum].flags |= PORTALFLAG_FORCEUNBLOCKED;
+			g_BgPortals[door->portalnum].flags |= PORTALFLAG_FORCEOPEN;
 		}
 	}
 
@@ -49947,17 +49947,15 @@ s32 objTickPlayer(struct prop *prop)
 			struct tintedglassobj *glass = (struct tintedglassobj *)obj;
 
 			if (glass->portalnum >= 0) {
-				pass = (g_BgPortals[glass->portalnum].flags & PORTALFLAG_BLOCKED)
-					&& (g_BgPortals[glass->portalnum].flags & PORTALFLAG_FORCEUNBLOCKED) == 0;
-				g_BgPortals[glass->portalnum].flags |= PORTALFLAG_FORCEUNBLOCKED;
+				pass = PORTAL_IS_CLOSED(glass->portalnum);
+				g_BgPortals[glass->portalnum].flags |= PORTALFLAG_FORCEOPEN;
 			}
 		} else if (obj->type == OBJTYPE_DOOR) {
 			struct doorobj *door = (struct doorobj *)obj;
 
 			if (door->portalnum >= 0) {
-				pass = (g_BgPortals[door->portalnum].flags & PORTALFLAG_BLOCKED)
-					&& (g_BgPortals[door->portalnum].flags & PORTALFLAG_FORCEUNBLOCKED) == 0;
-				g_BgPortals[door->portalnum].flags |= PORTALFLAG_FORCEUNBLOCKED;
+				pass = PORTAL_IS_CLOSED(door->portalnum);
+				g_BgPortals[door->portalnum].flags |= PORTALFLAG_FORCEOPEN;
 			}
 		}
 
@@ -54079,7 +54077,7 @@ void glassDestroy(struct defaultobj *obj)
 void doorDestroyGlass(struct doorobj *door)
 {
 	struct modelnode *node;
-	bool bail;
+	bool closed;
 	struct prop *prop = door->base.prop;
 	struct model *model = door->base.model;
 	union modelrodata *rodata;
@@ -54094,14 +54092,13 @@ void doorDestroyGlass(struct doorobj *door)
 		// shot from a long distance (such that the glass is opaque) then this
 		// function returns early and the glass remains in place, despite
 		// setting the portal as unblocked. On the fourth shot
-		// PORTALFLAG_FORCEUNBLOCKED is already set, so bail is false and the
+		// PORTALFLAG_FORCEOPEN is already set, so closed is false and the
 		// glass is destroyed.
-		bail = (g_BgPortals[door->portalnum].flags & PORTALFLAG_BLOCKED)
-			&& (g_BgPortals[door->portalnum].flags & PORTALFLAG_FORCEUNBLOCKED) == 0;
+		closed = PORTAL_IS_CLOSED(door->portalnum);
 
-		g_BgPortals[door->portalnum].flags |= PORTALFLAG_FORCEUNBLOCKED;
+		g_BgPortals[door->portalnum].flags |= PORTALFLAG_FORCEOPEN;
 
-		if (bail) {
+		if (closed) {
 			return;
 		}
 	}

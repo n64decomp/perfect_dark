@@ -25111,7 +25111,7 @@ bool chrIsPosOffScreen(struct coord *pos, s16 *rooms)
 
 	if (env0f1666f8(pos, 0)) {
 		for (i = 0; rooms[i] != -1; i++) {
-			if (roomIsOnScreen(rooms[i])) {
+			if (roomIsOnscreen(rooms[i])) {
 				break;
 			}
 		}
