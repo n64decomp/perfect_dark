@@ -5229,7 +5229,7 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 
 		if (glass->portalnum >= 0) {
 			portalSetXluFrac(glass->portalnum, 1);
-			portalSetUnblocked(glass->portalnum, true);
+			portalSetOpen(glass->portalnum, true);
 			g_BgPortals[glass->portalnum].flags |= PORTALFLAG_FORCEOPEN;
 		}
 	} else if (obj->type == OBJTYPE_GLASS) {
@@ -49705,9 +49705,9 @@ void glassUpdatePortal(struct prop *prop, s32 playercount, bool *arg2)
 
 	if (glass->portalnum >= 0 && playercount == 1) {
 		if (glass->opacity == 255) {
-			portalSetUnblocked(glass->portalnum, false);
+			portalSetOpen(glass->portalnum, false);
 		} else {
-			portalSetUnblocked(glass->portalnum, true);
+			portalSetOpen(glass->portalnum, true);
 		}
 	}
 
@@ -61845,14 +61845,14 @@ void func0f08d460(struct doorobj *door)
 void doorActivatePortal(struct doorobj *door)
 {
 	if (door->portalnum >= 0) {
-		portalSetUnblocked(door->portalnum, true);
+		portalSetOpen(door->portalnum, true);
 	}
 }
 
 void doorDeactivatePortal(struct doorobj *door)
 {
 	if (door->portalnum >= 0) {
-		portalSetUnblocked(door->portalnum, false);
+		portalSetOpen(door->portalnum, false);
 	}
 }
 

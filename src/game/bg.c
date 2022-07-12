@@ -14882,9 +14882,9 @@ void room0f164c64(s32 roomnum)
 	}
 }
 
-void portalSetUnblocked(s32 portal, bool unblocked)
+void portalSetOpen(s32 portal, bool open)
 {
-	g_BgPortals[portal].flags = (g_BgPortals[portal].flags | PORTALFLAG_CLOSED) ^ (unblocked != false);
+	g_BgPortals[portal].flags = (g_BgPortals[portal].flags | PORTALFLAG_CLOSED) ^ (open != false);
 }
 
 s32 func0f164e70(s32 arg0, s32 arg1, s32 arg2)
@@ -14897,123 +14897,34 @@ void func0f164e80(s32 arg0, s32 arg1)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func0f164e8c
-.late_rodata
-glabel var7f1b76c4
-.word 0x7f7fffff
-.text
-/*  f164e8c:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f164e90:	afb6003c */ 	sw	$s6,0x3c($sp)
-/*  f164e94:	3c16800a */ 	lui	$s6,%hi(g_BgPortals)
-/*  f164e98:	26d64cc8 */ 	addiu	$s6,$s6,%lo(g_BgPortals)
-/*  f164e9c:	8ece0000 */ 	lw	$t6,0x0($s6)
-/*  f164ea0:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f164ea4:	afb70040 */ 	sw	$s7,0x40($sp)
-/*  f164ea8:	afb50038 */ 	sw	$s5,0x38($sp)
-/*  f164eac:	afb40034 */ 	sw	$s4,0x34($sp)
-/*  f164eb0:	afb30030 */ 	sw	$s3,0x30($sp)
-/*  f164eb4:	afb2002c */ 	sw	$s2,0x2c($sp)
-/*  f164eb8:	afb10028 */ 	sw	$s1,0x28($sp)
-/*  f164ebc:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f164ec0:	f7b60018 */ 	sdc1	$f22,0x18($sp)
-/*  f164ec4:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f164ec8:	95cf0000 */ 	lhu	$t7,0x0($t6)
-/*  f164ecc:	3c017f1b */ 	lui	$at,%hi(var7f1b76c4)
-/*  f164ed0:	0080a025 */ 	or	$s4,$a0,$zero
-/*  f164ed4:	00a0a825 */ 	or	$s5,$a1,$zero
-/*  f164ed8:	2413ffff */ 	addiu	$s3,$zero,-1
-/*  f164edc:	00008825 */ 	or	$s1,$zero,$zero
-/*  f164ee0:	c43476c4 */ 	lwc1	$f20,%lo(var7f1b76c4)($at)
-/*  f164ee4:	11e0001f */ 	beqz	$t7,.L0f164f64
-/*  f164ee8:	00008025 */ 	or	$s0,$zero,$zero
-/*  f164eec:	3c178008 */ 	lui	$s7,%hi(var8007fcb4)
-/*  f164ef0:	4480b000 */ 	mtc1	$zero,$f22
-/*  f164ef4:	26f7fcb4 */ 	addiu	$s7,$s7,%lo(var8007fcb4)
-/*  f164ef8:	00009025 */ 	or	$s2,$zero,$zero
-/*  f164efc:	02002025 */ 	or	$a0,$s0,$zero
-.L0f164f00:
-/*  f164f00:	02802825 */ 	or	$a1,$s4,$zero
-/*  f164f04:	0c005f8c */ 	jal	portal00017e30
-/*  f164f08:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f164f0c:	5040000f */ 	beqzl	$v0,.L0f164f4c
-/*  f164f10:	8ed80000 */ 	lw	$t8,0x0($s6)
-/*  f164f14:	c6e00000 */ 	lwc1	$f0,0x0($s7)
-/*  f164f18:	4616003c */ 	c.lt.s	$f0,$f22
-/*  f164f1c:	00000000 */ 	nop
-/*  f164f20:	45020003 */ 	bc1fl	.L0f164f30
-/*  f164f24:	4614003c */ 	c.lt.s	$f0,$f20
-/*  f164f28:	46000007 */ 	neg.s	$f0,$f0
-/*  f164f2c:	4614003c */ 	c.lt.s	$f0,$f20
-.L0f164f30:
-/*  f164f30:	00000000 */ 	nop
-/*  f164f34:	45020005 */ 	bc1fl	.L0f164f4c
-/*  f164f38:	8ed80000 */ 	lw	$t8,0x0($s6)
-/*  f164f3c:	02009825 */ 	or	$s3,$s0,$zero
-/*  f164f40:	46000506 */ 	mov.s	$f20,$f0
-/*  f164f44:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f164f48:	8ed80000 */ 	lw	$t8,0x0($s6)
-.L0f164f4c:
-/*  f164f4c:	26520008 */ 	addiu	$s2,$s2,0x8
-/*  f164f50:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f164f54:	0312c821 */ 	addu	$t9,$t8,$s2
-/*  f164f58:	97280000 */ 	lhu	$t0,0x0($t9)
-/*  f164f5c:	5500ffe8 */ 	bnezl	$t0,.L0f164f00
-/*  f164f60:	02002025 */ 	or	$a0,$s0,$zero
-.L0f164f64:
-/*  f164f64:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f164f68:	02601025 */ 	or	$v0,$s3,$zero
-/*  f164f6c:	8fb30030 */ 	lw	$s3,0x30($sp)
-/*  f164f70:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f164f74:	d7b60018 */ 	ldc1	$f22,0x18($sp)
-/*  f164f78:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*  f164f7c:	8fb10028 */ 	lw	$s1,0x28($sp)
-/*  f164f80:	8fb2002c */ 	lw	$s2,0x2c($sp)
-/*  f164f84:	8fb40034 */ 	lw	$s4,0x34($sp)
-/*  f164f88:	8fb50038 */ 	lw	$s5,0x38($sp)
-/*  f164f8c:	8fb6003c */ 	lw	$s6,0x3c($sp)
-/*  f164f90:	8fb70040 */ 	lw	$s7,0x40($sp)
-/*  f164f94:	03e00008 */ 	jr	$ra
-/*  f164f98:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+s32 bg0f164e8c(struct coord *arg0, struct coord *arg1)
+{
+	s32 bestportalnum = -1;
+	s32 count = 0;
+	f32 bestthing = MAXFLOAT;
+	f32 thisthing;
+	s32 i;
 
-// regalloc in callee-save registers
-// The empty if-statements below narrow it down to just two swapped registers
-//s32 func0f164e8c(struct coord *arg0, struct coord *arg1)
-//{
-//	s32 bestportalnum = -1;
-//	s32 count = 0;
-//	f32 bestthing = INF;
-//	f32 thisthing;
-//	s32 i;
-//
-//	for (i = 0; g_BgPortals[i].verticesoffset; i++) {
-//		if (portal00017e30(i, arg0, arg1) != 0) {
-//			thisthing = var8007fcb4;
-//
-//			if (thisthing < 0) {
-//				thisthing = -thisthing;
-//			}
-//
-//			if (thisthing < bestthing) {
-//				bestportalnum = i;
-//				bestthing = thisthing;
-//				count++;
-//
-//				if (i);
-//				if (bestportalnum);
-//			}
-//		}
-//
-//		if (i);
-//		if (bestportalnum);
-//	}
-//
-//	if (count);
-//	if (bestportalnum);
-//
-//	return bestportalnum;
-//}
+	for (i = 0; g_BgPortals[i].verticesoffset; i++) {
+		if (portal00017e30(i, arg0, arg1) != 0) {
+			thisthing = var8007fcb4;
+
+			if (thisthing < 0) {
+				thisthing = -thisthing;
+			}
+
+			if (thisthing < bestthing) {
+				if (count);
+				if (i);
+				bestportalnum = i;
+				bestthing = thisthing;
+				count++;
+			}
+		}
+	}
+
+	return bestportalnum;
+}
 
 bool bgIsBboxOverlapping(struct coord *portalbbmin, struct coord *portalbbmax, struct coord *propbbmin, struct coord *propbbmax)
 {
