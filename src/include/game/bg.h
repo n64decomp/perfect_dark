@@ -69,7 +69,7 @@ bool func0f15f2b0(struct coord *arg0, struct coord *arg1, struct coord *arg2, st
 bool func0f15f560(struct coord *arg0, struct coord *arg1, struct coord *arg2, Gfx *arg3, void *arg4, struct gfxvtx *vertices, struct hitthing *hitthing);
 bool func0f15ffdc(struct model *model, struct coord *arg1, struct coord *arg2, struct coord *arg3, Gfx *arg4, Gfx *arg5, struct gfxvtx *vertices, f32 *arg7, void *arg8);
 bool func0f160a38(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct room44 *arg3, s32 roomnum, struct hitthing *hitthing);
-s32 func0f1612e4(void *arg0, void *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4, struct hitthing *hitthing);
+s32 bg0f1612e4(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4, struct coord *arg5);
 bool func0f161520(struct coord *arg0, struct coord *arg1, s32 roomnum, struct hitthing *hitthing);
 bool roomIsLoaded(s32 room);
 bool roomContainsCoord(struct coord *pos, s16 roomnum);

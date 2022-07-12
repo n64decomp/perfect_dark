@@ -3567,12 +3567,8 @@ struct roomgfxdata {
 struct room44 {
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
+	/*0x08*/ struct coord unk08;
+	/*0x14*/ struct coord unk14;
 };
 
 struct room {
