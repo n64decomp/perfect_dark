@@ -65,7 +65,7 @@ Gfx *bgRenderRoomXlu(Gfx *gdl, s32 roomnum);
 s32 func0f15ecd8(s32 roomnum, void *allocation, Gfx *gdl, s32 arg3, struct gfxvtx *vtx, s32 arg5);
 void room0f15ef9c(s32 roomnum);
 bool func0f15f20c(struct coord *arg0, struct coord *arg1, s32 *arg2, s32 *arg3);
-bool func0f15f2b0(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3);
+bool bg0f15f2b0(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3);
 bool func0f15f560(struct coord *arg0, struct coord *arg1, struct coord *arg2, Gfx *arg3, void *arg4, struct gfxvtx *vertices, struct hitthing *hitthing);
 bool func0f15ffdc(struct model *model, struct coord *arg1, struct coord *arg2, struct coord *arg3, Gfx *arg4, Gfx *arg5, struct gfxvtx *vertices, f32 *arg7, void *arg8);
 bool func0f160a38(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct room44 *arg3, s32 roomnum, struct hitthing *hitthing);
