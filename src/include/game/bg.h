@@ -8,7 +8,7 @@ void roomUnpauseProps(u32 roomnum, bool tintedglassonly);
 void roomSetOnscreen(s32 room, s32 draworder, struct screenbox *arg2);
 void func0f158108(s32 roomnum, u8 *arg1, u8 *arg2);
 struct var800a4640_00 *func0f158140(s32 roomnum);
-Gfx *func0f158184(Gfx *gdl, struct bgthing *arg1);
+Gfx *bg0f158184(Gfx *gdl, struct bgthing *arg1);
 u32 func0f158400(void);
 void func0f158884(s32 *arg0, s16 arg1[3], s32 *arg2, struct bgthing *arg3);
 Gfx *func0f158d9c(Gfx *gdl, struct bgthing *arg1, s16 arg2[3], s16 arg3[3], s16 arg4[3], s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10);

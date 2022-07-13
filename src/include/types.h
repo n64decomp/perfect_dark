@@ -6351,19 +6351,21 @@ struct var800a6538 {
 };
 
 struct bgthing {
-	s32 unk000;
-	s32 unk004;
-	s32 unk008;
-	f32 unk00c;
-	f32 unk010;
-	f32 unk014;
-	f32 unk018;
-	f32 unk01c;
-	s32 unk020;
-	s32 unk024;
-	u8 unk028[0x220];
-	s16 unk248;
-	s16 unk24a;
+	/*0x000*/ s32 unk000;
+	/*0x004*/ s32 unk004;
+	/*0x008*/ s32 unk008;
+	/*0x00c*/ f32 unk00c;
+	/*0x010*/ f32 unk010;
+	/*0x014*/ f32 unk014;
+	/*0x018*/ f32 unk018;
+	/*0x01c*/ f32 unk01c;
+	/*0x020*/ s32 unk020;
+	/*0x024*/ s32 unk024;
+	/*0x028*/ s16 vertices[16][3];
+	/*0x088*/ u32 colours[16];
+	/*0x0c8*/ s16 tris[64][3];
+	/*0x248*/ s16 unk248;
+	/*0x24a*/ s16 unk24a;
 };
 
 #endif
