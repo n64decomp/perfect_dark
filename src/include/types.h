@@ -6350,7 +6350,7 @@ struct var800a6538 {
 	f32 unk04;
 };
 
-struct bgthing {
+struct xraydata {
 	/*0x000*/ s32 unk000;
 	/*0x004*/ s32 unk004;
 	/*0x008*/ s32 unk008;

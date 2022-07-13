@@ -272,7 +272,7 @@ struct var800a4640_00 *func0f158140(s32 roomnum)
 	return &var800a4640.unk000[index];
 }
 
-Gfx *bg0f158184(Gfx *gdl, struct bgthing *arg1)
+Gfx *bg0f158184(Gfx *gdl, struct xraydata *xraydata)
 {
 	struct gfxvtx *vertices;
 	u32 *colours;
@@ -280,41 +280,41 @@ Gfx *bg0f158184(Gfx *gdl, struct bgthing *arg1)
 	s32 i;
 	s32 count;
 
-	if (arg1->unk24a > 0) {
-		vertices = gfxAllocateVertices(arg1->unk248);
-		colours = gfxAllocateColours(arg1->unk248);
+	if (xraydata->unk24a > 0) {
+		vertices = gfxAllocateVertices(xraydata->unk248);
+		colours = gfxAllocateColours(xraydata->unk248);
 
-		for (i = 0; i < arg1->unk248; i++) {
-			vertices[i].x = arg1->vertices[i][0];
-			vertices[i].y = arg1->vertices[i][1];
-			vertices[i].z = arg1->vertices[i][2];
+		for (i = 0; i < xraydata->unk248; i++) {
+			vertices[i].x = xraydata->vertices[i][0];
+			vertices[i].y = xraydata->vertices[i][1];
+			vertices[i].z = xraydata->vertices[i][2];
 			vertices[i].colour = i << 2;
-			colours[i] = arg1->colours[i];
+			colours[i] = xraydata->colours[i];
 		}
 
-		count = arg1->unk248;
+		count = xraydata->unk248;
 		gDPSetColorArray(gdl++, colours, count);
 
-		count = arg1->unk248;
+		count = xraydata->unk248;
 		gDPSetVerticeArray(gdl++, vertices, count);
 
-		end = (arg1->unk24a - 1) / 4 + 1;
+		end = (xraydata->unk24a - 1) / 4 + 1;
 
-		for (i = arg1->unk24a; i < arg1->unk24a * 4; i++) {
-			arg1->tris[i][0] = arg1->tris[i][1] = arg1->tris[i][2] = 0;
+		for (i = xraydata->unk24a; i < xraydata->unk24a * 4; i++) {
+			xraydata->tris[i][0] = xraydata->tris[i][1] = xraydata->tris[i][2] = 0;
 		}
 
 		for (i = 0; i < end; i++) {
 			gDPTri4(gdl++,
-					arg1->tris[i * 4 + 0][0], arg1->tris[i * 4 + 0][1], arg1->tris[i * 4 + 0][2],
-					arg1->tris[i * 4 + 1][0], arg1->tris[i * 4 + 1][1], arg1->tris[i * 4 + 1][2],
-					arg1->tris[i * 4 + 2][0], arg1->tris[i * 4 + 2][1], arg1->tris[i * 4 + 2][2],
-					arg1->tris[i * 4 + 3][0], arg1->tris[i * 4 + 3][1], arg1->tris[i * 4 + 3][2]);
+					xraydata->tris[i * 4 + 0][0], xraydata->tris[i * 4 + 0][1], xraydata->tris[i * 4 + 0][2],
+					xraydata->tris[i * 4 + 1][0], xraydata->tris[i * 4 + 1][1], xraydata->tris[i * 4 + 1][2],
+					xraydata->tris[i * 4 + 2][0], xraydata->tris[i * 4 + 2][1], xraydata->tris[i * 4 + 2][2],
+					xraydata->tris[i * 4 + 3][0], xraydata->tris[i * 4 + 3][1], xraydata->tris[i * 4 + 3][2]);
 		}
 	}
 
-	arg1->unk24a = 0;
-	arg1->unk248 = 0;
+	xraydata->unk24a = 0;
+	xraydata->unk248 = 0;
 
 	return gdl;
 }
@@ -629,7 +629,7 @@ glabel func0f158400
 );
 
 GLOBAL_ASM(
-glabel func0f158884
+glabel bgChooseXrayVtxColour
 .late_rodata
 glabel var7f1b75b4
 .word 0x3fc90fdb
@@ -989,6 +989,76 @@ glabel var7f1b75c0
 /*  f158d98:	00000000 */ 	nop
 );
 
+// Mismatch: Reordered statements in the last else block. Goal saves player and
+// alphafrac to the stack after the division. The code below does it before.
+//void bgChooseXrayVtxColour(bool *inrange, s16 vertex[3], u32 *colour, struct xraydata *xraydata)
+//{
+//	f32 sp2c[3];
+//	f32 f12;
+//	f32 alphafrac; // 24
+//	f32 f0;
+//	struct player *player = g_Vars.currentplayer; // 1c
+//	f32 tmp;
+//
+//	*inrange = false;
+//
+//	sp2c[0] = (f32) vertex[0] - (f32) xraydata->unk000;
+//	sp2c[0] = sp2c[0] * sp2c[0];
+//
+//	if (sp2c[0] < xraydata->unk010) {
+//		sp2c[2] = (f32) vertex[2] - (f32) xraydata->unk008;
+//		sp2c[2] = sp2c[2] * sp2c[2];
+//
+//		if (sp2c[2] < xraydata->unk010) {
+//			sp2c[1] = (f32) vertex[1] - (f32) xraydata->unk004;
+//			sp2c[1] = sp2c[1] * sp2c[1];
+//
+//			if (sp2c[1] < xraydata->unk010) {
+//				f0 = sqrtf(sp2c[0] + sp2c[1] + sp2c[2]);
+//
+//				if (f0 < xraydata->unk00c) {
+//					*inrange = true;
+//
+//					f12 = f0 / xraydata->unk00c;
+//
+//					if (xraydata->unk014 < f12) {
+//						alphafrac = 1.0f - (f12 - xraydata->unk014) / (1.0f - xraydata->unk014);
+//					} else {
+//						alphafrac = 1.0f;
+//					}
+//
+//					// 9e0
+//					if (f12 < xraydata->unk01c) {
+//						f32 f0 = f12 / xraydata->unk01c;
+//
+//						f0 = sinf((1.0f - f0) * 1.5707964f);
+//
+//						*colour = (u32)(f0 * 255.0f) << player->ecol_1
+//							| (u32)((1.0f - f0) * 255.0f) << player->ecol_2
+//							| (u32)(alphafrac * 128.0f);
+//					} else {
+//						// bec
+//						f32 f0;
+//
+//						f0 = (f12 - xraydata->unk01c) / (1.0f - xraydata->unk01c);
+//						f0 = 0.65f * f0 + 0.35f;
+//
+//						tmp = sinf(f0 * 1.5707964f);
+//
+//						*colour = (u32)(tmp * 255.0f) << player->ecol_3
+//							| 0xff << player->ecol_2
+//							| (u32)(alphafrac * 128.0f);
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	if (*inrange == false) {
+//		*colour = 0x0000ff00;
+//	}
+//}
+
 GLOBAL_ASM(
 glabel func0f158d9c
 /*  f158d9c:	27bdff50 */ 	addiu	$sp,$sp,-176
@@ -1077,7 +1147,7 @@ glabel func0f158d9c
 .L0f158ee0:
 /*  f158ee0:	a7ac0088 */ 	sh	$t4,0x88($sp)
 /*  f158ee4:	afa00068 */ 	sw	$zero,0x68($sp)
-/*  f158ee8:	0fc56221 */ 	jal	func0f158884
+/*  f158ee8:	0fc56221 */ 	jal	bgChooseXrayVtxColour
 /*  f158eec:	afa80064 */ 	sw	$t0,0x64($sp)
 /*  f158ef0:	8fa80064 */ 	lw	$t0,0x64($sp)
 /*  f158ef4:	8faa0068 */ 	lw	$t2,0x68($sp)
@@ -1148,7 +1218,7 @@ glabel func0f158d9c
 .L0f158fec:
 /*  f158fec:	a7b9008e */ 	sh	$t9,0x8e($sp)
 /*  f158ff0:	afaa0068 */ 	sw	$t2,0x68($sp)
-/*  f158ff4:	0fc56221 */ 	jal	func0f158884
+/*  f158ff4:	0fc56221 */ 	jal	bgChooseXrayVtxColour
 /*  f158ff8:	afa80064 */ 	sw	$t0,0x64($sp)
 /*  f158ffc:	8fa80064 */ 	lw	$t0,0x64($sp)
 /*  f159000:	8faa0068 */ 	lw	$t2,0x68($sp)
@@ -1218,7 +1288,7 @@ glabel func0f158d9c
 .L0f1590f4:
 /*  f1590f4:	a7af0094 */ 	sh	$t7,0x94($sp)
 /*  f1590f8:	afaa0068 */ 	sw	$t2,0x68($sp)
-/*  f1590fc:	0fc56221 */ 	jal	func0f158884
+/*  f1590fc:	0fc56221 */ 	jal	bgChooseXrayVtxColour
 /*  f159100:	afa80064 */ 	sw	$t0,0x64($sp)
 /*  f159104:	8fa80064 */ 	lw	$t0,0x64($sp)
 /*  f159108:	8faa0068 */ 	lw	$t2,0x68($sp)
@@ -1844,7 +1914,7 @@ glabel var7f1b75c4
 /*  f159a24:	27a70184 */ 	addiu	$a3,$sp,0x184
 /*  f159a28:	a60e0002 */ 	sh	$t6,0x2($s0)
 /*  f159a2c:	862f0004 */ 	lh	$t7,0x4($s1)
-/*  f159a30:	0fc56221 */ 	jal	func0f158884
+/*  f159a30:	0fc56221 */ 	jal	bgChooseXrayVtxColour
 /*  f159a34:	a60f0004 */ 	sh	$t7,0x4($s0)
 /*  f159a38:	26520001 */ 	addiu	$s2,$s2,0x1
 /*  f159a3c:	26100006 */ 	addiu	$s0,$s0,0x6
@@ -2176,29 +2246,29 @@ glabel var7f1b75c4
 //{
 //	s32 i;
 //	s32 stack;
-//	struct bgthing thing;
+//	struct xraydata xraydata;
 //	struct stagetableentry *stage = stageGetCurrent();
 //	s16 sp120[16][3];
-//	s32 spe0[16];
-//	s32 spa0[16];
+//	s32 colours[16];
+//	bool inrange[16];
 //
-//	thing.unk00c = g_Vars.currentplayer->eraserbgdist;
-//	thing.unk010 = thing.unk00c * thing.unk00c;
-//	thing.unk018 = thing.unk00c * 0.25f;
-//	thing.unk01c = g_Vars.currentplayer->eraserpropdist / thing.unk00c;
+//	xraydata.unk00c = g_Vars.currentplayer->eraserbgdist;
+//	xraydata.unk010 = xraydata.unk00c * xraydata.unk00c;
+//	xraydata.unk018 = xraydata.unk00c * 0.25f;
+//	xraydata.unk01c = g_Vars.currentplayer->eraserpropdist / xraydata.unk00c;
 //
-//	if (thing.unk01c > 0.7f) {
-//		thing.unk01c = 0.7f;
+//	if (xraydata.unk01c > 0.7f) {
+//		xraydata.unk01c = 0.7f;
 //	}
 //
-//	thing.unk014 = 0.250f;
-//	thing.unk020 = stage->unk2c;
-//	thing.unk024 = thing.unk020 * thing.unk020;
-//	thing.unk000 = arg3[0];
-//	thing.unk004 = arg3[1];
-//	thing.unk008 = arg3[2];
-//	thing.unk24a = 0;
-//	thing.unk248 = 0;
+//	xraydata.unk014 = 0.250f;
+//	xraydata.unk020 = stage->unk2c;
+//	xraydata.unk024 = xraydata.unk020 * xraydata.unk020;
+//	xraydata.unk000 = arg3[0];
+//	xraydata.unk004 = arg3[1];
+//	xraydata.unk008 = arg3[2];
+//	xraydata.unk24a = 0;
+//	xraydata.unk248 = 0;
 //
 //	while (true) {
 //		if (gdl2->dma.cmd == G_ENDDL) {
@@ -2219,7 +2289,7 @@ glabel var7f1b75c4
 //				sp120[index + i][1] = vtx->y;
 //				sp120[index + i][2] = vtx->z;
 //
-//				func0f158884(&spa0[i], sp120[index + i], &spe0[index + i], &thing);
+//				bgChooseXrayVtxColour(&inrange[i], sp120[index + i], &colours[index + i], &xraydata);
 //
 //				vtx++;
 //			}
@@ -2228,7 +2298,7 @@ glabel var7f1b75c4
 //			s16 y = gdl2->tri.tri.v[1] / 10;
 //			s16 z = gdl2->tri.tri.v[2] / 10;
 //
-//			gdl = func0f158d9c(gdl, &thing, sp120[x], sp120[y], sp120[z], spe0[x], spe0[y], spe0[z], spa0[x], spa0[y], spa0[z]);
+//			gdl = func0f158d9c(gdl, &xraydata, sp120[x], sp120[y], sp120[z], colours[x], colours[y], colours[z], inrange[x], inrange[y], inrange[z]);
 //		} else if (gdl2->dma.cmd == G_TRI4) {
 //			s16 x;
 //			s16 y;
@@ -2238,31 +2308,31 @@ glabel var7f1b75c4
 //			y = gdl2->tri4.y1;
 //			z = gdl2->tri4.z1;
 //
-//			gdl = func0f158d9c(gdl, &thing, sp120[x], sp120[y], sp120[z], spe0[x], spe0[y], spe0[z], spa0[x], spa0[y], spa0[z]);
+//			gdl = func0f158d9c(gdl, &xraydata, sp120[x], sp120[y], sp120[z], colours[x], colours[y], colours[z], inrange[x], inrange[y], inrange[z]);
 //
 //			x = gdl2->tri4.x2;
 //			y = gdl2->tri4.y2;
 //			z = gdl2->tri4.z2;
 //
-//			gdl = func0f158d9c(gdl, &thing, sp120[x], sp120[y], sp120[z], spe0[x], spe0[y], spe0[z], spa0[x], spa0[y], spa0[z]);
+//			gdl = func0f158d9c(gdl, &xraydata, sp120[x], sp120[y], sp120[z], colours[x], colours[y], colours[z], inrange[x], inrange[y], inrange[z]);
 //
 //			x = gdl2->tri4.x3;
 //			y = gdl2->tri4.y3;
 //			z = gdl2->tri4.z3;
 //
-//			gdl = func0f158d9c(gdl, &thing, sp120[x], sp120[y], sp120[z], spe0[x], spe0[y], spe0[z], spa0[x], spa0[y], spa0[z]);
+//			gdl = func0f158d9c(gdl, &xraydata, sp120[x], sp120[y], sp120[z], colours[x], colours[y], colours[z], inrange[x], inrange[y], inrange[z]);
 //
 //			x = gdl2->tri4.x4;
 //			y = gdl2->tri4.y4;
 //			z = gdl2->tri4.z4;
 //
-//			gdl = func0f158d9c(gdl, &thing, sp120[x], sp120[y], sp120[z], spe0[x], spe0[y], spe0[z], spa0[x], spa0[y], spa0[z]);
+//			gdl = func0f158d9c(gdl, &xraydata, sp120[x], sp120[y], sp120[z], colours[x], colours[y], colours[z], inrange[x], inrange[y], inrange[z]);
 //		}
 //
 //		gdl2++;
 //	}
 //
-//	gdl = bg0f158184(gdl, &thing);
+//	gdl = bg0f158184(gdl, &xraydata);
 //
 //	return gdl;
 //}
