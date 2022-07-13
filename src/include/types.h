@@ -2353,7 +2353,7 @@ struct player {
 	/*0x0014*/ s32 memcamroom;
 	/*0x0018*/ struct coord eraserpos;
 	/*0x0024*/ f32 eraserpropdist;
-	/*0x0028*/ u32 eraserbgdist;
+	/*0x0028*/ f32 eraserbgdist;
 	/*0x002c*/ u32 eraserdepth;
 	/*0x0030*/ bool isfalling;
 	/*0x0034*/ s32 fallstart; // lvframe60 when player started falling
@@ -6348,6 +6348,22 @@ struct portalthing2 {
 struct var800a6538 {
 	s32 vtxbatchindex;
 	f32 unk04;
+};
+
+struct bgthing {
+	s32 unk000;
+	s32 unk004;
+	s32 unk008;
+	f32 unk00c;
+	f32 unk010;
+	f32 unk014;
+	f32 unk018;
+	f32 unk01c;
+	s32 unk020;
+	s32 unk024;
+	u8 unk028[0x220];
+	s16 unk248;
+	s16 unk24a;
 };
 
 #endif

@@ -5,7 +5,7 @@
 #include "types.h"
 
 #define G_SETCOLOR 0x07
-#define G_TRI4     0xb1
+#define G_TRI4     -79
 
 /**
  * 04	rsp_uc05_vertex

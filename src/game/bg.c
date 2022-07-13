@@ -1865,7 +1865,7 @@ glabel func0f158d9c
 );
 
 GLOBAL_ASM(
-glabel func0f1598b4
+glabel bg0f1598b4
 .late_rodata
 glabel var7f1b75c4
 .word 0x3f333333
@@ -2295,6 +2295,102 @@ glabel var7f1b75c4
 /*  f159f18:	27bd03d8 */ 	addiu	$sp,$sp,0x3d8
 );
 
+// Mismatch: Regalloc and some reordered instructions
+//Gfx *bg0f1598b4(Gfx *gdl, Gfx *gdl2, struct gfxvtx *vertices, s16 arg3[3])
+//{
+//	s32 i;
+//	s32 stack;
+//	struct bgthing thing;
+//	struct stagetableentry *stage = stageGetCurrent();
+//	s16 sp120[16][3];
+//	s32 spe0[16];
+//	s32 spa0[16];
+//
+//	thing.unk00c = g_Vars.currentplayer->eraserbgdist;
+//	thing.unk010 = thing.unk00c * thing.unk00c;
+//	thing.unk018 = thing.unk00c * 0.25f;
+//	thing.unk01c = g_Vars.currentplayer->eraserpropdist / thing.unk00c;
+//
+//	if (thing.unk01c > 0.7f) {
+//		thing.unk01c = 0.7f;
+//	}
+//
+//	thing.unk014 = 0.250f;
+//	thing.unk020 = stage->unk2c;
+//	thing.unk024 = thing.unk020 * thing.unk020;
+//	thing.unk000 = arg3[0];
+//	thing.unk004 = arg3[1];
+//	thing.unk008 = arg3[2];
+//	thing.unk24a = 0;
+//	thing.unk248 = 0;
+//
+//	while (true) {
+//		if (gdl2->dma.cmd == G_ENDDL) {
+//			break;
+//		}
+//
+//		if (gdl2->dma.cmd == G_MTX) {
+//			// empty
+//		} else if (gdl2->dma.cmd == G_VTX) {
+//			s32 index = gdl2->bytes[1] & 0xf;
+//			s32 numvertices = (((u32)gdl2->bytes[1] >> 4)) + 1;
+//			s32 offset = (gdl2->words.w1 & 0xffffff);
+//			struct gfxvtx *vtx = (struct gfxvtx *)((u32)vertices + offset);
+//			u32 stack[4];
+//
+//			for (i = 0; i < numvertices; i++) {
+//				sp120[index + i][0] = vtx->x;
+//				sp120[index + i][1] = vtx->y;
+//				sp120[index + i][2] = vtx->z;
+//
+//				func0f158884(&spa0[i], sp120[index + i], &spe0[index + i], &thing);
+//
+//				vtx++;
+//			}
+//		} else if (gdl2->dma.cmd == G_TRI1) {
+//			s16 x = gdl2->tri.tri.v[0] / 10;
+//			s16 y = gdl2->tri.tri.v[1] / 10;
+//			s16 z = gdl2->tri.tri.v[2] / 10;
+//
+//			gdl = func0f158d9c(gdl, &thing, sp120[x], sp120[y], sp120[z], spe0[x], spe0[y], spe0[z], spa0[x], spa0[y], spa0[z]);
+//		} else if (gdl2->dma.cmd == G_TRI4) {
+//			s16 x;
+//			s16 y;
+//			s16 z;
+//
+//			x = gdl2->tri4.x1;
+//			y = gdl2->tri4.y1;
+//			z = gdl2->tri4.z1;
+//
+//			gdl = func0f158d9c(gdl, &thing, sp120[x], sp120[y], sp120[z], spe0[x], spe0[y], spe0[z], spa0[x], spa0[y], spa0[z]);
+//
+//			x = gdl2->tri4.x2;
+//			y = gdl2->tri4.y2;
+//			z = gdl2->tri4.z2;
+//
+//			gdl = func0f158d9c(gdl, &thing, sp120[x], sp120[y], sp120[z], spe0[x], spe0[y], spe0[z], spa0[x], spa0[y], spa0[z]);
+//
+//			x = gdl2->tri4.x3;
+//			y = gdl2->tri4.y3;
+//			z = gdl2->tri4.z3;
+//
+//			gdl = func0f158d9c(gdl, &thing, sp120[x], sp120[y], sp120[z], spe0[x], spe0[y], spe0[z], spa0[x], spa0[y], spa0[z]);
+//
+//			x = gdl2->tri4.x4;
+//			y = gdl2->tri4.y4;
+//			z = gdl2->tri4.z4;
+//
+//			gdl = func0f158d9c(gdl, &thing, sp120[x], sp120[y], sp120[z], spe0[x], spe0[y], spe0[z], spa0[x], spa0[y], spa0[z]);
+//		}
+//
+//		gdl2++;
+//	}
+//
+//	gdl = func0f158184(gdl, &thing);
+//
+//	return gdl;
+//}
+
 Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool recurse, s16 arg4[3])
 {
 	struct player *player = g_Vars.currentplayer;
@@ -2305,7 +2401,7 @@ Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, boo
 
 	switch (arg2->type) {
 	case 0:
-		gdl = func0f1598b4(gdl, arg2->gdl, arg2->vertices, arg4);
+		gdl = bg0f1598b4(gdl, arg2->gdl, arg2->vertices, arg4);
 
 		if (recurse) {
 			gdl = bgRenderRoomXrayPass(gdl, roomnum, arg2->next, true, arg4);
