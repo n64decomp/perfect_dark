@@ -5,6 +5,6 @@
 #include "types.h"
 
 bool func0002f490(struct vec3s16 *arg0, struct vec3s16 *arg1, struct vec3s16 *arg2, s32 arg3, struct coord *arg4, struct coord *arg5, struct coord *arg6, s32 arg7, s32 arg8);
-u32 func0002f560(void);
+bool func0002f560(struct coord *arg0, struct coord *arg1, struct coord *arg2, s32 arg3, struct coord *arg4, struct coord *arg5, struct coord *arg6, struct coord *arg7, struct coord *arg8);
 
 #endif

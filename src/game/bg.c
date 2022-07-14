@@ -10391,14 +10391,14 @@ glabel var7f1b75d8
 /*  f15f634:	032f7021 */ 	addu	$t6,$t9,$t7
 /*  f15f638:	3078000f */ 	andi	$t8,$v1,0xf
 /*  f15f63c:	03001825 */ 	or	$v1,$t8,$zero
-/*  f15f640:	3c02800a */ 	lui	$v0,%hi(var800a647c)
+/*  f15f640:	3c02800a */ 	lui	$v0,%hi(var800a6470+0xc)
 /*  f15f644:	00007812 */ 	mflo	$t7
 /*  f15f648:	01cf2023 */ 	subu	$a0,$t6,$t7
 /*  f15f64c:	84980000 */ 	lh	$t8,0x0($a0)
 /*  f15f650:	24630000 */ 	addiu	$v1,$v1,0x0
 /*  f15f654:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f15f658:	44982000 */ 	mtc1	$t8,$f4
-/*  f15f65c:	2442647c */ 	addiu	$v0,$v0,%lo(var800a647c)
+/*  f15f65c:	2442647c */ 	addiu	$v0,$v0,%lo(var800a6470+0xc)
 /*  f15f660:	2495000c */ 	addiu	$s5,$a0,0xc
 /*  f15f664:	468021a0 */ 	cvt.s.w	$f6,$f4
 /*  f15f668:	e5260000 */ 	swc1	$f6,0x0($t1)
@@ -11797,7 +11797,7 @@ glabel func0f15ffdc
 );
 
 GLOBAL_ASM(
-glabel func0f160a38
+glabel bgCalculateHitInVtxBatch
 .late_rodata
 glabel var7f1b75dc
 .word 0x7f7fffff
@@ -12405,6 +12405,231 @@ glabel var7f1b75dc
 /*  f1612e0:	01a01025 */ 	or	$v0,$t5,$zero
 );
 
+// Mismatch: Some significantly different codegen, probably related to how loops
+// are iterated. Appears to be functionally correct.
+//bool bgCalculateHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct vtxbatch *batch, s32 roomnum, struct hitthing *hitthing)
+//{
+//	s16 spf4;
+//	s32 spf0;
+//	Gfx *gdl;
+//	s32 ret; // e8
+//	s32 spdc[3];
+//	struct gfxvtx *vtx;
+//	s32 numvertices;
+//	f32 lowestsqdist;
+//	Gfx *tmpgdl;
+//	s32 texturenum;
+//	s32 i;
+//	s32 index;
+//	u32 stack;
+//	struct coord spb0;
+//	struct coord spa4;
+//	struct coord sp98;
+//	struct coord sp8c;
+//
+//	Gfx *sp78;
+//	Gfx *iter;
+//
+//	gdl = batch->gdl;
+//
+//	vtx = room0f15dbb4(roomnum, gdl);
+//	iter = &gdl[batch->gbicmdindex];
+//	numvertices = (((u32)iter->bytes[1] >> 4) & 0xf) + 1;
+//	vtx = (struct gfxvtx *)((s32)vtx + (iter->words.w1 & 0xffffff));
+//	i = 0;
+//
+//	while (numvertices > 0) {
+//		var800a6470[i].x = g_BgRooms[roomnum].pos.x + vtx->x;
+//		var800a6470[i].y = g_BgRooms[roomnum].pos.y + vtx->y;
+//		var800a6470[i].z = g_BgRooms[roomnum].pos.z + vtx->z;
+//
+//		i++;
+//		vtx++;
+//		numvertices--;
+//	}
+//
+//	lowestsqdist = MAXFLOAT;
+//	ret = false;
+//
+//	iter++;
+//
+//	while (iter->dma.cmd != G_VTX && iter->dma.cmd != G_ENDDL) {
+//		if (iter->dma.cmd != G_TRI1 && iter->dma.cmd != G_TRI4) {
+//			iter++;
+//			continue;
+//		}
+//
+//		if (iter->dma.cmd == G_TRI1) {
+//			spf0 = 0;
+//			spf4 = 0;
+//			spdc[0] = iter->tri.tri.v[0] / 10;
+//			spdc[1] = iter->tri.tri.v[1] / 10;
+//			spdc[2] = iter->tri.tri.v[2] / 10;
+//		} else if (iter->dma.cmd == G_TRI4) {
+//			spf0 = 3;
+//			spf4 = 1;
+//			spdc[0] = iter->tri4.x1;
+//			spdc[1] = iter->tri4.y1;
+//			spdc[2] = iter->tri4.z1;
+//		}
+//
+//		do {
+//			if (spdc[0] || spdc[1] || spdc[2]) {
+//				sp98.x = var800a6470[spdc[0]].x;
+//
+//				if (var800a6470[spdc[1]].x < sp98.x) {
+//					sp98.x = var800a6470[spdc[1]].x;
+//				}
+//
+//				if (var800a6470[spdc[2]].x < sp98.x) {
+//					sp98.x = var800a6470[spdc[2]].x;
+//				}
+//
+//				if (!(arg0->x < sp98.x) || !(arg1->x < sp98.x)) {
+//					sp8c.x = var800a6470[spdc[0]].x;
+//
+//					if (sp8c.x < var800a6470[spdc[1]].x) {
+//						sp8c.x = var800a6470[spdc[1]].x;
+//					}
+//
+//					if (sp8c.x < var800a6470[spdc[2]].x) {
+//						sp8c.x = var800a6470[spdc[2]].x;
+//					}
+//
+//					if (!(sp8c.x < arg0->x) || !(sp8c.x < arg1->x)) {
+//						sp98.z = var800a6470[spdc[0]].z;
+//
+//						if (var800a6470[spdc[1]].z < sp98.z) {
+//							sp98.z = var800a6470[spdc[1]].z;
+//						}
+//
+//						if (var800a6470[spdc[2]].z < sp98.z) {
+//							sp98.z = var800a6470[spdc[2]].z;
+//						}
+//
+//						if (!(arg0->z < sp98.z) || !(arg1->z < sp98.z)) {
+//							sp8c.z = var800a6470[spdc[0]].z;
+//
+//							if (sp8c.z < var800a6470[spdc[1]].z) {
+//								sp8c.z = var800a6470[spdc[1]].z;
+//							}
+//
+//							if (sp8c.z < var800a6470[spdc[2]].z) {
+//								sp8c.z = var800a6470[spdc[2]].z;
+//							}
+//
+//							if (!(sp8c.z < arg0->z) || !(sp8c.z < arg1->z)) {
+//								sp98.y = var800a6470[spdc[0]].y;
+//
+//								if (var800a6470[spdc[1]].y < sp98.y) {
+//									sp98.y = var800a6470[spdc[1]].y;
+//								}
+//
+//								if (var800a6470[spdc[2]].y < sp98.y) {
+//									sp98.y = var800a6470[spdc[2]].y;
+//								}
+//
+//								if (!(arg0->y < sp98.y) || !(arg1->y < sp98.y)) {
+//									sp8c.y = var800a6470[spdc[0]].y;
+//
+//									if (sp8c.y < var800a6470[spdc[1]].y) {
+//										sp8c.y = var800a6470[spdc[1]].y;
+//									}
+//
+//									if (sp8c.y < var800a6470[spdc[2]].y) {
+//										sp8c.y = var800a6470[spdc[2]].y;
+//									}
+//
+//									if (!(sp8c.y < arg0->y) || !(sp8c.y < arg1->y)) {
+//										if (bg0f15f2b0(arg0, arg2, &sp98, &sp8c)) {
+//											if (func0002f560(&var800a6470[spdc[0]], &var800a6470[spdc[1]], &var800a6470[spdc[2]], 0, arg0, arg1, arg2, &spb0, &spa4)) {
+//												f32 tmp;
+//												f32 sqdist;
+//
+//												tmp = spb0.x - arg0->x;
+//												sqdist = tmp * tmp;
+//												tmp = spb0.y - arg0->y;
+//												sqdist += tmp * tmp;
+//												tmp = spb0.z - arg0->z;
+//												sqdist += tmp * tmp;
+//
+//												if (sqdist < lowestsqdist) {
+//													ret = true;
+//
+//													tmpgdl = iter;
+//
+//													while (tmpgdl->bytes[0] != G_SETTIMG && tmpgdl > gdl) {
+//														tmpgdl--;
+//													}
+//
+//													if (tmpgdl == gdl
+//															|| (tmpgdl->words.w1 & 0x0f000000) == 0x0f000000
+//															|| (tmpgdl->words.w1 & 0x05000000) == 0x05000000) {
+//														texturenum = -1;
+//													} else {
+//														texturenum = *(s16 *)((tmpgdl->words.w1 - 8) | 0x80000000);
+//													}
+//
+//													if (batch->type == VTXBATCHTYPE_XLU && g_Textures[texturenum].surfacetype == SURFACETYPE_DEFAULT) {
+//														ret = false;
+//													}
+//
+//													if (ret) {
+//														lowestsqdist = sqdist;
+//
+//														hitthing->unk00.x = spb0.x;
+//														hitthing->unk00.y = spb0.y;
+//														hitthing->unk00.z = spb0.z;
+//														hitthing->unk0c.x = spa4.x;
+//														hitthing->unk0c.y = spa4.y;
+//														hitthing->unk0c.z = spa4.z;
+//														hitthing->unk18 = &vtx[spdc[0]];
+//														hitthing->unk1c = &vtx[spdc[1]];
+//														hitthing->texturenum = texturenum;
+//														hitthing->unk24 = iter;
+//														hitthing->unk28 = spf4;
+//														hitthing->unk20 = &vtx[spdc[2]];
+//														hitthing->unk2c = batch->type;
+//													}
+//												}
+//											}
+//										}
+//									}
+//								}
+//							}
+//						}
+//					}
+//				}
+//
+//				spf0--;
+//
+//				if (spf0 == 2) {
+//					spdc[0] = iter->tri4.x2;
+//					spdc[1] = iter->tri4.y2;
+//					spdc[2] = iter->tri4.z2;
+//					spf4 = 2;
+//				} else if (spf0 == 1) {
+//					spdc[0] = iter->tri4.x3;
+//					spdc[1] = iter->tri4.y3;
+//					spdc[2] = iter->tri4.z3;
+//					spf4 = 3;
+//				} else if (spf0 == 0) {
+//					spdc[0] = iter->tri4.x4;
+//					spdc[1] = iter->tri4.y4;
+//					spdc[2] = iter->tri4.z4;
+//					spf4 = 1;
+//				}
+//			} else {
+//				break;
+//			}
+//		} while (spf0 >= 0);
+//
+//		iter++;
+//	}
+//
+//	return ret;
+//}
+
 s32 bg0f1612e4(struct coord *bbmin, struct coord *bbmax, struct coord *arg2, struct coord *arg3, struct coord *arg4, struct coord *arg5)
 {
 	s32 i;
@@ -12468,7 +12693,18 @@ s32 bg0f1612e4(struct coord *bbmin, struct coord *bbmax, struct coord *arg2, str
 	return 1;
 }
 
-bool func0f161520(struct coord *arg0, struct coord *arg1, s32 roomnum, struct hitthing *hitthing)
+/**
+ * Figure out which piece of BG geometry is hit in the given room based on a
+ * line intersection from frompos to topos. Populate the hitthing struct with
+ * the details. Props are not considered. Return true if a hit occurred.
+ *
+ * This is used not only for shots, but blood splatters and explosion scorch
+ * marks too.
+ *
+ * Room vertices are already grouped into batches, where each batch has a
+ * precomputed bounding box.
+ */
+bool bgCalculateHitInRoom(struct coord *frompos, struct coord *topos, s32 roomnum, struct hitthing *hitthing)
 {
 	s32 i;
 	s32 count;
@@ -12489,13 +12725,13 @@ bool func0f161520(struct coord *arg0, struct coord *arg1, s32 roomnum, struct hi
 
 	count = 0;
 
-	spb8.x = arg0->x;
-	spb8.y = arg0->y;
-	spb8.z = arg0->z;
+	spb8.x = frompos->x;
+	spb8.y = frompos->y;
+	spb8.z = frompos->z;
 
-	spac.x = arg1->x;
-	spac.y = arg1->y;
-	spac.z = arg1->z;
+	spac.x = topos->x;
+	spac.y = topos->y;
+	spac.z = topos->z;
 
 	spa0.x = spac.x - spb8.x;
 	spa0.y = spac.y - spb8.y;
@@ -12560,7 +12796,7 @@ bool func0f161520(struct coord *arg0, struct coord *arg1, s32 roomnum, struct hi
 			count = 0;
 
 			for (j = 0; j < ARRAYCOUNT(var800a6538); j++) {
-				if (func0f160a38(&spb8, &spac, &spa0, &g_Rooms[roomnum].vtxbatches[var800a6538[j].vtxbatchindex], roomnum, hitthing)) {
+				if (bgCalculateHitInVtxBatch(&spb8, &spac, &spa0, &g_Rooms[roomnum].vtxbatches[var800a6538[j].vtxbatchindex], roomnum, hitthing)) {
 					f0 = spb8.x - hitthing->unk00.x;
 					f2 = f0 * f0;
 
@@ -12609,7 +12845,7 @@ bool func0f161520(struct coord *arg0, struct coord *arg1, s32 roomnum, struct hi
 	batch = g_Rooms[roomnum].vtxbatches;
 
 	for (i = 0; i < count; i++) {
-		if (func0f160a38(&spb8, &spac, &spa0, &batch[var800a6538[i].vtxbatchindex], roomnum, hitthing)) {
+		if (bgCalculateHitInVtxBatch(&spb8, &spac, &spa0, &batch[var800a6538[i].vtxbatchindex], roomnum, hitthing)) {
 			i++;
 
 			if (i < count) {
@@ -12624,7 +12860,7 @@ bool func0f161520(struct coord *arg0, struct coord *arg1, s32 roomnum, struct hi
 
 				for (; i < count; i++) {
 					if (var800a6538[i].unk04 <= spc8) {
-						if (func0f160a38(&spb8, &spac, &spa0, &batch[var800a6538[i].vtxbatchindex], roomnum, &sp60)) {
+						if (bgCalculateHitInVtxBatch(&spb8, &spac, &spa0, &batch[var800a6538[i].vtxbatchindex], roomnum, &sp60)) {
 							f0 = spb8.f[0] - sp60.unk00.f[0];
 							f20 = f0 * f0;
 

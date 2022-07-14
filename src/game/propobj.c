@@ -6054,7 +6054,7 @@ bool func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2,
 			s0 = false;
 
 			if (roomIsLoaded(spcc[i])) {
-				if (func0f161520(&prop->pos, &sp1c4, spcc[i], &hitthing)) {
+				if (bgCalculateHitInRoom(&prop->pos, &sp1c4, spcc[i], &hitthing)) {
 					hitthing.unk00.x *= scale;
 					hitthing.unk00.y *= scale;
 					hitthing.unk00.z *= scale;

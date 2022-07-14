@@ -277,7 +277,7 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 	portal00018148(&stackshotdata.gunpos, &endpos, &gunrooms, &endrooms, rooms, ARRAYCOUNT(rooms) - 1);
 
 	for (i = 0; rooms[i] != -1; i++) {
-		if (func0f161520(&stackshotdata.gunpos, &endpos, rooms[i], &hitthing)
+		if (bgCalculateHitInRoom(&stackshotdata.gunpos, &endpos, rooms[i], &hitthing)
 				&& ((stackshotdata.gunpos.x <= endpos.x && hitthing.unk00.x <= endpos.x && stackshotdata.gunpos.x <= hitthing.unk00.x) || (endpos.x <= stackshotdata.gunpos.x && endpos.x <= hitthing.unk00.x && hitthing.unk00.x <= stackshotdata.gunpos.x))
 					&& ((stackshotdata.gunpos.y <= endpos.y && hitthing.unk00.y <= endpos.y && stackshotdata.gunpos.y <= hitthing.unk00.y) || (endpos.y <= stackshotdata.gunpos.y && endpos.y <= hitthing.unk00.y && hitthing.unk00.y <= stackshotdata.gunpos.y))
 					&& ((stackshotdata.gunpos.z <= endpos.z && hitthing.unk00.z <= endpos.z && stackshotdata.gunpos.z <= hitthing.unk00.z) || (endpos.z <= stackshotdata.gunpos.z && endpos.z <= hitthing.unk00.z && hitthing.unk00.z <= stackshotdata.gunpos.z))) {

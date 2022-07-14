@@ -3564,8 +3564,8 @@ struct roomgfxdata {
 };
 
 struct vtxbatch {
-	/*0x00*/ s16 gbicmdindex;
-	/*0x02*/ s16 type;
+	/*0x00*/ u16 gbicmdindex;
+	/*0x02*/ u16 type;
 	/*0x04*/ Gfx *gdl;
 	/*0x08*/ struct coord bbmin;
 	/*0x14*/ struct coord bbmax;
@@ -5985,10 +5985,10 @@ struct var8009ddec {
 struct hitthing {
 	struct coord unk00;
 	struct coord unk0c;
-	u32 unk18;
-	u32 unk1c;
-	u32 unk20;
-	u32 unk24;
+	void *unk18;
+	void *unk1c;
+	void *unk20;
+	Gfx *unk24;
 	s16 unk28;
 	s16 texturenum;
 	s16 unk2c;

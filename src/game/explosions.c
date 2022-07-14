@@ -1214,7 +1214,7 @@ u32 explosionTick(struct prop *prop)
 			}
 
 			if (g_Rooms[exp->room].gfxdata) {
-				if (g_Rooms[exp->room].gfxdata->unk0c && func0f161520(&prop->pos, &exp->unk3d0, exp->room, &hitthing)) {
+				if (g_Rooms[exp->room].gfxdata->unk0c && bgCalculateHitInRoom(&prop->pos, &exp->unk3d0, exp->room, &hitthing)) {
 					xlu = hitthing.unk2c == 2;
 				}
 
