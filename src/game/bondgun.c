@@ -11825,15 +11825,15 @@ void bgun0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf 
 		func0f06a580(obj, coord, matrix1, rooms);
 
 		if (obj->type == OBJTYPE_WEAPON && ((struct weaponobj *) obj)->weaponnum == WEAPON_BOLT) {
-			s32 value = boltbeamFindByProp(objprop);
+			s32 beamnum = boltbeamFindByProp(objprop);
 
-			if (value == -1) {
-				value = boltbeamCreate(objprop);
+			if (beamnum == -1) {
+				beamnum = boltbeamCreate(objprop);
 			}
 
-			if (value != -1) {
-				func0f0aed3c(value, pos);
-				func0f0aed70(value, pos);
+			if (beamnum != -1) {
+				boltbeamSetHeadPos(beamnum, pos);
+				boltbeamSetTailPos(beamnum, pos);
 			}
 		}
 

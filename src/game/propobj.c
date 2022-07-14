@@ -5205,10 +5205,10 @@ void objFree(struct defaultobj *obj, bool freeprop, bool canregen)
 		}
 
 		if (weapon->weaponnum == WEAPON_BOLT) {
-			s32 value = boltbeamFindByProp(obj->prop);
+			s32 beammnum = boltbeamFindByProp(obj->prop);
 
-			if (value != -1) {
-				func0f0aeea8(value, 1400);
+			if (beammnum != -1) {
+				boltbeamSetAutomatic(beammnum, 1400);
 			}
 		}
 
@@ -7451,8 +7451,8 @@ void boltLand(struct weaponobj *weapon, struct coord *arg1)
 	beamnum = boltbeamFindByProp(prop);
 
 	if (beamnum != -1) {
-		func0f0aed70(beamnum, &prop->pos);
-		func0f0aeea8(beamnum, 2100);
+		boltbeamSetTailPos(beamnum, &prop->pos);
+		boltbeamSetAutomatic(beamnum, 2100);
 	}
 }
 
@@ -8732,12 +8732,12 @@ glabel var7f1aa2c4
 /*  f070414:	8fa501b0 */ 	lw	$a1,0x1b0($sp)
 /*  f070418:	afa3005c */ 	sw	$v1,0x5c($sp)
 /*  f07041c:	afa20058 */ 	sw	$v0,0x58($sp)
-/*  f070420:	0fc2bb5c */ 	jal	func0f0aed70
+/*  f070420:	0fc2bb5c */ 	jal	boltbeamSetTailPos
 /*  f070424:	24a50008 */ 	addiu	$a1,$a1,0x8
 /*  f070428:	3c05453b */ 	lui	$a1,0x453b
 /*  f07042c:	34a58000 */ 	ori	$a1,$a1,0x8000
 /*  f070430:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f070434:	0fc2bb69 */ 	jal	func0f0aeda4
+/*  f070434:	0fc2bb69 */ 	jal	boltbeamIncrementHeadPos
 /*  f070438:	00003025 */ 	or	$a2,$zero,$zero
 /*  f07043c:	8fa3005c */ 	lw	$v1,0x5c($sp)
 /*  f070440:	8fae01a8 */ 	lw	$t6,0x1a8($sp)
@@ -8752,7 +8752,7 @@ glabel var7f1aa2c4
 /*  f070460:	14600004 */ 	bnez	$v1,.L0f070474
 /*  f070464:	00000000 */ 	nop
 /*  f070468:	a5c00062 */ 	sh	$zero,0x62($t6)
-/*  f07046c:	0fc2bbaa */ 	jal	func0f0aeea8
+/*  f07046c:	0fc2bbaa */ 	jal	boltbeamSetAutomatic
 /*  f070470:	8fa40058 */ 	lw	$a0,0x58($sp)
 .L0f070474:
 /*  f070474:	10000047 */ 	b	.L0f070594
@@ -9941,12 +9941,12 @@ glabel var7f1aa2c4
 /*  f070414:	8fa501b0 */ 	lw	$a1,0x1b0($sp)
 /*  f070418:	afa3005c */ 	sw	$v1,0x5c($sp)
 /*  f07041c:	afa20058 */ 	sw	$v0,0x58($sp)
-/*  f070420:	0fc2bb5c */ 	jal	func0f0aed70
+/*  f070420:	0fc2bb5c */ 	jal	boltbeamSetTailPos
 /*  f070424:	24a50008 */ 	addiu	$a1,$a1,0x8
 /*  f070428:	3c05453b */ 	lui	$a1,0x453b
 /*  f07042c:	34a58000 */ 	ori	$a1,$a1,0x8000
 /*  f070430:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f070434:	0fc2bb69 */ 	jal	func0f0aeda4
+/*  f070434:	0fc2bb69 */ 	jal	boltbeamIncrementHeadPos
 /*  f070438:	00003025 */ 	or	$a2,$zero,$zero
 /*  f07043c:	8fa3005c */ 	lw	$v1,0x5c($sp)
 /*  f070440:	8fae01a8 */ 	lw	$t6,0x1a8($sp)
@@ -9961,7 +9961,7 @@ glabel var7f1aa2c4
 /*  f070460:	14600004 */ 	bnez	$v1,.L0f070474
 /*  f070464:	00000000 */ 	nop
 /*  f070468:	a5c00062 */ 	sh	$zero,0x62($t6)
-/*  f07046c:	0fc2bbaa */ 	jal	func0f0aeea8
+/*  f07046c:	0fc2bbaa */ 	jal	boltbeamSetAutomatic
 /*  f070470:	8fa40058 */ 	lw	$a0,0x58($sp)
 .L0f070474:
 /*  f070474:	10000047 */ 	b	.L0f070594
@@ -10878,12 +10878,12 @@ glabel var7f1aa2c4
 /*  f06f2ec:	afa30034 */ 	sw	$v1,0x34($sp)
 /*  f06f2f0:	afa20030 */ 	sw	$v0,0x30($sp)
 /*  f06f2f4:	afa70170 */ 	sw	$a3,0x170($sp)
-/*  f06f2f8:	0fc2b2b4 */ 	jal	func0f0aed70
+/*  f06f2f8:	0fc2b2b4 */ 	jal	boltbeamSetTailPos
 /*  f06f2fc:	24a50008 */ 	addiu	$a1,$a1,0x8
 /*  f06f300:	3c05453b */ 	lui	$a1,0x453b
 /*  f06f304:	34a58000 */ 	ori	$a1,$a1,0x8000
 /*  f06f308:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f06f30c:	0fc2b2c1 */ 	jal	func0f0aeda4
+/*  f06f30c:	0fc2b2c1 */ 	jal	boltbeamIncrementHeadPos
 /*  f06f310:	00003025 */ 	or	$a2,$zero,$zero
 /*  f06f314:	8fa30034 */ 	lw	$v1,0x34($sp)
 /*  f06f318:	8fa70170 */ 	lw	$a3,0x170($sp)
@@ -10899,7 +10899,7 @@ glabel var7f1aa2c4
 /*  f06f33c:	8fae0174 */ 	lw	$t6,0x174($sp)
 /*  f06f340:	a4e00062 */ 	sh	$zero,0x62($a3)
 /*  f06f344:	afa70170 */ 	sw	$a3,0x170($sp)
-/*  f06f348:	0fc2b302 */ 	jal	func0f0aeea8
+/*  f06f348:	0fc2b302 */ 	jal	boltbeamSetAutomatic
 /*  f06f34c:	8fa40030 */ 	lw	$a0,0x30($sp)
 /*  f06f350:	10000008 */ 	beqz	$zero,.NB0f06f374
 /*  f06f354:	8fa70170 */ 	lw	$a3,0x170($sp)
@@ -11329,12 +11329,12 @@ glabel var7f1aa2c4
 //
 //		if (weapon->timer240 < 0) {
 //			struct projectile *projectile = obj->projectile;
-//			s32 value = boltbeamFindByProp(prop);
+//			s32 beamnum = boltbeamFindByProp(prop);
 //
-//			if (value != -1) {
-//				func0f0aed70(value, &prop->pos);
+//			if (beamnum != -1) {
+//				boltbeamSetTailPos(beamnum, &prop->pos);
 //
-//				func0f0aeda4(value, 3000, 0);
+//				boltbeamIncrementHeadPos(beamnum, 3000, 0);
 //
 //				if (projectile && projectile->unk090 > 0) {
 //					projectile = NULL;
@@ -11342,7 +11342,7 @@ glabel var7f1aa2c4
 //
 //				if (projectile == NULL) {
 //					weapon->timer240 = 0;
-//					func0f0aeea8(value, 1400);
+//					boltbeamSetAutomatic(beamnum, 1400);
 //				}
 //			}
 //		} else {

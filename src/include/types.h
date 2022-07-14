@@ -5424,13 +5424,13 @@ struct boltbeam {
 	};
 
 	u8 unk04;
-	u8 unk05;
+	u8 tickmode;
 	u32 unk08;
 	u32 unk0c;
 	u32 unk10;
-	struct coord unk14;
-	struct coord unk20;
-	f32 unk2c;
+	struct coord headpos;
+	struct coord tailpos;
+	f32 speed;
 };
 
 struct var800a4ce8 {
