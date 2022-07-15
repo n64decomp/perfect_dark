@@ -834,7 +834,7 @@ u8 func0410_init_top_guard[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x20)
 
 	// SA and PA
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(80)
 	set_reaction_speed(10)
 	set_chr_maxdamage(CHR_SELF, 10)
@@ -845,7 +845,7 @@ u8 func0410_init_top_guard[] = {
 
 	// Agent
 	label(0x20)
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(12)
 	set_reaction_speed(10)
 	set_chr_maxdamage(CHR_SELF, 10)
@@ -1493,8 +1493,6 @@ u8 func1005_check_bodyguards_dead[] = {
 		if_chr_knockedout(chr, goto) \
 		goto_next(0x00) \
 		label(goto)
-
-
 
 	beginloop(0x1f)
 		if_alive_goto_00(CHR_TOPGUARD5, 0x21)
@@ -2383,8 +2381,6 @@ u8 func100d_intro[] = {
 		endloop(loopid) \
 		label(0x00)
 
-
-
 	wait_until(20, 0x61)
 	open_door(0x0c)
 
@@ -2543,8 +2539,6 @@ u8 func0412_outro[] = {
 		endloop(loopid) \
 		label(0x00)
 
-
-
 	outro_wait_until(0, 0x5f)
 	outro_wait_until(20, 0x5f)
 	outro_wait_until(47, 0x7e)
@@ -2690,7 +2684,7 @@ u8 func0412_outro[] = {
 };
 
 u8 func0413_defend_pad[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(12)
 	set_reaction_speed(10)
 	set_chr_maxdamage(CHR_SELF, 10)
@@ -2751,7 +2745,7 @@ u8 func1001_objectives_failed_msg[] = {
 };
 
 u8 func0414_init_shock[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(12)
 	set_reaction_speed(10)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -2766,7 +2760,7 @@ u8 func0414_init_shock[] = {
  * @unused
  */
 u8 func0415_init_10hp[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(12)
 	set_reaction_speed(10)
 	set_chr_maxdamage(CHR_SELF, 10)
@@ -2882,8 +2876,6 @@ u8 func1016_msg_make_foyer_guards_alerted[] = {
 		set_ailist(chr, GAILIST_ALERTED) \
 		increase_chr_alertness(100, chr) \
 		label(0x20)
-
-
 
 	label(0x20)
 	if_alive_set_alerted(0x01)
@@ -3265,17 +3257,3 @@ struct ailist ailists[] = {
 	{ func0412_outro,                         0x0c01 },
 	{ NULL, 0 },
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-

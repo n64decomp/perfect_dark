@@ -615,10 +615,8 @@ u8 func1400_setup_counterop[] = {
 		yield \
 	endloop(0x04)
 
-
-
 #define initclone_logic(templatechr, clonefunc) \
-	set_chr_dodge_rating(2, 0x00) \
+	set_chr_dodge_rating(2, 0) \
 	set_accuracy(20) \
 	set_reaction_speed(70) \
 	set_chr_maxdamage(CHR_SELF, 40) \
@@ -634,8 +632,6 @@ u8 func1400_setup_counterop[] = {
 	rebuild_teams \
 	rebuild_squadrons \
 	set_ailist(CHR_SELF, clonefunc)
-
-
 
 // Spawn clones in autogun hall dead end room
 u8 func0401_spawner1[] = {
@@ -848,8 +844,6 @@ u8 func1005_check_safeinfo_destroyed[] = {
 	show_hudmsg(CHR_BOND, 0x2222) /* "Critical mission object has been destroyed." */ \
 	set_stage_flag(STAGEFLAG_AUTOGUN_SWITCH_DESTROYED)
 
-
-
 u8 func1007_autogun_switch1[] = {
 	autogun_switch_logic(OBJ_AUTOGUN_SWITCH1, OBJ_AUTOGUN1, STAGEFLAG_AUTOGUN1_ACTIVE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -921,8 +915,6 @@ u8 func0c01_outro[] = {
 			if_timer_gt(time, /*goto*/ 0x08) \
 		endloop(loopid) \
 		label(0x08)
-
-
 
 	wait_until(86, 0x73)
 	play_sound(SFX_0161, CHANNEL_10)
@@ -1443,8 +1435,6 @@ u8 func1002_intro[] = {
 		endloop(loopid) \
 		label(0x08)
 
-
-
 	wait_until2(8, 0x62)
 	play_sound(SFX_SKEDAR_ROAR_052A, CHANNEL_10)
 
@@ -1928,8 +1918,6 @@ u8 func041f_holoclone[] = {
 	set_returnlist(CHR_SELF, GAILIST_UNALERTED) \
 	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
 
-
-
 u8 func0420_taker_holo1[] = {
 	set_self_chrflag(CHRCFLAG_00040000)
 	holo_taker_logic(CHR_HOLOCLONE1)
@@ -1955,7 +1943,7 @@ u8 func0422_taker_holo3[] = {
 };
 
 u8 func0423_init_shock[] = {
-	set_chr_dodge_rating(2, 0x00)
+	set_chr_dodge_rating(2, 0)
 	set_accuracy(20)
 	set_reaction_speed(70)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -2690,8 +2678,6 @@ u8 func1014_carrington_messages[] = {
 		if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0xd9) \
 		label(0x06)
 
-
-
 	label(0x2e)
 	yield
 	label(0x08)
@@ -3042,10 +3028,8 @@ u8 func1015_firingrange_pc[] = {
 		yield \
 	endloop(0x04)
 
-
-
 #define inittopclone_logic(templatechr, clonefunc) \
-	set_chr_dodge_rating(2, 0x00) \
+	set_chr_dodge_rating(2, 0) \
 	set_accuracy(20) \
 	set_reaction_speed(70) \
 	set_chr_maxdamage(CHR_SELF, 40) \
@@ -3060,8 +3044,6 @@ u8 func1015_firingrange_pc[] = {
 	rebuild_teams \
 	rebuild_squadrons \
 	set_ailist(CHR_SELF, clonefunc)
-
-
 
 // Spawner at top of ramp at start
 u8 func040a_spawner4[] = {
@@ -3410,7 +3392,7 @@ u8 unregistered_function1[] = {
 };
 
 u8 func043b_init_blonde[] = {
-	set_chr_dodge_rating(2, 0x00)
+	set_chr_dodge_rating(2, 0)
 	set_accuracy(20)
 	set_reaction_speed(70)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -3423,7 +3405,7 @@ u8 func043b_init_blonde[] = {
 };
 
 u8 func043c_init_cisolder[] = {
-	set_chr_dodge_rating(2, 0x00)
+	set_chr_dodge_rating(2, 0)
 	set_accuracy(20)
 	set_reaction_speed(70)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -3435,7 +3417,7 @@ u8 func043c_init_cisolder[] = {
 };
 
 u8 func043d_unused[] = {
-	set_chr_dodge_rating(2, 0x00)
+	set_chr_dodge_rating(2, 0)
 	set_accuracy(30)
 	set_reaction_speed(70)
 	set_chr_maxdamage(CHR_SELF, 40)

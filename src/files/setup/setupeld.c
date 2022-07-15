@@ -818,8 +818,6 @@ u8 func1002_intro[] = {
  \
 		label(0x06)
 
-
-
 	wait_until(205, 0xab)
 	speak(CHR_BOND, L_ELD_039, MP3_03FF, CHANNEL_4, COLOR_09_BLUE) // "Agent Dark Mission Log, 1846 hours. Last night we ..."
 
@@ -2454,8 +2452,6 @@ u8 func1014_give_keycard[] = {
 		goto_next(0x09) \
 		label(0x2d)
 
-
-
 	give_keycard_if_alive(CHR_BASEMENT1)
 	give_keycard_if_alive(CHR_BASEMENT2)
 	give_keycard_if_alive(CHR_BASEMENT3)
@@ -2504,15 +2500,13 @@ u8 func1015_check_computers_destroyed[] = {
 };
 
 #define init_guard(accuracy, reaction, health, recovery) \
-	set_chr_dodge_rating(2, 0x0a) \
+	set_chr_dodge_rating(2, 10) \
 	set_accuracy(accuracy) \
 	set_reaction_speed(reaction) \
 	set_chr_maxdamage(CHR_SELF, health) \
 	add_health_or_armor(0) \
 	set_recovery_speed(recovery) \
 	set_shield(0)
-
-
 
 u8 func040a_enable_sniper[] = {
 	init_guard(13, 15, 10, 15)
@@ -2999,8 +2993,6 @@ u8 func101f_check_one_basement_guard_remaining[] = {
 		label(0x2d) \
 		add_morale(1) \
 		label(0x06)
-
-
 
 	beginloop(0x04)
 		set_morale(0)

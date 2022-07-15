@@ -846,7 +846,7 @@ s32 path13[] = {
 };
 
 #define init_path(pathid) \
-	set_chr_dodge_rating(2, 0x0a) \
+	set_chr_dodge_rating(2, 10) \
 	set_accuracy(1) \
 	set_reaction_speed(20) \
 	set_chr_maxdamage(CHR_SELF, 40) \
@@ -856,8 +856,6 @@ s32 path13[] = {
 	assign_path(pathid) \
 	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
-
-
 
 u8 func040c_start_path00[] = {
 	init_path(0)
@@ -2394,8 +2392,6 @@ u8 func0417_outro[] = {
 		endloop(loopid) \
 		label(0x06)
 
-
-
 	wait_for_camera(0x08)
 
 	dprint 's','h','o','t',' ','2',0,
@@ -2528,8 +2524,6 @@ u8 func1415_outro_audio[] = {
 			if_timer_gt(time, /*goto*/ 0x06) \
 		endloop(loopid) \
 		label(0x06)
-
-
 
 	outro_wait_until(78, 0x56)
 	play_sound(SFX_0161, CHANNEL_6)
@@ -3045,7 +3039,7 @@ u8 func1016_setup_drcaroll[] = {
 };
 
 u8 func040a_init_basic_guard[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(1)
 	set_reaction_speed(20)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -3057,7 +3051,7 @@ u8 func040a_init_basic_guard[] = {
 };
 
 u8 func040b_init_shock_guard[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(11)
 	set_reaction_speed(20)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -3431,16 +3425,3 @@ struct path paths[] = {
 	{ path13, 13, 0 },
 	{ NULL, 0, 0 },
 };
-
-
-
-
-
-
-
-
-
-
-
-
-

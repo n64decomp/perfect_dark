@@ -1124,28 +1124,30 @@ u8 func0404_init_hovercar[] = {
 	assign_path(path) \
 	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004) \
-	endlist \
-};
-
-
+	endlist
 
 u8 func0405_start_path26[] = {
 	do_path(26)
+};
 
 u8 func0406_start_path27[] = {
 	do_path(27)
+};
 
 u8 func0407_start_path28[] = {
 	do_path(28)
+};
 
 u8 func0408_start_path29[] = {
 	do_path(29)
+};
 
 u8 func0409_start_path30[] = {
 	do_path(30)
+};
 
 u8 func040a_start_path31[] = {
-	set_chr_dodge_rating(2, 0x14)
+	set_chr_dodge_rating(2, 20)
 	set_unarmeddodgerating(0)
 	set_accuracy(0)
 	set_reaction_speed(0)
@@ -1161,7 +1163,7 @@ u8 func040a_start_path31[] = {
 };
 
 u8 func040b_start_path32[] = {
-	set_chr_dodge_rating(2, 0x14)
+	set_chr_dodge_rating(2, 20)
 	set_unarmeddodgerating(0)
 	set_accuracy(0)
 	set_reaction_speed(0)
@@ -1176,7 +1178,7 @@ u8 func040b_start_path32[] = {
 };
 
 u8 func040c_start_path33[] = {
-	set_chr_dodge_rating(2, 0x14)
+	set_chr_dodge_rating(2, 20)
 	set_unarmeddodgerating(0)
 	set_accuracy(0)
 	set_reaction_speed(0)
@@ -1191,7 +1193,7 @@ u8 func040c_start_path33[] = {
 };
 
 u8 func040d_start_path34[] = {
-	set_chr_dodge_rating(2, 0x14)
+	set_chr_dodge_rating(2, 20)
 	set_unarmeddodgerating(0)
 	set_accuracy(10)
 	set_reaction_speed(0)
@@ -2534,8 +2536,6 @@ u8 func1002_objectives_failed_msg[] = {
 		if_controller_button_pressed(/*goto*/ 0x06) \
 	endloop(0x08)
 
-
-
 u8 func041b_intro_041b[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(ANIM_00C9)
@@ -3394,7 +3394,7 @@ u8 func1012_trigger_x_music[] = {
 };
 
 #define init_guard(accuracy, health) \
-	set_chr_dodge_rating(2, 0x14) \
+	set_chr_dodge_rating(2, 20) \
 	set_unarmeddodgerating(0) \
 	set_accuracy(accuracy) \
 	set_reaction_speed(0) \
@@ -3402,8 +3402,6 @@ u8 func1012_trigger_x_music[] = {
 	add_health_or_armor(0) \
 	set_recovery_speed(0) \
 	set_shield(0)
-
-
 
 u8 func0417_init_dd_guard[] = {
 	init_guard(0, 40)
@@ -4183,19 +4181,3 @@ struct path paths[] = {
 	{ path35, 35, 0 },
 	{ NULL, 0, 0 },
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

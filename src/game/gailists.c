@@ -5740,7 +5740,7 @@ u8 func0025_pointless[] = {
 };
 
 /**
- * @ailist GAILIST_POINTLESS
+ * @ailist GAILIST_INIT_PSYCHOSIS
  *
  * Handle a chr being shot with the psychosis gun.
  */
@@ -6119,7 +6119,7 @@ struct ailist g_GlobalAilists[] = {
 	{ func0018_do_bored_animation,        GAILIST_DO_BORED_ANIMATION     },
 	{ func0019_do_sitting_animation,      GAILIST_DO_SITTING_ANIMATION   },
 	{ func0000_idle_0009,                 GAILIST_IDLE_0009              },
-	{ func001a_patroller_dis_talking,       GAILIST_PATROLLER_DIS_TALKING     },
+	{ func001a_patroller_dis_talking,     GAILIST_PATROLLER_DIS_TALKING  },
 	{ func000f_hand_combat,               GAILIST_HAND_COMBAT            },
 	{ func0010_civilian_say_comment,      GAILIST_CIVILIAN_SAY_COMMENT   },
 	{ func0011_flee_from_grenade,         GAILIST_FLEE_FROM_GRENADE      },

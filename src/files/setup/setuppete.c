@@ -488,8 +488,6 @@ s32 path13[] = {
 	set_object_flag3(object, OBJFLAG3_00000010) \
 	object_do_animation(animation, object, 0x04, 0xffff)
 
-
-
 #define chicago_wait_for_camera \
 	beginloop(0x05) \
 		if_camera_animating(/*goto*/ 0x03) \
@@ -498,8 +496,6 @@ s32 path13[] = {
 		if_controller_button_pressed(/*goto*/ 0x04) \
 	goto_first(0x05) \
 	label(0x04)
-
-
 
 u8 func0401_3ae8[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_INTRO)
@@ -1069,8 +1065,6 @@ u8 func040c_taxi[] = {
 	set_stage_flag(STAGEFLAG_TRACERBUG_WASTED) \
 	show_hudmsg(chr, 0x3218) /* "Tracer Bug placed incorrectly." */ \
 	set_ailist(CHR_SELF, GAILIST_IDLE)
-
-
 
 u8 func1004_tracerbug_bond[] = {
 	tracerbug_logic(CHR_BOND, CHR_BOND)
@@ -1733,7 +1727,7 @@ u8 func0413_bugspotter[] = {
 };
 
 #define init_patroller(pathid) \
-	set_chr_dodge_rating(2, 0x0a) \
+	set_chr_dodge_rating(2, 10) \
 	set_accuracy(4) \
 	set_reaction_speed(30) \
 	set_chr_maxdamage(CHR_SELF, 40) \
@@ -1746,8 +1740,6 @@ u8 func0413_bugspotter[] = {
  \
 	beginloop(0x04) \
 	endloop(0x04)
-
-
 
 u8 func0414_start_path07[] = {
 	init_patroller(0x07)
@@ -1915,8 +1907,6 @@ u8 func041d_fbi[] = {
 	set_stage_flag(STAGEFLAG_CIVILIAN_DEAD) \
 	show_hudmsg(CHR_BOND, 0x321d) /* "Mission failed - unacceptable civilian casualties." */ \
 	set_ailist(CHR_SELF, GAILIST_IDLE)
-
-
 
 u8 func1009_check_cia1_dead[] = {
 	check_cia_dead(CHR_CIA1)
@@ -2092,7 +2082,7 @@ u8 func041a_robot[] = {
 u8 func041e_sealer1[] = {
 #define LABEL_ALERTED 0x18
 
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(4)
 	set_reaction_speed(30)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -2283,8 +2273,6 @@ u8 func100d_spawn_alarm_responders[] = {
 		try_spawn_chr_at_pad(BODY_G5_SWAT_GUARD, HEAD_RANDOM, pad, AILIST_ALARM_RESPONDER, SPAWNFLAG_00000200, /*goto*/ 0x04) \
 		label(0x04)
 
-
-
 	label(0x07)
 		unlock_door(0x14, 0x04)
 		restart_timer
@@ -2363,7 +2351,7 @@ u8 func100d_spawn_alarm_responders[] = {
 u8 func041f_alarm_responder[] = {
 	set_self_flag_bankx(CHRFLAG1_NOIDLEANIMS, BANK_1)
 	set_self_flag_bankx(CHRFLAG0_CANLOSEGUN, BANK_0)
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(14)
 	set_reaction_speed(20)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -2560,8 +2548,6 @@ u8 func040a_intro_sfx[] = {
 		endloop(loopid) \
 		label(0x04)
 
-
-
 	wait_until(30, 0x55)
 	speak(CHR_BOND, L_PETE_068, MP3_0408, CHANNEL_7, COLOR_05_GREEN) // "We suspect the G5 Corporation is just a front for ..."
 
@@ -2719,8 +2705,6 @@ u8 func040b_outro[] = {
 			if_timer_gt(time, /*goto*/ 0x04) \
 		endloop(loopid) \
 		label(0x04)
-
-
 
 	func0c01_wait_until(30, 0x2d)
 	play_sound(SFX_0161, CHANNEL_7)
@@ -2904,7 +2888,7 @@ u8 func1019_setup_topstairs_death_animation[] = {
 };
 
 u8 func040e_6064[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(4)
 	set_reaction_speed(30)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -2917,7 +2901,7 @@ u8 func040e_6064[] = {
 
 u8 func040f_6088[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x03)
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(20)
 	set_reaction_speed(30)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -2926,7 +2910,7 @@ u8 func040f_6088[] = {
 	set_shield(0)
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	label(0x03)
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(4)
 	set_reaction_speed(30)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -2938,7 +2922,7 @@ u8 func040f_6088[] = {
 };
 
 u8 func0410_60d0[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(14)
 	set_reaction_speed(20)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -2951,7 +2935,7 @@ u8 func0410_60d0[] = {
 
 u8 func0411_60f4[] = {
 	set_self_chrflag(CHRCFLAG_FORCEAUTOAIM)
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(14)
 	set_reaction_speed(20)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -3349,19 +3333,19 @@ struct ailist ailists[] = {
 };
 
 struct path paths[] = {
-	{ path00, 0, 0 },
-	{ path01, 1, 0 },
-	{ path02, 2, 0 },
-	{ path03, 3, 0 },
-	{ path04, 4, 0 },
-	{ path05, 5, 0 },
-	{ path06, 6, 0 },
-	{ path07, 7, 0 },
-	{ path08, 8, 0 },
-	{ path09, 9, 0 },
+	{ path00, 0,  0 },
+	{ path01, 1,  0 },
+	{ path02, 2,  0 },
+	{ path03, 3,  0 },
+	{ path04, 4,  0 },
+	{ path05, 5,  0 },
+	{ path06, 6,  0 },
+	{ path07, 7,  0 },
+	{ path08, 8,  0 },
+	{ path09, 9,  0 },
 	{ path10, 10, 0 },
 	{ path11, 11, 0 },
 	{ path12, 12, 0 },
 	{ path13, 13, 0 },
-	{ NULL, 0, 0 },
+	{ NULL,   0,  0 },
 };

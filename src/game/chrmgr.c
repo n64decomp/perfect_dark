@@ -34,7 +34,6 @@ void chrmgrReset(void)
 	var80062960 = mempAlloc(ALIGN16(15 * sizeof(struct var80062960)), MEMPOOL_STAGE);
 
 	for (i = 0; i < 20; i++) {
-		// @bug? ALIGN64 should surely be applied before mempAlloc...?
 		var8009ccc0[i] = (void *)ALIGN64(mempAlloc(0x240, MEMPOOL_STAGE));
 	}
 

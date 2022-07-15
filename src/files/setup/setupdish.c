@@ -2846,8 +2846,6 @@ u8 func100e_training_unlockables[] = {
 		label(0x2f) \
 	endloop(0x04)
 
-
-
 u8 func100f_doorproxy_unused1[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -3743,8 +3741,6 @@ u8 func101c_holo1_main[] = {
 	set_returnlist(CHR_SELF, function) \
 	set_ailist(CHR_SELF, AILIST_HOLO1_CHECK_DONE)
 
-
-
 u8 func101d_holo1_switch1[] = {
 	holo1_some_terminal(0x4c, AILIST_HOLO1_SWITCH1)
 	endlist
@@ -3809,8 +3805,6 @@ u8 func1020_holo1_monitor_switches[] = {
  \
 	label(0x09)
 
-
-
 #define holo1_code_thing_p2(object1, object2, hint, msg) \
 	remove_hudmsgs \
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, hint) \
@@ -3843,8 +3837,6 @@ u8 func1020_holo1_monitor_switches[] = {
  \
 	label(0x2f) \
 	goto_first(0x8f)
-
-
 
 u8 func1021_holo1_code1[] = {
 	label(0x8f)
@@ -4091,8 +4083,6 @@ u8 func1022_holo2_main[] = {
 	set_object_flag2(object, OBJFLAG2_IMMUNETOANTI) \
 	set_returnlist(CHR_SELF, function) \
 	set_ailist(CHR_SELF, 0x041b)
-
-
 
 u8 func1023_holo2_object1[] = {
 	holo2_do_thing(0x54, 0x0431)
@@ -5906,8 +5896,6 @@ u8 func1035_manage_music[] = {
 		label(0x06) \
 	endloop(0x03)
 
-
-
 u8 func1038_msg_pp7[] = {
 	do_gun_msg(0x1e, L_DISH_116) // "PP7"
 	endlist
@@ -6348,15 +6336,3 @@ struct path paths[] = {
 	{ path00, 0, PATHFLAG_CIRCULAR },
 	{ NULL, 0, 0 },
 };
-
-
-
-
-
-
-
-
-
-
-
-

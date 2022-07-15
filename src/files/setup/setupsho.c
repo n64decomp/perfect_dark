@@ -1000,8 +1000,6 @@ u8 func1003_remove_random_skedar[] = {
 		remove_chr(chr2) \
 		label(0x06)
 
-
-
 	remove_random(0x05, 0x06)
 	remove_random(0x07, 0x08)
 	remove_random(0x0b, 0x0c)
@@ -1927,8 +1925,6 @@ u8 func100e_wake_skedar_army[] = {
 		endloop(loopid) \
 		label(0x2d)
 
-
-
 	enable_army_skedar(0x2e, 0x08)
 	enable_army_skedar(0x31, 0x09)
 	enable_army_skedar(0x2c, 0x0b)
@@ -2490,8 +2486,6 @@ u8 func100f_spikes_vulnerability[] = {
 	label(0x06) \
 	set_object_flag2(shadow, OBJFLAG2_INVISIBLE) \
 	unset_object_flag2(noshadow, OBJFLAG2_INVISIBLE)
-
-
 
 u8 func1010_spike_ml[] = {
 	wait_for_spike_destroyed(OBJ_SPIKE_ML, OBJ_SPIKE_SHAD_ML, OBJ_SPIKE_NOSHAD_ML)
@@ -3424,8 +3418,6 @@ u8 func0414_outro_sounds[] = {
 		endloop(loopid) \
 		label(0x06)
 
-
-
 	#define outro_wait_until(time, loopid) \
 		beginloop(loopid) \
 			if_controller_button_pressed(/*goto*/ 0x86) \
@@ -3433,13 +3425,10 @@ u8 func0414_outro_sounds[] = {
 		endloop(loopid) \
 		label(0x06)
 
-
-
 	label(0x2d)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_KILLCOUNTABLE)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_KILLCOUNTABLE)
 	restart_timer
-
 
 	outro_wait_until_with_stageflag(40, 0xd5)
 	play_sound(SFX_0067, CHANNEL_10)
@@ -4036,15 +4025,3 @@ struct ailist ailists[] = {
 struct path paths[] = {
 	{ NULL, 0, 0 },
 };
-
-
-
-
-
-
-
-
-
-
-
-

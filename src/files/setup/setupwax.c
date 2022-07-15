@@ -2000,8 +2000,6 @@ u8 func0416_intro[] = {
  \
 		label(0x06)
 
-
-
 	wait_until(106, 0xb1)
 	play_sound(SFX_0162, CHANNEL_10)
 	play_sound(SFX_047A, CHANNEL_10)

@@ -7,7 +7,7 @@ struct state state;
 /**
  * mkrom - do ROM finalisation steps
  *
- * mkrom <romfile> <mapfile> <piracychecks> <zipmagic> <outfile>
+ * mkrom <romfile> <mapfile> <piracychecks> <zipmagic> <copylen> <outfile>
  *
  * <romfile>
  * This is the path to the stage1 binary. This file is similar to the final ROM,

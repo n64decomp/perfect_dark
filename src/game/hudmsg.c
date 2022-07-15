@@ -1045,7 +1045,7 @@ void hudmsgCreateAsSubtitle(char *srctext, s32 type, u8 colourindex, s32 audioch
 					}
 				}
 
-				// Copy the the character from srctext to msg, except:
+				// Copy the character from srctext to msg, except:
 				// - if it's a space at the start of the string
 				// - if it's a consecutive space
 				// - if it's a line break (sometimes copy a space instead)

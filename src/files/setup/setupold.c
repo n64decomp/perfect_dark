@@ -167,5 +167,3 @@ struct ailist ailists[] = {
 	{ func0c00_017c, 0x0c00 },
 	{ NULL, 0 },
 };
-
-

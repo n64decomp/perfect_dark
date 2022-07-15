@@ -6547,7 +6547,7 @@ glabel var7f1a9d4c
 //		if (chr && chr->model
 //				&& !chrIsDead(chr)
 //				&& chr->actiontype != ACT_DEAD
-//				&& chr->alertness > 100 // @bug? I don't think this goes higher than 100
+//				&& chr->alertness > 100
 //				&& g_Vars.chrdata->squadron == chr->squadron
 //				&& g_Vars.chrdata->chrnum != chr->chrnum
 //				&& chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum) < 3500) {

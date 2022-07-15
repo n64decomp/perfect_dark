@@ -877,8 +877,6 @@ u8 func0425_outro[] = {
 		endloop(loopid) \
 		label(0x02)
 
-
-
 	wait_until(38, 0x92)
 	play_sound(SFX_FOOTSTEP_80C4, CHANNEL_10)
 
@@ -1002,8 +1000,6 @@ u8 func1004_guard_activation[] = {
 		set_chr_flag_bankx(chr, CHRFLAG0_AIVSAI, BANK_0) \
 		yield
 
-
-
 	remove_alaskan_guard(0x00)
 	remove_alaskan_guard(0x01)
 	remove_alaskan_guard(0x02)
@@ -1051,8 +1047,6 @@ u8 func1004_guard_activation[] = {
 		unset_chr_hiddenflag(chr, CHRHFLAG_ANTINONINTERACTABLE) \
 		unset_chr_chrflag(chr, CHRCFLAG_HIDDEN) \
 		yield
-
-
 
 	enable_takeover_guard2(0x15, AILIST_INIT_POSTTAKEOVER_GUARD)
 	enable_takeover_guard2(0x17, AILIST_INIT_POSTTAKEOVER_GUARD)
@@ -1104,8 +1098,6 @@ u8 func1004_guard_activation[] = {
 		unset_chr_chrflag(chr, CHRCFLAG_HIDDEN) \
 		yield
 
-
-
 	label(0x02)
 	enable_bottom_guard(0x13)
 	enable_bottom_guard(0x14)
@@ -1119,7 +1111,7 @@ u8 func1004_guard_activation[] = {
 };
 
 u8 func0405_start_path15[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(12)
 	set_reaction_speed(70)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -1404,8 +1396,6 @@ u8 func1005_check_civilians_killed[] = {
 	assign_path(pathid) \
 	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
-
-
 
 u8 func041b_start_path06[] = {
 	init_path(70, 40, 0, 0, 0x06)
@@ -1932,8 +1922,6 @@ u8 func1007_console_activation[] = {
 	label(0x08) \
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
-
-
 u8 func1020_weapon_scanning_bond[] = {
 	yield
 	weapon_detection_logic(CHR_BOND)
@@ -2416,7 +2404,7 @@ u8 func100e_check_alaskans_killed[] = {
  * @unused
  */
 u8 func0410_unused[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(22)
 	set_reaction_speed(80)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -2605,7 +2593,7 @@ u8 func040f_nsa[] = {
 u8 func0412_init_takeover_lackey[] = {
 	set_shotlist(GAILIST_ALERTED)
 	set_self_chrflag(CHRCFLAG_00000040)
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(60)
 	set_reaction_speed(80)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -2831,8 +2819,6 @@ u8 func1010_setup_baggage_carrier[] = {
  \
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
-
-
 u8 func1011_lasers1[] = {
 	laser_overloaded_logic(0x07, 0x0c, 120)
 	endlist
@@ -2903,7 +2889,7 @@ u8 func1017_laser5[] = {
 };
 
 u8 func0403_unused[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(12)
 	set_reaction_speed(45)
 	set_chr_maxdamage(CHR_SELF, 60)
@@ -3060,7 +3046,7 @@ u8 func1016_console_noises[] = {
 };
 
 u8 func0426_init_alaskan_guard[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(12)
 	set_reaction_speed(70)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -3078,7 +3064,7 @@ u8 func0427_init_posttakeover_guard[] = {
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_chr_team(CHR_SELF, TEAM_04)
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(12)
 	set_reaction_speed(45)
 	set_chr_maxdamage(CHR_SELF, 60)
@@ -3130,7 +3116,7 @@ u8 func0428_posttakeover_guard[] = {
  * @unused
  */
 u8 func0429_unused[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(22)
 	set_reaction_speed(80)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -3145,7 +3131,7 @@ u8 func0429_unused[] = {
  * Assigned to two stripes guards in the foyer during takeover.
  */
 u8 func042a_foyer_spawner[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(12)
 	set_reaction_speed(45)
 	set_chr_maxdamage(CHR_SELF, 60)
@@ -3244,8 +3230,6 @@ u8 func042c_foyer_clone[] = {
 	goto_first(0x44) \
  \
 	set_ailist(CHR_SELF, GAILIST_IDLE)
-
-
 
 u8 func042d_hoverbot1[] = {
 	hoverbot_do_paths(0, 1, 2)
@@ -4471,15 +4455,3 @@ struct ailist ailists[] = {
 	{ func0425_outro,                      0x0c01 },
 	{ NULL, 0 },
 };
-
-
-
-
-
-
-
-
-
-
-
-

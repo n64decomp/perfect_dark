@@ -1775,8 +1775,6 @@ u8 func1009_keep_door_open_in_intro[] = {
 	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_RELATED_TO_SPAWNING)
 
-
-
 u8 func0401_start_path00[] = {
 	init_path(0)
 	endlist
@@ -2714,8 +2712,6 @@ u8 func1003_intro[] = {
 			if_timer_gt(time, /*goto*/ 0x06) \
 		endloop(loopid) \
 		label(0x06)
-
-
 
 	wait_until(60, LABEL_9A)
 	play_sound(SFX_0171, CHANNEL_10)

@@ -1574,7 +1574,7 @@ u8 func1008_spawngroup1[] = {
 };
 
 u8 func1008_spawngroup1_guard[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(10)
 	set_reaction_speed(40)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -1649,7 +1649,7 @@ u8 func1013_spawngroup2[] = {
 };
 
 u8 func1013_spawngroup2_guard[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(10)
 	set_reaction_speed(40)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -1768,7 +1768,7 @@ u8 func1014_spawngroup3[] = {
 };
 
 u8 func1014_spawngroup3_guard[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(10)
 	set_reaction_speed(40)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -1852,7 +1852,7 @@ u8 func1015_spawngroup4[] = {
  * @unused
  */
 u8 func1015_spawngroup4_guard[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(10)
 	set_reaction_speed(40)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -2577,8 +2577,6 @@ u8 func1002_intro[] = {
 		endloop(loopid) \
 		label(0x06)
 
-
-
 	wait_until(2, 0xc5)
 	speak(CHR_BOND, L_TRA_081, SFX_81BA, CHANNEL_7, COLOR_02_WHITE) // "What the hell do you think you're doing? This is s..."
 
@@ -3284,7 +3282,7 @@ u8 func1021_jo_escaping[] = {
  * time.
  */
 u8 func0416_spawn_during_follow[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(10)
 	set_reaction_speed(40)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -3355,7 +3353,7 @@ u8 func0418_follower_clone[] = {
 };
 
 u8 func0419_init_biotech[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(20)
 	set_reaction_speed(40)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -3368,7 +3366,7 @@ u8 func0419_init_biotech[] = {
 };
 
 u8 func041a_init_superdragon_guard[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(10)
 	set_reaction_speed(40)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -3561,8 +3559,6 @@ u8 func1024_wall_immune_to_explosives[] = {
 	endloop(0x04) \
  \
 	set_ailist(CHR_SELF, GAILIST_IDLE)
-
-
 
 u8 unregistered_function2[] = {
 	set_object_flag(OBJ_MEDPACK_GLASS, OBJFLAG_INVINCIBLE)
@@ -3972,14 +3968,3 @@ struct ailist ailists[] = {
 struct path paths[] = {
 	{ NULL, 0, 0 },
 };
-
-
-
-
-
-
-
-
-
-
-

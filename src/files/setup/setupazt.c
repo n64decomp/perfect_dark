@@ -495,8 +495,6 @@ u8 func1002_intro[] = {
 		endloop(loopid) \
 		label(0x08)
 
-
-
 	wait_until(724, 0x69)
 	speak(CHR_BOND, L_AZT_032, MP3_0759, CHANNEL_10, COLOR_09_BLUE) // "Ahhh... uuhhhh..."
 
@@ -852,7 +850,7 @@ u8 func0407_init_blonde[] = {
 };
 
 u8 func0406_init_stripes[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(16)
 	set_reaction_speed(55)
 	set_chr_maxdamage(CHR_SELF, 60)
@@ -922,7 +920,7 @@ u8 func1006_msg_elvisbeable[] = {
 };
 
 #define init_path(pathid, function) \
-	set_chr_dodge_rating(2, 0x0a) \
+	set_chr_dodge_rating(2, 10) \
 	set_accuracy(16) \
 	set_reaction_speed(55) \
 	set_chr_maxdamage(CHR_SELF, 60) \
@@ -933,8 +931,6 @@ u8 func1006_msg_elvisbeable[] = {
 	assign_path(pathid) \
 	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
-
-
 
 u8 func0408_start_path00[] = {
 	init_path(0, 0x0408)
@@ -1028,7 +1024,7 @@ u8 unregistered_function1[] = {
 };
 
 u8 func0415_unused[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(16)
 	set_reaction_speed(55)
 	set_chr_maxdamage(CHR_SELF, 60)
@@ -1112,7 +1108,7 @@ u8 func100c_spawn_dd_guards[] = {
 };
 
 u8 func0416_spawned_guard[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(16)
 	set_reaction_speed(55)
 	set_chr_maxdamage(CHR_SELF, 60)

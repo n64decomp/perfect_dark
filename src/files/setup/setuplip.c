@@ -1384,7 +1384,7 @@ u8 func1006_check_lab_accessed[] = {
 };
 
 #define init_path(accuracy, health, recovery, pathid) \
-	set_chr_dodge_rating(2, 0x0a) \
+	set_chr_dodge_rating(2, 10) \
 	set_accuracy(accuracy) \
 	set_reaction_speed(35) \
 	set_chr_maxdamage(CHR_SELF, health) \
@@ -1394,8 +1394,6 @@ u8 func1006_check_lab_accessed[] = {
 	assign_path(pathid) \
 	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
-
-
 
 u8 func0401_start_path00[] = {
 	init_path(8, 50, 35, 0x00)
@@ -2783,7 +2781,7 @@ u8 func041d_unused_041d[] = {
  * @unused
  */
 u8 func041e_unused_041e[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(10)
 	set_reaction_speed(35)
 	set_chr_maxdamage(CHR_SELF, 80)
@@ -3471,8 +3469,6 @@ u8 func1018_disable_chambers[] = {
 		set_object_flag(chamber, OBJFLAG_DEACTIVATED) \
 	endloop(0x04)
 
-
-
 /**
  * This chamber has the alien in it.
  */
@@ -3942,8 +3938,6 @@ u8 func0c01_outro[] = {
 		endloop(loopid) \
 		label(0x06)
 
-
-
 	wait_until(315, LABEL_73)
 	open_door(0x30)
 	open_door(0x31)
@@ -4275,7 +4269,7 @@ u8 func1025_toggle_guards[] = {
 };
 
 u8 func0429_spawn_while_xraying[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(8)
 	set_reaction_speed(35)
 	set_chr_maxdamage(CHR_SELF, 50)
@@ -4358,7 +4352,7 @@ u8 func042b_xray_clone[] = {
 };
 
 u8 func042c_dragon_guard[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(8)
 	set_reaction_speed(35)
 	set_chr_maxdamage(CHR_SELF, 50)
@@ -4370,7 +4364,7 @@ u8 func042c_dragon_guard[] = {
 };
 
 u8 func042d_superdragon_guard[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(10)
 	set_reaction_speed(35)
 	set_chr_maxdamage(CHR_SELF, 80)
@@ -4382,7 +4376,7 @@ u8 func042d_superdragon_guard[] = {
 };
 
 u8 func042e_biotech_guard[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(18)
 	set_reaction_speed(35)
 	set_chr_maxdamage(CHR_SELF, 80)
@@ -4394,7 +4388,7 @@ u8 func042e_biotech_guard[] = {
 };
 
 u8 func042e_biotech_guard_alerted[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(18)
 	set_reaction_speed(35)
 	set_chr_maxdamage(CHR_SELF, 80)
@@ -5092,33 +5086,20 @@ struct ailist ailists[] = {
 };
 
 struct path paths[] = {
-	{ path00, 0, 0 },
-	{ path01, 1, 0 },
-	{ path02, 2, 0 },
-	{ path03, 3, 0 },
-	{ path04, 4, 0 },
-	{ path05, 5, 0 },
-	{ path06, 6, 0 },
-	{ path07, 7, 0 },
-	{ path08, 8, 0 },
-	{ path09, 9, 0 },
+	{ path00, 0,  0 },
+	{ path01, 1,  0 },
+	{ path02, 2,  0 },
+	{ path03, 3,  0 },
+	{ path04, 4,  0 },
+	{ path05, 5,  0 },
+	{ path06, 6,  0 },
+	{ path07, 7,  0 },
+	{ path08, 8,  0 },
+	{ path09, 9,  0 },
 	{ path10, 10, 0 },
 	{ path11, 11, 0 },
 	{ path12, 12, 0 },
 	{ path13, 13, 0 },
 	{ path14, 14, 0 },
-	{ NULL, 0, 0 },
+	{ NULL,   0,  0 },
 };
-
-
-
-
-
-
-
-
-
-
-
-
-

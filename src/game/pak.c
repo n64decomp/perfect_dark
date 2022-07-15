@@ -7180,7 +7180,7 @@ glabel pakConvertFromGbcImage
  *
  * The GBC's format is 128x112 pixels at 2 bits per pixel. The bits are not
  * linear; the two bits for each pixel are in neighbouring bytes using the same
- * bit index. It also appears that the the GBC format is column major.
+ * bit index. It also appears that the GBC format is column major.
  */
 //void pakConvertFromGbcImage(u8 *src, u8 *dst)
 //{

@@ -588,6 +588,3 @@ struct ailist ailists[] = {
 	{ func0407_trent_init,                0x0407 },
 	{ NULL, 0 },
 };
-
-
-

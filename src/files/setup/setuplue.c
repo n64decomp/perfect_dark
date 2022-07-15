@@ -880,7 +880,7 @@ u8 func0426_8420[] = {
 };
 
 #define init_path(pathid) \
-	set_chr_dodge_rating(2, 0x0a) \
+	set_chr_dodge_rating(2, 10) \
 	set_accuracy(6) \
 	set_reaction_speed(50) \
 	set_chr_maxdamage(CHR_SELF, 40) \
@@ -890,8 +890,6 @@ u8 func0426_8420[] = {
 	assign_path(pathid) \
 	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
-
-
 
 u8 func0401_start_path00[] = {
 	init_path(0)
@@ -1092,8 +1090,6 @@ u8 func1400_give_bugs[] = {
 	set_stage_flag(STAGEFLAG_COMMSBUG_MISPLACED) \
 	show_hudmsg(chr, 0x2c1b) /* "Communications bug placed incorrectly." */ \
 	set_ailist(CHR_SELF, GAILIST_IDLE)
-
-
 
 /**
  * @unused
@@ -1429,7 +1425,7 @@ u8 func100b_final_hangar[] = {
 };
 
 u8 func0411_init_hangar_guard1[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(8)
 	set_reaction_speed(30)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -1451,7 +1447,7 @@ u8 func0411_init_hangar_guard1[] = {
 };
 
 u8 func0412_init_hangar_guard2[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(8)
 	set_reaction_speed(30)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -1473,7 +1469,7 @@ u8 func0412_init_hangar_guard2[] = {
 };
 
 u8 func0413_init_hangar_guard3[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(8)
 	set_reaction_speed(30)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -1495,7 +1491,7 @@ u8 func0413_init_hangar_guard3[] = {
 };
 
 u8 func0414_init_hangar_guard4[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(8)
 	set_reaction_speed(30)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -1851,8 +1847,6 @@ u8 func040e_outro[] = {
 			if_timer_gt(time, /*goto*/ 0x06) \
 		endloop(loopid) \
 		label(0x06)
-
-
 
 	wait_until(1, 0x60)
 	speak(CHR_P1P2, L_LUE_067, MP3_0421, CHANNEL_5, COLOR_07_RED) // "Agent Dark! Over here!"
@@ -2688,7 +2682,7 @@ u8 func1018_unhide_guards[] = {
 };
 
 u8 func0419_clone_spawner[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(8)
 	set_reaction_speed(30)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -2850,16 +2844,14 @@ u8 func040f_spawned_guard[] = {
 	set_shield(0) \
 	set_ailist(CHR_SELF, function)
 
-
-
 u8 func041d_trooper_unalerted[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	init_guard(6, 50, 0, 0, GAILIST_UNALERTED)
 	endlist
 };
 
 u8 func041f_trooper_alerted[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	init_guard(6, 50, 0, 0, GAILIST_ALERTED)
 	endlist
 };
@@ -3199,8 +3191,6 @@ u8 func0423_a5e8[] = {
 	disable_object(laser) \
 	set_ailist(CHR_SELF, AILIST_ACTIVATE_LASERS)
 
-
-
 u8 func1026_check_laser1_broken[] = {
 	watch_for_laser_broken(0x44, 0x45, 0x1e)
 	endlist
@@ -3438,19 +3428,3 @@ struct ailist ailists[] = {
 	{ func142f_setup_environment,              0x142f },
 	{ NULL, 0 },
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

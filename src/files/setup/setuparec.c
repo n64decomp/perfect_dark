@@ -46,5 +46,3 @@ struct path paths[] = {
 struct ailist ailists[] = {
 	{ NULL, 0 },
 };
-
-

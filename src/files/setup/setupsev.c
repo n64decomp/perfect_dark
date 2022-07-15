@@ -1560,8 +1560,6 @@ u8 func1002_intro[] = {
  \
 		label(0x06)
 
-
-
 	wait_until(300, 0x76)
 	play_sound(SFX_0161, CHANNEL_7)
 
@@ -1975,14 +1973,3 @@ struct ailist ailists[] = {
 	{ func041b_outro,                                0x0c01 },
 	{ NULL, 0 },
 };
-
-
-
-
-
-
-
-
-
-
-

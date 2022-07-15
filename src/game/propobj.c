@@ -45033,8 +45033,8 @@ glabel var7f1aa698
 //	struct coord sp8c;
 //
 //	// I guess the timer is set explicitly to 2 when the chopper is destroyed,
-//	// otherwise there's no guarantee that that the timer will land on this
-//	// value when ticking down normally. So this code is run once when entering
+//	// otherwise there's no guarantee that the timer will land on this value
+//	// when ticking down normally. So this code is run once when entering
 //	// fall mode.
 //	if (chopper->timer60 == 2) {
 //		// Figure out what direction to fall in

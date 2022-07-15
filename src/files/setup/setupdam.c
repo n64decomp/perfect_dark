@@ -674,7 +674,7 @@ u8 func1400_setup_counterop[] = {
 
 u8 func0408_guard_unalerted[] = {
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(18)
 	set_reaction_speed(60)
 	set_chr_maxdamage(CHR_SELF, 70)
@@ -713,8 +713,6 @@ u8 func1002_intro[] = {
 			if_timer_gt(time, /*goto*/ 0x04) \
 		endloop(loopid) \
 		label(0x04)
-
-
 
 	wait_until(342, 0x3b)
 	play_sound(SFX_0171, CHANNEL_7)
@@ -1302,7 +1300,7 @@ u8 func100f_check_researchdata_collected[] = {
 };
 
 #define init_path(pathid) \
-	set_chr_dodge_rating(2, 0x0a) \
+	set_chr_dodge_rating(2, 10) \
 	set_accuracy(18) \
 	set_reaction_speed(60) \
 	set_chr_maxdamage(CHR_SELF, 70) \
@@ -1312,8 +1310,6 @@ u8 func100f_check_researchdata_collected[] = {
 	assign_path(pathid) \
 	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
-
-
 
 u8 func0405_start_path00[] = {
 	init_path(0)
@@ -1341,11 +1337,6 @@ u8 func0407_start_path02[] = {
 	init_path(2)
 	endlist
 };
-
-#define labtech_logic(function, pad1, pad2, pad3) \
-
-
-
 
 u8 func040e_init_labtech1[] = {
 	set_self_chrflag(CHRCFLAG_KEEPCORPSEKO)
@@ -1506,7 +1497,7 @@ u8 func0410_init_labtech3[] = {
 
 u8 func040d_labtech3[] = {
 	// @bug: Wrong onshot function. Under normal gameplay this labtech has 1HP
-	// anyway and will die in one shot. Theroetically, if you use PD mode with
+	// anyway and will die in one shot. Theoretically, if you use PD mode with
 	// max health and shoot him with a weak weapon then he will start running to
 	// lab tech 1's pads.
 	set_shotlist(AILIST_LABTECH1)
@@ -2288,7 +2279,7 @@ u8 func1014_moonpool_switch[] = {
 
 u8 func0413_guard_alerted[] = {
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(18)
 	set_reaction_speed(60)
 	set_chr_maxdamage(CHR_SELF, 70)
@@ -2355,8 +2346,6 @@ u8 func1015_shuffle_hatchswitches[] = {
 	unset_stage_flag(STAGEFLAG_HATCHSWITCH3_ACTIVATED) \
 	unset_stage_flag(STAGEFLAG_HATCHSWITCH4_ACTIVATED) \
 	goto_first(0x00)
-
-
 
 u8 func1016_hatchswitch1[] = {
 	hatchswitch_logic(OBJ_HATCHSWITCH1, STAGEFLAG_HATCHSWITCH1_ACTIVATED)
@@ -2850,9 +2839,7 @@ u8 func101d_alarm_switches[] = {
 	label(0x07)
 	goto_first(0x00)
 
-	// @bug: This function is surely not meant to be assigned here. But it has
-	// no consequences because the function will bail because CHR_SELF doesn't
-	// exist.
+	// Unreachable
 	set_ailist(CHR_SELF, AILIST_ELVIS_LEADING)
 	endlist
 };
@@ -3014,13 +3001,3 @@ struct ailist ailists[] = {
 	{ func0413_guard_alerted,                0x0413 },
 	{ NULL, 0 },
 };
-
-
-
-
-
-
-
-
-
-

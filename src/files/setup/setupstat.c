@@ -1246,8 +1246,6 @@ u8 func100f_blow_mines[] = {
  \
 		label(0x2d)
 
-
-
 	wait(0x94)
 	destroy_object(OBJ_MINE6)
 	wait(0x95)
@@ -1428,11 +1426,3 @@ struct ailist ailists[] = {
 	{ func040b_outro,                 0x0c01 },
 	{ NULL, 0 },
 };
-
-
-
-
-
-
-
-

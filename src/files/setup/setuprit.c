@@ -802,8 +802,6 @@ u8 func1006_hijack[] = {
 		set_chr_hiddenflag(chr, CHRHFLAG_00400000) \
 		yield
 
-
-
 	enable_stripes_chr(0x1d, AILIST_REINIT_STRIPES)
 	enable_stripes_chr(0x1e, AILIST_REINIT_STRIPES)
 	enable_stripes_chr(0x1f, AILIST_REINIT_STRIPES)
@@ -980,8 +978,6 @@ u8 unregistered_function1[] = {
 	show_hudmsg(CHR_BOND, 0x3645) /* "Timed mine has been wasted." */ \
 	set_stage_flag(STAGEFLAG_BOTH_MINES_WASTED) \
 	set_ailist(CHR_SELF, GAILIST_IDLE)
-
-
 
 u8 func1008_check_mine_wasted_bond[] = {
 	check_mine_wasted(CHR_BOND, CHR_TARGET, STAGEFLAG_BOND_MINE_WASTED, STAGEFLAG_COOP_MINE_WASTED)
@@ -1698,7 +1694,7 @@ u8 func100c_cockpit_stripes[] = {
 	set_chr_team(CHR_SELF, TEAM_04)
 	rebuild_teams
 	rebuild_squadrons
-	set_chr_dodge_rating(2, 0x00)
+	set_chr_dodge_rating(2, 0)
 	set_accuracy(14)
 	set_reaction_speed(50)
 	set_chr_maxdamage(CHR_SELF, 60)
@@ -1737,7 +1733,7 @@ u8 func040f_taker1[] = {
 	rebuild_teams
 	rebuild_squadrons
 	set_self_chrflag(CHRCFLAG_LOSEXTRAHEIGHT)
-	set_chr_dodge_rating(2, 0x00)
+	set_chr_dodge_rating(2, 0)
 	set_reaction_speed(50)
 	set_chr_maxdamage(CHR_SELF, 60)
 	add_health_or_armor(0)
@@ -1753,7 +1749,7 @@ u8 func0410_taker2[] = {
 	rebuild_teams
 	rebuild_squadrons
 	set_self_chrflag(CHRCFLAG_LOSEXTRAHEIGHT)
-	set_chr_dodge_rating(2, 0x00)
+	set_chr_dodge_rating(2, 0)
 	set_reaction_speed(50)
 	set_chr_maxdamage(CHR_SELF, 60)
 	add_health_or_armor(0)
@@ -2004,7 +2000,7 @@ u8 func0412_sitting_guy[] = {
 };
 
 u8 func0426_start_path00[] = {
-	set_chr_dodge_rating(2, 0x00)
+	set_chr_dodge_rating(2, 0)
 	set_accuracy(14)
 	set_reaction_speed(70)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -2018,7 +2014,7 @@ u8 func0426_start_path00[] = {
 };
 
 u8 func0427_start_path01[] = {
-	set_chr_dodge_rating(2, 0x00)
+	set_chr_dodge_rating(2, 0)
 	set_accuracy(14)
 	set_reaction_speed(70)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -2070,8 +2066,6 @@ u8 func1002_intro[] = {
 			if_timer_gt(time, /*goto*/ 0x06) \
 		endloop(loopid) \
 		label(0x06)
-
-
 
 	wait_until(140, 0x94)
 
@@ -2512,7 +2506,7 @@ u8 func0415_cloner1[] = {
 };
 
 u8 func0416_init_clone1[] = {
-	set_chr_dodge_rating(2, 0x00)
+	set_chr_dodge_rating(2, 0)
 	set_accuracy(14)
 	set_reaction_speed(50)
 	set_chr_maxdamage(CHR_SELF, 60)
@@ -2608,7 +2602,7 @@ u8 func0418_cloner2[] = {
 };
 
 u8 func0419_init_clone2[] = {
-	set_chr_dodge_rating(2, 0x00)
+	set_chr_dodge_rating(2, 0)
 	set_accuracy(14)
 	set_reaction_speed(50)
 	set_chr_maxdamage(CHR_SELF, 60)
@@ -2700,7 +2694,7 @@ u8 func041b_cloner3[] = {
 };
 
 u8 func041c_init_clone3[] = {
-	set_chr_dodge_rating(2, 0x00)
+	set_chr_dodge_rating(2, 0)
 	set_accuracy(14)
 	set_reaction_speed(50)
 	set_chr_maxdamage(CHR_SELF, 60)
@@ -2732,7 +2726,7 @@ u8 func041f_init_blonde[] = {
 	set_chr_team(CHR_SELF, TEAM_04)
 	rebuild_teams
 	rebuild_squadrons
-	set_chr_dodge_rating(2, 0x00)
+	set_chr_dodge_rating(2, 0)
 	set_accuracy(24)
 	set_reaction_speed(50)
 	set_chr_maxdamage(CHR_SELF, 60)
@@ -3128,7 +3122,7 @@ u8 func042a_init_neutral[] = {
 	yield
 	yield
 	yield
-	set_chr_dodge_rating(2, 0x00)
+	set_chr_dodge_rating(2, 0)
 	set_accuracy(14)
 	set_reaction_speed(70)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -3142,7 +3136,7 @@ u8 func042a_init_neutral[] = {
 };
 
 u8 func042b_reinit_stripes[] = {
-	set_chr_dodge_rating(2, 0x00)
+	set_chr_dodge_rating(2, 0)
 	set_accuracy(14)
 	set_reaction_speed(50)
 	set_chr_maxdamage(CHR_SELF, 60)
@@ -3514,8 +3508,6 @@ u8 func0423_outro[] = {
 			if_timer_gt(time, /*goto*/ 0x06) \
 		endloop(loopid) \
 		label(0x06)
-
-
 
 	outro_wait_until(426, 0x77)
 	speak(CHR_BOND, L_RIT_080, MP3_0453, CHANNEL_7, COLOR_06_WHITE) // "Piece of cake, Joanna. Watch this!"
@@ -4207,5 +4199,5 @@ struct path paths[] = {
 	{ path00, 0, 0 },
 	{ path01, 1, 0 },
 	{ path02, 2, 0 },
-	{ NULL, 0, 0 },
+	{ NULL,   0, 0 },
 };

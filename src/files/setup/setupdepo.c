@@ -512,7 +512,7 @@ s32 path03[] = {
 };
 
 u8 func0409_start_path00[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(5)
 	set_reaction_speed(30)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -526,7 +526,7 @@ u8 func0409_start_path00[] = {
 };
 
 u8 func040a_start_path01[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(5)
 	set_reaction_speed(30)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -540,7 +540,7 @@ u8 func040a_start_path01[] = {
 };
 
 u8 func040b_start_path02[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(5)
 	set_reaction_speed(30)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -554,7 +554,7 @@ u8 func040b_start_path02[] = {
 };
 
 u8 func040c_start_path03[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(5)
 	set_reaction_speed(30)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -1078,7 +1078,7 @@ u8 func1009_spawner_during_decode[] = {
 #define init_swat \
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00400000) \
 	set_self_flag_bankx(CHRFLAG1_NOIDLEANIMS, BANK_1) \
-	set_chr_dodge_rating(2, 0x0a) \
+	set_chr_dodge_rating(2, 10) \
 	set_accuracy(15) \
 	set_reaction_speed(25) \
 	set_chr_maxdamage(CHR_SELF, 40) \
@@ -1097,8 +1097,6 @@ u8 func1009_spawner_during_decode[] = {
 	rebuild_teams \
 	rebuild_squadrons \
 	run_to_pad(PAD_DEPO_004E)
-
-
 
 u8 func0401_init_swat1[] = {
 	init_swat
@@ -1834,8 +1832,6 @@ u8 func040d_intro[] = {
  \
 	label(0x06)
 
-
-
 u8 func040e_meeting_cutscene[] = {
 	deactivate_alarm
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
@@ -2389,7 +2385,7 @@ u8 func0414_init_cloak2_guard[] = {
 	stop_chr
 	set_shotlist(AILIST_CLOAK_GUARD)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(5)
 	set_reaction_speed(25)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -2600,7 +2596,7 @@ u8 func101d_init_mines[] = {
 };
 
 #define init_guard(accuracy, reaction, function) \
-	set_chr_dodge_rating(2, 0x0a) \
+	set_chr_dodge_rating(2, 10) \
 	set_accuracy(accuracy) \
 	set_reaction_speed(reaction) \
 	set_chr_maxdamage(CHR_SELF, 40) \
@@ -2608,8 +2604,6 @@ u8 func101d_init_mines[] = {
 	set_recovery_speed(0) \
 	set_shield(0) \
 	set_ailist(CHR_SELF, function)
-
-
 
 u8 func0406_init_type1_guard[] = {
 	init_guard(5, 30, GAILIST_UNALERTED)
@@ -3208,14 +3202,3 @@ struct path paths[] = {
 	{ path03, 3, PATHFLAG_CIRCULAR },
 	{ NULL, 0, 0 },
 };
-
-
-
-
-
-
-
-
-
-
-

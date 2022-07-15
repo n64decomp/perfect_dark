@@ -1527,8 +1527,6 @@ u8 func0c01_midcutscene[] = {
 		endloop(loopid) \
 		label(0x06)
 
-
-
 	#define wait_until_with_images(time, loopid, image1, image2) \
 		beginloop(loopid) \
 			set_drcaroll_images(CHR_DRCAROLL, image1, image2) \
@@ -1536,8 +1534,6 @@ u8 func0c01_midcutscene[] = {
 			if_timer_gt(time, /*goto*/ 0x06) \
 		endloop(loopid) \
 		label(0x06)
-
-
 
 	wait_until(114, 0x63)
 	speak(CHR_BOND, L_PAM_035, MP3_046D, CHANNEL_10, COLOR_09_BLUE) // "Here goes. I just hope dataDyne haven't done anyth..."
@@ -2218,7 +2214,7 @@ u8 func1002_intro[] = {
 };
 
 u8 func042f_init_pelagic_guard[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(20)
 	set_reaction_speed(65)
 	set_chr_maxdamage(CHR_SELF, 70)
@@ -3675,8 +3671,6 @@ u8 func041e_init_sa_megaweapon_miniskedar[] = {
 	set_stage_flag(stageflag) \
 	set_ailist(CHR_SELF, 0x0408)
 
-
-
 u8 func1013_pa_doorcylinder1[] = {
 	set_lights_state(0x00a1, LIGHTOP_4, 0x00, 0xff, 0xb4)
 	set_lights_state(0x00a9, LIGHTOP_4, 0x00, 0xff, 0xb4)
@@ -3805,8 +3799,6 @@ u8 func0408_check_pa_earlydoorcylinders_destroyed[] = {
 	destroy_object(glass + 9) \
 	destroy_object(glass + 10) \
 	destroy_object(glass + 11)
-
-
 
 u8 func1018_pa_door1[] = {
 	pa_cylinder(0x20, 0xa1)
@@ -4132,7 +4124,7 @@ u8 func1021_c6c4[] = {
 };
 
 #define init_path(pathid, function) \
-	set_chr_dodge_rating(2, 0x0a) \
+	set_chr_dodge_rating(2, 10) \
 	set_accuracy(20) \
 	set_reaction_speed(65) \
 	set_chr_maxdamage(CHR_SELF, 70) \
@@ -4143,8 +4135,6 @@ u8 func1021_c6c4[] = {
 	assign_path(pathid) \
 	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
-
-
 
 u8 func0421_start_path02[] = {
 	init_path(2, 0x0421)
@@ -4444,7 +4434,7 @@ u8 func1028_enable_last_3_guards[] = {
 };
 
 u8 func042b_run_to_exit[] = {
-	set_chr_dodge_rating(2, 0x0a)
+	set_chr_dodge_rating(2, 10)
 	set_accuracy(40)
 	set_reaction_speed(65)
 	set_chr_maxdamage(CHR_SELF, 10)
@@ -4952,23 +4942,14 @@ struct ailist ailists[] = {
 };
 
 struct path paths[] = {
-	{ path02, 2, 0 },
-	{ path03, 3, 0 },
-	{ path04, 4, 0 },
-	{ path05, 5, 0 },
-	{ path06, 6, 0 },
-	{ path07, 7, 0 },
-	{ path08, 8, 0 },
-	{ path09, 9, 0 },
+	{ path02, 2,  0 },
+	{ path03, 3,  0 },
+	{ path04, 4,  0 },
+	{ path05, 5,  0 },
+	{ path06, 6,  0 },
+	{ path07, 7,  0 },
+	{ path08, 8,  0 },
+	{ path09, 9,  0 },
 	{ path10, 10, 0 },
-	{ NULL, 0, 0 },
+	{ NULL,   0,  0 },
 };
-
-
-
-
-
-
-
-
-
