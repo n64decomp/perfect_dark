@@ -13,7 +13,7 @@ u16 raceInitAnim(s16 animnum, s32 frame, s32 endframe)
 	u16 count = 0;
 
 	while (frame < endframe) {
-		count += anim0002485c(0, 0, &g_SkelChr, animnum, frame, sp48, 0);
+		count += anim0002485c(0, false, &g_SkelChr, animnum, frame, sp48, false);
 		frame++;
 	}
 
@@ -26,7 +26,7 @@ s32 race0f000358(s16 animnum, s32 frame, s32 endframe)
 	s16 sp44[4];
 
 	while (frame < endframe) {
-		anim0002485c(0, 0, &g_SkelChr, animnum, frame, sp44, 0);
+		anim0002485c(0, false, &g_SkelChr, animnum, frame, sp44, false);
 		count += sp44[2];
 		frame++;
 	}
