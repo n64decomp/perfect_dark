@@ -18492,7 +18492,7 @@ glabel var7f1aca90
 /*  f0a7434:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0a7438:	26180384 */ 	addiu	$t8,$s0,0x384
 /*  f0a743c:	afb8003c */ 	sw	$t8,0x3c($sp)
-/*  f0a7440:	0fc2b2e4 */ 	jal	func0f0acb90
+/*  f0a7440:	0fc2b2e4 */ 	jal	beamRender
 /*  f0a7444:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0a7448:	afa2014c */ 	sw	$v0,0x14c($sp)
 /*  f0a744c:	92040000 */ 	lbu	$a0,0x0($s0)
@@ -19333,7 +19333,7 @@ glabel var7f1aca90
 /*  f0a7434:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0a7438:	26180384 */ 	addiu	$t8,$s0,0x384
 /*  f0a743c:	afb8003c */ 	sw	$t8,0x3c($sp)
-/*  f0a7440:	0fc2b2e4 */ 	jal	func0f0acb90
+/*  f0a7440:	0fc2b2e4 */ 	jal	beamRender
 /*  f0a7444:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0a7448:	afa2014c */ 	sw	$v0,0x14c($sp)
 /*  f0a744c:	92040000 */ 	lbu	$a0,0x0($s0)
@@ -20174,7 +20174,7 @@ glabel var7f1aca90
 /*  f0a5180:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0a5184:	26180384 */ 	addiu	$t8,$s0,0x384
 /*  f0a5188:	afb80038 */ 	sw	$t8,0x38($sp)
-/*  f0a518c:	0fc2aa3c */ 	jal	func0f0acb90
+/*  f0a518c:	0fc2aa3c */ 	jal	beamRender
 /*  f0a5190:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0a5194:	afa20144 */ 	sw	$v0,0x144($sp)
 /*  f0a5198:	92040000 */ 	lbu	$a0,0x0($s0)
@@ -20850,7 +20850,7 @@ glabel var7f1aca90
 //		weaponnum = bgunGetWeaponNum2(i);
 //
 //		if (hand->visible) {
-//			gdl = func0f0acb90(gdl, &hand->beam, 0, 0);
+//			gdl = beamRender(gdl, &hand->beam, 0, 0);
 //
 //			if (weaponHasFlag(hand->gset.weaponnum, WEAPONFLAG_00008000)) {
 //				gSPNumLights(gdl++, 1);

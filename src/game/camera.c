@@ -163,10 +163,10 @@ void cam0f0b4dec(struct coord *in, f32 out[2])
 	out[0] = (player->c_screenleft + player->c_halfwidth) - in->x * value * player->c_recipscalex;
 }
 
-void cam0f0b4e68(struct coord *in, f32 divisor, struct coord *out)
+void cam0f0b4e68(f32 in[2], f32 divisor, f32 out[2])
 {
-	out->y = in->y * (1.0f / divisor) * g_Vars.currentplayer->c_recipscaley;
-	out->x = in->x * (1.0f / divisor) * g_Vars.currentplayer->c_recipscalex;
+	out[1] = in[1] * (1.0f / divisor) * g_Vars.currentplayer->c_recipscaley;
+	out[0] = in[0] * (1.0f / divisor) * g_Vars.currentplayer->c_recipscalex;
 }
 
 void cam0f0b4eb8(struct coord *arg0, f32 arg1[2], f32 zoom, f32 aspect)

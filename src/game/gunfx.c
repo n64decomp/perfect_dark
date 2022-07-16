@@ -306,62 +306,36 @@ u32 var80070514 = 0x00000000;
 u32 var80070518 = 0x00000000;
 u32 var8007051c = 0x00000000;
 u32 var80070520 = 0x00000000;
-bool g_CasingsActive = false;
-u32 var80070528 = 0x00000000;
-u32 var8007052c = 0x00000000;
-u32 var80070530 = 0x00000000;
 
 GLOBAL_ASM(
-glabel func0f0acb90
+glabel beamRender
 .late_rodata
 glabel var7f1acc6c
 .word 0x3fb50481
-glabel var7f1acc70
-.word func0f0acb90+0x130 # f0accc0
-glabel var7f1acc74
-.word func0f0acb90+0x130 # f0accc0
-glabel var7f1acc78
-.word func0f0acb90+0x13c # f0acccc
-glabel var7f1acc7c
-.word func0f0acb90+0x13c # f0acccc
-glabel var7f1acc80
-.word func0f0acb90+0x13c # f0acccc
-glabel var7f1acc84
-.word func0f0acb90+0x110 # f0acca0
-glabel var7f1acc88
-.word func0f0acb90+0x130 # f0accc0
-glabel var7f1acc8c
-.word func0f0acb90+0x13c # f0acccc
-glabel var7f1acc90
-.word func0f0acb90+0x13c # f0acccc
-glabel var7f1acc94
-.word func0f0acb90+0x13c # f0acccc
-glabel var7f1acc98
-.word func0f0acb90+0x13c # f0acccc
-glabel var7f1acc9c
-.word func0f0acb90+0x13c # f0acccc
-glabel var7f1acca0
-.word func0f0acb90+0x13c # f0acccc
-glabel var7f1acca4
-.word func0f0acb90+0x13c # f0acccc
-glabel var7f1acca8
-.word func0f0acb90+0x130 # f0accc0
-glabel var7f1accac
-.word func0f0acb90+0x13c # f0acccc
-glabel var7f1accb0
-.word func0f0acb90+0x130 # f0accc0
-glabel var7f1accb4
-.word func0f0acb90+0x13c # f0acccc
-glabel var7f1accb8
-.word func0f0acb90+0x13c # f0acccc
-glabel var7f1accbc
-.word func0f0acb90+0x13c # f0acccc
-glabel var7f1accc0
-.word func0f0acb90+0x13c # f0acccc
-glabel var7f1accc4
-.word func0f0acb90+0x13c # f0acccc
-glabel var7f1accc8
-.word func0f0acb90+0x120 # f0accb0
+glabel jtbl_var7f1acc70
+.word .L0f0accc0
+.word .L0f0accc0
+.word .L0f0acccc
+.word .L0f0acccc
+.word .L0f0acccc
+.word .L0f0acca0
+.word .L0f0accc0
+.word .L0f0acccc
+.word .L0f0acccc
+.word .L0f0acccc
+.word .L0f0acccc
+.word .L0f0acccc
+.word .L0f0acccc
+.word .L0f0acccc
+.word .L0f0accc0
+.word .L0f0acccc
+.word .L0f0accc0
+.word .L0f0acccc
+.word .L0f0acccc
+.word .L0f0acccc
+.word .L0f0acccc
+.word .L0f0acccc
+.word .L0f0accb0
 glabel var7f1acccc
 .word 0x3dcccccd
 glabel var7f1accd0
@@ -448,19 +422,22 @@ glabel var7f1accf4
 /*  f0acc80:	10200012 */ 	beqz	$at,.L0f0acccc
 /*  f0acc84:	c7a20124 */ 	lwc1	$f2,0x124($sp)
 /*  f0acc88:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f0acc8c:	3c017f1b */ 	lui	$at,%hi(var7f1acc70)
+/*  f0acc8c:	3c017f1b */ 	lui	$at,%hi(jtbl_var7f1acc70)
 /*  f0acc90:	002a0821 */ 	addu	$at,$at,$t2
-/*  f0acc94:	8c2acc70 */ 	lw	$t2,%lo(var7f1acc70)($at)
+/*  f0acc94:	8c2acc70 */ 	lw	$t2,%lo(jtbl_var7f1acc70)($at)
 /*  f0acc98:	01400008 */ 	jr	$t2
 /*  f0acc9c:	00000000 */ 	nop
+.L0f0acca0:
 /*  f0acca0:	8e180000 */ 	lw	$t8,0x0($s0)
 /*  f0acca4:	2709000c */ 	addiu	$t1,$t8,0xc
 /*  f0acca8:	10000008 */ 	b	.L0f0acccc
 /*  f0accac:	afa900ec */ 	sw	$t1,0xec($sp)
+.L0f0accb0:
 /*  f0accb0:	8e190000 */ 	lw	$t9,0x0($s0)
 /*  f0accb4:	272c0024 */ 	addiu	$t4,$t9,0x24
 /*  f0accb8:	10000004 */ 	b	.L0f0acccc
 /*  f0accbc:	afac00ec */ 	sw	$t4,0xec($sp)
+.L0f0accc0:
 /*  f0accc0:	8e0b0000 */ 	lw	$t3,0x0($s0)
 /*  f0accc4:	256e0030 */ 	addiu	$t6,$t3,0x30
 /*  f0accc8:	afae00ec */ 	sw	$t6,0xec($sp)
@@ -1457,6 +1434,313 @@ glabel var7f1accf4
 /*  f0adbb8:	27bd0190 */ 	addiu	$sp,$sp,0x190
 );
 
+// Mismatch: Regalloc and some swapped loads and stores
+// - After gfxAllocateMatrix, goal skips f0 and uses f12
+// - Goal reuses f2 in neg.s instruction for cam0f0b4e68's a1
+// - Calculation of spcc near sp100 is reordered
+//Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
+//{
+//	u32 stack;
+//	Mtxf *sp188;
+//	Mtxf sp148;
+//
+//	if (arg3 < 5 && beam->age >= 0) {
+//		struct colour *colours = gfxAllocateColours(1); // 144
+//		struct coord sp138;
+//		struct coord *campos = &g_Vars.currentplayer->cam_pos; // 134
+//		f32 sp130;
+//		f32 sp12c = beam->mindist;
+//		struct gfxvtx *vertices;
+//		f32 sp124 = beam->dist;
+//		struct coord sp118;
+//		struct coord sp10c;
+//		struct coord sp100 = {0, 0, 0};
+//		struct coord spf4 = {0, 0, 0};
+//		f32 spf0 = 1.4142f;
+//		struct textureconfig *texconfig = &g_TexBeamConfigs[arg3]; // ec
+//		s32 i;
+//		Mtxf *worldtoscreenmtx = camGetWorldToScreenMtxf(); // e4
+//		s32 j;
+//		u32 stack1;
+//		s32 spd8;
+//		struct coord spcc;
+//		u32 stack2;
+//		f32 spc0[2];
+//		f32 spb8[2];
+//		f32 f14;
+//		f32 f16;
+//		f32 f18;
+//		f32 spa8;
+//		f32 spa4;
+//
+//		switch (beam->weaponnum) {
+//		case WEAPON_CYCLONE:
+//			texconfig = &g_TexBeamConfigs[1];
+//			break;
+//		case WEAPON_TRANQUILIZER:
+//			texconfig = &g_TexBeamConfigs[3];
+//			break;
+//		case WEAPON_MAULER:
+//		case WEAPON_PHOENIX:
+//		case WEAPON_CALLISTO:
+//		case WEAPON_REAPER:
+//		case WEAPON_FARSIGHT:
+//			texconfig = &g_TexBeamConfigs[4];
+//			break;
+//		}
+//
+//		if (beam->weaponnum == -1 || beam->weaponnum == WEAPON_CYCLONE) {
+//			colours[0].word = 0xffffff7f;
+//		} else {
+//			colours[0].word = 0xffffffff;
+//		}
+//
+//		if (beam->weaponnum == WEAPON_LASER) {
+//			// Laser primary
+//			sp130 = 50.0f;
+//			texconfig = &g_TexLaserConfigs[0];
+//		} else if (beam->weaponnum == -2) {
+//			// Laser secondary
+//			sp130 = 10.0f;
+//			texconfig = &g_TexLaserConfigs[0];
+//
+//			colours[0].a = 150 + (random() % 50);
+//
+//			if ((random() % 5) == 0) {
+//				colours[0].r = colours[0].g = 255 - (random() % 100);
+//			}
+//		} else {
+//			sp130 = 30.0f;
+//		}
+//
+//		if (beam->weaponnum <= -3) {
+//			// Mauler
+//			sp130 = sp130 * ((beam->weaponnum + 3) * 2.0f + 1.0f);
+//			texconfig = &g_TexBeamConfigs[4];
+//		}
+//
+//		sp138.f[0] = beam->from.f[0];
+//		sp138.f[1] = beam->from.f[1];
+//		sp138.f[2] = beam->from.f[2];
+//
+//		if (sp124 > 0.0f) {
+//			sp138.f[0] += sp124 * beam->dir.f[0];
+//			sp138.f[1] += sp124 * beam->dir.f[1];
+//			sp138.f[2] += sp124 * beam->dir.f[2];
+//		} else {
+//			sp12c += sp124;
+//			sp124 = 0.0f;
+//		}
+//
+//		if (sp124 + sp12c > beam->maxdist) {
+//			sp12c = beam->maxdist - sp124;
+//		}
+//
+//		sp10c.f[0] = (beam->dir.f[1] * (campos->f[2] - (sp138.f[2] + sp12c * beam->dir.f[2]))) - (beam->dir.f[2] * (campos->f[1] - (sp138.f[1] + sp12c * beam->dir.f[1])));
+//		sp10c.f[1] = (beam->dir.f[2] * (campos->f[0] - (sp138.f[0] + sp12c * beam->dir.f[0]))) - (beam->dir.f[0] * (campos->f[2] - (sp138.f[2] + sp12c * beam->dir.f[2])));
+//		sp10c.f[2] = (beam->dir.f[0] * (campos->f[1] - (sp138.f[1] + sp12c * beam->dir.f[1]))) - (beam->dir.f[1] * (campos->f[0] - (sp138.f[0] + sp12c * beam->dir.f[0])));
+//
+//		if (sp10c.f[0] != 0.0f || sp10c.f[1] != 0.0f || sp10c.f[2] != 0.0f) {
+//			guNormalize(&sp10c.f[0], &sp10c.f[1], &sp10c.f[2]);
+//
+//			sp10c.f[0] *= sp130;
+//			sp10c.f[1] *= sp130;
+//			sp10c.f[2] *= sp130;
+//		} else {
+//			sp10c.f[0] = 0.0f;
+//			sp10c.f[1] = sp130;
+//			sp10c.f[2] = 0.0f;
+//		}
+//
+//		sp118.f[0] = beam->dir.f[1] * sp10c.f[2] - beam->dir.f[2] * sp10c.f[1];
+//		sp118.f[1] = beam->dir.f[2] * sp10c.f[0] - beam->dir.f[0] * sp10c.f[2];
+//		sp118.f[2] = beam->dir.f[0] * sp10c.f[1] - beam->dir.f[1] * sp10c.f[0];
+//
+//		guNormalize(&sp118.f[0], &sp118.f[1], &sp118.f[2]);
+//
+//		sp118.f[0] *= sp130;
+//		sp118.f[1] *= sp130;
+//		sp118.f[2] *= sp130;
+//
+//		if (beam->weaponnum == WEAPON_LASER) {
+//			vertices = gfxAllocateVertices(8);
+//		} else {
+//			vertices = gfxAllocateVertices(4);
+//		}
+//
+//		sp188 = gfxAllocateMatrix();
+//
+//		if (sp12c > 0.0f
+//				&& sp138.f[0] > -32000.0f && sp138.f[0] < 32000.0f
+//				&& sp138.f[1] > -32000.0f && sp138.f[1] < 32000.0f
+//				&& sp138.f[2] > -32000.0f && sp138.f[2] < 32000.0f) {
+//			spd8 = true;
+//			mtx4LoadTranslation(&sp138, &sp148);
+//			mtx00015f04(0.1f, &sp148);
+//			mtx00015be0(worldtoscreenmtx, &sp148);
+//
+//			for (i = 0; i < 4; i++) {
+//				for (j = 0; j < 4; j++) {
+//					if (sp148.m[i][j] < -32000.0f || sp148.m[i][j] > 32000.0f) {
+//						spd8 = false;
+//						break;
+//					}
+//				}
+//			}
+//
+//			if (spd8) {
+//				mtx00016054(&sp148, sp188);
+//
+//				if (beam->weaponnum);
+//
+//				if (beam->weaponnum == -2 && PLAYERCOUNT() == 1) {
+//					spcc.f[0] = sp138.f[0] + beam->dir.f[0] * sp12c;
+//					spcc.f[1] = sp138.f[1] + beam->dir.f[1] * sp12c;
+//					spcc.f[2] = sp138.f[2] + beam->dir.f[2] * sp12c;
+//
+//					mtx4TransformVecInPlace(worldtoscreenmtx, &spcc);
+//
+//					spb8[0] = spb8[1] = sp130 / 10.0f;
+//
+//					cam0f0b4e68(spb8, -spcc.f[2], spc0);
+//
+//					if (spc0[0] < 2.0f) {
+//						spcc.f[0] *= spc0[0] * 0.5f;
+//						spcc.f[1] *= spc0[0] * 0.5f;
+//						spcc.f[2] *= spc0[0] * 0.5f;
+//					}
+//
+//					mtx4TransformVecInPlace(camGetProjectionMtxF(), &spcc);
+//
+//					spcc.f[0] -= sp138.f[0];
+//					spcc.f[1] -= sp138.f[1];
+//					spcc.f[2] -= sp138.f[2];
+//
+//					if (1);
+//
+//					sp100.f[0] = spcc.f[0] * 10.0f;
+//					sp100.f[1] = spcc.f[1] * 10.0f;
+//					sp100.f[2] = spcc.f[2] * 10.0f;
+//				} else {
+//					sp100.f[0] = beam->dir.f[0] * (sp12c * 10.0f);
+//					sp100.f[1] = beam->dir.f[1] * (sp12c * 10.0f);
+//					sp100.f[2] = beam->dir.f[2] * (sp12c * 10.0f);
+//				}
+//
+//				if (sp100.f[0] > -30000.0f && sp100.f[0] < 30000.0f
+//						&& sp100.f[1] > -30000.0f && sp100.f[1] < 30000.0f
+//						&& sp100.f[2] > -30000.0f && sp100.f[2] < 30000.0f) {
+//					vertices[0].x = sp10c.f[0];
+//					vertices[0].y = sp10c.f[1];
+//					vertices[0].z = sp10c.f[2];
+//					vertices[0].s = texconfig->width * 32;
+//					vertices[0].t = 0;
+//					vertices[0].colour = 0;
+//
+//					vertices[1].x = -sp10c.f[0];
+//					vertices[1].y = -sp10c.f[1];
+//					vertices[1].z = -sp10c.f[2];
+//					vertices[1].s = 0;
+//					vertices[1].t = 0;
+//					vertices[1].colour = 0;
+//
+//					vertices[2].x = sp100.f[0] + sp10c.f[0] * 0.9f;
+//					vertices[2].y = sp100.f[1] + sp10c.f[1] * 0.9f;
+//					vertices[2].z = sp100.f[2] + sp10c.f[2] * 0.9f;
+//					vertices[2].s = texconfig->width * 32;
+//					vertices[2].t = texconfig->height * 32;
+//					vertices[2].colour = 0;
+//
+//					vertices[3].x = sp100.f[0] - sp10c.f[0] * 0.9f;
+//					vertices[3].y = sp100.f[1] - sp10c.f[1] * 0.9f;
+//					vertices[3].z = sp100.f[2] - sp10c.f[2] * 0.9f;
+//					vertices[3].s = 0;
+//					vertices[3].t = texconfig->height * 32;
+//					vertices[3].colour = 0;
+//
+//					if (beam->weaponnum == WEAPON_LASER) {
+//						f14 = campos->f[0] - sp138.f[0];
+//						f16 = campos->f[1] - sp138.f[1];
+//						f18 = campos->f[2] - sp138.f[2];
+//
+//						spa8 = f14 * f14 + f16 * f16 + f18 * f18;
+//
+//						f14 = campos->f[0] - (sp138.f[0] + beam->dir.f[0] * sp12c);
+//						f16 = campos->f[1] - (sp138.f[1] + beam->dir.f[1] * sp12c);
+//						f18 = campos->f[2] - (sp138.f[2] + beam->dir.f[2] * sp12c);
+//
+//						spa4 = f14 * f14 + f16 * f16 + f18 * f18;
+//
+//						if (spa4 < spa8) {
+//							spf4.f[0] = sp100.f[0];
+//							spf4.f[1] = sp100.f[1];
+//							spf4.f[2] = sp100.f[2];
+//							spf0 *= 0.9f;
+//						}
+//
+//						vertices[4].x = spf4.f[0] + sp118.f[0] * spf0;
+//						vertices[4].y = spf4.f[1] + sp118.f[1] * spf0;
+//						vertices[4].z = spf4.f[2] + sp118.f[2] * spf0;
+//						vertices[4].s = g_TexGroup03Configs[0].width * 32;
+//						vertices[4].t = g_TexGroup03Configs[0].height * 32;
+//						vertices[4].colour = 0;
+//
+//						vertices[5].x = spf4.f[0] - sp118.f[0] * spf0;
+//						vertices[5].y = spf4.f[1] - sp118.f[1] * spf0;
+//						vertices[5].z = spf4.f[2] - sp118.f[2] * spf0;
+//						vertices[5].s = 0;
+//						vertices[5].t = 0;
+//						vertices[5].colour = 0;
+//
+//						vertices[6].x = spf4.f[0] + sp10c.f[0] * spf0;
+//						vertices[6].y = spf4.f[1] + sp10c.f[1] * spf0;
+//						vertices[6].z = spf4.f[2] + sp10c.f[2] * spf0;
+//						vertices[6].s = 0;
+//						vertices[6].t = g_TexGroup03Configs[0].height * 32;
+//						vertices[6].colour = 0;
+//
+//						vertices[7].x = spf4.f[0] - sp10c.f[0] * spf0;
+//						vertices[7].y = spf4.f[1] - sp10c.f[1] * spf0;
+//						vertices[7].z = spf4.f[2] - sp10c.f[2] * spf0;
+//						vertices[7].s = g_TexGroup03Configs[0].width * 32;
+//						vertices[7].t = 0;
+//						vertices[7].colour = 0;
+//					}
+//
+//					gSPClearGeometryMode(gdl++, G_CULL_BACK);
+//					gSPMatrix(gdl++, osVirtualToPhysical(sp188), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+//					gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//					gDPSetColorDither(gdl++, G_CD_DISABLE);
+//					gDPSetRenderMode(gdl++, G_RM_AA_ZB_XLU_SURF, G_RM_AA_ZB_XLU_SURF2);
+//					gDPSetAlphaCompare(gdl++, G_AC_NONE);
+//					gDPSetTextureLOD(gdl++, G_TL_TILE);
+//					gDPSetTextureConvert(gdl++, G_TC_FILT);
+//					gDPSetCombineMode(gdl++, G_CC_BLENDIA, G_CC_BLENDIA);
+//					gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
+//
+//					if (beam->weaponnum == WEAPON_LASER) {
+//						texSelect(&gdl, &g_TexGroup03Configs[0], 4, arg2, 2, true, NULL);
+//
+//						gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 8);
+//						gDPTri2(gdl++, 4, 5, 6, 4, 5, 7);
+//
+//						texSelect(&gdl, texconfig, 4, arg2, 2, true, NULL);
+//
+//						gDPTri2(gdl++, 0, 2, 3, 0, 3, 1);
+//					} else {
+//						texSelect(&gdl, texconfig, 4, arg2, 2, true, NULL);
+//
+//						gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
+//						gDPTri2(gdl++, 0, 2, 3, 0, 3, 1);
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	return gdl;
+//}
+
 void beamTick(struct beam *beam)
 {
 	if (beam->age >= 0) {
@@ -1481,6 +1765,8 @@ void beamTick(struct beam *beam)
 		}
 	}
 }
+
+bool g_CasingsActive = false;
 
 struct casing *casingCreate(struct modelfiledata *modeldef, Mtxf *mtx)
 {
@@ -1516,6 +1802,10 @@ struct casing *casingCreate(struct modelfiledata *modeldef, Mtxf *mtx)
 
 	return NULL;
 }
+
+u32 var80070528 = 0x00000000;
+u32 var8007052c = 0x00000000;
+u32 var80070530 = 0x00000000;
 
 #if PAL
 GLOBAL_ASM(
