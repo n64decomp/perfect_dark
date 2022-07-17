@@ -1961,56 +1961,21 @@ glabel cd00028638
 /*    28858:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
 
-GLOBAL_ASM(
-glabel cd0002885c
-/*    2885c:	afa7000c */ 	sw	$a3,0xc($sp)
-/*    28860:	c7aa000c */ 	lwc1	$f10,0xc($sp)
-/*    28864:	c4880014 */ 	lwc1	$f8,0x14($a0)
-/*    28868:	44856000 */ 	mtc1	$a1,$f12
-/*    2886c:	c484000c */ 	lwc1	$f4,0xc($a0)
-/*    28870:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*    28874:	44867000 */ 	mtc1	$a2,$f14
-/*    28878:	c4860010 */ 	lwc1	$f6,0x10($a0)
-/*    2887c:	46046001 */ 	sub.s	$f0,$f12,$f4
-/*    28880:	46108482 */ 	mul.s	$f18,$f16,$f16
-/*    28884:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*    28888:	46067081 */ 	sub.s	$f2,$f14,$f6
-/*    2888c:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*    28890:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*    28894:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*    28898:	46062200 */ 	add.s	$f8,$f4,$f6
-/*    2889c:	4612403e */ 	c.le.s	$f8,$f18
-/*    288a0:	00000000 */ 	nop
-/*    288a4:	45000019 */ 	bc1f	.L0002890c
-/*    288a8:	00000000 */ 	nop
-/*    288ac:	8c430000 */ 	lw	$v1,0x0($v0)
-/*    288b0:	24060014 */ 	addiu	$a2,$zero,0x14
-/*    288b4:	006e082a */ 	slt	$at,$v1,$t6
-/*    288b8:	10200014 */ 	beqz	$at,.L0002890c
-/*    288bc:	00000000 */ 	nop
-/*    288c0:	00660019 */ 	multu	$v1,$a2
-/*    288c4:	8fa50014 */ 	lw	$a1,0x14($sp)
-/*    288c8:	00007812 */ 	mflo	$t7
-/*    288cc:	00afc021 */ 	addu	$t8,$a1,$t7
-/*    288d0:	af040000 */ 	sw	$a0,0x0($t8)
-/*    288d4:	8c590000 */ 	lw	$t9,0x0($v0)
-/*    288d8:	03260019 */ 	multu	$t9,$a2
-/*    288dc:	00004012 */ 	mflo	$t0
-/*    288e0:	00a84821 */ 	addu	$t1,$a1,$t0
-/*    288e4:	ad200008 */ 	sw	$zero,0x8($t1)
-/*    288e8:	8c4b0000 */ 	lw	$t3,0x0($v0)
-/*    288ec:	8faa0010 */ 	lw	$t2,0x10($sp)
-/*    288f0:	01660019 */ 	multu	$t3,$a2
-/*    288f4:	00006012 */ 	mflo	$t4
-/*    288f8:	00ac6821 */ 	addu	$t5,$a1,$t4
-/*    288fc:	adaa000c */ 	sw	$t2,0xc($t5)
-/*    28900:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*    28904:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*    28908:	ac4f0000 */ 	sw	$t7,0x0($v0)
-.L0002890c:
-/*    2890c:	03e00008 */ 	jr	$ra
-/*    28910:	00000000 */ 	nop
-);
+void cd0002885c(struct geocyl *cyl, f32 x, f32 z, f32 arg3, struct prop *prop, struct collisionthing *things, s32 maxthings, s32 *thingindex)
+{
+	f32 xdiff = x - cyl->x;
+	f32 zdiff = z - cyl->z;
+	f32 f16 = arg3 + cyl->radius;
+
+	if (xdiff * xdiff + zdiff * zdiff <= f16 * f16) {
+		if (*thingindex < maxthings) {
+			things[*thingindex].geo = &cyl->header;
+			things[*thingindex].unk08 = 0;
+			things[*thingindex].prop = prop;
+			*thingindex += 1;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel cd00028914
