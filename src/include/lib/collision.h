@@ -81,7 +81,7 @@ s32 cd0002a5e4(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcol, u16 *arg
 s32 cdTestVolume(struct coord *pos, f32 radius, s16 *rooms, s32 types, s32 arg4, f32 ymax, f32 ymin);
 s32 cd0002a6fc(struct coord *pos, struct coord *pos2, f32 width, s16 *rooms, s32 types, bool arg5, f32 arg6, f32 arg7);
 s32 cdTestAToB1(struct coord *origpos, struct coord *dstpos, f32 width, s16 *dstrooms, s32 types, s32 arg5, f32 ymax, f32 ymin);
-u32 cd0002aac0(void);
+bool cd0002aac0(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geotilei *tile, s32 arg4, s32 arg5);
 u32 cd0002ab98(void);
 u32 cd0002ac70(void);
 u32 cd0002b128(void);
