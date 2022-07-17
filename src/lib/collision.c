@@ -1111,7 +1111,7 @@ bool cd0002709c(struct geotilei *tile, f32 x, f32 z, f32 width, struct prop *pro
 
 	if (cdIs2dPointInIntTile(tile, x, z)) {
 		thing->geo = &tile->header;
-		thing->unk08 = 0;
+		thing->vertexindex = 0;
 		thing->prop = prop;
 		result = true;
 	} else {
@@ -1131,7 +1131,7 @@ bool cd0002709c(struct geotilei *tile, f32 x, f32 z, f32 width, struct prop *pro
 						|| cd00025724(tile->vertices[next][0], tile->vertices[next][2], x, z) <= width
 						|| cd00025774(tile->vertices[i][0], tile->vertices[i][2], tile->vertices[next][0], tile->vertices[next][2], x, z))) {
 				thing->geo = &tile->header;
-				thing->unk08 = i;
+				thing->vertexindex = i;
 				thing->prop = prop;
 				result = true;
 				break;
@@ -1148,7 +1148,7 @@ bool cd000272f8(struct geotilef *tile, f32 x, f32 z, f32 radius, struct prop *pr
 
 	if (cdIs2dPointInFltTile(tile, x, z)) {
 		thing->geo = &tile->header;
-		thing->unk08 = 0;
+		thing->vertexindex = 0;
 		thing->prop = prop;
 		result = true;
 	} else {
@@ -1168,7 +1168,7 @@ bool cd000272f8(struct geotilef *tile, f32 x, f32 z, f32 radius, struct prop *pr
 						|| cd00025724(tile->vertices[next].x, tile->vertices[next].z, x, z) <= radius
 						|| cd00025774(tile->vertices[i].x, tile->vertices[i].z, tile->vertices[next].x, tile->vertices[next].z, x, z))) {
 				thing->geo = &tile->header;
-				thing->unk08 = i;
+				thing->vertexindex = i;
 				thing->prop = prop;
 				result = true;
 				break;
@@ -1186,7 +1186,7 @@ s32 cd000274e0(struct geoblock *tile, f32 x, f32 z, f32 width, struct prop *prop
 	if (cdIs2dPointInBlock(tile, x, z)) {
 		if (thing) {
 			thing->geo = &tile->header;
-			thing->unk08 = 0;
+			thing->vertexindex = 0;
 			thing->prop = prop;
 		}
 
@@ -1211,7 +1211,7 @@ s32 cd000274e0(struct geoblock *tile, f32 x, f32 z, f32 width, struct prop *prop
 						|| cd00025774(tile->vertices[i][0], tile->vertices[i][1], tile->vertices[next][0], tile->vertices[next][1], x, z))) {
 				if (thing) {
 					thing->geo = &tile->header;
-					thing->unk08 = i;
+					thing->vertexindex = i;
 					thing->prop = prop;
 				}
 
@@ -1237,7 +1237,7 @@ bool cd000276c8(struct geocyl *cyl, f32 x, f32 z, f32 width, struct prop *prop, 
 
 		if (thing) {
 			thing->geo = &cyl->header;
-			thing->unk08 = 0;
+			thing->vertexindex = 0;
 			thing->prop = prop;
 		}
 	}
@@ -1811,155 +1811,41 @@ glabel cd0002840c
 /*    28634:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
 
-GLOBAL_ASM(
-glabel cd00028638
-/*    28638:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*    2863c:	afbf0064 */ 	sw	$ra,0x64($sp)
-/*    28640:	afbe0060 */ 	sw	$s8,0x60($sp)
-/*    28644:	afb7005c */ 	sw	$s7,0x5c($sp)
-/*    28648:	afb60058 */ 	sw	$s6,0x58($sp)
-/*    2864c:	afb50054 */ 	sw	$s5,0x54($sp)
-/*    28650:	afb40050 */ 	sw	$s4,0x50($sp)
-/*    28654:	afb3004c */ 	sw	$s3,0x4c($sp)
-/*    28658:	afb20048 */ 	sw	$s2,0x48($sp)
-/*    2865c:	afb10044 */ 	sw	$s1,0x44($sp)
-/*    28660:	afb00040 */ 	sw	$s0,0x40($sp)
-/*    28664:	f7ba0038 */ 	sdc1	$f26,0x38($sp)
-/*    28668:	f7b80030 */ 	sdc1	$f24,0x30($sp)
-/*    2866c:	f7b60028 */ 	sdc1	$f22,0x28($sp)
-/*    28670:	f7b40020 */ 	sdc1	$f20,0x20($sp)
-/*    28674:	90970001 */ 	lbu	$s7,0x1($a0)
-/*    28678:	4485a000 */ 	mtc1	$a1,$f20
-/*    2867c:	4486b000 */ 	mtc1	$a2,$f22
-/*    28680:	4487c000 */ 	mtc1	$a3,$f24
-/*    28684:	0080f025 */ 	or	$s8,$a0,$zero
-/*    28688:	1ae00064 */ 	blez	$s7,.L0002881c
-/*    2868c:	00009825 */ 	or	$s3,$zero,$zero
-/*    28690:	4480d000 */ 	mtc1	$zero,$f26
-/*    28694:	00808825 */ 	or	$s1,$a0,$zero
-/*    28698:	24160014 */ 	addiu	$s6,$zero,0x14
-/*    2869c:	8fb5007c */ 	lw	$s5,0x7c($sp)
-/*    286a0:	8fb20084 */ 	lw	$s2,0x84($sp)
-.L000286a4:
-/*    286a4:	26740001 */ 	addiu	$s4,$s3,0x1
-/*    286a8:	0297001a */ 	div	$zero,$s4,$s7
-/*    286ac:	00007010 */ 	mfhi	$t6
-/*    286b0:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*    286b4:	03cf8021 */ 	addu	$s0,$s8,$t7
-/*    286b8:	c600000c */ 	lwc1	$f0,0xc($s0)
-/*    286bc:	c62c000c */ 	lwc1	$f12,0xc($s1)
-/*    286c0:	16e00002 */ 	bnez	$s7,.L000286cc
-/*    286c4:	00000000 */ 	nop
-/*    286c8:	0007000d */ 	break	0x7
-.L000286cc:
-/*    286cc:	2401ffff */ 	addiu	$at,$zero,-1
-/*    286d0:	16e10004 */ 	bne	$s7,$at,.L000286e4
-/*    286d4:	3c018000 */ 	lui	$at,0x8000
-/*    286d8:	16810002 */ 	bne	$s4,$at,.L000286e4
-/*    286dc:	00000000 */ 	nop
-/*    286e0:	0006000d */ 	break	0x6
-.L000286e4:
-/*    286e4:	46006032 */ 	c.eq.s	$f12,$f0
-/*    286e8:	00000000 */ 	nop
-/*    286ec:	45020008 */ 	bc1fl	.L00028710
-/*    286f0:	c62e0010 */ 	lwc1	$f14,0x10($s1)
-/*    286f4:	c6240010 */ 	lwc1	$f4,0x10($s1)
-/*    286f8:	c6060010 */ 	lwc1	$f6,0x10($s0)
-/*    286fc:	46062032 */ 	c.eq.s	$f4,$f6
-/*    28700:	00000000 */ 	nop
-/*    28704:	45030043 */ 	bc1tl	.L00028814
-/*    28708:	02809825 */ 	or	$s3,$s4,$zero
-/*    2870c:	c62e0010 */ 	lwc1	$f14,0x10($s1)
-.L00028710:
-/*    28710:	44060000 */ 	mfc1	$a2,$f0
-/*    28714:	8e070010 */ 	lw	$a3,0x10($s0)
-/*    28718:	e7b60014 */ 	swc1	$f22,0x14($sp)
-/*    2871c:	0c009595 */ 	jal	cd00025654
-/*    28720:	e7b40010 */ 	swc1	$f20,0x10($sp)
-/*    28724:	461a003c */ 	c.lt.s	$f0,$f26
-/*    28728:	46000086 */ 	mov.s	$f2,$f0
-/*    2872c:	45020003 */ 	bc1fl	.L0002873c
-/*    28730:	4618103e */ 	c.le.s	$f2,$f24
-/*    28734:	46000087 */ 	neg.s	$f2,$f0
-/*    28738:	4618103e */ 	c.le.s	$f2,$f24
-.L0002873c:
-/*    2873c:	00000000 */ 	nop
-/*    28740:	45020034 */ 	bc1fl	.L00028814
-/*    28744:	02809825 */ 	or	$s3,$s4,$zero
-/*    28748:	4406a000 */ 	mfc1	$a2,$f20
-/*    2874c:	4407b000 */ 	mfc1	$a3,$f22
-/*    28750:	c62c000c */ 	lwc1	$f12,0xc($s1)
-/*    28754:	0c0095c9 */ 	jal	cd00025724
-/*    28758:	c62e0010 */ 	lwc1	$f14,0x10($s1)
-/*    2875c:	4618003e */ 	c.le.s	$f0,$f24
-/*    28760:	00000000 */ 	nop
-/*    28764:	45030014 */ 	bc1tl	.L000287b8
-/*    28768:	8e420000 */ 	lw	$v0,0x0($s2)
-/*    2876c:	4406a000 */ 	mfc1	$a2,$f20
-/*    28770:	4407b000 */ 	mfc1	$a3,$f22
-/*    28774:	c60c000c */ 	lwc1	$f12,0xc($s0)
-/*    28778:	0c0095c9 */ 	jal	cd00025724
-/*    2877c:	c60e0010 */ 	lwc1	$f14,0x10($s0)
-/*    28780:	4618003e */ 	c.le.s	$f0,$f24
-/*    28784:	00000000 */ 	nop
-/*    28788:	4503000b */ 	bc1tl	.L000287b8
-/*    2878c:	8e420000 */ 	lw	$v0,0x0($s2)
-/*    28790:	c62c000c */ 	lwc1	$f12,0xc($s1)
-/*    28794:	c62e0010 */ 	lwc1	$f14,0x10($s1)
-/*    28798:	8e06000c */ 	lw	$a2,0xc($s0)
-/*    2879c:	8e070010 */ 	lw	$a3,0x10($s0)
-/*    287a0:	e7b60014 */ 	swc1	$f22,0x14($sp)
-/*    287a4:	0c0095dd */ 	jal	cd00025774
-/*    287a8:	e7b40010 */ 	swc1	$f20,0x10($sp)
-/*    287ac:	50400019 */ 	beqzl	$v0,.L00028814
-/*    287b0:	02809825 */ 	or	$s3,$s4,$zero
-/*    287b4:	8e420000 */ 	lw	$v0,0x0($s2)
-.L000287b8:
-/*    287b8:	8fb80080 */ 	lw	$t8,0x80($sp)
-/*    287bc:	0058082a */ 	slt	$at,$v0,$t8
-/*    287c0:	50200017 */ 	beqzl	$at,.L00028820
-/*    287c4:	8fbf0064 */ 	lw	$ra,0x64($sp)
-/*    287c8:	00560019 */ 	multu	$v0,$s6
-/*    287cc:	0000c812 */ 	mflo	$t9
-/*    287d0:	02b94021 */ 	addu	$t0,$s5,$t9
-/*    287d4:	ad1e0000 */ 	sw	$s8,0x0($t0)
-/*    287d8:	8e490000 */ 	lw	$t1,0x0($s2)
-/*    287dc:	01360019 */ 	multu	$t1,$s6
-/*    287e0:	00005012 */ 	mflo	$t2
-/*    287e4:	02aa5821 */ 	addu	$t3,$s5,$t2
-/*    287e8:	ad730008 */ 	sw	$s3,0x8($t3)
-/*    287ec:	8e4d0000 */ 	lw	$t5,0x0($s2)
-/*    287f0:	8fac0078 */ 	lw	$t4,0x78($sp)
-/*    287f4:	01b60019 */ 	multu	$t5,$s6
-/*    287f8:	00007012 */ 	mflo	$t6
-/*    287fc:	02ae7821 */ 	addu	$t7,$s5,$t6
-/*    28800:	adec000c */ 	sw	$t4,0xc($t7)
-/*    28804:	8e580000 */ 	lw	$t8,0x0($s2)
-/*    28808:	27190001 */ 	addiu	$t9,$t8,0x1
-/*    2880c:	ae590000 */ 	sw	$t9,0x0($s2)
-/*    28810:	02809825 */ 	or	$s3,$s4,$zero
-.L00028814:
-/*    28814:	1697ffa3 */ 	bne	$s4,$s7,.L000286a4
-/*    28818:	26310008 */ 	addiu	$s1,$s1,0x8
-.L0002881c:
-/*    2881c:	8fbf0064 */ 	lw	$ra,0x64($sp)
-.L00028820:
-/*    28820:	d7b40020 */ 	ldc1	$f20,0x20($sp)
-/*    28824:	d7b60028 */ 	ldc1	$f22,0x28($sp)
-/*    28828:	d7b80030 */ 	ldc1	$f24,0x30($sp)
-/*    2882c:	d7ba0038 */ 	ldc1	$f26,0x38($sp)
-/*    28830:	8fb00040 */ 	lw	$s0,0x40($sp)
-/*    28834:	8fb10044 */ 	lw	$s1,0x44($sp)
-/*    28838:	8fb20048 */ 	lw	$s2,0x48($sp)
-/*    2883c:	8fb3004c */ 	lw	$s3,0x4c($sp)
-/*    28840:	8fb40050 */ 	lw	$s4,0x50($sp)
-/*    28844:	8fb50054 */ 	lw	$s5,0x54($sp)
-/*    28848:	8fb60058 */ 	lw	$s6,0x58($sp)
-/*    2884c:	8fb7005c */ 	lw	$s7,0x5c($sp)
-/*    28850:	8fbe0060 */ 	lw	$s8,0x60($sp)
-/*    28854:	03e00008 */ 	jr	$ra
-/*    28858:	27bd0068 */ 	addiu	$sp,$sp,0x68
-);
+void cd00028638(struct geoblock *block, f32 arg1, f32 arg2, f32 arg3, struct prop *prop, struct collisionthing *things, s32 maxthings, s32 *thingindex)
+{
+	s32 i;
+	s32 numvertices = block->header.numvertices;
+
+	for (i = 0; i < numvertices; i++) {
+		s32 next = (i + 1) % numvertices;
+
+		if (block->vertices[i][0] != block->vertices[next][0] || block->vertices[i][1] != block->vertices[next][1]) {
+			f32 f0 = cd00025654(
+					block->vertices[i][0],
+					block->vertices[i][1],
+					block->vertices[next][0],
+					block->vertices[next][1], arg1, arg2);
+
+			if (f0 < 0.0f) {
+				f0 = -f0;
+			}
+
+			if (f0 <= arg3
+					&& (cd00025724(block->vertices[i][0], block->vertices[i][1], arg1, arg2) <= arg3
+						|| cd00025724(block->vertices[next][0], block->vertices[next][1], arg1, arg2) <= arg3
+						|| cd00025774(block->vertices[i][0], block->vertices[i][1], block->vertices[next][0], block->vertices[next][1], arg1, arg2))) {
+				if (*thingindex < maxthings) {
+					things[*thingindex].geo = &block->header;
+					things[*thingindex].vertexindex = i;
+					things[*thingindex].prop = prop;
+					*thingindex += 1;
+				} else {
+					break;
+				}
+			}
+		}
+	}
+}
 
 void cd0002885c(struct geocyl *cyl, f32 x, f32 z, f32 arg3, struct prop *prop, struct collisionthing *things, s32 maxthings, s32 *thingindex)
 {
@@ -1970,7 +1856,7 @@ void cd0002885c(struct geocyl *cyl, f32 x, f32 z, f32 arg3, struct prop *prop, s
 	if (xdiff * xdiff + zdiff * zdiff <= f16 * f16) {
 		if (*thingindex < maxthings) {
 			things[*thingindex].geo = &cyl->header;
-			things[*thingindex].unk08 = 0;
+			things[*thingindex].vertexindex = 0;
 			things[*thingindex].prop = prop;
 			*thingindex += 1;
 		}
@@ -4541,7 +4427,7 @@ glabel cd0002a6fc
 //		// 778
 //		if (thing.geo->type == GEOTYPE_TILE_I) {
 //			struct geotilei *tile = (struct geotilei *) thing.geo;
-//			s32 this = thing.unk08;
+//			s32 this = thing.vertexindex;
 //			s32 next = (this + 1) % thing.geo->numvertices;
 //
 //			sp70.x = tile->vertices[this][0];
@@ -4553,7 +4439,7 @@ glabel cd0002a6fc
 //			sp64.z = tile->vertices[next][2];
 //		} else /*854*/ if (thing.geo->type == GEOTYPE_TILE_F) {
 //			struct geotilef *type1 = (struct geotilef *) thing.geo;
-//			s32 this = thing.unk08;
+//			s32 this = thing.vertexindex;
 //			s32 next = (this + 1) % thing.geo->numvertices;
 //
 //			sp70.x = type1->vertices[this].x;
@@ -4565,7 +4451,7 @@ glabel cd0002a6fc
 //			sp64.z = type1->vertices[next].z;
 //		} else if (thing.geo->type == GEOTYPE_BLOCK) {
 //			struct geoblock *block = (struct geoblock *) thing.geo;
-//			s32 this = thing.unk08;
+//			s32 this = thing.vertexindex;
 //			s32 next = (this + 1) % thing.geo->numvertices;
 //
 //			sp70.x = block->vertices[this][0];
