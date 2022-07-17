@@ -88,7 +88,7 @@ u32 cd0002b128(void);
 u32 cd0002b560(void);
 u32 cd0002b954(void);
 bool cd0002bd04(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, struct coord *arg4, s32 arg5, s32 arg6, s32 arg7, f32 arg8, f32 arg9);
-u32 cd0002c328(void);
+void cd0002c328(struct geotilei *tile, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4);
 void cd0002c528(struct geotilef *tile, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4);
 bool cd0002c714(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, struct coord *arg4, u16 arg5, s32 arg6, s32 arg7, f32 ymax, f32 ymin, f32 *arg10, struct coord *arg11, struct coord *arg12, struct coord *arg13, struct geo **tile, s32 roomnum);
 bool cd0002d15c(struct coord *pos, struct coord *coord2, s16 *rooms, u32 types, u16 arg4, s32 arg5, s32 arg6, f32 arg7, f32 arg8);
