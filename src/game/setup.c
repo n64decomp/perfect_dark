@@ -3650,25 +3650,25 @@ void setupCreateProps(s32 stagenum)
 							}
 						}
 
-						obj->numtiles = 1;
+						obj->geocount = 1;
 						setupLoadModeldef(modelnum);
 						modelstate = &g_ModelStates[modelnum];
 
 						if (modelstate->filedata) {
 							if (modelGetPartRodata(modelstate->filedata, 1)) {
-								obj->numtiles++;
+								obj->geocount++;
 							}
 							if (modelGetPartRodata(modelstate->filedata, 2)) {
-								obj->numtiles++;
+								obj->geocount++;
 							}
 							if (modelGetPartRodata(modelstate->filedata, 3)) {
-								obj->numtiles++;
+								obj->geocount++;
 							}
 							if (modelGetPartRodata(modelstate->filedata, 4)) {
-								obj->numtiles++;
+								obj->geocount++;
 							}
 							if (modelGetPartRodata(modelstate->filedata, 6)) {
-								obj->numtiles++;
+								obj->geocount++;
 							}
 						}
 

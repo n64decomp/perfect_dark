@@ -29,25 +29,25 @@ void tilesReset(void)
 
 void stageParseTiles(void)
 {
-	struct tile *tile = (struct tile *)(g_TileFileData.u8 + g_TileRooms[0]);
-	struct tile *end = (struct tile *)(g_TileFileData.u8 + g_TileRooms[g_TileNumRooms]);
+	struct geo *geo = (struct geo *)(g_TileFileData.u8 + g_TileRooms[0]);
+	struct geo *end = (struct geo *)(g_TileFileData.u8 + g_TileRooms[g_TileNumRooms]);
 
-	while (tile < end) {
-		if (tile->type == TILETYPE_00) {
-			struct tiletype0 *tile0 = (struct tiletype0 *) tile;
-			tile0->xmin = mult6(tile0->xmin) + 14;
-			tile0->xmax = mult6(tile0->xmax) + 14;
-			tile0->ymin = mult6(tile0->ymin) + 16;
-			tile0->ymax = mult6(tile0->ymax) + 16;
-			tile0->zmin = mult6(tile0->zmin) + 18;
-			tile0->zmax = mult6(tile0->zmax) + 18;
-			tile = (struct tile *)((u8 *)tile + (u32)(tile->numvertices - 0x40) * 6 + 0x18e);
-		} else if (tile->type == TILETYPE_01) {
-			tile = (struct tile *)((u8 *)tile + (u32)(tile->numvertices - 0x40) * 12 + 0x310);
-		} else if (tile->type == TILETYPE_02) {
-			tile = (struct tile *)((u8 *)tile + 0x4c);
-		} else if (tile->type == TILETYPE_03) {
-			tile = (struct tile *)((u8 *)tile + 0x18);
+	while (geo < end) {
+		if (geo->type == GEOTYPE_TILE_I) {
+			struct geotilei *tile = (struct geotilei *) geo;
+			tile->xmin = mult6(tile->xmin) + 14;
+			tile->xmax = mult6(tile->xmax) + 14;
+			tile->ymin = mult6(tile->ymin) + 16;
+			tile->ymax = mult6(tile->ymax) + 16;
+			tile->zmin = mult6(tile->zmin) + 18;
+			tile->zmax = mult6(tile->zmax) + 18;
+			geo = (struct geo *)((u8 *)geo + (u32)(geo->numvertices - 0x40) * 6 + 0x18e);
+		} else if (geo->type == GEOTYPE_TILE_F) {
+			geo = (struct geo *)((u8 *)geo + (u32)(geo->numvertices - 0x40) * 12 + 0x310);
+		} else if (geo->type == GEOTYPE_BLOCK) {
+			geo = (struct geo *)((u8 *)geo + sizeof(struct geoblock));
+		} else if (geo->type == GEOTYPE_CYL) {
+			geo = (struct geo *)((u8 *)geo + sizeof(struct geocyl));
 		}
 	}
 }

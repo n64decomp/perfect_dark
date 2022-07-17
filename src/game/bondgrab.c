@@ -95,13 +95,13 @@ void bgrabInit(void)
 
 		obj->hidden |= OBJHFLAG_GRABBED;
 
-		if (obj->flags3 & OBJFLAG3_GEOTYPE3) {
-			withforce = cd000276c8(obj->geo3,
+		if (obj->flags3 & OBJFLAG3_GEOCYL) {
+			withforce = cd000276c8(obj->geocyl,
 					g_Vars.currentplayer->prop->pos.x,
 					g_Vars.currentplayer->prop->pos.z,
 					VERSION >= VERSION_NTSC_1_0 ? 45 : 40, 0, 0);
 		} else {
-			withforce = cd000274e0(obj->geo2,
+			withforce = cd000274e0(obj->geoblock,
 					g_Vars.currentplayer->prop->pos.x,
 					g_Vars.currentplayer->prop->pos.z,
 					VERSION >= VERSION_NTSC_1_0 ? 45 : 40, 0, 0);
@@ -680,7 +680,7 @@ bool bgrab0f0cdb68(f32 angle)
 			}
 		} else if (var80070e80 != 0) {
 			if (g_Vars.currentplayer->grabbedprop->type == PROPTYPE_OBJ) {
-				if (g_Vars.currentplayer->grabbedprop->obj->flags3 & OBJFLAG3_GEOTYPE3) {
+				if (g_Vars.currentplayer->grabbedprop->obj->flags3 & OBJFLAG3_GEOCYL) {
 					propObjGetBbox(g_Vars.currentplayer->grabbedprop, &radius, &ymax, &ymin);
 
 					f0 = (var8009de78.f[0] - spa4.f[0]) * f20 + (var8009de78.f[2] - spa4.f[2]) * f22;
@@ -882,7 +882,7 @@ void bgrabUpdateVertical(void)
 		g_Vars.currentplayer->vv_manground = fVar3 * (PAL ? 0.054400026798248f : 0.045499980449677f);
 	}
 
-	if ((g_Vars.currentplayer->floorflags & TILEFLAG_DIE) &&
+	if ((g_Vars.currentplayer->floorflags & GEOFLAG_DIE) &&
 			g_Vars.currentplayer->vv_manground - 20.0f < g_Vars.currentplayer->vv_ground) {
 		playerDie(true);
 	}

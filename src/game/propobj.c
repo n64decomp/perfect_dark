@@ -1047,28 +1047,28 @@ glabel var7f1aa1cc
 /*  f067420:	00c01025 */ 	or	$v0,$a2,$zero
 );
 
-void func0f067424(struct modelrodata_bbox *bbox, Mtxf *mtx, struct tiletype2 *tile)
+void func0f067424(struct modelrodata_bbox *bbox, Mtxf *mtx, struct geoblock *block)
 {
-	tile->header.numvertices = func0f066b5c(
-			bbox->xmin, bbox->xmax, bbox->ymin, bbox->ymax, bbox->zmin, bbox->zmax, mtx, tile);
-	tile->header.type = TILETYPE_02;
-	tile->ymin = mtx->m[3][1] + func0f06683c(bbox, mtx);
-	tile->ymax = mtx->m[3][1] + func0f06686c(bbox, mtx);
+	block->header.numvertices = func0f066b5c(
+			bbox->xmin, bbox->xmax, bbox->ymin, bbox->ymax, bbox->zmin, bbox->zmax, mtx, block);
+	block->header.type = GEOTYPE_BLOCK;
+	block->ymin = mtx->m[3][1] + func0f06683c(bbox, mtx);
+	block->ymax = mtx->m[3][1] + func0f06686c(bbox, mtx);
 }
 
-void func0f0674bc(struct modelrodata_type19 *rodata19, struct modelrodata_bbox *bbox, Mtxf *mtx, struct tiletype2 *tile)
+void func0f0674bc(struct modelrodata_type19 *rodata19, struct modelrodata_bbox *bbox, Mtxf *mtx, struct geoblock *block)
 {
 	s32 i;
 
 	for (i = 0; i < rodata19->numvertices; i++) {
-		tile->vertices[i][0] = mtx->m[3][0] + mtx->m[0][0] * rodata19->vertices[i].x + mtx->m[1][0] * rodata19->vertices[i].y + mtx->m[2][0] * rodata19->vertices[i].z;
-		tile->vertices[i][1] = mtx->m[3][2] + mtx->m[0][2] * rodata19->vertices[i].x + mtx->m[1][2] * rodata19->vertices[i].y + mtx->m[2][2] * rodata19->vertices[i].z;
+		block->vertices[i][0] = mtx->m[3][0] + mtx->m[0][0] * rodata19->vertices[i].x + mtx->m[1][0] * rodata19->vertices[i].y + mtx->m[2][0] * rodata19->vertices[i].z;
+		block->vertices[i][1] = mtx->m[3][2] + mtx->m[0][2] * rodata19->vertices[i].x + mtx->m[1][2] * rodata19->vertices[i].y + mtx->m[2][2] * rodata19->vertices[i].z;
 	}
 
-	tile->header.numvertices = rodata19->numvertices;
-	tile->header.type = TILETYPE_02;
-	tile->ymin = mtx->m[3][1] + func0f06683c(bbox, mtx);
-	tile->ymax = mtx->m[3][1] + func0f06686c(bbox, mtx);
+	block->header.numvertices = rodata19->numvertices;
+	block->header.type = GEOTYPE_BLOCK;
+	block->ymin = mtx->m[3][1] + func0f06683c(bbox, mtx);
+	block->ymax = mtx->m[3][1] + func0f06686c(bbox, mtx);
 }
 
 bool func0f0675c8(struct coord *pos, f32 arg1, struct modelrodata_bbox *bbox, Mtxf *mtx)
@@ -1429,7 +1429,7 @@ struct defaultobj *objFindByPos(struct coord *pos, s16 *rooms)
 		if (prop->type == PROPTYPE_OBJ
 				&& arrayIntersects(prop->rooms, rooms)
 				&& propUpdateGeometry(prop, &sp38, &sp34)
-				&& func000266a4(pos->x, pos->z, (struct tile *)sp38)) {
+				&& func000266a4(pos->x, pos->z, (struct geo *)sp38)) {
 			return prop->obj;
 		}
 
@@ -3940,7 +3940,7 @@ void func0f069750(s32 *arg0, s32 arg1, f32 *arg2)
 
 struct var80069a70 var80069a70[];
 
-void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], struct tiletype3 *tile)
+void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], struct geocyl *cyl)
 {
 	Mtxf mtx;
 	struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
@@ -3958,41 +3958,41 @@ void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], stru
 		rodata19 = modelGetPartRodata(obj->model->filedata, MODELPART_HOVERBIKE_0064);
 	}
 
-	if (obj->flags3 & OBJFLAG3_GEOTYPE3) {
-		tile->header.type = TILETYPE_03;
-		tile->header.flags = TILEFLAG_0004 | TILEFLAG_0008 | TILEFLAG_0010;
+	if (obj->flags3 & OBJFLAG3_GEOCYL) {
+		cyl->header.type = GEOTYPE_CYL;
+		cyl->header.flags = GEOFLAG_COLLISIONS | GEOFLAG_0008 | GEOFLAG_OPAQUE;
 
 		if (obj->type == OBJTYPE_HOVERBIKE) {
 			hoverbike = (struct hoverbikeobj *)obj;
-			tile->ymax = hoverbike->hov.ground + var80069a70[hoverbike->hov.unk00].unk00 + modelBboxGetYMax(bbox) * obj->model->scale;
-			tile->ymin = hoverbike->hov.ground + 20.0f;
+			cyl->ymax = hoverbike->hov.ground + var80069a70[hoverbike->hov.unk00].unk00 + modelBboxGetYMax(bbox) * obj->model->scale;
+			cyl->ymin = hoverbike->hov.ground + 20.0f;
 		} else if (obj->type == OBJTYPE_HOVERPROP) {
 			hoverprop = (struct hoverpropobj *)obj;
-			tile->ymax = hoverprop->hov.ground + var80069a70[hoverprop->hov.unk00].unk00 + modelBboxGetYMax(bbox) * obj->model->scale;
-			tile->ymin = hoverprop->hov.ground + 20.0f;
+			cyl->ymax = hoverprop->hov.ground + var80069a70[hoverprop->hov.unk00].unk00 + modelBboxGetYMax(bbox) * obj->model->scale;
+			cyl->ymin = hoverprop->hov.ground + 20.0f;
 		} else {
-			tile->ymin = mtx.m[3][1] + func0f06683c(bbox, &mtx);
-			tile->ymax = mtx.m[3][1] + func0f06686c(bbox, &mtx);
+			cyl->ymin = mtx.m[3][1] + func0f06683c(bbox, &mtx);
+			cyl->ymax = mtx.m[3][1] + func0f06686c(bbox, &mtx);
 		}
 
-		tile->x = pos->x;
-		tile->z = pos->z;
-		tile->radius = 90.0f;
+		cyl->x = pos->x;
+		cyl->z = pos->z;
+		cyl->radius = 90.0f;
 	} else {
 		if (rodata19 != NULL) {
-			func0f0674bc(rodata19, bbox, &mtx, (struct tiletype2 *)tile);
+			func0f0674bc(rodata19, bbox, &mtx, (struct geoblock *)cyl);
 		} else {
-			func0f067424(bbox, &mtx, (struct tiletype2 *)tile);
+			func0f067424(bbox, &mtx, (struct geoblock *)cyl);
 		}
 
 		if (obj->type == OBJTYPE_HOVERBIKE) {
 			hoverbike = (struct hoverbikeobj *)obj;
-			tile->ymax = hoverbike->hov.ground + var80069a70[hoverbike->hov.unk00].unk00 + modelBboxGetYMax(bbox) * obj->model->scale;
-			tile->ymin = hoverbike->hov.ground + 20.0f;
+			cyl->ymax = hoverbike->hov.ground + var80069a70[hoverbike->hov.unk00].unk00 + modelBboxGetYMax(bbox) * obj->model->scale;
+			cyl->ymin = hoverbike->hov.ground + 20.0f;
 		} else if (obj->type == OBJTYPE_HOVERPROP) {
 			hoverprop = (struct hoverpropobj *)obj;
-			tile->ymax = hoverprop->hov.ground + var80069a70[hoverprop->hov.unk00].unk00 + modelBboxGetYMax(bbox) * obj->model->scale;
-			tile->ymin = hoverprop->hov.ground + 20.0f;
+			cyl->ymax = hoverprop->hov.ground + var80069a70[hoverprop->hov.unk00].unk00 + modelBboxGetYMax(bbox) * obj->model->scale;
+			cyl->ymin = hoverprop->hov.ground + 20.0f;
 		}
 	}
 }
@@ -4004,23 +4004,23 @@ void func0f069b4c(struct defaultobj *obj)
 
 	if (ptr != NULL) {
 		if ((obj->hidden2 & OBJH2FLAG_08)) {
-			if (obj->flags3 & OBJFLAG3_GEOTYPE3) {
-				ptr += sizeof(struct tiletype3);
+			if (obj->flags3 & OBJFLAG3_GEOCYL) {
+				ptr += sizeof(struct geocyl);
 			} else {
-				ptr += sizeof(struct tiletype2);
+				ptr += sizeof(struct geoblock);
 			}
 		}
 
 		rodata = modelGetPartRodata(obj->model->filedata, MODELPART_0065);
 
 		if (rodata != NULL) {
-			u32 flags = TILEFLAG_0001 | TILEFLAG_0002;
+			u32 flags = GEOFLAG_0001 | GEOFLAG_0002;
 
 			if (obj->type == OBJTYPE_ESCASTEP) {
-				flags |= TILEFLAG_0020;
+				flags |= GEOFLAG_LIFTFLOOR;
 			}
 
-			func0f070ca0(obj, (struct tiletype1 *)ptr, flags, NULL, &rodata->type19);
+			func0f070ca0(obj, (struct geotilef *)ptr, flags, NULL, &rodata->type19);
 
 			ptr += 0x40;
 		}
@@ -4028,16 +4028,16 @@ void func0f069b4c(struct defaultobj *obj)
 		rodata = modelGetPartRodata(obj->model->filedata, MODELPART_0066);
 
 		if (rodata != NULL) {
-			func0f070ca0(obj, (struct tiletype1 *)ptr, TILEFLAG_0004 | TILEFLAG_0008 | TILEFLAG_0010, NULL, &rodata->type19);
+			func0f070ca0(obj, (struct geotilef *)ptr, GEOFLAG_COLLISIONS | GEOFLAG_0008 | GEOFLAG_OPAQUE, NULL, &rodata->type19);
 		}
 	}
 }
 
 void func0f069c1c(struct defaultobj *obj)
 {
-	if (obj->geo3) {
+	if (obj->geocyl) {
 		if (obj->hidden2 & OBJH2FLAG_08) {
-			func0f069850(obj, &obj->prop->pos, obj->realrot, obj->geo3);
+			func0f069850(obj, &obj->prop->pos, obj->realrot, obj->geocyl);
 		}
 
 		func0f069b4c(obj);
@@ -4222,29 +4222,29 @@ struct prop *objInit(struct defaultobj *obj, struct modelfiledata *filedata, str
 		obj->model = model;
 
 		if (modelGetPartRodata(filedata, MODELPART_BASIC_0065)) {
-			obj->numtiles++;
+			obj->geocount++;
 		}
 
 		if (modelGetPartRodata(filedata, MODELPART_BASIC_0066)) {
-			obj->numtiles++;
+			obj->geocount++;
 		}
 
-		geosize = obj->numtiles * 0x40;
+		geosize = obj->geocount * 0x40;
 
 		if (obj->flags & OBJFLAG_00000100) {
-			if (obj->flags3 & OBJFLAG3_GEOTYPE3) {
-				geosize += sizeof(struct tiletype3);
+			if (obj->flags3 & OBJFLAG3_GEOCYL) {
+				geosize += sizeof(struct geocyl);
 			} else {
-				geosize += sizeof(struct tiletype2);
+				geosize += sizeof(struct geoblock);
 			}
 
-			obj->numtiles++;
+			obj->geocount++;
 			obj->hidden2 |= OBJH2FLAG_08;
 		} else {
 			obj->hidden2 &= ~OBJH2FLAG_08;
 		}
 
-		if (obj->numtiles > 0) {
+		if (obj->geocount > 0) {
 			obj->unkgeo = mempAlloc(ALIGN16(geosize), MEMPOOL_STAGE);
 		} else {
 			obj->unkgeo = NULL;
@@ -5090,10 +5090,10 @@ glabel var7f1aa200
 //
 //			if (obj2) {
 //				bool updated = propUpdateGeometry(obj2->prop, &sp3c, &sp38);
-//				struct tiletype2 *tile2 = (struct tiletype2 *)sp3c;
+//				struct geoblock *tile2 = (struct geoblock *)sp3c;
 //
 //				if (updated
-//						&& sp3c[0] == TILETYPE_02
+//						&& sp3c[0] == GEOTYPE_BLOCK
 //						&& tile2->ymax > sp58
 //						&& tile2->ymin < sp58 + (max - min) * sp70.m[sp50][1] + func0f06a620(obj)) {
 //					spb0.y = tile2->ymax - sp70.m[sp50][1] * min;
@@ -11567,7 +11567,7 @@ void func0f070bd0(struct modelrodata_type19 *rodata, f32 rot[3][3], struct coord
 	}
 }
 
-void func0f070ca0(struct defaultobj *obj, struct tiletype1 *tile, u32 flags, struct modelrodata_bbox *bbox, struct modelrodata_type19 *rodata)
+void func0f070ca0(struct defaultobj *obj, struct geotilef *tile, u32 flags, struct modelrodata_bbox *bbox, struct modelrodata_type19 *rodata)
 {
 	struct coord vertices[4];
 	s32 i;
@@ -11579,7 +11579,7 @@ void func0f070ca0(struct defaultobj *obj, struct tiletype1 *tile, u32 flags, str
 		func0f070bd0(rodata, obj->realrot, &obj->prop->pos, vertices);
 	}
 
-	tile->header.type = TILETYPE_01;
+	tile->header.type = GEOTYPE_TILE_F;
 	tile->header.flags = flags;
 	tile->header.numvertices = 4;
 
@@ -11634,11 +11634,11 @@ f32 liftGetY(struct liftobj *lift)
 {
 	f32 y = lift->base.prop->pos.y;
 
-	if (lift->base.numtiles > 0) {
-		struct tiletype1 *tile = lift->base.geo1;
+	if (lift->base.geocount > 0) {
+		struct geotilef *tile = lift->base.geotilef;
 
-		if (tile && tile->header.type == TILETYPE_01) {
-			if (tile->header.flags & TILEFLAG_0001) {
+		if (tile && tile->header.type == GEOTYPE_TILE_F) {
+			if (tile->header.flags & GEOFLAG_0001) {
 				y = tile->vertices[tile->max[1]].y;
 			}
 		}
@@ -11681,24 +11681,24 @@ void liftUpdateTiles(struct liftobj *lift, bool stationary)
 	u8 *geo;
 	union modelrodata *rodata;
 	struct modelrodata_bbox *bbox;
-	s32 numtiles;
+	s32 geocount;
 	u32 flags;
 	s32 i;
 
-	lift->base.numtiles = 0;
+	lift->base.geocount = 0;
 	i = 0;
 
 	do {
-		geo = (u8 *)lift->base.unkgeo + lift->base.numtiles * 0x40;
+		geo = (u8 *)lift->base.unkgeo + lift->base.geocount * 0x40;
 		bbox = NULL;
 		rodata = NULL;
 
 		do {
 			if (i == 0) {
 #if VERSION >= VERSION_NTSC_1_0
-				flags = TILEFLAG_0001 | TILEFLAG_0002 | TILEFLAG_0008 | TILEFLAG_0010 | TILEFLAG_0020;
+				flags = GEOFLAG_0001 | GEOFLAG_0002 | GEOFLAG_0008 | GEOFLAG_OPAQUE | GEOFLAG_LIFTFLOOR;
 #else
-				flags = TILEFLAG_0001 | TILEFLAG_0002 | TILEFLAG_0020;
+				flags = GEOFLAG_0001 | GEOFLAG_0002 | GEOFLAG_LIFTFLOOR;
 #endif
 
 				// Look for a non-rectangular floor with fallback to rectangular
@@ -11714,13 +11714,13 @@ void liftUpdateTiles(struct liftobj *lift, bool stationary)
 					}
 				}
 			} else if (i == 1) {
-				flags = TILEFLAG_0004;
+				flags = GEOFLAG_COLLISIONS;
 				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_WALL1);
 			} else if (i == 2) {
-				flags = TILEFLAG_0004;
+				flags = GEOFLAG_COLLISIONS;
 				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_WALL2);
 			} else if (i == 3) {
-				flags = TILEFLAG_0004;
+				flags = GEOFLAG_COLLISIONS;
 				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_WALL3);
 			} else if (i == 4) {
 				// The doorblock model part exists in the dataDyne tower lifts.
@@ -11728,14 +11728,14 @@ void liftUpdateTiles(struct liftobj *lift, bool stationary)
 				// is moving. Without it, the player could exit the lift through
 				// the doorway while it's moving.
 				if (!stationary) {
-					flags = TILEFLAG_0004;
+					flags = GEOFLAG_COLLISIONS;
 					rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_DOORBLOCK);
 				}
 			} else if (i == 5) {
 #if VERSION >= VERSION_NTSC_1_0
-				flags = TILEFLAG_0001 | TILEFLAG_0002 | TILEFLAG_0008 | TILEFLAG_0010 | TILEFLAG_0020;
+				flags = GEOFLAG_0001 | GEOFLAG_0002 | GEOFLAG_0008 | GEOFLAG_OPAQUE | GEOFLAG_LIFTFLOOR;
 #else
-				flags = TILEFLAG_0001 | TILEFLAG_0002 | TILEFLAG_0020;
+				flags = GEOFLAG_0001 | GEOFLAG_0002 | GEOFLAG_LIFTFLOOR;
 #endif
 				rodata = modelGetPartRodata(lift->base.model->filedata, MODELPART_LIFT_FLOORNONRECT2);
 			} else {
@@ -11746,8 +11746,8 @@ void liftUpdateTiles(struct liftobj *lift, bool stationary)
 		} while (!bbox && !rodata);
 
 		if (bbox || rodata) {
-			func0f070ca0(&lift->base, (struct tiletype1 *)geo, flags, bbox, &rodata->type19);
-			lift->base.numtiles++;
+			func0f070ca0(&lift->base, (struct geotilef *)geo, flags, bbox, &rodata->type19);
+			lift->base.geocount++;
 		}
 	} while (bbox || rodata);
 }
@@ -14505,7 +14505,7 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 	struct hoverbikeobj *hoverbike;
 	struct hoverpropobj *hoverprop;
 	u8 stack[0x2f0];
-	struct tiletype3 tile;
+	struct geocyl cyl;
 	struct prop *prop = obj->prop;
 	u32 stack2;
 	Mtxf spa4;
@@ -14588,12 +14588,12 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 	}
 
 	if (cdresult == CDRESULT_NOCOLLISION) {
-		func0f069850(obj, &pos, sp460, &tile);
+		func0f069850(obj, &pos, sp460, &cyl);
 
-		if (obj->flags3 & OBJFLAG3_GEOTYPE3) {
-			cdresult = cd0002a6fc(&prop->pos, &pos, tile.radius, rooms, CDTYPE_ALL, true, tile.ymax - pos.y, tile.ymin - pos.y);
+		if (obj->flags3 & OBJFLAG3_GEOCYL) {
+			cdresult = cd0002a6fc(&prop->pos, &pos, cyl.radius, rooms, CDTYPE_ALL, true, cyl.ymax - pos.y, cyl.ymin - pos.y);
 		} else {
-			cdresult = cd0002f02c((struct tiletype2 *)&tile, rooms, CDTYPE_ALL);
+			cdresult = cd0002f02c((struct geoblock *)&cyl, rooms, CDTYPE_ALL);
 		}
 	}
 
@@ -14609,11 +14609,11 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 		propDeregisterRooms(prop);
 		roomsCopy(rooms, prop->rooms);
 
-		if (obj->geo3 && (obj->hidden2 & OBJH2FLAG_08)) {
-			if (obj->flags3 & OBJFLAG3_GEOTYPE3) {
-				*obj->geo3 = tile;
+		if (obj->geocyl && (obj->hidden2 & OBJH2FLAG_08)) {
+			if (obj->flags3 & OBJFLAG3_GEOCYL) {
+				*obj->geocyl = cyl;
 			} else {
-				*obj->geo2 = *(struct tiletype2 *)&tile;
+				*obj->geoblock = *(struct geoblock *)&cyl;
 			}
 		}
 	} else if (hov) {
@@ -16866,7 +16866,7 @@ void platformDisplaceProps2(struct prop *platform, Mtxf *arg1)
 
 				if (prop->pos.y > platform->pos.y
 						&& (obj->hidden & OBJHFLAG_00008000)
-						&& func000266a4(prop->pos.x, prop->pos.z, (struct tile *)sp9c)) {
+						&& func000266a4(prop->pos.x, prop->pos.z, (struct geo *)sp9c)) {
 					mtx3ToMtx4(obj->realrot, &sp58);
 					mtx4SetTranslation(&prop->pos, &sp58);
 					mtx4MultMtx4InPlace(arg1, &sp58);
@@ -50086,7 +50086,7 @@ s32 objTickPlayer(struct prop *prop)
 			struct coord sp116 = {0, 0, 0};
 			f32 sp112;
 			s32 tagnum;
-			struct tile *geos[2];
+			struct geo *geos[2];
 			u8 *end;
 			f32 damage;
 
@@ -50160,8 +50160,8 @@ s32 objTickPlayer(struct prop *prop)
 				sp592 = true;
 
 				if (objUpdateGeometry(prop, (u8 **)geos, &end)
-						&& geos[0]->type == TILETYPE_02
-						&& cd0002e4c4((struct tiletype2 *) geos[0], prop->rooms, 4) == 0) {
+						&& geos[0]->type == GEOTYPE_BLOCK
+						&& cd0002e4c4((struct geoblock *) geos[0], prop->rooms, 4) == 0) {
 					damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;
 					obj->flags &= ~OBJFLAG_INVINCIBLE;
 					objDamage(obj, damage, &prop->pos, WEAPON_REMOTEMINE, -1);
@@ -53641,7 +53641,7 @@ void objDestroySupportedObjects(struct prop *tableprop, s32 playernum)
 				{
 					if (prop->pos.y > tableprop->pos.y
 							&& (obj->hidden & OBJHFLAG_00008000)
-							&& func000266a4(prop->pos.x, prop->pos.z, (struct tile *)start)) {
+							&& func000266a4(prop->pos.x, prop->pos.z, (struct geo *)start)) {
 						objFall(obj, playernum);
 					}
 				}
@@ -55147,24 +55147,24 @@ bool objUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 
 	if (obj->unkgeo && (obj->flags3 & OBJFLAG3_WALKTHROUGH) == 0) {
 		if ((obj->hidden2 & OBJH2FLAG_08)) {
-			s32 len = (obj->flags3 & OBJFLAG3_GEOTYPE3) ? sizeof(struct tiletype3) : sizeof(struct tiletype2);
+			s32 len = (obj->flags3 & OBJFLAG3_GEOCYL) ? sizeof(struct geocyl) : sizeof(struct geoblock);
 
 			if (obj->flags & OBJFLAG_00000100) {
 				if ((obj->hidden & (OBJHFLAG_PERIMDISABLED | OBJHFLAG_DOORPERIMDISABLED)) == 0) {
 					*start = (void *) obj->unkgeo;
 					*end = (void *)((u32)obj->unkgeo + len);
 
-					if (obj->numtiles >= 2) {
-						*end += obj->numtiles * 0x40 - 0x40;
+					if (obj->geocount >= 2) {
+						*end += obj->geocount * 0x40 - 0x40;
 					}
 
 					return true;
 				}
 			}
 
-			if (obj->numtiles >= 2) {
+			if (obj->geocount >= 2) {
 				*start = (void *)((u32)obj->unkgeo + len);
-				*end = (void *)(*start + obj->numtiles * 0x40 - 0x40);
+				*end = (void *)(*start + obj->geocount * 0x40 - 0x40);
 				return true;
 			}
 
@@ -55174,7 +55174,7 @@ bool objUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 		}
 
 		*start = (void *) obj->unkgeo;
-		*end = (void *) ((u32)obj->unkgeo + obj->numtiles * 0x40);
+		*end = (void *) ((u32)obj->unkgeo + obj->geocount * 0x40);
 		return true;
 	}
 
@@ -55189,14 +55189,14 @@ void propObjGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin)
 	struct defaultobj *obj = prop->obj;
 
 	if (obj->unkgeo && obj->hidden2 & OBJH2FLAG_08) {
-		if (obj->flags3 & OBJFLAG3_GEOTYPE3) {
-			*radius = obj->geo3->radius;
-			*ymin = obj->geo3->ymin;
-			*ymax = obj->geo3->ymax;
+		if (obj->flags3 & OBJFLAG3_GEOCYL) {
+			*radius = obj->geocyl->radius;
+			*ymin = obj->geocyl->ymin;
+			*ymax = obj->geocyl->ymax;
 		} else {
 			*radius = model0001af80(obj->model);
-			*ymin = obj->geo2->ymin;
-			*ymax = obj->geo2->ymax;
+			*ymin = obj->geoblock->ymin;
+			*ymax = obj->geoblock->ymax;
 		}
 	} else {
 		*radius = 1;
@@ -61087,7 +61087,7 @@ void doorUpdateTiles(struct doorobj *door)
 {
 	struct modelrodata_bbox bbox;
 	Mtxf spdc;
-	struct tiletype2 *geo;
+	struct geoblock *geo;
 	Mtxf sp98;
 	struct coord sp8c;
 	struct coord sp80;
@@ -61173,7 +61173,7 @@ void doorUpdateTiles(struct doorobj *door)
 		return;
 	}
 
-	geo = door->base.geo2;
+	geo = door->base.geoblock;
 	door->base.hidden &= ~OBJHFLAG_DOORPERIMDISABLED;
 
 	if ((door->doorflags & DOORFLAG_0020) == 0) {
@@ -62188,12 +62188,12 @@ void doorStartOpen(struct doorobj *door)
 	doorActivatePortal(door);
 
 	if (door->doortype == DOORTYPE_FALLAWAY) {
-		struct tiletype3 *geo = door->base.geo3;
+		struct geocyl *cyl = door->base.geocyl;
 		door->base.flags |= OBJFLAG_CANNOT_ACTIVATE;
 		door->perimfrac = 0;
 
-		if (geo && (door->base.flags & OBJFLAG_00000100)) {
-			geo->header.numvertices = 0;
+		if (cyl && (door->base.flags & OBJFLAG_00000100)) {
+			cyl->header.numvertices = 0;
 			door->base.flags &= ~OBJFLAG_00000100;
 		}
 	}
@@ -62703,7 +62703,7 @@ void doorsCalcFrac(struct doorobj *door)
 			{
 				propSetPerimEnabled(loopprop, false);
 
-				cdresult = cd0002e4c4(loopdoor->base.geo2, loopprop->rooms,
+				cdresult = cd0002e4c4(loopdoor->base.geoblock, loopprop->rooms,
 						CDTYPE_OBJS | CDTYPE_PLAYERS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER | CDTYPE_OBJSNOTSAFEORHELI);
 
 				propSetPerimEnabled(loopprop, true);

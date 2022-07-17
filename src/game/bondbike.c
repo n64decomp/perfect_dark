@@ -1278,7 +1278,7 @@ void bbikeUpdateVertical(struct coord *pos)
 	g_Vars.currentplayer->vv_height = g_Vars.currentplayer->headpos.y / g_Vars.currentplayer->standheight * g_Vars.currentplayer->vv_eyeheight;
 	g_Vars.currentplayer->vv_manground = g_Vars.currentplayer->prop->pos.y - g_Vars.currentplayer->vv_height;
 
-	if (g_Vars.currentplayer->floorflags & TILEFLAG_DIE) {
+	if (g_Vars.currentplayer->floorflags & GEOFLAG_DIE) {
 		playerDie(true);
 	}
 

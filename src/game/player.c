@@ -688,8 +688,8 @@ void playerLoadDefaults(void)
 	bmoveSetMode(MOVEMODE_WALK);
 
 	g_Vars.currentplayer->bondperimenabled = true;
-	g_Vars.currentplayer->periminfo.header.type = TILETYPE_03;
-	g_Vars.currentplayer->periminfo.header.flags = TILEFLAG_0004 | TILEFLAG_0010;
+	g_Vars.currentplayer->periminfo.header.type = GEOTYPE_CYL;
+	g_Vars.currentplayer->periminfo.header.flags = GEOFLAG_COLLISIONS | GEOFLAG_OPAQUE;
 	g_Vars.currentplayer->periminfo.ymax = 0;
 	g_Vars.currentplayer->periminfo.ymin = 0;
 	g_Vars.currentplayer->periminfo.x = 0;
@@ -5684,7 +5684,7 @@ bool playerUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 			*start = (void *) &g_Vars.players[playernum]->periminfo;
 		}
 
-		*end = *start + sizeof(struct tiletype3);
+		*end = *start + sizeof(struct geocyl);
 
 		return true;
 	}
@@ -5697,8 +5697,8 @@ bool playerUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 
 void playerUpdatePerimInfo(void)
 {
-	g_Vars.currentplayer->periminfo.header.type = TILETYPE_03;
-	g_Vars.currentplayer->periminfo.header.flags = TILEFLAG_0004 | TILEFLAG_0010;
+	g_Vars.currentplayer->periminfo.header.type = GEOTYPE_CYL;
+	g_Vars.currentplayer->periminfo.header.flags = GEOFLAG_COLLISIONS | GEOFLAG_OPAQUE;
 
 	g_Vars.currentplayer->periminfo.ymin = g_Vars.currentplayer->vv_manground;
 	g_Vars.currentplayer->periminfo.ymax = g_Vars.currentplayer->vv_manground + g_Vars.currentplayer->vv_headheight;

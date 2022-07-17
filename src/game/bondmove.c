@@ -438,7 +438,7 @@ f32 bmoveCalculateLookahead(void)
 				+ (sp150.z - spf0.z) * (sp150.z - spf0.z));
 	}
 
-	if (sp160 > 60.0f || (flags & TILEFLAG_0001)) {
+	if (sp160 > 60.0f || (flags & GEOFLAG_0001)) {
 		for (i = 0; i < 5; i++) {
 			populated[i] = false;
 			value = (i + 1) * sp160 * 0.2f;

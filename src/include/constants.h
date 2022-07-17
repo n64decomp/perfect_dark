@@ -1125,6 +1125,28 @@
 #define GBGAME_OTHER 0
 #define GBGAME_PD    2
 
+#define GEOFLAG_0001           0x0001
+#define GEOFLAG_0002           0x0002
+#define GEOFLAG_COLLISIONS     0x0004
+#define GEOFLAG_0008           0x0008
+#define GEOFLAG_OPAQUE         0x0010 // Block AI fire/sight
+#define GEOFLAG_LIFTFLOOR      0x0020
+#define GEOFLAG_LADDER         0x0040
+#define GEOFLAG_0080           0x0080
+#define GEOFLAG_0100           0x0100 // Editor: Low wall/edge
+#define GEOFLAG_UNDERWATER     0x0200
+#define GEOFLAG_0400           0x0400 // Unused
+#define GEOFLAG_AIBOTCROUCH    0x0800
+#define GEOFLAG_AIBOTDUCK      0x1000
+#define GEOFLAG_STEP           0x2000 // Ascend regardless of steepness
+#define GEOFLAG_DIE            0x4000
+#define GEOFLAG_CLIMBABLELEDGE 0x8000 // Used for most ledges in Chicago, but not near drain pickup
+
+#define GEOTYPE_TILE_I 0 // Tiles with integer vertices - used for BG
+#define GEOTYPE_TILE_F 1 // Tiles with float vertices - used for lifts
+#define GEOTYPE_BLOCK  2 // Most objects - multiple x/z vertices, and a single ymin and ymax
+#define GEOTYPE_CYL    3 // Cylinder - used by chrs and the hoverbike
+
 #define GOPOSFLAG_SPEED        0x03 // bits 0x01 and 0x02 combined
 #define GOPOSFLAG_INIT         0x04
 #define GOPOSFLAG_FORPATHSTART 0x08
@@ -3059,7 +3081,7 @@
 #define OBJFLAG3_PLAYERUNDROPPABLE  0x00400000 // Player does not drop item when dead
 #define OBJFLAG3_00800000           0x00800000 // Not used in scripts
 #define OBJFLAG3_01000000           0x01000000 // Not used in scripts
-#define OBJFLAG3_GEOTYPE3           0x02000000 // If set then obj uses tiletype3 else tiletype2
+#define OBJFLAG3_GEOCYL             0x02000000 // Use cylinder geometry rather than block
 #define OBJFLAG3_04000000           0x04000000 // Not used in scripts
 #define OBJFLAG3_08000000           0x08000000 // Not used in scripts
 #define OBJFLAG3_10000000           0x10000000 // Editor: "Keep Collisions After Fully Destroyed"
@@ -3974,28 +3996,6 @@
 #define TICKOP_RETICK       3
 #define TICKOP_GIVETOPLAYER 4
 #define TICKOP_5            5
-
-#define TILEFLAG_0001           0x0001 // Editor: Traversable
-#define TILEFLAG_0002           0x0002
-#define TILEFLAG_0004           0x0004 // Editor: Collisions
-#define TILEFLAG_0008           0x0008
-#define TILEFLAG_0010           0x0010 // Editor: Block AI fire/sight
-#define TILEFLAG_0020           0x0020
-#define TILEFLAG_LADDER         0x0040
-#define TILEFLAG_0080           0x0080
-#define TILEFLAG_0100           0x0100 // Editor: Low wall/edge
-#define TILEFLAG_UNDERWATER     0x0200
-#define TILEFLAG_0400           0x0400
-#define TILEFLAG_AIBOTCROUCH    0x0800
-#define TILEFLAG_AIBOTDUCK      0x1000
-#define TILEFLAG_2000           0x2000 // Editor: Incline
-#define TILEFLAG_DIE            0x4000
-#define TILEFLAG_CLIMBABLELEDGE 0x8000 // used for most ledges in Chicago, but not near drain pickup
-
-#define TILETYPE_00 0 // Standard BG tiles
-#define TILETYPE_01 1
-#define TILETYPE_02 2
-#define TILETYPE_03 3 // Chr/obj geometry
 
 #define TIMEPRECISION_DAYS       0
 #define TIMEPRECISION_HOURS      1

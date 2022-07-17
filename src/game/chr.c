@@ -958,7 +958,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 							chr->sumground = chr->ground * (PAL ? 8.4175090789795f : 9.999998f);
 							chr->fallspeed.y = 0.0f;
 
-							if (floorflags & TILEFLAG_DIE) {
+							if (floorflags & GEOFLAG_DIE) {
 								die = true;
 							}
 						}
@@ -5597,12 +5597,12 @@ bool chrUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 			chr->actiontype != ACT_DRUGGEDKO &&
 			(chr->chrflags & (CHRCFLAG_PERIMDISABLEDTMP | CHRCFLAG_HIDDEN)) == 0 &&
 			(chr->hidden & CHRHFLAG_PERIMDISABLED) == 0) {
-		chr->geo.header.type = TILETYPE_03;
+		chr->geo.header.type = GEOTYPE_CYL;
 
 		if (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DRUGGEDDROP) {
-			chr->geo.header.flags = TILEFLAG_0010;
+			chr->geo.header.flags = GEOFLAG_OPAQUE;
 		} else {
-			chr->geo.header.flags = TILEFLAG_0004 | TILEFLAG_0010;
+			chr->geo.header.flags = GEOFLAG_COLLISIONS | GEOFLAG_OPAQUE;
 		}
 
 		chr->geo.ymin = chr->manground;
@@ -5623,7 +5623,7 @@ bool chrUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 		}
 
 		*start = (void *) &chr->geo;
-		*end = *start + sizeof(struct tiletype3);
+		*end = *start + sizeof(struct geocyl);
 
 		return true;
 	}

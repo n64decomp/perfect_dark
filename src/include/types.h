@@ -829,14 +829,14 @@ struct aibot {
 	/*0x2dc*/ u32 unk2dc;
 };
 
-struct tile {
+struct geo {
 	/*0x00*/ u8 type;
 	/*0x01*/ u8 numvertices;
 	/*0x02*/ u16 flags;
 };
 
-struct tiletype0 {
-	struct tile header;
+struct geotilei {
+	struct geo header;
 	/*0x04*/ u16 floortype;
 	/*0x06*/ u8 xmin; // These are byte offsets relative to the start of tile
 	/*0x07*/ u8 ymin;
@@ -848,8 +848,8 @@ struct tiletype0 {
 	/*0x0e*/ s16 vertices[64][3];
 };
 
-struct tiletype1 {
-	struct tile header;
+struct geotilef {
+	struct geo header;
 	/*0x04*/ u16 floortype;
 	union {
 		// The arrays are surely the correct type here, but they create
@@ -872,28 +872,20 @@ struct tiletype1 {
 	/*0x10*/ struct coord vertices[64];
 };
 
-struct tiletype2 {
-	struct tile header;
+struct geoblock {
+	struct geo header;
 	/*0x04*/ f32 ymax;
 	/*0x08*/ f32 ymin;
 	/*0x0c*/ f32 vertices[8][2];
 };
 
-struct tiletype3 {
-	struct tile header;
+struct geocyl {
+	struct geo header;
 	/*0x04*/ f32 ymax;
 	/*0x08*/ f32 ymin;
 	/*0x0c*/ f32 x;
 	/*0x10*/ f32 z;
 	/*0x14*/ f32 radius;
-};
-
-struct tilething {
-	struct tile *tile;
-	u32 unk04;
-	u32 unk08;
-	struct prop *lift;
-	u32 floorroom;
 };
 
 struct act_stand {
@@ -1205,7 +1197,7 @@ struct chrdata {
 	/*0x12e*/ s16 chrseeshot;
 	/*0x130*/ s16 chrseedie;
 	/*0x132*/ s16 chrdup;
-	struct tiletype3 geo;
+	struct geocyl geo;
 	/*0x14c*/ f32 shotbondsum;
 	/*0x150*/ f32 aimuplshoulder;
 	/*0x154*/ f32 aimuprshoulder;
@@ -1469,10 +1461,10 @@ struct defaultobj {
 	/*0x1c*/ f32 realrot[3][3];
 	/*0x40*/ u32 hidden;
 	union {
-		/*0x44*/ struct tiletype1 *geo1;
-		/*0x44*/ struct tiletype2 *geo2;
-		/*0x44*/ struct tiletype3 *geo3;
-		/*0x44*/ struct tiletype3 *unkgeo; // temporary, to indicate that I don't know which geo pointer is being used
+		/*0x44*/ struct geotilef *geotilef;
+		/*0x44*/ struct geoblock *geoblock;
+		/*0x44*/ struct geocyl *geocyl;
+		/*0x44*/ struct geocyl *unkgeo; // temporary, to indicate that I don't know which geo pointer is being used
 	};
 	union {
 		/*0x48*/ struct projectile *projectile;
@@ -1483,7 +1475,7 @@ struct defaultobj {
 	/*0x50*/ u8 shadecol[4];
 	/*0x54*/ u8 nextcol[4];
 	/*0x58*/ u16 floorcol;
-	/*0x5a*/ s8 numtiles;
+	/*0x5a*/ s8 geocount;
 };
 
 struct doorobj { // objtype 0x01
@@ -2678,8 +2670,8 @@ struct player {
 	/*0x19c0*/ f32 vv_headheight; // 172 when Jo, regardless of crouch state
 	/*0x19c4*/ f32 vv_eyeheight;  // 159 when Jo, regardless of crouch state
 	/*0x19c8*/ bool haschrbody;
-	/*0x19cc*/ struct tiletype3 periminfo;
-	/*0x19e4*/ struct tiletype3 perimshoot;
+	/*0x19cc*/ struct geocyl periminfo;
+	/*0x19e4*/ struct geocyl perimshoot;
 	/*0x19fc*/ f32 bondprevtheta;
 	/*0x1a00*/ struct coord grabbedprevpos;
 	/*0x1a0c*/ f32 grabbedrotoffset;
@@ -5781,11 +5773,11 @@ struct texturepair {
 };
 
 struct collisionthing {
-	struct tile *tile;
+	struct geo *geo;
 	u32 unk04;
 	s32 unk08;
 	struct prop *prop;
-	u32 roomnum;
+	s32 room;
 };
 
 struct escastepkeyframe {
