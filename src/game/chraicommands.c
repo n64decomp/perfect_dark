@@ -6067,8 +6067,9 @@ bool aiIfPropPresetHeightLessThan(void)
 	f32 value = cmd[3] | (cmd[2] << 8);
 	f32 ymax;
 	f32 ymin;
-	f32 width;
-	propGetBbox(prop, &width, &ymax, &ymin);
+	f32 radius;
+
+	propGetBbox(prop, &radius, &ymax, &ymin);
 
 	if (ymax - ymin < value) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);

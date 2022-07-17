@@ -166,9 +166,9 @@ bool posIsArrivingLaterallyAtPos(struct coord *prevpos, struct coord *curpos, st
 bool posIsArrivingAtPos(struct coord *prevpos, struct coord *curpos, struct coord *targetpos, f32 range);
 void chrTickRunPos(struct chrdata *chr);
 void func0f044b68(struct coord *arg0, struct coord *arg1, struct coord *arg2);
-bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coord *aimpos, struct coord *arg4, struct coord *arg5, f32 negwidth, f32 width, s32 cdtypes, s32 arg9);
-bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, struct coord *aimpos, struct coord *leftpos, struct coord *rightpos, f32 negchrwidth, f32 chrwidth, s32 cdtypes, bool hasobstacle);
-bool chrNavTryObstacle(struct chrdata *chr, struct coord *arg1, bool arg2, struct coord *arg3, f32 width, bool arg5, struct coord *nextpos, struct waydata *waydata, f32 arg8, s32 cdtypes, s32 arg10);
+bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coord *aimpos, struct coord *arg4, struct coord *arg5, f32 negchrradius, f32 chrradius, s32 cdtypes, s32 arg9);
+bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, struct coord *aimpos, struct coord *leftpos, struct coord *rightpos, f32 negchrradius, f32 chrradius, s32 cdtypes, bool hasobstacle);
+bool chrNavTryObstacle(struct chrdata *chr, struct coord *arg1, bool arg2, struct coord *arg3, f32 radius, bool arg5, struct coord *nextpos, struct waydata *waydata, f32 arg8, s32 cdtypes, s32 arg10);
 struct prop *chrOpenDoor(struct chrdata *chr, struct coord *coord);
 void chrNavTickMain(struct chrdata *chr, struct coord *pos, struct waydata *waydata, bool arg3);
 bool chrGoPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, bool arrivingatlift, s16 curpadnum, s32 nextpadnum);
@@ -206,9 +206,9 @@ bool chrSetPadPresetToPadOnRouteToTarget(struct chrdata *chr);
 bool chrIsPosOffScreen(struct coord *pos, s16 *rooms);
 
 #if VERSION >= VERSION_NTSC_1_0
-bool chrAdjustPosForSpawn(f32 chrwidth, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool arg5, bool arg6);
+bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool arg5, bool arg6);
 #else
-bool chrAdjustPosForSpawn(f32 chrwidth, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool arg5);
+bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool arg5);
 #endif
 
 struct prop *chrSpawnAtCoord(s32 body, s32 head, struct coord *pos, s16 *room, f32 angle, u8 *ailist, u32 spawnflags);

@@ -104,7 +104,7 @@ void botReset(struct chrdata *chr, u8 respawning)
 			chr->liftaction = 0;
 			chr->inlift = 0;
 			chr->lift = NULL;
-			chr->chrheight = 185;
+			chr->height = 185;
 
 			for (i = 0; i < 33; i++) {
 				aibot->ammoheld[i] = 0;
@@ -241,7 +241,7 @@ void botSpawn(struct chrdata *chr, u8 respawning)
 	if (aibot) {
 		botReset(chr, respawning);
 		splatResetChr(chr);
-		thing = scenarioChooseSpawnLocation(chr->chrwidth, &pos, rooms, chr->prop);
+		thing = scenarioChooseSpawnLocation(chr->radius, &pos, rooms, chr->prop);
 		chr->hidden |= CHRHFLAG_00100000;
 		chrMoveToPos(chr, &pos, rooms, thing, true);
 		chr->aibot->unk0a4 = model0001ae44(chr->model);
@@ -1884,9 +1884,9 @@ s32 botGuessCrouchPos(struct chrdata *chr)
 {
 	s32 crouchpos;
 
-	if (chr->chrheight <= 90) {
+	if (chr->height <= 90) {
 		crouchpos = CROUCHPOS_SQUAT;
-	} else if (chr->chrheight <= 135) {
+	} else if (chr->height <= 135) {
 		crouchpos = CROUCHPOS_DUCK;
 	} else {
 		crouchpos = CROUCHPOS_STAND;

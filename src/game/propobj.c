@@ -3977,7 +3977,7 @@ void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], stru
 
 		tile->x = pos->x;
 		tile->z = pos->z;
-		tile->width = 90.0f;
+		tile->radius = 90.0f;
 	} else {
 		if (rodata19 != NULL) {
 			func0f0674bc(rodata19, bbox, &mtx, (struct tiletype2 *)tile);
@@ -6027,7 +6027,7 @@ bool func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2,
 	sp200 = true;
 
 	if (g_Vars.normmplayerisrunning) {
-		g_Vars.unk00048c = true;
+		g_Vars.useperimshoot = true;
 	}
 
 	g_EmbedProp = 0;
@@ -6150,7 +6150,7 @@ bool func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2,
 	}
 
 	if (g_Vars.normmplayerisrunning) {
-		g_Vars.unk00048c = false;
+		g_Vars.useperimshoot = false;
 	}
 
 	return sp200;
@@ -14591,7 +14591,7 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 		func0f069850(obj, &pos, sp460, &tile);
 
 		if (obj->flags3 & OBJFLAG3_GEOTYPE3) {
-			cdresult = cd0002a6fc(&prop->pos, &pos, tile.width, rooms, CDTYPE_ALL, true, tile.ymax - pos.y, tile.ymin - pos.y);
+			cdresult = cd0002a6fc(&prop->pos, &pos, tile.radius, rooms, CDTYPE_ALL, true, tile.ymax - pos.y, tile.ymin - pos.y);
 		} else {
 			cdresult = cd0002f02c((struct tiletype2 *)&tile, rooms, CDTYPE_ALL);
 		}
@@ -55184,22 +55184,22 @@ bool objUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 	return false;
 }
 
-void propObjGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
+void propObjGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin)
 {
 	struct defaultobj *obj = prop->obj;
 
 	if (obj->unkgeo && obj->hidden2 & OBJH2FLAG_08) {
 		if (obj->flags3 & OBJFLAG3_GEOTYPE3) {
-			*width = obj->geo3->width;
+			*radius = obj->geo3->radius;
 			*ymin = obj->geo3->ymin;
 			*ymax = obj->geo3->ymax;
 		} else {
-			*width = model0001af80(obj->model);
+			*radius = model0001af80(obj->model);
 			*ymin = obj->geo2->ymin;
 			*ymax = obj->geo2->ymax;
 		}
 	} else {
-		*width = 1;
+		*radius = 1;
 		*ymin = 0;
 		*ymax = 0;
 	}

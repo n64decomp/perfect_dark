@@ -790,16 +790,16 @@ bool scenarioHighlightProp(struct prop *prop, s32 *colour)
  *
  * CTC uses this to ensure the chrs spawn near their base.
  */
-f32 scenarioChooseSpawnLocation(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop)
+f32 scenarioChooseSpawnLocation(f32 chrradius, struct coord *pos, s16 *rooms, struct prop *prop)
 {
 	f32 result;
 
 	if (g_Vars.normmplayerisrunning && g_MpScenarios[g_MpSetup.scenario].spawnfunc &&
-			g_MpScenarios[g_MpSetup.scenario].spawnfunc(arg0, pos, rooms, prop, &result)) {
+			g_MpScenarios[g_MpSetup.scenario].spawnfunc(chrradius, pos, rooms, prop, &result)) {
 		return result;
 	}
 
-	return playerChooseGeneralSpawnLocation(arg0, pos, rooms, prop);
+	return playerChooseGeneralSpawnLocation(chrradius, pos, rooms, prop);
 }
 
 /**

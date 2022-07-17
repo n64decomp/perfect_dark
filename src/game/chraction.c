@@ -1647,9 +1647,9 @@ f32 func0f02e684(struct prop *prop, f32 arg1, f32 arg2)
 {
 	f32 ymax;
 	f32 ymin;
-	f32 width;
+	f32 radius;
 
-	chrGetBbox(prop, &width, &ymax, &ymin);
+	chrGetBbox(prop, &radius, &ymax, &ymin);
 
 	return func0f02e550(prop, arg1, arg2, CDTYPE_ALL, ymax, ymin);
 }
@@ -3206,7 +3206,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 						modelSetAnimEndFrame(model, row->endframe);
 					}
 
-					chr->chrwidth = 10;
+					chr->radius = 10;
 					chr->chrflags &= ~CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION;
 
 					overridden = true;
@@ -5120,13 +5120,13 @@ bool func0f03645c(struct chrdata *chr, struct coord *arg1, s16 *arg2, struct coo
 	bool result = false;
 	f32 ymax;
 	f32 ymin;
-	f32 width;
+	f32 radius;
 	u32 stack[3];
 	s16 sp32;
 	s16 sp30;
 	struct prop *prop = chr->prop;
 
-	chrGetBbox(prop, &width, &ymax, &ymin);
+	chrGetBbox(prop, &radius, &ymax, &ymin);
 	chrSetPerimEnabled(chr, false);
 
 	if (cd0002d840(arg1, arg2, arg3, &sp30, arg5, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
@@ -5149,7 +5149,7 @@ bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coo
 	bool result = false;
 	f32 ymax;
 	f32 ymin;
-	f32 width;
+	f32 radius;
 	struct coord sp5c;
 	struct coord sp50;
 	s16 sp40[8];
@@ -5158,7 +5158,7 @@ bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coo
 	prop = chr->prop;
 
 	chrSetPerimEnabled(chr, false);
-	chrGetBbox(prop, &width, &ymax, &ymin);
+	chrGetBbox(prop, &radius, &ymax, &ymin);
 
 	if ((rooms2 && cdTestAToB2(pos, rooms, pos2, rooms2, types, 1, ymax - prop->pos.y, ymin - prop->pos.y))
 			|| (rooms2 == NULL && cd0002d6ac(pos, rooms, pos2, types, 1, ymax - prop->pos.y, ymin - prop->pos.y))) {
@@ -5215,7 +5215,7 @@ bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coo
 
 bool propchrHasClearLineToPos(struct prop *prop, struct coord *dstpos, struct coord *vector)
 {
-	return func0f03654c(prop->chr, &prop->pos, prop->rooms, dstpos, NULL, vector, prop->chr->chrwidth * 1.2f, CDTYPE_ALL);
+	return func0f03654c(prop->chr, &prop->pos, prop->rooms, dstpos, NULL, vector, prop->chr->radius * 1.2f, CDTYPE_ALL);
 }
 
 bool propchrHasClearLineInVector(struct prop *prop, struct coord *vector, f32 mult)
@@ -5231,7 +5231,7 @@ bool propchrHasClearLineInVector(struct prop *prop, struct coord *vector, f32 mu
 
 bool func0f036974(struct prop *prop, struct coord *pos)
 {
-	return func0f03654c(prop->chr, &prop->pos, prop->rooms, pos, NULL, NULL, prop->chr->chrwidth * 1.2f, CDTYPE_ALL);
+	return func0f03654c(prop->chr, &prop->pos, prop->rooms, pos, NULL, NULL, prop->chr->radius * 1.2f, CDTYPE_ALL);
 }
 
 void chrGetSideVectorToTarget(struct chrdata *chr, bool side, struct coord *vector)
@@ -5661,7 +5661,7 @@ void chrNavTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, st
 	s16 sp118[8];
 	f32 ymax;
 	f32 ymin;
-	f32 width;
+	f32 radius;
 	f32 ground;
 	u16 floorcol;
 	u8 floortype;
@@ -5688,7 +5688,7 @@ void chrNavTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, st
 		roomsCopy(rooms, sp118);
 		chr0f021fa8(chr, arg3, sp118);
 
-		ground = cdFindGroundY(arg3, chr->chrwidth, sp118, &floorcol, &floortype, 0, &floorroom, NULL, NULL);
+		ground = cdFindGroundY(arg3, chr->radius, sp118, &floorcol, &floortype, 0, &floorroom, NULL, NULL);
 
 		spf4.x = arg3->x;
 		spf4.y = prop->pos.y - chr->ground + ground;
@@ -5696,9 +5696,9 @@ void chrNavTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, st
 
 		roomsCopy(rooms, sp118);
 		chr0f021fa8(chr, &spf4, sp118);
-		chrGetBbox(chr->prop, &width, &ymax, &ymin);
+		chrGetBbox(chr->prop, &radius, &ymax, &ymin);
 
-		if (cdTestVolume(&spf4, chr->chrwidth, sp118, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
+		if (cdTestVolume(&spf4, chr->radius, sp118, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
 			// Reached end of segment with no collision
 			prop->pos.x = spf4.x;
 			prop->pos.y = spf4.y;
@@ -6266,7 +6266,7 @@ void chrStartPatrol(struct chrdata *chr, struct path *path)
 	s16 rooms[8];
 	f32 ymax;
 	f32 ymin;
-	f32 width;
+	f32 radius;
 	f32 bestdistance = 0;
 	s32 nextstep = -1;
 	struct prop *prop = chr->prop;
@@ -6282,7 +6282,7 @@ void chrStartPatrol(struct chrdata *chr, struct path *path)
 			rooms[0] = pad.room;
 			rooms[1] = -1;
 
-			chrGetBbox(prop, &width, &ymax, &ymin);
+			chrGetBbox(prop, &radius, &ymax, &ymin);
 
 			chrSetPerimEnabled(chr, false);
 
@@ -6321,7 +6321,7 @@ void chrStartPatrol(struct chrdata *chr, struct path *path)
 		// If chr has line of sight to the pad then begin the patrol,
 		// otherwise use gopos to get to the starting pad
 		if (func0f03654c(chr, &prop->pos, prop->rooms, &pad.pos, rooms, NULL,
-					chr->chrwidth * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG) != CDRESULT_COLLISION) {
+					chr->radius * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG) != CDRESULT_COLLISION) {
 			chrStopFiring(chr);
 
 			chr->actiontype = ACT_PATROL;
@@ -6489,7 +6489,7 @@ bool chrCanSeeChr(struct chrdata *chr, struct chrdata *target, s16 *room)
 		s16 rooms[8];
 
 		pos.x = prop->pos.x;
-		pos.y = chr->ground + chr->chrheight - 20;
+		pos.y = chr->ground + chr->height - 20;
 		pos.z = prop->pos.z;
 
 		chrSetPerimEnabled(chr, false);
@@ -6548,7 +6548,7 @@ bool chrHasLineOfSightToPos(struct chrdata *viewerchr, struct coord *pos, s16 *r
 	s16 viewerrooms[8];
 
 	viewerpos.x = viewerprop->pos.x;
-	viewerpos.y = viewerchr->ground + viewerchr->chrheight - 20;
+	viewerpos.y = viewerchr->ground + viewerchr->height - 20;
 	viewerpos.z = viewerprop->pos.z;
 
 	chrSetPerimEnabled(viewerchr, false);
@@ -7371,7 +7371,7 @@ bool chrTryRunFromTarget(struct chrdata *chr)
 	struct prop *prop = chr->prop;
 	f32 ymax;
 	f32 ymin;
-	f32 width;
+	f32 radius;
 	struct coord dst;
 	s16 rooms[8];
 	struct coord diff;
@@ -7397,7 +7397,7 @@ bool chrTryRunFromTarget(struct chrdata *chr)
 		dst.z = prop->pos.z - diff.z * 1000;
 		dst.y = prop->pos.y;
 
-		propGetBbox(prop, &width, &ymax, &ymin);
+		propGetBbox(prop, &radius, &ymax, &ymin);
 
 		// If dst runs into a wall, set it to closest valid spot
 		if (!cd0002d7c0(&prop->pos, prop->rooms, &dst, 0x33, 1,
@@ -7414,8 +7414,8 @@ bool chrTryRunFromTarget(struct chrdata *chr)
 		}
 
 		// Adjust dst to be two chr widths closer to avoid collision with wall
-		dst.x = dst.x + (diff.x * width + diff.x * width);
-		dst.z = dst.z + (diff.z * width + diff.z * width);
+		dst.x = dst.x + (diff.x * radius + diff.x * radius);
+		dst.z = dst.z + (diff.z * radius + diff.z * radius);
 
 		if (func0f036974(prop, &dst)) {
 			u32 speed = SPEED_RUN;
@@ -7499,17 +7499,17 @@ bool chrGoToCoverProp(struct chrdata *chr)
 				if (chrdist < 300 && chrdist > targetdist + targetdist && targetdist > 800) {
 					f32 propymax;
 					f32 propymin;
-					f32 propwidth;
+					f32 propradius;
 					f32 chrymax;
 					f32 chrymin;
-					f32 chrwidth;
+					f32 chrradius;
 					f32 propheight;
 					f32 chrheight;
 					struct coord dstpos;
 					s16 dstrooms[8];
 
-					propGetBbox(prop, &propwidth, &propymax, &propymin);
-					propGetBbox(chrprop, &chrwidth, &chrymax, &chrymin);
+					propGetBbox(prop, &propradius, &propymax, &propymin);
+					propGetBbox(chrprop, &chrradius, &chrymax, &chrymin);
 
 					propheight = propymax - propymin;
 					chrheight = chrymax - chrymin;
@@ -7520,8 +7520,8 @@ bool chrGoToCoverProp(struct chrdata *chr)
 						if (cd0002dc18(&chrprop->pos, chrprop->rooms, &prop->pos, CDTYPE_DOORS | CDTYPE_BG)) {
 							propSetPerimEnabled(prop, true);
 
-							dstpos.x = prop->pos.x - (targetprop->pos.x - prop->pos.x) / targetdist * (propwidth * 1.25f + chrwidth);
-							dstpos.z = prop->pos.z - (targetprop->pos.z - prop->pos.z) / targetdist * (propwidth * 1.25f + chrwidth);
+							dstpos.x = prop->pos.x - (targetprop->pos.x - prop->pos.x) / targetdist * (propradius * 1.25f + chrradius);
+							dstpos.z = prop->pos.z - (targetprop->pos.z - prop->pos.z) / targetdist * (propradius * 1.25f + chrradius);
 							dstpos.y = prop->pos.y;
 
 							if (func0f036974(chrprop, &dstpos)) {
@@ -17953,7 +17953,7 @@ glabel var7f1a9184
 //				chrSetPerimEnabled(chr, false);
 //
 //				if (isaibot) {
-//					g_Vars.unk00048c = true;
+//					g_Vars.useperimshoot = true;
 //				}
 //
 //				if (cdTestAToB4(&gunpos, gunrooms, &hitpos, sp1c8, 0x10) == CDRESULT_COLLISION) {
@@ -17965,7 +17965,7 @@ glabel var7f1a9184
 //				chrSetPerimEnabled(chr, true);
 //
 //				if (isaibot) {
-//					g_Vars.unk00048c = false;
+//					g_Vars.useperimshoot = false;
 //				}
 //
 //				// Eyespy is small and hard to hit, so make it a 50/50 chance
@@ -20108,7 +20108,7 @@ void func0f044b68(struct coord *arg0, struct coord *arg1, struct coord *arg2)
  * This is similar to chrNavCheckForObstacle. The difference between the two are
  * not yet understood.
  */
-bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, struct coord *aimpos, struct coord *leftpos, struct coord *rightpos, f32 negchrwidth, f32 chrwidth, s32 cdtypes, s32 arg9)
+bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, struct coord *aimpos, struct coord *leftpos, struct coord *rightpos, f32 negchrradius, f32 chrradius, s32 cdtypes, s32 arg9)
 {
 	struct coord spd4;
 	f32 spd0;
@@ -20125,14 +20125,14 @@ bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *chrroom
 	bool result = false;
 	f32 ymax;
 	f32 ymin;
-	f32 width2;
+	f32 radius2;
 	struct coord sp6c;
 	struct coord sp60;
 	s16 sp50[8];
 	s16 sp40[8];
 	struct prop *prop = chr->prop;
 
-	chrGetBbox(prop, &width2, &ymax, &ymin);
+	chrGetBbox(prop, &radius2, &ymax, &ymin);
 
 	spd4.x = aimpos->x - chrpos->x;
 	spd4.y = 0.0f;
@@ -20146,19 +20146,19 @@ bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *chrroom
 	spd4.x *= norm;
 	spd4.z *= norm;
 
-	spd0 = spd4.x * chrwidth * 0.95f;
-	spcc = spd4.z * chrwidth * 0.95f;
-	spc8 = spd4.x * chrwidth * 1.2f;
-	spc4 = spd4.z * chrwidth * 1.2f;
+	spd0 = spd4.x * chrradius * 0.95f;
+	spcc = spd4.z * chrradius * 0.95f;
+	spc8 = spd4.x * chrradius * 1.2f;
+	spc4 = spd4.z * chrradius * 1.2f;
 
 	chrSetPerimEnabled(chr, false);
 
 	sp6c.x = chrpos->x + spcc;
 	sp6c.y = chrpos->y;
 	sp6c.z = chrpos->z - spd0;
-	sp60.x = (spd4.x * negchrwidth) + (aimpos->x + spc4);
+	sp60.x = (spd4.x * negchrradius) + (aimpos->x + spc4);
 	sp60.y = aimpos->y;
-	sp60.z = (spd4.z * negchrwidth) + (aimpos->z - spc8);
+	sp60.z = (spd4.z * negchrradius) + (aimpos->z - spc8);
 
 	if (cd0002da50(chrpos, chrrooms, &sp6c, sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION
 			|| cd0002d7c0(&sp6c, sp50, &sp60, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
@@ -20181,9 +20181,9 @@ bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *chrroom
 	sp6c.y = chrpos->y;
 	sp6c.z = chrpos->z + spd0;
 
-	sp60.x = (spd4.x * negchrwidth) + (aimpos->x - spc4);
+	sp60.x = (spd4.x * negchrradius) + (aimpos->x - spc4);
 	sp60.y = aimpos->y;
-	sp60.z = (spd4.z * negchrwidth) + (aimpos->z + spc8);
+	sp60.z = (spd4.z * negchrradius) + (aimpos->z + spc8);
 
 	if (cd0002da50(chrpos, chrrooms, &sp6c, sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION
 			|| cd0002d7c0(&sp6c, chrrooms, &sp60, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
@@ -20230,7 +20230,7 @@ bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *chrroom
 		rightpos->y = sp88.y;
 		rightpos->z = sp88.z;
 	} else if (cd0002da50(chrpos, chrrooms, aimpos, sp40, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION
-			&& (!arg9 || cd0002a6fc(chrpos, aimpos, chrwidth, sp40, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION)) {
+			&& (!arg9 || cd0002a6fc(chrpos, aimpos, chrradius, sp40, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION)) {
 		result = true;
 	} else {
 #if VERSION >= VERSION_JPN_FINAL
@@ -20265,7 +20265,7 @@ bool chrNavCanSeeNextPos(struct chrdata *chr, struct coord *chrpos, s16 *chrroom
  * This is similar to chrNavCanSeeNextPos. The only difference is this one uses
  * the value1 and value2 variables.
  */
-bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, struct coord *aimpos, struct coord *leftpos, struct coord *rightpos, f32 negchrwidth, f32 chrwidth, s32 cdtypes, bool hasobstacle)
+bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, struct coord *aimpos, struct coord *leftpos, struct coord *rightpos, f32 negchrradius, f32 chrradius, s32 cdtypes, bool hasobstacle)
 {
 	struct coord spd4;
 	f32 spd0;
@@ -20284,14 +20284,14 @@ bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrr
 	f32 value2;
 	f32 ymax;
 	f32 ymin;
-	f32 width2;
+	f32 radius2;
 	struct coord sp6c;
 	struct coord sp60;
 	s16 sp50[8];
 	s16 sp40[8];
 	struct prop *prop = chr->prop;
 
-	chrGetBbox(prop, &width2, &ymax, &ymin);
+	chrGetBbox(prop, &radius2, &ymax, &ymin);
 
 	spd4.x = aimpos->x - chrpos->x;
 	spd4.y = 0.0f;
@@ -20305,19 +20305,19 @@ bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrr
 	spd4.x *= norm;
 	spd4.z *= norm;
 
-	spd0 = spd4.x * chrwidth * 0.95f;
-	spcc = spd4.z * chrwidth * 0.95f;
-	spc8 = spd4.x * chrwidth * 1.2f;
-	spc4 = spd4.z * chrwidth * 1.2f;
+	spd0 = spd4.x * chrradius * 0.95f;
+	spcc = spd4.z * chrradius * 0.95f;
+	spc8 = spd4.x * chrradius * 1.2f;
+	spc4 = spd4.z * chrradius * 1.2f;
 
 	chrSetPerimEnabled(chr, false);
 
 	sp6c.x = chrpos->x + spcc;
 	sp6c.y = chrpos->y;
 	sp6c.z = chrpos->z - spd0;
-	sp60.x = (spd4.x * negchrwidth) + (aimpos->x + spc4);
+	sp60.x = (spd4.x * negchrradius) + (aimpos->x + spc4);
 	sp60.y = aimpos->y;
-	sp60.z = (spd4.z * negchrwidth) + (aimpos->z - spc8);
+	sp60.z = (spd4.z * negchrradius) + (aimpos->z - spc8);
 
 	if (cd0002da50(chrpos, chrrooms, &sp6c, sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION
 			|| cd0002d7c0(&sp6c, sp50, &sp60, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
@@ -20341,9 +20341,9 @@ bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrr
 	sp6c.y = chrpos->y;
 	sp6c.z = chrpos->z + spd0;
 
-	sp60.x = (spd4.x * negchrwidth) + (aimpos->x - spc4);
+	sp60.x = (spd4.x * negchrradius) + (aimpos->x - spc4);
 	sp60.y = aimpos->y;
-	sp60.z = (spd4.z * negchrwidth) + (aimpos->z + spc8);
+	sp60.z = (spd4.z * negchrradius) + (aimpos->z + spc8);
 
 	if (cd0002da50(chrpos, chrrooms, &sp6c, sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION
 			|| cd0002d7c0(&sp6c, chrrooms, &sp60, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) == CDRESULT_COLLISION) {
@@ -20398,7 +20398,7 @@ bool chrNavCheckForObstacle(struct chrdata *chr, struct coord *chrpos, s16 *chrr
 		rightpos->y = sp88.y;
 		rightpos->z = sp88.z;
 	} else if (cd0002da50(chrpos, chrrooms, aimpos, sp40, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION
-			&& (!hasobstacle || cd0002a6fc(chrpos, aimpos, chrwidth, sp40, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION)) {
+			&& (!hasobstacle || cd0002a6fc(chrpos, aimpos, chrradius, sp40, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION)) {
 		result = true;
 	} else {
 #if VERSION >= VERSION_JPN_FINAL
@@ -20641,7 +20641,7 @@ glabel var7f1a925c
 );
 
 // Mismatch: regalloc
-//bool chrNavTryObstacle(struct chrdata *chr, struct coord *arg1, bool arg2, struct coord *arg3, f32 width, bool arg5, struct coord *nextpos, struct waydata *waydata, f32 arg8, s32 cdtypes, s32 arg10)
+//bool chrNavTryObstacle(struct chrdata *chr, struct coord *arg1, bool arg2, struct coord *arg3, f32 radius, bool arg5, struct coord *nextpos, struct waydata *waydata, f32 arg8, s32 cdtypes, s32 arg10)
 //{
 //	struct prop *prop = chr->prop; // 74
 //	struct coord sp68;
@@ -20669,16 +20669,16 @@ glabel var7f1a925c
 //
 //		if (tmp > 0) {
 //			norm = 1 / tmp;
-//			sp68.f[0] *= width * norm;
-//			sp68.f[2] *= width * norm;
-//			sp54 = width * norm;
+//			sp68.f[0] *= radius * norm;
+//			sp68.f[2] *= radius * norm;
+//			sp54 = radius * norm;
 //		} else {
-//			sp68.f[2] = width;
-//			sp54 = width * norm;
+//			sp68.f[2] = radius;
+//			sp54 = radius * norm;
 //		}
 //	} else {
-//		sp68.f[2] = width;
-//		sp54 = width * norm;
+//		sp68.f[2] = radius;
+//		sp54 = radius * norm;
 //	}
 //
 //	if (sp54 > 1) {
@@ -20699,7 +20699,7 @@ glabel var7f1a925c
 //	sp5c.y = arg1->f[1];
 //	sp5c.z = arg1->f[2] + sp48.f[2];
 //
-//	if (chrNavCanSeeNextPos(chr, &prop->pos, prop->rooms, &sp5c, sp44, sp40, arg8, chr->chrwidth, cdtypes, 1)) {
+//	if (chrNavCanSeeNextPos(chr, &prop->pos, prop->rooms, &sp5c, sp44, sp40, arg8, chr->radius, cdtypes, 1)) {
 //		if (!arg5 || func0f03645c(chr, &prop->pos, prop->rooms, &sp5c, nextpos, cdtypes)) {
 //			if (arg10) {
 //				waydata->gotaimposobj = true;
@@ -20824,7 +20824,7 @@ void chrNavTickMain(struct chrdata *chr, struct coord *nextpos, struct waydata *
 			// Check to see if the chr can see the next pad. This is almost
 			// always true, but if the chr has tried to avoid an object they
 			// may have gone behind a wall and can't see the pad any more.
-			if (chrNavCanSeeNextPos(chr, &prop->pos, prop->rooms, &sp100, &waydata->obstacleleft, &waydata->obstacleright, -chr->chrwidth, chr->chrwidth, CDTYPE_PATHBLOCKER | CDTYPE_BG, arg3)) {
+			if (chrNavCanSeeNextPos(chr, &prop->pos, prop->rooms, &sp100, &waydata->obstacleleft, &waydata->obstacleright, -chr->radius, chr->radius, CDTYPE_PATHBLOCKER | CDTYPE_BG, arg3)) {
 				// Can see the next pad
 				waydata->gotaimpos = true;
 				waydata->aimpos.x = sp100.x;
@@ -20843,7 +20843,7 @@ void chrNavTickMain(struct chrdata *chr, struct coord *nextpos, struct waydata *
 			// longer see the next pad. The chr will try to get back on the
 			// route by navigating to either side of the obstacle they were
 			// trying to avoid.
-			f32 wantclearance = chr->chrwidth * 1.26f;
+			f32 wantclearance = chr->radius * 1.26f;
 
 			if (chrNavTryObstacle(chr, &waydata->obstacleleft, true, &spf4, wantclearance, true, nextpos, waydata, 0, CDTYPE_PATHBLOCKER | CDTYPE_BG, 0)) {
 				// Will go to left side
@@ -20866,7 +20866,7 @@ void chrNavTickMain(struct chrdata *chr, struct coord *nextpos, struct waydata *
 			// tried to find the next pad but can't see that either. Try
 			// navigating to the obstacle again, but with different arguments.
 			// This is a more desparate attempt at returning to the path.
-			f32 wantclearance = chr->chrwidth * 1.26f;
+			f32 wantclearance = chr->radius * 1.26f;
 			u32 stack;
 
 			if (chrNavTryObstacle(chr, &waydata->obstacleleft, true, &spf4, wantclearance, false, NULL, waydata, 0, CDTYPE_PATHBLOCKER | CDTYPE_BG, 0)) {
@@ -20908,7 +20908,7 @@ void chrNavTickMain(struct chrdata *chr, struct coord *nextpos, struct waydata *
 				hasobstacle = false;
 			}
 
-			if (chrNavCheckForObstacle(chr, &prop->pos, prop->rooms, &waydata->aimpos, &waydata->obstacleleft, &waydata->obstacleright, -chr->chrwidth, chr->chrwidth, cdtypes, hasobstacle)) {
+			if (chrNavCheckForObstacle(chr, &prop->pos, prop->rooms, &waydata->aimpos, &waydata->obstacleleft, &waydata->obstacleright, -chr->radius, chr->radius, cdtypes, hasobstacle)) {
 				// No obstacle ahead
 				waydata->gotaimposobj = true;
 				waydata->mode = WAYMODE_INIT;
@@ -20931,7 +20931,7 @@ void chrNavTickMain(struct chrdata *chr, struct coord *nextpos, struct waydata *
 			f32 spd0;
 			f32 spcc;
 			u32 stack2;
-			f32 f24 = chr->chrwidth * 1.26f;
+			f32 f24 = chr->radius * 1.26f;
 
 			f20 = atan2f(waydata->aimpos.x - prop->pos.x, waydata->aimpos.z - prop->pos.z);
 			spd0 = f20 - atan2f(waydata->obstacleleft.x - prop->pos.x, waydata->obstacleleft.z - prop->pos.z);
@@ -21480,7 +21480,7 @@ void chrTickGoPos(struct chrdata *chr)
 							}
 
 							// Some bbox related check
-							if (func0f03654c(chr, &prop->pos, prop->rooms, &nextpos, nextrooms, NULL, chr->chrwidth * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG)) {
+							if (func0f03654c(chr, &prop->pos, prop->rooms, &nextpos, nextrooms, NULL, chr->radius * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG)) {
 								chrGoPosAdvanceWaypoint(chr);
 								chrGoPosAdvanceWaypoint(chr);
 							}
@@ -21540,13 +21540,13 @@ void chrTickGoPos(struct chrdata *chr)
 
 							// sp160 < DEG2RAD(45) || sp160 > DEG2RAD(315)
 							if (sp160 < 0.7852731347084f || sp160 > 5.4969120025635f) {
-								if (func0f03654c(chr, &prop->pos, prop->rooms, &nextpos, nextrooms, NULL, chr->chrwidth * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG)) {
+								if (func0f03654c(chr, &prop->pos, prop->rooms, &nextpos, nextrooms, NULL, chr->radius * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG)) {
 									chrGoPosAdvanceWaypoint(chr);
 								}
 							}
 						}
 					} else {
-						if (func0f03654c(chr, &prop->pos, prop->rooms, &nextpos, nextrooms, NULL, chr->chrwidth * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG)) {
+						if (func0f03654c(chr, &prop->pos, prop->rooms, &nextpos, nextrooms, NULL, chr->radius * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG)) {
 							chrGoPosAdvanceWaypoint(chr);
 						}
 					}
@@ -21664,7 +21664,7 @@ bool chrTrySkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 
 bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 {
-	f32 width;
+	f32 radius;
 	f32 ymax;
 	f32 ymin;
 	struct prop *prop = chr->prop;
@@ -21679,7 +21679,7 @@ bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 		return false;
 	}
 
-	chrGetBbox(prop, &width, &ymax, &ymin);
+	chrGetBbox(prop, &radius, &ymax, &ymin);
 	chrSetPerimEnabled(chr, false);
 	propSetPerimEnabled(target, false);
 	iVar2 = cd0002d6ac(&prop->pos, prop->rooms, &target->pos, 51, 1,
@@ -21703,7 +21703,7 @@ bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 		chr->act_skjump.hit = false;
 		chr->act_skjump.timer60 = time60;
 		chr->act_skjump.total60 = time60;
-		chr->act_skjump.ground = cdFindGroundYSimple(&chr->prop->pos, chr->chrwidth, chr->prop->rooms, NULL, NULL);
+		chr->act_skjump.ground = cdFindGroundYSimple(&chr->prop->pos, chr->radius, chr->prop->rooms, NULL, NULL);
 	} else {
 		return false;
 	}
@@ -25135,7 +25135,7 @@ bool chrIsPosOffScreen(struct coord *pos, s16 *rooms)
  * If the spawn cannot happen, the function return false.
  */
 #if VERSION >= VERSION_NTSC_1_0
-bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen, bool ignorebg, bool arg6)
+bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen, bool ignorebg, bool arg6)
 {
 	struct coord testpos;
 	s32 i;
@@ -25169,13 +25169,13 @@ bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, b
 		// because if the chr was being spawned on top of another chr or object
 		// then the calculated ground value would be raised.
 		ymin = -200;
-		ground = cdFindGroundYSimple(pos, width, rooms, NULL, NULL);
+		ground = cdFindGroundYSimple(pos, chrradius, rooms, NULL, NULL);
 
 		if (ground > -100000 && ground - pos->y < -200) {
 			ymin = ground - pos->y;
 		}
 
-		if (cdTestVolume(pos, width, rooms, types, 1, ymax, ymin) != CDRESULT_COLLISION
+		if (cdTestVolume(pos, chrradius, rooms, types, 1, ymax, ymin) != CDRESULT_COLLISION
 				&& (allowonscreen || chrIsPosOffScreen(pos, rooms))) {
 			return true;
 		}
@@ -25190,14 +25190,14 @@ bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, b
 		if ((arg6 && cd0002d840(pos, rooms, &testpos, testrooms, CDTYPE_ALL & ~CDTYPE_PLAYERS, 1, ymax, -200) != CDRESULT_COLLISION)
 				|| (!arg6 && cd0002deac(pos, rooms, &testpos, testrooms, CDTYPE_BG))) {
 			chr0f021fa8(NULL, &testpos, testrooms);
-			ground = cdFindGroundYSimple(&testpos, width, testrooms, 0, 0);
+			ground = cdFindGroundYSimple(&testpos, chrradius, testrooms, 0, 0);
 			ymin = -200;
 
 			if (ground > -100000 && ground - pos->y < -200) {
 				ymin = ground - pos->y;
 			}
 
-			if (cdTestVolume(&testpos, width, testrooms, CDTYPE_ALL, 1, ymax, ymin) != CDRESULT_COLLISION
+			if (cdTestVolume(&testpos, chrradius, testrooms, CDTYPE_ALL, 1, ymax, ymin) != CDRESULT_COLLISION
 					&& (allowonscreen || chrIsPosOffScreen(&testpos, testrooms))
 					&& (!arg6 || ground > -100000)) {
 				pos->x = testpos.x;
@@ -25222,7 +25222,7 @@ bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, b
  * ntsc-beta's version of this function doesn't have the arg6 argument
  * nor out of bounds checking, and lacks the reduction for the volume test.
  */
-bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen, bool ignorebg)
+bool chrAdjustPosForSpawn(f32 chrradius, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen, bool ignorebg)
 {
 	struct coord testpos;
 	s32 i;
@@ -25237,7 +25237,7 @@ bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, b
 		types = CDTYPE_ALL;
 	}
 
-	if (cdTestVolume(pos, width, rooms, types, 1, 200, -200) != CDRESULT_COLLISION
+	if (cdTestVolume(pos, chrradius, rooms, types, 1, 200, -200) != CDRESULT_COLLISION
 			&& (allowonscreen || chrIsPosOffScreen(pos, rooms))) {
 		return true;
 	}
@@ -25248,7 +25248,7 @@ bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, b
 		testpos.z = cosf(curangle) * 60 + pos->z;
 
 		if (cd0002deac(pos, rooms, &testpos, testrooms, CDTYPE_BG)
-				&& cdTestVolume(&testpos, width, testrooms, CDTYPE_ALL, 1, 200, -200.0f) != CDRESULT_COLLISION
+				&& cdTestVolume(&testpos, chrradius, testrooms, CDTYPE_ALL, 1, 200, -200.0f) != CDRESULT_COLLISION
 				&& (allowonscreen || chrIsPosOffScreen(&testpos, testrooms))) {
 			pos->x = testpos.x;
 			pos->y = testpos.y;
@@ -25462,12 +25462,12 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 	propSetPerimEnabled(chr->prop, false);
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (chrAdjustPosForSpawn(chr->chrwidth, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen, (chr->hidden & CHRHFLAG_00000200) != 0))
+	if (chrAdjustPosForSpawn(chr->radius, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen, (chr->hidden & CHRHFLAG_00000200) != 0))
 #else
-	if (chrAdjustPosForSpawn(chr->chrwidth, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen))
+	if (chrAdjustPosForSpawn(chr->radius, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen))
 #endif
 	{
-		ground = cdFindGroundY(&pos2, chr->chrwidth, rooms2, &chr->floorcol,
+		ground = cdFindGroundY(&pos2, chr->radius, rooms2, &chr->floorcol,
 				&chr->floortype, NULL, &chr->floorroom, NULL, NULL);
 
 		chr->ground = ground;
@@ -25944,7 +25944,7 @@ bool chr0f04c874(struct chrdata *chr, u32 angle360, struct coord *pos, u8 arg3, 
 	s32 result;
 	f32 ymax;
 	f32 ymin;
-	f32 width;
+	f32 radius;
 
 	chrpos.x = chr->prop->pos.x;
 	chrpos.y = chr->prop->pos.y;
@@ -25969,7 +25969,7 @@ bool chr0f04c874(struct chrdata *chr, u32 angle360, struct coord *pos, u8 arg3, 
 		pos->y = chrpos.y;
 		pos->z = target->pos.z + (xdiff * sine + zdiff * cosine);
 
-		chrGetBbox(chr->prop, &width, &ymax, &ymin);
+		chrGetBbox(chr->prop, &radius, &ymax, &ymin);
 
 		result = cd0002d7c0(&chrpos, chr->prop->rooms, pos,
 				CDTYPE_BG | CDTYPE_OBJS | CDTYPE_DOORS, 1,
@@ -26226,7 +26226,7 @@ Gfx *chrsRenderChrStats(Gfx *gdl, s16 *rooms)
 
 		if (chr && chr->prop && arrayIntersects(chr->prop->rooms, rooms)) {
 			sp20c.x = chr->prop->pos.x;
-			sp20c.y = chr->ground + chr->chrheight - 30;
+			sp20c.y = chr->ground + chr->height - 30;
 			sp20c.z = chr->prop->pos.z;
 
 			mtx4TransformVecInPlace(g_Vars.currentplayer->worldtoscreenmtx, &sp20c);
@@ -26309,11 +26309,11 @@ void chrAvoid(struct chrdata *chr)
 	u32 chranimflags = 0;
 	f32 ymax;
 	f32 ymin;
-	f32 width;
+	f32 radius;
 	s32 cdresult = CDRESULT_NOCOLLISION;
 	f32 xdiff;
 	f32 zdiff;
-	f32 halfchrwidth;
+	f32 halfchrradius;
 	f32 chrangle = model0001ae44(chr->model);
 	s16 dstrooms[8];
 	struct coord dstpos;
@@ -26354,9 +26354,9 @@ void chrAvoid(struct chrdata *chr)
 			dstpos.y = chr->prop->pos.y;
 			dstpos.z = chr->prop->pos.z + cosf(chrangle) * 100;
 
-			chrGetBbox(chr->prop, &width, &ymax, &ymin);
+			chrGetBbox(chr->prop, &radius, &ymax, &ymin);
 
-			halfchrwidth = width * 0.5f;
+			halfchrradius = radius * 0.5f;
 
 			func0f065e74(&chr->prop->pos, chr->prop->rooms, &dstpos, dstrooms);
 			chr0f021fa8(chr, &dstpos, dstrooms);
@@ -26364,7 +26364,7 @@ void chrAvoid(struct chrdata *chr)
 			xdiff = dstpos.x - chr->prop->pos.x;
 			zdiff = dstpos.z - chr->prop->pos.z;
 
-			if (xdiff > halfchrwidth || zdiff > halfchrwidth || xdiff < -halfchrwidth || zdiff < -halfchrwidth) {
+			if (xdiff > halfchrradius || zdiff > halfchrradius || xdiff < -halfchrradius || zdiff < -halfchrradius) {
 				cdresult = cd0002d8b8(&chr->prop->pos, chr->prop->rooms, &dstpos, dstrooms, CDTYPE_ALL, true, ymax - chr->prop->pos.y, ymin - chr->prop->pos.y);
 			}
 

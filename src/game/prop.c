@@ -7183,16 +7183,16 @@ void func0f0661fc(void)
 	// empty
 }
 
-void propGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
+void propGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin)
 {
 	if (prop->type == PROPTYPE_CHR) {
-		chrGetBbox(prop, width, ymax, ymin);
+		chrGetBbox(prop, radius, ymax, ymin);
 	} else if (prop->type == PROPTYPE_PLAYER) {
-		playerGetBbox(prop, width, ymax, ymin);
+		playerGetBbox(prop, radius, ymax, ymin);
 	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR) {
-		propObjGetBbox(prop, width, ymax, ymin);
+		propObjGetBbox(prop, radius, ymax, ymin);
 	} else {
-		*width = 0;
+		*radius = 0;
 		*ymin = 0;
 		*ymax = 0;
 	}

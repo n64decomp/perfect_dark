@@ -210,7 +210,7 @@ s32 g_NumDeathAnimations = 0;
  * @dangerous: If there are too many pads (24+) in the setup then array
  * overflows may occur.
  */
-f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms, struct prop *prop, s16 *pads, s32 numpads)
+f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms, struct prop *prop, s16 *pads, s32 numpads)
 {
 	u8 verybadpads[24];
 	u8 badpads[24];
@@ -329,12 +329,12 @@ f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms,
 			slangles[sllen] = atan2f(pad.look.x, pad.look.z);
 
 #if VERSION >= VERSION_NTSC_1_0
-			if (chrAdjustPosForSpawn(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
+			if (chrAdjustPosForSpawn(chrradius, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
 				slpadindexes[sllen] = p;
 				sllen++;
 			}
 #else
-			if (chrAdjustPosForSpawn(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false)) {
+			if (chrAdjustPosForSpawn(chrradius, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false)) {
 				slpadindexes[sllen] = p;
 				sllen++;
 			}
@@ -368,12 +368,12 @@ f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms,
 			slangles[sllen] = atan2f(pad.look.x, pad.look.z);
 
 #if VERSION >= VERSION_NTSC_1_0
-			if (chrAdjustPosForSpawn(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
+			if (chrAdjustPosForSpawn(chrradius, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
 				slpadindexes[sllen] = p;
 				sllen++;
 			}
 #else
-			if (chrAdjustPosForSpawn(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false)) {
+			if (chrAdjustPosForSpawn(chrradius, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false)) {
 				slpadindexes[sllen] = p;
 				sllen++;
 			}
@@ -429,12 +429,12 @@ f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms,
 		slangles[sllen] = atan2f(pad.look.x, pad.look.z);
 
 #if VERSION >= VERSION_NTSC_1_0
-		if (chrAdjustPosForSpawn(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
+		if (chrAdjustPosForSpawn(chrradius, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
 			slpadindexes[sllen] = i;
 			sllen++;
 		}
 #else
-		if (chrAdjustPosForSpawn(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false)) {
+		if (chrAdjustPosForSpawn(chrradius, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false)) {
 			slpadindexes[sllen] = i;
 			sllen++;
 		}
@@ -471,9 +471,9 @@ f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms,
 	return dstangle;
 }
 
-f32 playerChooseGeneralSpawnLocation(f32 chrwidth, struct coord *pos, s16 *rooms, struct prop *prop)
+f32 playerChooseGeneralSpawnLocation(f32 chrradius, struct coord *pos, s16 *rooms, struct prop *prop)
 {
-	return playerChooseSpawnLocation(chrwidth, pos, rooms, prop, g_SpawnPoints, g_NumSpawnPoints);
+	return playerChooseSpawnLocation(chrradius, pos, rooms, prop, g_SpawnPoints, g_NumSpawnPoints);
 }
 
 void playerStartNewLife(void)
@@ -694,7 +694,7 @@ void playerLoadDefaults(void)
 	g_Vars.currentplayer->periminfo.ymin = 0;
 	g_Vars.currentplayer->periminfo.x = 0;
 	g_Vars.currentplayer->periminfo.z = 0;
-	g_Vars.currentplayer->periminfo.width = 0;
+	g_Vars.currentplayer->periminfo.radius = 0;
 	g_Vars.currentplayer->bondactivateorreload = false;
 	g_Vars.currentplayer->isdead = false;
 
@@ -814,7 +814,7 @@ bool playerSpawnAnti(struct chrdata *hostchr, bool force)
 
 	hostchr->chrflags |= CHRCFLAG_PERIMDISABLEDTMP;
 	playerchr->hidden |= CHRHFLAG_00100000;
-	playerchr->chrwidth = hostchr->chrwidth;
+	playerchr->radius = hostchr->radius;
 
 	if (chrMoveToPos(playerchr, &hostchr->prop->pos, hostchr->prop->rooms, chrGetInverseTheta(hostchr), false) || force) {
 		if (hostchr->weapons_held[0] && hostchr->weapons_held[1]) {
@@ -903,8 +903,8 @@ bool playerSpawnAnti(struct chrdata *hostchr, bool force)
 			playerrootrwdata->chrinfo.unk24.y = 10;
 		}
 
-		playerchr->chrwidth = hostchr->chrwidth;
-		g_Vars.currentplayer->bond2.width = hostchr->chrwidth;
+		playerchr->radius = hostchr->radius;
+		g_Vars.currentplayer->bond2.radius = hostchr->radius;
 
 		chrRemove(hostprop, true);
 		propDeregisterRooms(hostprop);
@@ -1121,7 +1121,7 @@ void playerResetBond(struct playerbond *pb, struct coord *pos)
 	pb->unk00.y = 0;
 	pb->unk00.z = 1;
 
-	pb->width = 30;
+	pb->radius = 30;
 }
 
 void playersTickAllChrBodies(void)
@@ -1469,7 +1469,7 @@ void playerTickChrBody(void)
 		chr->headnum = headnum;
 		chr->bodynum = bodynum;
 		chr->race = bodyGetRace(chr->bodynum);
-		chr->chrwidth = g_Vars.currentplayer->bond2.width;
+		chr->radius = g_Vars.currentplayer->bond2.radius;
 
 		g_Vars.currentplayer->vv_eyeheight = (s32)g_HeadsAndBodies[bodynum].height;
 
@@ -5675,9 +5675,9 @@ bool playerUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 
 	if (g_Vars.players[playernum]->bondperimenabled
 			&& (!g_Vars.mplayerisrunning || !g_Vars.players[playernum]->isdead)) {
-		if (g_Vars.unk00048c) {
+		if (g_Vars.useperimshoot) {
 			g_Vars.players[playernum]->perimshoot = g_Vars.players[playernum]->periminfo;
-			g_Vars.players[playernum]->perimshoot.width = 15;
+			g_Vars.players[playernum]->perimshoot.radius = 15;
 
 			*start = (void *) &g_Vars.players[playernum]->perimshoot;
 		} else {
@@ -5716,7 +5716,7 @@ void playerUpdatePerimInfo(void)
 
 	g_Vars.currentplayer->periminfo.x = g_Vars.currentplayer->prop->pos.x;
 	g_Vars.currentplayer->periminfo.z = g_Vars.currentplayer->prop->pos.z;
-	g_Vars.currentplayer->periminfo.width = g_Vars.currentplayer->bond2.width;
+	g_Vars.currentplayer->periminfo.radius = g_Vars.currentplayer->bond2.radius;
 }
 
 /**
@@ -5728,11 +5728,11 @@ void playerUpdatePerimInfo(void)
  * ymax is the top of the head, minus some if crouching, and always at least 80
  * units above the feet.
  */
-void playerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
+void playerGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin)
 {
 	s32 playernum = playermgrGetPlayerNumByProp(prop);
 
-	*width = g_Vars.players[playernum]->bond2.width;
+	*radius = g_Vars.players[playernum]->bond2.radius;
 	*ymin = g_Vars.currentplayer->vv_manground + 30;
 	*ymax = g_Vars.currentplayer->vv_manground + g_Vars.players[playernum]->vv_headheight;
 

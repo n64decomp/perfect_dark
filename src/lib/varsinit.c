@@ -53,7 +53,7 @@ void varsInit(void)
 	g_Vars.perfectbuddynum = 0;
 	g_Vars.enableslopes = false;
 	g_Vars.restartlevel = 0;
-	g_Vars.unk00048c = 0;
+	g_Vars.useperimshoot = false;
 	g_Vars.mpsetupmenu = 0;
 	g_Vars.waitingtojoin[0] = false;
 	g_Vars.waitingtojoin[1] = false;

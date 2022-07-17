@@ -243,7 +243,7 @@ void playermgrAllocatePlayer(s32 index)
 	g_Vars.players[index]->periminfo.ymin = 0;
 	g_Vars.players[index]->periminfo.x = 0;
 	g_Vars.players[index]->periminfo.z = 0;
-	g_Vars.players[index]->periminfo.width = 0;
+	g_Vars.players[index]->periminfo.radius = 0;
 
 	g_Vars.players[index]->bondactivateorreload = 0;
 	g_Vars.players[index]->model00d4 = 0;

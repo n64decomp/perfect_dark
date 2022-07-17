@@ -4,8 +4,8 @@
 #include "data.h"
 #include "types.h"
 
-f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms, struct prop *prop, s16 *spawnpads, s32 numspawnpads);
-f32 playerChooseGeneralSpawnLocation(f32 chrwidth, struct coord *pos, s16 *rooms, struct prop *prop);
+f32 playerChooseSpawnLocation(f32 chrradius, struct coord *dstpos, s16 *dstrooms, struct prop *prop, s16 *spawnpads, s32 numspawnpads);
+f32 playerChooseGeneralSpawnLocation(f32 chrradius, struct coord *pos, s16 *rooms, struct prop *prop);
 void playerStartNewLife(void);
 void playerLoadDefaults(void);
 bool playerSpawnAnti(struct chrdata *chr, s32 param_2);
@@ -70,7 +70,7 @@ void playersClearMemCamRoom(void);
 void playerSetPerimEnabled(struct prop *prop, bool enable);
 bool playerUpdateGeometry(struct prop *prop, u8 **start, u8 **end);
 void playerUpdatePerimInfo(void);
-void playerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
+void playerGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin);
 f32 playerGetHealthFrac(void);
 f32 playerGetShieldFrac(void);
 void playerSetShieldFrac(f32 frac);

@@ -287,20 +287,20 @@ bool bgrabTryMoveUpwards(f32 y)
 	s16 rooms[8];
 	f32 ymax;
 	f32 ymin;
-	f32 width;
+	f32 radius;
 
 	newpos.x = g_Vars.currentplayer->prop->pos.x;
 	newpos.y = g_Vars.currentplayer->prop->pos.y + y;
 	newpos.z = g_Vars.currentplayer->prop->pos.z;
 
-	playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+	playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &newpos, rooms);
 	bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &newpos, rooms);
 	propSetPerimEnabled(g_Vars.currentplayer->prop, false);
 
 	ymin -= 0.1f;
 
-	result = cdTestVolume(&newpos, width, rooms, CDTYPE_ALL, 1,
+	result = cdTestVolume(&newpos, radius, rooms, CDTYPE_ALL, 1,
 			ymax - g_Vars.currentplayer->prop->pos.y,
 			ymin - g_Vars.currentplayer->prop->pos.y);
 
@@ -324,7 +324,7 @@ s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2)
 	bool ismoving = false;
 	f32 ymax;
 	f32 ymin;
-	f32 width;
+	f32 radius;
 	f32 rotextrasum;
 	struct coord posextrasum;
 	f32 rotextra;
@@ -335,7 +335,7 @@ s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2)
 
 	var80070e80 = 0;
 
-	playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+	playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 
 	propSetPerimEnabled(g_Vars.currentplayer->prop, false);
 	propSetPerimEnabled(g_Vars.currentplayer->grabbedprop, false);
@@ -375,7 +375,7 @@ s32 bgrabCalculateNewPosition(struct coord *delta, f32 angle, bool arg2)
 				ymin - g_Vars.currentplayer->prop->pos.y);
 
 		if (cdresult == CDRESULT_NOCOLLISION) {
-			cdresult = cd0002a6fc(&g_Vars.currentplayer->prop->pos, &pos, width, rooms, CDTYPE_ALL, true,
+			cdresult = cd0002a6fc(&g_Vars.currentplayer->prop->pos, &pos, radius, rooms, CDTYPE_ALL, true,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 		}
@@ -625,7 +625,7 @@ bool bgrab0f0cdb68(f32 angle)
 	f32 sp60 = -1.0f;
 	struct coord sp54;
 	f32 f12;
-	f32 width;
+	f32 radius;
 	f32 ymax;
 	f32 ymin;
 
@@ -681,10 +681,10 @@ bool bgrab0f0cdb68(f32 angle)
 		} else if (var80070e80 != 0) {
 			if (g_Vars.currentplayer->grabbedprop->type == PROPTYPE_OBJ) {
 				if (g_Vars.currentplayer->grabbedprop->obj->flags3 & OBJFLAG3_GEOTYPE3) {
-					propObjGetBbox(g_Vars.currentplayer->grabbedprop, &width, &ymax, &ymin);
+					propObjGetBbox(g_Vars.currentplayer->grabbedprop, &radius, &ymax, &ymin);
 
 					f0 = (var8009de78.f[0] - spa4.f[0]) * f20 + (var8009de78.f[2] - spa4.f[2]) * f22;
-					f0 -= width;
+					f0 -= radius;
 
 					if (f0 < 0.0f) {
 						sp60 = -f0;
@@ -820,7 +820,7 @@ void bgrabUpdateVertical(void)
 	f32 f0;
 
 	f14 = cdFindGroundY(&g_Vars.currentplayer->prop->pos,
-			g_Vars.currentplayer->bond2.width,
+			g_Vars.currentplayer->bond2.radius,
 			g_Vars.currentplayer->prop->rooms,
 			&g_Vars.currentplayer->floorcol,
 			&g_Vars.currentplayer->floortype,

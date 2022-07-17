@@ -381,7 +381,7 @@ f32 bmoveCalculateLookahead(void)
 	struct coord sp150;
 	f32 ymax;
 	f32 ymin;
-	f32 width;
+	f32 radius;
 	u32 stack2;
 	f32 angles[5];
 	bool populated[5];
@@ -412,7 +412,7 @@ f32 bmoveCalculateLookahead(void)
 		return result;
 	}
 
-	playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+	playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 
 	sp100.x = g_Vars.currentplayer->bond2.unk00.x;
 	sp100.y = g_Vars.currentplayer->bond2.unk00.y;

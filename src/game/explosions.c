@@ -891,7 +891,7 @@ void explosionInflictDamage(struct prop *expprop)
 				f32 xdist = prop->pos.f[0] - expprop->pos.f[0];
 				f32 ydist = prop->pos.f[1] - expprop->pos.f[1];
 				f32 zdist = prop->pos.f[2] - expprop->pos.f[2];
-				f32 width;
+				f32 radius;
 				f32 ymax;
 				f32 ymin;
 				struct coord spcc;
@@ -904,21 +904,21 @@ void explosionInflictDamage(struct prop *expprop)
 				if (xdist <= damageradius && xdist >= -damageradius
 						&& ydist <= damageradius && ydist >= -damageradius
 						&& zdist <= damageradius && zdist >= -damageradius) {
-					propGetBbox(prop, &width, &ymax, &ymin);
+					propGetBbox(prop, &radius, &ymax, &ymin);
 
-					width -= 20.0f;
+					radius -= 20.0f;
 
-					if (width <= 0.0f) {
-						width = 0.0f;
+					if (radius <= 0.0f) {
+						radius = 0.0f;
 					}
 
-					spcc.f[0] = prop->pos.f[0] - width;
+					spcc.f[0] = prop->pos.f[0] - radius;
 					spcc.f[1] = ymin;
-					spcc.f[2] = prop->pos.f[2] - width;
+					spcc.f[2] = prop->pos.f[2] - radius;
 
-					spc0.f[0] = prop->pos.f[0] + width;
+					spc0.f[0] = prop->pos.f[0] + radius;
 					spc0.f[1] = ymax;
-					spc0.f[2] = prop->pos.f[2] + width;
+					spc0.f[2] = prop->pos.f[2] + radius;
 
 					if (explosionOverlapsProp(exp, prop, &spcc, &spc0)) {
 						candamage = true;

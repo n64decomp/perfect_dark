@@ -862,7 +862,7 @@ bool cdIs2dPointInTileType3(struct tiletype3 *tile, f32 x, f32 z)
 	f32 xdiff = x - tile->x;
 	f32 zdiff = z - tile->z;
 
-	return xdiff * xdiff + zdiff * zdiff <= tile->width * tile->width;
+	return xdiff * xdiff + zdiff * zdiff <= tile->radius * tile->radius;
 }
 
 bool func000266a4(f32 x, f32 z, struct tile *tile)
@@ -1143,7 +1143,7 @@ bool cd0002709c(struct tiletype0 *tile, f32 x, f32 z, f32 width, struct prop *pr
 	return result;
 }
 
-bool cd000272f8(struct tiletype1 *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collisionthing *thing)
+bool cd000272f8(struct tiletype1 *tile, f32 x, f32 z, f32 radius, struct prop *prop, struct collisionthing *thing)
 {
 	bool result = false;
 
@@ -1164,9 +1164,9 @@ bool cd000272f8(struct tiletype1 *tile, f32 x, f32 z, f32 width, struct prop *pr
 				value = -value;
 			}
 
-			if (value <= width
-					&& (cd00025724(tile->vertices[i].x, tile->vertices[i].z, x, z) <= width
-						|| cd00025724(tile->vertices[next].x, tile->vertices[next].z, x, z) <= width
+			if (value <= radius
+					&& (cd00025724(tile->vertices[i].x, tile->vertices[i].z, x, z) <= radius
+						|| cd00025724(tile->vertices[next].x, tile->vertices[next].z, x, z) <= radius
 						|| cd00025774(tile->vertices[i].x, tile->vertices[i].z, tile->vertices[next].x, tile->vertices[next].z, x, z))) {
 				thing->tile = &tile->header;
 				thing->unk08 = i;
@@ -1231,7 +1231,7 @@ bool cd000276c8(struct tiletype3 *tile, f32 x, f32 z, f32 width, struct prop *pr
 
 	f32 sumx = x - tile->x;
 	f32 sumz = z - tile->z;
-	f32 sumwidth = tile->width + width;
+	f32 sumwidth = tile->radius + width;
 
 	if (sumx * sumx + sumz * sumz <= sumwidth * sumwidth) {
 		result = true;
@@ -1246,7 +1246,7 @@ bool cd000276c8(struct tiletype3 *tile, f32 x, f32 z, f32 width, struct prop *pr
 	return result;
 }
 
-void cd00027738(struct coord *pos, f32 width, u8 *start, u8 *end, u16 flags,
+void cd00027738(struct coord *pos, f32 radius, u8 *start, u8 *end, u16 flags,
 		bool checkvertical, f32 arg6, f32 arg7, struct prop *prop,
 		struct collisionthing *things, s32 maxthings, s32 *thingnum, s32 roomnum)
 {
@@ -1258,20 +1258,20 @@ void cd00027738(struct coord *pos, f32 width, u8 *start, u8 *end, u16 flags,
 			struct tiletype0 *type0 = (struct tiletype0 *) tile;
 
 			if ((tile->flags & flags)
-					&& pos->x >= *(s16 *)(type0->xmin + (u32)type0) - width
-					&& pos->x <= *(s16 *)(type0->xmax + (u32)type0) + width
-					&& pos->z >= *(s16 *)(type0->zmin + (u32)type0) - width
-					&& pos->z <= *(s16 *)(type0->zmax + (u32)type0) + width
+					&& pos->x >= *(s16 *)(type0->xmin + (u32)type0) - radius
+					&& pos->x <= *(s16 *)(type0->xmax + (u32)type0) + radius
+					&& pos->z >= *(s16 *)(type0->zmin + (u32)type0) - radius
+					&& pos->z <= *(s16 *)(type0->zmax + (u32)type0) + radius
 					&& (!checkvertical || (pos->y + arg6 >= *(s16 *)(type0->ymin + (u32)type0)
 							&& pos->y + arg7 <= *(s16 *)(type0->ymax + (u32)type0)))) {
 				if (tile->flags & TILEFLAG_0080) {
-					result = cd00028200(type0, pos, width, pos->y + arg7, pos->y + arg6);
+					result = cd00028200(type0, pos, radius, pos->y + arg7, pos->y + arg6);
 				} else {
 					result = 1;
 				}
 
 				if (result != 0) {
-					if (cd0002709c(type0, pos->x, pos->z, width, prop, &things[*thingnum])) {
+					if (cd0002709c(type0, pos->x, pos->z, radius, prop, &things[*thingnum])) {
 						things[*thingnum].roomnum = roomnum;
 						*thingnum = *thingnum + 1;
 
@@ -1288,13 +1288,13 @@ void cd00027738(struct coord *pos, f32 width, u8 *start, u8 *end, u16 flags,
 			s32 tmp = 0x40;
 
 			if ((tile->flags & flags)
-					&& pos->x >= *(f32 *)((u32)type1 + type1->xmin * 0xc + 0x10) - width
-					&& pos->x <= *(f32 *)((u32)type1 + type1->xmax * 0xc + 0x10) + width
-					&& pos->z >= *(f32 *)((u32)type1 + type1->zmin * 0xc + 0x18) - width
-					&& pos->z <= *(f32 *)((u32)type1 + type1->zmax * 0xc + 0x18) + width
+					&& pos->x >= *(f32 *)((u32)type1 + type1->xmin * 0xc + 0x10) - radius
+					&& pos->x <= *(f32 *)((u32)type1 + type1->xmax * 0xc + 0x10) + radius
+					&& pos->z >= *(f32 *)((u32)type1 + type1->zmin * 0xc + 0x18) - radius
+					&& pos->z <= *(f32 *)((u32)type1 + type1->zmax * 0xc + 0x18) + radius
 					&& (!checkvertical || (pos->y + arg6 >= *(f32*)((u32)type1 + type1->ymin * 0xc + 0x14)
 							&& pos->y + arg7 <= *(f32 *)((u32)type1 + type1->ymax * 0xc + 0x14)))) {
-				result = cd000272f8(type1, pos->x, pos->z, width, prop, &things[*thingnum]);
+				result = cd000272f8(type1, pos->x, pos->z, radius, prop, &things[*thingnum]);
 
 				if (result != 0) {
 					things[*thingnum].roomnum = roomnum;
@@ -1313,7 +1313,7 @@ void cd00027738(struct coord *pos, f32 width, u8 *start, u8 *end, u16 flags,
 			if ((flags & (TILEFLAG_0004 | TILEFLAG_0008 | TILEFLAG_0010))
 					&& (!checkvertical || (pos->y + arg6 >= tile2->ymin
 							&& pos->y + arg7 <= tile2->ymax))) {
-				result = cd000274e0(tile2, pos->x, pos->z, width, prop, &things[*thingnum]);
+				result = cd000274e0(tile2, pos->x, pos->z, radius, prop, &things[*thingnum]);
 
 				if (result) {
 					things[*thingnum].roomnum = roomnum;
@@ -1332,7 +1332,7 @@ void cd00027738(struct coord *pos, f32 width, u8 *start, u8 *end, u16 flags,
 			if ((flags & tile->flags)
 					&& (!checkvertical || (pos->y + arg6 >= tile3->ymin
 							&& pos->y + arg7 <= tile3->ymax))) {
-				result = cd000276c8(tile3, pos->x, pos->z, width, prop, &things[*thingnum]);
+				result = cd000276c8(tile3, pos->x, pos->z, radius, prop, &things[*thingnum]);
 
 				if (result) {
 					things[*thingnum].roomnum = roomnum;
@@ -1349,7 +1349,7 @@ void cd00027738(struct coord *pos, f32 width, u8 *start, u8 *end, u16 flags,
 	}
 }
 
-void cd00027d1c(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 arg4, u32 arg5, f32 arg6, f32 arg7, struct collisionthing *arg8, s32 arg9)
+void cd00027d1c(struct coord *pos, f32 radius, s16 *rooms, u32 types, u16 arg4, u32 arg5, f32 arg6, f32 arg7, struct collisionthing *arg8, s32 arg9)
 {
 	s16 *roomptr;
 	s32 roomnum;
@@ -1369,7 +1369,7 @@ void cd00027d1c(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 arg4, u
 				start = g_TileFileData.u8 + g_TileRooms[roomnum];
 				end = g_TileFileData.u8 + g_TileRooms[roomnum + 1];
 
-				cd00027738(pos, width, start, end, arg4, arg5, arg6, arg7, NULL, arg8, arg9, &sp294, roomnum);
+				cd00027738(pos, radius, start, end, arg4, arg5, arg6, arg7, NULL, arg8, arg9, &sp294, roomnum);
 
 				if (sp294 >= arg9) {
 					goto end;
@@ -1389,7 +1389,7 @@ void cd00027d1c(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 arg4, u
 		struct prop *prop = &g_Vars.props[*propnumptr];
 
 		if (propIsOfCdType(prop, types) && propUpdateGeometry(prop, &start, &end)) {
-			cd00027738(pos, width, start, end, arg4, arg5, arg6, arg7, prop, arg8, arg9, &sp294, prop->rooms[0]);
+			cd00027738(pos, radius, start, end, arg4, arg5, arg6, arg7, prop, arg8, arg9, &sp294, prop->rooms[0]);
 
 			if (sp294 >= arg9) {
 				break;
@@ -4121,12 +4121,12 @@ bool cd00029ffc(struct coord *pos, f32 width, f32 foreheadheight, f32 inversefee
 	return false;
 }
 
-bool cd0002a13c(struct coord *pos, f32 width, f32 arg2, f32 arg3, s16 *rooms, u16 arg5)
+bool cd0002a13c(struct coord *pos, f32 radius, f32 arg2, f32 arg3, s16 *rooms, u16 arg5)
 {
 	u32 stack[5];
 	struct collisionthing thing;
 
-	cd00027d1c(pos, width, rooms, CDTYPE_BG, arg5, 1, arg2, arg3, &thing, 1);
+	cd00027d1c(pos, radius, rooms, CDTYPE_BG, arg5, 1, arg2, arg3, &thing, 1);
 
 	if (thing.tile) {
 		return true;
@@ -4135,7 +4135,7 @@ bool cd0002a13c(struct coord *pos, f32 width, f32 arg2, f32 arg3, s16 *rooms, u1
 	return false;
 }
 
-f32 cdFindGroundY(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol,
+f32 cdFindGroundY(struct coord *pos, f32 radius, s16 *rooms, u16 *floorcol,
 		u8 *floortype, u16 *floorflags, s16 *floorroom, s32 *inlift, struct prop **lift)
 {
 	struct collisionthing cdthings[21];
@@ -4143,8 +4143,8 @@ f32 cdFindGroundY(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol,
 	f32 ground;
 	struct tile *tile = NULL;
 
-	cd00027d1c(pos, width, rooms, CDTYPE_ALL, 3, 0, 0, 0, cdthings, 20);
-	ground = cd000296a0(cdthings, pos, &sp72, width);
+	cd00027d1c(pos, radius, rooms, CDTYPE_ALL, 3, 0, 0, 0, cdthings, 20);
+	ground = cd000296a0(cdthings, pos, &sp72, radius);
 
 	if (sp72) {
 		tile = sp72->tile;
@@ -8127,7 +8127,7 @@ s32 cd0002e278(u8 *start, u8 *end, struct tiletype2 *ref, u16 flags)
 			if ((flags & tile->flags)
 					&& tile3->ymax >= ref->ymin
 					&& tile3->ymin <= ref->ymax
-					&& cd000274e0(ref, tile3->x, tile3->z, tile3->width, NULL, NULL)) {
+					&& cd000274e0(ref, tile3->x, tile3->z, tile3->radius, NULL, NULL)) {
 				return false;
 			}
 

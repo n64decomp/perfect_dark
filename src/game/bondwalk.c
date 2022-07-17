@@ -190,7 +190,7 @@ s32 bwalkTryMoveUpwards(f32 amount)
 	u32 types;
 	f32 ymax;
 	f32 ymin;
-	f32 width;
+	f32 radius;
 
 	if (g_Vars.currentplayer->floorflags & TILEFLAG_0100) {
 		g_Vars.enableslopes = false;
@@ -204,14 +204,14 @@ s32 bwalkTryMoveUpwards(f32 amount)
 
 	types = g_Vars.bondcollisions ? CDTYPE_ALL : CDTYPE_BG;
 
-	playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+	playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &newpos, rooms);
 	bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &newpos, rooms);
 	propSetPerimEnabled(g_Vars.currentplayer->prop, false);
 
 	ymin -= 0.1f;
 
-	result = cdTestVolume(&newpos, width, rooms, types, 1,
+	result = cdTestVolume(&newpos, radius, rooms, types, 1,
 			ymax - g_Vars.currentplayer->prop->pos.y,
 			ymin - g_Vars.currentplayer->prop->pos.y);
 
@@ -231,7 +231,7 @@ s32 bwalkTryMoveUpwards(f32 amount)
 bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, f32 extrawidth, s32 checktypes)
 {
 	s32 result = CDRESULT_NOCOLLISION;
-	f32 halfwidth;
+	f32 halfradius;
 	struct coord dstpos;
 	s16 dstrooms[8];
 	bool copyrooms = false;
@@ -239,7 +239,7 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 	s32 types;
 	f32 ymax;
 	f32 ymin;
-	f32 width;
+	f32 radius;
 	f32 xdiff;
 	f32 zdiff;
 	s32 i;
@@ -267,8 +267,8 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 
 		types = g_Vars.bondcollisions ? checktypes : CDTYPE_BG;
 
-		playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
-		width += extrawidth;
+		playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
+		radius += extrawidth;
 
 		func0f065dfc(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
 				&dstpos, dstrooms, sp64, 20);
@@ -287,29 +287,29 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 
 		copyrooms = true;
 
-		// Check if the player is moving at least half their width along the
+		// Check if the player is moving at least half their radius along the
 		// X or Z axis in a single frame. If less, only do a collision check for
 		// the dst position. If more, do a halfway check too?
 		xdiff = dstpos.x - g_Vars.currentplayer->prop->pos.x;
 		zdiff = dstpos.z - g_Vars.currentplayer->prop->pos.z;
-		halfwidth = width * 0.5f;
+		halfradius = radius * 0.5f;
 
-		if (xdiff > halfwidth || zdiff > halfwidth || xdiff < -halfwidth || zdiff < -halfwidth) {
+		if (xdiff > halfradius || zdiff > halfradius || xdiff < -halfradius || zdiff < -halfradius) {
 			result = cdTestAToB3(&g_Vars.currentplayer->prop->pos,
 					g_Vars.currentplayer->prop->rooms,
-					&dstpos, dstrooms, width, types, 1,
+					&dstpos, dstrooms, radius, types, 1,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 
 			if (result == CDRESULT_NOCOLLISION) {
 				result = cdTestAToB1(&g_Vars.currentplayer->prop->pos,
-						&dstpos, width, dstrooms, types, 1,
+						&dstpos, radius, dstrooms, types, 1,
 						ymax - g_Vars.currentplayer->prop->pos.y,
 						ymin - g_Vars.currentplayer->prop->pos.y);
 			}
 		} else {
 			result = cdTestAToB1(&g_Vars.currentplayer->prop->pos,
-					&dstpos, width, sp64, types, 1,
+					&dstpos, radius, sp64, types, 1,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 		}
@@ -585,14 +585,14 @@ s32 bwalk0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s3
 	f32 ymax;
 	f32 ymin;
 	f32 tmp;
-	f32 width;
+	f32 radius;
 
-	playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+	playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 
 	sp34.x = arg1->x - (g_Vars.currentplayer->prop->pos.x + arg0->f[0]);
 	sp34.z = arg1->z - (g_Vars.currentplayer->prop->pos.z + arg0->f[2]);
 
-	if (sp34.f[0] * sp34.f[0] + sp34.f[2] * sp34.f[2] <= width * width) {
+	if (sp34.f[0] * sp34.f[0] + sp34.f[2] * sp34.f[2] <= radius * radius) {
 		if (arg1->f[0] != g_Vars.currentplayer->prop->pos.f[0] || arg1->f[2] != g_Vars.currentplayer->prop->pos.f[2]) {
 			sp34.x = -(arg1->z - g_Vars.currentplayer->prop->pos.z);
 			sp34.y = 0;
@@ -620,7 +620,7 @@ s32 bwalk0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s3
 		sp34.x = arg2->x - (g_Vars.currentplayer->prop->pos.x + arg0->f[0]);
 		sp34.z = arg2->z - (g_Vars.currentplayer->prop->pos.z + arg0->f[2]);
 
-		if (sp34.f[0] * sp34.f[0] + sp34.f[2] * sp34.f[2] <= width * width) {
+		if (sp34.f[0] * sp34.f[0] + sp34.f[2] * sp34.f[2] <= radius * radius) {
 			if (arg2->f[0] != g_Vars.currentplayer->prop->pos.f[0] || arg2->f[2] != g_Vars.currentplayer->prop->pos.f[2]) {
 				sp34.x = -(arg2->z - g_Vars.currentplayer->prop->pos.z);
 				sp34.y = 0;
@@ -705,7 +705,7 @@ void bwalkUpdateVertical(void)
 {
 	s32 i;
 	f32 newfallspeed;
-	f32 width;
+	f32 radius;
 	f32 ymax;
 	f32 ymin;
 	f32 ground;
@@ -732,18 +732,18 @@ void bwalkUpdateVertical(void)
 	struct defaultobj *obj;
 #endif
 
-	playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+	playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 
 #if VERSION >= VERSION_NTSC_1_0
-	// Maybe reset counter-op's width - not sure why
+	// Maybe reset counter-op's radius - not sure why
 	// Maybe it gets set to 0 when they die?
 	if (g_Vars.antiplayernum >= 0
 			&& g_Vars.currentplayer == g_Vars.anti
-			&& g_Vars.currentplayer->bond2.width != 30
+			&& g_Vars.currentplayer->bond2.radius != 30
 			&& cdTestVolume(&g_Vars.currentplayer->prop->pos, 30, g_Vars.currentplayer->prop->rooms, CDTYPE_ALL, 1, ymax - g_Vars.currentplayer->prop->pos.y, ymin - g_Vars.currentplayer->prop->pos.y)) {
-		g_Vars.currentplayer->prop->chr->chrwidth = 30;
-		g_Vars.currentplayer->bond2.width = 30;
-		width = 30;
+		g_Vars.currentplayer->prop->chr->radius = 30;
+		g_Vars.currentplayer->bond2.radius = 30;
+		radius = 30;
 	}
 #endif
 
@@ -752,7 +752,7 @@ void bwalkUpdateVertical(void)
 	// player is touching a ladder from a room which shares the same coordinate
 	// space?
 	onladder = cd00029ffc(&g_Vars.currentplayer->prop->pos,
-			width * 1.2f, ymax - g_Vars.currentplayer->prop->pos.y,
+			radius * 1.2f, ymax - g_Vars.currentplayer->prop->pos.y,
 			g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y + 1,
 			g_Vars.currentplayer->prop->rooms, 0x8040, &g_Vars.currentplayer->laddernormal);
 
@@ -763,7 +763,7 @@ void bwalkUpdateVertical(void)
 		roomsCopy(g_Vars.currentplayer->prop->rooms, rooms);
 		bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &testpos, rooms);
 		onladder2 = cd00029ffc(&g_Vars.currentplayer->prop->pos,
-				width * 1.1f, ymax - g_Vars.currentplayer->prop->pos.y,
+				radius * 1.1f, ymax - g_Vars.currentplayer->prop->pos.y,
 				g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y - 10,
 				rooms, 0x8040, &g_Vars.currentplayer->laddernormal);
 	}
@@ -778,7 +778,7 @@ void bwalkUpdateVertical(void)
 
 	roomsCopy(g_Vars.currentplayer->prop->rooms, rooms);
 	bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &testpos, rooms);
-	ground = cdFindGroundY(&testpos, g_Vars.currentplayer->bond2.width, rooms,
+	ground = cdFindGroundY(&testpos, g_Vars.currentplayer->bond2.radius, rooms,
 			&g_Vars.currentplayer->floorcol, &g_Vars.currentplayer->floortype,
 			&g_Vars.currentplayer->floorflags, &g_Vars.currentplayer->floorroom,
 			&newinlift, &lift);
@@ -1395,7 +1395,7 @@ void bwalk0f0c69b8(void)
 	f32 speedtheta;
 	f32 maxspeed;
 	f32 sp74;
-	f32 width;
+	f32 radius;
 	f32 ymax;
 	f32 ymin;
 	f32 xdiff;
@@ -1590,10 +1590,10 @@ void bwalk0f0c69b8(void)
 					spcc.f[2] += sp74 * g_Vars.currentplayer->laddernormal.f[2];
 					g_Vars.currentplayer->ladderupdown = sp74 * 0.3f;
 				} else {
-					playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+					playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 
 					cdresult = cd0002a13c(&g_Vars.currentplayer->prop->pos,
-							width * 1.1f, ymax - g_Vars.currentplayer->prop->pos.y,
+							radius * 1.1f, ymax - g_Vars.currentplayer->prop->pos.y,
 							(g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y) + 1.0f,
 							g_Vars.currentplayer->prop->rooms, 0x8040);
 

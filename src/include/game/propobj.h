@@ -243,7 +243,7 @@ bool currentPlayerTryMountHoverbike(struct prop *prop);
 bool propobjInteract(struct prop *prop);
 void objSetPerimEnabled(struct prop *prop, bool enable);
 bool objUpdateGeometry(struct prop *prop, u8 **start, u8 **end);
-void propObjGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
+void propObjGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin);
 void ammotypeGetPickedUpText(char *dst);
 void ammotypeGetDeterminer(char *dst, s32 ammotype, s32 qty);
 void ammotypeGetPickupName(char *dst, s32 ammotype, s32 qty);

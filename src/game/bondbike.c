@@ -109,15 +109,15 @@ void bbikeTryDismountAngle(f32 relativeangle, f32 distance)
 	s32 result;
 	f32 ymax;
 	f32 ymin;
-	f32 width;
+	f32 radius;
 
 	if (g_Vars.currentplayer->walkinitmove == 0) {
 		bike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
 		angle = hoverpropGetTurnAngle(&bike->base);
 
-		playerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+		playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 
-		distance += width + 10;
+		distance += radius + 10;
 
 		angle += relativeangle;
 
@@ -143,7 +143,7 @@ void bbikeTryDismountAngle(f32 relativeangle, f32 distance)
 		propSetPerimEnabled(g_Vars.currentplayer->hoverbike, true);
 
 		if (result == CDRESULT_NOCOLLISION) {
-			result = cdTestVolume(&pos, width, rooms, CDTYPE_ALL, true,
+			result = cdTestVolume(&pos, radius, rooms, CDTYPE_ALL, true,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 		}
@@ -1060,8 +1060,8 @@ s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
 	f32 zdiff;
 	f32 ymax;
 	f32 ymin;
-	f32 width;
-	f32 halfwidth;
+	f32 radius;
+	f32 halfradius;
 
 	dstpos.x = g_Vars.currentplayer->hoverbike->pos.x;
 	dstpos.y = g_Vars.currentplayer->hoverbike->pos.y;
@@ -1074,7 +1074,7 @@ s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
 		dstpos.x += vel->x;
 		dstpos.z += vel->z;
 
-		propObjGetBbox(g_Vars.currentplayer->hoverbike, &width, &ymax, &ymin);
+		propObjGetBbox(g_Vars.currentplayer->hoverbike, &radius, &ymax, &ymin);
 		func0f065dfc(&g_Vars.currentplayer->hoverbike->pos,
 				g_Vars.currentplayer->hoverbike->rooms,
 				&dstpos, dstrooms, spa8, 20);
@@ -1089,26 +1089,26 @@ s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
 
 		dstpos.y += hov.ground - bike->hov.ground;
 
-		halfwidth = width * 0.5f;
+		halfradius = radius * 0.5f;
 		xdiff = dstpos.x - g_Vars.currentplayer->hoverbike->pos.x;
 		zdiff = dstpos.z - g_Vars.currentplayer->hoverbike->pos.z;
 
-		if (xdiff > halfwidth || zdiff > halfwidth || xdiff < -halfwidth || zdiff < -halfwidth) {
+		if (xdiff > halfradius || zdiff > halfradius || xdiff < -halfradius || zdiff < -halfradius) {
 			result = cdTestAToB3(&g_Vars.currentplayer->hoverbike->pos,
 					g_Vars.currentplayer->hoverbike->rooms,
-					&dstpos, dstrooms, width, CDTYPE_ALL, 1,
+					&dstpos, dstrooms, radius, CDTYPE_ALL, 1,
 					ymax - g_Vars.currentplayer->hoverbike->pos.y,
 					ymin - g_Vars.currentplayer->hoverbike->pos.y);
 
 			if (result == CDRESULT_NOCOLLISION) {
 				result = cdTestAToB1(&g_Vars.currentplayer->hoverbike->pos,
-						&dstpos, width, dstrooms, CDTYPE_ALL, 1,
+						&dstpos, radius, dstrooms, CDTYPE_ALL, 1,
 						ymax - g_Vars.currentplayer->hoverbike->pos.y,
 						ymin - g_Vars.currentplayer->hoverbike->pos.y);
 			}
 		} else {
 			result = cdTestAToB1(&g_Vars.currentplayer->hoverbike->pos,
-					&dstpos, width, spa8, CDTYPE_ALL, 1,
+					&dstpos, radius, spa8, CDTYPE_ALL, 1,
 					ymax - g_Vars.currentplayer->hoverbike->pos.y,
 					ymin - g_Vars.currentplayer->hoverbike->pos.y);
 		}
@@ -1244,7 +1244,7 @@ void bbikeUpdateVertical(struct coord *pos)
 	g_Vars.currentplayer->prop->pos.z = pos->z;
 
 	ground = cdFindGroundY(&g_Vars.currentplayer->prop->pos,
-			g_Vars.currentplayer->bond2.width,
+			g_Vars.currentplayer->bond2.radius,
 			g_Vars.currentplayer->prop->rooms,
 			&g_Vars.currentplayer->floorcol,
 			&g_Vars.currentplayer->floortype,
@@ -1383,14 +1383,14 @@ s32 bbike0f0d3940(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 	f32 ymax;
 	f32 ymin;
 	f32 tmp;
-	f32 width;
+	f32 radius;
 
-	propObjGetBbox(g_Vars.currentplayer->hoverbike, &width, &ymax, &ymin);
+	propObjGetBbox(g_Vars.currentplayer->hoverbike, &radius, &ymax, &ymin);
 
 	sp34.x = arg1->x - (g_Vars.currentplayer->hoverbike->pos.x + arg0->f[0]);
 	sp34.z = arg1->z - (g_Vars.currentplayer->hoverbike->pos.z + arg0->f[2]);
 
-	if (sp34.f[0] * sp34.f[0] + sp34.f[2] * sp34.f[2] <= width * width) {
+	if (sp34.f[0] * sp34.f[0] + sp34.f[2] * sp34.f[2] <= radius * radius) {
 		if (arg1->f[0] != g_Vars.currentplayer->hoverbike->pos.f[0] || arg1->f[2] != g_Vars.currentplayer->hoverbike->pos.f[2]) {
 			sp34.x = -(arg1->z - g_Vars.currentplayer->hoverbike->pos.z);
 			sp34.y = 0;
@@ -1418,7 +1418,7 @@ s32 bbike0f0d3940(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 		sp34.x = arg2->x - (g_Vars.currentplayer->hoverbike->pos.x + arg0->f[0]);
 		sp34.z = arg2->z - (g_Vars.currentplayer->hoverbike->pos.z + arg0->f[2]);
 
-		if (sp34.f[0] * sp34.f[0] + sp34.f[2] * sp34.f[2] <= width * width) {
+		if (sp34.f[0] * sp34.f[0] + sp34.f[2] * sp34.f[2] <= radius * radius) {
 			if (arg2->f[0] != g_Vars.currentplayer->hoverbike->pos.f[0] || arg2->f[2] != g_Vars.currentplayer->hoverbike->pos.f[2]) {
 				sp34.x = -(arg2->z - g_Vars.currentplayer->hoverbike->pos.z);
 				sp34.y = 0;

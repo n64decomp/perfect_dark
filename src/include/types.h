@@ -194,7 +194,7 @@ struct g_vars {
 	/*000482*/ u16 language;
 	/*000484*/ s32 mphilltime;
 	/*000488*/ s32 totalkills;
-	/*00048c*/ bool unk00048c;
+	/*00048c*/ bool useperimshoot;
 	/*000490*/ s32 mpsetupmenu;
 	/*000494*/ s8 waitingtojoin[4];
 	/*000498*/ s32 unk000498;
@@ -885,7 +885,7 @@ struct tiletype3 {
 	/*0x08*/ f32 ymin;
 	/*0x0c*/ f32 x;
 	/*0x10*/ f32 z;
-	/*0x14*/ f32 width; // radius
+	/*0x14*/ f32 radius;
 };
 
 struct tilething {
@@ -1135,8 +1135,8 @@ struct chrdata {
 	/*0x018*/ u32 chrflags;
 	/*0x01c*/ struct prop *prop;
 	/*0x020*/ struct model *model;
-	/*0x024*/ f32 chrwidth;
-	/*0x028*/ f32 chrheight;
+	/*0x024*/ f32 radius;
+	/*0x028*/ f32 height;
 
 	union {
 		struct act_stand act_stand;
@@ -2025,7 +2025,7 @@ struct playerbond {
 	// unk00.z = look vector z (-1 to +1)
 	/*0x0338 0x036c*/ struct coord unk00;
 
-	/*0x0344 0x0378*/ f32 width; // always 30?
+	/*0x0344 0x0378*/ f32 radius; // always 30?
 
 	/*0x0348 0x037c*/ struct coord unk10;
 

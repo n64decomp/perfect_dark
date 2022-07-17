@@ -26,7 +26,7 @@ void scenarioTick(void);
 void scenarioTickChr(struct chrdata *chr);
 Gfx *scenarioRadarExtra(Gfx *gdl);
 bool scenarioRadarChr(Gfx **gdl, struct prop *prop);
-f32 scenarioChooseSpawnLocation(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop);
+f32 scenarioChooseSpawnLocation(f32 chrradius, struct coord *pos, s16 *rooms, struct prop *prop);
 s32 scenarioGetMaxTeams(void);
 void scenarioHighlightRoom(s16 room, s32 *arg1, s32 *arg2, s32 *arg3);
 

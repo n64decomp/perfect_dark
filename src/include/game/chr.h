@@ -95,6 +95,6 @@ struct prop *chrGetHeldProp(struct chrdata *chr, s32 hand);
 struct prop *chrGetHeldUsableProp(struct chrdata *chr, s32 hand);
 struct prop *chrGetTargetProp(struct chrdata *chr);
 bool chrUpdateGeometry(struct prop *prop, u8 **start, u8 **end);
-void chrGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
+void chrGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin);
 
 #endif

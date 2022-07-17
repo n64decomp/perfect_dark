@@ -259,13 +259,13 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 {
 	f32 ymax;
 	f32 ymin;
-	f32 width;
+	f32 radius;
 	bool moveok = false;
 	f32 movex;
 	f32 movez;
 	struct prop *prop = chr->prop;
 	u32 stack;
-	f32 halfwidth;
+	f32 halfradius;
 	struct defaultobj *chair = NULL;
 	s32 cdresult;
 	s16 sp84[20];
@@ -291,8 +291,8 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 		return;
 	}
 
-	chrGetBbox(prop, &width, &ymax, &ymin);
-	halfwidth = width * 0.5f;
+	chrGetBbox(prop, &radius, &ymax, &ymin);
+	halfradius = radius * 0.5f;
 	chrSetPerimEnabled(chr, false);
 
 	// myspecial is the chr's chair
@@ -321,14 +321,14 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 	movex = dstpos->x - prop->pos.x;
 	movez = dstpos->z - prop->pos.z;
 
-	if (movex > halfwidth || movez > halfwidth || movex < -halfwidth || movez < -halfwidth) {
+	if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
 		cdresult = cd0002d8b8(&prop->pos, prop->rooms, dstpos, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
 
 		if (cdresult == CDRESULT_NOCOLLISION) {
-			cdresult = cd0002a6fc(&prop->pos, dstpos, width, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+			cdresult = cd0002a6fc(&prop->pos, dstpos, radius, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
 		}
 	} else {
-		cdresult = cd0002a6fc(&prop->pos, dstpos, width, sp84, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+		cdresult = cd0002a6fc(&prop->pos, dstpos, radius, sp84, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
 	}
 
 	if (cdresult != CDRESULT_ERROR) {
@@ -387,14 +387,14 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 				movex = sp44.x - prop->pos.x;
 				movez = sp44.z - prop->pos.z;
 
-				if (movex > halfwidth || movez > halfwidth || movex < -halfwidth || movez < -halfwidth) {
+				if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
 					cdresult = cdTestAToB2(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
 
 					if (cdresult == CDRESULT_NOCOLLISION) {
-						cdresult = cdTestVolume(&sp44, width, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+						cdresult = cdTestVolume(&sp44, radius, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
 					}
 				} else {
-					cdresult = cdTestVolume(&sp44, width, sp84, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+					cdresult = cdTestVolume(&sp44, radius, sp84, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
 				}
 
 				if (cdresult == CDRESULT_NOCOLLISION) {
@@ -410,7 +410,7 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 				sp54.x = sp78.x - dstpos->x;
 				sp54.z = sp78.z - dstpos->z;
 
-				if (sp54.f[0] * sp54.f[0] + sp54.f[2] * sp54.f[2] <= width * width) {
+				if (sp54.f[0] * sp54.f[0] + sp54.f[2] * sp54.f[2] <= radius * radius) {
 					if (sp78.f[0] != prop->pos.f[0] || sp78.f[2] != prop->pos.f[2]) {
 						sp54.x = -(sp78.z - prop->pos.z);
 						sp54.z = sp78.x - prop->pos.x;
@@ -443,14 +443,14 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 						movex = sp44.x - prop->pos.x;
 						movez = sp44.z - prop->pos.z;
 
-						if (movex > halfwidth || movez > halfwidth || movex < -halfwidth || movez < -halfwidth) {
+						if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
 							cdresult = cdTestAToB2(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
 
 							if (cdresult == CDRESULT_NOCOLLISION) {
-								cdresult = cdTestVolume(&sp44, width, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+								cdresult = cdTestVolume(&sp44, radius, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
 							}
 						} else {
-							cdresult = cdTestVolume(&sp44, width, sp84, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+							cdresult = cdTestVolume(&sp44, radius, sp84, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
 						}
 
 						if (cdresult == CDRESULT_NOCOLLISION) {
@@ -464,7 +464,7 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 					sp54.x = sp6c.x - dstpos->x;
 					sp54.z = sp6c.z - dstpos->z;
 
-					if (sp54.f[0] * sp54.f[0] + sp54.f[2] * sp54.f[2] <= width * width) {
+					if (sp54.f[0] * sp54.f[0] + sp54.f[2] * sp54.f[2] <= radius * radius) {
 						if (sp6c.f[0] != prop->pos.f[0] || sp6c.f[2] != prop->pos.f[2]) {
 							sp54.x = -(sp6c.z - prop->pos.z);
 							sp54.z = sp6c.x - prop->pos.x;
@@ -497,14 +497,14 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, s16 *dstroom
 							movex = sp44.x - prop->pos.x;
 							movez = sp44.z - prop->pos.z;
 
-							if (movex > halfwidth || movez > halfwidth || movex < -halfwidth || movez < -halfwidth) {
+							if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
 								cdresult = cdTestAToB2(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
 
 								if (cdresult == CDRESULT_NOCOLLISION) {
-									cdresult = cdTestVolume(&sp44, width, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+									cdresult = cdTestVolume(&sp44, radius, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
 								}
 							} else {
-								cdresult = cdTestVolume(&sp44, width, sp84, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+								cdresult = cdTestVolume(&sp44, radius, sp84, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
 							}
 
 							if (cdresult == CDRESULT_NOCOLLISION) {
@@ -546,17 +546,17 @@ bool chr0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3)
 	s16 newrooms[8];
 	f32 ymax;
 	f32 ymin;
-	f32 width;
+	f32 radius;
 
 	newpos.x = pos->x;
 	newpos.y = pos->y + arg3;
 	newpos.z = pos->z;
 
-	chrGetBbox(chr->prop, &width, &ymax, &ymin);
+	chrGetBbox(chr->prop, &radius, &ymax, &ymin);
 	func0f065e74(pos, rooms, &newpos, newrooms);
 	chr0f021fa8(chr, &newpos, newrooms);
 	chrSetPerimEnabled(chr, false);
-	result = cdTestVolume(&newpos, width, newrooms, CDTYPE_ALL, 1,
+	result = cdTestVolume(&newpos, radius, newrooms, CDTYPE_ALL, 1,
 			ymax - chr->prop->pos.y,
 			ymin - chr->prop->pos.y);
 	chrSetPerimEnabled(chr, true);
@@ -612,7 +612,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 			func0f065e74(&prop->pos, prop->rooms, arg2, spfc);
 		}
 
-		ground = cdFindGroundY(arg2, chr->chrwidth, spfc, &chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
+		ground = cdFindGroundY(arg2, chr->radius, spfc, &chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
 
 		if (ground < -1000000) {
 			ground = 0.0f;
@@ -665,8 +665,8 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 		}
 
 		if (chr->actiontype == ACT_PATROL || chr->actiontype == ACT_GOPOS) {
-			chr->onladder = cd00029ffc(&chr->prop->pos, chr->chrwidth * 2.5f,
-					chr->manground + chr->chrheight - chr->prop->pos.y,
+			chr->onladder = cd00029ffc(&chr->prop->pos, chr->radius * 2.5f,
+					chr->manground + chr->height - chr->prop->pos.y,
 					chr->manground + 1.0f - chr->prop->pos.y,
 					chr->prop->rooms, 0x40, &chr->laddernormal);
 		} else {
@@ -674,22 +674,22 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 		}
 
 		if (chr->aibot != NULL) {
-			chr->chrheight = 185.0f;
+			chr->height = 185.0f;
 
 			if (chr->actiontype == ACT_GOPOS && (chr->act_gopos.flags & GOPOSFLAG_WALKDIRECT)) {
-				chr->chrheight = 135.0f;
+				chr->height = 135.0f;
 			} else if (chr->actiontype == ACT_GOPOS && (chr->act_gopos.flags & GOPOSFLAG_DUCK)) {
-				chr->chrheight = 90.0f;
-			} else if (cd0002a13c(&chr->prop->pos, chr->chrwidth * 1.1f,
+				chr->height = 90.0f;
+			} else if (cd0002a13c(&chr->prop->pos, chr->radius * 1.1f,
 						chr->manground + 185.0f - chr->prop->pos.y,
 						chr->manground - 10.0f - chr->prop->pos.y,
 						chr->prop->rooms, 0x1000) != CDRESULT_COLLISION) {
-				chr->chrheight = 135.0f;
-			} else if (cd0002a13c(&chr->prop->pos, chr->chrwidth * 1.1f,
+				chr->height = 135.0f;
+			} else if (cd0002a13c(&chr->prop->pos, chr->radius * 1.1f,
 						chr->manground + 135.0f - chr->prop->pos.y,
 						chr->manground - 10.0f - chr->prop->pos.y,
 						chr->prop->rooms, 0x800) != CDRESULT_COLLISION) {
-				chr->chrheight = 90.0f;
+				chr->height = 90.0f;
 			}
 
 			bmove0f0cb904(&chr->aibot->shotspeed);
@@ -877,7 +877,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 						sp94 = spfc;
 					}
 
-					ground = cdFindGroundY(sp98, chr->chrwidth, sp94,
+					ground = cdFindGroundY(sp98, chr->radius, sp94,
 							&chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -896,7 +896,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 
 						lvupdate240freal = 0.0f;
 
-						ground = cdFindGroundY(arg2, chr->chrwidth, spfc, &chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
+						ground = cdFindGroundY(arg2, chr->radius, spfc, &chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
 					}
 #endif
 
@@ -1194,8 +1194,8 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->aidarkroomlist = -1;
 	chr->aiplayerdeadlist = -1;
 
-	chr->chrwidth = 20;
-	chr->chrheight = 185;
+	chr->radius = 20;
+	chr->height = 185;
 	chr->morale = 0;
 	chr->alertness = 0;
 	chr->flags = 0;
@@ -1365,7 +1365,7 @@ struct prop *chr0f020b14(struct prop *prop, struct model *model,
 	testpos.y = pos->y + 100;
 	testpos.z = pos->z;
 
-	chr->ground = chr->manground = ground = cdFindGroundY(&testpos, chr->chrwidth, rooms, &chr->floorcol, &chr->floortype, NULL, &chr->floorroom, NULL, NULL);
+	chr->ground = chr->manground = ground = cdFindGroundY(&testpos, chr->radius, rooms, &chr->floorcol, &chr->floortype, NULL, &chr->floorroom, NULL, NULL);
 
 	chr->sumground = ground * (PAL ? 8.4175090789795f : 9.999998f);
 
@@ -3635,15 +3635,15 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 				// distance.
 				if (shadowalpha > -65536.0f && chr->ground < 65536.0f) {
 					f32 gaptoground = prop->pos.y - chr->ground;
-					f32 size; // unsure if radius or diameter
+					f32 radius;
 
 					if (gaptoground <= 400 && g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
 						if (chr->bodynum == BODY_SKEDAR || chr->bodynum == BODY_SKEDARKING) {
-							size = 80;
+							radius = 80;
 						} else if (chr->bodynum == BODY_EYESPY) {
-							size = 12;
+							radius = 12;
 						} else {
-							size = 35;
+							radius = 35;
 						}
 
 						if (chr->chrflags & CHRCFLAG_NOSHADOW) {
@@ -3659,10 +3659,10 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 						}
 
 						if (cheatIsActive(CHEAT_SMALLCHARACTERS)) {
-							size *= 0.4f;
+							radius *= 0.4f;
 						}
 
-						gdl = gfxRenderRadialShadow(gdl, prop->pos.x, chr->ground, prop->pos.z, chrGetInverseTheta(chr), size, shadowalpha | ~0xff);
+						gdl = gfxRenderRadialShadow(gdl, prop->pos.x, chr->ground, prop->pos.z, chrGetInverseTheta(chr), radius, 0xffffff00 | shadowalpha);
 					}
 				}
 			}
@@ -5606,7 +5606,7 @@ bool chrUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 		}
 
 		chr->geo.ymin = chr->manground;
-		chr->geo.ymax = chr->manground + chr->chrheight;
+		chr->geo.ymax = chr->manground + chr->height;
 
 		if (chr->actiontype == ACT_SKJUMP) {
 			if (chr->manground > chr->act_skjump.ground) {
@@ -5616,10 +5616,10 @@ bool chrUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 
 		chr->geo.x = prop->pos.x;
 		chr->geo.z = prop->pos.z;
-		chr->geo.width = chr->chrwidth;
+		chr->geo.radius = chr->radius;
 
-		if (g_Vars.unk00048c) {
-			chr->geo.width = 15;
+		if (g_Vars.useperimshoot) {
+			chr->geo.radius = 15;
 		}
 
 		*start = (void *) &chr->geo;
@@ -5632,15 +5632,14 @@ bool chrUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 	*start = NULL;
 
 	return false;
-
 }
 
-void chrGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
+void chrGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin)
 {
 	struct chrdata *chr = prop->chr;
 
-	*width = chr->chrwidth;
-	*ymax = chr->manground + chr->chrheight;
+	*radius = chr->radius;
+	*ymax = chr->manground + chr->height;
 	*ymin = chr->manground + 20;
 
 	if (chr->actiontype == ACT_SKJUMP && chr->act_skjump.ground < chr->manground) {
