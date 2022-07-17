@@ -86,7 +86,7 @@ bool cd0002ab98(struct coord *arg0, struct coord *arg1, struct coord *arg2, stru
 bool cd0002ac70(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geotilei *tile, struct coord *arg4, struct coord *arg5, struct coord *arg6, s32 arg7, f32 arg8, f32 arg9);
 bool cd0002b128(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geotilef *tile, struct coord *arg4, struct coord *arg5, struct coord *arg6, s32 arg7, f32 arg8, f32 arg9);
 bool cd0002b560(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geoblock *block, struct coord *arg4, struct coord *arg5, struct coord *arg6, s32 arg7, f32 arg8, f32 arg9);
-u32 cd0002b954(void);
+bool cd0002b954(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geocyl *cyl, struct coord *arg4, struct coord *arg5, struct coord *arg6, s32 arg7, f32 arg8, f32 arg9);
 bool cd0002bd04(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, struct coord *arg4, s32 arg5, s32 arg6, s32 arg7, f32 arg8, f32 arg9);
 void cd0002c328(struct geotilei *tile, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4);
 void cd0002c528(struct geotilef *tile, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4);
