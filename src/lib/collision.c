@@ -7587,124 +7587,40 @@ bool cd0002e82c(struct geotilef *tile, s32 numvertices, struct coord *arg2, stru
 	return result;
 }
 
-GLOBAL_ASM(
-glabel cd0002e9d8
-/*    2e9d8:	27bdff60 */ 	addiu	$sp,$sp,-160
-/*    2e9dc:	afb40048 */ 	sw	$s4,0x48($sp)
-/*    2e9e0:	afb1003c */ 	sw	$s1,0x3c($sp)
-/*    2e9e4:	afb00038 */ 	sw	$s0,0x38($sp)
-/*    2e9e8:	00a08825 */ 	or	$s1,$a1,$zero
-/*    2e9ec:	00c0a025 */ 	or	$s4,$a2,$zero
-/*    2e9f0:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*    2e9f4:	afbe0058 */ 	sw	$s8,0x58($sp)
-/*    2e9f8:	afb70054 */ 	sw	$s7,0x54($sp)
-/*    2e9fc:	afb60050 */ 	sw	$s6,0x50($sp)
-/*    2ea00:	afb5004c */ 	sw	$s5,0x4c($sp)
-/*    2ea04:	afb30044 */ 	sw	$s3,0x44($sp)
-/*    2ea08:	afb20040 */ 	sw	$s2,0x40($sp)
-/*    2ea0c:	f7b40030 */ 	sdc1	$f20,0x30($sp)
-/*    2ea10:	afa400a0 */ 	sw	$a0,0xa0($sp)
-/*    2ea14:	afa700ac */ 	sw	$a3,0xac($sp)
-/*    2ea18:	afa0009c */ 	sw	$zero,0x9c($sp)
-/*    2ea1c:	18a0004b */ 	blez	$a1,.L0002eb4c
-/*    2ea20:	00008025 */ 	or	$s0,$zero,$zero
-/*    2ea24:	4480a000 */ 	mtc1	$zero,$f20
-/*    2ea28:	27be0078 */ 	addiu	$s8,$sp,0x78
-/*    2ea2c:	27b70084 */ 	addiu	$s7,$sp,0x84
-/*    2ea30:	27b6006c */ 	addiu	$s6,$sp,0x6c
-/*    2ea34:	2415000c */ 	addiu	$s5,$zero,0xc
-.L0002ea38:
-/*    2ea38:	3c0e8006 */ 	lui	$t6,%hi(var8005f030)
-/*    2ea3c:	8dcef030 */ 	lw	$t6,%lo(var8005f030)($t6)
-/*    2ea40:	51c00013 */ 	beqzl	$t6,.L0002ea90
-/*    2ea44:	26190001 */ 	addiu	$t9,$s0,0x1
-/*    2ea48:	02301023 */ 	subu	$v0,$s1,$s0
-/*    2ea4c:	00517821 */ 	addu	$t7,$v0,$s1
-/*    2ea50:	25f8fffe */ 	addiu	$t8,$t7,-2
-/*    2ea54:	0311001a */ 	div	$zero,$t8,$s1
-/*    2ea58:	00001810 */ 	mfhi	$v1
-/*    2ea5c:	2448ffff */ 	addiu	$t0,$v0,-1
-/*    2ea60:	16200002 */ 	bnez	$s1,.L0002ea6c
-/*    2ea64:	00000000 */ 	nop
-/*    2ea68:	0007000d */ 	break	0x7
-.L0002ea6c:
-/*    2ea6c:	2401ffff */ 	addiu	$at,$zero,-1
-/*    2ea70:	16210004 */ 	bne	$s1,$at,.L0002ea84
-/*    2ea74:	3c018000 */ 	lui	$at,0x8000
-/*    2ea78:	17010002 */ 	bne	$t8,$at,.L0002ea84
-/*    2ea7c:	00000000 */ 	nop
-/*    2ea80:	0006000d */ 	break	0x6
-.L0002ea84:
-/*    2ea84:	1000000e */ 	b	.L0002eac0
-/*    2ea88:	00000000 */ 	nop
-/*    2ea8c:	26190001 */ 	addiu	$t9,$s0,0x1
-.L0002ea90:
-/*    2ea90:	0331001a */ 	div	$zero,$t9,$s1
-/*    2ea94:	00001810 */ 	mfhi	$v1
-/*    2ea98:	02004025 */ 	or	$t0,$s0,$zero
-/*    2ea9c:	16200002 */ 	bnez	$s1,.L0002eaa8
-/*    2eaa0:	00000000 */ 	nop
-/*    2eaa4:	0007000d */ 	break	0x7
-.L0002eaa8:
-/*    2eaa8:	2401ffff */ 	addiu	$at,$zero,-1
-/*    2eaac:	16210004 */ 	bne	$s1,$at,.L0002eac0
-/*    2eab0:	3c018000 */ 	lui	$at,0x8000
-/*    2eab4:	17210002 */ 	bne	$t9,$at,.L0002eac0
-/*    2eab8:	00000000 */ 	nop
-/*    2eabc:	0006000d */ 	break	0x6
-.L0002eac0:
-/*    2eac0:	01150019 */ 	multu	$t0,$s5
-/*    2eac4:	8faa00ac */ 	lw	$t2,0xac($sp)
-/*    2eac8:	8fa700a0 */ 	lw	$a3,0xa0($sp)
-/*    2eacc:	afb60010 */ 	sw	$s6,0x10($sp)
-/*    2ead0:	afb70014 */ 	sw	$s7,0x14($sp)
-/*    2ead4:	afbe0018 */ 	sw	$s8,0x18($sp)
-/*    2ead8:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*    2eadc:	e7b40020 */ 	swc1	$f20,0x20($sp)
-/*    2eae0:	e7b40024 */ 	swc1	$f20,0x24($sp)
-/*    2eae4:	00001012 */ 	mflo	$v0
-/*    2eae8:	02829021 */ 	addu	$s2,$s4,$v0
-/*    2eaec:	02402025 */ 	or	$a0,$s2,$zero
-/*    2eaf0:	00750019 */ 	multu	$v1,$s5
-/*    2eaf4:	01423021 */ 	addu	$a2,$t2,$v0
-/*    2eaf8:	00004812 */ 	mflo	$t1
-/*    2eafc:	02899821 */ 	addu	$s3,$s4,$t1
-/*    2eb00:	0c00ad58 */ 	jal	cd0002b560
-/*    2eb04:	02602825 */ 	or	$a1,$s3,$zero
-/*    2eb08:	1040000e */ 	beqz	$v0,.L0002eb44
-/*    2eb0c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    2eb10:	02e02025 */ 	or	$a0,$s7,$zero
-/*    2eb14:	03c02825 */ 	or	$a1,$s8,$zero
-/*    2eb18:	02c03025 */ 	or	$a2,$s6,$zero
-/*    2eb1c:	0c00946b */ 	jal	cd000251ac
-/*    2eb20:	8fa700b0 */ 	lw	$a3,0xb0($sp)
-/*    2eb24:	02402025 */ 	or	$a0,$s2,$zero
-/*    2eb28:	0c0094c5 */ 	jal	cd00025314
-/*    2eb2c:	02602825 */ 	or	$a1,$s3,$zero
-/*    2eb30:	0c0094f1 */ 	jal	cd000253c4
-/*    2eb34:	8fa400b4 */ 	lw	$a0,0xb4($sp)
-/*    2eb38:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*    2eb3c:	10000003 */ 	b	.L0002eb4c
-/*    2eb40:	afab009c */ 	sw	$t3,0x9c($sp)
-.L0002eb44:
-/*    2eb44:	1611ffbc */ 	bne	$s0,$s1,.L0002ea38
-/*    2eb48:	00000000 */ 	nop
-.L0002eb4c:
-/*    2eb4c:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*    2eb50:	8fa2009c */ 	lw	$v0,0x9c($sp)
-/*    2eb54:	d7b40030 */ 	ldc1	$f20,0x30($sp)
-/*    2eb58:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*    2eb5c:	8fb1003c */ 	lw	$s1,0x3c($sp)
-/*    2eb60:	8fb20040 */ 	lw	$s2,0x40($sp)
-/*    2eb64:	8fb30044 */ 	lw	$s3,0x44($sp)
-/*    2eb68:	8fb40048 */ 	lw	$s4,0x48($sp)
-/*    2eb6c:	8fb5004c */ 	lw	$s5,0x4c($sp)
-/*    2eb70:	8fb60050 */ 	lw	$s6,0x50($sp)
-/*    2eb74:	8fb70054 */ 	lw	$s7,0x54($sp)
-/*    2eb78:	8fbe0058 */ 	lw	$s8,0x58($sp)
-/*    2eb7c:	03e00008 */ 	jr	$ra
-/*    2eb80:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
-);
+bool cd0002e9d8(struct geoblock *thisblock, s32 numvertices, struct coord *arg2, struct coord *arg3, struct prop *prop, struct geoblock *block)
+{
+	bool result = false;
+	s32 i;
+	s32 next;
+	s32 curr;
+	struct coord sp84;
+	struct coord sp78;
+	struct coord sp6c;
+
+	for (i = 0; i < numvertices; i++) {
+		if (var8005f030) {
+			s32 remaining = numvertices - i;
+			next = (remaining + numvertices - 2) % numvertices;
+			curr = remaining - 1;
+		} else {
+			next = (i + 1) % numvertices;
+			curr = i;
+		}
+
+		if (cd0002b560((struct coord *)((u32)arg2 + curr * sizeof(struct coord)),
+					(struct coord *)((u32)arg2 + next * sizeof(struct coord)),
+					(struct coord *)((u32)arg3 + curr * sizeof(struct coord)),
+					thisblock, &sp6c, &sp84, &sp78, 0, 0.0f, 0.0f)) {
+			cd000251ac(&sp84, &sp78, &sp6c, prop);
+			cd00025314((struct coord *)((u32)arg2 + curr * sizeof(struct coord)), (struct coord *)((u32)arg2 + next * sizeof(struct coord)));
+			cd000253c4(block);
+			result = true;
+			break;
+		}
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel cd0002eb84
