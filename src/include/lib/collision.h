@@ -57,7 +57,7 @@ s32 cd00028200(struct geotilei *tile, struct coord *pos, f32 width, f32 y1, f32 
 void cd0002840c(struct geotilef *tile, f32 arg1, f32 arg2, f32 arg3, struct prop *prop, struct collisionthing *things, s32 maxthings, s32 *thingindex);
 void cd00028638(struct geoblock *block, f32 arg1, f32 arg2, f32 arg3, struct prop *prop, struct collisionthing *things, s32 maxthings, s32 *thingindex);
 void cd0002885c(struct geocyl *cyl, f32 x, f32 z, f32 arg3, struct prop *prop, struct collisionthing *things, s32 maxthings, s32 *thingindex);
-s32 cd00028914(u8 *start, u8 *end, struct coord *pos, f32 width, u16 flags, bool checkvertical, f32 arg6, f32 arg7, struct prop *prop, struct collisionthing *things, s32 maxthings, s32 *thingnum);
+void cd00028914(u8 *start, u8 *end, struct coord *pos, f32 radius, u16 flags, bool checkvertical, f32 arg6, f32 arg7, struct prop *prop, struct collisionthing *things, s32 maxthings, s32 *thingnum);
 void cd00028df0(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 arg4, u32 arg5, f32 ymax, f32 ymin, struct collisionthing *arg8, s32 arg9);
 void cd0002901c(struct coord *pos, struct coord *dist, f32 width, struct collisionthing *arg3);
 f32 cd000296a0(struct collisionthing *arg0, struct coord *pos, struct collisionthing **arg2, f32 width);
