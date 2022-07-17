@@ -4630,67 +4630,20 @@ bool cd0002aac0(struct coord *arg0, struct coord *arg1, struct coord *arg2, stru
 	return false;
 }
 
-GLOBAL_ASM(
-glabel cd0002ab98
-/*    2ab98:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*    2ab9c:	afbf0054 */ 	sw	$ra,0x54($sp)
-/*    2aba0:	afbe0050 */ 	sw	$s8,0x50($sp)
-/*    2aba4:	afb7004c */ 	sw	$s7,0x4c($sp)
-/*    2aba8:	afb60048 */ 	sw	$s6,0x48($sp)
-/*    2abac:	afb50044 */ 	sw	$s5,0x44($sp)
-/*    2abb0:	afb40040 */ 	sw	$s4,0x40($sp)
-/*    2abb4:	afb3003c */ 	sw	$s3,0x3c($sp)
-/*    2abb8:	afb20038 */ 	sw	$s2,0x38($sp)
-/*    2abbc:	afb10034 */ 	sw	$s1,0x34($sp)
-/*    2abc0:	afb00030 */ 	sw	$s0,0x30($sp)
-/*    2abc4:	90f30001 */ 	lbu	$s3,0x1($a3)
-/*    2abc8:	0080a825 */ 	or	$s5,$a0,$zero
-/*    2abcc:	00a0b025 */ 	or	$s6,$a1,$zero
-/*    2abd0:	2a610003 */ 	slti	$at,$s3,0x3
-/*    2abd4:	00c0b825 */ 	or	$s7,$a2,$zero
-/*    2abd8:	14200018 */ 	bnez	$at,.L0002ac3c
-/*    2abdc:	24100002 */ 	addiu	$s0,$zero,0x2
-/*    2abe0:	24e20018 */ 	addiu	$v0,$a3,0x18
-/*    2abe4:	24510004 */ 	addiu	$s1,$v0,0x4
-/*    2abe8:	24520010 */ 	addiu	$s2,$v0,0x10
-/*    2abec:	24f40010 */ 	addiu	$s4,$a3,0x10
-/*    2abf0:	8fbe0068 */ 	lw	$s8,0x68($sp)
-.L0002abf4:
-/*    2abf4:	8fae006c */ 	lw	$t6,0x6c($sp)
-/*    2abf8:	02802025 */ 	or	$a0,$s4,$zero
-/*    2abfc:	02202825 */ 	or	$a1,$s1,$zero
-/*    2ac00:	02403025 */ 	or	$a2,$s2,$zero
-/*    2ac04:	00003825 */ 	or	$a3,$zero,$zero
-/*    2ac08:	afb50010 */ 	sw	$s5,0x10($sp)
-/*    2ac0c:	afb60014 */ 	sw	$s6,0x14($sp)
-/*    2ac10:	afb70018 */ 	sw	$s7,0x18($sp)
-/*    2ac14:	afbe001c */ 	sw	$s8,0x1c($sp)
-/*    2ac18:	0c00bd58 */ 	jal	func0002f560
-/*    2ac1c:	afae0020 */ 	sw	$t6,0x20($sp)
-/*    2ac20:	10400003 */ 	beqz	$v0,.L0002ac30
-/*    2ac24:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    2ac28:	10000005 */ 	b	.L0002ac40
-/*    2ac2c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0002ac30:
-/*    2ac30:	2631000c */ 	addiu	$s1,$s1,0xc
-/*    2ac34:	1613ffef */ 	bne	$s0,$s3,.L0002abf4
-/*    2ac38:	2652000c */ 	addiu	$s2,$s2,0xc
-.L0002ac3c:
-/*    2ac3c:	00001025 */ 	or	$v0,$zero,$zero
-.L0002ac40:
-/*    2ac40:	8fbf0054 */ 	lw	$ra,0x54($sp)
-/*    2ac44:	8fb00030 */ 	lw	$s0,0x30($sp)
-/*    2ac48:	8fb10034 */ 	lw	$s1,0x34($sp)
-/*    2ac4c:	8fb20038 */ 	lw	$s2,0x38($sp)
-/*    2ac50:	8fb3003c */ 	lw	$s3,0x3c($sp)
-/*    2ac54:	8fb40040 */ 	lw	$s4,0x40($sp)
-/*    2ac58:	8fb50044 */ 	lw	$s5,0x44($sp)
-/*    2ac5c:	8fb60048 */ 	lw	$s6,0x48($sp)
-/*    2ac60:	8fb7004c */ 	lw	$s7,0x4c($sp)
-/*    2ac64:	8fbe0050 */ 	lw	$s8,0x50($sp)
-/*    2ac68:	03e00008 */ 	jr	$ra
-/*    2ac6c:	27bd0058 */ 	addiu	$sp,$sp,0x58
-);
+bool cd0002ab98(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geotilef *tile, struct coord *arg4, struct coord *arg5)
+{
+	s32 i;
+	u8 numvertices = tile->header.numvertices;
+
+	for (i = 2; i < numvertices; i++) {
+		if (func0002f560(&tile->vertices[0], &tile->vertices[i - 1], &tile->vertices[i],
+					0, arg0, arg1, arg2, arg4, arg5)) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel cd0002ac70
