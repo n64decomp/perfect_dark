@@ -84,7 +84,7 @@ s32 cdTestAToB1(struct coord *origpos, struct coord *dstpos, f32 width, s16 *dst
 bool cd0002aac0(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geotilei *tile, s32 arg4, s32 arg5);
 bool cd0002ab98(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geotilef *tile, struct coord *arg4, struct coord *arg5);
 bool cd0002ac70(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geotilei *tile, struct coord *arg4, struct coord *arg5, struct coord *arg6, s32 arg7, f32 arg8, f32 arg9);
-u32 cd0002b128(void);
+bool cd0002b128(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct geotilef *tile, struct coord *arg4, struct coord *arg5, struct coord *arg6, s32 arg7, f32 arg8, f32 arg9);
 u32 cd0002b560(void);
 u32 cd0002b954(void);
 bool cd0002bd04(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, struct coord *arg4, s32 arg5, s32 arg6, s32 arg7, f32 arg8, f32 arg9);
