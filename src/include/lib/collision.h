@@ -90,7 +90,7 @@ bool cd0002b954(struct coord *arg0, struct coord *arg1, struct coord *arg2, stru
 bool cd0002bd04(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, struct coord *arg4, u16 arg5, s32 arg6, s32 arg7, f32 arg8, f32 arg9);
 void cd0002c328(struct geotilei *tile, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4);
 void cd0002c528(struct geotilef *tile, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4);
-bool cd0002c714(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, struct coord *arg4, u16 arg5, s32 arg6, s32 arg7, f32 ymax, f32 ymin, f32 *arg10, struct coord *arg11, struct coord *arg12, struct coord *arg13, struct geo **tile, s32 roomnum);
+bool cd0002c714(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, struct coord *arg4, u16 flags, s32 arg6, s32 arg7, f32 ymax, f32 ymin, f32 *arg10, struct coord *arg11, struct coord *arg12, struct coord *arg13, struct geo **tile, s32 roomnum);
 bool cd0002d15c(struct coord *pos, struct coord *coord2, s16 *rooms, u32 types, u16 arg4, s32 arg5, s32 arg6, f32 arg7, f32 arg8);
 s32 cd0002d3b0(struct coord *arg0, struct coord *arg1, s16 *arg2, s32 types, u16 arg4, s32 arg5, s32 arg6, f32 ymax, f32 ymin);
 bool cd0002d6ac(struct coord *pos, s16 *rooms, struct coord *targetpos, u32 types, u32 arg4, f32 arg5, f32 arg6);
