@@ -5557,7 +5557,7 @@ void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, str
 		bgFindRoomsByPos(pos, inrooms, aboverooms, 20, &bestroom);
 
 		if (inrooms[0] != -1) {
-			tmp = room = cd0002a400(pos, inrooms);
+			tmp = room = cdFindRoom(pos, inrooms);
 
 			if (room > 0) {
 				playerSetCamPropertiesWithRoom(pos, up, look, tmp);
@@ -5565,7 +5565,7 @@ void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, str
 				playerSetCamPropertiesWithRoom(pos, up, look, inrooms[0]);
 			}
 		} else if (aboverooms[0] != -1) {
-			tmp = room = cd0002a400(pos, aboverooms);
+			tmp = room = cdFindRoom(pos, aboverooms);
 
 			if (room > 0) {
 				playerSetCamPropertiesWithoutRoom(pos, up, look, tmp);

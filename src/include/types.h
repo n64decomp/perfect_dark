@@ -5774,7 +5774,7 @@ struct texturepair {
 
 struct collisionthing {
 	struct geo *geo;
-	u32 unk04;
+	bool intile;
 	s32 vertexindex;
 	struct prop *prop;
 	s32 room;

@@ -59,7 +59,7 @@ void setupPreparePads(void)
 			}
 
 			if (roomsptr != NULL) {
-				roomnum = cd0002a400(&pad.pos, roomsptr);
+				roomnum = cdFindRoom(&pad.pos, roomsptr);
 
 				if (roomnum > 0) {
 					packedpad->room = roomnum;

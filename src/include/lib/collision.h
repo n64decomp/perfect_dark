@@ -67,7 +67,7 @@ f32 cdFindGroundY(struct coord *pos, f32 radius, s16 *rooms, u16 *floorcol, u8 *
 f32 cd0002a324(void);
 f32 cdFindGroundYSimple(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol, u8 *floortype);
 f32 cd0002a36c(struct coord *coord, s16 *rooms, u16 *floorcol, u8 *floortype);
-s32 cd0002a400(struct coord *pos, s16 *rooms);
+s32 cdFindRoom(struct coord *pos, s16 *nearrooms);
 
 #if VERSION >= VERSION_NTSC_1_0
 s16 cd0002a440(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr, u16 *flagsptr);

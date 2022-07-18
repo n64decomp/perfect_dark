@@ -76,7 +76,7 @@ void setupPrepareCover(void)
 				g_CoverRooms[i] = -1;
 
 				if (roomsptr != NULL) {
-					s32 room = cd0002a400(cover.pos, roomsptr);
+					s32 room = cdFindRoom(cover.pos, roomsptr);
 
 					if (room > 0) {
 						g_CoverRooms[i] = (s16)room;
@@ -102,7 +102,7 @@ void setupPrepareCover(void)
 					}
 
 					if (roomsptr) {
-						s32 aimroom = cd0002a400(&aimpos, roomsptr);
+						s32 aimroom = cdFindRoom(&aimpos, roomsptr);
 
 						if (aimroom > 0) {
 							g_CoverFlags[i] |= (g_CoverRooms[i] == (s16)aimroom) ? COVERFLAG_AIMSAMEROOM : COVERFLAG_AIMDIFFROOM;

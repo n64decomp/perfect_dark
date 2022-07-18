@@ -7040,7 +7040,7 @@ void func0f065e98(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *dstroo
 	}
 
 	if (ptr) {
-		s32 room = cd0002a400(pos2, ptr);
+		s32 room = cdFindRoom(pos2, ptr);
 
 		if (room > 0) {
 			dstrooms[0] = room;
