@@ -15,6 +15,11 @@
 #include "data.h"
 #include "types.h"
 
+struct debugtri {
+	s16 vertices[3][3];
+	u8 unk12;
+};
+
 union filedataptr g_TileFileData;
 s32 g_TileNumRooms;
 u32 *g_TileRooms;
@@ -5375,7 +5380,7 @@ bool cd0002f02c(struct geoblock *block, s16 *rooms, s32 types)
 
 #if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func000306f0nb
+glabel cdReadIntTileVertices
 /*    306f0:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*    306f4:	afb1000c */ 	sw	$s1,0xc($sp)
 /*    306f8:	afb00008 */ 	sw	$s0,0x8($sp)
@@ -5514,105 +5519,50 @@ glabel func000306f0nb
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func000308e8nb
-/*    308e8:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*    308ec:	afb1000c */ 	sw	$s1,0xc($sp)
-/*    308f0:	afb00008 */ 	sw	$s0,0x8($sp)
-/*    308f4:	94ce0002 */ 	lhu	$t6,0x2($a2)
-/*    308f8:	00a08025 */ 	or	$s0,$a1,$zero
-/*    308fc:	00808825 */ 	or	$s1,$a0,$zero
-/*    30900:	31cf0005 */ 	andi	$t7,$t6,0x5
-/*    30904:	51e00048 */ 	beqzl	$t7,.NB00030a28
-/*    30908:	02201025 */ 	or	$v0,$s1,$zero
-/*    3090c:	90c20001 */ 	lbu	$v0,0x1($a2)
-/*    30910:	27a40020 */ 	addiu	$a0,$sp,0x20
-/*    30914:	00c02825 */ 	or	$a1,$a2,$zero
-/*    30918:	28410011 */ 	slti	$at,$v0,0x11
-/*    3091c:	14200002 */ 	bnez	$at,.NB00030928
-/*    30920:	3c07800a */ 	lui	$a3,0x800a
-/*    30924:	24020010 */ 	addiu	$v0,$zero,0x10
-.NB00030928:
-/*    30928:	1840001a */ 	blez	$v0,.NB00030994
-/*    3092c:	00001825 */ 	or	$v1,$zero,$zero
-/*    30930:	8ce7e944 */ 	lw	$a3,-0x16bc($a3)
-.NB00030934:
-/*    30934:	c4a40010 */ 	lwc1	$f4,0x10($a1)
-/*    30938:	c4e60038 */ 	lwc1	$f6,0x38($a3)
-/*    3093c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*    30940:	24840006 */ 	addiu	$a0,$a0,0x6
-/*    30944:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*    30948:	24a5000c */ 	addiu	$a1,$a1,0xc
-/*    3094c:	4600428d */ 	trunc.w.s	$f10,$f8
-/*    30950:	44195000 */ 	mfc1	$t9,$f10
-/*    30954:	00000000 */ 	sll	$zero,$zero,0x0
-/*    30958:	a499fffa */ 	sh	$t9,-0x6($a0)
-/*    3095c:	c4f2003c */ 	lwc1	$f18,0x3c($a3)
-/*    30960:	c4b00008 */ 	lwc1	$f16,0x8($a1)
-/*    30964:	46128101 */ 	sub.s	$f4,$f16,$f18
-/*    30968:	4600218d */ 	trunc.w.s	$f6,$f4
-/*    3096c:	44093000 */ 	mfc1	$t1,$f6
-/*    30970:	00000000 */ 	sll	$zero,$zero,0x0
-/*    30974:	a489fffc */ 	sh	$t1,-0x4($a0)
-/*    30978:	c4ea0040 */ 	lwc1	$f10,0x40($a3)
-/*    3097c:	c4a8000c */ 	lwc1	$f8,0xc($a1)
-/*    30980:	460a4401 */ 	sub.s	$f16,$f8,$f10
-/*    30984:	4600848d */ 	trunc.w.s	$f18,$f16
-/*    30988:	440b9000 */ 	mfc1	$t3,$f18
-/*    3098c:	1462ffe9 */ 	bne	$v1,$v0,.NB00030934
-/*    30990:	a48bfffe */ 	sh	$t3,-0x2($a0)
-.NB00030994:
-/*    30994:	28410003 */ 	slti	$at,$v0,0x3
-/*    30998:	14200022 */ 	bnez	$at,.NB00030a24
-/*    3099c:	24030002 */ 	addiu	$v1,$zero,0x2
-/*    309a0:	24070006 */ 	addiu	$a3,$zero,0x6
-/*    309a4:	27a60020 */ 	addiu	$a2,$sp,0x20
-.NB000309a8:
-/*    309a8:	8e050000 */ 	lw	$a1,0x0($s0)
-/*    309ac:	87ac0020 */ 	lh	$t4,0x20($sp)
-/*    309b0:	58a00019 */ 	blezl	$a1,.NB00030a18
-/*    309b4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*    309b8:	00670019 */ 	multu	$v1,$a3
-/*    309bc:	a62c0000 */ 	sh	$t4,0x0($s1)
-/*    309c0:	87ad0022 */ 	lh	$t5,0x22($sp)
-/*    309c4:	26310014 */ 	addiu	$s1,$s1,0x14
-/*    309c8:	a62dffee */ 	sh	$t5,-0x12($s1)
-/*    309cc:	87ae0024 */ 	lh	$t6,0x24($sp)
-/*    309d0:	a62efff0 */ 	sh	$t6,-0x10($s1)
-/*    309d4:	00007812 */ 	mflo	$t7
-/*    309d8:	00cf2021 */ 	addu	$a0,$a2,$t7
-/*    309dc:	8498fffa */ 	lh	$t8,-0x6($a0)
-/*    309e0:	a638fff2 */ 	sh	$t8,-0xe($s1)
-/*    309e4:	8499fffc */ 	lh	$t9,-0x4($a0)
-/*    309e8:	a639fff4 */ 	sh	$t9,-0xc($s1)
-/*    309ec:	8488fffe */ 	lh	$t0,-0x2($a0)
-/*    309f0:	a628fff6 */ 	sh	$t0,-0xa($s1)
-/*    309f4:	84890000 */ 	lh	$t1,0x0($a0)
-/*    309f8:	a629fff8 */ 	sh	$t1,-0x8($s1)
-/*    309fc:	848a0002 */ 	lh	$t2,0x2($a0)
-/*    30a00:	a62afffa */ 	sh	$t2,-0x6($s1)
-/*    30a04:	848b0004 */ 	lh	$t3,0x4($a0)
-/*    30a08:	a220fffe */ 	sb	$zero,-0x2($s1)
-/*    30a0c:	a62bfffc */ 	sh	$t3,-0x4($s1)
-/*    30a10:	8e050000 */ 	lw	$a1,0x0($s0)
-/*    30a14:	24630001 */ 	addiu	$v1,$v1,0x1
-.NB00030a18:
-/*    30a18:	24acffff */ 	addiu	$t4,$a1,-1
-/*    30a1c:	1462ffe2 */ 	bne	$v1,$v0,.NB000309a8
-/*    30a20:	ae0c0000 */ 	sw	$t4,0x0($s0)
-.NB00030a24:
-/*    30a24:	02201025 */ 	or	$v0,$s1,$zero
-.NB00030a28:
-/*    30a28:	8fb1000c */ 	lw	$s1,0xc($sp)
-/*    30a2c:	8fb00008 */ 	lw	$s0,0x8($sp)
-/*    30a30:	03e00008 */ 	jr	$ra
-/*    30a34:	27bd0088 */ 	addiu	$sp,$sp,0x88
-);
+struct debugtri *cdReadFltTileVertices(struct debugtri *ptr, s32 *remaining, struct geotilef *tile)
+{
+	if (tile->header.flags & (GEOFLAG_0001 | GEOFLAG_COLLISIONS)) {
+		s32 i;
+		s32 numvertices = tile->header.numvertices;
+		s16 vertices[16][3];
+
+		if (numvertices > 16) {
+			numvertices = 16;
+		}
+
+		for (i = 0; i < numvertices; i++) {
+			vertices[i][0] = tile->vertices[i].x - g_Vars.currentplayer->globaldrawworldoffset.x;
+			vertices[i][1] = tile->vertices[i].y - g_Vars.currentplayer->globaldrawworldoffset.y;
+			vertices[i][2] = tile->vertices[i].z - g_Vars.currentplayer->globaldrawworldoffset.z;
+		}
+
+		for (i = 2; i < numvertices; i++) {
+			if (*remaining > 0) {
+				ptr->vertices[0][0] = vertices[0][0];
+				ptr->vertices[0][1] = vertices[0][1];
+				ptr->vertices[0][2] = vertices[0][2];
+				ptr->vertices[1][0] = vertices[i - 1][0];
+				ptr->vertices[1][1] = vertices[i - 1][1];
+				ptr->vertices[1][2] = vertices[i - 1][2];
+				ptr->vertices[2][0] = vertices[i][0];
+				ptr->vertices[2][1] = vertices[i][1];
+				ptr->vertices[2][2] = vertices[i][2];
+				ptr->unk12 = 0;
+
+				ptr++;
+			}
+
+			*remaining -= 1;
+		}
+	}
+
+	return ptr;
+}
 #endif
 
-u32 cd0002f2e8(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
+Gfx *cd0002f2e8(Gfx *gdl, u32 arg1, u32 arg2, u32 arg3)
 {
-	return arg0;
+	return gdl;
 }
 
 void func0002f2fc(u32 arg0, u32 arg1)
