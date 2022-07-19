@@ -5379,143 +5379,45 @@ bool cd0002f02c(struct geoblock *block, s16 *rooms, s32 types)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel cdReadIntTileVertices
-/*    306f0:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*    306f4:	afb1000c */ 	sw	$s1,0xc($sp)
-/*    306f8:	afb00008 */ 	sw	$s0,0x8($sp)
-/*    306fc:	94ce0002 */ 	lhu	$t6,0x2($a2)
-/*    30700:	00a08025 */ 	or	$s0,$a1,$zero
-/*    30704:	00808825 */ 	or	$s1,$a0,$zero
-/*    30708:	31cf0005 */ 	andi	$t7,$t6,0x5
-/*    3070c:	51e00072 */ 	beqzl	$t7,.NB000308d8
-/*    30710:	02201025 */ 	or	$v0,$s1,$zero
-/*    30714:	90c20001 */ 	lbu	$v0,0x1($a2)
-/*    30718:	27a40020 */ 	addiu	$a0,$sp,0x20
-/*    3071c:	00c02825 */ 	or	$a1,$a2,$zero
-/*    30720:	28410011 */ 	slti	$at,$v0,0x11
-/*    30724:	14200002 */ 	bnez	$at,.NB00030730
-/*    30728:	3c07800a */ 	lui	$a3,0x800a
-/*    3072c:	24020010 */ 	addiu	$v0,$zero,0x10
-.NB00030730:
-/*    30730:	18400044 */ 	blez	$v0,.NB00030844
-/*    30734:	00001825 */ 	or	$v1,$zero,$zero
-/*    30738:	8ce7e944 */ 	lw	$a3,-0x16bc($a3)
-/*    3073c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*    30740:	10620022 */ 	beq	$v1,$v0,.NB000307cc
-/*    30744:	84b8000e */ 	lh	$t8,0xe($a1)
-.NB00030748:
-/*    30748:	44989000 */ 	mtc1	$t8,$f18
-/*    3074c:	c4f00038 */ 	lwc1	$f16,0x38($a3)
-/*    30750:	24630001 */ 	addiu	$v1,$v1,0x1
-/*    30754:	468094a0 */ 	cvt.s.w	$f18,$f18
-/*    30758:	24840006 */ 	addiu	$a0,$a0,0x6
-/*    3075c:	24a50006 */ 	addiu	$a1,$a1,0x6
-/*    30760:	46109401 */ 	sub.s	$f16,$f18,$f16
-/*    30764:	4600840d */ 	trunc.w.s	$f16,$f16
-/*    30768:	44088000 */ 	mfc1	$t0,$f16
-/*    3076c:	00000000 */ 	sll	$zero,$zero,0x0
-/*    30770:	a488fffa */ 	sh	$t0,-0x6($a0)
-/*    30774:	84a9000a */ 	lh	$t1,0xa($a1)
-/*    30778:	c4f0003c */ 	lwc1	$f16,0x3c($a3)
-/*    3077c:	44899000 */ 	mtc1	$t1,$f18
-/*    30780:	00000000 */ 	sll	$zero,$zero,0x0
-/*    30784:	468094a0 */ 	cvt.s.w	$f18,$f18
-/*    30788:	46109401 */ 	sub.s	$f16,$f18,$f16
-/*    3078c:	4600840d */ 	trunc.w.s	$f16,$f16
-/*    30790:	440b8000 */ 	mfc1	$t3,$f16
-/*    30794:	00000000 */ 	sll	$zero,$zero,0x0
-/*    30798:	a48bfffc */ 	sh	$t3,-0x4($a0)
-/*    3079c:	84ac000c */ 	lh	$t4,0xc($a1)
-/*    307a0:	c4f00040 */ 	lwc1	$f16,0x40($a3)
-/*    307a4:	448c9000 */ 	mtc1	$t4,$f18
-/*    307a8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    307ac:	468094a0 */ 	cvt.s.w	$f18,$f18
-/*    307b0:	46109401 */ 	sub.s	$f16,$f18,$f16
-/*    307b4:	4600840d */ 	trunc.w.s	$f16,$f16
-/*    307b8:	440e8000 */ 	mfc1	$t6,$f16
-/*    307bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*    307c0:	a48efffe */ 	sh	$t6,-0x2($a0)
-/*    307c4:	1462ffe0 */ 	bne	$v1,$v0,.NB00030748
-/*    307c8:	84b8000e */ 	lh	$t8,0xe($a1)
-.NB000307cc:
-/*    307cc:	44989000 */ 	mtc1	$t8,$f18
-/*    307d0:	c4f00038 */ 	lwc1	$f16,0x38($a3)
-/*    307d4:	24840006 */ 	addiu	$a0,$a0,0x6
-/*    307d8:	468094a0 */ 	cvt.s.w	$f18,$f18
-/*    307dc:	24a50006 */ 	addiu	$a1,$a1,0x6
-/*    307e0:	46109401 */ 	sub.s	$f16,$f18,$f16
-/*    307e4:	4600840d */ 	trunc.w.s	$f16,$f16
-/*    307e8:	44088000 */ 	mfc1	$t0,$f16
-/*    307ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*    307f0:	a488fffa */ 	sh	$t0,-0x6($a0)
-/*    307f4:	84a9000a */ 	lh	$t1,0xa($a1)
-/*    307f8:	c4f0003c */ 	lwc1	$f16,0x3c($a3)
-/*    307fc:	44899000 */ 	mtc1	$t1,$f18
-/*    30800:	00000000 */ 	sll	$zero,$zero,0x0
-/*    30804:	468094a0 */ 	cvt.s.w	$f18,$f18
-/*    30808:	46109401 */ 	sub.s	$f16,$f18,$f16
-/*    3080c:	4600840d */ 	trunc.w.s	$f16,$f16
-/*    30810:	440b8000 */ 	mfc1	$t3,$f16
-/*    30814:	00000000 */ 	sll	$zero,$zero,0x0
-/*    30818:	a48bfffc */ 	sh	$t3,-0x4($a0)
-/*    3081c:	84ac000c */ 	lh	$t4,0xc($a1)
-/*    30820:	c4f00040 */ 	lwc1	$f16,0x40($a3)
-/*    30824:	448c9000 */ 	mtc1	$t4,$f18
-/*    30828:	00000000 */ 	sll	$zero,$zero,0x0
-/*    3082c:	468094a0 */ 	cvt.s.w	$f18,$f18
-/*    30830:	46109401 */ 	sub.s	$f16,$f18,$f16
-/*    30834:	4600840d */ 	trunc.w.s	$f16,$f16
-/*    30838:	440e8000 */ 	mfc1	$t6,$f16
-/*    3083c:	00000000 */ 	sll	$zero,$zero,0x0
-/*    30840:	a48efffe */ 	sh	$t6,-0x2($a0)
-.NB00030844:
-/*    30844:	28410003 */ 	slti	$at,$v0,0x3
-/*    30848:	14200022 */ 	bnez	$at,.NB000308d4
-/*    3084c:	24030002 */ 	addiu	$v1,$zero,0x2
-/*    30850:	24070006 */ 	addiu	$a3,$zero,0x6
-/*    30854:	27a60020 */ 	addiu	$a2,$sp,0x20
-.NB00030858:
-/*    30858:	8e050000 */ 	lw	$a1,0x0($s0)
-/*    3085c:	87af0020 */ 	lh	$t7,0x20($sp)
-/*    30860:	58a00019 */ 	blezl	$a1,.NB000308c8
-/*    30864:	24630001 */ 	addiu	$v1,$v1,0x1
-/*    30868:	00670019 */ 	multu	$v1,$a3
-/*    3086c:	a62f0000 */ 	sh	$t7,0x0($s1)
-/*    30870:	87b80022 */ 	lh	$t8,0x22($sp)
-/*    30874:	26310014 */ 	addiu	$s1,$s1,0x14
-/*    30878:	a638ffee */ 	sh	$t8,-0x12($s1)
-/*    3087c:	87b90024 */ 	lh	$t9,0x24($sp)
-/*    30880:	a639fff0 */ 	sh	$t9,-0x10($s1)
-/*    30884:	00004012 */ 	mflo	$t0
-/*    30888:	00c82021 */ 	addu	$a0,$a2,$t0
-/*    3088c:	8489fffa */ 	lh	$t1,-0x6($a0)
-/*    30890:	a629fff2 */ 	sh	$t1,-0xe($s1)
-/*    30894:	848afffc */ 	lh	$t2,-0x4($a0)
-/*    30898:	a62afff4 */ 	sh	$t2,-0xc($s1)
-/*    3089c:	848bfffe */ 	lh	$t3,-0x2($a0)
-/*    308a0:	a62bfff6 */ 	sh	$t3,-0xa($s1)
-/*    308a4:	848c0000 */ 	lh	$t4,0x0($a0)
-/*    308a8:	a62cfff8 */ 	sh	$t4,-0x8($s1)
-/*    308ac:	848d0002 */ 	lh	$t5,0x2($a0)
-/*    308b0:	a62dfffa */ 	sh	$t5,-0x6($s1)
-/*    308b4:	848e0004 */ 	lh	$t6,0x4($a0)
-/*    308b8:	a220fffe */ 	sb	$zero,-0x2($s1)
-/*    308bc:	a62efffc */ 	sh	$t6,-0x4($s1)
-/*    308c0:	8e050000 */ 	lw	$a1,0x0($s0)
-/*    308c4:	24630001 */ 	addiu	$v1,$v1,0x1
-.NB000308c8:
-/*    308c8:	24afffff */ 	addiu	$t7,$a1,-1
-/*    308cc:	1462ffe2 */ 	bne	$v1,$v0,.NB00030858
-/*    308d0:	ae0f0000 */ 	sw	$t7,0x0($s0)
-.NB000308d4:
-/*    308d4:	02201025 */ 	or	$v0,$s1,$zero
-.NB000308d8:
-/*    308d8:	8fb1000c */ 	lw	$s1,0xc($sp)
-/*    308dc:	8fb00008 */ 	lw	$s0,0x8($sp)
-/*    308e0:	03e00008 */ 	jr	$ra
-/*    308e4:	27bd0088 */ 	addiu	$sp,$sp,0x88
-);
+struct debugtri *cdReadIntTileVertices(struct debugtri *ptr, s32 *remaining, struct geotilei *tile)
+{
+	if (tile->header.flags & (GEOFLAG_0001 | GEOFLAG_COLLISIONS)) {
+		s32 i;
+		s32 numvertices = tile->header.numvertices;
+		s16 vertices[16][3];
+
+		if (numvertices > 16) {
+			numvertices = 16;
+		}
+
+		for (i = 0; i < numvertices; i++) {
+			vertices[i][0] = tile->vertices[i][0] - g_Vars.currentplayer->globaldrawworldoffset.x;
+			vertices[i][1] = tile->vertices[i][1] - g_Vars.currentplayer->globaldrawworldoffset.y;
+			vertices[i][2] = tile->vertices[i][2] - g_Vars.currentplayer->globaldrawworldoffset.z;
+		}
+
+		for (i = 2; i < numvertices; i++) {
+			if (*remaining > 0) {
+				ptr->vertices[0][0] = vertices[0][0];
+				ptr->vertices[0][1] = vertices[0][1];
+				ptr->vertices[0][2] = vertices[0][2];
+				ptr->vertices[1][0] = vertices[i - 1][0];
+				ptr->vertices[1][1] = vertices[i - 1][1];
+				ptr->vertices[1][2] = vertices[i - 1][2];
+				ptr->vertices[2][0] = vertices[i][0];
+				ptr->vertices[2][1] = vertices[i][1];
+				ptr->vertices[2][2] = vertices[i][2];
+				ptr->unk12 = 0;
+
+				ptr++;
+			}
+
+			*remaining -= 1;
+		}
+	}
+
+	return ptr;
+}
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
