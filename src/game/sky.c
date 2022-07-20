@@ -549,4256 +549,1072 @@ glabel var7f1b4ffc
 /*  f11f980:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel skyRender
-.late_rodata
-glabel var7f1b5000
-.word 0x3dcccccd
-glabel jtbl_var7f1b5004
-.word .L0f120024
-.word .L0f1208a8
-.word .L0f1209f8
-.word .L0f120130
-.word .L0f120b48
-.word .L0f12045c
-.word .L0f120de8
-.word .L0f1207d8
-.word .L0f120c98
-.word .L0f120de8
-.word .L0f120350
-.word .L0f120708
-.word .L0f12023c
-.word .L0f120638
-.word .L0f120568
-.word .L0f120014
-glabel var7f1b5044
-.word 0x3d088889
-glabel var7f1b5048
-.word 0x3d088889
-glabel var7f1b504c
-.word 0x3d088889
-glabel var7f1b5050
-.word 0x3d088889
-glabel var7f1b5054
-.word 0x3d088889
-glabel var7f1b5058
-.word 0x3d088889
-glabel var7f1b505c
-.word 0x3d088889
-glabel var7f1b5060
-.word 0x3d088889
-glabel var7f1b5064
-.word 0x3d088889
-glabel var7f1b5068
-.word 0x3d088889
-glabel var7f1b506c
-.word 0x3d088889
-glabel var7f1b5070
-.word 0x3d088889
-glabel var7f1b5074
-.word 0x3d088889
-glabel var7f1b5078
-.word 0x3d088889
-glabel var7f1b507c
-.word 0x477fff00
-glabel var7f1b5080
-.word 0x449fe000
-glabel var7f1b5084
-.word 0x446fc000
-glabel jtbl_var7f1b5088
-.word .L0f12136c
-.word .L0f121994
-.word .L0f121a84
-.word .L0f1215ec
-.word .L0f121b74
-.word .L0f121724
-.word .L0f122378
-.word .L0f1221f0
-.word .L0f121c64
-.word .L0f122378
-.word .L0f12185c
-.word .L0f122068
-.word .L0f1214b0
-.word .L0f121edc
-.word .L0f121d54
-.word .L0f121374
-glabel var7f1b50c8
-.word 0x477fff00
-.text
-/*  f11f984:	27bdf950 */ 	addiu	$sp,$sp,-1712
-/*  f11f988:	afbf0054 */ 	sw	$ra,0x54($sp)
-/*  f11f98c:	afb10050 */ 	sw	$s1,0x50($sp)
-/*  f11f990:	afb0004c */ 	sw	$s0,0x4c($sp)
-/*  f11f994:	f7bc0040 */ 	sdc1	$f28,0x40($sp)
-/*  f11f998:	f7ba0038 */ 	sdc1	$f26,0x38($sp)
-/*  f11f99c:	f7b80030 */ 	sdc1	$f24,0x30($sp)
-/*  f11f9a0:	f7b60028 */ 	sdc1	$f22,0x28($sp)
-/*  f11f9a4:	f7b40020 */ 	sdc1	$f20,0x20($sp)
-/*  f11f9a8:	afa406b0 */ 	sw	$a0,0x6b0($sp)
-/*  f11f9ac:	0fc595f3 */ 	jal	envGetCurrent
-/*  f11f9b0:	afa00430 */ 	sw	$zero,0x430($sp)
-/*  f11f9b4:	904e0010 */ 	lbu	$t6,0x10($v0)
-/*  f11f9b8:	3c11800a */ 	lui	$s1,%hi(g_Vars)
-/*  f11f9bc:	00404025 */ 	or	$t0,$v0,$zero
-/*  f11f9c0:	11c00005 */ 	beqz	$t6,.L0f11f9d8
-/*  f11f9c4:	26319fc0 */ 	addiu	$s1,$s1,%lo(g_Vars)
-/*  f11f9c8:	8e2f0284 */ 	lw	$t7,0x284($s1)
-/*  f11f9cc:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f11f9d0:	95f80010 */ 	lhu	$t8,0x10($t7)
-/*  f11f9d4:	14b800ae */ 	bne	$a1,$t8,.L0f11fc90
-.L0f11f9d8:
-/*  f11f9d8:	3c11800a */ 	lui	$s1,%hi(g_Vars)
-/*  f11f9dc:	26319fc0 */ 	addiu	$s1,$s1,%lo(g_Vars)
-/*  f11f9e0:	8e39006c */ 	lw	$t9,0x6c($s1)
-/*  f11f9e4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f11f9e8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f11f9ec:	13200003 */ 	beqz	$t9,.L0f11f9fc
-/*  f11f9f0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f11f9f4:	10000001 */ 	b	.L0f11f9fc
-/*  f11f9f8:	00a02025 */ 	or	$a0,$a1,$zero
-.L0f11f9fc:
-/*  f11f9fc:	8e290068 */ 	lw	$t1,0x68($s1)
-/*  f11fa00:	00008025 */ 	or	$s0,$zero,$zero
-/*  f11fa04:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11fa08:	11200003 */ 	beqz	$t1,.L0f11fa18
-/*  f11fa0c:	8fb806b0 */ 	lw	$t8,0x6b0($sp)
-/*  f11fa10:	10000001 */ 	b	.L0f11fa18
-/*  f11fa14:	00a01825 */ 	or	$v1,$a1,$zero
-.L0f11fa18:
-/*  f11fa18:	8e2a0064 */ 	lw	$t2,0x64($s1)
-/*  f11fa1c:	8faf06b0 */ 	lw	$t7,0x6b0($sp)
-/*  f11fa20:	3c090030 */ 	lui	$t1,0x30
-/*  f11fa24:	11400003 */ 	beqz	$t2,.L0f11fa34
-/*  f11fa28:	27190008 */ 	addiu	$t9,$t8,0x8
-/*  f11fa2c:	10000001 */ 	b	.L0f11fa34
-/*  f11fa30:	00a08025 */ 	or	$s0,$a1,$zero
-.L0f11fa34:
-/*  f11fa34:	8e2b0070 */ 	lw	$t3,0x70($s1)
-/*  f11fa38:	11600003 */ 	beqz	$t3,.L0f11fa48
-/*  f11fa3c:	00000000 */ 	nop
-/*  f11fa40:	10000001 */ 	b	.L0f11fa48
-/*  f11fa44:	00a01025 */ 	or	$v0,$a1,$zero
-.L0f11fa48:
-/*  f11fa48:	00506021 */ 	addu	$t4,$v0,$s0
-/*  f11fa4c:	01836821 */ 	addu	$t5,$t4,$v1
-/*  f11fa50:	01a47021 */ 	addu	$t6,$t5,$a0
-/*  f11fa54:	14ae0046 */ 	bne	$a1,$t6,.L0f11fb70
-/*  f11fa58:	3c0be700 */ 	lui	$t3,0xe700
-/*  f11fa5c:	25f80008 */ 	addiu	$t8,$t7,0x8
-/*  f11fa60:	afb806b0 */ 	sw	$t8,0x6b0($sp)
-/*  f11fa64:	3c19ba00 */ 	lui	$t9,0xba00
-/*  f11fa68:	37391402 */ 	ori	$t9,$t9,0x1402
-/*  f11fa6c:	adf90000 */ 	sw	$t9,0x0($t7)
-/*  f11fa70:	ade90004 */ 	sw	$t1,0x4($t7)
-/*  f11fa74:	8e2a0284 */ 	lw	$t2,0x284($s1)
-/*  f11fa78:	00003025 */ 	or	$a2,$zero,$zero
-/*  f11fa7c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f11fa80:	954b0010 */ 	lhu	$t3,0x10($t2)
-/*  f11fa84:	8fa406b0 */ 	lw	$a0,0x6b0($sp)
-/*  f11fa88:	54ab0007 */ 	bnel	$a1,$t3,.L0f11faa8
-/*  f11fa8c:	91050008 */ 	lbu	$a1,0x8($t0)
-/*  f11fa90:	8fa406b0 */ 	lw	$a0,0x6b0($sp)
-/*  f11fa94:	0c002fc1 */ 	jal	viSetFillColour
-/*  f11fa98:	00002825 */ 	or	$a1,$zero,$zero
-/*  f11fa9c:	10000007 */ 	b	.L0f11fabc
-/*  f11faa0:	00401825 */ 	or	$v1,$v0,$zero
-/*  f11faa4:	91050008 */ 	lbu	$a1,0x8($t0)
-.L0f11faa8:
-/*  f11faa8:	91060009 */ 	lbu	$a2,0x9($t0)
-/*  f11faac:	0c002fc1 */ 	jal	viSetFillColour
-/*  f11fab0:	9107000a */ 	lbu	$a3,0xa($t0)
-/*  f11fab4:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-/*  f11fab8:	00401825 */ 	or	$v1,$v0,$zero
-.L0f11fabc:
-/*  f11fabc:	00608825 */ 	or	$s1,$v1,$zero
-/*  f11fac0:	24630008 */ 	addiu	$v1,$v1,0x8
-/*  f11fac4:	0c002f22 */ 	jal	viGetViewWidth
-/*  f11fac8:	afa306b0 */ 	sw	$v1,0x6b0($sp)
-/*  f11facc:	0c002f40 */ 	jal	viGetViewLeft
-/*  f11fad0:	a7a2007a */ 	sh	$v0,0x7a($sp)
-/*  f11fad4:	0c002f44 */ 	jal	viGetViewTop
-/*  f11fad8:	a7a2007c */ 	sh	$v0,0x7c($sp)
-/*  f11fadc:	00028400 */ 	sll	$s0,$v0,0x10
-/*  f11fae0:	00106403 */ 	sra	$t4,$s0,0x10
-/*  f11fae4:	0c002f26 */ 	jal	viGetViewHeight
-/*  f11fae8:	01808025 */ 	or	$s0,$t4,$zero
-/*  f11faec:	87ad007c */ 	lh	$t5,0x7c($sp)
-/*  f11faf0:	87ae007a */ 	lh	$t6,0x7a($sp)
-/*  f11faf4:	00505021 */ 	addu	$t2,$v0,$s0
-/*  f11faf8:	254bffff */ 	addiu	$t3,$t2,-1
-/*  f11fafc:	01ae7821 */ 	addu	$t7,$t5,$t6
-/*  f11fb00:	25f8ffff */ 	addiu	$t8,$t7,-1
-/*  f11fb04:	316c03ff */ 	andi	$t4,$t3,0x3ff
-/*  f11fb08:	000c6880 */ 	sll	$t5,$t4,0x2
-/*  f11fb0c:	331903ff */ 	andi	$t9,$t8,0x3ff
-/*  f11fb10:	3c01f600 */ 	lui	$at,0xf600
-/*  f11fb14:	01a17025 */ 	or	$t6,$t5,$at
-/*  f11fb18:	00194b80 */ 	sll	$t1,$t9,0xe
-/*  f11fb1c:	01c97825 */ 	or	$t7,$t6,$t1
-/*  f11fb20:	0c002f40 */ 	jal	viGetViewLeft
-/*  f11fb24:	ae2f0000 */ 	sw	$t7,0x0($s1)
-/*  f11fb28:	00028400 */ 	sll	$s0,$v0,0x10
-/*  f11fb2c:	0010c403 */ 	sra	$t8,$s0,0x10
-/*  f11fb30:	0c002f44 */ 	jal	viGetViewTop
-/*  f11fb34:	03008025 */ 	or	$s0,$t8,$zero
-/*  f11fb38:	305903ff */ 	andi	$t9,$v0,0x3ff
-/*  f11fb3c:	320b03ff */ 	andi	$t3,$s0,0x3ff
-/*  f11fb40:	000b6380 */ 	sll	$t4,$t3,0xe
-/*  f11fb44:	00195080 */ 	sll	$t2,$t9,0x2
-/*  f11fb48:	014c6825 */ 	or	$t5,$t2,$t4
-/*  f11fb4c:	ae2d0004 */ 	sw	$t5,0x4($s1)
-/*  f11fb50:	8fae06b0 */ 	lw	$t6,0x6b0($sp)
-/*  f11fb54:	3c0fe700 */ 	lui	$t7,0xe700
-/*  f11fb58:	25c90008 */ 	addiu	$t1,$t6,0x8
-/*  f11fb5c:	afa906b0 */ 	sw	$t1,0x6b0($sp)
-/*  f11fb60:	adc00004 */ 	sw	$zero,0x4($t6)
-/*  f11fb64:	adcf0000 */ 	sw	$t7,0x0($t6)
-/*  f11fb68:	10000b4f */ 	b	.L0f1228a8
-/*  f11fb6c:	8fa206b0 */ 	lw	$v0,0x6b0($sp)
-.L0f11fb70:
-/*  f11fb70:	afb906b0 */ 	sw	$t9,0x6b0($sp)
-/*  f11fb74:	af000004 */ 	sw	$zero,0x4($t8)
-/*  f11fb78:	af0b0000 */ 	sw	$t3,0x0($t8)
-/*  f11fb7c:	8faa06b0 */ 	lw	$t2,0x6b0($sp)
-/*  f11fb80:	3c0dba00 */ 	lui	$t5,0xba00
-/*  f11fb84:	35ad1402 */ 	ori	$t5,$t5,0x1402
-/*  f11fb88:	254c0008 */ 	addiu	$t4,$t2,0x8
-/*  f11fb8c:	afac06b0 */ 	sw	$t4,0x6b0($sp)
-/*  f11fb90:	3c0e0030 */ 	lui	$t6,0x30
-/*  f11fb94:	ad4e0004 */ 	sw	$t6,0x4($t2)
-/*  f11fb98:	ad4d0000 */ 	sw	$t5,0x0($t2)
-/*  f11fb9c:	8e290284 */ 	lw	$t1,0x284($s1)
-/*  f11fba0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f11fba4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f11fba8:	952f0010 */ 	lhu	$t7,0x10($t1)
-/*  f11fbac:	8fa406b0 */ 	lw	$a0,0x6b0($sp)
-/*  f11fbb0:	54af0007 */ 	bnel	$a1,$t7,.L0f11fbd0
-/*  f11fbb4:	91050008 */ 	lbu	$a1,0x8($t0)
-/*  f11fbb8:	8fa406b0 */ 	lw	$a0,0x6b0($sp)
-/*  f11fbbc:	0c002fc1 */ 	jal	viSetFillColour
-/*  f11fbc0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f11fbc4:	10000006 */ 	b	.L0f11fbe0
-/*  f11fbc8:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-/*  f11fbcc:	91050008 */ 	lbu	$a1,0x8($t0)
-.L0f11fbd0:
-/*  f11fbd0:	91060009 */ 	lbu	$a2,0x9($t0)
-/*  f11fbd4:	0c002fc1 */ 	jal	viSetFillColour
-/*  f11fbd8:	9107000a */ 	lbu	$a3,0xa($t0)
-/*  f11fbdc:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-.L0f11fbe0:
-/*  f11fbe0:	8fb806b0 */ 	lw	$t8,0x6b0($sp)
-/*  f11fbe4:	3c0bb900 */ 	lui	$t3,0xb900
-/*  f11fbe8:	356b031d */ 	ori	$t3,$t3,0x31d
-/*  f11fbec:	27190008 */ 	addiu	$t9,$t8,0x8
-/*  f11fbf0:	afb906b0 */ 	sw	$t9,0x6b0($sp)
-/*  f11fbf4:	af000004 */ 	sw	$zero,0x4($t8)
-/*  f11fbf8:	af0b0000 */ 	sw	$t3,0x0($t8)
-/*  f11fbfc:	8fa506b0 */ 	lw	$a1,0x6b0($sp)
-/*  f11fc00:	8e230284 */ 	lw	$v1,0x284($s1)
-/*  f11fc04:	3c01f600 */ 	lui	$at,0xf600
-/*  f11fc08:	24ac0008 */ 	addiu	$t4,$a1,0x8
-/*  f11fc0c:	afac06b0 */ 	sw	$t4,0x6b0($sp)
-/*  f11fc10:	846d0634 */ 	lh	$t5,0x634($v1)
-/*  f11fc14:	846e0630 */ 	lh	$t6,0x630($v1)
-/*  f11fc18:	846a0636 */ 	lh	$t2,0x636($v1)
-/*  f11fc1c:	846c0632 */ 	lh	$t4,0x632($v1)
-/*  f11fc20:	01ae4821 */ 	addu	$t1,$t5,$t6
-/*  f11fc24:	252fffff */ 	addiu	$t7,$t1,-1
-/*  f11fc28:	014c6821 */ 	addu	$t5,$t2,$t4
-/*  f11fc2c:	25aeffff */ 	addiu	$t6,$t5,-1
-/*  f11fc30:	31f803ff */ 	andi	$t8,$t7,0x3ff
-/*  f11fc34:	0018cb80 */ 	sll	$t9,$t8,0xe
-/*  f11fc38:	31c903ff */ 	andi	$t1,$t6,0x3ff
-/*  f11fc3c:	00097880 */ 	sll	$t7,$t1,0x2
-/*  f11fc40:	03215825 */ 	or	$t3,$t9,$at
-/*  f11fc44:	016fc025 */ 	or	$t8,$t3,$t7
-/*  f11fc48:	acb80000 */ 	sw	$t8,0x0($a1)
-/*  f11fc4c:	8e230284 */ 	lw	$v1,0x284($s1)
-/*  f11fc50:	84790634 */ 	lh	$t9,0x634($v1)
-/*  f11fc54:	846d0636 */ 	lh	$t5,0x636($v1)
-/*  f11fc58:	332a03ff */ 	andi	$t2,$t9,0x3ff
-/*  f11fc5c:	31ae03ff */ 	andi	$t6,$t5,0x3ff
-/*  f11fc60:	000e4880 */ 	sll	$t1,$t6,0x2
-/*  f11fc64:	000a6380 */ 	sll	$t4,$t2,0xe
-/*  f11fc68:	01895825 */ 	or	$t3,$t4,$t1
-/*  f11fc6c:	acab0004 */ 	sw	$t3,0x4($a1)
-/*  f11fc70:	8faf06b0 */ 	lw	$t7,0x6b0($sp)
-/*  f11fc74:	3c19e700 */ 	lui	$t9,0xe700
-/*  f11fc78:	25f80008 */ 	addiu	$t8,$t7,0x8
-/*  f11fc7c:	afb806b0 */ 	sw	$t8,0x6b0($sp)
-/*  f11fc80:	ade00004 */ 	sw	$zero,0x4($t7)
-/*  f11fc84:	adf90000 */ 	sw	$t9,0x0($t7)
-/*  f11fc88:	10000b07 */ 	b	.L0f1228a8
-/*  f11fc8c:	8fa206b0 */ 	lw	$v0,0x6b0($sp)
-.L0f11fc90:
-/*  f11fc90:	91050008 */ 	lbu	$a1,0x8($t0)
-/*  f11fc94:	91060009 */ 	lbu	$a2,0x9($t0)
-/*  f11fc98:	9107000a */ 	lbu	$a3,0xa($t0)
-/*  f11fc9c:	afa8042c */ 	sw	$t0,0x42c($sp)
-/*  f11fca0:	0c002fc1 */ 	jal	viSetFillColour
-/*  f11fca4:	8fa406b0 */ 	lw	$a0,0x6b0($sp)
-/*  f11fca8:	44806000 */ 	mtc1	$zero,$f12
-/*  f11fcac:	27b106a4 */ 	addiu	$s1,$sp,0x6a4
-/*  f11fcb0:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-/*  f11fcb4:	02203025 */ 	or	$a2,$s1,$zero
-/*  f11fcb8:	0fc47c00 */ 	jal	sky0f11f000
-/*  f11fcbc:	46006386 */ 	mov.s	$f14,$f12
-/*  f11fcc0:	0fc2d5f6 */ 	jal	camGetScreenWidth
-/*  f11fcc4:	00000000 */ 	nop
-/*  f11fcc8:	3c017f1b */ 	lui	$at,%hi(var7f1b5000)
-/*  f11fccc:	c43c5000 */ 	lwc1	$f28,%lo(var7f1b5000)($at)
-/*  f11fcd0:	44807000 */ 	mtc1	$zero,$f14
-/*  f11fcd4:	27a60698 */ 	addiu	$a2,$sp,0x698
-/*  f11fcd8:	0fc47c00 */ 	jal	sky0f11f000
-/*  f11fcdc:	461c0301 */ 	sub.s	$f12,$f0,$f28
-/*  f11fce0:	0fc2d5fa */ 	jal	camGetScreenHeight
-/*  f11fce4:	00000000 */ 	nop
-/*  f11fce8:	44806000 */ 	mtc1	$zero,$f12
-/*  f11fcec:	461c0381 */ 	sub.s	$f14,$f0,$f28
-/*  f11fcf0:	0fc47c00 */ 	jal	sky0f11f000
-/*  f11fcf4:	27a6068c */ 	addiu	$a2,$sp,0x68c
-/*  f11fcf8:	0fc2d5f6 */ 	jal	camGetScreenWidth
-/*  f11fcfc:	00000000 */ 	nop
-/*  f11fd00:	0fc2d5fa */ 	jal	camGetScreenHeight
-/*  f11fd04:	46000586 */ 	mov.s	$f22,$f0
-/*  f11fd08:	461cb301 */ 	sub.s	$f12,$f22,$f28
-/*  f11fd0c:	27a60680 */ 	addiu	$a2,$sp,0x680
-/*  f11fd10:	0fc47c00 */ 	jal	sky0f11f000
-/*  f11fd14:	461c0381 */ 	sub.s	$f14,$f0,$f28
-/*  f11fd18:	02202025 */ 	or	$a0,$s1,$zero
-/*  f11fd1c:	27a50644 */ 	addiu	$a1,$sp,0x644
-/*  f11fd20:	0fc47c1f */ 	jal	sky0f11f07c
-/*  f11fd24:	27a6058c */ 	addiu	$a2,$sp,0x58c
-/*  f11fd28:	afa20538 */ 	sw	$v0,0x538($sp)
-/*  f11fd2c:	27a40698 */ 	addiu	$a0,$sp,0x698
-/*  f11fd30:	27a50638 */ 	addiu	$a1,$sp,0x638
-/*  f11fd34:	0fc47c1f */ 	jal	sky0f11f07c
-/*  f11fd38:	27a60588 */ 	addiu	$a2,$sp,0x588
-/*  f11fd3c:	afa20534 */ 	sw	$v0,0x534($sp)
-/*  f11fd40:	27a4068c */ 	addiu	$a0,$sp,0x68c
-/*  f11fd44:	27a5062c */ 	addiu	$a1,$sp,0x62c
-/*  f11fd48:	0fc47c1f */ 	jal	sky0f11f07c
-/*  f11fd4c:	27a60584 */ 	addiu	$a2,$sp,0x584
-/*  f11fd50:	afa20530 */ 	sw	$v0,0x530($sp)
-/*  f11fd54:	27a40680 */ 	addiu	$a0,$sp,0x680
-/*  f11fd58:	27a50620 */ 	addiu	$a1,$sp,0x620
-/*  f11fd5c:	0fc47c1f */ 	jal	sky0f11f07c
-/*  f11fd60:	27a60580 */ 	addiu	$a2,$sp,0x580
-/*  f11fd64:	afa2052c */ 	sw	$v0,0x52c($sp)
-/*  f11fd68:	02202025 */ 	or	$a0,$s1,$zero
-/*  f11fd6c:	27a505e4 */ 	addiu	$a1,$sp,0x5e4
-/*  f11fd70:	0fc47c7f */ 	jal	sky0f11f1fc
-/*  f11fd74:	27a6056c */ 	addiu	$a2,$sp,0x56c
-/*  f11fd78:	27a40698 */ 	addiu	$a0,$sp,0x698
-/*  f11fd7c:	27a505d8 */ 	addiu	$a1,$sp,0x5d8
-/*  f11fd80:	0fc47c7f */ 	jal	sky0f11f1fc
-/*  f11fd84:	27a60568 */ 	addiu	$a2,$sp,0x568
-/*  f11fd88:	27a4068c */ 	addiu	$a0,$sp,0x68c
-/*  f11fd8c:	27a505cc */ 	addiu	$a1,$sp,0x5cc
-/*  f11fd90:	0fc47c7f */ 	jal	sky0f11f1fc
-/*  f11fd94:	27a60564 */ 	addiu	$a2,$sp,0x564
-/*  f11fd98:	27a40680 */ 	addiu	$a0,$sp,0x680
-/*  f11fd9c:	27a505c0 */ 	addiu	$a1,$sp,0x5c0
-/*  f11fda0:	0fc47c7f */ 	jal	sky0f11f1fc
-/*  f11fda4:	27a60560 */ 	addiu	$a2,$sp,0x560
-/*  f11fda8:	8faa0538 */ 	lw	$t2,0x538($sp)
-/*  f11fdac:	8fad0530 */ 	lw	$t5,0x530($sp)
-/*  f11fdb0:	514d001f */ 	beql	$t2,$t5,.L0f11fe30
-/*  f11fdb4:	44805000 */ 	mtc1	$zero,$f10
-/*  f11fdb8:	0fc2d602 */ 	jal	camGetScreenTop
-/*  f11fdbc:	00000000 */ 	nop
-/*  f11fdc0:	0fc2d5fa */ 	jal	camGetScreenHeight
-/*  f11fdc4:	46000586 */ 	mov.s	$f22,$f0
-/*  f11fdc8:	c7a206a8 */ 	lwc1	$f2,0x6a8($sp)
-/*  f11fdcc:	c7b00690 */ 	lwc1	$f16,0x690($sp)
-/*  f11fdd0:	27b0065c */ 	addiu	$s0,$sp,0x65c
-/*  f11fdd4:	44806000 */ 	mtc1	$zero,$f12
-/*  f11fdd8:	46101101 */ 	sub.s	$f4,$f2,$f16
-/*  f11fddc:	02003025 */ 	or	$a2,$s0,$zero
-/*  f11fde0:	46041183 */ 	div.s	$f6,$f2,$f4
-/*  f11fde4:	46003202 */ 	mul.s	$f8,$f6,$f0
-/*  f11fde8:	46164380 */ 	add.s	$f14,$f8,$f22
-/*  f11fdec:	0fc47c00 */ 	jal	sky0f11f000
-/*  f11fdf0:	e7ae054c */ 	swc1	$f14,0x54c($sp)
-/*  f11fdf4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f11fdf8:	27a5068c */ 	addiu	$a1,$sp,0x68c
-/*  f11fdfc:	0fc47ce1 */ 	jal	sky0f11f384
-/*  f11fe00:	02003025 */ 	or	$a2,$s0,$zero
-/*  f11fe04:	02002025 */ 	or	$a0,$s0,$zero
-/*  f11fe08:	27a505fc */ 	addiu	$a1,$sp,0x5fc
-/*  f11fe0c:	0fc47c1f */ 	jal	sky0f11f07c
-/*  f11fe10:	27a60574 */ 	addiu	$a2,$sp,0x574
-/*  f11fe14:	02002025 */ 	or	$a0,$s0,$zero
-/*  f11fe18:	27a5059c */ 	addiu	$a1,$sp,0x59c
-/*  f11fe1c:	0fc47c7f */ 	jal	sky0f11f1fc
-/*  f11fe20:	27a60554 */ 	addiu	$a2,$sp,0x554
-/*  f11fe24:	10000005 */ 	b	.L0f11fe3c
-/*  f11fe28:	8fae0534 */ 	lw	$t6,0x534($sp)
-/*  f11fe2c:	44805000 */ 	mtc1	$zero,$f10
-.L0f11fe30:
-/*  f11fe30:	00000000 */ 	nop
-/*  f11fe34:	e7aa054c */ 	swc1	$f10,0x54c($sp)
-/*  f11fe38:	8fae0534 */ 	lw	$t6,0x534($sp)
-.L0f11fe3c:
-/*  f11fe3c:	8fac052c */ 	lw	$t4,0x52c($sp)
-/*  f11fe40:	51cc0021 */ 	beql	$t6,$t4,.L0f11fec8
-/*  f11fe44:	44803000 */ 	mtc1	$zero,$f6
-/*  f11fe48:	0fc2d602 */ 	jal	camGetScreenTop
-/*  f11fe4c:	00000000 */ 	nop
-/*  f11fe50:	0fc2d5fa */ 	jal	camGetScreenHeight
-/*  f11fe54:	46000586 */ 	mov.s	$f22,$f0
-/*  f11fe58:	c7b0069c */ 	lwc1	$f16,0x69c($sp)
-/*  f11fe5c:	c7a40684 */ 	lwc1	$f4,0x684($sp)
-/*  f11fe60:	46048181 */ 	sub.s	$f6,$f16,$f4
-/*  f11fe64:	46068203 */ 	div.s	$f8,$f16,$f6
-/*  f11fe68:	46004282 */ 	mul.s	$f10,$f8,$f0
-/*  f11fe6c:	46165100 */ 	add.s	$f4,$f10,$f22
-/*  f11fe70:	0fc2d5f6 */ 	jal	camGetScreenWidth
-/*  f11fe74:	e7a40548 */ 	swc1	$f4,0x548($sp)
-/*  f11fe78:	27b00650 */ 	addiu	$s0,$sp,0x650
-/*  f11fe7c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f11fe80:	461c0301 */ 	sub.s	$f12,$f0,$f28
-/*  f11fe84:	0fc47c00 */ 	jal	sky0f11f000
-/*  f11fe88:	c7ae0548 */ 	lwc1	$f14,0x548($sp)
-/*  f11fe8c:	27a40698 */ 	addiu	$a0,$sp,0x698
-/*  f11fe90:	27a50680 */ 	addiu	$a1,$sp,0x680
-/*  f11fe94:	0fc47ce1 */ 	jal	sky0f11f384
-/*  f11fe98:	02003025 */ 	or	$a2,$s0,$zero
-/*  f11fe9c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f11fea0:	27a505f0 */ 	addiu	$a1,$sp,0x5f0
-/*  f11fea4:	0fc47c1f */ 	jal	sky0f11f07c
-/*  f11fea8:	27a60570 */ 	addiu	$a2,$sp,0x570
-/*  f11feac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f11feb0:	27a50590 */ 	addiu	$a1,$sp,0x590
-/*  f11feb4:	0fc47c7f */ 	jal	sky0f11f1fc
-/*  f11feb8:	27a60550 */ 	addiu	$a2,$sp,0x550
-/*  f11febc:	10000005 */ 	b	.L0f11fed4
-/*  f11fec0:	8fa90538 */ 	lw	$t1,0x538($sp)
-/*  f11fec4:	44803000 */ 	mtc1	$zero,$f6
-.L0f11fec8:
-/*  f11fec8:	00000000 */ 	nop
-/*  f11fecc:	e7a60548 */ 	swc1	$f6,0x548($sp)
-/*  f11fed0:	8fa90538 */ 	lw	$t1,0x538($sp)
-.L0f11fed4:
-/*  f11fed4:	8fab0534 */ 	lw	$t3,0x534($sp)
-/*  f11fed8:	512b001c */ 	beql	$t1,$t3,.L0f11ff4c
-/*  f11fedc:	8faf0530 */ 	lw	$t7,0x530($sp)
-/*  f11fee0:	0fc2d5fe */ 	jal	camGetScreenLeft
-/*  f11fee4:	00000000 */ 	nop
-/*  f11fee8:	0fc2d5f6 */ 	jal	camGetScreenWidth
-/*  f11feec:	46000586 */ 	mov.s	$f22,$f0
-/*  f11fef0:	c7a206a8 */ 	lwc1	$f2,0x6a8($sp)
-/*  f11fef4:	c7b0069c */ 	lwc1	$f16,0x69c($sp)
-/*  f11fef8:	27b00674 */ 	addiu	$s0,$sp,0x674
-/*  f11fefc:	44807000 */ 	mtc1	$zero,$f14
-/*  f11ff00:	46101201 */ 	sub.s	$f8,$f2,$f16
-/*  f11ff04:	02003025 */ 	or	$a2,$s0,$zero
-/*  f11ff08:	46081283 */ 	div.s	$f10,$f2,$f8
-/*  f11ff0c:	46005102 */ 	mul.s	$f4,$f10,$f0
-/*  f11ff10:	0fc47c00 */ 	jal	sky0f11f000
-/*  f11ff14:	46162300 */ 	add.s	$f12,$f4,$f22
-/*  f11ff18:	02202025 */ 	or	$a0,$s1,$zero
-/*  f11ff1c:	27a50698 */ 	addiu	$a1,$sp,0x698
-/*  f11ff20:	0fc47ce1 */ 	jal	sky0f11f384
-/*  f11ff24:	02003025 */ 	or	$a2,$s0,$zero
-/*  f11ff28:	02002025 */ 	or	$a0,$s0,$zero
-/*  f11ff2c:	27a50614 */ 	addiu	$a1,$sp,0x614
-/*  f11ff30:	0fc47c1f */ 	jal	sky0f11f07c
-/*  f11ff34:	27a6057c */ 	addiu	$a2,$sp,0x57c
-/*  f11ff38:	02002025 */ 	or	$a0,$s0,$zero
-/*  f11ff3c:	27a505b4 */ 	addiu	$a1,$sp,0x5b4
-/*  f11ff40:	0fc47c7f */ 	jal	sky0f11f1fc
-/*  f11ff44:	27a6055c */ 	addiu	$a2,$sp,0x55c
-/*  f11ff48:	8faf0530 */ 	lw	$t7,0x530($sp)
-.L0f11ff4c:
-/*  f11ff4c:	8fb8052c */ 	lw	$t8,0x52c($sp)
-/*  f11ff50:	51f8001e */ 	beql	$t7,$t8,.L0f11ffcc
-/*  f11ff54:	8fb90538 */ 	lw	$t9,0x538($sp)
-/*  f11ff58:	0fc2d5fe */ 	jal	camGetScreenLeft
-/*  f11ff5c:	00000000 */ 	nop
-/*  f11ff60:	0fc2d5f6 */ 	jal	camGetScreenWidth
-/*  f11ff64:	46000586 */ 	mov.s	$f22,$f0
-/*  f11ff68:	c7b00690 */ 	lwc1	$f16,0x690($sp)
-/*  f11ff6c:	c7a60684 */ 	lwc1	$f6,0x684($sp)
-/*  f11ff70:	46068201 */ 	sub.s	$f8,$f16,$f6
-/*  f11ff74:	46088283 */ 	div.s	$f10,$f16,$f8
-/*  f11ff78:	46005102 */ 	mul.s	$f4,$f10,$f0
-/*  f11ff7c:	0fc2d5fa */ 	jal	camGetScreenHeight
-/*  f11ff80:	46162500 */ 	add.s	$f20,$f4,$f22
-/*  f11ff84:	27b00668 */ 	addiu	$s0,$sp,0x668
-/*  f11ff88:	02003025 */ 	or	$a2,$s0,$zero
-/*  f11ff8c:	4600a306 */ 	mov.s	$f12,$f20
-/*  f11ff90:	0fc47c00 */ 	jal	sky0f11f000
-/*  f11ff94:	461c0381 */ 	sub.s	$f14,$f0,$f28
-/*  f11ff98:	27a4068c */ 	addiu	$a0,$sp,0x68c
-/*  f11ff9c:	27a50680 */ 	addiu	$a1,$sp,0x680
-/*  f11ffa0:	0fc47ce1 */ 	jal	sky0f11f384
-/*  f11ffa4:	02003025 */ 	or	$a2,$s0,$zero
-/*  f11ffa8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f11ffac:	27a50608 */ 	addiu	$a1,$sp,0x608
-/*  f11ffb0:	0fc47c1f */ 	jal	sky0f11f07c
-/*  f11ffb4:	27a60578 */ 	addiu	$a2,$sp,0x578
-/*  f11ffb8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f11ffbc:	27a505a8 */ 	addiu	$a1,$sp,0x5a8
-/*  f11ffc0:	0fc47c7f */ 	jal	sky0f11f1fc
-/*  f11ffc4:	27a60558 */ 	addiu	$a2,$sp,0x558
-/*  f11ffc8:	8fb90538 */ 	lw	$t9,0x538($sp)
-.L0f11ffcc:
-/*  f11ffcc:	8fad0534 */ 	lw	$t5,0x534($sp)
-/*  f11ffd0:	8fa90530 */ 	lw	$t1,0x530($sp)
-/*  f11ffd4:	8fb8052c */ 	lw	$t8,0x52c($sp)
-/*  f11ffd8:	001950c0 */ 	sll	$t2,$t9,0x3
-/*  f11ffdc:	000d7080 */ 	sll	$t6,$t5,0x2
-/*  f11ffe0:	014e6025 */ 	or	$t4,$t2,$t6
-/*  f11ffe4:	00095840 */ 	sll	$t3,$t1,0x1
-/*  f11ffe8:	018b7825 */ 	or	$t7,$t4,$t3
-/*  f11ffec:	01f8c825 */ 	or	$t9,$t7,$t8
-/*  f11fff0:	2f210010 */ 	sltiu	$at,$t9,0x10
-/*  f11fff4:	1020037c */ 	beqz	$at,.L0f120de8
-/*  f11fff8:	afb90068 */ 	sw	$t9,0x68($sp)
-/*  f11fffc:	00196880 */ 	sll	$t5,$t9,0x2
-/*  f120000:	3c017f1b */ 	lui	$at,%hi(jtbl_var7f1b5004)
-/*  f120004:	002d0821 */ 	addu	$at,$at,$t5
-/*  f120008:	8c2d5004 */ 	lw	$t5,%lo(jtbl_var7f1b5004)($at)
-/*  f12000c:	01a00008 */ 	jr	$t5
-/*  f120010:	00000000 */ 	nop
-.L0f120014:
-/*  f120014:	3c017f1b */ 	lui	$at,%hi(var7f1b5044)
-/*  f120018:	00008825 */ 	or	$s1,$zero,$zero
-/*  f12001c:	10000374 */ 	b	.L0f120df0
-/*  f120020:	c4385044 */ 	lwc1	$f24,%lo(var7f1b5044)($at)
-.L0f120024:
-/*  f120024:	3c017f1b */ 	lui	$at,%hi(var7f1b5048)
-/*  f120028:	c4385048 */ 	lwc1	$f24,%lo(var7f1b5048)($at)
-/*  f12002c:	c7a205e4 */ 	lwc1	$f2,0x5e4($sp)
-/*  f120030:	c7a805e8 */ 	lwc1	$f8,0x5e8($sp)
-/*  f120034:	c7ac05ec */ 	lwc1	$f12,0x5ec($sp)
-/*  f120038:	46181182 */ 	mul.s	$f6,$f2,$f24
-/*  f12003c:	c7ae05d8 */ 	lwc1	$f14,0x5d8($sp)
-/*  f120040:	c7b005e0 */ 	lwc1	$f16,0x5e0($sp)
-/*  f120044:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f120048:	c7a805dc */ 	lwc1	$f8,0x5dc($sp)
-/*  f12004c:	c7b205cc */ 	lwc1	$f18,0x5cc($sp)
-/*  f120050:	46186102 */ 	mul.s	$f4,$f12,$f24
-/*  f120054:	e7a6043c */ 	swc1	$f6,0x43c($sp)
-/*  f120058:	c7b405d4 */ 	lwc1	$f20,0x5d4($sp)
-/*  f12005c:	46187182 */ 	mul.s	$f6,$f14,$f24
-/*  f120060:	e7aa0440 */ 	swc1	$f10,0x440($sp)
-/*  f120064:	c7b605c0 */ 	lwc1	$f22,0x5c0($sp)
-/*  f120068:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f12006c:	e7a40444 */ 	swc1	$f4,0x444($sp)
-/*  f120070:	c7a805d0 */ 	lwc1	$f8,0x5d0($sp)
-/*  f120074:	46188102 */ 	mul.s	$f4,$f16,$f24
-/*  f120078:	e7a60454 */ 	swc1	$f6,0x454($sp)
-/*  f12007c:	c7ba05c8 */ 	lwc1	$f26,0x5c8($sp)
-/*  f120080:	46189182 */ 	mul.s	$f6,$f18,$f24
-/*  f120084:	e7aa0458 */ 	swc1	$f10,0x458($sp)
-/*  f120088:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f12008c:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f120090:	e7a4045c */ 	swc1	$f4,0x45c($sp)
-/*  f120094:	c7a805c4 */ 	lwc1	$f8,0x5c4($sp)
-/*  f120098:	4618a102 */ 	mul.s	$f4,$f20,$f24
-/*  f12009c:	e7a6046c */ 	swc1	$f6,0x46c($sp)
-/*  f1200a0:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f1200a4:	4618b182 */ 	mul.s	$f6,$f22,$f24
-/*  f1200a8:	e7aa0470 */ 	swc1	$f10,0x470($sp)
-/*  f1200ac:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f1200b0:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f1200b4:	e7a40474 */ 	swc1	$f4,0x474($sp)
-/*  f1200b8:	46008200 */ 	add.s	$f8,$f16,$f0
-/*  f1200bc:	4618d102 */ 	mul.s	$f4,$f26,$f24
-/*  f1200c0:	e7a60484 */ 	swc1	$f6,0x484($sp)
-/*  f1200c4:	46006180 */ 	add.s	$f6,$f12,$f0
-/*  f1200c8:	e7a80464 */ 	swc1	$f8,0x464($sp)
-/*  f1200cc:	e7aa0488 */ 	swc1	$f10,0x488($sp)
-/*  f1200d0:	4600a280 */ 	add.s	$f10,$f20,$f0
-/*  f1200d4:	e7a6044c */ 	swc1	$f6,0x44c($sp)
-/*  f1200d8:	e7a4048c */ 	swc1	$f4,0x48c($sp)
-/*  f1200dc:	4600d100 */ 	add.s	$f4,$f26,$f0
-/*  f1200e0:	e7aa047c */ 	swc1	$f10,0x47c($sp)
-/*  f1200e4:	27a4043c */ 	addiu	$a0,$sp,0x43c
-/*  f1200e8:	8fa5056c */ 	lw	$a1,0x56c($sp)
-/*  f1200ec:	e7a40494 */ 	swc1	$f4,0x494($sp)
-/*  f1200f0:	e7a20448 */ 	swc1	$f2,0x448($sp)
-/*  f1200f4:	e7ae0460 */ 	swc1	$f14,0x460($sp)
-/*  f1200f8:	e7b20478 */ 	swc1	$f18,0x478($sp)
-/*  f1200fc:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120100:	e7b60490 */ 	swc1	$f22,0x490($sp)
-/*  f120104:	27a40454 */ 	addiu	$a0,$sp,0x454
-/*  f120108:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f12010c:	8fa50568 */ 	lw	$a1,0x568($sp)
-/*  f120110:	27a4046c */ 	addiu	$a0,$sp,0x46c
-/*  f120114:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120118:	8fa50564 */ 	lw	$a1,0x564($sp)
-/*  f12011c:	27a40484 */ 	addiu	$a0,$sp,0x484
-/*  f120120:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120124:	8fa50560 */ 	lw	$a1,0x560($sp)
-/*  f120128:	10000331 */ 	b	.L0f120df0
-/*  f12012c:	00000000 */ 	nop
-.L0f120130:
-/*  f120130:	3c017f1b */ 	lui	$at,%hi(var7f1b504c)
-/*  f120134:	c438504c */ 	lwc1	$f24,%lo(var7f1b504c)($at)
-/*  f120138:	c7a205e4 */ 	lwc1	$f2,0x5e4($sp)
-/*  f12013c:	c7a805e8 */ 	lwc1	$f8,0x5e8($sp)
-/*  f120140:	c7ac05ec */ 	lwc1	$f12,0x5ec($sp)
-/*  f120144:	46181182 */ 	mul.s	$f6,$f2,$f24
-/*  f120148:	c7ae05d8 */ 	lwc1	$f14,0x5d8($sp)
-/*  f12014c:	c7b005e0 */ 	lwc1	$f16,0x5e0($sp)
-/*  f120150:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f120154:	c7a805dc */ 	lwc1	$f8,0x5dc($sp)
-/*  f120158:	c7b2059c */ 	lwc1	$f18,0x59c($sp)
-/*  f12015c:	46186102 */ 	mul.s	$f4,$f12,$f24
-/*  f120160:	e7a6043c */ 	swc1	$f6,0x43c($sp)
-/*  f120164:	c7b405a4 */ 	lwc1	$f20,0x5a4($sp)
-/*  f120168:	46187182 */ 	mul.s	$f6,$f14,$f24
-/*  f12016c:	e7aa0440 */ 	swc1	$f10,0x440($sp)
-/*  f120170:	c7b60590 */ 	lwc1	$f22,0x590($sp)
-/*  f120174:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f120178:	e7a40444 */ 	swc1	$f4,0x444($sp)
-/*  f12017c:	c7a805a0 */ 	lwc1	$f8,0x5a0($sp)
-/*  f120180:	46188102 */ 	mul.s	$f4,$f16,$f24
-/*  f120184:	e7a60454 */ 	swc1	$f6,0x454($sp)
-/*  f120188:	c7ba0598 */ 	lwc1	$f26,0x598($sp)
-/*  f12018c:	46189182 */ 	mul.s	$f6,$f18,$f24
-/*  f120190:	e7aa0458 */ 	swc1	$f10,0x458($sp)
-/*  f120194:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f120198:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f12019c:	e7a4045c */ 	swc1	$f4,0x45c($sp)
-/*  f1201a0:	c7a80594 */ 	lwc1	$f8,0x594($sp)
-/*  f1201a4:	4618a102 */ 	mul.s	$f4,$f20,$f24
-/*  f1201a8:	e7a6046c */ 	swc1	$f6,0x46c($sp)
-/*  f1201ac:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f1201b0:	4618b182 */ 	mul.s	$f6,$f22,$f24
-/*  f1201b4:	e7aa0470 */ 	swc1	$f10,0x470($sp)
-/*  f1201b8:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f1201bc:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f1201c0:	e7a40474 */ 	swc1	$f4,0x474($sp)
-/*  f1201c4:	46008200 */ 	add.s	$f8,$f16,$f0
-/*  f1201c8:	4618d102 */ 	mul.s	$f4,$f26,$f24
-/*  f1201cc:	e7a60484 */ 	swc1	$f6,0x484($sp)
-/*  f1201d0:	46006180 */ 	add.s	$f6,$f12,$f0
-/*  f1201d4:	e7a80464 */ 	swc1	$f8,0x464($sp)
-/*  f1201d8:	e7aa0488 */ 	swc1	$f10,0x488($sp)
-/*  f1201dc:	4600a280 */ 	add.s	$f10,$f20,$f0
-/*  f1201e0:	e7a6044c */ 	swc1	$f6,0x44c($sp)
-/*  f1201e4:	e7a4048c */ 	swc1	$f4,0x48c($sp)
-/*  f1201e8:	4600d100 */ 	add.s	$f4,$f26,$f0
-/*  f1201ec:	e7aa047c */ 	swc1	$f10,0x47c($sp)
-/*  f1201f0:	27a4043c */ 	addiu	$a0,$sp,0x43c
-/*  f1201f4:	8fa5056c */ 	lw	$a1,0x56c($sp)
-/*  f1201f8:	e7a40494 */ 	swc1	$f4,0x494($sp)
-/*  f1201fc:	e7a20448 */ 	swc1	$f2,0x448($sp)
-/*  f120200:	e7ae0460 */ 	swc1	$f14,0x460($sp)
-/*  f120204:	e7b20478 */ 	swc1	$f18,0x478($sp)
-/*  f120208:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f12020c:	e7b60490 */ 	swc1	$f22,0x490($sp)
-/*  f120210:	27a40454 */ 	addiu	$a0,$sp,0x454
-/*  f120214:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120218:	8fa50568 */ 	lw	$a1,0x568($sp)
-/*  f12021c:	27a4046c */ 	addiu	$a0,$sp,0x46c
-/*  f120220:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120224:	8fa50554 */ 	lw	$a1,0x554($sp)
-/*  f120228:	27a40484 */ 	addiu	$a0,$sp,0x484
-/*  f12022c:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120230:	8fa50550 */ 	lw	$a1,0x550($sp)
-/*  f120234:	100002ee */ 	b	.L0f120df0
-/*  f120238:	00000000 */ 	nop
-.L0f12023c:
-/*  f12023c:	3c017f1b */ 	lui	$at,%hi(var7f1b5050)
-/*  f120240:	c4385050 */ 	lwc1	$f24,%lo(var7f1b5050)($at)
-/*  f120244:	c7b605c0 */ 	lwc1	$f22,0x5c0($sp)
-/*  f120248:	c7a805c4 */ 	lwc1	$f8,0x5c4($sp)
-/*  f12024c:	c7ba05c8 */ 	lwc1	$f26,0x5c8($sp)
-/*  f120250:	4618b182 */ 	mul.s	$f6,$f22,$f24
-/*  f120254:	c7b205cc */ 	lwc1	$f18,0x5cc($sp)
-/*  f120258:	c7b405d4 */ 	lwc1	$f20,0x5d4($sp)
-/*  f12025c:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f120260:	c7a805d0 */ 	lwc1	$f8,0x5d0($sp)
-/*  f120264:	c7ae0590 */ 	lwc1	$f14,0x590($sp)
-/*  f120268:	4618d102 */ 	mul.s	$f4,$f26,$f24
-/*  f12026c:	e7a6043c */ 	swc1	$f6,0x43c($sp)
-/*  f120270:	c7b00598 */ 	lwc1	$f16,0x598($sp)
-/*  f120274:	46189182 */ 	mul.s	$f6,$f18,$f24
-/*  f120278:	e7aa0440 */ 	swc1	$f10,0x440($sp)
-/*  f12027c:	c7a2059c */ 	lwc1	$f2,0x59c($sp)
-/*  f120280:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f120284:	e7a40444 */ 	swc1	$f4,0x444($sp)
-/*  f120288:	c7a80594 */ 	lwc1	$f8,0x594($sp)
-/*  f12028c:	4618a102 */ 	mul.s	$f4,$f20,$f24
-/*  f120290:	e7a60454 */ 	swc1	$f6,0x454($sp)
-/*  f120294:	c7ac05a4 */ 	lwc1	$f12,0x5a4($sp)
-/*  f120298:	46187182 */ 	mul.s	$f6,$f14,$f24
-/*  f12029c:	e7aa0458 */ 	swc1	$f10,0x458($sp)
-/*  f1202a0:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f1202a4:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f1202a8:	e7a4045c */ 	swc1	$f4,0x45c($sp)
-/*  f1202ac:	c7a805a0 */ 	lwc1	$f8,0x5a0($sp)
-/*  f1202b0:	46188102 */ 	mul.s	$f4,$f16,$f24
-/*  f1202b4:	e7a6046c */ 	swc1	$f6,0x46c($sp)
-/*  f1202b8:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f1202bc:	46181182 */ 	mul.s	$f6,$f2,$f24
-/*  f1202c0:	e7aa0470 */ 	swc1	$f10,0x470($sp)
-/*  f1202c4:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f1202c8:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f1202cc:	e7a40474 */ 	swc1	$f4,0x474($sp)
-/*  f1202d0:	4600a200 */ 	add.s	$f8,$f20,$f0
-/*  f1202d4:	46186102 */ 	mul.s	$f4,$f12,$f24
-/*  f1202d8:	e7a60484 */ 	swc1	$f6,0x484($sp)
-/*  f1202dc:	4600d180 */ 	add.s	$f6,$f26,$f0
-/*  f1202e0:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f1202e4:	e7aa0488 */ 	swc1	$f10,0x488($sp)
-/*  f1202e8:	46008280 */ 	add.s	$f10,$f16,$f0
-/*  f1202ec:	afaa0430 */ 	sw	$t2,0x430($sp)
-/*  f1202f0:	e7a4048c */ 	swc1	$f4,0x48c($sp)
-/*  f1202f4:	46006100 */ 	add.s	$f4,$f12,$f0
-/*  f1202f8:	e7a6044c */ 	swc1	$f6,0x44c($sp)
-/*  f1202fc:	e7a80464 */ 	swc1	$f8,0x464($sp)
-/*  f120300:	e7aa047c */ 	swc1	$f10,0x47c($sp)
-/*  f120304:	e7a40494 */ 	swc1	$f4,0x494($sp)
-/*  f120308:	27a4043c */ 	addiu	$a0,$sp,0x43c
-/*  f12030c:	8fa50560 */ 	lw	$a1,0x560($sp)
-/*  f120310:	e7b60448 */ 	swc1	$f22,0x448($sp)
-/*  f120314:	e7b20460 */ 	swc1	$f18,0x460($sp)
-/*  f120318:	e7ae0478 */ 	swc1	$f14,0x478($sp)
-/*  f12031c:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120320:	e7a20490 */ 	swc1	$f2,0x490($sp)
-/*  f120324:	27a40454 */ 	addiu	$a0,$sp,0x454
-/*  f120328:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f12032c:	8fa50564 */ 	lw	$a1,0x564($sp)
-/*  f120330:	27a4046c */ 	addiu	$a0,$sp,0x46c
-/*  f120334:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120338:	8fa50550 */ 	lw	$a1,0x550($sp)
-/*  f12033c:	27a40484 */ 	addiu	$a0,$sp,0x484
-/*  f120340:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120344:	8fa50554 */ 	lw	$a1,0x554($sp)
-/*  f120348:	100002a9 */ 	b	.L0f120df0
-/*  f12034c:	00000000 */ 	nop
-.L0f120350:
-/*  f120350:	3c017f1b */ 	lui	$at,%hi(var7f1b5054)
-/*  f120354:	c4385054 */ 	lwc1	$f24,%lo(var7f1b5054)($at)
-/*  f120358:	c7ae05d8 */ 	lwc1	$f14,0x5d8($sp)
-/*  f12035c:	c7a805dc */ 	lwc1	$f8,0x5dc($sp)
-/*  f120360:	c7b005e0 */ 	lwc1	$f16,0x5e0($sp)
-/*  f120364:	46187182 */ 	mul.s	$f6,$f14,$f24
-/*  f120368:	c7b605c0 */ 	lwc1	$f22,0x5c0($sp)
-/*  f12036c:	c7ba05c8 */ 	lwc1	$f26,0x5c8($sp)
-/*  f120370:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f120374:	c7a805c4 */ 	lwc1	$f8,0x5c4($sp)
-/*  f120378:	c7a205b4 */ 	lwc1	$f2,0x5b4($sp)
-/*  f12037c:	46188102 */ 	mul.s	$f4,$f16,$f24
-/*  f120380:	e7a6043c */ 	swc1	$f6,0x43c($sp)
-/*  f120384:	c7ac05bc */ 	lwc1	$f12,0x5bc($sp)
-/*  f120388:	4618b182 */ 	mul.s	$f6,$f22,$f24
-/*  f12038c:	e7aa0440 */ 	swc1	$f10,0x440($sp)
-/*  f120390:	c7b205a8 */ 	lwc1	$f18,0x5a8($sp)
-/*  f120394:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f120398:	e7a40444 */ 	swc1	$f4,0x444($sp)
-/*  f12039c:	c7a805b8 */ 	lwc1	$f8,0x5b8($sp)
-/*  f1203a0:	4618d102 */ 	mul.s	$f4,$f26,$f24
-/*  f1203a4:	e7a60454 */ 	swc1	$f6,0x454($sp)
-/*  f1203a8:	c7b405b0 */ 	lwc1	$f20,0x5b0($sp)
-/*  f1203ac:	46181182 */ 	mul.s	$f6,$f2,$f24
-/*  f1203b0:	e7aa0458 */ 	swc1	$f10,0x458($sp)
-/*  f1203b4:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f1203b8:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f1203bc:	e7a4045c */ 	swc1	$f4,0x45c($sp)
-/*  f1203c0:	c7a805ac */ 	lwc1	$f8,0x5ac($sp)
-/*  f1203c4:	46186102 */ 	mul.s	$f4,$f12,$f24
-/*  f1203c8:	e7a6046c */ 	swc1	$f6,0x46c($sp)
-/*  f1203cc:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f1203d0:	46189182 */ 	mul.s	$f6,$f18,$f24
-/*  f1203d4:	e7aa0470 */ 	swc1	$f10,0x470($sp)
-/*  f1203d8:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f1203dc:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f1203e0:	e7a40474 */ 	swc1	$f4,0x474($sp)
-/*  f1203e4:	4600d200 */ 	add.s	$f8,$f26,$f0
-/*  f1203e8:	4618a102 */ 	mul.s	$f4,$f20,$f24
-/*  f1203ec:	e7a60484 */ 	swc1	$f6,0x484($sp)
-/*  f1203f0:	46008180 */ 	add.s	$f6,$f16,$f0
-/*  f1203f4:	e7a80464 */ 	swc1	$f8,0x464($sp)
-/*  f1203f8:	e7aa0488 */ 	swc1	$f10,0x488($sp)
-/*  f1203fc:	46006280 */ 	add.s	$f10,$f12,$f0
-/*  f120400:	e7a6044c */ 	swc1	$f6,0x44c($sp)
-/*  f120404:	e7a4048c */ 	swc1	$f4,0x48c($sp)
-/*  f120408:	4600a100 */ 	add.s	$f4,$f20,$f0
-/*  f12040c:	e7aa047c */ 	swc1	$f10,0x47c($sp)
-/*  f120410:	27a4043c */ 	addiu	$a0,$sp,0x43c
-/*  f120414:	8fa50568 */ 	lw	$a1,0x568($sp)
-/*  f120418:	e7a40494 */ 	swc1	$f4,0x494($sp)
-/*  f12041c:	e7ae0448 */ 	swc1	$f14,0x448($sp)
-/*  f120420:	e7b60460 */ 	swc1	$f22,0x460($sp)
-/*  f120424:	e7a20478 */ 	swc1	$f2,0x478($sp)
-/*  f120428:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f12042c:	e7b20490 */ 	swc1	$f18,0x490($sp)
-/*  f120430:	27a40454 */ 	addiu	$a0,$sp,0x454
-/*  f120434:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120438:	8fa50560 */ 	lw	$a1,0x560($sp)
-/*  f12043c:	27a4046c */ 	addiu	$a0,$sp,0x46c
-/*  f120440:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120444:	8fa5055c */ 	lw	$a1,0x55c($sp)
-/*  f120448:	27a40484 */ 	addiu	$a0,$sp,0x484
-/*  f12044c:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120450:	8fa50558 */ 	lw	$a1,0x558($sp)
-/*  f120454:	10000266 */ 	b	.L0f120df0
-/*  f120458:	00000000 */ 	nop
-.L0f12045c:
-/*  f12045c:	3c017f1b */ 	lui	$at,%hi(var7f1b5058)
-/*  f120460:	c4385058 */ 	lwc1	$f24,%lo(var7f1b5058)($at)
-/*  f120464:	c7b205cc */ 	lwc1	$f18,0x5cc($sp)
-/*  f120468:	c7a805d0 */ 	lwc1	$f8,0x5d0($sp)
-/*  f12046c:	c7b405d4 */ 	lwc1	$f20,0x5d4($sp)
-/*  f120470:	46189182 */ 	mul.s	$f6,$f18,$f24
-/*  f120474:	c7a205e4 */ 	lwc1	$f2,0x5e4($sp)
-/*  f120478:	c7ac05ec */ 	lwc1	$f12,0x5ec($sp)
-/*  f12047c:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f120480:	c7a805e8 */ 	lwc1	$f8,0x5e8($sp)
-/*  f120484:	c7b605a8 */ 	lwc1	$f22,0x5a8($sp)
-/*  f120488:	4618a102 */ 	mul.s	$f4,$f20,$f24
-/*  f12048c:	e7a6043c */ 	swc1	$f6,0x43c($sp)
-/*  f120490:	c7ba05b0 */ 	lwc1	$f26,0x5b0($sp)
-/*  f120494:	46181182 */ 	mul.s	$f6,$f2,$f24
-/*  f120498:	e7aa0440 */ 	swc1	$f10,0x440($sp)
-/*  f12049c:	c7ae05b4 */ 	lwc1	$f14,0x5b4($sp)
-/*  f1204a0:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f1204a4:	e7a40444 */ 	swc1	$f4,0x444($sp)
-/*  f1204a8:	c7a805ac */ 	lwc1	$f8,0x5ac($sp)
-/*  f1204ac:	46186102 */ 	mul.s	$f4,$f12,$f24
-/*  f1204b0:	e7a60454 */ 	swc1	$f6,0x454($sp)
-/*  f1204b4:	c7b005bc */ 	lwc1	$f16,0x5bc($sp)
-/*  f1204b8:	4618b182 */ 	mul.s	$f6,$f22,$f24
-/*  f1204bc:	e7aa0458 */ 	swc1	$f10,0x458($sp)
-/*  f1204c0:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f1204c4:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f1204c8:	e7a4045c */ 	swc1	$f4,0x45c($sp)
-/*  f1204cc:	c7a805b8 */ 	lwc1	$f8,0x5b8($sp)
-/*  f1204d0:	4618d102 */ 	mul.s	$f4,$f26,$f24
-/*  f1204d4:	e7a6046c */ 	swc1	$f6,0x46c($sp)
-/*  f1204d8:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f1204dc:	46187182 */ 	mul.s	$f6,$f14,$f24
-/*  f1204e0:	e7aa0470 */ 	swc1	$f10,0x470($sp)
-/*  f1204e4:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f1204e8:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f1204ec:	e7a40474 */ 	swc1	$f4,0x474($sp)
-/*  f1204f0:	46006200 */ 	add.s	$f8,$f12,$f0
-/*  f1204f4:	46188102 */ 	mul.s	$f4,$f16,$f24
-/*  f1204f8:	e7a60484 */ 	swc1	$f6,0x484($sp)
-/*  f1204fc:	4600a180 */ 	add.s	$f6,$f20,$f0
-/*  f120500:	e7a80464 */ 	swc1	$f8,0x464($sp)
-/*  f120504:	e7aa0488 */ 	swc1	$f10,0x488($sp)
-/*  f120508:	4600d280 */ 	add.s	$f10,$f26,$f0
-/*  f12050c:	e7a6044c */ 	swc1	$f6,0x44c($sp)
-/*  f120510:	e7a4048c */ 	swc1	$f4,0x48c($sp)
-/*  f120514:	46008100 */ 	add.s	$f4,$f16,$f0
-/*  f120518:	e7aa047c */ 	swc1	$f10,0x47c($sp)
-/*  f12051c:	27a4043c */ 	addiu	$a0,$sp,0x43c
-/*  f120520:	8fa50564 */ 	lw	$a1,0x564($sp)
-/*  f120524:	e7a40494 */ 	swc1	$f4,0x494($sp)
-/*  f120528:	e7b20448 */ 	swc1	$f18,0x448($sp)
-/*  f12052c:	e7a20460 */ 	swc1	$f2,0x460($sp)
-/*  f120530:	e7b60478 */ 	swc1	$f22,0x478($sp)
-/*  f120534:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120538:	e7ae0490 */ 	swc1	$f14,0x490($sp)
-/*  f12053c:	27a40454 */ 	addiu	$a0,$sp,0x454
-/*  f120540:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120544:	8fa5056c */ 	lw	$a1,0x56c($sp)
-/*  f120548:	27a4046c */ 	addiu	$a0,$sp,0x46c
-/*  f12054c:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120550:	8fa50558 */ 	lw	$a1,0x558($sp)
-/*  f120554:	27a40484 */ 	addiu	$a0,$sp,0x484
-/*  f120558:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f12055c:	8fa5055c */ 	lw	$a1,0x55c($sp)
-/*  f120560:	10000223 */ 	b	.L0f120df0
-/*  f120564:	00000000 */ 	nop
-.L0f120568:
-/*  f120568:	3c017f1b */ 	lui	$at,%hi(var7f1b505c)
-/*  f12056c:	c438505c */ 	lwc1	$f24,%lo(var7f1b505c)($at)
-/*  f120570:	c7b605c0 */ 	lwc1	$f22,0x5c0($sp)
-/*  f120574:	c7a805c4 */ 	lwc1	$f8,0x5c4($sp)
-/*  f120578:	c7ba05c8 */ 	lwc1	$f26,0x5c8($sp)
-/*  f12057c:	4618b182 */ 	mul.s	$f6,$f22,$f24
-/*  f120580:	c7ae05a8 */ 	lwc1	$f14,0x5a8($sp)
-/*  f120584:	c7b005b0 */ 	lwc1	$f16,0x5b0($sp)
-/*  f120588:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f12058c:	c7a805ac */ 	lwc1	$f8,0x5ac($sp)
-/*  f120590:	c7a20590 */ 	lwc1	$f2,0x590($sp)
-/*  f120594:	4618d102 */ 	mul.s	$f4,$f26,$f24
-/*  f120598:	e7a6043c */ 	swc1	$f6,0x43c($sp)
-/*  f12059c:	c7ac0598 */ 	lwc1	$f12,0x598($sp)
-/*  f1205a0:	46187182 */ 	mul.s	$f6,$f14,$f24
-/*  f1205a4:	e7aa0440 */ 	swc1	$f10,0x440($sp)
-/*  f1205a8:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f1205ac:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f1205b0:	e7a40444 */ 	swc1	$f4,0x444($sp)
-/*  f1205b4:	c7a80594 */ 	lwc1	$f8,0x594($sp)
-/*  f1205b8:	46188102 */ 	mul.s	$f4,$f16,$f24
-/*  f1205bc:	e7a60454 */ 	swc1	$f6,0x454($sp)
-/*  f1205c0:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f1205c4:	46181182 */ 	mul.s	$f6,$f2,$f24
-/*  f1205c8:	e7aa0458 */ 	swc1	$f10,0x458($sp)
-/*  f1205cc:	24110003 */ 	addiu	$s1,$zero,0x3
-/*  f1205d0:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f1205d4:	e7a4045c */ 	swc1	$f4,0x45c($sp)
-/*  f1205d8:	46008200 */ 	add.s	$f8,$f16,$f0
-/*  f1205dc:	46186102 */ 	mul.s	$f4,$f12,$f24
-/*  f1205e0:	e7a6046c */ 	swc1	$f6,0x46c($sp)
-/*  f1205e4:	4600d180 */ 	add.s	$f6,$f26,$f0
-/*  f1205e8:	e7a80464 */ 	swc1	$f8,0x464($sp)
-/*  f1205ec:	e7aa0470 */ 	swc1	$f10,0x470($sp)
-/*  f1205f0:	46006280 */ 	add.s	$f10,$f12,$f0
-/*  f1205f4:	e7a6044c */ 	swc1	$f6,0x44c($sp)
-/*  f1205f8:	e7a40474 */ 	swc1	$f4,0x474($sp)
-/*  f1205fc:	27a4043c */ 	addiu	$a0,$sp,0x43c
-/*  f120600:	e7aa047c */ 	swc1	$f10,0x47c($sp)
-/*  f120604:	8fa50560 */ 	lw	$a1,0x560($sp)
-/*  f120608:	e7b60448 */ 	swc1	$f22,0x448($sp)
-/*  f12060c:	e7ae0460 */ 	swc1	$f14,0x460($sp)
-/*  f120610:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120614:	e7a20478 */ 	swc1	$f2,0x478($sp)
-/*  f120618:	27a40454 */ 	addiu	$a0,$sp,0x454
-/*  f12061c:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120620:	8fa50558 */ 	lw	$a1,0x558($sp)
-/*  f120624:	27a4046c */ 	addiu	$a0,$sp,0x46c
-/*  f120628:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f12062c:	8fa50550 */ 	lw	$a1,0x550($sp)
-/*  f120630:	100001ef */ 	b	.L0f120df0
-/*  f120634:	00000000 */ 	nop
-.L0f120638:
-/*  f120638:	3c017f1b */ 	lui	$at,%hi(var7f1b5060)
-/*  f12063c:	c4385060 */ 	lwc1	$f24,%lo(var7f1b5060)($at)
-/*  f120640:	c7b205cc */ 	lwc1	$f18,0x5cc($sp)
-/*  f120644:	c7a605d0 */ 	lwc1	$f6,0x5d0($sp)
-/*  f120648:	c7b405d4 */ 	lwc1	$f20,0x5d4($sp)
-/*  f12064c:	46189102 */ 	mul.s	$f4,$f18,$f24
-/*  f120650:	c7a2059c */ 	lwc1	$f2,0x59c($sp)
-/*  f120654:	c7ac05a4 */ 	lwc1	$f12,0x5a4($sp)
-/*  f120658:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f12065c:	c7a605a0 */ 	lwc1	$f6,0x5a0($sp)
-/*  f120660:	c7ae05a8 */ 	lwc1	$f14,0x5a8($sp)
-/*  f120664:	4618a282 */ 	mul.s	$f10,$f20,$f24
-/*  f120668:	e7a4043c */ 	swc1	$f4,0x43c($sp)
-/*  f12066c:	c7b005b0 */ 	lwc1	$f16,0x5b0($sp)
-/*  f120670:	46181102 */ 	mul.s	$f4,$f2,$f24
-/*  f120674:	e7a80440 */ 	swc1	$f8,0x440($sp)
-/*  f120678:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f12067c:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f120680:	e7aa0444 */ 	swc1	$f10,0x444($sp)
-/*  f120684:	c7a605ac */ 	lwc1	$f6,0x5ac($sp)
-/*  f120688:	46186282 */ 	mul.s	$f10,$f12,$f24
-/*  f12068c:	e7a40454 */ 	swc1	$f4,0x454($sp)
-/*  f120690:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f120694:	46187102 */ 	mul.s	$f4,$f14,$f24
-/*  f120698:	e7a80458 */ 	swc1	$f8,0x458($sp)
-/*  f12069c:	24110003 */ 	addiu	$s1,$zero,0x3
-/*  f1206a0:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f1206a4:	e7aa045c */ 	swc1	$f10,0x45c($sp)
-/*  f1206a8:	46006180 */ 	add.s	$f6,$f12,$f0
-/*  f1206ac:	46188282 */ 	mul.s	$f10,$f16,$f24
-/*  f1206b0:	e7a4046c */ 	swc1	$f4,0x46c($sp)
-/*  f1206b4:	4600a100 */ 	add.s	$f4,$f20,$f0
-/*  f1206b8:	e7a60464 */ 	swc1	$f6,0x464($sp)
-/*  f1206bc:	e7a80470 */ 	swc1	$f8,0x470($sp)
-/*  f1206c0:	46008200 */ 	add.s	$f8,$f16,$f0
-/*  f1206c4:	e7a4044c */ 	swc1	$f4,0x44c($sp)
-/*  f1206c8:	e7aa0474 */ 	swc1	$f10,0x474($sp)
-/*  f1206cc:	27a4043c */ 	addiu	$a0,$sp,0x43c
-/*  f1206d0:	e7a8047c */ 	swc1	$f8,0x47c($sp)
-/*  f1206d4:	8fa50564 */ 	lw	$a1,0x564($sp)
-/*  f1206d8:	e7b20448 */ 	swc1	$f18,0x448($sp)
-/*  f1206dc:	e7a20460 */ 	swc1	$f2,0x460($sp)
-/*  f1206e0:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f1206e4:	e7ae0478 */ 	swc1	$f14,0x478($sp)
-/*  f1206e8:	27a40454 */ 	addiu	$a0,$sp,0x454
-/*  f1206ec:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f1206f0:	8fa50554 */ 	lw	$a1,0x554($sp)
-/*  f1206f4:	27a4046c */ 	addiu	$a0,$sp,0x46c
-/*  f1206f8:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f1206fc:	8fa50558 */ 	lw	$a1,0x558($sp)
-/*  f120700:	100001bb */ 	b	.L0f120df0
-/*  f120704:	00000000 */ 	nop
-.L0f120708:
-/*  f120708:	3c017f1b */ 	lui	$at,%hi(var7f1b5064)
-/*  f12070c:	c4385064 */ 	lwc1	$f24,%lo(var7f1b5064)($at)
-/*  f120710:	c7ae05d8 */ 	lwc1	$f14,0x5d8($sp)
-/*  f120714:	c7a405dc */ 	lwc1	$f4,0x5dc($sp)
-/*  f120718:	c7b005e0 */ 	lwc1	$f16,0x5e0($sp)
-/*  f12071c:	46187282 */ 	mul.s	$f10,$f14,$f24
-/*  f120720:	c7b20590 */ 	lwc1	$f18,0x590($sp)
-/*  f120724:	c7b40598 */ 	lwc1	$f20,0x598($sp)
-/*  f120728:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f12072c:	c7a40594 */ 	lwc1	$f4,0x594($sp)
-/*  f120730:	c7a205b4 */ 	lwc1	$f2,0x5b4($sp)
-/*  f120734:	46188202 */ 	mul.s	$f8,$f16,$f24
-/*  f120738:	e7aa043c */ 	swc1	$f10,0x43c($sp)
-/*  f12073c:	c7ac05bc */ 	lwc1	$f12,0x5bc($sp)
-/*  f120740:	46189282 */ 	mul.s	$f10,$f18,$f24
-/*  f120744:	e7a60440 */ 	swc1	$f6,0x440($sp)
-/*  f120748:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f12074c:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f120750:	e7a80444 */ 	swc1	$f8,0x444($sp)
-/*  f120754:	c7a405b8 */ 	lwc1	$f4,0x5b8($sp)
-/*  f120758:	4618a202 */ 	mul.s	$f8,$f20,$f24
-/*  f12075c:	e7aa0454 */ 	swc1	$f10,0x454($sp)
-/*  f120760:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f120764:	46181282 */ 	mul.s	$f10,$f2,$f24
-/*  f120768:	e7a60458 */ 	swc1	$f6,0x458($sp)
-/*  f12076c:	24110003 */ 	addiu	$s1,$zero,0x3
-/*  f120770:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f120774:	e7a8045c */ 	swc1	$f8,0x45c($sp)
-/*  f120778:	4600a100 */ 	add.s	$f4,$f20,$f0
-/*  f12077c:	46186202 */ 	mul.s	$f8,$f12,$f24
-/*  f120780:	e7aa046c */ 	swc1	$f10,0x46c($sp)
-/*  f120784:	46008280 */ 	add.s	$f10,$f16,$f0
-/*  f120788:	e7a40464 */ 	swc1	$f4,0x464($sp)
-/*  f12078c:	e7a60470 */ 	swc1	$f6,0x470($sp)
-/*  f120790:	46006180 */ 	add.s	$f6,$f12,$f0
-/*  f120794:	e7aa044c */ 	swc1	$f10,0x44c($sp)
-/*  f120798:	e7a80474 */ 	swc1	$f8,0x474($sp)
-/*  f12079c:	27a4043c */ 	addiu	$a0,$sp,0x43c
-/*  f1207a0:	e7a6047c */ 	swc1	$f6,0x47c($sp)
-/*  f1207a4:	8fa50568 */ 	lw	$a1,0x568($sp)
-/*  f1207a8:	e7ae0448 */ 	swc1	$f14,0x448($sp)
-/*  f1207ac:	e7b20460 */ 	swc1	$f18,0x460($sp)
-/*  f1207b0:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f1207b4:	e7a20478 */ 	swc1	$f2,0x478($sp)
-/*  f1207b8:	27a40454 */ 	addiu	$a0,$sp,0x454
-/*  f1207bc:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f1207c0:	8fa50550 */ 	lw	$a1,0x550($sp)
-/*  f1207c4:	27a4046c */ 	addiu	$a0,$sp,0x46c
-/*  f1207c8:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f1207cc:	8fa5055c */ 	lw	$a1,0x55c($sp)
-/*  f1207d0:	10000187 */ 	b	.L0f120df0
-/*  f1207d4:	00000000 */ 	nop
-.L0f1207d8:
-/*  f1207d8:	3c017f1b */ 	lui	$at,%hi(var7f1b5068)
-/*  f1207dc:	c4385068 */ 	lwc1	$f24,%lo(var7f1b5068)($at)
-/*  f1207e0:	c7a205e4 */ 	lwc1	$f2,0x5e4($sp)
-/*  f1207e4:	c7aa05e8 */ 	lwc1	$f10,0x5e8($sp)
-/*  f1207e8:	c7ac05ec */ 	lwc1	$f12,0x5ec($sp)
-/*  f1207ec:	46181202 */ 	mul.s	$f8,$f2,$f24
-/*  f1207f0:	c7ae05b4 */ 	lwc1	$f14,0x5b4($sp)
-/*  f1207f4:	c7b005bc */ 	lwc1	$f16,0x5bc($sp)
-/*  f1207f8:	46185102 */ 	mul.s	$f4,$f10,$f24
-/*  f1207fc:	c7aa05b8 */ 	lwc1	$f10,0x5b8($sp)
-/*  f120800:	c7b2059c */ 	lwc1	$f18,0x59c($sp)
-/*  f120804:	46186182 */ 	mul.s	$f6,$f12,$f24
-/*  f120808:	e7a8043c */ 	swc1	$f8,0x43c($sp)
-/*  f12080c:	c7b405a4 */ 	lwc1	$f20,0x5a4($sp)
-/*  f120810:	46187202 */ 	mul.s	$f8,$f14,$f24
-/*  f120814:	e7a40440 */ 	swc1	$f4,0x440($sp)
-/*  f120818:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f12081c:	46185102 */ 	mul.s	$f4,$f10,$f24
-/*  f120820:	e7a60444 */ 	swc1	$f6,0x444($sp)
-/*  f120824:	c7aa05a0 */ 	lwc1	$f10,0x5a0($sp)
-/*  f120828:	46188182 */ 	mul.s	$f6,$f16,$f24
-/*  f12082c:	e7a80454 */ 	swc1	$f8,0x454($sp)
-/*  f120830:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f120834:	46189202 */ 	mul.s	$f8,$f18,$f24
-/*  f120838:	e7a40458 */ 	swc1	$f4,0x458($sp)
-/*  f12083c:	24110003 */ 	addiu	$s1,$zero,0x3
-/*  f120840:	46185102 */ 	mul.s	$f4,$f10,$f24
-/*  f120844:	e7a6045c */ 	swc1	$f6,0x45c($sp)
-/*  f120848:	46008280 */ 	add.s	$f10,$f16,$f0
-/*  f12084c:	4618a182 */ 	mul.s	$f6,$f20,$f24
-/*  f120850:	e7a8046c */ 	swc1	$f8,0x46c($sp)
-/*  f120854:	46006200 */ 	add.s	$f8,$f12,$f0
-/*  f120858:	e7aa0464 */ 	swc1	$f10,0x464($sp)
-/*  f12085c:	e7a40470 */ 	swc1	$f4,0x470($sp)
-/*  f120860:	4600a100 */ 	add.s	$f4,$f20,$f0
-/*  f120864:	e7a8044c */ 	swc1	$f8,0x44c($sp)
-/*  f120868:	e7a60474 */ 	swc1	$f6,0x474($sp)
-/*  f12086c:	27a4043c */ 	addiu	$a0,$sp,0x43c
-/*  f120870:	e7a4047c */ 	swc1	$f4,0x47c($sp)
-/*  f120874:	8fa5056c */ 	lw	$a1,0x56c($sp)
-/*  f120878:	e7a20448 */ 	swc1	$f2,0x448($sp)
-/*  f12087c:	e7ae0460 */ 	swc1	$f14,0x460($sp)
-/*  f120880:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120884:	e7b20478 */ 	swc1	$f18,0x478($sp)
-/*  f120888:	27a40454 */ 	addiu	$a0,$sp,0x454
-/*  f12088c:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120890:	8fa5055c */ 	lw	$a1,0x55c($sp)
-/*  f120894:	27a4046c */ 	addiu	$a0,$sp,0x46c
-/*  f120898:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f12089c:	8fa50554 */ 	lw	$a1,0x554($sp)
-/*  f1208a0:	10000153 */ 	b	.L0f120df0
-/*  f1208a4:	00000000 */ 	nop
-.L0f1208a8:
-/*  f1208a8:	3c017f1b */ 	lui	$at,%hi(var7f1b506c)
-/*  f1208ac:	c438506c */ 	lwc1	$f24,%lo(var7f1b506c)($at)
-/*  f1208b0:	c7b205cc */ 	lwc1	$f18,0x5cc($sp)
-/*  f1208b4:	c7a805d0 */ 	lwc1	$f8,0x5d0($sp)
-/*  f1208b8:	c7b405d4 */ 	lwc1	$f20,0x5d4($sp)
-/*  f1208bc:	46189182 */ 	mul.s	$f6,$f18,$f24
-/*  f1208c0:	c7a205e4 */ 	lwc1	$f2,0x5e4($sp)
-/*  f1208c4:	c7ac05ec */ 	lwc1	$f12,0x5ec($sp)
-/*  f1208c8:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f1208cc:	c7a805e8 */ 	lwc1	$f8,0x5e8($sp)
-/*  f1208d0:	c7ae05d8 */ 	lwc1	$f14,0x5d8($sp)
-/*  f1208d4:	4618a102 */ 	mul.s	$f4,$f20,$f24
-/*  f1208d8:	e7a6043c */ 	swc1	$f6,0x43c($sp)
-/*  f1208dc:	c7b005e0 */ 	lwc1	$f16,0x5e0($sp)
-/*  f1208e0:	46181182 */ 	mul.s	$f6,$f2,$f24
-/*  f1208e4:	e7aa0440 */ 	swc1	$f10,0x440($sp)
-/*  f1208e8:	c7b60590 */ 	lwc1	$f22,0x590($sp)
-/*  f1208ec:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f1208f0:	e7a40444 */ 	swc1	$f4,0x444($sp)
-/*  f1208f4:	c7a805dc */ 	lwc1	$f8,0x5dc($sp)
-/*  f1208f8:	46186102 */ 	mul.s	$f4,$f12,$f24
-/*  f1208fc:	e7a60454 */ 	swc1	$f6,0x454($sp)
-/*  f120900:	c7ba0598 */ 	lwc1	$f26,0x598($sp)
-/*  f120904:	46187182 */ 	mul.s	$f6,$f14,$f24
-/*  f120908:	e7aa0458 */ 	swc1	$f10,0x458($sp)
-/*  f12090c:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f120910:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f120914:	e7a4045c */ 	swc1	$f4,0x45c($sp)
-/*  f120918:	c7a80594 */ 	lwc1	$f8,0x594($sp)
-/*  f12091c:	46188102 */ 	mul.s	$f4,$f16,$f24
-/*  f120920:	e7a6046c */ 	swc1	$f6,0x46c($sp)
-/*  f120924:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f120928:	4618b182 */ 	mul.s	$f6,$f22,$f24
-/*  f12092c:	e7aa0470 */ 	swc1	$f10,0x470($sp)
-/*  f120930:	24110005 */ 	addiu	$s1,$zero,0x5
-/*  f120934:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f120938:	e7a40474 */ 	swc1	$f4,0x474($sp)
-/*  f12093c:	27a4043c */ 	addiu	$a0,$sp,0x43c
-/*  f120940:	4618d102 */ 	mul.s	$f4,$f26,$f24
-/*  f120944:	e7a60484 */ 	swc1	$f6,0x484($sp)
-/*  f120948:	c7a605a8 */ 	lwc1	$f6,0x5a8($sp)
-/*  f12094c:	8fa50564 */ 	lw	$a1,0x564($sp)
-/*  f120950:	e7aa0488 */ 	swc1	$f10,0x488($sp)
-/*  f120954:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f120958:	c7aa05ac */ 	lwc1	$f10,0x5ac($sp)
-/*  f12095c:	e7a4048c */ 	swc1	$f4,0x48c($sp)
-/*  f120960:	c7a605b0 */ 	lwc1	$f6,0x5b0($sp)
-/*  f120964:	46185102 */ 	mul.s	$f4,$f10,$f24
-/*  f120968:	4600a280 */ 	add.s	$f10,$f20,$f0
-/*  f12096c:	e7b20448 */ 	swc1	$f18,0x448($sp)
-/*  f120970:	e7a8049c */ 	swc1	$f8,0x49c($sp)
-/*  f120974:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f120978:	46008180 */ 	add.s	$f6,$f16,$f0
-/*  f12097c:	e7aa044c */ 	swc1	$f10,0x44c($sp)
-/*  f120980:	e7a404a0 */ 	swc1	$f4,0x4a0($sp)
-/*  f120984:	c7aa05a8 */ 	lwc1	$f10,0x5a8($sp)
-/*  f120988:	46006100 */ 	add.s	$f4,$f12,$f0
-/*  f12098c:	e7a6047c */ 	swc1	$f6,0x47c($sp)
-/*  f120990:	e7a804a4 */ 	swc1	$f8,0x4a4($sp)
-/*  f120994:	4600d200 */ 	add.s	$f8,$f26,$f0
-/*  f120998:	e7a40464 */ 	swc1	$f4,0x464($sp)
-/*  f12099c:	c7a405b0 */ 	lwc1	$f4,0x5b0($sp)
-/*  f1209a0:	e7a20460 */ 	swc1	$f2,0x460($sp)
-/*  f1209a4:	e7a80494 */ 	swc1	$f8,0x494($sp)
-/*  f1209a8:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f1209ac:	e7ae0478 */ 	swc1	$f14,0x478($sp)
-/*  f1209b0:	e7b60490 */ 	swc1	$f22,0x490($sp)
-/*  f1209b4:	e7aa04a8 */ 	swc1	$f10,0x4a8($sp)
-/*  f1209b8:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f1209bc:	e7a604ac */ 	swc1	$f6,0x4ac($sp)
-/*  f1209c0:	27a40454 */ 	addiu	$a0,$sp,0x454
-/*  f1209c4:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f1209c8:	8fa5056c */ 	lw	$a1,0x56c($sp)
-/*  f1209cc:	27a4046c */ 	addiu	$a0,$sp,0x46c
-/*  f1209d0:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f1209d4:	8fa50568 */ 	lw	$a1,0x568($sp)
-/*  f1209d8:	27a40484 */ 	addiu	$a0,$sp,0x484
-/*  f1209dc:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f1209e0:	8fa50550 */ 	lw	$a1,0x550($sp)
-/*  f1209e4:	27a4049c */ 	addiu	$a0,$sp,0x49c
-/*  f1209e8:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f1209ec:	8fa50558 */ 	lw	$a1,0x558($sp)
-/*  f1209f0:	100000ff */ 	b	.L0f120df0
-/*  f1209f4:	00000000 */ 	nop
-.L0f1209f8:
-/*  f1209f8:	c7ba05e4 */ 	lwc1	$f26,0x5e4($sp)
-/*  f1209fc:	c7b605ec */ 	lwc1	$f22,0x5ec($sp)
-/*  f120a00:	c7b405d8 */ 	lwc1	$f20,0x5d8($sp)
-/*  f120a04:	c7b205e0 */ 	lwc1	$f18,0x5e0($sp)
-/*  f120a08:	c7b005c0 */ 	lwc1	$f16,0x5c0($sp)
-/*  f120a0c:	c7ae059c */ 	lwc1	$f14,0x59c($sp)
-/*  f120a10:	c7ac05a4 */ 	lwc1	$f12,0x5a4($sp)
-/*  f120a14:	c7aa05e8 */ 	lwc1	$f10,0x5e8($sp)
-/*  f120a18:	c7a805c8 */ 	lwc1	$f8,0x5c8($sp)
-/*  f120a1c:	c7a605dc */ 	lwc1	$f6,0x5dc($sp)
-/*  f120a20:	3c017f1b */ 	lui	$at,%hi(var7f1b5070)
-/*  f120a24:	c4385070 */ 	lwc1	$f24,%lo(var7f1b5070)($at)
-/*  f120a28:	c7a405c4 */ 	lwc1	$f4,0x5c4($sp)
-/*  f120a2c:	c7a205a8 */ 	lwc1	$f2,0x5a8($sp)
-/*  f120a30:	46185282 */ 	mul.s	$f10,$f10,$f24
-/*  f120a34:	c7a005ac */ 	lwc1	$f0,0x5ac($sp)
-/*  f120a38:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f120a3c:	46183182 */ 	mul.s	$f6,$f6,$f24
-/*  f120a40:	24110005 */ 	addiu	$s1,$zero,0x5
-/*  f120a44:	e7ba0448 */ 	swc1	$f26,0x448($sp)
-/*  f120a48:	4618d682 */ 	mul.s	$f26,$f26,$f24
-/*  f120a4c:	e7aa0440 */ 	swc1	$f10,0x440($sp)
-/*  f120a50:	c7aa05b0 */ 	lwc1	$f10,0x5b0($sp)
-/*  f120a54:	46182102 */ 	mul.s	$f4,$f4,$f24
-/*  f120a58:	e7a60458 */ 	swc1	$f6,0x458($sp)
-/*  f120a5c:	c7a605a0 */ 	lwc1	$f6,0x5a0($sp)
-/*  f120a60:	46181082 */ 	mul.s	$f2,$f2,$f24
-/*  f120a64:	e7ba043c */ 	swc1	$f26,0x43c($sp)
-/*  f120a68:	c43adb80 */ 	lwc1	$f26,%lo(g_SkyCloudOffset)($at)
-/*  f120a6c:	46185282 */ 	mul.s	$f10,$f10,$f24
-/*  f120a70:	e7a40470 */ 	swc1	$f4,0x470($sp)
-/*  f120a74:	c7a405b0 */ 	lwc1	$f4,0x5b0($sp)
-/*  f120a78:	e7b40460 */ 	swc1	$f20,0x460($sp)
-/*  f120a7c:	4618a502 */ 	mul.s	$f20,$f20,$f24
-/*  f120a80:	e7a20484 */ 	swc1	$f2,0x484($sp)
-/*  f120a84:	c7a205a8 */ 	lwc1	$f2,0x5a8($sp)
-/*  f120a88:	e7aa048c */ 	swc1	$f10,0x48c($sp)
-/*  f120a8c:	4618b282 */ 	mul.s	$f10,$f22,$f24
-/*  f120a90:	e7a20490 */ 	swc1	$f2,0x490($sp)
-/*  f120a94:	e7b00478 */ 	swc1	$f16,0x478($sp)
-/*  f120a98:	46188402 */ 	mul.s	$f16,$f16,$f24
-/*  f120a9c:	e7b40454 */ 	swc1	$f20,0x454($sp)
-/*  f120aa0:	e7ae04a8 */ 	swc1	$f14,0x4a8($sp)
-/*  f120aa4:	46189502 */ 	mul.s	$f20,$f18,$f24
-/*  f120aa8:	e7aa0444 */ 	swc1	$f10,0x444($sp)
-/*  f120aac:	27a4043c */ 	addiu	$a0,$sp,0x43c
-/*  f120ab0:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f120ab4:	e7b0046c */ 	swc1	$f16,0x46c($sp)
-/*  f120ab8:	8fa5056c */ 	lw	$a1,0x56c($sp)
-/*  f120abc:	46180002 */ 	mul.s	$f0,$f0,$f24
-/*  f120ac0:	e7b4045c */ 	swc1	$f20,0x45c($sp)
-/*  f120ac4:	461a9480 */ 	add.s	$f18,$f18,$f26
-/*  f120ac8:	46187382 */ 	mul.s	$f14,$f14,$f24
-/*  f120acc:	e7aa0474 */ 	swc1	$f10,0x474($sp)
-/*  f120ad0:	461ab580 */ 	add.s	$f22,$f22,$f26
-/*  f120ad4:	46183182 */ 	mul.s	$f6,$f6,$f24
-/*  f120ad8:	e7a00488 */ 	swc1	$f0,0x488($sp)
-/*  f120adc:	461a4200 */ 	add.s	$f8,$f8,$f26
-/*  f120ae0:	46186002 */ 	mul.s	$f0,$f12,$f24
-/*  f120ae4:	e7ae049c */ 	swc1	$f14,0x49c($sp)
-/*  f120ae8:	461a2100 */ 	add.s	$f4,$f4,$f26
-/*  f120aec:	e7b6044c */ 	swc1	$f22,0x44c($sp)
-/*  f120af0:	e7a604a0 */ 	swc1	$f6,0x4a0($sp)
-/*  f120af4:	461a6680 */ 	add.s	$f26,$f12,$f26
-/*  f120af8:	e7b20464 */ 	swc1	$f18,0x464($sp)
-/*  f120afc:	e7a004a4 */ 	swc1	$f0,0x4a4($sp)
-/*  f120b00:	e7a8047c */ 	swc1	$f8,0x47c($sp)
-/*  f120b04:	e7a40494 */ 	swc1	$f4,0x494($sp)
-/*  f120b08:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120b0c:	e7ba04ac */ 	swc1	$f26,0x4ac($sp)
-/*  f120b10:	27a40454 */ 	addiu	$a0,$sp,0x454
-/*  f120b14:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120b18:	8fa50568 */ 	lw	$a1,0x568($sp)
-/*  f120b1c:	27a4046c */ 	addiu	$a0,$sp,0x46c
-/*  f120b20:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120b24:	8fa50560 */ 	lw	$a1,0x560($sp)
-/*  f120b28:	27a40484 */ 	addiu	$a0,$sp,0x484
-/*  f120b2c:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120b30:	8fa50558 */ 	lw	$a1,0x558($sp)
-/*  f120b34:	27a4049c */ 	addiu	$a0,$sp,0x49c
-/*  f120b38:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120b3c:	8fa50554 */ 	lw	$a1,0x554($sp)
-/*  f120b40:	100000ab */ 	b	.L0f120df0
-/*  f120b44:	00000000 */ 	nop
-.L0f120b48:
-/*  f120b48:	3c017f1b */ 	lui	$at,%hi(var7f1b5074)
-/*  f120b4c:	c4385074 */ 	lwc1	$f24,%lo(var7f1b5074)($at)
-/*  f120b50:	c7b605c0 */ 	lwc1	$f22,0x5c0($sp)
-/*  f120b54:	c7a405c4 */ 	lwc1	$f4,0x5c4($sp)
-/*  f120b58:	c7ba05c8 */ 	lwc1	$f26,0x5c8($sp)
-/*  f120b5c:	4618b282 */ 	mul.s	$f10,$f22,$f24
-/*  f120b60:	c7b205cc */ 	lwc1	$f18,0x5cc($sp)
-/*  f120b64:	c7b405d4 */ 	lwc1	$f20,0x5d4($sp)
-/*  f120b68:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f120b6c:	c7a405d0 */ 	lwc1	$f4,0x5d0($sp)
-/*  f120b70:	c7a205e4 */ 	lwc1	$f2,0x5e4($sp)
-/*  f120b74:	4618d202 */ 	mul.s	$f8,$f26,$f24
-/*  f120b78:	e7aa043c */ 	swc1	$f10,0x43c($sp)
-/*  f120b7c:	c7ac05ec */ 	lwc1	$f12,0x5ec($sp)
-/*  f120b80:	46189282 */ 	mul.s	$f10,$f18,$f24
-/*  f120b84:	e7a60440 */ 	swc1	$f6,0x440($sp)
-/*  f120b88:	c7ae05b4 */ 	lwc1	$f14,0x5b4($sp)
-/*  f120b8c:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f120b90:	e7a80444 */ 	swc1	$f8,0x444($sp)
-/*  f120b94:	c7a405e8 */ 	lwc1	$f4,0x5e8($sp)
-/*  f120b98:	4618a202 */ 	mul.s	$f8,$f20,$f24
-/*  f120b9c:	e7aa0454 */ 	swc1	$f10,0x454($sp)
-/*  f120ba0:	c7b005bc */ 	lwc1	$f16,0x5bc($sp)
-/*  f120ba4:	46181282 */ 	mul.s	$f10,$f2,$f24
-/*  f120ba8:	e7a60458 */ 	swc1	$f6,0x458($sp)
-/*  f120bac:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f120bb0:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f120bb4:	e7a8045c */ 	swc1	$f8,0x45c($sp)
-/*  f120bb8:	c7a405b8 */ 	lwc1	$f4,0x5b8($sp)
-/*  f120bbc:	46186202 */ 	mul.s	$f8,$f12,$f24
-/*  f120bc0:	e7aa046c */ 	swc1	$f10,0x46c($sp)
-/*  f120bc4:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f120bc8:	46187282 */ 	mul.s	$f10,$f14,$f24
-/*  f120bcc:	e7a60470 */ 	swc1	$f6,0x470($sp)
-/*  f120bd0:	24110005 */ 	addiu	$s1,$zero,0x5
-/*  f120bd4:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f120bd8:	e7a80474 */ 	swc1	$f8,0x474($sp)
-/*  f120bdc:	27a4043c */ 	addiu	$a0,$sp,0x43c
-/*  f120be0:	46188202 */ 	mul.s	$f8,$f16,$f24
-/*  f120be4:	e7aa0484 */ 	swc1	$f10,0x484($sp)
-/*  f120be8:	c7aa0590 */ 	lwc1	$f10,0x590($sp)
-/*  f120bec:	8fa50560 */ 	lw	$a1,0x560($sp)
-/*  f120bf0:	e7a60488 */ 	swc1	$f6,0x488($sp)
-/*  f120bf4:	46185102 */ 	mul.s	$f4,$f10,$f24
-/*  f120bf8:	c7a60594 */ 	lwc1	$f6,0x594($sp)
-/*  f120bfc:	e7a8048c */ 	swc1	$f8,0x48c($sp)
-/*  f120c00:	c7aa0598 */ 	lwc1	$f10,0x598($sp)
-/*  f120c04:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f120c08:	4600d180 */ 	add.s	$f6,$f26,$f0
-/*  f120c0c:	e7b60448 */ 	swc1	$f22,0x448($sp)
-/*  f120c10:	e7a4049c */ 	swc1	$f4,0x49c($sp)
-/*  f120c14:	46185102 */ 	mul.s	$f4,$f10,$f24
-/*  f120c18:	46006280 */ 	add.s	$f10,$f12,$f0
-/*  f120c1c:	e7a6044c */ 	swc1	$f6,0x44c($sp)
-/*  f120c20:	e7a804a0 */ 	swc1	$f8,0x4a0($sp)
-/*  f120c24:	c7a60590 */ 	lwc1	$f6,0x590($sp)
-/*  f120c28:	4600a200 */ 	add.s	$f8,$f20,$f0
-/*  f120c2c:	e7aa047c */ 	swc1	$f10,0x47c($sp)
-/*  f120c30:	e7a404a4 */ 	swc1	$f4,0x4a4($sp)
-/*  f120c34:	46008100 */ 	add.s	$f4,$f16,$f0
-/*  f120c38:	e7a80464 */ 	swc1	$f8,0x464($sp)
-/*  f120c3c:	c7a80598 */ 	lwc1	$f8,0x598($sp)
-/*  f120c40:	e7b20460 */ 	swc1	$f18,0x460($sp)
-/*  f120c44:	e7a40494 */ 	swc1	$f4,0x494($sp)
-/*  f120c48:	46004280 */ 	add.s	$f10,$f8,$f0
-/*  f120c4c:	e7a20478 */ 	swc1	$f2,0x478($sp)
-/*  f120c50:	e7ae0490 */ 	swc1	$f14,0x490($sp)
-/*  f120c54:	e7a604a8 */ 	swc1	$f6,0x4a8($sp)
-/*  f120c58:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120c5c:	e7aa04ac */ 	swc1	$f10,0x4ac($sp)
-/*  f120c60:	27a40454 */ 	addiu	$a0,$sp,0x454
-/*  f120c64:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120c68:	8fa50564 */ 	lw	$a1,0x564($sp)
-/*  f120c6c:	27a4046c */ 	addiu	$a0,$sp,0x46c
-/*  f120c70:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120c74:	8fa5056c */ 	lw	$a1,0x56c($sp)
-/*  f120c78:	27a40484 */ 	addiu	$a0,$sp,0x484
-/*  f120c7c:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120c80:	8fa5055c */ 	lw	$a1,0x55c($sp)
-/*  f120c84:	27a4049c */ 	addiu	$a0,$sp,0x49c
-/*  f120c88:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120c8c:	8fa50550 */ 	lw	$a1,0x550($sp)
-/*  f120c90:	10000057 */ 	b	.L0f120df0
-/*  f120c94:	00000000 */ 	nop
-.L0f120c98:
-/*  f120c98:	3c017f1b */ 	lui	$at,%hi(var7f1b5078)
-/*  f120c9c:	c4385078 */ 	lwc1	$f24,%lo(var7f1b5078)($at)
-/*  f120ca0:	c7ae05d8 */ 	lwc1	$f14,0x5d8($sp)
-/*  f120ca4:	c7a605dc */ 	lwc1	$f6,0x5dc($sp)
-/*  f120ca8:	c7b005e0 */ 	lwc1	$f16,0x5e0($sp)
-/*  f120cac:	46187102 */ 	mul.s	$f4,$f14,$f24
-/*  f120cb0:	c7b605c0 */ 	lwc1	$f22,0x5c0($sp)
-/*  f120cb4:	c7ba05c8 */ 	lwc1	$f26,0x5c8($sp)
-/*  f120cb8:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f120cbc:	c7a605c4 */ 	lwc1	$f6,0x5c4($sp)
-/*  f120cc0:	c7b205cc */ 	lwc1	$f18,0x5cc($sp)
-/*  f120cc4:	46188282 */ 	mul.s	$f10,$f16,$f24
-/*  f120cc8:	e7a4043c */ 	swc1	$f4,0x43c($sp)
-/*  f120ccc:	c7b405d4 */ 	lwc1	$f20,0x5d4($sp)
-/*  f120cd0:	4618b102 */ 	mul.s	$f4,$f22,$f24
-/*  f120cd4:	e7a80440 */ 	swc1	$f8,0x440($sp)
-/*  f120cd8:	c7a2059c */ 	lwc1	$f2,0x59c($sp)
-/*  f120cdc:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f120ce0:	e7aa0444 */ 	swc1	$f10,0x444($sp)
-/*  f120ce4:	c7a605d0 */ 	lwc1	$f6,0x5d0($sp)
-/*  f120ce8:	4618d282 */ 	mul.s	$f10,$f26,$f24
-/*  f120cec:	e7a40454 */ 	swc1	$f4,0x454($sp)
-/*  f120cf0:	c7ac05a4 */ 	lwc1	$f12,0x5a4($sp)
-/*  f120cf4:	46189102 */ 	mul.s	$f4,$f18,$f24
-/*  f120cf8:	e7a80458 */ 	swc1	$f8,0x458($sp)
-/*  f120cfc:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f120d00:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f120d04:	e7aa045c */ 	swc1	$f10,0x45c($sp)
-/*  f120d08:	c7a605a0 */ 	lwc1	$f6,0x5a0($sp)
-/*  f120d0c:	4618a282 */ 	mul.s	$f10,$f20,$f24
-/*  f120d10:	e7a4046c */ 	swc1	$f4,0x46c($sp)
-/*  f120d14:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f120d18:	46181102 */ 	mul.s	$f4,$f2,$f24
-/*  f120d1c:	e7a80470 */ 	swc1	$f8,0x470($sp)
-/*  f120d20:	24110005 */ 	addiu	$s1,$zero,0x5
-/*  f120d24:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f120d28:	e7aa0474 */ 	swc1	$f10,0x474($sp)
-/*  f120d2c:	27a4043c */ 	addiu	$a0,$sp,0x43c
-/*  f120d30:	46186282 */ 	mul.s	$f10,$f12,$f24
-/*  f120d34:	e7a40484 */ 	swc1	$f4,0x484($sp)
-/*  f120d38:	c7a405b4 */ 	lwc1	$f4,0x5b4($sp)
-/*  f120d3c:	8fa50568 */ 	lw	$a1,0x568($sp)
-/*  f120d40:	e7a80488 */ 	swc1	$f8,0x488($sp)
-/*  f120d44:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f120d48:	c7a805b8 */ 	lwc1	$f8,0x5b8($sp)
-/*  f120d4c:	e7aa048c */ 	swc1	$f10,0x48c($sp)
-/*  f120d50:	c7a405bc */ 	lwc1	$f4,0x5bc($sp)
-/*  f120d54:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f120d58:	46008200 */ 	add.s	$f8,$f16,$f0
-/*  f120d5c:	e7ae0448 */ 	swc1	$f14,0x448($sp)
-/*  f120d60:	e7a6049c */ 	swc1	$f6,0x49c($sp)
-/*  f120d64:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f120d68:	4600a100 */ 	add.s	$f4,$f20,$f0
-/*  f120d6c:	e7a8044c */ 	swc1	$f8,0x44c($sp)
-/*  f120d70:	e7aa04a0 */ 	swc1	$f10,0x4a0($sp)
-/*  f120d74:	c7a805b4 */ 	lwc1	$f8,0x5b4($sp)
-/*  f120d78:	4600d280 */ 	add.s	$f10,$f26,$f0
-/*  f120d7c:	e7a4047c */ 	swc1	$f4,0x47c($sp)
-/*  f120d80:	e7a604a4 */ 	swc1	$f6,0x4a4($sp)
-/*  f120d84:	46006180 */ 	add.s	$f6,$f12,$f0
-/*  f120d88:	e7aa0464 */ 	swc1	$f10,0x464($sp)
-/*  f120d8c:	c7aa05bc */ 	lwc1	$f10,0x5bc($sp)
-/*  f120d90:	e7b60460 */ 	swc1	$f22,0x460($sp)
-/*  f120d94:	e7a60494 */ 	swc1	$f6,0x494($sp)
-/*  f120d98:	46005100 */ 	add.s	$f4,$f10,$f0
-/*  f120d9c:	e7b20478 */ 	swc1	$f18,0x478($sp)
-/*  f120da0:	e7a20490 */ 	swc1	$f2,0x490($sp)
-/*  f120da4:	e7a804a8 */ 	swc1	$f8,0x4a8($sp)
-/*  f120da8:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120dac:	e7a404ac */ 	swc1	$f4,0x4ac($sp)
-/*  f120db0:	27a40454 */ 	addiu	$a0,$sp,0x454
-/*  f120db4:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120db8:	8fa50560 */ 	lw	$a1,0x560($sp)
-/*  f120dbc:	27a4046c */ 	addiu	$a0,$sp,0x46c
-/*  f120dc0:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120dc4:	8fa50564 */ 	lw	$a1,0x564($sp)
-/*  f120dc8:	27a40484 */ 	addiu	$a0,$sp,0x484
-/*  f120dcc:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120dd0:	8fa50554 */ 	lw	$a1,0x554($sp)
-/*  f120dd4:	27a4049c */ 	addiu	$a0,$sp,0x49c
-/*  f120dd8:	0fc47dbb */ 	jal	sky0f11f6ec
-/*  f120ddc:	8fa5055c */ 	lw	$a1,0x55c($sp)
-/*  f120de0:	10000003 */ 	b	.L0f120df0
-/*  f120de4:	00000000 */ 	nop
-.L0f120de8:
-/*  f120de8:	100006af */ 	b	.L0f1228a8
-/*  f120dec:	8fa206b0 */ 	lw	$v0,0x6b0($sp)
-.L0f120df0:
-/*  f120df0:	5a200153 */ 	blezl	$s1,.L0f121340
-/*  f120df4:	8fae0068 */ 	lw	$t6,0x68($sp)
-/*  f120df8:	0fc2d5c6 */ 	jal	camGetMtxF1754
-/*  f120dfc:	00000000 */ 	nop
-/*  f120e00:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
-/*  f120e04:	00408025 */ 	or	$s0,$v0,$zero
-/*  f120e08:	02002025 */ 	or	$a0,$s0,$zero
-/*  f120e0c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f120e10:	0c005680 */ 	jal	mtx4MultMtx4
-/*  f120e14:	27a603cc */ 	addiu	$a2,$sp,0x3cc
-/*  f120e18:	3c013f80 */ 	lui	$at,0x3f80
-/*  f120e1c:	44813000 */ 	mtc1	$at,$f6
-/*  f120e20:	3c04800a */ 	lui	$a0,%hi(var800a33a8)
-/*  f120e24:	248433a8 */ 	addiu	$a0,$a0,%lo(var800a33a8)
-/*  f120e28:	46183003 */ 	div.s	$f0,$f6,$f24
-/*  f120e2c:	44050000 */ 	mfc1	$a1,$f0
-/*  f120e30:	44060000 */ 	mfc1	$a2,$f0
-/*  f120e34:	44070000 */ 	mfc1	$a3,$f0
-/*  f120e38:	0c014024 */ 	jal	guScaleF
-/*  f120e3c:	00000000 */ 	nop
-/*  f120e40:	3c05800a */ 	lui	$a1,%hi(var800a33a8)
-/*  f120e44:	24a533a8 */ 	addiu	$a1,$a1,%lo(var800a33a8)
-/*  f120e48:	27a403cc */ 	addiu	$a0,$sp,0x3cc
-/*  f120e4c:	0c005680 */ 	jal	mtx4MultMtx4
-/*  f120e50:	27a6038c */ 	addiu	$a2,$sp,0x38c
-/*  f120e54:	1a20004e */ 	blez	$s1,.L0f120f90
-/*  f120e58:	afa00270 */ 	sw	$zero,0x270($sp)
-/*  f120e5c:	3c014080 */ 	lui	$at,0x4080
-/*  f120e60:	27a4043c */ 	addiu	$a0,$sp,0x43c
-/*  f120e64:	4481d000 */ 	mtc1	$at,$f26
-/*  f120e68:	afa40064 */ 	sw	$a0,0x64($sp)
-/*  f120e6c:	27b00274 */ 	addiu	$s0,$sp,0x274
-.L0f120e70:
-/*  f120e70:	3c017f1b */ 	lui	$at,%hi(var7f1b507c)
-/*  f120e74:	c420507c */ 	lwc1	$f0,%lo(var7f1b507c)($at)
-/*  f120e78:	8fa40064 */ 	lw	$a0,0x64($sp)
-/*  f120e7c:	27a5038c */ 	addiu	$a1,$sp,0x38c
-/*  f120e80:	44070000 */ 	mfc1	$a3,$f0
-/*  f120e84:	24060082 */ 	addiu	$a2,$zero,0x82
-/*  f120e88:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f120e8c:	0fc48a34 */ 	jal	sky0f1228d0
-/*  f120e90:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f120e94:	0fc2d5fe */ 	jal	camGetScreenLeft
-/*  f120e98:	00000000 */ 	nop
-/*  f120e9c:	0fc2d5fe */ 	jal	camGetScreenLeft
-/*  f120ea0:	46000506 */ 	mov.s	$f20,$f0
-/*  f120ea4:	0fc2d5f6 */ 	jal	camGetScreenWidth
-/*  f120ea8:	46000586 */ 	mov.s	$f22,$f0
-/*  f120eac:	46160200 */ 	add.s	$f8,$f0,$f22
-/*  f120eb0:	461aa382 */ 	mul.s	$f14,$f20,$f26
-/*  f120eb4:	3c013f80 */ 	lui	$at,0x3f80
-/*  f120eb8:	44812000 */ 	mtc1	$at,$f4
-/*  f120ebc:	461a4282 */ 	mul.s	$f10,$f8,$f26
-/*  f120ec0:	c60c0028 */ 	lwc1	$f12,0x28($s0)
-/*  f120ec4:	46045181 */ 	sub.s	$f6,$f10,$f4
-/*  f120ec8:	44063000 */ 	mfc1	$a2,$f6
-/*  f120ecc:	0fc47cf4 */ 	jal	skyClamp
-/*  f120ed0:	00000000 */ 	nop
-/*  f120ed4:	0fc2d602 */ 	jal	camGetScreenTop
-/*  f120ed8:	e6000028 */ 	swc1	$f0,0x28($s0)
-/*  f120edc:	0fc2d602 */ 	jal	camGetScreenTop
-/*  f120ee0:	46000506 */ 	mov.s	$f20,$f0
-/*  f120ee4:	0fc2d5fa */ 	jal	camGetScreenHeight
-/*  f120ee8:	46000586 */ 	mov.s	$f22,$f0
-/*  f120eec:	46160200 */ 	add.s	$f8,$f0,$f22
-/*  f120ef0:	461aa382 */ 	mul.s	$f14,$f20,$f26
-/*  f120ef4:	3c013f80 */ 	lui	$at,0x3f80
-/*  f120ef8:	44812000 */ 	mtc1	$at,$f4
-/*  f120efc:	461a4282 */ 	mul.s	$f10,$f8,$f26
-/*  f120f00:	c60c002c */ 	lwc1	$f12,0x2c($s0)
-/*  f120f04:	46045181 */ 	sub.s	$f6,$f10,$f4
-/*  f120f08:	44063000 */ 	mfc1	$a2,$f6
-/*  f120f0c:	0fc47cf4 */ 	jal	skyClamp
-/*  f120f10:	00000000 */ 	nop
-/*  f120f14:	0fc2d602 */ 	jal	camGetScreenTop
-/*  f120f18:	e600002c */ 	swc1	$f0,0x2c($s0)
-/*  f120f1c:	461a0202 */ 	mul.s	$f8,$f0,$f26
-/*  f120f20:	c604002c */ 	lwc1	$f4,0x2c($s0)
-/*  f120f24:	461a4280 */ 	add.s	$f10,$f8,$f26
-/*  f120f28:	4604503c */ 	c.lt.s	$f10,$f4
-/*  f120f2c:	00000000 */ 	nop
-/*  f120f30:	45020010 */ 	bc1fl	.L0f120f74
-/*  f120f34:	8fae0064 */ 	lw	$t6,0x64($sp)
-/*  f120f38:	0fc2d602 */ 	jal	camGetScreenTop
-/*  f120f3c:	00000000 */ 	nop
-/*  f120f40:	0fc2d5fa */ 	jal	camGetScreenHeight
-/*  f120f44:	46000506 */ 	mov.s	$f20,$f0
-/*  f120f48:	46140180 */ 	add.s	$f6,$f0,$f20
-/*  f120f4c:	c602002c */ 	lwc1	$f2,0x2c($s0)
-/*  f120f50:	461a3202 */ 	mul.s	$f8,$f6,$f26
-/*  f120f54:	461a4281 */ 	sub.s	$f10,$f8,$f26
-/*  f120f58:	460a103c */ 	c.lt.s	$f2,$f10
-/*  f120f5c:	00000000 */ 	nop
-/*  f120f60:	45020004 */ 	bc1fl	.L0f120f74
-/*  f120f64:	8fae0064 */ 	lw	$t6,0x64($sp)
-/*  f120f68:	461a1101 */ 	sub.s	$f4,$f2,$f26
-/*  f120f6c:	e604002c */ 	swc1	$f4,0x2c($s0)
-/*  f120f70:	8fae0064 */ 	lw	$t6,0x64($sp)
-.L0f120f74:
-/*  f120f74:	8fa20270 */ 	lw	$v0,0x270($sp)
-/*  f120f78:	26100038 */ 	addiu	$s0,$s0,0x38
-/*  f120f7c:	25c90018 */ 	addiu	$t1,$t6,0x18
-/*  f120f80:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f120f84:	afa20270 */ 	sw	$v0,0x270($sp)
-/*  f120f88:	1451ffb9 */ 	bne	$v0,$s1,.L0f120e70
-/*  f120f8c:	afa90064 */ 	sw	$t1,0x64($sp)
-.L0f120f90:
-/*  f120f90:	8fac042c */ 	lw	$t4,0x42c($sp)
-/*  f120f94:	8fb806b0 */ 	lw	$t8,0x6b0($sp)
-/*  f120f98:	3c0ee700 */ 	lui	$t6,0xe700
-/*  f120f9c:	918b0028 */ 	lbu	$t3,0x28($t4)
-/*  f120fa0:	27a406b0 */ 	addiu	$a0,$sp,0x6b0
-/*  f120fa4:	3c19800b */ 	lui	$t9,%hi(g_TexWaterConfigs)
-/*  f120fa8:	1560006b */ 	bnez	$t3,.L0f121158
-/*  f120fac:	270a0008 */ 	addiu	$t2,$t8,0x8
-/*  f120fb0:	3c017f1b */ 	lui	$at,%hi(var7f1b5080)
-/*  f120fb4:	c42e5080 */ 	lwc1	$f14,%lo(var7f1b5080)($at)
-/*  f120fb8:	3c017f1b */ 	lui	$at,%hi(var7f1b5084)
-/*  f120fbc:	44801000 */ 	mtc1	$zero,$f2
-/*  f120fc0:	44806000 */ 	mtc1	$zero,$f12
-/*  f120fc4:	c4305084 */ 	lwc1	$f16,%lo(var7f1b5084)($at)
-/*  f120fc8:	1a20001b */ 	blez	$s1,.L0f121038
-/*  f120fcc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f120fd0:	27a20274 */ 	addiu	$v0,$sp,0x274
-.L0f120fd4:
-/*  f120fd4:	c4400028 */ 	lwc1	$f0,0x28($v0)
-/*  f120fd8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f120fdc:	460e003c */ 	c.lt.s	$f0,$f14
-/*  f120fe0:	00000000 */ 	nop
-/*  f120fe4:	45020003 */ 	bc1fl	.L0f120ff4
-/*  f120fe8:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f120fec:	46000386 */ 	mov.s	$f14,$f0
-/*  f120ff0:	4600103c */ 	c.lt.s	$f2,$f0
-.L0f120ff4:
-/*  f120ff4:	00000000 */ 	nop
-/*  f120ff8:	45020003 */ 	bc1fl	.L0f121008
-/*  f120ffc:	c440002c */ 	lwc1	$f0,0x2c($v0)
-/*  f121000:	46000086 */ 	mov.s	$f2,$f0
-/*  f121004:	c440002c */ 	lwc1	$f0,0x2c($v0)
-.L0f121008:
-/*  f121008:	4610003c */ 	c.lt.s	$f0,$f16
-/*  f12100c:	00000000 */ 	nop
-/*  f121010:	45020003 */ 	bc1fl	.L0f121020
-/*  f121014:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f121018:	46000406 */ 	mov.s	$f16,$f0
-/*  f12101c:	4600603c */ 	c.lt.s	$f12,$f0
-.L0f121020:
-/*  f121020:	00000000 */ 	nop
-/*  f121024:	45000002 */ 	bc1f	.L0f121030
-/*  f121028:	00000000 */ 	nop
-/*  f12102c:	46000306 */ 	mov.s	$f12,$f0
-.L0f121030:
-/*  f121030:	1471ffe8 */ 	bne	$v1,$s1,.L0f120fd4
-/*  f121034:	24420038 */ 	addiu	$v0,$v0,0x38
-.L0f121038:
-/*  f121038:	8faf06b0 */ 	lw	$t7,0x6b0($sp)
-/*  f12103c:	3c19e700 */ 	lui	$t9,0xe700
-/*  f121040:	3c013e80 */ 	lui	$at,0x3e80
-/*  f121044:	25f80008 */ 	addiu	$t8,$t7,0x8
-/*  f121048:	afb806b0 */ 	sw	$t8,0x6b0($sp)
-/*  f12104c:	ade00004 */ 	sw	$zero,0x4($t7)
-/*  f121050:	adf90000 */ 	sw	$t9,0x0($t7)
-/*  f121054:	8fad06b0 */ 	lw	$t5,0x6b0($sp)
-/*  f121058:	44810000 */ 	mtc1	$at,$f0
-/*  f12105c:	3c0eba00 */ 	lui	$t6,0xba00
-/*  f121060:	25aa0008 */ 	addiu	$t2,$t5,0x8
-/*  f121064:	afaa06b0 */ 	sw	$t2,0x6b0($sp)
-/*  f121068:	46001182 */ 	mul.s	$f6,$f2,$f0
-/*  f12106c:	35ce1402 */ 	ori	$t6,$t6,0x1402
-/*  f121070:	3c090030 */ 	lui	$t1,0x30
-/*  f121074:	ada90004 */ 	sw	$t1,0x4($t5)
-/*  f121078:	adae0000 */ 	sw	$t6,0x0($t5)
-/*  f12107c:	8fac06b0 */ 	lw	$t4,0x6b0($sp)
-/*  f121080:	46006282 */ 	mul.s	$f10,$f12,$f0
-/*  f121084:	3c0fb900 */ 	lui	$t7,0xb900
-/*  f121088:	258b0008 */ 	addiu	$t3,$t4,0x8
-/*  f12108c:	afab06b0 */ 	sw	$t3,0x6b0($sp)
-/*  f121090:	35ef031d */ 	ori	$t7,$t7,0x31d
-/*  f121094:	ad8f0000 */ 	sw	$t7,0x0($t4)
-/*  f121098:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f12109c:	ad800004 */ 	sw	$zero,0x4($t4)
-/*  f1210a0:	46007182 */ 	mul.s	$f6,$f14,$f0
-/*  f1210a4:	8fb806b0 */ 	lw	$t8,0x6b0($sp)
-/*  f1210a8:	3c07ba00 */ 	lui	$a3,0xba00
-/*  f1210ac:	34e71301 */ 	ori	$a3,$a3,0x1301
-/*  f1210b0:	27190008 */ 	addiu	$t9,$t8,0x8
-/*  f1210b4:	afb906b0 */ 	sw	$t9,0x6b0($sp)
-/*  f1210b8:	4600510d */ 	trunc.w.s	$f4,$f10
-/*  f1210bc:	46008282 */ 	mul.s	$f10,$f16,$f0
-/*  f1210c0:	af000004 */ 	sw	$zero,0x4($t8)
-/*  f1210c4:	af070000 */ 	sw	$a3,0x0($t8)
-/*  f1210c8:	8fa606b0 */ 	lw	$a2,0x6b0($sp)
-/*  f1210cc:	44192000 */ 	mfc1	$t9,$f4
-/*  f1210d0:	44094000 */ 	mfc1	$t1,$f8
-/*  f1210d4:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f1210d8:	24ca0008 */ 	addiu	$t2,$a2,0x8
-/*  f1210dc:	312c03ff */ 	andi	$t4,$t1,0x3ff
-/*  f1210e0:	4600510d */ 	trunc.w.s	$f4,$f10
-/*  f1210e4:	000c5b80 */ 	sll	$t3,$t4,0xe
-/*  f1210e8:	afaa06b0 */ 	sw	$t2,0x6b0($sp)
-/*  f1210ec:	332d03ff */ 	andi	$t5,$t9,0x3ff
-/*  f1210f0:	000d5080 */ 	sll	$t2,$t5,0x2
-/*  f1210f4:	3c01f600 */ 	lui	$at,0xf600
-/*  f1210f8:	440d2000 */ 	mfc1	$t5,$f4
-/*  f1210fc:	440c4000 */ 	mfc1	$t4,$f8
-/*  f121100:	01617825 */ 	or	$t7,$t3,$at
-/*  f121104:	01ea7025 */ 	or	$t6,$t7,$t2
-/*  f121108:	31af03ff */ 	andi	$t7,$t5,0x3ff
-/*  f12110c:	318b03ff */ 	andi	$t3,$t4,0x3ff
-/*  f121110:	000bc380 */ 	sll	$t8,$t3,0xe
-/*  f121114:	000f5080 */ 	sll	$t2,$t7,0x2
-/*  f121118:	acce0000 */ 	sw	$t6,0x0($a2)
-/*  f12111c:	030a7025 */ 	or	$t6,$t8,$t2
-/*  f121120:	acce0004 */ 	sw	$t6,0x4($a2)
-/*  f121124:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
-/*  f121128:	3c0be700 */ 	lui	$t3,0xe700
-/*  f12112c:	3c0f0008 */ 	lui	$t7,0x8
-/*  f121130:	252c0008 */ 	addiu	$t4,$t1,0x8
-/*  f121134:	afac06b0 */ 	sw	$t4,0x6b0($sp)
-/*  f121138:	ad200004 */ 	sw	$zero,0x4($t1)
-/*  f12113c:	ad2b0000 */ 	sw	$t3,0x0($t1)
-/*  f121140:	8fb906b0 */ 	lw	$t9,0x6b0($sp)
-/*  f121144:	272d0008 */ 	addiu	$t5,$t9,0x8
-/*  f121148:	afad06b0 */ 	sw	$t5,0x6b0($sp)
-/*  f12114c:	af2f0004 */ 	sw	$t7,0x4($t9)
-/*  f121150:	1000007a */ 	b	.L0f12133c
-/*  f121154:	af270000 */ 	sw	$a3,0x0($t9)
-.L0f121158:
-/*  f121158:	afaa06b0 */ 	sw	$t2,0x6b0($sp)
-/*  f12115c:	af000004 */ 	sw	$zero,0x4($t8)
-/*  f121160:	af0e0000 */ 	sw	$t6,0x0($t8)
-/*  f121164:	8fa9042c */ 	lw	$t1,0x42c($sp)
-/*  f121168:	8f39b598 */ 	lw	$t9,%lo(g_TexWaterConfigs)($t9)
-/*  f12116c:	240d0002 */ 	addiu	$t5,$zero,0x2
-/*  f121170:	852c0030 */ 	lh	$t4,0x30($t1)
-/*  f121174:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f121178:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f12117c:	000c5880 */ 	sll	$t3,$t4,0x2
-/*  f121180:	016c5823 */ 	subu	$t3,$t3,$t4
-/*  f121184:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f121188:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f12118c:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f121190:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f121194:	00003825 */ 	or	$a3,$zero,$zero
-/*  f121198:	0fc2ce70 */ 	jal	texSelect
-/*  f12119c:	01792821 */ 	addu	$a1,$t3,$t9
-/*  f1211a0:	8fb806b0 */ 	lw	$t8,0x6b0($sp)
-/*  f1211a4:	3c0eb900 */ 	lui	$t6,0xb900
-/*  f1211a8:	3c090f0a */ 	lui	$t1,0xf0a
-/*  f1211ac:	270a0008 */ 	addiu	$t2,$t8,0x8
-/*  f1211b0:	afaa06b0 */ 	sw	$t2,0x6b0($sp)
-/*  f1211b4:	35294000 */ 	ori	$t1,$t1,0x4000
-/*  f1211b8:	35ce031d */ 	ori	$t6,$t6,0x31d
-/*  f1211bc:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f1211c0:	af0e0000 */ 	sw	$t6,0x0($t8)
-/*  f1211c4:	1621002a */ 	bne	$s1,$at,.L0f121270
-/*  f1211c8:	af090004 */ 	sw	$t1,0x4($t8)
-/*  f1211cc:	3c014302 */ 	lui	$at,0x4302
-/*  f1211d0:	44813000 */ 	mtc1	$at,$f6
-/*  f1211d4:	27b00274 */ 	addiu	$s0,$sp,0x274
-/*  f1211d8:	27b1031c */ 	addiu	$s1,$sp,0x31c
-/*  f1211dc:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f1211e0:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f1211e4:	02203825 */ 	or	$a3,$s1,$zero
-/*  f1211e8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1211ec:	8fa406b0 */ 	lw	$a0,0x6b0($sp)
-/*  f1211f0:	27a602ac */ 	addiu	$a2,$sp,0x2ac
-/*  f1211f4:	0fc48b53 */ 	jal	sky0f122d4c
-/*  f1211f8:	e7a60010 */ 	swc1	$f6,0x10($sp)
-/*  f1211fc:	8fab0430 */ 	lw	$t3,0x430($sp)
-/*  f121200:	00402025 */ 	or	$a0,$v0,$zero
-/*  f121204:	02202825 */ 	or	$a1,$s1,$zero
-/*  f121208:	1160000f */ 	beqz	$t3,.L0f121248
-/*  f12120c:	27a602e4 */ 	addiu	$a2,$sp,0x2e4
-/*  f121210:	3c013f80 */ 	lui	$at,0x3f80
-/*  f121214:	44810000 */ 	mtc1	$at,$f0
-/*  f121218:	c7a802a0 */ 	lwc1	$f8,0x2a0($sp)
-/*  f12121c:	c7a402d8 */ 	lwc1	$f4,0x2d8($sp)
-/*  f121220:	46004280 */ 	add.s	$f10,$f8,$f0
-/*  f121224:	c7a80310 */ 	lwc1	$f8,0x310($sp)
-/*  f121228:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f12122c:	c7a40348 */ 	lwc1	$f4,0x348($sp)
-/*  f121230:	e7aa02a0 */ 	swc1	$f10,0x2a0($sp)
-/*  f121234:	46004280 */ 	add.s	$f10,$f8,$f0
-/*  f121238:	e7a602d8 */ 	swc1	$f6,0x2d8($sp)
-/*  f12123c:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f121240:	e7aa0310 */ 	swc1	$f10,0x310($sp)
-/*  f121244:	e7a60348 */ 	swc1	$f6,0x348($sp)
-.L0f121248:
-/*  f121248:	3c014302 */ 	lui	$at,0x4302
-/*  f12124c:	44814000 */ 	mtc1	$at,$f8
-/*  f121250:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f121254:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f121258:	02003825 */ 	or	$a3,$s0,$zero
-/*  f12125c:	afa406b0 */ 	sw	$a0,0x6b0($sp)
-/*  f121260:	0fc48b53 */ 	jal	sky0f122d4c
-/*  f121264:	e7a80010 */ 	swc1	$f8,0x10($sp)
-/*  f121268:	10000034 */ 	b	.L0f12133c
-/*  f12126c:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-.L0f121270:
-/*  f121270:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f121274:	16210024 */ 	bne	$s1,$at,.L0f121308
-/*  f121278:	27b00274 */ 	addiu	$s0,$sp,0x274
-/*  f12127c:	3c014302 */ 	lui	$at,0x4302
-/*  f121280:	44815000 */ 	mtc1	$at,$f10
-/*  f121284:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f121288:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f12128c:	8fa406b0 */ 	lw	$a0,0x6b0($sp)
-/*  f121290:	02002825 */ 	or	$a1,$s0,$zero
-/*  f121294:	27a602ac */ 	addiu	$a2,$sp,0x2ac
-/*  f121298:	27a702e4 */ 	addiu	$a3,$sp,0x2e4
-/*  f12129c:	0fc48b53 */ 	jal	sky0f122d4c
-/*  f1212a0:	e7aa0010 */ 	swc1	$f10,0x10($sp)
-/*  f1212a4:	3c014302 */ 	lui	$at,0x4302
-/*  f1212a8:	44812000 */ 	mtc1	$at,$f4
-/*  f1212ac:	27b1031c */ 	addiu	$s1,$sp,0x31c
-/*  f1212b0:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f1212b4:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-/*  f1212b8:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f1212bc:	02203825 */ 	or	$a3,$s1,$zero
-/*  f1212c0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1212c4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1212c8:	27a602e4 */ 	addiu	$a2,$sp,0x2e4
-/*  f1212cc:	0fc48b53 */ 	jal	sky0f122d4c
-/*  f1212d0:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*  f1212d4:	3c014302 */ 	lui	$at,0x4302
-/*  f1212d8:	44813000 */ 	mtc1	$at,$f6
-/*  f1212dc:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f1212e0:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-/*  f1212e4:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f1212e8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1212ec:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1212f0:	02203025 */ 	or	$a2,$s1,$zero
-/*  f1212f4:	27a70354 */ 	addiu	$a3,$sp,0x354
-/*  f1212f8:	0fc48b53 */ 	jal	sky0f122d4c
-/*  f1212fc:	e7a60010 */ 	swc1	$f6,0x10($sp)
-/*  f121300:	1000000e */ 	b	.L0f12133c
-/*  f121304:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-.L0f121308:
-/*  f121308:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f12130c:	1621000b */ 	bne	$s1,$at,.L0f12133c
-/*  f121310:	27a50274 */ 	addiu	$a1,$sp,0x274
-/*  f121314:	3c014302 */ 	lui	$at,0x4302
-/*  f121318:	44814000 */ 	mtc1	$at,$f8
-/*  f12131c:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f121320:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*  f121324:	8fa406b0 */ 	lw	$a0,0x6b0($sp)
-/*  f121328:	27a602ac */ 	addiu	$a2,$sp,0x2ac
-/*  f12132c:	27a702e4 */ 	addiu	$a3,$sp,0x2e4
-/*  f121330:	0fc48b53 */ 	jal	sky0f122d4c
-/*  f121334:	e7a80010 */ 	swc1	$f8,0x10($sp)
-/*  f121338:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-.L0f12133c:
-/*  f12133c:	8fae0068 */ 	lw	$t6,0x68($sp)
-.L0f121340:
-/*  f121340:	3c014080 */ 	lui	$at,0x4080
-/*  f121344:	4481d000 */ 	mtc1	$at,$f26
-/*  f121348:	2dc10010 */ 	sltiu	$at,$t6,0x10
-/*  f12134c:	1020040a */ 	beqz	$at,.L0f122378
-/*  f121350:	8fa306b0 */ 	lw	$v1,0x6b0($sp)
-/*  f121354:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f121358:	3c017f1b */ 	lui	$at,%hi(jtbl_var7f1b5088)
-/*  f12135c:	002e0821 */ 	addu	$at,$at,$t6
-/*  f121360:	8c2e5088 */ 	lw	$t6,%lo(jtbl_var7f1b5088)($at)
-/*  f121364:	01c00008 */ 	jr	$t6
-/*  f121368:	00000000 */ 	nop
-.L0f12136c:
-/*  f12136c:	1000054e */ 	b	.L0f1228a8
-/*  f121370:	00601025 */ 	or	$v0,$v1,$zero
-.L0f121374:
-/*  f121374:	c7a20644 */ 	lwc1	$f2,0x644($sp)
-/*  f121378:	c7a40648 */ 	lwc1	$f4,0x648($sp)
-/*  f12137c:	c7ac064c */ 	lwc1	$f12,0x64c($sp)
-/*  f121380:	46181282 */ 	mul.s	$f10,$f2,$f24
-/*  f121384:	c7ae0638 */ 	lwc1	$f14,0x638($sp)
-/*  f121388:	c7b00640 */ 	lwc1	$f16,0x640($sp)
-/*  f12138c:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f121390:	c7a4063c */ 	lwc1	$f4,0x63c($sp)
-/*  f121394:	c7b2062c */ 	lwc1	$f18,0x62c($sp)
-/*  f121398:	46186202 */ 	mul.s	$f8,$f12,$f24
-/*  f12139c:	e7aa04b4 */ 	swc1	$f10,0x4b4($sp)
-/*  f1213a0:	c7b40634 */ 	lwc1	$f20,0x634($sp)
-/*  f1213a4:	46187282 */ 	mul.s	$f10,$f14,$f24
-/*  f1213a8:	e7a604b8 */ 	swc1	$f6,0x4b8($sp)
-/*  f1213ac:	c7b60620 */ 	lwc1	$f22,0x620($sp)
-/*  f1213b0:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f1213b4:	e7a804bc */ 	swc1	$f8,0x4bc($sp)
-/*  f1213b8:	c7a40630 */ 	lwc1	$f4,0x630($sp)
-/*  f1213bc:	46188202 */ 	mul.s	$f8,$f16,$f24
-/*  f1213c0:	e7aa04cc */ 	swc1	$f10,0x4cc($sp)
-/*  f1213c4:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f1213c8:	46189282 */ 	mul.s	$f10,$f18,$f24
-/*  f1213cc:	e7a604d0 */ 	swc1	$f6,0x4d0($sp)
-/*  f1213d0:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f1213d4:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f1213d8:	e7a804d4 */ 	swc1	$f8,0x4d4($sp)
-/*  f1213dc:	c7a40624 */ 	lwc1	$f4,0x624($sp)
-/*  f1213e0:	4618a202 */ 	mul.s	$f8,$f20,$f24
-/*  f1213e4:	e7aa04e4 */ 	swc1	$f10,0x4e4($sp)
-/*  f1213e8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1213ec:	4618b282 */ 	mul.s	$f10,$f22,$f24
-/*  f1213f0:	e7a604e8 */ 	swc1	$f6,0x4e8($sp)
-/*  f1213f4:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f1213f8:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f1213fc:	e7a804ec */ 	swc1	$f8,0x4ec($sp)
-/*  f121400:	c7a80628 */ 	lwc1	$f8,0x628($sp)
-/*  f121404:	27a404b4 */ 	addiu	$a0,$sp,0x4b4
-/*  f121408:	e7aa04fc */ 	swc1	$f10,0x4fc($sp)
-/*  f12140c:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f121410:	8fa5058c */ 	lw	$a1,0x58c($sp)
-/*  f121414:	e7a60500 */ 	swc1	$f6,0x500($sp)
-/*  f121418:	461c1102 */ 	mul.s	$f4,$f2,$f28
-/*  f12141c:	00000000 */ 	nop
-/*  f121420:	461c6182 */ 	mul.s	$f6,$f12,$f28
-/*  f121424:	e7aa0504 */ 	swc1	$f10,0x504($sp)
-/*  f121428:	461c7282 */ 	mul.s	$f10,$f14,$f28
-/*  f12142c:	e7a404c0 */ 	swc1	$f4,0x4c0($sp)
-/*  f121430:	461c8102 */ 	mul.s	$f4,$f16,$f28
-/*  f121434:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f121438:	e7aa04d8 */ 	swc1	$f10,0x4d8($sp)
-/*  f12143c:	e7a804c4 */ 	swc1	$f8,0x4c4($sp)
-/*  f121440:	461c9202 */ 	mul.s	$f8,$f18,$f28
-/*  f121444:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f121448:	461ca282 */ 	mul.s	$f10,$f20,$f28
-/*  f12144c:	e7a604dc */ 	swc1	$f6,0x4dc($sp)
-/*  f121450:	461cb182 */ 	mul.s	$f6,$f22,$f28
-/*  f121454:	e7a804f0 */ 	swc1	$f8,0x4f0($sp)
-/*  f121458:	c7a80628 */ 	lwc1	$f8,0x628($sp)
-/*  f12145c:	46005100 */ 	add.s	$f4,$f10,$f0
-/*  f121460:	461c4282 */ 	mul.s	$f10,$f8,$f28
-/*  f121464:	e7a60508 */ 	swc1	$f6,0x508($sp)
-/*  f121468:	44813000 */ 	mtc1	$at,$f6
-/*  f12146c:	e7a404f4 */ 	swc1	$f4,0x4f4($sp)
-/*  f121470:	46183203 */ 	div.s	$f8,$f6,$f24
-/*  f121474:	46005100 */ 	add.s	$f4,$f10,$f0
-/*  f121478:	e7a4050c */ 	swc1	$f4,0x50c($sp)
-/*  f12147c:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121480:	e7a80064 */ 	swc1	$f8,0x64($sp)
-/*  f121484:	27a404cc */ 	addiu	$a0,$sp,0x4cc
-/*  f121488:	0fc47d0e */ 	jal	sky0f11f438
-/*  f12148c:	8fa50588 */ 	lw	$a1,0x588($sp)
-/*  f121490:	27a404e4 */ 	addiu	$a0,$sp,0x4e4
-/*  f121494:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121498:	8fa50584 */ 	lw	$a1,0x584($sp)
-/*  f12149c:	27a404fc */ 	addiu	$a0,$sp,0x4fc
-/*  f1214a0:	0fc47d0e */ 	jal	sky0f11f438
-/*  f1214a4:	8fa50580 */ 	lw	$a1,0x580($sp)
-/*  f1214a8:	100003b6 */ 	b	.L0f122384
-/*  f1214ac:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
-.L0f1214b0:
-/*  f1214b0:	c7a20644 */ 	lwc1	$f2,0x644($sp)
-/*  f1214b4:	c7a40648 */ 	lwc1	$f4,0x648($sp)
-/*  f1214b8:	c7ac064c */ 	lwc1	$f12,0x64c($sp)
-/*  f1214bc:	46181282 */ 	mul.s	$f10,$f2,$f24
-/*  f1214c0:	c7ae0638 */ 	lwc1	$f14,0x638($sp)
-/*  f1214c4:	c7b00640 */ 	lwc1	$f16,0x640($sp)
-/*  f1214c8:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f1214cc:	c7a4063c */ 	lwc1	$f4,0x63c($sp)
-/*  f1214d0:	c7b205fc */ 	lwc1	$f18,0x5fc($sp)
-/*  f1214d4:	46186202 */ 	mul.s	$f8,$f12,$f24
-/*  f1214d8:	e7aa04b4 */ 	swc1	$f10,0x4b4($sp)
-/*  f1214dc:	c7b40604 */ 	lwc1	$f20,0x604($sp)
-/*  f1214e0:	46187282 */ 	mul.s	$f10,$f14,$f24
-/*  f1214e4:	e7a604b8 */ 	swc1	$f6,0x4b8($sp)
-/*  f1214e8:	c7b605f0 */ 	lwc1	$f22,0x5f0($sp)
-/*  f1214ec:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f1214f0:	e7a804bc */ 	swc1	$f8,0x4bc($sp)
-/*  f1214f4:	c7a40600 */ 	lwc1	$f4,0x600($sp)
-/*  f1214f8:	46188202 */ 	mul.s	$f8,$f16,$f24
-/*  f1214fc:	e7aa04cc */ 	swc1	$f10,0x4cc($sp)
-/*  f121500:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f121504:	46189282 */ 	mul.s	$f10,$f18,$f24
-/*  f121508:	e7a604d0 */ 	swc1	$f6,0x4d0($sp)
-/*  f12150c:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f121510:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f121514:	e7a804d4 */ 	swc1	$f8,0x4d4($sp)
-/*  f121518:	c7a405f4 */ 	lwc1	$f4,0x5f4($sp)
-/*  f12151c:	4618a202 */ 	mul.s	$f8,$f20,$f24
-/*  f121520:	e7aa04e4 */ 	swc1	$f10,0x4e4($sp)
-/*  f121524:	3c013f80 */ 	lui	$at,0x3f80
-/*  f121528:	4618b282 */ 	mul.s	$f10,$f22,$f24
-/*  f12152c:	e7a604e8 */ 	swc1	$f6,0x4e8($sp)
-/*  f121530:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f121534:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f121538:	e7a804ec */ 	swc1	$f8,0x4ec($sp)
-/*  f12153c:	c7a805f8 */ 	lwc1	$f8,0x5f8($sp)
-/*  f121540:	27a404b4 */ 	addiu	$a0,$sp,0x4b4
-/*  f121544:	e7aa04fc */ 	swc1	$f10,0x4fc($sp)
-/*  f121548:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f12154c:	8fa5058c */ 	lw	$a1,0x58c($sp)
-/*  f121550:	e7a60500 */ 	swc1	$f6,0x500($sp)
-/*  f121554:	461c1102 */ 	mul.s	$f4,$f2,$f28
-/*  f121558:	00000000 */ 	nop
-/*  f12155c:	461c6182 */ 	mul.s	$f6,$f12,$f28
-/*  f121560:	e7aa0504 */ 	swc1	$f10,0x504($sp)
-/*  f121564:	461c7282 */ 	mul.s	$f10,$f14,$f28
-/*  f121568:	e7a404c0 */ 	swc1	$f4,0x4c0($sp)
-/*  f12156c:	461c8102 */ 	mul.s	$f4,$f16,$f28
-/*  f121570:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f121574:	e7aa04d8 */ 	swc1	$f10,0x4d8($sp)
-/*  f121578:	e7a804c4 */ 	swc1	$f8,0x4c4($sp)
-/*  f12157c:	461c9202 */ 	mul.s	$f8,$f18,$f28
-/*  f121580:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f121584:	461ca282 */ 	mul.s	$f10,$f20,$f28
-/*  f121588:	e7a604dc */ 	swc1	$f6,0x4dc($sp)
-/*  f12158c:	461cb182 */ 	mul.s	$f6,$f22,$f28
-/*  f121590:	e7a804f0 */ 	swc1	$f8,0x4f0($sp)
-/*  f121594:	c7a805f8 */ 	lwc1	$f8,0x5f8($sp)
-/*  f121598:	46005100 */ 	add.s	$f4,$f10,$f0
-/*  f12159c:	461c4282 */ 	mul.s	$f10,$f8,$f28
-/*  f1215a0:	e7a60508 */ 	swc1	$f6,0x508($sp)
-/*  f1215a4:	44813000 */ 	mtc1	$at,$f6
-/*  f1215a8:	e7a404f4 */ 	swc1	$f4,0x4f4($sp)
-/*  f1215ac:	46183203 */ 	div.s	$f8,$f6,$f24
-/*  f1215b0:	46005100 */ 	add.s	$f4,$f10,$f0
-/*  f1215b4:	e7a4050c */ 	swc1	$f4,0x50c($sp)
-/*  f1215b8:	0fc47d0e */ 	jal	sky0f11f438
-/*  f1215bc:	e7a80064 */ 	swc1	$f8,0x64($sp)
-/*  f1215c0:	27a404cc */ 	addiu	$a0,$sp,0x4cc
-/*  f1215c4:	0fc47d0e */ 	jal	sky0f11f438
-/*  f1215c8:	8fa50588 */ 	lw	$a1,0x588($sp)
-/*  f1215cc:	27a404e4 */ 	addiu	$a0,$sp,0x4e4
-/*  f1215d0:	0fc47d0e */ 	jal	sky0f11f438
-/*  f1215d4:	8fa50574 */ 	lw	$a1,0x574($sp)
-/*  f1215d8:	27a404fc */ 	addiu	$a0,$sp,0x4fc
-/*  f1215dc:	0fc47d0e */ 	jal	sky0f11f438
-/*  f1215e0:	8fa50570 */ 	lw	$a1,0x570($sp)
-/*  f1215e4:	10000367 */ 	b	.L0f122384
-/*  f1215e8:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
-.L0f1215ec:
-/*  f1215ec:	c7b60620 */ 	lwc1	$f22,0x620($sp)
-/*  f1215f0:	c7a40624 */ 	lwc1	$f4,0x624($sp)
-/*  f1215f4:	c7a20628 */ 	lwc1	$f2,0x628($sp)
-/*  f1215f8:	4618b282 */ 	mul.s	$f10,$f22,$f24
-/*  f1215fc:	c7b2062c */ 	lwc1	$f18,0x62c($sp)
-/*  f121600:	c7b40634 */ 	lwc1	$f20,0x634($sp)
-/*  f121604:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f121608:	c7a40630 */ 	lwc1	$f4,0x630($sp)
-/*  f12160c:	c7b005f0 */ 	lwc1	$f16,0x5f0($sp)
-/*  f121610:	46181202 */ 	mul.s	$f8,$f2,$f24
-/*  f121614:	e7aa04b4 */ 	swc1	$f10,0x4b4($sp)
-/*  f121618:	c7ac05fc */ 	lwc1	$f12,0x5fc($sp)
-/*  f12161c:	46189282 */ 	mul.s	$f10,$f18,$f24
-/*  f121620:	e7a604b8 */ 	swc1	$f6,0x4b8($sp)
-/*  f121624:	c7ae0604 */ 	lwc1	$f14,0x604($sp)
-/*  f121628:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f12162c:	e7a804bc */ 	swc1	$f8,0x4bc($sp)
-/*  f121630:	c7a405f4 */ 	lwc1	$f4,0x5f4($sp)
-/*  f121634:	4618a202 */ 	mul.s	$f8,$f20,$f24
-/*  f121638:	e7aa04cc */ 	swc1	$f10,0x4cc($sp)
-/*  f12163c:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f121640:	46188282 */ 	mul.s	$f10,$f16,$f24
-/*  f121644:	e7a604d0 */ 	swc1	$f6,0x4d0($sp)
-/*  f121648:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f12164c:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f121650:	e7a804d4 */ 	swc1	$f8,0x4d4($sp)
-/*  f121654:	c7a805f8 */ 	lwc1	$f8,0x5f8($sp)
-/*  f121658:	3c013f80 */ 	lui	$at,0x3f80
-/*  f12165c:	e7aa04e4 */ 	swc1	$f10,0x4e4($sp)
-/*  f121660:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f121664:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f121668:	e7a604e8 */ 	swc1	$f6,0x4e8($sp)
-/*  f12166c:	46186102 */ 	mul.s	$f4,$f12,$f24
-/*  f121670:	c7a60600 */ 	lwc1	$f6,0x600($sp)
-/*  f121674:	27a404b4 */ 	addiu	$a0,$sp,0x4b4
-/*  f121678:	8fa50580 */ 	lw	$a1,0x580($sp)
-/*  f12167c:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f121680:	e7aa04ec */ 	swc1	$f10,0x4ec($sp)
-/*  f121684:	46187282 */ 	mul.s	$f10,$f14,$f24
-/*  f121688:	e7a404fc */ 	swc1	$f4,0x4fc($sp)
-/*  f12168c:	461cb102 */ 	mul.s	$f4,$f22,$f28
-/*  f121690:	e7a80500 */ 	swc1	$f8,0x500($sp)
-/*  f121694:	461c1182 */ 	mul.s	$f6,$f2,$f28
-/*  f121698:	e7aa0504 */ 	swc1	$f10,0x504($sp)
-/*  f12169c:	461c9282 */ 	mul.s	$f10,$f18,$f28
-/*  f1216a0:	e7a404c0 */ 	swc1	$f4,0x4c0($sp)
-/*  f1216a4:	461ca102 */ 	mul.s	$f4,$f20,$f28
-/*  f1216a8:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f1216ac:	e7aa04d8 */ 	swc1	$f10,0x4d8($sp)
-/*  f1216b0:	c7aa05f8 */ 	lwc1	$f10,0x5f8($sp)
-/*  f1216b4:	e7a804c4 */ 	swc1	$f8,0x4c4($sp)
-/*  f1216b8:	461c8202 */ 	mul.s	$f8,$f16,$f28
-/*  f1216bc:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f1216c0:	461c5102 */ 	mul.s	$f4,$f10,$f28
-/*  f1216c4:	e7a604dc */ 	swc1	$f6,0x4dc($sp)
-/*  f1216c8:	e7a804f0 */ 	swc1	$f8,0x4f0($sp)
-/*  f1216cc:	461c6202 */ 	mul.s	$f8,$f12,$f28
-/*  f1216d0:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f1216d4:	461c7282 */ 	mul.s	$f10,$f14,$f28
-/*  f1216d8:	e7a604f4 */ 	swc1	$f6,0x4f4($sp)
-/*  f1216dc:	44813000 */ 	mtc1	$at,$f6
-/*  f1216e0:	e7a80508 */ 	swc1	$f8,0x508($sp)
-/*  f1216e4:	46183203 */ 	div.s	$f8,$f6,$f24
-/*  f1216e8:	46005100 */ 	add.s	$f4,$f10,$f0
-/*  f1216ec:	e7a4050c */ 	swc1	$f4,0x50c($sp)
-/*  f1216f0:	0fc47d0e */ 	jal	sky0f11f438
-/*  f1216f4:	e7a80064 */ 	swc1	$f8,0x64($sp)
-/*  f1216f8:	27a404cc */ 	addiu	$a0,$sp,0x4cc
-/*  f1216fc:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121700:	8fa50584 */ 	lw	$a1,0x584($sp)
-/*  f121704:	27a404e4 */ 	addiu	$a0,$sp,0x4e4
-/*  f121708:	0fc47d0e */ 	jal	sky0f11f438
-/*  f12170c:	8fa50570 */ 	lw	$a1,0x570($sp)
-/*  f121710:	27a404fc */ 	addiu	$a0,$sp,0x4fc
-/*  f121714:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121718:	8fa50574 */ 	lw	$a1,0x574($sp)
-/*  f12171c:	10000319 */ 	b	.L0f122384
-/*  f121720:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
-.L0f121724:
-/*  f121724:	c7ae0638 */ 	lwc1	$f14,0x638($sp)
-/*  f121728:	c7a4063c */ 	lwc1	$f4,0x63c($sp)
-/*  f12172c:	c7b00640 */ 	lwc1	$f16,0x640($sp)
-/*  f121730:	46187282 */ 	mul.s	$f10,$f14,$f24
-/*  f121734:	c7b60620 */ 	lwc1	$f22,0x620($sp)
-/*  f121738:	c7a20628 */ 	lwc1	$f2,0x628($sp)
-/*  f12173c:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f121740:	c7a40624 */ 	lwc1	$f4,0x624($sp)
-/*  f121744:	c7b40614 */ 	lwc1	$f20,0x614($sp)
-/*  f121748:	46188202 */ 	mul.s	$f8,$f16,$f24
-/*  f12174c:	e7aa04b4 */ 	swc1	$f10,0x4b4($sp)
-/*  f121750:	c7ac0608 */ 	lwc1	$f12,0x608($sp)
-/*  f121754:	4618b282 */ 	mul.s	$f10,$f22,$f24
-/*  f121758:	e7a604b8 */ 	swc1	$f6,0x4b8($sp)
-/*  f12175c:	c7b20610 */ 	lwc1	$f18,0x610($sp)
-/*  f121760:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f121764:	e7a804bc */ 	swc1	$f8,0x4bc($sp)
-/*  f121768:	c7a40618 */ 	lwc1	$f4,0x618($sp)
-/*  f12176c:	46181202 */ 	mul.s	$f8,$f2,$f24
-/*  f121770:	e7aa04cc */ 	swc1	$f10,0x4cc($sp)
-/*  f121774:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f121778:	4618a282 */ 	mul.s	$f10,$f20,$f24
-/*  f12177c:	e7a604d0 */ 	swc1	$f6,0x4d0($sp)
-/*  f121780:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f121784:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f121788:	e7a804d4 */ 	swc1	$f8,0x4d4($sp)
-/*  f12178c:	c7a8061c */ 	lwc1	$f8,0x61c($sp)
-/*  f121790:	3c013f80 */ 	lui	$at,0x3f80
-/*  f121794:	e7aa04e4 */ 	swc1	$f10,0x4e4($sp)
-/*  f121798:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f12179c:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f1217a0:	e7a604e8 */ 	swc1	$f6,0x4e8($sp)
-/*  f1217a4:	46186102 */ 	mul.s	$f4,$f12,$f24
-/*  f1217a8:	c7a6060c */ 	lwc1	$f6,0x60c($sp)
-/*  f1217ac:	27a404b4 */ 	addiu	$a0,$sp,0x4b4
-/*  f1217b0:	8fa50588 */ 	lw	$a1,0x588($sp)
-/*  f1217b4:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f1217b8:	e7aa04ec */ 	swc1	$f10,0x4ec($sp)
-/*  f1217bc:	46189282 */ 	mul.s	$f10,$f18,$f24
-/*  f1217c0:	e7a404fc */ 	swc1	$f4,0x4fc($sp)
-/*  f1217c4:	461c7102 */ 	mul.s	$f4,$f14,$f28
-/*  f1217c8:	e7a80500 */ 	swc1	$f8,0x500($sp)
-/*  f1217cc:	461c8182 */ 	mul.s	$f6,$f16,$f28
-/*  f1217d0:	e7aa0504 */ 	swc1	$f10,0x504($sp)
-/*  f1217d4:	461cb282 */ 	mul.s	$f10,$f22,$f28
-/*  f1217d8:	e7a404c0 */ 	swc1	$f4,0x4c0($sp)
-/*  f1217dc:	461c1102 */ 	mul.s	$f4,$f2,$f28
-/*  f1217e0:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f1217e4:	e7aa04d8 */ 	swc1	$f10,0x4d8($sp)
-/*  f1217e8:	c7aa061c */ 	lwc1	$f10,0x61c($sp)
-/*  f1217ec:	e7a804c4 */ 	swc1	$f8,0x4c4($sp)
-/*  f1217f0:	461ca202 */ 	mul.s	$f8,$f20,$f28
-/*  f1217f4:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f1217f8:	461c5102 */ 	mul.s	$f4,$f10,$f28
-/*  f1217fc:	e7a604dc */ 	swc1	$f6,0x4dc($sp)
-/*  f121800:	e7a804f0 */ 	swc1	$f8,0x4f0($sp)
-/*  f121804:	461c6202 */ 	mul.s	$f8,$f12,$f28
-/*  f121808:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f12180c:	461c9282 */ 	mul.s	$f10,$f18,$f28
-/*  f121810:	e7a604f4 */ 	swc1	$f6,0x4f4($sp)
-/*  f121814:	44813000 */ 	mtc1	$at,$f6
-/*  f121818:	e7a80508 */ 	swc1	$f8,0x508($sp)
-/*  f12181c:	46183203 */ 	div.s	$f8,$f6,$f24
-/*  f121820:	46005100 */ 	add.s	$f4,$f10,$f0
-/*  f121824:	e7a4050c */ 	swc1	$f4,0x50c($sp)
-/*  f121828:	0fc47d0e */ 	jal	sky0f11f438
-/*  f12182c:	e7a80064 */ 	swc1	$f8,0x64($sp)
-/*  f121830:	27a404cc */ 	addiu	$a0,$sp,0x4cc
-/*  f121834:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121838:	8fa50580 */ 	lw	$a1,0x580($sp)
-/*  f12183c:	27a404e4 */ 	addiu	$a0,$sp,0x4e4
-/*  f121840:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121844:	8fa5057c */ 	lw	$a1,0x57c($sp)
-/*  f121848:	27a404fc */ 	addiu	$a0,$sp,0x4fc
-/*  f12184c:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121850:	8fa50578 */ 	lw	$a1,0x578($sp)
-/*  f121854:	100002cb */ 	b	.L0f122384
-/*  f121858:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
-.L0f12185c:
-/*  f12185c:	c7b2062c */ 	lwc1	$f18,0x62c($sp)
-/*  f121860:	c7a40630 */ 	lwc1	$f4,0x630($sp)
-/*  f121864:	c7b40634 */ 	lwc1	$f20,0x634($sp)
-/*  f121868:	46189282 */ 	mul.s	$f10,$f18,$f24
-/*  f12186c:	c7a20644 */ 	lwc1	$f2,0x644($sp)
-/*  f121870:	c7ac064c */ 	lwc1	$f12,0x64c($sp)
-/*  f121874:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f121878:	c7a40648 */ 	lwc1	$f4,0x648($sp)
-/*  f12187c:	c7b60608 */ 	lwc1	$f22,0x608($sp)
-/*  f121880:	4618a202 */ 	mul.s	$f8,$f20,$f24
-/*  f121884:	e7aa04b4 */ 	swc1	$f10,0x4b4($sp)
-/*  f121888:	c7ae0614 */ 	lwc1	$f14,0x614($sp)
-/*  f12188c:	46181282 */ 	mul.s	$f10,$f2,$f24
-/*  f121890:	e7a604b8 */ 	swc1	$f6,0x4b8($sp)
-/*  f121894:	c7b0061c */ 	lwc1	$f16,0x61c($sp)
-/*  f121898:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f12189c:	e7a804bc */ 	swc1	$f8,0x4bc($sp)
-/*  f1218a0:	c7a4060c */ 	lwc1	$f4,0x60c($sp)
-/*  f1218a4:	46186202 */ 	mul.s	$f8,$f12,$f24
-/*  f1218a8:	e7aa04cc */ 	swc1	$f10,0x4cc($sp)
-/*  f1218ac:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f1218b0:	4618b282 */ 	mul.s	$f10,$f22,$f24
-/*  f1218b4:	e7a604d0 */ 	swc1	$f6,0x4d0($sp)
-/*  f1218b8:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f1218bc:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f1218c0:	e7a804d4 */ 	swc1	$f8,0x4d4($sp)
-/*  f1218c4:	c7a80610 */ 	lwc1	$f8,0x610($sp)
-/*  f1218c8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1218cc:	e7aa04e4 */ 	swc1	$f10,0x4e4($sp)
-/*  f1218d0:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f1218d4:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f1218d8:	e7a604e8 */ 	swc1	$f6,0x4e8($sp)
-/*  f1218dc:	46187102 */ 	mul.s	$f4,$f14,$f24
-/*  f1218e0:	c7a60618 */ 	lwc1	$f6,0x618($sp)
-/*  f1218e4:	27a404b4 */ 	addiu	$a0,$sp,0x4b4
-/*  f1218e8:	8fa50584 */ 	lw	$a1,0x584($sp)
-/*  f1218ec:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f1218f0:	e7aa04ec */ 	swc1	$f10,0x4ec($sp)
-/*  f1218f4:	46188282 */ 	mul.s	$f10,$f16,$f24
-/*  f1218f8:	e7a404fc */ 	swc1	$f4,0x4fc($sp)
-/*  f1218fc:	461c9102 */ 	mul.s	$f4,$f18,$f28
-/*  f121900:	e7a80500 */ 	swc1	$f8,0x500($sp)
-/*  f121904:	461ca182 */ 	mul.s	$f6,$f20,$f28
-/*  f121908:	e7aa0504 */ 	swc1	$f10,0x504($sp)
-/*  f12190c:	461c1282 */ 	mul.s	$f10,$f2,$f28
-/*  f121910:	e7a404c0 */ 	swc1	$f4,0x4c0($sp)
-/*  f121914:	461c6102 */ 	mul.s	$f4,$f12,$f28
-/*  f121918:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f12191c:	e7aa04d8 */ 	swc1	$f10,0x4d8($sp)
-/*  f121920:	c7aa0610 */ 	lwc1	$f10,0x610($sp)
-/*  f121924:	e7a804c4 */ 	swc1	$f8,0x4c4($sp)
-/*  f121928:	461cb202 */ 	mul.s	$f8,$f22,$f28
-/*  f12192c:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f121930:	461c5102 */ 	mul.s	$f4,$f10,$f28
-/*  f121934:	e7a604dc */ 	swc1	$f6,0x4dc($sp)
-/*  f121938:	e7a804f0 */ 	swc1	$f8,0x4f0($sp)
-/*  f12193c:	461c7202 */ 	mul.s	$f8,$f14,$f28
-/*  f121940:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f121944:	461c8282 */ 	mul.s	$f10,$f16,$f28
-/*  f121948:	e7a604f4 */ 	swc1	$f6,0x4f4($sp)
-/*  f12194c:	44813000 */ 	mtc1	$at,$f6
-/*  f121950:	e7a80508 */ 	swc1	$f8,0x508($sp)
-/*  f121954:	46183203 */ 	div.s	$f8,$f6,$f24
-/*  f121958:	46005100 */ 	add.s	$f4,$f10,$f0
-/*  f12195c:	e7a4050c */ 	swc1	$f4,0x50c($sp)
-/*  f121960:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121964:	e7a80064 */ 	swc1	$f8,0x64($sp)
-/*  f121968:	27a404cc */ 	addiu	$a0,$sp,0x4cc
-/*  f12196c:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121970:	8fa5058c */ 	lw	$a1,0x58c($sp)
-/*  f121974:	27a404e4 */ 	addiu	$a0,$sp,0x4e4
-/*  f121978:	0fc47d0e */ 	jal	sky0f11f438
-/*  f12197c:	8fa50578 */ 	lw	$a1,0x578($sp)
-/*  f121980:	27a404fc */ 	addiu	$a0,$sp,0x4fc
-/*  f121984:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121988:	8fa5057c */ 	lw	$a1,0x57c($sp)
-/*  f12198c:	1000027d */ 	b	.L0f122384
-/*  f121990:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
-.L0f121994:
-/*  f121994:	c7b60620 */ 	lwc1	$f22,0x620($sp)
-/*  f121998:	c7a40624 */ 	lwc1	$f4,0x624($sp)
-/*  f12199c:	c7a20628 */ 	lwc1	$f2,0x628($sp)
-/*  f1219a0:	4618b282 */ 	mul.s	$f10,$f22,$f24
-/*  f1219a4:	c7ae0608 */ 	lwc1	$f14,0x608($sp)
-/*  f1219a8:	c7b20610 */ 	lwc1	$f18,0x610($sp)
-/*  f1219ac:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f1219b0:	c7a4060c */ 	lwc1	$f4,0x60c($sp)
-/*  f1219b4:	c7b005f0 */ 	lwc1	$f16,0x5f0($sp)
-/*  f1219b8:	46181202 */ 	mul.s	$f8,$f2,$f24
-/*  f1219bc:	e7aa04b4 */ 	swc1	$f10,0x4b4($sp)
-/*  f1219c0:	c7ac05f8 */ 	lwc1	$f12,0x5f8($sp)
-/*  f1219c4:	46187282 */ 	mul.s	$f10,$f14,$f24
-/*  f1219c8:	e7a604b8 */ 	swc1	$f6,0x4b8($sp)
-/*  f1219cc:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f1219d0:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f1219d4:	e7a804bc */ 	swc1	$f8,0x4bc($sp)
-/*  f1219d8:	c7a405f4 */ 	lwc1	$f4,0x5f4($sp)
-/*  f1219dc:	46189202 */ 	mul.s	$f8,$f18,$f24
-/*  f1219e0:	e7aa04cc */ 	swc1	$f10,0x4cc($sp)
-/*  f1219e4:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f1219e8:	46188282 */ 	mul.s	$f10,$f16,$f24
-/*  f1219ec:	e7a604d0 */ 	swc1	$f6,0x4d0($sp)
-/*  f1219f0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1219f4:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f1219f8:	e7a804d4 */ 	swc1	$f8,0x4d4($sp)
-/*  f1219fc:	24110003 */ 	addiu	$s1,$zero,0x3
-/*  f121a00:	46186202 */ 	mul.s	$f8,$f12,$f24
-/*  f121a04:	e7aa04e4 */ 	swc1	$f10,0x4e4($sp)
-/*  f121a08:	27a404b4 */ 	addiu	$a0,$sp,0x4b4
-/*  f121a0c:	461cb282 */ 	mul.s	$f10,$f22,$f28
-/*  f121a10:	e7a604e8 */ 	swc1	$f6,0x4e8($sp)
-/*  f121a14:	8fa50580 */ 	lw	$a1,0x580($sp)
-/*  f121a18:	461c1102 */ 	mul.s	$f4,$f2,$f28
-/*  f121a1c:	e7a804ec */ 	swc1	$f8,0x4ec($sp)
-/*  f121a20:	461c7202 */ 	mul.s	$f8,$f14,$f28
-/*  f121a24:	e7aa04c0 */ 	swc1	$f10,0x4c0($sp)
-/*  f121a28:	461c9282 */ 	mul.s	$f10,$f18,$f28
-/*  f121a2c:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f121a30:	e7a804d8 */ 	swc1	$f8,0x4d8($sp)
-/*  f121a34:	e7a604c4 */ 	swc1	$f6,0x4c4($sp)
-/*  f121a38:	461c8182 */ 	mul.s	$f6,$f16,$f28
-/*  f121a3c:	46005100 */ 	add.s	$f4,$f10,$f0
-/*  f121a40:	461c6202 */ 	mul.s	$f8,$f12,$f28
-/*  f121a44:	e7a404dc */ 	swc1	$f4,0x4dc($sp)
-/*  f121a48:	44812000 */ 	mtc1	$at,$f4
-/*  f121a4c:	e7a604f0 */ 	swc1	$f6,0x4f0($sp)
-/*  f121a50:	46182183 */ 	div.s	$f6,$f4,$f24
-/*  f121a54:	46004280 */ 	add.s	$f10,$f8,$f0
-/*  f121a58:	e7aa04f4 */ 	swc1	$f10,0x4f4($sp)
-/*  f121a5c:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121a60:	e7a60064 */ 	swc1	$f6,0x64($sp)
-/*  f121a64:	27a404cc */ 	addiu	$a0,$sp,0x4cc
-/*  f121a68:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121a6c:	8fa50578 */ 	lw	$a1,0x578($sp)
-/*  f121a70:	27a404e4 */ 	addiu	$a0,$sp,0x4e4
-/*  f121a74:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121a78:	8fa50570 */ 	lw	$a1,0x570($sp)
-/*  f121a7c:	10000241 */ 	b	.L0f122384
-/*  f121a80:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
-.L0f121a84:
-/*  f121a84:	c7b2062c */ 	lwc1	$f18,0x62c($sp)
-/*  f121a88:	c7aa0630 */ 	lwc1	$f10,0x630($sp)
-/*  f121a8c:	c7b40634 */ 	lwc1	$f20,0x634($sp)
-/*  f121a90:	46189202 */ 	mul.s	$f8,$f18,$f24
-/*  f121a94:	c7ac05fc */ 	lwc1	$f12,0x5fc($sp)
-/*  f121a98:	c7ae0604 */ 	lwc1	$f14,0x604($sp)
-/*  f121a9c:	46185102 */ 	mul.s	$f4,$f10,$f24
-/*  f121aa0:	c7aa0600 */ 	lwc1	$f10,0x600($sp)
-/*  f121aa4:	c7a20608 */ 	lwc1	$f2,0x608($sp)
-/*  f121aa8:	4618a182 */ 	mul.s	$f6,$f20,$f24
-/*  f121aac:	e7a804b4 */ 	swc1	$f8,0x4b4($sp)
-/*  f121ab0:	c7b00610 */ 	lwc1	$f16,0x610($sp)
-/*  f121ab4:	46186202 */ 	mul.s	$f8,$f12,$f24
-/*  f121ab8:	e7a404b8 */ 	swc1	$f4,0x4b8($sp)
-/*  f121abc:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f121ac0:	46185102 */ 	mul.s	$f4,$f10,$f24
-/*  f121ac4:	e7a604bc */ 	swc1	$f6,0x4bc($sp)
-/*  f121ac8:	c7aa060c */ 	lwc1	$f10,0x60c($sp)
-/*  f121acc:	46187182 */ 	mul.s	$f6,$f14,$f24
-/*  f121ad0:	e7a804cc */ 	swc1	$f8,0x4cc($sp)
-/*  f121ad4:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f121ad8:	46181202 */ 	mul.s	$f8,$f2,$f24
-/*  f121adc:	e7a404d0 */ 	swc1	$f4,0x4d0($sp)
-/*  f121ae0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f121ae4:	46185102 */ 	mul.s	$f4,$f10,$f24
-/*  f121ae8:	e7a604d4 */ 	swc1	$f6,0x4d4($sp)
-/*  f121aec:	24110003 */ 	addiu	$s1,$zero,0x3
-/*  f121af0:	46188182 */ 	mul.s	$f6,$f16,$f24
-/*  f121af4:	e7a804e4 */ 	swc1	$f8,0x4e4($sp)
-/*  f121af8:	27a404b4 */ 	addiu	$a0,$sp,0x4b4
-/*  f121afc:	461c9202 */ 	mul.s	$f8,$f18,$f28
-/*  f121b00:	e7a404e8 */ 	swc1	$f4,0x4e8($sp)
-/*  f121b04:	8fa50584 */ 	lw	$a1,0x584($sp)
-/*  f121b08:	461ca282 */ 	mul.s	$f10,$f20,$f28
-/*  f121b0c:	e7a604ec */ 	swc1	$f6,0x4ec($sp)
-/*  f121b10:	461c6182 */ 	mul.s	$f6,$f12,$f28
-/*  f121b14:	e7a804c0 */ 	swc1	$f8,0x4c0($sp)
-/*  f121b18:	461c7202 */ 	mul.s	$f8,$f14,$f28
-/*  f121b1c:	46005100 */ 	add.s	$f4,$f10,$f0
-/*  f121b20:	e7a604d8 */ 	swc1	$f6,0x4d8($sp)
-/*  f121b24:	e7a404c4 */ 	swc1	$f4,0x4c4($sp)
-/*  f121b28:	461c1102 */ 	mul.s	$f4,$f2,$f28
-/*  f121b2c:	46004280 */ 	add.s	$f10,$f8,$f0
-/*  f121b30:	461c8182 */ 	mul.s	$f6,$f16,$f28
-/*  f121b34:	e7aa04dc */ 	swc1	$f10,0x4dc($sp)
-/*  f121b38:	44815000 */ 	mtc1	$at,$f10
-/*  f121b3c:	e7a404f0 */ 	swc1	$f4,0x4f0($sp)
-/*  f121b40:	46185103 */ 	div.s	$f4,$f10,$f24
-/*  f121b44:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f121b48:	e7a804f4 */ 	swc1	$f8,0x4f4($sp)
-/*  f121b4c:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121b50:	e7a40064 */ 	swc1	$f4,0x64($sp)
-/*  f121b54:	27a404cc */ 	addiu	$a0,$sp,0x4cc
-/*  f121b58:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121b5c:	8fa50574 */ 	lw	$a1,0x574($sp)
-/*  f121b60:	27a404e4 */ 	addiu	$a0,$sp,0x4e4
-/*  f121b64:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121b68:	8fa50578 */ 	lw	$a1,0x578($sp)
-/*  f121b6c:	10000205 */ 	b	.L0f122384
-/*  f121b70:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
-.L0f121b74:
-/*  f121b74:	c7ae0638 */ 	lwc1	$f14,0x638($sp)
-/*  f121b78:	c7a8063c */ 	lwc1	$f8,0x63c($sp)
-/*  f121b7c:	c7b00640 */ 	lwc1	$f16,0x640($sp)
-/*  f121b80:	46187182 */ 	mul.s	$f6,$f14,$f24
-/*  f121b84:	c7a205f0 */ 	lwc1	$f2,0x5f0($sp)
-/*  f121b88:	c7ac05f8 */ 	lwc1	$f12,0x5f8($sp)
-/*  f121b8c:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f121b90:	c7a805f4 */ 	lwc1	$f8,0x5f4($sp)
-/*  f121b94:	c7b40614 */ 	lwc1	$f20,0x614($sp)
-/*  f121b98:	46188102 */ 	mul.s	$f4,$f16,$f24
-/*  f121b9c:	e7a604b4 */ 	swc1	$f6,0x4b4($sp)
-/*  f121ba0:	c7b2061c */ 	lwc1	$f18,0x61c($sp)
-/*  f121ba4:	46181182 */ 	mul.s	$f6,$f2,$f24
-/*  f121ba8:	e7aa04b8 */ 	swc1	$f10,0x4b8($sp)
-/*  f121bac:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f121bb0:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f121bb4:	e7a404bc */ 	swc1	$f4,0x4bc($sp)
-/*  f121bb8:	c7a80618 */ 	lwc1	$f8,0x618($sp)
-/*  f121bbc:	46186102 */ 	mul.s	$f4,$f12,$f24
-/*  f121bc0:	e7a604cc */ 	swc1	$f6,0x4cc($sp)
-/*  f121bc4:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f121bc8:	4618a182 */ 	mul.s	$f6,$f20,$f24
-/*  f121bcc:	e7aa04d0 */ 	swc1	$f10,0x4d0($sp)
-/*  f121bd0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f121bd4:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f121bd8:	e7a404d4 */ 	swc1	$f4,0x4d4($sp)
-/*  f121bdc:	24110003 */ 	addiu	$s1,$zero,0x3
-/*  f121be0:	46189102 */ 	mul.s	$f4,$f18,$f24
-/*  f121be4:	e7a604e4 */ 	swc1	$f6,0x4e4($sp)
-/*  f121be8:	27a404b4 */ 	addiu	$a0,$sp,0x4b4
-/*  f121bec:	461c7182 */ 	mul.s	$f6,$f14,$f28
-/*  f121bf0:	e7aa04e8 */ 	swc1	$f10,0x4e8($sp)
-/*  f121bf4:	8fa50588 */ 	lw	$a1,0x588($sp)
-/*  f121bf8:	461c8202 */ 	mul.s	$f8,$f16,$f28
-/*  f121bfc:	e7a404ec */ 	swc1	$f4,0x4ec($sp)
-/*  f121c00:	461c1102 */ 	mul.s	$f4,$f2,$f28
-/*  f121c04:	e7a604c0 */ 	swc1	$f6,0x4c0($sp)
-/*  f121c08:	461c6182 */ 	mul.s	$f6,$f12,$f28
-/*  f121c0c:	46004280 */ 	add.s	$f10,$f8,$f0
-/*  f121c10:	e7a404d8 */ 	swc1	$f4,0x4d8($sp)
-/*  f121c14:	e7aa04c4 */ 	swc1	$f10,0x4c4($sp)
-/*  f121c18:	461ca282 */ 	mul.s	$f10,$f20,$f28
-/*  f121c1c:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f121c20:	461c9102 */ 	mul.s	$f4,$f18,$f28
-/*  f121c24:	e7a804dc */ 	swc1	$f8,0x4dc($sp)
-/*  f121c28:	44814000 */ 	mtc1	$at,$f8
-/*  f121c2c:	e7aa04f0 */ 	swc1	$f10,0x4f0($sp)
-/*  f121c30:	46184283 */ 	div.s	$f10,$f8,$f24
-/*  f121c34:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f121c38:	e7a604f4 */ 	swc1	$f6,0x4f4($sp)
-/*  f121c3c:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121c40:	e7aa0064 */ 	swc1	$f10,0x64($sp)
-/*  f121c44:	27a404cc */ 	addiu	$a0,$sp,0x4cc
-/*  f121c48:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121c4c:	8fa50570 */ 	lw	$a1,0x570($sp)
-/*  f121c50:	27a404e4 */ 	addiu	$a0,$sp,0x4e4
-/*  f121c54:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121c58:	8fa5057c */ 	lw	$a1,0x57c($sp)
-/*  f121c5c:	100001c9 */ 	b	.L0f122384
-/*  f121c60:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
-.L0f121c64:
-/*  f121c64:	c7a20644 */ 	lwc1	$f2,0x644($sp)
-/*  f121c68:	c7a60648 */ 	lwc1	$f6,0x648($sp)
-/*  f121c6c:	c7ac064c */ 	lwc1	$f12,0x64c($sp)
-/*  f121c70:	46181102 */ 	mul.s	$f4,$f2,$f24
-/*  f121c74:	c7b20614 */ 	lwc1	$f18,0x614($sp)
-/*  f121c78:	c7b4061c */ 	lwc1	$f20,0x61c($sp)
-/*  f121c7c:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f121c80:	c7a60618 */ 	lwc1	$f6,0x618($sp)
-/*  f121c84:	c7ae05fc */ 	lwc1	$f14,0x5fc($sp)
-/*  f121c88:	46186282 */ 	mul.s	$f10,$f12,$f24
-/*  f121c8c:	e7a404b4 */ 	swc1	$f4,0x4b4($sp)
-/*  f121c90:	c7b00604 */ 	lwc1	$f16,0x604($sp)
-/*  f121c94:	46189102 */ 	mul.s	$f4,$f18,$f24
-/*  f121c98:	e7a804b8 */ 	swc1	$f8,0x4b8($sp)
-/*  f121c9c:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f121ca0:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f121ca4:	e7aa04bc */ 	swc1	$f10,0x4bc($sp)
-/*  f121ca8:	c7a60600 */ 	lwc1	$f6,0x600($sp)
-/*  f121cac:	4618a282 */ 	mul.s	$f10,$f20,$f24
-/*  f121cb0:	e7a404cc */ 	swc1	$f4,0x4cc($sp)
-/*  f121cb4:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f121cb8:	46187102 */ 	mul.s	$f4,$f14,$f24
-/*  f121cbc:	e7a804d0 */ 	swc1	$f8,0x4d0($sp)
-/*  f121cc0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f121cc4:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f121cc8:	e7aa04d4 */ 	swc1	$f10,0x4d4($sp)
-/*  f121ccc:	24110003 */ 	addiu	$s1,$zero,0x3
-/*  f121cd0:	46188282 */ 	mul.s	$f10,$f16,$f24
-/*  f121cd4:	e7a404e4 */ 	swc1	$f4,0x4e4($sp)
-/*  f121cd8:	27a404b4 */ 	addiu	$a0,$sp,0x4b4
-/*  f121cdc:	461c1102 */ 	mul.s	$f4,$f2,$f28
-/*  f121ce0:	e7a804e8 */ 	swc1	$f8,0x4e8($sp)
-/*  f121ce4:	8fa5058c */ 	lw	$a1,0x58c($sp)
-/*  f121ce8:	461c6182 */ 	mul.s	$f6,$f12,$f28
-/*  f121cec:	e7aa04ec */ 	swc1	$f10,0x4ec($sp)
-/*  f121cf0:	461c9282 */ 	mul.s	$f10,$f18,$f28
-/*  f121cf4:	e7a404c0 */ 	swc1	$f4,0x4c0($sp)
-/*  f121cf8:	461ca102 */ 	mul.s	$f4,$f20,$f28
-/*  f121cfc:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f121d00:	e7aa04d8 */ 	swc1	$f10,0x4d8($sp)
-/*  f121d04:	e7a804c4 */ 	swc1	$f8,0x4c4($sp)
-/*  f121d08:	461c7202 */ 	mul.s	$f8,$f14,$f28
-/*  f121d0c:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f121d10:	461c8282 */ 	mul.s	$f10,$f16,$f28
-/*  f121d14:	e7a604dc */ 	swc1	$f6,0x4dc($sp)
-/*  f121d18:	44813000 */ 	mtc1	$at,$f6
-/*  f121d1c:	e7a804f0 */ 	swc1	$f8,0x4f0($sp)
-/*  f121d20:	46183203 */ 	div.s	$f8,$f6,$f24
-/*  f121d24:	46005100 */ 	add.s	$f4,$f10,$f0
-/*  f121d28:	e7a404f4 */ 	swc1	$f4,0x4f4($sp)
-/*  f121d2c:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121d30:	e7a80064 */ 	swc1	$f8,0x64($sp)
-/*  f121d34:	27a404cc */ 	addiu	$a0,$sp,0x4cc
-/*  f121d38:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121d3c:	8fa5057c */ 	lw	$a1,0x57c($sp)
-/*  f121d40:	27a404e4 */ 	addiu	$a0,$sp,0x4e4
-/*  f121d44:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121d48:	8fa50574 */ 	lw	$a1,0x574($sp)
-/*  f121d4c:	1000018d */ 	b	.L0f122384
-/*  f121d50:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
-.L0f121d54:
-/*  f121d54:	c7b2062c */ 	lwc1	$f18,0x62c($sp)
-/*  f121d58:	c7a40630 */ 	lwc1	$f4,0x630($sp)
-/*  f121d5c:	c7b40634 */ 	lwc1	$f20,0x634($sp)
-/*  f121d60:	46189282 */ 	mul.s	$f10,$f18,$f24
-/*  f121d64:	c7a20644 */ 	lwc1	$f2,0x644($sp)
-/*  f121d68:	c7ac064c */ 	lwc1	$f12,0x64c($sp)
-/*  f121d6c:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f121d70:	c7a40648 */ 	lwc1	$f4,0x648($sp)
-/*  f121d74:	c7ae0638 */ 	lwc1	$f14,0x638($sp)
-/*  f121d78:	4618a202 */ 	mul.s	$f8,$f20,$f24
-/*  f121d7c:	e7aa04b4 */ 	swc1	$f10,0x4b4($sp)
-/*  f121d80:	c7b00640 */ 	lwc1	$f16,0x640($sp)
-/*  f121d84:	46181282 */ 	mul.s	$f10,$f2,$f24
-/*  f121d88:	e7a604b8 */ 	swc1	$f6,0x4b8($sp)
-/*  f121d8c:	c7b605f0 */ 	lwc1	$f22,0x5f0($sp)
-/*  f121d90:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f121d94:	e7a804bc */ 	swc1	$f8,0x4bc($sp)
-/*  f121d98:	c7a4063c */ 	lwc1	$f4,0x63c($sp)
-/*  f121d9c:	46186202 */ 	mul.s	$f8,$f12,$f24
-/*  f121da0:	e7aa04cc */ 	swc1	$f10,0x4cc($sp)
-/*  f121da4:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f121da8:	46187282 */ 	mul.s	$f10,$f14,$f24
-/*  f121dac:	e7a604d0 */ 	swc1	$f6,0x4d0($sp)
-/*  f121db0:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f121db4:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f121db8:	e7a804d4 */ 	swc1	$f8,0x4d4($sp)
-/*  f121dbc:	c7a405f4 */ 	lwc1	$f4,0x5f4($sp)
-/*  f121dc0:	46188202 */ 	mul.s	$f8,$f16,$f24
-/*  f121dc4:	e7aa04e4 */ 	swc1	$f10,0x4e4($sp)
-/*  f121dc8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f121dcc:	4618b282 */ 	mul.s	$f10,$f22,$f24
-/*  f121dd0:	e7a604e8 */ 	swc1	$f6,0x4e8($sp)
-/*  f121dd4:	24110005 */ 	addiu	$s1,$zero,0x5
-/*  f121dd8:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f121ddc:	e7a804ec */ 	swc1	$f8,0x4ec($sp)
-/*  f121de0:	c7a805f8 */ 	lwc1	$f8,0x5f8($sp)
-/*  f121de4:	c7a40608 */ 	lwc1	$f4,0x608($sp)
-/*  f121de8:	e7aa04fc */ 	swc1	$f10,0x4fc($sp)
-/*  f121dec:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f121df0:	c7a8060c */ 	lwc1	$f8,0x60c($sp)
-/*  f121df4:	e7a60500 */ 	swc1	$f6,0x500($sp)
-/*  f121df8:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f121dfc:	c7a40610 */ 	lwc1	$f4,0x610($sp)
-/*  f121e00:	27a404b4 */ 	addiu	$a0,$sp,0x4b4
-/*  f121e04:	8fa50584 */ 	lw	$a1,0x584($sp)
-/*  f121e08:	e7aa0504 */ 	swc1	$f10,0x504($sp)
-/*  f121e0c:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f121e10:	e7a60514 */ 	swc1	$f6,0x514($sp)
-/*  f121e14:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f121e18:	00000000 */ 	nop
-/*  f121e1c:	461c9202 */ 	mul.s	$f8,$f18,$f28
-/*  f121e20:	e7aa0518 */ 	swc1	$f10,0x518($sp)
-/*  f121e24:	461ca282 */ 	mul.s	$f10,$f20,$f28
-/*  f121e28:	e7a6051c */ 	swc1	$f6,0x51c($sp)
-/*  f121e2c:	461c1182 */ 	mul.s	$f6,$f2,$f28
-/*  f121e30:	e7a804c0 */ 	swc1	$f8,0x4c0($sp)
-/*  f121e34:	461c6202 */ 	mul.s	$f8,$f12,$f28
-/*  f121e38:	46005100 */ 	add.s	$f4,$f10,$f0
-/*  f121e3c:	e7a604d8 */ 	swc1	$f6,0x4d8($sp)
-/*  f121e40:	e7a404c4 */ 	swc1	$f4,0x4c4($sp)
-/*  f121e44:	461c7102 */ 	mul.s	$f4,$f14,$f28
-/*  f121e48:	46004280 */ 	add.s	$f10,$f8,$f0
-/*  f121e4c:	461c8182 */ 	mul.s	$f6,$f16,$f28
-/*  f121e50:	e7aa04dc */ 	swc1	$f10,0x4dc($sp)
-/*  f121e54:	461cb282 */ 	mul.s	$f10,$f22,$f28
-/*  f121e58:	e7a404f0 */ 	swc1	$f4,0x4f0($sp)
-/*  f121e5c:	c7a405f8 */ 	lwc1	$f4,0x5f8($sp)
-/*  f121e60:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f121e64:	461c2182 */ 	mul.s	$f6,$f4,$f28
-/*  f121e68:	e7aa0508 */ 	swc1	$f10,0x508($sp)
-/*  f121e6c:	c7aa0608 */ 	lwc1	$f10,0x608($sp)
-/*  f121e70:	e7a804f4 */ 	swc1	$f8,0x4f4($sp)
-/*  f121e74:	461c5102 */ 	mul.s	$f4,$f10,$f28
-/*  f121e78:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f121e7c:	c7a60610 */ 	lwc1	$f6,0x610($sp)
-/*  f121e80:	e7a8050c */ 	swc1	$f8,0x50c($sp)
-/*  f121e84:	e7a40520 */ 	swc1	$f4,0x520($sp)
-/*  f121e88:	44812000 */ 	mtc1	$at,$f4
-/*  f121e8c:	461c3202 */ 	mul.s	$f8,$f6,$f28
-/*  f121e90:	46182183 */ 	div.s	$f6,$f4,$f24
-/*  f121e94:	46004280 */ 	add.s	$f10,$f8,$f0
-/*  f121e98:	e7aa0524 */ 	swc1	$f10,0x524($sp)
-/*  f121e9c:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121ea0:	e7a60064 */ 	swc1	$f6,0x64($sp)
-/*  f121ea4:	27a404cc */ 	addiu	$a0,$sp,0x4cc
-/*  f121ea8:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121eac:	8fa5058c */ 	lw	$a1,0x58c($sp)
-/*  f121eb0:	27a404e4 */ 	addiu	$a0,$sp,0x4e4
-/*  f121eb4:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121eb8:	8fa50588 */ 	lw	$a1,0x588($sp)
-/*  f121ebc:	27a404fc */ 	addiu	$a0,$sp,0x4fc
-/*  f121ec0:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121ec4:	8fa50570 */ 	lw	$a1,0x570($sp)
-/*  f121ec8:	27a40514 */ 	addiu	$a0,$sp,0x514
-/*  f121ecc:	0fc47d0e */ 	jal	sky0f11f438
-/*  f121ed0:	8fa50578 */ 	lw	$a1,0x578($sp)
-/*  f121ed4:	1000012b */ 	b	.L0f122384
-/*  f121ed8:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
-.L0f121edc:
-/*  f121edc:	c7a20644 */ 	lwc1	$f2,0x644($sp)
-/*  f121ee0:	c7aa0648 */ 	lwc1	$f10,0x648($sp)
-/*  f121ee4:	c7ac064c */ 	lwc1	$f12,0x64c($sp)
-/*  f121ee8:	46181202 */ 	mul.s	$f8,$f2,$f24
-/*  f121eec:	c7ae0638 */ 	lwc1	$f14,0x638($sp)
-/*  f121ef0:	c7b00640 */ 	lwc1	$f16,0x640($sp)
-/*  f121ef4:	46185102 */ 	mul.s	$f4,$f10,$f24
-/*  f121ef8:	c7aa063c */ 	lwc1	$f10,0x63c($sp)
-/*  f121efc:	c7b60620 */ 	lwc1	$f22,0x620($sp)
-/*  f121f00:	46186182 */ 	mul.s	$f6,$f12,$f24
-/*  f121f04:	e7a804b4 */ 	swc1	$f8,0x4b4($sp)
-/*  f121f08:	c7b205fc */ 	lwc1	$f18,0x5fc($sp)
-/*  f121f0c:	46187202 */ 	mul.s	$f8,$f14,$f24
-/*  f121f10:	e7a404b8 */ 	swc1	$f4,0x4b8($sp)
-/*  f121f14:	c7b40604 */ 	lwc1	$f20,0x604($sp)
-/*  f121f18:	46185102 */ 	mul.s	$f4,$f10,$f24
-/*  f121f1c:	e7a604bc */ 	swc1	$f6,0x4bc($sp)
-/*  f121f20:	c7aa0624 */ 	lwc1	$f10,0x624($sp)
-/*  f121f24:	46188182 */ 	mul.s	$f6,$f16,$f24
-/*  f121f28:	e7a804cc */ 	swc1	$f8,0x4cc($sp)
-/*  f121f2c:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f121f30:	4618b202 */ 	mul.s	$f8,$f22,$f24
-/*  f121f34:	e7a404d0 */ 	swc1	$f4,0x4d0($sp)
-/*  f121f38:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f121f3c:	46185102 */ 	mul.s	$f4,$f10,$f24
-/*  f121f40:	e7a604d4 */ 	swc1	$f6,0x4d4($sp)
-/*  f121f44:	c7a60628 */ 	lwc1	$f6,0x628($sp)
-/*  f121f48:	c7aa0608 */ 	lwc1	$f10,0x608($sp)
-/*  f121f4c:	e7a804e4 */ 	swc1	$f8,0x4e4($sp)
-/*  f121f50:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f121f54:	c7a6060c */ 	lwc1	$f6,0x60c($sp)
-/*  f121f58:	e7a404e8 */ 	swc1	$f4,0x4e8($sp)
-/*  f121f5c:	46185102 */ 	mul.s	$f4,$f10,$f24
-/*  f121f60:	c7aa0610 */ 	lwc1	$f10,0x610($sp)
-/*  f121f64:	3c013f80 */ 	lui	$at,0x3f80
-/*  f121f68:	24110005 */ 	addiu	$s1,$zero,0x5
-/*  f121f6c:	e7a804ec */ 	swc1	$f8,0x4ec($sp)
-/*  f121f70:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f121f74:	27a404b4 */ 	addiu	$a0,$sp,0x4b4
-/*  f121f78:	e7a404fc */ 	swc1	$f4,0x4fc($sp)
-/*  f121f7c:	46185102 */ 	mul.s	$f4,$f10,$f24
-/*  f121f80:	8fa5058c */ 	lw	$a1,0x58c($sp)
-/*  f121f84:	46189182 */ 	mul.s	$f6,$f18,$f24
-/*  f121f88:	e7a80500 */ 	swc1	$f8,0x500($sp)
-/*  f121f8c:	c7a80600 */ 	lwc1	$f8,0x600($sp)
-/*  f121f90:	e7a40504 */ 	swc1	$f4,0x504($sp)
-/*  f121f94:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f121f98:	e7a60514 */ 	swc1	$f6,0x514($sp)
-/*  f121f9c:	4618a102 */ 	mul.s	$f4,$f20,$f24
-/*  f121fa0:	00000000 */ 	nop
-/*  f121fa4:	461c1182 */ 	mul.s	$f6,$f2,$f28
-/*  f121fa8:	e7aa0518 */ 	swc1	$f10,0x518($sp)
-/*  f121fac:	461c6202 */ 	mul.s	$f8,$f12,$f28
-/*  f121fb0:	e7a4051c */ 	swc1	$f4,0x51c($sp)
-/*  f121fb4:	461c7102 */ 	mul.s	$f4,$f14,$f28
-/*  f121fb8:	e7a604c0 */ 	swc1	$f6,0x4c0($sp)
-/*  f121fbc:	461c8182 */ 	mul.s	$f6,$f16,$f28
-/*  f121fc0:	46004280 */ 	add.s	$f10,$f8,$f0
-/*  f121fc4:	e7a404d8 */ 	swc1	$f4,0x4d8($sp)
-/*  f121fc8:	c7a40628 */ 	lwc1	$f4,0x628($sp)
-/*  f121fcc:	e7aa04c4 */ 	swc1	$f10,0x4c4($sp)
-/*  f121fd0:	461cb282 */ 	mul.s	$f10,$f22,$f28
-/*  f121fd4:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f121fd8:	461c2182 */ 	mul.s	$f6,$f4,$f28
-/*  f121fdc:	e7a804dc */ 	swc1	$f8,0x4dc($sp)
-/*  f121fe0:	e7aa04f0 */ 	swc1	$f10,0x4f0($sp)
-/*  f121fe4:	c7aa0608 */ 	lwc1	$f10,0x608($sp)
-/*  f121fe8:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f121fec:	461c5102 */ 	mul.s	$f4,$f10,$f28
-/*  f121ff0:	c7a60610 */ 	lwc1	$f6,0x610($sp)
-/*  f121ff4:	e7a804f4 */ 	swc1	$f8,0x4f4($sp)
-/*  f121ff8:	461c3202 */ 	mul.s	$f8,$f6,$f28
-/*  f121ffc:	e7a40508 */ 	swc1	$f4,0x508($sp)
-/*  f122000:	461c9102 */ 	mul.s	$f4,$f18,$f28
-/*  f122004:	46004280 */ 	add.s	$f10,$f8,$f0
-/*  f122008:	461ca182 */ 	mul.s	$f6,$f20,$f28
-/*  f12200c:	e7a40520 */ 	swc1	$f4,0x520($sp)
-/*  f122010:	e7aa050c */ 	swc1	$f10,0x50c($sp)
-/*  f122014:	44815000 */ 	mtc1	$at,$f10
-/*  f122018:	00000000 */ 	nop
-/*  f12201c:	46185103 */ 	div.s	$f4,$f10,$f24
-/*  f122020:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f122024:	e7a80524 */ 	swc1	$f8,0x524($sp)
-/*  f122028:	0fc47d0e */ 	jal	sky0f11f438
-/*  f12202c:	e7a40064 */ 	swc1	$f4,0x64($sp)
-/*  f122030:	27a404cc */ 	addiu	$a0,$sp,0x4cc
-/*  f122034:	0fc47d0e */ 	jal	sky0f11f438
-/*  f122038:	8fa50588 */ 	lw	$a1,0x588($sp)
-/*  f12203c:	27a404e4 */ 	addiu	$a0,$sp,0x4e4
-/*  f122040:	0fc47d0e */ 	jal	sky0f11f438
-/*  f122044:	8fa50580 */ 	lw	$a1,0x580($sp)
-/*  f122048:	27a404fc */ 	addiu	$a0,$sp,0x4fc
-/*  f12204c:	0fc47d0e */ 	jal	sky0f11f438
-/*  f122050:	8fa50578 */ 	lw	$a1,0x578($sp)
-/*  f122054:	27a40514 */ 	addiu	$a0,$sp,0x514
-/*  f122058:	0fc47d0e */ 	jal	sky0f11f438
-/*  f12205c:	8fa50574 */ 	lw	$a1,0x574($sp)
-/*  f122060:	100000c8 */ 	b	.L0f122384
-/*  f122064:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
-.L0f122068:
-/*  f122068:	c7b60620 */ 	lwc1	$f22,0x620($sp)
-/*  f12206c:	c7a80624 */ 	lwc1	$f8,0x624($sp)
-/*  f122070:	c7a40628 */ 	lwc1	$f4,0x628($sp)
-/*  f122074:	4618b182 */ 	mul.s	$f6,$f22,$f24
-/*  f122078:	c7b2062c */ 	lwc1	$f18,0x62c($sp)
-/*  f12207c:	c7b40634 */ 	lwc1	$f20,0x634($sp)
-/*  f122080:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f122084:	c7a20644 */ 	lwc1	$f2,0x644($sp)
-/*  f122088:	c7ac064c */ 	lwc1	$f12,0x64c($sp)
-/*  f12208c:	c7ae0614 */ 	lwc1	$f14,0x614($sp)
-/*  f122090:	e7a604b4 */ 	swc1	$f6,0x4b4($sp)
-/*  f122094:	46182182 */ 	mul.s	$f6,$f4,$f24
-/*  f122098:	c7b0061c */ 	lwc1	$f16,0x61c($sp)
-/*  f12209c:	e7aa04b8 */ 	swc1	$f10,0x4b8($sp)
-/*  f1220a0:	46189202 */ 	mul.s	$f8,$f18,$f24
-/*  f1220a4:	c7aa0630 */ 	lwc1	$f10,0x630($sp)
-/*  f1220a8:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f1220ac:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f1220b0:	e7a604bc */ 	swc1	$f6,0x4bc($sp)
-/*  f1220b4:	46185182 */ 	mul.s	$f6,$f10,$f24
-/*  f1220b8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1220bc:	e7a804cc */ 	swc1	$f8,0x4cc($sp)
-/*  f1220c0:	4618a202 */ 	mul.s	$f8,$f20,$f24
-/*  f1220c4:	24110005 */ 	addiu	$s1,$zero,0x5
-/*  f1220c8:	27a404b4 */ 	addiu	$a0,$sp,0x4b4
-/*  f1220cc:	46181282 */ 	mul.s	$f10,$f2,$f24
-/*  f1220d0:	e7a604d0 */ 	swc1	$f6,0x4d0($sp)
-/*  f1220d4:	c7a60648 */ 	lwc1	$f6,0x648($sp)
-/*  f1220d8:	8fa50580 */ 	lw	$a1,0x580($sp)
-/*  f1220dc:	e7a804d4 */ 	swc1	$f8,0x4d4($sp)
-/*  f1220e0:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f1220e4:	e7aa04e4 */ 	swc1	$f10,0x4e4($sp)
-/*  f1220e8:	46186282 */ 	mul.s	$f10,$f12,$f24
-/*  f1220ec:	e7a804e8 */ 	swc1	$f8,0x4e8($sp)
-/*  f1220f0:	46187182 */ 	mul.s	$f6,$f14,$f24
-/*  f1220f4:	c7a80618 */ 	lwc1	$f8,0x618($sp)
-/*  f1220f8:	e7aa04ec */ 	swc1	$f10,0x4ec($sp)
-/*  f1220fc:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f122100:	c7a805f0 */ 	lwc1	$f8,0x5f0($sp)
-/*  f122104:	e7a604fc */ 	swc1	$f6,0x4fc($sp)
-/*  f122108:	46188182 */ 	mul.s	$f6,$f16,$f24
-/*  f12210c:	e7aa0500 */ 	swc1	$f10,0x500($sp)
-/*  f122110:	46184282 */ 	mul.s	$f10,$f8,$f24
-/*  f122114:	e7a60504 */ 	swc1	$f6,0x504($sp)
-/*  f122118:	c7a605f4 */ 	lwc1	$f6,0x5f4($sp)
-/*  f12211c:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f122120:	e7aa0514 */ 	swc1	$f10,0x514($sp)
-/*  f122124:	c7aa05f8 */ 	lwc1	$f10,0x5f8($sp)
-/*  f122128:	46185182 */ 	mul.s	$f6,$f10,$f24
-/*  f12212c:	e7a80518 */ 	swc1	$f8,0x518($sp)
-/*  f122130:	461cb202 */ 	mul.s	$f8,$f22,$f28
-/*  f122134:	00000000 */ 	nop
-/*  f122138:	461c2282 */ 	mul.s	$f10,$f4,$f28
-/*  f12213c:	e7a6051c */ 	swc1	$f6,0x51c($sp)
-/*  f122140:	e7a804c0 */ 	swc1	$f8,0x4c0($sp)
-/*  f122144:	461c9202 */ 	mul.s	$f8,$f18,$f28
-/*  f122148:	46005180 */ 	add.s	$f6,$f10,$f0
-/*  f12214c:	461ca102 */ 	mul.s	$f4,$f20,$f28
-/*  f122150:	e7a604c4 */ 	swc1	$f6,0x4c4($sp)
-/*  f122154:	461c1182 */ 	mul.s	$f6,$f2,$f28
-/*  f122158:	e7a804d8 */ 	swc1	$f8,0x4d8($sp)
-/*  f12215c:	461c6202 */ 	mul.s	$f8,$f12,$f28
-/*  f122160:	46002280 */ 	add.s	$f10,$f4,$f0
-/*  f122164:	e7a604f0 */ 	swc1	$f6,0x4f0($sp)
-/*  f122168:	e7aa04dc */ 	swc1	$f10,0x4dc($sp)
-/*  f12216c:	461c7282 */ 	mul.s	$f10,$f14,$f28
-/*  f122170:	46004100 */ 	add.s	$f4,$f8,$f0
-/*  f122174:	461c8182 */ 	mul.s	$f6,$f16,$f28
-/*  f122178:	e7a404f4 */ 	swc1	$f4,0x4f4($sp)
-/*  f12217c:	c7a405f0 */ 	lwc1	$f4,0x5f0($sp)
-/*  f122180:	e7aa0508 */ 	swc1	$f10,0x508($sp)
-/*  f122184:	461c2282 */ 	mul.s	$f10,$f4,$f28
-/*  f122188:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f12218c:	c7a605f8 */ 	lwc1	$f6,0x5f8($sp)
-/*  f122190:	e7a8050c */ 	swc1	$f8,0x50c($sp)
-/*  f122194:	461c3202 */ 	mul.s	$f8,$f6,$f28
-/*  f122198:	e7aa0520 */ 	swc1	$f10,0x520($sp)
-/*  f12219c:	44815000 */ 	mtc1	$at,$f10
-/*  f1221a0:	00000000 */ 	nop
-/*  f1221a4:	46185183 */ 	div.s	$f6,$f10,$f24
-/*  f1221a8:	46004100 */ 	add.s	$f4,$f8,$f0
-/*  f1221ac:	e7a40524 */ 	swc1	$f4,0x524($sp)
-/*  f1221b0:	0fc47d0e */ 	jal	sky0f11f438
-/*  f1221b4:	e7a60064 */ 	swc1	$f6,0x64($sp)
-/*  f1221b8:	27a404cc */ 	addiu	$a0,$sp,0x4cc
-/*  f1221bc:	0fc47d0e */ 	jal	sky0f11f438
-/*  f1221c0:	8fa50584 */ 	lw	$a1,0x584($sp)
-/*  f1221c4:	27a404e4 */ 	addiu	$a0,$sp,0x4e4
-/*  f1221c8:	0fc47d0e */ 	jal	sky0f11f438
-/*  f1221cc:	8fa5058c */ 	lw	$a1,0x58c($sp)
-/*  f1221d0:	27a404fc */ 	addiu	$a0,$sp,0x4fc
-/*  f1221d4:	0fc47d0e */ 	jal	sky0f11f438
-/*  f1221d8:	8fa5057c */ 	lw	$a1,0x57c($sp)
-/*  f1221dc:	27a40514 */ 	addiu	$a0,$sp,0x514
-/*  f1221e0:	0fc47d0e */ 	jal	sky0f11f438
-/*  f1221e4:	8fa50570 */ 	lw	$a1,0x570($sp)
-/*  f1221e8:	10000066 */ 	b	.L0f122384
-/*  f1221ec:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
-.L0f1221f0:
-/*  f1221f0:	c7ae0638 */ 	lwc1	$f14,0x638($sp)
-/*  f1221f4:	c7a4063c */ 	lwc1	$f4,0x63c($sp)
-/*  f1221f8:	c7b00640 */ 	lwc1	$f16,0x640($sp)
-/*  f1221fc:	46187202 */ 	mul.s	$f8,$f14,$f24
-/*  f122200:	c7b60620 */ 	lwc1	$f22,0x620($sp)
-/*  f122204:	c7a20628 */ 	lwc1	$f2,0x628($sp)
-/*  f122208:	46182282 */ 	mul.s	$f10,$f4,$f24
-/*  f12220c:	c7a40624 */ 	lwc1	$f4,0x624($sp)
-/*  f122210:	c7b2062c */ 	lwc1	$f18,0x62c($sp)
-/*  f122214:	46188182 */ 	mul.s	$f6,$f16,$f24
-/*  f122218:	e7a804b4 */ 	swc1	$f8,0x4b4($sp)
-/*  f12221c:	c7b40634 */ 	lwc1	$f20,0x634($sp)
-/*  f122220:	4618b202 */ 	mul.s	$f8,$f22,$f24
-/*  f122224:	e7aa04b8 */ 	swc1	$f10,0x4b8($sp)
-/*  f122228:	c7ac05fc */ 	lwc1	$f12,0x5fc($sp)
-/*  f12222c:	46182282 */ 	mul.s	$f10,$f4,$f24
-/*  f122230:	e7a604bc */ 	swc1	$f6,0x4bc($sp)
-/*  f122234:	c7a40630 */ 	lwc1	$f4,0x630($sp)
-/*  f122238:	46181182 */ 	mul.s	$f6,$f2,$f24
-/*  f12223c:	e7a804cc */ 	swc1	$f8,0x4cc($sp)
-/*  f122240:	3c018008 */ 	lui	$at,%hi(g_SkyCloudOffset)
-/*  f122244:	46189202 */ 	mul.s	$f8,$f18,$f24
-/*  f122248:	e7aa04d0 */ 	swc1	$f10,0x4d0($sp)
-/*  f12224c:	c420db80 */ 	lwc1	$f0,%lo(g_SkyCloudOffset)($at)
-/*  f122250:	46182282 */ 	mul.s	$f10,$f4,$f24
-/*  f122254:	e7a604d4 */ 	swc1	$f6,0x4d4($sp)
-/*  f122258:	c7a40600 */ 	lwc1	$f4,0x600($sp)
-/*  f12225c:	4618a182 */ 	mul.s	$f6,$f20,$f24
-/*  f122260:	e7a804e4 */ 	swc1	$f8,0x4e4($sp)
-/*  f122264:	3c013f80 */ 	lui	$at,0x3f80
-/*  f122268:	46186202 */ 	mul.s	$f8,$f12,$f24
-/*  f12226c:	e7aa04e8 */ 	swc1	$f10,0x4e8($sp)
-/*  f122270:	24110005 */ 	addiu	$s1,$zero,0x5
-/*  f122274:	46182282 */ 	mul.s	$f10,$f4,$f24
-/*  f122278:	e7a604ec */ 	swc1	$f6,0x4ec($sp)
-/*  f12227c:	c7a60604 */ 	lwc1	$f6,0x604($sp)
-/*  f122280:	c7a40614 */ 	lwc1	$f4,0x614($sp)
-/*  f122284:	e7a804fc */ 	swc1	$f8,0x4fc($sp)
-/*  f122288:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f12228c:	c7a60618 */ 	lwc1	$f6,0x618($sp)
-/*  f122290:	e7aa0500 */ 	swc1	$f10,0x500($sp)
-/*  f122294:	46182282 */ 	mul.s	$f10,$f4,$f24
-/*  f122298:	c7a4061c */ 	lwc1	$f4,0x61c($sp)
-/*  f12229c:	27a404b4 */ 	addiu	$a0,$sp,0x4b4
-/*  f1222a0:	8fa50588 */ 	lw	$a1,0x588($sp)
-/*  f1222a4:	e7a80504 */ 	swc1	$f8,0x504($sp)
-/*  f1222a8:	46183202 */ 	mul.s	$f8,$f6,$f24
-/*  f1222ac:	e7aa0514 */ 	swc1	$f10,0x514($sp)
-/*  f1222b0:	46182282 */ 	mul.s	$f10,$f4,$f24
-/*  f1222b4:	00000000 */ 	nop
-/*  f1222b8:	461c7182 */ 	mul.s	$f6,$f14,$f28
-/*  f1222bc:	e7a80518 */ 	swc1	$f8,0x518($sp)
-/*  f1222c0:	461c8202 */ 	mul.s	$f8,$f16,$f28
-/*  f1222c4:	e7aa051c */ 	swc1	$f10,0x51c($sp)
-/*  f1222c8:	461cb282 */ 	mul.s	$f10,$f22,$f28
-/*  f1222cc:	e7a604c0 */ 	swc1	$f6,0x4c0($sp)
-/*  f1222d0:	461c1182 */ 	mul.s	$f6,$f2,$f28
-/*  f1222d4:	46004100 */ 	add.s	$f4,$f8,$f0
-/*  f1222d8:	e7aa04d8 */ 	swc1	$f10,0x4d8($sp)
-/*  f1222dc:	e7a404c4 */ 	swc1	$f4,0x4c4($sp)
-/*  f1222e0:	461c9102 */ 	mul.s	$f4,$f18,$f28
-/*  f1222e4:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f1222e8:	461ca282 */ 	mul.s	$f10,$f20,$f28
-/*  f1222ec:	e7a804dc */ 	swc1	$f8,0x4dc($sp)
-/*  f1222f0:	461c6202 */ 	mul.s	$f8,$f12,$f28
-/*  f1222f4:	e7a404f0 */ 	swc1	$f4,0x4f0($sp)
-/*  f1222f8:	c7a40604 */ 	lwc1	$f4,0x604($sp)
-/*  f1222fc:	46005180 */ 	add.s	$f6,$f10,$f0
-/*  f122300:	461c2282 */ 	mul.s	$f10,$f4,$f28
-/*  f122304:	e7a80508 */ 	swc1	$f8,0x508($sp)
-/*  f122308:	c7a80614 */ 	lwc1	$f8,0x614($sp)
-/*  f12230c:	e7a604f4 */ 	swc1	$f6,0x4f4($sp)
-/*  f122310:	461c4102 */ 	mul.s	$f4,$f8,$f28
-/*  f122314:	46005180 */ 	add.s	$f6,$f10,$f0
-/*  f122318:	c7aa061c */ 	lwc1	$f10,0x61c($sp)
-/*  f12231c:	e7a6050c */ 	swc1	$f6,0x50c($sp)
-/*  f122320:	e7a40520 */ 	swc1	$f4,0x520($sp)
-/*  f122324:	44812000 */ 	mtc1	$at,$f4
-/*  f122328:	461c5182 */ 	mul.s	$f6,$f10,$f28
-/*  f12232c:	46182283 */ 	div.s	$f10,$f4,$f24
-/*  f122330:	46003200 */ 	add.s	$f8,$f6,$f0
-/*  f122334:	e7a80524 */ 	swc1	$f8,0x524($sp)
-/*  f122338:	0fc47d0e */ 	jal	sky0f11f438
-/*  f12233c:	e7aa0064 */ 	swc1	$f10,0x64($sp)
-/*  f122340:	27a404cc */ 	addiu	$a0,$sp,0x4cc
-/*  f122344:	0fc47d0e */ 	jal	sky0f11f438
-/*  f122348:	8fa50580 */ 	lw	$a1,0x580($sp)
-/*  f12234c:	27a404e4 */ 	addiu	$a0,$sp,0x4e4
-/*  f122350:	0fc47d0e */ 	jal	sky0f11f438
-/*  f122354:	8fa50584 */ 	lw	$a1,0x584($sp)
-/*  f122358:	27a404fc */ 	addiu	$a0,$sp,0x4fc
-/*  f12235c:	0fc47d0e */ 	jal	sky0f11f438
-/*  f122360:	8fa50574 */ 	lw	$a1,0x574($sp)
-/*  f122364:	27a40514 */ 	addiu	$a0,$sp,0x514
-/*  f122368:	0fc47d0e */ 	jal	sky0f11f438
-/*  f12236c:	8fa5057c */ 	lw	$a1,0x57c($sp)
-/*  f122370:	10000004 */ 	b	.L0f122384
-/*  f122374:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
-.L0f122378:
-/*  f122378:	1000014b */ 	b	.L0f1228a8
-/*  f12237c:	00601025 */ 	or	$v0,$v1,$zero
-/*  f122380:	8fa906b0 */ 	lw	$t1,0x6b0($sp)
-.L0f122384:
-/*  f122384:	3c0be700 */ 	lui	$t3,0xe700
-/*  f122388:	3c18800b */ 	lui	$t8,%hi(g_TexWaterConfigs)
-/*  f12238c:	252c0008 */ 	addiu	$t4,$t1,0x8
-/*  f122390:	afac06b0 */ 	sw	$t4,0x6b0($sp)
-/*  f122394:	ad200004 */ 	sw	$zero,0x4($t1)
-/*  f122398:	ad2b0000 */ 	sw	$t3,0x0($t1)
-/*  f12239c:	8fb9042c */ 	lw	$t9,0x42c($sp)
-/*  f1223a0:	8f18b598 */ 	lw	$t8,%lo(g_TexWaterConfigs)($t8)
-/*  f1223a4:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*  f1223a8:	872d0018 */ 	lh	$t5,0x18($t9)
-/*  f1223ac:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f1223b0:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f1223b4:	000d7880 */ 	sll	$t7,$t5,0x2
-/*  f1223b8:	01ed7823 */ 	subu	$t7,$t7,$t5
-/*  f1223bc:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1223c0:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f1223c4:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f1223c8:	27a406b0 */ 	addiu	$a0,$sp,0x6b0
-/*  f1223cc:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f1223d0:	00003825 */ 	or	$a3,$zero,$zero
-/*  f1223d4:	0fc2ce70 */ 	jal	texSelect
-/*  f1223d8:	01f82821 */ 	addu	$a1,$t7,$t8
-/*  f1223dc:	8fa206b0 */ 	lw	$v0,0x6b0($sp)
-/*  f1223e0:	3c0bfb00 */ 	lui	$t3,0xfb00
-/*  f1223e4:	244c0008 */ 	addiu	$t4,$v0,0x8
-/*  f1223e8:	afac06b0 */ 	sw	$t4,0x6b0($sp)
-/*  f1223ec:	ac4b0000 */ 	sw	$t3,0x0($v0)
-/*  f1223f0:	8fb9042c */ 	lw	$t9,0x42c($sp)
-/*  f1223f4:	3c0b55fe */ 	lui	$t3,0x55fe
-/*  f1223f8:	356bf97c */ 	ori	$t3,$t3,0xf97c
-/*  f1223fc:	932f0008 */ 	lbu	$t7,0x8($t9)
-/*  f122400:	932e0009 */ 	lbu	$t6,0x9($t9)
-/*  f122404:	932d000a */ 	lbu	$t5,0xa($t9)
-/*  f122408:	000fc600 */ 	sll	$t8,$t7,0x18
-/*  f12240c:	000e4c00 */ 	sll	$t1,$t6,0x10
-/*  f122410:	03096025 */ 	or	$t4,$t8,$t1
-/*  f122414:	000d7a00 */ 	sll	$t7,$t5,0x8
-/*  f122418:	018f5025 */ 	or	$t2,$t4,$t7
-/*  f12241c:	354e00ff */ 	ori	$t6,$t2,0xff
-/*  f122420:	ac4e0004 */ 	sw	$t6,0x4($v0)
-/*  f122424:	8fb806b0 */ 	lw	$t8,0x6b0($sp)
-/*  f122428:	3c19fc40 */ 	lui	$t9,0xfc40
-/*  f12242c:	3739fe81 */ 	ori	$t9,$t9,0xfe81
-/*  f122430:	27090008 */ 	addiu	$t1,$t8,0x8
-/*  f122434:	afa906b0 */ 	sw	$t1,0x6b0($sp)
-/*  f122438:	af0b0004 */ 	sw	$t3,0x4($t8)
-/*  f12243c:	0fc2d5c6 */ 	jal	camGetMtxF1754
-/*  f122440:	af190000 */ 	sw	$t9,0x0($t8)
-/*  f122444:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
-/*  f122448:	00408025 */ 	or	$s0,$v0,$zero
-/*  f12244c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f122450:	00402825 */ 	or	$a1,$v0,$zero
-/*  f122454:	0c005680 */ 	jal	mtx4MultMtx4
-/*  f122458:	27a601ec */ 	addiu	$a2,$sp,0x1ec
-/*  f12245c:	c7a60064 */ 	lwc1	$f6,0x64($sp)
-/*  f122460:	3c04800a */ 	lui	$a0,%hi(var800a33a8)
-/*  f122464:	248433a8 */ 	addiu	$a0,$a0,%lo(var800a33a8)
-/*  f122468:	44053000 */ 	mfc1	$a1,$f6
-/*  f12246c:	44063000 */ 	mfc1	$a2,$f6
-/*  f122470:	44073000 */ 	mfc1	$a3,$f6
-/*  f122474:	0c014024 */ 	jal	guScaleF
-/*  f122478:	00000000 */ 	nop
-/*  f12247c:	3c05800a */ 	lui	$a1,%hi(var800a33a8)
-/*  f122480:	24a533a8 */ 	addiu	$a1,$a1,%lo(var800a33a8)
-/*  f122484:	27a401ec */ 	addiu	$a0,$sp,0x1ec
-/*  f122488:	0c005680 */ 	jal	mtx4MultMtx4
-/*  f12248c:	27a601ac */ 	addiu	$a2,$sp,0x1ac
-/*  f122490:	1a200036 */ 	blez	$s1,.L0f12256c
-/*  f122494:	afa00090 */ 	sw	$zero,0x90($sp)
-/*  f122498:	27a404b4 */ 	addiu	$a0,$sp,0x4b4
-/*  f12249c:	afa40064 */ 	sw	$a0,0x64($sp)
-/*  f1224a0:	27b00094 */ 	addiu	$s0,$sp,0x94
-.L0f1224a4:
-/*  f1224a4:	3c017f1b */ 	lui	$at,%hi(var7f1b50c8)
-/*  f1224a8:	c42050c8 */ 	lwc1	$f0,%lo(var7f1b50c8)($at)
-/*  f1224ac:	8fa40064 */ 	lw	$a0,0x64($sp)
-/*  f1224b0:	27a501ac */ 	addiu	$a1,$sp,0x1ac
-/*  f1224b4:	44070000 */ 	mfc1	$a3,$f0
-/*  f1224b8:	24060082 */ 	addiu	$a2,$zero,0x82
-/*  f1224bc:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f1224c0:	0fc48a34 */ 	jal	sky0f1228d0
-/*  f1224c4:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f1224c8:	0fc2d5fe */ 	jal	camGetScreenLeft
-/*  f1224cc:	00000000 */ 	nop
-/*  f1224d0:	0fc2d5fe */ 	jal	camGetScreenLeft
-/*  f1224d4:	46000506 */ 	mov.s	$f20,$f0
-/*  f1224d8:	0fc2d5f6 */ 	jal	camGetScreenWidth
-/*  f1224dc:	46000586 */ 	mov.s	$f22,$f0
-/*  f1224e0:	46160200 */ 	add.s	$f8,$f0,$f22
-/*  f1224e4:	461aa382 */ 	mul.s	$f14,$f20,$f26
-/*  f1224e8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1224ec:	44815000 */ 	mtc1	$at,$f10
-/*  f1224f0:	461a4102 */ 	mul.s	$f4,$f8,$f26
-/*  f1224f4:	c60c0028 */ 	lwc1	$f12,0x28($s0)
-/*  f1224f8:	460a2181 */ 	sub.s	$f6,$f4,$f10
-/*  f1224fc:	44063000 */ 	mfc1	$a2,$f6
-/*  f122500:	0fc47cf4 */ 	jal	skyClamp
-/*  f122504:	00000000 */ 	nop
-/*  f122508:	0fc2d602 */ 	jal	camGetScreenTop
-/*  f12250c:	e6000028 */ 	swc1	$f0,0x28($s0)
-/*  f122510:	0fc2d602 */ 	jal	camGetScreenTop
-/*  f122514:	46000506 */ 	mov.s	$f20,$f0
-/*  f122518:	0fc2d5fa */ 	jal	camGetScreenHeight
-/*  f12251c:	46000586 */ 	mov.s	$f22,$f0
-/*  f122520:	46160200 */ 	add.s	$f8,$f0,$f22
-/*  f122524:	461aa382 */ 	mul.s	$f14,$f20,$f26
-/*  f122528:	3c013f80 */ 	lui	$at,0x3f80
-/*  f12252c:	44815000 */ 	mtc1	$at,$f10
-/*  f122530:	461a4102 */ 	mul.s	$f4,$f8,$f26
-/*  f122534:	c60c002c */ 	lwc1	$f12,0x2c($s0)
-/*  f122538:	460a2181 */ 	sub.s	$f6,$f4,$f10
-/*  f12253c:	44063000 */ 	mfc1	$a2,$f6
-/*  f122540:	0fc47cf4 */ 	jal	skyClamp
-/*  f122544:	00000000 */ 	nop
-/*  f122548:	8fa20090 */ 	lw	$v0,0x90($sp)
-/*  f12254c:	e600002c */ 	swc1	$f0,0x2c($s0)
-/*  f122550:	8fad0064 */ 	lw	$t5,0x64($sp)
-/*  f122554:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f122558:	afa20090 */ 	sw	$v0,0x90($sp)
-/*  f12255c:	25ac0018 */ 	addiu	$t4,$t5,0x18
-/*  f122560:	afac0064 */ 	sw	$t4,0x64($sp)
-/*  f122564:	1451ffcf */ 	bne	$v0,$s1,.L0f1224a4
-/*  f122568:	26100038 */ 	addiu	$s0,$s0,0x38
-.L0f12256c:
-/*  f12256c:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f122570:	16210099 */ 	bne	$s1,$at,.L0f1227d8
-/*  f122574:	8faf0068 */ 	lw	$t7,0x68($sp)
-/*  f122578:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f12257c:	15e1007e */ 	bne	$t7,$at,.L0f122778
-/*  f122580:	27b00094 */ 	addiu	$s0,$sp,0x94
-/*  f122584:	c7a80548 */ 	lwc1	$f8,0x548($sp)
-/*  f122588:	c7a4054c */ 	lwc1	$f4,0x54c($sp)
-/*  f12258c:	c7a600f8 */ 	lwc1	$f6,0xf8($sp)
-/*  f122590:	4604403c */ 	c.lt.s	$f8,$f4
-/*  f122594:	c7a800c0 */ 	lwc1	$f8,0xc0($sp)
-/*  f122598:	4502003d */ 	bc1fl	.L0f122690
-/*  f12259c:	461a4100 */ 	add.s	$f4,$f8,$f26
-/*  f1225a0:	461a3200 */ 	add.s	$f8,$f6,$f26
-/*  f1225a4:	c7aa0168 */ 	lwc1	$f10,0x168($sp)
-/*  f1225a8:	27a50094 */ 	addiu	$a1,$sp,0x94
-/*  f1225ac:	8fa406b0 */ 	lw	$a0,0x6b0($sp)
-/*  f1225b0:	460a403e */ 	c.le.s	$f8,$f10
-/*  f1225b4:	27a600cc */ 	addiu	$a2,$sp,0xcc
-/*  f1225b8:	27a70104 */ 	addiu	$a3,$sp,0x104
-/*  f1225bc:	3c014302 */ 	lui	$at,0x4302
-/*  f1225c0:	4500002c */ 	bc1f	.L0f122674
-/*  f1225c4:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f1225c8:	0fc2d5fe */ 	jal	camGetScreenLeft
-/*  f1225cc:	00000000 */ 	nop
-/*  f1225d0:	461a0102 */ 	mul.s	$f4,$f0,$f26
-/*  f1225d4:	0fc2d602 */ 	jal	camGetScreenTop
-/*  f1225d8:	e7a400bc */ 	swc1	$f4,0xbc($sp)
-/*  f1225dc:	461a0182 */ 	mul.s	$f6,$f0,$f26
-/*  f1225e0:	0fc2d5fe */ 	jal	camGetScreenLeft
-/*  f1225e4:	e7a600c0 */ 	swc1	$f6,0xc0($sp)
-/*  f1225e8:	0fc2d5f6 */ 	jal	camGetScreenWidth
-/*  f1225ec:	46000506 */ 	mov.s	$f20,$f0
-/*  f1225f0:	46140280 */ 	add.s	$f10,$f0,$f20
-/*  f1225f4:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1225f8:	44812000 */ 	mtc1	$at,$f4
-/*  f1225fc:	461a5202 */ 	mul.s	$f8,$f10,$f26
-/*  f122600:	46044181 */ 	sub.s	$f6,$f8,$f4
-/*  f122604:	0fc2d602 */ 	jal	camGetScreenTop
-/*  f122608:	e7a600f4 */ 	swc1	$f6,0xf4($sp)
-/*  f12260c:	461a0282 */ 	mul.s	$f10,$f0,$f26
-/*  f122610:	0fc2d5fe */ 	jal	camGetScreenLeft
-/*  f122614:	e7aa00f8 */ 	swc1	$f10,0xf8($sp)
-/*  f122618:	461a0202 */ 	mul.s	$f8,$f0,$f26
-/*  f12261c:	0fc2d5fe */ 	jal	camGetScreenLeft
-/*  f122620:	e7a8012c */ 	swc1	$f8,0x12c($sp)
-/*  f122624:	0fc2d5f6 */ 	jal	camGetScreenWidth
-/*  f122628:	46000506 */ 	mov.s	$f20,$f0
-/*  f12262c:	46140100 */ 	add.s	$f4,$f0,$f20
-/*  f122630:	3c013f80 */ 	lui	$at,0x3f80
-/*  f122634:	44815000 */ 	mtc1	$at,$f10
-/*  f122638:	3c014302 */ 	lui	$at,0x4302
-/*  f12263c:	461a2182 */ 	mul.s	$f6,$f4,$f26
-/*  f122640:	44812000 */ 	mtc1	$at,$f4
-/*  f122644:	27b1013c */ 	addiu	$s1,$sp,0x13c
-/*  f122648:	27a50094 */ 	addiu	$a1,$sp,0x94
-/*  f12264c:	afb10010 */ 	sw	$s1,0x10($sp)
-/*  f122650:	8fa406b0 */ 	lw	$a0,0x6b0($sp)
-/*  f122654:	27a600cc */ 	addiu	$a2,$sp,0xcc
-/*  f122658:	460a3201 */ 	sub.s	$f8,$f6,$f10
-/*  f12265c:	27a70104 */ 	addiu	$a3,$sp,0x104
-/*  f122660:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f122664:	0fc48ff5 */ 	jal	sky0f123fd4
-/*  f122668:	e7a80164 */ 	swc1	$f8,0x164($sp)
-/*  f12266c:	1000008d */ 	b	.L0f1228a4
-/*  f122670:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-.L0f122674:
-/*  f122674:	44813000 */ 	mtc1	$at,$f6
-/*  f122678:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*  f12267c:	0fc48b53 */ 	jal	sky0f122d4c
-/*  f122680:	e7a60010 */ 	swc1	$f6,0x10($sp)
-/*  f122684:	10000087 */ 	b	.L0f1228a4
-/*  f122688:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-/*  f12268c:	461a4100 */ 	add.s	$f4,$f8,$f26
-.L0f122690:
-/*  f122690:	c7aa0130 */ 	lwc1	$f10,0x130($sp)
-/*  f122694:	27a60094 */ 	addiu	$a2,$sp,0x94
-/*  f122698:	27a7013c */ 	addiu	$a3,$sp,0x13c
-/*  f12269c:	460a203e */ 	c.le.s	$f4,$f10
-/*  f1226a0:	8fa406b0 */ 	lw	$a0,0x6b0($sp)
-/*  f1226a4:	27a500cc */ 	addiu	$a1,$sp,0xcc
-/*  f1226a8:	3c014302 */ 	lui	$at,0x4302
-/*  f1226ac:	4500002c */ 	bc1f	.L0f122760
-/*  f1226b0:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f1226b4:	0fc2d5fe */ 	jal	camGetScreenLeft
-/*  f1226b8:	00000000 */ 	nop
-/*  f1226bc:	461a0182 */ 	mul.s	$f6,$f0,$f26
-/*  f1226c0:	0fc2d602 */ 	jal	camGetScreenTop
-/*  f1226c4:	e7a600bc */ 	swc1	$f6,0xbc($sp)
-/*  f1226c8:	461a0202 */ 	mul.s	$f8,$f0,$f26
-/*  f1226cc:	0fc2d5fe */ 	jal	camGetScreenLeft
-/*  f1226d0:	e7a800c0 */ 	swc1	$f8,0xc0($sp)
-/*  f1226d4:	0fc2d5f6 */ 	jal	camGetScreenWidth
-/*  f1226d8:	46000506 */ 	mov.s	$f20,$f0
-/*  f1226dc:	46140280 */ 	add.s	$f10,$f0,$f20
-/*  f1226e0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1226e4:	44813000 */ 	mtc1	$at,$f6
-/*  f1226e8:	461a5102 */ 	mul.s	$f4,$f10,$f26
-/*  f1226ec:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f1226f0:	0fc2d602 */ 	jal	camGetScreenTop
-/*  f1226f4:	e7a800f4 */ 	swc1	$f8,0xf4($sp)
-/*  f1226f8:	461a0282 */ 	mul.s	$f10,$f0,$f26
-/*  f1226fc:	0fc2d5fe */ 	jal	camGetScreenLeft
-/*  f122700:	e7aa00f8 */ 	swc1	$f10,0xf8($sp)
-/*  f122704:	461a0102 */ 	mul.s	$f4,$f0,$f26
-/*  f122708:	0fc2d5fe */ 	jal	camGetScreenLeft
-/*  f12270c:	e7a4012c */ 	swc1	$f4,0x12c($sp)
-/*  f122710:	0fc2d5f6 */ 	jal	camGetScreenWidth
-/*  f122714:	46000506 */ 	mov.s	$f20,$f0
-/*  f122718:	46140180 */ 	add.s	$f6,$f0,$f20
-/*  f12271c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f122720:	44815000 */ 	mtc1	$at,$f10
-/*  f122724:	3c014302 */ 	lui	$at,0x4302
-/*  f122728:	461a3202 */ 	mul.s	$f8,$f6,$f26
-/*  f12272c:	44813000 */ 	mtc1	$at,$f6
-/*  f122730:	27ae0104 */ 	addiu	$t6,$sp,0x104
-/*  f122734:	27a60094 */ 	addiu	$a2,$sp,0x94
-/*  f122738:	27a7013c */ 	addiu	$a3,$sp,0x13c
-/*  f12273c:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f122740:	8fa406b0 */ 	lw	$a0,0x6b0($sp)
-/*  f122744:	460a4101 */ 	sub.s	$f4,$f8,$f10
-/*  f122748:	27a500cc */ 	addiu	$a1,$sp,0xcc
-/*  f12274c:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*  f122750:	0fc48ff5 */ 	jal	sky0f123fd4
-/*  f122754:	e7a40164 */ 	swc1	$f4,0x164($sp)
-/*  f122758:	10000052 */ 	b	.L0f1228a4
-/*  f12275c:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-.L0f122760:
-/*  f122760:	44814000 */ 	mtc1	$at,$f8
-/*  f122764:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f122768:	0fc48b53 */ 	jal	sky0f122d4c
-/*  f12276c:	e7a80010 */ 	swc1	$f8,0x10($sp)
-/*  f122770:	1000004c */ 	b	.L0f1228a4
-/*  f122774:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-.L0f122778:
-/*  f122778:	3c014302 */ 	lui	$at,0x4302
-/*  f12277c:	44815000 */ 	mtc1	$at,$f10
-/*  f122780:	27b1013c */ 	addiu	$s1,$sp,0x13c
-/*  f122784:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f122788:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f12278c:	02203825 */ 	or	$a3,$s1,$zero
-/*  f122790:	8fa406b0 */ 	lw	$a0,0x6b0($sp)
-/*  f122794:	02002825 */ 	or	$a1,$s0,$zero
-/*  f122798:	27a600cc */ 	addiu	$a2,$sp,0xcc
-/*  f12279c:	0fc48b53 */ 	jal	sky0f122d4c
-/*  f1227a0:	e7aa0010 */ 	swc1	$f10,0x10($sp)
-/*  f1227a4:	3c014302 */ 	lui	$at,0x4302
-/*  f1227a8:	44812000 */ 	mtc1	$at,$f4
-/*  f1227ac:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f1227b0:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-/*  f1227b4:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f1227b8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1227bc:	02202825 */ 	or	$a1,$s1,$zero
-/*  f1227c0:	27a60104 */ 	addiu	$a2,$sp,0x104
-/*  f1227c4:	02003825 */ 	or	$a3,$s0,$zero
-/*  f1227c8:	0fc48b53 */ 	jal	sky0f122d4c
-/*  f1227cc:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*  f1227d0:	10000034 */ 	b	.L0f1228a4
-/*  f1227d4:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-.L0f1227d8:
-/*  f1227d8:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f1227dc:	16210024 */ 	bne	$s1,$at,.L0f122870
-/*  f1227e0:	27b00094 */ 	addiu	$s0,$sp,0x94
-/*  f1227e4:	3c014302 */ 	lui	$at,0x4302
-/*  f1227e8:	44813000 */ 	mtc1	$at,$f6
-/*  f1227ec:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f1227f0:	afab0014 */ 	sw	$t3,0x14($sp)
-/*  f1227f4:	8fa406b0 */ 	lw	$a0,0x6b0($sp)
-/*  f1227f8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1227fc:	27a600cc */ 	addiu	$a2,$sp,0xcc
-/*  f122800:	27a70104 */ 	addiu	$a3,$sp,0x104
-/*  f122804:	0fc48b53 */ 	jal	sky0f122d4c
-/*  f122808:	e7a60010 */ 	swc1	$f6,0x10($sp)
-/*  f12280c:	3c014302 */ 	lui	$at,0x4302
-/*  f122810:	44814000 */ 	mtc1	$at,$f8
-/*  f122814:	27b1013c */ 	addiu	$s1,$sp,0x13c
-/*  f122818:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f12281c:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-/*  f122820:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f122824:	02203825 */ 	or	$a3,$s1,$zero
-/*  f122828:	00402025 */ 	or	$a0,$v0,$zero
-/*  f12282c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f122830:	27a60104 */ 	addiu	$a2,$sp,0x104
-/*  f122834:	0fc48b53 */ 	jal	sky0f122d4c
-/*  f122838:	e7a80010 */ 	swc1	$f8,0x10($sp)
-/*  f12283c:	3c014302 */ 	lui	$at,0x4302
-/*  f122840:	44815000 */ 	mtc1	$at,$f10
-/*  f122844:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f122848:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-/*  f12284c:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f122850:	00402025 */ 	or	$a0,$v0,$zero
-/*  f122854:	02002825 */ 	or	$a1,$s0,$zero
-/*  f122858:	02203025 */ 	or	$a2,$s1,$zero
-/*  f12285c:	27a70174 */ 	addiu	$a3,$sp,0x174
-/*  f122860:	0fc48b53 */ 	jal	sky0f122d4c
-/*  f122864:	e7aa0010 */ 	swc1	$f10,0x10($sp)
-/*  f122868:	1000000e */ 	b	.L0f1228a4
-/*  f12286c:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-.L0f122870:
-/*  f122870:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f122874:	1621000b */ 	bne	$s1,$at,.L0f1228a4
-/*  f122878:	27a50094 */ 	addiu	$a1,$sp,0x94
-/*  f12287c:	3c014302 */ 	lui	$at,0x4302
-/*  f122880:	44812000 */ 	mtc1	$at,$f4
-/*  f122884:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f122888:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f12288c:	8fa406b0 */ 	lw	$a0,0x6b0($sp)
-/*  f122890:	27a600cc */ 	addiu	$a2,$sp,0xcc
-/*  f122894:	27a70104 */ 	addiu	$a3,$sp,0x104
-/*  f122898:	0fc48b53 */ 	jal	sky0f122d4c
-/*  f12289c:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*  f1228a0:	afa206b0 */ 	sw	$v0,0x6b0($sp)
-.L0f1228a4:
-/*  f1228a4:	8fa206b0 */ 	lw	$v0,0x6b0($sp)
-.L0f1228a8:
-/*  f1228a8:	8fbf0054 */ 	lw	$ra,0x54($sp)
-/*  f1228ac:	d7b40020 */ 	ldc1	$f20,0x20($sp)
-/*  f1228b0:	d7b60028 */ 	ldc1	$f22,0x28($sp)
-/*  f1228b4:	d7b80030 */ 	ldc1	$f24,0x30($sp)
-/*  f1228b8:	d7ba0038 */ 	ldc1	$f26,0x38($sp)
-/*  f1228bc:	d7bc0040 */ 	ldc1	$f28,0x40($sp)
-/*  f1228c0:	8fb0004c */ 	lw	$s0,0x4c($sp)
-/*  f1228c4:	8fb10050 */ 	lw	$s1,0x50($sp)
-/*  f1228c8:	03e00008 */ 	jr	$ra
-/*  f1228cc:	27bd06b0 */ 	addiu	$sp,$sp,0x6b0
-);
+Gfx *skyRender(Gfx *gdl)
+{
+	struct coord sp6a4;
+	struct coord sp698;
+	struct coord sp68c;
+	struct coord sp680;
+	struct coord sp674;
+	struct coord sp668;
+	struct coord sp65c;
+	struct coord sp650;
+	struct coord sp644;
+	struct coord sp638;
+	struct coord sp62c;
+	struct coord sp620;
+	struct coord sp614;
+	struct coord sp608;
+	struct coord sp5fc;
+	struct coord sp5f0;
+	struct coord sp5e4;
+	struct coord sp5d8;
+	struct coord sp5cc;
+	struct coord sp5c0;
+	struct coord sp5b4;
+	struct coord sp5a8;
+	struct coord sp59c;
+	struct coord sp590;
+	f32 sp58c;
+	f32 sp588;
+	f32 sp584;
+	f32 sp580;
+	f32 sp57c;
+	f32 sp578;
+	f32 sp574;
+	f32 sp570;
+	f32 sp56c;
+	f32 sp568;
+	f32 sp564;
+	f32 sp560;
+	f32 sp55c;
+	f32 sp558;
+	f32 sp554;
+	f32 sp550;
+	f32 sp54c;
+	f32 sp548;
+	s32 s1;
+	s32 j;
+	s32 k;
+	s32 sp538;
+	s32 sp534;
+	s32 sp530;
+	s32 sp52c;
+	struct skything18 sp4b4[5];
+	struct skything18 sp43c[5];
+	f32 tmp;
+	f32 scale;
+	bool sp430;
+	struct environment *env;
 
-// Mismatch: Swapped instructions in case statements
-//Gfx *skyRender(Gfx *gdl)
-//{
-//	struct coord sp6a4;
-//	struct coord sp698;
-//	struct coord sp68c;
-//	struct coord sp680;
-//	struct coord sp674;
-//	struct coord sp668;
-//	struct coord sp65c;
-//	struct coord sp650;
-//	struct coord sp644;
-//	struct coord sp638;
-//	struct coord sp62c;
-//	struct coord sp620;
-//	struct coord sp614;
-//	struct coord sp608;
-//	struct coord sp5fc;
-//	struct coord sp5f0;
-//	struct coord sp5e4;
-//	struct coord sp5d8;
-//	struct coord sp5cc;
-//	struct coord sp5c0;
-//	struct coord sp5b4;
-//	struct coord sp5a8;
-//	struct coord sp59c;
-//	struct coord sp590;
-//	f32 sp58c;
-//	f32 sp588;
-//	f32 sp584;
-//	f32 sp580;
-//	f32 sp57c;
-//	f32 sp578;
-//	f32 sp574;
-//	f32 sp570;
-//	f32 sp56c;
-//	f32 sp568;
-//	f32 sp564;
-//	f32 sp560;
-//	f32 sp55c;
-//	f32 sp558;
-//	f32 sp554;
-//	f32 sp550;
-//	f32 sp54c;
-//	f32 sp548;
-//	s32 s1;
-//	s32 j;
-//	s32 k;
-//	s32 sp538;
-//	s32 sp534;
-//	s32 sp530;
-//	s32 sp52c;
-//	struct skything18 sp4b4[5];
-//	struct skything18 sp43c[5];
-//	f32 tmp;
-//	f32 scale;
-//	bool sp430;
-//	struct environment *env; // 42c
-//
-//	sp430 = false;
-//	env = envGetCurrent();
-//
-//	// f9c0
-//	if (!env->clouds_enabled || g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
-//		if (PLAYERCOUNT() == 1) {
-//			gDPSetCycleType(gdl++, G_CYC_FILL);
-//
-//			if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
-//				gdl = viSetFillColour(gdl, 0, 0, 0);
-//			} else {
-//				gdl = viSetFillColour(gdl, env->sky_r, env->sky_g, env->sky_b);
-//			}
-//
-//			gDPFillRectangle(gdl++, viGetViewLeft(), viGetViewTop(),
-//					viGetViewLeft() + viGetViewWidth() - 1,
-//					viGetViewTop() + viGetViewHeight() - 1);
-//
-//			gDPPipeSync(gdl++);
-//			return gdl;
-//		}
-//
-//		gDPPipeSync(gdl++);
-//		gDPSetCycleType(gdl++, G_CYC_FILL);
-//
-//		if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
-//			gdl = viSetFillColour(gdl, 0, 0, 0);
-//		} else {
-//			gdl = viSetFillColour(gdl, env->sky_r, env->sky_g, env->sky_b);
-//		}
-//
-//		gDPSetRenderMode(gdl++, G_RM_NOOP, G_RM_NOOP2);
-//
-//		gDPFillRectangle(gdl++,
-//				g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop,
-//				g_Vars.currentplayer->viewleft + g_Vars.currentplayer->viewwidth - 1,
-//				g_Vars.currentplayer->viewtop + g_Vars.currentplayer->viewheight - 1);
-//
-//		gDPPipeSync(gdl++);
-//		return gdl;
-//	}
-//
-//	// fc90
-//	gdl = viSetFillColour(gdl, env->sky_r, env->sky_g, env->sky_b);
-//
-//	if (&sp6a4);
-//
-//	sky0f11f000(0.0f, 0.0f, &sp6a4);
-//	sky0f11f000(camGetScreenWidth() - 0.1f, 0.0f, &sp698);
-//	sky0f11f000(0.0f, camGetScreenHeight() - 0.1f, &sp68c);
-//	sky0f11f000(camGetScreenWidth() - 0.1f, camGetScreenHeight() - 0.1f, &sp680);
-//
-//	sp538 = sky0f11f07c(&sp6a4, &sp644, &sp58c);
-//	sp534 = sky0f11f07c(&sp698, &sp638, &sp588);
-//	sp530 = sky0f11f07c(&sp68c, &sp62c, &sp584);
-//	sp52c = sky0f11f07c(&sp680, &sp620, &sp580);
-//
-//	sky0f11f1fc(&sp6a4, &sp5e4, &sp56c);
-//	sky0f11f1fc(&sp698, &sp5d8, &sp568);
-//	sky0f11f1fc(&sp68c, &sp5cc, &sp564);
-//	sky0f11f1fc(&sp680, &sp5c0, &sp560);
-//
-//	if (sp538 != sp530) {
-//		sp54c = camGetScreenTop() + camGetScreenHeight() * (sp6a4.f[1] / (sp6a4.f[1] - sp68c.f[1]));
-//
-//		sky0f11f000(0.0f, sp54c, &sp65c);
-//		sky0f11f384(&sp6a4, &sp68c, &sp65c);
-//		sky0f11f07c(&sp65c, &sp5fc, &sp574);
-//		sky0f11f1fc(&sp65c, &sp59c, &sp554);
-//	} else {
-//		sp54c = 0.0f;
-//	}
-//
-//	if (sp534 != sp52c) {
-//		sp548 = camGetScreenTop() + camGetScreenHeight() * (sp698.f[1] / (sp698.f[1] - sp680.f[1]));
-//
-//		sky0f11f000(camGetScreenWidth() - 0.1f, sp548, &sp650);
-//		sky0f11f384(&sp698, &sp680, &sp650);
-//		sky0f11f07c(&sp650, &sp5f0, &sp570);
-//		sky0f11f1fc(&sp650, &sp590, &sp550);
-//	} else {
-//		sp548 = 0.0f;
-//	}
-//
-//	if (sp538 != sp534) {
-//		sky0f11f000(camGetScreenLeft() + camGetScreenWidth() * (sp6a4.f[1] / (sp6a4.f[1] - sp698.f[1])), 0.0f, &sp674);
-//		sky0f11f384(&sp6a4, &sp698, &sp674);
-//		sky0f11f07c(&sp674, &sp614, &sp57c);
-//		sky0f11f1fc(&sp674, &sp5b4, &sp55c);
-//	}
-//
-//	if (sp530 != sp52c) {
-//		tmp = camGetScreenLeft() + camGetScreenWidth() * (sp68c.f[1] / (sp68c.f[1] - sp680.f[1]));
-//
-//		sky0f11f000(tmp, camGetScreenHeight() - 0.1f, &sp668);
-//		sky0f11f384(&sp68c, &sp680, &sp668);
-//		sky0f11f07c(&sp668, &sp608, &sp578);
-//		sky0f11f1fc(&sp668, &sp5a8, &sp558);
-//	}
-//
-//	// 000c
-//	switch ((sp538 << 3) | (sp534 << 2) | (sp530 << 1) | sp52c) {
-//	case 15:
-//		s1 = 0;
-//		scale = 0.033333335f;
-//		break;
-//	case 0:
-//		s1 = 4;
-//		scale = 0.033333335f;
-//		sp43c[0].unk00 = sp5e4.x * scale;
-//		sp43c[0].unk04 = sp5e4.y * scale;
-//		sp43c[0].unk08 = sp5e4.z * scale;
-//		sp43c[1].unk00 = sp5d8.x * scale;
-//		sp43c[1].unk04 = sp5d8.y * scale;
-//		sp43c[1].unk08 = sp5d8.z * scale;
-//		sp43c[2].unk00 = sp5cc.x * scale;
-//		sp43c[2].unk04 = sp5cc.y * scale;
-//		sp43c[2].unk08 = sp5cc.z * scale;
-//		sp43c[3].unk00 = sp5c0.x * scale;
-//		sp43c[3].unk04 = sp5c0.y * scale;
-//		sp43c[3].unk08 = sp5c0.z * scale;
-//		sp43c[0].unk0c = sp5e4.x;
-//		sp43c[1].unk0c = sp5d8.x;
-//		sp43c[2].unk0c = sp5cc.x;
-//		sp43c[3].unk0c = sp5c0.x;
-//		sp43c[0].unk10 = sp5e4.z + g_SkyCloudOffset;
-//		sp43c[1].unk10 = sp5d8.z + g_SkyCloudOffset;
-//		sp43c[2].unk10 = sp5cc.z + g_SkyCloudOffset;
-//		sp43c[3].unk10 = sp5c0.z + g_SkyCloudOffset;
-//
-//		sky0f11f6ec(&sp43c[0], sp56c);
-//		sky0f11f6ec(&sp43c[1], sp568);
-//		sky0f11f6ec(&sp43c[2], sp564);
-//		sky0f11f6ec(&sp43c[3], sp560);
-//		break;
-//	case 3: // 0130
-//		s1 = 4;
-//		scale = 0.033333335f;
-//		sp43c[0].unk00 = sp5e4.x * scale;
-//		sp43c[0].unk04 = sp5e4.y * scale;
-//		sp43c[0].unk08 = sp5e4.z * scale;
-//		sp43c[1].unk00 = sp5d8.x * scale;
-//		sp43c[1].unk04 = sp5d8.y * scale;
-//		sp43c[1].unk08 = sp5d8.z * scale;
-//		sp43c[2].unk00 = sp59c.x * scale;
-//		sp43c[2].unk04 = sp59c.y * scale;
-//		sp43c[2].unk08 = sp59c.z * scale;
-//		sp43c[3].unk00 = sp590.x * scale;
-//		sp43c[3].unk04 = sp590.y * scale;
-//		sp43c[3].unk08 = sp590.z * scale;
-//		sp43c[0].unk0c = sp5e4.x;
-//		sp43c[1].unk0c = sp5d8.x;
-//		sp43c[2].unk0c = sp59c.x;
-//		sp43c[3].unk0c = sp590.x;
-//		sp43c[0].unk10 = sp5e4.z + g_SkyCloudOffset;
-//		sp43c[1].unk10 = sp5d8.z + g_SkyCloudOffset;
-//		sp43c[2].unk10 = sp59c.z + g_SkyCloudOffset;
-//		sp43c[3].unk10 = sp590.z + g_SkyCloudOffset;
-//
-//		sky0f11f6ec(&sp43c[0], sp56c);
-//		sky0f11f6ec(&sp43c[1], sp568);
-//		sky0f11f6ec(&sp43c[2], sp554);
-//		sky0f11f6ec(&sp43c[3], sp550);
-//		break;
-//	case 12:
-//		s1 = 4;
-//		sp430 = true;
-//		scale = 0.033333335f;
-//		sp43c[0].unk00 = sp5c0.x * scale;
-//		sp43c[0].unk04 = sp5c0.y * scale;
-//		sp43c[0].unk08 = sp5c0.z * scale;
-//		sp43c[1].unk00 = sp5cc.x * scale;
-//		sp43c[1].unk04 = sp5cc.y * scale;
-//		sp43c[1].unk08 = sp5cc.z * scale;
-//		sp43c[2].unk00 = sp590.x * scale;
-//		sp43c[2].unk04 = sp590.y * scale;
-//		sp43c[2].unk08 = sp590.z * scale;
-//		sp43c[3].unk00 = sp59c.x * scale;
-//		sp43c[3].unk04 = sp59c.y * scale;
-//		sp43c[3].unk08 = sp59c.z * scale;
-//		sp43c[0].unk0c = sp5c0.x;
-//		sp43c[1].unk0c = sp5cc.x;
-//		sp43c[2].unk0c = sp590.x;
-//		sp43c[3].unk0c = sp59c.x;
-//		sp43c[0].unk10 = sp5c0.z + g_SkyCloudOffset;
-//		sp43c[1].unk10 = sp5cc.z + g_SkyCloudOffset;
-//		sp43c[2].unk10 = sp590.z + g_SkyCloudOffset;
-//		sp43c[3].unk10 = sp59c.z + g_SkyCloudOffset;
-//
-//		sky0f11f6ec(&sp43c[0], sp560);
-//		sky0f11f6ec(&sp43c[1], sp564);
-//		sky0f11f6ec(&sp43c[2], sp550);
-//		sky0f11f6ec(&sp43c[3], sp554);
-//		break;
-//	case 10:
-//		s1 = 4;
-//		scale = 0.033333335f;
-//		sp43c[0].unk00 = sp5d8.x * scale;
-//		sp43c[0].unk04 = sp5d8.y * scale;
-//		sp43c[0].unk08 = sp5d8.z * scale;
-//		sp43c[1].unk00 = sp5c0.x * scale;
-//		sp43c[1].unk04 = sp5c0.y * scale;
-//		sp43c[1].unk08 = sp5c0.z * scale;
-//		sp43c[2].unk00 = sp5b4.x * scale;
-//		sp43c[2].unk04 = sp5b4.y * scale;
-//		sp43c[2].unk08 = sp5b4.z * scale;
-//		sp43c[3].unk00 = sp5a8.x * scale;
-//		sp43c[3].unk04 = sp5a8.y * scale;
-//		sp43c[3].unk08 = sp5a8.z * scale;
-//		sp43c[0].unk10 = sp5d8.z + g_SkyCloudOffset;
-//		sp43c[1].unk10 = sp5c0.z + g_SkyCloudOffset;
-//		sp43c[2].unk10 = sp5b4.z + g_SkyCloudOffset;
-//		sp43c[3].unk10 = sp5a8.z + g_SkyCloudOffset;
-//		sp43c[0].unk0c = sp5d8.x;
-//		sp43c[1].unk0c = sp5c0.x;
-//		sp43c[2].unk0c = sp5b4.x;
-//		sp43c[3].unk0c = sp5a8.x;
-//
-//		sky0f11f6ec(&sp43c[0], sp568);
-//		sky0f11f6ec(&sp43c[1], sp560);
-//		sky0f11f6ec(&sp43c[2], sp55c);
-//		sky0f11f6ec(&sp43c[3], sp558);
-//		break;
-//	case 5: // 045c
-//		s1 = 4;
-//		scale = 0.033333335f;
-//		sp43c[0].unk00 = sp5cc.x * scale;
-//		sp43c[0].unk04 = sp5cc.y * scale;
-//		sp43c[0].unk08 = sp5cc.z * scale;
-//		sp43c[1].unk00 = sp5e4.x * scale;
-//		sp43c[1].unk04 = sp5e4.y * scale;
-//		sp43c[1].unk08 = sp5e4.z * scale;
-//		sp43c[2].unk00 = sp5a8.x * scale;
-//		sp43c[2].unk04 = sp5a8.y * scale;
-//		sp43c[2].unk08 = sp5a8.z * scale;
-//		sp43c[3].unk00 = sp5b4.x * scale;
-//		sp43c[3].unk04 = sp5b4.y * scale;
-//		sp43c[3].unk08 = sp5b4.z * scale;
-//		sp43c[0].unk0c = sp5cc.x;
-//		sp43c[1].unk0c = sp5e4.x;
-//		sp43c[2].unk0c = sp5a8.x;
-//		sp43c[3].unk0c = sp5b4.x;
-//		sp43c[0].unk10 = sp5cc.z + g_SkyCloudOffset;
-//		sp43c[1].unk10 = sp5e4.z + g_SkyCloudOffset;
-//		sp43c[2].unk10 = sp5a8.z + g_SkyCloudOffset;
-//		sp43c[3].unk10 = sp5b4.z + g_SkyCloudOffset;
-//
-//		sky0f11f6ec(&sp43c[0], sp564);
-//		sky0f11f6ec(&sp43c[1], sp56c);
-//		sky0f11f6ec(&sp43c[2], sp558);
-//		sky0f11f6ec(&sp43c[3], sp55c);
-//		break;
-//	case 14:
-//		s1 = 3;
-//		scale = 0.033333335f;
-//		sp43c[0].unk00 = sp5c0.x * scale;
-//		sp43c[0].unk04 = sp5c0.y * scale;
-//		sp43c[0].unk08 = sp5c0.z * scale;
-//		sp43c[1].unk00 = sp5a8.x * scale;
-//		sp43c[1].unk04 = sp5a8.y * scale;
-//		sp43c[1].unk08 = sp5a8.z * scale;
-//		sp43c[2].unk00 = sp590.x * scale;
-//		sp43c[2].unk04 = sp590.y * scale;
-//		sp43c[2].unk08 = sp590.z * scale;
-//		sp43c[0].unk10 = sp5c0.z + g_SkyCloudOffset;
-//		sp43c[1].unk10 = sp5a8.z + g_SkyCloudOffset;
-//		sp43c[2].unk10 = sp590.z + g_SkyCloudOffset;
-//		sp43c[0].unk0c = sp5c0.x;
-//		sp43c[1].unk0c = sp5a8.x;
-//		sp43c[2].unk0c = sp590.x;
-//
-//		sky0f11f6ec(&sp43c[0], sp560);
-//		sky0f11f6ec(&sp43c[1], sp558);
-//		sky0f11f6ec(&sp43c[2], sp550);
-//		break;
-//	case 13:
-//		s1 = 3;
-//		scale = 0.033333335f;
-//		sp43c[0].unk00 = sp5cc.x * scale;
-//		sp43c[0].unk04 = sp5cc.y * scale;
-//		sp43c[0].unk08 = sp5cc.z * scale;
-//		sp43c[1].unk00 = sp59c.x * scale;
-//		sp43c[1].unk04 = sp59c.y * scale;
-//		sp43c[1].unk08 = sp59c.z * scale;
-//		sp43c[2].unk00 = sp5a8.x * scale;
-//		sp43c[2].unk04 = sp5a8.y * scale;
-//		sp43c[2].unk08 = sp5a8.z * scale;
-//		sp43c[0].unk10 = sp5cc.z + g_SkyCloudOffset;
-//		sp43c[1].unk10 = sp59c.z + g_SkyCloudOffset;
-//		sp43c[2].unk10 = sp5a8.z + g_SkyCloudOffset;
-//		sp43c[0].unk0c = sp5cc.x;
-//		sp43c[1].unk0c = sp59c.x;
-//		sp43c[2].unk0c = sp5a8.x;
-//
-//		sky0f11f6ec(&sp43c[0], sp564);
-//		sky0f11f6ec(&sp43c[1], sp554);
-//		sky0f11f6ec(&sp43c[2], sp558);
-//		break;
-//	case 11:
-//		s1 = 3;
-//		scale = 0.033333335f;
-//		sp43c[0].unk00 = sp5d8.x * scale;
-//		sp43c[0].unk04 = sp5d8.y * scale;
-//		sp43c[0].unk08 = sp5d8.z * scale;
-//		sp43c[1].unk00 = sp590.x * scale;
-//		sp43c[1].unk04 = sp590.y * scale;
-//		sp43c[1].unk08 = sp590.z * scale;
-//		sp43c[2].unk00 = sp5b4.x * scale;
-//		sp43c[2].unk04 = sp5b4.y * scale;
-//		sp43c[2].unk08 = sp5b4.z * scale;
-//		sp43c[0].unk10 = sp5d8.z + g_SkyCloudOffset;
-//		sp43c[1].unk10 = sp590.z + g_SkyCloudOffset;
-//		sp43c[2].unk10 = sp5b4.z + g_SkyCloudOffset;
-//		sp43c[0].unk0c = sp5d8.x;
-//		sp43c[1].unk0c = sp590.x;
-//		sp43c[2].unk0c = sp5b4.x;
-//
-//		sky0f11f6ec(&sp43c[0], sp568);
-//		sky0f11f6ec(&sp43c[1], sp550);
-//		sky0f11f6ec(&sp43c[2], sp55c);
-//		break;
-//	case 7:
-//		s1 = 3;
-//		scale = 0.033333335f;
-//		sp43c[0].unk00 = sp5e4.x * scale;
-//		sp43c[0].unk04 = sp5e4.y * scale;
-//		sp43c[0].unk08 = sp5e4.z * scale;
-//		sp43c[1].unk00 = sp5b4.x * scale;
-//		sp43c[1].unk04 = sp5b4.y * scale;
-//		sp43c[1].unk08 = sp5b4.z * scale;
-//		sp43c[2].unk00 = sp59c.x * scale;
-//		sp43c[2].unk04 = sp59c.y * scale;
-//		sp43c[2].unk08 = sp59c.z * scale;
-//		sp43c[0].unk10 = sp5e4.z + g_SkyCloudOffset;
-//		sp43c[1].unk10 = sp5b4.z + g_SkyCloudOffset;
-//		sp43c[2].unk10 = sp59c.z + g_SkyCloudOffset;
-//		sp43c[0].unk0c = sp5e4.x;
-//		sp43c[1].unk0c = sp5b4.x;
-//		sp43c[2].unk0c = sp59c.x;
-//
-//		sky0f11f6ec(&sp43c[0], sp56c);
-//		sky0f11f6ec(&sp43c[1], sp55c);
-//		sky0f11f6ec(&sp43c[2], sp554);
-//		break;
-//	case 1: // 08a8
-//		s1 = 5;
-//		scale = 0.033333335f;
-//		sp43c[0].unk00 = sp5cc.x * scale;
-//		sp43c[0].unk04 = sp5cc.y * scale;
-//		sp43c[0].unk08 = sp5cc.z * scale;
-//		sp43c[1].unk00 = sp5e4.x * scale;
-//		sp43c[1].unk04 = sp5e4.y * scale;
-//		sp43c[1].unk08 = sp5e4.z * scale;
-//		sp43c[2].unk00 = sp5d8.x * scale;
-//		sp43c[2].unk04 = sp5d8.y * scale;
-//		sp43c[2].unk08 = sp5d8.z * scale;
-//		sp43c[3].unk00 = sp590.x * scale;
-//		sp43c[3].unk04 = sp590.y * scale;
-//		sp43c[3].unk08 = sp590.z * scale;
-//		sp43c[4].unk00 = sp5a8.x * scale;
-//		sp43c[4].unk04 = sp5a8.y * scale;
-//		sp43c[4].unk08 = sp5a8.z * scale;
-//		sp43c[0].unk0c = sp5cc.x;
-//		sp43c[0].unk10 = sp5cc.z + g_SkyCloudOffset;
-//		sp43c[1].unk0c = sp5e4.x;
-//		sp43c[1].unk10 = sp5e4.z + g_SkyCloudOffset;
-//		sp43c[2].unk0c = sp5d8.x;
-//		sp43c[2].unk10 = sp5d8.z + g_SkyCloudOffset;
-//		sp43c[3].unk0c = sp590.x;
-//		sp43c[3].unk10 = sp590.z + g_SkyCloudOffset;
-//		sp43c[4].unk0c = sp5a8.x;
-//		sp43c[4].unk10 = sp5a8.z + g_SkyCloudOffset;
-//
-//		sky0f11f6ec(&sp43c[0], sp564);
-//		sky0f11f6ec(&sp43c[1], sp56c);
-//		sky0f11f6ec(&sp43c[2], sp568);
-//		sky0f11f6ec(&sp43c[3], sp550);
-//		sky0f11f6ec(&sp43c[4], sp558);
-//		break;
-//	case 2: // 09f8
-//		s1 = 5;
-//		scale = 0.033333335f;
-//		sp43c[0].unk00 = sp5e4.x * scale;
-//		sp43c[0].unk04 = sp5e4.y * scale;
-//		sp43c[0].unk08 = sp5e4.z * scale;
-//		sp43c[1].unk00 = sp5d8.x * scale;
-//		sp43c[1].unk04 = sp5d8.y * scale;
-//		sp43c[1].unk08 = sp5d8.z * scale;
-//		sp43c[2].unk00 = sp5c0.x * scale;
-//		sp43c[2].unk04 = sp5c0.y * scale;
-//		sp43c[2].unk08 = sp5c0.z * scale;
-//		sp43c[3].unk00 = sp5a8.x * scale;
-//		sp43c[3].unk04 = sp5a8.y * scale;
-//		sp43c[3].unk08 = sp5a8.z * scale;
-//		sp43c[4].unk00 = sp59c.x * scale;
-//		sp43c[4].unk04 = sp59c.y * scale;
-//		sp43c[4].unk08 = sp59c.z * scale;
-//		sp43c[0].unk0c = sp5e4.x;
-//		sp43c[0].unk10 = sp5e4.z + g_SkyCloudOffset;
-//		sp43c[1].unk0c = sp5d8.x;
-//		sp43c[1].unk10 = sp5d8.z + g_SkyCloudOffset;
-//		sp43c[2].unk0c = sp5c0.x;
-//		sp43c[2].unk10 = sp5c0.z + g_SkyCloudOffset;
-//		sp43c[3].unk0c = sp5a8.x;
-//		sp43c[3].unk10 = sp5a8.z + g_SkyCloudOffset;
-//		sp43c[4].unk0c = sp59c.x;
-//		sp43c[4].unk10 = sp59c.z + g_SkyCloudOffset;
-//
-//		sky0f11f6ec(&sp43c[0], sp56c);
-//		sky0f11f6ec(&sp43c[1], sp568);
-//		sky0f11f6ec(&sp43c[2], sp560);
-//		sky0f11f6ec(&sp43c[3], sp558);
-//		sky0f11f6ec(&sp43c[4], sp554);
-//		break;
-//	case 4: // 0b48
-//		s1 = 5;
-//		scale = 0.033333335f;
-//		sp43c[0].unk00 = sp5c0.x * scale;
-//		sp43c[0].unk04 = sp5c0.y * scale;
-//		sp43c[0].unk08 = sp5c0.z * scale;
-//		sp43c[1].unk00 = sp5cc.x * scale;
-//		sp43c[1].unk04 = sp5cc.y * scale;
-//		sp43c[1].unk08 = sp5cc.z * scale;
-//		sp43c[2].unk00 = sp5e4.x * scale;
-//		sp43c[2].unk04 = sp5e4.y * scale;
-//		sp43c[2].unk08 = sp5e4.z * scale;
-//		sp43c[3].unk00 = sp5b4.x * scale;
-//		sp43c[3].unk04 = sp5b4.y * scale;
-//		sp43c[3].unk08 = sp5b4.z * scale;
-//		sp43c[4].unk00 = sp590.x * scale;
-//		sp43c[4].unk04 = sp590.y * scale;
-//		sp43c[4].unk08 = sp590.z * scale;
-//		sp43c[0].unk10 = sp5c0.z + g_SkyCloudOffset; // 44c
-//		sp43c[1].unk10 = sp5cc.z + g_SkyCloudOffset; // 464
-//		sp43c[2].unk10 = sp5e4.z + g_SkyCloudOffset; // 47c
-//		sp43c[3].unk10 = sp5b4.z + g_SkyCloudOffset; // 494
-//		sp43c[4].unk10 = sp590.z + g_SkyCloudOffset; // 4ac
-//		sp43c[0].unk0c = sp5c0.x; // 448
-//		sp43c[1].unk0c = sp5cc.x; // 460
-//		sp43c[2].unk0c = sp5e4.x; // 478
-//		sp43c[3].unk0c = sp5b4.x; // 490
-//		sp43c[4].unk0c = sp590.x; // 4a8
-//
-//		sky0f11f6ec(&sp43c[0], sp560);
-//		sky0f11f6ec(&sp43c[1], sp564);
-//		sky0f11f6ec(&sp43c[2], sp56c);
-//		sky0f11f6ec(&sp43c[3], sp55c);
-//		sky0f11f6ec(&sp43c[4], sp550);
-//		break;
-//	case 8: // 0c98
-//		s1 = 5;
-//		scale = 0.033333335f;
-//		sp43c[0].unk00 = sp5d8.x * scale;
-//		sp43c[0].unk04 = sp5d8.y * scale;
-//		sp43c[0].unk08 = sp5d8.z * scale;
-//		sp43c[1].unk00 = sp5c0.x * scale;
-//		sp43c[1].unk04 = sp5c0.y * scale;
-//		sp43c[1].unk08 = sp5c0.z * scale;
-//		sp43c[2].unk00 = sp5cc.x * scale;
-//		sp43c[2].unk04 = sp5cc.y * scale;
-//		sp43c[2].unk08 = sp5cc.z * scale;
-//		sp43c[3].unk00 = sp59c.x * scale;
-//		sp43c[3].unk04 = sp59c.y * scale;
-//		sp43c[3].unk08 = sp59c.z * scale;
-//		sp43c[4].unk00 = sp5b4.x * scale;
-//		sp43c[4].unk04 = sp5b4.y * scale;
-//		sp43c[4].unk08 = sp5b4.z * scale;
-//		sp43c[0].unk10 = sp5d8.z + g_SkyCloudOffset;
-//		sp43c[1].unk10 = sp5c0.z + g_SkyCloudOffset;
-//		sp43c[2].unk10 = sp5cc.z + g_SkyCloudOffset;
-//		sp43c[3].unk10 = sp59c.z + g_SkyCloudOffset;
-//		sp43c[4].unk10 = sp5b4.z + g_SkyCloudOffset;
-//		sp43c[0].unk0c = sp5d8.x;
-//		sp43c[1].unk0c = sp5c0.x;
-//		sp43c[2].unk0c = sp5cc.x;
-//		sp43c[3].unk0c = sp59c.x;
-//		sp43c[4].unk0c = sp5b4.x;
-//
-//		sky0f11f6ec(&sp43c[0], sp568);
-//		sky0f11f6ec(&sp43c[1], sp560);
-//		sky0f11f6ec(&sp43c[2], sp564);
-//		sky0f11f6ec(&sp43c[3], sp554);
-//		sky0f11f6ec(&sp43c[4], sp55c);
-//		break;
-//	default:
-//		return gdl;
-//	}
-//
-//	// 0df0
-//	if (s1 > 0) {
-//		Mtxf sp3cc;
-//		Mtxf sp38c;
-//		struct skything38 sp274[5];
-//		s32 i; // 270
-//
-//		mtx4MultMtx4(camGetMtxF1754(), camGetWorldToScreenMtxf(), &sp3cc);
-//		guScaleF(var800a33a8.m, 1.0f / scale, 1.0f / scale, 1.0f / scale);
-//		mtx4MultMtx4(&sp3cc, &var800a33a8, &sp38c);
-//
-//		for (i = 0; i < s1; i++) {
-//			sky0f1228d0(&sp43c[i], &sp38c, 130, 65535.0f, 65535.0f, &sp274[i]);
-//
-//			sp274[i].unk28 = skyClamp(sp274[i].unk28, camGetScreenLeft() * 4.0f, (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f);
-//			sp274[i].unk2c = skyClamp(sp274[i].unk2c, camGetScreenTop() * 4.0f, (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 1.0f);
-//
-//			if (sp274[i].unk2c > camGetScreenTop() * 4.0f + 4.0f
-//					&& sp274[i].unk2c < (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 4.0f) {
-//				sp274[i].unk2c -= 4.0f;
-//			}
-//		}
-//
-//		if (!env->water_enabled) {
-//			f32 f14 = 1279.0f;
-//			f32 f16 = 959.0f;
-//			f32 f2 = 0.0f;
-//			f32 f12 = 0.0f;
-//
-//			for (j = 0; j < s1; j++) {
-//				if (sp274[j].unk28 < f14) {
-//					f14 = sp274[j].unk28;
-//				}
-//
-//				if (sp274[j].unk28 > f2) {
-//					f2 = sp274[j].unk28;
-//				}
-//
-//				if (sp274[j].unk2c < f16) {
-//					f16 = sp274[j].unk2c;
-//				}
-//
-//				if (sp274[j].unk2c > f12) {
-//					f12 = sp274[j].unk2c;
-//				}
-//			}
-//
-//			gDPPipeSync(gdl++);
-//			gDPSetCycleType(gdl++, G_CYC_FILL);
-//			gDPSetRenderMode(gdl++, G_RM_NOOP, G_RM_NOOP2);
-//			gDPSetTexturePersp(gdl++, G_TP_NONE);
-//			gDPFillRectangle(gdl++, (s32)(f14 * 0.25f), (s32)(f16 * 0.25f), (s32)(f2 * 0.25f), (s32)(f12 * 0.25f));
-//			gDPPipeSync(gdl++);
-//			gDPSetTexturePersp(gdl++, G_TP_PERSP);
-//		} else {
-//			gDPPipeSync(gdl++);
-//
-//			texSelect(&gdl, &g_TexWaterConfigs[env->water_type], 1, 0, 2, 1, NULL);
-//
-//			gDPSetRenderMode(gdl++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
-//
-//			if (s1 == 4) {
-//				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[1], &sp274[3], 130.0f, true);
-//
-//				if (sp430) {
-//					sp274[0].unk2c++;
-//					sp274[1].unk2c++;
-//					sp274[2].unk2c++;
-//					sp274[3].unk2c++;
-//				}
-//
-//				gdl = sky0f122d4c(gdl, &sp274[3], &sp274[2], &sp274[0], 130.0f, true);
-//			} else if (s1 == 5) {
-//				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[1], &sp274[2], 130.0f, true);
-//				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[2], &sp274[3], 130.0f, true);
-//				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[3], &sp274[4], 130.0f, true);
-//			} else if (s1 == 3) {
-//				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[1], &sp274[2], 130.0f, true);
-//			}
-//		}
-//	}
-//
-//	// 1364
-//	switch ((sp538 << 3) | (sp534 << 2) | (sp530 << 1) | sp52c) {
-//	case 0:
-//		return gdl;
-//	case 15:
-//		s1 = 4;
-//		sp4b4[0].unk00 = sp644.x * scale;
-//		sp4b4[0].unk04 = sp644.y * scale;
-//		sp4b4[0].unk08 = sp644.z * scale;
-//		sp4b4[1].unk00 = sp638.x * scale;
-//		sp4b4[1].unk04 = sp638.y * scale;
-//		sp4b4[1].unk08 = sp638.z * scale;
-//		sp4b4[2].unk00 = sp62c.x * scale;
-//		sp4b4[2].unk04 = sp62c.y * scale;
-//		sp4b4[2].unk08 = sp62c.z * scale;
-//		sp4b4[3].unk00 = sp620.x * scale;
-//		sp4b4[3].unk04 = sp620.y * scale;
-//		sp4b4[3].unk08 = sp620.z * scale;
-//		sp4b4[0].unk0c = sp644.x * 0.1f;
-//		sp4b4[0].unk10 = sp644.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[1].unk0c = sp638.x * 0.1f;
-//		sp4b4[1].unk10 = sp638.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[2].unk0c = sp62c.x * 0.1f;
-//		sp4b4[2].unk10 = sp62c.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[3].unk0c = sp620.x * 0.1f;
-//		sp4b4[3].unk10 = sp620.z * 0.1f + g_SkyCloudOffset;
-//
-//		sky0f11f438(&sp4b4[0], sp58c);
-//		sky0f11f438(&sp4b4[1], sp588);
-//		sky0f11f438(&sp4b4[2], sp584);
-//		sky0f11f438(&sp4b4[3], sp580);
-//		break;
-//	case 12: // 14b0
-//		s1 = 4;
-//		sp4b4[0].unk00 = sp644.x * scale;
-//		sp4b4[0].unk04 = sp644.y * scale;
-//		sp4b4[0].unk08 = sp644.z * scale;
-//		sp4b4[1].unk00 = sp638.x * scale;
-//		sp4b4[1].unk04 = sp638.y * scale;
-//		sp4b4[1].unk08 = sp638.z * scale;
-//		sp4b4[2].unk00 = sp5fc.x * scale;
-//		sp4b4[2].unk04 = sp5fc.y * scale;
-//		sp4b4[2].unk08 = sp5fc.z * scale;
-//		sp4b4[3].unk00 = sp5f0.x * scale;
-//		sp4b4[3].unk04 = sp5f0.y * scale;
-//		sp4b4[3].unk08 = sp5f0.z * scale;
-//		sp4b4[0].unk0c = sp644.x * 0.1f;
-//		sp4b4[0].unk10 = sp644.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[1].unk0c = sp638.x * 0.1f;
-//		sp4b4[1].unk10 = sp638.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[2].unk0c = sp5fc.x * 0.1f;
-//		sp4b4[2].unk10 = sp5fc.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[3].unk0c = sp5f0.x * 0.1f;
-//		sp4b4[3].unk10 = sp5f0.z * 0.1f + g_SkyCloudOffset;
-//
-//		sky0f11f438(&sp4b4[0], sp58c);
-//		sky0f11f438(&sp4b4[1], sp588);
-//		sky0f11f438(&sp4b4[2], sp574);
-//		sky0f11f438(&sp4b4[3], sp570);
-//		break;
-//	case 3: // 15ec
-//		s1 = 4;
-//		sp4b4[0].unk00 = sp620.x * scale;
-//		sp4b4[0].unk04 = sp620.y * scale;
-//		sp4b4[0].unk08 = sp620.z * scale;
-//		sp4b4[1].unk00 = sp62c.x * scale;
-//		sp4b4[1].unk04 = sp62c.y * scale;
-//		sp4b4[1].unk08 = sp62c.z * scale;
-//		sp4b4[2].unk00 = sp5f0.x * scale;
-//		sp4b4[2].unk04 = sp5f0.y * scale;
-//		sp4b4[2].unk08 = sp5f0.z * scale;
-//		sp4b4[3].unk00 = sp5fc.x * scale;
-//		sp4b4[3].unk04 = sp5fc.y * scale;
-//		sp4b4[3].unk08 = sp5fc.z * scale;
-//		sp4b4[0].unk0c = sp620.x * 0.1f;
-//		sp4b4[0].unk10 = sp620.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[1].unk0c = sp62c.x * 0.1f;
-//		sp4b4[1].unk10 = sp62c.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[2].unk0c = sp5f0.x * 0.1f;
-//		sp4b4[2].unk10 = sp5f0.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[3].unk0c = sp5fc.x * 0.1f;
-//		sp4b4[3].unk10 = sp5fc.z * 0.1f + g_SkyCloudOffset;
-//
-//		sky0f11f438(&sp4b4[0], sp580);
-//		sky0f11f438(&sp4b4[1], sp584);
-//		sky0f11f438(&sp4b4[2], sp570);
-//		sky0f11f438(&sp4b4[3], sp574);
-//		break;
-//	case 5: // 1724
-//		s1 = 4;
-//		sp4b4[0].unk00 = sp638.x * scale;
-//		sp4b4[1].unk00 = sp620.x * scale;
-//		sp4b4[2].unk00 = sp614.x * scale;
-//		sp4b4[3].unk00 = sp608.x * scale;
-//		sp4b4[0].unk04 = sp638.y * scale;
-//		sp4b4[1].unk04 = sp620.y * scale;
-//		sp4b4[2].unk04 = sp614.y * scale;
-//		sp4b4[3].unk04 = sp608.y * scale;
-//		sp4b4[0].unk08 = sp638.z * scale;
-//		sp4b4[1].unk08 = sp620.z * scale;
-//		sp4b4[2].unk08 = sp614.z * scale;
-//		sp4b4[3].unk08 = sp608.z * scale;
-//		sp4b4[0].unk0c = sp638.x * 0.1f;
-//		sp4b4[1].unk0c = sp620.x * 0.1f;
-//		sp4b4[2].unk0c = sp614.x * 0.1f;
-//		sp4b4[3].unk0c = sp608.x * 0.1f;
-//		sp4b4[0].unk10 = sp638.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[1].unk10 = sp620.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[2].unk10 = sp614.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[3].unk10 = sp608.z * 0.1f + g_SkyCloudOffset;
-//
-//		sky0f11f438(&sp4b4[0], sp588);
-//		sky0f11f438(&sp4b4[1], sp580);
-//		sky0f11f438(&sp4b4[2], sp57c);
-//		sky0f11f438(&sp4b4[3], sp578);
-//		break;
-//	case 10:
-//		s1 = 4;
-//		sp4b4[0].unk00 = sp62c.x * scale;
-//		sp4b4[0].unk04 = sp62c.y * scale;
-//		sp4b4[0].unk08 = sp62c.z * scale;
-//		sp4b4[1].unk00 = sp644.x * scale;
-//		sp4b4[1].unk04 = sp644.y * scale;
-//		sp4b4[1].unk08 = sp644.z * scale;
-//		sp4b4[2].unk00 = sp608.x * scale;
-//		sp4b4[2].unk04 = sp608.y * scale;
-//		sp4b4[2].unk08 = sp608.z * scale;
-//		sp4b4[3].unk00 = sp614.x * scale;
-//		sp4b4[3].unk04 = sp614.y * scale;
-//		sp4b4[3].unk08 = sp614.z * scale;
-//		sp4b4[0].unk10 = sp62c.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[1].unk10 = sp644.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[2].unk10 = sp608.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[3].unk10 = sp614.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[0].unk0c = sp62c.x * 0.1f;
-//		sp4b4[1].unk0c = sp644.x * 0.1f;
-//		sp4b4[2].unk0c = sp608.x * 0.1f;
-//		sp4b4[3].unk0c = sp614.x * 0.1f;
-//
-//		sky0f11f438(&sp4b4[0], sp584);
-//		sky0f11f438(&sp4b4[1], sp58c);
-//		sky0f11f438(&sp4b4[2], sp578);
-//		sky0f11f438(&sp4b4[3], sp57c);
-//		break;
-//	case 1:
-//		s1 = 3;
-//		sp4b4[0].unk00 = sp620.x * scale;
-//		sp4b4[0].unk04 = sp620.y * scale;
-//		sp4b4[0].unk08 = sp620.z * scale;
-//		sp4b4[1].unk00 = sp608.x * scale;
-//		sp4b4[1].unk04 = sp608.y * scale;
-//		sp4b4[1].unk08 = sp608.z * scale;
-//		sp4b4[2].unk00 = sp5f0.x * scale;
-//		sp4b4[2].unk04 = sp5f0.y * scale;
-//		sp4b4[2].unk08 = sp5f0.z * scale;
-//		sp4b4[0].unk10 = sp620.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[1].unk10 = sp608.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[2].unk10 = sp5f0.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[0].unk0c = sp620.x * 0.1f;
-//		sp4b4[1].unk0c = sp608.x * 0.1f;
-//		sp4b4[2].unk0c = sp5f0.x * 0.1f;
-//
-//		sky0f11f438(&sp4b4[0], sp580);
-//		sky0f11f438(&sp4b4[1], sp578);
-//		sky0f11f438(&sp4b4[2], sp570);
-//		break;
-//	case 2:
-//		s1 = 3;
-//		sp4b4[0].unk00 = sp62c.x * scale;
-//		sp4b4[0].unk04 = sp62c.y * scale;
-//		sp4b4[0].unk08 = sp62c.z * scale;
-//		sp4b4[1].unk00 = sp5fc.x * scale;
-//		sp4b4[1].unk04 = sp5fc.y * scale;
-//		sp4b4[1].unk08 = sp5fc.z * scale;
-//		sp4b4[2].unk00 = sp608.x * scale;
-//		sp4b4[2].unk04 = sp608.y * scale;
-//		sp4b4[2].unk08 = sp608.z * scale;
-//		sp4b4[0].unk10 = sp62c.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[1].unk10 = sp5fc.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[2].unk10 = sp608.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[0].unk0c = sp62c.x * 0.1f;
-//		sp4b4[1].unk0c = sp5fc.x * 0.1f;
-//		sp4b4[2].unk0c = sp608.x * 0.1f;
-//
-//		sky0f11f438(&sp4b4[0], sp584);
-//		sky0f11f438(&sp4b4[1], sp574);
-//		sky0f11f438(&sp4b4[2], sp578);
-//		break;
-//	case 4:
-//		s1 = 3;
-//		sp4b4[0].unk00 = sp638.x * scale;
-//		sp4b4[0].unk04 = sp638.y * scale;
-//		sp4b4[0].unk08 = sp638.z * scale;
-//		sp4b4[1].unk00 = sp5f0.x * scale;
-//		sp4b4[1].unk04 = sp5f0.y * scale;
-//		sp4b4[1].unk08 = sp5f0.z * scale;
-//		sp4b4[2].unk00 = sp614.x * scale;
-//		sp4b4[2].unk04 = sp614.y * scale;
-//		sp4b4[2].unk08 = sp614.z * scale;
-//		sp4b4[0].unk10 = sp638.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[1].unk10 = sp5f0.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[2].unk10 = sp614.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[0].unk0c = sp638.x * 0.1f;
-//		sp4b4[1].unk0c = sp5f0.x * 0.1f;
-//		sp4b4[2].unk0c = sp614.x * 0.1f;
-//
-//		sky0f11f438(&sp4b4[0], sp588);
-//		sky0f11f438(&sp4b4[1], sp570);
-//		sky0f11f438(&sp4b4[2], sp57c);
-//		break;
-//	case 8:
-//		s1 = 3;
-//		sp4b4[0].unk00 = sp644.x * scale;
-//		sp4b4[0].unk04 = sp644.y * scale;
-//		sp4b4[0].unk08 = sp644.z * scale;
-//		sp4b4[1].unk00 = sp614.x * scale;
-//		sp4b4[1].unk04 = sp614.y * scale;
-//		sp4b4[1].unk08 = sp614.z * scale;
-//		sp4b4[2].unk00 = sp5fc.x * scale;
-//		sp4b4[2].unk04 = sp5fc.y * scale;
-//		sp4b4[2].unk08 = sp5fc.z * scale;
-//		sp4b4[0].unk10 = sp644.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[1].unk10 = sp614.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[2].unk10 = sp5fc.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[0].unk0c = sp644.x * 0.1f;
-//		sp4b4[1].unk0c = sp614.x * 0.1f;
-//		sp4b4[2].unk0c = sp5fc.x * 0.1f;
-//
-//		sky0f11f438(&sp4b4[0], sp58c);
-//		sky0f11f438(&sp4b4[1], sp57c);
-//		sky0f11f438(&sp4b4[2], sp574);
-//		break;
-//	case 14:
-//		s1 = 5;
-//		sp4b4[0].unk00 = sp62c.x * scale;
-//		sp4b4[0].unk04 = sp62c.y * scale;
-//		sp4b4[0].unk08 = sp62c.z * scale;
-//		sp4b4[1].unk00 = sp644.x * scale;
-//		sp4b4[1].unk04 = sp644.y * scale;
-//		sp4b4[1].unk08 = sp644.z * scale;
-//		sp4b4[2].unk00 = sp638.x * scale;
-//		sp4b4[2].unk04 = sp638.y * scale;
-//		sp4b4[2].unk08 = sp638.z * scale;
-//		sp4b4[3].unk00 = sp5f0.x * scale;
-//		sp4b4[3].unk04 = sp5f0.y * scale;
-//		sp4b4[3].unk08 = sp5f0.z * scale;
-//		sp4b4[4].unk00 = sp608.x * scale;
-//		sp4b4[4].unk04 = sp608.y * scale;
-//		sp4b4[4].unk08 = sp608.z * scale;
-//		sp4b4[0].unk10 = sp62c.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[1].unk10 = sp644.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[2].unk10 = sp638.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[3].unk10 = sp5f0.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[4].unk10 = sp608.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[0].unk0c = sp62c.x * 0.1f;
-//		sp4b4[1].unk0c = sp644.x * 0.1f;
-//		sp4b4[2].unk0c = sp638.x * 0.1f;
-//		sp4b4[3].unk0c = sp5f0.x * 0.1f;
-//		sp4b4[4].unk0c = sp608.x * 0.1f;
-//
-//		sky0f11f438(&sp4b4[0], sp584);
-//		sky0f11f438(&sp4b4[1], sp58c);
-//		sky0f11f438(&sp4b4[2], sp588);
-//		sky0f11f438(&sp4b4[3], sp570);
-//		sky0f11f438(&sp4b4[4], sp578);
-//		break;
-//	case 13:
-//		s1 = 5;
-//		sp4b4[0].unk00 = sp644.x * scale;
-//		sp4b4[0].unk04 = sp644.y * scale;
-//		sp4b4[0].unk08 = sp644.z * scale;
-//		sp4b4[1].unk00 = sp638.x * scale;
-//		sp4b4[1].unk04 = sp638.y * scale;
-//		sp4b4[1].unk08 = sp638.z * scale;
-//		sp4b4[2].unk00 = sp620.x * scale;
-//		sp4b4[2].unk04 = sp620.y * scale;
-//		sp4b4[2].unk08 = sp620.z * scale;
-//		sp4b4[3].unk00 = sp608.x * scale;
-//		sp4b4[3].unk04 = sp608.y * scale;
-//		sp4b4[3].unk08 = sp608.z * scale;
-//		sp4b4[4].unk00 = sp5fc.x * scale;
-//		sp4b4[4].unk04 = sp5fc.y * scale;
-//		sp4b4[4].unk08 = sp5fc.z * scale;
-//		sp4b4[0].unk10 = sp644.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[1].unk10 = sp638.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[2].unk10 = sp620.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[3].unk10 = sp608.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[4].unk10 = sp5fc.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[0].unk0c = sp644.x * 0.1f;
-//		sp4b4[1].unk0c = sp638.x * 0.1f;
-//		sp4b4[2].unk0c = sp620.x * 0.1f;
-//		sp4b4[3].unk0c = sp608.x * 0.1f;
-//		sp4b4[4].unk0c = sp5fc.x * 0.1f;
-//
-//		sky0f11f438(&sp4b4[0], sp58c);
-//		sky0f11f438(&sp4b4[1], sp588);
-//		sky0f11f438(&sp4b4[2], sp580);
-//		sky0f11f438(&sp4b4[3], sp578);
-//		sky0f11f438(&sp4b4[4], sp574);
-//		break;
-//	case 11:
-//		s1 = 5;
-//		sp4b4[0].unk00 = sp620.x * scale;
-//		sp4b4[0].unk04 = sp620.y * scale;
-//		sp4b4[0].unk08 = sp620.z * scale;
-//		sp4b4[1].unk00 = sp62c.x * scale;
-//		sp4b4[1].unk04 = sp62c.y * scale;
-//		sp4b4[1].unk08 = sp62c.z * scale;
-//		sp4b4[2].unk00 = sp644.x * scale;
-//		sp4b4[2].unk04 = sp644.y * scale;
-//		sp4b4[2].unk08 = sp644.z * scale;
-//		sp4b4[3].unk00 = sp614.x * scale;
-//		sp4b4[3].unk04 = sp614.y * scale;
-//		sp4b4[3].unk08 = sp614.z * scale;
-//		sp4b4[4].unk00 = sp5f0.x * scale;
-//		sp4b4[4].unk04 = sp5f0.y * scale;
-//		sp4b4[4].unk08 = sp5f0.z * scale;
-//		sp4b4[0].unk10 = sp620.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[1].unk10 = sp62c.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[2].unk10 = sp644.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[3].unk10 = sp614.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[4].unk10 = sp5f0.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[0].unk0c = sp620.x * 0.1f;
-//		sp4b4[1].unk0c = sp62c.x * 0.1f;
-//		sp4b4[2].unk0c = sp644.x * 0.1f;
-//		sp4b4[3].unk0c = sp614.x * 0.1f;
-//		sp4b4[4].unk0c = sp5f0.x * 0.1f;
-//
-//		sky0f11f438(&sp4b4[0], sp580);
-//		sky0f11f438(&sp4b4[1], sp584);
-//		sky0f11f438(&sp4b4[2], sp58c);
-//		sky0f11f438(&sp4b4[3], sp57c);
-//		sky0f11f438(&sp4b4[4], sp570);
-//		break;
-//	case 7:
-//		s1 = 5;
-//		sp4b4[0].unk00 = sp638.x * scale;
-//		sp4b4[0].unk04 = sp638.y * scale;
-//		sp4b4[0].unk08 = sp638.z * scale;
-//		sp4b4[1].unk00 = sp620.x * scale;
-//		sp4b4[1].unk04 = sp620.y * scale;
-//		sp4b4[1].unk08 = sp620.z * scale;
-//		sp4b4[2].unk00 = sp62c.x * scale;
-//		sp4b4[2].unk04 = sp62c.y * scale;
-//		sp4b4[2].unk08 = sp62c.z * scale;
-//		sp4b4[3].unk00 = sp5fc.x * scale;
-//		sp4b4[3].unk04 = sp5fc.y * scale;
-//		sp4b4[3].unk08 = sp5fc.z * scale;
-//		sp4b4[4].unk00 = sp614.x * scale;
-//		sp4b4[4].unk04 = sp614.y * scale;
-//		sp4b4[4].unk08 = sp614.z * scale;
-//		sp4b4[0].unk10 = sp638.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[1].unk10 = sp620.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[2].unk10 = sp62c.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[3].unk10 = sp5fc.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[4].unk10 = sp614.z * 0.1f + g_SkyCloudOffset;
-//		sp4b4[0].unk0c = sp638.x * 0.1f;
-//		sp4b4[1].unk0c = sp620.x * 0.1f;
-//		sp4b4[2].unk0c = sp62c.x * 0.1f;
-//		sp4b4[3].unk0c = sp5fc.x * 0.1f;
-//		sp4b4[4].unk0c = sp614.x * 0.1f;
-//
-//		sky0f11f438(&sp4b4[0], sp588);
-//		sky0f11f438(&sp4b4[1], sp580);
-//		sky0f11f438(&sp4b4[2], sp584);
-//		sky0f11f438(&sp4b4[3], sp574);
-//		sky0f11f438(&sp4b4[4], sp57c);
-//		break;
-//	default:
-//		return gdl;
-//	}
-//
-//	// 2380
-//	{
-//		s32 stack;
-//		Mtxf sp1ec;
-//		Mtxf sp1ac;
-//		struct skything38 sp94[5];
-//		s32 i; // 90
-//
-//		gDPPipeSync(gdl++);
-//
-//		texSelect(&gdl, &g_TexWaterConfigs[env->unk18], 1, 0, 2, 1, NULL);
-//
-//		gDPSetEnvColor(gdl++, env->sky_r, env->sky_g, env->sky_b, 0xff);
-//		gDPSetCombineLERP(gdl++,
-//				SHADE, ENVIRONMENT, TEXEL0, ENVIRONMENT, 0, 0, 0, SHADE,
-//				SHADE, ENVIRONMENT, TEXEL0, ENVIRONMENT, 0, 0, 0, SHADE);
-//
-//		mtx4MultMtx4(camGetMtxF1754(), camGetWorldToScreenMtxf(), &sp1ec);
-//		guScaleF(var800a33a8.m, 1.0f / scale, 1.0f / scale, 1.0f / scale);
-//		mtx4MultMtx4(&sp1ec, &var800a33a8, &sp1ac);
-//
-//		for (i = 0; i < s1; i++) {
-//			sky0f1228d0(&sp4b4[i], &sp1ac, 130, 65535.0f, 65535.0f, &sp94[i]);
-//
-//			sp94[i].unk28 = skyClamp(sp94[i].unk28, camGetScreenLeft() * 4.0f, (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f);
-//			sp94[i].unk2c = skyClamp(sp94[i].unk2c, camGetScreenTop() * 4.0f, (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 1.0f);
-//		}
-//
-//		if (s1 == 4) {
-//			if (((sp538 << 3) | (sp534 << 2) | (sp530 << 1) | sp52c) == 12) {
-//				if (sp548 < sp54c) {
-//					if (sp94[3].unk2c >= sp94[1].unk2c + 4.0f) {
-//						sp94[0].unk28 = camGetScreenLeft() * 4.0f;
-//						sp94[0].unk2c = camGetScreenTop() * 4.0f;
-//						sp94[1].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
-//						sp94[1].unk2c = camGetScreenTop() * 4.0f;
-//						sp94[2].unk28 = camGetScreenLeft() * 4.0f;
-//						sp94[3].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
-//
-//						gdl = sky0f123fd4(gdl, &sp94[0], &sp94[1], &sp94[2], &sp94[3], 130.0f);
-//					} else {
-//						gdl = sky0f122d4c(gdl, &sp94[0], &sp94[1], &sp94[2], 130.0f, 1);
-//					}
-//				} else if (sp94[2].unk2c >= sp94[0].unk2c + 4.0f) {
-//					sp94[0].unk28 = camGetScreenLeft() * 4.0f;
-//					sp94[0].unk2c = camGetScreenTop() * 4.0f;
-//					sp94[1].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
-//					sp94[1].unk2c = camGetScreenTop() * 4.0f;
-//					sp94[2].unk28 = camGetScreenLeft() * 4.0f;
-//					sp94[3].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
-//
-//					gdl = sky0f123fd4(gdl, &sp94[1], &sp94[0], &sp94[3], &sp94[2], 130.0f);
-//				} else {
-//					gdl = sky0f122d4c(gdl, &sp94[1], &sp94[0], &sp94[3], 130.0f, 1);
-//				}
-//			} else {
-//				gdl = sky0f122d4c(gdl, &sp94[0], &sp94[1], &sp94[3], 130.0f, 1);
-//				gdl = sky0f122d4c(gdl, &sp94[3], &sp94[2], &sp94[0], 130.0f, 1);
-//			}
-//		} else if (s1 == 5) {
-//			gdl = sky0f122d4c(gdl, &sp94[0], &sp94[1], &sp94[2], 130.0f, 1);
-//			gdl = sky0f122d4c(gdl, &sp94[0], &sp94[2], &sp94[3], 130.0f, 1);
-//			gdl = sky0f122d4c(gdl, &sp94[0], &sp94[3], &sp94[4], 130.0f, 1);
-//		} else if (s1 == 3) {
-//			gdl = sky0f122d4c(gdl, &sp94[0], &sp94[1], &sp94[2], 130.0f, 1);
-//		}
-//	}
-//
-//	return gdl;
-//}
+	sp430 = false;
+	env = envGetCurrent();
+
+	if (!env->clouds_enabled || g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
+		if (PLAYERCOUNT() == 1) {
+			gDPSetCycleType(gdl++, G_CYC_FILL);
+
+			if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
+				gdl = viSetFillColour(gdl, 0, 0, 0);
+			} else {
+				gdl = viSetFillColour(gdl, env->sky_r, env->sky_g, env->sky_b);
+			}
+
+			gDPFillRectangle(gdl++, viGetViewLeft(), viGetViewTop(),
+					viGetViewLeft() + viGetViewWidth() - 1,
+					viGetViewTop() + viGetViewHeight() - 1);
+
+			gDPPipeSync(gdl++);
+			return gdl;
+		}
+
+		gDPPipeSync(gdl++);
+		gDPSetCycleType(gdl++, G_CYC_FILL);
+
+		if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
+			gdl = viSetFillColour(gdl, 0, 0, 0);
+		} else {
+			gdl = viSetFillColour(gdl, env->sky_r, env->sky_g, env->sky_b);
+		}
+
+		gDPSetRenderMode(gdl++, G_RM_NOOP, G_RM_NOOP2);
+
+		gDPFillRectangle(gdl++,
+				g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop,
+				g_Vars.currentplayer->viewleft + g_Vars.currentplayer->viewwidth - 1,
+				g_Vars.currentplayer->viewtop + g_Vars.currentplayer->viewheight - 1);
+
+		gDPPipeSync(gdl++);
+		return gdl;
+	}
+
+	gdl = viSetFillColour(gdl, env->sky_r, env->sky_g, env->sky_b);
+
+	if (&sp6a4);
+
+	sky0f11f000(0.0f, 0.0f, &sp6a4);
+	sky0f11f000(camGetScreenWidth() - 0.1f, 0.0f, &sp698);
+	sky0f11f000(0.0f, camGetScreenHeight() - 0.1f, &sp68c);
+	sky0f11f000(camGetScreenWidth() - 0.1f, camGetScreenHeight() - 0.1f, &sp680);
+
+	sp538 = sky0f11f07c(&sp6a4, &sp644, &sp58c);
+	sp534 = sky0f11f07c(&sp698, &sp638, &sp588);
+	sp530 = sky0f11f07c(&sp68c, &sp62c, &sp584);
+	sp52c = sky0f11f07c(&sp680, &sp620, &sp580);
+
+	sky0f11f1fc(&sp6a4, &sp5e4, &sp56c);
+	sky0f11f1fc(&sp698, &sp5d8, &sp568);
+	sky0f11f1fc(&sp68c, &sp5cc, &sp564);
+	sky0f11f1fc(&sp680, &sp5c0, &sp560);
+
+	if (sp538 != sp530) {
+		sp54c = camGetScreenTop() + camGetScreenHeight() * (sp6a4.f[1] / (sp6a4.f[1] - sp68c.f[1]));
+
+		sky0f11f000(0.0f, sp54c, &sp65c);
+		sky0f11f384(&sp6a4, &sp68c, &sp65c);
+		sky0f11f07c(&sp65c, &sp5fc, &sp574);
+		sky0f11f1fc(&sp65c, &sp59c, &sp554);
+	} else {
+		sp54c = 0.0f;
+	}
+
+	if (sp534 != sp52c) {
+		sp548 = camGetScreenTop() + camGetScreenHeight() * (sp698.f[1] / (sp698.f[1] - sp680.f[1]));
+
+		sky0f11f000(camGetScreenWidth() - 0.1f, sp548, &sp650);
+		sky0f11f384(&sp698, &sp680, &sp650);
+		sky0f11f07c(&sp650, &sp5f0, &sp570);
+		sky0f11f1fc(&sp650, &sp590, &sp550);
+	} else {
+		sp548 = 0.0f;
+	}
+
+	if (sp538 != sp534) {
+		sky0f11f000(camGetScreenLeft() + camGetScreenWidth() * (sp6a4.f[1] / (sp6a4.f[1] - sp698.f[1])), 0.0f, &sp674);
+		sky0f11f384(&sp6a4, &sp698, &sp674);
+		sky0f11f07c(&sp674, &sp614, &sp57c);
+		sky0f11f1fc(&sp674, &sp5b4, &sp55c);
+	}
+
+	if (sp530 != sp52c) {
+		tmp = camGetScreenLeft() + camGetScreenWidth() * (sp68c.f[1] / (sp68c.f[1] - sp680.f[1]));
+
+		sky0f11f000(tmp, camGetScreenHeight() - 0.1f, &sp668);
+		sky0f11f384(&sp68c, &sp680, &sp668);
+		sky0f11f07c(&sp668, &sp608, &sp578);
+		sky0f11f1fc(&sp668, &sp5a8, &sp558);
+	}
+
+	switch ((sp538 << 3) | (sp534 << 2) | (sp530 << 1) | sp52c) {
+	case 15:
+		s1 = 0;
+		scale = 0.033333335f;
+		break;
+	case 0:
+		s1 = 4;
+		scale = 0.033333335f;
+		sp43c[0].unk00 = sp5e4.f[0] * scale;
+		sp43c[0].unk04 = sp5e4.f[1] * scale;
+		sp43c[0].unk08 = sp5e4.f[2] * scale;
+		sp43c[1].unk00 = sp5d8.f[0] * scale;
+		sp43c[1].unk04 = sp5d8.f[1] * scale;
+		sp43c[1].unk08 = sp5d8.f[2] * scale;
+		sp43c[2].unk00 = sp5cc.f[0] * scale;
+		sp43c[2].unk04 = sp5cc.f[1] * scale;
+		sp43c[2].unk08 = sp5cc.f[2] * scale;
+		sp43c[3].unk00 = sp5c0.f[0] * scale;
+		sp43c[3].unk04 = sp5c0.f[1] * scale;
+		sp43c[3].unk08 = sp5c0.f[2] * scale;
+		sp43c[0].unk0c = sp5e4.f[0];
+		sp43c[0].unk10 = sp5e4.f[2] + g_SkyCloudOffset;
+		sp43c[1].unk0c = sp5d8.f[0];
+		sp43c[1].unk10 = sp5d8.f[2] + g_SkyCloudOffset;
+		sp43c[2].unk0c = sp5cc.f[0];
+		sp43c[2].unk10 = sp5cc.f[2] + g_SkyCloudOffset;
+		sp43c[3].unk0c = sp5c0.f[0];
+		sp43c[3].unk10 = sp5c0.f[2] + g_SkyCloudOffset;
+
+		sky0f11f6ec(&sp43c[0], sp56c);
+		sky0f11f6ec(&sp43c[1], sp568);
+		sky0f11f6ec(&sp43c[2], sp564);
+		sky0f11f6ec(&sp43c[3], sp560);
+		break;
+	case 3:
+		s1 = 4;
+		scale = 0.033333335f;
+		sp43c[0].unk00 = sp5e4.f[0] * scale;
+		sp43c[0].unk04 = sp5e4.f[1] * scale;
+		sp43c[0].unk08 = sp5e4.f[2] * scale;
+		sp43c[1].unk00 = sp5d8.f[0] * scale;
+		sp43c[1].unk04 = sp5d8.f[1] * scale;
+		sp43c[1].unk08 = sp5d8.f[2] * scale;
+		sp43c[2].unk00 = sp59c.f[0] * scale;
+		sp43c[2].unk04 = sp59c.f[1] * scale;
+		sp43c[2].unk08 = sp59c.f[2] * scale;
+		sp43c[3].unk00 = sp590.f[0] * scale;
+		sp43c[3].unk04 = sp590.f[1] * scale;
+		sp43c[3].unk08 = sp590.f[2] * scale;
+		sp43c[0].unk0c = sp5e4.f[0];
+		sp43c[0].unk10 = sp5e4.f[2] + g_SkyCloudOffset;
+		sp43c[1].unk0c = sp5d8.f[0];
+		sp43c[1].unk10 = sp5d8.f[2] + g_SkyCloudOffset;
+		sp43c[2].unk0c = sp59c.f[0];
+		sp43c[2].unk10 = sp59c.f[2] + g_SkyCloudOffset;
+		sp43c[3].unk0c = sp590.f[0];
+		sp43c[3].unk10 = sp590.f[2] + g_SkyCloudOffset;
+
+		sky0f11f6ec(&sp43c[0], sp56c);
+		sky0f11f6ec(&sp43c[1], sp568);
+		sky0f11f6ec(&sp43c[2], sp554);
+		sky0f11f6ec(&sp43c[3], sp550);
+		break;
+	case 12:
+		s1 = 4;
+		sp430 = true;
+		scale = 0.033333335f;
+		sp43c[0].unk00 = sp5c0.f[0] * scale;
+		sp43c[0].unk04 = sp5c0.f[1] * scale;
+		sp43c[0].unk08 = sp5c0.f[2] * scale;
+		sp43c[1].unk00 = sp5cc.f[0] * scale;
+		sp43c[1].unk04 = sp5cc.f[1] * scale;
+		sp43c[1].unk08 = sp5cc.f[2] * scale;
+		sp43c[2].unk00 = sp590.f[0] * scale;
+		sp43c[2].unk04 = sp590.f[1] * scale;
+		sp43c[2].unk08 = sp590.f[2] * scale;
+		sp43c[3].unk00 = sp59c.f[0] * scale;
+		sp43c[3].unk04 = sp59c.f[1] * scale;
+		sp43c[3].unk08 = sp59c.f[2] * scale;
+		sp43c[0].unk0c = sp5c0.f[0];
+		sp43c[0].unk10 = sp5c0.f[2] + g_SkyCloudOffset;
+		sp43c[1].unk0c = sp5cc.f[0];
+		sp43c[1].unk10 = sp5cc.f[2] + g_SkyCloudOffset;
+		sp43c[2].unk0c = sp590.f[0];
+		sp43c[2].unk10 = sp590.f[2] + g_SkyCloudOffset;
+		sp43c[3].unk0c = sp59c.f[0];
+		sp43c[3].unk10 = sp59c.f[2] + g_SkyCloudOffset;
+
+		sky0f11f6ec(&sp43c[0], sp560);
+		sky0f11f6ec(&sp43c[1], sp564);
+		sky0f11f6ec(&sp43c[2], sp550);
+		sky0f11f6ec(&sp43c[3], sp554);
+		break;
+	case 10:
+		s1 = 4;
+		scale = 0.033333335f;
+		sp43c[0].unk00 = sp5d8.f[0] * scale;
+		sp43c[0].unk04 = sp5d8.f[1] * scale;
+		sp43c[0].unk08 = sp5d8.f[2] * scale;
+		sp43c[1].unk00 = sp5c0.f[0] * scale;
+		sp43c[1].unk04 = sp5c0.f[1] * scale;
+		sp43c[1].unk08 = sp5c0.f[2] * scale;
+		sp43c[2].unk00 = sp5b4.f[0] * scale;
+		sp43c[2].unk04 = sp5b4.f[1] * scale;
+		sp43c[2].unk08 = sp5b4.f[2] * scale;
+		sp43c[3].unk00 = sp5a8.f[0] * scale;
+		sp43c[3].unk04 = sp5a8.f[1] * scale;
+		sp43c[3].unk08 = sp5a8.f[2] * scale;
+		sp43c[0].unk0c = sp5d8.f[0];
+		sp43c[0].unk10 = sp5d8.f[2] + g_SkyCloudOffset;
+		sp43c[1].unk0c = sp5c0.f[0];
+		sp43c[1].unk10 = sp5c0.f[2] + g_SkyCloudOffset;
+		sp43c[2].unk0c = sp5b4.f[0];
+		sp43c[2].unk10 = sp5b4.f[2] + g_SkyCloudOffset;
+		sp43c[3].unk0c = sp5a8.f[0];
+		sp43c[3].unk10 = sp5a8.f[2] + g_SkyCloudOffset;
+
+		sky0f11f6ec(&sp43c[0], sp568);
+		sky0f11f6ec(&sp43c[1], sp560);
+		sky0f11f6ec(&sp43c[2], sp55c);
+		sky0f11f6ec(&sp43c[3], sp558);
+		break;
+	case 5:
+		s1 = 4;
+		scale = 0.033333335f;
+		sp43c[0].unk00 = sp5cc.f[0] * scale;
+		sp43c[0].unk04 = sp5cc.f[1] * scale;
+		sp43c[0].unk08 = sp5cc.f[2] * scale;
+		sp43c[1].unk00 = sp5e4.f[0] * scale;
+		sp43c[1].unk04 = sp5e4.f[1] * scale;
+		sp43c[1].unk08 = sp5e4.f[2] * scale;
+		sp43c[2].unk00 = sp5a8.f[0] * scale;
+		sp43c[2].unk04 = sp5a8.f[1] * scale;
+		sp43c[2].unk08 = sp5a8.f[2] * scale;
+		sp43c[3].unk00 = sp5b4.f[0] * scale;
+		sp43c[3].unk04 = sp5b4.f[1] * scale;
+		sp43c[3].unk08 = sp5b4.f[2] * scale;
+		sp43c[0].unk0c = sp5cc.f[0];
+		sp43c[0].unk10 = sp5cc.f[2] + g_SkyCloudOffset;
+		sp43c[1].unk0c = sp5e4.f[0];
+		sp43c[1].unk10 = sp5e4.f[2] + g_SkyCloudOffset;
+		sp43c[2].unk0c = sp5a8.f[0];
+		sp43c[2].unk10 = sp5a8.f[2] + g_SkyCloudOffset;
+		sp43c[3].unk0c = sp5b4.f[0];
+		sp43c[3].unk10 = sp5b4.f[2] + g_SkyCloudOffset;
+
+		sky0f11f6ec(&sp43c[0], sp564);
+		sky0f11f6ec(&sp43c[1], sp56c);
+		sky0f11f6ec(&sp43c[2], sp558);
+		sky0f11f6ec(&sp43c[3], sp55c);
+		break;
+	case 14:
+		s1 = 3;
+		scale = 0.033333335f;
+		sp43c[0].unk00 = sp5c0.f[0] * scale;
+		sp43c[0].unk04 = sp5c0.f[1] * scale;
+		sp43c[0].unk08 = sp5c0.f[2] * scale;
+		sp43c[1].unk00 = sp5a8.f[0] * scale;
+		sp43c[1].unk04 = sp5a8.f[1] * scale;
+		sp43c[1].unk08 = sp5a8.f[2] * scale;
+		sp43c[2].unk00 = sp590.f[0] * scale;
+		sp43c[2].unk04 = sp590.f[1] * scale;
+		sp43c[2].unk08 = sp590.f[2] * scale;
+		sp43c[0].unk0c = sp5c0.f[0];
+		sp43c[0].unk10 = sp5c0.f[2] + g_SkyCloudOffset;
+		sp43c[1].unk0c = sp5a8.f[0];
+		sp43c[1].unk10 = sp5a8.f[2] + g_SkyCloudOffset;
+		sp43c[2].unk0c = sp590.f[0];
+		sp43c[2].unk10 = sp590.f[2] + g_SkyCloudOffset;
+
+		sky0f11f6ec(&sp43c[0], sp560);
+		sky0f11f6ec(&sp43c[1], sp558);
+		sky0f11f6ec(&sp43c[2], sp550);
+		break;
+	case 13:
+		s1 = 3;
+		scale = 0.033333335f;
+		sp43c[0].unk00 = sp5cc.f[0] * scale;
+		sp43c[0].unk04 = sp5cc.f[1] * scale;
+		sp43c[0].unk08 = sp5cc.f[2] * scale;
+		sp43c[1].unk00 = sp59c.f[0] * scale;
+		sp43c[1].unk04 = sp59c.f[1] * scale;
+		sp43c[1].unk08 = sp59c.f[2] * scale;
+		sp43c[2].unk00 = sp5a8.f[0] * scale;
+		sp43c[2].unk04 = sp5a8.f[1] * scale;
+		sp43c[2].unk08 = sp5a8.f[2] * scale;
+		sp43c[0].unk0c = sp5cc.f[0];
+		sp43c[0].unk10 = sp5cc.f[2] + g_SkyCloudOffset;
+		sp43c[1].unk0c = sp59c.f[0];
+		sp43c[1].unk10 = sp59c.f[2] + g_SkyCloudOffset;
+		sp43c[2].unk0c = sp5a8.f[0];
+		sp43c[2].unk10 = sp5a8.f[2] + g_SkyCloudOffset;
+
+		sky0f11f6ec(&sp43c[0], sp564);
+		sky0f11f6ec(&sp43c[1], sp554);
+		sky0f11f6ec(&sp43c[2], sp558);
+		break;
+	case 11:
+		s1 = 3;
+		scale = 0.033333335f;
+		sp43c[0].unk00 = sp5d8.f[0] * scale;
+		sp43c[0].unk04 = sp5d8.f[1] * scale;
+		sp43c[0].unk08 = sp5d8.f[2] * scale;
+		sp43c[1].unk00 = sp590.f[0] * scale;
+		sp43c[1].unk04 = sp590.f[1] * scale;
+		sp43c[1].unk08 = sp590.f[2] * scale;
+		sp43c[2].unk00 = sp5b4.f[0] * scale;
+		sp43c[2].unk04 = sp5b4.f[1] * scale;
+		sp43c[2].unk08 = sp5b4.f[2] * scale;
+		sp43c[0].unk0c = sp5d8.f[0];
+		sp43c[0].unk10 = sp5d8.f[2] + g_SkyCloudOffset;
+		sp43c[1].unk0c = sp590.f[0];
+		sp43c[1].unk10 = sp590.f[2] + g_SkyCloudOffset;
+		sp43c[2].unk0c = sp5b4.f[0];
+		sp43c[2].unk10 = sp5b4.f[2] + g_SkyCloudOffset;
+
+		sky0f11f6ec(&sp43c[0], sp568);
+		sky0f11f6ec(&sp43c[1], sp550);
+		sky0f11f6ec(&sp43c[2], sp55c);
+		break;
+	case 7:
+		s1 = 3;
+		scale = 0.033333335f;
+		sp43c[0].unk00 = sp5e4.f[0] * scale;
+		sp43c[0].unk04 = sp5e4.f[1] * scale;
+		sp43c[0].unk08 = sp5e4.f[2] * scale;
+		sp43c[1].unk00 = sp5b4.f[0] * scale;
+		sp43c[1].unk04 = sp5b4.f[1] * scale;
+		sp43c[1].unk08 = sp5b4.f[2] * scale;
+		sp43c[2].unk00 = sp59c.f[0] * scale;
+		sp43c[2].unk04 = sp59c.f[1] * scale;
+		sp43c[2].unk08 = sp59c.f[2] * scale;
+		sp43c[0].unk0c = sp5e4.f[0];
+		sp43c[0].unk10 = sp5e4.f[2] + g_SkyCloudOffset;
+		sp43c[1].unk0c = sp5b4.f[0];
+		sp43c[1].unk10 = sp5b4.f[2] + g_SkyCloudOffset;
+		sp43c[2].unk0c = sp59c.f[0];
+		sp43c[2].unk10 = sp59c.f[2] + g_SkyCloudOffset;
+
+		sky0f11f6ec(&sp43c[0], sp56c);
+		sky0f11f6ec(&sp43c[1], sp55c);
+		sky0f11f6ec(&sp43c[2], sp554);
+		break;
+	case 1:
+		s1 = 5;
+		scale = 0.033333335f;
+		sp43c[0].unk00 = sp5cc.f[0] * scale;
+		sp43c[0].unk04 = sp5cc.f[1] * scale;
+		sp43c[0].unk08 = sp5cc.f[2] * scale;
+		sp43c[1].unk00 = sp5e4.f[0] * scale;
+		sp43c[1].unk04 = sp5e4.f[1] * scale;
+		sp43c[1].unk08 = sp5e4.f[2] * scale;
+		sp43c[2].unk00 = sp5d8.f[0] * scale;
+		sp43c[2].unk04 = sp5d8.f[1] * scale;
+		sp43c[2].unk08 = sp5d8.f[2] * scale;
+		sp43c[3].unk00 = sp590.f[0] * scale;
+		sp43c[3].unk04 = sp590.f[1] * scale;
+		sp43c[3].unk08 = sp590.f[2] * scale;
+		sp43c[4].unk00 = sp5a8.f[0] * scale;
+		sp43c[4].unk04 = sp5a8.f[1] * scale;
+		sp43c[4].unk08 = sp5a8.f[2] * scale;
+		sp43c[0].unk0c = sp5cc.f[0];
+		sp43c[0].unk10 = sp5cc.f[2] + g_SkyCloudOffset;
+		sp43c[1].unk0c = sp5e4.f[0];
+		sp43c[1].unk10 = sp5e4.f[2] + g_SkyCloudOffset;
+		sp43c[2].unk0c = sp5d8.f[0];
+		sp43c[2].unk10 = sp5d8.f[2] + g_SkyCloudOffset;
+		sp43c[3].unk0c = sp590.f[0];
+		sp43c[3].unk10 = sp590.f[2] + g_SkyCloudOffset;
+		sp43c[4].unk0c = sp5a8.f[0];
+		sp43c[4].unk10 = sp5a8.f[2] + g_SkyCloudOffset;
+
+		sky0f11f6ec(&sp43c[0], sp564);
+		sky0f11f6ec(&sp43c[1], sp56c);
+		sky0f11f6ec(&sp43c[2], sp568);
+		sky0f11f6ec(&sp43c[3], sp550);
+		sky0f11f6ec(&sp43c[4], sp558);
+		break;
+	case 2:
+		s1 = 5;
+		scale = 0.033333335f;
+		sp43c[0].unk00 = sp5e4.f[0] * scale;
+		sp43c[0].unk04 = sp5e4.f[1] * scale;
+		sp43c[0].unk08 = sp5e4.f[2] * scale;
+		sp43c[1].unk00 = sp5d8.f[0] * scale;
+		sp43c[1].unk04 = sp5d8.f[1] * scale;
+		sp43c[1].unk08 = sp5d8.f[2] * scale;
+		sp43c[2].unk00 = sp5c0.f[0] * scale;
+		sp43c[2].unk04 = sp5c0.f[1] * scale;
+		sp43c[2].unk08 = sp5c0.f[2] * scale;
+		sp43c[3].unk00 = sp5a8.f[0] * scale;
+		sp43c[3].unk04 = sp5a8.f[1] * scale;
+		sp43c[3].unk08 = sp5a8.f[2] * scale;
+		sp43c[4].unk00 = sp59c.f[0] * scale;
+		sp43c[4].unk04 = sp59c.f[1] * scale;
+		sp43c[4].unk08 = sp59c.f[2] * scale;
+		sp43c[0].unk0c = sp5e4.f[0];
+		sp43c[0].unk10 = sp5e4.f[2] + g_SkyCloudOffset;
+		sp43c[1].unk0c = sp5d8.f[0];
+		sp43c[1].unk10 = sp5d8.f[2] + g_SkyCloudOffset;
+		sp43c[2].unk0c = sp5c0.f[0];
+		sp43c[2].unk10 = sp5c0.f[2] + g_SkyCloudOffset;
+		sp43c[3].unk0c = sp5a8.f[0];
+		sp43c[3].unk10 = sp5a8.f[2] + g_SkyCloudOffset;
+		sp43c[4].unk0c = sp59c.f[0];
+		sp43c[4].unk10 = sp59c.f[2] + g_SkyCloudOffset;
+
+		sky0f11f6ec(&sp43c[0], sp56c);
+		sky0f11f6ec(&sp43c[1], sp568);
+		sky0f11f6ec(&sp43c[2], sp560);
+		sky0f11f6ec(&sp43c[3], sp558);
+		sky0f11f6ec(&sp43c[4], sp554);
+		break;
+	case 4:
+		s1 = 5;
+		scale = 0.033333335f;
+		sp43c[0].unk00 = sp5c0.f[0] * scale;
+		sp43c[0].unk04 = sp5c0.f[1] * scale;
+		sp43c[0].unk08 = sp5c0.f[2] * scale;
+		sp43c[1].unk00 = sp5cc.f[0] * scale;
+		sp43c[1].unk04 = sp5cc.f[1] * scale;
+		sp43c[1].unk08 = sp5cc.f[2] * scale;
+		sp43c[2].unk00 = sp5e4.f[0] * scale;
+		sp43c[2].unk04 = sp5e4.f[1] * scale;
+		sp43c[2].unk08 = sp5e4.f[2] * scale;
+		sp43c[3].unk00 = sp5b4.f[0] * scale;
+		sp43c[3].unk04 = sp5b4.f[1] * scale;
+		sp43c[3].unk08 = sp5b4.f[2] * scale;
+		sp43c[4].unk00 = sp590.f[0] * scale;
+		sp43c[4].unk04 = sp590.f[1] * scale;
+		sp43c[4].unk08 = sp590.f[2] * scale;
+		sp43c[0].unk0c = sp5c0.f[0];
+		sp43c[0].unk10 = sp5c0.f[2] + g_SkyCloudOffset;
+		sp43c[1].unk0c = sp5cc.f[0];
+		sp43c[1].unk10 = sp5cc.f[2] + g_SkyCloudOffset;
+		sp43c[2].unk0c = sp5e4.f[0];
+		sp43c[2].unk10 = sp5e4.f[2] + g_SkyCloudOffset;
+		sp43c[3].unk0c = sp5b4.f[0];
+		sp43c[3].unk10 = sp5b4.f[2] + g_SkyCloudOffset;
+		sp43c[4].unk0c = sp590.f[0];
+		sp43c[4].unk10 = sp590.f[2] + g_SkyCloudOffset;
+
+		sky0f11f6ec(&sp43c[0], sp560);
+		sky0f11f6ec(&sp43c[1], sp564);
+		sky0f11f6ec(&sp43c[2], sp56c);
+		sky0f11f6ec(&sp43c[3], sp55c);
+		sky0f11f6ec(&sp43c[4], sp550);
+		break;
+	case 8:
+		s1 = 5;
+		scale = 0.033333335f;
+		sp43c[0].unk00 = sp5d8.f[0] * scale;
+		sp43c[0].unk04 = sp5d8.f[1] * scale;
+		sp43c[0].unk08 = sp5d8.f[2] * scale;
+		sp43c[1].unk00 = sp5c0.f[0] * scale;
+		sp43c[1].unk04 = sp5c0.f[1] * scale;
+		sp43c[1].unk08 = sp5c0.f[2] * scale;
+		sp43c[2].unk00 = sp5cc.f[0] * scale;
+		sp43c[2].unk04 = sp5cc.f[1] * scale;
+		sp43c[2].unk08 = sp5cc.f[2] * scale;
+		sp43c[3].unk00 = sp59c.f[0] * scale;
+		sp43c[3].unk04 = sp59c.f[1] * scale;
+		sp43c[3].unk08 = sp59c.f[2] * scale;
+		sp43c[4].unk00 = sp5b4.f[0] * scale;
+		sp43c[4].unk04 = sp5b4.f[1] * scale;
+		sp43c[4].unk08 = sp5b4.f[2] * scale;
+		sp43c[0].unk0c = sp5d8.f[0];
+		sp43c[0].unk10 = sp5d8.f[2] + g_SkyCloudOffset;
+		sp43c[1].unk0c = sp5c0.f[0];
+		sp43c[1].unk10 = sp5c0.f[2] + g_SkyCloudOffset;
+		sp43c[2].unk0c = sp5cc.f[0];
+		sp43c[2].unk10 = sp5cc.f[2] + g_SkyCloudOffset;
+		sp43c[3].unk0c = sp59c.f[0];
+		sp43c[3].unk10 = sp59c.f[2] + g_SkyCloudOffset;
+		sp43c[4].unk0c = sp5b4.f[0];
+		sp43c[4].unk10 = sp5b4.f[2] + g_SkyCloudOffset;
+
+		sky0f11f6ec(&sp43c[0], sp568);
+		sky0f11f6ec(&sp43c[1], sp560);
+		sky0f11f6ec(&sp43c[2], sp564);
+		sky0f11f6ec(&sp43c[3], sp554);
+		sky0f11f6ec(&sp43c[4], sp55c);
+		break;
+	default:
+		return gdl;
+	}
+
+	if (s1 > 0) {
+		Mtxf sp3cc;
+		Mtxf sp38c;
+		struct skything38 sp274[5];
+		s32 i;
+
+		mtx4MultMtx4(camGetMtxF1754(), camGetWorldToScreenMtxf(), &sp3cc);
+		guScaleF(var800a33a8.m, 1.0f / scale, 1.0f / scale, 1.0f / scale);
+		mtx4MultMtx4(&sp3cc, &var800a33a8, &sp38c);
+
+		for (i = 0; i < s1; i++) {
+			sky0f1228d0(&sp43c[i], &sp38c, 130, 65535.0f, 65535.0f, &sp274[i]);
+
+			sp274[i].unk28 = skyClamp(sp274[i].unk28, camGetScreenLeft() * 4.0f, (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f);
+			sp274[i].unk2c = skyClamp(sp274[i].unk2c, camGetScreenTop() * 4.0f, (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 1.0f);
+
+			if (sp274[i].unk2c > camGetScreenTop() * 4.0f + 4.0f
+					&& sp274[i].unk2c < (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 4.0f) {
+				sp274[i].unk2c -= 4.0f;
+			}
+		}
+
+		if (!env->water_enabled) {
+			f32 f14 = 1279.0f;
+			f32 f16 = 959.0f;
+			f32 f2 = 0.0f;
+			f32 f12 = 0.0f;
+
+			for (j = 0; j < s1; j++) {
+				if (sp274[j].unk28 < f14) {
+					f14 = sp274[j].unk28;
+				}
+
+				if (sp274[j].unk28 > f2) {
+					f2 = sp274[j].unk28;
+				}
+
+				if (sp274[j].unk2c < f16) {
+					f16 = sp274[j].unk2c;
+				}
+
+				if (sp274[j].unk2c > f12) {
+					f12 = sp274[j].unk2c;
+				}
+			}
+
+			gDPPipeSync(gdl++);
+			gDPSetCycleType(gdl++, G_CYC_FILL);
+			gDPSetRenderMode(gdl++, G_RM_NOOP, G_RM_NOOP2);
+			gDPSetTexturePersp(gdl++, G_TP_NONE);
+			gDPFillRectangle(gdl++, (s32)(f14 * 0.25f), (s32)(f16 * 0.25f), (s32)(f2 * 0.25f), (s32)(f12 * 0.25f));
+			gDPPipeSync(gdl++);
+			gDPSetTexturePersp(gdl++, G_TP_PERSP);
+		} else {
+			gDPPipeSync(gdl++);
+
+			texSelect(&gdl, &g_TexWaterConfigs[env->water_type], 1, 0, 2, 1, NULL);
+
+			gDPSetRenderMode(gdl++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
+
+			if (s1 == 4) {
+				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[1], &sp274[3], 130.0f, true);
+
+				if (sp430) {
+					sp274[0].unk2c++;
+					sp274[1].unk2c++;
+					sp274[2].unk2c++;
+					sp274[3].unk2c++;
+				}
+
+				gdl = sky0f122d4c(gdl, &sp274[3], &sp274[2], &sp274[0], 130.0f, true);
+			} else if (s1 == 5) {
+				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[1], &sp274[2], 130.0f, true);
+				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[2], &sp274[3], 130.0f, true);
+				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[3], &sp274[4], 130.0f, true);
+			} else if (s1 == 3) {
+				gdl = sky0f122d4c(gdl, &sp274[0], &sp274[1], &sp274[2], 130.0f, true);
+			}
+		}
+	}
+
+	switch ((sp538 << 3) | (sp534 << 2) | (sp530 << 1) | sp52c) {
+	case 0:
+		return gdl;
+	case 15:
+		s1 = 4;
+		sp4b4[0].unk00 = sp644.f[0] * scale;
+		sp4b4[0].unk04 = sp644.f[1] * scale;
+		sp4b4[0].unk08 = sp644.f[2] * scale;
+		sp4b4[1].unk00 = sp638.f[0] * scale;
+		sp4b4[1].unk04 = sp638.f[1] * scale;
+		sp4b4[1].unk08 = sp638.f[2] * scale;
+		sp4b4[2].unk00 = sp62c.f[0] * scale;
+		sp4b4[2].unk04 = sp62c.f[1] * scale;
+		sp4b4[2].unk08 = sp62c.f[2] * scale;
+		sp4b4[3].unk00 = sp620.f[0] * scale;
+		sp4b4[3].unk04 = sp620.f[1] * scale;
+		sp4b4[3].unk08 = sp620.f[2] * scale;
+		sp4b4[0].unk0c = sp644.f[0] * 0.1f;
+		sp4b4[0].unk10 = sp644.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[1].unk0c = sp638.f[0] * 0.1f;
+		sp4b4[1].unk10 = sp638.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[2].unk0c = sp62c.f[0] * 0.1f;
+		sp4b4[2].unk10 = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[3].unk0c = sp620.f[0] * 0.1f;
+		sp4b4[3].unk10 = sp620.f[2] * 0.1f + g_SkyCloudOffset;
+
+		sky0f11f438(&sp4b4[0], sp58c);
+		sky0f11f438(&sp4b4[1], sp588);
+		sky0f11f438(&sp4b4[2], sp584);
+		sky0f11f438(&sp4b4[3], sp580);
+		break;
+	case 12:
+		s1 = 4;
+		sp4b4[0].unk00 = sp644.f[0] * scale;
+		sp4b4[0].unk04 = sp644.f[1] * scale;
+		sp4b4[0].unk08 = sp644.f[2] * scale;
+		sp4b4[1].unk00 = sp638.f[0] * scale;
+		sp4b4[1].unk04 = sp638.f[1] * scale;
+		sp4b4[1].unk08 = sp638.f[2] * scale;
+		sp4b4[2].unk00 = sp5fc.f[0] * scale;
+		sp4b4[2].unk04 = sp5fc.f[1] * scale;
+		sp4b4[2].unk08 = sp5fc.f[2] * scale;
+		sp4b4[3].unk00 = sp5f0.f[0] * scale;
+		sp4b4[3].unk04 = sp5f0.f[1] * scale;
+		sp4b4[3].unk08 = sp5f0.f[2] * scale;
+		sp4b4[0].unk0c = sp644.f[0] * 0.1f;
+		sp4b4[0].unk10 = sp644.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[1].unk0c = sp638.f[0] * 0.1f;
+		sp4b4[1].unk10 = sp638.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[2].unk0c = sp5fc.f[0] * 0.1f;
+		sp4b4[2].unk10 = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[3].unk0c = sp5f0.f[0] * 0.1f;
+		sp4b4[3].unk10 = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
+
+		sky0f11f438(&sp4b4[0], sp58c);
+		sky0f11f438(&sp4b4[1], sp588);
+		sky0f11f438(&sp4b4[2], sp574);
+		sky0f11f438(&sp4b4[3], sp570);
+		break;
+	case 3:
+		s1 = 4;
+		sp4b4[0].unk00 = sp620.f[0] * scale;
+		sp4b4[0].unk04 = sp620.f[1] * scale;
+		sp4b4[0].unk08 = sp620.f[2] * scale;
+		sp4b4[1].unk00 = sp62c.f[0] * scale;
+		sp4b4[1].unk04 = sp62c.f[1] * scale;
+		sp4b4[1].unk08 = sp62c.f[2] * scale;
+		sp4b4[2].unk00 = sp5f0.f[0] * scale;
+		sp4b4[2].unk04 = sp5f0.f[1] * scale;
+		sp4b4[2].unk08 = sp5f0.f[2] * scale;
+		sp4b4[3].unk00 = sp5fc.f[0] * scale;
+		sp4b4[3].unk04 = sp5fc.f[1] * scale;
+		sp4b4[3].unk08 = sp5fc.f[2] * scale;
+		sp4b4[0].unk0c = sp620.f[0] * 0.1f;
+		sp4b4[0].unk10 = sp620.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[1].unk0c = sp62c.f[0] * 0.1f;
+		sp4b4[1].unk10 = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[2].unk0c = sp5f0.f[0] * 0.1f;
+		sp4b4[2].unk10 = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[3].unk0c = sp5fc.f[0] * 0.1f;
+		sp4b4[3].unk10 = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
+
+		sky0f11f438(&sp4b4[0], sp580);
+		sky0f11f438(&sp4b4[1], sp584);
+		sky0f11f438(&sp4b4[2], sp570);
+		sky0f11f438(&sp4b4[3], sp574);
+		break;
+	case 5:
+		s1 = 4;
+		sp4b4[0].unk00 = sp638.f[0] * scale;
+		sp4b4[0].unk04 = sp638.f[1] * scale;
+		sp4b4[0].unk08 = sp638.f[2] * scale;
+		sp4b4[1].unk00 = sp620.f[0] * scale;
+		sp4b4[1].unk04 = sp620.f[1] * scale;
+		sp4b4[1].unk08 = sp620.f[2] * scale;
+		sp4b4[2].unk00 = sp614.f[0] * scale;
+		sp4b4[2].unk04 = sp614.f[1] * scale;
+		sp4b4[2].unk08 = sp614.f[2] * scale;
+		sp4b4[3].unk00 = sp608.f[0] * scale;
+		sp4b4[3].unk04 = sp608.f[1] * scale;
+		sp4b4[3].unk08 = sp608.f[2] * scale;
+		sp4b4[0].unk0c = sp638.f[0] * 0.1f;
+		sp4b4[0].unk10 = sp638.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[1].unk0c = sp620.f[0] * 0.1f;
+		sp4b4[1].unk10 = sp620.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[2].unk0c = sp614.f[0] * 0.1f;
+		sp4b4[2].unk10 = sp614.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[3].unk0c = sp608.f[0] * 0.1f;
+		sp4b4[3].unk10 = sp608.f[2] * 0.1f + g_SkyCloudOffset;
+
+		sky0f11f438(&sp4b4[0], sp588);
+		sky0f11f438(&sp4b4[1], sp580);
+		sky0f11f438(&sp4b4[2], sp57c);
+		sky0f11f438(&sp4b4[3], sp578);
+		break;
+	case 10:
+		s1 = 4;
+		sp4b4[0].unk00 = sp62c.f[0] * scale;
+		sp4b4[0].unk04 = sp62c.f[1] * scale;
+		sp4b4[0].unk08 = sp62c.f[2] * scale;
+		sp4b4[1].unk00 = sp644.f[0] * scale;
+		sp4b4[1].unk04 = sp644.f[1] * scale;
+		sp4b4[1].unk08 = sp644.f[2] * scale;
+		sp4b4[2].unk00 = sp608.f[0] * scale;
+		sp4b4[2].unk04 = sp608.f[1] * scale;
+		sp4b4[2].unk08 = sp608.f[2] * scale;
+		sp4b4[3].unk00 = sp614.f[0] * scale;
+		sp4b4[3].unk04 = sp614.f[1] * scale;
+		sp4b4[3].unk08 = sp614.f[2] * scale;
+		sp4b4[0].unk0c = sp62c.f[0] * 0.1f;
+		sp4b4[0].unk10 = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[1].unk0c = sp644.f[0] * 0.1f;
+		sp4b4[1].unk10 = sp644.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[2].unk0c = sp608.f[0] * 0.1f;
+		sp4b4[2].unk10 = sp608.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[3].unk0c = sp614.f[0] * 0.1f;
+		sp4b4[3].unk10 = sp614.f[2] * 0.1f + g_SkyCloudOffset;
+
+		sky0f11f438(&sp4b4[0], sp584);
+		sky0f11f438(&sp4b4[1], sp58c);
+		sky0f11f438(&sp4b4[2], sp578);
+		sky0f11f438(&sp4b4[3], sp57c);
+		break;
+	case 1:
+		s1 = 3;
+		sp4b4[0].unk00 = sp620.f[0] * scale;
+		sp4b4[0].unk04 = sp620.f[1] * scale;
+		sp4b4[0].unk08 = sp620.f[2] * scale;
+		sp4b4[1].unk00 = sp608.f[0] * scale;
+		sp4b4[1].unk04 = sp608.f[1] * scale;
+		sp4b4[1].unk08 = sp608.f[2] * scale;
+		sp4b4[2].unk00 = sp5f0.f[0] * scale;
+		sp4b4[2].unk04 = sp5f0.f[1] * scale;
+		sp4b4[2].unk08 = sp5f0.f[2] * scale;
+		sp4b4[0].unk0c = sp620.f[0] * 0.1f;
+		sp4b4[0].unk10 = sp620.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[1].unk0c = sp608.f[0] * 0.1f;
+		sp4b4[1].unk10 = sp608.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[2].unk0c = sp5f0.f[0] * 0.1f;
+		sp4b4[2].unk10 = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
+
+		sky0f11f438(&sp4b4[0], sp580);
+		sky0f11f438(&sp4b4[1], sp578);
+		sky0f11f438(&sp4b4[2], sp570);
+		break;
+	case 2:
+		s1 = 3;
+		sp4b4[0].unk00 = sp62c.f[0] * scale;
+		sp4b4[0].unk04 = sp62c.f[1] * scale;
+		sp4b4[0].unk08 = sp62c.f[2] * scale;
+		sp4b4[1].unk00 = sp5fc.f[0] * scale;
+		sp4b4[1].unk04 = sp5fc.f[1] * scale;
+		sp4b4[1].unk08 = sp5fc.f[2] * scale;
+		sp4b4[2].unk00 = sp608.f[0] * scale;
+		sp4b4[2].unk04 = sp608.f[1] * scale;
+		sp4b4[2].unk08 = sp608.f[2] * scale;
+		sp4b4[0].unk0c = sp62c.f[0] * 0.1f;
+		sp4b4[0].unk10 = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[1].unk0c = sp5fc.f[0] * 0.1f;
+		sp4b4[1].unk10 = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[2].unk0c = sp608.f[0] * 0.1f;
+		sp4b4[2].unk10 = sp608.f[2] * 0.1f + g_SkyCloudOffset;
+
+		sky0f11f438(&sp4b4[0], sp584);
+		sky0f11f438(&sp4b4[1], sp574);
+		sky0f11f438(&sp4b4[2], sp578);
+		break;
+	case 4:
+		s1 = 3;
+		sp4b4[0].unk00 = sp638.f[0] * scale;
+		sp4b4[0].unk04 = sp638.f[1] * scale;
+		sp4b4[0].unk08 = sp638.f[2] * scale;
+		sp4b4[1].unk00 = sp5f0.f[0] * scale;
+		sp4b4[1].unk04 = sp5f0.f[1] * scale;
+		sp4b4[1].unk08 = sp5f0.f[2] * scale;
+		sp4b4[2].unk00 = sp614.f[0] * scale;
+		sp4b4[2].unk04 = sp614.f[1] * scale;
+		sp4b4[2].unk08 = sp614.f[2] * scale;
+		sp4b4[0].unk0c = sp638.f[0] * 0.1f;
+		sp4b4[0].unk10 = sp638.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[1].unk0c = sp5f0.f[0] * 0.1f;
+		sp4b4[1].unk10 = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[2].unk0c = sp614.f[0] * 0.1f;
+		sp4b4[2].unk10 = sp614.f[2] * 0.1f + g_SkyCloudOffset;
+
+		sky0f11f438(&sp4b4[0], sp588);
+		sky0f11f438(&sp4b4[1], sp570);
+		sky0f11f438(&sp4b4[2], sp57c);
+		break;
+	case 8:
+		s1 = 3;
+		sp4b4[0].unk00 = sp644.f[0] * scale;
+		sp4b4[0].unk04 = sp644.f[1] * scale;
+		sp4b4[0].unk08 = sp644.f[2] * scale;
+		sp4b4[1].unk00 = sp614.f[0] * scale;
+		sp4b4[1].unk04 = sp614.f[1] * scale;
+		sp4b4[1].unk08 = sp614.f[2] * scale;
+		sp4b4[2].unk00 = sp5fc.f[0] * scale;
+		sp4b4[2].unk04 = sp5fc.f[1] * scale;
+		sp4b4[2].unk08 = sp5fc.f[2] * scale;
+		sp4b4[0].unk0c = sp644.f[0] * 0.1f;
+		sp4b4[0].unk10 = sp644.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[1].unk0c = sp614.f[0] * 0.1f;
+		sp4b4[1].unk10 = sp614.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[2].unk0c = sp5fc.f[0] * 0.1f;
+		sp4b4[2].unk10 = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
+
+		sky0f11f438(&sp4b4[0], sp58c);
+		sky0f11f438(&sp4b4[1], sp57c);
+		sky0f11f438(&sp4b4[2], sp574);
+		break;
+	case 14:
+		s1 = 5;
+		sp4b4[0].unk00 = sp62c.f[0] * scale;
+		sp4b4[0].unk04 = sp62c.f[1] * scale;
+		sp4b4[0].unk08 = sp62c.f[2] * scale;
+		sp4b4[1].unk00 = sp644.f[0] * scale;
+		sp4b4[1].unk04 = sp644.f[1] * scale;
+		sp4b4[1].unk08 = sp644.f[2] * scale;
+		sp4b4[2].unk00 = sp638.f[0] * scale;
+		sp4b4[2].unk04 = sp638.f[1] * scale;
+		sp4b4[2].unk08 = sp638.f[2] * scale;
+		sp4b4[3].unk00 = sp5f0.f[0] * scale;
+		sp4b4[3].unk04 = sp5f0.f[1] * scale;
+		sp4b4[3].unk08 = sp5f0.f[2] * scale;
+		sp4b4[4].unk00 = sp608.f[0] * scale;
+		sp4b4[4].unk04 = sp608.f[1] * scale;
+		sp4b4[4].unk08 = sp608.f[2] * scale;
+		sp4b4[0].unk0c = sp62c.f[0] * 0.1f;
+		sp4b4[0].unk10 = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[1].unk0c = sp644.f[0] * 0.1f;
+		sp4b4[1].unk10 = sp644.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[2].unk0c = sp638.f[0] * 0.1f;
+		sp4b4[2].unk10 = sp638.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[3].unk0c = sp5f0.f[0] * 0.1f;
+		sp4b4[3].unk10 = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[4].unk0c = sp608.f[0] * 0.1f;
+		sp4b4[4].unk10 = sp608.f[2] * 0.1f + g_SkyCloudOffset;
+
+		sky0f11f438(&sp4b4[0], sp584);
+		sky0f11f438(&sp4b4[1], sp58c);
+		sky0f11f438(&sp4b4[2], sp588);
+		sky0f11f438(&sp4b4[3], sp570);
+		sky0f11f438(&sp4b4[4], sp578);
+		break;
+	case 13:
+		s1 = 5;
+		sp4b4[0].unk00 = sp644.f[0] * scale;
+		sp4b4[0].unk04 = sp644.f[1] * scale;
+		sp4b4[0].unk08 = sp644.f[2] * scale;
+		sp4b4[1].unk00 = sp638.f[0] * scale;
+		sp4b4[1].unk04 = sp638.f[1] * scale;
+		sp4b4[1].unk08 = sp638.f[2] * scale;
+		sp4b4[2].unk00 = sp620.f[0] * scale;
+		sp4b4[2].unk04 = sp620.f[1] * scale;
+		sp4b4[2].unk08 = sp620.f[2] * scale;
+		sp4b4[3].unk00 = sp608.f[0] * scale;
+		sp4b4[3].unk04 = sp608.f[1] * scale;
+		sp4b4[3].unk08 = sp608.f[2] * scale;
+		sp4b4[4].unk00 = sp5fc.f[0] * scale;
+		sp4b4[4].unk04 = sp5fc.f[1] * scale;
+		sp4b4[4].unk08 = sp5fc.f[2] * scale;
+		sp4b4[0].unk0c = sp644.f[0] * 0.1f;
+		sp4b4[0].unk10 = sp644.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[1].unk0c = sp638.f[0] * 0.1f;
+		sp4b4[1].unk10 = sp638.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[2].unk0c = sp620.f[0] * 0.1f;
+		sp4b4[2].unk10 = sp620.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[3].unk0c = sp608.f[0] * 0.1f;
+		sp4b4[3].unk10 = sp608.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[4].unk0c = sp5fc.f[0] * 0.1f;
+		sp4b4[4].unk10 = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
+
+		sky0f11f438(&sp4b4[0], sp58c);
+		sky0f11f438(&sp4b4[1], sp588);
+		sky0f11f438(&sp4b4[2], sp580);
+		sky0f11f438(&sp4b4[3], sp578);
+		sky0f11f438(&sp4b4[4], sp574);
+		break;
+	case 11:
+		s1 = 5;
+		sp4b4[0].unk00 = sp620.f[0] * scale;
+		sp4b4[0].unk04 = sp620.f[1] * scale;
+		sp4b4[0].unk08 = sp620.f[2] * scale;
+		sp4b4[1].unk00 = sp62c.f[0] * scale;
+		sp4b4[1].unk04 = sp62c.f[1] * scale;
+		sp4b4[1].unk08 = sp62c.f[2] * scale;
+		sp4b4[2].unk00 = sp644.f[0] * scale;
+		sp4b4[2].unk04 = sp644.f[1] * scale;
+		sp4b4[2].unk08 = sp644.f[2] * scale;
+		sp4b4[3].unk00 = sp614.f[0] * scale;
+		sp4b4[3].unk04 = sp614.f[1] * scale;
+		sp4b4[3].unk08 = sp614.f[2] * scale;
+		sp4b4[4].unk00 = sp5f0.f[0] * scale;
+		sp4b4[4].unk04 = sp5f0.f[1] * scale;
+		sp4b4[4].unk08 = sp5f0.f[2] * scale;
+		sp4b4[0].unk0c = sp620.f[0] * 0.1f;
+		sp4b4[0].unk10 = sp620.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[1].unk0c = sp62c.f[0] * 0.1f;
+		sp4b4[1].unk10 = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[2].unk0c = sp644.f[0] * 0.1f;
+		sp4b4[2].unk10 = sp644.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[3].unk0c = sp614.f[0] * 0.1f;
+		sp4b4[3].unk10 = sp614.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[4].unk0c = sp5f0.f[0] * 0.1f;
+		sp4b4[4].unk10 = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
+
+		sky0f11f438(&sp4b4[0], sp580);
+		sky0f11f438(&sp4b4[1], sp584);
+		sky0f11f438(&sp4b4[2], sp58c);
+		sky0f11f438(&sp4b4[3], sp57c);
+		sky0f11f438(&sp4b4[4], sp570);
+		break;
+	case 7:
+		s1 = 5;
+		sp4b4[0].unk00 = sp638.f[0] * scale;
+		sp4b4[0].unk04 = sp638.f[1] * scale;
+		sp4b4[0].unk08 = sp638.f[2] * scale;
+		sp4b4[1].unk00 = sp620.f[0] * scale;
+		sp4b4[1].unk04 = sp620.f[1] * scale;
+		sp4b4[1].unk08 = sp620.f[2] * scale;
+		sp4b4[2].unk00 = sp62c.f[0] * scale;
+		sp4b4[2].unk04 = sp62c.f[1] * scale;
+		sp4b4[2].unk08 = sp62c.f[2] * scale;
+		sp4b4[3].unk00 = sp5fc.f[0] * scale;
+		sp4b4[3].unk04 = sp5fc.f[1] * scale;
+		sp4b4[3].unk08 = sp5fc.f[2] * scale;
+		sp4b4[4].unk00 = sp614.f[0] * scale;
+		sp4b4[4].unk04 = sp614.f[1] * scale;
+		sp4b4[4].unk08 = sp614.f[2] * scale;
+		sp4b4[0].unk0c = sp638.f[0] * 0.1f;
+		sp4b4[0].unk10 = sp638.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[1].unk0c = sp620.f[0] * 0.1f;
+		sp4b4[1].unk10 = sp620.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[2].unk0c = sp62c.f[0] * 0.1f;
+		sp4b4[2].unk10 = sp62c.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[3].unk0c = sp5fc.f[0] * 0.1f;
+		sp4b4[3].unk10 = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
+		sp4b4[4].unk0c = sp614.f[0] * 0.1f;
+		sp4b4[4].unk10 = sp614.f[2] * 0.1f + g_SkyCloudOffset;
+
+		sky0f11f438(&sp4b4[0], sp588);
+		sky0f11f438(&sp4b4[1], sp580);
+		sky0f11f438(&sp4b4[2], sp584);
+		sky0f11f438(&sp4b4[3], sp574);
+		sky0f11f438(&sp4b4[4], sp57c);
+		break;
+	default:
+		return gdl;
+	}
+
+	gDPPipeSync(gdl++);
+
+	texSelect(&gdl, &g_TexWaterConfigs[env->unk18], 1, 0, 2, 1, NULL);
+
+	if (1);
+
+	gDPSetEnvColor(gdl++, env->sky_r, env->sky_g, env->sky_b, 0xff);
+	gDPSetCombineLERP(gdl++,
+			SHADE, ENVIRONMENT, TEXEL0, ENVIRONMENT, 0, 0, 0, SHADE,
+			SHADE, ENVIRONMENT, TEXEL0, ENVIRONMENT, 0, 0, 0, SHADE);
+
+	{
+		s32 stack;
+		Mtxf sp1ec;
+		Mtxf sp1ac;
+		struct skything38 sp94[5];
+		s32 i;
+
+		mtx4MultMtx4(camGetMtxF1754(), camGetWorldToScreenMtxf(), &sp1ec);
+		guScaleF(var800a33a8.m, 1.0f / scale, 1.0f / scale, 1.0f / scale);
+		mtx4MultMtx4(&sp1ec, &var800a33a8, &sp1ac);
+
+		for (i = 0; i < s1; i++) {
+			sky0f1228d0(&sp4b4[i], &sp1ac, 130, 65535.0f, 65535.0f, &sp94[i]);
+
+			sp94[i].unk28 = skyClamp(sp94[i].unk28, camGetScreenLeft() * 4.0f, (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f);
+			sp94[i].unk2c = skyClamp(sp94[i].unk2c, camGetScreenTop() * 4.0f, (camGetScreenTop() + camGetScreenHeight()) * 4.0f - 1.0f);
+		}
+
+		if (s1 == 4) {
+			if (((sp538 << 3) | (sp534 << 2) | (sp530 << 1) | sp52c) == 12) {
+				if (sp548 < sp54c) {
+					if (sp94[3].unk2c >= sp94[1].unk2c + 4.0f) {
+						sp94[0].unk28 = camGetScreenLeft() * 4.0f;
+						sp94[0].unk2c = camGetScreenTop() * 4.0f;
+						sp94[1].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
+						sp94[1].unk2c = camGetScreenTop() * 4.0f;
+						sp94[2].unk28 = camGetScreenLeft() * 4.0f;
+						sp94[3].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
+
+						gdl = sky0f123fd4(gdl, &sp94[0], &sp94[1], &sp94[2], &sp94[3], 130.0f);
+					} else {
+						gdl = sky0f122d4c(gdl, &sp94[0], &sp94[1], &sp94[2], 130.0f, 1);
+					}
+				} else if (sp94[2].unk2c >= sp94[0].unk2c + 4.0f) {
+					sp94[0].unk28 = camGetScreenLeft() * 4.0f;
+					sp94[0].unk2c = camGetScreenTop() * 4.0f;
+					sp94[1].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
+					sp94[1].unk2c = camGetScreenTop() * 4.0f;
+					sp94[2].unk28 = camGetScreenLeft() * 4.0f;
+					sp94[3].unk28 = (camGetScreenLeft() + camGetScreenWidth()) * 4.0f - 1.0f;
+
+					gdl = sky0f123fd4(gdl, &sp94[1], &sp94[0], &sp94[3], &sp94[2], 130.0f);
+				} else {
+					gdl = sky0f122d4c(gdl, &sp94[1], &sp94[0], &sp94[3], 130.0f, 1);
+				}
+			} else {
+				gdl = sky0f122d4c(gdl, &sp94[0], &sp94[1], &sp94[3], 130.0f, 1);
+				gdl = sky0f122d4c(gdl, &sp94[3], &sp94[2], &sp94[0], 130.0f, 1);
+			}
+		} else if (s1 == 5) {
+			gdl = sky0f122d4c(gdl, &sp94[0], &sp94[1], &sp94[2], 130.0f, 1);
+			gdl = sky0f122d4c(gdl, &sp94[0], &sp94[2], &sp94[3], 130.0f, 1);
+			gdl = sky0f122d4c(gdl, &sp94[0], &sp94[3], &sp94[4], 130.0f, 1);
+		} else if (s1 == 3) {
+			gdl = sky0f122d4c(gdl, &sp94[0], &sp94[1], &sp94[2], 130.0f, 1);
+		}
+	}
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel sky0f1228d0
