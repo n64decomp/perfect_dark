@@ -3981,7 +3981,7 @@ void playerTick(bool arg0)
 			mtx00016208(sp2b8, &sp2f0);
 			mtx00016208(sp2b8, &sp2e4);
 
-			if (rocket->base.hidden & OBJHFLAG_AIRBORNE) {
+			if (rocket->base.hidden & OBJHFLAG_PROJECTILE) {
 				struct projectile *projectile = rocket->base.projectile;
 				u32 mode = optionsGetControlMode(g_Vars.currentplayerstats->mpindex);
 				f32 fVar22;
@@ -4110,13 +4110,13 @@ void playerTick(bool arg0)
 				quaternionToMtx(sp13c, &sp1fc);
 				mtx4RotateVecInPlace(&sp1fc, &projectile->speed);
 
-				projectile->unk0b2 = 0xffff;
-				projectile->flags |= PROJECTILEFLAG_00004000;
+				projectile->powerlimit240 = -1;
+				projectile->flags |= PROJECTILEFLAG_NOTIMELIMIT;
 				projectile->unk018 = 0;
 				projectile->unk014 = 0;
 				projectile->unk010 = 0;
 
-				if ((projectile->flags & PROJECTILEFLAG_00000080) == 0) {
+				if ((projectile->flags & PROJECTILEFLAG_LAUNCHING) == 0) {
 					projectile->ownerprop = NULL;
 				}
 

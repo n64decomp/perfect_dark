@@ -1277,15 +1277,12 @@ void handTickAttack(s32 handnum)
 	if (bgunIsFiring(handnum)) {
 		s32 type = bgunGetAttackType(handnum);
 		s32 weaponnum = bgunGetWeaponNum(handnum);
-		u8 stack1;
-		u8 stack2;
-		u8 stack3;
-		u8 tmpweaponnum;
+		struct gset gset;
 		bool cloaked;
 
 		g_Vars.currentplayer->hands[handnum].unk0d0f_03 = false;
 
-		gsetPopulateFromCurrentPlayer(handnum, (struct gset *)&tmpweaponnum);
+		gsetPopulateFromCurrentPlayer(handnum, &gset);
 		frIncrementNumShots();
 
 		switch (type) {
@@ -1294,7 +1291,7 @@ void handTickAttack(s32 handnum)
 			// right hand is not (ie. prevent firing both guns on the same tick)
 			if (handnum == HAND_RIGHT || !bgunIsFiring(HAND_RIGHT)) {
 				chrUncloakTemporarily(g_Vars.currentplayer->prop->chr);
-				mpstatsIncrementPlayerShotCount2((struct gset *)&tmpweaponnum, 0);
+				mpstatsIncrementPlayerShotCount2(&gset, 0);
 
 				if (weaponnum == WEAPON_SHOTGUN) {
 					handCreateBulletRaycast(handnum, true, true, 1, true);
@@ -1312,10 +1309,10 @@ void handTickAttack(s32 handnum)
 			break;
 		case HANDATTACKTYPE_CLOSERANGE:
 			chrUncloakTemporarily(g_Vars.currentplayer->prop->chr);
-			handInflictCloseRangeDamage(handnum, (struct gset *)&tmpweaponnum, false);
+			handInflictCloseRangeDamage(handnum, &gset, false);
 			break;
 		case HANDATTACKTYPE_CLOSERANGENOUNCLOAK:
-			handInflictCloseRangeDamage(handnum, (struct gset *)&tmpweaponnum, true);
+			handInflictCloseRangeDamage(handnum, &gset, true);
 			break;
 		case HANDATTACKTYPE_DETONATE:
 			playerActivateRemoteMineDetonator(g_Vars.currentplayernum);
@@ -1340,7 +1337,7 @@ void handTickAttack(s32 handnum)
 			}
 			break;
 		case HANDATTACKTYPE_THROWPROJECTILE:
-			bgunCreateThrownProjectile(handnum, (struct gset *)&tmpweaponnum);
+			bgunCreateThrownProjectile(handnum, &gset);
 			break;
 		case HANDATTACKTYPE_RCP120CLOAK:
 			cloaked = (g_Vars.currentplayer->devicesactive & DEVICE_CLOAKRCP120) != 0;
@@ -1400,7 +1397,7 @@ void propExecuteTickOperation(struct prop *prop, s32 op)
 		propDelist(prop);
 		propDisable(prop);
 		objDetach(prop);
-		func0f06ac90(prop);
+		objFreeEmbedmentOrProjectile(prop);
 		propReparent(prop, g_Vars.currentplayer->prop);
 	}
 }
@@ -5762,7 +5759,7 @@ glabel propsTickPlayer
 //			if (prop->type == PROPTYPE_PLAYER) {
 //				score++;
 //			} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
-//				if (prop->obj->hidden & OBJHFLAG_AIRBORNE) {
+//				if (prop->obj->hidden & OBJHFLAG_PROJECTILE) {
 //					score++;
 //				}
 //			}

@@ -1341,7 +1341,7 @@ void scenarioHandleDroppedToken(struct chrdata *chr, struct prop *prop)
 	if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE) {
 		for (i = 0; i < 4; i++) {
 			if (chr->prop == g_ScenarioData.ctc.tokens[i]) {
-				objEndFlight(&weapon->base);
+				objFreeProjectile(&weapon->base);
 
 				g_ScenarioData.ctc.tokens[i] = prop;
 				weapon->team = i;

@@ -55,14 +55,14 @@ void bbikeInit(void)
 	g_Vars.currentplayer->speedforwards = 0;
 	g_Vars.currentplayer->speedsideways = 0;
 
-	if (hoverbike->base.hidden & OBJHFLAG_AIRBORNE) {
+	if (hoverbike->base.hidden & OBJHFLAG_PROJECTILE) {
 		struct projectile *projectile = hoverbike->base.projectile;
 		hoverbike->speed[0] = projectile->speed.x;
 		hoverbike->speed[1] = projectile->speed.z;
 		hoverbike->w = projectile->unk0dc;
 	}
 
-	func0f06ac90(g_Vars.currentplayer->hoverbike);
+	objFreeEmbedmentOrProjectile(g_Vars.currentplayer->hoverbike);
 
 	hoverbike->base.hidden |= OBJHFLAG_MOUNTED;
 }
@@ -1169,7 +1169,7 @@ s32 bbikeCalculateNewPositionWithPush(struct coord *arg0, f32 arg1)
 					bool pass = true;
 					struct defaultobj *bike = g_Vars.currentplayer->hoverbike->obj;
 
-					if ((obj->hidden & OBJHFLAG_AIRBORNE)
+					if ((obj->hidden & OBJHFLAG_PROJECTILE)
 							&& (obj->projectile->flags & PROJECTILEFLAG_00001000)) {
 						pass = false;
 					}
@@ -1177,13 +1177,13 @@ s32 bbikeCalculateNewPositionWithPush(struct coord *arg0, f32 arg1)
 					if (pass) {
 						bbike0f0d2b40(bike, arg0, arg1, obj);
 
-						if ((obj->hidden & OBJHFLAG_AIRBORNE)
-								&& (obj->projectile->flags & PROJECTILEFLAG_00000800)) {
+						if ((obj->hidden & OBJHFLAG_PROJECTILE)
+								&& (obj->projectile->flags & PROJECTILEFLAG_SLIDING)) {
 							s32 somevalue;
-							bool somebool = false;
-							somevalue = func0f073c6c(obj, &somebool);
+							bool embedded = false;
+							somevalue = projectileTick(obj, &embedded);
 
-							if (obj->hidden & OBJHFLAG_AIRBORNE) {
+							if (obj->hidden & OBJHFLAG_PROJECTILE) {
 								obj->projectile->flags |= PROJECTILEFLAG_00001000;
 
 								if (somevalue) {

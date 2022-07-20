@@ -11,7 +11,7 @@
 #include "data.h"
 #include "types.h"
 
-void func0f096360(Mtxf *mtx)
+void mtxLoadRandomRotation(Mtxf *mtx)
 {
 	struct coord coord = {0, 0, 0};
 
@@ -28,7 +28,7 @@ void func0f0964b4(struct coord *coord, Mtxf *mtx)
 	coord->y = RANDOMFRAC() * 1.6666666269302f * 4.0f;
 	coord->z = RANDOMFRAC() * 1.6666666269302f * 4.0f - 3.3333332538605f;
 
-	func0f096360(mtx);
+	mtxLoadRandomRotation(mtx);
 }
 
 void func0f0965e4(f32 *arg0, f32 *arg1, f32 arg2)

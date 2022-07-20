@@ -43,7 +43,7 @@ void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderda
 void chrGetBloodColour(s16 bodynum, u8 *colour1, u32 *colour2);
 Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass);
 void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct coord *coord, struct coord *coord2, struct chrdata *chr2);
-u32 chr0f0260c4(void);
+void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struct coord *arg3);
 void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct coord *arg3);
 void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius);
 f32 chr0f0278a4(struct chrdata *chr);

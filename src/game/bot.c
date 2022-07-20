@@ -1667,10 +1667,10 @@ glabel var7f1b8ea8
 //
 //	dprint();
 //
-//	if ((obj->hidden & OBJHFLAG_AIRBORNE)
+//	if ((obj->hidden & OBJHFLAG_PROJECTILE)
 //			&& obj->projectile
 //			&& obj->projectile->unk0b4 > 0
-//			&& obj->projectile->unk090 == 0) {
+//			&& obj->projectile->bouncecount == 0) {
 //		return false;
 //	}
 //
@@ -1703,7 +1703,7 @@ glabel var7f1b8ea8
 //
 //			// Ignore rockets that are in flight
 //			if ((weaponobj->weaponnum == WEAPON_ROCKET || weaponobj->weaponnum == WEAPON_HOMINGROCKET)
-//					&& (obj->hidden & OBJHFLAG_AIRBORNE)) {
+//					&& (obj->hidden & OBJHFLAG_PROJECTILE)) {
 //				return false;
 //			}
 //		}
@@ -1860,10 +1860,10 @@ void botCheckPickups(struct chrdata *chr)
 				if (obj)
 #endif
 				{
-					if ((obj->hidden & OBJHFLAG_AIRBORNE) == 0
+					if ((obj->hidden & OBJHFLAG_PROJECTILE) == 0
 							|| obj->projectile == NULL
 							|| obj->projectile->unk0b4 <= 0
-							|| obj->projectile->unk090) {
+							|| obj->projectile->bouncecount != 0) {
 						if (botIsObjCollectable(obj)) {
 							if (botTestPropForPickup(prop, chr)) {
 								propExecuteTickOperation(prop, TICKOP_FREE);
@@ -3469,7 +3469,7 @@ void botLoseGun(struct chrdata *chr, struct prop *attackerprop)
 			objSetDropped(prop, DROPTYPE_DEFAULT);
 			chr->hidden |= CHRHFLAG_00000001;
 
-			if (obj->hidden & OBJHFLAG_AIRBORNE) {
+			if (obj->hidden & OBJHFLAG_PROJECTILE) {
 				obj->projectile->unk0b4 = TICKS(240);
 				obj->projectile->unk108 = attackerprop;
 			}

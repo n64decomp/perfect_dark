@@ -2705,7 +2705,7 @@ struct weaponfunc_shootprojectile invfunc_rockerlauncher_shoot = {
 	0, // unk07
 	&invnoisesettings_00011048,
 	invanim_rockerlauncher_equiporshoot, // fire animation
-	FUNCFLAG_NOAUTOAIM | FUNCFLAG_08000000,
+	FUNCFLAG_NOAUTOAIM | FUNCFLAG_PROJECTILE_POWERED,
 	NULL,
 	0,
 	1, // damage
@@ -2736,7 +2736,7 @@ struct weaponfunc_shootprojectile invfunc_rocketlauncher_homing = {
 	0, // unk07
 	&invnoisesettings_00011048,
 	invanim_rockerlauncher_equiporshoot, // fire animation
-	FUNCFLAG_NOAUTOAIM | FUNCFLAG_08000000 | FUNCFLAG_HOMINGROCKET,
+	FUNCFLAG_NOAUTOAIM | FUNCFLAG_PROJECTILE_POWERED | FUNCFLAG_HOMINGROCKET,
 	NULL,
 	0,
 	1, // damage
@@ -2815,7 +2815,7 @@ struct weaponfunc_shootprojectile invfunc_slayer_shoot = {
 	0, // unk07
 	&invnoisesettings_00011048,
 	invanim_slayer_equiporshoot, // fire animation
-	FUNCFLAG_NOAUTOAIM | FUNCFLAG_08000000,
+	FUNCFLAG_NOAUTOAIM | FUNCFLAG_PROJECTILE_POWERED,
 	NULL,
 	0,
 	1, // damage
@@ -2846,7 +2846,7 @@ struct weaponfunc_shootprojectile invfunc_slayer_flybywire = {
 	0, // unk07
 	&invnoisesettings_00011048,
 	NULL, // fire animation
-	FUNCFLAG_NOAUTOAIM | FUNCFLAG_FLYBYWIRE | FUNCFLAG_08000000 | FUNCFLAG_20000000,
+	FUNCFLAG_NOAUTOAIM | FUNCFLAG_FLYBYWIRE | FUNCFLAG_PROJECTILE_POWERED | FUNCFLAG_20000000,
 	NULL,
 	0,
 	1, // damage
@@ -6007,7 +6007,7 @@ struct weaponfunc_shootprojectile invfunc_rocketlauncher34_primary = {
 	0, // unk07
 	&invnoisesettings_00011048,
 	invanim_rockerlauncher_equiporshoot, // fire animation
-	FUNCFLAG_NOAUTOAIM | FUNCFLAG_08000000,
+	FUNCFLAG_NOAUTOAIM | FUNCFLAG_PROJECTILE_POWERED,
 	NULL,
 	0,
 	1, // damage

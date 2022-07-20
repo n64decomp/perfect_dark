@@ -844,8 +844,8 @@ bool aiChrDamageChr(void)
 			vector.z = chr2->prop->pos.z - chr1->prop->pos.z;
 			guNormalize(&vector.x, &vector.y, &vector.z);
 			weapon = prop->weapon;
-			damage = gsetGetDamage((struct gset *)&weapon->weaponnum);
-			chrDamageByImpact(chr2, damage, &vector, (struct gset *)&weapon->weaponnum, chr1->prop, (s8)cmd[4]);
+			damage = gsetGetDamage(&weapon->gset);
+			chrDamageByImpact(chr2, damage, &vector, &weapon->gset, chr1->prop, (s8)cmd[4]);
 		}
 	}
 
@@ -2384,7 +2384,7 @@ bool aiGiveObjectToChr(void)
 #if VERSION >= VERSION_NTSC_1_0
 			if (obj->prop->parent) {
 				objDetach(obj->prop);
-				func0f06ac90(obj->prop);
+				objFreeEmbedmentOrProjectile(obj->prop);
 				propActivate(obj->prop);
 			}
 #endif
@@ -11143,7 +11143,7 @@ bool aiDoGunCommand(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct weaponobj *weapon = g_Vars.chrdata->gunprop->weapon;
 
-	if (cmd[2] == 0 || ((weapon->base.hidden & OBJHFLAG_AIRBORNE) == 0 && cmd[2] == 1)) {
+	if (cmd[2] == 0 || ((weapon->base.hidden & OBJHFLAG_PROJECTILE) == 0 && cmd[2] == 1)) {
 		if (cmd[2] == 0) {
 			chrGoToProp(g_Vars.chrdata, g_Vars.chrdata->gunprop, SPEED_JOG);
 		}

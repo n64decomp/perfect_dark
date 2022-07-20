@@ -71,13 +71,14 @@ s32 cdFindRoom(struct coord *pos, s16 *nearrooms);
 
 #if VERSION >= VERSION_NTSC_1_0
 s16 cd0002a440(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr, u16 *flagsptr);
+s16 cd0002a4d0(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr, u16 *flagsptr);
 #else
 s16 cd0002a440(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr);
+s16 cd0002a4d0(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr);
 #endif
 
-s16 cd0002a4d0(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr, u16 *flagsptr);
-s32 cd0002a564(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcol, struct coord *arg4, struct prop **propptr);
-s32 cd0002a5e4(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcol, u16 *arg4, struct coord *arg5);
+s16 cd0002a564(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcol, struct coord *arg4, struct prop **propptr);
+s16 cd0002a5e4(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcol, u16 *arg4, struct coord *arg5);
 s32 cdTestVolume(struct coord *pos, f32 radius, s16 *rooms, s32 types, s32 arg4, f32 ymax, f32 ymin);
 s32 cd0002a6fc(struct coord *pos, struct coord *pos2, f32 width, s16 *rooms, s32 types, bool arg5, f32 arg6, f32 arg7);
 s32 cdTestAToB1(struct coord *origpos, struct coord *dstpos, f32 width, s16 *dstrooms, s32 types, s32 arg5, f32 ymax, f32 ymin);

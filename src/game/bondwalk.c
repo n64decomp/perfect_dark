@@ -460,7 +460,7 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 						g_Vars.currentplayer->speedmaxtime60 = 0;
 						dothething = true;
 
-						if ((obj->hidden & OBJHFLAG_AIRBORNE) &&
+						if ((obj->hidden & OBJHFLAG_PROJECTILE) &&
 								(obj->projectile->flags & PROJECTILEFLAG_00001000)) {
 							dothething = false;
 						}
@@ -468,12 +468,12 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 						if (dothething) {
 							bwalk0f0c3b38(delta, obj);
 
-							if (obj->hidden & OBJHFLAG_AIRBORNE && (obj->projectile->flags & PROJECTILEFLAG_00000800)) {
+							if (obj->hidden & OBJHFLAG_PROJECTILE && (obj->projectile->flags & PROJECTILEFLAG_SLIDING)) {
 								bool somevalue;
-								bool somebool = false;
-								somevalue = func0f073c6c(obj, &somebool);
+								bool embedded = false;
+								somevalue = projectileTick(obj, &embedded);
 
-								if (obj->hidden & OBJHFLAG_AIRBORNE) {
+								if (obj->hidden & OBJHFLAG_PROJECTILE) {
 									obj->projectile->flags |= PROJECTILEFLAG_00001000;
 
 									if (somevalue) {

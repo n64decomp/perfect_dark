@@ -11839,12 +11839,12 @@ void bgun0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf 
 
 		func0f0685e4(objprop);
 
-		if (obj->hidden & OBJHFLAG_AIRBORNE) {
-			obj->projectile->flags |= PROJECTILEFLAG_00000001;
+		if (obj->hidden & OBJHFLAG_PROJECTILE) {
+			obj->projectile->flags |= PROJECTILEFLAG_AIRBORNE;
 			obj->projectile->ownerprop = prop;
 
-			objSetProjectileFlag4(objprop);
-			mtx4Copy(matrix2, (Mtxf *)&obj->projectile->unk020);
+			projectileSetSticky(objprop);
+			mtx4Copy(matrix2, (Mtxf *)&obj->projectile->mtx);
 
 			obj->projectile->speed.x = velocity->x;
 			obj->projectile->speed.y = velocity->y;
@@ -11872,8 +11872,8 @@ void bgun0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, stru
 
 		bgun0f09ebcc(obj, &pos, rooms, arg2, velocity, arg4, playerprop, newpos);
 
-		if (obj->hidden & OBJHFLAG_AIRBORNE) {
-			obj->projectile->flags |= PROJECTILEFLAG_00000080;
+		if (obj->hidden & OBJHFLAG_PROJECTILE) {
+			obj->projectile->flags |= PROJECTILEFLAG_LAUNCHING;
 
 			obj->projectile->nextsteppos.x = newpos->x;
 			obj->projectile->nextsteppos.y = newpos->y;
@@ -11908,7 +11908,7 @@ struct defaultobj *bgunCreateThrownProjectile2(struct chrdata *chr, struct gset 
 		guRotateF(mtx.m, 90.0f / (RANDOMFRAC() + 12.1f),
 				arg4->m[1][0], arg4->m[1][1], arg4->m[1][2]);
 	} else {
-		func0f096360(&mtx);
+		mtxLoadRandomRotation(&mtx);
 	}
 
 	if (gset->weaponnum == WEAPON_LAPTOPGUN) {
@@ -11956,7 +11956,7 @@ struct defaultobj *bgunCreateThrownProjectile2(struct chrdata *chr, struct gset 
 
 		obj->hidden |= playernum << 28;
 
-		if (obj->hidden & OBJHFLAG_AIRBORNE) {
+		if (obj->hidden & OBJHFLAG_PROJECTILE) {
 			obj->projectile->flags |= PROJECTILEFLAG_00000002;
 			obj->projectile->unk08c = 0.1f;
 			obj->projectile->unk0b4 = TICKS(240);
@@ -12153,8 +12153,8 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 			}
 		}
 
-		if (obj->hidden & OBJHFLAG_AIRBORNE) {
-			obj->projectile->flags |= PROJECTILEFLAG_00000080;
+		if (obj->hidden & OBJHFLAG_PROJECTILE) {
+			obj->projectile->flags |= PROJECTILEFLAG_LAUNCHING;
 			obj->projectile->nextsteppos.x = muzzlepos.x;
 			obj->projectile->nextsteppos.y = muzzlepos.y;
 			obj->projectile->nextsteppos.z = muzzlepos.z;
@@ -12429,11 +12429,11 @@ void bgunCreateFiredProjectile(s32 handnum)
 
 					bgun0f09ed2c(&weapon->base, &spawnpos, &sp210, &sp264, &sp270);
 
-					if (weapon->base.hidden & OBJHFLAG_AIRBORNE) {
-						if (funcdef->base.base.flags & FUNCFLAG_80000000) {
-							weapon->base.projectile->flags |= PROJECTILEFLAG_40000000;
-						} else if (funcdef->base.base.flags & FUNCFLAG_08000000) {
-							weapon->base.projectile->flags |= PROJECTILEFLAG_00000010;
+					if (weapon->base.hidden & OBJHFLAG_PROJECTILE) {
+						if (funcdef->base.base.flags & FUNCFLAG_PROJECTILE_LIGHTWEIGHT) {
+							weapon->base.projectile->flags |= PROJECTILEFLAG_LIGHTWEIGHT;
+						} else if (funcdef->base.base.flags & FUNCFLAG_PROJECTILE_POWERED) {
+							weapon->base.projectile->flags |= PROJECTILEFLAG_POWERED;
 						}
 
 						weapon->base.projectile->targetprop = g_Vars.currentplayer->trackedprops[0].prop;
@@ -12446,7 +12446,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 							mtx4ToMtx3(&sp78, weapon->base.realrot);
 						}
 
-						weapon->base.projectile->unk0b2 = TICKS(1200);
+						weapon->base.projectile->powerlimit240 = TICKS(1200);
 						weapon->base.projectile->unk0a8 = weapon->base.prop->pos.y;
 						weapon->base.projectile->unk0ac = weapon->base.projectile->speed.y;
 						weapon->base.projectile->unk010 = sp250.x;
@@ -12464,8 +12464,8 @@ void bgunCreateFiredProjectile(s32 handnum)
 							playerLaunchSlayerRocket(weapon);
 						}
 
-						if (weapon->base.projectile->flags & PROJECTILEFLAG_00000080) {
-							func0f073ae8(&weapon->base, weapon->base.projectile, &sp6c, &sp60);
+						if (weapon->base.projectile->flags & PROJECTILEFLAG_LAUNCHING) {
+							projectileLaunch(&weapon->base, weapon->base.projectile, &sp6c, &sp60);
 						}
 					} else {
 						failed = true;
@@ -12505,11 +12505,11 @@ void bgunCreateFiredProjectile(s32 handnum)
 
 				bgun0f09ed2c(&weapon->base, &spawnpos, &sp210, &sp264, &sp270);
 
-				if (weapon->base.hidden & OBJHFLAG_AIRBORNE) {
-					if (funcdef->base.base.flags & FUNCFLAG_80000000) {
-						weapon->base.projectile->flags |= PROJECTILEFLAG_40000000;
-					} else if (funcdef->base.base.flags & FUNCFLAG_08000000) {
-						weapon->base.projectile->flags |= PROJECTILEFLAG_00000010;
+				if (weapon->base.hidden & OBJHFLAG_PROJECTILE) {
+					if (funcdef->base.base.flags & FUNCFLAG_PROJECTILE_LIGHTWEIGHT) {
+						weapon->base.projectile->flags |= PROJECTILEFLAG_LIGHTWEIGHT;
+					} else if (funcdef->base.base.flags & FUNCFLAG_PROJECTILE_POWERED) {
+						weapon->base.projectile->flags |= PROJECTILEFLAG_POWERED;
 					}
 
 					weapon->base.projectile->targetprop = g_Vars.currentplayer->trackedprops[0].prop;
@@ -12522,7 +12522,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 						mtx4ToMtx3(&sp78, weapon->base.realrot);
 					}
 
-					weapon->base.projectile->unk0b2 = TICKS(1200);
+					weapon->base.projectile->powerlimit240 = TICKS(1200);
 					weapon->base.projectile->unk0a8 = weapon->base.prop->pos.y;
 					weapon->base.projectile->unk0ac = weapon->base.projectile->speed.y;
 					weapon->base.projectile->unk010 = sp250.x;
@@ -12540,8 +12540,8 @@ void bgunCreateFiredProjectile(s32 handnum)
 						playerLaunchSlayerRocket(weapon);
 					}
 
-					if (weapon->base.projectile->flags & PROJECTILEFLAG_00000080) {
-						func0f073ae8(&weapon->base, weapon->base.projectile, &sp6c, &sp60);
+					if (weapon->base.projectile->flags & PROJECTILEFLAG_LAUNCHING) {
+						projectileLaunch(&weapon->base, weapon->base.projectile, &sp6c, &sp60);
 					}
 				}
 #endif
@@ -14069,7 +14069,7 @@ void bgunLoseGun(struct prop *attackerprop)
 				struct defaultobj *obj = prop2->obj;
 				objSetDropped(prop2, DROPTYPE_DEFAULT);
 
-				if (obj->hidden & OBJHFLAG_AIRBORNE) {
+				if (obj->hidden & OBJHFLAG_PROJECTILE) {
 					obj->projectile->unk0b4 = TICKS(240);
 					obj->projectile->unk108 = attackerprop;
 				}

@@ -1336,29 +1336,23 @@ struct projectile {
 	/*0x014*/ f32 unk014;
 	/*0x018*/ f32 unk018;
 	/*0x01c*/ f32 unk01c;
-	/*0x020*/ Mtxf unk020;
+	/*0x020*/ Mtxf mtx;
 	/*0x060*/ f32 unk060;
-	/*0x064*/ u32 unk064;
-	/*0x068*/ u32 unk068;
-	/*0x06c*/ u32 unk06c;
-	/*0x070*/ u32 unk070;
-	/*0x074*/ u32 unk074;
-	/*0x078*/ u32 unk078;
-	/*0x07c*/ u32 unk07c;
-	/*0x080*/ u32 unk080;
-	/*0x084*/ u32 unk084;
+	/*0x064*/ f32 unk064;
+	/*0x068*/ f32 unk068[4];
+	/*0x078*/ f32 unk078[4];
 	/*0x088*/ struct prop *ownerprop;
 	/*0x08c*/ f32 unk08c;
-	/*0x090*/ s32 unk090;
-	/*0x094*/ s32 unk094;
+	/*0x090*/ s32 bouncecount;
+	/*0x094*/ s32 bounceframe;
 	/*0x098*/ f32 unk098;
 	/*0x09c*/ s32 lastwooshframe;
-	/*0x0a0*/ u32 unk0a0;
+	/*0x0a0*/ s32 flighttime240;
 	/*0x0a4*/ s32 unk0a4;
 	/*0x0a8*/ f32 unk0a8;
 	/*0x0ac*/ f32 unk0ac;
 	/*0x0b0*/ s16 droptype;
-	/*0x0b2*/ s16 unk0b2;
+	/*0x0b2*/ s16 powerlimit240;
 	/*0x0b4*/ s32 unk0b4;
 	/*0x0b8*/ f32 unk0b8;
 	/*0x0bc*/ f32 unk0bc;
@@ -1555,10 +1549,17 @@ struct ammocrateobj { // objtype 0x07
 
 struct weaponobj { // objtype 0x08
 	struct defaultobj base;
-	/*0x5c*/ u8 weaponnum;
-	/*0x5d*/ s8 unk5d;
-	/*0x5e*/ s8 unk5e;
-	/*0x5f*/ u8 gunfunc;
+
+	union {
+		struct gset gset;
+		struct {
+			/*0x5c*/ u8 weaponnum;
+			/*0x5d*/ s8 unk5d;
+			/*0x5e*/ s8 unk5e;
+			/*0x5f*/ u8 gunfunc;
+		};
+	};
+
 	/*0x60*/ s8 fadeouttimer60;
 	/*0x61*/ s8 dualweaponnum;
 

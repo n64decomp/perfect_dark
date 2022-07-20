@@ -8781,8 +8781,8 @@ void chrCreateFireslot(struct chrdata *chr, s32 handnum, bool withsound, bool wi
 	if (weaponprop) {
 		weapon = weaponprop->weapon;
 		weaponnum = weapon->weaponnum;
-		duration = gsetGetFireslotDuration((struct gset *) &weapon->weaponnum);
-		soundnum = gsetGetSingleShootSound((struct gset *) &weapon->weaponnum);
+		duration = gsetGetFireslotDuration(&weapon->gset);
+		soundnum = gsetGetSingleShootSound(&weapon->gset);
 
 		if (chr->fireslots[handnum] < 0) {
 			chr->fireslots[handnum] = bgunAllocateFireslot();
@@ -17810,7 +17810,7 @@ glabel var7f1a9184
 //		s32 tickspershot;
 //		f32 sp208; // unused?
 //
-//		gset = *(struct gset *)&weapon->weaponnum;
+//		gset = weapon->gset;
 //		attackflags = ATTACKFLAG_AIMATTARGET;
 //
 //		if (chr->actiontype == ACT_ATTACK
@@ -18137,11 +18137,11 @@ glabel var7f1a9184
 //
 //							bgun0f09ebcc(&projectileobj->base, &gunpos, gunrooms, &sp11c, &sp16c, &sp178, chrprop, &gunpos);
 //
-//							if (projectileobj->base.hidden & OBJHFLAG_AIRBORNE) {
-//								if (func->base.base.flags & FUNCFLAG_80000000) {
-//									projectileobj->base.projectile->flags |= PROJECTILEFLAG_40000000;
-//								} else if (func->base.base.flags & FUNCFLAG_08000000) {
-//									projectileobj->base.projectile->flags |= PROJECTILEFLAG_00000010;
+//							if (projectileobj->base.hidden & OBJHFLAG_PROJECTILE) {
+//								if (func->base.base.flags & FUNCFLAG_PROJECTILE_LIGHTWEIGHT) {
+//									projectileobj->base.projectile->flags |= PROJECTILEFLAG_LIGHTWEIGHT;
+//								} else if (func->base.base.flags & FUNCFLAG_PROJECTILE_POWERED) {
+//									projectileobj->base.projectile->flags |= PROJECTILEFLAG_POWERED;
 //								}
 //
 //								projectileobj->base.projectile->unk010 = sp15c.x;

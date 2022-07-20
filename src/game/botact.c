@@ -523,7 +523,7 @@ void botactCreateSlayerRocket(struct chrdata *chr)
 
 		bgun0f09ebcc(&rocket->base, &chr->prop->pos, chr->prop->rooms, &sp196, &sp100, &sp260, chr->prop, &chr->prop->pos);
 
-		if (rocket->base.hidden & OBJHFLAG_AIRBORNE) {
+		if (rocket->base.hidden & OBJHFLAG_PROJECTILE) {
 			struct prop *target = chrGetTargetProp(chr);
 			rocket->timer240 = -1;
 			rocket->base.projectile->unk010 = 7.5;

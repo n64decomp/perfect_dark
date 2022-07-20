@@ -2981,7 +2981,11 @@ s16 cd0002a440(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr)
 	return room;
 }
 
+#if VERSION >= VERSION_NTSC_1_0
 s16 cd0002a4d0(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr, u16 *flagsptr)
+#else
+s16 cd0002a4d0(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr)
+#endif
 {
 	struct geo *geo;
 	s16 sp32;
@@ -3006,7 +3010,7 @@ s16 cd0002a4d0(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr, u16 *
 	return sp32;
 }
 
-s32 cd0002a564(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcol, struct coord *arg4, struct prop **propptr)
+s16 cd0002a564(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcol, struct coord *arg4, struct prop **propptr)
 {
 	struct geo *geo;
 	s16 sp32;
@@ -3026,7 +3030,7 @@ s32 cd0002a564(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcol, struct c
 	return sp32;
 }
 
-s32 cd0002a5e4(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcol, u16 *flagsptr, struct coord *arg5)
+s16 cd0002a5e4(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcol, u16 *flagsptr, struct coord *arg5)
 {
 	struct geo *geo;
 	s16 sp32;

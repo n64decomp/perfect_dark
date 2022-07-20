@@ -67,11 +67,11 @@ void bgrabInit(void)
 		struct hov *hov = NULL;
 		bool withforce;
 
-		if (obj->hidden & OBJHFLAG_AIRBORNE) {
+		if (obj->hidden & OBJHFLAG_PROJECTILE) {
 			struct projectile *projectile = obj->projectile;
 			g_Vars.currentplayer->bondshotspeed.x += projectile->speed.x * 0.2f;
 			g_Vars.currentplayer->bondshotspeed.z += projectile->speed.z * 0.2f;
-			objEndFlight(obj);
+			objFreeProjectile(obj);
 		}
 
 		if (obj->type == OBJTYPE_HOVERPROP) {
@@ -560,7 +560,7 @@ bool bgrabCalculateNewPositiontWithPush(struct coord *delta, f32 angle, bool arg
 
 					g_Vars.currentplayer->speedmaxtime60 = 0;
 
-					if ((obj->hidden & OBJHFLAG_AIRBORNE)
+					if ((obj->hidden & OBJHFLAG_PROJECTILE)
 							&& (obj->projectile->flags & PROJECTILEFLAG_00001000)) {
 						canpush = false;
 					}
@@ -568,13 +568,13 @@ bool bgrabCalculateNewPositiontWithPush(struct coord *delta, f32 angle, bool arg
 					if (canpush) {
 						bgrab0f0ccbf0(delta, angle, obj);
 
-						if ((obj->hidden & OBJHFLAG_AIRBORNE)
-								&& (obj->projectile->flags & PROJECTILEFLAG_00000800)) {
+						if ((obj->hidden & OBJHFLAG_PROJECTILE)
+								&& (obj->projectile->flags & PROJECTILEFLAG_SLIDING)) {
 							s32 someint;
-							bool somebool = false;
-							someint = func0f073c6c(obj, &somebool);
+							bool embedded = false;
+							someint = projectileTick(obj, &embedded);
 
-							if ((obj->hidden & OBJHFLAG_AIRBORNE)) {
+							if ((obj->hidden & OBJHFLAG_PROJECTILE)) {
 								obj->projectile->flags |= PROJECTILEFLAG_00001000;
 
 								if (someint) {
