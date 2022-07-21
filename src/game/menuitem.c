@@ -7691,7 +7691,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 
 		textBackupDiagonalBlendSettings();
 		textSetDiagonalBlend(x, y, menudfc->unk04 * 300, 0);
-		var8007fb9c = 1;
+		var8007fb9c = true;
 	}
 
 	colour2 = colour1;

@@ -146,7 +146,7 @@ u32 var800801f0jf = 0xffccffdd;
 u32 var800801f4jf = 0xffeeffff;
 #endif
 
-u32 var8007fb9c = 0x00000000;
+bool var8007fb9c = false;
 s32 var8007fba0 = 0;
 s32 var8007fba4 = -1;
 u32 var8007fba8 = 0x00000000;
@@ -705,7 +705,7 @@ Gfx *text0f153ab0(Gfx *gdl)
 {
 	Gfx *allocation;
 
-	var8007fb9c = 1;
+	var8007fb9c = true;
 
 	allocation = gfxAllocate(sizeof(Gfx) * 530);
 
@@ -724,7 +724,7 @@ Gfx *text0f153ab0(Gfx *gdl)
 
 void text0f153b40(void)
 {
-	var8007fb9c = 0;
+	var8007fb9c = false;
 
 	gSPEndDisplayList(var800a4634++);
 }

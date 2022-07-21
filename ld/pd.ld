@@ -279,8 +279,6 @@ SECTIONS
 	aspDataStart = gspDataEnd;
 	aspDataEnd = aspDataStart + 0xb50;
 
-	g_MenuScissorX2_2 = g_MenuScissorX2;
-
 	/***************************************************************************
 	 * bss
 	 * -------------------------------------------------------------------------
