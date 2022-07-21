@@ -7187,7 +7187,7 @@ void propGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin)
 	} else if (prop->type == PROPTYPE_PLAYER) {
 		playerGetBbox(prop, radius, ymax, ymin);
 	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR) {
-		propObjGetBbox(prop, radius, ymax, ymin);
+		objGetBbox(prop, radius, ymax, ymin);
 	} else {
 		*radius = 0;
 		*ymin = 0;

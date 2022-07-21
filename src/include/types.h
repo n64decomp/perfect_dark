@@ -1421,7 +1421,8 @@ struct tvscreen {
 };
 
 struct hov {
-	/*0x00*/ u8 unk00;
+	/*0x00*/ u8 type;
+	/*0x01*/ u8 flags;
 	/*0x04*/ f32 unk04;
 	/*0x08*/ f32 unk08;
 	/*0x0c*/ f32 unk0c;
@@ -1435,8 +1436,8 @@ struct hov {
 	/*0x2c*/ f32 unk2c;
 	/*0x30*/ f32 unk30;
 	/*0x34*/ f32 ground;
-	/*0x38*/ s32 groundnext60; // time60 of when ground should be updated next
-	/*0x3c*/ s32 groundprev60; // time60 of when ground was last updated
+	/*0x38*/ s32 nexttick60; // framenum of when next tick should occur
+	/*0x3c*/ s32 prevtick60; // framenum of when hov was last ticked
 };
 
 struct defaultobj {
@@ -6310,20 +6311,20 @@ struct skything38 {
 	/*0x34*/ u32 unk34;
 };
 
-struct var80069a70 {
+struct hovtype {
 	/*0x00*/ f32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
+	/*0x04*/ f32 unk04;
+	/*0x08*/ f32 unk08;
+	/*0x0c*/ f32 unk0c;
+	/*0x10*/ f32 unk10;
+	/*0x14*/ f32 unk14;
+	/*0x18*/ f32 unk18;
+	/*0x1c*/ f32 unk1c;
+	/*0x20*/ f32 unk20;
+	/*0x24*/ f32 unk24;
+	/*0x28*/ f32 unk28;
+	/*0x2c*/ f32 unk2c;
+	/*0x30*/ f32 unk30;
 };
 
 struct var8009dd10 {

@@ -2932,8 +2932,8 @@ void setupCreateHov(struct defaultobj *obj, struct hov *hov)
 	hov->unk2c = 0;
 	hov->unk30 = 0;
 	hov->ground = 0;
-	hov->groundnext60 = -1;
-	hov->groundprev60 = -1;
+	hov->nexttick60 = -1;
+	hov->prevtick60 = -1;
 }
 
 #if VERSION >= VERSION_PAL_BETA

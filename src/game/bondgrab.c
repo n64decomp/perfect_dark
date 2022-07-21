@@ -681,7 +681,7 @@ bool bgrab0f0cdb68(f32 angle)
 		} else if (var80070e80 != 0) {
 			if (g_Vars.currentplayer->grabbedprop->type == PROPTYPE_OBJ) {
 				if (g_Vars.currentplayer->grabbedprop->obj->flags3 & OBJFLAG3_GEOCYL) {
-					propObjGetBbox(g_Vars.currentplayer->grabbedprop, &radius, &ymax, &ymin);
+					objGetBbox(g_Vars.currentplayer->grabbedprop, &radius, &ymax, &ymin);
 
 					f0 = (var8009de78.f[0] - spa4.f[0]) * f20 + (var8009de78.f[2] - spa4.f[2]) * f22;
 					f0 -= radius;
@@ -1195,7 +1195,7 @@ void bgrabTick(void)
 		}
 
 		if (hov) {
-			func0f0714b8(obj, hov);
+			hovTick(obj, hov);
 		}
 
 		bmoveUpdateRooms(g_Vars.currentplayer);

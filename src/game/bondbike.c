@@ -1074,7 +1074,7 @@ s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
 		dstpos.x += vel->x;
 		dstpos.z += vel->z;
 
-		propObjGetBbox(g_Vars.currentplayer->hoverbike, &radius, &ymax, &ymin);
+		objGetBbox(g_Vars.currentplayer->hoverbike, &radius, &ymax, &ymin);
 		func0f065dfc(&g_Vars.currentplayer->hoverbike->pos,
 				g_Vars.currentplayer->hoverbike->rooms,
 				&dstpos, dstrooms, spa8, 20);
@@ -1385,7 +1385,7 @@ s32 bbike0f0d3940(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 	f32 tmp;
 	f32 radius;
 
-	propObjGetBbox(g_Vars.currentplayer->hoverbike, &radius, &ymax, &ymin);
+	objGetBbox(g_Vars.currentplayer->hoverbike, &radius, &ymax, &ymin);
 
 	sp34.x = arg1->x - (g_Vars.currentplayer->hoverbike->pos.x + arg0->f[0]);
 	sp34.z = arg1->z - (g_Vars.currentplayer->hoverbike->pos.z + arg0->f[2]);
@@ -1595,7 +1595,7 @@ void bbikeTick(void)
 		bike->speed[0] = sp1f8;
 		bike->speed[1] = sp1f4;
 
-		func0f0714b8(obj, &bike->hov);
+		hovTick(obj, &bike->hov);
 		func0f069c70(obj, true, true);
 		mtx3ToMtx4(obj->realrot, &sp1a8);
 		mtx4SetTranslation(&obj->prop->pos, &sp1a8);

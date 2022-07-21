@@ -1290,6 +1290,12 @@
 #define HITPART_GENERAL     200
 #define HITPART_GENERALHALF 201
 
+#define HOVTYPE_BED   0
+#define HOVTYPE_BIKE  1
+#define HOVTYPE_CRATE 2
+#define HOVTYPE_3     3 // unused
+#define HOVTYPE_4     4 // unused
+
 #define HUDHALIGN_RIGHT  0
 #define HUDHALIGN_LEFT   1
 #define HUDHALIGN_MIDDLE 2
