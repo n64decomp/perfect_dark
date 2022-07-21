@@ -1354,9 +1354,7 @@ struct projectile {
 	/*0x0b0*/ s16 droptype;
 	/*0x0b2*/ s16 powerlimit240;
 	/*0x0b4*/ s32 unk0b4;
-	/*0x0b8*/ f32 unk0b8;
-	/*0x0bc*/ f32 unk0bc;
-	/*0x0c0*/ f32 unk0c0;
+	/*0x0b8*/ f32 unk0b8[3];
 	/*0x0c4*/ struct coord nextsteppos;
 	/*0x0d0*/ s32 losttimer240;
 	/*0x0d4*/ struct defaultobj *obj;
