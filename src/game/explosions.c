@@ -32,7 +32,7 @@ s32 g_MaxExplosions;
 
 s32 g_ExplosionShakeTotalTimer = 0;
 s32 g_ExplosionShakeIntensityTimer = 0;
-f32 g_ExplosionDamageReceivedScale = 1;
+f32 g_ExplosionDamageTxScale = 1;
 u32 var8007e4ac = 0x0000004b;
 u32 var8007e4b0 = 0x000001e0;
 u32 var8007e4b4 = 0x000000a8;

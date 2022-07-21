@@ -12,7 +12,7 @@ void explosionsReset(void)
 
 	g_ExplosionShakeTotalTimer = 0;
 	g_ExplosionShakeIntensityTimer = 0;
-	g_ExplosionDamageReceivedScale = 1;
+	g_ExplosionDamageTxScale = 1;
 
 	g_MaxExplosions = 6;
 

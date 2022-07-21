@@ -25,9 +25,9 @@ void resetSomeStageThings(void)
 	g_StageFlags = 0;
 
 	g_EnemyAccuracyScale = 1;
-	g_DamageReceivedScale = 1;
-	g_DamageDealtScale = 1;
-	g_AttackWalkDurationMultiplier = 1;
+	g_PlayerDamageRxScale = 1;
+	g_PlayerDamageTxScale = 1;
+	g_AttackWalkDurationScale = 1;
 
 	var80062cbc = 0;
 }

@@ -2154,9 +2154,9 @@
 #define MODELPART_AUTOGUN_0002        0x0002 // position
 #define MODELPART_AUTOGUN_0003        0x0003 // position
 #define MODELPART_AUTOGUN_0004        0x0004 // position
-#define MODELPART_AUTOGUN_0005        0x0005 // gunfire
+#define MODELPART_AUTOGUN_FLASHLEFT   0x0005 // gunfire
 #define MODELPART_AUTOGUN_0006        0x0006 // position
-#define MODELPART_AUTOGUN_0007        0x0007 // gunfire
+#define MODELPART_AUTOGUN_FLASHRIGHT  0x0007 // gunfire
 #define MODELPART_BASIC_0064          0x0064 // type19
 #define MODELPART_BASIC_0065          0x0065 // type19
 #define MODELPART_BASIC_0066          0x0066 // type19

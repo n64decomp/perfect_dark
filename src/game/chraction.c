@@ -64,9 +64,9 @@ u32 var8009cd94;
 u8 g_RecentQuipsIndex;
 
 f32 g_EnemyAccuracyScale = 1;
-f32 g_DamageReceivedScale = 1;
-f32 g_DamageDealtScale = 1;
-f32 g_AttackWalkDurationMultiplier = 1;
+f32 g_PlayerDamageRxScale = 1;
+f32 g_PlayerDamageTxScale = 1;
+f32 g_AttackWalkDurationScale = 1;
 
 #if VERSION >= VERSION_NTSC_1_0
 u32 var80062cb0 = 0x00000000;
@@ -2469,9 +2469,9 @@ void chrAttackWalk(struct chrdata *chr, bool run)
 	chr->act_attackwalk.frame60count = 0;
 #if PAL
 	// This is really TICKS(400.0f), but off by one bit :(
-	chr->act_attackwalk.frame60max = random() % (s32)(333.33331298828f * g_AttackWalkDurationMultiplier) + TICKS(120);
+	chr->act_attackwalk.frame60max = random() % (s32)(333.33331298828f * g_AttackWalkDurationScale) + TICKS(120);
 #else
-	chr->act_attackwalk.frame60max = random() % (s32)(400 * g_AttackWalkDurationMultiplier) + TICKS(120);
+	chr->act_attackwalk.frame60max = random() % (s32)(400 * g_AttackWalkDurationScale) + TICKS(120);
 #endif
 	chr->act_attackwalk.facedtarget = false;
 	chr->act_attackwalk.animcfg = animcfg;
@@ -4378,15 +4378,15 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		// Solo
 		if (explosion) {
 			if (vprop->type == PROPTYPE_PLAYER) {
-				damage *= g_ExplosionDamageReceivedScale;
+				damage *= g_ExplosionDamageTxScale;
 			}
 		} else if (aprop && aprop->type == PROPTYPE_PLAYER) {
 			// Player is attacking
-			damage *= g_DamageDealtScale;
+			damage *= g_PlayerDamageTxScale;
 			headshotdamagescale = 25;
 		} else if (aprop && aprop->type == PROPTYPE_CHR && vprop->type == PROPTYPE_PLAYER) {
 			// Chr is attacking player
-			damage *= g_DamageReceivedScale * pdmodeGetEnemyDamage();
+			damage *= g_PlayerDamageRxScale * pdmodeGetEnemyDamage();
 		}
 
 		if (vprop->type != PROPTYPE_PLAYER) {
@@ -4401,13 +4401,13 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		// Co-op
 		if (explosion) {
 			if (vprop->type == PROPTYPE_PLAYER) {
-				damage *= g_ExplosionDamageReceivedScale;
+				damage *= g_ExplosionDamageTxScale;
 			}
 		} else if (aprop && aprop->type == PROPTYPE_PLAYER && vprop->type != PROPTYPE_PLAYER) {
-			damage *= g_DamageDealtScale;
+			damage *= g_PlayerDamageTxScale;
 			headshotdamagescale = 25;
 		} else if (aprop && aprop->type == PROPTYPE_CHR && vprop->type == PROPTYPE_PLAYER) {
-			damage *= g_DamageReceivedScale * pdmodeGetEnemyDamage();
+			damage *= g_PlayerDamageRxScale * pdmodeGetEnemyDamage();
 		}
 
 		if (vprop->type != PROPTYPE_PLAYER) {
@@ -4422,13 +4422,13 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		// Anti
 		if (explosion) {
 			if (vprop == g_Vars.bond->prop) {
-				damage *= g_ExplosionDamageReceivedScale;
+				damage *= g_ExplosionDamageTxScale;
 			}
 		} else if (aprop && aprop == g_Vars.bond->prop) {
-			damage *= g_DamageDealtScale;
+			damage *= g_PlayerDamageTxScale;
 			headshotdamagescale = 25;
 		} else if (aprop && aprop != g_Vars.bond->prop && vprop == g_Vars.bond->prop) {
-			damage *= g_DamageReceivedScale * pdmodeGetEnemyDamage();
+			damage *= g_PlayerDamageRxScale * pdmodeGetEnemyDamage();
 		}
 
 		if (vprop != g_Vars.bond->prop) {

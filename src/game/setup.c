@@ -290,12 +290,12 @@ void propsReset(void)
 
 	g_EmbedProp = NULL;
 	g_EmbedHitPart = -1;
-	g_CameraWaitMultiplier = 1;
-	g_CctvDamageMultiplier = 1;
-	var80069950 = 1;
-	var80069954 = 1;
-	g_AutogunDamageMultiplier = 1;
-	g_AmmoMultiplier = 1;
+	g_CctvWaitScale = 1;
+	g_CctvDamageRxScale = 1;
+	g_AutogunAccuracyScale = 1;
+	g_AutogunDamageTxScale = 1;
+	g_AutogunDamageRxScale = 1;
+	g_AmmoQuantityScale = 1;
 
 	g_MaxThrownLaptops = g_Vars.normmplayerisrunning ? 12 : PLAYERCOUNT();
 
