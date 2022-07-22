@@ -976,8 +976,8 @@ u16 invGetNameIdByIndex(s32 index)
 			override = invGetTextOverrideForObj(prop->obj);
 
 			if (override) {
-				if (override->unk14) {
-					return override->unk14;
+				if (override->inventorytext) {
+					return override->inventorytext;
 				}
 
 				weaponnum = override->weapon;
@@ -986,8 +986,8 @@ u16 invGetNameIdByIndex(s32 index)
 			weaponnum = item->type_weap.weapon1;
 			override = invGetTextOverrideForWeapon(weaponnum);
 
-			if (override && override->unk14) {
-				return override->unk14;
+			if (override && override->inventorytext) {
+				return override->inventorytext;
 			}
 		}
 	} else {
@@ -1020,8 +1020,8 @@ char *invGetShortNameByIndex(s32 index)
 
 			if (override) {
 #if VERSION < VERSION_JPN_FINAL
-				if (override->unk14) {
-					return langGet(override->unk14);
+				if (override->inventorytext) {
+					return langGet(override->inventorytext);
 				}
 #endif
 
@@ -1032,8 +1032,8 @@ char *invGetShortNameByIndex(s32 index)
 #if VERSION < VERSION_JPN_FINAL
 			override = invGetTextOverrideForWeapon(weaponnum);
 
-			if (override && override->unk14) {
-				return langGet(override->unk14);
+			if (override && override->inventorytext) {
+				return langGet(override->inventorytext);
 			}
 #endif
 		}
@@ -1078,23 +1078,23 @@ void invCalculateCurrentIndex(void)
 	}
 }
 
-char *invGetActivatedTextByObj(struct defaultobj *obj)
+char *invGetPickupTextByObj(struct defaultobj *obj)
 {
 	struct textoverride *override = invGetTextOverrideForObj(obj);
 
-	if (override && override->activatetextid) {
-		return langGet(override->activatetextid);
+	if (override && override->pickuptext) {
+		return langGet(override->pickuptext);
 	}
 
 	return NULL;
 }
 
-char *invGetActivatedTextByWeaponNum(s32 weaponnum)
+char *invGetPickupTextByWeaponNum(s32 weaponnum)
 {
 	struct textoverride *override = invGetTextOverrideForWeapon(weaponnum);
 
-	if (override && override->activatetextid) {
-		return langGet(override->activatetextid);
+	if (override && override->pickuptext) {
+		return langGet(override->pickuptext);
 	}
 
 	return NULL;

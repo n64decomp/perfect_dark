@@ -51,8 +51,8 @@ void invInsertTextOverride(struct textoverride *override);
 u32 invGetCurrentIndex(void);
 void invSetCurrentIndex(u32 item);
 void invCalculateCurrentIndex(void);
-char *invGetActivatedTextByObj(struct defaultobj *obj);
-char *invGetActivatedTextByWeaponNum(s32 weaponnum);
+char *invGetPickupTextByObj(struct defaultobj *obj);
+char *invGetPickupTextByWeaponNum(s32 weaponnum);
 void invIncrementHeldTime(s32 param_1, s32 param_2);
 void invGetWeaponOfChoice(s32 *weapon1, s32 *weapon2);
 

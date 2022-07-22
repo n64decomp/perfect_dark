@@ -33980,7 +33980,7 @@ glabel var7f1aae70
 /*  f0888f8:	8faf00a4 */ 	lw	$t7,0xa4($sp)
 /*  f0888fc:	11e0000b */ 	beqz	$t7,.L0f08892c
 /*  f088900:	00000000 */ 	nop
-/*  f088904:	0fc44bfb */ 	jal	invGetActivatedTextByObj
+/*  f088904:	0fc44bfb */ 	jal	invGetPickupTextByObj
 /*  f088908:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*  f08890c:	14400004 */ 	bnez	$v0,.L0f088920
 /*  f088910:	00402025 */ 	or	$a0,$v0,$zero
@@ -34133,7 +34133,7 @@ glabel var7f1aae70
 .L0f088b30:
 /*  f088b30:	51800013 */ 	beqzl	$t4,.L0f088b80
 /*  f088b34:	24180004 */ 	addiu	$t8,$zero,0x4
-/*  f088b38:	0fc44bfb */ 	jal	invGetActivatedTextByObj
+/*  f088b38:	0fc44bfb */ 	jal	invGetPickupTextByObj
 /*  f088b3c:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*  f088b40:	10400006 */ 	beqz	$v0,.L0f088b5c
 /*  f088b44:	00402025 */ 	or	$a0,$v0,$zero
@@ -34188,7 +34188,7 @@ glabel var7f1aae70
 /*  f088bf0:	afae0094 */ 	sw	$t6,0x94($sp)
 /*  f088bf4:	11e00014 */ 	beqz	$t7,.L0f088c48
 /*  f088bf8:	8fb80074 */ 	lw	$t8,0x74($sp)
-/*  f088bfc:	0fc44c0d */ 	jal	invGetActivatedTextByWeaponNum
+/*  f088bfc:	0fc44c0d */ 	jal	invGetPickupTextByWeaponNum
 /*  f088c00:	9304005c */ 	lbu	$a0,0x5c($t8)
 /*  f088c04:	10400008 */ 	beqz	$v0,.L0f088c28
 /*  f088c08:	00402025 */ 	or	$a0,$v0,$zero
@@ -34339,7 +34339,7 @@ glabel var7f1aae70
 /*  f088e20:	8faf00a4 */ 	lw	$t7,0xa4($sp)
 /*  f088e24:	51e0003b */ 	beqzl	$t7,.L0f088f14
 /*  f088e28:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f088e2c:	0fc44bfb */ 	jal	invGetActivatedTextByObj
+/*  f088e2c:	0fc44bfb */ 	jal	invGetPickupTextByObj
 /*  f088e30:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*  f088e34:	14400033 */ 	bnez	$v0,.L0f088f04
 /*  f088e38:	00402025 */ 	or	$a0,$v0,$zero
@@ -34431,7 +34431,7 @@ glabel var7f1aae70
 /*  f088f64:	8faa00a4 */ 	lw	$t2,0xa4($sp)
 /*  f088f68:	5140000c */ 	beqzl	$t2,.L0f088f9c
 /*  f088f6c:	240b0004 */ 	addiu	$t3,$zero,0x4
-/*  f088f70:	0fc44bfb */ 	jal	invGetActivatedTextByObj
+/*  f088f70:	0fc44bfb */ 	jal	invGetPickupTextByObj
 /*  f088f74:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*  f088f78:	14400004 */ 	bnez	$v0,.L0f088f8c
 /*  f088f7c:	00402025 */ 	or	$a0,$v0,$zero
@@ -34484,96 +34484,52 @@ glabel var7f1aae70
 GLOBAL_ASM(
 glabel propPickupByPlayer
 .late_rodata
-glabel var7f1aadc0
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aadc4
-.word propPickupByPlayer+0x74 # f0888b4
-glabel var7f1aadc8
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aadcc
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aadd0
-.word propPickupByPlayer+0xf4 # f088934
-glabel var7f1aadd4
-.word propPickupByPlayer+0x1f4 # f088a34
-glabel var7f1aadd8
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aaddc
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aade0
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aade4
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aade8
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aadec
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aadf0
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aadf4
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aadf8
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aadfc
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae00
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae04
-.word propPickupByPlayer+0x134 # f088974
-glabel var7f1aae08
-.word propPickupByPlayer+0x590 # f088dd0
-glabel var7f1aae0c
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae10
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae14
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae18
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae1c
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae20
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae24
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae28
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae2c
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae30
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae34
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae38
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae3c
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae40
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae44
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae48
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae4c
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae50
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae54
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae58
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae5c
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae60
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae64
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae68
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae6c
-.word propPickupByPlayer+0x6e0 # f088f20
-glabel var7f1aae70
-.word propPickupByPlayer+0x6e0 # f088f20
+glabel jtbl_var7f1aadc0
+.word .L0f088f20
+.word .L0f0888b4
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088934
+.word .L0f088a34
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088974
+.word .L0f088dd0
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
+.word .L0f088f20
 .text
 /*  f088840:	27bdff60 */ 	addiu	$sp,$sp,-160
 /*  f088844:	afbf0024 */ 	sw	$ra,0x24($sp)
@@ -34601,11 +34557,12 @@ glabel var7f1aae70
 /*  f088894:	2d41002d */ 	sltiu	$at,$t2,0x2d
 /*  f088898:	102001a1 */ 	beqz	$at,.L0f088f20
 /*  f08889c:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f0888a0:	3c017f1b */ 	lui	$at,%hi(var7f1aadc0)
+/*  f0888a0:	3c017f1b */ 	lui	$at,%hi(jtbl_var7f1aadc0)
 /*  f0888a4:	002a0821 */ 	addu	$at,$at,$t2
-/*  f0888a8:	8c2aadc0 */ 	lw	$t2,%lo(var7f1aadc0)($at)
+/*  f0888a8:	8c2aadc0 */ 	lw	$t2,%lo(jtbl_var7f1aadc0)($at)
 /*  f0888ac:	01400008 */ 	jr	$t2
 /*  f0888b0:	00000000 */ 	nop
+.L0f0888b4:
 /*  f0888b4:	8d0b04cc */ 	lw	$t3,0x4cc($t0)
 /*  f0888b8:	3c048009 */ 	lui	$a0,%hi(var80095200)
 /*  f0888bc:	240500e5 */ 	addiu	$a1,$zero,0xe5
@@ -34627,7 +34584,7 @@ glabel var7f1aae70
 /*  f0888f8:	8faf00a4 */ 	lw	$t7,0xa4($sp)
 /*  f0888fc:	11e0000b */ 	beqz	$t7,.L0f08892c
 /*  f088900:	00000000 */ 	nop
-/*  f088904:	0fc44bfb */ 	jal	invGetActivatedTextByObj
+/*  f088904:	0fc44bfb */ 	jal	invGetPickupTextByObj
 /*  f088908:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*  f08890c:	14400004 */ 	bnez	$v0,.L0f088920
 /*  f088910:	00402025 */ 	or	$a0,$v0,$zero
@@ -34641,6 +34598,7 @@ glabel var7f1aae70
 .L0f08892c:
 /*  f08892c:	1000019d */ 	b	.L0f088fa4
 /*  f088930:	24020004 */ 	addiu	$v0,$zero,0x4
+.L0f088934:
 /*  f088934:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f088938:	0fc22067 */ 	jal	ammocrateGetPickupAmmoQty
 /*  f08893c:	afa6008c */ 	sw	$a2,0x8c($sp)
@@ -34657,6 +34615,7 @@ glabel var7f1aae70
 /*  f088968:	afa90098 */ 	sw	$t1,0x98($sp)
 /*  f08896c:	1000018d */ 	b	.L0f088fa4
 /*  f088970:	24020001 */ 	addiu	$v0,$zero,0x1
+.L0f088974:
 /*  f088974:	00001025 */ 	or	$v0,$zero,$zero
 /*  f088978:	00c01825 */ 	or	$v1,$a2,$zero
 .L0f08897c:
@@ -34708,6 +34667,7 @@ glabel var7f1aae70
 /*  f088a28:	afb80098 */ 	sw	$t8,0x98($sp)
 /*  f088a2c:	1000015d */ 	b	.L0f088fa4
 /*  f088a30:	24020001 */ 	addiu	$v0,$zero,0x1
+.L0f088a34:
 /*  f088a34:	8d190318 */ 	lw	$t9,0x318($t0)
 /*  f088a38:	afa60074 */ 	sw	$a2,0x74($sp)
 /*  f088a3c:	afa00070 */ 	sw	$zero,0x70($sp)
@@ -34780,7 +34740,7 @@ glabel var7f1aae70
 .L0f088b30:
 /*  f088b30:	51800013 */ 	beqzl	$t4,.L0f088b80
 /*  f088b34:	24180004 */ 	addiu	$t8,$zero,0x4
-/*  f088b38:	0fc44bfb */ 	jal	invGetActivatedTextByObj
+/*  f088b38:	0fc44bfb */ 	jal	invGetPickupTextByObj
 /*  f088b3c:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*  f088b40:	10400006 */ 	beqz	$v0,.L0f088b5c
 /*  f088b44:	00402025 */ 	or	$a0,$v0,$zero
@@ -34835,7 +34795,7 @@ glabel var7f1aae70
 /*  f088bf0:	afae0094 */ 	sw	$t6,0x94($sp)
 /*  f088bf4:	11e00014 */ 	beqz	$t7,.L0f088c48
 /*  f088bf8:	8fb80074 */ 	lw	$t8,0x74($sp)
-/*  f088bfc:	0fc44c0d */ 	jal	invGetActivatedTextByWeaponNum
+/*  f088bfc:	0fc44c0d */ 	jal	invGetPickupTextByWeaponNum
 /*  f088c00:	9304005c */ 	lbu	$a0,0x5c($t8)
 /*  f088c04:	10400008 */ 	beqz	$v0,.L0f088c28
 /*  f088c08:	00402025 */ 	or	$a0,$v0,$zero
@@ -34962,6 +34922,7 @@ glabel var7f1aae70
 .L0f088dc8:
 /*  f088dc8:	10000076 */ 	b	.L0f088fa4
 /*  f088dcc:	8fa20098 */ 	lw	$v0,0x98($sp)
+.L0f088dd0:
 /*  f088dd0:	0fc30884 */ 	jal	playerSetShieldFrac
 /*  f088dd4:	c4cc0060 */ 	lwc1	$f12,0x60($a2)
 /*  f088dd8:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x4cc)
@@ -34986,7 +34947,7 @@ glabel var7f1aae70
 /*  f088e20:	8faf00a4 */ 	lw	$t7,0xa4($sp)
 /*  f088e24:	51e0003b */ 	beqzl	$t7,.L0f088f14
 /*  f088e28:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f088e2c:	0fc44bfb */ 	jal	invGetActivatedTextByObj
+/*  f088e2c:	0fc44bfb */ 	jal	invGetPickupTextByObj
 /*  f088e30:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*  f088e34:	14400033 */ 	bnez	$v0,.L0f088f04
 /*  f088e38:	00402025 */ 	or	$a0,$v0,$zero
@@ -35078,7 +35039,7 @@ glabel var7f1aae70
 /*  f088f64:	8faa00a4 */ 	lw	$t2,0xa4($sp)
 /*  f088f68:	5140000c */ 	beqzl	$t2,.L0f088f9c
 /*  f088f6c:	240b0004 */ 	addiu	$t3,$zero,0x4
-/*  f088f70:	0fc44bfb */ 	jal	invGetActivatedTextByObj
+/*  f088f70:	0fc44bfb */ 	jal	invGetPickupTextByObj
 /*  f088f74:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*  f088f78:	14400004 */ 	bnez	$v0,.L0f088f8c
 /*  f088f7c:	00402025 */ 	or	$a0,$v0,$zero
@@ -35274,7 +35235,7 @@ glabel var7f1aae70
 /*  f0888f8:	8faf00a4 */ 	lw	$t7,0xa4($sp)
 /*  f0888fc:	11e0000b */ 	beqz	$t7,.L0f08892c
 /*  f088900:	00000000 */ 	nop
-/*  f088904:	0fc44bfb */ 	jal	invGetActivatedTextByObj
+/*  f088904:	0fc44bfb */ 	jal	invGetPickupTextByObj
 /*  f088908:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*  f08890c:	14400004 */ 	bnez	$v0,.L0f088920
 /*  f088910:	00402025 */ 	or	$a0,$v0,$zero
@@ -35427,7 +35388,7 @@ glabel var7f1aae70
 .L0f088b30:
 /*  f088b30:	51800013 */ 	beqzl	$t4,.L0f088b80
 /*  f088b34:	24180004 */ 	addiu	$t8,$zero,0x4
-/*  f088b38:	0fc44bfb */ 	jal	invGetActivatedTextByObj
+/*  f088b38:	0fc44bfb */ 	jal	invGetPickupTextByObj
 /*  f088b3c:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*  f088b40:	10400006 */ 	beqz	$v0,.L0f088b5c
 /*  f088b44:	00402025 */ 	or	$a0,$v0,$zero
@@ -35482,7 +35443,7 @@ glabel var7f1aae70
 /*  f088bf0:	afae0094 */ 	sw	$t6,0x94($sp)
 /*  f088bf4:	11e00014 */ 	beqz	$t7,.L0f088c48
 /*  f088bf8:	8fb80074 */ 	lw	$t8,0x74($sp)
-/*  f088bfc:	0fc44c0d */ 	jal	invGetActivatedTextByWeaponNum
+/*  f088bfc:	0fc44c0d */ 	jal	invGetPickupTextByWeaponNum
 /*  f088c00:	9304005c */ 	lbu	$a0,0x5c($t8)
 /*  f088c04:	10400008 */ 	beqz	$v0,.L0f088c28
 /*  f088c08:	00402025 */ 	or	$a0,$v0,$zero
@@ -35633,7 +35594,7 @@ glabel var7f1aae70
 /*  f088e20:	8faf00a4 */ 	lw	$t7,0xa4($sp)
 /*  f088e24:	51e0003b */ 	beqzl	$t7,.L0f088f14
 /*  f088e28:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f088e2c:	0fc44bfb */ 	jal	invGetActivatedTextByObj
+/*  f088e2c:	0fc44bfb */ 	jal	invGetPickupTextByObj
 /*  f088e30:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*  f088e34:	14400033 */ 	bnez	$v0,.L0f088f04
 /*  f088e38:	00402025 */ 	or	$a0,$v0,$zero
@@ -35725,7 +35686,7 @@ glabel var7f1aae70
 /*  f088f64:	8faa00a4 */ 	lw	$t2,0xa4($sp)
 /*  f088f68:	5140000c */ 	beqzl	$t2,.L0f088f9c
 /*  f088f6c:	240b0004 */ 	addiu	$t3,$zero,0x4
-/*  f088f70:	0fc44bfb */ 	jal	invGetActivatedTextByObj
+/*  f088f70:	0fc44bfb */ 	jal	invGetPickupTextByObj
 /*  f088f74:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*  f088f78:	14400004 */ 	bnez	$v0,.L0f088f8c
 /*  f088f7c:	00402025 */ 	or	$a0,$v0,$zero
@@ -35776,15 +35737,12 @@ glabel var7f1aae70
 );
 #endif
 
-// Mismatch: Goal stores obj in a2 and sp9c, and copies it from a2 for the more
-// specific obj types. The below uses sp9c everywhere.
+// Mismatch: Register swap in PLAYERCOUNT() macro
 //s32 propPickupByPlayer(struct prop *prop, bool showhudmsg)
 //{
 //	struct defaultobj *obj = prop->obj; // 9c
-//	s32 sp94[2];
-//	s32 result;
-//
-//	sp94[0] = TICKOP_NONE;
+//	s32 result; // 98
+//	bool given = false; // 94
 //
 //	if (g_Vars.currentplayer->isdead || g_Vars.lvupdate240 == 0) {
 //		return TICKOP_NONE;
@@ -35798,7 +35756,7 @@ glabel var7f1aae70
 //		}
 //
 //		if (showhudmsg) {
-//			char *text = invGetActivatedTextByObj(obj);
+//			char *text = invGetPickupTextByObj(obj);
 //
 //			if (text == NULL) {
 //				text = langGet(L_PROPOBJ_040); // "Picked up a key."
@@ -35811,21 +35769,21 @@ glabel var7f1aae70
 //		break;
 //	case OBJTYPE_AMMOCRATE: // f088934 - ammocrate
 //		{
-//			struct ammocrateobj *crate = (struct ammocrateobj *)obj; // 8c
-//			ammoHandlePickup(crate->ammotype, ammocrateGetPickupAmmoQty(crate), g_Vars.in_cutscene == false, showhudmsg);
-//			sp94[1] = TICKOP_FREE;
+//			struct ammocrateobj *crate = (struct ammocrateobj *)prop->obj; // 8c
+//			ammoHandlePickup(crate->ammotype, ammocrateGetPickupAmmoQty(crate), !g_Vars.in_cutscene, showhudmsg);
 //			result = TICKOP_FREE;
 //		}
 //		break;
 //	case OBJTYPE_MULTIAMMOCRATE: // f088974 - multiammocrate
 //		{
-//			struct multiammocrateobj *crate = (struct multiammocrateobj *)obj;
+//			struct multiammocrateobj *crate = (struct multiammocrateobj *)prop->obj;
+//			u32 stack[2];
 //			s32 i;
 //
 //			for (i = 0; i != 19; i++) {
 //				s32 qty = crate->slots[i].quantity;
 //
-//				if (g_Vars.normmplayerisrunning == false) {
+//				if (!g_Vars.normmplayerisrunning) {
 //					qty *= g_AmmoQuantityScale;
 //				}
 //
@@ -35836,36 +35794,36 @@ glabel var7f1aae70
 //				sndStart(var80095200, SFX_PICKUP_AMMO, NULL, -1, -1, -1, -1, -1);
 //			}
 //
-//			sp94[1] = TICKOP_FREE;
 //			result = TICKOP_FREE;
 //		}
 //		break;
 //	case OBJTYPE_WEAPON: // f088a34 - weapon
 //		{
-//			struct weaponobj *weapon = (struct weaponobj *)obj;
-//			s32 count = 0;
-//			bool sp112 = false;
-//			s32 ammotype;
+//			struct weaponobj *weapon = (struct weaponobj *)prop->obj; // 74
+//			bool sp70 = false;
+//			s32 ammotype; // 6c
+//			s32 count = 0; // 68
+//			s32 sp64;
 //
 //			if (g_Vars.normmplayerisrunning) {
 //				if (weapon->weaponnum == WEAPON_BRIEFCASE2) {
-//					result = scenarioPickUpBriefcase(g_Vars.currentplayer->prop->chr, prop);
+//					sp64 = scenarioPickUpBriefcase(g_Vars.currentplayer->prop->chr, prop);
 //
-//					if (result) {
+//					if (sp64) {
 //						weaponPlayPickupSound(weapon->weaponnum);
 //					}
 //
-//					return result;
+//					return sp64;
 //				}
 //
 //				if (weapon->weaponnum == WEAPON_DATAUPLINK) {
-//					result = scenarioPickUpUplink(g_Vars.currentplayer->prop->chr, prop);
+//					sp64 = scenarioPickUpUplink(g_Vars.currentplayer->prop->chr, prop);
 //
-//					if (result) {
+//					if (sp64) {
 //						weaponPlayPickupSound(weapon->weaponnum);
 //					}
 //
-//					return result;
+//					return sp64;
 //				}
 //			}
 //
@@ -35878,11 +35836,11 @@ glabel var7f1aae70
 //			if (obj->hidden & OBJHFLAG_HASTEXTOVERRIDE) {
 //				if (weapon->weaponnum <= WEAPON_PSYCHOSISGUN) {
 //					count = invGiveWeaponsByProp(prop);
-//					sp94[0] = TICKOP_FREE;
+//					given = true;
 //				}
 //
 //				if (showhudmsg) {
-//					char *text = invGetActivatedTextByObj(obj);
+//					char *text = invGetPickupTextByObj(obj);
 //
 //					if (text) {
 //						hudmsgCreateWithFlags(text, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_ALLOWDUPES);
@@ -35890,43 +35848,43 @@ glabel var7f1aae70
 //						currentPlayerQueuePickupWeaponHudmsg(weapon->weaponnum, count == 2);
 //					}
 //
-//					sp112 = true;
+//					sp70 = true;
 //				}
 //
-//				sp94[1] = TICKOP_GIVETOPLAYER;
+//				result = TICKOP_GIVETOPLAYER;
 //			} else {
 //				// b88
 //				if (weapon->weaponnum == WEAPON_BOLT) {
-//					count = 1; // sp104
-//					sp94[0] = TICKOP_FREE;
-//					ammoHandlePickup(AMMOTYPE_CROSSBOW, 1, g_Vars.in_cutscene == false, true);
-//					sp94[1] = TICKOP_FREE;
+//					count = 1; // sp68
+//					given = true;
+//					ammoHandlePickup(AMMOTYPE_CROSSBOW, 1, !g_Vars.in_cutscene, true);
+//					result = TICKOP_FREE;
 //					showhudmsg = false;
-//					sp112 = true;
+//					sp70 = true;
 //				} else {
 //					// bd0
 //					count = invGiveWeaponsByProp(prop);
 //
 //					if (count) {
-//						sp112 = true;
+//						sp70 = true;
 //					}
 //
-//					sp94[0] = TICKOP_FREE;
+//					given = true;
 //
 //					if (showhudmsg) {
-//						char *text = invGetActivatedTextByWeaponNum(weapon->weaponnum);
+//						char *text = invGetPickupTextByWeaponNum(weapon->weaponnum);
 //
 //						if (text) {
-//							sp112 = true;
+//							sp70 = true;
 //							hudmsgCreateWithFlags(text, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_ALLOWDUPES);
 //						} else {
-//							if (sp112) {
+//							if (sp70) {
 //								currentPlayerQueuePickupWeaponHudmsg(weapon->weaponnum, count == 2);
 //							}
 //						}
 //					}
 //
-//					sp94[1] = TICKOP_FREE;
+//					result = TICKOP_FREE;
 //				}
 //			}
 //
@@ -35938,18 +35896,20 @@ glabel var7f1aae70
 //			}
 //
 //			// c9c
-//			ammotype = bgunGetAmmoTypeForWeapon(weapon->weaponnum, 0);
+//			ammotype = bgunGetAmmoTypeForWeapon(weapon->weaponnum, FUNC_PRIMARY);
 //
 //			if (ammotype) {
-//				s32 pickupqty = weaponGetPickupAmmoQty(weapon);
+//				s32 pickupqty = weaponGetPickupAmmoQty(weapon); // 58
 //
 //				if (pickupqty > 0) {
-//					s32 heldqty = bgunGetReservedAmmoCount(ammotype);
+//					s32 heldqty = bgunGetReservedAmmoCount(ammotype); // 54
 //
 //					if (bgunGetReservedAmmoCount(ammotype) < bgunGetCapacityByAmmotype(ammotype)) {
-//						bgunSetAmmoQuantity(ammotype, heldqty + pickupqty);
+//						heldqty += pickupqty;
 //
-//						if (sp112 == false && showhudmsg) {
+//						bgunSetAmmoQuantity(ammotype, heldqty);
+//
+//						if (!sp70 && showhudmsg) {
 //							currentPlayerQueuePickupAmmoHudmsg(ammotype, pickupqty);
 //						}
 //					}
@@ -35958,14 +35918,12 @@ glabel var7f1aae70
 //
 //			// d20
 //			if (weapon->weaponnum == WEAPON_SUPERDRAGON) {
-//				s32 pickupqty = weaponGetPickupAmmoQty(weapon);
+//				s32 pickupqty = weaponGetPickupAmmoQty(weapon); // 50
 //
 //				if (bgunGetReservedAmmoCount(AMMOTYPE_DEVASTATOR) < bgunGetCapacityByAmmotype(AMMOTYPE_DEVASTATOR)) {
-//					s32 heldqty = bgunGetReservedAmmoCount(AMMOTYPE_DEVASTATOR);
+//					bgunSetAmmoQuantity(AMMOTYPE_DEVASTATOR, bgunGetReservedAmmoCount(AMMOTYPE_DEVASTATOR) + 5);
 //
-//					bgunSetAmmoQuantity(AMMOTYPE_DEVASTATOR, heldqty + 5);
-//
-//					if (sp112 == false && showhudmsg) {
+//					if (!sp70 && showhudmsg) {
 //						currentPlayerQueuePickupAmmoHudmsg(AMMOTYPE_DEVASTATOR, pickupqty);
 //					}
 //				}
@@ -35974,27 +35932,23 @@ glabel var7f1aae70
 //			if (weapon->weaponnum == WEAPON_EYESPY && g_Vars.currentplayer->eyespy == NULL) {
 //				playerInitEyespy();
 //			}
-//
-//			result = sp94[1];
 //		}
 //		break;
 //	case OBJTYPE_SHIELD: // f088dd0 - shield
 //		{
-//			struct shieldobj *shield = (struct shieldobj *)obj;
-//			playerSetShieldFrac(shield->amount);
+//			playerSetShieldFrac(((struct shieldobj *)prop->obj)->amount);
 //
-//			if (g_Vars.in_cutscene == false) {
+//			if (!g_Vars.in_cutscene) {
 //				sndStart(var80095200, SFX_PICKUP_SHIELD, NULL, -1, -1, -1, -1, -1);
 //			}
 //
 //			if (showhudmsg) {
-//				char *text = invGetActivatedTextByObj(obj);
+//				char *text = invGetPickupTextByObj(obj);
 //
 //				if (text == NULL) {
 //					s32 playercount = PLAYERCOUNT();
 //
-//					if (playercount < 3 &&
-//							(playercount != 2 || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && g_Is4Mb != true))) {
+//					if (playercount <= 2 && !(playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()))) {
 //						text = langGet(L_PROPOBJ_041); // "Picked up a shield."
 //					} else {
 //						text = langGet(L_PROPOBJ_042); // "A shield."
@@ -36004,57 +35958,56 @@ glabel var7f1aae70
 //				hudmsgCreateWithFlags(text, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
 //			}
 //
-//			sp94[1] = TICKOP_FREE;
 //			result = TICKOP_FREE;
 //		}
 //		break;
-//	case 0x03: // f088f20
-//	case 0x05: // f088f20
-//	case 0x06: // f088f20
-//	case 0x09: // f088f20
-//	case 0x0a: // f088f20
-//	case 0x0b: // f088f20
-//	case 0x0c: // f088f20
-//	case 0x0d: // f088f20
-//	case 0x0e: // f088f20
-//	case 0x0f: // f088f20
-//	case 0x10: // f088f20
-//	case 0x11: // f088f20
-//	case 0x12: // f088f20
-//	case 0x13: // f088f20
-//	case 0x16: // f088f20
-//	case 0x17: // f088f20
-//	case 0x18: // f088f20
-//	case 0x19: // f088f20
-//	case 0x1a: // f088f20
-//	case 0x1b: // f088f20
-//	case 0x1c: // f088f20
-//	case 0x1d: // f088f20
-//	case 0x1e: // f088f20
-//	case 0x1f: // f088f20
-//	case 0x20: // f088f20
-//	case 0x21: // f088f20
-//	case 0x22: // f088f20
-//	case 0x23: // f088f20
-//	case 0x24: // f088f20
-//	case 0x25: // f088f20
-//	case 0x26: // f088f20
-//	case 0x27: // f088f20
-//	case 0x28: // f088f20
-//	case 0x29: // f088f20
-//	case 0x2a: // f088f20
-//	case 0x2b: // f088f20
-//	case 0x2c: // f088f20
-//	case 0x2d: // f088f20
-//	case 0x2e: // f088f20
-//	case 0x2f: // f088f20
-//	default:
+//	case 0x03:
+//	case 0x05:
+//	case 0x06:
+//	case 0x09:
+//	case 0x0a:
+//	case 0x0b:
+//	case 0x0c:
+//	case 0x0d:
+//	case 0x0e:
+//	case 0x0f:
+//	case 0x10:
+//	case 0x11:
+//	case 0x12:
+//	case 0x13:
+//	case 0x16:
+//	case 0x17:
+//	case 0x18:
+//	case 0x19:
+//	case 0x1a:
+//	case 0x1b:
+//	case 0x1c:
+//	case 0x1d:
+//	case 0x1e:
+//	case 0x1f:
+//	case 0x20:
+//	case 0x21:
+//	case 0x22:
+//	case 0x23:
+//	case 0x24:
+//	case 0x25:
+//	case 0x26:
+//	case 0x27:
+//	case 0x28:
+//	case 0x29:
+//	case 0x2a:
+//	case 0x2b:
+//	case 0x2c:
+//	case 0x2d:
+//	case 0x2e:
+//	case 0x2f:
+//	default: // f088f20
 //		if (g_Vars.in_cutscene == false) {
 //			sndStart(var80095200, SFX_PICKUP_KEYCARD, NULL, -1, -1, -1, -1, -1);
 //		}
 //
 //		if (showhudmsg) {
-//			char *text = invGetActivatedTextByObj(obj);
+//			char *text = invGetPickupTextByObj(obj);
 //
 //			if (text == NULL) {
 //				text = langGet(L_PROPOBJ_043); // "Picked up something."
@@ -36063,7 +36016,6 @@ glabel var7f1aae70
 //			hudmsgCreateWithFlags(text, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_ALLOWDUPES);
 //		}
 //
-//		sp94[1] = TICKOP_GIVETOPLAYER;
 //		result = TICKOP_GIVETOPLAYER;
 //		break;
 //	}
@@ -36075,8 +36027,8 @@ glabel var7f1aae70
 //	}
 //
 //	// fe0
-//	if (result) {
-//		if (sp94[0] == TICKOP_NONE) {
+//	if (result != TICKOP_NONE) {
+//		if (!given) {
 //			invGiveProp(prop);
 //		}
 //
@@ -36318,7 +36270,7 @@ s32 objTestForPickup(struct prop *prop)
 		}
 
 		if (pickup) {
-			return propPickupByPlayer(prop, 1);
+			return propPickupByPlayer(prop, true);
 		}
 	}
 
@@ -40134,8 +40086,8 @@ bool propdoorInteract(struct prop *doorprop)
 					|| g_Vars.currentplayer->prop->rooms[0] == 0x0a;
 			}
 
-			if (override && override->activatetextid) {
-				hudmsgCreateWithFlags(langGet(override->activatetextid), HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
+			if (override && override->pickuptext) {
+				hudmsgCreateWithFlags(langGet(override->pickuptext), HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
 			} else if (intraining) {
 				hudmsgCreateWithFlags(langGet(L_DISH_080), HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE); // "Cannot exit while training is in progress."
 			} else {
