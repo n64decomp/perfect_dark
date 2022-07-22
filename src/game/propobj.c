@@ -63,6 +63,7 @@
 #include "lib/dma.h"
 #include "lib/main.h"
 #include "lib/snd.h"
+#include "lib/str.h"
 #include "lib/memp.h"
 #include "lib/model.h"
 #include "lib/rng.h"
@@ -33383,263 +33384,57 @@ void ammotypeGetDeterminer(char *dst, s32 ammotype, s32 qty)
 #endif
 
 #if VERSION < VERSION_PAL_BETA
-GLOBAL_ASM(
-glabel ammotypeGetPickupName
-.late_rodata
-glabel var7f1aabd4
-.word ammotypeGetPickupName+0xd8 # f0879f4
-glabel var7f1aabd8
-.word ammotypeGetPickupName+0x184 # f087aa0
-glabel var7f1aabdc
-.word ammotypeGetPickupName+0xe0 # f0879fc
-glabel var7f1aabe0
-.word ammotypeGetPickupName+0xe8 # f087a04
-glabel var7f1aabe4
-.word ammotypeGetPickupName+0xf0 # f087a0c
-glabel var7f1aabe8
-.word ammotypeGetPickupName+0xf8 # f087a14
-glabel var7f1aabec
-.word ammotypeGetPickupName+0x184 # f087aa0
-glabel var7f1aabf0
-.word ammotypeGetPickupName+0x100 # f087a1c
-glabel var7f1aabf4
-.word ammotypeGetPickupName+0x108 # f087a24
-glabel var7f1aabf8
-.word ammotypeGetPickupName+0x110 # f087a2c
-glabel var7f1aabfc
-.word ammotypeGetPickupName+0x118 # f087a34
-glabel var7f1aac00
-.word ammotypeGetPickupName+0x120 # f087a3c
-glabel var7f1aac04
-.word ammotypeGetPickupName+0x128 # f087a44
-glabel var7f1aac08
-.word ammotypeGetPickupName+0x130 # f087a4c
-glabel var7f1aac0c
-.word ammotypeGetPickupName+0x138 # f087a54
-glabel var7f1aac10
-.word ammotypeGetPickupName+0x140 # f087a5c
-glabel var7f1aac14
-.word ammotypeGetPickupName+0x148 # f087a64
-glabel var7f1aac18
-.word ammotypeGetPickupName+0x178 # f087a94
-glabel var7f1aac1c
-.word ammotypeGetPickupName+0x180 # f087a9c
-glabel var7f1aac20
-.word ammotypeGetPickupName+0x150 # f087a6c
-glabel var7f1aac24
-.word ammotypeGetPickupName+0x184 # f087aa0
-glabel var7f1aac28
-.word ammotypeGetPickupName+0x158 # f087a74
-glabel var7f1aac2c
-.word ammotypeGetPickupName+0x160 # f087a7c
-glabel var7f1aac30
-.word ammotypeGetPickupName+0x170 # f087a8c
-glabel var7f1aac34
-.word ammotypeGetPickupName+0x184 # f087aa0
-glabel var7f1aac38
-.word ammotypeGetPickupName+0x184 # f087aa0
-glabel var7f1aac3c
-.word ammotypeGetPickupName+0x184 # f087aa0
-glabel var7f1aac40
-.word ammotypeGetPickupName+0x168 # f087a84
-.text
-/*  f08791c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f087920:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f087924:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f087928:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f08792c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f087930:	10a10006 */ 	beq	$a1,$at,.L0f08794c
-/*  f087934:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f087938:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f08793c:	10a10003 */ 	beq	$a1,$at,.L0f08794c
-/*  f087940:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f087944:	54a10009 */ 	bnel	$a1,$at,.L0f08796c
-/*  f087948:	24010009 */ 	addiu	$at,$zero,0x9
-.L0f08794c:
-/*  f08794c:	0fc5b9f1 */ 	jal	langGet
-/*  f087950:	2404520a */ 	addiu	$a0,$zero,0x520a
-/*  f087954:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f087958:	0c004c89 */ 	jal	strcat
-/*  f08795c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f087960:	10000067 */ 	b	.L0f087b00
-/*  f087964:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f087968:	24010009 */ 	addiu	$at,$zero,0x9
-.L0f08796c:
-/*  f08796c:	14e10018 */ 	bne	$a3,$at,.L0f0879d0
-/*  f087970:	24effffd */ 	addiu	$t7,$a3,-3
-/*  f087974:	0fc5b9f1 */ 	jal	langGet
-/*  f087978:	24045215 */ 	addiu	$a0,$zero,0x5215
-/*  f08797c:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f087980:	0c004c89 */ 	jal	strcat
-/*  f087984:	00402825 */ 	or	$a1,$v0,$zero
-/*  f087988:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*  f08798c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f087990:	15c10008 */ 	bne	$t6,$at,.L0f0879b4
-/*  f087994:	00000000 */ 	nop
-/*  f087998:	0fc5b9f1 */ 	jal	langGet
-/*  f08799c:	24045216 */ 	addiu	$a0,$zero,0x5216
-/*  f0879a0:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0879a4:	0c004c89 */ 	jal	strcat
-/*  f0879a8:	00402825 */ 	or	$a1,$v0,$zero
-/*  f0879ac:	10000054 */ 	b	.L0f087b00
-/*  f0879b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0879b4:
-/*  f0879b4:	0fc5b9f1 */ 	jal	langGet
-/*  f0879b8:	24045217 */ 	addiu	$a0,$zero,0x5217
-/*  f0879bc:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0879c0:	0c004c89 */ 	jal	strcat
-/*  f0879c4:	00402825 */ 	or	$a1,$v0,$zero
-/*  f0879c8:	1000004d */ 	b	.L0f087b00
-/*  f0879cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0879d0:
-/*  f0879d0:	2de1001c */ 	sltiu	$at,$t7,0x1c
-/*  f0879d4:	10200032 */ 	beqz	$at,.L0f087aa0
-/*  f0879d8:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f0879dc:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0879e0:	3c017f1b */ 	lui	$at,%hi(var7f1aabd4)
-/*  f0879e4:	002f0821 */ 	addu	$at,$at,$t7
-/*  f0879e8:	8c2fabd4 */ 	lw	$t7,%lo(var7f1aabd4)($at)
-/*  f0879ec:	01e00008 */ 	jr	$t7
-/*  f0879f0:	00000000 */ 	nop
-/*  f0879f4:	1000002a */ 	b	.L0f087aa0
-/*  f0879f8:	2404522d */ 	addiu	$a0,$zero,0x522d
-/*  f0879fc:	10000028 */ 	b	.L0f087aa0
-/*  f087a00:	2404520b */ 	addiu	$a0,$zero,0x520b
-/*  f087a04:	10000026 */ 	b	.L0f087aa0
-/*  f087a08:	2404522e */ 	addiu	$a0,$zero,0x522e
-/*  f087a0c:	10000024 */ 	b	.L0f087aa0
-/*  f087a10:	2404520e */ 	addiu	$a0,$zero,0x520e
-/*  f087a14:	10000022 */ 	b	.L0f087aa0
-/*  f087a18:	24045210 */ 	addiu	$a0,$zero,0x5210
-/*  f087a1c:	10000020 */ 	b	.L0f087aa0
-/*  f087a20:	2404520c */ 	addiu	$a0,$zero,0x520c
-/*  f087a24:	1000001e */ 	b	.L0f087aa0
-/*  f087a28:	2404520f */ 	addiu	$a0,$zero,0x520f
-/*  f087a2c:	1000001c */ 	b	.L0f087aa0
-/*  f087a30:	24045212 */ 	addiu	$a0,$zero,0x5212
-/*  f087a34:	1000001a */ 	b	.L0f087aa0
-/*  f087a38:	24045213 */ 	addiu	$a0,$zero,0x5213
-/*  f087a3c:	10000018 */ 	b	.L0f087aa0
-/*  f087a40:	24045214 */ 	addiu	$a0,$zero,0x5214
-/*  f087a44:	10000016 */ 	b	.L0f087aa0
-/*  f087a48:	2404522f */ 	addiu	$a0,$zero,0x522f
-/*  f087a4c:	10000014 */ 	b	.L0f087aa0
-/*  f087a50:	24045211 */ 	addiu	$a0,$zero,0x5211
-/*  f087a54:	10000012 */ 	b	.L0f087aa0
-/*  f087a58:	24045219 */ 	addiu	$a0,$zero,0x5219
-/*  f087a5c:	10000010 */ 	b	.L0f087aa0
-/*  f087a60:	2404521a */ 	addiu	$a0,$zero,0x521a
-/*  f087a64:	1000000e */ 	b	.L0f087aa0
-/*  f087a68:	2404521b */ 	addiu	$a0,$zero,0x521b
-/*  f087a6c:	1000000c */ 	b	.L0f087aa0
-/*  f087a70:	2404521b */ 	addiu	$a0,$zero,0x521b
-/*  f087a74:	1000000a */ 	b	.L0f087aa0
-/*  f087a78:	24045223 */ 	addiu	$a0,$zero,0x5223
-/*  f087a7c:	10000008 */ 	b	.L0f087aa0
-/*  f087a80:	24045224 */ 	addiu	$a0,$zero,0x5224
-/*  f087a84:	10000006 */ 	b	.L0f087aa0
-/*  f087a88:	24045226 */ 	addiu	$a0,$zero,0x5226
-/*  f087a8c:	10000004 */ 	b	.L0f087aa0
-/*  f087a90:	24045227 */ 	addiu	$a0,$zero,0x5227
-/*  f087a94:	10000002 */ 	b	.L0f087aa0
-/*  f087a98:	24045230 */ 	addiu	$a0,$zero,0x5230
-/*  f087a9c:	24045231 */ 	addiu	$a0,$zero,0x5231
-.L0f087aa0:
-/*  f087aa0:	04820008 */ 	bltzl	$a0,.L0f087ac4
-/*  f087aa4:	8fb80020 */ 	lw	$t8,0x20($sp)
-/*  f087aa8:	0fc5b9f1 */ 	jal	langGet
-/*  f087aac:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f087ab0:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f087ab4:	0c004c89 */ 	jal	strcat
-/*  f087ab8:	00402825 */ 	or	$a1,$v0,$zero
-/*  f087abc:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f087ac0:	8fb80020 */ 	lw	$t8,0x20($sp)
-.L0f087ac4:
-/*  f087ac4:	2b010002 */ 	slti	$at,$t8,0x2
-/*  f087ac8:	1420000c */ 	bnez	$at,.L0f087afc
-/*  f087acc:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f087ad0:	10e1000a */ 	beq	$a3,$at,.L0f087afc
-/*  f087ad4:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f087ad8:	10e10008 */ 	beq	$a3,$at,.L0f087afc
-/*  f087adc:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f087ae0:	50e10007 */ 	beql	$a3,$at,.L0f087b00
-/*  f087ae4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f087ae8:	0fc5b9f1 */ 	jal	langGet
-/*  f087aec:	24045218 */ 	addiu	$a0,$zero,0x5218
-/*  f087af0:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f087af4:	0c004c89 */ 	jal	strcat
-/*  f087af8:	00402825 */ 	or	$a1,$v0,$zero
-.L0f087afc:
-/*  f087afc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f087b00:
-/*  f087b00:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f087b04:	03e00008 */ 	jr	$ra
-/*  f087b08:	00000000 */ 	nop
-);
+void ammotypeGetPickupName(char *dst, s32 ammotype2, s32 qty)
+{
+	s32 ammotype = ammotype2;
 
-// Mismatch because goal stores text_id in a0 while the below uses stack.
-//void ammotypeGetPickupName(char *dst, s32 ammotype, s32 qty)
-//{
-//	s32 text_id;
-//
-//	switch (ammotype) {
-//	case AMMOTYPE_PISTOL:
-//	case AMMOTYPE_SMG:
-//	case AMMOTYPE_RIFLE:
-//		strcat(dst, langGet(L_PROPOBJ_010)); // "ammo"
-//		return;
-//	}
-//
-//	if (ammotype == AMMOTYPE_KNIFE) {
-//		strcat(dst, langGet(L_PROPOBJ_021)); // "combat"
-//
-//		if (qty == 1) {
-//			strcat(dst, langGet(L_PROPOBJ_022)); // "knife"
-//		} else {
-//			strcat(dst, langGet(L_PROPOBJ_023)); // "knives"
-//		}
-//
-//		return;
-//	}
-//
-//	text_id = -1;
-//
-//	switch (ammotype) {
-//	case AMMOTYPE_CROSSBOW:     text_id = L_PROPOBJ_045; break; // "bolt"
-//	case AMMOTYPE_SHOTGUN:      text_id = L_PROPOBJ_011; break; // "cartridge"
-//	case AMMOTYPE_FARSIGHT:     text_id = L_PROPOBJ_046; break; // "orb"
-//	case AMMOTYPE_GRENADE:      text_id = L_PROPOBJ_014; break; // "grenade"
-//	case AMMOTYPE_ROCKET:       text_id = L_PROPOBJ_016; break; // "rocket"
-//	case AMMOTYPE_MAGNUM:       text_id = L_PROPOBJ_012; break; // "magnum bullet"
-//	case AMMOTYPE_DEVASTATOR:   text_id = L_PROPOBJ_015; break; // "grenade round"
-//	case AMMOTYPE_REMOTE_MINE:  text_id = L_PROPOBJ_018; break; // "remote mine"
-//	case AMMOTYPE_PROXY_MINE:   text_id = L_PROPOBJ_019; break; // "proximity mine"
-//	case AMMOTYPE_TIMED_MINE:   text_id = L_PROPOBJ_020; break; // "timed mine"
-//	case AMMOTYPE_REAPER:       text_id = L_PROPOBJ_047; break; // "Reaper ammo"
-//	case AMMOTYPE_HOMINGROCKET: text_id = L_PROPOBJ_017; break; // "homing rocket"
-//	case AMMOTYPE_DART:         text_id = L_PROPOBJ_025; break; // "dart"
-//	case AMMOTYPE_NBOMB:        text_id = L_PROPOBJ_026; break; // "N-Bomb"
-//	case AMMOTYPE_SEDATIVE:     text_id = L_PROPOBJ_027; break; // "sedatives"
-//	case AMMOTYPE_PSYCHOSIS:    text_id = L_PROPOBJ_027; break; // "sedatives"
-//	case AMMOTYPE_BUG:          text_id = L_PROPOBJ_035; break; // "bug"
-//	case AMMOTYPE_MICROCAMERA:  text_id = L_PROPOBJ_036; break; // "micro camera"
-//	case AMMOTYPE_TOKEN:        text_id = L_PROPOBJ_038; break; // "token"
-//	case AMMOTYPE_PLASTIQUE:    text_id = L_PROPOBJ_039; break; // "plastique"
-//	case AMMOTYPE_CLOAK:        text_id = L_PROPOBJ_048; break; // "cloaking device"
-//	case AMMOTYPE_BOOST:        text_id = L_PROPOBJ_049; break; // "boost pill"
-//	}
-//
-//	if (text_id >= 0) {
-//		strcat(dst, langGet(text_id));
-//	}
-//
-//	if (qty >= 2
-//			&& ammotype != AMMOTYPE_REAPER
-//			&& ammotype != AMMOTYPE_SEDATIVE
-//			&& ammotype != AMMOTYPE_CLOAK) {
-//		strcat(dst, langGet(L_PROPOBJ_024)); // "s"
-//	}
-//}
+	if (ammotype == AMMOTYPE_PISTOL || ammotype == AMMOTYPE_SMG || ammotype == AMMOTYPE_RIFLE) {
+		strcat(dst, langGet(L_PROPOBJ_010)); // "ammo"
+	} else if (ammotype == AMMOTYPE_KNIFE) {
+		strcat(dst, langGet(L_PROPOBJ_021)); // "combat"
+
+		if (qty == 1) {
+			strcat(dst, langGet(L_PROPOBJ_022)); // "knife"
+		} else {
+			strcat(dst, langGet(L_PROPOBJ_023)); // "knives"
+		}
+	} else {
+		s32 textnum = -1;
+
+		switch (ammotype) {
+		case AMMOTYPE_CROSSBOW:     textnum = L_PROPOBJ_045; break; // "bolt"
+		case AMMOTYPE_SHOTGUN:      textnum = L_PROPOBJ_011; break; // "cartridge"
+		case AMMOTYPE_FARSIGHT:     textnum = L_PROPOBJ_046; break; // "orb"
+		case AMMOTYPE_GRENADE:      textnum = L_PROPOBJ_014; break; // "grenade"
+		case AMMOTYPE_ROCKET:       textnum = L_PROPOBJ_016; break; // "rocket"
+		case AMMOTYPE_MAGNUM:       textnum = L_PROPOBJ_012; break; // "magnum bullet"
+		case AMMOTYPE_DEVASTATOR:   textnum = L_PROPOBJ_015; break; // "grenade round"
+		case AMMOTYPE_REMOTE_MINE:  textnum = L_PROPOBJ_018; break; // "remote mine"
+		case AMMOTYPE_PROXY_MINE:   textnum = L_PROPOBJ_019; break; // "proximity mine"
+		case AMMOTYPE_TIMED_MINE:   textnum = L_PROPOBJ_020; break; // "timed mine"
+		case AMMOTYPE_REAPER:       textnum = L_PROPOBJ_047; break; // "Reaper ammo"
+		case AMMOTYPE_HOMINGROCKET: textnum = L_PROPOBJ_017; break; // "homing rocket"
+		case AMMOTYPE_DART:         textnum = L_PROPOBJ_025; break; // "dart"
+		case AMMOTYPE_NBOMB:        textnum = L_PROPOBJ_026; break; // "N-Bomb"
+		case AMMOTYPE_SEDATIVE:     textnum = L_PROPOBJ_027; break; // "sedatives"
+		case AMMOTYPE_PSYCHOSIS:    textnum = L_PROPOBJ_027; break; // "sedatives"
+		case AMMOTYPE_BUG:          textnum = L_PROPOBJ_035; break; // "bug"
+		case AMMOTYPE_MICROCAMERA:  textnum = L_PROPOBJ_036; break; // "micro camera"
+		case AMMOTYPE_TOKEN:        textnum = L_PROPOBJ_038; break; // "token"
+		case AMMOTYPE_PLASTIQUE:    textnum = L_PROPOBJ_039; break; // "plastique"
+		case AMMOTYPE_CLOAK:        textnum = L_PROPOBJ_048; break; // "cloaking device"
+		case AMMOTYPE_BOOST:        textnum = L_PROPOBJ_049; break; // "boost pill"
+		}
+
+		if (textnum >= 0) {
+			strcat(dst, langGet(textnum));
+		}
+
+		if (qty >= 2 && ammotype != AMMOTYPE_REAPER && ammotype != AMMOTYPE_SEDATIVE && ammotype != AMMOTYPE_CLOAK) {
+			strcat(dst, langGet(L_PROPOBJ_024)); // "s"
+		}
+	}
+}
 #endif
 
 void ammotypePlayPickupSound(u32 ammotype)
