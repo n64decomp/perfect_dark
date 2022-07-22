@@ -530,7 +530,7 @@ void botactCreateSlayerRocket(struct chrdata *chr)
 			rocket->base.projectile->unk014 = xrot;
 			rocket->base.projectile->unk018 = yrot;
 			rocket->base.projectile->smoketimer240 = 0;
-			rocket->base.projectile->unk0b4 = 0x20000000;
+			rocket->base.projectile->pickuptimer240 = 0x20000000;
 
 			// Fire rocket sound
 			propsnd0f0939f8(NULL, rocket->base.prop, SFX_LAUNCH_ROCKET_8053, -1,

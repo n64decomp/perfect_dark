@@ -26,7 +26,7 @@ void bot0f1921f8(struct chrdata *chr, f32 *move, s32 numupdates, f32 arg3);
 void bot0f1921f8(struct chrdata *chr, f32 *move);
 #endif
 
-void botLoseGun(struct chrdata *chr, struct prop *attacker);
+void botDisarm(struct chrdata *chr, struct prop *attacker);
 void botSetTarget(struct chrdata *chr, s32 propnum);
 bool botIsTargetInvisible(struct chrdata *botchr, struct chrdata *otherchr);
 bool botHasGround(struct chrdata *chr);

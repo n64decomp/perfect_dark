@@ -979,7 +979,7 @@
 #define FUNCFLAG_NOAUTOAIM              0x00000040
 #define FUNCFLAG_STICKTOWALL            0x00000100
 #define FUNCFLAG_MAKEDIZZY              0x00000200
-#define FUNCFLAG_DROPWEAPON             0x00000400
+#define FUNCFLAG_DISARM                 0x00000400
 #define FUNCFLAG_FLYBYWIRE              0x00000800
 #define FUNCFLAG_BURST2                 0x00001000
 #define FUNCFLAG_NOMUZZLEFLASH          0x00002000

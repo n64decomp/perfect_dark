@@ -4367,7 +4367,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 	}
 
 	// Disarm only hurts the victim in solo missions and if the victim is an NPC
-	if (gsetHasFunctionFlags(gset, FUNCFLAG_DROPWEAPON)
+	if (gsetHasFunctionFlags(gset, FUNCFLAG_DISARM)
 			&& gset->weaponnum == WEAPON_UNARMED
 			&& (vprop->type == PROPTYPE_PLAYER || g_Vars.normmplayerisrunning)) {
 		damage = 0;
@@ -4749,8 +4749,8 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 				f32 boostscale;
 
 				// Handle player losing gun
-				if (gsetHasFunctionFlags(gset, FUNCFLAG_DROPWEAPON)) {
-					bgunLoseGun(aprop);
+				if (gsetHasFunctionFlags(gset, FUNCFLAG_DISARM)) {
+					bgunDisarm(aprop);
 				}
 
 				// Handle player dizziness
@@ -4852,10 +4852,10 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		// NPC was alive prior to being shot.
 
 		// Handle aibot/chr losing gun
-		if (gsetHasFunctionFlags(gset, FUNCFLAG_DROPWEAPON)
+		if (gsetHasFunctionFlags(gset, FUNCFLAG_DISARM)
 				&& ((chr->flags & CHRFLAG0_CANLOSEGUN) || chr->aibot)) {
 			if (chr->aibot) {
-				botLoseGun(chr, aprop);
+				botDisarm(chr, aprop);
 			} else {
 				weapon = chrGetHeldProp(chr, HAND_RIGHT);
 
@@ -18148,7 +18148,7 @@ glabel var7f1a9184
 //								projectileobj->base.projectile->unk014 = sp15c.y;
 //								projectileobj->base.projectile->unk018 = sp15c.z;
 //
-//								projectileobj->base.projectile->unk0b4 = 240;
+//								projectileobj->base.projectile->pickuptimer240 = 240;
 //								projectileobj->base.projectile->unk08c = func->unk5c;
 //								projectileobj->base.projectile->unk098 = func->unk50 * (1.0f / 0.6f);
 //

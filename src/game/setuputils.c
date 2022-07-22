@@ -165,13 +165,13 @@ bool setupGetObjBbox(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3
 	struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
 
 	if (bbox != NULL) {
-		arg3->x = pos->x + func0f0668fc(bbox, realrot);
-		arg3->y = pos->y + func0f06695c(bbox, realrot);
-		arg3->z = pos->z + func0f0669bc(bbox, realrot);
+		arg3->x = pos->x + objGetRotatedLocalXMinByMtx3(bbox, realrot);
+		arg3->y = pos->y + objGetRotatedLocalYMinByMtx3(bbox, realrot);
+		arg3->z = pos->z + objGetRotatedLocalZMinByMtx3(bbox, realrot);
 
-		arg4->x = pos->x + func0f06692c(bbox, realrot);
-		arg4->y = pos->y + func0f06698c(bbox, realrot);
-		arg4->z = pos->z + func0f0669ec(bbox, realrot);
+		arg4->x = pos->x + objGetRotatedLocalXMaxByMtx3(bbox, realrot);
+		arg4->y = pos->y + objGetRotatedLocalYMaxByMtx3(bbox, realrot);
+		arg4->z = pos->z + objGetRotatedLocalZMaxByMtx3(bbox, realrot);
 
 		return true;
 	}

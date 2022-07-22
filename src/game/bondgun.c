@@ -11959,7 +11959,7 @@ struct defaultobj *bgunCreateThrownProjectile2(struct chrdata *chr, struct gset 
 		if (obj->hidden & OBJHFLAG_PROJECTILE) {
 			obj->projectile->flags |= PROJECTILEFLAG_00000002;
 			obj->projectile->unk08c = 0.1f;
-			obj->projectile->unk0b4 = TICKS(240);
+			obj->projectile->pickuptimer240 = TICKS(240);
 
 			propsnd0f0939f8(NULL, obj->prop, SFX_THROW, -1,
 					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
@@ -12168,7 +12168,7 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 				// but in practice it's always set.
 				weapon->base.projectile->flags |= PROJECTILEFLAG_00000002;
 				weapon->base.projectile->unk08c = 0.1f;
-				weapon->base.projectile->unk0b4 = TICKS(240);
+				weapon->base.projectile->pickuptimer240 = TICKS(240);
 				weapon->base.hidden |= OBJHFLAG_00000020;
 			}
 		}
@@ -12452,7 +12452,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 						weapon->base.projectile->unk010 = sp250.x;
 						weapon->base.projectile->unk014 = sp250.y;
 						weapon->base.projectile->unk018 = sp250.z;
-						weapon->base.projectile->unk0b4 = TICKS(240);
+						weapon->base.projectile->pickuptimer240 = TICKS(240);
 						weapon->base.projectile->unk08c = funcdef->unk5c;
 						weapon->base.projectile->unk098 = funcdef->unk50 * 1.6666666f;
 
@@ -12528,7 +12528,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 					weapon->base.projectile->unk010 = sp250.x;
 					weapon->base.projectile->unk014 = sp250.y;
 					weapon->base.projectile->unk018 = sp250.z;
-					weapon->base.projectile->unk0b4 = TICKS(240);
+					weapon->base.projectile->pickuptimer240 = TICKS(240);
 					weapon->base.projectile->unk08c = funcdef->unk5c;
 					weapon->base.projectile->unk098 = funcdef->unk50 * 1.6666666f;
 
@@ -14004,7 +14004,7 @@ bool bgunIsMissionCritical(s32 weaponnum)
 }
 #endif
 
-void bgunLoseGun(struct prop *attackerprop)
+void bgunDisarm(struct prop *attackerprop)
 {
 	struct player *player = g_Vars.currentplayer;
 	s32 weaponnum = player->hands[0].gset.weaponnum;
@@ -14070,8 +14070,8 @@ void bgunLoseGun(struct prop *attackerprop)
 				objSetDropped(prop2, DROPTYPE_DEFAULT);
 
 				if (obj->hidden & OBJHFLAG_PROJECTILE) {
-					obj->projectile->unk0b4 = TICKS(240);
-					obj->projectile->unk108 = attackerprop;
+					obj->projectile->pickuptimer240 = TICKS(240);
+					obj->projectile->pickupby = attackerprop;
 				}
 
 				objDrop(prop2, true);

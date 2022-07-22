@@ -293,97 +293,97 @@ void objUpdateLinkedScenery(struct defaultobj *obj, struct prop *prop)
 	}
 }
 
-f32 modelBboxGetXMin(struct modelrodata_bbox *bbox)
+f32 objGetLocalXMin(struct modelrodata_bbox *bbox)
 {
 	return bbox->xmin;
 }
 
-f32 modelBboxGetXMax(struct modelrodata_bbox *bbox)
+f32 objGetLocalXMax(struct modelrodata_bbox *bbox)
 {
 	return bbox->xmax;
 }
 
-f32 modelBboxGetYMin(struct modelrodata_bbox *bbox)
+f32 objGetLocalYMin(struct modelrodata_bbox *bbox)
 {
 	return bbox->ymin;
 }
 
-f32 modelBboxGetYMax(struct modelrodata_bbox *bbox)
+f32 objGetLocalYMax(struct modelrodata_bbox *bbox)
 {
 	return bbox->ymax;
 }
 
-f32 modelBboxGetZMin(struct modelrodata_bbox *bbox)
+f32 objGetLocalZMin(struct modelrodata_bbox *bbox)
 {
 	return bbox->zmin;
 }
 
-f32 modelBboxGetZMax(struct modelrodata_bbox *bbox)
+f32 objGetLocalZMax(struct modelrodata_bbox *bbox)
 {
 	return bbox->zmax;
 }
 
-f32 func0f0667dc(struct modelrodata_bbox *bbox, Mtxf *mtx)
+f32 objGetRotatedLocalXMinByMtx4(struct modelrodata_bbox *bbox, Mtxf *mtx)
 {
-	return func0f066a1c(bbox, mtx->m[0][0], mtx->m[1][0], mtx->m[2][0]);
+	return objGetRotatedLocalMin(bbox, mtx->m[0][0], mtx->m[1][0], mtx->m[2][0]);
 }
 
-f32 func0f06680c(struct modelrodata_bbox *bbox, Mtxf *mtx)
+f32 objGetRotatedLocalXMaxByMtx4(struct modelrodata_bbox *bbox, Mtxf *mtx)
 {
-	return func0f066abc(bbox, mtx->m[0][0], mtx->m[1][0], mtx->m[2][0]);
+	return objGetRotatedLocalMax(bbox, mtx->m[0][0], mtx->m[1][0], mtx->m[2][0]);
 }
 
-f32 func0f06683c(struct modelrodata_bbox *bbox, Mtxf *mtx)
+f32 objGetRotatedLocalYMinByMtx4(struct modelrodata_bbox *bbox, Mtxf *mtx)
 {
-	return func0f066a1c(bbox, mtx->m[0][1], mtx->m[1][1], mtx->m[2][1]);
+	return objGetRotatedLocalMin(bbox, mtx->m[0][1], mtx->m[1][1], mtx->m[2][1]);
 }
 
-f32 func0f06686c(struct modelrodata_bbox *bbox, Mtxf *mtx)
+f32 objGetRotatedLocalYMaxByMtx4(struct modelrodata_bbox *bbox, Mtxf *mtx)
 {
-	return func0f066abc(bbox, mtx->m[0][1], mtx->m[1][1], mtx->m[2][1]);
+	return objGetRotatedLocalMax(bbox, mtx->m[0][1], mtx->m[1][1], mtx->m[2][1]);
 }
 
-f32 func0f06689c(struct modelrodata_bbox *bbox, Mtxf *mtx)
+f32 objGetRotatedLocalZMinByMtx4(struct modelrodata_bbox *bbox, Mtxf *mtx)
 {
-	return func0f066a1c(bbox, mtx->m[0][2], mtx->m[1][2], mtx->m[2][2]);
+	return objGetRotatedLocalMin(bbox, mtx->m[0][2], mtx->m[1][2], mtx->m[2][2]);
 }
 
-f32 func0f0668cc(struct modelrodata_bbox *bbox, Mtxf *matrix)
+f32 objGetRotatedLocalZMaxByMtx4(struct modelrodata_bbox *bbox, Mtxf *mtx)
 {
-	return func0f066abc(bbox, matrix->m[0][2], matrix->m[1][2], matrix->m[2][2]);
+	return objGetRotatedLocalMax(bbox, mtx->m[0][2], mtx->m[1][2], mtx->m[2][2]);
 }
 
-f32 func0f0668fc(struct modelrodata_bbox *bbox, f32 realrot[3][3])
+f32 objGetRotatedLocalXMinByMtx3(struct modelrodata_bbox *bbox, f32 realrot[3][3])
 {
-	return func0f066a1c(bbox, realrot[0][0], realrot[1][0], realrot[2][0]);
+	return objGetRotatedLocalMin(bbox, realrot[0][0], realrot[1][0], realrot[2][0]);
 }
 
-f32 func0f06692c(struct modelrodata_bbox *bbox, f32 realrot[3][3])
+f32 objGetRotatedLocalXMaxByMtx3(struct modelrodata_bbox *bbox, f32 realrot[3][3])
 {
-	return func0f066abc(bbox, realrot[0][0], realrot[1][0], realrot[2][0]);
+	return objGetRotatedLocalMax(bbox, realrot[0][0], realrot[1][0], realrot[2][0]);
 }
 
-f32 func0f06695c(struct modelrodata_bbox *bbox, f32 realrot[3][3])
+f32 objGetRotatedLocalYMinByMtx3(struct modelrodata_bbox *bbox, f32 realrot[3][3])
 {
-	return func0f066a1c(bbox, realrot[0][1], realrot[1][1], realrot[2][1]);
+	return objGetRotatedLocalMin(bbox, realrot[0][1], realrot[1][1], realrot[2][1]);
 }
 
-f32 func0f06698c(struct modelrodata_bbox *bbox, f32 realrot[3][3])
+f32 objGetRotatedLocalYMaxByMtx3(struct modelrodata_bbox *bbox, f32 realrot[3][3])
 {
-	return func0f066abc(bbox, realrot[0][1], realrot[1][1], realrot[2][1]);
+	return objGetRotatedLocalMax(bbox, realrot[0][1], realrot[1][1], realrot[2][1]);
 }
 
-f32 func0f0669bc(struct modelrodata_bbox *bbox, f32 realrot[3][3])
+f32 objGetRotatedLocalZMinByMtx3(struct modelrodata_bbox *bbox, f32 realrot[3][3])
 {
-	return func0f066a1c(bbox, realrot[0][2], realrot[1][2], realrot[2][2]);
+	return objGetRotatedLocalMin(bbox, realrot[0][2], realrot[1][2], realrot[2][2]);
 }
 
-f32 func0f0669ec(struct modelrodata_bbox *bbox, f32 realrot[3][3])
+f32 objGetRotatedLocalZMaxByMtx3(struct modelrodata_bbox *bbox, f32 realrot[3][3])
 {
-	return func0f066abc(bbox, realrot[0][2], realrot[1][2], realrot[2][2]);
+	return objGetRotatedLocalMax(bbox, realrot[0][2], realrot[1][2], realrot[2][2]);
 }
 
-f32 func0f066a1c(struct modelrodata_bbox *bbox, f32 arg1, f32 arg2, f32 arg3)
+f32 objGetRotatedLocalMin(struct modelrodata_bbox *bbox, f32 arg1, f32 arg2, f32 arg3)
 {
 	f32 sum = 0;
 
@@ -408,7 +408,7 @@ f32 func0f066a1c(struct modelrodata_bbox *bbox, f32 arg1, f32 arg2, f32 arg3)
 	return sum;
 }
 
-f32 func0f066abc(struct modelrodata_bbox *bbox, f32 arg1, f32 arg2, f32 arg3)
+f32 objGetRotatedLocalMax(struct modelrodata_bbox *bbox, f32 arg1, f32 arg2, f32 arg3)
 {
 	f32 sum = 0;
 
@@ -433,630 +433,205 @@ f32 func0f066abc(struct modelrodata_bbox *bbox, f32 arg1, f32 arg2, f32 arg3)
 	return sum;
 }
 
-GLOBAL_ASM(
-glabel func0f066b5c
-.late_rodata
-glabel var7f1aa1cc
-.word 0x3a83126f
-.text
-/*  f066b5c:	27bdfd00 */ 	addiu	$sp,$sp,-768
-/*  f066b60:	8faf0318 */ 	lw	$t7,0x318($sp)
-/*  f066b64:	afb1000c */ 	sw	$s1,0xc($sp)
-/*  f066b68:	afb00008 */ 	sw	$s0,0x8($sp)
-/*  f066b6c:	e7ac0300 */ 	swc1	$f12,0x300($sp)
-/*  f066b70:	e7ae0304 */ 	swc1	$f14,0x304($sp)
-/*  f066b74:	afa60308 */ 	sw	$a2,0x308($sp)
-/*  f066b78:	afa7030c */ 	sw	$a3,0x30c($sp)
-/*  f066b7c:	c5e40000 */ 	lwc1	$f4,0x0($t7)
-/*  f066b80:	00001025 */ 	or	$v0,$zero,$zero
-/*  f066b84:	00005825 */ 	or	$t3,$zero,$zero
-/*  f066b88:	460021a1 */ 	cvt.d.s	$f6,$f4
-/*  f066b8c:	00004825 */ 	or	$t1,$zero,$zero
-/*  f066b90:	f7a60170 */ 	sdc1	$f6,0x170($sp)
-/*  f066b94:	c5ea0008 */ 	lwc1	$f10,0x8($t7)
-/*  f066b98:	00005025 */ 	or	$t2,$zero,$zero
-/*  f066b9c:	00004025 */ 	or	$t0,$zero,$zero
-/*  f066ba0:	46005221 */ 	cvt.d.s	$f8,$f10
-/*  f066ba4:	27ac0270 */ 	addiu	$t4,$sp,0x270
-/*  f066ba8:	f7a80168 */ 	sdc1	$f8,0x168($sp)
-/*  f066bac:	c5e40010 */ 	lwc1	$f4,0x10($t7)
-/*  f066bb0:	27a501f0 */ 	addiu	$a1,$sp,0x1f0
-/*  f066bb4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f066bb8:	460022a1 */ 	cvt.d.s	$f10,$f4
-/*  f066bbc:	f7aa0160 */ 	sdc1	$f10,0x160($sp)
-/*  f066bc0:	c5e40018 */ 	lwc1	$f4,0x18($t7)
-/*  f066bc4:	f7a60010 */ 	sdc1	$f6,0x10($sp)
-/*  f066bc8:	46002121 */ 	cvt.d.s	$f4,$f4
-/*  f066bcc:	f7a40158 */ 	sdc1	$f4,0x158($sp)
-/*  f066bd0:	c5e60020 */ 	lwc1	$f6,0x20($t7)
-/*  f066bd4:	f7a80018 */ 	sdc1	$f8,0x18($sp)
-/*  f066bd8:	460031a1 */ 	cvt.d.s	$f6,$f6
-/*  f066bdc:	f7a60150 */ 	sdc1	$f6,0x150($sp)
-/*  f066be0:	c5e80028 */ 	lwc1	$f8,0x28($t7)
-/*  f066be4:	f7aa0020 */ 	sdc1	$f10,0x20($sp)
-/*  f066be8:	c7aa0300 */ 	lwc1	$f10,0x300($sp)
-/*  f066bec:	46004221 */ 	cvt.d.s	$f8,$f8
-/*  f066bf0:	46005021 */ 	cvt.d.s	$f0,$f10
-/*  f066bf4:	d7aa0010 */ 	ldc1	$f10,0x10($sp)
-/*  f066bf8:	f7a40010 */ 	sdc1	$f4,0x10($sp)
-/*  f066bfc:	c7a40308 */ 	lwc1	$f4,0x308($sp)
-/*  f066c00:	f7a80148 */ 	sdc1	$f8,0x148($sp)
-/*  f066c04:	f7a80028 */ 	sdc1	$f8,0x28($sp)
-/*  f066c08:	460020a1 */ 	cvt.d.s	$f2,$f4
-/*  f066c0c:	46205402 */ 	mul.d	$f16,$f10,$f0
-/*  f066c10:	d7a40020 */ 	ldc1	$f4,0x20($sp)
-/*  f066c14:	c7a80310 */ 	lwc1	$f8,0x310($sp)
-/*  f066c18:	f7a60020 */ 	sdc1	$f6,0x20($sp)
-/*  f066c1c:	46222182 */ 	mul.d	$f6,$f4,$f2
-/*  f066c20:	46004321 */ 	cvt.d.s	$f12,$f8
-/*  f066c24:	d7a80020 */ 	ldc1	$f8,0x20($sp)
-/*  f066c28:	f7aa0020 */ 	sdc1	$f10,0x20($sp)
-/*  f066c2c:	462c4282 */ 	mul.d	$f10,$f8,$f12
-/*  f066c30:	f7a80030 */ 	sdc1	$f8,0x30($sp)
-/*  f066c34:	46268480 */ 	add.d	$f18,$f16,$f6
-/*  f066c38:	f7a600b0 */ 	sdc1	$f6,0xb0($sp)
-/*  f066c3c:	f7aa00a0 */ 	sdc1	$f10,0xa0($sp)
-/*  f066c40:	462a9280 */ 	add.d	$f10,$f18,$f10
-/*  f066c44:	f7aa0270 */ 	sdc1	$f10,0x270($sp)
-/*  f066c48:	d7aa0018 */ 	ldc1	$f10,0x18($sp)
-/*  f066c4c:	f7a40018 */ 	sdc1	$f4,0x18($sp)
-/*  f066c50:	46205102 */ 	mul.d	$f4,$f10,$f0
-/*  f066c54:	f7a400b8 */ 	sdc1	$f4,0xb8($sp)
-/*  f066c58:	d7a40010 */ 	ldc1	$f4,0x10($sp)
-/*  f066c5c:	f7a60010 */ 	sdc1	$f6,0x10($sp)
-/*  f066c60:	46222182 */ 	mul.d	$f6,$f4,$f2
-/*  f066c64:	f7a600a8 */ 	sdc1	$f6,0xa8($sp)
-/*  f066c68:	d7a800a8 */ 	ldc1	$f8,0xa8($sp)
-/*  f066c6c:	d7a600b8 */ 	ldc1	$f6,0xb8($sp)
-/*  f066c70:	46283180 */ 	add.d	$f6,$f6,$f8
-/*  f066c74:	d7a80028 */ 	ldc1	$f8,0x28($sp)
-/*  f066c78:	f7aa0028 */ 	sdc1	$f10,0x28($sp)
-/*  f066c7c:	f7a60090 */ 	sdc1	$f6,0x90($sp)
-/*  f066c80:	462c4182 */ 	mul.d	$f6,$f8,$f12
-/*  f066c84:	f7a60098 */ 	sdc1	$f6,0x98($sp)
-/*  f066c88:	d7aa0098 */ 	ldc1	$f10,0x98($sp)
-/*  f066c8c:	d7a60090 */ 	ldc1	$f6,0x90($sp)
-/*  f066c90:	462a3180 */ 	add.d	$f6,$f6,$f10
-/*  f066c94:	c7aa0314 */ 	lwc1	$f10,0x314($sp)
-/*  f066c98:	f7a60278 */ 	sdc1	$f6,0x278($sp)
-/*  f066c9c:	d7a60030 */ 	ldc1	$f6,0x30($sp)
-/*  f066ca0:	460053a1 */ 	cvt.d.s	$f14,$f10
-/*  f066ca4:	462e3282 */ 	mul.d	$f10,$f6,$f14
-/*  f066ca8:	f7aa0058 */ 	sdc1	$f10,0x58($sp)
-/*  f066cac:	462e4182 */ 	mul.d	$f6,$f8,$f14
-/*  f066cb0:	462a9280 */ 	add.d	$f10,$f18,$f10
-/*  f066cb4:	f7aa0280 */ 	sdc1	$f10,0x280($sp)
-/*  f066cb8:	d7aa0090 */ 	ldc1	$f10,0x90($sp)
-/*  f066cbc:	f7a60050 */ 	sdc1	$f6,0x50($sp)
-/*  f066cc0:	46265180 */ 	add.d	$f6,$f10,$f6
-/*  f066cc4:	c7aa030c */ 	lwc1	$f10,0x30c($sp)
-/*  f066cc8:	f7a60288 */ 	sdc1	$f6,0x288($sp)
-/*  f066ccc:	d7a60018 */ 	ldc1	$f6,0x18($sp)
-/*  f066cd0:	46005221 */ 	cvt.d.s	$f8,$f10
-/*  f066cd4:	f7a800c0 */ 	sdc1	$f8,0xc0($sp)
-/*  f066cd8:	46283202 */ 	mul.d	$f8,$f6,$f8
-/*  f066cdc:	d7a600a0 */ 	ldc1	$f6,0xa0($sp)
-/*  f066ce0:	46288280 */ 	add.d	$f10,$f16,$f8
-/*  f066ce4:	f7a80068 */ 	sdc1	$f8,0x68($sp)
-/*  f066ce8:	d7a800c0 */ 	ldc1	$f8,0xc0($sp)
-/*  f066cec:	f7aa0048 */ 	sdc1	$f10,0x48($sp)
-/*  f066cf0:	46265280 */ 	add.d	$f10,$f10,$f6
-/*  f066cf4:	46282182 */ 	mul.d	$f6,$f4,$f8
-/*  f066cf8:	d7a80098 */ 	ldc1	$f8,0x98($sp)
-/*  f066cfc:	d7a40058 */ 	ldc1	$f4,0x58($sp)
-/*  f066d00:	f7aa0290 */ 	sdc1	$f10,0x290($sp)
-/*  f066d04:	d7aa00b8 */ 	ldc1	$f10,0xb8($sp)
-/*  f066d08:	46265080 */ 	add.d	$f2,$f10,$f6
-/*  f066d0c:	d7aa0048 */ 	ldc1	$f10,0x48($sp)
-/*  f066d10:	f7a60060 */ 	sdc1	$f6,0x60($sp)
-/*  f066d14:	46281180 */ 	add.d	$f6,$f2,$f8
-/*  f066d18:	46245200 */ 	add.d	$f8,$f10,$f4
-/*  f066d1c:	c7a40304 */ 	lwc1	$f4,0x304($sp)
-/*  f066d20:	f7a60298 */ 	sdc1	$f6,0x298($sp)
-/*  f066d24:	d7a60050 */ 	ldc1	$f6,0x50($sp)
-/*  f066d28:	f7a802a0 */ 	sdc1	$f8,0x2a0($sp)
-/*  f066d2c:	d7a80020 */ 	ldc1	$f8,0x20($sp)
-/*  f066d30:	46002021 */ 	cvt.d.s	$f0,$f4
-/*  f066d34:	46261280 */ 	add.d	$f10,$f2,$f6
-/*  f066d38:	46204402 */ 	mul.d	$f16,$f8,$f0
-/*  f066d3c:	d7a80028 */ 	ldc1	$f8,0x28($sp)
-/*  f066d40:	d7a60010 */ 	ldc1	$f6,0x10($sp)
-/*  f066d44:	f7aa02a8 */ 	sdc1	$f10,0x2a8($sp)
-/*  f066d48:	46204482 */ 	mul.d	$f18,$f8,$f0
-/*  f066d4c:	d7aa00a0 */ 	ldc1	$f10,0xa0($sp)
-/*  f066d50:	d7a80058 */ 	ldc1	$f8,0x58($sp)
-/*  f066d54:	46268300 */ 	add.d	$f12,$f16,$f6
-/*  f066d58:	d7a600a8 */ 	ldc1	$f6,0xa8($sp)
-/*  f066d5c:	462a6100 */ 	add.d	$f4,$f12,$f10
-/*  f066d60:	d7aa0098 */ 	ldc1	$f10,0x98($sp)
-/*  f066d64:	46269380 */ 	add.d	$f14,$f18,$f6
-/*  f066d68:	f7a402b0 */ 	sdc1	$f4,0x2b0($sp)
-/*  f066d6c:	46286180 */ 	add.d	$f6,$f12,$f8
-/*  f066d70:	d7a80068 */ 	ldc1	$f8,0x68($sp)
-/*  f066d74:	462a7100 */ 	add.d	$f4,$f14,$f10
-/*  f066d78:	d7aa0050 */ 	ldc1	$f10,0x50($sp)
-/*  f066d7c:	f7a602c0 */ 	sdc1	$f6,0x2c0($sp)
-/*  f066d80:	46288000 */ 	add.d	$f0,$f16,$f8
-/*  f066d84:	f7a402b8 */ 	sdc1	$f4,0x2b8($sp)
-/*  f066d88:	d7a600a0 */ 	ldc1	$f6,0xa0($sp)
-/*  f066d8c:	462a7100 */ 	add.d	$f4,$f14,$f10
-/*  f066d90:	d7a80098 */ 	ldc1	$f8,0x98($sp)
-/*  f066d94:	46260280 */ 	add.d	$f10,$f0,$f6
-/*  f066d98:	f7a402c8 */ 	sdc1	$f4,0x2c8($sp)
-/*  f066d9c:	d7a40060 */ 	ldc1	$f4,0x60($sp)
-/*  f066da0:	f7aa02d0 */ 	sdc1	$f10,0x2d0($sp)
-/*  f066da4:	46249080 */ 	add.d	$f2,$f18,$f4
-/*  f066da8:	d7aa0058 */ 	ldc1	$f10,0x58($sp)
-/*  f066dac:	46281180 */ 	add.d	$f6,$f2,$f8
-/*  f066db0:	d7a80050 */ 	ldc1	$f8,0x50($sp)
-/*  f066db4:	462a0100 */ 	add.d	$f4,$f0,$f10
-/*  f066db8:	f7a602d8 */ 	sdc1	$f6,0x2d8($sp)
-/*  f066dbc:	46281180 */ 	add.d	$f6,$f2,$f8
-/*  f066dc0:	f7a402e0 */ 	sdc1	$f4,0x2e0($sp)
-/*  f066dc4:	f7a602e8 */ 	sdc1	$f6,0x2e8($sp)
-.L0f066dc8:
-/*  f066dc8:	18400021 */ 	blez	$v0,.L0f066e50
-/*  f066dcc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f066dd0:	3c017f1b */ 	lui	$at,%hi(var7f1aa1cc)
-/*  f066dd4:	c42aa1cc */ 	lwc1	$f10,%lo(var7f1aa1cc)($at)
-/*  f066dd8:	0003c100 */ 	sll	$t8,$v1,0x4
-/*  f066ddc:	01983021 */ 	addu	$a2,$t4,$t8
-/*  f066de0:	d4cc0000 */ 	ldc1	$f12,0x0($a2)
-/*  f066de4:	d4d00008 */ 	ldc1	$f16,0x8($a2)
-/*  f066de8:	27a701f0 */ 	addiu	$a3,$sp,0x1f0
-/*  f066dec:	46005021 */ 	cvt.d.s	$f0,$f10
-.L0f066df0:
-/*  f066df0:	d4e40000 */ 	ldc1	$f4,0x0($a3)
-/*  f066df4:	d4e80008 */ 	ldc1	$f8,0x8($a3)
-/*  f066df8:	46246081 */ 	sub.d	$f2,$f12,$f4
-/*  f066dfc:	46288381 */ 	sub.d	$f14,$f16,$f8
-/*  f066e00:	4620103c */ 	c.lt.d	$f2,$f0
-/*  f066e04:	00000000 */ 	nop
-/*  f066e08:	4502000f */ 	bc1fl	.L0f066e48
-/*  f066e0c:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f066e10:	46200487 */ 	neg.d	$f18,$f0
-/*  f066e14:	4622903c */ 	c.lt.d	$f18,$f2
-/*  f066e18:	00000000 */ 	nop
-/*  f066e1c:	4502000a */ 	bc1fl	.L0f066e48
-/*  f066e20:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f066e24:	4620703c */ 	c.lt.d	$f14,$f0
-/*  f066e28:	00000000 */ 	nop
-/*  f066e2c:	45020006 */ 	bc1fl	.L0f066e48
-/*  f066e30:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f066e34:	462e903c */ 	c.lt.d	$f18,$f14
-/*  f066e38:	00000000 */ 	nop
-/*  f066e3c:	45030005 */ 	bc1tl	.L0f066e54
-/*  f066e40:	0082082a */ 	slt	$at,$a0,$v0
-/*  f066e44:	24840001 */ 	addiu	$a0,$a0,0x1
-.L0f066e48:
-/*  f066e48:	1482ffe9 */ 	bne	$a0,$v0,.L0f066df0
-/*  f066e4c:	24e70010 */ 	addiu	$a3,$a3,0x10
-.L0f066e50:
-/*  f066e50:	0082082a */ 	slt	$at,$a0,$v0
-.L0f066e54:
-/*  f066e54:	14200009 */ 	bnez	$at,.L0f066e7c
-/*  f066e58:	0002c900 */ 	sll	$t9,$v0,0x4
-/*  f066e5c:	00037100 */ 	sll	$t6,$v1,0x4
-/*  f066e60:	018e3021 */ 	addu	$a2,$t4,$t6
-/*  f066e64:	d4c60000 */ 	ldc1	$f6,0x0($a2)
-/*  f066e68:	d4ca0008 */ 	ldc1	$f10,0x8($a2)
-/*  f066e6c:	00b92021 */ 	addu	$a0,$a1,$t9
-/*  f066e70:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f066e74:	f4860000 */ 	sdc1	$f6,0x0($a0)
-/*  f066e78:	f48a0008 */ 	sdc1	$f10,0x8($a0)
-.L0f066e7c:
-/*  f066e7c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f066e80:	28610008 */ 	slti	$at,$v1,0x8
-/*  f066e84:	1420ffd0 */ 	bnez	$at,.L0f066dc8
-/*  f066e88:	00000000 */ 	nop
-/*  f066e8c:	28410002 */ 	slti	$at,$v0,0x2
-/*  f066e90:	14200019 */ 	bnez	$at,.L0f066ef8
-/*  f066e94:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f066e98:	27a40200 */ 	addiu	$a0,$sp,0x200
-.L0f066e9c:
-/*  f066e9c:	000b7900 */ 	sll	$t7,$t3,0x4
-/*  f066ea0:	00af3821 */ 	addu	$a3,$a1,$t7
-/*  f066ea4:	d4e20000 */ 	ldc1	$f2,0x0($a3)
-/*  f066ea8:	d4800000 */ 	ldc1	$f0,0x0($a0)
-/*  f066eac:	4622003c */ 	c.lt.d	$f0,$f2
-/*  f066eb0:	00000000 */ 	nop
-/*  f066eb4:	4503000c */ 	bc1tl	.L0f066ee8
-/*  f066eb8:	00605825 */ 	or	$t3,$v1,$zero
-/*  f066ebc:	46220032 */ 	c.eq.d	$f0,$f2
-/*  f066ec0:	00000000 */ 	nop
-/*  f066ec4:	45020009 */ 	bc1fl	.L0f066eec
-/*  f066ec8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f066ecc:	d4840008 */ 	ldc1	$f4,0x8($a0)
-/*  f066ed0:	d4e80008 */ 	ldc1	$f8,0x8($a3)
-/*  f066ed4:	4628203c */ 	c.lt.d	$f4,$f8
-/*  f066ed8:	00000000 */ 	nop
-/*  f066edc:	45020003 */ 	bc1fl	.L0f066eec
-/*  f066ee0:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f066ee4:	00605825 */ 	or	$t3,$v1,$zero
-.L0f066ee8:
-/*  f066ee8:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f066eec:
-/*  f066eec:	1462ffeb */ 	bne	$v1,$v0,.L0f066e9c
-/*  f066ef0:	24840010 */ 	addiu	$a0,$a0,0x10
-/*  f066ef4:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f066ef8:
-/*  f066ef8:	000bc100 */ 	sll	$t8,$t3,0x4
-/*  f066efc:	00b83821 */ 	addu	$a3,$a1,$t8
-/*  f066f00:	28410002 */ 	slti	$at,$v0,0x2
-/*  f066f04:	14200019 */ 	bnez	$at,.L0f066f6c
-/*  f066f08:	d4e20000 */ 	ldc1	$f2,0x0($a3)
-/*  f066f0c:	27a40200 */ 	addiu	$a0,$sp,0x200
-.L0f066f10:
-/*  f066f10:	000ac900 */ 	sll	$t9,$t2,0x4
-/*  f066f14:	00b96821 */ 	addu	$t5,$a1,$t9
-/*  f066f18:	d5ac0008 */ 	ldc1	$f12,0x8($t5)
-/*  f066f1c:	d4800008 */ 	ldc1	$f0,0x8($a0)
-/*  f066f20:	4620603c */ 	c.lt.d	$f12,$f0
-/*  f066f24:	00000000 */ 	nop
-/*  f066f28:	4503000c */ 	bc1tl	.L0f066f5c
-/*  f066f2c:	00605025 */ 	or	$t2,$v1,$zero
-/*  f066f30:	462c0032 */ 	c.eq.d	$f0,$f12
-/*  f066f34:	00000000 */ 	nop
-/*  f066f38:	45020009 */ 	bc1fl	.L0f066f60
-/*  f066f3c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f066f40:	d4860000 */ 	ldc1	$f6,0x0($a0)
-/*  f066f44:	d5aa0000 */ 	ldc1	$f10,0x0($t5)
-/*  f066f48:	462a303c */ 	c.lt.d	$f6,$f10
-/*  f066f4c:	00000000 */ 	nop
-/*  f066f50:	45020003 */ 	bc1fl	.L0f066f60
-/*  f066f54:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f066f58:	00605025 */ 	or	$t2,$v1,$zero
-.L0f066f5c:
-/*  f066f5c:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f066f60:
-/*  f066f60:	1462ffeb */ 	bne	$v1,$v0,.L0f066f10
-/*  f066f64:	24840010 */ 	addiu	$a0,$a0,0x10
-/*  f066f68:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f066f6c:
-/*  f066f6c:	28410002 */ 	slti	$at,$v0,0x2
-/*  f066f70:	14200018 */ 	bnez	$at,.L0f066fd4
-/*  f066f74:	27a40200 */ 	addiu	$a0,$sp,0x200
-.L0f066f78:
-/*  f066f78:	00097100 */ 	sll	$t6,$t1,0x4
-/*  f066f7c:	00ae8021 */ 	addu	$s0,$a1,$t6
-/*  f066f80:	d60c0000 */ 	ldc1	$f12,0x0($s0)
-/*  f066f84:	d4800000 */ 	ldc1	$f0,0x0($a0)
-/*  f066f88:	4620603c */ 	c.lt.d	$f12,$f0
-/*  f066f8c:	00000000 */ 	nop
-/*  f066f90:	4503000c */ 	bc1tl	.L0f066fc4
-/*  f066f94:	00604825 */ 	or	$t1,$v1,$zero
-/*  f066f98:	462c0032 */ 	c.eq.d	$f0,$f12
-/*  f066f9c:	00000000 */ 	nop
-/*  f066fa0:	45020009 */ 	bc1fl	.L0f066fc8
-/*  f066fa4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f066fa8:	d6040008 */ 	ldc1	$f4,0x8($s0)
-/*  f066fac:	d4880008 */ 	ldc1	$f8,0x8($a0)
-/*  f066fb0:	4628203c */ 	c.lt.d	$f4,$f8
-/*  f066fb4:	00000000 */ 	nop
-/*  f066fb8:	45020003 */ 	bc1fl	.L0f066fc8
-/*  f066fbc:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f066fc0:	00604825 */ 	or	$t1,$v1,$zero
-.L0f066fc4:
-/*  f066fc4:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f066fc8:
-/*  f066fc8:	1462ffeb */ 	bne	$v1,$v0,.L0f066f78
-/*  f066fcc:	24840010 */ 	addiu	$a0,$a0,0x10
-/*  f066fd0:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f066fd4:
-/*  f066fd4:	28410002 */ 	slti	$at,$v0,0x2
-/*  f066fd8:	14200018 */ 	bnez	$at,.L0f06703c
-/*  f066fdc:	46201120 */ 	cvt.s.d	$f4,$f2
-/*  f066fe0:	27a40200 */ 	addiu	$a0,$sp,0x200
-.L0f066fe4:
-/*  f066fe4:	00087900 */ 	sll	$t7,$t0,0x4
-/*  f066fe8:	00af6821 */ 	addu	$t5,$a1,$t7
-/*  f066fec:	d5ac0008 */ 	ldc1	$f12,0x8($t5)
-/*  f066ff0:	d4800008 */ 	ldc1	$f0,0x8($a0)
-/*  f066ff4:	462c003c */ 	c.lt.d	$f0,$f12
-/*  f066ff8:	00000000 */ 	nop
-/*  f066ffc:	4503000c */ 	bc1tl	.L0f067030
-/*  f067000:	00604025 */ 	or	$t0,$v1,$zero
-/*  f067004:	462c0032 */ 	c.eq.d	$f0,$f12
-/*  f067008:	00000000 */ 	nop
-/*  f06700c:	45020009 */ 	bc1fl	.L0f067034
-/*  f067010:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f067014:	d5a60000 */ 	ldc1	$f6,0x0($t5)
-/*  f067018:	d48a0000 */ 	ldc1	$f10,0x0($a0)
-/*  f06701c:	462a303c */ 	c.lt.d	$f6,$f10
-/*  f067020:	00000000 */ 	nop
-/*  f067024:	45020003 */ 	bc1fl	.L0f067034
-/*  f067028:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f06702c:	00604025 */ 	or	$t0,$v1,$zero
-.L0f067030:
-/*  f067030:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f067034:
-/*  f067034:	1462ffeb */ 	bne	$v1,$v0,.L0f066fe4
-/*  f067038:	24840010 */ 	addiu	$a0,$a0,0x10
-.L0f06703c:
-/*  f06703c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f067040:	18400011 */ 	blez	$v0,.L0f067088
-/*  f067044:	00001825 */ 	or	$v1,$zero,$zero
-/*  f067048:	27a601bc */ 	addiu	$a2,$sp,0x1bc
-.L0f06704c:
-/*  f06704c:	506b000b */ 	beql	$v1,$t3,.L0f06707c
-/*  f067050:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f067054:	50690009 */ 	beql	$v1,$t1,.L0f06707c
-/*  f067058:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f06705c:	506a0007 */ 	beql	$v1,$t2,.L0f06707c
-/*  f067060:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f067064:	10680004 */ 	beq	$v1,$t0,.L0f067078
-/*  f067068:	0004c080 */ 	sll	$t8,$a0,0x2
-/*  f06706c:	00d8c821 */ 	addu	$t9,$a2,$t8
-/*  f067070:	af230000 */ 	sw	$v1,0x0($t9)
-/*  f067074:	24840001 */ 	addiu	$a0,$a0,0x1
-.L0f067078:
-/*  f067078:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f06707c:
-/*  f06707c:	1462fff3 */ 	bne	$v1,$v0,.L0f06704c
-/*  f067080:	00000000 */ 	nop
-/*  f067084:	00001825 */ 	or	$v1,$zero,$zero
-.L0f067088:
-/*  f067088:	8fac031c */ 	lw	$t4,0x31c($sp)
-/*  f06708c:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f067090:	00087100 */ 	sll	$t6,$t0,0x4
-/*  f067094:	e584000c */ 	swc1	$f4,0xc($t4)
-/*  f067098:	d4e80008 */ 	ldc1	$f8,0x8($a3)
-/*  f06709c:	462041a0 */ 	cvt.s.d	$f6,$f8
-/*  f0670a0:	110b002e */ 	beq	$t0,$t3,.L0f06715c
-/*  f0670a4:	e5860010 */ 	swc1	$f6,0x10($t4)
-/*  f0670a8:	18800023 */ 	blez	$a0,.L0f067138
-/*  f0670ac:	00ae6821 */ 	addu	$t5,$a1,$t6
-/*  f0670b0:	d5ac0008 */ 	ldc1	$f12,0x8($t5)
-/*  f0670b4:	d5a00000 */ 	ldc1	$f0,0x0($t5)
-/*  f0670b8:	d4ea0008 */ 	ldc1	$f10,0x8($a3)
-/*  f0670bc:	d4e40000 */ 	ldc1	$f4,0x0($a3)
-/*  f0670c0:	27a201bc */ 	addiu	$v0,$sp,0x1bc
-/*  f0670c4:	462c5381 */ 	sub.d	$f14,$f10,$f12
-/*  f0670c8:	46202401 */ 	sub.d	$f16,$f4,$f0
-.L0f0670cc:
-/*  f0670cc:	8c500000 */ 	lw	$s0,0x0($v0)
-/*  f0670d0:	00107900 */ 	sll	$t7,$s0,0x4
-/*  f0670d4:	00af8821 */ 	addu	$s1,$a1,$t7
-/*  f0670d8:	d6220000 */ 	ldc1	$f2,0x0($s1)
-/*  f0670dc:	d62a0008 */ 	ldc1	$f10,0x8($s1)
-/*  f0670e0:	46201201 */ 	sub.d	$f8,$f2,$f0
-/*  f0670e4:	462c5101 */ 	sub.d	$f4,$f10,$f12
-/*  f0670e8:	462e4182 */ 	mul.d	$f6,$f8,$f14
-/*  f0670ec:	00000000 */ 	nop
-/*  f0670f0:	46302202 */ 	mul.d	$f8,$f4,$f16
-/*  f0670f4:	4628303c */ 	c.lt.d	$f6,$f8
-/*  f0670f8:	00000000 */ 	nop
-/*  f0670fc:	4500000a */ 	bc1f	.L0f067128
-/*  f067100:	00000000 */ 	nop
-/*  f067104:	462012a0 */ 	cvt.s.d	$f10,$f2
-/*  f067108:	25820008 */ 	addiu	$v0,$t4,0x8
-/*  f06710c:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f067110:	00001825 */ 	or	$v1,$zero,$zero
-/*  f067114:	e44a000c */ 	swc1	$f10,0xc($v0)
-/*  f067118:	d6240008 */ 	ldc1	$f4,0x8($s1)
-/*  f06711c:	462021a0 */ 	cvt.s.d	$f6,$f4
-/*  f067120:	10000005 */ 	b	.L0f067138
-/*  f067124:	e4460010 */ 	swc1	$f6,0x10($v0)
-.L0f067128:
-/*  f067128:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f06712c:	1464ffe7 */ 	bne	$v1,$a0,.L0f0670cc
-/*  f067130:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f067134:	00001825 */ 	or	$v1,$zero,$zero
-.L0f067138:
-/*  f067138:	d5a80000 */ 	ldc1	$f8,0x0($t5)
-/*  f06713c:	0006c0c0 */ 	sll	$t8,$a2,0x3
-/*  f067140:	01988821 */ 	addu	$s1,$t4,$t8
-/*  f067144:	462042a0 */ 	cvt.s.d	$f10,$f8
-/*  f067148:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f06714c:	e62a000c */ 	swc1	$f10,0xc($s1)
-/*  f067150:	d5a40008 */ 	ldc1	$f4,0x8($t5)
-/*  f067154:	462021a0 */ 	cvt.s.d	$f6,$f4
-/*  f067158:	e6260010 */ 	swc1	$f6,0x10($s1)
-.L0f06715c:
-/*  f06715c:	11280030 */ 	beq	$t1,$t0,.L0f067220
-/*  f067160:	0009c900 */ 	sll	$t9,$t1,0x4
-/*  f067164:	000670c0 */ 	sll	$t6,$a2,0x3
-/*  f067168:	018e8821 */ 	addu	$s1,$t4,$t6
-/*  f06716c:	18800025 */ 	blez	$a0,.L0f067204
-/*  f067170:	00b98021 */ 	addu	$s0,$a1,$t9
-/*  f067174:	00087900 */ 	sll	$t7,$t0,0x4
-/*  f067178:	00af6821 */ 	addu	$t5,$a1,$t7
-/*  f06717c:	d5a80008 */ 	ldc1	$f8,0x8($t5)
-/*  f067180:	d5aa0000 */ 	ldc1	$f10,0x0($t5)
-/*  f067184:	d60c0000 */ 	ldc1	$f12,0x0($s0)
-/*  f067188:	d6000008 */ 	ldc1	$f0,0x8($s0)
-/*  f06718c:	27a201bc */ 	addiu	$v0,$sp,0x1bc
-/*  f067190:	462c5401 */ 	sub.d	$f16,$f10,$f12
-/*  f067194:	46204381 */ 	sub.d	$f14,$f8,$f0
-.L0f067198:
-/*  f067198:	8c480000 */ 	lw	$t0,0x0($v0)
-/*  f06719c:	0008c100 */ 	sll	$t8,$t0,0x4
-/*  f0671a0:	00b86821 */ 	addu	$t5,$a1,$t8
-/*  f0671a4:	d5a20000 */ 	ldc1	$f2,0x0($t5)
-/*  f0671a8:	d5a80008 */ 	ldc1	$f8,0x8($t5)
-/*  f0671ac:	462c1101 */ 	sub.d	$f4,$f2,$f12
-/*  f0671b0:	46204281 */ 	sub.d	$f10,$f8,$f0
-/*  f0671b4:	462e2182 */ 	mul.d	$f6,$f4,$f14
-/*  f0671b8:	00000000 */ 	nop
-/*  f0671bc:	46305102 */ 	mul.d	$f4,$f10,$f16
-/*  f0671c0:	4624303c */ 	c.lt.d	$f6,$f4
-/*  f0671c4:	00000000 */ 	nop
-/*  f0671c8:	4500000a */ 	bc1f	.L0f0671f4
-/*  f0671cc:	00000000 */ 	nop
-/*  f0671d0:	46201220 */ 	cvt.s.d	$f8,$f2
-/*  f0671d4:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f0671d8:	26310008 */ 	addiu	$s1,$s1,0x8
-/*  f0671dc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0671e0:	e6280004 */ 	swc1	$f8,0x4($s1)
-/*  f0671e4:	d5aa0008 */ 	ldc1	$f10,0x8($t5)
-/*  f0671e8:	462051a0 */ 	cvt.s.d	$f6,$f10
-/*  f0671ec:	10000005 */ 	b	.L0f067204
-/*  f0671f0:	e6260008 */ 	swc1	$f6,0x8($s1)
-.L0f0671f4:
-/*  f0671f4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0671f8:	1464ffe7 */ 	bne	$v1,$a0,.L0f067198
-/*  f0671fc:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f067200:	00001825 */ 	or	$v1,$zero,$zero
-.L0f067204:
-/*  f067204:	d6040000 */ 	ldc1	$f4,0x0($s0)
-/*  f067208:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f06720c:	46202220 */ 	cvt.s.d	$f8,$f4
-/*  f067210:	e628000c */ 	swc1	$f8,0xc($s1)
-/*  f067214:	d60a0008 */ 	ldc1	$f10,0x8($s0)
-/*  f067218:	462051a0 */ 	cvt.s.d	$f6,$f10
-/*  f06721c:	e6260010 */ 	swc1	$f6,0x10($s1)
-.L0f067220:
-/*  f067220:	11490029 */ 	beq	$t2,$t1,.L0f0672c8
-/*  f067224:	00000000 */ 	nop
-/*  f067228:	18800027 */ 	blez	$a0,.L0f0672c8
-/*  f06722c:	000ac900 */ 	sll	$t9,$t2,0x4
-/*  f067230:	00097100 */ 	sll	$t6,$t1,0x4
-/*  f067234:	00ae8021 */ 	addu	$s0,$a1,$t6
-/*  f067238:	00b96821 */ 	addu	$t5,$a1,$t9
-/*  f06723c:	d5ac0008 */ 	ldc1	$f12,0x8($t5)
-/*  f067240:	d5a00000 */ 	ldc1	$f0,0x0($t5)
-/*  f067244:	d6040008 */ 	ldc1	$f4,0x8($s0)
-/*  f067248:	d6080000 */ 	ldc1	$f8,0x0($s0)
-/*  f06724c:	27a201bc */ 	addiu	$v0,$sp,0x1bc
-/*  f067250:	462c2381 */ 	sub.d	$f14,$f4,$f12
-/*  f067254:	46204401 */ 	sub.d	$f16,$f8,$f0
-.L0f067258:
-/*  f067258:	8c480000 */ 	lw	$t0,0x0($v0)
-/*  f06725c:	00087900 */ 	sll	$t7,$t0,0x4
-/*  f067260:	00af6821 */ 	addu	$t5,$a1,$t7
-/*  f067264:	d5a20000 */ 	ldc1	$f2,0x0($t5)
-/*  f067268:	d5a40008 */ 	ldc1	$f4,0x8($t5)
-/*  f06726c:	46201281 */ 	sub.d	$f10,$f2,$f0
-/*  f067270:	462c2201 */ 	sub.d	$f8,$f4,$f12
-/*  f067274:	462e5182 */ 	mul.d	$f6,$f10,$f14
-/*  f067278:	00000000 */ 	nop
-/*  f06727c:	46304282 */ 	mul.d	$f10,$f8,$f16
-/*  f067280:	462a303c */ 	c.lt.d	$f6,$f10
-/*  f067284:	00000000 */ 	nop
-/*  f067288:	4500000b */ 	bc1f	.L0f0672b8
-/*  f06728c:	00000000 */ 	nop
-/*  f067290:	46201120 */ 	cvt.s.d	$f4,$f2
-/*  f067294:	0006c0c0 */ 	sll	$t8,$a2,0x3
-/*  f067298:	01988821 */ 	addu	$s1,$t4,$t8
-/*  f06729c:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f0672a0:	e624000c */ 	swc1	$f4,0xc($s1)
-/*  f0672a4:	d5a80008 */ 	ldc1	$f8,0x8($t5)
-/*  f0672a8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0672ac:	462041a0 */ 	cvt.s.d	$f6,$f8
-/*  f0672b0:	10000005 */ 	b	.L0f0672c8
-/*  f0672b4:	e6260010 */ 	swc1	$f6,0x10($s1)
-.L0f0672b8:
-/*  f0672b8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0672bc:	1464ffe6 */ 	bne	$v1,$a0,.L0f067258
-/*  f0672c0:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f0672c4:	00001825 */ 	or	$v1,$zero,$zero
-.L0f0672c8:
-/*  f0672c8:	1149000d */ 	beq	$t2,$t1,.L0f067300
-/*  f0672cc:	00000000 */ 	nop
-/*  f0672d0:	116a000b */ 	beq	$t3,$t2,.L0f067300
-/*  f0672d4:	000a7100 */ 	sll	$t6,$t2,0x4
-/*  f0672d8:	00ae6821 */ 	addu	$t5,$a1,$t6
-/*  f0672dc:	d5aa0000 */ 	ldc1	$f10,0x0($t5)
-/*  f0672e0:	0006c8c0 */ 	sll	$t9,$a2,0x3
-/*  f0672e4:	01998821 */ 	addu	$s1,$t4,$t9
-/*  f0672e8:	46205120 */ 	cvt.s.d	$f4,$f10
-/*  f0672ec:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f0672f0:	e624000c */ 	swc1	$f4,0xc($s1)
-/*  f0672f4:	d5a80008 */ 	ldc1	$f8,0x8($t5)
-/*  f0672f8:	462041a0 */ 	cvt.s.d	$f6,$f8
-/*  f0672fc:	e6260010 */ 	swc1	$f6,0x10($s1)
-.L0f067300:
-/*  f067300:	116a0027 */ 	beq	$t3,$t2,.L0f0673a0
-/*  f067304:	00000000 */ 	nop
-/*  f067308:	18800025 */ 	blez	$a0,.L0f0673a0
-/*  f06730c:	000a7900 */ 	sll	$t7,$t2,0x4
-/*  f067310:	00af6821 */ 	addu	$t5,$a1,$t7
-/*  f067314:	d5aa0008 */ 	ldc1	$f10,0x8($t5)
-/*  f067318:	d5a40000 */ 	ldc1	$f4,0x0($t5)
-/*  f06731c:	d4e20000 */ 	ldc1	$f2,0x0($a3)
-/*  f067320:	d4e00008 */ 	ldc1	$f0,0x8($a3)
-/*  f067324:	27a201bc */ 	addiu	$v0,$sp,0x1bc
-/*  f067328:	46222401 */ 	sub.d	$f16,$f4,$f2
-/*  f06732c:	46205381 */ 	sub.d	$f14,$f10,$f0
-.L0f067330:
-/*  f067330:	8c470000 */ 	lw	$a3,0x0($v0)
-/*  f067334:	0007c100 */ 	sll	$t8,$a3,0x4
-/*  f067338:	00b84021 */ 	addu	$t0,$a1,$t8
-/*  f06733c:	d50c0000 */ 	ldc1	$f12,0x0($t0)
-/*  f067340:	d50a0008 */ 	ldc1	$f10,0x8($t0)
-/*  f067344:	46226201 */ 	sub.d	$f8,$f12,$f2
-/*  f067348:	46205101 */ 	sub.d	$f4,$f10,$f0
-/*  f06734c:	462e4182 */ 	mul.d	$f6,$f8,$f14
-/*  f067350:	00000000 */ 	nop
-/*  f067354:	46302202 */ 	mul.d	$f8,$f4,$f16
-/*  f067358:	4628303c */ 	c.lt.d	$f6,$f8
-/*  f06735c:	00000000 */ 	nop
-/*  f067360:	4500000b */ 	bc1f	.L0f067390
-/*  f067364:	00000000 */ 	nop
-/*  f067368:	462062a0 */ 	cvt.s.d	$f10,$f12
-/*  f06736c:	0006c8c0 */ 	sll	$t9,$a2,0x3
-/*  f067370:	01998821 */ 	addu	$s1,$t4,$t9
-/*  f067374:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f067378:	e62a000c */ 	swc1	$f10,0xc($s1)
-/*  f06737c:	d5040008 */ 	ldc1	$f4,0x8($t0)
-/*  f067380:	00001825 */ 	or	$v1,$zero,$zero
-/*  f067384:	462021a0 */ 	cvt.s.d	$f6,$f4
-/*  f067388:	10000005 */ 	b	.L0f0673a0
-/*  f06738c:	e6260010 */ 	swc1	$f6,0x10($s1)
-.L0f067390:
-/*  f067390:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f067394:	1464ffe6 */ 	bne	$v1,$a0,.L0f067330
-/*  f067398:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f06739c:	00001825 */ 	or	$v1,$zero,$zero
-.L0f0673a0:
-/*  f0673a0:	18c0001b */ 	blez	$a2,.L0f067410
-/*  f0673a4:	01801025 */ 	or	$v0,$t4,$zero
-/*  f0673a8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0673ac:	c452000c */ 	lwc1	$f18,0xc($v0)
-/*  f0673b0:	1066000e */ 	beq	$v1,$a2,.L0f0673ec
-/*  f0673b4:	8fae0318 */ 	lw	$t6,0x318($sp)
-.L0f0673b8:
-/*  f0673b8:	c5d00030 */ 	lwc1	$f16,0x30($t6)
-/*  f0673bc:	c44e0010 */ 	lwc1	$f14,0x10($v0)
-/*  f0673c0:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0673c4:	46109400 */ 	add.s	$f16,$f18,$f16
-/*  f0673c8:	c4520014 */ 	lwc1	$f18,0x14($v0)
-/*  f0673cc:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  f0673d0:	e4500004 */ 	swc1	$f16,0x4($v0)
-/*  f0673d4:	8faf0318 */ 	lw	$t7,0x318($sp)
-/*  f0673d8:	c5f00038 */ 	lwc1	$f16,0x38($t7)
-/*  f0673dc:	46107400 */ 	add.s	$f16,$f14,$f16
-/*  f0673e0:	e4500008 */ 	swc1	$f16,0x8($v0)
-/*  f0673e4:	1466fff4 */ 	bne	$v1,$a2,.L0f0673b8
-/*  f0673e8:	8fae0318 */ 	lw	$t6,0x318($sp)
-.L0f0673ec:
-/*  f0673ec:	c5d00030 */ 	lwc1	$f16,0x30($t6)
-/*  f0673f0:	c44e0010 */ 	lwc1	$f14,0x10($v0)
-/*  f0673f4:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  f0673f8:	46109400 */ 	add.s	$f16,$f18,$f16
-/*  f0673fc:	e4500004 */ 	swc1	$f16,0x4($v0)
-/*  f067400:	8faf0318 */ 	lw	$t7,0x318($sp)
-/*  f067404:	c5f00038 */ 	lwc1	$f16,0x38($t7)
-/*  f067408:	46107400 */ 	add.s	$f16,$f14,$f16
-/*  f06740c:	e4500008 */ 	swc1	$f16,0x8($v0)
-.L0f067410:
-/*  f067410:	8fb00008 */ 	lw	$s0,0x8($sp)
-/*  f067414:	8fb1000c */ 	lw	$s1,0xc($sp)
-/*  f067418:	27bd0300 */ 	addiu	$sp,$sp,0x300
-/*  f06741c:	03e00008 */ 	jr	$ra
-/*  f067420:	00c01025 */ 	or	$v0,$a2,$zero
-);
-
-void func0f067424(struct modelrodata_bbox *bbox, Mtxf *mtx, struct geoblock *block)
+s32 objCalculateGeoBlockVertices(f32 xmin, f32 xmax, f32 ymin, f32 ymax, f32 zmin, f32 zmax, Mtxf *mtx, struct geoblock *block)
 {
-	block->header.numvertices = func0f066b5c(
-			bbox->xmin, bbox->xmax, bbox->ymin, bbox->ymax, bbox->zmin, bbox->zmax, mtx, block);
-	block->header.type = GEOTYPE_BLOCK;
-	block->ymin = mtx->m[3][1] + func0f06683c(bbox, mtx);
-	block->ymax = mtx->m[3][1] + func0f06686c(bbox, mtx);
+	s32 i;
+	s32 j;
+	s32 len = 0;
+	s32 numindexes;
+	f64 sp270[8][2];
+	f64 sp1f0[8][2];
+	s32 numverts;
+	s32 t3 = 0;
+	s32 t1 = 0;
+	s32 t2 = 0;
+	s32 t0 = 0;
+	s32 indexes[8];
+	f64 a;
+	f64 b;
+	f64 xmin64 = xmin;
+	f64 xmax64 = xmax;
+	f64 ymin64 = ymin;
+	f64 ymax64 = ymax;
+	f64 zmin64 = zmin;
+	f64 zmax64 = zmax;
+	f64 mtx00 = mtx->m[0][0];
+	f64 mtx02 = mtx->m[0][2];
+	f64 mtx10 = mtx->m[1][0];
+	f64 mtx12 = mtx->m[1][2];
+	f64 mtx20 = mtx->m[2][0];
+	f64 mtx22 = mtx->m[2][2];
+	f64 mtx00min = mtx00 * xmin64;
+	f64 mtx02min = mtx02 * xmin64;
+	f64 mtx10min = mtx10 * ymin64;
+	f64 mtx12min = mtx12 * ymin64;
+	f64 mtx20min = mtx20 * zmin64;
+	f64 mtx22min = mtx22 * zmin64;
+	f64 mtx00max = mtx00 * xmax64;
+	f64 mtx02max = mtx02 * xmax64;
+	f64 mtx10max = mtx10 * ymax64;
+	f64 mtx12max = mtx12 * ymax64;
+	f64 mtx20max = mtx20 * zmax64;
+	f64 mtx22max = mtx22 * zmax64;
+
+	sp270[0][0] = mtx00min + mtx10min + mtx20min;
+	sp270[0][1] = mtx02min + mtx12min + mtx22min;
+	sp270[1][0] = mtx00min + mtx10min + mtx20max;
+	sp270[1][1] = mtx02min + mtx12min + mtx22max;
+	sp270[2][0] = mtx00min + mtx10max + mtx20min;
+	sp270[2][1] = mtx02min + mtx12max + mtx22min;
+	sp270[3][0] = mtx00min + mtx10max + mtx20max;
+	sp270[3][1] = mtx02min + mtx12max + mtx22max;
+	sp270[4][0] = mtx00max + mtx10min + mtx20min;
+	sp270[4][1] = mtx02max + mtx12min + mtx22min;
+	sp270[5][0] = mtx00max + mtx10min + mtx20max;
+	sp270[5][1] = mtx02max + mtx12min + mtx22max;
+	sp270[6][0] = mtx00max + mtx10max + mtx20min;
+	sp270[6][1] = mtx02max + mtx12max + mtx22min;
+	sp270[7][0] = mtx00max + mtx10max + mtx20max;
+	sp270[7][1] = mtx02max + mtx12max + mtx22max;
+
+	for (i = 0; i < 8; i++) {
+		for (j = 0; j < len; j++) {
+			f32 tmp = 0.001f;
+			f64 f0 = tmp;
+			a = sp270[i][0] - sp1f0[j][0];
+			b = sp270[i][1] - sp1f0[j][1];
+
+			if (a < f0 && a > -f0 && b < f0 && b > -f0) {
+				break;
+			}
+		}
+
+		if (j >= len) {
+			sp1f0[len][0] = sp270[i][0];
+			sp1f0[len][1] = sp270[i][1];
+			len++;
+		}
+	}
+
+	for (i = 1; i < len; i++) {
+		if (sp1f0[i][0] < sp1f0[t3][0] || (sp1f0[i][0] == sp1f0[t3][0] && sp1f0[i][1] < sp1f0[t3][1])) {
+			t3 = i;
+		}
+	}
+
+	for (i = 1; i < len; i++) {
+		if (sp1f0[t2][1] < sp1f0[i][1] || (sp1f0[i][1] == sp1f0[t2][1] && sp1f0[i][0] < sp1f0[t2][0])) {
+			t2 = i;
+		}
+	}
+
+	for (i = 1; i < len; i++) {
+		if (sp1f0[t1][0] < sp1f0[i][0] || (sp1f0[i][0] == sp1f0[t1][0] && sp1f0[t1][1] < sp1f0[i][1])) {
+			t1 = i;
+		}
+	}
+
+	for (i = 1; i < len; i++) {
+		if (sp1f0[i][1] < sp1f0[t0][1] || (sp1f0[i][1] == sp1f0[t0][1] && sp1f0[t0][0] < sp1f0[i][0])) {
+			t0 = i;
+		}
+	}
+
+	numindexes = 0;
+
+	for (i = 0; i < len; i++) {
+		if (i != t3 && i != t1 && i != t2 && i != t0) {
+			indexes[numindexes] = i;
+			numindexes++;
+		}
+	}
+
+	numverts = 0;
+	block->vertices[numverts][0] = sp1f0[t3][0];
+	block->vertices[numverts][1] = sp1f0[t3][1];
+	numverts++;
+
+	if (t0 != t3) {
+		for (i = 0; i < numindexes; i++) {
+			s32 index = indexes[i];
+
+			if ((sp1f0[index][0] - sp1f0[t0][0]) * (sp1f0[t3][1] - sp1f0[t0][1]) < (sp1f0[t3][0] - sp1f0[t0][0]) * (sp1f0[index][1] - sp1f0[t0][1])) {
+				block->vertices[numverts][0] = sp1f0[index][0];
+				block->vertices[numverts][1] = sp1f0[index][1];
+				numverts++;
+				break;
+			}
+		}
+
+		block->vertices[numverts][0] = sp1f0[t0][0];
+		block->vertices[numverts][1] = sp1f0[t0][1];
+		numverts++;
+	}
+
+	if (t1 != t0) {
+		for (i = 0; i < numindexes; i++) {
+			s32 index = indexes[i];
+
+			if ((sp1f0[index][0] - sp1f0[t1][0]) * (sp1f0[t0][1] - sp1f0[t1][1]) < (sp1f0[t0][0] - sp1f0[t1][0]) * (sp1f0[index][1] - sp1f0[t1][1])) {
+				block->vertices[numverts][0] = sp1f0[index][0];
+				block->vertices[numverts][1] = sp1f0[index][1];
+				numverts++;
+				break;
+			}
+		}
+
+		block->vertices[numverts][0] = sp1f0[t1][0];
+		block->vertices[numverts][1] = sp1f0[t1][1];
+		numverts++;
+	}
+
+	if (t2 != t1) {
+		for (i = 0; i < numindexes; i++) {
+			s32 index = indexes[i];
+
+			if ((sp1f0[index][0] - sp1f0[t2][0]) * (sp1f0[t1][1] - sp1f0[t2][1]) < (sp1f0[t1][0] - sp1f0[t2][0]) * (sp1f0[index][1] - sp1f0[t2][1])) {
+				block->vertices[numverts][0] = sp1f0[index][0];
+				block->vertices[numverts][1] = sp1f0[index][1];
+				numverts++;
+				break;
+			}
+		}
+	}
+
+	if (t2 != t1 && t3 != t2) {
+		block->vertices[numverts][0] = sp1f0[t2][0];
+		block->vertices[numverts][1] = sp1f0[t2][1];
+		numverts++;
+	}
+
+	if (t3 != t2) {
+		for (i = 0; i < numindexes; i++) {
+			s32 index = indexes[i];
+
+			if ((sp1f0[index][0] - sp1f0[t3][0]) * (sp1f0[t2][1] - sp1f0[t3][1]) < (sp1f0[t2][0] - sp1f0[t3][0]) * (sp1f0[index][1] - sp1f0[t3][1])) {
+				block->vertices[numverts][0] = sp1f0[index][0];
+				block->vertices[numverts][1] = sp1f0[index][1];
+				numverts++;
+				break;
+			}
+		}
+	}
+
+	for (i = 0; i < numverts; i++) {
+		block->vertices[i][0] += mtx->m[3][0];
+		block->vertices[i][1] += mtx->m[3][2];
+	}
+
+	return numverts;
 }
 
-void func0f0674bc(struct modelrodata_type19 *rodata19, struct modelrodata_bbox *bbox, Mtxf *mtx, struct geoblock *block)
+void objCalculateGeoBlockFromBboxAndMtx(struct modelrodata_bbox *bbox, Mtxf *mtx, struct geoblock *block)
+{
+	block->header.numvertices = objCalculateGeoBlockVertices(
+			bbox->xmin, bbox->xmax, bbox->ymin, bbox->ymax, bbox->zmin, bbox->zmax, mtx, block);
+	block->header.type = GEOTYPE_BLOCK;
+	block->ymin = mtx->m[3][1] + objGetRotatedLocalYMinByMtx4(bbox, mtx);
+	block->ymax = mtx->m[3][1] + objGetRotatedLocalYMaxByMtx4(bbox, mtx);
+}
+
+void objCalculateGeoBlockFromNode19Data(struct modelrodata_type19 *rodata19, struct modelrodata_bbox *bbox, Mtxf *mtx, struct geoblock *block)
 {
 	s32 i;
 
@@ -1067,8 +642,8 @@ void func0f0674bc(struct modelrodata_type19 *rodata19, struct modelrodata_bbox *
 
 	block->header.numvertices = rodata19->numvertices;
 	block->header.type = GEOTYPE_BLOCK;
-	block->ymin = mtx->m[3][1] + func0f06683c(bbox, mtx);
-	block->ymax = mtx->m[3][1] + func0f06686c(bbox, mtx);
+	block->ymin = mtx->m[3][1] + objGetRotatedLocalYMinByMtx4(bbox, mtx);
+	block->ymax = mtx->m[3][1] + objGetRotatedLocalYMaxByMtx4(bbox, mtx);
 }
 
 bool func0f0675c8(struct coord *pos, f32 arg1, struct modelrodata_bbox *bbox, Mtxf *mtx)
@@ -1171,16 +746,16 @@ bool func0f0679ac(struct model *model, f32 *max, f32 *min, f32 arg3[2], f32 arg4
 			f32 dist1;
 			f32 dist2;
 
-			dist1 = func0f06680c(bbox, mtx) + mtx->m[3][0];
-			dist2 = func0f0667dc(bbox, mtx) + mtx->m[3][0];
+			dist1 = objGetRotatedLocalXMaxByMtx4(bbox, mtx) + mtx->m[3][0];
+			dist2 = objGetRotatedLocalXMinByMtx4(bbox, mtx) + mtx->m[3][0];
 
 			if (arg3[0] - arg4[0] <= dist1 && arg3[0] + arg4[0] >= dist2) {
-				dist1 = func0f06686c(bbox, mtx) + mtx->m[3][1];
-				dist2 = func0f06683c(bbox, mtx) + mtx->m[3][1];
+				dist1 = objGetRotatedLocalYMaxByMtx4(bbox, mtx) + mtx->m[3][1];
+				dist2 = objGetRotatedLocalYMinByMtx4(bbox, mtx) + mtx->m[3][1];
 
 				if (arg3[1] - arg4[1] <= dist1 && arg3[1] + arg4[1] >= dist2) {
-					dist1 = func0f0668cc(bbox, mtx) + mtx->m[3][2];
-					dist2 = func0f06689c(bbox, mtx) + mtx->m[3][2];
+					dist1 = objGetRotatedLocalZMaxByMtx4(bbox, mtx) + mtx->m[3][2];
+					dist2 = objGetRotatedLocalZMinByMtx4(bbox, mtx) + mtx->m[3][2];
 
 					if (first || dist1 > *max) {
 						*max = dist1;
@@ -1229,14 +804,14 @@ void func0f067bc4(struct model *model, f32 *max, f32 *min, s32 axis)
 			f32 dist2;
 
 			if (axis == 0) {
-				dist1 = func0f06680c(bbox, mtx) + mtx->m[3][0];
-				dist2 = func0f0667dc(bbox, mtx) + mtx->m[3][0];
+				dist1 = objGetRotatedLocalXMaxByMtx4(bbox, mtx) + mtx->m[3][0];
+				dist2 = objGetRotatedLocalXMinByMtx4(bbox, mtx) + mtx->m[3][0];
 			} else if (axis == 1) {
-				dist1 = func0f06686c(bbox, mtx) + mtx->m[3][1];
-				dist2 = func0f06683c(bbox, mtx) + mtx->m[3][1];
+				dist1 = objGetRotatedLocalYMaxByMtx4(bbox, mtx) + mtx->m[3][1];
+				dist2 = objGetRotatedLocalYMinByMtx4(bbox, mtx) + mtx->m[3][1];
 			} else {
-				dist1 = func0f0668cc(bbox, mtx) + mtx->m[3][2];
-				dist2 = func0f06689c(bbox, mtx) + mtx->m[3][2];
+				dist1 = objGetRotatedLocalZMaxByMtx4(bbox, mtx) + mtx->m[3][2];
+				dist2 = objGetRotatedLocalZMinByMtx4(bbox, mtx) + mtx->m[3][2];
 			}
 
 			if (first || dist1 > *max) {
@@ -1300,10 +875,10 @@ bool modelGetScreenCoords2(struct model *model, f32 *x2, f32 *x1, f32 *y2, f32 *
 						sp50.y = mtx->m[3][1];
 						sp50.z = mtx->m[3][2];
 
-						sp64[0] = func0f0667dc(bbox, mtx) + sp50.f[0];
-						sp64[1] = func0f06680c(bbox, mtx) + sp50.f[0];
-						sp5c[0] = func0f06683c(bbox, mtx) + sp50.f[1];
-						sp5c[1] = func0f06686c(bbox, mtx) + sp50.f[1];
+						sp64[0] = objGetRotatedLocalXMinByMtx4(bbox, mtx) + sp50.f[0];
+						sp64[1] = objGetRotatedLocalXMaxByMtx4(bbox, mtx) + sp50.f[0];
+						sp5c[0] = objGetRotatedLocalYMinByMtx4(bbox, mtx) + sp50.f[1];
+						sp5c[1] = objGetRotatedLocalYMaxByMtx4(bbox, mtx) + sp50.f[1];
 
 						func0f06803c(&sp50, sp64, sp5c, sp74, sp6c);
 
@@ -1480,13 +1055,13 @@ void projectileReset(struct projectile *projectile)
 	projectile->flighttime240 = 0;
 	projectile->unk0a4 = -1;
 	projectile->droptype = DROPTYPE_DEFAULT;
-	projectile->unk0b4 = 0;
+	projectile->pickuptimer240 = 0;
 	projectile->losttimer240 = 0;
 	projectile->obj = NULL;
 	projectile->unk0d8 = 0;
 	projectile->smoketimer240 = 0;
 	projectile->targetprop = NULL;
-	projectile->unk108 = 0;
+	projectile->pickupby = NULL;
 	projectile->powerlimit240 = -1;
 	projectile->unk0b8[0] = 1;
 	projectile->unk0b8[1] = 1;
@@ -3964,15 +3539,15 @@ void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], stru
 
 		if (obj->type == OBJTYPE_HOVERBIKE) {
 			hoverbike = (struct hoverbikeobj *)obj;
-			cyl->ymax = hoverbike->hov.ground + g_HovTypes[hoverbike->hov.type].unk00 + modelBboxGetYMax(bbox) * obj->model->scale;
+			cyl->ymax = hoverbike->hov.ground + g_HovTypes[hoverbike->hov.type].unk00 + objGetLocalYMax(bbox) * obj->model->scale;
 			cyl->ymin = hoverbike->hov.ground + 20.0f;
 		} else if (obj->type == OBJTYPE_HOVERPROP) {
 			hoverprop = (struct hoverpropobj *)obj;
-			cyl->ymax = hoverprop->hov.ground + g_HovTypes[hoverprop->hov.type].unk00 + modelBboxGetYMax(bbox) * obj->model->scale;
+			cyl->ymax = hoverprop->hov.ground + g_HovTypes[hoverprop->hov.type].unk00 + objGetLocalYMax(bbox) * obj->model->scale;
 			cyl->ymin = hoverprop->hov.ground + 20.0f;
 		} else {
-			cyl->ymin = mtx.m[3][1] + func0f06683c(bbox, &mtx);
-			cyl->ymax = mtx.m[3][1] + func0f06686c(bbox, &mtx);
+			cyl->ymin = mtx.m[3][1] + objGetRotatedLocalYMinByMtx4(bbox, &mtx);
+			cyl->ymax = mtx.m[3][1] + objGetRotatedLocalYMaxByMtx4(bbox, &mtx);
 		}
 
 		cyl->x = pos->x;
@@ -3980,18 +3555,18 @@ void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], stru
 		cyl->radius = 90.0f;
 	} else {
 		if (rodata19 != NULL) {
-			func0f0674bc(rodata19, bbox, &mtx, (struct geoblock *)cyl);
+			objCalculateGeoBlockFromNode19Data(rodata19, bbox, &mtx, (struct geoblock *)cyl);
 		} else {
-			func0f067424(bbox, &mtx, (struct geoblock *)cyl);
+			objCalculateGeoBlockFromBboxAndMtx(bbox, &mtx, (struct geoblock *)cyl);
 		}
 
 		if (obj->type == OBJTYPE_HOVERBIKE) {
 			hoverbike = (struct hoverbikeobj *)obj;
-			cyl->ymax = hoverbike->hov.ground + g_HovTypes[hoverbike->hov.type].unk00 + modelBboxGetYMax(bbox) * obj->model->scale;
+			cyl->ymax = hoverbike->hov.ground + g_HovTypes[hoverbike->hov.type].unk00 + objGetLocalYMax(bbox) * obj->model->scale;
 			cyl->ymin = hoverbike->hov.ground + 20.0f;
 		} else if (obj->type == OBJTYPE_HOVERPROP) {
 			hoverprop = (struct hoverpropobj *)obj;
-			cyl->ymax = hoverprop->hov.ground + g_HovTypes[hoverprop->hov.type].unk00 + modelBboxGetYMax(bbox) * obj->model->scale;
+			cyl->ymax = hoverprop->hov.ground + g_HovTypes[hoverprop->hov.type].unk00 + objGetLocalYMax(bbox) * obj->model->scale;
 			cyl->ymin = hoverprop->hov.ground + 20.0f;
 		}
 	}
@@ -4380,7 +3955,7 @@ void func0f06a650(struct defaultobj *obj, struct coord *pos, Mtxf *arg2, s16 *ro
 
 	if (room > 0) {
 		newpos.x = pos->x;
-		newpos.y = (sp3c + func0f06a620(obj)) - func0f06683c(bbox, arg2);
+		newpos.y = (sp3c + func0f06a620(obj)) - objGetRotatedLocalYMinByMtx4(bbox, arg2);
 		newpos.z = pos->z;
 
 		newrooms[0] = room;
@@ -4409,10 +3984,10 @@ glabel var7f1aa200
 /*  f06a74c:	0fc1a2aa */ 	jal	modelFindBboxRodata
 /*  f06a750:	8c840018 */ 	lw	$a0,0x18($a0)
 /*  f06a754:	afa200c4 */ 	sw	$v0,0xc4($sp)
-/*  f06a758:	0fc199ef */ 	jal	modelBboxGetYMin
+/*  f06a758:	0fc199ef */ 	jal	objGetLocalYMin
 /*  f06a75c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06a760:	46000506 */ 	mov.s	$f20,$f0
-/*  f06a764:	0fc199f1 */ 	jal	modelBboxGetYMax
+/*  f06a764:	0fc199f1 */ 	jal	objGetLocalYMax
 /*  f06a768:	8fa400c4 */ 	lw	$a0,0xc4($sp)
 /*  f06a76c:	8faf00c8 */ 	lw	$t7,0xc8($sp)
 /*  f06a770:	46000386 */ 	mov.s	$f14,$f0
@@ -4534,10 +4109,10 @@ glabel var7f1aa200
 .L0f06a920:
 /*  f06a920:	15000009 */ 	bnez	$t0,.L0f06a948
 /*  f06a924:	8fa400c4 */ 	lw	$a0,0xc4($sp)
-/*  f06a928:	0fc199eb */ 	jal	modelBboxGetXMin
+/*  f06a928:	0fc199eb */ 	jal	objGetLocalXMin
 /*  f06a92c:	afa80050 */ 	sw	$t0,0x50($sp)
 /*  f06a930:	46000506 */ 	mov.s	$f20,$f0
-/*  f06a934:	0fc199ed */ 	jal	modelBboxGetXMax
+/*  f06a934:	0fc199ed */ 	jal	objGetLocalXMax
 /*  f06a938:	8fa400c4 */ 	lw	$a0,0xc4($sp)
 /*  f06a93c:	8fa80050 */ 	lw	$t0,0x50($sp)
 /*  f06a940:	1000000a */ 	b	.L0f06a96c
@@ -4545,10 +4120,10 @@ glabel var7f1aa200
 .L0f06a948:
 /*  f06a948:	15010008 */ 	bne	$t0,$at,.L0f06a96c
 /*  f06a94c:	8fa400c4 */ 	lw	$a0,0xc4($sp)
-/*  f06a950:	0fc199f3 */ 	jal	modelBboxGetZMin
+/*  f06a950:	0fc199f3 */ 	jal	objGetLocalZMin
 /*  f06a954:	afa80050 */ 	sw	$t0,0x50($sp)
 /*  f06a958:	46000506 */ 	mov.s	$f20,$f0
-/*  f06a95c:	0fc199f5 */ 	jal	modelBboxGetZMax
+/*  f06a95c:	0fc199f5 */ 	jal	objGetLocalZMax
 /*  f06a960:	8fa400c4 */ 	lw	$a0,0xc4($sp)
 /*  f06a964:	8fa80050 */ 	lw	$t0,0x50($sp)
 /*  f06a968:	46000386 */ 	mov.s	$f14,$f0
@@ -4700,10 +4275,10 @@ glabel var7f1aa200
 /*  f0699b4:	0fc19f4a */ 	jal	modelFindBboxRodata
 /*  f0699b8:	8c840018 */ 	lw	$a0,0x18($a0)
 /*  f0699bc:	afa200bc */ 	sw	$v0,0xbc($sp)
-/*  f0699c0:	0fc1968f */ 	jal	modelBboxGetYMin
+/*  f0699c0:	0fc1968f */ 	jal	objGetLocalYMin
 /*  f0699c4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0699c8:	46000506 */ 	mov.s	$f20,$f0
-/*  f0699cc:	0fc19691 */ 	jal	modelBboxGetYMax
+/*  f0699cc:	0fc19691 */ 	jal	objGetLocalYMax
 /*  f0699d0:	8fa400bc */ 	lw	$a0,0xbc($sp)
 /*  f0699d4:	8faf00c0 */ 	lw	$t7,0xc0($sp)
 /*  f0699d8:	46000386 */ 	mov.s	$f14,$f0
@@ -4825,10 +4400,10 @@ glabel var7f1aa200
 .NB0f069b88:
 /*  f069b88:	15000009 */ 	bnez	$t0,.NB0f069bb0
 /*  f069b8c:	8fa400bc */ 	lw	$a0,0xbc($sp)
-/*  f069b90:	0fc1968b */ 	jal	modelBboxGetXMin
+/*  f069b90:	0fc1968b */ 	jal	objGetLocalXMin
 /*  f069b94:	afa80048 */ 	sw	$t0,0x48($sp)
 /*  f069b98:	46000506 */ 	mov.s	$f20,$f0
-/*  f069b9c:	0fc1968d */ 	jal	modelBboxGetXMax
+/*  f069b9c:	0fc1968d */ 	jal	objGetLocalXMax
 /*  f069ba0:	8fa400bc */ 	lw	$a0,0xbc($sp)
 /*  f069ba4:	8fa80048 */ 	lw	$t0,0x48($sp)
 /*  f069ba8:	1000000a */ 	beqz	$zero,.NB0f069bd4
@@ -4836,10 +4411,10 @@ glabel var7f1aa200
 .NB0f069bb0:
 /*  f069bb0:	15010008 */ 	bne	$t0,$at,.NB0f069bd4
 /*  f069bb4:	8fa400bc */ 	lw	$a0,0xbc($sp)
-/*  f069bb8:	0fc19693 */ 	jal	modelBboxGetZMin
+/*  f069bb8:	0fc19693 */ 	jal	objGetLocalZMin
 /*  f069bbc:	afa80048 */ 	sw	$t0,0x48($sp)
 /*  f069bc0:	46000506 */ 	mov.s	$f20,$f0
-/*  f069bc4:	0fc19695 */ 	jal	modelBboxGetZMax
+/*  f069bc4:	0fc19695 */ 	jal	objGetLocalZMax
 /*  f069bc8:	8fa400bc */ 	lw	$a0,0xbc($sp)
 /*  f069bcc:	8fa80048 */ 	lw	$t0,0x48($sp)
 /*  f069bd0:	46000386 */ 	mov.s	$f14,$f0
@@ -4993,8 +4568,8 @@ glabel var7f1aa200
 //	f32 bestval;
 //
 //	bbox = modelFindBboxRodata(obj->model);
-//	min = modelBboxGetYMin(bbox);
-//	max = modelBboxGetYMax(bbox);
+//	min = objGetLocalYMin(bbox);
+//	max = objGetLocalYMax(bbox);
 //
 //	if (obj->flags & OBJFLAG_00000004) {
 //		mtx4LoadZRotation(M_BADPI, &sp70);
@@ -5059,11 +4634,11 @@ glabel var7f1aa200
 //		}
 //
 //		if (sp50 == 0) {
-//			min = modelBboxGetXMin(bbox);
-//			max = modelBboxGetXMax(bbox);
+//			min = objGetLocalXMin(bbox);
+//			max = objGetLocalXMax(bbox);
 //		} else if (sp50 == 2) {
-//			min = modelBboxGetZMin(bbox);
-//			max = modelBboxGetZMax(bbox);
+//			min = objGetLocalZMin(bbox);
+//			max = objGetLocalZMax(bbox);
 //		}
 //
 //		if (sp70.m[sp50][0]);
@@ -5121,7 +4696,7 @@ void func0f06ab60(struct defaultobj *obj, struct coord *arg1, Mtxf *arg2, s16 *r
 	Mtxf sp1c;
 
 	bbox = modelFindBboxRodata(obj->model);
-	mult = modelBboxGetZMin(bbox);
+	mult = objGetLocalZMin(bbox);
 
 	mtx4LoadXRotation(4.7116389274597f, &sp5c);
 	mtx4LoadYRotation(M_BADPI, &sp1c);
@@ -6749,7 +6324,7 @@ void objLand2(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
 	Mtxf sp40;
 	struct coord newpos;
 	struct modelrodata_bbox *bbox = modelFindBboxRodata(obj->model);
-	f32 ymin = modelBboxGetYMin(bbox);
+	f32 ymin = objGetLocalYMin(bbox);
 	struct prop *prop = obj->prop;
 	s16 newrooms[8];
 
@@ -6779,7 +6354,7 @@ void boltLand(struct weaponobj *weapon, struct coord *arg1)
 
 	weapon->timer240 = 13;
 
-	zmax = modelBboxGetZMax(bbox);
+	zmax = objGetLocalZMax(bbox);
 	zmax -= 25.0f + 2.0f * RANDOMFRAC();
 
 	mtx3ToMtx4(weapon->base.realrot, &mtx);
@@ -6812,7 +6387,7 @@ void knifeLand(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
 	struct coord sp1c;
 
 	// @bug? Should these be assigned to zero?
-	modelBboxGetZMin(bbox);
+	objGetLocalZMin(bbox);
 	random();
 
 	sp1c.x = RANDOMFRAC() * 0.8f + arg2->x - 0.4f;
@@ -6986,7 +6561,7 @@ bool propExplode(struct prop *prop, s32 exptype)
 	} else if ((obj->hidden & (OBJHFLAG_EMBEDDED | OBJHFLAG_PROJECTILE | OBJHFLAG_00020000)) == OBJHFLAG_00020000) {
 		struct coord sp5c;
 		struct coord sp50;
-		f32 ymin = modelBboxGetYMin(modelFindBboxRodata(obj->model));
+		f32 ymin = objGetLocalYMin(modelFindBboxRodata(obj->model));
 		s32 room = prop->rooms[0];
 
 		sp50.x = obj->realrot[1][0];
@@ -7964,7 +7539,7 @@ glabel var7f1aa2c4
 /*  f070268:	e7a0006c */ 	swc1	$f0,0x6c($sp)
 /*  f07026c:	e7a00130 */ 	swc1	$f0,0x130($sp)
 /*  f070270:	e7a00124 */ 	swc1	$f0,0x124($sp)
-/*  f070274:	0fc199f5 */ 	jal	modelBboxGetZMax
+/*  f070274:	0fc199f5 */ 	jal	objGetLocalZMax
 /*  f070278:	e7a00064 */ 	swc1	$f0,0x64($sp)
 /*  f07027c:	e7a00068 */ 	swc1	$f0,0x68($sp)
 /*  f070280:	e7a00074 */ 	swc1	$f0,0x74($sp)
@@ -8011,7 +7586,7 @@ glabel var7f1aa2c4
 /*  f070320:	e7b00070 */ 	swc1	$f16,0x70($sp)
 /*  f070324:	e7b00060 */ 	swc1	$f16,0x60($sp)
 /*  f070328:	e7b0006c */ 	swc1	$f16,0x6c($sp)
-/*  f07032c:	0fc199f5 */ 	jal	modelBboxGetZMax
+/*  f07032c:	0fc199f5 */ 	jal	objGetLocalZMax
 /*  f070330:	e7b00064 */ 	swc1	$f16,0x64($sp)
 /*  f070334:	2604001c */ 	addiu	$a0,$s0,0x1c
 /*  f070338:	e7a00068 */ 	swc1	$f0,0x68($sp)
@@ -9173,7 +8748,7 @@ glabel var7f1aa2c4
 /*  f070268:	e7a0006c */ 	swc1	$f0,0x6c($sp)
 /*  f07026c:	e7a00130 */ 	swc1	$f0,0x130($sp)
 /*  f070270:	e7a00124 */ 	swc1	$f0,0x124($sp)
-/*  f070274:	0fc199f5 */ 	jal	modelBboxGetZMax
+/*  f070274:	0fc199f5 */ 	jal	objGetLocalZMax
 /*  f070278:	e7a00064 */ 	swc1	$f0,0x64($sp)
 /*  f07027c:	e7a00068 */ 	swc1	$f0,0x68($sp)
 /*  f070280:	e7a00074 */ 	swc1	$f0,0x74($sp)
@@ -9220,7 +8795,7 @@ glabel var7f1aa2c4
 /*  f070320:	e7b00070 */ 	swc1	$f16,0x70($sp)
 /*  f070324:	e7b00060 */ 	swc1	$f16,0x60($sp)
 /*  f070328:	e7b0006c */ 	swc1	$f16,0x6c($sp)
-/*  f07032c:	0fc199f5 */ 	jal	modelBboxGetZMax
+/*  f07032c:	0fc199f5 */ 	jal	objGetLocalZMax
 /*  f070330:	e7b00064 */ 	swc1	$f16,0x64($sp)
 /*  f070334:	2604001c */ 	addiu	$a0,$s0,0x1c
 /*  f070338:	e7a00068 */ 	swc1	$f0,0x68($sp)
@@ -10103,7 +9678,7 @@ glabel var7f1aa2c4
 /*  f06f124:	e7a00044 */ 	swc1	$f0,0x44($sp)
 /*  f06f128:	e7a00108 */ 	swc1	$f0,0x108($sp)
 /*  f06f12c:	e7a000fc */ 	swc1	$f0,0xfc($sp)
-/*  f06f130:	0fc19695 */ 	jal	modelBboxGetZMax
+/*  f06f130:	0fc19695 */ 	jal	objGetLocalZMax
 /*  f06f134:	e7a0003c */ 	swc1	$f0,0x3c($sp)
 /*  f06f138:	e7a00040 */ 	swc1	$f0,0x40($sp)
 /*  f06f13c:	e7a0004c */ 	swc1	$f0,0x4c($sp)
@@ -10152,7 +9727,7 @@ glabel var7f1aa2c4
 /*  f06f1e4:	e7b00048 */ 	swc1	$f16,0x48($sp)
 /*  f06f1e8:	e7b00038 */ 	swc1	$f16,0x38($sp)
 /*  f06f1ec:	e7b00044 */ 	swc1	$f16,0x44($sp)
-/*  f06f1f0:	0fc19695 */ 	jal	modelBboxGetZMax
+/*  f06f1f0:	0fc19695 */ 	jal	objGetLocalZMax
 /*  f06f1f4:	e7b0003c */ 	swc1	$f16,0x3c($sp)
 /*  f06f1f8:	8fa40174 */ 	lw	$a0,0x174($sp)
 /*  f06f1fc:	e7a00040 */ 	swc1	$f0,0x40($sp)
@@ -10633,7 +10208,7 @@ glabel var7f1aa2c4
 //					spf8.m[2][3] = 0;
 //
 //					sp60.y = 0;
-//					sp6c.z = sp60.z = modelBboxGetZMax(sp140);
+//					sp6c.z = sp60.z = objGetLocalZMax(sp140);
 //
 //					mtx4MultMtx4(&spf8, &spb8, &sp78);
 //					mtx4RotateVecInPlace(&spf8, &sp6c);
@@ -10651,7 +10226,7 @@ glabel var7f1aa2c4
 //				sp6c.x = 0;
 //				sp60.y = 0;
 //
-//				sp38[0][0] = sp6c.z = sp60.z = modelBboxGetZMax(sp140);
+//				sp38[0][0] = sp6c.z = sp60.z = objGetLocalZMax(sp140);
 //
 //				mtx3ToMtx4(obj->realrot, &spf8);
 //				mtx4MultMtx4(&spf8, &spb8, &sp78);
@@ -11179,7 +10754,7 @@ f32 objGetHov04(struct defaultobj *obj)
 		result = hov->unk04;
 	} else {
 		struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
-		f32 value = func0f06695c(bbox, obj->realrot);
+		f32 value = objGetRotatedLocalYMinByMtx3(bbox, obj->realrot);
 		result = func0f06a620(obj) - value;
 	}
 
@@ -14146,8 +13721,8 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 			sp5dc.y = prop->pos.y;
 			sp5dc.z = prop->pos.z;
 
-			if (projectile->unk0b4 > 0) {
-				projectile->unk0b4 -= g_Vars.lvupdate240;
+			if (projectile->pickuptimer240 > 0) {
+				projectile->pickuptimer240 -= g_Vars.lvupdate240;
 			}
 
 			if (projectile->flags & PROJECTILEFLAG_SLIDING) {
@@ -15068,7 +14643,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 				if (!handled) {
 					u16 geoflags;
 
-					sp37c = func0f06695c(objFindBboxRodata(obj), obj->realrot);
+					sp37c = objGetRotatedLocalYMinByMtx3(objFindBboxRodata(obj), obj->realrot);
 
 					sp5ac.x = prop->pos.x;
 					sp5ac.y = prop->pos.y + sp37c;
@@ -15326,7 +14901,7 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 					f32 spa4;
 					s16 roomnum;
 					s32 i;
-					f32 sp98 = func0f06695c(objFindBboxRodata(obj), obj->realrot);
+					f32 sp98 = objGetRotatedLocalYMinByMtx3(objFindBboxRodata(obj), obj->realrot);
 #if VERSION >= VERSION_NTSC_1_0
 					u16 geoflags;
 #endif
@@ -22793,7 +22368,7 @@ glabel var7f1aa6e4
 /*  f07e304:	860f0092 */ 	lh	$t7,0x92($s0)
 /*  f07e308:	0fc1a6f2 */ 	jal	modelFindBboxRodata
 /*  f07e30c:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f07e310:	0fc19e37 */ 	jal	modelBboxGetYMin
+/*  f07e310:	0fc19e37 */ 	jal	objGetLocalYMin
 /*  f07e314:	00402025 */ 	move	$a0,$v0
 /*  f07e318:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f07e31c:	24050001 */ 	li	$a1,0x1
@@ -23759,7 +23334,7 @@ glabel var7f1aa6e4
 /*  f07d24c:	860f0092 */ 	lh	$t7,0x92($s0)
 /*  f07d250:	0fc1a2aa */ 	jal	modelFindBboxRodata
 /*  f07d254:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f07d258:	0fc199ef */ 	jal	modelBboxGetYMin
+/*  f07d258:	0fc199ef */ 	jal	objGetLocalYMin
 /*  f07d25c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f07d260:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f07d264:	24050001 */ 	addiu	$a1,$zero,0x1
@@ -24725,7 +24300,7 @@ glabel var7f1aa6e4
 /*  f07d24c:	860f0092 */ 	lh	$t7,0x92($s0)
 /*  f07d250:	0fc1a2aa */ 	jal	modelFindBboxRodata
 /*  f07d254:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f07d258:	0fc199ef */ 	jal	modelBboxGetYMin
+/*  f07d258:	0fc199ef */ 	jal	objGetLocalYMin
 /*  f07d25c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f07d260:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f07d264:	24050001 */ 	addiu	$a1,$zero,0x1
@@ -25689,7 +25264,7 @@ glabel var7f1aa6e0
 /*  f07bcf8:	860f0092 */ 	lh	$t7,0x92($s0)
 /*  f07bcfc:	0fc19f4a */ 	jal	modelFindBboxRodata
 /*  f07bd00:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f07bd04:	0fc1968f */ 	jal	modelBboxGetYMin
+/*  f07bd04:	0fc1968f */ 	jal	objGetLocalYMin
 /*  f07bd08:	00402025 */ 	or	$a0,$v0,$zero
 /*  f07bd0c:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f07bd10:	24050001 */ 	addiu	$a1,$zero,0x1
@@ -26628,7 +26203,7 @@ glabel var7f1aa6e0
 //	// 23c
 //	if (active && hovercar->deadtimer60 < 0) {
 //		// Exploding
-//		tmp = modelBboxGetYMin(modelFindBboxRodata(hovercar->base.model));
+//		tmp = objGetLocalYMin(modelFindBboxRodata(hovercar->base.model));
 //		sp1d6 = prop->rooms[0];
 //
 //		sp1d8.x = hovercar->base.realrot[3];
@@ -30140,14 +29715,14 @@ void objDeform(struct defaultobj *obj, s32 level)
 	bbox = modelFindBboxRodata(model);
 
 	if (axis == 0) {
-		min = modelBboxGetXMin(bbox);
-		max = modelBboxGetXMax(bbox);
+		min = objGetLocalXMin(bbox);
+		max = objGetLocalXMax(bbox);
 	} else if (axis == 1) {
-		min = modelBboxGetYMin(bbox);
-		max = modelBboxGetYMax(bbox);
+		min = objGetLocalYMin(bbox);
+		max = objGetLocalYMax(bbox);
 	} else if (axis == 2) {
-		min = modelBboxGetZMin(bbox);
-		max = modelBboxGetZMax(bbox);
+		min = objGetLocalZMin(bbox);
+		max = objGetLocalZMax(bbox);
 	}
 
 	if (swap) {
@@ -30472,8 +30047,8 @@ void objApplyMomentum(struct defaultobj *obj, struct coord *speed, f32 rotation,
 
 		bbox = objFindBboxRodata(obj);
 
-		sp24 = func0f06692c(bbox, obj->realrot) - func0f0668fc(bbox, obj->realrot);
-		sp20 = func0f0669ec(bbox, obj->realrot) - func0f0669bc(bbox, obj->realrot);
+		sp24 = objGetRotatedLocalXMaxByMtx3(bbox, obj->realrot) - objGetRotatedLocalXMinByMtx3(bbox, obj->realrot);
+		sp20 = objGetRotatedLocalZMaxByMtx3(bbox, obj->realrot) - objGetRotatedLocalZMinByMtx3(bbox, obj->realrot);
 
 		if (sp24 > 150.0f || sp20 > 150.0f) {
 			projectile->unk08c = 0.1f;
@@ -31891,7 +31466,7 @@ void func0f085e00(struct prop *prop, struct shotdata *shotdata)
 	if ((prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)
 			&& (obj->hidden & OBJHFLAG_00001000) == 0
 			&& (obj->flags2 & OBJFLAG2_SHOOTTHROUGH) == 0) {
-		tmp = -(model->matrices[0].m[3][2] + func0f0668cc(bbox, model->matrices));
+		tmp = -(model->matrices[0].m[3][2] + objGetRotatedLocalZMaxByMtx4(bbox, model->matrices));
 
 		if (tmp <= shotdata->unk34) {
 			func0f0859a0(prop, shotdata);
@@ -36738,13 +36313,19 @@ s32 objTestForPickup(struct prop *prop)
 		return TICKOP_NONE;
 	}
 
-	if ((obj->hidden & OBJHFLAG_PROJECTILE) && obj->projectile->unk0b4 > 0) {
-		if (obj->projectile->unk108 == NULL) {
+	// For disarmed weapons that are falling, picktimer timer is 1 second and
+	// pickupby is set to the chr who disarmed. This makes it so only the
+	// disarmer can pick up the weapon within the first second.
+	// For thrown projectiles, the pickup timer is also 1 second but there is no
+	// pickupby. This prevents the thrower from picking up their own projectile
+	// within the first second, unless it's immediately bounced or landed.
+	if ((obj->hidden & OBJHFLAG_PROJECTILE) && obj->projectile->pickuptimer240 > 0) {
+		if (obj->projectile->pickupby == NULL) {
 			if (obj->projectile->bouncecount == 0) {
 				return TICKOP_NONE;
 			}
 		} else {
-			if (obj->projectile->unk108 != g_Vars.currentplayer->prop) {
+			if (obj->projectile->pickupby != g_Vars.currentplayer->prop) {
 				return TICKOP_NONE;
 			}
 		}
@@ -38473,7 +38054,7 @@ void doorUpdateTiles(struct doorobj *door)
 
 	if ((door->doorflags & DOORFLAG_0020) == 0) {
 		func0f08c424(door, &spdc);
-		func0f067424(&bbox, &spdc, geo);
+		objCalculateGeoBlockFromBboxAndMtx(&bbox, &spdc, geo);
 
 		if (door->doortype == DOORTYPE_VERTICAL) {
 			door->doorflags |= DOORFLAG_0020;
@@ -38481,7 +38062,7 @@ void doorUpdateTiles(struct doorobj *door)
 	}
 
 	if (door->doortype == DOORTYPE_VERTICAL) {
-		geo->ymin = door->startpos.y + func0f06695c(&bbox, door->base.realrot);
+		geo->ymin = door->startpos.y + objGetRotatedLocalYMinByMtx3(&bbox, door->base.realrot);
 	} else if (door->doortype == DOORTYPE_FALLAWAY) {
 		geo->ymin = door->base.prop->pos.y - 10000;
 	} else if (door->doorflags & DOORFLAG_0001) {

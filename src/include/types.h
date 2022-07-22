@@ -1353,7 +1353,7 @@ struct projectile {
 	/*0x0ac*/ f32 unk0ac;
 	/*0x0b0*/ s16 droptype;
 	/*0x0b2*/ s16 powerlimit240;
-	/*0x0b4*/ s32 unk0b4;
+	/*0x0b4*/ s32 pickuptimer240;
 	/*0x0b8*/ f32 unk0b8[3];
 	/*0x0c4*/ struct coord nextsteppos;
 	/*0x0d0*/ s32 losttimer240;
@@ -1369,7 +1369,7 @@ struct projectile {
 	/*0x0f8*/ s16 waypads[6];
 	/*0x104*/ u8 numwaypads;
 	/*0x105*/ u8 step;
-	/*0x108*/ struct prop *unk108;
+	/*0x108*/ struct prop *pickupby;
 };
 
 struct embedment {

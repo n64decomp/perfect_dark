@@ -117,7 +117,7 @@ void bgun0f0a24f0(struct coord *arg0, s32 handnum);
 bool bgun0f0a27c8(void);
 void bgunHandlePlayerDead(void);
 bool bgunIsMissionCritical(s32 weaponnum);
-void bgunLoseGun(struct prop *attacker);
+void bgunDisarm(struct prop *attacker);
 void bgunExecuteModelCmdList(s32 *arg0);
 s32 bgunCreateModelCmdList(struct model *model, struct modelnode *node, s32 *ptr);
 void bgunStartDetonateAnimation(s32 playernum);

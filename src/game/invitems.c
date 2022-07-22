@@ -255,7 +255,7 @@ struct weaponfunc_close invfunc_unarmed_disarm = {
 	-1, // unk07
 	&invnoisesettings_00010fd0,
 	invanim_punch, // fire animation
-	FUNCFLAG_MAKEDIZZY | FUNCFLAG_DROPWEAPON | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_BLUNTIMPACT | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
+	FUNCFLAG_MAKEDIZZY | FUNCFLAG_DISARM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_BLUNTIMPACT | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
 	0.3, // damage
 	60,
 	0x00000069,
@@ -3428,7 +3428,7 @@ struct weaponfunc_throw invfunc_nbomb_throw = {
 	0, // unk07
 	&invnoisesettings_00010fd0,
 	invanim_grenade_throw, // fire animation
-	FUNCFLAG_NOAUTOAIM | FUNCFLAG_MAKEDIZZY | FUNCFLAG_DROPWEAPON | FUNCFLAG_NOMUZZLEFLASH,
+	FUNCFLAG_NOAUTOAIM | FUNCFLAG_MAKEDIZZY | FUNCFLAG_DISARM | FUNCFLAG_NOMUZZLEFLASH,
 	0x00000110,
 	240, // activatetime60
 	60, // recoverytime60
@@ -3442,7 +3442,7 @@ struct weaponfunc_throw invfunc_nbomb_proxy = {
 	0, // unk07
 	&invnoisesettings_00010fd0,
 	invanim_grenade_throw, // fire animation
-	FUNCFLAG_NOAUTOAIM | FUNCFLAG_MAKEDIZZY | FUNCFLAG_DROPWEAPON | FUNCFLAG_NOMUZZLEFLASH,
+	FUNCFLAG_NOAUTOAIM | FUNCFLAG_MAKEDIZZY | FUNCFLAG_DISARM | FUNCFLAG_NOMUZZLEFLASH,
 	0x00000110,
 	240, // activatetime60
 	60, // recoverytime60
