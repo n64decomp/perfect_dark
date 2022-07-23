@@ -401,7 +401,14 @@ struct modelrodata_chrinfo { // type 0x01
 struct modelrodata_position { // type 0x02
 	struct coord pos;
 	u16 part;
-	s16 pieces[3];
+	union {
+		s16 mtxindexes[3];
+		struct {
+			s16 mtxindex0;
+			s16 mtxindex1;
+			s16 mtxindex2;
+		};
+	};
 	f32 drawdist;
 };
 
@@ -500,7 +507,7 @@ struct modelrodata_toggle { // type 0x12
 
 struct modelrodata_positionheld { // type 0x15
 	struct coord pos;
-	s16 unk0c;
+	s16 mtxindex;
 };
 
 struct modelrodata_type16 { // type 0x16
