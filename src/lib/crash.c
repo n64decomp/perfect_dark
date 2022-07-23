@@ -590,8 +590,8 @@ u32 crashGetStackEnd(u32 sp, s32 tid)
 		return 0;
 	}
 
-	start = (u32)g_StackStartAddrs[tid];
-	end = (u32)g_StackEndAddrs[tid];
+	start = (u32)g_StackLeftAddrs[tid];
+	end = (u32)g_StackRightAddrs[tid];
 
 	if (sp >= 0x80000000) {
 		return end;
@@ -609,7 +609,7 @@ u32 crashGetStackStart(u32 sp, s32 tid)
 		return 0;
 	}
 
-	start = (u32)g_StackStartAddrs[tid];
+	start = (u32)g_StackLeftAddrs[tid];
 
 	if (sp >= 0x80000000) {
 		return start;

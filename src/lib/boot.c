@@ -34,8 +34,8 @@ u32 var8005ce00 = 0;
 u32 var8005ce04 = 0;
 u32 var8005ce08 = 0;
 u32 var8005ce0c = 0;
-u8 *g_StackStartAddrs[7] = {0};
-u8 *g_StackEndAddrs[7] = {0};
+u8 *g_StackLeftAddrs[7] = {0};
+u8 *g_StackRightAddrs[7] = {0};
 u8 *g_StackAllocatedPos = (u8 *)0x80400000;
 u32 var8005ce4c = 0x00000002;
 u32 var8005ce50 = 0x10000000;
@@ -146,12 +146,12 @@ glabel bootPhase1
 .L000017f8:
 /*     17f8:	0c00058d */ 	jal	tlbUnmapRange
 /*     17fc:	2405001f */ 	addiu	$a1,$zero,0x1f
-/*     1800:	3c048006 */ 	lui	$a0,%hi(g_StackStartAddrs)
-/*     1804:	3c038006 */ 	lui	$v1,%hi(g_StackEndAddrs)
-/*     1808:	3c028006 */ 	lui	$v0,%hi(g_StackEndAddrs+0x1c)
-/*     180c:	2442ce48 */ 	addiu	$v0,$v0,%lo(g_StackEndAddrs+0x1c)
-/*     1810:	2463ce2c */ 	addiu	$v1,$v1,%lo(g_StackEndAddrs)
-/*     1814:	2484ce10 */ 	addiu	$a0,$a0,%lo(g_StackStartAddrs)
+/*     1800:	3c048006 */ 	lui	$a0,%hi(g_StackLeftAddrs)
+/*     1804:	3c038006 */ 	lui	$v1,%hi(g_StackRightAddrs)
+/*     1808:	3c028006 */ 	lui	$v0,%hi(g_StackRightAddrs+0x1c)
+/*     180c:	2442ce48 */ 	addiu	$v0,$v0,%lo(g_StackRightAddrs+0x1c)
+/*     1810:	2463ce2c */ 	addiu	$v1,$v1,%lo(g_StackRightAddrs)
+/*     1814:	2484ce10 */ 	addiu	$a0,$a0,%lo(g_StackLeftAddrs)
 .L00001818:
 /*     1818:	24630004 */ 	addiu	$v1,$v1,0x4
 /*     181c:	24840004 */ 	addiu	$a0,$a0,0x4
@@ -379,9 +379,9 @@ void __osSetFpcCsr(u32 arg0);
 //	tlbUnmapRange(1, NTLBENTRIES);
 //
 //	// Clear the stack allocation pointers
-//	for (i = 0; i < ARRAYCOUNT(g_StackStartAddrs); i++) {
-//		g_StackStartAddrs[i] = NULL;
-//		g_StackEndAddrs[i] = NULL;
+//	for (i = 0; i < ARRAYCOUNT(g_StackLeftAddrs); i++) {
+//		g_StackLeftAddrs[i] = NULL;
+//		g_StackRightAddrs[i] = NULL;
 //	}
 //
 //	osInitialize();
@@ -406,47 +406,6 @@ void __osSetFpcCsr(u32 arg0);
 //	osStartThread(&g_MainThread);
 //}
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel bootAllocateStack
-/*     18ac:	3c098006 */ 	lui	$t1,%hi(g_StackAllocatedPos)
-/*     18b0:	2529ce48 */ 	addiu	$t1,$t1,%lo(g_StackAllocatedPos)
-/*     18b4:	8d230000 */ 	lw	$v1,0x0($t1)
-/*     18b8:	00041080 */ 	sll	$v0,$a0,0x2
-/*     18bc:	3c018006 */ 	lui	$at,%hi(g_StackEndAddrs)
-/*     18c0:	00220821 */ 	addu	$at,$at,$v0
-/*     18c4:	ac23ce2c */ 	sw	$v1,%lo(g_StackEndAddrs)($at)
-/*     18c8:	2401fff0 */ 	addiu	$at,$zero,-16
-/*     18cc:	24a5000f */ 	addiu	$a1,$a1,0xf
-/*     18d0:	00a17024 */ 	and	$t6,$a1,$at
-/*     18d4:	3c018006 */ 	lui	$at,%hi(g_StackStartAddrs)
-/*     18d8:	006e7823 */ 	subu	$t7,$v1,$t6
-/*     18dc:	ad2f0000 */ 	sw	$t7,0x0($t1)
-/*     18e0:	00220821 */ 	addu	$at,$at,$v0
-/*     18e4:	01c02825 */ 	or	$a1,$t6,$zero
-/*     18e8:	ac2fce10 */ 	sw	$t7,%lo(g_StackStartAddrs)($at)
-/*     18ec:	01e01825 */ 	or	$v1,$t7,$zero
-/*     18f0:	19c0000d */ 	blez	$t6,.L00001928
-/*     18f4:	00004025 */ 	or	$t0,$zero,$zero
-/*     18f8:	3083000f */ 	andi	$v1,$a0,0xf
-/*     18fc:	2418000f */ 	addiu	$t8,$zero,0xf
-/*     1900:	0303c823 */ 	subu	$t9,$t8,$v1
-/*     1904:	00195100 */ 	sll	$t2,$t9,0x4
-/*     1908:	01433025 */ 	or	$a2,$t2,$v1
-/*     190c:	01e01025 */ 	or	$v0,$t7,$zero
-.L00001910:
-/*     1910:	25080001 */ 	addiu	$t0,$t0,0x1
-/*     1914:	24420001 */ 	addiu	$v0,$v0,0x1
-/*     1918:	1505fffd */ 	bne	$t0,$a1,.L00001910
-/*     191c:	a046ffff */ 	sb	$a2,-0x1($v0)
-/*     1920:	3c038006 */ 	lui	$v1,%hi(g_StackAllocatedPos)
-/*     1924:	8c63ce48 */ 	lw	$v1,%lo(g_StackAllocatedPos)($v1)
-.L00001928:
-/*     1928:	00651021 */ 	addu	$v0,$v1,$a1
-/*     192c:	03e00008 */ 	jr	$ra
-/*     1930:	2442fff8 */ 	addiu	$v0,$v0,-8
-);
-
 /**
  * Allocate stack space for the given thread ID.
  *
@@ -462,90 +421,38 @@ glabel bootAllocateStack
  * The stack is initialised with the thread's ID. This makes it easier to
  * identify in memory and detect when a stack overflow has occurred.
  */
-// Mismatch:
-// i is stored in a3 but should be t0
-// The value written to ptr[i] is stored in t0 but should be a2
-//void *bootAllocateStack(s32 threadid, s32 size)
-//{
-//	u8 *ptr8;
-//	u32 *ptr32;
-//	s32 i;
-//	s32 j;
-//
-//	g_StackEndAddrs[threadid] = g_StackAllocatedPos;
-//	size = (size + 0xf) & 0xfffffff0;
-//
-//	g_StackAllocatedPos -= size;
-//	g_StackStartAddrs[threadid] = g_StackAllocatedPos;
-//
-//	ptr8 = g_StackStartAddrs[threadid];
-//
-//	for (i = 0; i < size; i++) {
-//		ptr8[i] = ((0xf - (threadid & 0xf)) << 4) | (threadid & 0xf);
-//	}
-//
-//#if VERSION < VERSION_NTSC_1_0
-//	// Mark the first 8 words specially
-//	ptr32 = (u32 *)g_StackStartAddrs[threadid];
-//
-//	for (j = 0; j < 8; j++) {
-//		*ptr32 = 0xdeadbabe;
-//		ptr32++;
-//	}
-//#endif
-//
-//	return g_StackAllocatedPos + size - 8;
-//}
-#else
-GLOBAL_ASM(
-glabel bootAllocateStack
-/*     18c4:	3c0a8006 */ 	lui	$t2,0x8006
-/*     18c8:	254ae5c8 */ 	addiu	$t2,$t2,-6712
-/*     18cc:	8d430000 */ 	lw	$v1,0x0($t2)
-/*     18d0:	00041080 */ 	sll	$v0,$a0,0x2
-/*     18d4:	3c018006 */ 	lui	$at,0x8006
-/*     18d8:	00220821 */ 	addu	$at,$at,$v0
-/*     18dc:	ac23e5ac */ 	sw	$v1,-0x1a54($at)
-/*     18e0:	2401fff0 */ 	li	$at,-16
-/*     18e4:	24a5000f */ 	addiu	$a1,$a1,0xf
-/*     18e8:	3c188006 */ 	lui	$t8,0x8006
-/*     18ec:	00a17024 */ 	and	$t6,$a1,$at
-/*     18f0:	2718e590 */ 	addiu	$t8,$t8,-6768
-/*     18f4:	00583821 */ 	addu	$a3,$v0,$t8
-/*     18f8:	006e7823 */ 	subu	$t7,$v1,$t6
-/*     18fc:	01c02825 */ 	move	$a1,$t6
-/*     1900:	ad4f0000 */ 	sw	$t7,0x0($t2)
-/*     1904:	acef0000 */ 	sw	$t7,0x0($a3)
-/*     1908:	19c0000b */ 	blez	$t6,.L00001938
-/*     190c:	00004825 */ 	move	$t1,$zero
-/*     1910:	3083000f */ 	andi	$v1,$a0,0xf
-/*     1914:	2419000f */ 	li	$t9,0xf
-/*     1918:	03235823 */ 	subu	$t3,$t9,$v1
-/*     191c:	000b6100 */ 	sll	$t4,$t3,0x4
-/*     1920:	01833025 */ 	or	$a2,$t4,$v1
-/*     1924:	01e01025 */ 	move	$v0,$t7
-.L00001928:
-/*     1928:	25290001 */ 	addiu	$t1,$t1,0x1
-/*     192c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*     1930:	1525fffd */ 	bne	$t1,$a1,.L00001928
-/*     1934:	a046ffff */ 	sb	$a2,-0x1($v0)
-.L00001938:
-/*     1938:	3c04dead */ 	lui	$a0,0xdead
-/*     193c:	8ce20000 */ 	lw	$v0,0x0($a3)
-/*     1940:	3484babe */ 	ori	$a0,$a0,0xbabe
-/*     1944:	00001825 */ 	move	$v1,$zero
-/*     1948:	24060008 */ 	li	$a2,0x8
-.L0000194c:
-/*     194c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*     1950:	ac440000 */ 	sw	$a0,0x0($v0)
-/*     1954:	1466fffd */ 	bne	$v1,$a2,.L0000194c
-/*     1958:	24420004 */ 	addiu	$v0,$v0,0x4
-/*     195c:	8d4d0000 */ 	lw	$t5,0x0($t2)
-/*     1960:	01a51021 */ 	addu	$v0,$t5,$a1
-/*     1964:	03e00008 */ 	jr	$ra
-/*     1968:	2442fff8 */ 	addiu	$v0,$v0,-8
-);
+void *bootAllocateStack(s32 threadid, s32 size)
+{
+	u8 *ptr8;
+	u32 *ptr32;
+	s32 i;
+	s32 j;
+	u8 *tmp;
+
+	g_StackRightAddrs[threadid] = g_StackAllocatedPos;
+	size = (size + 0xf) & 0xfffffff0;
+
+	g_StackAllocatedPos -= size;
+	g_StackLeftAddrs[threadid] = (tmp = g_StackAllocatedPos);
+
+	ptr8 = g_StackAllocatedPos;
+
+	for (i = 0; i < size; i++) {
+		ptr8[i] = ((0xf - (threadid & 0xf)) << 4) | (threadid & 0xf);
+	}
+
+#if VERSION < VERSION_NTSC_1_0
+	// Mark the first 8 words specially
+	ptr32 = (u32 *)g_StackLeftAddrs[threadid];
+
+	for (j = 0; j < 8; j++) {
+		*ptr32 = 0xdeadbabe;
+		ptr32++;
+	}
 #endif
+
+	return g_StackAllocatedPos + size - 8;
+}
 
 #if VERSION < VERSION_NTSC_1_0
 u8 *bootGetStackPos(void)

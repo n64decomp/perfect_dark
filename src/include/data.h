@@ -7,8 +7,8 @@
 #define bool s32
 #define ubool u32
 
-extern u8 *g_StackStartAddrs[7];
-extern u8 *g_StackEndAddrs[7];
+extern u8 *g_StackLeftAddrs[7];
+extern u8 *g_StackRightAddrs[7];
 extern u8 *g_StackAllocatedPos;
 extern s32 var8005ce74;
 extern f32 g_ViXScalesBySlot[2];
