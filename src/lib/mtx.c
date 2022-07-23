@@ -309,47 +309,20 @@ glabel mtx00016798
 /*    1681c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel mtx00016820
-/*    16820:	00001025 */ 	or	$v0,$zero,$zero
-/*    16824:	00803825 */ 	or	$a3,$a0,$zero
-/*    16828:	240a0008 */ 	addiu	$t2,$zero,0x8
-/*    1682c:	3c09ffff */ 	lui	$t1,0xffff
-.L00016830:
-/*    16830:	8ce30000 */ 	lw	$v1,0x0($a3)
-/*    16834:	8ce60020 */ 	lw	$a2,0x20($a3)
-/*    16838:	000278c0 */ 	sll	$t7,$v0,0x3
-/*    1683c:	0069c024 */ 	and	$t8,$v1,$t1
-/*    16840:	00036400 */ 	sll	$t4,$v1,0x10
-/*    16844:	0006cc02 */ 	srl	$t9,$a2,0x10
-/*    16848:	30cdffff */ 	andi	$t5,$a2,0xffff
-/*    1684c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    16850:	03195825 */ 	or	$t3,$t8,$t9
-/*    16854:	00af4021 */ 	addu	$t0,$a1,$t7
-/*    16858:	018d7025 */ 	or	$t6,$t4,$t5
-/*    1685c:	24e70004 */ 	addiu	$a3,$a3,0x4
-/*    16860:	ad0b0000 */ 	sw	$t3,0x0($t0)
-/*    16864:	144afff2 */ 	bne	$v0,$t2,.L00016830
-/*    16868:	ad0e0004 */ 	sw	$t6,0x4($t0)
-/*    1686c:	03e00008 */ 	jr	$ra
-/*    16870:	00000000 */ 	nop
-);
+void mtx00016820(Mtx *src, Mtx *dst)
+{
+	u32 *srcwords = (u32 *) src;
+	u32 *dstwords = (u32 *) dst;
+	s32 i;
 
-// Mismatch: Different instructions
-//void mtx00016820(Mtx *arg0, Mtx *arg1)
-//{
-//	s32 i;
-//	u32 upper;
-//	u32 lower;
-//
-//	for (i = 0; i < 8; i++) {
-//		upper = arg0->m[0][i];
-//		lower = arg0->m[2][i];
-//
-//		arg1->m[0][i * 2 + 0] = upper & 0xffff0000 | lower >> 16;
-//		arg1->m[0][i * 2 + 1] = upper << 16 | lower & 0xffff;
-//	}
-//}
+	for (i = 0; i < 8; i++) {
+		u32 word1 = srcwords[i + 0];
+		u32 word2 = srcwords[i + 8];
+
+		dstwords[(i << 1) + 0] = word1 & 0xffff0000 | word2 >> 16;
+		dstwords[(i << 1) + 1] = word1 << 16 | word2 & 0xffff;
+	}
+}
 
 void mtx00016874(Mtxf *mtx, f32 posx, f32 posy, f32 posz, f32 lookx, f32 looky, f32 lookz, f32 upx, f32 upy, f32 upz)
 {
