@@ -270,44 +270,26 @@ void mtx00016784(void)
 	var8005ef10[0] = g_Vars.unk000510;
 }
 
-GLOBAL_ASM(
-glabel mtx00016798
-/*    16798:	3c0a8006 */ 	lui	$t2,%hi(var8005ef10)
-/*    1679c:	254aef10 */ 	addiu	$t2,$t2,%lo(var8005ef10)
-/*    167a0:	00001025 */ 	or	$v0,$zero,$zero
-/*    167a4:	00803825 */ 	or	$a3,$a0,$zero
-/*    167a8:	240b0008 */ 	addiu	$t3,$zero,0x8
-/*    167ac:	3c09ffff */ 	lui	$t1,0xffff
-.L000167b0:
-/*    167b0:	8ce30000 */ 	lw	$v1,0x0($a3)
-/*    167b4:	8ce60020 */ 	lw	$a2,0x20($a3)
-/*    167b8:	c5480000 */ 	lwc1	$f8,0x0($t2)
-/*    167bc:	0069c024 */ 	and	$t8,$v1,$t1
-/*    167c0:	0006cc02 */ 	srl	$t9,$a2,0x10
-/*    167c4:	03196025 */ 	or	$t4,$t8,$t9
-/*    167c8:	448c2000 */ 	mtc1	$t4,$f4
-/*    167cc:	000278c0 */ 	sll	$t7,$v0,0x3
-/*    167d0:	00af4021 */ 	addu	$t0,$a1,$t7
-/*    167d4:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    167d8:	00036c00 */ 	sll	$t5,$v1,0x10
-/*    167dc:	30ceffff */ 	andi	$t6,$a2,0xffff
-/*    167e0:	01ae7825 */ 	or	$t7,$t5,$t6
-/*    167e4:	448f8000 */ 	mtc1	$t7,$f16
-/*    167e8:	30580001 */ 	andi	$t8,$v0,0x1
-/*    167ec:	46083283 */ 	div.s	$f10,$f6,$f8
-/*    167f0:	0018c880 */ 	sll	$t9,$t8,0x2
-/*    167f4:	01596021 */ 	addu	$t4,$t2,$t9
-/*    167f8:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    167fc:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*    16800:	24e70004 */ 	addiu	$a3,$a3,0x4
-/*    16804:	e50a0000 */ 	swc1	$f10,0x0($t0)
-/*    16808:	c5840000 */ 	lwc1	$f4,0x0($t4)
-/*    1680c:	46049183 */ 	div.s	$f6,$f18,$f4
-/*    16810:	144bffe7 */ 	bne	$v0,$t3,.L000167b0
-/*    16814:	e5060004 */ 	swc1	$f6,0x4($t0)
-/*    16818:	03e00008 */ 	jr	$ra
-/*    1681c:	00000000 */ 	nop
-);
+/**
+ * src is passed as an Mtxf but it's read as words rather than floats.
+ * It might be an Mtx rather than Mtxf.
+ *
+ * @TODO: Investigate
+ */
+void mtx00016798(Mtxf *src, Mtxf *dst)
+{
+	u32 *srcwords = (u32 *) src;
+	f32 *dstfloats = (f32 *) dst;
+	s32 i;
+
+	for (i = 0; i < 8; i++) {
+		u32 word1 = srcwords[i + 0];
+		u32 word2 = srcwords[i + 8];
+
+		dstfloats[(i << 1) + 0] = (s32) (word1 & 0xffff0000 | word2 >> 16) / var8005ef10[0];
+		dstfloats[(i << 1) + 1] = (s32) (word1 << 16 | word2 & 0xffff) / var8005ef10[i & 1];
+	}
+}
 
 void mtx00016820(Mtx *src, Mtx *dst)
 {

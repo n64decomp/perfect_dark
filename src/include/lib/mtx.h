@@ -45,7 +45,7 @@ void mtx00016710(f32 mult, f32 mtx[4][4]);
 void mtx00016748(f32 arg0);
 void mtx00016760(void);
 void mtx00016784(void);
-void mtx00016798(Mtxf *arg0, Mtxf *arg1);
+void mtx00016798(Mtxf *src, Mtxf *dst);
 void mtx00016820(Mtx *src, Mtx *dst);
 void mtx00016874(Mtxf *mtx, f32 posx, f32 posy, f32 posz, f32 lookx, f32 looky, f32 lookz, f32 upx, f32 upy, f32 upz);
 void mtx00016ae4(Mtxf *mtx, f32 posx, f32 posy, f32 posz, f32 lookx, f32 looky, f32 lookz, f32 upx, f32 upy, f32 upz);
