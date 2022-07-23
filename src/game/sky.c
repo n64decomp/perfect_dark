@@ -1902,35 +1902,13 @@ glabel var7f1b50dc
 /*  f122ce4:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
 
-GLOBAL_ASM(
-glabel sky0f122ce8
-/*  f122ce8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f122cec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f122cf0:	c4a60028 */ 	lwc1	$f6,0x28($a1)
-/*  f122cf4:	c4840028 */ 	lwc1	$f4,0x28($a0)
-/*  f122cf8:	c4aa002c */ 	lwc1	$f10,0x2c($a1)
-/*  f122cfc:	c488002c */ 	lwc1	$f8,0x2c($a0)
-/*  f122d00:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f122d04:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f122d08:	46000402 */ 	mul.s	$f16,$f0,$f0
-/*  f122d0c:	00000000 */ 	nop
-/*  f122d10:	46021482 */ 	mul.s	$f18,$f2,$f2
-/*  f122d14:	0c012974 */ 	jal	sqrtf
-/*  f122d18:	46128300 */ 	add.s	$f12,$f16,$f18
-/*  f122d1c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f122d20:	44812000 */ 	mtc1	$at,$f4
-/*  f122d24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f122d28:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f122d2c:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f122d30:	00001825 */ 	or	$v1,$zero,$zero
-/*  f122d34:	45000003 */ 	bc1f	.L0f122d44
-/*  f122d38:	00000000 */ 	nop
-/*  f122d3c:	10000001 */ 	b	.L0f122d44
-/*  f122d40:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f122d44:
-/*  f122d44:	03e00008 */ 	jr	$ra
-/*  f122d48:	00601025 */ 	or	$v0,$v1,$zero
-);
+bool sky0f122ce8(struct skything38 *arg0, struct skything38 *arg1)
+{
+	f32 f0 = arg0->unk28 - arg1->unk28;
+	f32 f2 = arg0->unk2c - arg1->unk2c;
+
+	return sqrtf(f0 * f0 + f2 * f2) < 1.0f ? true : false;
+}
 
 GLOBAL_ASM(
 glabel sky0f122d4c
