@@ -13681,11 +13681,11 @@ s32 projectileLaunch(struct defaultobj *obj, struct projectile *projectile, stru
 s32 projectileTick(struct defaultobj *obj, bool *embedded)
 {
 	struct projectile *projectile = obj->projectile;
-	s32 cdresult; // 600
+	s32 cdresult;
 	struct coord sp5f4;
 	struct coord sp5e8;
 	struct coord sp5dc;
-	bool result = false; // 5d8
+	bool result = false;
 	struct prop *prop = obj->prop;
 	struct coord sp5c8;
 	s16 sp5b8[8];
@@ -13695,12 +13695,12 @@ s32 projectileTick(struct defaultobj *obj, bool *embedded)
 	struct coord sp590;
 	f32 sp58c;
 	bool haslimitedarea;
-	f32 ground; // 584
+	f32 ground;
 	Mtxf sp544;
 	Mtxf sp504;
 	Mtxf sp4c4;
 	Mtxf sp484;
-	struct pad pad; // 430
+	struct pad pad;
 	f32 dist;
 	f32 shield;
 	s32 i;

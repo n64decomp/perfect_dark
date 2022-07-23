@@ -6291,7 +6291,7 @@ struct skything18 {
 	/*0x08*/ f32 unk08;
 	/*0x0c*/ f32 unk0c;
 	/*0x10*/ f32 unk10;
-	/*0x14*/ u32 unk14;
+	/*0x14*/ struct colour colour;
 };
 
 struct skything38 {
