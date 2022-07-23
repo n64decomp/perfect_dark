@@ -14,7 +14,7 @@ bool sky0f11f1fc(struct coord *arg0, struct coord *arg1, f32 *arg2);
 void sky0f11f384(struct coord *arg0, struct coord *arg1, struct coord *out);
 f32 skyClamp(f32 value, f32 min, f32 max);
 f32 skyRound(f32 value);
-void sky0f11f438(struct skything18 *arg0, f32 arg1);
+void skyChooseCloudVtxColour(struct skything18 *arg0, f32 arg1);
 void sky0f11f6ec(struct skything18 *arg0, f32 arg1);
 Gfx *skyRender(Gfx *gdl);
 void sky0f1228d0(struct skything18 *arg0, Mtxf *arg1, s32 arg2, f32 arg3, f32 arg4, struct skything38 *arg5);

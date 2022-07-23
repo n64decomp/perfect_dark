@@ -1216,8 +1216,8 @@ glabel var7f1b5780
 /*  f133440:	4481c000 */ 	mtc1	$at,$f24
 /*  f133444:	1960011b */ 	blez	$t3,.L0f1338b4
 /*  f133448:	8fa70dec */ 	lw	$a3,0xdec($sp)
-/*  f13344c:	3c05800a */ 	lui	$a1,%hi(var800a33a4)
-/*  f133450:	24a533a4 */ 	addiu	$a1,$a1,%lo(var800a33a4)
+/*  f13344c:	3c05800a */ 	lui	$a1,%hi(g_SkyLightningActive)
+/*  f133450:	24a533a4 */ 	addiu	$a1,$a1,%lo(g_SkyLightningActive)
 /*  f133454:	aca00000 */ 	sw	$zero,0x0($a1)
 /*  f133458:	8ce20094 */ 	lw	$v0,0x94($a3)
 /*  f13345c:	04430018 */ 	bgezl	$v0,.L0f1334c0
@@ -2681,7 +2681,7 @@ u32 var8007f0fc = 22000;
 //
 //	// 3444
 //	if (g_Vars.lvupdate240 > 0) {
-//		var800a33a4 = 0;
+//		g_SkyLightningActive = false;
 //
 //		if (weather->unk94 < 0) {
 //			if (RANDOMFRAC() < weather->unkc4) {
@@ -2692,7 +2692,7 @@ u32 var8007f0fc = 22000;
 //			if (weather->unk98 - 1 == weather->unk94
 //					|| weather->unk9c - 1 == weather->unk94
 //					|| weather->unka0 - 1 == weather->unk94) {
-//				var800a33a4 = 1;
+//				g_SkyLightningActive = true;
 //			}
 //
 //			if (weather->unk98 == weather->unk94

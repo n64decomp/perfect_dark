@@ -15,7 +15,7 @@
 #include "types.h"
 
 u32 g_SkyStageNum;
-s32 var800a33a4;
+bool g_SkyLightningActive;
 Mtxf var800a33a8;
 struct coord g_SunPositions[3]; // relative to centre screen, with a huge scale
 u32 var800a340c;
@@ -169,199 +169,24 @@ f32 skyRound(f32 value)
 	return (s32)(value + 0.5f);
 }
 
-GLOBAL_ASM(
-glabel sky0f11f438
-.late_rodata
-glabel var7f1b4ff8
-.word 0x3b808081
-.text
-/*  f11f438:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f11f43c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11f440:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f11f444:	0fc595f3 */ 	jal	envGetCurrent
-/*  f11f448:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f11f44c:	904e0008 */ 	lbu	$t6,0x8($v0)
-/*  f11f450:	3c013f80 */ 	lui	$at,0x3f80
-/*  f11f454:	44818000 */ 	mtc1	$at,$f16
-/*  f11f458:	448e2000 */ 	mtc1	$t6,$f4
-/*  f11f45c:	3c017f1b */ 	lui	$at,%hi(var7f1b4ff8)
-/*  f11f460:	c4324ff8 */ 	lwc1	$f18,%lo(var7f1b4ff8)($at)
-/*  f11f464:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f11f468:	05c10005 */ 	bgez	$t6,.L0f11f480
-/*  f11f46c:	468020a0 */ 	cvt.s.w	$f2,$f4
-/*  f11f470:	3c014f80 */ 	lui	$at,0x4f80
-/*  f11f474:	44813000 */ 	mtc1	$at,$f6
-/*  f11f478:	00000000 */ 	nop
-/*  f11f47c:	46061080 */ 	add.s	$f2,$f2,$f6
-.L0f11f480:
-/*  f11f480:	904f0009 */ 	lbu	$t7,0x9($v0)
-/*  f11f484:	3c014f80 */ 	lui	$at,0x4f80
-/*  f11f488:	3c0d800a */ 	lui	$t5,%hi(var800a33a4)
-/*  f11f48c:	448f4000 */ 	mtc1	$t7,$f8
-/*  f11f490:	05e10004 */ 	bgez	$t7,.L0f11f4a4
-/*  f11f494:	46804320 */ 	cvt.s.w	$f12,$f8
-/*  f11f498:	44815000 */ 	mtc1	$at,$f10
-/*  f11f49c:	00000000 */ 	nop
-/*  f11f4a0:	460a6300 */ 	add.s	$f12,$f12,$f10
-.L0f11f4a4:
-/*  f11f4a4:	9058000a */ 	lbu	$t8,0xa($v0)
-/*  f11f4a8:	3c014f80 */ 	lui	$at,0x4f80
-/*  f11f4ac:	c7a8001c */ 	lwc1	$f8,0x1c($sp)
-/*  f11f4b0:	44982000 */ 	mtc1	$t8,$f4
-/*  f11f4b4:	240f00ff */ 	addiu	$t7,$zero,0xff
-/*  f11f4b8:	468023a0 */ 	cvt.s.w	$f14,$f4
-/*  f11f4bc:	46121102 */ 	mul.s	$f4,$f2,$f18
-/*  f11f4c0:	07030005 */ 	bgezl	$t8,.L0f11f4d8
-/*  f11f4c4:	46048181 */ 	sub.s	$f6,$f16,$f4
-/*  f11f4c8:	44813000 */ 	mtc1	$at,$f6
-/*  f11f4cc:	00000000 */ 	nop
-/*  f11f4d0:	46067380 */ 	add.s	$f14,$f14,$f6
-/*  f11f4d4:	46048181 */ 	sub.s	$f6,$f16,$f4
-.L0f11f4d8:
-/*  f11f4d8:	c44a001c */ 	lwc1	$f10,0x1c($v0)
-/*  f11f4dc:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f11f4e0:	46088001 */ 	sub.s	$f0,$f16,$f8
-/*  f11f4e4:	46065202 */ 	mul.s	$f8,$f10,$f6
-/*  f11f4e8:	3c014f00 */ 	lui	$at,0x4f00
-/*  f11f4ec:	46004102 */ 	mul.s	$f4,$f8,$f0
-/*  f11f4f0:	46022280 */ 	add.s	$f10,$f4,$f2
-/*  f11f4f4:	4459f800 */ 	cfc1	$t9,$31
-/*  f11f4f8:	44c8f800 */ 	ctc1	$t0,$31
-/*  f11f4fc:	00000000 */ 	nop
-/*  f11f500:	460051a4 */ 	cvt.w.s	$f6,$f10
-/*  f11f504:	4448f800 */ 	cfc1	$t0,$31
-/*  f11f508:	00000000 */ 	nop
-/*  f11f50c:	31080078 */ 	andi	$t0,$t0,0x78
-/*  f11f510:	51000013 */ 	beqzl	$t0,.L0f11f560
-/*  f11f514:	44083000 */ 	mfc1	$t0,$f6
-/*  f11f518:	44813000 */ 	mtc1	$at,$f6
-/*  f11f51c:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f11f520:	46065181 */ 	sub.s	$f6,$f10,$f6
-/*  f11f524:	44c8f800 */ 	ctc1	$t0,$31
-/*  f11f528:	00000000 */ 	nop
-/*  f11f52c:	460031a4 */ 	cvt.w.s	$f6,$f6
-/*  f11f530:	4448f800 */ 	cfc1	$t0,$31
-/*  f11f534:	00000000 */ 	nop
-/*  f11f538:	31080078 */ 	andi	$t0,$t0,0x78
-/*  f11f53c:	15000005 */ 	bnez	$t0,.L0f11f554
-/*  f11f540:	00000000 */ 	nop
-/*  f11f544:	44083000 */ 	mfc1	$t0,$f6
-/*  f11f548:	3c018000 */ 	lui	$at,0x8000
-/*  f11f54c:	10000007 */ 	b	.L0f11f56c
-/*  f11f550:	01014025 */ 	or	$t0,$t0,$at
-.L0f11f554:
-/*  f11f554:	10000005 */ 	b	.L0f11f56c
-/*  f11f558:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f11f55c:	44083000 */ 	mfc1	$t0,$f6
-.L0f11f560:
-/*  f11f560:	00000000 */ 	nop
-/*  f11f564:	0500fffb */ 	bltz	$t0,.L0f11f554
-/*  f11f568:	00000000 */ 	nop
-.L0f11f56c:
-/*  f11f56c:	44d9f800 */ 	ctc1	$t9,$31
-/*  f11f570:	a0880014 */ 	sb	$t0,0x14($a0)
-/*  f11f574:	c4480020 */ 	lwc1	$f8,0x20($v0)
-/*  f11f578:	46126102 */ 	mul.s	$f4,$f12,$f18
-/*  f11f57c:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f11f580:	3c014f00 */ 	lui	$at,0x4f00
-/*  f11f584:	46048281 */ 	sub.s	$f10,$f16,$f4
-/*  f11f588:	460a4182 */ 	mul.s	$f6,$f8,$f10
-/*  f11f58c:	00000000 */ 	nop
-/*  f11f590:	46003102 */ 	mul.s	$f4,$f6,$f0
-/*  f11f594:	460c2200 */ 	add.s	$f8,$f4,$f12
-/*  f11f598:	4449f800 */ 	cfc1	$t1,$31
-/*  f11f59c:	44caf800 */ 	ctc1	$t2,$31
-/*  f11f5a0:	00000000 */ 	nop
-/*  f11f5a4:	460042a4 */ 	cvt.w.s	$f10,$f8
-/*  f11f5a8:	444af800 */ 	cfc1	$t2,$31
-/*  f11f5ac:	00000000 */ 	nop
-/*  f11f5b0:	314a0078 */ 	andi	$t2,$t2,0x78
-/*  f11f5b4:	11400012 */ 	beqz	$t2,.L0f11f600
-/*  f11f5b8:	00000000 */ 	nop
-/*  f11f5bc:	44815000 */ 	mtc1	$at,$f10
-/*  f11f5c0:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f11f5c4:	460a4281 */ 	sub.s	$f10,$f8,$f10
-/*  f11f5c8:	44caf800 */ 	ctc1	$t2,$31
-/*  f11f5cc:	00000000 */ 	nop
-/*  f11f5d0:	460052a4 */ 	cvt.w.s	$f10,$f10
-/*  f11f5d4:	444af800 */ 	cfc1	$t2,$31
-/*  f11f5d8:	00000000 */ 	nop
-/*  f11f5dc:	314a0078 */ 	andi	$t2,$t2,0x78
-/*  f11f5e0:	15400005 */ 	bnez	$t2,.L0f11f5f8
-/*  f11f5e4:	00000000 */ 	nop
-/*  f11f5e8:	440a5000 */ 	mfc1	$t2,$f10
-/*  f11f5ec:	3c018000 */ 	lui	$at,0x8000
-/*  f11f5f0:	10000007 */ 	b	.L0f11f610
-/*  f11f5f4:	01415025 */ 	or	$t2,$t2,$at
-.L0f11f5f8:
-/*  f11f5f8:	10000005 */ 	b	.L0f11f610
-/*  f11f5fc:	240affff */ 	addiu	$t2,$zero,-1
-.L0f11f600:
-/*  f11f600:	440a5000 */ 	mfc1	$t2,$f10
-/*  f11f604:	00000000 */ 	nop
-/*  f11f608:	0540fffb */ 	bltz	$t2,.L0f11f5f8
-/*  f11f60c:	00000000 */ 	nop
-.L0f11f610:
-/*  f11f610:	44c9f800 */ 	ctc1	$t1,$31
-/*  f11f614:	a08a0015 */ 	sb	$t2,0x15($a0)
-/*  f11f618:	c4460024 */ 	lwc1	$f6,0x24($v0)
-/*  f11f61c:	46127102 */ 	mul.s	$f4,$f14,$f18
-/*  f11f620:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f11f624:	3c014f00 */ 	lui	$at,0x4f00
-/*  f11f628:	240200ff */ 	addiu	$v0,$zero,0xff
-/*  f11f62c:	46048201 */ 	sub.s	$f8,$f16,$f4
-/*  f11f630:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f11f634:	00000000 */ 	nop
-/*  f11f638:	46005102 */ 	mul.s	$f4,$f10,$f0
-/*  f11f63c:	460e2180 */ 	add.s	$f6,$f4,$f14
-/*  f11f640:	444bf800 */ 	cfc1	$t3,$31
-/*  f11f644:	44ccf800 */ 	ctc1	$t4,$31
-/*  f11f648:	00000000 */ 	nop
-/*  f11f64c:	46003224 */ 	cvt.w.s	$f8,$f6
-/*  f11f650:	444cf800 */ 	cfc1	$t4,$31
-/*  f11f654:	00000000 */ 	nop
-/*  f11f658:	318c0078 */ 	andi	$t4,$t4,0x78
-/*  f11f65c:	11800012 */ 	beqz	$t4,.L0f11f6a8
-/*  f11f660:	00000000 */ 	nop
-/*  f11f664:	44814000 */ 	mtc1	$at,$f8
-/*  f11f668:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f11f66c:	46083201 */ 	sub.s	$f8,$f6,$f8
-/*  f11f670:	44ccf800 */ 	ctc1	$t4,$31
-/*  f11f674:	00000000 */ 	nop
-/*  f11f678:	46004224 */ 	cvt.w.s	$f8,$f8
-/*  f11f67c:	444cf800 */ 	cfc1	$t4,$31
-/*  f11f680:	00000000 */ 	nop
-/*  f11f684:	318c0078 */ 	andi	$t4,$t4,0x78
-/*  f11f688:	15800005 */ 	bnez	$t4,.L0f11f6a0
-/*  f11f68c:	00000000 */ 	nop
-/*  f11f690:	440c4000 */ 	mfc1	$t4,$f8
-/*  f11f694:	3c018000 */ 	lui	$at,0x8000
-/*  f11f698:	10000007 */ 	b	.L0f11f6b8
-/*  f11f69c:	01816025 */ 	or	$t4,$t4,$at
-.L0f11f6a0:
-/*  f11f6a0:	10000005 */ 	b	.L0f11f6b8
-/*  f11f6a4:	240cffff */ 	addiu	$t4,$zero,-1
-.L0f11f6a8:
-/*  f11f6a8:	440c4000 */ 	mfc1	$t4,$f8
-/*  f11f6ac:	00000000 */ 	nop
-/*  f11f6b0:	0580fffb */ 	bltz	$t4,.L0f11f6a0
-/*  f11f6b4:	00000000 */ 	nop
-.L0f11f6b8:
-/*  f11f6b8:	a08c0016 */ 	sb	$t4,0x16($a0)
-/*  f11f6bc:	8dad33a4 */ 	lw	$t5,%lo(var800a33a4)($t5)
-/*  f11f6c0:	44cbf800 */ 	ctc1	$t3,$31
-/*  f11f6c4:	51a00005 */ 	beqzl	$t5,.L0f11f6dc
-/*  f11f6c8:	a08f0017 */ 	sb	$t7,0x17($a0)
-/*  f11f6cc:	a0820016 */ 	sb	$v0,0x16($a0)
-/*  f11f6d0:	a0820015 */ 	sb	$v0,0x15($a0)
-/*  f11f6d4:	a0820014 */ 	sb	$v0,0x14($a0)
-/*  f11f6d8:	a08f0017 */ 	sb	$t7,0x17($a0)
-.L0f11f6dc:
-/*  f11f6dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11f6e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f11f6e4:	03e00008 */ 	jr	$ra
-/*  f11f6e8:	00000000 */ 	nop
-);
+void skyChooseCloudVtxColour(struct skything18 *arg0, f32 arg1)
+{
+	struct environment *env = envGetCurrent();
+	f32 scale = 1.0f - arg1;
+	f32 r = env->sky_r;
+	f32 g = env->sky_g;
+	f32 b = env->sky_b;
+
+	arg0->colour.r = r + env->clouds_r * (1.0f - r * (1.0f / 255.0f)) * scale;
+	arg0->colour.g = g + env->clouds_g * (1.0f - g * (1.0f / 255.0f)) * scale;
+	arg0->colour.b = b + env->clouds_b * (1.0f - b * (1.0f / 255.0f)) * scale;
+
+	if (g_SkyLightningActive) {
+		arg0->colour.r = arg0->colour.g = arg0->colour.b = 0xff;
+	}
+
+	arg0->colour.a = 0xff;
+}
 
 void sky0f11f6ec(struct skything18 *arg0, f32 arg1)
 {
@@ -1027,10 +852,10 @@ Gfx *skyRender(Gfx *gdl)
 		sp4b4[3].unk0c = sp620.f[0] * 0.1f;
 		sp4b4[3].unk10 = sp620.f[2] * 0.1f + g_SkyCloudOffset;
 
-		sky0f11f438(&sp4b4[0], sp58c);
-		sky0f11f438(&sp4b4[1], sp588);
-		sky0f11f438(&sp4b4[2], sp584);
-		sky0f11f438(&sp4b4[3], sp580);
+		skyChooseCloudVtxColour(&sp4b4[0], sp58c);
+		skyChooseCloudVtxColour(&sp4b4[1], sp588);
+		skyChooseCloudVtxColour(&sp4b4[2], sp584);
+		skyChooseCloudVtxColour(&sp4b4[3], sp580);
 		break;
 	case 12:
 		s1 = 4;
@@ -1055,10 +880,10 @@ Gfx *skyRender(Gfx *gdl)
 		sp4b4[3].unk0c = sp5f0.f[0] * 0.1f;
 		sp4b4[3].unk10 = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
 
-		sky0f11f438(&sp4b4[0], sp58c);
-		sky0f11f438(&sp4b4[1], sp588);
-		sky0f11f438(&sp4b4[2], sp574);
-		sky0f11f438(&sp4b4[3], sp570);
+		skyChooseCloudVtxColour(&sp4b4[0], sp58c);
+		skyChooseCloudVtxColour(&sp4b4[1], sp588);
+		skyChooseCloudVtxColour(&sp4b4[2], sp574);
+		skyChooseCloudVtxColour(&sp4b4[3], sp570);
 		break;
 	case 3:
 		s1 = 4;
@@ -1083,10 +908,10 @@ Gfx *skyRender(Gfx *gdl)
 		sp4b4[3].unk0c = sp5fc.f[0] * 0.1f;
 		sp4b4[3].unk10 = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
 
-		sky0f11f438(&sp4b4[0], sp580);
-		sky0f11f438(&sp4b4[1], sp584);
-		sky0f11f438(&sp4b4[2], sp570);
-		sky0f11f438(&sp4b4[3], sp574);
+		skyChooseCloudVtxColour(&sp4b4[0], sp580);
+		skyChooseCloudVtxColour(&sp4b4[1], sp584);
+		skyChooseCloudVtxColour(&sp4b4[2], sp570);
+		skyChooseCloudVtxColour(&sp4b4[3], sp574);
 		break;
 	case 5:
 		s1 = 4;
@@ -1111,10 +936,10 @@ Gfx *skyRender(Gfx *gdl)
 		sp4b4[3].unk0c = sp608.f[0] * 0.1f;
 		sp4b4[3].unk10 = sp608.f[2] * 0.1f + g_SkyCloudOffset;
 
-		sky0f11f438(&sp4b4[0], sp588);
-		sky0f11f438(&sp4b4[1], sp580);
-		sky0f11f438(&sp4b4[2], sp57c);
-		sky0f11f438(&sp4b4[3], sp578);
+		skyChooseCloudVtxColour(&sp4b4[0], sp588);
+		skyChooseCloudVtxColour(&sp4b4[1], sp580);
+		skyChooseCloudVtxColour(&sp4b4[2], sp57c);
+		skyChooseCloudVtxColour(&sp4b4[3], sp578);
 		break;
 	case 10:
 		s1 = 4;
@@ -1139,10 +964,10 @@ Gfx *skyRender(Gfx *gdl)
 		sp4b4[3].unk0c = sp614.f[0] * 0.1f;
 		sp4b4[3].unk10 = sp614.f[2] * 0.1f + g_SkyCloudOffset;
 
-		sky0f11f438(&sp4b4[0], sp584);
-		sky0f11f438(&sp4b4[1], sp58c);
-		sky0f11f438(&sp4b4[2], sp578);
-		sky0f11f438(&sp4b4[3], sp57c);
+		skyChooseCloudVtxColour(&sp4b4[0], sp584);
+		skyChooseCloudVtxColour(&sp4b4[1], sp58c);
+		skyChooseCloudVtxColour(&sp4b4[2], sp578);
+		skyChooseCloudVtxColour(&sp4b4[3], sp57c);
 		break;
 	case 1:
 		s1 = 3;
@@ -1162,9 +987,9 @@ Gfx *skyRender(Gfx *gdl)
 		sp4b4[2].unk0c = sp5f0.f[0] * 0.1f;
 		sp4b4[2].unk10 = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
 
-		sky0f11f438(&sp4b4[0], sp580);
-		sky0f11f438(&sp4b4[1], sp578);
-		sky0f11f438(&sp4b4[2], sp570);
+		skyChooseCloudVtxColour(&sp4b4[0], sp580);
+		skyChooseCloudVtxColour(&sp4b4[1], sp578);
+		skyChooseCloudVtxColour(&sp4b4[2], sp570);
 		break;
 	case 2:
 		s1 = 3;
@@ -1184,9 +1009,9 @@ Gfx *skyRender(Gfx *gdl)
 		sp4b4[2].unk0c = sp608.f[0] * 0.1f;
 		sp4b4[2].unk10 = sp608.f[2] * 0.1f + g_SkyCloudOffset;
 
-		sky0f11f438(&sp4b4[0], sp584);
-		sky0f11f438(&sp4b4[1], sp574);
-		sky0f11f438(&sp4b4[2], sp578);
+		skyChooseCloudVtxColour(&sp4b4[0], sp584);
+		skyChooseCloudVtxColour(&sp4b4[1], sp574);
+		skyChooseCloudVtxColour(&sp4b4[2], sp578);
 		break;
 	case 4:
 		s1 = 3;
@@ -1206,9 +1031,9 @@ Gfx *skyRender(Gfx *gdl)
 		sp4b4[2].unk0c = sp614.f[0] * 0.1f;
 		sp4b4[2].unk10 = sp614.f[2] * 0.1f + g_SkyCloudOffset;
 
-		sky0f11f438(&sp4b4[0], sp588);
-		sky0f11f438(&sp4b4[1], sp570);
-		sky0f11f438(&sp4b4[2], sp57c);
+		skyChooseCloudVtxColour(&sp4b4[0], sp588);
+		skyChooseCloudVtxColour(&sp4b4[1], sp570);
+		skyChooseCloudVtxColour(&sp4b4[2], sp57c);
 		break;
 	case 8:
 		s1 = 3;
@@ -1228,9 +1053,9 @@ Gfx *skyRender(Gfx *gdl)
 		sp4b4[2].unk0c = sp5fc.f[0] * 0.1f;
 		sp4b4[2].unk10 = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
 
-		sky0f11f438(&sp4b4[0], sp58c);
-		sky0f11f438(&sp4b4[1], sp57c);
-		sky0f11f438(&sp4b4[2], sp574);
+		skyChooseCloudVtxColour(&sp4b4[0], sp58c);
+		skyChooseCloudVtxColour(&sp4b4[1], sp57c);
+		skyChooseCloudVtxColour(&sp4b4[2], sp574);
 		break;
 	case 14:
 		s1 = 5;
@@ -1260,11 +1085,11 @@ Gfx *skyRender(Gfx *gdl)
 		sp4b4[4].unk0c = sp608.f[0] * 0.1f;
 		sp4b4[4].unk10 = sp608.f[2] * 0.1f + g_SkyCloudOffset;
 
-		sky0f11f438(&sp4b4[0], sp584);
-		sky0f11f438(&sp4b4[1], sp58c);
-		sky0f11f438(&sp4b4[2], sp588);
-		sky0f11f438(&sp4b4[3], sp570);
-		sky0f11f438(&sp4b4[4], sp578);
+		skyChooseCloudVtxColour(&sp4b4[0], sp584);
+		skyChooseCloudVtxColour(&sp4b4[1], sp58c);
+		skyChooseCloudVtxColour(&sp4b4[2], sp588);
+		skyChooseCloudVtxColour(&sp4b4[3], sp570);
+		skyChooseCloudVtxColour(&sp4b4[4], sp578);
 		break;
 	case 13:
 		s1 = 5;
@@ -1294,11 +1119,11 @@ Gfx *skyRender(Gfx *gdl)
 		sp4b4[4].unk0c = sp5fc.f[0] * 0.1f;
 		sp4b4[4].unk10 = sp5fc.f[2] * 0.1f + g_SkyCloudOffset;
 
-		sky0f11f438(&sp4b4[0], sp58c);
-		sky0f11f438(&sp4b4[1], sp588);
-		sky0f11f438(&sp4b4[2], sp580);
-		sky0f11f438(&sp4b4[3], sp578);
-		sky0f11f438(&sp4b4[4], sp574);
+		skyChooseCloudVtxColour(&sp4b4[0], sp58c);
+		skyChooseCloudVtxColour(&sp4b4[1], sp588);
+		skyChooseCloudVtxColour(&sp4b4[2], sp580);
+		skyChooseCloudVtxColour(&sp4b4[3], sp578);
+		skyChooseCloudVtxColour(&sp4b4[4], sp574);
 		break;
 	case 11:
 		s1 = 5;
@@ -1328,11 +1153,11 @@ Gfx *skyRender(Gfx *gdl)
 		sp4b4[4].unk0c = sp5f0.f[0] * 0.1f;
 		sp4b4[4].unk10 = sp5f0.f[2] * 0.1f + g_SkyCloudOffset;
 
-		sky0f11f438(&sp4b4[0], sp580);
-		sky0f11f438(&sp4b4[1], sp584);
-		sky0f11f438(&sp4b4[2], sp58c);
-		sky0f11f438(&sp4b4[3], sp57c);
-		sky0f11f438(&sp4b4[4], sp570);
+		skyChooseCloudVtxColour(&sp4b4[0], sp580);
+		skyChooseCloudVtxColour(&sp4b4[1], sp584);
+		skyChooseCloudVtxColour(&sp4b4[2], sp58c);
+		skyChooseCloudVtxColour(&sp4b4[3], sp57c);
+		skyChooseCloudVtxColour(&sp4b4[4], sp570);
 		break;
 	case 7:
 		s1 = 5;
@@ -1362,11 +1187,11 @@ Gfx *skyRender(Gfx *gdl)
 		sp4b4[4].unk0c = sp614.f[0] * 0.1f;
 		sp4b4[4].unk10 = sp614.f[2] * 0.1f + g_SkyCloudOffset;
 
-		sky0f11f438(&sp4b4[0], sp588);
-		sky0f11f438(&sp4b4[1], sp580);
-		sky0f11f438(&sp4b4[2], sp584);
-		sky0f11f438(&sp4b4[3], sp574);
-		sky0f11f438(&sp4b4[4], sp57c);
+		skyChooseCloudVtxColour(&sp4b4[0], sp588);
+		skyChooseCloudVtxColour(&sp4b4[1], sp580);
+		skyChooseCloudVtxColour(&sp4b4[2], sp584);
+		skyChooseCloudVtxColour(&sp4b4[3], sp574);
+		skyChooseCloudVtxColour(&sp4b4[4], sp57c);
 		break;
 	default:
 		return gdl;
