@@ -474,7 +474,7 @@ struct modelrodata_type0b { // type 0x0b
 struct modelrodata_chrgunfire { // type 0x0c
 	struct coord pos;
 	struct coord dim;
-	struct modeltexture *texture;
+	struct textureconfig *texture;
 	f32 unk1c;
 	u16 rwdataindex;
 	void *baseaddr;
