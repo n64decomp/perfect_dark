@@ -14143,7 +14143,7 @@ void bgunExecuteModelCmdList(s32 *ptr)
 				break;
 			case 4:
 				rwdata = (union modelrwdata *)ptr[1];
-				rwdata->gunfire.visible = false;
+				rwdata->chrgunfire.visible = false;
 				ptr += 2;
 				break;
 			case 5:
@@ -14217,9 +14217,9 @@ s32 bgunCreateModelCmdList(struct model *model, struct modelnode *nodearg, s32 *
 			ptr += 2;
 			len += 8;
 			break;
-		case MODELNODETYPE_GUNFIRE:
+		case MODELNODETYPE_CHRGUNFIRE:
 			rwdata = modelGetNodeRwData(model, node);
-			rwdata->gunfire.visible = false;
+			rwdata->chrgunfire.visible = false;
 			ptr[0] = 4;
 			ptr[1] = (s32)rwdata;
 			ptr += 2;

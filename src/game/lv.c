@@ -974,7 +974,7 @@ void lvFindThreats(void)
  */
 Gfx *lvRender(Gfx *gdl)
 {
-	gSPSegment(gdl++, 0x00, 0x00000000);
+	gSPSegment(gdl++, SPSEGMENT_PHYSICAL, 0x00000000);
 
 #if VERSION >= VERSION_NTSC_1_0
 	func0f0d5a7c();

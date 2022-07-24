@@ -159,7 +159,7 @@ Gfx *getitleRender(Gfx *gdl)
 {
 	var80062410 = 1 - var80062410;
 
-	gSPSegment(gdl++, 0x02, osVirtualToPhysical(var8009cc90));
+	gSPSegment(gdl++, SPSEGMENT_GETITLE, osVirtualToPhysical(var8009cc90));
 
 	if (var80062414 == 0 || var80062414 == 1) {
 		s32 sp30;

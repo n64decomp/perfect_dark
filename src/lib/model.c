@@ -336,8 +336,8 @@ void *modelGetNodeRwData(struct model *model, struct modelnode *node)
 	case MODELNODETYPE_0B:
 		index = node->rodata->type0b.rwdataindex;
 		break;
-	case MODELNODETYPE_GUNFIRE:
-		index = node->rodata->gunfire.rwdataindex;
+	case MODELNODETYPE_CHRGUNFIRE:
+		index = node->rodata->chrgunfire.rwdataindex;
 		break;
 	case MODELNODETYPE_HEADSPOT:
 		index = node->rodata->headspot.rwdataindex;
@@ -1340,7 +1340,7 @@ void model0001cb0c(struct model *model, struct modelnode *parent)
 		case MODELNODETYPE_CHRINFO:
 		case MODELNODETYPE_POSITION:
 		case MODELNODETYPE_0B:
-		case MODELNODETYPE_GUNFIRE:
+		case MODELNODETYPE_CHRGUNFIRE:
 		case MODELNODETYPE_0D:
 		case MODELNODETYPE_0E:
 		case MODELNODETYPE_0F:
@@ -3520,7 +3520,7 @@ void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *mode
 	}
 
 	if ((renderdata->flags & 1) && rodata->primary) {
-		gSPSegment(renderdata->gdl++, 0x05, osVirtualToPhysical(rodata->baseaddr));
+		gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->baseaddr));
 
 		if (renderdata->cullmode) {
 			modelApplyCullMode(renderdata);
@@ -3551,7 +3551,7 @@ void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *mode
 	}
 
 	if ((renderdata->flags & 2) && rodata->primary && rodata->unk12 == 4 && rodata->secondary) {
-		gSPSegment(renderdata->gdl++, 0x05, osVirtualToPhysical(rodata->baseaddr));
+		gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->baseaddr));
 
 		if (renderdata->cullmode) {
 			modelApplyCullMode(renderdata);
@@ -3575,7 +3575,7 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 		union modelrwdata *rwdata = modelGetNodeRwData(model, node);
 
 		if (rwdata->dl.gdl) {
-			gSPSegment(renderdata->gdl++, 0x05, osVirtualToPhysical(rodata->dl.colourtable));
+			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->dl.colourtable));
 
 			if (renderdata->cullmode) {
 				modelApplyCullMode(renderdata);
@@ -3596,8 +3596,8 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 				break;
 			}
 
-			gSPSegment(renderdata->gdl++, 0x04, osVirtualToPhysical(rwdata->dl.vertices));
-			gSPSegment(renderdata->gdl++, 0x06, osVirtualToPhysical(rwdata->dl.colours));
+			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_VTX, osVirtualToPhysical(rwdata->dl.vertices));
+			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL2, osVirtualToPhysical(rwdata->dl.colours));
 
 			gSPDisplayList(renderdata->gdl++, rwdata->dl.gdl);
 
@@ -3613,14 +3613,14 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 		union modelrwdata *rwdata = modelGetNodeRwData(model, node);
 
 		if (rwdata->dl.gdl && rodata->dl.mcount == 4 && rodata->dl.secondary) {
-			gSPSegment(renderdata->gdl++, 0x05, osVirtualToPhysical(rodata->dl.colourtable));
+			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->dl.colourtable));
 
 			if (renderdata->cullmode) {
 				modelApplyCullMode(renderdata);
 			}
 
-			gSPSegment(renderdata->gdl++, 0x04, osVirtualToPhysical(rwdata->dl.vertices));
-			gSPSegment(renderdata->gdl++, 0x06, osVirtualToPhysical(rwdata->dl.colours));
+			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_VTX, osVirtualToPhysical(rwdata->dl.vertices));
+			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL2, osVirtualToPhysical(rwdata->dl.colours));
 
 			model00020248(renderdata, false);
 
@@ -3629,303 +3629,80 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 	}
 }
 
-GLOBAL_ASM(
-glabel modelRenderNodeType16
-/*    2124c:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*    21250:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*    21254:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*    21258:	afb70034 */ 	sw	$s7,0x34($sp)
-/*    2125c:	afb60030 */ 	sw	$s6,0x30($sp)
-/*    21260:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*    21264:	afb40028 */ 	sw	$s4,0x28($sp)
-/*    21268:	afb30024 */ 	sw	$s3,0x24($sp)
-/*    2126c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*    21270:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*    21274:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    21278:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*    2127c:	00809825 */ 	or	$s3,$a0,$zero
-/*    21280:	31cf0002 */ 	andi	$t7,$t6,0x2
-/*    21284:	51e00106 */ 	beqzl	$t7,.L000216a0
-/*    21288:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*    2128c:	8ca20004 */ 	lw	$v0,0x4($a1)
-/*    21290:	8c580008 */ 	lw	$t8,0x8($v0)
-/*    21294:	53000102 */ 	beqzl	$t8,.L000216a0
-/*    21298:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*    2129c:	8c440000 */ 	lw	$a0,0x0($v0)
-/*    212a0:	8c520004 */ 	lw	$s2,0x4($v0)
-/*    212a4:	afa20044 */ 	sw	$v0,0x44($sp)
-/*    212a8:	0004c880 */ 	sll	$t9,$a0,0x2
-/*    212ac:	03202025 */ 	or	$a0,$t9,$zero
-/*    212b0:	3c198006 */ 	lui	$t9,%hi(g_ModelVtxAllocatorFunc)
-/*    212b4:	8f39efc8 */ 	lw	$t9,%lo(g_ModelVtxAllocatorFunc)($t9)
-/*    212b8:	0320f809 */ 	jalr	$t9
-/*    212bc:	00000000 */ 	nop
-/*    212c0:	8e74000c */ 	lw	$s4,0xc($s3)
-/*    212c4:	3c0abc00 */ 	lui	$t2,0xbc00
-/*    212c8:	354a1006 */ 	ori	$t2,$t2,0x1006
-/*    212cc:	26890008 */ 	addiu	$t1,$s4,0x8
-/*    212d0:	ae69000c */ 	sw	$t1,0xc($s3)
-/*    212d4:	00408025 */ 	or	$s0,$v0,$zero
-/*    212d8:	00402025 */ 	or	$a0,$v0,$zero
-/*    212dc:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    212e0:	ae8a0000 */ 	sw	$t2,0x0($s4)
-/*    212e4:	8fa30044 */ 	lw	$v1,0x44($sp)
-/*    212e8:	ae820004 */ 	sw	$v0,0x4($s4)
-/*    212ec:	8e76000c */ 	lw	$s6,0xc($s3)
-/*    212f0:	3c0cbc00 */ 	lui	$t4,0xbc00
-/*    212f4:	358c1806 */ 	ori	$t4,$t4,0x1806
-/*    212f8:	26cb0008 */ 	addiu	$t3,$s6,0x8
-/*    212fc:	ae6b000c */ 	sw	$t3,0xc($s3)
-/*    21300:	aecc0000 */ 	sw	$t4,0x0($s6)
-/*    21304:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*    21308:	2415000c */ 	addiu	$s5,$zero,0xc
-/*    2130c:	8c6d0004 */ 	lw	$t5,0x4($v1)
-/*    21310:	000e7880 */ 	sll	$t7,$t6,0x2
-/*    21314:	01f50019 */ 	multu	$t7,$s5
-/*    21318:	0000c012 */ 	mflo	$t8
-/*    2131c:	01b82021 */ 	addu	$a0,$t5,$t8
-/*    21320:	24840007 */ 	addiu	$a0,$a0,0x7
-/*    21324:	34990007 */ 	ori	$t9,$a0,0x7
-/*    21328:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    2132c:	3b240007 */ 	xori	$a0,$t9,0x7
-/*    21330:	aec20004 */ 	sw	$v0,0x4($s6)
-/*    21334:	8e74000c */ 	lw	$s4,0xc($s3)
-/*    21338:	3c0bbc00 */ 	lui	$t3,0xbc00
-/*    2133c:	356b1406 */ 	ori	$t3,$t3,0x1406
-/*    21340:	268a0008 */ 	addiu	$t2,$s4,0x8
-/*    21344:	ae6a000c */ 	sw	$t2,0xc($s3)
-/*    21348:	ae8b0000 */ 	sw	$t3,0x0($s4)
-/*    2134c:	8fac0044 */ 	lw	$t4,0x44($sp)
-/*    21350:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    21354:	8d84000c */ 	lw	$a0,0xc($t4)
-/*    21358:	8fa50044 */ 	lw	$a1,0x44($sp)
-/*    2135c:	ae820004 */ 	sw	$v0,0x4($s4)
-/*    21360:	8e71000c */ 	lw	$s1,0xc($s3)
-/*    21364:	3c0ff800 */ 	lui	$t7,0xf800
-/*    21368:	3c180600 */ 	lui	$t8,0x600
-/*    2136c:	262e0008 */ 	addiu	$t6,$s1,0x8
-/*    21370:	ae6e000c */ 	sw	$t6,0xc($s3)
-/*    21374:	ae200004 */ 	sw	$zero,0x4($s1)
-/*    21378:	ae2f0000 */ 	sw	$t7,0x0($s1)
-/*    2137c:	8e71000c */ 	lw	$s1,0xc($s3)
-/*    21380:	0000b025 */ 	or	$s6,$zero,$zero
-/*    21384:	241e0200 */ 	addiu	$s8,$zero,0x200
-/*    21388:	262d0008 */ 	addiu	$t5,$s1,0x8
-/*    2138c:	ae6d000c */ 	sw	$t5,0xc($s3)
-/*    21390:	ae380000 */ 	sw	$t8,0x0($s1)
-/*    21394:	8cb90008 */ 	lw	$t9,0x8($a1)
-/*    21398:	241700b5 */ 	addiu	$s7,$zero,0xb5
-/*    2139c:	ae390004 */ 	sw	$t9,0x4($s1)
-/*    213a0:	8ca90000 */ 	lw	$t1,0x0($a1)
-/*    213a4:	592000be */ 	blezl	$t1,.L000216a0
-/*    213a8:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L000213ac:
-/*    213ac:	0c004b70 */ 	jal	random
-/*    213b0:	00000000 */ 	nop
-/*    213b4:	00025280 */ 	sll	$t2,$v0,0xa
-/*    213b8:	3151ffff */ 	andi	$s1,$t2,0xffff
-/*    213bc:	0c013ef0 */ 	jal	coss
-/*    213c0:	3144ffff */ 	andi	$a0,$t2,0xffff
-/*    213c4:	00025940 */ 	sll	$t3,$v0,0x5
-/*    213c8:	01770019 */ 	multu	$t3,$s7
-/*    213cc:	3224ffff */ 	andi	$a0,$s1,0xffff
-/*    213d0:	0000a012 */ 	mflo	$s4
-/*    213d4:	00146483 */ 	sra	$t4,$s4,0x12
-/*    213d8:	0c013efc */ 	jal	sins
-/*    213dc:	0180a025 */ 	or	$s4,$t4,$zero
-/*    213e0:	00027140 */ 	sll	$t6,$v0,0x5
-/*    213e4:	01d70019 */ 	multu	$t6,$s7
-/*    213e8:	00009812 */ 	mflo	$s3
-/*    213ec:	00137c83 */ 	sra	$t7,$s3,0x12
-/*    213f0:	0c004b70 */ 	jal	random
-/*    213f4:	01e09825 */ 	or	$s3,$t7,$zero
-/*    213f8:	0c004b70 */ 	jal	random
-/*    213fc:	00028fc2 */ 	srl	$s1,$v0,0x1f
-/*    21400:	8a410000 */ 	lwl	$at,0x0($s2)
-/*    21404:	9a410003 */ 	lwr	$at,0x3($s2)
-/*    21408:	304d3fff */ 	andi	$t5,$v0,0x3fff
-/*    2140c:	3c180001 */ 	lui	$t8,0x1
-/*    21410:	aa010000 */ 	swl	$at,0x0($s0)
-/*    21414:	ba010003 */ 	swr	$at,0x3($s0)
-/*    21418:	8a490004 */ 	lwl	$t1,0x4($s2)
-/*    2141c:	9a490007 */ 	lwr	$t1,0x7($s2)
-/*    21420:	030d2023 */ 	subu	$a0,$t8,$t5
-/*    21424:	03d44023 */ 	subu	$t0,$s8,$s4
-/*    21428:	aa090004 */ 	swl	$t1,0x4($s0)
-/*    2142c:	ba090007 */ 	swr	$t1,0x7($s0)
-/*    21430:	8a410008 */ 	lwl	$at,0x8($s2)
-/*    21434:	9a41000b */ 	lwr	$at,0xb($s2)
-/*    21438:	03d33823 */ 	subu	$a3,$s8,$s3
-/*    2143c:	00801825 */ 	or	$v1,$a0,$zero
-/*    21440:	aa010008 */ 	swl	$at,0x8($s0)
-/*    21444:	ba01000b */ 	swr	$at,0xb($s0)
-/*    21448:	8a41000c */ 	lwl	$at,0xc($s2)
-/*    2144c:	9a41000f */ 	lwr	$at,0xf($s2)
-/*    21450:	26660200 */ 	addiu	$a2,$s3,0x200
-/*    21454:	26d60001 */ 	addiu	$s6,$s6,0x1
-/*    21458:	aa01000c */ 	swl	$at,0xc($s0)
-/*    2145c:	ba01000f */ 	swr	$at,0xf($s0)
-/*    21460:	8a4b0010 */ 	lwl	$t3,0x10($s2)
-/*    21464:	9a4b0013 */ 	lwr	$t3,0x13($s2)
-/*    21468:	26100030 */ 	addiu	$s0,$s0,0x30
-/*    2146c:	aa0bffe0 */ 	swl	$t3,-0x20($s0)
-/*    21470:	ba0bffe3 */ 	swr	$t3,-0x1d($s0)
-/*    21474:	8a410014 */ 	lwl	$at,0x14($s2)
-/*    21478:	9a410017 */ 	lwr	$at,0x17($s2)
-/*    2147c:	aa01ffe4 */ 	swl	$at,-0x1c($s0)
-/*    21480:	ba01ffe7 */ 	swr	$at,-0x19($s0)
-/*    21484:	8a410018 */ 	lwl	$at,0x18($s2)
-/*    21488:	9a41001b */ 	lwr	$at,0x1b($s2)
-/*    2148c:	aa01ffe8 */ 	swl	$at,-0x18($s0)
-/*    21490:	ba01ffeb */ 	swr	$at,-0x15($s0)
-/*    21494:	8a4e001c */ 	lwl	$t6,0x1c($s2)
-/*    21498:	9a4e001f */ 	lwr	$t6,0x1f($s2)
-/*    2149c:	aa0effec */ 	swl	$t6,-0x14($s0)
-/*    214a0:	ba0effef */ 	swr	$t6,-0x11($s0)
-/*    214a4:	8a410020 */ 	lwl	$at,0x20($s2)
-/*    214a8:	9a410023 */ 	lwr	$at,0x23($s2)
-/*    214ac:	aa01fff0 */ 	swl	$at,-0x10($s0)
-/*    214b0:	ba01fff3 */ 	swr	$at,-0xd($s0)
-/*    214b4:	8a410024 */ 	lwl	$at,0x24($s2)
-/*    214b8:	9a410027 */ 	lwr	$at,0x27($s2)
-/*    214bc:	aa01fff4 */ 	swl	$at,-0xc($s0)
-/*    214c0:	ba01fff7 */ 	swr	$at,-0x9($s0)
-/*    214c4:	8a580028 */ 	lwl	$t8,0x28($s2)
-/*    214c8:	9a58002b */ 	lwr	$t8,0x2b($s2)
-/*    214cc:	aa18fff8 */ 	swl	$t8,-0x8($s0)
-/*    214d0:	ba18fffb */ 	swr	$t8,-0x5($s0)
-/*    214d4:	8a41002c */ 	lwl	$at,0x2c($s2)
-/*    214d8:	9a41002f */ 	lwr	$at,0x2f($s2)
-/*    214dc:	a608ffd8 */ 	sh	$t0,-0x28($s0)
-/*    214e0:	a607ffda */ 	sh	$a3,-0x26($s0)
-/*    214e4:	aa01fffc */ 	swl	$at,-0x4($s0)
-/*    214e8:	ba01ffff */ 	swr	$at,-0x1($s0)
-/*    214ec:	06210004 */ 	bgez	$s1,.L00021500
-/*    214f0:	322d0003 */ 	andi	$t5,$s1,0x3
-/*    214f4:	11a00002 */ 	beqz	$t5,.L00021500
-/*    214f8:	00000000 */ 	nop
-/*    214fc:	25adfffc */ 	addiu	$t5,$t5,-4
-.L00021500:
-/*    21500:	01b50019 */ 	multu	$t5,$s5
-/*    21504:	0000c812 */ 	mflo	$t9
-/*    21508:	02592821 */ 	addu	$a1,$s2,$t9
-/*    2150c:	84a90000 */ 	lh	$t1,0x0($a1)
-/*    21510:	01240019 */ 	multu	$t1,$a0
-/*    21514:	26290001 */ 	addiu	$t1,$s1,0x1
-/*    21518:	00005012 */ 	mflo	$t2
-/*    2151c:	000a5c03 */ 	sra	$t3,$t2,0x10
-/*    21520:	a60bffd0 */ 	sh	$t3,-0x30($s0)
-/*    21524:	84ac0002 */ 	lh	$t4,0x2($a1)
-/*    21528:	01840019 */ 	multu	$t4,$a0
-/*    2152c:	26840200 */ 	addiu	$a0,$s4,0x200
-/*    21530:	00007012 */ 	mflo	$t6
-/*    21534:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*    21538:	a60fffd2 */ 	sh	$t7,-0x2e($s0)
-/*    2153c:	84b80004 */ 	lh	$t8,0x4($a1)
-/*    21540:	a606ffe4 */ 	sh	$a2,-0x1c($s0)
-/*    21544:	a608ffe6 */ 	sh	$t0,-0x1a($s0)
-/*    21548:	03030019 */ 	multu	$t8,$v1
-/*    2154c:	00006812 */ 	mflo	$t5
-/*    21550:	000dcc03 */ 	sra	$t9,$t5,0x10
-/*    21554:	a619ffd4 */ 	sh	$t9,-0x2c($s0)
-/*    21558:	05210004 */ 	bgez	$t1,.L0002156c
-/*    2155c:	312a0003 */ 	andi	$t2,$t1,0x3
-/*    21560:	11400002 */ 	beqz	$t2,.L0002156c
-/*    21564:	00000000 */ 	nop
-/*    21568:	254afffc */ 	addiu	$t2,$t2,-4
-.L0002156c:
-/*    2156c:	01550019 */ 	multu	$t2,$s5
-/*    21570:	00005812 */ 	mflo	$t3
-/*    21574:	024b1021 */ 	addu	$v0,$s2,$t3
-/*    21578:	844c0000 */ 	lh	$t4,0x0($v0)
-/*    2157c:	01830019 */ 	multu	$t4,$v1
-/*    21580:	262c0002 */ 	addiu	$t4,$s1,0x2
-/*    21584:	00007012 */ 	mflo	$t6
-/*    21588:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*    2158c:	a60fffdc */ 	sh	$t7,-0x24($s0)
-/*    21590:	84580002 */ 	lh	$t8,0x2($v0)
-/*    21594:	03030019 */ 	multu	$t8,$v1
-/*    21598:	00006812 */ 	mflo	$t5
-/*    2159c:	000dcc03 */ 	sra	$t9,$t5,0x10
-/*    215a0:	a619ffde */ 	sh	$t9,-0x22($s0)
-/*    215a4:	84490004 */ 	lh	$t1,0x4($v0)
-/*    215a8:	a604fff0 */ 	sh	$a0,-0x10($s0)
-/*    215ac:	a606fff2 */ 	sh	$a2,-0xe($s0)
-/*    215b0:	01230019 */ 	multu	$t1,$v1
-/*    215b4:	00005012 */ 	mflo	$t2
-/*    215b8:	000a5c03 */ 	sra	$t3,$t2,0x10
-/*    215bc:	a60bffe0 */ 	sh	$t3,-0x20($s0)
-/*    215c0:	05810004 */ 	bgez	$t4,.L000215d4
-/*    215c4:	318e0003 */ 	andi	$t6,$t4,0x3
-/*    215c8:	11c00002 */ 	beqz	$t6,.L000215d4
-/*    215cc:	00000000 */ 	nop
-/*    215d0:	25cefffc */ 	addiu	$t6,$t6,-4
-.L000215d4:
-/*    215d4:	01d50019 */ 	multu	$t6,$s5
-/*    215d8:	00007812 */ 	mflo	$t7
-/*    215dc:	024f1021 */ 	addu	$v0,$s2,$t7
-/*    215e0:	84580000 */ 	lh	$t8,0x0($v0)
-/*    215e4:	03030019 */ 	multu	$t8,$v1
-/*    215e8:	26380003 */ 	addiu	$t8,$s1,0x3
-/*    215ec:	00006812 */ 	mflo	$t5
-/*    215f0:	000dcc03 */ 	sra	$t9,$t5,0x10
-/*    215f4:	a619ffe8 */ 	sh	$t9,-0x18($s0)
-/*    215f8:	84490002 */ 	lh	$t1,0x2($v0)
-/*    215fc:	01230019 */ 	multu	$t1,$v1
-/*    21600:	00005012 */ 	mflo	$t2
-/*    21604:	000a5c03 */ 	sra	$t3,$t2,0x10
-/*    21608:	a60bffea */ 	sh	$t3,-0x16($s0)
-/*    2160c:	844c0004 */ 	lh	$t4,0x4($v0)
-/*    21610:	a607fffc */ 	sh	$a3,-0x4($s0)
-/*    21614:	a604fffe */ 	sh	$a0,-0x2($s0)
-/*    21618:	01830019 */ 	multu	$t4,$v1
-/*    2161c:	00007012 */ 	mflo	$t6
-/*    21620:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*    21624:	a60fffec */ 	sh	$t7,-0x14($s0)
-/*    21628:	07010004 */ 	bgez	$t8,.L0002163c
-/*    2162c:	330d0003 */ 	andi	$t5,$t8,0x3
-/*    21630:	11a00002 */ 	beqz	$t5,.L0002163c
-/*    21634:	00000000 */ 	nop
-/*    21638:	25adfffc */ 	addiu	$t5,$t5,-4
-.L0002163c:
-/*    2163c:	01b50019 */ 	multu	$t5,$s5
-/*    21640:	0000c812 */ 	mflo	$t9
-/*    21644:	02591021 */ 	addu	$v0,$s2,$t9
-/*    21648:	84490000 */ 	lh	$t1,0x0($v0)
-/*    2164c:	26520030 */ 	addiu	$s2,$s2,0x30
-/*    21650:	01230019 */ 	multu	$t1,$v1
-/*    21654:	00005012 */ 	mflo	$t2
-/*    21658:	000a5c03 */ 	sra	$t3,$t2,0x10
-/*    2165c:	a60bfff4 */ 	sh	$t3,-0xc($s0)
-/*    21660:	844c0002 */ 	lh	$t4,0x2($v0)
-/*    21664:	01830019 */ 	multu	$t4,$v1
-/*    21668:	00007012 */ 	mflo	$t6
-/*    2166c:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*    21670:	a60ffff6 */ 	sh	$t7,-0xa($s0)
-/*    21674:	84580004 */ 	lh	$t8,0x4($v0)
-/*    21678:	03030019 */ 	multu	$t8,$v1
-/*    2167c:	00006812 */ 	mflo	$t5
-/*    21680:	000dcc03 */ 	sra	$t9,$t5,0x10
-/*    21684:	a619fff8 */ 	sh	$t9,-0x8($s0)
-/*    21688:	8fa90044 */ 	lw	$t1,0x44($sp)
-/*    2168c:	8d2a0000 */ 	lw	$t2,0x0($t1)
-/*    21690:	02ca082a */ 	slt	$at,$s6,$t2
-/*    21694:	1420ff45 */ 	bnez	$at,.L000213ac
-/*    21698:	00000000 */ 	nop
-/*    2169c:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L000216a0:
-/*    216a0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    216a4:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*    216a8:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*    216ac:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*    216b0:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*    216b4:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*    216b8:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*    216bc:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*    216c0:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*    216c4:	03e00008 */ 	jr	$ra
-/*    216c8:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+/**
+ * Star gunfire is a muzzle flash in a first person perspective, where the
+ * muzzle flash has 3 or 4 "arms" that flare out from the main body.
+ *
+ * Some weapons that use this are the Cyclone, Dragon, K7 Avenger, AR34,
+ * SuperDragon and RC-P45.
+ *
+ * This function reads vertices from the model definition, tweaks them randomly,
+ * writes them to a newly allocated vertices table and queues the node's
+ * displaylist to the renderdata's DL.
+ */
+void modelRenderNodeStarGunfire(struct modelrenderdata *renderdata, struct modelnode *node)
+{
+	if (renderdata->flags & 2) {
+		struct modelrodata_stargunfire *rodata = &node->rodata->stargunfire;
+		s32 i;
+
+		if (rodata->gdl) {
+			struct gfxvtx *src = (struct gfxvtx *) rodata->vertices;
+			struct gfxvtx *dst = g_ModelVtxAllocatorFunc(rodata->unk00 * 4);
+
+			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_VTX, osVirtualToPhysical(dst));
+			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL2, osVirtualToPhysical((void *)ALIGN8((u32)&rodata->vertices[rodata->unk00 << 2])));
+			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->baseaddr));
+
+			gDPSetFogColor(renderdata->gdl++, 0x00, 0x00, 0x00, 0x00);
+			gSPDisplayList(renderdata->gdl++, rodata->gdl);
+
+			for (i = 0; i < rodata->unk00; i++) {
+				u16 rand1 = (random() << 10) & 0xffff;
+				s32 s4 = ((coss(rand1) << 5) * 181) >> 18;
+				s32 s3 = ((sins(rand1) << 5) * 181) >> 18;
+				s32 s1 = random() >> 31;
+				s32 mult = 0x10000 - (random() & 0x3fff);
+				s32 corner1 = 0x200 + s3;
+				s32 corner2 = 0x200 - s3;
+				s32 corner3 = 0x200 - s4;
+				s32 corner4 = 0x200 + s4;
+
+				dst[0] = src[0];
+				dst[1] = src[1];
+				dst[2] = src[2];
+				dst[3] = src[3];
+
+				dst[0].s = corner3;
+				dst[0].t = corner2;
+				dst[0].x = (src[(s1 + 0) % 4].x * mult) >> 16;
+				dst[0].y = (src[(s1 + 0) % 4].y * mult) >> 16;
+				dst[0].z = (src[(s1 + 0) % 4].z * mult) >> 16;
+
+				dst[1].s = corner1;
+				dst[1].t = corner3;
+				dst[1].x = (src[(s1 + 1) % 4].x * mult) >> 16;
+				dst[1].y = (src[(s1 + 1) % 4].y * mult) >> 16;
+				dst[1].z = (src[(s1 + 1) % 4].z * mult) >> 16;
+
+				dst[2].s = corner4;
+				dst[2].t = corner1;
+				dst[2].x = (src[(s1 + 2) % 4].x * mult) >> 16;
+				dst[2].y = (src[(s1 + 2) % 4].y * mult) >> 16;
+				dst[2].z = (src[(s1 + 2) % 4].z * mult) >> 16;
+
+				dst[3].s = corner2;
+				dst[3].t = corner4;
+				dst[3].x = (src[(s1 + 3) % 4].x * mult) >> 16;
+				dst[3].y = (src[(s1 + 3) % 4].y * mult) >> 16;
+				dst[3].z = (src[(s1 + 3) % 4].z * mult) >> 16;
+
+				src += 4;
+				dst += 4;
+			}
+		}
+	}
+}
 
 void model000216cc(struct modelrenderdata *renderdata, struct textureconfig *tconfig, s32 arg2)
 {
@@ -3933,7 +3710,7 @@ void model000216cc(struct modelrenderdata *renderdata, struct textureconfig *tco
 }
 
 GLOBAL_ASM(
-glabel modelRenderNodeGunfire
+glabel modelRenderNodeChrGunfire
 .late_rodata
 glabel var70054454
 .word 0x40c907a9
@@ -4458,9 +4235,9 @@ glabel var70054454
 //};
 
 // Mismatch: Reordered instructions near assign to spcc
-//void modelRenderNodeGunfire(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
+//void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
 //{
-//	struct modelrodata_gunfire *rodata = &node->rodata->gunfire;
+//	struct modelrodata_chrgunfire *rodata = &node->rodata->gunfire;
 //	union modelrwdata *rwdata = modelGetNodeRwData(model, node);
 //	struct gfxvtx *vertices;
 //	f32 spf0;
@@ -4572,7 +4349,7 @@ glabel var70054454
 //		vertices[3].y = sp90.f[1] - spc4;
 //		vertices[3].z = sp90.f[2] + -spc8 + -spbc;
 //
-//		gSPSegment(renderdata->gdl++, 0x05, osVirtualToPhysical(rodata->baseaddr));
+//		gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->baseaddr));
 //
 //		// d4c
 //		if (rodata->texture) {
@@ -4613,7 +4390,7 @@ void modelRender(struct modelrenderdata *renderdata, struct model *model)
 	u32 type;
 	struct modelnode *node = model->filedata->rootnode;
 
-	gSPSegment(renderdata->gdl++, 0x03, osVirtualToPhysical(model->matrices));
+	gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_MTX, osVirtualToPhysical(model->matrices));
 
 	while (node) {
 		type = node->type & 0xff;
@@ -4649,8 +4426,8 @@ void modelRender(struct modelrenderdata *renderdata, struct model *model)
 		case MODELNODETYPE_REORDER:
 			modelRenderNodeReorder(model, node);
 			break;
-		case MODELNODETYPE_GUNFIRE:
-			modelRenderNodeGunfire(renderdata, model, node);
+		case MODELNODETYPE_CHRGUNFIRE:
+			modelRenderNodeChrGunfire(renderdata, model, node);
 			break;
 		case MODELNODETYPE_GUNDL:
 			modelRenderNodeGundl(renderdata, model, node);
@@ -4658,8 +4435,8 @@ void modelRender(struct modelrenderdata *renderdata, struct model *model)
 		case MODELNODETYPE_DL:
 			modelRenderNodeDl(renderdata, model, node);
 			break;
-		case MODELNODETYPE_16:
-			modelRenderNodeType16(renderdata, node);
+		case MODELNODETYPE_STARGUNFIRE:
+			modelRenderNodeStarGunfire(renderdata, node);
 			break;
 		case MODELNODETYPE_CHRINFO:
 		default:
@@ -5155,10 +4932,10 @@ void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 vma, u32 file
 			PROMOTE(rodata->type0b.unk3c);
 			rodata->type0b.baseaddr = (void *)fileramaddr;
 			break;
-		case MODELNODETYPE_GUNFIRE:
+		case MODELNODETYPE_CHRGUNFIRE:
 			rodata = node->rodata;
-			PROMOTE(rodata->gunfire.texture);
-			rodata->gunfire.baseaddr = (void *)fileramaddr;
+			PROMOTE(rodata->chrgunfire.texture);
+			rodata->chrgunfire.baseaddr = (void *)fileramaddr;
 			break;
 		case MODELNODETYPE_0D:
 			rodata = node->rodata;
@@ -5166,10 +4943,10 @@ void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 vma, u32 file
 			PROMOTE(rodata->type0d.unk14);
 			rodata->type0d.baseaddr = (void *)fileramaddr;
 			break;
-		case MODELNODETYPE_16:
+		case MODELNODETYPE_STARGUNFIRE:
 			rodata = node->rodata;
-			PROMOTE(rodata->type16.unk04);
-			rodata->type16.baseaddr = (void *)fileramaddr;
+			PROMOTE(rodata->stargunfire.vertices);
+			rodata->stargunfire.baseaddr = (void *)fileramaddr;
 			break;
 		default:
 			break;
@@ -5285,10 +5062,10 @@ s32 modelCalculateRwDataIndexes(struct modelnode *basenode)
 			rodata->type0b.rwdataindex = len;
 			len += sizeof(struct modelrwdata_0b) / 4;
 			break;
-		case MODELNODETYPE_GUNFIRE:
+		case MODELNODETYPE_CHRGUNFIRE:
 			rodata = node->rodata;
-			rodata->gunfire.rwdataindex = len;
-			len += sizeof(struct modelrwdata_gunfire) / 4;
+			rodata->chrgunfire.rwdataindex = len;
+			len += sizeof(struct modelrwdata_chrgunfire) / 4;
 			break;
 		case MODELNODETYPE_DL:
 			rodata = node->rodata;
@@ -5393,9 +5170,9 @@ void modelInitRwData(struct model *model, struct modelnode *startnode)
 			rwdata = modelGetNodeRwData(model, node);
 			rwdata->type0b.unk00 = 0;
 			break;
-		case MODELNODETYPE_GUNFIRE:
+		case MODELNODETYPE_CHRGUNFIRE:
 			rwdata = modelGetNodeRwData(model, node);
-			rwdata->gunfire.visible = false;
+			rwdata->chrgunfire.visible = false;
 			break;
 		case MODELNODETYPE_DL:
 			rodata = node->rodata;
@@ -5568,11 +5345,11 @@ void modelIterateDisplayLists(struct modelfiledata *filedata, struct modelnode *
 				gdl = rodata->dl.secondary;
 			}
 			break;
-		case MODELNODETYPE_16:
+		case MODELNODETYPE_STARGUNFIRE:
 			rodata = node->rodata;
 
 			if (node != *nodeptr) {
-				gdl = rodata->type16.unk08;
+				gdl = rodata->stargunfire.gdl;
 			}
 			break;
 		case MODELNODETYPE_DISTANCE:
@@ -5642,11 +5419,11 @@ void modelNodeReplaceGdl(u32 arg0, struct modelnode *node, Gfx *find, Gfx *repla
 			return;
 		}
 		break;
-	case MODELNODETYPE_16:
+	case MODELNODETYPE_STARGUNFIRE:
 		rodata = node->rodata;
 
-		if (rodata->type16.unk08 == find) {
-			rodata->type16.unk08 = replacement;
+		if (rodata->stargunfire.gdl == find) {
+			rodata->stargunfire.gdl = replacement;
 			return;
 		}
 		break;

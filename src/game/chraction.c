@@ -9128,7 +9128,7 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 			struct modelrwdata_chrinfo *chrrwdata;
 			Mtxf *sp108;
 			Mtxf spc8;
-			struct modelrodata_gunfire *burstrodata;
+			struct modelrodata_chrgunfire *burstrodata;
 			struct coord spb8;
 			Mtxf *spb4;
 			Mtxf *spb0;
@@ -9157,7 +9157,7 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 
 					if (burstnode) {
 						sp108 = model0001a5cc(gunmodel, burstnode, 0);
-						burstrodata = &burstnode->rodata->gunfire;
+						burstrodata = &burstnode->rodata->chrgunfire;
 						spb4 = cam0f0b53a4((u8 *)sp108);
 
 						if (spb4) {
@@ -9589,7 +9589,7 @@ bool chrGetGunPos(struct chrdata *chr, s32 handnum, struct coord *gunpos)
 	struct modelnode *part1;
 	Mtxf *spac;
 	Mtxf sp6c;
-	struct modelrodata_gunfire *rodata;
+	struct modelrodata_chrgunfire *rodata;
 	Mtxf *sp64;
 	Mtxf sp24;
 
@@ -9600,7 +9600,7 @@ bool chrGetGunPos(struct chrdata *chr, s32 handnum, struct coord *gunpos)
 		if ((chr->prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) && (weaponprop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
 			if ((part0 = modelGetPart(model->filedata, MODELPART_0000))) {
 				spac = model0001a5cc(model, part0, 0);
-				rodata = &part0->rodata->gunfire;
+				rodata = &part0->rodata->chrgunfire;
 
 				gunpos->x = rodata->pos.x;
 				gunpos->y = rodata->pos.y;
@@ -18717,7 +18717,7 @@ void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool visible)
 	}
 
 	if (rwdata) {
-		rwdata->gunfire.visible = visible;
+		rwdata->chrgunfire.visible = visible;
 	}
 }
 

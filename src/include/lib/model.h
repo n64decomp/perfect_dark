@@ -4,6 +4,10 @@
 #include "data.h"
 #include "types.h"
 
+extern bool (*var8005efc4)(struct model *model, struct modelnode *node);
+extern struct gfxvtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices);
+extern void (*g_ModelJointPositionedFunc)(s32 mtxindex, Mtxf *mtx);
+
 bool model00018680(void);
 void modelSetDistanceScale(f32 value);
 void modelSetVtxAllocatorFunc(struct gfxvtx *(*fn)(s32 numvertices));
@@ -86,9 +90,9 @@ void model00020bdc(struct modelrenderdata *renderdata);
 void modelApplyCullMode(struct modelrenderdata *renderdata);
 void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node);
 void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node);
-void modelRenderNodeType16(struct modelrenderdata *renderdata, struct modelnode *node);
+void modelRenderNodeStarGunfire(struct modelrenderdata *renderdata, struct modelnode *node);
 void model000216cc(struct modelrenderdata *renderdata, struct textureconfig *tconfig, s32 arg2);
-void modelRenderNodeGunfire(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node);
+void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node);
 void modelRender(struct modelrenderdata *renderdata, struct model *model);
 bool model000220fc(struct modelrodata_bbox *bbox, Mtxf *mtx, struct coord *arg2, struct coord *arg3);
 s32 model000225d4(struct model *model, struct coord *arg1, struct coord *arg2, struct modelnode **startnode);

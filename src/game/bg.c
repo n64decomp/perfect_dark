@@ -7833,7 +7833,7 @@ Gfx *bgRender(Gfx *gdl)
 {
 	gdl = lightsSetDefault(gdl);
 
-	gSPSegment(gdl++, 0x0f, g_BgPrimaryData);
+	gSPSegment(gdl++, SPSEGMENT_BG_DL, g_BgPrimaryData);
 
 	gdl = envStartFog(gdl, false);
 	gdl = func0f164150(gdl);
@@ -9926,7 +9926,7 @@ Gfx *bgRenderRoomPass(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool ar
 			dyntexTickRoom(roomnum, arg2->vertices);
 		}
 
-		gSPSegment(gdl++, 0xe, OS_PHYSICAL_TO_K0(arg2->vertices));
+		gSPSegment(gdl++, SPSEGMENT_BG_VTX, OS_PHYSICAL_TO_K0(arg2->vertices));
 
 		roomHighlight(roomnum);
 
@@ -9939,7 +9939,7 @@ Gfx *bgRenderRoomPass(Gfx *gdl, s32 roomnum, struct roomgfxdata18 *arg2, bool ar
 			v0 = (u32)arg2->colours;
 		}
 
-		gSPSegment(gdl++, 0x0d, OS_PHYSICAL_TO_K0(v0));
+		gSPSegment(gdl++, SPSEGMENT_BG_COL, OS_PHYSICAL_TO_K0(v0));
 
 		gSPDisplayList(gdl++, OS_PHYSICAL_TO_K0(arg2->gdl));
 

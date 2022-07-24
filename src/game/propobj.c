@@ -19079,9 +19079,9 @@ void autogunTickShoot(struct prop *autogunprop)
 						sp108 = model0001a5cc(model, flashnode, 0);
 						rodata = flashnode->rodata;
 
-						gunpos.x = rodata->gunfire.pos.x;
-						gunpos.y = rodata->gunfire.pos.y;
-						gunpos.z = rodata->gunfire.pos.z;
+						gunpos.x = rodata->chrgunfire.pos.x;
+						gunpos.y = rodata->chrgunfire.pos.y;
+						gunpos.z = rodata->chrgunfire.pos.z;
 					} else {
 						sp108 = model0001a5cc(model, posnode, 0);
 
@@ -19393,14 +19393,14 @@ void autogunTickShoot(struct prop *autogunprop)
 
 		if (node1) {
 			union modelrwdata *rwdata = modelGetNodeRwData(model, node1);
-			rwdata->gunfire.visible = fireleft;
+			rwdata->chrgunfire.visible = fireleft;
 		}
 
 		node2 = modelGetPart(model->filedata, MODELPART_AUTOGUN_FLASHRIGHT);
 
 		if (node2) {
 			union modelrwdata *rwdata = modelGetNodeRwData(model, node2);
-			rwdata->gunfire.visible = fireright;
+			rwdata->chrgunfire.visible = fireright;
 		}
 	}
 }
@@ -19651,7 +19651,7 @@ void chopperIncrementBarrel(struct prop *chopperprop, bool firing)
 	f32 gunturnxspeed60 = chopper->gunturnxspeed60;
 	struct prop *targetprop = chopperGetTargetProp(chopper);
 	struct modelnode *node;
-	struct modelrwdata_gunfire *rwdata = NULL;
+	struct modelrwdata_chrgunfire *rwdata = NULL;
 	struct modelrodata_position *rodata;
 	Mtxf sp90;
 	Mtxf sp50;
@@ -37419,7 +37419,7 @@ void weaponSetGunfireVisible(struct prop *prop, bool visible, s16 room)
 
 			if (node1) {
 				rwdata1 = modelGetNodeRwData(model, node1);
-				rwdata1->gunfire.visible = visible;
+				rwdata1->chrgunfire.visible = visible;
 
 				if (visible) {
 					flash = true;
@@ -37454,7 +37454,7 @@ bool weaponIsGunfireVisible(struct prop *prop)
 		node = modelGetPart(model->filedata, MODELPART_CHRGUN_GUNFIRE);
 
 		if (node) {
-			struct modelrwdata_gunfire *rwdata = modelGetNodeRwData(model, node);
+			struct modelrwdata_chrgunfire *rwdata = modelGetNodeRwData(model, node);
 			return rwdata->visible;
 		}
 
