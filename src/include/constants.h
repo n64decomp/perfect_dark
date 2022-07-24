@@ -2130,6 +2130,8 @@
 #define MODELNODETYPE_16           0x16
 #define MODELNODETYPE_HEADSPOT     0x17
 #define MODELNODETYPE_DL           0x18
+#define MODELNODETYPE_0100         0x0100
+#define MODELNODETYPE_0200         0x0200
 
 /**
  * Models can contain "parts", which are a list of certain node addresses in the

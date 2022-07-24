@@ -13827,13 +13827,13 @@ void bgun0f0a24f0(struct coord *arg0, s32 handnum)
 /**
  * This function is a callback that is passed to model code.
  */
-void bgun0f0a256c(s32 arg0, Mtxf *mtx)
+void bgun0f0a256c(s32 mtxindex, Mtxf *mtx)
 {
 	Mtxf sp78;
 	Mtxf sp38;
 	struct coord rot;
 
-	if (arg0 == var8009d148) {
+	if (mtxindex == var8009d148) {
 		if (var8009d144->unk0d0e_00 == 1) {
 			var8009d144->unk0d14 = mtx->m[3][0];
 			var8009d144->unk0d18 = mtx->m[3][1];
@@ -13865,7 +13865,7 @@ void bgun0f0a256c(s32 arg0, Mtxf *mtx)
 		}
 	}
 
-	if (arg0 == var8009d0dc) {
+	if (mtxindex == var8009d0dc) {
 		rot.x = 0.0f;
 		rot.y = 0.0f;
 		rot.z = var8009d140;
@@ -13876,7 +13876,7 @@ void bgun0f0a256c(s32 arg0, Mtxf *mtx)
 		mtx4Copy(&sp38, mtx);
 	}
 
-	if (arg0 == var8009d0f0[0] || arg0 == var8009d0f0[1] || arg0 == var8009d0f0[2]) {
+	if (mtxindex == var8009d0f0[0] || mtxindex == var8009d0f0[1] || mtxindex == var8009d0f0[2]) {
 		rot.x = 0.0f;
 		rot.y = 0.0f;
 		rot.z = 2.0f * -var8009d140;
@@ -14681,7 +14681,7 @@ void bgunUpdateReaper(struct hand *hand, struct modelfiledata *modeldef)
 
 	if (node) {
 		var8009d0dc = model0001a524(node, 0);
-		var8005efcc = bgun0f0a256c;
+		g_ModelJointPositionedFunc = bgun0f0a256c;
 		var8009d0f0[0] = var8009d0f0[1] = var8009d0f0[2] = -1;
 	}
 
@@ -14898,7 +14898,7 @@ void bgun0f0a45d0(struct hand *hand, struct modelfiledata *filedata, bool isdeto
 
 	if (node) {
 		var8009d148 = model0001a524(node, 0);
-		var8005efcc = bgun0f0a256c;
+		g_ModelJointPositionedFunc = bgun0f0a256c;
 	} else {
 		var8009d148 = -1;
 	}
@@ -17813,7 +17813,7 @@ void bgun0f0a5550(s32 handnum)
 #endif
 			}
 
-			var8005efcc = 0;
+			g_ModelJointPositionedFunc = 0;
 
 			node = modelGetPart(modeldef, MODELPART_PISTOL_0033);
 

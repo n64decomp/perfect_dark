@@ -52,7 +52,7 @@ extern bool var8005efbc;
 extern f32 var8005efc0;
 extern bool (*var8005efc4)(struct model *model, struct modelnode *node);
 extern struct gfxvtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices);
-extern void *var8005efcc;
+extern void (*g_ModelJointPositionedFunc)(s32 mtxindex, Mtxf *mtx);
 extern u8 var8005efb0_2;
 extern u32 var8005efd0;
 extern bool var8005efd8_2;

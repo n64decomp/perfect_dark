@@ -589,8 +589,8 @@ glabel model00018680
 	lw     $t1, 0xc($a1)
 	jal    model0001a1c0
 	add    $t1, $t1, $t2
-	lui    $t3, %hi(var8005efcc)
-	addiu  $t3, $t3, %lo(var8005efcc)
+	lui    $t3, %hi(g_ModelJointPositionedFunc)
+	addiu  $t3, $t3, %lo(g_ModelJointPositionedFunc)
 	lw     $t3, 0x0($t3)
 	beqz   $t3, .L00018e80
  	nop

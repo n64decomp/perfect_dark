@@ -36,7 +36,7 @@ void model0001b0e8(struct model *model, struct modelnode *node);
 void model0001b3bc(struct model *model);
 void model0001b400(struct modelrenderdata *arg0, struct model *model, struct modelnode *node);
 void model0001b80c(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node, struct coord *arg3, struct coord *arg4, bool arg5, struct coord *arg6);
-void model0001bc14(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node, f32 arg3[4], struct coord *arg4, struct coord *arg5);
+void model0001bc14(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node, f32 arg3[4], struct coord *pos, struct coord *arg5);
 void model0001bfa8(struct modelrenderdata *arg0, struct model *model, struct modelnode *node);
 void model0001c5b4(struct modelrenderdata *arg0, struct model *model, struct modelnode *node);
 void model0001c664(struct model *model, struct modelnode *node);

@@ -2709,7 +2709,7 @@ s32 chrTick(struct prop *prop)
 			modelSetDistanceScale(0.3125f);
 		}
 
-		var8005efcc = &chrHandleJointPositioned;
+		g_ModelJointPositionedFunc = &chrHandleJointPositioned;
 		g_CurModelChr = chr;
 
 		if (CHRRACE(chr) == RACE_DRCAROLL && g_Vars.tickmode != TICKMODE_CUTSCENE) {
@@ -2825,7 +2825,7 @@ s32 chrTick(struct prop *prop)
 				anim->frame2a = prevframe2a;
 			}
 
-			var8005efcc = NULL;
+			g_ModelJointPositionedFunc = NULL;
 			modelSetDistanceScale(var800629e8);
 
 			if (fulltick) {
