@@ -764,333 +764,142 @@ void model0001b400(struct modelrenderdata *arg0, struct model *model, struct mod
 	}
 }
 
-GLOBAL_ASM(
-glabel model0001b80c
-.late_rodata
-glabel var700542f4
-.word 0x40490fdb
-glabel var700542f8
-.word 0x40c907a9
-glabel var700542fc
-.word 0x40c907a9
-glabel var70054300
-.word 0x40490fdb
-glabel var70054304
-.word 0x40c907a9
-glabel var70054308
-.word 0x3f63dec6
-.text
-/*    1b80c:	27bdff48 */ 	addiu	$sp,$sp,-184
-/*    1b810:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1b814:	afa500bc */ 	sw	$a1,0xbc($sp)
-/*    1b818:	afa700c4 */ 	sw	$a3,0xc4($sp)
-/*    1b81c:	94ce0000 */ 	lhu	$t6,0x0($a2)
-/*    1b820:	afae00b4 */ 	sw	$t6,0xb4($sp)
-/*    1b824:	8cc20004 */ 	lw	$v0,0x4($a2)
-/*    1b828:	844f000e */ 	lh	$t7,0xe($v0)
-/*    1b82c:	afaf0064 */ 	sw	$t7,0x64($sp)
-/*    1b830:	84580010 */ 	lh	$t8,0x10($v0)
-/*    1b834:	afb80060 */ 	sw	$t8,0x60($sp)
-/*    1b838:	84590012 */ 	lh	$t9,0x12($v0)
-/*    1b83c:	afb9005c */ 	sw	$t9,0x5c($sp)
-/*    1b840:	8ca9000c */ 	lw	$t1,0xc($a1)
-/*    1b844:	afa90058 */ 	sw	$t1,0x58($sp)
-/*    1b848:	8cca0008 */ 	lw	$t2,0x8($a2)
-/*    1b84c:	00003025 */ 	or	$a2,$zero,$zero
-/*    1b850:	11400006 */ 	beqz	$t2,.L0001b86c
-/*    1b854:	afaa001c */ 	sw	$t2,0x1c($sp)
-/*    1b858:	00a02025 */ 	or	$a0,$a1,$zero
-/*    1b85c:	0c006973 */ 	jal	model0001a5cc
-/*    1b860:	01402825 */ 	or	$a1,$t2,$zero
-/*    1b864:	10000003 */ 	b	.L0001b874
-/*    1b868:	afa200ac */ 	sw	$v0,0xac($sp)
-.L0001b86c:
-/*    1b86c:	8c8c0000 */ 	lw	$t4,0x0($a0)
-/*    1b870:	afac00ac */ 	sw	$t4,0xac($sp)
-.L0001b874:
-/*    1b874:	8fad00ac */ 	lw	$t5,0xac($sp)
-/*    1b878:	8fa400c8 */ 	lw	$a0,0xc8($sp)
-/*    1b87c:	8fac0064 */ 	lw	$t4,0x64($sp)
-/*    1b880:	11a00042 */ 	beqz	$t5,.L0001b98c
-/*    1b884:	8fae0058 */ 	lw	$t6,0x58($sp)
-/*    1b888:	8fa400c8 */ 	lw	$a0,0xc8($sp)
-/*    1b88c:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*    1b890:	0c0059a9 */ 	jal	mtx4LoadRotationAndTranslation
-/*    1b894:	27a60068 */ 	addiu	$a2,$sp,0x68
-/*    1b898:	8fae00cc */ 	lw	$t6,0xcc($sp)
-/*    1b89c:	8faf00bc */ 	lw	$t7,0xbc($sp)
-/*    1b8a0:	3c013f80 */ 	lui	$at,0x3f80
-/*    1b8a4:	51c0000b */ 	beqzl	$t6,.L0001b8d4
-/*    1b8a8:	8fb800d0 */ 	lw	$t8,0xd0($sp)
-/*    1b8ac:	c5ec0014 */ 	lwc1	$f12,0x14($t7)
-/*    1b8b0:	44812000 */ 	mtc1	$at,$f4
-/*    1b8b4:	00000000 */ 	nop
-/*    1b8b8:	460c2032 */ 	c.eq.s	$f4,$f12
-/*    1b8bc:	00000000 */ 	nop
-/*    1b8c0:	45030004 */ 	bc1tl	.L0001b8d4
-/*    1b8c4:	8fb800d0 */ 	lw	$t8,0xd0($sp)
-/*    1b8c8:	0c0057c1 */ 	jal	mtx00015f04
-/*    1b8cc:	27a50068 */ 	addiu	$a1,$sp,0x68
-/*    1b8d0:	8fb800d0 */ 	lw	$t8,0xd0($sp)
-.L0001b8d4:
-/*    1b8d4:	3c013f80 */ 	lui	$at,0x3f80
-/*    1b8d8:	44813000 */ 	mtc1	$at,$f6
-/*    1b8dc:	c70c0000 */ 	lwc1	$f12,0x0($t8)
-/*    1b8e0:	460c3032 */ 	c.eq.s	$f6,$f12
-/*    1b8e4:	00000000 */ 	nop
-/*    1b8e8:	45030004 */ 	bc1tl	.L0001b8fc
-/*    1b8ec:	8fb900d0 */ 	lw	$t9,0xd0($sp)
-/*    1b8f0:	0c00577c */ 	jal	mtx00015df0
-/*    1b8f4:	27a50068 */ 	addiu	$a1,$sp,0x68
-/*    1b8f8:	8fb900d0 */ 	lw	$t9,0xd0($sp)
-.L0001b8fc:
-/*    1b8fc:	3c013f80 */ 	lui	$at,0x3f80
-/*    1b900:	44814000 */ 	mtc1	$at,$f8
-/*    1b904:	c72c0004 */ 	lwc1	$f12,0x4($t9)
-/*    1b908:	460c4032 */ 	c.eq.s	$f8,$f12
-/*    1b90c:	00000000 */ 	nop
-/*    1b910:	45030004 */ 	bc1tl	.L0001b924
-/*    1b914:	8fa900d0 */ 	lw	$t1,0xd0($sp)
-/*    1b918:	0c005793 */ 	jal	mtx00015e4c
-/*    1b91c:	27a50068 */ 	addiu	$a1,$sp,0x68
-/*    1b920:	8fa900d0 */ 	lw	$t1,0xd0($sp)
-.L0001b924:
-/*    1b924:	3c013f80 */ 	lui	$at,0x3f80
-/*    1b928:	44815000 */ 	mtc1	$at,$f10
-/*    1b92c:	c52c0008 */ 	lwc1	$f12,0x8($t1)
-/*    1b930:	460c5032 */ 	c.eq.s	$f10,$f12
-/*    1b934:	00000000 */ 	nop
-/*    1b938:	45030004 */ 	bc1tl	.L0001b94c
-/*    1b93c:	8faa0064 */ 	lw	$t2,0x64($sp)
-/*    1b940:	0c0057aa */ 	jal	mtx00015ea8
-/*    1b944:	27a50068 */ 	addiu	$a1,$sp,0x68
-/*    1b948:	8faa0064 */ 	lw	$t2,0x64($sp)
-.L0001b94c:
-/*    1b94c:	8fab0058 */ 	lw	$t3,0x58($sp)
-/*    1b950:	8fa400ac */ 	lw	$a0,0xac($sp)
-/*    1b954:	000a4180 */ 	sll	$t0,$t2,0x6
-/*    1b958:	010b3021 */ 	addu	$a2,$t0,$t3
-/*    1b95c:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*    1b960:	0c0056f9 */ 	jal	mtx00015be4
-/*    1b964:	27a50068 */ 	addiu	$a1,$sp,0x68
-/*    1b968:	3c028006 */ 	lui	$v0,%hi(g_ModelJointPositionedFunc)
-/*    1b96c:	8c42efcc */ 	lw	$v0,%lo(g_ModelJointPositionedFunc)($v0)
-/*    1b970:	8fa40064 */ 	lw	$a0,0x64($sp)
-/*    1b974:	50400037 */ 	beqzl	$v0,.L0001ba54
-/*    1b978:	8fa800b4 */ 	lw	$t0,0xb4($sp)
-/*    1b97c:	0040f809 */ 	jalr	$v0
-/*    1b980:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*    1b984:	10000033 */ 	b	.L0001ba54
-/*    1b988:	8fa800b4 */ 	lw	$t0,0xb4($sp)
-.L0001b98c:
-/*    1b98c:	000c6980 */ 	sll	$t5,$t4,0x6
-/*    1b990:	01ae3021 */ 	addu	$a2,$t5,$t6
-/*    1b994:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*    1b998:	0c0059a9 */ 	jal	mtx4LoadRotationAndTranslation
-/*    1b99c:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*    1b9a0:	8faf00cc */ 	lw	$t7,0xcc($sp)
-/*    1b9a4:	8fb800bc */ 	lw	$t8,0xbc($sp)
-/*    1b9a8:	3c013f80 */ 	lui	$at,0x3f80
-/*    1b9ac:	51e0000b */ 	beqzl	$t7,.L0001b9dc
-/*    1b9b0:	8fb900d0 */ 	lw	$t9,0xd0($sp)
-/*    1b9b4:	c70c0014 */ 	lwc1	$f12,0x14($t8)
-/*    1b9b8:	44818000 */ 	mtc1	$at,$f16
-/*    1b9bc:	00000000 */ 	nop
-/*    1b9c0:	460c8032 */ 	c.eq.s	$f16,$f12
-/*    1b9c4:	00000000 */ 	nop
-/*    1b9c8:	45030004 */ 	bc1tl	.L0001b9dc
-/*    1b9cc:	8fb900d0 */ 	lw	$t9,0xd0($sp)
-/*    1b9d0:	0c0057c1 */ 	jal	mtx00015f04
-/*    1b9d4:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*    1b9d8:	8fb900d0 */ 	lw	$t9,0xd0($sp)
-.L0001b9dc:
-/*    1b9dc:	3c013f80 */ 	lui	$at,0x3f80
-/*    1b9e0:	44819000 */ 	mtc1	$at,$f18
-/*    1b9e4:	c72c0000 */ 	lwc1	$f12,0x0($t9)
-/*    1b9e8:	460c9032 */ 	c.eq.s	$f18,$f12
-/*    1b9ec:	00000000 */ 	nop
-/*    1b9f0:	45030004 */ 	bc1tl	.L0001ba04
-/*    1b9f4:	8fa900d0 */ 	lw	$t1,0xd0($sp)
-/*    1b9f8:	0c00577c */ 	jal	mtx00015df0
-/*    1b9fc:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*    1ba00:	8fa900d0 */ 	lw	$t1,0xd0($sp)
-.L0001ba04:
-/*    1ba04:	3c013f80 */ 	lui	$at,0x3f80
-/*    1ba08:	44812000 */ 	mtc1	$at,$f4
-/*    1ba0c:	c52c0004 */ 	lwc1	$f12,0x4($t1)
-/*    1ba10:	460c2032 */ 	c.eq.s	$f4,$f12
-/*    1ba14:	00000000 */ 	nop
-/*    1ba18:	45030004 */ 	bc1tl	.L0001ba2c
-/*    1ba1c:	8faa00d0 */ 	lw	$t2,0xd0($sp)
-/*    1ba20:	0c005793 */ 	jal	mtx00015e4c
-/*    1ba24:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*    1ba28:	8faa00d0 */ 	lw	$t2,0xd0($sp)
-.L0001ba2c:
-/*    1ba2c:	3c013f80 */ 	lui	$at,0x3f80
-/*    1ba30:	44813000 */ 	mtc1	$at,$f6
-/*    1ba34:	c54c0008 */ 	lwc1	$f12,0x8($t2)
-/*    1ba38:	460c3032 */ 	c.eq.s	$f6,$f12
-/*    1ba3c:	00000000 */ 	nop
-/*    1ba40:	45030004 */ 	bc1tl	.L0001ba54
-/*    1ba44:	8fa800b4 */ 	lw	$t0,0xb4($sp)
-/*    1ba48:	0c0057aa */ 	jal	mtx00015ea8
-/*    1ba4c:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*    1ba50:	8fa800b4 */ 	lw	$t0,0xb4($sp)
-.L0001ba54:
-/*    1ba54:	8fa400c4 */ 	lw	$a0,0xc4($sp)
-/*    1ba58:	310b0100 */ 	andi	$t3,$t0,0x100
-/*    1ba5c:	5160001d */ 	beqzl	$t3,.L0001bad4
-/*    1ba60:	8faa00b4 */ 	lw	$t2,0xb4($sp)
-/*    1ba64:	0fc25b28 */ 	jal	quaternion0f096ca0
-/*    1ba68:	27a5003c */ 	addiu	$a1,$sp,0x3c
-/*    1ba6c:	27a4003c */ 	addiu	$a0,$sp,0x3c
-/*    1ba70:	3c053f00 */ 	lui	$a1,0x3f00
-/*    1ba74:	0fc25d46 */ 	jal	quaternion0f097518
-/*    1ba78:	27a6002c */ 	addiu	$a2,$sp,0x2c
-/*    1ba7c:	8fac00ac */ 	lw	$t4,0xac($sp)
-/*    1ba80:	8fb80060 */ 	lw	$t8,0x60($sp)
-/*    1ba84:	27a5002c */ 	addiu	$a1,$sp,0x2c
-/*    1ba88:	1180000d */ 	beqz	$t4,.L0001bac0
-/*    1ba8c:	0018c980 */ 	sll	$t9,$t8,0x6
-/*    1ba90:	8fa400c8 */ 	lw	$a0,0xc8($sp)
-/*    1ba94:	0fc25c99 */ 	jal	quaternionToTransformMtx
-/*    1ba98:	27a60068 */ 	addiu	$a2,$sp,0x68
-/*    1ba9c:	8fad0060 */ 	lw	$t5,0x60($sp)
-/*    1baa0:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*    1baa4:	8fa400ac */ 	lw	$a0,0xac($sp)
-/*    1baa8:	000d7180 */ 	sll	$t6,$t5,0x6
-/*    1baac:	27a50068 */ 	addiu	$a1,$sp,0x68
-/*    1bab0:	0c0056f9 */ 	jal	mtx00015be4
-/*    1bab4:	01cf3021 */ 	addu	$a2,$t6,$t7
-/*    1bab8:	10000006 */ 	b	.L0001bad4
-/*    1babc:	8faa00b4 */ 	lw	$t2,0xb4($sp)
-.L0001bac0:
-/*    1bac0:	8fa90058 */ 	lw	$t1,0x58($sp)
-/*    1bac4:	8fa400c8 */ 	lw	$a0,0xc8($sp)
-/*    1bac8:	0fc25c99 */ 	jal	quaternionToTransformMtx
-/*    1bacc:	03293021 */ 	addu	$a2,$t9,$t1
-/*    1bad0:	8faa00b4 */ 	lw	$t2,0xb4($sp)
-.L0001bad4:
-/*    1bad4:	8fab00ac */ 	lw	$t3,0xac($sp)
-/*    1bad8:	31480200 */ 	andi	$t0,$t2,0x200
-/*    1badc:	5100004a */ 	beqzl	$t0,.L0001bc08
-/*    1bae0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1bae4:	11600004 */ 	beqz	$t3,.L0001baf8
-/*    1bae8:	8fad005c */ 	lw	$t5,0x5c($sp)
-/*    1baec:	27ac0068 */ 	addiu	$t4,$sp,0x68
-/*    1baf0:	10000005 */ 	b	.L0001bb08
-/*    1baf4:	afac0028 */ 	sw	$t4,0x28($sp)
-.L0001baf8:
-/*    1baf8:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*    1bafc:	000d7180 */ 	sll	$t6,$t5,0x6
-/*    1bb00:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*    1bb04:	afb80028 */ 	sw	$t8,0x28($sp)
-.L0001bb08:
-/*    1bb08:	8fb900c4 */ 	lw	$t9,0xc4($sp)
-/*    1bb0c:	3c017005 */ 	lui	$at,%hi(var700542f4)
-/*    1bb10:	c42842f4 */ 	lwc1	$f8,%lo(var700542f4)($at)
-/*    1bb14:	c72c0004 */ 	lwc1	$f12,0x4($t9)
-/*    1bb18:	3c017005 */ 	lui	$at,%hi(var700542f8)
-/*    1bb1c:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*    1bb20:	4608603c */ 	c.lt.s	$f12,$f8
-/*    1bb24:	00000000 */ 	nop
-/*    1bb28:	45000007 */ 	bc1f	.L0001bb48
-/*    1bb2c:	00000000 */ 	nop
-/*    1bb30:	3c013f00 */ 	lui	$at,0x3f00
-/*    1bb34:	44815000 */ 	mtc1	$at,$f10
-/*    1bb38:	00000000 */ 	nop
-/*    1bb3c:	460a6302 */ 	mul.s	$f12,$f12,$f10
-/*    1bb40:	10000009 */ 	b	.L0001bb68
-/*    1bb44:	00000000 */ 	nop
-.L0001bb48:
-/*    1bb48:	c43042f8 */ 	lwc1	$f16,%lo(var700542f8)($at)
-/*    1bb4c:	3c013f00 */ 	lui	$at,0x3f00
-/*    1bb50:	44812000 */ 	mtc1	$at,$f4
-/*    1bb54:	460c8481 */ 	sub.s	$f18,$f16,$f12
-/*    1bb58:	3c017005 */ 	lui	$at,%hi(var700542fc)
-/*    1bb5c:	c42842fc */ 	lwc1	$f8,%lo(var700542fc)($at)
-/*    1bb60:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*    1bb64:	46064301 */ 	sub.s	$f12,$f8,$f6
-.L0001bb68:
-/*    1bb68:	0c0058dd */ 	jal	mtx4LoadYRotation
-/*    1bb6c:	e7ac0024 */ 	swc1	$f12,0x24($sp)
-/*    1bb70:	3c017005 */ 	lui	$at,%hi(var70054300)
-/*    1bb74:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*    1bb78:	c42a4300 */ 	lwc1	$f10,%lo(var70054300)($at)
-/*    1bb7c:	3c017005 */ 	lui	$at,%hi(var70054304)
-/*    1bb80:	460c503e */ 	c.le.s	$f10,$f12
-/*    1bb84:	00000000 */ 	nop
-/*    1bb88:	45000003 */ 	bc1f	.L0001bb98
-/*    1bb8c:	00000000 */ 	nop
-/*    1bb90:	c4304304 */ 	lwc1	$f16,%lo(var70054304)($at)
-/*    1bb94:	460c8301 */ 	sub.s	$f12,$f16,$f12
-.L0001bb98:
-/*    1bb98:	3c017005 */ 	lui	$at,%hi(var70054308)
-/*    1bb9c:	c4324308 */ 	lwc1	$f18,%lo(var70054308)($at)
-/*    1bba0:	3c013fc0 */ 	lui	$at,0x3fc0
-/*    1bba4:	4612603c */ 	c.lt.s	$f12,$f18
-/*    1bba8:	00000000 */ 	nop
-/*    1bbac:	45020006 */ 	bc1fl	.L0001bbc8
-/*    1bbb0:	44816000 */ 	mtc1	$at,$f12
-/*    1bbb4:	0fc259c0 */ 	jal	func0f096700
-/*    1bbb8:	00000000 */ 	nop
-/*    1bbbc:	10000003 */ 	b	.L0001bbcc
-/*    1bbc0:	46000306 */ 	mov.s	$f12,$f0
-/*    1bbc4:	44816000 */ 	mtc1	$at,$f12
-.L0001bbc8:
-/*    1bbc8:	00000000 */ 	nop
-.L0001bbcc:
-/*    1bbcc:	0c0057b7 */ 	jal	mtx00015edc
-/*    1bbd0:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*    1bbd4:	8fa400c8 */ 	lw	$a0,0xc8($sp)
-/*    1bbd8:	0c005775 */ 	jal	mtx4SetTranslation
-/*    1bbdc:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*    1bbe0:	8fa900ac */ 	lw	$t1,0xac($sp)
-/*    1bbe4:	8faa005c */ 	lw	$t2,0x5c($sp)
-/*    1bbe8:	8fab0058 */ 	lw	$t3,0x58($sp)
-/*    1bbec:	11200005 */ 	beqz	$t1,.L0001bc04
-/*    1bbf0:	01202025 */ 	or	$a0,$t1,$zero
-/*    1bbf4:	000a4180 */ 	sll	$t0,$t2,0x6
-/*    1bbf8:	010b3021 */ 	addu	$a2,$t0,$t3
-/*    1bbfc:	0c0056f9 */ 	jal	mtx00015be4
-/*    1bc00:	8fa50028 */ 	lw	$a1,0x28($sp)
-.L0001bc04:
-/*    1bc04:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0001bc08:
-/*    1bc08:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
-/*    1bc0c:	03e00008 */ 	jr	$ra
-/*    1bc10:	00000000 */ 	nop
-);
-
-void model0001bc14(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node, f32 arg3[4], struct coord *pos, struct coord *arg5)
+void modelPositionJointUsingVecRot(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node, struct coord *rot, struct coord *pos, bool allowscale, struct coord *arg6)
 {
-	s32 nodetype;
-	struct modelrodata_position *rodata;
-	Mtxf *mtx9c;
+	s32 nodetype = node->type;
+	struct modelrodata_position *rodata = &node->rodata->position;
+	Mtxf *rendermtx;
 	u32 stack;
-	Mtxf mtx58;
-	s32 mtxindex0;
-	s32 mtxindex1;
-	s32 mtxindex2;
-	Mtxf *matrices;
-
-	nodetype = node->type;
-	rodata = &node->rodata->position;
-	mtxindex0 = rodata->mtxindex0;
-	mtxindex1 = rodata->mtxindex1;
-	mtxindex2 = rodata->mtxindex2;
-	matrices = model->matrices;
+	Mtxf mtx68;
+	s32 mtxindex0 = rodata->mtxindex0;
+	s32 mtxindex1 = rodata->mtxindex1;
+	s32 mtxindex2 = rodata->mtxindex2;
+	Mtxf *matrices = model->matrices;
 
 	if (node->parent != NULL) {
-		mtx9c = model0001a5cc(model, node->parent, 0);
+		rendermtx = model0001a5cc(model, node->parent, 0);
 	} else {
-		mtx9c = renderdata->unk00;
+		rendermtx = renderdata->unk00;
 	}
 
-	if (mtx9c != NULL) {
-		Mtxf *modelmtx = &matrices[mtxindex0];
+	if (rendermtx != NULL) {
+		Mtxf *nodemtx = &matrices[mtxindex0];
 
-		quaternionToTransformMtx(pos, arg3, &mtx58);
+		mtx4LoadRotationAndTranslation(pos, rot, &mtx68);
+
+		if (allowscale && model->scale != 1.0f) {
+			mtx00015f04(model->scale, &mtx68);
+		}
+
+		if (arg6->x != 1.0f) {
+			mtx00015df0(arg6->x, &mtx68);
+		}
+
+		if (arg6->y != 1.0f) {
+			mtx00015e4c(arg6->y, &mtx68);
+		}
+
+		if (arg6->z != 1.0f) {
+			mtx00015ea8(arg6->z, &mtx68);
+		}
+
+		mtx00015be4(rendermtx, &mtx68, nodemtx);
+
+		if (g_ModelJointPositionedFunc != NULL) {
+			g_ModelJointPositionedFunc(mtxindex0, nodemtx);
+		}
+	} else {
+		Mtxf *nodemtx = &matrices[mtxindex0];
+
+		mtx4LoadRotationAndTranslation(pos, rot, nodemtx);
+
+		if (allowscale && model->scale != 1.0f) {
+			mtx00015f04(model->scale, nodemtx);
+		}
+
+		if (arg6->x != 1.0f) {
+			mtx00015df0(arg6->x, nodemtx);
+		}
+
+		if (arg6->y != 1.0f) {
+			mtx00015e4c(arg6->y, nodemtx);
+		}
+
+		if (arg6->z != 1.0f) {
+			mtx00015ea8(arg6->z, nodemtx);
+		}
+	}
+
+	if (nodetype & MODELNODETYPE_0100) {
+		Mtxf *nodemtx = &matrices[mtxindex1];
+		f32 sp3c[4];
+		f32 sp2c[4];
+
+		quaternion0f096ca0(rot, sp3c);
+		quaternion0f097518(sp3c, 0.5f, sp2c);
+
+		if (rendermtx != NULL) {
+			quaternionToTransformMtx(pos, sp2c, &mtx68);
+			mtx00015be4(rendermtx, &mtx68, nodemtx);
+		} else {
+			quaternionToTransformMtx(pos, sp2c, nodemtx);
+		}
+	}
+
+	if (nodetype & MODELNODETYPE_0200) {
+		Mtxf *finalmtx = rendermtx ? &mtx68 : &matrices[mtxindex2];
+		f32 roty = rot->y;
+
+		if (roty < M_PI) {
+			roty *= 0.5f;
+		} else {
+			roty = M_BADTAU - (M_BADTAU - roty) * 0.5f;
+		}
+
+		mtx4LoadYRotation(roty, finalmtx);
+
+		if (roty >= M_PI) {
+			roty = M_BADTAU - roty;
+		}
+
+		if (roty < 0.890118f) { // 51 degrees
+			roty = func0f096700(roty);
+		} else {
+			roty = 1.5f;
+		}
+
+		mtx00015edc(roty, finalmtx);
+		mtx4SetTranslation(pos, finalmtx);
+
+		if (rendermtx != NULL) {
+			Mtxf *nodemtx = &matrices[mtxindex2];
+			mtx00015be4(rendermtx, finalmtx, nodemtx);
+		}
+	}
+}
+
+void modelPositionJointUsingQuatRot(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node, f32 rot[4], struct coord *pos, struct coord *arg5)
+{
+	s32 nodetype = node->type;
+	struct modelrodata_position *rodata = &node->rodata->position;
+	Mtxf *rendermtx;
+	u32 stack;
+	Mtxf mtx58;
+	s32 mtxindex0 = rodata->mtxindex0;
+	s32 mtxindex1 = rodata->mtxindex1;
+	s32 mtxindex2 = rodata->mtxindex2;
+	Mtxf *matrices = model->matrices;
+
+	if (node->parent != NULL) {
+		rendermtx = model0001a5cc(model, node->parent, 0);
+	} else {
+		rendermtx = renderdata->unk00;
+	}
+
+	if (rendermtx != NULL) {
+		Mtxf *nodemtx = &matrices[mtxindex0];
+
+		quaternionToTransformMtx(pos, rot, &mtx58);
 
 		if (arg5->x != 1.0f) {
 			mtx00015df0(arg5->x, &mtx58);
@@ -1104,79 +913,71 @@ void model0001bc14(struct modelrenderdata *renderdata, struct model *model, stru
 			mtx00015ea8(arg5->z, &mtx58);
 		}
 
-		mtx00015be4(mtx9c, &mtx58, modelmtx);
+		mtx00015be4(rendermtx, &mtx58, nodemtx);
 
 		if (g_ModelJointPositionedFunc != NULL) {
-			g_ModelJointPositionedFunc(mtxindex0, modelmtx);
+			g_ModelJointPositionedFunc(mtxindex0, nodemtx);
 		}
 	} else {
-		Mtxf *modelmtx = &matrices[mtxindex0];
+		Mtxf *nodemtx = &matrices[mtxindex0];
 
-		quaternionToTransformMtx(pos, arg3, modelmtx);
+		quaternionToTransformMtx(pos, rot, nodemtx);
 
 		if (arg5->x != 1.0f) {
-			mtx00015df0(arg5->x, modelmtx);
+			mtx00015df0(arg5->x, nodemtx);
 		}
 
 		if (arg5->y != 1.0f) {
-			mtx00015e4c(arg5->y, modelmtx);
+			mtx00015e4c(arg5->y, nodemtx);
 		}
 
 		if (arg5->z != 1.0f) {
-			mtx00015ea8(arg5->z, modelmtx);
+			mtx00015ea8(arg5->z, nodemtx);
 		}
 	}
 
 	if (nodetype & MODELNODETYPE_0100) {
-		Mtxf *modelmtx = &matrices[mtxindex1];
-		f32 rot[4];
+		Mtxf *nodemtx = &matrices[mtxindex1];
+		f32 sp2c[4];
 
-		quaternion0f097518(arg3, 0.5f, rot);
+		quaternion0f097518(rot, 0.5f, sp2c);
 
-		if (mtx9c != NULL) {
-			quaternionToTransformMtx(pos, rot, &mtx58);
-			mtx00015be4(mtx9c, &mtx58, modelmtx);
+		if (rendermtx != NULL) {
+			quaternionToTransformMtx(pos, sp2c, &mtx58);
+			mtx00015be4(rendermtx, &mtx58, nodemtx);
 		} else {
-			quaternionToTransformMtx(pos, rot, modelmtx);
+			quaternionToTransformMtx(pos, sp2c, nodemtx);
 		}
 	}
 
 	if (nodetype & MODELNODETYPE_0200) {
-		Mtxf *mtx28;
-		f32 sp24;
-		u32 stack2;
+		Mtxf *finalmtx = rendermtx ? &mtx58 : &matrices[mtxindex2];
+		f32 roty = 2.0f * acosf(rot[0]);
 
-		if (mtx9c != NULL) {
-			mtx28 = &mtx58;
+		if (roty < M_PI) {
+			roty *= 0.5f;
 		} else {
-			mtx28 = &matrices[mtxindex2];
+			roty = M_BADTAU - (M_BADTAU - roty) * 0.5f;
 		}
 
-		sp24 = 2.0f * acosf(arg3[0]);
+		mtx4LoadYRotation(roty, finalmtx);
 
-		if (sp24 < M_PI) {
-			sp24 = sp24 * 0.5f;
+		if (roty >= M_PI) {
+			roty = M_BADTAU - roty;
+		}
+
+		if (roty < 0.890118f) { // 51 degrees
+			roty = func0f096700(roty);
 		} else {
-			sp24 = M_BADTAU - (M_BADTAU - sp24) * 0.5f;
+			roty = 1.5f;
 		}
 
-		mtx4LoadYRotation(sp24, mtx28);
+		mtx00015edc(roty, finalmtx);
+		mtx4SetTranslation(pos, finalmtx);
 
-		if (sp24 >= M_PI) {
-			sp24 = M_BADTAU - sp24;
-		}
-
-		if (sp24 < 0.890118f) { // 51 degrees
-			sp24 = func0f096700(sp24);
-		} else {
-			sp24 = 1.5f;
-		}
-
-		mtx00015edc(sp24, mtx28);
-		mtx4SetTranslation(pos, mtx28);
-
-		if (mtx9c != NULL) {
-			mtx00015be4(mtx9c, mtx28, &matrices[mtxindex2]);
+		if (rendermtx != NULL) {
+			Mtxf *nodemtx = &matrices[mtxindex2];
+			mtx00015be4(rendermtx, finalmtx, nodemtx);
 		}
 	}
 }
@@ -1273,11 +1074,11 @@ void model0001bfa8(struct modelrenderdata *renderdata, struct model *model, stru
 					sp138.z += rodata->pos.z;
 				}
 
-				model0001bc14(renderdata, model, node, sp68, &sp138, &sp12c);
+				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &sp138, &sp12c);
 			} else if (node != model->filedata->rootnode) {
-				model0001bc14(renderdata, model, node, sp68, &rodata->pos, &sp12c);
+				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &rodata->pos, &sp12c);
 			} else {
-				model0001bc14(renderdata, model, node, sp68, &sp138, &sp12c);
+				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &sp138, &sp12c);
 			}
 		} else if (sp128) {
 			f32 mult = func0f15c888();
@@ -1286,7 +1087,7 @@ void model0001bfa8(struct modelrenderdata *renderdata, struct model *model, stru
 			sp138.y *= mult;
 			sp138.z *= mult;
 
-			model0001b80c(renderdata, model, node, &sp144, &sp138, true, &sp12c);
+			modelPositionJointUsingVecRot(renderdata, model, node, &sp144, &sp138, true, &sp12c);
 		} else if (sp138.f[0] != 0.0f || sp138.f[1] != 0.0f || sp138.f[2] != 0.0f) {
 			sp138.x *= anim->animscale;
 			sp138.y *= anim->animscale;
@@ -1298,11 +1099,11 @@ void model0001bfa8(struct modelrenderdata *renderdata, struct model *model, stru
 				sp138.z += rodata->pos.z;
 			}
 
-			model0001b80c(renderdata, model, node, &sp144, &sp138, false, &sp12c);
+			modelPositionJointUsingVecRot(renderdata, model, node, &sp144, &sp138, false, &sp12c);
 		} else if (node != model->filedata->rootnode) {
-			model0001b80c(renderdata, model, node, &sp144, &rodata->pos, false, &sp12c);
+			modelPositionJointUsingVecRot(renderdata, model, node, &sp144, &rodata->pos, false, &sp12c);
 		} else {
-			model0001b80c(renderdata, model, node, &sp144, &sp138, false, &sp12c);
+			modelPositionJointUsingVecRot(renderdata, model, node, &sp144, &sp138, false, &sp12c);
 		}
 	} else {
 		if (node->parent) {
